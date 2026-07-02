@@ -10,7 +10,9 @@
       "database",
       "sqlite",
       "query"
-    ]
+    ],
+    "err.readonly": "[db_query error] Only SELECT and PRAGMA statements are allowed.",
+    "msg.result": "[db_query]\nrows={rows}\ncolumns={cols}"
   },
   "ja": {
     "param.db_path.description": "SQLite データベースファイルのパス。",
@@ -21,7 +23,9 @@
       "db query",
       "SQLite クエリ",
       "PRAGMA"
-    ]
+    ],
+    "err.readonly": "[db_query エラー] SELECT ステートメントと PRAGMA ステートメントのみが許可されます。",
+    "msg.result": "[データベースクエリ]\n行={行}\n列={列}"
   },
   "es": {
     "param.db_path.description": "Ruta al archivo de base de datos SQLite.",

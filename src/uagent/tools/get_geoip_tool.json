@@ -14,12 +14,12 @@
       "news"
     ],
     "err.format_invalid": "[get_geoip error] format must be 'text' or 'json'",
-    "err.local_db_unavailable": "[get_geoip error] Local DB not configured. "
+    "err.local_db_unavailable": "[get_geoip error] Local DB not configured. Set UAGENT_GEOIP_DB_PATH to a .mmdb file and install maxminddb to look up arbitrary IP addresses offline."
   },
   "ja": {
     "param.format.description": "出力形式。",
     "param.ip.description": "ルックアップ対象のIPアドレス（任意）。省略時は現在の公開IPを使用（APIモードのみ）。",
-    "tool.description": "公開IPからおおよその位置を推定。VPN/プロキシ/モバイル回線では不正確な場合あり。",
+    "tool.description": "パブリック IP アドレスに基づいてユーザーの大まかな位置を推定します。VPN/プロキシ/モバイル ネットワークを使用している場合、結果は不正確になる可能性があります。",
     "x_search_terms": [
       "get_geoip",
       "geoip 取得",
@@ -29,7 +29,7 @@
       "ニュース"
     ],
     "err.format_invalid": "[get_geoip error] format must be 'text' or 'json'",
-    "err.local_db_unavailable": "[get_geoip error] Local DB not configured. "
+    "err.local_db_unavailable": "[get_geoip エラー] ローカル DB が設定されていません。UAGENT_GEOIP_DB_PATH を .mmdb ファイルに設定し、maxminddb をインストールして任意の IP アドレスをオフラインで検索します。"
   },
   "es": {
     "param.format.description": "Formato de salida.",
@@ -43,8 +43,7 @@
       "clima",
       "noticias"
     ],
-    "err.format_invalid": "[get_geoip error] format must be 'text' or 'json'",
-    "err.local_db_unavailable": "[get_geoip error] Local DB not configured. "
+    "err.format_invalid": "[get_geoip error] format must be 'text' or 'json'"
   },
   "fr": {
     "param.format.description": "Format de sortie.",
@@ -58,8 +57,7 @@
       "météo",
       "actualités"
     ],
-    "err.format_invalid": "[get_geoip error] format must be 'text' or 'json'",
-    "err.local_db_unavailable": "[get_geoip error] Local DB not configured. "
+    "err.format_invalid": "[get_geoip error] format must be 'text' or 'json'"
   },
   "ko": {
     "param.format.description": "출력 형식.",
@@ -73,8 +71,7 @@
       "날씨",
       "뉴스"
     ],
-    "err.format_invalid": "[get_geoip error] format must be 'text' or 'json'",
-    "err.local_db_unavailable": "[get_geoip error] Local DB not configured. "
+    "err.format_invalid": "[get_geoip error] format must be 'text' or 'json'"
   },
   "de": {
     "param.format.description": "Ausgabeformat.",
@@ -88,8 +85,7 @@
       "wetter",
       "nachrichten"
     ],
-    "err.format_invalid": "[get_geoip error] format must be 'text' or 'json'",
-    "err.local_db_unavailable": "[get_geoip error] Local DB not configured. "
+    "err.format_invalid": "[get_geoip error] format must be 'text' or 'json'"
   },
   "it": {
     "param.format.description": "Formato di output.",
@@ -103,8 +99,7 @@
       "meteo",
       "notizie"
     ],
-    "err.format_invalid": "[get_geoip error] format must be 'text' or 'json'",
-    "err.local_db_unavailable": "[get_geoip error] Local DB not configured. "
+    "err.format_invalid": "[get_geoip error] format must be 'text' or 'json'"
   },
   "ru": {
     "param.format.description": "Формат вывода.",
@@ -118,8 +113,7 @@
       "погода",
       "новости"
     ],
-    "err.format_invalid": "[get_geoip error] format must be 'text' or 'json'",
-    "err.local_db_unavailable": "[get_geoip error] Local DB not configured. "
+    "err.format_invalid": "[get_geoip error] format must be 'text' or 'json'"
   },
   "pt_BR": {
     "param.format.description": "Formato de saída.",
@@ -133,8 +127,7 @@
       "clima",
       "notícias"
     ],
-    "err.format_invalid": "[get_geoip error] format must be 'text' or 'json'",
-    "err.local_db_unavailable": "[get_geoip error] Local DB not configured. "
+    "err.format_invalid": "[get_geoip error] format must be 'text' or 'json'"
   },
   "pt": {
     "param.format.description": "Formato de saída.",
@@ -148,8 +141,7 @@
       "clima",
       "notícias"
     ],
-    "err.format_invalid": "[get_geoip error] format must be 'text' or 'json'",
-    "err.local_db_unavailable": "[get_geoip error] Local DB not configured. "
+    "err.format_invalid": "[get_geoip error] format must be 'text' or 'json'"
   },
   "id": {
     "param.format.description": "Format keluaran.",
@@ -163,8 +155,7 @@
       "cuaca",
       "berita"
     ],
-    "err.format_invalid": "[get_geoip error] format must be 'text' or 'json'",
-    "err.local_db_unavailable": "[get_geoip error] Local DB not configured. "
+    "err.format_invalid": "[get_geoip error] format must be 'text' or 'json'"
   },
   "vi": {
     "param.format.description": "Định dạng đầu ra.",
@@ -178,8 +169,7 @@
       "thời tiết",
       "tin tức"
     ],
-    "err.format_invalid": "[get_geoip error] format must be 'text' or 'json'",
-    "err.local_db_unavailable": "[get_geoip error] Local DB not configured. "
+    "err.format_invalid": "[get_geoip error] format must be 'text' or 'json'"
   },
   "pl": {
     "param.format.description": "Format wyjściowy.",
@@ -193,8 +183,7 @@
       "pogoda",
       "wiadomości"
     ],
-    "err.format_invalid": "[get_geoip error] format must be 'text' or 'json'",
-    "err.local_db_unavailable": "[get_geoip error] Local DB not configured. "
+    "err.format_invalid": "[get_geoip error] format must be 'text' or 'json'"
   },
   "hi": {
     "param.format.description": "आउटपुट स्वरूप.",
@@ -208,8 +197,7 @@
       "मौसम",
       "समाचार"
     ],
-    "err.format_invalid": "[get_geoip error] format must be 'text' or 'json'",
-    "err.local_db_unavailable": "[get_geoip error] Local DB not configured. "
+    "err.format_invalid": "[get_geoip error] format must be 'text' or 'json'"
   },
   "ar": {
     "param.format.description": "تنسيق الإخراج.",
@@ -223,8 +211,7 @@
       "طقس",
       "أخبار"
     ],
-    "err.format_invalid": "[get_geoip error] format must be 'text' or 'json'",
-    "err.local_db_unavailable": "[get_geoip error] Local DB not configured. "
+    "err.format_invalid": "[get_geoip error] format must be 'text' or 'json'"
   },
   "sv": {
     "param.format.description": "Utdataformat.",
@@ -238,8 +225,7 @@
       "väder",
       "nyheter"
     ],
-    "err.format_invalid": "[get_geoip error] format must be 'text' or 'json'",
-    "err.local_db_unavailable": "[get_geoip error] Local DB not configured. "
+    "err.format_invalid": "[get_geoip error] format must be 'text' or 'json'"
   },
   "sw": {
     "param.format.description": "Output format.",
@@ -253,8 +239,7 @@
       "hali ya hewa",
       "habari"
     ],
-    "err.format_invalid": "[get_geoip error] format must be 'text' or 'json'",
-    "err.local_db_unavailable": "[get_geoip error] Local DB not configured. "
+    "err.format_invalid": "[get_geoip error] format must be 'text' or 'json'"
   },
   "nb": {
     "param.format.description": "Utdataformat.",
@@ -268,8 +253,7 @@
       "vær",
       "nyheter"
     ],
-    "err.format_invalid": "[get_geoip error] format must be 'text' or 'json'",
-    "err.local_db_unavailable": "[get_geoip error] Local DB not configured. "
+    "err.format_invalid": "[get_geoip error] format must be 'text' or 'json'"
   },
   "nl": {
     "param.format.description": "Uitvoerformaat.",
@@ -283,8 +267,7 @@
       "weer",
       "nieuws"
     ],
-    "err.format_invalid": "[get_geoip error] format must be 'text' or 'json'",
-    "err.local_db_unavailable": "[get_geoip error] Local DB not configured. "
+    "err.format_invalid": "[get_geoip error] format must be 'text' or 'json'"
   },
   "fi": {
     "param.format.description": "Tulostusmuoto.",
@@ -298,8 +281,7 @@
       "sää",
       "uutiset"
     ],
-    "err.format_invalid": "[get_geoip error] format must be 'text' or 'json'",
-    "err.local_db_unavailable": "[get_geoip error] Local DB not configured. "
+    "err.format_invalid": "[get_geoip error] format must be 'text' or 'json'"
   },
   "cs": {
     "param.format.description": "Formát výstupu.",
@@ -313,8 +295,7 @@
       "počasí",
       "zprávy"
     ],
-    "err.format_invalid": "[get_geoip error] format must be 'text' or 'json'",
-    "err.local_db_unavailable": "[get_geoip error] Local DB not configured. "
+    "err.format_invalid": "[get_geoip error] format must be 'text' or 'json'"
   },
   "uk": {
     "param.format.description": "Формат виводу.",
@@ -328,8 +309,7 @@
       "погода",
       "новини"
     ],
-    "err.format_invalid": "[get_geoip error] format must be 'text' or 'json'",
-    "err.local_db_unavailable": "[get_geoip error] Local DB not configured. "
+    "err.format_invalid": "[get_geoip error] format must be 'text' or 'json'"
   },
   "tr": {
     "param.format.description": "Çıkış formatı.",
@@ -343,8 +323,7 @@
       "hava durumu",
       "haber"
     ],
-    "err.format_invalid": "[get_geoip error] format must be 'text' or 'json'",
-    "err.local_db_unavailable": "[get_geoip error] Local DB not configured. "
+    "err.format_invalid": "[get_geoip error] format must be 'text' or 'json'"
   },
   "th": {
     "param.format.description": "รูปแบบเอาต์พุต",
@@ -358,8 +337,7 @@
       "สภาพอากาศ",
       "ข่าว"
     ],
-    "err.format_invalid": "[get_geoip error] format must be 'text' or 'json'",
-    "err.local_db_unavailable": "[get_geoip error] Local DB not configured. "
+    "err.format_invalid": "[get_geoip error] format must be 'text' or 'json'"
   },
   "zh_CN": {
     "param.format.description": "输出格式。",
@@ -373,8 +351,7 @@
       "天气",
       "新闻"
     ],
-    "err.format_invalid": "[get_geoip error] format must be 'text' or 'json'",
-    "err.local_db_unavailable": "[get_geoip error] Local DB not configured. "
+    "err.format_invalid": "[get_geoip error] format must be 'text' or 'json'"
   },
   "zh_TW": {
     "param.format.description": "輸出格式。",
@@ -388,8 +365,7 @@
       "天氣",
       "新聞"
     ],
-    "err.format_invalid": "[get_geoip error] format must be 'text' or 'json'",
-    "err.local_db_unavailable": "[get_geoip error] Local DB not configured. "
+    "err.format_invalid": "[get_geoip error] format must be 'text' or 'json'"
   },
   "bn": {
     "param.format.description": "আউটপুট ফরম্যাট।",
@@ -403,8 +379,7 @@
       "আবহাওয়া",
       "খবর"
     ],
-    "err.format_invalid": "[get_geoip error] format must be 'text' or 'json'",
-    "err.local_db_unavailable": "[get_geoip error] Local DB not configured. "
+    "err.format_invalid": "[get_geoip error] format must be 'text' or 'json'"
   },
   "fa": {
     "param.format.description": "فرمت خروجی.",
@@ -418,8 +393,7 @@
       "آب و هوا",
       "اخبار"
     ],
-    "err.format_invalid": "[get_geoip error] format must be 'text' or 'json'",
-    "err.local_db_unavailable": "[get_geoip error] Local DB not configured. "
+    "err.format_invalid": "[get_geoip error] format must be 'text' or 'json'"
   },
   "mn": {
     "param.format.description": "Гаралтын формат.",
@@ -433,8 +407,7 @@
       "цаг агаар",
       "мэдээ"
     ],
-    "err.format_invalid": "[get_geoip error] format must be 'text' or 'json'",
-    "err.local_db_unavailable": "[get_geoip error] Local DB not configured. "
+    "err.format_invalid": "[get_geoip error] format must be 'text' or 'json'"
   },
   "mr": {
     "param.format.description": "आउटपुट फॉरमॅट.",
@@ -448,8 +421,7 @@
       "हवामान",
       "बातम्या"
     ],
-    "err.format_invalid": "[get_geoip error] format must be 'text' or 'json'",
-    "err.local_db_unavailable": "[get_geoip error] Local DB not configured. "
+    "err.format_invalid": "[get_geoip error] format must be 'text' or 'json'"
   },
   "el": {
     "param.format.description": "Μορφή εξόδου.",
@@ -465,8 +437,7 @@
       "καιρός",
       "news"
     ],
-    "err.format_invalid": "[get_geoip error] η μορφή \"text\" ή \"json get Local.",
-    "err.local_db_unavailable": "Ένα εργαλείο για την ανάκτηση ολόκληρης της μακροπρόθεσμης μνήμης (κείμενο JSONL)."
+    "err.format_invalid": "[get_geoip error] η μορφή \"text\" ή \"json get Local."
   },
   "he": {
     "param.format.description": "פורמט פלט.",
@@ -482,8 +453,7 @@
       "מזג אוויר",
       "חדשות"
     ],
-    "err.format_invalid": "פורמט [get_geoip error] חייב להיות 'טקסט' או 'json'",
-    "err.local_db_unavailable": "[get_geoip error לא מוגדר] [get_geoip error]."
+    "err.format_invalid": "פורמט [get_geoip error] חייב להיות 'טקסט' או 'json'"
   },
   "hu": {
     "param.format.description": "Kimeneti formátum.",
@@ -499,8 +469,7 @@
       "időjárás",
       "hír"
     ],
-    "err.format_invalid": "[get_geoip error] formátumnak \"text\" vagy \"json\" formátumúnak kell lennie",
-    "err.local_db_unavailable": "[get_geoip hiba] A Local Geoip not configured."
+    "err.format_invalid": "[get_geoip error] formátumnak \"text\" vagy \"json\" formátumúnak kell lennie"
   },
   "ro": {
     "param.format.description": "Format de ieșire.",
@@ -516,7 +485,6 @@
       "meteo",
       "știri"
     ],
-    "err.format_invalid": "[get_geoip error] formatul trebuie să fie „text” sau „json”",
-    "err.local_db_unavailable": "[get_geoip error not configured]"
+    "err.format_invalid": "[get_geoip error] formatul trebuie să fie „text” sau „json”"
   }
 }

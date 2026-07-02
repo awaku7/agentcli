@@ -1,0 +1,22 @@
+{
+  "en": {
+    "tool.description": "Subscribe to state changes of a Matter device.",
+    "err.device_id_required": "Device ID is required.",
+    "param.dev.description": "Device ID (required).",
+    "param.endpoint.description": "Endpoint filter (optional).",
+    "param.cluster.description": "Cluster filter (optional).",
+    "param.attribute.description": "Attribute filter (optional).",
+    "param.duration.description": "Subscription duration in seconds (default 3600).",
+    "param.fmt.description": "Format: json or text."
+  },
+  "ja": {
+    "err.device_id_required": "デバイスIDは必須です。",
+    "param.attribute.description": "属性フィルター (オプション)。",
+    "param.cluster.description": "クラスターフィルター (オプション)。",
+    "param.dev.description": "Device ID (required).",
+    "param.duration.description": "Subscription duration in seconds (default 3600).",
+    "param.endpoint.description": "エンドポイントフィルター (オプション)。",
+    "param.fmt.description": "Format: json or text.",
+    "tool.description": "Matter デバイスの状態変化をサブスクライブします。"
+  }
+}

@@ -1,0 +1,34 @@
+{
+  "en": {
+    "help_text": "  :skills apm list                    List skills from APM apm_modules/\n  :skills apm use <name|#>            Load and activate an APM skill\n  :skills apm dir [path]              Show or set APM project root",
+    "msg.use_hint": "[apm] Use ':skills apm use <number>' to activate a skill.",
+    "err.name_required": "[apm] Specify a skill name or number.",
+    "msg.found_skills": "[apm] Found {n} skill(s) in {path}/apm_modules/:",
+    "msg.no_skills": "[apm] No skills found in {path}/apm_modules/",
+    "msg.multiple_matches": "[apm] Multiple matches. Please use a number:\n",
+    "msg.applied": "[apm] Applied APM skill: {name}",
+    "msg.dir_set": "[apm] APM project root set to: {path}",
+    "msg.dir_current": "[apm] APM project root: {path}",
+    "err.out_of_range": "[apm] Number out of range (1-{max}).",
+    "err.load_failed": "[apm] Failed to load skill: {err}",
+    "err.dir_not_found": "[apm] Directory not found: {path}",
+    "err.unknown_subcommand": "[apm] Unknown subcommand: {cmd}",
+    "err.not_found": "[apm] No skill matching '{name}' found."
+  },
+  "ja": {
+    "err.dir_not_found": "[apm] ディレクトリが見つかりません: {path}",
+    "err.load_failed": "[apm] スキルのロードに失敗しました: {err}",
+    "err.name_required": "[apm] スキル名またはスキル番号を指定します。",
+    "err.not_found": "[apm] '{name}' に一致するスキルが見つかりません。",
+    "err.out_of_range": "[apm] Number out of range (1-{max}).",
+    "err.unknown_subcommand": "[apm] 不明なサブコマンド: {cmd}",
+    "help_text": ":skills apm list APM apm_modules/ からスキルをリストします。\n:skills apm use <name|#> APM スキルをロードしてアクティブ化します\n:skills apm dir [パス] APM プロジェクトのルートを表示または設定します",
+    "msg.applied": "[apm] 適用された APM スキル: {name}",
+    "msg.dir_current": "[apm] APM プロジェクト ルート: {path}",
+    "msg.dir_set": "[apm] APM プロジェクトのルートを {path} に設定しました",
+    "msg.found_skills": "[apm] Found {n} skill(s) in {path}/apm_modules/:",
+    "msg.multiple_matches": "[apm] Multiple matches. Please use a number:\n",
+    "msg.no_skills": "[apm] {path}/apm_modules/ にスキルが見つかりません",
+    "msg.use_hint": "[apm] スキルを有効にするには、「:skills apm use <number>」を使用します。"
+  }
+}

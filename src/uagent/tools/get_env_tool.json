@@ -18,7 +18,7 @@
   "ja": {
     "param.mask.description": "true の場合、値をマスクします（例: 秘密情報）。既定は true。",
     "param.name.description": "読み取る環境変数名。",
-    "param.unmasked_chars.description": "マスク時に先頭と末尾に残す文字数。既定は 2。",
+    "param.unmasked_chars.description": "マスキング時に先頭と末尾に残す文字数。デフォルトは 2 です。",
     "tool.description": "指定した環境変数の値を取得して返します。必要に応じて値をマスクできます。",
     "x_search_terms": [
       "get_env",

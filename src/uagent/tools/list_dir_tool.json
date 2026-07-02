@@ -13,15 +13,9 @@
     "param.show_hidden.description": "Include hidden entries in the listing.",
     "param.page.description": "Page number to retrieve (default: 1).",
     "param.limit.description": "Maximum number of entries to return per page (default: 50).",
-    "err.dir_not_exist": "[list_dir error] Directory does not exist: {path}",
-    "err.path_not_dir": "[list_dir error] Path is not a directory: {path}",
-    "out.path": "Path: {path}",
-    "out.no_entries": "[list_dir] No entries found.",
-    "out.found_paginated": "[list_dir] Page {page} of {total_pages} (Total {total} entries, showing {showing})",
-    "out.entry.dir": "[DIR] {name}/",
-    "out.entry.file": "[FILE] {name} ({size})",
-    "out.entry.link": "[LINK] {name}{target}",
-    "out.entry.other": "[OTHER] {name}"
+    "err.not_a_dir": "Error: not a directory: {path}",
+    "msg.empty_dir": "(empty directory)",
+    "msg.paginate": "Page {page} of {total_pages} (showing {count} of {total} entries)"
   },
   "ja": {
     "tool.description": "ディレクトリの内容を一覧表示（ページネーション対応）。",
@@ -36,15 +30,9 @@
     "param.show_hidden.description": "非表示項目も一覧に含めます。",
     "param.page.description": "取得するページ番号（既定: 1）。",
     "param.limit.description": "1 ページあたりに返す最大項目数（既定: 50）。",
-    "err.dir_not_exist": "[list_dir error] Directory does not exist: {path}",
-    "err.path_not_dir": "[list_dir error] Path is not a directory: {path}",
-    "out.path": "Path: {path}",
-    "out.no_entries": "[list_dir] No entries found.",
-    "out.found_paginated": "[list_dir] Page {page} of {total_pages} (Total {total} entries, showing {showing})",
-    "out.entry.dir": "[DIR] {name}/",
-    "out.entry.file": "[FILE] {name} ({size})",
-    "out.entry.link": "[LINK] {name}{target}",
-    "out.entry.other": "[OTHER] {name}"
+    "err.not_a_dir": "エラー: ディレクトリではありません: {path}",
+    "msg.empty_dir": "(空のディレクトリ)",
+    "msg.paginate": "ページ {page} / {total_pages} ({total} エントリ中 {count} を表示)"
   },
   "es": {
     "tool.description": "Listar entradas en un directorio con paginación, similar a ls.",
@@ -58,16 +46,7 @@
     "param.path.description": "Directorio a listar (predeterminado: directorio actual). Alias ​​de root_path.",
     "param.show_hidden.description": "Incluir elementos ocultos en la lista.",
     "param.page.description": "Número de página a recuperar (predeterminado: 1).",
-    "param.limit.description": "Número máximo de entradas a devolver por página (predeterminado: 50).",
-    "err.dir_not_exist": "[list_dir error] Directory does not exist: {path}",
-    "err.path_not_dir": "[list_dir error] Path is not a directory: {path}",
-    "out.path": "Path: {path}",
-    "out.no_entries": "[list_dir] No entries found.",
-    "out.found_paginated": "[list_dir] Page {page} of {total_pages} (Total {total} entries, showing {showing})",
-    "out.entry.dir": "[DIR] {name}/",
-    "out.entry.file": "[FILE] {name} ({size})",
-    "out.entry.link": "[LINK] {name}{target}",
-    "out.entry.other": "[OTHER] {name}"
+    "param.limit.description": "Número máximo de entradas a devolver por página (predeterminado: 50)."
   },
   "fr": {
     "tool.description": "Liste les entrées dans un répertoire avec une pagination, similaire à ls.",
@@ -81,16 +60,7 @@
     "param.path.description": "Répertoire à lister (par défaut : répertoire courant). Alias ​​de root_path.",
     "param.show_hidden.description": "Inclure les entrées masquées dans la liste.",
     "param.page.description": "Numéro de page à récupérer (par défaut : 1).",
-    "param.limit.description": "Nombre maximal d’éléments à renvoyer par page (par défaut : 50).",
-    "err.dir_not_exist": "[list_dir error] Directory does not exist: {path}",
-    "err.path_not_dir": "[list_dir error] Path is not a directory: {path}",
-    "out.path": "Path: {path}",
-    "out.no_entries": "[list_dir] No entries found.",
-    "out.found_paginated": "[list_dir] Page {page} of {total_pages} (Total {total} entries, showing {showing})",
-    "out.entry.dir": "[DIR] {name}/",
-    "out.entry.file": "[FILE] {name} ({size})",
-    "out.entry.link": "[LINK] {name}{target}",
-    "out.entry.other": "[OTHER] {name}"
+    "param.limit.description": "Nombre maximal d’éléments à renvoyer par page (par défaut : 50)."
   },
   "ko": {
     "tool.description": "디렉토리 내용 목록 표시(페이지네이션 지원).",
@@ -104,16 +74,7 @@
     "param.path.description": "나열할 디렉터리(기본값: 현재 디렉터리). root_path의 별칭입니다.",
     "param.show_hidden.description": "숨김 항목도 목록에 포함합니다.",
     "param.page.description": "가져올 페이지 번호(기본값: 1).",
-    "param.limit.description": "페이지당 반환할 최대 항목 수(기본값: 50).",
-    "err.dir_not_exist": "[list_dir error] Directory does not exist: {path}",
-    "err.path_not_dir": "[list_dir error] Path is not a directory: {path}",
-    "out.path": "Path: {path}",
-    "out.no_entries": "[list_dir] No entries found.",
-    "out.found_paginated": "[list_dir] Page {page} of {total_pages} (Total {total} entries, showing {showing})",
-    "out.entry.dir": "[DIR] {name}/",
-    "out.entry.file": "[FILE] {name} ({size})",
-    "out.entry.link": "[LINK] {name}{target}",
-    "out.entry.other": "[OTHER] {name}"
+    "param.limit.description": "페이지당 반환할 최대 항목 수(기본값: 50)."
   },
   "de": {
     "tool.description": "Einträge in einem Verzeichnis mit Paginierung auflisten, ähnlich wie bei ls.",
@@ -127,16 +88,7 @@
     "param.path.description": "Verzeichnis zum Auflisten (Standard: aktuelles Verzeichnis). Alias von root_path.",
     "param.show_hidden.description": "Ausgeblendete Einträge in die Liste einbeziehen.",
     "param.page.description": "Abzurufende Seitennummer (Standard: 1).",
-    "param.limit.description": "Maximale Anzahl der Einträge pro Seite (Standard: 50).",
-    "err.dir_not_exist": "[list_dir error] Directory does not exist: {path}",
-    "err.path_not_dir": "[list_dir error] Path is not a directory: {path}",
-    "out.path": "Path: {path}",
-    "out.no_entries": "[list_dir] No entries found.",
-    "out.found_paginated": "[list_dir] Page {page} of {total_pages} (Total {total} entries, showing {showing})",
-    "out.entry.dir": "[DIR] {name}/",
-    "out.entry.file": "[FILE] {name} ({size})",
-    "out.entry.link": "[LINK] {name}{target}",
-    "out.entry.other": "[OTHER] {name}"
+    "param.limit.description": "Maximale Anzahl der Einträge pro Seite (Standard: 50)."
   },
   "it": {
     "tool.description": "Elenca le voci in una directory con impaginazione, simile a ls.",
@@ -150,16 +102,7 @@
     "param.path.description": "Directory da elencare (predefinita: directory corrente). Alias di percorso_root.",
     "param.show_hidden.description": "Includi voci nascoste nell'elenco.",
     "param.page.description": "Numero di pagina da recuperare (default: 1).",
-    "param.limit.description": "Numero massimo di voci da restituire per pagina (impostazione predefinita: 50).",
-    "err.dir_not_exist": "[list_dir error] Directory does not exist: {path}",
-    "err.path_not_dir": "[list_dir error] Path is not a directory: {path}",
-    "out.path": "Path: {path}",
-    "out.no_entries": "[list_dir] No entries found.",
-    "out.found_paginated": "[list_dir] Page {page} of {total_pages} (Total {total} entries, showing {showing})",
-    "out.entry.dir": "[DIR] {name}/",
-    "out.entry.file": "[FILE] {name} ({size})",
-    "out.entry.link": "[LINK] {name}{target}",
-    "out.entry.other": "[OTHER] {name}"
+    "param.limit.description": "Numero massimo di voci da restituire per pagina (impostazione predefinita: 50)."
   },
   "ru": {
     "tool.description": "Список записей в каталоге с нумерацией страниц, аналогично ls.",
@@ -173,16 +116,7 @@
     "param.path.description": "Каталог для отображения (по умолчанию: текущий каталог). Псевдоним root_path.",
     "param.show_hidden.description": "Включать скрытые элементы в список.",
     "param.page.description": "Номер страницы для получения (по умолчанию: 1).",
-    "param.limit.description": "Максимальное число элементов на странице (по умолчанию: 50).",
-    "err.dir_not_exist": "[list_dir error] Directory does not exist: {path}",
-    "err.path_not_dir": "[list_dir error] Path is not a directory: {path}",
-    "out.path": "Path: {path}",
-    "out.no_entries": "[list_dir] No entries found.",
-    "out.found_paginated": "[list_dir] Page {page} of {total_pages} (Total {total} entries, showing {showing})",
-    "out.entry.dir": "[DIR] {name}/",
-    "out.entry.file": "[FILE] {name} ({size})",
-    "out.entry.link": "[LINK] {name}{target}",
-    "out.entry.other": "[OTHER] {name}"
+    "param.limit.description": "Максимальное число элементов на странице (по умолчанию: 50)."
   },
   "pt_BR": {
     "tool.description": "Liste os itens de um diretório e retorne JSON estruturado.",
@@ -196,16 +130,7 @@
     "param.path.description": "Diretório a listar (padrão: diretório atual).",
     "param.show_hidden.description": "Incluir itens ocultos na lista.",
     "param.page.description": "Número da página a ser recuperada (padrão: 1).",
-    "param.limit.description": "Número máximo de itens a retornar por página (padrão: 50).",
-    "err.dir_not_exist": "[list_dir error] Directory does not exist: {path}",
-    "err.path_not_dir": "[list_dir error] Path is not a directory: {path}",
-    "out.path": "Path: {path}",
-    "out.no_entries": "[list_dir] No entries found.",
-    "out.found_paginated": "[list_dir] Page {page} of {total_pages} (Total {total} entries, showing {showing})",
-    "out.entry.dir": "[DIR] {name}/",
-    "out.entry.file": "[FILE] {name} ({size})",
-    "out.entry.link": "[LINK] {name}{target}",
-    "out.entry.other": "[OTHER] {name}"
+    "param.limit.description": "Número máximo de itens a retornar por página (padrão: 50)."
   },
   "pt": {
     "tool.description": "Liste os itens de um diretório e devolva JSON estruturado.",
@@ -219,16 +144,7 @@
     "param.path.description": "Diretório a ser listado (padrão: diretório atual). Alias de root_path.",
     "param.show_hidden.description": "Incluir itens ocultos na lista.",
     "param.page.description": "Número da página a ser recuperada (padrão: 1).",
-    "param.limit.description": "Número máximo de itens a devolver por página (predefinição: 50).",
-    "err.dir_not_exist": "[list_dir error] Directory does not exist: {path}",
-    "err.path_not_dir": "[list_dir error] Path is not a directory: {path}",
-    "out.path": "Path: {path}",
-    "out.no_entries": "[list_dir] No entries found.",
-    "out.found_paginated": "[list_dir] Page {page} of {total_pages} (Total {total} entries, showing {showing})",
-    "out.entry.dir": "[DIR] {name}/",
-    "out.entry.file": "[FILE] {name} ({size})",
-    "out.entry.link": "[LINK] {name}{target}",
-    "out.entry.other": "[OTHER] {name}"
+    "param.limit.description": "Número máximo de itens a devolver por página (predefinição: 50)."
   },
   "id": {
     "tool.description": "Daftar entri dalam direktori dengan pagination, mirip dengan ls.",
@@ -242,16 +158,7 @@
     "param.path.description": "Direktori yang akan dicantumkan (default: direktori saat ini). Alias ​​​​dari root_path.",
     "param.show_hidden.description": "Sertakan item tersembunyi dalam daftar.",
     "param.page.description": "Nomor halaman yang diambil (default: 1).",
-    "param.limit.description": "Jumlah maksimum entri yang akan dikembalikan per halaman (default: 50).",
-    "err.dir_not_exist": "[list_dir error] Directory does not exist: {path}",
-    "err.path_not_dir": "[list_dir error] Path is not a directory: {path}",
-    "out.path": "Path: {path}",
-    "out.no_entries": "[list_dir] No entries found.",
-    "out.found_paginated": "[list_dir] Page {page} of {total_pages} (Total {total} entries, showing {showing})",
-    "out.entry.dir": "[DIR] {name}/",
-    "out.entry.file": "[FILE] {name} ({size})",
-    "out.entry.link": "[LINK] {name}{target}",
-    "out.entry.other": "[OTHER] {name}"
+    "param.limit.description": "Jumlah maksimum entri yang akan dikembalikan per halaman (default: 50)."
   },
   "vi": {
     "tool.description": "Liệt kê các mục trong một thư mục có phân trang, tương tự như ls.",
@@ -265,16 +172,7 @@
     "param.path.description": "Thư mục vào danh sách (mặc định: thư mục hiện tại). Bí danh của root_path.",
     "param.show_hidden.description": "Bao gồm cả các mục ẩn trong danh sách.",
     "param.page.description": "Số trang cần lấy (mặc định: 1).",
-    "param.limit.description": "Số lượng mục tối đa trả về mỗi trang (mặc định: 50).",
-    "err.dir_not_exist": "[list_dir error] Directory does not exist: {path}",
-    "err.path_not_dir": "[list_dir error] Path is not a directory: {path}",
-    "out.path": "Path: {path}",
-    "out.no_entries": "[list_dir] No entries found.",
-    "out.found_paginated": "[list_dir] Page {page} of {total_pages} (Total {total} entries, showing {showing})",
-    "out.entry.dir": "[DIR] {name}/",
-    "out.entry.file": "[FILE] {name} ({size})",
-    "out.entry.link": "[LINK] {name}{target}",
-    "out.entry.other": "[OTHER] {name}"
+    "param.limit.description": "Số lượng mục tối đa trả về mỗi trang (mặc định: 50)."
   },
   "pl": {
     "tool.description": "Wylistuj elementy katalogu i zwróć ustrukturyzowany JSON.",
@@ -288,16 +186,7 @@
     "param.path.description": "Katalog do wyświetlenia (domyślnie: katalog bieżący). Alias ścieżki_rootu.",
     "param.show_hidden.description": "Uwzględnij ukryte elementy na liście.",
     "param.page.description": "Numer strony do pobrania (domyślnie: 1).",
-    "param.limit.description": "Maksymalna liczba zwracanych wpisów na stronę (domyślnie: 50).",
-    "err.dir_not_exist": "[list_dir error] Directory does not exist: {path}",
-    "err.path_not_dir": "[list_dir error] Path is not a directory: {path}",
-    "out.path": "Path: {path}",
-    "out.no_entries": "[list_dir] No entries found.",
-    "out.found_paginated": "[list_dir] Page {page} of {total_pages} (Total {total} entries, showing {showing})",
-    "out.entry.dir": "[DIR] {name}/",
-    "out.entry.file": "[FILE] {name} ({size})",
-    "out.entry.link": "[LINK] {name}{target}",
-    "out.entry.other": "[OTHER] {name}"
+    "param.limit.description": "Maksymalna liczba zwracanych wpisów na stronę (domyślnie: 50)."
   },
   "hi": {
     "tool.description": "ls के समान पेजिनेशन के साथ निर्देशिका में प्रविष्टियों की सूची बनाएं।",
@@ -311,16 +200,7 @@
     "param.path.description": "सूची में निर्देशिका (डिफ़ॉल्ट: वर्तमान निर्देशिका)। रूट_पाथ का उपनाम.",
     "param.show_hidden.description": "छिपे हुए आइटम सूची में शामिल करें।",
     "param.page.description": "पुनर्प्राप्त करने के लिए पृष्ठ संख्या (डिफ़ॉल्ट: 1)।",
-    "param.limit.description": "प्रति पृष्ठ लौटाए जाने वाले अधिकतम आइटम (डिफ़ॉल्ट: 50).",
-    "err.dir_not_exist": "[list_dir error] Directory does not exist: {path}",
-    "err.path_not_dir": "[list_dir error] Path is not a directory: {path}",
-    "out.path": "Path: {path}",
-    "out.no_entries": "[list_dir] No entries found.",
-    "out.found_paginated": "[list_dir] Page {page} of {total_pages} (Total {total} entries, showing {showing})",
-    "out.entry.dir": "[DIR] {name}/",
-    "out.entry.file": "[FILE] {name} ({size})",
-    "out.entry.link": "[LINK] {name}{target}",
-    "out.entry.other": "[OTHER] {name}"
+    "param.limit.description": "प्रति पृष्ठ लौटाए जाने वाले अधिकतम आइटम (डिफ़ॉल्ट: 50)."
   },
   "ar": {
     "tool.description": "اعرض عناصر دليل وأعد JSON منظمًا.",
@@ -334,16 +214,7 @@
     "param.path.description": "الدليل المراد عرضه (الافتراضي: الدليل الحالي).",
     "param.show_hidden.description": "تضمين العناصر المخفية في القائمة.",
     "param.page.description": "رقم الصفحة المراد جلبها (الافتراضي: 1).",
-    "param.limit.description": "الحد الأقصى للعناصر المعروضة في كل صفحة (الافتراضي: 50).",
-    "err.dir_not_exist": "[list_dir error] Directory does not exist: {path}",
-    "err.path_not_dir": "[list_dir error] Path is not a directory: {path}",
-    "out.path": "Path: {path}",
-    "out.no_entries": "[list_dir] No entries found.",
-    "out.found_paginated": "[list_dir] Page {page} of {total_pages} (Total {total} entries, showing {showing})",
-    "out.entry.dir": "[DIR] {name}/",
-    "out.entry.file": "[FILE] {name} ({size})",
-    "out.entry.link": "[LINK] {name}{target}",
-    "out.entry.other": "[OTHER] {name}"
+    "param.limit.description": "الحد الأقصى للعناصر المعروضة في كل صفحة (الافتراضي: 50)."
   },
   "sv": {
     "tool.description": "Lista poster i en katalog och returnera strukturerad JSON.",
@@ -357,16 +228,7 @@
     "param.path.description": "Katalog till lista (standard: aktuell katalog). Alias för root_path.",
     "param.show_hidden.description": "Inkludera dolda poster i listan.",
     "param.page.description": "Sidnummer att hämta (standard: 1).",
-    "param.limit.description": "Maximalt antal poster per sida (standard: 50).",
-    "err.dir_not_exist": "[list_dir error] Directory does not exist: {path}",
-    "err.path_not_dir": "[list_dir error] Path is not a directory: {path}",
-    "out.path": "Path: {path}",
-    "out.no_entries": "[list_dir] No entries found.",
-    "out.found_paginated": "[list_dir] Page {page} of {total_pages} (Total {total} entries, showing {showing})",
-    "out.entry.dir": "[DIR] {name}/",
-    "out.entry.file": "[FILE] {name} ({size})",
-    "out.entry.link": "[LINK] {name}{target}",
-    "out.entry.other": "[OTHER] {name}"
+    "param.limit.description": "Maximalt antal poster per sida (standard: 50)."
   },
   "sw": {
     "tool.description": "Orodhesha maingizo katika saraka yenye kurasa, sawa na ls.",
@@ -380,16 +242,7 @@
     "param.path.description": "Saraka ya kuorodheshwa (chaguo-msingi: saraka ya sasa). Lakabu ya root_path.",
     "param.show_hidden.description": "Jumuisha maingizo yaliyofichwa kwenye tangazo.",
     "param.page.description": "Nambari ya ukurasa ya kurejesha (chaguo-msingi: 1).",
-    "param.limit.description": "Idadi ya juu zaidi ya maingizo ya kurudi kwa kila ukurasa (chaguo-msingi: 50).",
-    "err.dir_not_exist": "[list_dir error] Directory does not exist: {path}",
-    "err.path_not_dir": "[list_dir error] Path is not a directory: {path}",
-    "out.path": "Path: {path}",
-    "out.no_entries": "[list_dir] No entries found.",
-    "out.found_paginated": "[list_dir] Page {page} of {total_pages} (Total {total} entries, showing {showing})",
-    "out.entry.dir": "[DIR] {name}/",
-    "out.entry.file": "[FILE] {name} ({size})",
-    "out.entry.link": "[LINK] {name}{target}",
-    "out.entry.other": "[OTHER] {name}"
+    "param.limit.description": "Idadi ya juu zaidi ya maingizo ya kurudi kwa kila ukurasa (chaguo-msingi: 50)."
   },
   "nb": {
     "tool.description": "List oppføringer i en katalog med paginering, lik ls.",
@@ -403,16 +256,7 @@
     "param.path.description": "Katalog til liste (standard: gjeldende katalog). Alias av root_path.",
     "param.show_hidden.description": "Ta med skjulte elementer i listen.",
     "param.page.description": "Sidenummer å hente (standard: 1).",
-    "param.limit.description": "Maks antall elementer per side (standard: 50).",
-    "err.dir_not_exist": "[list_dir error] Directory does not exist: {path}",
-    "err.path_not_dir": "[list_dir error] Path is not a directory: {path}",
-    "out.path": "Path: {path}",
-    "out.no_entries": "[list_dir] No entries found.",
-    "out.found_paginated": "[list_dir] Page {page} of {total_pages} (Total {total} entries, showing {showing})",
-    "out.entry.dir": "[DIR] {name}/",
-    "out.entry.file": "[FILE] {name} ({size})",
-    "out.entry.link": "[LINK] {name}{target}",
-    "out.entry.other": "[OTHER] {name}"
+    "param.limit.description": "Maks antall elementer per side (standard: 50)."
   },
   "nl": {
     "tool.description": "Toon items in een directory met paginering, vergelijkbaar met ls.",
@@ -426,16 +270,7 @@
     "param.path.description": "Map om weer te geven (standaard: huidige map).",
     "param.show_hidden.description": "Verborgen items opnemen in de lijst.",
     "param.page.description": "Paginanummer dat moet worden opgehaald (standaard: 1).",
-    "param.limit.description": "Maximaal aantal items per pagina (standaard: 50).",
-    "err.dir_not_exist": "[list_dir error] Directory does not exist: {path}",
-    "err.path_not_dir": "[list_dir error] Path is not a directory: {path}",
-    "out.path": "Path: {path}",
-    "out.no_entries": "[list_dir] No entries found.",
-    "out.found_paginated": "[list_dir] Page {page} of {total_pages} (Total {total} entries, showing {showing})",
-    "out.entry.dir": "[DIR] {name}/",
-    "out.entry.file": "[FILE] {name} ({size})",
-    "out.entry.link": "[LINK] {name}{target}",
-    "out.entry.other": "[OTHER] {name}"
+    "param.limit.description": "Maximaal aantal items per pagina (standaard: 50)."
   },
   "fi": {
     "tool.description": "Listaa hakemiston kohteet ja palauta jäsennelty JSON.",
@@ -449,16 +284,7 @@
     "param.path.description": "Listattava hakemisto (oletus: nykyinen hakemisto). root_polun alias.",
     "param.show_hidden.description": "Sisällytä piilotetut kohteet listaan.",
     "param.page.description": "Haettava sivunumero (oletus: 1).",
-    "param.limit.description": "Sivua kohti palautettavien kohteiden enimmäismäärä (oletus: 50).",
-    "err.dir_not_exist": "[list_dir error] Directory does not exist: {path}",
-    "err.path_not_dir": "[list_dir error] Path is not a directory: {path}",
-    "out.path": "Path: {path}",
-    "out.no_entries": "[list_dir] No entries found.",
-    "out.found_paginated": "[list_dir] Page {page} of {total_pages} (Total {total} entries, showing {showing})",
-    "out.entry.dir": "[DIR] {name}/",
-    "out.entry.file": "[FILE] {name} ({size})",
-    "out.entry.link": "[LINK] {name}{target}",
-    "out.entry.other": "[OTHER] {name}"
+    "param.limit.description": "Sivua kohti palautettavien kohteiden enimmäismäärä (oletus: 50)."
   },
   "cs": {
     "tool.description": "Vypíše položky v adresáři a vrátí strukturovaný JSON.",
@@ -472,16 +298,7 @@
     "param.path.description": "Adresář k vypsání (výchozí: aktuální adresář).",
     "param.show_hidden.description": "Zahrnout do seznamu skryté položky.",
     "param.page.description": "Číslo stránky k načtení (výchozí: 1).",
-    "param.limit.description": "Maximální počet položek na stránku (výchozí: 50).",
-    "err.dir_not_exist": "[list_dir error] Directory does not exist: {path}",
-    "err.path_not_dir": "[list_dir error] Path is not a directory: {path}",
-    "out.path": "Path: {path}",
-    "out.no_entries": "[list_dir] No entries found.",
-    "out.found_paginated": "[list_dir] Page {page} of {total_pages} (Total {total} entries, showing {showing})",
-    "out.entry.dir": "[DIR] {name}/",
-    "out.entry.file": "[FILE] {name} ({size})",
-    "out.entry.link": "[LINK] {name}{target}",
-    "out.entry.other": "[OTHER] {name}"
+    "param.limit.description": "Maximální počet položek na stránku (výchozí: 50)."
   },
   "uk": {
     "tool.description": "Список записів у каталозі з розбивкою на сторінки, подібно до ls.",
@@ -495,16 +312,7 @@
     "param.path.description": "Каталог для списку (за замовчуванням: поточний каталог). Псевдонім root_path.",
     "param.show_hidden.description": "Включати приховані елементи до списку.",
     "param.page.description": "Номер сторінки для отримання (за замовчуванням: 1).",
-    "param.limit.description": "Максимальна кількість записів для повернення на сторінку (за замовчуванням: 50).",
-    "err.dir_not_exist": "[list_dir error] Directory does not exist: {path}",
-    "err.path_not_dir": "[list_dir error] Path is not a directory: {path}",
-    "out.path": "Path: {path}",
-    "out.no_entries": "[list_dir] No entries found.",
-    "out.found_paginated": "[list_dir] Page {page} of {total_pages} (Total {total} entries, showing {showing})",
-    "out.entry.dir": "[DIR] {name}/",
-    "out.entry.file": "[FILE] {name} ({size})",
-    "out.entry.link": "[LINK] {name}{target}",
-    "out.entry.other": "[OTHER] {name}"
+    "param.limit.description": "Максимальна кількість записів для повернення на сторінку (за замовчуванням: 50)."
   },
   "tr": {
     "tool.description": "Bir dizindeki girişleri ls'ye benzer şekilde sayfalandırmayla listeleyin.",
@@ -518,16 +326,7 @@
     "param.path.description": "Listelenecek dizin (varsayılan: geçerli dizin).",
     "param.show_hidden.description": "Gizli öğeleri listeye dahil et.",
     "param.page.description": "Alınacak sayfa numarası (varsayılan: 1).",
-    "param.limit.description": "Sayfa başına döndürülecek maksimum öğe sayısı (varsayılan: 50).",
-    "err.dir_not_exist": "[list_dir error] Directory does not exist: {path}",
-    "err.path_not_dir": "[list_dir error] Path is not a directory: {path}",
-    "out.path": "Path: {path}",
-    "out.no_entries": "[list_dir] No entries found.",
-    "out.found_paginated": "[list_dir] Page {page} of {total_pages} (Total {total} entries, showing {showing})",
-    "out.entry.dir": "[DIR] {name}/",
-    "out.entry.file": "[FILE] {name} ({size})",
-    "out.entry.link": "[LINK] {name}{target}",
-    "out.entry.other": "[OTHER] {name}"
+    "param.limit.description": "Sayfa başına döndürülecek maksimum öğe sayısı (varsayılan: 50)."
   },
   "th": {
     "tool.description": "แสดงรายการในไดเร็กทอรีที่มีการแบ่งหน้า คล้ายกับ ls",
@@ -541,16 +340,7 @@
     "param.path.description": "ไดเรกทอรีไปยังรายการ (ค่าเริ่มต้น: ไดเรกทอรีปัจจุบัน) นามแฝงของ root_path",
     "param.show_hidden.description": "รวมรายการที่ซ่อนอยู่ในรายการ.",
     "param.page.description": "หมายเลขหน้าที่จะดึงข้อมูล (ค่าเริ่มต้น: 1)",
-    "param.limit.description": "จำนวนรายการสูงสุดต่อหน้าที่ส่งกลับ (ค่าเริ่มต้น: 50).",
-    "err.dir_not_exist": "[list_dir error] Directory does not exist: {path}",
-    "err.path_not_dir": "[list_dir error] Path is not a directory: {path}",
-    "out.path": "Path: {path}",
-    "out.no_entries": "[list_dir] No entries found.",
-    "out.found_paginated": "[list_dir] Page {page} of {total_pages} (Total {total} entries, showing {showing})",
-    "out.entry.dir": "[DIR] {name}/",
-    "out.entry.file": "[FILE] {name} ({size})",
-    "out.entry.link": "[LINK] {name}{target}",
-    "out.entry.other": "[OTHER] {name}"
+    "param.limit.description": "จำนวนรายการสูงสุดต่อหน้าที่ส่งกลับ (ค่าเริ่มต้น: 50)."
   },
   "zh_CN": {
     "tool.description": "列出目录内容（支持分页）。",
@@ -564,16 +354,7 @@
     "param.path.description": "要列出的目录（默认：当前目录）。root_path 的别名。",
     "param.show_hidden.description": "在列表中包含隐藏条目。",
     "param.page.description": "要获取的页码（默认：1）。",
-    "param.limit.description": "每页返回的最大条目数（默认：50）。",
-    "err.dir_not_exist": "[list_dir error] Directory does not exist: {path}",
-    "err.path_not_dir": "[list_dir error] Path is not a directory: {path}",
-    "out.path": "Path: {path}",
-    "out.no_entries": "[list_dir] No entries found.",
-    "out.found_paginated": "[list_dir] Page {page} of {total_pages} (Total {total} entries, showing {showing})",
-    "out.entry.dir": "[DIR] {name}/",
-    "out.entry.file": "[FILE] {name} ({size})",
-    "out.entry.link": "[LINK] {name}{target}",
-    "out.entry.other": "[OTHER] {name}"
+    "param.limit.description": "每页返回的最大条目数（默认：50）。"
   },
   "zh_TW": {
     "tool.description": "列出目录内容（支持分页）。",
@@ -587,16 +368,7 @@
     "param.path.description": "要列出的目錄（預設：目前目錄）。root_path 的別名。",
     "param.show_hidden.description": "在列表中包含隱藏項目。",
     "param.page.description": "要取得的頁碼（預設：1）。",
-    "param.limit.description": "每頁要傳回的最大項目數（預設：50）。",
-    "err.dir_not_exist": "[list_dir error] Directory does not exist: {path}",
-    "err.path_not_dir": "[list_dir error] Path is not a directory: {path}",
-    "out.path": "Path: {path}",
-    "out.no_entries": "[list_dir] No entries found.",
-    "out.found_paginated": "[list_dir] Page {page} of {total_pages} (Total {total} entries, showing {showing})",
-    "out.entry.dir": "[DIR] {name}/",
-    "out.entry.file": "[FILE] {name} ({size})",
-    "out.entry.link": "[LINK] {name}{target}",
-    "out.entry.other": "[OTHER] {name}"
+    "param.limit.description": "每頁要傳回的最大項目數（預設：50）。"
   },
   "bn": {
     "tool.description": "একটি ডিরেক্টরিতে তালিকাভুক্ত এন্ট্রি পেজিনেশন সহ, ls এর মতো।",
@@ -610,16 +382,7 @@
     "param.path.description": "তালিকাভুক্ত ডিরেক্টরি (ডিফল্ট: বর্তমান ডিরেক্টরি)। root_path এর উপনাম।",
     "param.show_hidden.description": "তালিকায় লুকানো এন্ট্রি অন্তর্ভুক্ত করুন।",
     "param.page.description": "যে পৃষ্ঠাটি নিতে হবে (ডিফল্ট: 1).",
-    "param.limit.description": "প্রতি পৃষ্ঠায় ফেরত দেওয়া সর্বোচ্চ আইটেম সংখ্যা (ডিফল্ট: 50).",
-    "err.dir_not_exist": "[list_dir error] Directory does not exist: {path}",
-    "err.path_not_dir": "[list_dir error] Path is not a directory: {path}",
-    "out.path": "Path: {path}",
-    "out.no_entries": "[list_dir] No entries found.",
-    "out.found_paginated": "[list_dir] Page {page} of {total_pages} (Total {total} entries, showing {showing})",
-    "out.entry.dir": "[DIR] {name}/",
-    "out.entry.file": "[FILE] {name} ({size})",
-    "out.entry.link": "[LINK] {name}{target}",
-    "out.entry.other": "[OTHER] {name}"
+    "param.limit.description": "প্রতি পৃষ্ঠায় ফেরত দেওয়া সর্বোচ্চ আইটেম সংখ্যা (ডিফল্ট: 50)."
   },
   "fa": {
     "tool.description": "آیتم‌های یک پوشه را فهرست کنید و JSON ساخت‌یافته برگردانید.",
@@ -633,16 +396,7 @@
     "param.path.description": "فهرست (پیش‌فرض: فهرست فعلی). نام مستعار root_path.",
     "param.show_hidden.description": "آیتم‌های مخفی را هم در فهرست شامل کنید.",
     "param.page.description": "شماره صفحه برای بازیابی (پیش‌فرض: 1).",
-    "param.limit.description": "حداکثر تعداد آیتم در هر صفحه (پیش‌فرض: 50).",
-    "err.dir_not_exist": "[list_dir error] Directory does not exist: {path}",
-    "err.path_not_dir": "[list_dir error] Path is not a directory: {path}",
-    "out.path": "Path: {path}",
-    "out.no_entries": "[list_dir] No entries found.",
-    "out.found_paginated": "[list_dir] Page {page} of {total_pages} (Total {total} entries, showing {showing})",
-    "out.entry.dir": "[DIR] {name}/",
-    "out.entry.file": "[FILE] {name} ({size})",
-    "out.entry.link": "[LINK] {name}{target}",
-    "out.entry.other": "[OTHER] {name}"
+    "param.limit.description": "حداکثر تعداد آیتم در هر صفحه (پیش‌فرض: 50)."
   },
   "mn": {
     "tool.description": "Лавлахын зүйлсийг жагсааж, бүтэцлэгдсэн JSON буцаана.",
@@ -656,16 +410,7 @@
     "param.path.description": "Жагсаах лавлах (анхдагч: одоогийн лавлах).",
     "param.show_hidden.description": "Нуусан зүйлсийг жагсаалтад оруулна.",
     "param.page.description": "Авах хуудасны дугаар (анхдагч: 1).",
-    "param.limit.description": "Хуудас бүрт буцаах хамгийн их зүйлсийн тоо (анхдагч: 50).",
-    "err.dir_not_exist": "[list_dir error] Directory does not exist: {path}",
-    "err.path_not_dir": "[list_dir error] Path is not a directory: {path}",
-    "out.path": "Path: {path}",
-    "out.no_entries": "[list_dir] No entries found.",
-    "out.found_paginated": "[list_dir] Page {page} of {total_pages} (Total {total} entries, showing {showing})",
-    "out.entry.dir": "[DIR] {name}/",
-    "out.entry.file": "[FILE] {name} ({size})",
-    "out.entry.link": "[LINK] {name}{target}",
-    "out.entry.other": "[OTHER] {name}"
+    "param.limit.description": "Хуудас бүрт буцаах хамгийн их зүйлсийн тоо (анхдагч: 50)."
   },
   "mr": {
     "tool.description": "ls प्रमाणेच पृष्ठांकन असलेल्या निर्देशिकेतील नोंदी सूचीबद्ध करा.",
@@ -679,16 +424,7 @@
     "param.path.description": "सूचीसाठी निर्देशिका (डीफॉल्ट: वर्तमान निर्देशिका). रूट_पथचे उपनाव.",
     "param.show_hidden.description": "लपलेले घटक यादीत समाविष्ट करा.",
     "param.page.description": "घ्यायचा पृष्ठ क्रमांक (डीफॉल्ट: 1).",
-    "param.limit.description": "प्रति पृष्ठ परत द्यायची कमाल घटकसंख्या (डीफॉल्ट: 50).",
-    "err.dir_not_exist": "[list_dir error] Directory does not exist: {path}",
-    "err.path_not_dir": "[list_dir error] Path is not a directory: {path}",
-    "out.path": "Path: {path}",
-    "out.no_entries": "[list_dir] No entries found.",
-    "out.found_paginated": "[list_dir] Page {page} of {total_pages} (Total {total} entries, showing {showing})",
-    "out.entry.dir": "[DIR] {name}/",
-    "out.entry.file": "[FILE] {name} ({size})",
-    "out.entry.link": "[LINK] {name}{target}",
-    "out.entry.other": "[OTHER] {name}"
+    "param.limit.description": "प्रति पृष्ठ परत द्यायची कमाल घटकसंख्या (डीफॉल्ट: 50)."
   },
   "el": {
     "tool.description": "Καταχωρήσεις λίστας σε έναν κατάλογο με σελιδοποίηση, παρόμοια με το ls.",
@@ -703,16 +439,7 @@
     "param.path.description": "Μέγιστος αριθμός καταχωρήσεων προς επιστροφή ανά σελίδα (προεπιλογή: 50).",
     "param.show_hidden.description": "[list_dir error] Ο κατάλογος δεν υπάρχει: {path}",
     "param.page.description": "Αριθμός σελίδας προς ανάκτηση (προεπιλογή: 1).",
-    "param.limit.description": "[list_dir error] Η διαδρομή δεν είναι κατάλογος: {path}",
-    "err.dir_not_exist": "Διαδρομή: {path}",
-    "err.path_not_dir": "[list_dir] Δεν βρέθηκαν καταχωρήσεις.",
-    "out.path": "[list_dir] Σελίδα {page} από {total_pages} (Σύνολο {total} καταχωρήσεις, εμφανίζει {showing})",
-    "out.no_entries": "[list_dir] Δεν βρέθηκαν καταχωρήσεις.",
-    "out.found_paginated": "[list_dir] Σελίδα {page} από {total_pages} (Σύνολο {total} καταχωρήσεις, εμφανίζει {showing})",
-    "out.entry.dir": "[DIR] {name}/",
-    "out.entry.file": "[FILE] {name} ({size})",
-    "out.entry.link": "[LINK] {name}{target}",
-    "out.entry.other": "[OTHER] {name}"
+    "param.limit.description": "[list_dir error] Η διαδρομή δεν είναι κατάλογος: {path}"
   },
   "he": {
     "tool.description": "ארגומנטים נוספים (מערך). דחה דמויות מטא מסוכנות.",
@@ -727,16 +454,7 @@
     "param.path.description": "ספרייה לרשימה (ברירת מחדל: ספרייה נוכחית). כינוי של root_path.",
     "param.show_hidden.description": "ספרייה לרשימה (ברירת מחדל: ספרייה נוכחית). כינוי של root_path.",
     "param.page.description": "מספר עמוד לאחזור (ברירת מחדל: 1).",
-    "param.limit.description": "כלול ערכים נסתרים ברישום.",
-    "err.dir_not_exist": "המספר המרבי של ערכים להחזרה בכל עמוד (ברירת מחדל: 50).",
-    "err.path_not_dir": "[שגיאת list_dir] ספרייה לא קיימת: {path}",
-    "out.path": "[שגיאת list_dir] הנתיב אינו ספרייה: {path}",
-    "out.no_entries": "נתיב: {path}",
-    "out.found_paginated": "[list_dir] לא נמצאו ערכים.",
-    "out.entry.dir": "[DIR] {name}/",
-    "out.entry.file": "[FILE] {name} ({size})",
-    "out.entry.link": "[LINK] {name}{target}",
-    "out.entry.other": "[OTHER] {name}"
+    "param.limit.description": "כלול ערכים נסתרים ברישום."
   },
   "hu": {
     "tool.description": "Az ls-hez hasonló oldalszámozással rendelkező könyvtár bejegyzéseinek listázása.",
@@ -751,16 +469,7 @@
     "param.path.description": "Lista könyvtár (alapértelmezett: jelenlegi könyvtár). A gyökér_útvonal álneve.",
     "param.show_hidden.description": "Rejtett bejegyzések szerepeltetése az adatlapon.",
     "param.page.description": "Keressen egy mintát a fájlokban, és adja vissza a megfelelő sorokat sorszámokkal (például grep -n). Minta szükséges.",
-    "param.limit.description": "Oldalanként visszaküldhető bejegyzések maximális száma (alapértelmezett: 50).",
-    "err.dir_not_exist": "[list_dir error] A könyvtár nem létezik: {path}",
-    "err.path_not_dir": "[list_dir error] Az elérési út nem egy könyvtár: {path}",
-    "out.path": "Elérési út: {path}",
-    "out.no_entries": "[list_dir] Nem található bejegyzés.",
-    "out.found_paginated": "[list_dir] {total_pages}/{page}. oldal (Összesen {total} bejegyzés, {showing} megjelenítése)",
-    "out.entry.dir": "[DIR] {name}/",
-    "out.entry.file": "[FÁJL] {name} ({size})",
-    "out.entry.link": "[LINK] {name}{target}",
-    "out.entry.other": "[OTHER] {name}"
+    "param.limit.description": "Oldalanként visszaküldhető bejegyzések maximális száma (alapértelmezett: 50)."
   },
   "ro": {
     "tool.description": "Listează intrările dintr-un director cu paginare, similar cu ls.",
@@ -775,15 +484,6 @@
     "param.path.description": "Includeți intrări ascunse în listă.",
     "param.show_hidden.description": "Numărul maxim de intrări de returnat pe pagină (implicit: 50).",
     "param.page.description": "Director rădăcină sau cale de fișier specifică (implicit: „.”).",
-    "param.limit.description": "[list_dir error] Directorul nu există: {path}",
-    "err.dir_not_exist": "[list_dir error] Calea nu este un director: {path}",
-    "err.path_not_dir": "[list_dir error] Calea nu este un director: {cale}",
-    "out.path": "[list_dir] Nu s-au găsit intrări.",
-    "out.no_entries": "[list_dir] Pagina {page} din {total_pages} (Total {total} intrări, afișând {afișează})",
-    "out.found_paginated": "[list_dir] Pagina {page} din {total_pages} (Total {total} intrări, afișând {shoing})",
-    "out.entry.dir": "[DIR] {name}/",
-    "out.entry.file": "[FILE] {name} ({size})",
-    "out.entry.link": "[LINK] {name}{target}",
-    "out.entry.other": "[OTHER] {name}"
+    "param.limit.description": "[list_dir error] Directorul nu există: {path}"
   }
 }

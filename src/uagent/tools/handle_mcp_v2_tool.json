@@ -1,6 +1,5 @@
 {
   "en": {
-    "doc.mask_values": "Replace values in dictionaries and lists with '*' (preserving structure).",
     "param.server_name.description": "Server name defined in mcp_servers.json. If specified, it takes priority over url.",
     "param.tool_name.description": "The name of the tool to execute.",
     "param.url.description": "MCP server endpoint URL (http://... or stdio://command...).",
@@ -18,7 +17,6 @@
     "err.stdio_url_invalid": "Error: Invalid stdio url"
   },
   "ja": {
-    "doc.mask_values": "辞書やリスト内の値を '*' に置き換えます（構造は維持します）。",
     "param.server_name.description": "mcp_servers.json に定義されたサーバー名。指定時は url より優先されます。",
     "param.tool_name.description": "実行するツール名。",
     "param.url.description": "MCP サーバーのエンドポイント URL（http://... または stdio://command...）。",
@@ -29,12 +27,11 @@
       "mcp 呼び出し",
       "サーバーツール"
     ],
-    "param.args.description": "MCPツールに渡す引数。JSONオブジェクト（推奨）またはJSON文字列。",
+    "param.args.description": "MCP ツールに渡すツール引数。JSON オブジェクト (推奨) または JSON 文字列のいずれかを指定します。",
     "err.tool_name_required": "Error: tool_name is required.",
     "err.stdio_url_invalid": "Error: Invalid stdio url"
   },
   "es": {
-    "doc.mask_values": "Reemplace los valores de diccionarios y listas con '*' (conservando la estructura).",
     "param.server_name.description": "Nombre del servidor definido en mcp_servers.json.",
     "param.tool_name.description": "El nombre de la herramienta a ejecutar.",
     "param.url.description": "URL del punto final del servidor MCP (http://... o stdio://command...).",
@@ -50,7 +47,6 @@
     "err.stdio_url_invalid": "Error: Invalid stdio url"
   },
   "fr": {
-    "doc.mask_values": "Remplacez les valeurs des dictionnaires et des listes par '*' (en préservant la structure).",
     "param.server_name.description": "Nom du serveur défini dans mcp_servers.json.",
     "param.tool_name.description": "Nom de l'outil à exécuter.",
     "param.url.description": "URL du point de terminaison du serveur MCP (http://... ou stdio://command...).",
@@ -66,7 +62,6 @@
     "err.stdio_url_invalid": "Error: Invalid stdio url"
   },
   "ko": {
-    "doc.mask_values": "사전 및 목록의 값을 '*'로 대체합니다(구조 유지).",
     "param.server_name.description": "mcp_servers.json에 정의된 서버 이름입니다. 지정하면 url보다 우선합니다.",
     "param.tool_name.description": "실행할 도구 이름입니다.",
     "param.url.description": "MCP 서버 엔드포인트 URL(http://... 또는 stdio://command...).",
@@ -82,7 +77,6 @@
     "err.stdio_url_invalid": "Error: Invalid stdio url"
   },
   "de": {
-    "doc.mask_values": "Ersetzen Sie Werte in Wörterbüchern und Listen durch '*' (Struktur beibehalten).",
     "param.server_name.description": "In mcp_servers.json definierter Servername. Falls angegeben, hat er Vorrang vor url.",
     "param.tool_name.description": "Name des auszuführenden Tools.",
     "param.url.description": "MCP-Server-Endpunkt-URL (http://... oder stdio://command...).",
@@ -98,7 +92,6 @@
     "err.stdio_url_invalid": "Error: Invalid stdio url"
   },
   "it": {
-    "doc.mask_values": "Sostituisci i valori nei dizionari e negli elenchi con '*' (preservando la struttura).",
     "param.server_name.description": "Nome del server definito in mcp_servers.json. Se specificato, ha priorità su url.",
     "param.tool_name.description": "Il nome dello strumento da eseguire.",
     "param.url.description": "URL dell'endpoint del server MCP (http://... o stdio://command...).",
@@ -114,7 +107,6 @@
     "err.stdio_url_invalid": "Error: Invalid stdio url"
   },
   "ru": {
-    "doc.mask_values": "Заменяйте значения в словарях и списках на '*' (с сохранением структуры).",
     "param.server_name.description": "Имя сервера, определённое в mcp_servers.json. Если указано, оно имеет приоритет над url.",
     "param.tool_name.description": "Имя инструмента для запуска.",
     "param.url.description": "URL-адрес конечной точки сервера MCP (http://... или stdio://command...).",
@@ -130,7 +122,6 @@
     "err.stdio_url_invalid": "Error: Invalid stdio url"
   },
   "pt_BR": {
-    "doc.mask_values": "Substitua os valores em dicionários e listas por '*' (preservando a estrutura).",
     "param.server_name.description": "Nome do servidor definido em mcp_servers.json. Se especificado, tem prioridade sobre url.",
     "param.tool_name.description": "O nome da ferramenta a ser executada.",
     "param.url.description": "URL do terminal do servidor MCP (http://... ou stdio://command...).",
@@ -146,7 +137,6 @@
     "err.stdio_url_invalid": "Error: Invalid stdio url"
   },
   "pt": {
-    "doc.mask_values": "Substitua valores em dicionários e listas por '*' (preservando a estrutura).",
     "param.server_name.description": "Nome do servidor definido em mcp_servers.json.",
     "param.tool_name.description": "O nome da ferramenta a ser executada.",
     "param.url.description": "URL do terminal do servidor MCP (http://... ou stdio://command...).",
@@ -162,7 +152,6 @@
     "err.stdio_url_invalid": "Error: Invalid stdio url"
   },
   "id": {
-    "doc.mask_values": "Ganti nilai dalam dictionary dan list dengan '*' (struktur tetap dipertahankan).",
     "param.server_name.description": "Nama server yang didefinisikan di mcp_servers.json.",
     "param.tool_name.description": "Nama alat yang akan dieksekusi.",
     "param.url.description": "URL endpoint server MCP (http://... atau stdio://command...).",
@@ -178,7 +167,6 @@
     "err.stdio_url_invalid": "Error: Invalid stdio url"
   },
   "vi": {
-    "doc.mask_values": "Thay thế các giá trị trong từ điển và danh sách bằng '*' (bảo toàn cấu trúc).",
     "param.server_name.description": "Tên máy chủ được xác định trong mcp_servers.json.",
     "param.tool_name.description": "Tên của công cụ để thực thi.",
     "param.url.description": "URL điểm cuối của máy chủ MCP (http://... hoặc stdio://command...).",
@@ -194,7 +182,6 @@
     "err.stdio_url_invalid": "Error: Invalid stdio url"
   },
   "pl": {
-    "doc.mask_values": "Zastąp wartości w słownikach i listach znakiem „*” (zachowując strukturę).",
     "param.server_name.description": "Nazwa serwera zdefiniowana w pliku mcp_servers.json.",
     "param.tool_name.description": "Nazwa narzędzia do wykonania.",
     "param.url.description": "Adres URL punktu końcowego serwera MCP (http://... lub stdio://command...).",
@@ -210,7 +197,6 @@
     "err.stdio_url_invalid": "Error: Invalid stdio url"
   },
   "hi": {
-    "doc.mask_values": "शब्दकोशों और सूचियों में मानों को '*' (संरचना को संरक्षित करते हुए) से बदलें।",
     "param.server_name.description": "सर्वर नाम mcp_servers.",
     "param.tool_name.description": "निष्पादित करने के लिए उपकरण का नाम.",
     "param.url.description": "एमसीपी सर्वर एंडपॉइंट यूआरएल (http://... या stdio://command...)।",
@@ -226,7 +212,6 @@
     "err.stdio_url_invalid": "Error: Invalid stdio url"
   },
   "ar": {
-    "doc.mask_values": "استبدل القيم في القواميس والقوائم بـ \"*\" (مع الحفاظ على البنية).",
     "param.server_name.description": "اسم الخادم المحدد في mcp_servers.json. إذا تم تحديده، فإنه يأخذ الأولوية على عنوان url.",
     "param.tool_name.description": "اسم الأداة المراد تنفيذها",
     "param.url.description": "عنوان URL لنقطة نهاية خادم MCP (http://... أو stdio://command...).",
@@ -242,7 +227,6 @@
     "err.stdio_url_invalid": "Error: Invalid stdio url"
   },
   "sv": {
-    "doc.mask_values": "Ersätt värden i ordböcker och listor med '*' (strukturen bevaras).",
     "param.server_name.description": "Servernamn från konfigurationsfilen. Om det anges prioriteras det framför url.",
     "param.tool_name.description": "Namnet på verktyget som ska köras.",
     "param.url.description": "MCP-serverns endpoint-URL.",
@@ -258,7 +242,6 @@
     "err.stdio_url_invalid": "Error: Invalid stdio url"
   },
   "sw": {
-    "doc.mask_values": "Replace values in dictionaries and lists with '*' (preserving structure).",
     "param.server_name.description": "Server name defined in mcp_servers.json. If specified, it takes priority over url.",
     "param.tool_name.description": "The name of the tool to execute.",
     "param.url.description": "MCP server endpoint URL (http://... or stdio://command...).",
@@ -274,7 +257,6 @@
     "err.stdio_url_invalid": "Error: Invalid stdio url"
   },
   "nb": {
-    "doc.mask_values": "Erstatt verdier i ordbøker og lister med '*' (strukturen bevares).",
     "param.server_name.description": "Servernavn fra konfigurasjonsfilen. Hvis angitt, har det prioritet over url.",
     "param.tool_name.description": "Navnet på verktøyet som skal kjøres.",
     "param.url.description": "URL for MCP-serverens endepunkt.",
@@ -290,7 +272,6 @@
     "err.stdio_url_invalid": "Error: Invalid stdio url"
   },
   "nl": {
-    "doc.mask_values": "Vervang waarden in woordenboeken en lijsten door '*' (structuur behouden).",
     "param.server_name.description": "Servernaam die gebruikt moet worden.",
     "param.tool_name.description": "De naam van de tool die moet worden uitgevoerd.",
     "param.url.description": "MCP-server-URL.",
@@ -306,7 +287,6 @@
     "err.stdio_url_invalid": "Error: Invalid stdio url"
   },
   "fi": {
-    "doc.mask_values": "Korvaa sanakirjojen ja listojen arvot '*' -merkillä (säilytä rakenne).",
     "param.server_name.description": "Käytettävä palvelimen nimi.",
     "param.tool_name.description": "Suoritettavan MCP-työkalun nimi.",
     "param.url.description": "MCP-palvelimen URL.",
@@ -322,7 +302,6 @@
     "err.stdio_url_invalid": "Error: Invalid stdio url"
   },
   "cs": {
-    "doc.mask_values": "Nahraďte hodnoty ve slovnících a seznamech znakem „*“ (struktura zůstane zachována).",
     "param.server_name.description": "Název serveru definovaný v mcp_servers.json. Pokud je uveden, má přednost před url.",
     "param.tool_name.description": "Název nástroje, který se má spustit.",
     "param.url.description": "URL koncového bodu serveru MCP (http://... nebo stdio://command...).",
@@ -338,7 +317,6 @@
     "err.stdio_url_invalid": "Error: Invalid stdio url"
   },
   "uk": {
-    "doc.mask_values": "Замініть значення в словниках і списках на «*» (зі збереженням структури).",
     "param.server_name.description": "Назва сервера, визначена у mcp_servers.json. Якщо вказано, має пріоритет над url.",
     "param.tool_name.description": "Назва інструменту для виконання.",
     "param.url.description": "URL-адреса кінцевої точки сервера MCP (http://... або stdio://command...).",
@@ -354,7 +332,6 @@
     "err.stdio_url_invalid": "Error: Invalid stdio url"
   },
   "tr": {
-    "doc.mask_values": "Sözlüklerdeki ve listelerdeki değerleri '*' (yapıyı koruyarak) ile değiştirin.",
     "param.server_name.description": "Mcp_servers.json'da tanımlanan sunucu adı. Belirtilmişse URL'ye göre önceliklidir.",
     "param.tool_name.description": "Yürütülecek aracın adı.",
     "param.url.description": "MCP sunucu uç noktası URL (http://... veya stdio://command...).",
@@ -370,7 +347,6 @@
     "err.stdio_url_invalid": "Error: Invalid stdio url"
   },
   "th": {
-    "doc.mask_values": "แทนที่ค่าในพจนานุกรมและรายการด้วย '*' (คงโครงสร้างไว้).",
     "param.server_name.description": "ชื่อเซิร์ฟเวอร์ที่กำหนดใน mcp_servers.json หากระบุ จะมีลำดับความสำคัญเหนือ url",
     "param.tool_name.description": "ชื่อของเครื่องมือที่จะรัน",
     "param.url.description": "URL ปลายทางของเซิร์ฟเวอร์ MCP (http://... หรือ stdio://command...)",
@@ -386,7 +362,6 @@
     "err.stdio_url_invalid": "Error: Invalid stdio url"
   },
   "zh_CN": {
-    "doc.mask_values": "将字典和列表中的值替换为“*”（保留结构）。",
     "param.server_name.description": "mcp_servers.json 中定义的服务器名称。指定后优先于 url。",
     "param.tool_name.description": "要执行的工具名称。",
     "param.url.description": "MCP 服务器端点 URL（http://... 或 stdio://command...）。",
@@ -402,7 +377,6 @@
     "err.stdio_url_invalid": "Error: Invalid stdio url"
   },
   "zh_TW": {
-    "doc.mask_values": "將字典與列表中的值取代為「*」（保留結構）。",
     "param.server_name.description": "mcp_servers.json 中定義的伺服器名稱。指定時會優先於 url。",
     "param.tool_name.description": "要執行的工具名稱。",
     "param.url.description": "MCP 伺服器端點 URL（http://... 或 stdio://command...）。",
@@ -418,7 +392,6 @@
     "err.stdio_url_invalid": "Error: Invalid stdio url"
   },
   "bn": {
-    "doc.mask_values": "অভিধান ও তালিকার মানগুলোকে '*' দিয়ে বদলান (গঠন অপরিবর্তিত রেখে)।",
     "param.server_name.description": "mcp_servers.json-এ নির্ধারিত সার্ভারের নাম। উল্লেখ করা হলে url-এর ওপর অগ্রাধিকার পাবে।",
     "param.tool_name.description": "চালানোর টুলের নাম।",
     "param.url.description": "MCP সার্ভারের endpoint URL (http://... অথবা stdio://command...)।",
@@ -434,7 +407,6 @@
     "err.stdio_url_invalid": "Error: Invalid stdio url"
   },
   "fa": {
-    "doc.mask_values": "مقادیرِ دیکشنری‌ها و فهرست‌ها را با '*' جایگزین کنید (با حفظ ساختار).",
     "param.server_name.description": "نام سرور تعریف‌شده در mcp_servers.json. اگر مشخص شود، بر url اولویت دارد.",
     "param.tool_name.description": "نام ابزاری که اجرا می‌شود.",
     "param.url.description": "نشانی endpoint سرور MCP (http://... یا stdio://command...) .",
@@ -450,7 +422,6 @@
     "err.stdio_url_invalid": "Error: Invalid stdio url"
   },
   "mn": {
-    "doc.mask_values": "Толь бичиг ба жагсаалтын утгыг '*' болгон солино (бүтцийг хадгална).",
     "param.server_name.description": "mcp_servers.json-д тодорхойлсон серверийн нэр. Заасан бол url-ээс давуу хэрэглэгдэнэ.",
     "param.tool_name.description": "Ажиллуулах хэрэгслийн нэр.",
     "param.url.description": "MCP серверийн төгсгөлийн URL (http://... эсвэл stdio: // тушаал...).",
@@ -466,7 +437,6 @@
     "err.stdio_url_invalid": "Error: Invalid stdio url"
   },
   "mr": {
-    "doc.mask_values": "शब्दकोशे आणि यादीतील मूल्ये '*' ने बदला (रचना कायम ठेवून).",
     "param.server_name.description": "mcp_servers.json मध्ये परिभाषित केलेले सर्व्हर नाव.",
     "param.tool_name.description": "चालवायच्या साधनाचे नाव.",
     "param.url.description": "MCP server endpoint URL (http://... किंवा stdio://command...) .",
@@ -482,7 +452,6 @@
     "err.stdio_url_invalid": "Error: Invalid stdio url"
   },
   "el": {
-    "doc.mask_values": "Αντικαταστήστε τις τιμές σε λεξικά και λίστες με '*' (διατήρηση της δομής).",
     "param.server_name.description": "Όνομα διακομιστή ορίστηκε στο mcp_servers.json. Εάν ορίζεται, έχει προτεραιότητα έναντι του url.",
     "param.tool_name.description": "Το όνομα του εργαλείου προς εκτέλεση.",
     "param.url.description": "URL τελικού σημείου διακομιστή MCP (http://... ή stdio://command...).",
@@ -500,7 +469,6 @@
     "err.stdio_url_invalid": "Σφάλμα: Μη έγκυρη διεύθυνση url stdio"
   },
   "he": {
-    "doc.mask_values": "החלף ערכים במילונים וברשימות ב'*' (שימור המבנה).",
     "param.server_name.description": "שם השרת מוגדר ב-mcp_servers.json. אם צוין, הוא מקבל עדיפות על פני כתובת האתר.",
     "param.tool_name.description": "שם הכלי לביצוע.",
     "param.url.description": "כתובת URL של שרת MCP (http://... או stdio://command...).",
@@ -518,7 +486,6 @@
     "err.stdio_url_invalid": "שגיאה: כתובת URL לא חוקית של stdio"
   },
   "hu": {
-    "doc.mask_values": "Cserélje ki a szótárak és a listák értékeit „*”-ra (a szerkezet megőrzése).",
     "param.server_name.description": "A kiszolgáló neve az mcp_servers.json fájlban van megadva. Ha meg van adva, akkor elsőbbséget élvez az URL-lel szemben.",
     "param.tool_name.description": "A végrehajtandó eszköz neve.",
     "param.url.description": "MCP-szerver végpont URL-je (http://... vagy stdio://command...).",
@@ -536,7 +503,6 @@
     "err.stdio_url_invalid": "Hiba: Érvénytelen stdio url"
   },
   "ro": {
-    "doc.mask_values": "[AVERTISMENT] Avertismente de indexare (deduplicate, primele 50):",
     "param.server_name.description": "Înlocuiți valorile din dicționare și liste cu „*” (păstrarea structurii).",
     "param.tool_name.description": "Numele serverului este definit în mcp_servers.json. Dacă este specificat, are prioritate față de url.",
     "param.url.description": "Numele instrumentului de executat.",

@@ -1,0 +1,8 @@
+{
+  "en": {
+    "tool.description": "Show Matter cache statistics: hit ratio, entry count, TTL."
+  },
+  "ja": {
+    "tool.description": "Matter キャッシュ統計の表示: ヒット率、エントリ数、TTL。"
+  }
+}

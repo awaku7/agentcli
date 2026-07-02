@@ -14,7 +14,11 @@
       "créer fichier",
       "파일 만들기",
       "создать файл"
-    ]
+    ],
+    "err.file_exists": "File already exists: {path}",
+    "err.path_missing": "filename/path is required",
+    "msg.created": "Created file: {path}",
+    "msg.overwrote": "Overwrote file: {path}"
   },
   "ja": {
     "param.content.description": "書き込むテキスト内容。",
@@ -27,7 +31,11 @@
       "ファイル作成",
       "テキストファイル",
       "新規作成"
-    ]
+    ],
+    "err.file_exists": "ファイルはすでに存在します: {パス}",
+    "err.path_missing": "ファイル名/パスは必須です",
+    "msg.created": "作成されたファイル: {パス}",
+    "msg.overwrote": "上書きされたファイル: {パス}"
   },
   "es": {
     "param.content.description": "Contenido de texto.",

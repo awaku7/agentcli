@@ -74,7 +74,10 @@
     "tool.description": "DeepSeekビジョンモデルを使用して画像を分析します。",
     "x_search_terms": "[\"deepseek\", \"vision\", \"image analysis\", \"ocr\"]",
     "param.prompt.description": "画像内で何を探すかを記述するテキストプロンプト。",
-    "param.image.description": "画像データURIまたはファイルパス。"
+    "param.image.description": "画像データURIまたはファイルパス。",
+    "err.missing_env": "UAGENT_DEEPSEEK_API_KEY (または UAGENT_OPENAI_API_KEY) がありません。",
+    "err.import_openai": "openai パッケージのインポートに失敗しました。",
+    "warn.empty": "[警告] 空の応答"
   },
   "ko": {
     "tool.description": "DeepSeek 비전 모델을 사용하여 이미지를 분석합니다.",

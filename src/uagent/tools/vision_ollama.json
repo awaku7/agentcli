@@ -152,7 +152,16 @@
     "err.analysis_failed": "画像分析に失敗しました: {err}",
     "err.model_not_found": "モデル {model} が見つかりません。",
     "err.image_required": "画像データが必要です。",
-    "param.base_url.description": "Ollama APIベースURL。"
+    "param.base_url.description": "Ollama APIベースURL。",
+    "err.image_not_found": "画像ファイルが見つかりません: {パス}",
+    "err.image_too_large": "画像ファイルが大きすぎます: {size} バイト (limit={max_bytes})",
+    "err.missing_env.ollama": "ollama イメージ分析に必要な環境変数がありません (UAGENT_OLLAMA_DEPNAME)",
+    "err.request_failed": "Ollama API の呼び出しに失敗しました: {err}",
+    "err.unsupported_provider": "サポートされていないanalyze_imageプロバイダー(ollama): {provider!r}",
+    "warn.empty_response": "[警告] 空の応答",
+    "prompt.default": "この画像を詳しく説明してください。",
+    "err.http_error": "Ollama API エラー: HTTP {ステータス} {本文}",
+    "err.invalid_json": "Ollama API が無効な JSON を返しました: {err}"
   },
   "ko": {
     "tool.description": "Ollama 비전 모델을 사용하여 이미지를 분석합니다.",

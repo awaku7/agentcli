@@ -1,9 +1,5 @@
 {
   "en": {
-    "err.exception": "Exception occurred during grep operations.",
-    "err.invalid_regex": "Invalid regex pattern.",
-    "err.missing_pattern": "Missing 'pattern'.",
-    "err.no_files_found": "No files found matching the criteria.",
     "param.context_lines.description": "Number of lines of leading and trailing context for each match.",
     "param.filenames_only.description": "If enabled, return only the list of filenames with matches.",
     "param.ignore_case.description": "Whether to ignore case (default: true).",
@@ -22,7 +18,6 @@
       "поиск в файлах"
     ],
     "param.limit.description": "Maximum number of match lines to return (default: 100).",
-    "param.glob.description": "Glob pattern for filenames (e.g., '*.py').",
     "param.recur.description": "Whether to search subdirectories recursively.",
     "param.root_path.description": "Alias (compat).",
     "param.literal.description": "If true, treat pattern as a literal string instead of regex.",
@@ -31,13 +26,10 @@
     "param.exclude_globs.description": "Filename glob patterns to exclude.",
     "param.binary_skip.description": "Skip files that look like binary files.",
     "err.pattern_required": "Error: pattern is required.",
-    "err.regex_compile": "[file_grep error] Failed to compile regex: {error}"
+    "err.regex_compile": "[file_grep error] Failed to compile regex: {error}",
+    "param.glob.description": "Filename glob pattern (e.g., '*.py', 'test_*'). If omitted, all files are considered."
   },
   "ja": {
-    "err.exception": "grep 操作中に例外が発生しました。",
-    "err.invalid_regex": "無効な正規表現パターンです。",
-    "err.missing_pattern": "'pattern' がありません。",
-    "err.no_files_found": "条件に一致するファイルが見つかりませんでした。",
     "param.context_lines.description": "各一致箇所の前後の文脈行数です。",
     "param.filenames_only.description": "有効にすると、一致したファイル名の一覧のみを返します。",
     "param.ignore_case.description": "大文字小文字を区別しないかどうか（既定: true）。",
@@ -52,7 +44,6 @@
       "行抽出"
     ],
     "param.limit.description": "返却する一致行の最大数（既定: 100）。",
-    "param.glob.description": "ファイル名の glob パターン（例: '*.py'）。",
     "param.recur.description": "サブディレクトリを再帰的に検索するかどうか。",
     "param.root_path.description": "Alias (compat).",
     "param.literal.description": "If true, treat pattern as a literal string instead of regex.",
@@ -61,13 +52,10 @@
     "param.exclude_globs.description": "Filename glob patterns to exclude.",
     "param.binary_skip.description": "Skip files that look like binary files.",
     "err.pattern_required": "Error: pattern is required.",
-    "err.regex_compile": "[file_grep error] Failed to compile regex: {error}"
+    "err.regex_compile": "[file_grep error] Failed to compile regex: {error}",
+    "param.glob.description": "ファイル名の glob パターン (例: '*.py'、'test_*')。省略した場合は、すべてのファイルが考慮されます。"
   },
   "es": {
-    "err.exception": "Se produjo una excepción durante las operaciones de grep.",
-    "err.invalid_regex": "Patrón de expresión regular no válido.",
-    "err.missing_pattern": "Falta 'pattern'.",
-    "err.no_files_found": "No se encontraron archivos que coincidan con los criterios.",
     "param.context_lines.description": "Número de líneas de contexto antes y después de cada coincidencia.",
     "param.filenames_only.description": "Ruta del archivo o directorio para verificar su existencia (admite ~). nombres de archivos con coincidencias.",
     "param.ignore_case.description": "Si se ignoran las mayúsculas y minúsculas (predeterminado: verdadero).",
@@ -82,7 +70,6 @@
     ],
     "param.page.description": "Page number to retrieve (default: 1).",
     "param.limit.description": "Número máximo de líneas coincidentes que se devolverán (predeterminado: 100).",
-    "param.glob.description": "Patrón glob para nombres de archivo (por ejemplo, '*.py').",
     "param.recur.description": "Si se deben buscar subdirectorios de forma recursiva.",
     "param.root_path.description": "Alias (compat).",
     "param.literal.description": "If true, treat pattern as a literal string instead of regex.",
@@ -94,10 +81,6 @@
     "err.regex_compile": "[file_grep error] Failed to compile regex: {error}"
   },
   "fr": {
-    "err.exception": "Une exception s'est produite lors des opérations grep.",
-    "err.invalid_regex": "Motif regex invalide.",
-    "err.missing_pattern": "'pattern' manquant.",
-    "err.no_files_found": "Aucun fichier correspondant aux critères n'a été trouvé.",
     "param.context_lines.description": "Nombre de lignes de contexte avant et après chaque correspondance.",
     "param.filenames_only.description": "Si activé, renvoie uniquement la liste des noms de fichiers avec des correspondances.",
     "param.ignore_case.description": "S'il faut ignorer la casse (par défaut : vrai).",
@@ -112,7 +95,6 @@
     ],
     "param.page.description": "Page number to retrieve (default: 1).",
     "param.limit.description": "Nombre maximum de lignes de correspondance à renvoyer (par défaut : 100).",
-    "param.glob.description": "Motif glob pour les noms de fichiers (ex. '*.py').",
     "param.recur.description": "S'il faut rechercher les sous-répertoires de manière récursive.",
     "param.root_path.description": "Alias (compat).",
     "param.literal.description": "If true, treat pattern as a literal string instead of regex.",
@@ -124,10 +106,6 @@
     "err.regex_compile": "[file_grep error] Failed to compile regex: {error}"
   },
   "ko": {
-    "err.exception": "grep 작업 중 예외가 발생했습니다.",
-    "err.invalid_regex": "유효하지 않은 정규식 패턴입니다.",
-    "err.missing_pattern": "'pattern'이 없습니다.",
-    "err.no_files_found": "조건에 일치하는 파일을 찾을 수 없습니다.",
     "param.context_lines.description": "각 일치 항목의 앞뒤 문맥 줄 수입니다.",
     "param.filenames_only.description": "활성화하면 일치하는 파일 이름 목록만 반환합니다.",
     "param.ignore_case.description": "대소문자를 무시할지 여부입니다(기본값: true).",
@@ -142,7 +120,6 @@
     ],
     "param.page.description": "Page number to retrieve (default: 1).",
     "param.limit.description": "반환할 최대 일치 행 수입니다(기본값: 100).",
-    "param.glob.description": "파일 이름에 대한 Glob 패턴(예: '*.py').",
     "param.recur.description": "하위 디렉터리를 재귀적으로 검색할지 여부입니다.",
     "param.root_path.description": "Alias (compat).",
     "param.literal.description": "If true, treat pattern as a literal string instead of regex.",
@@ -154,10 +131,6 @@
     "err.regex_compile": "[file_grep error] Failed to compile regex: {error}"
   },
   "de": {
-    "err.exception": "Beim Grep-Vorgang ist eine Ausnahme aufgetreten.",
-    "err.invalid_regex": "Ungültiges Regex-Muster.",
-    "err.missing_pattern": "'pattern' fehlt.",
-    "err.no_files_found": "Keine Dateien gefunden, die den Kriterien entsprechen.",
     "param.context_lines.description": "Anzahl der Zeilen Kontext vor und nach jeder Übereinstimmung.",
     "param.filenames_only.description": "Wenn aktiviert, wird nur die Liste der Dateinamen mit Übereinstimmungen zurückgegeben.",
     "param.ignore_case.description": "Wenn aktiviert, wird nur die Liste der Dateinamen mit Übereinstimmungen zurückgegeben.",
@@ -172,7 +145,6 @@
     ],
     "param.page.description": "Page number to retrieve (default: 1).",
     "param.limit.description": "Maximale Anzahl der zurückzugebenden Übereinstimmungszeilen (Standard: 100).",
-    "param.glob.description": "Glob-Muster für Dateinamen (z. B. '*.py').",
     "param.recur.description": "Maximale Anzahl der zurückzugebenden Übereinstimmungszeilen.",
     "param.root_path.description": "Alias (compat).",
     "param.literal.description": "If true, treat pattern as a literal string instead of regex.",
@@ -184,10 +156,6 @@
     "err.regex_compile": "[file_grep error] Failed to compile regex: {error}"
   },
   "it": {
-    "err.exception": "Si è verificata un'eccezione durante le operazioni grep.",
-    "err.invalid_regex": "Pattern regex non valido.",
-    "err.missing_pattern": "Manca 'pattern'.",
-    "err.no_files_found": "Nessun file trovato corrispondente ai criteri.",
     "param.context_lines.description": "Numero di righe di contesto iniziale e finale per ogni corrispondenza",
     "param.filenames_only.description": "Se abilitato, restituisce solo l'elenco dei nomi di file con corrispondenze",
     "param.ignore_case.description": "Indica se ignorare maiuscole e minuscole (impostazione predefinita: true).",
@@ -202,7 +170,6 @@
     ],
     "param.page.description": "Page number to retrieve (default: 1).",
     "param.limit.description": "Numero massimo di linee di corrispondenza da restituire (predefinito: 100).",
-    "param.glob.description": "Pattern glob per i nomi dei file (es. '*.py').",
     "param.recur.description": "Se cercare ricorsivamente nelle sottodirectory.",
     "param.root_path.description": "Alias (compat).",
     "param.literal.description": "If true, treat pattern as a literal string instead of regex.",
@@ -214,10 +181,6 @@
     "err.regex_compile": "[file_grep error] Failed to compile regex: {error}"
   },
   "ru": {
-    "err.exception": "Во время операций grep произошло исключение.",
-    "err.invalid_regex": "Недопустимый шаблон регулярного выражения.",
-    "err.missing_pattern": "Отсутствует 'pattern'.",
-    "err.no_files_found": "Файлы, соответствующие критериям, не найдены.",
     "param.context_lines.description": "Количество строк контекста до и после каждого совпадения.",
     "param.filenames_only.description": "Путь к файлу или каталогу для проверки существования (поддерживается ~). Если этот параметр включен, возвращает только список имен файлов с совпадениями.",
     "param.ignore_case.description": "Игнорировать регистр (по умолчанию: true).",
@@ -232,7 +195,6 @@
     ],
     "param.page.description": "Page number to retrieve (default: 1).",
     "param.limit.description": "Максимальное количество возвращаемых строк (по умолчанию: 100).",
-    "param.glob.description": "Glob-шаблон для имен файлов (например, '*.py').",
     "param.recur.description": "Нужно ли искать в подкаталогах рекурсивно.",
     "param.root_path.description": "Alias (compat).",
     "param.literal.description": "If true, treat pattern as a literal string instead of regex.",
@@ -244,10 +206,6 @@
     "err.regex_compile": "[file_grep error] Failed to compile regex: {error}"
   },
   "pt_BR": {
-    "err.exception": "Ocorreu uma exceção durante as operações de grep.",
-    "err.invalid_regex": "Padrão regex inválido.",
-    "err.missing_pattern": "Falta 'pattern'.",
-    "err.no_files_found": "Nenhum arquivo encontrado que corresponda aos critérios.",
     "param.context_lines.description": "Número de linhas de contexto antes e depois de cada correspondência.",
     "param.filenames_only.description": "Se ativado, retorna apenas a lista de nomes de arquivos com correspondências.",
     "param.ignore_case.description": "Caminho do arquivo ou diretório para verificar a existência (suporta ~). (padrão: verdadeiro).",
@@ -262,7 +220,6 @@
     ],
     "param.page.description": "Page number to retrieve (default: 1).",
     "param.limit.description": "Número máximo de linhas de correspondência a serem retornadas (padrão:",
-    "param.glob.description": "Padrão glob para nomes de arquivos (ex.: '*.py').",
     "param.recur.description": "Se deve pesquisar subdiretórios recursivamente.",
     "param.root_path.description": "Alias (compat).",
     "param.literal.description": "If true, treat pattern as a literal string instead of regex.",
@@ -274,10 +231,6 @@
     "err.regex_compile": "[file_grep error] Failed to compile regex: {error}"
   },
   "pt": {
-    "err.exception": "Ocorreu uma exceção durante operações grep.",
-    "err.invalid_regex": "Padrão regex inválido.",
-    "err.missing_pattern": "Falta 'padrão'.",
-    "err.no_files_found": "Nenhum arquivo encontrado que corresponda aos critérios.",
     "param.context_lines.description": "Número de linhas de contexto inicial e final para cada correspondência.",
     "param.filenames_only.description": "Caminho do arquivo ou diretório para verificar a existência (suporta ~). nomes de arquivos com correspondências.",
     "param.ignore_case.description": "Se deve ignorar maiúsculas e minúsculas (padrão: verdadeiro).",
@@ -292,7 +245,6 @@
     ],
     "param.page.description": "Page number to retrieve (default: 1).",
     "param.limit.description": "Número máximo de linhas de correspondência a serem retornadas (padrão: 100).",
-    "param.glob.description": "Padrão glob para nomes de arquivos (por exemplo, '*.py').",
     "param.recur.description": "Se deve pesquisar subdiretórios recursivamente.",
     "param.root_path.description": "Alias (compat).",
     "param.literal.description": "If true, treat pattern as a literal string instead of regex.",
@@ -304,10 +256,6 @@
     "err.regex_compile": "[file_grep error] Failed to compile regex: {error}"
   },
   "id": {
-    "err.exception": "Terjadi pengecualian saat operasi grep.",
-    "err.invalid_regex": "Pola regex tidak valid.",
-    "err.missing_pattern": "'pattern' tidak ada.",
-    "err.no_files_found": "Tidak ada file yang cocok dengan kriteria.",
     "param.context_lines.description": "Jumlah baris konteks sebelum dan sesudah setiap kecocokan.",
     "param.filenames_only.description": "Jika diaktifkan, kembalikan hanya daftar nama file yang cocok.",
     "param.ignore_case.description": "Apakah akan mengabaikan huruf besar/kecil (default: true).",
@@ -322,7 +270,6 @@
     ],
     "param.page.description": "Page number to retrieve (default: 1).",
     "param.limit.description": "Jumlah maksimum baris kecocokan yang dikembalikan (default: 100).",
-    "param.glob.description": "Pola glob untuk nama file (mis. '*.py').",
     "param.recur.description": "Apakah mencari subdirektori secara rekursif.",
     "param.root_path.description": "Alias (compat).",
     "param.literal.description": "If true, treat pattern as a literal string instead of regex.",
@@ -334,10 +281,6 @@
     "err.regex_compile": "[file_grep error] Failed to compile regex: {error}"
   },
   "vi": {
-    "err.exception": "Ngoại lệ xảy ra trong quá trình hoạt động grep.",
-    "err.invalid_regex": "Mẫu biểu thức chính quy không hợp lệ.",
-    "err.missing_pattern": "Thiếu 'mẫu'.",
-    "err.no_files_found": "Không tìm thấy tập tin nào phù hợp với tiêu chí.",
     "param.context_lines.description": "Số dòng ngữ cảnh đầu và cuối cho mỗi trận đấu.",
     "param.filenames_only.description": "Nếu được bật, chỉ trả về danh sách tên tệp trùng khớp.",
     "param.ignore_case.description": "Có bỏ qua trường hợp này không (mặc định: true).",
@@ -352,7 +295,6 @@
     ],
     "param.page.description": "Page number to retrieve (default: 1).",
     "param.limit.description": "Số dòng khớp tối đa cần trả về (mặc định: 100).",
-    "param.glob.description": "Mẫu chung cho tên tệp (ví dụ: '*.py').",
     "param.recur.description": "Có tìm kiếm đệ quy các thư mục con hay không.",
     "param.root_path.description": "Alias (compat).",
     "param.literal.description": "If true, treat pattern as a literal string instead of regex.",
@@ -364,10 +306,6 @@
     "err.regex_compile": "[file_grep error] Failed to compile regex: {error}"
   },
   "pl": {
-    "err.exception": "Wystąpił wyjątek podczas operacji grep.",
-    "err.invalid_regex": "Nieprawidłowy wzór wyrażenia regularnego.",
-    "err.missing_pattern": "Brakuje „wzoru”.",
-    "err.no_files_found": "Nie znaleziono plików spełniających kryteria.",
     "param.context_lines.description": "Liczba linii kontekstu początkowego i końcowego dla każdego dopasowania.",
     "param.filenames_only.description": "Liczba wierszy kontekstu początkowego i końcowego dla każdego dopasowania). Jeśli jest włączone, zwraca tylko listę nazw plików z dopasowaniami.",
     "param.ignore_case.description": "Czy ignorować wielkość liter (domyślnie: prawda).",
@@ -382,7 +320,6 @@
     ],
     "param.page.description": "Page number to retrieve (default: 1).",
     "param.limit.description": "Maksymalna liczba linii dopasowania do zwrócenia (domyślnie: 100).",
-    "param.glob.description": "Wzorzec globu dla nazw plików (np. „*.py”).",
     "param.recur.description": "Czy rekursywnie przeszukiwać podkatalogi.",
     "param.root_path.description": "Alias (compat).",
     "param.literal.description": "If true, treat pattern as a literal string instead of regex.",
@@ -394,10 +331,6 @@
     "err.regex_compile": "[file_grep error] Failed to compile regex: {error}"
   },
   "hi": {
-    "err.exception": "ग्रेप परिचालन के दौरान अपवाद उत्पन्न हुआ.",
-    "err.invalid_regex": "अमान्य रेगेक्स पैटर्न.",
-    "err.missing_pattern": "गुम 'पैटर्न'.",
-    "err.no_files_found": "मानदंडों से मेल खाती कोई फ़ाइल नहीं मिली.",
     "param.context_lines.description": "प्रत्येक मैच के लिए अग्रणी और अनुगामी संदर्भ की पंक्तियों की संख्या।",
     "param.filenames_only.description": "यदि सक्षम है, तो केवल मिलान वाले फ़ाइल नामों की सूची लौटाएँ।",
     "param.ignore_case.description": "क्या मामले को अनदेखा करना है (डिफ़ॉल्ट: सत्य)।",
@@ -412,7 +345,6 @@
     ],
     "param.page.description": "Page number to retrieve (default: 1).",
     "param.limit.description": "लौटाने के लिए मिलान पंक्तियों की अधिकतम संख्या (डिफ़ॉल्ट: 100)।",
-    "param.glob.description": "फ़ाइल नामों के लिए ग्लोब पैटर्न (उदाहरण के लिए, '*.py')।",
     "param.recur.description": "क्या उपनिर्देशिकाओं को पुनरावर्ती रूप से खोजना है।",
     "param.root_path.description": "Alias (compat).",
     "param.literal.description": "If true, treat pattern as a literal string instead of regex.",
@@ -424,10 +356,6 @@
     "err.regex_compile": "[file_grep error] Failed to compile regex: {error}"
   },
   "ar": {
-    "err.exception": "حدث استثناء أثناء عمليات grep.",
-    "err.invalid_regex": "نمط التعبير العادي غير صالح.",
-    "err.missing_pattern": "\"النمط\" مفقود.",
-    "err.no_files_found": "لم يتم العثور على ملفات مطابقة للمعايير.",
     "param.context_lines.description": "عدد أسطر السياق البادئة والزائدة لكل مباراة.",
     "param.filenames_only.description": "في حالة تمكينه، قم بإرجاع قائمة أسماء الملفات ذات التطابقات فقط.",
     "param.ignore_case.description": "ما إذا كان سيتم تجاهل حالة الأحرف (الافتراضي: صحيح).",
@@ -442,7 +370,6 @@
     ],
     "param.page.description": "Page number to retrieve (default: 1).",
     "param.limit.description": "الحد الأقصى لعدد خطوط المطابقة المراد إرجاعها (الافتراضي: 100).",
-    "param.glob.description": "نمط الكرة الأرضية لأسماء الملفات (على سبيل المثال، \"*.py\").",
     "param.recur.description": "ما إذا كان سيتم البحث في الدلائل الفرعية بشكل متكرر.",
     "param.root_path.description": "Alias (compat).",
     "param.literal.description": "If true, treat pattern as a literal string instead of regex.",
@@ -454,10 +381,6 @@
     "err.regex_compile": "[file_grep error] Failed to compile regex: {error}"
   },
   "sv": {
-    "err.exception": "Ett undantag inträffade under grep-operationen.",
-    "err.invalid_regex": "Ogiltigt regex-mönster.",
-    "err.missing_pattern": "'pattern' saknas.",
-    "err.no_files_found": "Inga filer hittades som matchade kriterierna.",
     "param.context_lines.description": "Antal rader med kontext före och efter varje träff.",
     "param.filenames_only.description": "Om aktiverat, returnera endast listan över filnamn med träffar.",
     "param.ignore_case.description": "Om skiftläge ska ignoreras (standard: sant).",
@@ -472,7 +395,6 @@
     ],
     "param.page.description": "Page number to retrieve (default: 1).",
     "param.limit.description": "Maximalt antal träffrader att returnera (standard: 100).",
-    "param.glob.description": "Glob-mönster för filnamn (t.ex. '*.py').",
     "param.recur.description": "Om underkataloger ska sökas rekursivt.",
     "param.root_path.description": "Alias (compat).",
     "param.literal.description": "If true, treat pattern as a literal string instead of regex.",
@@ -484,10 +406,6 @@
     "err.regex_compile": "[file_grep error] Failed to compile regex: {error}"
   },
   "sw": {
-    "err.exception": "Hitilafu imetokea wakati wa operesheni za grep.",
-    "err.invalid_regex": "Muundo wa regex si sahihi.",
-    "err.missing_pattern": "'pattern' haipo.",
-    "err.no_files_found": "Hakuna faili lililopatikana linalolingana na vigezo.",
     "param.context_lines.description": "Idadi ya mistari ya muktadha kabla na baada ya kila ulinganifu.",
     "param.filenames_only.description": "Upeo wa herufi za kurejesha (hutumika baada ya kusimbua/kuchomoa).",
     "param.ignore_case.description": "Ikiwa itapuuza kesi (chaguo-msingi: kweli",
@@ -502,7 +420,6 @@
     ],
     "param.page.description": "Page number to retrieve (default: 1).",
     "param.limit.description": "Idadi ya juu zaidi ya mistari inayolingana itarejeshwa (chaguo-msingi: 100).",
-    "param.glob.description": "Muundo wa glob kwa majina ya faili (mfano \"*.py\").",
     "param.recur.description": "Iwapo kutafuta kwa kujirudia katika saraka ndogo.",
     "param.root_path.description": "Alias (compat).",
     "param.literal.description": "If true, treat pattern as a literal string instead of regex.",
@@ -514,10 +431,6 @@
     "err.regex_compile": "[file_grep error] Failed to compile regex: {error}"
   },
   "nb": {
-    "err.exception": "Det oppsto et unntak under grep-operasjonen.",
-    "err.invalid_regex": "Ugyldig regex-mønster.",
-    "err.missing_pattern": "'pattern' mangler.",
-    "err.no_files_found": "Ingen filer ble funnet som samsvarer med kriteriene.",
     "param.context_lines.description": "Antall linjer med kontekst før og etter hvert treff.",
     "param.filenames_only.description": "Hvis aktivert, returner bare listen over filnavn med treff.",
     "param.ignore_case.description": "Om det skal ignoreres store og små bokstaver (standard: sant).",
@@ -532,7 +445,6 @@
     ],
     "param.page.description": "Page number to retrieve (default: 1).",
     "param.limit.description": "Maksimalt antall trefflinjer som skal returneres (standard: 100).",
-    "param.glob.description": "Glob-mønster for filnavn (f.eks. '*.py').",
     "param.recur.description": "Om underkataloger skal søkes rekursivt.",
     "param.root_path.description": "Alias (compat).",
     "param.literal.description": "If true, treat pattern as a literal string instead of regex.",
@@ -544,10 +456,6 @@
     "err.regex_compile": "[file_grep error] Failed to compile regex: {error}"
   },
   "nl": {
-    "err.exception": "Er is een uitzondering opgetreden tijdens grep-bewerkingen.",
-    "err.invalid_regex": "Ongeldig regex-patroon.",
-    "err.missing_pattern": "Ontbrekend \"pattern\".",
-    "err.no_files_found": "Geen bestanden gevonden die aan de criteria voldoen.",
     "param.context_lines.description": "Aantal regels context vóór en na elke treffer.",
     "param.filenames_only.description": "Indien ingeschakeld, retourneert u alleen de lijst met bestandsnamen met overeenkomsten.",
     "param.ignore_case.description": "Of hoofdlettergebruik moet worden genegeerd (standaard: waar).",
@@ -562,7 +470,6 @@
     ],
     "param.page.description": "Page number to retrieve (default: 1).",
     "param.limit.description": "Maximaal aantal regeltreffers om terug te geven (standaard: 100).",
-    "param.glob.description": "Glob-patroon voor bestandsnamen (bijv. '*.py').",
     "param.recur.description": "Of submappen recursief doorzocht moeten worden.",
     "param.root_path.description": "Alias (compat).",
     "param.literal.description": "If true, treat pattern as a literal string instead of regex.",
@@ -574,10 +481,6 @@
     "err.regex_compile": "[file_grep error] Failed to compile regex: {error}"
   },
   "fi": {
-    "err.exception": "Poikkeus grep-toiminnoissa.",
-    "err.invalid_regex": "Virheellinen regex-kaava.",
-    "err.missing_pattern": "Puuttuva \"pattern\".",
-    "err.no_files_found": "Mitään ehtoja vastaavia tiedostoja ei löytynyt.",
     "param.context_lines.description": "Rivien määrä ennen ja jälkeen jokaisen osuman.",
     "param.filenames_only.description": "Jos käytössä, palauta vain osuman sisältävien tiedostojen nimet.",
     "param.ignore_case.description": "Huomioidaanko kirjainkoko (oletus: true).",
@@ -592,7 +495,6 @@
     ],
     "param.page.description": "Page number to retrieve (default: 1).",
     "param.limit.description": "Palautettavien riviosumien enimmäismäärä (oletus: 100).",
-    "param.glob.description": "Glob-kuvio tiedostonimille (esim. '*.py').",
     "param.recur.description": "Etsitäänkö alihakemistoista rekursiivisesti.",
     "param.root_path.description": "Alias (compat).",
     "param.literal.description": "If true, treat pattern as a literal string instead of regex.",
@@ -604,10 +506,6 @@
     "err.regex_compile": "[file_grep error] Failed to compile regex: {error}"
   },
   "cs": {
-    "err.exception": "Při operaci grep došlo k výjimce.",
-    "err.invalid_regex": "Neplatný vzor regulárního výrazu.",
-    "err.missing_pattern": "Chybí 'pattern'.",
-    "err.no_files_found": "Nebyly nalezeny žádné soubory odpovídající kritériím.",
     "param.context_lines.description": "Počet řádků kontextu před a po každé shodě.",
     "param.filenames_only.description": "Je-li povoleno, vraťte pouze seznam názvů souborů se shodami.",
     "param.ignore_case.description": "Zda se má ignorovat velká a malá písmena (výchozí: true).",
@@ -622,7 +520,6 @@
     ],
     "param.page.description": "Page number to retrieve (default: 1).",
     "param.limit.description": "Maximální počet řádků se shodou k vrácení (výchozí: 100).",
-    "param.glob.description": "Glob vzor pro názvy souborů (např. '*.py').",
     "param.recur.description": "Zda hledat v podadresářích rekurzivně.",
     "param.root_path.description": "Alias (compat).",
     "param.literal.description": "If true, treat pattern as a literal string instead of regex.",
@@ -634,10 +531,6 @@
     "err.regex_compile": "[file_grep error] Failed to compile regex: {error}"
   },
   "uk": {
-    "err.exception": "Під час операції grep сталася виняткова ситуація.",
-    "err.invalid_regex": "Недійсний шаблон регулярного виразу.",
-    "err.missing_pattern": "Відсутній 'pattern'.",
-    "err.no_files_found": "Не знайдено файлів, що відповідають критеріям.",
     "param.context_lines.description": "Кількість рядків контексту до і після кожного збігу.",
     "param.filenames_only.description": "Якщо ввімкнено, повертати лише список назв файлів зі збігами.",
     "param.ignore_case.description": "Чи ігнорувати регістр (типово: true).",
@@ -652,7 +545,6 @@
     ],
     "param.page.description": "Page number to retrieve (default: 1).",
     "param.limit.description": "Максимальна кількість відповідних рядків для повернення (за замовчуванням: 100).",
-    "param.glob.description": "Glob-шаблон для назв файлів (наприклад, '*.py').",
     "param.recur.description": "Чи шукати в підкаталогах рекурсивно.",
     "param.root_path.description": "Alias (compat).",
     "param.literal.description": "If true, treat pattern as a literal string instead of regex.",
@@ -664,10 +556,6 @@
     "err.regex_compile": "[file_grep error] Failed to compile regex: {error}"
   },
   "tr": {
-    "err.exception": "Grep işlemleri sırasında özel durum oluştu.",
-    "err.invalid_regex": "Geçersiz normal ifade modeli.",
-    "err.missing_pattern": "'Desen' eksik.",
-    "err.no_files_found": "Kriterlere uygun dosya bulunamadı.",
     "param.context_lines.description": "Her maç için önde gelen ve sondaki bağlamın satır sayısı.",
     "param.filenames_only.description": "Etkinleştirilirse, yalnızca eşleşen dosya adlarının listesini döndürün.",
     "param.ignore_case.description": "Büyük/küçük harfin göz ardı edilip edilmeyeceği (varsayılan: doğru).",
@@ -682,7 +570,6 @@
     ],
     "param.page.description": "Page number to retrieve (default: 1).",
     "param.limit.description": "Döndürülecek maksimum eşleşme satırı sayısı (varsayılan: 100).",
-    "param.glob.description": "Dosya adları için genel desen (ör. '*.py').",
     "param.recur.description": "Alt dizinlerin yinelemeli olarak aranıp aranmayacağı.",
     "param.root_path.description": "Alias (compat).",
     "param.literal.description": "If true, treat pattern as a literal string instead of regex.",
@@ -694,10 +581,6 @@
     "err.regex_compile": "[file_grep error] Failed to compile regex: {error}"
   },
   "th": {
-    "err.exception": "เกิดข้อยกเว้นระหว่างการดำเนินการ grep",
-    "err.invalid_regex": "รูปแบบ regex ไม่ถูกต้อง",
-    "err.missing_pattern": "ขาด 'pattern'",
-    "err.no_files_found": "ไม่พบไฟล์ที่ตรงตามเงื่อนไข",
     "param.context_lines.description": "จำนวนบรรทัดบริบทก่อนหน้าและหลังจากแต่ละรายการที่ตรงกัน",
     "param.filenames_only.description": "หากเปิดใช้งาน ให้ส่งคืนเฉพาะรายชื่อไฟล์ที่พบการตรงกันเท่านั้น",
     "param.ignore_case.description": "โหมดการแยกไฟล์ head=return จุดเริ่มต้นของการตอบกลับ; text=แยกข้อความจาก HTML; html=แยกส่วน HTML; json=parse JSON (เป็นทางเลือก ใช้ json_pointer);",
@@ -712,7 +595,6 @@
     ],
     "param.page.description": "Page number to retrieve (default: 1).",
     "param.limit.description": "จำนวนบรรทัดที่ตรงกันสูงสุดที่จะส่งคืน (ค่าเริ่มต้น: 100)",
-    "param.glob.description": "รูปแบบ Glob สำหรับชื่อไฟล์ (เช่น '*.py')",
     "param.recur.description": "จะค้นหาในไดเรกทอรีย่อยแบบเรียกซ้ำหรือไม่",
     "param.root_path.description": "Alias (compat).",
     "param.literal.description": "If true, treat pattern as a literal string instead of regex.",
@@ -724,10 +606,6 @@
     "err.regex_compile": "[file_grep error] Failed to compile regex: {error}"
   },
   "zh_CN": {
-    "err.exception": "grep 操作期间发生异常。",
-    "err.invalid_regex": "无效的正则表达式模式。",
-    "err.missing_pattern": "缺少 'pattern'。",
-    "err.no_files_found": "未找到符合条件的文件。",
     "param.context_lines.description": "每个匹配项前后显示的上下文行数。",
     "param.filenames_only.description": "如果启用，则只返回包含匹配项的文件名列表。",
     "param.ignore_case.description": "是否忽略大小写（默认：true）。",
@@ -742,7 +620,6 @@
     ],
     "param.page.description": "Page number to retrieve (default: 1).",
     "param.limit.description": "要返回的最大匹配行数（默认：100）。",
-    "param.glob.description": "文件名的 Glob 模式（例如 '*.py'）。",
     "param.recur.description": "是否递归搜索子目录。",
     "param.root_path.description": "Alias (compat).",
     "param.literal.description": "If true, treat pattern as a literal string instead of regex.",
@@ -754,10 +631,6 @@
     "err.regex_compile": "[file_grep error] Failed to compile regex: {error}"
   },
   "zh_TW": {
-    "err.exception": "grep 操作期間發生例外。",
-    "err.invalid_regex": "無效的正規表示式模式。",
-    "err.missing_pattern": "缺少 'pattern'。",
-    "err.no_files_found": "未找到符合條件的檔案。",
     "param.context_lines.description": "每個相符項目前後顯示的上下文行數。",
     "param.filenames_only.description": "如果啟用，則只傳回包含相符項的檔名清單。",
     "param.ignore_case.description": "是否忽略大小寫（預設：true）。",
@@ -772,7 +645,6 @@
     ],
     "param.page.description": "Page number to retrieve (default: 1).",
     "param.limit.description": "要傳回的最大相符行數（預設：100）。",
-    "param.glob.description": "檔名的 Glob 模式（例如 '*.py'）。",
     "param.recur.description": "是否遞迴搜尋子目錄。",
     "param.root_path.description": "Alias (compat).",
     "param.literal.description": "If true, treat pattern as a literal string instead of regex.",
@@ -784,10 +656,6 @@
     "err.regex_compile": "[file_grep error] Failed to compile regex: {error}"
   },
   "bn": {
-    "err.exception": "grep অপারেশনের সময় ব্যতিক্রম ঘটেছে।",
-    "err.invalid_regex": "অবৈধ regex pattern।",
-    "err.missing_pattern": "'pattern' অনুপস্থিত।",
-    "err.no_files_found": "মানদণ্ডের সাথে মেলে এমন কোনো ফাইল পাওয়া যায়নি।",
     "param.context_lines.description": "প্রতিটি ম্যাচের আগে ও পরে কতগুলো প্রসঙ্গ লাইন দেখানো হবে।",
     "param.filenames_only.description": "সক্ষম হলে, শুধুমাত্র ম্যাচ থাকা ফাইলনামের তালিকা ফেরত দিন।",
     "param.ignore_case.description": "case উপেক্ষা করা হবে কি না (ডিফল্ট: true)।",
@@ -802,7 +670,6 @@
     ],
     "param.page.description": "Page number to retrieve (default: 1).",
     "param.limit.description": "ফেরত দেওয়া ম্যাচ লাইনের সর্বোচ্চ সংখ্যা (ডিফল্ট: 100)।",
-    "param.glob.description": "ফাইলনামের জন্য glob pattern (যেমন, '*.py').",
     "param.recur.description": "উপ-ডিরেক্টরিগুলো recursiveভাবে খোঁজা হবে কি না।",
     "param.root_path.description": "Alias (compat).",
     "param.literal.description": "If true, treat pattern as a literal string instead of regex.",
@@ -814,10 +681,6 @@
     "err.regex_compile": "[file_grep error] Failed to compile regex: {error}"
   },
   "fa": {
-    "err.exception": "در عملیات grep استثنا رخ داد.",
-    "err.invalid_regex": "الگوی regex نامعتبر است.",
-    "err.missing_pattern": "'pattern' وجود ندارد.",
-    "err.no_files_found": "هیچ فایلی مطابق معیارها پیدا نشد.",
     "param.context_lines.description": "تعداد خطوطِ زمینهٔ قبل و بعد از هر تطابق.",
     "param.filenames_only.description": "اگر فعال باشد، فقط فهرست نام فایل‌های دارای تطابق را برگردانید.",
     "param.ignore_case.description": "نادیده گرفتن حروف بزرگ (پیش‌فرض: درست).",
@@ -832,7 +695,6 @@
     ],
     "param.page.description": "Page number to retrieve (default: 1).",
     "param.limit.description": "حداکثر تعداد خطوط تطابق برای بازگرداندن (پیش‌فرض: 100).",
-    "param.glob.description": "الگوی glob برای نام فایل‌ها (مثلاً '*.py').",
     "param.recur.description": "جستجوی بازگشتی زیرشاخه ها.",
     "param.root_path.description": "Alias (compat).",
     "param.literal.description": "If true, treat pattern as a literal string instead of regex.",
@@ -844,10 +706,6 @@
     "err.regex_compile": "[file_grep error] Failed to compile regex: {error}"
   },
   "mn": {
-    "err.exception": "grep үйлдлийн үед алдаа гарлаа.",
-    "err.invalid_regex": "Буруу regex pattern.",
-    "err.missing_pattern": "'pattern' дутуу байна.",
-    "err.no_files_found": "Шалгуурт таарах файл олдсонгүй.",
     "param.context_lines.description": "Тохирсон мөр бүрийн өмнөх ба дараах контекст мөрийн тоо.",
     "param.filenames_only.description": "Идэвхжүүлбэл, зөвхөн тохирсон файлын нэрсийн жагсаалтыг буцаана.",
     "param.ignore_case.description": "Том үсгийг үл тоомсорлох эсэх (өгөгдмөл: үнэн).",
@@ -862,7 +720,6 @@
     ],
     "param.page.description": "Page number to retrieve (default: 1).",
     "param.limit.description": "Буцаах тохирсон мөрийн дээд тоо (өгөгдмөл: 100).",
-    "param.glob.description": "Файлын нэрэнд зориулсан glob pattern (жишээ нь, '*.py').",
     "param.recur.description": "Дэд директоруудыг рекурсивээр хайх эсэх.",
     "param.root_path.description": "Alias (compat).",
     "param.literal.description": "If true, treat pattern as a literal string instead of regex.",
@@ -874,10 +731,6 @@
     "err.regex_compile": "[file_grep error] Failed to compile regex: {error}"
   },
   "mr": {
-    "err.exception": "grep क्रियांमध्ये अपवाद आला.",
-    "err.invalid_regex": "अवैध regex pattern.",
-    "err.missing_pattern": "'pattern' नाही.",
-    "err.no_files_found": "निकषांशी जुळणारी कोणतीही फाइल सापडली नाही.",
     "param.context_lines.description": "प्रत्येक जुळणीसाठी आधी/नंतरच्या context ओळींची संख्या.",
     "param.filenames_only.description": "सक्षम असल्यास, फक्त जुळणाऱ्या फाइलनावांची यादी परत करा.",
     "param.ignore_case.description": "केसकडे दुर्लक्ष करायचे की नाही (डीफॉल्ट: सत्य).",
@@ -892,7 +745,6 @@
     ],
     "param.page.description": "Page number to retrieve (default: 1).",
     "param.limit.description": "परत करावयाच्या जुळणी ओळींची कमाल संख्या (डीफॉल्ट: 100).",
-    "param.glob.description": "फाइलनावांसाठी glob pattern (उदा., '*.py').",
     "param.recur.description": "उप-डिरेक्टऱ्या recursive पद्धतीने शोधायच्या का.",
     "param.root_path.description": "Alias (compat).",
     "param.literal.description": "If true, treat pattern as a literal string instead of regex.",
@@ -904,10 +756,6 @@
     "err.regex_compile": "[file_grep error] Failed to compile regex: {error}"
   },
   "el": {
-    "err.exception": "Παρουσιάστηκε εξαίρεση κατά τις λειτουργίες grep.",
-    "err.invalid_regex": "Μη έγκυρο regex μοτίβο.",
-    "err.missing_pattern": "Λείπει το 'μοτίβο'.",
-    "err.no_files_found": "Δεν βρέθηκαν αρχεία που να ανταποκρίνονται στα κριτήρια.",
     "param.context_lines.description": "Αριθμός γραμμών του πλαισίου που οδηγεί και ακολουθεί για κάθε αγώνα.",
     "param.filenames_only.description": "Εάν είναι ενεργοποιημένο, επιστρέψτε μόνο τη λίστα ονομάτων αρχείων με αντιστοιχίσεις.",
     "param.ignore_case.description": "Εάν θα αγνοηθούν πεζά (προεπιλογή: αληθές).",
@@ -926,7 +774,6 @@
       "поиск в αρχείο"
     ],
     "param.limit.description": "(Μέγιστος αριθμός γραμμών αντιστοίχισης: 1 επιστροφή 0 γραμμών).",
-    "param.glob.description": "Σφαιρικό μοτίβο για ονόματα αρχείων (π.χ. '*.py').",
     "param.recur.description": "Αν θα γίνει αναδρομική αναζήτηση υποκαταλόγων.",
     "param.root_path.description": "Ψευδώνυμο (compat).",
     "param.literal.description": "Εάν είναι αληθές, αντιμετωπίστε το μοτίβο ως κυριολεκτική συμβολοσειρά αντί για regex.",
@@ -938,10 +785,6 @@
     "err.regex_compile": "[file_grep error] Απέτυχε η μεταγλώττιση του regex: {error}"
   },
   "he": {
-    "err.exception": "חריגה מתרחשת במהלך ניתוח.",
-    "err.invalid_regex": "דפוס ביטוי רגולרי לא חוקי.",
-    "err.missing_pattern": "חסר 'תבנית'.",
-    "err.no_files_found": "לא נמצאו קבצים התואמים לקריטריונים.",
     "param.context_lines.description": "מספר השורות של הקשר מוביל ונמשך עבור כל התאמה.",
     "param.filenames_only.description": "אם מופעל, החזר רק את רשימת שמות הקבצים עם התאמות.",
     "param.ignore_case.description": "האם להתעלם מרישיות (ברירת מחדל: נכון).",
@@ -960,7 +803,6 @@
       "поиск в файлах"
     ],
     "param.limit.description": "החזרות מרביות (0).",
-    "param.glob.description": "תבנית גלוב עבור שמות קבצים (למשל, '*.py').",
     "param.recur.description": "האם לחפש ספריות משנה באופן רקורסיבי.",
     "param.root_path.description": "כינוי (compat).",
     "param.literal.description": "אם זה נכון, התייחס לתבנית כמחרוזת מילולית במקום ביטוי רגיל.",
@@ -972,10 +814,6 @@
     "err.regex_compile": "[file_grep error] נכשל הידור הרגולרי: {error}"
   },
   "hu": {
-    "err.exception": "Hiányzik a „minta”.",
-    "err.invalid_regex": "Nem található a feltételeknek megfelelő fájl.",
-    "err.missing_pattern": "A bevezető és a záró kontextus sorainak száma az egyes egyezéseknél.",
-    "err.no_files_found": "Ha engedélyezve van, csak az egyező fájlnevek listáját adja vissza.",
     "param.context_lines.description": "Figyelmen kívül hagyja-e a kis- és nagybetűket (alapértelmezett: igaz).",
     "param.filenames_only.description": "Gyökérkönyvtár vagy adott fájl elérési útja (alapértelmezett: '.').",
     "param.ignore_case.description": "A letöltendő oldalszám (alapértelmezett: 1).",
@@ -994,7 +832,6 @@
       "поиск в файлах (maximálisan 0 találat: 1 sor"
     ],
     "param.limit.description": "A visszaküldendő találati sorok maximális száma (alapértelmezett: 100).",
-    "param.glob.description": "Globális minta a fájlnevekhez (pl. „*.py”).",
     "param.recur.description": "Az alkönyvtárak rekurzív keresése.",
     "param.root_path.description": "Alias ​​(kompat).",
     "param.literal.description": "Ha igaz, kezelje a mintát literális karakterláncként a reguláris kifejezés helyett.",
@@ -1006,10 +843,6 @@
     "err.regex_compile": "[file_grep error] Nem sikerült lefordítani a reguláris kifejezést: {error}"
   },
   "ro": {
-    "err.exception": "Excepție a apărut în timpul operațiunilor grep.",
-    "err.invalid_regex": "Model regex nevalid.",
-    "err.missing_pattern": "Model regex nevalid.",
-    "err.no_files_found": "„Model” lipsește.",
     "param.context_lines.description": "Nu s-au găsit fișiere care să corespundă criteriilor.",
     "param.filenames_only.description": "Numărul de linii de context de început și de final pentru fiecare meci.",
     "param.ignore_case.description": "Dacă este activat, returnați numai lista de nume de fișiere cu potriviri.",
@@ -1028,7 +861,6 @@
       "поиск в файлах"
     ],
     "param.limit.description": "Numărul maxim de linii de potrivire de returnat: 1 (00 implicit).",
-    "param.glob.description": "Model Glob pentru numele fișierelor (de ex., „*.py”).",
     "param.recur.description": "Dacă se caută recursiv în subdirectoare.",
     "param.root_path.description": "Alias ​​(compat).",
     "param.literal.description": "Dacă este adevărat, tratați modelul ca un șir literal în loc de regex.",

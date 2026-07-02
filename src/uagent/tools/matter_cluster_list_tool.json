@@ -5,11 +5,7 @@
     "param.fmt.description": "Format: json or text.",
     "err.device_id_required": "Matter device ID is required.",
     "err.not_found": "Matter device not found: {device_id}",
-    "err.ambiguous_target": "Matter device target is ambiguous: {device_id}",
-    "param.ctrl.description": "Controller ID (optional).",
-    "param.bridge.description": "Bridge ID (optional).",
-    "param.endpoint.description": "Endpoint filter (optional).",
-    "err.config_missing": "Matter device data is missing. Set {env_json} or {env_file} for devices, controllers, or bridges."
+    "err.ambiguous_target": "Matter device target is ambiguous: {device_id}"
   },
   "bn": {
     "tool.description": "List Matter clusters for a device.",
@@ -17,11 +13,7 @@
     "param.fmt.description": "Format: json or text.",
     "err.device_id_required": "Matter device ID is required.",
     "err.not_found": "Matter device not found: {device_id}",
-    "err.ambiguous_target": "Matter device target is ambiguous: {device_id}",
-    "param.ctrl.description": "Controller ID (optional).",
-    "param.bridge.description": "Bridge ID (optional).",
-    "param.endpoint.description": "Endpoint filter (optional).",
-    "err.config_missing": "Matter device data is missing. Set {env_json} or {env_file} for devices, controllers, or bridges."
+    "err.ambiguous_target": "Matter device target is ambiguous: {device_id}"
   },
   "cs": {
     "tool.description": "List Matter clusters for a device.",
@@ -29,11 +21,7 @@
     "param.fmt.description": "Format: json or text.",
     "err.device_id_required": "Matter device ID is required.",
     "err.not_found": "Matter device not found: {device_id}",
-    "err.ambiguous_target": "Matter device target is ambiguous: {device_id}",
-    "param.ctrl.description": "Controller ID (optional).",
-    "param.bridge.description": "Bridge ID (optional).",
-    "param.endpoint.description": "Endpoint filter (optional).",
-    "err.config_missing": "Matter device data is missing. Set {env_json} or {env_file} for devices, controllers, or bridges."
+    "err.ambiguous_target": "Matter device target is ambiguous: {device_id}"
   },
   "de": {
     "tool.description": "List Matter clusters for a device.",
@@ -41,11 +29,7 @@
     "param.fmt.description": "Format: json or text.",
     "err.device_id_required": "Matter device ID is required.",
     "err.not_found": "Matter device not found: {device_id}",
-    "err.ambiguous_target": "Matter device target is ambiguous: {device_id}",
-    "param.ctrl.description": "Controller ID (optional).",
-    "param.bridge.description": "Bridge ID (optional).",
-    "param.endpoint.description": "Endpoint filter (optional).",
-    "err.config_missing": "Matter device data is missing. Set {env_json} or {env_file} for devices, controllers, or bridges."
+    "err.ambiguous_target": "Matter device target is ambiguous: {device_id}"
   },
   "en": {
     "tool.description": "List Matter clusters for a device.",
@@ -54,10 +38,10 @@
     "err.device_id_required": "Matter device ID is required.",
     "err.not_found": "Matter device not found: {device_id}",
     "err.ambiguous_target": "Matter device target is ambiguous: {device_id}",
-    "param.ctrl.description": "Controller ID (optional).",
+    "err.config_missing": "Matter device data is missing. Set {env_json} or {env_file} for devices, controllers, or bridges.",
     "param.bridge.description": "Bridge ID (optional).",
-    "param.endpoint.description": "Endpoint filter (optional).",
-    "err.config_missing": "Matter device data is missing. Set {env_json} or {env_file} for devices, controllers, or bridges."
+    "param.ctrl.description": "Controller ID (optional).",
+    "param.endpoint.description": "Endpoint filter (optional)."
   },
   "es": {
     "tool.description": "List Matter clusters for a device.",
@@ -65,11 +49,7 @@
     "param.fmt.description": "Format: json or text.",
     "err.device_id_required": "Matter device ID is required.",
     "err.not_found": "Matter device not found: {device_id}",
-    "err.ambiguous_target": "Matter device target is ambiguous: {device_id}",
-    "param.ctrl.description": "Controller ID (optional).",
-    "param.bridge.description": "Bridge ID (optional).",
-    "param.endpoint.description": "Endpoint filter (optional).",
-    "err.config_missing": "Matter device data is missing. Set {env_json} or {env_file} for devices, controllers, or bridges."
+    "err.ambiguous_target": "Matter device target is ambiguous: {device_id}"
   },
   "fa": {
     "tool.description": "List Matter clusters for a device.",
@@ -77,11 +57,7 @@
     "param.fmt.description": "Format: json or text.",
     "err.device_id_required": "Matter device ID is required.",
     "err.not_found": "Matter device not found: {device_id}",
-    "err.ambiguous_target": "Matter device target is ambiguous: {device_id}",
-    "param.ctrl.description": "Controller ID (optional).",
-    "param.bridge.description": "Bridge ID (optional).",
-    "param.endpoint.description": "Endpoint filter (optional).",
-    "err.config_missing": "Matter device data is missing. Set {env_json} or {env_file} for devices, controllers, or bridges."
+    "err.ambiguous_target": "Matter device target is ambiguous: {device_id}"
   },
   "fi": {
     "tool.description": "List Matter clusters for a device.",
@@ -89,11 +65,7 @@
     "param.fmt.description": "Format: json or text.",
     "err.device_id_required": "Matter device ID is required.",
     "err.not_found": "Matter device not found: {device_id}",
-    "err.ambiguous_target": "Matter device target is ambiguous: {device_id}",
-    "param.ctrl.description": "Controller ID (optional).",
-    "param.bridge.description": "Bridge ID (optional).",
-    "param.endpoint.description": "Endpoint filter (optional).",
-    "err.config_missing": "Matter device data is missing. Set {env_json} or {env_file} for devices, controllers, or bridges."
+    "err.ambiguous_target": "Matter device target is ambiguous: {device_id}"
   },
   "fr": {
     "tool.description": "List Matter clusters for a device.",
@@ -101,11 +73,7 @@
     "param.fmt.description": "Format: json or text.",
     "err.device_id_required": "Matter device ID is required.",
     "err.not_found": "Matter device not found: {device_id}",
-    "err.ambiguous_target": "Matter device target is ambiguous: {device_id}",
-    "param.ctrl.description": "Controller ID (optional).",
-    "param.bridge.description": "Bridge ID (optional).",
-    "param.endpoint.description": "Endpoint filter (optional).",
-    "err.config_missing": "Matter device data is missing. Set {env_json} or {env_file} for devices, controllers, or bridges."
+    "err.ambiguous_target": "Matter device target is ambiguous: {device_id}"
   },
   "hi": {
     "tool.description": "List Matter clusters for a device.",
@@ -113,11 +81,7 @@
     "param.fmt.description": "Format: json or text.",
     "err.device_id_required": "Matter device ID is required.",
     "err.not_found": "Matter device not found: {device_id}",
-    "err.ambiguous_target": "Matter device target is ambiguous: {device_id}",
-    "param.ctrl.description": "Controller ID (optional).",
-    "param.bridge.description": "Bridge ID (optional).",
-    "param.endpoint.description": "Endpoint filter (optional).",
-    "err.config_missing": "Matter device data is missing. Set {env_json} or {env_file} for devices, controllers, or bridges."
+    "err.ambiguous_target": "Matter device target is ambiguous: {device_id}"
   },
   "id": {
     "tool.description": "List Matter clusters for a device.",
@@ -125,11 +89,7 @@
     "param.fmt.description": "Format: json or text.",
     "err.device_id_required": "Matter device ID is required.",
     "err.not_found": "Matter device not found: {device_id}",
-    "err.ambiguous_target": "Matter device target is ambiguous: {device_id}",
-    "param.ctrl.description": "Controller ID (optional).",
-    "param.bridge.description": "Bridge ID (optional).",
-    "param.endpoint.description": "Endpoint filter (optional).",
-    "err.config_missing": "Matter device data is missing. Set {env_json} or {env_file} for devices, controllers, or bridges."
+    "err.ambiguous_target": "Matter device target is ambiguous: {device_id}"
   },
   "it": {
     "tool.description": "List Matter clusters for a device.",
@@ -137,11 +97,7 @@
     "param.fmt.description": "Format: json or text.",
     "err.device_id_required": "Matter device ID is required.",
     "err.not_found": "Matter device not found: {device_id}",
-    "err.ambiguous_target": "Matter device target is ambiguous: {device_id}",
-    "param.ctrl.description": "Controller ID (optional).",
-    "param.bridge.description": "Bridge ID (optional).",
-    "param.endpoint.description": "Endpoint filter (optional).",
-    "err.config_missing": "Matter device data is missing. Set {env_json} or {env_file} for devices, controllers, or bridges."
+    "err.ambiguous_target": "Matter device target is ambiguous: {device_id}"
   },
   "ja": {
     "tool.description": "List Matter clusters for a device.",
@@ -150,10 +106,10 @@
     "err.device_id_required": "Matter device ID is required.",
     "err.not_found": "Matter device not found: {device_id}",
     "err.ambiguous_target": "Matter device target is ambiguous: {device_id}",
-    "param.ctrl.description": "Controller ID (optional).",
-    "param.bridge.description": "Bridge ID (optional).",
-    "param.endpoint.description": "Endpoint filter (optional).",
-    "err.config_missing": "Matter device data is missing. Set {env_json} or {env_file} for devices, controllers, or bridges."
+    "err.config_missing": "問題のデバイスデータが欠落しています。デバイス、コントローラー、またはブリッジに {env_json} または {env_file} を設定します。",
+    "param.bridge.description": "ブリッジ ID (オプション)。",
+    "param.ctrl.description": "コントローラ ID (オプション)。",
+    "param.endpoint.description": "エンドポイントフィルター (オプション)。"
   },
   "ko": {
     "tool.description": "List Matter clusters for a device.",
@@ -161,11 +117,7 @@
     "param.fmt.description": "Format: json or text.",
     "err.device_id_required": "Matter device ID is required.",
     "err.not_found": "Matter device not found: {device_id}",
-    "err.ambiguous_target": "Matter device target is ambiguous: {device_id}",
-    "param.ctrl.description": "Controller ID (optional).",
-    "param.bridge.description": "Bridge ID (optional).",
-    "param.endpoint.description": "Endpoint filter (optional).",
-    "err.config_missing": "Matter device data is missing. Set {env_json} or {env_file} for devices, controllers, or bridges."
+    "err.ambiguous_target": "Matter device target is ambiguous: {device_id}"
   },
   "mn": {
     "tool.description": "List Matter clusters for a device.",
@@ -173,11 +125,7 @@
     "param.fmt.description": "Format: json or text.",
     "err.device_id_required": "Matter device ID is required.",
     "err.not_found": "Matter device not found: {device_id}",
-    "err.ambiguous_target": "Matter device target is ambiguous: {device_id}",
-    "param.ctrl.description": "Controller ID (optional).",
-    "param.bridge.description": "Bridge ID (optional).",
-    "param.endpoint.description": "Endpoint filter (optional).",
-    "err.config_missing": "Matter device data is missing. Set {env_json} or {env_file} for devices, controllers, or bridges."
+    "err.ambiguous_target": "Matter device target is ambiguous: {device_id}"
   },
   "mr": {
     "tool.description": "List Matter clusters for a device.",
@@ -185,11 +133,7 @@
     "param.fmt.description": "Format: json or text.",
     "err.device_id_required": "Matter device ID is required.",
     "err.not_found": "Matter device not found: {device_id}",
-    "err.ambiguous_target": "Matter device target is ambiguous: {device_id}",
-    "param.ctrl.description": "Controller ID (optional).",
-    "param.bridge.description": "Bridge ID (optional).",
-    "param.endpoint.description": "Endpoint filter (optional).",
-    "err.config_missing": "Matter device data is missing. Set {env_json} or {env_file} for devices, controllers, or bridges."
+    "err.ambiguous_target": "Matter device target is ambiguous: {device_id}"
   },
   "el": {
     "tool.description": "Απαιτείται σημαντικό αναγνωριστικό συσκευής.",
@@ -197,11 +141,7 @@
     "param.fmt.description": "Στιγμιότυπο προσωρινής μνήμης ECHONET: {count} στοιχεία.",
     "err.device_id_required": "Ο στόχος της συσκευής είναι διφορούμενος: {device_id}",
     "err.not_found": "Αναγνωριστικό ελεγκτή (προαιρετικό).",
-    "err.ambiguous_target": "Αναγνωριστικό γέφυρας (προαιρετικό).",
-    "param.ctrl.description": "Φίλτρο τελικού σημείου (προαιρετικό).",
-    "param.bridge.description": "Λείπουν τα δεδομένα συσκευής. Ορίστε {env_json} ή {env_file} για συσκευές, ελεγκτές ή γέφυρες.",
-    "param.endpoint.description": "Έλεγχος μιας συσκευής Matter (on/off/open/close/lock/unlock/set_value).",
-    "err.config_missing": "Λείπουν τα δεδομένα της συσκευής. Ορίστε {env_json} ή {env_file} για συσκευές, ελεγκτές ή γέφυρες."
+    "err.ambiguous_target": "Αναγνωριστικό γέφυρας (προαιρετικό)."
   },
   "he": {
     "tool.description": "נדרש מזהה מכשיר של עניין.",
@@ -209,11 +149,7 @@
     "param.fmt.description": "אין ערכים במטמון.",
     "err.device_id_required": "יעד מכשיר עניין אינו ברור: {device_id}",
     "err.not_found": "מזהה בקר (אופציונלי).",
-    "err.ambiguous_target": "מזהה גשר (אופציונלי).",
-    "param.ctrl.description": "מסנן נקודות קצה (אופציונלי).",
-    "param.bridge.description": "חסרים נתוני מכשיר העניין. הגדר את {env_json} או {env_file} עבור מכשירים, בקרים או גשרים.",
-    "param.endpoint.description": "שלוט במכשיר של Matter (הפעלה/כיבוי/פתוח/סגור/נעילה/בטל/סט_value).",
-    "err.config_missing": "נתוני המכשיר חסרים. הגדר את {env_json} או {env_file} עבור מכשירים, בקרים או גשרים."
+    "err.ambiguous_target": "מזהה גשר (אופציונלי)."
   },
   "hu": {
     "tool.description": "Fontos eszközazonosító szükséges.",
@@ -221,11 +157,7 @@
     "param.fmt.description": "Gyorsítótár művelet: pillanatfelvétel vagy törlés.",
     "err.device_id_required": "Az eszköz célpontja nem egyértelmű: {device_id}",
     "err.not_found": "Vezérlőazonosító (nem kötelező).",
-    "err.ambiguous_target": "Hídazonosító (nem kötelező).",
-    "param.ctrl.description": "Végpontszűrő (opcionális).",
-    "param.bridge.description": "Az eszköz adatai hiányoznak. Állítsa be az {env_json} vagy az {env_file} beállítást az eszközökhöz, vezérlőkhöz vagy hidakhoz.",
-    "param.endpoint.description": "Egy Matter eszköz vezérlése (be/ki/nyitás/zárás/zár/feloldás/beállított_érték).",
-    "err.config_missing": "Az eszköz adatai hiányoznak. Állítsa be az {env_json} vagy az {env_file} beállítást az eszközökhöz, vezérlőkhöz vagy hidakhoz."
+    "err.ambiguous_target": "Hídazonosító (nem kötelező)."
   },
   "ro": {
     "tool.description": "Matter bridge nu a fost găsit: {bridge_id}",
@@ -233,11 +165,7 @@
     "param.fmt.description": "Inspectați sau ștergeți memoria cache ECHONET Lite partajată.",
     "err.device_id_required": "ID dispozitiv (obligatoriu).",
     "err.not_found": "ID-ul dispozitivului este necesar.",
-    "err.ambiguous_target": "Dispozitivul nu a fost găsit: {device_id}",
-    "param.ctrl.description": "Dispozitivul vizat este ambiguu: {device_id}",
-    "param.bridge.description": "ID controler (opțional).",
-    "param.endpoint.description": "ID pod (opțional).",
-    "err.config_missing": "Filtru de punct final (opțional)."
+    "err.ambiguous_target": "Dispozitivul nu a fost găsit: {device_id}"
   },
   "nb": {
     "tool.description": "List Matter clusters for a device.",
@@ -245,11 +173,7 @@
     "param.fmt.description": "Format: json or text.",
     "err.device_id_required": "Matter device ID is required.",
     "err.not_found": "Matter device not found: {device_id}",
-    "err.ambiguous_target": "Matter device target is ambiguous: {device_id}",
-    "param.ctrl.description": "Controller ID (optional).",
-    "param.bridge.description": "Bridge ID (optional).",
-    "param.endpoint.description": "Endpoint filter (optional).",
-    "err.config_missing": "Matter device data is missing. Set {env_json} or {env_file} for devices, controllers, or bridges."
+    "err.ambiguous_target": "Matter device target is ambiguous: {device_id}"
   },
   "nl": {
     "tool.description": "List Matter clusters for a device.",
@@ -257,11 +181,7 @@
     "param.fmt.description": "Format: json or text.",
     "err.device_id_required": "Matter device ID is required.",
     "err.not_found": "Matter device not found: {device_id}",
-    "err.ambiguous_target": "Matter device target is ambiguous: {device_id}",
-    "param.ctrl.description": "Controller ID (optional).",
-    "param.bridge.description": "Bridge ID (optional).",
-    "param.endpoint.description": "Endpoint filter (optional).",
-    "err.config_missing": "Matter device data is missing. Set {env_json} or {env_file} for devices, controllers, or bridges."
+    "err.ambiguous_target": "Matter device target is ambiguous: {device_id}"
   },
   "pl": {
     "tool.description": "List Matter clusters for a device.",
@@ -269,11 +189,7 @@
     "param.fmt.description": "Format: json or text.",
     "err.device_id_required": "Matter device ID is required.",
     "err.not_found": "Matter device not found: {device_id}",
-    "err.ambiguous_target": "Matter device target is ambiguous: {device_id}",
-    "param.ctrl.description": "Controller ID (optional).",
-    "param.bridge.description": "Bridge ID (optional).",
-    "param.endpoint.description": "Endpoint filter (optional).",
-    "err.config_missing": "Matter device data is missing. Set {env_json} or {env_file} for devices, controllers, or bridges."
+    "err.ambiguous_target": "Matter device target is ambiguous: {device_id}"
   },
   "pt": {
     "tool.description": "List Matter clusters for a device.",
@@ -281,11 +197,7 @@
     "param.fmt.description": "Format: json or text.",
     "err.device_id_required": "Matter device ID is required.",
     "err.not_found": "Matter device not found: {device_id}",
-    "err.ambiguous_target": "Matter device target is ambiguous: {device_id}",
-    "param.ctrl.description": "Controller ID (optional).",
-    "param.bridge.description": "Bridge ID (optional).",
-    "param.endpoint.description": "Endpoint filter (optional).",
-    "err.config_missing": "Matter device data is missing. Set {env_json} or {env_file} for devices, controllers, or bridges."
+    "err.ambiguous_target": "Matter device target is ambiguous: {device_id}"
   },
   "pt_BR": {
     "tool.description": "List Matter clusters for a device.",
@@ -293,11 +205,7 @@
     "param.fmt.description": "Format: json or text.",
     "err.device_id_required": "Matter device ID is required.",
     "err.not_found": "Matter device not found: {device_id}",
-    "err.ambiguous_target": "Matter device target is ambiguous: {device_id}",
-    "param.ctrl.description": "Controller ID (optional).",
-    "param.bridge.description": "Bridge ID (optional).",
-    "param.endpoint.description": "Endpoint filter (optional).",
-    "err.config_missing": "Matter device data is missing. Set {env_json} or {env_file} for devices, controllers, or bridges."
+    "err.ambiguous_target": "Matter device target is ambiguous: {device_id}"
   },
   "ru": {
     "tool.description": "List Matter clusters for a device.",
@@ -305,11 +213,7 @@
     "param.fmt.description": "Format: json or text.",
     "err.device_id_required": "Matter device ID is required.",
     "err.not_found": "Matter device not found: {device_id}",
-    "err.ambiguous_target": "Matter device target is ambiguous: {device_id}",
-    "param.ctrl.description": "Controller ID (optional).",
-    "param.bridge.description": "Bridge ID (optional).",
-    "param.endpoint.description": "Endpoint filter (optional).",
-    "err.config_missing": "Matter device data is missing. Set {env_json} or {env_file} for devices, controllers, or bridges."
+    "err.ambiguous_target": "Matter device target is ambiguous: {device_id}"
   },
   "sv": {
     "tool.description": "List Matter clusters for a device.",
@@ -317,11 +221,7 @@
     "param.fmt.description": "Format: json or text.",
     "err.device_id_required": "Matter device ID is required.",
     "err.not_found": "Matter device not found: {device_id}",
-    "err.ambiguous_target": "Matter device target is ambiguous: {device_id}",
-    "param.ctrl.description": "Controller ID (optional).",
-    "param.bridge.description": "Bridge ID (optional).",
-    "param.endpoint.description": "Endpoint filter (optional).",
-    "err.config_missing": "Matter device data is missing. Set {env_json} or {env_file} for devices, controllers, or bridges."
+    "err.ambiguous_target": "Matter device target is ambiguous: {device_id}"
   },
   "sw": {
     "tool.description": "List Matter clusters for a device.",
@@ -329,11 +229,7 @@
     "param.fmt.description": "Format: json or text.",
     "err.device_id_required": "Matter device ID is required.",
     "err.not_found": "Matter device not found: {device_id}",
-    "err.ambiguous_target": "Matter device target is ambiguous: {device_id}",
-    "param.ctrl.description": "Controller ID (optional).",
-    "param.bridge.description": "Bridge ID (optional).",
-    "param.endpoint.description": "Endpoint filter (optional).",
-    "err.config_missing": "Matter device data is missing. Set {env_json} or {env_file} for devices, controllers, or bridges."
+    "err.ambiguous_target": "Matter device target is ambiguous: {device_id}"
   },
   "th": {
     "tool.description": "List Matter clusters for a device.",
@@ -341,11 +237,7 @@
     "param.fmt.description": "Format: json or text.",
     "err.device_id_required": "Matter device ID is required.",
     "err.not_found": "Matter device not found: {device_id}",
-    "err.ambiguous_target": "Matter device target is ambiguous: {device_id}",
-    "param.ctrl.description": "Controller ID (optional).",
-    "param.bridge.description": "Bridge ID (optional).",
-    "param.endpoint.description": "Endpoint filter (optional).",
-    "err.config_missing": "Matter device data is missing. Set {env_json} or {env_file} for devices, controllers, or bridges."
+    "err.ambiguous_target": "Matter device target is ambiguous: {device_id}"
   },
   "tr": {
     "tool.description": "List Matter clusters for a device.",
@@ -353,11 +245,7 @@
     "param.fmt.description": "Format: json or text.",
     "err.device_id_required": "Matter device ID is required.",
     "err.not_found": "Matter device not found: {device_id}",
-    "err.ambiguous_target": "Matter device target is ambiguous: {device_id}",
-    "param.ctrl.description": "Controller ID (optional).",
-    "param.bridge.description": "Bridge ID (optional).",
-    "param.endpoint.description": "Endpoint filter (optional).",
-    "err.config_missing": "Matter device data is missing. Set {env_json} or {env_file} for devices, controllers, or bridges."
+    "err.ambiguous_target": "Matter device target is ambiguous: {device_id}"
   },
   "uk": {
     "tool.description": "List Matter clusters for a device.",
@@ -365,11 +253,7 @@
     "param.fmt.description": "Format: json or text.",
     "err.device_id_required": "Matter device ID is required.",
     "err.not_found": "Matter device not found: {device_id}",
-    "err.ambiguous_target": "Matter device target is ambiguous: {device_id}",
-    "param.ctrl.description": "Controller ID (optional).",
-    "param.bridge.description": "Bridge ID (optional).",
-    "param.endpoint.description": "Endpoint filter (optional).",
-    "err.config_missing": "Matter device data is missing. Set {env_json} or {env_file} for devices, controllers, or bridges."
+    "err.ambiguous_target": "Matter device target is ambiguous: {device_id}"
   },
   "vi": {
     "tool.description": "List Matter clusters for a device.",
@@ -377,11 +261,7 @@
     "param.fmt.description": "Format: json or text.",
     "err.device_id_required": "Matter device ID is required.",
     "err.not_found": "Matter device not found: {device_id}",
-    "err.ambiguous_target": "Matter device target is ambiguous: {device_id}",
-    "param.ctrl.description": "Controller ID (optional).",
-    "param.bridge.description": "Bridge ID (optional).",
-    "param.endpoint.description": "Endpoint filter (optional).",
-    "err.config_missing": "Matter device data is missing. Set {env_json} or {env_file} for devices, controllers, or bridges."
+    "err.ambiguous_target": "Matter device target is ambiguous: {device_id}"
   },
   "zh_CN": {
     "tool.description": "List Matter clusters for a device.",
@@ -389,11 +269,7 @@
     "param.fmt.description": "Format: json or text.",
     "err.device_id_required": "Matter device ID is required.",
     "err.not_found": "Matter device not found: {device_id}",
-    "err.ambiguous_target": "Matter device target is ambiguous: {device_id}",
-    "param.ctrl.description": "Controller ID (optional).",
-    "param.bridge.description": "Bridge ID (optional).",
-    "param.endpoint.description": "Endpoint filter (optional).",
-    "err.config_missing": "Matter device data is missing. Set {env_json} or {env_file} for devices, controllers, or bridges."
+    "err.ambiguous_target": "Matter device target is ambiguous: {device_id}"
   },
   "zh_TW": {
     "tool.description": "List Matter clusters for a device.",
@@ -401,10 +277,6 @@
     "param.fmt.description": "Format: json or text.",
     "err.device_id_required": "Matter device ID is required.",
     "err.not_found": "Matter device not found: {device_id}",
-    "err.ambiguous_target": "Matter device target is ambiguous: {device_id}",
-    "param.ctrl.description": "Controller ID (optional).",
-    "param.bridge.description": "Bridge ID (optional).",
-    "param.endpoint.description": "Endpoint filter (optional).",
-    "err.config_missing": "Matter device data is missing. Set {env_json} or {env_file} for devices, controllers, or bridges."
+    "err.ambiguous_target": "Matter device target is ambiguous: {device_id}"
   }
 }

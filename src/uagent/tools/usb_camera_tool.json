@@ -51,7 +51,8 @@
     "param.width.description": "Capture width in pixels (e.g. 1920). Uses default if omitted.",
     "param.height.description": "Capture height in pixels (e.g. 1080). Uses default if omitted.",
     "param.fps.description": "Frames per second (e.g. 30). Uses default if omitted.",
-    "param.outdir.description": "Output directory for captured images. Default: outputs/usb_camera."
+    "param.outdir.description": "Output directory for captured images. Default: outputs/usb_camera.",
+    "x_search_terms": ""
   },
   "es": {
     "tool.description": "Capturar imagen de una cámara USB.",
@@ -131,7 +132,7 @@
     "msg.captured": "Immagine catturata dalla fotocamera {index}."
   },
   "ja": {
-    "tool.description": "USBカメラから画像をキャプチャします。",
+    "tool.description": "ffmpeg 経由で USB カメラから写真をキャプチャするか、利用可能なビデオ デバイスをリストします。Windows (dshow)、Linux (v4l2)、macOS (avfoundation) をサポートします。",
     "x_search_terms": "[\"camera\", \"usb camera\", \"webcam\", \"capture\", \"photo\"]",
     "param.camera_id.description": "カメラデバイスインデックス（0 = デフォルト）。",
     "param.width.description": "画像の幅（ピクセル）。",
@@ -139,7 +140,12 @@
     "err.camera_not_found": "インデックス {index} にカメラが見つかりません。",
     "err.capture_failed": "カメラからの画像キャプチャに失敗しました。",
     "err.opencv_missing": "OpenCVが利用できません。インストール: pip install opencv-python",
-    "msg.captured": "カメラ {index} から画像をキャプチャしました。"
+    "msg.captured": "カメラ {index} から画像をキャプチャしました。",
+    "param.action.description": "アクション: キャプチャ (写真を撮る)、リスト (デバイスを表示)、または list_caps (デバイスの解像度や FPS などの機能を表示)。",
+    "param.devname.description": "デバイス名/パス (インデックスを上書き)。Linux では、/dev/videoN を使用します。リスト アクションを使用して名前を検索します。",
+    "param.index.description": "ビデオ デバイスのインデックス (0 = 最初)。デフォルト: 0。",
+    "param.fps.description": "Frames per second (e.g. 30). Uses default if omitted.",
+    "param.outdir.description": "Output directory for captured images. Default: outputs/usb_camera."
   },
   "ko": {
     "tool.description": "USB 카메라에서 이미지를 캡쳐합니다.",

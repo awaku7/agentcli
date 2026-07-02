@@ -5,9 +5,7 @@
     "param.limit.description": "Maximum number of nodes to return. 0 means unlimited.",
     "param.fmt.description": "Format: json or text.",
     "msg.summary": "ECHONET Lite discovery completed: {count} node(s) found in {elapsed_ms} ms.",
-    "msg.no_devices": "No ECHONET Lite nodes were found.",
-    "tool.description": "Discover ECHONET Lite nodes on the local network and return a JSON or text list.",
-    "param.interface.description": "Local interface IPv4/name (optional)."
+    "msg.no_devices": "No ECHONET Lite nodes were found."
   },
   "bn": {
     "param.timeout.description": "Receive wait time in seconds for ECHONET Lite discovery.",
@@ -15,9 +13,7 @@
     "param.limit.description": "Maximum number of nodes to return. 0 means unlimited.",
     "param.fmt.description": "Format: json or text.",
     "msg.summary": "ECHONET Lite discovery completed: {count} node(s) found in {elapsed_ms} ms.",
-    "msg.no_devices": "No ECHONET Lite nodes were found.",
-    "tool.description": "Discover ECHONET Lite nodes on the local network and return a JSON or text list.",
-    "param.interface.description": "Local interface IPv4/name (optional)."
+    "msg.no_devices": "No ECHONET Lite nodes were found."
   },
   "cs": {
     "param.timeout.description": "Receive wait time in seconds for ECHONET Lite discovery.",
@@ -25,9 +21,7 @@
     "param.limit.description": "Maximum number of nodes to return. 0 means unlimited.",
     "param.fmt.description": "Format: json or text.",
     "msg.summary": "ECHONET Lite discovery completed: {count} node(s) found in {elapsed_ms} ms.",
-    "msg.no_devices": "No ECHONET Lite nodes were found.",
-    "tool.description": "Discover ECHONET Lite nodes on the local network and return a JSON or text list.",
-    "param.interface.description": "Local interface IPv4/name (optional)."
+    "msg.no_devices": "No ECHONET Lite nodes were found."
   },
   "de": {
     "param.timeout.description": "Receive wait time in seconds for ECHONET Lite discovery.",
@@ -35,9 +29,7 @@
     "param.limit.description": "Maximum number of nodes to return. 0 means unlimited.",
     "param.fmt.description": "Format: json or text.",
     "msg.summary": "ECHONET Lite discovery completed: {count} node(s) found in {elapsed_ms} ms.",
-    "msg.no_devices": "No ECHONET Lite nodes were found.",
-    "tool.description": "Discover ECHONET Lite nodes on the local network and return a JSON or text list.",
-    "param.interface.description": "Local interface IPv4/name (optional)."
+    "msg.no_devices": "No ECHONET Lite nodes were found."
   },
   "en": {
     "param.timeout.description": "Receive wait time in seconds for ECHONET Lite discovery.",
@@ -46,8 +38,9 @@
     "param.fmt.description": "Format: json or text.",
     "msg.summary": "ECHONET Lite discovery completed: {count} node(s) found in {elapsed_ms} ms.",
     "msg.no_devices": "No ECHONET Lite nodes were found.",
-    "tool.description": "Discover ECHONET Lite nodes on the local network and return a JSON or text list.",
-    "param.interface.description": "Local interface IPv4/name (optional)."
+    "err.invalid_interface": "Error: Could not resolve interface '{interface}' to a local IPv4 address.",
+    "param.interface.description": "Local interface IPv4/name (optional).",
+    "tool.description": "Discover ECHONET Lite nodes on the local network and return a JSON or text list."
   },
   "es": {
     "param.timeout.description": "Receive wait time in seconds for ECHONET Lite discovery.",
@@ -55,9 +48,7 @@
     "param.limit.description": "Maximum number of nodes to return. 0 means unlimited.",
     "param.fmt.description": "Format: json or text.",
     "msg.summary": "ECHONET Lite discovery completed: {count} node(s) found in {elapsed_ms} ms.",
-    "msg.no_devices": "No ECHONET Lite nodes were found.",
-    "tool.description": "Discover ECHONET Lite nodes on the local network and return a JSON or text list.",
-    "param.interface.description": "Local interface IPv4/name (optional)."
+    "msg.no_devices": "No ECHONET Lite nodes were found."
   },
   "fa": {
     "param.timeout.description": "Receive wait time in seconds for ECHONET Lite discovery.",
@@ -65,9 +56,7 @@
     "param.limit.description": "Maximum number of nodes to return. 0 means unlimited.",
     "param.fmt.description": "Format: json or text.",
     "msg.summary": "ECHONET Lite discovery completed: {count} node(s) found in {elapsed_ms} ms.",
-    "msg.no_devices": "No ECHONET Lite nodes were found.",
-    "tool.description": "Discover ECHONET Lite nodes on the local network and return a JSON or text list.",
-    "param.interface.description": "Local interface IPv4/name (optional)."
+    "msg.no_devices": "No ECHONET Lite nodes were found."
   },
   "fi": {
     "param.timeout.description": "Receive wait time in seconds for ECHONET Lite discovery.",
@@ -75,9 +64,7 @@
     "param.limit.description": "Maximum number of nodes to return. 0 means unlimited.",
     "param.fmt.description": "Format: json or text.",
     "msg.summary": "ECHONET Lite discovery completed: {count} node(s) found in {elapsed_ms} ms.",
-    "msg.no_devices": "No ECHONET Lite nodes were found.",
-    "tool.description": "Discover ECHONET Lite nodes on the local network and return a JSON or text list.",
-    "param.interface.description": "Local interface IPv4/name (optional)."
+    "msg.no_devices": "No ECHONET Lite nodes were found."
   },
   "fr": {
     "param.timeout.description": "Receive wait time in seconds for ECHONET Lite discovery.",
@@ -85,9 +72,7 @@
     "param.limit.description": "Maximum number of nodes to return. 0 means unlimited.",
     "param.fmt.description": "Format: json or text.",
     "msg.summary": "ECHONET Lite discovery completed: {count} node(s) found in {elapsed_ms} ms.",
-    "msg.no_devices": "No ECHONET Lite nodes were found.",
-    "tool.description": "Discover ECHONET Lite nodes on the local network and return a JSON or text list.",
-    "param.interface.description": "Local interface IPv4/name (optional)."
+    "msg.no_devices": "No ECHONET Lite nodes were found."
   },
   "hi": {
     "param.timeout.description": "Receive wait time in seconds for ECHONET Lite discovery.",
@@ -95,9 +80,7 @@
     "param.limit.description": "Maximum number of nodes to return. 0 means unlimited.",
     "param.fmt.description": "Format: json or text.",
     "msg.summary": "ECHONET Lite discovery completed: {count} node(s) found in {elapsed_ms} ms.",
-    "msg.no_devices": "No ECHONET Lite nodes were found.",
-    "tool.description": "Discover ECHONET Lite nodes on the local network and return a JSON or text list.",
-    "param.interface.description": "Local interface IPv4/name (optional)."
+    "msg.no_devices": "No ECHONET Lite nodes were found."
   },
   "id": {
     "param.timeout.description": "Receive wait time in seconds for ECHONET Lite discovery.",
@@ -105,9 +88,7 @@
     "param.limit.description": "Maximum number of nodes to return. 0 means unlimited.",
     "param.fmt.description": "Format: json or text.",
     "msg.summary": "ECHONET Lite discovery completed: {count} node(s) found in {elapsed_ms} ms.",
-    "msg.no_devices": "No ECHONET Lite nodes were found.",
-    "tool.description": "Discover ECHONET Lite nodes on the local network and return a JSON or text list.",
-    "param.interface.description": "Local interface IPv4/name (optional)."
+    "msg.no_devices": "No ECHONET Lite nodes were found."
   },
   "it": {
     "param.timeout.description": "Receive wait time in seconds for ECHONET Lite discovery.",
@@ -115,9 +96,7 @@
     "param.limit.description": "Maximum number of nodes to return. 0 means unlimited.",
     "param.fmt.description": "Format: json or text.",
     "msg.summary": "ECHONET Lite discovery completed: {count} node(s) found in {elapsed_ms} ms.",
-    "msg.no_devices": "No ECHONET Lite nodes were found.",
-    "tool.description": "Discover ECHONET Lite nodes on the local network and return a JSON or text list.",
-    "param.interface.description": "Local interface IPv4/name (optional)."
+    "msg.no_devices": "No ECHONET Lite nodes were found."
   },
   "ja": {
     "param.timeout.description": "Receive wait time in seconds for ECHONET Lite discovery.",
@@ -126,8 +105,9 @@
     "param.fmt.description": "Format: json or text.",
     "msg.summary": "ECHONET Lite discovery completed: {count} node(s) found in {elapsed_ms} ms.",
     "msg.no_devices": "No ECHONET Lite nodes were found.",
-    "tool.description": "Discover ECHONET Lite nodes on the local network and return a JSON or text list.",
-    "param.interface.description": "Local interface IPv4/name (optional)."
+    "err.invalid_interface": "エラー: インターフェース '{interface}' をローカル IPv4 アドレスに解決できませんでした。",
+    "param.interface.description": "ローカル インターフェイスの IPv4/名前 (オプション)。",
+    "tool.description": "ローカルネットワーク上のECHONET Liteノードを検出し、JSONまたはテキストリストを返します。"
   },
   "ko": {
     "param.timeout.description": "Receive wait time in seconds for ECHONET Lite discovery.",
@@ -135,9 +115,7 @@
     "param.limit.description": "Maximum number of nodes to return. 0 means unlimited.",
     "param.fmt.description": "Format: json or text.",
     "msg.summary": "ECHONET Lite discovery completed: {count} node(s) found in {elapsed_ms} ms.",
-    "msg.no_devices": "No ECHONET Lite nodes were found.",
-    "tool.description": "Discover ECHONET Lite nodes on the local network and return a JSON or text list.",
-    "param.interface.description": "Local interface IPv4/name (optional)."
+    "msg.no_devices": "No ECHONET Lite nodes were found."
   },
   "mn": {
     "param.timeout.description": "Receive wait time in seconds for ECHONET Lite discovery.",
@@ -145,9 +123,7 @@
     "param.limit.description": "Maximum number of nodes to return. 0 means unlimited.",
     "param.fmt.description": "Format: json or text.",
     "msg.summary": "ECHONET Lite discovery completed: {count} node(s) found in {elapsed_ms} ms.",
-    "msg.no_devices": "No ECHONET Lite nodes were found.",
-    "tool.description": "Discover ECHONET Lite nodes on the local network and return a JSON or text list.",
-    "param.interface.description": "Local interface IPv4/name (optional)."
+    "msg.no_devices": "No ECHONET Lite nodes were found."
   },
   "mr": {
     "param.timeout.description": "Receive wait time in seconds for ECHONET Lite discovery.",
@@ -155,9 +131,7 @@
     "param.limit.description": "Maximum number of nodes to return. 0 means unlimited.",
     "param.fmt.description": "Format: json or text.",
     "msg.summary": "ECHONET Lite discovery completed: {count} node(s) found in {elapsed_ms} ms.",
-    "msg.no_devices": "No ECHONET Lite nodes were found.",
-    "tool.description": "Discover ECHONET Lite nodes on the local network and return a JSON or text list.",
-    "param.interface.description": "Local interface IPv4/name (optional)."
+    "msg.no_devices": "No ECHONET Lite nodes were found."
   },
   "el": {
     "param.timeout.description": "Λάβετε χρόνο αναμονής σε δευτερόλεπτα για την ανακάλυψη ECHONET Lite.",
@@ -165,9 +139,7 @@
     "param.limit.description": "Μέγιστος αριθμός κόμβων προς επιστροφή. Το 0 σημαίνει απεριόριστο.",
     "param.fmt.description": "Μορφή: json ή κείμενο.",
     "msg.summary": "Ολοκληρώθηκε η ανακάλυψη ECHONET Lite: Βρέθηκαν {count} κόμβοι σε {elapsed_ms} ms.",
-    "msg.no_devices": "Δεν βρέθηκαν κόμβοι ECHONET Lite.",
-    "tool.description": "Ανακαλύψτε τους κόμβους ECHONET Lite στο τοπικό δίκτυο και επιστρέψτε μια λίστα JSON ή κειμένου.",
-    "param.interface.description": "Τοπική διεπαφή IPv4/όνομα (προαιρετικό)."
+    "msg.no_devices": "Δεν βρέθηκαν κόμβοι ECHONET Lite."
   },
   "he": {
     "param.timeout.description": "קבל זמן המתנה בשניות לגילוי ECHONET Lite.",
@@ -175,9 +147,7 @@
     "param.limit.description": "המספר המרבי של צמתים להחזרה. 0 פירושו בלתי מוגבל.",
     "param.fmt.description": "פורמט: json או טקסט.",
     "msg.summary": "גילוי ECHONET Lite הושלם: {count} צמתים נמצאו ב-{elapsed_ms} אלפיות השנייה.",
-    "msg.no_devices": "לא נמצאו צמתים של ECHONET Lite.",
-    "tool.description": "גלה צמתי ECHONET Lite ברשת המקומית והחזר JSON או רשימת טקסט.",
-    "param.interface.description": "ממשק מקומי IPv4/שם (אופציונלי)."
+    "msg.no_devices": "לא נמצאו צמתים של ECHONET Lite."
   },
   "hu": {
     "param.timeout.description": "Várakozási idő másodpercekben az ECHONET Lite felfedezéséhez.",
@@ -185,9 +155,7 @@
     "param.limit.description": "A visszaküldendő csomópontok maximális száma. A 0 azt jelenti, hogy korlátlan.",
     "param.fmt.description": "Formátum: json vagy szöveg.",
     "msg.summary": "Az ECHONET Lite felderítése befejeződött: {count} csomópont található {elapsed_ms} ms alatt.",
-    "msg.no_devices": "Nem található ECHONET Lite csomópont.",
-    "tool.description": "Fedezze fel az ECHONET Lite csomópontokat a helyi hálózaton, és küldjön vissza egy JSON- vagy szöveglistát.",
-    "param.interface.description": "Helyi interfész IPv4/név (opcionális)."
+    "msg.no_devices": "Nem található ECHONET Lite csomópont."
   },
   "ro": {
     "param.timeout.description": "Primiți timpul de așteptare în secunde pentru descoperirea ECHONET Lite.",
@@ -195,9 +163,7 @@
     "param.limit.description": "Numărul maxim de noduri de returnat. 0 înseamnă nelimitat.",
     "param.fmt.description": "Format: json sau text.",
     "msg.summary": "Descoperirea ECHONET Lite a fost finalizată: {count} noduri găsite în {elapsed_ms} ms.",
-    "msg.no_devices": "Nu au fost găsite noduri ECHONET Lite.",
-    "tool.description": "Descoperiți nodurile ECHONET Lite din rețeaua locală și returnați o listă JSON sau text.",
-    "param.interface.description": "Interfață locală IPv4/nume (opțional)."
+    "msg.no_devices": "Nu au fost găsite noduri ECHONET Lite."
   },
   "nb": {
     "param.timeout.description": "Receive wait time in seconds for ECHONET Lite discovery.",
@@ -205,9 +171,7 @@
     "param.limit.description": "Maximum number of nodes to return. 0 means unlimited.",
     "param.fmt.description": "Format: json or text.",
     "msg.summary": "ECHONET Lite discovery completed: {count} node(s) found in {elapsed_ms} ms.",
-    "msg.no_devices": "No ECHONET Lite nodes were found.",
-    "tool.description": "Discover ECHONET Lite nodes on the local network and return a JSON or text list.",
-    "param.interface.description": "Local interface IPv4/name (optional)."
+    "msg.no_devices": "No ECHONET Lite nodes were found."
   },
   "nl": {
     "param.timeout.description": "Receive wait time in seconds for ECHONET Lite discovery.",
@@ -215,9 +179,7 @@
     "param.limit.description": "Maximum number of nodes to return. 0 means unlimited.",
     "param.fmt.description": "Format: json or text.",
     "msg.summary": "ECHONET Lite discovery completed: {count} node(s) found in {elapsed_ms} ms.",
-    "msg.no_devices": "No ECHONET Lite nodes were found.",
-    "tool.description": "Discover ECHONET Lite nodes on the local network and return a JSON or text list.",
-    "param.interface.description": "Local interface IPv4/name (optional)."
+    "msg.no_devices": "No ECHONET Lite nodes were found."
   },
   "pl": {
     "param.timeout.description": "Receive wait time in seconds for ECHONET Lite discovery.",
@@ -225,9 +187,7 @@
     "param.limit.description": "Maximum number of nodes to return. 0 means unlimited.",
     "param.fmt.description": "Format: json or text.",
     "msg.summary": "ECHONET Lite discovery completed: {count} node(s) found in {elapsed_ms} ms.",
-    "msg.no_devices": "No ECHONET Lite nodes were found.",
-    "tool.description": "Discover ECHONET Lite nodes on the local network and return a JSON or text list.",
-    "param.interface.description": "Local interface IPv4/name (optional)."
+    "msg.no_devices": "No ECHONET Lite nodes were found."
   },
   "pt": {
     "param.timeout.description": "Receive wait time in seconds for ECHONET Lite discovery.",
@@ -235,9 +195,7 @@
     "param.limit.description": "Maximum number of nodes to return. 0 means unlimited.",
     "param.fmt.description": "Format: json or text.",
     "msg.summary": "ECHONET Lite discovery completed: {count} node(s) found in {elapsed_ms} ms.",
-    "msg.no_devices": "No ECHONET Lite nodes were found.",
-    "tool.description": "Discover ECHONET Lite nodes on the local network and return a JSON or text list.",
-    "param.interface.description": "Local interface IPv4/name (optional)."
+    "msg.no_devices": "No ECHONET Lite nodes were found."
   },
   "pt_BR": {
     "param.timeout.description": "Receive wait time in seconds for ECHONET Lite discovery.",
@@ -245,9 +203,7 @@
     "param.limit.description": "Maximum number of nodes to return. 0 means unlimited.",
     "param.fmt.description": "Format: json or text.",
     "msg.summary": "ECHONET Lite discovery completed: {count} node(s) found in {elapsed_ms} ms.",
-    "msg.no_devices": "No ECHONET Lite nodes were found.",
-    "tool.description": "Discover ECHONET Lite nodes on the local network and return a JSON or text list.",
-    "param.interface.description": "Local interface IPv4/name (optional)."
+    "msg.no_devices": "No ECHONET Lite nodes were found."
   },
   "ru": {
     "param.timeout.description": "Receive wait time in seconds for ECHONET Lite discovery.",
@@ -255,9 +211,7 @@
     "param.limit.description": "Maximum number of nodes to return. 0 means unlimited.",
     "param.fmt.description": "Format: json or text.",
     "msg.summary": "ECHONET Lite discovery completed: {count} node(s) found in {elapsed_ms} ms.",
-    "msg.no_devices": "No ECHONET Lite nodes were found.",
-    "tool.description": "Discover ECHONET Lite nodes on the local network and return a JSON or text list.",
-    "param.interface.description": "Local interface IPv4/name (optional)."
+    "msg.no_devices": "No ECHONET Lite nodes were found."
   },
   "sv": {
     "param.timeout.description": "Receive wait time in seconds for ECHONET Lite discovery.",
@@ -265,9 +219,7 @@
     "param.limit.description": "Maximum number of nodes to return. 0 means unlimited.",
     "param.fmt.description": "Format: json or text.",
     "msg.summary": "ECHONET Lite discovery completed: {count} node(s) found in {elapsed_ms} ms.",
-    "msg.no_devices": "No ECHONET Lite nodes were found.",
-    "tool.description": "Discover ECHONET Lite nodes on the local network and return a JSON or text list.",
-    "param.interface.description": "Local interface IPv4/name (optional)."
+    "msg.no_devices": "No ECHONET Lite nodes were found."
   },
   "sw": {
     "param.timeout.description": "Receive wait time in seconds for ECHONET Lite discovery.",
@@ -275,9 +227,7 @@
     "param.limit.description": "Maximum number of nodes to return. 0 means unlimited.",
     "param.fmt.description": "Format: json or text.",
     "msg.summary": "ECHONET Lite discovery completed: {count} node(s) found in {elapsed_ms} ms.",
-    "msg.no_devices": "No ECHONET Lite nodes were found.",
-    "tool.description": "Discover ECHONET Lite nodes on the local network and return a JSON or text list.",
-    "param.interface.description": "Local interface IPv4/name (optional)."
+    "msg.no_devices": "No ECHONET Lite nodes were found."
   },
   "th": {
     "param.timeout.description": "Receive wait time in seconds for ECHONET Lite discovery.",
@@ -285,9 +235,7 @@
     "param.limit.description": "Maximum number of nodes to return. 0 means unlimited.",
     "param.fmt.description": "Format: json or text.",
     "msg.summary": "ECHONET Lite discovery completed: {count} node(s) found in {elapsed_ms} ms.",
-    "msg.no_devices": "No ECHONET Lite nodes were found.",
-    "tool.description": "Discover ECHONET Lite nodes on the local network and return a JSON or text list.",
-    "param.interface.description": "Local interface IPv4/name (optional)."
+    "msg.no_devices": "No ECHONET Lite nodes were found."
   },
   "tr": {
     "param.timeout.description": "Receive wait time in seconds for ECHONET Lite discovery.",
@@ -295,9 +243,7 @@
     "param.limit.description": "Maximum number of nodes to return. 0 means unlimited.",
     "param.fmt.description": "Format: json or text.",
     "msg.summary": "ECHONET Lite discovery completed: {count} node(s) found in {elapsed_ms} ms.",
-    "msg.no_devices": "No ECHONET Lite nodes were found.",
-    "tool.description": "Discover ECHONET Lite nodes on the local network and return a JSON or text list.",
-    "param.interface.description": "Local interface IPv4/name (optional)."
+    "msg.no_devices": "No ECHONET Lite nodes were found."
   },
   "uk": {
     "param.timeout.description": "Receive wait time in seconds for ECHONET Lite discovery.",
@@ -305,9 +251,7 @@
     "param.limit.description": "Maximum number of nodes to return. 0 means unlimited.",
     "param.fmt.description": "Format: json or text.",
     "msg.summary": "ECHONET Lite discovery completed: {count} node(s) found in {elapsed_ms} ms.",
-    "msg.no_devices": "No ECHONET Lite nodes were found.",
-    "tool.description": "Discover ECHONET Lite nodes on the local network and return a JSON or text list.",
-    "param.interface.description": "Local interface IPv4/name (optional)."
+    "msg.no_devices": "No ECHONET Lite nodes were found."
   },
   "vi": {
     "param.timeout.description": "Receive wait time in seconds for ECHONET Lite discovery.",
@@ -315,9 +259,7 @@
     "param.limit.description": "Maximum number of nodes to return. 0 means unlimited.",
     "param.fmt.description": "Format: json or text.",
     "msg.summary": "ECHONET Lite discovery completed: {count} node(s) found in {elapsed_ms} ms.",
-    "msg.no_devices": "No ECHONET Lite nodes were found.",
-    "tool.description": "Discover ECHONET Lite nodes on the local network and return a JSON or text list.",
-    "param.interface.description": "Local interface IPv4/name (optional)."
+    "msg.no_devices": "No ECHONET Lite nodes were found."
   },
   "zh_CN": {
     "param.timeout.description": "Receive wait time in seconds for ECHONET Lite discovery.",
@@ -325,9 +267,7 @@
     "param.limit.description": "Maximum number of nodes to return. 0 means unlimited.",
     "param.fmt.description": "Format: json or text.",
     "msg.summary": "ECHONET Lite discovery completed: {count} node(s) found in {elapsed_ms} ms.",
-    "msg.no_devices": "No ECHONET Lite nodes were found.",
-    "tool.description": "Discover ECHONET Lite nodes on the local network and return a JSON or text list.",
-    "param.interface.description": "Local interface IPv4/name (optional)."
+    "msg.no_devices": "No ECHONET Lite nodes were found."
   },
   "zh_TW": {
     "param.timeout.description": "Receive wait time in seconds for ECHONET Lite discovery.",
@@ -335,8 +275,6 @@
     "param.limit.description": "Maximum number of nodes to return. 0 means unlimited.",
     "param.fmt.description": "Format: json or text.",
     "msg.summary": "ECHONET Lite discovery completed: {count} node(s) found in {elapsed_ms} ms.",
-    "msg.no_devices": "No ECHONET Lite nodes were found.",
-    "tool.description": "Discover ECHONET Lite nodes on the local network and return a JSON or text list.",
-    "param.interface.description": "Local interface IPv4/name (optional)."
+    "msg.no_devices": "No ECHONET Lite nodes were found."
   }
 }

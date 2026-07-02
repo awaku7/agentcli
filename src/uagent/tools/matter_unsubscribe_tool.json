@@ -1,0 +1,16 @@
+{
+  "en": {
+    "tool.description": "Remove a Matter device subscription.",
+    "err.subscription_id_required": "Subscription ID is required.",
+    "param.subscription_id.description": "Subscription ID to remove.",
+    "param.fmt.description": "Format: json or text.",
+    "err.subscription_not_found": "Subscription not found: {id}"
+  },
+  "ja": {
+    "err.subscription_id_required": "Subscription ID is required.",
+    "err.subscription_not_found": "Subscription not found: {id}",
+    "param.fmt.description": "形式: json またはテキスト。",
+    "param.subscription_id.description": "Subscription ID to remove.",
+    "tool.description": "Matter デバイスのサブスクリプションを削除します。"
+  }
+}

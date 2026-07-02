@@ -1,274 +1,114 @@
 {
   "ar": {
-    "param.fmt.description": "Format: json or text.",
-    "tool.description": "List Matter bridge-managed devices and return a JSON or text summary.",
-    "param.bridge.description": "Bridge ID (omit for all).",
-    "err.config_missing": "Matter bridge configuration file was not found. Set {env_json} or {env_file}.",
-    "err.invalid_config": "Matter bridge configuration could not be parsed: {err}",
-    "err.not_found": "Matter bridge not found: {bridge_id}"
+    "param.fmt.description": "Format: json or text."
   },
   "bn": {
-    "param.fmt.description": "Format: json or text.",
-    "tool.description": "List Matter bridge-managed devices and return a JSON or text summary.",
-    "param.bridge.description": "Bridge ID (omit for all).",
-    "err.config_missing": "Matter bridge configuration file was not found. Set {env_json} or {env_file}.",
-    "err.invalid_config": "Matter bridge configuration could not be parsed: {err}",
-    "err.not_found": "Matter bridge not found: {bridge_id}"
+    "param.fmt.description": "Format: json or text."
   },
   "cs": {
-    "param.fmt.description": "Format: json or text.",
-    "tool.description": "List Matter bridge-managed devices and return a JSON or text summary.",
-    "param.bridge.description": "Bridge ID (omit for all).",
-    "err.config_missing": "Matter bridge configuration file was not found. Set {env_json} or {env_file}.",
-    "err.invalid_config": "Matter bridge configuration could not be parsed: {err}",
-    "err.not_found": "Matter bridge not found: {bridge_id}"
+    "param.fmt.description": "Format: json or text."
   },
   "de": {
-    "param.fmt.description": "Format: json or text.",
-    "tool.description": "List Matter bridge-managed devices and return a JSON or text summary.",
-    "param.bridge.description": "Bridge ID (omit for all).",
-    "err.config_missing": "Matter bridge configuration file was not found. Set {env_json} or {env_file}.",
-    "err.invalid_config": "Matter bridge configuration could not be parsed: {err}",
-    "err.not_found": "Matter bridge not found: {bridge_id}"
+    "param.fmt.description": "Format: json or text."
   },
   "en": {
     "param.fmt.description": "Format: json or text.",
-    "tool.description": "List Matter bridge-managed devices and return a JSON or text summary.",
-    "param.bridge.description": "Bridge ID (omit for all).",
     "err.config_missing": "Matter bridge configuration file was not found. Set {env_json} or {env_file}.",
     "err.invalid_config": "Matter bridge configuration could not be parsed: {err}",
-    "err.not_found": "Matter bridge not found: {bridge_id}"
+    "err.not_found": "Matter bridge not found: {bridge_id}",
+    "param.bridge.description": "Bridge ID (omit for all).",
+    "tool.description": "List Matter bridge-managed devices and return a JSON or text summary."
   },
   "es": {
-    "param.fmt.description": "Format: json or text.",
-    "tool.description": "List Matter bridge-managed devices and return a JSON or text summary.",
-    "param.bridge.description": "Bridge ID (omit for all).",
-    "err.config_missing": "Matter bridge configuration file was not found. Set {env_json} or {env_file}.",
-    "err.invalid_config": "Matter bridge configuration could not be parsed: {err}",
-    "err.not_found": "Matter bridge not found: {bridge_id}"
+    "param.fmt.description": "Format: json or text."
   },
   "fa": {
-    "param.fmt.description": "Format: json or text.",
-    "tool.description": "List Matter bridge-managed devices and return a JSON or text summary.",
-    "param.bridge.description": "Bridge ID (omit for all).",
-    "err.config_missing": "Matter bridge configuration file was not found. Set {env_json} or {env_file}.",
-    "err.invalid_config": "Matter bridge configuration could not be parsed: {err}",
-    "err.not_found": "Matter bridge not found: {bridge_id}"
+    "param.fmt.description": "Format: json or text."
   },
   "fi": {
-    "param.fmt.description": "Format: json or text.",
-    "tool.description": "List Matter bridge-managed devices and return a JSON or text summary.",
-    "param.bridge.description": "Bridge ID (omit for all).",
-    "err.config_missing": "Matter bridge configuration file was not found. Set {env_json} or {env_file}.",
-    "err.invalid_config": "Matter bridge configuration could not be parsed: {err}",
-    "err.not_found": "Matter bridge not found: {bridge_id}"
+    "param.fmt.description": "Format: json or text."
   },
   "fr": {
-    "param.fmt.description": "Format: json or text.",
-    "tool.description": "List Matter bridge-managed devices and return a JSON or text summary.",
-    "param.bridge.description": "Bridge ID (omit for all).",
-    "err.config_missing": "Matter bridge configuration file was not found. Set {env_json} or {env_file}.",
-    "err.invalid_config": "Matter bridge configuration could not be parsed: {err}",
-    "err.not_found": "Matter bridge not found: {bridge_id}"
+    "param.fmt.description": "Format: json or text."
   },
   "hi": {
-    "param.fmt.description": "Format: json or text.",
-    "tool.description": "List Matter bridge-managed devices and return a JSON or text summary.",
-    "param.bridge.description": "Bridge ID (omit for all).",
-    "err.config_missing": "Matter bridge configuration file was not found. Set {env_json} or {env_file}.",
-    "err.invalid_config": "Matter bridge configuration could not be parsed: {err}",
-    "err.not_found": "Matter bridge not found: {bridge_id}"
+    "param.fmt.description": "Format: json or text."
   },
   "id": {
-    "param.fmt.description": "Format: json or text.",
-    "tool.description": "List Matter bridge-managed devices and return a JSON or text summary.",
-    "param.bridge.description": "Bridge ID (omit for all).",
-    "err.config_missing": "Matter bridge configuration file was not found. Set {env_json} or {env_file}.",
-    "err.invalid_config": "Matter bridge configuration could not be parsed: {err}",
-    "err.not_found": "Matter bridge not found: {bridge_id}"
+    "param.fmt.description": "Format: json or text."
   },
   "it": {
-    "param.fmt.description": "Format: json or text.",
-    "tool.description": "List Matter bridge-managed devices and return a JSON or text summary.",
-    "param.bridge.description": "Bridge ID (omit for all).",
-    "err.config_missing": "Matter bridge configuration file was not found. Set {env_json} or {env_file}.",
-    "err.invalid_config": "Matter bridge configuration could not be parsed: {err}",
-    "err.not_found": "Matter bridge not found: {bridge_id}"
+    "param.fmt.description": "Format: json or text."
   },
   "ja": {
     "param.fmt.description": "Format: json or text.",
-    "tool.description": "List Matter bridge-managed devices and return a JSON or text summary.",
-    "param.bridge.description": "Bridge ID (omit for all).",
-    "err.config_missing": "Matter bridge configuration file was not found. Set {env_json} or {env_file}.",
-    "err.invalid_config": "Matter bridge configuration could not be parsed: {err}",
-    "err.not_found": "Matter bridge not found: {bridge_id}"
+    "err.config_missing": "マターブリッジ設定ファイルが見つかりませんでした。{env_json} または {env_file} を設定します。",
+    "err.invalid_config": "マターブリッジ構成を解析できませんでした: {err}",
+    "err.not_found": "マターブリッジが見つかりません: {bridge_id}",
+    "param.bridge.description": "ブリッジ ID (すべて省略)。",
+    "tool.description": "Matter ブリッジ管理デバイスをリストし、JSON またはテキストの概要を返します。"
   },
   "ko": {
-    "param.fmt.description": "Format: json or text.",
-    "tool.description": "List Matter bridge-managed devices and return a JSON or text summary.",
-    "param.bridge.description": "Bridge ID (omit for all).",
-    "err.config_missing": "Matter bridge configuration file was not found. Set {env_json} or {env_file}.",
-    "err.invalid_config": "Matter bridge configuration could not be parsed: {err}",
-    "err.not_found": "Matter bridge not found: {bridge_id}"
+    "param.fmt.description": "Format: json or text."
   },
   "mn": {
-    "param.fmt.description": "Format: json or text.",
-    "tool.description": "List Matter bridge-managed devices and return a JSON or text summary.",
-    "param.bridge.description": "Bridge ID (omit for all).",
-    "err.config_missing": "Matter bridge configuration file was not found. Set {env_json} or {env_file}.",
-    "err.invalid_config": "Matter bridge configuration could not be parsed: {err}",
-    "err.not_found": "Matter bridge not found: {bridge_id}"
+    "param.fmt.description": "Format: json or text."
   },
   "mr": {
-    "param.fmt.description": "Format: json or text.",
-    "tool.description": "List Matter bridge-managed devices and return a JSON or text summary.",
-    "param.bridge.description": "Bridge ID (omit for all).",
-    "err.config_missing": "Matter bridge configuration file was not found. Set {env_json} or {env_file}.",
-    "err.invalid_config": "Matter bridge configuration could not be parsed: {err}",
-    "err.not_found": "Matter bridge not found: {bridge_id}"
+    "param.fmt.description": "Format: json or text."
   },
   "el": {
-    "param.fmt.description": "Στιγμιότυπο προσωρινής μνήμης ECHONET: {count} στοιχεία.",
-    "tool.description": "Το αρχείο διαμόρφωσης Matter Bridge δεν βρέθηκε. Ορίστε {env_json} ή {env_file}.",
-    "param.bridge.description": "Δεν ήταν δυνατή η ανάλυση της διαμόρφωσης γέφυρας ύλης: {err}",
-    "err.config_missing": "Δεν βρέθηκε η γέφυρα ύλης: {bridge_id}",
-    "err.invalid_config": "Συστάδες ύλης λίστας για μια συσκευή.",
-    "err.not_found": "Αναγνωριστικό συσκευής (απαιτείται)."
+    "param.fmt.description": "Στιγμιότυπο προσωρινής μνήμης ECHONET: {count} στοιχεία."
   },
   "he": {
-    "param.fmt.description": "אין ערכים במטמון.",
-    "tool.description": "קובץ התצורה של Matter Bridge לא נמצא. הגדר את {env_json} או {env_file}.",
-    "param.bridge.description": "לא ניתן היה לנתח את תצורת גשר ה-Mater: {err}",
-    "err.config_missing": "גשר ה-Mater לא נמצא: {bridge_id}",
-    "err.invalid_config": "רשימת אשכולות חומר עבור מכשיר.",
-    "err.not_found": "מזהה מכשיר (חובה)."
+    "param.fmt.description": "אין ערכים במטמון."
   },
   "hu": {
-    "param.fmt.description": "Gyorsítótár művelet: pillanatfelvétel vagy törlés.",
-    "tool.description": "Az anyaghíd konfigurációs fájlja nem található. Állítsa be: {env_json} vagy {env_file}.",
-    "param.bridge.description": "Az anyaghíd-konfigurációt nem sikerült elemezni: {err}",
-    "err.config_missing": "Anyaghíd nem található: {bridge_id}",
-    "err.invalid_config": "Anyagfürtök listázása egy eszközhöz.",
-    "err.not_found": "Eszközazonosító (kötelező)."
+    "param.fmt.description": "Gyorsítótár művelet: pillanatfelvétel vagy törlés."
   },
   "ro": {
-    "param.fmt.description": "Inspectați sau ștergeți memoria cache ECHONET Lite partajată.",
-    "tool.description": "[long_memory truncated: limitat la {max_bytes} caractere]",
-    "param.bridge.description": "Listă dispozitivele Matter gestionate prin punte și returnează un rezumat JSON sau text.",
-    "err.config_missing": "ID pod (omiteți pentru toate).",
-    "err.invalid_config": "Fișierul de configurare Matter bridge nu a fost găsit. Setați {env_json} sau {env_file}.",
-    "err.not_found": "Configurația Matter bridge nu a putut fi analizată: {err}"
+    "param.fmt.description": "Inspectați sau ștergeți memoria cache ECHONET Lite partajată."
   },
   "nb": {
-    "param.fmt.description": "Format: json or text.",
-    "tool.description": "List Matter bridge-managed devices and return a JSON or text summary.",
-    "param.bridge.description": "Bridge ID (omit for all).",
-    "err.config_missing": "Matter bridge configuration file was not found. Set {env_json} or {env_file}.",
-    "err.invalid_config": "Matter bridge configuration could not be parsed: {err}",
-    "err.not_found": "Matter bridge not found: {bridge_id}"
+    "param.fmt.description": "Format: json or text."
   },
   "nl": {
-    "param.fmt.description": "Format: json or text.",
-    "tool.description": "List Matter bridge-managed devices and return a JSON or text summary.",
-    "param.bridge.description": "Bridge ID (omit for all).",
-    "err.config_missing": "Matter bridge configuration file was not found. Set {env_json} or {env_file}.",
-    "err.invalid_config": "Matter bridge configuration could not be parsed: {err}",
-    "err.not_found": "Matter bridge not found: {bridge_id}"
+    "param.fmt.description": "Format: json or text."
   },
   "pl": {
-    "param.fmt.description": "Format: json or text.",
-    "tool.description": "List Matter bridge-managed devices and return a JSON or text summary.",
-    "param.bridge.description": "Bridge ID (omit for all).",
-    "err.config_missing": "Matter bridge configuration file was not found. Set {env_json} or {env_file}.",
-    "err.invalid_config": "Matter bridge configuration could not be parsed: {err}",
-    "err.not_found": "Matter bridge not found: {bridge_id}"
+    "param.fmt.description": "Format: json or text."
   },
   "pt": {
-    "param.fmt.description": "Format: json or text.",
-    "tool.description": "List Matter bridge-managed devices and return a JSON or text summary.",
-    "param.bridge.description": "Bridge ID (omit for all).",
-    "err.config_missing": "Matter bridge configuration file was not found. Set {env_json} or {env_file}.",
-    "err.invalid_config": "Matter bridge configuration could not be parsed: {err}",
-    "err.not_found": "Matter bridge not found: {bridge_id}"
+    "param.fmt.description": "Format: json or text."
   },
   "pt_BR": {
-    "param.fmt.description": "Format: json or text.",
-    "tool.description": "List Matter bridge-managed devices and return a JSON or text summary.",
-    "param.bridge.description": "Bridge ID (omit for all).",
-    "err.config_missing": "Matter bridge configuration file was not found. Set {env_json} or {env_file}.",
-    "err.invalid_config": "Matter bridge configuration could not be parsed: {err}",
-    "err.not_found": "Matter bridge not found: {bridge_id}"
+    "param.fmt.description": "Format: json or text."
   },
   "ru": {
-    "param.fmt.description": "Format: json or text.",
-    "tool.description": "List Matter bridge-managed devices and return a JSON or text summary.",
-    "param.bridge.description": "Bridge ID (omit for all).",
-    "err.config_missing": "Matter bridge configuration file was not found. Set {env_json} or {env_file}.",
-    "err.invalid_config": "Matter bridge configuration could not be parsed: {err}",
-    "err.not_found": "Matter bridge not found: {bridge_id}"
+    "param.fmt.description": "Format: json or text."
   },
   "sv": {
-    "param.fmt.description": "Format: json or text.",
-    "tool.description": "List Matter bridge-managed devices and return a JSON or text summary.",
-    "param.bridge.description": "Bridge ID (omit for all).",
-    "err.config_missing": "Matter bridge configuration file was not found. Set {env_json} or {env_file}.",
-    "err.invalid_config": "Matter bridge configuration could not be parsed: {err}",
-    "err.not_found": "Matter bridge not found: {bridge_id}"
+    "param.fmt.description": "Format: json or text."
   },
   "sw": {
-    "param.fmt.description": "Format: json or text.",
-    "tool.description": "List Matter bridge-managed devices and return a JSON or text summary.",
-    "param.bridge.description": "Bridge ID (omit for all).",
-    "err.config_missing": "Matter bridge configuration file was not found. Set {env_json} or {env_file}.",
-    "err.invalid_config": "Matter bridge configuration could not be parsed: {err}",
-    "err.not_found": "Matter bridge not found: {bridge_id}"
+    "param.fmt.description": "Format: json or text."
   },
   "th": {
-    "param.fmt.description": "Format: json or text.",
-    "tool.description": "List Matter bridge-managed devices and return a JSON or text summary.",
-    "param.bridge.description": "Bridge ID (omit for all).",
-    "err.config_missing": "Matter bridge configuration file was not found. Set {env_json} or {env_file}.",
-    "err.invalid_config": "Matter bridge configuration could not be parsed: {err}",
-    "err.not_found": "Matter bridge not found: {bridge_id}"
+    "param.fmt.description": "Format: json or text."
   },
   "tr": {
-    "param.fmt.description": "Format: json or text.",
-    "tool.description": "List Matter bridge-managed devices and return a JSON or text summary.",
-    "param.bridge.description": "Bridge ID (omit for all).",
-    "err.config_missing": "Matter bridge configuration file was not found. Set {env_json} or {env_file}.",
-    "err.invalid_config": "Matter bridge configuration could not be parsed: {err}",
-    "err.not_found": "Matter bridge not found: {bridge_id}"
+    "param.fmt.description": "Format: json or text."
   },
   "uk": {
-    "param.fmt.description": "Format: json or text.",
-    "tool.description": "List Matter bridge-managed devices and return a JSON or text summary.",
-    "param.bridge.description": "Bridge ID (omit for all).",
-    "err.config_missing": "Matter bridge configuration file was not found. Set {env_json} or {env_file}.",
-    "err.invalid_config": "Matter bridge configuration could not be parsed: {err}",
-    "err.not_found": "Matter bridge not found: {bridge_id}"
+    "param.fmt.description": "Format: json or text."
   },
   "vi": {
-    "param.fmt.description": "Format: json or text.",
-    "tool.description": "List Matter bridge-managed devices and return a JSON or text summary.",
-    "param.bridge.description": "Bridge ID (omit for all).",
-    "err.config_missing": "Matter bridge configuration file was not found. Set {env_json} or {env_file}.",
-    "err.invalid_config": "Matter bridge configuration could not be parsed: {err}",
-    "err.not_found": "Matter bridge not found: {bridge_id}"
+    "param.fmt.description": "Format: json or text."
   },
   "zh_CN": {
-    "param.fmt.description": "Format: json or text.",
-    "tool.description": "List Matter bridge-managed devices and return a JSON or text summary.",
-    "param.bridge.description": "Bridge ID (omit for all).",
-    "err.config_missing": "Matter bridge configuration file was not found. Set {env_json} or {env_file}.",
-    "err.invalid_config": "Matter bridge configuration could not be parsed: {err}",
-    "err.not_found": "Matter bridge not found: {bridge_id}"
+    "param.fmt.description": "Format: json or text."
   },
   "zh_TW": {
-    "param.fmt.description": "Format: json or text.",
-    "tool.description": "List Matter bridge-managed devices and return a JSON or text summary.",
-    "param.bridge.description": "Bridge ID (omit for all).",
-    "err.config_missing": "Matter bridge configuration file was not found. Set {env_json} or {env_file}.",
-    "err.invalid_config": "Matter bridge configuration could not be parsed: {err}",
-    "err.not_found": "Matter bridge not found: {bridge_id}"
+    "param.fmt.description": "Format: json or text."
   }
 }

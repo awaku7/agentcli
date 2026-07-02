@@ -7,11 +7,7 @@
     "err.invalid_object_code": "Error: Could not parse object_code '{object_code}'.",
     "msg.summary": "ECHONET Lite property fetched: {ip_address} / {epc} in {elapsed_ms} ms.",
     "err.invalid_ip_address": "Error: ip_address must be a valid IPv4 address.",
-    "err.invalid_epc": "Error: epc must be a valid 1-byte hex code.",
-    "tool.description": "Read one ECHONET Lite property from a node and return a JSON or text result.",
-    "param.eoj.description": "Target EOJ (default: node profile).",
-    "param.obj.description": "Object code filter (e.g. '0130').",
-    "param.epc.description": "ECHONET Lite property code (EPC), for example '80' or 'D5'."
+    "err.invalid_epc": "Error: epc must be a valid 1-byte hex code."
   },
   "bn": {
     "param.ip.description": "Target node IPv4 address.",
@@ -21,11 +17,7 @@
     "err.invalid_object_code": "Error: Could not parse object_code '{object_code}'.",
     "msg.summary": "ECHONET Lite property fetched: {ip_address} / {epc} in {elapsed_ms} ms.",
     "err.invalid_ip_address": "Error: ip_address must be a valid IPv4 address.",
-    "err.invalid_epc": "Error: epc must be a valid 1-byte hex code.",
-    "tool.description": "Read one ECHONET Lite property from a node and return a JSON or text result.",
-    "param.eoj.description": "Target EOJ (default: node profile).",
-    "param.obj.description": "Object code filter (e.g. '0130').",
-    "param.epc.description": "ECHONET Lite property code (EPC), for example '80' or 'D5'."
+    "err.invalid_epc": "Error: epc must be a valid 1-byte hex code."
   },
   "cs": {
     "param.ip.description": "Target node IPv4 address.",
@@ -35,11 +27,7 @@
     "err.invalid_object_code": "Error: Could not parse object_code '{object_code}'.",
     "msg.summary": "ECHONET Lite property fetched: {ip_address} / {epc} in {elapsed_ms} ms.",
     "err.invalid_ip_address": "Error: ip_address must be a valid IPv4 address.",
-    "err.invalid_epc": "Error: epc must be a valid 1-byte hex code.",
-    "tool.description": "Read one ECHONET Lite property from a node and return a JSON or text result.",
-    "param.eoj.description": "Target EOJ (default: node profile).",
-    "param.obj.description": "Object code filter (e.g. '0130').",
-    "param.epc.description": "ECHONET Lite property code (EPC), for example '80' or 'D5'."
+    "err.invalid_epc": "Error: epc must be a valid 1-byte hex code."
   },
   "de": {
     "param.ip.description": "Target node IPv4 address.",
@@ -49,11 +37,7 @@
     "err.invalid_object_code": "Error: Could not parse object_code '{object_code}'.",
     "msg.summary": "ECHONET Lite property fetched: {ip_address} / {epc} in {elapsed_ms} ms.",
     "err.invalid_ip_address": "Error: ip_address must be a valid IPv4 address.",
-    "err.invalid_epc": "Error: epc must be a valid 1-byte hex code.",
-    "tool.description": "Read one ECHONET Lite property from a node and return a JSON or text result.",
-    "param.eoj.description": "Target EOJ (default: node profile).",
-    "param.obj.description": "Object code filter (e.g. '0130').",
-    "param.epc.description": "ECHONET Lite property code (EPC), for example '80' or 'D5'."
+    "err.invalid_epc": "Error: epc must be a valid 1-byte hex code."
   },
   "en": {
     "param.ip.description": "Target node IPv4 address.",
@@ -64,10 +48,10 @@
     "msg.summary": "ECHONET Lite property fetched: {ip_address} / {epc} in {elapsed_ms} ms.",
     "err.invalid_ip_address": "Error: ip_address must be a valid IPv4 address.",
     "err.invalid_epc": "Error: epc must be a valid 1-byte hex code.",
-    "tool.description": "Read one ECHONET Lite property from a node and return a JSON or text result.",
     "param.eoj.description": "Target EOJ (default: node profile).",
+    "param.epc.description": "ECHONET Lite property code (EPC), for example '80' or 'D5'.",
     "param.obj.description": "Object code filter (e.g. '0130').",
-    "param.epc.description": "ECHONET Lite property code (EPC), for example '80' or 'D5'."
+    "tool.description": "Read one ECHONET Lite property from a node and return a JSON or text result."
   },
   "es": {
     "param.ip.description": "Target node IPv4 address.",
@@ -77,11 +61,7 @@
     "err.invalid_object_code": "Error: Could not parse object_code '{object_code}'.",
     "msg.summary": "ECHONET Lite property fetched: {ip_address} / {epc} in {elapsed_ms} ms.",
     "err.invalid_ip_address": "Error: ip_address must be a valid IPv4 address.",
-    "err.invalid_epc": "Error: epc must be a valid 1-byte hex code.",
-    "tool.description": "Read one ECHONET Lite property from a node and return a JSON or text result.",
-    "param.eoj.description": "Target EOJ (default: node profile).",
-    "param.obj.description": "Object code filter (e.g. '0130').",
-    "param.epc.description": "ECHONET Lite property code (EPC), for example '80' or 'D5'."
+    "err.invalid_epc": "Error: epc must be a valid 1-byte hex code."
   },
   "fa": {
     "param.ip.description": "Target node IPv4 address.",
@@ -91,11 +71,7 @@
     "err.invalid_object_code": "Error: Could not parse object_code '{object_code}'.",
     "msg.summary": "ECHONET Lite property fetched: {ip_address} / {epc} in {elapsed_ms} ms.",
     "err.invalid_ip_address": "Error: ip_address must be a valid IPv4 address.",
-    "err.invalid_epc": "Error: epc must be a valid 1-byte hex code.",
-    "tool.description": "Read one ECHONET Lite property from a node and return a JSON or text result.",
-    "param.eoj.description": "Target EOJ (default: node profile).",
-    "param.obj.description": "Object code filter (e.g. '0130').",
-    "param.epc.description": "ECHONET Lite property code (EPC), for example '80' or 'D5'."
+    "err.invalid_epc": "Error: epc must be a valid 1-byte hex code."
   },
   "fi": {
     "param.ip.description": "Target node IPv4 address.",
@@ -105,11 +81,7 @@
     "err.invalid_object_code": "Error: Could not parse object_code '{object_code}'.",
     "msg.summary": "ECHONET Lite property fetched: {ip_address} / {epc} in {elapsed_ms} ms.",
     "err.invalid_ip_address": "Error: ip_address must be a valid IPv4 address.",
-    "err.invalid_epc": "Error: epc must be a valid 1-byte hex code.",
-    "tool.description": "Read one ECHONET Lite property from a node and return a JSON or text result.",
-    "param.eoj.description": "Target EOJ (default: node profile).",
-    "param.obj.description": "Object code filter (e.g. '0130').",
-    "param.epc.description": "ECHONET Lite property code (EPC), for example '80' or 'D5'."
+    "err.invalid_epc": "Error: epc must be a valid 1-byte hex code."
   },
   "fr": {
     "param.ip.description": "Target node IPv4 address.",
@@ -119,11 +91,7 @@
     "err.invalid_object_code": "Error: Could not parse object_code '{object_code}'.",
     "msg.summary": "ECHONET Lite property fetched: {ip_address} / {epc} in {elapsed_ms} ms.",
     "err.invalid_ip_address": "Error: ip_address must be a valid IPv4 address.",
-    "err.invalid_epc": "Error: epc must be a valid 1-byte hex code.",
-    "tool.description": "Read one ECHONET Lite property from a node and return a JSON or text result.",
-    "param.eoj.description": "Target EOJ (default: node profile).",
-    "param.obj.description": "Object code filter (e.g. '0130').",
-    "param.epc.description": "ECHONET Lite property code (EPC), for example '80' or 'D5'."
+    "err.invalid_epc": "Error: epc must be a valid 1-byte hex code."
   },
   "hi": {
     "param.ip.description": "Target node IPv4 address.",
@@ -133,11 +101,7 @@
     "err.invalid_object_code": "Error: Could not parse object_code '{object_code}'.",
     "msg.summary": "ECHONET Lite property fetched: {ip_address} / {epc} in {elapsed_ms} ms.",
     "err.invalid_ip_address": "Error: ip_address must be a valid IPv4 address.",
-    "err.invalid_epc": "Error: epc must be a valid 1-byte hex code.",
-    "tool.description": "Read one ECHONET Lite property from a node and return a JSON or text result.",
-    "param.eoj.description": "Target EOJ (default: node profile).",
-    "param.obj.description": "Object code filter (e.g. '0130').",
-    "param.epc.description": "ECHONET Lite property code (EPC), for example '80' or 'D5'."
+    "err.invalid_epc": "Error: epc must be a valid 1-byte hex code."
   },
   "id": {
     "param.ip.description": "Target node IPv4 address.",
@@ -147,11 +111,7 @@
     "err.invalid_object_code": "Error: Could not parse object_code '{object_code}'.",
     "msg.summary": "ECHONET Lite property fetched: {ip_address} / {epc} in {elapsed_ms} ms.",
     "err.invalid_ip_address": "Error: ip_address must be a valid IPv4 address.",
-    "err.invalid_epc": "Error: epc must be a valid 1-byte hex code.",
-    "tool.description": "Read one ECHONET Lite property from a node and return a JSON or text result.",
-    "param.eoj.description": "Target EOJ (default: node profile).",
-    "param.obj.description": "Object code filter (e.g. '0130').",
-    "param.epc.description": "ECHONET Lite property code (EPC), for example '80' or 'D5'."
+    "err.invalid_epc": "Error: epc must be a valid 1-byte hex code."
   },
   "it": {
     "param.ip.description": "Target node IPv4 address.",
@@ -161,11 +121,7 @@
     "err.invalid_object_code": "Error: Could not parse object_code '{object_code}'.",
     "msg.summary": "ECHONET Lite property fetched: {ip_address} / {epc} in {elapsed_ms} ms.",
     "err.invalid_ip_address": "Error: ip_address must be a valid IPv4 address.",
-    "err.invalid_epc": "Error: epc must be a valid 1-byte hex code.",
-    "tool.description": "Read one ECHONET Lite property from a node and return a JSON or text result.",
-    "param.eoj.description": "Target EOJ (default: node profile).",
-    "param.obj.description": "Object code filter (e.g. '0130').",
-    "param.epc.description": "ECHONET Lite property code (EPC), for example '80' or 'D5'."
+    "err.invalid_epc": "Error: epc must be a valid 1-byte hex code."
   },
   "ja": {
     "param.ip.description": "Target node IPv4 address.",
@@ -176,10 +132,10 @@
     "msg.summary": "ECHONET Lite property fetched: {ip_address} / {epc} in {elapsed_ms} ms.",
     "err.invalid_ip_address": "Error: ip_address must be a valid IPv4 address.",
     "err.invalid_epc": "Error: epc must be a valid 1-byte hex code.",
-    "tool.description": "Read one ECHONET Lite property from a node and return a JSON or text result.",
-    "param.eoj.description": "Target EOJ (default: node profile).",
-    "param.obj.description": "Object code filter (e.g. '0130').",
-    "param.epc.description": "ECHONET Lite property code (EPC), for example '80' or 'D5'."
+    "param.eoj.description": "ターゲット EOJ (デフォルト: ノード プロファイル)。",
+    "param.epc.description": "ECHONET Lite プロパティ コード (EPC)、たとえば「80」または「D5」。",
+    "param.obj.description": "オブジェクト コード フィルター (例: '0130')。",
+    "tool.description": "ノードから 1 つの ECHONET Lite プロパティを読み取り、JSON またはテキストの結果を返します。"
   },
   "ko": {
     "param.ip.description": "Target node IPv4 address.",
@@ -189,11 +145,7 @@
     "err.invalid_object_code": "Error: Could not parse object_code '{object_code}'.",
     "msg.summary": "ECHONET Lite property fetched: {ip_address} / {epc} in {elapsed_ms} ms.",
     "err.invalid_ip_address": "Error: ip_address must be a valid IPv4 address.",
-    "err.invalid_epc": "Error: epc must be a valid 1-byte hex code.",
-    "tool.description": "Read one ECHONET Lite property from a node and return a JSON or text result.",
-    "param.eoj.description": "Target EOJ (default: node profile).",
-    "param.obj.description": "Object code filter (e.g. '0130').",
-    "param.epc.description": "ECHONET Lite property code (EPC), for example '80' or 'D5'."
+    "err.invalid_epc": "Error: epc must be a valid 1-byte hex code."
   },
   "mn": {
     "param.ip.description": "Target node IPv4 address.",
@@ -203,11 +155,7 @@
     "err.invalid_object_code": "Error: Could not parse object_code '{object_code}'.",
     "msg.summary": "ECHONET Lite property fetched: {ip_address} / {epc} in {elapsed_ms} ms.",
     "err.invalid_ip_address": "Error: ip_address must be a valid IPv4 address.",
-    "err.invalid_epc": "Error: epc must be a valid 1-byte hex code.",
-    "tool.description": "Read one ECHONET Lite property from a node and return a JSON or text result.",
-    "param.eoj.description": "Target EOJ (default: node profile).",
-    "param.obj.description": "Object code filter (e.g. '0130').",
-    "param.epc.description": "ECHONET Lite property code (EPC), for example '80' or 'D5'."
+    "err.invalid_epc": "Error: epc must be a valid 1-byte hex code."
   },
   "mr": {
     "param.ip.description": "Target node IPv4 address.",
@@ -217,11 +165,7 @@
     "err.invalid_object_code": "Error: Could not parse object_code '{object_code}'.",
     "msg.summary": "ECHONET Lite property fetched: {ip_address} / {epc} in {elapsed_ms} ms.",
     "err.invalid_ip_address": "Error: ip_address must be a valid IPv4 address.",
-    "err.invalid_epc": "Error: epc must be a valid 1-byte hex code.",
-    "tool.description": "Read one ECHONET Lite property from a node and return a JSON or text result.",
-    "param.eoj.description": "Target EOJ (default: node profile).",
-    "param.obj.description": "Object code filter (e.g. '0130').",
-    "param.epc.description": "ECHONET Lite property code (EPC), for example '80' or 'D5'."
+    "err.invalid_epc": "Error: epc must be a valid 1-byte hex code."
   },
   "el": {
     "param.ip.description": "Διεύθυνση IPv4 κόμβου στόχου.",
@@ -231,11 +175,7 @@
     "err.invalid_object_code": "Σφάλμα: Δεν ήταν δυνατή η ανάλυση του object_code '{object_code}'.",
     "msg.summary": "Η ιδιότητα ECHONET Lite λήφθηκε: {ip_address} / {epc} σε {elapsed_ms} ms.",
     "err.invalid_ip_address": "Σφάλμα: Η διεύθυνση ip_address πρέπει να είναι έγκυρη διεύθυνση IPv4.",
-    "err.invalid_epc": "Σφάλμα: Το epc πρέπει να είναι έγκυρος δεκαεξαδικός κώδικας 1 byte.",
-    "tool.description": "Διαβάστε μια ιδιότητα ECHONET Lite από έναν κόμβο και επιστρέψτε ένα αποτέλεσμα JSON ή κειμένου.",
-    "param.eoj.description": "Στόχος EOJ (προεπιλογή: προφίλ κόμβου).",
-    "param.obj.description": "Φίλτρο κωδικού αντικειμένου (π.χ. '0130').",
-    "param.epc.description": "Κωδικός ιδιοκτησίας ECHONET Lite (EPC), για παράδειγμα '80' ή 'D5'."
+    "err.invalid_epc": "Σφάλμα: Το epc πρέπει να είναι έγκυρος δεκαεξαδικός κώδικας 1 byte."
   },
   "he": {
     "param.ip.description": "כתובת IPv4 של צומת יעד.",
@@ -245,11 +185,7 @@
     "err.invalid_object_code": "שגיאה: לא ניתן לנתח את object_code '{object_code}'.",
     "msg.summary": "מאפיין ECHONET Lite הוחזר: {ip_address} / {epc} ב-{elapsed_ms} אלפיות השנייה.",
     "err.invalid_ip_address": "שגיאה: כתובת ה-ip_address חייבת להיות כתובת IPv4 חוקית.",
-    "err.invalid_epc": "שגיאה: epc חייב להיות קוד hex חוקי של 1 בתים.",
-    "tool.description": "קרא מאפיין אחד של ECHONET Lite מצומת והחזר תוצאת JSON או טקסט.",
-    "param.eoj.description": "יעד EOJ (ברירת מחדל: פרופיל צומת).",
-    "param.obj.description": "מסנן קוד אובייקט (למשל '0130').",
-    "param.epc.description": "קוד מאפיין ECHONET Lite (EPC), למשל '80' או 'D5'."
+    "err.invalid_epc": "שגיאה: epc חייב להיות קוד hex חוקי של 1 בתים."
   },
   "hu": {
     "param.ip.description": "Célcsomópont IPv4-címe.",
@@ -259,11 +195,7 @@
     "err.invalid_object_code": "Hiba: A(z) '{object_code}' objektumkód nem értelmezhető.",
     "msg.summary": "Az ECHONET Lite tulajdonság lekérve: {ip_address} / {epc} {elapsed_ms} ms alatt.",
     "err.invalid_ip_address": "Hiba: az ip_address érvényes IPv4-címnek kell lennie.",
-    "err.invalid_epc": "Hiba: az epc-nek érvényes 1 bájtos hexadecimális kódnak kell lennie.",
-    "tool.description": "Egy ECHONET Lite tulajdonság beolvasása egy csomópontból, és JSON vagy szöveges eredményt ad vissza.",
-    "param.eoj.description": "Cél EOJ (alapértelmezett: csomópont profil).",
-    "param.obj.description": "Objektumkód szűrő (pl. „0130”).",
-    "param.epc.description": "ECHONET Lite tulajdonságkód (EPC), például „80” vagy „D5”."
+    "err.invalid_epc": "Hiba: az epc-nek érvényes 1 bájtos hexadecimális kódnak kell lennie."
   },
   "ro": {
     "param.ip.description": "Adresa IPv4 a nodului țintă.",
@@ -273,11 +205,7 @@
     "err.invalid_object_code": "Eroare: nu s-a putut analiza object_code „{object_code}”.",
     "msg.summary": "Proprietatea ECHONET Lite a fost preluată: {ip_address} / {epc} în {elapsed_ms} ms.",
     "err.invalid_ip_address": "Eroare: ip_address trebuie să fie o adresă IPv4 validă.",
-    "err.invalid_epc": "Eroare: epc trebuie să fie un cod hex valid de 1 octet.",
-    "tool.description": "Citiți o proprietate ECHONET Lite dintr-un nod și returnați un rezultat JSON sau text.",
-    "param.eoj.description": "EOJ țintă (implicit: profil de nod).",
-    "param.obj.description": "Filtru de cod obiect (de exemplu, „0130”).",
-    "param.epc.description": "Cod de proprietate ECHONET Lite (EPC), de exemplu „80” sau „D5”."
+    "err.invalid_epc": "Eroare: epc trebuie să fie un cod hex valid de 1 octet."
   },
   "nb": {
     "param.ip.description": "Target node IPv4 address.",
@@ -287,11 +215,7 @@
     "err.invalid_object_code": "Error: Could not parse object_code '{object_code}'.",
     "msg.summary": "ECHONET Lite property fetched: {ip_address} / {epc} in {elapsed_ms} ms.",
     "err.invalid_ip_address": "Error: ip_address must be a valid IPv4 address.",
-    "err.invalid_epc": "Error: epc must be a valid 1-byte hex code.",
-    "tool.description": "Read one ECHONET Lite property from a node and return a JSON or text result.",
-    "param.eoj.description": "Target EOJ (default: node profile).",
-    "param.obj.description": "Object code filter (e.g. '0130').",
-    "param.epc.description": "ECHONET Lite property code (EPC), for example '80' or 'D5'."
+    "err.invalid_epc": "Error: epc must be a valid 1-byte hex code."
   },
   "nl": {
     "param.ip.description": "Target node IPv4 address.",
@@ -301,11 +225,7 @@
     "err.invalid_object_code": "Error: Could not parse object_code '{object_code}'.",
     "msg.summary": "ECHONET Lite property fetched: {ip_address} / {epc} in {elapsed_ms} ms.",
     "err.invalid_ip_address": "Error: ip_address must be a valid IPv4 address.",
-    "err.invalid_epc": "Error: epc must be a valid 1-byte hex code.",
-    "tool.description": "Read one ECHONET Lite property from a node and return a JSON or text result.",
-    "param.eoj.description": "Target EOJ (default: node profile).",
-    "param.obj.description": "Object code filter (e.g. '0130').",
-    "param.epc.description": "ECHONET Lite property code (EPC), for example '80' or 'D5'."
+    "err.invalid_epc": "Error: epc must be a valid 1-byte hex code."
   },
   "pl": {
     "param.ip.description": "Target node IPv4 address.",
@@ -315,11 +235,7 @@
     "err.invalid_object_code": "Error: Could not parse object_code '{object_code}'.",
     "msg.summary": "ECHONET Lite property fetched: {ip_address} / {epc} in {elapsed_ms} ms.",
     "err.invalid_ip_address": "Error: ip_address must be a valid IPv4 address.",
-    "err.invalid_epc": "Error: epc must be a valid 1-byte hex code.",
-    "tool.description": "Read one ECHONET Lite property from a node and return a JSON or text result.",
-    "param.eoj.description": "Target EOJ (default: node profile).",
-    "param.obj.description": "Object code filter (e.g. '0130').",
-    "param.epc.description": "ECHONET Lite property code (EPC), for example '80' or 'D5'."
+    "err.invalid_epc": "Error: epc must be a valid 1-byte hex code."
   },
   "pt": {
     "param.ip.description": "Target node IPv4 address.",
@@ -329,11 +245,7 @@
     "err.invalid_object_code": "Error: Could not parse object_code '{object_code}'.",
     "msg.summary": "ECHONET Lite property fetched: {ip_address} / {epc} in {elapsed_ms} ms.",
     "err.invalid_ip_address": "Error: ip_address must be a valid IPv4 address.",
-    "err.invalid_epc": "Error: epc must be a valid 1-byte hex code.",
-    "tool.description": "Read one ECHONET Lite property from a node and return a JSON or text result.",
-    "param.eoj.description": "Target EOJ (default: node profile).",
-    "param.obj.description": "Object code filter (e.g. '0130').",
-    "param.epc.description": "ECHONET Lite property code (EPC), for example '80' or 'D5'."
+    "err.invalid_epc": "Error: epc must be a valid 1-byte hex code."
   },
   "pt_BR": {
     "param.ip.description": "Target node IPv4 address.",
@@ -343,11 +255,7 @@
     "err.invalid_object_code": "Error: Could not parse object_code '{object_code}'.",
     "msg.summary": "ECHONET Lite property fetched: {ip_address} / {epc} in {elapsed_ms} ms.",
     "err.invalid_ip_address": "Error: ip_address must be a valid IPv4 address.",
-    "err.invalid_epc": "Error: epc must be a valid 1-byte hex code.",
-    "tool.description": "Read one ECHONET Lite property from a node and return a JSON or text result.",
-    "param.eoj.description": "Target EOJ (default: node profile).",
-    "param.obj.description": "Object code filter (e.g. '0130').",
-    "param.epc.description": "ECHONET Lite property code (EPC), for example '80' or 'D5'."
+    "err.invalid_epc": "Error: epc must be a valid 1-byte hex code."
   },
   "ru": {
     "param.ip.description": "Target node IPv4 address.",
@@ -357,11 +265,7 @@
     "err.invalid_object_code": "Error: Could not parse object_code '{object_code}'.",
     "msg.summary": "ECHONET Lite property fetched: {ip_address} / {epc} in {elapsed_ms} ms.",
     "err.invalid_ip_address": "Error: ip_address must be a valid IPv4 address.",
-    "err.invalid_epc": "Error: epc must be a valid 1-byte hex code.",
-    "tool.description": "Read one ECHONET Lite property from a node and return a JSON or text result.",
-    "param.eoj.description": "Target EOJ (default: node profile).",
-    "param.obj.description": "Object code filter (e.g. '0130').",
-    "param.epc.description": "ECHONET Lite property code (EPC), for example '80' or 'D5'."
+    "err.invalid_epc": "Error: epc must be a valid 1-byte hex code."
   },
   "sv": {
     "param.ip.description": "Target node IPv4 address.",
@@ -371,11 +275,7 @@
     "err.invalid_object_code": "Error: Could not parse object_code '{object_code}'.",
     "msg.summary": "ECHONET Lite property fetched: {ip_address} / {epc} in {elapsed_ms} ms.",
     "err.invalid_ip_address": "Error: ip_address must be a valid IPv4 address.",
-    "err.invalid_epc": "Error: epc must be a valid 1-byte hex code.",
-    "tool.description": "Read one ECHONET Lite property from a node and return a JSON or text result.",
-    "param.eoj.description": "Target EOJ (default: node profile).",
-    "param.obj.description": "Object code filter (e.g. '0130').",
-    "param.epc.description": "ECHONET Lite property code (EPC), for example '80' or 'D5'."
+    "err.invalid_epc": "Error: epc must be a valid 1-byte hex code."
   },
   "sw": {
     "param.ip.description": "Target node IPv4 address.",
@@ -385,11 +285,7 @@
     "err.invalid_object_code": "Error: Could not parse object_code '{object_code}'.",
     "msg.summary": "ECHONET Lite property fetched: {ip_address} / {epc} in {elapsed_ms} ms.",
     "err.invalid_ip_address": "Error: ip_address must be a valid IPv4 address.",
-    "err.invalid_epc": "Error: epc must be a valid 1-byte hex code.",
-    "tool.description": "Read one ECHONET Lite property from a node and return a JSON or text result.",
-    "param.eoj.description": "Target EOJ (default: node profile).",
-    "param.obj.description": "Object code filter (e.g. '0130').",
-    "param.epc.description": "ECHONET Lite property code (EPC), for example '80' or 'D5'."
+    "err.invalid_epc": "Error: epc must be a valid 1-byte hex code."
   },
   "th": {
     "param.ip.description": "Target node IPv4 address.",
@@ -399,11 +295,7 @@
     "err.invalid_object_code": "Error: Could not parse object_code '{object_code}'.",
     "msg.summary": "ECHONET Lite property fetched: {ip_address} / {epc} in {elapsed_ms} ms.",
     "err.invalid_ip_address": "Error: ip_address must be a valid IPv4 address.",
-    "err.invalid_epc": "Error: epc must be a valid 1-byte hex code.",
-    "tool.description": "Read one ECHONET Lite property from a node and return a JSON or text result.",
-    "param.eoj.description": "Target EOJ (default: node profile).",
-    "param.obj.description": "Object code filter (e.g. '0130').",
-    "param.epc.description": "ECHONET Lite property code (EPC), for example '80' or 'D5'."
+    "err.invalid_epc": "Error: epc must be a valid 1-byte hex code."
   },
   "tr": {
     "param.ip.description": "Target node IPv4 address.",
@@ -413,11 +305,7 @@
     "err.invalid_object_code": "Error: Could not parse object_code '{object_code}'.",
     "msg.summary": "ECHONET Lite property fetched: {ip_address} / {epc} in {elapsed_ms} ms.",
     "err.invalid_ip_address": "Error: ip_address must be a valid IPv4 address.",
-    "err.invalid_epc": "Error: epc must be a valid 1-byte hex code.",
-    "tool.description": "Read one ECHONET Lite property from a node and return a JSON or text result.",
-    "param.eoj.description": "Target EOJ (default: node profile).",
-    "param.obj.description": "Object code filter (e.g. '0130').",
-    "param.epc.description": "ECHONET Lite property code (EPC), for example '80' or 'D5'."
+    "err.invalid_epc": "Error: epc must be a valid 1-byte hex code."
   },
   "uk": {
     "param.ip.description": "Target node IPv4 address.",
@@ -427,11 +315,7 @@
     "err.invalid_object_code": "Error: Could not parse object_code '{object_code}'.",
     "msg.summary": "ECHONET Lite property fetched: {ip_address} / {epc} in {elapsed_ms} ms.",
     "err.invalid_ip_address": "Error: ip_address must be a valid IPv4 address.",
-    "err.invalid_epc": "Error: epc must be a valid 1-byte hex code.",
-    "tool.description": "Read one ECHONET Lite property from a node and return a JSON or text result.",
-    "param.eoj.description": "Target EOJ (default: node profile).",
-    "param.obj.description": "Object code filter (e.g. '0130').",
-    "param.epc.description": "ECHONET Lite property code (EPC), for example '80' or 'D5'."
+    "err.invalid_epc": "Error: epc must be a valid 1-byte hex code."
   },
   "vi": {
     "param.ip.description": "Target node IPv4 address.",
@@ -441,11 +325,7 @@
     "err.invalid_object_code": "Error: Could not parse object_code '{object_code}'.",
     "msg.summary": "ECHONET Lite property fetched: {ip_address} / {epc} in {elapsed_ms} ms.",
     "err.invalid_ip_address": "Error: ip_address must be a valid IPv4 address.",
-    "err.invalid_epc": "Error: epc must be a valid 1-byte hex code.",
-    "tool.description": "Read one ECHONET Lite property from a node and return a JSON or text result.",
-    "param.eoj.description": "Target EOJ (default: node profile).",
-    "param.obj.description": "Object code filter (e.g. '0130').",
-    "param.epc.description": "ECHONET Lite property code (EPC), for example '80' or 'D5'."
+    "err.invalid_epc": "Error: epc must be a valid 1-byte hex code."
   },
   "zh_CN": {
     "param.ip.description": "Target node IPv4 address.",
@@ -455,11 +335,7 @@
     "err.invalid_object_code": "Error: Could not parse object_code '{object_code}'.",
     "msg.summary": "ECHONET Lite property fetched: {ip_address} / {epc} in {elapsed_ms} ms.",
     "err.invalid_ip_address": "Error: ip_address must be a valid IPv4 address.",
-    "err.invalid_epc": "Error: epc must be a valid 1-byte hex code.",
-    "tool.description": "Read one ECHONET Lite property from a node and return a JSON or text result.",
-    "param.eoj.description": "Target EOJ (default: node profile).",
-    "param.obj.description": "Object code filter (e.g. '0130').",
-    "param.epc.description": "ECHONET Lite property code (EPC), for example '80' or 'D5'."
+    "err.invalid_epc": "Error: epc must be a valid 1-byte hex code."
   },
   "zh_TW": {
     "param.ip.description": "Target node IPv4 address.",
@@ -469,10 +345,6 @@
     "err.invalid_object_code": "Error: Could not parse object_code '{object_code}'.",
     "msg.summary": "ECHONET Lite property fetched: {ip_address} / {epc} in {elapsed_ms} ms.",
     "err.invalid_ip_address": "Error: ip_address must be a valid IPv4 address.",
-    "err.invalid_epc": "Error: epc must be a valid 1-byte hex code.",
-    "tool.description": "Read one ECHONET Lite property from a node and return a JSON or text result.",
-    "param.eoj.description": "Target EOJ (default: node profile).",
-    "param.obj.description": "Object code filter (e.g. '0130').",
-    "param.epc.description": "ECHONET Lite property code (EPC), for example '80' or 'D5'."
+    "err.invalid_epc": "Error: epc must be a valid 1-byte hex code."
   }
 }

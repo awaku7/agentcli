@@ -1,7 +1,6 @@
 {
   "en": {
     "param.command.description": "Command line to execute.",
-    "tool.description": "Asynchronously start an external GUI or browser process. Avoid repeated spawns for the same request.",
     "x_search_terms": [
       "spawn_process",
       "spawn process",
@@ -11,11 +10,11 @@
       "browser process"
     ],
     "err.command_empty": "[spawn_process error] command is empty",
-    "err.windows_start_missing_target": "[spawn_process error] Windows 'start' command has no URL or executable path.\\\nExample: start \\\"\\\" https://www.google.com"
+    "err.windows_start_missing_target": "[spawn_process error] Windows 'start' command has no URL or executable path.\\\nExample: start \\\"\\\" https://www.google.com",
+    "tool.description": "Asynchronously start an external GUI or browser process. Avoid repeated spawns for the same request."
   },
   "ja": {
     "param.command.description": "実行するコマンドライン。",
-    "tool.description": "外部GUIやブラウザ等のプロセスを非同期に起動します。同一要求での連続起動は避けてください。",
     "x_search_terms": [
       "spawn_process",
       "プロセス起動",
@@ -23,11 +22,11 @@
       "GUI起動"
     ],
     "err.command_empty": "[spawn_process error] command is empty",
-    "err.windows_start_missing_target": "[spawn_process error] Windows 'start' command has no URL or executable path.\\\nExample: start \\\"\\\" https://www.google.com"
+    "err.windows_start_missing_target": "[spawn_process error] Windows 'start' command has no URL or executable path.\\\nExample: start \\\"\\\" https://www.google.com",
+    "tool.description": "外部 GUI またはブラウザーのプロセスを非同期的に開始します。同じリクエストに対して繰り返しスポーンを行わないようにしてください。"
   },
   "es": {
     "param.command.description": "Línea de comando para ejecutar.",
-    "tool.description": "Inicia de forma asíncrona un proceso externo de GUI o navegador.",
     "x_search_terms": [
       "spawn_process",
       "iniciar proceso",
@@ -39,7 +38,6 @@
   },
   "fr": {
     "param.command.description": "Ligne de commande à exécuter.",
-    "tool.description": "Lance de manière asynchrone un processus externe de type GUI ou navigateur.",
     "x_search_terms": [
       "spawn_process",
       "lancer processus",
@@ -51,7 +49,6 @@
   },
   "ko": {
     "param.command.description": "실행할 명령줄입니다.",
-    "tool.description": "외부 GUI 또는 브라우저 프로세스를 비동기적으로 시작합니다. 동일한 요청에 대해 반복적으로 생성되지 않도록 하세요.",
     "x_search_terms": [
       "spawn_process",
       "프로세스 시작",
@@ -63,7 +60,6 @@
   },
   "de": {
     "param.command.description": "Befehlszeile zur Ausführung.",
-    "tool.description": "Startet einen externen GUI- oder Browser-Prozess asynchron. Wiederholte Starts für dieselbe Anfrage vermeiden.",
     "x_search_terms": [
       "spawn_process",
       "prozess starten",
@@ -75,7 +71,6 @@
   },
   "it": {
     "param.command.description": "Riga di comando da eseguire.",
-    "tool.description": "Avvia in modo asincrono un processo esterno GUI o del browser. Evitare avvii ripetuti per la stessa richiesta.",
     "x_search_terms": [
       "spawn_process",
       "avvia processo",
@@ -87,7 +82,6 @@
   },
   "ru": {
     "param.command.description": "Командная строка для выполнения.",
-    "tool.description": "Асинхронно запускает внешний GUI или процесс браузера.",
     "x_search_terms": [
       "spawn_process",
       "запуск процесса",
@@ -99,7 +93,6 @@
   },
   "pt_BR": {
     "param.command.description": "Linha de comando para executar.",
-    "tool.description": "Inicia de forma assíncrona um processo externo de GUI ou navegador.",
     "x_search_terms": [
       "spawn_process",
       "iniciar processo",
@@ -111,7 +104,6 @@
   },
   "pt": {
     "param.command.description": "Linha de comando a ser executada.",
-    "tool.description": "Inicie de forma assíncrona um processo externo de GUI ou navegador.",
     "x_search_terms": [
       "spawn_process",
       "iniciar processo",
@@ -123,7 +115,6 @@
   },
   "id": {
     "param.command.description": "Baris perintah untuk dijalankan.",
-    "tool.description": "Mulai proses GUI atau browser eksternal secara asinkron.",
     "x_search_terms": [
       "spawn_process",
       "mulai proses",
@@ -135,7 +126,6 @@
   },
   "vi": {
     "param.command.description": "Dòng lệnh để thực thi.",
-    "tool.description": "Khởi động không đồng bộ một tiến trình GUI hoặc trình duyệt bên ngoài.",
     "x_search_terms": [
       "spawn_process",
       "khởi chạy tiến trình",
@@ -147,7 +137,6 @@
   },
   "pl": {
     "param.command.description": "Wiersz poleceń do wykonania.",
-    "tool.description": "Asynchronicznie uruchamia zewnętrzny proces GUI lub przeglądarki.",
     "x_search_terms": [
       "spawn_process",
       "uruchom proces",
@@ -159,7 +148,6 @@
   },
   "hi": {
     "param.command.description": "कमांड लाइन निष्पादित करें।",
-    "tool.description": "एक बाहरी GUI या ब्राउज़र प्रक्रिया को अतुल्यकालिक रूप से प्रारंभ करें। एक ही अनुरोध के लिए बार-बार उत्पन्न होने से बचें।",
     "x_search_terms": [
       "spawn_process",
       "प्रक्रिया शुरू",
@@ -171,7 +159,6 @@
   },
   "ar": {
     "param.command.description": "سطر الأوامر للتنفيذ.",
-    "tool.description": "بدء عملية واجهة المستخدم الرسومية أو المتصفح بشكل غير متزامن. تجنب الظهور المتكرر لنفس الطلب.",
     "x_search_terms": [
       "spawn_process",
       "بدء عملية",
@@ -183,7 +170,6 @@
   },
   "sv": {
     "param.command.description": "Kommandorad som ska köras.",
-    "tool.description": "Startar en extern GUI- eller webbläsarprocess asynkront. Undvik upprepade starter för samma begäran.",
     "x_search_terms": [
       "spawn_process",
       "starta process",
@@ -195,7 +181,6 @@
   },
   "sw": {
     "param.command.description": "Amri ya kutekeleza.",
-    "tool.description": "Huanzisha kwa njia ya asinkroni mchakato wa nje wa GUI au kivinjari. Epuka kuzindua tena kwa ombi lilelile.",
     "x_search_terms": [
       "spawn_process",
       "anzisha mchakato",
@@ -207,7 +192,6 @@
   },
   "nb": {
     "param.command.description": "Kommandolinje som skal utføres.",
-    "tool.description": "Starter en ekstern GUI- eller nettleserprosess asynkront. Unngå gjentatte oppstarter for samme forespørsel.",
     "x_search_terms": [
       "spawn_process",
       "start prosess",
@@ -219,7 +203,6 @@
   },
   "nl": {
     "param.command.description": "Uit te voeren opdrachtregel.",
-    "tool.description": "Start asynchroon een extern GUI- of browserproces. Vermijd herhaaldelijk dezelfde aanvraag opnieuw te starten.",
     "x_search_terms": [
       "spawn_process",
       "proces starten",
@@ -231,7 +214,6 @@
   },
   "fi": {
     "param.command.description": "Suoritettava komentorivi.",
-    "tool.description": "Käynnistä ulkoinen GUI- tai selainprosessi asynkronisesti. Vältä saman pyynnön toistuvaa käynnistämistä.",
     "x_search_terms": [
       "spawn_process",
       "käynnistä prosessi",
@@ -243,7 +225,6 @@
   },
   "cs": {
     "param.command.description": "Příkazový řádek ke spuštění.",
-    "tool.description": "Asynchronně spustí externí GUI nebo proces prohlížeče. Vyhněte se opakovanému spuštění pro stejný požadavek.",
     "x_search_terms": [
       "spawn_process",
       "spustit proces",
@@ -255,7 +236,6 @@
   },
   "uk": {
     "param.command.description": "Командний рядок для виконання.",
-    "tool.description": "Асинхронно запускає зовнішній GUI або процес браузера. Уникайте повторного запуску для того самого запиту.",
     "x_search_terms": [
       "spawn_process",
       "запустити процес",
@@ -267,7 +247,6 @@
   },
   "tr": {
     "param.command.description": "Yürütülecek komut satırı.",
-    "tool.description": "Harici bir GUI veya tarayıcı sürecini eşzamansız olarak başlatır.",
     "x_search_terms": [
       "spawn_process",
       "işlem başlat",
@@ -279,7 +258,6 @@
   },
   "th": {
     "param.command.description": "บรรทัดคำสั่งที่จะดำเนินการ",
-    "tool.description": "เริ่มต้นกระบวนการ GUI ภายนอกหรือเบราว์เซอร์แบบอะซิงโครนัส หลีกเลี่ยงการเริ่มซ้ำสำหรับคำขอเดียวกัน",
     "x_search_terms": [
       "spawn_process",
       "เริ่มกระบวนการ",
@@ -291,7 +269,6 @@
   },
   "zh_CN": {
     "param.command.description": "要执行的命令行。",
-    "tool.description": "异步启动外部 GUI 或浏览器进程。避免对同一请求重复启动。",
     "x_search_terms": [
       "spawn_process",
       "启动进程",
@@ -303,7 +280,6 @@
   },
   "zh_TW": {
     "param.command.description": "要執行的命令列。",
-    "tool.description": "非同步啟動外部 GUI 或瀏覽器程序。避免對同一請求重複啟動。",
     "x_search_terms": [
       "spawn_process",
       "啟動程序",
@@ -315,7 +291,6 @@
   },
   "bn": {
     "param.command.description": "চালানোর জন্য কমান্ড লাইন।",
-    "tool.description": "অ্যাসিঙ্ক্রোনাসভাবে একটি বহিরাগত GUI বা ব্রাউজার প্রক্রিয়া শুরু করুন৷ একই অনুরোধের জন্য বারবার স্পন এড়িয়ে চলুন।",
     "x_search_terms": [
       "spawn_process",
       "প্রক্রিয়া শুরু",
@@ -327,7 +302,6 @@
   },
   "fa": {
     "param.command.description": "خط فرمانی برای اجرا.",
-    "tool.description": "یک فرایند خارجیِ رابط گرافیکی یا مرورگر را به‌صورت غیرهم‌زمان آغاز می‌کند.",
     "x_search_terms": [
       "spawn_process",
       "شروع فرایند",
@@ -339,7 +313,6 @@
   },
   "mn": {
     "param.command.description": "Ажиллуулах командын мөр.",
-    "tool.description": "Гадны GUI эсвэл хөтөчийн процессыг асинхроноор эхлүүлнэ.",
     "x_search_terms": [
       "spawn_process",
       "процесс эхлүүлэх",
@@ -351,7 +324,6 @@
   },
   "mr": {
     "param.command.description": "चालवायची कमांड लाइन.",
-    "tool.description": "बाह्य GUI किंवा ब्राउझर प्रक्रिया असिंक्रोनस पद्धतीने सुरू करते. एकाच विनंतीसाठी वारंवार सुरू करणे टाळा.",
     "x_search_terms": [
       "spawn_process",
       "प्रक्रिया सुरू करा",
@@ -363,7 +335,6 @@
   },
   "el": {
     "param.command.description": "Γραμμή εντολών προς εκτέλεση.",
-    "tool.description": "Ασύγχρονη έναρξη μιας εξωτερικής διαδικασίας GUI ή προγράμματος περιήγησης. Αποφύγετε επαναλαμβανόμενες ωοτοκίες για το ίδιο αίτημα.",
     "x_search_terms": [
       "spawn_process",
       "spawn process",
@@ -377,7 +348,6 @@
   },
   "he": {
     "param.command.description": "התחל באופן אסינכרוני תהליך GUI או דפדפן חיצוני. הימנע שרצים חוזרים ונשנים עבור אותה בקשה.",
-    "tool.description": "התחל באופן אסינכרוני תהליך GUI או דפדפן חיצוני. הימנע שרצים חוזרים ונשנים עבור אותה בקשה.",
     "x_search_terms": [
       "תהליך השרצים",
       "תהליך השקה",
@@ -391,7 +361,6 @@
   },
   "hu": {
     "param.command.description": "Külső grafikus felhasználói felület vagy böngészőfolyamat aszinkron indítása. Kerülje el az ismételt spawn-okat ugyanarra a kérésre.",
-    "tool.description": "Külső grafikus felhasználói felület vagy böngészőfolyamat aszinkron indítása. Kerülje el az ismételt spawn-okat ugyanarra a kérésre.",
     "x_search_terms": [
       "spawn_process",
       "indítási folyamat",
@@ -405,7 +374,6 @@
   },
   "ro": {
     "param.command.description": "Linie de comandă de executat.",
-    "tool.description": "Porniți asincron o interfață grafică externă sau un proces de browser. Evitați spawn-urile repetate pentru aceeași solicitare.",
     "x_search_terms": [
       "spawn_process",
       "spawn process",

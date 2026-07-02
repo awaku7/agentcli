@@ -1,6 +1,5 @@
 {
   "en": {
-    "err.queue_uninitialized": "[set_timer error] event_queue callback not initialized.",
     "err.seconds_invalid": "[set_timer error] seconds cannot be interpreted as an integer: {raw}",
     "err.seconds_negative": "[set_timer error] seconds must be 0 or more: {val}",
     "msg.default_timer_done": "Timer finished",
@@ -32,7 +31,6 @@
     "out.list_header": "[set_timer] OS schedules:"
   },
   "ja": {
-    "err.queue_uninitialized": "[set_timer エラー] event_queue コールバックが初期化されていません。",
     "err.seconds_invalid": "[set_timer エラー] 秒数を整数として解釈できません: {raw}",
     "err.seconds_negative": "[set_timer エラー] 秒数は 0 以上で指定してください: {val}",
     "msg.default_timer_done": "タイマー終了",
@@ -60,7 +58,6 @@
     "out.list_header": "[set_timer] OSスケジュール一覧:"
   },
   "es": {
-    "err.queue_uninitialized": "[error set_timer] devolución de llamada event_queue no inicializada.",
     "err.seconds_invalid": "[error set_timer] los segundos no se pueden interpretar como un número entero: {raw}",
     "err.seconds_negative": "[error set_timer] los segundos deben ser 0 o más: {val}",
     "msg.default_timer_done": "Temporizador finalizado",
@@ -87,7 +84,6 @@
     "out.list_header": "[set_timer] OS schedules:"
   },
   "fr": {
-    "err.queue_uninitialized": "[erreur set_timer] Le rappel event_queue n'est pas initialisé.",
     "err.seconds_invalid": "[erreur set_timer] les secondes ne peuvent pas être interprétées comme un nombre entier : {raw}",
     "err.seconds_negative": "[erreur set_timer] les secondes doivent être égales à 0 ou plus : {val}",
     "msg.default_timer_done": "Minuterie terminée",
@@ -114,7 +110,6 @@
     "out.list_header": "[set_timer] OS schedules:"
   },
   "ko": {
-    "err.queue_uninitialized": "[set_timer 에러] event_queue 콜백이 초기화되지 않았습니다.",
     "err.seconds_invalid": "[set_timer 에러] 초(seconds)를 정수로 해석할 수 없습니다: {raw}",
     "err.seconds_negative": "[set_timer 에러] 초는 0 이상이어야 합니다: {val}",
     "msg.default_timer_done": "타이머 종료",
@@ -142,7 +137,6 @@
     "out.list_header": "[set_timer] OS schedules:"
   },
   "de": {
-    "err.queue_uninitialized": "[set_timer Fehler] event_queue-Callback ist nicht initialisiert.",
     "err.seconds_invalid": "[set_timer error] Sekunden können nicht als Ganzzahl interpretiert werden: {raw}",
     "err.seconds_negative": "[set_timer error] Sekunden müssen 0 oder mehr sein: {val}",
     "msg.default_timer_done": "Timer beendet",
@@ -169,7 +163,6 @@
     "out.list_header": "[set_timer] OS schedules:"
   },
   "it": {
-    "err.queue_uninitialized": "[errore set_timer] callback event_queue non inizializzato.",
     "err.seconds_invalid": "[set_timer error] secondi non possono essere interpretati come numeri interi: {raw}",
     "err.seconds_negative": "[errore set_timer] i secondi devono essere 0 o più: {val}",
     "msg.default_timer_done": "Timer terminato",
@@ -196,7 +189,6 @@
     "out.list_header": "[set_timer] OS schedules:"
   },
   "ru": {
-    "err.queue_uninitialized": "[set_timer ошибка] callback event_queue не инициализирован.",
     "err.seconds_invalid": "[set_timer ошибка] секунды должны быть целым числом: {raw}",
     "err.seconds_negative": "[set_timer error] секунды должны быть равны 0 или больше: {val}",
     "msg.default_timer_done": "Таймер завершен",
@@ -223,7 +215,6 @@
     "out.list_header": "[set_timer] OS schedules:"
   },
   "pt_BR": {
-    "err.queue_uninitialized": "[erro set_timer] o callback event_queue não foi inicializado.",
     "err.seconds_invalid": "[set_timer error] segundos não podem ser interpretados como um número inteiro: {raw}",
     "err.seconds_negative": "[erro set_timer] os segundos devem ser 0 ou mais: {val}",
     "msg.default_timer_done": "Temporizador finalizado",
@@ -250,7 +241,6 @@
     "out.list_header": "[set_timer] OS schedules:"
   },
   "pt": {
-    "err.queue_uninitialized": "[erro set_timer] o callback event_queue não foi inicializado.",
     "err.seconds_invalid": "[set_timer error] segundos não podem ser interpretados como um número inteiro: {raw}",
     "err.seconds_negative": "[set_timer error] segundos devem ser 0 ou mais: {val}",
     "msg.default_timer_done": "Temporizador finalizado",
@@ -277,7 +267,6 @@
     "out.list_header": "[set_timer] OS schedules:"
   },
   "id": {
-    "err.queue_uninitialized": "[set_timer error] callback event_queue belum diinisialisasi.",
     "err.seconds_invalid": "[set_timer error] seconds tidak dapat diinterpretasikan sebagai integer: {raw}",
     "err.seconds_negative": "[set_timer error] seconds harus 0 atau lebih: {val}",
     "msg.default_timer_done": "Timer selesai",
@@ -304,7 +293,6 @@
     "out.list_header": "[set_timer] OS schedules:"
   },
   "vi": {
-    "err.queue_uninitialized": "[lỗi set_timer] lệnh gọi lại hàng đợi sự kiện chưa được khởi tạo.",
     "err.seconds_invalid": "[lỗi set_timer] giây không thể được hiểu là số nguyên: {raw}",
     "err.seconds_negative": "[lỗi set_timer] giây phải bằng 0 trở lên: {val}",
     "msg.default_timer_done": "Bộ đếm thời gian đã hoàn tất",
@@ -331,7 +319,6 @@
     "out.list_header": "[set_timer] OS schedules:"
   },
   "pl": {
-    "err.queue_uninitialized": "[błąd set_timera] Nie zainicjowano wywołania zwrotnego kolejki zdarzeń.",
     "err.seconds_invalid": "[błąd set_timera] sekund nie można interpretować jako liczby całkowitej: {raw}",
     "err.seconds_negative": "[błąd set_timera] sekundy muszą wynosić 0 lub więcej: {val}",
     "msg.default_timer_done": "Zakończono timer",
@@ -358,7 +345,6 @@
     "out.list_header": "[set_timer] OS schedules:"
   },
   "hi": {
-    "err.queue_uninitialized": "[सेट_टाइमर त्रुटि] इवेंट_क्यू कॉलबैक आरंभ नहीं हुआ।",
     "err.seconds_invalid": "[सेट_टाइमर त्रुटि] सेकंड की व्याख्या पूर्णांक के रूप में नहीं की जा सकती: {raw}",
     "err.seconds_negative": "[सेट_टाइमर त्रुटि] सेकंड 0 या अधिक होना चाहिए: {val}",
     "msg.default_timer_done": "टाइमर समाप्त",
@@ -385,7 +371,6 @@
     "out.list_header": "[set_timer] OS schedules:"
   },
   "ar": {
-    "err.queue_uninitialized": "[set_timer error] لم تتم تهيئة معاودة الاستدعاء event_queue.",
     "err.seconds_invalid": "[set_timer error] لا يمكن تفسير seconds كعدد صحيح: {raw}",
     "err.seconds_negative": "[set_timer error] يجب أن تكون seconds 0 أو أكثر: {val}",
     "msg.default_timer_done": "انتهى المؤقت",
@@ -412,7 +397,6 @@
     "out.list_header": "[set_timer] OS schedules:"
   },
   "sv": {
-    "err.queue_uninitialized": "[set_timer-fel] event_queue-callbacken är inte initierad.",
     "err.seconds_invalid": "[set_timer-fel] sekunder kan inte tolkas som ett heltal: {raw}",
     "err.seconds_negative": "[set_timer-fel] sekunder måste vara 0 eller större: {val}",
     "msg.default_timer_done": "Timern är slut",
@@ -439,7 +423,6 @@
     "out.list_header": "[set_timer] OS schedules:"
   },
   "sw": {
-    "err.queue_uninitialized": "[set_timer kosa] callback ya event_queue haijaanzishwa.",
     "err.seconds_invalid": "[set_timer kosa] sekunde haziwezi kufasiriwa kama nambari kamili: {raw}",
     "err.seconds_negative": "[set_timer kosa] sekunde lazima ziwe 0 au zaidi: {val}",
     "msg.default_timer_done": "Kipima muda kimekamilika",
@@ -466,7 +449,6 @@
     "out.list_header": "[set_timer] OS schedules:"
   },
   "nb": {
-    "err.queue_uninitialized": "[set_timer-feil] event_queue-kallbakken er ikke initialisert.",
     "err.seconds_invalid": "[set_timer-feil] sekunder kan ikke tolkes som et heltall: {raw}",
     "err.seconds_negative": "[set_timer-feil] sekunder må være 0 eller større: {val}",
     "msg.default_timer_done": "Timer fullført",
@@ -493,7 +475,6 @@
     "out.list_header": "[set_timer] OS schedules:"
   },
   "nl": {
-    "err.queue_uninitialized": "[set_timer fout] event_queue-callback is niet geïnitialiseerd.",
     "err.seconds_invalid": "[set_timer error] seconden kunnen niet worden geïnterpreteerd als een geheel getal: {raw}",
     "err.seconds_negative": "[set_timer fout] seconden moeten 0 of meer zijn: {val}",
     "msg.default_timer_done": "Timer voltooid",
@@ -520,7 +501,6 @@
     "out.list_header": "[set_timer] OS schedules:"
   },
   "fi": {
-    "err.queue_uninitialized": "[set_timer -virhe] event_queue-kutsua ei ole alustettu.",
     "err.seconds_invalid": "[set_timer -virhe] sekunteja ei voi tulkita kokonaisluvuksi: {raw}",
     "err.seconds_negative": "[set_timer error] sekunnin on oltava 0 tai enemmän: {val}",
     "msg.default_timer_done": "Timer ends",
@@ -547,7 +527,6 @@
     "out.list_header": "[set_timer] OS schedules:"
   },
   "cs": {
-    "err.queue_uninitialized": "[set_timer chyba] callback event_queue není inicializován.",
     "err.seconds_invalid": "[set_timer chyba] sekundy nelze interpretovat jako celé číslo: {raw}",
     "err.seconds_negative": "[set_timer chyba] sekundy musí být 0 nebo více: {val}",
     "msg.default_timer_done": "Časovač skončil",
@@ -574,7 +553,6 @@
     "out.list_header": "[set_timer] OS schedules:"
   },
   "uk": {
-    "err.queue_uninitialized": "[set_timer помилка] callback event_queue не ініціалізовано.",
     "err.seconds_invalid": "[set_timer помилка] секунди не вдалося інтерпретувати як ціле число: {raw}",
     "err.seconds_negative": "[set_timer помилка] секунди мають бути 0 або більше: {val}",
     "msg.default_timer_done": "Таймер завершено",
@@ -601,7 +579,6 @@
     "out.list_header": "[set_timer] OS schedules:"
   },
   "tr": {
-    "err.queue_uninitialized": "[set_timer hatası] event_queue geri çağrısı başlatılmadı.",
     "err.seconds_invalid": "[set_timer hatası] saniye değeri tamsayı olarak yorumlanamadı: {raw}",
     "err.seconds_negative": "[set_timer error] saniye 0 veya daha fazla olmalıdır: {val}",
     "msg.default_timer_done": "Zamanlayıcı bitti",
@@ -628,7 +605,6 @@
     "out.list_header": "[set_timer] OS schedules:"
   },
   "th": {
-    "err.queue_uninitialized": "[ข้อผิดพลาด set_timer] การโทรกลับ event_queue ไม่ได้รับการตั้งค่า",
     "err.seconds_invalid": "[ข้อผิดพลาด set_timer] ไม่สามารถตีความวินาทีเป็นจำนวนเต็มได้: {raw}",
     "err.seconds_negative": "[ข้อผิดพลาด set_timer] วินาทีต้องเป็น 0 หรือมากกว่า: {val}",
     "msg.default_timer_done": "ตัวจับเวลาเสร็จสิ้น",
@@ -655,7 +631,6 @@
     "out.list_header": "[set_timer] OS schedules:"
   },
   "zh_CN": {
-    "err.queue_uninitialized": "[set_timer 错误] event_queue 回调未初始化。",
     "err.seconds_invalid": "[set_timer 错误] 秒数无法解析为整数：{raw}",
     "err.seconds_negative": "[set_timer 错误] 秒数必须大于或等于 0：{val}",
     "msg.default_timer_done": "计时结束",
@@ -683,7 +658,6 @@
     "out.list_header": "[set_timer] OS schedules:"
   },
   "zh_TW": {
-    "err.queue_uninitialized": "[set_timer 錯誤] event_queue 回呼未初始化。",
     "err.seconds_invalid": "[set_timer 錯誤] 秒數無法解析為整數：{raw}",
     "err.seconds_negative": "[set_timer 錯誤] 秒數必須大於或等於 0：{val}",
     "msg.default_timer_done": "計時結束",
@@ -711,7 +685,6 @@
     "out.list_header": "[set_timer] OS schedules:"
   },
   "bn": {
-    "err.queue_uninitialized": "[set_timer ত্রুটি] event_queue callback আরম্ভ করা হয়নি।",
     "err.seconds_invalid": "[set_timer ত্রুটি] seconds-কে পূর্ণসংখ্যা হিসেবে ব্যাখ্যা করা যায় না: {raw}",
     "err.seconds_negative": "[set_timer ত্রুটি] seconds 0 বা তার বেশি হতে হবে: {val}",
     "msg.default_timer_done": "টাইমার শেষ",
@@ -738,7 +711,6 @@
     "out.list_header": "[set_timer] OS schedules:"
   },
   "fa": {
-    "err.queue_uninitialized": "[خطای set_timer] callback مربوط به event_queue مقداردهی اولیه نشده است.",
     "err.seconds_invalid": "[خطای set_timer] seconds را نمی‌توان به‌صورت یک عدد صحیح تفسیر کرد: {raw}",
     "err.seconds_negative": "[خطای set_timer] seconds باید 0 یا بیشتر باشد: {val}",
     "msg.default_timer_done": "تایمر به پایان رسید",
@@ -765,7 +737,6 @@
     "out.list_header": "[set_timer] OS schedules:"
   },
   "mn": {
-    "err.queue_uninitialized": "[set_timer алдаа] event_queue callback эхлээгүй байна.",
     "err.seconds_invalid": "[set_timer алдаа] seconds-ийг бүхэл тоо гэж тайлбарлах боломжгүй: {raw}",
     "err.seconds_negative": "[цаг тохируулагчийн алдаа] секунд 0 ба түүнээс дээш байх ёстой: {val}",
     "msg.default_timer_done": "Таймер дууслаа",
@@ -792,7 +763,6 @@
     "out.list_header": "[set_timer] OS schedules:"
   },
   "mr": {
-    "err.queue_uninitialized": "[set_timer त्रुटी] event_queue callback आरंभीकृत नाही.",
     "err.seconds_invalid": "[set_timer त्रुटी] seconds पूर्णांक म्हणून समजावता येत नाही: {raw}",
     "err.seconds_negative": "[set_timer त्रुटी] seconds 0 किंवा अधिक असावेत: {val}",
     "msg.default_timer_done": "टायमर संपला",
@@ -819,7 +789,6 @@
     "out.list_header": "[set_timer] OS schedules:"
   },
   "el": {
-    "err.queue_uninitialized": "[Σφάλμα set_timer] δεν έχει αρχικοποιηθεί η επανάκληση event_queue.",
     "err.seconds_invalid": "Το [set_timer error] δευτερόλεπτα δεν μπορεί να ερμηνευθεί ως ακέραιος αριθμός: {raw}",
     "err.seconds_negative": "[set_timer error] δευτερόλεπτα πρέπει να είναι 0 ή περισσότερα: {val}",
     "msg.default_timer_done": "Ο χρονοδιακόπτης ολοκληρώθηκε",
@@ -848,7 +817,6 @@
     "out.list_header": "[set_timer] OS schedules:"
   },
   "he": {
-    "err.queue_uninitialized": "[set_timer error] התקשרות חוזרת של event_queue לא אותחלה.",
     "err.seconds_invalid": "[set_timer error] שניות לא יכולות להתפרש כמספר שלם: {raw}",
     "err.seconds_negative": "[set_timer error] שניות חייבות להיות 0 או יותר: {val}",
     "msg.default_timer_done": "טיימר הסתיים",
@@ -877,7 +845,6 @@
     "out.list_header": "[set_timer] OS schedules:"
   },
   "hu": {
-    "err.queue_uninitialized": "A [set_timer error] event_queue visszahívása nincs inicializálva.",
     "err.seconds_invalid": "A [set_timer error] másodperc nem értelmezhető egész számként: {raw}",
     "err.seconds_negative": "[set_timer error] másodpercnek legalább 0-nak kell lennie: {val}",
     "msg.default_timer_done": "Az időzítő lejárt",
@@ -906,7 +873,6 @@
     "out.list_header": "[set_timer] OS schedules:"
   },
   "ro": {
-    "err.queue_uninitialized": "[set_timer error] event_queue callback nu a fost inițializată.",
     "err.seconds_invalid": "[set_timer error] secunde nu pot fi interpretate ca un număr întreg: {raw}",
     "err.seconds_negative": "[set_timer error] secunde trebuie să fie 0 sau mai mult: {val}",
     "msg.default_timer_done": "Temporizator terminat",

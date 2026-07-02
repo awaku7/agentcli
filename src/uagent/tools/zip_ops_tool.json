@@ -1,6 +1,5 @@
 {
   "en": {
-    "confirm.extract_overwrite": "zip_ops(extract) may overwrite existing files.\nzip: {zip_path}\ndest: {dest_dir}\nentries: {entries}\n\nEnter y to proceed, or c to cancel.",
     "error.cancelled_by_user": "cancelled by user",
     "error.dangerous_dest_dir_rejected": "dangerous dest_dir rejected: {dest_dir}",
     "error.dangerous_source_rejected": "dangerous source rejected: {source}",
@@ -35,10 +34,10 @@
       "archive",
       "extract zip",
       "compress"
-    ]
+    ],
+    "confirm.extract_overwrite": "zip_ops(extract) may overwrite existing files.\nzip: {zip_path}\ndest: {dest_dir}\nentries: {entries}\n\nEnter y to proceed, or c to cancel."
   },
   "ja": {
-    "confirm.extract_overwrite": "zip_ops(extract) は既存のファイルを上書きする可能性があります。\nzip: {zip_path}\n宛先: {dest_dir}\nエントリ: {entries}\n\n続行するには y を入力し、キャンセルするには c を入力します。",
     "error.cancelled_by_user": "ユーザーによりキャンセルされました",
     "error.dangerous_dest_dir_rejected": "危険な dest_dir を拒否しました: {dest_dir}",
     "error.dangerous_source_rejected": "危険なソースが拒否されました: {source}",
@@ -71,10 +70,10 @@
       "zip 操作",
       "zip 作成",
       "zip 展開"
-    ]
+    ],
+    "confirm.extract_overwrite": "zip_ops(extract) は既存のファイルを上書きする可能性があります。\nzip: {zip_path}\n宛先: {dest_dir}\nエントリ: {エントリ}\n\n続行するには y を入力し、キャンセルするには c を入力します。"
   },
   "es": {
-    "confirm.extract_overwrite": "zip_ops(extract) puede sobrescribir archivos existentes.\ncódigo postal: {zip_path}\ndestino: {dest_dir}\nentradas: {entries}\n\nIngrese y para continuar o c para cancelar.",
     "error.cancelled_by_user": "cancelada por el usuario",
     "error.dangerous_dest_dir_rejected": "dest_dir peligroso rechazado: {dest_dir}",
     "error.dangerous_source_rejected": "fuente peligrosa rechazada: {source}",
@@ -110,7 +109,6 @@
     ]
   },
   "fr": {
-    "confirm.extract_overwrite": "zip_ops(extract) peut écraser les fichiers existants.\ncode postal : {zip_path}\ndestination : {dest_dir}\nentrées : {entries}\n\nEntrez y pour continuer ou c pour annuler.",
     "error.cancelled_by_user": "annulé par l'utilisateur",
     "error.dangerous_dest_dir_rejected": "dest_dir dangereux rejeté : {dest_dir}",
     "error.dangerous_source_rejected": "source dangereuse rejetée : {source}",
@@ -146,7 +144,6 @@
     ]
   },
   "ko": {
-    "confirm.extract_overwrite": "zip_ops(extract)는 기존 파일을 덮어쓸 수 있습니다.\n우편번호: {zip_path}\n목적지: {dest_dir}\n항목: {entries}\n\n계속하려면 y를 입력하고 취소하려면 c를 입력합니다.",
     "error.cancelled_by_user": "사용자에 의해 취소됨",
     "error.dangerous_dest_dir_rejected": "위험한 dest_dir 거부됨: {dest_dir}",
     "error.dangerous_source_rejected": "위험한 소스가 거부됨: {source}",
@@ -182,7 +179,6 @@
     ]
   },
   "de": {
-    "confirm.extract_overwrite": "zip_ops(extract) überschreibt möglicherweise vorhandene Dateien.\nPostleitzahl: {zip_path}\nZiel: {dest_dir}\nEinträge: {entries}\n\nGeben Sie y ein, um fortzufahren, oder c, um abzubrechen.",
     "error.cancelled_by_user": "vom Benutzer abgebrochen",
     "error.dangerous_dest_dir_rejected": "gefährliches Zielverzeichnis abgelehnt: {dest_dir}",
     "error.dangerous_source_rejected": "gefährliche Quelle abgelehnt: {source}",
@@ -218,7 +214,6 @@
     ]
   },
   "it": {
-    "confirm.extract_overwrite": "zip_ops(extract) potrebbe sovrascrivere i file esistenti.\nzip: {zip_path}\ndestinazione: {dest_dir}\nvoci: {entries}\n\nImmettere y per procedere oppure c per annullare.",
     "error.cancelled_by_user": "annullato dall'utente",
     "error.dangerous_dest_dir_rejected": "dest_dir pericoloso rifiutato: {dest_dir}",
     "error.dangerous_source_rejected": "fonte pericolosa rifiutata: {source}",
@@ -254,7 +249,6 @@
     ]
   },
   "ru": {
-    "confirm.extract_overwrite": "zip_ops(extract) может перезаписать существующие файлы.\nпочтовый индекс: {zip_path}\nМесто назначения: {dest_dir}\nзаписи: {entries}\n\nВведите y, чтобы продолжить, или c, чтобы отменить.",
     "error.cancelled_by_user": "отменен пользователем",
     "error.dangerous_dest_dir_rejected": "опасный dest_dir отклонён: {dest_dir}",
     "error.dangerous_source_rejected": "опасный источник отклонен: {source}",
@@ -290,7 +284,6 @@
     ]
   },
   "pt_BR": {
-    "confirm.extract_overwrite": "zip_ops(extract) pode substituir arquivos existentes.\nCEP: {zip_path}\ndestino: {dest_dir}\nentradas: {entries}\n\nDigite y para continuar ou c para cancelar.",
     "error.cancelled_by_user": "cancelado pelo usuário",
     "error.dangerous_dest_dir_rejected": "dest_dir perigoso rejeitado: {dest_dir}",
     "error.dangerous_source_rejected": "fonte perigosa rejeitada: {source}",
@@ -326,7 +319,6 @@
     ]
   },
   "pt": {
-    "confirm.extract_overwrite": "zip_ops(extract) pode substituir arquivos existentes.\nCEP: {zip_path}\ndestino: {dest_dir}\nentradas: {entries}\n\nDigite y para continuar ou c para cancelar.",
     "error.cancelled_by_user": "cancelado pelo usuário",
     "error.dangerous_dest_dir_rejected": "destino_dir perigoso rejeitado: {dest_dir}",
     "error.dangerous_source_rejected": "fonte perigosa rejeitada: {source}",
@@ -362,7 +354,6 @@
     ]
   },
   "id": {
-    "confirm.extract_overwrite": "zip_ops(ekstrak) dapat menimpa file yang sudah ada.\nzip: {zip_path}\ntujuan: {dest_dir}\nentri: {entries}\n\nMasukkan y untuk melanjutkan, atau c untuk membatalkan.",
     "error.cancelled_by_user": "dibatalkan oleh pengguna",
     "error.dangerous_dest_dir_rejected": "dest_dir berbahaya ditolak: {dest_dir}",
     "error.dangerous_source_rejected": "sumber berbahaya ditolak: {source}",
@@ -398,7 +389,6 @@
     ]
   },
   "vi": {
-    "confirm.extract_overwrite": "zip_ops(extract) có thể ghi đè lên các tập tin hiện có.\nmã zip: {zip_path}\nđích: {dest_dir}\nmục: {entries}\n\nNhập y để tiếp tục hoặc c để hủy.",
     "error.cancelled_by_user": "bị người dùng hủy",
     "error.dangerous_dest_dir_rejected": "Dest_dir nguy hiểm bị từ chối: {dest_dir}",
     "error.dangerous_source_rejected": "nguồn nguy hiểm bị từ chối: {source}",
@@ -434,7 +424,6 @@
     ]
   },
   "pl": {
-    "confirm.extract_overwrite": "zip_ops(extract) może zastąpić istniejące pliki.\nkod pocztowy: {zip_path}\nmiejsce docelowe: {dest_dir}\nwpisy: {entries}\n\nWpisz t, aby kontynuować, lub c, aby anulować.",
     "error.cancelled_by_user": "anulowane przez użytkownika",
     "error.dangerous_dest_dir_rejected": "niebezpieczny dest_dir odrzucony: {dest_dir}",
     "error.dangerous_source_rejected": "odrzucono niebezpieczne źródło: {source}",
@@ -470,7 +459,6 @@
     ]
   },
   "hi": {
-    "confirm.extract_overwrite": "zip_ops(extract) मौजूदा फ़ाइलों को अधिलेखित कर सकता है।\nज़िप: {zip_path}\nगंतव्य: {dest_dir}\nप्रविष्टियाँ: {entries}\n\nआगे बढ़ने के लिए y दर्ज करें, या रद्द करने के लिए c दर्ज करें।",
     "error.cancelled_by_user": "उपयोगकर्ता द्वारा रद्द",
     "error.dangerous_dest_dir_rejected": "खतरनाक dest_dir अस्वीकृत: {dest_dir}",
     "error.dangerous_source_rejected": "खतरनाक स्रोत अस्वीकृत: {source}",
@@ -506,7 +494,6 @@
     ]
   },
   "ar": {
-    "confirm.extract_overwrite": "قد يقوم zip_ops(extract) بالكتابة فوق الملفات الموجودة.\nالرمز البريدي: {zip_path}\nالوجهة: {dest_dir}\nالإدخالات: {entries}\n\nأدخل y للمتابعة، أو c للإلغاء.",
     "error.cancelled_by_user": "تم إلغاؤه بواسطة المستخدم",
     "error.dangerous_dest_dir_rejected": "تم رفض dest_dir الخطير: {dest_dir}",
     "error.dangerous_source_rejected": "تم رفض المصدر الخطير: {source}",
@@ -542,7 +529,6 @@
     ]
   },
   "sv": {
-    "confirm.extract_overwrite": "zip_ops(extract) kan skriva över befintliga filer.\nzip: {zip_path}\ndest: {dest_dir}\nposter: {entries}\n\nAnge y för att fortsätta, eller c för att avbryta.",
     "error.cancelled_by_user": "avbruten av användaren",
     "error.dangerous_dest_dir_rejected": "farlig dest_dir avvisades: {dest_dir}",
     "error.dangerous_source_rejected": "farlig källa avvisad: {source}",
@@ -578,7 +564,6 @@
     ]
   },
   "sw": {
-    "confirm.extract_overwrite": "zip_ops(dondoo) inaweza kubatilisha faili zilizopo.\nzip: {zip_path}\nmwisho: {dest_dir}\nmaingizo: {entries}\n\nWeka y ili kuendelea, au c kughairi.",
     "error.cancelled_by_user": "imeghairiwa na mtumiaji",
     "error.dangerous_dest_dir_rejected": "dest_dir hatari imekataliwa: {dest_dir}",
     "error.dangerous_source_rejected": "chanzo hatari kimekataliwa: {source}",
@@ -614,7 +599,6 @@
     ]
   },
   "nb": {
-    "confirm.extract_overwrite": "zip_ops(extract) kan overskrive eksisterende filer.\nzip: {zip_path}\ndest: {dest_dir}\noppføringer: {entries}\n\nSkriv inn y for å fortsette, eller c for å avbryte.",
     "error.cancelled_by_user": "avbrutt av bruker",
     "error.dangerous_dest_dir_rejected": "farlig dest_dir avvist: {dest_dir}",
     "error.dangerous_source_rejected": "farlig kilde avvist: {source}",
@@ -650,7 +634,6 @@
     ]
   },
   "nl": {
-    "confirm.extract_overwrite": "zip_ops(extract) kan bestaande bestanden overschrijven.\npostcode: {zip_path}\nbestemt: {dest_dir}\nvermeldingen: {entries}\n\nVoer y in om door te gaan, of c om te annuleren.",
     "error.cancelled_by_user": "geannuleerd door gebruiker",
     "error.dangerous_dest_dir_rejected": "gevaarlijke dest_dir geweigerd: {dest_dir}",
     "error.dangerous_source_rejected": "gevaarlijke bron afgewezen: {source}",
@@ -686,7 +669,6 @@
     ]
   },
   "fi": {
-    "confirm.extract_overwrite": "zip_ops(extract) voi korvata olemassa olevat tiedostot.\nzip: {zip_path}\nkohde: {dest_dir}\nmerkinnät: {entries}\n\nSyötä y jatkaaksesi tai c peruuttaaksesi.",
     "error.cancelled_by_user": "käyttäjä peruutti",
     "error.dangerous_dest_dir_rejected": "vaarallinen dest_dir hylättiin: {dest_dir}",
     "error.dangerous_source_rejected": "vaarallinen lähde hylätty: {source}",
@@ -722,7 +704,6 @@
     ]
   },
   "cs": {
-    "confirm.extract_overwrite": "zip_ops(extract) může přepsat existující soubory.\nzip: {zip_path}\ncíl: {dest_dir}\npoložky: {entries}\n\nZadejte y pro pokračování nebo c pro zrušení.",
     "error.cancelled_by_user": "zrušeno uživatelem",
     "error.dangerous_dest_dir_rejected": "nebezpečný dest_dir odmítnut: {dest_dir}",
     "error.dangerous_source_rejected": "odmítnutý nebezpečný zdroj: {source}",
@@ -758,7 +739,6 @@
     ]
   },
   "uk": {
-    "confirm.extract_overwrite": "zip_ops(extract) може перезаписати існуючі файли.\nZIP: {zip_path}\nпризначення: {dest_dir}\nзаписи: {entries}\n\nВведіть y, щоб продовжити, або c, щоб скасувати.",
     "error.cancelled_by_user": "скасовано користувачем",
     "error.dangerous_dest_dir_rejected": "небезпечний dest_dir відхилено: {dest_dir}",
     "error.dangerous_source_rejected": "небезпечне джерело відхилено: {source}",
@@ -794,7 +774,6 @@
     ]
   },
   "tr": {
-    "confirm.extract_overwrite": "zip_ops(extract) mevcut dosyaların üzerine yazabilir.\nzip: {zip_path}\nhedef: {dest_dir}\ngirişler: {entries}\n\nDevam etmek için y'yi, iptal etmek için c'yi girin.",
     "error.cancelled_by_user": "kullanıcı tarafından iptal edildi",
     "error.dangerous_dest_dir_rejected": "Tehlikeli dest_dir reddedildi: {dest_dir}",
     "error.dangerous_source_rejected": "tehlikeli kaynak reddedildi: {source}",
@@ -830,7 +809,6 @@
     ]
   },
   "th": {
-    "confirm.extract_overwrite": "zip_ops(extract) อาจเขียนทับไฟล์ที่มีอยู่\nรหัสไปรษณีย์: {zip_path}\nปลายทาง: {dest_dir}\nรายการ: {entries}\n\nป้อน y เพื่อดำเนินการต่อ หรือ c เพื่อยกเลิก",
     "error.cancelled_by_user": "ยกเลิกโดยผู้ใช้",
     "error.dangerous_dest_dir_rejected": "อันตราย de_dir ปฏิเสธ: {dest_dir}",
     "error.dangerous_source_rejected": "แหล่งอันตรายถูกปฏิเสธ: {source}",
@@ -866,7 +844,6 @@
     ]
   },
   "zh_CN": {
-    "confirm.extract_overwrite": "zip_ops(extract) 可能会覆盖现有文件。\n邮编： {zip_path}\n目的地：{dest_dir}\n条目：{entries}\n\n输入 y 继续，或输入 c 取消。",
     "error.cancelled_by_user": "被用户取消",
     "error.dangerous_dest_dir_rejected": "危险的 dest_dir 被拒绝：{dest_dir}",
     "error.dangerous_source_rejected": "危险源被拒绝：{source}",
@@ -902,7 +879,6 @@
     ]
   },
   "zh_TW": {
-    "confirm.extract_overwrite": "zip_ops(extract) 可能會覆寫現有檔案。\n郵編： {zip_path}\n目的地：{dest_dir}\n題目：{entries}\n\n輸入 y 繼續，或輸入 c 取消。",
     "error.cancelled_by_user": "被用戶取消",
     "error.dangerous_dest_dir_rejected": "危險的 dest_dir 被拒絕：{dest_dir}",
     "error.dangerous_source_rejected": "危險源被拒絕：{source}",
@@ -938,7 +914,6 @@
     ]
   },
   "bn": {
-    "confirm.extract_overwrite": "zip_ops(extract) বিদ্যমান ফাইল ওভাররাইট করতে পারে।\nজিপ: {zip_path}\nগন্তব্য: {dest_dir}\nএন্ট্রি: {entries}\n\nএগিয়ে যেতে y লিখুন, বা বাতিল করতে c লিখুন।",
     "error.cancelled_by_user": "পোর্ট যোগ করা হয়নি {elapsed_ms} ms",
     "error.dangerous_dest_dir_rejected": "বিপজ্জনক dest_dir প্রত্যাখ্যান: {dest_dir}",
     "error.dangerous_source_rejected": "বিপজ্জনক উত্স প্রত্যাখ্যান করা হয়েছে: {source}",
@@ -974,7 +949,6 @@
     ]
   },
   "fa": {
-    "confirm.extract_overwrite": "zip_ops(extract) ممکن است فایل های موجود را بازنویسی کند.\nفایل فشرده: {zip_path}\nمقصد: {dest_dir}\nورودی ها: {entries}\n\nبرای ادامه y یا برای لغو c را وارد کنید.",
     "error.cancelled_by_user": "توسط کاربر لغو شد",
     "error.dangerous_dest_dir_rejected": "dest_dir خطرناک رد شد: {dest_dir}",
     "error.dangerous_source_rejected": "منبع خطرناک رد شد: {source}",
@@ -1010,7 +984,6 @@
     ]
   },
   "mn": {
-    "confirm.extract_overwrite": "zip_ops(extract) нь одоо байгаа файлуудыг дарж бичиж болно.\nзип: {zip_path}\nЗорилго: {dest_dir}\nоруулгууд: {entries}\n\nҮргэлжлүүлэхийн тулд y, цуцлахын тулд c-г оруулна уу.",
     "error.cancelled_by_user": "Хэрэглэгч цуцалсан",
     "error.dangerous_dest_dir_rejected": "Аюултай dest_dir татгалзсан: {dest_dir}",
     "error.dangerous_source_rejected": "Аюултай эх сурвалжаас татгалзсан: {source}",
@@ -1046,7 +1019,6 @@
     ]
   },
   "mr": {
-    "confirm.extract_overwrite": "zip_ops(अर्क) विद्यमान फायली अधिलिखित करू शकतात.\nझिप: {zip_path}\nगंतव्य: {dest_dir}\nनोंदी: {entries}\n\nपुढे जाण्यासाठी y प्रविष्ट करा किंवा रद्द करण्यासाठी c प्रविष्ट करा.",
     "error.cancelled_by_user": "वापरकर्त्याने रद्द केले",
     "error.dangerous_dest_dir_rejected": "धोकादायक dest_dir नाकारले: {dest_dir}",
     "error.dangerous_source_rejected": "धोकादायक स्रोत नाकारला: {source}",
@@ -1082,7 +1054,6 @@
     ]
   },
   "el": {
-    "confirm.extract_overwrite": "επικίνδυνες καταχωρήσεις zip απορρίφθηκαν",
     "error.cancelled_by_user": "επικίνδυνες καταχωρίσεις zip απορρίφθηκαν: {zip_path}",
     "error.dangerous_dest_dir_rejected": "dest_dir δεν επιτρέπεται: {error} [αξιολόγηση της ενέργειας:#=] {error} Απαιτούνται",
     "error.dangerous_source_rejected": "πηγές για τη δημιουργία",
@@ -1120,7 +1091,6 @@
     ]
   },
   "he": {
-    "confirm.extract_overwrite": "zip_ops(extract) עשוי להחליף קבצים קיימים.\nzip: {zip_path}\ndest: {dest_dir}\nערכים: {entries}\n\nהזן y כדי להמשיך, או c כדי לבטל.",
     "error.cancelled_by_user": "מקור מסוכן נדחה: {source}",
     "error.dangerous_dest_dir_rejected": "רשומות zip מסוכנות נדחו",
     "error.dangerous_source_rejected": "נתיבי zip_ מסוכנים נדחה: {zip_path}",
@@ -1158,7 +1128,6 @@
     ]
   },
   "hu": {
-    "confirm.extract_overwrite": "A zip_ops(extract) felülírhatja a meglévő fájlokat.\nzip: {zip_path}\ncél: {dest_dir}\nbejegyzések: {entries}\n\nA folytatáshoz írja be az y-t, a megszakításhoz pedig a c-t.",
     "error.cancelled_by_user": "veszélyes zip_path elutasítva: {zip_path} művelet",
     "error.dangerous_dest_dir_rejected": "célkönyvtár nem engedélyezett: [=#] célkönyvtár nem engedélyezett: [=#] nem érvénytelen } engedélyezett: {error}",
     "error.dangerous_source_rejected": "forrás szükséges a létrehozáshoz",
@@ -1196,7 +1165,6 @@
     ]
   },
   "ro": {
-    "confirm.extract_overwrite": "zip_ops(extract) poate suprascrie fișierele existente.\nzip: {zip_path}\ndest: {dest_dir}\nintrari: {intrari}\n\nIntroduceți y pentru a continua sau c pentru a anula.",
     "error.cancelled_by_user": "sursă periculoasă respinsă: {source}",
     "error.dangerous_dest_dir_rejected": "intrări zip periculoase respinse",
     "error.dangerous_source_rejected": "zip_path periculoasă respinsă: {zip_path}",

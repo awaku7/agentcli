@@ -17,7 +17,7 @@
     "msg.no_items": "No cached entries are present.",
     "msg.cleared": "Cleared {removed} cached entries from {scope}.",
     "err.invalid_action": "Error: action must be 'snapshot' or 'clear'.",
-    "param.namespace.description": "Cache namespace (omit for all)."
+    "param.namespace.description": "キャッシュ名前空間 (すべて省略)。"
   },
   "id": {
     "tool.description": "Inspect or clear the shared ECHONET Lite cache.",
@@ -26,8 +26,7 @@
     "msg.snapshot": "ECHONET cache snapshot: {count} item(s).",
     "msg.no_items": "No cached entries are present.",
     "msg.cleared": "Cleared {removed} cached entries from {scope}.",
-    "err.invalid_action": "Error: action must be 'snapshot' or 'clear'.",
-    "param.namespace.description": "Cache namespace (omit for all)."
+    "err.invalid_action": "Error: action must be 'snapshot' or 'clear'."
   },
   "ar": {
     "tool.description": "Inspect or clear the shared ECHONET Lite cache.",
@@ -36,8 +35,7 @@
     "msg.snapshot": "ECHONET cache snapshot: {count} item(s).",
     "msg.no_items": "No cached entries are present.",
     "msg.cleared": "Cleared {removed} cached entries from {scope}.",
-    "err.invalid_action": "Error: action must be 'snapshot' or 'clear'.",
-    "param.namespace.description": "Cache namespace (omit for all)."
+    "err.invalid_action": "Error: action must be 'snapshot' or 'clear'."
   },
   "bn": {
     "tool.description": "Inspect or clear the shared ECHONET Lite cache.",
@@ -46,8 +44,7 @@
     "msg.snapshot": "ECHONET cache snapshot: {count} item(s).",
     "msg.no_items": "No cached entries are present.",
     "msg.cleared": "Cleared {removed} cached entries from {scope}.",
-    "err.invalid_action": "Error: action must be 'snapshot' or 'clear'.",
-    "param.namespace.description": "Cache namespace (omit for all)."
+    "err.invalid_action": "Error: action must be 'snapshot' or 'clear'."
   },
   "cs": {
     "parameters": {
@@ -87,8 +84,7 @@
     "msg.snapshot": "ECHONET cache snapshot: {count} item(s).",
     "msg.no_items": "No cached entries are present.",
     "msg.cleared": "Cleared {removed} cached entries from {scope}.",
-    "err.invalid_action": "Error: action must be 'snapshot' or 'clear'.",
-    "param.namespace.description": "Cache namespace (omit for all)."
+    "err.invalid_action": "Error: action must be 'snapshot' or 'clear'."
   },
   "de": {
     "tool.description": "Inspect or clear the shared ECHONET Lite cache.",
@@ -97,8 +93,7 @@
     "msg.snapshot": "ECHONET cache snapshot: {count} item(s).",
     "msg.no_items": "No cached entries are present.",
     "msg.cleared": "Cleared {removed} cached entries from {scope}.",
-    "err.invalid_action": "Error: action must be 'snapshot' or 'clear'.",
-    "param.namespace.description": "Cache namespace (omit for all)."
+    "err.invalid_action": "Error: action must be 'snapshot' or 'clear'."
   },
   "es": {
     "tool.description": "Inspect or clear the shared ECHONET Lite cache.",
@@ -107,8 +102,7 @@
     "msg.snapshot": "ECHONET cache snapshot: {count} item(s).",
     "msg.no_items": "No cached entries are present.",
     "msg.cleared": "Cleared {removed} cached entries from {scope}.",
-    "err.invalid_action": "Error: action must be 'snapshot' or 'clear'.",
-    "param.namespace.description": "Cache namespace (omit for all)."
+    "err.invalid_action": "Error: action must be 'snapshot' or 'clear'."
   },
   "fa": {
     "tool.description": "Inspect or clear the shared ECHONET Lite cache.",
@@ -117,8 +111,7 @@
     "msg.snapshot": "ECHONET cache snapshot: {count} item(s).",
     "msg.no_items": "No cached entries are present.",
     "msg.cleared": "Cleared {removed} cached entries from {scope}.",
-    "err.invalid_action": "Error: action must be 'snapshot' or 'clear'.",
-    "param.namespace.description": "Cache namespace (omit for all)."
+    "err.invalid_action": "Error: action must be 'snapshot' or 'clear'."
   },
   "fi": {
     "tool.description": "Inspect or clear the shared ECHONET Lite cache.",
@@ -127,8 +120,7 @@
     "msg.snapshot": "ECHONET cache snapshot: {count} item(s).",
     "msg.no_items": "No cached entries are present.",
     "msg.cleared": "Cleared {removed} cached entries from {scope}.",
-    "err.invalid_action": "Error: action must be 'snapshot' or 'clear'.",
-    "param.namespace.description": "Cache namespace (omit for all)."
+    "err.invalid_action": "Error: action must be 'snapshot' or 'clear'."
   },
   "fr": {
     "tool.description": "Inspect or clear the shared ECHONET Lite cache.",
@@ -137,8 +129,7 @@
     "msg.snapshot": "ECHONET cache snapshot: {count} item(s).",
     "msg.no_items": "No cached entries are present.",
     "msg.cleared": "Cleared {removed} cached entries from {scope}.",
-    "err.invalid_action": "Error: action must be 'snapshot' or 'clear'.",
-    "param.namespace.description": "Cache namespace (omit for all)."
+    "err.invalid_action": "Error: action must be 'snapshot' or 'clear'."
   },
   "hi": {
     "tool.description": "Inspect or clear the shared ECHONET Lite cache.",
@@ -147,8 +138,7 @@
     "msg.snapshot": "ECHONET cache snapshot: {count} item(s).",
     "msg.no_items": "No cached entries are present.",
     "msg.cleared": "Cleared {removed} cached entries from {scope}.",
-    "err.invalid_action": "Error: action must be 'snapshot' or 'clear'.",
-    "param.namespace.description": "Cache namespace (omit for all)."
+    "err.invalid_action": "Error: action must be 'snapshot' or 'clear'."
   },
   "it": {
     "tool.description": "Inspect or clear the shared ECHONET Lite cache.",
@@ -157,8 +147,7 @@
     "msg.snapshot": "ECHONET cache snapshot: {count} item(s).",
     "msg.no_items": "No cached entries are present.",
     "msg.cleared": "Cleared {removed} cached entries from {scope}.",
-    "err.invalid_action": "Error: action must be 'snapshot' or 'clear'.",
-    "param.namespace.description": "Cache namespace (omit for all)."
+    "err.invalid_action": "Error: action must be 'snapshot' or 'clear'."
   },
   "ko": {
     "tool.description": "Inspect or clear the shared ECHONET Lite cache.",
@@ -167,8 +156,7 @@
     "msg.snapshot": "ECHONET cache snapshot: {count} item(s).",
     "msg.no_items": "No cached entries are present.",
     "msg.cleared": "Cleared {removed} cached entries from {scope}.",
-    "err.invalid_action": "Error: action must be 'snapshot' or 'clear'.",
-    "param.namespace.description": "Cache namespace (omit for all)."
+    "err.invalid_action": "Error: action must be 'snapshot' or 'clear'."
   },
   "mn": {
     "tool.description": "Inspect or clear the shared ECHONET Lite cache.",
@@ -177,8 +165,7 @@
     "msg.snapshot": "ECHONET cache snapshot: {count} item(s).",
     "msg.no_items": "No cached entries are present.",
     "msg.cleared": "Cleared {removed} cached entries from {scope}.",
-    "err.invalid_action": "Error: action must be 'snapshot' or 'clear'.",
-    "param.namespace.description": "Cache namespace (omit for all)."
+    "err.invalid_action": "Error: action must be 'snapshot' or 'clear'."
   },
   "mr": {
     "tool.description": "Inspect or clear the shared ECHONET Lite cache.",
@@ -187,8 +174,7 @@
     "msg.snapshot": "ECHONET cache snapshot: {count} item(s).",
     "msg.no_items": "No cached entries are present.",
     "msg.cleared": "Cleared {removed} cached entries from {scope}.",
-    "err.invalid_action": "Error: action must be 'snapshot' or 'clear'.",
-    "param.namespace.description": "Cache namespace (omit for all)."
+    "err.invalid_action": "Error: action must be 'snapshot' or 'clear'."
   },
   "el": {
     "tool.description": "Επιθεωρήστε ή εκκαθαρίστε την κοινόχρηστη προσωρινή μνήμη ECHONET Lite.",
@@ -197,8 +183,7 @@
     "msg.snapshot": "Στιγμιότυπο προσωρινής μνήμης ECHONET: {count} στοιχεία.",
     "msg.no_items": "Δεν υπάρχουν καταχωρήσεις προσωρινής αποθήκευσης.",
     "msg.cleared": "Διαγράφηκαν {αφαιρέθηκαν} αποθηκευμένες καταχωρήσεις από το {scope}.",
-    "err.invalid_action": "Σφάλμα: η ενέργεια πρέπει να είναι \"στιγμιότυπο\" ή \"καθαρή\".",
-    "param.namespace.description": "Cache namespace (παράλειψη για όλους)."
+    "err.invalid_action": "Σφάλμα: η ενέργεια πρέπει να είναι \"στιγμιότυπο\" ή \"καθαρή\"."
   },
   "he": {
     "tool.description": "בדוק או נקה את המטמון המשותף של ECHONET Lite.",
@@ -207,8 +192,7 @@
     "msg.snapshot": "תמונת מצב של מטמון ECHONET: {count} פריטים.",
     "msg.no_items": "אין ערכים בקובץ שמור.",
     "msg.cleared": "ניקה {הוסר} ערכים במטמון מ-{scope}.",
-    "err.invalid_action": "שגיאה: הפעולה חייבת להיות 'תמונת מצב' או 'נקה'.",
-    "param.namespace.description": "מרחב שמות מטמון (השמט לכולם)."
+    "err.invalid_action": "שגיאה: הפעולה חייבת להיות 'תמונת מצב' או 'נקה'."
   },
   "hu": {
     "tool.description": "Vizsgálja meg vagy törölje a megosztott ECHONET Lite gyorsítótárat.",
@@ -217,8 +201,7 @@
     "msg.snapshot": "ECHONET gyorsítótár pillanatképe: {count} elem.",
     "msg.no_items": "Nincsenek gyorsítótárazott bejegyzések.",
     "msg.cleared": "{removed} gyorsítótárazott bejegyzés törlése a következőről: {scope}.",
-    "err.invalid_action": "Hiba: a műveletnek „pillanatfelvételnek” vagy „tisztának” kell lennie.",
-    "param.namespace.description": "Gyorsítótár névtér (mindennél kihagyja)."
+    "err.invalid_action": "Hiba: a műveletnek „pillanatfelvételnek” vagy „tisztának” kell lennie."
   },
   "ro": {
     "tool.description": "Inspectați sau ștergeți memoria cache ECHONET Lite partajată.",
@@ -227,8 +210,7 @@
     "msg.snapshot": "Instantaneu cache ECHONET: {count} element(e).",
     "msg.no_items": "Nu sunt prezente intrări în cache.",
     "msg.cleared": "S-au șters {removed} intrări din cache din {scope}.",
-    "err.invalid_action": "Eroare: acțiunea trebuie să fie „instantaneu” sau „clear”.",
-    "param.namespace.description": "Cache namespace (omiteți pentru toți)."
+    "err.invalid_action": "Eroare: acțiunea trebuie să fie „instantaneu” sau „clear”."
   },
   "nb": {
     "tool.description": "Inspect or clear the shared ECHONET Lite cache.",
@@ -237,8 +219,7 @@
     "msg.snapshot": "ECHONET cache snapshot: {count} item(s).",
     "msg.no_items": "No cached entries are present.",
     "msg.cleared": "Cleared {removed} cached entries from {scope}.",
-    "err.invalid_action": "Error: action must be 'snapshot' or 'clear'.",
-    "param.namespace.description": "Cache namespace (omit for all)."
+    "err.invalid_action": "Error: action must be 'snapshot' or 'clear'."
   },
   "nl": {
     "tool.description": "Inspect or clear the shared ECHONET Lite cache.",
@@ -247,8 +228,7 @@
     "msg.snapshot": "ECHONET cache snapshot: {count} item(s).",
     "msg.no_items": "No cached entries are present.",
     "msg.cleared": "Cleared {removed} cached entries from {scope}.",
-    "err.invalid_action": "Error: action must be 'snapshot' or 'clear'.",
-    "param.namespace.description": "Cache namespace (omit for all)."
+    "err.invalid_action": "Error: action must be 'snapshot' or 'clear'."
   },
   "pl": {
     "tool.description": "Inspect or clear the shared ECHONET Lite cache.",
@@ -257,8 +237,7 @@
     "msg.snapshot": "ECHONET cache snapshot: {count} item(s).",
     "msg.no_items": "No cached entries are present.",
     "msg.cleared": "Cleared {removed} cached entries from {scope}.",
-    "err.invalid_action": "Error: action must be 'snapshot' or 'clear'.",
-    "param.namespace.description": "Cache namespace (omit for all)."
+    "err.invalid_action": "Error: action must be 'snapshot' or 'clear'."
   },
   "pt": {
     "tool.description": "Inspect or clear the shared ECHONET Lite cache.",
@@ -267,8 +246,7 @@
     "msg.snapshot": "ECHONET cache snapshot: {count} item(s).",
     "msg.no_items": "No cached entries are present.",
     "msg.cleared": "Cleared {removed} cached entries from {scope}.",
-    "err.invalid_action": "Error: action must be 'snapshot' or 'clear'.",
-    "param.namespace.description": "Cache namespace (omit for all)."
+    "err.invalid_action": "Error: action must be 'snapshot' or 'clear'."
   },
   "pt_BR": {
     "tool.description": "Inspect or clear the shared ECHONET Lite cache.",
@@ -277,8 +255,7 @@
     "msg.snapshot": "ECHONET cache snapshot: {count} item(s).",
     "msg.no_items": "No cached entries are present.",
     "msg.cleared": "Cleared {removed} cached entries from {scope}.",
-    "err.invalid_action": "Error: action must be 'snapshot' or 'clear'.",
-    "param.namespace.description": "Cache namespace (omit for all)."
+    "err.invalid_action": "Error: action must be 'snapshot' or 'clear'."
   },
   "ru": {
     "tool.description": "Inspect or clear the shared ECHONET Lite cache.",
@@ -287,8 +264,7 @@
     "msg.snapshot": "ECHONET cache snapshot: {count} item(s).",
     "msg.no_items": "No cached entries are present.",
     "msg.cleared": "Cleared {removed} cached entries from {scope}.",
-    "err.invalid_action": "Error: action must be 'snapshot' or 'clear'.",
-    "param.namespace.description": "Cache namespace (omit for all)."
+    "err.invalid_action": "Error: action must be 'snapshot' or 'clear'."
   },
   "sv": {
     "tool.description": "Inspect or clear the shared ECHONET Lite cache.",
@@ -297,8 +273,7 @@
     "msg.snapshot": "ECHONET cache snapshot: {count} item(s).",
     "msg.no_items": "No cached entries are present.",
     "msg.cleared": "Cleared {removed} cached entries from {scope}.",
-    "err.invalid_action": "Error: action must be 'snapshot' or 'clear'.",
-    "param.namespace.description": "Cache namespace (omit for all)."
+    "err.invalid_action": "Error: action must be 'snapshot' or 'clear'."
   },
   "sw": {
     "tool.description": "Inspect or clear the shared ECHONET Lite cache.",
@@ -307,8 +282,7 @@
     "msg.snapshot": "ECHONET cache snapshot: {count} item(s).",
     "msg.no_items": "No cached entries are present.",
     "msg.cleared": "Cleared {removed} cached entries from {scope}.",
-    "err.invalid_action": "Error: action must be 'snapshot' or 'clear'.",
-    "param.namespace.description": "Cache namespace (omit for all)."
+    "err.invalid_action": "Error: action must be 'snapshot' or 'clear'."
   },
   "th": {
     "tool.description": "Inspect or clear the shared ECHONET Lite cache.",
@@ -317,8 +291,7 @@
     "msg.snapshot": "ECHONET cache snapshot: {count} item(s).",
     "msg.no_items": "No cached entries are present.",
     "msg.cleared": "Cleared {removed} cached entries from {scope}.",
-    "err.invalid_action": "Error: action must be 'snapshot' or 'clear'.",
-    "param.namespace.description": "Cache namespace (omit for all)."
+    "err.invalid_action": "Error: action must be 'snapshot' or 'clear'."
   },
   "tr": {
     "tool.description": "Inspect or clear the shared ECHONET Lite cache.",
@@ -327,8 +300,7 @@
     "msg.snapshot": "ECHONET cache snapshot: {count} item(s).",
     "msg.no_items": "No cached entries are present.",
     "msg.cleared": "Cleared {removed} cached entries from {scope}.",
-    "err.invalid_action": "Error: action must be 'snapshot' or 'clear'.",
-    "param.namespace.description": "Cache namespace (omit for all)."
+    "err.invalid_action": "Error: action must be 'snapshot' or 'clear'."
   },
   "uk": {
     "tool.description": "Inspect or clear the shared ECHONET Lite cache.",
@@ -337,8 +309,7 @@
     "msg.snapshot": "ECHONET cache snapshot: {count} item(s).",
     "msg.no_items": "No cached entries are present.",
     "msg.cleared": "Cleared {removed} cached entries from {scope}.",
-    "err.invalid_action": "Error: action must be 'snapshot' or 'clear'.",
-    "param.namespace.description": "Cache namespace (omit for all)."
+    "err.invalid_action": "Error: action must be 'snapshot' or 'clear'."
   },
   "vi": {
     "tool.description": "Inspect or clear the shared ECHONET Lite cache.",
@@ -347,8 +318,7 @@
     "msg.snapshot": "ECHONET cache snapshot: {count} item(s).",
     "msg.no_items": "No cached entries are present.",
     "msg.cleared": "Cleared {removed} cached entries from {scope}.",
-    "err.invalid_action": "Error: action must be 'snapshot' or 'clear'.",
-    "param.namespace.description": "Cache namespace (omit for all)."
+    "err.invalid_action": "Error: action must be 'snapshot' or 'clear'."
   },
   "zh_CN": {
     "tool.description": "Inspect or clear the shared ECHONET Lite cache.",
@@ -357,8 +327,7 @@
     "msg.snapshot": "ECHONET cache snapshot: {count} item(s).",
     "msg.no_items": "No cached entries are present.",
     "msg.cleared": "Cleared {removed} cached entries from {scope}.",
-    "err.invalid_action": "Error: action must be 'snapshot' or 'clear'.",
-    "param.namespace.description": "Cache namespace (omit for all)."
+    "err.invalid_action": "Error: action must be 'snapshot' or 'clear'."
   },
   "zh_TW": {
     "tool.description": "Inspect or clear the shared ECHONET Lite cache.",
@@ -367,7 +336,6 @@
     "msg.snapshot": "ECHONET cache snapshot: {count} item(s).",
     "msg.no_items": "No cached entries are present.",
     "msg.cleared": "Cleared {removed} cached entries from {scope}.",
-    "err.invalid_action": "Error: action must be 'snapshot' or 'clear'.",
-    "param.namespace.description": "Cache namespace (omit for all)."
+    "err.invalid_action": "Error: action must be 'snapshot' or 'clear'."
   }
 }

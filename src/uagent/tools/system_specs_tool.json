@@ -6,9 +6,9 @@
       "get_system_specs",
       "system specifications"
     ],
-    "tool.system_prompt": "This tool is used for the following purpose: gather system specs such as OS, CPU, RAM size, storage disks (best-effort), and volume free space.",
     "param.include_volumes.description": "Include mounted volume usage information.",
-    "param.include_disks.description": "Include physical disk information when available (best-effort)."
+    "param.include_disks.description": "Include physical disk information when available (best-effort).",
+    "tool.system_prompt": "This tool is used for the following purpose: gather system specs such as OS, CPU, RAM size, storage disks (best-effort), and volume free space."
   },
   "ja": {
     "tool.description": "システム情報（OS/CPU/RAM/ディスク/ボリューム）を、取得できる範囲でクロスプラットフォームに取得します。",
@@ -18,9 +18,9 @@
       "CPU RAM ディスク",
       "system specs"
     ],
-    "tool.system_prompt": "このツールは次の目的で使われます: OS、CPU、RAM容量、（可能なら）物理ディスク情報、およびボリュームの空き容量などのシステム情報を収集します。",
     "param.include_volumes.description": "マウントされているボリュームの使用量情報を含めます。",
-    "param.include_disks.description": "可能な場合、物理ディスク情報を含めます（取得できる範囲で）。"
+    "param.include_disks.description": "可能な場合、物理ディスク情報を含めます（取得できる範囲で）。",
+    "tool.system_prompt": "このツールは、OS、CPU、RAM サイズ、ストレージ ディスク (ベストエフォート)、ボリュームの空き容量などのシステム仕様を収集する目的で使用されます。"
   },
   "es": {
     "tool.description": "Obtenga especificaciones del sistema (SO/CPU/RAM/discos/volúmenes) de forma multiplataforma (mejor esfuerzo).",
@@ -30,7 +30,6 @@
       "info del sistema",
       "system specs"
     ],
-    "tool.system_prompt": "Esta herramienta se utiliza para el siguiente propósito: recopilar especificaciones del sistema como SO, CPU, tamaño de RAM, discos de almacenamiento (mejor esfuerzo) y espacio libre de volúmenes.",
     "param.include_volumes.description": "Incluir información de uso de volúmenes montados.",
     "param.include_disks.description": "Incluir información de discos físicos cuando esté disponible (mejor esfuerzo)."
   },
@@ -42,7 +41,6 @@
       "infos système",
       "system specs"
     ],
-    "tool.system_prompt": "Cet outil est utilisé dans le but suivant : collecter des informations système telles que l'OS, le CPU, la taille de la RAM, les disques de stockage (best-effort) et l'espace libre des volumes.",
     "param.include_volumes.description": "Inclure les informations d’utilisation des volumes montés.",
     "param.include_disks.description": "Inclure les informations sur les disques physiques lorsqu’elles sont disponibles (best-effort)."
   },
@@ -54,7 +52,6 @@
       "시스템 정보",
       "cpu ram disk"
     ],
-    "tool.system_prompt": "이 도구는 OS, CPU, RAM 용량, (가능하면) 물리 디스크 정보, 그리고 볼륨 여유 공간 등의 시스템 정보를 수집하는 목적으로 사용됩니다.",
     "param.include_volumes.description": "마운트된 볼륨 사용량 정보를 포함합니다.",
     "param.include_disks.description": "가능한 경우 물리 디스크 정보를 포함합니다(최선의 노력)."
   },
@@ -66,7 +63,6 @@
       "systeminfos",
       "system specs"
     ],
-    "tool.system_prompt": "Dieses Tool wird verwendet, um Systemspezifikationen wie Betriebssystem, CPU, RAM-Größe, Speicherlaufwerke (best effort) und freien Speicherplatz der Volumes zu erfassen.",
     "param.include_volumes.description": "Informationen zur Nutzung eingehängter Volumes einbeziehen.",
     "param.include_disks.description": "Wenn verfügbar, Informationen zu physischen Datenträgern einbeziehen (best effort)."
   },
@@ -78,7 +74,6 @@
       "info sistema",
       "system specs"
     ],
-    "tool.system_prompt": "Questo strumento viene utilizzato per raccogliere specifiche di sistema come OS, CPU, dimensione della RAM, dischi di archiviazione (best effort) e spazio libero dei volumi.",
     "param.include_volumes.description": "Includi le informazioni sull'utilizzo dei volumi montati.",
     "param.include_disks.description": "Includi le informazioni sui dischi fisici quando disponibili (best effort)."
   },
@@ -90,7 +85,6 @@
       "системная информация",
       "system specs"
     ],
-    "tool.system_prompt": "Этот инструмент используется для сбора системной информации, такой как ОС, CPU, объём RAM, диски хранения (по возможности) и свободное место на томах.",
     "param.include_volumes.description": "Включать сведения об использовании подключённых томов.",
     "param.include_disks.description": "Включать сведения о физических дисках, если доступны (по возможности)."
   },
@@ -102,7 +96,6 @@
       "info do sistema",
       "system specs"
     ],
-    "tool.system_prompt": "Esta ferramenta é usada para coletar informações do sistema, como SO, CPU, tamanho da RAM, discos de armazenamento (melhor esforço) e espaço livre dos volumes.",
     "param.include_volumes.description": "Incluir informações de uso dos volumes montados.",
     "param.include_disks.description": "Incluir informações de discos físicos quando disponíveis (melhor esforço)."
   },
@@ -114,7 +107,6 @@
       "info do sistema",
       "system specs"
     ],
-    "tool.system_prompt": "Esta ferramenta é usada para coletar informações do sistema, como sistema operacional, CPU, tamanho da RAM, discos de armazenamento (melhor esforço) e espaço livre dos volumes.",
     "param.include_volumes.description": "Incluir informações de uso dos volumes montados.",
     "param.include_disks.description": "Incluir informações de discos físicos quando disponíveis (melhor esforço)."
   },
@@ -126,7 +118,6 @@
       "info sistem",
       "system specs"
     ],
-    "tool.system_prompt": "Alat ini digunakan untuk tujuan berikut: mengumpulkan spesifikasi sistem seperti OS, CPU, ukuran RAM, disk penyimpanan (best-effort), dan ruang kosong volume.",
     "param.include_volumes.description": "Sertakan informasi penggunaan volume yang terpasang.",
     "param.include_disks.description": "Sertakan informasi disk fisik jika tersedia (best-effort)."
   },
@@ -138,7 +129,6 @@
       "thông tin hệ thống",
       "system specs"
     ],
-    "tool.system_prompt": "Công cụ này được sử dụng cho mục đích sau: thu thập các thông số kỹ thuật của hệ thống như HĐH, CPU, kích thước RAM, ổ đĩa lưu trữ (nỗ lực tốt nhất) và dung lượng ổ đĩa trống.",
     "param.include_volumes.description": "Bao gồm thông tin sử dụng ổ đĩa được gắn kết.",
     "param.include_disks.description": "Bao gồm thông tin đĩa vật lý khi có sẵn (nỗ lực tốt nhất)."
   },
@@ -150,7 +140,6 @@
       "informacje o systemie",
       "system specs"
     ],
-    "tool.system_prompt": "To narzędzie służy do następującego celu: zebrania specyfikacji systemu, takich jak system operacyjny, procesor, rozmiar pamięci RAM, dyski magazynujące (dokładne wysiłki) i wolne miejsce na wolumenie.",
     "param.include_volumes.description": "Dołącz informacje o użyciu zamontowanego woluminu.",
     "param.include_disks.description": "Dołącz informacje o dysku fizycznym, jeśli są dostępne (dokładając wszelkich starań)."
   },
@@ -162,7 +151,6 @@
       "सिस्टम जानकारी",
       "system specs"
     ],
-    "tool.system_prompt": "यह टूल OS, CPU, RAM आकार, (सर्वोत्तम प्रयास के साथ) स्टोरेज डिस्क, और वॉल्यूम के खाली स्थान जैसी सिस्टम जानकारी एकत्र करने के लिए उपयोग किया जाता है।",
     "param.include_volumes.description": "माउंट किए गए वॉल्यूम के उपयोग की जानकारी शामिल करें।",
     "param.include_disks.description": "उपलब्ध होने पर भौतिक डिस्क की जानकारी शामिल करें (सर्वोत्तम प्रयास के साथ)।"
   },
@@ -174,7 +162,6 @@
       "معلومات النظام",
       "system specs"
     ],
-    "tool.system_prompt": "يتم استخدام هذه الأداة للأغراض التالية: جمع مواصفات النظام مثل نظام التشغيل ووحدة المعالجة المركزية وحجم ذاكرة الوصول العشوائي وأقراص التخزين (أفضل جهد) والمساحة الخالية لوحدة التخزين.",
     "param.include_volumes.description": "قم بتضمين معلومات استخدام وحدة التخزين المثبتة.",
     "param.include_disks.description": "قم بتضمين معلومات القرص الفعلي عند توفرها (أفضل جهد)."
   },
@@ -186,7 +173,6 @@
       "systeminfo",
       "system specs"
     ],
-    "tool.system_prompt": "Det här verktyget används för att samla in systeminformation som operativsystem, CPU, RAM-storlek, lagringsdiskar (bästa möjliga försök) och ledigt utrymme på volymer.",
     "param.include_volumes.description": "Inkludera information om monterade volymers användning.",
     "param.include_disks.description": "Inkludera information om fysiska diskar när det är tillgängligt (bästa möjliga försök)."
   },
@@ -198,7 +184,6 @@
       "taarifa za mfumo",
       "system specs"
     ],
-    "tool.system_prompt": "Zana hii hutumiwa kukusanya taarifa za mfumo kama vile OS, CPU, ukubwa wa RAM, diski za kuhifadhi (kwa kadiri inavyowezekana), na nafasi huru ya volumu.",
     "param.include_volumes.description": "Jumuisha taarifa za matumizi ya volumu zilizowekwa.",
     "param.include_disks.description": "Jumuisha taarifa za diski halisi inapopatikana (kwa kadiri inavyowezekana)."
   },
@@ -210,7 +195,6 @@
       "systeminfo",
       "system specs"
     ],
-    "tool.system_prompt": "Dette verktøyet brukes til å samle systeminformasjon som operativsystem, CPU, RAM-størrelse, lagringsdisker (best mulig innsats) og ledig plass på volumer.",
     "param.include_volumes.description": "Ta med informasjon om bruk av monterte volumer.",
     "param.include_disks.description": "Ta med informasjon om fysiske disker når det er tilgjengelig (best mulig innsats)."
   },
@@ -222,7 +206,6 @@
       "systeeminfo",
       "system specs"
     ],
-    "tool.system_prompt": "Deze tool wordt gebruikt om systeeminformatie te verzamelen, zoals het besturingssysteem, de CPU, de hoeveelheid RAM, opslagschijven (best-effort) en vrije ruimte op volumes.",
     "param.include_volumes.description": "Informatie over het gebruik van aangekoppelde volumes opnemen.",
     "param.include_disks.description": "Informatie over fysieke schijven opnemen wanneer beschikbaar (best-effort)."
   },
@@ -234,7 +217,6 @@
       "järjestelmän tiedot",
       "system specs"
     ],
-    "tool.system_prompt": "Tätä työkalua käytetään järjestelmätietojen, kuten käyttöjärjestelmän, suorittimen, RAM-muistin koon, tallennuslevyjen (parhaan mahdollisen mukaan) ja volyymien vapaan tilan, keräämiseen.",
     "param.include_volumes.description": "Sisällytä liitettyjen volyymien käyttö­tiedot.",
     "param.include_disks.description": "Sisällytä fyysiset levytiedot, kun ne ovat saatavilla (parhaan mahdollisen mukaan)."
   },
@@ -246,7 +228,6 @@
       "informace o systému",
       "system specs"
     ],
-    "tool.system_prompt": "Tento nástroj slouží ke shromáždění systémových informací, jako je operační systém, CPU, velikost RAM, úložiště (co nejlépe) a volné místo na svazcích.",
     "param.include_volumes.description": "Zahrnout informace o využití připojených svazků.",
     "param.include_disks.description": "Zahrnout informace o fyzických discích, pokud jsou k dispozici (co nejlépe)."
   },
@@ -258,7 +239,6 @@
       "системна інформація",
       "system specs"
     ],
-    "tool.system_prompt": "Цей інструмент використовується для збору системної інформації, як-от ОС, CPU, обсяг RAM, накопичувачі (за можливості) та вільне місце на томах.",
     "param.include_volumes.description": "Включати відомості про використання підключених томів.",
     "param.include_disks.description": "Включати відомості про фізичні диски, якщо вони доступні (за можливості)."
   },
@@ -270,7 +250,6 @@
       "sistem bilgisi",
       "system specs"
     ],
-    "tool.system_prompt": "Bu araç, işletim sistemi, CPU, RAM boyutu, depolama diskleri (en iyi çaba) ve birim boş alanı gibi sistem bilgilerini toplamak için kullanılır.",
     "param.include_volumes.description": "Bağlı birimlerin kullanım bilgilerini dahil edin.",
     "param.include_disks.description": "Mevcut olduğunda fiziksel disk bilgilerini dahil edin (en iyi çaba)."
   },
@@ -282,7 +261,6 @@
       "ข้อมูลระบบ",
       "system specs"
     ],
-    "tool.system_prompt": "เครื่องมือนี้ใช้เพื่อวัตถุประสงค์ดังต่อไปนี้: รวบรวมสเปกระบบ เช่น OS, CPU, ขนาด RAM, ข้อมูลดิสก์ (เท่าที่ทำได้) และพื้นที่ว่างของโวลุ่ม",
     "param.include_volumes.description": "รวมข้อมูลการใช้งานโวลุ่มที่เมานต์อยู่",
     "param.include_disks.description": "รวมข้อมูลดิสก์จริงเมื่อมีให้ (เท่าที่ทำได้)"
   },
@@ -294,7 +272,6 @@
       "系统规格",
       "system specs"
     ],
-    "tool.system_prompt": "该工具用于以下目的：收集系统信息，例如操作系统、CPU、内存大小、（尽力而为的）物理磁盘信息以及卷可用空间。",
     "param.include_volumes.description": "包含已挂载卷的使用情况信息。",
     "param.include_disks.description": "在可用时包含物理磁盘信息（尽力而为）。"
   },
@@ -306,7 +283,6 @@
       "系統規格",
       "system specs"
     ],
-    "tool.system_prompt": "此工具用於以下目的：收集系統資訊，例如作業系統、CPU、記憶體大小、（盡力而為的）實體磁碟資訊以及磁碟區可用空間。",
     "param.include_volumes.description": "包含已掛載磁碟區的使用量資訊。",
     "param.include_disks.description": "在可用時包含實體磁碟資訊（盡力而為）。"
   },
@@ -317,7 +293,6 @@
       "get_system_specs",
       "system specifications"
     ],
-    "tool.system_prompt": "This tool is used for the following purpose: gather system specs such as OS, CPU, RAM size, storage disks (best-effort), and volume free space.",
     "param.include_volumes.description": "Include mounted volume usage information.",
     "param.include_disks.description": "Include physical disk information when available (best-effort)."
   },
@@ -328,7 +303,6 @@
       "get_system_specs",
       "system specifications"
     ],
-    "tool.system_prompt": "This tool is used for the following purpose: gather system specs such as OS, CPU, RAM size, storage disks (best-effort), and volume free space.",
     "param.include_volumes.description": "Include mounted volume usage information.",
     "param.include_disks.description": "Include physical disk information when available (best-effort)."
   },
@@ -339,7 +313,6 @@
       "get_system_specs",
       "system specifications"
     ],
-    "tool.system_prompt": "This tool is used for the following purpose: gather system specs such as OS, CPU, RAM size, storage disks (best-effort), and volume free space.",
     "param.include_volumes.description": "Include mounted volume usage information.",
     "param.include_disks.description": "Include physical disk information when available (best-effort)."
   },
@@ -350,7 +323,6 @@
       "get_system_specs",
       "system specifications"
     ],
-    "tool.system_prompt": "This tool is used for the following purpose: gather system specs such as OS, CPU, RAM size, storage disks (best-effort), and volume free space.",
     "param.include_volumes.description": "Include mounted volume usage information.",
     "param.include_disks.description": "Include physical disk information when available (best-effort)."
   },
@@ -361,7 +333,6 @@
       "προδιαγραφές συστήματος",
       "Αυτό το εργαλείο χρησιμοποιείται για τους ακόλουθους σκοπούς: συλλογή προδιαγραφών συστήματος όπως OS, CPU, μέγεθος μνήμης RAM, δίσκους αποθήκευσης (βέλτιστη προσπάθεια) και χώρο ελεύθερου όγκου."
     ],
-    "tool.system_prompt": "Συμπεριλάβετε πληροφορίες σχετικά με τη χρήση του προσαρτημένου όγκου.",
     "param.include_volumes.description": "Συμπεριλάβετε πληροφορίες φυσικού δίσκου όταν είναι διαθέσιμες (βέλτιστη προσπάθεια).",
     "param.include_disks.description": "Δημοσιεύστε ένα μήνυμα ή ένα ωφέλιμο φορτίο JSON που υποστηρίζεται από webhook σε μια διεύθυνση URL του Microsoft Teams Incoming Webhook που είναι αποθηκευμένη σε μια μεταβλητή περιβάλλοντος."
   },
@@ -372,7 +343,6 @@
       "מפרטי מערכת",
       "כלי זה משמש למטרה הבאה: איסוף מפרטי מערכת כגון מערכת הפעלה, מעבד, גודל RAM, דיסקי אחסון (במאמץ הטוב ביותר), ושטח פנוי בנפח."
     ],
-    "tool.system_prompt": "כלי זה משמש למטרה הבאה: איסוף מפרטי מערכת כגון מערכת הפעלה, מעבד, גודל זיכרון RAM, דיסקי אחסון (במאמץ הטוב ביותר), ושטח פנוי בנפח.",
     "param.include_volumes.description": "כלול מידע על דיסק פיזי כאשר זמין (במאמץ הטוב ביותר).",
     "param.include_disks.description": "פרסם הודעה או מטען JSON נתמך ב-webhook לכתובת URL של Microsoft Teams Incoming Webhook המאוחסנת במשתנה סביבה."
   },
@@ -383,7 +353,6 @@
       "rendszerspecifikáció",
       "Ez az eszköz a következő célokra használható: rendszerspecifikációk, például operációs rendszer, CPU, RAM-méret, tárolólemezek (legjobb erőfeszítés) és szabad kötet összegyűjtése."
     ],
-    "tool.system_prompt": "Tartalmazza a csatlakoztatott kötet használati adatait.",
     "param.include_volumes.description": "Ha elérhető, adja meg a fizikai lemezre vonatkozó információkat (a legjobb megoldás).",
     "param.include_disks.description": "Tegyen közzé egy üzenetet vagy webhook által támogatott JSON-adatot egy környezeti változóban tárolt Microsoft Teams bejövő webhook URL-címére."
   },
@@ -394,7 +363,6 @@
       "get_system_specs",
       "specificații de sistem"
     ],
-    "tool.system_prompt": "Acest instrument este utilizat în următorul scop: adună specificații de sistem, cum ar fi sistemul de operare, CPU, dimensiunea RAM, discuri de stocare (cel mai bun efort) și spațiu liber.",
     "param.include_volumes.description": "Includeți informații despre utilizarea volumului montat.",
     "param.include_disks.description": "Includeți informații despre discul fizic atunci când sunt disponibile (cel mai bun efort)."
   }

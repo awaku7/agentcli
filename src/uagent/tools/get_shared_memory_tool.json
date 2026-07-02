@@ -1,6 +1,5 @@
 {
   "en": {
-    "doc.run_tool": "Entry point called from tools/__init__.py. Implementation for get_shared_memory.",
     "tool.description": "Retrieves raw long-term memory (shared memory) data shared across users. - Usually returns text in JSONL format (one record per line).",
     "x_search_terms": [
       "get_shared_memory",
@@ -12,8 +11,7 @@
     ]
   },
   "ja": {
-    "doc.run_tool": "tools/__init__.py から呼ばれるエントリポイント。get_shared_memory の実装。",
-    "tool.description": "共有メモリの生データを取得。通常はJSONL形式(1行1レコード)で返す。",
+    "tool.description": "ユーザー間で共有される生の長期メモリ (共有メモリ) データを取得します。- 通常、テキストを JSONL 形式で返します (1 行に 1 レコード)。",
     "x_search_terms": [
       "get_shared_memory",
       "共有メモリ取得",
@@ -22,7 +20,6 @@
     ]
   },
   "es": {
-    "doc.run_tool": "Punto de entrada llamado desde tools/__init__.py. Implementación de get_shared_memory.",
     "tool.description": "Recupera datos sin procesar de la memoria a largo plazo (memoria compartida) compartidos entre usuarios.",
     "x_search_terms": [
       "get_shared_memory",
@@ -32,7 +29,6 @@
     ]
   },
   "fr": {
-    "doc.run_tool": "Point d'entrée appelé depuis tools/__init__.py. Implémentation de get_shared_memory.",
     "tool.description": "Récupère les données brutes de mémoire à long terme (mémoire partagée) partagées entre les utilisateurs.",
     "x_search_terms": [
       "get_shared_memory",
@@ -42,7 +38,6 @@
     ]
   },
   "ko": {
-    "doc.run_tool": "tools/__init__.py에서 호출되는 진입점입니다. get_shared_memory 구현입니다.",
     "tool.description": "공유 메모리의 원시 데이터 조회. 보통 JSONL 형식(줄당 1레코드)으로 반환.",
     "x_search_terms": [
       "get_shared_memory",
@@ -52,7 +47,6 @@
     ]
   },
   "de": {
-    "doc.run_tool": "Einstiegspunkt, der von tools/__init__.py aufgerufen wird. Implementierung für get_shared_memory.",
     "tool.description": "Ruft Rohdaten des gemeinsam genutzten Langzeitspeichers ab, die von Benutzern gemeinsam verwendet werden.",
     "x_search_terms": [
       "get_shared_memory",
@@ -62,7 +56,6 @@
     ]
   },
   "it": {
-    "doc.run_tool": "Punto di ingresso chiamato da tools/__init__.py. Implementazione di get_shared_memory.",
     "tool.description": "Recupera i dati grezzi della memoria a lungo termine (memoria condivisa) condivisi tra gli utenti.",
     "x_search_terms": [
       "get_shared_memory",
@@ -72,7 +65,6 @@
     ]
   },
   "ru": {
-    "doc.run_tool": "Точка входа, вызываемая из tools/__init__.py. Реализация get_shared_memory.",
     "tool.description": "Извлекает необработанные данные долговременной памяти (общей памяти), совместно используемые пользователями.",
     "x_search_terms": [
       "get_shared_memory",
@@ -82,7 +74,6 @@
     ]
   },
   "pt_BR": {
-    "doc.run_tool": "Ponto de entrada chamado em tools/__init__.py. Implementação de get_shared_memory.",
     "tool.description": "Recupera dados brutos de memória de longo prazo (memória compartilhada) compartilhados entre usuários.",
     "x_search_terms": [
       "get_shared_memory",
@@ -92,7 +83,6 @@
     ]
   },
   "pt": {
-    "doc.run_tool": "Ponto de entrada chamado em tools/__init__.py. Implementação para get_shared_memory.",
     "tool.description": "Recupera dados brutos de memória de longo prazo (memória compartilhada) compartilhados entre usuários.",
     "x_search_terms": [
       "get_shared_memory",
@@ -102,7 +92,6 @@
     ]
   },
   "id": {
-    "doc.run_tool": "Titik masuk yang dipanggil dari tools/__init__.py. Implementasi untuk get_shared_memory.",
     "tool.description": "Mengambil data memori jangka panjang mentah (shared memory) yang dibagikan lintas pengguna.",
     "x_search_terms": [
       "get_shared_memory",
@@ -112,7 +101,6 @@
     ]
   },
   "vi": {
-    "doc.run_tool": "Điểm vào được gọi từ tools/__init__.py. Triển khai cho get_shared_memory.",
     "tool.description": "Truy xuất dữ liệu bộ nhớ dài hạn (bộ nhớ dùng chung) thô được chia sẻ giữa những người dùng.",
     "x_search_terms": [
       "get_shared_memory",
@@ -122,7 +110,6 @@
     ]
   },
   "pl": {
-    "doc.run_tool": "Punkt wejścia wywoływany z narzędzi/__init__.py. Implementacja dla get_shared_memory.",
     "tool.description": "Pobiera surowe dane z pamięci długoterminowej (pamięć współdzielona) udostępniane użytkownikom.",
     "x_search_terms": [
       "get_shared_memory",
@@ -132,7 +119,6 @@
     ]
   },
   "hi": {
-    "doc.run_tool": "प्रवेश बिंदु, tools/__init__.py से बुलाया जाता है। get_shared_memory का कार्यान्वयन।",
     "tool.description": "उपयोगकर्ताओं के बीच साझा किए गए कच्चे दीर्घकालिक मेमोरी (साझा मेमोरी) डेटा को पुनः प्राप्त करता है। - आमतौर पर JSONL प्रारूप में पाठ लौटाता है (प्रति पंक्ति एक रिकॉर्ड)।",
     "x_search_terms": [
       "get_shared_memory",
@@ -142,7 +128,6 @@
     ]
   },
   "ar": {
-    "doc.run_tool": "نقطة الدخول المستدعاة من tools/__init__.py. تنفيذ get_shared_memory.",
     "tool.description": "يسترجع بيانات الذاكرة طويلة المدى (الذاكرة المشتركة) الخام المشتركة بين المستخدمين.- يعيد عادةً نصًا بتنسيق JSONL (سجل واحد لكل سطر).",
     "x_search_terms": [
       "get_shared_memory",
@@ -152,7 +137,6 @@
     ]
   },
   "sv": {
-    "doc.run_tool": "Startpunkt som anropas från tools/__init__.py. Implementering för get_shared_memory.",
     "tool.description": "Hämtar rådata för delat långtidsminne som delas mellan användare.- Returnerar vanligtvis text i JSONL-format (en post per rad).",
     "x_search_terms": [
       "get_shared_memory",
@@ -162,7 +146,6 @@
     ]
   },
   "sw": {
-    "doc.run_tool": "Entry point called from tools/__init__.py. Implementation for get_shared_memory.",
     "tool.description": "Retrieves raw long-term memory (shared memory) data shared among users.- Usually returns text in JSONL format (one record per line).",
     "x_search_terms": [
       "get_shared_memory",
@@ -172,7 +155,6 @@
     ]
   },
   "nb": {
-    "doc.run_tool": "Startpunkt kalt fra tools/__init__.py. Implementasjon for get_shared_memory.",
     "tool.description": "Henter rådata for delt langtidsminne som deles mellom brukere.- Returnerer vanligvis tekst i JSONL-format (én post per linje).",
     "x_search_terms": [
       "get_shared_memory",
@@ -182,7 +164,6 @@
     ]
   },
   "nl": {
-    "doc.run_tool": "Ingangspunt aangeroepen vanuit tools/__init__.py. Implementatie voor get_shared_memory.",
     "tool.description": "Haalt ruwe langetermijngeheugen-/gedeelde-geheugengegevens op die tussen gebruikers worden gedeeld.",
     "x_search_terms": [
       "get_shared_memory",
@@ -192,7 +173,6 @@
     ]
   },
   "fi": {
-    "doc.run_tool": "Tools/__init__.py:stä kutsuttu sisääntulokohta. Toteutus get_shared_memorylle.",
     "tool.description": "Hakee käyttäjien kesken jaetut raakamuotoiset pitkäaikaisen muistin (jaetun muistin) tiedot.",
     "x_search_terms": [
       "get_shared_memory",
@@ -202,7 +182,6 @@
     ]
   },
   "cs": {
-    "doc.run_tool": "Vstupní bod volaný z tools/__init__.py. Implementace pro get_shared_memory.",
     "tool.description": "Načítá syrová data dlouhodobé paměti (sdílené paměti) sdílená mezi uživateli.",
     "x_search_terms": [
       "get_shared_memory",
@@ -212,7 +191,6 @@
     ]
   },
   "uk": {
-    "doc.run_tool": "Точка входу, викликана з tools/__init__.py. Реалізація get_shared_memory.",
     "tool.description": "Отримує сирі дані довготривалої пам’яті (спільної пам’яті), спільні між користувачами.",
     "x_search_terms": [
       "get_shared_memory",
@@ -222,7 +200,6 @@
     ]
   },
   "tr": {
-    "doc.run_tool": "Tools/__init__.py adresinden çağrılan giriş noktası. get_shared_memory için uygulama.",
     "tool.description": "Kullanıcılar arasında paylaşılan ham uzun süreli bellek (paylaşılan bellek) verilerini alır.",
     "x_search_terms": [
       "get_shared_memory",
@@ -232,7 +209,6 @@
     ]
   },
   "th": {
-    "doc.run_tool": "จุดเริ่มต้นที่เรียกจาก tools/__init__.py เป็นการใช้งานสำหรับ get_shared_memory",
     "tool.description": "ดึงข้อมูลหน่วยความจำระยะยาวแบบดิบ (หน่วยความจำที่ใช้ร่วมกัน) ที่แชร์ระหว่างผู้ใช้ - โดยปกติจะส่งคืนข้อความในรูปแบบ JSONL (หนึ่งบันทึกต่อบรรทัด)",
     "x_search_terms": [
       "get_shared_memory",
@@ -242,7 +218,6 @@
     ]
   },
   "zh_CN": {
-    "doc.run_tool": "从 tools/__init__.py 调用的入口点。get_shared_memory 的实现。",
     "tool.description": "检索跨用户共享的原始长期记忆（共享内存）数据。\n- 通常返回 JSONL 格式的文本（每行一条记录）。\n- 如果共享内存被禁用或文件缺失，则返回一条说明消息。\n- 输出大小会自动裁剪到内部最大字节限制。",
     "x_search_terms": [
       "get_shared_memory",
@@ -252,7 +227,6 @@
     ]
   },
   "zh_TW": {
-    "doc.run_tool": "從 tools/__init__.py 呼叫的進入點。get_shared_memory 的實作。",
     "tool.description": "擷取跨使用者共用的原始長期記憶（共享記憶體）資料。\n- 通常會回傳 JSONL 格式的文字（每行一筆記錄）。\n- 如果共享記憶體已停用或檔案遺失，則會回傳說明訊息。\n- 輸出大小會自動裁切至內部的最大位元組限制。",
     "x_search_terms": [
       "get_shared_memory",
@@ -262,7 +236,6 @@
     ]
   },
   "bn": {
-    "doc.run_tool": "tools/__init__.py থেকে ডাকা entry point। get_shared_memory-এর implementation।",
     "tool.description": "সমস্ত সংরক্ষিত দীর্ঘমেয়াদী মেমরি নোট পান (JSONL)। সাধারণত JSONL ফরম্যাটে টেক্সট রিটার্ন করে",
     "x_search_terms": [
       "get_shared_memory",
@@ -272,7 +245,6 @@
     ]
   },
   "fa": {
-    "doc.run_tool": "نقطهٔ ورود فراخوانی‌شده از tools/__init__.py. پیاده‌سازی get_shared_memory.",
     "tool.description": "دادهٔ خام حافظهٔ بلندمدت (shared memory) را که بین کاربران به اشتراک گذاشته شده بازیابی می‌کند.",
     "x_search_terms": [
       "get_shared_memory",
@@ -282,7 +254,6 @@
     ]
   },
   "mn": {
-    "doc.run_tool": "tools/__init__.py-ээс дуудагддаг entry point. get_shared_memory-ийн implementation.",
     "tool.description": "Хэрэглэгчдийн хооронд хуваалцсан raw long-term memory (shared memory) өгөгдлийг буцаана.",
     "x_search_terms": [
       "get_shared_memory",
@@ -292,7 +263,6 @@
     ]
   },
   "mr": {
-    "doc.run_tool": "tools/__init__.py मधून बोलावलेले entry point. get_shared_memory ची अंमलबजावणी.",
     "tool.description": "वापरकर्त्यांमध्ये सामायिक केलेला raw long-term memory (shared memory) data मिळवते.",
     "x_search_terms": [
       "get_shared_memory",
@@ -302,7 +272,6 @@
     ]
   },
   "el": {
-    "doc.run_tool": "Ανακτά δεδομένα μακροπρόθεσμης μνήμης (κοινόχρηστη μνήμη) που μοιράζονται μεταξύ των χρηστών. - Συνήθως επιστρέφει κείμενο σε μορφή JSONL (μία εγγραφή ανά γραμμή).",
     "tool.description": "Ανακτά ακατέργαστα δεδομένα μακροπρόθεσμης μνήμης (κοινόχρηστη μνήμη) που μοιράζονται μεταξύ των χρηστών. - Συνήθως επιστρέφει κείμενο σε μορφή JSONL (μία εγγραφή ανά γραμμή).",
     "x_search_terms": [
       "λάβετε κοινόχρηστη μνήμη",
@@ -314,7 +283,6 @@
     ]
   },
   "he": {
-    "doc.run_tool": "נקודת כניסה שנקראת מ-tools/__init__.py. יישום עבור get_shared_memory.",
     "tool.description": "מאחזר נתוני זיכרון גולמי לטווח ארוך (זיכרון משותף) המשותפים בין משתמשים. - בדרך כלל מחזיר טקסט בפורמט JSONL (רשומה אחת בכל שורה).",
     "x_search_terms": [
       "get_shared_memory",
@@ -326,7 +294,6 @@
     ]
   },
   "hu": {
-    "doc.run_tool": "Belépési pont az tools/__init__.py alkalmazásból. A get_shared_memory megvalósítása.",
     "tool.description": "Lekéri a felhasználók között megosztott nyers hosszú távú memória (megosztott memória) adatokat. - Általában JSONL formátumú szöveget ad vissza (soronként egy rekord).",
     "x_search_terms": [
       "get_shared_memory",
@@ -338,7 +305,6 @@
     ]
   },
   "ro": {
-    "doc.run_tool": "Punct de intrare apelat din tools/__init__.py. Implementare pentru get_shared_memory.",
     "tool.description": "Preia datele brute de memorie pe termen lung (memorie partajată) partajate între utilizatori. - De obicei returnează text în format JSONL (o înregistrare pe linie).",
     "x_search_terms": [
       "get_shared_memory",

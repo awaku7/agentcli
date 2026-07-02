@@ -18,7 +18,7 @@
     "param.include_invalid.description": "SKILL.mdの解析/検証に失敗しても一覧へ含めるか（既定:true）。falseの場合、失敗スキルは除外します。",
     "param.root_dir.description": "スキル探索ルート。UAGENT_SKILLS_DIRSを使用。",
     "param.strict.description": "仕様検証で warnings を失敗扱いにするか（既定:false）",
-    "tool.description": "指定ルート配下のスキル一覧を返す（frontmatterのみ読み込み）。",
+    "tool.description": "エージェント スキル仕様 (SKILL.md) に基づいて、指定されたルート (frontmatter のみを読み取る) の下にあるスキルのリストを返します。",
     "x_search_terms": [
       "skills_list",
       "スキル一覧",

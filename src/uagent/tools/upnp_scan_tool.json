@@ -1,6 +1,5 @@
 {
   "en": {
-    "tool.description": "Discover UPnP/SSDP devices on the local network and return a JSON or text list. Supports filtering by name, manufacturer, model, or device type.",
     "param.mx.description": "SSDP MX header value (1-5 seconds) used by M-SEARCH.",
     "param.wait_timeout.description": "Client-side wait time in seconds for SSDP responses.",
     "param.interface.description": "Optional local interface IPv4 address or interface name to bind to.",
@@ -14,10 +13,10 @@
     "param.filter_name.description": "Optional case-insensitive substring filter for friendly_name.",
     "param.filter_manufacturer.description": "Optional case-insensitive substring filter for manufacturer.",
     "param.filter_model.description": "Optional case-insensitive substring filter for model_name.",
-    "param.filter_type.description": "Optional case-insensitive substring filter for device_type."
+    "param.filter_type.description": "Optional case-insensitive substring filter for device_type.",
+    "tool.description": "Discover UPnP/SSDP devices on the local network and return a JSON or text list. Supports filtering by name, manufacturer, model, or device type."
   },
   "ja": {
-    "tool.description": "ローカルネットワーク上の UPnP/SSDP デバイスを検出し、JSON またはテキストの一覧を返します。",
     "param.mx.description": "M-SEARCH で使用する SSDP の MX ヘッダー値（1〜5秒）。",
     "param.wait_timeout.description": "SSDP 応答を待つクライアント側の待機時間（秒）。",
     "param.interface.description": "バインド先として指定するローカルインターフェースの IPv4 アドレス、またはインターフェース名（任意）。",
@@ -27,10 +26,14 @@
     "err.invalid_interface": "エラー: インターフェース '{interface}' をローカル IPv4 アドレスに解決できませんでした。",
     "msg.summary": "UPnP 検出が完了しました: {count} 件のデバイスが {elapsed_ms} ms で見つかりました。",
     "msg.no_devices": "UPnP デバイスは見つかりませんでした。",
-    "param.fmt.description": "形式: json または text。"
+    "param.fmt.description": "形式: json または text。",
+    "param.filter_manufacturer.description": "メーカー向けの大文字と小文字を区別しないオプションの部分文字列フィルター。",
+    "param.filter_model.description": "model_name の大文字と小文字を区別しないオプションの部分文字列フィルター。",
+    "param.filter_name.description": "Friendly_name の大文字と小文字を区別しないオプションの部分文字列フィルター。",
+    "param.filter_type.description": "device_type の大文字と小文字を区別しないオプションの部分文字列フィルター。",
+    "tool.description": "ローカル ネットワーク上の UPnP/SSDP デバイスを検出し、JSON またはテキスト リストを返します。名前、メーカー、モデル、またはデバイスの種類によるフィルタリングをサポートします。"
   },
   "ar": {
-    "tool.description": "اكتشاف أجهزة UPnP/SSDP على الشبكة المحلية وإرجاع قائمة بصيغة JSON أو نصية.",
     "param.mx.description": "قيمة رأس SSDP MX (1-5 ثوانٍ) المستخدمة بواسطة M-SEARCH.",
     "param.wait_timeout.description": "مدة الانتظار من جهة العميل لردود SSDP بالثواني.",
     "param.interface.description": "عنوان IPv4 لواجهة محلية أو اسم واجهة للربط بها (اختياري).",
@@ -43,7 +46,6 @@
     "param.fmt.description": "التنسيق: json أو نص."
   },
   "bn": {
-    "tool.description": "স্থানীয় নেটওয়ার্কে UPnP/SSDP ডিভাইস খুঁজে বের করে JSON বা টেক্সট তালিকা ফেরত দেয়।",
     "param.mx.description": "M-SEARCH-এ ব্যবহৃত SSDP MX হেডারের মান (১-৫ সেকেন্ড)।",
     "param.wait_timeout.description": "SSDP প্রতিক্রিয়ার জন্য ক্লায়েন্ট-সাইড অপেক্ষার সময় সেকেন্ডে।",
     "param.interface.description": "ঐচ্ছিক স্থানীয় ইন্টারফেস IPv4 ঠিকানা বা আবদ্ধ করার জন্য ইন্টারফেসের নাম।",
@@ -56,7 +58,6 @@
     "param.fmt.description": "বিন্যাস: json বা পাঠ্য।"
   },
   "cs": {
-    "tool.description": "Objevte zařízení UPnP/SSDP v místní síti a vraťte seznam JSON nebo text. Podporuje filtrování podle názvu, výrobce, modelu nebo typu zařízení.",
     "param.mx.description": "Hodnota záhlaví SSDP MX (1-5 sekund) používaná M-SEARCH.",
     "param.wait_timeout.description": "Doba čekání na straně klienta v sekundách na odpovědi SSDP.",
     "param.interface.description": "Volitelná adresa IPv4 místního rozhraní nebo název rozhraní, ke kterému se má navázat.",
@@ -69,7 +70,6 @@
     "param.fmt.description": "Formát: json nebo text."
   },
   "de": {
-    "tool.description": "UPnP/SSDP-Geräte im lokalen Netzwerk erkennen und eine JSON- oder Textliste zurückgeben. Unterstützt das Filtern nach Name, Hersteller, Modell oder Gerätetyp.",
     "param.mx.description": "SSDP MX-Header-Wert (1–5 Sekunden), der von M-SEARCH verwendet wird.",
     "param.wait_timeout.description": "Clientseitige Wartezeit in Sekunden für SSDP-Antworten.",
     "param.interface.description": "Optionale lokale IPv4-Adresse oder Schnittstellenname zum Binden.",
@@ -82,7 +82,6 @@
     "param.fmt.description": "Format: JSON oder Text."
   },
   "es": {
-    "tool.description": "Descubra dispositivos UPnP/SSDP en la red local y devuelva una lista JSON o de texto. Admite filtrado por nombre, fabricante, modelo o tipo de dispositivo.",
     "param.mx.description": "Valor del encabezado SSDP MX (1-5 segundos) utilizado por M-SEARCH.",
     "param.wait_timeout.description": "Tiempo de espera del lado del cliente en segundos para respuestas SSDP.",
     "param.interface.description": "Dirección IPv4 de interfaz local opcional o nombre de interfaz a la que vincularse.",
@@ -95,7 +94,6 @@
     "param.fmt.description": "Formato: json o texto."
   },
   "fa": {
-    "tool.description": "دستگاه‌های UPnP/SSDP را در شبکهٔ محلی کشف می‌کند و یک فهرست JSON یا متنی برمی‌گرداند.",
     "param.mx.description": "مقدار سرصفحه SSDP MX (1-5 ثانیه) توسط M-SEARCH استفاده شده است.",
     "param.wait_timeout.description": "زمان انتظار سمت کلاینت برای پاسخ‌های SSDP، بر حسب ثانیه.",
     "param.interface.description": "نشانی IPv4 رابط محلی یا نام رابط برای اتصال، به‌صورت اختیاری.",
@@ -108,7 +106,6 @@
     "param.fmt.description": "فرمت: json یا متن."
   },
   "fi": {
-    "tool.description": "Etsii UPnP/SSDP-laitteita paikallisverkosta ja palauttaa JSON- tai tekstiluettelon.",
     "param.mx.description": "SSDP MX -otsikon arvo (1-5 sekuntia), jota M-SEARCH käyttää.",
     "param.wait_timeout.description": "Asiakaspuolen odotusaika SSDP-vastauksille sekunteina.",
     "param.interface.description": "Valinnainen paikallisrajapinnan IPv4-osoite tai liitännän nimi, johon sitoudutaan.",
@@ -121,7 +118,6 @@
     "param.fmt.description": "Muoto: json tai teksti."
   },
   "fr": {
-    "tool.description": "Découvrez les appareils UPnP/SSDP sur le réseau local et renvoyez une liste JSON ou de texte. Prend en charge le filtrage par nom, fabricant, modèle ou type d'appareil.",
     "param.mx.description": "Valeur d'en-tête SSDP MX (1 à 5 secondes) utilisée par M-SEARCH.",
     "param.wait_timeout.description": "Temps d'attente côté client en secondes pour les réponses SSDP.",
     "param.interface.description": "Adresse IPv4 ou nom de l'interface facultative de l'interface locale à laquelle se lier.",
@@ -134,7 +130,6 @@
     "param.fmt.description": "Format : json ou texte."
   },
   "hi": {
-    "tool.description": "स्थानीय नेटवर्क पर UPnP/SSDP डिवाइस खोजता है और JSON या टेक्स्ट सूची लौटाता है।",
     "param.mx.description": "M-SEARCH द्वारा उपयोग किया जाने वाला SSDP MX हेडर मान।",
     "param.wait_timeout.description": "SSDP प्रतिक्रियाओं के लिए क्लाइंट-साइड प्रतीक्षा समय सेकंड में।",
     "param.interface.description": "बाइंड करने के लिए वैकल्पिक स्थानीय इंटरफ़ेस IPv4 पता या इंटरफ़ेस नाम।",
@@ -147,7 +142,6 @@
     "param.fmt.description": "प्रारूप:"
   },
   "id": {
-    "tool.description": "Temukan perangkat UPnP/SSDP di jaringan lokal dan kembalikan JSON atau daftar teks. Mendukung pemfilteran berdasarkan nama, pabrikan, model, atau jenis perangkat.",
     "param.mx.description": "Nilai header SSDP MX (1-5 detik) digunakan oleh M-SEARCH.",
     "param.wait_timeout.description": "Waktu tunggu sisi klien untuk respons SSDP, dalam detik.",
     "param.interface.description": "Alamat IPv4 antarmuka lokal opsional atau nama antarmuka untuk diikat.",
@@ -160,7 +154,6 @@
     "param.fmt.description": "Format: json atau teks."
   },
   "it": {
-    "tool.description": "Rileva i dispositivi UPnP/SSDP sulla rete locale e restituisce un JSON o un elenco di testo. Supporta il filtraggio per nome, produttore, modello o tipo di dispositivo.",
     "param.mx.description": "Valore dell'intestazione SSDP MX (1-5 secondi) utilizzato da M-SEARCH.",
     "param.wait_timeout.description": "Tempo di attesa lato client in secondi per le risposte SSDP.",
     "param.interface.description": "Indirizzo IPv4 dell'interfaccia locale opzionale o nome dell'interfaccia a cui associarsi.",
@@ -173,7 +166,6 @@
     "param.fmt.description": "Formato: json o testo."
   },
   "ko": {
-    "tool.description": "Bluetooth Low Energy (BLE) 작업을 수행합니다: 장치 스캔, GATT 특성 읽기 또는 쓰기. Windows/Linux에서는 MAC 주소를, macOS에서는 UUID를 사용하십시오.",
     "param.mx.description": "M-SEARCH에서 사용하는 SSDP MX 헤더 값(1~5초).",
     "param.wait_timeout.description": "SSDP 응답을 기다리는 클라이언트 측 대기 시간(초).",
     "param.interface.description": "바인딩할 로컬 인터페이스의 IPv4 주소 또는 인터페이스 이름(선택 사항).",
@@ -186,7 +178,6 @@
     "param.fmt.description": "형식: json 또는 text."
   },
   "mn": {
-    "tool.description": "Дотоод сүлжээн дэх UPnP/SSDP төхөөрөмжүүдийг олж, JSON эсвэл текстийн жагсаалтыг буцаана уу. Нэр, үйлдвэрлэгч, загвар эсвэл төхөөрөмжийн төрлөөр шүүхийг дэмждэг.",
     "param.mx.description": "M-SEARCH-д ашиглагдах SSDP MX толгойн утга (1-5 секунд).",
     "param.wait_timeout.description": "SSDP хариуг хүлээх клиент талын хугацаа, секундээр.",
     "param.interface.description": "Холбох дотоод интерфэйсийн IPv4 хаяг эсвэл интерфэйсийн нэр (сонголттой).",
@@ -199,7 +190,6 @@
     "param.fmt.description": "Формат: json эсвэл текст."
   },
   "mr": {
-    "tool.description": "स्थानिक नेटवर्कवरील UPnP/SSDP उपकरणे शोधते आणि JSON किंवा मजकूर यादी परत करते.",
     "param.mx.description": "SSDP MX शीर्षलेख मूल्य (1-5 सेकंद) M-SEARCH द्वारे वापरले.",
     "param.wait_timeout.description": "SSDP प्रतिसादांसाठी क्लायंट-साइड प्रतीक्षा वेळ सेकंदात.",
     "param.interface.description": "बाइंड करण्यासाठी ऐच्छिक स्थानिक इंटरफेस IPv4 पत्ता किंवा इंटरफेसचे नाव.",
@@ -212,7 +202,6 @@
     "param.fmt.description": "स्वरूप: json किंवा मजकूर."
   },
   "el": {
-    "tool.description": "Τιμή κεφαλίδας SSDP MX (1-5 δευτερόλεπτα) που χρησιμοποιείται από το M-SEARCH.",
     "param.mx.description": "Χρόνος αναμονής από την πλευρά του πελάτη σε δευτερόλεπτα για απαντήσεις SSDP.",
     "param.wait_timeout.description": "Μέγιστος αριθμός συσκευών προς επιστροφή.",
     "param.interface.description": "Στόχος αναζήτησης SSDP (ST) για ανακάλυψη. Προεπιλογή στο InternetGatewayDevice και επιστρέφει στο ssdp:all εάν χρειάζεται.",
@@ -229,7 +218,6 @@
     "param.filter_type.description": "Τραβήξτε μια φωτογραφία από μια κάμερα USB μέσω ffmpeg ή καταχωρίστε τις διαθέσιμες συσκευές βίντεο. Υποστηρίζει Windows (dshow), Linux (v4l2), macOS (avfoundation)."
   },
   "he": {
-    "tool.description": "ערך כותרת SSDP MX (1-5 שניות) בשימוש על ידי M-SEARCH.",
     "param.mx.description": "זמן המתנה בצד הלקוח בשניות לתגובות SSDP.",
     "param.wait_timeout.description": "המספר המרבי של מכשירים להחזרה.",
     "param.interface.description": "יעד חיפוש SSDP (ST) לגילוי. ברירת המחדל היא InternetGatewayDevice ונופלת חזרה ל-ssdp:all במידת הצורך.",
@@ -246,7 +234,6 @@
     "param.filter_type.description": "צלם תמונה ממצלמת USB באמצעות ffmpeg, או רשום התקני וידאו זמינים. תומך ב-Windows (dshow), Linux (v4l2), macOS (avfoundation)."
   },
   "hu": {
-    "tool.description": "Az M-SEARCH által használt SSDP MX fejlécérték (1–5 másodperc).",
     "param.mx.description": "Az ügyféloldali várakozási idő másodpercben az SSDP-válaszokra.",
     "param.wait_timeout.description": "A visszaküldhető eszközök maximális száma.",
     "param.interface.description": "SSDP keresési célpont (ST) a felfedezéshez. Alapértelmezés szerint az InternetGatewayDevice, és szükség esetén visszaáll az ssdp:all-ra.",
@@ -263,7 +250,6 @@
     "param.filter_type.description": "Készítsen fényképet USB-kameráról ffmpeg segítségével, vagy sorolja fel az elérhető videoeszközöket. Támogatja a Windows (dshow), Linux (v4l2), macOS (avfoundation) rendszert."
   },
   "ro": {
-    "tool.description": "Valoarea antetului SSDP MX (1-5 secunde) utilizată de M-SEARCH.",
     "param.mx.description": "Timp de așteptare la nivelul clientului în secunde pentru răspunsurile SSDP.",
     "param.wait_timeout.description": "Numărul maxim de dispozitive de returnat.",
     "param.interface.description": "Țintă de căutare SSDP (ST) pentru descoperire. Este implicit la InternetGatewayDevice și revine la ssdp:all dacă este necesar.",
@@ -280,7 +266,6 @@
     "param.filter_type.description": "Faceți o fotografie de pe o cameră USB prin ffmpeg sau enumerați dispozitivele video disponibile. Suporta Windows (dshow), Linux (v4l2), macOS (avfoundation)."
   },
   "nb": {
-    "tool.description": "Oppdager UPnP/SSDP-enheter på lokalnettet og returnerer en JSON- eller tekstliste.",
     "param.mx.description": "SSDP MX topptekstverdi (1-5 sekunder) brukt av M-SEARCH.",
     "param.wait_timeout.description": "Klientside ventetid i sekunder for SSDP-svar.",
     "param.interface.description": "Valgfri lokal IPv4-adresse eller grensesnittnavn å binde til.",
@@ -293,7 +278,6 @@
     "param.fmt.description": "Format: json eller tekst."
   },
   "nl": {
-    "tool.description": "Ontdek UPnP/SSDP-apparaten op het lokale netwerk en retourneer een JSON- of tekstlijst. Ondersteunt filteren op naam, fabrikant, model of apparaattype.",
     "param.mx.description": "SSDP MX-headerwaarde (1-5 seconden) gebruikt door M-SEARCH.",
     "param.wait_timeout.description": "Wachttijd aan clientzijde in seconden voor SSDP-reacties.",
     "param.interface.description": "Optioneel lokaal IPv4-adres of interfacenaam om aan te binden.",
@@ -306,7 +290,6 @@
     "param.fmt.description": "Formaat: json of tekst."
   },
   "pl": {
-    "tool.description": "Wykryj urządzenia UPnP/SSDP w sieci lokalnej i zwróć listę JSON lub tekstową. Obsługuje filtrowanie według nazwy, producenta, modelu lub typu urządzenia.",
     "param.mx.description": "Wartość nagłówka MX SSDP (1-5 sekund) używana przez M-SEARCH.",
     "param.wait_timeout.description": "Czas oczekiwania po stronie klienta w sekundach na odpowiedzi SSDP.",
     "param.interface.description": "Opcjonalny adres IPv4 interfejsu lokalnego lub nazwa interfejsu do powiązania.",
@@ -319,7 +302,6 @@
     "param.fmt.description": "Format: json lub tekst."
   },
   "pt": {
-    "tool.description": "Descobre dispositivos UPnP/SSDP na rede local e devolve uma lista em JSON ou texto.",
     "param.mx.description": "Valor do cabeçalho SSDP MX (1-5 segundos) usado pelo M-SEARCH.",
     "param.wait_timeout.description": "Tempo de espera do lado do cliente em segundos para respostas SSDP.",
     "param.interface.description": "Endereço IPv4 da interface local opcional ou nome da interface à qual vincular.",
@@ -332,7 +314,6 @@
     "param.fmt.description": "Formato: json ou texto."
   },
   "pt_BR": {
-    "tool.description": "Descobre dispositivos UPnP/SSDP na rede local e retorna uma lista em JSON ou texto.",
     "param.mx.description": "Valor do cabeçalho SSDP MX (1-5 segundos) usado pelo M-SEARCH.",
     "param.wait_timeout.description": "Tempo de espera do lado do cliente em segundos para respostas SSDP.",
     "param.interface.description": "Endereço IPv4 da interface local opcional ou nome da interface à qual vincular.",
@@ -345,7 +326,6 @@
     "param.fmt.description": "Formato: json ou texto."
   },
   "ru": {
-    "tool.description": "Обнаружьте устройства UPnP/SSDP в локальной сети и верните JSON или текстовый список. Поддерживает фильтрацию по имени, производителю, модели или типу устройства.",
     "param.mx.description": "Значение заголовка SSDP MX (1–5 секунд), используемое M-SEARCH.",
     "param.wait_timeout.description": "Время ожидания ответов SSDP на стороне клиента в секундах.",
     "param.interface.description": "Необязательный IPv4-адрес локального интерфейса или имя интерфейса для привязки.",
@@ -358,7 +338,6 @@
     "param.fmt.description": "Формат: json или текстовый."
   },
   "sv": {
-    "tool.description": "Upptäck UPnP/SSDP-enheter på det lokala nätverket och returnera en JSON- eller textlista. Stöder filtrering efter namn, tillverkare, modell eller enhetstyp.",
     "param.mx.description": "SSDP MX-huvudvärde (1-5 sekunder) som används av M-SEARCH.",
     "param.wait_timeout.description": "Klientsidans väntetid i sekunder för SSDP-svar.",
     "param.interface.description": "Valfri lokal IPv4-adress eller gränssnittsnamn att binda till.",
@@ -371,7 +350,6 @@
     "param.fmt.description": "Format: json eller text."
   },
   "sw": {
-    "tool.description": "Gundua vifaa vya UPnP/SSDP kwenye mtandao wa ndani na urudishe JSON au orodha ya maandishi. Inaauni uchujaji kulingana na jina, mtengenezaji, muundo au aina ya kifaa.",
     "param.mx.description": "thamani ya kichwa cha SSDP MX (sekunde 1-5) inayotumiwa na M-SEARCH.",
     "param.wait_timeout.description": "Muda wa kusubiri wa upande wa Mteja kwa sekunde kwa majibu ya SSDP.",
     "param.interface.description": "Kiolesura cha hiari cha ndani cha anwani ya IPv4 au jina la kiolesura cha kuunganisha.",
@@ -384,7 +362,6 @@
     "param.fmt.description": "Umbizo: json au maandishi."
   },
   "th": {
-    "tool.description": "ค้นหาอุปกรณ์ UPnP/SSDP บนเครือข่ายภายใน และส่งกลับเป็นรายการแบบ JSON หรือข้อความ",
     "param.mx.description": "ค่าหัวข้อ SSDP MX (1-5 วินาที) ที่ใช้โดย M-SEARCH",
     "param.wait_timeout.description": "เวลารอฝั่งไคลเอนต์สำหรับการตอบกลับ SSDP หน่วยเป็นวินาที",
     "param.interface.description": "ที่อยู่ IPv4 ภายในเครื่องหรือชื่ออินเทอร์เฟซที่จะเชื่อมโยง",
@@ -397,7 +374,6 @@
     "param.fmt.description": "คำอธิบาย"
   },
   "tr": {
-    "tool.description": "Yerel ağdaki UPnP/SSDP aygıtlarını keşfeder ve JSON ya da metin listesi döndürür.",
     "param.mx.description": "M-SEARCH tarafından kullanılan SSDP MX başlık değeri (1-5 saniye).",
     "param.wait_timeout.description": "SSDP yanıtları için saniye cinsinden istemci tarafı bekleme süresi.",
     "param.interface.description": "Bağlanılacak isteğe bağlı yerel arayüz IPv4 adresi veya arayüz adı.",
@@ -410,7 +386,6 @@
     "param.fmt.description": "Biçim: json veya metin."
   },
   "uk": {
-    "tool.description": "Виявляти пристрої UPnP/SSDP у локальній мережі та повертати JSON або текстовий список. Підтримує фільтрацію за назвою, виробником, моделлю або типом пристрою.",
     "param.mx.description": "Значення заголовка MX SSDP (1-5 секунд), що використовується M-SEARCH.",
     "param.wait_timeout.description": "Час очікування на стороні клієнта в секундах для відповідей SSDP.",
     "param.interface.description": "Додаткова адреса IPv4 локального інтерфейсу або ім’я інтерфейсу для прив’язки.",
@@ -423,7 +398,6 @@
     "param.fmt.description": "Формат: json або текстовий."
   },
   "vi": {
-    "tool.description": "Phát hiện thiết bị UPnP/SSDP trên mạng cục bộ và trả về danh sách JSON hoặc văn bản.",
     "param.mx.description": "Giá trị tiêu đề SSDP MX (1-5 giây) được M-SEARCH sử dụng.",
     "param.wait_timeout.description": "Thời gian chờ phía máy khách tính bằng giây đối với phản hồi SSDP.",
     "param.interface.description": "Địa chỉ IPv4 hoặc tên giao diện giao diện cục bộ tùy chọn để liên kết.",
@@ -436,7 +410,6 @@
     "param.fmt.description": "Định dạng: json hoặc văn bản."
   },
   "zh_CN": {
-    "tool.description": "发现本地网络中的 UPnP/SSDP 设备，并返回 JSON 或文本列表。",
     "param.mx.description": "M-SEARCH 使用的 SSDP MX 头部值（1-5 秒）。",
     "param.wait_timeout.description": "客户端等待 SSDP 响应的时间，单位为秒。",
     "param.interface.description": "可选的本地接口 IPv4 地址或接口名称，用于绑定。",
@@ -449,7 +422,6 @@
     "param.fmt.description": "输出格式：JSON 或人类可读文本。"
   },
   "zh_TW": {
-    "tool.description": "探索本機網路上的 UPnP/SSDP 裝置，並回傳 JSON 或文字清單。",
     "param.mx.description": "M-SEARCH 使用的 SSDP MX 標頭值（1-5 秒）。",
     "param.wait_timeout.description": "用戶端等待 SSDP 回應的時間，單位為秒。",
     "param.interface.description": "可選的本機介面 IPv4 位址或介面名稱，用於繫結。",

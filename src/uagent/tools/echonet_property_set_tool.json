@@ -10,12 +10,7 @@
     "err.invalid_ip_address": "Error: ip_address must be a valid IPv4 address.",
     "err.invalid_epc": "Error: epc must be a valid 1-byte hex code.",
     "err.invalid_edt": "Error: edt must be a valid hex string.",
-    "err.value_required": "Error: either value or edt is required.",
-    "tool.description": "Set one ECHONET Lite property on a node and return a JSON or text result.",
-    "param.eoj.description": "Optional target EOJ (e.g. '013001'). If omitted, the node profile object is used.",
-    "param.obj.description": "Optional object code to narrow the queried object (e.g. '0130').",
-    "param.epc.description": "ECHONET Lite property code (EPC), for example '80' or 'D5'.",
-    "param.edt.description": "Optional raw EDT hex string to send. Takes precedence over value when provided."
+    "err.value_required": "Error: either value or edt is required."
   },
   "bn": {
     "param.ip.description": "Target node IPv4 address.",
@@ -28,12 +23,7 @@
     "err.invalid_ip_address": "Error: ip_address must be a valid IPv4 address.",
     "err.invalid_epc": "Error: epc must be a valid 1-byte hex code.",
     "err.invalid_edt": "Error: edt must be a valid hex string.",
-    "err.value_required": "Error: either value or edt is required.",
-    "tool.description": "Set one ECHONET Lite property on a node and return a JSON or text result.",
-    "param.eoj.description": "Optional target EOJ (e.g. '013001'). If omitted, the node profile object is used.",
-    "param.obj.description": "Optional object code to narrow the queried object (e.g. '0130').",
-    "param.epc.description": "ECHONET Lite property code (EPC), for example '80' or 'D5'.",
-    "param.edt.description": "Optional raw EDT hex string to send. Takes precedence over value when provided."
+    "err.value_required": "Error: either value or edt is required."
   },
   "cs": {
     "param.ip.description": "Target node IPv4 address.",
@@ -46,12 +36,7 @@
     "err.invalid_ip_address": "Error: ip_address must be a valid IPv4 address.",
     "err.invalid_epc": "Error: epc must be a valid 1-byte hex code.",
     "err.invalid_edt": "Error: edt must be a valid hex string.",
-    "err.value_required": "Error: either value or edt is required.",
-    "tool.description": "Set one ECHONET Lite property on a node and return a JSON or text result.",
-    "param.eoj.description": "Optional target EOJ (e.g. '013001'). If omitted, the node profile object is used.",
-    "param.obj.description": "Optional object code to narrow the queried object (e.g. '0130').",
-    "param.epc.description": "ECHONET Lite property code (EPC), for example '80' or 'D5'.",
-    "param.edt.description": "Optional raw EDT hex string to send. Takes precedence over value when provided."
+    "err.value_required": "Error: either value or edt is required."
   },
   "de": {
     "param.ip.description": "Target node IPv4 address.",
@@ -64,12 +49,7 @@
     "err.invalid_ip_address": "Error: ip_address must be a valid IPv4 address.",
     "err.invalid_epc": "Error: epc must be a valid 1-byte hex code.",
     "err.invalid_edt": "Error: edt must be a valid hex string.",
-    "err.value_required": "Error: either value or edt is required.",
-    "tool.description": "Set one ECHONET Lite property on a node and return a JSON or text result.",
-    "param.eoj.description": "Optional target EOJ (e.g. '013001'). If omitted, the node profile object is used.",
-    "param.obj.description": "Optional object code to narrow the queried object (e.g. '0130').",
-    "param.epc.description": "ECHONET Lite property code (EPC), for example '80' or 'D5'.",
-    "param.edt.description": "Optional raw EDT hex string to send. Takes precedence over value when provided."
+    "err.value_required": "Error: either value or edt is required."
   },
   "en": {
     "param.ip.description": "Target node IPv4 address.",
@@ -83,11 +63,11 @@
     "err.invalid_epc": "Error: epc must be a valid 1-byte hex code.",
     "err.invalid_edt": "Error: edt must be a valid hex string.",
     "err.value_required": "Error: either value or edt is required.",
-    "tool.description": "Set one ECHONET Lite property on a node and return a JSON or text result.",
+    "param.edt.description": "Optional raw EDT hex string to send. Takes precedence over value when provided.",
     "param.eoj.description": "Optional target EOJ (e.g. '013001'). If omitted, the node profile object is used.",
-    "param.obj.description": "Optional object code to narrow the queried object (e.g. '0130').",
     "param.epc.description": "ECHONET Lite property code (EPC), for example '80' or 'D5'.",
-    "param.edt.description": "Optional raw EDT hex string to send. Takes precedence over value when provided."
+    "param.obj.description": "Optional object code to narrow the queried object (e.g. '0130').",
+    "tool.description": "Set one ECHONET Lite property on a node and return a JSON or text result."
   },
   "es": {
     "param.ip.description": "Target node IPv4 address.",
@@ -100,12 +80,7 @@
     "err.invalid_ip_address": "Error: ip_address must be a valid IPv4 address.",
     "err.invalid_epc": "Error: epc must be a valid 1-byte hex code.",
     "err.invalid_edt": "Error: edt must be a valid hex string.",
-    "err.value_required": "Error: either value or edt is required.",
-    "tool.description": "Set one ECHONET Lite property on a node and return a JSON or text result.",
-    "param.eoj.description": "Optional target EOJ (e.g. '013001'). If omitted, the node profile object is used.",
-    "param.obj.description": "Optional object code to narrow the queried object (e.g. '0130').",
-    "param.epc.description": "ECHONET Lite property code (EPC), for example '80' or 'D5'.",
-    "param.edt.description": "Optional raw EDT hex string to send. Takes precedence over value when provided."
+    "err.value_required": "Error: either value or edt is required."
   },
   "fa": {
     "param.ip.description": "Target node IPv4 address.",
@@ -118,12 +93,7 @@
     "err.invalid_ip_address": "Error: ip_address must be a valid IPv4 address.",
     "err.invalid_epc": "Error: epc must be a valid 1-byte hex code.",
     "err.invalid_edt": "Error: edt must be a valid hex string.",
-    "err.value_required": "Error: either value or edt is required.",
-    "tool.description": "Set one ECHONET Lite property on a node and return a JSON or text result.",
-    "param.eoj.description": "Optional target EOJ (e.g. '013001'). If omitted, the node profile object is used.",
-    "param.obj.description": "Optional object code to narrow the queried object (e.g. '0130').",
-    "param.epc.description": "ECHONET Lite property code (EPC), for example '80' or 'D5'.",
-    "param.edt.description": "Optional raw EDT hex string to send. Takes precedence over value when provided."
+    "err.value_required": "Error: either value or edt is required."
   },
   "fi": {
     "param.ip.description": "Target node IPv4 address.",
@@ -136,12 +106,7 @@
     "err.invalid_ip_address": "Error: ip_address must be a valid IPv4 address.",
     "err.invalid_epc": "Error: epc must be a valid 1-byte hex code.",
     "err.invalid_edt": "Error: edt must be a valid hex string.",
-    "err.value_required": "Error: either value or edt is required.",
-    "tool.description": "Set one ECHONET Lite property on a node and return a JSON or text result.",
-    "param.eoj.description": "Optional target EOJ (e.g. '013001'). If omitted, the node profile object is used.",
-    "param.obj.description": "Optional object code to narrow the queried object (e.g. '0130').",
-    "param.epc.description": "ECHONET Lite property code (EPC), for example '80' or 'D5'.",
-    "param.edt.description": "Optional raw EDT hex string to send. Takes precedence over value when provided."
+    "err.value_required": "Error: either value or edt is required."
   },
   "fr": {
     "param.ip.description": "Target node IPv4 address.",
@@ -154,12 +119,7 @@
     "err.invalid_ip_address": "Error: ip_address must be a valid IPv4 address.",
     "err.invalid_epc": "Error: epc must be a valid 1-byte hex code.",
     "err.invalid_edt": "Error: edt must be a valid hex string.",
-    "err.value_required": "Error: either value or edt is required.",
-    "tool.description": "Set one ECHONET Lite property on a node and return a JSON or text result.",
-    "param.eoj.description": "Optional target EOJ (e.g. '013001'). If omitted, the node profile object is used.",
-    "param.obj.description": "Optional object code to narrow the queried object (e.g. '0130').",
-    "param.epc.description": "ECHONET Lite property code (EPC), for example '80' or 'D5'.",
-    "param.edt.description": "Optional raw EDT hex string to send. Takes precedence over value when provided."
+    "err.value_required": "Error: either value or edt is required."
   },
   "hi": {
     "param.ip.description": "Target node IPv4 address.",
@@ -172,12 +132,7 @@
     "err.invalid_ip_address": "Error: ip_address must be a valid IPv4 address.",
     "err.invalid_epc": "Error: epc must be a valid 1-byte hex code.",
     "err.invalid_edt": "Error: edt must be a valid hex string.",
-    "err.value_required": "Error: either value or edt is required.",
-    "tool.description": "Set one ECHONET Lite property on a node and return a JSON or text result.",
-    "param.eoj.description": "Optional target EOJ (e.g. '013001'). If omitted, the node profile object is used.",
-    "param.obj.description": "Optional object code to narrow the queried object (e.g. '0130').",
-    "param.epc.description": "ECHONET Lite property code (EPC), for example '80' or 'D5'.",
-    "param.edt.description": "Optional raw EDT hex string to send. Takes precedence over value when provided."
+    "err.value_required": "Error: either value or edt is required."
   },
   "id": {
     "param.ip.description": "Target node IPv4 address.",
@@ -190,12 +145,7 @@
     "err.invalid_ip_address": "Error: ip_address must be a valid IPv4 address.",
     "err.invalid_epc": "Error: epc must be a valid 1-byte hex code.",
     "err.invalid_edt": "Error: edt must be a valid hex string.",
-    "err.value_required": "Error: either value or edt is required.",
-    "tool.description": "Set one ECHONET Lite property on a node and return a JSON or text result.",
-    "param.eoj.description": "Optional target EOJ (e.g. '013001'). If omitted, the node profile object is used.",
-    "param.obj.description": "Optional object code to narrow the queried object (e.g. '0130').",
-    "param.epc.description": "ECHONET Lite property code (EPC), for example '80' or 'D5'.",
-    "param.edt.description": "Optional raw EDT hex string to send. Takes precedence over value when provided."
+    "err.value_required": "Error: either value or edt is required."
   },
   "it": {
     "param.ip.description": "Target node IPv4 address.",
@@ -208,12 +158,7 @@
     "err.invalid_ip_address": "Error: ip_address must be a valid IPv4 address.",
     "err.invalid_epc": "Error: epc must be a valid 1-byte hex code.",
     "err.invalid_edt": "Error: edt must be a valid hex string.",
-    "err.value_required": "Error: either value or edt is required.",
-    "tool.description": "Set one ECHONET Lite property on a node and return a JSON or text result.",
-    "param.eoj.description": "Optional target EOJ (e.g. '013001'). If omitted, the node profile object is used.",
-    "param.obj.description": "Optional object code to narrow the queried object (e.g. '0130').",
-    "param.epc.description": "ECHONET Lite property code (EPC), for example '80' or 'D5'.",
-    "param.edt.description": "Optional raw EDT hex string to send. Takes precedence over value when provided."
+    "err.value_required": "Error: either value or edt is required."
   },
   "ja": {
     "param.ip.description": "Target node IPv4 address.",
@@ -227,11 +172,11 @@
     "err.invalid_epc": "Error: epc must be a valid 1-byte hex code.",
     "err.invalid_edt": "Error: edt must be a valid hex string.",
     "err.value_required": "Error: either value or edt is required.",
-    "tool.description": "Set one ECHONET Lite property on a node and return a JSON or text result.",
-    "param.eoj.description": "Optional target EOJ (e.g. '013001'). If omitted, the node profile object is used.",
-    "param.obj.description": "Optional object code to narrow the queried object (e.g. '0130').",
-    "param.epc.description": "ECHONET Lite property code (EPC), for example '80' or 'D5'.",
-    "param.edt.description": "Optional raw EDT hex string to send. Takes precedence over value when provided."
+    "param.edt.description": "送信するオプションの生の EDT 16 進文字列。指定された場合は、値よりも優先されます。",
+    "param.eoj.description": "オプションのターゲット EOJ (例: '013001')。省略した場合は、ノード プロファイル オブジェクトが使用されます。",
+    "param.epc.description": "ECHONET Lite プロパティ コード (EPC)、たとえば「80」または「D5」。",
+    "param.obj.description": "クエリ対象のオブジェクトを絞り込むためのオプションのオブジェクト コード (例: '0130')。",
+    "tool.description": "ノードに 1 つの ECHONET Lite プロパティを設定し、JSON またはテキストの結果を返します。"
   },
   "ko": {
     "param.ip.description": "Target node IPv4 address.",
@@ -244,12 +189,7 @@
     "err.invalid_ip_address": "Error: ip_address must be a valid IPv4 address.",
     "err.invalid_epc": "Error: epc must be a valid 1-byte hex code.",
     "err.invalid_edt": "Error: edt must be a valid hex string.",
-    "err.value_required": "Error: either value or edt is required.",
-    "tool.description": "Set one ECHONET Lite property on a node and return a JSON or text result.",
-    "param.eoj.description": "Optional target EOJ (e.g. '013001'). If omitted, the node profile object is used.",
-    "param.obj.description": "Optional object code to narrow the queried object (e.g. '0130').",
-    "param.epc.description": "ECHONET Lite property code (EPC), for example '80' or 'D5'.",
-    "param.edt.description": "Optional raw EDT hex string to send. Takes precedence over value when provided."
+    "err.value_required": "Error: either value or edt is required."
   },
   "mn": {
     "param.ip.description": "Target node IPv4 address.",
@@ -262,12 +202,7 @@
     "err.invalid_ip_address": "Error: ip_address must be a valid IPv4 address.",
     "err.invalid_epc": "Error: epc must be a valid 1-byte hex code.",
     "err.invalid_edt": "Error: edt must be a valid hex string.",
-    "err.value_required": "Error: either value or edt is required.",
-    "tool.description": "Set one ECHONET Lite property on a node and return a JSON or text result.",
-    "param.eoj.description": "Optional target EOJ (e.g. '013001'). If omitted, the node profile object is used.",
-    "param.obj.description": "Optional object code to narrow the queried object (e.g. '0130').",
-    "param.epc.description": "ECHONET Lite property code (EPC), for example '80' or 'D5'.",
-    "param.edt.description": "Optional raw EDT hex string to send. Takes precedence over value when provided."
+    "err.value_required": "Error: either value or edt is required."
   },
   "mr": {
     "param.ip.description": "Target node IPv4 address.",
@@ -280,12 +215,7 @@
     "err.invalid_ip_address": "Error: ip_address must be a valid IPv4 address.",
     "err.invalid_epc": "Error: epc must be a valid 1-byte hex code.",
     "err.invalid_edt": "Error: edt must be a valid hex string.",
-    "err.value_required": "Error: either value or edt is required.",
-    "tool.description": "Set one ECHONET Lite property on a node and return a JSON or text result.",
-    "param.eoj.description": "Optional target EOJ (e.g. '013001'). If omitted, the node profile object is used.",
-    "param.obj.description": "Optional object code to narrow the queried object (e.g. '0130').",
-    "param.epc.description": "ECHONET Lite property code (EPC), for example '80' or 'D5'.",
-    "param.edt.description": "Optional raw EDT hex string to send. Takes precedence over value when provided."
+    "err.value_required": "Error: either value or edt is required."
   },
   "el": {
     "param.ip.description": "Διεύθυνση IPv4 κόμβου στόχου.",
@@ -298,12 +228,7 @@
     "err.invalid_ip_address": "Σφάλμα: Η διεύθυνση ip_address πρέπει να είναι έγκυρη διεύθυνση IPv4.",
     "err.invalid_epc": "Σφάλμα: Το epc πρέπει να είναι έγκυρος δεκαεξαδικός κώδικας 1 byte.",
     "err.invalid_edt": "Σφάλμα: το edt πρέπει να είναι έγκυρη δεκαεξαδική συμβολοσειρά.",
-    "err.value_required": "Σφάλμα: απαιτείται τιμή ή edt.",
-    "tool.description": "Ορίστε μία ιδιότητα ECHONET Lite σε έναν κόμβο και επιστρέψτε ένα αποτέλεσμα JSON ή κειμένου.",
-    "param.eoj.description": "Προαιρετικός στόχος EOJ (π.χ. '013001'). Εάν παραλειφθεί, χρησιμοποιείται το αντικείμενο προφίλ κόμβου.",
-    "param.obj.description": "Προαιρετικός κωδικός αντικειμένου για τον περιορισμό του ερωτούμενου αντικειμένου (π.χ. '0130').",
-    "param.epc.description": "Κωδικός ιδιοκτησίας ECHONET Lite (EPC), για παράδειγμα '80' ή 'D5'.",
-    "param.edt.description": "Προαιρετική ακατέργαστη δεκαεξαδική συμβολοσειρά EDT για αποστολή. Υπερισχύει της αξίας όταν παρέχεται."
+    "err.value_required": "Σφάλμα: απαιτείται τιμή ή edt."
   },
   "he": {
     "param.ip.description": "כתובת IPv4 של צומת יעד.",
@@ -316,12 +241,7 @@
     "err.invalid_ip_address": "שגיאה: כתובת ה-ip_address חייבת להיות כתובת IPv4 חוקית.",
     "err.invalid_epc": "שגיאה: epc חייב להיות קוד hex חוקי של 1 בתים.",
     "err.invalid_edt": "שגיאה: edt חייב להיות מחרוזת hex חוקית.",
-    "err.value_required": "שגיאה: נדרש ערך או edt.",
-    "tool.description": "הגדר מאפיין אחד של ECHONET Lite בצומת והחזר תוצאת JSON או טקסט.",
-    "param.eoj.description": "יעד EOJ אופציונלי (למשל '013001'). אם מושמט, נעשה שימוש באובייקט פרופיל הצומת.",
-    "param.obj.description": "קוד אובייקט אופציונלי כדי לצמצם את האובייקט הנשאל (לדוגמה, '0130').",
-    "param.epc.description": "קוד מאפיין ECHONET Lite (EPC), למשל '80' או 'D5'.",
-    "param.edt.description": "מחרוזת משושה EDT אופציונלית לשליחה. מקבל עדיפות על ערך כאשר הוא מסופק."
+    "err.value_required": "שגיאה: נדרש ערך או edt."
   },
   "hu": {
     "param.ip.description": "Célcsomópont IPv4-címe.",
@@ -334,12 +254,7 @@
     "err.invalid_ip_address": "Hiba: az ip_address érvényes IPv4-címnek kell lennie.",
     "err.invalid_epc": "Hiba: az epc-nek érvényes 1 bájtos hexadecimális kódnak kell lennie.",
     "err.invalid_edt": "Hiba: az edt-nek érvényes hexadecimális karakterláncnak kell lennie.",
-    "err.value_required": "Hiba: az érték vagy az edt megadása kötelező.",
-    "tool.description": "Állítson be egy ECHONET Lite tulajdonságot egy csomóponton, és adjon vissza JSON- vagy szöveges eredményt.",
-    "param.eoj.description": "Opcionális cél EOJ (pl. „013001”). Ha kihagyja, akkor a csomópontprofil objektum kerül felhasználásra.",
-    "param.obj.description": "Opcionális objektumkód a lekérdezett objektum szűkítéséhez (pl. „0130”).",
-    "param.epc.description": "ECHONET Lite tulajdonságkód (EPC), például „80” vagy „D5”.",
-    "param.edt.description": "Választható nyers EDT hexadecimális karakterlánc küldendő. Megadás esetén elsőbbséget élvez az értékkel szemben."
+    "err.value_required": "Hiba: az érték vagy az edt megadása kötelező."
   },
   "ro": {
     "param.ip.description": "Adresa IPv4 a nodului țintă.",
@@ -352,12 +267,7 @@
     "err.invalid_ip_address": "Eroare: ip_address trebuie să fie o adresă IPv4 validă.",
     "err.invalid_epc": "Eroare: epc trebuie să fie un cod hex valid de 1 octet.",
     "err.invalid_edt": "Eroare: edt trebuie să fie un șir hexadecimal valid.",
-    "err.value_required": "Eroare: este necesară fie value, fie edt.",
-    "tool.description": "Setați o proprietate ECHONET Lite pe un nod și returnați un rezultat JSON sau text.",
-    "param.eoj.description": "EOJ țintă opțional (de exemplu, „013001”). Dacă este omis, este utilizat obiectul profil nod.",
-    "param.obj.description": "Cod obiect opțional pentru a restrânge obiectul interogat (de exemplu, „0130”).",
-    "param.epc.description": "Cod de proprietate ECHONET Lite (EPC), de exemplu „80” sau „D5”.",
-    "param.edt.description": "Opțional șir hexagonal EDT brut de trimis. Are prioritate asupra valorii atunci când este furnizată."
+    "err.value_required": "Eroare: este necesară fie value, fie edt."
   },
   "nb": {
     "param.ip.description": "Target node IPv4 address.",
@@ -370,12 +280,7 @@
     "err.invalid_ip_address": "Error: ip_address must be a valid IPv4 address.",
     "err.invalid_epc": "Error: epc must be a valid 1-byte hex code.",
     "err.invalid_edt": "Error: edt must be a valid hex string.",
-    "err.value_required": "Error: either value or edt is required.",
-    "tool.description": "Set one ECHONET Lite property on a node and return a JSON or text result.",
-    "param.eoj.description": "Optional target EOJ (e.g. '013001'). If omitted, the node profile object is used.",
-    "param.obj.description": "Optional object code to narrow the queried object (e.g. '0130').",
-    "param.epc.description": "ECHONET Lite property code (EPC), for example '80' or 'D5'.",
-    "param.edt.description": "Optional raw EDT hex string to send. Takes precedence over value when provided."
+    "err.value_required": "Error: either value or edt is required."
   },
   "nl": {
     "param.ip.description": "Target node IPv4 address.",
@@ -388,12 +293,7 @@
     "err.invalid_ip_address": "Error: ip_address must be a valid IPv4 address.",
     "err.invalid_epc": "Error: epc must be a valid 1-byte hex code.",
     "err.invalid_edt": "Error: edt must be a valid hex string.",
-    "err.value_required": "Error: either value or edt is required.",
-    "tool.description": "Set one ECHONET Lite property on a node and return a JSON or text result.",
-    "param.eoj.description": "Optional target EOJ (e.g. '013001'). If omitted, the node profile object is used.",
-    "param.obj.description": "Optional object code to narrow the queried object (e.g. '0130').",
-    "param.epc.description": "ECHONET Lite property code (EPC), for example '80' or 'D5'.",
-    "param.edt.description": "Optional raw EDT hex string to send. Takes precedence over value when provided."
+    "err.value_required": "Error: either value or edt is required."
   },
   "pl": {
     "param.ip.description": "Target node IPv4 address.",
@@ -406,12 +306,7 @@
     "err.invalid_ip_address": "Error: ip_address must be a valid IPv4 address.",
     "err.invalid_epc": "Error: epc must be a valid 1-byte hex code.",
     "err.invalid_edt": "Error: edt must be a valid hex string.",
-    "err.value_required": "Error: either value or edt is required.",
-    "tool.description": "Set one ECHONET Lite property on a node and return a JSON or text result.",
-    "param.eoj.description": "Optional target EOJ (e.g. '013001'). If omitted, the node profile object is used.",
-    "param.obj.description": "Optional object code to narrow the queried object (e.g. '0130').",
-    "param.epc.description": "ECHONET Lite property code (EPC), for example '80' or 'D5'.",
-    "param.edt.description": "Optional raw EDT hex string to send. Takes precedence over value when provided."
+    "err.value_required": "Error: either value or edt is required."
   },
   "pt": {
     "param.ip.description": "Target node IPv4 address.",
@@ -424,12 +319,7 @@
     "err.invalid_ip_address": "Error: ip_address must be a valid IPv4 address.",
     "err.invalid_epc": "Error: epc must be a valid 1-byte hex code.",
     "err.invalid_edt": "Error: edt must be a valid hex string.",
-    "err.value_required": "Error: either value or edt is required.",
-    "tool.description": "Set one ECHONET Lite property on a node and return a JSON or text result.",
-    "param.eoj.description": "Optional target EOJ (e.g. '013001'). If omitted, the node profile object is used.",
-    "param.obj.description": "Optional object code to narrow the queried object (e.g. '0130').",
-    "param.epc.description": "ECHONET Lite property code (EPC), for example '80' or 'D5'.",
-    "param.edt.description": "Optional raw EDT hex string to send. Takes precedence over value when provided."
+    "err.value_required": "Error: either value or edt is required."
   },
   "pt_BR": {
     "param.ip.description": "Target node IPv4 address.",
@@ -442,12 +332,7 @@
     "err.invalid_ip_address": "Error: ip_address must be a valid IPv4 address.",
     "err.invalid_epc": "Error: epc must be a valid 1-byte hex code.",
     "err.invalid_edt": "Error: edt must be a valid hex string.",
-    "err.value_required": "Error: either value or edt is required.",
-    "tool.description": "Set one ECHONET Lite property on a node and return a JSON or text result.",
-    "param.eoj.description": "Optional target EOJ (e.g. '013001'). If omitted, the node profile object is used.",
-    "param.obj.description": "Optional object code to narrow the queried object (e.g. '0130').",
-    "param.epc.description": "ECHONET Lite property code (EPC), for example '80' or 'D5'.",
-    "param.edt.description": "Optional raw EDT hex string to send. Takes precedence over value when provided."
+    "err.value_required": "Error: either value or edt is required."
   },
   "ru": {
     "param.ip.description": "Target node IPv4 address.",
@@ -460,12 +345,7 @@
     "err.invalid_ip_address": "Error: ip_address must be a valid IPv4 address.",
     "err.invalid_epc": "Error: epc must be a valid 1-byte hex code.",
     "err.invalid_edt": "Error: edt must be a valid hex string.",
-    "err.value_required": "Error: either value or edt is required.",
-    "tool.description": "Set one ECHONET Lite property on a node and return a JSON or text result.",
-    "param.eoj.description": "Optional target EOJ (e.g. '013001'). If omitted, the node profile object is used.",
-    "param.obj.description": "Optional object code to narrow the queried object (e.g. '0130').",
-    "param.epc.description": "ECHONET Lite property code (EPC), for example '80' or 'D5'.",
-    "param.edt.description": "Optional raw EDT hex string to send. Takes precedence over value when provided."
+    "err.value_required": "Error: either value or edt is required."
   },
   "sv": {
     "param.ip.description": "Target node IPv4 address.",
@@ -478,12 +358,7 @@
     "err.invalid_ip_address": "Error: ip_address must be a valid IPv4 address.",
     "err.invalid_epc": "Error: epc must be a valid 1-byte hex code.",
     "err.invalid_edt": "Error: edt must be a valid hex string.",
-    "err.value_required": "Error: either value or edt is required.",
-    "tool.description": "Set one ECHONET Lite property on a node and return a JSON or text result.",
-    "param.eoj.description": "Optional target EOJ (e.g. '013001'). If omitted, the node profile object is used.",
-    "param.obj.description": "Optional object code to narrow the queried object (e.g. '0130').",
-    "param.epc.description": "ECHONET Lite property code (EPC), for example '80' or 'D5'.",
-    "param.edt.description": "Optional raw EDT hex string to send. Takes precedence over value when provided."
+    "err.value_required": "Error: either value or edt is required."
   },
   "sw": {
     "param.ip.description": "Target node IPv4 address.",
@@ -496,12 +371,7 @@
     "err.invalid_ip_address": "Error: ip_address must be a valid IPv4 address.",
     "err.invalid_epc": "Error: epc must be a valid 1-byte hex code.",
     "err.invalid_edt": "Error: edt must be a valid hex string.",
-    "err.value_required": "Error: either value or edt is required.",
-    "tool.description": "Set one ECHONET Lite property on a node and return a JSON or text result.",
-    "param.eoj.description": "Optional target EOJ (e.g. '013001'). If omitted, the node profile object is used.",
-    "param.obj.description": "Optional object code to narrow the queried object (e.g. '0130').",
-    "param.epc.description": "ECHONET Lite property code (EPC), for example '80' or 'D5'.",
-    "param.edt.description": "Optional raw EDT hex string to send. Takes precedence over value when provided."
+    "err.value_required": "Error: either value or edt is required."
   },
   "th": {
     "param.ip.description": "Target node IPv4 address.",
@@ -514,12 +384,7 @@
     "err.invalid_ip_address": "Error: ip_address must be a valid IPv4 address.",
     "err.invalid_epc": "Error: epc must be a valid 1-byte hex code.",
     "err.invalid_edt": "Error: edt must be a valid hex string.",
-    "err.value_required": "Error: either value or edt is required.",
-    "tool.description": "Set one ECHONET Lite property on a node and return a JSON or text result.",
-    "param.eoj.description": "Optional target EOJ (e.g. '013001'). If omitted, the node profile object is used.",
-    "param.obj.description": "Optional object code to narrow the queried object (e.g. '0130').",
-    "param.epc.description": "ECHONET Lite property code (EPC), for example '80' or 'D5'.",
-    "param.edt.description": "Optional raw EDT hex string to send. Takes precedence over value when provided."
+    "err.value_required": "Error: either value or edt is required."
   },
   "tr": {
     "param.ip.description": "Target node IPv4 address.",
@@ -532,12 +397,7 @@
     "err.invalid_ip_address": "Error: ip_address must be a valid IPv4 address.",
     "err.invalid_epc": "Error: epc must be a valid 1-byte hex code.",
     "err.invalid_edt": "Error: edt must be a valid hex string.",
-    "err.value_required": "Error: either value or edt is required.",
-    "tool.description": "Set one ECHONET Lite property on a node and return a JSON or text result.",
-    "param.eoj.description": "Optional target EOJ (e.g. '013001'). If omitted, the node profile object is used.",
-    "param.obj.description": "Optional object code to narrow the queried object (e.g. '0130').",
-    "param.epc.description": "ECHONET Lite property code (EPC), for example '80' or 'D5'.",
-    "param.edt.description": "Optional raw EDT hex string to send. Takes precedence over value when provided."
+    "err.value_required": "Error: either value or edt is required."
   },
   "uk": {
     "param.ip.description": "Target node IPv4 address.",
@@ -550,12 +410,7 @@
     "err.invalid_ip_address": "Error: ip_address must be a valid IPv4 address.",
     "err.invalid_epc": "Error: epc must be a valid 1-byte hex code.",
     "err.invalid_edt": "Error: edt must be a valid hex string.",
-    "err.value_required": "Error: either value or edt is required.",
-    "tool.description": "Set one ECHONET Lite property on a node and return a JSON or text result.",
-    "param.eoj.description": "Optional target EOJ (e.g. '013001'). If omitted, the node profile object is used.",
-    "param.obj.description": "Optional object code to narrow the queried object (e.g. '0130').",
-    "param.epc.description": "ECHONET Lite property code (EPC), for example '80' or 'D5'.",
-    "param.edt.description": "Optional raw EDT hex string to send. Takes precedence over value when provided."
+    "err.value_required": "Error: either value or edt is required."
   },
   "vi": {
     "param.ip.description": "Target node IPv4 address.",
@@ -568,12 +423,7 @@
     "err.invalid_ip_address": "Error: ip_address must be a valid IPv4 address.",
     "err.invalid_epc": "Error: epc must be a valid 1-byte hex code.",
     "err.invalid_edt": "Error: edt must be a valid hex string.",
-    "err.value_required": "Error: either value or edt is required.",
-    "tool.description": "Set one ECHONET Lite property on a node and return a JSON or text result.",
-    "param.eoj.description": "Optional target EOJ (e.g. '013001'). If omitted, the node profile object is used.",
-    "param.obj.description": "Optional object code to narrow the queried object (e.g. '0130').",
-    "param.epc.description": "ECHONET Lite property code (EPC), for example '80' or 'D5'.",
-    "param.edt.description": "Optional raw EDT hex string to send. Takes precedence over value when provided."
+    "err.value_required": "Error: either value or edt is required."
   },
   "zh_CN": {
     "param.ip.description": "Target node IPv4 address.",
@@ -586,12 +436,7 @@
     "err.invalid_ip_address": "Error: ip_address must be a valid IPv4 address.",
     "err.invalid_epc": "Error: epc must be a valid 1-byte hex code.",
     "err.invalid_edt": "Error: edt must be a valid hex string.",
-    "err.value_required": "Error: either value or edt is required.",
-    "tool.description": "Set one ECHONET Lite property on a node and return a JSON or text result.",
-    "param.eoj.description": "Optional target EOJ (e.g. '013001'). If omitted, the node profile object is used.",
-    "param.obj.description": "Optional object code to narrow the queried object (e.g. '0130').",
-    "param.epc.description": "ECHONET Lite property code (EPC), for example '80' or 'D5'.",
-    "param.edt.description": "Optional raw EDT hex string to send. Takes precedence over value when provided."
+    "err.value_required": "Error: either value or edt is required."
   },
   "zh_TW": {
     "param.ip.description": "Target node IPv4 address.",
@@ -604,11 +449,6 @@
     "err.invalid_ip_address": "Error: ip_address must be a valid IPv4 address.",
     "err.invalid_epc": "Error: epc must be a valid 1-byte hex code.",
     "err.invalid_edt": "Error: edt must be a valid hex string.",
-    "err.value_required": "Error: either value or edt is required.",
-    "tool.description": "Set one ECHONET Lite property on a node and return a JSON or text result.",
-    "param.eoj.description": "Optional target EOJ (e.g. '013001'). If omitted, the node profile object is used.",
-    "param.obj.description": "Optional object code to narrow the queried object (e.g. '0130').",
-    "param.epc.description": "ECHONET Lite property code (EPC), for example '80' or 'D5'.",
-    "param.edt.description": "Optional raw EDT hex string to send. Takes precedence over value when provided."
+    "err.value_required": "Error: either value or edt is required."
   }
 }

@@ -4,48 +4,28 @@
     "param.fmt.description": "Format: json or text.",
     "err.invalid_eoj": "Error: Could not parse EOJ '{eoj}'.",
     "err.invalid_object_code": "Error: Could not parse object_code '{object_code}'.",
-    "err.invalid_ip_address": "Error: ip_address must be a valid IPv4 address.",
-    "tool.description": "Discover ECHONET Lite objects on a node and return a JSON or text list.",
-    "param.eoj.description": "Target EOJ (default: node profile).",
-    "param.obj.description": "Object code filter (e.g. '0130').",
-    "param.timeout.description": "Timeout in seconds for ECHONET Lite requests.",
-    "msg.summary": "ECHONET Lite object list fetched: {count} object(s) in {elapsed_ms} ms."
+    "err.invalid_ip_address": "Error: ip_address must be a valid IPv4 address."
   },
   "bn": {
     "param.ip.description": "Target node IPv4 address.",
     "param.fmt.description": "Format: json or text.",
     "err.invalid_eoj": "Error: Could not parse EOJ '{eoj}'.",
     "err.invalid_object_code": "Error: Could not parse object_code '{object_code}'.",
-    "err.invalid_ip_address": "Error: ip_address must be a valid IPv4 address.",
-    "tool.description": "Discover ECHONET Lite objects on a node and return a JSON or text list.",
-    "param.eoj.description": "Target EOJ (default: node profile).",
-    "param.obj.description": "Object code filter (e.g. '0130').",
-    "param.timeout.description": "Timeout in seconds for ECHONET Lite requests.",
-    "msg.summary": "ECHONET Lite object list fetched: {count} object(s) in {elapsed_ms} ms."
+    "err.invalid_ip_address": "Error: ip_address must be a valid IPv4 address."
   },
   "cs": {
     "param.ip.description": "Target node IPv4 address.",
     "param.fmt.description": "Format: json or text.",
     "err.invalid_eoj": "Error: Could not parse EOJ '{eoj}'.",
     "err.invalid_object_code": "Error: Could not parse object_code '{object_code}'.",
-    "err.invalid_ip_address": "Error: ip_address must be a valid IPv4 address.",
-    "tool.description": "Discover ECHONET Lite objects on a node and return a JSON or text list.",
-    "param.eoj.description": "Target EOJ (default: node profile).",
-    "param.obj.description": "Object code filter (e.g. '0130').",
-    "param.timeout.description": "Timeout in seconds for ECHONET Lite requests.",
-    "msg.summary": "ECHONET Lite object list fetched: {count} object(s) in {elapsed_ms} ms."
+    "err.invalid_ip_address": "Error: ip_address must be a valid IPv4 address."
   },
   "de": {
     "param.ip.description": "Target node IPv4 address.",
     "param.fmt.description": "Format: json or text.",
     "err.invalid_eoj": "Error: Could not parse EOJ '{eoj}'.",
     "err.invalid_object_code": "Error: Could not parse object_code '{object_code}'.",
-    "err.invalid_ip_address": "Error: ip_address must be a valid IPv4 address.",
-    "tool.description": "Discover ECHONET Lite objects on a node and return a JSON or text list.",
-    "param.eoj.description": "Target EOJ (default: node profile).",
-    "param.obj.description": "Object code filter (e.g. '0130').",
-    "param.timeout.description": "Timeout in seconds for ECHONET Lite requests.",
-    "msg.summary": "ECHONET Lite object list fetched: {count} object(s) in {elapsed_ms} ms."
+    "err.invalid_ip_address": "Error: ip_address must be a valid IPv4 address."
   },
   "en": {
     "param.ip.description": "Target node IPv4 address.",
@@ -53,95 +33,60 @@
     "err.invalid_eoj": "Error: Could not parse EOJ '{eoj}'.",
     "err.invalid_object_code": "Error: Could not parse object_code '{object_code}'.",
     "err.invalid_ip_address": "Error: ip_address must be a valid IPv4 address.",
-    "tool.description": "Discover ECHONET Lite objects on a node and return a JSON or text list.",
+    "msg.summary": "ECHONET Lite object list fetched: {count} object(s) in {elapsed_ms} ms.",
     "param.eoj.description": "Target EOJ (default: node profile).",
     "param.obj.description": "Object code filter (e.g. '0130').",
     "param.timeout.description": "Timeout in seconds for ECHONET Lite requests.",
-    "msg.summary": "ECHONET Lite object list fetched: {count} object(s) in {elapsed_ms} ms."
+    "tool.description": "Discover ECHONET Lite objects on a node and return a JSON or text list."
   },
   "es": {
     "param.ip.description": "Target node IPv4 address.",
     "param.fmt.description": "Format: json or text.",
     "err.invalid_eoj": "Error: Could not parse EOJ '{eoj}'.",
     "err.invalid_object_code": "Error: Could not parse object_code '{object_code}'.",
-    "err.invalid_ip_address": "Error: ip_address must be a valid IPv4 address.",
-    "tool.description": "Discover ECHONET Lite objects on a node and return a JSON or text list.",
-    "param.eoj.description": "Target EOJ (default: node profile).",
-    "param.obj.description": "Object code filter (e.g. '0130').",
-    "param.timeout.description": "Timeout in seconds for ECHONET Lite requests.",
-    "msg.summary": "ECHONET Lite object list fetched: {count} object(s) in {elapsed_ms} ms."
+    "err.invalid_ip_address": "Error: ip_address must be a valid IPv4 address."
   },
   "fa": {
     "param.ip.description": "Target node IPv4 address.",
     "param.fmt.description": "Format: json or text.",
     "err.invalid_eoj": "Error: Could not parse EOJ '{eoj}'.",
     "err.invalid_object_code": "Error: Could not parse object_code '{object_code}'.",
-    "err.invalid_ip_address": "Error: ip_address must be a valid IPv4 address.",
-    "tool.description": "Discover ECHONET Lite objects on a node and return a JSON or text list.",
-    "param.eoj.description": "Target EOJ (default: node profile).",
-    "param.obj.description": "Object code filter (e.g. '0130').",
-    "param.timeout.description": "Timeout in seconds for ECHONET Lite requests.",
-    "msg.summary": "ECHONET Lite object list fetched: {count} object(s) in {elapsed_ms} ms."
+    "err.invalid_ip_address": "Error: ip_address must be a valid IPv4 address."
   },
   "fi": {
     "param.ip.description": "Target node IPv4 address.",
     "param.fmt.description": "Format: json or text.",
     "err.invalid_eoj": "Error: Could not parse EOJ '{eoj}'.",
     "err.invalid_object_code": "Error: Could not parse object_code '{object_code}'.",
-    "err.invalid_ip_address": "Error: ip_address must be a valid IPv4 address.",
-    "tool.description": "Discover ECHONET Lite objects on a node and return a JSON or text list.",
-    "param.eoj.description": "Target EOJ (default: node profile).",
-    "param.obj.description": "Object code filter (e.g. '0130').",
-    "param.timeout.description": "Timeout in seconds for ECHONET Lite requests.",
-    "msg.summary": "ECHONET Lite object list fetched: {count} object(s) in {elapsed_ms} ms."
+    "err.invalid_ip_address": "Error: ip_address must be a valid IPv4 address."
   },
   "fr": {
     "param.ip.description": "Target node IPv4 address.",
     "param.fmt.description": "Format: json or text.",
     "err.invalid_eoj": "Error: Could not parse EOJ '{eoj}'.",
     "err.invalid_object_code": "Error: Could not parse object_code '{object_code}'.",
-    "err.invalid_ip_address": "Error: ip_address must be a valid IPv4 address.",
-    "tool.description": "Discover ECHONET Lite objects on a node and return a JSON or text list.",
-    "param.eoj.description": "Target EOJ (default: node profile).",
-    "param.obj.description": "Object code filter (e.g. '0130').",
-    "param.timeout.description": "Timeout in seconds for ECHONET Lite requests.",
-    "msg.summary": "ECHONET Lite object list fetched: {count} object(s) in {elapsed_ms} ms."
+    "err.invalid_ip_address": "Error: ip_address must be a valid IPv4 address."
   },
   "hi": {
     "param.ip.description": "Target node IPv4 address.",
     "param.fmt.description": "Format: json or text.",
     "err.invalid_eoj": "Error: Could not parse EOJ '{eoj}'.",
     "err.invalid_object_code": "Error: Could not parse object_code '{object_code}'.",
-    "err.invalid_ip_address": "Error: ip_address must be a valid IPv4 address.",
-    "tool.description": "Discover ECHONET Lite objects on a node and return a JSON or text list.",
-    "param.eoj.description": "Target EOJ (default: node profile).",
-    "param.obj.description": "Object code filter (e.g. '0130').",
-    "param.timeout.description": "Timeout in seconds for ECHONET Lite requests.",
-    "msg.summary": "ECHONET Lite object list fetched: {count} object(s) in {elapsed_ms} ms."
+    "err.invalid_ip_address": "Error: ip_address must be a valid IPv4 address."
   },
   "id": {
     "param.ip.description": "Target node IPv4 address.",
     "param.fmt.description": "Format: json or text.",
     "err.invalid_eoj": "Error: Could not parse EOJ '{eoj}'.",
     "err.invalid_object_code": "Error: Could not parse object_code '{object_code}'.",
-    "err.invalid_ip_address": "Error: ip_address must be a valid IPv4 address.",
-    "tool.description": "Discover ECHONET Lite objects on a node and return a JSON or text list.",
-    "param.eoj.description": "Target EOJ (default: node profile).",
-    "param.obj.description": "Object code filter (e.g. '0130').",
-    "param.timeout.description": "Timeout in seconds for ECHONET Lite requests.",
-    "msg.summary": "ECHONET Lite object list fetched: {count} object(s) in {elapsed_ms} ms."
+    "err.invalid_ip_address": "Error: ip_address must be a valid IPv4 address."
   },
   "it": {
     "param.ip.description": "Target node IPv4 address.",
     "param.fmt.description": "Format: json or text.",
     "err.invalid_eoj": "Error: Could not parse EOJ '{eoj}'.",
     "err.invalid_object_code": "Error: Could not parse object_code '{object_code}'.",
-    "err.invalid_ip_address": "Error: ip_address must be a valid IPv4 address.",
-    "tool.description": "Discover ECHONET Lite objects on a node and return a JSON or text list.",
-    "param.eoj.description": "Target EOJ (default: node profile).",
-    "param.obj.description": "Object code filter (e.g. '0130').",
-    "param.timeout.description": "Timeout in seconds for ECHONET Lite requests.",
-    "msg.summary": "ECHONET Lite object list fetched: {count} object(s) in {elapsed_ms} ms."
+    "err.invalid_ip_address": "Error: ip_address must be a valid IPv4 address."
   },
   "ja": {
     "param.ip.description": "Target node IPv4 address.",
@@ -149,262 +94,157 @@
     "err.invalid_eoj": "Error: Could not parse EOJ '{eoj}'.",
     "err.invalid_object_code": "Error: Could not parse object_code '{object_code}'.",
     "err.invalid_ip_address": "Error: ip_address must be a valid IPv4 address.",
-    "tool.description": "Discover ECHONET Lite objects on a node and return a JSON or text list.",
-    "param.eoj.description": "Target EOJ (default: node profile).",
-    "param.obj.description": "Object code filter (e.g. '0130').",
-    "param.timeout.description": "Timeout in seconds for ECHONET Lite requests.",
-    "msg.summary": "ECHONET Lite object list fetched: {count} object(s) in {elapsed_ms} ms."
+    "msg.summary": "ECHONET Lite オブジェクト リストを取得しました: {elapsed_ms} ミリ秒で {count} 個のオブジェクト。",
+    "param.eoj.description": "ターゲット EOJ (デフォルト: ノード プロファイル)。",
+    "param.obj.description": "オブジェクト コード フィルター (例: '0130')。",
+    "param.timeout.description": "ECHONET Liteリクエストのタイムアウト（秒）。",
+    "tool.description": "ノード上の ECHONET Lite オブジェクトを検出し、JSON またはテキストのリストを返します。"
   },
   "ko": {
     "param.ip.description": "Target node IPv4 address.",
     "param.fmt.description": "Format: json or text.",
     "err.invalid_eoj": "Error: Could not parse EOJ '{eoj}'.",
     "err.invalid_object_code": "Error: Could not parse object_code '{object_code}'.",
-    "err.invalid_ip_address": "Error: ip_address must be a valid IPv4 address.",
-    "tool.description": "Discover ECHONET Lite objects on a node and return a JSON or text list.",
-    "param.eoj.description": "Target EOJ (default: node profile).",
-    "param.obj.description": "Object code filter (e.g. '0130').",
-    "param.timeout.description": "Timeout in seconds for ECHONET Lite requests.",
-    "msg.summary": "ECHONET Lite object list fetched: {count} object(s) in {elapsed_ms} ms."
+    "err.invalid_ip_address": "Error: ip_address must be a valid IPv4 address."
   },
   "mn": {
     "param.ip.description": "Target node IPv4 address.",
     "param.fmt.description": "Format: json or text.",
     "err.invalid_eoj": "Error: Could not parse EOJ '{eoj}'.",
     "err.invalid_object_code": "Error: Could not parse object_code '{object_code}'.",
-    "err.invalid_ip_address": "Error: ip_address must be a valid IPv4 address.",
-    "tool.description": "Discover ECHONET Lite objects on a node and return a JSON or text list.",
-    "param.eoj.description": "Target EOJ (default: node profile).",
-    "param.obj.description": "Object code filter (e.g. '0130').",
-    "param.timeout.description": "Timeout in seconds for ECHONET Lite requests.",
-    "msg.summary": "ECHONET Lite object list fetched: {count} object(s) in {elapsed_ms} ms."
+    "err.invalid_ip_address": "Error: ip_address must be a valid IPv4 address."
   },
   "mr": {
     "param.ip.description": "Target node IPv4 address.",
     "param.fmt.description": "Format: json or text.",
     "err.invalid_eoj": "Error: Could not parse EOJ '{eoj}'.",
     "err.invalid_object_code": "Error: Could not parse object_code '{object_code}'.",
-    "err.invalid_ip_address": "Error: ip_address must be a valid IPv4 address.",
-    "tool.description": "Discover ECHONET Lite objects on a node and return a JSON or text list.",
-    "param.eoj.description": "Target EOJ (default: node profile).",
-    "param.obj.description": "Object code filter (e.g. '0130').",
-    "param.timeout.description": "Timeout in seconds for ECHONET Lite requests.",
-    "msg.summary": "ECHONET Lite object list fetched: {count} object(s) in {elapsed_ms} ms."
+    "err.invalid_ip_address": "Error: ip_address must be a valid IPv4 address."
   },
   "el": {
     "param.ip.description": "Διεύθυνση IPv4 κόμβου στόχου.",
     "param.fmt.description": "Μορφή: json ή κείμενο.",
     "err.invalid_eoj": "Σφάλμα: Δεν ήταν δυνατή η ανάλυση του EOJ '{eoj}'.",
     "err.invalid_object_code": "Σφάλμα: Δεν ήταν δυνατή η ανάλυση του object_code '{object_code}'.",
-    "err.invalid_ip_address": "Σφάλμα: Η διεύθυνση ip_address πρέπει να είναι έγκυρη διεύθυνση IPv4.",
-    "tool.description": "Ανακαλύψτε αντικείμενα ECHONET Lite σε έναν κόμβο και επιστρέψτε μια λίστα JSON ή κειμένου.",
-    "param.eoj.description": "Στόχος EOJ (προεπιλογή: προφίλ κόμβου).",
-    "param.obj.description": "Φίλτρο κωδικού αντικειμένου (π.χ. '0130').",
-    "param.timeout.description": "Λήξη χρονικού ορίου σε δευτερόλεπτα για αιτήματα ECHONET Lite.",
-    "msg.summary": "Έγινε ανάκτηση λίστας αντικειμένων ECHONET Lite: {count} αντικείμενα σε {elapsed_ms} ms."
+    "err.invalid_ip_address": "Σφάλμα: Η διεύθυνση ip_address πρέπει να είναι έγκυρη διεύθυνση IPv4."
   },
   "he": {
     "param.ip.description": "כתובת IPv4 של צומת יעד.",
     "param.fmt.description": "פורמט: json או טקסט.",
     "err.invalid_eoj": "שגיאה: לא ניתן לנתח את EOJ '{eoj}'.",
     "err.invalid_object_code": "שגיאה: לא ניתן לנתח את object_code '{object_code}'.",
-    "err.invalid_ip_address": "שגיאה: כתובת ה-ip_address חייבת להיות כתובת IPv4 חוקית.",
-    "tool.description": "גלה אובייקטים של ECHONET Lite בצומת והחזר JSON או רשימת טקסט.",
-    "param.eoj.description": "יעד EOJ (ברירת מחדל: פרופיל צומת).",
-    "param.obj.description": "מסנן קוד אובייקט (למשל '0130').",
-    "param.timeout.description": "פסק זמן בשניות עבור בקשות ECHONET Lite.",
-    "msg.summary": "רשימת אובייקטים של ECHONET Lite הוחזרה: {count} אובייקט(ים) ב-{elapsed_ms} אלפיות השנייה."
+    "err.invalid_ip_address": "שגיאה: כתובת ה-ip_address חייבת להיות כתובת IPv4 חוקית."
   },
   "hu": {
     "param.ip.description": "Célcsomópont IPv4-címe.",
     "param.fmt.description": "Formátum: json vagy szöveg.",
     "err.invalid_eoj": "Hiba: A(z) „{eoj}” EOJ nem értelmezhető.",
     "err.invalid_object_code": "Hiba: A(z) '{object_code}' objektumkód nem értelmezhető.",
-    "err.invalid_ip_address": "Hiba: az ip_address érvényes IPv4-címnek kell lennie.",
-    "tool.description": "Fedezze fel az ECHONET Lite objektumokat egy csomóponton, és adjon vissza JSON- vagy szöveglistát.",
-    "param.eoj.description": "Cél EOJ (alapértelmezett: csomópont profil).",
-    "param.obj.description": "Objektumkód szűrő (pl. „0130”).",
-    "param.timeout.description": "Időtúllépés másodpercben az ECHONET Lite kérésekhez.",
-    "msg.summary": "Az ECHONET Lite objektumlista lekérve: {count} objektum {elapsed_ms} ms alatt."
+    "err.invalid_ip_address": "Hiba: az ip_address érvényes IPv4-címnek kell lennie."
   },
   "ro": {
     "param.ip.description": "Adresa IPv4 a nodului țintă.",
     "param.fmt.description": "Format: json sau text.",
     "err.invalid_eoj": "Eroare: nu s-a putut analiza EOJ „{eoj}”.",
     "err.invalid_object_code": "Eroare: nu s-a putut analiza object_code „{object_code}”.",
-    "err.invalid_ip_address": "Eroare: ip_address trebuie să fie o adresă IPv4 validă.",
-    "tool.description": "Descoperiți obiecte ECHONET Lite pe un nod și returnați o listă JSON sau text.",
-    "param.eoj.description": "EOJ țintă (implicit: profil de nod).",
-    "param.obj.description": "Filtru de cod obiect (de exemplu, „0130”).",
-    "param.timeout.description": "Timeout în secunde pentru solicitările ECHONET Lite.",
-    "msg.summary": "Lista de obiecte ECHONET Lite preluată: {count} obiect(e) în {elapsed_ms} ms."
+    "err.invalid_ip_address": "Eroare: ip_address trebuie să fie o adresă IPv4 validă."
   },
   "nb": {
     "param.ip.description": "Target node IPv4 address.",
     "param.fmt.description": "Format: json or text.",
     "err.invalid_eoj": "Error: Could not parse EOJ '{eoj}'.",
     "err.invalid_object_code": "Error: Could not parse object_code '{object_code}'.",
-    "err.invalid_ip_address": "Error: ip_address must be a valid IPv4 address.",
-    "tool.description": "Discover ECHONET Lite objects on a node and return a JSON or text list.",
-    "param.eoj.description": "Target EOJ (default: node profile).",
-    "param.obj.description": "Object code filter (e.g. '0130').",
-    "param.timeout.description": "Timeout in seconds for ECHONET Lite requests.",
-    "msg.summary": "ECHONET Lite object list fetched: {count} object(s) in {elapsed_ms} ms."
+    "err.invalid_ip_address": "Error: ip_address must be a valid IPv4 address."
   },
   "nl": {
     "param.ip.description": "Target node IPv4 address.",
     "param.fmt.description": "Format: json or text.",
     "err.invalid_eoj": "Error: Could not parse EOJ '{eoj}'.",
     "err.invalid_object_code": "Error: Could not parse object_code '{object_code}'.",
-    "err.invalid_ip_address": "Error: ip_address must be a valid IPv4 address.",
-    "tool.description": "Discover ECHONET Lite objects on a node and return a JSON or text list.",
-    "param.eoj.description": "Target EOJ (default: node profile).",
-    "param.obj.description": "Object code filter (e.g. '0130').",
-    "param.timeout.description": "Timeout in seconds for ECHONET Lite requests.",
-    "msg.summary": "ECHONET Lite object list fetched: {count} object(s) in {elapsed_ms} ms."
+    "err.invalid_ip_address": "Error: ip_address must be a valid IPv4 address."
   },
   "pl": {
     "param.ip.description": "Target node IPv4 address.",
     "param.fmt.description": "Format: json or text.",
     "err.invalid_eoj": "Error: Could not parse EOJ '{eoj}'.",
     "err.invalid_object_code": "Error: Could not parse object_code '{object_code}'.",
-    "err.invalid_ip_address": "Error: ip_address must be a valid IPv4 address.",
-    "tool.description": "Discover ECHONET Lite objects on a node and return a JSON or text list.",
-    "param.eoj.description": "Target EOJ (default: node profile).",
-    "param.obj.description": "Object code filter (e.g. '0130').",
-    "param.timeout.description": "Timeout in seconds for ECHONET Lite requests.",
-    "msg.summary": "ECHONET Lite object list fetched: {count} object(s) in {elapsed_ms} ms."
+    "err.invalid_ip_address": "Error: ip_address must be a valid IPv4 address."
   },
   "pt": {
     "param.ip.description": "Target node IPv4 address.",
     "param.fmt.description": "Format: json or text.",
     "err.invalid_eoj": "Error: Could not parse EOJ '{eoj}'.",
     "err.invalid_object_code": "Error: Could not parse object_code '{object_code}'.",
-    "err.invalid_ip_address": "Error: ip_address must be a valid IPv4 address.",
-    "tool.description": "Discover ECHONET Lite objects on a node and return a JSON or text list.",
-    "param.eoj.description": "Target EOJ (default: node profile).",
-    "param.obj.description": "Object code filter (e.g. '0130').",
-    "param.timeout.description": "Timeout in seconds for ECHONET Lite requests.",
-    "msg.summary": "ECHONET Lite object list fetched: {count} object(s) in {elapsed_ms} ms."
+    "err.invalid_ip_address": "Error: ip_address must be a valid IPv4 address."
   },
   "pt_BR": {
     "param.ip.description": "Target node IPv4 address.",
     "param.fmt.description": "Format: json or text.",
     "err.invalid_eoj": "Error: Could not parse EOJ '{eoj}'.",
     "err.invalid_object_code": "Error: Could not parse object_code '{object_code}'.",
-    "err.invalid_ip_address": "Error: ip_address must be a valid IPv4 address.",
-    "tool.description": "Discover ECHONET Lite objects on a node and return a JSON or text list.",
-    "param.eoj.description": "Target EOJ (default: node profile).",
-    "param.obj.description": "Object code filter (e.g. '0130').",
-    "param.timeout.description": "Timeout in seconds for ECHONET Lite requests.",
-    "msg.summary": "ECHONET Lite object list fetched: {count} object(s) in {elapsed_ms} ms."
+    "err.invalid_ip_address": "Error: ip_address must be a valid IPv4 address."
   },
   "ru": {
     "param.ip.description": "Target node IPv4 address.",
     "param.fmt.description": "Format: json or text.",
     "err.invalid_eoj": "Error: Could not parse EOJ '{eoj}'.",
     "err.invalid_object_code": "Error: Could not parse object_code '{object_code}'.",
-    "err.invalid_ip_address": "Error: ip_address must be a valid IPv4 address.",
-    "tool.description": "Discover ECHONET Lite objects on a node and return a JSON or text list.",
-    "param.eoj.description": "Target EOJ (default: node profile).",
-    "param.obj.description": "Object code filter (e.g. '0130').",
-    "param.timeout.description": "Timeout in seconds for ECHONET Lite requests.",
-    "msg.summary": "ECHONET Lite object list fetched: {count} object(s) in {elapsed_ms} ms."
+    "err.invalid_ip_address": "Error: ip_address must be a valid IPv4 address."
   },
   "sv": {
     "param.ip.description": "Target node IPv4 address.",
     "param.fmt.description": "Format: json or text.",
     "err.invalid_eoj": "Error: Could not parse EOJ '{eoj}'.",
     "err.invalid_object_code": "Error: Could not parse object_code '{object_code}'.",
-    "err.invalid_ip_address": "Error: ip_address must be a valid IPv4 address.",
-    "tool.description": "Discover ECHONET Lite objects on a node and return a JSON or text list.",
-    "param.eoj.description": "Target EOJ (default: node profile).",
-    "param.obj.description": "Object code filter (e.g. '0130').",
-    "param.timeout.description": "Timeout in seconds for ECHONET Lite requests.",
-    "msg.summary": "ECHONET Lite object list fetched: {count} object(s) in {elapsed_ms} ms."
+    "err.invalid_ip_address": "Error: ip_address must be a valid IPv4 address."
   },
   "sw": {
     "param.ip.description": "Target node IPv4 address.",
     "param.fmt.description": "Format: json or text.",
     "err.invalid_eoj": "Error: Could not parse EOJ '{eoj}'.",
     "err.invalid_object_code": "Error: Could not parse object_code '{object_code}'.",
-    "err.invalid_ip_address": "Error: ip_address must be a valid IPv4 address.",
-    "tool.description": "Discover ECHONET Lite objects on a node and return a JSON or text list.",
-    "param.eoj.description": "Target EOJ (default: node profile).",
-    "param.obj.description": "Object code filter (e.g. '0130').",
-    "param.timeout.description": "Timeout in seconds for ECHONET Lite requests.",
-    "msg.summary": "ECHONET Lite object list fetched: {count} object(s) in {elapsed_ms} ms."
+    "err.invalid_ip_address": "Error: ip_address must be a valid IPv4 address."
   },
   "th": {
     "param.ip.description": "Target node IPv4 address.",
     "param.fmt.description": "Format: json or text.",
     "err.invalid_eoj": "Error: Could not parse EOJ '{eoj}'.",
     "err.invalid_object_code": "Error: Could not parse object_code '{object_code}'.",
-    "err.invalid_ip_address": "Error: ip_address must be a valid IPv4 address.",
-    "tool.description": "Discover ECHONET Lite objects on a node and return a JSON or text list.",
-    "param.eoj.description": "Target EOJ (default: node profile).",
-    "param.obj.description": "Object code filter (e.g. '0130').",
-    "param.timeout.description": "Timeout in seconds for ECHONET Lite requests.",
-    "msg.summary": "ECHONET Lite object list fetched: {count} object(s) in {elapsed_ms} ms."
+    "err.invalid_ip_address": "Error: ip_address must be a valid IPv4 address."
   },
   "tr": {
     "param.ip.description": "Target node IPv4 address.",
     "param.fmt.description": "Format: json or text.",
     "err.invalid_eoj": "Error: Could not parse EOJ '{eoj}'.",
     "err.invalid_object_code": "Error: Could not parse object_code '{object_code}'.",
-    "err.invalid_ip_address": "Error: ip_address must be a valid IPv4 address.",
-    "tool.description": "Discover ECHONET Lite objects on a node and return a JSON or text list.",
-    "param.eoj.description": "Target EOJ (default: node profile).",
-    "param.obj.description": "Object code filter (e.g. '0130').",
-    "param.timeout.description": "Timeout in seconds for ECHONET Lite requests.",
-    "msg.summary": "ECHONET Lite object list fetched: {count} object(s) in {elapsed_ms} ms."
+    "err.invalid_ip_address": "Error: ip_address must be a valid IPv4 address."
   },
   "uk": {
     "param.ip.description": "Target node IPv4 address.",
     "param.fmt.description": "Format: json or text.",
     "err.invalid_eoj": "Error: Could not parse EOJ '{eoj}'.",
     "err.invalid_object_code": "Error: Could not parse object_code '{object_code}'.",
-    "err.invalid_ip_address": "Error: ip_address must be a valid IPv4 address.",
-    "tool.description": "Discover ECHONET Lite objects on a node and return a JSON or text list.",
-    "param.eoj.description": "Target EOJ (default: node profile).",
-    "param.obj.description": "Object code filter (e.g. '0130').",
-    "param.timeout.description": "Timeout in seconds for ECHONET Lite requests.",
-    "msg.summary": "ECHONET Lite object list fetched: {count} object(s) in {elapsed_ms} ms."
+    "err.invalid_ip_address": "Error: ip_address must be a valid IPv4 address."
   },
   "vi": {
     "param.ip.description": "Target node IPv4 address.",
     "param.fmt.description": "Format: json or text.",
     "err.invalid_eoj": "Error: Could not parse EOJ '{eoj}'.",
     "err.invalid_object_code": "Error: Could not parse object_code '{object_code}'.",
-    "err.invalid_ip_address": "Error: ip_address must be a valid IPv4 address.",
-    "tool.description": "Discover ECHONET Lite objects on a node and return a JSON or text list.",
-    "param.eoj.description": "Target EOJ (default: node profile).",
-    "param.obj.description": "Object code filter (e.g. '0130').",
-    "param.timeout.description": "Timeout in seconds for ECHONET Lite requests.",
-    "msg.summary": "ECHONET Lite object list fetched: {count} object(s) in {elapsed_ms} ms."
+    "err.invalid_ip_address": "Error: ip_address must be a valid IPv4 address."
   },
   "zh_CN": {
     "param.ip.description": "Target node IPv4 address.",
     "param.fmt.description": "Format: json or text.",
     "err.invalid_eoj": "Error: Could not parse EOJ '{eoj}'.",
     "err.invalid_object_code": "Error: Could not parse object_code '{object_code}'.",
-    "err.invalid_ip_address": "Error: ip_address must be a valid IPv4 address.",
-    "tool.description": "Discover ECHONET Lite objects on a node and return a JSON or text list.",
-    "param.eoj.description": "Target EOJ (default: node profile).",
-    "param.obj.description": "Object code filter (e.g. '0130').",
-    "param.timeout.description": "Timeout in seconds for ECHONET Lite requests.",
-    "msg.summary": "ECHONET Lite object list fetched: {count} object(s) in {elapsed_ms} ms."
+    "err.invalid_ip_address": "Error: ip_address must be a valid IPv4 address."
   },
   "zh_TW": {
     "param.ip.description": "Target node IPv4 address.",
     "param.fmt.description": "Format: json or text.",
     "err.invalid_eoj": "Error: Could not parse EOJ '{eoj}'.",
     "err.invalid_object_code": "Error: Could not parse object_code '{object_code}'.",
-    "err.invalid_ip_address": "Error: ip_address must be a valid IPv4 address.",
-    "tool.description": "Discover ECHONET Lite objects on a node and return a JSON or text list.",
-    "param.eoj.description": "Target EOJ (default: node profile).",
-    "param.obj.description": "Object code filter (e.g. '0130').",
-    "param.timeout.description": "Timeout in seconds for ECHONET Lite requests.",
-    "msg.summary": "ECHONET Lite object list fetched: {count} object(s) in {elapsed_ms} ms."
+    "err.invalid_ip_address": "Error: ip_address must be a valid IPv4 address."
   }
 }

@@ -1,0 +1,10 @@
+{
+  "en": {
+    "tool.description": "List active Matter device subscriptions.",
+    "param.fmt.description": "Format: json or text."
+  },
+  "ja": {
+    "param.fmt.description": "形式: json またはテキスト。",
+    "tool.description": "アクティブな Matter デバイスのサブスクリプションを一覧表示します。"
+  }
+}

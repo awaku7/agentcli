@@ -1,274 +1,114 @@
 {
   "ar": {
-    "param.fmt.description": "Format: json or text.",
-    "tool.description": "List Matter controller-managed devices and return a JSON or text summary.",
-    "param.ctrl.description": "Controller ID (omit for all).",
-    "err.config_missing": "Matter controller configuration file was not found. Set {env_json} or {env_file}.",
-    "err.invalid_config": "Matter controller configuration could not be parsed: {err}",
-    "err.not_found": "Matter controller not found: {controller_id}"
+    "param.fmt.description": "Format: json or text."
   },
   "bn": {
-    "param.fmt.description": "Format: json or text.",
-    "tool.description": "List Matter controller-managed devices and return a JSON or text summary.",
-    "param.ctrl.description": "Controller ID (omit for all).",
-    "err.config_missing": "Matter controller configuration file was not found. Set {env_json} or {env_file}.",
-    "err.invalid_config": "Matter controller configuration could not be parsed: {err}",
-    "err.not_found": "Matter controller not found: {controller_id}"
+    "param.fmt.description": "Format: json or text."
   },
   "cs": {
-    "param.fmt.description": "Format: json or text.",
-    "tool.description": "List Matter controller-managed devices and return a JSON or text summary.",
-    "param.ctrl.description": "Controller ID (omit for all).",
-    "err.config_missing": "Matter controller configuration file was not found. Set {env_json} or {env_file}.",
-    "err.invalid_config": "Matter controller configuration could not be parsed: {err}",
-    "err.not_found": "Matter controller not found: {controller_id}"
+    "param.fmt.description": "Format: json or text."
   },
   "de": {
-    "param.fmt.description": "Format: json or text.",
-    "tool.description": "List Matter controller-managed devices and return a JSON or text summary.",
-    "param.ctrl.description": "Controller ID (omit for all).",
-    "err.config_missing": "Matter controller configuration file was not found. Set {env_json} or {env_file}.",
-    "err.invalid_config": "Matter controller configuration could not be parsed: {err}",
-    "err.not_found": "Matter controller not found: {controller_id}"
+    "param.fmt.description": "Format: json or text."
   },
   "en": {
     "param.fmt.description": "Format: json or text.",
-    "tool.description": "List Matter controller-managed devices and return a JSON or text summary.",
-    "param.ctrl.description": "Controller ID (omit for all).",
     "err.config_missing": "Matter controller configuration file was not found. Set {env_json} or {env_file}.",
     "err.invalid_config": "Matter controller configuration could not be parsed: {err}",
-    "err.not_found": "Matter controller not found: {controller_id}"
+    "err.not_found": "Matter controller not found: {controller_id}",
+    "param.ctrl.description": "Controller ID (omit for all).",
+    "tool.description": "List Matter controller-managed devices and return a JSON or text summary."
   },
   "es": {
-    "param.fmt.description": "Format: json or text.",
-    "tool.description": "List Matter controller-managed devices and return a JSON or text summary.",
-    "param.ctrl.description": "Controller ID (omit for all).",
-    "err.config_missing": "Matter controller configuration file was not found. Set {env_json} or {env_file}.",
-    "err.invalid_config": "Matter controller configuration could not be parsed: {err}",
-    "err.not_found": "Matter controller not found: {controller_id}"
+    "param.fmt.description": "Format: json or text."
   },
   "fa": {
-    "param.fmt.description": "Format: json or text.",
-    "tool.description": "List Matter controller-managed devices and return a JSON or text summary.",
-    "param.ctrl.description": "Controller ID (omit for all).",
-    "err.config_missing": "Matter controller configuration file was not found. Set {env_json} or {env_file}.",
-    "err.invalid_config": "Matter controller configuration could not be parsed: {err}",
-    "err.not_found": "Matter controller not found: {controller_id}"
+    "param.fmt.description": "Format: json or text."
   },
   "fi": {
-    "param.fmt.description": "Format: json or text.",
-    "tool.description": "List Matter controller-managed devices and return a JSON or text summary.",
-    "param.ctrl.description": "Controller ID (omit for all).",
-    "err.config_missing": "Matter controller configuration file was not found. Set {env_json} or {env_file}.",
-    "err.invalid_config": "Matter controller configuration could not be parsed: {err}",
-    "err.not_found": "Matter controller not found: {controller_id}"
+    "param.fmt.description": "Format: json or text."
   },
   "fr": {
-    "param.fmt.description": "Format: json or text.",
-    "tool.description": "List Matter controller-managed devices and return a JSON or text summary.",
-    "param.ctrl.description": "Controller ID (omit for all).",
-    "err.config_missing": "Matter controller configuration file was not found. Set {env_json} or {env_file}.",
-    "err.invalid_config": "Matter controller configuration could not be parsed: {err}",
-    "err.not_found": "Matter controller not found: {controller_id}"
+    "param.fmt.description": "Format: json or text."
   },
   "hi": {
-    "param.fmt.description": "Format: json or text.",
-    "tool.description": "List Matter controller-managed devices and return a JSON or text summary.",
-    "param.ctrl.description": "Controller ID (omit for all).",
-    "err.config_missing": "Matter controller configuration file was not found. Set {env_json} or {env_file}.",
-    "err.invalid_config": "Matter controller configuration could not be parsed: {err}",
-    "err.not_found": "Matter controller not found: {controller_id}"
+    "param.fmt.description": "Format: json or text."
   },
   "id": {
-    "param.fmt.description": "Format: json or text.",
-    "tool.description": "List Matter controller-managed devices and return a JSON or text summary.",
-    "param.ctrl.description": "Controller ID (omit for all).",
-    "err.config_missing": "Matter controller configuration file was not found. Set {env_json} or {env_file}.",
-    "err.invalid_config": "Matter controller configuration could not be parsed: {err}",
-    "err.not_found": "Matter controller not found: {controller_id}"
+    "param.fmt.description": "Format: json or text."
   },
   "it": {
-    "param.fmt.description": "Format: json or text.",
-    "tool.description": "List Matter controller-managed devices and return a JSON or text summary.",
-    "param.ctrl.description": "Controller ID (omit for all).",
-    "err.config_missing": "Matter controller configuration file was not found. Set {env_json} or {env_file}.",
-    "err.invalid_config": "Matter controller configuration could not be parsed: {err}",
-    "err.not_found": "Matter controller not found: {controller_id}"
+    "param.fmt.description": "Format: json or text."
   },
   "ja": {
     "param.fmt.description": "Format: json or text.",
-    "tool.description": "List Matter controller-managed devices and return a JSON or text summary.",
-    "param.ctrl.description": "Controller ID (omit for all).",
-    "err.config_missing": "Matter controller configuration file was not found. Set {env_json} or {env_file}.",
-    "err.invalid_config": "Matter controller configuration could not be parsed: {err}",
-    "err.not_found": "Matter controller not found: {controller_id}"
+    "err.config_missing": "問題のコントローラー設定ファイルが見つかりませんでした。{env_json} または {env_file} を設定します。",
+    "err.invalid_config": "問題のコントローラー構成を解析できませんでした: {err}",
+    "err.not_found": "問題のコントローラーが見つかりません: {controller_id}",
+    "param.ctrl.description": "コントローラ ID (すべて省略)。",
+    "tool.description": "Matter コントローラーで管理されているデバイスをリストし、JSON またはテキストの概要を返します。"
   },
   "ko": {
-    "param.fmt.description": "Format: json or text.",
-    "tool.description": "List Matter controller-managed devices and return a JSON or text summary.",
-    "param.ctrl.description": "Controller ID (omit for all).",
-    "err.config_missing": "Matter controller configuration file was not found. Set {env_json} or {env_file}.",
-    "err.invalid_config": "Matter controller configuration could not be parsed: {err}",
-    "err.not_found": "Matter controller not found: {controller_id}"
+    "param.fmt.description": "Format: json or text."
   },
   "mn": {
-    "param.fmt.description": "Format: json or text.",
-    "tool.description": "List Matter controller-managed devices and return a JSON or text summary.",
-    "param.ctrl.description": "Controller ID (omit for all).",
-    "err.config_missing": "Matter controller configuration file was not found. Set {env_json} or {env_file}.",
-    "err.invalid_config": "Matter controller configuration could not be parsed: {err}",
-    "err.not_found": "Matter controller not found: {controller_id}"
+    "param.fmt.description": "Format: json or text."
   },
   "mr": {
-    "param.fmt.description": "Format: json or text.",
-    "tool.description": "List Matter controller-managed devices and return a JSON or text summary.",
-    "param.ctrl.description": "Controller ID (omit for all).",
-    "err.config_missing": "Matter controller configuration file was not found. Set {env_json} or {env_file}.",
-    "err.invalid_config": "Matter controller configuration could not be parsed: {err}",
-    "err.not_found": "Matter controller not found: {controller_id}"
+    "param.fmt.description": "Format: json or text."
   },
   "el": {
-    "param.fmt.description": "Στιγμιότυπο προσωρινής μνήμης ECHONET: {count} στοιχεία.",
-    "tool.description": "Το αρχείο διαμόρφωσης του ελεγκτή θέματος δεν βρέθηκε. Ορίστε {env_json} ή {env_file}.",
-    "param.ctrl.description": "Δεν ήταν δυνατή η ανάλυση της διαμόρφωσης του ελεγκτή θέματος: {err}",
-    "err.config_missing": "Δεν βρέθηκε ο ελεγκτής θέματος: {controller_id}",
-    "err.invalid_config": "Αποκτήστε την κατάσταση μιας συσκευής Matter και επιστρέψτε μια σύνοψη JSON ή κειμένου.",
-    "err.not_found": "Θέλετε να αναζητήσετε το αναγνωριστικό συσκευής. Απαιτούμενο αναγνωριστικό."
+    "param.fmt.description": "Στιγμιότυπο προσωρινής μνήμης ECHONET: {count} στοιχεία."
   },
   "he": {
-    "param.fmt.description": "אין ערכים במטמון.",
-    "tool.description": "קובץ התצורה של בקר העניין לא נמצא. הגדר את {env_json} או {env_file}.",
-    "param.ctrl.description": "לא ניתן היה לנתח את תצורת ה-Mater Control: {err}",
-    "err.config_missing": "ה-Mater Controller לא נמצא: {controller_id}",
-    "err.invalid_config": "קבל את הסטטוס של מכשיר Matter אחד והחזר JSON או סיכום טקסט.",
-    "err.not_found": "חשוב לחפש את מזהה המכשיר. מזהה נדרש."
+    "param.fmt.description": "אין ערכים במטמון."
   },
   "hu": {
-    "param.fmt.description": "Gyorsítótár művelet: pillanatfelvétel vagy törlés.",
-    "tool.description": "Az anyagvezérlő konfigurációs fájlja nem található. Állítsa be: {env_json} vagy {env_file}.",
-    "param.ctrl.description": "Az anyagvezérlő konfigurációja nem elemezhető: {err}",
-    "err.config_missing": "Az anyagvezérlő nem található: {controller_id}",
-    "err.invalid_config": "Kérje le egy Matter-eszköz állapotát, és küldjön vissza egy JSON- vagy szöveges összefoglalót.",
-    "err.not_found": "Fontos a megkeresendő eszközazonosító. Kötelező azonosító."
+    "param.fmt.description": "Gyorsítótár művelet: pillanatfelvétel vagy törlés."
   },
   "ro": {
-    "param.fmt.description": "Inspectați sau ștergeți memoria cache ECHONET Lite partajată.",
-    "tool.description": "Este necesară o valoare numerică (0-100) pentru acțiunea „{acțiune}”.",
-    "param.ctrl.description": "Enumerați dispozitivele Matter gestionate de controler și returnați un rezumat JSON sau text.",
-    "err.config_missing": "ID controler (omiteți pentru toți).",
-    "err.invalid_config": "Fișierul de configurare a controlerului Matter nu a fost găsit. Setați {env_json} sau {env_file}.",
-    "err.not_found": "Configurația controlerului Matter nu a putut fi analizată: {err}"
+    "param.fmt.description": "Inspectați sau ștergeți memoria cache ECHONET Lite partajată."
   },
   "nb": {
-    "param.fmt.description": "Format: json or text.",
-    "tool.description": "List Matter controller-managed devices and return a JSON or text summary.",
-    "param.ctrl.description": "Controller ID (omit for all).",
-    "err.config_missing": "Matter controller configuration file was not found. Set {env_json} or {env_file}.",
-    "err.invalid_config": "Matter controller configuration could not be parsed: {err}",
-    "err.not_found": "Matter controller not found: {controller_id}"
+    "param.fmt.description": "Format: json or text."
   },
   "nl": {
-    "param.fmt.description": "Format: json or text.",
-    "tool.description": "List Matter controller-managed devices and return a JSON or text summary.",
-    "param.ctrl.description": "Controller ID (omit for all).",
-    "err.config_missing": "Matter controller configuration file was not found. Set {env_json} or {env_file}.",
-    "err.invalid_config": "Matter controller configuration could not be parsed: {err}",
-    "err.not_found": "Matter controller not found: {controller_id}"
+    "param.fmt.description": "Format: json or text."
   },
   "pl": {
-    "param.fmt.description": "Format: json or text.",
-    "tool.description": "List Matter controller-managed devices and return a JSON or text summary.",
-    "param.ctrl.description": "Controller ID (omit for all).",
-    "err.config_missing": "Matter controller configuration file was not found. Set {env_json} or {env_file}.",
-    "err.invalid_config": "Matter controller configuration could not be parsed: {err}",
-    "err.not_found": "Matter controller not found: {controller_id}"
+    "param.fmt.description": "Format: json or text."
   },
   "pt": {
-    "param.fmt.description": "Format: json or text.",
-    "tool.description": "List Matter controller-managed devices and return a JSON or text summary.",
-    "param.ctrl.description": "Controller ID (omit for all).",
-    "err.config_missing": "Matter controller configuration file was not found. Set {env_json} or {env_file}.",
-    "err.invalid_config": "Matter controller configuration could not be parsed: {err}",
-    "err.not_found": "Matter controller not found: {controller_id}"
+    "param.fmt.description": "Format: json or text."
   },
   "pt_BR": {
-    "param.fmt.description": "Format: json or text.",
-    "tool.description": "List Matter controller-managed devices and return a JSON or text summary.",
-    "param.ctrl.description": "Controller ID (omit for all).",
-    "err.config_missing": "Matter controller configuration file was not found. Set {env_json} or {env_file}.",
-    "err.invalid_config": "Matter controller configuration could not be parsed: {err}",
-    "err.not_found": "Matter controller not found: {controller_id}"
+    "param.fmt.description": "Format: json or text."
   },
   "ru": {
-    "param.fmt.description": "Format: json or text.",
-    "tool.description": "List Matter controller-managed devices and return a JSON or text summary.",
-    "param.ctrl.description": "Controller ID (omit for all).",
-    "err.config_missing": "Matter controller configuration file was not found. Set {env_json} or {env_file}.",
-    "err.invalid_config": "Matter controller configuration could not be parsed: {err}",
-    "err.not_found": "Matter controller not found: {controller_id}"
+    "param.fmt.description": "Format: json or text."
   },
   "sv": {
-    "param.fmt.description": "Format: json or text.",
-    "tool.description": "List Matter controller-managed devices and return a JSON or text summary.",
-    "param.ctrl.description": "Controller ID (omit for all).",
-    "err.config_missing": "Matter controller configuration file was not found. Set {env_json} or {env_file}.",
-    "err.invalid_config": "Matter controller configuration could not be parsed: {err}",
-    "err.not_found": "Matter controller not found: {controller_id}"
+    "param.fmt.description": "Format: json or text."
   },
   "sw": {
-    "param.fmt.description": "Format: json or text.",
-    "tool.description": "List Matter controller-managed devices and return a JSON or text summary.",
-    "param.ctrl.description": "Controller ID (omit for all).",
-    "err.config_missing": "Matter controller configuration file was not found. Set {env_json} or {env_file}.",
-    "err.invalid_config": "Matter controller configuration could not be parsed: {err}",
-    "err.not_found": "Matter controller not found: {controller_id}"
+    "param.fmt.description": "Format: json or text."
   },
   "th": {
-    "param.fmt.description": "Format: json or text.",
-    "tool.description": "List Matter controller-managed devices and return a JSON or text summary.",
-    "param.ctrl.description": "Controller ID (omit for all).",
-    "err.config_missing": "Matter controller configuration file was not found. Set {env_json} or {env_file}.",
-    "err.invalid_config": "Matter controller configuration could not be parsed: {err}",
-    "err.not_found": "Matter controller not found: {controller_id}"
+    "param.fmt.description": "Format: json or text."
   },
   "tr": {
-    "param.fmt.description": "Format: json or text.",
-    "tool.description": "List Matter controller-managed devices and return a JSON or text summary.",
-    "param.ctrl.description": "Controller ID (omit for all).",
-    "err.config_missing": "Matter controller configuration file was not found. Set {env_json} or {env_file}.",
-    "err.invalid_config": "Matter controller configuration could not be parsed: {err}",
-    "err.not_found": "Matter controller not found: {controller_id}"
+    "param.fmt.description": "Format: json or text."
   },
   "uk": {
-    "param.fmt.description": "Format: json or text.",
-    "tool.description": "List Matter controller-managed devices and return a JSON or text summary.",
-    "param.ctrl.description": "Controller ID (omit for all).",
-    "err.config_missing": "Matter controller configuration file was not found. Set {env_json} or {env_file}.",
-    "err.invalid_config": "Matter controller configuration could not be parsed: {err}",
-    "err.not_found": "Matter controller not found: {controller_id}"
+    "param.fmt.description": "Format: json or text."
   },
   "vi": {
-    "param.fmt.description": "Format: json or text.",
-    "tool.description": "List Matter controller-managed devices and return a JSON or text summary.",
-    "param.ctrl.description": "Controller ID (omit for all).",
-    "err.config_missing": "Matter controller configuration file was not found. Set {env_json} or {env_file}.",
-    "err.invalid_config": "Matter controller configuration could not be parsed: {err}",
-    "err.not_found": "Matter controller not found: {controller_id}"
+    "param.fmt.description": "Format: json or text."
   },
   "zh_CN": {
-    "param.fmt.description": "Format: json or text.",
-    "tool.description": "List Matter controller-managed devices and return a JSON or text summary.",
-    "param.ctrl.description": "Controller ID (omit for all).",
-    "err.config_missing": "Matter controller configuration file was not found. Set {env_json} or {env_file}.",
-    "err.invalid_config": "Matter controller configuration could not be parsed: {err}",
-    "err.not_found": "Matter controller not found: {controller_id}"
+    "param.fmt.description": "Format: json or text."
   },
   "zh_TW": {
-    "param.fmt.description": "Format: json or text.",
-    "tool.description": "List Matter controller-managed devices and return a JSON or text summary.",
-    "param.ctrl.description": "Controller ID (omit for all).",
-    "err.config_missing": "Matter controller configuration file was not found. Set {env_json} or {env_file}.",
-    "err.invalid_config": "Matter controller configuration could not be parsed: {err}",
-    "err.not_found": "Matter controller not found: {controller_id}"
+    "param.fmt.description": "Format: json or text."
   }
 }

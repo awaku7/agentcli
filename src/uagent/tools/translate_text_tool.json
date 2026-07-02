@@ -1,7 +1,6 @@
 {
   "en": {
-    "tool.description": "Translate text using Google Translate. Supports 30+ languages. Max input length: 10000 characters.",
-    "param.text.description": "Text to translate (max 10000 characters).",
+    "tool.description": "Translate one or more texts using Google Translate. Supports 30+ languages. Multiple texts are joined and translated as a single block to preserve context. Max 10000 characters per element. Do NOT truncate text before sending; the API handles long text natively. When protect_placeholders is enabled (default), various placeholder types (%(name)s, {name}, ${name}, etc.) are protected from translation if the file type is auto-detected from content.",
     "param.target_lang.description": "Target language code (e.g. ja, en, zh_CN, pt_BR, fr, de, es, ko).",
     "param.source_lang.description": "Source language code. Auto-detected if omitted.",
     "x_search_terms": [
@@ -9,21 +8,23 @@
       "translation",
       "google translate",
       "language"
-    ]
+    ],
+    "param.protect_placeholders.description": "If true, protect placeholders (auto-detected from content) from being translated. Default: true.",
+    "param.texts.description": "Array of text strings to translate (max 10000 characters each). Send full text without truncation; the API handles length natively. Texts are joined and translated as a single block (context preserved)."
   },
   "ja": {
-    "tool.description": "Google 翻訳を使用してテキストを翻訳します。 30 以上の言語をサポートします。",
-    "param.text.description": "翻訳するテキスト。",
+    "tool.description": "Google 翻訳を使用してテキストを翻訳します。30 以上の言語をサポートします。複数のテキストは結合され、1つのブロックとして翻訳されるため文脈が保持されます。1要素あたり最大 10000 文字。テキストを切り詰めずにそのまま送信してください。API が長文をネイティブに処理します。protect_placeholders が有効（デフォルト）の場合、%(name)s、{name}、${name} などの各種プレースホルダが内容からのファイルタイプ自動検出に基づいて翻訳から保護されます。",
     "param.target_lang.description": "ターゲット言語コード (例: ja、en、zh_CN、pt_BR、fr、de、es、ko)。",
     "param.source_lang.description": "ソース言語コード。省略した場合は自動検出されます。",
     "x_search_terms": [
       "翻訳",
       "グーグル翻訳言語"
-    ]
+    ],
+    "param.protect_placeholders.description": "true の場合、プレースホルダ（内容から自動検出）を翻訳から保護します。デフォルト: true。",
+    "param.texts.description": "翻訳するテキスト文字列の配列（1要素あたり最大 10000 文字）。切り詰めずに全文を送信してください。API が長文をネイティブに処理します。結合されて1ブロックとして翻訳されるため文脈が保持されます。"
   },
   "es": {
-    "tool.description": "Traduce texto usando Google Translate. Admite más de 30 idiomas.",
-    "param.text.description": "Texto a traducir.",
+    "tool.description": "Traduce uno o más textos usando Google Translate.Admite más de 30 idiomas.Se unen y traducen varios textos como un solo bloque para preservar el contexto.Máximo 10000 caracteres por elemento.NO trunque el texto antes de enviarlo;la API maneja textos largos de forma nativa.Cuando protect_placeholders está habilitado (predeterminado), varios tipos de marcadores de posición (%(name)s, {name}, ${name}, etc.) están protegidos de la traducción si el tipo de archivo se detecta automáticamente en el contenido.",
     "param.target_lang.description": "Código de idioma de destino (por ejemplo, ja, en, zh_CN, pt_BR, fr, de, es, ko).",
     "param.source_lang.description": "Código del idioma fuente. Detectado automáticamente si se omite.",
     "x_search_terms": [
@@ -32,11 +33,12 @@
       "google",
       "traducir",
       "idioma"
-    ]
+    ],
+    "param.texts.description": "Matriz de cadenas de texto para traducir (máximo 10000 caracteres cada una).Enviar texto completo sin truncamiento;la API maneja la longitud de forma nativa.Los textos se unen y traducen como un solo bloque (contexto preservado).",
+    "param.protect_placeholders.description": "Si es verdadero, protege los marcadores de posición (detectados automáticamente en el contenido) para que no se traduzcan.Valor predeterminado: verdadero."
   },
   "fr": {
-    "tool.description": "Traduisez du texte à l’aide de Google Translate. Prend en charge plus de 30 langues.",
-    "param.text.description": "Texte à traduire.",
+    "tool.description": "Traduisez un ou plusieurs textes à l'aide de Google Translate.Prend en charge plus de 30 langues.Plusieurs textes sont joints et traduits en un seul bloc pour préserver le contexte.Max 10 000 caractères par élément.Ne tronquez PAS le texte avant de l'envoyer ;l'API gère le texte long de manière native.Lorsque protector_placeholders est activé (par défaut), divers types d'espaces réservés (%(name)s, {name}, ${name}, etc.) sont protégés de la traduction si le type de fichier est automatiquement détecté à partir du contenu.",
     "param.target_lang.description": "Code de la langue cible (par exemple ja, en, zh_CN, pt_BR, fr, de, es, ko).",
     "param.source_lang.description": "Code de la langue source. Détecté automatiquement en cas d'omission.",
     "x_search_terms": [
@@ -45,11 +47,12 @@
       "google",
       "traduire",
       "langue"
-    ]
+    ],
+    "param.texts.description": "Tableau de chaînes de texte à traduire (max 10 000 caractères chacune).Envoyer le texte intégral sans troncature ;l'API gère la longueur de manière native.Les textes sont joints et traduits en un seul bloc (contexte préservé).",
+    "param.protect_placeholders.description": "Si cela est vrai, protégez les espaces réservés (détectés automatiquement à partir du contenu) contre la traduction.Par défaut : vrai."
   },
   "ko": {
-    "tool.description": "Google 번역을 사용하여 텍스트를 번역하세요. 30개 이상의 언어를 지원합니다.",
-    "param.text.description": "번역할 텍스트입니다.",
+    "tool.description": "Google 번역을 사용하여 하나 이상의 텍스트를 번역하세요.30개 이상의 언어를 지원합니다.컨텍스트를 보존하기 위해 여러 텍스트를 결합하고 단일 블록으로 번역합니다.요소당 최대 10,000자입니다.보내기 전에 텍스트를 자르지 마십시오.API는 기본적으로 긴 텍스트를 처리합니다.protected_placeholders가 활성화되면(기본값) 파일 형식이 콘텐츠에서 자동 감지되면 다양한 자리 표시자 유형(%(name)s, {name}, ${name} 등)이 번역으로부터 보호됩니다.",
     "param.target_lang.description": "대상 언어 코드(예: ja, en, zh_CN, pt_BR, fr, de, es, ko).",
     "param.source_lang.description": "소스 언어 코드. 생략되면 자동 감지됩니다.",
     "x_search_terms": [
@@ -58,11 +61,12 @@
       "Google",
       "번역",
       "언어"
-    ]
+    ],
+    "param.texts.description": "번역할 텍스트 문자열의 배열입니다(각각 최대 10000자).잘림 없이 전체 텍스트를 보내세요.API는 기본적으로 길이를 처리합니다.텍스트는 단일 블록으로 결합 및 번역됩니다(컨텍스트 보존).",
+    "param.protect_placeholders.description": "true인 경우 자리 표시자(콘텐츠에서 자동 감지됨)가 번역되지 않도록 보호합니다.Default: true."
   },
   "de": {
-    "tool.description": "Übersetzen Sie Text mit Google Translate. Unterstützt über 30 Sprachen.",
-    "param.text.description": "Zu übersetzender Text.",
+    "tool.description": "Übersetzen Sie einen oder mehrere Texte mit Google Translate.Unterstützt über 30 Sprachen.Mehrere Texte werden zusammengefügt und als ein einziger Block übersetzt, um den Kontext zu bewahren.Maximal 10.000 Zeichen pro Element.Schneiden Sie den Text vor dem Senden NICHT ab;Die API verarbeitet Langtext nativ.Wenn „protect_placeholders“ aktiviert ist (Standard), sind verschiedene Platzhaltertypen (%(name)s, {name}, ${name} usw.) vor der Übersetzung geschützt, wenn der Dateityp automatisch anhand des Inhalts erkannt wird.",
     "param.target_lang.description": "Code der Zielsprache (z. B. ja, en, zh_CN, pt_BR, fr, de, es, ko).",
     "param.source_lang.description": "Quellsprachcode. Wird automatisch erkannt, wenn es weggelassen wird.",
     "x_search_terms": [
@@ -71,11 +75,12 @@
       "Google",
       "Translate",
       "Sprache"
-    ]
+    ],
+    "param.texts.description": "Array von zu übersetzenden Textzeichenfolgen (maximal jeweils 10.000 Zeichen).Volltext ohne Kürzung senden;Die API verarbeitet die Länge nativ.Texte werden als einzelner Block zusammengefügt und übersetzt (Kontext bleibt erhalten).",
+    "param.protect_placeholders.description": "Wenn „true“, werden Platzhalter (automatisch aus dem Inhalt erkannt) vor der Übersetzung geschützt.Standard: wahr."
   },
   "it": {
-    "tool.description": "Traduci il testo utilizzando Google Translate. Supporta oltre 30 lingue.",
-    "param.text.description": "Testo da tradurre.",
+    "tool.description": "Traduci uno o più testi utilizzando Google Translate.Supporta oltre 30 lingue.Più testi vengono uniti e tradotti come un unico blocco per preservare il contesto.Massimo 10000 caratteri per elemento.NON troncare il testo prima dell'invio;l'API gestisce il testo lungo in modo nativo.Quando Protect_placeholders è abilitato (impostazione predefinita), vari tipi di segnaposto (%(name)s, {name}, ${name} e così via) sono protetti dalla traduzione se il tipo di file viene rilevato automaticamente dal contenuto.",
     "param.target_lang.description": "Codice della lingua di destinazione (ad esempio ja, en, zh_CN, pt_BR, fr, de, es, ko).",
     "param.source_lang.description": "Codice della lingua di origine. Rilevato automaticamente se omesso.",
     "x_search_terms": [
@@ -84,11 +89,12 @@
       "google",
       "traduttore",
       "lingua"
-    ]
+    ],
+    "param.texts.description": "Matrice di stringhe di testo da tradurre (max 10000 caratteri ciascuna).Invia testo completo senza troncamento;l'API gestisce la lunghezza in modo nativo.I testi vengono uniti e tradotti come un unico blocco (contesto preservato).",
+    "param.protect_placeholders.description": "Se vero, protegge i segnaposto (rilevati automaticamente dal contenuto) dalla traduzione.Predefinito: vero."
   },
   "ru": {
-    "tool.description": "Переведите текст с помощью Google Translate. Поддерживает более 30 языков.",
-    "param.text.description": "Текст для перевода.",
+    "tool.description": "Переведите один или несколько текстов с помощью Google Translate.Поддерживает более 30 языков.Несколько текстов объединяются и переводятся как один блок для сохранения контекста.Макс. 10 000 символов на элемент.НЕ обрезайте текст перед отправкой;API изначально обрабатывает длинный текст.Если параметр Protect_placeholders включен (по умолчанию), различные типы заполнителей (%(name)s, {name}, ${name} и т. д.) защищены от перевода, если тип файла автоматически определяется по содержимому.",
     "param.target_lang.description": "Код целевого языка (например, ja, en, zh_CN, pt_BR, fr, de, es, ko).",
     "param.source_lang.description": "Код исходного языка. Определяется автоматически, если опущено.",
     "x_search_terms": [
@@ -97,11 +103,12 @@
       "Google",
       "Translate",
       "язык"
-    ]
+    ],
+    "param.texts.description": "Массив текстовых строк для перевода (максимум 10 000 символов каждая).Отправлять полный текст без обрезки;API изначально обрабатывает длину.Тексты объединяются и переводятся как единый блок (контекст сохраняется).",
+    "param.protect_placeholders.description": "Если это правда, защитить заполнители (автоматически определяемые из содержимого) от перевода.По умолчанию: правда."
   },
   "pt_BR": {
-    "tool.description": "Traduza texto usando o Google Tradutor. Suporta mais de 30 idiomas.",
-    "param.text.description": "Texto para traduzir.",
+    "tool.description": "Traduza um ou mais textos usando o Google Tradutor.Suporta mais de 30 idiomas.Vários textos são unidos e traduzidos como um único bloco para preservar o contexto.Máximo de 10.000 caracteres por elemento.NÃO trunque o texto antes de enviar;a API lida com texto longo nativamente.Quando Protect_placeholders está ativado (padrão), vários tipos de espaço reservado (%(name)s, {name}, ${name}, etc.) são protegidos contra tradução se o tipo de arquivo for detectado automaticamente no conteúdo.",
     "param.target_lang.description": "Código do idioma de destino (por exemplo, ja, en, zh_CN, pt_BR, fr, de, es, ko).",
     "param.source_lang.description": "Código do idioma fonte. Detectado automaticamente se omitido.",
     "x_search_terms": [
@@ -110,11 +117,12 @@
       "google",
       "traduzir",
       "idioma"
-    ]
+    ],
+    "param.texts.description": "Matriz de strings de texto para traduzir (máximo de 10.000 caracteres cada).Enviar texto completo sem truncamento;a API lida com o comprimento nativamente.Os textos são unidos e traduzidos como um único bloco (contexto preservado).",
+    "param.protect_placeholders.description": "Se for verdade, protege os espaços reservados (detectados automaticamente no conteúdo) de serem traduzidos.Padrão: verdadeiro."
   },
   "pt": {
-    "tool.description": "Traduza texto usando o Google Tradutor. Suporta mais de 30 idiomas.",
-    "param.text.description": "Texto para traduzir.",
+    "tool.description": "Traduza um ou mais textos usando o Google Tradutor.Suporta mais de 30 idiomas.Vários textos são unidos e traduzidos como um único bloco para preservar o contexto.Máximo de 10.000 caracteres por elemento.NÃO trunque o texto antes de enviar;a API lida com texto longo nativamente.Quando Protect_placeholders está ativado (padrão), vários tipos de espaço reservado (%(name)s, {name}, ${name}, etc.) são protegidos contra tradução se o tipo de arquivo for detectado automaticamente no conteúdo.",
     "param.target_lang.description": "Código do idioma de destino (por exemplo, ja, en, zh_CN, pt_BR, fr, de, es, ko).",
     "param.source_lang.description": "Código do idioma fonte. Detectado automaticamente se omitido.",
     "x_search_terms": [
@@ -123,11 +131,12 @@
       "google",
       "traduzir",
       "idioma"
-    ]
+    ],
+    "param.texts.description": "Matriz de strings de texto para traduzir (máximo de 10.000 caracteres cada).Enviar texto completo sem truncamento;a API lida com o comprimento nativamente.Os textos são unidos e traduzidos como um único bloco (contexto preservado).",
+    "param.protect_placeholders.description": "Se for verdade, protege os espaços reservados (detectados automaticamente no conteúdo) de serem traduzidos.Padrão: verdadeiro."
   },
   "id": {
-    "tool.description": "Terjemahkan teks menggunakan Google Terjemahan. Mendukung 30+ bahasa.",
-    "param.text.description": "Teks untuk diterjemahkan.",
+    "tool.description": "Terjemahkan satu atau lebih teks menggunakan Google Terjemahan.Mendukung 30+ bahasa.Beberapa teks digabungkan dan diterjemahkan sebagai satu blok untuk menjaga konteks.Maks 10.000 karakter per elemen.JANGAN memotong teks sebelum mengirim;API menangani teks panjang secara asli.Ketika proteksi_placeholders diaktifkan (default), berbagai jenis placeholder (%(name), {name}, ${name}, dll.) dilindungi dari terjemahan jika jenis file terdeteksi secara otomatis dari konten.",
     "param.target_lang.description": "Kode bahasa target (misalnya ja, en, zh_CN, pt_BR, fr, de, es, ko).",
     "param.source_lang.description": "Kode bahasa sumber. Terdeteksi otomatis jika dihilangkan.",
     "x_search_terms": [
@@ -136,11 +145,12 @@
       "bahasa",
       "google",
       "terjemahan"
-    ]
+    ],
+    "param.texts.description": "Array string teks yang akan diterjemahkan (masing-masing maksimal 10.000 karakter).Kirim teks lengkap tanpa terpotong;API menangani panjang secara asli.Teks digabungkan dan diterjemahkan sebagai satu blok (konteks dipertahankan).",
+    "param.protect_placeholders.description": "Jika benar, lindungi placeholder (terdeteksi secara otomatis dari konten) agar tidak diterjemahkan.Bawaan: benar."
   },
   "vi": {
-    "tool.description": "Dịch văn bản bằng Google Translate. Hỗ trợ hơn 30 ngôn ngữ.",
-    "param.text.description": "Văn bản cần dịch.",
+    "tool.description": "Dịch một hoặc nhiều văn bản bằng Google Dịch.Hỗ trợ hơn 30 ngôn ngữ.Nhiều văn bản được nối và dịch thành một khối duy nhất để bảo toàn ngữ cảnh.Tối đa 10000 ký tự cho mỗi phần tử.KHÔNG cắt ngắn văn bản trước khi gửi;API xử lý văn bản dài một cách tự nhiên.Khi bảo vệ_placeholders được bật (mặc định), các loại trình giữ chỗ khác nhau (%(name)s, {name}, ${name}, v.v.) được bảo vệ khỏi dịch nếu loại tệp được tự động phát hiện khỏi nội dung.",
     "param.target_lang.description": "Mã ngôn ngữ đích (ví dụ: ja, en, zh_CN, pt_BR, fr, de, es, ko).",
     "param.source_lang.description": "Mã ngôn ngữ nguồn. Tự động phát hiện nếu bỏ qua.",
     "x_search_terms": [
@@ -150,11 +160,12 @@
       "dịch",
       "ngôn",
       "ngữ"
-    ]
+    ],
+    "param.texts.description": "Mảng chuỗi văn bản cần dịch (mỗi chuỗi tối đa 10000 ký tự).Gửi toàn văn không cắt bớt;API xử lý độ dài nguyên bản.Các văn bản được nối và dịch thành một khối duy nhất (ngữ cảnh được giữ nguyên).",
+    "param.protect_placeholders.description": "Nếu đúng, hãy bảo vệ phần giữ chỗ (được tự động phát hiện từ nội dung) khỏi bị dịch.Mặc định: đúng."
   },
   "pl": {
-    "tool.description": "Przetłumacz tekst za pomocą Tłumacza Google. Obsługuje ponad 30 języków.",
-    "param.text.description": "Tekst do przetłumaczenia.",
+    "tool.description": "Przetłumacz jeden lub więcej tekstów za pomocą Tłumacza Google.Obsługuje ponad 30 języków.Wiele tekstów jest łączonych i tłumaczonych jako pojedynczy blok, aby zachować kontekst.Maksymalnie 10000 znaków na element.NIE obcinaj tekstu przed wysłaniem;API obsługuje natywnie długi tekst.Gdy funkcja Protect_placeholders jest włączona (domyślnie), różne typy symboli zastępczych (%(name)s, {name}, ${name} itp.) są chronione przed tłumaczeniem, jeśli typ pliku zostanie automatycznie wykryty na podstawie zawartości.",
     "param.target_lang.description": "Kod języka docelowego (np. ja, en, zh_CN, pt_BR, fr, de, es, ko).",
     "param.source_lang.description": "Kod języka źródłowego. Wykrywane automatycznie w przypadku pominięcia.",
     "x_search_terms": [
@@ -163,11 +174,12 @@
       "google",
       "przetłumacz",
       "język"
-    ]
+    ],
+    "param.texts.description": "Tablica ciągów tekstowych do przetłumaczenia (maksymalnie 10000 znaków każdy).Wyślij pełny tekst bez obcinania;API obsługuje długość natywnie.Teksty są łączone i tłumaczone jako pojedynczy blok (kontekst zostaje zachowany).",
+    "param.protect_placeholders.description": "Jeśli to prawda, chroń symbole zastępcze (automatycznie wykrywane w treści) przed tłumaczeniem.Wartość domyślna: prawda."
   },
   "hi": {
-    "tool.description": "Google अनुवाद का उपयोग करके पाठ का अनुवाद करें। 30+ भाषाओं का समर्थन करता है।",
-    "param.text.description": "अनुवाद करने के लिए पाठ.",
+    "tool.description": "Google अनुवाद का उपयोग करके एक या अधिक पाठों का अनुवाद करें।30+ भाषाओं का समर्थन करता है।संदर्भ को संरक्षित करने के लिए एकाधिक पाठों को एक ब्लॉक के रूप में जोड़ा और अनुवादित किया जाता है।प्रति तत्व अधिकतम 10000 अक्षर।भेजने से पहले पाठ को छोटा-छोटा न करें;एपीआई लंबे टेक्स्ट को मूल रूप से संभालता है।जब प्रोटेक्ट_प्लेसहोल्डर्स सक्षम (डिफ़ॉल्ट) होता है, तो विभिन्न प्लेसहोल्डर प्रकार (% (नाम) एस, {नाम}, $ {नाम}, आदि) अनुवाद से सुरक्षित होते हैं यदि फ़ाइल प्रकार सामग्री से स्वतः पता लगाया जाता है।",
     "param.target_lang.description": "लक्ष्य भाषा कोड (उदा. ja, en, zh_CN, pt_BR, fr, de, es, ko)।",
     "param.source_lang.description": "स्रोत भाषा कोड. यदि छोड़ा गया हो तो स्वतः पता लगाया जाता है।",
     "x_search_terms": [
@@ -176,11 +188,12 @@
       "Google",
       "अनुवाद",
       "भाषा"
-    ]
+    ],
+    "param.texts.description": "अनुवाद करने के लिए टेक्स्ट स्ट्रिंग्स की श्रृंखला (प्रत्येक में अधिकतम 10000 अक्षर)।बिना काट-छाँट के पूरा पाठ भेजें;एपीआई मूल रूप से लंबाई को संभालती है।पाठों को एक एकल ब्लॉक (संदर्भ संरक्षित) के रूप में जोड़ा और अनुवादित किया जाता है।",
+    "param.protect_placeholders.description": "यदि सत्य है, तो प्लेसहोल्डर्स (सामग्री से स्वतः पता लगाया गया) को अनुवादित होने से बचाएं।डिफ़ॉल्ट: सत्य."
   },
   "ar": {
-    "tool.description": "ترجمة النص باستخدام ترجمة جوجل. يدعم أكثر من 30 لغة.",
-    "param.text.description": "نص للترجمة.",
+    "tool.description": "ترجمة نص واحد أو أكثر باستخدام ترجمة جوجل.يدعم أكثر من 30 لغة.يتم ضم نصوص متعددة وترجمتها ككتلة واحدة للحفاظ على السياق.الحد الأقصى 10000 حرف لكل عنصر.لا تقم باقتطاع النص قبل الإرسال؛تتعامل واجهة برمجة التطبيقات (API) مع النص الطويل محليًا.عند تمكين Protect_placeholders (افتراضي)، تتم حماية أنواع العناصر النائبة المختلفة (%(name)s، {name}، ${name}، وما إلى ذلك) من الترجمة إذا تم اكتشاف نوع الملف تلقائيًا من المحتوى.",
     "param.target_lang.description": "رمز اللغة المستهدفة (مثل ja وen وzh_CN وpt_BR وfr وde وes وko).",
     "param.source_lang.description": "كود اللغة المصدر. يتم اكتشافه تلقائيًا إذا تم حذفه.",
     "x_search_terms": [
@@ -189,11 +202,12 @@
       "جوجل",
       "ترجمة",
       "اللغة"
-    ]
+    ],
+    "param.texts.description": "مجموعة من السلاسل النصية المراد ترجمتها (بحد أقصى 10000 حرف لكل منها).إرسال النص الكامل دون اقتطاع؛تعالج واجهة برمجة التطبيقات الطول أصلاً.يتم ضم النصوص وترجمتها ككتلة واحدة (يتم الاحتفاظ بالسياق).",
+    "param.protect_placeholders.description": "إذا كان هذا صحيحًا، قم بحماية العناصر النائبة (التي يتم اكتشافها تلقائيًا من المحتوى) من الترجمة.الافتراضي: صحيح."
   },
   "sv": {
-    "tool.description": "Översätt text med Google Translate. Stöder 30+ språk.",
-    "param.text.description": "Text att översätta.",
+    "tool.description": "Översätt en eller flera texter med Google Translate.Stöder 30+ språk.Flera texter sammanfogas och översätts som ett enda block för att bevara sammanhanget.Max 10 000 tecken per element.Trunkera INTE text innan du skickar;API hanterar lång text inbyggt.När protect_placeholders är aktiverat (standard) skyddas olika platshållartyper (%(name)s, {name}, ${name}, etc.) från översättning om filtypen automatiskt upptäcks från innehåll.",
     "param.target_lang.description": "Målspråkskod (t.ex. ja, en, zh_CN, pt_BR, fr, de, es, ko).",
     "param.source_lang.description": "Källspråkskod. Upptäcks automatiskt om den utelämnas.",
     "x_search_terms": [
@@ -202,11 +216,12 @@
       "google",
       "översätt",
       "språk"
-    ]
+    ],
+    "param.texts.description": "Uppsättning av textsträngar att översätta (max 10 000 tecken vardera).Skicka fulltext utan trunkering;API hanterar längden inbyggt.Texter sammanfogas och översätts som ett enda block (sammanhang bevaras).",
+    "param.protect_placeholders.description": "Om sant, skydda platshållare (automatiskt upptäckt från innehåll) från att översättas.Standard: sant."
   },
   "sw": {
-    "tool.description": "Tafsiri maandishi kwa kutumia Google Tafsiri. Inaauni lugha 30+.",
-    "param.text.description": "Maandishi ya kutafsiri.",
+    "tool.description": "Tafsiri maandishi moja au zaidi kwa kutumia Google Tafsiri.Inaauni lugha 30+.Maandishi mengi yanaunganishwa na kutafsiriwa kama kizuizi kimoja ili kuhifadhi muktadha.Upeo wa herufi 10000 kwa kila kipengele.USIpunguze maandishi kabla ya kutuma;API hushughulikia maandishi marefu kiasili.Wakati protect_placeholders imewashwa (chaguo-msingi), aina mbalimbali za vishika nafasi (%(name)s, {name}, ${name}, n.k.) zinalindwa dhidi ya tafsiri ikiwa aina ya faili itatambuliwa kiotomatiki kutoka kwa maudhui.",
     "param.target_lang.description": "Msimbo wa lugha lengwa (k.m. ja, en, zh_CN, pt_BR, fr, de, es, ko).",
     "param.source_lang.description": "Msimbo wa lugha ya asili. Imegunduliwa kiotomatiki ikiwa imeachwa.",
     "x_search_terms": [
@@ -215,11 +230,12 @@
       "google",
       "kutafsiri",
       "lugha"
-    ]
+    ],
+    "param.texts.description": "Mkusanyiko wa mifuatano ya maandishi ya kutafsiri (isizidi vibambo 10000 kila moja).Tuma maandishi kamili bila kupunguzwa;API hushughulikia urefu asili.Maandishi yanaunganishwa na kutafsiriwa kama kizuizi kimoja (muktadha umehifadhiwa).",
+    "param.protect_placeholders.description": "Ikiwa ni kweli, linda vishika nafasi (zilizogunduliwa kiotomatiki kutoka kwa maudhui) zisitafsiriwe.Chaguomsingi: kweli."
   },
   "nb": {
-    "tool.description": "Oversett tekst ved hjelp av Google Translate. Støtter 30+ språk.",
-    "param.text.description": "Tekst som skal oversettes.",
+    "tool.description": "Oversett én eller flere tekster ved hjelp av Google Translate.Støtter 30+ språk.Flere tekster slås sammen og oversettes som en enkelt blokk for å bevare konteksten.Maks 10 000 tegn per element.IKKE avkort tekst før sending;API-en håndterer lang tekst naturlig.Når protect_placeholders er aktivert (standard), er ulike plassholdertyper (%(name)s, {name}, ${name}, etc.) beskyttet mot oversettelse hvis filtypen blir automatisk oppdaget fra innhold.",
     "param.target_lang.description": "Målspråkkode (f.eks. ja, en, zh_CN, pt_BR, fr, de, es, ko).",
     "param.source_lang.description": "Kildespråkkode. Automatisk oppdaget hvis utelatt.",
     "x_search_terms": [
@@ -228,11 +244,12 @@
       "google",
       "translate",
       "språk"
-    ]
+    ],
+    "param.texts.description": "En rekke tekststrenger som skal oversettes (maks. 10 000 tegn hver).Send fulltekst uten trunkering;API-en håndterer lengden native.Tekster slås sammen og oversettes som en enkelt blokk (kontekst bevart).",
+    "param.protect_placeholders.description": "Hvis sant, beskytt plassholdere (automatisk oppdaget fra innhold) fra å bli oversatt.Standard: sant."
   },
   "nl": {
-    "tool.description": "Vertaal tekst met Google Translate. Ondersteunt meer dan 30 talen.",
-    "param.text.description": "Tekst om te vertalen.",
+    "tool.description": "Vertaal één of meerdere teksten met Google Translate.Ondersteunt meer dan 30 talen.Meerdere teksten worden samengevoegd en vertaald als één blok om de context te behouden.Maximaal 10.000 tekens per element.Knip tekst NIET af voordat u deze verzendt;de API verwerkt lange tekst native.Wanneer protect_placeholders is ingeschakeld (standaard), worden verschillende soorten tijdelijke aanduidingen (%(name)s, {name}, ${name}, enz.) beschermd tegen vertaling als het bestandstype automatisch wordt gedetecteerd op basis van de inhoud.",
     "param.target_lang.description": "Doeltaalcode (bijvoorbeeld ja, en, zh_CN, pt_BR, fr, de, es, ko).",
     "param.source_lang.description": "Brontaalcode. Wordt automatisch gedetecteerd indien weggelaten.",
     "x_search_terms": [
@@ -241,11 +258,12 @@
       "google",
       "vertalen",
       "taal"
-    ]
+    ],
+    "param.texts.description": "Array van te vertalen tekstreeksen (elk maximaal 10.000 tekens).Verzend volledige tekst zonder afkapping;de API verwerkt de lengte native.Teksten worden samengevoegd en vertaald als één enkel blok (context behouden).",
+    "param.protect_placeholders.description": "Als dit waar is, bescherm dan tijdelijke aanduidingen (automatisch gedetecteerd op basis van inhoud) tegen vertaling.Standaard: waar."
   },
   "fi": {
-    "tool.description": "Käännä tekstiä Google-kääntäjän avulla. Tukee yli 30 kieltä.",
-    "param.text.description": "Käännettävä teksti.",
+    "tool.description": "Käännä yksi tai useampi teksti Google-kääntäjän avulla.Tukee yli 30 kieltä.Useat tekstit yhdistetään ja käännetään yhdeksi lohkoksi kontekstin säilyttämiseksi.Enintään 10 000 merkkiä elementtiä kohden.ÄLÄ katkaise tekstiä ennen lähettämistä;API käsittelee pitkää tekstiä natiivisti.Kun Protect_placeholders on käytössä (oletus), useat paikkamerkkityypit (%(name)s, {name}, ${name} jne.) on suojattu käännökseltä, jos tiedostotyyppi tunnistetaan automaattisesti sisällöstä.",
     "param.target_lang.description": "Kohdekielikoodi (esim. ja, en, zh_CN, pt_BR, fr, de, es, ko).",
     "param.source_lang.description": "Lähdekielen koodi. Havaitsee automaattisesti, jos se jätetään pois.",
     "x_search_terms": [
@@ -254,11 +272,12 @@
       "google",
       "kääntäjän",
       "kieli"
-    ]
+    ],
+    "param.texts.description": "Käännettävien tekstijonojen joukko (kukin enintään 10 000 merkkiä).Lähetä koko teksti ilman katkaisua;API käsittelee pituuden natiivisti.Tekstit yhdistetään ja käännetään yhdeksi lohkoksi (konteksti säilytetään).",
+    "param.protect_placeholders.description": "Jos totta, suojaa paikkamerkit (tunnistetaan automaattisesti sisällöstä) kääntämiseltä.Oletus: tosi."
   },
   "cs": {
-    "tool.description": "Přeložte text pomocí Překladače Google. Podporuje 30+ jazyků.",
-    "param.text.description": "Text k překladu.",
+    "tool.description": "Přeložte jeden nebo více textů pomocí Překladače Google.Podporuje 30+ jazyků.Více textů je spojeno a přeloženo jako jeden blok, aby byl zachován kontext.Maximálně 10 000 znaků na prvek.NEZKRAŤUJTE ​​text před odesláním;API zpracovává dlouhý text nativně.Když je protect_placeholders povoleno (výchozí), různé typy zástupných symbolů (%(name)s, {name}, ${name} atd.) jsou chráněny před překladem, pokud je typ souboru automaticky detekován z obsahu.",
     "param.target_lang.description": "Kód cílového jazyka (např. ja, en, zh_CN, pt_BR, fr, de, es, ko).",
     "param.source_lang.description": "Kód zdrojového jazyka. Automaticky zjištěno, pokud je vynecháno.",
     "x_search_terms": [
@@ -267,11 +286,12 @@
       "google",
       "přeložit",
       "jazyk"
-    ]
+    ],
+    "param.texts.description": "Pole textových řetězců k překladu (každý max. 10 000 znaků).Odeslat celý text bez zkrácení;API zpracovává délku nativně.Texty se spojují a překládají jako jeden blok (kontext je zachován).",
+    "param.protect_placeholders.description": "Pokud je true, chraňte zástupné symboly (automaticky zjištěné z obsahu) před překladem.Výchozí: true."
   },
   "uk": {
-    "tool.description": "Перекладіть текст за допомогою Google Translate. Підтримує понад 30 мов.",
-    "param.text.description": "Текст для перекладу.",
+    "tool.description": "Перекладіть один або кілька текстів за допомогою Google Translate.Підтримує понад 30 мов.Кілька текстів об’єднуються та перекладаються як єдиний блок, щоб зберегти контекст.Максимум 10000 символів на елемент.НЕ обрізайте текст перед надсиланням;API обробляє довгий текст нативно.Якщо protect_placeholders увімкнено (за замовчуванням), різні типи заповнювачів (%(name)s, {name}, ${name} тощо) захищені від перекладу, якщо тип файлу автоматично визначено у вмісті.",
     "param.target_lang.description": "Код цільової мови (наприклад, ja, en, zh_CN, pt_BR, fr, de, es, ko).",
     "param.source_lang.description": "Вихідний код мови. Визначається автоматично, якщо опущено.",
     "x_search_terms": [
@@ -280,11 +300,12 @@
       "Google",
       "Translate",
       "мова"
-    ]
+    ],
+    "param.texts.description": "Масив текстових рядків для перекладу (максимум 10000 символів кожен).Надіслати повний текст без скорочення;API обробляє довжину нативно.Тексти об’єднуються та перекладаються одним блоком (контекст зберігається).",
+    "param.protect_placeholders.description": "Якщо значення true, захистити заповнювачі (автоматично визначені у вмісті) від перекладу.Типове значення: true."
   },
   "tr": {
-    "tool.description": "Google Çeviri'yi kullanarak metni çevirin. 30'dan fazla dili destekler.",
-    "param.text.description": "Çevrilecek metin.",
+    "tool.description": "Google Çeviri'yi kullanarak bir veya daha fazla metni çevirin.30'dan fazla dili destekler.Bağlamı korumak için birden çok metin birleştirilir ve tek bir blok halinde çevrilir.Öğe başına maksimum 10000 karakter.Göndermeden önce metni kesmeyin;API uzun metni yerel olarak işler.Koruma_yer tutucuları etkinleştirildiğinde (varsayılan), dosya türü içerikten otomatik olarak algılanıyorsa çeşitli yer tutucu türleri (%(name)s, {name}, ${name}, vb.) çeviriye karşı korunur.",
     "param.target_lang.description": "Hedef dil kodu (ör. ja, en, zh_CN, pt_BR, fr, de, es, ko).",
     "param.source_lang.description": "Kaynak dil kodu. Atlanırsa otomatik olarak algılanır.",
     "x_search_terms": [
@@ -293,22 +314,24 @@
       "google",
       "çeviri",
       "dili"
-    ]
+    ],
+    "param.texts.description": "Çevrilecek metin dizeleri dizisi (her biri en fazla 10000 karakter).Tam metni kesmeden gönderin;API uzunluğu yerel olarak yönetir.Metinler tek bir blok halinde birleştirilir ve çevrilir (bağlam korunur).",
+    "param.protect_placeholders.description": "Doğruysa yer tutucuları (içerikten otomatik olarak algılanır) çevrilmekten koruyun.Varsayılan: doğru."
   },
   "th": {
-    "tool.description": "แปลข้อความโดยใช้ Google Translate รองรับมากกว่า 30 ภาษา",
-    "param.text.description": "ข้อความที่จะแปล",
+    "tool.description": "แปลข้อความอย่างน้อยหนึ่งข้อความโดยใช้ Google Translateรองรับมากกว่า 30 ภาษาข้อความหลายฉบับถูกรวมและแปลเป็นบล็อกเดียวเพื่อรักษาบริบทสูงสุด 10,000 อักขระต่อองค์ประกอบอย่าตัดทอนข้อความก่อนส่งAPI จัดการข้อความขนาดยาวโดยกำเนิดเมื่อเปิดใช้งาน Protect_placeholders (ค่าเริ่มต้น) ประเภทตัวยึดตำแหน่งต่างๆ (%(name)s, {name}, ${name} ฯลฯ) จะได้รับการปกป้องจากการแปลหากประเภทไฟล์ถูกตรวจพบโดยอัตโนมัติจากเนื้อหา",
     "param.target_lang.description": "รหัสภาษาเป้าหมาย (เช่น ja, en, zh_CN, pt_BR, fr, de, es, ko)",
     "param.source_lang.description": "รหัสภาษาต้นฉบับ ตรวจพบอัตโนมัติหากละเว้น",
     "x_search_terms": [
       "แปลการแปล",
       "Google",
       "แปลภาษา"
-    ]
+    ],
+    "param.texts.description": "อาร์เรย์ของสตริงข้อความที่จะแปล (สูงสุด 10,000 อักขระต่อรายการ)ส่งข้อความฉบับเต็มโดยไม่มีการตัดทอนAPI จัดการความยาวโดยกำเนิดข้อความถูกรวมและแปลเป็นบล็อกเดียว (บริบทที่เก็บรักษาไว้)",
+    "param.protect_placeholders.description": "หากเป็นจริง ให้ปกป้องตัวยึดตำแหน่ง (ตรวจพบอัตโนมัติจากเนื้อหา) จากการแปลค่าเริ่มต้น: จริง"
   },
   "zh_CN": {
-    "tool.description": "使用 Google 翻译翻译文本。支持 30 多种语言。",
-    "param.text.description": "要翻译的文本。",
+    "tool.description": "使用 Google 翻译翻译一篇或多篇文本。支持 30 多种语言。将多个文本连接并翻译为单个块以保留上下文。每个元素最多 10000 个字符。发送前请勿截断文本；API 本身可以处理长文本。启用 Protect_placeholders 时（默认），如果从内容中自动检测文件类型，则各种占位符类型（%(name)s、{name}、${name} 等）将受到保护，免于翻译。",
     "param.target_lang.description": "目标语言代码（例如 ja、en、zh_CN、pt_BR、fr、de、es、ko）。",
     "param.source_lang.description": "源语言代码。如果省略则自动检测。",
     "x_search_terms": [
@@ -316,11 +339,12 @@
       "翻译",
       "谷歌翻译",
       "语言"
-    ]
+    ],
+    "param.texts.description": "要翻译的文本字符串数组（每个字符串最多 10000 个字符）。发送全文，不截断；API 本身处理长度。文本被连接并翻译为单个块（保留上下文）。",
+    "param.protect_placeholders.description": "如果为 true，则保护占位符（从内容中自动检测到）不被翻译。默认值：true。"
   },
   "zh_TW": {
-    "tool.description": "使用 Google 翻譯翻譯文字。支援 30 多種語言。",
-    "param.text.description": "要翻譯的文字。",
+    "tool.description": "使用 Google 翻譯翻譯一篇或多篇文字。支援 30 多種語言。將多個文字連接並翻譯為單一區塊以保留上下文。每個元素最多 10000 個字元。發送前請勿截斷文字； API 本身可以處理長文字。啟用 Protect_placeholders 時（預設），如果從內容中自動偵測檔案類型，則各種佔位類型（%(name)s、{name}、${name} 等）將受到保護，免於翻譯。",
     "param.target_lang.description": "目標語言代碼（例如 ja、en、zh_CN、pt_BR、fr、de、es、ko）。",
     "param.source_lang.description": "原始語言代碼。如果省略則自動偵測。",
     "x_search_terms": [
@@ -328,11 +352,12 @@
       "翻譯",
       "谷歌翻譯",
       "語言"
-    ]
+    ],
+    "param.texts.description": "要翻譯的文字字串陣列（每個字串最多 10000 個字元）。發送全文，不截斷； API 本身處理長度。文字被連接並翻譯為單一區塊（保留上下文）。",
+    "param.protect_placeholders.description": "如果為 true，則保護佔位符（從內容自動偵測到）不被翻譯。預設值：true。"
   },
   "bn": {
-    "tool.description": "Google অনুবাদ ব্যবহার করে পাঠ্য অনুবাদ করুন। 30+ ভাষা সমর্থন করে।",
-    "param.text.description": "অনুবাদ করার জন্য পাঠ্য।",
+    "tool.description": "Google অনুবাদ ব্যবহার করে এক বা একাধিক পাঠ্য অনুবাদ করুন।30+ ভাষা সমর্থন করে।একাধিক পাঠ্য সংযুক্ত করা হয় এবং প্রসঙ্গ সংরক্ষণের জন্য একক ব্লক হিসাবে অনুবাদ করা হয়।উপাদান প্রতি সর্বোচ্চ 10000 অক্ষর।পাঠানোর আগে টেক্সট ছেঁটে ফেলবেন না;API স্থানীয়ভাবে দীর্ঘ পাঠ্য পরিচালনা করে।যখন protect_placeholders সক্রিয় থাকে (ডিফল্ট), তখন বিভিন্ন স্থানধারক প্রকার (%(name)s, {name}, ${name}, ইত্যাদি) অনুবাদ থেকে সুরক্ষিত থাকে যদি ফাইলের ধরন বিষয়বস্তু থেকে স্বয়ংক্রিয়ভাবে সনাক্ত করা হয়।",
     "param.target_lang.description": "লক্ষ্য ভাষার কোড (যেমন ja, en, zh_CN, pt_BR, fr, de, es, ko)।",
     "param.source_lang.description": "উৎস ভাষার কোড। বাদ দিলে স্বয়ংক্রিয়ভাবে সনাক্ত করা যায়।",
     "x_search_terms": [
@@ -341,11 +366,12 @@
       "গুগল",
       "অনুবাদ",
       "ভাষা"
-    ]
+    ],
+    "param.texts.description": "অনুবাদ করার জন্য টেক্সট স্ট্রিং এর অ্যারে (প্রতিটি সর্বোচ্চ 10000 অক্ষর)।ছাঁটাই ছাড়া সম্পূর্ণ পাঠ্য পাঠান;API নেটিভভাবে দৈর্ঘ্য পরিচালনা করে।পাঠ্যগুলি একক ব্লক হিসাবে যুক্ত এবং অনুবাদ করা হয় (প্রসঙ্গ সংরক্ষিত)।",
+    "param.protect_placeholders.description": "সত্য হলে, স্থানধারকদের (সামগ্রী থেকে স্বয়ংক্রিয়ভাবে সনাক্ত করা) অনুবাদ হওয়া থেকে রক্ষা করুন।ডিফল্ট: সত্য।"
   },
   "fa": {
-    "tool.description": "ترجمه متن با استفاده از مترجم گوگل. پشتیبانی از بیش از 30 زبان",
-    "param.text.description": "متن برای ترجمه",
+    "tool.description": "یک یا چند متن را با استفاده از Google Translate ترجمه کنید.پشتیبانی از بیش از 30 زبانمتون متعدد به هم پیوسته و به عنوان یک بلوک ترجمه می شوند تا زمینه حفظ شود.حداکثر 10000 کاراکتر در هر عنصر.متن را قبل از ارسال کوتاه نکنید.API متن طولانی را به صورت بومی مدیریت می کند.هنگامی که protect_placeholders (پیش‌فرض) فعال است، انواع متغیرهای متغیر (%(name)s، {name}، ${name}، و غیره) از ترجمه محافظت می‌شوند، اگر نوع فایل به‌طور خودکار از محتوا شناسایی شود.",
     "param.target_lang.description": "کد زبان مقصد (به عنوان مثال ja، en، zh_CN، pt_BR، fr، de، es، ko).",
     "param.source_lang.description": "کد زبان مبدأ در صورت حذف به صورت خودکار شناسایی می شود.",
     "x_search_terms": [
@@ -354,11 +380,12 @@
       "گوگل",
       "ترنسلیت",
       "زبان"
-    ]
+    ],
+    "param.texts.description": "آرایه ای از رشته های متنی برای ترجمه (حداکثر 10000 کاراکتر در هر کدام).ارسال متن کامل بدون برش.API به صورت بومی طول را کنترل می کند.متون به صورت یک بلوک به هم پیوسته و ترجمه می شوند (متن حفظ می شود).",
+    "param.protect_placeholders.description": "اگر درست است، از متغیرهایی (که به طور خودکار از محتوا شناسایی می شوند) از ترجمه محافظت کنید.پیش فرض: درست است."
   },
   "mn": {
-    "tool.description": "Google Translate ашиглан текстийг орчуулаарай. 30+ хэлийг дэмждэг.",
-    "param.text.description": "Орчуулах текст.",
+    "tool.description": "Google Translate ашиглан нэг буюу хэд хэдэн текстийг орчуулаарай.30+ хэлийг дэмждэг.Контекстийг хадгалахын тулд олон текстийг нэгтгэж, нэг блок болгон орчуулдаг.Нэг элемент бүрт хамгийн ихдээ 10000 тэмдэгт байна.Илгээхийн өмнө текстийг тайрч болохгүй;API нь урт текстийг эх аргаар боловсруулдаг.Хамгаалалтын_орлуулагчийг идэвхжүүлсэн үед (өгөгдмөл) янз бүрийн орлуулагчийн төрлүүд (%(нэр)s, {name}, ${name} гэх мэт) нь контентоос файлын төрлийг автоматаар илрүүлсэн тохиолдолд орчуулгаас хамгаалагдана.",
     "param.target_lang.description": "Зорилтот хэлний код (жишээ нь: ja, en, zh_CN, pt_BR, fr, de, es, ko).",
     "param.source_lang.description": "Эх хэлний код. Хэрэв орхигдуулсан бол автоматаар илрүүлнэ.",
     "x_search_terms": [
@@ -366,11 +393,12 @@
       "google",
       "translate",
       "хэл"
-    ]
+    ],
+    "param.texts.description": "Орчуулах текстийн мөрийн массив (тус бүрдээ хамгийн ихдээ 10000 тэмдэгт).Таслалгүйгээр бүрэн текстийг илгээх;API нь уртыг өөрөө зохицуулдаг.Текстүүдийг нэгтгэж, нэг блок хэлбэрээр орчуулдаг (контекст хадгалагдсан).",
+    "param.protect_placeholders.description": "Хэрэв үнэн бол орлуулагчийг (контентоос автоматаар илрүүлсэн) орчуулахаас хамгаална уу.Өгөгдмөл: үнэн."
   },
   "mr": {
-    "tool.description": "Google भाषांतर वापरून मजकूर भाषांतरित करा. 30+ भाषांना सपोर्ट करते.",
-    "param.text.description": "भाषांतर करण्यासाठी मजकूर.",
+    "tool.description": "Google Translate वापरून एक किंवा अधिक मजकूर भाषांतरित करा.30+ भाषांना सपोर्ट करते.संदर्भ जतन करण्यासाठी एकाधिक मजकूर जोडले जातात आणि एकल ब्लॉक म्हणून अनुवादित केले जातात.प्रति घटक कमाल 10000 वर्ण.पाठवण्यापूर्वी मजकूर कापून टाकू नका;API लांब मजकूर स्थानिकरित्या हाताळते.जेव्हा संरक्षण_प्लेसहोल्डर्स सक्षम केले जातात (डीफॉल्ट), फाइल प्रकार सामग्रीमधून स्वयंचलितपणे आढळल्यास, विविध प्लेसहोल्डर प्रकार (%(name)s, {name}, ${name}, इ.) अनुवादापासून संरक्षित केले जातात.",
     "param.target_lang.description": "लक्ष्य भाषा कोड (उदा. ja, en, zh_CN, pt_BR, fr, de, es, ko).",
     "param.source_lang.description": "स्त्रोत भाषा कोड. वगळल्यास स्वयं आढळले.",
     "x_search_terms": [
@@ -379,11 +407,12 @@
       "गुगल",
       "भाषांतर",
       "भाषा"
-    ]
+    ],
+    "param.texts.description": "भाषांतर करण्यासाठी मजकूर स्ट्रिंगचा ॲरे (प्रत्येक कमाल 10000 वर्ण).कापल्याशिवाय संपूर्ण मजकूर पाठवा;API नेटिव्हली लांबी हाताळते.मजकूर जोडले जातात आणि एकल ब्लॉक (संदर्भ संरक्षित) म्हणून अनुवादित केले जातात.",
+    "param.protect_placeholders.description": "सत्य असल्यास, प्लेसहोल्डरचे (सामग्रीमधून स्वयं-शोधलेले) भाषांतर होण्यापासून संरक्षण करा.डीफॉल्ट: खरे."
   },
   "el": {
-    "tool.description": "Μεταφράστε κείμενο χρησιμοποιώντας το Google Μετάφραση. Υποστηρίζει 30+ γλώσσες.",
-    "param.text.description": "Κείμενο προς μετάφραση.",
+    "tool.description": "Μεταφράστε ένα ή περισσότερα κείμενα χρησιμοποιώντας τη Μετάφραση Google.Υποστηρίζει 30+ γλώσσες.Πολλά κείμενα ενώνονται και μεταφράζονται ως ένα ενιαίο μπλοκ για να διατηρηθεί το πλαίσιο.Έως 10000 χαρακτήρες ανά στοιχείο.ΜΗΝ περικόπτετε το κείμενο πριν το στείλετε.το API χειρίζεται εγγενώς μεγάλο κείμενο.Όταν το protect_placeholders είναι ενεργοποιημένο (προεπιλογή), διάφοροι τύποι κράτησης θέσης (%(name)s, {name}, ${name}, κ.λπ.) προστατεύονται από μετάφραση, εάν ο τύπος αρχείου εντοπίζεται αυτόματα από το περιεχόμενο.",
     "param.target_lang.description": "Κωδικός γλώσσας-στόχου (π.χ. ja, en, zh_CN, pt_BR, fr, de, es, ko, el, he, hu, ro).",
     "param.source_lang.description": "Κωδικός γλώσσας πηγής. Αν παραλειφθεί, ανιχνεύεται αυτόματα.",
     "x_search_terms": [
@@ -392,11 +421,12 @@
       "Google",
       "Μετάφραση",
       "γλώσσα"
-    ]
+    ],
+    "param.texts.description": "Πίνακας συμβολοσειρών κειμένου προς μετάφραση (έως 10000 χαρακτήρες η καθεμία).Αποστολή πλήρους κειμένου χωρίς περικοπή.το API χειρίζεται εγγενώς το μήκος.Τα κείμενα ενώνονται και μεταφράζονται ως ενιαίο μπλοκ (το πλαίσιο διατηρείται).",
+    "param.protect_placeholders.description": "Εάν ισχύει, προστατέψτε τα κράτη μέλη (που εντοπίζονται αυτόματα από το περιεχόμενο) από τη μετάφραση.Προεπιλογή: αληθές."
   },
   "he": {
-    "tool.description": "תרגם טקסט באמצעות Google Translate. תומך ביותר מ-30 שפות.",
-    "param.text.description": "טקסט לתרגום (מקסימום 10000 תווים).",
+    "tool.description": "תרגם טקסט אחד או יותר באמצעות Google Translate.תומך ב-30+ שפות.טקסטים מרובים מצטרפים ומתורגמים כבלוק אחד כדי לשמור על הקשר.מקסימום 10000 תווים לכל אלמנט.אין לקצץ טקסט לפני השליחה;ה-API מטפל בטקסט ארוך באופן מקורי.כאשר protect_placeholders מופעל (ברירת מחדל), סוגי מציין מיקום שונים (%(name)s, {name}, ${name} וכו') מוגנים מפני תרגום אם סוג הקובץ מזוהה אוטומטית מהתוכן.",
     "param.target_lang.description": "קוד שפת יעד (לדוגמה ja, en, zh_CN, pt_BR, fr, de, es, ko, el, he, hu, ro).",
     "param.source_lang.description": "קוד שפת מקור. מזוהה אוטומטית אם הושמט.",
     "x_search_terms": [
@@ -405,11 +435,12 @@
       "גוגל תרגום",
       "תרגם",
       "שפה"
-    ]
+    ],
+    "param.texts.description": "מערך של מחרוזות טקסט לתרגום (מקסימום 10000 תווים כל אחת).שלח טקסט מלא ללא חיתוך;ה-API מטפל באורך באופן מקורי.טקסטים מצטרפים ומתורגמים כגוש יחיד (ההקשר נשמר).",
+    "param.protect_placeholders.description": "אם זה נכון, הגן על מצייני מיקום (זוהים אוטומטית מתוכן) מפני תרגום.ברירת מחדל: נכון."
   },
   "hu": {
-    "tool.description": "Fordítson szöveget a Google Fordító segítségével. Több mint 30 nyelvet támogat.",
-    "param.text.description": "A lefordítandó szöveg.",
+    "tool.description": "Fordítson le egy vagy több szöveget a Google Fordító segítségével.30+ nyelvet támogat.A kontextus megőrzése érdekében több szöveget egyesít és egyetlen blokkként fordít le.Maximum 10000 karakter elemenként.NE csonkolja a szöveget küldés előtt;az API natív módon kezeli a hosszú szövegeket.Ha a Protect_placeholders engedélyezve van (alapértelmezett), a különböző helyőrző-típusok (%(name)s, {name}, ${name} stb.) védve vannak a fordítástól, ha a fájltípust automatikusan észleli a tartalom.",
     "param.target_lang.description": "Célnyelv kódja (pl. ja, en, zh_CN, pt_BR, fr, de, es, ko, el, he, hu, ro).",
     "param.source_lang.description": "Forrásnyelv kódja. Ha kihagyja, automatikusan észleli.",
     "x_search_terms": [
@@ -418,11 +449,12 @@
       "Google",
       "Fordító",
       "nyelv"
-    ]
+    ],
+    "param.texts.description": "Lefordítandó szöveges karakterláncok tömbje (egyenként legfeljebb 10 000 karakter).Teljes szöveg küldése csonkítás nélkül;az API natív módon kezeli a hosszt.A szövegek egyetlen blokkként egyesülnek és le vannak fordítva (a kontextus megmarad).",
+    "param.protect_placeholders.description": "Ha igaz, védje meg a helyőrzőket (a tartalom automatikusan észleli) a fordítástól.Alapértelmezett: igaz."
   },
   "ro": {
-    "tool.description": "Traduceți text folosind Google Traducere. Suportă peste 30 de limbi.",
-    "param.text.description": "Text de tradus.",
+    "tool.description": "Traduceți unul sau mai multe texte folosind Google Translate.Suporta peste 30 de limbi.Mai multe texte sunt unite și traduse ca un singur bloc pentru a păstra contextul.Maximum 10000 de caractere per element.NU trunchiați textul înainte de a trimite;API-ul gestionează text lung în mod nativ.Când protect_placeholders este activat (implicit), diferite tipuri de substituent (%(name)s, {name}, ${name} etc.) sunt protejate de traducere dacă tipul de fișier este detectat automat din conținut.",
     "param.target_lang.description": "Codul limbii țintă (de ex. ja, en, zh_CN, pt_BR, fr, de, es, ko, el, he, hu, ro).",
     "param.source_lang.description": "Codul limbii sursă. Detectat automat dacă este omis.",
     "x_search_terms": [
@@ -431,6 +463,8 @@
       "Google",
       "Traducere",
       "limbă"
-    ]
+    ],
+    "param.texts.description": "Matrice de șiruri de text de tradus (maximum 10000 de caractere fiecare).Trimiteți text complet fără trunchiere;API-ul gestionează lungimea în mod nativ.Textele sunt unite și traduse ca un singur bloc (contextul păstrat).",
+    "param.protect_placeholders.description": "Dacă este adevărat, protejați substituenții (detectați automat din conținut) împotriva traducerii.Implicit: adevărat."
   }
 }

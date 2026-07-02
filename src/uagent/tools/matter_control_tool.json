@@ -11,15 +11,7 @@
     "err.not_found": "Matter device not found: {device_id}",
     "err.ambiguous_target": "Matter device target is ambiguous: {device_id}",
     "msg.dry_run": "Dry run: command validated but not queued.",
-    "err.queue_failed": "Failed to queue control command: {reason}",
-    "param.ctrl.description": "Controller ID (optional).",
-    "param.bridge.description": "Bridge ID (optional).",
-    "param.dry_run.description": "If true, validate the command without queueing it. ",
-    "err.unsupported_device": "Device type '{device_type}' does not support any control actions.",
-    "err.action_not_supported": "Action '{action}' is not supported for device type '{device_type}'. ",
-    "err.action_required": "A valid action is required: {allowed}",
-    "err.value_required": "A numeric value (0-100) is required for action '{action}'.",
-    "err.config_missing": "Matter device data is missing. Set {env_json} or {env_file} for devices, controllers, or bridges."
+    "err.queue_failed": "Failed to queue control command: {reason}"
   },
   "bn": {
     "tool.description": "Control a Matter device (on/off/open/close/lock/unlock/set_value).",
@@ -33,15 +25,7 @@
     "err.not_found": "Matter device not found: {device_id}",
     "err.ambiguous_target": "Matter device target is ambiguous: {device_id}",
     "msg.dry_run": "Dry run: command validated but not queued.",
-    "err.queue_failed": "Failed to queue control command: {reason}",
-    "param.ctrl.description": "Controller ID (optional).",
-    "param.bridge.description": "Bridge ID (optional).",
-    "param.dry_run.description": "If true, validate the command without queueing it. ",
-    "err.unsupported_device": "Device type '{device_type}' does not support any control actions.",
-    "err.action_not_supported": "Action '{action}' is not supported for device type '{device_type}'. ",
-    "err.action_required": "A valid action is required: {allowed}",
-    "err.value_required": "A numeric value (0-100) is required for action '{action}'.",
-    "err.config_missing": "Matter device data is missing. Set {env_json} or {env_file} for devices, controllers, or bridges."
+    "err.queue_failed": "Failed to queue control command: {reason}"
   },
   "cs": {
     "tool.description": "Control a Matter device (on/off/open/close/lock/unlock/set_value).",
@@ -55,15 +39,7 @@
     "err.not_found": "Matter device not found: {device_id}",
     "err.ambiguous_target": "Matter device target is ambiguous: {device_id}",
     "msg.dry_run": "Dry run: command validated but not queued.",
-    "err.queue_failed": "Failed to queue control command: {reason}",
-    "param.ctrl.description": "Controller ID (optional).",
-    "param.bridge.description": "Bridge ID (optional).",
-    "param.dry_run.description": "If true, validate the command without queueing it. ",
-    "err.unsupported_device": "Device type '{device_type}' does not support any control actions.",
-    "err.action_not_supported": "Action '{action}' is not supported for device type '{device_type}'. ",
-    "err.action_required": "A valid action is required: {allowed}",
-    "err.value_required": "A numeric value (0-100) is required for action '{action}'.",
-    "err.config_missing": "Matter device data is missing. Set {env_json} or {env_file} for devices, controllers, or bridges."
+    "err.queue_failed": "Failed to queue control command: {reason}"
   },
   "de": {
     "tool.description": "Control a Matter device (on/off/open/close/lock/unlock/set_value).",
@@ -77,15 +53,7 @@
     "err.not_found": "Matter device not found: {device_id}",
     "err.ambiguous_target": "Matter device target is ambiguous: {device_id}",
     "msg.dry_run": "Dry run: command validated but not queued.",
-    "err.queue_failed": "Failed to queue control command: {reason}",
-    "param.ctrl.description": "Controller ID (optional).",
-    "param.bridge.description": "Bridge ID (optional).",
-    "param.dry_run.description": "If true, validate the command without queueing it. ",
-    "err.unsupported_device": "Device type '{device_type}' does not support any control actions.",
-    "err.action_not_supported": "Action '{action}' is not supported for device type '{device_type}'. ",
-    "err.action_required": "A valid action is required: {allowed}",
-    "err.value_required": "A numeric value (0-100) is required for action '{action}'.",
-    "err.config_missing": "Matter device data is missing. Set {env_json} or {env_file} for devices, controllers, or bridges."
+    "err.queue_failed": "Failed to queue control command: {reason}"
   },
   "en": {
     "tool.description": "Control a Matter device (on/off/open/close/lock/unlock/set_value).",
@@ -100,14 +68,14 @@
     "err.ambiguous_target": "Matter device target is ambiguous: {device_id}",
     "msg.dry_run": "Dry run: command validated but not queued.",
     "err.queue_failed": "Failed to queue control command: {reason}",
-    "param.ctrl.description": "Controller ID (optional).",
-    "param.bridge.description": "Bridge ID (optional).",
-    "param.dry_run.description": "If true, validate the command without queueing it. ",
-    "err.unsupported_device": "Device type '{device_type}' does not support any control actions.",
-    "err.action_not_supported": "Action '{action}' is not supported for device type '{device_type}'. ",
+    "err.action_not_supported": "Action '{action}' is not supported for device type '{device_type}'. Supported: {supported}",
     "err.action_required": "A valid action is required: {allowed}",
+    "err.config_missing": "Matter device data is missing. Set {env_json} or {env_file} for devices, controllers, or bridges.",
+    "err.unsupported_device": "Device type '{device_type}' does not support any control actions.",
     "err.value_required": "A numeric value (0-100) is required for action '{action}'.",
-    "err.config_missing": "Matter device data is missing. Set {env_json} or {env_file} for devices, controllers, or bridges."
+    "param.bridge.description": "Bridge ID (optional).",
+    "param.ctrl.description": "Controller ID (optional).",
+    "param.dry_run.description": "If true, validate the command without queueing it. Default: false."
   },
   "es": {
     "tool.description": "Control a Matter device (on/off/open/close/lock/unlock/set_value).",
@@ -121,15 +89,7 @@
     "err.not_found": "Matter device not found: {device_id}",
     "err.ambiguous_target": "Matter device target is ambiguous: {device_id}",
     "msg.dry_run": "Dry run: command validated but not queued.",
-    "err.queue_failed": "Failed to queue control command: {reason}",
-    "param.ctrl.description": "Controller ID (optional).",
-    "param.bridge.description": "Bridge ID (optional).",
-    "param.dry_run.description": "If true, validate the command without queueing it. ",
-    "err.unsupported_device": "Device type '{device_type}' does not support any control actions.",
-    "err.action_not_supported": "Action '{action}' is not supported for device type '{device_type}'. ",
-    "err.action_required": "A valid action is required: {allowed}",
-    "err.value_required": "A numeric value (0-100) is required for action '{action}'.",
-    "err.config_missing": "Matter device data is missing. Set {env_json} or {env_file} for devices, controllers, or bridges."
+    "err.queue_failed": "Failed to queue control command: {reason}"
   },
   "fa": {
     "tool.description": "Control a Matter device (on/off/open/close/lock/unlock/set_value).",
@@ -143,15 +103,7 @@
     "err.not_found": "Matter device not found: {device_id}",
     "err.ambiguous_target": "Matter device target is ambiguous: {device_id}",
     "msg.dry_run": "Dry run: command validated but not queued.",
-    "err.queue_failed": "Failed to queue control command: {reason}",
-    "param.ctrl.description": "Controller ID (optional).",
-    "param.bridge.description": "Bridge ID (optional).",
-    "param.dry_run.description": "If true, validate the command without queueing it. ",
-    "err.unsupported_device": "Device type '{device_type}' does not support any control actions.",
-    "err.action_not_supported": "Action '{action}' is not supported for device type '{device_type}'. ",
-    "err.action_required": "A valid action is required: {allowed}",
-    "err.value_required": "A numeric value (0-100) is required for action '{action}'.",
-    "err.config_missing": "Matter device data is missing. Set {env_json} or {env_file} for devices, controllers, or bridges."
+    "err.queue_failed": "Failed to queue control command: {reason}"
   },
   "fi": {
     "tool.description": "Control a Matter device (on/off/open/close/lock/unlock/set_value).",
@@ -165,15 +117,7 @@
     "err.not_found": "Matter device not found: {device_id}",
     "err.ambiguous_target": "Matter device target is ambiguous: {device_id}",
     "msg.dry_run": "Dry run: command validated but not queued.",
-    "err.queue_failed": "Failed to queue control command: {reason}",
-    "param.ctrl.description": "Controller ID (optional).",
-    "param.bridge.description": "Bridge ID (optional).",
-    "param.dry_run.description": "If true, validate the command without queueing it. ",
-    "err.unsupported_device": "Device type '{device_type}' does not support any control actions.",
-    "err.action_not_supported": "Action '{action}' is not supported for device type '{device_type}'. ",
-    "err.action_required": "A valid action is required: {allowed}",
-    "err.value_required": "A numeric value (0-100) is required for action '{action}'.",
-    "err.config_missing": "Matter device data is missing. Set {env_json} or {env_file} for devices, controllers, or bridges."
+    "err.queue_failed": "Failed to queue control command: {reason}"
   },
   "fr": {
     "tool.description": "Control a Matter device (on/off/open/close/lock/unlock/set_value).",
@@ -187,15 +131,7 @@
     "err.not_found": "Matter device not found: {device_id}",
     "err.ambiguous_target": "Matter device target is ambiguous: {device_id}",
     "msg.dry_run": "Dry run: command validated but not queued.",
-    "err.queue_failed": "Failed to queue control command: {reason}",
-    "param.ctrl.description": "Controller ID (optional).",
-    "param.bridge.description": "Bridge ID (optional).",
-    "param.dry_run.description": "If true, validate the command without queueing it. ",
-    "err.unsupported_device": "Device type '{device_type}' does not support any control actions.",
-    "err.action_not_supported": "Action '{action}' is not supported for device type '{device_type}'. ",
-    "err.action_required": "A valid action is required: {allowed}",
-    "err.value_required": "A numeric value (0-100) is required for action '{action}'.",
-    "err.config_missing": "Matter device data is missing. Set {env_json} or {env_file} for devices, controllers, or bridges."
+    "err.queue_failed": "Failed to queue control command: {reason}"
   },
   "hi": {
     "tool.description": "Control a Matter device (on/off/open/close/lock/unlock/set_value).",
@@ -209,15 +145,7 @@
     "err.not_found": "Matter device not found: {device_id}",
     "err.ambiguous_target": "Matter device target is ambiguous: {device_id}",
     "msg.dry_run": "Dry run: command validated but not queued.",
-    "err.queue_failed": "Failed to queue control command: {reason}",
-    "param.ctrl.description": "Controller ID (optional).",
-    "param.bridge.description": "Bridge ID (optional).",
-    "param.dry_run.description": "If true, validate the command without queueing it. ",
-    "err.unsupported_device": "Device type '{device_type}' does not support any control actions.",
-    "err.action_not_supported": "Action '{action}' is not supported for device type '{device_type}'. ",
-    "err.action_required": "A valid action is required: {allowed}",
-    "err.value_required": "A numeric value (0-100) is required for action '{action}'.",
-    "err.config_missing": "Matter device data is missing. Set {env_json} or {env_file} for devices, controllers, or bridges."
+    "err.queue_failed": "Failed to queue control command: {reason}"
   },
   "id": {
     "tool.description": "Control a Matter device (on/off/open/close/lock/unlock/set_value).",
@@ -231,15 +159,7 @@
     "err.not_found": "Matter device not found: {device_id}",
     "err.ambiguous_target": "Matter device target is ambiguous: {device_id}",
     "msg.dry_run": "Dry run: command validated but not queued.",
-    "err.queue_failed": "Failed to queue control command: {reason}",
-    "param.ctrl.description": "Controller ID (optional).",
-    "param.bridge.description": "Bridge ID (optional).",
-    "param.dry_run.description": "If true, validate the command without queueing it. ",
-    "err.unsupported_device": "Device type '{device_type}' does not support any control actions.",
-    "err.action_not_supported": "Action '{action}' is not supported for device type '{device_type}'. ",
-    "err.action_required": "A valid action is required: {allowed}",
-    "err.value_required": "A numeric value (0-100) is required for action '{action}'.",
-    "err.config_missing": "Matter device data is missing. Set {env_json} or {env_file} for devices, controllers, or bridges."
+    "err.queue_failed": "Failed to queue control command: {reason}"
   },
   "it": {
     "tool.description": "Control a Matter device (on/off/open/close/lock/unlock/set_value).",
@@ -253,15 +173,7 @@
     "err.not_found": "Matter device not found: {device_id}",
     "err.ambiguous_target": "Matter device target is ambiguous: {device_id}",
     "msg.dry_run": "Dry run: command validated but not queued.",
-    "err.queue_failed": "Failed to queue control command: {reason}",
-    "param.ctrl.description": "Controller ID (optional).",
-    "param.bridge.description": "Bridge ID (optional).",
-    "param.dry_run.description": "If true, validate the command without queueing it. ",
-    "err.unsupported_device": "Device type '{device_type}' does not support any control actions.",
-    "err.action_not_supported": "Action '{action}' is not supported for device type '{device_type}'. ",
-    "err.action_required": "A valid action is required: {allowed}",
-    "err.value_required": "A numeric value (0-100) is required for action '{action}'.",
-    "err.config_missing": "Matter device data is missing. Set {env_json} or {env_file} for devices, controllers, or bridges."
+    "err.queue_failed": "Failed to queue control command: {reason}"
   },
   "ja": {
     "tool.description": "Control a Matter device (on/off/open/close/lock/unlock/set_value).",
@@ -276,14 +188,14 @@
     "err.ambiguous_target": "Matter device target is ambiguous: {device_id}",
     "msg.dry_run": "Dry run: command validated but not queued.",
     "err.queue_failed": "Failed to queue control command: {reason}",
-    "param.ctrl.description": "Controller ID (optional).",
-    "param.bridge.description": "Bridge ID (optional).",
-    "param.dry_run.description": "If true, validate the command without queueing it. ",
-    "err.unsupported_device": "Device type '{device_type}' does not support any control actions.",
-    "err.action_not_supported": "Action '{action}' is not supported for device type '{device_type}'. ",
-    "err.action_required": "A valid action is required: {allowed}",
-    "err.value_required": "A numeric value (0-100) is required for action '{action}'.",
-    "err.config_missing": "Matter device data is missing. Set {env_json} or {env_file} for devices, controllers, or bridges."
+    "err.action_not_supported": "アクション「{action}」はデバイスタイプ「{device_type}」ではサポートされていません。サポート対象: {サポート対象}",
+    "err.action_required": "有効なアクションが必要です: {allowed}",
+    "err.config_missing": "問題のデバイスデータが欠落しています。デバイス、コントローラー、またはブリッジに {env_json} または {env_file} を設定します。",
+    "err.unsupported_device": "デバイスタイプ「{device_type}」は制御アクションをサポートしていません。",
+    "err.value_required": "アクション '{action}' には数値 (0 ～ 100) が必要です。",
+    "param.bridge.description": "ブリッジ ID (オプション)。",
+    "param.ctrl.description": "コントローラ ID (オプション)。",
+    "param.dry_run.description": "true の場合、コマンドをキューに入れずに検証します。デフォルト: false。"
   },
   "ko": {
     "tool.description": "Control a Matter device (on/off/open/close/lock/unlock/set_value).",
@@ -297,15 +209,7 @@
     "err.not_found": "Matter device not found: {device_id}",
     "err.ambiguous_target": "Matter device target is ambiguous: {device_id}",
     "msg.dry_run": "Dry run: command validated but not queued.",
-    "err.queue_failed": "Failed to queue control command: {reason}",
-    "param.ctrl.description": "Controller ID (optional).",
-    "param.bridge.description": "Bridge ID (optional).",
-    "param.dry_run.description": "If true, validate the command without queueing it. ",
-    "err.unsupported_device": "Device type '{device_type}' does not support any control actions.",
-    "err.action_not_supported": "Action '{action}' is not supported for device type '{device_type}'. ",
-    "err.action_required": "A valid action is required: {allowed}",
-    "err.value_required": "A numeric value (0-100) is required for action '{action}'.",
-    "err.config_missing": "Matter device data is missing. Set {env_json} or {env_file} for devices, controllers, or bridges."
+    "err.queue_failed": "Failed to queue control command: {reason}"
   },
   "mn": {
     "tool.description": "Control a Matter device (on/off/open/close/lock/unlock/set_value).",
@@ -319,15 +223,7 @@
     "err.not_found": "Matter device not found: {device_id}",
     "err.ambiguous_target": "Matter device target is ambiguous: {device_id}",
     "msg.dry_run": "Dry run: command validated but not queued.",
-    "err.queue_failed": "Failed to queue control command: {reason}",
-    "param.ctrl.description": "Controller ID (optional).",
-    "param.bridge.description": "Bridge ID (optional).",
-    "param.dry_run.description": "If true, validate the command without queueing it. ",
-    "err.unsupported_device": "Device type '{device_type}' does not support any control actions.",
-    "err.action_not_supported": "Action '{action}' is not supported for device type '{device_type}'. ",
-    "err.action_required": "A valid action is required: {allowed}",
-    "err.value_required": "A numeric value (0-100) is required for action '{action}'.",
-    "err.config_missing": "Matter device data is missing. Set {env_json} or {env_file} for devices, controllers, or bridges."
+    "err.queue_failed": "Failed to queue control command: {reason}"
   },
   "mr": {
     "tool.description": "Control a Matter device (on/off/open/close/lock/unlock/set_value).",
@@ -341,15 +237,7 @@
     "err.not_found": "Matter device not found: {device_id}",
     "err.ambiguous_target": "Matter device target is ambiguous: {device_id}",
     "msg.dry_run": "Dry run: command validated but not queued.",
-    "err.queue_failed": "Failed to queue control command: {reason}",
-    "param.ctrl.description": "Controller ID (optional).",
-    "param.bridge.description": "Bridge ID (optional).",
-    "param.dry_run.description": "If true, validate the command without queueing it. ",
-    "err.unsupported_device": "Device type '{device_type}' does not support any control actions.",
-    "err.action_not_supported": "Action '{action}' is not supported for device type '{device_type}'. ",
-    "err.action_required": "A valid action is required: {allowed}",
-    "err.value_required": "A numeric value (0-100) is required for action '{action}'.",
-    "err.config_missing": "Matter device data is missing. Set {env_json} or {env_file} for devices, controllers, or bridges."
+    "err.queue_failed": "Failed to queue control command: {reason}"
   },
   "el": {
     "tool.description": "Μη έγκυρη ενέργεια: {action}. Επιτρέπεται: {επιτρέπεται}",
@@ -363,15 +251,7 @@
     "err.not_found": "Αναγνωριστικό ελεγκτή (προαιρετικό).",
     "err.ambiguous_target": "Αναγνωριστικό γέφυρας (προαιρετικό).",
     "msg.dry_run": "Εάν ισχύει, επικυρώστε την εντολή χωρίς να την βάλετε στην ουρά.",
-    "err.queue_failed": "Ο τύπος συσκευής \"{device_type}\" δεν υποστηρίζει ενέργειες ελέγχου.",
-    "param.ctrl.description": "Φίλτρο τελικού σημείου (προαιρετικό).",
-    "param.bridge.description": "Λείπουν τα δεδομένα συσκευής. Ορίστε {env_json} ή {env_file} για συσκευές, ελεγκτές ή γέφυρες.",
-    "param.dry_run.description": "Η ενέργεια \"{action}\" δεν υποστηρίζεται για τον τύπο συσκευής \"{device_type}\".",
-    "err.unsupported_device": "Απαιτείται μια έγκυρη ενέργεια: {επιτρέπεται}",
-    "err.action_not_supported": "Απαιτείται μια αριθμητική τιμή (0-100) για την ενέργεια \"{action}\".",
-    "err.action_required": "Καταχωρίστε τις συσκευές που διαχειρίζεται ο ελεγκτής Matter και επιστρέψτε μια σύνοψη JSON ή κειμένου.",
-    "err.value_required": "Αναγνωριστικό ελεγκτή (παράλειψη για όλους).",
-    "err.config_missing": "Λείπουν τα δεδομένα της συσκευής. Ορίστε {env_json} ή {env_file} για συσκευές, ελεγκτές ή γέφυρες."
+    "err.queue_failed": "Ο τύπος συσκευής \"{device_type}\" δεν υποστηρίζει ενέργειες ελέγχου."
   },
   "he": {
     "tool.description": "פעולה לא חוקית: {action}. מותר: {allowed}",
@@ -385,15 +265,7 @@
     "err.not_found": "מזהה בקר (אופציונלי).",
     "err.ambiguous_target": "מזהה גשר (אופציונלי).",
     "msg.dry_run": "אם נכון, אמת את הפקודה מבלי להעמיד אותה בתור.",
-    "err.queue_failed": "סוג מכשיר '{device_type}' אינו תומך בפעולות בקרה כלשהן.",
-    "param.ctrl.description": "מסנן נקודות קצה (אופציונלי).",
-    "param.bridge.description": "חסרים נתוני מכשיר העניין. הגדר את {env_json} או {env_file} עבור מכשירים, בקרים או גשרים.",
-    "param.dry_run.description": "הפעולה '{action}' אינה נתמכת עבור סוג המכשיר '{device_type}'.",
-    "err.unsupported_device": "נדרשת פעולה חוקית: {allowed}",
-    "err.action_not_supported": "נדרש ערך מספרי (0-100) לפעולה '{action}'.",
-    "err.action_required": "רשום מכשירים המנוהלים על ידי בקר של Matter והחזר JSON או סיכום טקסט.",
-    "err.value_required": "מזהה בקר (השמט לכולם).",
-    "err.config_missing": "נתוני המכשיר חסרים. הגדר את {env_json} או {env_file} עבור מכשירים, בקרים או גשרים."
+    "err.queue_failed": "סוג מכשיר '{device_type}' אינו תומך בפעולות בקרה כלשהן."
   },
   "hu": {
     "tool.description": "Érvénytelen művelet: {action}. Engedélyezett: {allowed}",
@@ -407,15 +279,7 @@
     "err.not_found": "Vezérlőazonosító (nem kötelező).",
     "err.ambiguous_target": "Hídazonosító (nem kötelező).",
     "msg.dry_run": "Ha igaz, érvényesítse a parancsot sorba helyezés nélkül.",
-    "err.queue_failed": "A „{device_type}” eszköztípus nem támogat semmilyen vezérlési műveletet.",
-    "param.ctrl.description": "Végpontszűrő (opcionális).",
-    "param.bridge.description": "Az eszköz adatai hiányoznak. Állítsa be az {env_json} vagy az {env_file} beállítást az eszközökhöz, vezérlőkhöz vagy hidakhoz.",
-    "param.dry_run.description": "A „{action}” művelet nem támogatott a „{device_type}” eszköztípuson.",
-    "err.unsupported_device": "Érvényes művelet szükséges: {allowed}",
-    "err.action_not_supported": "A(z) „{action}” művelethez numerikus érték (0-100) szükséges.",
-    "err.action_required": "Vezérlő által felügyelt eszközök listázása, és JSON vagy szöveges összefoglaló visszaküldése.",
-    "err.value_required": "Vezérlőazonosító (mindennél kihagyja).",
-    "err.config_missing": "Az eszköz adatai hiányoznak. Állítsa be az {env_json} vagy az {env_file} beállítást az eszközökhöz, vezérlőkhöz vagy hidakhoz."
+    "err.queue_failed": "A „{device_type}” eszköztípus nem támogat semmilyen vezérlési műveletet."
   },
   "ro": {
     "tool.description": "Lipsesc datele dispozitivului Matter. Setați {env_json} sau {env_file} pentru dispozitive, controlere sau poduri.",
@@ -429,15 +293,7 @@
     "err.not_found": "ID-ul dispozitivului este necesar.",
     "err.ambiguous_target": "Dispozitivul nu a fost găsit: {device_id}",
     "msg.dry_run": "Valoarea trebuie să fie un număr întreg între 0 și 100.",
-    "err.queue_failed": "Rulare uscată: comandă validată, dar nu este pusă în coadă.",
-    "param.ctrl.description": "Dispozitivul vizat este ambiguu: {device_id}",
-    "param.bridge.description": "ID controler (opțional).",
-    "param.dry_run.description": "Nu s-a putut pune în coadă comanda de control: {motiv}",
-    "err.unsupported_device": "Dacă este adevărat, validați comanda fără a o pune în coadă.",
-    "err.action_not_supported": "Tipul de dispozitiv „{device_type}” nu acceptă nicio acțiune de control.",
-    "err.action_required": "Acțiunea „{action}” nu este acceptată pentru tipul de dispozitiv „{device_type}”.",
-    "err.value_required": "Este necesară o acțiune validă: {permis}",
-    "err.config_missing": "Filtru de punct final (opțional)."
+    "err.queue_failed": "Rulare uscată: comandă validată, dar nu este pusă în coadă."
   },
   "nb": {
     "tool.description": "Control a Matter device (on/off/open/close/lock/unlock/set_value).",
@@ -451,15 +307,7 @@
     "err.not_found": "Matter device not found: {device_id}",
     "err.ambiguous_target": "Matter device target is ambiguous: {device_id}",
     "msg.dry_run": "Dry run: command validated but not queued.",
-    "err.queue_failed": "Failed to queue control command: {reason}",
-    "param.ctrl.description": "Controller ID (optional).",
-    "param.bridge.description": "Bridge ID (optional).",
-    "param.dry_run.description": "If true, validate the command without queueing it. ",
-    "err.unsupported_device": "Device type '{device_type}' does not support any control actions.",
-    "err.action_not_supported": "Action '{action}' is not supported for device type '{device_type}'. ",
-    "err.action_required": "A valid action is required: {allowed}",
-    "err.value_required": "A numeric value (0-100) is required for action '{action}'.",
-    "err.config_missing": "Matter device data is missing. Set {env_json} or {env_file} for devices, controllers, or bridges."
+    "err.queue_failed": "Failed to queue control command: {reason}"
   },
   "nl": {
     "tool.description": "Control a Matter device (on/off/open/close/lock/unlock/set_value).",
@@ -473,15 +321,7 @@
     "err.not_found": "Matter device not found: {device_id}",
     "err.ambiguous_target": "Matter device target is ambiguous: {device_id}",
     "msg.dry_run": "Dry run: command validated but not queued.",
-    "err.queue_failed": "Failed to queue control command: {reason}",
-    "param.ctrl.description": "Controller ID (optional).",
-    "param.bridge.description": "Bridge ID (optional).",
-    "param.dry_run.description": "If true, validate the command without queueing it. ",
-    "err.unsupported_device": "Device type '{device_type}' does not support any control actions.",
-    "err.action_not_supported": "Action '{action}' is not supported for device type '{device_type}'. ",
-    "err.action_required": "A valid action is required: {allowed}",
-    "err.value_required": "A numeric value (0-100) is required for action '{action}'.",
-    "err.config_missing": "Matter device data is missing. Set {env_json} or {env_file} for devices, controllers, or bridges."
+    "err.queue_failed": "Failed to queue control command: {reason}"
   },
   "pl": {
     "tool.description": "Control a Matter device (on/off/open/close/lock/unlock/set_value).",
@@ -495,15 +335,7 @@
     "err.not_found": "Matter device not found: {device_id}",
     "err.ambiguous_target": "Matter device target is ambiguous: {device_id}",
     "msg.dry_run": "Dry run: command validated but not queued.",
-    "err.queue_failed": "Failed to queue control command: {reason}",
-    "param.ctrl.description": "Controller ID (optional).",
-    "param.bridge.description": "Bridge ID (optional).",
-    "param.dry_run.description": "If true, validate the command without queueing it. ",
-    "err.unsupported_device": "Device type '{device_type}' does not support any control actions.",
-    "err.action_not_supported": "Action '{action}' is not supported for device type '{device_type}'. ",
-    "err.action_required": "A valid action is required: {allowed}",
-    "err.value_required": "A numeric value (0-100) is required for action '{action}'.",
-    "err.config_missing": "Matter device data is missing. Set {env_json} or {env_file} for devices, controllers, or bridges."
+    "err.queue_failed": "Failed to queue control command: {reason}"
   },
   "pt": {
     "tool.description": "Control a Matter device (on/off/open/close/lock/unlock/set_value).",
@@ -517,15 +349,7 @@
     "err.not_found": "Matter device not found: {device_id}",
     "err.ambiguous_target": "Matter device target is ambiguous: {device_id}",
     "msg.dry_run": "Dry run: command validated but not queued.",
-    "err.queue_failed": "Failed to queue control command: {reason}",
-    "param.ctrl.description": "Controller ID (optional).",
-    "param.bridge.description": "Bridge ID (optional).",
-    "param.dry_run.description": "If true, validate the command without queueing it. ",
-    "err.unsupported_device": "Device type '{device_type}' does not support any control actions.",
-    "err.action_not_supported": "Action '{action}' is not supported for device type '{device_type}'. ",
-    "err.action_required": "A valid action is required: {allowed}",
-    "err.value_required": "A numeric value (0-100) is required for action '{action}'.",
-    "err.config_missing": "Matter device data is missing. Set {env_json} or {env_file} for devices, controllers, or bridges."
+    "err.queue_failed": "Failed to queue control command: {reason}"
   },
   "pt_BR": {
     "tool.description": "Control a Matter device (on/off/open/close/lock/unlock/set_value).",
@@ -539,15 +363,7 @@
     "err.not_found": "Matter device not found: {device_id}",
     "err.ambiguous_target": "Matter device target is ambiguous: {device_id}",
     "msg.dry_run": "Dry run: command validated but not queued.",
-    "err.queue_failed": "Failed to queue control command: {reason}",
-    "param.ctrl.description": "Controller ID (optional).",
-    "param.bridge.description": "Bridge ID (optional).",
-    "param.dry_run.description": "If true, validate the command without queueing it. ",
-    "err.unsupported_device": "Device type '{device_type}' does not support any control actions.",
-    "err.action_not_supported": "Action '{action}' is not supported for device type '{device_type}'. ",
-    "err.action_required": "A valid action is required: {allowed}",
-    "err.value_required": "A numeric value (0-100) is required for action '{action}'.",
-    "err.config_missing": "Matter device data is missing. Set {env_json} or {env_file} for devices, controllers, or bridges."
+    "err.queue_failed": "Failed to queue control command: {reason}"
   },
   "ru": {
     "tool.description": "Control a Matter device (on/off/open/close/lock/unlock/set_value).",
@@ -561,15 +377,7 @@
     "err.not_found": "Matter device not found: {device_id}",
     "err.ambiguous_target": "Matter device target is ambiguous: {device_id}",
     "msg.dry_run": "Dry run: command validated but not queued.",
-    "err.queue_failed": "Failed to queue control command: {reason}",
-    "param.ctrl.description": "Controller ID (optional).",
-    "param.bridge.description": "Bridge ID (optional).",
-    "param.dry_run.description": "If true, validate the command without queueing it. ",
-    "err.unsupported_device": "Device type '{device_type}' does not support any control actions.",
-    "err.action_not_supported": "Action '{action}' is not supported for device type '{device_type}'. ",
-    "err.action_required": "A valid action is required: {allowed}",
-    "err.value_required": "A numeric value (0-100) is required for action '{action}'.",
-    "err.config_missing": "Matter device data is missing. Set {env_json} or {env_file} for devices, controllers, or bridges."
+    "err.queue_failed": "Failed to queue control command: {reason}"
   },
   "sv": {
     "tool.description": "Control a Matter device (on/off/open/close/lock/unlock/set_value).",
@@ -583,15 +391,7 @@
     "err.not_found": "Matter device not found: {device_id}",
     "err.ambiguous_target": "Matter device target is ambiguous: {device_id}",
     "msg.dry_run": "Dry run: command validated but not queued.",
-    "err.queue_failed": "Failed to queue control command: {reason}",
-    "param.ctrl.description": "Controller ID (optional).",
-    "param.bridge.description": "Bridge ID (optional).",
-    "param.dry_run.description": "If true, validate the command without queueing it. ",
-    "err.unsupported_device": "Device type '{device_type}' does not support any control actions.",
-    "err.action_not_supported": "Action '{action}' is not supported for device type '{device_type}'. ",
-    "err.action_required": "A valid action is required: {allowed}",
-    "err.value_required": "A numeric value (0-100) is required for action '{action}'.",
-    "err.config_missing": "Matter device data is missing. Set {env_json} or {env_file} for devices, controllers, or bridges."
+    "err.queue_failed": "Failed to queue control command: {reason}"
   },
   "sw": {
     "tool.description": "Control a Matter device (on/off/open/close/lock/unlock/set_value).",
@@ -605,15 +405,7 @@
     "err.not_found": "Matter device not found: {device_id}",
     "err.ambiguous_target": "Matter device target is ambiguous: {device_id}",
     "msg.dry_run": "Dry run: command validated but not queued.",
-    "err.queue_failed": "Failed to queue control command: {reason}",
-    "param.ctrl.description": "Controller ID (optional).",
-    "param.bridge.description": "Bridge ID (optional).",
-    "param.dry_run.description": "If true, validate the command without queueing it. ",
-    "err.unsupported_device": "Device type '{device_type}' does not support any control actions.",
-    "err.action_not_supported": "Action '{action}' is not supported for device type '{device_type}'. ",
-    "err.action_required": "A valid action is required: {allowed}",
-    "err.value_required": "A numeric value (0-100) is required for action '{action}'.",
-    "err.config_missing": "Matter device data is missing. Set {env_json} or {env_file} for devices, controllers, or bridges."
+    "err.queue_failed": "Failed to queue control command: {reason}"
   },
   "th": {
     "tool.description": "Control a Matter device (on/off/open/close/lock/unlock/set_value).",
@@ -627,15 +419,7 @@
     "err.not_found": "Matter device not found: {device_id}",
     "err.ambiguous_target": "Matter device target is ambiguous: {device_id}",
     "msg.dry_run": "Dry run: command validated but not queued.",
-    "err.queue_failed": "Failed to queue control command: {reason}",
-    "param.ctrl.description": "Controller ID (optional).",
-    "param.bridge.description": "Bridge ID (optional).",
-    "param.dry_run.description": "If true, validate the command without queueing it. ",
-    "err.unsupported_device": "Device type '{device_type}' does not support any control actions.",
-    "err.action_not_supported": "Action '{action}' is not supported for device type '{device_type}'. ",
-    "err.action_required": "A valid action is required: {allowed}",
-    "err.value_required": "A numeric value (0-100) is required for action '{action}'.",
-    "err.config_missing": "Matter device data is missing. Set {env_json} or {env_file} for devices, controllers, or bridges."
+    "err.queue_failed": "Failed to queue control command: {reason}"
   },
   "tr": {
     "tool.description": "Control a Matter device (on/off/open/close/lock/unlock/set_value).",
@@ -649,15 +433,7 @@
     "err.not_found": "Matter device not found: {device_id}",
     "err.ambiguous_target": "Matter device target is ambiguous: {device_id}",
     "msg.dry_run": "Dry run: command validated but not queued.",
-    "err.queue_failed": "Failed to queue control command: {reason}",
-    "param.ctrl.description": "Controller ID (optional).",
-    "param.bridge.description": "Bridge ID (optional).",
-    "param.dry_run.description": "If true, validate the command without queueing it. ",
-    "err.unsupported_device": "Device type '{device_type}' does not support any control actions.",
-    "err.action_not_supported": "Action '{action}' is not supported for device type '{device_type}'. ",
-    "err.action_required": "A valid action is required: {allowed}",
-    "err.value_required": "A numeric value (0-100) is required for action '{action}'.",
-    "err.config_missing": "Matter device data is missing. Set {env_json} or {env_file} for devices, controllers, or bridges."
+    "err.queue_failed": "Failed to queue control command: {reason}"
   },
   "uk": {
     "tool.description": "Control a Matter device (on/off/open/close/lock/unlock/set_value).",
@@ -671,15 +447,7 @@
     "err.not_found": "Matter device not found: {device_id}",
     "err.ambiguous_target": "Matter device target is ambiguous: {device_id}",
     "msg.dry_run": "Dry run: command validated but not queued.",
-    "err.queue_failed": "Failed to queue control command: {reason}",
-    "param.ctrl.description": "Controller ID (optional).",
-    "param.bridge.description": "Bridge ID (optional).",
-    "param.dry_run.description": "If true, validate the command without queueing it. ",
-    "err.unsupported_device": "Device type '{device_type}' does not support any control actions.",
-    "err.action_not_supported": "Action '{action}' is not supported for device type '{device_type}'. ",
-    "err.action_required": "A valid action is required: {allowed}",
-    "err.value_required": "A numeric value (0-100) is required for action '{action}'.",
-    "err.config_missing": "Matter device data is missing. Set {env_json} or {env_file} for devices, controllers, or bridges."
+    "err.queue_failed": "Failed to queue control command: {reason}"
   },
   "vi": {
     "tool.description": "Control a Matter device (on/off/open/close/lock/unlock/set_value).",
@@ -693,15 +461,7 @@
     "err.not_found": "Matter device not found: {device_id}",
     "err.ambiguous_target": "Matter device target is ambiguous: {device_id}",
     "msg.dry_run": "Dry run: command validated but not queued.",
-    "err.queue_failed": "Failed to queue control command: {reason}",
-    "param.ctrl.description": "Controller ID (optional).",
-    "param.bridge.description": "Bridge ID (optional).",
-    "param.dry_run.description": "If true, validate the command without queueing it. ",
-    "err.unsupported_device": "Device type '{device_type}' does not support any control actions.",
-    "err.action_not_supported": "Action '{action}' is not supported for device type '{device_type}'. ",
-    "err.action_required": "A valid action is required: {allowed}",
-    "err.value_required": "A numeric value (0-100) is required for action '{action}'.",
-    "err.config_missing": "Matter device data is missing. Set {env_json} or {env_file} for devices, controllers, or bridges."
+    "err.queue_failed": "Failed to queue control command: {reason}"
   },
   "zh_CN": {
     "tool.description": "Control a Matter device (on/off/open/close/lock/unlock/set_value).",
@@ -715,15 +475,7 @@
     "err.not_found": "Matter device not found: {device_id}",
     "err.ambiguous_target": "Matter device target is ambiguous: {device_id}",
     "msg.dry_run": "Dry run: command validated but not queued.",
-    "err.queue_failed": "Failed to queue control command: {reason}",
-    "param.ctrl.description": "Controller ID (optional).",
-    "param.bridge.description": "Bridge ID (optional).",
-    "param.dry_run.description": "If true, validate the command without queueing it. ",
-    "err.unsupported_device": "Device type '{device_type}' does not support any control actions.",
-    "err.action_not_supported": "Action '{action}' is not supported for device type '{device_type}'. ",
-    "err.action_required": "A valid action is required: {allowed}",
-    "err.value_required": "A numeric value (0-100) is required for action '{action}'.",
-    "err.config_missing": "Matter device data is missing. Set {env_json} or {env_file} for devices, controllers, or bridges."
+    "err.queue_failed": "Failed to queue control command: {reason}"
   },
   "zh_TW": {
     "tool.description": "Control a Matter device (on/off/open/close/lock/unlock/set_value).",
@@ -737,14 +489,6 @@
     "err.not_found": "Matter device not found: {device_id}",
     "err.ambiguous_target": "Matter device target is ambiguous: {device_id}",
     "msg.dry_run": "Dry run: command validated but not queued.",
-    "err.queue_failed": "Failed to queue control command: {reason}",
-    "param.ctrl.description": "Controller ID (optional).",
-    "param.bridge.description": "Bridge ID (optional).",
-    "param.dry_run.description": "If true, validate the command without queueing it. ",
-    "err.unsupported_device": "Device type '{device_type}' does not support any control actions.",
-    "err.action_not_supported": "Action '{action}' is not supported for device type '{device_type}'. ",
-    "err.action_required": "A valid action is required: {allowed}",
-    "err.value_required": "A numeric value (0-100) is required for action '{action}'.",
-    "err.config_missing": "Matter device data is missing. Set {env_json} or {env_file} for devices, controllers, or bridges."
+    "err.queue_failed": "Failed to queue control command: {reason}"
   }
 }

@@ -1,0 +1,22 @@
+{
+  "en": {
+    "tool.description": "Query Matter device state change history.",
+    "param.dev.description": "Device ID (optional, omit for all).",
+    "param.attribute.description": "Attribute name filter (optional).",
+    "param.since.description": "Start time ISO8601 (optional).",
+    "param.until.description": "End time ISO8601 (optional).",
+    "param.limit.description": "Max entries (default 100, max 10000).",
+    "param.clear.description": "If true, clear all history.",
+    "param.fmt.description": "Format: json or text."
+  },
+  "ja": {
+    "param.attribute.description": "属性名フィルター (オプション)。",
+    "param.clear.description": "true の場合、すべての履歴をクリアします。",
+    "param.dev.description": "デバイス ID (オプション、すべて省略)。",
+    "param.fmt.description": "Format: json or text.",
+    "param.limit.description": "最大エントリ数 (デフォルトは 100、最大 10000)。",
+    "param.since.description": "Start time ISO8601 (optional).",
+    "param.until.description": "終了時刻 ISO8601 (オプション)。",
+    "tool.description": "デバイス状態の変更履歴を照会します。"
+  }
+}

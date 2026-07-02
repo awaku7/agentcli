@@ -86,8 +86,8 @@
     "warn.missing_skill_md": "Skill installed at {path}, but SKILL.md was not found in the root.",
     "err.unexpected": "An unexpected error occurred: {error}",
     "help_text.install": "  :skills install <source> [name]   Install a skill or marketplace-style package from a source",
-    "prefix.skills": "[skills]",
-    "prefix.skills_error": "[skills error]"
+    "prefix.skills": "【スキル】",
+    "prefix.skills_error": "【スキルエラー】"
   },
   "es": {
     "param.source.description": "La URL o ruta de origen (URL de Git, URL de ZIP HTTP, directorio local o ZIP local).",
@@ -129,9 +129,7 @@
     "success.installed_marketplace": "Successfully installed marketplace/package '{name}' to {path} ({count} skill definitions found).",
     "warn.missing_skill_md": "Skill installed at {path}, but SKILL.md was not found in the root.",
     "err.unexpected": "An unexpected error occurred: {error}",
-    "help_text.install": "  :skills install <source> [name]   Install a skill or marketplace-style package from a source",
-    "prefix.skills": "[skills]",
-    "prefix.skills_error": "[skills error]"
+    "help_text.install": "  :skills install <source> [name]   Install a skill or marketplace-style package from a source"
   },
   "fr": {
     "param.source.description": "L'URL ou le chemin source (URL Git, URL ZIP HTTP, répertoire local ou ZIP local).",
@@ -173,9 +171,7 @@
     "success.installed_marketplace": "Successfully installed marketplace/package '{name}' to {path} ({count} skill definitions found).",
     "warn.missing_skill_md": "Skill installed at {path}, but SKILL.md was not found in the root.",
     "err.unexpected": "An unexpected error occurred: {error}",
-    "help_text.install": "  :skills install <source> [name]   Install a skill or marketplace-style package from a source",
-    "prefix.skills": "[skills]",
-    "prefix.skills_error": "[skills error]"
+    "help_text.install": "  :skills install <source> [name]   Install a skill or marketplace-style package from a source"
   },
   "ko": {
     "param.source.description": "소스 URL 또는 경로(Git URL, HTTP ZIP URL, 로컬 디렉터리 또는 로컬 ZIP).",
@@ -217,9 +213,7 @@
     "success.installed_marketplace": "Successfully installed marketplace/package '{name}' to {path} ({count} skill definitions found).",
     "warn.missing_skill_md": "Skill installed at {path}, but SKILL.md was not found in the root.",
     "err.unexpected": "An unexpected error occurred: {error}",
-    "help_text.install": "  :skills install <source> [name]   Install a skill or marketplace-style package from a source",
-    "prefix.skills": "[skills]",
-    "prefix.skills_error": "[skills error]"
+    "help_text.install": "  :skills install <source> [name]   Install a skill or marketplace-style package from a source"
   },
   "de": {
     "param.source.description": "Die Quell-URL oder der Quellpfad (Git-URL, HTTP-ZIP-URL, lokales Verzeichnis oder lokales ZIP).",
@@ -261,9 +255,7 @@
     "success.installed_marketplace": "Successfully installed marketplace/package '{name}' to {path} ({count} skill definitions found).",
     "warn.missing_skill_md": "Skill installed at {path}, but SKILL.md was not found in the root.",
     "err.unexpected": "An unexpected error occurred: {error}",
-    "help_text.install": "  :skills install <source> [name]   Install a skill or marketplace-style package from a source",
-    "prefix.skills": "[skills]",
-    "prefix.skills_error": "[skills error]"
+    "help_text.install": "  :skills install <source> [name]   Install a skill or marketplace-style package from a source"
   },
   "it": {
     "param.source.description": "L'URL o il percorso di origine (URL Git, URL ZIP HTTP, directory locale o ZIP locale).",
@@ -305,9 +297,7 @@
     "success.installed_marketplace": "Successfully installed marketplace/package '{name}' to {path} ({count} skill definitions found).",
     "warn.missing_skill_md": "Skill installed at {path}, but SKILL.md was not found in the root.",
     "err.unexpected": "An unexpected error occurred: {error}",
-    "help_text.install": "  :skills install <source> [name]   Install a skill or marketplace-style package from a source",
-    "prefix.skills": "[skills]",
-    "prefix.skills_error": "[skills error]"
+    "help_text.install": "  :skills install <source> [name]   Install a skill or marketplace-style package from a source"
   },
   "ru": {
     "param.source.description": "Исходный URL-адрес или путь (Git URL, HTTP ZIP URL, локальный каталог или локальный ZIP).",
@@ -349,9 +339,7 @@
     "success.installed_marketplace": "Successfully installed marketplace/package '{name}' to {path} ({count} skill definitions found).",
     "warn.missing_skill_md": "Skill installed at {path}, but SKILL.md was not found in the root.",
     "err.unexpected": "An unexpected error occurred: {error}",
-    "help_text.install": "  :skills install <source> [name]   Install a skill or marketplace-style package from a source",
-    "prefix.skills": "[skills]",
-    "prefix.skills_error": "[skills error]"
+    "help_text.install": "  :skills install <source> [name]   Install a skill or marketplace-style package from a source"
   },
   "pt_BR": {
     "param.source.description": "A URL ou caminho de origem (URL Git, URL ZIP HTTP, diretório local ou ZIP local).",
@@ -393,9 +381,7 @@
     "success.installed_marketplace": "Successfully installed marketplace/package '{name}' to {path} ({count} skill definitions found).",
     "warn.missing_skill_md": "Skill installed at {path}, but SKILL.md was not found in the root.",
     "err.unexpected": "An unexpected error occurred: {error}",
-    "help_text.install": "  :skills install <source> [name]   Install a skill or marketplace-style package from a source",
-    "prefix.skills": "[skills]",
-    "prefix.skills_error": "[skills error]"
+    "help_text.install": "  :skills install <source> [name]   Install a skill or marketplace-style package from a source"
   },
   "pt": {
     "param.source.description": "A URL ou caminho de origem (URL Git, URL ZIP HTTP, diretório local ou ZIP local).",
@@ -437,9 +423,7 @@
     "success.installed_marketplace": "Successfully installed marketplace/package '{name}' to {path} ({count} skill definitions found).",
     "warn.missing_skill_md": "Skill installed at {path}, but SKILL.md was not found in the root.",
     "err.unexpected": "An unexpected error occurred: {error}",
-    "help_text.install": "  :skills install <source> [name]   Install a skill or marketplace-style package from a source",
-    "prefix.skills": "[skills]",
-    "prefix.skills_error": "[skills error]"
+    "help_text.install": "  :skills install <source> [name]   Install a skill or marketplace-style package from a source"
   },
   "id": {
     "param.source.description": "URL atau jalur sumber (Git URL, HTTP ZIP URL, direktori lokal, atau ZIP lokal).",
@@ -481,9 +465,7 @@
     "success.installed_marketplace": "Successfully installed marketplace/package '{name}' to {path} ({count} skill definitions found).",
     "warn.missing_skill_md": "Skill installed at {path}, but SKILL.md was not found in the root.",
     "err.unexpected": "An unexpected error occurred: {error}",
-    "help_text.install": "  :skills install <source> [name]   Install a skill or marketplace-style package from a source",
-    "prefix.skills": "[skills]",
-    "prefix.skills_error": "[skills error]"
+    "help_text.install": "  :skills install <source> [name]   Install a skill or marketplace-style package from a source"
   },
   "vi": {
     "param.source.description": "URL hoặc đường dẫn nguồn (URL Git, URL ZIP HTTP, thư mục cục bộ hoặc ZIP cục bộ).",
@@ -525,9 +507,7 @@
     "success.installed_marketplace": "Successfully installed marketplace/package '{name}' to {path} ({count} skill definitions found).",
     "warn.missing_skill_md": "Skill installed at {path}, but SKILL.md was not found in the root.",
     "err.unexpected": "An unexpected error occurred: {error}",
-    "help_text.install": "  :skills install <source> [name]   Install a skill or marketplace-style package from a source",
-    "prefix.skills": "[skills]",
-    "prefix.skills_error": "[skills error]"
+    "help_text.install": "  :skills install <source> [name]   Install a skill or marketplace-style package from a source"
   },
   "pl": {
     "param.source.description": "Adres URL lub ścieżka źródłowa (adres URL Git, adres URL ZIP HTTP, katalog lokalny lub lokalny plik ZIP).",
@@ -569,9 +549,7 @@
     "success.installed_marketplace": "Successfully installed marketplace/package '{name}' to {path} ({count} skill definitions found).",
     "warn.missing_skill_md": "Skill installed at {path}, but SKILL.md was not found in the root.",
     "err.unexpected": "An unexpected error occurred: {error}",
-    "help_text.install": "  :skills install <source> [name]   Install a skill or marketplace-style package from a source",
-    "prefix.skills": "[skills]",
-    "prefix.skills_error": "[skills error]"
+    "help_text.install": "  :skills install <source> [name]   Install a skill or marketplace-style package from a source"
   },
   "hi": {
     "param.source.description": "स्रोत URL या पथ (Git URL, HTTP ZIP URL, स्थानीय निर्देशिका, या स्थानीय ZIP)।",
@@ -613,9 +591,7 @@
     "success.installed_marketplace": "Successfully installed marketplace/package '{name}' to {path} ({count} skill definitions found).",
     "warn.missing_skill_md": "Skill installed at {path}, but SKILL.md was not found in the root.",
     "err.unexpected": "An unexpected error occurred: {error}",
-    "help_text.install": "  :skills install <source> [name]   Install a skill or marketplace-style package from a source",
-    "prefix.skills": "[skills]",
-    "prefix.skills_error": "[skills error]"
+    "help_text.install": "  :skills install <source> [name]   Install a skill or marketplace-style package from a source"
   },
   "ar": {
     "param.source.description": "عنوان URL أو مسار المصدر (عنوان URL لـ Git، أو عنوان URL لـ ZIP عبر HTTP، أو دليل محلي، أو ملف ZIP محلي).",
@@ -657,9 +633,7 @@
     "success.installed_marketplace": "Successfully installed marketplace/package '{name}' to {path} ({count} skill definitions found).",
     "warn.missing_skill_md": "Skill installed at {path}, but SKILL.md was not found in the root.",
     "err.unexpected": "An unexpected error occurred: {error}",
-    "help_text.install": "  :skills install <source> [name]   Install a skill or marketplace-style package from a source",
-    "prefix.skills": "[skills]",
-    "prefix.skills_error": "[skills error]"
+    "help_text.install": "  :skills install <source> [name]   Install a skill or marketplace-style package from a source"
   },
   "sv": {
     "param.source.description": "Käll-URL eller sökväg (Git-URL, HTTP-ZIP-URL, lokal katalog eller lokal ZIP).",
@@ -701,9 +675,7 @@
     "success.installed_marketplace": "Successfully installed marketplace/package '{name}' to {path} ({count} skill definitions found).",
     "warn.missing_skill_md": "Skill installed at {path}, but SKILL.md was not found in the root.",
     "err.unexpected": "An unexpected error occurred: {error}",
-    "help_text.install": "  :skills install <source> [name]   Install a skill or marketplace-style package from a source",
-    "prefix.skills": "[skills]",
-    "prefix.skills_error": "[skills error]"
+    "help_text.install": "  :skills install <source> [name]   Install a skill or marketplace-style package from a source"
   },
   "sw": {
     "param.source.description": "URL ya chanzo au njia (Git URL, HTTP ZIP URL, saraka ya ndani, au ZIP ya ndani).",
@@ -745,9 +717,7 @@
     "success.installed_marketplace": "Successfully installed marketplace/package '{name}' to {path} ({count} skill definitions found).",
     "warn.missing_skill_md": "Skill installed at {path}, but SKILL.md was not found in the root.",
     "err.unexpected": "An unexpected error occurred: {error}",
-    "help_text.install": "  :skills install <source> [name]   Install a skill or marketplace-style package from a source",
-    "prefix.skills": "[skills]",
-    "prefix.skills_error": "[skills error]"
+    "help_text.install": "  :skills install <source> [name]   Install a skill or marketplace-style package from a source"
   },
   "nb": {
     "param.source.description": "Kilde-URL eller søkebane (Git-URL, HTTP-ZIP-URL, lokal katalog eller lokal ZIP).",
@@ -789,9 +759,7 @@
     "success.installed_marketplace": "Successfully installed marketplace/package '{name}' to {path} ({count} skill definitions found).",
     "warn.missing_skill_md": "Skill installed at {path}, but SKILL.md was not found in the root.",
     "err.unexpected": "An unexpected error occurred: {error}",
-    "help_text.install": "  :skills install <source> [name]   Install a skill or marketplace-style package from a source",
-    "prefix.skills": "[skills]",
-    "prefix.skills_error": "[skills error]"
+    "help_text.install": "  :skills install <source> [name]   Install a skill or marketplace-style package from a source"
   },
   "nl": {
     "param.source.description": "De bron-URL of het pad (Git-URL, HTTP-ZIP-URL, lokale map of lokale ZIP).",
@@ -833,9 +801,7 @@
     "success.installed_marketplace": "Successfully installed marketplace/package '{name}' to {path} ({count} skill definitions found).",
     "warn.missing_skill_md": "Skill installed at {path}, but SKILL.md was not found in the root.",
     "err.unexpected": "An unexpected error occurred: {error}",
-    "help_text.install": "  :skills install <source> [name]   Install a skill or marketplace-style package from a source",
-    "prefix.skills": "[skills]",
-    "prefix.skills_error": "[skills error]"
+    "help_text.install": "  :skills install <source> [name]   Install a skill or marketplace-style package from a source"
   },
   "fi": {
     "param.source.description": "Lähde-URL tai -polku (Git-URL, HTTP-ZIP-URL, paikallinen hakemisto tai paikallinen ZIP).",
@@ -877,9 +843,7 @@
     "success.installed_marketplace": "Successfully installed marketplace/package '{name}' to {path} ({count} skill definitions found).",
     "warn.missing_skill_md": "Skill installed at {path}, but SKILL.md was not found in the root.",
     "err.unexpected": "An unexpected error occurred: {error}",
-    "help_text.install": "  :skills install <source> [name]   Install a skill or marketplace-style package from a source",
-    "prefix.skills": "[skills]",
-    "prefix.skills_error": "[skills error]"
+    "help_text.install": "  :skills install <source> [name]   Install a skill or marketplace-style package from a source"
   },
   "cs": {
     "param.source.description": "Zdrojová URL nebo cesta (Git URL, HTTP ZIP URL, lokální adresář nebo lokální ZIP).",
@@ -921,9 +885,7 @@
     "success.installed_marketplace": "Successfully installed marketplace/package '{name}' to {path} ({count} skill definitions found).",
     "warn.missing_skill_md": "Skill installed at {path}, but SKILL.md was not found in the root.",
     "err.unexpected": "An unexpected error occurred: {error}",
-    "help_text.install": "  :skills install <source> [name]   Install a skill or marketplace-style package from a source",
-    "prefix.skills": "[skills]",
-    "prefix.skills_error": "[skills error]"
+    "help_text.install": "  :skills install <source> [name]   Install a skill or marketplace-style package from a source"
   },
   "uk": {
     "param.source.description": "Джерело URL або шлях (Git URL, HTTP ZIP URL, локальний каталог або локальний ZIP).",
@@ -965,9 +927,7 @@
     "success.installed_marketplace": "Successfully installed marketplace/package '{name}' to {path} ({count} skill definitions found).",
     "warn.missing_skill_md": "Skill installed at {path}, but SKILL.md was not found in the root.",
     "err.unexpected": "An unexpected error occurred: {error}",
-    "help_text.install": "  :skills install <source> [name]   Install a skill or marketplace-style package from a source",
-    "prefix.skills": "[skills]",
-    "prefix.skills_error": "[skills error]"
+    "help_text.install": "  :skills install <source> [name]   Install a skill or marketplace-style package from a source"
   },
   "bn": {
     "param.source.description": "উৎস URL বা পথ (Git URL, HTTP ZIP URL, স্থানীয় ডিরেক্টরি, বা স্থানীয় ZIP)।",
@@ -1009,9 +969,7 @@
     "success.installed_marketplace": "Successfully installed marketplace/package '{name}' to {path} ({count} skill definitions found).",
     "warn.missing_skill_md": "Skill installed at {path}, but SKILL.md was not found in the root.",
     "err.unexpected": "An unexpected error occurred: {error}",
-    "help_text.install": "  :skills install <source> [name]   Install a skill or marketplace-style package from a source",
-    "prefix.skills": "[skills]",
-    "prefix.skills_error": "[skills error]"
+    "help_text.install": "  :skills install <source> [name]   Install a skill or marketplace-style package from a source"
   },
   "fa": {
     "param.source.description": "نشانی URL یا مسیر منبع (Git URL، HTTP ZIP URL، فهرست محلی یا ZIP محلی).",
@@ -1053,9 +1011,7 @@
     "success.installed_marketplace": "Successfully installed marketplace/package '{name}' to {path} ({count} skill definitions found).",
     "warn.missing_skill_md": "Skill installed at {path}, but SKILL.md was not found in the root.",
     "err.unexpected": "An unexpected error occurred: {error}",
-    "help_text.install": "  :skills install <source> [name]   Install a skill or marketplace-style package from a source",
-    "prefix.skills": "[skills]",
-    "prefix.skills_error": "[skills error]"
+    "help_text.install": "  :skills install <source> [name]   Install a skill or marketplace-style package from a source"
   },
   "mn": {
     "param.source.description": "Эх сурвалжийн URL эсвэл зам (Git URL, HTTP ZIP URL, локал лавлах, эсвэл локал ZIP).",
@@ -1097,9 +1053,7 @@
     "success.installed_marketplace": "Successfully installed marketplace/package '{name}' to {path} ({count} skill definitions found).",
     "warn.missing_skill_md": "Skill installed at {path}, but SKILL.md was not found in the root.",
     "err.unexpected": "An unexpected error occurred: {error}",
-    "help_text.install": "  :skills install <source> [name]   Install a skill or marketplace-style package from a source",
-    "prefix.skills": "[skills]",
-    "prefix.skills_error": "[skills error]"
+    "help_text.install": "  :skills install <source> [name]   Install a skill or marketplace-style package from a source"
   },
   "mr": {
     "param.source.description": "स्रोत URL किंवा पथ (Git URL, HTTP ZIP URL, स्थानिक डिरेक्टरी किंवा स्थानिक ZIP).",
@@ -1141,9 +1095,7 @@
     "success.installed_marketplace": "Successfully installed marketplace/package '{name}' to {path} ({count} skill definitions found).",
     "warn.missing_skill_md": "Skill installed at {path}, but SKILL.md was not found in the root.",
     "err.unexpected": "An unexpected error occurred: {error}",
-    "help_text.install": "  :skills install <source> [name]   Install a skill or marketplace-style package from a source",
-    "prefix.skills": "[skills]",
-    "prefix.skills_error": "[skills error]"
+    "help_text.install": "  :skills install <source> [name]   Install a skill or marketplace-style package from a source"
   },
   "el": {
     "param.source.description": "Αν θα αντικατασταθεί ή θα ενημερωθεί ο προορισμός εάν υπάρχει ήδη. Οι προεπιλογές σε αληθές.",
@@ -1186,9 +1138,7 @@
     "success.installed_marketplace": "Επιτυχώς εγκαταστάθηκε το marketplace/το πακέτο '{name}' στο {pathll} ({counts found) ski).",
     "warn.missing_skill_md": "Η ικανότητα εγκαταστάθηκε στο {path}, αλλά το SKILL.md δεν βρέθηκε στη ρίζα.",
     "err.unexpected": "Παρουσιάστηκε απροσδόκητο σφάλμα: {error}",
-    "help_text.install": ":skills install <source> [name] Εγκαταστήστε ένα πακέτο δεξιοτήτων ή στυλ αγοράς από μια πηγή",
-    "prefix.skills": "[skills]",
-    "prefix.skills_error": "[skills error]"
+    "help_text.install": ":skills install <source> [name] Εγκαταστήστε ένα πακέτο δεξιοτήτων ή στυλ αγοράς από μια πηγή"
   },
   "he": {
     "param.source.description": "האם להחליף או לעדכן את היעד אם הוא כבר קיים. ברירת המחדל לאמת.",
@@ -1231,9 +1181,7 @@
     "success.installed_marketplace": "התקנת ה-marketplace/חבילה '{name}' בהצלחה ל-{path} (נמצאו {count} הגדרות מיומנות).",
     "warn.missing_skill_md": "מיומנות מותקנת ב-{path}, אך SKILL.md לא נמצאה בשורש.",
     "err.unexpected": "אירעה שגיאה בלתי צפויה: {error}",
-    "help_text.install": ":skills install <source> [name] התקן מיומנות או חבילה בסגנון שוק ממקור",
-    "prefix.skills": "[skills]",
-    "prefix.skills_error": "[skills error]"
+    "help_text.install": ":skills install <source> [name] התקן מיומנות או חבילה בסגנון שוק ממקור"
   },
   "hu": {
     "param.source.description": "Ügynöki készség telepítése vagy frissítése (Git repo, távoli/helyi ZIP, helyi könyvtár).",
@@ -1276,9 +1224,7 @@
     "success.installed_marketplace": "A(z) '{name}' piactér/csomag sikeresen telepítve a(z) {path} címre ({count} készségdefiníció található).",
     "warn.missing_skill_md": "A Skill telepítve van a(z) {path} címen, de a SKILL.md nem található a gyökérben.",
     "err.unexpected": "Váratlan hiba történt: {hiba}",
-    "help_text.install": ":skills telepítése <forrás> [név] Képesség vagy piactér-stílusú csomag telepítése forrásból",
-    "prefix.skills": "[készségek]",
-    "prefix.skills_error": "[készséghiba]"
+    "help_text.install": ":skills telepítése <forrás> [név] Képesség vagy piactér-stílusú csomag telepítése forrásból"
   },
   "ro": {
     "param.source.description": "Dacă trebuie să suprascrieți sau să actualizați destinația dacă aceasta există deja. Implicit la adevărat.",
@@ -1321,9 +1267,7 @@
     "success.installed_marketplace": "S-a instalat cu succes marketplace/pachetul „{name}” la {path} ({count} definiții de competențe găsite).",
     "warn.missing_skill_md": "Skill instalat la {path}, dar SKILL.md nu a fost găsit în rădăcină.",
     "err.unexpected": "A apărut o eroare neașteptată: {eroare}",
-    "help_text.install": ":skills install <source> [name] Instalați un pachet de abilități sau de piață dintr-o sursă",
-    "prefix.skills": "[skills]",
-    "prefix.skills_error": "[skills error]"
+    "help_text.install": ":skills install <source> [name] Instalați un pachet de abilități sau de piață dintr-o sursă"
   },
   "th": {
     "param.source.description": "URL หรือพาธของแหล่งที่มา (Git URL, HTTP ZIP URL, ไดเรกทอรีภายในเครื่อง หรือ ZIP ภายในเครื่อง)",
@@ -1365,9 +1309,7 @@
     "success.installed_marketplace": "Successfully installed marketplace/package '{name}' to {path} ({count} skill definitions found).",
     "warn.missing_skill_md": "Skill installed at {path}, but SKILL.md was not found in the root.",
     "err.unexpected": "An unexpected error occurred: {error}",
-    "help_text.install": "  :skills install <source> [name]   Install a skill or marketplace-style package from a source",
-    "prefix.skills": "[skills]",
-    "prefix.skills_error": "[skills error]"
+    "help_text.install": "  :skills install <source> [name]   Install a skill or marketplace-style package from a source"
   },
   "tr": {
     "param.source.description": "Kaynak URL veya yol (Git URL, HTTP ZIP URL, yerel dizin veya yerel ZIP).",
@@ -1409,9 +1351,7 @@
     "success.installed_marketplace": "Successfully installed marketplace/package '{name}' to {path} ({count} skill definitions found).",
     "warn.missing_skill_md": "Skill installed at {path}, but SKILL.md was not found in the root.",
     "err.unexpected": "An unexpected error occurred: {error}",
-    "help_text.install": "  :skills install <source> [name]   Install a skill or marketplace-style package from a source",
-    "prefix.skills": "[skills]",
-    "prefix.skills_error": "[skills error]"
+    "help_text.install": "  :skills install <source> [name]   Install a skill or marketplace-style package from a source"
   },
   "zh_CN": {
     "param.source.description": "源 URL 或路径（Git URL、HTTP ZIP URL、本地目录或本地 ZIP）。",
@@ -1454,9 +1394,7 @@
     "success.installed_marketplace": "Successfully installed marketplace/package '{name}' to {path} ({count} skill definitions found).",
     "warn.missing_skill_md": "Skill installed at {path}, but SKILL.md was not found in the root.",
     "err.unexpected": "An unexpected error occurred: {error}",
-    "help_text.install": "  :skills install <source> [name]   Install a skill or marketplace-style package from a source",
-    "prefix.skills": "[skills]",
-    "prefix.skills_error": "[skills error]"
+    "help_text.install": "  :skills install <source> [name]   Install a skill or marketplace-style package from a source"
   },
   "zh_TW": {
     "param.source.description": "來源 URL 或路徑（Git URL、HTTP ZIP URL、本機目錄或本機 ZIP）。",
@@ -1499,8 +1437,6 @@
     "success.installed_marketplace": "Successfully installed marketplace/package '{name}' to {path} ({count} skill definitions found).",
     "warn.missing_skill_md": "Skill installed at {path}, but SKILL.md was not found in the root.",
     "err.unexpected": "An unexpected error occurred: {error}",
-    "help_text.install": "  :skills install <source> [name]   Install a skill or marketplace-style package from a source",
-    "prefix.skills": "[skills]",
-    "prefix.skills_error": "[skills error]"
+    "help_text.install": "  :skills install <source> [name]   Install a skill or marketplace-style package from a source"
   }
 }

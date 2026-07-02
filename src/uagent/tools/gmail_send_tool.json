@@ -285,7 +285,7 @@
     "msg.sent": "Email inviata a {count} destinatari."
   },
   "ja": {
-    "tool.description": "アプリパスワードを使用して、Gmail SMTP 経由でメールを送信します。 ",
+    "tool.description": "アプリパスワードを使用して、Gmail SMTP 経由でメールを送信します。UAGENT_GMAIL_ADDRESS および UAGENT_GMAIL_APP_PASSWORD 環境変数が必要です。",
     "x_search_terms": "[\"gmail\", \"send email\", \"mail\", \"メール送信\", \"enviar correo\", \"envoyer email\", \"이메일 보내기\"]",
     "param.to.description": "受信者の電子メール アドレス。",
     "param.subject.description": "メールの件名。",
@@ -297,7 +297,7 @@
     "err.subject_missing": "「件名」フィールドは必須です。",
     "err.credentials_missing": "UAGENT_GMAIL_ADDRESS および UAGENT_GMAIL_APP_PASSWORD を環境変数に設定する必要があります。",
     "err.no_recipients": "有効な受信者が指定されていません。",
-    "err.auth_failed": "SMTP認証に失敗しました。 ",
+    "err.auth_failed": "SMTP認証に失敗しました。UAGENT_GMAIL_ADDRESS と UAGENT_GMAIL_APP_PASSWORD を確認してください。",
     "err.recipients_refused": "受信者が拒否しました: {detail}",
     "err.server_disconnected": "SMTP サーバーが予期せず切断されました。",
     "err.smtp_error": "SMTP エラー: {detail}",

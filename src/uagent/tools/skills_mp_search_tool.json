@@ -16,13 +16,11 @@
     "param.sort_by.description": "Sort order: 'recent' (newest first), 'stars' (most starred), 'name' (alphabetical). Default: 'recent'.",
     "param.source.description": "Marketplace source: 'skillsmp' (skillsmp.com) or 'clawhub' (clawhub.ai). Default: 'skillsmp'.",
     "msg.no_results": "No skills found.",
-    "msg.header": "SkillsMP Marketplace — Page {page}/{total}",
-    "msg.header_clawhub": "ClawHub Marketplace — Page {page}/{total}",
     "msg.next_page_hint": "Use page={next} to see more results.",
     "msg.install_hint": "Install a skill with: skills_install source=<githubUrl>",
+    "msg.install_hint_clawhub": "Install a skill with: skills_install source=<url>",
     "help_text.mp_search": "  :skills mp_search [query] [--page N] [--limit N] [--sort recent|stars|name] [--source skillsmp|clawhub]\n    Search and browse SkillsMP (skillsmp.com) or ClawHub (clawhub.ai) marketplace for Agent Skills.",
-    "prefix.error": "[error]",
-    "msg.install_hint_clawhub": "Install a skill with: skills_install source=<url>"
+    "prefix.error": "[error]"
   },
   "ja": {
     "tool.description": "SkillsMPマーケットプレイス（skillsmp.com）でAgent Skillを検索・ブラウズします。スキル名、作者、説明、スター数、GitHub URLを返します。",
@@ -39,14 +37,12 @@
     "param.limit.description": "1ページあたりの結果数（既定: 10, 最大: 50）。",
     "param.sort_by.description": "並び順: 'recent'（新着順）、'stars'（スター数順）、'name'（アルファベット順）。既定: 'recent'。",
     "msg.no_results": "スキルが見つかりませんでした。",
-    "msg.header": "SkillsMP マーケットプレイス — {page}/{total} ページ",
     "msg.next_page_hint": "次のページを見るには page={next} を指定してください。",
     "msg.install_hint": "スキルのインストール: skills_install source=<githubUrl>",
-    "help_text.mp_search": "  :skills mp_search [query] [--page N] [--limit N] [--sort recent|stars|name] [--source skillsmp|clawhub]\n    SkillsMP（skillsmp.com）または ClawHub（clawhub.ai）で Agent Skill を検索・ブラウズします。",
-    "prefix.error": "[エラー]",
     "param.source.description": "マーケットプレイスのソース: 'skillsmp'（skillsmp.com）または 'clawhub'（clawhub.ai）。既定: 'skillsmp'。",
     "msg.install_hint_clawhub": "スキルのインストール: skills_install source=<url>",
-    "msg.header_clawhub": "ClawHub マーケットプレイス — {page}/{total} ページ"
+    "help_text.mp_search": ":skills mp_search [クエリ] [--ページ N] [--制限 N] [--最近の並べ替え|スター|名前] [--ソース スキルmp|clawhub]\nAgent Sk の SkillsMP (skillsmp.com) または ClawHub (clawhub.ai) マーケットプレイスを検索および参照します",
+    "prefix.error": "[エラー]"
   },
   "ar": {
     "tool.description": "ابحث وتصفح سوق SkillsMP (skillsmp.com) لـ Agent Skills. يُرجع قائمة بالمهارات مع الاسم والمؤلف والوصف والنجوم ورابط GitHub.",
@@ -56,12 +52,9 @@
     "param.sort_by.description": "ترتيب الفرز: 'recent' (الأحدث أولاً)، 'stars' (الأكثر نجوماً)، 'name' (أبجدي). الافتراضي: 'recent'.",
     "param.source.description": "مصدر السوق: 'skillsmp' (skillsmp.com) أو 'clawhub' (clawhub.ai). الافتراضي: 'skillsmp'.",
     "msg.no_results": "لم يتم العثور على مهارات.",
-    "msg.header": "سوق SkillsMP — صفحة {page}/{total}",
-    "msg.header_clawhub": "سوق ClawHub — صفحة {page}/{total}",
     "msg.next_page_hint": "استخدم page={next} لرؤية المزيد من النتائج.",
     "msg.install_hint": "قم بتثبيت مهارة باستخدام: skills_install source=<githubUrl>",
     "msg.install_hint_clawhub": "قم بتثبيت مهارة باستخدام: skills_install source=<url>",
-    "prefix.error": "[خطأ]",
     "x_search_terms": [
       "skills_mp_search",
       "skillsmp",
@@ -70,8 +63,7 @@
       "تصفح مهارة",
       "اعثر على مهارة",
       "دليل المهارات"
-    ],
-    "help_text.mp_search": "   :skills mp_search [استعلام] [--page N] [--limit N] [--sort recent|stars|name] [--source skillsmp|clawhub]\n    ابحث وتصفح سوق SkillsMP (skillsmp.com) أو ClawHub (clawhub.ai) لـ Agent Skills."
+    ]
   },
   "bn": {
     "tool.description": "SkillsMP মার্কেটপ্লেস (skillsmp.com) থেকে Agent Skills অনুসন্ধান এবং ব্রাউজ করুন। নাম, লেখক, বিবরণ, তারকা এবং GitHub URL সহ দক্ষতার একটি তালিকা ফেরত দেয়।",
@@ -81,12 +73,9 @@
     "param.sort_by.description": "সাজানোর ক্রম: 'recent' (নতুন প্রথম), 'stars' (সবচেয়ে বেশি তারকা), 'name' (বর্ণানুক্রমিক)। ডিফল্ট: 'recent'।",
     "param.source.description": "মার্কেটপ্লেস উৎস: 'skillsmp' (skillsmp.com) বা 'clawhub' (clawhub.ai)। ডিফল্ট: 'skillsmp'।",
     "msg.no_results": "কোন দক্ষতা পাওয়া যায়নি।",
-    "msg.header": "SkillsMP মার্কেটপ্লেস — পৃষ্ঠা {page}/{total}",
-    "msg.header_clawhub": "ClawHub মার্কেটপ্লেস — পৃষ্ঠা {page}/{total}",
     "msg.next_page_hint": "আরও ফলাফল দেখতে page={next} ব্যবহার করুন।",
     "msg.install_hint": "একটি দক্ষতা ইনস্টল করুন: skills_install source=<githubUrl>",
     "msg.install_hint_clawhub": "একটি দক্ষতা ইনস্টল করুন: skills_install source=<url>",
-    "prefix.error": "[ত্রুটি]",
     "x_search_terms": [
       "skills_mp_search",
       "skillsmp",
@@ -95,8 +84,7 @@
       "দক্ষতা ব্রাউজ",
       "দক্ষতা খুঁজুন",
       "দক্ষতা ডিরেক্টরি"
-    ],
-    "help_text.mp_search": "   :skills mp_search [ক্যোয়ারী] [--page N] [--limit N] [--sort recent|stars|name] [--source skillsmp|clawhub]\n    Agent Skills-এর জন্য SkillsMP (skillsmp.com) বা ClawHub (clawhub.ai) মার্কেটপ্লেস অনুসন্ধান এবং ব্রাউজ করুন।"
+    ]
   },
   "cs": {
     "tool.description": "Vyhledávejte a procházejte tržiště SkillsMP (skillsmp.com) pro Agent Skills. Vrací seznam dovedností s názvem, autorem, popisem, hvězdičkami a URL GitHubu.",
@@ -106,12 +94,9 @@
     "param.sort_by.description": "Pořadí řazení: 'recent' (nejnovější první), 'stars' (nejvíce hvězdiček), 'name' (abecedně). Výchozí: 'recent'.",
     "param.source.description": "Zdroj tržiště: 'skillsmp' (skillsmp.com) nebo 'clawhub' (clawhub.ai). Výchozí: 'skillsmp'.",
     "msg.no_results": "Nebyly nalezeny žádné dovednosti.",
-    "msg.header": "SkillsMP Marketplace — Stránka {page}/{total}",
-    "msg.header_clawhub": "ClawHub Marketplace — Stránka {page}/{total}",
     "msg.next_page_hint": "Použijte page={next} pro zobrazení dalších výsledků.",
     "msg.install_hint": "Nainstalujte dovednost pomocí: skills_install source=<githubUrl>",
     "msg.install_hint_clawhub": "Nainstalujte dovednost pomocí: skills_install source=<url>",
-    "prefix.error": "[chyba]",
     "x_search_terms": [
       "skills_mp_search",
       "skillsmp",
@@ -120,8 +105,7 @@
       "procházet dovednost",
       "najít dovednost",
       "adresář dovedností"
-    ],
-    "help_text.mp_search": "   :skills mp_search [dotaz] [--page N] [--limit N] [--sort recent|stars|name] [--source skillsmp|clawhub]\n    Prohledávejte a procházejte tržiště SkillsMP (skillsmp.com) nebo ClawHub (clawhub.ai) pro Agent Skills."
+    ]
   },
   "de": {
     "tool.description": "Durchsuchen und stöbern Sie im SkillsMP-Marktplatz (skillsmp.com) nach Agent Skills. Gibt eine Liste von Skills mit Name, Autor, Beschreibung, Sternen und GitHub-URL zurück.",
@@ -131,12 +115,9 @@
     "param.sort_by.description": "Sortierreihenfolge: 'recent' (neueste zuerst), 'stars' (meiste Sterne), 'name' (alphabetisch). Standard: 'recent'.",
     "param.source.description": "Marktplatzquelle: 'skillsmp' (skillsmp.com) oder 'clawhub' (clawhub.ai). Standard: 'skillsmp'.",
     "msg.no_results": "Keine Skills gefunden.",
-    "msg.header": "SkillsMP Marketplace — Seite {page}/{total}",
-    "msg.header_clawhub": "ClawHub Marketplace — Seite {page}/{total}",
     "msg.next_page_hint": "Verwenden Sie page={next}, um weitere Ergebnisse zu sehen.",
     "msg.install_hint": "Installieren Sie einen Skill mit: skills_install source=<githubUrl>",
     "msg.install_hint_clawhub": "Installieren Sie einen Skill mit: skills_install source=<url>",
-    "prefix.error": "[Fehler]",
     "x_search_terms": [
       "skills_mp_search",
       "skillsmp",
@@ -145,8 +126,7 @@
       "Skill durchsuchen",
       "Skill finden",
       "Skill-Verzeichnis"
-    ],
-    "help_text.mp_search": "   :skills mp_search [Abfrage] [--page N] [--limit N] [--sort recent|stars|name] [--source skillsmp|clawhub]\n    Durchsuchen und stöbern Sie im SkillsMP (skillsmp.com) oder ClawHub (clawhub.ai) Marktplatz nach Agent Skills."
+    ]
   },
   "es": {
     "tool.description": "Busca y navega por el mercado de SkillsMP (skillsmp.com) para obtener Agent Skills. Devuelve una lista de habilidades con nombre, autor, descripción, estrellas y URL de GitHub.",
@@ -156,12 +136,9 @@
     "param.sort_by.description": "Orden de clasificación: 'recent' (más reciente primero), 'stars' (más estrellas), 'name' (alfabético). Por defecto: 'recent'.",
     "param.source.description": "Fuente del mercado: 'skillsmp' (skillsmp.com) o 'clawhub' (clawhub.ai). Por defecto: 'skillsmp'.",
     "msg.no_results": "No se encontraron habilidades.",
-    "msg.header": "SkillsMP Marketplace — Página {page}/{total}",
-    "msg.header_clawhub": "ClawHub Marketplace — Página {page}/{total}",
     "msg.next_page_hint": "Usa page={next} para ver más resultados.",
     "msg.install_hint": "Instala una habilidad con: skills_install source=<githubUrl>",
     "msg.install_hint_clawhub": "Instala una habilidad con: skills_install source=<url>",
-    "prefix.error": "[error]",
     "x_search_terms": [
       "skills_mp_search",
       "skillsmp",
@@ -170,8 +147,7 @@
       "navegar habilidad",
       "encontrar habilidad",
       "directorio de habilidades"
-    ],
-    "help_text.mp_search": "   :skills mp_search [consulta] [--page N] [--limit N] [--sort recent|stars|name] [--source skillsmp|clawhub]\n    Busca y navega por el mercado de SkillsMP (skillsmp.com) o ClawHub (clawhub.ai) para Agent Skills."
+    ]
   },
   "fa": {
     "tool.description": "جستجو و مرور بازار SkillsMP (skillsmp.com) برای Agent Skills. لیستی از مهارت‌ها با نام، نویسنده، توضیحات، ستاره‌ها و URL گیت‌هاب را برمی‌گرداند.",
@@ -181,12 +157,9 @@
     "param.sort_by.description": "ترتیب مرتب‌سازی: 'recent' (جدیدترین اول)، 'stars' (بیشترین ستاره)، 'name' (الفبایی). پیش‌فرض: 'recent'.",
     "param.source.description": "منبع بازار: 'skillsmp' (skillsmp.com) یا 'clawhub' (clawhub.ai). پیش‌فرض: 'skillsmp'.",
     "msg.no_results": "هیچ مهارتی یافت نشد.",
-    "msg.header": "بازار SkillsMP — صفحه {page}/{total}",
-    "msg.header_clawhub": "بازار ClawHub — صفحه {page}/{total}",
     "msg.next_page_hint": "برای دیدن نتایج بیشتر از page={next} استفاده کنید.",
     "msg.install_hint": "نصب یک مهارت با: skills_install source=<githubUrl>",
     "msg.install_hint_clawhub": "نصب یک مهارت با: skills_install source=<url>",
-    "prefix.error": "[خطا]",
     "x_search_terms": [
       "skills_mp_search",
       "skillsmp",
@@ -195,8 +168,7 @@
       "مرور مهارت",
       "یافتن مهارت",
       "راهنمای مهارت‌ها"
-    ],
-    "help_text.mp_search": "   :skills mp_search [عبارت] [--page N] [--limit N] [--sort recent|stars|name] [--source skillsmp|clawhub]\n    جستجو و مرور بازار SkillsMP (skillsmp.com) یا ClawHub (clawhub.ai) برای Agent Skills."
+    ]
   },
   "fi": {
     "tool.description": "Hae ja selaa SkillsMP-markkinapaikkaa (skillsmp.com) Agent Skills -taitojen löytämiseksi. Palauttaa listan taidoista, joilla on nimi, tekijä, kuvaus, tähdet ja GitHub-URL.",
@@ -206,12 +178,9 @@
     "param.sort_by.description": "Lajittelujärjestys: 'recent' (uusin ensin), 'stars' (eniten tähtiä), 'name' (aakkosjärjestys). Oletus: 'recent'.",
     "param.source.description": "Markkinapaikan lähde: 'skillsmp' (skillsmp.com) tai 'clawhub' (clawhub.ai). Oletus: 'skillsmp'.",
     "msg.no_results": "Taitoja ei löytynyt.",
-    "msg.header": "SkillsMP Marketplace — Sivu {page}/{total}",
-    "msg.header_clawhub": "ClawHub Marketplace — Sivu {page}/{total}",
     "msg.next_page_hint": "Käytä page={next} nähdäksesi lisää tuloksia.",
     "msg.install_hint": "Asenna taito komennolla: skills_install source=<githubUrl>",
     "msg.install_hint_clawhub": "Asenna taito komennolla: skills_install source=<url>",
-    "prefix.error": "[virhe]",
     "x_search_terms": [
       "skills_mp_search",
       "skillsmp",
@@ -220,8 +189,7 @@
       "selaa taitoa",
       "löydä taito",
       "taitohakemisto"
-    ],
-    "help_text.mp_search": "   :skills mp_search [kysely] [--page N] [--limit N] [--sort recent|stars|name] [--source skillsmp|clawhub]\n    Hae ja selaa SkillsMP (skillsmp.com) tai ClawHub (clawhub.ai) -markkinapaikkaa Agent Skills -taitojen löytämiseksi."
+    ]
   },
   "fr": {
     "tool.description": "Recherchez et parcourez le marketplace SkillsMP (skillsmp.com) pour les Agent Skills. Retourne une liste de compétences avec nom, auteur, description, étoiles et URL GitHub.",
@@ -231,12 +199,9 @@
     "param.sort_by.description": "Ordre de tri : 'recent' (plus récent d'abord), 'stars' (le plus d'étoiles), 'name' (alphabétique). Par défaut : 'recent'.",
     "param.source.description": "Source du marketplace : 'skillsmp' (skillsmp.com) ou 'clawhub' (clawhub.ai). Par défaut : 'skillsmp'.",
     "msg.no_results": "Aucune compétence trouvée.",
-    "msg.header": "SkillsMP Marketplace — Page {page}/{total}",
-    "msg.header_clawhub": "ClawHub Marketplace — Page {page}/{total}",
     "msg.next_page_hint": "Utilisez page={next} pour voir plus de résultats.",
     "msg.install_hint": "Installez une compétence avec : skills_install source=<githubUrl>",
     "msg.install_hint_clawhub": "Installez une compétence avec : skills_install source=<url>",
-    "prefix.error": "[erreur]",
     "x_search_terms": [
       "skills_mp_search",
       "skillsmp",
@@ -245,8 +210,7 @@
       "parcourir compétence",
       "trouver compétence",
       "répertoire de compétences"
-    ],
-    "help_text.mp_search": "   :skills mp_search [requête] [--page N] [--limit N] [--sort recent|stars|name] [--source skillsmp|clawhub]\n    Recherchez et parcourez le marketplace SkillsMP (skillsmp.com) ou ClawHub (clawhub.ai) pour les Agent Skills."
+    ]
   },
   "hi": {
     "tool.description": "Agent Skills के लिए SkillsMP मार्केटप्लेस (skillsmp.com) खोजें और ब्राउज़ करें। नाम, लेखक, विवरण, स्टार और GitHub URL के साथ कौशलों की सूची लौटाता है।",
@@ -256,12 +220,9 @@
     "param.sort_by.description": "क्रमबद्ध क्रम: 'recent' (नवीनतम पहले), 'stars' (सबसे अधिक स्टार), 'name' (वर्णमाला क्रम)। डिफ़ॉल्ट: 'recent'।",
     "param.source.description": "मार्केटप्लेस स्रोत: 'skillsmp' (skillsmp.com) या 'clawhub' (clawhub.ai)। डिफ़ॉल्ट: 'skillsmp'।",
     "msg.no_results": "कोई कौशल नहीं मिला।",
-    "msg.header": "SkillsMP मार्केटप्लेस — पृष्ठ {page}/{total}",
-    "msg.header_clawhub": "ClawHub मार्केटप्लेस — पृष्ठ {page}/{total}",
     "msg.next_page_hint": "अधिक परिणाम देखने के लिए page={next} का उपयोग करें।",
     "msg.install_hint": "एक कौशल स्थापित करें: skills_install source=<githubUrl>",
     "msg.install_hint_clawhub": "एक कौशल स्थापित करें: skills_install source=<url>",
-    "prefix.error": "[त्रुटि]",
     "x_search_terms": [
       "skills_mp_search",
       "skillsmp",
@@ -270,8 +231,7 @@
       "कौशल ब्राउज़ करें",
       "कौशल ढूँढें",
       "कौशल निर्देशिका"
-    ],
-    "help_text.mp_search": "   :skills mp_search [क्वेरी] [--page N] [--limit N] [--sort recent|stars|name] [--source skillsmp|clawhub]\n    Agent Skills के लिए SkillsMP (skillsmp.com) या ClawHub (clawhub.ai) मार्केटप्लेस खोजें और ब्राउज़ करें।"
+    ]
   },
   "id": {
     "tool.description": "Cari dan jelajahi marketplace SkillsMP (skillsmp.com) untuk Agent Skills. Mengembalikan daftar skill dengan nama, penulis, deskripsi, bintang, dan URL GitHub.",
@@ -281,12 +241,9 @@
     "param.sort_by.description": "Urutan pengurutan: 'recent' (terbaru duluan), 'stars' (bintang terbanyak), 'name' (abjad). Default: 'recent'.",
     "param.source.description": "Sumber marketplace: 'skillsmp' (skillsmp.com) atau 'clawhub' (clawhub.ai). Default: 'skillsmp'.",
     "msg.no_results": "Tidak ada skill ditemukan.",
-    "msg.header": "SkillsMP Marketplace — Halaman {page}/{total}",
-    "msg.header_clawhub": "ClawHub Marketplace — Halaman {page}/{total}",
     "msg.next_page_hint": "Gunakan page={next} untuk melihat hasil lainnya.",
     "msg.install_hint": "Instal skill dengan: skills_install source=<githubUrl>",
     "msg.install_hint_clawhub": "Instal skill dengan: skills_install source=<url>",
-    "prefix.error": "[kesalahan]",
     "x_search_terms": [
       "skills_mp_search",
       "skillsmp",
@@ -295,8 +252,7 @@
       "jelajahi skill",
       "temukan skill",
       "direktori skill"
-    ],
-    "help_text.mp_search": "   :skills mp_search [kueri] [--page N] [--limit N] [--sort recent|stars|name] [--source skillsmp|clawhub]\n    Cari dan jelajahi marketplace SkillsMP (skillsmp.com) atau ClawHub (clawhub.ai) untuk Agent Skills."
+    ]
   },
   "it": {
     "tool.description": "Cerca e sfoglia il marketplace SkillsMP (skillsmp.com) per Agent Skills. Restituisce un elenco di competenze con nome, autore, descrizione, stelle e URL GitHub.",
@@ -306,12 +262,9 @@
     "param.sort_by.description": "Ordine di ordinamento: 'recent' (più recenti prima), 'stars' (più stellate), 'name' (alfabetico). Default: 'recent'.",
     "param.source.description": "Fonte del marketplace: 'skillsmp' (skillsmp.com) o 'clawhub' (clawhub.ai). Default: 'skillsmp'.",
     "msg.no_results": "Nessuna competenza trovata.",
-    "msg.header": "SkillsMP Marketplace — Pagina {page}/{total}",
-    "msg.header_clawhub": "ClawHub Marketplace — Pagina {page}/{total}",
     "msg.next_page_hint": "Usa page={next} per vedere più risultati.",
     "msg.install_hint": "Installa una competenza con: skills_install source=<githubUrl>",
     "msg.install_hint_clawhub": "Installa una competenza con: skills_install source=<url>",
-    "prefix.error": "[errore]",
     "x_search_terms": [
       "skills_mp_search",
       "skillsmp",
@@ -320,8 +273,7 @@
       "sfoglia competenza",
       "trova competenza",
       "directory competenze"
-    ],
-    "help_text.mp_search": "   :skills mp_search [query] [--page N] [--limit N] [--sort recent|stars|name] [--source skillsmp|clawhub]\n    Cerca e sfoglia il marketplace SkillsMP (skillsmp.com) o ClawHub (clawhub.ai) per Agent Skills."
+    ]
   },
   "ko": {
     "tool.description": "SkillsMP 마켓플레이스(skillsmp.com)에서 Agent Skills를 검색하고 탐색합니다. 이름, 작성자, 설명, 별점, GitHub URL이 포함된 스킬 목록을 반환합니다.",
@@ -331,12 +283,9 @@
     "param.sort_by.description": "정렬 순서: 'recent' (최신순), 'stars' (별점순), 'name' (알파벳순). 기본값: 'recent'.",
     "param.source.description": "마켓플레이스 출처: 'skillsmp' (skillsmp.com) 또는 'clawhub' (clawhub.ai). 기본값: 'skillsmp'.",
     "msg.no_results": "스킬을 찾을 수 없습니다.",
-    "msg.header": "SkillsMP 마켓플레이스 — {page}/{total} 페이지",
-    "msg.header_clawhub": "ClawHub 마켓플레이스 — {page}/{total} 페이지",
     "msg.next_page_hint": "더 많은 결과를 보려면 page={next}를 사용하세요.",
     "msg.install_hint": "스킬 설치: skills_install source=<githubUrl>",
     "msg.install_hint_clawhub": "스킬 설치: skills_install source=<url>",
-    "prefix.error": "[오류]",
     "x_search_terms": [
       "skills_mp_search",
       "skillsmp",
@@ -345,8 +294,7 @@
       "스킬 탐색",
       "스킬 찾기",
       "스킬 디렉토리"
-    ],
-    "help_text.mp_search": "   :skills mp_search [검색어] [--page N] [--limit N] [--sort recent|stars|name] [--source skillsmp|clawhub]\n    SkillsMP (skillsmp.com) 또는 ClawHub (clawhub.ai) 마켓플레이스에서 Agent Skills를 검색하고 탐색합니다."
+    ]
   },
   "mn": {
     "tool.description": "SkillsMP зах зээлээс (skillsmp.com) Agent Skills хайх, үзэх. Нэр, зохиогч, тодорхойлолт, од, GitHub URL-тай ур чадваруудын жагсаалтыг буцаана.",
@@ -356,12 +304,9 @@
     "param.sort_by.description": "Эрэмбэлэх дараалал: 'recent' (хамгийн шинэ эхлээд), 'stars' (хамгийн их одтой), 'name' (цагаан толгойн дарааллаар). Анхдагч: 'recent'.",
     "param.source.description": "Зах зээлийн эх сурвалж: 'skillsmp' (skillsmp.com) эсвэл 'clawhub' (clawhub.ai). Анхдагч: 'skillsmp'.",
     "msg.no_results": "Ур чадвар олдсонгүй.",
-    "msg.header": "SkillsMP Зах зээл — Хуудас {page}/{total}",
-    "msg.header_clawhub": "ClawHub Зах зээл — Хуудас {page}/{total}",
     "msg.next_page_hint": "Илүү их үр дүн харахын тулд page={next}-г ашиглана уу.",
     "msg.install_hint": "Ур чадварыг суулгах: skills_install source=<githubUrl>",
     "msg.install_hint_clawhub": "Ур чадварыг суулгах: skills_install source=<url>",
-    "prefix.error": "[алдаа]",
     "x_search_terms": [
       "skills_mp_search",
       "skillsmp",
@@ -370,8 +315,7 @@
       "ур чадвар үзэх",
       "ур чадвар олох",
       "ур чадварын лавлах"
-    ],
-    "help_text.mp_search": "   :skills mp_search [асуулга] [--page N] [--limit N] [--sort recent|stars|name] [--source skillsmp|clawhub]\n    SkillsMP (skillsmp.com) эсвэл ClawHub (clawhub.ai) зах зээлээс Agent Skills хайх, үзэх."
+    ]
   },
   "mr": {
     "tool.description": "SkillsMP मार्केटप्लेस (skillsmp.com) वर Agent Skills शोधा आणि ब्राउझ करा. नाव, लेखक, वर्णन, तारे आणि GitHub URL सह कौशल्यांची यादी परत करते.",
@@ -381,12 +325,9 @@
     "param.sort_by.description": "क्रमवारी क्रम: 'recent' (नवीन प्रथम), 'stars' (सर्वात जास्त तारे), 'name' (वर्णमाला). डीफॉल्ट: 'recent'.",
     "param.source.description": "मार्केटप्लेस स्रोत: 'skillsmp' (skillsmp.com) किंवा 'clawhub' (clawhub.ai). डीफॉल्ट: 'skillsmp'.",
     "msg.no_results": "कोणतेही कौशल्य सापडले नाही.",
-    "msg.header": "SkillsMP मार्केटप्लेस — पृष्ठ {page}/{total}",
-    "msg.header_clawhub": "ClawHub मार्केटप्लेस — पृष्ठ {page}/{total}",
     "msg.next_page_hint": "अधिक निकाल पाहण्यासाठी page={next} वापरा.",
     "msg.install_hint": "कौशल्य स्थापित करा: skills_install source=<githubUrl>",
     "msg.install_hint_clawhub": "कौशल्य स्थापित करा: skills_install source=<url>",
-    "prefix.error": "[त्रुटी]",
     "x_search_terms": [
       "skills_mp_search",
       "skillsmp",
@@ -395,8 +336,7 @@
       "कौशल्य ब्राउझ करा",
       "कौशल्य शोधा",
       "कौशल्य निर्देशिका"
-    ],
-    "help_text.mp_search": "   :skills mp_search [क्वेरी] [--page N] [--limit N] [--sort recent|stars|name] [--source skillsmp|clawhub]\n    Agent Skills साठी SkillsMP (skillsmp.com) किंवा ClawHub (clawhub.ai) मार्केटप्लेस शोधा आणि ब्राउझ करा."
+    ]
   },
   "el": {
     "tool.description": "Αναζητήστε και περιηγηθείτε στην αγορά SkillsMP (skillsmp.com) για Agent Skills. Επιστρέφει μια λίστα δεξιοτήτων με όνομα, συγγραφέα, περιγραφή, αστέρια και διεύθυνση URL του GitHub.",
@@ -415,12 +355,8 @@
     "param.sort_by.description": "Σειρά ταξινόμησης: \"πρόσφατα\" (πρώτα τα νεότερα), \"αστέρια\" (με τα περισσότερα αστέρια), \"όνομα\" (αλφαβητικά). Προεπιλογή: \"πρόσφατα\".",
     "param.source.description": "Πηγή αγοράς: 'skillsmp' (skillsmp.com) ή 'clawhub' (clawhub.ai). Προεπιλογή: 'skillsmp'.",
     "msg.no_results": "Δεν βρέθηκαν δεξιότητες.",
-    "msg.header": "SkillsMP Marketplace — Σελίδα {page}/{total}",
-    "msg.header_clawhub": "ClawHub Marketplace — Σελίδα {page}/{total}",
     "msg.next_page_hint": "Χρησιμοποιήστε τη σελίδα={next} για να δείτε περισσότερα αποτελέσματα.",
     "msg.install_hint": "Εγκαταστήστε μια δεξιότητα με: skills_install source=<githubUrl>",
-    "help_text.mp_search": ":skills mp_search [ερώτημα] [--σελίδα N] [--όριο N] [--ταξινόμηση πρόσφατων|αστέρων|όνομα] [--source skillsmp|clawhub]\n    Αναζητήστε και περιηγηθείτε στην αγορά SkillsMP (skillsmp.com) ή ClawHub (clawhub.ai) για Agent Skills.",
-    "prefix.error": "[σφάλμα]",
     "msg.install_hint_clawhub": "Εγκατάσταση δεξιότητας με: skills_install source=<url>"
   },
   "he": {
@@ -440,12 +376,8 @@
     "param.sort_by.description": "סדר מיון: 'אחרונים' (החדש ביותר ראשון), 'כוכבים' (הכי כוכבים), 'שם' (אלפביתי). ברירת מחדל: 'אחרונים'.",
     "param.source.description": "מקור השוק: 'skillsmp' (skillsmp.com) או 'clawhub' (clawhub.ai). ברירת מחדל: 'skillsmp'.",
     "msg.no_results": "לא נמצאו כישורים.",
-    "msg.header": "SkillsMP Marketplace - עמוד {page}/{total}",
-    "msg.header_clawhub": "ClawHub Marketplace - עמוד {page}/{total}",
     "msg.next_page_hint": "השתמש ב-page={next} כדי לראות תוצאות נוספות.",
     "msg.install_hint": "התקן מיומנות עם: skills_install source=<githubUrl>",
-    "help_text.mp_search": ":skills mp_search [שאילתה] [--page N] [--limit N] [--מיין אחרונים|כוכבים|שם] [--source skillsmp|clawhub]\n    חפש וגלוש בשוק SkillsMP (skillsmp.com) או ClawHub (clawhub.ai) עבור Agent Skills.",
-    "prefix.error": "[שגיאה]",
     "msg.install_hint_clawhub": "התקן מיומנות עם: skills_install source=<url>"
   },
   "hu": {
@@ -465,12 +397,8 @@
     "param.sort_by.description": "Rendezési sorrend: „legutóbbi” (a legújabbak előtt), „csillagok” (legcsillagozottabb), „név” (ábécé). Alapértelmezés: 'legutóbbi'.",
     "param.source.description": "A piactér forrása: „skillsmp” (skillsmp.com) vagy „clawhub” (clawhub.ai). Alapértelmezés: 'skillsmp'.",
     "msg.no_results": "Nem találhatók készségek.",
-    "msg.header": "SkillsMP Marketplace – {page}/{total}. oldal",
-    "msg.header_clawhub": "ClawHub piactér – {oldal}/{összesen}",
     "msg.next_page_hint": "További találatok megtekintéséhez használja a page={next} parancsot.",
     "msg.install_hint": "Telepítsen egy készséget a következővel: skill_install source=<githubUrl>",
-    "help_text.mp_search": ":skills mp_search [lekérdezés] [--N oldal] [--limit N] [--rendező legutóbbi|csillagok|név] [--forrás skillmp|clawhub]\n    Keressen és böngésszen a SkillsMP (skillsmp.com) vagy a ClawHub (clawhub.ai) piactéren az Agent Skillsért.",
-    "prefix.error": "[hiba]",
     "msg.install_hint_clawhub": "Telepítsen egy készséget a következővel: skillek_telepítési forrása=<url>"
   },
   "ro": {
@@ -490,12 +418,8 @@
     "param.sort_by.description": "Ordinea de sortare: „recent” (cel mai nou primul), „stele” (cele mai marcate cu stea), „nume” (alfabetic). Implicit: „recent”.",
     "param.source.description": "Sursa pieței: „skillsmp” (skillsmp.com) sau „clawhub” (clawhub.ai). Implicit: „skillsmp”.",
     "msg.no_results": "Nu s-au găsit abilități.",
-    "msg.header": "SkillsMP Marketplace — Pagina {page}/{total}",
-    "msg.header_clawhub": "ClawHub Marketplace — Pagina {page}/{total}",
     "msg.next_page_hint": "Utilizați page={next} pentru a vedea mai multe rezultate.",
     "msg.install_hint": "Instalați o abilitate cu: skills_install source=<githubUrl>",
-    "help_text.mp_search": ":skills mp_search [interogare] [--pagina N] [--limita N] [--sort recent|stele|nume] [--source skillsmp|clawhub]\n    Căutați și răsfoiți piața SkillsMP (skillsmp.com) sau ClawHub (clawhub.ai) pentru abilități de agent.",
-    "prefix.error": "[eroare]",
     "msg.install_hint_clawhub": "Instalați o abilitate cu: skills_install source=<url>"
   },
   "nb": {
@@ -506,12 +430,9 @@
     "param.sort_by.description": "Sorteringsrekkefølge: 'recent' (nyeste først), 'stars' (flest stjerner), 'name' (alfabetisk). Standard: 'recent'.",
     "param.source.description": "Markedsplasskilde: 'skillsmp' (skillsmp.com) eller 'clawhub' (clawhub.ai). Standard: 'skillsmp'.",
     "msg.no_results": "Ingen ferdigheter funnet.",
-    "msg.header": "SkillsMP Marketplace — Side {page}/{total}",
-    "msg.header_clawhub": "ClawHub Marketplace — Side {page}/{total}",
     "msg.next_page_hint": "Bruk page={next} for å se flere resultater.",
     "msg.install_hint": "Installer en ferdighet med: skills_install source=<githubUrl>",
     "msg.install_hint_clawhub": "Installer en ferdighet med: skills_install source=<url>",
-    "prefix.error": "[feil]",
     "x_search_terms": [
       "skills_mp_search",
       "skillsmp",
@@ -520,8 +441,7 @@
       "bla ferdighet",
       "finn ferdighet",
       "ferdighetskatalog"
-    ],
-    "help_text.mp_search": "   :skills mp_search [spørring] [--page N] [--limit N] [--sort recent|stars|name] [--source skillsmp|clawhub]\n    Søk og bla gjennom SkillsMP (skillsmp.com) eller ClawHub (clawhub.ai) markedsplassen for Agent Skills."
+    ]
   },
   "nl": {
     "tool.description": "Zoek en blader door de SkillsMP-marktplaats (skillsmp.com) voor Agent Skills. Geeft een lijst met vaardigheden met naam, auteur, beschrijving, sterren en GitHub-URL.",
@@ -531,12 +451,9 @@
     "param.sort_by.description": "Sorteervolgorde: 'recent' (nieuwste eerst), 'stars' (meeste sterren), 'name' (alfabetisch). Standaard: 'recent'.",
     "param.source.description": "Marktplaatsbron: 'skillsmp' (skillsmp.com) of 'clawhub' (clawhub.ai). Standaard: 'skillsmp'.",
     "msg.no_results": "Geen vaardigheden gevonden.",
-    "msg.header": "SkillsMP Marketplace — Pagina {page}/{total}",
-    "msg.header_clawhub": "ClawHub Marketplace — Pagina {page}/{total}",
     "msg.next_page_hint": "Gebruik page={next} om meer resultaten te zien.",
     "msg.install_hint": "Installeer een vaardigheid met: skills_install source=<githubUrl>",
     "msg.install_hint_clawhub": "Installeer een vaardigheid met: skills_install source=<url>",
-    "prefix.error": "[fout]",
     "x_search_terms": [
       "skills_mp_search",
       "skillsmp",
@@ -545,8 +462,7 @@
       "vaardigheid bladeren",
       "vaardigheid vinden",
       "vaardighedengids"
-    ],
-    "help_text.mp_search": "   :skills mp_search [zoekopdracht] [--page N] [--limit N] [--sort recent|stars|name] [--source skillsmp|clawhub]\n    Zoek en blader door de SkillsMP (skillsmp.com) of ClawHub (clawhub.ai) marktplaats voor Agent Skills."
+    ]
   },
   "pl": {
     "tool.description": "Wyszukuj i przeglądaj marketplace SkillsMP (skillsmp.com) dla Agent Skills. Zwraca listę umiejętności z nazwą, autorem, opisem, gwiazdkami i adresem URL GitHub.",
@@ -556,12 +472,9 @@
     "param.sort_by.description": "Kolejność sortowania: 'recent' (najnowsze pierwsze), 'stars' (najwięcej gwiazdek), 'name' (alfabetycznie). Domyślnie: 'recent'.",
     "param.source.description": "Źródło marketplace: 'skillsmp' (skillsmp.com) lub 'clawhub' (clawhub.ai). Domyślnie: 'skillsmp'.",
     "msg.no_results": "Nie znaleziono umiejętności.",
-    "msg.header": "SkillsMP Marketplace — Strona {page}/{total}",
-    "msg.header_clawhub": "ClawHub Marketplace — Strona {page}/{total}",
     "msg.next_page_hint": "Użyj page={next}, aby zobaczyć więcej wyników.",
     "msg.install_hint": "Zainstaluj umiejętność za pomocą: skills_install source=<githubUrl>",
     "msg.install_hint_clawhub": "Zainstaluj umiejętność za pomocą: skills_install source=<url>",
-    "prefix.error": "[błąd]",
     "x_search_terms": [
       "skills_mp_search",
       "skillsmp",
@@ -570,8 +483,7 @@
       "przeglądaj umiejętności",
       "znajdź umiejętność",
       "katalog umiejętności"
-    ],
-    "help_text.mp_search": "   :skills mp_search [zapytanie] [--page N] [--limit N] [--sort recent|stars|name] [--source skillsmp|clawhub]\n    Wyszukuj i przeglądaj marketplace SkillsMP (skillsmp.com) lub ClawHub (clawhub.ai) dla Agent Skills."
+    ]
   },
   "pt": {
     "tool.description": "Pesquise e navegue no marketplace SkillsMP (skillsmp.com) para Agent Skills. Retorna uma lista de habilidades com nome, autor, descrição, estrelas e URL do GitHub.",
@@ -581,12 +493,9 @@
     "param.sort_by.description": "Ordem de classificação: 'recent' (mais recente primeiro), 'stars' (mais estreladas), 'name' (alfabética). Padrão: 'recent'.",
     "param.source.description": "Fonte do marketplace: 'skillsmp' (skillsmp.com) ou 'clawhub' (clawhub.ai). Padrão: 'skillsmp'.",
     "msg.no_results": "Nenhuma habilidade encontrada.",
-    "msg.header": "SkillsMP Marketplace — Página {page}/{total}",
-    "msg.header_clawhub": "ClawHub Marketplace — Página {page}/{total}",
     "msg.next_page_hint": "Use page={next} para ver mais resultados.",
     "msg.install_hint": "Instale uma habilidade com: skills_install source=<githubUrl>",
     "msg.install_hint_clawhub": "Instale uma habilidade com: skills_install source=<url>",
-    "prefix.error": "[erro]",
     "x_search_terms": [
       "skills_mp_search",
       "skillsmp",
@@ -595,8 +504,7 @@
       "navegar habilidade",
       "encontrar habilidade",
       "diretório de habilidades"
-    ],
-    "help_text.mp_search": "   :skills mp_search [consulta] [--page N] [--limit N] [--sort recent|stars|name] [--source skillsmp|clawhub]\n    Pesquise e navegue no marketplace SkillsMP (skillsmp.com) ou ClawHub (clawhub.ai) para Agent Skills."
+    ]
   },
   "pt_BR": {
     "tool.description": "Pesquise e navegue no marketplace SkillsMP (skillsmp.com) para Agent Skills. Retorna uma lista de habilidades com nome, autor, descrição, estrelas e URL do GitHub.",
@@ -606,12 +514,9 @@
     "param.sort_by.description": "Ordem de classificação: 'recent' (mais recente primeiro), 'stars' (mais estreladas), 'name' (alfabética). Padrão: 'recent'.",
     "param.source.description": "Fonte do marketplace: 'skillsmp' (skillsmp.com) ou 'clawhub' (clawhub.ai). Padrão: 'skillsmp'.",
     "msg.no_results": "Nenhuma habilidade encontrada.",
-    "msg.header": "SkillsMP Marketplace — Página {page}/{total}",
-    "msg.header_clawhub": "ClawHub Marketplace — Página {page}/{total}",
     "msg.next_page_hint": "Use page={next} para ver mais resultados.",
     "msg.install_hint": "Instale uma habilidade com: skills_install source=<githubUrl>",
     "msg.install_hint_clawhub": "Instale uma habilidade com: skills_install source=<url>",
-    "prefix.error": "[erro]",
     "x_search_terms": [
       "skills_mp_search",
       "skillsmp",
@@ -620,8 +525,7 @@
       "navegar habilidade",
       "encontrar habilidade",
       "diretório de habilidades"
-    ],
-    "help_text.mp_search": "   :skills mp_search [consulta] [--page N] [--limit N] [--sort recent|stars|name] [--source skillsmp|clawhub]\n    Pesquise e navegue no marketplace SkillsMP (skillsmp.com) ou ClawHub (clawhub.ai) para Agent Skills."
+    ]
   },
   "ru": {
     "tool.description": "Ищите и просматривайте торговую площадку SkillsMP (skillsmp.com) для Agent Skills. Возвращает список навыков с именем, автором, описанием, звездами и URL GitHub.",
@@ -631,12 +535,9 @@
     "param.sort_by.description": "Порядок сортировки: 'recent' (сначала новые), 'stars' (по звездам), 'name' (по алфавиту). По умолчанию: 'recent'.",
     "param.source.description": "Источник площадки: 'skillsmp' (skillsmp.com) или 'clawhub' (clawhub.ai). По умолчанию: 'skillsmp'.",
     "msg.no_results": "Навыки не найдены.",
-    "msg.header": "SkillsMP Marketplace — Страница {page}/{total}",
-    "msg.header_clawhub": "ClawHub Marketplace — Страница {page}/{total}",
     "msg.next_page_hint": "Используйте page={next}, чтобы увидеть больше результатов.",
     "msg.install_hint": "Установите навык с помощью: skills_install source=<githubUrl>",
     "msg.install_hint_clawhub": "Установите навык с помощью: skills_install source=<url>",
-    "prefix.error": "[ошибка]",
     "x_search_terms": [
       "skills_mp_search",
       "skillsmp",
@@ -645,8 +546,7 @@
       "просматривать навык",
       "найти навык",
       "каталог навыков"
-    ],
-    "help_text.mp_search": "   :skills mp_search [запрос] [--page N] [--limit N] [--sort recent|stars|name] [--source skillsmp|clawhub]\n    Ищите и просматривайте торговую площадку SkillsMP (skillsmp.com) или ClawHub (clawhub.ai) для Agent Skills."
+    ]
   },
   "sv": {
     "tool.description": "Sök och bläddra på SkillsMP-marknaden (skillsmp.com) för Agent Skills. Returnerar en lista med färdigheter med namn, författare, beskrivning, stjärnor och GitHub-URL.",
@@ -656,12 +556,9 @@
     "param.sort_by.description": "Sorteringsordning: 'recent' (nyast först), 'stars' (flest stjärnor), 'name' (alfabetisk). Standard: 'recent'.",
     "param.source.description": "Marknadsplatskälla: 'skillsmp' (skillsmp.com) eller 'clawhub' (clawhub.ai). Standard: 'skillsmp'.",
     "msg.no_results": "Inga färdigheter hittades.",
-    "msg.header": "SkillsMP Marketplace — Sida {page}/{total}",
-    "msg.header_clawhub": "ClawHub Marketplace — Sida {page}/{total}",
     "msg.next_page_hint": "Använd page={next} för att se fler resultat.",
     "msg.install_hint": "Installera en färdighet med: skills_install source=<githubUrl>",
     "msg.install_hint_clawhub": "Installera en färdighet med: skills_install source=<url>",
-    "prefix.error": "[fel]",
     "x_search_terms": [
       "skills_mp_search",
       "skillsmp",
@@ -670,8 +567,7 @@
       "bläddra färdighet",
       "hitta färdighet",
       "färdighetskatalog"
-    ],
-    "help_text.mp_search": "   :skills mp_search [fråga] [--page N] [--limit N] [--sort recent|stars|name] [--source skillsmp|clawhub]\n    Sök och bläddra på SkillsMP (skillsmp.com) eller ClawHub (clawhub.ai) marknaden för Agent Skills."
+    ]
   },
   "sw": {
     "tool.description": "Tafuta na vinjari soko la SkillsMP (skillsmp.com) kwa Agent Skills. Inarudisha orodha ya ujuzi kwa jina, mwandishi, maelezo, nyota, na URL ya GitHub.",
@@ -681,12 +577,9 @@
     "param.sort_by.description": "Mpangilio: 'recent' (mpya kwanza), 'stars' (nyota nyingi), 'name' (alfabeti). Chaguo-msingi: 'recent'.",
     "param.source.description": "Chanzo cha soko: 'skillsmp' (skillsmp.com) au 'clawhub' (clawhub.ai). Chaguo-msingi: 'skillsmp'.",
     "msg.no_results": "Hakuna ujuzi uliopatikana.",
-    "msg.header": "SkillsMP Soko — Ukurasa {page}/{total}",
-    "msg.header_clawhub": "ClawHub Soko — Ukurasa {page}/{total}",
     "msg.next_page_hint": "Tumia page={next} kuona matokeo zaidi.",
     "msg.install_hint": "Sakinisha ujuzi kwa: skills_install source=<githubUrl>",
     "msg.install_hint_clawhub": "Sakinisha ujuzi kwa: skills_install source=<url>",
-    "prefix.error": "[kosa]",
     "x_search_terms": [
       "skills_mp_search",
       "skillsmp",
@@ -695,8 +588,7 @@
       "vinjari ujuzi",
       "pata ujuzi",
       "saraka ya ujuzi"
-    ],
-    "help_text.mp_search": "   :skills mp_search [swala] [--page N] [--limit N] [--sort recent|stars|name] [--source skillsmp|clawhub]\n    Tafuta na vinjari soko la SkillsMP (skillsmp.com) au ClawHub (clawhub.ai) kwa Agent Skills."
+    ]
   },
   "th": {
     "tool.description": "ค้นหาและเรียกดูตลาด SkillsMP (skillsmp.com) สำหรับ Agent Skills ส่งกลับรายการทักษะที่มีชื่อ ผู้เขียน คำอธิบาย ดาว และ URL GitHub",
@@ -706,12 +598,9 @@
     "param.sort_by.description": "ลำดับการจัดเรียง: 'recent' (ใหม่ล่าสุดก่อน), 'stars' (ดาวมากที่สุด), 'name' (ตามตัวอักษร) ค่าเริ่มต้น: 'recent'",
     "param.source.description": "แหล่งที่มาของตลาด: 'skillsmp' (skillsmp.com) หรือ 'clawhub' (clawhub.ai) ค่าเริ่มต้น: 'skillsmp'",
     "msg.no_results": "ไม่พบทักษะ",
-    "msg.header": "ตลาด SkillsMP — หน้า {page}/{total}",
-    "msg.header_clawhub": "ตลาด ClawHub — หน้า {page}/{total}",
     "msg.next_page_hint": "ใช้ page={next} เพื่อดูผลลัพธ์เพิ่มเติม",
     "msg.install_hint": "ติดตั้งทักษะด้วย: skills_install source=<githubUrl>",
     "msg.install_hint_clawhub": "ติดตั้งทักษะด้วย: skills_install source=<url>",
-    "prefix.error": "[ข้อผิดพลาด]",
     "x_search_terms": [
       "skills_mp_search",
       "skillsmp",
@@ -720,8 +609,7 @@
       "เรียกดูทักษะ",
       "หาทักษะ",
       "สารบบทักษะ"
-    ],
-    "help_text.mp_search": "   :skills mp_search [ข้อความค้นหา] [--page N] [--limit N] [--sort recent|stars|name] [--source skillsmp|clawhub]\n    ค้นหาและเรียกดูตลาด SkillsMP (skillsmp.com) หรือ ClawHub (clawhub.ai) สำหรับ Agent Skills"
+    ]
   },
   "tr": {
     "tool.description": "Agent Skills için SkillsMP pazar yerinde (skillsmp.com) arama yapın ve göz atın. Ad, yazar, açıklama, yıldız ve GitHub URL'si ile becerilerin bir listesini döndürür.",
@@ -731,12 +619,9 @@
     "param.sort_by.description": "Sıralama düzeni: 'recent' (en yeni önce), 'stars' (en çok yıldız), 'name' (alfabetik). Varsayılan: 'recent'.",
     "param.source.description": "Pazar yeri kaynağı: 'skillsmp' (skillsmp.com) veya 'clawhub' (clawhub.ai). Varsayılan: 'skillsmp'.",
     "msg.no_results": "Beceri bulunamadı.",
-    "msg.header": "SkillsMP Pazar Yeri — Sayfa {page}/{total}",
-    "msg.header_clawhub": "ClawHub Pazar Yeri — Sayfa {page}/{total}",
     "msg.next_page_hint": "Daha fazla sonuç görmek için page={next} kullanın.",
     "msg.install_hint": "Bir beceri yükleyin: skills_install source=<githubUrl>",
     "msg.install_hint_clawhub": "Bir beceri yükleyin: skills_install source=<url>",
-    "prefix.error": "[hata]",
     "x_search_terms": [
       "skills_mp_search",
       "skillsmp",
@@ -745,8 +630,7 @@
       "beceri göz at",
       "beceri bul",
       "beceri dizini"
-    ],
-    "help_text.mp_search": "   :skills mp_search [sorgu] [--page N] [--limit N] [--sort recent|stars|name] [--source skillsmp|clawhub]\n    Agent Skills için SkillsMP (skillsmp.com) veya ClawHub (clawhub.ai) pazar yerinde arama yapın ve göz atın."
+    ]
   },
   "uk": {
     "tool.description": "Шукайте та переглядайте торговельний майданчик SkillsMP (skillsmp.com) для Agent Skills. Повертає список навичок з назвою, автором, описом, зірками та URL GitHub.",
@@ -756,12 +640,9 @@
     "param.sort_by.description": "Порядок сортування: 'recent' (спочатку нові), 'stars' (за зірками), 'name' (за алфавітом). За замовчуванням: 'recent'.",
     "param.source.description": "Джерело майданчика: 'skillsmp' (skillsmp.com) або 'clawhub' (clawhub.ai). За замовчуванням: 'skillsmp'.",
     "msg.no_results": "Навички не знайдено.",
-    "msg.header": "SkillsMP Marketplace — Сторінка {page}/{total}",
-    "msg.header_clawhub": "ClawHub Marketplace — Сторінка {page}/{total}",
     "msg.next_page_hint": "Використовуйте page={next}, щоб побачити більше результатів.",
     "msg.install_hint": "Встановіть навичку за допомогою: skills_install source=<githubUrl>",
     "msg.install_hint_clawhub": "Встановіть навичку за допомогою: skills_install source=<url>",
-    "prefix.error": "[помилка]",
     "x_search_terms": [
       "skills_mp_search",
       "skillsmp",
@@ -770,8 +651,7 @@
       "переглядати навичку",
       "знайти навичку",
       "каталог навичок"
-    ],
-    "help_text.mp_search": "   :skills mp_search [запит] [--page N] [--limit N] [--sort recent|stars|name] [--source skillsmp|clawhub]\n    Шукайте та переглядайте торговельний майданчик SkillsMP (skillsmp.com) або ClawHub (clawhub.ai) для Agent Skills."
+    ]
   },
   "vi": {
     "tool.description": "Tìm kiếm và duyệt thị trường SkillsMP (skillsmp.com) để tìm Agent Skills. Trả về danh sách kỹ năng với tên, tác giả, mô tả, số sao và URL GitHub.",
@@ -781,12 +661,9 @@
     "param.sort_by.description": "Thứ tự sắp xếp: 'recent' (mới nhất trước), 'stars' (nhiều sao nhất), 'name' (theo bảng chữ cái). Mặc định: 'recent'.",
     "param.source.description": "Nguồn thị trường: 'skillsmp' (skillsmp.com) hoặc 'clawhub' (clawhub.ai). Mặc định: 'skillsmp'.",
     "msg.no_results": "Không tìm thấy kỹ năng nào.",
-    "msg.header": "SkillsMP Marketplace — Trang {page}/{total}",
-    "msg.header_clawhub": "ClawHub Marketplace — Trang {page}/{total}",
     "msg.next_page_hint": "Sử dụng page={next} để xem thêm kết quả.",
     "msg.install_hint": "Cài đặt một kỹ năng với: skills_install source=<githubUrl>",
     "msg.install_hint_clawhub": "Cài đặt một kỹ năng với: skills_install source=<url>",
-    "prefix.error": "[lỗi]",
     "x_search_terms": [
       "skills_mp_search",
       "skillsmp",
@@ -795,8 +672,7 @@
       "duyệt kỹ năng",
       "tìm kỹ năng",
       "danh mục kỹ năng"
-    ],
-    "help_text.mp_search": "   :skills mp_search [truy vấn] [--page N] [--limit N] [--sort recent|stars|name] [--source skillsmp|clawhub]\n    Tìm kiếm và duyệt thị trường SkillsMP (skillsmp.com) hoặc ClawHub (clawhub.ai) để tìm Agent Skills."
+    ]
   },
   "zh_CN": {
     "tool.description": "搜索并浏览 SkillsMP 市场 (skillsmp.com) 中的 Agent Skills。返回技能列表，包含名称、作者、描述、星标和 GitHub URL。",
@@ -806,12 +682,9 @@
     "param.sort_by.description": "排序方式：'recent'（最新优先）、'stars'（星标最多）、'name'（字母顺序）。默认：'recent'。",
     "param.source.description": "市场来源：'skillsmp' (skillsmp.com) 或 'clawhub' (clawhub.ai)。默认：'skillsmp'。",
     "msg.no_results": "未找到技能。",
-    "msg.header": "SkillsMP 市场 — 第 {page}/{total} 页",
-    "msg.header_clawhub": "ClawHub 市场 — 第 {page}/{total} 页",
     "msg.next_page_hint": "使用 page={next} 查看更多结果。",
     "msg.install_hint": "安装技能：skills_install source=<githubUrl>",
     "msg.install_hint_clawhub": "安装技能：skills_install source=<url>",
-    "prefix.error": "[错误]",
     "x_search_terms": [
       "skills_mp_search",
       "skillsmp",
@@ -820,8 +693,7 @@
       "浏览技能",
       "查找技能",
       "技能目录"
-    ],
-    "help_text.mp_search": "   :skills mp_search [查询] [--page N] [--limit N] [--sort recent|stars|name] [--source skillsmp|clawhub]\n    搜索并浏览 SkillsMP (skillsmp.com) 或 ClawHub (clawhub.ai) 市场中的 Agent Skills。"
+    ]
   },
   "zh_TW": {
     "tool.description": "搜尋並瀏覽 SkillsMP 市集 (skillsmp.com) 中的 Agent Skills。回傳技能清單，包含名稱、作者、描述、星數和 GitHub URL。",
@@ -831,12 +703,9 @@
     "param.sort_by.description": "排序方式：'recent'（最新優先）、'stars'（星數最多）、'name'（字母順序）。預設：'recent'。",
     "param.source.description": "市集來源：'skillsmp' (skillsmp.com) 或 'clawhub' (clawhub.ai)。預設：'skillsmp'。",
     "msg.no_results": "未找到技能。",
-    "msg.header": "SkillsMP 市集 — 第 {page}/{total} 頁",
-    "msg.header_clawhub": "ClawHub 市集 — 第 {page}/{total} 頁",
     "msg.next_page_hint": "使用 page={next} 查看更多結果。",
     "msg.install_hint": "安裝技能：skills_install source=<githubUrl>",
     "msg.install_hint_clawhub": "安裝技能：skills_install source=<url>",
-    "prefix.error": "[錯誤]",
     "x_search_terms": [
       "skills_mp_search",
       "skillsmp",
@@ -845,7 +714,6 @@
       "瀏覽技能",
       "尋找技能",
       "技能目錄"
-    ],
-    "help_text.mp_search": "   :skills mp_search [查詢] [--page N] [--limit N] [--sort recent|stars|name] [--source skillsmp|clawhub]\n    搜尋並瀏覽 SkillsMP (skillsmp.com) 或 ClawHub (clawhub.ai) 市集中的 Agent Skills。"
+    ]
   }
 }
