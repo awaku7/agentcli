@@ -2,26 +2,32 @@ from __future__ import annotations
 
 import asyncio
 import os
+import sys
 
 from .i18n_helper import make_tool_translator
 
 _ = make_tool_translator(__file__)
 
-TOOL_SPEC = {
-    "tool_genre": "iot",
-    "type": "function",
-    "function": {
-        "name": "get_windows_gps",
-        "description": _(
-            "tool.description",
-            default="Get GPS location from Windows Location API (requires Windows 10+ with location services enabled). Returns latitude, longitude, accuracy, and source.",
-        ),
-        "parameters": {
-            "type": "object",
-            "properties": {},
+if sys.platform == "win32":
+    TOOL_SPEC = {
+        "tool_genre": "iot",
+        "type": "function",
+        "function": {
+            "name": "get_windows_gps",
+            "description": _(
+                "tool.description",
+                default="Get GPS location from Windows Location API (requires Windows 10+ with location services enabled). Returns latitude, longitude, accuracy, and source.",
+            ),
+            "parameters": {
+                "type": "object",
+                "properties": {},
+            },
         },
-    },
-}
+    }
+    LOAD_DISABLED_REASON = ""
+else:
+    TOOL_SPEC = None
+    LOAD_DISABLED_REASON = "This tool requires Windows (win32 platform)."
 
 
 def run_tool(args: dict) -> str:
@@ -62,7 +68,7 @@ def run_tool(args: dict) -> str:
                 accuracy_desc = _("acc.very_low", default="Very low precision")
             accuracy_desc += f" ({acc_m:.0f}m)"
         except ValueError:
-            accuracy_desc = f"±{acc}m"
+            accuracy_desc = f"\u00b1{acc}m"
 
     source_label = _("src.unknown", default="Unknown")
     if src:
