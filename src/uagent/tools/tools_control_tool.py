@@ -99,7 +99,7 @@ def handle_cmd_tools_list(arg: str, **kwargs: Any) -> Any:
     q = (arg or "").strip().lower()
 
     from . import get_tool_specs
-    from ..uagent_llm import _TOOL_LAST_ROUND, _TOOL_AUTO_UNLOAD_ROUNDS, _CURRENT_ROUND
+    from ..uagent_llm import _TOOL_LAST_ROUND, _TOOL_AUTO_UNLOAD_ROUNDS, _TOTAL_ROUNDS
 
     specs = get_tool_specs()
     if not specs:
@@ -139,7 +139,7 @@ def handle_cmd_tools_list(arg: str, **kwargs: Any) -> Any:
         for n in sorted(names):
             last = _TOOL_LAST_ROUND.get(n)
             if _TOOL_AUTO_UNLOAD_ROUNDS > 0 and last is not None:
-                remain = _TOOL_AUTO_UNLOAD_ROUNDS - (_CURRENT_ROUND - last)
+                remain = _TOOL_AUTO_UNLOAD_ROUNDS - (_TOTAL_ROUNDS - last)
                 if remain < 0:
                     remain = 0
                 print(f"  {n}  {remain}")

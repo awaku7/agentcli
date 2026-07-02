@@ -76,7 +76,7 @@ def _inject_stop_prompt(
 # --- Tool usage tracking for auto-unload ---
 _TOOL_LAST_ROUND: dict[str, int] = {}  # tool_name -> last round used
 _TOOL_AUTO_UNLOAD_ROUNDS = int(env_get('UAGENT_AUTO_UNLOAD_ROUNDS', '10'))  # unload after this many rounds without use
-_CURRENT_ROUND: int = 0  # current round count, updated each round
+_TOTAL_ROUNDS: int = 0  # total rounds across all LLM calls, monotonically increasing
 
 # --- Round status constants (internal) ---
 _RS_RETURN = "return"  # fatal error, caller must return
@@ -881,7 +881,7 @@ def run_llm_rounds(
     try:
         while True:
             round_count += 1
-            _CURRENT_ROUND = round_count
+            _TOTAL_ROUNDS += 1
 
             (
                 round_status,
@@ -928,19 +928,22 @@ def run_llm_rounds(
                     for tc in msg["tool_calls"]:
                         tname = tc.get("function", {}).get("name", "")
                         if tname:
-                            _TOOL_LAST_ROUND[tname] = round_count
+                            _TOOL_LAST_ROUND[tname] = _TOTAL_ROUNDS
 
             for spec in list(_TOOL_SPECS):
                 func_info = spec.get("function", {})
                 tname = func_info.get("name", "")
                 if not tname:
                     continue
+                # Skip core/management tools
+                if tname in ("tool_catalog", "tool_load", "unload_tool"):
+                    continue
                 last = _TOOL_LAST_ROUND.get(tname)
                 if last is None:
                     # Never used: unload after 5 rounds
-                    if round_count >= 5 and _TOOL_AUTO_UNLOAD_ROUNDS > 0:
+                    if _TOTAL_ROUNDS >= 5 and _TOOL_AUTO_UNLOAD_ROUNDS > 0:
                         _disable_single_tool(tname)
-                elif (round_count - last) >= _TOOL_AUTO_UNLOAD_ROUNDS:
+                elif (_TOTAL_ROUNDS - last) >= _TOOL_AUTO_UNLOAD_ROUNDS:
                     _TOOL_LAST_ROUND.pop(tname, None)
                     _disable_single_tool(tname)
             # --- end auto-unload ---
