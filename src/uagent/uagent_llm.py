@@ -936,7 +936,11 @@ def run_llm_rounds(
                 if not tname:
                     continue
                 last = _TOOL_LAST_ROUND.get(tname)
-                if last is not None and (round_count - last) >= _TOOL_AUTO_UNLOAD_ROUNDS:
+                if last is None:
+                    # Never used: unload after 5 rounds
+                    if round_count >= 5 and _TOOL_AUTO_UNLOAD_ROUNDS > 0:
+                        _disable_single_tool(tname)
+                elif (round_count - last) >= _TOOL_AUTO_UNLOAD_ROUNDS:
                     _TOOL_LAST_ROUND.pop(tname, None)
                     _disable_single_tool(tname)
             # --- end auto-unload ---
