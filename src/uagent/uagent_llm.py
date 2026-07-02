@@ -924,12 +924,12 @@ def run_llm_rounds(
             # _RS_CONTINUE and _RS_OK: continue loop naturally
 
             # --- Auto-unload stale tools ---
-            for msg in messages:
-                if msg.get("role") == "assistant" and "tool_calls" in msg:
-                    for tc in msg["tool_calls"]:
-                        tname = tc.get("function", {}).get("name", "")
-                        if tname:
-                            _TOOL_LAST_ROUND[tname] = _TOTAL_ROUNDS
+            # Only check the LAST assistant message (current round), not full history
+            if messages and messages[-1].get("role") == "assistant" and "tool_calls" in messages[-1]:
+                for tc in messages[-1]["tool_calls"]:
+                    tname = tc.get("function", {}).get("name", "")
+                    if tname:
+                        _TOOL_LAST_ROUND[tname] = _TOTAL_ROUNDS
 
             for spec in list(_TOOL_SPECS):
                 func_info = spec.get("function", {})
