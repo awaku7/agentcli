@@ -61,8 +61,9 @@ def _select_tool_specs_for_gpt54(
     """Narrow tool surface for GPT-5.4 (Responses API) using tool_catalog.
 
     Policy:
-    - Always include tool_catalog and human_ask when narrowing is applied.
-    - If tool_catalog has hits: include only hit tools (+ tool_catalog + human_ask).
+    - Always include tool_catalog, tool_load, unload_tool, and human_ask
+      when narrowing is applied.
+    - If tool_catalog has hits: include only hit tools (+ the above always-included tools).
     - If tool_catalog has zero hits, or user text is empty: fail open (return full tool set).
 
     This function is stateless: it does not depend on previous tool calls.
@@ -75,13 +76,26 @@ def _select_tool_specs_for_gpt54(
     except Exception:
         catalog_tool_spec = None
     try:
+        from .catalog_tool import TOOL_SPEC_2 as tool_load_spec
+    except Exception:
+        tool_load_spec = None
+    try:
+        from .catalog_tool import TOOL_SPEC_3 as unload_tool_spec
+    except Exception:
+        unload_tool_spec = None
+    try:
         from .human_ask_tool import TOOL_SPEC as human_ask_tool_spec
     except Exception:
         human_ask_tool_spec = None
 
     helper_specs: list[dict[str, Any]] = []
     helper_names: set[str] = set()
-    for helper_spec in (catalog_tool_spec, human_ask_tool_spec):
+    for helper_spec in (
+        catalog_tool_spec,
+        tool_load_spec,
+        unload_tool_spec,
+        human_ask_tool_spec,
+    ):
         if isinstance(helper_spec, dict):
             fn = helper_spec.get("function") or {}
             if isinstance(fn, dict):
@@ -190,6 +204,8 @@ def _select_tool_specs_for_gpt54(
 
     selected_names = {
         "tool_catalog",
+        "tool_load",
+        "unload_tool",
         "human_ask",
         "read_file",
         "list_dir",
