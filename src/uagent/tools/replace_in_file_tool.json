@@ -1544,7 +1544,7 @@
     "param.preview.description": "תצוגה מקדימה בלבד (ללא שינויים).",
     "param.replacement.description": "טקסט חלופי.",
     "summary.blocked": "חסום: {count}",
-    "summary.blocked_reason": "חסום: {סיבה}",
+    "summary.blocked_reason": "חסום: {reason}",
     "summary.error": "שגיאה: {error}",
     "summary.files_changed": "{count} קבצים השתנו",
     "summary.matches": "{count} התאמות",

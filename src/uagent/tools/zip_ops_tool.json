@@ -71,7 +71,7 @@
       "zip 作成",
       "zip 展開"
     ],
-    "confirm.extract_overwrite": "zip_ops(extract) は既存のファイルを上書きする可能性があります。\nzip: {zip_path}\n宛先: {dest_dir}\nエントリ: {エントリ}\n\n続行するには y を入力し、キャンセルするには c を入力します。"
+    "confirm.extract_overwrite": "zip_ops(extract) は既存のファイルを上書きする可能性があります。\nzip: {zip_path}\n宛先: {dest_dir}\nエントリ: {entries}\n\n続行するには y を入力し、キャンセルするには c を入力します。"
   },
   "es": {
     "error.cancelled_by_user": "cancelada por el usuario",
@@ -1174,7 +1174,7 @@
     "error.invalid_action": "zip create failed: {error}",
     "error.source_not_allowed": "zip extract failed: {error}",
     "error.sources_required_for_create": "zip list failed: {error}",
-    "error.too_many_files_in_zip": "zip not found: {zip_path not allowed: zip_path} [=#=_path is allowed: zip] necesar",
+    "error.too_many_files_in_zip": "zip not found: {count} [=#=_path is allowed: zip] necesar",
     "error.zip_create_failed": "zip prea mare pentru a fi extras: {total} > {limit}",
     "error.zip_extract_failed": "Tip de operație.",
     "error.zip_list_failed": "Director de destinație pentru extragere.",

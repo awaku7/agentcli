@@ -25,7 +25,7 @@
       "PRAGMA"
     ],
     "err.readonly": "[db_query エラー] SELECT ステートメントと PRAGMA ステートメントのみが許可されます。",
-    "msg.result": "[データベースクエリ]\n行={行}\n列={列}"
+    "msg.result": "[データベースクエリ]\n行={rows}\n列={cols}"
   },
   "es": {
     "param.db_path.description": "Ruta al archivo de base de datos SQLite.",

@@ -183,13 +183,13 @@
     "err.load": "(η κοινόχρηστη μνήμη είναι απενεργοποιημένη, δεν έχει οριστεί ακόμη η μνήμη UAGENT_SHARED_LE σε #MORY)",
     "msg.disabled": "[shared_memory περικομμένη: περιορισμένη σε {max_bytes} bytes]",
     "msg.no_shared_memory": "[SKILL]",
-    "msg.truncated": "{message} (Διαγράφηκαν {αφαιρέθηκαν} μηνύματα δεξιοτήτων)"
+    "msg.truncated": "{max_bytes} (Διαγράφηκαν {removed} μηνύματα δεξιοτήτων)"
   },
   "he": {
     "err.load": "(זיכרון משותף מושבת; הגדר את",
     "msg.disabled": "UAGENT_SHARED_MEMORY=enable it]_FILE כדי להפעיל את [#= shared_MEMORY] (#) \n[shared_memory truncated: מוגבל ל-{max_bytes} bytes]",
     "msg.no_shared_memory": "[מיומנות]",
-    "msg.truncated": "{הודעה} (הודעות מיומנות שנמחקו {הוסרו})"
+    "msg.truncated": "{max_bytes} (הודעות מיומנות שנמחקו {removed})"
   },
   "hu": {
     "err.load": "(a megosztott memória le van tiltva; állítsa be az UAGENT_SHARED_MEMORY_# beállítást, hogy engedélyezze még] (nincs megosztott memória) #= \n[shared_memory csonka: {max_bytes} bájtra korlátozva]",

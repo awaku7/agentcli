@@ -783,7 +783,7 @@
     "err.dir_not_exist": "[search_files error] A könyvtár nem létezik: {path}",
     "err.regex_compile": "[search_files error] Nem sikerült lefordítani a regex-et: {hiba}",
     "match.excerpt": "EGYEZÉS: {text}",
-    "match.line": "L{sor}: {szöveg}",
+    "match.line": "L{sor}: {text}",
     "match.more": "... (további egyezések a fájlban) [=}Fájl_keresése [==#] fájl: eredmények",
     "out.file": "[search_files] {n} találatot találtunk (csonkolva {max_results} értékre)",
     "out.no_match": "Fájlok keresése egy könyvtárban névminta (glob) és/vagy tartalom (regex) alapján.",

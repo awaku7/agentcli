@@ -403,7 +403,7 @@
     ],
     "param.path.description": "Διαδρομή προς το έγγραφο εισόδου (.docx, .rtf, .odt).",
     "param.password.description": "Κωδικός πρόσβασης (ζητείται εάν χρειάζεται).",
-    "prompt.password": "Εισαγάγετε τον κωδικό πρόσβασης για αυτό το αρχείο:\n{διαδρομή}",
+    "prompt.password": "Εισαγάγετε τον κωδικό πρόσβασης για αυτό το αρχείο:\n{path}",
     "param.fmt.description": "Μορφή εξόδου: κείμενο ή json."
   },
   "he": {
@@ -418,7 +418,7 @@
     ],
     "param.path.description": "נתיב למסמך הקלט (.docx, .rtf, .odt).",
     "param.password.description": "סיסמה (מבקש במידת הצורך).",
-    "prompt.password": "הזן את הסיסמה עבור הקובץ הזה:\n{נתיב}",
+    "prompt.password": "הזן את הסיסמה עבור הקובץ הזה:\n{path}",
     "param.fmt.description": "פורמט פלט: טקסט או json."
   },
   "hu": {

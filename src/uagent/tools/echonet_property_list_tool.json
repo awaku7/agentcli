@@ -119,7 +119,7 @@
     "err.invalid_eoj": "Error: Could not parse EOJ '{eoj}'.",
     "err.invalid_object_code": "Error: Could not parse object_code '{object_code}'.",
     "err.invalid_ip_address": "Error: ip_address must be a valid IPv4 address.",
-    "msg.summary": "ECHONET Lite プロパティ リストを取得しました: {county} 個のプロパティ (数件)、{elapsed ms} ミリ秒。",
+    "msg.summary": "ECHONET Lite プロパティ リストを取得しました: {county} 個のプロパティ (数件)、{elapsed_ms} ミリ秒。",
     "param.eoj.description": "ターゲット EOJ (デフォルト: ノード プロファイル)。",
     "param.obj.description": "オブジェクト コード フィルター (例: '0130')。",
     "tool.description": "ノード上の ECHONET Lite プロパティを検出し、JSON またはテキスト リストを返します。"

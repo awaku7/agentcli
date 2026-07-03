@@ -43,7 +43,7 @@ agentcli に新規ツールを追加する一連の工程を自動実行する�
 | `STATUS_LABEL` | 任意。表示用ラベル文字列、なければ None |
 | `LAZY_LOAD` | 重いimport（PIL/numpy等）が必要な場合のみ `True` |
 | `tool_level` | 基本的に省略（=0）。システム内部用なら `-1`（隠し） |
-| `x_parallel_safe` | 副作用なし並列安全なら `True`、状態変更するなら `False` |
+| `x_parallel_safe` | 副作用なし並列実行安全なら `True`、状態変更するなら `False` |
 | `additionalProperties` | 基本的に `False` |
 
 # 環境
@@ -123,7 +123,6 @@ def run_tool(args: dict[str, Any]) -> str:
 - `x_search_terms_en` は英語配列を直書き（英語検索用の fallback、i18n を通さない）
 - `run_tool()` は必ず `str` を返す
 - エラーハンドリングを含める
-- **プレースホルダ名は翻訳しない**: コードで使う `.format(key=val)` のキー名と JSON 内の `{key}` は必ず一致させる
 
 ## Step 2: JSON ファイル生成（全34ロケール、翻訳込み）
 
@@ -183,12 +182,37 @@ def run_tool(args: dict[str, Any]) -> str:
 
 `python_exec` 内で全ロケールをループ。各ロケールの全テキストを `translate_text(texts=[...], target_lang=..., source_lang="en")` に一度に渡して翻訳し、戻り値を各キーにマッピングする。
 
-### 注意
+### 【重要】プレースホルダ保護
+
+`translate_text` の `protect_placeholders` はコードファイル自動検出に依存するため、平文の description 文字列に含まれる `{path}` や `{name}` 等のプレースホルダは保護されない。Google Translate が `{path}` を `{パス}` などに翻訳してしまう。
+
+対処: **翻訳前にプレースホルダを独自トークンで置換し、翻訳後に戻す。**
+
+```python
+import re
+
+def protect(text: str) -> tuple[str, dict[str, str]]:
+    mapping = {}
+    def replacer(m):
+        orig = m.group(0)
+        token = f"__PH_{len(mapping)}__"
+        mapping[token] = orig
+        return token
+    text = re.sub(r'\{[A-Za-z_][A-Za-z0-9_]*\}', replacer, text)
+    return text, mapping
+
+def restore(text: str, mapping: dict[str, str]) -> str:
+    for token, orig in mapping.items():
+        text = text.replace(token, orig)
+    return text
+```
+
+各テキストを翻訳前に `protect()` で処理し、翻訳結果に `restore()` を適用する。
+
+### その他の注意
 
 - `x_search_terms` は各言語のネイティブな検索ワードに翻訳する
-- ツール名や固有名詞は翻訳対象としない（`protect_placeholders` がデフォルト有効）
 - 翻訳エラー・空文字の場合は英語のまま保持（fallback）
-- **プレースホルダ名は翻訳しない**: `{path}` が `{パス}` にならないよう注意
 
 ## Step 3: ruff/black 整形
 
@@ -216,6 +240,7 @@ def run_tool(args: dict[str, Any]) -> str:
 - `lint_format(mode=check)` がエラーなし
 - 2ファイルが存在する
 - JSON に全34ロケールのエントリが含まれている
+- JSON 内の全 `{xxx}` プレースホルダが元の名前を維持している（`{パス}` などに翻訳されていない）
 
 # 失敗時のよくある原因
 
@@ -223,4 +248,4 @@ def run_tool(args: dict[str, Any]) -> str:
 - JSON のキー名ミス（typo）
 - `run_tool()` 内の構文エラー
 - 同名ツールが既に存在する（Step 0 で防止）
-- **JSON 翻訳でプレースホルダ名まで翻訳してしまう**（`{path}` → `{パス}` など）。コードの `.format()` と一致するよう、プレースホルダ名は翻訳対象から除外すること
+- プレースホルダ名が翻訳されてしまう（`{path}` → `{パス}`）。翻訳前の保護処理が必須

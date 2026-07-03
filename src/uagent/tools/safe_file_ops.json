@@ -677,7 +677,7 @@
     "reason.dst_trigger": "Το dst αντιστοιχεί σε συνθήκες επικίνδυνης διαδρομής",
     "reason.overwrite_delete": "overwrite=True θα διαγράψει το υπάρχον dst και θα το αντικαταστήσει",
     "reason.src_trigger": "Το src αντιστοιχεί σε συνθήκες επικίνδυνης διαδρομής",
-    "ui.confirm.footer": "Αυτή η λειτουργία μπορεί να είναι επικίνδυνη, επομένως απαιτείται επιβεβαίωση.\nλειτουργία: {λειτουργία}\nδιαδρομή: {path}\nΑπαντήστε με y για να συνεχίσετε ή c για ακύρωση.",
+    "ui.confirm.footer": "Αυτή η λειτουργία μπορεί να είναι επικίνδυνη, επομένως απαιτείται επιβεβαίωση.\nλειτουργία: {mode}\nδιαδρομή: {path}\nΑπαντήστε με y για να συνεχίσετε ή c για ακύρωση.",
     "ui.confirm.howto": "Η δημιουργία ακυρώθηκε επειδή δεν το επέτρεψε ο χρήστης: {filename}",
     "ui.confirm.title": "Η διαγραφή ακυρώθηκε επειδή δεν το επέτρεψε ο χρήστης: {filename}"
   },
@@ -700,8 +700,8 @@
     "reason.overwrite_delete": "overwrite=True תמחק dst קיים ויחליף אותו",
     "reason.src_trigger": "src תואם לתנאי נתיב מסוכן",
     "ui.confirm.footer": "=== בקשת אישור אנושית ===",
-    "ui.confirm.howto": "שינוי שם/העברה יעביר קבצים אמיתיים (זה עלול לדרוס או למחוק קבצים קיימים).\nsrc: {src}\ndst: {dst}\nפרטים: {פרטים}\n\nהשב עם y כדי להמשיך, או c כדי לבטל.",
-    "ui.confirm.title": "פעולה זו עלולה להיות מסוכנת, ולכן נדרש אישור.\nפעולה: {מבצע}\nנתיב: {נתיב}\nהשב עם y כדי להמשיך, או c כדי לבטל."
+    "ui.confirm.howto": "שינוי שם/העברה יעביר קבצים אמיתיים (זה עלול לדרוס או למחוק קבצים קיימים).\nsrc: {src}\ndst: {dst}\nפרטים: {details}\n\nהשב עם y כדי להמשיך, או c כדי לבטל.",
+    "ui.confirm.title": "פעולה זו עלולה להיות מסוכנת, ולכן נדרש אישור.\nפעולה: {operation}\nנתיב: {path}\nהשב עם y כדי להמשיך, או c כדי לבטל."
   },
   "hu": {
     "confirm.rename": "A könyvtár törlése megszakadt, mert a felhasználó nem engedélyezte: {path}",
@@ -726,7 +726,7 @@
     "ui.confirm.title": "Törlés megszakítva, mert a felhasználó nem engedélyezte: {filename}"
   },
   "ro": {
-    "confirm.rename": "Această operațiune poate fi periculoasă, deci este necesară confirmarea.\noperațiune: {operațiune}\ncale: {cale}\nRăspundeți cu y pentru a continua sau c pentru a anula.",
+    "confirm.rename": "Această operațiune poate fi periculoasă, deci este necesară confirmarea.\noperațiune: {src}\ncale: {dst}\nRăspundeți cu y pentru a continua sau c pentru a anula.",
     "confirm.risky_op": "Creare anulată pentru că utilizatorul nu a permis: {filename}",
     "err.create_cancel": "Ștergerea anulată pentru că utilizatorul nu a permis: {filename}",
     "err.delete_cancel": "Ștergerea directorului a fost anulată deoarece utilizatorul nu a permis: {cale}",
@@ -735,7 +735,7 @@
     "err.dst_exists_overwrite_false": "Calea nu există: {path}",
     "err.exists_overwrite_false": "Generarea promptului a fost anulată deoarece utilizatorul nu a permis-o: {path}",
     "err.path_not_found": "Fișierul țintă pentru generarea promptului nu a fost găsit: {path}",
-    "err.prompt_cancel": "redenumiți/mutați anulat deoarece utilizatorul nu a permis acest lucru: {dstrcs -> sunt obligatorii {dstrc} și dstrcs ->",
+    "err.prompt_cancel": "redenumiți/mutați anulat deoarece utilizatorul nu a permis acest lucru: {path} și dstrcs ->",
     "err.prompt_target_not_found": "src nu există: {src}",
     "err.rename_cancel": "redenumire/mutare anulată deoarece utilizatorul nu a permis: {src} -> {dst}",
     "err.src_dst_required": "src și dst sunt necesare",

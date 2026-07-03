@@ -499,7 +499,7 @@
       "αρχείο excel"
     ],
     "param.password.description": "Κωδικός πρόσβασης (ζητείται εάν χρειάζεται).",
-    "prompt.password": "Εισαγάγετε τον κωδικό πρόσβασης για αυτό το αρχείο:\n{διαδρομή}"
+    "prompt.password": "Εισαγάγετε τον κωδικό πρόσβασης για αυτό το αρχείο:\n{path}"
   },
   "he": {
     "param.action.description": "מִבצָע.",
@@ -517,7 +517,7 @@
       "קובץ אקסל"
     ],
     "param.password.description": "סיסמה (מבקש במידת הצורך).",
-    "prompt.password": "הזן את הסיסמה עבור הקובץ הזה:\n{נתיב}"
+    "prompt.password": "הזן את הסיסמה עבור הקובץ הזה:\n{path}"
   },
   "hu": {
     "param.action.description": "Művelet.",

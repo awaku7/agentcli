@@ -297,7 +297,7 @@
     "err.not_exists": "ERRORE: {path!r} non esiste",
     "warn.not_exists_new": "AVVISO: {path!r} non esiste; viene trattato come vuoto/nuovo.",
     "warn.not_exists": "AVVISO: {path!r} non esiste (trattato come elenco vuoto).",
-    "err.load_fail": "ERRORE: impossibile caricare {percorso!r}: {err}",
+    "err.load_fail": "ERRORE: impossibile caricare {path!r}: {err}",
     "err.root_not_dict": "ERRORE: root non è un dizionario",
     "warn.no_mcp_servers": "AVVISO: manca la chiave 'mcp_servers' (trattata come elenco vuoto).",
     "err.mcp_servers_not_list": "ERRORE: 'mcp_servers' non è un elenco",
@@ -561,7 +561,7 @@
     "err.not_exists": "BŁĄD: {path!r} nie istnieje",
     "warn.not_exists_new": "OSTRZEŻENIE: {path!",
     "warn.not_exists": "OSTRZEŻENIE: {path!r} nie istnieje (traktuję jako pustą listę).",
-    "err.load_fail": "BŁĄD: Nie udało się załadować {ścieżki!r}: {err}",
+    "err.load_fail": "BŁĄD: Nie udało się załadować {path!r}: {err}",
     "err.root_not_dict": "BŁĄD: root nie jest słownikiem",
     "warn.no_mcp_servers": "OSTRZEŻENIE: brak klucza „mcp_servers” (traktowanie jako pusta lista).",
     "err.mcp_servers_not_list": "BŁĄD: „mcp_servers” nie jest listą",
@@ -605,7 +605,7 @@
     "err.not_exists": "त्रुटि: {path!r} मौजूद नहीं है",
     "warn.not_exists_new": "चेतावनी: {path!r} मौजूद नहीं है; खाली/नया मानना।",
     "warn.not_exists": "चेतावनी: {path!",
-    "err.load_fail": "त्रुटि: {पथ!r} लोड करने में विफल: {err}",
+    "err.load_fail": "त्रुटि: {path!r} लोड करने में विफल: {err}",
     "err.root_not_dict": "त्रुटि: रूट एक शब्दकोश नहीं है",
     "warn.no_mcp_servers": "चेतावनी: 'mcp_servers' कुंजी गायब है (खाली सूची के रूप में माना जा रहा है)।",
     "err.mcp_servers_not_list": "त्रुटि: 'mcp_servers'",
@@ -616,8 +616,8 @@
     "warn.url_no_mcp": "चेतावनी: mcp_servers[{idx}].url={url!r} '/mcp' पर समाप्त नहीं होता है। (हैंडल_mcp_v2 / mcp_tools_list स्वतः जुड़ जाएगा, लेकिन स्पष्ट प्रत्यय की अनुशंसा की जाती है)",
     "warn.endpoint_missing": "चेतावनी: mcp_servers[{idx}] यूआरएल वाला कमांड है",
     "err.endpoint_missing": "त्रुटि: mcp_servers[{idx}] आपके पास url कमांड है",
-    "warn.name_duplicate": "चेतावनी: नाम={नाम!r} इमेरुडीवा ({count} मारा)।",
-    "err.name_duplicate": "त्रुटि: नाम={नाम!r} इमेरुडीवा ({count} मारा)"
+    "warn.name_duplicate": "चेतावनी: नाम={name!r} इमेरुडीवा ({count} मारा)।",
+    "err.name_duplicate": "त्रुटि: नाम={name!r} इमेरुडीवा ({count} मारा)"
   },
   "ar": {
     "tool.description": "إدارة تعريفات خادم MCP في mcp_servers.json (list/add/remove/set_default/validate/init_template). إخراج JSON فقط.",
@@ -836,7 +836,7 @@
     "warn.url_no_mcp": "WAARSCHUWING: mcp_servers[{idx}].url={url!r} eindigt niet op '/mcp'.",
     "warn.endpoint_missing": "WAARSCHUWING: mcp_servers[{idx}] heeft noch url noch command.",
     "err.endpoint_missing": "FOUT: mcp_servers[{idx}] moet ofwel url of command hebben",
-    "warn.name_duplicate": "WAARSCHUWING: naam={naam!r} imerudiwa ({count} mara).",
+    "warn.name_duplicate": "WAARSCHUWING: naam={name!r} imerudiwa ({count} mara).",
     "err.name_duplicate": "FOUT: name={name!r} is gedupliceerd ({count} keer)"
   },
   "fi": {
@@ -913,7 +913,7 @@
     "err.not_exists": "CHYBA: {path!r} neexistuje",
     "warn.not_exists_new": "VAROVÁNÍ: {path!",
     "warn.not_exists": "VAROVÁNÍ: {path!r} neexistuje (považováno za prázdný seznam).",
-    "err.load_fail": "CHYBA: Nepodařilo se načíst {cesta!r}: {err}",
+    "err.load_fail": "CHYBA: Nepodařilo se načíst {path!r}: {err}",
     "err.root_not_dict": "CHYBA: kořen není slovník",
     "warn.no_mcp_servers": "VAROVÁNÍ: chybí klíč 'mcp_servers' (považováno za prázdný seznam).",
     "err.mcp_servers_not_list": "CHYBA: 'mcp_servers' není seznam",

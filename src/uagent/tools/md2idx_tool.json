@@ -48,7 +48,7 @@
     "err.section_invalid": "エラー: 'section' は整数である必要があります。",
     "err.section_not_found": "エラー: セクション {section_num} が見つかりません。有効範囲: 0..{last}。",
     "err.invalid_mode": "エラー: 無効なモード '{mode}' です。'index' または 'section' を使ってください。",
-    "msg.index_output": "目次: {path}\n(0 = 最初の見出しの前のプリアンブル、1..{last} = 見出しセクション)\n---\n{目次}\n---\nセクションの合計: {合計}\nセクションを取得するには、mode='section' と秒を指定して md2idx を呼び出します。",
+    "msg.index_output": "目次: {path}\n(0 = 最初の見出しの前のプリアンブル、1..{last} = 見出しセクション)\n---\n{toc}\n---\nセクションの合計: {total}\nセクションを取得するには、mode='section' と秒を指定して md2idx を呼び出します。",
     "param.mode.description": "「index」は番号付きの目次を返します。「section」は特定のセクションを番号で返します。",
     "param.section.description": "取得するセクション番号 (mode='section' の場合にのみ使用)。インデックス出力から数値を取得します。",
     "tool.description": "Markdown ファイルを見出しレベルのセクションに分割し、番号付きインデックスまたは特定のセクションを返します。大きな Markdown ドキュメントを読み取る必要がある場合は、これを使用します。最初に mode='index' を指定して呼び出して、t を取得します。"
@@ -717,7 +717,7 @@
     "err.parse_error": "Σφάλμα ανάλυσης Markdown: {e}",
     "err.section_required": "Σφάλμα: «ενότητα» (ακέραιος) απαιτείται όταν mode='section'.",
     "err.section_invalid": "Σφάλμα: το 'τμήμα' πρέπει να είναι ακέραιος.",
-    "err.section_not_found": "Σφάλμα: Η ενότητα {section_num} δεν βρέθηκε. Έγκυρο εύρος: 0..{τελευταίο}.",
+    "err.section_not_found": "Σφάλμα: Η ενότητα {section_num} δεν βρέθηκε. Έγκυρο εύρος: 0..{last}.",
     "err.invalid_mode": "Σφάλμα: Μη έγκυρη λειτουργία '{mode}'. Χρησιμοποιήστε «ευρετήριο» ή «τμήμα»."
   },
   "he": {
@@ -740,7 +740,7 @@
     "err.parse_error": "שגיאה בניתוח Markdown: {e}",
     "err.section_required": "שגיאה: 'קטע' (מספר שלם) נדרש כאשר mode='section'.",
     "err.section_invalid": "שגיאה: 'קטע' חייב להיות מספר שלם.",
-    "err.section_not_found": "שגיאה: הקטע {section_num} לא נמצא. טווח חוקי: 0..{אחרון}.",
+    "err.section_not_found": "שגיאה: הקטע {section_num} לא נמצא. טווח חוקי: 0..{last}.",
     "err.invalid_mode": "שגיאה: מצב לא חוקי '{mode}'. השתמש ב'אינדקס' או 'קטע'."
   },
   "hu": {

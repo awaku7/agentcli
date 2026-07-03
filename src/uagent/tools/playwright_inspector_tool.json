@@ -124,7 +124,7 @@
       "захват браузера",
       "запись потока"
     ],
-    "ui.captured": "--- ЗАХВАТ: {html}, {png}, {flow}, {снимки}/ ---",
+    "ui.captured": "--- ЗАХВАТ: {html}, {png}, {flow}, {snapshots}/ ---",
     "ui.resume_prompt": "После операции нажмите «Продолжить» (▷) в Inspector.",
     "ui.started": "--- PLAYWRIGHT INSPECTOR ЗАПУЩЕН ---",
     "tool.description": "Запустить Playwright Inspector для захвата операций браузера. Открывает указанный URL и сохраняет состояние страницы (HTML и изображение) после того, как пользователь нажмёт на целевой элемент."
@@ -460,7 +460,7 @@
       "хөтчийн бичлэг",
       "урсгалын бүртгэл"
     ],
-    "ui.captured": "--- АВСАН: {html}, {png}, {flow}, {агшин зуурын зураг}/ ---",
+    "ui.captured": "--- АВСАН: {html}, {png}, {flow}, {snapshots}/ ---",
     "ui.resume_prompt": "Үйлдлийн дараа Inspector дээр Resume (▷) дарна уу.",
     "ui.started": "--- ТОГЛОЛТЫН БАЙГУУЛЛАГЫН ИНСПЕКТОР ЭХЭЛСЭН ---",
     "tool.description": "Playwright Inspector-ийг ажиллуулж, хөтчийн үйлдлүүдийг бичиж авах. Заасан URL-г нээж, хэрэглэгч зорилтот элемент дээр дарсны дараа хуудасны төлөвийг (HTML болон зураг) хадгална."
@@ -512,7 +512,7 @@
       "דף לכידה",
       "מחזאי"
     ],
-    "ui.captured": "--- נלכד: {=html}, {p}, {p}} לאחר הפעולה, לחץ על המשך (▷) במפקח.",
+    "ui.captured": "--- נלכד: {html}, {p}, {p}} לאחר הפעולה, לחץ על המשך (▷) במפקח.",
     "ui.resume_prompt": "--- PLAYWRIGHT INSPECTOR STARTED ---",
     "ui.started": "החל עיבוד מקדים של תמונה כגון גווני אפור, דה-נויז, בינאריזציה ושיפור קצה, ולאחר מכן שמור את התוצאה כ-PNG.",
     "tool.description": "הפעל את Playwright Inspector כדי ללכוד פעולות דפדפן. פותח את ה-URL שצוין ושומר את מצב העמוד (HTML ותמונה) לאחר שהמשתמש לוחץ על רכיב היעד."
@@ -530,7 +530,7 @@
       "rögzítési oldal",
       "dramaturg"
     ],
-    "ui.captured": "--- RÖGZÍTETT: {html {flow}, {png}s=nap#ot a műveletet, nyomja meg a Folytatás (▷) gombot az Inspectorban.",
+    "ui.captured": "--- RÖGZÍTETT: {html}, {png}s=nap#ot a műveletet, nyomja meg a Folytatás (▷) gombot az Inspectorban.",
     "ui.resume_prompt": "--- A PLAYWRIGHT INSPECTOR ELINDULT ---",
     "ui.started": "Alkalmazza a kép előfeldolgozását, például szürkeárnyalatos, zajtalanítás, binarizálás és éljavítás, majd mentse az eredményt PNG formátumban.",
     "tool.description": "Indítsd el a Playwright Inspector-t a böngészőműveletek rögzítéséhez. Megnyitja a megadott URL-t, és elmenti az oldal állapotát (HTML és kép), miután a felhasználó rákattintott a cél elemre."

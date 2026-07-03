@@ -30,7 +30,7 @@
       "削除"
     ],
     "param.skip.description": "有効にすると、パスが存在しなくてもエラーにしません。",
-    "confirm.delete_paths_bulk": "{count} 個のパスを削除しますか?\n\n{パス}\n\n続行するには y を入力し、キャンセルするには c を入力します。",
+    "confirm.delete_paths_bulk": "{count} 個のパスを削除しますか?\n\n{paths}\n\n続行するには y を入力し、キャンセルするには c を入力します。",
     "tool.description": "指定したファイルまたはディレクトリを削除します（ディレクトリは再帰的に削除されます）。危険ですので確認が必要な場合があります。"
   },
   "es": {

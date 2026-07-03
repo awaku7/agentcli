@@ -29,7 +29,7 @@
       "テンプレート",
       "ファイルから生成"
     ],
-    "param.template.description": "Python 形式のテンプレート。例: '{lines} 行\n\n{コンテンツ}」。"
+    "param.template.description": "Python 形式のテンプレート。例: '{lines} 行\n\n{content}」。"
   },
   "es": {
     "err.bad_template": "La plantilla [generate_prompt error] tiene una clave desconocida: {key}",
@@ -457,7 +457,7 @@
   },
   "hu": {
     "err.bad_template": "A [generate_prompt error] sablonhoz ismeretlen kulcs tartozik: {key}",
-    "err.not_a_file": "[generate_prompt error] nem fájl: {elérési_út}",
+    "err.not_a_file": "[generate_prompt error] nem fájl: {path}",
     "err.path_missing": "[generate_prompt error] elérési út/fájlnév nincs megadva",
     "err.template_missing": "[generate_prompt error] sablon nincs megadva",
     "param.path.description": "A bevitt fájl elérési útját kell megadni.",

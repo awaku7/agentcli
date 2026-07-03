@@ -276,8 +276,8 @@
   "el": {
     "cmd.help.tools_list": ":tools on comm Ενεργοποίηση εργαλείων επικοινωνίας (Ομάδες, Discord)\n  :tools on office Ενεργοποίηση εργαλείων του Office (Excel, Word, κ.λπ.)\n  :tools on devel Ενεργοποίηση εργαλείων ανάπτυξης (lint, py_compile, tests)\n  :tools on iot Ενεργοποίηση εργαλείων IoT (Bluetooth, κ.λπ.)",
     "cmd.help.tools_load": ":tools load <όνομα>",
-    "msg.tools.usage_load": "[εργαλεία] Φορτωμένο εργαλείο: {όνομα}",
-    "msg.tools.loaded_single": "[εργαλεία] Το εργαλείο δεν βρέθηκε: {όνομα}",
+    "msg.tools.usage_load": "[εργαλεία] Φορτωμένο εργαλείο: {name}",
+    "msg.tools.loaded_single": "[εργαλεία] Το εργαλείο δεν βρέθηκε: {name}",
     "msg.tools.not_found": "[εργαλεία] Δεν φορτώθηκαν εργαλεία.",
     "cmd.help.tools_output": "  :tools output                     Εναλλαγή εμφάνισης αποτελεσμάτων εργαλείων",
     "msg.tools.output_state": "[tools] Εμφάνιση εξόδου εργαλείου: {state}"

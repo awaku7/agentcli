@@ -29,7 +29,7 @@
       "lint 実行"
     ],
     "param.xargs.description": "追加引数（配列）。危険なメタ文字は拒否します。",
-    "confirm.msg": "lint_format(mode=fix) はファイルを上書きする可能性があります。\nツール: {ツール}\nターゲット: {ターゲット}\ncwd: {cwd}\n\n続行するには y を入力し、キャンセルするには c を入力します。"
+    "confirm.msg": "lint_format(mode=fix) はファイルを上書きする可能性があります。\nツール: {tools}\nターゲット: {targets}\ncwd: {cwd}\n\n続行するには y を入力し、キャンセルするには c を入力します。"
   },
   "es": {
     "param.cwd.description": "Directorio de trabajo (bajo directorio de trabajo).",

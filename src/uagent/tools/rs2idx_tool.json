@@ -39,7 +39,7 @@
     "err.section_not_found": "エラー: セクション {section_num} が見つかりません。有効範囲: 1..{last}。",
     "err.invalid_mode": "エラー: 無効なモード '{mode}' です。'index' または 'section' を使ってください。",
     "msg.no_entries": "(定義が見つかりません)",
-    "msg.index_output": "インデックス: {パス}\n---\n{目次}\n---\n定義の合計: {合計}\n定義を取得するには、mode='section' とセクション番号を指定して rs2idx を呼び出します。",
+    "msg.index_output": "インデックス: {path}\n---\n{toc}\n---\n定義の合計: {total}\n定義を取得するには、mode='section' とセクション番号を指定して rs2idx を呼び出します。",
     "param.mode.description": "「index」は、行番号を含む番号付きの目次を返します。「セクション」は、特定の定義を番号で返します。",
     "param.section.description": "取得するセクション番号 (mode='section' の場合にのみ使用)。インデックス出力から数値を取得します。",
     "tool.description": "Rust (.rs) ファイルを関数、構造体、列挙型、特性、impl、およびマクロに解析し、番号付きインデックスまたは特定の定義セクションを返します。大きな .rs ファイルを読み取る必要がある場合は、これを使用します。まず、mode='index' を指定して呼び出して目次を取得し、次に mode='section' とセクション番号を指定して呼び出して、必要な定義のみを取得します。これにより、ファイル全体を読み取る場合と比較してトークンが節約されます。"
@@ -736,7 +736,7 @@
     "err.parse_error": "Σφάλμα ανάλυσης : {e}",
     "err.section_required": "Σφάλμα: «ενότητα» (ακέραιος) απαιτείται όταν mode='section'.",
     "err.section_invalid": "Σφάλμα: το 'τμήμα' πρέπει να είναι ακέραιος.",
-    "err.section_not_found": "Σφάλμα: Η ενότητα {section_num} δεν βρέθηκε. Έγκυρο εύρος: 0..{τελευταίο}.",
+    "err.section_not_found": "Σφάλμα: Η ενότητα {section_num} δεν βρέθηκε. Έγκυρο εύρος: 0..{last}.",
     "err.invalid_mode": "Σφάλμα: Μη έγκυρη λειτουργία '{mode}'. Χρησιμοποιήστε «ευρετήριο» ή «τμήμα».",
     "msg.no_entries": "(δεν βρέθηκαν ορισμοί)"
   },
@@ -760,7 +760,7 @@
     "err.parse_error": "שגיאה בניתוח : {e}",
     "err.section_required": "שגיאה: 'קטע' (מספר שלם) נדרש כאשר mode='section'.",
     "err.section_invalid": "שגיאה: 'קטע' חייב להיות מספר שלם.",
-    "err.section_not_found": "שגיאה: הקטע {section_num} לא נמצא. טווח חוקי: 0..{אחרון}.",
+    "err.section_not_found": "שגיאה: הקטע {section_num} לא נמצא. טווח חוקי: 0..{last}.",
     "err.invalid_mode": "שגיאה: מצב לא חוקי '{mode}'. השתמש ב'אינדקס' או 'קטע'.",
     "msg.no_entries": "(לא נמצאו הגדרות)"
   },

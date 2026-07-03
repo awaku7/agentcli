@@ -399,7 +399,7 @@
     "err.command_required": "[σφάλμα pwsh_exec] Απαιτείται «εντολή»"
   },
   "he": {
-    "err.timeout": "[פסק הזמן של pwsh_exec] לא הסתיים תוך {שניות} שניות",
+    "err.timeout": "[פסק הזמן של pwsh_exec] לא הסתיים תוך {seconds} שניות",
     "param.command.description": "מחרוזת הפקודות של PowerShell הועברה ל-Command.",
     "param.shell.description": "קובץ הפעלה של PowerShell לשימוש: 'pwsh' (PowerShell 7+) או 'powershell' (Windows PowerShell). אם הושמט, בחירה אוטומטית.",
     "tool.description": "התחבר לשרת MCP ורשום כלים זמינים. תומך בהעברות HTTP ו-stdio.",

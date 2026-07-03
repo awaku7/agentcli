@@ -223,7 +223,7 @@
     "param.interface.description": "יעד חיפוש SSDP (ST) לגילוי. ברירת המחדל היא InternetGatewayDevice ונופלת חזרה ל-ssdp:all במידת הצורך.",
     "param.retry.description": "המספר המרבי של ערכי מיפוי יציאות שיש להחזיר.",
     "param.limit.description": "יעד חיפוש SSDP (ST), למשל 'ssdp:all' או 'upnp:rootdevice'.",
-    "param.search_target.description": "שגיאה: לא ניתן היה לפתור את הממשק '{ממשק}' לכתובת IPv4 מקומית.",
+    "param.search_target.description": "שגיאה: לא ניתן היה לפתור את הממשק '{interface}' לכתובת IPv4 מקומית.",
     "err.invalid_interface": "גילוי UPnP הושלם: {count} מכשירים נמצאו ב-{elapsed_ms} אלפיות השנייה.",
     "msg.summary": "גילוי UPnP הושלם: {count} מכשירים נמצאו ב-{elapsed_ms} אלפיות השנייה.",
     "msg.no_devices": "מסנן משנה אופציונלי לא תלוי-רישיות עבור friendly_name.",
