@@ -10,16 +10,16 @@ def _get_gpt54_tool_search_mode() -> str:
     """Return the GPT-5.4 tool search mode.
 
     Reads UAGENT_GPT54_TOOL_SEARCH env:
-      - unset / "native": Use OpenAI native tool_search (send all tools, let server narrow)
+      - "native": Use OpenAI native tool_search (send all tools, let server narrow)
       - "legacy": Use old tool_catalog-based narrowing (send only relevant tools)
-      - "off": Disable any GPT-5.4 specific handling
+      - unset / "off": Disable any GPT-5.4 specific handling (default)
     """
     raw = (env_get("UAGENT_GPT54_TOOL_SEARCH") or "").strip().lower()
-    if raw in ("off", "0", "false", "no"):
-        return "off"
+    if raw in ("native", "1", "true", "yes"):
+        return "native"
     if raw in ("legacy", "old"):
         return "legacy"
-    return "native"
+    return "off"
 
 
 def _is_gpt54_tool_search_target(
