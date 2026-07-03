@@ -594,7 +594,7 @@
     "err.unsupported_provider": "Furnizor neacceptat pentru transcrierea audio: {provider!r}",
     "err.openai_import": "Nu s-a putut importa pachetul openai: {err}",
     "err.path_empty": "este necesară calea",
-    "err.file_not_found": "fișier audio nu a fost găsit: {cale}",
+    "err.file_not_found": "fișier audio nu a fost găsit: {path}",
     "err.invalid_output_format": "Format_output nevalid: {output_format}",
     "err.transcribe_failed": "Transcrierea audio a eșuat: {err}",
     "ok.transcribed": "Transcrierea finalizată",

@@ -193,7 +193,7 @@
   },
   "el": {
     "err.image_not_found": "αρχείο εικόνας δεν βρέθηκε: {path}",
-    "err.image_too_large": "αρχείο εικόνας παρέχεται πολύ μεγάλο: {size} bytes για analyzy_image (olama): {provider!r}",
+    "err.image_too_large": "το αρχείο εικόνας είναι πολύ μεγάλο: {size} byte (όριο={max_bytes})",
     "err.import_openai": "Αποτυχία εισαγωγής πακέτου openai: {err}",
     "prompt.default": "Λείπει το απαιτούμενο env var για ανάλυση εικόνας ollama (UAGENT_OLLAMA_DEPNAME)",
     "warn.empty_response": "[ΠΡΟΕΙΔΟΠΟΙΗΣΗ] κενή απάντηση",
@@ -201,11 +201,11 @@
     "err.missing_env.azure": "Λείπουν τα απαραίτητα env vars για openai (UAGENT_OPENAI_API_KEY/DEPNAME) [=open.\nzip: {zip_path}\nπροορισμός: {dest_dir}\nκαταχωρήσεις: {entries}\n\nΠληκτρολογήστε y για να συνεχίσετε ή c για ακύρωση.",
     "err.missing_env.bedrock": "ακυρώθηκε από τον χρήστη",
     "err.missing_env.openrouter": "επικίνδυνο dest_dir απορρίφθηκε: {dest_dir}",
-    "err.missing_env.openai": "επικίνδυνη πηγή απορρίφθηκε: {πηγή}"
+    "err.missing_env.openai": "επικίνδυνη πηγή απορρίφθηκε: {source}"
   },
   "he": {
     "err.image_not_found": "קובץ תמונה לא נמצא: {path}",
-    "err.image_too_large": "קובץ תמונה גדול מדי: {size=_#=] קובץ תמונה גדול מדי: {size=_#=) תמיכה לכל היותר (למקסימום) analyse_image (ollama): {provider!r}",
+    "err.image_too_large": "קובץ התמונה גדול מדי: {size} בתים (מגבלה={max_bytes})",
     "err.import_openai": "ייבוא ​​חבילת openai נכשל: {err}",
     "prompt.default": "חסר var env נדרש עבור ניתוח תמונה של ollama (UAGENT_OLLAMA_DEPNAME)",
     "warn.empty_response": "[אזהרה] תגובה ריקה",
@@ -217,7 +217,7 @@
   },
   "hu": {
     "err.image_not_found": "képfájl nem található: [=path}",
-    "err.image_too_large": "képfájl túl nagy: {max. Nem támogatott szolgáltató az analys_image (ollama) számára: {provider!r}",
+    "err.image_too_large": "a képfájl túl nagy: {size} bájt (korlát={max_bytes})",
     "err.import_openai": "Nem sikerült importálni az openai csomagot: {err}",
     "prompt.default": "Hiányzik az env var az ollama képelemzéshez (UAGENT_OLLAMA_DEPNAME)",
     "warn.empty_response": "[WARN] üres válasz",
@@ -225,11 +225,11 @@
     "err.missing_env.azure": "Hiányoznak az openai kötelező env-változói (UAGENT_OPENAI_API_KEY/DEPNAME) meglévő fájlok [=#op.wextract_p.\nzip: {zip_path}\ncél: {dest_dir}\nbejegyzések: {entries}\n\nA folytatáshoz írja be az y-t, a megszakításhoz pedig a c-t.",
     "err.missing_env.bedrock": "Hiányoznak az alapkőzet kötelező env varjai (UAGENT_BEDROCK_BASE_URL/API_KEY)",
     "err.missing_env.openrouter": "veszélyes célkönyvtár elutasítva: {dest_dir}",
-    "err.missing_env.openai": "veszélyes forrás elutasítva: {forrás}"
+    "err.missing_env.openai": "veszélyes forrás elutasítva: {source}"
   },
   "ro": {
     "err.image_not_found": "fișierul imagine nu a fost găsit: {path}",
-    "err.image_too_large": "fișier imagine prea mare: {size} octeți (limită = {max_bytes_analyse for]_ (ollama): {provider!r}",
+    "err.image_too_large": "fișierul imagine este prea mare: {size} octeți (limită={max_bytes})",
     "err.import_openai": "Nu s-a putut importa pachetul openai: {err}",
     "prompt.default": "Lipsește var env necesar pentru analiza imaginii ollama (UAGENT_OLLAMA_DEPNAME)",
     "warn.empty_response": "[WARN] răspuns gol",

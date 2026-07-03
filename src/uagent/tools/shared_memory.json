@@ -201,6 +201,6 @@
     "err.load": "(memoria partajată este dezactivată; setați UAGENT_SHAREDILE_ME pentru a-l partaja pe memorie) încă)",
     "msg.disabled": "[memorie_partajată trunchiată: limitată la {max_bytes} octeți]",
     "msg.no_shared_memory": "[SKILL]",
-    "msg.truncated": "{mesaj} (Mesaje de aptitudini {eliminate)"
+    "msg.truncated": "{message} (Mesaje de aptitudini {eliminate)"
   }
 }

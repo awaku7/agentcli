@@ -754,8 +754,8 @@
     "param.contrast.description": "Factorul de contrast opțional. 1.0 păstrează originalul; >1,0 mărește contrastul.",
     "param.output_dir.description": "Director pentru salvarea imaginilor procesate. Setarea implicită la outputs/image_preprocess dacă este omis.",
     "err.image_path_empty": "[preprocess_image] image_path este obligatorie",
-    "err.image_not_found": "[preprocess_image] fișier imagine nu a fost găsit: {cale}",
-    "ok.generated": "[OK] generate: {cale}",
+    "err.image_not_found": "[preprocess_image] fișier imagine nu a fost găsit: {path}",
+    "ok.generated": "[OK] generate: {path}",
     "param.prefix.description": "Prefix pentru numele fișierului salvat (opțional).",
     "param.img.description": "Calea către imaginea sursă pentru preprocesare."
   }

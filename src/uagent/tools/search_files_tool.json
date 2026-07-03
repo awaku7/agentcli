@@ -811,7 +811,7 @@
     "err.dir_not_exist": "Vă rugăm să analizați această captură de ecran.",
     "err.regex_compile": "Dacă se închide fereastra după capturare. Eficace numai dacă este specificat window_title.",
     "match.excerpt": "Titlul ferestrei țintă (potrivire parțială). Dacă este specificat, fereastra este activată și numai acea regiune este capturată.",
-    "match.line": "[eroare search_files] Directorul nu există: {cale}",
+    "match.line": "[eroare search_files] Directorul nu există: {path}",
     "match.more": "[eroare search_files] Nu s-a putut compila expresia regex: {error}",
     "out.file": "MATCH: {text}",
     "out.no_match": "Fișier: {file} [n] [=fișier#=] [n] [=fișier#=] [search_files] S-au găsit {n} rezultate (trunchiate la {max_results})",

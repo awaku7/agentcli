@@ -597,7 +597,7 @@
     "err.dual_lines": "[okuma_dosyası hatası] başlık satırları ve kuyruk_satırları birlikte belirtilemez",
     "err.filename_missing": "[dosya okuma hatası] dosya adı/yolu belirtilmedi",
     "err.out_of_range": "(Dosyada yalnızca {count} satır var. start_line {start_line} aralık dışında)",
-    "msg.truncated": "[okuma_dosyası kesildi: Bayt sınırına {maks_bayt} ulaşıldı]",
+    "msg.truncated": "[okuma_dosyası kesildi: Bayt sınırına {max_bytes} ulaşıldı]",
     "param.filename.description": "Okunacak dosyanın yolu.",
     "param.start_line.description": "Okumaya başlamak için satır numarası (1'den başlayarak).",
     "tool.description": "Dosya içeriğini okuyun (1,000,000 bayta kadar).",

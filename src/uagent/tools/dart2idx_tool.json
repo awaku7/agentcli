@@ -802,7 +802,7 @@
     ],
     "param.path.description": "Calea către fișierul Dart.",
     "err.path_required": "Eroare: „calea” este necesară.",
-    "err.file_not_found": "Eroare: Fișierul nu a fost găsit: {cale}",
+    "err.file_not_found": "Eroare: Fișierul nu a fost găsit: {path}",
     "err.read_error": "Eroare la citirea fișierului: {e}",
     "err.parse_error": "Eroare la analizarea : {e}",
     "err.section_required": "Eroare: „secțiune” (întreg) este necesară când mode='section'.",

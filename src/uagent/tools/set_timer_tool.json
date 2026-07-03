@@ -876,7 +876,7 @@
     "err.seconds_invalid": "[set_timer error] secunde nu pot fi interpretate ca un număr întreg: {raw}",
     "err.seconds_negative": "[set_timer error] secunde trebuie să fie 0 sau mai mult: {val}",
     "msg.default_timer_done": "Temporizator terminat",
-    "out.ok": "[set_timer] Temporizator setat pentru {secunde} secunde: {message} (on_timeout_timer_prompt) = afișare [= uponprompt_prompt.",
+    "out.ok": "[set_timer] Temporizator setat pentru {seconds} secunde: {message} (on_timeout_timer_prompt) = afișare [= uponprompt_prompt.",
     "param.message.description": "Introducere automată pentru LLM la expirarea timpului.",
     "param.on_timeout_prompt.description": "Durata temporizatorului în secunde.",
     "param.seconds.description": "Afișează un mesaj după un anumit număr de secunde. Opțional, poate trimite un mesaj automat către LLM.",

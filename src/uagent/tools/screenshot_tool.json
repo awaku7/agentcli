@@ -683,7 +683,7 @@
   },
   "ro": {
     "err.capture_fail": "[Eroare captură de ecran] Nu s-a putut realiza captura de ecran: {err}",
-    "err.close_fail": "[captură de ecran] Salvat în {cale}, dar fereastra nu a reușit să închidă: {err}",
+    "err.close_fail": "[captură de ecran] Salvat în {path}, dar fereastra nu a reușit să închidă: {err}",
     "err.pyautogui_missing": "[Eroare de captură de ecran] Modulul pyautogui nu este instalat.",
     "err.pygetwindow_missing": "[Eroare de captură de ecran] Modulul pygetwindow nu este instalat (necesar pentru direcționarea ferestrelor).",
     "err.window_not_found": ": screen to screen to screen errors [screenshot] Salvat în {path}, dar fereastra nu a reușit să închidă: {err}",

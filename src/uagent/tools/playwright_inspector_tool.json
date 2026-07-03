@@ -548,7 +548,7 @@
       "captură pagină",
       "dramaturg"
     ],
-    "ui.captured": "--- CAPTURED: {},}, {psflow}",
+    "ui.captured": "--- CAPTURED: {},}, {flow}",
     "ui.resume_prompt": "După operație, apăsați Reluare (▷) în Inspector.",
     "ui.started": "--- PLAYWRIGHT INSPECTOR A STARTED ---",
     "tool.description": "Lansează Playwright Inspector pentru a captura operațiunile browserului. Deschide URL-ul specificat și salvează starea paginii (HTML și imagine) după ce utilizatorul face clic pe elementul țintă."

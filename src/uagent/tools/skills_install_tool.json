@@ -1135,7 +1135,7 @@
     "err.marketplace_skill_not_found": "Δεν ήταν δυνατή η εύρεση της ικανότητας '{selector}' στο {source}. Διαθέσιμες δεξιότητες: {available}",
     "success.installed_selected": "Εγκαταστάθηκε επιτυχώς η δεξιότητα '{name}' από {source} έως {path}",
     "success.installed": "Η ικανότητα '{name}' εγκαταστάθηκε με επιτυχία στο {path}",
-    "success.installed_marketplace": "Επιτυχώς εγκαταστάθηκε το marketplace/το πακέτο '{name}' στο {pathll} ({counts found) ski).",
+    "success.installed_marketplace": "Επιτυχώς εγκαταστάθηκε το marketplace/το πακέτο '{name}' στο {path} ({counts found) ski).",
     "warn.missing_skill_md": "Η ικανότητα εγκαταστάθηκε στο {path}, αλλά το SKILL.md δεν βρέθηκε στη ρίζα.",
     "err.unexpected": "Παρουσιάστηκε απροσδόκητο σφάλμα: {error}",
     "help_text.install": ":skills install <source> [name] Εγκαταστήστε ένα πακέτο δεξιοτήτων ή στυλ αγοράς από μια πηγή"

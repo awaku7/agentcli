@@ -61,7 +61,7 @@
   },
   "es": {
     "err.path_required": "Error: se requiere 'ruta'.",
-    "err.file_not_found": "Error: Archivo no encontrado: {ruta}",
+    "err.file_not_found": "Error: Archivo no encontrado: {path}",
     "err.read_error": "Error al leer el archivo: {e}",
     "err.parse_error": "Error al analizar el archivo: {e}",
     "err.section_required": "Error: se requiere 'sección' (entero) cuando modo = 'sección'.",
@@ -87,7 +87,7 @@
   },
   "fr": {
     "err.path_required": "Erreur : « chemin » est requis.",
-    "err.file_not_found": "Erreur : Fichier introuvable : {chemin}",
+    "err.file_not_found": "Erreur : Fichier introuvable : {path}",
     "err.read_error": "Erreur de lecture du fichier : {e}",
     "err.parse_error": "Erreur d'analyse du fichier : {e}",
     "err.section_required": "Erreur : 'section' (entier) est requis lorsque mode='section'.",
@@ -109,7 +109,7 @@
       "cobol division",
       "cobol paragraph"
     ],
-    "err.section_not_found": "Erreur : section {section_num} introuvable. Plage valide : 1..{dernier}."
+    "err.section_not_found": "Erreur : section {section_num} introuvable. Plage valide : 1..{last}."
   },
   "ko": {
     "err.path_required": "오류: '경로'가 필요합니다.",
@@ -165,7 +165,7 @@
   },
   "it": {
     "err.path_required": "Errore: il \"percorso\" è obbligatorio.",
-    "err.file_not_found": "Errore: file non trovato: {percorso}",
+    "err.file_not_found": "Errore: file non trovato: {path}",
     "err.read_error": "Errore durante la lettura del file: {e}",
     "err.parse_error": "Errore durante l'analisi del file: {e}",
     "err.section_required": "Errore: 'sezione' (numero intero) è richiesto quando mode='sezione'.",
@@ -187,7 +187,7 @@
       "cobol division",
       "cobol paragraph"
     ],
-    "err.section_not_found": "Errore: sezione {section_num} non trovata. Intervallo valido: 1..{ultimo}."
+    "err.section_not_found": "Errore: sezione {section_num} non trovata. Intervallo valido: 1..{last}."
   },
   "ru": {
     "err.path_required": "Ошибка: требуется «путь».",
@@ -343,7 +343,7 @@
       "cobol division",
       "cobol paragraph"
     ],
-    "err.section_not_found": "Błąd: nie znaleziono sekcji {section_num}. Prawidłowy zakres: 1..{ostatni}."
+    "err.section_not_found": "Błąd: nie znaleziono sekcji {section_num}. Prawidłowy zakres: 1..{last}."
   },
   "hi": {
     "err.path_required": "त्रुटि: 'पथ' आवश्यक है.",
@@ -421,7 +421,7 @@
       "cobol division",
       "cobol paragraph"
     ],
-    "err.section_not_found": "Fel: Avsnitt {section_num} hittades inte. Giltigt intervall: 1..{senast}."
+    "err.section_not_found": "Fel: Avsnitt {section_num} hittades inte. Giltigt intervall: 1..{last}."
   },
   "sw": {
     "err.path_required": "Hitilafu: 'njia' inahitajika.",
@@ -473,7 +473,7 @@
       "cobol division",
       "cobol paragraph"
     ],
-    "err.section_not_found": "Feil: Seksjon {section_num} ble ikke funnet. Gyldig område: 1..{siste}."
+    "err.section_not_found": "Feil: Seksjon {section_num} ble ikke funnet. Gyldig område: 1..{last}."
   },
   "nl": {
     "err.path_required": "Fout: 'pad' is vereist.",
@@ -499,7 +499,7 @@
       "cobol division",
       "cobol paragraph"
     ],
-    "err.section_not_found": "Fout: Sectie {section_num} niet gevonden. Geldig bereik: 1..{laatste}."
+    "err.section_not_found": "Fout: Sectie {section_num} niet gevonden. Geldig bereik: 1..{last}."
   },
   "fi": {
     "err.path_required": "Virhe: polku vaaditaan.",
@@ -603,7 +603,7 @@
       "cobol division",
       "cobol paragraph"
     ],
-    "err.section_not_found": "Hata: {section_num}. Bölüm bulunamadı. Geçerli aralık: 1..{son}."
+    "err.section_not_found": "Hata: {section_num}. Bölüm bulunamadı. Geçerli aralık: 1..{last}."
   },
   "th": {
     "err.path_required": "ข้อผิดพลาด: จำเป็นต้องมี 'เส้นทาง'",
@@ -867,7 +867,7 @@
   },
   "ro": {
     "err.path_required": "Eroare: „calea” este necesară.",
-    "err.file_not_found": "Eroare: fișierul nu a fost găsit: {cale}",
+    "err.file_not_found": "Eroare: fișierul nu a fost găsit: {path}",
     "err.read_error": "Eroare la citirea fișierului: {e}",
     "err.parse_error": "Eroare la analizarea fișierului: {e}",
     "err.section_required": "Eroare: „secțiune” (întreg) este necesară atunci când mode = „secțiune”.",

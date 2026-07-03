@@ -1094,7 +1094,7 @@
     "error.cancelled_by_user": "מקור מסוכן נדחה: {source}",
     "error.dangerous_dest_dir_rejected": "רשומות zip מסוכנות נדחו",
     "error.dangerous_source_rejected": "נתיבי zip_ מסוכנים נדחה: {zip_path}",
-    "error.dangerous_zip_entries_rejected": "כתובות יעד לא מותרות: {שגיאה}",
+    "error.dangerous_zip_entries_rejected": "כתובות יעד לא מותרות: {error}",
     "error.dangerous_zip_path_rejected": "מקור לא חוקי",
     "error.dest_dir_not_allowed": "מקור שגוי נדרשים",
     "error.invalid_action": "מקורות ליצירת",

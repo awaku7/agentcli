@@ -412,7 +412,7 @@
     ]
   },
   "ro": {
-    "confirm.change_workdir": "Schimbați workdir în: {cale}?\nIntroduceți y pentru a continua sau c pentru a anula.",
+    "confirm.change_workdir": "Schimbați workdir în: {path}?\nIntroduceți y pentru a continua sau c pentru a anula.",
     "param.confirm.description": "Dacă trebuie să cereți confirmarea utilizatorului.",
     "param.new_dir.description": "Noua cale de director la care să comutați.",
     "tool.description": "Schimbați directorul de lucru curent după confirmarea utilizatorului.",

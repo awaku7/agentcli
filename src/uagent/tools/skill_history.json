@@ -165,7 +165,7 @@
     "skill.ok": "A cél felülírása vagy frissítése, ha az már létezik. Alapértelmezés szerint igaz."
   },
   "ro": {
-    "skill.prefix": "{mesaj}",
+    "skill.prefix": "{message}",
     "skill.clear_log": "Adresa URL sau calea sursei (adresa URL Git, URL HTTP ZIP, director local sau ZIP local).",
     "skill.ok": "Numele folderului de destinație opțional. Dacă nu este specificat, se va deduce din sursă."
   }

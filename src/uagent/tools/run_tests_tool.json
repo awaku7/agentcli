@@ -644,7 +644,7 @@
     "error.cwd_not_allowed": "cwd δεν επιτρέπεται: {error}",
     "error.dangerous_cwd_rejected": "επικίνδυνο cwd απορρίφθηκε: {cwd}",
     "error.framework_auto_detect_failed": "ο αυτόματος εντοπισμός πλαισίου απέτυχε",
-    "error.invalid_framework": "μη έγκυρο πλαίσιο: {framework} [=report:{react=] δεν είναι έγκυρο}id επιτρέπεται σε ορίσματα: {arg}",
+    "error.invalid_framework": "μη έγκυρο πλαίσιο: {framework} [=report:{valid}id επιτρέπεται σε ορίσματα: {arg}",
     "error.invalid_report": "μη υποστηριζόμενο πλαίσιο: {framework}",
     "error.shell_metacharacters_not_allowed": "Κατάλογος εργασίας για εκτέλεση (πρέπει να βρίσκεται εντός του workdir). Εάν είναι μηδενικό, ο τρέχων κατάλογος.",
     "error.unsupported_framework": "Δοκιμαστικός τύπος πλαισίου.",

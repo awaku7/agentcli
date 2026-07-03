@@ -448,7 +448,7 @@
     ],
     "param.path.description": "Calea către documentul de intrare (.docx, .rtf, .odt).",
     "param.password.description": "Parola (se solicită dacă este necesar).",
-    "prompt.password": "Introduceți parola pentru acest fișier:\n{cale}",
+    "prompt.password": "Introduceți parola pentru acest fișier:\n{path}",
     "param.fmt.description": "Format de ieșire: text sau json."
   }
 }

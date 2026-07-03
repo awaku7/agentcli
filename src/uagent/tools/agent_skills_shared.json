@@ -959,7 +959,7 @@
   "ro": {
     "err.abs_path_not_allowed": "căile absolute nu sunt permise",
     "err.dotdot_not_allowed": "„..” nu este permis în relative_path",
-    "err.file_too_large": "Fișier prea mare pentru a fi citit în siguranță: {cale} (>{max_bytes} octeți)",
+    "err.file_too_large": "Fișier prea mare pentru a fi citit în siguranță: {path} (>{max_bytes} octeți)",
     "err.fm_allowed_tools_type": "frontmatter.allowed-tools trebuie să fie un șir dacă este furnizat",
     "err.fm_compat_empty": "frontmatter.compatibility trebuie să fie nevide dacă este furnizat",
     "err.fm_compat_too_long": "frontmatter.compatibility trebuie să aibă <= {max_len} caractere",
@@ -983,6 +983,6 @@
     "err.path_traversal": "traversarea căii detectată: calea rezolvată scapă skill_dir",
     "err.relpath_points_to_root": "relative_path trebuie să indice către un fișier, nu către rădăcina abilității",
     "err.relpath_required": "relative_path trebuie să fie un șir nevid",
-    "err.skill_md_not_found": "{filename} nu a fost găsit: {cale}"
+    "err.skill_md_not_found": "{filename} nu a fost găsit: {path}"
   }
 }

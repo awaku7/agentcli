@@ -553,6 +553,6 @@
       "fișier excel"
     ],
     "param.password.description": "Parola (se solicită dacă este necesar).",
-    "prompt.password": "Introduceți parola pentru acest fișier:\n{cale}"
+    "prompt.password": "Introduceți parola pentru acest fișier:\n{path}"
   }
 }

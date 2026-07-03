@@ -201,6 +201,6 @@
     "log.load_fail.external": "[instrumente] Nu s-a încărcat pluginul extern {entry_path}: {err}",
     "log.load_fail.internal": "[instrumente] Nu s-a încărcat pluginul intern {mod_name}: {err}",
     "log.load_ok.external": "[instrumente] Instrumente externe încărcate: {entry_name}",
-    "log.load_disabled.internal": "[instrumente] Pluginul intern {mod_name} este dezactivat: {motiv}"
+    "log.load_disabled.internal": "[instrumente] Pluginul intern {mod_name} este dezactivat: {reason}"
   }
 }

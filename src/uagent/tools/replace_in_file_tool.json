@@ -1642,7 +1642,7 @@
     "param.preview.description": "Numai previzualizare (fără modificări).",
     "param.replacement.description": "Text de înlocuire.",
     "summary.blocked": "Blocat: {count}",
-    "summary.blocked_reason": "Blocat: {motiv}",
+    "summary.blocked_reason": "Blocat: {reason}",
     "summary.error": "Eroare: {eroare}",
     "summary.files_changed": "{count} fișier(e) schimbat(e)",
     "summary.matches": "{count} potriviri",

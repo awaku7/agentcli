@@ -24,7 +24,7 @@
     "err.command_required": "[pwsh_exec error] 'command' is required"
   },
   "es": {
-    "err.timeout": "[tiempo de espera de pwsh_exec] no finalizó en {segundos} segundos",
+    "err.timeout": "[tiempo de espera de pwsh_exec] no finalizó en {seconds} segundos",
     "param.command.description": "La cadena de comando de PowerShell se pasó a -Command.",
     "param.shell.description": "Ejecutable de PowerShell a utilizar: 'pwsh' (PowerShell 7+) o 'powershell' (Windows PowerShell).",
     "tool.description": "Como último recurso, ejecute PowerShell.",
@@ -421,7 +421,7 @@
     "err.command_required": "[pwsh_exec hiba] \"parancs\" szükséges"
   },
   "ro": {
-    "err.timeout": "[pwsh_exec timeout] nu s-a încheiat în {secunde} secunde",
+    "err.timeout": "[pwsh_exec timeout] nu s-a încheiat în {seconds} secunde",
     "param.command.description": "Șirul de comandă PowerShell a fost transmis către -Command.",
     "param.shell.description": "PowerShell executabil de utilizat: „pwsh” (PowerShell 7+) sau „powershell” (Windows PowerShell). Dacă este omisă, selectați automat.",
     "tool.description": "Conectați-vă la un server MCP și enumerați instrumentele disponibile. Suportă transporturi HTTP și stdio.",

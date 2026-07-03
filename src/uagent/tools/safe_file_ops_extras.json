@@ -162,7 +162,7 @@
   "hu": {
     "err.file_not_found": "a fájl nem található: {filename}",
     "err.outside_workdir": "az elérési út a munkakönyvtáron kívül található: root={root} path={path}",
-    "err.path_empty": "az elérési út üres {screenerror}hiba"
+    "err.path_empty": "az elérési út üres {}hiba"
   },
   "ro": {
     "err.file_not_found": "fișierul nu a fost găsit: {filename}",

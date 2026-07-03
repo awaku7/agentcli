@@ -127,7 +127,7 @@
     "err.analysis_failed": "画像分析に失敗しました: {err}",
     "err.image_required": "画像データが必要です。",
     "param.detail.description": "画像の詳細レベル（auto/low/high）。",
-    "err.image_not_found": "画像ファイルが見つかりません: {パス}",
+    "err.image_not_found": "画像ファイルが見つかりません: {path}",
     "err.image_too_large": "画像ファイルが大きすぎます: {size} バイト (limit={max_bytes})",
     "err.unsupported_provider": "analyze_image でサポートされていないプロバイダー (チャット): {provider!r}",
     "prompt.default": "この画像を詳しく説明してください。",
@@ -167,7 +167,7 @@
   },
   "el": {
     "err.image_not_found": "αρχείο εικόνας δεν βρέθηκε: {path}",
-    "err.image_too_large": "αρχείο εικόνας παρέχεται πολύ μεγάλο: {size} bytes για analyzy_image (olama): {provider!r}",
+    "err.image_too_large": "το αρχείο εικόνας είναι πολύ μεγάλο: {size} byte (όριο={max_bytes})",
     "err.unsupported_provider": "Έχει οριστεί το UAGENT_RESPONSES=1, αλλά η ανάλυση εικόνας μέσω Responses υποστηρίζεται μόνο για openai/azure/bedrock/openrouter/ollama",
     "err.import_openai": "Αποτυχία εισαγωγής πακέτου openai: {err}",
     "prompt.default": "Λείπει το απαιτούμενο env var για ανάλυση εικόνας ollama (UAGENT_OLLAMA_DEPNAME)",
@@ -176,7 +176,7 @@
   },
   "he": {
     "err.image_not_found": "קובץ תמונה לא נמצא: {path}",
-    "err.image_too_large": "קובץ תמונה גדול מדי: {size=_#=] קובץ תמונה גדול מדי: {size=_#=) תמיכה לכל היותר (למקסימום) analyse_image (ollama): {provider!r}",
+    "err.image_too_large": "קובץ התמונה גדול מדי: {size} בתים (מגבלה={max_bytes})",
     "err.unsupported_provider": "אנליזה מספקת! חסרות וריאציות של env נדרשות לניתוח תמונה תכלת.",
     "err.import_openai": "ייבוא ​​חבילת openai נכשל: {err}",
     "prompt.default": "חסר var env נדרש עבור ניתוח תמונה של ollama (UAGENT_OLLAMA_DEPNAME)",
@@ -185,7 +185,7 @@
   },
   "hu": {
     "err.image_not_found": "képfájl nem található: [=path}",
-    "err.image_too_large": "képfájl túl nagy: {max. Nem támogatott szolgáltató az analys_image (ollama) számára: {provider!r}",
+    "err.image_too_large": "a képfájl túl nagy: {size} bájt (korlát={max_bytes})",
     "err.unsupported_provider": "Az UAGENT_RESPONSES=1 be van állítva, de a válaszokon keresztüli képelemzés csak openai/azure/bedrock/openrouter/ollama esetén támogatott",
     "err.import_openai": "Nem sikerült importálni az openai csomagot: {err}",
     "prompt.default": "Hiányzik az env var az ollama képelemzéshez (UAGENT_OLLAMA_DEPNAME)",
@@ -194,7 +194,7 @@
   },
   "ro": {
     "err.image_not_found": "fișierul imagine nu a fost găsit: {path}",
-    "err.image_too_large": "fișier imagine prea mare: {size} octeți (limită = {max_bytes_analyse for]_ (ollama): {provider!r}",
+    "err.image_too_large": "fișierul imagine este prea mare: {size} octeți (limită={max_bytes})",
     "err.unsupported_provider": "Lipsesc valorile de mediu necesare pentru analiza imaginii azure.",
     "err.import_openai": "Nu s-a putut importa pachetul openai: {err}",
     "prompt.default": "Lipsește var env necesar pentru analiza imaginii ollama (UAGENT_OLLAMA_DEPNAME)",

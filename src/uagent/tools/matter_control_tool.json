@@ -240,7 +240,7 @@
     "err.queue_failed": "Failed to queue control command: {reason}"
   },
   "el": {
-    "tool.description": "Μη έγκυρη ενέργεια: {action}. Επιτρέπεται: {επιτρέπεται}",
+    "tool.description": "Μη έγκυρη ενέργεια: {action}. Επιτρέπεται: {allowed}",
     "param.dev.description": "Η συσκευή δεν βρέθηκε: {device_id}",
     "param.action.description": "Δράση.",
     "param.value.description": "Η τιμή πρέπει να είναι ακέραιος μεταξύ 0 και 100.",
