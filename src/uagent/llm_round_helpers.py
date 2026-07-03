@@ -404,6 +404,17 @@ def _call_openai_azure_round(
                         "input": input_msgs,
                     }
 
+                # In native mode, exclude catalog/load/unload tools (redundant with tool_search)
+                if use_gpt54_tool_search and not _is_legacy_mode() and req_tools:
+                    _MANAGEMENT_TOOLS = frozenset({"tool_catalog", "tool_load", "unload_tool"})
+                    req_tools = [
+                        t for t in req_tools
+                        if isinstance(t, dict) and (
+                            t.get("name") not in _MANAGEMENT_TOOLS
+                            and t.get("function", {}).get("name") not in _MANAGEMENT_TOOLS
+                        )
+                    ]
+
                 # Optional Responses API knobs via env (OpenAI SDK >= 2.x)
                 # - UAGENT_REASONING: auto|minimal|low|medium|high|xhigh|off (unset/off => do not send)
                 # - UAGENT_VERBOSITY: low|medium|high|off (unset/off => do not send)
@@ -445,11 +456,17 @@ def _call_openai_azure_round(
                 if instructions_str is not None:
                     resp_kwargs["instructions"] = instructions_str
                 if send_tools_this_round and req_tools:
-                    resp_kwargs["tools"] = req_tools
-                    resp_kwargs["tool_choice"] = "auto"
                     # Enable native OpenAI tool_search for GPT-5.4+ Responses API
                     if use_gpt54_tool_search and not _is_legacy_mode():
-                        resp_kwargs["tool_search"] = {"enabled": True}
+                        deferred_tools = []
+                        for t in req_tools:
+                            t = dict(t)
+                            t["defer_loading"] = True
+                            deferred_tools.append(t)
+                        resp_kwargs["tools"] = deferred_tools + [{"type": "tool_search"}]
+                    else:
+                        resp_kwargs["tools"] = req_tools
+                    resp_kwargs["tool_choice"] = "auto"
 
                 apply_openrouter_responses_compat(
                     resp_kwargs,
