@@ -129,22 +129,23 @@ def protect_placeholders(text: str) -> tuple[str, dict[str, str]]:
     seen: dict[str, str] = {}
     idx = 0
     detected = _detect_extension(text)
-    if not detected:
-        return text, mapping
-    
-    # .po: dynamically detect placeholders from msgid lines
     if detected == ".po":
+        # .po: dynamically detect placeholders from msgid lines
         msgid_lines = []
         for ln in text.split("\n"):
             if ln.startswith("msgid "):
-                # Extract the string value
                 m = re.search(r'^msgid\s+"(.*)"', ln)
                 if m:
                     msgid_lines.append(m.group(1))
         combined = "\n".join(msgid_lines)
         patterns = _po_placeholder_patterns(combined)
-    else:
+    elif detected:
         patterns = _get_patterns(detected)
+    else:
+        # Plain text fallback: protect common placeholders even without code detection.
+        # Google Translate tends to translate {xxx} placeholder names (e.g. {path} -> {パス})
+        # so we must protect them proactively.
+        patterns = _po_placeholder_patterns(text)
     
     def _replacer(m: re.Match) -> str:
         nonlocal idx
