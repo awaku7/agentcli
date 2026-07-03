@@ -212,6 +212,16 @@ def _select_tool_specs_for_gpt54(
         "file_exists",
         "finish_skill",
     }
+    # Include all currently loaded tools so tool_load results persist across rounds
+    for spec in specs:
+        if not isinstance(spec, dict):
+            continue
+        fn = spec.get("function") or {}
+        if not isinstance(fn, dict):
+            continue
+        name = str(fn.get("name") or "").strip()
+        if name:
+            selected_names.add(name)
     selected_names.update(hit_names)
 
     if "search_files" in hit_names or "file_grep" in hit_names:
@@ -310,6 +320,16 @@ def _select_tool_specs_for_gpt54_old(
 
     # Always keep these when narrowing applies
     selected_names = {"tool_catalog", "human_ask"}
+    # Include all currently loaded tools so tool_load results persist across rounds
+    for spec in specs:
+        if not isinstance(spec, dict):
+            continue
+        fn = spec.get("function") or {}
+        if not isinstance(fn, dict):
+            continue
+        name = str(fn.get("name") or "").strip()
+        if name:
+            selected_names.add(name)
     selected_names.update(hit_names)
 
     narrowed: list[dict[str, Any]] = []
