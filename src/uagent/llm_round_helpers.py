@@ -26,7 +26,8 @@ from .providers.llm_openai_responses import (
 from .providers.llm_bedrock_responses import build_bedrock_responses_request
 from .tools.llm_tool_narrowing import (
     _is_gpt54_tool_search_target,
-    _select_tool_specs_for_gpt54,
+    _is_legacy_mode,
+    _select_tool_specs_legacy,
 )
 from .providers.llm_openrouter import (
     apply_openrouter_extra_body,
@@ -371,11 +372,12 @@ def _call_openai_azure_round(
                     depname=depname,
                     use_responses_api=use_responses_api,
                 )
-                responses_tool_specs = (
-                    _select_tool_specs_for_gpt54(call_messages)
-                    if use_gpt54_tool_search
-                    else None
-                )
+                if use_gpt54_tool_search and _is_legacy_mode():
+                    # Legacy mode: narrow tools via tool_catalog (client-side)
+                    responses_tool_specs = _select_tool_specs_legacy(call_messages)
+                else:
+                    # Default / native mode: send all tools, let server narrow via tool_search
+                    responses_tool_specs = None
 
                 if provider == "bedrock":
                     _bedrock_req = build_bedrock_responses_request(
@@ -445,6 +447,9 @@ def _call_openai_azure_round(
                 if send_tools_this_round and req_tools:
                     resp_kwargs["tools"] = req_tools
                     resp_kwargs["tool_choice"] = "auto"
+                    # Enable native OpenAI tool_search for GPT-5.4+ Responses API
+                    if use_gpt54_tool_search and not _is_legacy_mode():
+                        resp_kwargs["tool_search"] = {"enabled": True}
 
                 apply_openrouter_responses_compat(
                     resp_kwargs,

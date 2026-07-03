@@ -3,8 +3,23 @@ from __future__ import annotations
 from typing import Any, Optional
 
 from ..env_utils import env_get
-
 from .. import tools
+
+
+def _get_gpt54_tool_search_mode() -> str:
+    """Return the GPT-5.4 tool search mode.
+
+    Reads UAGENT_GPT54_TOOL_SEARCH env:
+      - unset / "native": Use OpenAI native tool_search (send all tools, let server narrow)
+      - "legacy": Use old tool_catalog-based narrowing (send only relevant tools)
+      - "off": Disable any GPT-5.4 specific handling
+    """
+    raw = (env_get("UAGENT_GPT54_TOOL_SEARCH") or "").strip().lower()
+    if raw in ("off", "0", "false", "no"):
+        return "off"
+    if raw in ("legacy", "old"):
+        return "legacy"
+    return "native"
 
 
 def _is_gpt54_tool_search_target(
@@ -13,20 +28,20 @@ def _is_gpt54_tool_search_target(
     depname: str,
     use_responses_api: bool,
 ) -> bool:
-    """Return True when GPT-5.4 tool narrowing is explicitly enabled.
+    """Return True when OpenAI/Azure Responses API with GPT-5.4+ is used.
 
-    Guarded by env:
-    - UAGENT_ENABLE_GPT54_TOOL_SEARCH=1|true|yes|on
-
-    Only applies when using the Responses API.
+    Only applies when mode is not 'off'.
     """
 
-    enabled = (env_get("UAGENT_ENABLE_GPT54_TOOL_SEARCH") or "").strip().lower()
-    if enabled not in ("1", "true", "yes", "on"):
+    mode = _get_gpt54_tool_search_mode()
+    if mode == "off":
         return False
 
-    # Do not load tool_catalog unless the gate is explicitly enabled.
     if not use_responses_api:
+        return False
+
+    pv = (provider or "").strip().lower()
+    if pv not in ("openai", "azure"):
         return False
 
     model = (depname or "").strip().lower()
@@ -55,16 +70,19 @@ def _is_gpt54_tool_search_target(
     return minor >= 4
 
 
-def _select_tool_specs_for_gpt54(
+def _is_legacy_mode() -> bool:
+    """Return True if legacy tool_catalog narrowing mode is active."""
+    return _get_gpt54_tool_search_mode() == "legacy"
+
+
+def _select_tool_specs_legacy(
     call_messages: list[dict[str, Any]],
 ) -> Optional[list[dict[str, Any]]]:
     """Narrow tool surface for GPT-5.4 (Responses API) using tool_catalog.
 
-    Policy:
-    - Always include tool_catalog, tool_load, unload_tool, and human_ask
-      when narrowing is applied.
-    - If tool_catalog has hits: include only hit tools (+ the above always-included tools).
-    - If tool_catalog has zero hits, or user text is empty: fail open (return full tool set).
+    Legacy mode: only relevant tools (+ tool_catalog/tool_load/unload_tool/human_ask)
+    are sent.  If tool_catalog has zero hits, or user text is empty, fail open
+    (return full tool set).
 
     This function is stateless: it does not depend on previous tool calls.
     """
@@ -111,11 +129,9 @@ def _select_tool_specs_for_gpt54(
         stripped = (text or "").strip()
         if not stripped:
             return True
-
         compact = "".join(stripped.split())
         if not compact:
             return True
-
         lowered = stripped.lower()
         if "://" in lowered or "/" in stripped or "\\" in stripped:
             return False
@@ -125,7 +141,6 @@ def _select_tool_specs_for_gpt54(
             tail = stripped.rsplit(".", 1)[-1]
             if 1 <= len(tail) <= 8 and all(ch.isalnum() for ch in tail):
                 return False
-
         tokens = [part for part in stripped.split() if part]
         if len(tokens) <= 1 and len(compact) <= 2:
             return True
@@ -154,7 +169,6 @@ def _select_tool_specs_for_gpt54(
                         parts.append(txt.strip())
             if parts:
                 text = "\\n".join(parts).strip()
-
         if text and not _is_low_info_user_text(text):
             user_texts.append(text)
         if len(user_texts) >= 5:
@@ -231,109 +245,6 @@ def _select_tool_specs_for_gpt54(
 
     narrowed: list[dict[str, Any]] = []
     for spec in helper_specs + list(specs):
-        if not isinstance(spec, dict):
-            continue
-        fn = spec.get("function") or {}
-        if not isinstance(fn, dict):
-            continue
-        name = str(fn.get("name") or "").strip()
-        if name in selected_names:
-            narrowed.append(spec)
-
-    return narrowed
-
-
-def _select_tool_specs_for_gpt54_old(
-    call_messages: list[dict[str, Any]],
-) -> Optional[list[dict[str, Any]]]:
-    """Narrow tool surface for GPT-5.4 (Responses API) using tool_catalog.
-
-    Policy:
-    - Always include tool_catalog and human_ask when narrowing is applied.
-    - If tool_catalog has hits: include only hit tools (+ tool_catalog + human_ask).
-    - If tool_catalog has zero hits, or user text is empty: fail open (return full tool set).
-
-    This function is stateless: it does not depend on previous tool calls.
-    """
-
-    specs = tools.get_tool_specs() or []
-    if not specs:
-        return []
-
-    # latest user text
-    latest_user_text = ""
-    for m in reversed(call_messages):
-        if m.get("role") != "user":
-            continue
-        content = m.get("content")
-        if isinstance(content, str):
-            latest_user_text = content
-            break
-        if isinstance(content, list):
-            parts: list[str] = []
-            for item in content:
-                if isinstance(item, dict) and item.get("type") in (
-                    "text",
-                    "input_text",
-                    "output_text",
-                ):
-                    txt = item.get("text")
-                    if isinstance(txt, str) and txt.strip():
-                        parts.append(txt)
-            if parts:
-                latest_user_text = "\n".join(parts)
-                break
-
-    latest_user_text = (latest_user_text or "").strip()
-    if not latest_user_text:
-        if env_get("UAGENT_DEBUG_TOOLS") == "1":
-            try:
-                print("[debug] gpt54.latest_user_text=", latest_user_text)
-                print("[debug] gpt54.tool_catalog_hits=", [])
-                print("[debug] gpt54.narrowing=skip_empty_query(full_tools)")
-            except Exception:
-                pass
-        return specs
-
-    rows = tools.get_tool_catalog(query=latest_user_text, max_results=8)
-    hit_names = {
-        str(row.get("name") or "").strip()
-        for row in (rows or [])
-        if isinstance(row, dict)
-    }
-    hit_names.discard("")
-
-    if env_get("UAGENT_DEBUG_TOOLS") == "1":
-        try:
-            print("[debug] gpt54.latest_user_text=", latest_user_text)
-            print("[debug] gpt54.tool_catalog_hits=", sorted(hit_names))
-        except Exception:
-            pass
-
-    if not hit_names:
-        if env_get("UAGENT_DEBUG_TOOLS") == "1":
-            try:
-                print("[debug] gpt54.narrowing=zero_hit_fail_open(full_tools)")
-            except Exception:
-                pass
-        return specs
-
-    # Always keep these when narrowing applies
-    selected_names = {"tool_catalog", "human_ask"}
-    # Include all currently loaded tools so tool_load results persist across rounds
-    for spec in specs:
-        if not isinstance(spec, dict):
-            continue
-        fn = spec.get("function") or {}
-        if not isinstance(fn, dict):
-            continue
-        name = str(fn.get("name") or "").strip()
-        if name:
-            selected_names.add(name)
-    selected_names.update(hit_names)
-
-    narrowed: list[dict[str, Any]] = []
-    for spec in specs:
         if not isinstance(spec, dict):
             continue
         fn = spec.get("function") or {}

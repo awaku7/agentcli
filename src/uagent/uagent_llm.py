@@ -56,10 +56,7 @@ from .tools._genre_control_util import disable_single_tool as _disable_single_to
 from .tools import TOOL_SPECS as _TOOL_SPECS
 from .tools.context import get_callbacks
 from .tools.skill_history import make_finish_skill_handler
-from .tools import llm_tool_narrowing as _llm_tool_narrowing
-
-_is_gpt54_tool_search_target = _llm_tool_narrowing._is_gpt54_tool_search_target
-_select_tool_specs_for_gpt54 = _llm_tool_narrowing._select_tool_specs_for_gpt54
+from .tools.llm_tool_narrowing import _is_gpt54_tool_search_target
 
 
 def _inject_stop_prompt(
