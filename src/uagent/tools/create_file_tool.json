@@ -32,10 +32,10 @@
       "テキストファイル",
       "新規作成"
     ],
-    "err.file_exists": "ファイルはすでに存在します: {パス}",
+    "err.file_exists": "ファイルはすでに存在します: {path}",
     "err.path_missing": "ファイル名/パスは必須です",
-    "msg.created": "作成されたファイル: {パス}",
-    "msg.overwrote": "上書きされたファイル: {パス}"
+    "msg.created": "作成されたファイル: {path}",
+    "msg.overwrote": "上書きされたファイル: {path}"
   },
   "es": {
     "param.content.description": "Contenido de texto.",
