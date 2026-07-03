@@ -2867,7 +2867,7 @@ msgstr "वेब शोध: पूर्ण"
 #: src/uagent/providers/llm_openai_responses.py:530
 #, python-brace-format
 msgid "Web search: {action}"
-msgstr "वेब शोध: {क्रिया}"
+msgstr "वेब शोध: {action}"
 
 #: src/uagent/providers/llm_openai_responses.py:587
 #, python-brace-format
