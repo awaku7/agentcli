@@ -458,12 +458,7 @@ def _call_openai_azure_round(
                 if send_tools_this_round and req_tools:
                     # Enable native OpenAI tool_search for GPT-5.4+ Responses API
                     if use_gpt54_tool_search and not _is_legacy_mode():
-                        deferred_tools = []
-                        for t in req_tools:
-                            t = dict(t)
-                            t["defer_loading"] = True
-                            deferred_tools.append(t)
-                        resp_kwargs["tools"] = deferred_tools + [{"type": "tool_search"}]
+                        resp_kwargs["tools"] = req_tools + [{"type": "tool_search"}]
                     else:
                         resp_kwargs["tools"] = req_tools
                     resp_kwargs["tool_choice"] = "auto"
