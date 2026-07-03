@@ -52,7 +52,10 @@ from .llm_flow_helpers import (
     _execute_tool_calls,
 )
 from . import core as _core_module
-from .tools._genre_control_util import disable_single_tool as _disable_single_tool
+from .tools._genre_control_util import (
+    _LOADED_SINGLE_TOOLS as _LOADED_SINGLE_TOOLS,
+    disable_single_tool as _disable_single_tool,
+)
 from .tools import TOOL_SPECS as _TOOL_SPECS
 from .tools.context import get_callbacks
 from .tools.skill_history import make_finish_skill_handler
@@ -948,10 +951,13 @@ def run_llm_rounds(
                 # Skip core/management tools
                 if tname in ("tool_catalog", "tool_load", "unload_tool"):
                     continue
+                # Skip tools explicitly loaded by user (:tools load or tool_load)
+                if tname in _LOADED_SINGLE_TOOLS:
+                    continue
                 last = _TOOL_LAST_ROUND.get(tname)
                 if last is None:
                     # Never used: unload after 5 rounds (or _TOOL_AUTO_UNLOAD_ROUNDS, whichever is smaller)
-                    if _TOTAL_ROUNDS >= 5 and _TOOL_AUTO_UNLOAD_ROUNDS > 0:
+                    if _TOTAL_ROUNDS >= _TOOL_AUTO_UNLOAD_ROUNDS and _TOOL_AUTO_UNLOAD_ROUNDS > 0:
                         _disable_single_tool(tname)
                 elif (_TOTAL_ROUNDS - last) >= _TOOL_AUTO_UNLOAD_ROUNDS:
                     _TOOL_LAST_ROUND.pop(tname, None)
