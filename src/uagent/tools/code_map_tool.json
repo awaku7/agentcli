@@ -14,7 +14,8 @@
       "source code overview",
       "repository structure",
       "コードマップ"
-    ]
+    ],
+    "param.format.description": "Output format: 'json' for structured data, 'mermaid' for visual diagram."
   },
   "ja": {
     "tool.description": "コードベース ディレクトリを分析し、複数の言語にわたるシンボル定義 (クラス、関数など) を含む出力ファイル ツリーを分析します。 C#、Python、TypeScript、Go、Rust、C/C++、Java、Kotlin などをサポートします。プロジェクト対応のソース スキャンのために、.sln/.csproj、build.gradle.kts、Cargo.toml、go.mod、CMakeLists.txt、Makefile、package.json、pyproject.toml を読み取ります。",
@@ -31,7 +32,8 @@
       "ソースコードの概要",
       "リポジトリ構造",
       "コードマップ"
-    ]
+    ],
+    "param.format.description": "Output format: 'json' for structured data, 'mermaid' for visual diagram."
   },
   "es": {
     "tool.description": "Analice un directorio base de código y un árbol de archivos de salida con definiciones de símbolos (clases, funciones, etc.) en varios idiomas. Admite C#, Python, TypeScript, Go, Rust, C/C++, Java, Kotlin y más. Lee .sln/.csproj, build.gradle.kts, Cargo.toml, go.mod, CMakeLists.txt, Makefile, package.json, pyproject.toml para escanear el código fuente según el proyecto.",
@@ -48,7 +50,8 @@
       "descripción general del código fuente",
       "estructura del repositorio",
       "コードマップ"
-    ]
+    ],
+    "param.format.description": "Output format: 'json' for structured data, 'mermaid' for visual diagram."
   },
   "fr": {
     "tool.description": "Analysez un répertoire de base de code et une arborescence de fichiers de sortie avec des définitions de symboles (classes, fonctions, etc.) dans plusieurs langues. Prend en charge C#, Python, TypeScript, Go, Rust, C/C++, Java, Kotlin et plus encore. Lit .sln/.csproj, build.gradle.kts, Cargo.toml, go.mod, CMakeLists.txt, Makefile, package.json, pyproject.toml pour une analyse source adaptée au projet.",
@@ -65,7 +68,8 @@
       "aperçu du code source",
       "structure du référentiel",
       "コードマップ"
-    ]
+    ],
+    "param.format.description": "Output format: 'json' for structured data, 'mermaid' for visual diagram."
   },
   "ko": {
     "tool.description": "여러 언어에 걸쳐 기호 정의(클래스, 함수 등)가 포함된 코드베이스 디렉터리 및 출력 파일 트리를 분석합니다. C#, Python, TypeScript, Go, Rust, C/C++, Java, Kotlin 등을 지원합니다. 프로젝트 인식 소스 스캔을 위해 .sln/.csproj, build.gradle.kts, Cargo.toml, go.mod, CMakeLists.txt, Makefile, package.json, pyproject.toml을 읽습니다.",
@@ -82,7 +86,8 @@
       "소스 코드 개요",
       "저장소 구조",
       "코드맵"
-    ]
+    ],
+    "param.format.description": "Output format: 'json' for structured data, 'mermaid' for visual diagram."
   },
   "de": {
     "tool.description": "Analysieren Sie ein Codebasisverzeichnis und einen Ausgabedateibaum mit Symboldefinitionen (Klassen, Funktionen usw.) in mehreren Sprachen. Unterstützt C#, Python, TypeScript, Go, Rust, C/C++, Java, Kotlin und mehr. Liest .sln/.csproj, build.gradle.kts, Cargo.toml, go.mod, CMakeLists.txt, Makefile, package.json, pyproject.toml für projektbezogenes Quellscannen.",
@@ -99,7 +104,8 @@
       "Übersicht über den Quellcode",
       "Repository-Struktur",
       "コードマップ"
-    ]
+    ],
+    "param.format.description": "Output format: 'json' for structured data, 'mermaid' for visual diagram."
   },
   "it": {
     "tool.description": "Analizza una directory di base di codice e una struttura di file di output con definizioni di simboli (classi, funzioni, ecc.) in più lingue. Supporta C#, Python, TypeScript, Go, Rust, C/C++, Java, Kotlin e altro. Legge .sln/.csproj, build.gradle.kts, Cargo.toml, go.mod, CMakeLists.txt, Makefile, package.json, pyproject.toml per la scansione dell'origine compatibile con il progetto.",
@@ -116,7 +122,8 @@
       "panoramica del codice sorgente",
       "struttura del deposito",
       "コードマップ"
-    ]
+    ],
+    "param.format.description": "Output format: 'json' for structured data, 'mermaid' for visual diagram."
   },
   "ru": {
     "tool.description": "Анализируйте каталог базы кода и дерево выходных файлов с определениями символов (классов, функций и т. д.) на нескольких языках. Поддерживает C#, Python, TypeScript, Go, Rust, C/C++, Java, Kotlin и другие. Читает .sln/.csproj, build.gradle.kts, Cargo.toml, go.mod, CMakeLists.txt, Makefile, package.json, pyproject.toml для сканирования исходного кода с учетом проекта.",
@@ -133,7 +140,8 @@
       "обзор исходного кода",
       "структура репозитория",
       "コードマップ"
-    ]
+    ],
+    "param.format.description": "Output format: 'json' for structured data, 'mermaid' for visual diagram."
   },
   "pt_br": {
     "tool.description": "Analise um diretório de base de código e uma árvore de arquivos de saída com definições de símbolos (classes, funções, etc.) em vários idiomas. Suporta C#, Python, TypeScript, Go, Rust, C/C++, Java, Kotlin e muito mais. Lê .sln/.csproj, build.gradle.kts, Cargo.toml, go.mod, CMakeLists.txt, Makefile, package.json, pyproject.toml para verificação de origem com reconhecimento de projeto.",
@@ -150,7 +158,8 @@
       "visão geral do código-fonte",
       "estrutura do repositório",
       "コードマップ"
-    ]
+    ],
+    "param.format.description": "Output format: 'json' for structured data, 'mermaid' for visual diagram."
   },
   "pt": {
     "tool.description": "Analise um diretório de base de código e uma árvore de arquivos de saída com definições de símbolos (classes, funções, etc.) em vários idiomas. Suporta C#, Python, TypeScript, Go, Rust, C/C++, Java, Kotlin e muito mais. Lê .sln/.csproj, build.gradle.kts, Cargo.toml, go.mod, CMakeLists.txt, Makefile, package.json, pyproject.toml para verificação de origem com reconhecimento de projeto.",
@@ -167,7 +176,8 @@
       "visão geral do código-fonte",
       "estrutura do repositório",
       "コードマップ"
-    ]
+    ],
+    "param.format.description": "Output format: 'json' for structured data, 'mermaid' for visual diagram."
   },
   "id": {
     "tool.description": "Analisis direktori basis kode dan pohon file keluaran dengan definisi simbol (kelas, fungsi, dll.) dalam berbagai bahasa. Mendukung C#, Python, TypeScript, Go, Rust, C/C++, Java, Kotlin, dan banyak lagi. Membaca .sln/.csproj, build.gradle.kts, Cargo.toml, go.mod, CMakeLists.txt, Makefile, package.json, pyproject.toml untuk pemindaian sumber yang mendukung proyek.",
@@ -184,7 +194,8 @@
       "ikhtisar kode sumber",
       "struktur repositori",
       "コードマップ"
-    ]
+    ],
+    "param.format.description": "Output format: 'json' for structured data, 'mermaid' for visual diagram."
   },
   "vi": {
     "tool.description": "Phân tích thư mục cơ sở mã và cây tệp đầu ra với các định nghĩa ký hiệu (lớp, hàm, v.v.) trên nhiều ngôn ngữ. Hỗ trợ C#, Python, TypeScript, Go, Rust, C/C++, Java, Kotlin, v.v. Đọc .sln/.csproj, build.gradle.kts, Cargo.toml, go.mod, CMakeLists.txt, Makefile, pack.json, pyproject.toml để quét nguồn nhận biết dự án.",
@@ -201,7 +212,8 @@
       "tổng quan về mã nguồn",
       "cấu trúc kho lưu trữ",
       "コードマップ"
-    ]
+    ],
+    "param.format.description": "Output format: 'json' for structured data, 'mermaid' for visual diagram."
   },
   "pl": {
     "tool.description": "Analizuj katalog bazy kodu i drzewo plików wyjściowych z definicjami symboli (klas, funkcji itp.) w wielu językach. Obsługuje C#, Python, TypeScript, Go, Rust, C/C++, Java, Kotlin i inne. Odczytuje pliki .sln/.csproj, build.gradle.kts, Cargo.toml, go.mod, CMakeLists.txt, Makefile, package.json, pyproject.toml w celu skanowania źródeł z uwzględnieniem projektu.",
@@ -218,7 +230,8 @@
       "przegląd kodu źródłowego",
       "struktura repozytorium",
       "コードマップ"
-    ]
+    ],
+    "param.format.description": "Output format: 'json' for structured data, 'mermaid' for visual diagram."
   },
   "hi": {
     "tool.description": "कई भाषाओं में प्रतीक परिभाषाओं (कक्षाएं, फ़ंक्शन इत्यादि) के साथ कोडबेस निर्देशिका और आउटपुट फ़ाइल ट्री का विश्लेषण करें। सी#, पायथन, टाइपस्क्रिप्ट, गो, रस्ट, सी/सी++, जावा, कोटलिन और बहुत कुछ का समर्थन करता है। प्रोजेक्ट-अवेयर सोर्स स्कैनिंग के लिए .sln/.csproj, build.gradle.kts, Cargo.toml, go.mod, CMakeLists.txt, Makefile, package.json, pyproject.toml को पढ़ता है।",
@@ -235,7 +248,8 @@
       "स्रोत कोड अवलोकन",
       "भंडार संरचना",
       "コードマップ"
-    ]
+    ],
+    "param.format.description": "Output format: 'json' for structured data, 'mermaid' for visual diagram."
   },
   "ar": {
     "tool.description": "قم بتحليل دليل قاعدة التعليمات البرمجية وشجرة ملفات الإخراج مع تعريفات الرموز (الفئات والوظائف وما إلى ذلك) عبر لغات متعددة. يدعم C#، وPython، وTypeScript، وGo، وRust، وC/C++، وJava، وKotlin، والمزيد. يقرأ .sln/.csproj، وbuild.gradle.kts، وCargo.toml، وgo.mod، وCMakeLists.txt، وMakefile، وpackage.json، وpyproject.toml لمسح المصدر حسب المشروع.",
@@ -252,7 +266,8 @@
       "نظرة عامة على كود المصدر",
       "هيكل المستودع",
       "コードマップ"
-    ]
+    ],
+    "param.format.description": "Output format: 'json' for structured data, 'mermaid' for visual diagram."
   },
   "sv": {
     "tool.description": "Analysera en kodbaskatalog och utdatafilträd med symboldefinitioner (klasser, funktioner, etc.) över flera språk. Stöder C#, Python, TypeScript, Go, Rust, C/C++, Java, Kotlin och mer. Läser .sln/.csproj, build.gradle.kts, Cargo.toml, go.mod, CMakeLists.txt, Makefile, package.json, pyproject.toml för projektmedveten källskanning.",
@@ -269,7 +284,8 @@
       "källkodsöversikt",
       "förvarsstruktur",
       "コードマップ"
-    ]
+    ],
+    "param.format.description": "Output format: 'json' for structured data, 'mermaid' for visual diagram."
   },
   "sw": {
     "tool.description": "Changanua saraka ya msingi wa msimbo na mti wa towe wa faili ukitumia ufafanuzi wa alama (madarasa, vitendaji, n.k.) katika lugha nyingi. Inasaidia C#, Python, TypeScript, Go, Rust, C/C++, Java, Kotlin, na zaidi. Inasoma .sln/.csproj, build.gradle.kts, Cargo.toml, go.mod, CMakeLists.txt, Makefile, package.json, pyproject.toml kwa utambazaji wa chanzo kinachofahamu mradi.",
@@ -286,7 +302,8 @@
       "muhtasari wa msimbo wa chanzo",
       "muundo wa hifadhi",
       "コードマップ"
-    ]
+    ],
+    "param.format.description": "Output format: 'json' for structured data, 'mermaid' for visual diagram."
   },
   "nb": {
     "tool.description": "Analyser en kodebasekatalog og utdatafiltre med symboldefinisjoner (klasser, funksjoner osv.) på tvers av flere språk. Støtter C#, Python, TypeScript, Go, Rust, C/C++, Java, Kotlin og mer. Leser .sln/.csproj, build.gradle.kts, Cargo.toml, go.mod, CMakeLists.txt, Makefile, package.json, pyproject.toml for prosjektbevisst kildeskanning.",
@@ -303,7 +320,8 @@
       "kildekodeoversikt",
       "depotstruktur",
       "コードマップ"
-    ]
+    ],
+    "param.format.description": "Output format: 'json' for structured data, 'mermaid' for visual diagram."
   },
   "nl": {
     "tool.description": "Analyseer een codebase-directory en uitvoerbestandsboom met symbooldefinities (klassen, functies, enz.) in meerdere talen. Ondersteunt C#, Python, TypeScript, Go, Rust, C/C++, Java, Kotlin en meer. Leest .sln/.csproj, build.gradle.kts, Cargo.toml, go.mod, CMakeLists.txt, Makefile, package.json, pyproject.toml voor projectbewust bronscannen.",
@@ -320,7 +338,8 @@
       "broncode overzicht",
       "structuur van de opslagplaats",
       "コードマップ"
-    ]
+    ],
+    "param.format.description": "Output format: 'json' for structured data, 'mermaid' for visual diagram."
   },
   "fi": {
     "tool.description": "Analysoi koodikantahakemistoa ja tulostiedostopuuta symbolimäärittelyillä (luokat, funktiot jne.) useilla kielillä. Tukee C#, Python, TypeScript, Go, Rust, C/C++, Java, Kotlin ja paljon muuta. Lukee tiedostot .sln/.csproj, build.gradle.kts, Cargo.toml, go.mod, CMakeLists.txt, Makefile, package.json, pyproject.toml projektitietoisten lähteiden skannausta varten.",
@@ -337,7 +356,8 @@
       "lähdekoodin yleiskatsaus",
       "arkiston rakenne",
       "コードマップ"
-    ]
+    ],
+    "param.format.description": "Output format: 'json' for structured data, 'mermaid' for visual diagram."
   },
   "cs": {
     "tool.description": "Analyzujte adresář kódové báze a strom výstupních souborů s definicemi symbolů (třídy, funkce atd.) ve více jazycích. Podporuje C#, Python, TypeScript, Go, Rust, C/C++, Java, Kotlin a další. Čte soubory .sln/.csproj, build.gradle.kts, Cargo.toml, go.mod, CMakeLists.txt, Makefile, package.json, pyproject.toml pro skenování zdrojů podle projektu.",
@@ -354,7 +374,8 @@
       "přehled zdrojového kódu",
       "struktura úložiště",
       "コードマップ"
-    ]
+    ],
+    "param.format.description": "Output format: 'json' for structured data, 'mermaid' for visual diagram."
   },
   "uk": {
     "tool.description": "Аналізуйте каталог бази коду та дерево вихідних файлів із визначеннями символів (класи, функції тощо) кількома мовами. Підтримує C#, Python, TypeScript, Go, Rust, C/C++, Java, Kotlin тощо. Читає .sln/.csproj, build.gradle.kts, Cargo.toml, go.mod, CMakeLists.txt, Makefile, package.json, pyproject.toml для сканування джерела з урахуванням проекту.",
@@ -371,7 +392,8 @@
       "огляд вихідного коду",
       "структура сховища",
       "コードマップ"
-    ]
+    ],
+    "param.format.description": "Output format: 'json' for structured data, 'mermaid' for visual diagram."
   },
   "tr": {
     "tool.description": "Bir kod tabanı dizinini ve çıktı dosyası ağacını birden çok dilde sembol tanımlarıyla (sınıflar, işlevler vb.) analiz edin. C#, Python, TypeScript, Go, Rust, C/C++, Java, Kotlin ve daha fazlasını destekler. Projeye duyarlı kaynak taraması için .sln/.csproj, build.gradle.kts, Cargo.toml, go.mod, CMakeLists.txt, Makefile, package.json, pyproject.toml'yi okur.",
@@ -388,7 +410,8 @@
       "kaynak koduna genel bakış",
       "depo yapısı",
       "コードマップ"
-    ]
+    ],
+    "param.format.description": "Output format: 'json' for structured data, 'mermaid' for visual diagram."
   },
   "th": {
     "tool.description": "วิเคราะห์ไดเร็กทอรี codebase และแผนผังไฟล์เอาท์พุตด้วยคำจำกัดความสัญลักษณ์ (คลาส ฟังก์ชัน ฯลฯ) ในหลายภาษา รองรับ C#, Python, TypeScript, Go, Rust, C/C++, Java, Kotlin และอื่นๆ อ่าน .sln/.csproj, build.gradle.kts, Cargo.toml, go.mod, CMakeLists.txt, Makefile, package.json, pyproject.toml สำหรับการสแกนแหล่งที่มาแบบรับรู้โปรเจ็กต์",
@@ -405,7 +428,8 @@
       "ภาพรวมซอร์สโค้ด",
       "โครงสร้างพื้นที่เก็บข้อมูล",
       "โค๊ดマップ"
-    ]
+    ],
+    "param.format.description": "Output format: 'json' for structured data, 'mermaid' for visual diagram."
   },
   "zh_cn": {
     "tool.description": "Analyze a codebase directory and output file tree with symbol definitions (classes, functions, etc.) across multiple languages. Supports C#, Python, TypeScript, Go, Rust, C/C++, Java, Kotlin, and more. Reads .sln/.csproj, build.gradle.kts, Cargo.toml, go.mod, CMakeLists.txt, Makefile, package.json, pyproject.toml for project-aware source scanning.",
@@ -422,7 +446,8 @@
       "source code overview",
       "repository structure",
       "コードマップ"
-    ]
+    ],
+    "param.format.description": "Output format: 'json' for structured data, 'mermaid' for visual diagram."
   },
   "zh_tw": {
     "tool.description": "Analyze a codebase directory and output file tree with symbol definitions (classes, functions, etc.) across multiple languages. Supports C#, Python, TypeScript, Go, Rust, C/C++, Java, Kotlin, and more. Reads .sln/.csproj, build.gradle.kts, Cargo.toml, go.mod, CMakeLists.txt, Makefile, package.json, pyproject.toml for project-aware source scanning.",
@@ -439,7 +464,8 @@
       "source code overview",
       "repository structure",
       "コードマップ"
-    ]
+    ],
+    "param.format.description": "Output format: 'json' for structured data, 'mermaid' for visual diagram."
   },
   "bn": {
     "tool.description": "একাধিক ভাষা জুড়ে প্রতীক সংজ্ঞা (ক্লাস, ফাংশন, ইত্যাদি) সহ একটি কোডবেস ডিরেক্টরি এবং আউটপুট ফাইল ট্রি বিশ্লেষণ করুন। C#, Python, TypeScript, Go, Rust, C/C++, Java, Kotlin এবং আরও অনেক কিছু সমর্থন করে। প্রকল্প-সচেতন উত্স স্ক্যান করার জন্য .sln/.csproj, build.gradle.kts, Cargo.toml, go.mod, CMakeLists.txt, Makefile, package.json, pyproject.toml পড়ে।",
@@ -456,7 +482,8 @@
       "সোর্স কোড ওভারভিউ",
       "সংগ্রহস্থল গঠন",
       "コードマップ"
-    ]
+    ],
+    "param.format.description": "Output format: 'json' for structured data, 'mermaid' for visual diagram."
   },
   "fa": {
     "tool.description": "دایرکتوری پایگاه کد و درخت فایل خروجی را با تعریف نمادها (کلاس ها، توابع و غیره) در چندین زبان تجزیه و تحلیل کنید. پشتیبانی از C#، Python، TypeScript، Go، Rust، C/C++، Java، Kotlin و غیره. .sln/.csproj، build.gradle.kts، Cargo.toml، go.mod، CMakeLists.txt، Makefile، package.json، pyproject.toml را برای اسکن منبع پروژه آگاه می خواند.",
@@ -473,7 +500,8 @@
       "نمای کلی کد منبع",
       "ساختار مخزن",
       "コードマップ"
-    ]
+    ],
+    "param.format.description": "Output format: 'json' for structured data, 'mermaid' for visual diagram."
   },
   "mn": {
     "tool.description": "Олон хэл дээрх тэмдэгтийн тодорхойлолт (анги, функц гэх мэт) бүхий кодын сангийн лавлах болон гаралтын файлын модыг шинжлэх. C#, Python, TypeScript, Go, Rust, C/C++, Java, Kotlin болон бусад зүйлсийг дэмждэг. .sln/.csproj, build.gradle.kts, Cargo.toml, go.mod, CMakeLists.txt, Makefile, package.json, pyproject.toml-г уншдаг.",
@@ -490,7 +518,8 @@
       "эх кодын тойм",
       "агуулахын бүтэц",
       "コードマップ"
-    ]
+    ],
+    "param.format.description": "Output format: 'json' for structured data, 'mermaid' for visual diagram."
   },
   "mr": {
     "tool.description": "कोडबेस डिरेक्ट्री आणि आउटपुट फाइल ट्री चे विश्लेषण करा ज्यामध्ये चिन्ह व्याख्या (वर्ग, फंक्शन्स इ.) अनेक भाषांमध्ये आहेत. C#, Python, TypeScript, Go, Rust, C/C++, Java, Kotlin आणि बरेच काही सपोर्ट करते. प्रोजेक्ट-अवेअर सोर्स स्कॅनिंगसाठी .sln/.csproj, build.gradle.kts, Cargo.toml, go.mod, CMakeLists.txt, Makefile, package.json, pyproject.toml वाचतो.",
@@ -507,7 +536,8 @@
       "स्त्रोत कोड विहंगावलोकन",
       "भांडार रचना",
       "コードマップ"
-    ]
+    ],
+    "param.format.description": "Output format: 'json' for structured data, 'mermaid' for visual diagram."
   },
   "el": {
     "tool.description": "Αναλύστε έναν κατάλογο βάσης κώδικα και ένα δέντρο αρχείων εξόδου με ορισμούς συμβόλων (κλάσεις, συναρτήσεις, κ.λπ.) σε πολλές γλώσσες. Υποστηρίζει C#, Python, TypeScript, Go, Rust, C/C++, Java, Kotlin και άλλα. Διαβάζει .sln/.csproj, build.gradle.kts, Cargo.toml, go.mod, CMakeLists.txt, Makefile, package.json, pyproject.toml για σάρωση πηγών με γνώση του έργου.",
@@ -524,7 +554,8 @@
       "επισκόπηση πηγαίου κώδικα",
       "δομή αποθετηρίου",
       "コードマップ"
-    ]
+    ],
+    "param.format.description": "Output format: 'json' for structured data, 'mermaid' for visual diagram."
   },
   "he": {
     "tool.description": "נתח ספריית בסיס קוד ועץ קבצי פלט עם הגדרות סמלים (מחלקות, פונקציות וכו') על פני מספר שפות. תומך ב-C#, Python, TypeScript, Go, Rust, C/C++, Java, Kotlin ועוד. קורא .sln/.csproj, build.gradle.kts, Cargo.toml, go.mod, CMakeLists.txt, Makefile, package.json, pyproject.toml לסריקת מקור מודע לפרויקט.",
@@ -541,7 +572,8 @@
       "סקירת קוד מקור",
       "מבנה המאגר",
       "コードマップ"
-    ]
+    ],
+    "param.format.description": "Output format: 'json' for structured data, 'mermaid' for visual diagram."
   },
   "hu": {
     "tool.description": "Kódbázis-könyvtár és kimeneti fájlfa elemzése szimbólumdefiníciókkal (osztályok, függvények stb.) több nyelven. Támogatja a C#, Python, TypeScript, Go, Rust, C/C++, Java, Kotlin stb. Beolvassa az .sln/.csproj, build.gradle.kts, Cargo.toml, go.mod, CMakeLists.txt, Makefile, package.json, pyproject.toml fájlokat a projekt-tudatos forrásellenőrzés érdekében.",
@@ -558,7 +590,8 @@
       "forráskód áttekintése",
       "társzerkezet",
       "コードマップ"
-    ]
+    ],
+    "param.format.description": "Output format: 'json' for structured data, 'mermaid' for visual diagram."
   },
   "ro": {
     "tool.description": "Analizați un director de bază de cod și un arbore de fișiere de ieșire cu definiții de simbol (clase, funcții etc.) în mai multe limbi. Suportă C#, Python, TypeScript, Go, Rust, C/C++, Java, Kotlin și multe altele. Citește .sln/.csproj, build.gradle.kts, Cargo.toml, go.mod, CMakeLists.txt, Makefile, package.json, pyproject.toml pentru scanarea surselor în funcție de proiect.",
@@ -575,6 +608,7 @@
       "prezentare generală a codului sursă",
       "structura depozitului",
       "コードマップ"
-    ]
+    ],
+    "param.format.description": "Output format: 'json' for structured data, 'mermaid' for visual diagram."
   }
 }

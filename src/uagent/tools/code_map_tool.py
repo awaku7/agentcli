@@ -79,6 +79,15 @@ TOOL_SPEC: dict[str, Any] = {
                     ),
                     "default": False,
                 },
+                "format": {
+                    "type": "string",
+                    "description": _(
+                        "param.format.description",
+                        default="Output format: 'json' for structured data, 'mermaid' for visual diagram.",
+                    ),
+                    "enum": ["json", "mermaid"],
+                    "default": "json",
+                },
             },
             "required": [],
             "additionalProperties": False,
@@ -512,6 +521,44 @@ def _build_tree(
     return tree
 
 
+def _tree_to_mermaid(tree: list[dict[str, Any]], root_name: str = "root") -> str:
+    """Convert a nested tree structure to Mermaid graph TD format."""
+    lines = ["graph TD"]
+    node_id = [0]
+
+    def _add_node(node: dict[str, Any], parent_id: str | None = None) -> str:
+        node_id[0] += 1
+        nid = f"n{node_id[0]}"
+        name = node.get("name", "")
+        safe_name = name.replace('"', "'").replace("(", "").replace(")", "")
+        safe_name = (
+            safe_name.replace("[", "")
+            .replace("]", "")
+            .replace("{", "")
+            .replace("}", "")
+        )
+
+        if node.get("type") == "dir":
+            label = f"{safe_name}/"
+            lines.append(f'    {nid}["{label}"]')
+        else:
+            label = safe_name
+            lines.append(f'    {nid}["{label}"]')
+
+        if parent_id:
+            lines.append(f"    {parent_id} --> {nid}")
+
+        for child in node.get("children", []):
+            _add_node(child, nid)
+
+        return nid
+
+    for child in tree:
+        _add_node(child, None)
+
+    return "\n".join(lines)
+
+
 # ---------------------------------------------------------------------------
 # Main logic
 # ---------------------------------------------------------------------------
@@ -524,6 +571,7 @@ def run_tool(args: dict[str, Any]) -> str:
     max_depth = int(args.get("depth", 0))
     include_symbols = bool(args.get("include_symbols", True))
     project_only = bool(args.get("project_only", False))
+    output_format = args.get("format", "json")
 
     root = Path(base_path).resolve()
     if not root.exists() or not root.is_dir():
@@ -616,6 +664,12 @@ def run_tool(args: dict[str, Any]) -> str:
 
     # Build tree structure
     tree_root = _build_tree(file_list, str(root), max_depth)
+
+    # Mermaid output
+    if output_format == "mermaid" and tree_root:
+        mermaid_output = _tree_to_mermaid(tree_root)
+        return mermaid_output
+
     if tree_root:
         result["tree"] = tree_root
 
