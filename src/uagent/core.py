@@ -339,23 +339,18 @@ def print_status_line() -> None:
 responses_state: dict = {}
 
 # Responses state file path (workdir-relative, configurable via UAGENT_RESPONSES_STATE_FILE)
-_RESPONSES_STATE_FILE: str | None = None
 _RESPONSES_STATE_FILE_LOCK = threading.Lock()
 
 
-def _get_responses_state_file() -> str:
-    global _RESPONSES_STATE_FILE
-    if _RESPONSES_STATE_FILE is not None:
-        return _RESPONSES_STATE_FILE
+def _get_responses_state_file(provider: str, depname: str = "") -> str:
     env_path = (env_get("UAGENT_RESPONSES_STATE_FILE") or "").strip()
     if env_path:
-        _RESPONSES_STATE_FILE = env_path
-    else:
-        # Default: save in current working directory
-        _RESPONSES_STATE_FILE = os.path.join(
-            os.getcwd(), "responses_state.json",
-        )
-    return _RESPONSES_STATE_FILE
+        return env_path
+    safe_prov = provider.replace("-", "_").replace(".", "_").lower()
+    if depname:
+        safe_model = depname.replace("-", "_").replace(".", "_").lower()
+        return os.path.join(os.getcwd(), f"responses_state_{safe_prov}_{safe_model}.json")
+    return os.path.join(os.getcwd(), f"responses_state_{safe_prov}.json")
 
 
 # Pending loaded state (not yet confirmed by user)
@@ -386,11 +381,26 @@ def _load_responses_state() -> None:
 
 
 def _check_responses_state_provider(provider: str, depname: str) -> None:
-    """Discard saved state if provider or model changed."""
+    """Discard saved state if provider or model changed.
+    Also tries to load provider-specific state file if not already loaded."""
     global _PENDING_RESPONSES_STATE
     if _PENDING_RESPONSES_STATE is None:
-        return
-    saved_provider = _PENDING_RESPONSES_STATE.get("provider", "")
+        # Try provider-specific file
+        prov_path = _get_responses_state_file(provider=provider, depname=depname)
+        if os.path.exists(prov_path):
+            try:
+                with open(prov_path, "r", encoding="utf-8") as f:
+                    data = json.load(f)
+                if isinstance(data, dict):
+                    rid = data.get("previous_response_id")
+                    if isinstance(rid, str) and rid.startswith("resp_"):
+                        _PENDING_RESPONSES_STATE = data
+            except Exception:
+                try:
+                    os.remove(prov_path)
+                except Exception:
+                    pass
+    saved_provider = _PENDING_RESPONSES_STATE.get("provider", "") if _PENDING_RESPONSES_STATE else ""
     saved_model = _PENDING_RESPONSES_STATE.get("model", "")
     if saved_provider != provider or saved_model != depname:
         _PENDING_RESPONSES_STATE = None
@@ -427,7 +437,9 @@ def _maybe_ask_resume() -> None:
 
 def _save_responses_state() -> None:
     """Save responses_state to disk."""
-    path = _get_responses_state_file()
+    provider = responses_state.get("provider", "")
+    depname = responses_state.get("model", "")
+    path = _get_responses_state_file(provider=provider, depname=depname)
     try:
         os.makedirs(os.path.dirname(path), exist_ok=True)
         data = {
@@ -443,8 +455,7 @@ def _save_responses_state() -> None:
         pass
 
 
-# Load saved state on import
-_load_responses_state()
+
 
 
 def set_status(busy: bool, label: str = "") -> None:
