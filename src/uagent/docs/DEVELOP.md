@@ -173,6 +173,22 @@ A tool may suppress the trace using the extended flag:
 - **Runtime toggle (Web)**: `GET /api/tools-enabled` returns the current state; `POST /api/tools-enabled` with `{"enabled": true/false}` toggles it (rejected while busy).
 - **Implementation**: The runtime flag is `core.tools_enabled` (boolean, default `True`). It is initialized from `UAGENT_USE_TOOL` at startup in all entry points and read by `uagent_llm.run_llm_rounds()` each round via `getattr(_core_module, "tools_enabled", True)`.
 
+### 3.6.2 GPT-5.4+ / Responses API tool flow
+
+When `UAGENT_RESPONSES=1` and using OpenAI/Azure + GPT-5.4+, the tool sending logic changes:
+
+**Default (native mode)**: All tools are sent to the server. The server-side `tool_search` narrows them. Management tools (`tool_catalog`/`tool_load`/`unload_tool`) are included. Server-side compaction is automatically applied using the same threshold as local auto-shrink.
+
+**`UAGENT_GPT54_TOOL_SEARCH=legacy`**: Tools are narrowed client-side via `_select_tool_specs_legacy()`. Initially only `tool_catalog`/`tool_load`/`unload_tool`/`human_ask` are sent. The LLM discovers tools via `tool_catalog` and loads them via `tool_load`.
+
+**`UAGENT_GPT54_TOOL_SEARCH=native`** (explicit): Same as default but management tools are excluded. `_should_preload_lazy_specs()` becomes True, bypassing genre filters to register all tools.
+
+**Other providers (DeepSeek, Bedrock, OpenRouter, etc.)**: Use the standard Chat Completions or Responses API path. Tools are filtered by genre mask at startup and can be dynamically loaded via `tool_catalog` → `tool_load`. The `UAGENT_GPT54_TOOL_SEARCH` setting has no effect.
+
+**Auto-unload**: Skipped when `previous_response_id` is set (any provider), or when native GPT-5.4 tool_search is active.
+
+See `TOOL_FLOW.md` for full details.
+
 ### 3.7 Agent Skills lifecycle
 
 - `:skills` injects the selected skill as a dedicated `[SKILL] ...` system message.
