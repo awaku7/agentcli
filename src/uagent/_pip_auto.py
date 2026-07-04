@@ -71,57 +71,54 @@ def install_with_status(
     label = display_name or package_name
     target = module_name or package_name
 
-    # Check if already importable (but don't early-return when verify_submodule is set,
-    # because the submodule/DLL check may still fail)
-    try:
-        __import__(target)
-        already_installed = True
-    except ImportError:
-        already_installed = False
-
-    if not already_installed:
-        # Show installing message
+    def _install(force: bool = False) -> bool:
+        cmd = [sys.executable, "-m", "pip", "install"]
+        if force:
+            cmd.append("--force-reinstall")
+        cmd.append(package_name)
         try:
-            msg = _("Installing {package}...").format(package=label)
+            result = subprocess.run(cmd, stdout=sys.stderr, stderr=sys.stderr, timeout=120)
+            return result.returncode == 0
         except Exception:
-            msg = f"Installing {label}..."
-        print(msg, file=sys.stderr)
+            return False
 
-        # Attempt pip install
+    def _import_ok() -> bool:
         try:
-            result = subprocess.run(
-                [sys.executable, "-m", "pip", "install", package_name],
-                stdout=sys.stderr, stderr=sys.stderr, timeout=120,
-            )
-            installed_ok = result.returncode == 0
-        except Exception:
-            installed_ok = False
-    else:
-        installed_ok = True
+            __import__(target)
+            return True
+        except ImportError:
+            return False
 
-    # Verify after install
-    try:
-        __import__(target)
-        success = True
-    except ImportError:
-        success = False
-
-    # Verify submodule if specified (e.g. to test C extension DLL loading)
-    if success and verify_submodule:
+    def _submodule_ok() -> bool:
+        if not verify_submodule:
+            return True
         try:
             __import__(verify_submodule, fromlist=[''])
+            return True
         except Exception:
-            success = False
+            return False
 
-    # Show result message (only if we attempted install)
-    if not already_installed:
-        try:
-            if success:
-                done_msg = _("{package} installed successfully.").format(package=label)
-            else:
-                done_msg = _("Failed to install {package}.").format(package=label)
-        except Exception:
-            done_msg = f"{label} installed." if success else f"Failed to install {label}."
-        print(done_msg, file=sys.stderr)
+    # Check current state
+    if _import_ok() and _submodule_ok():
+        return True
 
-    return success
+    # If already importable but submodule (DLL) fails -> force-reinstall once
+    if _import_ok() and not _submodule_ok():
+        print(f"{label} is installed but broken (DLL load failed). Reinstalling...", file=sys.stderr)
+        if _install(force=True) and _import_ok() and _submodule_ok():
+            return True
+        # If force-reinstall didn't help, caller may add DLL directories and retry
+        return False
+
+    # Not installed at all -> normal install
+    print(f"Installing {label}...", file=sys.stderr)
+    if not _install(force=False):
+        print(f"Failed to install {label}.", file=sys.stderr)
+        return False
+    ok = _import_ok() and _submodule_ok()
+    if not ok:
+        # If install succeeded but DLL still broken, try force-reinstall
+        print(f"{label} installed but verification failed. Attempting force-reinstall...", file=sys.stderr)
+        ok = _install(force=True) and _import_ok() and _submodule_ok()
+    print(f"{label} installed {'successfully' if ok else 'but verification failed'}.", file=sys.stderr)
+    return ok
