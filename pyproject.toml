@@ -67,6 +67,8 @@ dependencies = [
 
 [project.optional-dependencies]
 zai = ["zhipuai>=2.1.5"]
+render = ["mermaid-cli"]
+excel = ["exstruct"]
 
 [project.scripts]
 

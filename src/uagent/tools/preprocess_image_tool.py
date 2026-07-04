@@ -24,14 +24,16 @@ import os
 from pathlib import Path
 from typing import Any
 
-try:
+from ._pip_auto import auto_install as _auto_install_pil
+
+if _auto_install_pil("Pillow", "PIL"):
     from PIL import Image, ImageFilter, ImageOps, ImageEnhance
 
     PIL_AVAILABLE = True
-except ImportError as e:
+else:
     Image = ImageFilter = ImageOps = ImageEnhance = None  # type: ignore[assignment]
     PIL_AVAILABLE = False
-    LOAD_DISABLED_REASON = f"[preprocess_image] Pillow is not available: {e!r}"
+    LOAD_DISABLED_REASON = "[preprocess_image] Pillow is not available"
 
 from .i18n_helper import make_tool_translator
 

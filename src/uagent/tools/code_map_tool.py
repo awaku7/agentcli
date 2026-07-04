@@ -581,16 +581,18 @@ def _render_mermaid_to_image(mermaid_code: str, output_path: str) -> str | None:
     Returns None on success, or an error message string on failure.
     Uses mermaid-cli (playwright-based) if available, falls back to Mermaid.ink API.
     """
-    mermaid_cli_hint = "pip install mermaid-cli"
+    from ._pip_auto import auto_install
 
     # Try mermaid-cli Python package first (local playwright rendering)
-    for _attempt in range(2):
+    if auto_install("mermaid-cli", "mermaid_cli"):
         try:
             import asyncio
             from mermaid_cli import render_mermaid
 
             async def _render():
-                _, _, png_bytes = await render_mermaid(mermaid_code, output_format="png")
+                _, _, png_bytes = await render_mermaid(
+                    mermaid_code, output_format="png"
+                )
                 if png_bytes:
                     with open(output_path, "wb") as f:
                         f.write(png_bytes)
@@ -598,21 +600,8 @@ def _render_mermaid_to_image(mermaid_code: str, output_path: str) -> str | None:
                 return "render returned no data"
 
             return asyncio.run(_render())
-        except ImportError:
-            if _attempt == 0:
-                # Auto-install mermaid-cli on first failure
-                import subprocess, sys
-                try:
-                    subprocess.run(
-                        [sys.executable, "-m", "pip", "install", "mermaid-cli"],
-                        capture_output=True, timeout=120
-                    )
-                except Exception:
-                    pass
-                continue
-            break
         except Exception:
-            break
+            pass
 
     # Fallback: Mermaid.ink API via base64 GET
     try:

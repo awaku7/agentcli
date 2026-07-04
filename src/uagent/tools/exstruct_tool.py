@@ -13,12 +13,13 @@ _ = make_tool_translator(__file__)
 # unless the "office" genre is enabled or the tool is individually loaded.
 LAZY_LOAD = True
 
-# Check availability of the 'exstruct' package at module load time
-try:
-    import exstruct  # noqa: F401
+# Auto-install exstruct if missing
+from ._pip_auto import auto_install as _auto_install_exstruct
 
+if _auto_install_exstruct("exstruct"):
+    import exstruct  # noqa: F401
     _HAS_EXSTRUCT = True
-except ImportError:
+else:
     _HAS_EXSTRUCT = False
     LOAD_DISABLED_REASON = _(
         "load.disabled",

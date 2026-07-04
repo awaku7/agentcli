@@ -27,21 +27,23 @@ from .i18n_helper import make_tool_translator
 _ = make_tool_translator(__file__)
 
 # Optional external libraries
-try:
-    import pdfplumber
-except ImportError:
+from ._pip_auto import auto_install
+
+if not auto_install("pdfplumber"):
     pdfplumber = None  # type: ignore[assignment]
 
-try:
-    from pptx import Presentation
-    from pptx.enum.shapes import MSO_SHAPE_TYPE
-except ImportError:
+if not auto_install("python-pptx", "pptx"):
     Presentation = None  # type: ignore[assignment]
     MSO_SHAPE_TYPE = None  # type: ignore[assignment]
+else:
+    try:
+        from pptx import Presentation
+        from pptx.enum.shapes import MSO_SHAPE_TYPE
+    except Exception:
+        Presentation = None
+        MSO_SHAPE_TYPE = None
 
-try:
-    import msoffcrypto
-except Exception:  # pragma: no cover
+if not auto_install("msoffcrypto-tool", "msoffcrypto"):
     msoffcrypto = None  # type: ignore[assignment]
 
 # Compatibility layer: complement collections and collections.abc

@@ -2,6 +2,7 @@ from __future__ import annotations
 
 # tools/screenshot_tool.py
 from .i18n_helper import make_tool_translator
+from ._pip_auto import auto_install
 from .response_util import make_response
 
 _ = make_tool_translator(__file__)
@@ -11,14 +12,10 @@ import os
 import time
 from typing import Any
 
-try:
-    import pyautogui
-except ImportError:
+if not auto_install("pyautogui"):
     pyautogui = None
 
-try:
-    import pygetwindow
-except ImportError:
+if not auto_install("pygetwindow"):
     pygetwindow = None
 
 TOOL_SPEC: dict[str, Any] = {
