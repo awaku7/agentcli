@@ -27,12 +27,12 @@ from .i18n_helper import make_tool_translator
 _ = make_tool_translator(__file__)
 
 # Optional external libraries
-from ._pip_auto import install_with_status
+from ._pip_auto import auto_install
 
-if not install_with_status("pdfplumber"):
+if not auto_install("pdfplumber"):
     pdfplumber = None  # type: ignore[assignment]
 
-if not install_with_status("python-pptx", "pptx"):
+if not auto_install("python-pptx", "pptx"):
     Presentation = None  # type: ignore[assignment]
     MSO_SHAPE_TYPE = None  # type: ignore[assignment]
 else:
@@ -43,7 +43,7 @@ else:
         Presentation = None
         MSO_SHAPE_TYPE = None
 
-if not install_with_status("msoffcrypto-tool", "msoffcrypto"):
+if not auto_install("msoffcrypto-tool", "msoffcrypto"):
     msoffcrypto = None  # type: ignore[assignment]
 
 # Compatibility layer: complement collections and collections.abc
