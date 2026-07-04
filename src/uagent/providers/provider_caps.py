@@ -17,6 +17,5 @@ RESPONSES_PROVIDERS: frozenset[str] = frozenset(
         "alibaba",
         "lmstudio",
         "sakana",
-        "sakura",
     }
 )
