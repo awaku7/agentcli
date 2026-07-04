@@ -189,3 +189,12 @@ uag aspires to be **your AI, on your machine, on your terms.**
 - No feature lock-in — extend with tools and skills
 
 A free AI agent experience, free from vendor lock-in.
+
+## Contributing
+
+Contributions are welcome! Bug reports, feature suggestions, documentation improvements, translations, and pull requests — all appreciated.
+
+- **Issues**: Open a GitHub issue for bugs or feature requests.
+- **Pull requests**: Fork the repo, make your changes, and submit a PR. See [DEVELOP.md](https://github.com/awaku7/agentcli/blob/main/src/uagent/docs/DEVELOP.md) for development setup and guidelines.
+- **Translations**: README translations and locale additions are welcome. See [ADD_LOCALE.md](https://github.com/awaku7/agentcli/blob/main/src/uagent/docs/ADD_LOCALE.md).
+- **Tools & Skills**: New tool plugins and Agent Skills can be contributed via the marketplace.

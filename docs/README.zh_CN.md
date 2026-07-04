@@ -189,3 +189,13 @@ uag 渴望成为 **您的人工智能，在您的机器上，按照您的条件�
 - 无功能锁定——通过工具和技能进行扩展
 
 免费的人工智能代理体验，不受供应商锁定。
+
+## Contributing
+
+Contributions are welcome! Bug reports, feature suggestions, documentation improvements, translations, and pull requests — all appreciated.
+
+- **Issues**: Open a GitHub issue for bugs or feature requests.
+- **Pull requests**: Fork the repo, make your changes, and submit a PR. See [DEVELOP.md](../src/uagent/docs/DEVELOP.md) for development setup and guidelines.
+- **Translations**: README translations and locale additions are welcome. See [ADD_LOCALE.md](../src/uagent/docs/ADD_LOCALE.md).
+- **Tools & Skills**: New tool plugins and Agent Skills can be contributed via the marketplace.
+

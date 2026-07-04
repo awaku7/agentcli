@@ -189,3 +189,13 @@ uag **আপনার AI হতে, আপনার মেশিনে, আপ�
 - কোনও বৈশিষ্ট্য লক-ইন নেই — সরঞ্জাম এবং দক্ষতা সহ প্রসারিত করুন
 
 একটি বিনামূল্যের এআই এজেন্ট অভিজ্ঞতা, বিক্রেতা লক-ইন থেকে মুক্ত।
+
+## Contributing
+
+Contributions are welcome! Bug reports, feature suggestions, documentation improvements, translations, and pull requests — all appreciated.
+
+- **Issues**: Open a GitHub issue for bugs or feature requests.
+- **Pull requests**: Fork the repo, make your changes, and submit a PR. See [DEVELOP.md](../src/uagent/docs/DEVELOP.md) for development setup and guidelines.
+- **Translations**: README translations and locale additions are welcome. See [ADD_LOCALE.md](../src/uagent/docs/ADD_LOCALE.md).
+- **Tools & Skills**: New tool plugins and Agent Skills can be contributed via the marketplace.
+

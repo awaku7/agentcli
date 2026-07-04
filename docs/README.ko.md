@@ -189,3 +189,13 @@ uag는 **귀하의 머신에서, 귀하의 조건에 따라 귀하의 AI가 되�
 - 기능 고정 없음 - 도구 및 기술로 확장
 
 벤더 종속이 없는 무료 AI 에이전트 환경입니다.
+
+## Contributing
+
+Contributions are welcome! Bug reports, feature suggestions, documentation improvements, translations, and pull requests — all appreciated.
+
+- **Issues**: Open a GitHub issue for bugs or feature requests.
+- **Pull requests**: Fork the repo, make your changes, and submit a PR. See [DEVELOP.md](../src/uagent/docs/DEVELOP.md) for development setup and guidelines.
+- **Translations**: README translations and locale additions are welcome. See [ADD_LOCALE.md](../src/uagent/docs/ADD_LOCALE.md).
+- **Tools & Skills**: New tool plugins and Agent Skills can be contributed via the marketplace.
+

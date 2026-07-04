@@ -189,3 +189,13 @@ uag
 - कोई फीचर लॉक-इन नहीं - उपकरण और कौशल के साथ विस्तार करें
 
 एक निःशुल्क एआई एजेंट अनुभव, वेंडर लॉक-इन से मुक्त।
+
+## Contributing
+
+Contributions are welcome! Bug reports, feature suggestions, documentation improvements, translations, and pull requests — all appreciated.
+
+- **Issues**: Open a GitHub issue for bugs or feature requests.
+- **Pull requests**: Fork the repo, make your changes, and submit a PR. See [DEVELOP.md](../src/uagent/docs/DEVELOP.md) for development setup and guidelines.
+- **Translations**: README translations and locale additions are welcome. See [ADD_LOCALE.md](../src/uagent/docs/ADD_LOCALE.md).
+- **Tools & Skills**: New tool plugins and Agent Skills can be contributed via the marketplace.
+

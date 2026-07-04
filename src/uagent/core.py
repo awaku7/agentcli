@@ -10,6 +10,7 @@ import json
 import time
 import glob
 import queue
+import re
 import threading
 from typing import Any, Optional
 
@@ -346,9 +347,9 @@ def _get_responses_state_file(provider: str, depname: str = "") -> str:
     env_path = (env_get("UAGENT_RESPONSES_STATE_FILE") or "").strip()
     if env_path:
         return env_path
-    safe_prov = provider.replace("-", "_").replace(".", "_").lower()
+    safe_prov = re.sub(r'[\\/:*?"<>|]', "_", provider).lower()
     if depname:
-        safe_model = depname.replace("-", "_").replace(".", "_").lower()
+        safe_model = re.sub(r'[\\/:*?"<>|]', "_", depname).lower()
         return os.path.join(os.getcwd(), f"responses_state_{safe_prov}_{safe_model}.json")
     return os.path.join(os.getcwd(), f"responses_state_{safe_prov}.json")
 

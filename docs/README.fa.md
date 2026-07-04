@@ -189,3 +189,13 @@ uag آرزو دارد **هوش مصنوعی شما باشد، بر روی دست
 - بدون قفل ویژگی - با ابزارها و مهارت ها گسترش دهید
 
 تجربه عامل هوش مصنوعی رایگان، بدون قفل شدن فروشنده.
+
+## Contributing
+
+Contributions are welcome! Bug reports, feature suggestions, documentation improvements, translations, and pull requests — all appreciated.
+
+- **Issues**: Open a GitHub issue for bugs or feature requests.
+- **Pull requests**: Fork the repo, make your changes, and submit a PR. See [DEVELOP.md](../src/uagent/docs/DEVELOP.md) for development setup and guidelines.
+- **Translations**: README translations and locale additions are welcome. See [ADD_LOCALE.md](../src/uagent/docs/ADD_LOCALE.md).
+- **Tools & Skills**: New tool plugins and Agent Skills can be contributed via the marketplace.
+

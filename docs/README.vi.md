@@ -189,3 +189,13 @@ uag mong muốn trở thành **AI của bạn, trên máy của bạn, theo đi�
 - Không khóa tính năng - mở rộng bằng các công cụ và kỹ năng
 
 Trải nghiệm đại lý AI miễn phí, không bị ràng buộc bởi nhà cung cấp.
+
+## Contributing
+
+Contributions are welcome! Bug reports, feature suggestions, documentation improvements, translations, and pull requests — all appreciated.
+
+- **Issues**: Open a GitHub issue for bugs or feature requests.
+- **Pull requests**: Fork the repo, make your changes, and submit a PR. See [DEVELOP.md](../src/uagent/docs/DEVELOP.md) for development setup and guidelines.
+- **Translations**: README translations and locale additions are welcome. See [ADD_LOCALE.md](../src/uagent/docs/ADD_LOCALE.md).
+- **Tools & Skills**: New tool plugins and Agent Skills can be contributed via the marketplace.
+

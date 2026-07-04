@@ -1,5 +1,14 @@
 # Changelog
 
+## [0.5.35] - 2026-07-04
+
+### Added
+- Contributing section added to `README.md` and all 34 translated README files under `docs/`.
+- Responses state file name now sanitizes all Windows-invalid filename characters via `re.sub`.
+
+### Changed
+- `_get_responses_state_file` in `core.py`: replaced chained `.replace()` calls with `re.sub(r'[\\/:*?"<>|]', "_", ...)` for cross-platform filename safety.
+
 ## [0.5.34] - 2026-07-04
 
 ### Added
