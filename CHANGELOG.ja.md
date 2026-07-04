@@ -1,5 +1,19 @@
 # 変更履歴
 
+## [0.5.36] - 2026-07-04
+
+### 追加
+- SAKURA AI Engine (sakura) プロバイダ対応：OpenAI 互換 API を使用した新しい LLM バックエンド。
+- セットアップウィザード（setup_cli.py）に sakura を追加。プロバイダ検出・クライアント生成に対応。
+- llm_round_helpers.py に sakura の temperature 設定を追加。
+
+### 変更
+- `runtime_banner.py`：sakura プロバイダの base_url 表示を追加。
+
+### ドキュメント
+- README.md、AGENTS.md、DEVELOP.md、DEVELOP.ja.md、ENVIRONMENT.md のプロバイダ一覧に SAKURA AI Engine を追加。
+- ENVIRONMENT.md に sakura/sakana の環境変数セクションを追加。
+
 ## [0.5.35] - 2026-07-04
 
 ### 追加

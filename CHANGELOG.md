@@ -1,5 +1,19 @@
 # Changelog
 
+## [0.5.36] - 2026-07-04
+
+### Added
+- SAKURA AI Engine (sakura) provider support: new LLM backend using OpenAI-compatible API.
+- Sakura provider entry in setup wizard (setup_cli.py), provider detection, and client creation.
+- Sakura temperature setting support in llm_round_helpers.py.
+
+### Changed
+- `runtime_banner.py`: add base_url display for sakura provider.
+
+### Documentation
+- Add SAKURA AI Engine to provider lists in README.md, AGENTS.md, DEVELOP.md, DEVELOP.ja.md, and ENVIRONMENT.md.
+- Add sakura/sakana environment variable sections to ENVIRONMENT.md.
+
 ## [0.5.35] - 2026-07-04
 
 ### Added
