@@ -2,7 +2,12 @@ from __future__ import annotations
 
 from typing import Optional
 
-from fastapi import Header
+try:
+    from fastapi import Header
+except ImportError:
+    from .._pip_auto import install_with_status as _install_fa
+    _install_fa("fastapi")
+    from fastapi import Header
 
 from ..env_utils import env_get
 from .errors import A2AHttpError

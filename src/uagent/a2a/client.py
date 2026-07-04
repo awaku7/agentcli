@@ -2,7 +2,12 @@ from __future__ import annotations
 
 from typing import Any, Optional
 
-import httpx
+try:
+    import httpx
+except ImportError:
+    from .._pip_auto import install_with_status as _install_httpx
+    _install_httpx("httpx")
+    import httpx
 
 from ..env_utils import env_get
 

@@ -11,9 +11,17 @@ from dataclasses import asdict, is_dataclass
 from ..env_utils import env_get
 from typing import Any
 
-from mcp import ClientSession
-from mcp.client.streamable_http import streamable_http_client
-from mcp.client.stdio import stdio_client, StdioServerParameters
+try:
+    from mcp import ClientSession
+    from mcp.client.streamable_http import streamable_http_client
+    from mcp.client.stdio import stdio_client, StdioServerParameters
+except ImportError:
+    from .._pip_auto import install_with_status as _install_mcp
+    if not _install_mcp("mcp"):
+        raise
+    from mcp import ClientSession
+    from mcp.client.streamable_http import streamable_http_client
+    from mcp.client.stdio import stdio_client, StdioServerParameters
 
 try:
     from .mcp_servers_shared import get_default_mcp_config_path

@@ -15,19 +15,37 @@ from datetime import datetime
 from typing import Any, Optional
 from uuid import uuid4
 
-import uvicorn
-from fastapi import (
-    FastAPI,
-    File,
-    Form,
-    Request,
-    UploadFile,
-    WebSocket,
-    WebSocketDisconnect,
-)
-from fastapi.responses import FileResponse, HTMLResponse, JSONResponse, RedirectResponse
-from fastapi.staticfiles import StaticFiles
-from fastapi.templating import Jinja2Templates
+try:
+    import uvicorn
+    from fastapi import (
+        FastAPI,
+        File,
+        Form,
+        Request,
+        UploadFile,
+        WebSocket,
+        WebSocketDisconnect,
+    )
+    from fastapi.responses import FileResponse, HTMLResponse, JSONResponse, RedirectResponse
+    from fastapi.staticfiles import StaticFiles
+    from fastapi.templating import Jinja2Templates
+except ImportError:
+    from ._pip_auto import install_with_status as _install
+    _install("uvicorn")
+    _install("fastapi")
+    import uvicorn
+    from fastapi import (
+        FastAPI,
+        File,
+        Form,
+        Request,
+        UploadFile,
+        WebSocket,
+        WebSocketDisconnect,
+    )
+    from fastapi.responses import FileResponse, HTMLResponse, JSONResponse, RedirectResponse
+    from fastapi.staticfiles import StaticFiles
+    from fastapi.templating import Jinja2Templates
 
 # uagent module imports
 from . import core as core

@@ -2,7 +2,12 @@ from __future__ import annotations
 
 from typing import Any, Optional
 
-from pydantic import BaseModel, Field
+try:
+    from pydantic import BaseModel, Field
+except ImportError:
+    from .._pip_auto import install_with_status as _install_pd
+    _install_pd("pydantic")
+    from pydantic import BaseModel, Field
 
 
 class A2AMessage(BaseModel):

@@ -6,9 +6,21 @@ import json
 from typing import Any, AsyncIterator, Optional
 from uuid import uuid4
 
-import uvicorn
-from fastapi import Depends, FastAPI, Request
-from fastapi.responses import JSONResponse, StreamingResponse
+try:
+    import uvicorn
+except ImportError:
+    from .._pip_auto import install_with_status as _install_uv
+    _install_uv("uvicorn")
+    import uvicorn
+
+try:
+    from fastapi import Depends, FastAPI, Request
+    from fastapi.responses import JSONResponse, StreamingResponse
+except ImportError:
+    from .._pip_auto import install_with_status as _install_fa
+    _install_fa("fastapi")
+    from fastapi import Depends, FastAPI, Request
+    from fastapi.responses import JSONResponse, StreamingResponse
 
 from ..env_utils import env_get
 from ..runtime.runtime_init import reload_dotenv_custom
