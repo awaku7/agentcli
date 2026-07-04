@@ -559,27 +559,28 @@ def build_responses_request(
     send_tools_this_round: bool,
     provider: str = "openai",  # kept for compatibility with caller
     tool_specs: Optional[list[dict[str, Any]]] = None,
+    previous_response_id: Optional[str] = None,
 ) -> tuple[Optional[str], list[dict[str, Any]], Optional[list[dict[str, Any]]]]:
     """Build payload for OpenAI/Azure Responses API.
 
     Returns:
       (instructions_str_or_none, input_msgs, tools_or_none)
 
-    Notes:
+    When *previous_response_id* is set the input is minimal:
+      - system messages -> instructions
+      - tool messages -> input (as-is, role="tool")
+      - latest user message -> input (as-is, role="user")
+      - assistant messages (including tool_calls) are skipped (server has them).
+
+    When *previous_response_id* is None the full history is converted:
       - system messages are aggregated into `instructions`.
       - role=tool messages are converted into role=user with a system prefix.
       - assistant tool_calls are removed and summarized into `instructions`.
-      - If instructions would be empty, returns None so caller can omit the field.
-
-    Additional policy (tool-arguments stability):
-      - Insert a strict tool-calling guideline into instructions so that the model
-        MUST provide a valid JSON object for function_call.arguments.
-      - This is specifically to avoid cases where Azure/OpenAI returns
-        function_call arguments={} for tools with required parameters.
     """
 
     instructions_list: list[str] = []
     input_msgs: list[dict[str, Any]] = []
+    _latest_user: Optional[dict[str, Any]] = None
 
     # Force the model to produce usable tool arguments.
     # Without this, some Azure/Responses combinations repeatedly emit
@@ -598,6 +599,35 @@ def build_responses_request(
         """))
     for m in call_messages:
         role = m.get("role")
+
+        # ── previous_response_id mode: minimal input, server has history ──
+        if previous_response_id is not None:
+            if role == "system":
+                instructions_list.append(_as_str(m.get("content", "")))
+            elif role == "tool":
+                # Responses API expects function_call_output for tool results
+                tm = dict(m)
+                for _k in ("attachments", "saved_path", "saved_files"):
+                    tm.pop(_k, None)
+                call_id = tm.pop("tool_call_id", None) or tm.get("id", "")
+                output = _as_str(tm.get("content", ""))
+                input_msgs.append({
+                    "type": "function_call_output",
+                    "call_id": call_id,
+                    "output": output,
+                })
+            elif role == "user":
+                _latest_user = dict(m)
+                for _k in ("attachments", "saved_path", "saved_files"):
+                    if _k in _latest_user:
+                        try:
+                            del _latest_user[_k]
+                        except Exception:
+                            pass
+            # assistant messages: skip (server has them from previous_response_id)
+            continue
+
+        # ── Full history mode (no previous_response_id) ──
 
         if role == "system":
             instructions_list.append(_as_str(m.get("content", "")))
@@ -729,6 +759,10 @@ def build_responses_request(
 
         input_msgs.append(m_clean)
 
+    # previous_response_id mode: append the latest user message (if any)
+    if previous_response_id is not None and _latest_user is not None:
+        input_msgs.append(_latest_user)
+
     # Build instructions (omit if empty)
     instructions_str: Optional[str] = None
     if instructions_list:
@@ -754,10 +788,15 @@ def build_responses_request(
         # OpenAI-hosted web search is not a local function tool.  It must be
         # sent as a Responses built-in tool, e.g. {"type": "web_search"}.
         # Allow opt-in through env without requiring a dummy local tool module.
-        if provider == "openai":
+        if provider in ("openai", "azure"):
             env_web_search_tool = _openai_web_search_tool_from_env()
             if env_web_search_tool is not None:
                 flat_tools.append(env_web_search_tool)
+
+        # Collect excluded local tools when OpenAI built-in equivalents are active
+        _excluded_local: set[str] = set()
+        if env_web_search_tool is not None:
+            _excluded_local.add("search_web")
 
         for t in raw_specs or []:
             if not isinstance(t, dict):
@@ -773,6 +812,9 @@ def build_responses_request(
                 continue
             name = fn.get("name")
             if not name:
+                continue
+            # Skip local tools that have OpenAI built-in equivalents
+            if name in _excluded_local:
                 continue
             flat_tools.append(
                 {
@@ -790,8 +832,16 @@ def build_responses_request(
 
 def parse_responses_response(
     resp: Any, *, core: Any = None
-) -> tuple[str, list[dict[str, Any]]]:
-    """Parse Responses API response into (assistant_text, tool_calls_list)."""
+) -> tuple[str, list[dict[str, Any]], Optional[str]]:
+    """Parse Responses API response into (assistant_text, tool_calls_list, response_id)."""
+
+    response_id: Optional[str] = None
+    try:
+        response_id = _as_str(getattr(resp, "id", None) or "")
+    except Exception:
+        pass
+    if not response_id:
+        response_id = None
 
     assistant_text = ""
     tool_calls_list: list[dict[str, Any]] = []
@@ -850,7 +900,13 @@ def parse_responses_response(
                         seen_web_search_ids.add(wid)
                     _emit_web_search_event(core, "update", **info)
 
-    return assistant_text, tool_calls_list
+            elif item_type == "compaction":
+                print(
+                    "[Responses API] "
+                    + _("Server-side compaction triggered (context compressed).")
+                )
+
+    return assistant_text, tool_calls_list, response_id
 
 
 def parse_responses_stream(
@@ -858,8 +914,8 @@ def parse_responses_stream(
     *,
     print_delta_fn: Any = None,
     core: Any = None,
-) -> tuple[str, list[dict[str, Any]]]:
-    """Parse Responses API streaming iterator into (assistant_text, tool_calls_list).
+) -> tuple[str, list[dict[str, Any]], Optional[str]]:
+    """Parse Responses API streaming iterator into (assistant_text, tool_calls_list, response_id).
 
     Debugging:
       - If UAGENT_STREAMING_DEBUG is enabled, dumps each event as JSON to:
@@ -995,6 +1051,9 @@ def parse_responses_stream(
         except Exception:
             pass
 
+    # Track response_id from streaming events
+    _stream_response_id: Optional[str] = None
+
     try:
         # Web streaming: signal start (a single growing assistant bubble)
         try:
@@ -1031,6 +1090,21 @@ def parse_responses_stream(
                 _dump_event(ev)
 
             ev_type = getattr(ev, "type", None) or getattr(ev, "event", None) or ""
+
+            # Capture response_id from streaming events
+            if not _stream_response_id:
+                if ev_type == "response.created":
+                    ev_resp = getattr(ev, "response", None)
+                    if ev_resp is not None:
+                        rid = _as_str(getattr(ev_resp, "id", None) or "")
+                        if rid:
+                            _stream_response_id = rid
+                elif ev_type == "response.completed":
+                    ev_resp = getattr(ev, "response", None)
+                    if ev_resp is not None:
+                        rid = _as_str(getattr(ev_resp, "id", None) or "")
+                        if rid:
+                            _stream_response_id = rid
 
             if "web_search_call" in _as_str(ev_type).lower():
                 info = _extract_web_search_call_info(ev)
@@ -1094,6 +1168,12 @@ def parse_responses_stream(
                 )
             )
             iid_candidate = getattr(ev, "item_id", None)
+
+            if ev_type == "response.compaction.done":
+                print(
+                    "[Responses API] "
+                    + _("Server-side compaction triggered (context compressed).")
+                )
 
             if ev_type in ("response.output_item.added", "response.output_item.delta"):
                 item = getattr(ev, "item", None) or getattr(ev, "output_item", None)
@@ -1172,6 +1252,11 @@ def parse_responses_stream(
 
             elif ev_type == "response.output_item.done":
                 item = getattr(ev, "item", None) or getattr(ev, "output_item", None)
+                if item is not None and getattr(item, "type", None) == "compaction":
+                    print(
+                        "[Responses API] "
+                        + _("Server-side compaction triggered (context compressed).")
+                    )
                 if (
                     item is not None
                     and "web_search_call" in _as_str(getattr(item, "type", "")).lower()
@@ -1262,4 +1347,4 @@ def parse_responses_stream(
             }
         )
 
-    return assistant_text, tool_calls_list
+    return assistant_text, tool_calls_list, _stream_response_id

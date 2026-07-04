@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2026-07-02 20:45+0900\n"
+"POT-Creation-Date: 2026-07-04 11:22+0900\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -180,6 +180,21 @@ msgstr "Startup file provided: %(path)s"
 
 msgid "--non-interactive was specified; exiting without waiting for stdin."
 msgstr "--non-interactive was specified; exiting without waiting for stdin."
+
+msgid "[Responses API] A previous session was found. Continue it?"
+msgstr "[Responses API] A previous session was found. Continue it?"
+
+msgid "  (y) Yes - reuse previous context (saves tokens)"
+msgstr "  (y) Yes - reuse previous context (saves tokens)"
+
+msgid "  (n) No  - start fresh, discard saved state"
+msgstr "  (n) No  - start fresh, discard saved state"
+
+msgid "[Responses API] Continuing previous session."
+msgstr "[Responses API] Continuing previous session."
+
+msgid "[Responses API] Starting fresh session."
+msgstr "[Responses API] Starting fresh session."
 
 msgid "Environment variable %(name)s is not set."
 msgstr "Environment variable %(name)s is not set."
@@ -753,6 +768,9 @@ msgstr "Input exceeds the context window."
 
 msgid "Model does not support thinking. Disabling thinking and retrying..."
 msgstr "Model does not support thinking. Disabling thinking and retrying..."
+
+msgid "Stale previous_response_id. Retrying with full history..."
+msgstr "Stale previous_response_id. Retrying with full history..."
 
 msgid "400 BadRequest"
 msgstr "400 BadRequest"
@@ -2178,6 +2196,9 @@ msgstr ""
 "        - Do not use web search for local or stable information.\n"
 "        - Prefer answering without web search when the answer is already sufficient.\n"
 "        "
+
+msgid "Server-side compaction triggered (context compressed)."
+msgstr "Server-side compaction triggered (context compressed)."
 
 msgid "Response body: %(body)s"
 msgstr "Response body: %(body)s"

@@ -57,6 +57,7 @@ from .tools._genre_control_util import (
     disable_single_tool as _disable_single_tool,
 )
 from .tools import TOOL_SPECS as _TOOL_SPECS
+from .tools import _should_preload_lazy_specs
 from .tools.context import get_callbacks
 from .tools.skill_history import make_finish_skill_handler
 from .tools.llm_tool_narrowing import _is_gpt54_tool_search_target
@@ -160,7 +161,11 @@ def _run_one_round(
     def _call_maybe_thread_fn(fn: Any) -> Any:
         return _call_maybe_thread(fn, use_llm_thread=use_llm_thread)
 
-    if not judgment_mode:
+    # Skip auto-shrink when using previous_response_id (server manages context)
+    _using_prev_rid = bool(
+        core.responses_state.get("previous_response_id")
+    )
+    if not judgment_mode and not _using_prev_rid:
         gemini_cache_name = _maybe_auto_shrink_messages(
             provider=provider,
             client=client,
@@ -649,6 +654,7 @@ def _run_one_round(
             retry_base=retry_base,
             retry_cap=retry_cap,
             messages=messages,
+            responses_state=core.responses_state,
         )
         if not ok:
             return (
@@ -766,7 +772,11 @@ def _run_one_round(
         )
 
     # Re-check before the next LLM call.
-    if not judgment_mode:
+    # Skip auto-shrink when using previous_response_id (server manages context)
+    _using_prev_rid = bool(
+        core.responses_state.get("previous_response_id")
+    )
+    if not judgment_mode and not _using_prev_rid:
         gemini_cache_name = _maybe_auto_shrink_messages(
             provider=provider,
             client=client,
@@ -828,6 +838,11 @@ def run_llm_rounds(
         if not judgment_messages:
             return ""
         messages = judgment_messages
+
+    # Provider/model must be set before first LLM round (for save to file)
+    if not judgment_mode:
+        core.responses_state["provider"] = provider
+        core.responses_state["model"] = depname
 
     max_tool_rounds = 200
     round_count = 0
@@ -943,25 +958,27 @@ def run_llm_rounds(
             for _tname in _found_tool_names:
                 _TOOL_LAST_ROUND[_tname] = _TOTAL_ROUNDS
 
-            for spec in list(_TOOL_SPECS):
-                func_info = spec.get("function", {})
-                tname = func_info.get("name", "")
-                if not tname:
-                    continue
-                # Skip core/management tools
-                if tname in ("tool_catalog", "tool_load", "unload_tool"):
-                    continue
-                # Skip tools explicitly loaded by user (:tools load or tool_load)
-                if tname in _LOADED_SINGLE_TOOLS:
-                    continue
-                last = _TOOL_LAST_ROUND.get(tname)
-                if last is None:
-                    # Never used: unload after 5 rounds (or _TOOL_AUTO_UNLOAD_ROUNDS, whichever is smaller)
-                    if _TOTAL_ROUNDS >= _TOOL_AUTO_UNLOAD_ROUNDS and _TOOL_AUTO_UNLOAD_ROUNDS > 0:
+            # Skip auto-unload in native tool_search mode (server manages tool selection)
+            if not _should_preload_lazy_specs():
+                for spec in list(_TOOL_SPECS):
+                    func_info = spec.get("function", {})
+                    tname = func_info.get("name", "")
+                    if not tname:
+                        continue
+                    # Skip core/management tools
+                    if tname in ("tool_catalog", "tool_load", "unload_tool"):
+                        continue
+                    # Skip tools explicitly loaded by user (:tools load or tool_load)
+                    if tname in _LOADED_SINGLE_TOOLS:
+                        continue
+                    last = _TOOL_LAST_ROUND.get(tname)
+                    if last is None:
+                        # Never used: unload after 5 rounds (or _TOOL_AUTO_UNLOAD_ROUNDS, whichever is smaller)
+                        if _TOTAL_ROUNDS >= _TOOL_AUTO_UNLOAD_ROUNDS and _TOOL_AUTO_UNLOAD_ROUNDS > 0:
+                            _disable_single_tool(tname)
+                    elif (_TOTAL_ROUNDS - last) >= _TOOL_AUTO_UNLOAD_ROUNDS:
+                        _TOOL_LAST_ROUND.pop(tname, None)
                         _disable_single_tool(tname)
-                elif (_TOTAL_ROUNDS - last) >= _TOOL_AUTO_UNLOAD_ROUNDS:
-                    _TOOL_LAST_ROUND.pop(tname, None)
-                    _disable_single_tool(tname)
             # --- end auto-unload ---
 
             # Judgment mode: one round only

@@ -3,7 +3,7 @@ from __future__ import annotations
 import json
 import traceback
 from urllib.error import URLError
-from typing import Any
+from typing import Any, Optional
 
 try:
     from openai import APIConnectionError, BadRequestError
@@ -13,6 +13,7 @@ except Exception:
 
 from . import tools
 from .llm_errors import _rate_limit_retry_step
+from .llm_message_helpers import _get_shrink_max_tokens
 from .providers.llm_gemini import gemini_chat_with_tools
 from .providers.llm_claude import (
     claude_chat_with_tools,
@@ -348,6 +349,7 @@ def _call_openai_azure_round(
     retry_base: float,
     retry_cap: float,
     messages: list[dict[str, Any]] = None,
+    responses_state: Optional[dict] = None,
 ) -> Any:
     attempt_429 = 0
     assistant_text: str = ""
@@ -363,10 +365,17 @@ def _call_openai_azure_round(
 
     # Track whether thinking/reasoning has been disabled due to model rejection
     _thinking_disabled = False
+    # Track whether previous_response_id caused a stale error; if so, stop using it
+    _stale_rid_retried = False
 
     while True:
         try:
             if use_responses_api:
+                # Extract previous_response_id from shared state (if any)
+                _prev_rid: Optional[str] = None
+                if isinstance(responses_state, dict):
+                    _prev_rid = responses_state.get("previous_response_id")
+
                 use_gpt54_tool_search = _is_gpt54_tool_search_target(
                     provider=provider,
                     depname=depname,
@@ -397,12 +406,25 @@ def _call_openai_azure_round(
                         send_tools_this_round=send_tools_this_round,
                         provider=provider,
                         tool_specs=responses_tool_specs,
+                        previous_response_id=_prev_rid,
                     )
 
                     resp_kwargs = {
                         "model": depname,
                         "input": input_msgs,
                     }
+
+                # Use previous_response_id for multi-turn continuity
+                if _prev_rid is not None:
+                    resp_kwargs["previous_response_id"] = _prev_rid
+
+                # Server-side compaction (Responses API)
+                # Uses the same threshold as local auto-shrink to trigger compaction
+                # at the same point where local context would be compressed.
+                _compact_threshold = _get_shrink_max_tokens(depname)
+                resp_kwargs["context_management"] = [
+                    {"type": "compaction", "compact_threshold": _compact_threshold}
+                ]
 
                 # Optional Responses API knobs via env (OpenAI SDK >= 2.x)
                 # - UAGENT_REASONING: auto|minimal|low|medium|high|xhigh|off (unset/off => do not send)
@@ -462,7 +484,7 @@ def _call_openai_azure_round(
                 )
 
                 if stream_responses:
-                    assistant_text, tool_calls_list = call_maybe_thread_fn(
+                    _stream_result = call_maybe_thread_fn(
                         lambda: parse_responses_stream(
                             client.responses.create(
                                 **resp_kwargs,
@@ -481,6 +503,11 @@ def _call_openai_azure_round(
                             core=core,
                         )
                     )
+                    assistant_text, tool_calls_list, _stream_rid = _stream_result
+                    if _stream_rid and isinstance(responses_state, dict) and not _stale_rid_retried:
+                        responses_state["previous_response_id"] = _stream_rid
+                        from .core import _save_responses_state
+                        _save_responses_state()
                     # ensure newline after streaming output
                     if (
                         assistant_text
@@ -516,12 +543,17 @@ def _call_openai_azure_round(
                                 return client.responses.create(**resp_kwargs)
                             raise
 
-                    assistant_text, tool_calls_list = call_maybe_thread_fn(
+                    _resp_result = call_maybe_thread_fn(
                         lambda: parse_responses_response(
                             _create_responses_with_effort_fallback(),
                             core=core,
                         )
                     )
+                    assistant_text, tool_calls_list, _resp_rid = _resp_result
+                    if _resp_rid and isinstance(responses_state, dict) and not _stale_rid_retried:
+                        responses_state["previous_response_id"] = _resp_rid
+                        from .core import _save_responses_state
+                        _save_responses_state()
 
                     # Auto retry (non-streaming only): if output looks unusable, retry once with higher effort.
                     if (
@@ -547,10 +579,14 @@ def _call_openai_azure_round(
                             resp = call_maybe_thread_fn(
                                 lambda: client.responses.create(**resp_kwargs)
                             )
-                            assistant_text, tool_calls_list = parse_responses_response(
+                            assistant_text, tool_calls_list, _retry_rid = parse_responses_response(
                                 resp,
                                 core=core,
                             )
+                            if _retry_rid and isinstance(responses_state, dict) and not _stale_rid_retried:
+                                responses_state["previous_response_id"] = _retry_rid
+                                from .core import _save_responses_state
+                                _save_responses_state()
             else:
                 req_tools = tools.get_tool_specs() if send_tools_this_round else None
 
@@ -616,6 +652,11 @@ def _call_openai_azure_round(
                 )
             break
         except Exception as e:
+            # Clear previous_response_id on any error (may be stale)
+            if isinstance(responses_state, dict):
+                responses_state.pop("previous_response_id", None)
+                from .core import _save_responses_state
+                _save_responses_state()
             # NOTE: i18n function _ is a global import, but some exception paths
             # previously triggered UnboundLocalError: '_' due to local-scope issues.
             # Use a safe fallback translator to avoid crashing while reporting errors.
@@ -659,6 +700,14 @@ def _call_openai_azure_round(
                     )
                     _thinking_disabled = True
                     resp_kwargs.pop("reasoning", None)
+                    continue
+                # No tool call found: previous_response_id is stale, retry without it
+                if "no tool call found" in err_text:
+                    _stale_rid_retried = True
+                    print(
+                        "[Azure/OpenAI Error] "
+                        + _("Stale previous_response_id. Retrying with full history...")
+                    )
                     continue
                 print("[Azure/OpenAI Error] " + _("400 BadRequest"))
                 print("[Azure/OpenAI Error] " + _("Error code: %(code)d - %(err)s") % {"code": 400, "err": e})

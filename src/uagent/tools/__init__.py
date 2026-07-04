@@ -43,6 +43,21 @@ from .i18n_helper import clear_tool_i18n_cache, get_locale, make_tool_translator
 
 _ = make_tool_translator(__file__)
 
+# ── GPT-5.4 native tool_search helpers ──────────────────────────
+
+def _should_preload_lazy_specs() -> bool:
+    """Check if lazy tool specs should be pre-registered for server-side narrowing.
+
+    Returns True when GPT-5.4 native tool_search is active
+    (Responses API + OpenAI/Azure + GPT-5.4+ model, mode != off).
+    """
+    raw = (env_get("UAGENT_GPT54_TOOL_SEARCH") or "").strip().lower()
+    if raw in ("off", "0", "false", "no"):
+        return False
+    return True
+
+# ─────────────────────────────────────────────────────────────────
+
 # Lazy-loaded tool modules (skip import during _load_plugins())
 _LAZY_TOOL_MODULES: set[str] = set()
 
@@ -251,6 +266,11 @@ def _register_tool_module(mod: Any, mod_name: str) -> bool:
         except Exception:
             pass
 
+    # In native GPT-5.4 tool_search mode, register all tools regardless of genre
+    # so the full tool set is sent to the server for server-side narrowing.
+    if tool_level == 1 and _should_preload_lazy_specs():
+        tool_level = 0
+
     # If the tool was individually loaded via :tools load, preserve it across reloads
     if tool_level == 1:
         _fi = spec.get("function", {})
@@ -349,6 +369,10 @@ def _register_extra_spec(
                 tool_level = 0
         except Exception:
             pass
+
+    # Native GPT-5.4 tool_search mode: register all tools regardless of genre
+    if tool_level == 1 and _should_preload_lazy_specs():
+        tool_level = 0
 
     # Single tool load check
     if tool_level == 1:
@@ -449,7 +473,12 @@ def _load_plugins() -> None:
         # Lazy-loaded modules are skipped here; imported on demand
         # (e.g. when genre is enabled or tool is individually loaded).
         if m.name in _LAZY_TOOL_MODULES:
-            _load_lazy_tool_spec(m.name)
+            lazy_spec = _load_lazy_tool_spec(m.name)
+            # In native GPT-5.4 tool_search mode, pre-register lazy tool specs
+            # so the full tool set is sent to the server for server-side narrowing.
+            if lazy_spec and _should_preload_lazy_specs():
+                with _TOOLS_LOCK:
+                    TOOL_SPECS.append(lazy_spec)
             continue
 
         mod_name = f"{__name__}.{m.name}"
@@ -559,6 +588,12 @@ def get_dynamic_commands_help() -> list[str]:
 def get_tool_specs() -> list[dict[str, Any]]:
     """Return tool specs for the LLM."""
     _ensure_loaded()
+
+    # Native GPT-5.4 tool_search: exclude management tools (server handles all)
+    # and hidden tools (disabled/private) that shouldn't reach the LLM.
+    _native_exclusions: set[str] = set()
+    if _should_preload_lazy_specs():
+        _native_exclusions = {"tool_catalog", "tool_load", "unload_tool"}
     # Note:
     # - Both Chat Completions and Responses expect tools without a top-level "name".
     #   The canonical form is: {"type":"function","function":{"name":..., ...}}
@@ -567,6 +602,16 @@ def get_tool_specs() -> list[dict[str, Any]]:
 
     clean_specs: list[dict[str, Any]] = []
     for spec in TOOL_SPECS:
+        # Skip native-mode exclusions (management tools, hidden tools)
+        if _native_exclusions:
+            _fn = spec.get("function", {})
+            _tn = _fn.get("name", "") if isinstance(_fn, dict) else ""
+            if _tn in _native_exclusions:
+                continue
+            # Skip disabled/hidden tools
+            if spec.get("disabled") or spec.get("tool_level") == -1:
+                continue
+
         spec_copy = spec.copy()
         # Remove internal-only keys from tool specs before sending to LLM.
         # (OpenAI/Responses schema expects only {type,function}).

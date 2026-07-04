@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2026-07-02 20:45+0900\n"
+"POT-Creation-Date: 2026-07-04 11:22+0900\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -60,7 +60,7 @@ msgstr "Đã hủy."
 msgid "Received multiline reply."
 msgstr "Đã nhận câu trả lời nhiều dòng."
 
-#: src/uagent/cli.py:1053
+#: src/uagent/cli.py:1060
 msgid ""
 "Image file paths were found in your input.\n"
 "Do you want to send these images to the LLM (external API) for analysis?\n"
@@ -70,27 +70,27 @@ msgstr ""
 "是否将这些图像发送给 LLM(外部 API)进行分析？\n"
 "\n"
 
-#: src/uagent/cli.py:1059
+#: src/uagent/cli.py:1066
 msgid "Reply with y to send, or n (or c/cancel) to skip sending."
 msgstr "Trả lời y để gửi, hoặc n (hay c/cancel) để bỏ qua việc gửi."
 
-#: src/uagent/cli.py:1077
+#: src/uagent/cli.py:1084
 #, python-format
 msgid ""
 "Image send confirmation failed; will not send images: %(etype)s: %(err)s"
 msgstr "Xác nhận gửi ảnh thất bại; sẽ không gửi ảnh: %(etype)s: %(err)s"
 
-#: src/uagent/cli.py:1105 src/uagent/scheckgui.py:722
+#: src/uagent/cli.py:1112 src/uagent/scheckgui.py:722
 #, python-format
 msgid "Failed to attach image: %(path)s (%(etype)s: %(err)s)"
 msgstr "Không thể đính kèm ảnh: %(path)s (%(etype)s: %(err)s)"
 
-#: src/uagent/cli.py:1142
+#: src/uagent/cli.py:1149
 #, python-format
 msgid "Unknown event kind=%(kind)r: %(ev)r"
 msgstr "Kiểu sự kiện không xác định kind=%(kind)r: %(ev)r"
 
-#: src/uagent/cli.py:1164
+#: src/uagent/cli.py:1171
 msgid "Exited uag."
 msgstr "Đã thoát uag."
 
@@ -253,37 +253,57 @@ msgstr "Đã cung cấp tệp khởi động: %(path)s"
 msgid "--non-interactive was specified; exiting without waiting for stdin."
 msgstr "Đã chỉ định --non-interactive; thoát mà không chờ stdin."
 
-#: src/uagent/core.py:422 src/uagent/core.py:443
+#: src/uagent/core.py:412
+msgid "[Responses API] A previous session was found. Continue it?"
+msgstr "[Responses API] Đã tìm thấy phiên trước đó. Tiếp tục nó?"
+
+#: src/uagent/core.py:413
+msgid "  (y) Yes - reuse previous context (saves tokens)"
+msgstr "(y) Có - sử dụng lại ngữ cảnh trước đó (lưu mã thông báo)"
+
+#: src/uagent/core.py:414
+msgid "  (n) No  - start fresh, discard saved state"
+msgstr "(n) Không - bắt đầu mới, loại bỏ trạng thái đã lưu"
+
+#: src/uagent/core.py:420
+msgid "[Responses API] Continuing previous session."
+msgstr "[Responses API] Tiếp tục phiên trước."
+
+#: src/uagent/core.py:423
+msgid "[Responses API] Starting fresh session."
+msgstr "[Responses API] Bắt đầu phiên mới."
+
+#: src/uagent/core.py:534 src/uagent/core.py:555
 #, python-format
 msgid "Environment variable %(name)s is not set."
 msgstr "Biến môi trường %(name)s chưa được đặt."
 
-#: src/uagent/core.py:743
+#: src/uagent/core.py:855
 msgid "No log files found."
 msgstr "Không tìm thấy日志tệp."
 
-#: src/uagent/core.py:761
+#: src/uagent/core.py:873
 msgid "(unknown time)"
 msgstr "(thời gian không xác định)"
 
-#: src/uagent/core.py:764
+#: src/uagent/core.py:876
 #, python-format
 msgid "logs: showing %(shown)d/%(total)d (dir=%(dir)s)"
 msgstr "日志: hiển thị %(shown)d/%(total)d(thư mục=%(dir)s)"
 
-#: src/uagent/core.py:767
+#: src/uagent/core.py:879
 msgid "Log files:"
 msgstr "日志tệp: "
 
-#: src/uagent/core.py:774
+#: src/uagent/core.py:886
 msgid "(mtime unknown)"
 msgstr "(không rõ thời gian sửa đổi)"
 
-#: src/uagent/core.py:892 src/uagent/core.py:895
+#: src/uagent/core.py:1004 src/uagent/core.py:1007
 msgid "(no user message)"
 msgstr "(không có tin nhắn của người dùng)"
 
-#: src/uagent/core.py:900
+#: src/uagent/core.py:1012
 #, python-format
 msgid ""
 "[%(idx)d] %(mtime_text)s | %(turns)d msgs | first: %(first_user)s | last: "
@@ -292,13 +312,13 @@ msgstr ""
 "[%(idx)d] %(mtime_text)s | %(turns)d tin nhắn | đầu: %(first_user)s | cuối: "
 "%(last_user)s"
 
-#: src/uagent/core.py:1152
+#: src/uagent/core.py:1264
 #, python-format
 msgid ""
 "[INFO] There were %(count)d messages to compress, so nothing was changed."
 msgstr "[INFO] Có %(count)d tin nhắn cần nén, nên không có gì thay đổi."
 
-#: src/uagent/core.py:1163
+#: src/uagent/core.py:1275
 #, python-format
 msgid ""
 "[INFO] Compressed in-memory conversation history: %(old_n)d -> %(new_n)d "
@@ -307,19 +327,19 @@ msgstr ""
 "[INFO] Đã nén lịch sử hội thoại trong bộ nhớ: %(old_n)d -> %(new_n)d tin "
 "nhắn (keep_last=%(keep_last)d)"
 
-#: src/uagent/core.py:1474
+#: src/uagent/core.py:1586
 msgid "429 retry limit (%(max_retries)s) reached while history compression."
 msgstr "Đã đạt giới hạn thử lại 429 (%(max_retries)s) trong khi nén lịch sử."
 
-#: src/uagent/core.py:1484
+#: src/uagent/core.py:1596
 msgid "Error while calling LLM for history compression: %(err)r"
 msgstr "Lỗi khi gọi LLM để nén lịch sử: %(err)r"
 
-#: src/uagent/core.py:1519
+#: src/uagent/core.py:1631
 msgid "- Summarize the conversation chunk in English.\n"
 msgstr "- Tóm tắt phân đoạn hội thoại bằng tiếng Anh.\n"
 
-#: src/uagent/core.py:1521
+#: src/uagent/core.py:1633
 msgid ""
 "- Keep the summary concise but include key decisions, constraints, and "
 "pending items.\n"
@@ -327,27 +347,27 @@ msgstr ""
 "- Giữ tóm tắt ngắn gọn nhưng bao gồm các quyết định chính, ràng buộc và các "
 "mục đang chờ xử lý.\n"
 
-#: src/uagent/core.py:1523
+#: src/uagent/core.py:1635
 msgid "- Output should be directly usable as a system message."
 msgstr "- Đầu ra phải có thể sử dụng trực tiếp làm tin nhắn hệ thống."
 
-#: src/uagent/core.py:1526
+#: src/uagent/core.py:1638
 msgid "Conversation chunk:\n"
 msgstr "Phân đoạn hội thoại:\n"
 
-#: src/uagent/core.py:1528
+#: src/uagent/core.py:1640
 msgid "Write a concise summary of this chunk."
 msgstr "Viết một tóm tắt ngắn gọn về phân đoạn này."
 
-#: src/uagent/core.py:1532
+#: src/uagent/core.py:1644
 msgid "- You are updating an existing conversation summary.\n"
 msgstr "- Bạn đang cập nhật một tóm tắt hội thoại hiện có.\n"
 
-#: src/uagent/core.py:1533
+#: src/uagent/core.py:1645
 msgid "- Preserve important facts from the previous summary.\n"
 msgstr "- Giữ lại các sự thật quan trọng từ tóm tắt trước đó.\n"
 
-#: src/uagent/core.py:1535
+#: src/uagent/core.py:1647
 msgid ""
 "- Merge in the new chunk without losing constraints, decisions, or pending "
 "items.\n"
@@ -355,31 +375,31 @@ msgstr ""
 "- Trộn phân đoạn mới vào mà không làm mất các ràng buộc, quyết định hoặc các"
 " mục đang chờ xử lý.\n"
 
-#: src/uagent/core.py:1537
+#: src/uagent/core.py:1649
 msgid "- Keep the result concise and suitable for a system message."
 msgstr "- Giữ kết quả ngắn gọn và phù hợp làm tin nhắn hệ thống."
 
-#: src/uagent/core.py:1540
+#: src/uagent/core.py:1652
 msgid "Previous summary:\n"
 msgstr "Tóm tắt trước đó:\n"
 
-#: src/uagent/core.py:1542
+#: src/uagent/core.py:1654
 msgid "New chunk:\n"
 msgstr "Phân đoạn mới:\n"
 
-#: src/uagent/core.py:1544
+#: src/uagent/core.py:1656
 msgid "Update the summary while keeping the prior context intact."
 msgstr "Cập nhật tóm tắt trong khi vẫn giữ nguyên bối cảnh trước đó."
 
-#: src/uagent/core.py:1555
+#: src/uagent/core.py:1667
 msgid "[shrink_llm] Summarizing chunk %(i)d/%(n)d..."
 msgstr "[shrink_llm] Đoạn tóm tắt %(i)d/%(n)d..."
 
-#: src/uagent/core.py:1573
+#: src/uagent/core.py:1685
 msgid "Summary of the conversation so far:\n"
 msgstr "Tóm tắt cuộc hội thoại cho đến nay:\n"
 
-#: src/uagent/core.py:1580
+#: src/uagent/core.py:1692
 msgid ""
 "[INFO] shrink_llm: {old_n} -> {new_n} messages (compressed {old_part_n} "
 "older messages into 1 summary; kept {tail_n} tail)"
@@ -387,7 +407,7 @@ msgstr ""
 "[INFO] shrink_llm: {old_n} -> {new_n} tin nhắn (đã nén {old_part_n} tin nhắn"
 " cũ hơn thành 1 tóm tắt; giữ lại {tail_n} tin nhắn cuối)"
 
-#: src/uagent/core.py:1608
+#: src/uagent/core.py:1720
 msgid ""
 "[WARN] history compression hit context length even at chunk_size=1; falling "
 "back to shrink_messages()."
@@ -395,7 +415,7 @@ msgstr ""
 "[WARN] Nén lịch sử đã chạm giới hạn ngữ cảnh ngay cả khi chunk_size=1; quay "
 "về shrink_messages()."
 
-#: src/uagent/core.py:1618
+#: src/uagent/core.py:1730
 msgid ""
 "[WARN] history compression could not reduce chunk_size further; falling back"
 " to shrink_messages()."
@@ -403,7 +423,7 @@ msgstr ""
 "[WARN] Không thể giảm chunk_size thêm nữa khi nén lịch sử; quay về "
 "shrink_messages()."
 
-#: src/uagent/core.py:1626
+#: src/uagent/core.py:1738
 #, python-format
 msgid ""
 "[WARN] history compression context length exceeded; retrying with "
@@ -412,19 +432,19 @@ msgstr ""
 "[WARN] Độ dài ngữ cảnh khi nén lịch sử đã vượt quá giới hạn; thử lại với "
 "chunk_size=%(chunk_size)d"
 
-#: src/uagent/core.py:1636
+#: src/uagent/core.py:1748
 msgid ""
 "[WARN] history compression failed due to LLM error; falling back to "
 "shrink_messages()."
 msgstr ""
 "[WARN] Nén lịch sử thất bại do lỗi LLM; đang chuyển sang shrink_messages()."
 
-#: src/uagent/core.py:1657
+#: src/uagent/core.py:1769
 #, python-format
 msgid ":help  (help unavailable: %(err)s)"
 msgstr ":help (trợ giúp不khả dụng: %(err)s)"
 
-#: src/uagent/core.py:1669
+#: src/uagent/core.py:1781
 msgid ""
 "## Mission\n"
 "- You are a capable \"general-purpose tool execution agent\" running on a local environment, and you can actually execute commands and operate on files on the user's machine.\n"
@@ -442,7 +462,7 @@ msgstr ""
 "- Khi tạo tệp, hãy xuất đầy đủ nội dung cuối cùng (không xuất diff hoặc tóm tắt một phần).\n"
 "\n"
 
-#: src/uagent/core.py:1678
+#: src/uagent/core.py:1790
 msgid ""
 "## Rules\n"
 "- Always use the provided tools and verify the latest information.\n"
@@ -457,7 +477,7 @@ msgstr ""
 "- Khi thực thi công cụ, hãy để người dùng quyết định ít nhất có thể.\n"
 "\n"
 
-#: src/uagent/core.py:1685
+#: src/uagent/core.py:1797
 msgid ""
 "## Notes\n"
 "- All user messages come via this script's standard input.\n"
@@ -483,7 +503,7 @@ msgstr ""
 "- Nếu cần có kiến ​​thức ở cấp độ chuyên gia, hãy sử dụng các mẫu nhắc nhở (Kỹ năng của nhân viên) và làm theo chúng.\n"
 "- Nếu thông tin đầu vào của người dùng chỉ là một câu khẳng định ngắn gọn và không thêm thông tin mới thì không lặp lại cùng một lời giải thích trừ khi đó là câu trả lời trực tiếp cho câu hỏi rõ ràng ngay trước đó. Nếu cần, hãy hỏi ngắn gọn: “Tôi nên tiếp tục ở điểm nào?”"
 
-#: src/uagent/core.py:1698
+#: src/uagent/core.py:1810
 msgid ""
 "## Dangerous operation policy (delete_file)\n"
 "- For deletion using the delete_file tool, do NOT ask for confirmation before preview.\n"
@@ -500,7 +520,7 @@ msgstr ""
 "- Nếu không có mục nào, không hỏi; chỉ báo rằng sẽ không có gì bị xóa.\n"
 "\n"
 
-#: src/uagent/core.py:1706
+#: src/uagent/core.py:1818
 msgid ""
 "## Mission\n"
 "- You are a capable \"general-purpose tool execution agent\" running on a local environment; you can execute commands and operate on the user's machine.\n"
@@ -515,7 +535,7 @@ msgstr ""
 "- 不要奉承.不要使用表情符号.不要总结对话.保持简洁.\n"
 "- 创建tệp时, 输出完整的最终内容(不要输出 diff 或部分摘要).\n"
 
-#: src/uagent/core.py:1714
+#: src/uagent/core.py:1826
 msgid ""
 "## Rules\n"
 "- Use the provided tools first and verify results with tools.\n"
@@ -529,7 +549,7 @@ msgstr ""
 "- 可以有创意, 但不要输出不确定的信息.\n"
 "- 尽量少把决策交给用户.\n"
 
-#: src/uagent/core.py:1721
+#: src/uagent/core.py:1833
 msgid ""
 "## Notes\n"
 "- All user messages come via this script's standard input.\n"
@@ -553,7 +573,7 @@ msgstr ""
 "- Nếu cần có kiến ​​thức ở cấp độ chuyên gia, hãy sử dụng các mẫu lời nhắc Kỹ năng của Đặc vụ.\n"
 "- Nếu thông tin đầu vào của người dùng chỉ là một câu khẳng định ngắn gọn và không thêm thông tin mới thì không lặp lại cùng một lời giải thích trừ khi đó là câu trả lời trực tiếp cho câu hỏi rõ ràng ngay trước đó. Nếu cần, hãy hỏi ngắn gọn: “Tôi nên tiếp tục ở điểm nào?”"
 
-#: src/uagent/core.py:1735
+#: src/uagent/core.py:1847
 msgid ""
 "- If the user is using Windows cmd.exe, prefer multi-line commands using "
 "caret (^) line continuation, and keep each line short to avoid copy/paste "
@@ -562,7 +582,7 @@ msgstr ""
 "- Nếu người dùng dùng Windows cmd.exe, hãy ưu tiên lệnh nhiều dòng bằng ký tự caret (^) để nối dòng, và giữ mỗi dòng ngắn để tránh lỗi ngắt dòng khi sao chép/dán.\n"
 "\n"
 
-#: src/uagent/core.py:1802
+#: src/uagent/core.py:1914
 msgid ""
 "The following tools are currently loaded in this session. Choose the most "
 "appropriate tool for the task."
@@ -947,73 +967,77 @@ msgstr ""
 msgid "[WARN] Auto shrink_llm failed: %(err)s"
 msgstr "[WARN] shrink_llm tự động thất bại: %(err)s"
 
-#: src/uagent/llm_round_helpers.py:144
+#: src/uagent/llm_round_helpers.py:146
 #, python-format
 msgid "[Translate Error] %(diag)s"
 msgstr "[lỗi dịch] %(diag)s"
 
-#: src/uagent/llm_round_helpers.py:207 src/uagent/llm_round_helpers.py:320
-#: src/uagent/llm_round_helpers.py:691
+#: src/uagent/llm_round_helpers.py:209 src/uagent/llm_round_helpers.py:322
+#: src/uagent/llm_round_helpers.py:742
 #: src/uagent/providers/llm_deepseek.py:639
 #: src/uagent/providers/llm_zai.py:304
 #, python-format
 msgid "429 retry limit (%(max_retries)s) reached."
 msgstr "Đã đạt giới hạn thử lại 429 (%(max_retries)s)."
 
-#: src/uagent/llm_round_helpers.py:231
+#: src/uagent/llm_round_helpers.py:233
 msgid "[Gemini Error] An error occurred while generating a response."
 msgstr "[Lỗi Gemini] Đã xảy ra lỗi khi tạo phản hồi."
 
-#: src/uagent/llm_round_helpers.py:326
+#: src/uagent/llm_round_helpers.py:328
 msgid "[Claude Error] An error occurred while generating a response."
 msgstr "[Lỗi Claude] Đã xảy ra lỗi khi tạo phản hồi."
 
-#: src/uagent/llm_round_helpers.py:634
+#: src/uagent/llm_round_helpers.py:677
 #: src/uagent/providers/llm_deepseek.py:649
 #: src/uagent/providers/llm_zai.py:314
 msgid "Input exceeds the context window."
 msgstr "Đầu vào vượt quá cửa sổ ngữ cảnh."
 
-#: src/uagent/llm_round_helpers.py:654
+#: src/uagent/llm_round_helpers.py:697
 msgid "Model does not support thinking. Disabling thinking and retrying..."
 msgstr "Mô hình không hỗ trợ tư duy.Vô hiệu hóa suy nghĩ và thử lại..."
 
-#: src/uagent/llm_round_helpers.py:661
+#: src/uagent/llm_round_helpers.py:709
+msgid "Stale previous_response_id. Retrying with full history..."
+msgstr "Cũ_response_id. Đang thử lại với toàn bộ lịch sử..."
+
+#: src/uagent/llm_round_helpers.py:712
 #: src/uagent/providers/llm_deepseek.py:696
 #: src/uagent/providers/llm_zai.py:364
 msgid "400 BadRequest"
 msgstr "400 yêu cầu xấu"
 
-#: src/uagent/llm_round_helpers.py:662
+#: src/uagent/llm_round_helpers.py:713
 #: src/uagent/providers/llm_deepseek.py:697
 msgid "Error code: %(code)d - %(err)s"
 msgstr "Mã lỗi: %(code)d - %(err)s"
 
-#: src/uagent/llm_round_helpers.py:665
+#: src/uagent/llm_round_helpers.py:716
 #: src/uagent/providers/llm_deepseek.py:700
 #: src/uagent/providers/llm_zai.py:374
 msgid "Connection error"
 msgstr "Lỗi kết nối"
 
-#: src/uagent/llm_round_helpers.py:670
+#: src/uagent/llm_round_helpers.py:721
 #: src/uagent/providers/llm_deepseek.py:705
 #: src/uagent/providers/llm_zai.py:380
 msgid "[Network Error]"
 msgstr "[Lỗi mạng]"
 
-#: src/uagent/llm_round_helpers.py:697
+#: src/uagent/llm_round_helpers.py:748
 msgid "Unexpected exception."
 msgstr "Ngoại lệ không mong muốn."
 
-#: src/uagent/llm_round_helpers.py:710
+#: src/uagent/llm_round_helpers.py:761
 msgid "Response error: resp is None."
 msgstr "Lỗi phản hồi: resp là Không có."
 
-#: src/uagent/llm_round_helpers.py:713
+#: src/uagent/llm_round_helpers.py:764
 msgid "Response error: resp.choices is None or empty."
 msgstr "Lỗi phản hồi: resp.choices là Không có hoặc trống."
 
-#: src/uagent/llm_round_helpers.py:781
+#: src/uagent/llm_round_helpers.py:832
 #, python-format
 msgid "Error while parsing response: %(err)s"
 msgstr "Lỗi khi phân tích phản hồi: %(err)s"
@@ -1997,15 +2021,15 @@ msgstr "cảnh báo: Không thểxóa明文 .env: %(error)s"
 msgid "generated: %(path)s"
 msgstr "已tạo: %(path)s"
 
-#: src/uagent/uagent_llm.py:70
+#: src/uagent/uagent_llm.py:71
 msgid "Stopped by user. Sending stop command to LLM..."
 msgstr "Đã bị người dùng ngắt. Đang gửi lệnh dừng đến LLM..."
 
-#: src/uagent/uagent_llm.py:71
+#: src/uagent/uagent_llm.py:72
 msgid "Stop"
 msgstr "Dừng lại"
 
-#: src/uagent/uagent_llm.py:178
+#: src/uagent/uagent_llm.py:183
 #, python-format
 msgid "[WARN] Tool rounds exceeded %(max)d; aborting."
 msgstr "[CẢNH BÁO] 工具轮次已超过 %(max)d; 正在中止."
@@ -2849,7 +2873,7 @@ msgstr "Tìm kiếm web: hoàn tất"
 msgid "Web search: {action}"
 msgstr "Tìm kiếm web: {action}"
 
-#: src/uagent/providers/llm_openai_responses.py:587
+#: src/uagent/providers/llm_openai_responses.py:588
 #, python-brace-format
 msgid ""
 "[Tool calling rules]\n"
@@ -2866,7 +2890,7 @@ msgstr ""
 "        - Nếu bạn không có một tham số bắt buộc, hãy hỏi người dùng bằng human_ask thay vì đoán.\n"
 "        "
 
-#: src/uagent/providers/llm_openai_responses.py:594
+#: src/uagent/providers/llm_openai_responses.py:595
 msgid ""
 "[Web search rules]\n"
 "        - Use web search only when fresh or external information is necessary.\n"
@@ -2879,6 +2903,12 @@ msgstr ""
 "        - Không dùng tìm kiếm web cho thông tin cục bộ hoặc thông tin ổn định.\n"
 "        - Nếu câu trả lời đã đủ, hãy ưu tiên trả lời mà không dùng tìm kiếm web.\n"
 "        "
+
+#: src/uagent/providers/llm_openai_responses.py:906
+#: src/uagent/providers/llm_openai_responses.py:1175
+#: src/uagent/providers/llm_openai_responses.py:1258
+msgid "Server-side compaction triggered (context compressed)."
+msgstr "Kích hoạt nén phía máy chủ (nén ngữ cảnh)."
 
 #: src/uagent/providers/llm_zai.py:366
 msgid "Response body: %(body)s"

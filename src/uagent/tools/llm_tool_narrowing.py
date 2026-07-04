@@ -10,16 +10,18 @@ def _get_gpt54_tool_search_mode() -> str:
     """Return the GPT-5.4 tool search mode.
 
     Reads UAGENT_GPT54_TOOL_SEARCH env:
-      - "native": Use OpenAI native tool_search (send all tools, let server narrow)
+      - "native" (default): Use OpenAI native tool_search (send all tools, let server narrow)
       - "legacy": Use old tool_catalog-based narrowing (send only relevant tools)
-      - unset / "off": Disable any GPT-5.4 specific handling (default)
+      - "off": Disable any GPT-5.4 specific handling
     """
     raw = (env_get("UAGENT_GPT54_TOOL_SEARCH") or "").strip().lower()
     if raw in ("native", "1", "true", "yes"):
         return "native"
     if raw in ("legacy", "old"):
         return "legacy"
-    return "off"
+    if raw in ("off", "0", "false", "no"):
+        return "off"
+    return "native"
 
 
 def _is_gpt54_tool_search_target(
@@ -67,7 +69,16 @@ def _is_gpt54_tool_search_target(
     except Exception:
         return False
 
-    return minor >= 4
+    if minor < 4:
+        return False
+
+    # Exclude nano variant that doesn't support native tool_search
+    # (server-side narrowing with full tool set).
+    suffix = tail[len("".join(digits)):]
+    if suffix and suffix.startswith("-nano"):
+        return False
+
+    return True
 
 
 def _is_legacy_mode() -> bool:

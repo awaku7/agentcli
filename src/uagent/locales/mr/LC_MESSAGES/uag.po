@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2026-07-02 20:45+0900\n"
+"POT-Creation-Date: 2026-07-04 11:22+0900\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -60,7 +60,7 @@ msgstr "रद्द केले."
 msgid "Received multiline reply."
 msgstr "मल्टीलाइन उत्तर मिळाले."
 
-#: src/uagent/cli.py:1053
+#: src/uagent/cli.py:1060
 msgid ""
 "Image file paths were found in your input.\n"
 "Do you want to send these images to the LLM (external API) for analysis?\n"
@@ -69,29 +69,29 @@ msgstr ""
 "तुमच्या इनपुटमध्ये इमेज फाइल पथ आढळले.\n"
 "तुम्हाला विश्लेषणासाठी या प्रतिमा LLM (बाह्य API) वर पाठवायची आहेत का?"
 
-#: src/uagent/cli.py:1059
+#: src/uagent/cli.py:1066
 msgid "Reply with y to send, or n (or c/cancel) to skip sending."
 msgstr ""
 "पाठवण्यासाठी y किंवा पाठवणे वगळण्यासाठी n (किंवा c/रद्द) सह उत्तर द्या."
 
-#: src/uagent/cli.py:1077
+#: src/uagent/cli.py:1084
 #, python-format
 msgid ""
 "Image send confirmation failed; will not send images: %(etype)s: %(err)s"
 msgstr ""
 "प्रतिमा पाठवा पुष्टीकरण अयशस्वी; प्रतिमा पाठवणार नाही: %(etype)s: %(err)s"
 
-#: src/uagent/cli.py:1105 src/uagent/scheckgui.py:722
+#: src/uagent/cli.py:1112 src/uagent/scheckgui.py:722
 #, python-format
 msgid "Failed to attach image: %(path)s (%(etype)s: %(err)s)"
 msgstr "प्रतिमा संलग्न करण्यात अयशस्वी: %(path)s (%(etype)s: %(err)s)"
 
-#: src/uagent/cli.py:1142
+#: src/uagent/cli.py:1149
 #, python-format
 msgid "Unknown event kind=%(kind)r: %(ev)r"
 msgstr "अज्ञात इव्हेंट प्रकार=%(kind)r: %(ev)r"
 
-#: src/uagent/cli.py:1164
+#: src/uagent/cli.py:1171
 msgid "Exited uag."
 msgstr "uag मधून बाहेर पडलो."
 
@@ -256,37 +256,57 @@ msgid "--non-interactive was specified; exiting without waiting for stdin."
 msgstr ""
 "--नॉन-इंटरॅक्टिव्ह निर्दिष्ट केले होते; stdin ची वाट न पाहता बाहेर पडत आहे."
 
-#: src/uagent/core.py:422 src/uagent/core.py:443
+#: src/uagent/core.py:412
+msgid "[Responses API] A previous session was found. Continue it?"
+msgstr "[Responses API] मागील सत्र आढळले. ते सुरू ठेवायचे?"
+
+#: src/uagent/core.py:413
+msgid "  (y) Yes - reuse previous context (saves tokens)"
+msgstr "(y) होय - मागील संदर्भ पुन्हा वापरा (टोकन्स वाचवते)"
+
+#: src/uagent/core.py:414
+msgid "  (n) No  - start fresh, discard saved state"
+msgstr "(n) नाही - नवीन सुरू करा, जतनलेली स्थिती टाकून द्यावी"
+
+#: src/uagent/core.py:420
+msgid "[Responses API] Continuing previous session."
+msgstr "[Responses API] मागील सत्र सुरू ऐणे."
+
+#: src/uagent/core.py:423
+msgid "[Responses API] Starting fresh session."
+msgstr "[Responses API] नवीन सत्र सुरू करत आहे."
+
+#: src/uagent/core.py:534 src/uagent/core.py:555
 #, python-format
 msgid "Environment variable %(name)s is not set."
 msgstr "पर्यावरण चल %(name)s सेट केलेले नाही."
 
-#: src/uagent/core.py:743
+#: src/uagent/core.py:855
 msgid "No log files found."
 msgstr "कोणत्याही लॉग फाइल्स आढळल्या नाहीत."
 
-#: src/uagent/core.py:761
+#: src/uagent/core.py:873
 msgid "(unknown time)"
 msgstr "(अज्ञात वेळ)"
 
-#: src/uagent/core.py:764
+#: src/uagent/core.py:876
 #, python-format
 msgid "logs: showing %(shown)d/%(total)d (dir=%(dir)s)"
 msgstr "नोंदी: %(shown)d/%(total)d (dir=%(dir)s) दाखवत आहे"
 
-#: src/uagent/core.py:767
+#: src/uagent/core.py:879
 msgid "Log files:"
 msgstr "लॉग फाइल्स:"
 
-#: src/uagent/core.py:774
+#: src/uagent/core.py:886
 msgid "(mtime unknown)"
 msgstr "(बदलण्याची वेळ अज्ञात)"
 
-#: src/uagent/core.py:892 src/uagent/core.py:895
+#: src/uagent/core.py:1004 src/uagent/core.py:1007
 msgid "(no user message)"
 msgstr "(वापरकर्ता संदेश नाही)"
 
-#: src/uagent/core.py:900
+#: src/uagent/core.py:1012
 #, python-format
 msgid ""
 "[%(idx)d] %(mtime_text)s | %(turns)d msgs | first: %(first_user)s | last: "
@@ -295,14 +315,14 @@ msgstr ""
 "[%(idx)d] %(mtime_text)s | %(turns)d संदेश | पहिला: %(first_user)s | शेवटचा:"
 " %(last_user)s"
 
-#: src/uagent/core.py:1152
+#: src/uagent/core.py:1264
 #, python-format
 msgid ""
 "[INFO] There were %(count)d messages to compress, so nothing was changed."
 msgstr ""
 "[INFO] संकुचित करण्यासाठी %(count)d संदेश होते, त्यामुळे काहीही बदलले नाही."
 
-#: src/uagent/core.py:1163
+#: src/uagent/core.py:1275
 #, python-format
 msgid ""
 "[INFO] Compressed in-memory conversation history: %(old_n)d -> %(new_n)d "
@@ -311,21 +331,21 @@ msgstr ""
 "[INFO] स्मृतीतील संभाषण इतिहास संकुचित केला: %(old_n)d -> %(new_n)d संदेश "
 "(keep_last=%(keep_last)d)"
 
-#: src/uagent/core.py:1474
+#: src/uagent/core.py:1586
 msgid "429 retry limit (%(max_retries)s) reached while history compression."
 msgstr ""
 "इतिहास संकुचित करताना 429 पुन्हा प्रयत्न मर्यादा (%(max_retries)s) गाठली "
 "गेली."
 
-#: src/uagent/core.py:1484
+#: src/uagent/core.py:1596
 msgid "Error while calling LLM for history compression: %(err)r"
 msgstr "इतिहास संकुचित करण्यासाठी LLM ला कॉल करताना त्रुटी: %(err)r"
 
-#: src/uagent/core.py:1519
+#: src/uagent/core.py:1631
 msgid "- Summarize the conversation chunk in English.\n"
 msgstr "- संभाषणाचा भाग इंग्रजीमध्ये संक्षेप करा.\n"
 
-#: src/uagent/core.py:1521
+#: src/uagent/core.py:1633
 msgid ""
 "- Keep the summary concise but include key decisions, constraints, and "
 "pending items.\n"
@@ -333,57 +353,57 @@ msgstr ""
 "- संक्षेप संक्षिप्त ठेवा परंतु मुख्य निर्णय, मर्यादा आणि प्रलंबित बाबी "
 "समाविष्ट करा.\n"
 
-#: src/uagent/core.py:1523
+#: src/uagent/core.py:1635
 msgid "- Output should be directly usable as a system message."
 msgstr "- आउटपुट थेट सिस्टम संदेश म्हणून वापरण्यायोग्य असावे."
 
-#: src/uagent/core.py:1526
+#: src/uagent/core.py:1638
 msgid "Conversation chunk:\n"
 msgstr "संभाषणाचा भाग:\n"
 
-#: src/uagent/core.py:1528
+#: src/uagent/core.py:1640
 msgid "Write a concise summary of this chunk."
 msgstr "या भागाचा संक्षिप्त संक्षेप लिहा."
 
-#: src/uagent/core.py:1532
+#: src/uagent/core.py:1644
 msgid "- You are updating an existing conversation summary.\n"
 msgstr "- तुम्ही विद्यमान संभाषण संक्षेप अद्यतनित करत आहात.\n"
 
-#: src/uagent/core.py:1533
+#: src/uagent/core.py:1645
 msgid "- Preserve important facts from the previous summary.\n"
 msgstr "- मागील संक्षेपातील महत्त्वाचे तथ्य जतन करा.\n"
 
-#: src/uagent/core.py:1535
+#: src/uagent/core.py:1647
 msgid ""
 "- Merge in the new chunk without losing constraints, decisions, or pending "
 "items.\n"
 msgstr "- मर्यादा, निर्णय किंवा प्रलंबित बाबी न गमावता नवीन भाग विलीन करा.\n"
 
-#: src/uagent/core.py:1537
+#: src/uagent/core.py:1649
 msgid "- Keep the result concise and suitable for a system message."
 msgstr "- निकाल संक्षिप्त आणि सिस्टम संदेशासाठी योग्य ठेवा."
 
-#: src/uagent/core.py:1540
+#: src/uagent/core.py:1652
 msgid "Previous summary:\n"
 msgstr "मागील संक्षेप:\n"
 
-#: src/uagent/core.py:1542
+#: src/uagent/core.py:1654
 msgid "New chunk:\n"
 msgstr "नवीन भाग:\n"
 
-#: src/uagent/core.py:1544
+#: src/uagent/core.py:1656
 msgid "Update the summary while keeping the prior context intact."
 msgstr "मागील संदर्भ अबाधित ठेवून संक्षेप अद्यतनित करा."
 
-#: src/uagent/core.py:1555
+#: src/uagent/core.py:1667
 msgid "[shrink_llm] Summarizing chunk %(i)d/%(n)d..."
 msgstr "[shrink_llm] सारांश भाग %(i)d/%(n)d..."
 
-#: src/uagent/core.py:1573
+#: src/uagent/core.py:1685
 msgid "Summary of the conversation so far:\n"
 msgstr "आतापर्यंतच्या संभाषणाचा संक्षेप:\n"
 
-#: src/uagent/core.py:1580
+#: src/uagent/core.py:1692
 msgid ""
 "[INFO] shrink_llm: {old_n} -> {new_n} messages (compressed {old_part_n} "
 "older messages into 1 summary; kept {tail_n} tail)"
@@ -391,7 +411,7 @@ msgstr ""
 "[INFO] shrink_llm: {old_n} -> {new_n} संदेश ({old_part_n} जुने संदेश १ "
 "संक्षेपात संकुचित केले; शेवटी {tail_n} ठेवले)"
 
-#: src/uagent/core.py:1608
+#: src/uagent/core.py:1720
 msgid ""
 "[WARN] history compression hit context length even at chunk_size=1; falling "
 "back to shrink_messages()."
@@ -399,7 +419,7 @@ msgstr ""
 "[WARN] इतिहास संकुचनाने chunk_size=1 असतानाही संदर्भ मर्यादा गाठली; "
 "shrink_messages() कडे परत जात आहोत."
 
-#: src/uagent/core.py:1618
+#: src/uagent/core.py:1730
 msgid ""
 "[WARN] history compression could not reduce chunk_size further; falling back"
 " to shrink_messages()."
@@ -407,7 +427,7 @@ msgstr ""
 "[WARN] इतिहास संकुचन chunk_size आणखी कमी करू शकले नाही; shrink_messages() "
 "कडे परत जात आहोत."
 
-#: src/uagent/core.py:1626
+#: src/uagent/core.py:1738
 #, python-format
 msgid ""
 "[WARN] history compression context length exceeded; retrying with "
@@ -416,7 +436,7 @@ msgstr ""
 "[WARN] इतिहास संकुचनाची संदर्भ मर्यादा ओलांडली; chunk_size=%(chunk_size)d सह"
 " पुन्हा प्रयत्न करत आहोत"
 
-#: src/uagent/core.py:1636
+#: src/uagent/core.py:1748
 msgid ""
 "[WARN] history compression failed due to LLM error; falling back to "
 "shrink_messages()."
@@ -424,12 +444,12 @@ msgstr ""
 "[WARN] LLM त्रुटीमुळे इतिहास संकुचन अयशस्वी झाले; shrink_messages() वर परत "
 "जात आहे."
 
-#: src/uagent/core.py:1657
+#: src/uagent/core.py:1769
 #, python-format
 msgid ":help  (help unavailable: %(err)s)"
 msgstr ":help (मदत अनुपलब्ध: %(err)s)"
 
-#: src/uagent/core.py:1669
+#: src/uagent/core.py:1781
 msgid ""
 "## Mission\n"
 "- You are a capable \"general-purpose tool execution agent\" running on a local environment, and you can actually execute commands and operate on files on the user's machine.\n"
@@ -446,7 +466,7 @@ msgstr ""
 "- सारांश देऊ नका. माहिती संक्षिप्त ठेवा.\n"
 "- फाइल्स तयार करताना, पूर्ण अंतिम सामग्री आउटपुट करा (डिफ किंवा आंशिक सारांश आउटपुट करू नका)."
 
-#: src/uagent/core.py:1678
+#: src/uagent/core.py:1790
 msgid ""
 "## Rules\n"
 "- Always use the provided tools and verify the latest information.\n"
@@ -460,7 +480,7 @@ msgstr ""
 "- उपलब्ध साधनांचा सल्ला घ्या आणि सर्वात योग्य निवडा.\n"
 "- साधने कार्यान्वित करताना, वापरकर्त्याला शक्य तितके कमी निर्णय सोपवा."
 
-#: src/uagent/core.py:1685
+#: src/uagent/core.py:1797
 msgid ""
 "## Notes\n"
 "- All user messages come via this script's standard input.\n"
@@ -486,7 +506,7 @@ msgstr ""
 "- तज्ज्ञ-स्तरीय ज्ञान आवश्यक असल्यास, प्रॉम्प्ट टेम्पलेट्स (एजंट कौशल्य) वापरा आणि त्यांचे अनुसरण करा.\n"
 "- जर वापरकर्त्याचे इनपुट फक्त एक लहान पुष्टीकरण असेल आणि त्यात कोणतीही नवीन माहिती जोडली नसेल, तर ते लगेच आधीच्या स्पष्ट प्रश्नाचे थेट उत्तर असल्याशिवाय त्याच स्पष्टीकरणाची पुनरावृत्ती करू नका. आवश्यक असल्यास, थोडक्यात विचारा: \"मी कोणता मुद्दा पुढे चालू ठेवू?\""
 
-#: src/uagent/core.py:1698
+#: src/uagent/core.py:1810
 msgid ""
 "## Dangerous operation policy (delete_file)\n"
 "- For deletion using the delete_file tool, do NOT ask for confirmation before preview.\n"
@@ -502,7 +522,7 @@ msgstr ""
 "- जेव्हा वापरकर्ता स्पष्टपणे \"y\" किंवा \"होय\" (किंवा समतुल्य स्पष्ट मंजूरी) असे उत्तर देतो, तेव्हाच डिलीट_फाइल पुन्हा त्याच पॅरामीटर्ससह चालवा, dry_run=false, आणि confirmed=true.\n"
 "- शून्य उमेदवार असतील तर विचारू नका; फक्त काहीही हटवले जाणार नाही असा अहवाल द्या."
 
-#: src/uagent/core.py:1706
+#: src/uagent/core.py:1818
 msgid ""
 "## Mission\n"
 "- You are a capable \"general-purpose tool execution agent\" running on a local environment; you can execute commands and operate on the user's machine.\n"
@@ -517,7 +537,7 @@ msgstr ""
 "- खुशामत नाही. इमोजी नाहीत. संभाषणाचा सारांश नाही. संक्षिप्त ठेवा.\n"
 "- फाइल्स तयार करताना, संपूर्ण अंतिम सामग्री आउटपुट करा (कोणतेही फरक/आंशिक सारांश नाही)."
 
-#: src/uagent/core.py:1714
+#: src/uagent/core.py:1826
 msgid ""
 "## Rules\n"
 "- Use the provided tools first and verify results with tools.\n"
@@ -531,7 +551,7 @@ msgstr ""
 "- सर्जनशील व्हा, परंतु अनिश्चित माहिती देऊ नका.\n"
 "- वापरकर्त्याला शक्य तितके कमी निर्णय सोपवा."
 
-#: src/uagent/core.py:1721
+#: src/uagent/core.py:1833
 msgid ""
 "## Notes\n"
 "- All user messages come via this script's standard input.\n"
@@ -555,7 +575,7 @@ msgstr ""
 "- तज्ञ-स्तरीय ज्ञान आवश्यक असल्यास, एजंट स्किल्स प्रॉम्प्ट टेम्पलेट्स वापरा.\n"
 "- जर वापरकर्त्याचे इनपुट फक्त एक लहान पुष्टीकरण असेल आणि त्यात कोणतीही नवीन माहिती जोडली नसेल, तर ते लगेच आधीच्या स्पष्ट प्रश्नाचे थेट उत्तर असल्याशिवाय त्याच स्पष्टीकरणाची पुनरावृत्ती करू नका. आवश्यक असल्यास, थोडक्यात विचारा: \"मी कोणता मुद्दा पुढे चालू ठेवू?\""
 
-#: src/uagent/core.py:1735
+#: src/uagent/core.py:1847
 msgid ""
 "- If the user is using Windows cmd.exe, prefer multi-line commands using "
 "caret (^) line continuation, and keep each line short to avoid copy/paste "
@@ -565,7 +585,7 @@ msgstr ""
 "वापरून मल्टी-लाइन कमांडस प्राधान्य द्या आणि कॉपी/पेस्ट लाइन ब्रेक "
 "टाळण्यासाठी प्रत्येक ओळ लहान ठेवा."
 
-#: src/uagent/core.py:1802
+#: src/uagent/core.py:1914
 msgid ""
 "The following tools are currently loaded in this session. Choose the most "
 "appropriate tool for the task."
@@ -944,75 +964,80 @@ msgstr "या स्क्रीनशॉटमध्ये त्रुटी,
 msgid "[WARN] Auto shrink_llm failed: %(err)s"
 msgstr "[WARN] स्वयंचलित shrink_llm अयशस्वी झाले: %(err)s"
 
-#: src/uagent/llm_round_helpers.py:144
+#: src/uagent/llm_round_helpers.py:146
 #, python-format
 msgid "[Translate Error] %(diag)s"
 msgstr "[अनुवाद त्रुटी] %(diag)s"
 
-#: src/uagent/llm_round_helpers.py:207 src/uagent/llm_round_helpers.py:320
-#: src/uagent/llm_round_helpers.py:691
+#: src/uagent/llm_round_helpers.py:209 src/uagent/llm_round_helpers.py:322
+#: src/uagent/llm_round_helpers.py:742
 #: src/uagent/providers/llm_deepseek.py:639
 #: src/uagent/providers/llm_zai.py:304
 #, python-format
 msgid "429 retry limit (%(max_retries)s) reached."
 msgstr "429 पुन्हा प्रयत्न मर्यादा (%(max_retries)s) गाठली."
 
-#: src/uagent/llm_round_helpers.py:231
+#: src/uagent/llm_round_helpers.py:233
 msgid "[Gemini Error] An error occurred while generating a response."
 msgstr "[मिथुन त्रुटी] प्रतिसाद निर्माण करताना त्रुटी आली."
 
-#: src/uagent/llm_round_helpers.py:326
+#: src/uagent/llm_round_helpers.py:328
 msgid "[Claude Error] An error occurred while generating a response."
 msgstr "[क्लॉड एरर] प्रतिसाद निर्माण करताना त्रुटी आली."
 
-#: src/uagent/llm_round_helpers.py:634
+#: src/uagent/llm_round_helpers.py:677
 #: src/uagent/providers/llm_deepseek.py:649
 #: src/uagent/providers/llm_zai.py:314
 msgid "Input exceeds the context window."
 msgstr "इनपुट संदर्भ विंडोपेक्षा जास्त आहे."
 
-#: src/uagent/llm_round_helpers.py:654
+#: src/uagent/llm_round_helpers.py:697
 msgid "Model does not support thinking. Disabling thinking and retrying..."
 msgstr ""
 "मॉडेल विचारांना समर्थन देत नाही.विचार अक्षम करत आहे आणि पुन्हा प्रयत्न करत "
 "आहे..."
 
-#: src/uagent/llm_round_helpers.py:661
+#: src/uagent/llm_round_helpers.py:709
+msgid "Stale previous_response_id. Retrying with full history..."
+msgstr ""
+"मागील_प्रतिसाद_आईडी शिथिळ. संपूर्ण इतिहासासह पुन्हा प्रयत्न करत आहे..."
+
+#: src/uagent/llm_round_helpers.py:712
 #: src/uagent/providers/llm_deepseek.py:696
 #: src/uagent/providers/llm_zai.py:364
 msgid "400 BadRequest"
 msgstr "400 BadRequest"
 
-#: src/uagent/llm_round_helpers.py:662
+#: src/uagent/llm_round_helpers.py:713
 #: src/uagent/providers/llm_deepseek.py:697
 msgid "Error code: %(code)d - %(err)s"
 msgstr "त्रुटी कोड: %(code)d - %(err)s"
 
-#: src/uagent/llm_round_helpers.py:665
+#: src/uagent/llm_round_helpers.py:716
 #: src/uagent/providers/llm_deepseek.py:700
 #: src/uagent/providers/llm_zai.py:374
 msgid "Connection error"
 msgstr "कनेक्शन त्रुटी"
 
-#: src/uagent/llm_round_helpers.py:670
+#: src/uagent/llm_round_helpers.py:721
 #: src/uagent/providers/llm_deepseek.py:705
 #: src/uagent/providers/llm_zai.py:380
 msgid "[Network Error]"
 msgstr "[नेटवर्क त्रुटी]"
 
-#: src/uagent/llm_round_helpers.py:697
+#: src/uagent/llm_round_helpers.py:748
 msgid "Unexpected exception."
 msgstr "अनपेक्षित अपवाद."
 
-#: src/uagent/llm_round_helpers.py:710
+#: src/uagent/llm_round_helpers.py:761
 msgid "Response error: resp is None."
 msgstr "प्रतिसाद त्रुटी: resp काहीही नाही."
 
-#: src/uagent/llm_round_helpers.py:713
+#: src/uagent/llm_round_helpers.py:764
 msgid "Response error: resp.choices is None or empty."
 msgstr "प्रतिसाद त्रुटी: resp.choices काहीही नाही किंवा रिक्त आहे."
 
-#: src/uagent/llm_round_helpers.py:781
+#: src/uagent/llm_round_helpers.py:832
 #, python-format
 msgid "Error while parsing response: %(err)s"
 msgstr "प्रतिसाद पार्स करताना त्रुटी: %(err)s"
@@ -1992,15 +2017,15 @@ msgstr "चेतावणी: साधी .env काढण्यात अय
 msgid "generated: %(path)s"
 msgstr "तयार: %(path)s"
 
-#: src/uagent/uagent_llm.py:70
+#: src/uagent/uagent_llm.py:71
 msgid "Stopped by user. Sending stop command to LLM..."
 msgstr "वापरकर्त्याने थांबवले. LLM ला थांबवण्याचा आदेश पाठवत आहे..."
 
-#: src/uagent/uagent_llm.py:71
+#: src/uagent/uagent_llm.py:72
 msgid "Stop"
 msgstr "थांबवा"
 
-#: src/uagent/uagent_llm.py:178
+#: src/uagent/uagent_llm.py:183
 #, python-format
 msgid "[WARN] Tool rounds exceeded %(max)d; aborting."
 msgstr "[चेतावणी] टूल राउंड %(max)d ओलांडले; रद्द करणे."
@@ -2869,7 +2894,7 @@ msgstr "वेब शोध: पूर्ण"
 msgid "Web search: {action}"
 msgstr "वेब शोध: {action}"
 
-#: src/uagent/providers/llm_openai_responses.py:587
+#: src/uagent/providers/llm_openai_responses.py:588
 #, python-brace-format
 msgid ""
 "[Tool calling rules]\n"
@@ -2885,7 +2910,7 @@ msgstr ""
 "        - साधनाला आवश्यक पॅरामीटर्स नसल्यास रिकाम्या ऑब्जेक्ट {} असलेल्या टूलला कधीही कॉल करू नका.\n"
 "        - तुमच्याकडे आवश्यक पॅरामीटर नसल्यास, वापरकर्त्याला अंदाज लावण्याऐवजी human_ask वापरून विचारा."
 
-#: src/uagent/providers/llm_openai_responses.py:594
+#: src/uagent/providers/llm_openai_responses.py:595
 msgid ""
 "[Web search rules]\n"
 "        - Use web search only when fresh or external information is necessary.\n"
@@ -2897,6 +2922,12 @@ msgstr ""
 "        - ताजी किंवा बाह्य माहिती आवश्यक असेल तेव्हाच वेब शोध वापरा.\n"
 "        - स्थानिक किंवा स्थिर माहितीसाठी वेब शोध वापरू नका.\n"
 "        - जेव्हा उत्तर आधीच पुरेसे असेल तेव्हा वेब शोधाशिवाय उत्तर देण्यास प्राधान्य द्या."
+
+#: src/uagent/providers/llm_openai_responses.py:906
+#: src/uagent/providers/llm_openai_responses.py:1175
+#: src/uagent/providers/llm_openai_responses.py:1258
+msgid "Server-side compaction triggered (context compressed)."
+msgstr "सर्व्हर-साइड कॉम्पॅक्शन ट्रिगर केले (संदर्भ संकुचित)."
 
 #: src/uagent/providers/llm_zai.py:366
 msgid "Response body: %(body)s"

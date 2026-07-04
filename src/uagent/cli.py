@@ -951,6 +951,13 @@ def main() -> None:
     if startup.should_exit:
         return
 
+    # Ask about session resume at startup (not at first message)
+    if provider in ("openai", "azure"):
+        core.responses_state["provider"] = provider
+        core.responses_state["model"] = depname
+        core._check_responses_state_provider(provider, depname)
+        core._maybe_ask_resume()
+
     start_background_scheduler(core.event_queue)
     core.start_interrupt_monitor()
 

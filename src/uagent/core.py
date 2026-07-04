@@ -335,6 +335,118 @@ def print_status_line() -> None:
         sys.stderr.flush()
 
 
+# Responses API previous_response_id, persists across turns in the same process
+responses_state: dict = {}
+
+# Responses state file path (workdir-relative, configurable via UAGENT_RESPONSES_STATE_FILE)
+_RESPONSES_STATE_FILE: str | None = None
+_RESPONSES_STATE_FILE_LOCK = threading.Lock()
+
+
+def _get_responses_state_file() -> str:
+    global _RESPONSES_STATE_FILE
+    if _RESPONSES_STATE_FILE is not None:
+        return _RESPONSES_STATE_FILE
+    env_path = (env_get("UAGENT_RESPONSES_STATE_FILE") or "").strip()
+    if env_path:
+        _RESPONSES_STATE_FILE = env_path
+    else:
+        # Default: save in current working directory
+        _RESPONSES_STATE_FILE = os.path.join(
+            os.getcwd(), "responses_state.json",
+        )
+    return _RESPONSES_STATE_FILE
+
+
+# Pending loaded state (not yet confirmed by user)
+_PENDING_RESPONSES_STATE: dict | None = None
+_RESUME_ASKED: bool = False
+
+
+def _load_responses_state() -> None:
+    """Load responses_state from disk (pending, not applied yet)."""
+    global _PENDING_RESPONSES_STATE
+    path = _get_responses_state_file()
+    try:
+        with open(path, "r", encoding="utf-8") as f:
+            data = json.load(f)
+        if not isinstance(data, dict):
+            return
+        # Expired? (30 days)
+        saved_at = data.get("saved_at")
+        if isinstance(saved_at, (int, float)):
+            if time.time() - saved_at > 30 * 86400:
+                return  # expired, discard
+        rid = data.get("previous_response_id")
+        if not (isinstance(rid, str) and rid.startswith("resp_")):
+            return
+        _PENDING_RESPONSES_STATE = data
+    except Exception:
+        pass
+
+
+def _check_responses_state_provider(provider: str, depname: str) -> None:
+    """Discard saved state if provider or model changed."""
+    global _PENDING_RESPONSES_STATE
+    if _PENDING_RESPONSES_STATE is None:
+        return
+    saved_provider = _PENDING_RESPONSES_STATE.get("provider", "")
+    saved_model = _PENDING_RESPONSES_STATE.get("model", "")
+    if saved_provider != provider or saved_model != depname:
+        _PENDING_RESPONSES_STATE = None
+        _save_responses_state()
+
+
+def _maybe_ask_resume() -> None:
+    """Ask user whether to resume previous session (once per process)."""
+    global _RESUME_ASKED, responses_state, _PENDING_RESPONSES_STATE
+    if _RESUME_ASKED:
+        return
+    _RESUME_ASKED = True
+    if _PENDING_RESPONSES_STATE is None:
+        return
+    data = _PENDING_RESPONSES_STATE
+    _PENDING_RESPONSES_STATE = None
+    try:
+        print()
+        print(_("[Responses API] A previous session was found. Continue it?"))
+        print(_("  (y) Yes - reuse previous context (saves tokens)"))
+        print(_("  (n) No  - start fresh, discard saved state"))
+        ans = input("> ").strip().lower()
+        if ans in ("y", "yes", "1"):
+            rid = data.get("previous_response_id")
+            if isinstance(rid, str):
+                responses_state["previous_response_id"] = rid
+                print(_("[Responses API] Continuing previous session."))
+        else:
+            _save_responses_state()  # clear file
+            print(_("[Responses API] Starting fresh session."))
+    except Exception:
+        pass
+
+
+def _save_responses_state() -> None:
+    """Save responses_state to disk."""
+    path = _get_responses_state_file()
+    try:
+        os.makedirs(os.path.dirname(path), exist_ok=True)
+        data = {
+            "previous_response_id": responses_state.get("previous_response_id", ""),
+            "provider": responses_state.get("provider", ""),
+            "model": responses_state.get("model", ""),
+            "saved_at": time.time(),
+        }
+        with _RESPONSES_STATE_FILE_LOCK:
+            with open(path, "w", encoding="utf-8") as f:
+                json.dump(data, f, ensure_ascii=False)
+    except Exception:
+        pass
+
+
+# Load saved state on import
+_load_responses_state()
+
+
 def set_status(busy: bool, label: str = "") -> None:
     """
     Update the Busy/Idle state and draw the status line if there are changes.

@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2026-07-02 20:45+0900\n"
+"POT-Creation-Date: 2026-07-04 11:22+0900\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -60,7 +60,7 @@ msgstr "لغو شد."
 msgid "Received multiline reply."
 msgstr "پاسخ چندخطی دریافت شد."
 
-#: src/uagent/cli.py:1053
+#: src/uagent/cli.py:1060
 msgid ""
 "Image file paths were found in your input.\n"
 "Do you want to send these images to the LLM (external API) for analysis?\n"
@@ -69,28 +69,28 @@ msgstr ""
 "مسیرهای فایل تصویری در ورودی شما پیدا شد.\n"
 "آیا می خواهید این تصاویر را برای تجزیه و تحلیل به LLM (API خارجی) ارسال کنید؟"
 
-#: src/uagent/cli.py:1059
+#: src/uagent/cli.py:1066
 msgid "Reply with y to send, or n (or c/cancel) to skip sending."
 msgstr "برای ارسال با y یا n (یا c/cancel) برای رد شدن از ارسال پاسخ دهید."
 
-#: src/uagent/cli.py:1077
+#: src/uagent/cli.py:1084
 #, python-format
 msgid ""
 "Image send confirmation failed; will not send images: %(etype)s: %(err)s"
 msgstr ""
 "تایید ارسال تصویر ناموفق بود. تصاویر را ارسال نمی کند: %(etype)s: %(err)s"
 
-#: src/uagent/cli.py:1105 src/uagent/scheckgui.py:722
+#: src/uagent/cli.py:1112 src/uagent/scheckgui.py:722
 #, python-format
 msgid "Failed to attach image: %(path)s (%(etype)s: %(err)s)"
 msgstr "تصویر پیوست نشد: %(path)s (%(etype)s: %(err)s)"
 
-#: src/uagent/cli.py:1142
+#: src/uagent/cli.py:1149
 #, python-format
 msgid "Unknown event kind=%(kind)r: %(ev)r"
 msgstr "رویداد ناشناخته type=%(kind)r: %(ev)r"
 
-#: src/uagent/cli.py:1164
+#: src/uagent/cli.py:1171
 msgid "Exited uag."
 msgstr "از uag خارج شد."
 
@@ -252,37 +252,57 @@ msgstr "فایل راه اندازی ارائه شده: %(path)s"
 msgid "--non-interactive was specified; exiting without waiting for stdin."
 msgstr "--غیر تعاملی مشخص شد. خروج بدون انتظار برای stdin."
 
-#: src/uagent/core.py:422 src/uagent/core.py:443
+#: src/uagent/core.py:412
+msgid "[Responses API] A previous session was found. Continue it?"
+msgstr "[Responses API] جلسه قبلی پیدا شد. ادامه بده؟"
+
+#: src/uagent/core.py:413
+msgid "  (y) Yes - reuse previous context (saves tokens)"
+msgstr "  (y) بله - استفاده مجدد از زمینه قبلی (توکن ها را ذخیره می کند)"
+
+#: src/uagent/core.py:414
+msgid "  (n) No  - start fresh, discard saved state"
+msgstr "  (n) خیر - از نو شروع کنید، وضعیت ذخیره شده را کنار بگذارید"
+
+#: src/uagent/core.py:420
+msgid "[Responses API] Continuing previous session."
+msgstr "[Responses API] ادامه جلسه قبلی."
+
+#: src/uagent/core.py:423
+msgid "[Responses API] Starting fresh session."
+msgstr "[Responses API] شروع جلسه جدید."
+
+#: src/uagent/core.py:534 src/uagent/core.py:555
 #, python-format
 msgid "Environment variable %(name)s is not set."
 msgstr "متغیر محیطی %(name)s تنظیم نشده است."
 
-#: src/uagent/core.py:743
+#: src/uagent/core.py:855
 msgid "No log files found."
 msgstr "هیچ فایل گزارشی یافت نشد."
 
-#: src/uagent/core.py:761
+#: src/uagent/core.py:873
 msgid "(unknown time)"
 msgstr "(زمان نامعلوم)"
 
-#: src/uagent/core.py:764
+#: src/uagent/core.py:876
 #, python-format
 msgid "logs: showing %(shown)d/%(total)d (dir=%(dir)s)"
 msgstr "گزارش‌ها: نمایش %(shown)d/%(total)d (dir=%(dir)s)"
 
-#: src/uagent/core.py:767
+#: src/uagent/core.py:879
 msgid "Log files:"
 msgstr "فایل های لاگ:"
 
-#: src/uagent/core.py:774
+#: src/uagent/core.py:886
 msgid "(mtime unknown)"
 msgstr "(زمان تغییر نامعلوم)"
 
-#: src/uagent/core.py:892 src/uagent/core.py:895
+#: src/uagent/core.py:1004 src/uagent/core.py:1007
 msgid "(no user message)"
 msgstr "(بدون پیام کاربر)"
 
-#: src/uagent/core.py:900
+#: src/uagent/core.py:1012
 #, python-format
 msgid ""
 "[%(idx)d] %(mtime_text)s | %(turns)d msgs | first: %(first_user)s | last: "
@@ -291,7 +311,7 @@ msgstr ""
 "[%(idx)d] %(mtime_text)s | %(turns)d پیام | نخست: %(first_user)s | آخر: "
 "%(last_user)s"
 
-#: src/uagent/core.py:1152
+#: src/uagent/core.py:1264
 #, python-format
 msgid ""
 "[INFO] There were %(count)d messages to compress, so nothing was changed."
@@ -299,7 +319,7 @@ msgstr ""
 "[INFO] تعداد %(count)d پیام برای فشرده‌سازی وجود داشت، بنابراین چیزی تغییر "
 "نکرد."
 
-#: src/uagent/core.py:1163
+#: src/uagent/core.py:1275
 #, python-format
 msgid ""
 "[INFO] Compressed in-memory conversation history: %(old_n)d -> %(new_n)d "
@@ -308,20 +328,20 @@ msgstr ""
 "[INFO] تاریخچهٔ گفت‌وگو در حافظه فشرده شد: %(old_n)d -> %(new_n)d پیام "
 "(keep_last=%(keep_last)d)"
 
-#: src/uagent/core.py:1474
+#: src/uagent/core.py:1586
 msgid "429 retry limit (%(max_retries)s) reached while history compression."
 msgstr ""
 "در حین فشرده‌سازی تاریخچه، به حد مجاز تلاش مجدد ۴۲۹ (%(max_retries)s) رسید."
 
-#: src/uagent/core.py:1484
+#: src/uagent/core.py:1596
 msgid "Error while calling LLM for history compression: %(err)r"
 msgstr "خطا در هنگام فراخوانی LLM برای فشرده‌سازی تاریخچه: %(err)r"
 
-#: src/uagent/core.py:1519
+#: src/uagent/core.py:1631
 msgid "- Summarize the conversation chunk in English.\n"
 msgstr "- بخش گفتگو را به انگلیسی خلاصه کنید.\n"
 
-#: src/uagent/core.py:1521
+#: src/uagent/core.py:1633
 msgid ""
 "- Keep the summary concise but include key decisions, constraints, and "
 "pending items.\n"
@@ -329,27 +349,27 @@ msgstr ""
 "- خلاصه را مختصر نگه دارید اما تصمیمات کلیدی، محدودیت‌ها و موارد معلق را "
 "شامل شود.\n"
 
-#: src/uagent/core.py:1523
+#: src/uagent/core.py:1635
 msgid "- Output should be directly usable as a system message."
 msgstr "- خروجی باید مستقیماً به عنوان پیام سیستم قابل استفاده باشد."
 
-#: src/uagent/core.py:1526
+#: src/uagent/core.py:1638
 msgid "Conversation chunk:\n"
 msgstr "بخش گفتگو:\n"
 
-#: src/uagent/core.py:1528
+#: src/uagent/core.py:1640
 msgid "Write a concise summary of this chunk."
 msgstr "یک خلاصه مختصر از این بخش بنویسید."
 
-#: src/uagent/core.py:1532
+#: src/uagent/core.py:1644
 msgid "- You are updating an existing conversation summary.\n"
 msgstr "- شما در حال به‌روزرسانی خلاصه گفتگوی موجود هستید.\n"
 
-#: src/uagent/core.py:1533
+#: src/uagent/core.py:1645
 msgid "- Preserve important facts from the previous summary.\n"
 msgstr "- حقایق مهم را از خلاصه قبلی حفظ کنید.\n"
 
-#: src/uagent/core.py:1535
+#: src/uagent/core.py:1647
 msgid ""
 "- Merge in the new chunk without losing constraints, decisions, or pending "
 "items.\n"
@@ -357,31 +377,31 @@ msgstr ""
 "- بخش جدید را بدون از دست دادن محدودیت‌ها، تصمیمات یا موارد معلق ادغام "
 "کنید.\n"
 
-#: src/uagent/core.py:1537
+#: src/uagent/core.py:1649
 msgid "- Keep the result concise and suitable for a system message."
 msgstr "- نتیجه را مختصر و مناسب برای پیام سیستم نگه دارید."
 
-#: src/uagent/core.py:1540
+#: src/uagent/core.py:1652
 msgid "Previous summary:\n"
 msgstr "خلاصه قبلی:\n"
 
-#: src/uagent/core.py:1542
+#: src/uagent/core.py:1654
 msgid "New chunk:\n"
 msgstr "بخش جدید:\n"
 
-#: src/uagent/core.py:1544
+#: src/uagent/core.py:1656
 msgid "Update the summary while keeping the prior context intact."
 msgstr "خلاصه را با حفظ بافت قبلی به‌روزرسانی کنید."
 
-#: src/uagent/core.py:1555
+#: src/uagent/core.py:1667
 msgid "[shrink_llm] Summarizing chunk %(i)d/%(n)d..."
 msgstr "[shrink_llm] خلاصه کردن تکه %(i)d/%(n)d..."
 
-#: src/uagent/core.py:1573
+#: src/uagent/core.py:1685
 msgid "Summary of the conversation so far:\n"
 msgstr "خلاصه گفتگو تا کنون:\n"
 
-#: src/uagent/core.py:1580
+#: src/uagent/core.py:1692
 msgid ""
 "[INFO] shrink_llm: {old_n} -> {new_n} messages (compressed {old_part_n} "
 "older messages into 1 summary; kept {tail_n} tail)"
@@ -389,7 +409,7 @@ msgstr ""
 "[INFO] shrink_llm: {old_n} -> {new_n} پیام (فشرده‌سازی {old_part_n} پیام "
 "قدیمی‌تر در ۱ خلاصه؛ حفظ {tail_n} پیام در انتها)"
 
-#: src/uagent/core.py:1608
+#: src/uagent/core.py:1720
 msgid ""
 "[WARN] history compression hit context length even at chunk_size=1; falling "
 "back to shrink_messages()."
@@ -397,13 +417,13 @@ msgstr ""
 "[WARN] فشرده‌سازی تاریخچه حتی با chunk_size=1 هم به محدودیت زمینه رسید؛ "
 "بازگشت به shrink_messages()."
 
-#: src/uagent/core.py:1618
+#: src/uagent/core.py:1730
 msgid ""
 "[WARN] history compression could not reduce chunk_size further; falling back"
 " to shrink_messages()."
 msgstr "[WARN] امکان کاهش بیشتر chunk_size نبود؛ بازگشت به shrink_messages()."
 
-#: src/uagent/core.py:1626
+#: src/uagent/core.py:1738
 #, python-format
 msgid ""
 "[WARN] history compression context length exceeded; retrying with "
@@ -412,7 +432,7 @@ msgstr ""
 "[WARN] طول زمینهٔ فشرده‌سازی تاریخچه از حد گذشت؛ تلاش دوباره با "
 "chunk_size=%(chunk_size)d"
 
-#: src/uagent/core.py:1636
+#: src/uagent/core.py:1748
 msgid ""
 "[WARN] history compression failed due to LLM error; falling back to "
 "shrink_messages()."
@@ -420,12 +440,12 @@ msgstr ""
 "[WARN] فشرده‌سازی تاریخچه به دلیل خطای LLM شکست خورد؛ بازگشت به "
 "shrink_messages()."
 
-#: src/uagent/core.py:1657
+#: src/uagent/core.py:1769
 #, python-format
 msgid ":help  (help unavailable: %(err)s)"
 msgstr ":help (راهنما در دسترس نیست: %(err)s)"
 
-#: src/uagent/core.py:1669
+#: src/uagent/core.py:1781
 msgid ""
 "## Mission\n"
 "- You are a capable \"general-purpose tool execution agent\" running on a local environment, and you can actually execute commands and operate on files on the user's machine.\n"
@@ -442,7 +462,7 @@ msgstr ""
 "- خلاصه نکن. اطلاعات را مختصر نگه دارید\n"
 "- هنگام ایجاد فایل، محتوای نهایی کامل را خروجی بگیرید (تفاوت یا خلاصه جزئی را خروجی نگیرید)."
 
-#: src/uagent/core.py:1678
+#: src/uagent/core.py:1790
 msgid ""
 "## Rules\n"
 "- Always use the provided tools and verify the latest information.\n"
@@ -456,7 +476,7 @@ msgstr ""
 "- با ابزارهای موجود مشورت کنید و مناسب ترین آنها را انتخاب کنید.\n"
 "- هنگام اجرای ابزارها، تا حد امکان تصمیم گیری کمتری را به کاربر محول کنید."
 
-#: src/uagent/core.py:1685
+#: src/uagent/core.py:1797
 msgid ""
 "## Notes\n"
 "- All user messages come via this script's standard input.\n"
@@ -482,7 +502,7 @@ msgstr ""
 "- در صورت نیاز به دانش در سطح متخصص، از الگوهای سریع (Agent Skills) استفاده کنید و آنها را دنبال کنید.\n"
 "- اگر ورودی کاربر فقط یک تأیید کوتاه است و هیچ اطلاعات جدیدی اضافه نمی کند، همان توضیح را تکرار نکنید، مگر اینکه پاسخ مستقیم به سؤال روشن بلافاصله قبل باشد. در صورت نیاز، به طور خلاصه بپرسید: \"با کدام نقطه ادامه دهم؟\""
 
-#: src/uagent/core.py:1698
+#: src/uagent/core.py:1810
 msgid ""
 "## Dangerous operation policy (delete_file)\n"
 "- For deletion using the delete_file tool, do NOT ask for confirmation before preview.\n"
@@ -498,7 +518,7 @@ msgstr ""
 "- فقط زمانی که کاربر صریحاً «y» یا «yes» (یا تأیید صریح معادل آن) را پاسخ داد، دوباره delete_file را با همان پارامترها، dry_run=false، و confirmed=true اجرا کنید.\n"
 "- اگر کاندیداها صفر است، نپرسید. فقط گزارش دهید که چیزی حذف نمی شود."
 
-#: src/uagent/core.py:1706
+#: src/uagent/core.py:1818
 msgid ""
 "## Mission\n"
 "- You are a capable \"general-purpose tool execution agent\" running on a local environment; you can execute commands and operate on the user's machine.\n"
@@ -513,7 +533,7 @@ msgstr ""
 "- نه چاپلوسی. بدون ایموجی بدون خلاصه مکالمه آن را مختصر نگه دارید.\n"
 "- هنگام ایجاد فایل، محتوای نهایی کامل را خروجی بگیرید (بدون تفاوت / خلاصه جزئی)."
 
-#: src/uagent/core.py:1714
+#: src/uagent/core.py:1826
 msgid ""
 "## Rules\n"
 "- Use the provided tools first and verify results with tools.\n"
@@ -527,7 +547,7 @@ msgstr ""
 "- خلاق باشید، اما اطلاعات نامطمئن را خروجی نکنید.\n"
 "- تا حد امکان تصمیم گیری کمتری را به کاربر محول کنید."
 
-#: src/uagent/core.py:1721
+#: src/uagent/core.py:1833
 msgid ""
 "## Notes\n"
 "- All user messages come via this script's standard input.\n"
@@ -551,7 +571,7 @@ msgstr ""
 "- اگر دانش در سطح متخصص مورد نیاز است، از الگوهای سریع Agent Skills استفاده کنید.\n"
 "- اگر ورودی کاربر فقط یک تأیید کوتاه است و هیچ اطلاعات جدیدی اضافه نمی کند، همان توضیح را تکرار نکنید، مگر اینکه پاسخ مستقیم به سؤال روشن بلافاصله قبل باشد. در صورت نیاز، به طور خلاصه بپرسید: \"با کدام نقطه ادامه دهم؟\""
 
-#: src/uagent/core.py:1735
+#: src/uagent/core.py:1847
 msgid ""
 "- If the user is using Windows cmd.exe, prefer multi-line commands using "
 "caret (^) line continuation, and keep each line short to avoid copy/paste "
@@ -561,7 +581,7 @@ msgstr ""
 " از ادامه خط caret (^) ترجیح دهید و هر خط را کوتاه نگه دارید تا از شکسته شدن"
 " خطوط کپی/پیست جلوگیری کنید."
 
-#: src/uagent/core.py:1802
+#: src/uagent/core.py:1914
 msgid ""
 "The following tools are currently loaded in this session. Choose the most "
 "appropriate tool for the task."
@@ -939,73 +959,77 @@ msgstr ""
 msgid "[WARN] Auto shrink_llm failed: %(err)s"
 msgstr "[WARN] کاهش خودکار shrink_llm ناموفق بود: %(err)s"
 
-#: src/uagent/llm_round_helpers.py:144
+#: src/uagent/llm_round_helpers.py:146
 #, python-format
 msgid "[Translate Error] %(diag)s"
 msgstr "[خطای ترجمه] %(diag)s"
 
-#: src/uagent/llm_round_helpers.py:207 src/uagent/llm_round_helpers.py:320
-#: src/uagent/llm_round_helpers.py:691
+#: src/uagent/llm_round_helpers.py:209 src/uagent/llm_round_helpers.py:322
+#: src/uagent/llm_round_helpers.py:742
 #: src/uagent/providers/llm_deepseek.py:639
 #: src/uagent/providers/llm_zai.py:304
 #, python-format
 msgid "429 retry limit (%(max_retries)s) reached."
 msgstr "به محدودیت 429 تلاش مجدد (%(max_retries)s) رسیده است."
 
-#: src/uagent/llm_round_helpers.py:231
+#: src/uagent/llm_round_helpers.py:233
 msgid "[Gemini Error] An error occurred while generating a response."
 msgstr "[خطای جمینی] هنگام ایجاد پاسخ خطایی روی داد."
 
-#: src/uagent/llm_round_helpers.py:326
+#: src/uagent/llm_round_helpers.py:328
 msgid "[Claude Error] An error occurred while generating a response."
 msgstr "[خطای کلود] هنگام ایجاد پاسخ خطایی روی داد."
 
-#: src/uagent/llm_round_helpers.py:634
+#: src/uagent/llm_round_helpers.py:677
 #: src/uagent/providers/llm_deepseek.py:649
 #: src/uagent/providers/llm_zai.py:314
 msgid "Input exceeds the context window."
 msgstr "ورودی از پنجره زمینه فراتر رفته است."
 
-#: src/uagent/llm_round_helpers.py:654
+#: src/uagent/llm_round_helpers.py:697
 msgid "Model does not support thinking. Disabling thinking and retrying..."
 msgstr "مدل از تفکر پشتیبانی نمی کند.غیرفعال کردن تفکر و تلاش مجدد..."
 
-#: src/uagent/llm_round_helpers.py:661
+#: src/uagent/llm_round_helpers.py:709
+msgid "Stale previous_response_id. Retrying with full history..."
+msgstr "Stale previous_response_id. تلاش مجدد با سابقه کامل..."
+
+#: src/uagent/llm_round_helpers.py:712
 #: src/uagent/providers/llm_deepseek.py:696
 #: src/uagent/providers/llm_zai.py:364
 msgid "400 BadRequest"
 msgstr "400 BadRequest"
 
-#: src/uagent/llm_round_helpers.py:662
+#: src/uagent/llm_round_helpers.py:713
 #: src/uagent/providers/llm_deepseek.py:697
 msgid "Error code: %(code)d - %(err)s"
 msgstr "کد خطا: %(code)d - %(err)s"
 
-#: src/uagent/llm_round_helpers.py:665
+#: src/uagent/llm_round_helpers.py:716
 #: src/uagent/providers/llm_deepseek.py:700
 #: src/uagent/providers/llm_zai.py:374
 msgid "Connection error"
 msgstr "خطای اتصال"
 
-#: src/uagent/llm_round_helpers.py:670
+#: src/uagent/llm_round_helpers.py:721
 #: src/uagent/providers/llm_deepseek.py:705
 #: src/uagent/providers/llm_zai.py:380
 msgid "[Network Error]"
 msgstr "[خطای شبکه]"
 
-#: src/uagent/llm_round_helpers.py:697
+#: src/uagent/llm_round_helpers.py:748
 msgid "Unexpected exception."
 msgstr "استثنای غیرمنتظره."
 
-#: src/uagent/llm_round_helpers.py:710
+#: src/uagent/llm_round_helpers.py:761
 msgid "Response error: resp is None."
 msgstr "خطای پاسخ: resp هیچ است."
 
-#: src/uagent/llm_round_helpers.py:713
+#: src/uagent/llm_round_helpers.py:764
 msgid "Response error: resp.choices is None or empty."
 msgstr "خطای پاسخ: resp.choices هیچ یا خالی است."
 
-#: src/uagent/llm_round_helpers.py:781
+#: src/uagent/llm_round_helpers.py:832
 #, python-format
 msgid "Error while parsing response: %(err)s"
 msgstr "خطا هنگام تجزیه پاسخ: %(err)s"
@@ -1987,15 +2011,15 @@ msgstr "هشدار: حذف .env: %(error)s انجام نشد"
 msgid "generated: %(path)s"
 msgstr "تولید شده: %(path)s"
 
-#: src/uagent/uagent_llm.py:70
+#: src/uagent/uagent_llm.py:71
 msgid "Stopped by user. Sending stop command to LLM..."
 msgstr "توسط کاربر متوقف شد. ارسال دستور توقف به LLM..."
 
-#: src/uagent/uagent_llm.py:71
+#: src/uagent/uagent_llm.py:72
 msgid "Stop"
 msgstr "توقف"
 
-#: src/uagent/uagent_llm.py:178
+#: src/uagent/uagent_llm.py:183
 #, python-format
 msgid "[WARN] Tool rounds exceeded %(max)d; aborting."
 msgstr "[هشدار] دور ابزار بیش از %(max)d است. سقط"
@@ -2859,7 +2883,7 @@ msgstr "جستجوی وب: تکمیل شد"
 msgid "Web search: {action}"
 msgstr "جستجوی وب: {action}"
 
-#: src/uagent/providers/llm_openai_responses.py:587
+#: src/uagent/providers/llm_openai_responses.py:588
 #, python-brace-format
 msgid ""
 "[Tool calling rules]\n"
@@ -2875,7 +2899,7 @@ msgstr ""
 "        - هرگز ابزاری را با یک شی خالی {} فراخوانی نکنید مگر اینکه ابزار فاقد پارامترهای لازم باشد.\n"
 "        - اگر پارامتر مورد نیاز را ندارید، به جای حدس زدن، با استفاده از human_ask آن را از کاربر بخواهید."
 
-#: src/uagent/providers/llm_openai_responses.py:594
+#: src/uagent/providers/llm_openai_responses.py:595
 msgid ""
 "[Web search rules]\n"
 "        - Use web search only when fresh or external information is necessary.\n"
@@ -2887,6 +2911,12 @@ msgstr ""
 "        - فقط زمانی از جستجوی وب استفاده کنید که اطلاعات تازه یا خارجی لازم باشد.\n"
 "        - از جستجوی وب برای اطلاعات محلی یا پایدار استفاده نکنید.\n"
 "        - ترجیح می دهند بدون جستجوی وب پاسخ دهند، زمانی که پاسخ کافی است."
+
+#: src/uagent/providers/llm_openai_responses.py:906
+#: src/uagent/providers/llm_openai_responses.py:1175
+#: src/uagent/providers/llm_openai_responses.py:1258
+msgid "Server-side compaction triggered (context compressed)."
+msgstr "فشرده سازی سمت سرور فعال شد (فشرده شدن متن)."
 
 #: src/uagent/providers/llm_zai.py:366
 msgid "Response body: %(body)s"
