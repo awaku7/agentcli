@@ -14,7 +14,7 @@ _ = make_tool_translator(__file__)
 LAZY_LOAD = True
 
 # Auto-install exstruct if missing
-from ._pip_auto import auto_install as _install_exstruct
+from ._pip_auto import install_with_status as _install_exstruct
 
 if _install_exstruct("exstruct"):
     import exstruct  # noqa: F401
