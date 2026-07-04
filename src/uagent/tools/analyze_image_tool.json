@@ -8,7 +8,9 @@
       "image",
       "picture",
       "photo",
-      "diagram"
+      "diagram",
+      "ocr",
+      "vision"
     ],
     "param.img.description": "Path to the image file to analyze."
   },
@@ -18,7 +20,9 @@
     "x_search_terms": [
       "画像を読み込み、AI（Vision）で内容を説明します。スクリーンショットやグラフ、表の解析に便利です",
       "analyze_image",
-      "analyze image"
+      "analyze image",
+      "ocr",
+      "vision"
     ],
     "param.img.description": "解析する画像ファイルのパス。"
   },
@@ -28,7 +32,9 @@
     "x_search_terms": [
       "Cargue una imagen y haga que AI (Vision) la describa. Útil para capturas de pantalla, gráficos y tablas",
       "analyze_image",
-      "analyze image"
+      "analyze image",
+      "ocr",
+      "vision"
     ],
     "param.img.description": "Ruta al archivo de imagen a analizar."
   },
@@ -38,7 +44,9 @@
     "x_search_terms": [
       "Chargez une image et demandez à AI (Vision) d’en décrire le contenu. Utile pour les captures d’écran, les graphiques et les tableaux",
       "analyze_image",
-      "analyze image"
+      "analyze image",
+      "ocr",
+      "vision"
     ],
     "param.img.description": "Chemin d'accès au fichier image à analyser."
   },
@@ -48,7 +56,9 @@
     "x_search_terms": [
       "이미지를 불러와 AI(Vision)가 내용을 설명하게 합니다. 스크린샷, 차트, 표를 분석할 때 유용합니다",
       "analyze_image",
-      "analyze image"
+      "analyze image",
+      "ocr",
+      "vision"
     ],
     "param.img.description": "분석할 이미지 파일의 경로입니다."
   },
@@ -58,7 +68,9 @@
     "x_search_terms": [
       "Laden Sie ein Bild und lassen Sie AI (Vision) es beschreiben. Nützlich für Screenshots, Diagramme und Tabellen",
       "analyze_image",
-      "analyze image"
+      "analyze image",
+      "ocr",
+      "vision"
     ],
     "param.img.description": "Pfad zur zu analysierenden Bilddatei."
   },
@@ -68,7 +80,9 @@
     "x_search_terms": [
       "Carica un file immagine e chiedi ad AI (Vision) di descriverne il contenuto. Utile per analizzare screenshot o leggere grafici/tabelle",
       "analyze_image",
-      "analyze image"
+      "analyze image",
+      "ocr",
+      "vision"
     ],
     "param.img.description": "Percorso del file immagine da analizzare."
   },
@@ -78,7 +92,9 @@
     "x_search_terms": [
       "Загрузите файл изображения и попросите AI (Vision) описать его содержимое. Полезно для анализа снимков экрана или чтения диаграмм/таблиц",
       "analyze_image",
-      "analyze image"
+      "analyze image",
+      "ocr",
+      "vision"
     ],
     "param.img.description": "Путь к файлу изображения для анализа."
   },
@@ -88,7 +104,9 @@
     "x_search_terms": [
       "Carregue uma imagem e faça com que a IA (Visão) a descreva. Útil para capturas de tela, gráficos e tabelas",
       "analyze_image",
-      "analyze image"
+      "analyze image",
+      "ocr",
+      "vision"
     ],
     "param.img.description": "Caminho para o arquivo de imagem a ser analisado."
   },
@@ -98,7 +116,9 @@
     "x_search_terms": [
       "Carregue um arquivo de imagem e faça com que a IA (Visão) descreva seu conteúdo. Útil para analisar capturas de tela ou ler gráficos/tabelas",
       "analyze_image",
-      "analyze image"
+      "analyze image",
+      "ocr",
+      "vision"
     ],
     "param.img.description": "Caminho para o arquivo de imagem a ser analisado."
   },
@@ -108,7 +128,9 @@
     "x_search_terms": [
       "Muat file gambar dan minta AI (Vision) mendeskripsikan isinya. Berguna untuk menganalisis tangkapan layar atau membaca grafik/tabel",
       "analyze_image",
-      "analyze image"
+      "analyze image",
+      "ocr",
+      "vision"
     ],
     "param.img.description": "Jalur ke file gambar yang akan dianalisis."
   },
@@ -118,7 +140,9 @@
     "x_search_terms": [
       "Tải một tệp hình ảnh và để AI (Vision) mô tả nội dung của nó. Hữu ích cho việc phân tích ảnh chụp màn hình hoặc đọc biểu đồ/bảng",
       "analyze_image",
-      "analyze image"
+      "analyze image",
+      "ocr",
+      "vision"
     ],
     "param.img.description": "Đường dẫn tới file ảnh cần phân tích."
   },
@@ -128,7 +152,9 @@
     "x_search_terms": [
       "Załaduj plik obrazu i poproś AI (Vision) o opisanie jego zawartości. Przydatne do analizy zrzutów ekranu lub czytania wykresów/tabel",
       "analyze_image",
-      "analyze image"
+      "analyze image",
+      "ocr",
+      "vision"
     ],
     "param.img.description": "Ścieżka do pliku obrazu do analizy."
   },
@@ -138,7 +164,9 @@
     "x_search_terms": [
       "एक छवि फ़ाइल लोड करें और AI (Vision) से उसकी सामग्री का वर्णन कराएं। स्क्रीनशॉट, चार्ट और तालिकाओं के लिए उपयोगी।",
       "analyze_image",
-      "analyze image"
+      "analyze image",
+      "ocr",
+      "vision"
     ],
     "param.img.description": "विश्लेषण करने के लिए छवि फ़ाइल का पथ."
   },
@@ -148,7 +176,9 @@
     "x_search_terms": [
       "قم بتحميل صورة واطلب من AI (Vision) وصف محتواها. مفيد للقطات الشاشة والرسوم البيانية والجداول",
       "analyze_image",
-      "analyze image"
+      "analyze image",
+      "ocr",
+      "vision"
     ],
     "param.img.description": "المسار إلى ملف الصورة لتحليلها."
   },
@@ -158,7 +188,9 @@
     "x_search_terms": [
       "Läs in en bildfil och låt AI (Vision) beskriva innehållet. Användbart för att analysera skärmdumpar eller läsa diagram/tabeller",
       "analyze_image",
-      "analyze image"
+      "analyze image",
+      "ocr",
+      "vision"
     ],
     "param.img.description": "Sökväg till bildfilen som ska analyseras."
   },
@@ -168,7 +200,9 @@
     "x_search_terms": [
       "Pakia faili la picha na umwombe AI ya kuona (Vision) aeleze maudhui yake. Inafaa kwa kuchanganua picha za skrini, chati, na majedwali",
       "analyze_image",
-      "analyze image"
+      "analyze image",
+      "ocr",
+      "vision"
     ],
     "param.img.description": "Njia ya faili ya picha kuchanganua."
   },
@@ -178,7 +212,9 @@
     "x_search_terms": [
       "Last inn en bildefil og la AI (Vision) beskrive innholdet. Nyttig for å analysere skjermbilder eller lese grafer/tabeller",
       "analyze_image",
-      "analyze image"
+      "analyze image",
+      "ocr",
+      "vision"
     ],
     "param.img.description": "Sti til bildefilen som skal analyseres."
   },
@@ -188,7 +224,9 @@
     "x_search_terms": [
       "Laad een afbeeldingsbestand en laat AI (Vision) de inhoud beschrijven. Handig voor het analyseren van screenshots of het lezen van grafieken/tabellen",
       "analyze_image",
-      "analyze image"
+      "analyze image",
+      "ocr",
+      "vision"
     ],
     "param.img.description": "Pad naar het afbeeldingsbestand dat moet worden geanalyseerd."
   },
@@ -198,7 +236,9 @@
     "x_search_terms": [
       "Lataa kuvatiedosto ja anna tekoälyn (Vision) kuvata sen sisältö. Hyödyllinen kuvakaappausten analysointiin tai kaavioiden/taulukoiden lukemiseen",
       "analyze_image",
-      "analyze image"
+      "analyze image",
+      "ocr",
+      "vision"
     ],
     "param.img.description": "Analysoitavan kuvatiedoston polku."
   },
@@ -208,7 +248,9 @@
     "x_search_terms": [
       "Načte obrázek a nechá AI (Vision) popsat jeho obsah. Hodí se pro snímky obrazovky, grafy a tabulky",
       "analyze_image",
-      "analyze image"
+      "analyze image",
+      "ocr",
+      "vision"
     ],
     "param.img.description": "Cesta k obrazovému souboru k analýze."
   },
@@ -218,7 +260,9 @@
     "x_search_terms": [
       "Завантажує зображення і просить AI (Vision) описати його. Корисно для знімків екрана, діаграм і таблиць",
       "analyze_image",
-      "analyze image"
+      "analyze image",
+      "ocr",
+      "vision"
     ],
     "param.img.description": "Шлях до файла зображення для аналізу."
   },
@@ -228,7 +272,9 @@
     "x_search_terms": [
       "Bir resim yükleyin ve AI (Görme)'nin bunu açıklamasını sağlayın. Ekran görüntüleri, grafikler ve tablolar için kullanışlıdır",
       "analyze_image",
-      "analyze image"
+      "analyze image",
+      "ocr",
+      "vision"
     ],
     "param.img.description": "Analiz edilecek görüntü dosyasının yolu."
   },
@@ -238,7 +284,9 @@
     "x_search_terms": [
       "โหลดไฟล์ภาพและให้ AI (Vision) อธิบายเนื้อหา เหมาะสำหรับการวิเคราะห์ภาพหน้าจอ แผนภูมิ และตาราง",
       "analyze_image",
-      "analyze image"
+      "analyze image",
+      "ocr",
+      "vision"
     ],
     "param.img.description": "พาธไปยังไฟล์รูปภาพเพื่อวิเคราะห์"
   },
@@ -248,7 +296,9 @@
     "x_search_terms": [
       "加载图像并让 AI（视觉）描述其内容。适用于分析屏幕截图、图表和表格",
       "analyze_image",
-      "analyze image"
+      "analyze image",
+      "ocr",
+      "vision"
     ],
     "param.img.description": "要分析的图像文件的路径。"
   },
@@ -258,7 +308,9 @@
     "x_search_terms": [
       "載入圖片並讓 AI（視覺）描述其內容。適用於分析螢幕截圖、圖表和表格",
       "analyze_image",
-      "analyze image"
+      "analyze image",
+      "ocr",
+      "vision"
     ],
     "param.img.description": "要分析的影像檔案的路徑。"
   },
@@ -268,7 +320,9 @@
     "x_search_terms": [
       "একটি ছবি লোড করে AI (Vision)-কে সেটির বর্ণনা দিতে দিন। স্ক্রিনশট, চার্ট এবং টেবিলের জন্য উপযোগী",
       "analyze_image",
-      "analyze image"
+      "analyze image",
+      "ocr",
+      "vision"
     ],
     "param.img.description": "বিশ্লেষণ করার জন্য ছবির ফাইলের পথ।"
   },
@@ -278,7 +332,9 @@
     "x_search_terms": [
       "یک تصویر را بارگذاری کنید و بگذارید AI (Vision) محتوای آن را توصیف کند. برای اسکرین‌شات‌ها، نمودارها و جدول‌ها مفید است",
       "analyze_image",
-      "analyze image"
+      "analyze image",
+      "ocr",
+      "vision"
     ],
     "param.img.description": "مسیر فایل تصویر برای تحلیل."
   },
@@ -288,7 +344,9 @@
     "x_search_terms": [
       "Зургийн файлыг ачаалж, AI (Vision)-аар агуулгыг нь тайлбарлуулна. Дэлгэцийн зураг, график, хүснэгтэд хэрэгтэй",
       "analyze_image",
-      "analyze image"
+      "analyze image",
+      "ocr",
+      "vision"
     ],
     "param.img.description": "Шинжлэх зургийн файлын зам."
   },
@@ -298,7 +356,9 @@
     "x_search_terms": [
       "एक प्रतिमा लोड करा आणि AI (Vision) कडून तिचे वर्णन करून घ्या. स्क्रीनशॉट, चार्ट आणि तक्त्यांसाठी उपयुक्त",
       "analyze_image",
-      "analyze image"
+      "analyze image",
+      "ocr",
+      "vision"
     ],
     "param.img.description": "विश्लेषण करण्यासाठी प्रतिमा फाइलचा मार्ग."
   },
@@ -311,7 +371,9 @@
       "εικών",
       "εικόνα",
       "φωτογραφία",
-      "διάγραμμα"
+      "διάγραμμα",
+      "ocr",
+      "vision"
     ],
     "param.img.description": "Διαδρομή προς το αρχείο εικόνας προς ανάλυση."
   },
@@ -324,7 +386,9 @@
       "תְמוּנָה",
       "תְמוּנָה",
       "תַצלוּם",
-      "תַרשִׁים"
+      "תַרשִׁים",
+      "ocr",
+      "vision"
     ],
     "param.img.description": "נתיב לקובץ התמונה לניתוח."
   },
@@ -337,7 +401,9 @@
       "kép",
       "kép",
       "fénykép",
-      "diagram"
+      "diagram",
+      "ocr",
+      "vision"
     ],
     "param.img.description": "Az elemezni kívánt képfájl elérési útja."
   },
@@ -350,7 +416,9 @@
       "imagine",
       "imagine",
       "fotografie",
-      "diagramă"
+      "diagramă",
+      "ocr",
+      "vision"
     ],
     "param.img.description": "Calea către fișierul imagine de analizat."
   }

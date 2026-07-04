@@ -34,6 +34,12 @@ TOOL_SPEC: dict[str, Any] = {
             "tool.description",
             default="Interact with Bluesky (AT Protocol): post/search/timeline/thread/like/notifications.",
         ),
+        "x_search_terms_en": [
+            "bluesky",
+            "at protocol",
+            "social",
+            "post",
+        ],
         "parameters": {
             "type": "object",
             "properties": {

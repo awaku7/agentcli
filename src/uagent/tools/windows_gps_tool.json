@@ -20,7 +20,10 @@
     "output.coords": "- **Latitude**: {lat}\n- **Longitude**: {lon}",
     "output.accuracy": "- **Accuracy**: {acc}",
     "output.source": "- **Source**: {src}",
-    "output.timestamp": "- **Timestamp**: {ts}"
+    "output.timestamp": "- **Timestamp**: {ts}",
+    "x_search_terms": [
+      "location"
+    ]
   },
   "ja": {
     "tool.description": "GPS センサーを使用して、現在の GPS 位置 (緯度、経度) を取得します。高精度で、精度情報を含む正確な座標を返します。ユーザーが現在位置、場所、または GPS 座標を尋ねる場合にこれを使用します。",
@@ -43,7 +46,10 @@
     "output.coords": "- **緯度**: {lat}\n- **経度**: {lon}",
     "output.accuracy": "- **精度**: {acc}",
     "output.source": "- **ソース**: {src}",
-    "output.timestamp": "- **タイムスタンプ**: {ts}"
+    "output.timestamp": "- **タイムスタンプ**: {ts}",
+    "x_search_terms": [
+      "location"
+    ]
   },
   "es": {
     "tool.description": "Obtenga su ubicación GPS actual (latitud, longitud) utilizando el sensor GPS. Alta precisión, devuelve coordenadas exactas con información precisa. Úselo cuando el usuario solicite su posición actual, ubicación o coordenadas GPS.",
@@ -66,7 +72,10 @@
     "output.coords": "- **Latitud**: {lat}\n- **Longitud**: {lon}",
     "output.accuracy": "- **Precisión**: {acc}",
     "output.source": "- **Fuente**: {src}",
-    "output.timestamp": "- **Marca de tiempo**: {ts}"
+    "output.timestamp": "- **Marca de tiempo**: {ts}",
+    "x_search_terms": [
+      "location"
+    ]
   },
   "fr": {
     "tool.description": "Obtenez votre position GPS actuelle (latitude, longitude) à l'aide du capteur GPS. Haute précision, renvoie des coordonnées exactes avec des informations de précision. Utilisez-le lorsque l'utilisateur demande sa position actuelle, son emplacement ou ses coordonnées GPS.",
@@ -89,7 +98,10 @@
     "output.coords": "- **Latitude** : {lat}\n- **Longitude** : {lon}",
     "output.accuracy": "- **Précision** : {acc}",
     "output.source": "- **Source** : {src}",
-    "output.timestamp": "- **Horodatage** : {ts}"
+    "output.timestamp": "- **Horodatage** : {ts}",
+    "x_search_terms": [
+      "location"
+    ]
   },
   "ko": {
     "tool.description": "GPS 센서를 사용하여 현재 GPS 위치(위도, 경도)를 확인하세요. 높은 정밀도, 정확도 정보와 함께 정확한 좌표를 반환합니다. 사용자가 현재 위치, 위치 또는 GPS 좌표를 요청할 때 사용합니다.",
@@ -112,7 +124,10 @@
     "output.coords": "- **위도**: {lat}\n- **경도**: {lon}",
     "output.accuracy": "- **정확도**: {acc}",
     "output.source": "- **출처**: {src}",
-    "output.timestamp": "- **타임스탬프**: {ts}"
+    "output.timestamp": "- **타임스탬프**: {ts}",
+    "x_search_terms": [
+      "location"
+    ]
   },
   "de": {
     "tool.description": "Ermitteln Sie mithilfe des GPS-Sensors Ihren aktuellen GPS-Standort (Breitengrad, Längengrad). Hohe Präzision, liefert genaue Koordinaten mit Genauigkeitsinformationen. Verwenden Sie dies, wenn der Benutzer nach seiner aktuellen Position, seinem Standort oder GPS-Koordinaten fragt.",
@@ -135,7 +150,10 @@
     "output.coords": "- **Breitengrad**: {lat}\n- **Längengrad**: {lon}",
     "output.accuracy": "- **Genauigkeit**: {acc}",
     "output.source": "- **Quelle**: {src}",
-    "output.timestamp": "- **Zeitstempel**: {ts}"
+    "output.timestamp": "- **Zeitstempel**: {ts}",
+    "x_search_terms": [
+      "location"
+    ]
   },
   "it": {
     "tool.description": "Ottieni la tua posizione GPS attuale (latitudine, longitudine) utilizzando il sensore GPS. Alta precisione, restituisce coordinate esatte con informazioni sulla precisione. Utilizzalo quando l'utente richiede la posizione corrente, la posizione o le coordinate GPS.",
@@ -158,7 +176,10 @@
     "output.coords": "- **Latitudine**: {lat}\n- **Longitudine**: {lon}",
     "output.accuracy": "- **Precisione**: {acc}",
     "output.source": "- **Fonte**: {src}",
-    "output.timestamp": "- **Data e ora**: {ts}"
+    "output.timestamp": "- **Data e ora**: {ts}",
+    "x_search_terms": [
+      "location"
+    ]
   },
   "ru": {
     "tool.description": "Получите свое текущее местоположение GPS (широту, долготу) с помощью датчика GPS. Высокая точность, возвращает точные координаты с информацией о точности. Используйте это, когда пользователь запрашивает свое текущее положение, местоположение или координаты GPS.",
@@ -181,7 +202,10 @@
     "output.coords": "- **Широта**: {lat}\n- **Долгота**: {lon}",
     "output.accuracy": "- **Точность**: {acc}",
     "output.source": "- **Источник**: {src}",
-    "output.timestamp": "- **Временная метка**: {ts}"
+    "output.timestamp": "- **Временная метка**: {ts}",
+    "x_search_terms": [
+      "location"
+    ]
   },
   "pt": {
     "tool.description": "Obtenha sua localização GPS atual (latitude, longitude) usando o sensor GPS. Alta precisão, retorna coordenadas exatas com informações de precisão. Use isto quando o usuário solicitar sua posição atual, localização ou coordenadas GPS.",
@@ -204,7 +228,10 @@
     "output.coords": "- **Latitude**: {lat}\n- **Longitude**: {lon}",
     "output.accuracy": "- **Precisão**: {acc}",
     "output.source": "- **Fonte**: {src}",
-    "output.timestamp": "- **Carimbo de data/hora**: {ts}"
+    "output.timestamp": "- **Carimbo de data/hora**: {ts}",
+    "x_search_terms": [
+      "location"
+    ]
   },
   "pt_BR": {
     "tool.description": "Obtenha sua localização GPS atual (latitude, longitude) usando o sensor GPS. Alta precisão, retorna coordenadas exatas com informações de precisão. Use isto quando o usuário solicitar sua posição atual, localização ou coordenadas GPS.",
@@ -227,7 +254,10 @@
     "output.coords": "- **Latitude**: {lat}\n- **Longitude**: {lon}",
     "output.accuracy": "- **Precisão**: {acc}",
     "output.source": "- **Fonte**: {src}",
-    "output.timestamp": "- **Carimbo de data/hora**: {ts}"
+    "output.timestamp": "- **Carimbo de data/hora**: {ts}",
+    "x_search_terms": [
+      "location"
+    ]
   },
   "id": {
     "tool.description": "Dapatkan lokasi GPS Anda saat ini (lintang, bujur) menggunakan sensor GPS. Presisi tinggi, mengembalikan koordinat yang tepat dengan info akurasi. Gunakan ini ketika pengguna menanyakan posisi, lokasi, atau koordinat GPS mereka saat ini.",
@@ -250,7 +280,10 @@
     "output.coords": "- **Lintang**: {lat}\n- **Bujur**: {lon}",
     "output.accuracy": "- **Akurasi**: {acc}",
     "output.source": "- **Sumber**: {src}",
-    "output.timestamp": "- **Stempel Waktu**: {ts}"
+    "output.timestamp": "- **Stempel Waktu**: {ts}",
+    "x_search_terms": [
+      "location"
+    ]
   },
   "vi": {
     "tool.description": "Nhận vị trí GPS hiện tại của bạn (vĩ độ, kinh độ) bằng cảm biến GPS. Độ chính xác cao, trả về tọa độ chính xác với thông tin chính xác. Sử dụng tính năng này khi người dùng yêu cầu vị trí, vị trí hoặc tọa độ GPS hiện tại của họ.",
@@ -273,7 +306,10 @@
     "output.coords": "- **Vĩ độ**: {lat}\n- **Kinh độ**: {lon}",
     "output.accuracy": "- **Độ chính xác**: {acc}",
     "output.source": "- **Nguồn**: {src}",
-    "output.timestamp": "- **Dấu thời gian**: {ts}"
+    "output.timestamp": "- **Dấu thời gian**: {ts}",
+    "x_search_terms": [
+      "location"
+    ]
   },
   "pl": {
     "tool.description": "Uzyskaj aktualną lokalizację GPS (szerokość i długość geograficzną) za pomocą czujnika GPS. Wysoka precyzja, zwraca dokładne współrzędne z informacjami o dokładności. Użyj tej opcji, gdy użytkownik pyta o jego aktualną pozycję, lokalizację lub współrzędne GPS.",
@@ -296,7 +332,10 @@
     "output.coords": "- **Szerokość geograficzna**: {lat}\n- **Długość geograficzna**: {lon}",
     "output.accuracy": "- **Dokładność**: {acc}",
     "output.source": "- **Źródło**: {src}",
-    "output.timestamp": "- **Znacznik czasu**: {ts}"
+    "output.timestamp": "- **Znacznik czasu**: {ts}",
+    "x_search_terms": [
+      "location"
+    ]
   },
   "hi": {
     "tool.description": "जीपीएस सेंसर का उपयोग करके अपना वर्तमान जीपीएस स्थान (अक्षांश, देशांतर) प्राप्त करें। उच्च परिशुद्धता, सटीकता जानकारी के साथ सटीक निर्देशांक लौटाता है। इसका उपयोग तब करें जब उपयोगकर्ता अपनी वर्तमान स्थिति, स्थान या जीपीएस निर्देशांक के बारे में पूछे।",
@@ -319,7 +358,10 @@
     "output.coords": "- **अक्षांश**: {lat}\n- **देशांतर**: {lon}",
     "output.accuracy": "- **सटीकता**: {acc}",
     "output.source": "- **स्रोत**: {src}",
-    "output.timestamp": "- **टाइमस्टैम्प**: {ts}"
+    "output.timestamp": "- **टाइमस्टैम्प**: {ts}",
+    "x_search_terms": [
+      "location"
+    ]
   },
   "ar": {
     "tool.description": "احصل على موقع GPS الحالي (خط العرض وخط الطول) باستخدام مستشعر GPS. دقة عالية، وإرجاع الإحداثيات الدقيقة مع معلومات الدقة. استخدم هذا عندما يسأل المستخدم عن موقعه الحالي أو موقعه أو إحداثيات GPS.",
@@ -342,7 +384,10 @@
     "output.coords": "- **خط العرض**: {lat}\n- **خط الطول**: {lon}",
     "output.accuracy": "- **الدقة**: {acc}",
     "output.source": "- **المصدر**: {src}",
-    "output.timestamp": "- **الطابع الزمني**: {ts}"
+    "output.timestamp": "- **الطابع الزمني**: {ts}",
+    "x_search_terms": [
+      "location"
+    ]
   },
   "sv": {
     "tool.description": "Få din nuvarande GPS-position (latitud, longitud) med hjälp av GPS-sensorn. Hög precision, returnerar exakta koordinater med noggrannhetsinformation. Använd detta när användaren frågar efter sin nuvarande position, plats eller GPS-koordinater.",
@@ -365,7 +410,10 @@
     "output.coords": "- **Latitud**: {lat}\n- **Longitud**: {lon}",
     "output.accuracy": "- **Noggrannhet**: {acc}",
     "output.source": "- **Källa**: {src}",
-    "output.timestamp": "- **Tidsstämpel**: {ts}"
+    "output.timestamp": "- **Tidsstämpel**: {ts}",
+    "x_search_terms": [
+      "location"
+    ]
   },
   "sw": {
     "tool.description": "Pata eneo lako la sasa la GPS (latitudo, longitudo) kwa kutumia kihisi cha GPS. Usahihi wa hali ya juu, hurejesha viwianishi vilivyo na maelezo ya usahihi. Tumia hii wakati mtumiaji anauliza nafasi yake ya sasa, eneo au viwianishi vya GPS.",
@@ -388,7 +436,10 @@
     "output.coords": "- **Latitudo**: {lat}\n- **Longitudo**: {lon}",
     "output.accuracy": "- **Usahihi**: {acc}",
     "output.source": "- **Chanzo**: {src}",
-    "output.timestamp": "- **Muhuri wa saa**: {ts}"
+    "output.timestamp": "- **Muhuri wa saa**: {ts}",
+    "x_search_terms": [
+      "location"
+    ]
   },
   "nb": {
     "tool.description": "Få din nåværende GPS-posisjon (breddegrad, lengdegrad) ved hjelp av GPS-sensoren. Høy presisjon, returnerer nøyaktige koordinater med nøyaktighetsinformasjon. Bruk denne når brukeren ber om gjeldende posisjon, plassering eller GPS-koordinater.",
@@ -411,7 +462,10 @@
     "output.coords": "- **Breddegrad**: {lat}\n- **Lengdegrad**: {lon}",
     "output.accuracy": "- **Nøyaktighet**: {acc}",
     "output.source": "- **Kilde**: {src}",
-    "output.timestamp": "- **Tidsstempel**: {ts}"
+    "output.timestamp": "- **Tidsstempel**: {ts}",
+    "x_search_terms": [
+      "location"
+    ]
   },
   "nl": {
     "tool.description": "Ontvang uw huidige GPS-locatie (breedtegraad, lengtegraad) met behulp van de GPS-sensor. Hoge precisie, retourneert exacte coördinaten met nauwkeurigheidsinformatie. Gebruik dit wanneer de gebruiker om zijn huidige positie, locatie of GPS-coördinaten vraagt.",
@@ -434,7 +488,10 @@
     "output.coords": "- **Breedtegraad**: {lat}\n- **Lengtegraad**: {lon}",
     "output.accuracy": "- **Nauwkeurigheid**: {acc}",
     "output.source": "- **Bron**: {src}",
-    "output.timestamp": "- **Tijdstempel**: {ts}"
+    "output.timestamp": "- **Tijdstempel**: {ts}",
+    "x_search_terms": [
+      "location"
+    ]
   },
   "fi": {
     "tool.description": "Hanki nykyinen GPS-sijaintisi (leveysaste, pituusaste) GPS-sensorin avulla. Suuri tarkkuus, palauttaa tarkat koordinaatit tarkkuudella. Käytä tätä, kun käyttäjä kysyy nykyistä sijaintiaan, sijaintiaan tai GPS-koordinaatteja.",
@@ -457,7 +514,10 @@
     "output.coords": "- **Leveysaste**: {lat}\n- **Pituusaste**: {lon}",
     "output.accuracy": "- **Tarkkuus**: {acc}",
     "output.source": "- **Lähde**: {src}",
-    "output.timestamp": "- **Aikaleima**: {ts}"
+    "output.timestamp": "- **Aikaleima**: {ts}",
+    "x_search_terms": [
+      "location"
+    ]
   },
   "cs": {
     "tool.description": "Získejte svou aktuální polohu GPS (zeměpisná šířka, délka) pomocí senzoru GPS. Vysoká přesnost, vrací přesné souřadnice s informacemi o přesnosti. Tuto možnost použijte, když se uživatel zeptá na svou aktuální polohu, polohu nebo souřadnice GPS.",
@@ -480,7 +540,10 @@
     "output.coords": "- **Zeměpisná šířka**: {lat}\n- **Zeměpisná délka**: {lon}",
     "output.accuracy": "- **Přesnost**: {acc}",
     "output.source": "- **Zdroj**: {src}",
-    "output.timestamp": "- **Časové razítko**: {ts}"
+    "output.timestamp": "- **Časové razítko**: {ts}",
+    "x_search_terms": [
+      "location"
+    ]
   },
   "uk": {
     "tool.description": "Отримайте своє поточне місцезнаходження за допомогою GPS (широта, довгота) за допомогою датчика GPS. Висока точність, повертає точні координати з точною інформацією. Використовуйте це, коли користувач запитує своє поточне положення, розташування або GPS-координати.",
@@ -503,7 +566,10 @@
     "output.coords": "- **Широта**: {lat}\n- **Довгота**: {lon}",
     "output.accuracy": "- **Точність**: {acc}",
     "output.source": "- **Джерело**: {src}",
-    "output.timestamp": "- **Мітка часу**: {ts}"
+    "output.timestamp": "- **Мітка часу**: {ts}",
+    "x_search_terms": [
+      "location"
+    ]
   },
   "tr": {
     "tool.description": "GPS sensörünü kullanarak mevcut GPS konumunuzu (enlem, boylam) alın. Yüksek hassasiyet, doğruluk bilgisiyle birlikte tam koordinatları döndürür. Kullanıcı mevcut konumunu, konumunu veya GPS koordinatlarını sorduğunda bunu kullanın.",
@@ -526,7 +592,10 @@
     "output.coords": "- **Enlem**: {lat}\n- **Boylam**: {lon}",
     "output.accuracy": "- **Doğruluk**: {acc}",
     "output.source": "- **Kaynak**: {src}",
-    "output.timestamp": "- **Zaman damgası**: {ts}"
+    "output.timestamp": "- **Zaman damgası**: {ts}",
+    "x_search_terms": [
+      "location"
+    ]
   },
   "th": {
     "tool.description": "รับตำแหน่ง GPS ปัจจุบันของคุณ (ละติจูด ลองจิจูด) โดยใช้เซ็นเซอร์ GPS ความแม่นยำสูง ส่งกลับพิกัดที่แน่นอนพร้อมข้อมูลที่แม่นยำ ใช้สิ่งนี้เมื่อผู้ใช้ถามถึงตำแหน่งปัจจุบัน ตำแหน่ง หรือพิกัด GPS",
@@ -549,7 +618,10 @@
     "output.coords": "- **ละติจูด**: {lat}\n- **ลองจิจูด**: {lon}",
     "output.accuracy": "- **ความแม่นยำ**: {acc}",
     "output.source": "- **ที่มา**: {src}",
-    "output.timestamp": "- **ประทับเวลา**: {ts}"
+    "output.timestamp": "- **ประทับเวลา**: {ts}",
+    "x_search_terms": [
+      "location"
+    ]
   },
   "zh_CN": {
     "tool.description": "使用 GPS 传感器获取您当前的 GPS 位置（纬度、经度）。高精度，返回精确坐标和准确信息。当用户询问其当前位置、位置或 GPS 坐标时使用此选项。",
@@ -572,7 +644,10 @@
     "output.coords": "- **纬度**：{lat}\n- **经度**：{lon}",
     "output.accuracy": "- **准确度**：{acc}",
     "output.source": "- **来源**：{src}",
-    "output.timestamp": "- **时间戳**：{ts}"
+    "output.timestamp": "- **时间戳**：{ts}",
+    "x_search_terms": [
+      "location"
+    ]
   },
   "zh_TW": {
     "tool.description": "使用 GPS 感測器取得您目前的 GPS 位置（緯度、經度）。高精度，返回精確座標和準確資訊。當使用者詢問其當前位置、位置或 GPS 座標時使用此選項。",
@@ -595,7 +670,10 @@
     "output.coords": "- **緯度**：{lat}\n- **經度**：{lon}",
     "output.accuracy": "- **準確度**：{acc}",
     "output.source": "- **來源**：{src}",
-    "output.timestamp": "- **時間戳**：{ts}"
+    "output.timestamp": "- **時間戳**：{ts}",
+    "x_search_terms": [
+      "location"
+    ]
   },
   "bn": {
     "tool.description": "জিপিএস সেন্সর ব্যবহার করে আপনার বর্তমান জিপিএস অবস্থান (অক্ষাংশ, দ্রাঘিমাংশ) পান। উচ্চ নির্ভুলতা, নির্ভুলতা তথ্য সহ সঠিক স্থানাঙ্ক প্রদান করে। ব্যবহারকারী যখন তাদের বর্তমান অবস্থান, অবস্থান বা GPS স্থানাঙ্কের জন্য জিজ্ঞাসা করে তখন এটি ব্যবহার করুন।",
@@ -618,7 +696,10 @@
     "output.coords": "- **অক্ষাংশ**: {lat}\n- **দ্রাঘিমাংশ**: {lon}",
     "output.accuracy": "- **নির্ভুলতা**: {acc}",
     "output.source": "- **সূত্র**: {src}",
-    "output.timestamp": "- **টাইমস্ট্যাম্প**: {ts}"
+    "output.timestamp": "- **টাইমস্ট্যাম্প**: {ts}",
+    "x_search_terms": [
+      "location"
+    ]
   },
   "fa": {
     "tool.description": "با استفاده از سنسور GPS موقعیت مکانی GPS فعلی خود را (طول و عرض جغرافیایی، طول جغرافیایی) دریافت کنید. دقت بالا، مختصات دقیق را با اطلاعات دقیق برمی گرداند. هنگامی که کاربر موقعیت فعلی، موقعیت مکانی یا مختصات GPS خود را می‌پرسد از این استفاده کنید.",
@@ -641,7 +722,10 @@
     "output.coords": "- ** عرض جغرافیایی**: {lat}\n- **طول جغرافیایی**: {lon}",
     "output.accuracy": "- **دقت**: {acc}",
     "output.source": "- **منبع**: {src}",
-    "output.timestamp": "- **مهر زمان**: {ts}"
+    "output.timestamp": "- **مهر زمان**: {ts}",
+    "x_search_terms": [
+      "location"
+    ]
   },
   "mn": {
     "tool.description": "GPS мэдрэгч ашиглан одоогийн GPS байршлаа (өргөрөг, уртраг) аваарай. Өндөр нарийвчлалтай, нарийн координатыг нарийвчлалтай мэдээллээр буцаана. Хэрэглэгч одоогийн байршил, байршил, GPS координатыг асуух үед үүнийг ашиглана уу.",
@@ -664,7 +748,10 @@
     "output.coords": "- ** Өргөрөг**: {lat}\n- **Уртраг**: {lon}",
     "output.accuracy": "- ** Нарийвчлал**: {acc}",
     "output.source": "- **Эх сурвалж**: {src}",
-    "output.timestamp": "- **Цагийн тэмдэг**: {ts}"
+    "output.timestamp": "- **Цагийн тэмдэг**: {ts}",
+    "x_search_terms": [
+      "location"
+    ]
   },
   "mr": {
     "tool.description": "GPS सेन्सर वापरून तुमचे वर्तमान GPS स्थान (अक्षांश, रेखांश) मिळवा. High precision, returns exact coordinates with accuracy info. Use this when the user asks for their current position, location, or GPS coordinates.",
@@ -687,7 +774,10 @@
     "output.coords": "- **अक्षांश**: {lat}\n- **रेखांश**: {lon}",
     "output.accuracy": "- **अचूकता**: {acc}",
     "output.source": "- **स्रोत**: {src}",
-    "output.timestamp": "- **टाइमस्टॅम्प**: {ts}"
+    "output.timestamp": "- **टाइमस्टॅम्प**: {ts}",
+    "x_search_terms": [
+      "location"
+    ]
   },
   "el": {
     "tool.description": "Λάβετε την τρέχουσα τοποθεσία σας GPS (γεωγραφικό πλάτος, γεωγραφικό μήκος) χρησιμοποιώντας τον αισθητήρα GPS. Υψηλή ακρίβεια, επιστρέφει ακριβείς συντεταγμένες με πληροφορίες ακρίβειας. Χρησιμοποιήστε το όταν ο χρήστης ζητά την τρέχουσα θέση, την τοποθεσία ή τις συντεταγμένες GPS του.",
@@ -710,7 +800,10 @@
     "output.coords": "- **Γεωγραφικό πλάτος**: {lat}\n- **Γεωγραφικό μήκος**: {lon}",
     "output.accuracy": "- **Ακρίβεια**: {acc}",
     "output.source": "- **Πηγή**: {src}",
-    "output.timestamp": "- **Χρονική σήμανση**: {ts}"
+    "output.timestamp": "- **Χρονική σήμανση**: {ts}",
+    "x_search_terms": [
+      "location"
+    ]
   },
   "he": {
     "tool.description": "קבל את מיקום ה-GPS הנוכחי שלך (קו רוחב, קו אורך) באמצעות חיישן ה-GPS. דיוק גבוה, מחזיר קואורדינטות מדויקות עם מידע דיוק. השתמש באפשרות זו כאשר המשתמש מבקש את המיקום הנוכחי שלו, מיקומו או קואורדינטות ה-GPS.",
@@ -733,7 +826,10 @@
     "output.coords": "- **קו רוחב**: {lat}\n- **קו אורך**: {lon}",
     "output.accuracy": "- **דיוק**: {acc}",
     "output.source": "- **מקור**: {src}",
-    "output.timestamp": "- **חותמת זמן**: {ts}"
+    "output.timestamp": "- **חותמת זמן**: {ts}",
+    "x_search_terms": [
+      "location"
+    ]
   },
   "hu": {
     "tool.description": "A GPS-érzékelő segítségével megtudhatja aktuális GPS-pozícióját (szélesség, hosszúság). Nagy pontosság, pontos koordinátákat ad vissza pontos információkkal. Használja ezt, ha a felhasználó aktuális pozícióját, tartózkodási helyét vagy GPS-koordinátáit kéri.",
@@ -756,7 +852,10 @@
     "output.coords": "- **Szélesség**: {lat}\n- **Hosszúság**: {lon}",
     "output.accuracy": "- **Pontosság**: {acc}",
     "output.source": "- **Forrás**: {src}",
-    "output.timestamp": "- **Időbélyeg**: {ts}"
+    "output.timestamp": "- **Időbélyeg**: {ts}",
+    "x_search_terms": [
+      "location"
+    ]
   },
   "ro": {
     "tool.description": "Obțineți locația dvs. GPS actuală (latitudine, longitudine) folosind senzorul GPS. Precizie ridicată, returnează coordonatele exacte cu informații de precizie. Utilizați acest lucru atunci când utilizatorul solicită poziția, locația sau coordonatele GPS curente.",
@@ -779,6 +878,9 @@
     "output.coords": "- **Latitudine**: {lat}\n- **Longitudine**: {lon}",
     "output.accuracy": "- **Precizie**: {acc}",
     "output.source": "- **Sursa**: {src}",
-    "output.timestamp": "- **Marca temporală**: {ts}"
+    "output.timestamp": "- **Marca temporală**: {ts}",
+    "x_search_terms": [
+      "location"
+    ]
   }
 }

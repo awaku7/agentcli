@@ -1,7 +1,9 @@
 {
   "ar": {
     "tool.description": "قراءة/البحث في البريد الوارد لـ Gmail عبر IMAP. ",
-    "x_search_terms": "[\"gmail\", \"read email\", \"inbox\", \"mail search\", \"メール受信\", \"leer correo\", \"lire email\", \"이메일 읽기\"]",
+    "x_search_terms": [
+      "email"
+    ],
     "param.action.description": "الإجراء: قائمة (البريد الوارد الأخير)، بحث (حسب الاستعلام)، مقروء (بواسطة message_id)، غير مقروء (غير مقروء فقط).",
     "param.max_results.description": "الحد الأقصى للنتائج (الافتراضي: 10، الحد الأقصى: 50).",
     "param.query.description": "استعلام بحث (يستخدم مع الإجراء=بحث). ",
@@ -17,7 +19,9 @@
   },
   "bn": {
     "tool.description": "IMAP এর মাধ্যমে Gmail ইনবক্স পড়ুন/অনুসন্ধান করুন। ",
-    "x_search_terms": "[\"gmail\", \"read email\", \"inbox\", \"mail search\", \"メール受信\", \"leer correo\", \"lire email\", \"이메일 읽기\"]",
+    "x_search_terms": [
+      "email"
+    ],
     "param.action.description": "অ্যাকশন: তালিকা (সাম্প্রতিক ইনবক্স), অনুসন্ধান (কোয়েরি দ্বারা), পঠিত (মেসেজ_আইডি দ্বারা), অপঠিত (শুধুমাত্র অপঠিত)।",
     "param.max_results.description": "সর্বাধিক ফলাফল (ডিফল্ট: 10, সর্বোচ্চ: 50)।",
     "param.query.description": "অনুসন্ধান ক্যোয়ারী (ক্রিয়া = অনুসন্ধানের সাথে ব্যবহৃত)। ",
@@ -33,7 +37,9 @@
   },
   "cs": {
     "tool.description": "Číst/prohledávat doručenou poštu Gmailu přes IMAP. ",
-    "x_search_terms": "[\"gmail\", \"read email\", \"inbox\", \"mail search\", \"メール受信\", \"leer correo\", \"lire email\", \"이메일 읽기\"]",
+    "x_search_terms": [
+      "email"
+    ],
     "param.action.description": "Akce: seznam (poslední doručená pošta), vyhledávání (podle dotazu), přečtené (podle message_id), nepřečtené (pouze nepřečtené).",
     "param.max_results.description": "Maximální počet výsledků (výchozí: 10, max.: 50).",
     "param.query.description": "Vyhledávací dotaz (používá se s action=search). ",
@@ -49,7 +55,9 @@
   },
   "de": {
     "tool.description": "Lesen/durchsuchen Sie den Gmail-Posteingang über IMAP. ",
-    "x_search_terms": "[\"gmail\", \"read email\", \"inbox\", \"mail search\", \"メール受信\", \"leer correo\", \"lire email\", \"이메일 읽기\"]",
+    "x_search_terms": [
+      "email"
+    ],
     "param.action.description": "Aktion: Liste (aktueller Posteingang), Suche (nach Abfrage), Lesen (nach Nachrichten-ID), ungelesen (nur ungelesen).",
     "param.max_results.description": "Maximale Ergebnisse (Standard: 10, max: 50).",
     "param.query.description": "Suchabfrage (verwendet mit action=search). ",
@@ -65,7 +73,9 @@
   },
   "el": {
     "tool.description": "Ανάγνωση/αναζήτηση στα εισερχόμενα του Gmail μέσω IMAP. ",
-    "x_search_terms": "[\"gmail\", \"read email\", \"inbox\", \"mail search\", \"メール受信\", \"leer correo\", \"lire email\", \"이메일 읽기\"]",
+    "x_search_terms": [
+      "email"
+    ],
     "param.action.description": "Ενέργεια: λίστα (πρόσφατα εισερχόμενα), αναζήτηση (ανά ερώτημα), αναγνωσμένα (κατά message_id), μη αναγνωσμένα (μόνο μη αναγνωσμένα).",
     "param.max_results.description": "Μέγιστα αποτελέσματα (προεπιλογή: 10, μέγ.: 50).",
     "param.query.description": "Ερώτημα αναζήτησης (χρησιμοποιείται με action=search). ",
@@ -81,7 +91,9 @@
   },
   "en": {
     "tool.description": "Read/search Gmail inbox via IMAP. Requires UAGENT_GMAIL_ADDRESS and UAGENT_GMAIL_APP_PASSWORD environment variables.",
-    "x_search_terms": "[\"gmail\", \"read email\", \"inbox\", \"mail search\", \"メール受信\", \"leer correo\", \"lire email\", \"이메일 읽기\"]",
+    "x_search_terms": [
+      "email"
+    ],
     "param.action.description": "Action: list (recent inbox), search (by query), read (by message_id), unread (unread only).",
     "param.max_results.description": "Max results (default: 10, max: 50).",
     "param.query.description": "Search query (used with action=search). IMAP format, e.g. 'FROM someone', 'SUBJECT hello', 'TEXT keyword'.",
@@ -97,7 +109,9 @@
   },
   "es": {
     "tool.description": "Leer/buscar en la bandeja de entrada de Gmail a través de IMAP. ",
-    "x_search_terms": "[\"gmail\", \"read email\", \"inbox\", \"mail search\", \"メール受信\", \"leer correo\", \"lire email\", \"이메일 읽기\"]",
+    "x_search_terms": [
+      "email"
+    ],
     "param.action.description": "Acción: lista (bandeja de entrada reciente), búsqueda (por consulta), lectura (por message_id), no leído (solo no leídos).",
     "param.max_results.description": "Resultados máximos (predeterminado: 10, máximo: 50).",
     "param.query.description": "Consulta de búsqueda (usada con acción=búsqueda). ",
@@ -113,7 +127,9 @@
   },
   "fa": {
     "tool.description": "خواندن/جستجوی صندوق ورودی Gmail از طریق IMAP. ",
-    "x_search_terms": "[\"gmail\", \"read email\", \"inbox\", \"mail search\", \"メール受信\", \"leer correo\", \"lire email\", \"이메일 읽기\"]",
+    "x_search_terms": [
+      "email"
+    ],
     "param.action.description": "اقدام: لیست (صندوق ورودی اخیر)، جستجو (بر اساس پرس و جو)، خوانده شده (با شناسه پیام)، خوانده نشده (فقط خوانده نشده).",
     "param.max_results.description": "حداکثر نتایج (پیش‌فرض: 10، حداکثر: 50).",
     "param.query.description": "پرس و جو جستجو (استفاده شده با action=search). ",
@@ -129,7 +145,9 @@
   },
   "fi": {
     "tool.description": "Lue/hae Gmail-postilaatikkoa IMAPin kautta. ",
-    "x_search_terms": "[\"gmail\", \"read email\", \"inbox\", \"mail search\", \"メール受信\", \"leer correo\", \"lire email\", \"이메일 읽기\"]",
+    "x_search_terms": [
+      "email"
+    ],
     "param.action.description": "Toimi: luettelo (viime saapuneet), haku (kyselyn mukaan), luettu (viestin_id:n mukaan), lukematon (vain lukematon).",
     "param.max_results.description": "Enimmäistulokset (oletus: 10, maksimi: 50).",
     "param.query.description": "Hakukysely (käytetään komennolla action=search). ",
@@ -145,7 +163,9 @@
   },
   "fr": {
     "tool.description": "Lire/rechercher la boîte de réception Gmail via IMAP. ",
-    "x_search_terms": "[\"gmail\", \"read email\", \"inbox\", \"mail search\", \"メール受信\", \"leer correo\", \"lire email\", \"이메일 읽기\"]",
+    "x_search_terms": [
+      "email"
+    ],
     "param.action.description": "Action : liste (boîte de réception récente), recherche (par requête), lecture (par message_id), non lu (non lu uniquement).",
     "param.max_results.description": "Résultats maximum (par défaut : 10, maximum : 50).",
     "param.query.description": "Requête de recherche (utilisée avec action=search). ",
@@ -161,7 +181,9 @@
   },
   "he": {
     "tool.description": "קרא/חפש בתיבת הדואר הנכנס של Gmail באמצעות IMAP. ",
-    "x_search_terms": "[\"gmail\", \"read email\", \"inbox\", \"mail search\", \"メール受信\", \"leer correo\", \"lire email\", \"이메일 읽기\"]",
+    "x_search_terms": [
+      "email"
+    ],
     "param.action.description": "פעולה: רשימה (תיבת דואר נכנס אחרונה), חיפוש (לפי שאילתה), קריאה (לפי message_id), לא נקראה (לא נקראה בלבד).",
     "param.max_results.description": "מקסימום תוצאות (ברירת מחדל: 10, מקסימום: 50).",
     "param.query.description": "שאילתת חיפוש (בשימוש עם action=search). ",
@@ -177,7 +199,9 @@
   },
   "hi": {
     "tool.description": "IMAP के माध्यम से जीमेल इनबॉक्स पढ़ें/खोजें। ",
-    "x_search_terms": "[\"gmail\", \"read email\", \"inbox\", \"mail search\", \"メール受信\", \"leer correo\", \"lire email\", \"이메일 읽기\"]",
+    "x_search_terms": [
+      "email"
+    ],
     "param.action.description": "क्रिया: सूची (हालिया इनबॉक्स), खोजें (क्वेरी द्वारा), पढ़ें (संदेश_आईडी द्वारा), अपठित (केवल अपठित)।",
     "param.max_results.description": "अधिकतम परिणाम (डिफ़ॉल्ट: 10, अधिकतम: 50)।",
     "param.query.description": "खोज क्वेरी (क्रिया=खोज के साथ प्रयुक्त)। ",
@@ -193,7 +217,9 @@
   },
   "hu": {
     "tool.description": "Olvassa el/keressen a Gmail postafiókjában IMAP-on keresztül. ",
-    "x_search_terms": "[\"gmail\", \"read email\", \"inbox\", \"mail search\", \"メール受信\", \"leer correo\", \"lire email\", \"이메일 읽기\"]",
+    "x_search_terms": [
+      "email"
+    ],
     "param.action.description": "Művelet: lista (legutóbbi beérkező levelek), keresés (lekérdezés szerint), olvasás (üzenetazonosító szerint), olvasatlan (csak olvasatlan).",
     "param.max_results.description": "Maximális eredmények (alapértelmezett: 10, maximum: 50).",
     "param.query.description": "Keresési lekérdezés (az action=search paraméterrel használva). ",
@@ -209,7 +235,9 @@
   },
   "id": {
     "tool.description": "Baca/cari kotak masuk Gmail melalui IMAP. ",
-    "x_search_terms": "[\"gmail\", \"read email\", \"inbox\", \"mail search\", \"メール受信\", \"leer correo\", \"lire email\", \"이메일 읽기\"]",
+    "x_search_terms": [
+      "email"
+    ],
     "param.action.description": "Tindakan: daftar (kotak masuk terbaru), pencarian (berdasarkan kueri), dibaca (berdasarkan message_id), belum dibaca (hanya belum dibaca).",
     "param.max_results.description": "Hasil maksimal (default: 10, maks: 50).",
     "param.query.description": "Kueri penelusuran (digunakan dengan action=search). ",
@@ -225,7 +253,9 @@
   },
   "it": {
     "tool.description": "Leggi/cerca la posta in arrivo di Gmail tramite IMAP. ",
-    "x_search_terms": "[\"gmail\", \"read email\", \"inbox\", \"mail search\", \"メール受信\", \"leer correo\", \"lire email\", \"이메일 읽기\"]",
+    "x_search_terms": [
+      "email"
+    ],
     "param.action.description": "Azione: elenco (posta in arrivo recente), ricerca (per query), lettura (per message_id), non letto (solo non letto).",
     "param.max_results.description": "Risultati massimi (predefinito: 10, massimo: 50).",
     "param.query.description": "Query di ricerca (utilizzata con action=search). ",
@@ -241,7 +271,9 @@
   },
   "ja": {
     "tool.description": "IMAP 経由で Gmail の受信箱を読み取り/検索します。UAGENT_GMAIL_ADDRESS および UAGENT_GMAIL_APP_PASSWORD 環境変数が必要です。",
-    "x_search_terms": "[\"gmail\", \"read email\", \"inbox\", \"mail search\", \"メール受信\", \"leer correo\", \"lire email\", \"이메일 읽기\"]",
+    "x_search_terms": [
+      "email"
+    ],
     "param.action.description": "アクション: リスト (最近の受信トレイ)、検索 (クエリによる)、読み取り (message_id による)、未読 (未読のみ)。",
     "param.max_results.description": "最大結果 (デフォルト: 10、最大: 50)。",
     "param.query.description": "検索クエリ (action=search とともに使用)。IMAP 形式、例:「FROM 誰か」、「SUBJECT こんにちは」、「TEXT キーワード」。",
@@ -257,7 +289,9 @@
   },
   "ko": {
     "tool.description": "IMAP을 통해 Gmail 받은편지함을 읽고 검색하세요. ",
-    "x_search_terms": "[\"gmail\", \"read email\", \"inbox\", \"mail search\", \"メール受信\", \"leer correo\", \"lire email\", \"이메일 읽기\"]",
+    "x_search_terms": [
+      "email"
+    ],
     "param.action.description": "작업: 목록(최근 받은 편지함), 검색(쿼리별), 읽음(message_id별), 읽지 않음(읽지 않은 경우에만).",
     "param.max_results.description": "최대 결과(기본값: 10, 최대: 50)",
     "param.query.description": "검색어(action=search와 함께 사용됨) ",
@@ -273,7 +307,9 @@
   },
   "mn": {
     "tool.description": "IMAP-ээр дамжуулан Gmail ирсэн имэйлийг унших/хайх. ",
-    "x_search_terms": "[\"gmail\", \"read email\", \"inbox\", \"mail search\", \"メール受信\", \"leer correo\", \"lire email\", \"이메일 읽기\"]",
+    "x_search_terms": [
+      "email"
+    ],
     "param.action.description": "Үйлдэл: жагсаалт (саяхны ирсэн имэйл), хайх (асуулга), уншсан (message_id), уншаагүй (зөвхөн уншаагүй).",
     "param.max_results.description": "Хамгийн их үр дүн (өгөгдмөл: 10, хамгийн их: 50).",
     "param.query.description": "Хайлтын асуулга (үйлдэл=хайлттай хамт хэрэглэгддэг). ",
@@ -289,7 +325,9 @@
   },
   "mr": {
     "tool.description": "IMAP द्वारे Gmail इनबॉक्स वाचा/शोधा. ",
-    "x_search_terms": "[\"gmail\", \"read email\", \"inbox\", \"mail search\", \"メール受信\", \"leer correo\", \"lire email\", \"이메일 읽기\"]",
+    "x_search_terms": [
+      "email"
+    ],
     "param.action.description": "क्रिया: सूची (अलीकडील इनबॉक्स), शोधा (क्वेरीद्वारे), वाचा (मेसेज_आयडीद्वारे), न वाचलेले (केवळ न वाचलेले).",
     "param.max_results.description": "कमाल परिणाम (डिफॉल्ट: 10, कमाल: 50).",
     "param.query.description": "शोध क्वेरी (कृती=शोध सह वापरली जाते). ",
@@ -305,7 +343,9 @@
   },
   "nb": {
     "tool.description": "Les/søk i Gmail-innboksen via IMAP. ",
-    "x_search_terms": "[\"gmail\", \"read email\", \"inbox\", \"mail search\", \"メール受信\", \"leer correo\", \"lire email\", \"이메일 읽기\"]",
+    "x_search_terms": [
+      "email"
+    ],
     "param.action.description": "Handling: liste (nylig innboks), søk (etter forespørsel), lest (av message_id), ulest (kun ulest).",
     "param.max_results.description": "Maks resultater (standard: 10, maks: 50).",
     "param.query.description": "Søkeord (brukt med handling=søk). ",
@@ -321,7 +361,9 @@
   },
   "nl": {
     "tool.description": "Lees/zoek de Gmail-inbox via IMAP. ",
-    "x_search_terms": "[\"gmail\", \"read email\", \"inbox\", \"mail search\", \"メール受信\", \"leer correo\", \"lire email\", \"이메일 읽기\"]",
+    "x_search_terms": [
+      "email"
+    ],
     "param.action.description": "Actie: lijst (recente inbox), zoeken (op zoekopdracht), lezen (op message_id), ongelezen (alleen ongelezen).",
     "param.max_results.description": "Max. resultaten (standaard: 10, max: 50).",
     "param.query.description": "Zoekquery (gebruikt met action=search). ",
@@ -337,7 +379,9 @@
   },
   "pl": {
     "tool.description": "Czytaj/przeszukuj skrzynkę odbiorczą Gmaila przez IMAP. ",
-    "x_search_terms": "[\"gmail\", \"read email\", \"inbox\", \"mail search\", \"メール受信\", \"leer correo\", \"lire email\", \"이메일 읽기\"]",
+    "x_search_terms": [
+      "email"
+    ],
     "param.action.description": "Akcja: lista (ostatnia skrzynka odbiorcza), wyszukiwanie (według zapytania), przeczytanie (według identyfikatora wiadomości), nieprzeczytane (tylko nieprzeczytane).",
     "param.max_results.description": "Maks. wyników (domyślnie: 10, maks.: 50).",
     "param.query.description": "Zapytanie wyszukiwania (używane z akcją=wyszukiwanie). ",
@@ -353,7 +397,9 @@
   },
   "pt": {
     "tool.description": "Leia/pesquise a caixa de entrada do Gmail via IMAP. ",
-    "x_search_terms": "[\"gmail\", \"read email\", \"inbox\", \"mail search\", \"メール受信\", \"leer correo\", \"lire email\", \"이메일 읽기\"]",
+    "x_search_terms": [
+      "email"
+    ],
     "param.action.description": "Ação: lista (caixa de entrada recente), pesquisa (por consulta), leitura (por message_id), não lida (somente não lida).",
     "param.max_results.description": "Resultados máximos (padrão: 10, máx: 50).",
     "param.query.description": "Consulta de pesquisa (usada com action=search). ",
@@ -369,7 +415,9 @@
   },
   "pt_BR": {
     "tool.description": "Leia/pesquise a caixa de entrada do Gmail via IMAP. ",
-    "x_search_terms": "[\"gmail\", \"read email\", \"inbox\", \"mail search\", \"メール受信\", \"leer correo\", \"lire email\", \"이메일 읽기\"]",
+    "x_search_terms": [
+      "email"
+    ],
     "param.action.description": "Ação: lista (caixa de entrada recente), pesquisa (por consulta), leitura (por message_id), não lida (somente não lida).",
     "param.max_results.description": "Resultados máximos (padrão: 10, máx: 50).",
     "param.query.description": "Consulta de pesquisa (usada com action=search). ",
@@ -385,7 +433,9 @@
   },
   "ro": {
     "tool.description": "Citiți/căutați în căsuța de e-mail Gmail prin IMAP. ",
-    "x_search_terms": "[\"gmail\", \"read email\", \"inbox\", \"mail search\", \"メール受信\", \"leer correo\", \"lire email\", \"이메일 읽기\"]",
+    "x_search_terms": [
+      "email"
+    ],
     "param.action.description": "Acțiune: listă (căsuță primită recentă), căutare (prin interogare), citit (după mesaj_id), necitit (numai necitit).",
     "param.max_results.description": "Rezultate maxime (implicit: 10, max: 50).",
     "param.query.description": "Interogare de căutare (utilizată cu action=search). ",
@@ -401,7 +451,9 @@
   },
   "ru": {
     "tool.description": "Чтение/поиск в почтовом ящике Gmail через IMAP. ",
-    "x_search_terms": "[\"gmail\", \"read email\", \"inbox\", \"mail search\", \"メール受信\", \"leer correo\", \"lire email\", \"이메일 읽기\"]",
+    "x_search_terms": [
+      "email"
+    ],
     "param.action.description": "Действие: список (последние входящие), поиск (по запросу), чтение (по message_id), непрочитанное (только непрочитанное).",
     "param.max_results.description": "Максимальное количество результатов (по умолчанию: 10, максимум: 50).",
     "param.query.description": "Поисковый запрос (используется с action=search). ",
@@ -417,7 +469,9 @@
   },
   "sv": {
     "tool.description": "Läs/sök i Gmails inkorg via IMAP. ",
-    "x_search_terms": "[\"gmail\", \"read email\", \"inbox\", \"mail search\", \"メール受信\", \"leer correo\", \"lire email\", \"이메일 읽기\"]",
+    "x_search_terms": [
+      "email"
+    ],
     "param.action.description": "Åtgärd: lista (senaste inkorgen), sök (efter fråga), läst (efter meddelande_id), oläst (endast oläst).",
     "param.max_results.description": "Max resultat (standard: 10, max: 50).",
     "param.query.description": "Sökfråga (används med action=search). ",
@@ -433,7 +487,9 @@
   },
   "sw": {
     "tool.description": "Soma/tafuta kikasha cha Gmail kupitia IMAP. ",
-    "x_search_terms": "[\"gmail\", \"read email\", \"inbox\", \"mail search\", \"メール受信\", \"leer correo\", \"lire email\", \"이메일 읽기\"]",
+    "x_search_terms": [
+      "email"
+    ],
     "param.action.description": "Kitendo: orodha (kikasha pokezi cha hivi majuzi), tafuta (kwa hoja), soma (kwa message_id), haijasomwa (haijasomwa tu).",
     "param.max_results.description": "Matokeo ya juu zaidi (chaguo-msingi: 10, max: 50).",
     "param.query.description": "Hoja ya utafutaji (inatumika na action=search). ",
@@ -449,7 +505,9 @@
   },
   "th": {
     "tool.description": "อ่าน/ค้นหากล่องจดหมาย Gmail ผ่าน IMAP ",
-    "x_search_terms": "[\"gmail\", \"read email\", \"inbox\", \"mail search\", \"メール受信\", \"leer correo\", \"lire email\", \"이메일 읽기\"]",
+    "x_search_terms": [
+      "email"
+    ],
     "param.action.description": "การดำเนินการ: รายการ (กล่องจดหมายล่าสุด), ค้นหา (ตามข้อความค้นหา), อ่าน (ตาม message_id), ยังไม่ได้อ่าน (ยังไม่ได้อ่านเท่านั้น)",
     "param.max_results.description": "ผลลัพธ์สูงสุด (ค่าเริ่มต้น: 10, สูงสุด: 50)",
     "param.query.description": "คำค้นหา (ใช้กับ action=search) ",
@@ -465,7 +523,9 @@
   },
   "tr": {
     "tool.description": "IMAP aracılığıyla Gmail gelen kutusunu okuyun/arayın. ",
-    "x_search_terms": "[\"gmail\", \"read email\", \"inbox\", \"mail search\", \"メール受信\", \"leer correo\", \"lire email\", \"이메일 읽기\"]",
+    "x_search_terms": [
+      "email"
+    ],
     "param.action.description": "Eylem: listeleme (en son gelen kutusu), arama (sorguya göre), okuma (mesaj_id'ye göre), okunmamış (yalnızca okunmamış).",
     "param.max_results.description": "Maksimum sonuç (varsayılan: 10, maksimum: 50).",
     "param.query.description": "Arama sorgusu (eylem=arama ile kullanılır). ",
@@ -481,7 +541,9 @@
   },
   "uk": {
     "tool.description": "Читайте та шукайте папку \"Вхідні\" Gmail через IMAP. ",
-    "x_search_terms": "[\"gmail\", \"read email\", \"inbox\", \"mail search\", \"メール受信\", \"leer correo\", \"lire email\", \"이메일 읽기\"]",
+    "x_search_terms": [
+      "email"
+    ],
     "param.action.description": "Дія: список (останні вхідні), пошук (за запитом), прочитане (за message_id), непрочитане (лише непрочитане).",
     "param.max_results.description": "Максимальна кількість результатів (за замовчуванням: 10, максимум: 50).",
     "param.query.description": "Пошуковий запит (використовується з action=search). ",
@@ -497,7 +559,9 @@
   },
   "vi": {
     "tool.description": "Đọc/tìm kiếm hộp thư đến Gmail qua IMAP. ",
-    "x_search_terms": "[\"gmail\", \"read email\", \"inbox\", \"mail search\", \"メール受信\", \"leer correo\", \"lire email\", \"이메일 읽기\"]",
+    "x_search_terms": [
+      "email"
+    ],
     "param.action.description": "Hành động: danh sách (hộp thư đến gần đây), tìm kiếm (theo truy vấn), đọc (theo message_id), chưa đọc (chỉ chưa đọc).",
     "param.max_results.description": "Kết quả tối đa (mặc định: 10, tối đa: 50).",
     "param.query.description": "Truy vấn tìm kiếm (được sử dụng với action=search). ",
@@ -513,7 +577,9 @@
   },
   "zh_CN": {
     "tool.description": "通过 IMAP 读取/搜索 Gmail 收件箱。",
-    "x_search_terms": "[\"gmail\", \"read email\", \"inbox\", \"mail search\", \"メール受信\", \"leer correo\", \"lire email\", \"이메일 읽기\"]",
+    "x_search_terms": [
+      "email"
+    ],
     "param.action.description": "操作：列表（最近收件箱）、搜索（通过查询）、已读（通过 message_id）、未读（仅未读）。",
     "param.max_results.description": "最大结果（默认：10，最大：50）。",
     "param.query.description": "搜索查询（与 action=search 一起使用）。 ",
@@ -529,7 +595,9 @@
   },
   "zh_TW": {
     "tool.description": "透過 IMAP 讀取/搜尋 Gmail 收件匣。需要 UAGENT_GMAIL_ADDRESS 和 UAGENT_GMAIL_APP_PASSWORD 環境變數。",
-    "x_search_terms": "[\"gmail\", \"read email\", \"inbox\", \"mail search\", \"メール受信\", \"leer correo\", \"lire email\", \"이메일 읽기\"]",
+    "x_search_terms": [
+      "email"
+    ],
     "param.action.description": "操作：清單（最近收件匣）、搜尋（透過查詢）、已讀（透過 message_id）、未讀（僅未讀）。",
     "param.max_results.description": "最大結果（預設：10，最大：50）。",
     "param.query.description": "搜尋查詢（與 action=search 一起使用）。 IMAP 格式，例如'來自某人'，'主題你好'，'文字關鍵字'。",

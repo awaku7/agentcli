@@ -7,7 +7,9 @@
       "translate",
       "translation",
       "google translate",
-      "language"
+      "language",
+      "i18n",
+      "localization"
     ],
     "param.protect_placeholders.description": "If true, protect placeholders (auto-detected from content) from being translated. Default: true.",
     "param.texts.description": "Array of text strings to translate (max 10000 characters each). Send full text without truncation; the API handles length natively. Texts are joined and translated as a single block (context preserved)."
@@ -18,7 +20,9 @@
     "param.source_lang.description": "ソース言語コード。省略した場合は自動検出されます。",
     "x_search_terms": [
       "翻訳",
-      "グーグル翻訳言語"
+      "グーグル翻訳言語",
+      "i18n",
+      "localization"
     ],
     "param.protect_placeholders.description": "true の場合、プレースホルダ（内容から自動検出）を翻訳から保護します。デフォルト: true。",
     "param.texts.description": "翻訳するテキスト文字列の配列（1要素あたり最大 10000 文字）。切り詰めずに全文を送信してください。API が長文をネイティブに処理します。結合されて1ブロックとして翻訳されるため文脈が保持されます。"
@@ -32,7 +36,9 @@
       "traducción",
       "google",
       "traducir",
-      "idioma"
+      "idioma",
+      "i18n",
+      "localization"
     ],
     "param.texts.description": "Matriz de cadenas de texto para traducir (máximo 10000 caracteres cada una).Enviar texto completo sin truncamiento;la API maneja la longitud de forma nativa.Los textos se unen y traducen como un solo bloque (contexto preservado).",
     "param.protect_placeholders.description": "Si es verdadero, protege los marcadores de posición (detectados automáticamente en el contenido) para que no se traduzcan.Valor predeterminado: verdadero."
@@ -46,7 +52,9 @@
       "traduction",
       "google",
       "traduire",
-      "langue"
+      "langue",
+      "i18n",
+      "localization"
     ],
     "param.texts.description": "Tableau de chaînes de texte à traduire (max 10 000 caractères chacune).Envoyer le texte intégral sans troncature ;l'API gère la longueur de manière native.Les textes sont joints et traduits en un seul bloc (contexte préservé).",
     "param.protect_placeholders.description": "Si cela est vrai, protégez les espaces réservés (détectés automatiquement à partir du contenu) contre la traduction.Par défaut : vrai."
@@ -60,7 +68,9 @@
       "번역",
       "Google",
       "번역",
-      "언어"
+      "언어",
+      "i18n",
+      "localization"
     ],
     "param.texts.description": "번역할 텍스트 문자열의 배열입니다(각각 최대 10000자).잘림 없이 전체 텍스트를 보내세요.API는 기본적으로 길이를 처리합니다.텍스트는 단일 블록으로 결합 및 번역됩니다(컨텍스트 보존).",
     "param.protect_placeholders.description": "true인 경우 자리 표시자(콘텐츠에서 자동 감지됨)가 번역되지 않도록 보호합니다.Default: true."
@@ -74,7 +84,9 @@
       "übersetzen",
       "Google",
       "Translate",
-      "Sprache"
+      "Sprache",
+      "i18n",
+      "localization"
     ],
     "param.texts.description": "Array von zu übersetzenden Textzeichenfolgen (maximal jeweils 10.000 Zeichen).Volltext ohne Kürzung senden;Die API verarbeitet die Länge nativ.Texte werden als einzelner Block zusammengefügt und übersetzt (Kontext bleibt erhalten).",
     "param.protect_placeholders.description": "Wenn „true“, werden Platzhalter (automatisch aus dem Inhalt erkannt) vor der Übersetzung geschützt.Standard: wahr."
@@ -88,7 +100,9 @@
       "traduzione",
       "google",
       "traduttore",
-      "lingua"
+      "lingua",
+      "i18n",
+      "localization"
     ],
     "param.texts.description": "Matrice di stringhe di testo da tradurre (max 10000 caratteri ciascuna).Invia testo completo senza troncamento;l'API gestisce la lunghezza in modo nativo.I testi vengono uniti e tradotti come un unico blocco (contesto preservato).",
     "param.protect_placeholders.description": "Se vero, protegge i segnaposto (rilevati automaticamente dal contenuto) dalla traduzione.Predefinito: vero."
@@ -102,7 +116,9 @@
       "перевод",
       "Google",
       "Translate",
-      "язык"
+      "язык",
+      "i18n",
+      "localization"
     ],
     "param.texts.description": "Массив текстовых строк для перевода (максимум 10 000 символов каждая).Отправлять полный текст без обрезки;API изначально обрабатывает длину.Тексты объединяются и переводятся как единый блок (контекст сохраняется).",
     "param.protect_placeholders.description": "Если это правда, защитить заполнители (автоматически определяемые из содержимого) от перевода.По умолчанию: правда."
@@ -116,7 +132,9 @@
       "tradução",
       "google",
       "traduzir",
-      "idioma"
+      "idioma",
+      "i18n",
+      "localization"
     ],
     "param.texts.description": "Matriz de strings de texto para traduzir (máximo de 10.000 caracteres cada).Enviar texto completo sem truncamento;a API lida com o comprimento nativamente.Os textos são unidos e traduzidos como um único bloco (contexto preservado).",
     "param.protect_placeholders.description": "Se for verdade, protege os espaços reservados (detectados automaticamente no conteúdo) de serem traduzidos.Padrão: verdadeiro."
@@ -130,7 +148,9 @@
       "tradução",
       "google",
       "traduzir",
-      "idioma"
+      "idioma",
+      "i18n",
+      "localization"
     ],
     "param.texts.description": "Matriz de strings de texto para traduzir (máximo de 10.000 caracteres cada).Enviar texto completo sem truncamento;a API lida com o comprimento nativamente.Os textos são unidos e traduzidos como um único bloco (contexto preservado).",
     "param.protect_placeholders.description": "Se for verdade, protege os espaços reservados (detectados automaticamente no conteúdo) de serem traduzidos.Padrão: verdadeiro."
@@ -144,7 +164,9 @@
       "terjemahan",
       "bahasa",
       "google",
-      "terjemahan"
+      "terjemahan",
+      "i18n",
+      "localization"
     ],
     "param.texts.description": "Array string teks yang akan diterjemahkan (masing-masing maksimal 10.000 karakter).Kirim teks lengkap tanpa terpotong;API menangani panjang secara asli.Teks digabungkan dan diterjemahkan sebagai satu blok (konteks dipertahankan).",
     "param.protect_placeholders.description": "Jika benar, lindungi placeholder (terdeteksi secara otomatis dari konten) agar tidak diterjemahkan.Bawaan: benar."
@@ -159,7 +181,9 @@
       "google",
       "dịch",
       "ngôn",
-      "ngữ"
+      "ngữ",
+      "i18n",
+      "localization"
     ],
     "param.texts.description": "Mảng chuỗi văn bản cần dịch (mỗi chuỗi tối đa 10000 ký tự).Gửi toàn văn không cắt bớt;API xử lý độ dài nguyên bản.Các văn bản được nối và dịch thành một khối duy nhất (ngữ cảnh được giữ nguyên).",
     "param.protect_placeholders.description": "Nếu đúng, hãy bảo vệ phần giữ chỗ (được tự động phát hiện từ nội dung) khỏi bị dịch.Mặc định: đúng."
@@ -173,7 +197,9 @@
       "tłumaczenie",
       "google",
       "przetłumacz",
-      "język"
+      "język",
+      "i18n",
+      "localization"
     ],
     "param.texts.description": "Tablica ciągów tekstowych do przetłumaczenia (maksymalnie 10000 znaków każdy).Wyślij pełny tekst bez obcinania;API obsługuje długość natywnie.Teksty są łączone i tłumaczone jako pojedynczy blok (kontekst zostaje zachowany).",
     "param.protect_placeholders.description": "Jeśli to prawda, chroń symbole zastępcze (automatycznie wykrywane w treści) przed tłumaczeniem.Wartość domyślna: prawda."
@@ -187,7 +213,9 @@
       "अनुवाद",
       "Google",
       "अनुवाद",
-      "भाषा"
+      "भाषा",
+      "i18n",
+      "localization"
     ],
     "param.texts.description": "अनुवाद करने के लिए टेक्स्ट स्ट्रिंग्स की श्रृंखला (प्रत्येक में अधिकतम 10000 अक्षर)।बिना काट-छाँट के पूरा पाठ भेजें;एपीआई मूल रूप से लंबाई को संभालती है।पाठों को एक एकल ब्लॉक (संदर्भ संरक्षित) के रूप में जोड़ा और अनुवादित किया जाता है।",
     "param.protect_placeholders.description": "यदि सत्य है, तो प्लेसहोल्डर्स (सामग्री से स्वतः पता लगाया गया) को अनुवादित होने से बचाएं।डिफ़ॉल्ट: सत्य."
@@ -201,7 +229,9 @@
       "ترجمة",
       "جوجل",
       "ترجمة",
-      "اللغة"
+      "اللغة",
+      "i18n",
+      "localization"
     ],
     "param.texts.description": "مجموعة من السلاسل النصية المراد ترجمتها (بحد أقصى 10000 حرف لكل منها).إرسال النص الكامل دون اقتطاع؛تعالج واجهة برمجة التطبيقات الطول أصلاً.يتم ضم النصوص وترجمتها ككتلة واحدة (يتم الاحتفاظ بالسياق).",
     "param.protect_placeholders.description": "إذا كان هذا صحيحًا، قم بحماية العناصر النائبة (التي يتم اكتشافها تلقائيًا من المحتوى) من الترجمة.الافتراضي: صحيح."
@@ -215,7 +245,9 @@
       "översättning",
       "google",
       "översätt",
-      "språk"
+      "språk",
+      "i18n",
+      "localization"
     ],
     "param.texts.description": "Uppsättning av textsträngar att översätta (max 10 000 tecken vardera).Skicka fulltext utan trunkering;API hanterar längden inbyggt.Texter sammanfogas och översätts som ett enda block (sammanhang bevaras).",
     "param.protect_placeholders.description": "Om sant, skydda platshållare (automatiskt upptäckt från innehåll) från att översättas.Standard: sant."
@@ -229,7 +261,9 @@
       "tafsiri",
       "google",
       "kutafsiri",
-      "lugha"
+      "lugha",
+      "i18n",
+      "localization"
     ],
     "param.texts.description": "Mkusanyiko wa mifuatano ya maandishi ya kutafsiri (isizidi vibambo 10000 kila moja).Tuma maandishi kamili bila kupunguzwa;API hushughulikia urefu asili.Maandishi yanaunganishwa na kutafsiriwa kama kizuizi kimoja (muktadha umehifadhiwa).",
     "param.protect_placeholders.description": "Ikiwa ni kweli, linda vishika nafasi (zilizogunduliwa kiotomatiki kutoka kwa maudhui) zisitafsiriwe.Chaguomsingi: kweli."
@@ -243,7 +277,9 @@
       "oversettelse",
       "google",
       "translate",
-      "språk"
+      "språk",
+      "i18n",
+      "localization"
     ],
     "param.texts.description": "En rekke tekststrenger som skal oversettes (maks. 10 000 tegn hver).Send fulltekst uten trunkering;API-en håndterer lengden native.Tekster slås sammen og oversettes som en enkelt blokk (kontekst bevart).",
     "param.protect_placeholders.description": "Hvis sant, beskytt plassholdere (automatisk oppdaget fra innhold) fra å bli oversatt.Standard: sant."
@@ -257,7 +293,9 @@
       "vertaling",
       "google",
       "vertalen",
-      "taal"
+      "taal",
+      "i18n",
+      "localization"
     ],
     "param.texts.description": "Array van te vertalen tekstreeksen (elk maximaal 10.000 tekens).Verzend volledige tekst zonder afkapping;de API verwerkt de lengte native.Teksten worden samengevoegd en vertaald als één enkel blok (context behouden).",
     "param.protect_placeholders.description": "Als dit waar is, bescherm dan tijdelijke aanduidingen (automatisch gedetecteerd op basis van inhoud) tegen vertaling.Standaard: waar."
@@ -271,7 +309,9 @@
       "käännös",
       "google",
       "kääntäjän",
-      "kieli"
+      "kieli",
+      "i18n",
+      "localization"
     ],
     "param.texts.description": "Käännettävien tekstijonojen joukko (kukin enintään 10 000 merkkiä).Lähetä koko teksti ilman katkaisua;API käsittelee pituuden natiivisti.Tekstit yhdistetään ja käännetään yhdeksi lohkoksi (konteksti säilytetään).",
     "param.protect_placeholders.description": "Jos totta, suojaa paikkamerkit (tunnistetaan automaattisesti sisällöstä) kääntämiseltä.Oletus: tosi."
@@ -285,7 +325,9 @@
       "překlad",
       "google",
       "přeložit",
-      "jazyk"
+      "jazyk",
+      "i18n",
+      "localization"
     ],
     "param.texts.description": "Pole textových řetězců k překladu (každý max. 10 000 znaků).Odeslat celý text bez zkrácení;API zpracovává délku nativně.Texty se spojují a překládají jako jeden blok (kontext je zachován).",
     "param.protect_placeholders.description": "Pokud je true, chraňte zástupné symboly (automaticky zjištěné z obsahu) před překladem.Výchozí: true."
@@ -299,7 +341,9 @@
       "переклад",
       "Google",
       "Translate",
-      "мова"
+      "мова",
+      "i18n",
+      "localization"
     ],
     "param.texts.description": "Масив текстових рядків для перекладу (максимум 10000 символів кожен).Надіслати повний текст без скорочення;API обробляє довжину нативно.Тексти об’єднуються та перекладаються одним блоком (контекст зберігається).",
     "param.protect_placeholders.description": "Якщо значення true, захистити заповнювачі (автоматично визначені у вмісті) від перекладу.Типове значення: true."
@@ -313,7 +357,9 @@
       "çeviri",
       "google",
       "çeviri",
-      "dili"
+      "dili",
+      "i18n",
+      "localization"
     ],
     "param.texts.description": "Çevrilecek metin dizeleri dizisi (her biri en fazla 10000 karakter).Tam metni kesmeden gönderin;API uzunluğu yerel olarak yönetir.Metinler tek bir blok halinde birleştirilir ve çevrilir (bağlam korunur).",
     "param.protect_placeholders.description": "Doğruysa yer tutucuları (içerikten otomatik olarak algılanır) çevrilmekten koruyun.Varsayılan: doğru."
@@ -325,7 +371,9 @@
     "x_search_terms": [
       "แปลการแปล",
       "Google",
-      "แปลภาษา"
+      "แปลภาษา",
+      "i18n",
+      "localization"
     ],
     "param.texts.description": "อาร์เรย์ของสตริงข้อความที่จะแปล (สูงสุด 10,000 อักขระต่อรายการ)ส่งข้อความฉบับเต็มโดยไม่มีการตัดทอนAPI จัดการความยาวโดยกำเนิดข้อความถูกรวมและแปลเป็นบล็อกเดียว (บริบทที่เก็บรักษาไว้)",
     "param.protect_placeholders.description": "หากเป็นจริง ให้ปกป้องตัวยึดตำแหน่ง (ตรวจพบอัตโนมัติจากเนื้อหา) จากการแปลค่าเริ่มต้น: จริง"
@@ -338,7 +386,9 @@
       "翻译",
       "翻译",
       "谷歌翻译",
-      "语言"
+      "语言",
+      "i18n",
+      "localization"
     ],
     "param.texts.description": "要翻译的文本字符串数组（每个字符串最多 10000 个字符）。发送全文，不截断；API 本身处理长度。文本被连接并翻译为单个块（保留上下文）。",
     "param.protect_placeholders.description": "如果为 true，则保护占位符（从内容中自动检测到）不被翻译。默认值：true。"
@@ -351,7 +401,9 @@
       "翻譯",
       "翻譯",
       "谷歌翻譯",
-      "語言"
+      "語言",
+      "i18n",
+      "localization"
     ],
     "param.texts.description": "要翻譯的文字字串陣列（每個字串最多 10000 個字元）。發送全文，不截斷； API 本身處理長度。文字被連接並翻譯為單一區塊（保留上下文）。",
     "param.protect_placeholders.description": "如果為 true，則保護佔位符（從內容自動偵測到）不被翻譯。預設值：true。"
@@ -365,7 +417,9 @@
       "অনুবাদ",
       "গুগল",
       "অনুবাদ",
-      "ভাষা"
+      "ভাষা",
+      "i18n",
+      "localization"
     ],
     "param.texts.description": "অনুবাদ করার জন্য টেক্সট স্ট্রিং এর অ্যারে (প্রতিটি সর্বোচ্চ 10000 অক্ষর)।ছাঁটাই ছাড়া সম্পূর্ণ পাঠ্য পাঠান;API নেটিভভাবে দৈর্ঘ্য পরিচালনা করে।পাঠ্যগুলি একক ব্লক হিসাবে যুক্ত এবং অনুবাদ করা হয় (প্রসঙ্গ সংরক্ষিত)।",
     "param.protect_placeholders.description": "সত্য হলে, স্থানধারকদের (সামগ্রী থেকে স্বয়ংক্রিয়ভাবে সনাক্ত করা) অনুবাদ হওয়া থেকে রক্ষা করুন।ডিফল্ট: সত্য।"
@@ -379,7 +433,9 @@
       "ترجمه",
       "گوگل",
       "ترنسلیت",
-      "زبان"
+      "زبان",
+      "i18n",
+      "localization"
     ],
     "param.texts.description": "آرایه ای از رشته های متنی برای ترجمه (حداکثر 10000 کاراکتر در هر کدام).ارسال متن کامل بدون برش.API به صورت بومی طول را کنترل می کند.متون به صورت یک بلوک به هم پیوسته و ترجمه می شوند (متن حفظ می شود).",
     "param.protect_placeholders.description": "اگر درست است، از متغیرهایی (که به طور خودکار از محتوا شناسایی می شوند) از ترجمه محافظت کنید.پیش فرض: درست است."
@@ -392,7 +448,9 @@
       "орчуулга",
       "google",
       "translate",
-      "хэл"
+      "хэл",
+      "i18n",
+      "localization"
     ],
     "param.texts.description": "Орчуулах текстийн мөрийн массив (тус бүрдээ хамгийн ихдээ 10000 тэмдэгт).Таслалгүйгээр бүрэн текстийг илгээх;API нь уртыг өөрөө зохицуулдаг.Текстүүдийг нэгтгэж, нэг блок хэлбэрээр орчуулдаг (контекст хадгалагдсан).",
     "param.protect_placeholders.description": "Хэрэв үнэн бол орлуулагчийг (контентоос автоматаар илрүүлсэн) орчуулахаас хамгаална уу.Өгөгдмөл: үнэн."
@@ -406,7 +464,9 @@
       "भाषांतर",
       "गुगल",
       "भाषांतर",
-      "भाषा"
+      "भाषा",
+      "i18n",
+      "localization"
     ],
     "param.texts.description": "भाषांतर करण्यासाठी मजकूर स्ट्रिंगचा ॲरे (प्रत्येक कमाल 10000 वर्ण).कापल्याशिवाय संपूर्ण मजकूर पाठवा;API नेटिव्हली लांबी हाताळते.मजकूर जोडले जातात आणि एकल ब्लॉक (संदर्भ संरक्षित) म्हणून अनुवादित केले जातात.",
     "param.protect_placeholders.description": "सत्य असल्यास, प्लेसहोल्डरचे (सामग्रीमधून स्वयं-शोधलेले) भाषांतर होण्यापासून संरक्षण करा.डीफॉल्ट: खरे."
@@ -420,7 +480,9 @@
       "μεταφράζω",
       "Google",
       "Μετάφραση",
-      "γλώσσα"
+      "γλώσσα",
+      "i18n",
+      "localization"
     ],
     "param.texts.description": "Πίνακας συμβολοσειρών κειμένου προς μετάφραση (έως 10000 χαρακτήρες η καθεμία).Αποστολή πλήρους κειμένου χωρίς περικοπή.το API χειρίζεται εγγενώς το μήκος.Τα κείμενα ενώνονται και μεταφράζονται ως ενιαίο μπλοκ (το πλαίσιο διατηρείται).",
     "param.protect_placeholders.description": "Εάν ισχύει, προστατέψτε τα κράτη μέλη (που εντοπίζονται αυτόματα από το περιεχόμενο) από τη μετάφραση.Προεπιλογή: αληθές."
@@ -434,7 +496,9 @@
       "לתרגם",
       "גוגל תרגום",
       "תרגם",
-      "שפה"
+      "שפה",
+      "i18n",
+      "localization"
     ],
     "param.texts.description": "מערך של מחרוזות טקסט לתרגום (מקסימום 10000 תווים כל אחת).שלח טקסט מלא ללא חיתוך;ה-API מטפל באורך באופן מקורי.טקסטים מצטרפים ומתורגמים כגוש יחיד (ההקשר נשמר).",
     "param.protect_placeholders.description": "אם זה נכון, הגן על מצייני מיקום (זוהים אוטומטית מתוכן) מפני תרגום.ברירת מחדל: נכון."
@@ -448,7 +512,9 @@
       "fordít",
       "Google",
       "Fordító",
-      "nyelv"
+      "nyelv",
+      "i18n",
+      "localization"
     ],
     "param.texts.description": "Lefordítandó szöveges karakterláncok tömbje (egyenként legfeljebb 10 000 karakter).Teljes szöveg küldése csonkítás nélkül;az API natív módon kezeli a hosszt.A szövegek egyetlen blokkként egyesülnek és le vannak fordítva (a kontextus megmarad).",
     "param.protect_placeholders.description": "Ha igaz, védje meg a helyőrzőket (a tartalom automatikusan észleli) a fordítástól.Alapértelmezett: igaz."
@@ -462,7 +528,9 @@
       "traduce",
       "Google",
       "Traducere",
-      "limbă"
+      "limbă",
+      "i18n",
+      "localization"
     ],
     "param.texts.description": "Matrice de șiruri de text de tradus (maximum 10000 de caractere fiecare).Trimiteți text complet fără trunchiere;API-ul gestionează lungimea în mod nativ.Textele sunt unite și traduse ca un singur bloc (contextul păstrat).",
     "param.protect_placeholders.description": "Dacă este adevărat, protejați substituenții (detectați automat din conținut) împotriva traducerii.Implicit: adevărat."

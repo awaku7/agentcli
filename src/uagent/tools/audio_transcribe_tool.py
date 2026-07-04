@@ -38,13 +38,15 @@ TOOL_SPEC: dict[str, Any] = {
             ],
         ),
         "x_search_terms_en": [
-            "audio_transcribe",
-            "audio transcribe",
-            "audio",
-            "voice",
-            "speech",
-            "sound",
-        ],
+        "audio_transcribe",
+        "audio transcribe",
+        "audio",
+        "voice",
+        "speech",
+        "sound",
+        "transcribe",
+        "speech to text",
+    ],
         "parameters": {
             "type": "object",
             "properties": {

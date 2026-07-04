@@ -37,12 +37,13 @@ TOOL_SPEC: dict[str, Any] = {
             ],
         ),
         "x_search_terms_en": [
-            "gmail",
-            "read email",
-            "inbox",
-            "mail search",
-            "check email",
-        ],
+        "gmail",
+        "read email",
+        "inbox",
+        "mail search",
+        "check email",
+        "email",
+    ],
         "parameters": {
             "type": "object",
             "properties": {

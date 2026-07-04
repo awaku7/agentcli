@@ -40,6 +40,12 @@ TOOL_SPEC: dict[str, Any] = {
             "http get",
             "URL取得",
         ],
+        "x_search_terms_en": [
+            "browser",
+            "playwright",
+            "web",
+            "automation",
+        ],
         "parameters": {
             "type": "object",
             "properties": {

@@ -18,7 +18,8 @@
       "git",
       "git",
       "깃",
-      "git"
+      "git",
+      "push"
     ],
     "param.allow_danger.description": "Whether to allow dangerous operations (default false). Example: push --force, reset --hard.",
     "tool.description": "Run Git commands with safety-first restrictions. Some operations or special characters in arguments may be restricted for security."
@@ -38,7 +39,8 @@
       "git_ops",
       "git 操作",
       "git コマンド",
-      "安全第一"
+      "安全第一",
+      "push"
     ],
     "param.allow_danger.description": "危険な操作を許可するかどうか (デフォルトは false)。例: プッシュ --force、リセット --ハード。",
     "tool.description": "安全第一の制限を設けて Git コマンドを実行します。一部の操作や引数内の特殊文字は、セキュリティのために制限される場合があります。"
@@ -58,7 +60,8 @@
       "git_ops",
       "git ops",
       "comandos git",
-      "git seguro"
+      "git seguro",
+      "push"
     ]
   },
   "fr": {
@@ -76,7 +79,8 @@
       "git_ops",
       "git ops",
       "commandes git",
-      "git sûr"
+      "git sûr",
+      "push"
     ]
   },
   "ko": {
@@ -94,7 +98,8 @@
       "git_ops",
       "git 작업",
       "git 명령",
-      "안전 git"
+      "안전 git",
+      "push"
     ]
   },
   "de": {
@@ -112,7 +117,8 @@
       "git_ops",
       "git ops",
       "git befehle",
-      "sicheres git"
+      "sicheres git",
+      "push"
     ]
   },
   "it": {
@@ -130,7 +136,8 @@
       "git_ops",
       "git ops",
       "comandi git",
-      "git sicuro"
+      "git sicuro",
+      "push"
     ]
   },
   "ru": {
@@ -148,7 +155,8 @@
       "git_ops",
       "git ops",
       "git команды",
-      "безопасный git"
+      "безопасный git",
+      "push"
     ]
   },
   "pt_BR": {
@@ -166,7 +174,8 @@
       "git_ops",
       "git ops",
       "comandos git",
-      "git seguro"
+      "git seguro",
+      "push"
     ]
   },
   "pt": {
@@ -184,7 +193,8 @@
       "git_ops",
       "git ops",
       "comandos git",
-      "git seguro"
+      "git seguro",
+      "push"
     ]
   },
   "id": {
@@ -202,7 +212,8 @@
       "git_ops",
       "git ops",
       "perintah git",
-      "git aman"
+      "git aman",
+      "push"
     ]
   },
   "vi": {
@@ -220,7 +231,8 @@
       "git_ops",
       "git ops",
       "lệnh git",
-      "git an toàn"
+      "git an toàn",
+      "push"
     ]
   },
   "pl": {
@@ -238,7 +250,8 @@
       "git_ops",
       "git ops",
       "polecenia git",
-      "bezpieczny git"
+      "bezpieczny git",
+      "push"
     ]
   },
   "hi": {
@@ -256,7 +269,8 @@
       "git_ops",
       "git ops",
       "git कमांड",
-      "सुरक्षित git"
+      "सुरक्षित git",
+      "push"
     ]
   },
   "ar": {
@@ -274,7 +288,8 @@
       "git_ops",
       "git ops",
       "أوامر git",
-      "git آمن"
+      "git آمن",
+      "push"
     ]
   },
   "sv": {
@@ -292,7 +307,8 @@
       "git_ops",
       "git ops",
       "git-kommandon",
-      "säker git"
+      "säker git",
+      "push"
     ]
   },
   "sw": {
@@ -310,7 +326,8 @@
       "git_ops",
       "git ops",
       "amri za git",
-      "git salama"
+      "git salama",
+      "push"
     ]
   },
   "nb": {
@@ -328,7 +345,8 @@
       "git_ops",
       "git ops",
       "git-kommandoer",
-      "trygg git"
+      "trygg git",
+      "push"
     ]
   },
   "nl": {
@@ -346,7 +364,8 @@
       "git_ops",
       "git ops",
       "git opdrachten",
-      "veilige git"
+      "veilige git",
+      "push"
     ]
   },
   "fi": {
@@ -364,7 +383,8 @@
       "git_ops",
       "git ops",
       "git-komennot",
-      "turvallinen git"
+      "turvallinen git",
+      "push"
     ]
   },
   "cs": {
@@ -382,7 +402,8 @@
       "git_ops",
       "git ops",
       "git příkazy",
-      "bezpečný git"
+      "bezpečný git",
+      "push"
     ]
   },
   "uk": {
@@ -400,7 +421,8 @@
       "git_ops",
       "git ops",
       "git команди",
-      "безпечний git"
+      "безпечний git",
+      "push"
     ]
   },
   "tr": {
@@ -418,7 +440,8 @@
       "git_ops",
       "git ops",
       "git komutları",
-      "güvenli git"
+      "güvenli git",
+      "push"
     ]
   },
   "th": {
@@ -436,7 +459,8 @@
       "git_ops",
       "git ops",
       "คำสั่ง git",
-      "git ปลอดภัย"
+      "git ปลอดภัย",
+      "push"
     ]
   },
   "zh_CN": {
@@ -454,7 +478,8 @@
       "git_ops",
       "git ops",
       "git 命令",
-      "安全 git"
+      "安全 git",
+      "push"
     ]
   },
   "zh_TW": {
@@ -472,7 +497,8 @@
       "git_ops",
       "git ops",
       "git 命令",
-      "安全 git"
+      "安全 git",
+      "push"
     ]
   },
   "bn": {
@@ -490,7 +516,8 @@
       "git_ops",
       "git ops",
       "git কমান্ড",
-      "নিরাপদ git"
+      "নিরাপদ git",
+      "push"
     ]
   },
   "fa": {
@@ -508,7 +535,8 @@
       "git_ops",
       "git ops",
       "دستورهای git",
-      "git امن"
+      "git امن",
+      "push"
     ]
   },
   "mn": {
@@ -526,7 +554,8 @@
       "git_ops",
       "git ops",
       "git тушаалууд",
-      "аюулгүй git"
+      "аюулгүй git",
+      "push"
     ]
   },
   "mr": {
@@ -544,7 +573,8 @@
       "git_ops",
       "git ops",
       "git आज्ञा",
-      "सुरक्षित git"
+      "सुरक्षित git",
+      "push"
     ]
   },
   "el": {
@@ -566,7 +596,8 @@
       "git",
       "git",
       "깃",
-      "git"
+      "git",
+      "push"
     ]
   },
   "he": {
@@ -588,7 +619,8 @@
       "git",
       "git",
       "깃",
-      "git"
+      "git",
+      "push"
     ]
   },
   "hu": {
@@ -610,7 +642,8 @@
       "git",
       "git",
       "깃",
-      "git"
+      "git",
+      "push"
     ]
   },
   "ro": {
@@ -632,7 +665,8 @@
       "git",
       "git",
       "깃",
-      "git"
+      "git",
+      "push"
     ]
   }
 }

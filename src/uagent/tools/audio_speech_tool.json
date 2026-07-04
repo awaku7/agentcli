@@ -6,7 +6,9 @@
       "audio",
       "voice",
       "speech",
-      "sound"
+      "sound",
+      "tts",
+      "text to speech"
     ],
     "param.text.description": "Text to synthesize into speech.",
     "param.output_path.description": "Path where the generated audio file will be saved.",
@@ -27,7 +29,9 @@
     "x_search_terms": [
       "テキストを音声に変換してファイルに保存し、保存先パスを返します",
       "audio_speech",
-      "audio speech"
+      "audio speech",
+      "tts",
+      "text to speech"
     ],
     "param.text.description": "音声に変換するテキスト。",
     "param.output_path.description": "生成した音声ファイルの保存先パス。",
@@ -48,7 +52,9 @@
     "x_search_terms": [
       "Convierte texto a voz, guarda el audio como archivo y devuelve la ruta guardada",
       "audio_speech",
-      "audio speech"
+      "audio speech",
+      "tts",
+      "text to speech"
     ],
     "param.text.description": "Texto que se sintetizará en voz.",
     "param.output_path.description": "Ruta donde se guardará el archivo de audio generado.",
@@ -67,7 +73,9 @@
     "x_search_terms": [
       "Convertit du texte en parole, enregistre l’audio dans un fichier et renvoie le chemin enregistré",
       "audio_speech",
-      "audio speech"
+      "audio speech",
+      "tts",
+      "text to speech"
     ],
     "param.text.description": "Texte à synthétiser en parole.",
     "param.output_path.description": "Chemin où le fichier audio généré sera enregistré.",
@@ -86,7 +94,9 @@
     "x_search_terms": [
       "텍스트를 음성으로 변환하여 파일로 저장하고 저장 경로를 반환합니다",
       "audio_speech",
-      "audio speech"
+      "audio speech",
+      "tts",
+      "text to speech"
     ],
     "param.text.description": "음성으로 합성할 텍스트입니다.",
     "param.output_path.description": "생성된 오디오 파일이 저장될 경로입니다.",
@@ -105,7 +115,9 @@
     "x_search_terms": [
       "Konvertiert Text in Sprache, speichert die Audiodatei und gibt den gespeicherten Pfad zurück",
       "audio_speech",
-      "audio speech"
+      "audio speech",
+      "tts",
+      "text to speech"
     ],
     "param.text.description": "Text, der in Sprache umgewandelt werden soll.",
     "param.output_path.description": "Pfad, in dem die generierte Audiodatei gespeichert wird.",
@@ -124,7 +136,9 @@
     "x_search_terms": [
       "Converte testo in parlato, salva l’audio come file e restituisce il percorso salvato",
       "audio_speech",
-      "audio speech"
+      "audio speech",
+      "tts",
+      "text to speech"
     ],
     "param.text.description": "Testo da sintetizzare in parlato.",
     "param.output_path.description": "Percorso in cui il file audio generato verrà salvato.",
@@ -143,7 +157,9 @@
     "x_search_terms": [
       "Преобразует текст в речь, сохраняет аудио в файл и возвращает путь сохранения",
       "audio_speech",
-      "audio speech"
+      "audio speech",
+      "tts",
+      "text to speech"
     ],
     "param.text.description": "Текст, который нужно озвучить.",
     "param.output_path.description": "Путь, куда будет сохранён сгенерированный аудиофайл.",
@@ -162,7 +178,9 @@
     "x_search_terms": [
       "Converte texto em fala, salva o áudio em um arquivo e retorna o caminho salvo",
       "audio_speech",
-      "audio speech"
+      "audio speech",
+      "tts",
+      "text to speech"
     ],
     "param.text.description": "Texto a ser sintetizado em fala.",
     "param.output_path.description": "Caminho onde o arquivo de áudio gerado será salvo.",
@@ -181,7 +199,9 @@
     "x_search_terms": [
       "Converte texto em fala, salva o áudio em um arquivo e retorna o caminho salvo",
       "audio_speech",
-      "audio speech"
+      "audio speech",
+      "tts",
+      "text to speech"
     ],
     "param.text.description": "Texto a ser sintetizado em fala.",
     "param.output_path.description": "Caminho onde o arquivo de áudio gerado será salvo.",
@@ -200,7 +220,9 @@
     "x_search_terms": [
       "Mengubah teks menjadi suara, menyimpan audio sebagai file, dan mengembalikan path yang disimpan",
       "audio_speech",
-      "audio speech"
+      "audio speech",
+      "tts",
+      "text to speech"
     ],
     "param.text.description": "Teks untuk disintesis menjadi ucapan.",
     "param.output_path.description": "Path tempat file audio yang dihasilkan akan disimpan.",
@@ -219,7 +241,9 @@
     "x_search_terms": [
       "Chuyển văn bản thành giọng nói, lưu âm thanh thành tệp và trả về đường dẫn đã lưu",
       "audio_speech",
-      "audio speech"
+      "audio speech",
+      "tts",
+      "text to speech"
     ],
     "param.text.description": "Văn bản để tổng hợp thành lời nói.",
     "param.output_path.description": "Đường dẫn nơi tệp âm thanh được tạo sẽ được lưu.",
@@ -238,7 +262,9 @@
     "x_search_terms": [
       "Konwertuje tekst na mowę, zapisuje dźwięk jako plik i zwraca zapisany ścieżkę",
       "audio_speech",
-      "audio speech"
+      "audio speech",
+      "tts",
+      "text to speech"
     ],
     "param.text.description": "Tekst do zamiany na mowę.",
     "param.output_path.description": "Ścieżka, w której zostanie zapisany wygenerowany plik audio.",
@@ -257,7 +283,9 @@
     "x_search_terms": [
       "टेक्स्ट को स्पीच में बदलता है, ऑडियो को फ़ाइल के रूप में सहेजता है, और सहेजा गया पथ लौटाता है।",
       "audio_speech",
-      "audio speech"
+      "audio speech",
+      "tts",
+      "text to speech"
     ],
     "param.text.description": "स्पीच में बदलने के लिए टेक्स्ट।",
     "param.output_path.description": "वह पथ जहाँ उत्पन्न ऑडियो फ़ाइल सहेजी जाएगी।",
@@ -276,7 +304,9 @@
     "x_search_terms": [
       "يحوّل النص إلى كلام، ويحفظ الصوت كملف، ويعيد مسار الحفظ",
       "audio_speech",
-      "audio speech"
+      "audio speech",
+      "tts",
+      "text to speech"
     ],
     "param.text.description": "النص المراد تحويله إلى كلام.",
     "param.output_path.description": "المسار الذي سيُحفظ فيه ملف الصوت المُنشأ.",
@@ -295,7 +325,9 @@
     "x_search_terms": [
       "Konverterar text till tal, sparar ljudet som en fil och վերադարձar den sparade sökvägen",
       "audio_speech",
-      "audio speech"
+      "audio speech",
+      "tts",
+      "text to speech"
     ],
     "param.text.description": "Text att syntetisera till tal.",
     "param.output_path.description": "Sökvägen där den genererade ljudfilen sparas.",
@@ -314,7 +346,9 @@
     "x_search_terms": [
       "Hubadilisha maandishi kuwa sauti, huhifadhi sauti kama faili, na kurudisha njia iliyohifadhiwa",
       "audio_speech",
-      "audio speech"
+      "audio speech",
+      "tts",
+      "text to speech"
     ],
     "param.text.description": "Maandishi ya kusanisi katika usemi.",
     "param.output_path.description": "Njia ambapo faili ya sauti iliyotengenezwa itahifadhiwa.",
@@ -333,7 +367,9 @@
     "x_search_terms": [
       "Konverterer tekst til tale, lagrer lyden som en fil, og returnerer den lagrede stien",
       "audio_speech",
-      "audio speech"
+      "audio speech",
+      "tts",
+      "text to speech"
     ],
     "param.text.description": "Tekst som skal syntetiseres til tale.",
     "param.output_path.description": "Stien der den genererte lydfilen skal lagres.",
@@ -352,7 +388,9 @@
     "x_search_terms": [
       "Zet tekst om naar spraak, slaat audio op als bestand en geeft het opgeslagen pad terug",
       "audio_speech",
-      "audio speech"
+      "audio speech",
+      "tts",
+      "text to speech"
     ],
     "param.text.description": "Tekst om in spraak te synthetiseren.",
     "param.output_path.description": "Pad waar het gegenereerde audiobestand wordt opgeslagen.",
@@ -371,7 +409,9 @@
     "x_search_terms": [
       "Muuntaa tekstin puheeksi, tallentaa äänen tiedostoksi ja palauttaa tallennetun polun",
       "audio_speech",
-      "audio speech"
+      "audio speech",
+      "tts",
+      "text to speech"
     ],
     "param.text.description": "Puheeksi syntetisoitava teksti.",
     "param.output_path.description": "Polku, johon luotu äänitiedosto tallennetaan.",
@@ -390,7 +430,9 @@
     "x_search_terms": [
       "Převede text na řeč, uloží zvuk jako soubor a vrátí uloženou cestu",
       "audio_speech",
-      "audio speech"
+      "audio speech",
+      "tts",
+      "text to speech"
     ],
     "param.text.description": "Text, který se má syntetizovat do řeči.",
     "param.output_path.description": "Cesta, kam bude vygenerovaný zvukový soubor uložen.",
@@ -409,7 +451,9 @@
     "x_search_terms": [
       "Перетворює текст у мовлення, зберігає аудіо у файл і повертає шлях збереження",
       "audio_speech",
-      "audio speech"
+      "audio speech",
+      "tts",
+      "text to speech"
     ],
     "param.text.description": "Текст для синтезу в мову.",
     "param.output_path.description": "Шлях, куди буде збережено згенерований аудіофайл.",
@@ -428,7 +472,9 @@
     "x_search_terms": [
       "Metni konuşmaya dönüştürün, sesi dosya olarak kaydedin ve kaydedilen yola geri dönün",
       "audio_speech",
-      "audio speech"
+      "audio speech",
+      "tts",
+      "text to speech"
     ],
     "param.text.description": "Konuşmaya sentezlenecek metin.",
     "param.output_path.description": "Oluşturulan ses dosyasının kaydedileceği yol.",
@@ -447,7 +493,9 @@
     "x_search_terms": [
       "แปลงข้อความเป็นเสียง บันทึกเสียงเป็นไฟล์ และส่งกลับพาธที่บันทึก",
       "audio_speech",
-      "audio speech"
+      "audio speech",
+      "tts",
+      "text to speech"
     ],
     "param.text.description": "ข้อความที่จะสังเคราะห์เป็นคำพูด",
     "param.output_path.description": "พาธที่ไฟล์เสียงที่สร้างขึ้นจะถูกบันทึก",
@@ -466,7 +514,9 @@
     "x_search_terms": [
       "将文本转换为语音，保存为音频文件，并返回保存路径",
       "audio_speech",
-      "audio speech"
+      "audio speech",
+      "tts",
+      "text to speech"
     ],
     "param.text.description": "要合成为语音的文本。",
     "param.output_path.description": "生成的音频文件将保存到的路径。",
@@ -485,7 +535,9 @@
     "x_search_terms": [
       "將文字轉換為語音，儲存為音訊檔，並回傳儲存路徑",
       "audio_speech",
-      "audio speech"
+      "audio speech",
+      "tts",
+      "text to speech"
     ],
     "param.text.description": "要合成為語音的文字。",
     "param.output_path.description": "產生的音訊檔將儲存到的路徑。",
@@ -504,7 +556,9 @@
     "x_search_terms": [
       "টেক্সটকে বক্তৃতায় রূপান্তর করে, অডিও ফাইল হিসেবে সংরক্ষণ করুন, এবং সংরক্ষিত পথ ফেরত দিন",
       "audio_speech",
-      "audio speech"
+      "audio speech",
+      "tts",
+      "text to speech"
     ],
     "param.text.description": "বক্তৃতায় সংশ্লেষিত করার জন্য পাঠ্য।",
     "param.output_path.description": "যে পথে তৈরি হওয়া অডিও ফাইল সংরক্ষিত হবে।",
@@ -523,7 +577,9 @@
     "x_search_terms": [
       "متن را به گفتار تبدیل کنید، صدا را به‌صورت فایل ذخیره کنید و مسیر ذخیره‌شده را برگردانید",
       "audio_speech",
-      "audio speech"
+      "audio speech",
+      "tts",
+      "text to speech"
     ],
     "param.text.description": "متنی که باید به گفتار تبدیل شود.",
     "param.output_path.description": "مسیر ذخیرهٔ فایل صوتی تولیدشده.",
@@ -542,7 +598,9 @@
     "x_search_terms": [
       "Текстийг яриа болгон хувиргаж, аудио файлаар хадгалж, хадгалсан замыг буцаана",
       "audio_speech",
-      "audio speech"
+      "audio speech",
+      "tts",
+      "text to speech"
     ],
     "param.text.description": "Яриа болгон хөрвүүлэх текст.",
     "param.output_path.description": "Үүсгэсэн аудио файлыг хадгалах зам.",
@@ -561,7 +619,9 @@
     "x_search_terms": [
       "मजकूराचे ध्वनीत रूपांतर करा, ऑडिओ फाइल म्हणून जतन करा, आणि जतन केलेला मार्ग परत करा",
       "audio_speech",
-      "audio speech"
+      "audio speech",
+      "tts",
+      "text to speech"
     ],
     "param.text.description": "ध्वनीत रूपांतर करायचा मजकूर.",
     "param.output_path.description": "तयार झालेली ऑडिओ फाइल जिथे जतन होईल तो मार्ग.",
@@ -583,7 +643,9 @@
       "ήχου",
       "φωνή",
       "ομιλία",
-      "ήχος"
+      "ήχος",
+      "tts",
+      "text to speech"
     ],
     "param.text.description": "Κείμενο για σύνθεση σε ομιλία.",
     "param.output_path.description": "Διαδρομή όπου θα αποθηκευτεί το αρχείο ήχου που δημιουργήθηκε.",
@@ -605,7 +667,9 @@
       "שֶׁמַע",
       "קוֹל",
       "נְאוּם",
-      "קוֹל"
+      "קוֹל",
+      "tts",
+      "text to speech"
     ],
     "param.text.description": "טקסט לסינתזה לדיבור.",
     "param.output_path.description": "נתיב שבו יישמר קובץ השמע שנוצר.",
@@ -627,7 +691,9 @@
       "hang-",
       "hang",
       "beszéd",
-      "hang"
+      "hang",
+      "tts",
+      "text to speech"
     ],
     "param.text.description": "Beszédté szintetizálandó szöveg.",
     "param.output_path.description": "Útvonal, ahová a generált hangfájl mentésre kerül.",
@@ -649,7 +715,9 @@
       "audio",
       "voce",
       "vorbire",
-      "sunet"
+      "sunet",
+      "tts",
+      "text to speech"
     ],
     "param.text.description": "Text de sintetizat în vorbire.",
     "param.output_path.description": "Calea în care va fi salvat fișierul audio generat.",

@@ -18,7 +18,9 @@
       "calendar date",
       "weeks months",
       "days from date",
-      "holiday check"
+      "holiday check",
+      "date",
+      "calculate"
     ]
   },
   "ja": {
@@ -40,7 +42,9 @@
       "週と月",
       "日数計算",
       "祝日確認",
-      "日時演算"
+      "日時演算",
+      "date",
+      "calculate"
     ]
   },
   "es": {
@@ -62,7 +66,9 @@
       "semanas y meses",
       "días desde fecha",
       "comprobar festivos",
-      "matemática de fechas"
+      "matemática de fechas",
+      "date",
+      "calculate"
     ]
   },
   "fr": {
@@ -84,7 +90,9 @@
       "semaines et mois",
       "jours depuis la date",
       "vérifier les jours fériés",
-      "arithmétique des dates"
+      "arithmétique des dates",
+      "date",
+      "calculate"
     ]
   },
   "ko": {
@@ -106,7 +114,9 @@
       "주와 월",
       "기준일로부터 일수",
       "휴일 확인",
-      "날짜 연산"
+      "날짜 연산",
+      "date",
+      "calculate"
     ]
   },
   "de": {
@@ -128,7 +138,9 @@
       "wochen und monate",
       "tage seit datum",
       "feiertage prüfen",
-      "datumsarithmetik"
+      "datumsarithmetik",
+      "date",
+      "calculate"
     ]
   },
   "it": {
@@ -150,7 +162,9 @@
       "settimane e mesi",
       "giorni dalla data",
       "controlla festivi",
-      "aritmetica date"
+      "aritmetica date",
+      "date",
+      "calculate"
     ]
   },
   "ru": {
@@ -172,7 +186,9 @@
       "недели и месяцы",
       "дни от даты",
       "проверить праздники",
-      "арифметика дат"
+      "арифметика дат",
+      "date",
+      "calculate"
     ]
   },
   "pt_BR": {
@@ -194,7 +210,9 @@
       "semanas e meses",
       "dias a partir da data",
       "verificar feriados",
-      "matemática de datas"
+      "matemática de datas",
+      "date",
+      "calculate"
     ]
   },
   "pt": {
@@ -216,7 +234,9 @@
       "semanas e meses",
       "dias desde a data",
       "verificar feriados",
-      "matemática de datas"
+      "matemática de datas",
+      "date",
+      "calculate"
     ]
   },
   "id": {
@@ -238,7 +258,9 @@
       "minggu dan bulan",
       "hari sejak tanggal",
       "cek hari libur",
-      "matematika tanggal"
+      "matematika tanggal",
+      "date",
+      "calculate"
     ]
   },
   "vi": {
@@ -260,7 +282,9 @@
       "tuần và tháng",
       "số ngày từ ngày",
       "kiểm tra ngày lễ",
-      "toán ngày tháng"
+      "toán ngày tháng",
+      "date",
+      "calculate"
     ]
   },
   "pl": {
@@ -282,7 +306,9 @@
       "tygodnie i miesiące",
       "dni od daty",
       "sprawdź święta",
-      "arytmetyka dat"
+      "arytmetyka dat",
+      "date",
+      "calculate"
     ]
   },
   "hi": {
@@ -304,7 +330,9 @@
       "सप्ताह और महीने",
       "तिथि से दिन",
       "छुट्टी जाँच",
-      "तिथि गणित"
+      "तिथि गणित",
+      "date",
+      "calculate"
     ]
   },
   "ar": {
@@ -326,7 +354,9 @@
       "أسابيع وأشهر",
       "أيام من التاريخ",
       "التحقق من العطلات",
-      "حسابات التاريخ"
+      "حسابات التاريخ",
+      "date",
+      "calculate"
     ]
   },
   "sv": {
@@ -348,7 +378,9 @@
       "veckor och månader",
       "dagar från datum",
       "kontrollera helgdagar",
-      "datumaritmetik"
+      "datumaritmetik",
+      "date",
+      "calculate"
     ]
   },
   "sw": {
@@ -370,7 +402,9 @@
       "wiki na miezi",
       "siku kutoka tarehe",
       "kagua sikukuu",
-      "hesabu za tarehe"
+      "hesabu za tarehe",
+      "date",
+      "calculate"
     ]
   },
   "nb": {
@@ -392,7 +426,9 @@
       "uker og måneder",
       "dager fra dato",
       "sjekk helligdager",
-      "datoaritmetikk"
+      "datoaritmetikk",
+      "date",
+      "calculate"
     ]
   },
   "nl": {
@@ -414,7 +450,9 @@
       "weken en maanden",
       "dagen sinds datum",
       "controleer feestdagen",
-      "datumrekenen"
+      "datumrekenen",
+      "date",
+      "calculate"
     ]
   },
   "fi": {
@@ -436,7 +474,9 @@
       "viikot ja kuukaudet",
       "päiviä päivämäärästä",
       "tarkista pyhäpäivät",
-      "päivämääräaritmetiikka"
+      "päivämääräaritmetiikka",
+      "date",
+      "calculate"
     ]
   },
   "cs": {
@@ -458,7 +498,9 @@
       "týdny a měsíce",
       "dny od data",
       "zkontrolovat svátky",
-      "aritmetika dat"
+      "aritmetika dat",
+      "date",
+      "calculate"
     ]
   },
   "uk": {
@@ -480,7 +522,9 @@
       "тижні та місяці",
       "дні від дати",
       "перевірити свята",
-      "арифметика дат"
+      "арифметика дат",
+      "date",
+      "calculate"
     ]
   },
   "tr": {
@@ -502,7 +546,9 @@
       "haftalar ve aylar",
       "tarihten itibaren günler",
       "tatilleri kontrol et",
-      "tarih aritmetiği"
+      "tarih aritmetiği",
+      "date",
+      "calculate"
     ]
   },
   "th": {
@@ -524,7 +570,9 @@
       "สัปดาห์และเดือน",
       "จำนวนวันจากวันที่",
       "ตรวจวันหยุด",
-      "คณิตศาสตร์วันที่"
+      "คณิตศาสตร์วันที่",
+      "date",
+      "calculate"
     ]
   },
   "zh_CN": {
@@ -546,7 +594,9 @@
       "周和月",
       "从日期起的天数",
       "检查节假日",
-      "日期运算"
+      "日期运算",
+      "date",
+      "calculate"
     ]
   },
   "zh_TW": {
@@ -568,7 +618,9 @@
       "週與月",
       "距日期天數",
       "檢查假日",
-      "日期運算"
+      "日期運算",
+      "date",
+      "calculate"
     ]
   },
   "bn": {
@@ -590,7 +642,9 @@
       "সপ্তাহ ও মাস",
       "তারিখ থেকে দিন",
       "ছুটি পরীক্ষা",
-      "তারিখ গাণিতিক"
+      "তারিখ গাণিতিক",
+      "date",
+      "calculate"
     ]
   },
   "fa": {
@@ -612,7 +666,9 @@
       "هفته‌ها و ماه‌ها",
       "روزها از تاریخ",
       "بررسی تعطیلات",
-      "حساب تاریخ"
+      "حساب تاریخ",
+      "date",
+      "calculate"
     ]
   },
   "mn": {
@@ -634,7 +690,9 @@
       "долоо хоног ба сар",
       "огнооноос хойших хоног",
       "баяр шалгах",
-      "огнооны арифметик"
+      "огнооны арифметик",
+      "date",
+      "calculate"
     ]
   },
   "mr": {
@@ -656,7 +714,9 @@
       "आठवडे आणि महिने",
       "तारखेपासून दिवस",
       "सुट्टी तपासा",
-      "तारीख गणित"
+      "तारीख गणित",
+      "date",
+      "calculate"
     ]
   },
   "el": {
@@ -678,7 +738,9 @@
       "ημερολογιακή ημερομηνία",
       "εβδομάδες μήνες",
       "ημέρες από την ημερομηνία",
-      "έλεγχος διακοπών"
+      "έλεγχος διακοπών",
+      "date",
+      "calculate"
     ]
   },
   "he": {
@@ -700,7 +762,9 @@
       "תאריך לוח שנה",
       "שבועות חודשים",
       "ימים מהתאריך",
-      "צ'ק חג"
+      "צ'ק חג",
+      "date",
+      "calculate"
     ]
   },
   "hu": {
@@ -722,7 +786,9 @@
       "naptári dátum",
       "hetek hónapok",
       "naptól számítva",
-      "üdülési csekket"
+      "üdülési csekket",
+      "date",
+      "calculate"
     ]
   },
   "ro": {
@@ -744,7 +810,9 @@
       "data calendaristică",
       "săptămâni luni",
       "zile de la data",
-      "cec de vacanță"
+      "cec de vacanță",
+      "date",
+      "calculate"
     ]
   }
 }

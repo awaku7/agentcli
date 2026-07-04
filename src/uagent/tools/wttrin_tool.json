@@ -13,7 +13,12 @@
     "output.forecast_header": "\n--- Forecast ---",
     "output.forecast_row": "- **{date}**: {min}°C / {max}°C ({desc})",
     "err.fetch": "Error fetching weather data: {err}",
-    "err.processing": "Error processing data: {err}"
+    "err.processing": "Error processing data: {err}",
+    "x_search_terms": [
+      "weather",
+      "forecast",
+      "temperature"
+    ]
   },
   "ja": {
     "tool.description": "wttr.in から天気情報を取得します。都市名または GPS 座標に対応しています。",
@@ -29,7 +34,15 @@
     "output.forecast_header": "\n--- 予報 ---",
     "output.forecast_row": "- **{date}**: {min}°C / {max}°C（{desc}）",
     "err.fetch": "天気データの取得エラー：{err}",
-    "err.processing": "データ処理エラー：{err}"
+    "err.processing": "データ処理エラー：{err}",
+    "x_search_terms": [
+      "天気",
+      "予測",
+      "温度",
+      "weather",
+      "forecast",
+      "temperature"
+    ]
   },
   "es": {
     "tool.description": "Obtenga información meteorológica de wttr.in. Admite nombre de ciudad o coordenadas GPS.",
@@ -45,7 +58,15 @@
     "output.forecast_header": "\n--- Pronóstico ---",
     "output.forecast_row": "- **{date}**: {min}°C / {max}°C ({desc})",
     "err.fetch": "Error al obtener datos meteorológicos: {err}",
-    "err.processing": "Error al procesar datos: {err}"
+    "err.processing": "Error al procesar datos: {err}",
+    "x_search_terms": [
+      "clima",
+      "pronóstico",
+      "temperatura",
+      "weather",
+      "forecast",
+      "temperature"
+    ]
   },
   "fr": {
     "tool.description": "Obtenez des informations météorologiques sur wttr.in. Prend en charge le nom de la ville ou les coordonnées GPS.",
@@ -61,7 +82,15 @@
     "output.forecast_header": "\n--- Prévisions ---",
     "output.forecast_row": "- **{date}** : {min}°C / {max}°C ({desc})",
     "err.fetch": "Erreur lors de la récupération des données météorologiques : {err}",
-    "err.processing": "Erreur de traitement des données : {err}"
+    "err.processing": "Erreur de traitement des données : {err}",
+    "x_search_terms": [
+      "météo",
+      "prévision",
+      "température",
+      "weather",
+      "forecast",
+      "temperature"
+    ]
   },
   "ko": {
     "tool.description": "wttr.in에서 날씨 정보를 받으세요. 도시 이름이나 GPS 좌표를 지원합니다.",
@@ -77,7 +106,15 @@
     "output.forecast_header": "\n--- 예측 ---",
     "output.forecast_row": "- **{date}**: {min}°C / {max}°C({desc})",
     "err.fetch": "날씨 데이터를 가져오는 중 오류 발생: {err}",
-    "err.processing": "데이터 처리 오류: {err}"
+    "err.processing": "데이터 처리 오류: {err}",
+    "x_search_terms": [
+      "날씨",
+      "예측",
+      "온도",
+      "weather",
+      "forecast",
+      "temperature"
+    ]
   },
   "de": {
     "tool.description": "Erhalten Sie Wetterinformationen von wttr.in. Unterstützt Städtenamen oder GPS-Koordinaten.",
@@ -93,7 +130,15 @@
     "output.forecast_header": "\n--- Prognose ---",
     "output.forecast_row": "- **{date}**: {min}°C / {max}°C ({desc})",
     "err.fetch": "Fehler beim Abrufen der Wetterdaten: {err}",
-    "err.processing": "Fehler bei der Datenverarbeitung: {err}"
+    "err.processing": "Fehler bei der Datenverarbeitung: {err}",
+    "x_search_terms": [
+      "Wetter",
+      "Prognose",
+      "Temperatur",
+      "weather",
+      "forecast",
+      "temperature"
+    ]
   },
   "it": {
     "tool.description": "Ottieni informazioni meteo da wttr.in. Supporta il nome della città o le coordinate GPS.",
@@ -109,7 +154,15 @@
     "output.forecast_header": "\n--- Previsioni ---",
     "output.forecast_row": "- **{date}**: {min}°C / {max}°C ({desc})",
     "err.fetch": "Errore durante il recupero dei dati meteo: {err}",
-    "err.processing": "Errore durante l'elaborazione dei dati: {err}"
+    "err.processing": "Errore durante l'elaborazione dei dati: {err}",
+    "x_search_terms": [
+      "tempo",
+      "previsione",
+      "temperatura",
+      "weather",
+      "forecast",
+      "temperature"
+    ]
   },
   "ru": {
     "tool.description": "Получите информацию о погоде на сайте wttr.in. Поддерживает название города или координаты GPS.",
@@ -125,7 +178,15 @@
     "output.forecast_header": "\n--- Прогноз ---",
     "output.forecast_row": "- **{date}**: {min}°C / {max}°C ({desc})",
     "err.fetch": "Ошибка получения данных о погоде: {err}",
-    "err.processing": "Ошибка обработки данных: {err}"
+    "err.processing": "Ошибка обработки данных: {err}",
+    "x_search_terms": [
+      "погода",
+      "прогноз",
+      "температура",
+      "weather",
+      "forecast",
+      "temperature"
+    ]
   },
   "pt": {
     "tool.description": "Obtenha informações meteorológicas em wttr.in. Suporta nome da cidade ou coordenadas GPS.",
@@ -141,7 +202,15 @@
     "output.forecast_header": "\n--- Previsão ---",
     "output.forecast_row": "- **{date}**: {min}°C / {max}°C ({desc})",
     "err.fetch": "Erro ao buscar dados meteorológicos: {err}",
-    "err.processing": "Erro ao processar dados: {err}"
+    "err.processing": "Erro ao processar dados: {err}",
+    "x_search_terms": [
+      "clima",
+      "previsão",
+      "temperatura",
+      "weather",
+      "forecast",
+      "temperature"
+    ]
   },
   "pt_BR": {
     "tool.description": "Obtenha informações meteorológicas em wttr.in. Suporta nome da cidade ou coordenadas GPS.",
@@ -157,7 +226,15 @@
     "output.forecast_header": "\n--- Previsão ---",
     "output.forecast_row": "- **{date}**: {min}°C / {max}°C ({desc})",
     "err.fetch": "Erro ao buscar dados meteorológicos: {err}",
-    "err.processing": "Erro ao processar dados: {err}"
+    "err.processing": "Erro ao processar dados: {err}",
+    "x_search_terms": [
+      "clima",
+      "previsão",
+      "temperatura",
+      "weather",
+      "forecast",
+      "temperature"
+    ]
   },
   "id": {
     "tool.description": "Dapatkan informasi cuaca dari wttr.in. Mendukung nama kota atau koordinat GPS.",
@@ -173,7 +250,15 @@
     "output.forecast_header": "\n--- Prakiraan ---",
     "output.forecast_row": "- **{date}**: {min}°C / {max}°C ({desc})",
     "err.fetch": "Terjadi kesalahan saat mengambil data cuaca: {err}",
-    "err.processing": "Kesalahan saat memproses data: {err}"
+    "err.processing": "Kesalahan saat memproses data: {err}",
+    "x_search_terms": [
+      "cuaca",
+      "perkiraan",
+      "suhu",
+      "weather",
+      "forecast",
+      "temperature"
+    ]
   },
   "vi": {
     "tool.description": "Nhận thông tin thời tiết từ wttr.in. Hỗ trợ tên thành phố hoặc tọa độ GPS.",
@@ -189,7 +274,15 @@
     "output.forecast_header": "\n--- Dự báo ---",
     "output.forecast_row": "- **{date}**: {min}°C / {max}°C ({desc})",
     "err.fetch": "Lỗi tìm nạp dữ liệu thời tiết: {err}",
-    "err.processing": "Lỗi xử lý dữ liệu: {err}"
+    "err.processing": "Lỗi xử lý dữ liệu: {err}",
+    "x_search_terms": [
+      "thời tiết",
+      "dự báo",
+      "nhiệt độ",
+      "weather",
+      "forecast",
+      "temperature"
+    ]
   },
   "pl": {
     "tool.description": "Uzyskaj informacje o pogodzie z wttr.in. Obsługuje nazwę miasta lub współrzędne GPS.",
@@ -205,7 +298,15 @@
     "output.forecast_header": "\n--- Prognoza ---",
     "output.forecast_row": "- **{date}**: {min}°C / {max}°C ({desc})",
     "err.fetch": "Błąd podczas pobierania danych o pogodzie: {err}",
-    "err.processing": "Błąd przetwarzania danych: {err}"
+    "err.processing": "Błąd przetwarzania danych: {err}",
+    "x_search_terms": [
+      "pogoda",
+      "prognoza",
+      "temperatura",
+      "weather",
+      "forecast",
+      "temperature"
+    ]
   },
   "hi": {
     "tool.description": "मौसम की जानकारी wttr.in से प्राप्त करें। शहर के नाम या जीपीएस निर्देशांक का समर्थन करता है।",
@@ -221,7 +322,15 @@
     "output.forecast_header": "\n--- पूर्वानुमान ---",
     "output.forecast_row": "- **{date}**: {min}°C / {max}°C ({desc})",
     "err.fetch": "मौसम डेटा लाने में त्रुटि: {err}",
-    "err.processing": "डेटा संसाधित करने में त्रुटि: {err}"
+    "err.processing": "डेटा संसाधित करने में त्रुटि: {err}",
+    "x_search_terms": [
+      "मौसम",
+      "पूर्वानुमान",
+      "तापमान",
+      "weather",
+      "forecast",
+      "temperature"
+    ]
   },
   "ar": {
     "tool.description": "احصل على معلومات الطقس من wttr.in. يدعم اسم المدينة أو إحداثيات GPS.",
@@ -237,7 +346,15 @@
     "output.forecast_header": "\n---التوقعات ---",
     "output.forecast_row": "- **{date}**: {min} درجة مئوية / {max} درجة مئوية ({desc})",
     "err.fetch": "حدث خطأ أثناء جلب بيانات الطقس: {err}",
-    "err.processing": "خطأ في معالجة البيانات: {err}"
+    "err.processing": "خطأ في معالجة البيانات: {err}",
+    "x_search_terms": [
+      "الطقس",
+      "توقعات",
+      "درجة الحرارة",
+      "weather",
+      "forecast",
+      "temperature"
+    ]
   },
   "sv": {
     "tool.description": "Få väderinformation från wttr.in. Stöder stadsnamn eller GPS-koordinater.",
@@ -253,7 +370,15 @@
     "output.forecast_header": "\n--- Prognos ---",
     "output.forecast_row": "- **{date}**: {min}°C / {max}°C ({desc})",
     "err.fetch": "Fel vid hämtning av väderdata: {err}",
-    "err.processing": "Fel vid behandling av data: {err}"
+    "err.processing": "Fel vid behandling av data: {err}",
+    "x_search_terms": [
+      "väder",
+      "prognos",
+      "temperatur",
+      "weather",
+      "forecast",
+      "temperature"
+    ]
   },
   "sw": {
     "tool.description": "Pata maelezo ya hali ya hewa kutoka kwa wttr.in. Inaauni jina la jiji au viwianishi vya GPS.",
@@ -269,7 +394,15 @@
     "output.forecast_header": "\n--- Utabiri ---",
     "output.forecast_row": "- **{date}**: {min}°C / {max}°C ({desc})",
     "err.fetch": "Hitilafu katika kuleta data ya hali ya hewa: {err}",
-    "err.processing": "Hitilafu katika kuchakata data: {err}"
+    "err.processing": "Hitilafu katika kuchakata data: {err}",
+    "x_search_terms": [
+      "hali ya hewa",
+      "utabiri",
+      "joto",
+      "weather",
+      "forecast",
+      "temperature"
+    ]
   },
   "nb": {
     "tool.description": "Få værinformasjon fra wttr.in. Støtter bynavn eller GPS-koordinater.",
@@ -285,7 +418,15 @@
     "output.forecast_header": "\n--- Værmelding ---",
     "output.forecast_row": "- **{date}**: {min}°C / {max}°C ({desc})",
     "err.fetch": "Feil under henting av værdata: {err}",
-    "err.processing": "Feil ved behandling av data: {err}"
+    "err.processing": "Feil ved behandling av data: {err}",
+    "x_search_terms": [
+      "vær",
+      "prognose",
+      "temperatur",
+      "weather",
+      "forecast",
+      "temperature"
+    ]
   },
   "nl": {
     "tool.description": "Ontvang weersinformatie van wttr.in. Ondersteunt stadsnaam of GPS-coördinaten.",
@@ -301,7 +442,15 @@
     "output.forecast_header": "\n--- Voorspelling ---",
     "output.forecast_row": "- **{date}**: {min}°C / {max}°C ({desc})",
     "err.fetch": "Fout bij ophalen van weergegevens: {err}",
-    "err.processing": "Fout bij het verwerken van gegevens: {err}"
+    "err.processing": "Fout bij het verwerken van gegevens: {err}",
+    "x_search_terms": [
+      "weer",
+      "voorspelling",
+      "temperatuur",
+      "weather",
+      "forecast",
+      "temperature"
+    ]
   },
   "fi": {
     "tool.description": "Hanki säätiedot osoitteesta wttr.in. Tukee kaupungin nimeä tai GPS-koordinaatteja.",
@@ -317,7 +466,15 @@
     "output.forecast_header": "\n--- Ennuste ---",
     "output.forecast_row": "- **{date}**: {min} °C / {max} °C ({desc})",
     "err.fetch": "Virhe säätietojen noutamisessa: {err}",
-    "err.processing": "Virhe tietojen käsittelyssä: {err}"
+    "err.processing": "Virhe tietojen käsittelyssä: {err}",
+    "x_search_terms": [
+      "sää",
+      "ennuste",
+      "lämpötila",
+      "weather",
+      "forecast",
+      "temperature"
+    ]
   },
   "cs": {
     "tool.description": "Získejte informace o počasí z wttr.in. Podporuje název města nebo GPS souřadnice.",
@@ -333,7 +490,15 @@
     "output.forecast_header": "\n--- Předpověď ---",
     "output.forecast_row": "- **{date}**: {min}°C / {max}°C ({desc})",
     "err.fetch": "Chyba při načítání dat o počasí: {err}",
-    "err.processing": "Chyba při zpracování dat: {err}"
+    "err.processing": "Chyba při zpracování dat: {err}",
+    "x_search_terms": [
+      "počasí",
+      "předpověď",
+      "teplota",
+      "weather",
+      "forecast",
+      "temperature"
+    ]
   },
   "uk": {
     "tool.description": "Отримуйте інформацію про погоду з wttr.in. Підтримує назву міста або GPS-координати.",
@@ -349,7 +514,15 @@
     "output.forecast_header": "\n--- Прогноз ---",
     "output.forecast_row": "- **{date}**: {min}°C / {max}°C ({desc})",
     "err.fetch": "Помилка отримання даних про погоду: {err}",
-    "err.processing": "Помилка обробки даних: {err}"
+    "err.processing": "Помилка обробки даних: {err}",
+    "x_search_terms": [
+      "погода",
+      "прогноз",
+      "температура",
+      "weather",
+      "forecast",
+      "temperature"
+    ]
   },
   "tr": {
     "tool.description": "Wttr.in adresinden hava durumu bilgilerini alın. Şehir adını veya GPS koordinatlarını destekler.",
@@ -365,7 +538,15 @@
     "output.forecast_header": "\n--- Tahmin ---",
     "output.forecast_row": "- **{date}**: {min}°C / {max}°C ({desc})",
     "err.fetch": "Hava durumu verileri alınırken hata oluştu: {err}",
-    "err.processing": "Veriler işlenirken hata oluştu: {err}"
+    "err.processing": "Veriler işlenirken hata oluştu: {err}",
+    "x_search_terms": [
+      "hava durumu",
+      "tahmin",
+      "sıcaklık",
+      "weather",
+      "forecast",
+      "temperature"
+    ]
   },
   "th": {
     "tool.description": "รับข้อมูลสภาพอากาศจาก wttr.in รองรับชื่อเมืองหรือพิกัด GPS",
@@ -381,7 +562,15 @@
     "output.forecast_header": "\n--- พยากรณ์ ---",
     "output.forecast_row": "- **{date}**: {min}°C / {max}°C ({desc})",
     "err.fetch": "เกิดข้อผิดพลาดในการดึงข้อมูลสภาพอากาศ: {err}",
-    "err.processing": "เกิดข้อผิดพลาดในการประมวลผลข้อมูล: {err}"
+    "err.processing": "เกิดข้อผิดพลาดในการประมวลผลข้อมูล: {err}",
+    "x_search_terms": [
+      "สภาพอากาศ",
+      "พยากรณ์",
+      "อุณหภูมิ",
+      "weather",
+      "forecast",
+      "temperature"
+    ]
   },
   "zh_CN": {
     "tool.description": "从 wttr.in 获取天气信息。支持城市名称或GPS坐标。",
@@ -397,7 +586,15 @@
     "output.forecast_header": "\n--- 预测 ---",
     "output.forecast_row": "- **{date}**：{min}°C / {max}°C ({desc})",
     "err.fetch": "获取天气数据时出错：{err}",
-    "err.processing": "处理数据时出错：{err}"
+    "err.processing": "处理数据时出错：{err}",
+    "x_search_terms": [
+      "天气",
+      "预测",
+      "温度",
+      "weather",
+      "forecast",
+      "temperature"
+    ]
   },
   "zh_TW": {
     "tool.description": "從 wttr.in 取得天氣資訊。支援城市名稱或GPS座標。",
@@ -413,7 +610,15 @@
     "output.forecast_header": "\n--- 預測 ---",
     "output.forecast_row": "- **{date}**：{min}°C / {max}°C ({desc})",
     "err.fetch": "取得天氣資料時發生錯誤：{err}",
-    "err.processing": "處理資料時發生錯誤：{err}"
+    "err.processing": "處理資料時發生錯誤：{err}",
+    "x_search_terms": [
+      "天氣",
+      "預測",
+      "溫度",
+      "weather",
+      "forecast",
+      "temperature"
+    ]
   },
   "bn": {
     "tool.description": "wttr.in থেকে আবহাওয়ার তথ্য পান। শহরের নাম বা জিপিএস স্থানাঙ্ক সমর্থন করে।",
@@ -429,7 +634,15 @@
     "output.forecast_header": "\n--- পূর্বাভাস ---",
     "output.forecast_row": "- **{date}**: {min}°C / {max}°C ({desc})",
     "err.fetch": "আবহাওয়ার ডেটা আনার সময় ত্রুটি: {err}",
-    "err.processing": "ডেটা প্রক্রিয়াকরণে ত্রুটি: {err}"
+    "err.processing": "ডেটা প্রক্রিয়াকরণে ত্রুটি: {err}",
+    "x_search_terms": [
+      "আবহাওয়া",
+      "পূর্বাভাস",
+      "তাপমাত্রা",
+      "weather",
+      "forecast",
+      "temperature"
+    ]
   },
   "fa": {
     "tool.description": "اطلاعات آب و هوا را از wttr.in دریافت کنید. پشتیبانی از نام شهر یا مختصات GPS.",
@@ -445,7 +658,15 @@
     "output.forecast_header": "\n --- پیش بینی ---",
     "output.forecast_row": "- **{date}**: {min} درجه سانتی گراد / {max} درجه سانتی گراد ({desc})",
     "err.fetch": "خطا در واکشی اطلاعات آب و هوا: {err}",
-    "err.processing": "خطا در پردازش داده ها: {err}"
+    "err.processing": "خطا در پردازش داده ها: {err}",
+    "x_search_terms": [
+      "آب و هوا",
+      "پیش بینی",
+      "دما",
+      "weather",
+      "forecast",
+      "temperature"
+    ]
   },
   "mn": {
     "tool.description": "Цаг агаарын мэдээллийг wttr.in сайтаас аваарай. Хотын нэр эсвэл GPS координатыг дэмждэг.",
@@ -461,7 +682,15 @@
     "output.forecast_header": "\n--- Урьдчилан таамаглах ---",
     "output.forecast_row": "- **{date}**: {min}°C / {max}°C ({desc})",
     "err.fetch": "Цаг агаарын мэдээллийг татахад алдаа гарлаа: {err}",
-    "err.processing": "Өгөгдлийг боловсруулахад алдаа гарлаа: {err}"
+    "err.processing": "Өгөгдлийг боловсруулахад алдаа гарлаа: {err}",
+    "x_search_terms": [
+      "цаг агаар",
+      "урьдчилсан мэдээ",
+      "температур",
+      "weather",
+      "forecast",
+      "temperature"
+    ]
   },
   "mr": {
     "tool.description": "wttr.in वरून हवामानाची माहिती मिळवा. शहराचे नाव किंवा GPS समन्वयांना समर्थन देते.",
@@ -477,7 +706,15 @@
     "output.forecast_header": "\n--- अंदाज ---",
     "output.forecast_row": "- **{date}**: {min}°C / {max}°C ({desc})",
     "err.fetch": "हवामान डेटा आणण्यात त्रुटी: {err}",
-    "err.processing": "डेटावर प्रक्रिया करताना त्रुटी: {err}"
+    "err.processing": "डेटावर प्रक्रिया करताना त्रुटी: {err}",
+    "x_search_terms": [
+      "हवामान",
+      "अंदाज",
+      "तापमान",
+      "weather",
+      "forecast",
+      "temperature"
+    ]
   },
   "el": {
     "tool.description": "Λάβετε πληροφορίες για τον καιρό από το wttr.in. Υποστηρίζει όνομα πόλης ή συντεταγμένες GPS.",
@@ -493,7 +730,15 @@
     "output.forecast_header": "\n--- Πρόβλεψη ---",
     "output.forecast_row": "- **{date}**: {min}°C / {max}°C ({desc})",
     "err.fetch": "Σφάλμα κατά την ανάκτηση δεδομένων καιρού: {err}",
-    "err.processing": "Σφάλμα επεξεργασίας δεδομένων: {err}"
+    "err.processing": "Σφάλμα επεξεργασίας δεδομένων: {err}",
+    "x_search_terms": [
+      "καιρός",
+      "πρόβλεψη",
+      "θερμοκρασία",
+      "weather",
+      "forecast",
+      "temperature"
+    ]
   },
   "he": {
     "tool.description": "קבל מידע על מזג האוויר מ-wttr.in. תומך בשם עיר או קואורדינטות GPS.",
@@ -509,7 +754,15 @@
     "output.forecast_header": "\n--- תחזית ---",
     "output.forecast_row": "- **{date}**: {min}°C / {max}°C ({desc})",
     "err.fetch": "שגיאה באחזור נתוני מזג האוויר: {err}",
-    "err.processing": "שגיאה בעיבוד נתונים: {err}"
+    "err.processing": "שגיאה בעיבוד נתונים: {err}",
+    "x_search_terms": [
+      "מזג האוויר",
+      "תחזית",
+      "טמפרטורה",
+      "weather",
+      "forecast",
+      "temperature"
+    ]
   },
   "hu": {
     "tool.description": "Szerezzen időjárási információkat a wttr.in webhelyről. Támogatja a város nevét vagy a GPS koordinátákat.",
@@ -525,7 +778,15 @@
     "output.forecast_header": "\n--- Előrejelzés ---",
     "output.forecast_row": "- **{date}**: {min} °C / {max} °C ({desc})",
     "err.fetch": "Hiba az időjárási adatok lekérésekor: {err}",
-    "err.processing": "Hiba az adatok feldolgozásakor: {err}"
+    "err.processing": "Hiba az adatok feldolgozásakor: {err}",
+    "x_search_terms": [
+      "időjárás",
+      "előrejelzés",
+      "hőmérséklet",
+      "weather",
+      "forecast",
+      "temperature"
+    ]
   },
   "ro": {
     "tool.description": "Obțineți informații despre vreme de la wttr.in. Acceptă numele orașului sau coordonatele GPS.",
@@ -541,6 +802,14 @@
     "output.forecast_header": "\n--- Prognoza ---",
     "output.forecast_row": "- **{date}**: {min}°C / {max}°C ({desc})",
     "err.fetch": "Eroare la preluarea datelor meteo: {err}",
-    "err.processing": "Eroare la procesarea datelor: {err}"
+    "err.processing": "Eroare la procesarea datelor: {err}",
+    "x_search_terms": [
+      "vremea",
+      "prognoza",
+      "temperatura",
+      "weather",
+      "forecast",
+      "temperature"
+    ]
   }
 }

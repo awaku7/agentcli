@@ -1,7 +1,12 @@
 {
   "ar": {
     "tool.description": "نشر أو الرد على Bluesky الاجتماعي.",
-    "x_search_terms": "[\"bluesky\", \"bsky\", \"اجتماعي\", \"sns\", \"نشر\", \"سلسلة\"]",
+    "x_search_terms": [
+      "bluesky",
+      "at protocol",
+      "social",
+      "post"
+    ],
     "param.reply_to.description": "URI المنشور للرد عليه (اختياري).",
     "param.images.description": "قائمة تصل إلى 4 صور (كل صورة كـ {\"alt\": \"...\", \"data\": \"base64...\"}).",
     "err.no_api_base": "عنوان URL الأساسي لـ API Bluesky غير مهيأ.",
@@ -15,7 +20,12 @@
   },
   "bn": {
     "tool.description": "Bluesky সোশ্যালে পোস্ট বা উত্তর দিন।",
-    "x_search_terms": "[\"bluesky\", \"bsky\", \"সামাজিক\", \"sns\", \"পোস্ট\", \"থ্রেড\"]",
+    "x_search_terms": [
+      "bluesky",
+      "at protocol",
+      "social",
+      "post"
+    ],
     "param.reply_to.description": "যে পোস্টে উত্তর দিতে হবে তার URI (ঐচ্ছিক)।",
     "param.images.description": "সর্বোচ্চ 4টি ছবির তালিকা (প্রতিটি {\"alt\": \"...\", \"data\": \"base64...\"} হিসাবে)।",
     "err.no_api_base": "Bluesky API বেস URL কনফিগার করা নেই।",
@@ -29,7 +39,12 @@
   },
   "cs": {
     "tool.description": "Odeslat nebo odpovědět na Bluesky social.",
-    "x_search_terms": "[\"bluesky\", \"bsky\", \"sociální\", \"sns\", \"příspěvek\", \"vlákno\"]",
+    "x_search_terms": [
+      "bluesky",
+      "at protocol",
+      "social",
+      "post"
+    ],
     "param.reply_to.description": "URI příspěvku, na který odpovědět (volitelné).",
     "param.images.description": "Seznam až 4 obrázků (každý jako {\"alt\": \"...\", \"data\": \"base64...\"}).",
     "err.no_api_base": "Základní URL API Bluesky není nakonfigurována.",
@@ -43,7 +58,12 @@
   },
   "de": {
     "tool.description": "Auf Bluesky social posten oder antworten.",
-    "x_search_terms": "[\"bluesky\", \"bsky\", \"social\", \"sns\", \"posten\", \"thread\"]",
+    "x_search_terms": [
+      "bluesky",
+      "at protocol",
+      "social",
+      "post"
+    ],
     "param.reply_to.description": "URI des Beitrags, auf den geantwortet werden soll (optional).",
     "param.images.description": "Liste von bis zu 4 Bildern (jeweils als {\"alt\": \"...\", \"data\": \"base64...\"}).",
     "err.no_api_base": "Bluesky API-Basis-URL ist nicht konfiguriert.",
@@ -68,11 +88,22 @@
     "param.limit.description": "Max results.",
     "log.opened_app": "[INFO] Opened image with default app.",
     "param.img.description": "Local path to an image file to attach. Supported: JPEG, PNG. Max 1 MB. Used by 'post'.",
-    "param.text.description": "Post content (plain text, max 300 chars). Required for 'post'."
+    "param.text.description": "Post content (plain text, max 300 chars). Required for 'post'.",
+    "x_search_terms": [
+      "bluesky",
+      "at protocol",
+      "social",
+      "post"
+    ]
   },
   "es": {
     "tool.description": "Publicar o responder en Bluesky social.",
-    "x_search_terms": "[\"bluesky\", \"bsky\", \"social\", \"sns\", \"publicar\", \"hilo\"]",
+    "x_search_terms": [
+      "bluesky",
+      "at protocol",
+      "social",
+      "post"
+    ],
     "param.reply_to.description": "URI de la publicación a la que responder (opcional).",
     "param.images.description": "Lista de hasta 4 imágenes (cada una como {\"alt\": \"...\", \"data\": \"base64...\"}).",
     "err.no_api_base": "La URL base de la API de Bluesky no está configurada.",
@@ -86,7 +117,12 @@
   },
   "fa": {
     "tool.description": "ارسال یا پاسخ در Bluesky اجتماعی.",
-    "x_search_terms": "[\"bluesky\", \"bsky\", \"اجتماعی\", \"sns\", \"ارسال\", \"رشته\"]",
+    "x_search_terms": [
+      "bluesky",
+      "at protocol",
+      "social",
+      "post"
+    ],
     "param.reply_to.description": "URI پستی که به آن پاسخ داده شود (اختیاری).",
     "param.images.description": "لیست حداکثر 4 تصویر (هر یک به صورت {\"alt\": \"...\", \"data\": \"base64...\"}).",
     "err.no_api_base": "URL پایه API Bluesky پیکربندی نشده است.",
@@ -100,7 +136,12 @@
   },
   "fi": {
     "tool.description": "Lähetä tai vastaa Bluesky-sosiaalisessa.",
-    "x_search_terms": "[\"bluesky\", \"bsky\", \"sosiaalinen\", \"sns\", \"viesti\", \"ketju\"]",
+    "x_search_terms": [
+      "bluesky",
+      "at protocol",
+      "social",
+      "post"
+    ],
     "param.reply_to.description": "Viestin URI, johon vastataan (valinnainen).",
     "param.images.description": "Luettelo enintään 4 kuvasta (jokainen muodossa {\"alt\": \"...\", \"data\": \"base64...\"}).",
     "err.no_api_base": "Bluesky API -perus-URL:ää ei ole määritetty.",
@@ -114,7 +155,12 @@
   },
   "fr": {
     "tool.description": "Publier ou répondre sur Bluesky social.",
-    "x_search_terms": "[\"bluesky\", \"bsky\", \"social\", \"sns\", \"publier\", \"fil\"]",
+    "x_search_terms": [
+      "bluesky",
+      "at protocol",
+      "social",
+      "post"
+    ],
     "param.reply_to.description": "URI du message auquel répondre (optionnel).",
     "param.images.description": "Liste de jusqu'à 4 images (chacune comme {\"alt\": \"...\", \"data\": \"base64...\"}).",
     "err.no_api_base": "L'URL de base de l'API Bluesky n'est pas configurée.",
@@ -128,7 +174,12 @@
   },
   "hi": {
     "tool.description": "Bluesky सोशल पर पोस्ट करें या उत्तर दें।",
-    "x_search_terms": "[\"bluesky\", \"bsky\", \"सामाजिक\", \"sns\", \"पोस्ट\", \"थ्रेड\"]",
+    "x_search_terms": [
+      "bluesky",
+      "at protocol",
+      "social",
+      "post"
+    ],
     "param.reply_to.description": "उत्तर देने के लिए पोस्ट का URI (वैकल्पिक)।",
     "param.images.description": "अधिकतम 4 छवियों की सूची (प्रत्येक {\"alt\": \"...\", \"data\": \"base64...\"} के रूप में)।",
     "err.no_api_base": "Bluesky API आधार URL कॉन्फ़िगर नहीं है।",
@@ -142,7 +193,12 @@
   },
   "id": {
     "tool.description": "Posting atau membalas di Bluesky sosial.",
-    "x_search_terms": "[\"bluesky\", \"bsky\", \"sosial\", \"sns\", \"post\", \"utas\"]",
+    "x_search_terms": [
+      "bluesky",
+      "at protocol",
+      "social",
+      "post"
+    ],
     "param.reply_to.description": "URI posting yang akan dibalas (opsional).",
     "param.images.description": "Daftar hingga 4 gambar (masing-masing sebagai {\"alt\": \"...\", \"data\": \"base64...\"}).",
     "err.no_api_base": "URL dasar API Bluesky tidak dikonfigurasi.",
@@ -156,7 +212,12 @@
   },
   "it": {
     "tool.description": "Pubblica o rispondi su Bluesky social.",
-    "x_search_terms": "[\"bluesky\", \"bsky\", \"social\", \"sns\", \"pubblica\", \"thread\"]",
+    "x_search_terms": [
+      "bluesky",
+      "at protocol",
+      "social",
+      "post"
+    ],
     "param.reply_to.description": "URI del post a cui rispondere (opzionale).",
     "param.images.description": "Elenco di fino a 4 immagini (ciascuna come {\"alt\": \"...\", \"data\": \"base64...\"}).",
     "err.no_api_base": "L'URL base dell'API Bluesky non è configurata.",
@@ -170,7 +231,12 @@
   },
   "ja": {
     "tool.description": "Bluesky (AT プロトコル) と対話します: 投稿/検索/タイムライン/スレッド/いいね/通知。",
-    "x_search_terms": "[\"bluesky\", \"bsky\", \"social\", \"sns\", \"post\", \"thread\"]",
+    "x_search_terms": [
+      "bluesky",
+      "at protocol",
+      "social",
+      "post"
+    ],
     "param.reply_to.description": "返信先の投稿のURI（オプション）。",
     "param.images.description": "最大4枚の画像のリスト（各画像は{\"alt\": \"...\", \"data\": \"base64...\"}）。",
     "err.no_api_base": "Bluesky APIベースURLが設定されていません。",
@@ -196,7 +262,12 @@
   },
   "ko": {
     "tool.description": "Bluesky 소셜에 게시하거나 답글을 답니다.",
-    "x_search_terms": "[\"bluesky\", \"bsky\", \"social\", \"sns\", \"게시\", \"스레드\"]",
+    "x_search_terms": [
+      "bluesky",
+      "at protocol",
+      "social",
+      "post"
+    ],
     "param.reply_to.description": "답글할 게시물의 URI (선택사항).",
     "param.images.description": "최대 4개의 이미지 목록 (각각 {\"alt\": \"...\", \"data\": \"base64...\"} 형식).",
     "err.no_api_base": "Bluesky API 기본 URL이 구성되지 않았습니다.",
@@ -210,7 +281,12 @@
   },
   "mn": {
     "tool.description": "Bluesky нийгмийн сүлжээнд нийтлэх эсвэл хариулах.",
-    "x_search_terms": "[\"bluesky\", \"bsky\", \"нийгмийн\", \"sns\", \"нийтлэл\", \"хэлэлцүүлэг\"]",
+    "x_search_terms": [
+      "bluesky",
+      "at protocol",
+      "social",
+      "post"
+    ],
     "param.reply_to.description": "Хариулах нийтлэлийн URI (зааваргүй).",
     "param.images.description": "Дээд тал нь 4 зургийн жагсаалт (тус бүрийг {\"alt\": \"...\", \"data\": \"base64...\"} хэлбэрээр).",
     "err.no_api_base": "Bluesky API үндсэн URL тохируулаагүй байна.",
@@ -224,7 +300,12 @@
   },
   "mr": {
     "tool.description": "Bluesky सोशल वर पोस्ट करा किंवा उत्तर द्या.",
-    "x_search_terms": "[\"bluesky\", \"bsky\", \"सामाजिक\", \"sns\", \"पोस्ट\", \"थ्रेड\"]",
+    "x_search_terms": [
+      "bluesky",
+      "at protocol",
+      "social",
+      "post"
+    ],
     "param.reply_to.description": "उत्तर देण्यासाठी पोस्टचा URI (पर्यायी).",
     "param.images.description": "4 पर्यंत प्रतिमांची यादी (प्रत्येक {\"alt\": \"...\", \"data\": \"base64...\"} म्हणून).",
     "err.no_api_base": "Bluesky API मूळ URL कॉन्फिगर केलेले नाही.",
@@ -247,7 +328,13 @@
     "param.cid.description": "CID για like.",
     "param.lang.description": "Ετικέτα γλώσσας.",
     "param.limit.description": "Μέγιστα αποτελέσματα.",
-    "log.opened_app": "[ΠΛΗΡΟΦΟΡΙΕΣ] Ανοιγμένη εικόνα με την προεπιλεγμένη εφαρμογή."
+    "log.opened_app": "[ΠΛΗΡΟΦΟΡΙΕΣ] Ανοιγμένη εικόνα με την προεπιλεγμένη εφαρμογή.",
+    "x_search_terms": [
+      "bluesky",
+      "at protocol",
+      "social",
+      "post"
+    ]
   },
   "he": {
     "tool.description": "אינטראקציה עם Bluesky (פרוטוקול AT): פוסט/חיפוש/ציר זמן/שרשור/לייק/הודעות.",
@@ -260,7 +347,13 @@
     "param.cid.description": "CID עבור כמו.",
     "param.lang.description": "תג שפה.",
     "param.limit.description": "מקסימום תוצאות.",
-    "log.opened_app": "[INFO] תמונה נפתחה עם אפליקציית ברירת מחדל."
+    "log.opened_app": "[INFO] תמונה נפתחה עם אפליקציית ברירת מחדל.",
+    "x_search_terms": [
+      "bluesky",
+      "at protocol",
+      "social",
+      "post"
+    ]
   },
   "hu": {
     "tool.description": "Interakció a Bluesky-vel (AT Protokoll): bejegyzés/keresés/idővonal/szál/tetszik/értesítések.",
@@ -273,7 +366,13 @@
     "param.cid.description": "CID a hasonlóért.",
     "param.lang.description": "Nyelvi címke.",
     "param.limit.description": "Maximális eredmények.",
-    "log.opened_app": "[INFO] Megnyitott kép az alapértelmezett alkalmazással."
+    "log.opened_app": "[INFO] Megnyitott kép az alapértelmezett alkalmazással.",
+    "x_search_terms": [
+      "bluesky",
+      "at protocol",
+      "social",
+      "post"
+    ]
   },
   "ro": {
     "tool.description": "Interacționează cu Bluesky (protocol AT): post/căutare/cronologie/thread/like/notificări.",
@@ -286,11 +385,22 @@
     "param.cid.description": "CID pentru like.",
     "param.lang.description": "Etichetă de limbă.",
     "param.limit.description": "Rezultate maxime.",
-    "log.opened_app": "[INFO] Imagine deschisă cu aplicația implicită."
+    "log.opened_app": "[INFO] Imagine deschisă cu aplicația implicită.",
+    "x_search_terms": [
+      "bluesky",
+      "at protocol",
+      "social",
+      "post"
+    ]
   },
   "nb": {
     "tool.description": "Publiser eller svar på Bluesky social.",
-    "x_search_terms": "[\"bluesky\", \"bsky\", \"sosial\", \"sns\", \"innlegg\", \"tråd\"]",
+    "x_search_terms": [
+      "bluesky",
+      "at protocol",
+      "social",
+      "post"
+    ],
     "param.reply_to.description": "URI for innlegget å svare på (valgfritt).",
     "param.images.description": "Liste med inntil 4 bilder (hver som {\"alt\": \"...\", \"data\": \"base64...\"}).",
     "err.no_api_base": "Bluesky API-basis-URL er ikke konfigurert.",
@@ -304,7 +414,12 @@
   },
   "nl": {
     "tool.description": "Plaats of antwoord op Bluesky social.",
-    "x_search_terms": "[\"bluesky\", \"bsky\", \"sociaal\", \"sns\", \"post\", \"draad\"]",
+    "x_search_terms": [
+      "bluesky",
+      "at protocol",
+      "social",
+      "post"
+    ],
     "param.reply_to.description": "URI van de post om op te reageren (optioneel).",
     "param.images.description": "Lijst van maximaal 4 afbeeldingen (elk als {\"alt\": \"...\", \"data\": \"base64...\"}).",
     "err.no_api_base": "Bluesky API-basis-URL is niet geconfigureerd.",
@@ -318,7 +433,12 @@
   },
   "pl": {
     "tool.description": "Opublikuj lub odpowiedz na Bluesky social.",
-    "x_search_terms": "[\"bluesky\", \"bsky\", \"społecznościowy\", \"sns\", \"post\", \"wątek\"]",
+    "x_search_terms": [
+      "bluesky",
+      "at protocol",
+      "social",
+      "post"
+    ],
     "param.reply_to.description": "URI posta, na który odpowiedzieć (opcjonalne).",
     "param.images.description": "Lista do 4 obrazów (każdy jako {\"alt\": \"...\", \"data\": \"base64...\"}).",
     "err.no_api_base": "Podstawowy URL API Bluesky nie jest skonfigurowany.",
@@ -332,7 +452,12 @@
   },
   "pt": {
     "tool.description": "Publicar ou responder no Bluesky social.",
-    "x_search_terms": "[\"bluesky\", \"bsky\", \"social\", \"sns\", \"publicar\", \"tópico\"]",
+    "x_search_terms": [
+      "bluesky",
+      "at protocol",
+      "social",
+      "post"
+    ],
     "param.reply_to.description": "URI da publicação para responder (opcional).",
     "param.images.description": "Lista de até 4 imagens (cada uma como {\"alt\": \"...\", \"data\": \"base64...\"}).",
     "err.no_api_base": "URL base da API Bluesky não configurada.",
@@ -346,7 +471,12 @@
   },
   "pt_BR": {
     "tool.description": "Postar ou responder no Bluesky social.",
-    "x_search_terms": "[\"bluesky\", \"bsky\", \"social\", \"sns\", \"postar\", \"tópico\"]",
+    "x_search_terms": [
+      "bluesky",
+      "at protocol",
+      "social",
+      "post"
+    ],
     "param.reply_to.description": "URI da postagem para responder (opcional).",
     "param.images.description": "Lista de até 4 imagens (cada uma como {\"alt\": \"...\", \"data\": \"base64...\"}).",
     "err.no_api_base": "URL base da API Bluesky não configurada.",
@@ -360,7 +490,12 @@
   },
   "ru": {
     "tool.description": "Опубликовать или ответить в Bluesky social.",
-    "x_search_terms": "[\"bluesky\", \"bsky\", \"social\", \"sns\", \"опубликовать\", \"тред\"]",
+    "x_search_terms": [
+      "bluesky",
+      "at protocol",
+      "social",
+      "post"
+    ],
     "param.reply_to.description": "URI поста для ответа (необязательно).",
     "param.images.description": "Список до 4 изображений (каждое как {\"alt\": \"...\", \"data\": \"base64...\"}).",
     "err.no_api_base": "Базовый URL API Bluesky не настроен.",
@@ -374,7 +509,12 @@
   },
   "sv": {
     "tool.description": "Posta eller svara på Bluesky social.",
-    "x_search_terms": "[\"bluesky\", \"bsky\", \"social\", \"sns\", \"post\", \"tråd\"]",
+    "x_search_terms": [
+      "bluesky",
+      "at protocol",
+      "social",
+      "post"
+    ],
     "param.reply_to.description": "URI för inlägget att svara på (valfritt).",
     "param.images.description": "Lista med upp till 4 bilder (varje som {\"alt\": \"...\", \"data\": \"base64...\"}).",
     "err.no_api_base": "Bluesky API-bas-URL är inte konfigurerad.",
@@ -388,7 +528,12 @@
   },
   "sw": {
     "tool.description": "Chapisha au jibu kwenye Bluesky social.",
-    "x_search_terms": "[\"bluesky\", \"bsky\", \"jami\", \"sns\", \"chapisha\", \"mfululizo\"]",
+    "x_search_terms": [
+      "bluesky",
+      "at protocol",
+      "social",
+      "post"
+    ],
     "param.reply_to.description": "URI ya chapisho la kujibu (si lazima).",
     "param.images.description": "Orodha ya picha hadi 4 (kila moja kama {\"alt\": \"...\", \"data\": \"base64...\"}).",
     "err.no_api_base": "URL ya msingi ya API ya Bluesky haijasanidiwa.",
@@ -402,7 +547,12 @@
   },
   "th": {
     "tool.description": "โพสต์หรือตอบกลับใน Bluesky โซเชียล",
-    "x_search_terms": "[\"bluesky\", \"bsky\", \"สังคม\", \"sns\", \"โพสต์\", \"เธรด\"]",
+    "x_search_terms": [
+      "bluesky",
+      "at protocol",
+      "social",
+      "post"
+    ],
     "param.reply_to.description": "URI ของโพสต์ที่จะตอบกลับ (ไม่บังคับ)",
     "param.images.description": "รายการรูปภาพสูงสุด 4 รูป (แต่ละรูปเป็น {\"alt\": \"...\", \"data\": \"base64...\"})",
     "err.no_api_base": "ไม่ได้กำหนดค่า URL ฐานของ API Bluesky",
@@ -416,7 +566,12 @@
   },
   "tr": {
     "tool.description": "Bluesky sosyalinde gönderi paylaş veya yanıtla.",
-    "x_search_terms": "[\"bluesky\", \"bsky\", \"sosyal\", \"sns\", \"gönderi\", \"konu\"]",
+    "x_search_terms": [
+      "bluesky",
+      "at protocol",
+      "social",
+      "post"
+    ],
     "param.reply_to.description": "Yanıtlanacak gönderinin URI'si (isteğe bağlı).",
     "param.images.description": "En fazla 4 resim listesi (her biri {\"alt\": \"...\", \"data\": \"base64...\"} olarak).",
     "err.no_api_base": "Bluesky API taban URL'si yapılandırılmamış.",
@@ -430,7 +585,12 @@
   },
   "uk": {
     "tool.description": "Опублікувати або відповісти в Bluesky соціальному.",
-    "x_search_terms": "[\"bluesky\", \"bsky\", \"соціальний\", \"sns\", \"публікація\", \"тред\"]",
+    "x_search_terms": [
+      "bluesky",
+      "at protocol",
+      "social",
+      "post"
+    ],
     "param.reply_to.description": "URI публікації для відповіді (необов'язково).",
     "param.images.description": "Список до 4 зображень (кожне як {\"alt\": \"...\", \"data\": \"base64...\"}).",
     "err.no_api_base": "Базовий URL API Bluesky не налаштований.",
@@ -444,7 +604,12 @@
   },
   "vi": {
     "tool.description": "Đăng hoặc trả lời trên Bluesky xã hội.",
-    "x_search_terms": "[\"bluesky\", \"bsky\", \"xã hội\", \"sns\", \"đăng\", \"chuỗi\"]",
+    "x_search_terms": [
+      "bluesky",
+      "at protocol",
+      "social",
+      "post"
+    ],
     "param.reply_to.description": "URI của bài đăng để trả lời (tùy chọn).",
     "param.images.description": "Danh sách tối đa 4 hình ảnh (mỗi hình dưới dạng {\"alt\": \"...\", \"data\": \"base64...\"}).",
     "err.no_api_base": "URL cơ sở API Bluesky chưa được cấu hình.",
@@ -458,7 +623,12 @@
   },
   "zh_CN": {
     "tool.description": "在Bluesky社交平台上发布或回复。",
-    "x_search_terms": "[\"bluesky\", \"bsky\", \"社交\", \"sns\", \"发布\", \"话题\"]",
+    "x_search_terms": [
+      "bluesky",
+      "at protocol",
+      "social",
+      "post"
+    ],
     "param.reply_to.description": "要回复的帖子的URI（可选）。",
     "param.images.description": "最多4张图片的列表（每张图片格式为{\"alt\": \"...\", \"data\": \"base64...\"}）。",
     "err.no_api_base": "Bluesky API基础URL未配置。",
@@ -472,7 +642,12 @@
   },
   "zh_TW": {
     "tool.description": "在 Bluesky 社交平台上發文或回覆。",
-    "x_search_terms": "[\"bluesky\", \"bsky\", \"社交\", \"sns\", \"發文\", \"討論串\"]",
+    "x_search_terms": [
+      "bluesky",
+      "at protocol",
+      "social",
+      "post"
+    ],
     "param.reply_to.description": "要回覆的貼文的 URI（選用）。",
     "param.images.description": "最多 4 張圖片的清單（每張以 {\"alt\": \"...\", \"data\": \"base64...\"} 表示）。",
     "err.no_api_base": "Bluesky API 基礎 URL 未設定。",

@@ -217,8 +217,13 @@ TOOL_SPEC: dict[str, Any] = {
             default=["translate", "translation", "google translate", "language"],
         ),
         "x_search_terms_en": [
-            "translate", "translation", "google translate", "language",
-        ],
+        "translate",
+        "translation",
+        "google translate",
+        "language",
+        "i18n",
+        "localization",
+    ],
         "parameters": {
             "type": "object",
             "properties": {

@@ -34,13 +34,15 @@ TOOL_SPEC: dict[str, Any] = {
             ],
         ),
         "x_search_terms_en": [
-            "analyze_image",
-            "analyze image",
-            "image",
-            "picture",
-            "photo",
-            "diagram",
-        ],
+        "analyze_image",
+        "analyze image",
+        "image",
+        "picture",
+        "photo",
+        "diagram",
+        "ocr",
+        "vision",
+    ],
         "parameters": {
             "type": "object",
             "properties": {

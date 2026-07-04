@@ -82,13 +82,15 @@ TOOL_SPEC: dict[str, Any] = {
             ],
         ),
         "x_search_terms_en": [
-            "read_pptx_pdf",
-            "read pptx pdf",
-            "pdf",
-            "pptx",
-            "page text",
-            "extract pages",
-        ],
+        "read_pptx_pdf",
+        "read pptx pdf",
+        "pdf",
+        "pptx",
+        "page text",
+        "extract pages",
+        "document",
+        "slide",
+    ],
         "parameters": {
             "type": "object",
             "properties": {

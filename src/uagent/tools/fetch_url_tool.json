@@ -11,7 +11,9 @@
       "URL 가져오기",
       "получить url",
       "save file",
-      "download file"
+      "download file",
+      "html",
+      "scrape"
     ],
     "param.extract.description": "Extraction mode. head=return the beginning of the response; text=extract text from HTML; html=extract HTML fragment; json=parse JSON (optionally apply json_pointer); markdown=extract simplified markdown from HTML.",
     "param.user_agent.description": "Optional User-Agent header value.",
@@ -32,7 +34,9 @@
       "http get",
       "html/json 取得",
       "ファイル保存",
-      "ダウンロード"
+      "ダウンロード",
+      "html",
+      "scrape"
     ],
     "param.extract.description": "抽出モード。head=レスポンス先頭を返す / text=HTML から本文テキストを抽出 / html=HTML 断片を抽出 / json=JSON を解析（必要に応じて json_pointer を適用） / markdown=HTML から簡易的な Markdown を抽出。",
     "param.user_agent.description": "任意の User-Agent ヘッダー値。",
@@ -53,7 +57,9 @@
       "http get",
       "html json",
       "guardar archivo",
-      "descargar"
+      "descargar",
+      "html",
+      "scrape"
     ],
     "param.extract.description": "Modo de extracción.",
     "param.user_agent.description": "Valor de encabezado de agente de usuario opcional.",
@@ -70,7 +76,9 @@
       "http get",
       "html json",
       "enregistrer fichier",
-      "télécharger"
+      "télécharger",
+      "html",
+      "scrape"
     ],
     "param.extract.description": "Mode d'extraction.",
     "param.user_agent.description": "Valeur d'en-tête User-Agent facultative",
@@ -87,7 +95,9 @@
       "http get",
       "html/json 확인",
       "파일 저장",
-      "다운로드"
+      "다운로드",
+      "html",
+      "scrape"
     ],
     "param.extract.description": "추출 모드입니다. head=응답의 시작 부분 반환; text=HTML에서 텍스트 추출; html=HTML 조각 추출; json=JSON 파싱(필요 시 json_pointer 적용); markdown=HTML에서 간단한 마크다운 추출.",
     "param.user_agent.description": "선택적 User-Agent 헤더 값입니다.",
@@ -104,7 +114,9 @@
       "http get",
       "html json",
       "datei speichern",
-      "herunterladen"
+      "herunterladen",
+      "html",
+      "scrape"
     ],
     "param.extract.description": "Extraktionsmodus.",
     "param.user_agent.description": "Optionaler User-Agent-Headerwert.",
@@ -121,7 +133,9 @@
       "http get",
       "html json",
       "salva file",
-      "scarica"
+      "scarica",
+      "html",
+      "scrape"
     ],
     "param.extract.description": "Modalità di estrazione.",
     "param.user_agent.description": "Directory per salvare i file per foglio valore dell'intestazione.",
@@ -138,7 +152,9 @@
       "http get",
       "html json",
       "сохранить файл",
-      "скачать"
+      "скачать",
+      "html",
+      "scrape"
     ],
     "param.extract.description": "Режим извлечения.",
     "param.user_agent.description": "Каталог для сохранения файлов на листе.",
@@ -155,7 +171,9 @@
       "http get",
       "html json",
       "salvar arquivo",
-      "baixar"
+      "baixar",
+      "html",
+      "scrape"
     ],
     "param.extract.description": "Modo de extração.",
     "param.user_agent.description": "Diretório para salvar arquivos por área de impressão",
@@ -172,7 +190,9 @@
       "http get",
       "html json",
       "salvar arquivo",
-      "baixar"
+      "baixar",
+      "html",
+      "scrape"
     ],
     "param.extract.description": "Modo de extração.",
     "param.user_agent.description": "Diretório para salvar arquivos por área de impressão",
@@ -189,7 +209,9 @@
       "http get",
       "html json",
       "simpan file",
-      "unduh"
+      "unduh",
+      "html",
+      "scrape"
     ],
     "param.extract.description": "Mode ekstraksi.",
     "param.user_agent.description": "Nilai header User-Agent opsional.",
@@ -206,7 +228,9 @@
       "http get",
       "html json",
       "lưu tệp",
-      "tải xuống"
+      "tải xuống",
+      "html",
+      "scrape"
     ],
     "param.extract.description": "Chế độ khai thác.",
     "param.user_agent.description": "Giá trị tiêu đề Tác nhân người dùng tùy chọn",
@@ -223,7 +247,9 @@
       "http get",
       "html json",
       "zapisz plik",
-      "pobierz"
+      "pobierz",
+      "html",
+      "scrape"
     ],
     "param.extract.description": "Tryb ekstrakcji.",
     "param.user_agent.description": "Wartość nagłówka User-Agent.",
@@ -240,7 +266,9 @@
       "http get",
       "html json",
       "फ़ाइल सहेजें",
-      "डाउनलोड"
+      "डाउनलोड",
+      "html",
+      "scrape"
     ],
     "param.extract.description": "निष्कर्षण मोड.",
     "param.user_agent.description": "वैकल्पिक उपयोगकर्ता-एजेंट हेडर मान.",
@@ -257,7 +285,9 @@
       "http get",
       "html json",
       "حفظ ملف",
-      "تنزيل"
+      "تنزيل",
+      "html",
+      "scrape"
     ],
     "param.extract.description": "وضع الاستخراج.",
     "param.user_agent.description": "قيمة رأس وكيل المستخدم الاختيارية.",
@@ -274,7 +304,9 @@
       "http get",
       "html json",
       "spara fil",
-      "ladda ner"
+      "ladda ner",
+      "html",
+      "scrape"
     ],
     "param.extract.description": "Extraktionsläge.",
     "param.user_agent.description": "Valfritt User-Agent-huvudvärde.",
@@ -291,7 +323,9 @@
       "http get",
       "html json",
       "hifadhi faili",
-      "pakua"
+      "pakua",
+      "html",
+      "scrape"
     ],
     "param.extract.description": "Hali ya uchimbaji.",
     "param.user_agent.description": "Thamani ya kichwa cha Wakala wa Mtumiaji",
@@ -308,7 +342,9 @@
       "http get",
       "html json",
       "lagre fil",
-      "last ned"
+      "last ned",
+      "html",
+      "scrape"
     ],
     "param.extract.description": "Ekstraksjonsmodus.",
     "param.user_agent.description": "Valgfri User-Agent-headerverdi.",
@@ -325,7 +361,9 @@
       "http get",
       "html json",
       "bestand opslaan",
-      "downloaden"
+      "downloaden",
+      "html",
+      "scrape"
     ],
     "param.extract.description": "Extractiemodus.",
     "param.user_agent.description": "Optionele User-Agent headerwaarde.",
@@ -342,7 +380,9 @@
       "http get",
       "html json",
       "tallenna tiedosto",
-      "lataa"
+      "lataa",
+      "html",
+      "scrape"
     ],
     "param.extract.description": "Poimintatila.",
     "param.user_agent.description": "Valinnainen User-Agent-otsakearvo.",
@@ -359,7 +399,9 @@
       "http get",
       "html json",
       "uložit soubor",
-      "stáhnout"
+      "stáhnout",
+      "html",
+      "scrape"
     ],
     "param.extract.description": "Režim extrakce.",
     "param.user_agent.description": "Volitelná hodnota záhlaví User-Agent.",
@@ -376,7 +418,9 @@
       "http get",
       "html json",
       "зберегти файл",
-      "завантажити"
+      "завантажити",
+      "html",
+      "scrape"
     ],
     "param.extract.description": "Режим витягування.",
     "param.user_agent.description": "Каталог для збереження файлів на аркуші",
@@ -393,7 +437,9 @@
       "http get",
       "html json",
       "dosya kaydet",
-      "indir"
+      "indir",
+      "html",
+      "scrape"
     ],
     "param.extract.description": "Ekstraksiyon modu.",
     "param.user_agent.description": "İsteğe bağlı Kullanıcı Aracısı başlık değeri.",
@@ -410,7 +456,9 @@
       "http get",
       "html json",
       "บันทึกไฟล์",
-      "ดาวน์โหลด"
+      "ดาวน์โหลด",
+      "html",
+      "scrape"
     ],
     "param.extract.description": "โหมดการแยก head=return จุดเริ่มต้นของการตอบกลับ; text=แยกข้อความจาก HTML; html=แยกส่วน HTML; json=parse JSON (เลือกใช้ json_pointer ก็ได้); markdown=แยกมาร์กดาวน์แบบง่ายจาก HTML",
     "param.user_agent.description": "ค่าเฮดเดอร์ User-Agent แบบไม่บังคับ",
@@ -427,7 +475,9 @@
       "http get",
       "html json",
       "保存文件",
-      "下载"
+      "下载",
+      "html",
+      "scrape"
     ],
     "param.extract.description": "提取模式。head=返回响应开头；text=从 HTML 中提取文本；html=提取 HTML 片段；json=解析 JSON（可选应用 json_pointer）；markdown=从 HTML 中提取简化 Markdown。",
     "param.user_agent.description": "可选的 User-Agent 请求头值。",
@@ -444,7 +494,9 @@
       "http get",
       "html json",
       "儲存檔案",
-      "下載"
+      "下載",
+      "html",
+      "scrape"
     ],
     "param.extract.description": "擷取模式。head=傳回回應開頭；text=從 HTML 擷取文字；html=擷取 HTML 片段；json=解析 JSON（可選套用 json_pointer）；markdown=從 HTML 擷取簡化 Markdown。",
     "param.user_agent.description": "選用的 User-Agent 標頭值。",
@@ -461,7 +513,9 @@
       "http get",
       "html json",
       "ফাইল সংরক্ষণ",
-      "ডাউনলোড"
+      "ডাউনলোড",
+      "html",
+      "scrape"
     ],
     "param.extract.description": "নিষ্কাশন মোড। মাথা = প্রতিক্রিয়ার শুরুতে ফিরে যান; HTML থেকে text=extract text; html=এক্সট্র্যাক্ট HTML ফ্র্যাগমেন্ট; json= JSON পার্স করুন (ঐচ্ছিকভাবে json_pointer প্রয়োগ করুন); markdown=HTML থেকে সরলীকৃত মার্কডাউন বের করুন।",
     "param.user_agent.description": "ঐচ্ছিক User-Agent header মান।",
@@ -478,7 +532,9 @@
       "http get",
       "html json",
       "ذخیره فایل",
-      "دانلود"
+      "دانلود",
+      "html",
+      "scrape"
     ],
     "param.extract.description": "حالت استخراج.",
     "param.user_agent.description": "مقدار اختیاری هدر User-Agent.",
@@ -495,7 +551,9 @@
       "http get",
       "html json",
       "файл хадгалах",
-      "татах"
+      "татах",
+      "html",
+      "scrape"
     ],
     "param.extract.description": "Гарган авах горим.",
     "param.user_agent.description": "Нэмэлт Хэрэглэгч-Агент толгойн утга.",
@@ -512,7 +570,9 @@
       "http get",
       "html json",
       "फाइल जतन करा",
-      "डाउनलोड"
+      "डाउनलोड",
+      "html",
+      "scrape"
     ],
     "param.extract.description": "एक्स्ट्रॅक्शन मोड.",
     "param.user_agent.description": "ऐच्छिक User-Agent header मूल्य.",
@@ -533,7 +593,9 @@
       "URL 가져오기",
       "Λειτουργία εξαγωγής διεύθυνσης URL",
       "αποθήκευση αρχείου",
-      "λήψη"
+      "λήψη",
+      "html",
+      "scrape"
     ],
     "param.extract.description": ". head=επιστρέφει την αρχή της απάντησης. text=εξαγωγή κειμένου από HTML. html=εξαγωγή τμήματος HTML; json=ανάλυση JSON (προαιρετικά εφαρμογή json_pointer); markdown=εξαγωγή απλοποιημένης σήμανσης από την HTML.",
     "param.user_agent.description": "Προαιρετική τιμή κεφαλίδας User-Agent.",
@@ -554,7 +616,9 @@
       "כתובת URL 가져오기",
       "מצב חילוץ",
       "שמור קובץ",
-      "הורד"
+      "הורד",
+      "html",
+      "scrape"
     ],
     "param.extract.description": "מצב חילוץ. head=החזרת תחילת התגובה; text=חלץ טקסט מ-HTML; html=חלץ קטע HTML; json=נתח JSON (אפשר להחיל את json_pointer); markdown=חלץ סימון מפושט מ-HTML.",
     "param.user_agent.description": "ערך כותרת User-Agent אופציונלי.",
@@ -574,7 +638,9 @@
       "récupérer url",
       "URL 가져오기",
       "fájl mentése",
-      "letöltés"
+      "letöltés",
+      "html",
+      "scrape"
     ],
     "param.extract.description": "Opcionális CSS-választó. Ha meg van adva, akkor az első egyező elemet a rendszer kivonja a következőhöz: extract=text/html.",
     "param.user_agent.description": "Opcionális RFC 6901 JSON-mutató (pl. /items/0/title) akkor használatos, ha kivonat=json.",
@@ -595,7 +661,9 @@
       "URL 가져오기",
       "получить url",
       "salvare fișier",
-      "descărcare"
+      "descărcare",
+      "html",
+      "scrape"
     ],
     "param.extract.description": "Mod extracție cap=întoarce începutul răspunsului; text=extrage text din HTML; html=extract HTML fragment; json=parse JSON (aplicați opțional json_pointer); markdown=extrage reducere simplificată din HTML.",
     "param.user_agent.description": "Valoare opțională antet User-Agent.",

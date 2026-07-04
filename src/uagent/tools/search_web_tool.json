@@ -14,7 +14,9 @@
       "buscar en la web",
       "recherche web",
       "웹 검색",
-      "поиск в вебе"
+      "поиск в вебе",
+      "google",
+      "browse"
     ],
     "param.limit.description": "Maximum number of results to return (default: 5)."
   },
@@ -29,7 +31,9 @@
       "search_web",
       "ウェブ検索",
       "DuckDuckGo検索",
-      "Web検索"
+      "Web検索",
+      "google",
+      "browse"
     ],
     "param.limit.description": "返す最大件数（既定: 5）。"
   },
@@ -44,7 +48,9 @@
       "search_web",
       "buscar web",
       "búsqueda web",
-      "duckduckgo"
+      "duckduckgo",
+      "google",
+      "browse"
     ],
     "param.limit.description": "Número máximo de resultados a devolver (predeterminado: 5)."
   },
@@ -59,7 +65,9 @@
       "search_web",
       "recherche web",
       "recherche duckduckgo",
-      "duckduckgo"
+      "duckduckgo",
+      "google",
+      "browse"
     ],
     "param.limit.description": "Nombre maximum de résultats à retourner (par défaut : 5)."
   },
@@ -74,7 +82,9 @@
       "search_web",
       "웹 검색",
       "덕덕고 검색",
-      "DuckDuckGo 검색"
+      "DuckDuckGo 검색",
+      "google",
+      "browse"
     ],
     "param.limit.description": "반환할 최대 결과 수(기본값: 5)"
   },
@@ -89,7 +99,9 @@
       "search_web",
       "websuche",
       "duckduckgo suche",
-      "suchmaschine"
+      "suchmaschine",
+      "google",
+      "browse"
     ],
     "param.limit.description": "Maximale Anzahl der zurückzugebenden Ergebnisse (Standard: 5)."
   },
@@ -104,7 +116,9 @@
       "search_web",
       "ricerca web",
       "ricerca duckduckgo",
-      "duckduckgo"
+      "duckduckgo",
+      "google",
+      "browse"
     ],
     "param.limit.description": "Numero massimo di risultati da restituire (predefinito: 5)."
   },
@@ -119,7 +133,9 @@
       "search_web",
       "поиск в вебе",
       "поиск duckduckgo",
-      "duckduckgo"
+      "duckduckgo",
+      "google",
+      "browse"
     ],
     "param.limit.description": "Максимальное количество возвращаемых результатов (по умолчанию: 5)."
   },
@@ -134,7 +150,9 @@
       "search_web",
       "buscar na web",
       "pesquisa web",
-      "duckduckgo"
+      "duckduckgo",
+      "google",
+      "browse"
     ],
     "param.limit.description": "Número máximo de resultados a retornar (padrão: 5)."
   },
@@ -149,7 +167,9 @@
       "search_web",
       "pesquisa na web",
       "busca web",
-      "duckduckgo"
+      "duckduckgo",
+      "google",
+      "browse"
     ],
     "param.limit.description": "Número máximo de resultados a serem retornados (padrão: 5)."
   },
@@ -164,7 +184,9 @@
       "search_web",
       "pencarian web",
       "cari web",
-      "duckduckgo"
+      "duckduckgo",
+      "google",
+      "browse"
     ],
     "param.limit.description": "Jumlah maksimum hasil yang dikembalikan (default: 5)."
   },
@@ -179,7 +201,9 @@
       "search_web",
       "tìm kiếm web",
       "tìm web",
-      "duckduckgo"
+      "duckduckgo",
+      "google",
+      "browse"
     ],
     "param.limit.description": "Số kết quả trả về tối đa (mặc định: 5)."
   },
@@ -194,7 +218,9 @@
       "search_web",
       "wyszukiwanie w sieci",
       "wyszukiwanie web",
-      "duckduckgo"
+      "duckduckgo",
+      "google",
+      "browse"
     ],
     "param.limit.description": "Maksymalna liczba zwracanych wyników (domyślnie: 5)."
   },
@@ -209,7 +235,9 @@
       "search_web",
       "वेब खोज",
       "DuckDuckGo खोज",
-      "ऑनलाइन खोज"
+      "ऑनलाइन खोज",
+      "google",
+      "browse"
     ],
     "param.limit.description": "लौटने के लिए परिणामों की अधिकतम संख्या (डिफ़ॉल्ट: 5)।"
   },
@@ -224,7 +252,9 @@
       "search_web",
       "بحث الويب",
       "بحث duckduckgo",
-      "duckduckgo"
+      "duckduckgo",
+      "google",
+      "browse"
     ],
     "param.limit.description": "الحد الأقصى لعدد النتائج المراد إرجاعها (الافتراضي: 5)."
   },
@@ -239,7 +269,9 @@
       "search_web",
       "webbsök",
       "duckduckgo-sök",
-      "webbsökning"
+      "webbsökning",
+      "google",
+      "browse"
     ],
     "param.limit.description": "Maximalt antal resultat att returnera (standard: 5)."
   },
@@ -254,7 +286,9 @@
       "search_web",
       "utafutaji wa wavuti",
       "duckduckgo",
-      "utafutaji web"
+      "utafutaji web",
+      "google",
+      "browse"
     ],
     "param.limit.description": "Idadi ya juu zaidi ya matokeo ya kurejesha (chaguo-msingi: 5)."
   },
@@ -269,7 +303,9 @@
       "search_web",
       "nettsøk",
       "duckduckgo-søk",
-      "webbsøk"
+      "webbsøk",
+      "google",
+      "browse"
     ],
     "param.limit.description": "Maksimalt antall resultater å returnere (standard: 5)."
   },
@@ -284,7 +320,9 @@
       "search_web",
       "webzoek",
       "duckduckgo zoek",
-      "web zoeken"
+      "web zoeken",
+      "google",
+      "browse"
     ],
     "param.limit.description": "Maximaal aantal resultaten dat moet worden geretourneerd (standaard: 5)."
   },
@@ -299,7 +337,9 @@
       "search_web",
       "verkkohaku",
       "duckduckgo-haku",
-      "web-haku"
+      "web-haku",
+      "google",
+      "browse"
     ],
     "param.limit.description": "Palautettavien tulosten enimmäismäärä (oletus: 5)."
   },
@@ -314,7 +354,9 @@
       "search_web",
       "vyhledávání na webu",
       "duckduckgo hledání",
-      "web hledání"
+      "web hledání",
+      "google",
+      "browse"
     ],
     "param.limit.description": "Maximální počet vracených výsledků (výchozí: 5)."
   },
@@ -329,7 +371,9 @@
       "search_web",
       "пошук в вебі",
       "пошук duckduckgo",
-      "duckduckgo"
+      "duckduckgo",
+      "google",
+      "browse"
     ],
     "param.limit.description": "Максимальна кількість результатів для повернення (за замовчуванням: 5)."
   },
@@ -344,7 +388,9 @@
       "search_web",
       "web arama",
       "duckduckgo arama",
-      "çevrimiçi arama"
+      "çevrimiçi arama",
+      "google",
+      "browse"
     ],
     "param.limit.description": "Döndürülecek maksimum sonuç sayısı (varsayılan: 5)."
   },
@@ -359,7 +405,9 @@
       "search_web",
       "ค้นหาเว็บ",
       "ค้นหา DuckDuckGo",
-      "เว็บค้นหา"
+      "เว็บค้นหา",
+      "google",
+      "browse"
     ],
     "param.limit.description": "จำนวนผลลัพธ์สูงสุดที่จะส่งคืน (ค่าเริ่มต้น: 5)"
   },
@@ -374,7 +422,9 @@
       "search_web",
       "网页搜索",
       "DuckDuckGo搜索",
-      "网络搜索"
+      "网络搜索",
+      "google",
+      "browse"
     ],
     "param.limit.description": "返回结果的最大数量（默认值：5）。"
   },
@@ -389,7 +439,9 @@
       "search_web",
       "網頁搜尋",
       "DuckDuckGo搜尋",
-      "網路搜尋"
+      "網路搜尋",
+      "google",
+      "browse"
     ],
     "param.limit.description": "傳回結果的最大數量（預設值：5）。"
   },
@@ -404,7 +456,9 @@
       "search_web",
       "ওয়েব অনুসন্ধান",
       "duckduckgo অনুসন্ধান",
-      "অনলাইন অনুসন্ধান"
+      "অনলাইন অনুসন্ধান",
+      "google",
+      "browse"
     ],
     "param.limit.description": "ফেরত দেওয়ার সর্বোচ্চ ফলাফলের সংখ্যা (ডিফল্ট: 5)।"
   },
@@ -419,7 +473,9 @@
       "search_web",
       "جستجوی وب",
       "جستجوی duckduckgo",
-      "جستجوی آنلاین"
+      "جستجوی آنلاین",
+      "google",
+      "browse"
     ],
     "param.limit.description": "حداکثر تعداد نتایج برای بازگشت (پیش‌فرض: 5)."
   },
@@ -434,7 +490,9 @@
       "search_web",
       "вэб хайлт",
       "duckduckgo хайлт",
-      "онлайн хайлт"
+      "онлайн хайлт",
+      "google",
+      "browse"
     ],
     "param.limit.description": "Буцаах үр дүнгийн дээд тоо (анхдагч: 5)."
   },
@@ -449,7 +507,9 @@
       "search_web",
       "वेब शोध",
       "डकडकगो शोध",
-      "ऑनलाइन शोध"
+      "ऑनलाइन शोध",
+      "google",
+      "browse"
     ],
     "param.limit.description": "परत करायच्या परिणामांची कमाल संख्या (डीफॉल्ट: 5)."
   },
@@ -468,7 +528,9 @@
       "buscar en la web",
       "recherche web",
       "웹 검색",
-      "poisk στον μέγιστο αριθμό αποτελεσμάτων [=#=fa]"
+      "poisk στον μέγιστο αριθμό αποτελεσμάτων [=#=fa]",
+      "google",
+      "browse"
     ],
     "param.limit.description": "Διαχειριστείτε τοπικά μυστικά χρησιμοποιώντας συμμετρικό κλειδί στον κατάλογο καταστάσεων uagent."
   },
@@ -487,7 +549,9 @@
       "buscar en la web",
       "recherche web",
       "웹 검색",
-      "поиск [= в# вебе] поиск [= в # вебе вебе вебе поиск [= в# вебе]."
+      "поиск [= в# вебе] поиск [= в # вебе вебе вебе поиск [= в# вебе].",
+      "google",
+      "browse"
     ],
     "param.limit.description": "נהל סודות מקומיים באמצעות מפתח סימטרי בספריית המצב של uagent."
   },
@@ -506,7 +570,9 @@
       "buscar en la web",
       "keresse a webet",
       "웹 검색",
-      "[=fa] [=fa] maximum száma (maximális találatok száma:] 5)."
+      "[=fa] [=fa] maximum száma (maximális találatok száma:] 5).",
+      "google",
+      "browse"
     ],
     "param.limit.description": "Kezelje a helyi titkokat szimmetrikus kulccsal az uagent állapotkönyvtárában."
   },
@@ -525,7 +591,9 @@
       "buscar en la web",
       "recherche web",
       "웹 검색",
-      "поиск в в веск в в ве=бе в ве5=бе."
+      "поиск в в веск в в ве=бе в ве5=бе.",
+      "google",
+      "browse"
     ],
     "param.limit.description": "Gestionați secretele locale folosind cheia simetrică în directorul de stare uagent."
   }

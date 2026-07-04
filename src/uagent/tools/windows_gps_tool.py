@@ -18,6 +18,9 @@ if sys.platform == "win32":
                 "tool.description",
                 default="Get your current GPS location (latitude, longitude) using the GPS sensor. High precision, returns exact coordinates with accuracy info. Use this when the user asks for their current position, location, or GPS coordinates.",
             ),
+            "x_search_terms_en": [
+                "location",
+            ],
             "parameters": {
                 "type": "object",
                 "properties": {},

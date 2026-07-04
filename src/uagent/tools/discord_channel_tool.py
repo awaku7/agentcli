@@ -188,9 +188,11 @@ TOOL_SPEC: dict[str, Any] = {
             ],
         ),
         "x_search_terms_en": [
-            "discord_channel",
-            "discord channel",
-        ],
+        "discord_channel",
+        "discord channel",
+        "discord",
+        "chat",
+    ],
         "parameters": {
             "type": "object",
             "properties": {

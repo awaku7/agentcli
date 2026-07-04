@@ -42,13 +42,14 @@ TOOL_SPEC: dict[str, Any] = {
             ],
         ),
         "x_search_terms_en": [
-            "screenshot",
-            "screenshot",
-            "screen capture",
-            "window capture",
-            "desktop screenshot",
-            "png capture",
-        ],
+        "screenshot",
+        "screenshot",
+        "screen capture",
+        "window capture",
+        "desktop screenshot",
+        "png capture",
+        "snapshot",
+    ],
         "parameters": {
             "type": "object",
             "properties": {

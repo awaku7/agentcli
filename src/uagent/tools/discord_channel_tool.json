@@ -16,7 +16,9 @@
     "param.wait_s.description": "How long to wait for replies after sending (seconds).",
     "x_search_terms": [
       "discord_channel",
-      "discord channel"
+      "discord channel",
+      "discord",
+      "chat"
     ],
     "tool.description": "Interact with a specific Discord channel using a bot token: send messages, read recent messages, and optionally wait for replies after sending."
   },
@@ -39,7 +41,9 @@
       "discord_channel",
       "discord チャンネル",
       "チャンネル対話",
-      "bot メッセージ"
+      "bot メッセージ",
+      "discord",
+      "chat"
     ],
     "tool.description": "ボット トークンを使用して特定の Discord チャネルと対話します。メッセージを送信し、最近のメッセージを読み取り、必要に応じて送信後の返信を待ちます。"
   },
@@ -62,7 +66,9 @@
       "discord_channel",
       "canal discord",
       "bot discord",
-      "chat canal"
+      "chat canal",
+      "discord",
+      "chat"
     ]
   },
   "fr": {
@@ -84,7 +90,9 @@
       "discord_channel",
       "canal discord",
       "bot discord",
-      "chat canal"
+      "chat canal",
+      "discord",
+      "chat"
     ]
   },
   "ko": {
@@ -106,7 +114,9 @@
       "discord_channel",
       "디스코드 채널",
       "채널 대화",
-      "봇 메시지"
+      "봇 메시지",
+      "discord",
+      "chat"
     ]
   },
   "de": {
@@ -128,7 +138,9 @@
       "discord_channel",
       "discord channel",
       "discord bot",
-      "kanal chat"
+      "kanal chat",
+      "discord",
+      "chat"
     ]
   },
   "it": {
@@ -150,7 +162,9 @@
       "discord_channel",
       "canale discord",
       "bot discord",
-      "chat canale"
+      "chat canale",
+      "discord",
+      "chat"
     ]
   },
   "ru": {
@@ -172,7 +186,9 @@
       "discord_channel",
       "канал discord",
       "бот discord",
-      "чат канала"
+      "чат канала",
+      "discord",
+      "chat"
     ]
   },
   "pt_BR": {
@@ -194,7 +210,9 @@
       "discord_channel",
       "canal discord",
       "bot discord",
-      "chat do canal"
+      "chat do canal",
+      "discord",
+      "chat"
     ]
   },
   "pt": {
@@ -216,7 +234,9 @@
       "discord_channel",
       "canal discord",
       "bot discord",
-      "chat do canal"
+      "chat do canal",
+      "discord",
+      "chat"
     ]
   },
   "id": {
@@ -238,7 +258,9 @@
       "discord_channel",
       "saluran discord",
       "bot discord",
-      "obrolan saluran"
+      "obrolan saluran",
+      "discord",
+      "chat"
     ]
   },
   "vi": {
@@ -260,7 +282,9 @@
       "discord_channel",
       "kênh discord",
       "bot discord",
-      "trò chuyện kênh"
+      "trò chuyện kênh",
+      "discord",
+      "chat"
     ]
   },
   "pl": {
@@ -282,7 +306,9 @@
       "discord_channel",
       "kanał discord",
       "bot discord",
-      "czat kanału"
+      "czat kanału",
+      "discord",
+      "chat"
     ]
   },
   "hi": {
@@ -304,7 +330,9 @@
       "discord_channel",
       "डिस्कॉर्ड चैनल",
       "बॉट संदेश",
-      "चैनल चैट"
+      "चैनल चैट",
+      "discord",
+      "chat"
     ]
   },
   "ar": {
@@ -326,7 +354,9 @@
       "discord_channel",
       "قناة discord",
       "بوت discord",
-      "دردشة القناة"
+      "دردشة القناة",
+      "discord",
+      "chat"
     ]
   },
   "sv": {
@@ -348,7 +378,9 @@
       "discord_channel",
       "discord-kanal",
       "discord bot",
-      "kanalchatt"
+      "kanalchatt",
+      "discord",
+      "chat"
     ]
   },
   "sw": {
@@ -370,7 +402,9 @@
       "discord_channel",
       "kituo cha discord",
       "bot discord",
-      "mazungumzo ya kituo"
+      "mazungumzo ya kituo",
+      "discord",
+      "chat"
     ]
   },
   "nb": {
@@ -392,7 +426,9 @@
       "discord_channel",
       "discord-kanal",
       "discord bot",
-      "kanalchat"
+      "kanalchat",
+      "discord",
+      "chat"
     ]
   },
   "nl": {
@@ -414,7 +450,9 @@
       "discord_channel",
       "discord-kanaal",
       "discord bot",
-      "kanaalchat"
+      "kanaalchat",
+      "discord",
+      "chat"
     ]
   },
   "fi": {
@@ -436,7 +474,9 @@
       "discord_channel",
       "discord-kanava",
       "discord botti",
-      "kanavakeskustelu"
+      "kanavakeskustelu",
+      "discord",
+      "chat"
     ]
   },
   "cs": {
@@ -458,7 +498,9 @@
       "discord_channel",
       "kanál discord",
       "bot discord",
-      "chat kanálu"
+      "chat kanálu",
+      "discord",
+      "chat"
     ]
   },
   "uk": {
@@ -480,7 +522,9 @@
       "discord_channel",
       "канал discord",
       "бот discord",
-      "чат каналу"
+      "чат каналу",
+      "discord",
+      "chat"
     ]
   },
   "tr": {
@@ -502,7 +546,9 @@
       "discord_channel",
       "discord kanalı",
       "discord bot",
-      "kanal sohbeti"
+      "kanal sohbeti",
+      "discord",
+      "chat"
     ]
   },
   "th": {
@@ -524,7 +570,9 @@
       "discord_channel",
       "ช่อง discord",
       "บอท discord",
-      "แชทช่อง"
+      "แชทช่อง",
+      "discord",
+      "chat"
     ]
   },
   "zh_CN": {
@@ -546,7 +594,9 @@
       "discord_channel",
       "discord 频道",
       "频道聊天",
-      "bot 消息"
+      "bot 消息",
+      "discord",
+      "chat"
     ]
   },
   "zh_TW": {
@@ -568,7 +618,9 @@
       "discord_channel",
       "discord 頻道",
       "頻道聊天",
-      "bot 訊息"
+      "bot 訊息",
+      "discord",
+      "chat"
     ]
   },
   "bn": {
@@ -590,7 +642,9 @@
       "discord_channel",
       "ডিসকর্ড চ্যানেল",
       "বট বার্তা",
-      "চ্যানেল চ্যাট"
+      "চ্যানেল চ্যাট",
+      "discord",
+      "chat"
     ]
   },
   "fa": {
@@ -612,7 +666,9 @@
       "discord_channel",
       "کانال discord",
       "ربات discord",
-      "گفتگوی کانال"
+      "گفتگوی کانال",
+      "discord",
+      "chat"
     ]
   },
   "mn": {
@@ -634,7 +690,9 @@
       "discord_channel",
       "discord суваг",
       "discord бот",
-      "суваг чат"
+      "суваг чат",
+      "discord",
+      "chat"
     ]
   },
   "mr": {
@@ -656,7 +714,9 @@
       "discord_channel",
       "डिस्कॉर्ड चॅनेल",
       "बॉट संदेश",
-      "चॅनेल चॅट"
+      "चॅनेल चॅट",
+      "discord",
+      "chat"
     ]
   },
   "el": {
@@ -676,7 +736,9 @@
     "param.wait_s.description": "Πόσο καιρό να περιμένετε για απαντήσεις μετά την αποστολή (δευτερόλεπτα).",
     "x_search_terms": [
       "discord_channel",
-      "κανάλι διχόνοιας"
+      "κανάλι διχόνοιας",
+      "discord",
+      "chat"
     ]
   },
   "he": {
@@ -696,7 +758,9 @@
     "param.wait_s.description": "כמה זמן לחכות לתשובות לאחר השליחה (שניות).",
     "x_search_terms": [
       "דיסקורד_ערוץ",
-      "ערוץ דיסקורד"
+      "ערוץ דיסקורד",
+      "discord",
+      "chat"
     ]
   },
   "hu": {
@@ -716,7 +780,9 @@
     "param.wait_s.description": "Mennyi ideig kell várni a válaszokra az elküldés után (másodperc).",
     "x_search_terms": [
       "discord_channel",
-      "discord csatorna"
+      "discord csatorna",
+      "discord",
+      "chat"
     ]
   },
   "ro": {
@@ -736,7 +802,9 @@
     "param.wait_s.description": "Cât timp trebuie să așteptați răspunsurile după trimitere (secunde).",
     "x_search_terms": [
       "canal_discord",
-      "canal de discordie"
+      "canal de discordie",
+      "discord",
+      "chat"
     ]
   }
 }

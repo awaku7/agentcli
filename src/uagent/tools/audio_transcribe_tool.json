@@ -6,7 +6,9 @@
       "audio",
       "voice",
       "speech",
-      "sound"
+      "sound",
+      "transcribe",
+      "speech to text"
     ],
     "param.path.description": "Path to the input audio file.",
     "param.prompt.description": "Optional context prompt to improve transcription quality.",
@@ -27,7 +29,9 @@
     "x_search_terms": [
       "音声ファイルを書き起こしてテキストを返します。会議、インタビュー、音声メモに使えます",
       "audio_transcribe",
-      "audio transcribe"
+      "audio transcribe",
+      "transcribe",
+      "speech to text"
     ],
     "param.path.description": "入力する音声ファイルのパス。",
     "param.prompt.description": "書き起こし精度を高めるための任意の文脈プロンプト。",
@@ -48,7 +52,9 @@
     "x_search_terms": [
       "Transcribe un archivo de audio a texto. Útil para reuniones, entrevistas y notas de voz",
       "audio_transcribe",
-      "audio transcribe"
+      "audio transcribe",
+      "transcribe",
+      "speech to text"
     ],
     "param.path.description": "Ruta al archivo de audio de entrada.",
     "param.prompt.description": "Mensaje de contexto opcional para mejorar la calidad de la transcripción.",
@@ -65,7 +71,9 @@
     "x_search_terms": [
       "Transcrit un fichier audio en texte. Utile pour les réunions, les entretiens et les notes vocales",
       "audio_transcribe",
-      "audio transcribe"
+      "audio transcribe",
+      "transcribe",
+      "speech to text"
     ],
     "param.path.description": "Chemin d'accès au fichier audio d'entrée.",
     "param.prompt.description": "Invite contextuelle facultative pour améliorer la qualité de la transcription.",
@@ -82,7 +90,9 @@
     "x_search_terms": [
       "오디오 파일을 텍스트로 변환합니다. 회의, 인터뷰, 음성 메모에 유용합니다",
       "audio_transcribe",
-      "audio transcribe"
+      "audio transcribe",
+      "transcribe",
+      "speech to text"
     ],
     "param.path.description": "입력 오디오 파일의 경로입니다.",
     "param.prompt.description": "전사 품질을 높이기 위한 선택적 문맥 프롬프트입니다.",
@@ -99,7 +109,9 @@
     "x_search_terms": [
       "Transkribiert eine Audiodatei in Text. Nützlich für Besprechungen, Interviews und Sprachmemos",
       "audio_transcribe",
-      "audio transcribe"
+      "audio transcribe",
+      "transcribe",
+      "speech to text"
     ],
     "param.path.description": "Pfad zur Eingabe-Audiodatei.",
     "param.prompt.description": "Optionale Kontextaufforderung zur Verbesserung der Transkriptionsqualität.",
@@ -116,7 +128,9 @@
     "x_search_terms": [
       "Trascrive un file audio in testo. Utile per riunioni, interviste e note vocali",
       "audio_transcribe",
-      "audio transcribe"
+      "audio transcribe",
+      "transcribe",
+      "speech to text"
     ],
     "param.path.description": "Percorso del file audio di input.",
     "param.prompt.description": "Richiesta contestuale opzionale per migliorare la qualità della trascrizione.",
@@ -133,7 +147,9 @@
     "x_search_terms": [
       "Преобразует аудиофайл в текст. Полезно для встреч, интервью и голосовых заметок",
       "audio_transcribe",
-      "audio transcribe"
+      "audio transcribe",
+      "transcribe",
+      "speech to text"
     ],
     "param.path.description": "Путь к входному аудиофайлу.",
     "param.prompt.description": "Дополнительный контекстный запрос для улучшения качества транскрипции.",
@@ -150,7 +166,9 @@
     "x_search_terms": [
       "Transcreve um arquivo de áudio para texto. Útil para reuniões, entrevistas e notas de voz",
       "audio_transcribe",
-      "audio transcribe"
+      "audio transcribe",
+      "transcribe",
+      "speech to text"
     ],
     "param.path.description": "Caminho para o arquivo de áudio de entrada.",
     "param.prompt.description": "Prompt de contexto opcional para melhorar a qualidade da transcrição.",
@@ -167,7 +185,9 @@
     "x_search_terms": [
       "Transcreve um arquivo de áudio para texto. Útil para reuniões, entrevistas e notas de voz",
       "audio_transcribe",
-      "audio transcribe"
+      "audio transcribe",
+      "transcribe",
+      "speech to text"
     ],
     "param.path.description": "Caminho para o arquivo de áudio de entrada.",
     "param.prompt.description": "Prompt de contexto opcional para melhorar a qualidade da transcrição.",
@@ -184,7 +204,9 @@
     "x_search_terms": [
       "Mentranskripsi file audio menjadi teks. Berguna untuk rapat, wawancara, dan catatan suara",
       "audio_transcribe",
-      "audio transcribe"
+      "audio transcribe",
+      "transcribe",
+      "speech to text"
     ],
     "param.path.description": "Jalur ke file audio input.",
     "param.prompt.description": "Perintah konteks opsional untuk meningkatkan kualitas transkripsi.",
@@ -201,7 +223,9 @@
     "x_search_terms": [
       "Chuyển tệp âm thanh thành văn bản. Hữu ích cho cuộc họp, phỏng vấn và ghi chú giọng nói",
       "audio_transcribe",
-      "audio transcribe"
+      "audio transcribe",
+      "transcribe",
+      "speech to text"
     ],
     "param.path.description": "Đường dẫn đến tệp âm thanh đầu vào.",
     "param.prompt.description": "Prompt ngữ cảnh tùy chọn để cải thiện chất lượng phiên âm.",
@@ -218,7 +242,9 @@
     "x_search_terms": [
       "Transkrybuje plik audio do tekstu. Przydatne podczas spotkań, wywiadów i notatek głosowych",
       "audio_transcribe",
-      "audio transcribe"
+      "audio transcribe",
+      "transcribe",
+      "speech to text"
     ],
     "param.path.description": "Ścieżka do wejściowego pliku audio.",
     "param.prompt.description": "Opcjonalny monit kontekstowy poprawiający jakość transkrypcji.",
@@ -235,7 +261,9 @@
     "x_search_terms": [
       "ऑडियो फ़ाइल को टेक्स्ट में ट्रांसक्राइब करता है। मीटिंग, इंटरव्यू और वॉइस नोट्स के लिए उपयोगी।",
       "audio_transcribe",
-      "audio transcribe"
+      "audio transcribe",
+      "transcribe",
+      "speech to text"
     ],
     "param.path.description": "इनपुट ऑडियो फ़ाइल का पथ।",
     "param.prompt.description": "प्रतिलेखन गुणवत्ता में सुधार के लिए वैकल्पिक संदर्भ संकेत।",
@@ -252,7 +280,9 @@
     "x_search_terms": [
       "يحوّل ملفًا صوتيًا إلى نص. مفيد للاجتماعات والمقابلات والملاحظات الصوتية",
       "audio_transcribe",
-      "audio transcribe"
+      "audio transcribe",
+      "transcribe",
+      "speech to text"
     ],
     "param.path.description": "المسار إلى ملف الصوت المدخل.",
     "param.prompt.description": "موجه سياقي اختياري لتحسين جودة التفريغ.",
@@ -269,7 +299,9 @@
     "x_search_terms": [
       "Transkriberar en ljudfil till text. Användbart för möten, intervjuer och röstanteckningar",
       "audio_transcribe",
-      "audio transcribe"
+      "audio transcribe",
+      "transcribe",
+      "speech to text"
     ],
     "param.path.description": "Sökväg till ingångsljudfilen.",
     "param.prompt.description": "Valfri kontextuppmaning för att förbättra transkriptionskvaliteten.",
@@ -286,7 +318,9 @@
     "x_search_terms": [
       "Hubadilisha faili ya sauti kuwa maandishi. Inafaa kwa mikutano, mahojiano, na noti za sauti",
       "audio_transcribe",
-      "audio transcribe"
+      "audio transcribe",
+      "transcribe",
+      "speech to text"
     ],
     "param.path.description": "Njia ya faili ya sauti ya ingizo.",
     "param.prompt.description": "Kidokezo cha hiari cha muktadha ili kuboresha ubora wa unukuzi.",
@@ -303,7 +337,9 @@
     "x_search_terms": [
       "Transkriberer en lydfil til tekst. Nyttig for møter, intervjuer og tale-notater",
       "audio_transcribe",
-      "audio transcribe"
+      "audio transcribe",
+      "transcribe",
+      "speech to text"
     ],
     "param.path.description": "Sti til inngangslydfilen.",
     "param.prompt.description": "Valgfri kontekstforespørsel for å forbedre transkripsjonskvaliteten.",
@@ -320,7 +356,9 @@
     "x_search_terms": [
       "Zet een audiobestand om naar tekst. Handig voor vergaderingen, interviews en spraaknotities",
       "audio_transcribe",
-      "audio transcribe"
+      "audio transcribe",
+      "transcribe",
+      "speech to text"
     ],
     "param.path.description": "Pad naar het invoeraudiobestand.",
     "param.prompt.description": "Optionele contextprompt om de transcriptiekwaliteit te verbeteren.",
@@ -337,7 +375,9 @@
     "x_search_terms": [
       "Muuntaa äänitiedoston tekstiksi. Hyödyllinen kokouksissa, haastatteluissa ja äänimuistiinpanoissa",
       "audio_transcribe",
-      "audio transcribe"
+      "audio transcribe",
+      "transcribe",
+      "speech to text"
     ],
     "param.path.description": "Syöteäänitiedoston polku.",
     "param.prompt.description": "Valinnainen kontekstikehote transkription laadun parantamiseksi.",
@@ -354,7 +394,9 @@
     "x_search_terms": [
       "Převede zvukový soubor na text. Užitečné pro schůzky, rozhovory a hlasové poznámky",
       "audio_transcribe",
-      "audio transcribe"
+      "audio transcribe",
+      "transcribe",
+      "speech to text"
     ],
     "param.path.description": "Cesta ke vstupnímu zvukovému souboru.",
     "param.prompt.description": "Volitelný kontextový prompt pro zlepšení kvality přepisu.",
@@ -371,7 +413,9 @@
     "x_search_terms": [
       "Перетворює аудіофайл у текст. Корисно для зустрічей, інтерв'ю та голосових нотаток",
       "audio_transcribe",
-      "audio transcribe"
+      "audio transcribe",
+      "transcribe",
+      "speech to text"
     ],
     "param.path.description": "Шлях до вхідного аудіофайлу.",
     "param.prompt.description": "Необов’язковий контекстний запит для покращення якості транскрипції.",
@@ -388,7 +432,9 @@
     "x_search_terms": [
       "Bir ses dosyasını metne dönüştürün. Toplantılar, röportajlar ve sesli notlar için kullanışlıdır",
       "audio_transcribe",
-      "audio transcribe"
+      "audio transcribe",
+      "transcribe",
+      "speech to text"
     ],
     "param.path.description": "Giriş ses dosyasının yolu.",
     "param.prompt.description": "Transkripsiyon kalitesini artırmak için isteğe bağlı içerik istemi.",
@@ -405,7 +451,9 @@
     "x_search_terms": [
       "ถอดเสียงไฟล์เสียงเป็นข้อความ เหมาะสำหรับการประชุม การสัมภาษณ์ และบันทึกเสียง",
       "audio_transcribe",
-      "audio transcribe"
+      "audio transcribe",
+      "transcribe",
+      "speech to text"
     ],
     "param.path.description": "พาธไปยังไฟล์เสียงต้นฉบับ",
     "param.prompt.description": "พรอมป์ต์บริบทแบบเลือกได้เพื่อช่วยปรับคุณภาพการถอดเสียง",
@@ -422,7 +470,9 @@
     "x_search_terms": [
       "将音频文件转写为文本。适用于会议、访谈和语音笔记",
       "audio_transcribe",
-      "audio transcribe"
+      "audio transcribe",
+      "transcribe",
+      "speech to text"
     ],
     "param.path.description": "输入音频文件的路径。",
     "param.prompt.description": "可选上下文提示，用于提升转写质量。",
@@ -439,7 +489,9 @@
     "x_search_terms": [
       "將音訊檔轉寫為文字。適用於會議、訪談與語音筆記",
       "audio_transcribe",
-      "audio transcribe"
+      "audio transcribe",
+      "transcribe",
+      "speech to text"
     ],
     "param.path.description": "輸入音訊檔的路徑。",
     "param.prompt.description": "可選的上下文提示，用於提升轉寫品質。",
@@ -456,7 +508,9 @@
     "x_search_terms": [
       "একটি অডিও ফাইলকে টেক্সটে ট্রান্সক্রাইব করুন। মিটিং, ইন্টারভিউ ও ভয়েস নোটের জন্য উপযোগী",
       "audio_transcribe",
-      "audio transcribe"
+      "audio transcribe",
+      "transcribe",
+      "speech to text"
     ],
     "param.path.description": "ইনপুট অডিও ফাইলের পথ।",
     "param.prompt.description": "ট্রান্সক্রিপশন মান উন্নত করতে ঐচ্ছিক context prompt।",
@@ -473,7 +527,9 @@
     "x_search_terms": [
       "یک فایل صوتی را به متن تبدیل کنید. برای جلسات، مصاحبه‌ها و یادداشت‌های صوتی مفید است",
       "audio_transcribe",
-      "audio transcribe"
+      "audio transcribe",
+      "transcribe",
+      "speech to text"
     ],
     "param.path.description": "مسیر فایل صوتی ورودی.",
     "param.prompt.description": "پرامپت زمینهٔ اختیاری برای بهبود کیفیت پیاده‌سازی.",
@@ -490,7 +546,9 @@
     "x_search_terms": [
       "Аудио файлыг текст болгон хөрвүүлнэ. Хурал, ярилцлага, дуу хоолойн тэмдэглэлд хэрэгтэй",
       "audio_transcribe",
-      "audio transcribe"
+      "audio transcribe",
+      "transcribe",
+      "speech to text"
     ],
     "param.path.description": "Оролтын аудио файлын зам.",
     "param.prompt.description": "Хөрвүүлэлтийн чанарыг сайжруулах нэмэлт context prompt.",
@@ -507,7 +565,9 @@
     "x_search_terms": [
       "ऑडिओ फाईलचे मजकुरात लिप्यंतरण करा. मीटिंग्ज, मुलाखती आणि व्हॉइस नोट्ससाठी उपयुक्त",
       "audio_transcribe",
-      "audio transcribe"
+      "audio transcribe",
+      "transcribe",
+      "speech to text"
     ],
     "param.path.description": "इनपुट ऑडिओ फाईलचा मार्ग.",
     "param.prompt.description": "लिप्यंतरण गुणवत्ता वाढवण्यासाठी ऐच्छिक context prompt.",
@@ -527,7 +587,9 @@
       "ήχου",
       "φωνή",
       "ομιλία",
-      "ήχος"
+      "ήχος",
+      "transcribe",
+      "speech to text"
     ],
     "param.path.description": "Διαδρομή προς το αρχείο ήχου εισόδου.",
     "param.prompt.description": "Προαιρετικό μήνυμα περιβάλλοντος για τη βελτίωση της ποιότητας μεταγραφής.",
@@ -547,7 +609,9 @@
       "שֶׁמַע",
       "קוֹל",
       "נְאוּם",
-      "קוֹל"
+      "קוֹל",
+      "transcribe",
+      "speech to text"
     ],
     "param.path.description": "נתיב לקובץ האודיו הקלט.",
     "param.prompt.description": "הנחית הקשר אופציונלית לשיפור איכות התמלול.",
@@ -567,7 +631,9 @@
       "hang-",
       "hang",
       "beszéd",
-      "hang"
+      "hang",
+      "transcribe",
+      "speech to text"
     ],
     "param.path.description": "A bemeneti hangfájl elérési útja.",
     "param.prompt.description": "Opcionális környezetkérdés az átírás minőségének javításához.",
@@ -587,7 +653,9 @@
       "audio",
       "voce",
       "vorbire",
-      "sunet"
+      "sunet",
+      "transcribe",
+      "speech to text"
     ],
     "param.path.description": "Calea către fișierul audio de intrare.",
     "param.prompt.description": "Solicitare context opțională pentru îmbunătățirea calității transcripției.",

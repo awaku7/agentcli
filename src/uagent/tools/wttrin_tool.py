@@ -21,6 +21,15 @@ TOOL_SPEC = {
             "tool.description",
             default="Get weather information from wttr.in. Supports city name or GPS coordinates.",
         ),
+        "x_search_terms": _(
+            "x_search_terms",
+            default=["weather", "forecast", "temperature", "天気", "気温", "天気予報"],
+        ),
+        "x_search_terms_en": [
+        "weather",
+        "forecast",
+        "temperature",
+    ],
         "parameters": {
             "type": "object",
             "properties": {

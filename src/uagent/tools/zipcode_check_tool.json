@@ -6,7 +6,9 @@
       "postal code",
       "Japan address",
       "address lookup",
-      "Japanese zipcode"
+      "Japanese zipcode",
+      "zip code",
+      "postal"
     ],
     "param.zipcode.description": "7-digit Japanese zipcode to look up (e.g. '1000001'). Hyphens are ignored.",
     "param.prefecture.description": "Japanese prefecture name to list cities in (e.g. '東京都', 'Kanagawa'). Kanji, kana, or romaji accepted."
@@ -18,7 +20,9 @@
       "郵便番号",
       "日本の住所",
       "住所検索",
-      "日本の郵便番号"
+      "日本の郵便番号",
+      "zip code",
+      "postal"
     ],
     "param.zipcode.description": "検索する日本の 7 桁の郵便番号 (例: '1000001')。ハイフンは無視されます。",
     "param.prefecture.description": "都市をリストする日本の都道府県名 (例: 「東京都」、「神奈川」)。漢字、かな、ローマ字可。"
@@ -30,7 +34,9 @@
       "código postal",
       "Dirección de Japón",
       "búsqueda de dirección",
-      "código postal japonés"
+      "código postal japonés",
+      "zip code",
+      "postal"
     ],
     "param.zipcode.description": "Código postal japonés de 7 dígitos para buscar (por ejemplo, '1000001'). Se ignoran los guiones.",
     "param.prefecture.description": "Nombre de la prefectura japonesa para enumerar las ciudades (por ejemplo, '東京都', 'Kanagawa'). Se aceptan kanji, kana o romaji."
@@ -42,7 +48,9 @@
       "code postal",
       "Adresse du Japon",
       "recherche d'adresse",
-      "Code postal japonais"
+      "Code postal japonais",
+      "zip code",
+      "postal"
     ],
     "param.zipcode.description": "Code postal japonais à 7 chiffres à rechercher (par exemple « 1000001 »). Les traits d'union sont ignorés.",
     "param.prefecture.description": "Nom de la préfecture japonaise dans laquelle répertorier les villes (par exemple « 東京都 », « Kanagawa »). Kanji, kana ou romaji acceptés."
@@ -54,7 +62,9 @@
       "우편번호",
       "Japan address",
       "주소 조회",
-      "Japanese zipcode"
+      "Japanese zipcode",
+      "zip code",
+      "postal"
     ],
     "param.zipcode.description": "7-digit Japanese zipcode to look up (e.g. '1000001'). 하이픈은 무시됩니다.",
     "param.prefecture.description": "Japanese prefecture name to list cities in (e.g. '東京都', 'Kanagawa'). 한자, 가나, 로마자를 사용할 수 있습니다."
@@ -66,7 +76,9 @@
       "Postleitzahl",
       "Japanische Adresse",
       "Adresssuche",
-      "Japanische Postleitzahl"
+      "Japanische Postleitzahl",
+      "zip code",
+      "postal"
     ],
     "param.zipcode.description": "7-stellige japanische Postleitzahl zum Nachschlagen (z. B. „1000001“). Bindestriche werden ignoriert.",
     "param.prefecture.description": "Name der japanischen Präfektur, in der Städte aufgelistet werden (z. B. „東京都“, „Kanagawa“). Kanji, Kana oder Romaji werden akzeptiert."
@@ -78,7 +90,9 @@
       "codice postale",
       "Indirizzo del Giappone",
       "ricerca dell'indirizzo",
-      "Codice postale giapponese"
+      "Codice postale giapponese",
+      "zip code",
+      "postal"
     ],
     "param.zipcode.description": "Codice postale giapponese di 7 cifre da cercare (ad esempio \"1000001\"). I trattini vengono ignorati.",
     "param.prefecture.description": "Nome della prefettura giapponese in cui elencare le città (ad esempio \"東京都\", \"Kanagawa\"). Kanji, kana o romaji sono accettati."
@@ -90,7 +104,9 @@
       "почтовый индекс",
       "Адрес Японии",
       "поиск адреса",
-      "Японский почтовый индекс"
+      "Японский почтовый индекс",
+      "zip code",
+      "postal"
     ],
     "param.zipcode.description": "7-значный японский почтовый индекс для поиска (например, «1000001»). Дефисы игнорируются.",
     "param.prefecture.description": "Название японской префектуры, в которой будут указаны города (например, «東京都», «Канагава»). Принимаются кандзи, кана или ромадзи."
@@ -102,7 +118,9 @@
       "código postal",
       "Endereço no Japão",
       "pesquisa de endereço",
-      "CEP japonês"
+      "CEP japonês",
+      "zip code",
+      "postal"
     ],
     "param.zipcode.description": "CEP japonês de 7 dígitos para procurar (por exemplo, '1000001'). Os hífens são ignorados.",
     "param.prefecture.description": "Nome da prefeitura japonesa para listar as cidades (por exemplo, '東京都', 'Kanagawa'). Kanji, kana ou romaji são aceitos."
@@ -114,7 +132,9 @@
       "código postal",
       "Endereço no Japão",
       "pesquisa de endereço",
-      "CEP japonês"
+      "CEP japonês",
+      "zip code",
+      "postal"
     ],
     "param.zipcode.description": "CEP japonês de 7 dígitos para procurar (por exemplo, '1000001'). Os hífens são ignorados.",
     "param.prefecture.description": "Nome da prefeitura japonesa para listar as cidades (por exemplo, '東京都', 'Kanagawa'). Kanji, kana ou romaji são aceitos."
@@ -126,7 +146,9 @@
       "kode pos",
       "Alamat Jepang",
       "pencarian alamat",
-      "Kode pos Jepang"
+      "Kode pos Jepang",
+      "zip code",
+      "postal"
     ],
     "param.zipcode.description": "Kode pos Jepang 7 digit untuk dicari (misalnya '1000001'). Tanda hubung diabaikan.",
     "param.prefecture.description": "Nama prefektur Jepang untuk mencantumkan kota-kota di dalamnya (misalnya '東京都', 'Kanagawa'). Kanji, kana, atau romaji diterima."
@@ -138,7 +160,9 @@
       "mã bưu chính",
       "địa chỉ nhật bản",
       "tra cứu địa chỉ",
-      "mã vùng Nhật Bản"
+      "mã vùng Nhật Bản",
+      "zip code",
+      "postal"
     ],
     "param.zipcode.description": "Mã zip tiếng Nhật gồm 7 chữ số để tra cứu (ví dụ: '1000001'). Dấu gạch nối được bỏ qua.",
     "param.prefecture.description": "Tên tỉnh của Nhật Bản để liệt kê các thành phố (ví dụ: '東京都', 'Kanagawa'). Kanji, kana hoặc romaji được chấp nhận."
@@ -150,7 +174,9 @@
       "kod pocztowy",
       "Adres w Japonii",
       "wyszukiwanie adresu",
-      "Japoński kod pocztowy"
+      "Japoński kod pocztowy",
+      "zip code",
+      "postal"
     ],
     "param.zipcode.description": "7-cyfrowy japoński kod pocztowy do sprawdzenia (np. „1000001”). Łączniki są ignorowane.",
     "param.prefecture.description": "Nazwa japońskiej prefektury, w której należy umieścić listę miast (np. „東京都”, „Kanagawa”). Akceptowane są kanji, kana lub romaji."
@@ -162,7 +188,9 @@
       "डाक कोड",
       "जापान का पता",
       "पता खोज",
-      "जापानी ज़िपकोड"
+      "जापानी ज़िपकोड",
+      "zip code",
+      "postal"
     ],
     "param.zipcode.description": "देखने के लिए 7-अंकीय जापानी ज़िपकोड (उदाहरण के लिए '100001')। हाइफ़न को नजरअंदाज कर दिया जाता है।",
     "param.prefecture.description": "शहरों की सूची में जापानी प्रान्त का नाम (जैसे '東京都', 'कानागावा')। कांजी, काना, या रोमाजी स्वीकार किए जाते हैं।"
@@ -174,7 +202,9 @@
       "الرمز البريدي",
       "عنوان اليابان",
       "البحث عن العنوان",
-      "الرمز البريدي الياباني"
+      "الرمز البريدي الياباني",
+      "zip code",
+      "postal"
     ],
     "param.zipcode.description": "الرمز البريدي الياباني المكون من 7 أرقام للبحث عنه (على سبيل المثال \"1000001\"). يتم تجاهل الواصلات.",
     "param.prefecture.description": "اسم المحافظة اليابانية لإدراج المدن فيها (على سبيل المثال \"東京都\"، \"Kanagawa\"). يتم قبول كانجي، كانا، أو روماجي."
@@ -186,7 +216,9 @@
       "postnummer",
       "Japan adress",
       "adresssökning",
-      "Japanskt postnummer"
+      "Japanskt postnummer",
+      "zip code",
+      "postal"
     ],
     "param.zipcode.description": "7-siffrigt japanskt postnummer att slå upp (t.ex. '1000001'). Bindestreck ignoreras.",
     "param.prefecture.description": "Japansk prefekturnamn för att lista städer i (t.ex. '東京都', 'Kanagawa'). Kanji, kana eller romaji accepteras."
@@ -198,7 +230,9 @@
       "postal code",
       "Japan address",
       "address lookup",
-      "Japanese zipcode"
+      "Japanese zipcode",
+      "zip code",
+      "postal"
     ],
     "param.zipcode.description": "7-digit Japanese zipcode to look up (e.g. '1000001'). Hyphens are ignored.",
     "param.prefecture.description": "Japanese prefecture name to list cities in (e.g. '東京都', 'Kanagawa'). Kanji, kana, or romaji accepted."
@@ -210,7 +244,9 @@
       "postnummer",
       "Japan adresse",
       "adresseoppslag",
-      "Japansk postnummer"
+      "Japansk postnummer",
+      "zip code",
+      "postal"
     ],
     "param.zipcode.description": "7-sifret japansk postnummer for å slå opp (f.eks. '1000001'). Bindestreker ignoreres.",
     "param.prefecture.description": "Japansk prefekturnavn for å liste byer i (f.eks. '東京都', 'Kanagawa'). Kanji, kana eller romaji godtas."
@@ -222,7 +258,9 @@
       "postcode",
       "Japans adres",
       "address lookup",
-      "Japanse postcode"
+      "Japanse postcode",
+      "zip code",
+      "postal"
     ],
     "param.zipcode.description": "Japanse postcode van 7 cijfers om op te zoeken (bijvoorbeeld '1000001'). Hyphens are ignored.",
     "param.prefecture.description": "Naam van de Japanse prefectuur waarin steden worden vermeld (bijvoorbeeld '東京都', 'Kanagawa'). Kanji, kana of romaji geaccepteerd."
@@ -234,7 +272,9 @@
       "postinumero",
       "Japanin osoite",
       "osoitteen haku",
-      "Japanilainen postinumero"
+      "Japanilainen postinumero",
+      "zip code",
+      "postal"
     ],
     "param.zipcode.description": "7-numeroinen japanilainen postinumero (esim. '1000001'). Tavuviivat jätetään huomiotta.",
     "param.prefecture.description": "Japanin prefektuurin nimi, jossa luetellaan kaupungit (esim. 東京都, Kanagawa). Kanji, kana tai romaji hyväksytään."
@@ -246,7 +286,9 @@
       "PSČ",
       "japonská adresa",
       "vyhledávání adresy",
-      "Japanese zipcode"
+      "Japanese zipcode",
+      "zip code",
+      "postal"
     ],
     "param.zipcode.description": "7místné japonské PSČ k vyhledání (např. '1000001'). Pomlčky jsou ignorovány.",
     "param.prefecture.description": "Název japonské prefektury pro seznam měst (např. '東京都', 'Kanagawa'). Kanji, kana nebo romaji přijato."
@@ -258,7 +300,9 @@
       "поштовий індекс",
       "Японська адреса",
       "пошук адреси",
-      "Японський поштовий індекс"
+      "Японський поштовий індекс",
+      "zip code",
+      "postal"
     ],
     "param.zipcode.description": "7-значний японський поштовий індекс для пошуку (наприклад, \"1000001\"). Дефіси ігноруються.",
     "param.prefecture.description": "Назва японської префектури для переліку міст (наприклад, «東京都», «Канагава»). Приймаються кандзі, кана або ромадзі."
@@ -270,7 +314,9 @@
       "posta kodu",
       "Japonya adresi",
       "adres arama",
-      "Japon posta kodu"
+      "Japon posta kodu",
+      "zip code",
+      "postal"
     ],
     "param.zipcode.description": "Aranacak 7 haneli Japonca posta kodu (ör. '1000001'). Kısa çizgiler göz ardı edilir.",
     "param.prefecture.description": "Şehirlerin listeleneceği Japon vilayetinin adı (ör. '東京都', 'Kanagawa'). Kanji, kana veya romaji kabul edilir."
@@ -282,7 +328,9 @@
       "รหัสไปรษณีย์",
       "ที่อยู่ประเทศญี่ปุ่น",
       "ค้นหาที่อยู่",
-      "รหัสไปรษณีย์ของญี่ปุ่น"
+      "รหัสไปรษณีย์ของญี่ปุ่น",
+      "zip code",
+      "postal"
     ],
     "param.zipcode.description": "รหัสไปรษณีย์ญี่ปุ่น 7 หลักเพื่อค้นหา (เช่น '1000001') ยัติภังค์จะถูกละเว้น",
     "param.prefecture.description": "ชื่อจังหวัดของญี่ปุ่นสำหรับแสดงรายการเมืองต่างๆ (เช่น '東京都', 'Kanagawa') ยอมรับคันจิ คานา หรือโรมาจิ"
@@ -294,7 +342,9 @@
       "邮政编码",
       "日本地址",
       "地址查找",
-      "日本邮政编码"
+      "日本邮政编码",
+      "zip code",
+      "postal"
     ],
     "param.zipcode.description": "要查找的 7 位日本邮政编码（例如“1000001”）。连字符被忽略。",
     "param.prefecture.description": "列出城市的日本都道府县名称（例如“东京都”、“神奈川”）。接受汉字、假名或罗马字。"
@@ -306,7 +356,9 @@
       "郵遞區號",
       "日本地址",
       "地址查找",
-      "日本郵遞區號"
+      "日本郵遞區號",
+      "zip code",
+      "postal"
     ],
     "param.zipcode.description": "要尋找的 7 位日本郵遞區號（例如「1000001」）。連字符被忽略。",
     "param.prefecture.description": "列出城市日本都道府縣的名稱（例如「東京都」、「神奈川」）。接受漢字、假名或羅馬字。"
@@ -318,7 +370,9 @@
       "পোস্টাল কোড",
       "জাপানের ঠিকানা",
       "ঠিকানা অনুসন্ধান",
-      "জাপানি জিপকোড"
+      "জাপানি জিপকোড",
+      "zip code",
+      "postal"
     ],
     "param.zipcode.description": "দেখতে 7-সংখ্যার জাপানি জিপকোড (যেমন '1000001')। হাইফেন উপেক্ষা করা হয়.",
     "param.prefecture.description": "শহরগুলিকে তালিকাভুক্ত করার জন্য জাপানি প্রিফেকচারের নাম (যেমন '東京都', 'কানাগাওয়া')। কানজি, কানা, বা রোমাজি গ্রহণ করেন।"
@@ -330,7 +384,9 @@
       "کد پستی",
       "آدرس ژاپن",
       "جستجوی آدرس",
-      "کد پستی ژاپنی"
+      "کد پستی ژاپنی",
+      "zip code",
+      "postal"
     ],
     "param.zipcode.description": "کد پستی 7 رقمی ژاپنی برای جستجو (مثلاً '1000001'). خط فاصله نادیده گرفته می شود.",
     "param.prefecture.description": "نام استان ژاپن برای فهرست کردن شهرها (مانند «東京都»، «کاناگاوا»). کانجی، کانا یا روماجی پذیرفته شد."
@@ -342,7 +398,9 @@
       "шуудангийн код",
       "Япон хаяг",
       "хаяг хайх",
-      "Японы зипкод"
+      "Японы зипкод",
+      "zip code",
+      "postal"
     ],
     "param.zipcode.description": "Хайх 7 оронтой Японы зипкод (жишээ нь '1000001'). Зураасыг үл тоомсорлодог.",
     "param.prefecture.description": "Хотуудыг жагсаах Япон мужийн нэр (жишээ нь: '東京都', 'Канагава'). Канжи, кана эсвэл ромажи зэргийг хүлээн зөвшөөрсөн."
@@ -354,7 +412,9 @@
       "पोस्टल कोड",
       "जपानचा पत्ता",
       "पत्ता शोध",
-      "जपानी पिनकोड"
+      "जपानी पिनकोड",
+      "zip code",
+      "postal"
     ],
     "param.zipcode.description": "पाहण्यासाठी 7-अंकी जपानी पिनकोड (उदा. '1000001'). हायफनकडे दुर्लक्ष केले जाते.",
     "param.prefecture.description": "शहरांची यादी करण्यासाठी जपानी प्रांताचे नाव (उदा. '東京都', 'कानागावा'). कांजी, काना किंवा रोमाजी स्वीकारले."
@@ -366,7 +426,9 @@
       "ταχυδρομικός κώδικας",
       "Διεύθυνση Ιαπωνίας",
       "αναζήτηση διεύθυνσης",
-      "Ιαπωνικός ταχυδρομικός κώδικας"
+      "Ιαπωνικός ταχυδρομικός κώδικας",
+      "zip code",
+      "postal"
     ],
     "param.zipcode.description": "7ψήφιος ιαπωνικός ταχυδρομικός κώδικας για αναζήτηση (π.χ. '1000001'). Οι παύλες αγνοούνται.",
     "param.prefecture.description": "Όνομα ιαπωνικού νομού για λίστα πόλεων (π.χ. '東京都', 'Kanagawa'). Καντζί, κανά ή ρομάτζι δεκτά."
@@ -378,7 +440,9 @@
       "מיקוד",
       "כתובת יפן",
       "חיפוש כתובת",
-      "מיקוד יפני"
+      "מיקוד יפני",
+      "zip code",
+      "postal"
     ],
     "param.zipcode.description": "מיקוד יפני בן 7 ספרות לחיפוש (למשל '1000001'). מקפים מתעלמים.",
     "param.prefecture.description": "שם המחוז היפני לרשימת הערים (למשל '東京都', 'Kanagawa'). קאנג'י, קאנה או רומאג'י התקבלו."
@@ -390,7 +454,9 @@
       "irányítószám",
       "Japán cím",
       "címkeresés",
-      "Japán irányítószám"
+      "Japán irányítószám",
+      "zip code",
+      "postal"
     ],
     "param.zipcode.description": "7 számjegyű japán irányítószám a kereséshez (pl. „1000001”). A kötőjeleket figyelmen kívül hagyják.",
     "param.prefecture.description": "Japán prefektúra neve a városok felsorolásához (pl. „東京都”, „Kanagawa”). Kanji, kana vagy romaji elfogadott."
@@ -402,7 +468,9 @@
       "cod poștal",
       "adresa din Japonia",
       "căutarea adresei",
-      "Cod poștal japonez"
+      "Cod poștal japonez",
+      "zip code",
+      "postal"
     ],
     "param.zipcode.description": "Cod poștal japonez din 7 cifre de căutat (de exemplu, „1000001”). Cratimele sunt ignorate.",
     "param.prefecture.description": "Numele prefecturii japoneze pentru a lista orașele în (de exemplu, „東京都”, „Kanagawa”). Se acceptă kanji, kana sau romaji."
