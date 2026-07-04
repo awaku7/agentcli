@@ -32,7 +32,8 @@ def auto_install(package_name: str, module_name: str | None = None) -> bool:
     try:
         subprocess.run(
             [sys.executable, "-m", "pip", "install", package_name],
-            capture_output=True,
+            stdout=sys.stderr,
+            stderr=sys.stderr,
             timeout=120,
         )
     except Exception:
@@ -85,7 +86,7 @@ def install_with_status(
     try:
         result = subprocess.run(
             [sys.executable, "-m", "pip", "install", package_name],
-            capture_output=True, timeout=120,
+            stdout=sys.stderr, stderr=sys.stderr, timeout=120,
         )
         success = result.returncode == 0
     except Exception:
