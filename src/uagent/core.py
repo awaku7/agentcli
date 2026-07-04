@@ -401,7 +401,7 @@ def _check_responses_state_provider(provider: str, depname: str) -> None:
                 except Exception:
                     pass
     saved_provider = _PENDING_RESPONSES_STATE.get("provider", "") if _PENDING_RESPONSES_STATE else ""
-    saved_model = _PENDING_RESPONSES_STATE.get("model", "")
+    saved_model = _PENDING_RESPONSES_STATE.get("model", "") if _PENDING_RESPONSES_STATE else ""
     if saved_provider != provider or saved_model != depname:
         _PENDING_RESPONSES_STATE = None
         _save_responses_state()
