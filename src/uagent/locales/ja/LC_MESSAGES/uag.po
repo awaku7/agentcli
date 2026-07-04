@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2026-07-04 13:28+0900\n"
+"POT-Creation-Date: 2026-07-04 16:03+0900\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: ja <LL@li.org>\n"
@@ -13,6 +13,18 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 "Generated-By: Babel 2.18.0\n"
+
+#: src/uagent/_pip_auto.py:79
+msgid "Installing {package}..."
+msgstr "{package} をインストールしています..."
+
+#: src/uagent/_pip_auto.py:104
+msgid "{package} installed successfully."
+msgstr "{package} は正常にインストールされました。"
+
+#: src/uagent/_pip_auto.py:106
+msgid "Failed to install {package}."
+msgstr "{package} のインストールに失敗しました。"
 
 #: src/uagent/checks.py:17 src/uagent/checks.py:27
 #, python-format
@@ -82,7 +94,7 @@ msgid ""
 "Image send confirmation failed; will not send images: %(etype)s: %(err)s"
 msgstr "画像送信の確認に失敗しました。画像は送信しません: %(etype)s: %(err)s"
 
-#: src/uagent/cli.py:1112 src/uagent/scheckgui.py:722
+#: src/uagent/cli.py:1112 src/uagent/scheckgui.py:728
 #, python-format
 msgid "Failed to attach image: %(path)s (%(etype)s: %(err)s)"
 msgstr "画像の添付に失敗しました: %(path)s (%(etype)s: %(err)s)"
@@ -123,38 +135,38 @@ msgid ""
 "dir)"
 msgstr "ファイル (作成、削除、読み取り、書き込み、検索、zip、名前変更、ハッシュ、grep、ディレクトリのリスト)"
 
-#: src/uagent/cli_startup.py:76 src/uagent/scheckgui.py:1507
+#: src/uagent/cli_startup.py:76 src/uagent/scheckgui.py:1513
 #: src/uagent/web.py:1007
 msgid "Communication (Teams, Discord, Bluesky)"
 msgstr "コミュニケーション（Teams、Discord、Bluesky）"
 
-#: src/uagent/cli_startup.py:77 src/uagent/scheckgui.py:1512
+#: src/uagent/cli_startup.py:77 src/uagent/scheckgui.py:1518
 #: src/uagent/web.py:1012
 msgid "Office (Excel, Word, PDF, PPT, document extraction)"
 msgstr "オフィス（Excel、Word、PDF、PPT、ドキュメント抽出）"
 
-#: src/uagent/cli_startup.py:81 src/uagent/scheckgui.py:1518
+#: src/uagent/cli_startup.py:81 src/uagent/scheckgui.py:1524
 #: src/uagent/web.py:1018
 msgid ""
 "Development (lint, test, git, DB, screenshot, browser, binary, compile)"
 msgstr "開発（lint、test、git、DB、スクリーンショット、ブラウザ、バイナリ、コンパイル）"
 
-#: src/uagent/cli_startup.py:86 src/uagent/scheckgui.py:1525
+#: src/uagent/cli_startup.py:86 src/uagent/scheckgui.py:1531
 #: src/uagent/web.py:1025
 msgid "IoT (Bluetooth/BLE, ECHONET, Matter, SwitchBot, UPnP, camera, geo-IP)"
 msgstr "IoT（Bluetooth/BLE、ECHONET、Matter、SwitchBot、UPnP、カメラ、geo-IP）"
 
-#: src/uagent/cli_startup.py:88 src/uagent/scheckgui.py:1531
+#: src/uagent/cli_startup.py:88 src/uagent/scheckgui.py:1537
 #: src/uagent/web.py:1031
 msgid "Execution (cmd, python, pwsh, bash, sub-agent)"
 msgstr "実行（cmd、python、pwsh、bash、サブエージェント）"
 
-#: src/uagent/cli_startup.py:89 src/uagent/scheckgui.py:1536
+#: src/uagent/cli_startup.py:89 src/uagent/scheckgui.py:1542
 #: src/uagent/web.py:1036
 msgid "External (A2A, MCP, fetch, search web)"
 msgstr "外部（A2A、MCP、fetch、Web検索）"
 
-#: src/uagent/cli_startup.py:90 src/uagent/scheckgui.py:1541
+#: src/uagent/cli_startup.py:90 src/uagent/scheckgui.py:1547
 #: src/uagent/web.py:1041
 msgid "Media (image gen/edit/analyze, audio, QR code)"
 msgstr "メディア（画像生成/編集/解析、音声、QRコード）"
@@ -211,7 +223,7 @@ msgstr "[FATAL] uag_setup の起動に失敗しました: %(err)s"
 msgid "provider = %(provider)s; model = %(model)s"
 msgstr "プロバイダ = %(provider)s; モデル = %(model)s"
 
-#: src/uagent/cli_startup.py:356 src/uagent/scheckgui.py:562
+#: src/uagent/cli_startup.py:356 src/uagent/scheckgui.py:568
 msgid "OpenRouter fallback models enabled."
 msgstr "OpenRouter のフォールバックモデルが有効です。"
 
@@ -220,11 +232,11 @@ msgstr "OpenRouter のフォールバックモデルが有効です。"
 msgid "current workdir = %(cwd)s"
 msgstr "現在の作業ディレクトリ = %(cwd)s"
 
-#: src/uagent/cli_startup.py:383 src/uagent/scheckgui.py:585
+#: src/uagent/cli_startup.py:383 src/uagent/scheckgui.py:591
 msgid "Loaded long-term memory."
 msgstr "長期記憶を読み込みました。"
 
-#: src/uagent/cli_startup.py:396 src/uagent/scheckgui.py:598
+#: src/uagent/cli_startup.py:396 src/uagent/scheckgui.py:604
 msgid "Loaded shared long-term memory."
 msgstr "共有長期記憶を読み込みました。"
 
@@ -1091,212 +1103,212 @@ msgstr ""
 msgid "[Warning] Failed to process chunk (%(step)s): %(err)s"
 msgstr "[警告] チャンク (%(step)s) の処理に失敗しました: %(err)s"
 
-#: src/uagent/scheckgui.py:394
+#: src/uagent/scheckgui.py:400
 msgid "Drop files/images here"
 msgstr "ここにファイルや画像をドラッグ＆ドロップ"
 
-#: src/uagent/scheckgui.py:434
+#: src/uagent/scheckgui.py:440
 msgid "Download"
 msgstr "ダウンロード"
 
-#: src/uagent/scheckgui.py:607
+#: src/uagent/scheckgui.py:613
 #, python-format
 msgid "Exception occurred while loading shared long-term memory: %(err)s"
 msgstr "共有長期記憶の読み込み中に例外が発生しました: %(err)s"
 
-#: src/uagent/scheckgui.py:672
+#: src/uagent/scheckgui.py:678
 #, python-format
 msgid "[Attached File] %(name)s (%(path)s)"
 msgstr "[添付ファイル] %(name)s (%(path)s)"
 
-#: src/uagent/scheckgui.py:769
+#: src/uagent/scheckgui.py:775
 #, python-format
 msgid "[Attached Image] %(path)s"
 msgstr "[添付画像] %(path)s"
 
-#: src/uagent/scheckgui.py:771 src/uagent/web.py:715
+#: src/uagent/scheckgui.py:777 src/uagent/web.py:715
 #, python-format
 msgid "[Image Path] %(path)s"
 msgstr "[画像パス] %(path)s"
 
-#: src/uagent/scheckgui.py:1099 src/uagent/scheckgui.py:1404
+#: src/uagent/scheckgui.py:1105 src/uagent/scheckgui.py:1410
 msgid "Welcome / Quick Guide"
 msgstr "Welcome / クイックガイド"
 
-#: src/uagent/scheckgui.py:1213
+#: src/uagent/scheckgui.py:1219
 #, python-format
 msgid "Font size: %(name)s"
 msgstr "フォントサイズ: %(name)s"
 
-#: src/uagent/scheckgui.py:1218
+#: src/uagent/scheckgui.py:1224
 msgid "uag GUI (Extreme Stability)"
 msgstr "uag GUI（超安定版）"
 
-#: src/uagent/scheckgui.py:1299
+#: src/uagent/scheckgui.py:1305
 msgid "↑ You can attach files by drag & drop"
 msgstr "↑ Drag&Drop で添付できます"
 
-#: src/uagent/scheckgui.py:1327 src/uagent/scheckgui.py:1781
+#: src/uagent/scheckgui.py:1333 src/uagent/scheckgui.py:1787
 msgid "Attach files"
 msgstr "ファイルを添付"
 
-#: src/uagent/scheckgui.py:1331
+#: src/uagent/scheckgui.py:1337
 msgid "■"
 msgstr "■"
 
-#: src/uagent/scheckgui.py:1334
+#: src/uagent/scheckgui.py:1340
 msgid "Stop generation"
 msgstr "生成を停止する"
 
-#: src/uagent/scheckgui.py:1349
+#: src/uagent/scheckgui.py:1355
 msgid "Send"
 msgstr "送信"
 
-#: src/uagent/scheckgui.py:1375
+#: src/uagent/scheckgui.py:1381
 msgid "Stop auto-pilot"
 msgstr "自動操縦を停止する"
 
-#: src/uagent/scheckgui.py:1402
+#: src/uagent/scheckgui.py:1408
 msgid "Help"
 msgstr "ヘルプ"
 
-#: src/uagent/scheckgui.py:1418
+#: src/uagent/scheckgui.py:1424
 msgid "View"
 msgstr "ビュー"
 
-#: src/uagent/scheckgui.py:1424
+#: src/uagent/scheckgui.py:1430
 #, python-format
 msgid "Font: %(name)s"
 msgstr "フォント: %(name)s"
 
-#: src/uagent/scheckgui.py:1439
+#: src/uagent/scheckgui.py:1445
 msgid "Mode"
 msgstr "モード"
 
-#: src/uagent/scheckgui.py:1442
+#: src/uagent/scheckgui.py:1448
 msgid "Reasoning: off"
 msgstr "推論: off"
 
-#: src/uagent/scheckgui.py:1445
+#: src/uagent/scheckgui.py:1451
 msgid "Reasoning: auto"
 msgstr "推論: auto"
 
-#: src/uagent/scheckgui.py:1447
+#: src/uagent/scheckgui.py:1453
 msgid "Reasoning: minimal"
 msgstr "推論: minimal"
 
-#: src/uagent/scheckgui.py:1449
+#: src/uagent/scheckgui.py:1455
 msgid "Reasoning: low"
 msgstr "推論: low"
 
-#: src/uagent/scheckgui.py:1451
+#: src/uagent/scheckgui.py:1457
 msgid "Reasoning: medium"
 msgstr "推論: medium"
 
-#: src/uagent/scheckgui.py:1453
+#: src/uagent/scheckgui.py:1459
 msgid "Reasoning: high"
 msgstr "推論: high"
 
-#: src/uagent/scheckgui.py:1456
+#: src/uagent/scheckgui.py:1462
 msgid "Reasoning: xhigh"
 msgstr "推論: xhigh"
 
-#: src/uagent/scheckgui.py:1461
+#: src/uagent/scheckgui.py:1467
 msgid "Verbosity: off"
 msgstr "詳細度: off"
 
-#: src/uagent/scheckgui.py:1463
+#: src/uagent/scheckgui.py:1469
 msgid "Verbosity: low"
 msgstr "詳細度: low"
 
-#: src/uagent/scheckgui.py:1465
+#: src/uagent/scheckgui.py:1471
 msgid "Verbosity: medium"
 msgstr "詳細度: medium"
 
-#: src/uagent/scheckgui.py:1467
+#: src/uagent/scheckgui.py:1473
 msgid "Verbosity: high"
 msgstr "詳細度: high"
 
-#: src/uagent/scheckgui.py:1494
+#: src/uagent/scheckgui.py:1500
 msgid "Tools"
 msgstr "ツール"
 
-#: src/uagent/scheckgui.py:1501
+#: src/uagent/scheckgui.py:1507
 msgid "Basic (file, env, time, prompts, skills, memory, tools control)"
 msgstr "基本 (ファイル, 環境変数, 時刻, プロンプト, スキル, メモリ, ツール制御)"
 
-#: src/uagent/scheckgui.py:1546
+#: src/uagent/scheckgui.py:1552
 msgid "File (read, write, search, delete, listing)"
 msgstr "ファイル (読み取り、書き込み、検索、削除、リスト)"
 
-#: src/uagent/scheckgui.py:1551
+#: src/uagent/scheckgui.py:1557
 msgid "Index (source code navigation: py2idx, ts2idx, etc.)"
 msgstr "インデックス (ソース コード ナビゲーション: py2idx、ts2idx など)"
 
-#: src/uagent/scheckgui.py:1602
+#: src/uagent/scheckgui.py:1608
 #, python-format
 msgid "[mode] reasoning=%(mode)s"
 msgstr "[モード] 推論=%(mode)s"
 
-#: src/uagent/scheckgui.py:1606
+#: src/uagent/scheckgui.py:1612
 msgid ""
 ":r [0|1|2|3|auto|minimal|xhigh]  (0=off, 1=low, 2=medium, 3=high; "
 "auto/minimal/xhigh)"
 msgstr ""
 ":r [0|1|2|3|auto|minimal|xhigh]  (0=オフ, 1=低, 2=中, 3=高; auto/minimal/xhigh)"
 
-#: src/uagent/scheckgui.py:1614
+#: src/uagent/scheckgui.py:1620
 #, python-format
 msgid "[mode] verbosity=%(mode)s"
 msgstr "[mode] 詳細度=%(mode)s"
 
-#: src/uagent/scheckgui.py:1616
+#: src/uagent/scheckgui.py:1622
 msgid ":v [0|1|2|3]  (0=off, 1=low, 2=medium, 3=high; no arg=keep)"
 msgstr ":v [0|1|2|3]  (0=off, 1=low, 2=medium, 3=high; 引数なし=維持)"
 
-#: src/uagent/scheckgui.py:1748
+#: src/uagent/scheckgui.py:1754
 msgid "Enter password..."
 msgstr "パスワードを入力..."
 
-#: src/uagent/scheckgui.py:1755
+#: src/uagent/scheckgui.py:1761
 msgid "Enter a message..."
 msgstr "メッセージを入力..."
 
-#: src/uagent/scheckgui.py:1783
+#: src/uagent/scheckgui.py:1789
 msgid "All Files (*)"
 msgstr "すべてのファイル (*)"
 
-#: src/uagent/scheckgui.py:2035
+#: src/uagent/scheckgui.py:2041
 msgid "cannot read image"
 msgstr "画像を読み取れません"
 
-#: src/uagent/scheckgui.py:2186 src/uagent/scheckgui.py:2226
-#: src/uagent/scheckgui.py:2261
+#: src/uagent/scheckgui.py:2192 src/uagent/scheckgui.py:2232
+#: src/uagent/scheckgui.py:2267
 msgid "Downloaded to"
 msgstr "ダウンロード先"
 
-#: src/uagent/scheckgui.py:2280
+#: src/uagent/scheckgui.py:2286
 msgid "Playing"
 msgstr "再生中"
 
-#: src/uagent/scheckgui.py:2290
+#: src/uagent/scheckgui.py:2296
 msgid "Stopped"
 msgstr "停止"
 
-#: src/uagent/scheckgui.py:2312
+#: src/uagent/scheckgui.py:2318
 msgid "Stop requested by user."
 msgstr "ユーザーから停止要求がありました。"
 
-#: src/uagent/scheckgui.py:2320
+#: src/uagent/scheckgui.py:2326
 msgid "Stop requested by user (x key)."
 msgstr "ユーザーから停止要求がありました (x キー)。"
 
-#: src/uagent/scheckgui.py:2356
+#: src/uagent/scheckgui.py:2362
 #, python-format
 msgid "[REPLY] > %(text)s"
 msgstr "[返信] > %(text)s"
 
-#: src/uagent/scheckgui.py:2363
+#: src/uagent/scheckgui.py:2369
 #, python-format
 msgid "[USER] %(text)s"
 msgstr "[ユーザー] %(text)s"

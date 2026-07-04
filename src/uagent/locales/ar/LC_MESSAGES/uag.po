@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2026-07-04 13:28+0900\n"
+"POT-Creation-Date: 2026-07-04 16:03+0900\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: ar <LL@li.org>\n"
@@ -13,6 +13,18 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=6; plural=(n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : n%100>=3 && n%100<=10 ? 3 : n%100>=0 && n%100<=2 ? 4 : 5);\n"
 "Generated-By: Babel 2.18.0\n"
+
+#: src/uagent/_pip_auto.py:79
+msgid "Installing {package}..."
+msgstr "جارٍ تثبيت {package}..."
+
+#: src/uagent/_pip_auto.py:104
+msgid "{package} installed successfully."
+msgstr "تم تثبيت {package} بنجاح."
+
+#: src/uagent/_pip_auto.py:106
+msgid "Failed to install {package}."
+msgstr "فشل تثبيت {package}."
 
 #: src/uagent/checks.py:17 src/uagent/checks.py:27
 #, python-format
@@ -81,7 +93,7 @@ msgid ""
 "Image send confirmation failed; will not send images: %(etype)s: %(err)s"
 msgstr "فشل تأكيد إرسال الصور؛ لن يتم إرسال الصور: %(etype)s: %(err)s"
 
-#: src/uagent/cli.py:1112 src/uagent/scheckgui.py:722
+#: src/uagent/cli.py:1112 src/uagent/scheckgui.py:728
 #, python-format
 msgid "Failed to attach image: %(path)s (%(etype)s: %(err)s)"
 msgstr "فشل إرفاق الصورة: %(path)s (%(etype)s: %(err)s)"
@@ -126,39 +138,39 @@ msgid ""
 msgstr ""
 "ملف (إنشاء، حذف، قراءة، كتابة، بحث، zip، إعادة تسمية، hash، grep، listdir)"
 
-#: src/uagent/cli_startup.py:76 src/uagent/scheckgui.py:1507
+#: src/uagent/cli_startup.py:76 src/uagent/scheckgui.py:1513
 #: src/uagent/web.py:1007
 msgid "Communication (Teams, Discord, Bluesky)"
 msgstr "التواصل (Teams, Discord, Bluesky)"
 
-#: src/uagent/cli_startup.py:77 src/uagent/scheckgui.py:1512
+#: src/uagent/cli_startup.py:77 src/uagent/scheckgui.py:1518
 #: src/uagent/web.py:1012
 msgid "Office (Excel, Word, PDF, PPT, document extraction)"
 msgstr "Office (Excel, Word, PDF, PPT, استخراج المستندات)"
 
-#: src/uagent/cli_startup.py:81 src/uagent/scheckgui.py:1518
+#: src/uagent/cli_startup.py:81 src/uagent/scheckgui.py:1524
 #: src/uagent/web.py:1018
 msgid ""
 "Development (lint, test, git, DB, screenshot, browser, binary, compile)"
 msgstr ""
 "Development (lint, test, git, DB, لقطة شاشة, browser, binary, compile)"
 
-#: src/uagent/cli_startup.py:86 src/uagent/scheckgui.py:1525
+#: src/uagent/cli_startup.py:86 src/uagent/scheckgui.py:1531
 #: src/uagent/web.py:1025
 msgid "IoT (Bluetooth/BLE, ECHONET, Matter, SwitchBot, UPnP, camera, geo-IP)"
 msgstr "IoT (Bluetooth/BLE, ECHONET, Matter, SwitchBot, UPnP, كاميرا, geo-IP)"
 
-#: src/uagent/cli_startup.py:88 src/uagent/scheckgui.py:1531
+#: src/uagent/cli_startup.py:88 src/uagent/scheckgui.py:1537
 #: src/uagent/web.py:1031
 msgid "Execution (cmd, python, pwsh, bash, sub-agent)"
 msgstr "التنفيذ (cmd, python, pwsh, bash, وكيل فرعي)"
 
-#: src/uagent/cli_startup.py:89 src/uagent/scheckgui.py:1536
+#: src/uagent/cli_startup.py:89 src/uagent/scheckgui.py:1542
 #: src/uagent/web.py:1036
 msgid "External (A2A, MCP, fetch, search web)"
 msgstr "خارجي (A2A, MCP, جلب, بحث ويب)"
 
-#: src/uagent/cli_startup.py:90 src/uagent/scheckgui.py:1541
+#: src/uagent/cli_startup.py:90 src/uagent/scheckgui.py:1547
 #: src/uagent/web.py:1041
 msgid "Media (image gen/edit/analyze, audio, QR code)"
 msgstr "Media (توليد/تحرير/تحليل الصور, صوت, رمز QR)"
@@ -215,7 +227,7 @@ msgstr "[فادح] فشل تشغيل uag_setup: %(err)s"
 msgid "provider = %(provider)s; model = %(model)s"
 msgstr "المزوّد = %(provider)s؛ النموذج = %(model)s"
 
-#: src/uagent/cli_startup.py:356 src/uagent/scheckgui.py:562
+#: src/uagent/cli_startup.py:356 src/uagent/scheckgui.py:568
 msgid "OpenRouter fallback models enabled."
 msgstr "تم تمكين نماذج OpenRouter الاحتياطية."
 
@@ -224,11 +236,11 @@ msgstr "تم تمكين نماذج OpenRouter الاحتياطية."
 msgid "current workdir = %(cwd)s"
 msgstr "دليل العمل الحالي = %(cwd)s"
 
-#: src/uagent/cli_startup.py:383 src/uagent/scheckgui.py:585
+#: src/uagent/cli_startup.py:383 src/uagent/scheckgui.py:591
 msgid "Loaded long-term memory."
 msgstr "تم تحميل الذاكرة طويلة المدى."
 
-#: src/uagent/cli_startup.py:396 src/uagent/scheckgui.py:598
+#: src/uagent/cli_startup.py:396 src/uagent/scheckgui.py:604
 msgid "Loaded shared long-term memory."
 msgstr "تم تحميل الذاكرة المشتركة طويلة المدى."
 
@@ -1130,154 +1142,154 @@ msgstr ""
 msgid "[Warning] Failed to process chunk (%(step)s): %(err)s"
 msgstr "[تحذير] فشلت معالجة القطعة (%(step)s): %(err)s"
 
-#: src/uagent/scheckgui.py:394
+#: src/uagent/scheckgui.py:400
 msgid "Drop files/images here"
 msgstr "اسحب وأفلت الملفات/الصور هنا"
 
-#: src/uagent/scheckgui.py:434
+#: src/uagent/scheckgui.py:440
 msgid "Download"
 msgstr "تنزيل"
 
-#: src/uagent/scheckgui.py:607
+#: src/uagent/scheckgui.py:613
 #, python-format
 msgid "Exception occurred while loading shared long-term memory: %(err)s"
 msgstr "حدث استثناء أثناء تحميل الذاكرة المشتركة طويلة المدى: %(err)s"
 
-#: src/uagent/scheckgui.py:672
+#: src/uagent/scheckgui.py:678
 #, python-format
 msgid "[Attached File] %(name)s (%(path)s)"
 msgstr "[ملف مرفق] %(name)s (%(path)s)"
 
-#: src/uagent/scheckgui.py:769
+#: src/uagent/scheckgui.py:775
 #, python-format
 msgid "[Attached Image] %(path)s"
 msgstr "[صورة مرفقة] %(path)s"
 
-#: src/uagent/scheckgui.py:771 src/uagent/web.py:715
+#: src/uagent/scheckgui.py:777 src/uagent/web.py:715
 #, python-format
 msgid "[Image Path] %(path)s"
 msgstr "[مسار الصورة] %(path)s"
 
-#: src/uagent/scheckgui.py:1099 src/uagent/scheckgui.py:1404
+#: src/uagent/scheckgui.py:1105 src/uagent/scheckgui.py:1410
 msgid "Welcome / Quick Guide"
 msgstr "مرحباً بك / الدليل السريع"
 
-#: src/uagent/scheckgui.py:1213
+#: src/uagent/scheckgui.py:1219
 #, python-format
 msgid "Font size: %(name)s"
 msgstr "حجم الخط: %(name)s"
 
-#: src/uagent/scheckgui.py:1218
+#: src/uagent/scheckgui.py:1224
 msgid "uag GUI (Extreme Stability)"
 msgstr "uag واجهة المستخدم الرسومية (الاستقرار الشديد)"
 
-#: src/uagent/scheckgui.py:1299
+#: src/uagent/scheckgui.py:1305
 msgid "↑ You can attach files by drag & drop"
 msgstr "↑ يمكنك إرفاقها بالسحب والإفلات"
 
-#: src/uagent/scheckgui.py:1327 src/uagent/scheckgui.py:1781
+#: src/uagent/scheckgui.py:1333 src/uagent/scheckgui.py:1787
 msgid "Attach files"
 msgstr "إرفاق ملفات"
 
-#: src/uagent/scheckgui.py:1331
+#: src/uagent/scheckgui.py:1337
 msgid "■"
 msgstr "■"
 
-#: src/uagent/scheckgui.py:1334
+#: src/uagent/scheckgui.py:1340
 msgid "Stop generation"
 msgstr "وقف الجيل"
 
-#: src/uagent/scheckgui.py:1349
+#: src/uagent/scheckgui.py:1355
 msgid "Send"
 msgstr "يرسل"
 
-#: src/uagent/scheckgui.py:1375
+#: src/uagent/scheckgui.py:1381
 msgid "Stop auto-pilot"
 msgstr "إيقاف الطيار الآلي"
 
-#: src/uagent/scheckgui.py:1402
+#: src/uagent/scheckgui.py:1408
 msgid "Help"
 msgstr "يساعد"
 
-#: src/uagent/scheckgui.py:1418
+#: src/uagent/scheckgui.py:1424
 msgid "View"
 msgstr "منظر"
 
-#: src/uagent/scheckgui.py:1424
+#: src/uagent/scheckgui.py:1430
 #, python-format
 msgid "Font: %(name)s"
 msgstr "الخط: %(name)s"
 
-#: src/uagent/scheckgui.py:1439
+#: src/uagent/scheckgui.py:1445
 msgid "Mode"
 msgstr "وضع"
 
-#: src/uagent/scheckgui.py:1442
+#: src/uagent/scheckgui.py:1448
 msgid "Reasoning: off"
 msgstr "المنطق: قبالة"
 
-#: src/uagent/scheckgui.py:1445
+#: src/uagent/scheckgui.py:1451
 msgid "Reasoning: auto"
 msgstr "المنطق: تلقائي"
 
-#: src/uagent/scheckgui.py:1447
+#: src/uagent/scheckgui.py:1453
 msgid "Reasoning: minimal"
 msgstr "المنطق: الحد الأدنى"
 
-#: src/uagent/scheckgui.py:1449
+#: src/uagent/scheckgui.py:1455
 msgid "Reasoning: low"
 msgstr "المنطق: منخفض"
 
-#: src/uagent/scheckgui.py:1451
+#: src/uagent/scheckgui.py:1457
 msgid "Reasoning: medium"
 msgstr "المنطق: متوسط"
 
-#: src/uagent/scheckgui.py:1453
+#: src/uagent/scheckgui.py:1459
 msgid "Reasoning: high"
 msgstr "المنطق: مرتفع"
 
-#: src/uagent/scheckgui.py:1456
+#: src/uagent/scheckgui.py:1462
 msgid "Reasoning: xhigh"
 msgstr "المنطق: xعالية"
 
-#: src/uagent/scheckgui.py:1461
+#: src/uagent/scheckgui.py:1467
 msgid "Verbosity: off"
 msgstr "الإسهاب: إيقاف"
 
-#: src/uagent/scheckgui.py:1463
+#: src/uagent/scheckgui.py:1469
 msgid "Verbosity: low"
 msgstr "الإسهاب: منخفض"
 
-#: src/uagent/scheckgui.py:1465
+#: src/uagent/scheckgui.py:1471
 msgid "Verbosity: medium"
 msgstr "الإسهاب : متوسط"
 
-#: src/uagent/scheckgui.py:1467
+#: src/uagent/scheckgui.py:1473
 msgid "Verbosity: high"
 msgstr "الإسهاب : عالي"
 
-#: src/uagent/scheckgui.py:1494
+#: src/uagent/scheckgui.py:1500
 msgid "Tools"
 msgstr "أدوات"
 
-#: src/uagent/scheckgui.py:1501
+#: src/uagent/scheckgui.py:1507
 msgid "Basic (file, env, time, prompts, skills, memory, tools control)"
 msgstr "أساسي (ملف، بيئة، وقت، مطالبات، مهارات، ذاكرة، تحكم في الأدوات)"
 
-#: src/uagent/scheckgui.py:1546
+#: src/uagent/scheckgui.py:1552
 msgid "File (read, write, search, delete, listing)"
 msgstr "ملف (قراءة، كتابة، بحث، حذف، إدراج)"
 
-#: src/uagent/scheckgui.py:1551
+#: src/uagent/scheckgui.py:1557
 msgid "Index (source code navigation: py2idx, ts2idx, etc.)"
 msgstr "الفهرس (التنقل عبر الكود المصدري: py2idx، ts2idx، إلخ.)"
 
-#: src/uagent/scheckgui.py:1602
+#: src/uagent/scheckgui.py:1608
 #, python-format
 msgid "[mode] reasoning=%(mode)s"
 msgstr "[الوضع] الاستدلال=%(mode)s"
 
-#: src/uagent/scheckgui.py:1606
+#: src/uagent/scheckgui.py:1612
 msgid ""
 ":r [0|1|2|3|auto|minimal|xhigh]  (0=off, 1=low, 2=medium, 3=high; "
 "auto/minimal/xhigh)"
@@ -1285,58 +1297,58 @@ msgstr ""
 ":r [0|1|2|3|auto|minimal|xhigh]  (0=إيقاف، 1=منخفض، 2=متوسط، 3=مرتفع؛ "
 "auto/minimal/xhigh)"
 
-#: src/uagent/scheckgui.py:1614
+#: src/uagent/scheckgui.py:1620
 #, python-format
 msgid "[mode] verbosity=%(mode)s"
 msgstr "[الوضع] مستوى التفصيل=%(mode)s"
 
-#: src/uagent/scheckgui.py:1616
+#: src/uagent/scheckgui.py:1622
 msgid ":v [0|1|2|3]  (0=off, 1=low, 2=medium, 3=high; no arg=keep)"
 msgstr ":v [0|1|2|3]  (0=إيقاف، 1=منخفض، 2=متوسط، 3=عالٍ؛ بدون وسيطة=الإبقاء)"
 
-#: src/uagent/scheckgui.py:1748
+#: src/uagent/scheckgui.py:1754
 msgid "Enter password..."
 msgstr "أدخل كلمة المرور..."
 
-#: src/uagent/scheckgui.py:1755
+#: src/uagent/scheckgui.py:1761
 msgid "Enter a message..."
 msgstr "أدخل رسالة..."
 
-#: src/uagent/scheckgui.py:1783
+#: src/uagent/scheckgui.py:1789
 msgid "All Files (*)"
 msgstr "كل الملفات (*)"
 
-#: src/uagent/scheckgui.py:2035
+#: src/uagent/scheckgui.py:2041
 msgid "cannot read image"
 msgstr "تعذّر قراءة الصورة"
 
-#: src/uagent/scheckgui.py:2186 src/uagent/scheckgui.py:2226
-#: src/uagent/scheckgui.py:2261
+#: src/uagent/scheckgui.py:2192 src/uagent/scheckgui.py:2232
+#: src/uagent/scheckgui.py:2267
 msgid "Downloaded to"
 msgstr "تم التنزيل إلى"
 
-#: src/uagent/scheckgui.py:2280
+#: src/uagent/scheckgui.py:2286
 msgid "Playing"
 msgstr "قيد التشغيل"
 
-#: src/uagent/scheckgui.py:2290
+#: src/uagent/scheckgui.py:2296
 msgid "Stopped"
 msgstr "متوقف"
 
-#: src/uagent/scheckgui.py:2312
+#: src/uagent/scheckgui.py:2318
 msgid "Stop requested by user."
 msgstr "التوقف الذي طلبه المستخدم."
 
-#: src/uagent/scheckgui.py:2320
+#: src/uagent/scheckgui.py:2326
 msgid "Stop requested by user (x key)."
 msgstr "التوقف الذي طلبه المستخدم (مفتاح x)."
 
-#: src/uagent/scheckgui.py:2356
+#: src/uagent/scheckgui.py:2362
 #, python-format
 msgid "[REPLY] > %(text)s"
 msgstr "[الرد] > %(text)s"
 
-#: src/uagent/scheckgui.py:2363
+#: src/uagent/scheckgui.py:2369
 #, python-format
 msgid "[USER] %(text)s"
 msgstr "[المستخدم] %(text)s"

@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2026-07-04 13:28+0900\n"
+"POT-Creation-Date: 2026-07-04 16:03+0900\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: mn <LL@li.org>\n"
@@ -13,6 +13,18 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "Generated-By: Babel 2.18.0\n"
+
+#: src/uagent/_pip_auto.py:79
+msgid "Installing {package}..."
+msgstr "{package} суулгаж байна..."
+
+#: src/uagent/_pip_auto.py:104
+msgid "{package} installed successfully."
+msgstr "{package} амжилттай суулгасан."
+
+#: src/uagent/_pip_auto.py:106
+msgid "Failed to install {package}."
+msgstr "{package} суулгаж чадсангүй."
 
 #: src/uagent/checks.py:17 src/uagent/checks.py:27
 #, python-format
@@ -84,7 +96,7 @@ msgstr ""
 "Зураг илгээх баталгаажуулалт амжилтгүй боллоо; зураг илгээхгүй: %(etype)s: "
 "%(err)s"
 
-#: src/uagent/cli.py:1112 src/uagent/scheckgui.py:722
+#: src/uagent/cli.py:1112 src/uagent/scheckgui.py:728
 #, python-format
 msgid "Failed to attach image: %(path)s (%(etype)s: %(err)s)"
 msgstr "Зургийг хавсаргаж чадсангүй: %(path)s (%(etype)s: %(err)s)"
@@ -131,39 +143,39 @@ msgstr ""
 "Файл (үүсгэх, устгах, унших, бичих, хайх, зиплэх, нэрийг өөрчлөх, хэш,grep, "
 "жагсаалтын лавлах)"
 
-#: src/uagent/cli_startup.py:76 src/uagent/scheckgui.py:1507
+#: src/uagent/cli_startup.py:76 src/uagent/scheckgui.py:1513
 #: src/uagent/web.py:1007
 msgid "Communication (Teams, Discord, Bluesky)"
 msgstr "Харилцаа холбоо (Teams, Discord, Bluesky)"
 
-#: src/uagent/cli_startup.py:77 src/uagent/scheckgui.py:1512
+#: src/uagent/cli_startup.py:77 src/uagent/scheckgui.py:1518
 #: src/uagent/web.py:1012
 msgid "Office (Excel, Word, PDF, PPT, document extraction)"
 msgstr "Office (Excel, Word, PDF, PPT, баримт олборлолт)"
 
-#: src/uagent/cli_startup.py:81 src/uagent/scheckgui.py:1518
+#: src/uagent/cli_startup.py:81 src/uagent/scheckgui.py:1524
 #: src/uagent/web.py:1018
 msgid ""
 "Development (lint, test, git, DB, screenshot, browser, binary, compile)"
 msgstr ""
 "Development (lint, test, git, DB, дэлгэцний зураг, browser, binary, compile)"
 
-#: src/uagent/cli_startup.py:86 src/uagent/scheckgui.py:1525
+#: src/uagent/cli_startup.py:86 src/uagent/scheckgui.py:1531
 #: src/uagent/web.py:1025
 msgid "IoT (Bluetooth/BLE, ECHONET, Matter, SwitchBot, UPnP, camera, geo-IP)"
 msgstr "IoT (Bluetooth/BLE, ECHONET, Matter, SwitchBot, UPnP, камер, geo-IP)"
 
-#: src/uagent/cli_startup.py:88 src/uagent/scheckgui.py:1531
+#: src/uagent/cli_startup.py:88 src/uagent/scheckgui.py:1537
 #: src/uagent/web.py:1031
 msgid "Execution (cmd, python, pwsh, bash, sub-agent)"
 msgstr "Гүйцэтгэл (cmd, python, pwsh, bash, дэд-агент)"
 
-#: src/uagent/cli_startup.py:89 src/uagent/scheckgui.py:1536
+#: src/uagent/cli_startup.py:89 src/uagent/scheckgui.py:1542
 #: src/uagent/web.py:1036
 msgid "External (A2A, MCP, fetch, search web)"
 msgstr "Гадаад (A2A, MCP, татах, вэб хайлт)"
 
-#: src/uagent/cli_startup.py:90 src/uagent/scheckgui.py:1541
+#: src/uagent/cli_startup.py:90 src/uagent/scheckgui.py:1547
 #: src/uagent/web.py:1041
 msgid "Media (image gen/edit/analyze, audio, QR code)"
 msgstr "Media (зураг gen/засвар/шинжилгээ, аудио, QR код)"
@@ -221,7 +233,7 @@ msgstr "[FATAL] uag_setup-г эхлүүлж чадсангүй: %(err)s"
 msgid "provider = %(provider)s; model = %(model)s"
 msgstr "үйлчилгээ үзүүлэгч = %(provider)s; загвар = %(model)s"
 
-#: src/uagent/cli_startup.py:356 src/uagent/scheckgui.py:562
+#: src/uagent/cli_startup.py:356 src/uagent/scheckgui.py:568
 msgid "OpenRouter fallback models enabled."
 msgstr "OpenRouter-ийн нөөц загваруудыг идэвхжүүлсэн."
 
@@ -230,11 +242,11 @@ msgstr "OpenRouter-ийн нөөц загваруудыг идэвхжүүлсэ
 msgid "current workdir = %(cwd)s"
 msgstr "одоогийн ажлын директор = %(cwd)s"
 
-#: src/uagent/cli_startup.py:383 src/uagent/scheckgui.py:585
+#: src/uagent/cli_startup.py:383 src/uagent/scheckgui.py:591
 msgid "Loaded long-term memory."
 msgstr "Ачаалагдсан урт хугацааны санах ой."
 
-#: src/uagent/cli_startup.py:396 src/uagent/scheckgui.py:598
+#: src/uagent/cli_startup.py:396 src/uagent/scheckgui.py:604
 msgid "Loaded shared long-term memory."
 msgstr "Хуваалцсан урт хугацааны санах ойг ачааллаа."
 
@@ -1162,157 +1174,157 @@ msgstr ""
 msgid "[Warning] Failed to process chunk (%(step)s): %(err)s"
 msgstr "[Анхааруулга] Хэсгийг боловсруулж чадсангүй (%(step)s): %(err)s"
 
-#: src/uagent/scheckgui.py:394
+#: src/uagent/scheckgui.py:400
 msgid "Drop files/images here"
 msgstr "Файл/зураг энд буулгана уу"
 
-#: src/uagent/scheckgui.py:434
+#: src/uagent/scheckgui.py:440
 msgid "Download"
 msgstr "Татаж авах"
 
-#: src/uagent/scheckgui.py:607
+#: src/uagent/scheckgui.py:613
 #, python-format
 msgid "Exception occurred while loading shared long-term memory: %(err)s"
 msgstr ""
 "Хуваалцсан урт хугацааны санах ойг ачаалах үед онцгой тохиолдол гарлаа: "
 "%(err)s"
 
-#: src/uagent/scheckgui.py:672
+#: src/uagent/scheckgui.py:678
 #, python-format
 msgid "[Attached File] %(name)s (%(path)s)"
 msgstr "[Хавсаргасан файл] %(name)s (%(path)s)"
 
-#: src/uagent/scheckgui.py:769
+#: src/uagent/scheckgui.py:775
 #, python-format
 msgid "[Attached Image] %(path)s"
 msgstr "[Хавсаргасан зураг] %(path)s"
 
-#: src/uagent/scheckgui.py:771 src/uagent/web.py:715
+#: src/uagent/scheckgui.py:777 src/uagent/web.py:715
 #, python-format
 msgid "[Image Path] %(path)s"
 msgstr "[Зургийн зам] %(path)s"
 
-#: src/uagent/scheckgui.py:1099 src/uagent/scheckgui.py:1404
+#: src/uagent/scheckgui.py:1105 src/uagent/scheckgui.py:1410
 msgid "Welcome / Quick Guide"
 msgstr "Тавтай морилно уу / Түргэн гарын авлага"
 
-#: src/uagent/scheckgui.py:1213
+#: src/uagent/scheckgui.py:1219
 #, python-format
 msgid "Font size: %(name)s"
 msgstr "Фонтын хэмжээ: %(name)s"
 
-#: src/uagent/scheckgui.py:1218
+#: src/uagent/scheckgui.py:1224
 msgid "uag GUI (Extreme Stability)"
 msgstr "uag GUI (Маш тогтвортой байдал)"
 
-#: src/uagent/scheckgui.py:1299
+#: src/uagent/scheckgui.py:1305
 msgid "↑ You can attach files by drag & drop"
 msgstr "↑ Та чирж буулгах замаар файл хавсаргах боломжтой"
 
-#: src/uagent/scheckgui.py:1327 src/uagent/scheckgui.py:1781
+#: src/uagent/scheckgui.py:1333 src/uagent/scheckgui.py:1787
 msgid "Attach files"
 msgstr "Файл хавсаргах"
 
-#: src/uagent/scheckgui.py:1331
+#: src/uagent/scheckgui.py:1337
 msgid "■"
 msgstr "■"
 
-#: src/uagent/scheckgui.py:1334
+#: src/uagent/scheckgui.py:1340
 msgid "Stop generation"
 msgstr "Үе үеийг зогсоо"
 
-#: src/uagent/scheckgui.py:1349
+#: src/uagent/scheckgui.py:1355
 msgid "Send"
 msgstr "Илгээх"
 
-#: src/uagent/scheckgui.py:1375
+#: src/uagent/scheckgui.py:1381
 msgid "Stop auto-pilot"
 msgstr "Автомат нисгэгчийг зогсоо"
 
-#: src/uagent/scheckgui.py:1402
+#: src/uagent/scheckgui.py:1408
 msgid "Help"
 msgstr "Туслаач"
 
-#: src/uagent/scheckgui.py:1418
+#: src/uagent/scheckgui.py:1424
 msgid "View"
 msgstr "Харах"
 
-#: src/uagent/scheckgui.py:1424
+#: src/uagent/scheckgui.py:1430
 #, python-format
 msgid "Font: %(name)s"
 msgstr "Фонт: %(name)s"
 
-#: src/uagent/scheckgui.py:1439
+#: src/uagent/scheckgui.py:1445
 msgid "Mode"
 msgstr "Горим"
 
-#: src/uagent/scheckgui.py:1442
+#: src/uagent/scheckgui.py:1448
 msgid "Reasoning: off"
 msgstr "Шалтгаан: унтраасан"
 
-#: src/uagent/scheckgui.py:1445
+#: src/uagent/scheckgui.py:1451
 msgid "Reasoning: auto"
 msgstr "Шалтгаан: автомат"
 
-#: src/uagent/scheckgui.py:1447
+#: src/uagent/scheckgui.py:1453
 msgid "Reasoning: minimal"
 msgstr "Шалтгаан: хамгийн бага"
 
-#: src/uagent/scheckgui.py:1449
+#: src/uagent/scheckgui.py:1455
 msgid "Reasoning: low"
 msgstr "Шалтгаан: бага"
 
-#: src/uagent/scheckgui.py:1451
+#: src/uagent/scheckgui.py:1457
 msgid "Reasoning: medium"
 msgstr "Шалтгаан: дунд"
 
-#: src/uagent/scheckgui.py:1453
+#: src/uagent/scheckgui.py:1459
 msgid "Reasoning: high"
 msgstr "Шалтгаан: өндөр"
 
-#: src/uagent/scheckgui.py:1456
+#: src/uagent/scheckgui.py:1462
 msgid "Reasoning: xhigh"
 msgstr "Шалтгаан: x өндөр"
 
-#: src/uagent/scheckgui.py:1461
+#: src/uagent/scheckgui.py:1467
 msgid "Verbosity: off"
 msgstr "Товч агуулга: унтраасан"
 
-#: src/uagent/scheckgui.py:1463
+#: src/uagent/scheckgui.py:1469
 msgid "Verbosity: low"
 msgstr "Товч агуулга: бага"
 
-#: src/uagent/scheckgui.py:1465
+#: src/uagent/scheckgui.py:1471
 msgid "Verbosity: medium"
 msgstr "Товч агуулга: дунд"
 
-#: src/uagent/scheckgui.py:1467
+#: src/uagent/scheckgui.py:1473
 msgid "Verbosity: high"
 msgstr "Товч агуулга: өндөр"
 
-#: src/uagent/scheckgui.py:1494
+#: src/uagent/scheckgui.py:1500
 msgid "Tools"
 msgstr "Хэрэгслүүд"
 
-#: src/uagent/scheckgui.py:1501
+#: src/uagent/scheckgui.py:1507
 msgid "Basic (file, env, time, prompts, skills, memory, tools control)"
 msgstr ""
 "Үндсэн (файл, орчин, цаг, сануулга, ур чадвар, санах ой, хэрэгслийн хяналт)"
 
-#: src/uagent/scheckgui.py:1546
+#: src/uagent/scheckgui.py:1552
 msgid "File (read, write, search, delete, listing)"
 msgstr "Файл (унших, бичих, хайх, устгах, жагсаах)"
 
-#: src/uagent/scheckgui.py:1551
+#: src/uagent/scheckgui.py:1557
 msgid "Index (source code navigation: py2idx, ts2idx, etc.)"
 msgstr "Индекс (эх кодын навигаци: py2idx, ts2idx гэх мэт)"
 
-#: src/uagent/scheckgui.py:1602
+#: src/uagent/scheckgui.py:1608
 #, python-format
 msgid "[mode] reasoning=%(mode)s"
 msgstr "[горим] үндэслэл=%(mode)s"
 
-#: src/uagent/scheckgui.py:1606
+#: src/uagent/scheckgui.py:1612
 msgid ""
 ":r [0|1|2|3|auto|minimal|xhigh]  (0=off, 1=low, 2=medium, 3=high; "
 "auto/minimal/xhigh)"
@@ -1320,59 +1332,59 @@ msgstr ""
 ":r [0|1|2|3|auto|minimal|xhigh]  (0=унтраах, 1=бага, 2=дунд, 3=өндөр; "
 "auto/minimal/xhigh)"
 
-#: src/uagent/scheckgui.py:1614
+#: src/uagent/scheckgui.py:1620
 #, python-format
 msgid "[mode] verbosity=%(mode)s"
 msgstr "[горим] дэлгэрэнгүй мэдээлэл=%(mode)s"
 
-#: src/uagent/scheckgui.py:1616
+#: src/uagent/scheckgui.py:1622
 msgid ":v [0|1|2|3]  (0=off, 1=low, 2=medium, 3=high; no arg=keep)"
 msgstr ""
 ":v [0|1|2|3] (0=унтраах, 1=бага, 2=дунд, 3=өндөр; arg байхгүй=хадгалах)"
 
-#: src/uagent/scheckgui.py:1748
+#: src/uagent/scheckgui.py:1754
 msgid "Enter password..."
 msgstr "Нууц үгээ оруулна уу..."
 
-#: src/uagent/scheckgui.py:1755
+#: src/uagent/scheckgui.py:1761
 msgid "Enter a message..."
 msgstr "Зурвас оруулна уу..."
 
-#: src/uagent/scheckgui.py:1783
+#: src/uagent/scheckgui.py:1789
 msgid "All Files (*)"
 msgstr "Бүх файлууд (*)"
 
-#: src/uagent/scheckgui.py:2035
+#: src/uagent/scheckgui.py:2041
 msgid "cannot read image"
 msgstr "зургийг уншиж чадсангүй"
 
-#: src/uagent/scheckgui.py:2186 src/uagent/scheckgui.py:2226
-#: src/uagent/scheckgui.py:2261
+#: src/uagent/scheckgui.py:2192 src/uagent/scheckgui.py:2232
+#: src/uagent/scheckgui.py:2267
 msgid "Downloaded to"
 msgstr "Татаж авсан"
 
-#: src/uagent/scheckgui.py:2280
+#: src/uagent/scheckgui.py:2286
 msgid "Playing"
 msgstr "Тоглож байна"
 
-#: src/uagent/scheckgui.py:2290
+#: src/uagent/scheckgui.py:2296
 msgid "Stopped"
 msgstr "Зогссон"
 
-#: src/uagent/scheckgui.py:2312
+#: src/uagent/scheckgui.py:2318
 msgid "Stop requested by user."
 msgstr "Хэрэглэгчийн хүсэлтийг зогсоох."
 
-#: src/uagent/scheckgui.py:2320
+#: src/uagent/scheckgui.py:2326
 msgid "Stop requested by user (x key)."
 msgstr "Хэрэглэгчийн хүсэлтийг зогсоох (x товчлуур)."
 
-#: src/uagent/scheckgui.py:2356
+#: src/uagent/scheckgui.py:2362
 #, python-format
 msgid "[REPLY] > %(text)s"
 msgstr "[Хариулах] > %(text)s"
 
-#: src/uagent/scheckgui.py:2363
+#: src/uagent/scheckgui.py:2369
 #, python-format
 msgid "[USER] %(text)s"
 msgstr "[ХЭРЭГЛЭГЧ] %(text)s"

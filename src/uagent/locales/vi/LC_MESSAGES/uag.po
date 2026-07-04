@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2026-07-04 13:28+0900\n"
+"POT-Creation-Date: 2026-07-04 16:03+0900\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: vi <LL@li.org>\n"
@@ -13,6 +13,18 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 "Generated-By: Babel 2.18.0\n"
+
+#: src/uagent/_pip_auto.py:79
+msgid "Installing {package}..."
+msgstr "Đang cài đặt {package}..."
+
+#: src/uagent/_pip_auto.py:104
+msgid "{package} installed successfully."
+msgstr "{package} đã được cài đặt thành công."
+
+#: src/uagent/_pip_auto.py:106
+msgid "Failed to install {package}."
+msgstr "Không cài đặt được {package}."
 
 #: src/uagent/checks.py:17 src/uagent/checks.py:27
 #, python-format
@@ -82,7 +94,7 @@ msgid ""
 "Image send confirmation failed; will not send images: %(etype)s: %(err)s"
 msgstr "Xác nhận gửi ảnh thất bại; sẽ không gửi ảnh: %(etype)s: %(err)s"
 
-#: src/uagent/cli.py:1112 src/uagent/scheckgui.py:722
+#: src/uagent/cli.py:1112 src/uagent/scheckgui.py:728
 #, python-format
 msgid "Failed to attach image: %(path)s (%(etype)s: %(err)s)"
 msgstr "Không thể đính kèm ảnh: %(path)s (%(etype)s: %(err)s)"
@@ -126,17 +138,17 @@ msgid ""
 msgstr ""
 "Tệp (tạo, xóa, đọc, viết, tìm kiếm, zip, đổi tên, băm, grep, liệt kêthư mục)"
 
-#: src/uagent/cli_startup.py:76 src/uagent/scheckgui.py:1507
+#: src/uagent/cli_startup.py:76 src/uagent/scheckgui.py:1513
 #: src/uagent/web.py:1007
 msgid "Communication (Teams, Discord, Bluesky)"
 msgstr "Giao tiếp (Teams, Discord, Bluesky)"
 
-#: src/uagent/cli_startup.py:77 src/uagent/scheckgui.py:1512
+#: src/uagent/cli_startup.py:77 src/uagent/scheckgui.py:1518
 #: src/uagent/web.py:1012
 msgid "Office (Excel, Word, PDF, PPT, document extraction)"
 msgstr "Office (Excel, Word, PDF, PPT, trích xuất tài liệu)"
 
-#: src/uagent/cli_startup.py:81 src/uagent/scheckgui.py:1518
+#: src/uagent/cli_startup.py:81 src/uagent/scheckgui.py:1524
 #: src/uagent/web.py:1018
 msgid ""
 "Development (lint, test, git, DB, screenshot, browser, binary, compile)"
@@ -144,22 +156,22 @@ msgstr ""
 "Development (lint, test, git, DB, ảnh chụp màn hình, browser, binary, "
 "compile)"
 
-#: src/uagent/cli_startup.py:86 src/uagent/scheckgui.py:1525
+#: src/uagent/cli_startup.py:86 src/uagent/scheckgui.py:1531
 #: src/uagent/web.py:1025
 msgid "IoT (Bluetooth/BLE, ECHONET, Matter, SwitchBot, UPnP, camera, geo-IP)"
 msgstr "IoT (Bluetooth/BLE, ECHONET, Matter, SwitchBot, UPnP, camera, geo-IP)"
 
-#: src/uagent/cli_startup.py:88 src/uagent/scheckgui.py:1531
+#: src/uagent/cli_startup.py:88 src/uagent/scheckgui.py:1537
 #: src/uagent/web.py:1031
 msgid "Execution (cmd, python, pwsh, bash, sub-agent)"
 msgstr "Thực thi (cmd, python, pwsh, bash, tác tử phụ)"
 
-#: src/uagent/cli_startup.py:89 src/uagent/scheckgui.py:1536
+#: src/uagent/cli_startup.py:89 src/uagent/scheckgui.py:1542
 #: src/uagent/web.py:1036
 msgid "External (A2A, MCP, fetch, search web)"
 msgstr "Bên ngoài (A2A, MCP, tìm nạp, tìm kiếm web)"
 
-#: src/uagent/cli_startup.py:90 src/uagent/scheckgui.py:1541
+#: src/uagent/cli_startup.py:90 src/uagent/scheckgui.py:1547
 #: src/uagent/web.py:1041
 msgid "Media (image gen/edit/analyze, audio, QR code)"
 msgstr "Media (tạo/chỉnh sửa/phân tích hình ảnh, âm thanh, mã QR)"
@@ -218,7 +230,7 @@ msgstr "[FATAL] Không thể khởi chạy uag_setup: %(err)s"
 msgid "provider = %(provider)s; model = %(model)s"
 msgstr "nhà cung cấp = %(provider)s; mô hình = %(model)s"
 
-#: src/uagent/cli_startup.py:356 src/uagent/scheckgui.py:562
+#: src/uagent/cli_startup.py:356 src/uagent/scheckgui.py:568
 msgid "OpenRouter fallback models enabled."
 msgstr "Đã bật các mô hình dự phòng của OpenRouter."
 
@@ -227,11 +239,11 @@ msgstr "Đã bật các mô hình dự phòng của OpenRouter."
 msgid "current workdir = %(cwd)s"
 msgstr "thư mục làm việc hiện tại = %(cwd)s"
 
-#: src/uagent/cli_startup.py:383 src/uagent/scheckgui.py:585
+#: src/uagent/cli_startup.py:383 src/uagent/scheckgui.py:591
 msgid "Loaded long-term memory."
 msgstr "Đã tảibộ nhớ dài hạn."
 
-#: src/uagent/cli_startup.py:396 src/uagent/scheckgui.py:598
+#: src/uagent/cli_startup.py:396 src/uagent/scheckgui.py:604
 msgid "Loaded shared long-term memory."
 msgstr "Đã tảibộ nhớ dài hạn dùng chung."
 
@@ -1148,156 +1160,156 @@ msgstr ""
 msgid "[Warning] Failed to process chunk (%(step)s): %(err)s"
 msgstr "[Cảnh báo] Không thể xử lý đoạn (%(step)s): %(err)s"
 
-#: src/uagent/scheckgui.py:394
+#: src/uagent/scheckgui.py:400
 msgid "Drop files/images here"
 msgstr "Kéo và thả tệp/ảnh vào đây"
 
-#: src/uagent/scheckgui.py:434
+#: src/uagent/scheckgui.py:440
 msgid "Download"
 msgstr "Tải xuống"
 
-#: src/uagent/scheckgui.py:607
+#: src/uagent/scheckgui.py:613
 #, python-format
 msgid "Exception occurred while loading shared long-term memory: %(err)s"
 msgstr "Đã xảy ra ngoại lệ khi tải bộ nhớ dài hạn dùng chung: %(err)s"
 
-#: src/uagent/scheckgui.py:672
+#: src/uagent/scheckgui.py:678
 #, python-format
 msgid "[Attached File] %(name)s (%(path)s)"
 msgstr "[Tệp đính kèm] %(name)s (%(path)s)"
 
-#: src/uagent/scheckgui.py:769
+#: src/uagent/scheckgui.py:775
 #, python-format
 msgid "[Attached Image] %(path)s"
 msgstr "[Ảnh đính kèm] %(path)s"
 
-#: src/uagent/scheckgui.py:771 src/uagent/web.py:715
+#: src/uagent/scheckgui.py:777 src/uagent/web.py:715
 #, python-format
 msgid "[Image Path] %(path)s"
 msgstr "[Đường dẫn ảnh] %(path)s"
 
-#: src/uagent/scheckgui.py:1099 src/uagent/scheckgui.py:1404
+#: src/uagent/scheckgui.py:1105 src/uagent/scheckgui.py:1410
 msgid "Welcome / Quick Guide"
 msgstr "欢迎 / 快速指南"
 
-#: src/uagent/scheckgui.py:1213
+#: src/uagent/scheckgui.py:1219
 #, python-format
 msgid "Font size: %(name)s"
 msgstr "Cỡ chữ: %(name)s"
 
-#: src/uagent/scheckgui.py:1218
+#: src/uagent/scheckgui.py:1224
 msgid "uag GUI (Extreme Stability)"
 msgstr "uag GUI(极致稳定)"
 
-#: src/uagent/scheckgui.py:1299
+#: src/uagent/scheckgui.py:1305
 msgid "↑ You can attach files by drag & drop"
 msgstr "↑ Bạn có thể đính kèm bằng kéo và thả"
 
-#: src/uagent/scheckgui.py:1327 src/uagent/scheckgui.py:1781
+#: src/uagent/scheckgui.py:1333 src/uagent/scheckgui.py:1787
 msgid "Attach files"
 msgstr "Đính kèm tệp"
 
-#: src/uagent/scheckgui.py:1331
+#: src/uagent/scheckgui.py:1337
 msgid "■"
 msgstr "■"
 
-#: src/uagent/scheckgui.py:1334
+#: src/uagent/scheckgui.py:1340
 msgid "Stop generation"
 msgstr "Dừng thế hệ"
 
-#: src/uagent/scheckgui.py:1349
+#: src/uagent/scheckgui.py:1355
 msgid "Send"
 msgstr "发送"
 
-#: src/uagent/scheckgui.py:1375
+#: src/uagent/scheckgui.py:1381
 msgid "Stop auto-pilot"
 msgstr "Dừng chế độ lái tự động"
 
-#: src/uagent/scheckgui.py:1402
+#: src/uagent/scheckgui.py:1408
 msgid "Help"
 msgstr "trợ giúp"
 
-#: src/uagent/scheckgui.py:1418
+#: src/uagent/scheckgui.py:1424
 msgid "View"
 msgstr "Xem"
 
-#: src/uagent/scheckgui.py:1424
+#: src/uagent/scheckgui.py:1430
 #, python-format
 msgid "Font: %(name)s"
 msgstr "Phông chữ: %(name)s"
 
-#: src/uagent/scheckgui.py:1439
+#: src/uagent/scheckgui.py:1445
 msgid "Mode"
 msgstr "chế độ"
 
-#: src/uagent/scheckgui.py:1442
+#: src/uagent/scheckgui.py:1448
 msgid "Reasoning: off"
 msgstr "suy luận: 关闭"
 
-#: src/uagent/scheckgui.py:1445
+#: src/uagent/scheckgui.py:1451
 msgid "Reasoning: auto"
 msgstr "suy luận: 自动"
 
-#: src/uagent/scheckgui.py:1447
+#: src/uagent/scheckgui.py:1453
 msgid "Reasoning: minimal"
 msgstr "suy luận: 最小"
 
-#: src/uagent/scheckgui.py:1449
+#: src/uagent/scheckgui.py:1455
 msgid "Reasoning: low"
 msgstr "suy luận: 低"
 
-#: src/uagent/scheckgui.py:1451
+#: src/uagent/scheckgui.py:1457
 msgid "Reasoning: medium"
 msgstr "suy luận: 中"
 
-#: src/uagent/scheckgui.py:1453
+#: src/uagent/scheckgui.py:1459
 msgid "Reasoning: high"
 msgstr "suy luận: 高"
 
-#: src/uagent/scheckgui.py:1456
+#: src/uagent/scheckgui.py:1462
 msgid "Reasoning: xhigh"
 msgstr "suy luận: 超高"
 
-#: src/uagent/scheckgui.py:1461
+#: src/uagent/scheckgui.py:1467
 msgid "Verbosity: off"
 msgstr "mức độ chi tiết: 关闭"
 
-#: src/uagent/scheckgui.py:1463
+#: src/uagent/scheckgui.py:1469
 msgid "Verbosity: low"
 msgstr "mức độ chi tiết: 低"
 
-#: src/uagent/scheckgui.py:1465
+#: src/uagent/scheckgui.py:1471
 msgid "Verbosity: medium"
 msgstr "mức độ chi tiết: 中"
 
-#: src/uagent/scheckgui.py:1467
+#: src/uagent/scheckgui.py:1473
 msgid "Verbosity: high"
 msgstr "mức độ chi tiết: 高"
 
-#: src/uagent/scheckgui.py:1494
+#: src/uagent/scheckgui.py:1500
 msgid "Tools"
 msgstr "Công cụ"
 
-#: src/uagent/scheckgui.py:1501
+#: src/uagent/scheckgui.py:1507
 msgid "Basic (file, env, time, prompts, skills, memory, tools control)"
 msgstr ""
 "Cơ bản (tập tin, môi trường, thời gian, lời nhắc, kỹ năng, bộ nhớ, điều "
 "khiển công cụ)"
 
-#: src/uagent/scheckgui.py:1546
+#: src/uagent/scheckgui.py:1552
 msgid "File (read, write, search, delete, listing)"
 msgstr "Tập tin (đọc, viết, tìm kiếm, xóa, liệt kê)"
 
-#: src/uagent/scheckgui.py:1551
+#: src/uagent/scheckgui.py:1557
 msgid "Index (source code navigation: py2idx, ts2idx, etc.)"
 msgstr "Chỉ mục (điều hướng mã nguồn: py2idx, ts2idx, v.v.)"
 
-#: src/uagent/scheckgui.py:1602
+#: src/uagent/scheckgui.py:1608
 #, python-format
 msgid "[mode] reasoning=%(mode)s"
 msgstr "[mode] suy luận=%(mode)s"
 
-#: src/uagent/scheckgui.py:1606
+#: src/uagent/scheckgui.py:1612
 msgid ""
 ":r [0|1|2|3|auto|minimal|xhigh]  (0=off, 1=low, 2=medium, 3=high; "
 "auto/minimal/xhigh)"
@@ -1305,60 +1317,60 @@ msgstr ""
 ":r [0|1|2|3|auto|minimal|xhigh]  (0=tắt, 1=thấp, 2=trung bình, 3=cao; "
 "auto/minimal/xhigh)"
 
-#: src/uagent/scheckgui.py:1614
+#: src/uagent/scheckgui.py:1620
 #, python-format
 msgid "[mode] verbosity=%(mode)s"
 msgstr "[chế độ] độ chi tiết=%(mode)s"
 
-#: src/uagent/scheckgui.py:1616
+#: src/uagent/scheckgui.py:1622
 msgid ":v [0|1|2|3]  (0=off, 1=low, 2=medium, 3=high; no arg=keep)"
 msgstr ""
 ":v [0|1|2|3]  (0=tắt, 1=thấp, 2=trung bình, 3=cao; không có đối số=giữ "
 "nguyên)"
 
-#: src/uagent/scheckgui.py:1748
+#: src/uagent/scheckgui.py:1754
 msgid "Enter password..."
 msgstr "Vui lòngnhập密码..."
 
-#: src/uagent/scheckgui.py:1755
+#: src/uagent/scheckgui.py:1761
 msgid "Enter a message..."
 msgstr "Vui lòngnhậpthông báo..."
 
-#: src/uagent/scheckgui.py:1783
+#: src/uagent/scheckgui.py:1789
 msgid "All Files (*)"
 msgstr "Tất cả tệp (*)"
 
-#: src/uagent/scheckgui.py:2035
+#: src/uagent/scheckgui.py:2041
 msgid "cannot read image"
 msgstr "không thể đọc ảnh"
 
-#: src/uagent/scheckgui.py:2186 src/uagent/scheckgui.py:2226
-#: src/uagent/scheckgui.py:2261
+#: src/uagent/scheckgui.py:2192 src/uagent/scheckgui.py:2232
+#: src/uagent/scheckgui.py:2267
 msgid "Downloaded to"
 msgstr "Đã tải xuống vào"
 
-#: src/uagent/scheckgui.py:2280
+#: src/uagent/scheckgui.py:2286
 msgid "Playing"
 msgstr "Đang phát\n"
 
-#: src/uagent/scheckgui.py:2290
+#: src/uagent/scheckgui.py:2296
 msgid "Stopped"
 msgstr "Đã dừng\n"
 
-#: src/uagent/scheckgui.py:2312
+#: src/uagent/scheckgui.py:2318
 msgid "Stop requested by user."
 msgstr "Dừng theo yêu cầu của người dùng."
 
-#: src/uagent/scheckgui.py:2320
+#: src/uagent/scheckgui.py:2326
 msgid "Stop requested by user (x key)."
 msgstr "Dừng theo yêu cầu của người dùng (phím x)."
 
-#: src/uagent/scheckgui.py:2356
+#: src/uagent/scheckgui.py:2362
 #, python-format
 msgid "[REPLY] > %(text)s"
 msgstr "[TRẢ LỜI] > %(text)s"
 
-#: src/uagent/scheckgui.py:2363
+#: src/uagent/scheckgui.py:2369
 #, python-format
 msgid "[USER] %(text)s"
 msgstr "[NGƯỜI DÙNG] %(text)s"

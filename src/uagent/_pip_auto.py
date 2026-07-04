@@ -6,9 +6,7 @@ from __future__ import annotations
 import subprocess
 import sys
 
-from .tools.i18n_helper import make_tool_translator
-
-_ = make_tool_translator(__file__)
+from .i18n import _
 
 
 def auto_install(package_name: str, module_name: str | None = None) -> bool:
@@ -78,7 +76,7 @@ def install_with_status(
 
     # Show installing message
     try:
-        msg = _("installing", default=f"Installing {label}...").format(package=label)
+        msg = _("Installing {package}...").format(package=label)
     except Exception:
         msg = f"Installing {label}..."
     print(msg, file=sys.stderr)
@@ -103,9 +101,9 @@ def install_with_status(
     # Show result message
     try:
         if success:
-            done_msg = _("installed", default=f"{label} installed successfully.").format(package=label)
+            done_msg = _("{package} installed successfully.").format(package=label)
         else:
-            done_msg = _("install_failed", default=f"Failed to install {label}.").format(package=label)
+            done_msg = _("Failed to install {package}.").format(package=label)
     except Exception:
         done_msg = f"{label} installed." if success else f"Failed to install {label}."
     print(done_msg, file=sys.stderr)
