@@ -94,6 +94,17 @@ async def _scan(timeout: int) -> list[dict[str, Any]]:
 
 def _scan_all_pyside6(timeout: int) -> list[dict[str, Any]]:
     import sys
+    # Ensure Qt DLLs are findable on Windows
+    import os as _os
+    import site as _site
+    if hasattr(_os, 'add_dll_directory'):
+        for _pkg_dir in ("PySide6", "shiboken6"):
+            _dll_dir = _os.path.join(_site.getsitepackages()[0], _pkg_dir) if hasattr(_site, 'getsitepackages') else None
+            if _dll_dir and _os.path.isdir(_dll_dir):
+                try:
+                    _os.add_dll_directory(_dll_dir)
+                except Exception:
+                    pass
     from PySide6.QtCore import QCoreApplication, QTimer
     from PySide6.QtBluetooth import QBluetoothDeviceDiscoveryAgent, QBluetoothDeviceInfo
 
@@ -173,6 +184,17 @@ def run_tool(args: dict[str, Any]) -> str:
 
     # 1. Check dependency
     if action == "scan" and scan_mode == "all":
+        # Ensure Qt DLLs are findable on Windows
+        import os as _os
+        import site as _site
+        if hasattr(_os, 'add_dll_directory'):
+            for _pkg_dir in ("PySide6", "shiboken6"):
+                _dll_dir = _os.path.join(_site.getsitepackages()[0], _pkg_dir) if hasattr(_site, 'getsitepackages') else None
+                if _dll_dir and _os.path.isdir(_dll_dir):
+                    try:
+                        _os.add_dll_directory(_dll_dir)
+                    except Exception:
+                        pass
         if not _install_ble_pyside("PySide6", "PySide6", verify_submodule="PySide6.QtCore"):
             return _(
                 "err.pyside6_missing",

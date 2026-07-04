@@ -26,22 +26,23 @@ os.environ["QT_LOGGING_RULES"] = (
 )
 os.environ["QT_AUTO_SCREEN_SCALE_FACTOR"] = "1"
 
-# Auto-install / reinstall PySide6 if missing or broken
-from ._pip_auto import install_with_status as _install_pyside
-if not _install_pyside("PySide6", "PySide6", verify_submodule="PySide6.QtCore"):
-    # Force-reinstall didn't help; try adding DLL directories (Windows) and retry
-    import os as _os
-    import site as _site
+# Ensure Qt DLLs are findable on Windows (PySide6 wheel may not set up DLL path)
+import os as _os
+import site as _site
+if hasattr(_os, 'add_dll_directory'):
     for _pkg_dir in ("PySide6", "shiboken6"):
         _dll_dir = _os.path.join(_site.getsitepackages()[0], _pkg_dir) if hasattr(_site, 'getsitepackages') else None
-        if _dll_dir and _os.path.isdir(_dll_dir) and hasattr(_os, 'add_dll_directory'):
+        if _dll_dir and _os.path.isdir(_dll_dir):
             try:
                 _os.add_dll_directory(_dll_dir)
             except Exception:
                 pass
-    if not _install_pyside("PySide6", "PySide6", verify_submodule="PySide6.QtCore"):
-        print("PySide6 is required for GUI mode.", file=sys.stderr)
-        sys.exit(1)
+
+# Auto-install / reinstall PySide6 if missing or broken
+from ._pip_auto import install_with_status as _install_pyside
+if not _install_pyside("PySide6", "PySide6", verify_submodule="PySide6.QtCore"):
+    print("PySide6 is required for GUI mode.", file=sys.stderr)
+    sys.exit(1)
 
 from PySide6 import QtCore, QtGui, QtWidgets, QtMultimedia
 
