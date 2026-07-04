@@ -6,7 +6,7 @@ import importlib.util
 import sys
 from typing import Any
 
-from ._pip_auto import install_with_status as _install_ble_pyside
+from .._pip_auto import install_with_status as _install_ble_pyside
 from .i18n_helper import make_tool_translator
 
 _ = make_tool_translator(__file__)

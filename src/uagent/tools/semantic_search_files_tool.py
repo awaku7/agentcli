@@ -14,7 +14,7 @@ import hashlib
 import requests
 from typing import Any
 
-from ._pip_auto import install_with_status
+from .._pip_auto import install_with_status
 
 if not install_with_status("numpy"):
     HAS_NUMPY = False

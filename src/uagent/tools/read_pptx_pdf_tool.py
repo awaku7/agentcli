@@ -27,7 +27,7 @@ from .i18n_helper import make_tool_translator
 _ = make_tool_translator(__file__)
 
 # Optional external libraries
-from ._pip_auto import install_with_status
+from .._pip_auto import install_with_status
 
 if not install_with_status("pdfplumber"):
     pdfplumber = None  # type: ignore[assignment]

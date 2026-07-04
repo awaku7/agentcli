@@ -1,4 +1,4 @@
-# src/uagent/tools/_pip_auto.py
+# src/uagent/_pip_auto.py
 """Auto-install optional Python packages on ImportError."""
 
 from __future__ import annotations
@@ -6,7 +6,7 @@ from __future__ import annotations
 import subprocess
 import sys
 
-from .i18n_helper import make_tool_translator
+from .tools.i18n_helper import make_tool_translator
 
 _ = make_tool_translator(__file__)
 

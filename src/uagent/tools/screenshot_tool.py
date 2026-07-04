@@ -2,7 +2,7 @@ from __future__ import annotations
 
 # tools/screenshot_tool.py
 from .i18n_helper import make_tool_translator
-from ._pip_auto import install_with_status
+from .._pip_auto import install_with_status
 from .response_util import make_response
 
 _ = make_tool_translator(__file__)
