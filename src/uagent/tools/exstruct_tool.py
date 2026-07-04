@@ -32,8 +32,11 @@ BUSY_LABEL = True
 def _import_msoffcrypto():
     try:
         import msoffcrypto  # type: ignore
-    except Exception:  # pragma: no cover
-        msoffcrypto = None  # type: ignore[assignment]
+    except ImportError:
+        from .._pip_auto import install_with_status as _install_mso
+        if not _install_mso("msoffcrypto-tool", "msoffcrypto"):
+            return None
+        import msoffcrypto
     return msoffcrypto
 
 

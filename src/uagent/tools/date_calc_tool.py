@@ -5,8 +5,19 @@ import datetime
 import json
 from typing import Any, Optional
 
-import holidays
-from dateutil.relativedelta import relativedelta
+try:
+    import holidays
+except ImportError:
+    from .._pip_auto import install_with_status as _install_hd
+    _install_hd("holidays")
+    import holidays
+
+try:
+    from dateutil.relativedelta import relativedelta
+except ImportError:
+    from .._pip_auto import install_with_status as _install_dutil
+    _install_dutil("python-dateutil", "dateutil")
+    from dateutil.relativedelta import relativedelta
 
 from .context import get_callbacks
 from .i18n_helper import make_tool_translator

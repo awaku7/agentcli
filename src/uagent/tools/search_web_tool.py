@@ -106,7 +106,12 @@ def _extract_real_url(href: str) -> str:
 
 
 def _parse_results(html: str, max_results: int) -> list[dict[str, str]]:
-    from bs4 import BeautifulSoup
+    try:
+        from bs4 import BeautifulSoup
+    except ImportError:
+        from .._pip_auto import install_with_status as _install_bs4
+        _install_bs4("beautifulsoup4", "bs4")
+        from bs4 import BeautifulSoup
 
     soup = BeautifulSoup(html, "html.parser")
     results: list[dict[str, str]] = []

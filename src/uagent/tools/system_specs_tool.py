@@ -540,8 +540,11 @@ def _collect_with_psutil(
 ) -> bool:
     try:
         import psutil  # type: ignore
-    except Exception:
-        return False
+    except ImportError:
+        from .._pip_auto import install_with_status as _install_ps
+        if not _install_ps("psutil"):
+            return False
+        import psutil
 
     _psutil_collect_boot(out, psutil)
     _psutil_collect_cpu(out, psutil)

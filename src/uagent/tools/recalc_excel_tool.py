@@ -9,8 +9,10 @@ from .i18n_helper import make_tool_translator
 
 try:
     import msoffcrypto
-except Exception:  # pragma: no cover
-    msoffcrypto = None  # type: ignore[assignment]
+except ImportError:
+    from .._pip_auto import install_with_status as _install_mso
+    if not _install_mso("msoffcrypto-tool", "msoffcrypto"):
+        msoffcrypto = None  # type: ignore[assignment]
 from .safe_file_ops_extras import ensure_within_workdir, make_backup_before_overwrite
 
 _ = make_tool_translator(__file__)

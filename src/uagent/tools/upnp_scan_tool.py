@@ -200,7 +200,13 @@ def _resolve_interface(interface: str | None) -> tuple[str | None, str | None]:
     def _first_ipv4_for_name(target: str) -> tuple[str | None, str | None]:
         try:
             import psutil  # type: ignore
+        except ImportError:
+            from .._pip_auto import install_with_status as _install_ps
+            if not _install_ps("psutil"):
+                raise
+            import psutil
 
+        try:
             for name, addrs in psutil.net_if_addrs().items():
                 if name.lower() != target:
                     continue
@@ -237,7 +243,13 @@ def _resolve_interface(interface: str | None) -> tuple[str | None, str | None]:
 
     try:
         import psutil  # type: ignore
+    except ImportError:
+        from .._pip_auto import install_with_status as _install_ps
+        if not _install_ps("psutil"):
+            raise
+        import psutil
 
+    try:
         candidates: list[tuple[int, str, str]] = []
         for name, addrs in psutil.net_if_addrs().items():
             if _is_virtual_name(name):

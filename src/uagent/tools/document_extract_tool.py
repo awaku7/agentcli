@@ -11,28 +11,47 @@ _ = make_tool_translator(__file__)
 
 try:
     from docx import Document
-except Exception:  # pragma: no cover
-    Document = None
+except ImportError:
+    from .._pip_auto import install_with_status as _install_docx
+    if not _install_docx("python-docx", "docx"):
+        Document = None
+    else:
+        from docx import Document
 
 try:
     from odf import teletype
     from odf.opendocument import load as odf_load
     from odf.table import Table, TableCell, TableRow
     from odf.text import H, P
-except Exception:  # pragma: no cover
-    teletype = None
-    odf_load = None
-    Table = TableCell = TableRow = H = P = None
+except ImportError:
+    from .._pip_auto import install_with_status as _install_odf
+    if not _install_odf("odfpy", "odf"):
+        teletype = None
+        odf_load = None
+        Table = TableCell = TableRow = H = P = None
+    else:
+        from odf import teletype
+        from odf.opendocument import load as odf_load
+        from odf.table import Table, TableCell, TableRow
+        from odf.text import H, P
 
 try:
     from striprtf.striprtf import rtf_to_text
-except Exception:  # pragma: no cover
-    rtf_to_text = None
+except ImportError:
+    from .._pip_auto import install_with_status as _install_rtf
+    if not _install_rtf("striprtf"):
+        rtf_to_text = None
+    else:
+        from striprtf.striprtf import rtf_to_text
 
 try:
     import msoffcrypto
-except Exception:  # pragma: no cover
-    msoffcrypto = None  # type: ignore[assignment]
+except ImportError:
+    from .._pip_auto import install_with_status as _install_mso
+    if not _install_mso("msoffcrypto-tool", "msoffcrypto"):
+        msoffcrypto = None  # type: ignore[assignment]
+    else:
+        import msoffcrypto
 
 
 TOOL_SPEC: dict[str, Any] = {
