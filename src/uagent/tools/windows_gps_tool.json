@@ -1,6 +1,6 @@
 {
   "en": {
-    "tool.description": "Get GPS location from Windows Location API (requires Windows 10+ with location services enabled). Returns latitude, longitude, accuracy, and source.",
+    "tool.description": "Get your current GPS location (latitude, longitude) using the GPS sensor. High precision, returns exact coordinates with accuracy info. Use this when the user asks for their current position, location, or GPS coordinates.",
     "err.not_windows": "Error: Windows Location API is only available on Windows.",
     "err.no_winrt": "Error: 'winrt-Windows.Devices.Geolocation' package is not installed. Run: pip install winrt-Windows.Devices.Geolocation",
     "err.location_denied": "Error: Location access denied. Enable location services in Windows Settings > Privacy & security > Location, and allow desktop apps to access location.",
@@ -23,7 +23,7 @@
     "output.timestamp": "- **Timestamp**: {ts}"
   },
   "ja": {
-    "tool.description": "Windows 位置情報 API から GPS 座標を取得します（Windows 10+、位置情報サービス有効必需）。緯度、経度、精度、ソースを返します。",
+    "tool.description": "GPS センサーを使用して、現在の GPS 位置 (緯度、経度) を取得します。高精度で、精度情報を含む正確な座標を返します。ユーザーが現在位置、場所、または GPS 座標を尋ねる場合にこれを使用します。",
     "err.not_windows": "エラー：Windows 位置情報 API は Windows でのみ利用可能です。",
     "err.no_winrt": "エラー：'winrt-Windows.Devices.Geolocation' パッケージがインストールされていません。次を実行してください：pip install winrt-Windows.Devices.Geolocation",
     "err.location_denied": "エラー：位置情報へのアクセスが拒否されました。Windows の設定 > プライバシーとセキュリティ > 位置情報 で位置情報サービスを有効にし、デスクトップアプリの位置情報アクセスを許可してください。",
@@ -46,7 +46,7 @@
     "output.timestamp": "- **タイムスタンプ**: {ts}"
   },
   "es": {
-    "tool.description": "Obtenga la ubicación GPS desde la API de ubicación de Windows (requiere Windows 10+ con los servicios de ubicación habilitados). Devuelve latitud, longitud, precisión y fuente.",
+    "tool.description": "Obtenga su ubicación GPS actual (latitud, longitud) utilizando el sensor GPS. Alta precisión, devuelve coordenadas exactas con información precisa. Úselo cuando el usuario solicite su posición actual, ubicación o coordenadas GPS.",
     "err.not_windows": "Error: la API de ubicación de Windows solo está disponible en Windows.",
     "err.no_winrt": "Error: el paquete 'winrt-Windows.Devices.Geolocation' no está instalado. Ejecutar: pip install winrt-Windows.Devices.Geolocation",
     "err.location_denied": "Error: acceso a la ubicación denegado. Habilite los servicios de ubicación en Configuración de Windows > Privacidad y seguridad > Ubicación y permita que las aplicaciones de escritorio accedan a la ubicación.",
@@ -69,7 +69,7 @@
     "output.timestamp": "- **Marca de tiempo**: {ts}"
   },
   "fr": {
-    "tool.description": "Obtenez la localisation GPS à partir de l'API de localisation Windows (nécessite Windows 10+ avec les services de localisation activés). Renvoie la latitude, la longitude, la précision et la source.",
+    "tool.description": "Obtenez votre position GPS actuelle (latitude, longitude) à l'aide du capteur GPS. Haute précision, renvoie des coordonnées exactes avec des informations de précision. Utilisez-le lorsque l'utilisateur demande sa position actuelle, son emplacement ou ses coordonnées GPS.",
     "err.not_windows": "Erreur : L'API de localisation Windows n'est disponible que sous Windows.",
     "err.no_winrt": "Erreur : le package « winrt-Windows.Devices.Geolocation » n'est pas installé. Exécuter : pip install winrt-Windows.Devices.Geolocation",
     "err.location_denied": "Erreur : Accès à la localisation refusé. Activez les services de localisation dans Paramètres Windows > Confidentialité et sécurité > Localisation et autorisez les applications de bureau à accéder à la localisation.",
@@ -92,7 +92,7 @@
     "output.timestamp": "- **Horodatage** : {ts}"
   },
   "ko": {
-    "tool.description": "Windows 위치 API에서 GPS 위치를 가져옵니다(위치 서비스가 활성화된 Windows 10 이상이 필요함). 위도, 경도, 정확도 및 소스를 반환합니다.",
+    "tool.description": "GPS 센서를 사용하여 현재 GPS 위치(위도, 경도)를 확인하세요. 높은 정밀도, 정확도 정보와 함께 정확한 좌표를 반환합니다. 사용자가 현재 위치, 위치 또는 GPS 좌표를 요청할 때 사용합니다.",
     "err.not_windows": "오류: Windows 위치 API는 Windows에서만 사용할 수 있습니다.",
     "err.no_winrt": "오류: 'winrt-Windows.Devices.Geolocation' 패키지가 설치되지 않았습니다. 실행: pip install winrt-Windows.Devices.Geolocation",
     "err.location_denied": "오류: 위치 액세스가 거부되었습니다. Windows 설정 > 개인정보 및 보안 > 위치에서 위치 서비스를 활성화하고 데스크톱 앱이 위치에 액세스하도록 허용합니다.",
@@ -115,7 +115,7 @@
     "output.timestamp": "- **타임스탬프**: {ts}"
   },
   "de": {
-    "tool.description": "Erhalten Sie den GPS-Standort über die Windows-Standort-API (erfordert Windows 10+ mit aktivierten Standortdiensten). Gibt Breitengrad, Längengrad, Genauigkeit und Quelle zurück.",
+    "tool.description": "Ermitteln Sie mithilfe des GPS-Sensors Ihren aktuellen GPS-Standort (Breitengrad, Längengrad). Hohe Präzision, liefert genaue Koordinaten mit Genauigkeitsinformationen. Verwenden Sie dies, wenn der Benutzer nach seiner aktuellen Position, seinem Standort oder GPS-Koordinaten fragt.",
     "err.not_windows": "Fehler: Die Windows-Standort-API ist nur unter Windows verfügbar.",
     "err.no_winrt": "Fehler: Das Paket \"winrt-Windows.Devices.Geolocation\" ist nicht installiert. Führen Sie Folgendes aus: pip install winrt-Windows.Devices.Geolocation",
     "err.location_denied": "Fehler: Standortzugriff verweigert. Aktivieren Sie Standortdienste in Windows-Einstellungen > Datenschutz und Sicherheit > Standort und erlauben Sie Desktop-Apps den Zugriff auf den Standort.",
@@ -138,7 +138,7 @@
     "output.timestamp": "- **Zeitstempel**: {ts}"
   },
   "it": {
-    "tool.description": "Ottieni la posizione GPS dall'API di localizzazione di Windows (richiede Windows 10+ con i servizi di localizzazione abilitati). Restituisce latitudine, longitudine, precisione e origine.",
+    "tool.description": "Ottieni la tua posizione GPS attuale (latitudine, longitudine) utilizzando il sensore GPS. Alta precisione, restituisce coordinate esatte con informazioni sulla precisione. Utilizzalo quando l'utente richiede la posizione corrente, la posizione o le coordinate GPS.",
     "err.not_windows": "Errore: l'API di posizione di Windows è disponibile solo su Windows.",
     "err.no_winrt": "Errore: il pacchetto \"winrt-Windows.Devices.Geolocation\" non è installato. Esegui: pip install winrt-Windows.Devices.Geolocation",
     "err.location_denied": "Errore: accesso alla posizione negato. Abilita i servizi di localizzazione in Impostazioni di Windows > Privacy e sicurezza > Posizione e consenti alle app desktop di accedere alla posizione.",
@@ -161,7 +161,7 @@
     "output.timestamp": "- **Data e ora**: {ts}"
   },
   "ru": {
-    "tool.description": "Получите местоположение GPS из Windows Location API (требуется Windows 10+ с включенными службами определения местоположения). Возвращает широту, долготу, точность и источник.",
+    "tool.description": "Получите свое текущее местоположение GPS (широту, долготу) с помощью датчика GPS. Высокая точность, возвращает точные координаты с информацией о точности. Используйте это, когда пользователь запрашивает свое текущее положение, местоположение или координаты GPS.",
     "err.not_windows": "Ошибка: API местоположения Windows доступен только в Windows.",
     "err.no_winrt": "Ошибка: пакет winrt-Windows.Devices.Geolocation не установлен. Запустите: pip install winrt-Windows.Devices.Geolocation",
     "err.location_denied": "Ошибка: доступ к местоположению запрещен. Включите службы определения местоположения в разделе \"Настройки Windows\" > \"Конфиденциальность и безопасность\" > \"Местоположение\" и разрешите настольным приложениям доступ к местоположению.",
@@ -184,7 +184,7 @@
     "output.timestamp": "- **Временная метка**: {ts}"
   },
   "pt": {
-    "tool.description": "Obtenha a localização GPS da API de localização do Windows (requer Windows 10+ com serviços de localização ativados). Retorna latitude, longitude, precisão e origem.",
+    "tool.description": "Obtenha sua localização GPS atual (latitude, longitude) usando o sensor GPS. Alta precisão, retorna coordenadas exatas com informações de precisão. Use isto quando o usuário solicitar sua posição atual, localização ou coordenadas GPS.",
     "err.not_windows": "Erro: a API de localização do Windows está disponível apenas no Windows.",
     "err.no_winrt": "Erro: o pacote 'winrt-Windows.Devices.Geolocation' não está instalado. Execute: pip install winrt-Windows.Devices.Geolocation",
     "err.location_denied": "Erro: acesso ao local negado. Habilite os serviços de localização em Configurações do Windows > Privacidade e segurança > Localização e permita que aplicativos de desktop acessem a localização.",
@@ -207,7 +207,7 @@
     "output.timestamp": "- **Carimbo de data/hora**: {ts}"
   },
   "pt_BR": {
-    "tool.description": "Obtenha a localização GPS da API de localização do Windows (requer Windows 10+ com serviços de localização ativados). Retorna latitude, longitude, precisão e origem.",
+    "tool.description": "Obtenha sua localização GPS atual (latitude, longitude) usando o sensor GPS. Alta precisão, retorna coordenadas exatas com informações de precisão. Use isto quando o usuário solicitar sua posição atual, localização ou coordenadas GPS.",
     "err.not_windows": "Erro: a API de localização do Windows está disponível apenas no Windows.",
     "err.no_winrt": "Erro: o pacote 'winrt-Windows.Devices.Geolocation' não está instalado. Execute: pip install winrt-Windows.Devices.Geolocation",
     "err.location_denied": "Erro: acesso ao local negado. Habilite os serviços de localização em Configurações do Windows > Privacidade e segurança > Localização e permita que aplicativos de desktop acessem a localização.",
@@ -230,7 +230,7 @@
     "output.timestamp": "- **Carimbo de data/hora**: {ts}"
   },
   "id": {
-    "tool.description": "Dapatkan lokasi GPS dari Windows Location API (memerlukan Windows 10+ dengan layanan lokasi diaktifkan). Mengembalikan lintang, bujur, akurasi, dan sumber.",
+    "tool.description": "Dapatkan lokasi GPS Anda saat ini (lintang, bujur) menggunakan sensor GPS. Presisi tinggi, mengembalikan koordinat yang tepat dengan info akurasi. Gunakan ini ketika pengguna menanyakan posisi, lokasi, atau koordinat GPS mereka saat ini.",
     "err.not_windows": "Kesalahan: API Lokasi Windows hanya tersedia di Windows.",
     "err.no_winrt": "Kesalahan: paket 'winrt-Windows.Devices.Geolocation' tidak diinstal. Jalankan: pip install winrt-Windows.Devices.Geolocation",
     "err.location_denied": "Kesalahan: Akses lokasi ditolak. Aktifkan layanan lokasi di Pengaturan Windows > Privasi & keamanan > Lokasi, dan izinkan aplikasi desktop mengakses lokasi.",
@@ -253,7 +253,7 @@
     "output.timestamp": "- **Stempel Waktu**: {ts}"
   },
   "vi": {
-    "tool.description": "Nhận vị trí GPS từ API vị trí của Windows (yêu cầu Windows 10+ đã bật dịch vụ định vị). Trả về vĩ độ, kinh độ, độ chính xác và nguồn.",
+    "tool.description": "Nhận vị trí GPS hiện tại của bạn (vĩ độ, kinh độ) bằng cảm biến GPS. Độ chính xác cao, trả về tọa độ chính xác với thông tin chính xác. Sử dụng tính năng này khi người dùng yêu cầu vị trí, vị trí hoặc tọa độ GPS hiện tại của họ.",
     "err.not_windows": "Lỗi: API vị trí Windows chỉ khả dụng trên Windows.",
     "err.no_winrt": "Lỗi: gói 'winrt-Windows.Devices.Geolocation' chưa được cài đặt. Chạy: pip cài đặt winrt-Windows.Devices.Geolocation",
     "err.location_denied": "Lỗi: Quyền truy cập vị trí bị từ chối. Bật dịch vụ định vị trong Cài đặt Windows > Quyền riêng tư & bảo mật > Vị trí và cho phép các ứng dụng trên máy tính truy cập vị trí.",
@@ -276,7 +276,7 @@
     "output.timestamp": "- **Dấu thời gian**: {ts}"
   },
   "pl": {
-    "tool.description": "Uzyskaj lokalizację GPS z interfejsu API lokalizacji systemu Windows (wymaga systemu Windows 10 lub nowszego z włączonymi usługami lokalizacyjnymi). Zwraca szerokość i długość geograficzną, dokładność i źródło.",
+    "tool.description": "Uzyskaj aktualną lokalizację GPS (szerokość i długość geograficzną) za pomocą czujnika GPS. Wysoka precyzja, zwraca dokładne współrzędne z informacjami o dokładności. Użyj tej opcji, gdy użytkownik pyta o jego aktualną pozycję, lokalizację lub współrzędne GPS.",
     "err.not_windows": "Błąd: interfejs API lokalizacji systemu Windows jest dostępny tylko w systemie Windows.",
     "err.no_winrt": "Błąd: Pakiet \"winrt-Windows.Devices.Geolocation\" nie jest zainstalowany. Uruchom: pip install winrt-Windows.Devices.Geolocation",
     "err.location_denied": "Błąd: odmowa dostępu do lokalizacji. Włącz usługi lokalizacyjne w Ustawieniach systemu Windows > Prywatność i bezpieczeństwo > Lokalizacja i zezwól aplikacjom komputerowym na dostęp do lokalizacji.",
@@ -299,7 +299,7 @@
     "output.timestamp": "- **Znacznik czasu**: {ts}"
   },
   "hi": {
-    "tool.description": "विंडोज़ लोकेशन एपीआई से जीपीएस लोकेशन प्राप्त करें (लोकेशन सेवाओं के सक्षम होने के साथ विंडोज़ 10+ की आवश्यकता है)। अक्षांश, देशांतर, सटीकता और स्रोत लौटाता है।",
+    "tool.description": "जीपीएस सेंसर का उपयोग करके अपना वर्तमान जीपीएस स्थान (अक्षांश, देशांतर) प्राप्त करें। उच्च परिशुद्धता, सटीकता जानकारी के साथ सटीक निर्देशांक लौटाता है। इसका उपयोग तब करें जब उपयोगकर्ता अपनी वर्तमान स्थिति, स्थान या जीपीएस निर्देशांक के बारे में पूछे।",
     "err.not_windows": "त्रुटि: विंडोज़ लोकेशन एपीआई केवल विंडोज़ पर उपलब्ध है।",
     "err.no_winrt": "त्रुटि: 'winrt-Windows.Devices.Geolocation' पैकेज स्थापित नहीं है। चलाएँ: पिप इंस्टॉल winrt-Windows.Devices.Geolocation",
     "err.location_denied": "त्रुटि: स्थान पहुंच अस्वीकृत. विंडोज़ सेटिंग्स > गोपनीयता और सुरक्षा > स्थान में स्थान सेवाएँ सक्षम करें, और डेस्कटॉप ऐप्स को स्थान तक पहुँचने की अनुमति दें।",
@@ -322,7 +322,7 @@
     "output.timestamp": "- **टाइमस्टैम्प**: {ts}"
   },
   "ar": {
-    "tool.description": "احصل على موقع GPS من Windows Location API (يتطلب Windows 10+ مع تمكين خدمات الموقع). إرجاع خطوط الطول والعرض والدقة والمصدر.",
+    "tool.description": "احصل على موقع GPS الحالي (خط العرض وخط الطول) باستخدام مستشعر GPS. دقة عالية، وإرجاع الإحداثيات الدقيقة مع معلومات الدقة. استخدم هذا عندما يسأل المستخدم عن موقعه الحالي أو موقعه أو إحداثيات GPS.",
     "err.not_windows": "خطأ: واجهة برمجة تطبيقات الموقع في Windows متاحة فقط على نظام التشغيل Windows.",
     "err.no_winrt": "خطأ: لم يتم تثبيت الحزمة 'winrt-Windows.Devices.Geolocation'. تشغيل: تثبيت النقطة winrt-Windows.Devices.Geolocation",
     "err.location_denied": "خطأ: تم رفض الوصول إلى الموقع. قم بتمكين خدمات الموقع في إعدادات Windows > الخصوصية والأمان > الموقع، واسمح لتطبيقات سطح المكتب بالوصول إلى الموقع.",
@@ -345,7 +345,7 @@
     "output.timestamp": "- **الطابع الزمني**: {ts}"
   },
   "sv": {
-    "tool.description": "Få GPS-position från Windows Location API (kräver Windows 10+ med platstjänster aktiverade). Returnerar latitud, longitud, noggrannhet och källa.",
+    "tool.description": "Få din nuvarande GPS-position (latitud, longitud) med hjälp av GPS-sensorn. Hög precision, returnerar exakta koordinater med noggrannhetsinformation. Använd detta när användaren frågar efter sin nuvarande position, plats eller GPS-koordinater.",
     "err.not_windows": "Fel: Windows Location API är endast tillgängligt på Windows.",
     "err.no_winrt": "Fel: 'winrt-Windows.Devices.Geolocation'-paketet är inte installerat. Kör: pip installera winrt-Windows.Devices.Geolocation",
     "err.location_denied": "Fel: Platsåtkomst nekad. Aktivera platstjänster i Windows-inställningar > Sekretess och säkerhet > Plats och tillåt skrivbordsappar att komma åt plats.",
@@ -368,7 +368,7 @@
     "output.timestamp": "- **Tidsstämpel**: {ts}"
   },
   "sw": {
-    "tool.description": "Pata eneo la GPS kutoka kwa API ya Mahali ya Windows (inahitaji Windows 10+ na huduma za eneo zimewashwa). Hurejesha latitudo, longitudo, usahihi na chanzo.",
+    "tool.description": "Pata eneo lako la sasa la GPS (latitudo, longitudo) kwa kutumia kihisi cha GPS. Usahihi wa hali ya juu, hurejesha viwianishi vilivyo na maelezo ya usahihi. Tumia hii wakati mtumiaji anauliza nafasi yake ya sasa, eneo au viwianishi vya GPS.",
     "err.not_windows": "Hitilafu: API ya Mahali ya Windows inapatikana kwenye Windows pekee.",
     "err.no_winrt": "Hitilafu: kifurushi cha 'winrt-Windows.Devices.Geolocation' hakijasakinishwa. Endesha: pip install winrt-Windows.Devices.Geolocation",
     "err.location_denied": "Hitilafu: Ufikiaji wa eneo umekataliwa. Washa huduma za eneo katika Mipangilio ya Windows > Faragha na usalama > Mahali, na uruhusu programu za eneo-kazi kufikia eneo.",
@@ -391,7 +391,7 @@
     "output.timestamp": "- **Muhuri wa saa**: {ts}"
   },
   "nb": {
-    "tool.description": "Få GPS-posisjon fra Windows Location API (krever Windows 10+ med posisjonstjenester aktivert). Returnerer breddegrad, lengdegrad, nøyaktighet og kilde.",
+    "tool.description": "Få din nåværende GPS-posisjon (breddegrad, lengdegrad) ved hjelp av GPS-sensoren. Høy presisjon, returnerer nøyaktige koordinater med nøyaktighetsinformasjon. Bruk denne når brukeren ber om gjeldende posisjon, plassering eller GPS-koordinater.",
     "err.not_windows": "Feil: Windows Location API er bare tilgjengelig på Windows.",
     "err.no_winrt": "Feil: 'winrt-Windows.Devices.Geolocation'-pakken er ikke installert. Kjør: pip install winrt-Windows.Devices.Geolocation",
     "err.location_denied": "Feil: Posisjonstilgang nektet. Aktiver plasseringstjenester i Windows-innstillinger > Personvern og sikkerhet > Plassering, og la skrivebordsapper få tilgang til plassering.",
@@ -414,7 +414,7 @@
     "output.timestamp": "- **Tidsstempel**: {ts}"
   },
   "nl": {
-    "tool.description": "Ontvang de GPS-locatie van de Windows Location API (vereist Windows 10+ met ingeschakelde locatieservices). Retourneert breedtegraad, lengtegraad, nauwkeurigheid en bron.",
+    "tool.description": "Ontvang uw huidige GPS-locatie (breedtegraad, lengtegraad) met behulp van de GPS-sensor. Hoge precisie, retourneert exacte coördinaten met nauwkeurigheidsinformatie. Gebruik dit wanneer de gebruiker om zijn huidige positie, locatie of GPS-coördinaten vraagt.",
     "err.not_windows": "Fout: Windows Location API is alleen beschikbaar op Windows.",
     "err.no_winrt": "Fout: 'winrt-Windows.Devices.Geolocation'-pakket is niet geïnstalleerd. Uitvoeren: pip install winrt-Windows.Devices.Geolocation",
     "err.location_denied": "Fout: Locatietoegang geweigerd. Schakel locatieservices in Windows Instellingen > Privacy en beveiliging > Locatie in en geef desktop-apps toegang tot de locatie.",
@@ -437,7 +437,7 @@
     "output.timestamp": "- **Tijdstempel**: {ts}"
   },
   "fi": {
-    "tool.description": "Hanki GPS-sijainnin Windows Location API -sovellusliittymästä (vaatii Windows 10+:n, jossa sijaintipalvelut ovat käytössä). Palauttaa leveysasteen, pituusasteen, tarkkuuden ja lähteen.",
+    "tool.description": "Hanki nykyinen GPS-sijaintisi (leveysaste, pituusaste) GPS-sensorin avulla. Suuri tarkkuus, palauttaa tarkat koordinaatit tarkkuudella. Käytä tätä, kun käyttäjä kysyy nykyistä sijaintiaan, sijaintiaan tai GPS-koordinaatteja.",
     "err.not_windows": "Virhe: Windows Location API on saatavilla vain Windowsissa.",
     "err.no_winrt": "Virhe: pakettia 'winrt-Windows.Devices.Geolocation' ei ole asennettu. Suorita: pip install winrt-Windows.Devices.Geolocation",
     "err.location_denied": "Virhe: Sijainnin käyttö estetty. Ota sijaintipalvelut käyttöön kohdassa Windowsin Asetukset > Tietosuoja ja suojaus > Sijainti ja salli työpöytäsovellusten pääsy sijaintiin.",
@@ -460,7 +460,7 @@
     "output.timestamp": "- **Aikaleima**: {ts}"
   },
   "cs": {
-    "tool.description": "Získejte polohu GPS z rozhraní Windows Location API (vyžaduje Windows 10+ s povolenými službami určování polohy). Vrátí zeměpisnou šířku, délku, přesnost a zdroj.",
+    "tool.description": "Získejte svou aktuální polohu GPS (zeměpisná šířka, délka) pomocí senzoru GPS. Vysoká přesnost, vrací přesné souřadnice s informacemi o přesnosti. Tuto možnost použijte, když se uživatel zeptá na svou aktuální polohu, polohu nebo souřadnice GPS.",
     "err.not_windows": "Chyba: Windows Location API je k dispozici pouze v systému Windows.",
     "err.no_winrt": "Chyba: Balíček 'winrt-Windows.Devices.Geolocation' není nainstalován. Spustit: pip install winrt-Windows.Devices.Geolocation",
     "err.location_denied": "Chyba: Přístup k poloze byl odepřen. Povolte služby určování polohy v Nastavení systému Windows > Soukromí a zabezpečení > Poloha a povolte aplikacím pro počítače přístup k poloze.",
@@ -483,7 +483,7 @@
     "output.timestamp": "- **Časové razítko**: {ts}"
   },
   "uk": {
-    "tool.description": "Отримайте GPS-місцезнаходження за допомогою Windows Location API (потрібна Windows 10+ із увімкненими службами визначення місцезнаходження). Повертає широту, довготу, точність і джерело.",
+    "tool.description": "Отримайте своє поточне місцезнаходження за допомогою GPS (широта, довгота) за допомогою датчика GPS. Висока точність, повертає точні координати з точною інформацією. Використовуйте це, коли користувач запитує своє поточне положення, розташування або GPS-координати.",
     "err.not_windows": "Помилка: API розташування Windows доступний лише в Windows.",
     "err.no_winrt": "Помилка: пакет 'winrt-Windows.Devices.Geolocation' не встановлено. Запустіть: pip install winrt-Windows.Devices.Geolocation",
     "err.location_denied": "Помилка: доступ до місцезнаходження заборонено. Увімкніть служби визначення місцезнаходження в меню «Параметри Windows» > «Конфіденційність і безпека» > «Розташування» та дозвольте додаткам для настільних комп’ютерів отримувати доступ до розташування.",
@@ -506,7 +506,7 @@
     "output.timestamp": "- **Мітка часу**: {ts}"
   },
   "tr": {
-    "tool.description": "Windows Konum API'sinden GPS konumunu alın (konum hizmetlerinin etkin olduğu Windows 10+ gerektirir). Enlem, boylam, doğruluk ve kaynağı döndürür.",
+    "tool.description": "GPS sensörünü kullanarak mevcut GPS konumunuzu (enlem, boylam) alın. Yüksek hassasiyet, doğruluk bilgisiyle birlikte tam koordinatları döndürür. Kullanıcı mevcut konumunu, konumunu veya GPS koordinatlarını sorduğunda bunu kullanın.",
     "err.not_windows": "Hata: Windows Konum API'si yalnızca Windows'ta kullanılabilir.",
     "err.no_winrt": "Hata: 'winrt-Windows.Devices.Geolocation' paketi yüklü değil. Çalıştır: pip install winrt-Windows.Devices.Geolocation",
     "err.location_denied": "Hata: Konum erişimi reddedildi. Windows Ayarları > Gizlilik ve güvenlik > Konum bölümünde konum hizmetlerini etkinleştirin ve masaüstü uygulamalarının konuma erişmesine izin verin.",
@@ -529,7 +529,7 @@
     "output.timestamp": "- **Zaman damgası**: {ts}"
   },
   "th": {
-    "tool.description": "รับตำแหน่ง GPS จาก Windows Location API (ต้องใช้ Windows 10+ พร้อมเปิดใช้งานบริการระบุตำแหน่ง) ส่งกลับละติจูด ลองจิจูด ความแม่นยำ และแหล่งที่มา",
+    "tool.description": "รับตำแหน่ง GPS ปัจจุบันของคุณ (ละติจูด ลองจิจูด) โดยใช้เซ็นเซอร์ GPS ความแม่นยำสูง ส่งกลับพิกัดที่แน่นอนพร้อมข้อมูลที่แม่นยำ ใช้สิ่งนี้เมื่อผู้ใช้ถามถึงตำแหน่งปัจจุบัน ตำแหน่ง หรือพิกัด GPS",
     "err.not_windows": "ข้อผิดพลาด: Windows Location API ใช้ได้เฉพาะบน Windows เท่านั้น",
     "err.no_winrt": "ข้อผิดพลาด: ไม่ได้ติดตั้งแพ็คเกจ 'winrt-Windows.Devices.Geolocation' เรียกใช้: pip ติดตั้ง winrt-Windows.Devices.Geolocation",
     "err.location_denied": "ข้อผิดพลาด: การเข้าถึงตำแหน่งถูกปฏิเสธ เปิดใช้งานบริการระบุตำแหน่งในการตั้งค่า Windows > ความเป็นส่วนตัวและความปลอดภัย > ตำแหน่ง และอนุญาตให้แอปเดสก์ท็อปเข้าถึงตำแหน่ง",
@@ -552,7 +552,7 @@
     "output.timestamp": "- **ประทับเวลา**: {ts}"
   },
   "zh_CN": {
-    "tool.description": "从 Windows Location API 获取 GPS 位置（需要启用位置服务的 Windows 10+）。返回纬度、经度、精度和来源。",
+    "tool.description": "使用 GPS 传感器获取您当前的 GPS 位置（纬度、经度）。高精度，返回精确坐标和准确信息。当用户询问其当前位置、位置或 GPS 坐标时使用此选项。",
     "err.not_windows": "错误：Windows 位置 API 仅在 Windows 上可用。",
     "err.no_winrt": "错误：未安装\"winrt-Windows.Devices.Geolocation\"包。运行： pip install winrt-Windows.Devices.Geolocation",
     "err.location_denied": "错误：位置访问被拒绝。在 Windows 设置 > 隐私和安全 > 位置中启用位置服务，并允许桌面应用访问位置。",
@@ -575,7 +575,7 @@
     "output.timestamp": "- **时间戳**：{ts}"
   },
   "zh_TW": {
-    "tool.description": "從 Windows Location API 取得 GPS 位置（需要啟用位置服務的 Windows 10+）。返回緯度、經度、精度和來源。",
+    "tool.description": "使用 GPS 感測器取得您目前的 GPS 位置（緯度、經度）。高精度，返回精確座標和準確資訊。當使用者詢問其當前位置、位置或 GPS 座標時使用此選項。",
     "err.not_windows": "錯誤：Windows 位置 API 僅在 Windows 上可用。",
     "err.no_winrt": "錯誤：未安裝「winrt-Windows.Devices.Geolocation」套件。運行： pip install winrt-Windows.Devices.Geolocation",
     "err.location_denied": "錯誤：位置存取被拒絕。在 Windows 設定 > 隱私權和安全性 > 位置中啟用位置服務，並允許桌面套用存取位置。",
@@ -598,7 +598,7 @@
     "output.timestamp": "- **時間戳**：{ts}"
   },
   "bn": {
-    "tool.description": "Windows Location API থেকে GPS লোকেশন পান (Windows 10+ লোকেশন পরিষেবা সক্রিয় থাকা প্রয়োজন)। অক্ষাংশ, দ্রাঘিমাংশ, নির্ভুলতা এবং উৎস প্রদান করে।",
+    "tool.description": "জিপিএস সেন্সর ব্যবহার করে আপনার বর্তমান জিপিএস অবস্থান (অক্ষাংশ, দ্রাঘিমাংশ) পান। উচ্চ নির্ভুলতা, নির্ভুলতা তথ্য সহ সঠিক স্থানাঙ্ক প্রদান করে। ব্যবহারকারী যখন তাদের বর্তমান অবস্থান, অবস্থান বা GPS স্থানাঙ্কের জন্য জিজ্ঞাসা করে তখন এটি ব্যবহার করুন।",
     "err.not_windows": "ত্রুটি: Windows অবস্থান API শুধুমাত্র Windows এ উপলব্ধ।",
     "err.no_winrt": "ত্রুটি: 'winrt-Windows.Devices.Geolocation' প্যাকেজ ইনস্টল করা নেই৷ চালান: pip install winrt-Windows.Devices.Geolocation",
     "err.location_denied": "ত্রুটি: অবস্থান অ্যাক্সেস অস্বীকার করা হয়েছে৷ Windows সেটিংস > গোপনীয়তা ও নিরাপত্তা > অবস্থানে অবস্থান পরিষেবাগুলি সক্ষম করুন এবং ডেস্কটপ অ্যাপগুলিকে অবস্থান অ্যাক্সেস করার অনুমতি দিন৷",
@@ -621,7 +621,7 @@
     "output.timestamp": "- **টাইমস্ট্যাম্প**: {ts}"
   },
   "fa": {
-    "tool.description": "مکان GPS را از Windows Location API دریافت کنید (به Windows 10+ با فعال بودن خدمات مکان نیاز دارد). عرض جغرافیایی، طول جغرافیایی، دقت و منبع را برمی‌گرداند.",
+    "tool.description": "با استفاده از سنسور GPS موقعیت مکانی GPS فعلی خود را (طول و عرض جغرافیایی، طول جغرافیایی) دریافت کنید. دقت بالا، مختصات دقیق را با اطلاعات دقیق برمی گرداند. هنگامی که کاربر موقعیت فعلی، موقعیت مکانی یا مختصات GPS خود را می‌پرسد از این استفاده کنید.",
     "err.not_windows": "خطا: Windows Location API فقط در ویندوز موجود است.",
     "err.no_winrt": "خطا: بسته 'winrt-Windows.Devices.Geolocation' نصب نشده است. اجرا: پیپ نصب winrt-Windows.Devices.Geolocation",
     "err.location_denied": "خطا: دسترسی به مکان رد شد. خدمات موقعیت مکانی را در تنظیمات ویندوز > حریم خصوصی و امنیت > مکان فعال کنید و به برنامه های دسکتاپ اجازه دسترسی به مکان را بدهید.",
@@ -644,7 +644,7 @@
     "output.timestamp": "- **مهر زمان**: {ts}"
   },
   "mn": {
-    "tool.description": "Windows Location API-ээс GPS-ийн байршлыг аваарай (байршлын үйлчилгээг идэвхжүүлсэн Windows 10+ шаардлагатай). Өргөрөг, уртраг, нарийвчлал, эх сурвалжийг буцаана.",
+    "tool.description": "GPS мэдрэгч ашиглан одоогийн GPS байршлаа (өргөрөг, уртраг) аваарай. Өндөр нарийвчлалтай, нарийн координатыг нарийвчлалтай мэдээллээр буцаана. Хэрэглэгч одоогийн байршил, байршил, GPS координатыг асуух үед үүнийг ашиглана уу.",
     "err.not_windows": "Алдаа: Windows байршлын API нь зөвхөн Windows дээр боломжтой.",
     "err.no_winrt": "Алдаа: 'winrt-Windows.Devices.Geolocation' багцыг суулгаагүй байна. Ажиллуулах: pip install winrt-Windows.Devices.Geolocation",
     "err.location_denied": "Алдаа: Байршлын хандалтыг хориглосон. Windows тохиргоо > Нууцлал ба аюулгүй байдал > Байршил хэсэгт байршлын үйлчилгээг идэвхжүүлж, суурин компьютерийн аппликейшнүүдэд байршилд хандахыг зөвшөөрнө үү.",
@@ -667,7 +667,7 @@
     "output.timestamp": "- **Цагийн тэмдэг**: {ts}"
   },
   "mr": {
-    "tool.description": "Windows Location API वरून GPS लोकेशन मिळवा (स्थान सेवा सक्षम असलेले Windows 10+ आवश्यक आहे). अक्षांश, रेखांश, अचूकता आणि स्त्रोत मिळवते.",
+    "tool.description": "GPS सेन्सर वापरून तुमचे वर्तमान GPS स्थान (अक्षांश, रेखांश) मिळवा. High precision, returns exact coordinates with accuracy info. Use this when the user asks for their current position, location, or GPS coordinates.",
     "err.not_windows": "त्रुटी: Windows स्थान API फक्त Windows वर उपलब्ध आहे.",
     "err.no_winrt": "त्रुटी: 'winrt-Windows.Devices.Geolocation' पॅकेज स्थापित केलेले नाही. चालवा: pip install winrt-Windows.Devices.Geolocation",
     "err.location_denied": "त्रुटी: स्थान प्रवेश नाकारला. Windows सेटिंग्ज > गोपनीयता आणि सुरक्षितता > स्थान मधील स्थान सेवा सक्षम करा आणि डेस्कटॉप ॲप्सना लोकेशन ऍक्सेस करण्याची अनुमती द्या.",
@@ -690,7 +690,7 @@
     "output.timestamp": "- **टाइमस्टॅम्प**: {ts}"
   },
   "el": {
-    "tool.description": "Λάβετε τοποθεσία GPS από το API τοποθεσίας των Windows (απαιτούνται Windows 10+ με ενεργοποιημένες τις υπηρεσίες τοποθεσίας). Επιστρέφει γεωγραφικό πλάτος, γεωγραφικό μήκος, ακρίβεια και πηγή.",
+    "tool.description": "Λάβετε την τρέχουσα τοποθεσία σας GPS (γεωγραφικό πλάτος, γεωγραφικό μήκος) χρησιμοποιώντας τον αισθητήρα GPS. Υψηλή ακρίβεια, επιστρέφει ακριβείς συντεταγμένες με πληροφορίες ακρίβειας. Χρησιμοποιήστε το όταν ο χρήστης ζητά την τρέχουσα θέση, την τοποθεσία ή τις συντεταγμένες GPS του.",
     "err.not_windows": "Σφάλμα: Το API τοποθεσίας των Windows είναι διαθέσιμο μόνο στα Windows.",
     "err.no_winrt": "Σφάλμα: Το πακέτο 'winrt-Windows.Devices.Geolocation' δεν έχει εγκατασταθεί. Εκτέλεση: εγκατάσταση pip winrt-Windows.Devices.Geolocation",
     "err.location_denied": "Σφάλμα: Δεν επιτρέπεται η πρόσβαση στην τοποθεσία. Ενεργοποιήστε τις υπηρεσίες τοποθεσίας στις Ρυθμίσεις των Windows > Απόρρητο και ασφάλεια > Τοποθεσία και επιτρέψτε στις εφαρμογές επιφάνειας εργασίας να έχουν πρόσβαση στην τοποθεσία.",
@@ -713,7 +713,7 @@
     "output.timestamp": "- **Χρονική σήμανση**: {ts}"
   },
   "he": {
-    "tool.description": "קבל מיקום GPS מ-Windows Location API (דורש Windows 10+ עם שירותי מיקום מופעלים). מחזירה קו רוחב, קו אורך, דיוק ומקור.",
+    "tool.description": "קבל את מיקום ה-GPS הנוכחי שלך (קו רוחב, קו אורך) באמצעות חיישן ה-GPS. דיוק גבוה, מחזיר קואורדינטות מדויקות עם מידע דיוק. השתמש באפשרות זו כאשר המשתמש מבקש את המיקום הנוכחי שלו, מיקומו או קואורדינטות ה-GPS.",
     "err.not_windows": "שגיאה: Windows Location API זמין רק ב-Windows.",
     "err.no_winrt": "שגיאה: חבילת 'winrt-Windows.Devices.Geolocation' אינה מותקנת. הפעלה: pip התקנת winrt-Windows.Devices.Geolocation",
     "err.location_denied": "שגיאה: הגישה למיקום נדחתה. הפעל שירותי מיקום בהגדרות Windows > פרטיות ואבטחה > מיקום, ואפשר לאפליקציות שולחן עבודה לגשת למיקום.",
@@ -736,7 +736,7 @@
     "output.timestamp": "- **חותמת זמן**: {ts}"
   },
   "hu": {
-    "tool.description": "GPS-helymeghatározás a Windows Location API-ból (Windows 10+ szükséges, és a helyszolgáltatások is engedélyezve vannak). Visszaadja a szélességi, hosszúsági fokot, pontosságot és a forrást.",
+    "tool.description": "A GPS-érzékelő segítségével megtudhatja aktuális GPS-pozícióját (szélesség, hosszúság). Nagy pontosság, pontos koordinátákat ad vissza pontos információkkal. Használja ezt, ha a felhasználó aktuális pozícióját, tartózkodási helyét vagy GPS-koordinátáit kéri.",
     "err.not_windows": "Hiba: A Windows Location API csak Windows rendszeren érhető el.",
     "err.no_winrt": "Hiba: a 'winrt-Windows.Devices.Geolocation' csomag nincs telepítve. Futtatás: pip install winrt-Windows.Devices.Geolocation",
     "err.location_denied": "Hiba: A helyhez való hozzáférés megtagadva. Engedélyezze a helyszolgáltatásokat a Windows Beállítások > Adatvédelem és biztonság > Hely menüpontban, és engedélyezze az asztali alkalmazások számára, hogy hozzáférjenek a helyhez.",
@@ -759,7 +759,7 @@
     "output.timestamp": "- **Időbélyeg**: {ts}"
   },
   "ro": {
-    "tool.description": "Obțineți locația GPS din API-ul Windows Location (necesită Windows 10+ cu serviciile de localizare activate). Returnează latitudinea, longitudinea, precizia și sursa.",
+    "tool.description": "Obțineți locația dvs. GPS actuală (latitudine, longitudine) folosind senzorul GPS. Precizie ridicată, returnează coordonatele exacte cu informații de precizie. Utilizați acest lucru atunci când utilizatorul solicită poziția, locația sau coordonatele GPS curente.",
     "err.not_windows": "Eroare: Windows Location API este disponibil numai pe Windows.",
     "err.no_winrt": "Eroare: pachetul \"winrt-Windows.Devices.Geolocation\" nu este instalat. Rulați: pip install winrt-Windows.Devices.Geolocation",
     "err.location_denied": "Eroare: accesul la locație a fost refuzat. Activați serviciile de localizare în Setări Windows > Confidențialitate și securitate > Locație și permiteți aplicațiilor desktop să acceseze locația.",

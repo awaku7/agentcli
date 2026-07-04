@@ -61,6 +61,7 @@ def _get_mmdb_reader() -> Any:
 # --- Tool spec -----------------------------------------------------------
 
 TOOL_SPEC: dict[str, Any] = {
+    "load_order": 1,
     "tool_level": 1,
     "tool_genre": "iot",
     "type": "function",
@@ -69,7 +70,7 @@ TOOL_SPEC: dict[str, Any] = {
         "name": "get_geoip",
         "description": _(
             "tool.description",
-            default="Estimate the user's rough location based on their public IP address. The result may be inaccurate when using VPN/proxies/mobile networks.",
+            default="Estimate the user's rough city-level location from their public IP address. Low precision (city only, not actual coordinates). Inaccurate with VPN/proxy/mobile. Prefer get_windows_gps for accurate GPS coordinates.",
         ),
         "x_search_terms": _(
             "x_search_terms",

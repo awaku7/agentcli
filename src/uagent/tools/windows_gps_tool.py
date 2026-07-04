@@ -16,7 +16,7 @@ if sys.platform == "win32":
             "name": "get_windows_gps",
             "description": _(
                 "tool.description",
-                default="Get GPS location from Windows Location API (requires Windows 10+ with location services enabled). Returns latitude, longitude, accuracy, and source.",
+                default="Get your current GPS location (latitude, longitude) using the GPS sensor. High precision, returns exact coordinates with accuracy info. Use this when the user asks for their current position, location, or GPS coordinates.",
             ),
             "parameters": {
                 "type": "object",
