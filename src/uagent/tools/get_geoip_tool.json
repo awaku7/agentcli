@@ -9,9 +9,7 @@
       "location",
       "country",
       "ip geolocation",
-      "geo ip",
-      "weather",
-      "news"
+      "geo ip"
     ],
     "err.format_invalid": "[get_geoip error] format must be 'text' or 'json'",
     "err.local_db_unavailable": "[get_geoip error] Local DB not configured. Set UAGENT_GEOIP_DB_PATH to a .mmdb file and install maxminddb to look up arbitrary IP addresses offline."
@@ -24,9 +22,7 @@
       "get_geoip",
       "geoip 取得",
       "IP 位置情報",
-      "位置推定",
-      "天気",
-      "ニュース"
+      "位置推定"
     ],
     "err.format_invalid": "[get_geoip error] format must be 'text' or 'json'",
     "err.local_db_unavailable": "[get_geoip エラー] ローカル DB が設定されていません。UAGENT_GEOIP_DB_PATH を .mmdb ファイルに設定し、maxminddb をインストールして任意の IP アドレスをオフラインで検索します。"
@@ -39,9 +35,7 @@
       "get_geoip",
       "get geoip",
       "geoip",
-      "ubicación IP",
-      "clima",
-      "noticias"
+      "ubicación IP"
     ],
     "err.format_invalid": "[get_geoip error] format must be 'text' or 'json'"
   },
@@ -54,7 +48,6 @@
       "get geoip",
       "geoip",
       "localisation IP",
-      "météo",
       "actualités"
     ],
     "err.format_invalid": "[get_geoip error] format must be 'text' or 'json'"
@@ -81,9 +74,7 @@
       "get_geoip",
       "get geoip",
       "geoip",
-      "ip standort",
-      "wetter",
-      "nachrichten"
+      "ip standort"
     ],
     "err.format_invalid": "[get_geoip error] format must be 'text' or 'json'"
   },
@@ -96,7 +87,6 @@
       "get geoip",
       "geoip",
       "posizione IP",
-      "meteo",
       "notizie"
     ],
     "err.format_invalid": "[get_geoip error] format must be 'text' or 'json'"
@@ -123,9 +113,7 @@
       "get_geoip",
       "get geoip",
       "geoip",
-      "localização IP",
-      "clima",
-      "notícias"
+      "localização IP"
     ],
     "err.format_invalid": "[get_geoip error] format must be 'text' or 'json'"
   },
@@ -137,9 +125,7 @@
       "get_geoip",
       "get geoip",
       "geoip",
-      "localização IP",
-      "clima",
-      "notícias"
+      "localização IP"
     ],
     "err.format_invalid": "[get_geoip error] format must be 'text' or 'json'"
   },
@@ -180,7 +166,6 @@
       "get geoip",
       "geoip",
       "lokalizacja IP",
-      "pogoda",
       "wiadomości"
     ],
     "err.format_invalid": "[get_geoip error] format must be 'text' or 'json'"
@@ -222,8 +207,7 @@
       "get geoip",
       "geoip",
       "ip plats",
-      "väder",
-      "nyheter"
+      "väder"
     ],
     "err.format_invalid": "[get_geoip error] format must be 'text' or 'json'"
   },
@@ -250,8 +234,7 @@
       "get geoip",
       "geoip",
       "ip plassering",
-      "vær",
-      "nyheter"
+      "vær"
     ],
     "err.format_invalid": "[get_geoip error] format must be 'text' or 'json'"
   },
@@ -264,7 +247,6 @@
       "get geoip",
       "geoip",
       "ip locatie",
-      "weer",
       "nieuws"
     ],
     "err.format_invalid": "[get_geoip error] format must be 'text' or 'json'"
@@ -277,9 +259,7 @@
       "get_geoip",
       "get geoip",
       "geoip",
-      "ip-sijainti",
-      "sää",
-      "uutiset"
+      "ip-sijainti"
     ],
     "err.format_invalid": "[get_geoip error] format must be 'text' or 'json'"
   },
@@ -292,7 +272,6 @@
       "get geoip",
       "geoip",
       "ip poloha",
-      "počasí",
       "zprávy"
     ],
     "err.format_invalid": "[get_geoip error] format must be 'text' or 'json'"
@@ -320,7 +299,6 @@
       "get geoip",
       "geoip",
       "ip konum",
-      "hava durumu",
       "haber"
     ],
     "err.format_invalid": "[get_geoip error] format must be 'text' or 'json'"
@@ -334,7 +312,6 @@
       "get geoip",
       "geoip",
       "ตำแหน่ง IP",
-      "สภาพอากาศ",
       "ข่าว"
     ],
     "err.format_invalid": "[get_geoip error] format must be 'text' or 'json'"
@@ -434,8 +411,7 @@
       "χώρα",
       "γεωγραφική τοποθεσία ip",
       "geo ip",
-      "καιρός",
-      "news"
+      "καιρός"
     ],
     "err.format_invalid": "[get_geoip error] η μορφή \"text\" ή \"json get Local."
   },
@@ -482,7 +458,6 @@
       "țara",
       "ip geolocation",
       "geo ip",
-      "meteo",
       "știri"
     ],
     "err.format_invalid": "[get_geoip error] formatul trebuie să fie „text” sau „json”"
