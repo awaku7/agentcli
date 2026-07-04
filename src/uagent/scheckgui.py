@@ -28,8 +28,10 @@ os.environ["QT_AUTO_SCREEN_SCALE_FACTOR"] = "1"
 
 # Auto-install PySide6 if missing
 from ._pip_auto import install_with_status as _install_pyside
-if not _install_pyside("PySide6", "PySide6"):
+if not _install_pyside("PySide6", "PySide6", verify_submodule="PySide6.QtCore"):
     print("PySide6 is required for GUI mode.", file=sys.stderr)
+    print("Try installing it manually: pip install PySide6", file=sys.stderr)
+    print("If already installed, ensure Microsoft Visual C++ Redistributable is installed.", file=sys.stderr)
     sys.exit(1)
 
 from PySide6 import QtCore, QtGui, QtWidgets, QtMultimedia

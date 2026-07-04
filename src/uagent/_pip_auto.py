@@ -51,6 +51,7 @@ def install_with_status(
     package_name: str,
     module_name: str | None = None,
     display_name: str | None = None,
+    verify_submodule: str | None = None,
 ) -> bool:
     """Auto-install a package with progress messages.
 
@@ -61,9 +62,11 @@ def install_with_status(
         package_name: The pip package name.
         module_name: The module to import after install (defaults to package_name).
         display_name: Human-readable name for messages (defaults to package_name).
+        verify_submodule: If set, additionally import this submodule (e.g. "\"PySide6.QtCore"\")
+                          to verify C extension DLLs actually load. Default None.
 
     Returns:
-        True if the module is importable after the attempt, False otherwise.
+        True if all imports succeed after the attempt, False otherwise.
     """
     label = display_name or package_name
     target = module_name or package_name
@@ -98,6 +101,13 @@ def install_with_status(
         success = True
     except ImportError:
         success = False
+
+    # Verify submodule if specified (e.g. to test C extension DLL loading)
+    if success and verify_submodule:
+        try:
+            __import__(verify_submodule, fromlist=[''])
+        except Exception:
+            success = False
 
     # Show result message
     try:

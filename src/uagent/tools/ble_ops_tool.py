@@ -173,7 +173,7 @@ def run_tool(args: dict[str, Any]) -> str:
 
     # 1. Check dependency
     if action == "scan" and scan_mode == "all":
-        if not _install_ble_pyside("PySide6", "PySide6"):
+        if not _install_ble_pyside("PySide6", "PySide6", verify_submodule="PySide6.QtCore"):
             return _(
                 "err.pyside6_missing",
                 default="Error: 'PySide6' library is required.",
