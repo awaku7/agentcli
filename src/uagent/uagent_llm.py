@@ -958,8 +958,13 @@ def run_llm_rounds(
             for _tname in _found_tool_names:
                 _TOOL_LAST_ROUND[_tname] = _TOTAL_ROUNDS
 
-            # Skip auto-unload in native tool_search mode (server manages tool selection)
-            if not _should_preload_lazy_specs():
+            # Skip auto-unload when server manages tool selection
+            # (native GPT-5.4 tool_search or Responses API with previous_response_id)
+            if not (_should_preload_lazy_specs() or _is_gpt54_tool_search_target(
+                provider=provider,
+                depname=depname,
+                use_responses_api=True,
+            )):
                 for spec in list(_TOOL_SPECS):
                     func_info = spec.get("function", {})
                     tname = func_info.get("name", "")
