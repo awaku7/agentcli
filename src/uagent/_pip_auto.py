@@ -3,6 +3,7 @@
 
 from __future__ import annotations
 
+import os
 import subprocess
 import sys
 
@@ -90,6 +91,26 @@ def install_with_status(
             try:
                 __import__(verify_submodule, fromlist=[''])
             except Exception:
+                # Submodule (e.g. C extension DLL) failed to load.
+                # On Windows, try adding the package directory to DLL search path.
+                if hasattr(os, 'add_dll_directory') and hasattr(verify_submodule, 'rpartition'):
+                    _root = verify_submodule.rpartition('.')[0]
+                    try:
+                        _mod = __import__(_root)
+                        _dir = getattr(_mod, '__path__', None)
+                        if _dir:
+                            for _p in _dir:
+                                try:
+                                    os.add_dll_directory(str(_p))
+                                except Exception:
+                                    pass
+                    except Exception:
+                        pass
+                    try:
+                        __import__(verify_submodule, fromlist=[''])
+                        return True
+                    except Exception:
+                        pass
                 return False
         return True
 

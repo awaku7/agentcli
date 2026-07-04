@@ -93,7 +93,6 @@ async def _scan(timeout: int) -> list[dict[str, Any]]:
 
 
 def _scan_all_pyside6(timeout: int) -> list[dict[str, Any]]:
-    import sys
     # Ensure Qt DLLs are findable on Windows
     import os as _os
     import site as _site
