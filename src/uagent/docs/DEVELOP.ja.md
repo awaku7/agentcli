@@ -34,7 +34,7 @@ ______________________________________________________________________
     - `src/uagent/llm_flow_helpers.py`
   - リトライ / backoff ヘルパは `src/uagent/llm_errors.py`
 - **Providers**: `src/uagent/providers/util_providers.py`
-  - 環境変数に基づきクライアント生成（Azure/OpenAI/Bedrock/OpenRouter/Ollama/Gemini/Vertex AI/Grok/Claude/NVIDIA/DeepSeek/Z.AI/Alibaba/Moonshot/MiMo/LM Studio/MiniMax 等）
+  - 環境変数に基づきクライアント生成（Azure/OpenAI/Bedrock/OpenRouter/Ollama/Gemini/Vertex AI/Grok/Claude/NVIDIA/DeepSeek/Z.AI/Alibaba/Moonshot/MiMo/LM Studio/MiniMax/Sakana/Sakura 等）
 - **Utilities**: `src/uagent/util_tools.py`
   - tools callbacks 注入、初期メッセージ構築、コマンド処理、補助関数
 - **Startup init**: `src/uagent/runtime/runtime_init.py`（互換レイヤ）

@@ -459,11 +459,8 @@ def _append_web_sources_suffix(text: str, citations: list[dict[str, Any]]) -> st
     if len(lines) <= 3:
         return text
     base = text.rstrip()
-    suffix = "\
-".join(lines)
-    return (base + "\
-\
-" + suffix).rstrip()
+    suffix = "\n".join(lines)
+    return (base + "\n\n" + suffix).rstrip()
 
 
 def _websearch_debug_enabled() -> bool:
@@ -788,6 +785,7 @@ def build_responses_request(
         # OpenAI-hosted web search is not a local function tool.  It must be
         # sent as a Responses built-in tool, e.g. {"type": "web_search"}.
         # Allow opt-in through env without requiring a dummy local tool module.
+        env_web_search_tool = None
         if provider in ("openai", "azure"):
             env_web_search_tool = _openai_web_search_tool_from_env()
             if env_web_search_tool is not None:

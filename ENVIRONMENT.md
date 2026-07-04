@@ -21,7 +21,7 @@ ______________________________________________________________________
 ### 1. Provider selection
 
 - `UAGENT_PROVIDER` (required): LLM provider name.
-  Supported values: `azure`, `openai`, `bedrock`, `openrouter`, `ollama`, `gemini`, `vertexai`, `claude`, `grok`, `nvidia`, `deepseek`, `zai`, `alibaba`, `moonshot`, `mimo`, `lmstudio`, `minimax`, `hf`.
+  Supported values: `azure`, `openai`, `bedrock`, `openrouter`, `ollama`, `gemini`, `vertexai`, `claude`, `grok`, `nvidia`, `deepseek`, `zai`, `alibaba`, `moonshot`, `mimo`, `lmstudio`, `minimax`, `hf`, `sakana`, `sakura`.
 - `UAGENT_USE_TOOL`: Set to `0`, `false`, `no`, or `off` to disable tool sending to LLM.
 
 #### Azure OpenAI
@@ -167,6 +167,23 @@ Required if `UAGENT_PROVIDER=hf`:
 - `UAGENT_HF_DEPNAME` (optional, default: `openai/gpt-oss-120b`).
 
 > **Note**: HuggingFace provides an OpenAI-compatible Inference API endpoint. Tool calling may have limitations depending on the model used.
+
+#### Sakana AI (Fugu)
+
+Required if `UAGENT_PROVIDER=sakana`:
+
+- `UAGENT_SAKANA_API_KEY` (required): Sakana AI API key.
+- `UAGENT_SAKANA_BASE_URL` (optional, default: `https://api.sakana.ai/v1`).
+- `UAGENT_SAKANA_DEPNAME` (optional, default: `fugu`).
+
+#### SAKURA AI Engine
+
+Required if `UAGENT_PROVIDER=sakura`:
+
+- `UAGENT_SAKURA_API_KEY` (required): SAKURA AI Engine API key.
+- `UAGENT_SAKURA_BASE_URL` (optional, default: `https://api.ai.sakura.ad.jp/v1`).
+- `UAGENT_SAKURA_DEPNAME` (optional, default: `llm`).
+- `UAGENT_SAKURA_TEMPERATURE` (optional): Temperature setting for the model.
 
 ### 3. Basic Agent Behavior
 

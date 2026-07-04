@@ -64,6 +64,8 @@ def validate_startup_env() -> tuple[str, list[MissingEnv], list[str]]:
         "lmstudio",
         "minimax",
         "hf",
+        "sakana",
+        "sakura",
     )
     if provider not in allowed:
         warnings.append(

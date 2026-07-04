@@ -55,6 +55,31 @@ Gemini, DeepSeek, Ollama, OpenRouter, etc.).
 - Sensitive config goes into `.env.sec` (encrypted with `.uagent.key`).
 - Run `python -m uagent` to start the CLI and test changes interactively.
 
+## Supported providers
+
+| Provider key | Name |
+|---|---|
+| `openai` | OpenAI-compatible |
+| `azure` | Azure OpenAI |
+| `bedrock` | Bedrock OpenAI-compatible gateway |
+| `openrouter` | OpenRouter |
+| `gemini` | Gemini |
+| `vertexai` | Vertex AI |
+| `grok` | Grok |
+| `claude` | Claude |
+| `ollama` | Ollama |
+| `nvidia` | NVIDIA |
+| `deepseek` | DeepSeek |
+| `zai` | Z.AI (Zhipu AI) |
+| `alibaba` | Alibaba Cloud (Qwen) |
+| `moonshot` | Moonshot AI |
+| `mimo` | Xiaomi MiMo |
+| `lmstudio` | LM Studio |
+| `minimax` | MiniMax |
+| `hf` | HuggingFace |
+| `sakana` | Sakana AI (Fugu) |
+| `sakura` | SAKURA AI Engine |
+
 ## Commands to run before committing
 
 - **Python syntax**: `python -m py_compile src/uagent/` (catches import/syntax errors).
@@ -142,7 +167,7 @@ python scripts/po_qc_summary.py
 ## PR instructions
 
 - Run all checks above before submitting.
-- If adding a new LLM provider, update: `util_providers.py`, `env_validate.py`, `runtime_banner.py`, and `provider_caps.py`.
+- If adding a new LLM provider, update: `setup_cli.py`, `util_providers.py`, `env_validate.py`, `llm_round_helpers.py`, `runtime_banner.py`, and `provider_caps.py`.
 - If adding a CLI option, ensure it works across all entry points (CLI/GUI/Web/A2A).
 - Update `DEVELOP.md` and any relevant docs under `src/uagent/docs/`.
 - For i18n changes, run `python scripts/compile_locales.py` and `python scripts/po_qc_summary.py`.

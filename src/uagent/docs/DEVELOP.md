@@ -53,8 +53,8 @@ Key modules:
     - `src/uagent/llm_round_helpers.py`
     - `src/uagent/llm_flow_helpers.py`
   - Retry / backoff helpers live in `src/uagent/llm_errors.py`
-- Provider wiring (Azure/OpenAI/Bedrock/OpenRouter/Ollama/Gemini/Vertex AI/Grok/Claude/NVIDIA/DeepSeek/Z.AI/Alibaba/Moonshot/MiMo/LM Studio/MiniMax/etc.): `src/uagent/providers/util_providers.py`
-  - To add a new provider, modify: `util_providers.py` (detect_provider/get_model_name/make_client), `env_validate.py` (allowed list), `runtime/runtime_banner.py` (banner display), and `provider_caps.py` (Responses API support if applicable).
+- Provider wiring (Azure/OpenAI/Bedrock/OpenRouter/Ollama/Gemini/Vertex AI/Grok/Claude/NVIDIA/DeepSeek/Z.AI/Alibaba/Moonshot/MiMo/LM Studio/MiniMax/Sakana/Sakura/etc.): `src/uagent/providers/util_providers.py`
+  - To add a new provider, modify: `setup_cli.py` (PROVIDERS list / PROVIDER_FIELDS), `util_providers.py` (detect_provider/get_model_name/make_client), `env_validate.py` (allowed list), `llm_round_helpers.py` (temperature setting), `runtime/runtime_banner.py` (banner display), and `provider_caps.py` (Responses API support if applicable).
 - Common helpers (commands, callbacks injection, messages building, etc.): `src/uagent/util_tools.py`
   - **`:auto <goal> [--max-rounds N]`** — Automated multi-round execution.
     - Runs the goal through iterative LLM rounds. Each round consists of a
