@@ -13,6 +13,7 @@ _ = make_tool_translator(__file__)
 
 TOOL_SPEC = {
     "tool_genre": "external",
+    "x_parallel_safe": True,
     "type": "function", 
     "function": {
         "name": "get_weather_wttr", 
