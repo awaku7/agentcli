@@ -575,33 +575,37 @@ def _tree_to_mermaid(tree: list[dict[str, Any]], root_name: str = "root") -> str
     return "\n".join(lines)
 
 
-def _render_mermaid_to_image(mermaid_code: str, output_path: str) -> bool:
+def _render_mermaid_to_image(mermaid_code: str, output_path: str) -> str | None:
     """Render Mermaid diagram to PNG and save to file.
 
+    Returns None on success, or an error message string on failure.
     Uses mermaid-cli (playwright-based) if available, falls back to Mermaid.ink API.
     """
+    mermaid_cli_hint = "pip install mermaid-cli"
+
     # Try mermaid-cli Python package first (local playwright rendering)
     try:
         import asyncio
         from mermaid_cli import render_mermaid
 
         async def _render():
-            _, _, png_bytes = await render_mermaid(
-                mermaid_code, output_format="png"
-            )
+            _, _, png_bytes = await render_mermaid(mermaid_code, output_format="png")
             if png_bytes:
                 with open(output_path, "wb") as f:
                     f.write(png_bytes)
-                return True
-            return False
+                return None
+            return "render returned no data"
 
         return asyncio.run(_render())
-    except Exception:
-        pass
+    except ImportError:
+        pass  # mermaid-cli not installed
+    except Exception as e:
+        pass  # other errors, fall through
 
     # Fallback: Mermaid.ink API via base64 GET
     try:
         import base64
+
         encoded = base64.urlsafe_b64encode(mermaid_code.encode("utf-8")).decode("ascii")
         url = f"https://mermaid.ink/img/{encoded}"
         req = urllib.request.Request(url)
@@ -611,11 +615,12 @@ def _render_mermaid_to_image(mermaid_code: str, output_path: str) -> bool:
             if png_bytes:
                 with open(output_path, "wb") as f:
                     f.write(png_bytes)
-                return True
+                return None
+            return "Mermaid.ink returned no data"
     except Exception:
         pass
 
-    return False
+    return f"Render failed (try: {mermaid_cli_hint})"
 
 
 # ---------------------------------------------------------------------------
@@ -753,11 +758,11 @@ def run_tool(args: dict[str, Any]) -> str:
 
             if render_image:
                 png_path = mmd_path.replace(".mmd", ".png")
-                ok = _render_mermaid_to_image(mermaid_output, png_path)
-                if ok:
+                err = _render_mermaid_to_image(mermaid_output, png_path)
+                if err is None:
                     saved_files.append(png_path)
                 else:
-                    saved_files.append(f"{png_path} (render failed)")
+                    saved_files.append(f"{png_path} ({err})")
 
             return json.dumps(
                 {
