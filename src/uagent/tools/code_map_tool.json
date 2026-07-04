@@ -1,0 +1,580 @@
+{
+  "en": {
+    "tool.description": "Analyze a codebase directory and output file tree with symbol definitions (classes, functions, etc.) across multiple languages. Supports C#, Python, TypeScript, Go, Rust, C/C++, Java, Kotlin, and more. Reads .sln/.csproj, build.gradle.kts, Cargo.toml, go.mod, CMakeLists.txt, Makefile, package.json, pyproject.toml for project-aware source scanning.",
+    "param.path.description": "Root directory to analyze (default: current working directory).",
+    "param.depth.description": "Maximum directory depth to display in tree (0 = unlimited).",
+    "param.include_symbols.description": "Whether to extract symbol definitions from source files.",
+    "param.project_only.description": "Only scan files referenced by project files (.sln, .csproj, build.gradle.kts, etc.).",
+    "x_search_terms": [
+      "code map",
+      "codebase structure",
+      "file tree",
+      "symbol list",
+      "project analysis",
+      "source code overview",
+      "repository structure",
+      "コードマップ"
+    ]
+  },
+  "ja": {
+    "tool.description": "コードベース ディレクトリを分析し、複数の言語にわたるシンボル定義 (クラス、関数など) を含む出力ファイル ツリーを分析します。 C#、Python、TypeScript、Go、Rust、C/C++、Java、Kotlin などをサポートします。プロジェクト対応のソース スキャンのために、.sln/.csproj、build.gradle.kts、Cargo.toml、go.mod、CMakeLists.txt、Makefile、package.json、pyproject.toml を読み取ります。",
+    "param.path.description": "分析するルート ディレクトリ (デフォルト: 現在の作業ディレクトリ)。",
+    "param.depth.description": "ツリーに表示するディレクトリの最大深さ (0 = 無制限)。",
+    "param.include_symbols.description": "ソースファイルからシンボル定義を抽出するかどうか。",
+    "param.project_only.description": "プロジェクト ファイル (.sln、.csproj、build.gradle.kts など) によって参照されるファイルのみをスキャンします。",
+    "x_search_terms": [
+      "コードマップ",
+      "コードベースの構造",
+      "ファイルツリー",
+      "シンボルリスト",
+      "プロジェクト分析",
+      "ソースコードの概要",
+      "リポジトリ構造",
+      "コードマップ"
+    ]
+  },
+  "es": {
+    "tool.description": "Analice un directorio base de código y un árbol de archivos de salida con definiciones de símbolos (clases, funciones, etc.) en varios idiomas. Admite C#, Python, TypeScript, Go, Rust, C/C++, Java, Kotlin y más. Lee .sln/.csproj, build.gradle.kts, Cargo.toml, go.mod, CMakeLists.txt, Makefile, package.json, pyproject.toml para escanear el código fuente según el proyecto.",
+    "param.path.description": "Directorio raíz para analizar (predeterminado: directorio de trabajo actual).",
+    "param.depth.description": "Profundidad máxima del directorio para mostrar en el árbol (0 = ilimitado).",
+    "param.include_symbols.description": "Ya sea para extraer definiciones de símbolos de los archivos fuente.",
+    "param.project_only.description": "Solo escanee archivos a los que hacen referencia los archivos del proyecto (.sln, .csproj, build.gradle.kts, etc.).",
+    "x_search_terms": [
+      "mapa de código",
+      "estructura del código base",
+      "árbol de archivos",
+      "lista de símbolos",
+      "análisis del proyecto",
+      "descripción general del código fuente",
+      "estructura del repositorio",
+      "コードマップ"
+    ]
+  },
+  "fr": {
+    "tool.description": "Analysez un répertoire de base de code et une arborescence de fichiers de sortie avec des définitions de symboles (classes, fonctions, etc.) dans plusieurs langues. Prend en charge C#, Python, TypeScript, Go, Rust, C/C++, Java, Kotlin et plus encore. Lit .sln/.csproj, build.gradle.kts, Cargo.toml, go.mod, CMakeLists.txt, Makefile, package.json, pyproject.toml pour une analyse source adaptée au projet.",
+    "param.path.description": "Répertoire racine à analyser (par défaut : répertoire de travail actuel).",
+    "param.depth.description": "Profondeur maximale du répertoire à afficher dans l'arborescence (0 = illimité).",
+    "param.include_symbols.description": "S'il faut extraire les définitions de symboles des fichiers sources.",
+    "param.project_only.description": "Analysez uniquement les fichiers référencés par les fichiers de projet (.sln, .csproj, build.gradle.kts, etc.).",
+    "x_search_terms": [
+      "carte de codes",
+      "structure de la base de code",
+      "arborescence des fichiers",
+      "liste de symboles",
+      "analyse de projet",
+      "aperçu du code source",
+      "structure du référentiel",
+      "コードマップ"
+    ]
+  },
+  "ko": {
+    "tool.description": "여러 언어에 걸쳐 기호 정의(클래스, 함수 등)가 포함된 코드베이스 디렉터리 및 출력 파일 트리를 분석합니다. C#, Python, TypeScript, Go, Rust, C/C++, Java, Kotlin 등을 지원합니다. 프로젝트 인식 소스 스캔을 위해 .sln/.csproj, build.gradle.kts, Cargo.toml, go.mod, CMakeLists.txt, Makefile, package.json, pyproject.toml을 읽습니다.",
+    "param.path.description": "분석할 루트 디렉터리(기본값: 현재 작업 디렉터리)",
+    "param.depth.description": "트리에 표시할 최대 디렉터리 깊이(0 = 무제한).",
+    "param.include_symbols.description": "소스 파일에서 기호 정의를 추출할지 여부입니다.",
+    "param.project_only.description": "프로젝트 파일(.sln, .csproj, build.gradle.kts 등)에서 참조하는 파일만 검사합니다.",
+    "x_search_terms": [
+      "코드 맵",
+      "코드베이스 구조",
+      "파일 트리",
+      "기호 목록",
+      "프로젝트 분석",
+      "소스 코드 개요",
+      "저장소 구조",
+      "코드맵"
+    ]
+  },
+  "de": {
+    "tool.description": "Analysieren Sie ein Codebasisverzeichnis und einen Ausgabedateibaum mit Symboldefinitionen (Klassen, Funktionen usw.) in mehreren Sprachen. Unterstützt C#, Python, TypeScript, Go, Rust, C/C++, Java, Kotlin und mehr. Liest .sln/.csproj, build.gradle.kts, Cargo.toml, go.mod, CMakeLists.txt, Makefile, package.json, pyproject.toml für projektbezogenes Quellscannen.",
+    "param.path.description": "Zu analysierendes Stammverzeichnis (Standard: aktuelles Arbeitsverzeichnis).",
+    "param.depth.description": "Maximale Verzeichnistiefe zur Anzeige im Baum (0 = unbegrenzt).",
+    "param.include_symbols.description": "Ob Symboldefinitionen aus Quelldateien extrahiert werden sollen.",
+    "param.project_only.description": "Scannen Sie nur Dateien, auf die von Projektdateien verwiesen wird (.sln, .csproj, build.gradle.kts usw.).",
+    "x_search_terms": [
+      "Code-Map",
+      "Codebasisstruktur",
+      "Dateibaum",
+      "Symbolliste",
+      "Projektanalyse",
+      "Übersicht über den Quellcode",
+      "Repository-Struktur",
+      "コードマップ"
+    ]
+  },
+  "it": {
+    "tool.description": "Analizza una directory di base di codice e una struttura di file di output con definizioni di simboli (classi, funzioni, ecc.) in più lingue. Supporta C#, Python, TypeScript, Go, Rust, C/C++, Java, Kotlin e altro. Legge .sln/.csproj, build.gradle.kts, Cargo.toml, go.mod, CMakeLists.txt, Makefile, package.json, pyproject.toml per la scansione dell'origine compatibile con il progetto.",
+    "param.path.description": "Directory principale da analizzare (impostazione predefinita: directory di lavoro corrente).",
+    "param.depth.description": "Profondità massima della directory da visualizzare nell'albero (0 = illimitato).",
+    "param.include_symbols.description": "Se estrarre le definizioni dei simboli dai file di origine.",
+    "param.project_only.description": "Esegui la scansione solo dei file a cui fanno riferimento i file di progetto (.sln, .csproj, build.gradle.kts, ecc.).",
+    "x_search_terms": [
+      "mappa dei codici",
+      "struttura della base di codice",
+      "albero dei file",
+      "elenco dei simboli",
+      "analisi del progetto",
+      "panoramica del codice sorgente",
+      "struttura del deposito",
+      "コードマップ"
+    ]
+  },
+  "ru": {
+    "tool.description": "Анализируйте каталог базы кода и дерево выходных файлов с определениями символов (классов, функций и т. д.) на нескольких языках. Поддерживает C#, Python, TypeScript, Go, Rust, C/C++, Java, Kotlin и другие. Читает .sln/.csproj, build.gradle.kts, Cargo.toml, go.mod, CMakeLists.txt, Makefile, package.json, pyproject.toml для сканирования исходного кода с учетом проекта.",
+    "param.path.description": "Корневой каталог для анализа (по умолчанию: текущий рабочий каталог).",
+    "param.depth.description": "Максимальная глубина каталога для отображения в виде дерева (0 = неограниченно).",
+    "param.include_symbols.description": "Следует ли извлекать определения символов из исходных файлов.",
+    "param.project_only.description": "Сканируйте только файлы, на которые ссылаются файлы проекта (.sln, .csproj, build.gradle.kts и т. д.).",
+    "x_search_terms": [
+      "карта кодов",
+      "структура кодовой базы",
+      "дерево файлов",
+      "список символов",
+      "анализ проекта",
+      "обзор исходного кода",
+      "структура репозитория",
+      "コードマップ"
+    ]
+  },
+  "pt_br": {
+    "tool.description": "Analise um diretório de base de código e uma árvore de arquivos de saída com definições de símbolos (classes, funções, etc.) em vários idiomas. Suporta C#, Python, TypeScript, Go, Rust, C/C++, Java, Kotlin e muito mais. Lê .sln/.csproj, build.gradle.kts, Cargo.toml, go.mod, CMakeLists.txt, Makefile, package.json, pyproject.toml para verificação de origem com reconhecimento de projeto.",
+    "param.path.description": "Diretório raiz a ser analisado (padrão: diretório de trabalho atual).",
+    "param.depth.description": "Profundidade máxima do diretório para exibição na árvore (0 = ilimitado).",
+    "param.include_symbols.description": "Se as definições de símbolos devem ser extraídas dos arquivos de origem.",
+    "param.project_only.description": "Verifique apenas arquivos referenciados por arquivos de projeto (.sln, .csproj, build.gradle.kts, etc.).",
+    "x_search_terms": [
+      "mapa de código",
+      "estrutura da base de código",
+      "árvore de arquivos",
+      "lista de símbolos",
+      "análise de projeto",
+      "visão geral do código-fonte",
+      "estrutura do repositório",
+      "コードマップ"
+    ]
+  },
+  "pt": {
+    "tool.description": "Analise um diretório de base de código e uma árvore de arquivos de saída com definições de símbolos (classes, funções, etc.) em vários idiomas. Suporta C#, Python, TypeScript, Go, Rust, C/C++, Java, Kotlin e muito mais. Lê .sln/.csproj, build.gradle.kts, Cargo.toml, go.mod, CMakeLists.txt, Makefile, package.json, pyproject.toml para verificação de origem com reconhecimento de projeto.",
+    "param.path.description": "Diretório raiz a ser analisado (padrão: diretório de trabalho atual).",
+    "param.depth.description": "Profundidade máxima do diretório para exibição na árvore (0 = ilimitado).",
+    "param.include_symbols.description": "Se as definições de símbolos devem ser extraídas dos arquivos de origem.",
+    "param.project_only.description": "Verifique apenas arquivos referenciados por arquivos de projeto (.sln, .csproj, build.gradle.kts, etc.).",
+    "x_search_terms": [
+      "mapa de código",
+      "estrutura da base de código",
+      "árvore de arquivos",
+      "lista de símbolos",
+      "análise de projeto",
+      "visão geral do código-fonte",
+      "estrutura do repositório",
+      "コードマップ"
+    ]
+  },
+  "id": {
+    "tool.description": "Analisis direktori basis kode dan pohon file keluaran dengan definisi simbol (kelas, fungsi, dll.) dalam berbagai bahasa. Mendukung C#, Python, TypeScript, Go, Rust, C/C++, Java, Kotlin, dan banyak lagi. Membaca .sln/.csproj, build.gradle.kts, Cargo.toml, go.mod, CMakeLists.txt, Makefile, package.json, pyproject.toml untuk pemindaian sumber yang mendukung proyek.",
+    "param.path.description": "Direktori root yang akan dianalisis (default: direktori kerja saat ini).",
+    "param.depth.description": "Kedalaman direktori maksimum untuk ditampilkan dalam pohon (0 = tidak terbatas).",
+    "param.include_symbols.description": "Apakah akan mengekstrak definisi simbol dari file sumber.",
+    "param.project_only.description": "Hanya pindai file yang direferensikan oleh file proyek (.sln, .csproj, build.gradle.kts, dll.).",
+    "x_search_terms": [
+      "peta kode",
+      "struktur basis kode",
+      "pohon file",
+      "daftar simbol",
+      "analisis proyek",
+      "ikhtisar kode sumber",
+      "struktur repositori",
+      "コードマップ"
+    ]
+  },
+  "vi": {
+    "tool.description": "Phân tích thư mục cơ sở mã và cây tệp đầu ra với các định nghĩa ký hiệu (lớp, hàm, v.v.) trên nhiều ngôn ngữ. Hỗ trợ C#, Python, TypeScript, Go, Rust, C/C++, Java, Kotlin, v.v. Đọc .sln/.csproj, build.gradle.kts, Cargo.toml, go.mod, CMakeLists.txt, Makefile, pack.json, pyproject.toml để quét nguồn nhận biết dự án.",
+    "param.path.description": "Thư mục gốc để phân tích (mặc định: thư mục làm việc hiện tại).",
+    "param.depth.description": "Độ sâu thư mục tối đa để hiển thị trong cây (0 = không giới hạn).",
+    "param.include_symbols.description": "Có trích xuất các định nghĩa ký hiệu từ các tệp nguồn hay không.",
+    "param.project_only.description": "Chỉ quét các tệp được tham chiếu bởi các tệp dự án (.sln, .csproj, build.gradle.kts, v.v.).",
+    "x_search_terms": [
+      "bản đồ mã",
+      "cấu trúc cơ sở mã",
+      "cây tập tin",
+      "danh sách ký hiệu",
+      "phân tích dự án",
+      "tổng quan về mã nguồn",
+      "cấu trúc kho lưu trữ",
+      "コードマップ"
+    ]
+  },
+  "pl": {
+    "tool.description": "Analizuj katalog bazy kodu i drzewo plików wyjściowych z definicjami symboli (klas, funkcji itp.) w wielu językach. Obsługuje C#, Python, TypeScript, Go, Rust, C/C++, Java, Kotlin i inne. Odczytuje pliki .sln/.csproj, build.gradle.kts, Cargo.toml, go.mod, CMakeLists.txt, Makefile, package.json, pyproject.toml w celu skanowania źródeł z uwzględnieniem projektu.",
+    "param.path.description": "Katalog główny do analizy (domyślnie: bieżący katalog roboczy).",
+    "param.depth.description": "Maksymalna głębokość katalogów do wyświetlenia w drzewie (0 = nieograniczona).",
+    "param.include_symbols.description": "Określa, czy wyodrębniać definicje symboli z plików źródłowych.",
+    "param.project_only.description": "Skanuj tylko pliki, do których odwołują się pliki projektu (.sln, .csproj, build.gradle.kts itp.).",
+    "x_search_terms": [
+      "mapa kodowa",
+      "struktura bazy kodu",
+      "drzewo plików",
+      "lista symboli",
+      "analiza projektu",
+      "przegląd kodu źródłowego",
+      "struktura repozytorium",
+      "コードマップ"
+    ]
+  },
+  "hi": {
+    "tool.description": "कई भाषाओं में प्रतीक परिभाषाओं (कक्षाएं, फ़ंक्शन इत्यादि) के साथ कोडबेस निर्देशिका और आउटपुट फ़ाइल ट्री का विश्लेषण करें। सी#, पायथन, टाइपस्क्रिप्ट, गो, रस्ट, सी/सी++, जावा, कोटलिन और बहुत कुछ का समर्थन करता है। प्रोजेक्ट-अवेयर सोर्स स्कैनिंग के लिए .sln/.csproj, build.gradle.kts, Cargo.toml, go.mod, CMakeLists.txt, Makefile, package.json, pyproject.toml को पढ़ता है।",
+    "param.path.description": "विश्लेषण करने के लिए रूट निर्देशिका (डिफ़ॉल्ट: वर्तमान कार्यशील निर्देशिका)।",
+    "param.depth.description": "ट्री में प्रदर्शित करने के लिए अधिकतम निर्देशिका गहराई (0 = असीमित)।",
+    "param.include_symbols.description": "स्रोत फ़ाइलों से प्रतीक परिभाषाएँ निकालना है या नहीं।",
+    "param.project_only.description": "केवल प्रोजेक्ट फ़ाइलों (.sln, .csproj, build.gradle.kts, आदि) द्वारा संदर्भित फ़ाइलों को स्कैन करें।",
+    "x_search_terms": [
+      "कोड मानचित्र",
+      "कोडबेस संरचना",
+      "फ़ाइल वृक्ष",
+      "प्रतीक सूची",
+      "परियोजना विश्लेषण",
+      "स्रोत कोड अवलोकन",
+      "भंडार संरचना",
+      "コードマップ"
+    ]
+  },
+  "ar": {
+    "tool.description": "قم بتحليل دليل قاعدة التعليمات البرمجية وشجرة ملفات الإخراج مع تعريفات الرموز (الفئات والوظائف وما إلى ذلك) عبر لغات متعددة. يدعم C#، وPython، وTypeScript، وGo، وRust، وC/C++، وJava، وKotlin، والمزيد. يقرأ .sln/.csproj، وbuild.gradle.kts، وCargo.toml، وgo.mod، وCMakeLists.txt، وMakefile، وpackage.json، وpyproject.toml لمسح المصدر حسب المشروع.",
+    "param.path.description": "الدليل الجذر للتحليل (الافتراضي: دليل العمل الحالي).",
+    "param.depth.description": "أقصى عمق للدليل ليتم عرضه في الشجرة (0 = غير محدود).",
+    "param.include_symbols.description": "ما إذا كان سيتم استخراج تعريفات الرموز من الملفات المصدر.",
+    "param.project_only.description": "قم بفحص الملفات المشار إليها بواسطة ملفات المشروع فقط (.sln، .csproj، build.gradle.kts، وما إلى ذلك).",
+    "x_search_terms": [
+      "خريطة الكود",
+      "هيكل قاعدة التعليمات البرمجية",
+      "شجرة الملف",
+      "قائمة الرموز",
+      "تحليل المشروع",
+      "نظرة عامة على كود المصدر",
+      "هيكل المستودع",
+      "コードマップ"
+    ]
+  },
+  "sv": {
+    "tool.description": "Analysera en kodbaskatalog och utdatafilträd med symboldefinitioner (klasser, funktioner, etc.) över flera språk. Stöder C#, Python, TypeScript, Go, Rust, C/C++, Java, Kotlin och mer. Läser .sln/.csproj, build.gradle.kts, Cargo.toml, go.mod, CMakeLists.txt, Makefile, package.json, pyproject.toml för projektmedveten källskanning.",
+    "param.path.description": "Rotkatalog att analysera (standard: aktuell arbetskatalog).",
+    "param.depth.description": "Maximalt katalogdjup att visa i trädet (0 = obegränsat).",
+    "param.include_symbols.description": "Om symboldefinitioner ska extraheras från källfiler.",
+    "param.project_only.description": "Skanna endast filer som refereras av projektfiler (.sln, .csproj, build.gradle.kts, etc.).",
+    "x_search_terms": [
+      "kodkarta",
+      "kodbasstruktur",
+      "filträd",
+      "symbollista",
+      "projektanalys",
+      "källkodsöversikt",
+      "förvarsstruktur",
+      "コードマップ"
+    ]
+  },
+  "sw": {
+    "tool.description": "Changanua saraka ya msingi wa msimbo na mti wa towe wa faili ukitumia ufafanuzi wa alama (madarasa, vitendaji, n.k.) katika lugha nyingi. Inasaidia C#, Python, TypeScript, Go, Rust, C/C++, Java, Kotlin, na zaidi. Inasoma .sln/.csproj, build.gradle.kts, Cargo.toml, go.mod, CMakeLists.txt, Makefile, package.json, pyproject.toml kwa utambazaji wa chanzo kinachofahamu mradi.",
+    "param.path.description": "Saraka ya mizizi ya kuchambua (chaguo-msingi: saraka ya sasa ya kufanya kazi).",
+    "param.depth.description": "Upeo wa kina wa saraka ya kuonyesha kwenye mti (0 = isiyo na kikomo).",
+    "param.include_symbols.description": "Kama kutoa ufafanuzi wa ishara kutoka kwa faili chanzo.",
+    "param.project_only.description": "Changanua faili zilizorejelewa na faili za mradi pekee (.sln, .csproj, build.gradle.kts, n.k.).",
+    "x_search_terms": [
+      "ramani ya kanuni",
+      "muundo wa codebase",
+      "mti wa faili",
+      "orodha ya alama",
+      "uchambuzi wa mradi",
+      "muhtasari wa msimbo wa chanzo",
+      "muundo wa hifadhi",
+      "コードマップ"
+    ]
+  },
+  "nb": {
+    "tool.description": "Analyser en kodebasekatalog og utdatafiltre med symboldefinisjoner (klasser, funksjoner osv.) på tvers av flere språk. Støtter C#, Python, TypeScript, Go, Rust, C/C++, Java, Kotlin og mer. Leser .sln/.csproj, build.gradle.kts, Cargo.toml, go.mod, CMakeLists.txt, Makefile, package.json, pyproject.toml for prosjektbevisst kildeskanning.",
+    "param.path.description": "Rotkatalog å analysere (standard: gjeldende arbeidskatalog).",
+    "param.depth.description": "Maksimal katalogdybde å vise i treet (0 = ubegrenset).",
+    "param.include_symbols.description": "Om symboldefinisjoner skal trekkes ut fra kildefiler.",
+    "param.project_only.description": "Skann kun filer referert til av prosjektfiler (.sln, .csproj, build.gradle.kts, etc.).",
+    "x_search_terms": [
+      "kodekart",
+      "kodebasestruktur",
+      "filtre",
+      "symbolliste",
+      "prosjektanalyse",
+      "kildekodeoversikt",
+      "depotstruktur",
+      "コードマップ"
+    ]
+  },
+  "nl": {
+    "tool.description": "Analyseer een codebase-directory en uitvoerbestandsboom met symbooldefinities (klassen, functies, enz.) in meerdere talen. Ondersteunt C#, Python, TypeScript, Go, Rust, C/C++, Java, Kotlin en meer. Leest .sln/.csproj, build.gradle.kts, Cargo.toml, go.mod, CMakeLists.txt, Makefile, package.json, pyproject.toml voor projectbewust bronscannen.",
+    "param.path.description": "Hoofdmap om te analyseren (standaard: huidige werkmap).",
+    "param.depth.description": "Maximale mapdiepte die in de boomstructuur kan worden weergegeven (0 = onbeperkt).",
+    "param.include_symbols.description": "Of symbooldefinities uit bronbestanden moeten worden geëxtraheerd.",
+    "param.project_only.description": "Scan alleen bestanden waarnaar wordt verwezen door projectbestanden (.sln, .csproj, build.gradle.kts, enz.).",
+    "x_search_terms": [
+      "codekaart",
+      "codebase-structuur",
+      "bestandsboom",
+      "symbool lijst",
+      "projectanalyse",
+      "broncode overzicht",
+      "structuur van de opslagplaats",
+      "コードマップ"
+    ]
+  },
+  "fi": {
+    "tool.description": "Analysoi koodikantahakemistoa ja tulostiedostopuuta symbolimäärittelyillä (luokat, funktiot jne.) useilla kielillä. Tukee C#, Python, TypeScript, Go, Rust, C/C++, Java, Kotlin ja paljon muuta. Lukee tiedostot .sln/.csproj, build.gradle.kts, Cargo.toml, go.mod, CMakeLists.txt, Makefile, package.json, pyproject.toml projektitietoisten lähteiden skannausta varten.",
+    "param.path.description": "Analysoitava juurihakemisto (oletus: nykyinen työhakemisto).",
+    "param.depth.description": "Puussa näytettävän hakemiston enimmäissyvyys (0 = rajoittamaton).",
+    "param.include_symbols.description": "Poimitaanko symbolimääritykset lähdetiedostoista.",
+    "param.project_only.description": "Tarkista vain tiedostot, joihin projektitiedostot viittaavat (.sln, .csproj, build.gradle.kts jne.).",
+    "x_search_terms": [
+      "koodi kartta",
+      "koodikantarakenne",
+      "tiedostopuu",
+      "symboliluettelo",
+      "projektianalyysi",
+      "lähdekoodin yleiskatsaus",
+      "arkiston rakenne",
+      "コードマップ"
+    ]
+  },
+  "cs": {
+    "tool.description": "Analyzujte adresář kódové báze a strom výstupních souborů s definicemi symbolů (třídy, funkce atd.) ve více jazycích. Podporuje C#, Python, TypeScript, Go, Rust, C/C++, Java, Kotlin a další. Čte soubory .sln/.csproj, build.gradle.kts, Cargo.toml, go.mod, CMakeLists.txt, Makefile, package.json, pyproject.toml pro skenování zdrojů podle projektu.",
+    "param.path.description": "Kořenový adresář k analýze (výchozí: aktuální pracovní adresář).",
+    "param.depth.description": "Maximální hloubka adresáře pro zobrazení ve stromu (0 = neomezená).",
+    "param.include_symbols.description": "Zda extrahovat definice symbolů ze zdrojových souborů.",
+    "param.project_only.description": "Kontrolujte pouze soubory, na které odkazují soubory projektu (.sln, .csproj, build.gradle.kts atd.).",
+    "x_search_terms": [
+      "mapa kódu",
+      "struktura kódové základny",
+      "strom souborů",
+      "seznam symbolů",
+      "projektová analýza",
+      "přehled zdrojového kódu",
+      "struktura úložiště",
+      "コードマップ"
+    ]
+  },
+  "uk": {
+    "tool.description": "Аналізуйте каталог бази коду та дерево вихідних файлів із визначеннями символів (класи, функції тощо) кількома мовами. Підтримує C#, Python, TypeScript, Go, Rust, C/C++, Java, Kotlin тощо. Читає .sln/.csproj, build.gradle.kts, Cargo.toml, go.mod, CMakeLists.txt, Makefile, package.json, pyproject.toml для сканування джерела з урахуванням проекту.",
+    "param.path.description": "Кореневий каталог для аналізу (за замовчуванням: поточний робочий каталог).",
+    "param.depth.description": "Максимальна глибина каталогу для відображення в дереві (0 = необмежена).",
+    "param.include_symbols.description": "Чи видобувати визначення символів із вихідних файлів.",
+    "param.project_only.description": "Скануйте лише файли, на які посилаються файли проекту (.sln, .csproj, build.gradle.kts тощо).",
+    "x_search_terms": [
+      "кодова карта",
+      "структуру кодової бази",
+      "дерево файлів",
+      "список символів",
+      "аналіз проекту",
+      "огляд вихідного коду",
+      "структура сховища",
+      "コードマップ"
+    ]
+  },
+  "tr": {
+    "tool.description": "Bir kod tabanı dizinini ve çıktı dosyası ağacını birden çok dilde sembol tanımlarıyla (sınıflar, işlevler vb.) analiz edin. C#, Python, TypeScript, Go, Rust, C/C++, Java, Kotlin ve daha fazlasını destekler. Projeye duyarlı kaynak taraması için .sln/.csproj, build.gradle.kts, Cargo.toml, go.mod, CMakeLists.txt, Makefile, package.json, pyproject.toml'yi okur.",
+    "param.path.description": "Analiz edilecek kök dizin (varsayılan: geçerli çalışma dizini).",
+    "param.depth.description": "Ağaçta görüntülenecek maksimum dizin derinliği (0 = sınırsız).",
+    "param.include_symbols.description": "Kaynak dosyalardan sembol tanımlarının çıkarılıp çıkarılmayacağı.",
+    "param.project_only.description": "Yalnızca proje dosyalarının (.sln, .csproj, build.gradle.kts, vb.) referans verdiği dosyaları tarayın.",
+    "x_search_terms": [
+      "kod haritası",
+      "kod tabanı yapısı",
+      "dosya ağacı",
+      "sembol listesi",
+      "proje analizi",
+      "kaynak koduna genel bakış",
+      "depo yapısı",
+      "コードマップ"
+    ]
+  },
+  "th": {
+    "tool.description": "วิเคราะห์ไดเร็กทอรี codebase และแผนผังไฟล์เอาท์พุตด้วยคำจำกัดความสัญลักษณ์ (คลาส ฟังก์ชัน ฯลฯ) ในหลายภาษา รองรับ C#, Python, TypeScript, Go, Rust, C/C++, Java, Kotlin และอื่นๆ อ่าน .sln/.csproj, build.gradle.kts, Cargo.toml, go.mod, CMakeLists.txt, Makefile, package.json, pyproject.toml สำหรับการสแกนแหล่งที่มาแบบรับรู้โปรเจ็กต์",
+    "param.path.description": "ไดเร็กทอรีรากที่จะวิเคราะห์ (ค่าเริ่มต้น: ไดเร็กทอรีการทำงานปัจจุบัน)",
+    "param.depth.description": "ความลึกของไดเร็กทอรีสูงสุดที่จะแสดงในแผนผัง (0 = ไม่จำกัด)",
+    "param.include_symbols.description": "ไม่ว่าจะแยกคำจำกัดความของสัญลักษณ์จากไฟล์ต้นฉบับหรือไม่",
+    "param.project_only.description": "สแกนเฉพาะไฟล์ที่อ้างอิงโดยไฟล์โปรเจ็กต์ (.sln, .csproj, build.gradle.kts ฯลฯ)",
+    "x_search_terms": [
+      "แผนที่รหัส",
+      "โครงสร้างฐานข้อมูล",
+      "แผนผังไฟล์",
+      "รายการสัญลักษณ์",
+      "การวิเคราะห์โครงการ",
+      "ภาพรวมซอร์สโค้ด",
+      "โครงสร้างพื้นที่เก็บข้อมูล",
+      "โค๊ดマップ"
+    ]
+  },
+  "zh_cn": {
+    "tool.description": "Analyze a codebase directory and output file tree with symbol definitions (classes, functions, etc.) across multiple languages. Supports C#, Python, TypeScript, Go, Rust, C/C++, Java, Kotlin, and more. Reads .sln/.csproj, build.gradle.kts, Cargo.toml, go.mod, CMakeLists.txt, Makefile, package.json, pyproject.toml for project-aware source scanning.",
+    "param.path.description": "Root directory to analyze (default: current working directory).",
+    "param.depth.description": "Maximum directory depth to display in tree (0 = unlimited).",
+    "param.include_symbols.description": "Whether to extract symbol definitions from source files.",
+    "param.project_only.description": "Only scan files referenced by project files (.sln, .csproj, build.gradle.kts, etc.).",
+    "x_search_terms": [
+      "code map",
+      "codebase structure",
+      "file tree",
+      "symbol list",
+      "project analysis",
+      "source code overview",
+      "repository structure",
+      "コードマップ"
+    ]
+  },
+  "zh_tw": {
+    "tool.description": "Analyze a codebase directory and output file tree with symbol definitions (classes, functions, etc.) across multiple languages. Supports C#, Python, TypeScript, Go, Rust, C/C++, Java, Kotlin, and more. Reads .sln/.csproj, build.gradle.kts, Cargo.toml, go.mod, CMakeLists.txt, Makefile, package.json, pyproject.toml for project-aware source scanning.",
+    "param.path.description": "Root directory to analyze (default: current working directory).",
+    "param.depth.description": "Maximum directory depth to display in tree (0 = unlimited).",
+    "param.include_symbols.description": "Whether to extract symbol definitions from source files.",
+    "param.project_only.description": "Only scan files referenced by project files (.sln, .csproj, build.gradle.kts, etc.).",
+    "x_search_terms": [
+      "code map",
+      "codebase structure",
+      "file tree",
+      "symbol list",
+      "project analysis",
+      "source code overview",
+      "repository structure",
+      "コードマップ"
+    ]
+  },
+  "bn": {
+    "tool.description": "একাধিক ভাষা জুড়ে প্রতীক সংজ্ঞা (ক্লাস, ফাংশন, ইত্যাদি) সহ একটি কোডবেস ডিরেক্টরি এবং আউটপুট ফাইল ট্রি বিশ্লেষণ করুন। C#, Python, TypeScript, Go, Rust, C/C++, Java, Kotlin এবং আরও অনেক কিছু সমর্থন করে। প্রকল্প-সচেতন উত্স স্ক্যান করার জন্য .sln/.csproj, build.gradle.kts, Cargo.toml, go.mod, CMakeLists.txt, Makefile, package.json, pyproject.toml পড়ে।",
+    "param.path.description": "বিশ্লেষণ করার জন্য রুট ডিরেক্টরি (ডিফল্ট: বর্তমান কাজের ডিরেক্টরি)।",
+    "param.depth.description": "গাছে প্রদর্শনের জন্য সর্বাধিক ডিরেক্টরি গভীরতা (0 = সীমাহীন)।",
+    "param.include_symbols.description": "উৎস ফাইল থেকে প্রতীক সংজ্ঞা বের করা হবে কিনা।",
+    "param.project_only.description": "শুধুমাত্র প্রকল্প ফাইল (.sln, .csproj, build.gradle.kts, ইত্যাদি) দ্বারা উল্লেখ করা ফাইল স্ক্যান করুন।",
+    "x_search_terms": [
+      "কোড মানচিত্র",
+      "কোডবেস গঠন",
+      "ফাইল গাছ",
+      "প্রতীক তালিকা",
+      "প্রকল্প বিশ্লেষণ",
+      "সোর্স কোড ওভারভিউ",
+      "সংগ্রহস্থল গঠন",
+      "コードマップ"
+    ]
+  },
+  "fa": {
+    "tool.description": "دایرکتوری پایگاه کد و درخت فایل خروجی را با تعریف نمادها (کلاس ها، توابع و غیره) در چندین زبان تجزیه و تحلیل کنید. پشتیبانی از C#، Python، TypeScript، Go، Rust، C/C++، Java، Kotlin و غیره. .sln/.csproj، build.gradle.kts، Cargo.toml، go.mod، CMakeLists.txt، Makefile، package.json، pyproject.toml را برای اسکن منبع پروژه آگاه می خواند.",
+    "param.path.description": "دایرکتوری ریشه برای تجزیه و تحلیل (پیش فرض: دایرکتوری فعلی فعلی).",
+    "param.depth.description": "حداکثر عمق فهرست برای نمایش در درخت (0 = نامحدود).",
+    "param.include_symbols.description": "آیا برای استخراج تعاریف نمادها از فایل های منبع.",
+    "param.project_only.description": "فقط فایل های ارجاع شده توسط فایل های پروژه (.sln، .csproj، build.gradle.kts، و غیره) را اسکن کنید.",
+    "x_search_terms": [
+      "نقشه کد",
+      "ساختار پایه کد",
+      "درخت فایل",
+      "لیست نمادها",
+      "تجزیه و تحلیل پروژه",
+      "نمای کلی کد منبع",
+      "ساختار مخزن",
+      "コードマップ"
+    ]
+  },
+  "mn": {
+    "tool.description": "Олон хэл дээрх тэмдэгтийн тодорхойлолт (анги, функц гэх мэт) бүхий кодын сангийн лавлах болон гаралтын файлын модыг шинжлэх. C#, Python, TypeScript, Go, Rust, C/C++, Java, Kotlin болон бусад зүйлсийг дэмждэг. .sln/.csproj, build.gradle.kts, Cargo.toml, go.mod, CMakeLists.txt, Makefile, package.json, pyproject.toml-г уншдаг.",
+    "param.path.description": "Шинжилгээ хийх үндсэн лавлах (анхдагч: одоогийн ажлын лавлах).",
+    "param.depth.description": "Модонд харуулах сангийн дээд гүн (0 = хязгааргүй).",
+    "param.include_symbols.description": "Эх файлуудаас тэмдэгтийн тодорхойлолтыг гаргаж авах эсэх.",
+    "param.project_only.description": "Зөвхөн төслийн файлуудын (.sln, .csproj, build.gradle.kts гэх мэт) лавласан файлуудыг сканнердах.",
+    "x_search_terms": [
+      "кодын газрын зураг",
+      "кодын сангийн бүтэц",
+      "файлын мод",
+      "тэмдгийн жагсаалт",
+      "төслийн шинжилгээ",
+      "эх кодын тойм",
+      "агуулахын бүтэц",
+      "コードマップ"
+    ]
+  },
+  "mr": {
+    "tool.description": "कोडबेस डिरेक्ट्री आणि आउटपुट फाइल ट्री चे विश्लेषण करा ज्यामध्ये चिन्ह व्याख्या (वर्ग, फंक्शन्स इ.) अनेक भाषांमध्ये आहेत. C#, Python, TypeScript, Go, Rust, C/C++, Java, Kotlin आणि बरेच काही सपोर्ट करते. प्रोजेक्ट-अवेअर सोर्स स्कॅनिंगसाठी .sln/.csproj, build.gradle.kts, Cargo.toml, go.mod, CMakeLists.txt, Makefile, package.json, pyproject.toml वाचतो.",
+    "param.path.description": "विश्लेषण करण्यासाठी रूट निर्देशिका (डीफॉल्ट: वर्तमान कार्यरत निर्देशिका).",
+    "param.depth.description": "झाडामध्ये प्रदर्शित करण्यासाठी कमाल निर्देशिका खोली (0 = अमर्यादित).",
+    "param.include_symbols.description": "स्रोत फाइल्समधून चिन्ह व्याख्या काढायची की नाही.",
+    "param.project_only.description": "फक्त प्रोजेक्ट फाइल्स (.sln, .csproj, build.gradle.kts, इ.) द्वारे संदर्भित फाइल स्कॅन करा.",
+    "x_search_terms": [
+      "कोड नकाशा",
+      "कोडबेस रचना",
+      "फाइल ट्री",
+      "चिन्ह सूची",
+      "प्रकल्प विश्लेषण",
+      "स्त्रोत कोड विहंगावलोकन",
+      "भांडार रचना",
+      "コードマップ"
+    ]
+  },
+  "el": {
+    "tool.description": "Αναλύστε έναν κατάλογο βάσης κώδικα και ένα δέντρο αρχείων εξόδου με ορισμούς συμβόλων (κλάσεις, συναρτήσεις, κ.λπ.) σε πολλές γλώσσες. Υποστηρίζει C#, Python, TypeScript, Go, Rust, C/C++, Java, Kotlin και άλλα. Διαβάζει .sln/.csproj, build.gradle.kts, Cargo.toml, go.mod, CMakeLists.txt, Makefile, package.json, pyproject.toml για σάρωση πηγών με γνώση του έργου.",
+    "param.path.description": "Κατάλογος ρίζας προς ανάλυση (προεπιλογή: τρέχων κατάλογος εργασίας).",
+    "param.depth.description": "Μέγιστο βάθος καταλόγου για εμφάνιση σε δέντρο (0 = απεριόριστο).",
+    "param.include_symbols.description": "Εάν θα εξαχθούν ορισμοί συμβόλων από αρχεία προέλευσης.",
+    "param.project_only.description": "Σαρώστε μόνο αρχεία που αναφέρονται από αρχεία έργου (.sln, .csproj, build.gradle.kts, κ.λπ.).",
+    "x_search_terms": [
+      "χάρτης κωδικών",
+      "δομή βάσης κωδικών",
+      "δέντρο αρχείου",
+      "λίστα συμβόλων",
+      "ανάλυση έργου",
+      "επισκόπηση πηγαίου κώδικα",
+      "δομή αποθετηρίου",
+      "コードマップ"
+    ]
+  },
+  "he": {
+    "tool.description": "נתח ספריית בסיס קוד ועץ קבצי פלט עם הגדרות סמלים (מחלקות, פונקציות וכו') על פני מספר שפות. תומך ב-C#, Python, TypeScript, Go, Rust, C/C++, Java, Kotlin ועוד. קורא .sln/.csproj, build.gradle.kts, Cargo.toml, go.mod, CMakeLists.txt, Makefile, package.json, pyproject.toml לסריקת מקור מודע לפרויקט.",
+    "param.path.description": "ספריית שורש לניתוח (ברירת מחדל: ספריית עבודה נוכחית).",
+    "param.depth.description": "עומק ספרייה מקסימלי להצגה בעץ (0 = בלתי מוגבל).",
+    "param.include_symbols.description": "האם לחלץ הגדרות סמלים מקבצי מקור.",
+    "param.project_only.description": "סרוק רק קבצים שאליהם מתייחסים קבצי הפרויקט (.sln, .csproj, build.gradle.kts וכו').",
+    "x_search_terms": [
+      "מפת קוד",
+      "מבנה בסיס קוד",
+      "עץ קבצים",
+      "רשימת סמלים",
+      "ניתוח פרויקט",
+      "סקירת קוד מקור",
+      "מבנה המאגר",
+      "コードマップ"
+    ]
+  },
+  "hu": {
+    "tool.description": "Kódbázis-könyvtár és kimeneti fájlfa elemzése szimbólumdefiníciókkal (osztályok, függvények stb.) több nyelven. Támogatja a C#, Python, TypeScript, Go, Rust, C/C++, Java, Kotlin stb. Beolvassa az .sln/.csproj, build.gradle.kts, Cargo.toml, go.mod, CMakeLists.txt, Makefile, package.json, pyproject.toml fájlokat a projekt-tudatos forrásellenőrzés érdekében.",
+    "param.path.description": "Elemzendő gyökérkönyvtár (alapértelmezett: aktuális munkakönyvtár).",
+    "param.depth.description": "A fában megjeleníthető könyvtár maximális mélysége (0 = korlátlan).",
+    "param.include_symbols.description": "A szimbólumdefiníciók kibontása a forrásfájlokból.",
+    "param.project_only.description": "Csak a projektfájlok által hivatkozott fájlok vizsgálata (.sln, .csproj, build.gradle.kts stb.).",
+    "x_search_terms": [
+      "kódtérkép",
+      "kódbázis szerkezet",
+      "fájlfa",
+      "szimbólumlista",
+      "projektelemzés",
+      "forráskód áttekintése",
+      "társzerkezet",
+      "コードマップ"
+    ]
+  },
+  "ro": {
+    "tool.description": "Analizați un director de bază de cod și un arbore de fișiere de ieșire cu definiții de simbol (clase, funcții etc.) în mai multe limbi. Suportă C#, Python, TypeScript, Go, Rust, C/C++, Java, Kotlin și multe altele. Citește .sln/.csproj, build.gradle.kts, Cargo.toml, go.mod, CMakeLists.txt, Makefile, package.json, pyproject.toml pentru scanarea surselor în funcție de proiect.",
+    "param.path.description": "Directorul rădăcină de analizat (implicit: directorul de lucru curent).",
+    "param.depth.description": "Adâncimea maximă a directorului de afișat în arbore (0 = nelimitat).",
+    "param.include_symbols.description": "Dacă să extrageți definițiile simbolurilor din fișierele sursă.",
+    "param.project_only.description": "Scanați numai fișierele la care se face referire prin fișierele de proiect (.sln, .csproj, build.gradle.kts etc.).",
+    "x_search_terms": [
+      "harta codului",
+      "structura codului de bază",
+      "arborele de fișiere",
+      "lista de simboluri",
+      "analiza proiectului",
+      "prezentare generală a codului sursă",
+      "structura depozitului",
+      "コードマップ"
+    ]
+  }
+}
