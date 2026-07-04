@@ -1,5 +1,20 @@
 # Changelog
 
+## [0.5.34] - 2026-07-04
+
+### Added
+- Server-side compaction for Responses API (OpenAI/Azure GPT-5.4+ with `UAGENT_RESPONSES=1`). Automatically applied using the same threshold as local auto-shrink. Compaction events are logged.
+- Tool flow documentation (`src/uagent/docs/TOOL_FLOW.md`) covering genre mask, tool_catalog dynamic loading, and GPT-5.4+ native tool_search.
+- Tool descriptions updated: `get_windows_gps` now prioritized for GPS location, `get_geoip` demoted to low-precision IP-based estimation.
+
+### Changed
+- `responses_state.json` split into provider/model-specific files (`responses_state_{provider}_{model}.json`). Corrupted JSON files are automatically deleted.
+- Auto-unload now skips when `previous_response_id` is set (any provider, not just OpenAI/Azure).
+- `_should_preload_lazy_specs` default changed to `False` (previously `True`), fixing accidental exclusion of management tools for non-GPT-5.4 providers.
+
+### Fixed
+- `saved_model` None check in `_check_responses_state_provider` preventing AttributeError when no pending state exists.
+
 ## [0.5.33] - 2026-07-02
 
 ### Added

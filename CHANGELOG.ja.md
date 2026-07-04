@@ -1,5 +1,20 @@
 # 変更履歴
 
+## [0.5.34] - 2026-07-04
+
+### 追加
+- Responses API のサーバサイド compaction 対応（OpenAI/Azure GPT-5.4+、`UAGENT_RESPONSES=1`）。閾値はローカルの auto-shrink と同一。compaction 発生時にログ表示。
+- ツールフロー文書（`src/uagent/docs/TOOL_FLOW.md`）を追加。genre mask、tool_catalog 動的ロード、GPT-5.4+ native tool_search を網羅。
+- `get_windows_gps` の description を高優先度に、`get_geoip` を低優先度に変更。
+
+### 変更
+- `responses_state.json` をプロバイダ/モデル別ファイルに分割（`responses_state_{provider}_{model}.json`）。JSON 破損時は自動削除。
+- auto-unload を `previous_response_id` 設定時は全プロバイダでスキップ。
+- `_should_preload_lazy_specs` のデフォルトを `False` に修正（GPT-5.4+ 以外で管理ツールが誤って除外される問題を解消）。
+
+### 修正
+- `_check_responses_state_provider` の `saved_model` None チェック不足による AttributeError を修正。
+
 ## [0.5.33] - 2026-07-02
 
 ### 追加
