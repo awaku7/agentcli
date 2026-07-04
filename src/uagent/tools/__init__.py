@@ -15,6 +15,9 @@ from typing import Any, Callable, Optional
 import concurrent.futures
 from threading import Lock, RLock
 
+# Pre-import _pip_auto so dependent modules can import it reliably
+from . import _pip_auto
+
 try:
     from janome.tokenizer import Tokenizer as JanomeTokenizer
 except Exception:  # pragma: no cover
