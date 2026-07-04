@@ -153,7 +153,12 @@ def _prompt_for_password(path: str) -> str | None:
 def _load_workbook_with_password(
     file_path: str, password: str | None = None, *, data_only: bool = False
 ):
-    import openpyxl
+    try:
+        import openpyxl
+    except ImportError:
+        from .._pip_auto import install_with_status as _install_xl
+        _install_xl("openpyxl")
+        import openpyxl
 
     if msoffcrypto is not None:
         with open(file_path, "rb") as fin:
@@ -194,8 +199,13 @@ def run_tool(args: dict[str, Any]) -> str:
     if not file_path:
         raise ValueError("file_path is required")
 
-    # Lazy import openpyxl to keep tool import light.
-    import openpyxl
+    try:
+        # Lazy import openpyxl to keep tool import light.
+        import openpyxl
+    except ImportError:
+        from .._pip_auto import install_with_status as _install_xl
+        _install_xl("openpyxl")
+        import openpyxl
 
     if action == "get_sheet_names":
         wb = _load_workbook_with_password(file_path, password=password)
