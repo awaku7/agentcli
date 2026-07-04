@@ -52,9 +52,9 @@ def _should_preload_lazy_specs() -> bool:
     (Responses API + OpenAI/Azure + GPT-5.4+ model, mode != off).
     """
     raw = (env_get("UAGENT_GPT54_TOOL_SEARCH") or "").strip().lower()
-    if raw in ("off", "0", "false", "no"):
-        return False
-    return True
+    if raw in ("native", "1", "true", "yes"):
+        return True
+    return False
 
 # ─────────────────────────────────────────────────────────────────
 
