@@ -86,6 +86,7 @@ def get_welcome_message():
         _('- "Create a monthly summary report from this Excel file."'),
         _('- "Read this PDF and list three key points."'),
         _('- "Search the latest news and summarize a specific topic."'),
+        _('- "Scan this project with code_map so the LLM understands the codebase faster."'),
         "",
         (
             f"https://github.com/awaku7/agentcli/blob/main/README.{detect_lang()}.md"
