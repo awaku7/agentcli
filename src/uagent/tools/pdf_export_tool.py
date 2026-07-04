@@ -221,6 +221,9 @@ def _generate_pdf_from_html(html: str, output_path: str) -> None:
     """Use Playwright to generate PDF from HTML."""
 
     async def _run():
+        from .._pip_auto import install_playwright_with_chromium as _install_pw
+        if not _install_pw():
+            return
         from playwright.async_api import async_playwright
 
         async with async_playwright() as p:

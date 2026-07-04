@@ -107,7 +107,12 @@ import sys
 import time
 from typing import Any, Dict, List
 
-from playwright.async_api import async_playwright
+from .._pip_auto import install_playwright_with_chromium as _install_pw_inspector
+
+if not _install_pw_inspector():
+    async_playwright = None
+else:
+    from playwright.async_api import async_playwright
 
 
 def _now_iso() -> str:

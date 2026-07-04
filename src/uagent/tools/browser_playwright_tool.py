@@ -233,10 +233,10 @@ TOOL_SPEC: dict[str, Any] = {
 async def execute_actions(
     actions: List[Dict[str, Any]], headless: bool, **kwargs
 ) -> Dict[str, Any]:
-    try:
-        from playwright.async_api import async_playwright
-    except ImportError:
+    from .._pip_auto import install_playwright_with_chromium as _install_pw
+    if not _install_pw():
         return {"ok": False, "error": "playwright is not installed."}
+    from playwright.async_api import async_playwright
 
     results = []
     intercepted_data = []
