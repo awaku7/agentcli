@@ -71,29 +71,33 @@ def install_with_status(
     label = display_name or package_name
     target = module_name or package_name
 
-    # Check if already importable
+    # Check if already importable (but don't early-return when verify_submodule is set,
+    # because the submodule/DLL check may still fail)
     try:
         __import__(target)
-        return True
+        already_installed = True
     except ImportError:
-        pass
+        already_installed = False
 
-    # Show installing message
-    try:
-        msg = _("Installing {package}...").format(package=label)
-    except Exception:
-        msg = f"Installing {label}..."
-    print(msg, file=sys.stderr)
+    if not already_installed:
+        # Show installing message
+        try:
+            msg = _("Installing {package}...").format(package=label)
+        except Exception:
+            msg = f"Installing {label}..."
+        print(msg, file=sys.stderr)
 
-    # Attempt pip install
-    try:
-        result = subprocess.run(
-            [sys.executable, "-m", "pip", "install", package_name],
-            stdout=sys.stderr, stderr=sys.stderr, timeout=120,
-        )
-        success = result.returncode == 0
-    except Exception:
-        success = False
+        # Attempt pip install
+        try:
+            result = subprocess.run(
+                [sys.executable, "-m", "pip", "install", package_name],
+                stdout=sys.stderr, stderr=sys.stderr, timeout=120,
+            )
+            installed_ok = result.returncode == 0
+        except Exception:
+            installed_ok = False
+    else:
+        installed_ok = True
 
     # Verify after install
     try:
@@ -109,14 +113,15 @@ def install_with_status(
         except Exception:
             success = False
 
-    # Show result message
-    try:
-        if success:
-            done_msg = _("{package} installed successfully.").format(package=label)
-        else:
-            done_msg = _("Failed to install {package}.").format(package=label)
-    except Exception:
-        done_msg = f"{label} installed." if success else f"Failed to install {label}."
-    print(done_msg, file=sys.stderr)
+    # Show result message (only if we attempted install)
+    if not already_installed:
+        try:
+            if success:
+                done_msg = _("{package} installed successfully.").format(package=label)
+            else:
+                done_msg = _("Failed to install {package}.").format(package=label)
+        except Exception:
+            done_msg = f"{label} installed." if success else f"Failed to install {label}."
+        print(done_msg, file=sys.stderr)
 
     return success
