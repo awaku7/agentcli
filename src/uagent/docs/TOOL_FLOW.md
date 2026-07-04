@@ -66,6 +66,34 @@ if not (_should_preload_lazy_specs()
 2. `_is_gpt54_tool_search_target()` が True（OpenAI/Azure + GPT-5.4+ の Responses API）
 3. `previous_response_id` が設定されている（全プロバイダの Responses API）
 
+## tool_catalog による動的ツールロード
+
+LLM に最初から全ツールを送るのではなく、必要に応じてツールを動的にロードする仕組みです。
+
+### 動作の流れ
+
+1. 初期状態では `tool_catalog` / `tool_load` / `unload_tool` / `human_ask` のみが LLM に送られる
+2. LLM が `tool_catalog` を呼び出すと、利用可能な全ツールの一覧が返る
+3. LLM は必要なツールを `tool_load(tool_name)` で動的ロードする
+4. ロードされたツールは次ラウンド以降のツールリストに追加される
+5. `unload_tool(tool_name)` で明示的にアンロードできる
+6. 一定ラウンド使われなかったツールは auto-unload される（`UAGENT_AUTO_UNLOAD_ROUNDS`）
+
+### 適用されるケース
+
+| ケース | tool_catalog が使われるか |
+|---|---|
+| Chat Completions API（DeepSeek 等） | はい（genre mask で絞られた残りを動的ロード） |
+| Responses API + GPT-5.4+（デフォルト） | いいえ（全ツール送信、サーバ側 tool_search） |
+| Responses API + GPT-5.4+ + `legacy` | はい（`_select_tool_specs_legacy` で明示的に使用） |
+| Responses API + GPT-5.4+ + `native` | いいえ（tool_catalog 自体が除外される） |
+
+### 実装
+
+- `tool_catalog` / `tool_load` / `unload_tool` は `tools/catalog_tool.py` に実装
+- これらは `tool_genre: "devel"` に属し、`tool_level=0`（常時有効）
+- `_select_tool_specs_legacy()` はユーザーメッセージを解析し、関連ツールを初期セットに追加する
+
 ## 環境変数
 
 | 変数 | デフォルト | 説明 |

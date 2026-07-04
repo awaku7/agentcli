@@ -76,6 +76,15 @@ Gemini, DeepSeek, Ollama, OpenRouter, etc.).
 - File creation: output full file contents, not diffs or partial summaries.
 - Dangerous operations require user confirmation before execution.
 
+## Tool flow
+
+Tools are delivered to the LLM differently depending on the provider and mode:
+
+- **Chat Completions API (DeepSeek, etc.)**: Tools are filtered by genre mask at startup. The LLM discovers additional tools dynamically via `tool_catalog` → `tool_load`. See `src/uagent/docs/TOOL_FLOW.md`.
+- **Responses API + GPT-5.4+ (OpenAI/Azure)**: All tools are sent to the server (server-side `tool_search`). Server-side compaction is applied automatically.
+- **`UAGENT_GPT54_TOOL_SEARCH=legacy`**: Client-side narrowing via `tool_catalog`. Only management tools sent initially.
+- **Auto-unload**: Skipped when `previous_response_id` is set.
+
 ## Tool system
 
 - Tools are plugin modules under `src/uagent/tools/`.
