@@ -959,12 +959,12 @@ def run_llm_rounds(
                 _TOOL_LAST_ROUND[_tname] = _TOTAL_ROUNDS
 
             # Skip auto-unload when server manages tool selection
-            # (native GPT-5.4 tool_search or Responses API with previous_response_id)
+            # (native GPT-5.4 tool_search, or any provider using Responses API with previous_response_id)
             if not (_should_preload_lazy_specs() or _is_gpt54_tool_search_target(
                 provider=provider,
                 depname=depname,
                 use_responses_api=True,
-            )):
+            ) or bool(core.responses_state.get("previous_response_id"))):
                 for spec in list(_TOOL_SPECS):
                     func_info = spec.get("function", {})
                     tname = func_info.get("name", "")
