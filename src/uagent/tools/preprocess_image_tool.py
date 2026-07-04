@@ -24,9 +24,9 @@ import os
 from pathlib import Path
 from typing import Any
 
-from ._pip_auto import auto_install as _auto_install_pil
+from ._pip_auto import install_with_status as _install_pil
 
-if _auto_install_pil("Pillow", "PIL"):
+if _install_pil("Pillow", "PIL"):
     from PIL import Image, ImageFilter, ImageOps, ImageEnhance
 
     PIL_AVAILABLE = True

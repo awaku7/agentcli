@@ -6,6 +6,10 @@ from __future__ import annotations
 import subprocess
 import sys
 
+from .i18n_helper import make_tool_translator
+
+_ = make_tool_translator(__file__)
+
 
 def auto_install(package_name: str, module_name: str | None = None) -> bool:
     """Try to install a Python package via pip, then verify it's importable.
@@ -42,3 +46,68 @@ def auto_install(package_name: str, module_name: str | None = None) -> bool:
         return True
     except ImportError:
         return False
+
+
+def install_with_status(
+    package_name: str,
+    module_name: str | None = None,
+    display_name: str | None = None,
+) -> bool:
+    """Auto-install a package with progress messages.
+
+    Displays localized status messages during install.
+    Falls back to auto_install if i18n messages are unavailable.
+
+    Args:
+        package_name: The pip package name.
+        module_name: The module to import after install (defaults to package_name).
+        display_name: Human-readable name for messages (defaults to package_name).
+
+    Returns:
+        True if the module is importable after the attempt, False otherwise.
+    """
+    label = display_name or package_name
+    target = module_name or package_name
+
+    # Check if already importable
+    try:
+        __import__(target)
+        return True
+    except ImportError:
+        pass
+
+    # Show installing message
+    try:
+        msg = _("installing", default=f"Installing {label}...").format(package=label)
+    except Exception:
+        msg = f"Installing {label}..."
+    print(msg, file=sys.stderr)
+
+    # Attempt pip install
+    try:
+        result = subprocess.run(
+            [sys.executable, "-m", "pip", "install", package_name],
+            capture_output=True, timeout=120,
+        )
+        success = result.returncode == 0
+    except Exception:
+        success = False
+
+    # Verify after install
+    try:
+        __import__(target)
+        success = True
+    except ImportError:
+        success = False
+
+    # Show result message
+    try:
+        if success:
+            done_msg = _("installed", default=f"{label} installed successfully.").format(package=label)
+        else:
+            done_msg = _("install_failed", default=f"Failed to install {label}.").format(package=label)
+    except Exception:
+        done_msg = f"{label} installed." if success else f"Failed to install {label}."
+    print(done_msg, file=sys.stderr)
+
+    return success

@@ -581,10 +581,10 @@ def _render_mermaid_to_image(mermaid_code: str, output_path: str) -> str | None:
     Returns None on success, or an error message string on failure.
     Uses mermaid-cli (playwright-based) if available, falls back to Mermaid.ink API.
     """
-    from ._pip_auto import auto_install
+    from ._pip_auto import install_with_status
 
     # Try mermaid-cli Python package first (local playwright rendering)
-    if auto_install("mermaid-cli", "mermaid_cli"):
+    if install_with_status("mermaid-cli", "mermaid_cli"):
         try:
             import asyncio
             from mermaid_cli import render_mermaid
