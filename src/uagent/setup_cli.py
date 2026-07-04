@@ -85,6 +85,7 @@ PROVIDERS: list[tuple[str, str]] = [
     ("minimax", "MiniMax"),
     ("hf", "HuggingFace"),
     ("sakana", "Sakana AI (Fugu)"),
+    ("sakura", "SAKURA AI Engine"),
 ]
 
 # key, required, label
@@ -332,6 +333,24 @@ PROVIDER_FIELDS: dict[str, list[tuple[str, bool, str]]] = {
             "UAGENT_SAKANA_DEPNAME",
             False,
             _("Sakana AI model name (optional, default: fugu)"),
+        ),
+    ],
+    "sakura": [
+        ("UAGENT_SAKURA_API_KEY", True, _("SAKURA AI Engine API key")),
+        (
+            "UAGENT_SAKURA_BASE_URL",
+            False,
+            _("SAKURA AI Engine base URL (optional, default: https://api.ai.sakura.ad.jp/v1)"),
+        ),
+        (
+            "UAGENT_SAKURA_DEPNAME",
+            False,
+            _("SAKURA AI Engine model name (optional, default: llm)"),
+        ),
+        (
+            "UAGENT_SAKURA_TEMPERATURE",
+            False,
+            _("SAKURA AI Engine temperature (optional)"),
         ),
     ],
 }

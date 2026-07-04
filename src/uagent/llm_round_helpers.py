@@ -610,6 +610,8 @@ def _call_openai_azure_round(
                     temp_env = env_get("UAGENT_ZAI_TEMPERATURE") or ""
                 elif provider == "sakana":
                     temp_env = env_get("UAGENT_SAKANA_TEMPERATURE") or ""
+                elif provider == "sakura":
+                    temp_env = env_get("UAGENT_SAKURA_TEMPERATURE") or ""
 
                 if not temp_env:
                     temp_env = env_get("UAGENT_TEMPERATURE") or ""
