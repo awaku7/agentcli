@@ -26,6 +26,12 @@ os.environ["QT_LOGGING_RULES"] = (
 )
 os.environ["QT_AUTO_SCREEN_SCALE_FACTOR"] = "1"
 
+# Auto-install PySide6 if missing
+from .tools._pip_auto import install_with_status as _install_pyside
+if not _install_pyside("PySide6", "PySide6"):
+    print("PySide6 is required for GUI mode.", file=sys.stderr)
+    sys.exit(1)
+
 from PySide6 import QtCore, QtGui, QtWidgets, QtMultimedia
 
 from .i18n import _, detect_lang, set_thread_lang

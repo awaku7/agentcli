@@ -6,6 +6,7 @@ import importlib.util
 import sys
 from typing import Any
 
+from ._pip_auto import install_with_status as _install_ble_pyside
 from .i18n_helper import make_tool_translator
 
 _ = make_tool_translator(__file__)
@@ -172,10 +173,10 @@ def run_tool(args: dict[str, Any]) -> str:
 
     # 1. Check dependency
     if action == "scan" and scan_mode == "all":
-        if importlib.util.find_spec("PySide6") is None:
+        if not _install_ble_pyside("PySide6", "PySide6"):
             return _(
                 "err.pyside6_missing",
-                default="Error: 'PySide6' library is not installed. Please install it using:\npip install PySide6",
+                default="Error: 'PySide6' library is required.",
             )
     else:
         if importlib.util.find_spec("bleak") is None:

@@ -35,7 +35,6 @@ pyOpenSSL>=26.0.0
 playwright>=1.58.0
 
 # GUI
-pyside6>=6.11.0
 
 # Windows / OS Specific
 pyreadline3>=3.5.4; platform_system == "Windows"
