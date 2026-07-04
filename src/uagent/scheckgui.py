@@ -34,6 +34,17 @@ if not _install_pyside("PySide6", "PySide6", verify_submodule="PySide6.QtCore"):
     print("If already installed, ensure Microsoft Visual C++ Redistributable is installed.", file=sys.stderr)
     sys.exit(1)
 
+# Ensure PySide6 DLL directory is in the search path (Windows)
+import os as _os
+import site as _site
+for _pkg_dir in ("PySide6", "shiboken6"):
+    _dll_dir = _os.path.join(_site.getsitepackages()[0], _pkg_dir) if hasattr(_site, 'getsitepackages') else None
+    if _dll_dir and _os.path.isdir(_dll_dir) and hasattr(_os, 'add_dll_directory'):
+        try:
+            _os.add_dll_directory(_dll_dir)
+        except Exception:
+            pass
+
 from PySide6 import QtCore, QtGui, QtWidgets, QtMultimedia
 
 from .i18n import _, detect_lang, set_thread_lang
