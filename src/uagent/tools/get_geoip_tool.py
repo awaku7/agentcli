@@ -81,7 +81,6 @@ TOOL_SPEC: dict[str, Any] = {
                 "country",
                 "ip geolocation",
                 "geo ip",
-                "weather",
                 "news",
             ],
         ),
@@ -92,7 +91,6 @@ TOOL_SPEC: dict[str, Any] = {
             "country",
             "ip geolocation",
             "geo ip",
-            "weather",
             "news",
         ],
         "parameters": {
