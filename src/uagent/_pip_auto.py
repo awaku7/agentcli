@@ -82,7 +82,13 @@ def install_with_status(
         except Exception:
             return False
 
-    def _verify() -> bool:
+    def _verify(*, fresh: bool = False) -> bool:
+        if fresh and target in sys.modules:
+            # Remove cached module so __init__.py is re-executed
+            # (e.g. after reinstall, the old namespace package may be stale)
+            del sys.modules[target]
+            if verify_submodule and verify_submodule in sys.modules:
+                del sys.modules[verify_submodule]
         try:
             __import__(target)
         except ImportError:
@@ -91,26 +97,6 @@ def install_with_status(
             try:
                 __import__(verify_submodule, fromlist=[''])
             except Exception:
-                # Submodule (e.g. C extension DLL) failed to load.
-                # On Windows, try adding the package directory to DLL search path.
-                if hasattr(os, 'add_dll_directory') and hasattr(verify_submodule, 'rpartition'):
-                    _root = verify_submodule.rpartition('.')[0]
-                    try:
-                        _mod = __import__(_root)
-                        _dir = getattr(_mod, '__path__', None)
-                        if _dir:
-                            for _p in _dir:
-                                try:
-                                    os.add_dll_directory(str(_p))
-                                except Exception:
-                                    pass
-                    except Exception:
-                        pass
-                    try:
-                        __import__(verify_submodule, fromlist=[''])
-                        return True
-                    except Exception:
-                        pass
                 return False
         return True
 
@@ -121,14 +107,14 @@ def install_with_status(
     # Try installing
     print(f"Installing {label}...", file=sys.stderr)
     _run_pip()
-    if _verify():
+    if _verify(fresh=True):
         print(f"{label} installed successfully.", file=sys.stderr)
         return True
 
     # One more try with --force-reinstall (e.g. stale/corrupted installation)
     print(f"Retrying with --force-reinstall...", file=sys.stderr)
     _run_pip("--force-reinstall")
-    if _verify():
+    if _verify(fresh=True):
         print(f"{label} installed successfully.", file=sys.stderr)
         return True
 
