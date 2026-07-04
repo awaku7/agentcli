@@ -15,7 +15,9 @@
       "repository structure",
       "コードマップ"
     ],
-    "param.format.description": "Output format: 'json' for structured data, 'mermaid' for visual diagram."
+    "param.format.description": "Output format: 'json' for structured data, 'mermaid' for visual diagram.",
+    "param.output_dir.description": "Directory to save the output file instead of returning it. For mermaid format with render_image=true, saves as PNG. Uses naming convention: code_map_<timestamp>.<ext>.",
+    "param.render_image.description": "When format is 'mermaid' and output_dir is set, also render the diagram as a PNG image via Mermaid.ink API."
   },
   "ja": {
     "tool.description": "コードベース ディレクトリを分析し、複数の言語にわたるシンボル定義 (クラス、関数など) を含む出力ファイル ツリーを分析します。 C#、Python、TypeScript、Go、Rust、C/C++、Java、Kotlin などをサポートします。プロジェクト対応のソース スキャンのために、.sln/.csproj、build.gradle.kts、Cargo.toml、go.mod、CMakeLists.txt、Makefile、package.json、pyproject.toml を読み取ります。",
@@ -33,7 +35,9 @@
       "リポジトリ構造",
       "コードマップ"
     ],
-    "param.format.description": "出力形式: 構造化データの場合は「json」、ビジュアル図の場合は「mermaid」。"
+    "param.format.description": "出力形式: 構造化データの場合は「json」、ビジュアル図の場合は「mermaid」。",
+    "param.output_dir.description": "出力ファイルを返す代わりに保存するディレクトリ。 render_image=true のマーメイド形式の場合、PNG として保存されます。 code_map_<timestamp>.<ext> という命名規則を使用します。",
+    "param.render_image.description": "format が 'mermaid' で、output_dir が設定されている場合、Mermaid.ink API を介してダイアグラムを PNG 画像としてもレンダリングします。"
   },
   "es": {
     "tool.description": "Analice un directorio base de código y un árbol de archivos de salida con definiciones de símbolos (clases, funciones, etc.) en varios idiomas. Admite C#, Python, TypeScript, Go, Rust, C/C++, Java, Kotlin y más. Lee .sln/.csproj, build.gradle.kts, Cargo.toml, go.mod, CMakeLists.txt, Makefile, package.json, pyproject.toml para escanear el código fuente según el proyecto.",
@@ -51,7 +55,9 @@
       "estructura del repositorio",
       "コードマップ"
     ],
-    "param.format.description": "Formato de salida: 'json' para datos estructurados, 'mermaid' para diagrama visual."
+    "param.format.description": "Formato de salida: 'json' para datos estructurados, 'mermaid' para diagrama visual.",
+    "param.output_dir.description": "Directorio para guardar el archivo de salida en lugar de devolverlo. Para formato mermaid con render_image=true, se guarda como PNG. Utiliza convencion de nomenclatura: code_map_<timestamp>.<ext>.",
+    "param.render_image.description": "Cuando el formato es 'mermaid' y se establece output_dir, tambien renderice el diagrama como una imagen PNG a traves de la API Mermaid.ink."
   },
   "fr": {
     "tool.description": "Analysez un répertoire de base de code et une arborescence de fichiers de sortie avec des définitions de symboles (classes, fonctions, etc.) dans plusieurs langues. Prend en charge C#, Python, TypeScript, Go, Rust, C/C++, Java, Kotlin et plus encore. Lit .sln/.csproj, build.gradle.kts, Cargo.toml, go.mod, CMakeLists.txt, Makefile, package.json, pyproject.toml pour une analyse source adaptée au projet.",
@@ -69,7 +75,9 @@
       "structure du référentiel",
       "コードマップ"
     ],
-    "param.format.description": "Format de sortie: 'json' pour les donnees structurees, 'mermaid' pour le diagramme visuel."
+    "param.format.description": "Format de sortie: 'json' pour les donnees structurees, 'mermaid' pour le diagramme visuel.",
+    "param.output_dir.description": "Repertoire pour enregistrer le fichier de sortie au lieu de le renvoyer. Pour le format mermaid avec render_image=true, enregistre au format PNG. Utilise la convention de denomination: code_map_<timestamp>.<ext>.",
+    "param.render_image.description": "Lorsque le format est 'mermaid' et que output_dir est defini, affichez egalement le diagramme sous forme d'image PNG via l'API Mermaid.ink."
   },
   "ko": {
     "tool.description": "여러 언어에 걸쳐 기호 정의(클래스, 함수 등)가 포함된 코드베이스 디렉터리 및 출력 파일 트리를 분석합니다. C#, Python, TypeScript, Go, Rust, C/C++, Java, Kotlin 등을 지원합니다. 프로젝트 인식 소스 스캔을 위해 .sln/.csproj, build.gradle.kts, Cargo.toml, go.mod, CMakeLists.txt, Makefile, package.json, pyproject.toml을 읽습니다.",
@@ -87,7 +95,9 @@
       "저장소 구조",
       "코드맵"
     ],
-    "param.format.description": "출력 형식: 구조화된 데이터의 경우 'json', 시각적 다이어그램의 경우 'mermaid'."
+    "param.format.description": "출력 형식: 구조화된 데이터의 경우 'json', 시각적 다이어그램의 경우 'mermaid'.",
+    "param.output_dir.description": "출력 파일을 반환하는 대신 저장하는 디렉터리입니다. render_image=true인 mermaid 형식의 경우 PNG로 저장됩니다. 명명 규칙(code_map_<timestamp>.<ext>)을 사용합니다.",
+    "param.render_image.description": "형식이 'mermaid'이고 output_dir이 설정된 경우 Mermaid.ink API를 통해 다이어그램을 PNG 이미지로 렌더링합니다."
   },
   "de": {
     "tool.description": "Analysieren Sie ein Codebasisverzeichnis und einen Ausgabedateibaum mit Symboldefinitionen (Klassen, Funktionen usw.) in mehreren Sprachen. Unterstützt C#, Python, TypeScript, Go, Rust, C/C++, Java, Kotlin und mehr. Liest .sln/.csproj, build.gradle.kts, Cargo.toml, go.mod, CMakeLists.txt, Makefile, package.json, pyproject.toml für projektbezogenes Quellscannen.",
@@ -105,7 +115,9 @@
       "Repository-Struktur",
       "コードマップ"
     ],
-    "param.format.description": "Ausgabeformat: 'json' fur strukturierte Daten, 'mermaid' fur visuelle Diagramme."
+    "param.format.description": "Ausgabeformat: 'json' fur strukturierte Daten, 'mermaid' fur visuelle Diagramme.",
+    "param.output_dir.description": "Verzeichnis zum Speichern der Ausgabedatei, anstatt sie zuruckzugeben. Fur das mermaid-Format mit render_image=true wird es als PNG gespeichert. Verwendet die Namenskonvention: code_map_<timestamp>.<ext>.",
+    "param.render_image.description": "Wenn das Format 'mermaid' lautet und output_dir festgelegt ist, rendern Sie das Diagramm auch als PNG-Bild uber die Mermaid.ink-API."
   },
   "it": {
     "tool.description": "Analizza una directory di base di codice e una struttura di file di output con definizioni di simboli (classi, funzioni, ecc.) in più lingue. Supporta C#, Python, TypeScript, Go, Rust, C/C++, Java, Kotlin e altro. Legge .sln/.csproj, build.gradle.kts, Cargo.toml, go.mod, CMakeLists.txt, Makefile, package.json, pyproject.toml per la scansione dell'origine compatibile con il progetto.",
@@ -123,7 +135,9 @@
       "struttura del deposito",
       "コードマップ"
     ],
-    "param.format.description": "Formato di output: 'json' per dati strutturati, 'mermaid' per diagramma visivo."
+    "param.format.description": "Formato di output: 'json' per dati strutturati, 'mermaid' per diagramma visivo.",
+    "param.output_dir.description": "Directory in cui salvare il file di output invece di restituirlo. Per il formato mermaid con render_image=true, salva come PNG. Utilizza la convenzione di denominazione: code_map_<timestamp>.<ext>.",
+    "param.render_image.description": "Quando il formato e 'mermaid' e output_dir e impostato, esegui il rendering del diagramma anche come immagine PNG tramite l'API Mermaid.ink."
   },
   "ru": {
     "tool.description": "Анализируйте каталог базы кода и дерево выходных файлов с определениями символов (классов, функций и т. д.) на нескольких языках. Поддерживает C#, Python, TypeScript, Go, Rust, C/C++, Java, Kotlin и другие. Читает .sln/.csproj, build.gradle.kts, Cargo.toml, go.mod, CMakeLists.txt, Makefile, package.json, pyproject.toml для сканирования исходного кода с учетом проекта.",
@@ -141,7 +155,9 @@
       "структура репозитория",
       "コードマップ"
     ],
-    "param.format.description": "Формат вывода: 'json' для структурированных данных, 'mermaid' для визуальной диаграммы."
+    "param.format.description": "Формат вывода: 'json' для структурированных данных, 'mermaid' для визуальной диаграммы.",
+    "param.output_dir.description": "Каталог для сохранения выходного файла вместо его возврата. Для формата mermaid с render_image=true сохраняется как PNG. Использует соглашение об именах: code_map_<timestamp>.<ext>.",
+    "param.render_image.description": "Если формат 'mermaid' и установлен output_dir, также визуализируйте диаграмму как изображение PNG через API Mermaid.ink."
   },
   "pt_br": {
     "tool.description": "Analise um diretório de base de código e uma árvore de arquivos de saída com definições de símbolos (classes, funções, etc.) em vários idiomas. Suporta C#, Python, TypeScript, Go, Rust, C/C++, Java, Kotlin e muito mais. Lê .sln/.csproj, build.gradle.kts, Cargo.toml, go.mod, CMakeLists.txt, Makefile, package.json, pyproject.toml para verificação de origem com reconhecimento de projeto.",
@@ -159,7 +175,9 @@
       "estrutura do repositório",
       "コードマップ"
     ],
-    "param.format.description": "Formato de saida: 'json' para dados estruturados, 'mermaid' para diagrama visual."
+    "param.format.description": "Formato de saida: 'json' para dados estruturados, 'mermaid' para diagrama visual.",
+    "param.output_dir.description": "Diretorio para salvar o arquivo de saida em vez de retorna-lo. Para formato mermaid com render_image=true, salva como PNG. Usa convencao de nomenclatura: code_map_<timestamp>.<ext>.",
+    "param.render_image.description": "Quando o formato for 'mermaid' e output_dir estiver definido, renderize tambem o diagrama como uma imagem PNG por meio da API Mermaid.ink."
   },
   "pt": {
     "tool.description": "Analise um diretório de base de código e uma árvore de arquivos de saída com definições de símbolos (classes, funções, etc.) em vários idiomas. Suporta C#, Python, TypeScript, Go, Rust, C/C++, Java, Kotlin e muito mais. Lê .sln/.csproj, build.gradle.kts, Cargo.toml, go.mod, CMakeLists.txt, Makefile, package.json, pyproject.toml para verificação de origem com reconhecimento de projeto.",
@@ -177,7 +195,9 @@
       "estrutura do repositório",
       "コードマップ"
     ],
-    "param.format.description": "Formato de saida: 'json' para dados estruturados, 'mermaid' para diagrama visual."
+    "param.format.description": "Formato de saida: 'json' para dados estruturados, 'mermaid' para diagrama visual.",
+    "param.output_dir.description": "Diretorio para salvar o arquivo de saida em vez de retorna-lo. Para formato mermaid com render_image=true, salva como PNG. Usa convencao de nomenclatura: code_map_<timestamp>.<ext>.",
+    "param.render_image.description": "Quando o formato for 'mermaid' e output_dir estiver definido, renderize tambem o diagrama como uma imagem PNG por meio da API Mermaid.ink."
   },
   "id": {
     "tool.description": "Analisis direktori basis kode dan pohon file keluaran dengan definisi simbol (kelas, fungsi, dll.) dalam berbagai bahasa. Mendukung C#, Python, TypeScript, Go, Rust, C/C++, Java, Kotlin, dan banyak lagi. Membaca .sln/.csproj, build.gradle.kts, Cargo.toml, go.mod, CMakeLists.txt, Makefile, package.json, pyproject.toml untuk pemindaian sumber yang mendukung proyek.",
@@ -195,7 +215,9 @@
       "struktur repositori",
       "コードマップ"
     ],
-    "param.format.description": "Format keluaran: 'json' untuk data terstruktur, 'mermaid' untuk diagram visual."
+    "param.format.description": "Format keluaran: 'json' untuk data terstruktur, 'mermaid' untuk diagram visual.",
+    "param.output_dir.description": "Direktori untuk menyimpan file keluaran alih-alih mengembalikannya. Untuk format mermaid dengan render_image=true, simpan sebagai PNG. Menggunakan konvensi penamaan: code_map_<timestamp>.<ext>.",
+    "param.render_image.description": "Ketika formatnya adalah 'mermaid' dan output_dir disetel, render juga diagram sebagai gambar PNG melalui API Mermaid.ink."
   },
   "vi": {
     "tool.description": "Phân tích thư mục cơ sở mã và cây tệp đầu ra với các định nghĩa ký hiệu (lớp, hàm, v.v.) trên nhiều ngôn ngữ. Hỗ trợ C#, Python, TypeScript, Go, Rust, C/C++, Java, Kotlin, v.v. Đọc .sln/.csproj, build.gradle.kts, Cargo.toml, go.mod, CMakeLists.txt, Makefile, pack.json, pyproject.toml để quét nguồn nhận biết dự án.",
@@ -213,7 +235,9 @@
       "cấu trúc kho lưu trữ",
       "コードマップ"
     ],
-    "param.format.description": "Định dạng đầu ra: 'json' cho dữ liệu có cấu trúc, 'mermaid' cho sơ đồ trực quan."
+    "param.format.description": "Định dạng đầu ra: 'json' cho dữ liệu có cấu trúc, 'mermaid' cho sơ đồ trực quan.",
+    "param.output_dir.description": "Thu muc luu file dau ra thay vi tra ve. Doi voi dinh dang mermaid co render_image=true, hay luu duoi dang PNG. Su dung quy uoc dat ten: code_map_<timestamp>.<ext>.",
+    "param.render_image.description": "Khi dinh dang la 'mermaid' va output_dir duoc dat, hay hien thi so do duoi dang hinh anh PNG thong qua API Mermaid.ink."
   },
   "pl": {
     "tool.description": "Analizuj katalog bazy kodu i drzewo plików wyjściowych z definicjami symboli (klas, funkcji itp.) w wielu językach. Obsługuje C#, Python, TypeScript, Go, Rust, C/C++, Java, Kotlin i inne. Odczytuje pliki .sln/.csproj, build.gradle.kts, Cargo.toml, go.mod, CMakeLists.txt, Makefile, package.json, pyproject.toml w celu skanowania źródeł z uwzględnieniem projektu.",
@@ -231,7 +255,9 @@
       "struktura repozytorium",
       "コードマップ"
     ],
-    "param.format.description": "Format wyjściowy: 'json' dla danych strukturalnych, 'mermaid' dla diagramu wizualnego."
+    "param.format.description": "Format wyjściowy: 'json' dla danych strukturalnych, 'mermaid' dla diagramu wizualnego.",
+    "param.output_dir.description": "Katalog, w ktorym zapisywany jest plik wyjsciowy zamiast go zwracac. W przypadku formatu mermaid z render_image=true zapisuje jako PNG. Uzywa konwencji nazewnictwa: code_map_<timestamp>.<ext>.",
+    "param.render_image.description": "Jesli format to 'mermaid' i ustawiony jest output_dir, wyrenderuj rowniez diagram jako obraz PNG za posrednictwem interfejsu API Mermaid.ink."
   },
   "hi": {
     "tool.description": "कई भाषाओं में प्रतीक परिभाषाओं (कक्षाएं, फ़ंक्शन इत्यादि) के साथ कोडबेस निर्देशिका और आउटपुट फ़ाइल ट्री का विश्लेषण करें। सी#, पायथन, टाइपस्क्रिप्ट, गो, रस्ट, सी/सी++, जावा, कोटलिन और बहुत कुछ का समर्थन करता है। प्रोजेक्ट-अवेयर सोर्स स्कैनिंग के लिए .sln/.csproj, build.gradle.kts, Cargo.toml, go.mod, CMakeLists.txt, Makefile, package.json, pyproject.toml को पढ़ता है।",
@@ -249,7 +275,9 @@
       "भंडार संरचना",
       "コードマップ"
     ],
-    "param.format.description": "आउटपुट स्वरूप: संरचित डेटा के लिए 'json', दृश्य आरेख के लिए 'mermaid'।"
+    "param.format.description": "आउटपुट स्वरूप: संरचित डेटा के लिए 'json', दृश्य आरेख के लिए 'mermaid'।",
+    "param.output_dir.description": "आउटपुट फ़ाइल को वापस करने के बजाय उसे सहेजने के लिए निर्देशिका। render_image=true के साथ mermaid प्रारूप के लिए, PNG के रूप में सहेजा जाता है। नामकरण परंपरा का उपयोग करता है: code_map_<timestamp>.<ext>.",
+    "param.render_image.description": "जब प्रारूप 'mermaid' हो और output_dir सेट हो, तो आरेख को Mermaid.ink API के माध्यम से PNG छवि के रूप में प्रस्तुत करें।"
   },
   "ar": {
     "tool.description": "قم بتحليل دليل قاعدة التعليمات البرمجية وشجرة ملفات الإخراج مع تعريفات الرموز (الفئات والوظائف وما إلى ذلك) عبر لغات متعددة. يدعم C#، وPython، وTypeScript، وGo، وRust، وC/C++، وJava، وKotlin، والمزيد. يقرأ .sln/.csproj، وbuild.gradle.kts، وCargo.toml، وgo.mod، وCMakeLists.txt، وMakefile، وpackage.json، وpyproject.toml لمسح المصدر حسب المشروع.",
@@ -267,7 +295,9 @@
       "هيكل المستودع",
       "コードマップ"
     ],
-    "param.format.description": "تنسيق الإخراج: 'json' للبيانات المنظمة، 'mermaid' للرسم التخطيطي المرئي."
+    "param.format.description": "تنسيق الإخراج: 'json' للبيانات المنظمة، 'mermaid' للرسم التخطيطي المرئي.",
+    "param.output_dir.description": "الدليل لحفظ ملف الإخراج بدلا من إعادته. بالنسبة إلى تنسيق mermaid مع render_image=true، يتم حفظه بتنسيق PNG. يستخدم اصطلاح التسمية: code_map_<timestamp>.<ext>.",
+    "param.render_image.description": "عندما يكون التنسيق 'mermaid' ويتم تعيين output_dir، قم أيضًا بعرض الرسم التخطيطي كصورة PNG عبر واجهة برمجة تطبيقات Mermaid.ink."
   },
   "sv": {
     "tool.description": "Analysera en kodbaskatalog och utdatafilträd med symboldefinitioner (klasser, funktioner, etc.) över flera språk. Stöder C#, Python, TypeScript, Go, Rust, C/C++, Java, Kotlin och mer. Läser .sln/.csproj, build.gradle.kts, Cargo.toml, go.mod, CMakeLists.txt, Makefile, package.json, pyproject.toml för projektmedveten källskanning.",
@@ -285,7 +315,9 @@
       "förvarsstruktur",
       "コードマップ"
     ],
-    "param.format.description": "Utdataformat: 'json' for strukturerad data, 'mermaid' for visuellt diagram."
+    "param.format.description": "Utdataformat: 'json' for strukturerad data, 'mermaid' for visuellt diagram.",
+    "param.output_dir.description": "Katalog for att spara utdatafilen istallet for att returnera den. For mermaid-format med render_image=true, sparas som PNG. Anvander namnkonvention: code_map_<timestamp>.<ext>.",
+    "param.render_image.description": "Nar formatet ar 'mermaid' och output_dir ar installt, aterge aven diagrammet som en PNG-bild via Mermaid.ink API."
   },
   "sw": {
     "tool.description": "Changanua saraka ya msingi wa msimbo na mti wa towe wa faili ukitumia ufafanuzi wa alama (madarasa, vitendaji, n.k.) katika lugha nyingi. Inasaidia C#, Python, TypeScript, Go, Rust, C/C++, Java, Kotlin, na zaidi. Inasoma .sln/.csproj, build.gradle.kts, Cargo.toml, go.mod, CMakeLists.txt, Makefile, package.json, pyproject.toml kwa utambazaji wa chanzo kinachofahamu mradi.",
@@ -303,7 +335,9 @@
       "muundo wa hifadhi",
       "コードマップ"
     ],
-    "param.format.description": "Umbizo la pato: 'json' kwa data iliyopangwa, 'mermaid' kwa mchoro unaoonekana."
+    "param.format.description": "Umbizo la pato: 'json' kwa data iliyopangwa, 'mermaid' kwa mchoro unaoonekana.",
+    "param.output_dir.description": "Saraka ya kuhifadhi faili ya towe badala ya kuirejesha. Kwa umbizo la mermaid na render_image=true, huhifadhi kama PNG. Hutumia kanuni ya kutaja: code_map_<timestamp>.<ext>.",
+    "param.render_image.description": "Wakati umbizo ni 'mermaid' na output_dir imewekwa, pia toa mchoro kama picha ya PNG kupitia Mermaid.ink API."
   },
   "nb": {
     "tool.description": "Analyser en kodebasekatalog og utdatafiltre med symboldefinisjoner (klasser, funksjoner osv.) på tvers av flere språk. Støtter C#, Python, TypeScript, Go, Rust, C/C++, Java, Kotlin og mer. Leser .sln/.csproj, build.gradle.kts, Cargo.toml, go.mod, CMakeLists.txt, Makefile, package.json, pyproject.toml for prosjektbevisst kildeskanning.",
@@ -321,7 +355,9 @@
       "depotstruktur",
       "コードマップ"
     ],
-    "param.format.description": "Utdataformat: 'json' for strukturerte data, 'mermaid' for visuelt diagram."
+    "param.format.description": "Utdataformat: 'json' for strukturerte data, 'mermaid' for visuelt diagram.",
+    "param.output_dir.description": "Katalog for a lagre utdatafilen i stedet for a returnere den. For mermaid-format med render_image=true, lagres som PNG. Bruker navnekonvensjon: code_map_<timestamp>.<ext>.",
+    "param.render_image.description": "Nar formatet er 'mermaid' og output_dir er satt, ma du ogsa gjengi diagrammet som et PNG-bilde via Mermaid.ink API."
   },
   "nl": {
     "tool.description": "Analyseer een codebase-directory en uitvoerbestandsboom met symbooldefinities (klassen, functies, enz.) in meerdere talen. Ondersteunt C#, Python, TypeScript, Go, Rust, C/C++, Java, Kotlin en meer. Leest .sln/.csproj, build.gradle.kts, Cargo.toml, go.mod, CMakeLists.txt, Makefile, package.json, pyproject.toml voor projectbewust bronscannen.",
@@ -339,7 +375,9 @@
       "structuur van de opslagplaats",
       "コードマップ"
     ],
-    "param.format.description": "Uitvoerformaat: 'json' voor gestructureerde gegevens, 'mermaid' voor visueel diagram."
+    "param.format.description": "Uitvoerformaat: 'json' voor gestructureerde gegevens, 'mermaid' voor visueel diagram.",
+    "param.output_dir.description": "Directory om het uitvoerbestand op te slaan in plaats van het terug te sturen. Voor het mermaid-formaat met render_image=true, wordt het opgeslagen als PNG. Gebruikt naamgevingsconventie: code_map_<timestamp>.<ext>.",
+    "param.render_image.description": "Wanneer het formaat 'mermaid' is en output_dir is ingesteld, rendert u het diagram ook als een PNG-afbeelding via de Mermaid.ink API."
   },
   "fi": {
     "tool.description": "Analysoi koodikantahakemistoa ja tulostiedostopuuta symbolimäärittelyillä (luokat, funktiot jne.) useilla kielillä. Tukee C#, Python, TypeScript, Go, Rust, C/C++, Java, Kotlin ja paljon muuta. Lukee tiedostot .sln/.csproj, build.gradle.kts, Cargo.toml, go.mod, CMakeLists.txt, Makefile, package.json, pyproject.toml projektitietoisten lähteiden skannausta varten.",
@@ -357,7 +395,9 @@
       "arkiston rakenne",
       "コードマップ"
     ],
-    "param.format.description": "Tulostusmuoto: 'json' strukturoidulle tiedolle, 'mermaid' visuaaliselle kaaviolle."
+    "param.format.description": "Tulostusmuoto: 'json' strukturoidulle tiedolle, 'mermaid' visuaaliselle kaaviolle.",
+    "param.output_dir.description": "Hakemisto tulostiedoston tallentamiseen sen palauttamisen sijaan. Mermaid-muodossa, jossa on render_image=true, tallennetaan PNG-muodossa. Kayttaa nimeamiskaytantoa: code_map_<timestamp>.<ext>.",
+    "param.render_image.description": "Kun muoto on 'mermaid' ja output_dir on asetettu, renderoi kaavio myos PNG-kuvana Mermaid.ink API:n kautta."
   },
   "cs": {
     "tool.description": "Analyzujte adresář kódové báze a strom výstupních souborů s definicemi symbolů (třídy, funkce atd.) ve více jazycích. Podporuje C#, Python, TypeScript, Go, Rust, C/C++, Java, Kotlin a další. Čte soubory .sln/.csproj, build.gradle.kts, Cargo.toml, go.mod, CMakeLists.txt, Makefile, package.json, pyproject.toml pro skenování zdrojů podle projektu.",
@@ -375,7 +415,9 @@
       "struktura úložiště",
       "コードマップ"
     ],
-    "param.format.description": "Vystupni format: 'json' pro strukturovana data, 'mermaid' pro vizualni diagram."
+    "param.format.description": "Vystupni format: 'json' pro strukturovana data, 'mermaid' pro vizualni diagram.",
+    "param.output_dir.description": "Adresar pro ulozeni vystupniho souboru namisto jeho vraceni. Pro format mermaid s render_image=true se ulozi jako PNG. Pouziva konvenci pojmenovani: code_map_<timestamp>.<ext>.",
+    "param.render_image.description": "Kdyz je format 'mermaid' a je nastaven output_dir, vykreslete diagram take jako obrazek PNG prostrednictvim rozhrani Mermaid.ink API."
   },
   "uk": {
     "tool.description": "Аналізуйте каталог бази коду та дерево вихідних файлів із визначеннями символів (класи, функції тощо) кількома мовами. Підтримує C#, Python, TypeScript, Go, Rust, C/C++, Java, Kotlin тощо. Читає .sln/.csproj, build.gradle.kts, Cargo.toml, go.mod, CMakeLists.txt, Makefile, package.json, pyproject.toml для сканування джерела з урахуванням проекту.",
@@ -393,7 +435,9 @@
       "структура сховища",
       "コードマップ"
     ],
-    "param.format.description": "Формат виводу: 'json' для структурованих даних, 'mermaid' для вiзуальноi дiаграми."
+    "param.format.description": "Формат виводу: 'json' для структурованих даних, 'mermaid' для вiзуальноi дiаграми.",
+    "param.output_dir.description": "Каталог для збереження вихідного файлу замість його повернення. Для формату mermaid із render_image=true зберігає як PNG. Використовує угоду про найменування: code_map_<timestamp>.<ext>.",
+    "param.render_image.description": "Якщо формат 'mermaid' і встановлено output_dir, діаграму також візуалізуйте як зображення PNG за допомогою API Mermaid.ink."
   },
   "tr": {
     "tool.description": "Bir kod tabanı dizinini ve çıktı dosyası ağacını birden çok dilde sembol tanımlarıyla (sınıflar, işlevler vb.) analiz edin. C#, Python, TypeScript, Go, Rust, C/C++, Java, Kotlin ve daha fazlasını destekler. Projeye duyarlı kaynak taraması için .sln/.csproj, build.gradle.kts, Cargo.toml, go.mod, CMakeLists.txt, Makefile, package.json, pyproject.toml'yi okur.",
@@ -411,7 +455,9 @@
       "depo yapısı",
       "コードマップ"
     ],
-    "param.format.description": "Cikis formati: yapilandirilmis veriler icin 'json', gorsel diyagram icin 'mermaid'."
+    "param.format.description": "Cikis formati: yapilandirilmis veriler icin 'json', gorsel diyagram icin 'mermaid'.",
+    "param.output_dir.description": "Cikti dosyasini dondurmek yerine kaydedeceginiz dizin. render_image=true degerine sahip mermaid formati icin PNG olarak kaydedilir. Adlandirma kuralini kullanir: code_map_<timestamp>.<ext>.",
+    "param.render_image.description": "Format 'mermaid' oldugunda ve output_dir ayarlandiginda, diyagrami Mermaid.ink API araciligiyla PNG goruntusu olarak da isleyin."
   },
   "th": {
     "tool.description": "วิเคราะห์ไดเร็กทอรี codebase และแผนผังไฟล์เอาท์พุตด้วยคำจำกัดความสัญลักษณ์ (คลาส ฟังก์ชัน ฯลฯ) ในหลายภาษา รองรับ C#, Python, TypeScript, Go, Rust, C/C++, Java, Kotlin และอื่นๆ อ่าน .sln/.csproj, build.gradle.kts, Cargo.toml, go.mod, CMakeLists.txt, Makefile, package.json, pyproject.toml สำหรับการสแกนแหล่งที่มาแบบรับรู้โปรเจ็กต์",
@@ -429,7 +475,9 @@
       "โครงสร้างพื้นที่เก็บข้อมูล",
       "โค๊ดマップ"
     ],
-    "param.format.description": "รูปแบบเอาต์พุต: 'json' สำหรับข้อมูลที่มีโครงสร้าง 'mermaid' สำหรับแผนภาพภาพ"
+    "param.format.description": "รูปแบบเอาต์พุต: 'json' สำหรับข้อมูลที่มีโครงสร้าง 'mermaid' สำหรับแผนภาพภาพ",
+    "param.output_dir.description": "ไดเรกทอรีสำหรับบันทึกไฟล์เอาต์พุตแทนที่จะส่งคืน สำหรับรูปแบบ mermaid ที่มี render_image=true ให้บันทึกเป็น PNG ใช้หลักการตั้งชื่อ: code_map_<timestamp>.<ext>",
+    "param.render_image.description": "เมื่อรูปแบบเปน 'mermaid' และตังค่า output_dir ให้เรนเดอร์ไดอะแกรมเปนรูปภาพ PNG ผาน Mermaid.ink API ดวย"
   },
   "zh_cn": {
     "tool.description": "Analyze a codebase directory and output file tree with symbol definitions (classes, functions, etc.) across multiple languages. Supports C#, Python, TypeScript, Go, Rust, C/C++, Java, Kotlin, and more. Reads .sln/.csproj, build.gradle.kts, Cargo.toml, go.mod, CMakeLists.txt, Makefile, package.json, pyproject.toml for project-aware source scanning.",
@@ -447,7 +495,9 @@
       "repository structure",
       "コードマップ"
     ],
-    "param.format.description": "输出格式：'json'表示结构化数据，'mermaid'表示可视化图表。"
+    "param.format.description": "输出格式：'json'表示结构化数据，'mermaid'表示可视化图表。",
+    "param.output_dir.description": "保存输出文件而不是返回它的目录。对于 mermaid 格式且 render_image=true，另存为 PNG。使用命名约定：code_map_<timestamp>.<ext>。",
+    "param.render_image.description": "当格式为'mermaid'并且设置了output_dir时，还可以通过Mermaid.ink API将图表渲染为PNG图像。"
   },
   "zh_tw": {
     "tool.description": "Analyze a codebase directory and output file tree with symbol definitions (classes, functions, etc.) across multiple languages. Supports C#, Python, TypeScript, Go, Rust, C/C++, Java, Kotlin, and more. Reads .sln/.csproj, build.gradle.kts, Cargo.toml, go.mod, CMakeLists.txt, Makefile, package.json, pyproject.toml for project-aware source scanning.",
@@ -465,7 +515,9 @@
       "repository structure",
       "コードマップ"
     ],
-    "param.format.description": "輸出格式：'json'表示結構化數據，'mermaid'表示可視化圖表。"
+    "param.format.description": "輸出格式：'json'表示結構化數據，'mermaid'表示可視化圖表。",
+    "param.output_dir.description": "保存輸出檔案而不是返回它的目錄。對於 mermaid 格式且 render_image=true，另存為 PNG。使用命名約定：code_map_<timestamp>.<ext>。",
+    "param.render_image.description": "當格式為'mermaid'並且設定了output_dir時，也可以透過Mermaid.ink API將圖表渲染為PNG影像。"
   },
   "bn": {
     "tool.description": "একাধিক ভাষা জুড়ে প্রতীক সংজ্ঞা (ক্লাস, ফাংশন, ইত্যাদি) সহ একটি কোডবেস ডিরেক্টরি এবং আউটপুট ফাইল ট্রি বিশ্লেষণ করুন। C#, Python, TypeScript, Go, Rust, C/C++, Java, Kotlin এবং আরও অনেক কিছু সমর্থন করে। প্রকল্প-সচেতন উত্স স্ক্যান করার জন্য .sln/.csproj, build.gradle.kts, Cargo.toml, go.mod, CMakeLists.txt, Makefile, package.json, pyproject.toml পড়ে।",
@@ -483,7 +535,9 @@
       "সংগ্রহস্থল গঠন",
       "コードマップ"
     ],
-    "param.format.description": "আউটপুট বিন্যাস: স্ট্রাকচার্ড ডেটার জন্য 'json', ভিজ্যুয়াল ডায়াগ্রামের জন্য 'mermaid'।"
+    "param.format.description": "আউটপুট বিন্যাস: স্ট্রাকচার্ড ডেটার জন্য 'json', ভিজ্যুয়াল ডায়াগ্রামের জন্য 'mermaid'।",
+    "param.output_dir.description": "আউটপুট ফাইলটি ফেরত দেওয়ার পরিবর্তে সংরক্ষণ করার জন্য ডিরেক্টরি। render_image=true সহ mermaid বিন্যাসের জন্য, PNG হিসাবে সংরক্ষণ করে। নামকরণের রীতি ব্যবহার করে: code_map_<timestamp>.<ext>.",
+    "param.render_image.description": "যখন বিন্যাস 'mermaid' হয় এবং output_dir সেট করা হয়, তখন Mermaid.ink API-এর মাধ্যমে একটি PNG ইমেজ হিসাবে চিত্রটি রেন্ডার করুন।"
   },
   "fa": {
     "tool.description": "دایرکتوری پایگاه کد و درخت فایل خروجی را با تعریف نمادها (کلاس ها، توابع و غیره) در چندین زبان تجزیه و تحلیل کنید. پشتیبانی از C#، Python، TypeScript، Go، Rust، C/C++، Java، Kotlin و غیره. .sln/.csproj، build.gradle.kts، Cargo.toml، go.mod، CMakeLists.txt، Makefile، package.json، pyproject.toml را برای اسکن منبع پروژه آگاه می خواند.",
@@ -501,7 +555,9 @@
       "ساختار مخزن",
       "コードマップ"
     ],
-    "param.format.description": "فرمت خروجی: 'json' برای داده های ساخت یافته، 'mermaid' برای نمودار بصری."
+    "param.format.description": "فرمت خروجی: 'json' برای داده های ساخت یافته، 'mermaid' برای نمودار بصری.",
+    "param.output_dir.description": "دایرکتوری برای ذخیره فایل خروجی به جای بازگرداندن آن. برای قالب mermaid با render_image=true، به صورت PNG ذخیره می شود. از قرارداد نامگذاری استفاده می کند: code_map_<timestamp>.<ext>.",
+    "param.render_image.description": "هنگامی که فرمت 'mermaid' و output_dir تنظیم شده است، نمودار را نیز از طریق Mermaid.ink API به عنوان یک تصویر PNG ارائه دهید."
   },
   "mn": {
     "tool.description": "Олон хэл дээрх тэмдэгтийн тодорхойлолт (анги, функц гэх мэт) бүхий кодын сангийн лавлах болон гаралтын файлын модыг шинжлэх. C#, Python, TypeScript, Go, Rust, C/C++, Java, Kotlin болон бусад зүйлсийг дэмждэг. .sln/.csproj, build.gradle.kts, Cargo.toml, go.mod, CMakeLists.txt, Makefile, package.json, pyproject.toml-г уншдаг.",
@@ -519,7 +575,9 @@
       "агуулахын бүтэц",
       "コードマップ"
     ],
-    "param.format.description": "Гаралтын формат: бүтэцлэгдсэн өгөгдлийн хувьд 'json', харааны диаграммын хувьд 'mermaid'."
+    "param.format.description": "Гаралтын формат: бүтэцлэгдсэн өгөгдлийн хувьд 'json', харааны диаграммын хувьд 'mermaid'.",
+    "param.output_dir.description": "Гаралтын файлыг буцаахын оронд хадгалах лавлах. render_image=true бүхий mermaid форматын хувьд PNG хэлбэрээр хадгална. Нэрлэх дүрмийг ашигладаг: code_map_<timestamp>.<ext>.",
+    "param.render_image.description": "Форматыг 'mermaid' болгож, output_dir-г тохируулсан үед мөн диаграммыг Mermaid.ink API-ээр дамжуулан PNG хэлбэрээр үзүүлээрэй."
   },
   "mr": {
     "tool.description": "कोडबेस डिरेक्ट्री आणि आउटपुट फाइल ट्री चे विश्लेषण करा ज्यामध्ये चिन्ह व्याख्या (वर्ग, फंक्शन्स इ.) अनेक भाषांमध्ये आहेत. C#, Python, TypeScript, Go, Rust, C/C++, Java, Kotlin आणि बरेच काही सपोर्ट करते. प्रोजेक्ट-अवेअर सोर्स स्कॅनिंगसाठी .sln/.csproj, build.gradle.kts, Cargo.toml, go.mod, CMakeLists.txt, Makefile, package.json, pyproject.toml वाचतो.",
@@ -537,7 +595,9 @@
       "भांडार रचना",
       "コードマップ"
     ],
-    "param.format.description": "आउटपुट फॉरमॅट: संरचित डेटासाठी 'json', व्हिज्युअल डायग्रामसाठी 'mermaid'."
+    "param.format.description": "आउटपुट फॉरमॅट: संरचित डेटासाठी 'json', व्हिज्युअल डायग्रामसाठी 'mermaid'.",
+    "param.output_dir.description": "आउटपुट फाइल परत करण्याऐवजी सेव्ह करण्यासाठी निर्देशिका. render_image=true सह mermaid फॉरमॅटसाठी, PNG म्हणून सेव्ह करते. नामकरण पद्धती वापरते: code_map_<timestamp>.<ext>.",
+    "param.render_image.description": "जेव्हा फॉरमॅट 'mermaid' असेल आणि output_dir सेट असेल, तेव्हा Mermaid.ink API द्वारे आकृती PNG इमेज म्हणून रेंडर करा."
   },
   "el": {
     "tool.description": "Αναλύστε έναν κατάλογο βάσης κώδικα και ένα δέντρο αρχείων εξόδου με ορισμούς συμβόλων (κλάσεις, συναρτήσεις, κ.λπ.) σε πολλές γλώσσες. Υποστηρίζει C#, Python, TypeScript, Go, Rust, C/C++, Java, Kotlin και άλλα. Διαβάζει .sln/.csproj, build.gradle.kts, Cargo.toml, go.mod, CMakeLists.txt, Makefile, package.json, pyproject.toml για σάρωση πηγών με γνώση του έργου.",
@@ -555,7 +615,9 @@
       "δομή αποθετηρίου",
       "コードマップ"
     ],
-    "param.format.description": "Μορφή εξόδου: 'json' για δομημένα δεδομένα, 'mermaid' για οπτικό διάγραμμα."
+    "param.format.description": "Μορφή εξόδου: 'json' για δομημένα δεδομένα, 'mermaid' για οπτικό διάγραμμα.",
+    "param.output_dir.description": "Κατάλογος για να αποθηκεύσετε το αρχείο εξόδου αντί να το επιστρέψετε. Για μορφή mermaid με render_image=true, αποθηκεύεται ως PNG. Χρησιμοποιεί σύμβαση ονομασίας: code_map_<timestamp>.<ext>.",
+    "param.render_image.description": "Όταν η μορφή είναι 'mermaid' και έχει οριστεί το output_dir, αποδώστε επίσης το διάγραμμα ως εικόνα PNG μέσω του Mermaid.ink API."
   },
   "he": {
     "tool.description": "נתח ספריית בסיס קוד ועץ קבצי פלט עם הגדרות סמלים (מחלקות, פונקציות וכו') על פני מספר שפות. תומך ב-C#, Python, TypeScript, Go, Rust, C/C++, Java, Kotlin ועוד. קורא .sln/.csproj, build.gradle.kts, Cargo.toml, go.mod, CMakeLists.txt, Makefile, package.json, pyproject.toml לסריקת מקור מודע לפרויקט.",
@@ -573,7 +635,9 @@
       "מבנה המאגר",
       "コードマップ"
     ],
-    "param.format.description": "פורמט פלט: 'json' עבור נתונים מובנים, 'mermaid' עבור דיאגרמה חזותית."
+    "param.format.description": "פורמט פלט: 'json' עבור נתונים מובנים, 'mermaid' עבור דיאגרמה חזותית.",
+    "param.output_dir.description": "ספרייה כדי לשמור את קובץ הפלט במקום להחזיר אותו. עבור פורמט mermaid עם render_image=true, שמירה כ-PNG. משתמש במוסכמות השמות: code_map_<timestamp>.<ext>.",
+    "param.render_image.description": "כאשר הפורמט הוא 'mermaid' ו-out_dir מוגדר, עבד גם את הדיאגרמה כתמונת PNG דרך Mermaid.ink API."
   },
   "hu": {
     "tool.description": "Kódbázis-könyvtár és kimeneti fájlfa elemzése szimbólumdefiníciókkal (osztályok, függvények stb.) több nyelven. Támogatja a C#, Python, TypeScript, Go, Rust, C/C++, Java, Kotlin stb. Beolvassa az .sln/.csproj, build.gradle.kts, Cargo.toml, go.mod, CMakeLists.txt, Makefile, package.json, pyproject.toml fájlokat a projekt-tudatos forrásellenőrzés érdekében.",
@@ -591,7 +655,9 @@
       "társzerkezet",
       "コードマップ"
     ],
-    "param.format.description": "Kimeneti formátum: 'json' a strukturalt adatokhoz, 'mermaid' a vizualis diagramokhoz."
+    "param.format.description": "Kimeneti formátum: 'json' a strukturalt adatokhoz, 'mermaid' a vizualis diagramokhoz.",
+    "param.output_dir.description": "Konyvtar a kimeneti fajl mentesere ahelyett, hogy visszakuldene. A render_image=true formatumu mermaid formatum eseten a mentes PNG formatumban tortenik. Elnevezesi konvenciot hasznal: code_map_<timestamp>.<ext>.",
+    "param.render_image.description": "Ha a formatum 'mermaid' es a kimeneti_konyvtar be van allitva, a diagramot PNG-kepkent is rendereli a Mermaid.ink API-n keresztul."
   },
   "ro": {
     "tool.description": "Analizați un director de bază de cod și un arbore de fișiere de ieșire cu definiții de simbol (clase, funcții etc.) în mai multe limbi. Suportă C#, Python, TypeScript, Go, Rust, C/C++, Java, Kotlin și multe altele. Citește .sln/.csproj, build.gradle.kts, Cargo.toml, go.mod, CMakeLists.txt, Makefile, package.json, pyproject.toml pentru scanarea surselor în funcție de proiect.",
@@ -609,6 +675,8 @@
       "structura depozitului",
       "コードマップ"
     ],
-    "param.format.description": "Format de iesire: 'json' pentru date structurate, 'mermaid' pentru diagrama vizuala."
+    "param.format.description": "Format de iesire: 'json' pentru date structurate, 'mermaid' pentru diagrama vizuala.",
+    "param.output_dir.description": "Director pentru a salva fisierul de iesire in loc sa-l returneze. Pentru formatul mermaid cu render_image=true, salveaza ca PNG. Utilizeaza conventia de denumire: code_map_<timestamp>.<ext>.",
+    "param.render_image.description": "Cand formatul este 'mermaid' si output_dir este setat, redati si diagrama ca imagine PNG prin API-ul Mermaid.ink."
   }
 }

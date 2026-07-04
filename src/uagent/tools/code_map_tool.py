@@ -1,6 +1,7 @@
 # src/uagent/tools/code_map_tool.py
 from __future__ import annotations
 
+import datetime
 import json
 import os
 import re
@@ -87,6 +88,21 @@ TOOL_SPEC: dict[str, Any] = {
                     ),
                     "enum": ["json", "mermaid"],
                     "default": "json",
+                },
+                "output_dir": {
+                    "type": "string",
+                    "description": _(
+                        "param.output_dir.description",
+                        default="Directory to save the output file instead of returning it. For mermaid format with render_image=true, saves as PNG. Uses naming convention: code_map_<timestamp>.<ext>.",
+                    ),
+                },
+                "render_image": {
+                    "type": "boolean",
+                    "description": _(
+                        "param.render_image.description",
+                        default="When format is 'mermaid' and output_dir is set, also render the diagram as a PNG image via Mermaid.ink API.",
+                    ),
+                    "default": False,
                 },
             },
             "required": [],
@@ -559,6 +575,49 @@ def _tree_to_mermaid(tree: list[dict[str, Any]], root_name: str = "root") -> str
     return "\n".join(lines)
 
 
+def _render_mermaid_to_image(mermaid_code: str, output_path: str) -> bool:
+    """Render Mermaid diagram to PNG and save to file.
+
+    Uses mermaid-cli (playwright-based) if available, falls back to Mermaid.ink API.
+    """
+    # Try mermaid-cli Python package first (local playwright rendering)
+    try:
+        import asyncio
+        from mermaid_cli import render_mermaid
+
+        async def _render():
+            _, _, png_bytes = await render_mermaid(
+                mermaid_code, output_format="png"
+            )
+            if png_bytes:
+                with open(output_path, "wb") as f:
+                    f.write(png_bytes)
+                return True
+            return False
+
+        return asyncio.run(_render())
+    except Exception:
+        pass
+
+    # Fallback: Mermaid.ink API via base64 GET
+    try:
+        import base64
+        encoded = base64.urlsafe_b64encode(mermaid_code.encode("utf-8")).decode("ascii")
+        url = f"https://mermaid.ink/img/{encoded}"
+        req = urllib.request.Request(url)
+        req.add_header("User-Agent", "Mozilla/5.0")
+        with urllib.request.urlopen(req, timeout=30) as resp:
+            png_bytes = resp.read()
+            if png_bytes:
+                with open(output_path, "wb") as f:
+                    f.write(png_bytes)
+                return True
+    except Exception:
+        pass
+
+    return False
+
+
 # ---------------------------------------------------------------------------
 # Main logic
 # ---------------------------------------------------------------------------
@@ -572,6 +631,8 @@ def run_tool(args: dict[str, Any]) -> str:
     include_symbols = bool(args.get("include_symbols", True))
     project_only = bool(args.get("project_only", False))
     output_format = args.get("format", "json")
+    output_dir = args.get("output_dir", "").strip() or None
+    render_image = bool(args.get("render_image", False))
 
     root = Path(base_path).resolve()
     if not root.exists() or not root.is_dir():
@@ -665,12 +726,64 @@ def run_tool(args: dict[str, Any]) -> str:
     # Build tree structure
     tree_root = _build_tree(file_list, str(root), max_depth)
 
+    def _timestamp() -> str:
+        return datetime.datetime.now().strftime("%Y%m%d_%H%M%S")
+
+    def _save_file(content_str: str, ext: str) -> str:
+        ts = _timestamp()
+        fname = f"code_map_{ts}.{ext}"
+        if output_dir:
+            d = Path(output_dir)
+            d.mkdir(parents=True, exist_ok=True)
+            fpath = str(d / fname)
+        else:
+            fpath = fname
+        with open(fpath, "w", encoding="utf-8") as f:
+            f.write(content_str)
+        return fpath
+
     # Mermaid output
     if output_format == "mermaid" and tree_root:
         mermaid_output = _tree_to_mermaid(tree_root)
+        saved_files = []
+
+        if output_dir:
+            mmd_path = _save_file(mermaid_output, "mmd")
+            saved_files.append(mmd_path)
+
+            if render_image:
+                png_path = mmd_path.replace(".mmd", ".png")
+                ok = _render_mermaid_to_image(mermaid_output, png_path)
+                if ok:
+                    saved_files.append(png_path)
+                else:
+                    saved_files.append(f"{png_path} (render failed)")
+
+            return json.dumps(
+                {
+                    "ok": True,
+                    "saved_files": saved_files,
+                    "message": f"Saved {len(saved_files)} file(s).",
+                },
+                ensure_ascii=False,
+                indent=2,
+            )
+
         return mermaid_output
 
-    if tree_root:
-        result["tree"] = tree_root
+    # JSON output
+    json_output = json.dumps(result, ensure_ascii=False, indent=2)
 
-    return json.dumps(result, ensure_ascii=False, indent=2)
+    if output_dir:
+        json_path = _save_file(json_output, "json")
+        return json.dumps(
+            {
+                "ok": True,
+                "saved_files": [json_path],
+                "message": f"Saved to {json_path}",
+            },
+            ensure_ascii=False,
+            indent=2,
+        )
+
+    return json_output
