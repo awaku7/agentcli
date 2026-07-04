@@ -3,16 +3,19 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2026-07-04 11:22+0900\n"
+"POT-Creation-Date: 2026-07-04 13:28+0900\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language-Team: el <LL@li.org>\n"
+"Language: el\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "Generated-By: Babel 2.18.0\n"
 
 #: src/uagent/checks.py:17 src/uagent/checks.py:27
+#, python-format
 msgid "Please install Git. See: %(url)s"
 msgstr "Εγκαταστήστε το Git. Δείτε: %(url)s"
 
@@ -261,59 +264,59 @@ msgstr "Παρέχεται αρχείο εκκίνησης: %(path)s"
 msgid "--non-interactive was specified; exiting without waiting for stdin."
 msgstr "--καθορίστηκε μη διαδραστικό. έξοδος χωρίς να περιμένεις το stdin."
 
-#: src/uagent/core.py:412
+#: src/uagent/core.py:423
 msgid "[Responses API] A previous session was found. Continue it?"
 msgstr "[Responses API] Βρέθηκε προηγούμενη συνεδρία. Να το συνεχίσω;"
 
-#: src/uagent/core.py:413
+#: src/uagent/core.py:424
 msgid "  (y) Yes - reuse previous context (saves tokens)"
 msgstr ""
 "  (y) Ναι - επαναχρησιμοποίηση του προηγούμενου περιβάλλοντος (αποθηκεύει τα"
 " διακριτικά)"
 
-#: src/uagent/core.py:414
+#: src/uagent/core.py:425
 msgid "  (n) No  - start fresh, discard saved state"
 msgstr "  (n) Όχι - εκκίνηση από την αρχή, απόρριψη αποθηκευμένης κατάστασης"
 
-#: src/uagent/core.py:420
+#: src/uagent/core.py:431
 msgid "[Responses API] Continuing previous session."
 msgstr "[Απάντηση API] Συνέχεια προηγούμενης συνεδρίας."
 
-#: src/uagent/core.py:423
+#: src/uagent/core.py:434
 msgid "[Responses API] Starting fresh session."
 msgstr "[Responses API] Έναρξη νέας περιόδου σύνδεσης."
 
-#: src/uagent/core.py:534 src/uagent/core.py:555
+#: src/uagent/core.py:546 src/uagent/core.py:567
 #, python-format
 msgid "Environment variable %(name)s is not set."
 msgstr "Η μεταβλητή περιβάλλοντος %(name)s δεν έχει οριστεί."
 
-#: src/uagent/core.py:855
+#: src/uagent/core.py:867
 msgid "No log files found."
 msgstr "Δεν βρέθηκαν αρχεία καταγραφής."
 
-#: src/uagent/core.py:873
+#: src/uagent/core.py:885
 msgid "(unknown time)"
 msgstr "(άγνωστη ώρα)"
 
-#: src/uagent/core.py:876
+#: src/uagent/core.py:888
 #, python-format
 msgid "logs: showing %(shown)d/%(total)d (dir=%(dir)s)"
 msgstr "αρχεία καταγραφής: εμφανίζει %(shown)d/%(total)d (dir=%(dir)s)"
 
-#: src/uagent/core.py:879
+#: src/uagent/core.py:891
 msgid "Log files:"
 msgstr "Αρχεία καταγραφής:"
 
-#: src/uagent/core.py:886
+#: src/uagent/core.py:898
 msgid "(mtime unknown)"
 msgstr "(άγνωστο mtime)"
 
-#: src/uagent/core.py:1004 src/uagent/core.py:1007
+#: src/uagent/core.py:1016 src/uagent/core.py:1019
 msgid "(no user message)"
 msgstr "(χωρίς μήνυμα χρήστη)"
 
-#: src/uagent/core.py:1012
+#: src/uagent/core.py:1024
 #, python-format
 msgid ""
 "[%(idx)d] %(mtime_text)s | %(turns)d msgs | first: %(first_user)s | last: "
@@ -322,7 +325,7 @@ msgstr ""
 "[%(idx)d] %(mtime_text)s | %(turns)d μηνύματα | πρώτο: %(first_user)s | "
 "τελευταίο: %(last_user)s"
 
-#: src/uagent/core.py:1264
+#: src/uagent/core.py:1276
 #, python-format
 msgid ""
 "[INFO] There were %(count)d messages to compress, so nothing was changed."
@@ -330,7 +333,7 @@ msgstr ""
 "[ΠΛΗΡΟΦΟΡΙΕΣ] Υπήρχαν %(count)d μηνύματα προς συμπίεση, επομένως δεν άλλαξε "
 "τίποτα."
 
-#: src/uagent/core.py:1275
+#: src/uagent/core.py:1287
 #, python-format
 msgid ""
 "[INFO] Compressed in-memory conversation history: %(old_n)d -> %(new_n)d "
@@ -339,21 +342,23 @@ msgstr ""
 "[INFO] Συμπιεσμένο ιστορικό συνομιλιών στη μνήμη: %(old_n)d -> %(new_n)d "
 "μηνύματα (keep_last=%(keep_last)d)"
 
-#: src/uagent/core.py:1586
+#: src/uagent/core.py:1598
+#, python-format
 msgid "429 retry limit (%(max_retries)s) reached while history compression."
 msgstr ""
 "Συμπληρώθηκε το όριο επανάληψης 429 (%(max_retries)s) κατά τη συμπίεση "
 "ιστορικού."
 
-#: src/uagent/core.py:1596
+#: src/uagent/core.py:1608
+#, python-format
 msgid "Error while calling LLM for history compression: %(err)r"
 msgstr "Σφάλμα κατά την κλήση του LLM για συμπίεση ιστορικού: %(err)r"
 
-#: src/uagent/core.py:1631
+#: src/uagent/core.py:1643
 msgid "- Summarize the conversation chunk in English.\n"
 msgstr "- Συνοψίστε το κομμάτι της συνομιλίας στα αγγλικά."
 
-#: src/uagent/core.py:1633
+#: src/uagent/core.py:1645
 msgid ""
 "- Keep the summary concise but include key decisions, constraints, and "
 "pending items.\n"
@@ -361,28 +366,28 @@ msgstr ""
 "- Διατηρήστε τη σύνοψη συνοπτική, αλλά συμπεριλάβετε βασικές αποφάσεις, "
 "περιορισμούς και στοιχεία που εκκρεμούν."
 
-#: src/uagent/core.py:1635
+#: src/uagent/core.py:1647
 msgid "- Output should be directly usable as a system message."
 msgstr ""
 "- Η έξοδος θα πρέπει να μπορεί να χρησιμοποιηθεί άμεσα ως μήνυμα συστήματος."
 
-#: src/uagent/core.py:1638
+#: src/uagent/core.py:1650
 msgid "Conversation chunk:\n"
 msgstr "Κομμάτι συνομιλίας:"
 
-#: src/uagent/core.py:1640
+#: src/uagent/core.py:1652
 msgid "Write a concise summary of this chunk."
 msgstr "Γράψτε μια συνοπτική περίληψη αυτού του κομματιού."
 
-#: src/uagent/core.py:1644
+#: src/uagent/core.py:1656
 msgid "- You are updating an existing conversation summary.\n"
 msgstr "- Ενημερώνετε μια υπάρχουσα σύνοψη συνομιλίας."
 
-#: src/uagent/core.py:1645
+#: src/uagent/core.py:1657
 msgid "- Preserve important facts from the previous summary.\n"
 msgstr "- Διατηρήστε σημαντικά στοιχεία από την προηγούμενη περίληψη."
 
-#: src/uagent/core.py:1647
+#: src/uagent/core.py:1659
 msgid ""
 "- Merge in the new chunk without losing constraints, decisions, or pending "
 "items.\n"
@@ -390,33 +395,35 @@ msgstr ""
 "- Συγχώνευση στο νέο κομμάτι χωρίς να χάσετε περιορισμούς, αποφάσεις ή "
 "αντικείμενα σε εκκρεμότητα."
 
-#: src/uagent/core.py:1649
+#: src/uagent/core.py:1661
 msgid "- Keep the result concise and suitable for a system message."
 msgstr ""
 "- Διατηρήστε το αποτέλεσμα συνοπτικό και κατάλληλο για ένα μήνυμα "
 "συστήματος."
 
-#: src/uagent/core.py:1652
+#: src/uagent/core.py:1664
 msgid "Previous summary:\n"
 msgstr "Προηγούμενη περίληψη:"
 
-#: src/uagent/core.py:1654
+#: src/uagent/core.py:1666
 msgid "New chunk:\n"
 msgstr "Νέο κομμάτι:"
 
-#: src/uagent/core.py:1656
+#: src/uagent/core.py:1668
 msgid "Update the summary while keeping the prior context intact."
 msgstr "Ενημερώστε τη σύνοψη διατηρώντας ανέπαφο το προηγούμενο πλαίσιο."
 
-#: src/uagent/core.py:1667
+#: src/uagent/core.py:1679
+#, python-format
 msgid "[shrink_llm] Summarizing chunk %(i)d/%(n)d..."
 msgstr "[shrink_llm] Συνοψίζοντας το κομμάτι %(i)d/%(n)d..."
 
-#: src/uagent/core.py:1685
+#: src/uagent/core.py:1697
 msgid "Summary of the conversation so far:\n"
 msgstr "Περίληψη της μέχρι τώρα συζήτησης:"
 
-#: src/uagent/core.py:1692
+#: src/uagent/core.py:1704
+#, python-brace-format
 msgid ""
 "[INFO] shrink_llm: {old_n} -> {new_n} messages (compressed {old_part_n} "
 "older messages into 1 summary; kept {tail_n} tail)"
@@ -424,7 +431,7 @@ msgstr ""
 "[ΠΛΗΡΟΦΟΡΙΕΣ] shrink_llm: {old_n} -> {new_n} μηνύματα (συμπιέζονται "
 "{old_part_n} παλαιότερα μηνύματα σε 1 σύνοψη, διατηρούνται {tail_n} ουρά)"
 
-#: src/uagent/core.py:1720
+#: src/uagent/core.py:1732
 msgid ""
 "[WARN] history compression hit context length even at chunk_size=1; falling "
 "back to shrink_messages()."
@@ -432,7 +439,7 @@ msgstr ""
 "[ΠΡΟΕΙΔΟΠΟΙΗΣΗ] το μήκος του πλαισίου του χτυπήματος συμπίεσης ιστορικού "
 "ακόμη και σε chunk_size=1. επιστρέφοντας στο shrink_messages()."
 
-#: src/uagent/core.py:1730
+#: src/uagent/core.py:1742
 msgid ""
 "[WARN] history compression could not reduce chunk_size further; falling back"
 " to shrink_messages()."
@@ -440,7 +447,7 @@ msgstr ""
 "[ΠΡΟΕΙΔΟΠΟΙΗΣΗ] η συμπίεση ιστορικού δεν μπόρεσε να μειώσει περαιτέρω το "
 "chunk_size. επιστρέφοντας στο shrink_messages()."
 
-#: src/uagent/core.py:1738
+#: src/uagent/core.py:1750
 #, python-format
 msgid ""
 "[WARN] history compression context length exceeded; retrying with "
@@ -449,7 +456,7 @@ msgstr ""
 "[ΠΡΟΕΙΔΟΠΟΙΗΣΗ] Υπέρβαση μήκους περιβάλλοντος συμπίεσης ιστορικού. επανάληψη"
 " με chunk_size=%(chunk_size)d"
 
-#: src/uagent/core.py:1748
+#: src/uagent/core.py:1760
 msgid ""
 "[WARN] history compression failed due to LLM error; falling back to "
 "shrink_messages()."
@@ -457,12 +464,12 @@ msgstr ""
 "[ΠΡΟΕΙΔΟΠΟΙΗΣΗ] η συμπίεση ιστορικού απέτυχε λόγω σφάλματος LLM. "
 "επιστρέφοντας στο shrink_messages()."
 
-#: src/uagent/core.py:1769
+#: src/uagent/core.py:1781
 #, python-format
 msgid ":help  (help unavailable: %(err)s)"
 msgstr ":help (η βοήθεια δεν είναι διαθέσιμη: %(err)s)"
 
-#: src/uagent/core.py:1781
+#: src/uagent/core.py:1793
 msgid ""
 "## Mission\n"
 "- You are a capable \"general-purpose tool execution agent\" running on a local environment, and you can actually execute commands and operate on files on the user's machine.\n"
@@ -480,7 +487,7 @@ msgstr ""
 "- Κατά τη δημιουργία αρχείων, εξάγετε ολόκληρο το τελικό περιεχόμενο (μην εξάγετε διαφορές ή μερικές περιλήψεις).\n"
 "- Μην βγάζετε αποτελέσματα εκτέλεσης ακατέργαστων εργαλείων, θραύσματα JSON ή αγκύλες (όπως `py]}`) στην τελική σας απάντηση. Διατηρήστε την έξοδο σας καθαρή και καλά διαμορφωμένη."
 
-#: src/uagent/core.py:1790
+#: src/uagent/core.py:1802
 msgid ""
 "## Rules\n"
 "- Always use the provided tools and verify the latest information.\n"
@@ -494,7 +501,7 @@ msgstr ""
 "- Συμβουλευτείτε τα διαθέσιμα εργαλεία και επιλέξτε το καταλληλότερο.\n"
 "- Κατά την εκτέλεση εργαλείων, αναθέστε όσο το δυνατόν λιγότερη λήψη αποφάσεων στον χρήστη."
 
-#: src/uagent/core.py:1797
+#: src/uagent/core.py:1809
 msgid ""
 "## Notes\n"
 "- All user messages come via this script's standard input.\n"
@@ -520,7 +527,7 @@ msgstr ""
 "- Εάν απαιτούνται γνώσεις σε επίπεδο ειδικού, χρησιμοποιήστε πρότυπα προτροπής (Δεξιότητες αντιπροσώπων) και ακολουθήστε τα.\n"
 "- Εάν η εισαγωγή του χρήστη είναι μόνο μια σύντομη επιβεβαίωση και δεν προσθέτει νέες πληροφορίες, μην επαναλάβετε την ίδια εξήγηση εκτός εάν είναι μια άμεση απάντηση στην αμέσως προηγούμενη σαφή ερώτηση. Εάν χρειάζεται, ρωτήστε εν συντομία: \"Με ποιο σημείο να συνεχίσω;\""
 
-#: src/uagent/core.py:1810
+#: src/uagent/core.py:1822
 msgid ""
 "## Dangerous operation policy (delete_file)\n"
 "- For deletion using the delete_file tool, do NOT ask for confirmation before preview.\n"
@@ -536,7 +543,7 @@ msgstr ""
 "- Μόνο όταν ο χρήστης απαντήσει ρητά \"y\" ή \"ναι\" (ή ισοδύναμη ρητή έγκριση), εκτελέστε ξανά το delete_file με τις ίδιες παραμέτρους, dry_run=false, και confirmed=true.\n"
 "- Εάν υπάρχουν μηδέν υποψήφιοι, μην ρωτήσετε. απλά αναφέρετε ότι τίποτα δεν θα διαγραφεί."
 
-#: src/uagent/core.py:1818
+#: src/uagent/core.py:1830
 msgid ""
 "## Mission\n"
 "- You are a capable \"general-purpose tool execution agent\" running on a local environment; you can execute commands and operate on the user's machine.\n"
@@ -552,7 +559,7 @@ msgstr ""
 "- Κατά τη δημιουργία αρχείων, εξάγετε το πλήρες τελικό περιεχόμενο (χωρίς διαφορές/μερικές περιλήψεις).\n"
 "- Μην βγάζετε αποτελέσματα εκτέλεσης ακατέργαστων εργαλείων, θραύσματα JSON ή αγκύλες (όπως `py]}`) στην τελική σας απάντηση. Διατηρήστε την έξοδο σας καθαρή και καλά διαμορφωμένη."
 
-#: src/uagent/core.py:1826
+#: src/uagent/core.py:1838
 msgid ""
 "## Rules\n"
 "- Use the provided tools first and verify results with tools.\n"
@@ -566,7 +573,7 @@ msgstr ""
 "- Να είστε δημιουργικοί, αλλά μην βγάζετε αβέβαιες πληροφορίες.\n"
 "- Αναθέστε όσο το δυνατόν λιγότερη λήψη αποφάσεων στον χρήστη."
 
-#: src/uagent/core.py:1833
+#: src/uagent/core.py:1845
 msgid ""
 "## Notes\n"
 "- All user messages come via this script's standard input.\n"
@@ -590,7 +597,7 @@ msgstr ""
 "- Εάν απαιτείται γνώση σε επίπεδο ειδικού, χρησιμοποιήστε πρότυπα προτροπής Agent Skills.\n"
 "- Εάν η εισαγωγή του χρήστη είναι μόνο μια σύντομη επιβεβαίωση και δεν προσθέτει νέες πληροφορίες, μην επαναλάβετε την ίδια εξήγηση εκτός εάν είναι μια άμεση απάντηση στην αμέσως προηγούμενη σαφή ερώτηση. Εάν χρειάζεται, ρωτήστε εν συντομία: \"Με ποιο σημείο να συνεχίσω;\""
 
-#: src/uagent/core.py:1847
+#: src/uagent/core.py:1859
 msgid ""
 "- If the user is using Windows cmd.exe, prefer multi-line commands using "
 "caret (^) line continuation, and keep each line short to avoid copy/paste "
@@ -600,7 +607,7 @@ msgstr ""
 "γραμμών χρησιμοποιώντας τη συνέχιση της γραμμής caret (^) και κρατήστε κάθε "
 "γραμμή σύντομη για να αποφύγετε τις αλλαγές γραμμής αντιγραφής/επικόλλησης."
 
-#: src/uagent/core.py:1914
+#: src/uagent/core.py:1926
 msgid ""
 "The following tools are currently loaded in this session. Choose the most "
 "appropriate tool for the task."
@@ -1039,6 +1046,7 @@ msgstr "400 BadRequest"
 
 #: src/uagent/llm_round_helpers.py:713
 #: src/uagent/providers/llm_deepseek.py:697
+#, python-format
 msgid "Error code: %(code)d - %(err)s"
 msgstr "Κωδικός σφάλματος: %(code)d - %(err)s"
 
@@ -1072,6 +1080,7 @@ msgid "Error while parsing response: %(err)s"
 msgstr "Σφάλμα κατά την ανάλυση της απάντησης: %(err)s"
 
 #: src/uagent/profile_manager.py:623
+#, python-brace-format
 msgid ""
 "You are a user profiling agent. Analyze the conversation log and extract the user's:\n"
 "1. Environment (OS, shell, editor, etc.)\n"
@@ -1117,6 +1126,7 @@ msgstr ""
 "προφίλ..."
 
 #: src/uagent/profile_manager.py:755
+#, python-brace-format
 msgid ""
 "You are a user profiling agent. Analyze the conversation log and extract:\n"
 "1. Environment (OS, shell, editor) — only if clearly evident from the log.\n"
@@ -1165,6 +1175,7 @@ msgstr ""
 "}"
 
 #: src/uagent/profile_manager.py:833
+#, python-format
 msgid "[Warning] Failed to process chunk (%(step)s): %(err)s"
 msgstr ""
 "[Προειδοποίηση] Απέτυχε η επεξεργασία του κομματιού (%(step)s): %(err)s"
@@ -1204,6 +1215,7 @@ msgid "Welcome / Quick Guide"
 msgstr "Καλωσόρισμα / Γρήγορος οδηγός"
 
 #: src/uagent/scheckgui.py:1213
+#, python-format
 msgid "Font size: %(name)s"
 msgstr "Μέγεθος γραμματοσειράς: %(name)s"
 
@@ -1244,6 +1256,7 @@ msgid "View"
 msgstr "Θέα"
 
 #: src/uagent/scheckgui.py:1424
+#, python-format
 msgid "Font: %(name)s"
 msgstr "Γραμματοσειρά: %(name)s"
 
@@ -2150,6 +2163,7 @@ msgid "invalid verbosity"
 msgstr "άκυρη πολυλογία"
 
 #: src/uagent/util_tools.py:604
+#, python-format
 msgid ""
 "[logs] Invalid argument: %(arg)r (specify all / --all / -a / number / pdf "
 "<index>)"
@@ -2171,7 +2185,6 @@ msgid "src and dst are required"
 msgstr "src και dst απαιτούνται"
 
 #: src/uagent/util_tools.py:724
-#, python-format
 msgid ":cp <src> <dst> [-f|--overwrite] [-p|--mkdirs]"
 msgstr ":cp <src> <dst> [-f|--αντικατάσταση] [-p|--mkdirs]"
 
@@ -2206,7 +2219,6 @@ msgid "[cp] Copied: %(src)s -> %(dst)s"
 msgstr "[cp] Αντιγράφηκε: %(src)s -> %(dst)s"
 
 #: src/uagent/util_tools.py:796
-#, python-format
 msgid ":mv <src> <dst> [-f|--overwrite] [-p|--mkdirs]"
 msgstr ":mv <src> <dst> [-f|--αντικατάσταση] [-p|--mkdirs]"
 
@@ -2378,6 +2390,7 @@ msgstr ""
 " το UAGENT_SHARED_MEMORY_FILE)."
 
 #: src/uagent/util_tools.py:1940
+#, python-format
 msgid "Analyzing the most recent %d log files to generate user profile..."
 msgstr ""
 "Ανάλυση των πιο πρόσφατων αρχείων καταγραφής %d για τη δημιουργία προφίλ "
@@ -2572,14 +2585,17 @@ msgstr ""
 "εισαγωγής πολλαπλών γραμμών."
 
 #: src/uagent/util_tools.py:2225
+#, python-format
 msgid "Continue. Goal: %(goal)s"
 msgstr "Συνεχίζω. Στόχος: %(goal)s"
 
 #: src/uagent/util_tools.py:2227
+#, python-format
 msgid "Reviewer notes: %(feedback)s"
 msgstr "Σημειώσεις κριτικού: %(feedback)s"
 
 #: src/uagent/util_tools.py:2328
+#, python-format
 msgid ""
 "\n"
 "[AUTO:judge] %(judgment)s"
@@ -2588,6 +2604,7 @@ msgstr ""
 "[AUTO:judge] %(judgment)s"
 
 #: src/uagent/util_tools.py:2330
+#, python-format
 msgid "  feedback: %(feedback)s"
 msgstr "ανατροφοδότηση: %(feedback)s"
 
@@ -2600,10 +2617,12 @@ msgid "[AUTO] Review/analysis completed."
 msgstr "[AUTO] Ολοκληρώθηκε η αναθεώρηση/ανάλυση."
 
 #: src/uagent/util_tools.py:2415
+#, python-format
 msgid "[AUTO] Max rounds (%(max)d) reached. Stopping."
 msgstr "[AUTO] Επιτεύχθηκε μέγιστος γύρος (%(max)d).Στάθμευση."
 
 #: src/uagent/util_tools.py:2425
+#, python-format
 msgid "[AUTO] Round %(round)d/%(max)d"
 msgstr "[AUTO] Γύρος %(round)d/%(max)d"
 
@@ -2620,6 +2639,7 @@ msgid "       :auto off"
 msgstr ":auto εκτός λειτουργίας"
 
 #: src/uagent/util_tools.py:2491
+#, python-format
 msgid "Invalid value for --max-rounds: %(val)s"
 msgstr "Μη έγκυρη τιμή για --max-rounds: %(val)s"
 
@@ -2628,10 +2648,12 @@ msgid "Goal cannot be empty."
 msgstr "Ο στόχος δεν μπορεί να είναι κενός."
 
 #: src/uagent/util_tools.py:2512
+#, python-format
 msgid "[AUTO] Started. Goal: %(goal)s"
 msgstr "[AUTO] Ξεκίνησε. Στόχος: %(goal)s"
 
 #: src/uagent/util_tools.py:2513
+#, python-format
 msgid "[AUTO] Max rounds: %(max)d"
 msgstr "[AUTO] Μέγιστος γύρος: %(max)d"
 
@@ -2851,7 +2873,15 @@ msgstr "- \"Διαβάστε αυτό το PDF και αναφέρετε τρί�
 msgid "- \"Search the latest news and summarize a specific topic.\""
 msgstr "- \"Αναζητήστε τα τελευταία νέα και συνοψίστε ένα συγκεκριμένο θέμα.\""
 
-#: src/uagent/welcome.py:195
+#: src/uagent/welcome.py:89
+msgid ""
+"- \"Scan this project with code_map so the LLM understands the codebase "
+"faster.\""
+msgstr ""
+"- \"Σαρώστε αυτό το έργο με το code_map ώστε το LLM να κατανοήσει τη βάση "
+"κώδικα πιο γρήγορα.\""
+
+#: src/uagent/welcome.py:196
 msgid "-- More -- (Enter: next) "
 msgstr "-- Περισσότερα -- (Εισαγωγή: επόμενο)"
 
@@ -3007,6 +3037,7 @@ msgstr ""
 "περιβάλλον)."
 
 #: src/uagent/providers/llm_zai.py:366
+#, python-format
 msgid "Response body: %(body)s"
 msgstr "Σώμα απόκρισης: %(body)s"
 

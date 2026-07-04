@@ -3,13 +3,15 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2026-07-04 11:22+0900\n"
+"POT-Creation-Date: 2026-07-04 13:28+0900\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language-Team: sw <LL@li.org>\n"
+"Language: sw\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "Generated-By: Babel 2.18.0\n"
 
 #: src/uagent/checks.py:17 src/uagent/checks.py:27
@@ -257,57 +259,57 @@ msgstr "Faili ya kuanza imetolewa: %(path)s"
 msgid "--non-interactive was specified; exiting without waiting for stdin."
 msgstr "--non-interactive imebainishwa; inatoka bila kusubiri stdin."
 
-#: src/uagent/core.py:412
+#: src/uagent/core.py:423
 msgid "[Responses API] A previous session was found. Continue it?"
 msgstr "[Responses API] Kipindi cha awali kilipatikana. Ungependa kuendelea?"
 
-#: src/uagent/core.py:413
+#: src/uagent/core.py:424
 msgid "  (y) Yes - reuse previous context (saves tokens)"
 msgstr "(y) Ndiyo - tumia tena muktadha uliopita (huhifadhi ishara)"
 
-#: src/uagent/core.py:414
+#: src/uagent/core.py:425
 msgid "  (n) No  - start fresh, discard saved state"
 msgstr "(n) Hapana - anza upya, tupa hali iliyohifadhiwa"
 
-#: src/uagent/core.py:420
+#: src/uagent/core.py:431
 msgid "[Responses API] Continuing previous session."
 msgstr "[Responses API] Inaendelea kipindi kilichotangulia."
 
-#: src/uagent/core.py:423
+#: src/uagent/core.py:434
 msgid "[Responses API] Starting fresh session."
 msgstr "[Responses API] Inaanza kipindi kipya."
 
-#: src/uagent/core.py:534 src/uagent/core.py:555
+#: src/uagent/core.py:546 src/uagent/core.py:567
 #, python-format
 msgid "Environment variable %(name)s is not set."
 msgstr "Kigezo cha mazingira %(name)s hakijawekwa."
 
-#: src/uagent/core.py:855
+#: src/uagent/core.py:867
 msgid "No log files found."
 msgstr "Hakuna faili za logi zilizopatikana."
 
-#: src/uagent/core.py:873
+#: src/uagent/core.py:885
 msgid "(unknown time)"
 msgstr "(wakati usiojulikana)"
 
-#: src/uagent/core.py:876
+#: src/uagent/core.py:888
 #, python-format
 msgid "logs: showing %(shown)d/%(total)d (dir=%(dir)s)"
 msgstr "logi: inaonyesha %(shown)d/%(total)d (dir=%(dir)s)"
 
-#: src/uagent/core.py:879
+#: src/uagent/core.py:891
 msgid "Log files:"
 msgstr "Faili za logi:"
 
-#: src/uagent/core.py:886
+#: src/uagent/core.py:898
 msgid "(mtime unknown)"
 msgstr "(muda wa mabadiliko haujulikani)"
 
-#: src/uagent/core.py:1004 src/uagent/core.py:1007
+#: src/uagent/core.py:1016 src/uagent/core.py:1019
 msgid "(no user message)"
 msgstr "(hakuna ujumbe wa mtumiaji)"
 
-#: src/uagent/core.py:1012
+#: src/uagent/core.py:1024
 #, python-format
 msgid ""
 "[%(idx)d] %(mtime_text)s | %(turns)d msgs | first: %(first_user)s | last: "
@@ -316,7 +318,7 @@ msgstr ""
 "[%(idx)d] %(mtime_text)s | ujumbe %(turns)d | wa kwanza: %(first_user)s | wa"
 " mwisho: %(last_user)s"
 
-#: src/uagent/core.py:1264
+#: src/uagent/core.py:1276
 #, python-format
 msgid ""
 "[INFO] There were %(count)d messages to compress, so nothing was changed."
@@ -324,7 +326,7 @@ msgstr ""
 "[INFO] Kulikuwa na ujumbe %(count)d wa kubana, kwa hiyo hakuna "
 "kilichobadilishwa."
 
-#: src/uagent/core.py:1275
+#: src/uagent/core.py:1287
 #, python-format
 msgid ""
 "[INFO] Compressed in-memory conversation history: %(old_n)d -> %(new_n)d "
@@ -333,21 +335,23 @@ msgstr ""
 "[INFO] Historia ya mazungumzo kwenye kumbukumbu imebanwa: %(old_n)d -> "
 "%(new_n)d ujumbe (keep_last=%(keep_last)d)"
 
-#: src/uagent/core.py:1586
+#: src/uagent/core.py:1598
+#, python-format
 msgid "429 retry limit (%(max_retries)s) reached while history compression."
 msgstr ""
 "Kikomo cha kujaribu tena cha 429 (%(max_retries)s) kimefikiwa wakati wa "
 "kubana historia."
 
-#: src/uagent/core.py:1596
+#: src/uagent/core.py:1608
+#, python-format
 msgid "Error while calling LLM for history compression: %(err)r"
 msgstr "Hitilafu wakati wa kuita LLM kwa ajili ya kubana historia: %(err)r"
 
-#: src/uagent/core.py:1631
+#: src/uagent/core.py:1643
 msgid "- Summarize the conversation chunk in English.\n"
 msgstr "- Fanya muhtasari wa sehemu ya mazungumzo kwa Kiingereza.\n"
 
-#: src/uagent/core.py:1633
+#: src/uagent/core.py:1645
 msgid ""
 "- Keep the summary concise but include key decisions, constraints, and "
 "pending items.\n"
@@ -355,27 +359,27 @@ msgstr ""
 "- Weka muhtasari ukiwa mfupi lakini ujumuishe maamuzi muhimu, vikwazo, na "
 "mambo yanayosubiriwa.\n"
 
-#: src/uagent/core.py:1635
+#: src/uagent/core.py:1647
 msgid "- Output should be directly usable as a system message."
 msgstr "- Toleo linapaswa kutumika moja kwa moja kama ujumbe wa mfumo."
 
-#: src/uagent/core.py:1638
+#: src/uagent/core.py:1650
 msgid "Conversation chunk:\n"
 msgstr "Sehemu ya mazungumzo:\n"
 
-#: src/uagent/core.py:1640
+#: src/uagent/core.py:1652
 msgid "Write a concise summary of this chunk."
 msgstr "Andika muhtasari mfupi wa sehemu hii."
 
-#: src/uagent/core.py:1644
+#: src/uagent/core.py:1656
 msgid "- You are updating an existing conversation summary.\n"
 msgstr "- Unasasisha muhtasari wa mazungumzo uliopo.\n"
 
-#: src/uagent/core.py:1645
+#: src/uagent/core.py:1657
 msgid "- Preserve important facts from the previous summary.\n"
 msgstr "- Hifadhi mambo muhimu kutoka kwa muhtasari uliopita.\n"
 
-#: src/uagent/core.py:1647
+#: src/uagent/core.py:1659
 msgid ""
 "- Merge in the new chunk without losing constraints, decisions, or pending "
 "items.\n"
@@ -383,31 +387,33 @@ msgstr ""
 "- Unganisha sehemu mpya bila kupoteza vikwazo, maamuzi, au mambo "
 "yanayosubiriwa.\n"
 
-#: src/uagent/core.py:1649
+#: src/uagent/core.py:1661
 msgid "- Keep the result concise and suitable for a system message."
 msgstr "- Weka matokeo kuwa mafupi na yanayofaa kwa ujumbe wa mfumo."
 
-#: src/uagent/core.py:1652
+#: src/uagent/core.py:1664
 msgid "Previous summary:\n"
 msgstr "Muhtasari uliopita:\n"
 
-#: src/uagent/core.py:1654
+#: src/uagent/core.py:1666
 msgid "New chunk:\n"
 msgstr "Sehemu mpya:\n"
 
-#: src/uagent/core.py:1656
+#: src/uagent/core.py:1668
 msgid "Update the summary while keeping the prior context intact."
 msgstr "Sasisha muhtasari huku ukiacha muktadha uliopita ukiwa sawa."
 
-#: src/uagent/core.py:1667
+#: src/uagent/core.py:1679
+#, python-format
 msgid "[shrink_llm] Summarizing chunk %(i)d/%(n)d..."
 msgstr "[shrink_llm] Inafupisha sehemu %(i)d/%(n)d..."
 
-#: src/uagent/core.py:1685
+#: src/uagent/core.py:1697
 msgid "Summary of the conversation so far:\n"
 msgstr "Muhtasari wa mazungumzo hadi sasa:\n"
 
-#: src/uagent/core.py:1692
+#: src/uagent/core.py:1704
+#, python-brace-format
 msgid ""
 "[INFO] shrink_llm: {old_n} -> {new_n} messages (compressed {old_part_n} "
 "older messages into 1 summary; kept {tail_n} tail)"
@@ -415,7 +421,7 @@ msgstr ""
 "[INFO] shrink_llm: {old_n} -> {new_n} ujumbe (imebana ujumbe {old_part_n} wa"
 " zamani kuwa muhtasari 1; imehifadhi {tail_n} mwishoni)"
 
-#: src/uagent/core.py:1720
+#: src/uagent/core.py:1732
 msgid ""
 "[WARN] history compression hit context length even at chunk_size=1; falling "
 "back to shrink_messages()."
@@ -423,7 +429,7 @@ msgstr ""
 "[WARN] Kubana historia kulifikia kikomo cha muktadha hata kwa chunk_size=1; "
 "narudi kwa shrink_messages()."
 
-#: src/uagent/core.py:1730
+#: src/uagent/core.py:1742
 msgid ""
 "[WARN] history compression could not reduce chunk_size further; falling back"
 " to shrink_messages()."
@@ -431,7 +437,7 @@ msgstr ""
 "[WARN] Kubana historia hakukuweza kupunguza chunk_size zaidi; narudi kwa "
 "shrink_messages()."
 
-#: src/uagent/core.py:1738
+#: src/uagent/core.py:1750
 #, python-format
 msgid ""
 "[WARN] history compression context length exceeded; retrying with "
@@ -440,7 +446,7 @@ msgstr ""
 "[WARN] Kikomo cha muktadha kimezidiwa wakati wa kubana historia; najaribu "
 "tena kwa chunk_size=%(chunk_size)d"
 
-#: src/uagent/core.py:1748
+#: src/uagent/core.py:1760
 msgid ""
 "[WARN] history compression failed due to LLM error; falling back to "
 "shrink_messages()."
@@ -448,12 +454,12 @@ msgstr ""
 "[WARN] Ukandamizaji wa historia umeshindwa kwa sababu ya hitilafu ya LLM; "
 "inarudi kwenye shrink_messages()."
 
-#: src/uagent/core.py:1769
+#: src/uagent/core.py:1781
 #, python-format
 msgid ":help  (help unavailable: %(err)s)"
 msgstr ":help  (msaada haupatikani: %(err)s)"
 
-#: src/uagent/core.py:1781
+#: src/uagent/core.py:1793
 msgid ""
 "## Mission\n"
 "- You are a capable \"general-purpose tool execution agent\" running on a local environment, and you can actually execute commands and operate on files on the user's machine.\n"
@@ -470,7 +476,7 @@ msgstr ""
 "- Usifanye muhtasari. Weka taarifa fupi.\n"
 "- Unapounda faili, toa maudhui kamili ya mwisho (usiweke tofauti wala muhtasari wa sehemu).\n"
 
-#: src/uagent/core.py:1790
+#: src/uagent/core.py:1802
 msgid ""
 "## Rules\n"
 "- Always use the provided tools and verify the latest information.\n"
@@ -484,7 +490,7 @@ msgstr ""
 "- Rejelea zana zinazopatikana na uchague inayofaa zaidi.\n"
 "- Unapotekeleza zana, achia mtumiaji maamuzi machache kadiri iwezekanavyo.\n"
 
-#: src/uagent/core.py:1797
+#: src/uagent/core.py:1809
 msgid ""
 "## Notes\n"
 "- All user messages come via this script's standard input.\n"
@@ -510,7 +516,7 @@ msgstr ""
 "- Ikiwa ujuzi wa kiwango cha utaalamu unahitajika, tumia violezo vya haraka (Ujuzi wa Wakala) na ufuate.\n"
 "- Ikiwa ingizo la mtumiaji ni uthibitisho mfupi tu na hauongezi habari mpya, usirudie maelezo sawa isipokuwa jibu la moja kwa moja kwa swali lililotangulia lililo wazi. Ikiwa inahitajika, uliza kwa ufupi: \"Ninapaswa kuendelea na hatua gani?\""
 
-#: src/uagent/core.py:1810
+#: src/uagent/core.py:1822
 msgid ""
 "## Dangerous operation policy (delete_file)\n"
 "- For deletion using the delete_file tool, do NOT ask for confirmation before preview.\n"
@@ -526,7 +532,7 @@ msgstr ""
 "- Ni pale tu mtumiaji anapojibu waziwazi \"y\" au \"yes\" (au idhini nyingine wazi), endesha delete_file tena kwa vigezo vilevile, dry_run=false, na confirmed=true.\n"
 "- Ikiwa kuna wagombea sifuri, usiombe; toa tu taarifa kwamba hakuna kitakachofutwa.\n"
 
-#: src/uagent/core.py:1818
+#: src/uagent/core.py:1830
 msgid ""
 "## Mission\n"
 "- You are a capable \"general-purpose tool execution agent\" running on a local environment; you can execute commands and operate on the user's machine.\n"
@@ -541,7 +547,7 @@ msgstr ""
 "- Hakuna kusifia. Hakuna emoji. Hakuna muhtasari wa mazungumzo. Weka iwe fupi.\n"
 "- Unapounda faili, toa maudhui kamili ya mwisho (bila tofauti/muhtasari wa sehemu).\n"
 
-#: src/uagent/core.py:1826
+#: src/uagent/core.py:1838
 msgid ""
 "## Rules\n"
 "- Use the provided tools first and verify results with tools.\n"
@@ -555,7 +561,7 @@ msgstr ""
 "- Kuwa mbunifu, lakini usitoe taarifa zisizo hakika.\n"
 "- Achia mtumiaji maamuzi machache kadiri iwezekanavyo.\n"
 
-#: src/uagent/core.py:1833
+#: src/uagent/core.py:1845
 msgid ""
 "## Notes\n"
 "- All user messages come via this script's standard input.\n"
@@ -579,7 +585,7 @@ msgstr ""
 "- Ikiwa ujuzi wa kiwango cha utaalamu unahitajika, tumia violezo vya haraka vya Ujuzi wa Wakala.\n"
 "- Ikiwa ingizo la mtumiaji ni uthibitisho mfupi tu na hauongezi habari mpya, usirudie maelezo sawa isipokuwa jibu la moja kwa moja kwa swali lililotangulia lililo wazi. Ikiwa inahitajika, uliza kwa ufupi: \"Ninapaswa kuendelea na hatua gani?\""
 
-#: src/uagent/core.py:1847
+#: src/uagent/core.py:1859
 msgid ""
 "- If the user is using Windows cmd.exe, prefer multi-line commands using "
 "caret (^) line continuation, and keep each line short to avoid copy/paste "
@@ -589,7 +595,7 @@ msgstr ""
 "kwa kutumia uendelezaji wa mstari kwa caret (^), na weka kila mstari mfupi "
 "ili kuepuka mapumziko ya kunakili/kubandika.\n"
 
-#: src/uagent/core.py:1914
+#: src/uagent/core.py:1926
 msgid ""
 "The following tools are currently loaded in this session. Choose the most "
 "appropriate tool for the task."
@@ -1021,6 +1027,7 @@ msgstr "400 Ombi baya"
 
 #: src/uagent/llm_round_helpers.py:713
 #: src/uagent/providers/llm_deepseek.py:697
+#, python-format
 msgid "Error code: %(code)d - %(err)s"
 msgstr "Msimbo wa hitilafu: %(code)d - %(err)s"
 
@@ -1054,6 +1061,7 @@ msgid "Error while parsing response: %(err)s"
 msgstr "Hitilafu wakati wa kuchanganua jibu: %(err)s"
 
 #: src/uagent/profile_manager.py:623
+#, python-brace-format
 msgid ""
 "You are a user profiling agent. Analyze the conversation log and extract the user's:\n"
 "1. Environment (OS, shell, editor, etc.)\n"
@@ -1099,6 +1107,7 @@ msgstr ""
 "hatua..."
 
 #: src/uagent/profile_manager.py:755
+#, python-brace-format
 msgid ""
 "You are a user profiling agent. Analyze the conversation log and extract:\n"
 "1. Environment (OS, shell, editor) — only if clearly evident from the log.\n"
@@ -1147,6 +1156,7 @@ msgstr ""
 "}"
 
 #: src/uagent/profile_manager.py:833
+#, python-format
 msgid "[Warning] Failed to process chunk (%(step)s): %(err)s"
 msgstr "[Onyo] Imeshindwa kuchakata kipande (%(step)s): %(err)s"
 
@@ -1185,6 +1195,7 @@ msgid "Welcome / Quick Guide"
 msgstr "Karibu / Mwongozo wa Haraka"
 
 #: src/uagent/scheckgui.py:1213
+#, python-format
 msgid "Font size: %(name)s"
 msgstr "Ukubwa wa herufi: %(name)s"
 
@@ -1225,6 +1236,7 @@ msgid "View"
 msgstr "Tazama"
 
 #: src/uagent/scheckgui.py:1424
+#, python-format
 msgid "Font: %(name)s"
 msgstr "Fonti: %(name)s"
 
@@ -2125,6 +2137,7 @@ msgid "invalid verbosity"
 msgstr "kiwango cha maelezo si sahihi"
 
 #: src/uagent/util_tools.py:604
+#, python-format
 msgid ""
 "[logs] Invalid argument: %(arg)r (specify all / --all / -a / number / pdf "
 "<index>)"
@@ -2145,7 +2158,6 @@ msgid "src and dst are required"
 msgstr "src na dst zinahitajika"
 
 #: src/uagent/util_tools.py:724
-#, python-format
 msgid ":cp <src> <dst> [-f|--overwrite] [-p|--mkdirs]"
 msgstr ":cp <src> <dst> [-f|--overwrite] [-p|--mkdirs]"
 
@@ -2180,7 +2192,6 @@ msgid "[cp] Copied: %(src)s -> %(dst)s"
 msgstr "[cp] Imenakiliwa: %(src)s -> %(dst)s"
 
 #: src/uagent/util_tools.py:796
-#, python-format
 msgid ":mv <src> <dst> [-f|--overwrite] [-p|--mkdirs]"
 msgstr ":mv <src> <dst> [-f|--overwrite] [-p|--mkdirs]"
 
@@ -2354,6 +2365,7 @@ msgstr ""
 "haijawekwa)."
 
 #: src/uagent/util_tools.py:1940
+#, python-format
 msgid "Analyzing the most recent %d log files to generate user profile..."
 msgstr ""
 "Inachanganua faili za kumbukumbu za %d za hivi majuzi zaidi ili kutoa wasifu"
@@ -2532,14 +2544,17 @@ msgstr ""
 "mingi."
 
 #: src/uagent/util_tools.py:2225
+#, python-format
 msgid "Continue. Goal: %(goal)s"
 msgstr "Endelea. Lengo: %(goal)s"
 
 #: src/uagent/util_tools.py:2227
+#, python-format
 msgid "Reviewer notes: %(feedback)s"
 msgstr "Maelezo ya mkaguzi: %(feedback)s"
 
 #: src/uagent/util_tools.py:2328
+#, python-format
 msgid ""
 "\n"
 "[AUTO:judge] %(judgment)s"
@@ -2548,6 +2563,7 @@ msgstr ""
 "[AUTO:judge] %(judgment)s"
 
 #: src/uagent/util_tools.py:2330
+#, python-format
 msgid "  feedback: %(feedback)s"
 msgstr "maoni: %(feedback)s"
 
@@ -2560,10 +2576,12 @@ msgid "[AUTO] Review/analysis completed."
 msgstr "[AUTO] Ukaguzi/uchambuzi umekamilika."
 
 #: src/uagent/util_tools.py:2415
+#, python-format
 msgid "[AUTO] Max rounds (%(max)d) reached. Stopping."
 msgstr "[AUTO] Upeo wa raundi (%(max)d) umefikiwa.Kuacha."
 
 #: src/uagent/util_tools.py:2425
+#, python-format
 msgid "[AUTO] Round %(round)d/%(max)d"
 msgstr "[AUTO] Mzunguko %(round)d/%(max)d"
 
@@ -2580,6 +2598,7 @@ msgid "       :auto off"
 msgstr ":auto punguzo"
 
 #: src/uagent/util_tools.py:2491
+#, python-format
 msgid "Invalid value for --max-rounds: %(val)s"
 msgstr "Thamani batili ya --max-rounds: %(val)s"
 
@@ -2588,10 +2607,12 @@ msgid "Goal cannot be empty."
 msgstr "Lengo haliwezi kuwa tupu."
 
 #: src/uagent/util_tools.py:2512
+#, python-format
 msgid "[AUTO] Started. Goal: %(goal)s"
 msgstr "[AUTO] Imeanza. Lengo: %(goal)s"
 
 #: src/uagent/util_tools.py:2513
+#, python-format
 msgid "[AUTO] Max rounds: %(max)d"
 msgstr "[AUTO] Upeo wa raundi: %(max)d"
 
@@ -2809,7 +2830,15 @@ msgstr "- \"Soma PDF hii na orodhesha pointi tatu kuu.\""
 msgid "- \"Search the latest news and summarize a specific topic.\""
 msgstr "- \"Tafuta habari za hivi karibuni na fupisha mada maalum.\""
 
-#: src/uagent/welcome.py:195
+#: src/uagent/welcome.py:89
+msgid ""
+"- \"Scan this project with code_map so the LLM understands the codebase "
+"faster.\""
+msgstr ""
+"- \"Changanua mradi huu kwa code_map ili LLM ielewe msingi wa kanuni "
+"haraka.\""
+
+#: src/uagent/welcome.py:196
 msgid "-- More -- (Enter: next) "
 msgstr "-- Zaidi -- (Enter: inayofuata) "
 
@@ -2964,6 +2993,7 @@ msgid "Server-side compaction triggered (context compressed)."
 msgstr "Ubananaji wa upande wa seva umeanzishwa (muktadha umebanwa)."
 
 #: src/uagent/providers/llm_zai.py:366
+#, python-format
 msgid "Response body: %(body)s"
 msgstr "Mwili wa majibu: %(body)s"
 

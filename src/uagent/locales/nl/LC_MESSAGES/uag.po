@@ -3,13 +3,15 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2026-07-04 11:22+0900\n"
+"POT-Creation-Date: 2026-07-04 13:28+0900\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language-Team: nl <LL@li.org>\n"
+"Language: nl\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "Generated-By: Babel 2.18.0\n"
 
 #: src/uagent/checks.py:17 src/uagent/checks.py:27
@@ -262,57 +264,57 @@ msgstr "Opstartbestand opgegeven: %(path)s"
 msgid "--non-interactive was specified; exiting without waiting for stdin."
 msgstr "--non-interactive is opgegeven; afsluiten zonder op stdin te wachten."
 
-#: src/uagent/core.py:412
+#: src/uagent/core.py:423
 msgid "[Responses API] A previous session was found. Continue it?"
 msgstr "[Responses API] Er is een eerdere sessie gevonden. Doorgaan?"
 
-#: src/uagent/core.py:413
+#: src/uagent/core.py:424
 msgid "  (y) Yes - reuse previous context (saves tokens)"
 msgstr "(y) Ja - hergebruik eerdere context (slaat tokens op)"
 
-#: src/uagent/core.py:414
+#: src/uagent/core.py:425
 msgid "  (n) No  - start fresh, discard saved state"
 msgstr "(n) Nee - begin opnieuw, verwijder de opgeslagen status"
 
-#: src/uagent/core.py:420
+#: src/uagent/core.py:431
 msgid "[Responses API] Continuing previous session."
 msgstr "[Responses API] Voortzetting van de vorige sessie."
 
-#: src/uagent/core.py:423
+#: src/uagent/core.py:434
 msgid "[Responses API] Starting fresh session."
 msgstr "[Responses API] Nieuwe sessie starten."
 
-#: src/uagent/core.py:534 src/uagent/core.py:555
+#: src/uagent/core.py:546 src/uagent/core.py:567
 #, python-format
 msgid "Environment variable %(name)s is not set."
 msgstr "Omgevingsvariabele %(name)s is niet ingesteld."
 
-#: src/uagent/core.py:855
+#: src/uagent/core.py:867
 msgid "No log files found."
 msgstr "Geen logbestanden gevonden."
 
-#: src/uagent/core.py:873
+#: src/uagent/core.py:885
 msgid "(unknown time)"
 msgstr "(onbekende tijd)"
 
-#: src/uagent/core.py:876
+#: src/uagent/core.py:888
 #, python-format
 msgid "logs: showing %(shown)d/%(total)d (dir=%(dir)s)"
 msgstr "logboeken: met %(shown)d/%(total)d (dir=%(dir)s)"
 
-#: src/uagent/core.py:879
+#: src/uagent/core.py:891
 msgid "Log files:"
 msgstr "Logbestanden:"
 
-#: src/uagent/core.py:886
+#: src/uagent/core.py:898
 msgid "(mtime unknown)"
 msgstr "(wijzigingstijd onbekend)"
 
-#: src/uagent/core.py:1004 src/uagent/core.py:1007
+#: src/uagent/core.py:1016 src/uagent/core.py:1019
 msgid "(no user message)"
 msgstr "(geen gebruikersbericht)"
 
-#: src/uagent/core.py:1012
+#: src/uagent/core.py:1024
 #, python-format
 msgid ""
 "[%(idx)d] %(mtime_text)s | %(turns)d msgs | first: %(first_user)s | last: "
@@ -321,7 +323,7 @@ msgstr ""
 "[%(idx)d] %(mtime_text)s | %(turns)d berichten | eerste: %(first_user)s | "
 "laatste: %(last_user)s"
 
-#: src/uagent/core.py:1264
+#: src/uagent/core.py:1276
 #, python-format
 msgid ""
 "[INFO] There were %(count)d messages to compress, so nothing was changed."
@@ -329,7 +331,7 @@ msgstr ""
 "[INFO] Er waren %(count)d berichten om te comprimeren, dus er is niets "
 "gewijzigd."
 
-#: src/uagent/core.py:1275
+#: src/uagent/core.py:1287
 #, python-format
 msgid ""
 "[INFO] Compressed in-memory conversation history: %(old_n)d -> %(new_n)d "
@@ -338,21 +340,23 @@ msgstr ""
 "[INFO] Gespreksgeschiedenis in het geheugen gecomprimeerd: %(old_n)d -> "
 "%(new_n)d berichten (keep_last=%(keep_last)d)"
 
-#: src/uagent/core.py:1586
+#: src/uagent/core.py:1598
+#, python-format
 msgid "429 retry limit (%(max_retries)s) reached while history compression."
 msgstr ""
 "429 herhalingslimiet (%(max_retries)s) bereikt tijdens "
 "geschiedeniscompressie."
 
-#: src/uagent/core.py:1596
+#: src/uagent/core.py:1608
+#, python-format
 msgid "Error while calling LLM for history compression: %(err)r"
 msgstr "Fout bij het aanroepen van LLM voor geschiedeniscompressie: %(err)r"
 
-#: src/uagent/core.py:1631
+#: src/uagent/core.py:1643
 msgid "- Summarize the conversation chunk in English.\n"
 msgstr "- Samenvatting van het gespreksegment in het Engels.\n"
 
-#: src/uagent/core.py:1633
+#: src/uagent/core.py:1645
 msgid ""
 "- Keep the summary concise but include key decisions, constraints, and "
 "pending items.\n"
@@ -360,27 +364,27 @@ msgstr ""
 "- Houd de samenvatting beknopt, maar neem belangrijke beslissingen, "
 "beperkingen en openstaande punten op.\n"
 
-#: src/uagent/core.py:1635
+#: src/uagent/core.py:1647
 msgid "- Output should be directly usable as a system message."
 msgstr "- De uitvoer moet direct bruikbaar zijn als systeembericht."
 
-#: src/uagent/core.py:1638
+#: src/uagent/core.py:1650
 msgid "Conversation chunk:\n"
 msgstr "Gespreksegment:\n"
 
-#: src/uagent/core.py:1640
+#: src/uagent/core.py:1652
 msgid "Write a concise summary of this chunk."
 msgstr "Schrijf een beknopte samenvatting van dit segment."
 
-#: src/uagent/core.py:1644
+#: src/uagent/core.py:1656
 msgid "- You are updating an existing conversation summary.\n"
 msgstr "- U bent een bestaande gesprekssamenvatting aan het bijwerken.\n"
 
-#: src/uagent/core.py:1645
+#: src/uagent/core.py:1657
 msgid "- Preserve important facts from the previous summary.\n"
 msgstr "- Bewaar belangrijke feiten uit de vorige samenvatting.\n"
 
-#: src/uagent/core.py:1647
+#: src/uagent/core.py:1659
 msgid ""
 "- Merge in the new chunk without losing constraints, decisions, or pending "
 "items.\n"
@@ -388,31 +392,33 @@ msgstr ""
 "- Voeg het nieuwe segment samen zonder beperkingen, beslissingen of "
 "openstaande punten te verliezen.\n"
 
-#: src/uagent/core.py:1649
+#: src/uagent/core.py:1661
 msgid "- Keep the result concise and suitable for a system message."
 msgstr "- Houd het resultaat beknopt en geschikt voor een systeembericht."
 
-#: src/uagent/core.py:1652
+#: src/uagent/core.py:1664
 msgid "Previous summary:\n"
 msgstr "Vorige samenvatting:\n"
 
-#: src/uagent/core.py:1654
+#: src/uagent/core.py:1666
 msgid "New chunk:\n"
 msgstr "Nieuw segment:\n"
 
-#: src/uagent/core.py:1656
+#: src/uagent/core.py:1668
 msgid "Update the summary while keeping the prior context intact."
 msgstr "Werk de samenvatting bij met behoud van de eerdere context."
 
-#: src/uagent/core.py:1667
+#: src/uagent/core.py:1679
+#, python-format
 msgid "[shrink_llm] Summarizing chunk %(i)d/%(n)d..."
 msgstr "[shrink_llm] Samenvattend deel %(i)d/%(n)d..."
 
-#: src/uagent/core.py:1685
+#: src/uagent/core.py:1697
 msgid "Summary of the conversation so far:\n"
 msgstr "Samenvatting van het gesprek tot nu toe:\n"
 
-#: src/uagent/core.py:1692
+#: src/uagent/core.py:1704
+#, python-brace-format
 msgid ""
 "[INFO] shrink_llm: {old_n} -> {new_n} messages (compressed {old_part_n} "
 "older messages into 1 summary; kept {tail_n} tail)"
@@ -420,7 +426,7 @@ msgstr ""
 "[INFO] shrink_llm: {old_n} -> {new_n} berichten ({old_part_n} oudere "
 "berichten gecomprimeerd in 1 samenvatting; {tail_n} aan het einde behouden)"
 
-#: src/uagent/core.py:1720
+#: src/uagent/core.py:1732
 msgid ""
 "[WARN] history compression hit context length even at chunk_size=1; falling "
 "back to shrink_messages()."
@@ -428,7 +434,7 @@ msgstr ""
 "[WARN] Geschiedeniskompressie bereikte zelfs bij chunk_size=1 de "
 "contextlimiet; terugval naar shrink_messages()."
 
-#: src/uagent/core.py:1730
+#: src/uagent/core.py:1742
 msgid ""
 "[WARN] history compression could not reduce chunk_size further; falling back"
 " to shrink_messages()."
@@ -436,7 +442,7 @@ msgstr ""
 "[WARN] De geschiedenis kon chunk_size niet verder verkleinen; terugval naar "
 "shrink_messages()."
 
-#: src/uagent/core.py:1738
+#: src/uagent/core.py:1750
 #, python-format
 msgid ""
 "[WARN] history compression context length exceeded; retrying with "
@@ -445,7 +451,7 @@ msgstr ""
 "[WARN] De contextlengte is overschreden bij geschiedeniskompressie; opnieuw "
 "proberen met chunk_size=%(chunk_size)d"
 
-#: src/uagent/core.py:1748
+#: src/uagent/core.py:1760
 msgid ""
 "[WARN] history compression failed due to LLM error; falling back to "
 "shrink_messages()."
@@ -453,12 +459,12 @@ msgstr ""
 "[WARN] Geschiedeniscompressie mislukt vanwege LLM-fout; terugval naar "
 "shrink_messages()."
 
-#: src/uagent/core.py:1769
+#: src/uagent/core.py:1781
 #, python-format
 msgid ":help  (help unavailable: %(err)s)"
 msgstr ":help  (hulp niet beschikbaar: %(err)s)"
 
-#: src/uagent/core.py:1781
+#: src/uagent/core.py:1793
 msgid ""
 "## Mission\n"
 "- You are a capable \"general-purpose tool execution agent\" running on a local environment, and you can actually execute commands and operate on files on the user's machine.\n"
@@ -475,7 +481,7 @@ msgstr ""
 "- Niet samenvatten. Houd informatie beknopt.\n"
 "- Voer bij het maken van bestanden de volledige uiteindelijke inhoud uit (voer geen diff's of gedeeltelijke samenvattingen uit)."
 
-#: src/uagent/core.py:1790
+#: src/uagent/core.py:1802
 msgid ""
 "## Rules\n"
 "- Always use the provided tools and verify the latest information.\n"
@@ -489,7 +495,7 @@ msgstr ""
 "- Raadpleeg de beschikbare tools en kies de meest geschikte.\n"
 "- Delegeer bij het uitvoeren van tools zo min mogelijk besluitvorming aan de gebruiker."
 
-#: src/uagent/core.py:1797
+#: src/uagent/core.py:1809
 msgid ""
 "## Notes\n"
 "- All user messages come via this script's standard input.\n"
@@ -515,7 +521,7 @@ msgstr ""
 "- Als kennis op expertniveau vereist is, gebruik dan promptsjablonen (Agent Skills) en volg deze.\n"
 "- Als de inbreng van de gebruiker slechts een korte bevestiging is en geen nieuwe informatie toevoegt, herhaal dan niet dezelfde uitleg, tenzij het een direct antwoord is op de onmiddellijk voorafgaande duidelijke vraag. Vraag indien nodig kort: \"Met welk punt moet ik doorgaan?\""
 
-#: src/uagent/core.py:1810
+#: src/uagent/core.py:1822
 msgid ""
 "## Dangerous operation policy (delete_file)\n"
 "- For deletion using the delete_file tool, do NOT ask for confirmation before preview.\n"
@@ -525,7 +531,7 @@ msgid ""
 "- If there are zero candidates, do not ask; just report that nothing will be deleted.\n"
 msgstr "QUERY LENGTH LIMIT EXCEEDED. MAX ALLOWED QUERY : 500 CHARS"
 
-#: src/uagent/core.py:1818
+#: src/uagent/core.py:1830
 msgid ""
 "## Mission\n"
 "- You are a capable \"general-purpose tool execution agent\" running on a local environment; you can execute commands and operate on the user's machine.\n"
@@ -540,7 +546,7 @@ msgstr ""
 "- Geen vleierij, geen emoji's. Geen gespreksoverzichten. Houd het beknopt.\n"
 "- Voer bij het maken van bestanden de volledige uiteindelijke inhoud uit (geen diffs/gedeeltelijke samenvattingen)."
 
-#: src/uagent/core.py:1826
+#: src/uagent/core.py:1838
 msgid ""
 "## Rules\n"
 "- Use the provided tools first and verify results with tools.\n"
@@ -554,7 +560,7 @@ msgstr ""
 "- Wees creatief, maar produceer geen onzekere informatie.\n"
 "- Delegeer zo min mogelijk besluitvorming aan de gebruiker."
 
-#: src/uagent/core.py:1833
+#: src/uagent/core.py:1845
 msgid ""
 "## Notes\n"
 "- All user messages come via this script's standard input.\n"
@@ -578,7 +584,7 @@ msgstr ""
 "- Als kennis op expertniveau vereist is, gebruik dan Agent Skills-promptsjablonen.\n"
 "- Als de inbreng van de gebruiker slechts een korte bevestiging is en geen nieuwe informatie toevoegt, herhaal dan niet dezelfde uitleg, tenzij het een direct antwoord is op de onmiddellijk voorafgaande duidelijke vraag. Vraag indien nodig kort: \"Met welk punt moet ik doorgaan?\""
 
-#: src/uagent/core.py:1847
+#: src/uagent/core.py:1859
 msgid ""
 "- If the user is using Windows cmd.exe, prefer multi-line commands using "
 "caret (^) line continuation, and keep each line short to avoid copy/paste "
@@ -588,7 +594,7 @@ msgstr ""
 "opdrachten met meerdere regels met caret (^) -regelcontinuering en houd elke"
 " regel kort om regeleinden te kopiëren/plakken."
 
-#: src/uagent/core.py:1914
+#: src/uagent/core.py:1926
 msgid ""
 "The following tools are currently loaded in this session. Choose the most "
 "appropriate tool for the task."
@@ -1023,6 +1029,7 @@ msgstr "400 Slechte aanvraag"
 
 #: src/uagent/llm_round_helpers.py:713
 #: src/uagent/providers/llm_deepseek.py:697
+#, python-format
 msgid "Error code: %(code)d - %(err)s"
 msgstr "Foutcode: %(code)d - %(err)s"
 
@@ -1056,6 +1063,7 @@ msgid "Error while parsing response: %(err)s"
 msgstr "Fout bij het parseren van reactie: %(err)s"
 
 #: src/uagent/profile_manager.py:623
+#, python-brace-format
 msgid ""
 "You are a user profiling agent. Analyze the conversation log and extract the user's:\n"
 "1. Environment (OS, shell, editor, etc.)\n"
@@ -1101,6 +1109,7 @@ msgstr ""
 "gestart..."
 
 #: src/uagent/profile_manager.py:755
+#, python-brace-format
 msgid ""
 "You are a user profiling agent. Analyze the conversation log and extract:\n"
 "1. Environment (OS, shell, editor) — only if clearly evident from the log.\n"
@@ -1149,6 +1158,7 @@ msgstr ""
 "}"
 
 #: src/uagent/profile_manager.py:833
+#, python-format
 msgid "[Warning] Failed to process chunk (%(step)s): %(err)s"
 msgstr "[Waarschuwing] Kan deel (%(step)s) niet verwerken: %(err)s"
 
@@ -1187,6 +1197,7 @@ msgid "Welcome / Quick Guide"
 msgstr "Welkom / beknopte handleiding"
 
 #: src/uagent/scheckgui.py:1213
+#, python-format
 msgid "Font size: %(name)s"
 msgstr "Lettergrootte: %(name)s"
 
@@ -1227,6 +1238,7 @@ msgid "View"
 msgstr "Weergave"
 
 #: src/uagent/scheckgui.py:1424
+#, python-format
 msgid "Font: %(name)s"
 msgstr "Lettertype: %(name)s"
 
@@ -2122,6 +2134,7 @@ msgid "invalid verbosity"
 msgstr "ongeldig detailniveau"
 
 #: src/uagent/util_tools.py:604
+#, python-format
 msgid ""
 "[logs] Invalid argument: %(arg)r (specify all / --all / -a / number / pdf "
 "<index>)"
@@ -2143,7 +2156,6 @@ msgid "src and dst are required"
 msgstr "src en dst zijn vereist"
 
 #: src/uagent/util_tools.py:724
-#, python-format
 msgid ":cp <src> <dst> [-f|--overwrite] [-p|--mkdirs]"
 msgstr ":cp <src> <dst> [-f|--overwrite] [-p|--mkdirs]"
 
@@ -2178,7 +2190,6 @@ msgid "[cp] Copied: %(src)s -> %(dst)s"
 msgstr "[cp] Gekopieerd: %(src)s -> %(dst)s"
 
 #: src/uagent/util_tools.py:796
-#, python-format
 msgid ":mv <src> <dst> [-f|--overwrite] [-p|--mkdirs]"
 msgstr ":mv <src> <dst> [-f|--overwrite] [-p|--mkdirs]"
 
@@ -2350,6 +2361,7 @@ msgstr ""
 " is niet ingesteld)."
 
 #: src/uagent/util_tools.py:1940
+#, python-format
 msgid "Analyzing the most recent %d log files to generate user profile..."
 msgstr ""
 "Analyse van de meest recente %d logbestanden om een ​​gebruikersprofiel te "
@@ -2528,14 +2540,17 @@ msgstr ""
 "meerdere regels te openen."
 
 #: src/uagent/util_tools.py:2225
+#, python-format
 msgid "Continue. Goal: %(goal)s"
 msgstr "Doorgaan. Doel: %(goal)s"
 
 #: src/uagent/util_tools.py:2227
+#, python-format
 msgid "Reviewer notes: %(feedback)s"
 msgstr "Opmerkingen van de recensent: %(feedback)s"
 
 #: src/uagent/util_tools.py:2328
+#, python-format
 msgid ""
 "\n"
 "[AUTO:judge] %(judgment)s"
@@ -2544,6 +2559,7 @@ msgstr ""
 "[AUTO:judge] %(judgment)s"
 
 #: src/uagent/util_tools.py:2330
+#, python-format
 msgid "  feedback: %(feedback)s"
 msgstr "feedback: %(feedback)s"
 
@@ -2556,10 +2572,12 @@ msgid "[AUTO] Review/analysis completed."
 msgstr "[AUTO] Beoordeling/analyse voltooid."
 
 #: src/uagent/util_tools.py:2415
+#, python-format
 msgid "[AUTO] Max rounds (%(max)d) reached. Stopping."
 msgstr "[AUTO] Max. rondes (%(max)d) bereikt.Stoppen."
 
 #: src/uagent/util_tools.py:2425
+#, python-format
 msgid "[AUTO] Round %(round)d/%(max)d"
 msgstr "[AUTO] Rond %(round)d/%(max)d"
 
@@ -2576,6 +2594,7 @@ msgid "       :auto off"
 msgstr ":auto uit"
 
 #: src/uagent/util_tools.py:2491
+#, python-format
 msgid "Invalid value for --max-rounds: %(val)s"
 msgstr "Ongeldige waarde voor --max-rounds: %(val)s"
 
@@ -2584,10 +2603,12 @@ msgid "Goal cannot be empty."
 msgstr "Doel kan niet leeg zijn."
 
 #: src/uagent/util_tools.py:2512
+#, python-format
 msgid "[AUTO] Started. Goal: %(goal)s"
 msgstr "[AUTO] Gestart. Doel: %(goal)s"
 
 #: src/uagent/util_tools.py:2513
+#, python-format
 msgid "[AUTO] Max rounds: %(max)d"
 msgstr "[AUTO] Max. rondes: %(max)d"
 
@@ -2806,7 +2827,15 @@ msgstr "- \"Lees deze PDF en noem drie belangrijke punten.\""
 msgid "- \"Search the latest news and summarize a specific topic.\""
 msgstr "- \"Zoek in het laatste nieuws en vat een specifiek onderwerp samen.\""
 
-#: src/uagent/welcome.py:195
+#: src/uagent/welcome.py:89
+msgid ""
+"- \"Scan this project with code_map so the LLM understands the codebase "
+"faster.\""
+msgstr ""
+"- \"Scan dit project met code_map zodat de LLM de codebase sneller "
+"begrijpt.\""
+
+#: src/uagent/welcome.py:196
 msgid "-- More -- (Enter: next) "
 msgstr "-- Meer -- (Enter: volgende) "
 
@@ -2960,6 +2989,7 @@ msgid "Server-side compaction triggered (context compressed)."
 msgstr "Compactie aan de serverzijde geactiveerd (context gecomprimeerd)."
 
 #: src/uagent/providers/llm_zai.py:366
+#, python-format
 msgid "Response body: %(body)s"
 msgstr "Reactietekst: %(body)s"
 

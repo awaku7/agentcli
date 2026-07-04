@@ -3,13 +3,15 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2026-07-04 11:22+0900\n"
+"POT-Creation-Date: 2026-07-04 13:28+0900\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language-Team: bn <LL@li.org>\n"
+"Language: bn\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "Generated-By: Babel 2.18.0\n"
 
 #: src/uagent/checks.py:17 src/uagent/checks.py:27
@@ -264,58 +266,58 @@ msgstr ""
 "প্রস্থান করা হচ্ছে।--অ-ইন্টারেক্টিভ নির্দিষ্ট করা হয়েছে; stdin এর জন্য "
 "অপেক্ষা না করে প্রস্থান করা হচ্ছে।"
 
-#: src/uagent/core.py:412
+#: src/uagent/core.py:423
 msgid "[Responses API] A previous session was found. Continue it?"
 msgstr "[Responses API] একটি পূর্ববর্তী সেশন পাওয়া গেছে. এটা চালিয়ে যান?"
 
-#: src/uagent/core.py:413
+#: src/uagent/core.py:424
 msgid "  (y) Yes - reuse previous context (saves tokens)"
 msgstr ""
 "  (y) হ্যাঁ - পূর্ববর্তী প্রসঙ্গ পুনরায় ব্যবহার করুন (টোকেন সংরক্ষণ করে)"
 
-#: src/uagent/core.py:414
+#: src/uagent/core.py:425
 msgid "  (n) No  - start fresh, discard saved state"
 msgstr "  (n) না - তাজা শুরু করুন, সংরক্ষিত অবস্থা বাতিল করুন"
 
-#: src/uagent/core.py:420
+#: src/uagent/core.py:431
 msgid "[Responses API] Continuing previous session."
 msgstr "[Responses API] পূর্ববর্তী অধিবেশন অব্যাহত।"
 
-#: src/uagent/core.py:423
+#: src/uagent/core.py:434
 msgid "[Responses API] Starting fresh session."
 msgstr "[Responses API] তাজা সেশন শুরু হচ্ছে।"
 
-#: src/uagent/core.py:534 src/uagent/core.py:555
+#: src/uagent/core.py:546 src/uagent/core.py:567
 #, python-format
 msgid "Environment variable %(name)s is not set."
 msgstr "এনভায়রনমেন্ট ভেরিয়েবল %(name)s"
 
-#: src/uagent/core.py:855
+#: src/uagent/core.py:867
 msgid "No log files found."
 msgstr "কোন লগ ফাইল পাওয়া যায়নি."
 
-#: src/uagent/core.py:873
+#: src/uagent/core.py:885
 msgid "(unknown time)"
 msgstr "(অজানা সময়)"
 
-#: src/uagent/core.py:876
+#: src/uagent/core.py:888
 #, python-format
 msgid "logs: showing %(shown)d/%(total)d (dir=%(dir)s)"
 msgstr "লগ: দেখানো হচ্ছে %(shown)d/%(total)d (dir=%(dir)s)"
 
-#: src/uagent/core.py:879
+#: src/uagent/core.py:891
 msgid "Log files:"
 msgstr "লগ ফাইল:"
 
-#: src/uagent/core.py:886
+#: src/uagent/core.py:898
 msgid "(mtime unknown)"
 msgstr "(সংশোধনের সময় অজানা)"
 
-#: src/uagent/core.py:1004 src/uagent/core.py:1007
+#: src/uagent/core.py:1016 src/uagent/core.py:1019
 msgid "(no user message)"
 msgstr "(কোন ব্যবহারকারীর বার্তা নেই)"
 
-#: src/uagent/core.py:1012
+#: src/uagent/core.py:1024
 #, python-format
 msgid ""
 "[%(idx)d] %(mtime_text)s | %(turns)d msgs | first: %(first_user)s | last: "
@@ -324,14 +326,14 @@ msgstr ""
 "[%(idx)d] %(mtime_text)s | %(turns)dটি বার্তা | প্রথম: %(first_user)s | শেষ:"
 " %(last_user)s"
 
-#: src/uagent/core.py:1264
+#: src/uagent/core.py:1276
 #, python-format
 msgid ""
 "[INFO] There were %(count)d messages to compress, so nothing was changed."
 msgstr ""
 "[INFO] সংকোচনের জন্য %(count)dটি বার্তা ছিল, তাই কিছুই পরিবর্তন করা হয়নি।"
 
-#: src/uagent/core.py:1275
+#: src/uagent/core.py:1287
 #, python-format
 msgid ""
 "[INFO] Compressed in-memory conversation history: %(old_n)d -> %(new_n)d "
@@ -340,20 +342,22 @@ msgstr ""
 "[INFO] মেমরিতে থাকা কথোপকথনের ইতিহাস সংকুচিত করা হয়েছে: %(old_n)d -> "
 "%(new_n)dটি বার্তা (keep_last=%(keep_last)d)"
 
-#: src/uagent/core.py:1586
+#: src/uagent/core.py:1598
+#, python-format
 msgid "429 retry limit (%(max_retries)s) reached while history compression."
 msgstr ""
 "ইতিহাস সংকোচনের সময় 429 পুনঃপ্রচেষ্টার সীমা (%(max_retries)s) পৌঁছেছে।"
 
-#: src/uagent/core.py:1596
+#: src/uagent/core.py:1608
+#, python-format
 msgid "Error while calling LLM for history compression: %(err)r"
 msgstr "ইতিহাস সংকোচনের জন্য LLM কল করার সময় ত্রুটি: %(err)r"
 
-#: src/uagent/core.py:1631
+#: src/uagent/core.py:1643
 msgid "- Summarize the conversation chunk in English.\n"
 msgstr "- কথোপকথনের অংশটি ইংরেজিতে সংক্ষেপ করুন।\n"
 
-#: src/uagent/core.py:1633
+#: src/uagent/core.py:1645
 msgid ""
 "- Keep the summary concise but include key decisions, constraints, and "
 "pending items.\n"
@@ -361,27 +365,27 @@ msgstr ""
 "- সংক্ষেপটি সংক্ষিপ্ত রাখুন তবে মূল সিদ্ধান্ত, সীমাবদ্ধতা এবং মুলতুবি থাকা "
 "বিষয়গুলি অন্তর্ভুক্ত করুন।\n"
 
-#: src/uagent/core.py:1635
+#: src/uagent/core.py:1647
 msgid "- Output should be directly usable as a system message."
 msgstr "- আউটপুটটি সরাসরি সিস্টেম বার্তা হিসাবে ব্যবহারযোগ্য হওয়া উচিত।"
 
-#: src/uagent/core.py:1638
+#: src/uagent/core.py:1650
 msgid "Conversation chunk:\n"
 msgstr "কথোপকথনের অংশ:\n"
 
-#: src/uagent/core.py:1640
+#: src/uagent/core.py:1652
 msgid "Write a concise summary of this chunk."
 msgstr "এই অংশের একটি সংক্ষিপ্ত সারসংক্ষেপ লিখুন।"
 
-#: src/uagent/core.py:1644
+#: src/uagent/core.py:1656
 msgid "- You are updating an existing conversation summary.\n"
 msgstr "- আপনি একটি বিদ্যমান কথোপকথনের সারসংক্ষেপ আপডেট করছেন।\n"
 
-#: src/uagent/core.py:1645
+#: src/uagent/core.py:1657
 msgid "- Preserve important facts from the previous summary.\n"
 msgstr "- পূর্ববর্তী সারসংক্ষেপ থেকে গুরুত্বপূর্ণ তথ্যগুলি সংরক্ষণ করুন।\n"
 
-#: src/uagent/core.py:1647
+#: src/uagent/core.py:1659
 msgid ""
 "- Merge in the new chunk without losing constraints, decisions, or pending "
 "items.\n"
@@ -389,31 +393,33 @@ msgstr ""
 "- সীমাবদ্ধতা, সিদ্ধান্ত বা মুলতুবি থাকা বিষয়গুলি না হারিয়ে নতুন অংশটি "
 "মার্জ করুন।\n"
 
-#: src/uagent/core.py:1649
+#: src/uagent/core.py:1661
 msgid "- Keep the result concise and suitable for a system message."
 msgstr "- ফলাফলটি সংক্ষিপ্ত এবং সিস্টেম বার্তার জন্য উপযুক্ত রাখুন।"
 
-#: src/uagent/core.py:1652
+#: src/uagent/core.py:1664
 msgid "Previous summary:\n"
 msgstr "পূর্ববর্তী সারসংক্ষেপ:\n"
 
-#: src/uagent/core.py:1654
+#: src/uagent/core.py:1666
 msgid "New chunk:\n"
 msgstr "নতুন অংশ:\n"
 
-#: src/uagent/core.py:1656
+#: src/uagent/core.py:1668
 msgid "Update the summary while keeping the prior context intact."
 msgstr "পূর্ববর্তী প্রসঙ্গ অক্ষুণ্ণ রেখে সারসংক্ষেপটি আপডেট করুন।"
 
-#: src/uagent/core.py:1667
+#: src/uagent/core.py:1679
+#, python-format
 msgid "[shrink_llm] Summarizing chunk %(i)d/%(n)d..."
 msgstr "[shrink_llm] সংক্ষিপ্ত অংশ %(i)d/%(n)d..."
 
-#: src/uagent/core.py:1685
+#: src/uagent/core.py:1697
 msgid "Summary of the conversation so far:\n"
 msgstr "এখনও পর্যন্ত কথোপকথনের সারসংক্ষেপ:\n"
 
-#: src/uagent/core.py:1692
+#: src/uagent/core.py:1704
+#, python-brace-format
 msgid ""
 "[INFO] shrink_llm: {old_n} -> {new_n} messages (compressed {old_part_n} "
 "older messages into 1 summary; kept {tail_n} tail)"
@@ -421,7 +427,7 @@ msgstr ""
 "[INFO] shrink_llm: {old_n} -> {new_n} বার্তা ({old_part_n} টি পুরানো বার্তা "
 "১ টি সারসংক্ষেপে সংকুচিত করা হয়েছে; শেষে {tail_n} টি রাখা হয়েছে)"
 
-#: src/uagent/core.py:1720
+#: src/uagent/core.py:1732
 msgid ""
 "[WARN] history compression hit context length even at chunk_size=1; falling "
 "back to shrink_messages()."
@@ -429,13 +435,13 @@ msgstr ""
 "[WARN] ইতিহাস সংকোচনে chunk_size=1 হলেও প্রসঙ্গসীমা ছাড়িয়ে গেছে; "
 "shrink_messages()-এ ফিরে যাচ্ছি।"
 
-#: src/uagent/core.py:1730
+#: src/uagent/core.py:1742
 msgid ""
 "[WARN] history compression could not reduce chunk_size further; falling back"
 " to shrink_messages()."
 msgstr "[WARN] chunk_size আর কমানো যায়নি; shrink_messages()-এ ফিরে যাচ্ছি।"
 
-#: src/uagent/core.py:1738
+#: src/uagent/core.py:1750
 #, python-format
 msgid ""
 "[WARN] history compression context length exceeded; retrying with "
@@ -444,7 +450,7 @@ msgstr ""
 "[WARN] প্রসঙ্গসীমা ছাড়িয়েছে; chunk_size=%(chunk_size)d দিয়ে আবার চেষ্টা "
 "করা হচ্ছে"
 
-#: src/uagent/core.py:1748
+#: src/uagent/core.py:1760
 msgid ""
 "[WARN] history compression failed due to LLM error; falling back to "
 "shrink_messages()."
@@ -452,12 +458,12 @@ msgstr ""
 "[WARN] LLM ত্রুটির কারণে ইতিহাস সংকুचित করতে ব্যর্থ হয়েছে; "
 "shrink_messages() এ ফিরে যাওয়া হচ্ছে।"
 
-#: src/uagent/core.py:1769
+#: src/uagent/core.py:1781
 #, python-format
 msgid ":help  (help unavailable: %(err)s)"
 msgstr ":help (সাহায্য অনুপলব্ধ: %(err)s)"
 
-#: src/uagent/core.py:1781
+#: src/uagent/core.py:1793
 msgid ""
 "## Mission\n"
 "- You are a capable \"general-purpose tool execution agent\" running on a local environment, and you can actually execute commands and operate on files on the user's machine.\n"
@@ -480,7 +486,7 @@ msgstr ""
 "- সারসংক্ষেপ করবেন না। তথ্য সংক্ষিপ্ত রাখুন।\n"
 "- ফাইল তৈরি করার সময়, সম্পূর্ণ চূড়ান্ত সামগ্রী আউটপুট করুন (ডিফ বা আংশিক সারাংশ আউটপুট করবেন না)।"
 
-#: src/uagent/core.py:1790
+#: src/uagent/core.py:1802
 msgid ""
 "## Rules\n"
 "- Always use the provided tools and verify the latest information.\n"
@@ -499,7 +505,7 @@ msgstr ""
 "- উপলব্ধ সরঞ্জামগুলির সাথে পরামর্শ করুন এবং সবচেয়ে উপযুক্ত একটি চয়ন করুন৷\n"
 "- সরঞ্জামগুলি চালানোর সময়, ব্যবহারকারীকে যতটা সম্ভব কম সিদ্ধান্ত গ্রহণের দায়িত্ব অর্পণ করুন৷"
 
-#: src/uagent/core.py:1797
+#: src/uagent/core.py:1809
 msgid ""
 "## Notes\n"
 "- All user messages come via this script's standard input.\n"
@@ -525,7 +531,7 @@ msgstr ""
 "- বিশেষজ্ঞ-স্তরের জ্ঞানের প্রয়োজন হলে, প্রম্পট টেমপ্লেট (এজেন্ট দক্ষতা) ব্যবহার করুন এবং সেগুলি অনুসরণ করুন।\n"
 "- যদি ব্যবহারকারীর ইনপুট শুধুমাত্র একটি সংক্ষিপ্ত নিশ্চিতকরণ হয় এবং কোন নতুন তথ্য যোগ না করে, তবে একই ব্যাখ্যা পুনরাবৃত্তি করবেন না যদি না এটি অবিলম্বে পূর্ববর্তী স্পষ্ট প্রশ্নের সরাসরি উত্তর হয়। যদি প্রয়োজন হয়, সংক্ষেপে জিজ্ঞাসা করুন: \"আমি কোন পয়েন্ট দিয়ে চালিয়ে যাব?\""
 
-#: src/uagent/core.py:1810
+#: src/uagent/core.py:1822
 msgid ""
 "## Dangerous operation policy (delete_file)\n"
 "- For deletion using the delete_file tool, do NOT ask for confirmation before preview.\n"
@@ -541,7 +547,7 @@ msgstr ""
 "- শুধুমাত্র যখন ব্যবহারকারী স্পষ্টভাবে \"y\" বা \"হ্যাঁ\" (বা সমতুল্য স্পষ্ট অনুমোদন) উত্তর দেয়, তখনই ডিলিট_ফাইল আবার একই প্যারামিটার দিয়ে চালান, dry_run=false এবং নিশ্চিত=true।\n"
 "- যদি শূন্য প্রার্থী থাকে, জিজ্ঞাসা করবেন না; শুধু রিপোর্ট যে কিছুই মুছে ফেলা হবে না।"
 
-#: src/uagent/core.py:1818
+#: src/uagent/core.py:1830
 msgid ""
 "## Mission\n"
 "- You are a capable \"general-purpose tool execution agent\" running on a local environment; you can execute commands and operate on the user's machine.\n"
@@ -556,7 +562,7 @@ msgstr ""
 "- চাটুকার নয়। কোনো ইমোজি নেই। কোনো কথোপকথনের সারাংশ নেই। সংক্ষিপ্ত রাখুন।\n"
 "- ফাইল তৈরি করার সময়, সম্পূর্ণ চূড়ান্ত সামগ্রী আউটপুট করুন (কোনও পার্থক্য/আংশিক সারাংশ নেই)।"
 
-#: src/uagent/core.py:1826
+#: src/uagent/core.py:1838
 msgid ""
 "## Rules\n"
 "- Use the provided tools first and verify results with tools.\n"
@@ -570,7 +576,7 @@ msgstr ""
 "- সৃজনশীল হন, কিন্তু অনিশ্চিত তথ্য আউটপুট করবেন না।\n"
 "- ব্যবহারকারীকে যতটা সম্ভব কম সিদ্ধান্ত গ্রহণের দায়িত্ব অর্পণ করুন।"
 
-#: src/uagent/core.py:1833
+#: src/uagent/core.py:1845
 msgid ""
 "## Notes\n"
 "- All user messages come via this script's standard input.\n"
@@ -594,7 +600,7 @@ msgstr ""
 "- বিশেষজ্ঞ-স্তরের জ্ঞানের প্রয়োজন হলে, এজেন্ট স্কিল প্রম্পট টেমপ্লেট ব্যবহার করুন।\n"
 "- যদি ব্যবহারকারীর ইনপুট শুধুমাত্র একটি সংক্ষিপ্ত নিশ্চিতকরণ হয় এবং কোন নতুন তথ্য যোগ না করে, তবে একই ব্যাখ্যা পুনরাবৃত্তি করবেন না যদি না এটি অবিলম্বে পূর্ববর্তী স্পষ্ট প্রশ্নের সরাসরি উত্তর হয়। যদি প্রয়োজন হয়, সংক্ষেপে জিজ্ঞাসা করুন: \"আমি কোন পয়েন্ট দিয়ে চালিয়ে যাব?\""
 
-#: src/uagent/core.py:1847
+#: src/uagent/core.py:1859
 msgid ""
 "- If the user is using Windows cmd.exe, prefer multi-line commands using "
 "caret (^) line continuation, and keep each line short to avoid copy/paste "
@@ -604,7 +610,7 @@ msgstr ""
 "কন্টিনিউয়েশন ব্যবহার করে মাল্টি-লাইন কমান্ড পছন্দ করুন এবং কপি/পেস্ট লাইন "
 "ব্রেক এড়াতে প্রতিটি লাইন ছোট রাখুন।"
 
-#: src/uagent/core.py:1914
+#: src/uagent/core.py:1926
 msgid ""
 "The following tools are currently loaded in this session. Choose the most "
 "appropriate tool for the task."
@@ -1036,6 +1042,7 @@ msgstr "400 খারাপ অনুরোধ"
 
 #: src/uagent/llm_round_helpers.py:713
 #: src/uagent/providers/llm_deepseek.py:697
+#, python-format
 msgid "Error code: %(code)d - %(err)s"
 msgstr "ত্রুটি কোড: %(code)d - %(err)s"
 
@@ -1069,6 +1076,7 @@ msgid "Error while parsing response: %(err)s"
 msgstr "প্রতিক্রিয়া পার্স করার সময় ত্রুটি: %(err)s"
 
 #: src/uagent/profile_manager.py:623
+#, python-brace-format
 msgid ""
 "You are a user profiling agent. Analyze the conversation log and extract the user's:\n"
 "1. Environment (OS, shell, editor, etc.)\n"
@@ -1114,6 +1122,7 @@ msgstr ""
 "হচ্ছে..."
 
 #: src/uagent/profile_manager.py:755
+#, python-brace-format
 msgid ""
 "You are a user profiling agent. Analyze the conversation log and extract:\n"
 "1. Environment (OS, shell, editor) — only if clearly evident from the log.\n"
@@ -1162,6 +1171,7 @@ msgstr ""
 "}"
 
 #: src/uagent/profile_manager.py:833
+#, python-format
 msgid "[Warning] Failed to process chunk (%(step)s): %(err)s"
 msgstr "[সতর্কতা] খণ্ড প্রক্রিয়া করতে ব্যর্থ হয়েছে (%(step)s): %(err)s"
 
@@ -1198,6 +1208,7 @@ msgid "Welcome / Quick Guide"
 msgstr "স্বাগতম / দ্রুত গাইড"
 
 #: src/uagent/scheckgui.py:1213
+#, python-format
 msgid "Font size: %(name)s"
 msgstr "হরফের আকার: %(name)s"
 
@@ -1238,6 +1249,7 @@ msgid "View"
 msgstr "দেখুন"
 
 #: src/uagent/scheckgui.py:1424
+#, python-format
 msgid "Font: %(name)s"
 msgstr "হরফ: %(name)s"
 
@@ -2128,6 +2140,7 @@ msgid "invalid verbosity"
 msgstr "অবৈধ শব্দচয়ন"
 
 #: src/uagent/util_tools.py:604
+#, python-format
 msgid ""
 "[logs] Invalid argument: %(arg)r (specify all / --all / -a / number / pdf "
 "<index>)"
@@ -2149,7 +2162,6 @@ msgid "src and dst are required"
 msgstr "src এবং dst প্রয়োজন"
 
 #: src/uagent/util_tools.py:724
-#, python-format
 msgid ":cp <src> <dst> [-f|--overwrite] [-p|--mkdirs]"
 msgstr ":cp <src> <dst> [-f|--overwrite] [-p|--mkdirs]"
 
@@ -2184,7 +2196,6 @@ msgid "[cp] Copied: %(src)s -> %(dst)s"
 msgstr "[cp] কপি করা হয়েছে: %(src)s -> %(dst)s"
 
 #: src/uagent/util_tools.py:796
-#, python-format
 msgid ":mv <src> <dst> [-f|--overwrite] [-p|--mkdirs]"
 msgstr ":mv <src> <dst> [-f|--overwrite] [-p|--mkdirs]"
 
@@ -2359,6 +2370,7 @@ msgstr ""
 "সেট করা নেই)৷"
 
 #: src/uagent/util_tools.py:1940
+#, python-format
 msgid "Analyzing the most recent %d log files to generate user profile..."
 msgstr ""
 "ব্যবহারকারীর প্রোফাইল তৈরি করতে সাম্প্রতিকতম %d লগ ফাইলগুলি বিশ্লেষণ করা "
@@ -2542,14 +2554,17 @@ msgid "  - Enter a line that is just 'f' to enter multiline input mode."
 msgstr "- মাল্টিলাইন ইনপুট মোডে প্রবেশ করতে একটি লাইন লিখুন যা শুধু 'f'।"
 
 #: src/uagent/util_tools.py:2225
+#, python-format
 msgid "Continue. Goal: %(goal)s"
 msgstr "চালিয়ে যান। লক্ষ্য: %(goal)s"
 
 #: src/uagent/util_tools.py:2227
+#, python-format
 msgid "Reviewer notes: %(feedback)s"
 msgstr "পর্যালোচক নোট: %(feedback)s"
 
 #: src/uagent/util_tools.py:2328
+#, python-format
 msgid ""
 "\n"
 "[AUTO:judge] %(judgment)s"
@@ -2558,6 +2573,7 @@ msgstr ""
 "[AUTO:judge] %(judgment)s"
 
 #: src/uagent/util_tools.py:2330
+#, python-format
 msgid "  feedback: %(feedback)s"
 msgstr "প্রতিক্রিয়া: %(feedback)s"
 
@@ -2570,10 +2586,12 @@ msgid "[AUTO] Review/analysis completed."
 msgstr "[অটো] পর্যালোচনা/বিশ্লেষণ সম্পন্ন হয়েছে।"
 
 #: src/uagent/util_tools.py:2415
+#, python-format
 msgid "[AUTO] Max rounds (%(max)d) reached. Stopping."
 msgstr "[অটো] সর্বোচ্চ রাউন্ড (%(max)d) পৌঁছেছে।থামছে।"
 
 #: src/uagent/util_tools.py:2425
+#, python-format
 msgid "[AUTO] Round %(round)d/%(max)d"
 msgstr "[অটো] রাউন্ড %(round)d/%(max)d"
 
@@ -2590,6 +2608,7 @@ msgid "       :auto off"
 msgstr ":auto বন্ধ"
 
 #: src/uagent/util_tools.py:2491
+#, python-format
 msgid "Invalid value for --max-rounds: %(val)s"
 msgstr "--max-rounds এর জন্য অবৈধ মান: %(val)s"
 
@@ -2598,10 +2617,12 @@ msgid "Goal cannot be empty."
 msgstr "লক্ষ্য খালি হতে পারে না।"
 
 #: src/uagent/util_tools.py:2512
+#, python-format
 msgid "[AUTO] Started. Goal: %(goal)s"
 msgstr "[AUTO] শুরু হয়েছে। লক্ষ্য: %(goal)s"
 
 #: src/uagent/util_tools.py:2513
+#, python-format
 msgid "[AUTO] Max rounds: %(max)d"
 msgstr "[AUTO] সর্বোচ্চ রাউন্ড: %(max)d"
 
@@ -2821,7 +2842,15 @@ msgid "- \"Search the latest news and summarize a specific topic.\""
 msgstr ""
 "- \"সর্বশেষ খবর অনুসন্ধান করুন এবং একটি নির্দিষ্ট বিষয়ের সারসংক্ষেপ করুন।\""
 
-#: src/uagent/welcome.py:195
+#: src/uagent/welcome.py:89
+msgid ""
+"- \"Scan this project with code_map so the LLM understands the codebase "
+"faster.\""
+msgstr ""
+"- \"কোড_ম্যাপ দিয়ে এই প্রকল্পটি স্ক্যান করুন যাতে এলএলএম দ্রুত কোডবেস বুঝতে"
+" পারে।\""
+
+#: src/uagent/welcome.py:196
 msgid "-- More -- (Enter: next) "
 msgstr "-- আরও -- (Enter: পরবর্তী) "
 
@@ -2971,6 +3000,7 @@ msgid "Server-side compaction triggered (context compressed)."
 msgstr "সার্ভার-সাইড কমপ্যাকশন ট্রিগার (প্রসঙ্গ সংকুচিত)।"
 
 #: src/uagent/providers/llm_zai.py:366
+#, python-format
 msgid "Response body: %(body)s"
 msgstr "রেসপন্স বডি: %(body)s"
 
