@@ -176,6 +176,7 @@ API কী এবং গোপনীয়তাগুলি `.env.sec`-এ স�
 - **এনক্রিপ্ট করা env**: `uag_envsec` — `.env` কে `.env.sec` হিসেবে এনক্রিপ্ট করুন
 - **প্রতিক্রিয়া API**: প্রতিক্রিয়া API মোডের জন্য `UAGENT_RESPONSES=1` সেট করুন (OpenAI/Azure/Bedrock/OpenRouter/Ollama/Alibaba/LM Studio/Sakana AI)। সাকানা এআই (ফুগু) এর জন্য স্বতঃ-সক্ষম।
 - **ডেভেলপার ডক্স**: [DEVELOP.md](https://github.com/awaku7/agentcli/blob/main/src/uagent/docs/DEVELOP.md)
+- **Tool flow**: [TOOL_FLOW.md](../src/uagent/docs/TOOL_FLOW.md)
 - **ছোট এলএলএম টিপস**: [SLM_TIPS.md](https://github.com/awaku7/agentcli/blob/main/SLM_TIPS.md)
 
 ## প্রকল্প দর্শন

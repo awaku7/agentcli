@@ -176,6 +176,7 @@ API түлхүүр болон нууцыг `.env.sec` — шифрлэгдсэн
 - **Шифрлэгдсэн env**: `uag_envsec` — `.env`-г `.env.sec` гэж шифрлэх
 - **Responses API**: Responses API горимд `UAGENT_RESPONSES=1` тохируулна уу (OpenAI/Azure/Bedrock/OpenRouter/Ollama/Alibaba/LM Studio/Sakana AI). Sakana AI (Fugu)-д автоматаар идэвхжүүлсэн.
 - **Хөгжүүлэгчийн баримт бичиг**: [DEVELOP.md](https://github.com/awaku7/agentcli/blob/main/src/uagent/docs/DEVELOP.md)
+- **Tool flow**: [TOOL_FLOW.md](../src/uagent/docs/TOOL_FLOW.md)
 - ** LLM-ийн жижиг зөвлөмж**: [SLM_TIPS.md](https://github.com/awaku7/agentcli/blob/main/SLM_TIPS.md)
 
 ## Төслийн философи

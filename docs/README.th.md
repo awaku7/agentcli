@@ -176,6 +176,7 @@ uag สามารถติดตามความคืบหน้าขอ�
 - **env ที่เข้ารหัส**: `uag_envsec` — เข้ารหัส `.env` เป็น `.env.sec`
 - **Responses API**: ตั้งค่า `UAGENT_RESPONSES=1` สำหรับโหมด Responses API (OpenAI/Azure/Bedrock/OpenRouter/Ollama/Alibaba/LM Studio/Sakana AI) เปิดใช้งานอัตโนมัติสำหรับ Sakana AI (Fugu)
 - **เอกสารสำหรับนักพัฒนา**: [DEVELOP.md](https://github.com/awaku7/agentcli/blob/main/src/uagent/docs/DEVELOP.md)
+- **Tool flow**: [TOOL_FLOW.md](../src/uagent/docs/TOOL_FLOW.md)
 - **เคล็ดลับ LLM ขนาดเล็ก**: [SLM_TIPS.md](https://github.com/awaku7/agentcli/blob/main/SLM_TIPS.md)
 
 ## ปรัชญาโครงการ

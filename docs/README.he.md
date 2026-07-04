@@ -176,6 +176,7 @@ uag יכול לעקוב אחר התקדמות לאורך משימות מרובו
 - **env מוצפן**: `uag_envsec` - הצפין `.env` בתור `.env.sec`
 - **Responses API**: הגדר 'UAGENT_RESPONSES=1' למצב תגובות API (OpenAI/Azure/Bedrock/OpenRouter/Ollama/Alibaba/LM Studio/Sakana AI). מופעל אוטומטי עבור Sakana AI (Fugu).
 - **מסמכי מפתח**: [DEVELOP.md](https://github.com/awaku7/agentcli/blob/main/src/uagent/docs/DEVELOP.md)
+- **Tool flow**: [TOOL_FLOW.md](../src/uagent/docs/TOOL_FLOW.md)
 - **טיפים קטנים LLM**: [SLM_TIPS.md](https://github.com/awaku7/agentcli/blob/main/SLM_TIPS.md)
 
 ## פילוסופיית הפרויקט

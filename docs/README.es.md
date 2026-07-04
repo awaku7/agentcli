@@ -176,6 +176,7 @@ Administrar con `uag_envsec`.
 - **Entorno cifrado**: `uag_envsec` — cifra `.env` como `.env.sec`
 - **API de respuestas**: establezca `UAGENT_RESPONSES=1` para el modo API de respuestas (OpenAI/Azure/Bedrock/OpenRouter/Ollama/Alibaba/LM Studio/Sakana AI). Habilitado automáticamente para Sakana AI (Fugu).
 - **Documentos del desarrollador**: [DEVELOP.md](https://github.com/awaku7/agentcli/blob/main/src/uagent/docs/DEVELOP.md)
+- **Flujo de herramientas**: [TOOL_FLOW.md](../src/uagent/docs/TOOL_FLOW.md)
 - **Pequeños consejos de LLM**: [SLM_TIPS.md](https://github.com/awaku7/agentcli/blob/main/SLM_TIPS.md)
 
 ## Filosofía del proyecto

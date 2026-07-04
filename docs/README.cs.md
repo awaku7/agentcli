@@ -176,6 +176,7 @@ Spravujte pomocí `uag_envsec`.
 - **Šifrované env**: `uag_envsec` — šifrovat `.env` jako `.env.sec`
 - **Responses API**: Nastavte `UAGENT_RESPONSES=1` pro režim Responses API (OpenAI/Azure/Bedrock/OpenRouter/Ollama/Alibaba/LM Studio/Sakana AI). Automaticky povoleno pro Sakana AI (Fugu).
 - **Dokumenty pro vývojáře**: [DEVELOP.md](https://github.com/awaku7/agentcli/blob/main/src/uagent/docs/DEVELOP.md)
+- **Tool flow**: [TOOL_FLOW.md](../src/uagent/docs/TOOL_FLOW.md)
 - **Malé tipy LLM**: [SLM_TIPS.md](https://github.com/awaku7/agentcli/blob/main/SLM_TIPS.md)
 
 ## Filosofie projektu

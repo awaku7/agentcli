@@ -176,6 +176,7 @@ OpenAI / Azure / Bedrock / OpenRouter / Ollama / Gemini / Vertex AI / Claude / G
 - **Κρυπτογραφημένο env**: "uag_envsec" — κρυπτογράφηση ".env" ως ".env.sec"
 - **Responses API**: Ορίστε το "UAGENT_RESPONSES=1" για τη λειτουργία Responses API (OpenAI/Azure/Bedrock/OpenRouter/Ollama/Alibaba/LM Studio/Sakana AI). Αυτόματη ενεργοποίηση για Sakana AI (Fugu).
 - **Έγγραφα προγραμματιστή**: [DEVELOP.md](https://github.com/awaku7/agentcli/blob/main/src/uagent/docs/DEVELOP.md)
+- **Tool flow**: [TOOL_FLOW.md](../src/uagent/docs/TOOL_FLOW.md)
 - **Μικρές συμβουλές LLM**: [SLM_TIPS.md](https://github.com/awaku7/agentcli/blob/main/SLM_TIPS.md)
 
 ## Φιλοσοφία έργου

@@ -176,6 +176,7 @@ API की आणि गुपिते `.env.sec` मध्ये संग्�
 - **एनक्रिप्ट केलेले env**: `uag_envsec` — एंक्रिप्ट `.env` म्हणून `.env.sec`
 - **प्रतिसाद API**: प्रतिसाद API मोडसाठी `UAGENT_RESPONSES=1` सेट करा (OpenAI/Azure/Bedrock/OpenRouter/Ollama/Alibaba/LM Studio/Sakana AI). Sakana AI (Fugu) साठी स्वयं-सक्षम.
 - **डेव्हलपर डॉक्स**: [DEVELOP.md](https://github.com/awaku7/agentcli/blob/main/src/uagent/docs/DEVELOP.md)
+- **Tool flow**: [TOOL_FLOW.md](../src/uagent/docs/TOOL_FLOW.md)
 - **लहान LLM टिपा**: [SLM_TIPS.md](https://github.com/awaku7/agentcli/blob/main/SLM_TIPS.md)
 
 ## प्रकल्प तत्वज्ञान

@@ -176,6 +176,7 @@ uag 可以跟踪长时间运行的多文件任务的进度。当 LLM 处理数�
 - **加密的 env**: `uag_envsec` — 将 `.env` 加密为 `.env.sec`
 - **响应 API**：为响应 API 模式设置“UAGENT_RESPONSES=1”（OpenAI/Azure/Bedrock/OpenRouter/Ollama/Alibaba/LM Studio/Sakana AI）。自动启用 Sakana AI (Fugu)。
 - **开发人员文档**：[DEVELOP.md](https://github.com/awaku7/agentcli/blob/main/src/uagent/docs/DEVELOP.md)
+- **Tool flow**: [TOOL_FLOW.md](../src/uagent/docs/TOOL_FLOW.md)
 - **LLM小技巧**：[SLM_TIPS.md](https://github.com/awaku7/agentcli/blob/main/SLM_TIPS.md)
 
 ## 项目理念

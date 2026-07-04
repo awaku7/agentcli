@@ -176,6 +176,7 @@ uag
 - **एन्क्रिप्टेड एनवी**: `uag_envsec` - `.env` को `.env.sec` के रूप में एन्क्रिप्ट करें
 - **प्रतिक्रिया एपीआई**: प्रतिक्रिया एपीआई मोड (OpenAI/Azure/Bedrock/OpenRouter/Ollama/Alibaba/LM Studio/Sakana AI) के लिए `UAGENT_RESPONSES=1` सेट करें। सकाना एआई (फुगु) के लिए स्वतः सक्षम।
 - **डेवलपर दस्तावेज़**: [DEVELOP.md](https://github.com/awaku7/agentcli/blob/main/src/uagent/docs/DEVELOP.md)
+- **Tool flow**: [TOOL_FLOW.md](../src/uagent/docs/TOOL_FLOW.md)
 - **छोटे एलएलएम टिप्स**: [SLM_TIPS.md](https://github.com/awaku7/agentcli/blob/main/SLM_TIPS.md)
 
 ## परियोजना दर्शन

@@ -176,6 +176,7 @@ Kezelje az "uag_envsec" segítségével.
 - **Titkosított env**: `uag_envsec` — `.env` titkosítása `.env.sec`-ként
 - **Responses API**: Állítsa be az "UAGENT_RESPONSES=1" értéket a Responses API módhoz (OpenAI/Azure/Bedrock/OpenRouter/Ollama/Alibaba/LM Studio/Sakana AI). Automatikusan engedélyezve a Sakana AI (Fugu) számára.
 - **Fejlesztői dokumentumok**: [DEVELOP.md](https://github.com/awaku7/agentcli/blob/main/src/uagent/docs/DEVELOP.md)
+- **Tool flow**: [TOOL_FLOW.md](../src/uagent/docs/TOOL_FLOW.md)
 - **Kis LLM-tippek**: [SLM_TIPS.md](https://github.com/awaku7/agentcli/blob/main/SLM_TIPS.md)
 
 ## Projektfilozófia

@@ -176,6 +176,7 @@ uag може відстежувати перебіг тривалих багат
 - **Зашифроване env**: `uag_envsec` — зашифрувати `.env` як `.env.sec`
 - **Responses API**: установіть `UAGENT_RESPONSES=1` для режиму Responses API (OpenAI/Azure/Bedrock/OpenRouter/Ollama/Alibaba/LM Studio/Sakana AI). Автоматично ввімкнено для Sakana AI (Fugu).
 - **Документація розробника**: [DEVELOP.md](https://github.com/awaku7/agentcli/blob/main/src/uagent/docs/DEVELOP.md)
+- **Tool flow**: [TOOL_FLOW.md](../src/uagent/docs/TOOL_FLOW.md)
 - **Невеликі поради LLM**: [SLM_TIPS.md](https://github.com/awaku7/agentcli/blob/main/SLM_TIPS.md)
 
 ## Філософія проекту

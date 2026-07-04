@@ -176,6 +176,7 @@ OpenAI / Azure / Bedrock / OpenRouter / Ollama / Gemini / Vertex AI / Claude / G
 - **env المشفر**: `uag_envsec` — تشفير `.env` كـ `.env.sec`
 - **Responses API**: قم بتعيين `UAGENT_RESPONSES=1` لوضع واجهة برمجة التطبيقات للاستجابات (OpenAI/Azure/Bedrock/OpenRouter/Ollama/Alibaba/LM Studio/Sakana AI). تم تمكينه تلقائيًا لـ Sakana AI (Fugu).
 - **مستندات المطورين**: [DEVELOP.md](https://github.com/awaku7/agentcli/blob/main/src/uagent/docs/DEVELOP.md)
+- **Tool flow**: [TOOL_FLOW.md](../src/uagent/docs/TOOL_FLOW.md)
 - **نصائح LLM الصغيرة**: [SLM_TIPS.md](https://github.com/awaku7/agentcli/blob/main/SLM_TIPS.md)
 
 ## فلسفة المشروع

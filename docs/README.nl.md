@@ -176,6 +176,7 @@ Beheer met `uag_envsec`.
 - **Gecodeerde env**: `uag_envsec` — versleutel `.env` als `.env.sec`
 - **Responses API**: Stel `UAGENT_RESPONSES=1` in voor de Responses API-modus (OpenAI/Azure/Bedrock/OpenRouter/Ollama/Alibaba/LM Studio/Sakana AI). Automatisch ingeschakeld voor Sakana AI (Fugu).
 - **Ontwikkelaarsdocumentatie**: [DEVELOP.md](https://github.com/awaku7/agentcli/blob/main/src/uagent/docs/DEVELOP.md)
+- **Tool flow**: [TOOL_FLOW.md](../src/uagent/docs/TOOL_FLOW.md)
 - **Kleine LLM-tips**: [SLM_TIPS.md](https://github.com/awaku7/agentcli/blob/main/SLM_TIPS.md)
 
 ## Projectfilosofie

@@ -176,6 +176,7 @@ Human_ask позволяет LLM приостанавливать работу �
 - **Зашифрованный env**: `uag_envsec` — зашифровать `.env` как `.env.sec`
 - **API ответов**: установите `UAGENT_RESPONSES=1` для режима API ответов (OpenAI/Azure/Bedrock/OpenRouter/Ollama/Alibaba/LM Studio/Sakana AI). Автоматически включается для Sakana AI (Fugu).
 - **Документация для разработчиков**: [DEVELOP.md](https://github.com/awaku7/agentcli/blob/main/src/uagent/docs/DEVELOP.md)
+- **Поток инструментов**: [TOOL_FLOW.md](../src/uagent/docs/TOOL_FLOW.md)
 - **Небольшие советы по программе LLM**: [SLM_TIPS.md](https://github.com/awaku7/agentcli/blob/main/SLM_TIPS.md)
 
 ## Философия проекта

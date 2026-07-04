@@ -171,6 +171,7 @@ APIキーやシークレットは `.env.sec`（暗号化された `.env` ファ�
 - **暗号化環境**: `uag_envsec` — `.env` を `.env.sec` として暗号化
 - **Responses API**: `UAGENT_RESPONSES=1` でResponses APIモードに（OpenAI/Azure/Bedrock/OpenRouter/Ollama/Alibaba/LM Studio/Sakana AI）。Sakana AI（Fugu）では自動的に有効になります。
 - **開発者向けドキュメント**: [DEVELOP.md](../src/uagent/docs/DEVELOP.md)
+- **ツールフロー**: [TOOL_FLOW.md](../src/uagent/docs/TOOL_FLOW.md) — ツール送信方式の詳細（genre mask, tool_catalog, GPT-5.4+ native tool_search）
 - **軽量LLM向けヒント**: [SLM_TIPS.md](../SLM_TIPS.md)
 
 ## プロジェクトの理念

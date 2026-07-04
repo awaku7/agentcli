@@ -176,6 +176,7 @@ API anahtarlarını ve sırlarını, şifrelenmiş bir ".env" dosyası olan ".en
 - **Şifrelenmiş ortam**: `uag_envsec` — `.env`yi `.env.sec` olarak şifreleyin
 - **Responses API**: Responses API modu için `UAGENT_RESPONSES=1'i ayarlayın (OpenAI/Azure/Bedrock/OpenRouter/Ollama/Alibaba/LM Studio/Sakana AI). Sakana AI (Fugu) için otomatik olarak etkinleştirildi.
 - **Geliştirici belgeleri**: [DEVELOP.md](https://github.com/awaku7/agentcli/blob/main/src/uagent/docs/DEVELOP.md)
+- **Tool flow**: [TOOL_FLOW.md](../src/uagent/docs/TOOL_FLOW.md)
 - **Küçük LLM ipuçları**: [SLM_TIPS.md](https://github.com/awaku7/agentcli/blob/main/SLM_TIPS.md)
 
 ## Proje Felsefesi

@@ -176,6 +176,7 @@ Kelola dengan `uag_envsec`.
 - **Env terenkripsi**: `uag_envsec` — mengenkripsi `.env` sebagai `.env.sec`
 - **Responses API**: Setel `UAGENT_RESPONSES=1` untuk mode Responses API (OpenAI/Azure/Bedrock/OpenRouter/Ollama/Alibaba/LM Studio/Sakana AI). Diaktifkan secara otomatis untuk Sakana AI (Fugu).
 - **Dokumen pengembang**: [DEVELOP.md](https://github.com/awaku7/agentcli/blob/main/src/uagent/docs/DEVELOP.md)
+- **Tool flow**: [TOOL_FLOW.md](../src/uagent/docs/TOOL_FLOW.md)
 - **Tips LLM kecil**: [SLM_TIPS.md](https://github.com/awaku7/agentcli/blob/main/SLM_TIPS.md)
 
 ## Filosofi Proyek

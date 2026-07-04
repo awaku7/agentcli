@@ -176,6 +176,7 @@ Quản lý bằng `uag_envsec`.
 - **Env được mã hóa**: `uag_envsec` — mã hóa `.env` thành `.env.sec`
 - **API phản hồi**: Đặt `UAGENT_RESPONSES=1` cho chế độ API phản hồi (OpenAI/Azure/Bedrock/OpenRouter/Ollama/Alibaba/LM Studio/Sakana AI). Tự động kích hoạt cho Sakana AI (Fugu).
 - **Tài liệu dành cho nhà phát triển**: [DEVELOP.md](https://github.com/awaku7/agentcli/blob/main/src/uagent/docs/DEVELOP.md)
+- **Tool flow**: [TOOL_FLOW.md](../src/uagent/docs/TOOL_FLOW.md)
 - **Mẹo LLM nhỏ**: [SLM_TIPS.md](https://github.com/awaku7/agentcli/blob/main/SLM_TIPS.md)
 
 ## Triết lý dự án

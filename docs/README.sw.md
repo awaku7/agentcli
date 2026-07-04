@@ -176,6 +176,7 @@ Dhibiti ukitumia `uag_envsec`.
 - **env iliyosimbwa kwa njia fiche**: `uag_envsec` — simba kwa njia fiche `.env` kama `.env.sec`
 - **API ya Majibu**: Weka `UAGENT_RESPONSES=1` kwa modi ya API ya Majibu (OpenAI/Azure/Bedrock/OpenRouter/Ollama/Alibaba/LM Studio/Sakana AI). Imewashwa kiotomatiki kwa Sakana AI (Fugu).
 - **Hati za Msanidi**: [DEVELOP.md](https://github.com/awaku7/agentcli/blob/main/src/uagent/docs/DEVELOP.md)
+- **Tool flow**: [TOOL_FLOW.md](../src/uagent/docs/TOOL_FLOW.md)
 - **Vidokezo vidogo vya LLM**: [SLM_TIPS.md](https://github.com/awaku7/agentcli/blob/main/SLM_TIPS.md)
 
 ## Falsafa ya Mradi

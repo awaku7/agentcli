@@ -176,6 +176,7 @@ uag는 장기 실행 다중 파일 작업의 진행 상황을 추적할 수 있�
 - **암호화된 환경**: `uag_envsec` — `.env`를 `.env.sec`로 암호화합니다.
 - **응답 API**: 응답 API 모드(OpenAI/Azure/Bedrock/OpenRouter/Ollama/Alibaba/LM Studio/Sakana AI)에 대해 `UAGENT_RESPONSES=1`을 설정합니다. Sakana AI(Fugu)가 자동 활성화됩니다.
 - **개발자 문서**: [DEVELOP.md](https://github.com/awaku7/agentcli/blob/main/src/uagent/docs/DEVELOP.md)
+- **도구 흐름**: [TOOL_FLOW.md](../src/uagent/docs/TOOL_FLOW.md)
 - **작은 LLM 팁**: [SLM_TIPS.md](https://github.com/awaku7/agentcli/blob/main/SLM_TIPS.md)
 
 ## 프로젝트 철학

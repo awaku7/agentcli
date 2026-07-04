@@ -176,6 +176,7 @@ Hallinnoi komennolla "uag_envsec".
 - **Salattu env**: `uag_envsec` — salaa `.env` muodossa `.env.sec`
 - **Responses API**: Aseta `UAGENT_RESPONSES=1` Responses API -tilalle (OpenAI/Azure/Bedrock/OpenRouter/Ollama/Alibaba/LM Studio/Sakana AI). Automaattinen käytössä Sakana AI:lle (Fugu).
 - **Kehittäjien asiakirjat**: [DEVELOP.md](https://github.com/awaku7/agentcli/blob/main/src/uagent/docs/DEVELOP.md)
+- **Tool flow**: [TOOL_FLOW.md](../src/uagent/docs/TOOL_FLOW.md)
 - **Pienet LLM-vinkit**: [SLM_TIPS.md](https://github.com/awaku7/agentcli/blob/main/SLM_TIPS.md)
 
 ## Projektifilosofia

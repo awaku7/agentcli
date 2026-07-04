@@ -176,6 +176,7 @@ uag می تواند پیشرفت را در وظایف طولانی مدت چند
 - ** env رمزگذاری شده **: `uag_envsec` — رمزگذاری `.env` به عنوان `.env.sec`
 - **Responses API**: "UAGENT_RESPONSES=1" را برای حالت Responses API (OpenAI/Azure/Bedrock/OpenRouter/Ollama/Alibaba/LM Studio/Sakana AI) تنظیم کنید. به طور خودکار برای Sakana AI (Fugu) فعال شده است.
 - **اسناد برنامه‌نویس**: [DEVELOP.md](https://github.com/awaku7/agentcli/blob/main/src/uagent/docs/DEVELOP.md)
+- **Tool flow**: [TOOL_FLOW.md](../src/uagent/docs/TOOL_FLOW.md)
 - **نکات کوچک LLM**: [SLM_TIPS.md](https://github.com/awaku7/agentcli/blob/main/SLM_TIPS.md)
 
 ## فلسفه پروژه
