@@ -1685,18 +1685,18 @@ msgid "Sakana AI model name (optional, default: fugu)"
 msgstr "Název modelu Sakana AI (volitelné, výchozí: fugu)"
 
 msgid "SAKURA AI Engine API key"
-msgstr ""
+msgstr "SAKURA AI Engine API key"
 
 msgid ""
 "SAKURA AI Engine base URL (optional, default: "
 "https://api.ai.sakura.ad.jp/v1)"
-msgstr ""
+msgstr "SAKURA AI Engine base URL (optional, default: https://api.ai.sakura.ad.jp/v1)"
 
 msgid "SAKURA AI Engine model name (optional, default: llm)"
-msgstr ""
+msgstr "SAKURA AI Engine model name (optional, default: llm)"
 
 msgid "SAKURA AI Engine temperature (optional)"
-msgstr ""
+msgstr "SAKURA AI Engine temperature (optional)"
 
 #: src/uagent/setup_cli.py:516 src/uagent/setup_cli.py:605
 msgid "Enter number:"

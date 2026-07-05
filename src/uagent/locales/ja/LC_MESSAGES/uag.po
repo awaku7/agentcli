@@ -1614,21 +1614,21 @@ msgstr "さかなAIモデル名（任意、デフォルト：fugu）"
 
 #: src/uagent/setup_cli.py:339
 msgid "SAKURA AI Engine API key"
-msgstr ""
+msgstr "SAKURA AI Engine API key"
 
 #: src/uagent/setup_cli.py:343
 msgid ""
 "SAKURA AI Engine base URL (optional, default: "
 "https://api.ai.sakura.ad.jp/v1)"
-msgstr ""
+msgstr "SAKURA AI Engine base URL (optional, default: https://api.ai.sakura.ad.jp/v1)"
 
 #: src/uagent/setup_cli.py:348
 msgid "SAKURA AI Engine model name (optional, default: llm)"
-msgstr ""
+msgstr "SAKURA AI Engine model name (optional, default: llm)"
 
 #: src/uagent/setup_cli.py:353
 msgid "SAKURA AI Engine temperature (optional)"
-msgstr ""
+msgstr "SAKURA AI Engine temperature (optional)"
 
 #: src/uagent/setup_cli.py:516 src/uagent/setup_cli.py:605
 msgid "Enter number:"
