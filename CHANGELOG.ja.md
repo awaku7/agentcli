@@ -1,5 +1,18 @@
 # 変更履歴
 
+## [0.5.37] - 2026-07-04
+
+### 追加
+- 外部コンテンツポリシー：bluesky、discord_channel_chat、gmail_read ツールへのプロンプトインジェクション防御を追加。全34言語のツール説明文に外部コンテンツ警告を表示。
+- wttrin_tool：Open-Meteo フォールバック対応 + 全34言語の完全 i18n（WMO weather codes、geocoding error、fallback source）。
+
+### 変更
+- i18n：geoip/gps ツール説明に「現在地」検索語を全34言語に追加。
+- 外部コンテンツポリシー警告を Google 翻訳で全34言語ファイルに翻訳。破損した ja PO エントリを修復。
+
+### ドキュメント
+- bluesky、discord_channel_chat、gmail_read のツール JSON 説明に外部コンテンツ警告を全言語で追加。
+
 ## [0.5.36] - 2026-07-04
 
 ### 追加

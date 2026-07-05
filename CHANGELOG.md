@@ -1,5 +1,18 @@
 # Changelog
 
+## [0.5.37] - 2026-07-04
+
+### Added
+- External content policy: prompt injection defense for bluesky, discord_channel_chat, and gmail_read tools. Tool descriptions now include external content warning in all 34 languages.
+- wttrin_tool: Open-Meteo fallback with full i18n for all 34 languages (WMO weather codes, geocoding error messages, fallback source indicator).
+
+### Changed
+- i18n: add "current location" search terms to geoip/gps tool descriptions for all 34 languages.
+- External content policy warnings translated to all 34 locale files via Google Translate. Repaired corrupted ja PO entries.
+
+### Documentation
+- Add external content warning to tool JSON descriptions for bluesky, discord_channel_chat, gmail_read in all languages.
+
 ## [0.5.36] - 2026-07-04
 
 ### Added
