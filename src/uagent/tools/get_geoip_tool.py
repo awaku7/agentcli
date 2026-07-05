@@ -82,6 +82,7 @@ TOOL_SPEC: dict[str, Any] = {
                 "ip geolocation",
                 "geo ip",
                 "news",
+                "現在地",
             ],
         ),
         "x_search_terms_en": [
@@ -92,6 +93,7 @@ TOOL_SPEC: dict[str, Any] = {
             "ip geolocation",
             "geo ip",
             "news",
+            "current location",
         ],
         "parameters": {
             "type": "object",

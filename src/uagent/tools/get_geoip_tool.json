@@ -9,7 +9,8 @@
       "location",
       "country",
       "ip geolocation",
-      "geo ip"
+      "geo ip",
+      "current location"
     ],
     "err.format_invalid": "[get_geoip error] format must be 'text' or 'json'",
     "err.local_db_unavailable": "[get_geoip error] Local DB not configured. Set UAGENT_GEOIP_DB_PATH to a .mmdb file and install maxminddb to look up arbitrary IP addresses offline."
@@ -22,7 +23,8 @@
       "get_geoip",
       "geoip 取得",
       "IP 位置情報",
-      "位置推定"
+      "位置推定",
+      "現在地"
     ],
     "err.format_invalid": "[get_geoip error] format must be 'text' or 'json'",
     "err.local_db_unavailable": "[get_geoip エラー] ローカル DB が設定されていません。UAGENT_GEOIP_DB_PATH を .mmdb ファイルに設定し、maxminddb をインストールして任意の IP アドレスをオフラインで検索します。"
@@ -35,7 +37,8 @@
       "get_geoip",
       "get geoip",
       "geoip",
-      "ubicación IP"
+      "ubicación IP",
+      "ubicación actual"
     ],
     "err.format_invalid": "[get_geoip error] format must be 'text' or 'json'"
   },
@@ -48,7 +51,8 @@
       "get geoip",
       "geoip",
       "localisation IP",
-      "actualités"
+      "actualités",
+      "emplacement actuel"
     ],
     "err.format_invalid": "[get_geoip error] format must be 'text' or 'json'"
   },
@@ -62,7 +66,8 @@
       "IP 위치",
       "위치 추정",
       "날씨",
-      "뉴스"
+      "뉴스",
+      "현재 위치"
     ],
     "err.format_invalid": "[get_geoip error] format must be 'text' or 'json'"
   },
@@ -74,7 +79,8 @@
       "get_geoip",
       "get geoip",
       "geoip",
-      "ip standort"
+      "ip standort",
+      "aktuellen Standort"
     ],
     "err.format_invalid": "[get_geoip error] format must be 'text' or 'json'"
   },
@@ -87,7 +93,8 @@
       "get geoip",
       "geoip",
       "posizione IP",
-      "notizie"
+      "notizie",
+      "posizione attuale"
     ],
     "err.format_invalid": "[get_geoip error] format must be 'text' or 'json'"
   },
@@ -101,7 +108,8 @@
       "геоip",
       "ip location",
       "погода",
-      "новости"
+      "новости",
+      "текущее местоположение"
     ],
     "err.format_invalid": "[get_geoip error] format must be 'text' or 'json'"
   },
@@ -113,7 +121,8 @@
       "get_geoip",
       "get geoip",
       "geoip",
-      "localização IP"
+      "localização IP",
+      "localização atual"
     ],
     "err.format_invalid": "[get_geoip error] format must be 'text' or 'json'"
   },
@@ -125,7 +134,8 @@
       "get_geoip",
       "get geoip",
       "geoip",
-      "localização IP"
+      "localização IP",
+      "localização atual"
     ],
     "err.format_invalid": "[get_geoip error] format must be 'text' or 'json'"
   },
@@ -139,7 +149,8 @@
       "geoip",
       "lokasi IP",
       "cuaca",
-      "berita"
+      "berita",
+      "lokasi saat ini"
     ],
     "err.format_invalid": "[get_geoip error] format must be 'text' or 'json'"
   },
@@ -153,7 +164,8 @@
       "geoip",
       "vị trí IP",
       "thời tiết",
-      "tin tức"
+      "tin tức",
+      "vị trí hiện tại"
     ],
     "err.format_invalid": "[get_geoip error] format must be 'text' or 'json'"
   },
@@ -166,7 +178,8 @@
       "get geoip",
       "geoip",
       "lokalizacja IP",
-      "wiadomości"
+      "wiadomości",
+      "aktualna lokalizacja"
     ],
     "err.format_invalid": "[get_geoip error] format must be 'text' or 'json'"
   },
@@ -180,7 +193,8 @@
       "geoip",
       "IP स्थान",
       "मौसम",
-      "समाचार"
+      "समाचार",
+      "वर्तमान स्थान"
     ],
     "err.format_invalid": "[get_geoip error] format must be 'text' or 'json'"
   },
@@ -194,7 +208,8 @@
       "geoip",
       "موقع IP",
       "طقس",
-      "أخبار"
+      "أخبار",
+      "الموقع الحالي"
     ],
     "err.format_invalid": "[get_geoip error] format must be 'text' or 'json'"
   },
@@ -207,7 +222,8 @@
       "get geoip",
       "geoip",
       "ip plats",
-      "väder"
+      "väder",
+      "aktuell plats"
     ],
     "err.format_invalid": "[get_geoip error] format must be 'text' or 'json'"
   },
@@ -221,7 +237,8 @@
       "geoip",
       "eneo la IP",
       "hali ya hewa",
-      "habari"
+      "habari",
+      "eneo la sasa"
     ],
     "err.format_invalid": "[get_geoip error] format must be 'text' or 'json'"
   },
@@ -234,7 +251,8 @@
       "get geoip",
       "geoip",
       "ip plassering",
-      "vær"
+      "vær",
+      "nåværende plassering"
     ],
     "err.format_invalid": "[get_geoip error] format must be 'text' or 'json'"
   },
@@ -247,7 +265,8 @@
       "get geoip",
       "geoip",
       "ip locatie",
-      "nieuws"
+      "nieuws",
+      "huidige locatie"
     ],
     "err.format_invalid": "[get_geoip error] format must be 'text' or 'json'"
   },
@@ -259,7 +278,8 @@
       "get_geoip",
       "get geoip",
       "geoip",
-      "ip-sijainti"
+      "ip-sijainti",
+      "nykyinen sijainti"
     ],
     "err.format_invalid": "[get_geoip error] format must be 'text' or 'json'"
   },
@@ -272,7 +292,8 @@
       "get geoip",
       "geoip",
       "ip poloha",
-      "zprávy"
+      "zprávy",
+      "aktuální umístění"
     ],
     "err.format_invalid": "[get_geoip error] format must be 'text' or 'json'"
   },
@@ -286,7 +307,8 @@
       "geoip",
       "ip місце",
       "погода",
-      "новини"
+      "новини",
+      "поточне місцезнаходження"
     ],
     "err.format_invalid": "[get_geoip error] format must be 'text' or 'json'"
   },
@@ -299,7 +321,8 @@
       "get geoip",
       "geoip",
       "ip konum",
-      "haber"
+      "haber",
+      "mevcut konum"
     ],
     "err.format_invalid": "[get_geoip error] format must be 'text' or 'json'"
   },
@@ -312,7 +335,8 @@
       "get geoip",
       "geoip",
       "ตำแหน่ง IP",
-      "ข่าว"
+      "ข่าว",
+      "ตำแหน่งปัจจุบัน"
     ],
     "err.format_invalid": "[get_geoip error] format must be 'text' or 'json'"
   },
@@ -326,7 +350,8 @@
       "geoip",
       "IP 位置",
       "天气",
-      "新闻"
+      "新闻",
+      "当前位置"
     ],
     "err.format_invalid": "[get_geoip error] format must be 'text' or 'json'"
   },
@@ -340,7 +365,8 @@
       "geoip",
       "IP 位置",
       "天氣",
-      "新聞"
+      "新聞",
+      "目前位置"
     ],
     "err.format_invalid": "[get_geoip error] format must be 'text' or 'json'"
   },
@@ -354,7 +380,8 @@
       "geoip",
       "IP অবস্থান",
       "আবহাওয়া",
-      "খবর"
+      "খবর",
+      "বর্তমান অবস্থান"
     ],
     "err.format_invalid": "[get_geoip error] format must be 'text' or 'json'"
   },
@@ -368,7 +395,8 @@
       "geoip",
       "موقعیت IP",
       "آب و هوا",
-      "اخبار"
+      "اخبار",
+      "مکان فعلی"
     ],
     "err.format_invalid": "[get_geoip error] format must be 'text' or 'json'"
   },
@@ -382,7 +410,8 @@
       "geoip",
       "IP байршил",
       "цаг агаар",
-      "мэдээ"
+      "мэдээ",
+      "одоогийн байршил"
     ],
     "err.format_invalid": "[get_geoip error] format must be 'text' or 'json'"
   },
@@ -396,7 +425,8 @@
       "geoip",
       "IP स्थान",
       "हवामान",
-      "बातम्या"
+      "बातम्या",
+      "वर्तमान स्थान"
     ],
     "err.format_invalid": "[get_geoip error] format must be 'text' or 'json'"
   },
@@ -411,7 +441,8 @@
       "χώρα",
       "γεωγραφική τοποθεσία ip",
       "geo ip",
-      "καιρός"
+      "καιρός",
+      "τρέχουσα τοποθεσία"
     ],
     "err.format_invalid": "[get_geoip error] η μορφή \"text\" ή \"json get Local."
   },
@@ -427,7 +458,8 @@
       "מיקום גיאוגרפי ip",
       "גיאוגרפי ip",
       "מזג אוויר",
-      "חדשות"
+      "חדשות",
+      "המיקום הנוכחי"
     ],
     "err.format_invalid": "פורמט [get_geoip error] חייב להיות 'טקסט' או 'json'"
   },
@@ -443,7 +475,8 @@
       "ip földrajzi hely",
       "geo ip",
       "időjárás",
-      "hír"
+      "hír",
+      "jelenlegi helye"
     ],
     "err.format_invalid": "[get_geoip error] formátumnak \"text\" vagy \"json\" formátumúnak kell lennie"
   },
@@ -458,7 +491,8 @@
       "țara",
       "ip geolocation",
       "geo ip",
-      "știri"
+      "știri",
+      "locația actuală"
     ],
     "err.format_invalid": "[get_geoip error] formatul trebuie să fie „text” sau „json”"
   }

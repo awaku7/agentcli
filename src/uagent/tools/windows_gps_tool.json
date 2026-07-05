@@ -22,7 +22,8 @@
     "output.source": "- **Source**: {src}",
     "output.timestamp": "- **Timestamp**: {ts}",
     "x_search_terms": [
-      "location"
+      "location",
+      "current location"
     ]
   },
   "ja": {
@@ -48,7 +49,8 @@
     "output.source": "- **ソース**: {src}",
     "output.timestamp": "- **タイムスタンプ**: {ts}",
     "x_search_terms": [
-      "location"
+      "location",
+      "現在地"
     ]
   },
   "es": {
@@ -74,7 +76,8 @@
     "output.source": "- **Fuente**: {src}",
     "output.timestamp": "- **Marca de tiempo**: {ts}",
     "x_search_terms": [
-      "location"
+      "location",
+      "ubicación actual"
     ]
   },
   "fr": {
@@ -100,7 +103,8 @@
     "output.source": "- **Source** : {src}",
     "output.timestamp": "- **Horodatage** : {ts}",
     "x_search_terms": [
-      "location"
+      "location",
+      "emplacement actuel"
     ]
   },
   "ko": {
@@ -126,7 +130,8 @@
     "output.source": "- **출처**: {src}",
     "output.timestamp": "- **타임스탬프**: {ts}",
     "x_search_terms": [
-      "location"
+      "location",
+      "현재 위치"
     ]
   },
   "de": {
@@ -152,7 +157,8 @@
     "output.source": "- **Quelle**: {src}",
     "output.timestamp": "- **Zeitstempel**: {ts}",
     "x_search_terms": [
-      "location"
+      "location",
+      "aktuellen Standort"
     ]
   },
   "it": {
@@ -178,7 +184,8 @@
     "output.source": "- **Fonte**: {src}",
     "output.timestamp": "- **Data e ora**: {ts}",
     "x_search_terms": [
-      "location"
+      "location",
+      "posizione attuale"
     ]
   },
   "ru": {
@@ -204,7 +211,8 @@
     "output.source": "- **Источник**: {src}",
     "output.timestamp": "- **Временная метка**: {ts}",
     "x_search_terms": [
-      "location"
+      "location",
+      "текущее местоположение"
     ]
   },
   "pt": {
@@ -230,7 +238,8 @@
     "output.source": "- **Fonte**: {src}",
     "output.timestamp": "- **Carimbo de data/hora**: {ts}",
     "x_search_terms": [
-      "location"
+      "location",
+      "localização atual"
     ]
   },
   "pt_BR": {
@@ -256,7 +265,8 @@
     "output.source": "- **Fonte**: {src}",
     "output.timestamp": "- **Carimbo de data/hora**: {ts}",
     "x_search_terms": [
-      "location"
+      "location",
+      "localização atual"
     ]
   },
   "id": {
@@ -282,7 +292,8 @@
     "output.source": "- **Sumber**: {src}",
     "output.timestamp": "- **Stempel Waktu**: {ts}",
     "x_search_terms": [
-      "location"
+      "location",
+      "lokasi saat ini"
     ]
   },
   "vi": {
@@ -308,7 +319,8 @@
     "output.source": "- **Nguồn**: {src}",
     "output.timestamp": "- **Dấu thời gian**: {ts}",
     "x_search_terms": [
-      "location"
+      "location",
+      "vị trí hiện tại"
     ]
   },
   "pl": {
@@ -334,7 +346,8 @@
     "output.source": "- **Źródło**: {src}",
     "output.timestamp": "- **Znacznik czasu**: {ts}",
     "x_search_terms": [
-      "location"
+      "location",
+      "aktualna lokalizacja"
     ]
   },
   "hi": {
@@ -360,7 +373,8 @@
     "output.source": "- **स्रोत**: {src}",
     "output.timestamp": "- **टाइमस्टैम्प**: {ts}",
     "x_search_terms": [
-      "location"
+      "location",
+      "वर्तमान स्थान"
     ]
   },
   "ar": {
@@ -386,7 +400,8 @@
     "output.source": "- **المصدر**: {src}",
     "output.timestamp": "- **الطابع الزمني**: {ts}",
     "x_search_terms": [
-      "location"
+      "location",
+      "الموقع الحالي"
     ]
   },
   "sv": {
@@ -412,7 +427,8 @@
     "output.source": "- **Källa**: {src}",
     "output.timestamp": "- **Tidsstämpel**: {ts}",
     "x_search_terms": [
-      "location"
+      "location",
+      "aktuell plats"
     ]
   },
   "sw": {
@@ -438,7 +454,8 @@
     "output.source": "- **Chanzo**: {src}",
     "output.timestamp": "- **Muhuri wa saa**: {ts}",
     "x_search_terms": [
-      "location"
+      "location",
+      "eneo la sasa"
     ]
   },
   "nb": {
@@ -464,7 +481,8 @@
     "output.source": "- **Kilde**: {src}",
     "output.timestamp": "- **Tidsstempel**: {ts}",
     "x_search_terms": [
-      "location"
+      "location",
+      "nåværende plassering"
     ]
   },
   "nl": {
@@ -490,7 +508,8 @@
     "output.source": "- **Bron**: {src}",
     "output.timestamp": "- **Tijdstempel**: {ts}",
     "x_search_terms": [
-      "location"
+      "location",
+      "huidige locatie"
     ]
   },
   "fi": {
@@ -516,7 +535,8 @@
     "output.source": "- **Lähde**: {src}",
     "output.timestamp": "- **Aikaleima**: {ts}",
     "x_search_terms": [
-      "location"
+      "location",
+      "nykyinen sijainti"
     ]
   },
   "cs": {
@@ -542,7 +562,8 @@
     "output.source": "- **Zdroj**: {src}",
     "output.timestamp": "- **Časové razítko**: {ts}",
     "x_search_terms": [
-      "location"
+      "location",
+      "aktuální umístění"
     ]
   },
   "uk": {
@@ -568,7 +589,8 @@
     "output.source": "- **Джерело**: {src}",
     "output.timestamp": "- **Мітка часу**: {ts}",
     "x_search_terms": [
-      "location"
+      "location",
+      "поточне місцезнаходження"
     ]
   },
   "tr": {
@@ -594,7 +616,8 @@
     "output.source": "- **Kaynak**: {src}",
     "output.timestamp": "- **Zaman damgası**: {ts}",
     "x_search_terms": [
-      "location"
+      "location",
+      "mevcut konum"
     ]
   },
   "th": {
@@ -620,7 +643,8 @@
     "output.source": "- **ที่มา**: {src}",
     "output.timestamp": "- **ประทับเวลา**: {ts}",
     "x_search_terms": [
-      "location"
+      "location",
+      "ตำแหน่งปัจจุบัน"
     ]
   },
   "zh_CN": {
@@ -646,7 +670,8 @@
     "output.source": "- **来源**：{src}",
     "output.timestamp": "- **时间戳**：{ts}",
     "x_search_terms": [
-      "location"
+      "location",
+      "当前位置"
     ]
   },
   "zh_TW": {
@@ -672,7 +697,8 @@
     "output.source": "- **來源**：{src}",
     "output.timestamp": "- **時間戳**：{ts}",
     "x_search_terms": [
-      "location"
+      "location",
+      "目前位置"
     ]
   },
   "bn": {
@@ -698,7 +724,8 @@
     "output.source": "- **সূত্র**: {src}",
     "output.timestamp": "- **টাইমস্ট্যাম্প**: {ts}",
     "x_search_terms": [
-      "location"
+      "location",
+      "বর্তমান অবস্থান"
     ]
   },
   "fa": {
@@ -724,7 +751,8 @@
     "output.source": "- **منبع**: {src}",
     "output.timestamp": "- **مهر زمان**: {ts}",
     "x_search_terms": [
-      "location"
+      "location",
+      "مکان فعلی"
     ]
   },
   "mn": {
@@ -750,7 +778,8 @@
     "output.source": "- **Эх сурвалж**: {src}",
     "output.timestamp": "- **Цагийн тэмдэг**: {ts}",
     "x_search_terms": [
-      "location"
+      "location",
+      "одоогийн байршил"
     ]
   },
   "mr": {
@@ -776,7 +805,8 @@
     "output.source": "- **स्रोत**: {src}",
     "output.timestamp": "- **टाइमस्टॅम्प**: {ts}",
     "x_search_terms": [
-      "location"
+      "location",
+      "वर्तमान स्थान"
     ]
   },
   "el": {
@@ -802,7 +832,8 @@
     "output.source": "- **Πηγή**: {src}",
     "output.timestamp": "- **Χρονική σήμανση**: {ts}",
     "x_search_terms": [
-      "location"
+      "location",
+      "τρέχουσα τοποθεσία"
     ]
   },
   "he": {
@@ -828,7 +859,8 @@
     "output.source": "- **מקור**: {src}",
     "output.timestamp": "- **חותמת זמן**: {ts}",
     "x_search_terms": [
-      "location"
+      "location",
+      "המיקום הנוכחי"
     ]
   },
   "hu": {
@@ -854,7 +886,8 @@
     "output.source": "- **Forrás**: {src}",
     "output.timestamp": "- **Időbélyeg**: {ts}",
     "x_search_terms": [
-      "location"
+      "location",
+      "jelenlegi helye"
     ]
   },
   "ro": {
@@ -880,7 +913,8 @@
     "output.source": "- **Sursa**: {src}",
     "output.timestamp": "- **Marca temporală**: {ts}",
     "x_search_terms": [
-      "location"
+      "location",
+      "locația actuală"
     ]
   }
 }
