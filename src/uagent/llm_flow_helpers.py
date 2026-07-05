@@ -18,6 +18,9 @@ EXTERNAL_DATA_TOOLS = frozenset({
     "search_web",
     "browser_playwright",
     "playwright_inspector",
+    "bluesky",
+    "discord_channel_chat",
+    "gmail_read",
 })
 
 
