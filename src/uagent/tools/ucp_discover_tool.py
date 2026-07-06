@@ -16,6 +16,7 @@ from .ucp_shared import (
     discover_business,
     negotiate_capabilities,
     resolve_endpoint,
+    resolve_mcp_endpoint,
     get_payment_handlers,
     UCPUnrecoverableError,
 )
@@ -142,6 +143,7 @@ def run_tool(args: dict[str, Any]) -> str:
         "capabilities": cap_list,
         "transports": transport_list,
         "rest_endpoint": endpoint,
+        "mcp_endpoint": resolve_mcp_endpoint(profile),
         "payment_handlers": [
             {
                 "id": h.get("id", ""),

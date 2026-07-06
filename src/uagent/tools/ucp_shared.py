@@ -561,6 +561,35 @@ def resolve_endpoint(
     return None
 
 
+def resolve_mcp_endpoint(
+    business_profile: dict[str, Any],
+    service: str = "dev.ucp.shopping",
+) -> str | None:
+    """Resolve the MCP endpoint from a business profile.
+
+    Args:
+        business_profile: Business UCP profile.
+        service: Service name to resolve.
+
+    Returns:
+        MCP endpoint URL string, or None if not found.
+    """
+    services = business_profile.get("ucp", {}).get("services", {})
+    svc = services.get(service, {})
+    if isinstance(svc, list):
+        for s in svc:
+            if isinstance(s, dict) and s.get("transport") == "mcp":
+                return s.get("endpoint")
+        return None
+    if isinstance(svc, dict):
+        transports = svc.get("transports") or [svc]
+        for t in transports if isinstance(transports, list) else [transports]:
+            if isinstance(t, dict) and t.get("transport") == "mcp":
+                return t.get("endpoint")
+        return None
+    return None
+
+
 def get_payment_handlers(business_profile: dict[str, Any]) -> list[dict[str, Any]]:
     """Extract payment handler definitions from business profile."""
     handlers = business_profile.get("ucp", {}).get("payment_handlers", {})
