@@ -1,16 +1,15 @@
-"""UCP モックサーバー — Phase 2 Continue URL 対応。
+"""UCP モックサーバー — Phase 2 + 4 対応（Continue URL + Orders + Identity）。
 
-UCP Business のシミュレーションを行う。
-continue_url 経由の決済フロー（Scenario A/B）をサポート。
+UCP Business のシミュレーション。
 """
 
 import json
 import uuid
 import uvicorn
 from fastapi import FastAPI, Request
-from fastapi.responses import JSONResponse, RedirectResponse
+from fastapi.responses import JSONResponse
 
-app = FastAPI(title="UCP Mock Merchant", version="0.2.0")
+app = FastAPI(title="UCP Mock Merchant", version="0.4.0")
 
 # ---------------------------------------------------------------------------
 # In-memory store
@@ -19,6 +18,7 @@ _carts: dict[str, dict] = {}
 _checkouts: dict[str, dict] = {}
 _orders: dict[str, dict] = {}
 _order_seq = 0
+_identity_links: dict[str, dict] = {}
 
 # ---------------------------------------------------------------------------
 # Sample products
@@ -49,20 +49,14 @@ PROFILE = {
             ]
         },
         "capabilities": {
-            "dev.ucp.shopping.catalog_search": [{"version": "2026-04-08", "spec": "https://ucp.dev/2026-04-08/specification/catalog", "schema": ""}],
-            "dev.ucp.shopping.catalog_lookup": [{"version": "2026-04-08", "spec": "https://ucp.dev/2026-04-08/specification/catalog", "schema": ""}],
-            "dev.ucp.shopping.cart": [{"version": "2026-04-08", "spec": "https://ucp.dev/2026-04-08/specification/cart", "schema": ""}],
-            "dev.ucp.shopping.checkout": [{"version": "2026-04-08", "spec": "https://ucp.dev/2026-04-08/specification/checkout", "schema": ""}],
-            "dev.ucp.shopping.order": [{"version": "2026-04-08", "spec": "https://ucp.dev/2026-04-08/specification/order", "schema": ""}],
+            "dev.ucp.shopping.catalog_search": [{"version": "2026-04-08", "spec": "", "schema": ""}],
+            "dev.ucp.shopping.catalog_lookup": [{"version": "2026-04-08", "spec": "", "schema": ""}],
+            "dev.ucp.shopping.cart": [{"version": "2026-04-08", "spec": "", "schema": ""}],
+            "dev.ucp.shopping.checkout": [{"version": "2026-04-08", "spec": "", "schema": ""}],
+            "dev.ucp.shopping.order": [{"version": "2026-04-08", "spec": "", "schema": ""}],
         },
         "payment_handlers": {
-            "com.google.pay": [{
-                "id": "gpay",
-                "version": "2026-01-11",
-                "spec": "https://pay.google.com/gp/p/ucp/2026-01-11/",
-                "config_schema": "",
-                "instrument_schemas": [],
-            }]
+            "com.google.pay": [{"id": "gpay", "version": "2026-01-11", "spec": "", "config_schema": "", "instrument_schemas": []}]
         },
     }
 }
@@ -145,7 +139,7 @@ async def update_cart(cart_id: str, request: Request):
 
 
 # ---------------------------------------------------------------------------
-# Checkout — with continue_url flow
+# Checkout with continue_url
 # ---------------------------------------------------------------------------
 @app.post("/checkout-sessions")
 async def create_checkout(request: Request):
@@ -156,19 +150,11 @@ async def create_checkout(request: Request):
     if cart_id and cart_id in _carts:
         line_items = _carts[cart_id].get("line_items", [])
     total = sum(item.get("unit_price", 0) * item.get("quantity", 1) for item in line_items)
-
     checkout = {
-        "id": checkout_id,
-        "line_items": line_items,
-        "status": "ready_for_complete",
+        "id": checkout_id, "line_items": line_items, "status": "ready_for_complete",
         "currency": body.get("currency", "USD"),
-        "totals": {"total": total, "subtotal": total},
-        "messages": [],
-        "payment": {
-            "handlers": [
-                {"id": "gpay", "name": "Google Pay", "type": "card"},
-            ]
-        },
+        "totals": {"total": total, "subtotal": total}, "messages": [],
+        "payment": {"handlers": [{"id": "gpay", "name": "Google Pay", "type": "card"}]},
     }
     _checkouts[checkout_id] = checkout
     return JSONResponse(content=checkout, status_code=201)
@@ -198,75 +184,37 @@ async def complete_checkout(checkout_id: str, request: Request):
     checkout = _checkouts.get(checkout_id)
     if not checkout:
         return JSONResponse(content={"error": "checkout not found"}, status_code=404)
-
-    # Check if payment was already completed via continue_url
     if checkout.get("status") == "completed":
         order = _orders.get(checkout.get("order_id", ""))
-        return JSONResponse(content={
-            "id": checkout.get("order_id"),
-            "checkout_id": checkout_id,
-            "status": "completed",
-            "order": order,
-        })
-
-    # Simulate continue_url flow: return requires_escalation
+        return JSONResponse(content={"id": checkout.get("order_id"), "checkout_id": checkout_id, "status": "completed", "order": order})
     continue_url = f"http://localhost:8080/pay/{checkout_id}"
     checkout["status"] = "requires_escalation"
     checkout["continue_url"] = continue_url
-    checkout["messages"] = [
-        {
-            "severity": "requires_buyer_review",
-            "code": "payment_required",
-            "message": "Buyer must complete payment in browser",
-            "detail": "Redirect buyer to continue_url for payment authorization",
-        }
-    ]
+    checkout["messages"] = [{"severity": "requires_buyer_review", "code": "payment_required", "message": "Buyer must complete payment in browser", "detail": ""}]
     return JSONResponse(content=checkout, status_code=200)
 
 
-# ---------------------------------------------------------------------------
-# continue_url エンドポイント — ユーザーがブラウザで開いて支払い完了
-# ---------------------------------------------------------------------------
 @app.get("/pay/{checkout_id}")
 async def payment_page(checkout_id: str):
     checkout = _checkouts.get(checkout_id)
     if not checkout:
-        return HTML_RESPONSE.format(title="Error", body="<h1>Checkout not found</h1>")
-
+        return HTML_RESPONSE.format(body="<h1>Checkout not found</h1>")
     total = checkout.get("totals", {}).get("total", 0)
     currency = checkout.get("currency", "USD")
-    items_html = ""
-    for item in checkout.get("line_items", []):
-        items_html += f"<li>{item.get('title', 'Item')} x {item.get('quantity', 1)}</li>"
-
-    html = f"""<html><body style="font-family:sans-serif;max-width:600px;margin:50px auto">
-    <h1>Mock Payment Page</h1>
-    <p>Checkout: {checkout_id}</p>
-    <p>Total: {currency} {total/100:.2f}</p>
-    <ul>{items_html}</ul>
-    <form action="/pay/{checkout_id}" method="post">
-        <button style="padding:12px 24px;font-size:16px;background:#1a73e8;color:white;border:none;border-radius:4px;cursor:pointer">
-            Pay {currency} {total/100:.2f}
-        </button>
-    </form>
-    </body></html>"""
-    return HTML_RESPONSE.format(title="Payment", body=html)
+    items_html = "".join(f"<li>{item.get('title', 'Item')} x {item.get('quantity', 1)}</li>" for item in checkout.get("line_items", []))
+    return HTML_RESPONSE.format(body=f"<h1>Mock Payment Page</h1><p>Checkout: {checkout_id}</p><p>Total: {currency} {total/100:.2f}</p><ul>{items_html}</ul><form action='/pay/{checkout_id}' method='post'><button style='padding:12px 24px;font-size:16px;background:#1a73e8;color:white;border:none;border-radius:4px;cursor:pointer'>Pay {currency} {total/100:.2f}</button></form>")
 
 
 @app.post("/pay/{checkout_id}")
 async def payment_complete(checkout_id: str):
-    """Simulate user completing payment via browser."""
     checkout = _checkouts.get(checkout_id)
     if not checkout:
-        return HTML_RESPONSE.format(title="Error", body="<h1>Checkout not found</h1>")
-
+        return HTML_RESPONSE.format(body="<h1>Checkout not found</h1>")
     global _order_seq
     _order_seq += 1
     order_id = "ord_" + str(_order_seq).zfill(6)
     order = {
-        "id": order_id,
-        "checkout_id": checkout_id,
-        "status": "completed",
+        "id": order_id, "checkout_id": checkout_id, "status": "completed",
         "line_items": checkout.get("line_items", []),
         "currency": checkout.get("currency", "USD"),
         "totals": checkout.get("totals", {}),
@@ -274,14 +222,10 @@ async def payment_complete(checkout_id: str):
     _orders[order_id] = order
     checkout["status"] = "completed"
     checkout["order_id"] = order_id
-
-    return HTML_RESPONSE.format(
-        title="Payment Complete",
-        body=f"<h1>Payment Successful!</h1><p>Order ID: {order_id}</p><p>You can close this window.</p>"
-    )
+    return HTML_RESPONSE.format(body=f"<h1>Payment Successful!</h1><p>Order ID: {order_id}</p><p>You can close this window.</p>")
 
 
-HTML_RESPONSE = """<html><body style="font-family:sans-serif;max-width:600px;margin:50px auto">{body}</body></html>"""
+HTML_RESPONSE = '<html><body style="font-family:sans-serif;max-width:600px;margin:50px auto">{body}</body></html>'
 
 
 # ---------------------------------------------------------------------------
@@ -303,12 +247,74 @@ async def get_order(request: Request):
 
 
 # ---------------------------------------------------------------------------
+# Identity Linking (OAuth 2.0 simulation)
+# ---------------------------------------------------------------------------
+@app.post("/identity-link")
+async def identity_link(request: Request):
+    body = await request.json()
+    redirect_uri = body.get("redirect_uri", "http://localhost:3000/callback")
+    link_id = "link_" + str(uuid.uuid4())[:8]
+    # Simulate OAuth authorization URL
+    auth_url = f"http://localhost:8080/oauth/authorize?link_id={link_id}&redirect_uri={redirect_uri}"
+    _identity_links[link_id] = {
+        "id": link_id,
+        "status": "pending",
+        "redirect_uri": redirect_uri,
+        "authorization_url": auth_url,
+    }
+    return JSONResponse(content={
+        "id": link_id,
+        "status": "pending",
+        "authorization_url": auth_url,
+    }, status_code=201)
+
+
+@app.get("/oauth/authorize")
+async def oauth_authorize(request: Request):
+    link_id = request.query_params.get("link_id", "")
+    link = _identity_links.get(link_id)
+    if not link:
+        return HTML_RESPONSE.format(body="<h1>Link not found</h1>")
+    return HTML_RESPONSE.format(
+        body=f"<h1>OAuth Authorization</h1><p>Link ID: {link_id}</p>"
+             f"<form action='/oauth/authorize/{link_id}' method='post'>"
+             f"<button style='padding:12px 24px;font-size:16px;background:#1a73e8;color:white;border:none;border-radius:4px;cursor:pointer'>"
+             f"Authorize Account</button></form>"
+    )
+
+
+@app.post("/oauth/authorize/{link_id}")
+async def oauth_authorize_confirm(link_id: str):
+    link = _identity_links.get(link_id)
+    if not link:
+        return HTML_RESPONSE.format(body="<h1>Link not found</h1>")
+    link["status"] = "linked"
+    return HTML_RESPONSE.format(
+        body=f"<h1>Authorization Successful!</h1><p>Your account has been linked.</p><p>You can close this window.</p>"
+    )
+
+
+@app.post("/identity-link-status")
+async def identity_link_status(request: Request):
+    body = await request.json()
+    link_id = body.get("link_id", "")
+    link = _identity_links.get(link_id)
+    if not link:
+        return JSONResponse(content={"error": "link not found"}, status_code=404)
+    return JSONResponse(content={
+        "id": link_id,
+        "status": link.get("status", "pending"),
+    })
+
+
+# ---------------------------------------------------------------------------
 # Main
 # ---------------------------------------------------------------------------
 if __name__ == "__main__":
     print("=" * 60)
-    print("UCP Mock Merchant Server v0.2.0 (Continue URL対応)")
+    print("UCP Mock Merchant Server v0.4.0 (Orders + Identity対応)")
     print("Profile: http://localhost:8080/.well-known/ucp")
-    print("Payment: http://localhost:8080/pay/{checkout_id}")
+    print("Orders:  /list-orders, /get-order")
+    print("Identity: /identity-link, /identity-link-status")
     print("=" * 60)
     uvicorn.run(app, host="0.0.0.0", port=8080, log_level="info")
