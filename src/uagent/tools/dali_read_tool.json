@@ -1,0 +1,308 @@
+{
+  "en": {
+    "tool.description": "Read status and level from a DALI lighting device. Queries the specified address for current state.",
+    "param.address.description": "DALI device address (0-63).",
+    "param.driver.description": "DALI driver type.",
+    "param.host.description": "daliserver host.",
+    "param.port.description": "daliserver port.",
+    "param.fmt.description": "Format: json or text.",
+    "msg.summary": "DALI read: addr={addr} level={level} status={status}"
+  },
+  "ar": {
+    "tool.description": "قراءة الحالة والمستوى من جهاز الإضاءة DALI. يستعلم عن العنوان المحدد للحالة الحالية.",
+    "param.address.description": "عنوان جهاز دالي (0-63).",
+    "param.driver.description": "دالي نوع السائق.",
+    "param.host.description": "مضيف داليسيرفر.",
+    "param.port.description": "منفذ داليسيرفر.",
+    "param.fmt.description": "التنسيق: json أو نص.",
+    "msg.summary": "قراءة DALI: addr={addr} المستوى={level} الحالة={status}"
+  },
+  "bn": {
+    "tool.description": "একটি DALI আলো ডিভাইস থেকে অবস্থা এবং স্তর পড়ুন. বর্তমান অবস্থার জন্য নির্দিষ্ট ঠিকানা জিজ্ঞাসা করুন.",
+    "param.address.description": "DALI ডিভাইসের ঠিকানা (0-63)।",
+    "param.driver.description": "DALI ড্রাইভারের ধরন।",
+    "param.host.description": "ডালিসার্ভার হোস্ট।",
+    "param.port.description": "ডালিসার্ভার পোর্ট।",
+    "param.fmt.description": "বিন্যাস: json বা পাঠ্য।",
+    "msg.summary": "ডালি পড়া: addr={addr} স্তর={level} অবস্থা={status}"
+  },
+  "cs": {
+    "tool.description": "Přečtěte si stav a úroveň z osvětlovacího zařízení DALI. Dotazuje se na zadanou adresu pro aktuální stav.",
+    "param.address.description": "Adresa zařízení DALI (0-63).",
+    "param.driver.description": "Typ ovladače DALI.",
+    "param.host.description": "hostitel daliserveru.",
+    "param.port.description": "port daliserver.",
+    "param.fmt.description": "Formát: json nebo text.",
+    "msg.summary": "Čtení DALI: addr={addr} úroveň={level} stav={status}"
+  },
+  "de": {
+    "tool.description": "Lesen Sie Status und Pegel von einem DALI-Beleuchtungsgerät aus. Fragt die angegebene Adresse nach dem aktuellen Status ab.",
+    "param.address.description": "DALI-Geräteadresse (0-63).",
+    "param.driver.description": "DALI-Treibertyp.",
+    "param.host.description": "Daliserver-Host.",
+    "param.port.description": "Daliserver-Port.",
+    "param.fmt.description": "Format: JSON oder Text.",
+    "msg.summary": "DALI lesen: addr={addr} level={level} status={status}"
+  },
+  "el": {
+    "tool.description": "Διαβάστε την κατάσταση και το επίπεδο από μια συσκευή φωτισμού DALI. Ζητάει ερωτήματα για την καθορισμένη διεύθυνση για την τρέχουσα κατάσταση.",
+    "param.address.description": "Διεύθυνση συσκευής DALI (0-63).",
+    "param.driver.description": "Τύπος προγράμματος οδήγησης DALI.",
+    "param.host.description": "οικοδεσπότης daliserver.",
+    "param.port.description": "θύρα daliserver.",
+    "param.fmt.description": "Μορφή: json ή κείμενο.",
+    "msg.summary": "DALI ανάγνωση: addr={addr} level={level} status={status}"
+  },
+  "es": {
+    "tool.description": "Leer estado y nivel de un dispositivo de iluminación DALI. Consulta la dirección especificada para conocer el estado actual.",
+    "param.address.description": "Dirección del dispositivo DALI (0-63).",
+    "param.driver.description": "Tipo de controlador DALI.",
+    "param.host.description": "host del servidor dal.",
+    "param.port.description": "puerto del servidor dali.",
+    "param.fmt.description": "Formato: json o texto.",
+    "msg.summary": "Lectura DALI: dirección={addr} nivel={level} estado={status}"
+  },
+  "fa": {
+    "tool.description": "وضعیت و سطح را از دستگاه روشنایی DALI بخوانید. آدرس مشخص شده را برای وضعیت فعلی جستجو می کند.",
+    "param.address.description": "آدرس دستگاه DALI (0-63).",
+    "param.driver.description": "نوع درایور DALI.",
+    "param.host.description": "میزبان دلیسرور",
+    "param.port.description": "پورت دلی سرور",
+    "param.fmt.description": "فرمت: json یا متن.",
+    "msg.summary": "DALI خوانده شده: adr={addr} level={level} status={status}"
+  },
+  "fi": {
+    "tool.description": "Lue tila ja taso DALI-valaistuslaitteesta. Kyselee nykyistä tilaa määritetystä osoitteesta.",
+    "param.address.description": "DALI-laitteen osoite (0-63).",
+    "param.driver.description": "DALI-ohjaintyyppi.",
+    "param.host.description": "daliserver-isäntä.",
+    "param.port.description": "daliserverin portti.",
+    "param.fmt.description": "Muoto: json tai teksti.",
+    "msg.summary": "DALI luettu: addr={addr} taso={level} status={status}"
+  },
+  "fr": {
+    "tool.description": "Lire l'état et le niveau d'un appareil d'éclairage DALI. Interroge l’adresse spécifiée pour l’état actuel.",
+    "param.address.description": "Adresse de l'appareil DALI (0-63).",
+    "param.driver.description": "Type de pilote DALI.",
+    "param.host.description": "hôte du serveur dali.",
+    "param.port.description": "port du serveur dali.",
+    "param.fmt.description": "Format : json ou texte.",
+    "msg.summary": "Lecture DALI : addr={addr} level={level} status={status}"
+  },
+  "he": {
+    "tool.description": "קרא מצב ורמה מהתקן תאורה DALI. שואל את הכתובת שצוינה עבור המצב הנוכחי.",
+    "param.address.description": "כתובת מכשיר DALI (0-63).",
+    "param.driver.description": "סוג מנהל התקן DALI.",
+    "param.host.description": "מארח daliserver.",
+    "param.port.description": "יציאת daliserver.",
+    "param.fmt.description": "פורמט: json או טקסט.",
+    "msg.summary": "DALI קרא: addr={addr} level={level} status={status}"
+  },
+  "hi": {
+    "tool.description": "DALI प्रकाश उपकरण से स्थिति और स्तर पढ़ें। वर्तमान स्थिति के लिए निर्दिष्ट पते पर प्रश्न पूछें।",
+    "param.address.description": "DALI डिवाइस का पता (0-63)।",
+    "param.driver.description": "DALI ड्राइवर प्रकार.",
+    "param.host.description": "डेलिसर्वर होस्ट।",
+    "param.port.description": "डेलिसेर्वर बंदरगाह.",
+    "param.fmt.description": "प्रारूप: json या text.",
+    "msg.summary": "DALI पढ़ें: पता={addr} स्तर={level} स्थिति={status}"
+  },
+  "hu": {
+    "tool.description": "Állapot és szint leolvasása DALI világítóeszközről. Lekérdezi a megadott címet az aktuális állapothoz.",
+    "param.address.description": "DALI eszköz címe (0-63).",
+    "param.driver.description": "DALI driver típus.",
+    "param.host.description": "daliserver host.",
+    "param.port.description": "daliserver port.",
+    "param.fmt.description": "Formátum: json vagy szöveg.",
+    "msg.summary": "DALI olvasás: addr={addr} szint={level} állapot={status}"
+  },
+  "id": {
+    "tool.description": "Baca status dan level dari perangkat pencahayaan DALI. Menanyakan alamat yang ditentukan untuk status saat ini.",
+    "param.address.description": "Alamat perangkat DALI (0-63).",
+    "param.driver.description": "Tipe pengemudi DALI.",
+    "param.host.description": "host daserver.",
+    "param.port.description": "port daserver.",
+    "param.fmt.description": "Format: json atau teks.",
+    "msg.summary": "DALI dibaca: addr={addr} level={level} status={status}"
+  },
+  "it": {
+    "tool.description": "Leggere lo stato e il livello da un dispositivo di illuminazione DALI. Interroga l'indirizzo specificato per lo stato corrente.",
+    "param.address.description": "Indirizzo del dispositivo DALI (0-63).",
+    "param.driver.description": "Tipo di driver DALI.",
+    "param.host.description": "host daliserver.",
+    "param.port.description": "porta daliserver.",
+    "param.fmt.description": "Formato: json o testo.",
+    "msg.summary": "Lettura DALI: addr={addr} livello={level} stato={status}"
+  },
+  "ja": {
+    "tool.description": "DALI照明デバイスからステータスとレベルを読み取ります。指定されたアドレスの現在の状態を問い合わせます。",
+    "param.address.description": "DALI デバイスのアドレス (0 ～ 63)。",
+    "param.driver.description": "DALIドライバーの種類。",
+    "param.host.description": "daliserver host.",
+    "param.port.description": "daliserver port.",
+    "param.fmt.description": "形式: json またはテキスト。",
+    "msg.summary": "DALI 読み取り: addr={addr} level={level} status={status}"
+  },
+  "ko": {
+    "tool.description": "DALI 조명 장치에서 상태 및 레벨을 읽습니다. 현재 상태에 대해 지정된 주소를 쿼리합니다.",
+    "param.address.description": "DALI 장치 주소(0-63).",
+    "param.driver.description": "DALI 드라이버 유형.",
+    "param.host.description": "달리서버 호스트.",
+    "param.port.description": "달리서버 포트.",
+    "param.fmt.description": "형식: json 또는 텍스트.",
+    "msg.summary": "DALI 읽기: 주소={addr} 레벨={level} 상태={status}"
+  },
+  "mn": {
+    "tool.description": "DALI гэрэлтүүлгийн төхөөрөмжөөс статус болон түвшинг уншина уу. Одоогийн төлөвийн хувьд заасан хаягийг асууна.",
+    "param.address.description": "DALI төхөөрөмжийн хаяг (0-63).",
+    "param.driver.description": "DALI драйверын төрөл.",
+    "param.host.description": "daliserver хост.",
+    "param.port.description": "daliserver порт.",
+    "param.fmt.description": "Формат: json эсвэл текст.",
+    "msg.summary": "DALI уншсан: addr={addr} түвшин={level} төлөв={status}"
+  },
+  "mr": {
+    "tool.description": "DALI लाइटिंग डिव्हाइसवरून स्थिती आणि पातळी वाचा. वर्तमान स्थितीसाठी निर्दिष्ट पत्त्याची क्वेरी करते.",
+    "param.address.description": "DALI डिव्हाइस पत्ता (0-63).",
+    "param.driver.description": "DALI ड्रायव्हर प्रकार.",
+    "param.host.description": "daliserver होस्ट.",
+    "param.port.description": "daliserver पोर्ट.",
+    "param.fmt.description": "स्वरूप: json किंवा मजकूर.",
+    "msg.summary": "DALI वाचले: addr={addr} स्तर={level} स्थिती={status}"
+  },
+  "nb": {
+    "tool.description": "Les status og nivå fra en DALI-lysenhet. Spørrer den angitte adressen for gjeldende tilstand.",
+    "param.address.description": "DALI-enhetsadresse (0-63).",
+    "param.driver.description": "DALI driver type.",
+    "param.host.description": "daliserver vert.",
+    "param.port.description": "daliserver port.",
+    "param.fmt.description": "Format: json eller tekst.",
+    "msg.summary": "DALI lest: addr={addr} nivå={level} status={status}"
+  },
+  "nl": {
+    "tool.description": "Lees de status en het niveau van een DALI-verlichtingsapparaat. Vraagt ​​het opgegeven adres op voor de huidige status.",
+    "param.address.description": "DALI-apparaatadres (0-63).",
+    "param.driver.description": "Type DALI-driver.",
+    "param.host.description": "daliserver-host.",
+    "param.port.description": "daliserver-poort.",
+    "param.fmt.description": "Formaat: json of tekst.",
+    "msg.summary": "DALI gelezen: addr={addr} niveau={level} status={status}"
+  },
+  "pl": {
+    "tool.description": "Odczyt stanu i poziomu z urządzenia oświetleniowego DALI. Wysyła zapytanie do określonego adresu o bieżący stan.",
+    "param.address.description": "Adres urządzenia DALI (0-63).",
+    "param.driver.description": "Typ sterownika DALI.",
+    "param.host.description": "host serwera daliserver.",
+    "param.port.description": "port daliservera.",
+    "param.fmt.description": "Format: json lub tekst.",
+    "msg.summary": "Odczyt DALI: adres={addr} poziom={level} status={status}"
+  },
+  "pt": {
+    "tool.description": "Leia o status e o nível de um dispositivo de iluminação DALI. Consulta o endereço especificado para obter o estado atual.",
+    "param.address.description": "Endereço do dispositivo DALI (0-63).",
+    "param.driver.description": "Tipo de driver DALI.",
+    "param.host.description": "host daliserver.",
+    "param.port.description": "porta daliserver.",
+    "param.fmt.description": "Formato: json ou texto.",
+    "msg.summary": "Leitura DALI: endereço={addr} nível={level} status={status}"
+  },
+  "pt_BR": {
+    "tool.description": "Leia o status e o nível de um dispositivo de iluminação DALI. Consulta o endereço especificado para obter o estado atual.",
+    "param.address.description": "Endereço do dispositivo DALI (0-63).",
+    "param.driver.description": "Tipo de driver DALI.",
+    "param.host.description": "host daliserver.",
+    "param.port.description": "porta daliserver.",
+    "param.fmt.description": "Formato: json ou texto.",
+    "msg.summary": "Leitura DALI: endereço={addr} nível={level} status={status}"
+  },
+  "ro": {
+    "tool.description": "Citiți starea și nivelul de la un dispozitiv de iluminat DALI. Interogează adresa specificată pentru starea curentă.",
+    "param.address.description": "Adresa dispozitivului DALI (0-63).",
+    "param.driver.description": "Tip driver DALI.",
+    "param.host.description": "gazdă dalserver.",
+    "param.port.description": "portul dalserver.",
+    "param.fmt.description": "Format: json sau text.",
+    "msg.summary": "DALI citiți: addr={addr} level={level} status={status}"
+  },
+  "ru": {
+    "tool.description": "Считайте состояние и уровень с осветительного устройства DALI. Запрашивает указанный адрес для текущего состояния.",
+    "param.address.description": "Адрес устройства DALI (0–63).",
+    "param.driver.description": "Тип драйвера DALI.",
+    "param.host.description": "далсерверный хост.",
+    "param.port.description": "порт далсервера.",
+    "param.fmt.description": "Формат: json или текст.",
+    "msg.summary": "Чтение DALI: адрес={addr} уровень={level} статус={status}"
+  },
+  "sv": {
+    "tool.description": "Läs av status och nivå från en DALI-belysningsenhet. Frågar den angivna adressen för aktuellt tillstånd.",
+    "param.address.description": "DALI-enhetsadress (0-63).",
+    "param.driver.description": "DALI drivrutinstyp.",
+    "param.host.description": "daliserver värd.",
+    "param.port.description": "daliserver port.",
+    "param.fmt.description": "Format: json eller text.",
+    "msg.summary": "DALI läst: addr={addr} nivå={level} status={status}"
+  },
+  "sw": {
+    "tool.description": "Soma hali na kiwango kutoka kwa kifaa cha taa cha DALI. Inauliza anwani iliyobainishwa ya hali ya sasa.",
+    "param.address.description": "Anwani ya kifaa cha DALI (0-63).",
+    "param.driver.description": "Aina ya dereva wa DALI.",
+    "param.host.description": "mwenyeji wa daliserver",
+    "param.port.description": "bandari ya daliserver.",
+    "param.fmt.description": "Umbizo: json au maandishi.",
+    "msg.summary": "DALI ilisoma: addr={addr} kiwango={level} status={status}"
+  },
+  "th": {
+    "tool.description": "อ่านสถานะและระดับจากอุปกรณ์ให้แสงสว่าง DALI ค้นหาที่อยู่ที่ระบุสำหรับสถานะปัจจุบัน",
+    "param.address.description": "ที่อยู่อุปกรณ์ DALI (0-63)",
+    "param.driver.description": "ประเภทไดรเวอร์ DALI",
+    "param.host.description": "โฮสต์ดาลิเวอร์เวอร์",
+    "param.port.description": "พอร์ตดาลิเวอร์เวอร์",
+    "param.fmt.description": "รูปแบบ: json หรือข้อความ",
+    "msg.summary": "อ่าน DALI: addr={addr} ระดับ={level} สถานะ={status}"
+  },
+  "tr": {
+    "tool.description": "Bir DALI aydınlatma cihazından durumu ve seviyeyi okuyun. Geçerli durum için belirtilen adresi sorgular.",
+    "param.address.description": "DALI cihaz adresi (0-63).",
+    "param.driver.description": "DALI sürücü türü.",
+    "param.host.description": "daliserver ana bilgisayarı.",
+    "param.port.description": "daliserver bağlantı noktası.",
+    "param.fmt.description": "Biçim: json veya metin.",
+    "msg.summary": "DALI okuması: addr={addr} seviye={level} durum={status}"
+  },
+  "uk": {
+    "tool.description": "Зчитування стану та рівня з освітлювального пристрою DALI. Запитує вказану адресу для поточного стану.",
+    "param.address.description": "Адреса пристрою DALI (0-63).",
+    "param.driver.description": "Тип драйвера DALI.",
+    "param.host.description": "хост daliserver.",
+    "param.port.description": "порт daliserver.",
+    "param.fmt.description": "Формат: json або текстовий.",
+    "msg.summary": "Читання DALI: addr={addr} level={level} status={status}"
+  },
+  "vi": {
+    "tool.description": "Đọc trạng thái và mức độ từ thiết bị chiếu sáng DALI. Truy vấn địa chỉ được chỉ định cho trạng thái hiện tại.",
+    "param.address.description": "Địa chỉ thiết bị DALI (0-63).",
+    "param.driver.description": "Loại trình điều khiển DALI.",
+    "param.host.description": "máy chủ daliserver.",
+    "param.port.description": "cổng daliserver.",
+    "param.fmt.description": "Định dạng: json hoặc văn bản.",
+    "msg.summary": "DALI đã đọc: addr={addr} cấp={level} trạng thái={status}"
+  },
+  "zh_CN": {
+    "tool.description": "从 DALI 照明设备读取状态和级别。查询指定地址的当前状态。",
+    "param.address.description": "DALI 设备地址 (0-63)。",
+    "param.driver.description": "DALI 驱动器类型。",
+    "param.host.description": "dali服务器主机。",
+    "param.port.description": "dali服务器端口。",
+    "param.fmt.description": "格式：json 或文本。",
+    "msg.summary": "DALI 读取：addr={addr} level={level} status={status}"
+  },
+  "zh_TW": {
+    "tool.description": "從 DALI 照明設備讀取狀態和等級。查詢指定位址的目前狀態。",
+    "param.address.description": "DALI 設備位址 (0-63)。",
+    "param.driver.description": "DALI 磁碟機類型。",
+    "param.host.description": "dali伺服器主機。",
+    "param.port.description": "dali伺服器連接埠。",
+    "param.fmt.description": "格式：json 或文字。",
+    "msg.summary": "DALI 讀取：addr={addr} level={level} status={status}"
+  }
+}

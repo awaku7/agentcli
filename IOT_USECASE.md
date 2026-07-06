@@ -55,6 +55,25 @@ The main `tool_genre: "iot"` tools are:
 - `bacnet_cov_subscribe`
 - `bacnet_cov_unsubscribe`
 
+### DALI
+
+- `dali_scan`
+- `dali_read`
+- `dali_write`
+
+Best for:
+
+- Lighting control (on/off, dimming 0-254)
+- DALI USB adapters (Tridonic, Hasseb) or TCP server (daliserver)
+- Single device, group (0-15), or broadcast addressing
+
+Notes:
+
+- Addresses 0-63, groups 0-15
+- Requires DALI USB adapter or daliserver running on the network
+- python-dali library (auto-installed)
+- `dali_read` queries status, actual/min/max/power-on levels
+
 ### OPC UA
 
 - `opcua_scan`
@@ -135,6 +154,7 @@ Start with discovery or listing tools.
 - BLE: `ble_ops` / `switchbot_ble_scan`
 - ECHONET Lite: `echonet_scan`
 - BACnet: `bacnet_scan`
+- DALI: `dali_scan`
 - UPnP: `upnp_scan`
 - Matter: `matter_controller_list` / `matter_bridge_list`
 - SwitchBot Cloud: `switchbot_cloud_list`
@@ -166,6 +186,7 @@ Only do this when the target is clear and the action is supported.
 - SwitchBot Cloud: `switchbot_cloud_control` / `switchbot_batch`
 - ECHONET Lite: `echonet_property_set`, `echonet_control`
 - BACnet: `bacnet_write`
+- DALI: `dali_write`
 - Matter: `matter_control`
 - Modbus: `modbus_write`
 - OPC UA: `opcua_write`
