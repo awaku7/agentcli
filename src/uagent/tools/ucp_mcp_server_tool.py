@@ -86,8 +86,11 @@ _PROCESS_LOCK = threading.Lock()
 
 
 def _get_server_script_path() -> str:
-    """Return the path to the UCP MCP server script."""
-    return os.path.join(os.path.dirname(__file__), "ucp_mcp_server_main.py")
+    """Return the path to the UCP MCP server script (tests/ucp_mcp_server_main.py)."""
+    # Tools dir: src/uagent/tools/ → go up 3 levels to project root → tests/
+    return os.path.normpath(
+        os.path.join(os.path.dirname(__file__), "..", "..", "..", "tests", "ucp_mcp_server_main.py")
+    )
 
 
 def _ensure_mcp_server_script() -> str:
