@@ -1,0 +1,12 @@
+{
+  "en": {
+    "tool.description": "Cancel an ECHONET Lite INF subscription by listener_id, or list active subscriptions.",
+    "param.action.description": "Action: 'unsubscribe' (default) or 'list'.",
+    "param.listener_id.description": "Listener ID to unsubscribe (required for action=unsubscribe).",
+    "param.fmt.description": "Format: json or text.",
+    "msg.no_subscriptions": "No active ECHONET Lite subscriptions.",
+    "msg.header": "Active ECHONET Lite subscriptions ({count}):",
+    "msg.unsubscribed": "ECHONET Lite subscription {id} cancelled.",
+    "err.id_required": "listener_id is required for action=unsubscribe."
+  }
+}

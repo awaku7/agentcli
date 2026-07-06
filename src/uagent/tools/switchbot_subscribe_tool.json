@@ -1,0 +1,12 @@
+{
+  "en": {
+    "tool.description": "Subscribe to SwitchBot device status changes via polling. Since SwitchBot Cloud has no webhook, the device is polled at the specified interval. When a change is detected, the LLM is automatically notified.",
+    "param.dev.description": "SwitchBot device ID (required). Use switchbot_cloud_list to find it.",
+    "param.interval.description": "Polling interval in seconds (minimum 10).",
+    "param.label.description": "Human-readable label (e.g. 'リビング_照明').",
+    "param.on_change_prompt.description": "Optional prompt for LLM when state changes.",
+    "param.fmt.description": "Format: json or text.",
+    "msg.subscribed": "SwitchBot subscription active: id={id}, {label}",
+    "err.dev_required": "device_id (dev) is required."
+  }
+}

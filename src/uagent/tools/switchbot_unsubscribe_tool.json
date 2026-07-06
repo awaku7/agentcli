@@ -1,0 +1,12 @@
+{
+  "en": {
+    "tool.description": "Cancel a SwitchBot subscription by subscription_id, or list active subscriptions.",
+    "param.action.description": "Action: 'unsubscribe' (default) or 'list'.",
+    "param.subscription_id.description": "Subscription ID to cancel (required for action=unsubscribe).",
+    "param.fmt.description": "Format: json or text.",
+    "msg.no_subscriptions": "No active SwitchBot subscriptions.",
+    "msg.header": "Active SwitchBot subscriptions ({count}):",
+    "msg.unsubscribed": "SwitchBot subscription {id} cancelled.",
+    "err.id_required": "subscription_id is required for action=unsubscribe."
+  }
+}

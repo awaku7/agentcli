@@ -1,0 +1,12 @@
+{
+  "en": {
+    "tool.description": "Subscribe to ECHONET Lite INF (notification) messages from a device. When the device sends an unsolicited property change notification, the LLM is automatically informed.",
+    "param.ip.description": "Target device IPv4 address to monitor (required).",
+    "param.eoj.description": "Optional EOJ filter (e.g. '013001' for a specific AC, '0130' for all ACs). Omit to receive all notifications from this IP.",
+    "param.label.description": "Human-readable label (e.g. 'リビング_エアコン').",
+    "param.on_change_prompt.description": "Optional prompt injected into the LLM when a notification arrives.",
+    "param.fmt.description": "Format: json or text.",
+    "msg.subscribed": "ECHONET Lite subscription active: id={id}, {label}",
+    "err.ip_required": "ip is required."
+  }
+}
