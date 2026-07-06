@@ -68,7 +68,7 @@ Các công cụ chỉ đọc (tìm kiếm tệp, tính toán hàm băm, liệt k
 - **Reload past sessions** with `:load <index>` — pick up where you left off.
 - **Tool result caching** avoids redundant re-execution when the same tool call repeats.
 
-### 🛠 136 Công cụ
+### 🛠 164 Công cụ
 
 | Danh mục | Công cụ |
 |---|---|

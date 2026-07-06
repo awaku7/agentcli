@@ -68,7 +68,7 @@ Skrivebeskyttede verktøy (filsøk, hash-beregning, katalogoppføring, oversette
 - **Reload past sessions** with `:load <index>` — pick up where you left off.
 - **Tool result caching** avoids redundant re-execution when the same tool call repeats.
 
-### 🛠 136 verktøy
+### 🛠 164 verktøy
 
 | Kategori | Verktøy |
 |---|---|

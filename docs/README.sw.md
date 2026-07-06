@@ -56,7 +56,7 @@ Watoa huduma wote wanashiriki zana sawa na kiolesura. Badili kwa kuweka `UAGENT_
 ### ⚡ Utekelezaji wa Zana Sambamba
 
 Wakati LLM inaomba zana nyingi kwa wakati mmoja, uag **inazilinganisha kiotomatiki**.
-Zana 78 zimewekwa alama `x_parallel_safe` na hutekelezwa kwa wakati mmoja kupitia `ThreadPoolExecutor` (nyuzi 8 kwa chaguomsingi; weka `UAGENT_PARALLEL_WORKERS` ili kubadilisha).
+Zana 106 zimewekwa alama `x_parallel_safe` na hutekelezwa kwa wakati mmoja kupitia `ThreadPoolExecutor` (nyuzi 8 kwa chaguomsingi; weka `UAGENT_PARALLEL_WORKERS` ili kubadilisha).
 
 **Mfano**: Uliza "Angalia hali ya hewa katika herufi kubwa za Nordic" → Mioto ya LLM `search_web` × nchi 5 → utafutaji wote 5 unakwenda sambamba → matokeo yaliyokusanywa katika kundi moja.
 
@@ -68,7 +68,7 @@ Zana za kusoma pekee (utaftaji wa faili, hesabu ya heshi, orodha ya saraka, tafs
 - **Reload past sessions** with `:load <index>` — pick up where you left off.
 - **Tool result caching** avoids redundant re-execution when the same tool call repeats.
 
-### 🛠 Zana 136
+### 🛠 Zana 164
 
 | Kitengo | Zana |
 |---|---|

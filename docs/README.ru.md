@@ -68,7 +68,7 @@ OpenAI / Azure / Bedrock / OpenRouter / Ollama / Gemini / Vertex AI / Claude / G
 - **Reload past sessions** with `:load <index>` — pick up where you left off.
 - **Tool result caching** avoids redundant re-execution when the same tool call repeats.
 
-### 🛠 136 инструмент
+### 🛠 164 инструмент
 
 | Категория | Инструменты |
 |---|---|

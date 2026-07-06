@@ -68,7 +68,7 @@ Alat read-only (pencarian file, penghitungan hash, daftar direktori, terjemahan,
 - **Reload past sessions** with `:load <index>` — pick up where you left off.
 - **Tool result caching** avoids redundant re-execution when the same tool call repeats.
 
-### 🛠 136 Alat
+### 🛠 164 Alat
 
 | Kategori | Alat |
 |---|---|

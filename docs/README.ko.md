@@ -68,7 +68,7 @@ LLM이 여러 도구를 동시에 요청하면 uag가 해당 도구를 **자동�
 - **Reload past sessions** with `:load <index>` — pick up where you left off.
 - **Tool result caching** avoids redundant re-execution when the same tool call repeats.
 
-### 🛠 136 도구
+### 🛠 164 도구
 
 | 카테고리 | 도구 |
 |---|---|

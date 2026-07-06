@@ -68,7 +68,7 @@ Narzędzia tylko do odczytu (wyszukiwanie plików, obliczanie skrótu, wyświetl
 - **Reload past sessions** with `:load <index>` — pick up where you left off.
 - **Tool result caching** avoids redundant re-execution when the same tool call repeats.
 
-### 🛠 136 narzędzi
+### 🛠 164 narzędzi
 
 | Kategoria | Narzędzia |
 |---|---|

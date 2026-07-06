@@ -68,7 +68,7 @@ Salt okunur araçlar (dosya arama, karma hesaplama, dizin listeleme, çeviri, ve
 - **Reload past sessions** with `:load <index>` — pick up where you left off.
 - **Tool result caching** avoids redundant re-execution when the same tool call repeats.
 
-### 🛠 136 Araç
+### 🛠 164 Araç
 
 | Kategori | Araçlar |
 |---|---|
