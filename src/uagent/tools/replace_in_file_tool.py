@@ -276,7 +276,11 @@ def _read_text_robust(path: str, encoding: str, max_bytes: int) -> tuple[str, An
             content = f.read()
             return content, f.newlines, enc
 
-    candidates = [encoding, "utf-8", "cp932", "shift_jis", "euc-jp", "latin-1"]
+    # Try specified encoding first, fallback to utf-8 with replacement.
+    # Japanese encodings are tried only when explicitly specified by the user,
+    # because cp932/shift_jis/euc-jp can misinterpret arbitrary byte sequences
+    # without raising an error (no reliable auto-detection).
+    candidates = [encoding, "utf-8"]
     seen: set[str] = set()
     for enc in candidates:
         if enc in seen:
