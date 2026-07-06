@@ -26,9 +26,7 @@
       "ファイル種別判定",
       "ファイル情報",
       "ファイル識別",
-      "マジックバイト",
-      "file type",
-      "mime type"
+      "マジックバイト"
     ],
     "param.paths.description": "識別するファイルパス（1つ以上）。",
     "err.no_paths": "パスが指定されていません。",
@@ -36,13 +34,14 @@
     "err.not_found": "ファイルが見つかりません"
   },
   "es": {
-    "tool.description": "Determine el tipo MIME y el formato de los archivos utilizando la extensión, bytes mágicos y heurística.",
+    "tool.description": "Determina el tipo MIME y el formato de los archivos mediante extensión, bytes mágicos y heurística.",
     "x_search_terms": [
       "tipo de archivo",
       "tipo MIME",
       "formato de archivo",
       "detectar tipo",
       "información de archivo",
+      "identificación de archivos",
       "bytes mágicos"
     ],
     "param.paths.description": "Una o más rutas de archivo para identificar.",
@@ -58,6 +57,7 @@
       "format de fichier",
       "détecter le type",
       "info fichier",
+      "identification de fichier",
       "octets magiques"
     ],
     "param.paths.description": "Un ou plusieurs chemins de fichiers à identifier.",
@@ -73,12 +73,317 @@
       "파일 형식",
       "유형 감지",
       "파일 정보",
+      "파일 식별",
       "매직 바이트"
     ],
-    "param.paths.description": "식별할 파일 경로(하나 이상).",
+    "param.paths.description": "식별할 하나 이상의 파일 경로.",
     "err.no_paths": "경로가 제공되지 않았습니다.",
-    "err.outside_workdir": "작업 디렉터리 외부 경로",
+    "err.outside_workdir": "작업 디렉터리 외부의 경로",
     "err.not_found": "파일을 찾을 수 없습니다"
+  },
+  "de": {
+    "tool.description": "Bestimmt den MIME-Typ und das Format von Dateien anhand von Erweiterung, magischen Bytes und Heuristiken.",
+    "x_search_terms": [
+      "Dateityp",
+      "MIME-Typ",
+      "Dateiformat",
+      "Typ erkennen",
+      "Dateiinfo",
+      "Dateiidentifikation",
+      "magische Bytes"
+    ],
+    "param.paths.description": "Ein oder mehrere zu identifizierende Dateipfade.",
+    "err.no_paths": "Keine Pfade angegeben.",
+    "err.outside_workdir": "Pfad außerhalb des Arbeitsverzeichnisses",
+    "err.not_found": "Datei nicht gefunden"
+  },
+  "it": {
+    "tool.description": "Determina il tipo MIME e il formato dei file utilizzando estensione, byte magici e euristiche.",
+    "x_search_terms": [
+      "tipo di file",
+      "tipo MIME",
+      "formato file",
+      "rileva tipo",
+      "info file",
+      "identificazione file",
+      "byte magici"
+    ],
+    "param.paths.description": "Uno o più percorsi di file da identificare.",
+    "err.no_paths": "Nessun percorso fornito.",
+    "err.outside_workdir": "percorso fuori dalla directory di lavoro",
+    "err.not_found": "file non trovato"
+  },
+  "ru": {
+    "tool.description": "Определяет MIME-тип и формат файлов по расширению, магическим байтам и эвристике.",
+    "x_search_terms": [
+      "тип файла",
+      "MIME-тип",
+      "формат файла",
+      "определить тип",
+      "информация о файле",
+      "идентификация файла",
+      "магические байты"
+    ],
+    "param.paths.description": "Один или несколько путей к файлам для определения.",
+    "err.no_paths": "Пути не указаны.",
+    "err.outside_workdir": "путь вне рабочего каталога",
+    "err.not_found": "файл не найден"
+  },
+  "pt_BR": {
+    "tool.description": "Determina o tipo MIME e o formato de arquivos usando extensão, bytes mágicos e heurística.",
+    "x_search_terms": [
+      "tipo de arquivo",
+      "tipo MIME",
+      "formato de arquivo",
+      "detectar tipo",
+      "info de arquivo",
+      "identificação de arquivo",
+      "bytes mágicos"
+    ],
+    "param.paths.description": "Um ou mais caminhos de arquivo para identificar.",
+    "err.no_paths": "Nenhum caminho fornecido.",
+    "err.outside_workdir": "caminho fora do diretório de trabalho",
+    "err.not_found": "arquivo não encontrado"
+  },
+  "pt": {
+    "tool.description": "Determina o tipo MIME e o formato de ficheiros usando extensão, bytes mágicos e heurística.",
+    "x_search_terms": [
+      "tipo de ficheiro",
+      "tipo MIME",
+      "formato de ficheiro",
+      "detetar tipo",
+      "info de ficheiro",
+      "identificação de ficheiro",
+      "bytes mágicos"
+    ],
+    "param.paths.description": "Um ou mais caminhos de ficheiro para identificar.",
+    "err.no_paths": "Nenhum caminho fornecido.",
+    "err.outside_workdir": "caminho fora do diretório de trabalho",
+    "err.not_found": "ficheiro não encontrado"
+  },
+  "id": {
+    "tool.description": "Menentukan tipe MIME dan format file menggunakan ekstensi, byte ajaib, dan heuristik.",
+    "x_search_terms": [
+      "tipe file",
+      "tipe MIME",
+      "format file",
+      "deteksi tipe",
+      "info file",
+      "identifikasi file",
+      "byte ajaib"
+    ],
+    "param.paths.description": "Satu atau lebih jalur file untuk diidentifikasi.",
+    "err.no_paths": "Tidak ada jalur yang diberikan.",
+    "err.outside_workdir": "jalur di luar direktori kerja",
+    "err.not_found": "file tidak ditemukan"
+  },
+  "vi": {
+    "tool.description": "Xác định loại MIME và định dạng của tệp bằng phần mở rộng, byte ma thuật và heuristic.",
+    "x_search_terms": [
+      "loại tệp",
+      "loại MIME",
+      "định dạng tệp",
+      "phát hiện loại",
+      "thông tin tệp",
+      "nhận dạng tệp",
+      "byte ma thuật"
+    ],
+    "param.paths.description": "Một hoặc nhiều đường dẫn tệp để xác định.",
+    "err.no_paths": "Không có đường dẫn nào được cung cấp.",
+    "err.outside_workdir": "đường dẫn ngoài thư mục làm việc",
+    "err.not_found": "không tìm thấy tệp"
+  },
+  "pl": {
+    "tool.description": "Określa typ MIME i format plików na podstawie rozszerzenia, magicznych bajtów i heurystyki.",
+    "x_search_terms": [
+      "typ pliku",
+      "typ MIME",
+      "format pliku",
+      "wykryj typ",
+      "info o pliku",
+      "identyfikacja pliku",
+      "magiczne bajty"
+    ],
+    "param.paths.description": "Jedna lub więcej ścieżek plików do identyfikacji.",
+    "err.no_paths": "Nie podano ścieżek.",
+    "err.outside_workdir": "ścieżka poza katalogiem roboczym",
+    "err.not_found": "nie znaleziono pliku"
+  },
+  "hi": {
+    "tool.description": "एक्सटेंशन, मैजिक बाइट्स और ह्यूरिस्टिक्स का उपयोग करके फ़ाइलों के MIME प्रकार और प्रारूप का निर्धारण करें।",
+    "x_search_terms": [
+      "फ़ाइल प्रकार",
+      "MIME प्रकार",
+      "फ़ाइल प्रारूप",
+      "प्रकार का पता लगाएं",
+      "फ़ाइल जानकारी",
+      "फ़ाइल पहचान",
+      "मैजिक बाइट्स"
+    ],
+    "param.paths.description": "पहचानने के लिए एक या अधिक फ़ाइल पथ।",
+    "err.no_paths": "कोई पथ प्रदान नहीं किया गया।",
+    "err.outside_workdir": "पथ कार्य निर्देशिका के बाहर है",
+    "err.not_found": "फ़ाइल नहीं मिली"
+  },
+  "ar": {
+    "tool.description": "تحديد نوع MIME وتنسيق الملفات باستخدام الامتداد والبايتات السحرية والاستدلال.",
+    "x_search_terms": [
+      "نوع الملف",
+      "نوع MIME",
+      "تنسيق الملف",
+      "اكتشاف النوع",
+      "معلومات الملف",
+      "تعريف الملف",
+      "البايتات السحرية"
+    ],
+    "param.paths.description": "مسار ملف واحد أو أكثر للتعريف.",
+    "err.no_paths": "لم يتم توفير مسارات.",
+    "err.outside_workdir": "المسار خارج دليل العمل",
+    "err.not_found": "الملف غير موجود"
+  },
+  "sv": {
+    "tool.description": "Bestämmer MIME-typ och format för filer med hjälp av filändelse, magiska byte och heuristik.",
+    "x_search_terms": [
+      "filtyp",
+      "MIME-typ",
+      "filformat",
+      "upptäck typ",
+      "filinfo",
+      "filidentifiering",
+      "magiska byte"
+    ],
+    "param.paths.description": "En eller flera filsökvägar att identifiera.",
+    "err.no_paths": "Inga sökvägar angivna.",
+    "err.outside_workdir": "sökväg utanför arbetskatalogen",
+    "err.not_found": "filen hittades inte"
+  },
+  "sw": {
+    "tool.description": "Amua aina ya MIME na umbizo la faili kwa kutumia kiendelezi, baiti za kichawi, na heuristiki.",
+    "x_search_terms": [
+      "aina ya faili",
+      "aina ya MIME",
+      "umbizo la faili",
+      "gundua aina",
+      "habari ya faili",
+      "utambulisho wa faili",
+      "baiti za kichawi"
+    ],
+    "param.paths.description": "Njia moja au zaidi za faili kutambua.",
+    "err.no_paths": "Hakuna njia zilizotolewa.",
+    "err.outside_workdir": "njia nje ya saraka ya kazi",
+    "err.not_found": "faili haipatikani"
+  },
+  "nb": {
+    "tool.description": "Bestemmer MIME-typen og formatet til filer ved hjelp av filendelse, magiske byte og heuristikk.",
+    "x_search_terms": [
+      "filtype",
+      "MIME-type",
+      "filformat",
+      "oppdag type",
+      "filinfo",
+      "filidentifikasjon",
+      "magiske byte"
+    ],
+    "param.paths.description": "En eller flere filstier å identifisere.",
+    "err.no_paths": "Ingen stier oppgitt.",
+    "err.outside_workdir": "sti utenfor arbeidskatalogen",
+    "err.not_found": "filen ikke funnet"
+  },
+  "nl": {
+    "tool.description": "Bepaalt het MIME-type en de indeling van bestanden op basis van extensie, magische bytes en heuristiek.",
+    "x_search_terms": [
+      "bestandstype",
+      "MIME-type",
+      "bestandsindeling",
+      "type detecteren",
+      "bestandsinfo",
+      "bestandsidentificatie",
+      "magische bytes"
+    ],
+    "param.paths.description": "Een of meer bestandspaden om te identificeren.",
+    "err.no_paths": "Geen paden opgegeven.",
+    "err.outside_workdir": "pad buiten de werkmap",
+    "err.not_found": "bestand niet gevonden"
+  },
+  "fi": {
+    "tool.description": "Määrittää tiedostojen MIME-tyypin ja muodon käyttämällä tiedostopäätettä, maagisia tavuja ja heuristiikkaa.",
+    "x_search_terms": [
+      "tiedostotyyppi",
+      "MIME-tyyppi",
+      "tiedostomuoto",
+      "tunnista tyyppi",
+      "tiedostotiedot",
+      "tiedostontunnistus",
+      "maagiset tavut"
+    ],
+    "param.paths.description": "Yksi tai useampi tunnistettava tiedostopolku.",
+    "err.no_paths": "Polkuja ei annettu.",
+    "err.outside_workdir": "polku työhakemiston ulkopuolella",
+    "err.not_found": "tiedostoa ei löydy"
+  },
+  "cs": {
+    "tool.description": "Určuje typ MIME a formát souborů pomocí přípony, magických bajtů a heuristiky.",
+    "x_search_terms": [
+      "typ souboru",
+      "typ MIME",
+      "formát souboru",
+      "detekovat typ",
+      "info o souboru",
+      "identifikace souboru",
+      "magické bajty"
+    ],
+    "param.paths.description": "Jeden nebo více cest k souborům k identifikaci.",
+    "err.no_paths": "Nebyly zadány žádné cesty.",
+    "err.outside_workdir": "cesta mimo pracovní adresář",
+    "err.not_found": "soubor nenalezen"
+  },
+  "uk": {
+    "tool.description": "Визначає MIME-тип і формат файлів за розширенням, магічними байтами та евристикою.",
+    "x_search_terms": [
+      "тип файлу",
+      "MIME-тип",
+      "формат файлу",
+      "виявити тип",
+      "інформація про файл",
+      "ідентифікація файлу",
+      "магічні байти"
+    ],
+    "param.paths.description": "Один або більше шляхів до файлів для визначення.",
+    "err.no_paths": "Шляхи не вказано.",
+    "err.outside_workdir": "шлях поза робочим каталогом",
+    "err.not_found": "файл не знайдено"
+  },
+  "tr": {
+    "tool.description": "Dosyaların MIME türünü ve biçimini uzantı, sihirli baytlar ve buluşsal yöntemler kullanarak belirler.",
+    "x_search_terms": [
+      "dosya türü",
+      "MIME türü",
+      "dosya biçimi",
+      "türü algıla",
+      "dosya bilgisi",
+      "dosya tanımlama",
+      "sihirli baytlar"
+    ],
+    "param.paths.description": "Tanımlanacak bir veya daha fazla dosya yolu.",
+    "err.no_paths": "Hiçbir yol belirtilmedi.",
+    "err.outside_workdir": "yol çalışma dizini dışında",
+    "err.not_found": "dosya bulunamadı"
+  },
+  "th": {
+    "tool.description": "กำหนดประเภท MIME และรูปแบบของไฟล์โดยใช้นามสกุล ไบต์วิเศษ และฮิวริสติก",
+    "x_search_terms": [
+      "ประเภทไฟล์",
+      "ประเภท MIME",
+      "รูปแบบไฟล์",
+      "ตรวจจับประเภท",
+      "ข้อมูลไฟล์",
+      "การระบุไฟล์",
+      "ไบต์วิเศษ"
+    ],
+    "param.paths.description": "เส้นทางไฟล์อย่างน้อยหนึ่งเส้นทางเพื่อระบุ",
+    "err.no_paths": "ไม่ได้ระบุเส้นทาง",
+    "err.outside_workdir": "เส้นทางอยู่นอกไดเรกทอรีทำงาน",
+    "err.not_found": "ไม่พบไฟล์"
   },
   "zh_CN": {
     "tool.description": "使用扩展名、魔术字节和启发式方法确定文件的MIME类型和格式。",
@@ -88,6 +393,7 @@
       "文件格式",
       "检测类型",
       "文件信息",
+      "文件识别",
       "魔术字节"
     ],
     "param.paths.description": "要识别的一个或多个文件路径。",
@@ -103,6 +409,7 @@
       "檔案格式",
       "偵測類型",
       "檔案資訊",
+      "檔案識別",
       "魔術位元組"
     ],
     "param.paths.description": "要識別的一個或多個檔案路徑。",
@@ -110,19 +417,132 @@
     "err.outside_workdir": "路徑在工作目錄之外",
     "err.not_found": "找不到檔案"
   },
-  "de": {
-    "tool.description": "Bestimmen Sie den MIME-Typ und das Format von Dateien anhand der Erweiterung, magischen Bytes und Heuristiken.",
+  "bn": {
+    "tool.description": "এক্সটেনশন, ম্যাজিক বাইট এবং হিউরিস্টিক্স ব্যবহার করে ফাইলের MIME টাইপ এবং ফরম্যাট নির্ধারণ করে।",
     "x_search_terms": [
-      "Dateityp",
-      "MIME-Typ",
-      "Dateiformat",
-      "Typ erkennen",
-      "Dateiinfo",
-      "magische Bytes"
+      "ফাইলের ধরন",
+      "MIME টাইপ",
+      "ফাইল ফরম্যাট",
+      "টাইপ সনাক্ত",
+      "ফাইল তথ্য",
+      "ফাইল সনাক্তকরণ",
+      "ম্যাজিক বাইট"
     ],
-    "param.paths.description": "Ein oder mehrere zu identifizierende Dateipfade.",
-    "err.no_paths": "Keine Pfade angegeben.",
-    "err.outside_workdir": "Pfad außerhalb des Arbeitsverzeichnisses",
-    "err.not_found": "Datei nicht gefunden"
+    "param.paths.description": "শনাক্ত করার জন্য এক বা একাধিক ফাইল পাথ।",
+    "err.no_paths": "কোনো পাথ দেওয়া হয়নি।",
+    "err.outside_workdir": "পাথ ওয়ার্কডিরের বাইরে",
+    "err.not_found": "ফাইল পাওয়া যায়নি"
+  },
+  "fa": {
+    "tool.description": "تعیین نوع MIME و قالب فایل‌ها با استفاده از پسوند، بایت‌های جادویی و اکتشافی.",
+    "x_search_terms": [
+      "نوع فایل",
+      "نوع MIME",
+      "فرمت فایل",
+      "تشخیص نوع",
+      "اطلاعات فایل",
+      "شناسایی فایل",
+      "بایت‌های جادویی"
+    ],
+    "param.paths.description": "یک یا چند مسیر فایل برای شناسایی.",
+    "err.no_paths": "هیچ مسیری ارائه نشده است.",
+    "err.outside_workdir": "مسیر خارج از دایرکتوری کاری",
+    "err.not_found": "فایل یافت نشد"
+  },
+  "mn": {
+    "tool.description": "Өргөтгөл, шидэт байт болон эвристик ашиглан файлын MIME төрөл болон форматыг тодорхойлно.",
+    "x_search_terms": [
+      "файлын төрөл",
+      "MIME төрөл",
+      "файлын формат",
+      "төрөл илрүүлэх",
+      "файлын мэдээлэл",
+      "файл таних",
+      "шидэт байт"
+    ],
+    "param.paths.description": "Тодорхойлох нэг буюу хэд хэдэн файлын зам.",
+    "err.no_paths": "Зам өгөгдөөгүй.",
+    "err.outside_workdir": "зам ажлын директорын гадна",
+    "err.not_found": "файл олдсонгүй"
+  },
+  "mr": {
+    "tool.description": "विस्तार, मॅजिक बाइट्स आणि ह्युरिस्टिक्स वापरून फाइल्सचा MIME प्रकार आणि फॉरमॅट निश्चित करते.",
+    "x_search_terms": [
+      "फाइल प्रकार",
+      "MIME प्रकार",
+      "फाइल फॉरमॅट",
+      "प्रकार शोधा",
+      "फाइल माहिती",
+      "फाइल ओळख",
+      "मॅजिक बाइट्स"
+    ],
+    "param.paths.description": "ओळखण्यासाठी एक किंवा अधिक फाइल पथ.",
+    "err.no_paths": "कोणतेही पथ प्रदान केले नाहीत.",
+    "err.outside_workdir": "पथ कार्य निर्देशिकेच्या बाहेर",
+    "err.not_found": "फाइल आढळली नाही"
+  },
+  "el": {
+    "tool.description": "Καθορίζει τον τύπο MIME και τη μορφή αρχείων χρησιμοποιώντας επέκταση, μαγικά byte και ευρετική.",
+    "x_search_terms": [
+      "τύπος αρχείου",
+      "τύπος MIME",
+      "μορφή αρχείου",
+      "ανίχνευση τύπου",
+      "πληροφορίες αρχείου",
+      "ταυτοποίηση αρχείου",
+      "μαγικά byte"
+    ],
+    "param.paths.description": "Μία ή περισσότερες διαδρομές αρχείων προς αναγνώριση.",
+    "err.no_paths": "Δεν δόθηκαν διαδρομές.",
+    "err.outside_workdir": "διαδρομή εκτός καταλόγου εργασίας",
+    "err.not_found": "το αρχείο δεν βρέθηκε"
+  },
+  "he": {
+    "tool.description": "קובע את סוג ה-MIME והפורמט של קבצים באמצעות סיומת, בתים קסומים והיוריסטיקה.",
+    "x_search_terms": [
+      "סוג קובץ",
+      "סוג MIME",
+      "פורמט קובץ",
+      "זיהוי סוג",
+      "מידע על קובץ",
+      "זיהוי קבצים",
+      "בתים קסומים"
+    ],
+    "param.paths.description": "נתיב קובץ אחד או יותר לזיהוי.",
+    "err.no_paths": "לא סופקו נתיבים.",
+    "err.outside_workdir": "הנתיב מחוץ לספריית העבודה",
+    "err.not_found": "הקובץ לא נמצא"
+  },
+  "hu": {
+    "tool.description": "Meghatározza a fájlok MIME-típusát és formátumát kiterjesztés, mágikus bájtok és heurisztika alapján.",
+    "x_search_terms": [
+      "fájltípus",
+      "MIME-típus",
+      "fájlformátum",
+      "típus észlelése",
+      "fájlinfó",
+      "fájlazonosítás",
+      "mágikus bájtok"
+    ],
+    "param.paths.description": "Egy vagy több azonosítandó fájlútvonal.",
+    "err.no_paths": "Nincs megadva útvonal.",
+    "err.outside_workdir": "útvonal a munkakönyvtáron kívül",
+    "err.not_found": "a fájl nem található"
+  },
+  "ro": {
+    "tool.description": "Determină tipul MIME și formatul fișierelor folosind extensia, octeții magici și euristici.",
+    "x_search_terms": [
+      "tip fișier",
+      "tip MIME",
+      "format fișier",
+      "detectare tip",
+      "info fișier",
+      "identificare fișier",
+      "octeți magici"
+    ],
+    "param.paths.description": "Una sau mai multe căi de fișiere de identificat.",
+    "err.no_paths": "Nu au fost furnizate căi.",
+    "err.outside_workdir": "cale în afara directorului de lucru",
+    "err.not_found": "fișierul nu a fost găsit"
   }
 }
