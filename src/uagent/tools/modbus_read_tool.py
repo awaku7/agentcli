@@ -16,10 +16,10 @@ STATUS_LABEL = "tool:modbus_read"
 _TOOL_LEVEL = 1
 
 _REGISTER_TYPES = [
-    "holding",       # Holding Registers (function code 0x03)
-    "input",         # Input Registers (function code 0x04)
-    "coil",          # Coils (function code 0x01)
-    "discrete",      # Discrete Inputs (function code 0x02)
+    "holding",  # Holding Registers (function code 0x03)
+    "input",  # Input Registers (function code 0x04)
+    "coil",  # Coils (function code 0x01)
+    "discrete",  # Discrete Inputs (function code 0x02)
 ]
 
 TOOL_SPEC: dict[str, Any] = {
@@ -126,12 +126,14 @@ def _format_text(payload: dict[str, Any]) -> str:
     if not payload.get("ok"):
         return f"Error: {payload.get('error', 'unknown')}"
     lines = [
-        _("msg.summary",
-          default="Modbus read: {ip} type={t} addr={addr} count={count}",
-          ip=payload.get("target", {}).get("ip", "?"),
-          t=payload.get("target", {}).get("type", "?"),
-          addr=payload.get("target", {}).get("address", "?"),
-          count=len(payload.get("values", [])))
+        _(
+            "msg.summary",
+            default="Modbus read: {ip} type={t} addr={addr} count={count}",
+            ip=payload.get("target", {}).get("ip", "?"),
+            t=payload.get("target", {}).get("type", "?"),
+            addr=payload.get("target", {}).get("address", "?"),
+            count=len(payload.get("values", [])),
+        )
     ]
     values = payload.get("values", [])
     for i, v in enumerate(values):
@@ -150,18 +152,23 @@ def run_tool(args: dict[str, Any]) -> str:
     output_format = str(args.get("fmt") or "json").strip().lower()
 
     if not ip:
-        return json.dumps({
-            "ok": False,
-            "error": _("err.ip_required", default="ip is required.")
-        }, ensure_ascii=False)
+        return json.dumps(
+            {"ok": False, "error": _("err.ip_required", default="ip is required.")},
+            ensure_ascii=False,
+        )
 
     if reg_type not in _REGISTER_TYPES:
-        return json.dumps({
-            "ok": False,
-            "error": _("err.invalid_type",
-                       default="Invalid type. Valid: {types}.",
-                       types=", ".join(_REGISTER_TYPES))
-        }, ensure_ascii=False)
+        return json.dumps(
+            {
+                "ok": False,
+                "error": _(
+                    "err.invalid_type",
+                    default="Invalid type. Valid: {types}.",
+                    types=", ".join(_REGISTER_TYPES),
+                ),
+            },
+            ensure_ascii=False,
+        )
 
     start_time = time.monotonic()
     client = None
@@ -171,22 +178,22 @@ def run_tool(args: dict[str, Any]) -> str:
         values: list[Any] = []
         if reg_type == "holding":
             rr = client.read_holding_registers(address, count, unit=unit)
-            if rr is None or hasattr(rr, 'isError') and rr.isError():
+            if rr is None or hasattr(rr, "isError") and rr.isError():
                 raise RuntimeError(f"Read holding registers failed: {rr}")
             values = list(rr.registers)
         elif reg_type == "input":
             rr = client.read_input_registers(address, count, unit=unit)
-            if rr is None or hasattr(rr, 'isError') and rr.isError():
+            if rr is None or hasattr(rr, "isError") and rr.isError():
                 raise RuntimeError(f"Read input registers failed: {rr}")
             values = list(rr.registers)
         elif reg_type == "coil":
             rr = client.read_coils(address, count, unit=unit)
-            if rr is None or hasattr(rr, 'isError') and rr.isError():
+            if rr is None or hasattr(rr, "isError") and rr.isError():
                 raise RuntimeError(f"Read coils failed: {rr}")
             values = [bool(rr.bits[i]) for i in range(min(count, len(rr.bits)))]
         elif reg_type == "discrete":
             rr = client.read_discrete_inputs(address, count, unit=unit)
-            if rr is None or hasattr(rr, 'isError') and rr.isError():
+            if rr is None or hasattr(rr, "isError") and rr.isError():
                 raise RuntimeError(f"Read discrete inputs failed: {rr}")
             values = [bool(rr.bits[i]) for i in range(min(count, len(rr.bits)))]
 

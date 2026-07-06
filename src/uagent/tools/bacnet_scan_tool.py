@@ -204,7 +204,6 @@ TOOL_SPEC: dict[str, Any] = {
 }
 
 
-
 def _now_iso() -> str:
     return datetime.now(timezone.utc).astimezone().isoformat(timespec="seconds")
 
@@ -234,9 +233,7 @@ def _format_text(payload: dict[str, Any]) -> str:
     lines.append("")
 
     if not devices:
-        lines.append(
-            _("msg.no_devices", default="No BACnet/IP devices were found.")
-        )
+        lines.append(_("msg.no_devices", default="No BACnet/IP devices were found."))
         return "\n".join(lines).strip()
 
     for idx, dev in enumerate(devices, 1):
@@ -255,7 +252,6 @@ def _format_text(payload: dict[str, Any]) -> str:
 
 
 def run_tool(args: dict[str, Any]) -> str:
-    timeout = _normalize_int(args.get("timeout", _DEFAULT_TIMEOUT), _DEFAULT_TIMEOUT, 1)
     limit = _normalize_int(args.get("limit", _DEFAULT_LIMIT), _DEFAULT_LIMIT, 0)
     output_format = str(args.get("fmt") or "json").strip().lower()
     interface = args.get("interface")

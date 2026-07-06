@@ -120,10 +120,12 @@ def _format_text(payload: dict[str, Any]) -> str:
     if not payload.get("ok"):
         return f"Error: {payload.get('error', 'unknown')}"
     lines = [
-        _("msg.subscribed",
-          default="OPC UA subscription active: id={id}, {label}",
-          id=payload.get("subscription_id", "?"),
-          label=sub.get("label") or sub.get("node_id", ""))
+        _(
+            "msg.subscribed",
+            default="OPC UA subscription active: id={id}, {label}",
+            id=payload.get("subscription_id", "?"),
+            label=sub.get("label") or sub.get("node_id", ""),
+        )
     ]
     lines.append(f"  url: {sub.get('url')}")
     lines.append(f"  node: {sub.get('node_id')}")
@@ -180,11 +182,17 @@ def run_tool(args: dict[str, Any]) -> str:
             with _SUBS_LOCK:
                 _SUBSCRIPTIONS[sub_id] = info
 
-            return {"ok": True, "subscription_id": sub_id, "subscription": {
-                "url": url, "node_id": node_id_text, "label": label or node_id_text,
-                "status": "active",
-            }}
-        except Exception as e:
+            return {
+                "ok": True,
+                "subscription_id": sub_id,
+                "subscription": {
+                    "url": url,
+                    "node_id": node_id_text,
+                    "label": label or node_id_text,
+                    "status": "active",
+                },
+            }
+        except Exception:
             await c.disconnect()
             raise
 
@@ -212,7 +220,12 @@ class _SubHandler:
         self.on_change_prompt = on_change_prompt
 
     def datachange_notification(self, node, val, data):
-        from ..scheduler import SchedulerStore, ScheduleItem, format_iso_datetime, utc_now
+        from ..scheduler import (
+            SchedulerStore,
+            ScheduleItem,
+            format_iso_datetime,
+            utc_now,
+        )
 
         prompt = self.on_change_prompt or f"{self.label}: value changed to {val}"
         item = ScheduleItem(

@@ -82,8 +82,9 @@ def _format_text(payload: dict[str, Any]) -> str:
     if not payload.get("ok"):
         return f"Error: {payload.get('error', 'unknown')}"
     lines = [
-        _("msg.subscribed",
-          default="SwitchBot subscription active: id={id}, {label}").format(
+        _(
+            "msg.subscribed", default="SwitchBot subscription active: id={id}, {label}"
+        ).format(
             id=payload.get("subscription_id", "?"),
             label=sub.get("label") or sub.get("device_id", ""),
         )

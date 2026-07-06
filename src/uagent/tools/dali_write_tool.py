@@ -25,8 +25,7 @@ TOOL_SPEC: dict[str, Any] = {
         "description": _(
             "tool.description",
             default=(
-                "Control a DALI lighting device. "
-                "Supports on/off and dimming (0-254)."
+                "Control a DALI lighting device. Supports on/off and dimming (0-254)."
             ),
         ),
         "parameters": {
@@ -70,7 +69,14 @@ TOOL_SPEC: dict[str, Any] = {
                 },
                 "driver": {
                     "type": "string",
-                    "enum": ["auto", "tridonic", "hasseb", "daliserver", "lunatone", "atxled"],
+                    "enum": [
+                        "auto",
+                        "tridonic",
+                        "hasseb",
+                        "daliserver",
+                        "lunatone",
+                        "atxled",
+                    ],
                     "default": "auto",
                     "description": _(
                         "param.driver.description",
@@ -116,11 +122,13 @@ def _now_iso() -> str:
 def _format_text(payload: dict[str, Any]) -> str:
     if not payload.get("ok"):
         return f"Error: {payload.get('error', 'unknown')}"
-    return _("msg.summary",
-             default="DALI {action}: addr={addr} level={level}",
-             action=payload.get("action", "?"),
-             addr=payload.get("target", {}).get("address", "?"),
-             level=payload.get("level", "?"))
+    return _(
+        "msg.summary",
+        default="DALI {action}: addr={addr} level={level}",
+        action=payload.get("action", "?"),
+        addr=payload.get("target", {}).get("address", "?"),
+        level=payload.get("level", "?"),
+    )
 
 
 def run_tool(args: dict[str, Any]) -> str:
@@ -134,9 +142,14 @@ def run_tool(args: dict[str, Any]) -> str:
     output_format = str(args.get("fmt") or "json").strip().lower()
 
     if not action or action not in ("on", "off", "dim"):
-        return json.dumps({"ok": False, "error": "action must be on, off, or dim."}, ensure_ascii=False)
+        return json.dumps(
+            {"ok": False, "error": "action must be on, off, or dim."},
+            ensure_ascii=False,
+        )
     if action == "dim" and level is None:
-        return json.dumps({"ok": False, "error": "level is required for dim."}, ensure_ascii=False)
+        return json.dumps(
+            {"ok": False, "error": "level is required for dim."}, ensure_ascii=False
+        )
 
     start_time = time.monotonic()
     gg, addr, drv = _dali_import()
@@ -186,10 +199,18 @@ def run_tool(args: dict[str, Any]) -> str:
         return json.dumps(payload, ensure_ascii=False)
 
     except Exception as exc:
-        err = {"ok": False, "error": str(exc), "elapsed_ms": int((time.monotonic() - start_time) * 1000)}
-        return json.dumps(err, ensure_ascii=False) if output_format != "text" else f"Error: {exc}"
+        err = {
+            "ok": False,
+            "error": str(exc),
+            "elapsed_ms": int((time.monotonic() - start_time) * 1000),
+        }
+        return (
+            json.dumps(err, ensure_ascii=False)
+            if output_format != "text"
+            else f"Error: {exc}"
+        )
     finally:
-        if driver is not None and hasattr(driver, 'close'):
+        if driver is not None and hasattr(driver, "close"):
             try:
                 driver.close()
             except Exception:

@@ -67,21 +67,26 @@ def _format_list(payload: dict[str, Any]) -> str:
     if not subs:
         return _("msg.no_subscriptions", default="No active SwitchBot subscriptions.")
     lines = [
-        _("msg.header", default="Active SwitchBot subscriptions ({count}):",
-          count=len(subs))
+        _(
+            "msg.header",
+            default="Active SwitchBot subscriptions ({count}):",
+            count=len(subs),
+        )
     ]
     for s in subs:
         label = s.get("label") or s.get("device_id", "?")
-        lines.append(f"  [{s.get('subscription_id')}] {label} (interval={s.get('interval')}s)")
+        lines.append(
+            f"  [{s.get('subscription_id')}] {label} (interval={s.get('interval')}s)"
+        )
     return "\n".join(lines).strip()
 
 
 def _format_unsub(payload: dict[str, Any]) -> str:
     if not payload.get("ok"):
         return f"Error: {payload.get('error', 'unknown')}"
-    return _("msg.unsubscribed",
-             default="SwitchBot subscription {id} cancelled.").format(
-        id=payload.get("subscription_id", "?"))
+    return _(
+        "msg.unsubscribed", default="SwitchBot subscription {id} cancelled."
+    ).format(id=payload.get("subscription_id", "?"))
 
 
 def run_tool(args: dict[str, Any]) -> str:
@@ -96,11 +101,14 @@ def run_tool(args: dict[str, Any]) -> str:
 
     sub_id = str(args.get("subscription_id") or "").strip()
     if not sub_id:
-        err = _("err.id_required",
-                default="subscription_id is required for action=unsubscribe.")
+        err = _(
+            "err.id_required",
+            default="subscription_id is required for action=unsubscribe.",
+        )
         payload = {"ok": False, "error": err}
         return (
-            f"Error: {err}" if output_format == "text"
+            f"Error: {err}"
+            if output_format == "text"
             else json.dumps(payload, ensure_ascii=False)
         )
 

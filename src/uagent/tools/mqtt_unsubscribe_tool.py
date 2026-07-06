@@ -32,16 +32,28 @@ TOOL_SPEC: dict[str, Any] = {
             "type": "object",
             "properties": {
                 "action": {
-                    "type": "string", "enum": ["unsubscribe", "list"], "default": "unsubscribe",
-                    "description": _("param.action.description", default="Action: 'unsubscribe' or 'list'."),
+                    "type": "string",
+                    "enum": ["unsubscribe", "list"],
+                    "default": "unsubscribe",
+                    "description": _(
+                        "param.action.description",
+                        default="Action: 'unsubscribe' or 'list'.",
+                    ),
                 },
                 "subscription_id": {
                     "type": "string",
-                    "description": _("param.subscription_id.description", default="Subscription ID to cancel."),
+                    "description": _(
+                        "param.subscription_id.description",
+                        default="Subscription ID to cancel.",
+                    ),
                 },
                 "fmt": {
-                    "type": "string", "enum": ["json", "text"], "default": "json",
-                    "description": _("param.fmt.description", default="Format: json or text."),
+                    "type": "string",
+                    "enum": ["json", "text"],
+                    "default": "json",
+                    "description": _(
+                        "param.fmt.description", default="Format: json or text."
+                    ),
                 },
             },
             "additionalProperties": False,
@@ -56,16 +68,24 @@ def _format_list(payload: dict[str, Any]) -> str:
     subs = payload.get("subscriptions") or []
     if not subs:
         return _("msg.no_subscriptions", default="No active MQTT subscriptions.")
-    lines = [_("msg.header", default="Active MQTT subscriptions ({count}):", count=len(subs))]
+    lines = [
+        _("msg.header", default="Active MQTT subscriptions ({count}):", count=len(subs))
+    ]
     for s in subs:
-        lines.append(f"  [{s.get('subscription_id')}] {s.get('label', '?')} @ {s.get('host')} topic={s.get('topic')}")
+        lines.append(
+            f"  [{s.get('subscription_id')}] {s.get('label', '?')} @ {s.get('host')} topic={s.get('topic')}"
+        )
     return "\n".join(lines).strip()
 
 
 def _format_unsub(payload: dict[str, Any]) -> str:
     if not payload.get("ok"):
         return f"Error: {payload.get('error', 'unknown')}"
-    return _("msg.unsubscribed", default="MQTT subscription {id} cancelled.", id=payload.get("subscription_id", "?"))
+    return _(
+        "msg.unsubscribed",
+        default="MQTT subscription {id} cancelled.",
+        id=payload.get("subscription_id", "?"),
+    )
 
 
 def run_tool(args: dict[str, Any]) -> str:
@@ -74,11 +94,22 @@ def run_tool(args: dict[str, Any]) -> str:
 
     if action == "list":
         with _SUBS_LOCK:
-            subs = [{"subscription_id": sid, "host": s.get("host"), "topic": s.get("topic"),
-                     "label": s.get("label"), "status": s.get("status")}
-                    for sid, s in _SUBSCRIPTIONS.items()]
+            subs = [
+                {
+                    "subscription_id": sid,
+                    "host": s.get("host"),
+                    "topic": s.get("topic"),
+                    "label": s.get("label"),
+                    "status": s.get("status"),
+                }
+                for sid, s in _SUBSCRIPTIONS.items()
+            ]
         result = {"ok": True, "count": len(subs), "subscriptions": subs}
-        return _format_list(result) if output_format == "text" else json.dumps(result, ensure_ascii=False)
+        return (
+            _format_list(result)
+            if output_format == "text"
+            else json.dumps(result, ensure_ascii=False)
+        )
 
     sub_id = str(args.get("subscription_id") or "").strip()
     if not sub_id:
@@ -96,4 +127,8 @@ def run_tool(args: dict[str, Any]) -> str:
         disconnect(client)
 
     result = {"ok": True, "subscription_id": sub_id}
-    return _format_unsub(result) if output_format == "text" else json.dumps(result, ensure_ascii=False)
+    return (
+        _format_unsub(result)
+        if output_format == "text"
+        else json.dumps(result, ensure_ascii=False)
+    )

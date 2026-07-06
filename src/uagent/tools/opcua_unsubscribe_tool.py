@@ -1,6 +1,5 @@
 from __future__ import annotations
 
-import asyncio
 import json
 from typing import Any
 
@@ -76,20 +75,27 @@ def _format_list(payload: dict[str, Any]) -> str:
     if not subs:
         return _("msg.no_subscriptions", default="No active OPC UA subscriptions.")
     lines = [
-        _("msg.header",
-          default="Active OPC UA subscriptions ({count}):", count=len(subs))
+        _(
+            "msg.header",
+            default="Active OPC UA subscriptions ({count}):",
+            count=len(subs),
+        )
     ]
     for s in subs:
-        lines.append(f"  [{s.get('subscription_id')}] {s.get('label', '?')} @ {s.get('url')}")
+        lines.append(
+            f"  [{s.get('subscription_id')}] {s.get('label', '?')} @ {s.get('url')}"
+        )
     return "\n".join(lines).strip()
 
 
 def _format_unsub(payload: dict[str, Any]) -> str:
     if not payload.get("ok"):
         return f"Error: {payload.get('error', 'unknown')}"
-    return _("msg.unsubscribed",
-             default="OPC UA subscription {id} cancelled.",
-             id=payload.get("subscription_id", "?"))
+    return _(
+        "msg.unsubscribed",
+        default="OPC UA subscription {id} cancelled.",
+        id=payload.get("subscription_id", "?"),
+    )
 
 
 def run_tool(args: dict[str, Any]) -> str:
@@ -97,29 +103,38 @@ def run_tool(args: dict[str, Any]) -> str:
     output_format = str(args.get("fmt") or "json").strip().lower()
 
     if action == "list":
-        with __import__('threading').Lock():
+        with __import__("threading").Lock():
             subs = list(_SUBSCRIPTIONS.values())
-        result = {"ok": True, "count": len(subs), "subscriptions": [
-            {"subscription_id": s.get("subscription_id", "?"),
-             "url": s.get("url", ""),
-             "node_id": s.get("node_id", ""),
-             "label": s.get("label", ""),
-             "status": s.get("status", "unknown")}
-            for s in subs
-        ]}
+        result = {
+            "ok": True,
+            "count": len(subs),
+            "subscriptions": [
+                {
+                    "subscription_id": s.get("subscription_id", "?"),
+                    "url": s.get("url", ""),
+                    "node_id": s.get("node_id", ""),
+                    "label": s.get("label", ""),
+                    "status": s.get("status", "unknown"),
+                }
+                for s in subs
+            ],
+        }
         if output_format == "text":
             return _format_list(result)
         return json.dumps(result, ensure_ascii=False)
 
     sub_id = str(args.get("subscription_id") or "").strip()
     if not sub_id:
-        err = _("err.id_required",
-                default="subscription_id is required for action=unsubscribe.")
+        err = _(
+            "err.id_required",
+            default="subscription_id is required for action=unsubscribe.",
+        )
         return json.dumps({"ok": False, "error": err}, ensure_ascii=False)
 
     async def _unsubscribe():
         from ..tools.opcua_subscribe_tool import _SUBSCRIPTIONS as subs
         import threading
+
         with threading.Lock():
             info = subs.pop(sub_id, None)
         if info is None:
@@ -136,10 +151,12 @@ def run_tool(args: dict[str, Any]) -> str:
 
     loop = None
     import threading
+
     for t in threading.enumerate():
         if t.name == "opcua-sub":
             try:
                 import asyncio
+
                 loop = asyncio.get_event_loop()
             except Exception:
                 pass
@@ -156,11 +173,16 @@ def run_tool(args: dict[str, Any]) -> str:
         # Try direct import
         try:
             import asyncio
+
             asyncio.run(_unsubscribe())
             result = {"ok": True, "subscription_id": sub_id}
         except Exception as exc:
             result = {"ok": False, "error": str(exc)}
 
     if output_format == "text":
-        return _format_unsub(result) if result.get("ok") else f"Error: {result.get('error')}"
+        return (
+            _format_unsub(result)
+            if result.get("ok")
+            else f"Error: {result.get('error')}"
+        )
     return json.dumps(result, ensure_ascii=False)

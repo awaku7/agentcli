@@ -340,13 +340,13 @@ def _expand_newline_tokens_to_lf(s: str) -> str:
     Order matters: \\r\\n (4 chars) must be handled before \\r (2 chars).
     Also handles \\t, \\\\, and leaves other sequences as-is.
     """
-    s = s.replace("\\r\\n", "\n")   # escaped CRLF
-    s = s.replace("\\r", "\n")         # escaped CR
-    s = s.replace("\\n", "\n")         # escaped LF
-    s = s.replace("\\t", "\t")         # escaped TAB
-    s = s.replace("\\\\", "\\")      # escaped backslash
-    s = s.replace("\r\n", "\n")        # actual CRLF
-    s = s.replace("\r", "\n")           # actual CR
+    s = s.replace("\\r\\n", "\n")  # escaped CRLF
+    s = s.replace("\\r", "\n")  # escaped CR
+    s = s.replace("\\n", "\n")  # escaped LF
+    s = s.replace("\\t", "\t")  # escaped TAB
+    s = s.replace("\\\\", "\\")  # escaped backslash
+    s = s.replace("\r\n", "\n")  # actual CRLF
+    s = s.replace("\r", "\n")  # actual CR
     return s
 
 
@@ -467,9 +467,9 @@ def _find_best_fuzzy_match(text: str, pattern: str) -> dict[str, Any] | None:
             "position": pos,
             "similarity": 1.0,
             "exact": True,
-            "before_context": text[max(0, pos - 30):pos],
-            "matched_part": text[pos:pos + len(pattern)],
-            "after_context": text[pos + len(pattern):pos + len(pattern) + 30],
+            "before_context": text[max(0, pos - 30) : pos],
+            "matched_part": text[pos : pos + len(pattern)],
+            "after_context": text[pos + len(pattern) : pos + len(pattern) + 30],
         }
 
     if len(pattern) < 5:
@@ -484,12 +484,13 @@ def _find_best_fuzzy_match(text: str, pattern: str) -> dict[str, Any] | None:
             "position": pos,
             "similarity": round(similarity, 3),
             "exact": False,
-            "before_context": text[max(0, pos - 30):pos],
-            "matched_part": text[pos:pos + match.size],
-            "after_context": text[pos + match.size:pos + match.size + 30],
+            "before_context": text[max(0, pos - 30) : pos],
+            "matched_part": text[pos : pos + match.size],
+            "after_context": text[pos + match.size : pos + match.size + 30],
         }
 
     return None
+
 
 def _get_failure_hint(original: str, pattern: str, mode: str) -> str | None:
     if not pattern:

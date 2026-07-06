@@ -123,7 +123,8 @@ def _format_text(payload: dict[str, Any]) -> str:
             default="COV subscription active: task_id={task_id}, {label}",
         ).format(
             task_id=payload.get("task_id", "?"),
-            label=sub.get("label") or f"{sub.get('object_type')}:{sub.get('object_instance')}",
+            label=sub.get("label")
+            or f"{sub.get('object_type')}:{sub.get('object_instance')}",
         )
     ]
     lines.append(f"  ip: {sub.get('ip')}")

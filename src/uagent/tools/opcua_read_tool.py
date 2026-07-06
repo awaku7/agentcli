@@ -113,10 +113,12 @@ def _format_text(payload: dict[str, Any]) -> str:
         return f"Error: {payload.get('error', 'unknown')}"
     results = payload.get("results", [])
     lines = [
-        _("msg.summary",
-          default="OPC UA read: {count} value(s) in {ms} ms.",
-          count=len(results),
-          ms=payload.get("elapsed_ms", 0))
+        _(
+            "msg.summary",
+            default="OPC UA read: {count} value(s) in {ms} ms.",
+            count=len(results),
+            ms=payload.get("elapsed_ms", 0),
+        )
     ]
     for r in results:
         lines.append(f"  {r.get('node_id')} = {r.get('value')} [{r.get('type')}]")
@@ -130,9 +132,13 @@ def run_tool(args: dict[str, Any]) -> str:
     output_format = str(args.get("fmt") or "json").strip().lower()
 
     if not url:
-        return json.dumps({"ok": False, "error": "url is required."}, ensure_ascii=False)
+        return json.dumps(
+            {"ok": False, "error": "url is required."}, ensure_ascii=False
+        )
     if not node_ids_text:
-        return json.dumps({"ok": False, "error": "node_ids is required."}, ensure_ascii=False)
+        return json.dumps(
+            {"ok": False, "error": "node_ids is required."}, ensure_ascii=False
+        )
 
     start_time = time.monotonic()
 
@@ -144,18 +150,24 @@ def run_tool(args: dict[str, Any]) -> str:
                 node = client.get_node(nid)
                 val = await node.read_value()
                 data_val = await node.read_data_value()
-                results.append({
-                    "node_id": str(nid),
-                    "value": str(val) if val is not None else None,
-                    "type": type(val).__name__ if val is not None else "None",
-                    "source_timestamp": str(getattr(data_val, 'SourceTimestamp', '')),
-                    "status": str(getattr(data_val, 'StatusCode', '')),
-                })
+                results.append(
+                    {
+                        "node_id": str(nid),
+                        "value": str(val) if val is not None else None,
+                        "type": type(val).__name__ if val is not None else "None",
+                        "source_timestamp": str(
+                            getattr(data_val, "SourceTimestamp", "")
+                        ),
+                        "status": str(getattr(data_val, "StatusCode", "")),
+                    }
+                )
             except Exception as e:
-                results.append({
-                    "node_id": str(nid),
-                    "error": str(e),
-                })
+                results.append(
+                    {
+                        "node_id": str(nid),
+                        "error": str(e),
+                    }
+                )
         return results
 
     try:
@@ -171,5 +183,13 @@ def run_tool(args: dict[str, Any]) -> str:
             return _format_text(payload)
         return json.dumps(payload, ensure_ascii=False)
     except Exception as exc:
-        err = {"ok": False, "error": str(exc), "elapsed_ms": int((time.monotonic() - start_time) * 1000)}
-        return json.dumps(err, ensure_ascii=False) if output_format != "text" else f"Error: {exc}"
+        err = {
+            "ok": False,
+            "error": str(exc),
+            "elapsed_ms": int((time.monotonic() - start_time) * 1000),
+        }
+        return (
+            json.dumps(err, ensure_ascii=False)
+            if output_format != "text"
+            else f"Error: {exc}"
+        )

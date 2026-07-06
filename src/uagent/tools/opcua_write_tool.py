@@ -24,9 +24,7 @@ TOOL_SPEC: dict[str, Any] = {
         "name": "opcua_write",
         "description": _(
             "tool.description",
-            default=(
-                "Write a value to an OPC UA server node."
-            ),
+            default=("Write a value to an OPC UA server node."),
         ),
         "parameters": {
             "type": "object",
@@ -104,10 +102,12 @@ def _convert_value(value_str: str, type_hint: str) -> Any:
 def _format_text(payload: dict[str, Any]) -> str:
     if not payload.get("ok"):
         return f"Error: {payload.get('error', 'unknown')}"
-    return _("msg.summary",
-             default="OPC UA write: {node} = {val}",
-             node=payload.get("target", {}).get("node_id", "?"),
-             val=payload.get("value_written", ""))
+    return _(
+        "msg.summary",
+        default="OPC UA write: {node} = {val}",
+        node=payload.get("target", {}).get("node_id", "?"),
+        val=payload.get("value_written", ""),
+    )
 
 
 def run_tool(args: dict[str, Any]) -> str:
@@ -119,7 +119,10 @@ def run_tool(args: dict[str, Any]) -> str:
     output_format = str(args.get("fmt") or "json").strip().lower()
 
     if not url or not node_id_text or not value_str:
-        return json.dumps({"ok": False, "error": "url, node_id, value are required."}, ensure_ascii=False)
+        return json.dumps(
+            {"ok": False, "error": "url, node_id, value are required."},
+            ensure_ascii=False,
+        )
 
     start_time = time.monotonic()
 
@@ -160,7 +163,11 @@ def run_tool(args: dict[str, Any]) -> str:
             return _format_text(payload)
         return json.dumps(payload, ensure_ascii=False)
     except Exception as exc:
-        return json.dumps({
-            "ok": False, "error": str(exc),
-            "elapsed_ms": int((time.monotonic() - start_time) * 1000),
-        }, ensure_ascii=False)
+        return json.dumps(
+            {
+                "ok": False,
+                "error": str(exc),
+                "elapsed_ms": int((time.monotonic() - start_time) * 1000),
+            },
+            ensure_ascii=False,
+        )

@@ -44,7 +44,14 @@ TOOL_SPEC: dict[str, Any] = {
                 },
                 "driver": {
                     "type": "string",
-                    "enum": ["auto", "tridonic", "hasseb", "daliserver", "lunatone", "atxled"],
+                    "enum": [
+                        "auto",
+                        "tridonic",
+                        "hasseb",
+                        "daliserver",
+                        "lunatone",
+                        "atxled",
+                    ],
                     "default": "auto",
                     "description": _(
                         "param.driver.description",
@@ -92,11 +99,13 @@ def _format_text(payload: dict[str, Any]) -> str:
         return f"Error: {payload.get('error', 'unknown')}"
     dev = payload.get("device", {})
     lines = [
-        _("msg.summary",
-          default="DALI read: addr={addr} level={level} status={status}",
-          addr=dev.get("address", "?"),
-          level=dev.get("actual_level", "?"),
-          status=dev.get("status", "?"))
+        _(
+            "msg.summary",
+            default="DALI read: addr={addr} level={level} status={status}",
+            addr=dev.get("address", "?"),
+            level=dev.get("actual_level", "?"),
+            status=dev.get("status", "?"),
+        )
     ]
     for k, v in dev.items():
         if k not in ("address", "last_seen") and v is not None:
@@ -112,7 +121,9 @@ def run_tool(args: dict[str, Any]) -> str:
     output_format = str(args.get("fmt") or "json").strip().lower()
 
     if address < 0 or address > 63:
-        return json.dumps({"ok": False, "error": "address must be 0-63."}, ensure_ascii=False)
+        return json.dumps(
+            {"ok": False, "error": "address must be 0-63."}, ensure_ascii=False
+        )
 
     start_time = time.monotonic()
     gg, addr, drv = _dali_import()
@@ -126,27 +137,27 @@ def run_tool(args: dict[str, Any]) -> str:
 
         try:
             r = send_command(driver, gg.QueryStatus(g))
-            status_val = bool(r.value) if r and hasattr(r, 'value') else None
+            status_val = bool(r.value) if r and hasattr(r, "value") else None
         except Exception:
             pass
         try:
             r = send_command(driver, gg.QueryActualLevel(g))
-            level_val = r.value if r and hasattr(r, 'value') else None
+            level_val = r.value if r and hasattr(r, "value") else None
         except Exception:
             pass
         try:
             r = send_command(driver, gg.QueryMinLevel(g))
-            min_val = r.value if r and hasattr(r, 'value') else None
+            min_val = r.value if r and hasattr(r, "value") else None
         except Exception:
             pass
         try:
             r = send_command(driver, gg.QueryMaxLevel(g))
-            max_val = r.value if r and hasattr(r, 'value') else None
+            max_val = r.value if r and hasattr(r, "value") else None
         except Exception:
             pass
         try:
             r = send_command(driver, gg.QueryPowerOnLevel(g))
-            power_val = r.value if r and hasattr(r, 'value') else None
+            power_val = r.value if r and hasattr(r, "value") else None
         except Exception:
             pass
 
@@ -172,10 +183,18 @@ def run_tool(args: dict[str, Any]) -> str:
         return json.dumps(payload, ensure_ascii=False)
 
     except Exception as exc:
-        err = {"ok": False, "error": str(exc), "elapsed_ms": int((time.monotonic() - start_time) * 1000)}
-        return json.dumps(err, ensure_ascii=False) if output_format != "text" else f"Error: {exc}"
+        err = {
+            "ok": False,
+            "error": str(exc),
+            "elapsed_ms": int((time.monotonic() - start_time) * 1000),
+        }
+        return (
+            json.dumps(err, ensure_ascii=False)
+            if output_format != "text"
+            else f"Error: {exc}"
+        )
     finally:
-        if driver is not None and hasattr(driver, 'close'):
+        if driver is not None and hasattr(driver, "close"):
             try:
                 driver.close()
             except Exception:

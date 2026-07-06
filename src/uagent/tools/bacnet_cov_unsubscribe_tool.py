@@ -104,10 +104,15 @@ def run_tool(args: dict[str, Any]) -> str:
 
     task_id = args.get("task_id")
     if task_id is None:
-        err = _("err.task_id_required", default="task_id is required for action=unsubscribe.")
+        err = _(
+            "err.task_id_required",
+            default="task_id is required for action=unsubscribe.",
+        )
         payload = {"ok": False, "error": err}
         return (
-            f"Error: {err}" if output_format == "text" else json.dumps(payload, ensure_ascii=False)
+            f"Error: {err}"
+            if output_format == "text"
+            else json.dumps(payload, ensure_ascii=False)
         )
 
     result = cov_unsubscribe(int(task_id))

@@ -82,8 +82,10 @@ def _format_text(payload: dict[str, Any]) -> str:
     if not payload.get("ok"):
         return f"Error: {payload.get('error', 'unknown')}"
     lines = [
-        _("msg.subscribed",
-          default="ECHONET Lite subscription active: id={id}, {label}").format(
+        _(
+            "msg.subscribed",
+            default="ECHONET Lite subscription active: id={id}, {label}",
+        ).format(
             id=payload.get("listener_id", "?"),
             label=sub.get("label") or f"{sub.get('ip')}",
         )

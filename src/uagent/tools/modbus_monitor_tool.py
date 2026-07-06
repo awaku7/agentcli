@@ -3,9 +3,8 @@ from __future__ import annotations
 import json
 import threading
 import time
-from datetime import datetime, timedelta, timezone
+from datetime import datetime, timezone
 from typing import Any
-from uuid import uuid4
 
 from .modbus_shared import create_client, close_client
 from .i18n_helper import make_tool_translator
@@ -140,23 +139,25 @@ def _now_iso() -> str:
     return datetime.now(timezone.utc).astimezone().isoformat(timespec="seconds")
 
 
-def _do_read(client: Any, reg_type: str, address: int, count: int, unit: int) -> list[Any] | None:
+def _do_read(
+    client: Any, reg_type: str, address: int, count: int, unit: int
+) -> list[Any] | None:
     try:
         if reg_type == "holding":
             rr = client.read_holding_registers(address, count, unit=unit)
-            if rr and not (hasattr(rr, 'isError') and rr.isError()):
+            if rr and not (hasattr(rr, "isError") and rr.isError()):
                 return list(rr.registers)
         elif reg_type == "input":
             rr = client.read_input_registers(address, count, unit=unit)
-            if rr and not (hasattr(rr, 'isError') and rr.isError()):
+            if rr and not (hasattr(rr, "isError") and rr.isError()):
                 return list(rr.registers)
         elif reg_type == "coil":
             rr = client.read_coils(address, count, unit=unit)
-            if rr and not (hasattr(rr, 'isError') and rr.isError()):
+            if rr and not (hasattr(rr, "isError") and rr.isError()):
                 return [bool(rr.bits[i]) for i in range(min(count, len(rr.bits)))]
         elif reg_type == "discrete":
             rr = client.read_discrete_inputs(address, count, unit=unit)
-            if rr and not (hasattr(rr, 'isError') and rr.isError()):
+            if rr and not (hasattr(rr, "isError") and rr.isError()):
                 return [bool(rr.bits[i]) for i in range(min(count, len(rr.bits)))]
     except Exception:
         pass
@@ -168,16 +169,20 @@ def _format_text(payload: dict[str, Any]) -> str:
         return f"Error: {payload.get('error', 'unknown')}"
     changes = payload.get("changes") or []
     lines = [
-        _("msg.summary",
-          default="Modbus monitor: {count} change(s) in {ms} ms.",
-          count=len(changes),
-          ms=payload.get("elapsed_ms", 0))
+        _(
+            "msg.summary",
+            default="Modbus monitor: {count} change(s) in {ms} ms.",
+            count=len(changes),
+            ms=payload.get("elapsed_ms", 0),
+        )
     ]
     if not changes:
         lines.append(_("msg.no_changes", default="No changes detected."))
         return "\n".join(lines).strip()
     for idx, c in enumerate(changes, 1):
-        lines.append(f"[{idx}] addr={c.get('address')} {c.get('before')} -> {c.get('after')}")
+        lines.append(
+            f"[{idx}] addr={c.get('address')} {c.get('before')} -> {c.get('after')}"
+        )
     return "\n".join(lines).strip()
 
 
@@ -217,12 +222,14 @@ def run_tool(args: dict[str, Any]) -> str:
             if current is not None and previous is not None:
                 for i in range(min(len(previous), len(current))):
                     if previous[i] != current[i]:
-                        all_changes.append({
-                            "address": address + i,
-                            "before": previous[i],
-                            "after": current[i],
-                            "timestamp": _now_iso(),
-                        })
+                        all_changes.append(
+                            {
+                                "address": address + i,
+                                "before": previous[i],
+                                "after": current[i],
+                                "timestamp": _now_iso(),
+                            }
+                        )
                 previous = current
             elif current is not None:
                 previous = current
@@ -233,7 +240,6 @@ def run_tool(args: dict[str, Any]) -> str:
                 close_client(client)
 
         # Wait for next interval
-        next_tick = time.monotonic() + interval
         sleep_for = max(0, min(interval, deadline - time.monotonic()))
         if sleep_for > 0:
             time.sleep(sleep_for)

@@ -3,11 +3,11 @@
 Manages a background thread with an asyncio event loop for BAC0.lite,
 which is required by COV subscriptions (long-lived connections).
 """
+
 from __future__ import annotations
 
 import asyncio
 import threading
-import time
 from typing import Any, Callable
 
 _BAC0_MODULE = None  # cached BAC0 module
@@ -73,9 +73,7 @@ def ensure_bac0() -> tuple[Any, asyncio.AbstractEventLoop]:
         _BAC0_THREAD.start()
 
         # Create BAC0.lite inside the event loop
-        future = asyncio.run_coroutine_threadsafe(
-            _async_create_bac0(BAC0), loop
-        )
+        future = asyncio.run_coroutine_threadsafe(_async_create_bac0(BAC0), loop)
         try:
             _BAC0_INSTANCE = future.result(timeout=15)
         except Exception as e:
@@ -148,11 +146,18 @@ def cov_subscribe(
     def _cov_callback(property_identifier: str, property_value: Any) -> None:
         """Called from BAC0's async context when a COV notification arrives."""
         # Import scheduler store to queue the event for LLM
-        from ..scheduler import SchedulerStore, ScheduleItem, format_iso_datetime, utc_now
+        from ..scheduler import (
+            SchedulerStore,
+            ScheduleItem,
+            format_iso_datetime,
+            utc_now,
+        )
         from uuid import uuid4
         from datetime import timedelta
 
-        prompt_text = on_change_prompt or f"{label}: {property_identifier} = {property_value}"
+        prompt_text = (
+            on_change_prompt or f"{label}: {property_identifier} = {property_value}"
+        )
         item = ScheduleItem(
             id=str(uuid4()),
             type="once",
@@ -202,7 +207,11 @@ async def _async_cov_subscribe(
 ) -> int:
     """Async helper: call BAC0.lite.cov() and return the task_id."""
     # We capture task_id after subscription by hooking into the internal dict
-    before = set(lite._running_cov_tasks.keys()) if hasattr(lite, '_running_cov_tasks') else set()
+    before = (
+        set(lite._running_cov_tasks.keys())
+        if hasattr(lite, "_running_cov_tasks")
+        else set()
+    )
     lite.cov(
         address=ip,
         objectID=object_id,
@@ -216,7 +225,8 @@ async def _async_cov_subscribe(
         return list(new_tasks)[0]
     # Fallback: search by process_identifier
     import BAC0.core.devices.COV as cov_mod
-    for tid, task in getattr(cov_mod, '_running_cov_tasks', {}).items():
+
+    for tid, task in getattr(cov_mod, "_running_cov_tasks", {}).items():
         if str(task.address) == ip:
             return tid
     return -1

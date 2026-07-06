@@ -3,9 +3,9 @@
 Listens for unsolicited INF (0x73) / INFC (0x74) notifications
 from ECHONET Lite devices and queues changes to SchedulerStore.
 """
+
 from __future__ import annotations
 
-import json
 import socket
 import threading
 import time
@@ -174,7 +174,12 @@ def _listener_loop(bind_ip: str | None) -> None:
             props = parsed.get("properties", [])
             prop_texts = [f"{p.get('epc')}={p.get('value')}" for p in props]
 
-            from ..scheduler import SchedulerStore, ScheduleItem, format_iso_datetime, utc_now
+            from ..scheduler import (
+                SchedulerStore,
+                ScheduleItem,
+                format_iso_datetime,
+                utc_now,
+            )
             from uuid import uuid4
             from datetime import timedelta
 

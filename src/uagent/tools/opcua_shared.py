@@ -1,4 +1,5 @@
 """OPC UA shared resources."""
+
 from __future__ import annotations
 
 import asyncio
@@ -10,6 +11,7 @@ def _asyncua_import():
         from asyncua import Client, ua
     except ImportError:
         from .._pip_auto import install_with_status as _install_ua
+
         if not _install_ua("asyncua"):
             raise ImportError("asyncua library could not be installed.")
         from asyncua import Client, ua

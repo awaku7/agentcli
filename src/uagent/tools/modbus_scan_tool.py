@@ -22,6 +22,7 @@ def _modbus_import():
         from pymodbus.client import ModbusTcpClient
     except ImportError:
         from .._pip_auto import install_with_status as _install_mb
+
         if not _install_mb("pymodbus"):
             raise ImportError("pymodbus library could not be installed.")
         from pymodbus.client import ModbusTcpClient
@@ -31,6 +32,7 @@ def _modbus_import():
 def _pymodbus_version() -> str:
     try:
         import pymodbus
+
         return getattr(pymodbus, "__version__", "unknown")
     except Exception:
         return "unknown"
@@ -129,6 +131,7 @@ def _parse_ip_range(text: str) -> list[str]:
     if "/" in text:
         try:
             import ipaddress
+
             network = ipaddress.ip_network(text, strict=False)
             for host in network.hosts():
                 ips.append(str(host))
@@ -166,10 +169,12 @@ def _parse_ip_range(text: str) -> list[str]:
 def _format_text(payload: dict[str, Any]) -> str:
     devices = payload.get("devices") or []
     lines = [
-        _("msg.summary",
-          default="Modbus scan completed: {count} device(s) found in {ms} ms.",
-          count=len(devices),
-          ms=payload.get("elapsed_ms", 0))
+        _(
+            "msg.summary",
+            default="Modbus scan completed: {count} device(s) found in {ms} ms.",
+            count=len(devices),
+            ms=payload.get("elapsed_ms", 0),
+        )
     ]
     lines.append(f"Scanned IPs: {payload.get('ips_scanned', 0)}")
     lines.append(f"Unit range: {payload.get('unit_start')}-{payload.get('unit_end')}")
@@ -180,7 +185,9 @@ def _format_text(payload: dict[str, Any]) -> str:
         return "\n".join(lines).strip()
 
     for idx, dev in enumerate(devices, 1):
-        lines.append(f"[{idx}] {dev.get('ip')}:{dev.get('port')} unit={dev.get('unit_id')}")
+        lines.append(
+            f"[{idx}] {dev.get('ip')}:{dev.get('port')} unit={dev.get('unit_id')}"
+        )
         if dev.get("vendor"):
             lines.append(f"  vendor: {dev.get('vendor')}")
         if dev.get("model"):
@@ -198,20 +205,27 @@ def run_tool(args: dict[str, Any]) -> str:
     output_format = str(args.get("fmt") or "json").strip().lower()
 
     if not ip_range:
-        err = _("err.ip_range_required",
-                default="ip_range is required (e.g. '192.168.1.1-254' or '192.168.1.0/24').")
+        err = _(
+            "err.ip_range_required",
+            default="ip_range is required (e.g. '192.168.1.1-254' or '192.168.1.0/24').",
+        )
         return json.dumps({"ok": False, "error": err}, ensure_ascii=False)
 
     ips = _parse_ip_range(ip_range)
     if not ips:
-        err = _("err.invalid_ip_range",
-                default="Could not parse ip_range: {text}",
-                text=ip_range)
+        err = _(
+            "err.invalid_ip_range",
+            default="Could not parse ip_range: {text}",
+            text=ip_range,
+        )
         return json.dumps({"ok": False, "error": err}, ensure_ascii=False)
 
     if len(ips) > 255:
-        err = _("err.too_many_ips",
-                default="Too many IPs ({count}). Limit to 255.", count=len(ips))
+        err = _(
+            "err.too_many_ips",
+            default="Too many IPs ({count}). Limit to 255.",
+            count=len(ips),
+        )
         return json.dumps({"ok": False, "error": err}, ensure_ascii=False)
 
     start_time = time.monotonic()
@@ -228,18 +242,22 @@ def run_tool(args: dict[str, Any]) -> str:
 
                 # Try reading coil 0 or holding register 0
                 rr = client.read_holding_registers(0, 1, unit=unit_id)
-                if rr is None or hasattr(rr, 'isError') and rr.isError():
+                if rr is None or hasattr(rr, "isError") and rr.isError():
                     continue
 
-                devices.append({
-                    "ip": ip,
-                    "port": port,
-                    "unit_id": unit_id,
-                    "vendor": None,
-                    "model": None,
-                    "first_register": rr.registers[0] if hasattr(rr, 'registers') and rr.registers else None,
-                    "last_seen": _now_iso(),
-                })
+                devices.append(
+                    {
+                        "ip": ip,
+                        "port": port,
+                        "unit_id": unit_id,
+                        "vendor": None,
+                        "model": None,
+                        "first_register": rr.registers[0]
+                        if hasattr(rr, "registers") and rr.registers
+                        else None,
+                        "last_seen": _now_iso(),
+                    }
+                )
                 break  # Found this IP, move to next IP
             except Exception:
                 continue

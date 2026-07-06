@@ -114,8 +114,15 @@ def _bootstrap_prompt_history(messages: list[dict[str, Any]]) -> None:
 
 
 def _persist_prompt_history_entry(text: str) -> None:
-    normalized = (text or "").replace("\
-", "").strip()
+    normalized = (
+        (text or "")
+        .replace(
+            "\
+",
+            "",
+        )
+        .strip()
+    )
     if not normalized:
         return
 
@@ -125,13 +132,19 @@ def _persist_prompt_history_entry(text: str) -> None:
         history_path = get_history_file_path()
         os.makedirs(history_path.parent, exist_ok=True)
         with open(history_path, "ab") as f:
-            f.write(f"\
+            f.write(
+                f"\
 # {datetime.now()}\
-".encode("utf-8"))
-            for line in normalized.split("\
-"):
-                f.write(f"+{line}\
-".encode("utf-8"))
+".encode("utf-8")
+            )
+            for line in normalized.split(
+                "\
+"
+            ):
+                f.write(
+                    f"+{line}\
+".encode("utf-8")
+                )
     except Exception:
         pass
 
@@ -199,10 +212,20 @@ def _get_prompt_session(*, reply: bool = False) -> Any:
 
                     # Path completion for file-operating commands
                     path_cmds = (
-                        ":ls ", ":cd ", ":rm ", ":cp ", ":mv ",
-                        ":head ", ":tail ", ":load ",
+                        ":ls ",
+                        ":cd ",
+                        ":rm ",
+                        ":cp ",
+                        ":mv ",
+                        ":head ",
+                        ":tail ",
+                        ":load ",
                         # Free-form commands (without :)
-                        "ls ", "rm ", "cp ", "mv ", "cat ",
+                        "ls ",
+                        "rm ",
+                        "cp ",
+                        "mv ",
+                        "cat ",
                     )
                     if stripped.startswith(path_cmds):
                         # Strip the command prefix so PathCompleter sees only the path
@@ -301,14 +324,16 @@ def _get_prompt_session(*, reply: bool = False) -> Any:
                         else:
                             # :skills <subcmd> <subarg> completion
                             cmd2 = after_skills.split(" ", 1)[0].lower()
-                            arg2 = after_skills.split(" ", 1)[1] if " " in after_skills else ""
+                            arg2 = (
+                                after_skills.split(" ", 1)[1]
+                                if " " in after_skills
+                                else ""
+                            )
                             if cmd2 == "apm" and " " not in arg2:
                                 apm_subcmds = ["list", "use", "dir", "help"]
                                 for sc2 in apm_subcmds:
                                     if sc2.startswith(arg2):
-                                        yield Completion(
-                                            sc2, start_position=-len(arg2)
-                                        )
+                                        yield Completion(sc2, start_position=-len(arg2))
                     elif stripped.startswith((":r ", ":reasoning ")):
                         # :r reasoning mode values
                         r_prefix = stripped.split(" ", 1)[1] if " " in stripped else ""
@@ -430,9 +455,7 @@ def _prompt_toolkit_input(
     try:
         if patch_stdout is not None:
             with patch_stdout():
-                return session.prompt(
-                    prompt, is_password=is_password, key_bindings=kb
-                )
+                return session.prompt(prompt, is_password=is_password, key_bindings=kb)
         return session.prompt(prompt, is_password=is_password, key_bindings=kb)
     except EOFError:
         raise

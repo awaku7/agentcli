@@ -65,10 +65,15 @@ def _format_list(payload: dict[str, Any]) -> str:
         return f"Error: {payload.get('error', 'unknown')}"
     subs = payload.get("subscriptions") or []
     if not subs:
-        return _("msg.no_subscriptions", default="No active ECHONET Lite subscriptions.")
+        return _(
+            "msg.no_subscriptions", default="No active ECHONET Lite subscriptions."
+        )
     lines = [
-        _("msg.header", default="Active ECHONET Lite subscriptions ({count}):",
-          count=len(subs))
+        _(
+            "msg.header",
+            default="Active ECHONET Lite subscriptions ({count}):",
+            count=len(subs),
+        )
     ]
     for s in subs:
         label = s.get("label") or s.get("ip", "?")
@@ -79,9 +84,9 @@ def _format_list(payload: dict[str, Any]) -> str:
 def _format_unsub(payload: dict[str, Any]) -> str:
     if not payload.get("ok"):
         return f"Error: {payload.get('error', 'unknown')}"
-    return _("msg.unsubscribed",
-             default="ECHONET Lite subscription {id} cancelled.").format(
-        id=payload.get("listener_id", "?"))
+    return _(
+        "msg.unsubscribed", default="ECHONET Lite subscription {id} cancelled."
+    ).format(id=payload.get("listener_id", "?"))
 
 
 def run_tool(args: dict[str, Any]) -> str:
@@ -96,11 +101,13 @@ def run_tool(args: dict[str, Any]) -> str:
 
     listener_id = str(args.get("listener_id") or "").strip()
     if not listener_id:
-        err = _("err.id_required",
-                default="listener_id is required for action=unsubscribe.")
+        err = _(
+            "err.id_required", default="listener_id is required for action=unsubscribe."
+        )
         payload = {"ok": False, "error": err}
         return (
-            f"Error: {err}" if output_format == "text"
+            f"Error: {err}"
+            if output_format == "text"
             else json.dumps(payload, ensure_ascii=False)
         )
 

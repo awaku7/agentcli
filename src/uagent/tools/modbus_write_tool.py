@@ -17,7 +17,7 @@ _TOOL_LEVEL = 1
 
 _WRITE_TYPES = [
     "holding",  # Write Single/Multiple Register (0x06/0x10)
-    "coil",     # Write Single Coil (0x05)
+    "coil",  # Write Single Coil (0x05)
 ]
 
 TOOL_SPEC: dict[str, Any] = {
@@ -124,12 +124,14 @@ def _now_iso() -> str:
 def _format_text(payload: dict[str, Any]) -> str:
     if not payload.get("ok"):
         return f"Error: {payload.get('error', 'unknown')}"
-    return _("msg.summary",
-             default="Modbus write: {ip} type={t} addr={addr} = {vals}",
-             ip=payload.get("target", {}).get("ip", "?"),
-             t=payload.get("target", {}).get("type", "?"),
-             addr=payload.get("target", {}).get("address", "?"),
-             vals=payload.get("values_written", ""))
+    return _(
+        "msg.summary",
+        default="Modbus write: {ip} type={t} addr={addr} = {vals}",
+        ip=payload.get("target", {}).get("ip", "?"),
+        t=payload.get("target", {}).get("type", "?"),
+        addr=payload.get("target", {}).get("address", "?"),
+        vals=payload.get("values_written", ""),
+    )
 
 
 def run_tool(args: dict[str, Any]) -> str:
@@ -143,24 +145,32 @@ def run_tool(args: dict[str, Any]) -> str:
     output_format = str(args.get("fmt") or "json").strip().lower()
 
     if not ip:
-        return json.dumps({
-            "ok": False,
-            "error": _("err.ip_required", default="ip is required.")
-        }, ensure_ascii=False)
+        return json.dumps(
+            {"ok": False, "error": _("err.ip_required", default="ip is required.")},
+            ensure_ascii=False,
+        )
 
     if not values_raw:
-        return json.dumps({
-            "ok": False,
-            "error": _("err.values_required", default="values is required.")
-        }, ensure_ascii=False)
+        return json.dumps(
+            {
+                "ok": False,
+                "error": _("err.values_required", default="values is required."),
+            },
+            ensure_ascii=False,
+        )
 
     if write_type not in _WRITE_TYPES:
-        return json.dumps({
-            "ok": False,
-            "error": _("err.invalid_type",
-                       default="Invalid type. Valid: {types}.",
-                       types=", ".join(_WRITE_TYPES))
-        }, ensure_ascii=False)
+        return json.dumps(
+            {
+                "ok": False,
+                "error": _(
+                    "err.invalid_type",
+                    default="Invalid type. Valid: {types}.",
+                    types=", ".join(_WRITE_TYPES),
+                ),
+            },
+            ensure_ascii=False,
+        )
 
     start_time = time.monotonic()
     client = None
@@ -174,12 +184,12 @@ def run_tool(args: dict[str, Any]) -> str:
                 rr = client.write_register(address, parts[0], unit=unit)
             else:
                 rr = client.write_registers(address, parts, unit=unit)
-            if rr is None or hasattr(rr, 'isError') and rr.isError():
+            if rr is None or hasattr(rr, "isError") and rr.isError():
                 raise RuntimeError(f"Write holding registers failed: {rr}")
         elif write_type == "coil":
             val = values_raw.strip().lower() in ("1", "true", "on", "active")
             rr = client.write_coil(address, val, unit=unit)
-            if rr is None or hasattr(rr, 'isError') and rr.isError():
+            if rr is None or hasattr(rr, "isError") and rr.isError():
                 raise RuntimeError(f"Write coil failed: {rr}")
             result_str = "on" if val else "off"
 

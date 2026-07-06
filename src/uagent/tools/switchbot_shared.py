@@ -3,6 +3,7 @@
 SwitchBot Cloud API has no webhook, so we poll device status
 at a configurable interval and queue changes to SchedulerStore.
 """
+
 from __future__ import annotations
 
 import base64
@@ -13,10 +14,8 @@ import os
 import threading
 import time
 import uuid
-from datetime import datetime, timedelta, timezone
+from datetime import timedelta
 from typing import Any
-from urllib.error import HTTPError, URLError
-from urllib.parse import quote
 from urllib.request import Request, urlopen
 
 _API_BASE = "https://api.switch-bot.com/v1.1"
@@ -108,7 +107,12 @@ def _poller_loop(sub_id: str, device_id: str, interval: int) -> None:
             label = info.get("label", device_id) if info else device_id
             prompt = info.get("on_change_prompt", f"SwitchBot {label} state changed")
 
-            from ..scheduler import SchedulerStore, ScheduleItem, format_iso_datetime, utc_now
+            from ..scheduler import (
+                SchedulerStore,
+                ScheduleItem,
+                format_iso_datetime,
+                utc_now,
+            )
 
             item = ScheduleItem(
                 id=str(uuid.uuid4()),
@@ -164,7 +168,10 @@ def unsubscribe(subscription_id: str) -> dict[str, Any]:
     """Unsubscribe from SwitchBot polling."""
     with _POLLERS_LOCK:
         if subscription_id not in _POLLERS:
-            return {"ok": False, "error": f"subscription_id '{subscription_id}' not found"}
+            return {
+                "ok": False,
+                "error": f"subscription_id '{subscription_id}' not found",
+            }
         info = _POLLERS.pop(subscription_id)
         info["enabled"] = False
     return {"ok": True, "subscription_id": subscription_id, "subscription": info}

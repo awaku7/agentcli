@@ -7,7 +7,6 @@ from datetime import datetime, timezone
 from typing import Any
 
 from .i18n_helper import make_tool_translator
-from .opcua_shared import sync_run
 
 _ = make_tool_translator(__file__)
 
@@ -85,6 +84,7 @@ def _parse_ip_range(text: str) -> list[str]:
     if "/" in text:
         try:
             import ipaddress
+
             for host in ipaddress.ip_network(text, strict=False).hosts():
                 ips.append(str(host))
             return ips
@@ -113,39 +113,27 @@ def _parse_ip_range(text: str) -> list[str]:
 
 def _probe_ip(ip: str, port: int, timeout: int) -> dict[str, Any] | None:
     """Try to connect to an OPC UA endpoint and get server info."""
-    url = f"opc.tcp://{ip}:{port}"
-    try:
-        async def _probe(client, ua):
+    import asyncio
+    from asyncua import Client
+
+    async def _try():
+        try:
+            c = Client(f"opc.tcp://{ip}:{port}", timeout=timeout)
+            await c.connect()
             try:
-                # Read server build info
+                from asyncua import ua
                 node_id = ua.NodeId(ua.ObjectIds.Server_ServerStatus_BuildInfo)
-                build_info = await client.read_node(node_id)
-                return {
-                    "build_info": str(build_info),
-                    "server_uri": str(client.server_info.uri) if hasattr(client, 'server_info') and client.server_info else "unknown",
-                }
+                bi = await c.read_node(node_id)
+                return {"build_info": str(bi)}
             except Exception:
                 return {"discovered": True}
+            finally:
+                await c.disconnect()
+        except Exception:
+            return None
 
-        result = None
-        async def _try_connect():
-            from asyncua import Client
-            try:
-                c = Client(url, timeout=timeout)
-                await c.connect()
-                try:
-                    info = await _probe(c, None)
-                    result = info
-                except Exception:
-                    result = {"discovered": True}
-                finally:
-                    await c.disconnect()
-            except Exception:
-                result = None
-
-        import asyncio
-        asyncio.run(_try_connect())
-        return result
+    try:
+        return asyncio.run(_try())
     except Exception:
         return None
 
@@ -153,10 +141,12 @@ def _probe_ip(ip: str, port: int, timeout: int) -> dict[str, Any] | None:
 def _format_text(payload: dict[str, Any]) -> str:
     servers = payload.get("servers") or []
     lines = [
-        _("msg.summary",
-          default="OPC UA scan: {count} server(s) found in {ms} ms.",
-          count=len(servers),
-          ms=payload.get("elapsed_ms", 0))
+        _(
+            "msg.summary",
+            default="OPC UA scan: {count} server(s) found in {ms} ms.",
+            count=len(servers),
+            ms=payload.get("elapsed_ms", 0),
+        )
     ]
     if not servers:
         lines.append(_("msg.no_servers", default="No OPC UA servers were found."))
@@ -175,14 +165,19 @@ def run_tool(args: dict[str, Any]) -> str:
     output_format = str(args.get("fmt") or "json").strip().lower()
 
     if not ip_range:
-        err = _("err.ip_range_required",
-                default="ip_range is required (e.g. '192.168.1.1-254').")
+        err = _(
+            "err.ip_range_required",
+            default="ip_range is required (e.g. '192.168.1.1-254').",
+        )
         return json.dumps({"ok": False, "error": err}, ensure_ascii=False)
 
     ips = _parse_ip_range(ip_range)
     if not ips:
-        err = _("err.invalid_ip_range",
-                default="Could not parse ip_range: {text}", text=ip_range)
+        err = _(
+            "err.invalid_ip_range",
+            default="Could not parse ip_range: {text}",
+            text=ip_range,
+        )
         return json.dumps({"ok": False, "error": err}, ensure_ascii=False)
 
     start_time = time.monotonic()
@@ -202,13 +197,15 @@ def run_tool(args: dict[str, Any]) -> str:
 
         info = _probe_ip(ip, port, timeout)
         if info is not None:
-            servers.append({
-                "url": f"opc.tcp://{ip}:{port}",
-                "ip": ip,
-                "port": port,
-                "build_info": info.get("build_info"),
-                "last_seen": _now_iso(),
-            })
+            servers.append(
+                {
+                    "url": f"opc.tcp://{ip}:{port}",
+                    "ip": ip,
+                    "port": port,
+                    "build_info": info.get("build_info"),
+                    "last_seen": _now_iso(),
+                }
+            )
 
     payload = {
         "ok": True,

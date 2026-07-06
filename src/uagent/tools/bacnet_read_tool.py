@@ -190,13 +190,9 @@ def run_tool(args: dict[str, Any]) -> str:
     ip_address = str(args.get("ip") or "").strip()
     device_instance = args.get("device_instance")
     object_type_raw = str(args.get("object_type") or "").strip()
-    object_instance = _normalize_int(
-        args.get("object_instance", 0), 0, 0
-    )
+    object_instance = _normalize_int(args.get("object_instance", 0), 0, 0)
     property_name = str(args.get("property_name") or "presentValue").strip()
     output_format = str(args.get("fmt") or "json").strip().lower()
-
-    timeout = _normalize_int(args.get("timeout", _DEFAULT_TIMEOUT), _DEFAULT_TIMEOUT, 1)
 
     object_type = _normalize_object_type(object_type_raw)
     if not object_type:

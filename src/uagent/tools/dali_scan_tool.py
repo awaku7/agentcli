@@ -34,7 +34,14 @@ TOOL_SPEC: dict[str, Any] = {
             "properties": {
                 "driver": {
                     "type": "string",
-                    "enum": ["auto", "tridonic", "hasseb", "daliserver", "lunatone", "atxled"],
+                    "enum": [
+                        "auto",
+                        "tridonic",
+                        "hasseb",
+                        "daliserver",
+                        "lunatone",
+                        "atxled",
+                    ],
                     "default": "auto",
                     "description": _(
                         "param.driver.description",
@@ -79,16 +86,20 @@ def _now_iso() -> str:
 def _format_text(payload: dict[str, Any]) -> str:
     devices = payload.get("devices") or []
     lines = [
-        _("msg.summary",
-          default="DALI scan: {count} device(s) found in {ms} ms.",
-          count=len(devices),
-          ms=payload.get("elapsed_ms", 0))
+        _(
+            "msg.summary",
+            default="DALI scan: {count} device(s) found in {ms} ms.",
+            count=len(devices),
+            ms=payload.get("elapsed_ms", 0),
+        )
     ]
     if not devices:
         lines.append(_("msg.no_devices", default="No DALI devices were found."))
         return "\n".join(lines).strip()
     for idx, dev in enumerate(devices, 1):
-        lines.append(f"[{idx}] addr={dev.get('address')} level={dev.get('actual_level')} status={dev.get('status')}")
+        lines.append(
+            f"[{idx}] addr={dev.get('address')} level={dev.get('actual_level')} status={dev.get('status')}"
+        )
     return "\n".join(lines).strip()
 
 
@@ -112,20 +123,30 @@ def run_tool(args: dict[str, Any]) -> str:
                 # Query status
                 status_cmd = gg.QueryStatus(g)
                 status_resp = send_command(driver, status_cmd)
-                status_val = bool(status_resp.value) if status_resp and hasattr(status_resp, 'value') else None
+                status_val = (
+                    bool(status_resp.value)
+                    if status_resp and hasattr(status_resp, "value")
+                    else None
+                )
 
                 # Query actual level
                 level_cmd = gg.QueryActualLevel(g)
                 level_resp = send_command(driver, level_cmd)
-                level_val = level_resp.value if level_resp and hasattr(level_resp, 'value') else None
+                level_val = (
+                    level_resp.value
+                    if level_resp and hasattr(level_resp, "value")
+                    else None
+                )
 
                 if status_val is not None or level_val is not None:
-                    devices.append({
-                        "address": address,
-                        "status": status_val,
-                        "actual_level": level_val,
-                        "last_seen": _now_iso(),
-                    })
+                    devices.append(
+                        {
+                            "address": address,
+                            "status": status_val,
+                            "actual_level": level_val,
+                            "last_seen": _now_iso(),
+                        }
+                    )
             except Exception:
                 continue
 
@@ -142,10 +163,18 @@ def run_tool(args: dict[str, Any]) -> str:
         return json.dumps(payload, ensure_ascii=False)
 
     except Exception as exc:
-        err = {"ok": False, "error": str(exc), "elapsed_ms": int((time.monotonic() - start_time) * 1000)}
-        return json.dumps(err, ensure_ascii=False) if output_format != "text" else f"Error: {exc}"
+        err = {
+            "ok": False,
+            "error": str(exc),
+            "elapsed_ms": int((time.monotonic() - start_time) * 1000),
+        }
+        return (
+            json.dumps(err, ensure_ascii=False)
+            if output_format != "text"
+            else f"Error: {exc}"
+        )
     finally:
-        if driver is not None and hasattr(driver, 'close'):
+        if driver is not None and hasattr(driver, "close"):
             try:
                 driver.close()
             except Exception:

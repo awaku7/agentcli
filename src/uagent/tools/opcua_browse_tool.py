@@ -113,7 +113,9 @@ def _parse_node_id(text: str, ua: Any) -> Any:
     return ua.NodeId(text, 0)
 
 
-async def _browse_recursive(client, ua, node_id, depth: int, max_depth: int) -> list[dict[str, Any]]:
+async def _browse_recursive(
+    client, ua, node_id, depth: int, max_depth: int
+) -> list[dict[str, Any]]:
     """Browse children recursively up to max_depth."""
     items: list[dict[str, Any]] = []
     try:
@@ -125,15 +127,23 @@ async def _browse_recursive(client, ua, node_id, depth: int, max_depth: int) -> 
     for child in children:
         try:
             attrs = await child.read_attributes(
-                [ua.AttributeIds.NodeId, ua.AttributeIds.DisplayName,
-                 ua.AttributeIds.BrowseName, ua.AttributeIds.NodeClass,
-                 ua.AttributeIds.Description]
+                [
+                    ua.AttributeIds.NodeId,
+                    ua.AttributeIds.DisplayName,
+                    ua.AttributeIds.BrowseName,
+                    ua.AttributeIds.NodeClass,
+                    ua.AttributeIds.Description,
+                ]
             )
-            node_id_str = str(attrs[0].Value.Value) if attrs[0].Value else str(child.nodeid)
+            node_id_str = (
+                str(attrs[0].Value.Value) if attrs[0].Value else str(child.nodeid)
+            )
             display_name = str(attrs[1].Value.Value.Text) if attrs[1].Value else ""
             browse_name = str(attrs[2].Value.Value.Name) if attrs[2].Value else ""
             node_class = str(attrs[3].Value.Value) if attrs[3].Value else "Unknown"
-            desc = str(attrs[4].Value.Value) if len(attrs) > 4 and attrs[4].Value else ""
+            desc = (
+                str(attrs[4].Value.Value) if len(attrs) > 4 and attrs[4].Value else ""
+            )
 
             item = {
                 "node_id": node_id_str,
@@ -144,7 +154,9 @@ async def _browse_recursive(client, ua, node_id, depth: int, max_depth: int) -> 
             }
 
             if depth < max_depth:
-                item["children"] = await _browse_recursive(client, ua, child.nodeid, depth + 1, max_depth)
+                item["children"] = await _browse_recursive(
+                    client, ua, child.nodeid, depth + 1, max_depth
+                )
 
             items.append(item)
         except Exception:
@@ -157,7 +169,11 @@ def _format_tree(items: list[dict[str, Any]], indent: int = 0) -> list[str]:
     lines: list[str] = []
     prefix = "  " * indent
     for item in items:
-        name = item.get("display_name") or item.get("browse_name") or item.get("node_id", "?")
+        name = (
+            item.get("display_name")
+            or item.get("browse_name")
+            or item.get("node_id", "?")
+        )
         lines.append(f"{prefix}- {name} [{item.get('node_class')}]")
         lines.append(f"{prefix}  id: {item.get('node_id')}")
         if item.get("description"):
@@ -171,11 +187,13 @@ def _format_text(payload: dict[str, Any]) -> str:
     if not payload.get("ok"):
         return f"Error: {payload.get('error', 'unknown')}"
     lines = [
-        _("msg.summary",
-          default="OPC UA browse: {count} node(s) from {node} in {ms} ms.",
-          count=len(payload.get("nodes", [])),
-          node=payload.get("target", {}).get("node_id", "?"),
-          ms=payload.get("elapsed_ms", 0))
+        _(
+            "msg.summary",
+            default="OPC UA browse: {count} node(s) from {node} in {ms} ms.",
+            count=len(payload.get("nodes", [])),
+            node=payload.get("target", {}).get("node_id", "?"),
+            ms=payload.get("elapsed_ms", 0),
+        )
     ]
     lines.extend(_format_tree(payload.get("nodes", [])))
     return "\n".join(lines).strip()

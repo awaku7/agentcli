@@ -3,11 +3,11 @@ from __future__ import annotations
 import json
 import threading
 import time
-from datetime import datetime, timedelta, timezone
+from datetime import timedelta
 from typing import Any
 from uuid import uuid4
 
-from .mqtt_shared import _paho_import, connect, create_client, disconnect, subscribe
+from .mqtt_shared import connect, create_client, disconnect, subscribe
 from .i18n_helper import make_tool_translator
 
 _ = make_tool_translator(__file__)
@@ -38,47 +38,84 @@ TOOL_SPEC: dict[str, Any] = {
             "properties": {
                 "host": {
                     "type": "string",
-                    "description": _("param.host.description", default="MQTT broker hostname or IP."),
+                    "description": _(
+                        "param.host.description", default="MQTT broker hostname or IP."
+                    ),
                 },
                 "port": {
-                    "type": "integer", "default": 1883,
-                    "description": _("param.port.description", default="MQTT broker port."),
+                    "type": "integer",
+                    "default": 1883,
+                    "description": _(
+                        "param.port.description", default="MQTT broker port."
+                    ),
                 },
                 "topic": {
                     "type": "string",
-                    "description": _("param.topic.description", default="MQTT topic to subscribe to (wildcards supported)."),
+                    "description": _(
+                        "param.topic.description",
+                        default="MQTT topic to subscribe to (wildcards supported).",
+                    ),
                 },
                 "qos": {
-                    "type": "integer", "default": 0, "minimum": 0, "maximum": 2,
-                    "description": _("param.qos.description", default="QoS level (0, 1, 2)."),
+                    "type": "integer",
+                    "default": 0,
+                    "minimum": 0,
+                    "maximum": 2,
+                    "description": _(
+                        "param.qos.description", default="QoS level (0, 1, 2)."
+                    ),
                 },
                 "label": {
                     "type": "string",
-                    "description": _("param.label.description", default="Human-readable label for this subscription."),
+                    "description": _(
+                        "param.label.description",
+                        default="Human-readable label for this subscription.",
+                    ),
                 },
                 "on_message_prompt": {
                     "type": "string",
-                    "description": _("param.on_message_prompt.description", default="Optional LLM prompt when a message arrives."),
+                    "description": _(
+                        "param.on_message_prompt.description",
+                        default="Optional LLM prompt when a message arrives.",
+                    ),
                 },
                 "username": {
                     "type": "string",
-                    "description": _("param.username.description", default="MQTT username (optional)."),
+                    "description": _(
+                        "param.username.description",
+                        default="MQTT username (optional).",
+                    ),
                 },
                 "password": {
                     "type": "string",
-                    "description": _("param.password.description", default="MQTT password (optional)."),
+                    "description": _(
+                        "param.password.description",
+                        default="MQTT password (optional).",
+                    ),
                 },
                 "use_tls": {
-                    "type": "boolean", "default": False,
-                    "description": _("param.use_tls.description", default="Enable TLS/SSL (MQTTS). Default port becomes 8883."),
+                    "type": "boolean",
+                    "default": False,
+                    "description": _(
+                        "param.use_tls.description",
+                        default="Enable TLS/SSL (MQTTS). Default port becomes 8883.",
+                    ),
                 },
                 "insecure": {
-                    "type": "boolean", "default": False,
-                    "description": _("param.insecure.description", default="Skip TLS certificate verification (insecure)."),
+                    "type": "boolean",
+                    "default": False,
+                    "description": _(
+                        "param.insecure.description",
+                        default="Skip TLS certificate verification (insecure).",
+                    ),
                 },
                 "fmt": {
-                    "type": "string", "enum": ["json", "text"], "default": "json",
-                    "description": _("param.fmt.description", default="Format: json or text."),
+                    "type": "string",
+                    "enum": ["json", "text"],
+                    "default": "json",
+                    "description": _(
+                        "param.fmt.description", default="Format: json or text."
+                    ),
                 },
             },
             "required": ["host", "topic"],
@@ -92,9 +129,13 @@ def _format_text(payload: dict[str, Any]) -> str:
     sub = payload.get("subscription") or {}
     if not payload.get("ok"):
         return f"Error: {payload.get('error', 'unknown')}"
-    return _("msg.subscribed", default="MQTT subscribed: {label} [{topic}] @ {host}",
-             label=sub.get("label") or sub.get("topic", "?"),
-             topic=sub.get("topic", "?"), host=sub.get("host", "?"))
+    return _(
+        "msg.subscribed",
+        default="MQTT subscribed: {label} [{topic}] @ {host}",
+        label=sub.get("label") or sub.get("topic", "?"),
+        topic=sub.get("topic", "?"),
+        host=sub.get("host", "?"),
+    )
 
 
 def run_tool(args: dict[str, Any]) -> str:
@@ -122,7 +163,13 @@ def run_tool(args: dict[str, Any]) -> str:
 
     def _on_message(mqtt_topic: str, mqtt_payload: str) -> None:
         """Callback: forward message to SchedulerStore."""
-        from ..scheduler import SchedulerStore, ScheduleItem, format_iso_datetime, utc_now
+        from ..scheduler import (
+            SchedulerStore,
+            ScheduleItem,
+            format_iso_datetime,
+            utc_now,
+        )
+
         lbl = label or mqtt_topic
         prompt = on_message_prompt or f"MQTT message on {mqtt_topic}: {mqtt_payload}"
         item = ScheduleItem(
@@ -137,8 +184,15 @@ def run_tool(args: dict[str, Any]) -> str:
         SchedulerStore().add_item(item)
 
     try:
-        connect(client, host, port, username=username, password=password,
-                 use_tls=use_tls, insecure=insecure)
+        connect(
+            client,
+            host,
+            port,
+            username=username,
+            password=password,
+            use_tls=use_tls,
+            insecure=insecure,
+        )
         subscribe(client, topic, qos=qos, callback=_on_message)
 
         info = {
@@ -159,8 +213,11 @@ def run_tool(args: dict[str, Any]) -> str:
             "ok": True,
             "subscription_id": sub_id,
             "subscription": {
-                "host": host, "topic": topic, "qos": qos,
-                "label": label or topic, "status": "active",
+                "host": host,
+                "topic": topic,
+                "qos": qos,
+                "label": label or topic,
+                "status": "active",
             },
         }
 
@@ -171,4 +228,8 @@ def run_tool(args: dict[str, Any]) -> str:
     except Exception as exc:
         disconnect(client)
         err = {"ok": False, "error": str(exc)}
-        return json.dumps(err, ensure_ascii=False) if output_format != "text" else f"Error: {exc}"
+        return (
+            json.dumps(err, ensure_ascii=False)
+            if output_format != "text"
+            else f"Error: {exc}"
+        )
