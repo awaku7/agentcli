@@ -313,6 +313,18 @@ Common uses:
 - Background UDP multicast listener thread (started on first subscribe)
 - Use `echonet_unsubscribe` to cancel or list active subscriptions
 
+### `mqtt_*`
+
+- Publish/subscribe messaging protocol for IoT/BEMS
+- Requires an MQTT broker (Mosquitto, EMQX, HiveMQ, AWS IoT Core, etc.)
+- `mqtt_publish`: connect, send a message, disconnect (one-shot)
+- `mqtt_subscribe`: persistent subscription with background message handling
+  - Messages are forwarded to SchedulerStore and automatically delivered to the LLM
+- TLS (MQTTS) supported via `use_tls=true` (default port: 8883)
+- `insecure=true` disables certificate verification for self-signed certs
+- Wildcard topics supported: `building/+/temperature`, `#`
+- QoS levels: 0 (fire-and-forget), 1 (at least once), 2 (exactly once)
+
 ### `bacnet_*`
 
 - For BACnet/IP devices on the local network
@@ -334,6 +346,16 @@ Common uses:
 - For UPnP / SSDP devices
 - Discover first, then handle IGD
 - Depends on router UPnP settings
+
+### `dali_*`
+
+- DALI lighting control (IEC 62386)
+- Addresses 0-63, groups 0-15, broadcast
+- `dali_scan`: probe all 64 addresses, return responsive devices
+- `dali_read`: query status, actual/min/max/power-on levels
+- `dali_write`: on/off/dim (0-254) control
+- Driver types: tridonic (USB), hasseb (USB), daliserver (TCP), lunatone (RS232), atxled (HAT)
+- `daliserver` driver connects to https://github.com/onitake/daliserver over TCP (port 55825)
 
 ### `matter_*`
 
