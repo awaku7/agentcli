@@ -10,7 +10,6 @@ from datetime import datetime, timezone
 from typing import Any
 
 from .echonet_cache_shared import cache_get, cache_set
-from ..i18n import detect_lang
 from .i18n_helper import make_tool_translator
 
 _ = make_tool_translator(__file__)
@@ -794,28 +793,72 @@ def _format_text(payload: dict[str, Any]) -> str:
     return "\n".join(lines).strip()
 
 
+def _get_eoj_localized_name(en_name: str, lang: str) -> str:
+    """Look up localized EOJ class name from tool JSON for a given language.
+
+    Normalizes lang tag (e.g., 'zh-cn' -> 'zh_CN') before lookup.
+    Returns empty string if not found.
+    """
+    import json
+    from pathlib import Path
+    _json_path = Path(__file__).with_name("echonet_scan_tool.json")
+    if not _json_path.is_file():
+        return ""
+    try:
+        _tr_data = json.loads(_json_path.read_text(encoding="utf-8"))
+    except Exception:
+        return ""
+    # Normalize lang tag
+    norm = lang.replace("-", "_")
+    entries = _tr_data.get(norm)
+    if not entries:
+        # Try first part fallback (e.g., 'zh' -> 'zh_CN')
+        short = norm.split("_")[0] if "_" in norm else ""
+        if short:
+            for k, v in _tr_data.items():
+                if k.startswith(short) and isinstance(v, dict) and en_name in v:
+                    return v[en_name]
+        return ""
+    if isinstance(entries, dict) and en_name in entries:
+        return entries[en_name]
+    return ""
+
+
 def _eoj_class_name(eoj_code: str) -> str:
     """Get localized EOJ class name for display.
 
-    Returns English or Japanese name based on current UI language.
-    Falls back to empty string if not found.
+    Returns Japanese name directly for ja locale.
+    Looks up translations from tool JSON for other languages (34 langs).
+    Falls back to English name if translation not available.
     """
-    lang = detect_lang()
-    use_ja = lang.startswith("ja")
+    from ..i18n import detect_lang as _dl
+
+    en_name = ""
+    ja_name = ""
     mapped = _EOJ_RAW_MAP.get(eoj_code)
     if mapped is not None:
         entry = _EOJ_CLASS_NAMES.get(mapped)
         if entry:
-            return entry[1] if use_ja else entry[0]
-    combined = eoj_code[:4] if len(eoj_code) >= 4 else eoj_code
-    try:
-        ecc = int(combined, 16)
-        entry = _EOJ_CLASS_NAMES.get(ecc)
-        if entry:
-            return entry[1] if use_ja else entry[0]
-    except ValueError:
-        pass
-    return ""
+            en_name, ja_name = entry[0], entry[1]
+    else:
+        combined = eoj_code[:4] if len(eoj_code) >= 4 else eoj_code
+        try:
+            ecc = int(combined, 16)
+            entry = _EOJ_CLASS_NAMES.get(ecc)
+            if entry:
+                en_name, ja_name = entry[0], entry[1]
+        except ValueError:
+            pass
+    if not en_name:
+        return ""
+    lang = _dl()
+    if lang.startswith("ja"):
+        return ja_name
+    # Look up localized name from tool JSON translations
+    localized = _get_eoj_localized_name(en_name, lang)
+    if localized:
+        return localized
+    return en_name
 
 
 def run_tool(args: dict[str, Any]) -> str:
