@@ -201,6 +201,8 @@ Required if `UAGENT_PROVIDER=sakura`:
 - `UAGENT_RESPONSES`: Set to `1` to enable the "Responses API" for supported providers (Azure/OpenAI/Bedrock/OpenRouter/Ollama).
 - `UAGENT_REASONING`: Reasoning effort level for reasoning models (`off`, `auto`, `minimal`, `low`, `medium`, `high`, `xhigh`).
 - `UAGENT_STREAMING_DEBUG`: Set to `1` to dump each streaming event (JSON) to `outputs/streaming_debug/`.
+- `UAGENT_RESPONSES_STATE_FILE`: absolute path to a specific Responses API state file (overrides auto path).
+- `UAGENT_RESPONSES_STATE_DIR`: directory for Responses API state files (default: `UAGENT_WORKDIR` or cwd).
 
 ### 5. Built-in Web Search
 
