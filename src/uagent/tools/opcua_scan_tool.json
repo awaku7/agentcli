@@ -1,0 +1,342 @@
+{
+  "en": {
+    "tool.description": "Discover OPC UA servers on the local network. Probes IP addresses on the default OPC UA port (4840) and attempts to connect and read the server's endpoint info.",
+    "param.ip_range.description": "IP range to scan (e.g. '192.168.1.1-254' or '192.168.1.0/24').",
+    "param.port.description": "OPC UA port (default: 4840).",
+    "param.fmt.description": "Format: json or text.",
+    "msg.summary": "OPC UA scan: {count} server(s) found in {ms} ms.",
+    "msg.no_servers": "No OPC UA servers were found.",
+    "err.ip_range_required": "ip_range is required.",
+    "err.invalid_ip_range": "Could not parse ip_range: {text}"
+  },
+  "ar": {
+    "tool.description": "اكتشف خوادم OPC UA على الشبكة المحلية. يستكشف عناوين IP على منفذ OPC UA الافتراضي (4840) ويحاول الاتصال وقراءة معلومات نقطة النهاية الخاصة بالخادم.",
+    "param.ip_range.description": "نطاق IP المطلوب فحصه (على سبيل المثال \"192.168.1.1-254\" أو \"192.168.1.0/24\").",
+    "param.port.description": "منفذ OPC UA (الافتراضي: 4840).",
+    "param.fmt.description": "التنسيق: json أو نص.",
+    "msg.summary": "فحص OPC UA: تم العثور على {count} خادم (خوادم) خلال {ms} مللي ثانية.",
+    "msg.no_servers": "لم يتم العثور على خوادم OPC UA.",
+    "err.ip_range_required": "مطلوب ip_range.",
+    "err.invalid_ip_range": "تعذر تحليل نطاق ip_range: {text}"
+  },
+  "bn": {
+    "tool.description": "স্থানীয় নেটওয়ার্কে OPC UA সার্ভার আবিষ্কার করুন। ডিফল্ট OPC UA পোর্টে (4840) IP ঠিকানা অনুসন্ধান করে এবং সার্ভারের এন্ডপয়েন্ট তথ্য সংযোগ ও পড়ার চেষ্টা করে।",
+    "param.ip_range.description": "স্ক্যান করার জন্য আইপি পরিসর (যেমন '192.168.1.1-254' বা '192.168.1.0/24')।",
+    "param.port.description": "OPC UA পোর্ট (ডিফল্ট: 4840)।",
+    "param.fmt.description": "বিন্যাস: json বা পাঠ্য।",
+    "msg.summary": "OPC UA স্ক্যান: {count} সার্ভার(গুলি) {ms} ms এ পাওয়া গেছে।",
+    "msg.no_servers": "কোনো OPC UA সার্ভার পাওয়া যায়নি।",
+    "err.ip_range_required": "ip_range প্রয়োজন।",
+    "err.invalid_ip_range": "ip_range পার্স করা যায়নি: {text}"
+  },
+  "cs": {
+    "tool.description": "Objevte OPC UA servery v lokální síti. Zkoumá IP adresy na výchozím portu OPC UA (4840) a pokouší se připojit a číst informace o koncovém bodu serveru.",
+    "param.ip_range.description": "Rozsah adres IP k naskenování (např. „192.168.1.1-254“ nebo „192.168.1.0/24“).",
+    "param.port.description": "OPC UA port (výchozí: 4840).",
+    "param.fmt.description": "Formát: json nebo text.",
+    "msg.summary": "Kontrola OPC UA: {count} serverů nalezeno za {ms} ms.",
+    "msg.no_servers": "Nebyly nalezeny žádné OPC UA servery.",
+    "err.ip_range_required": "ip_range je vyžadováno.",
+    "err.invalid_ip_range": "Nelze analyzovat rozsah ip_range: {text}"
+  },
+  "de": {
+    "tool.description": "Entdecken Sie OPC UA-Server im lokalen Netzwerk. Prüft IP-Adressen am Standard-OPC-UA-Port (4840) und versucht, eine Verbindung herzustellen und die Endpunktinformationen des Servers zu lesen.",
+    "param.ip_range.description": "Zu scannender IP-Bereich (z. B. „192.168.1.1-254“ oder „192.168.1.0/24“).",
+    "param.port.description": "OPC UA-Port (Standard: 4840).",
+    "param.fmt.description": "Format: JSON oder Text.",
+    "msg.summary": "OPC UA-Scan: {count} Server in {ms} ms gefunden.",
+    "msg.no_servers": "Es wurden keine OPC UA-Server gefunden.",
+    "err.ip_range_required": "ip_range ist erforderlich.",
+    "err.invalid_ip_range": "IP_Bereich konnte nicht analysiert werden: {text}"
+  },
+  "el": {
+    "tool.description": "Ανακαλύψτε τους διακομιστές OPC UA στο τοπικό δίκτυο. Ανιχνεύει τις διευθύνσεις IP στην προεπιλεγμένη θύρα OPC UA (4840) και επιχειρεί να συνδεθεί και να διαβάσει τις πληροφορίες τελικού σημείου του διακομιστή.",
+    "param.ip_range.description": "Εύρος IP για σάρωση (π.χ. \"192.168.1.1-254\" ή \"192.168.1.0/24\").",
+    "param.port.description": "Θύρα OPC UA (προεπιλογή: 4840).",
+    "param.fmt.description": "Μορφή: json ή κείμενο.",
+    "msg.summary": "Σάρωση OPC UA: {count} διακομιστές βρέθηκαν σε {ms} ms.",
+    "msg.no_servers": "Δεν βρέθηκαν διακομιστές OPC UA.",
+    "err.ip_range_required": "ip_range απαιτείται.",
+    "err.invalid_ip_range": "Δεν ήταν δυνατή η ανάλυση ip_range: {text}"
+  },
+  "es": {
+    "tool.description": "Descubra los servidores OPC UA en la red local. Sondea las direcciones IP en el puerto OPC UA predeterminado (4840) e intenta conectarse y leer la información del punto final del servidor.",
+    "param.ip_range.description": "Rango de IP para escanear (por ejemplo, '192.168.1.1-254' o '192.168.1.0/24').",
+    "param.port.description": "Puerto OPC UA (predeterminado: 4840).",
+    "param.fmt.description": "Formato: json o texto.",
+    "msg.summary": "Escaneo OPC UA: {count} servidores encontrados en {ms} ms.",
+    "msg.no_servers": "No se encontraron servidores OPC UA.",
+    "err.ip_range_required": "ip_range es obligatorio.",
+    "err.invalid_ip_range": "No se pudo analizar ip_range: {text}"
+  },
+  "fa": {
+    "tool.description": "سرورهای OPC UA را در شبکه محلی کشف کنید. آدرس‌های IP را در درگاه پیش‌فرض OPC UA (4840) بررسی می‌کند و تلاش می‌کند تا اطلاعات نقطه پایانی سرور را متصل کرده و بخواند.",
+    "param.ip_range.description": "محدوده IP برای اسکن (به عنوان مثال \"192.168.1.1-254\" یا \"192.168.1.0/24\").",
+    "param.port.description": "پورت OPC UA (پیش‌فرض: 4840).",
+    "param.fmt.description": "فرمت: json یا متن.",
+    "msg.summary": "اسکن OPC UA: {count} سرور(های) در {ms} میلی ثانیه پیدا شد.",
+    "msg.no_servers": "هیچ سرور OPC UA پیدا نشد.",
+    "err.ip_range_required": "ip_range مورد نیاز است.",
+    "err.invalid_ip_range": "ip_range: {text} تجزیه نشد"
+  },
+  "fi": {
+    "tool.description": "Tutustu OPC UA -palvelimiin paikallisessa verkossa. Tutkii IP-osoitteita oletusarvoisessa OPC UA -portissa (4840) ja yrittää muodostaa yhteyden ja lukea palvelimen päätepistetietoja.",
+    "param.ip_range.description": "Skannattava IP-alue (esim. '192.168.1.1-254' tai '192.168.1.0/24').",
+    "param.port.description": "OPC UA -portti (oletus: 4840).",
+    "param.fmt.description": "Muoto: json tai teksti.",
+    "msg.summary": "OPC UA -skannaus: {count} palvelinta löydetty {ms} ms:ssa.",
+    "msg.no_servers": "OPC UA -palvelimia ei löytynyt.",
+    "err.ip_range_required": "ip_range vaaditaan.",
+    "err.invalid_ip_range": "Ei voitu jäsentää ip_range: {text}"
+  },
+  "fr": {
+    "tool.description": "Découvrez les serveurs OPC UA sur le réseau local. Sonde les adresses IP sur le port OPC UA par défaut (4840) et tente de se connecter et de lire les informations du point de terminaison du serveur.",
+    "param.ip_range.description": "Plage IP à analyser (par exemple « 192.168.1.1-254 » ou « 192.168.1.0/24 »).",
+    "param.port.description": "Port OPC UA (par défaut : 4840).",
+    "param.fmt.description": "Format : json ou texte.",
+    "msg.summary": "Scan OPC UA : {count} serveur(s) trouvé(s) en {ms} ms.",
+    "msg.no_servers": "Aucun serveur OPC UA n'a été trouvé.",
+    "err.ip_range_required": "ip_range est requis.",
+    "err.invalid_ip_range": "Impossible d'analyser ip_range : {text}"
+  },
+  "he": {
+    "tool.description": "גלה שרתי OPC UA ברשת המקומית. בודק כתובות IP ביציאת ברירת המחדל של OPC UA (4840) ומנסה להתחבר ולקרוא את פרטי נקודת הקצה של השרת.",
+    "param.ip_range.description": "טווח IP לסריקה (למשל '192.168.1.1-254' או '192.168.1.0/24').",
+    "param.port.description": "יציאת OPC UA (ברירת מחדל: 4840).",
+    "param.fmt.description": "פורמט: json או טקסט.",
+    "msg.summary": "סריקת OPC UA: נמצאו {count} שרתים ב-{ms} אלפיות השנייה.",
+    "msg.no_servers": "לא נמצאו שרתי OPC UA.",
+    "err.ip_range_required": "ip_range נדרש.",
+    "err.invalid_ip_range": "לא ניתן לנתח ip_range: {text}"
+  },
+  "hi": {
+    "tool.description": "स्थानीय नेटवर्क पर ओपीसी यूए सर्वर खोजें। डिफ़ॉल्ट ओपीसी यूए पोर्ट (4840) पर आईपी पते की जांच करता है और सर्वर के एंडपॉइंट जानकारी को कनेक्ट करने और पढ़ने का प्रयास करता है।",
+    "param.ip_range.description": "स्कैन करने के लिए आईपी रेंज (जैसे '192.168.1.1-254' या '192.168.1.0/24')।",
+    "param.port.description": "ओपीसी यूए पोर्ट (डिफ़ॉल्ट: 4840)।",
+    "param.fmt.description": "प्रारूप: json या text.",
+    "msg.summary": "ओपीसी यूए स्कैन: {count} सर्वर {ms} एमएस में मिला।",
+    "msg.no_servers": "कोई ओपीसी यूए सर्वर नहीं मिला.",
+    "err.ip_range_required": "ip_range आवश्यक है.",
+    "err.invalid_ip_range": "ip_range को पार्स नहीं किया जा सका: {text}"
+  },
+  "hu": {
+    "tool.description": "Fedezze fel az OPC UA szervereket a helyi hálózaton. Megvizsgálja az IP-címeket az alapértelmezett OPC UA porton (4840), és megpróbál csatlakozni, és beolvassa a kiszolgáló végpontinformációit.",
+    "param.ip_range.description": "A vizsgálandó IP-tartomány (pl. „192.168.1.1-254” vagy „192.168.1.0/24”).",
+    "param.port.description": "OPC UA port (alapértelmezett: 4840).",
+    "param.fmt.description": "Formátum: json vagy szöveg.",
+    "msg.summary": "OPC UA vizsgálat: {count} szerver található {ms} ms alatt.",
+    "msg.no_servers": "Nem található OPC UA szerver.",
+    "err.ip_range_required": "ip_range szükséges.",
+    "err.invalid_ip_range": "Nem sikerült elemezni az ip_range: {text}"
+  },
+  "id": {
+    "tool.description": "Temukan server OPC UA di jaringan lokal. Menyelidiki alamat IP pada port OPC UA default (4840) dan mencoba menyambungkan serta membaca info titik akhir server.",
+    "param.ip_range.description": "Rentang IP yang akan dipindai (misalnya '192.168.1.1-254' atau '192.168.1.0/24').",
+    "param.port.description": "Port OPC UA (standar: 4840).",
+    "param.fmt.description": "Format: json atau teks.",
+    "msg.summary": "Pemindaian OPC UA: {count} server ditemukan dalam {ms} ms.",
+    "msg.no_servers": "Tidak ada server OPC UA yang ditemukan.",
+    "err.ip_range_required": "ip_range diperlukan.",
+    "err.invalid_ip_range": "Tidak dapat menguraikan ip_range: {text}"
+  },
+  "it": {
+    "tool.description": "Scopri i server OPC UA sulla rete locale. Esamina gli indirizzi IP sulla porta OPC UA predefinita (4840) e tenta di connettersi e leggere le informazioni sull'endpoint del server.",
+    "param.ip_range.description": "Intervallo IP da scansionare (ad esempio \"192.168.1.1-254\" o \"192.168.1.0/24\").",
+    "param.port.description": "Porta OPC UA (predefinita: 4840).",
+    "param.fmt.description": "Formato: json o testo.",
+    "msg.summary": "Scansione OPC UA: {count} server trovati in {ms} ms.",
+    "msg.no_servers": "Nessun server OPC UA trovato.",
+    "err.ip_range_required": "intervallo_ip è obbligatorio.",
+    "err.invalid_ip_range": "Impossibile analizzare l'intervallo_ip: {text}"
+  },
+  "ja": {
+    "tool.description": "ローカル ネットワーク上の OPC UA サーバーを検出します。デフォルトの OPC UA ポート (4840) で IP アドレスを調査し、接続してサーバーのエンドポイント情報を読み取ろうとします。",
+    "param.ip_range.description": "スキャンする IP 範囲 (例: '192.168.1.1-254' または '192.168.1.0/24')。",
+    "param.port.description": "OPC UA ポート (デフォルト: 4840)。",
+    "param.fmt.description": "形式: json またはテキスト。",
+    "msg.summary": "OPC UA スキャン: {count} サーバーが {ms} ミリ秒で見つかりました。",
+    "msg.no_servers": "OPC UA サーバーが見つかりませんでした。",
+    "err.ip_range_required": "ip_range は必須です。",
+    "err.invalid_ip_range": "ip_range を解析できませんでした: {text}"
+  },
+  "ko": {
+    "tool.description": "로컬 네트워크에서 OPC UA 서버를 검색합니다. 기본 OPC UA 포트(4840)에서 IP 주소를 프로브하고 서버의 엔드포인트 정보를 연결하고 읽으려고 시도합니다.",
+    "param.ip_range.description": "스캔할 IP 범위(예: '192.168.1.1-254' 또는 '192.168.1.0/24')",
+    "param.port.description": "OPC UA 포트(기본값: 4840).",
+    "param.fmt.description": "형식: json 또는 텍스트.",
+    "msg.summary": "OPC UA 스캔: {ms}ms 동안 {count}개 서버를 찾았습니다.",
+    "msg.no_servers": "OPC UA 서버를 찾을 수 없습니다.",
+    "err.ip_range_required": "IP_범위가 필요합니다.",
+    "err.invalid_ip_range": "IP_range를 구문 분석할 수 없습니다: {text}"
+  },
+  "mn": {
+    "tool.description": "Дотоод сүлжээн дэх OPC UA серверүүдийг олж мэдээрэй. Өгөгдмөл OPC UA порт (4840) дээрх IP хаягуудыг шалгаж, серверийн эцсийн цэгийн мэдээллийг холбож, уншихыг оролддог.",
+    "param.ip_range.description": "Скан хийх IP муж (жишээ нь '192.168.1.1-254' эсвэл '192.168.1.0/24').",
+    "param.port.description": "OPC UA порт (анхдагч: 4840).",
+    "param.fmt.description": "Формат: json эсвэл текст.",
+    "msg.summary": "OPC UA скан: {ms} мс-д {count} сервер(үүд) олдсон.",
+    "msg.no_servers": "OPC UA сервер олдсонгүй.",
+    "err.ip_range_required": "ip_range шаардлагатай.",
+    "err.invalid_ip_range": "ip_range-г задлан шинжилж чадсангүй: {text}"
+  },
+  "mr": {
+    "tool.description": "स्थानिक नेटवर्कवर OPC UA सर्व्हर शोधा. डीफॉल्ट OPC UA पोर्ट (4840) वर IP पत्ते तपासते आणि सर्व्हरची एंडपॉइंट माहिती कनेक्ट करण्याचा आणि वाचण्याचा प्रयत्न करते.",
+    "param.ip_range.description": "स्कॅन करण्यासाठी IP श्रेणी (उदा. '192.168.1.1-254' किंवा '192.168.1.0/24').",
+    "param.port.description": "OPC UA पोर्ट (डीफॉल्ट: 4840).",
+    "param.fmt.description": "स्वरूप: json किंवा मजकूर.",
+    "msg.summary": "OPC UA स्कॅन: {ms} ms मध्ये {count} सर्व्हर आढळले.",
+    "msg.no_servers": "कोणतेही OPC UA सर्व्हर आढळले नाहीत.",
+    "err.ip_range_required": "ip_range आवश्यक आहे.",
+    "err.invalid_ip_range": "ip_range पार्स करू शकलो नाही: {text}"
+  },
+  "nb": {
+    "tool.description": "Oppdag OPC UA-servere på det lokale nettverket. Undersøker IP-adresser på standard OPC UA-port (4840) og prøver å koble til og lese serverens endepunktinformasjon.",
+    "param.ip_range.description": "IP-område å skanne (f.eks. '192.168.1.1-254' eller '192.168.1.0/24').",
+    "param.port.description": "OPC UA-port (standard: 4840).",
+    "param.fmt.description": "Format: json eller tekst.",
+    "msg.summary": "OPC UA-skanning: {count} server(e) funnet på {ms} ms.",
+    "msg.no_servers": "Ingen OPC UA-servere ble funnet.",
+    "err.ip_range_required": "ip_range kreves.",
+    "err.invalid_ip_range": "Kunne ikke analysere ip_range: {text}"
+  },
+  "nl": {
+    "tool.description": "Ontdek OPC UA-servers op het lokale netwerk. Onderzoekt IP-adressen op de standaard OPC UA-poort (4840) en probeert verbinding te maken en de eindpuntinformatie van de server te lezen.",
+    "param.ip_range.description": "IP-bereik om te scannen (bijvoorbeeld '192.168.1.1-254' of '192.168.1.0/24').",
+    "param.port.description": "OPC UA-poort (standaard: 4840).",
+    "param.fmt.description": "Formaat: json of tekst.",
+    "msg.summary": "OPC UA-scan: {count} server(s) gevonden in {ms} ms.",
+    "msg.no_servers": "Er zijn geen OPC UA-servers gevonden.",
+    "err.ip_range_required": "ip_range is vereist.",
+    "err.invalid_ip_range": "Kan ip_range: {text} niet parseren"
+  },
+  "pl": {
+    "tool.description": "Odkryj serwery OPC UA w sieci lokalnej. Sprawdza adresy IP na domyślnym porcie OPC UA (4840) i próbuje połączyć się oraz odczytać informacje o punkcie końcowym serwera.",
+    "param.ip_range.description": "Zakres adresów IP do skanowania (np. „192.168.1.1-254” lub „192.168.1.0/24”).",
+    "param.port.description": "Port OPC UA (domyślnie: 4840).",
+    "param.fmt.description": "Format: json lub tekst.",
+    "msg.summary": "Skanowanie OPC UA: {count} serwerów znaleziono w {ms} ms.",
+    "msg.no_servers": "Nie znaleziono serwerów OPC UA.",
+    "err.ip_range_required": "ip_range jest wymagane.",
+    "err.invalid_ip_range": "Nie można przeanalizować zakresu ip: {text}"
+  },
+  "pt": {
+    "tool.description": "Descubra servidores OPC UA na rede local. Investiga endereços IP na porta OPC UA padrão (4840) e tenta conectar e ler as informações do endpoint do servidor.",
+    "param.ip_range.description": "Intervalo de IP a ser verificado (por exemplo, '192.168.1.1-254' ou '192.168.1.0/24').",
+    "param.port.description": "Porta OPC UA (padrão: 4840).",
+    "param.fmt.description": "Formato: json ou texto.",
+    "msg.summary": "Varredura OPC UA: {count} servidores encontrados em {ms} ms.",
+    "msg.no_servers": "Nenhum servidor OPC UA foi encontrado.",
+    "err.ip_range_required": "intervalo_ip é obrigatório.",
+    "err.invalid_ip_range": "Não foi possível analisar ip_range: {text}"
+  },
+  "pt_BR": {
+    "tool.description": "Descubra servidores OPC UA na rede local. Investiga endereços IP na porta OPC UA padrão (4840) e tenta conectar e ler as informações do endpoint do servidor.",
+    "param.ip_range.description": "Intervalo de IP a ser verificado (por exemplo, '192.168.1.1-254' ou '192.168.1.0/24').",
+    "param.port.description": "Porta OPC UA (padrão: 4840).",
+    "param.fmt.description": "Formato: json ou texto.",
+    "msg.summary": "Varredura OPC UA: {count} servidores encontrados em {ms} ms.",
+    "msg.no_servers": "Nenhum servidor OPC UA foi encontrado.",
+    "err.ip_range_required": "intervalo_ip é obrigatório.",
+    "err.invalid_ip_range": "Não foi possível analisar ip_range: {text}"
+  },
+  "ro": {
+    "tool.description": "Descoperiți serverele OPC UA în rețeaua locală. Sondează adresele IP pe portul implicit OPC UA (4840) și încearcă să se conecteze și să citească informațiile despre punctul final al serverului.",
+    "param.ip_range.description": "Interval IP de scanat (de exemplu, „192.168.1.1-254” sau „192.168.1.0/24”).",
+    "param.port.description": "Port OPC UA (implicit: 4840).",
+    "param.fmt.description": "Format: json sau text.",
+    "msg.summary": "Scanare OPC UA: {count} server(e) găsit(e) în {ms} ms.",
+    "msg.no_servers": "Nu au fost găsite servere OPC UA.",
+    "err.ip_range_required": "ip_range este necesar.",
+    "err.invalid_ip_range": "Nu s-a putut analiza ip_range: {text}"
+  },
+  "ru": {
+    "tool.description": "Обнаружьте серверы OPC UA в локальной сети. Проверяет IP-адреса порта OPC UA по умолчанию (4840) и пытается подключиться и прочитать информацию о конечной точке сервера.",
+    "param.ip_range.description": "Диапазон IP-адресов для сканирования (например, «192.168.1.1-254» или «192.168.1.0/24»).",
+    "param.port.description": "Порт OPC UA (по умолчанию: 4840).",
+    "param.fmt.description": "Формат: json или текст.",
+    "msg.summary": "Сканирование OPC UA: {count} серверов обнаружено за {ms} мс.",
+    "msg.no_servers": "Серверы OPC UA не найдены.",
+    "err.ip_range_required": "ip_range является обязательным.",
+    "err.invalid_ip_range": "Не удалось разобрать ip_range: {text}."
+  },
+  "sv": {
+    "tool.description": "Upptäck OPC UA-servrar på det lokala nätverket. Söker efter IP-adresser på standard OPC UA-port (4840) och försöker ansluta och läsa serverns slutpunktsinformation.",
+    "param.ip_range.description": "IP-intervall att skanna (t.ex. '192.168.1.1-254' eller '192.168.1.0/24').",
+    "param.port.description": "OPC UA-port (standard: 4840).",
+    "param.fmt.description": "Format: json eller text.",
+    "msg.summary": "OPC UA-skanning: {count} server(ar) hittades på {ms} ms.",
+    "msg.no_servers": "Inga OPC UA-servrar hittades.",
+    "err.ip_range_required": "ip_range krävs.",
+    "err.invalid_ip_range": "Kunde inte analysera ip_range: {text}"
+  },
+  "sw": {
+    "tool.description": "Gundua seva za OPC UA kwenye mtandao wa ndani. Huchunguza anwani za IP kwenye mlango chaguomsingi wa OPC UA (4840) na hujaribu kuunganisha na kusoma maelezo ya mwisho ya seva.",
+    "param.ip_range.description": "Masafa ya IP ya kuchanganua (k.m. '192.168.1.1-254' au '192.168.1.0/24').",
+    "param.port.description": "Mlango wa OPC UA (chaguo-msingi: 4840).",
+    "param.fmt.description": "Umbizo: json au maandishi.",
+    "msg.summary": "Uchanganuzi wa OPC UA: {count} seva imepatikana katika ms {ms}.",
+    "msg.no_servers": "Hakuna seva za OPC UA zilizopatikana.",
+    "err.ip_range_required": "ip_range inahitajika.",
+    "err.invalid_ip_range": "Haikuweza kuchanganua ip_range: {text}"
+  },
+  "th": {
+    "tool.description": "ค้นหาเซิร์ฟเวอร์ OPC UA บนเครือข่ายท้องถิ่น ตรวจสอบที่อยู่ IP บนพอร์ต OPC UA เริ่มต้น (4840) และพยายามเชื่อมต่อและอ่านข้อมูลจุดสิ้นสุดของเซิร์ฟเวอร์",
+    "param.ip_range.description": "ช่วง IP ที่จะสแกน (เช่น '192.168.1.1-254' หรือ '192.168.1.0/24')",
+    "param.port.description": "พอร์ต OPC UA (ค่าเริ่มต้น: 4840)",
+    "param.fmt.description": "รูปแบบ: json หรือข้อความ",
+    "msg.summary": "การสแกน OPC UA: เซิร์ฟเวอร์ {count} พบใน {ms} ms",
+    "msg.no_servers": "ไม่พบเซิร์ฟเวอร์ OPC UA",
+    "err.ip_range_required": "จำเป็นต้องมี ip_range",
+    "err.invalid_ip_range": "ไม่สามารถแยกวิเคราะห์ ip_range: {text}"
+  },
+  "tr": {
+    "tool.description": "Yerel ağdaki OPC UA sunucularını keşfedin. Varsayılan OPC UA bağlantı noktasındaki (4840) IP adreslerini araştırır ve bağlanmaya ve sunucunun uç nokta bilgilerini okumaya çalışır.",
+    "param.ip_range.description": "Taranacak IP aralığı (ör. '192.168.1.1-254' veya '192.168.1.0/24').",
+    "param.port.description": "OPC UA bağlantı noktası (varsayılan: 4840).",
+    "param.fmt.description": "Biçim: json veya metin.",
+    "msg.summary": "OPC UA taraması: {ms} ms'de {count} sunucu bulundu.",
+    "msg.no_servers": "Hiçbir OPC UA sunucusu bulunamadı.",
+    "err.ip_range_required": "ip_range gereklidir.",
+    "err.invalid_ip_range": "İp_range ayrıştırılamadı: {text}"
+  },
+  "uk": {
+    "tool.description": "Відкрийте для себе сервери OPC UA в локальній мережі. Вивчає IP-адреси на стандартному порту OPC UA (4840) і намагається підключитися та прочитати інформацію про кінцеву точку сервера.",
+    "param.ip_range.description": "Діапазон IP для сканування (наприклад, «192.168.1.1-254» або «192.168.1.0/24»).",
+    "param.port.description": "Порт OPC UA (за замовчуванням: 4840).",
+    "param.fmt.description": "Формат: json або текстовий.",
+    "msg.summary": "Сканування OPC UA: {count} серверів знайдено за {ms} мс.",
+    "msg.no_servers": "Серверів OPC UA не знайдено.",
+    "err.ip_range_required": "ip_range необхідний.",
+    "err.invalid_ip_range": "Не вдалося проаналізувати ip_range: {text}"
+  },
+  "vi": {
+    "tool.description": "Khám phá các máy chủ OPC UA trên mạng cục bộ. Thăm dò địa chỉ IP trên cổng OPC UA mặc định (4840) và cố gắng kết nối cũng như đọc thông tin điểm cuối của máy chủ.",
+    "param.ip_range.description": "Dải IP cần quét (ví dụ: '192.168.1.1-254' hoặc '192.168.1.0/24').",
+    "param.port.description": "Cổng OPC UA (mặc định: 4840).",
+    "param.fmt.description": "Định dạng: json hoặc văn bản.",
+    "msg.summary": "Quét OPC UA: Đã tìm thấy {count} máy chủ sau {ms} mili giây.",
+    "msg.no_servers": "Không tìm thấy máy chủ OPC UA nào.",
+    "err.ip_range_required": "ip_range là bắt buộc.",
+    "err.invalid_ip_range": "Không thể phân tích cú pháp ip_range: {text}"
+  },
+  "zh_CN": {
+    "tool.description": "发现本地网络上的 OPC UA 服务器。探测默认 OPC UA 端口 (4840) 上的 IP 地址并尝试连接和读取服务器的端点信息。",
+    "param.ip_range.description": "要扫描的 IP 范围（例如“192.168.1.1-254”或“192.168.1.0/24”）。",
+    "param.port.description": "OPC UA 端口（默认：4840）。",
+    "param.fmt.description": "格式：json 或文本。",
+    "msg.summary": "OPC UA 扫描：在 {ms} 毫秒内找到 {count} 个服务器。",
+    "msg.no_servers": "未找到 OPC UA 服务器。",
+    "err.ip_range_required": "ip_range 是必需的。",
+    "err.invalid_ip_range": "无法解析 ip_range：{text}"
+  },
+  "zh_TW": {
+    "tool.description": "發現本地網路上的 OPC UA 伺服器。探測預設 OPC UA 連接埠 (4840) 上的 IP 位址並嘗試連接和讀取伺服器的端點資訊。",
+    "param.ip_range.description": "要掃描的 IP 範圍（例如“192.168.1.1-254”或“192.168.1.0/24”）。",
+    "param.port.description": "OPC UA 連接埠（預設：4840）。",
+    "param.fmt.description": "格式：json 或文字。",
+    "msg.summary": "OPC UA 掃描：在 {ms} 毫秒內找到 {count} 個伺服器。",
+    "msg.no_servers": "未找到 OPC UA 伺服器。",
+    "err.ip_range_required": "ip_range 是必需的。",
+    "err.invalid_ip_range": "無法解析 ip_range：{text}"
+  }
+}

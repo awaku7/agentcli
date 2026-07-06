@@ -1,0 +1,240 @@
+{
+  "en": {
+    "tool.description": "Read node value(s) from an OPC UA server. Returns the current value and metadata.",
+    "param.url.description": "OPC UA server URL.",
+    "param.node_ids.description": "Node ID(s) to read. Single: 'i=85' or 'ns=2;s=Temp'. Multiple: comma-separated.",
+    "param.fmt.description": "Format: json or text.",
+    "msg.summary": "OPC UA read: {count} value(s) in {ms} ms."
+  },
+  "ar": {
+    "tool.description": "قراءة قيمة (قيم) العقدة من خادم OPC UA. إرجاع القيمة الحالية وبيانات التعريف.",
+    "param.url.description": "عنوان URL لخادم OPC UA.",
+    "param.node_ids.description": "معرف (معرفات) العقدة المراد قراءتها. مفردة: 'i=85' أو 'ns=2;s=Temp'. متعددة: مفصولة بفواصل.",
+    "param.fmt.description": "التنسيق: json أو نص.",
+    "msg.summary": "قراءة OPC UA: {count} قيمة (قيم) في {ms} مللي ثانية."
+  },
+  "bn": {
+    "tool.description": "একটি OPC UA সার্ভার থেকে নোড মান(গুলি) পড়ুন। বর্তমান মান এবং মেটাডেটা প্রদান করে।",
+    "param.url.description": "OPC UA সার্ভার URL।",
+    "param.node_ids.description": "পড়ার জন্য নোড আইডি(গুলি)। একক: 'i=85' বা 'ns=2;s=Temp'। একাধিক: কমা দ্বারা পৃথক করা।",
+    "param.fmt.description": "বিন্যাস: json বা পাঠ্য।",
+    "msg.summary": "OPC UA রিড: {ms} ms এ {count} মান(গুলি)।"
+  },
+  "cs": {
+    "tool.description": "Čtení hodnot uzlu ze serveru OPC UA. Vrátí aktuální hodnotu a metadata.",
+    "param.url.description": "URL serveru OPC UA.",
+    "param.node_ids.description": "ID uzlů ke čtení. Single: 'i=85' nebo 'ns=2;s=Temp'. Násobné: oddělené čárkou.",
+    "param.fmt.description": "Formát: json nebo text.",
+    "msg.summary": "OPC UA čtení: {count} hodnot za {ms} ms."
+  },
+  "de": {
+    "tool.description": "Knotenwert(e) von einem OPC UA-Server lesen. Gibt den aktuellen Wert und die Metadaten zurück.",
+    "param.url.description": "OPC UA-Server-URL.",
+    "param.node_ids.description": "Zu lesende Knoten-ID(s). Single: 'i=85' oder 'ns=2;s=Temp'. Mehrere: durch Kommas getrennt.",
+    "param.fmt.description": "Format: JSON oder Text.",
+    "msg.summary": "OPC UA gelesen: {count} Wert(e) in {ms} ms."
+  },
+  "el": {
+    "tool.description": "Ανάγνωση τιμών κόμβου από διακομιστή OPC UA. Επιστρέφει την τρέχουσα τιμή και τα μεταδεδομένα.",
+    "param.url.description": "URL διακομιστή OPC UA.",
+    "param.node_ids.description": "Αναγνωριστικό(α) κόμβου προς ανάγνωση. Single: 'i=85' ή 'ns=2;s=Temp'. Πολλαπλός: χωρισμένος με κόμμα.",
+    "param.fmt.description": "Μορφή: json ή κείμενο.",
+    "msg.summary": "Ανάγνωση OPC UA: {count} τιμή(εις) σε {ms} ms."
+  },
+  "es": {
+    "tool.description": "Lea los valores de nodo desde un servidor OPC UA. Devuelve el valor actual y los metadatos.",
+    "param.url.description": "URL del servidor OPC UA.",
+    "param.node_ids.description": "ID de nodo para leer. Sencillo: 'i=85' o 'ns=2;s=Temp'. Múltiple: separados por comas.",
+    "param.fmt.description": "Formato: json o texto.",
+    "msg.summary": "OPC UA lee: {count} valor(es) en {ms} ms."
+  },
+  "fa": {
+    "tool.description": "مقدار(های) گره را از سرور OPC UA بخوانید. مقدار فعلی و ابرداده را برمی‌گرداند.",
+    "param.url.description": "URL سرور OPC UA.",
+    "param.node_ids.description": "شناسه (های) گره برای خواندن. تک: 'i=85' یا 'ns=2;s=Temp'. چندگانه: با کاما از هم جدا شده اند.",
+    "param.fmt.description": "فرمت: json یا متن.",
+    "msg.summary": "OPC UA خوانده شده: {count} مقدار(های) در {ms} میلی ثانیه."
+  },
+  "fi": {
+    "tool.description": "Lue solmuarvot OPC UA -palvelimelta. Palauttaa nykyisen arvon ja metatiedot.",
+    "param.url.description": "OPC UA -palvelimen URL-osoite.",
+    "param.node_ids.description": "Luettavat solmun tunnukset. Yksittäinen: 'i=85' tai 'ns=2;s=Temp'. Useita: pilkuilla erotettu.",
+    "param.fmt.description": "Muoto: json tai teksti.",
+    "msg.summary": "OPC UA luettu: {count} arvoa {ms} ms."
+  },
+  "fr": {
+    "tool.description": "Lire les valeurs de nœud à partir d'un serveur OPC UA. Renvoie la valeur actuelle et les métadonnées.",
+    "param.url.description": "URL du serveur OPC UA.",
+    "param.node_ids.description": "ID(s) de nœud à lire. Unique : 'i=85' ou 'ns=2;s=Temp'. Multiple : séparés par des virgules.",
+    "param.fmt.description": "Format : json ou texte.",
+    "msg.summary": "Lecture OPC UA : valeur(s) {count} en {ms} ms."
+  },
+  "he": {
+    "tool.description": "קרא את ערכי הצומת משרת OPC UA. מחזירה את הערך והמטא נתונים הנוכחיים.",
+    "param.url.description": "כתובת URL של שרת OPC UA.",
+    "param.node_ids.description": "מזהי צומת לקריאה. יחיד: 'i=85' או 'ns=2;s=Temp'. מרובה: מופרדים בפסיקים.",
+    "param.fmt.description": "פורמט: json או טקסט.",
+    "msg.summary": "OPC UA קרא: {count} ערכים ב-{ms} אלפיות השנייה."
+  },
+  "hi": {
+    "tool.description": "ओपीसी यूए सर्वर से नोड मान पढ़ें। वर्तमान मान और मेटाडेटा लौटाता है।",
+    "param.url.description": "ओपीसी यूए सर्वर यूआरएल।",
+    "param.node_ids.description": "पढ़ने के लिए नोड आईडी. एकल: 'i=85' या 'ns=2;s=Temp'। एकाधिक: अल्पविराम से अलग किया गया।",
+    "param.fmt.description": "प्रारूप: json या text.",
+    "msg.summary": "ओपीसी यूए पढ़ता है: {count} मान {ms} एमएस में।"
+  },
+  "hu": {
+    "tool.description": "Csomópontérték(ek) olvasása OPC UA szerverről. Az aktuális értéket és metaadatokat adja vissza.",
+    "param.url.description": "OPC UA szerver URL.",
+    "param.node_ids.description": "Olvasandó csomópontazonosító(k). Egyes: 'i=85' vagy 'ns=2;s=Temp'. Többszörös: vesszővel elválasztva.",
+    "param.fmt.description": "Formátum: json vagy szöveg.",
+    "msg.summary": "OPC UA beolvasása: {count} érték {ms} ms alatt."
+  },
+  "id": {
+    "tool.description": "Membaca nilai simpul dari server OPC UA. Mengembalikan nilai dan metadata saat ini.",
+    "param.url.description": "URL server OPC UA.",
+    "param.node_ids.description": "ID Node untuk dibaca. Tunggal: 'i=85' atau 'ns=2;s=Temp'. Banyak: dipisahkan koma.",
+    "param.fmt.description": "Format: json atau teks.",
+    "msg.summary": "OPC UA membaca: {count} nilai dalam {ms} ms."
+  },
+  "it": {
+    "tool.description": "Leggere i valori del nodo da un server OPC UA. Restituisce il valore corrente e i metadati.",
+    "param.url.description": "URL del server OPC UA.",
+    "param.node_ids.description": "ID nodo da leggere. Singolo: 'i=85' o 'ns=2;s=Temp'. Multiplo: separati da virgole.",
+    "param.fmt.description": "Formato: json o testo.",
+    "msg.summary": "OPC UA legge: {count} valore/i in {ms} ms."
+  },
+  "ja": {
+    "tool.description": "OPC UA サーバーからノード値を読み取ります。現在の値とメタデータを返します。",
+    "param.url.description": "OPC UA サーバーの URL。",
+    "param.node_ids.description": "読み取るノード ID。単一: 'i=85' または 'ns=2;s=Temp'。複数: カンマ区切り。",
+    "param.fmt.description": "形式: json またはテキスト。",
+    "msg.summary": "OPC UA 読み取り: {count} 値 ({ms} ミリ秒)。"
+  },
+  "ko": {
+    "tool.description": "OPC UA 서버에서 노드 값을 읽습니다. 현재 값과 메타데이터를 반환합니다.",
+    "param.url.description": "OPC UA 서버 URL.",
+    "param.node_ids.description": "읽을 노드 ID입니다. 단일: 'i=85' 또는 'ns=2;s=Temp'. 다중: 쉼표로 구분됩니다.",
+    "param.fmt.description": "형식: json 또는 텍스트.",
+    "msg.summary": "OPC UA 읽기: {ms}ms 동안 {count} 값."
+  },
+  "mn": {
+    "tool.description": "OPC UA серверээс зангилааны утгыг уншина уу. Одоогийн утга болон мета өгөгдлийг буцаана.",
+    "param.url.description": "OPC UA серверийн URL.",
+    "param.node_ids.description": "Унших зангилааны ID(ууд). Ганц: 'i=85' эсвэл 'ns=2;s=Temp'. Олон: таслалаар тусгаарлагдсан.",
+    "param.fmt.description": "Формат: json эсвэл текст.",
+    "msg.summary": "OPC UA уншсан: {count} утгыг {ms} мс-д."
+  },
+  "mr": {
+    "tool.description": "OPC UA सर्व्हरवरून नोड मूल्य(चे) वाचा. वर्तमान मूल्य आणि मेटाडेटा मिळवते.",
+    "param.url.description": "OPC UA सर्व्हर URL.",
+    "param.node_ids.description": "वाचण्यासाठी नोड आयडी. एकल: 'i=85' किंवा 'ns=2;s=Temp'. एकाधिक: स्वल्पविरामाने विभक्त.",
+    "param.fmt.description": "स्वरूप: json किंवा मजकूर.",
+    "msg.summary": "OPC UA वाचले: {ms} ms मध्ये {count} मूल्य(ले)"
+  },
+  "nb": {
+    "tool.description": "Les nodeverdi(er) fra en OPC UA-server. Returnerer gjeldende verdi og metadata.",
+    "param.url.description": "OPC UA server URL.",
+    "param.node_ids.description": "Node-ID(er) å lese. Singel: 'i=85' eller 'ns=2;s=Temp'. Multippel: kommadelt.",
+    "param.fmt.description": "Format: json eller tekst.",
+    "msg.summary": "OPC UA lest: {count} verdi(er) i {ms} ms."
+  },
+  "nl": {
+    "tool.description": "Lees knooppuntwaarde(n) van een OPC UA-server. Retourneert de huidige waarde en metagegevens.",
+    "param.url.description": "OPC UA-server-URL.",
+    "param.node_ids.description": "Knooppunt-ID('s) om te lezen. Enkelvoudig: 'i=85' of 'ns=2;s=Temp'. Meerdere: door komma's gescheiden.",
+    "param.fmt.description": "Formaat: json of tekst.",
+    "msg.summary": "OPC UA gelezen: {count} waarde(n) in {ms} ms."
+  },
+  "pl": {
+    "tool.description": "Odczytaj wartości węzła z serwera OPC UA. Zwraca bieżącą wartość i metadane.",
+    "param.url.description": "Adres URL serwera OPC UA.",
+    "param.node_ids.description": "Identyfikatory węzłów do odczytania. Pojedynczy: „i=85” lub „ns=2;s=Temp”. Wiele: oddzielone przecinkami.",
+    "param.fmt.description": "Format: json lub tekst.",
+    "msg.summary": "Odczyt OPC UA: {count} wartości w {ms} ms."
+  },
+  "pt": {
+    "tool.description": "Leia o(s) valor(es) do nó de um servidor OPC UA. Retorna o valor atual e os metadados.",
+    "param.url.description": "URL do servidor OPC UA.",
+    "param.node_ids.description": "ID(s) de nó a serem lidos. Único: 'i=85' ou 'ns=2;s=Temp'. Múltiplo: separados por vírgula.",
+    "param.fmt.description": "Formato: json ou texto.",
+    "msg.summary": "Leitura do OPC UA: {count} valor(es) em {ms} ms."
+  },
+  "pt_BR": {
+    "tool.description": "Leia o(s) valor(es) do nó de um servidor OPC UA. Retorna o valor atual e os metadados.",
+    "param.url.description": "URL do servidor OPC UA.",
+    "param.node_ids.description": "ID(s) de nó a serem lidos. Único: 'i=85' ou 'ns=2;s=Temp'. Múltiplo: separados por vírgula.",
+    "param.fmt.description": "Formato: json ou texto.",
+    "msg.summary": "Leitura do OPC UA: {count} valor(es) em {ms} ms."
+  },
+  "ro": {
+    "tool.description": "Citiți valorile nodurilor de pe un server OPC UA. Returnează valoarea curentă și metadatele.",
+    "param.url.description": "Adresa URL a serverului OPC UA.",
+    "param.node_ids.description": "ID-uri nod(e) de citit. Single: „i=85” sau „ns=2;s=Temp”. Multiple: separate prin virgulă.",
+    "param.fmt.description": "Format: json sau text.",
+    "msg.summary": "OPC UA a citit: {count} valoare(e) în {ms} ms."
+  },
+  "ru": {
+    "tool.description": "Считайте значения узла с сервера OPC UA. Возвращает текущее значение и метаданные.",
+    "param.url.description": "URL-адрес сервера OPC UA.",
+    "param.node_ids.description": "Идентификаторы узлов для чтения. Одиночный: «i=85» или «ns=2;s=Temp». Несколько: через запятую.",
+    "param.fmt.description": "Формат: json или текст.",
+    "msg.summary": "OPC UA прочитал: {count} значений за {ms} мс."
+  },
+  "sv": {
+    "tool.description": "Läs nodvärden från en OPC UA-server. Returnerar aktuellt värde och metadata.",
+    "param.url.description": "OPC UA server URL.",
+    "param.node_ids.description": "Nod-ID att läsa. Singel: 'i=85' eller 'ns=2;s=Temp'. Multipel: kommaseparerad.",
+    "param.fmt.description": "Format: json eller text.",
+    "msg.summary": "OPC UA läst: {count} värde(n) i {ms} ms."
+  },
+  "sw": {
+    "tool.description": "Soma thamani ya nodi kutoka kwa seva ya OPC UA. Hurejesha thamani ya sasa na metadata.",
+    "param.url.description": "URL ya seva ya OPC UA.",
+    "param.node_ids.description": "Vitambulisho vya nodi vya kusoma. Moja: 'i=85' au 'ns=2;s=Temp'. Nyingi: zimetenganishwa kwa koma.",
+    "param.fmt.description": "Umbizo: json au maandishi.",
+    "msg.summary": "OPC UA ilisoma: {count} thamani katika ms {ms}."
+  },
+  "th": {
+    "tool.description": "อ่านค่าโหนดจากเซิร์ฟเวอร์ OPC UA ส่งกลับค่าปัจจุบันและข้อมูลเมตา",
+    "param.url.description": "URL เซิร์ฟเวอร์ OPC UA",
+    "param.node_ids.description": "ID โหนดที่จะอ่าน เดี่ยว: 'i=85' หรือ 'ns=2;s=Temp' หลายรายการ: คั่นด้วยเครื่องหมายจุลภาค",
+    "param.fmt.description": "รูปแบบ: json หรือข้อความ",
+    "msg.summary": "OPC UA อ่าน: ค่า {count} ใน {ms} ms"
+  },
+  "tr": {
+    "tool.description": "Bir OPC UA sunucusundan düğüm değerlerini okuyun. Geçerli değeri ve meta verileri döndürür.",
+    "param.url.description": "OPC UA sunucu URL'si.",
+    "param.node_ids.description": "Okunacak düğüm kimlikleri. Tek: 'i=85' veya 'ns=2;s=Sıcaklık'. Çoklu: virgülle ayrılmış.",
+    "param.fmt.description": "Biçim: json veya metin.",
+    "msg.summary": "OPC UA şunu okudu: {ms} ms cinsinden {count} değer(ler)."
+  },
+  "uk": {
+    "tool.description": "Читання значень вузла з сервера OPC UA. Повертає поточне значення та метадані.",
+    "param.url.description": "URL-адреса сервера OPC UA.",
+    "param.node_ids.description": "Ідентифікатори вузлів для читання. Одинарний: 'i=85' або 'ns=2;s=Temp'. Кілька: через кому.",
+    "param.fmt.description": "Формат: json або текстовий.",
+    "msg.summary": "Зчитування OPC UA: {count} значень за {ms} мс."
+  },
+  "vi": {
+    "tool.description": "Đọc (các) giá trị nút từ máy chủ OPC UA. Trả về giá trị hiện tại và siêu dữ liệu.",
+    "param.url.description": "URL máy chủ OPC UA.",
+    "param.node_ids.description": "(Các) ID nút để đọc. Đơn: 'i=85' hoặc 'ns=2;s=Temp'. Nhiều: được phân tách bằng dấu phẩy.",
+    "param.fmt.description": "Định dạng: json hoặc văn bản.",
+    "msg.summary": "OPC UA đã đọc: {count} giá trị trong {ms} mili giây."
+  },
+  "zh_CN": {
+    "tool.description": "从 OPC UA 服务器读取节点值。返回当前值和元数据。",
+    "param.url.description": "OPC UA 服务器 URL。",
+    "param.node_ids.description": "要读取的节点 ID。单：“i=85”或“ns=2；s=Temp”。多个：以逗号分隔。",
+    "param.fmt.description": "格式：json 或文本。",
+    "msg.summary": "OPC UA 读取：{count} 值（在 {ms} 毫秒内）。"
+  },
+  "zh_TW": {
+    "tool.description": "從 OPC UA 伺服器讀取節點值。傳回當前值和元資料。",
+    "param.url.description": "OPC UA 伺服器 URL。",
+    "param.node_ids.description": "要讀取的節點 ID。單：「i=85」或「ns=2；s=Temp」。多：以逗號分隔。",
+    "param.fmt.description": "格式：json 或文字。",
+    "msg.summary": "OPC UA 讀取：{count} 值（在 {ms} 毫秒內）。"
+  }
+}

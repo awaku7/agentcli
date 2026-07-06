@@ -1,0 +1,308 @@
+{
+  "en": {
+    "tool.description": "Browse the OPC UA server address space. Returns child nodes of the specified starting node.",
+    "param.url.description": "OPC UA server URL (e.g. 'opc.tcp://192.168.1.101:4840').",
+    "param.node_id.description": "Starting node ID (e.g. 'i=84' for Objects folder, 'ns=2;s=MyVariable'). Default: i=84 (Objects).",
+    "param.depth.description": "Browse depth (1=children only, 2=grandchildren, etc.). Max 5.",
+    "param.fmt.description": "Format: json or text.",
+    "msg.summary": "OPC UA browse: {count} node(s) from {node} in {ms} ms.",
+    "err.url_required": "url is required."
+  },
+  "ar": {
+    "tool.description": "تصفح مساحة عنوان خادم OPC UA. إرجاع العقد الفرعية لعقدة البداية المحددة.",
+    "param.url.description": "عنوان URL لخادم OPC UA (على سبيل المثال \"opc.tcp://192.168.1.101:4840\").",
+    "param.node_id.description": "معرف عقدة البداية (على سبيل المثال، 'i=84' لمجلد الكائنات، 'ns=2;s=MyVariable'). الافتراضي: i=84 (الكائنات).",
+    "param.depth.description": "تصفح العمق (1= الأطفال فقط، 2= الأحفاد، وما إلى ذلك). ماكس 5.",
+    "param.fmt.description": "التنسيق: json أو نص.",
+    "msg.summary": "تصفح OPC UA: {count} عقدة (عقدة) من {node} في {ms} مللي ثانية.",
+    "err.url_required": "مطلوب عنوان URL."
+  },
+  "bn": {
+    "tool.description": "OPC UA সার্ভার ঠিকানা স্থান ব্রাউজ করুন. নির্দিষ্ট প্রারম্ভিক নোডের চাইল্ড নোড প্রদান করে।",
+    "param.url.description": "OPC UA সার্ভার URL (যেমন 'opc.tcp://192.168.1.101:4840')।",
+    "param.node_id.description": "নোড আইডি শুরু হচ্ছে (যেমন অবজেক্ট ফোল্ডারের জন্য 'i=84', 'ns=2;s=MyVariable')। ডিফল্ট: i=84 (বস্তু)।",
+    "param.depth.description": "গভীরতা ব্রাউজ করুন (1=শুধুমাত্র শিশু, 2=নাতি-নাতনি ইত্যাদি)। সর্বোচ্চ ৫।",
+    "param.fmt.description": "বিন্যাস: json বা পাঠ্য।",
+    "msg.summary": "OPC UA ব্রাউজ করুন: {ms} ms এ {node} থেকে {count} নোড(গুলি)।",
+    "err.url_required": "url আবশ্যক।"
+  },
+  "cs": {
+    "tool.description": "Procházejte adresní prostor serveru OPC UA. Vrátí podřízené uzly zadaného počátečního uzlu.",
+    "param.url.description": "Adresa URL serveru OPC UA (např. 'opc.tcp://192.168.1.101:4840').",
+    "param.node_id.description": "Počáteční ID uzlu (např. 'i=84' pro složku Objects, 'ns=2;s=MyVariable'). Výchozí: i=84 (Objekty).",
+    "param.depth.description": "Hloubka procházení (1=pouze děti, 2=vnoučata atd.). Max 5.",
+    "param.fmt.description": "Formát: json nebo text.",
+    "msg.summary": "Procházení OPC UA: {count} uzlů z {node} za {ms} ms.",
+    "err.url_required": "adresa URL je povinná."
+  },
+  "de": {
+    "tool.description": "Durchsuchen Sie den Adressraum des OPC UA-Servers. Gibt untergeordnete Knoten des angegebenen Startknotens zurück.",
+    "param.url.description": "OPC UA-Server-URL (z. B. „opc.tcp://192.168.1.101:4840“).",
+    "param.node_id.description": "Startknoten-ID (z. B. „i=84“ für den Ordner „Objekte“, „ns=2;s=MyVariable“). Standard: i=84 (Objekte).",
+    "param.depth.description": "Suchtiefe (1=nur Kinder, 2=Enkelkinder usw.). Maximal 5.",
+    "param.fmt.description": "Format: JSON oder Text.",
+    "msg.summary": "OPC UA-Durchsuchen: {count} Knoten von {node} in {ms} ms.",
+    "err.url_required": "URL ist erforderlich."
+  },
+  "el": {
+    "tool.description": "Περιηγηθείτε στον χώρο διευθύνσεων διακομιστή OPC UA. Επιστρέφει θυγατρικούς κόμβους του καθορισμένου αρχικού κόμβου.",
+    "param.url.description": "URL διακομιστή OPC UA (π.χ. \"opc.tcp://192.168.1.101:4840\").",
+    "param.node_id.description": "Αναγνωριστικό κόμβου εκκίνησης (π.χ. 'i=84' για φάκελο Objects, 'ns=2;s=MyVariable'). Προεπιλογή: i=84 (Αντικείμενα).",
+    "param.depth.description": "Βάθος περιήγησης (1=μόνο για παιδιά, 2=εγγόνια κ.λπ.). Μέγιστο 5.",
+    "param.fmt.description": "Μορφή: json ή κείμενο.",
+    "msg.summary": "Περιήγηση OPC UA: {count} κόμβοι από {node} σε {ms} ms.",
+    "err.url_required": "url απαιτείται."
+  },
+  "es": {
+    "tool.description": "Explore el espacio de direcciones del servidor OPC UA. Devuelve nodos secundarios del nodo inicial especificado.",
+    "param.url.description": "URL del servidor OPC UA (por ejemplo, 'opc.tcp://192.168.1.101:4840').",
+    "param.node_id.description": "ID del nodo inicial (por ejemplo, 'i=84' para la carpeta Objetos, 'ns=2;s=MyVariable'). Predeterminado: i=84 (Objetos).",
+    "param.depth.description": "Profundidad de exploración (1=solo hijos, 2=nietos, etc.). Máximo 5.",
+    "param.fmt.description": "Formato: json o texto.",
+    "msg.summary": "Navegación OPC UA: {count} nodos desde {node} en {ms} ms.",
+    "err.url_required": "Se requiere URL."
+  },
+  "fa": {
+    "tool.description": "فضای آدرس سرور OPC UA را مرور کنید. گره های فرزند گره شروع مشخص شده را برمی گرداند.",
+    "param.url.description": "URL سرور OPC UA (به عنوان مثال 'opc.tcp://192.168.1.101:4840').",
+    "param.node_id.description": "شناسه گره شروع (به عنوان مثال 'i=84' برای پوشه Objects، 'ns=2;s=MyVariable'). پیش فرض: i=84 (اشیاء).",
+    "param.depth.description": "عمق مرور (1 = فقط فرزندان، 2 = نوه ها و غیره). حداکثر 5.",
+    "param.fmt.description": "فرمت: json یا متن.",
+    "msg.summary": "مرور OPC UA: {count} گره از {node} در {ms} میلی‌ثانیه.",
+    "err.url_required": "آدرس اینترنتی مورد نیاز است."
+  },
+  "fi": {
+    "tool.description": "Selaa OPC UA -palvelimen osoiteavaruutta. Palauttaa määritetyn aloitussolmun lapsisolmut.",
+    "param.url.description": "OPC UA -palvelimen URL-osoite (esim. 'opc.tcp://192.168.1.101:4840').",
+    "param.node_id.description": "Aloitussolmun tunnus (esim. 'i=84' Objects-kansiolle, 'ns=2;s=MyVariable'). Oletus: i=84 (Objektit).",
+    "param.depth.description": "Selaussyvyys (1 = vain lapset, 2 = lastenlapset jne.). Max 5.",
+    "param.fmt.description": "Muoto: json tai teksti.",
+    "msg.summary": "OPC UA:n selaus: {count} solmua kohteesta {node} {ms} ms:ssa.",
+    "err.url_required": "url vaaditaan."
+  },
+  "fr": {
+    "tool.description": "Parcourez l'espace d'adressage du serveur OPC UA. Renvoie les nœuds enfants du nœud de départ spécifié.",
+    "param.url.description": "URL du serveur OPC UA (par exemple « opc.tcp://192.168.1.101:4840 »).",
+    "param.node_id.description": "ID du nœud de départ (par exemple 'i=84' pour le dossier Objets, 'ns=2;s=MyVariable'). Par défaut : i=84 (Objets).",
+    "param.depth.description": "Profondeur de navigation (1=enfants uniquement, 2=petits-enfants, etc.). Maximum 5.",
+    "param.fmt.description": "Format : json ou texte.",
+    "msg.summary": "Parcours OPC UA : {count} nœud(s) à partir de {node} en {ms} ms.",
+    "err.url_required": "L'URL est obligatoire."
+  },
+  "he": {
+    "tool.description": "עיין במרחב הכתובות של שרת OPC UA. מחזירה צמתים צאצאים של צומת ההתחלה שצוין.",
+    "param.url.description": "כתובת האתר של שרת OPC UA (לדוגמה, 'opc.tcp://192.168.1.101:4840').",
+    "param.node_id.description": "מזהה צומת התחלה (למשל 'i=84' עבור תיקיית האובייקטים, 'ns=2;s=MyVariable'). ברירת מחדל: i=84 (אובייקטים).",
+    "param.depth.description": "עומק עיון (1=ילדים בלבד, 2=נכדים וכו'). מקסימום 5.",
+    "param.fmt.description": "פורמט: json או טקסט.",
+    "msg.summary": "דפדוף ב-OPC UA: {count} צמתים מ-{node} ב-{ms} אלפיות השנייה.",
+    "err.url_required": "נדרשת כתובת URL."
+  },
+  "hi": {
+    "tool.description": "ओपीसी यूए सर्वर एड्रेस स्पेस ब्राउज़ करें। निर्दिष्ट प्रारंभिक नोड के चाइल्ड नोड्स लौटाता है।",
+    "param.url.description": "ओपीसी यूए सर्वर यूआरएल (जैसे 'opc.tcp://192.168.1.101:4840')।",
+    "param.node_id.description": "शुरुआती नोड आईडी (उदाहरण के लिए ऑब्जेक्ट फ़ोल्डर के लिए 'i=84', 'ns=2;s=MyVariable')। डिफ़ॉल्ट: i=84 (ऑब्जेक्ट्स)।",
+    "param.depth.description": "गहराई ब्राउज़ करें (1=केवल बच्चे, 2=पोते-पोते, आदि)। अधिकतम 5.",
+    "param.fmt.description": "प्रारूप: json या text.",
+    "msg.summary": "ओपीसी यूए ब्राउज़ करें: {count} नोड(ओं) को {node} से {ms} एमएस में।",
+    "err.url_required": "यूआरएल आवश्यक है."
+  },
+  "hu": {
+    "tool.description": "Böngésszen az OPC UA szerver címterében. A megadott kezdőcsomópont gyermekcsomópontjait adja vissza.",
+    "param.url.description": "OPC UA-szerver URL-je (pl. „opc.tcp://192.168.1.101:4840”).",
+    "param.node_id.description": "Kezdő csomópont azonosítója (pl. 'i=84' az Objects mappához, 'ns=2;s=MyVariable'). Alapértelmezés: i=84 (Objektumok).",
+    "param.depth.description": "Böngészési mélység (1 = csak gyerekek, 2 = unokák stb.). Max 5.",
+    "param.fmt.description": "Formátum: json vagy szöveg.",
+    "msg.summary": "OPC UA tallózás: {count} csomópont {node}-től {ms} ms alatt.",
+    "err.url_required": "url megadása kötelező."
+  },
+  "id": {
+    "tool.description": "Telusuri ruang alamat server OPC UA. Mengembalikan node anak dari node awal yang ditentukan.",
+    "param.url.description": "URL server OPC UA (misalnya 'opc.tcp://192.168.1.101:4840').",
+    "param.node_id.description": "ID simpul awal (misalnya 'i=84' untuk folder Objek, 'ns=2;s=Variable Saya'). Default: i=84 (Objek).",
+    "param.depth.description": "Kedalaman penelusuran (1=anak-anak saja, 2=cucu, dll.). Maks 5.",
+    "param.fmt.description": "Format: json atau teks.",
+    "msg.summary": "Penjelajahan OPC UA: {count} node dari {node} dalam {ms} ms.",
+    "err.url_required": "url diperlukan."
+  },
+  "it": {
+    "tool.description": "Sfoglia lo spazio degli indirizzi del server OPC UA. Restituisce i nodi figlio del nodo iniziale specificato.",
+    "param.url.description": "URL del server OPC UA (ad esempio 'opc.tcp://192.168.1.101:4840').",
+    "param.node_id.description": "ID del nodo iniziale (ad esempio 'i=84' per la cartella Oggetti, 'ns=2;s=MyVariable'). Predefinito: i=84 (Oggetti).",
+    "param.depth.description": "Profondità di navigazione (1=solo figli, 2=nipoti, ecc.). Massimo 5.",
+    "param.fmt.description": "Formato: json o testo.",
+    "msg.summary": "Navigazione OPC UA: {count} nodo/i da {node} in {ms} ms.",
+    "err.url_required": "l'URL è obbligatorio."
+  },
+  "ja": {
+    "tool.description": "OPC UA サーバーのアドレス空間を参照します。指定された開始ノードの子ノードを返します。",
+    "param.url.description": "OPC UA サーバーの URL (例: 「opc.tcp://192.168.1.101:4840」)。",
+    "param.node_id.description": "開始ノード ID (例: Objects フォルダーの場合は「i=84」、「ns=2;s=MyVariable」)。デフォルト: i=84 (オブジェクト)。",
+    "param.depth.description": "ブラウズの深さ (1=子のみ、2=孫など)。最大5。",
+    "param.fmt.description": "形式: json またはテキスト。",
+    "msg.summary": "OPC UA の参照: {ms} ミリ秒で {node} から {count} ノード。",
+    "err.url_required": "URLは必須です。"
+  },
+  "ko": {
+    "tool.description": "OPC UA 서버 주소 공간을 찾아보세요. 지정된 시작 노드의 하위 노드를 반환합니다.",
+    "param.url.description": "OPC UA 서버 URL(예: 'opc.tcp://192.168.1.101:4840').",
+    "param.node_id.description": "시작 노드 ID(예: 개체 폴더의 경우 'i=84', 'ns=2;s=MyVariable'). 기본값: i=84(개체).",
+    "param.depth.description": "검색 깊이(1=자녀만, 2=손자 등). 최대 5.",
+    "param.fmt.description": "형식: json 또는 텍스트.",
+    "msg.summary": "OPC UA 탐색: {ms}ms 내에 {node}의 {count} 노드.",
+    "err.url_required": "URL이 필요합니다."
+  },
+  "mn": {
+    "tool.description": "OPC UA серверийн хаягийн зайг үзэх. Заасан эхлэлийн зангилаануудыг буцаана.",
+    "param.url.description": "OPC UA серверийн URL (жишээ нь 'opc.tcp://192.168.1.101:4840').",
+    "param.node_id.description": "Эхлэх зангилааны ID (жишээ нь: Объектуудын хавтасны 'i=84', 'ns=2;s=MyVariable'). Өгөгдмөл: i=84 (Объект).",
+    "param.depth.description": "Гүн харах (1=зөвхөн хүүхдүүд, 2=ач, зээ нар гэх мэт). Хамгийн ихдээ 5.",
+    "param.fmt.description": "Формат: json эсвэл текст.",
+    "msg.summary": "OPC UA үзэх: {count} зангилаа(ууд) {node}-ээс {ms} мс-д.",
+    "err.url_required": "url шаардлагатай."
+  },
+  "mr": {
+    "tool.description": "OPC UA सर्व्हर ॲड्रेस स्पेस ब्राउझ करा. नमूद केलेल्या सुरुवातीच्या नोडचे चाइल्ड नोड मिळवते.",
+    "param.url.description": "OPC UA सर्व्हर URL (उदा. 'opc.tcp://192.168.1.101:4840').",
+    "param.node_id.description": "प्रारंभ नोड आयडी (उदा. ऑब्जेक्ट फोल्डरसाठी 'i=84', 'ns=2;s=MyVariable'). डीफॉल्ट: i=84 (वस्तू).",
+    "param.depth.description": "खोली ब्राउझ करा (1=फक्त मुले, 2=नातवंडे इ.). कमाल ५.",
+    "param.fmt.description": "स्वरूप: json किंवा मजकूर.",
+    "msg.summary": "OPC UA ब्राउझ करा: {ms} ms मध्ये {node} वरून {count} नोड.",
+    "err.url_required": "url आवश्यक आहे."
+  },
+  "nb": {
+    "tool.description": "Bla gjennom OPC UA-serverens adresserom. Returnerer underordnede noder til den angitte startnoden.",
+    "param.url.description": "OPC UA-server-URL (f.eks. 'opc.tcp://192.168.1.101:4840').",
+    "param.node_id.description": "Startnode-ID (f.eks. 'i=84' for Objects-mappen, 'ns=2;s=MyVariable'). Standard: i=84 (Objekter).",
+    "param.depth.description": "Bla gjennom dybde (1=kun barn, 2=barnebarn osv.). Maks 5.",
+    "param.fmt.description": "Format: json eller tekst.",
+    "msg.summary": "OPC UA-søk: {count} node(r) fra {node} om {ms} ms.",
+    "err.url_required": "url er påkrevd."
+  },
+  "nl": {
+    "tool.description": "Blader door de adresruimte van de OPC UA-server. Retourneert onderliggende knooppunten van het opgegeven startknooppunt.",
+    "param.url.description": "OPC UA-server-URL (bijvoorbeeld 'opc.tcp://192.168.1.101:4840').",
+    "param.node_id.description": "Startknooppunt-ID (bijvoorbeeld 'i=84' voor de map Objecten, 'ns=2;s=MijnVariabele'). Standaard: i=84 (Objecten).",
+    "param.depth.description": "Bladerdiepte (1=alleen kinderen, 2=kleinkinderen, etc.). Maximaal 5.",
+    "param.fmt.description": "Formaat: json of tekst.",
+    "msg.summary": "OPC UA-bladeren: {count} knooppunt(en) van {node} in {ms} ms.",
+    "err.url_required": "URL is vereist."
+  },
+  "pl": {
+    "tool.description": "Przeglądaj przestrzeń adresową serwera OPC UA. Zwraca węzły podrzędne określonego węzła początkowego.",
+    "param.url.description": "Adres URL serwera OPC UA (np. „opc.tcp://192.168.1.101:4840”).",
+    "param.node_id.description": "Identyfikator węzła początkowego (np. „i=84” dla folderu Obiekty, „ns=2;s=MojaZmienna”). Domyślnie: i=84 (Obiekty).",
+    "param.depth.description": "Przeglądaj głębokość (1=tylko dzieci, 2=wnuki, itd.). Maks. 5.",
+    "param.fmt.description": "Format: json lub tekst.",
+    "msg.summary": "Przeglądanie OPC UA: {count} węzłów z {node} w {ms} ms.",
+    "err.url_required": "adres URL jest wymagany."
+  },
+  "pt": {
+    "tool.description": "Navegue no espaço de endereço do servidor OPC UA. Retorna nós filhos do nó inicial especificado.",
+    "param.url.description": "URL do servidor OPC UA (por exemplo, 'opc.tcp://192.168.1.101:4840').",
+    "param.node_id.description": "ID do nó inicial (por exemplo, 'i=84' para a pasta Objetos, 'ns=2;s=MyVariable'). Padrão: i=84 (Objetos).",
+    "param.depth.description": "Profundidade de navegação (1=apenas filhos, 2=netos, etc.). Máximo 5.",
+    "param.fmt.description": "Formato: json ou texto.",
+    "msg.summary": "Navegação OPC UA: {count} nó(s) de {node} em {ms} ms.",
+    "err.url_required": "url é obrigatório."
+  },
+  "pt_BR": {
+    "tool.description": "Navegue no espaço de endereço do servidor OPC UA. Retorna nós filhos do nó inicial especificado.",
+    "param.url.description": "URL do servidor OPC UA (por exemplo, 'opc.tcp://192.168.1.101:4840').",
+    "param.node_id.description": "ID do nó inicial (por exemplo, 'i=84' para a pasta Objetos, 'ns=2;s=MyVariable'). Padrão: i=84 (Objetos).",
+    "param.depth.description": "Profundidade de navegação (1=apenas filhos, 2=netos, etc.). Máximo 5.",
+    "param.fmt.description": "Formato: json ou texto.",
+    "msg.summary": "Navegação OPC UA: {count} nó(s) de {node} em {ms} ms.",
+    "err.url_required": "url é obrigatório."
+  },
+  "ro": {
+    "tool.description": "Parcurgeți spațiul de adrese ale serverului OPC UA. Returnează nodurile secundare ale nodului de pornire specificat.",
+    "param.url.description": "Adresa URL a serverului OPC UA (de exemplu, „opc.tcp://192.168.1.101:4840”).",
+    "param.node_id.description": "ID-ul nodului de pornire (de exemplu, „i=84” pentru folderul Objects, „ns=2;s=MyVariable”). Implicit: i=84 (Obiecte).",
+    "param.depth.description": "Profunzime de navigare (1=doar copii, 2=nepoți etc.). Max 5.",
+    "param.fmt.description": "Format: json sau text.",
+    "msg.summary": "Răsfoiți OPC UA: {count} nod(e) de la {node} în {ms} ms.",
+    "err.url_required": "URL-ul este necesar."
+  },
+  "ru": {
+    "tool.description": "Просмотрите адресное пространство сервера OPC UA. Возвращает дочерние узлы указанного начального узла.",
+    "param.url.description": "URL-адрес сервера OPC UA (например, «opc.tcp://192.168.1.101:4840»).",
+    "param.node_id.description": "Идентификатор начального узла (например, «i=84» для папки «Объекты», «ns=2;s=MyVariable»). По умолчанию: i=84 (Объекты).",
+    "param.depth.description": "Глубина просмотра (1=только дети, 2=внуки и т. д.). Макс 5.",
+    "param.fmt.description": "Формат: json или текст.",
+    "msg.summary": "Обзор OPC UA: {count} узлов из {node} за {ms} мс.",
+    "err.url_required": "URL-адрес обязателен."
+  },
+  "sv": {
+    "tool.description": "Bläddra i OPC UA-serverns adressutrymme. Returnerar underordnade noder för den angivna startnoden.",
+    "param.url.description": "OPC UA-server-URL (t.ex. 'opc.tcp://192.168.1.101:4840').",
+    "param.node_id.description": "Startnod-ID (t.ex. 'i=84' för mappen Objekt, 'ns=2;s=MyVariable'). Standard: i=84 (Objekt).",
+    "param.depth.description": "Bläddringsdjup (1=endast barn, 2=barnbarn, etc.). Max 5.",
+    "param.fmt.description": "Format: json eller text.",
+    "msg.summary": "OPC UA-bläddring: {count} nod(er) från {node} om {ms} ms.",
+    "err.url_required": "URL krävs."
+  },
+  "sw": {
+    "tool.description": "Vinjari nafasi ya anwani ya seva ya OPC UA. Hurejesha nodi za watoto za nodi maalum ya kuanzia.",
+    "param.url.description": "URL ya seva ya OPC UA (k.m. 'opc.tcp://192.168.1.101:4840').",
+    "param.node_id.description": "Kitambulisho cha nodi ya kuanzia (k.m. 'i=84' kwa folda ya Objects, 'ns=2;s=MyVariable'). Chaguomsingi: i=84 (Vitu).",
+    "param.depth.description": "Vinjari kina (1=watoto pekee, 2=wajukuu, n.k.). Upeo 5.",
+    "param.fmt.description": "Umbizo: json au maandishi.",
+    "msg.summary": "Vinjari vya OPC UA: {count} nodi kutoka {node} katika ms {ms}.",
+    "err.url_required": "url inahitajika."
+  },
+  "th": {
+    "tool.description": "เรียกดูพื้นที่ที่อยู่เซิร์ฟเวอร์ OPC UA ส่งกลับโหนดลูกของโหนดเริ่มต้นที่ระบุ",
+    "param.url.description": "URL เซิร์ฟเวอร์ OPC UA (เช่น 'opc.tcp://192.168.1.101:4840')",
+    "param.node_id.description": "ID โหนดเริ่มต้น (เช่น 'i=84' สำหรับโฟลเดอร์ Objects, 'ns=2;s=MyVariable') ค่าเริ่มต้น: i=84 (ออบเจ็กต์)",
+    "param.depth.description": "ความลึกของการเรียกดู (1=ลูกเท่านั้น 2=หลาน ฯลฯ) สูงสุด 5",
+    "param.fmt.description": "รูปแบบ: json หรือข้อความ",
+    "msg.summary": "การเรียกดู OPC UA: {count} โหนดจาก {node} ใน {ms} ms",
+    "err.url_required": "จำเป็นต้องมี URL"
+  },
+  "tr": {
+    "tool.description": "OPC UA sunucu adres alanına göz atın. Belirtilen başlangıç ​​düğümünün alt düğümlerini döndürür.",
+    "param.url.description": "OPC UA sunucu URL'si (ör. 'opc.tcp://192.168.1.101:4840').",
+    "param.node_id.description": "Başlangıç ​​düğüm kimliği (örneğin, Nesneler klasörü için 'i=84', 'ns=2;s=MyVariable'). Varsayılan: i=84 (Nesneler).",
+    "param.depth.description": "Göz atma derinliği (1=yalnızca çocuklar, 2=torunlar vb.). Maksimum 5.",
+    "param.fmt.description": "Biçim: json veya metin.",
+    "msg.summary": "OPC UA göz atma: {ms} ms içinde {node}'den {count} düğüm.",
+    "err.url_required": "URL'si gerekli."
+  },
+  "uk": {
+    "tool.description": "Перегляньте адресний простір сервера OPC UA. Повертає дочірні вузли вказаного початкового вузла.",
+    "param.url.description": "URL-адреса сервера OPC UA (наприклад, 'opc.tcp://192.168.1.101:4840').",
+    "param.node_id.description": "Ідентифікатор початкового вузла (наприклад, 'i=84' для папки Objects, 'ns=2;s=MyVariable'). Типове значення: i=84 (Об’єкти).",
+    "param.depth.description": "Глибина перегляду (1=лише діти, 2=онуки тощо). Макс 5.",
+    "param.fmt.description": "Формат: json або текстовий.",
+    "msg.summary": "Перегляд OPC UA: {count} вузлів із {node} за {ms} мс.",
+    "err.url_required": "необхідна URL-адреса."
+  },
+  "vi": {
+    "tool.description": "Duyệt không gian địa chỉ máy chủ OPC UA. Trả về các nút con của nút bắt đầu được chỉ định.",
+    "param.url.description": "URL máy chủ OPC UA (ví dụ: 'opc.tcp://192.168.1.101:4840').",
+    "param.node_id.description": "ID nút bắt đầu (ví dụ: 'i=84' cho thư mục Đối tượng, 'ns=2;s=MyVariable'). Mặc định: i=84 (Đối tượng).",
+    "param.depth.description": "Độ sâu duyệt (1=chỉ trẻ em, 2=cháu, v.v.). Tối đa 5.",
+    "param.fmt.description": "Định dạng: json hoặc văn bản.",
+    "msg.summary": "Duyệt qua OPC UA: {count} nút từ {node} sau {ms} mili giây.",
+    "err.url_required": "url là bắt buộc."
+  },
+  "zh_CN": {
+    "tool.description": "浏览 OPC UA 服务器地址空间。返回指定起始节点的子节点。",
+    "param.url.description": "OPC UA 服务器 URL（例如“opc.tcp://192.168.1.101:4840”）。",
+    "param.node_id.description": "起始节点 ID（例如，对象文件夹为“i=84”，“ns=2;s=MyVariable”）。默认值：i=84（对象）。",
+    "param.depth.description": "浏览深度（1=仅限儿童，2=孙子等）。最多 5 个。",
+    "param.fmt.description": "格式：json 或文本。",
+    "msg.summary": "OPC UA 浏览：在 {ms} 毫秒内从 {node} 浏览 {count} 个节点。",
+    "err.url_required": "网址为必填项。"
+  },
+  "zh_TW": {
+    "tool.description": "瀏覽 OPC UA 伺服器位址空間。傳回指定起始節點的子節點。",
+    "param.url.description": "OPC UA 伺服器 URL（例如「opc.tcp://192.168.1.101:4840」）。",
+    "param.node_id.description": "起始節點 ID（例如，物件資料夾為“i=84”，“ns=2;s=MyVariable”）。預設值：i=84（物件）。",
+    "param.depth.description": "瀏覽深度（1=僅限兒童，2=孫子等）。最多 5 個。",
+    "param.fmt.description": "格式：json 或文字。",
+    "msg.summary": "OPC UA 瀏覽：在 {ms} 毫秒內從 {node} 瀏覽 {count} 個節點。",
+    "err.url_required": "網址為必填項。"
+  }
+}

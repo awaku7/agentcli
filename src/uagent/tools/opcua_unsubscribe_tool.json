@@ -1,0 +1,342 @@
+{
+  "en": {
+    "tool.description": "Cancel an OPC UA subscription by subscription_id, or list active subscriptions.",
+    "param.action.description": "Action: 'unsubscribe' (default) or 'list'.",
+    "param.subscription_id.description": "Subscription ID to cancel (required for action=unsubscribe).",
+    "param.fmt.description": "Format: json or text.",
+    "msg.no_subscriptions": "No active OPC UA subscriptions.",
+    "msg.header": "Active OPC UA subscriptions ({count}):",
+    "msg.unsubscribed": "OPC UA subscription {id} cancelled.",
+    "err.id_required": "subscription_id is required for action=unsubscribe."
+  },
+  "ar": {
+    "tool.description": "قم بإلغاء اشتراك OPC UA بواسطة Subscription_id، أو قم بإدراج الاشتراكات النشطة.",
+    "param.action.description": "الإجراء: \"إلغاء الاشتراك\" (افتراضي) أو \"القائمة\".",
+    "param.subscription_id.description": "معرف الاشتراك للإلغاء (مطلوب للإجراء = إلغاء الاشتراك).",
+    "param.fmt.description": "التنسيق: json أو نص.",
+    "msg.no_subscriptions": "لا توجد اشتراكات OPC UA نشطة.",
+    "msg.header": "اشتراكات OPC UA النشطة ({count}):",
+    "msg.unsubscribed": "تم إلغاء اشتراك OPC UA {id}.",
+    "err.id_required": "معرف الاشتراك مطلوب للإجراء = إلغاء الاشتراك."
+  },
+  "bn": {
+    "tool.description": "subscription_id দ্বারা একটি OPC UA সাবস্ক্রিপশন বাতিল করুন বা সক্রিয় সদস্যতা তালিকাভুক্ত করুন।",
+    "param.action.description": "কর্ম: 'আনসাবস্ক্রাইব' (ডিফল্ট) বা 'তালিকা'।",
+    "param.subscription_id.description": "সাবস্ক্রিপশন আইডি বাতিল করার জন্য (অ্যাকশনের জন্য প্রয়োজন= আনসাবস্ক্রাইব)।",
+    "param.fmt.description": "বিন্যাস: json বা পাঠ্য।",
+    "msg.no_subscriptions": "কোন সক্রিয় OPC UA সাবস্ক্রিপশন নেই।",
+    "msg.header": "সক্রিয় OPC UA সদস্যতা ({count}):",
+    "msg.unsubscribed": "OPC UA সদস্যতা {id} বাতিল হয়েছে৷",
+    "err.id_required": "অ্যাকশনের জন্য সাবস্ক্রিপশন_আইডি প্রয়োজন= আনসাবস্ক্রাইব।"
+  },
+  "cs": {
+    "tool.description": "Zrušte předplatné OPC UA pomocí id_předplatného nebo uveďte aktivní předplatná.",
+    "param.action.description": "Akce: 'unsubscribe' (výchozí) nebo 'list'.",
+    "param.subscription_id.description": "ID předplatného ke zrušení (vyžadováno pro action=unsubscribe).",
+    "param.fmt.description": "Formát: json nebo text.",
+    "msg.no_subscriptions": "Žádné aktivní předplatné OPC UA.",
+    "msg.header": "Aktivní předplatná OPC UA ({count}):",
+    "msg.unsubscribed": "Předplatné OPC UA {id} bylo zrušeno.",
+    "err.id_required": "Subscription_id je vyžadováno pro action=unsubscribe."
+  },
+  "de": {
+    "tool.description": "Kündigen Sie ein OPC UA-Abonnement über subscription_id oder listen Sie aktive Abonnements auf.",
+    "param.action.description": "Aktion: „Abbestellen“ (Standard) oder „Liste“.",
+    "param.subscription_id.description": "Zu kündigende Abonnement-ID (erforderlich für action=unsubscribe).",
+    "param.fmt.description": "Format: JSON oder Text.",
+    "msg.no_subscriptions": "Keine aktiven OPC UA-Abonnements.",
+    "msg.header": "Aktive OPC UA-Abonnements ({count}):",
+    "msg.unsubscribed": "OPC UA-Abonnement {id} gekündigt.",
+    "err.id_required": "subscription_id ist für action=unsubscribe erforderlich."
+  },
+  "el": {
+    "tool.description": "Ακυρώστε μια συνδρομή OPC UA κατά subscription_id ή καταχωρίστε τις ενεργές συνδρομές.",
+    "param.action.description": "Ενέργεια: «κατάργηση εγγραφής» (προεπιλογή) ή «λίστα».",
+    "param.subscription_id.description": "Αναγνωριστικό συνδρομής για ακύρωση (απαιτείται για action=unsubscribe).",
+    "param.fmt.description": "Μορφή: json ή κείμενο.",
+    "msg.no_subscriptions": "Δεν υπάρχουν ενεργές συνδρομές OPC UA.",
+    "msg.header": "Ενεργές συνδρομές OPC UA ({count}):",
+    "msg.unsubscribed": "Η συνδρομή OPC UA {id} ακυρώθηκε.",
+    "err.id_required": "Το subscription_id απαιτείται για action=unsubscribe."
+  },
+  "es": {
+    "tool.description": "Cancele una suscripción de OPC UA por id_suscripción o enumere las suscripciones activas.",
+    "param.action.description": "Acción: 'cancelar suscripción' (predeterminado) o 'lista'.",
+    "param.subscription_id.description": "ID de suscripción para cancelar (requerido para acción=cancelar suscripción).",
+    "param.fmt.description": "Formato: json o texto.",
+    "msg.no_subscriptions": "No hay suscripciones activas a OPC UA.",
+    "msg.header": "Suscripciones activas de OPC UA ({count}):",
+    "msg.unsubscribed": "Suscripción OPC UA {id} cancelada.",
+    "err.id_required": "Se requiere id_suscripción para acción=cancelar suscripción."
+  },
+  "fa": {
+    "tool.description": "اشتراک OPC UA را با subscription_id لغو کنید یا اشتراک‌های فعال را فهرست کنید.",
+    "param.action.description": "اقدام: «لغو اشتراک» (پیش‌فرض) یا «فهرست».",
+    "param.subscription_id.description": "شناسه اشتراک برای لغو (الزامی برای اقدام = لغو اشتراک).",
+    "param.fmt.description": "فرمت: json یا متن.",
+    "msg.no_subscriptions": "هیچ اشتراک OPC UA فعالی وجود ندارد.",
+    "msg.header": "اشتراک‌های فعال OPC UA ({count}):",
+    "msg.unsubscribed": "اشتراک OPC UA {id} لغو شد.",
+    "err.id_required": "subscription_id برای action=unsubscribe مورد نیاز است."
+  },
+  "fi": {
+    "tool.description": "Peruuta OPC UA -tilaus subscription_id-tunnuksella tai luettele aktiiviset tilaukset.",
+    "param.action.description": "Toimi: \"peru tilaus\" (oletus) tai \"luettelo\".",
+    "param.subscription_id.description": "Peruutettava tilaustunnus (pakollinen toimintoon = unsubscribe).",
+    "param.fmt.description": "Muoto: json tai teksti.",
+    "msg.no_subscriptions": "Ei aktiivisia OPC UA -tilauksia.",
+    "msg.header": "Aktiiviset OPC UA -tilaukset ({count}):",
+    "msg.unsubscribed": "OPC UA -tilaus {id} peruutettu.",
+    "err.id_required": "tilaustunnus vaaditaan parametrille action=unsubscribe."
+  },
+  "fr": {
+    "tool.description": "Annulez un abonnement OPC UA par souscription_id ou répertoriez les abonnements actifs.",
+    "param.action.description": "Action : « se désabonner » (par défaut) ou « lister ».",
+    "param.subscription_id.description": "ID d'abonnement à annuler (obligatoire pour action = désabonnement).",
+    "param.fmt.description": "Format : json ou texte.",
+    "msg.no_subscriptions": "Aucun abonnement OPC UA actif.",
+    "msg.header": "Abonnements OPC UA actifs ({count}) :",
+    "msg.unsubscribed": "Abonnement OPC UA {id} annulé.",
+    "err.id_required": "Subscribe_id est requis pour action=unsubscribe."
+  },
+  "he": {
+    "tool.description": "בטל מנוי OPC UA לפי subscription_id, או רשום מנויים פעילים.",
+    "param.action.description": "פעולה: 'בטל מנוי' (ברירת מחדל) או 'רשימה'.",
+    "param.subscription_id.description": "מזהה מנוי לביטול (נדרש עבור פעולה=ביטול הרשמה).",
+    "param.fmt.description": "פורמט: json או טקסט.",
+    "msg.no_subscriptions": "אין מנויי OPC UA פעילים.",
+    "msg.header": "מנויי OPC UA פעילים ({count}):",
+    "msg.unsubscribed": "מנוי OPC UA {id} בוטל.",
+    "err.id_required": "subscription_id נדרש עבור action=unsubscribe."
+  },
+  "hi": {
+    "tool.description": "Subscription_id द्वारा OPC UA सदस्यता रद्द करें, या सक्रिय सदस्यताएँ सूचीबद्ध करें।",
+    "param.action.description": "क्रिया: 'सदस्यता समाप्त करें' (डिफ़ॉल्ट) या 'सूची'।",
+    "param.subscription_id.description": "रद्द करने के लिए सदस्यता आईडी (कार्रवाई के लिए आवश्यक=सदस्यता समाप्त)।",
+    "param.fmt.description": "प्रारूप: json या text.",
+    "msg.no_subscriptions": "कोई सक्रिय ओपीसी यूए सदस्यता नहीं।",
+    "msg.header": "सक्रिय OPC UA सदस्यताएँ ({count}):",
+    "msg.unsubscribed": "ओपीसी यूए सदस्यता {id} रद्द कर दी गई।",
+    "err.id_required": "कार्रवाई=सदस्यता समाप्त करने के लिए subscribe_id आवश्यक है।"
+  },
+  "hu": {
+    "tool.description": "Töröljön egy OPC UA-előfizetést az előfizetés_azonosítójával, vagy sorolja fel az aktív előfizetéseket.",
+    "param.action.description": "Művelet: „leiratkozás” (alapértelmezett) vagy „lista”.",
+    "param.subscription_id.description": "Lemondandó előfizetési azonosító (szükséges a művelet=leiratkozáshoz).",
+    "param.fmt.description": "Formátum: json vagy szöveg.",
+    "msg.no_subscriptions": "Nincs aktív OPC UA előfizetés.",
+    "msg.header": "Aktív OPC UA előfizetések ({count}):",
+    "msg.unsubscribed": "Az OPC UA {id} előfizetése törölve.",
+    "err.id_required": "Az action=unsubscribe paraméterhez az előfizetés_azonosítója szükséges."
+  },
+  "id": {
+    "tool.description": "Batalkan langganan OPC UA berdasarkan langganan_id, atau daftarkan langganan aktif.",
+    "param.action.description": "Tindakan: 'berhenti berlangganan' (default) atau 'daftar'.",
+    "param.subscription_id.description": "ID langganan yang akan dibatalkan (diperlukan untuk tindakan=berhenti berlangganan).",
+    "param.fmt.description": "Format: json atau teks.",
+    "msg.no_subscriptions": "Tidak ada langganan OPC UA yang aktif.",
+    "msg.header": "Langganan OPC UA aktif ({count}):",
+    "msg.unsubscribed": "Langganan OPC UA {id} dibatalkan.",
+    "err.id_required": "ID_langganan diperlukan untuk tindakan=berhenti berlangganan."
+  },
+  "it": {
+    "tool.description": "Annulla un abbonamento OPC UA tramite membership_id o elenca gli abbonamenti attivi.",
+    "param.action.description": "Azione: 'annulla iscrizione' (impostazione predefinita) o 'lista'.",
+    "param.subscription_id.description": "ID abbonamento da annullare (richiesto per action=unsubscribe).",
+    "param.fmt.description": "Formato: json o testo.",
+    "msg.no_subscriptions": "Nessun abbonamento OPC UA attivo.",
+    "msg.header": "Abbonamenti OPC UA attivi ({count}):",
+    "msg.unsubscribed": "Abbonamento OPC UA {id} annullato.",
+    "err.id_required": "membership_id è obbligatorio per action=unsubscribe."
+  },
+  "ja": {
+    "tool.description": "subscription_id で OPC UA サブスクリプションをキャンセルするか、アクティブなサブスクリプションを一覧表示します。",
+    "param.action.description": "アクション: 'unsubscribe' (デフォルト) または 'list'。",
+    "param.subscription_id.description": "キャンセルするサブスクリプション ID (action=unsubscribe の場合は必須)。",
+    "param.fmt.description": "形式: json またはテキスト。",
+    "msg.no_subscriptions": "アクティブな OPC UA サブスクリプションがありません。",
+    "msg.header": "アクティブな OPC UA サブスクリプション ({count}):",
+    "msg.unsubscribed": "OPC UA サブスクリプション {id} がキャンセルされました。",
+    "err.id_required": "action=unsubscribe には subscription_id が必要です。"
+  },
+  "ko": {
+    "tool.description": "Subscription_id로 OPC UA 구독을 취소하거나 활성 구독을 나열합니다.",
+    "param.action.description": "조치: '구독 취소'(기본값) 또는 '목록'.",
+    "param.subscription_id.description": "취소할 구독 ID입니다(작업=구독 취소에 필요).",
+    "param.fmt.description": "형식: json 또는 텍스트.",
+    "msg.no_subscriptions": "활성 OPC UA 구독이 없습니다.",
+    "msg.header": "활성 OPC UA 구독({count}):",
+    "msg.unsubscribed": "OPC UA 구독 {id}이 취소되었습니다.",
+    "err.id_required": "action=unsubscribe에는 subscribe_id가 필요합니다."
+  },
+  "mn": {
+    "tool.description": "OPC UA захиалгыг subscription_id-ээр цуцлах эсвэл идэвхтэй захиалгыг жагсаана уу.",
+    "param.action.description": "Үйлдэл: 'бүртгэлээ цуцлах' (өгөгдмөл) эсвэл 'жагсаалт'.",
+    "param.subscription_id.description": "Цуцлах захиалгын ID (үйлдэл=захиа цуцлахад шаардлагатай).",
+    "param.fmt.description": "Формат: json эсвэл текст.",
+    "msg.no_subscriptions": "Идэвхтэй OPC UA захиалга алга.",
+    "msg.header": "Идэвхтэй OPC UA захиалга ({count}):",
+    "msg.unsubscribed": "OPC UA захиалга {id} цуцлагдсан.",
+    "err.id_required": "Үйлдэл=бүртгэлээ цуцлахад subscription_id шаардлагатай."
+  },
+  "mr": {
+    "tool.description": "subscription_id द्वारे OPC UA सबस्क्रिप्शन रद्द करा किंवा सक्रिय सदस्यांची यादी करा.",
+    "param.action.description": "क्रिया: 'सदस्यता रद्द करा' (डिफॉल्ट) किंवा 'सूची'.",
+    "param.subscription_id.description": "रद्द करण्यासाठी सबस्क्रिप्शन आयडी (कृतीसाठी आवश्यक आहे=सदस्यता रद्द).",
+    "param.fmt.description": "स्वरूप: json किंवा मजकूर.",
+    "msg.no_subscriptions": "कोणतेही सक्रिय OPC UA सदस्यता नाहीत.",
+    "msg.header": "सक्रिय OPC UA सदस्यता ({count}):",
+    "msg.unsubscribed": "OPC UA सदस्यता {id} रद्द केली.",
+    "err.id_required": "कृती = सदस्यत्व रद्द करण्यासाठी subscription_id आवश्यक आहे."
+  },
+  "nb": {
+    "tool.description": "Avbryt et OPC UA-abonnement med subscription_id, eller oppgi aktive abonnementer.",
+    "param.action.description": "Handling: 'unsubscribe' (standard) eller 'list'.",
+    "param.subscription_id.description": "Abonnements-ID for å kansellere (påkrevd for handling=avslutt abonnement).",
+    "param.fmt.description": "Format: json eller tekst.",
+    "msg.no_subscriptions": "Ingen aktive OPC UA-abonnementer.",
+    "msg.header": "Aktive OPC UA-abonnementer ({count}):",
+    "msg.unsubscribed": "OPC UA-abonnement {id} kansellert.",
+    "err.id_required": "subscription_id kreves for action=unsubscribe."
+  },
+  "nl": {
+    "tool.description": "Annuleer een OPC UA-abonnement via abonnements_id of vermeld actieve abonnementen.",
+    "param.action.description": "Actie: 'uitschrijven' (standaard) of 'lijst'.",
+    "param.subscription_id.description": "Abonnement-ID om te annuleren (vereist voor actie=afmelden).",
+    "param.fmt.description": "Formaat: json of tekst.",
+    "msg.no_subscriptions": "Geen actieve OPC UA-abonnementen.",
+    "msg.header": "Actieve OPC UA-abonnementen ({count}):",
+    "msg.unsubscribed": "OPC UA-abonnement {id} geannuleerd.",
+    "err.id_required": "abonnement_id is vereist voor actie=afmelden."
+  },
+  "pl": {
+    "tool.description": "Anuluj subskrypcję OPC UA według identyfikatora subskrypcji lub wyświetl listę aktywnych subskrypcji.",
+    "param.action.description": "Akcja: „anuluj subskrypcję” (domyślnie) lub „lista”.",
+    "param.subscription_id.description": "Identyfikator subskrypcji do anulowania (wymagany dla akcji = anulowanie subskrypcji).",
+    "param.fmt.description": "Format: json lub tekst.",
+    "msg.no_subscriptions": "Brak aktywnych subskrypcji OPC UA.",
+    "msg.header": "Aktywne subskrypcje OPC UA ({count}):",
+    "msg.unsubscribed": "Subskrypcja OPC UA {id} anulowana.",
+    "err.id_required": "identyfikator_subskrypcji jest wymagany dla akcji=unsubscribe."
+  },
+  "pt": {
+    "tool.description": "Cancele uma assinatura OPC UA por subscription_id ou liste assinaturas ativas.",
+    "param.action.description": "Ação: 'cancelar inscrição' (padrão) ou 'listar'.",
+    "param.subscription_id.description": "ID da assinatura a ser cancelada (obrigatório para action=unsubscribe).",
+    "param.fmt.description": "Formato: json ou texto.",
+    "msg.no_subscriptions": "Nenhuma assinatura ativa do OPC UA.",
+    "msg.header": "Assinaturas OPC UA ativas ({count}):",
+    "msg.unsubscribed": "Assinatura OPC UA {id} cancelada.",
+    "err.id_required": "subscription_id é necessário para action=unsubscribe."
+  },
+  "pt_BR": {
+    "tool.description": "Cancele uma assinatura OPC UA por subscription_id ou liste assinaturas ativas.",
+    "param.action.description": "Ação: 'cancelar inscrição' (padrão) ou 'listar'.",
+    "param.subscription_id.description": "ID da assinatura a ser cancelada (obrigatório para action=unsubscribe).",
+    "param.fmt.description": "Formato: json ou texto.",
+    "msg.no_subscriptions": "Nenhuma assinatura ativa do OPC UA.",
+    "msg.header": "Assinaturas OPC UA ativas ({count}):",
+    "msg.unsubscribed": "Assinatura OPC UA {id} cancelada.",
+    "err.id_required": "subscription_id é necessário para action=unsubscribe."
+  },
+  "ro": {
+    "tool.description": "Anulați un abonament OPC UA prin subscription_id sau enumerați abonamentele active.",
+    "param.action.description": "Acțiune: „dezabonare” (implicit) sau „listă”.",
+    "param.subscription_id.description": "ID abonament de anulat (necesar pentru acțiune=dezabonare).",
+    "param.fmt.description": "Format: json sau text.",
+    "msg.no_subscriptions": "Nu există abonamente OPC UA active.",
+    "msg.header": "Abonamente OPC UA active ({count}):",
+    "msg.unsubscribed": "Abonamentul OPC UA {id} a fost anulat.",
+    "err.id_required": "subscription_id este necesar pentru action=unsubscribe."
+  },
+  "ru": {
+    "tool.description": "Отмените подписку OPC UA по subscribe_id или перечислите активные подписки.",
+    "param.action.description": "Действие: «отписаться» (по умолчанию) или «список».",
+    "param.subscription_id.description": "Идентификатор подписки для отмены (требуется для действия = отписаться).",
+    "param.fmt.description": "Формат: json или текст.",
+    "msg.no_subscriptions": "Нет активных подписок OPC UA.",
+    "msg.header": "Активные подписки OPC UA ({count}):",
+    "msg.unsubscribed": "Подписка OPC UA {id} отменена.",
+    "err.id_required": "subscribe_id необходим для действия = отписаться."
+  },
+  "sv": {
+    "tool.description": "Avsluta en OPC UA-prenumeration med subscription_id, eller lista aktiva prenumerationer.",
+    "param.action.description": "Åtgärd: 'avsluta prenumeration' (standard) eller 'lista'.",
+    "param.subscription_id.description": "Prenumerations-ID att avbryta (krävs för action=avsluta prenumeration).",
+    "param.fmt.description": "Format: json eller text.",
+    "msg.no_subscriptions": "Inga aktiva OPC UA-prenumerationer.",
+    "msg.header": "Aktiva OPC UA-prenumerationer ({count}):",
+    "msg.unsubscribed": "OPC UA-prenumeration {id} avbröts.",
+    "err.id_required": "subscription_id krävs för action=unsubscribe."
+  },
+  "sw": {
+    "tool.description": "Ghairi usajili wa OPC UA kwa subscription_id, au orodhesha usajili unaotumika.",
+    "param.action.description": "Kitendo: 'jiondoe' (chaguo-msingi) au 'orodha'.",
+    "param.subscription_id.description": "Kitambulisho cha Usajili ili kughairi (inahitajika kwa kitendo=kujiondoa).",
+    "param.fmt.description": "Umbizo: json au maandishi.",
+    "msg.no_subscriptions": "Hakuna usajili unaotumika wa OPC UA.",
+    "msg.header": "Usajili unaotumika wa OPC UA ({count}):",
+    "msg.unsubscribed": "Usajili wa OPC UA {id} umeghairiwa.",
+    "err.id_required": "subscription_id inahitajika kwa action=kujiondoa."
+  },
+  "th": {
+    "tool.description": "ยกเลิกการสมัครสมาชิก OPC UA โดย Subscribe_id หรือแสดงรายการการสมัครสมาชิกที่ใช้งานอยู่",
+    "param.action.description": "การดำเนินการ: 'ยกเลิกการสมัคร' (ค่าเริ่มต้น) หรือ 'รายการ'",
+    "param.subscription_id.description": "ID การสมัครสมาชิกที่จะยกเลิก (จำเป็นสำหรับ action=unsubscribe)",
+    "param.fmt.description": "รูปแบบ: json หรือข้อความ",
+    "msg.no_subscriptions": "ไม่มีการสมัครสมาชิก OPC UA ที่ใช้งานอยู่",
+    "msg.header": "การสมัคร OPC UA ที่ใช้งานอยู่ ({count}):",
+    "msg.unsubscribed": "การสมัคร OPC UA {id} ถูกยกเลิก",
+    "err.id_required": "Subscribe_id จำเป็นสำหรับ action=unsubscribe"
+  },
+  "tr": {
+    "tool.description": "OPC UA aboneliğini abonelik_id'sine göre iptal edin veya etkin abonelikleri listeleyin.",
+    "param.action.description": "Eylem: 'abonelikten çık' (varsayılan) veya 'listele'.",
+    "param.subscription_id.description": "İptal edilecek abonelik kimliği (işlem=aboneliği iptal etmek için gereklidir).",
+    "param.fmt.description": "Biçim: json veya metin.",
+    "msg.no_subscriptions": "Aktif OPC UA aboneliği yok.",
+    "msg.header": "Aktif OPC UA abonelikleri ({count}):",
+    "msg.unsubscribed": "OPC UA aboneliği {id} iptal edildi.",
+    "err.id_required": "action=aboneliği iptal etmek için abonelik_kimliği gereklidir."
+  },
+  "uk": {
+    "tool.description": "Скасуйте підписку на OPC UA за subscription_id або перелікуйте активні підписки.",
+    "param.action.description": "Дія: «скасувати підписку» (за замовчуванням) або «список».",
+    "param.subscription_id.description": "Ідентифікатор підписки для скасування (необхідний для action=unsubscribe).",
+    "param.fmt.description": "Формат: json або текстовий.",
+    "msg.no_subscriptions": "Немає активних підписок на OPC UA.",
+    "msg.header": "Активні підписки на OPC UA ({count}):",
+    "msg.unsubscribed": "Підписку на OPC UA {id} скасовано.",
+    "err.id_required": "subscription_id необхідний для action=unsubscribe."
+  },
+  "vi": {
+    "tool.description": "Hủy đăng ký OPC UA theo subscribe_id hoặc liệt kê các đăng ký đang hoạt động.",
+    "param.action.description": "Hành động: 'hủy đăng ký' (mặc định) hoặc 'danh sách'.",
+    "param.subscription_id.description": "ID đăng ký cần hủy (bắt buộc đối với hành động=hủy đăng ký).",
+    "param.fmt.description": "Định dạng: json hoặc văn bản.",
+    "msg.no_subscriptions": "Không có đăng ký OPC UA đang hoạt động.",
+    "msg.header": "Đăng ký OPC UA đang hoạt động ({count}):",
+    "msg.unsubscribed": "Đăng ký OPC UA {id} đã bị hủy.",
+    "err.id_required": "subscribe_id là bắt buộc đối với action=unsubscribe."
+  },
+  "zh_CN": {
+    "tool.description": "通过 subscription_id 取消 OPC UA 订阅，或列出活动订阅。",
+    "param.action.description": "操作：“取消订阅”（默认）或“列表”。",
+    "param.subscription_id.description": "要取消的订阅 ID（操作 = 取消订阅时需要）。",
+    "param.fmt.description": "格式：json 或文本。",
+    "msg.no_subscriptions": "没有有效的 OPC UA 订阅。",
+    "msg.header": "有效的 OPC UA 订阅 ({count})：",
+    "msg.unsubscribed": "OPC UA 订阅 {id} 已取消。",
+    "err.id_required": "action=unsubscribe 需要 subscription_id。"
+  },
+  "zh_TW": {
+    "tool.description": "透過 subscription_id 取消 OPC UA 訂閱，或列出活動訂閱。",
+    "param.action.description": "操作：「取消訂閱」（預設）或「清單」。",
+    "param.subscription_id.description": "要取消的訂閱 ID（操作 = 取消訂閱時需要）。",
+    "param.fmt.description": "格式：json 或文字。",
+    "msg.no_subscriptions": "沒有有效的 OPC UA 訂閱。",
+    "msg.header": "有效的 OPC UA 訂閱 ({count})：",
+    "msg.unsubscribed": "OPC UA 訂閱 {id} 已取消。",
+    "err.id_required": "action=unsubscribe 需要 subscription_id。"
+  }
+}

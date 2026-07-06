@@ -55,6 +55,22 @@ The main `tool_genre: "iot"` tools are:
 - `bacnet_cov_subscribe`
 - `bacnet_cov_unsubscribe`
 
+### OPC UA
+
+- `opcua_scan`
+- `opcua_browse`
+- `opcua_read`
+- `opcua_write`
+- `opcua_subscribe`
+- `opcua_unsubscribe`
+
+Best for:
+
+- Industrial automation and SCADA integration
+- Reading/writing variable values via NodeId
+- Subscribing to data changes (push notifications)
+- Browsing server address space
+
 ### UPnP
 
 - `upnp_scan`

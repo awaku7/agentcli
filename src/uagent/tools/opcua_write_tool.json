@@ -1,0 +1,308 @@
+{
+  "en": {
+    "tool.description": "Write a value to an OPC UA server node.",
+    "param.url.description": "OPC UA server URL.",
+    "param.node_id.description": "Target node ID (e.g. 'i=85' or 'ns=2;s=Setpoint').",
+    "param.value.description": "Value to write. Use type hint for non-string types.",
+    "param.type.description": "Data type hint for the value: string, int, float, bool.",
+    "param.fmt.description": "Format: json or text.",
+    "msg.summary": "OPC UA write: {node} = {val}"
+  },
+  "ar": {
+    "tool.description": "اكتب قيمة إلى عقدة خادم OPC UA.",
+    "param.url.description": "عنوان URL لخادم OPC UA.",
+    "param.node_id.description": "معرف العقدة الهدف (على سبيل المثال، 'i=85' أو 'ns=2;s=Setpoint').",
+    "param.value.description": "القيمة للكتابة. استخدم تلميح النوع للأنواع غير النصية.",
+    "param.type.description": "تلميح نوع البيانات للقيمة: string، int، float، bool.",
+    "param.fmt.description": "التنسيق: json أو نص.",
+    "msg.summary": "OPC UA اكتب: {node} = {val}"
+  },
+  "bn": {
+    "tool.description": "একটি OPC UA সার্ভার নোডে একটি মান লিখুন।",
+    "param.url.description": "OPC UA সার্ভার URL।",
+    "param.node_id.description": "টার্গেট নোড আইডি (যেমন 'i=85' বা 'ns=2;s=Setpoint')।",
+    "param.value.description": "লেখার মান। নন-স্ট্রিং ধরনের জন্য টাইপ ইঙ্গিত ব্যবহার করুন।",
+    "param.type.description": "মানের জন্য ডেটা টাইপ ইঙ্গিত: স্ট্রিং, int, ফ্লোট, বুল।",
+    "param.fmt.description": "বিন্যাস: json বা পাঠ্য।",
+    "msg.summary": "OPC UA লিখুন: {node} = {val}"
+  },
+  "cs": {
+    "tool.description": "Zapište hodnotu do uzlu serveru OPC UA.",
+    "param.url.description": "URL serveru OPC UA.",
+    "param.node_id.description": "ID cílového uzlu (např. 'i=85' nebo 'ns=2;s=Setpoint').",
+    "param.value.description": "Hodnota k zápisu. Pro neřetězcové typy použijte typovou nápovědu.",
+    "param.type.description": "Nápověda k datovému typu pro hodnotu: string, int, float, bool.",
+    "param.fmt.description": "Formát: json nebo text.",
+    "msg.summary": "Zápis OPC UA: {node} = {val}"
+  },
+  "de": {
+    "tool.description": "Schreiben Sie einen Wert auf einen OPC UA-Serverknoten.",
+    "param.url.description": "OPC UA-Server-URL.",
+    "param.node_id.description": "Zielknoten-ID (z. B. „i=85“ oder „ns=2;s=Setpoint“).",
+    "param.value.description": "Wert zu schreiben. Verwenden Sie den Typhinweis für Nicht-String-Typen.",
+    "param.type.description": "Datentyphinweis für den Wert: string, int, float, bool.",
+    "param.fmt.description": "Format: JSON oder Text.",
+    "msg.summary": "OPC UA schreiben: {node} = {val}"
+  },
+  "el": {
+    "tool.description": "Γράψτε μια τιμή σε έναν κόμβο διακομιστή OPC UA.",
+    "param.url.description": "URL διακομιστή OPC UA.",
+    "param.node_id.description": "Αναγνωριστικό κόμβου στόχου (π.χ. 'i=85' ή 'ns=2;s=σημείο ρύθμισης').",
+    "param.value.description": "Αξία γραφής. Χρησιμοποιήστε την υπόδειξη τύπου για τύπους χωρίς συμβολοσειρά.",
+    "param.type.description": "Υπόδειξη τύπου δεδομένων για την τιμή: string, int, float, bool.",
+    "param.fmt.description": "Μορφή: json ή κείμενο.",
+    "msg.summary": "Εγγραφή OPC UA: {node} = {val}"
+  },
+  "es": {
+    "tool.description": "Escriba un valor en un nodo del servidor OPC UA.",
+    "param.url.description": "URL del servidor OPC UA.",
+    "param.node_id.description": "ID del nodo de destino (por ejemplo, 'i=85' o 'ns=2;s=Setpoint').",
+    "param.value.description": "Valor para escribir. Utilice sugerencias de tipo para tipos que no sean cadenas.",
+    "param.type.description": "Sugerencia de tipo de datos para el valor: cadena, int, flotante, bool.",
+    "param.fmt.description": "Formato: json o texto.",
+    "msg.summary": "Escritura OPC UA: {node} = {val}"
+  },
+  "fa": {
+    "tool.description": "یک مقدار برای یک گره سرور OPC UA بنویسید.",
+    "param.url.description": "URL سرور OPC UA.",
+    "param.node_id.description": "شناسه گره هدف (به عنوان مثال 'i=85' یا 'ns=2;s=Setpoint').",
+    "param.value.description": "ارزش نوشتن از نوع اشاره برای انواع غیر رشته ای استفاده کنید.",
+    "param.type.description": "اشاره نوع داده برای مقدار: string، int، float، bool.",
+    "param.fmt.description": "فرمت: json یا متن.",
+    "msg.summary": "نوشتن OPC UA: {node} = {val}"
+  },
+  "fi": {
+    "tool.description": "Kirjoita arvo OPC UA -palvelinsolmuun.",
+    "param.url.description": "OPC UA -palvelimen URL-osoite.",
+    "param.node_id.description": "Kohdesolmun tunnus (esim. 'i=85' tai 'ns=2;s=Asetuspiste').",
+    "param.value.description": "Arvo kirjoitettavaksi. Käytä tyyppivihjettä ei-merkkijonotyypeille.",
+    "param.type.description": "Tietotyyppivinkki arvolle: string, int, float, bool.",
+    "param.fmt.description": "Muoto: json tai teksti.",
+    "msg.summary": "OPC UA kirjoittaa: {node} = {val}"
+  },
+  "fr": {
+    "tool.description": "Écrivez une valeur sur un nœud de serveur OPC UA.",
+    "param.url.description": "URL du serveur OPC UA.",
+    "param.node_id.description": "ID du nœud cible (par exemple « i=85 » ou « ns=2 ;s=Setpoint »).",
+    "param.value.description": "Valeur à écrire. Utilisez l'indice de type pour les types autres que des chaînes.",
+    "param.type.description": "Indice de type de données pour la valeur : string, int, float, bool.",
+    "param.fmt.description": "Format : json ou texte.",
+    "msg.summary": "Ecriture OPC UA : {node} = {val}"
+  },
+  "he": {
+    "tool.description": "כתוב ערך לצומת שרת OPC UA.",
+    "param.url.description": "כתובת URL של שרת OPC UA.",
+    "param.node_id.description": "מזהה צומת יעד (למשל 'i=85' או 'ns=2;s=Setpoint').",
+    "param.value.description": "ערך לכתיבה. השתמש ברמז סוג עבור סוגי לא מחרוזת.",
+    "param.type.description": "רמז לסוג הנתונים עבור הערך: string, int, float, bool.",
+    "param.fmt.description": "פורמט: json או טקסט.",
+    "msg.summary": "OPC UA כתוב: {node} = {val}"
+  },
+  "hi": {
+    "tool.description": "ओपीसी यूए सर्वर नोड के लिए एक मान लिखें।",
+    "param.url.description": "ओपीसी यूए सर्वर यूआरएल।",
+    "param.node_id.description": "लक्ष्य नोड आईडी (जैसे 'i=85' या 'ns=2;s=Setpoint')।",
+    "param.value.description": "लिखने का मूल्य. गैर-स्ट्रिंग प्रकारों के लिए प्रकार संकेत का उपयोग करें।",
+    "param.type.description": "मान के लिए डेटा प्रकार संकेत: स्ट्रिंग, इंट, फ्लोट, बूल।",
+    "param.fmt.description": "प्रारूप: json या text.",
+    "msg.summary": "ओपीसी यूए लिखें: {node} = {val}"
+  },
+  "hu": {
+    "tool.description": "Írjon egy értéket egy OPC UA szerver csomópontba.",
+    "param.url.description": "OPC UA szerver URL.",
+    "param.node_id.description": "Célcsomópont-azonosító (pl. 'i=85' vagy 'ns=2;s=Setpoint').",
+    "param.value.description": "Írandó érték. Használjon típusú tippet a nem karakterláncos típusokhoz.",
+    "param.type.description": "Adattípus tipp az értékhez: string, int, float, bool.",
+    "param.fmt.description": "Formátum: json vagy szöveg.",
+    "msg.summary": "OPC UA írás: {node} = {val}"
+  },
+  "id": {
+    "tool.description": "Tulis nilai ke node server OPC UA.",
+    "param.url.description": "URL server OPC UA.",
+    "param.node_id.description": "ID simpul target (misalnya 'i=85' atau 'ns=2;s=Setpoint').",
+    "param.value.description": "Nilai untuk ditulis. Gunakan petunjuk tipe untuk tipe non-string.",
+    "param.type.description": "Petunjuk tipe data untuk nilai: string, int, float, bool.",
+    "param.fmt.description": "Format: json atau teks.",
+    "msg.summary": "OPC UA tulis: {node} = {val}"
+  },
+  "it": {
+    "tool.description": "Scrivere un valore su un nodo del server OPC UA.",
+    "param.url.description": "URL del server OPC UA.",
+    "param.node_id.description": "ID del nodo di destinazione (ad esempio 'i=85' o 'ns=2;s=Setpoint').",
+    "param.value.description": "Valore da scrivere. Utilizza il suggerimento sul tipo per i tipi non stringa.",
+    "param.type.description": "Suggerimento sul tipo di dati per il valore: string, int, float, bool.",
+    "param.fmt.description": "Formato: json o testo.",
+    "msg.summary": "OPC UA scrive: {node} = {val}"
+  },
+  "ja": {
+    "tool.description": "OPC UA サーバー ノードに値を書き込みます。",
+    "param.url.description": "OPC UA サーバーの URL。",
+    "param.node_id.description": "ターゲット ノード ID (例: 'i=85' または 'ns=2;s=Setpoint')。",
+    "param.value.description": "書き込む値。非文字列型には型ヒントを使用します。",
+    "param.type.description": "値のデータ型ヒント: string、int、float、bool。",
+    "param.fmt.description": "形式: json またはテキスト。",
+    "msg.summary": "OPC UA 書き込み: {node} = {val}"
+  },
+  "ko": {
+    "tool.description": "OPC UA 서버 노드에 값을 씁니다.",
+    "param.url.description": "OPC UA 서버 URL.",
+    "param.node_id.description": "대상 노드 ID(예: 'i=85' 또는 'ns=2;s=Setpoint').",
+    "param.value.description": "쓸 값입니다. 문자열이 아닌 유형에는 유형 힌트를 사용하십시오.",
+    "param.type.description": "값에 대한 데이터 유형 힌트: string, int, float, bool.",
+    "param.fmt.description": "형식: json 또는 텍스트.",
+    "msg.summary": "OPC UA 쓰기: {node} = {val}"
+  },
+  "mn": {
+    "tool.description": "OPC UA серверийн зангилаа руу утгыг бичнэ үү.",
+    "param.url.description": "OPC UA серверийн URL.",
+    "param.node_id.description": "Зорилтот зангилааны ID (жишээ нь: 'i=85' эсвэл 'ns=2;s=Setpoint').",
+    "param.value.description": "Бичих үнэ цэнэ. Мөр бус төрлүүдэд төрлийн зөвлөмжийг ашиглана уу.",
+    "param.type.description": "Утгын өгөгдлийн төрлийн зөвлөмж: string, int, float, bool.",
+    "param.fmt.description": "Формат: json эсвэл текст.",
+    "msg.summary": "OPC UA бичих: {node} = {val}"
+  },
+  "mr": {
+    "tool.description": "OPC UA सर्व्हर नोडवर मूल्य लिहा.",
+    "param.url.description": "OPC UA सर्व्हर URL.",
+    "param.node_id.description": "लक्ष्य नोड आयडी (उदा. 'i=85' किंवा 'ns=2;s=Setpoint').",
+    "param.value.description": "लिहिण्याचं मोल. नॉन-स्ट्रिंग प्रकारांसाठी टाइप इशारा वापरा.",
+    "param.type.description": "मूल्यासाठी डेटा प्रकार इशारा: स्ट्रिंग, इंट, फ्लोट, बूल.",
+    "param.fmt.description": "स्वरूप: json किंवा मजकूर.",
+    "msg.summary": "OPC UA लिहा: {node} = {val}"
+  },
+  "nb": {
+    "tool.description": "Skriv en verdi til en OPC UA-servernode.",
+    "param.url.description": "OPC UA server URL.",
+    "param.node_id.description": "Målnode-ID (f.eks. 'i=85' eller 'ns=2;s=settpunkt').",
+    "param.value.description": "Verdi å skrive. Bruk typehint for ikke-strengtyper.",
+    "param.type.description": "Datatypehint for verdien: string, int, float, bool.",
+    "param.fmt.description": "Format: json eller tekst.",
+    "msg.summary": "OPC UA-skriv: {node} = {val}"
+  },
+  "nl": {
+    "tool.description": "Schrijf een waarde naar een OPC UA-serverknooppunt.",
+    "param.url.description": "OPC UA-server-URL.",
+    "param.node_id.description": "Doelknooppunt-ID (bijvoorbeeld 'i=85' of 'ns=2;s=Setpoint').",
+    "param.value.description": "Waarde om te schrijven. Gebruik typehint voor niet-tekenreekstypen.",
+    "param.type.description": "Gegevenstypehint voor de waarde: string, int, float, bool.",
+    "param.fmt.description": "Formaat: json of tekst.",
+    "msg.summary": "OPC UA-schrijf: {node} = {val}"
+  },
+  "pl": {
+    "tool.description": "Zapisz wartość w węźle serwera OPC UA.",
+    "param.url.description": "Adres URL serwera OPC UA.",
+    "param.node_id.description": "Identyfikator węzła docelowego (np. „i=85” lub „ns=2;s=Setpoint”).",
+    "param.value.description": "Wartość do napisania. Użyj wskazówki dotyczącej typu dla typów innych niż ciąg.",
+    "param.type.description": "Wskazówka dotycząca typu danych dla wartości: string, int, float, bool.",
+    "param.fmt.description": "Format: json lub tekst.",
+    "msg.summary": "Zapis OPC UA: {node} = {val}"
+  },
+  "pt": {
+    "tool.description": "Escreva um valor em um nó do servidor OPC UA.",
+    "param.url.description": "URL do servidor OPC UA.",
+    "param.node_id.description": "ID do nó de destino (por exemplo, 'i=85' ou 'ns=2;s=Setpoint').",
+    "param.value.description": "Valor para escrever. Use dica de tipo para tipos que não sejam string.",
+    "param.type.description": "Dica de tipo de dados para o valor: string, int, float, bool.",
+    "param.fmt.description": "Formato: json ou texto.",
+    "msg.summary": "Gravação OPC UA: {node} = {val}"
+  },
+  "pt_BR": {
+    "tool.description": "Escreva um valor em um nó do servidor OPC UA.",
+    "param.url.description": "URL do servidor OPC UA.",
+    "param.node_id.description": "ID do nó de destino (por exemplo, 'i=85' ou 'ns=2;s=Setpoint').",
+    "param.value.description": "Valor para escrever. Use dica de tipo para tipos que não sejam string.",
+    "param.type.description": "Dica de tipo de dados para o valor: string, int, float, bool.",
+    "param.fmt.description": "Formato: json ou texto.",
+    "msg.summary": "Gravação OPC UA: {node} = {val}"
+  },
+  "ro": {
+    "tool.description": "Scrieți o valoare într-un nod de server OPC UA.",
+    "param.url.description": "Adresa URL a serverului OPC UA.",
+    "param.node_id.description": "ID-ul nodului țintă (de exemplu, „i=85” sau „ns=2;s=Setpoint”).",
+    "param.value.description": "Valoare de scris. Utilizați indiciu de tip pentru tipurile fără șir.",
+    "param.type.description": "Sugestie de tip de date pentru valoare: string, int, float, bool.",
+    "param.fmt.description": "Format: json sau text.",
+    "msg.summary": "Scriere OPC UA: {node} = {val}"
+  },
+  "ru": {
+    "tool.description": "Запишите значение на узел сервера OPC UA.",
+    "param.url.description": "URL-адрес сервера OPC UA.",
+    "param.node_id.description": "Идентификатор целевого узла (например, «i=85» или «ns=2;s=Setpoint»).",
+    "param.value.description": "Значение для записи. Используйте подсказку типа для нестроковых типов.",
+    "param.type.description": "Подсказка о типе данных для значения: string, int, float, bool.",
+    "param.fmt.description": "Формат: json или текст.",
+    "msg.summary": "OPC UA пишет: {node} = {val}"
+  },
+  "sv": {
+    "tool.description": "Skriv ett värde till en OPC UA-servernod.",
+    "param.url.description": "OPC UA server URL.",
+    "param.node_id.description": "Målnod-ID (t.ex. 'i=85' eller 'ns=2;s=börvärde').",
+    "param.value.description": "Värde att skriva. Använd typtips för icke-strängtyper.",
+    "param.type.description": "Datatyptips för värdet: string, int, float, bool.",
+    "param.fmt.description": "Format: json eller text.",
+    "msg.summary": "OPC UA-skriv: {node} = {val}"
+  },
+  "sw": {
+    "tool.description": "Andika thamani kwa nodi ya seva ya OPC UA.",
+    "param.url.description": "URL ya seva ya OPC UA.",
+    "param.node_id.description": "Kitambulisho cha nodi lengwa (k.m. 'i=85' au 'ns=2;s=Setpoint').",
+    "param.value.description": "Thamani ya kuandika. Tumia kidokezo cha aina kwa aina zisizo za kamba.",
+    "param.type.description": "Kidokezo cha aina ya data kwa thamani: kamba, int, kuelea, bool.",
+    "param.fmt.description": "Umbizo: json au maandishi.",
+    "msg.summary": "OPC UA andika: {node} = {val}"
+  },
+  "th": {
+    "tool.description": "เขียนค่าไปยังโหนดเซิร์ฟเวอร์ OPC UA",
+    "param.url.description": "URL เซิร์ฟเวอร์ OPC UA",
+    "param.node_id.description": "ID โหนดเป้าหมาย (เช่น 'i=85' หรือ 'ns=2;s=Setpoint')",
+    "param.value.description": "คุณค่าที่จะเขียน ใช้คำใบ้ประเภทสำหรับประเภทที่ไม่ใช่สตริง",
+    "param.type.description": "คำใบ้ชนิดข้อมูลสำหรับค่า: string, int, float, bool",
+    "param.fmt.description": "รูปแบบ: json หรือข้อความ",
+    "msg.summary": "OPC UA เขียน: {node} = {val}"
+  },
+  "tr": {
+    "tool.description": "OPC UA sunucu düğümüne bir değer yazın.",
+    "param.url.description": "OPC UA sunucu URL'si.",
+    "param.node_id.description": "Hedef düğüm kimliği (ör. 'i=85' veya 'ns=2;s=Ayar noktası').",
+    "param.value.description": "Yazılacak değer. Dize dışı türler için tür ipucunu kullanın.",
+    "param.type.description": "Değer için veri türü ipucu: string, int, float, bool.",
+    "param.fmt.description": "Biçim: json veya metin.",
+    "msg.summary": "OPC UA yazma: {node} = {val}"
+  },
+  "uk": {
+    "tool.description": "Запишіть значення на вузол сервера OPC UA.",
+    "param.url.description": "URL-адреса сервера OPC UA.",
+    "param.node_id.description": "Ідентифікатор цільового вузла (наприклад, \"i=85\" або \"ns=2;s=Setpoint\").",
+    "param.value.description": "Цінність для написання. Використовуйте підказку типу для нерядкових типів.",
+    "param.type.description": "Підказка типу даних для значення: string, int, float, bool.",
+    "param.fmt.description": "Формат: json або текстовий.",
+    "msg.summary": "OPC UA пише: {node} = {val}"
+  },
+  "vi": {
+    "tool.description": "Viết một giá trị vào nút máy chủ OPC UA.",
+    "param.url.description": "URL máy chủ OPC UA.",
+    "param.node_id.description": "ID nút mục tiêu (ví dụ: 'i=85' hoặc 'ns=2;s=Điểm đặt').",
+    "param.value.description": "Giá trị để viết. Sử dụng gợi ý loại cho các loại không phải chuỗi.",
+    "param.type.description": "Gợi ý kiểu dữ liệu cho giá trị: string, int, float, bool.",
+    "param.fmt.description": "Định dạng: json hoặc văn bản.",
+    "msg.summary": "OPC UA ghi: {node} = {val}"
+  },
+  "zh_CN": {
+    "tool.description": "将值写入 OPC UA 服务器节点。",
+    "param.url.description": "OPC UA 服务器 URL。",
+    "param.node_id.description": "目标节点 ID（例如“i=85”或“ns=2;s=Setpoint”）。",
+    "param.value.description": "值得写。对非字符串类型使用类型提示。",
+    "param.type.description": "值的数据类型提示：string、int、float、bool。",
+    "param.fmt.description": "格式：json 或文本。",
+    "msg.summary": "OPC UA 写入：{node} = {val}"
+  },
+  "zh_TW": {
+    "tool.description": "將值寫入 OPC UA 伺服器節點。",
+    "param.url.description": "OPC UA 伺服器 URL。",
+    "param.node_id.description": "目標節點 ID（例如“i=85”或“ns=2;s=Setpoint”）。",
+    "param.value.description": "值得寫。對非字串類型使用類型提示。",
+    "param.type.description": "值的資料類型提示：string、int、float、bool。",
+    "param.fmt.description": "格式：json 或文字。",
+    "msg.summary": "OPC UA 寫入：{node} = {val}"
+  }
+}
