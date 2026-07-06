@@ -3,6 +3,8 @@ from __future__ import annotations
 import json
 import socket
 import time
+import random
+import struct
 from datetime import datetime, timezone
 from typing import Any
 
@@ -228,10 +230,12 @@ def _property_value(epc: int, edt: bytes) -> tuple[Any, str]:
     return edt.hex().upper(), "hex"
 
 
-def _build_set_request(target_eoj: bytes, epc: int, edt: bytes) -> bytes:
+def _build_set_request(target_eoj: bytes, epc: int, edt: bytes, tid: int | None = None) -> bytes:
+    tid_bytes = struct.pack(">H", tid & 0xFFFF) if tid is not None else struct.pack(">H", random.randint(1, 0xFFFF))
     return b"".join(
         [
             b"\x10\x81",
+            tid_bytes,
             _DEFAULT_USER_EOJ,
             target_eoj,
             b"\x61",
@@ -439,9 +443,9 @@ def _build_control_payload(
 ) -> tuple[int, bytes, int | None, dict[str, Any] | None]:
     normalized = action.casefold().strip()
     if normalized == "on":
-        return 0x80, bytes([0x30]), 1, None
+        return 0x80, bytes([0x31]), 1, None
     if normalized == "off":
-        return 0x80, bytes([0x31]), 0, None
+        return 0x80, bytes([0x30]), 0, None
     if normalized == "open":
         if value is not None and (value < 0 or value > 100):
             return (
@@ -564,7 +568,10 @@ def _query_node(
             sock.setsockopt(socket.IPPROTO_IP, socket.IP_MULTICAST_TTL, 2)
         except Exception:
             pass
-        sock.bind(("0.0.0.0", 0))
+        try:
+            sock.bind(("0.0.0.0", 3610))
+        except OSError:
+            sock.bind(("0.0.0.0", 0))
         sock.settimeout(0.25)
 
         packet = _build_set_request(target_eoj, epc, edt)

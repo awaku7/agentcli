@@ -1,8 +1,11 @@
 from __future__ import annotations
 
 import json
+import random
 import socket
+import struct
 import time
+from concurrent.futures import ThreadPoolExecutor, as_completed
 from datetime import datetime, timezone
 from typing import Any
 
@@ -18,10 +21,124 @@ _MULTICAST_ADDR = ("224.0.23.0", 3610)
 _DEFAULT_TIMEOUT = 4
 _DEFAULT_RETRY = 1
 _DEFAULT_LIMIT = 50
-_CACHE_TTL_SECONDS = 10
+_CACHE_TTL_SECONDS = 600
 _DEFAULT_USER_EOJ = bytes.fromhex("05FF01")
 _NODE_PROFILE_EOJ = bytes.fromhex("0EF001")
 _EPC_NODE_PROFILE = {0xD5, 0xD6, 0xD7, 0x8A, 0x83}
+
+# Manufacturer code -> name mapping (from ECHONET Consortium)
+_MANUFACTURER_NAMES: dict[str, str] = {
+    "000001": "Hitachi",
+    "000005": "Sharp",
+    "000006": "Mitsubishi Electric",
+    "000008": "DAIKIN",
+    "000009": "NEC",
+    "000012": "Oi Electric",
+    "000015": "Daikin Systems&Solutions",
+    "000016": "Toshiba",
+    "000017": "Carrier Japan",
+    "000022": "Hitachi Global Life Solutions",
+    "000023": "NTT COMWARE",
+    "000025": "LIXIL",
+    "000034": "Mitsubishi Electric Engineering",
+    "000035": "Toshiba Toko Meter",
+    "000036": "NISSIN SYSTEMS",
+    "000040": "Hitachi High-Tech",
+    "000041": "ENEGATE",
+    "000043": "Toshiba D&E",
+    "000044": "Hitachi Industrial Equipment",
+    "000047": "NTT East",
+    "000048": "Oki Electric",
+    "000050": "TOTO",
+    "000051": "Fuji IT",
+    "000052": "OSAKI ELECTRIC",
+    "000053": "Ubiquitous AI",
+    "000054": "NORITZ",
+    "000055": "FAMILYNET JAPAN",
+    "000056": "iND",
+    "000057": "ELIIYPower",
+    "000058": "Mediotec",
+    "000059": "Rinnai",
+    "000060": "Sony CSL",
+    "000061": "NTT DATA INTELLILINK",
+    "000063": "Kawamura Electric",
+    "000064": "OMRON SOCIAL SOLUTIONS",
+    "000067": "CORONA",
+    "000068": "AISIN",
+    "000069": "Toshiba Lifestyle",
+    "000071": "NIHON SANGYO",
+    "000072": "Eneres",
+    "000073": "NEC Platforms",
+    "000076": "TSP",
+    "000077": "Kanagawa IT",
+    "000078": "Maxell",
+    "000079": "Anritsu Engineering",
+    "000080": "DIAMOND&ZEBRA ELECTRIC",
+    "000081": "IWATSU ELECTRIC",
+    "000082": "PURPOSE",
+    "000083": "Melco Techno Yokohama",
+    "000085": "TAKAOKA TOKO",
+    "000086": "NTT West",
+    "000087": "I-O DATA",
+    "000088": "CHOFU SEISAKUSHO",
+    "000090": "Fujitsu Component",
+    "000091": "NEC Platforms",
+    "000093": "SATORI ELECTRIC",
+    "000095": "Yamato Denki",
+    "000096": "Azbil",
+    "000097": "Future Tech Labs",
+    "000099": "TEPCO",
+    "000100": "Smart Solar",
+    "000101": "Sunpot",
+    "000102": "NICHICON",
+    "000103": "Data Technology",
+    "000104": "Next Energy",
+    "000105": "Mitsubishi Electric Lighting",
+    "000106": "Nature",
+    "000107": "SEIKO ELECTRIC",
+    "000108": "SOUSEI Technology",
+    "000109": "DENSO",
+    "000110": "ASUKA SOLUTION",
+    "000111": "Topre",
+    "000112": "NICHIEI INTEC",
+    "000113": "EBARA JITSUGYO",
+    "000114": "OkayaKiden",
+    "000115": "HUAWEI JAPAN",
+    "000116": "Sungrow",
+    "000117": "WWB",
+    "000118": "NEC Magnus",
+    "000119": "DAIHEN",
+    "000120": "Meisei electric",
+    "000121": "TOYOTA MOTOR",
+    "000122": "Hanwha Q CELLS Japan",
+    "000123": "Contec",
+    "000124": "TISI",
+    "000125": "LiveSmart",
+    "000126": "Togami Electric",
+    "000127": "Paloma",
+    "000128": "SAIKOH ENGINEERING",
+    "000129": "GoodWe Japan",
+    "000130": "COOLDESIGN",
+    "000131": "Shenzhen Eternalplanet",
+    "000132": "EX4Energy",
+    "000133": "afterFIT",
+    "000134": "GoodWe Technologies",
+    "000135": "LinkJapan",
+    "000136": "Chuo Bussan",
+    "000137": "OkayaKiden",
+    "000138": "TRENDE",
+    "000139": "RATOC Systems",
+    "000140": "Landis+Gyr",
+    "000141": "DAIKO ELECTRIC",
+    "000142": "Yanekara",
+    "000143": "Deye Energy Japan",
+    "000144": "Sky Electric Japan",
+    "000145": "Tesla Japan",
+    "000146": "NOEX",
+    "000147": "Haiot",
+    "000148": "TIGER",
+    "000149": "SYNCOMM",
+}
 
 TOOL_SPEC: dict[str, Any] = {
     "tool_genre": "iot",
@@ -71,6 +188,13 @@ TOOL_SPEC: dict[str, Any] = {
                     "description": _(
                         "param.limit.description",
                         default="Maximum number of nodes to return. 0 means unlimited.",
+                    ),
+                },
+                "refresh": {
+                    "type": "boolean",
+                    "description": _(
+                        "param.refresh.description",
+                        default="If true, bypass cache and force a fresh scan.",
                     ),
                 },
                 "fmt": {
@@ -290,13 +414,15 @@ def _eoj_bytes(text: str | None) -> bytes | None:
     return bytes.fromhex(normalized)
 
 
-def _build_get_request(target_eoj: bytes, epcs: list[int]) -> bytes:
+def _build_get_request(target_eoj: bytes, epcs: list[int], tid: int | None = None) -> bytes:
+    tid_bytes = struct.pack(">H", tid & 0xFFFF) if tid is not None else struct.pack(">H", random.randint(1, 0xFFFF))
     props: list[bytes] = []
     for epc in epcs:
         props.append(bytes([epc & 0xFF, 0x00]))
     return b"".join(
         [
             b"\x10\x81",
+            tid_bytes,
             _DEFAULT_USER_EOJ,
             target_eoj,
             b"\x62",
@@ -389,23 +515,35 @@ def _query_frames(
             sock.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
         except Exception:
             pass
+        # Bind to ECHONET port to receive multicast responses
+        bind_to = bind_ip if bind_ip else "0.0.0.0"
+        try:
+            sock.bind((bind_to, 3610))
+        except Exception:
+            try:
+                sock.bind(("0.0.0.0", 3610))
+            except Exception:
+                sock.bind(("0.0.0.0", 0))
+
+        # Join multicast group so we receive device responses
+        mcast_addr = destination[0] if destination else "224.0.23.0"
+        iface_ip = bind_ip if bind_ip else "0.0.0.0"
+        try:
+            mreq = struct.pack("4s4s", socket.inet_aton(mcast_addr), socket.inet_aton(iface_ip))
+            sock.setsockopt(socket.IPPROTO_IP, socket.IP_ADD_MEMBERSHIP, mreq)
+        except Exception:
+            pass
+
         try:
             sock.setsockopt(socket.IPPROTO_IP, socket.IP_MULTICAST_TTL, 2)
         except Exception:
             pass
-        if bind_ip:
-            try:
-                sock.bind((bind_ip, 0))
-            except Exception:
-                sock.bind(("0.0.0.0", 0))
-            try:
-                sock.setsockopt(
-                    socket.IPPROTO_IP, socket.IP_MULTICAST_IF, socket.inet_aton(bind_ip)
-                )
-            except Exception:
-                pass
-        else:
-            sock.bind(("0.0.0.0", 0))
+        try:
+            sock.setsockopt(
+                socket.IPPROTO_IP, socket.IP_MULTICAST_IF, socket.inet_aton(iface_ip)
+            )
+        except Exception:
+            pass
         sock.settimeout(0.25)
 
         frames: list[dict[str, Any]] = []
@@ -491,10 +629,14 @@ def _summarize_node_item(
     eoj_list = sorted({v for v in eoj_list if v})
 
     manufacturer = None
+    manufacturer_name = None
     if node_profile_props.get("8A"):
-        manufacturer = node_profile_props["8A"].get("raw_hex") or node_profile_props[
+        raw = node_profile_props["8A"].get("raw_hex") or node_profile_props[
             "8A"
         ].get("value")
+        manufacturer = str(raw) if raw is not None else None
+        if manufacturer is not None:
+            manufacturer_name = _MANUFACTURER_NAMES.get(manufacturer)
     model = None
     for candidate in ("83", "8B", "8C"):
         if node_profile_props.get(candidate):
@@ -513,6 +655,7 @@ def _summarize_node_item(
         "node_id": source_ip,
         "node_profile": node_profile,
         "manufacturer": manufacturer,
+        "manufacturer_name": manufacturer_name,
         "model": model,
         "eoj_list": eoj_list,
         "reachable": bool(frames),
@@ -547,7 +690,12 @@ def _format_text(payload: dict[str, Any]) -> str:
         if item.get("node_id"):
             lines.append(f"  node_id: {item.get('node_id')}")
         if item.get("manufacturer"):
-            lines.append(f"  manufacturer: {item.get('manufacturer')}")
+            mfr_code = item.get('manufacturer')
+            mfr_name = item.get('manufacturer_name')
+            if mfr_name:
+                lines.append(f"  manufacturer: {mfr_name} ({mfr_code})")
+            else:
+                lines.append(f"  manufacturer: {mfr_code}")
         if item.get("model"):
             lines.append(f"  model: {item.get('model')}")
         if item.get("eoj_list"):
@@ -567,6 +715,7 @@ def run_tool(args: dict[str, Any]) -> str:
     retry = _normalize_int(args.get("retry", _DEFAULT_RETRY), _DEFAULT_RETRY, 1)
     limit = _normalize_int(args.get("limit", _DEFAULT_LIMIT), _DEFAULT_LIMIT, 0)
     output_format = str(args.get("fmt") or "json").strip().lower()
+    refresh = bool(args.get("refresh", False))
     interface_arg = args.get("interface")
     interface = str(interface_arg).strip() if interface_arg is not None else ""
 
@@ -584,7 +733,7 @@ def run_tool(args: dict[str, Any]) -> str:
         "retry": retry,
         "limit": limit,
     }
-    cached = cache_get("scan", cache_key, ttl_seconds=_CACHE_TTL_SECONDS)
+    cached = None if refresh else cache_get("scan", cache_key, ttl_seconds=_CACHE_TTL_SECONDS)
     if cached is not None:
         payload = dict(cached.get("value") or {})
         payload["cache"] = {
@@ -621,6 +770,53 @@ def run_tool(args: dict[str, Any]) -> str:
         ]
         if limit > 0:
             items = items[:limit]
+
+        # Unicast fallback: if multicast found nothing, probe each IP directly
+        if not items and bind_ip:
+            _unicast_fallback_start = time.monotonic()
+            subnet_base = ".".join(bind_ip.split(".")[:3])
+            _epcs_simple = [0xD6]  # EPC list - minimal: just instance list
+            probe_pkt = _build_get_request(_NODE_PROFILE_EOJ, _epcs_simple)
+
+            def _unicast_probe(ip: str) -> dict[str, Any] | None:
+                sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+                sock.settimeout(timeout)
+                try:
+                    sock.sendto(probe_pkt, (ip, 3610))
+                    data, source = sock.recvfrom(65535)
+                    parsed = _parse_frame(data)
+                    if parsed:
+                        parsed["source_ip"] = source[0] if source else None
+                        parsed["source_port"] = source[1] if source else None
+                        return parsed
+                except Exception:
+                    pass
+                finally:
+                    sock.close()
+                return None
+
+            max_w = min(64, 254)
+            with ThreadPoolExecutor(max_workers=max_w) as ex:
+                fut_map = {}
+                for i in range(1, 255):
+                    ip = f"{subnet_base}.{i}"
+                    fut_map[ex.submit(_unicast_probe, ip)] = ip
+                for fut in as_completed(fut_map):
+                    try:
+                        frame = fut.result()
+                        if frame:
+                            si = str(frame.get("source_ip") or "")
+                            if si:
+                                grouped.setdefault(si, []).append(frame)
+                    except Exception:
+                        pass
+
+            items = [
+                _summarize_node_item(source_ip, grouped[source_ip])
+                for source_ip in sorted(grouped.keys())
+            ]
+            if limit > 0:
+                items = items[:limit]
 
         payload = {
             "ok": True,
