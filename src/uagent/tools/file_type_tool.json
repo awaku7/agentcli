@@ -1,0 +1,128 @@
+{
+  "en": {
+    "tool.description": "Determine the MIME type and format of files using extension, magic bytes, and heuristics.",
+    "x_search_terms": [
+      "file type",
+      "mime type",
+      "file format",
+      "detect type",
+      "file info",
+      "file identification",
+      "what type of file",
+      "file signature",
+      "magic bytes"
+    ],
+    "param.paths.description": "One or more file paths to identify.",
+    "err.no_paths": "No paths provided.",
+    "err.outside_workdir": "path outside workdir",
+    "err.not_found": "file not found"
+  },
+  "ja": {
+    "tool.description": "拡張子・マジックバイト・ヒューリスティックを用いてファイルのMIMEタイプと形式を判定します。",
+    "x_search_terms": [
+      "ファイルタイプ",
+      "MIMEタイプ",
+      "ファイル形式",
+      "ファイル種別判定",
+      "ファイル情報",
+      "ファイル識別",
+      "マジックバイト",
+      "file type",
+      "mime type"
+    ],
+    "param.paths.description": "識別するファイルパス（1つ以上）。",
+    "err.no_paths": "パスが指定されていません。",
+    "err.outside_workdir": "パスが作業ディレクトリ外です",
+    "err.not_found": "ファイルが見つかりません"
+  },
+  "es": {
+    "tool.description": "Determine el tipo MIME y el formato de los archivos utilizando la extensión, bytes mágicos y heurística.",
+    "x_search_terms": [
+      "tipo de archivo",
+      "tipo MIME",
+      "formato de archivo",
+      "detectar tipo",
+      "información de archivo",
+      "bytes mágicos"
+    ],
+    "param.paths.description": "Una o más rutas de archivo para identificar.",
+    "err.no_paths": "No se proporcionaron rutas.",
+    "err.outside_workdir": "ruta fuera del directorio de trabajo",
+    "err.not_found": "archivo no encontrado"
+  },
+  "fr": {
+    "tool.description": "Détermine le type MIME et le format des fichiers à l'aide de l'extension, des octets magiques et de l'heuristique.",
+    "x_search_terms": [
+      "type de fichier",
+      "type MIME",
+      "format de fichier",
+      "détecter le type",
+      "info fichier",
+      "octets magiques"
+    ],
+    "param.paths.description": "Un ou plusieurs chemins de fichiers à identifier.",
+    "err.no_paths": "Aucun chemin fourni.",
+    "err.outside_workdir": "chemin en dehors du répertoire de travail",
+    "err.not_found": "fichier non trouvé"
+  },
+  "ko": {
+    "tool.description": "확장자, 매직 바이트 및 휴리스틱을 사용하여 파일의 MIME 유형과 형식을 결정합니다.",
+    "x_search_terms": [
+      "파일 유형",
+      "MIME 유형",
+      "파일 형식",
+      "유형 감지",
+      "파일 정보",
+      "매직 바이트"
+    ],
+    "param.paths.description": "식별할 파일 경로(하나 이상).",
+    "err.no_paths": "경로가 제공되지 않았습니다.",
+    "err.outside_workdir": "작업 디렉터리 외부 경로",
+    "err.not_found": "파일을 찾을 수 없습니다"
+  },
+  "zh_CN": {
+    "tool.description": "使用扩展名、魔术字节和启发式方法确定文件的MIME类型和格式。",
+    "x_search_terms": [
+      "文件类型",
+      "MIME类型",
+      "文件格式",
+      "检测类型",
+      "文件信息",
+      "魔术字节"
+    ],
+    "param.paths.description": "要识别的一个或多个文件路径。",
+    "err.no_paths": "未提供路径。",
+    "err.outside_workdir": "路径在工作目录之外",
+    "err.not_found": "文件未找到"
+  },
+  "zh_TW": {
+    "tool.description": "使用副檔名、魔術位元組和啟發式方法確定檔案的MIME類型和格式。",
+    "x_search_terms": [
+      "檔案類型",
+      "MIME類型",
+      "檔案格式",
+      "偵測類型",
+      "檔案資訊",
+      "魔術位元組"
+    ],
+    "param.paths.description": "要識別的一個或多個檔案路徑。",
+    "err.no_paths": "未提供路徑。",
+    "err.outside_workdir": "路徑在工作目錄之外",
+    "err.not_found": "找不到檔案"
+  },
+  "de": {
+    "tool.description": "Bestimmen Sie den MIME-Typ und das Format von Dateien anhand der Erweiterung, magischen Bytes und Heuristiken.",
+    "x_search_terms": [
+      "Dateityp",
+      "MIME-Typ",
+      "Dateiformat",
+      "Typ erkennen",
+      "Dateiinfo",
+      "magische Bytes"
+    ],
+    "param.paths.description": "Ein oder mehrere zu identifizierende Dateipfade.",
+    "err.no_paths": "Keine Pfade angegeben.",
+    "err.outside_workdir": "Pfad außerhalb des Arbeitsverzeichnisses",
+    "err.not_found": "Datei nicht gefunden"
+  }
+}

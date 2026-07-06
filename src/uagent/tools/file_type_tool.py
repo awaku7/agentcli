@@ -70,8 +70,6 @@ _MAGIC_PATTERNS: list[tuple[int, bytes, str, str]] = [
 ]
 
 
-import os as _os_mod
-
 def _ensure_python_magic() -> Any:
     """Try to import python-magic; auto-install if missing. Returns the module or None."""
     try:
@@ -84,7 +82,7 @@ def _ensure_python_magic() -> Any:
     try:
         from .._pip_auto import install_with_status
         # On Windows use python-magic-bin (includes bundled DLL)
-        if _os_mod.name == "nt":
+        if _os.name == "nt":
             pkg = "python-magic-bin"
         else:
             pkg = "python-magic"
