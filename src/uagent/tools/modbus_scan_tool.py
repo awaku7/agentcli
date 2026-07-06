@@ -2,7 +2,9 @@ from __future__ import annotations
 
 import json
 import socket
+import threading
 import time
+from concurrent.futures import ThreadPoolExecutor, as_completed
 from datetime import datetime, timezone
 from typing import Any
 
@@ -231,42 +233,70 @@ def run_tool(args: dict[str, Any]) -> str:
     start_time = time.monotonic()
     ModbusTcpClient = _modbus_import()
     devices: list[dict[str, Any]] = []
+    _lock = threading.Lock()
 
-    for ip in ips:
-        for unit_id in range(max(1, unit_start), min(247, unit_end) + 1):
-            client = None
+    def _tcp_port_open(ip: str, port: int, to: float) -> bool:
+        """Quick TCP connect check before full Modbus handshake."""
+        try:
+            s = socket.create_connection((ip, port), timeout=to)
+            s.close()
+            return True
+        except Exception:
+            return False
+
+    def _scan_ip(ip: str) -> list[dict[str, Any]]:
+        """Scan a single IP across all unit IDs."""
+        found: list[dict[str, Any]] = []
+
+        # Quick TCP port probe first (faster than pymodbus connect)
+        if not _tcp_port_open(ip, port, timeout):
+            return found
+
+        # Port open -- try each unit ID on the same connection
+        client = None
+        try:
+            client = ModbusTcpClient(ip, port=port, timeout=timeout)
+            if not client.connect():
+                return found
+
+            for unit_id in range(max(1, unit_start), min(247, unit_end) + 1):
+                try:
+                    rr = client.read_holding_registers(0, 1, unit=unit_id)
+                    if rr is not None and not (hasattr(rr, "isError") and rr.isError()):
+                        found.append({
+                            "ip": ip,
+                            "port": port,
+                            "unit_id": unit_id,
+                            "vendor": None,
+                            "model": None,
+                            "first_register": rr.registers[0]
+                            if hasattr(rr, "registers") and rr.registers
+                            else None,
+                            "last_seen": _now_iso(),
+                        })
+                except Exception:
+                    continue
+        except Exception:
+            pass
+        finally:
+            if client is not None:
+                try:
+                    client.close()
+                except Exception:
+                    pass
+        return found
+
+    max_workers = min(32, len(ips))
+    with ThreadPoolExecutor(max_workers=max_workers) as executor:
+        fut_map = {executor.submit(_scan_ip, ip): ip for ip in ips}
+        for fut in as_completed(fut_map):
             try:
-                client = ModbusTcpClient(ip, port=port, timeout=timeout)
-                if not client.connect():
-                    continue
-
-                # Try reading coil 0 or holding register 0
-                rr = client.read_holding_registers(0, 1, unit=unit_id)
-                if rr is None or hasattr(rr, "isError") and rr.isError():
-                    continue
-
-                devices.append(
-                    {
-                        "ip": ip,
-                        "port": port,
-                        "unit_id": unit_id,
-                        "vendor": None,
-                        "model": None,
-                        "first_register": rr.registers[0]
-                        if hasattr(rr, "registers") and rr.registers
-                        else None,
-                        "last_seen": _now_iso(),
-                    }
-                )
-                break  # Found this IP, move to next IP
+                result = fut.result()
+                if result:
+                    with _lock:
+                        devices.extend(result)
             except Exception:
-                continue
-            finally:
-                if client is not None:
-                    try:
-                        client.close()
-                    except Exception:
-                        pass
+                pass
 
     payload = {
         "ok": True,
