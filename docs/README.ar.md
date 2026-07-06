@@ -43,7 +43,7 @@ uag
 ```
 
 عند التشغيل لأول مرة، يرشدك معالج الإعداد عبر تكوين الموفر.
-راجع [ENVIRONMENT.md](https://github.com/awaku7/agentcli/blob/main/ENVIRONMENT.md) للتعرف على جميع متغيرات البيئة.
+راجع [docs/ENVIRONMENT.md](https://github.com/awaku7/agentcli/blob/main/docs/ENVIRONMENT.md) للتعرف على جميع متغيرات البيئة.
 
 ## سمات
 
@@ -179,7 +179,7 @@ OpenAI / Azure / Bedrock / OpenRouter / Ollama / Gemini / Vertex AI / Claude / G
 
 ## التكوين والتفاصيل
 
-- **متغيرات البيئة**: [ENVIRONMENT.md](https://github.com/awaku7/agentcli/blob/main/ENVIRONMENT.md)
+- **متغيرات البيئة**: [docs/ENVIRONMENT.md](https://github.com/awaku7/agentcli/blob/main/docs/ENVIRONMENT.md)
 - **معالج الإعداد**: `python -m uagent.setup_cli`
 - **env المشفر**: `uag_envsec` — تشفير `.env` كـ `.env.sec`
 - **Responses API**: قم بتعيين `UAGENT_RESPONSES=1` لوضع واجهة برمجة التطبيقات للاستجابات (OpenAI/Azure/Bedrock/OpenRouter/Ollama/Alibaba/LM Studio/Sakana AI). تم تمكينه تلقائيًا لـ Sakana AI (Fugu).

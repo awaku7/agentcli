@@ -43,7 +43,7 @@ uag
 ```
 
 La prima lansare, asistentul de configurare vă ghidează prin configurarea furnizorului.
-Consultați [ENVIRONMENT.md](https://github.com/awaku7/agentcli/blob/main/ENVIRONMENT.md) pentru toate variabilele de mediu.
+Consultați [docs/ENVIRONMENT.md](https://github.com/awaku7/agentcli/blob/main/docs/ENVIRONMENT.md) pentru toate variabilele de mediu.
 
 ## Caracteristici
 
@@ -177,7 +177,7 @@ Gestionați cu `uag_envsec`.
 
 ## Configurație și detalii
 
-- **Variabile de mediu**: [ENVIRONMENT.md](https://github.com/awaku7/agentcli/blob/main/ENVIRONMENT.md)
+- **Variabile de mediu**: [docs/ENVIRONMENT.md](https://github.com/awaku7/agentcli/blob/main/docs/ENVIRONMENT.md)
 - **Setup wizard**: `python -m uagent.setup_cli`
 - **Env criptat**: `uag_envsec` — criptează `.env` ca `.env.sec`
 - **Responses API**: setați `UAGENT_RESPONSES=1` pentru modul Responses API (OpenAI/Azure/Bedrock/OpenRouter/Ollama/Alibaba/LM Studio/Sakana AI). Activat automat pentru Sakana AI (Fugu).

@@ -43,7 +43,7 @@ uag
 ```
 
 Bij de eerste keer opstarten leidt de installatiewizard u door de providerconfiguratie.
-Zie [ENVIRONMENT.md](https://github.com/awaku7/agentcli/blob/main/ENVIRONMENT.md) voor alle omgevingsvariabelen.
+Zie [docs/ENVIRONMENT.md](https://github.com/awaku7/agentcli/blob/main/docs/ENVIRONMENT.md) voor alle omgevingsvariabelen.
 
 ## Functies
 
@@ -179,7 +179,7 @@ Beheer met `uag_envsec`.
 
 ## Configuratie en details
 
-- **Omgevingsvariabelen**: [ENVIRONMENT.md](https://github.com/awaku7/agentcli/blob/main/ENVIRONMENT.md)
+- **Omgevingsvariabelen**: [docs/ENVIRONMENT.md](https://github.com/awaku7/agentcli/blob/main/docs/ENVIRONMENT.md)
 - **Installatiewizard**: `python -m uagent.setup_cli`
 - **Gecodeerde env**: `uag_envsec` — versleutel `.env` als `.env.sec`
 - **Responses API**: Stel `UAGENT_RESPONSES=1` in voor de Responses API-modus (OpenAI/Azure/Bedrock/OpenRouter/Ollama/Alibaba/LM Studio/Sakana AI). Automatisch ingeschakeld voor Sakana AI (Fugu).

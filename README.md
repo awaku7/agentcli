@@ -44,7 +44,7 @@ uag
 ```
 
 On first launch, the setup wizard walks you through provider configuration.
-See [ENVIRONMENT.md](https://github.com/awaku7/agentcli/blob/main/ENVIRONMENT.md) for all environment variables.
+See [docs/ENVIRONMENT.md](https://github.com/awaku7/agentcli/blob/main/docs/ENVIRONMENT.md) for all environment variables.
 
 ## Features
 
@@ -174,7 +174,7 @@ Manage with `uag_envsec`.
 
 ## Configuration & Details
 
-- **Environment variables**: [ENVIRONMENT.md](https://github.com/awaku7/agentcli/blob/main/ENVIRONMENT.md)
+- **Environment variables**: [docs/ENVIRONMENT.md](https://github.com/awaku7/agentcli/blob/main/docs/ENVIRONMENT.md)
 - **Setup wizard**: `python -m uagent.setup_cli`
 - **Encrypted env**: `uag_envsec` — encrypt `.env` as `.env.sec`
 - **Responses API**: Set `UAGENT_RESPONSES=1` for Responses API mode (OpenAI/Azure/Bedrock/OpenRouter/Ollama/Alibaba/LM Studio/Sakana AI). Auto-enabled for Sakana AI (Fugu).

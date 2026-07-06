@@ -43,7 +43,7 @@ uag
 ```
 
 Trong lần khởi chạy đầu tiên, trình hướng dẫn thiết lập sẽ hướng dẫn bạn cấu hình nhà cung cấp.
-Xem [ENVIRONMENT.md](https://github.com/awaku7/agentcli/blob/main/ENVIRONMENT.md) để biết tất cả các biến môi trường.
+Xem [docs/ENVIRONMENT.md](https://github.com/awaku7/agentcli/blob/main/docs/ENVIRONMENT.md) để biết tất cả các biến môi trường.
 
 ## Đặc trưng
 
@@ -179,7 +179,7 @@ Quản lý bằng `uag_envsec`.
 
 ## Cấu hình & Chi tiết
 
-- **Biến môi trường**: [ENVIRONMENT.md](https://github.com/awaku7/agentcli/blob/main/ENVIRONMENT.md)
+- **Biến môi trường**: [docs/ENVIRONMENT.md](https://github.com/awaku7/agentcli/blob/main/docs/ENVIRONMENT.md)
 - **Trình hướng dẫn thiết lập**: `python -m uagent.setup_cli`
 - **Env được mã hóa**: `uag_envsec` — mã hóa `.env` thành `.env.sec`
 - **API phản hồi**: Đặt `UAGENT_RESPONSES=1` cho chế độ API phản hồi (OpenAI/Azure/Bedrock/OpenRouter/Ollama/Alibaba/LM Studio/Sakana AI). Tự động kích hoạt cho Sakana AI (Fugu).

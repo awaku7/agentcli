@@ -43,7 +43,7 @@ uag
 ```
 
 প্রথম লঞ্চে, সেটআপ উইজার্ড আপনাকে প্রদানকারী কনফিগারেশনের মাধ্যমে নিয়ে যায়।
-সমস্ত পরিবেশের ভেরিয়েবলের জন্য [ENVIRONMENT.md](https://github.com/awaku7/agentcli/blob/main/ENVIRONMENT.md) দেখুন।
+সমস্ত পরিবেশের ভেরিয়েবলের জন্য [docs/ENVIRONMENT.md](https://github.com/awaku7/agentcli/blob/main/docs/ENVIRONMENT.md) দেখুন।
 
 ## বৈশিষ্ট্য
 
@@ -182,7 +182,7 @@ API কী এবং গোপনীয়তাগুলি `.env.sec`-এ স�
 
 ## কনফিগারেশন এবং বিস্তারিত
 
-- **পরিবেশ ভেরিয়েবল**: [ENVIRONMENT.md](https://github.com/awaku7/agentcli/blob/main/ENVIRONMENT.md)
+- **পরিবেশ ভেরিয়েবল**: [docs/ENVIRONMENT.md](https://github.com/awaku7/agentcli/blob/main/docs/ENVIRONMENT.md)
 - **সেটআপ উইজার্ড**: `python -m uagent.setup_cli`
 - **এনক্রিপ্ট করা env**: `uag_envsec` — `.env` কে `.env.sec` হিসেবে এনক্রিপ্ট করুন
 - **প্রতিক্রিয়া API**: প্রতিক্রিয়া API মোডের জন্য `UAGENT_RESPONSES=1` সেট করুন (OpenAI/Azure/Bedrock/OpenRouter/Ollama/Alibaba/LM Studio/Sakana AI)। সাকানা এআই (ফুগু) এর জন্য স্বতঃ-সক্ষম।

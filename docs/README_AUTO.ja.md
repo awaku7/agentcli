@@ -99,7 +99,7 @@ set UAGENT_AP_GEMINI_DEPNAME=gemini-2.0-flash
 - `UAGENT_AP_PROVIDER` にレビューアーに使いたいプロバイダを指定します。
 - `UAGENT_AP_*` 変数はレビューアークライアント作成時に `UAGENT_*`（`AP_` 除去）にマッピングされます。
 - `UAGENT_AP_PROVIDER` 未設定時は従来通りメインと同じLLMを使用します（デフォルト動作）。
-- `make_client()` が対応するすべてのプロバイダが利用可能です。各プロバイダ固有の変数は [ENVIRONMENT.md](../ENVIRONMENT.md) を参照してください。
+- `make_client()` が対応するすべてのプロバイダが利用可能です。各プロバイダ固有の変数は [ENVIRONMENT.md](ENVIRONMENT.md) を参照してください。
 
 ---
 

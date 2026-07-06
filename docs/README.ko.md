@@ -43,7 +43,7 @@ uag
 ```
 
 처음 실행하면 설정 마법사가 공급자 구성 과정을 안내합니다.
-모든 환경 변수는 [ENVIRONMENT.md](https://github.com/awaku7/agentcli/blob/main/ENVIRONMENT.md)를 참조하세요.
+모든 환경 변수는 [docs/ENVIRONMENT.md](https://github.com/awaku7/agentcli/blob/main/docs/ENVIRONMENT.md)를 참조하세요.
 
 ## 특징
 
@@ -179,7 +179,7 @@ uag는 장기 실행 다중 파일 작업의 진행 상황을 추적할 수 있�
 
 ## 구성 및 세부정보
 
-- **환경 변수**: [ENVIRONMENT.md](https://github.com/awaku7/agentcli/blob/main/ENVIRONMENT.md)
+- **환경 변수**: [docs/ENVIRONMENT.md](https://github.com/awaku7/agentcli/blob/main/docs/ENVIRONMENT.md)
 - **설정 마법사**: `python -m uagent.setup_cli`
 - **암호화된 환경**: `uag_envsec` — `.env`를 `.env.sec`로 암호화합니다.
 - **응답 API**: 응답 API 모드(OpenAI/Azure/Bedrock/OpenRouter/Ollama/Alibaba/LM Studio/Sakana AI)에 대해 `UAGENT_RESPONSES=1`을 설정합니다. Sakana AI(Fugu)가 자동 활성화됩니다.

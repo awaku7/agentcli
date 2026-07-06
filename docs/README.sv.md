@@ -43,7 +43,7 @@ uag
 ```
 
 Vid första lanseringen leder installationsguiden dig genom leverantörskonfigurationen.
-Se [ENVIRONMENT.md](https://github.com/awaku7/agentcli/blob/main/ENVIRONMENT.md) för alla miljövariabler.
+Se [docs/ENVIRONMENT.md](https://github.com/awaku7/agentcli/blob/main/docs/ENVIRONMENT.md) för alla miljövariabler.
 
 ## Funktioner
 
@@ -177,7 +177,7 @@ Hantera med `uag_envsec`.
 
 ## Konfiguration och detaljer
 
-- **Miljövariabler**: [ENVIRONMENT.md](https://github.com/awaku7/agentcli/blob/main/ENVIRONMENT.md)
+- **Miljövariabler**: [docs/ENVIRONMENT.md](https://github.com/awaku7/agentcli/blob/main/docs/ENVIRONMENT.md)
 - **Installationsguide**: `python -m uagent.setup_cli`
 - **Krypterad env**: `uag_envsec` — kryptera `.env` som `.env.sec`
 - **Responses API**: Ställ in `UAGENT_RESPONSES=1` för Responses API-läge (OpenAI/Azure/Bedrock/OpenRouter/Ollama/Alibaba/LM Studio/Sakana AI). Autoaktiverad för Sakana AI (Fugu).

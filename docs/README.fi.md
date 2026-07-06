@@ -43,7 +43,7 @@ uag
 ```
 
 Ensimmäisen käynnistyksen yhteydessä ohjattu asennustoiminto opastaa sinua palveluntarjoajan määrittämisessä.
-Katso kaikki ympäristömuuttujat osoitteesta [ENVIRONMENT.md](https://github.com/awaku7/agentcli/blob/main/ENVIRONMENT.md).
+Katso kaikki ympäristömuuttujat osoitteesta [docs/ENVIRONMENT.md](https://github.com/awaku7/agentcli/blob/main/docs/ENVIRONMENT.md).
 
 ## Ominaisuudet
 
@@ -175,7 +175,7 @@ Hallinnoi komennolla "uag_envsec".
 
 ## Kokoonpano ja tiedot
 
-- **Ympäristömuuttujat**: [ENVIRONMENT.md](https://github.com/awaku7/agentcli/blob/main/ENVIRONMENT.md)
+- **Ympäristömuuttujat**: [docs/ENVIRONMENT.md](https://github.com/awaku7/agentcli/blob/main/docs/ENVIRONMENT.md)
 - **Ohjattu asennustoiminto**: `python -m uagent.setup_cli`
 - **Salattu env**: `uag_envsec` — salaa `.env` muodossa `.env.sec`
 - **Responses API**: Aseta `UAGENT_RESPONSES=1` Responses API -tilalle (OpenAI/Azure/Bedrock/OpenRouter/Ollama/Alibaba/LM Studio/Sakana AI). Automaattinen käytössä Sakana AI:lle (Fugu).

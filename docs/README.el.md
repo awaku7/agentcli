@@ -43,7 +43,7 @@ uag
 ```
 
 Κατά την πρώτη εκκίνηση, ο οδηγός εγκατάστασης σάς καθοδηγεί στη διαμόρφωση του παρόχου.
-Δείτε το [ENVIRONMENT.md](https://github.com/awaku7/agentcli/blob/main/ENVIRONMENT.md) για όλες τις μεταβλητές περιβάλλοντος.
+Δείτε το [docs/ENVIRONMENT.md](https://github.com/awaku7/agentcli/blob/main/docs/ENVIRONMENT.md) για όλες τις μεταβλητές περιβάλλοντος.
 
 ## Χαρακτηριστικά
 
@@ -179,7 +179,7 @@ OpenAI / Azure / Bedrock / OpenRouter / Ollama / Gemini / Vertex AI / Claude / G
 
 ## Διαμόρφωση & Λεπτομέρειες
 
-- **Μεταβλητές περιβάλλοντος**: [ENVIRONMENT.md](https://github.com/awaku7/agentcli/blob/main/ENVIRONMENT.md)
+- **Μεταβλητές περιβάλλοντος**: [docs/ENVIRONMENT.md](https://github.com/awaku7/agentcli/blob/main/docs/ENVIRONMENT.md)
 - **Οδηγός εγκατάστασης**: `python -m uagent.setup_cli`
 - **Κρυπτογραφημένο env**: "uag_envsec" — κρυπτογράφηση ".env" ως ".env.sec"
 - **Responses API**: Ορίστε το "UAGENT_RESPONSES=1" για τη λειτουργία Responses API (OpenAI/Azure/Bedrock/OpenRouter/Ollama/Alibaba/LM Studio/Sakana AI). Αυτόματη ενεργοποίηση για Sakana AI (Fugu).

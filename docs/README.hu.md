@@ -43,7 +43,7 @@ uag
 ```
 
 Az első indításkor a telepítővarázsló végigvezeti a szolgáltató konfigurációján.
-Az összes környezeti változóhoz lásd az [ENVIRONMENT.md](https://github.com/awaku7/agentcli/blob/main/ENVIRONMENT.md) webhelyet.
+Az összes környezeti változóhoz lásd az [docs/ENVIRONMENT.md](https://github.com/awaku7/agentcli/blob/main/docs/ENVIRONMENT.md) webhelyet.
 
 ## Jellemzők
 
@@ -175,7 +175,7 @@ Kezelje az "uag_envsec" segítségével.
 
 ## Konfiguráció és részletek
 
-- **Környezeti változók**: [ENVIRONMENT.md](https://github.com/awaku7/agentcli/blob/main/ENVIRONMENT.md)
+- **Környezeti változók**: [docs/ENVIRONMENT.md](https://github.com/awaku7/agentcli/blob/main/docs/ENVIRONMENT.md)
 - **Telepítő varázsló**: `python -m uagent.setup_cli`
 - **Titkosított env**: `uag_envsec` — `.env` titkosítása `.env.sec`-ként
 - **Responses API**: Állítsa be az "UAGENT_RESPONSES=1" értéket a Responses API módhoz (OpenAI/Azure/Bedrock/OpenRouter/Ollama/Alibaba/LM Studio/Sakana AI). Automatikusan engedélyezve a Sakana AI (Fugu) számára.

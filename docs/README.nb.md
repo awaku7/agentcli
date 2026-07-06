@@ -43,7 +43,7 @@ uag
 ```
 
 Ved første oppstart leder oppsettsveiviseren deg gjennom leverandørkonfigurasjonen.
-Se [ENVIRONMENT.md](https://github.com/awaku7/agentcli/blob/main/ENVIRONMENT.md) for alle miljøvariabler.
+Se [docs/ENVIRONMENT.md](https://github.com/awaku7/agentcli/blob/main/docs/ENVIRONMENT.md) for alle miljøvariabler.
 
 ## Funksjoner
 
@@ -177,7 +177,7 @@ Administrer med `uag_envsec`.
 
 ## Konfigurasjon og detaljer
 
-- **Miljøvariabler**: [ENVIRONMENT.md](https://github.com/awaku7/agentcli/blob/main/ENVIRONMENT.md)
+- **Miljøvariabler**: [docs/ENVIRONMENT.md](https://github.com/awaku7/agentcli/blob/main/docs/ENVIRONMENT.md)
 - **Konfigurasjonsveiviser**: `python -m uagent.setup_cli`
 - **Kryptert env**: `uag_envsec` — krypter `.env` som `.env.sec`
 - **Responses API**: Sett `UAGENT_RESPONSES=1` for Responses API-modus (OpenAI/Azure/Bedrock/OpenRouter/Ollama/Alibaba/LM Studio/Sakana AI). Automatisk aktivert for Sakana AI (Fugu).

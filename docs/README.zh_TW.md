@@ -43,7 +43,7 @@ uag
 ```
 
 首次啟動時，設定精靈將引導您完成提供者設定。
-有關所有環境變量，請參閱 [ENVIRONMENT.md](https://github.com/awaku7/agentcli/blob/main/ENVIRONMENT.md)。
+有關所有環境變量，請參閱 [docs/ENVIRONMENT.md](https://github.com/awaku7/agentcli/blob/main/docs/ENVIRONMENT.md)。
 
 ＃＃ 特徵
 
@@ -179,7 +179,7 @@ uag 可以追蹤長時間運行的多檔案任務的進度。當 LLM 處理數�
 
 ## 配置和詳細信息
 
-- **環境變數**：[ENVIRONMENT.md](https://github.com/awaku7/agentcli/blob/main/ENVIRONMENT.md)
+- **環境變數**：[docs/ENVIRONMENT.md](https://github.com/awaku7/agentcli/blob/main/docs/ENVIRONMENT.md)
 - **設定精靈**：`python -m uagent.setup_cli`
 - **加密的 env**: `uag_envsec` — 將 `.env` 加密為 `.env.sec`
 - **回應 API**：為回應 API 模式設定「UAGENT_RESPONSES=1」（OpenAI/Azure/Bedrock/OpenRouter/Ollama/Alibaba/LM Studio/Sakana AI）。自動啟用 Sakana AI (Fugu)。

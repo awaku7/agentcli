@@ -43,7 +43,7 @@ uag
 ```
 
 İlk başlatmada kurulum sihirbazı, sağlayıcı yapılandırmasında size yol gösterir.
-Tüm ortam değişkenleri için [ENVIRONMENT.md](https://github.com/awaku7/agentcli/blob/main/ENVIRONMENT.md) adresine bakın.
+Tüm ortam değişkenleri için [docs/ENVIRONMENT.md](https://github.com/awaku7/agentcli/blob/main/docs/ENVIRONMENT.md) adresine bakın.
 
 ## Özellikler
 
@@ -179,7 +179,7 @@ API anahtarlarını ve sırlarını, şifrelenmiş bir ".env" dosyası olan ".en
 
 ## Yapılandırma ve Ayrıntılar
 
-- **Ortam değişkenleri**: [ENVIRONMENT.md](https://github.com/awaku7/agentcli/blob/main/ENVIRONMENT.md)
+- **Ortam değişkenleri**: [docs/ENVIRONMENT.md](https://github.com/awaku7/agentcli/blob/main/docs/ENVIRONMENT.md)
 - **Kurulum sihirbazı**: `python -m uagent.setup_cli`
 - **Şifrelenmiş ortam**: `uag_envsec` — `.env`yi `.env.sec` olarak şifreleyin
 - **Responses API**: Responses API modu için `UAGENT_RESPONSES=1'i ayarlayın (OpenAI/Azure/Bedrock/OpenRouter/Ollama/Alibaba/LM Studio/Sakana AI). Sakana AI (Fugu) için otomatik olarak etkinleştirildi.

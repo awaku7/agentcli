@@ -43,7 +43,7 @@ uag
 ```
 
 Pada peluncuran pertama, wizard pengaturan memandu Anda melalui konfigurasi penyedia.
-Lihat [ENVIRONMENT.md](https://github.com/awaku7/agentcli/blob/main/ENVIRONMENT.md) untuk semua variabel lingkungan.
+Lihat [docs/ENVIRONMENT.md](https://github.com/awaku7/agentcli/blob/main/docs/ENVIRONMENT.md) untuk semua variabel lingkungan.
 
 ## Fitur
 
@@ -179,7 +179,7 @@ Kelola dengan `uag_envsec`.
 
 ## Konfigurasi & Detail
 
-- **Variabel lingkungan**: [ENVIRONMENT.md](https://github.com/awaku7/agentcli/blob/main/ENVIRONMENT.md)
+- **Variabel lingkungan**: [docs/ENVIRONMENT.md](https://github.com/awaku7/agentcli/blob/main/docs/ENVIRONMENT.md)
 - **Wizard penyiapan**: `python -m uagent.setup_cli`
 - **Env terenkripsi**: `uag_envsec` — mengenkripsi `.env` sebagai `.env.sec`
 - **Responses API**: Setel `UAGENT_RESPONSES=1` untuk mode Responses API (OpenAI/Azure/Bedrock/OpenRouter/Ollama/Alibaba/LM Studio/Sakana AI). Diaktifkan secara otomatis untuk Sakana AI (Fugu).

@@ -44,7 +44,7 @@ uag
 ```
 
 पहले लॉन्च पर, सेटअप विज़ार्ड आपको प्रदाता कॉन्फ़िगरेशन के बारे में बताता है।
-सभी पर्यावरण चर के लिए [ENVIRONMENT.md](https://github.com/awaku7/agentcli/blob/main/ENVIRONMENT.md) देखें।
+सभी पर्यावरण चर के लिए [docs/ENVIRONMENT.md](https://github.com/awaku7/agentcli/blob/main/docs/ENVIRONMENT.md) देखें।
 
 ## विशेषताएँ
 
@@ -176,7 +176,7 @@ uag
 
 ## कॉन्फ़िगरेशन और विवरण
 
-- **पर्यावरण चर**: [ENVIRONMENT.md](https://github.com/awaku7/agentcli/blob/main/ENVIRONMENT.md)
+- **पर्यावरण चर**: [docs/ENVIRONMENT.md](https://github.com/awaku7/agentcli/blob/main/docs/ENVIRONMENT.md)
 - **सेटअप विज़ार्ड**: `पायथन -एम uagent.setup_cli`
 - **एन्क्रिप्टेड एनवी**: `uag_envsec` - `.env` को `.env.sec` के रूप में एन्क्रिप्ट करें
 - **प्रतिक्रिया एपीआई**: प्रतिक्रिया एपीआई मोड (OpenAI/Azure/Bedrock/OpenRouter/Ollama/Alibaba/LM Studio/Sakana AI) के लिए `UAGENT_RESPONSES=1` सेट करें। सकाना एआई (फुगु) के लिए स्वतः सक्षम।

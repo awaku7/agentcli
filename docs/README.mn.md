@@ -43,7 +43,7 @@ uag
 ```
 
 Эхний эхлүүлэх үед тохиргооны шидтэн таныг үйлчилгээ үзүүлэгчийн тохиргоонд хөтлөх болно.
-Орчны бүх хувьсагчийг [ENVIRONMENT.md](https://github.com/awaku7/agentcli/blob/main/ENVIRONMENT.md) харна уу.
+Орчны бүх хувьсагчийг [docs/ENVIRONMENT.md](https://github.com/awaku7/agentcli/blob/main/docs/ENVIRONMENT.md) харна уу.
 
 ## Онцлогууд
 
@@ -177,7 +177,7 @@ API түлхүүр болон нууцыг `.env.sec` — шифрлэгдсэн
 
 ## Тохиргоо ба дэлгэрэнгүй мэдээлэл
 
-- **Орчны хувьсагчид**: [ENVIRONMENT.md](https://github.com/awaku7/agentcli/blob/main/ENVIRONMENT.md)
+- **Орчны хувьсагчид**: [docs/ENVIRONMENT.md](https://github.com/awaku7/agentcli/blob/main/docs/ENVIRONMENT.md)
 - **Тохируулах шидтэн**: `python -m uagent.setup_cli`
 - **Шифрлэгдсэн env**: `uag_envsec` — `.env`-г `.env.sec` гэж шифрлэх
 - **Responses API**: Responses API горимд `UAGENT_RESPONSES=1` тохируулна уу (OpenAI/Azure/Bedrock/OpenRouter/Ollama/Alibaba/LM Studio/Sakana AI). Sakana AI (Fugu)-д автоматаар идэвхжүүлсэн.

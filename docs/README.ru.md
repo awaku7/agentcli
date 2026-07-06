@@ -43,7 +43,7 @@ uag
 ```
 
 При первом запуске мастер установки проведет вас через настройку поставщика.
-См. [ENVIRONMENT.md](https://github.com/awaku7/agentcli/blob/main/ENVIRONMENT.md) для всех переменных среды.
+См. [docs/ENVIRONMENT.md](https://github.com/awaku7/agentcli/blob/main/docs/ENVIRONMENT.md) для всех переменных среды.
 
 ## Функции
 
@@ -179,7 +179,7 @@ Human_ask позволяет LLM приостанавливать работу �
 
 ## Конфигурация и подробности
 
-- **Переменные среды**: [ENVIRONMENT.md](https://github.com/awaku7/agentcli/blob/main/ENVIRONMENT.md)
+- **Переменные среды**: [docs/ENVIRONMENT.md](https://github.com/awaku7/agentcli/blob/main/docs/ENVIRONMENT.md)
 - **Мастер установки**: `python -m uagent.setup_cli`
 - **Зашифрованный env**: `uag_envsec` — зашифровать `.env` как `.env.sec`
 - **API ответов**: установите `UAGENT_RESPONSES=1` для режима API ответов (OpenAI/Azure/Bedrock/OpenRouter/Ollama/Alibaba/LM Studio/Sakana AI). Автоматически включается для Sakana AI (Fugu).

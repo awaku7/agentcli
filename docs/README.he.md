@@ -43,7 +43,7 @@ uag
 ```
 
 בהפעלה הראשונה, אשף ההגדרה ילווה אותך דרך תצורת הספק.
-ראה [ENVIRONMENT.md](https://github.com/awaku7/agentcli/blob/main/ENVIRONMENT.md) עבור כל משתני הסביבה.
+ראה [docs/ENVIRONMENT.md](https://github.com/awaku7/agentcli/blob/main/docs/ENVIRONMENT.md) עבור כל משתני הסביבה.
 
 ## תכונות
 
@@ -177,7 +177,7 @@ uag יכול לעקוב אחר התקדמות לאורך משימות מרובו
 
 ## תצורה ופרטים
 
-- **משתני סביבה**: [ENVIRONMENT.md](https://github.com/awaku7/agentcli/blob/main/ENVIRONMENT.md)
+- **משתני סביבה**: [docs/ENVIRONMENT.md](https://github.com/awaku7/agentcli/blob/main/docs/ENVIRONMENT.md)
 - **אשף ההתקנה**: `python -m uagent.setup_cli`
 - **env מוצפן**: `uag_envsec` - הצפין `.env` בתור `.env.sec`
 - **Responses API**: הגדר 'UAGENT_RESPONSES=1' למצב תגובות API (OpenAI/Azure/Bedrock/OpenRouter/Ollama/Alibaba/LM Studio/Sakana AI). מופעל אוטומטי עבור Sakana AI (Fugu).

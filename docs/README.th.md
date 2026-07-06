@@ -43,7 +43,7 @@ uag
 ```
 
 ในการเปิดตัวครั้งแรก วิซาร์ดการตั้งค่าจะแนะนำคุณเกี่ยวกับการกำหนดค่าผู้ให้บริการ
-ดู [ENVIRONMENT.md](https://github.com/awaku7/agentcli/blob/main/ENVIRONMENT.md) สำหรับตัวแปรสภาพแวดล้อมทั้งหมด
+ดู [docs/ENVIRONMENT.md](https://github.com/awaku7/agentcli/blob/main/docs/ENVIRONMENT.md) สำหรับตัวแปรสภาพแวดล้อมทั้งหมด
 
 ## คุณสมบัติ
 
@@ -179,7 +179,7 @@ uag สามารถติดตามความคืบหน้าขอ�
 
 ## การกำหนดค่าและรายละเอียด
 
-- **ตัวแปรสภาพแวดล้อม**: [ENVIRONMENT.md](https://github.com/awaku7/agentcli/blob/main/ENVIRONMENT.md)
+- **ตัวแปรสภาพแวดล้อม**: [docs/ENVIRONMENT.md](https://github.com/awaku7/agentcli/blob/main/docs/ENVIRONMENT.md)
 - **วิซาร์ดการตั้งค่า**: `python -m uagent.setup_cli`
 - **env ที่เข้ารหัส**: `uag_envsec` — เข้ารหัส `.env` เป็น `.env.sec`
 - **Responses API**: ตั้งค่า `UAGENT_RESPONSES=1` สำหรับโหมด Responses API (OpenAI/Azure/Bedrock/OpenRouter/Ollama/Alibaba/LM Studio/Sakana AI) เปิดใช้งานอัตโนมัติสำหรับ Sakana AI (Fugu)

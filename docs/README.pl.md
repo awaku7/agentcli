@@ -43,7 +43,7 @@ uag
 ```
 
 Przy pierwszym uruchomieniu kreator instalacji przeprowadzi Cię przez konfigurację dostawcy.
-Zobacz [ENVIRONMENT.md](https://github.com/awaku7/agentcli/blob/main/ENVIRONMENT.md), aby zapoznać się ze wszystkimi zmiennymi środowiskowymi.
+Zobacz [docs/ENVIRONMENT.md](https://github.com/awaku7/agentcli/blob/main/docs/ENVIRONMENT.md), aby zapoznać się ze wszystkimi zmiennymi środowiskowymi.
 
 ## Cechy
 
@@ -179,7 +179,7 @@ Zarządzaj za pomocą `uag_envsec`.
 
 ## Konfiguracja i szczegóły
 
-- **Zmienne środowiskowe**: [ENVIRONMENT.md](https://github.com/awaku7/agentcli/blob/main/ENVIRONMENT.md)
+- **Zmienne środowiskowe**: [docs/ENVIRONMENT.md](https://github.com/awaku7/agentcli/blob/main/docs/ENVIRONMENT.md)
 - **Kreator instalacji**: `python -m uagent.setup_cli`
 - **Zaszyfrowane env**: `uag_envsec` — szyfruj `.env` jako `.env.sec`
 - **API odpowiedzi**: Ustaw `UAGENT_RESPONSES=1` dla trybu API odpowiedzi (OpenAI/Azure/Bedrock/OpenRouter/Ollama/Alibaba/LM Studio/Sakana AI). Automatycznie włączone dla Sakana AI (Fugu).

@@ -43,7 +43,7 @@ uag
 ```
 
 पहिल्या लॉन्चवर, सेटअप विझार्ड तुम्हाला प्रदाता कॉन्फिगरेशनमध्ये घेऊन जातो.
-सर्व पर्यावरणीय चलांसाठी [ENVIRONMENT.md](https://github.com/awaku7/agentcli/blob/main/ENVIRONMENT.md) पहा.
+सर्व पर्यावरणीय चलांसाठी [docs/ENVIRONMENT.md](https://github.com/awaku7/agentcli/blob/main/docs/ENVIRONMENT.md) पहा.
 
 ## वैशिष्ट्ये
 
@@ -180,7 +180,7 @@ API की आणि गुपिते `.env.sec` मध्ये संग्�
 
 ## कॉन्फिगरेशन आणि तपशील
 
-- **पर्यावरण व्हेरिएबल्स**: [ENVIRONMENT.md](https://github.com/awaku7/agentcli/blob/main/ENVIRONMENT.md)
+- **पर्यावरण व्हेरिएबल्स**: [docs/ENVIRONMENT.md](https://github.com/awaku7/agentcli/blob/main/docs/ENVIRONMENT.md)
 - **सेटअप विझार्ड**: `python -m uagent.setup_cli`
 - **एनक्रिप्ट केलेले env**: `uag_envsec` — एंक्रिप्ट `.env` म्हणून `.env.sec`
 - **प्रतिसाद API**: प्रतिसाद API मोडसाठी `UAGENT_RESPONSES=1` सेट करा (OpenAI/Azure/Bedrock/OpenRouter/Ollama/Alibaba/LM Studio/Sakana AI). Sakana AI (Fugu) साठी स्वयं-सक्षम.

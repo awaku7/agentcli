@@ -43,7 +43,7 @@ uag
 ```
 
 Při prvním spuštění vás průvodce nastavením provede konfigurací poskytovatele.
-Všechny proměnné prostředí najdete na [ENVIRONMENT.md](https://github.com/awaku7/agentcli/blob/main/ENVIRONMENT.md).
+Všechny proměnné prostředí najdete na [docs/ENVIRONMENT.md](https://github.com/awaku7/agentcli/blob/main/docs/ENVIRONMENT.md).
 
 ## Funkce
 
@@ -178,7 +178,7 @@ Spravujte pomocí `uag_envsec`.
 
 ## Konfigurace a podrobnosti
 
-- **Proměnné prostředí**: [ENVIRONMENT.md](https://github.com/awaku7/agentcli/blob/main/ENVIRONMENT.md)
+- **Proměnné prostředí**: [docs/ENVIRONMENT.md](https://github.com/awaku7/agentcli/blob/main/docs/ENVIRONMENT.md)
 - **Průvodce nastavením**: `python -m uagent.setup_cli`
 - **Šifrované env**: `uag_envsec` — šifrovat `.env` jako `.env.sec`
 - **Responses API**: Nastavte `UAGENT_RESPONSES=1` pro režim Responses API (OpenAI/Azure/Bedrock/OpenRouter/Ollama/Alibaba/LM Studio/Sakana AI). Automaticky povoleno pro Sakana AI (Fugu).

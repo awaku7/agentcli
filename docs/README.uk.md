@@ -43,7 +43,7 @@ uag
 ```
 
 Під час першого запуску майстер налаштування проведе вас через налаштування постачальника.
-Перегляньте [ENVIRONMENT.md](https://github.com/awaku7/agentcli/blob/main/ENVIRONMENT.md) для всіх змінних середовища.
+Перегляньте [docs/ENVIRONMENT.md](https://github.com/awaku7/agentcli/blob/main/docs/ENVIRONMENT.md) для всіх змінних середовища.
 
 ## Особливості
 
@@ -177,7 +177,7 @@ uag може відстежувати перебіг тривалих багат
 
 ## Конфігурація та деталі
 
-- **Змінні середовища**: [ENVIRONMENT.md](https://github.com/awaku7/agentcli/blob/main/ENVIRONMENT.md)
+- **Змінні середовища**: [docs/ENVIRONMENT.md](https://github.com/awaku7/agentcli/blob/main/docs/ENVIRONMENT.md)
 - **Майстер налаштування**: `python -m uagent.setup_cli`
 - **Зашифроване env**: `uag_envsec` — зашифрувати `.env` як `.env.sec`
 - **Responses API**: установіть `UAGENT_RESPONSES=1` для режиму Responses API (OpenAI/Azure/Bedrock/OpenRouter/Ollama/Alibaba/LM Studio/Sakana AI). Автоматично ввімкнено для Sakana AI (Fugu).

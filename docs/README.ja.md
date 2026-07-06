@@ -43,7 +43,7 @@ uag
 ```
 
 初回起動時にセットアップウィザードがプロバイダ設定を案内します。
-環境変数の一覧は [ENVIRONMENT.md](../ENVIRONMENT.md) を参照してください。
+環境変数の一覧は [docs/ENVIRONMENT.md](../docs/ENVIRONMENT.md) を参照してください。
 
 ## 特徴
 
@@ -170,7 +170,7 @@ APIキーやシークレットは `.env.sec`（暗号化された `.env` ファ�
 
 ## 構成と詳細
 
-- **環境変数**: [ENVIRONMENT.md](../ENVIRONMENT.md)
+- **環境変数**: [docs/ENVIRONMENT.md](../docs/ENVIRONMENT.md)
 - **セットアップウィザード**: `python -m uagent.setup_cli`
 - **暗号化環境**: `uag_envsec` — `.env` を `.env.sec` として暗号化
 - **Responses API**: `UAGENT_RESPONSES=1` でResponses APIモードに（OpenAI/Azure/Bedrock/OpenRouter/Ollama/Alibaba/LM Studio/Sakana AI）。Sakana AI（Fugu）では自動的に有効になります。
