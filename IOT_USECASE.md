@@ -104,16 +104,19 @@ Best for:
 - Inspecting controller / bridge / device structure
 - Listing controllers and bridges
 - Checking device status
+- Controlling devices (on/off, open/close, set_value, lock/unlock)
 - Inspecting endpoints and clusters
 - Subscribing to attribute changes
 
 Notes:
 
 - Matter keeps controller / bridge / device separate
+- `matter_control` supports on/off, open/close, set_value, lock/unlock
+- Control commands are queued to `UAGENT_MATTER_COMMAND_JSON` env var or `UAGENT_MATTER_COMMAND_FILE`
+- An external handler reads the queue and executes the command on the Matter fabric
 - `matter_subscribe` / `matter_unsubscribe` / `matter_subscription_list` available for state monitoring
-- The current implementation is read-only and uses local JSON files or environment variables
+- Configuration uses local JSON files or environment variables
 - `matter_endpoint_list` and `matter_cluster_list` are available for structure details
-- Control is a future extension target
 
 Typical flow:
 
@@ -121,6 +124,7 @@ Typical flow:
 2. Use `matter_bridge_list` to inspect bridges
 3. Use `matter_device_status` to inspect the target device
 4. Use `matter_endpoint_list` and `matter_cluster_list` if you need more structure
+5. Use `matter_control` to send control commands
 
 ## Practical usage flow
 
@@ -162,10 +166,13 @@ Only do this when the target is clear and the action is supported.
 - SwitchBot Cloud: `switchbot_cloud_control` / `switchbot_batch`
 - ECHONET Lite: `echonet_property_set`, `echonet_control`
 - BACnet: `bacnet_write`
+- Matter: `matter_control`
+- Modbus: `modbus_write`
+- OPC UA: `opcua_write`
 - UPnP: `upnp_igd_control`
 
-Matter is currently mainly read-only.
-Control is a future extension target.
+Matter control is supported via command queuing. Commands are queued to
+`UAGENT_MATTER_COMMAND_JSON` or `UAGENT_MATTER_COMMAND_FILE` for external processing.
 
 ### E. You want to be notified when something changes
 
@@ -296,8 +303,9 @@ Common uses:
 
 - Handle Matter controller / bridge / device separately
 - Start with list, then status, then endpoint / cluster if needed
+- `matter_control` for control commands (on/off, open/close, lock/unlock, set_value)
 - `matter_subscribe` for attribute change monitoring
-- Mainly read-only at present
+- Control commands are queued to `UAGENT_MATTER_COMMAND_JSON` or `UAGENT_MATTER_COMMAND_FILE` for external execution
 
 ## Common failure patterns
 
