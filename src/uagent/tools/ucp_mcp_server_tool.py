@@ -86,18 +86,16 @@ _PROCESS_LOCK = threading.Lock()
 
 
 def _get_server_script_path() -> str:
-    """Return the path to the UCP MCP server script (tests/ucp_mcp_server_main.py)."""
-    # Tools dir: src/uagent/tools/ → go up 3 levels to project root → tests/
+    """Return the path to the UCP MCP server script (~/.uag/mcps/ucp_mcp_server_main.py)."""
     return os.path.normpath(
-        os.path.join(os.path.dirname(__file__), "..", "..", "..", "tests", "ucp_mcp_server_main.py")
+        os.path.join(os.path.expanduser("~"), ".uag", "mcps", "ucp_mcp_server_main.py")
     )
 
 
 def _ensure_mcp_server_script() -> str:
-    """Create the MCP server script if it doesn't exist."""
+    """Create/update the MCP server script in ~/.uag/mcps/."""
     path = _get_server_script_path()
-    if os.path.exists(path):
-        return path
+    # Always regenerate from template to stay in sync
 
     script = r'''"""UCP MCP Server — wraps UCP REST API as MCP tools.
 
