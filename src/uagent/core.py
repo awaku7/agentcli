@@ -343,15 +343,33 @@ responses_state: dict = {}
 _RESPONSES_STATE_FILE_LOCK = threading.Lock()
 
 
+def _get_responses_state_base_dir() -> str:
+    """Return the directory for Responses API state files.
+
+    Priority:
+    1) UAGENT_RESPONSES_STATE_DIR env var
+    2) UAGENT_WORKDIR env var
+    3) os.getcwd() (fallback)
+    """
+    d = (env_get("UAGENT_RESPONSES_STATE_DIR") or "").strip()
+    if d:
+        return d
+    d = (env_get("UAGENT_WORKDIR") or "").strip()
+    if d:
+        return os.path.expanduser(d)
+    return os.getcwd()
+
+
 def _get_responses_state_file(provider: str, depname: str = "") -> str:
     env_path = (env_get("UAGENT_RESPONSES_STATE_FILE") or "").strip()
     if env_path:
         return env_path
     safe_prov = re.sub(r'[\\/:*?"<>|]', "_", provider).lower()
+    base_dir = _get_responses_state_base_dir()
     if depname:
         safe_model = re.sub(r'[\\/:*?"<>|]', "_", depname).lower()
-        return os.path.join(os.getcwd(), f"responses_state_{safe_prov}_{safe_model}.json")
-    return os.path.join(os.getcwd(), f"responses_state_{safe_prov}.json")
+        return os.path.join(base_dir, f"responses_state_{safe_prov}_{safe_model}.json")
+    return os.path.join(base_dir, f"responses_state_{safe_prov}.json")
 
 
 # Pending loaded state (not yet confirmed by user)
