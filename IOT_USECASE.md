@@ -304,6 +304,11 @@ Common uses:
 - For LAN ECHONET Lite devices
 - Use discovery → status → detail → control → monitoring
 - Pay attention to multicast and interface settings
+- Scan results display EOJ (Enhanced Object) class names localized to 34 languages
+  - Japanese locale: native Japanese class names (e.g., `家庭用エアコン`, `電動ブラインド・日よけ`)
+  - Other locales: translated names via tool JSON (e.g., `Home air conditioner`/`Klimaanlage`/`家用空调`)
+  - Fallback to English name if translation is unavailable
+  - JSON file: `echonet_scan_tool.json` (32 language entries for 55 EOJ classes)
 
 ### `echonet_subscribe` / `echonet_unsubscribe`
 

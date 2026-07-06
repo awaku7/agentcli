@@ -35,16 +35,93 @@ def _normalize_lang_tag(tag: Optional[str]) -> str:
 
 
 def detect_lang() -> str:
-    for var in ("UAGENT_LANG", "LC_ALL", "LANG"):
-        candidate = env_get(var)
-        if candidate:
-            return _normalize_lang_tag(candidate)
+    """Detect runtime language with same fallback chain as uagent.i18n.
 
-    candidate = locale.getlocale()[0]
-    if candidate:
-        return _normalize_lang_tag(candidate)
+    Priority:
+    1) UAGENT_LANG env var
+    2) LC_ALL / LANG env vars
+    3) locale.getlocale()
+    4) locale.getdefaultlocale()
+    5) Windows console code page (os.name == 'nt')
+    6) 'en'
+    """
+    # 1) explicit override
+    v = (env_get("UAGENT_LANG") or "").strip()
+    if v:
+        return _normalize_lang_tag(v)
+
+    # 2) common env vars
+    for k in ("LC_ALL", "LANG"):
+        vv = (env_get(k) or "").strip()
+        if vv:
+            return _normalize_lang_tag(vv)
+
+    # 3) Python locale
+    try:
+        loc, _enc = locale.getlocale()
+        if loc:
+            return _normalize_lang_tag(loc)
+    except Exception:
+        pass
+
+    # 4) getdefaultlocale (deprecated but available)
+    try:
+        loc2 = None
+        try:
+            loc2, _enc2 = locale.getdefaultlocale()  # type: ignore[attr-defined]
+        except Exception:
+            loc2 = None
+        if loc2:
+            return _normalize_lang_tag(loc2)
+    except Exception:
+        pass
+
+    # 5) Windows console code page
+    if os.name == "nt":
+        vcp = _detect_windows_console_lang()
+        if vcp:
+            return _normalize_lang_tag(vcp)
 
     return "en"
+
+
+def _detect_windows_console_lang() -> str | None:
+    """Detect language from Windows console code page."""
+    if os.name != "nt":
+        return None
+    try:
+        import ctypes
+
+        cp = ctypes.windll.kernel32.GetConsoleOutputCP()
+        cp_map = {
+            932: "ja",
+            936: "zh_CN",
+            949: "ko",
+            950: "zh_TW",
+            874: "th",
+            1258: "vi",
+        }
+        if cp in cp_map:
+            return cp_map[cp]
+
+        lang_id = ctypes.windll.kernel32.GetUserDefaultUILanguage() & 0x3FF
+        lang_map = {
+            0x09: "en", 0x11: "ja", 0x12: "ko",
+            0x04: "zh_CN", 0x07: "de", 0x0C: "fr",
+            0x0A: "es", 0x10: "it", 0x16: "pt",
+            0x13: "nl", 0x1D: "sv", 0x14: "nb",
+            0x0B: "fi", 0x01: "ar", 0x29: "fa",
+            0x15: "pl", 0x05: "cs", 0x19: "ru",
+            0x22: "uk", 0x1F: "tr", 0x2A: "vi",
+            0x1E: "th", 0x21: "id", 0x45: "bn",
+            0x39: "hi", 0x4E: "mr", 0x50: "mn",
+            0x41: "sw",
+        }
+        if lang_id in lang_map:
+            return lang_map[lang_id]
+    except Exception:
+        pass
+    return None
 
 
 def get_locale() -> str:
