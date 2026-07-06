@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2026-07-05 19:44+0900\n"
+"POT-Creation-Date: 2026-07-06 16:38+0900\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -11,6 +11,18 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 2.18.0\n"
+
+msgid "Installing %(label)s..."
+msgstr "%(label)s इंस्टॉल किया जा रहा है..."
+
+msgid "%(label)s installed successfully."
+msgstr "%(label)s सफलतापूर्वक स्थापित हुआ."
+
+msgid "Retrying with --force-reinstall..."
+msgstr "--force-reinstall के साथ पुनः प्रयास किया जा रहा है..."
+
+msgid "Failed to install %(label)s."
+msgstr "%(label)s स्थापित करने में विफल."
 
 #: src/uagent/checks.py:17 src/uagent/checks.py:27
 #, python-format
@@ -37,15 +49,15 @@ msgstr ""
 msgid "[ERROR] Git is not installed."
 msgstr "[त्रुटि] Git इंस्टॉल नहीं है."
 
-#: src/uagent/cli.py:598
+#: src/uagent/cli.py:642
 msgid "getch() fallback to input()"
 msgstr "getch() input() का विकल्प बनता है"
 
-#: src/uagent/cli.py:815
+#: src/uagent/cli.py:859
 msgid "Received Ctrl+C. Starting shutdown..."
 msgstr "Ctrl+C प्राप्त हुआ। बंद करना शुरू कर रहे हैं..."
 
-#: src/uagent/cli.py:851 src/uagent/cli.py:887 src/uagent/setup_cli.py:1414
+#: src/uagent/cli.py:895 src/uagent/cli.py:931 src/uagent/setup_cli.py:1414
 #: src/uagent/setup_cli.py:1433 src/uagent/setup_cli.py:1456
 #: src/uagent/setup_cli.py:1472 src/uagent/setup_cli.py:1491
 #: src/uagent/setup_cli.py:1510 src/uagent/setup_cli.py:1524
@@ -56,11 +68,11 @@ msgstr "Ctrl+C प्राप्त हुआ। बंद करना शु�
 msgid "Cancelled."
 msgstr "रद्द किया गया."
 
-#: src/uagent/cli.py:858
+#: src/uagent/cli.py:902
 msgid "Received multiline reply."
 msgstr "बहु-पंक्ति उत्तर प्राप्त हुआ."
 
-#: src/uagent/cli.py:1060
+#: src/uagent/cli.py:1104
 msgid ""
 "Image file paths were found in your input.\n"
 "Do you want to send these images to the LLM (external API) for analysis?\n"
@@ -70,28 +82,28 @@ msgstr ""
 "क्या आप विश्लेषण के लिए इन छवियों को LLM (बाहरी API) को भेजना चाहते हैं?\n"
 "\n"
 
-#: src/uagent/cli.py:1066
+#: src/uagent/cli.py:1110
 msgid "Reply with y to send, or n (or c/cancel) to skip sending."
 msgstr "भेजने के लिए y, या भेजना छोड़ने के लिए n (या c/cancel) से उत्तर दें."
 
-#: src/uagent/cli.py:1084
+#: src/uagent/cli.py:1128
 #, python-format
 msgid ""
 "Image send confirmation failed; will not send images: %(etype)s: %(err)s"
 msgstr ""
 "छवियाँ भेजने की पुष्टि विफल रही; छवियाँ नहीं भेजी जाएँगी: %(etype)s: %(err)s"
 
-#: src/uagent/cli.py:1112 src/uagent/scheckgui.py:728
+#: src/uagent/cli.py:1156 src/uagent/scheckgui.py:728
 #, python-format
 msgid "Failed to attach image: %(path)s (%(etype)s: %(err)s)"
 msgstr "छवि संलग्न करने में विफल: %(path)s (%(etype)s: %(err)s)"
 
-#: src/uagent/cli.py:1149
+#: src/uagent/cli.py:1193
 #, python-format
 msgid "Unknown event kind=%(kind)r: %(ev)r"
 msgstr "अज्ञात इवेंट प्रकार=%(kind)r: %(ev)r"
 
-#: src/uagent/cli.py:1171
+#: src/uagent/cli.py:1215
 msgid "Exited uag."
 msgstr "uag से बाहर निकले."
 
@@ -912,7 +924,7 @@ msgstr ""
 "प्रयास=%(attempt)s/%(max_retries)s प्रतीक्षा=%(wait_seconds).1fs "
 "retry_after=%(retry_after)s"
 
-#: src/uagent/llm_flow_helpers.py:219
+#: src/uagent/llm_flow_helpers.py:214
 msgid ""
 "The previous assistant reply was empty. Please answer based on the most "
 "recent tool result."
@@ -920,7 +932,7 @@ msgstr ""
 "पिछला सहायक उत्तर खाली था। कृपया सबसे हाल के टूल परिणाम के आधार पर उत्तर "
 "दें।"
 
-#: src/uagent/llm_flow_helpers.py:232
+#: src/uagent/llm_flow_helpers.py:227
 #, python-format
 msgid ""
 "[WARN] LLM returned an empty assistant message without tool calls.\n"
@@ -931,7 +943,7 @@ msgstr ""
 "provider=%(provider)s depname=%(depname)s empty_no_tool_rounds=%(empty_no_tool_rounds)s (max=%(empty_no_tool_max)s)\n"
 "यह OpenAI-संगत स्थानीय प्रदाताओं में टूल कॉल के बाद हो सकता है। आप UAGENT_EMPTY_NO_TOOL_MAX को अधिक मान पर सेट करने, या प्रदाता बदलने का प्रयास कर सकते हैं।"
 
-#: src/uagent/llm_flow_helpers.py:304 src/uagent/llm_flow_helpers.py:384
+#: src/uagent/llm_flow_helpers.py:299 src/uagent/llm_flow_helpers.py:379
 msgid ""
 "[INFO] Reusing the previous result because this tool call matches an earlier"
 " one.\n"
@@ -939,11 +951,11 @@ msgstr ""
 "[INFO] यह टूल कॉल पहले वाले से मेल खाती है, इसलिए पिछले परिणाम का पुनः उपयोग"
 " किया जा रहा है।\n"
 
-#: src/uagent/llm_flow_helpers.py:351
+#: src/uagent/llm_flow_helpers.py:346
 msgid "arguments must be a JSON object."
 msgstr "आर्गुमेंट्स JSON ऑब्जेक्ट होने चाहिए."
 
-#: src/uagent/llm_flow_helpers.py:358
+#: src/uagent/llm_flow_helpers.py:353
 #, python-format
 msgid ""
 "[tool args error] name=%(name)r raw=%(raw)r err=%(etype)s: %(err)s\n"
@@ -954,7 +966,7 @@ msgstr ""
 "Traceback:\n"
 "%(tb)s"
 
-#: src/uagent/llm_flow_helpers.py:405
+#: src/uagent/llm_flow_helpers.py:400
 #, python-format
 msgid ""
 "[tool runtime error] name=%(name)r err=%(etype)s: %(err)s\n"
@@ -965,7 +977,7 @@ msgstr ""
 "Traceback:\n"
 "%(tb)s"
 
-#: src/uagent/llm_helpers.py:20
+#: src/uagent/llm_helpers.py:21
 msgid "certifi is not available"
 msgstr "प्रमाणपत्र उपलब्ध नहीं है"
 

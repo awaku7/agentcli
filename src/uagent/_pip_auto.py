@@ -3,6 +3,8 @@
 
 from __future__ import annotations
 
+from .i18n import _
+
 import subprocess
 import sys
 
@@ -103,18 +105,18 @@ def install_with_status(
         return True
 
     # Try installing
-    print(f"Installing {label}...", file=sys.stderr)
+    print(_("Installing %(label)s...") % {"label": label}, file=sys.stderr)
     _run_pip()
     if _verify(fresh=True):
-        print(f"{label} installed successfully.", file=sys.stderr)
+        print(_("%(label)s installed successfully.") % {"label": label}, file=sys.stderr)
         return True
 
     # One more try with --force-reinstall (e.g. stale/corrupted installation)
-    print("Retrying with --force-reinstall...", file=sys.stderr)
+    print(_("Retrying with --force-reinstall..."), file=sys.stderr)
     _run_pip("--force-reinstall")
     if _verify(fresh=True):
-        print(f"{label} installed successfully.", file=sys.stderr)
+        print(_("%(label)s installed successfully.") % {"label": label}, file=sys.stderr)
         return True
 
-    print(f"Failed to install {label}.", file=sys.stderr)
+    print(_("Failed to install %(label)s.") % {"label": label}, file=sys.stderr)
     return False
