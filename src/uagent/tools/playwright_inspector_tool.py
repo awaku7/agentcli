@@ -26,6 +26,7 @@ def _emit_debug(message: str) -> None:
 
 
 TOOL_SPEC: dict[str, Any] = {
+    "external_data": True,
     "tool_genre": "devel",
     "type": "function",
     "function": {

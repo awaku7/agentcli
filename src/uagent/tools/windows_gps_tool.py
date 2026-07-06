@@ -46,7 +46,9 @@ def run_tool(args: dict) -> str:
         return _("err.not_windows", default="Error: Windows Location API is only available on Windows.")
 
     try:
-        from winrt.windows.devices.geolocation import Geolocator
+        import importlib.util as _iu
+        if _iu.find_spec("winrt.windows.devices.geolocation") is None:
+            raise ImportError
     except ImportError:
         return _(
             "err.no_winrt",

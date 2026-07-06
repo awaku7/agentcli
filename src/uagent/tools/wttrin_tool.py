@@ -1,6 +1,5 @@
 from __future__ import annotations
 
-import json
 import requests
 import warnings
 from urllib3.exceptions import InsecureRequestWarning

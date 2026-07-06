@@ -215,6 +215,7 @@ BUSY_LABEL = True
 STATUS_LABEL = "tool:search_web"
 
 TOOL_SPEC: dict[str, Any] = {
+    "external_data": True,
     "type": "function",
     "x_parallel_safe": True,
     "tool_genre": "external",

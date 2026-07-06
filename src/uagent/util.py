@@ -137,7 +137,7 @@ def run_llm_rounds(
     client: Any,
     depname: str,
     messages: list[dict[str, Any]],
-) -> None:
+) -> Any:
     """旧シグネチャ互換: 依存を注入して run_llm_rounds を呼ぶ。"""
 
     return _run_llm_rounds(

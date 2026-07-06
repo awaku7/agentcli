@@ -163,16 +163,24 @@ def _ensure_parent_dir_exists(path: str) -> None:
 
 
 def is_path_dangerous(p: str) -> bool:
-    """Determine if a path is dangerous (e.g. outside workdir or contains '..')."""
+    """Determine if a path is dangerous.
+
+    Returns True if:
+    - Path is empty
+    - Path contains '..' (path traversal)
+    - Path resolves outside the workdir
+
+    Notes:
+    - Absolute paths are not inherently dangerous; they are considered dangerous only
+      when they resolve outside the workdir.
+    """
     if not p:
         return True
     try:
-        path_obj = Path(p)
+        Path(p)
     except Exception:
         return True
     if ".." in str(p).replace("\\", "/"):
-        return True
-    if path_obj.is_absolute():
         return True
     resolved = _resolve_path(p)
     if not _is_under(_workdir_root(), resolved):

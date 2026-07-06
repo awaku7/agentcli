@@ -213,6 +213,41 @@ def _tool_load_order_key(spec: dict[str, Any]) -> tuple[int, int, str]:
     return (1, order, tool_name)
 
 
+# Cache for get_external_data_tools()
+_EXTERNAL_DATA_TOOLS_CACHE: frozenset[str] | None = None
+
+
+def get_external_data_tools() -> frozenset[str]:
+    """Return tool names that fetch external/third-party content.
+
+    These tools' results are wrapped with isolation markers to prevent
+    prompt injection attacks.
+    """
+    global _EXTERNAL_DATA_TOOLS_CACHE
+    if _EXTERNAL_DATA_TOOLS_CACHE is not None:
+        return _EXTERNAL_DATA_TOOLS_CACHE
+    _ensure_loaded()
+    result: set[str] = set()
+    for spec in TOOL_SPECS:
+        if spec.get("external_data"):
+            fn = spec.get("function", {})
+            if isinstance(fn, dict):
+                name = fn.get("name")
+                if name:
+                    result.add(name)
+    # Also check lazy-loaded tool specs
+    for mod_name in list(_LAZY_TOOL_MODULES):
+        lazy_spec = _load_lazy_tool_spec(mod_name)
+        if lazy_spec and lazy_spec.get("external_data"):
+            fn = lazy_spec.get("function", {})
+            if isinstance(fn, dict):
+                name = fn.get("name")
+                if name:
+                    result.add(name)
+    _EXTERNAL_DATA_TOOLS_CACHE = frozenset(result)
+    return _EXTERNAL_DATA_TOOLS_CACHE
+
+
 def _sort_registered_tools() -> None:
     """Sort registered tool specs and keep runner dict insertion order aligned."""
     with _TOOLS_LOCK:
@@ -1126,6 +1161,8 @@ def get_tool_catalog(
 
 def reload_plugins() -> None:
     """Reload tool plugins (reserved for future extensions)."""
+    global _EXTERNAL_DATA_TOOLS_CACHE
+    _EXTERNAL_DATA_TOOLS_CACHE = None
     clear_tool_i18n_cache()
     _load_plugins()
 

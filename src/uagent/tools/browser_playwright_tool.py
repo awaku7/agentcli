@@ -16,6 +16,7 @@ STATUS_LABEL = "tool:browser_playwright"
 TOOL_SPEC: dict[str, Any] = {
     "tool_level": 1,
     "type": "function",
+    "external_data": True,
     "tool_genre": "basic",
     "function": {
         "name": "browser_playwright",

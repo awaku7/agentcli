@@ -117,7 +117,26 @@ TOOL_SPEC: Dict[str, Any] = {
 ```
 During interactive CLI startup, users are prompted to select which tool genres to enable. The selected genres are then activated dynamically.
 
-### 3.3 Suppressing tool trace
+### 3.3 External data flag (prompt injection defense)
+
+If your tool fetches content from external/third-party sources (web pages, user messages, emails, etc.),
+mark it in `TOOL_SPEC` so that the result is automatically wrapped with isolation markers:
+
+```python
+TOOL_SPEC: Dict[str, Any] = {
+    "external_data": True,  # <-- add this flag
+    "type": "function",
+    "function": { ... }
+}
+```
+
+Tools with this flag have their output wrapped in `---BEGIN_UAGENT_EXTERNAL_CONTENT---` /
+`---END_UAGENT_EXTERNAL_CONTENT---` markers. The system prompt instructs the LLM not to
+follow any instructions found within these markers, providing defense against prompt injection.
+
+See `fetch_url_tool.py`, `bluesky_tool.py`, or `gmail_read_tool.py` for examples.
+
+### 3.4 Suppressing tool trace
 
 Tools print a one-line trace by default. To suppress:
 

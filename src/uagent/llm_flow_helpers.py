@@ -10,18 +10,13 @@ from .env_utils import env_get
 from .i18n import _
 from .llm_helpers import _effectively_empty_text
 
-# Tools that fetch external/third-party content (prompt injection risk)
-# Results from these tools are wrapped with isolation markers to prevent
-# embedded instructions from being interpreted as commands.
-EXTERNAL_DATA_TOOLS = frozenset({
-    "fetch_url",
-    "search_web",
-    "browser_playwright",
-    "playwright_inspector",
-    "bluesky",
-    "discord_channel_chat",
-    "gmail_read",
-})
+def _is_external_data_tool(name: str) -> bool:
+    """Check if a tool fetches external/third-party content.
+
+    Results from these tools are wrapped with isolation markers to prevent
+    embedded instructions from being interpreted as commands.
+    """
+    return name in tools.get_external_data_tools()
 
 
 def _append_assistant_message(
@@ -436,7 +431,7 @@ def _execute_tool_calls(
         }
 
         # --- Prompt injection defense: wrap external content ---
-        if name in EXTERNAL_DATA_TOOLS:
+        if _is_external_data_tool(name):
             wrapped = (
                 "---BEGIN_UAGENT_EXTERNAL_CONTENT---\n"
                 + tool_msg["content"]

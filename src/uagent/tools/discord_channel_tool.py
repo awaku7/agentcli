@@ -167,6 +167,7 @@ def _fetch_recent_messages(
 
 
 TOOL_SPEC: dict[str, Any] = {
+    "external_data": True,
     "load_order": 10000,
     "tool_level": 1,
     "tool_genre": "comm",

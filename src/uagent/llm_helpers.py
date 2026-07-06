@@ -5,6 +5,7 @@ import threading
 from typing import Any
 
 from .env_utils import env_get
+from .i18n import _
 
 try:
     import certifi

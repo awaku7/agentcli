@@ -63,6 +63,31 @@ def _derive_subkey(master_key: bytes, *, purpose: str, length: int) -> bytes:
     return hkdf.derive(master_key)
 
 
+def _restrict_windows_permissions(path: Path) -> None:
+    """Restrict file access to the current user on Windows using icacls."""
+    if os.name != "nt":
+        return
+    username = os.environ.get("USERNAME", "")
+    domain = os.environ.get("USERDOMAIN", "")
+    if not username:
+        return
+    user = f"{domain}\\{username}" if domain and domain.lower() != username.lower() else username
+    try:
+        import subprocess
+        # Remove inherited permissions
+        subprocess.run(
+            ["icacls", str(path), "/inheritance:r"],
+            capture_output=True, text=True, timeout=10,
+        )
+        # Grant full control only to the current user
+        subprocess.run(
+            ["icacls", str(path), "/grant", f"{user}:(F)"],
+            capture_output=True, text=True, timeout=10,
+        )
+    except Exception:
+        pass  # Best-effort: file is still protected by POSIX mode 0o600
+
+
 def init_key(*, overwrite: bool = False) -> str:
     p = _key_path()
     _ensure_parent(p)
@@ -78,6 +103,7 @@ def init_key(*, overwrite: bool = False) -> str:
         os.write(fd, key)
     finally:
         os.close(fd)
+    _restrict_windows_permissions(p)
     return str(p)
 
 

@@ -184,16 +184,25 @@ def _get_prompt_session(*, reply: bool = False) -> Any:
                 def get_completions(self, document, complete_event):
                     text = document.text_before_cursor
                     stripped = text.lstrip()
+
+                    # Free-form path completion: ./ or ../ prefix
+                    if stripped.startswith(("./", "../")):
+                        path_doc = Document(
+                            text=stripped,
+                            cursor_position=len(stripped),
+                        )
+                        for comp in PathCompleter().get_completions(
+                            path_doc, complete_event
+                        ):
+                            yield comp
+                        return
+
                     # Path completion for file-operating commands
                     path_cmds = (
-                        ":ls ",
-                        ":cd ",
-                        ":rm ",
-                        ":cp ",
-                        ":mv ",
-                        ":head ",
-                        ":tail ",
-                        ":load ",
+                        ":ls ", ":cd ", ":rm ", ":cp ", ":mv ",
+                        ":head ", ":tail ", ":load ",
+                        # Free-form commands (without :)
+                        "ls ", "rm ", "cp ", "mv ", "cat ",
                     )
                     if stripped.startswith(path_cmds):
                         # Strip the command prefix so PathCompleter sees only the path

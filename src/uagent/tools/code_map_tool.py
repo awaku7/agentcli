@@ -3,6 +3,7 @@ from __future__ import annotations
 
 import datetime
 import json
+import urllib.request
 import os
 import re
 import xml.etree.ElementTree as ET
@@ -581,6 +582,7 @@ def _render_mermaid_to_image(mermaid_code: str, output_path: str) -> str | None:
     Returns None on success, or an error message string on failure.
     Uses mermaid-cli (playwright-based) if available, falls back to Mermaid.ink API.
     """
+    mermaid_cli_hint = 'Install mermaid-cli: pip install mermaid-cli'
     from .._pip_auto import install_with_status
 
     # Try mermaid-cli Python package first (local playwright rendering)

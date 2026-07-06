@@ -3,11 +3,9 @@
 
 from __future__ import annotations
 
-import os
 import subprocess
 import sys
 
-from .i18n import _
 
 
 def auto_install(package_name: str, module_name: str | None = None) -> bool:
@@ -112,7 +110,7 @@ def install_with_status(
         return True
 
     # One more try with --force-reinstall (e.g. stale/corrupted installation)
-    print(f"Retrying with --force-reinstall...", file=sys.stderr)
+    print("Retrying with --force-reinstall...", file=sys.stderr)
     _run_pip("--force-reinstall")
     if _verify(fresh=True):
         print(f"{label} installed successfully.", file=sys.stderr)
