@@ -5,7 +5,7 @@ AP2 (Agent Payments Protocol) — autonomous payment management.
 Enables the agent to create, list, and execute AP2 payment mandates
 for autonomous checkout completion without user interaction.
 
-Mandates are persisted to ~/.uag/ucp_mandates.json (or UAGENT_WORKDIR).
+Mandates are persisted to ~/.uag/ucp_mandates.json.
 Optional Fernet encryption is applied when UCP_MANDATES_KEY is set.
 """
 
@@ -133,35 +133,18 @@ TOOL_SPEC: dict[str, Any] = {
 # File persistence
 # ---------------------------------------------------------------------------
 
-_MANDATES_DIR: Path | None = None
 _MANDATES_PATH: Path | None = None
 _ENCRYPTION_KEY: str | None = None
 
 
-def _get_mandates_dir() -> Path:
-    """Get the directory for mandate storage."""
-    global _MANDATES_DIR
-    if _MANDATES_DIR is not None:
-        return _MANDATES_DIR
-
-    workdir = os.getenv("UAGENT_WORKDIR")
-    if workdir:
-        base = Path(workdir)
-    else:
-        base = Path.home() / ".uag"
-
-    _MANDATES_DIR = base
-    return _MANDATES_DIR
-
-
 def _get_mandates_path() -> Path:
-    """Get the full path to the mandates file."""
+    """Get the full path to the mandates file (~/.uag/ucp_mandates.json)."""
     global _MANDATES_PATH
     if _MANDATES_PATH is not None:
         return _MANDATES_PATH
 
-    d = _get_mandates_dir()
-    _MANDATES_PATH = d / "ucp_mandates.json"
+    base = Path.home() / ".uag"
+    _MANDATES_PATH = base / "ucp_mandates.json"
     return _MANDATES_PATH
 
 
@@ -180,11 +163,9 @@ def _fernet_encrypt(data: bytes, key: str) -> bytes:
     """Encrypt data using Fernet (symmetric)."""
     import base64
     from cryptography.fernet import Fernet
-    # If key is not 32-byte base64, derive a Fernet-compatible key
     try:
         f = Fernet(key.encode() if isinstance(key, str) else key)
     except Exception:
-        # Derive key via SHA-256
         from cryptography.hazmat.primitives import hashes
         from cryptography.hazmat.primitives.kdf.pbkdf2 import PBKDF2HMAC
         salt = b"ucp_mandates_v1"
@@ -212,7 +193,7 @@ def _fernet_decrypt(data: bytes, key: str) -> bytes:
 
 
 def _load_mandates() -> dict[str, dict[str, Any]]:
-    """Load mandates from the file (with optional decryption)."""
+    """Load mandates from ~/.uag/ucp_mandates.json (with optional decryption)."""
     path = _get_mandates_path()
     if not path.exists():
         return {}
@@ -231,7 +212,7 @@ def _load_mandates() -> dict[str, dict[str, Any]]:
 
 
 def _save_mandates(mandates: dict[str, dict[str, Any]]) -> None:
-    """Save mandates to the file (with optional encryption)."""
+    """Save mandates to ~/.uag/ucp_mandates.json (with optional encryption)."""
     path = _get_mandates_path()
     path.parent.mkdir(parents=True, exist_ok=True)
 
@@ -240,7 +221,6 @@ def _save_mandates(mandates: dict[str, dict[str, Any]]) -> None:
     if key:
         raw = _fernet_encrypt(raw, key)
 
-    # Atomic write: write to temp, then rename
     tmp = path.with_suffix(".json.tmp")
     tmp.write_bytes(raw)
     tmp.replace(path)
