@@ -140,6 +140,71 @@ _MANUFACTURER_NAMES: dict[str, str] = {
     "000149": "SYNCOMM",
 }
 
+# EOJ class code -> (English name, Japanese name) mapping (from pyhems MRA data)
+# Direct mapping from common eoj_list values (as seen in device responses)
+# to class codes, for cases where byte ordering is non-standard
+_EOJ_RAW_MAP: dict[str, int] = {
+    "010130": 0x0130,  # SHARP air conditioner D7 reports 010130 instead of 013001
+}
+
+_EOJ_CLASS_NAMES: dict[int, tuple[str, str]] = {
+    0x0002: ("Crime prevention sensor", "防犯センサ"),
+    0x0003: ("Emergency button", "非常ボタン"),
+    0x0007: ("Human detection sensor", "人体検知センサ"),
+    0x0011: ("Temperature sensor", "温度センサ"),
+    0x0012: ("Humidity sensor", "湿度センサ"),
+    0x0016: ("Bath heating status sensor", "風呂沸き上がりセンサ"),
+    0x001B: ("CO2 sensor", "CO2センサ"),
+    0x001D: ("VOC sensor", "VOCセンサ"),
+    0x0022: ("Electric energy sensor", "電力量センサ"),
+    0x0023: ("Current sensor", "電流センサ"),
+    0x00D0: ("Illuminance sensor", "照度センサ"),
+    0x0130: ("Home air conditioner", "家庭用エアコン"),
+    0x0133: ("Ventilation fan", "換気扇"),
+    0x0134: ("Air conditioner ventilation fan", "空調換気扇"),
+    0x0135: ("Air cleaner", "空気清浄器"),
+    0x0156: ("Commercial AC indoor unit", "業務用エアコン室内機"),
+    0x0157: ("Commercial AC outdoor unit", "業務用エアコン室外機"),
+    0x0260: ("Electrically operated blind/shade", "電動ブラインド・日よけ"),
+    0x0263: ("Electrically operated shutter", "電動雨戸・シャッター"),
+    0x026B: ("Electric water heater", "電気温水器"),
+    0x026F: ("Electric lock", "電気錠"),
+    0x0272: ("Instantaneous water heater", "瞬間式給湯器"),
+    0x0273: ("Bathroom heater dryer", "浴室暖房乾燥機"),
+    0x0279: ("Household solar power generation", "住宅用太陽光発電"),
+    0x027A: ("Cold/hot water heat source", "冷温水熱源機"),
+    0x027B: ("Floor heater", "床暖房"),
+    0x027C: ("Fuel cell", "燃料電池"),
+    0x027D: ("Storage battery", "蓄電池"),
+    0x027E: ("EV charger/discharger", "電気自動車充放電器"),
+    0x0280: ("Watt-hour meter", "電力量メータ"),
+    0x0281: ("Water flowmeter", "水流量メータ"),
+    0x0282: ("Gas meter", "ガスメータ"),
+    0x0287: ("Power distribution meter", "分電盤メータリング"),
+    0x0288: ("Low-voltage smart meter", "低圧スマート電力量メータ"),
+    0x028A: ("High-voltage smart meter", "高圧スマート電力量メータ"),
+    0x028D: ("Smart sub-meter", "スマート電力量サブメータ"),
+    0x028E: ("Distributed generator meter", "分散型電源電力量メータ"),
+    0x028F: ("Bidirectional HV smart meter", "双方向対応高圧スマート電力量メータ"),
+    0x0290: ("General lighting", "一般照明"),
+    0x0291: ("Mono functional lighting", "単機能照明"),
+    0x02A1: ("EV Charger", "電気自動車充電器"),
+    0x02A3: ("Lighting system", "照明システム"),
+    0x02A4: ("Extended lighting system", "拡張照明システム"),
+    0x02A5: ("Multiple input PCS", "マルチ入力PCS"),
+    0x02A6: ("Hybrid water heater", "ハイブリッド給湯機"),
+    0x02A7: ("Frequency regulation", "周波数制御"),
+    0x03B7: ("Refrigerator", "冷凍冷蔵庫"),
+    0x03B9: ("Cooking heater", "クッキングヒータ"),
+    0x03BB: ("Rice cooker", "炊飯器"),
+    0x03CE: ("Commercial showcase", "業務用ショーケース"),
+    0x03D3: ("Washer/dryer", "洗濯乾燥機"),
+    0x03D4: ("Commercial showcase outdoor unit", "業務用ショーケース向け室外機"),
+    0x05FD: ("Switch (JEM-A/HA)", "スイッチ (JEM-A/HA端子対応)"),
+    0x05FF: ("Controller", "コントローラ"),
+    0x0602: ("Television", "テレビ"),
+}
+
 TOOL_SPEC: dict[str, Any] = {
     "tool_genre": "iot",
     "tool_level": 1,
@@ -686,7 +751,29 @@ def _format_text(payload: dict[str, Any]) -> str:
         return "\n".join(lines).strip()
 
     for idx, item in enumerate(items, 1):
-        lines.append(f"[{idx}] {item.get('ip_address') or '(unknown)'}")
+        ip_label = item.get('ip') or item.get('ip_address') or '(unknown)'
+        eoj_items = item.get('eoj_list') or []
+        dev_name = ""
+        for eoj_code in eoj_items:
+            combined = eoj_code[:4] if len(eoj_code) >= 4 else eoj_code
+            # Try raw map first (for non-standard byte ordering)
+            mapped = _EOJ_RAW_MAP.get(eoj_code)
+            if mapped is not None:
+                for ecc, (en, ja) in _EOJ_CLASS_NAMES.items():
+                    if ecc == mapped:
+                        dev_name = en
+                        break
+            else:
+                for ecc, (en, ja) in _EOJ_CLASS_NAMES.items():
+                    if f"{ecc:04X}" == combined:
+                        dev_name = en
+                        break
+            if dev_name:
+                break
+        if dev_name:
+            lines.append(f"[{idx}] {dev_name} ({ip_label})")
+        else:
+            lines.append(f"[{idx}] {ip_label}")
         if item.get("node_id"):
             lines.append(f"  node_id: {item.get('node_id')}")
         if item.get("manufacturer"):
@@ -699,7 +786,32 @@ def _format_text(payload: dict[str, Any]) -> str:
         if item.get("model"):
             lines.append(f"  model: {item.get('model')}")
         if item.get("eoj_list"):
-            lines.append(f"  eoj_list: {', '.join(item.get('eoj_list') or [])}")
+            eoj_items = item.get("eoj_list") or []
+            eoj_parts = []
+            for eoj_code in eoj_items:
+                name = ""
+                # EOJ hex encoding: class_group(2)+class_code(2)+instance(2)
+                if len(eoj_code) >= 4:
+                    combined = eoj_code[:4]
+                else:
+                    combined = eoj_code
+                # Try raw map first
+                mapped = _EOJ_RAW_MAP.get(eoj_code)
+                if mapped is not None:
+                    for ecc, (en, ja) in _EOJ_CLASS_NAMES.items():
+                        if ecc == mapped:
+                            name = en
+                            break
+                else:
+                    for ecc, (en, ja) in _EOJ_CLASS_NAMES.items():
+                        if f"{ecc:04X}" == combined:
+                            name = en
+                            break
+                if name:
+                    eoj_parts.append(f"{eoj_code} ({name})")
+                else:
+                    eoj_parts.append(eoj_code)
+            lines.append(f"  eoj_list: {', '.join(eoj_parts)}")
         lines.append(f"  reachable: {item.get('reachable')}")
         if item.get("last_seen"):
             lines.append(f"  last_seen: {item.get('last_seen')}")
