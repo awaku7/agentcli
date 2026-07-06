@@ -93,9 +93,9 @@ uag
 | **जीयूआई** | `उअग्ग` | टिंकर के माध्यम से डेस्कटॉप यूआई |
 | **वेब** | `उगव` | ब्राउज़र-आधारित पहुंच |
 | **A2A सर्वर** | 'उगा' | मल्टी-एजेंट संचार के लिए Agent2Agent प्रोटोकॉल |
-| **वीएस कोड** | — | [एक्सटेंशन](https://github.com/awaku7/agentcli/blob/main/VSCODE.md) चैट पैनल, एक्सप्लेन, रिफैक्टर, फिक्स एरर और टूल्स ट्री व्यू के साथ |
+| **वीएस कोड** | — | [एक्सटेंशन](https://github.com/awaku7/agentcli/blob/main/docs/VSCODE.md) चैट पैनल, एक्सप्लेन, रिफैक्टर, फिक्स एरर और टूल्स ट्री व्यू के साथ |
 
-वीएस कोड एक्सटेंशन - इंस्टॉलेशन, कमांड, कीबाइंडिंग और कॉन्फ़िगरेशन पर विवरण के लिए [VSCODE.md](https://github.com/awaku7/agentcli/blob/main/VSCODE.md) देखें।
+वीएस कोड एक्सटेंशन - इंस्टॉलेशन, कमांड, कीबाइंडिंग और कॉन्फ़िगरेशन पर विवरण के लिए [VSCODE.md](https://github.com/awaku7/agentcli/blob/main/docs/VSCODE.md) देखें।
 
 ### 🏠 IoT डिवाइस नियंत्रण
 - **स्विचबॉट**: क्लाउड बैच नियंत्रण और बीएलई स्कैन/नियंत्रण
@@ -103,7 +103,7 @@ uag
 - **मामला**: कंट्रोलर/ब्रिज/डिवाइस टोपोलॉजी का रीड-ओनली निरीक्षण
 - **यूपीएनपी**: डिवाइस खोज और आईजीडी पोर्ट अग्रेषण
 
-[IOT_USECASE.md](https://github.com/awaku7/agentcli/blob/main/IOT_USECASE.md) देखें
+[IOT_USECASE.md](https://github.com/awaku7/agentcli/blob/main/docs/IOT_USECASE.md) देखें
 
 
 ### 🏠 IoT डिवाइस नियंत्रण
@@ -126,7 +126,7 @@ uag
 - **कभी भी बाहर निकलें**: तुरंत रुकने के लिए `x` कुंजी दबाएँ, यहाँ तक कि प्रतिक्रिया के बीच में भी। या फिर समीक्षक को यह तय करने दें कि लक्ष्य कब पूरा होगा।
 - **कॉन्फ़िगर करने योग्य**: बजट को नियंत्रित करने के लिए `--मैक्स-राउंड एन`।
 
-संपूर्ण दस्तावेज़ीकरण के लिए [README_AUTO.md](https://github.com/awaku7/agentcli/blob/main/README_AUTO.md) देखें।
+संपूर्ण दस्तावेज़ीकरण के लिए [README_AUTO.md](https://github.com/awaku7/agentcli/blob/main/docs/README_AUTO.md) देखें।
 
 ### 🧩बैच स्टेट मैनेजर
 
@@ -148,7 +148,7 @@ uag
 
 व्यवधान "प्रॉम्प्ट इंजेक्शन" के रूप में काम करता है: केवल निरस्त करने के बजाय, यह उपयोगकर्ता संदेश के रूप में एलएलएम में `"स्टॉप"` को वापस फीड करता है, जिससे वह व्यवधान को शालीनता से समाप्त करने या स्वीकार करने की अनुमति देता है।
 
-ऑटो-पायलट मोड से बाहर निकलने के लिए `x` कुंजी दबाएँ (देखें [README_AUTO.md](https://github.com/awaku7/agentcli/blob/main/README_AUTO.md))।
+ऑटो-पायलट मोड से बाहर निकलने के लिए `x` कुंजी दबाएँ (देखें [README_AUTO.md](https://github.com/awaku7/agentcli/blob/main/docs/README_AUTO.md))।
 
 ### 🕵️ ब्राउज़र ऑटोमेशन और वेब इंस्पेक्टर
 
@@ -182,7 +182,7 @@ uag
 - **प्रतिक्रिया एपीआई**: प्रतिक्रिया एपीआई मोड (OpenAI/Azure/Bedrock/OpenRouter/Ollama/Alibaba/LM Studio/Sakana AI) के लिए `UAGENT_RESPONSES=1` सेट करें। सकाना एआई (फुगु) के लिए स्वतः सक्षम।
 - **डेवलपर दस्तावेज़**: [DEVELOP.md](https://github.com/awaku7/agentcli/blob/main/src/uagent/docs/DEVELOP.md)
 - **Tool flow**: [TOOL_FLOW.md](../src/uagent/docs/TOOL_FLOW.md)
-- **छोटे एलएलएम टिप्स**: [SLM_TIPS.md](https://github.com/awaku7/agentcli/blob/main/SLM_TIPS.md)
+- **छोटे एलएलएम टिप्स**: [SLM_TIPS.md](https://github.com/awaku7/agentcli/blob/main/docs/SLM_TIPS.md)
 
 ## परियोजना दर्शन
 

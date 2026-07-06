@@ -92,16 +92,16 @@ OpenAI / Azure / Bedrock / OpenRouter / Ollama / Gemini / Vertex AI / Claude / G
 | **GUI** | `uagg` | tkinter এর মাধ্যমে ডেস্কটপ UI |
 | **ওয়েব** | `uagw` | ব্রাউজার-ভিত্তিক অ্যাক্সেস |
 | **A2A সার্ভার** | `uaga` | মাল্টি-এজেন্ট যোগাযোগের জন্য Agent2Agent প্রোটোকল |
-| **VS কোড** | — | [এক্সটেনশন](https://github.com/awaku7/agentcli/blob/main/VSCODE.md) চ্যাট প্যানেল, ব্যাখ্যা, রিফ্যাক্টর, ত্রুটি সংশোধন, এবং টুলস ট্রি ভিউ সহ |
+| **VS কোড** | — | [এক্সটেনশন](https://github.com/awaku7/agentcli/blob/main/docs/VSCODE.md) চ্যাট প্যানেল, ব্যাখ্যা, রিফ্যাক্টর, ত্রুটি সংশোধন, এবং টুলস ট্রি ভিউ সহ |
 
-VS কোড এক্সটেনশন — ইনস্টলেশন, কমান্ড, কীবাইন্ডিং এবং কনফিগারেশনের বিস্তারিত জানার জন্য [VSCODE.md](https://github.com/awaku7/agentcli/blob/main/VSCODE.md) দেখুন।
+VS কোড এক্সটেনশন — ইনস্টলেশন, কমান্ড, কীবাইন্ডিং এবং কনফিগারেশনের বিস্তারিত জানার জন্য [VSCODE.md](https://github.com/awaku7/agentcli/blob/main/docs/VSCODE.md) দেখুন।
 
 ### 🏠 IoT ডিভাইস কন্ট্রোল
 - **সুইচবট**: ক্লাউড ব্যাচ নিয়ন্ত্রণ এবং BLE স্ক্যান/নিয়ন্ত্রণ
 - **ইকোনেট লাইট**: স্থানীয় নেটওয়ার্কে গৃহস্থালীর যন্ত্রপাতি (এসি, লাইট, ওয়াটার হিটার ইত্যাদি) আবিষ্কার ও নিয়ন্ত্রণ করুন
 - **ম্যাটার**: কন্ট্রোলার/ব্রিজ/ডিভাইস টপোলজির শুধুমাত্র পঠনযোগ্য পরিদর্শন
 
-[IOT_USECASE.md](https://github.com/awaku7/agentcli/blob/main/IOT_USECASE.md) দেখুন
+[IOT_USECASE.md](https://github.com/awaku7/agentcli/blob/main/docs/IOT_USECASE.md) দেখুন
 
 
 ### 🏠 IoT ডিভাইস কন্ট্রোল
@@ -132,7 +132,7 @@ uag **স্বয়ংক্রিয়ভাবে একাধিক LLM �
 - **যেকোনো সময় প্রস্থান করুন**: অবিলম্বে বন্ধ করতে `x` কী টিপুন, এমনকি মধ্য-প্রতিক্রিয়াও। অথবা পর্যালোচককে সিদ্ধান্ত নিতে দিন কখন লক্ষ্য পূরণ হবে।
 - **কনফিগারযোগ্য**: বাজেট নিয়ন্ত্রণ করতে `--সর্বোচ্চ রাউন্ডস N`।
 
-সম্পূর্ণ ডকুমেন্টেশনের জন্য [README_AUTO.md](https://github.com/awaku7/agentcli/blob/main/README_AUTO.md) দেখুন।
+সম্পূর্ণ ডকুমেন্টেশনের জন্য [README_AUTO.md](https://github.com/awaku7/agentcli/blob/main/docs/README_AUTO.md) দেখুন।
 
 ### 🧩 ব্যাচ স্টেট ম্যানেজার
 
@@ -154,7 +154,7 @@ uag দীর্ঘ-চলমান মাল্টি-ফাইল টাস্
 
 বিঘ্নটি "প্রম্পট ইনজেকশন" হিসাবে কাজ করে: শুধু বাদ দেওয়ার পরিবর্তে, এটি ব্যবহারকারীর বার্তা হিসাবে LLM-এ `"Stop"` ফিড করে, যা এটিকে সৌহার্দ্যপূর্ণভাবে সমাপ্তি বা বাধা স্বীকার করার অনুমতি দেয়।
 
-অটো-পাইলট মোড থেকে প্রস্থান করতে `x` কী টিপুন (দেখুন [README_AUTO.md](https://github.com/awaku7/agentcli/blob/main/README_AUTO.md))।
+অটো-পাইলট মোড থেকে প্রস্থান করতে `x` কী টিপুন (দেখুন [README_AUTO.md](https://github.com/awaku7/agentcli/blob/main/docs/README_AUTO.md))।
 
 ### 🕵️ ব্রাউজার অটোমেশন এবং ওয়েব ইন্সপেক্টর
 
@@ -188,7 +188,7 @@ API কী এবং গোপনীয়তাগুলি `.env.sec`-এ স�
 - **প্রতিক্রিয়া API**: প্রতিক্রিয়া API মোডের জন্য `UAGENT_RESPONSES=1` সেট করুন (OpenAI/Azure/Bedrock/OpenRouter/Ollama/Alibaba/LM Studio/Sakana AI)। সাকানা এআই (ফুগু) এর জন্য স্বতঃ-সক্ষম।
 - **ডেভেলপার ডক্স**: [DEVELOP.md](https://github.com/awaku7/agentcli/blob/main/src/uagent/docs/DEVELOP.md)
 - **Tool flow**: [TOOL_FLOW.md](../src/uagent/docs/TOOL_FLOW.md)
-- **ছোট এলএলএম টিপস**: [SLM_TIPS.md](https://github.com/awaku7/agentcli/blob/main/SLM_TIPS.md)
+- **ছোট এলএলএম টিপস**: [SLM_TIPS.md](https://github.com/awaku7/agentcli/blob/main/docs/SLM_TIPS.md)
 
 ## প্রকল্প দর্শন
 

@@ -92,14 +92,14 @@ OpenAI / Azure / Bedrock / OpenRouter / Ollama / Gemini / Vertex AI / Claude / G
 | **กุย** | `อูกก` | UI เดสก์ท็อปผ่าน tkinter |
 | **เว็บ** | `อู้วว` | การเข้าถึงผ่านเบราว์เซอร์ |
 | **เซิร์ฟเวอร์ A2A** | `อูก้า` | โปรโตคอล Agent2Agent สำหรับการสื่อสารหลายตัวแทน |
-| **รหัส VS** | — | [ส่วนขยาย](https://github.com/awaku7/agentcli/blob/main/VSCODE.md) พร้อมแผงแชท อธิบาย ปรับโครงสร้างใหม่ แก้ไขข้อผิดพลาด และมุมมองแผนผังเครื่องมือ |
+| **รหัส VS** | — | [ส่วนขยาย](https://github.com/awaku7/agentcli/blob/main/docs/VSCODE.md) พร้อมแผงแชท อธิบาย ปรับโครงสร้างใหม่ แก้ไขข้อผิดพลาด และมุมมองแผนผังเครื่องมือ |
 
-ดู [VSCODE.md](https://github.com/awaku7/agentcli/blob/main/VSCODE.md) สำหรับรายละเอียดเกี่ยวกับส่วนขยาย VS Code — การติดตั้ง คำสั่ง การผูกคีย์ และการกำหนดค่า
+ดู [VSCODE.md](https://github.com/awaku7/agentcli/blob/main/docs/VSCODE.md) สำหรับรายละเอียดเกี่ยวกับส่วนขยาย VS Code — การติดตั้ง คำสั่ง การผูกคีย์ และการกำหนดค่า
 
 ### 🏠 การควบคุมอุปกรณ์ IoT
 - **เรื่อง**: การตรวจสอบโทโพโลยีตัวควบคุม/บริดจ์/อุปกรณ์แบบอ่านอย่างเดียว
 
-ดู [IOT_USECASE.md](https://github.com/awaku7/agentcli/blob/main/IOT_USECASE.md)
+ดู [IOT_USECASE.md](https://github.com/awaku7/agentcli/blob/main/docs/IOT_USECASE.md)
 
 
 ### การควบคุมอุปกรณ์ IoT
@@ -129,7 +129,7 @@ uag สามารถ **ติดตามเป้าหมายโดยอ�
 - **ออกเมื่อใดก็ได้**: กดปุ่ม `x` เพื่อหยุดทันที แม้จะตอบกลับกลางคันก็ตาม หรือให้ผู้วิจารณ์ตัดสินใจว่าจะบรรลุเป้าหมายเมื่อใด
 - **กำหนดค่าได้**: `--max-rounds N` เพื่อควบคุมงบประมาณ
 
-ดู [README_AUTO.md](https://github.com/awaku7/agentcli/blob/main/README_AUTO.md) สำหรับเอกสารฉบับเต็ม
+ดู [README_AUTO.md](https://github.com/awaku7/agentcli/blob/main/docs/README_AUTO.md) สำหรับเอกสารฉบับเต็ม
 
 ### 🧩 ผู้จัดการกลุ่มรัฐ
 
@@ -151,7 +151,7 @@ uag สามารถติดตามความคืบหน้าขอ�
 
 การขัดจังหวะทำงานเหมือน "การแทรกพร้อมท์": แทนที่จะเพียงแค่ยกเลิก การขัดจังหวะจะป้อน `"หยุด"` กลับไปยัง LLM เป็นข้อความผู้ใช้ เพื่อให้สามารถสรุปหรือรับทราบการขัดจังหวะได้อย่างสวยงาม
 
-กดปุ่ม `x` เพื่อออกจากโหมดนำร่องอัตโนมัติ (ดู [README_AUTO.md](https://github.com/awaku7/agentcli/blob/main/README_AUTO.md))
+กดปุ่ม `x` เพื่อออกจากโหมดนำร่องอัตโนมัติ (ดู [README_AUTO.md](https://github.com/awaku7/agentcli/blob/main/docs/README_AUTO.md))
 
 ### 🕵️ ระบบอัตโนมัติของเบราว์เซอร์ & ตัวตรวจสอบเว็บ
 
@@ -185,7 +185,7 @@ uag สามารถติดตามความคืบหน้าขอ�
 - **Responses API**: ตั้งค่า `UAGENT_RESPONSES=1` สำหรับโหมด Responses API (OpenAI/Azure/Bedrock/OpenRouter/Ollama/Alibaba/LM Studio/Sakana AI) เปิดใช้งานอัตโนมัติสำหรับ Sakana AI (Fugu)
 - **เอกสารสำหรับนักพัฒนา**: [DEVELOP.md](https://github.com/awaku7/agentcli/blob/main/src/uagent/docs/DEVELOP.md)
 - **Tool flow**: [TOOL_FLOW.md](../src/uagent/docs/TOOL_FLOW.md)
-- **เคล็ดลับ LLM ขนาดเล็ก**: [SLM_TIPS.md](https://github.com/awaku7/agentcli/blob/main/SLM_TIPS.md)
+- **เคล็ดลับ LLM ขนาดเล็ก**: [SLM_TIPS.md](https://github.com/awaku7/agentcli/blob/main/docs/SLM_TIPS.md)
 
 ## ปรัชญาโครงการ
 

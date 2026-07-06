@@ -92,14 +92,14 @@ Nástroje pouze pro čtení (prohledávání souborů, výpočet hashů, výpis 
 | **GUI** | "uagg" | Desktop UI přes tkinter |
 | **Web** | "uagw" | Přístup na základě prohlížeče |
 | **Server A2A** | "uaga" | Agent2Agent protokol pro multi-agentní komunikaci |
-| **VS kód** | — | [Rozšíření](https://github.com/awaku7/agentcli/blob/main/VSCODE.md) s panelem chatu, vysvětlením, refaktorem, opravou chyb a stromovým zobrazením nástrojů |
+| **VS kód** | — | [Rozšíření](https://github.com/awaku7/agentcli/blob/main/docs/VSCODE.md) s panelem chatu, vysvětlením, refaktorem, opravou chyb a stromovým zobrazením nástrojů |
 
-Podrobnosti o rozšíření VS Code – instalace, příkazy, klávesové zkratky a konfigurace najdete na [VSCODE.md](https://github.com/awaku7/agentcli/blob/main/VSCODE.md).
+Podrobnosti o rozšíření VS Code – instalace, příkazy, klávesové zkratky a konfigurace najdete na [VSCODE.md](https://github.com/awaku7/agentcli/blob/main/docs/VSCODE.md).
 
 ### 🏠 Ovládání zařízení IoT
 - **Záležitost**: Kontrola topologie řadiče/můstku/zařízení pouze pro čtení
 
-Viz [IOT_USECASE.md](https://github.com/awaku7/agentcli/blob/main/IOT_USECASE.md)
+Viz [IOT_USECASE.md](https://github.com/awaku7/agentcli/blob/main/docs/IOT_USECASE.md)
 
 
 ### 🏠 Ovládání zařízení IoT
@@ -128,7 +128,7 @@ uag může **autonomně sledovat cíl ve více kolech LLM**. Ideální pro slož
 - **Ukončit kdykoli**: Stisknutím tlačítka „x“ okamžitě zastavíte, dokonce i uprostřed odezvy. Nebo nechte recenzenta rozhodnout, kdy bude cíl splněn.
 - **Konfigurovatelné**: `--max-rounds N` pro kontrolu rozpočtu.
 
-Úplnou dokumentaci naleznete na [README_AUTO.md](https://github.com/awaku7/agentcli/blob/main/README_AUTO.md).
+Úplnou dokumentaci naleznete na [README_AUTO.md](https://github.com/awaku7/agentcli/blob/main/docs/README_AUTO.md).
 
 ### 🧩 Batch State Manager
 
@@ -150,7 +150,7 @@ Kdykoli zastavte generování odezvy LLM a vložte příkaz stop zpět do LLM.
 
 Přerušení funguje jako "promptní vložení": namísto pouhého přerušení odešle "Stop"` zpět do LLM jako uživatelskou zprávu, která mu umožňuje ladně uzavřít nebo potvrdit přerušení.
 
-Stisknutím klávesy `x` ukončíte režim autopilota (viz [README_AUTO.md](https://github.com/awaku7/agentcli/blob/main/README_AUTO.md)).
+Stisknutím klávesy `x` ukončíte režim autopilota (viz [README_AUTO.md](https://github.com/awaku7/agentcli/blob/main/docs/README_AUTO.md)).
 
 ### 🕵️ Automatizace prohlížeče a webový inspektor
 
@@ -184,7 +184,7 @@ Spravujte pomocí `uag_envsec`.
 - **Responses API**: Nastavte `UAGENT_RESPONSES=1` pro režim Responses API (OpenAI/Azure/Bedrock/OpenRouter/Ollama/Alibaba/LM Studio/Sakana AI). Automaticky povoleno pro Sakana AI (Fugu).
 - **Dokumenty pro vývojáře**: [DEVELOP.md](https://github.com/awaku7/agentcli/blob/main/src/uagent/docs/DEVELOP.md)
 - **Tool flow**: [TOOL_FLOW.md](../src/uagent/docs/TOOL_FLOW.md)
-- **Malé tipy LLM**: [SLM_TIPS.md](https://github.com/awaku7/agentcli/blob/main/SLM_TIPS.md)
+- **Malé tipy LLM**: [SLM_TIPS.md](https://github.com/awaku7/agentcli/blob/main/docs/SLM_TIPS.md)
 
 ## Filosofie projektu
 

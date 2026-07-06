@@ -92,14 +92,14 @@ Läsbara verktyg (filsökning, hashberäkning, kataloglistning, översättning, 
 | **GUI** | `uagg` | Desktop UI via tkinter |
 | **Webb** | `uagw` | Webbläsarbaserad åtkomst |
 | **A2A-server** | `uaga` | Agent2Agent-protokoll för multiagentkommunikation |
-| **VS-kod** | — | [Tillägg](https://github.com/awaku7/agentcli/blob/main/VSCODE.md) med Chat Panel, Explain, Refactor, Fix Error och Tools Trädvy |
+| **VS-kod** | — | [Tillägg](https://github.com/awaku7/agentcli/blob/main/docs/VSCODE.md) med Chat Panel, Explain, Refactor, Fix Error och Tools Trädvy |
 
-Se [VSCODE.md](https://github.com/awaku7/agentcli/blob/main/VSCODE.md) för detaljer om VS Code-tillägget — installation, kommandon, tangentbindningar och konfiguration.
+Se [VSCODE.md](https://github.com/awaku7/agentcli/blob/main/docs/VSCODE.md) för detaljer om VS Code-tillägget — installation, kommandon, tangentbindningar och konfiguration.
 
 ### 🏠 IoT-enhetskontroll
 - **Ärende**: Skrivskyddad inspektion av styrenhet/brygga/enhetstopologi
 
-Se [IOT_USECASE.md](https://github.com/awaku7/agentcli/blob/main/IOT_USECASE.md)
+Se [IOT_USECASE.md](https://github.com/awaku7/agentcli/blob/main/docs/IOT_USECASE.md)
 
 
 ### 🏠 IoT-enhetskontroll
@@ -127,7 +127,7 @@ uag kan **autonomt sträva efter ett mål över flera LLM-omgångar**. Perfekt f
 - **Avsluta när som helst**: Tryck på `x`-tangenten för att stoppa omedelbart, även mitt i svaret. Eller låt granskaren bestämma när målet är uppfyllt.
 - **Konfigurerbar**: `--max-rounds N` för att styra budgeten.
 
-Se [README_AUTO.md](https://github.com/awaku7/agentcli/blob/main/README_AUTO.md) för fullständig dokumentation.
+Se [README_AUTO.md](https://github.com/awaku7/agentcli/blob/main/docs/README_AUTO.md) för fullständig dokumentation.
 
 ### 🧩 Batch State Manager
 
@@ -149,7 +149,7 @@ Stoppa generering av LLM-svar när som helst och injicera ett stoppkommando till
 
 Avbrottet fungerar som "prompt injektion": istället för att bara avbryta, matar det "Stopp"" tillbaka till LLM som ett användarmeddelande, vilket gör det möjligt för den att på ett elegant sätt avsluta eller bekräfta avbrottet.
 
-Tryck på `x`-tangenten för att avsluta autopilotläget (se [README_AUTO.md](https://github.com/awaku7/agentcli/blob/main/README_AUTO.md)).
+Tryck på `x`-tangenten för att avsluta autopilotläget (se [README_AUTO.md](https://github.com/awaku7/agentcli/blob/main/docs/README_AUTO.md)).
 
 ### 🕵️ Webbläsarautomation och webbinspektör
 
@@ -183,7 +183,7 @@ Hantera med `uag_envsec`.
 - **Responses API**: Ställ in `UAGENT_RESPONSES=1` för Responses API-läge (OpenAI/Azure/Bedrock/OpenRouter/Ollama/Alibaba/LM Studio/Sakana AI). Autoaktiverad för Sakana AI (Fugu).
 - **Utvecklardokument**: [DEVELOP.md](https://github.com/awaku7/agentcli/blob/main/src/uagent/docs/DEVELOP.md)
 - **Tool flow**: [TOOL_FLOW.md](../src/uagent/docs/TOOL_FLOW.md)
-- **Små LLM-tips**: [SLM_TIPS.md](https://github.com/awaku7/agentcli/blob/main/SLM_TIPS.md)
+- **Små LLM-tips**: [SLM_TIPS.md](https://github.com/awaku7/agentcli/blob/main/docs/SLM_TIPS.md)
 
 ## Projektfilosofi
 

@@ -92,14 +92,14 @@ Zana za kusoma pekee (utaftaji wa faili, hesabu ya heshi, orodha ya saraka, tafs
 | **GUI** | `uagg` | UI ya Eneo-kazi kupitia tkinter |
 | **Mtandao** | `ua` | Ufikiaji unaotegemea kivinjari |
 | **Seva ya A2A** | `uaga` | Itifaki ya Agent2Agent kwa mawasiliano ya mawakala wengi |
-| **Msimbo wa VS** | - | [Kiendelezi](https://github.com/awaku7/agentcli/blob/main/VSCODE.md) yenye Paneli ya Gumzo, Eleza, Kirekebishaji, Rekebisha Hitilafu, na Mwonekano wa Mti wa Zana |
+| **Msimbo wa VS** | - | [Kiendelezi](https://github.com/awaku7/agentcli/blob/main/docs/VSCODE.md) yenye Paneli ya Gumzo, Eleza, Kirekebishaji, Rekebisha Hitilafu, na Mwonekano wa Mti wa Zana |
 
-Tazama [VSCODE.md](https://github.com/awaku7/agentcli/blob/main/VSCODE.md) kwa maelezo kuhusu kiendelezi cha Msimbo wa VS - usakinishaji, amri, vifungo muhimu na usanidi.
+Tazama [VSCODE.md](https://github.com/awaku7/agentcli/blob/main/docs/VSCODE.md) kwa maelezo kuhusu kiendelezi cha Msimbo wa VS - usakinishaji, amri, vifungo muhimu na usanidi.
 
 ### 🏠 Kidhibiti cha Kifaa cha IoT
 - **Jambo**: Ukaguzi wa kusoma pekee wa kidhibiti/daraja/topolojia ya kifaa
 
-Tazama [IOT_USECASE.md](https://github.com/awaku7/agentcli/blob/main/IOT_USECASE.md)
+Tazama [IOT_USECASE.md](https://github.com/awaku7/agentcli/blob/main/docs/IOT_USECASE.md)
 
 
 ### 🏠 Kidhibiti cha Kifaa cha IoT
@@ -127,7 +127,7 @@ uag inaweza **kufuata lengo kwa uhuru katika raundi nyingi za LLM**. Ni kamili k
 - **Ondoka wakati wowote**: Bonyeza kitufe cha `x` ili kuacha mara moja, hata jibu la katikati. Au acha mkaguzi aamue wakati lengo linatimizwa.
 - **Inayoweza kusanidiwa**: `--max-raundi N` ili kudhibiti bajeti.
 
-Tazama [README_AUTO.md](https://github.com/awaku7/agentcli/blob/main/README_AUTO.md) kwa uhifadhi kamili.
+Tazama [README_AUTO.md](https://github.com/awaku7/agentcli/blob/main/docs/README_AUTO.md) kwa uhifadhi kamili.
 
 ### 🧩 Kidhibiti cha Jimbo la Kundi
 
@@ -149,7 +149,7 @@ Komesha uzalishaji wa majibu ya LLM wakati wowote na urudishe amri ya kusitisha 
 
 Ukatizaji hufanya kazi kama "sindano ya papo hapo": badala ya kutoa mimba tu, inalisha `"Acha"` kurudi kwenye LLM kama ujumbe wa mtumiaji, ikiiruhusu kuhitimisha au kukiri kukatizwa kwa uzuri.
 
-Bonyeza kitufe cha `x` ili kuondoka kwenye hali ya majaribio ya kiotomatiki (angalia [README_AUTO.md](https://github.com/awaku7/agentcli/blob/main/README_AUTO.md)).
+Bonyeza kitufe cha `x` ili kuondoka kwenye hali ya majaribio ya kiotomatiki (angalia [README_AUTO.md](https://github.com/awaku7/agentcli/blob/main/docs/README_AUTO.md)).
 
 ### 🕵️ Uendeshaji wa Kivinjari na Kikaguzi cha Wavuti
 
@@ -183,7 +183,7 @@ Dhibiti ukitumia `uag_envsec`.
 - **API ya Majibu**: Weka `UAGENT_RESPONSES=1` kwa modi ya API ya Majibu (OpenAI/Azure/Bedrock/OpenRouter/Ollama/Alibaba/LM Studio/Sakana AI). Imewashwa kiotomatiki kwa Sakana AI (Fugu).
 - **Hati za Msanidi**: [DEVELOP.md](https://github.com/awaku7/agentcli/blob/main/src/uagent/docs/DEVELOP.md)
 - **Tool flow**: [TOOL_FLOW.md](../src/uagent/docs/TOOL_FLOW.md)
-- **Vidokezo vidogo vya LLM**: [SLM_TIPS.md](https://github.com/awaku7/agentcli/blob/main/SLM_TIPS.md)
+- **Vidokezo vidogo vya LLM**: [SLM_TIPS.md](https://github.com/awaku7/agentcli/blob/main/docs/SLM_TIPS.md)
 
 ## Falsafa ya Mradi
 

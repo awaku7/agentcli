@@ -92,14 +92,14 @@ LLM нь нэгэн зэрэг олон хэрэгслийг хүсэх үед u
 | **GUI** | `uagg` | Tkinter |-ээр дамжуулан ширээний UI
 | **Вэб** | `uagw` | Хөтөч дээр суурилсан хандалт |
 | **A2A сервер** | `uaga` | Олон агенттай харилцах Agent2Agent протокол |
-| **VS код** | — | [Өргөтгөл](https://github.com/awaku7/agentcli/blob/main/VSCODE.md) чатын самбар, тайлбарлах, дахин засах, алдаа засах, мод харах хэрэгсэлтэй |
+| **VS код** | — | [Өргөтгөл](https://github.com/awaku7/agentcli/blob/main/docs/VSCODE.md) чатын самбар, тайлбарлах, дахин засах, алдаа засах, мод харах хэрэгсэлтэй |
 
-VS Кодын өргөтгөл — суулгац, командууд, товчлуурын холболтууд болон тохиргооны талаарх дэлгэрэнгүй мэдээллийг [VSCODE.md](https://github.com/awaku7/agentcli/blob/main/VSCODE.md) -с харна уу.
+VS Кодын өргөтгөл — суулгац, командууд, товчлуурын холболтууд болон тохиргооны талаарх дэлгэрэнгүй мэдээллийг [VSCODE.md](https://github.com/awaku7/agentcli/blob/main/docs/VSCODE.md) -с харна уу.
 
 ### 🏠 IoT төхөөрөмжийн хяналт
 - **Асуудал**: Хянагч/гүүр/төхөөрөмжийн топологийг зөвхөн унших боломжтой шалгах
 
-[IOT_USECASE.md](https://github.com/awaku7/agentcli/blob/main/IOT_USECASE.md)-г үзнэ үү.
+[IOT_USECASE.md](https://github.com/awaku7/agentcli/blob/main/docs/IOT_USECASE.md)-г үзнэ үү.
 
 
 ### 🏠 IoT төхөөрөмжийн хяналт
@@ -127,7 +127,7 @@ uag нь **бие даасан зорилгыг LLM-ийн олон үе шат�
 - **Хүссэн үедээ гарах**: `x` товчийг дарж шууд, тэр дундаа ч гэсэн зогсооно. Эсвэл зорилгодоо хүрэхийг шүүмжлэгч өөрөө шийднэ.
 - **Тохируулж болох**: `--max-rounds N` төсвийг хянах.
 
-Бүрэн баримтыг [README_AUTO.md](https://github.com/awaku7/agentcli/blob/main/README_AUTO.md)-с үзнэ үү.
+Бүрэн баримтыг [README_AUTO.md](https://github.com/awaku7/agentcli/blob/main/docs/README_AUTO.md)-с үзнэ үү.
 
 ### 🧩 Багц улсын менежер
 
@@ -149,7 +149,7 @@ LLM хариу үүсгэхийг хүссэн үедээ зогсоож, зог
 
 Тасалдал нь "шууд тарилга" хэлбэрээр ажилладаг: энэ нь зүгээр л цуцлахын оронд "Зогс"-ыг LLM-д хэрэглэгчийн мессеж болгон буцааж өгч, тасалдлыг эелдэг байдлаар дүгнэх эсвэл хүлээн зөвшөөрөх боломжийг олгодог.
 
-Автомат нисгэгчийн горимоос гарахын тулд `x` товчийг дарна уу ([README_AUTO.md](https://github.com/awaku7/agentcli/blob/main/README_AUTO.md) хэсгийг үзнэ үү).
+Автомат нисгэгчийн горимоос гарахын тулд `x` товчийг дарна уу ([README_AUTO.md](https://github.com/awaku7/agentcli/blob/main/docs/README_AUTO.md) хэсгийг үзнэ үү).
 
 ### 🕵️ Хөтөч автоматжуулалт ба вэб шалгагч
 
@@ -183,7 +183,7 @@ API түлхүүр болон нууцыг `.env.sec` — шифрлэгдсэн
 - **Responses API**: Responses API горимд `UAGENT_RESPONSES=1` тохируулна уу (OpenAI/Azure/Bedrock/OpenRouter/Ollama/Alibaba/LM Studio/Sakana AI). Sakana AI (Fugu)-д автоматаар идэвхжүүлсэн.
 - **Хөгжүүлэгчийн баримт бичиг**: [DEVELOP.md](https://github.com/awaku7/agentcli/blob/main/src/uagent/docs/DEVELOP.md)
 - **Tool flow**: [TOOL_FLOW.md](../src/uagent/docs/TOOL_FLOW.md)
-- ** LLM-ийн жижиг зөвлөмж**: [SLM_TIPS.md](https://github.com/awaku7/agentcli/blob/main/SLM_TIPS.md)
+- ** LLM-ийн жижиг зөвлөмж**: [SLM_TIPS.md](https://github.com/awaku7/agentcli/blob/main/docs/SLM_TIPS.md)
 
 ## Төслийн философи
 

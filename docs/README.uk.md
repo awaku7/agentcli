@@ -92,12 +92,12 @@ OpenAI / Azure / Bedrock / OpenRouter / Ollama / Gemini / Vertex AI / Claude / G
 | **GUI** | `uagg` | Інтерфейс робочого столу через tkinter |
 | **Веб** | `uagw` | Браузерний доступ |
 | **Сервер A2A** | `uaga` | Протокол Agent2Agent для мультиагентного зв'язку |
-| **Код VS** | — | [Розширення](https://github.com/awaku7/agentcli/blob/main/VSCODE.md) із панеллю чату, поясненням, рефакторингом, виправленням помилок і переглядом дерева інструментів |
+| **Код VS** | — | [Розширення](https://github.com/awaku7/agentcli/blob/main/docs/VSCODE.md) із панеллю чату, поясненням, рефакторингом, виправленням помилок і переглядом дерева інструментів |
 
-Див. [VSCODE.md](https://github.com/awaku7/agentcli/blob/main/VSCODE.md), щоб дізнатися більше про розширення VS Code — встановлення, команди, прив’язки клавіш і налаштування.
+Див. [VSCODE.md](https://github.com/awaku7/agentcli/blob/main/docs/VSCODE.md), щоб дізнатися більше про розширення VS Code — встановлення, команди, прив’язки клавіш і налаштування.
 
 ### 🏠 Контроль пристроїв IoT
-Перегляньте [IOT_USECASE.md](https://github.com/awaku7/agentcli/blob/main/IOT_USECASE.md)
+Перегляньте [IOT_USECASE.md](https://github.com/awaku7/agentcli/blob/main/docs/IOT_USECASE.md)
 
 
 ### 🏠 IoT Device Control
@@ -127,7 +127,7 @@ uag може **автономно досягати мети протягом к�
 - **Вийти в будь-який час**: натисніть клавішу `x`, щоб зупинити негайно, навіть у середині відповіді. Або дозвольте рецензенту вирішити, коли мета буде досягнута.
 - **Настроюється**: `--max-rounds N` для контролю бюджету.
 
-Перегляньте [README_AUTO.md](https://github.com/awaku7/agentcli/blob/main/README_AUTO.md), щоб отримати повну документацію.
+Перегляньте [README_AUTO.md](https://github.com/awaku7/agentcli/blob/main/docs/README_AUTO.md), щоб отримати повну документацію.
 
 ### 🧩 Менеджер стану партії
 
@@ -149,7 +149,7 @@ uag може відстежувати перебіг тривалих багат
 
 Переривання працює як «оперативна ін’єкція»: замість того, щоб просто переривати, воно повертає «Stop» назад до LLM як повідомлення користувача, дозволяючи йому вишукано завершити або підтвердити переривання.
 
-Натисніть клавішу `x`, щоб вийти з режиму автопілота (див. [README_AUTO.md](https://github.com/awaku7/agentcli/blob/main/README_AUTO.md)).
+Натисніть клавішу `x`, щоб вийти з режиму автопілота (див. [README_AUTO.md](https://github.com/awaku7/agentcli/blob/main/docs/README_AUTO.md)).
 
 ### 🕵️ Автоматизація веб-переглядача та веб-інспектор
 
@@ -183,7 +183,7 @@ uag може відстежувати перебіг тривалих багат
 - **Responses API**: установіть `UAGENT_RESPONSES=1` для режиму Responses API (OpenAI/Azure/Bedrock/OpenRouter/Ollama/Alibaba/LM Studio/Sakana AI). Автоматично ввімкнено для Sakana AI (Fugu).
 - **Документація розробника**: [DEVELOP.md](https://github.com/awaku7/agentcli/blob/main/src/uagent/docs/DEVELOP.md)
 - **Tool flow**: [TOOL_FLOW.md](../src/uagent/docs/TOOL_FLOW.md)
-- **Невеликі поради LLM**: [SLM_TIPS.md](https://github.com/awaku7/agentcli/blob/main/SLM_TIPS.md)
+- **Невеликі поради LLM**: [SLM_TIPS.md](https://github.com/awaku7/agentcli/blob/main/docs/SLM_TIPS.md)
 
 ## Філософія проекту
 

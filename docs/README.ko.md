@@ -92,14 +92,14 @@ LLM이 여러 도구를 동시에 요청하면 uag가 해당 도구를 **자동�
 | **GUI** | `uagg` | tkinter를 통한 데스크탑 UI |
 | **웹** | `uagw` | 브라우저 기반 액세스 |
 | **A2A 서버** | `uaga` | 다중 에이전트 통신을 위한 Agent2Agent 프로토콜 |
-| **VS 코드** | — | 채팅 패널, 설명, 리팩터링, 오류 수정 및 도구 트리 보기가 포함된 [확장](https://github.com/awaku7/agentcli/blob/main/VSCODE.md) |
+| **VS 코드** | — | 채팅 패널, 설명, 리팩터링, 오류 수정 및 도구 트리 보기가 포함된 [확장](https://github.com/awaku7/agentcli/blob/main/docs/VSCODE.md) |
 
-VS Code 확장(설치, 명령, 키 바인딩 및 구성)에 대한 자세한 내용은 [VSCODE.md](https://github.com/awaku7/agentcli/blob/main/VSCODE.md)를 참조하세요.
+VS Code 확장(설치, 명령, 키 바인딩 및 구성)에 대한 자세한 내용은 [VSCODE.md](https://github.com/awaku7/agentcli/blob/main/docs/VSCODE.md)를 참조하세요.
 
 ### 🏠 IoT 장치 제어
 - **사항**: 컨트롤러/브릿지/장치 토폴로지의 읽기 전용 검사
 
-[IOT_USECASE.md](https://github.com/awaku7/agentcli/blob/main/IOT_USECASE.md)를 참조하세요.
+[IOT_USECASE.md](https://github.com/awaku7/agentcli/blob/main/docs/IOT_USECASE.md)를 참조하세요.
 
 
 ### 🏠 IoT 장치 제어
@@ -129,7 +129,7 @@ uag는 **여러 LLM 라운드에서 자율적으로 목표를 추구**할 수 �
 - **언제든지 종료**: `x` 키를 누르면 응답 중간에도 즉시 중지됩니다. 아니면 검토자가 목표 달성 시기를 결정하도록 하세요.
 - **구성 가능**: `--max-rounds N`으로 예산을 제어합니다.
 
-전체 문서는 [README_AUTO.md](https://github.com/awaku7/agentcli/blob/main/README_AUTO.md)를 참조하세요.
+전체 문서는 [README_AUTO.md](https://github.com/awaku7/agentcli/blob/main/docs/README_AUTO.md)를 참조하세요.
 
 ### 🧩 배치 상태 관리자
 
@@ -151,7 +151,7 @@ uag는 장기 실행 다중 파일 작업의 진행 상황을 추적할 수 있�
 
 인터럽트는 "즉시 주입"으로 작동합니다. 단순히 중단하는 대신 "Stop"을 사용자 메시지로 LLM에 다시 공급하여 중단을 정상적으로 종료하거나 승인할 수 있도록 합니다.
 
-자동 조종 모드를 종료하려면 'x' 키를 누르세요([README_AUTO.md](https://github.com/awaku7/agentcli/blob/main/README_AUTO.md) 참조).
+자동 조종 모드를 종료하려면 'x' 키를 누르세요([README_AUTO.md](https://github.com/awaku7/agentcli/blob/main/docs/README_AUTO.md) 참조).
 
 ### 🕵️ 브라우저 자동화 및 웹 검사기
 
@@ -185,7 +185,7 @@ uag는 장기 실행 다중 파일 작업의 진행 상황을 추적할 수 있�
 - **응답 API**: 응답 API 모드(OpenAI/Azure/Bedrock/OpenRouter/Ollama/Alibaba/LM Studio/Sakana AI)에 대해 `UAGENT_RESPONSES=1`을 설정합니다. Sakana AI(Fugu)가 자동 활성화됩니다.
 - **개발자 문서**: [DEVELOP.md](https://github.com/awaku7/agentcli/blob/main/src/uagent/docs/DEVELOP.md)
 - **도구 흐름**: [TOOL_FLOW.md](../src/uagent/docs/TOOL_FLOW.md)
-- **작은 LLM 팁**: [SLM_TIPS.md](https://github.com/awaku7/agentcli/blob/main/SLM_TIPS.md)
+- **작은 LLM 팁**: [SLM_TIPS.md](https://github.com/awaku7/agentcli/blob/main/docs/SLM_TIPS.md)
 
 ## 프로젝트 철학
 

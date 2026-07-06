@@ -92,14 +92,14 @@ Instrumentele numai pentru citire (căutarea fișierelor, calculul hash, listare
 | **GUI** | `uagg` | Interfața de utilizare pentru desktop prin tkinter |
 | **Web** | `uagw` | Acces bazat pe browser |
 | **Server A2A** | `uaga` | Protocol Agent2Agent pentru comunicare multi-agent |
-| **Codul VS** | — | [Extensie](https://github.com/awaku7/agentcli/blob/main/VSCODE.md) cu panou de chat, explicație, refactorizare, remediere erori și vizualizare arborescentă a instrumentelor |
+| **Codul VS** | — | [Extensie](https://github.com/awaku7/agentcli/blob/main/docs/VSCODE.md) cu panou de chat, explicație, refactorizare, remediere erori și vizualizare arborescentă a instrumentelor |
 
-Consultați [VSCODE.md](https://github.com/awaku7/agentcli/blob/main/VSCODE.md) pentru detalii despre extensia VS Code — instalare, comenzi, legături de taste și configurare.
+Consultați [VSCODE.md](https://github.com/awaku7/agentcli/blob/main/docs/VSCODE.md) pentru detalii despre extensia VS Code — instalare, comenzi, legături de taste și configurare.
 
 ### 🏠 Controlul dispozitivelor IoT
 - **Materia**: inspecție numai în citire a topologiei controlerului/puntului/dispozitivului
 
-Vezi [IOT_USECASE.md](https://github.com/awaku7/agentcli/blob/main/IOT_USECASE.md)
+Vezi [IOT_USECASE.md](https://github.com/awaku7/agentcli/blob/main/docs/IOT_USECASE.md)
 
 
 ### 🏠 Control dispozitiv IoT
@@ -127,7 +127,7 @@ uag poate **să urmărească în mod autonom un obiectiv în mai multe runde LLM
 - **Ieșiți oricând**: apăsați tasta `x` pentru a opri imediat, chiar și la mijlocul răspunsului. Sau lăsați recenzentul să decidă când este îndeplinit obiectivul.
 - **Configurabil**: `--max-rounds N` pentru a controla bugetul.
 
-Consultați [README_AUTO.md](https://github.com/awaku7/agentcli/blob/main/README_AUTO.md) pentru documentația completă.
+Consultați [README_AUTO.md](https://github.com/awaku7/agentcli/blob/main/docs/README_AUTO.md) pentru documentația completă.
 
 ### 🧩 Manager de stat lot
 
@@ -149,7 +149,7 @@ Opriți generarea răspunsului LLM în orice moment și injectați o comandă de
 
 Întreruperea funcționează ca „injectare promptă”: în loc să se anuleze, transmite „Stop”” înapoi la LLM sub formă de mesaj de utilizator, permițându-i să încheie sau să confirme cu grație întreruperea.
 
-Apăsați tasta `x` pentru a părăsi modul auto-pilot (consultați [README_AUTO.md](https://github.com/awaku7/agentcli/blob/main/README_AUTO.md)).
+Apăsați tasta `x` pentru a părăsi modul auto-pilot (consultați [README_AUTO.md](https://github.com/awaku7/agentcli/blob/main/docs/README_AUTO.md)).
 
 ### 🕵️ Automatizare browser și inspector web
 
@@ -183,7 +183,7 @@ Gestionați cu `uag_envsec`.
 - **Responses API**: setați `UAGENT_RESPONSES=1` pentru modul Responses API (OpenAI/Azure/Bedrock/OpenRouter/Ollama/Alibaba/LM Studio/Sakana AI). Activat automat pentru Sakana AI (Fugu).
 - **Documente pentru dezvoltatori**: [DEVELOP.md](https://github.com/awaku7/agentcli/blob/main/src/uagent/docs/DEVELOP.md)
 - **Tool flow**: [TOOL_FLOW.md](../src/uagent/docs/TOOL_FLOW.md)
-- **Sfaturi mici LLM**: [SLM_TIPS.md](https://github.com/awaku7/agentcli/blob/main/SLM_TIPS.md)
+- **Sfaturi mici LLM**: [SLM_TIPS.md](https://github.com/awaku7/agentcli/blob/main/docs/SLM_TIPS.md)
 
 ## Filosofia proiectului
 

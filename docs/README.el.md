@@ -92,14 +92,14 @@ OpenAI / Azure / Bedrock / OpenRouter / Ollama / Gemini / Vertex AI / Claude / G
 | **GUI** | `uagg` | UI επιφάνειας εργασίας μέσω tkinter |
 | **Ιστός** | `uagw` | Πρόσβαση βάσει προγράμματος περιήγησης |
 | **Διακομιστής A2A** | `uaga` | Πρωτόκολλο Agent2Agent για επικοινωνία πολλαπλών πρακτόρων |
-| **Κωδικός VS** | — | [Επέκταση](https://github.com/awaku7/agentcli/blob/main/VSCODE.md) με Πίνακας συνομιλίας, Εξήγηση, Επαναφορά, Διόρθωση σφάλματος και Εργαλεία Προβολή δέντρου |
+| **Κωδικός VS** | — | [Επέκταση](https://github.com/awaku7/agentcli/blob/main/docs/VSCODE.md) με Πίνακας συνομιλίας, Εξήγηση, Επαναφορά, Διόρθωση σφάλματος και Εργαλεία Προβολή δέντρου |
 
-Ανατρέξτε στο [VSCODE.md](https://github.com/awaku7/agentcli/blob/main/VSCODE.md) για λεπτομέρειες σχετικά με την επέκταση κώδικα VS — εγκατάσταση, εντολές, πληκτρολογήσεις και διαμόρφωση.
+Ανατρέξτε στο [VSCODE.md](https://github.com/awaku7/agentcli/blob/main/docs/VSCODE.md) για λεπτομέρειες σχετικά με την επέκταση κώδικα VS — εγκατάσταση, εντολές, πληκτρολογήσεις και διαμόρφωση.
 
 ### 🏠 Έλεγχος συσκευής IoT
 - **Θέμα**: Επιθεώρηση μόνο για ανάγνωση της τοπολογίας ελεγκτή/γέφυρας/συσκευής
 
-Δείτε το [IOT_USECASE.md](https://github.com/awaku7/agentcli/blob/main/IOT_USECASE.md)
+Δείτε το [IOT_USECASE.md](https://github.com/awaku7/agentcli/blob/main/docs/IOT_USECASE.md)
 
 
 ### 🏠 Έλεγχος συσκευής IoT
@@ -129,7 +129,7 @@ OpenAI / Azure / Bedrock / OpenRouter / Ollama / Gemini / Vertex AI / Claude / G
 - **Έξοδος ανά πάσα στιγμή**: Πατήστε το πλήκτρο `x` για να σταματήσετε αμέσως, ακόμη και στη μέση της απόκρισης. Ή αφήστε τον αναθεωρητή να αποφασίσει πότε θα επιτευχθεί ο στόχος.
 - **Δυνατότητα ρύθμισης**: `--max-rounds N` για έλεγχο του προϋπολογισμού.
 
-Ανατρέξτε στο [README_AUTO.md](https://github.com/awaku7/agentcli/blob/main/README_AUTO.md) για πλήρη τεκμηρίωση.
+Ανατρέξτε στο [README_AUTO.md](https://github.com/awaku7/agentcli/blob/main/docs/README_AUTO.md) για πλήρη τεκμηρίωση.
 
 ### 🧩 Διαχειριστής κατάστασης παρτίδας
 
@@ -151,7 +151,7 @@ OpenAI / Azure / Bedrock / OpenRouter / Ollama / Gemini / Vertex AI / Claude / G
 
 Η διακοπή λειτουργεί ως "πρότυπη έγχυση": αντί απλώς να διακοπεί, τροφοδοτεί το "Stop"" πίσω στο LLM ως μήνυμα χρήστη, επιτρέποντάς του να ολοκληρώσει με χάρη ή να αναγνωρίσει τη διακοπή.
 
-Πατήστε το πλήκτρο `x` για έξοδο από τη λειτουργία αυτόματου πιλότου (δείτε [README_AUTO.md](https://github.com/awaku7/agentcli/blob/main/README_AUTO.md)).
+Πατήστε το πλήκτρο `x` για έξοδο από τη λειτουργία αυτόματου πιλότου (δείτε [README_AUTO.md](https://github.com/awaku7/agentcli/blob/main/docs/README_AUTO.md)).
 
 ### 🕵️ Αυτοματισμός προγράμματος περιήγησης και επιθεωρητής ιστού
 
@@ -185,7 +185,7 @@ OpenAI / Azure / Bedrock / OpenRouter / Ollama / Gemini / Vertex AI / Claude / G
 - **Responses API**: Ορίστε το "UAGENT_RESPONSES=1" για τη λειτουργία Responses API (OpenAI/Azure/Bedrock/OpenRouter/Ollama/Alibaba/LM Studio/Sakana AI). Αυτόματη ενεργοποίηση για Sakana AI (Fugu).
 - **Έγγραφα προγραμματιστή**: [DEVELOP.md](https://github.com/awaku7/agentcli/blob/main/src/uagent/docs/DEVELOP.md)
 - **Tool flow**: [TOOL_FLOW.md](../src/uagent/docs/TOOL_FLOW.md)
-- **Μικρές συμβουλές LLM**: [SLM_TIPS.md](https://github.com/awaku7/agentcli/blob/main/SLM_TIPS.md)
+- **Μικρές συμβουλές LLM**: [SLM_TIPS.md](https://github.com/awaku7/agentcli/blob/main/docs/SLM_TIPS.md)
 
 ## Φιλοσοφία έργου
 

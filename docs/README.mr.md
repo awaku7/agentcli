@@ -92,15 +92,15 @@ OpenAI / Azure / Bedrock / OpenRouter / Ollama / Gemini / Vertex AI / Claude / G
 | **GUI** | `uagg` | tkinter द्वारे डेस्कटॉप UI |
 | **वेब** | `uagw` | ब्राउझर-आधारित प्रवेश |
 | **A2A सर्व्हर** | `उगा` | मल्टी-एजंट संप्रेषणासाठी Agent2Agent प्रोटोकॉल |
-| **VS कोड** | — | [विस्तार](https://github.com/awaku7/agentcli/blob/main/VSCODE.md) चॅट पॅनेलसह, स्पष्टीकरण, रिफॅक्टर, त्रुटी दूर करा आणि टूल्स ट्री व्ह्यू |
+| **VS कोड** | — | [विस्तार](https://github.com/awaku7/agentcli/blob/main/docs/VSCODE.md) चॅट पॅनेलसह, स्पष्टीकरण, रिफॅक्टर, त्रुटी दूर करा आणि टूल्स ट्री व्ह्यू |
 
-व्हीएस कोड एक्स्टेंशन — इंस्टॉलेशन, कमांड, कीबाइंडिंग आणि कॉन्फिगरेशनच्या तपशीलांसाठी [VSCODE.md](https://github.com/awaku7/agentcli/blob/main/VSCODE.md) पहा.
+व्हीएस कोड एक्स्टेंशन — इंस्टॉलेशन, कमांड, कीबाइंडिंग आणि कॉन्फिगरेशनच्या तपशीलांसाठी [VSCODE.md](https://github.com/awaku7/agentcli/blob/main/docs/VSCODE.md) पहा.
 
 ### 🏠 IoT डिव्हाइस नियंत्रण
 - **स्विचबॉट**: क्लाउड बॅच कंट्रोल आणि BLE स्कॅन/नियंत्रण
 - **मॅटर**: कंट्रोलर/ब्रिज/डिव्हाइस टोपोलॉजीची केवळ वाचनीय तपासणी
 
-पहा [IOT_USECASE.md](https://github.com/awaku7/agentcli/blob/main/IOT_USECASE.md)
+पहा [IOT_USECASE.md](https://github.com/awaku7/agentcli/blob/main/docs/IOT_USECASE.md)
 
 
 ### 🏠 IoT डिव्हाइस नियंत्रण
@@ -130,7 +130,7 @@ uag **एकाहून अधिक LLM फेऱ्यांमध्ये �
 - **केव्हाही बाहेर पडा**: लगेच थांबण्यासाठी `x` की दाबा, अगदी मध्य-प्रतिसादही. किंवा ध्येय कधी पूर्ण होईल हे समीक्षकाला ठरवू द्या.
 - **कॉन्फिगर करण्यायोग्य**: बजेट नियंत्रित करण्यासाठी `--अधिकतम फेरी N`.
 
-संपूर्ण कागदपत्रांसाठी [README_AUTO.md](https://github.com/awaku7/agentcli/blob/main/README_AUTO.md) पहा.
+संपूर्ण कागदपत्रांसाठी [README_AUTO.md](https://github.com/awaku7/agentcli/blob/main/docs/README_AUTO.md) पहा.
 
 ### 🧩 बॅच स्टेट मॅनेजर
 
@@ -152,7 +152,7 @@ LLM प्रतिसाद निर्मिती कधीही थां�
 
 व्यत्यय "प्रॉम्प्ट इंजेक्शन" म्हणून कार्य करते: फक्त रद्द करण्याऐवजी, ते `"थांबा"` ला वापरकर्ता संदेश म्हणून परत LLM ला फीड करते, ज्यामुळे ते व्यत्यय मान्य करण्यास किंवा निष्कर्ष काढण्याची परवानगी देते.
 
-ऑटो-पायलट मोडमधून बाहेर पडण्यासाठी `x` की दाबा (पहा [README_AUTO.md](https://github.com/awaku7/agentcli/blob/main/README_AUTO.md)).
+ऑटो-पायलट मोडमधून बाहेर पडण्यासाठी `x` की दाबा (पहा [README_AUTO.md](https://github.com/awaku7/agentcli/blob/main/docs/README_AUTO.md)).
 
 ### 🕵️ ब्राउझर ऑटोमेशन आणि वेब इन्स्पेक्टर
 
@@ -186,7 +186,7 @@ API की आणि गुपिते `.env.sec` मध्ये संग्�
 - **प्रतिसाद API**: प्रतिसाद API मोडसाठी `UAGENT_RESPONSES=1` सेट करा (OpenAI/Azure/Bedrock/OpenRouter/Ollama/Alibaba/LM Studio/Sakana AI). Sakana AI (Fugu) साठी स्वयं-सक्षम.
 - **डेव्हलपर डॉक्स**: [DEVELOP.md](https://github.com/awaku7/agentcli/blob/main/src/uagent/docs/DEVELOP.md)
 - **Tool flow**: [TOOL_FLOW.md](../src/uagent/docs/TOOL_FLOW.md)
-- **लहान LLM टिपा**: [SLM_TIPS.md](https://github.com/awaku7/agentcli/blob/main/SLM_TIPS.md)
+- **लहान LLM टिपा**: [SLM_TIPS.md](https://github.com/awaku7/agentcli/blob/main/docs/SLM_TIPS.md)
 
 ## प्रकल्प तत्वज्ञान
 

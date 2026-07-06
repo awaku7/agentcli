@@ -92,14 +92,14 @@ Alat read-only (pencarian file, penghitungan hash, daftar direktori, terjemahan,
 | **GUI** | `uagg` | UI Desktop melalui tkinter |
 | **Jaringan** | `uagw` | Akses berbasis browser |
 | **Server A2A** | `uaga` | Protokol Agent2Agent untuk komunikasi multi-agen |
-| **Kode VS** | — | [Ekstensi](https://github.com/awaku7/agentcli/blob/main/VSCODE.md) dengan Panel Obrolan, Penjelasan, Refaktor, Perbaiki Kesalahan, dan Tampilan Pohon Alat |
+| **Kode VS** | — | [Ekstensi](https://github.com/awaku7/agentcli/blob/main/docs/VSCODE.md) dengan Panel Obrolan, Penjelasan, Refaktor, Perbaiki Kesalahan, dan Tampilan Pohon Alat |
 
-Lihat [VSCODE.md](https://github.com/awaku7/agentcli/blob/main/VSCODE.md) untuk detail tentang ekstensi VS Code — instalasi, perintah, pengikatan kunci, dan konfigurasi.
+Lihat [VSCODE.md](https://github.com/awaku7/agentcli/blob/main/docs/VSCODE.md) untuk detail tentang ekstensi VS Code — instalasi, perintah, pengikatan kunci, dan konfigurasi.
 
 ### 🏠 Kontrol Perangkat IoT
 - **Materi**: Pemeriksaan topologi pengontrol/jembatan/perangkat hanya-baca
 
-Lihat [IOT_USECASE.md](https://github.com/awaku7/agentcli/blob/main/IOT_USECASE.md)
+Lihat [IOT_USECASE.md](https://github.com/awaku7/agentcli/blob/main/docs/IOT_USECASE.md)
 
 
 ### 🏠 Kontrol Perangkat IoT
@@ -129,7 +129,7 @@ uag dapat **secara mandiri mengejar tujuan di beberapa putaran LLM**. Sempurna u
 - **Keluar kapan saja**: Tekan tombol `x` untuk segera berhenti, bahkan di tengah respons. Atau biarkan pengulas memutuskan kapan tujuannya tercapai.
 - **Dapat dikonfigurasi**: `--max-rounds N` untuk mengontrol anggaran.
 
-Lihat [README_AUTO.md](https://github.com/awaku7/agentcli/blob/main/README_AUTO.md) untuk dokumentasi lengkap.
+Lihat [README_AUTO.md](https://github.com/awaku7/agentcli/blob/main/docs/README_AUTO.md) untuk dokumentasi lengkap.
 
 ### 🧩 Manajer Status Batch
 
@@ -151,7 +151,7 @@ Hentikan pembuatan respons LLM kapan saja dan masukkan perintah stop kembali ke 
 
 Interupsi berfungsi sebagai "injeksi cepat": alih-alih dibatalkan, interupsi tersebut mengumpankan `"Stop"` kembali ke LLM sebagai pesan pengguna, sehingga memungkinkannya menyimpulkan atau mengakui interupsi dengan baik.
 
-Tekan tombol `x` untuk keluar dari mode auto-pilot (lihat [README_AUTO.md](https://github.com/awaku7/agentcli/blob/main/README_AUTO.md)).
+Tekan tombol `x` untuk keluar dari mode auto-pilot (lihat [README_AUTO.md](https://github.com/awaku7/agentcli/blob/main/docs/README_AUTO.md)).
 
 ### 🕵️ Otomatisasi Browser & Inspektur Web
 
@@ -185,7 +185,7 @@ Kelola dengan `uag_envsec`.
 - **Responses API**: Setel `UAGENT_RESPONSES=1` untuk mode Responses API (OpenAI/Azure/Bedrock/OpenRouter/Ollama/Alibaba/LM Studio/Sakana AI). Diaktifkan secara otomatis untuk Sakana AI (Fugu).
 - **Dokumen pengembang**: [DEVELOP.md](https://github.com/awaku7/agentcli/blob/main/src/uagent/docs/DEVELOP.md)
 - **Tool flow**: [TOOL_FLOW.md](../src/uagent/docs/TOOL_FLOW.md)
-- **Tips LLM kecil**: [SLM_TIPS.md](https://github.com/awaku7/agentcli/blob/main/SLM_TIPS.md)
+- **Tips LLM kecil**: [SLM_TIPS.md](https://github.com/awaku7/agentcli/blob/main/docs/SLM_TIPS.md)
 
 ## Filosofi Proyek
 

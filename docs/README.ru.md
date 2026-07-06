@@ -92,14 +92,14 @@ OpenAI / Azure / Bedrock / OpenRouter / Ollama / Gemini / Vertex AI / Claude / G
 | **Графический интерфейс** | `уагг` | Пользовательский интерфейс рабочего стола через tkinter |
 | **Интернет** | `уагв` | Доступ через браузер |
 | **Сервер A2A** | `уага` | Протокол Agent2Agent для межагентной связи |
-| **Код VS** | — | [Расширение] (https://github.com/awaku7/agentcli/blob/main/VSCODE.md) с панелью чата, объяснением, рефакторингом, исправлением ошибок и древовидным представлением инструментов |
+| **Код VS** | — | [Расширение] (https://github.com/awaku7/agentcli/blob/main/docs/VSCODE.md) с панелью чата, объяснением, рефакторингом, исправлением ошибок и древовидным представлением инструментов |
 
-См. [VSCODE.md](https://github.com/awaku7/agentcli/blob/main/VSCODE.md) для получения подробной информации о расширении VS Code — установке, командах, сочетаниях клавиш и настройке.
+См. [VSCODE.md](https://github.com/awaku7/agentcli/blob/main/docs/VSCODE.md) для получения подробной информации о расширении VS Code — установке, командах, сочетаниях клавиш и настройке.
 
 ### 🏠 Управление устройствами Интернета вещей
 - **Важно**: проверка топологии контроллера/моста/устройства только для чтения.
 
-См. [IOT_USECASE.md](https://github.com/awaku7/agentcli/blob/main/IOT_USECASE.md).
+См. [IOT_USECASE.md](https://github.com/awaku7/agentcli/blob/main/docs/IOT_USECASE.md).
 
 
 ### 🏠 Управление устройствами Интернета вещей
@@ -129,7 +129,7 @@ uag может **автономно добиваться цели на прот�
 - **Выйти в любое время**: нажмите клавишу «x», чтобы немедленно остановиться, даже в середине ответа. Или позвольте рецензенту решить, когда цель будет достигнута.
 - **Настраивается**: `--max-rounds N` для контроля бюджета.
 
-Полную документацию см. в [README_AUTO.md](https://github.com/awaku7/agentcli/blob/main/README_AUTO.md).
+Полную документацию см. в [README_AUTO.md](https://github.com/awaku7/agentcli/blob/main/docs/README_AUTO.md).
 
 ### 🧩 Пакетный менеджер состояний
 
@@ -151,7 +151,7 @@ Human_ask позволяет LLM приостанавливать работу �
 
 Прерывание работает как «быстрая инъекция»: вместо простого прерывания оно передает «Стоп» обратно в LLM в виде пользовательского сообщения, позволяя ему корректно завершить или подтвердить прерывание.
 
-Нажмите клавишу «x», чтобы выйти из режима автопилота (см. [README_AUTO.md](https://github.com/awaku7/agentcli/blob/main/README_AUTO.md)).
+Нажмите клавишу «x», чтобы выйти из режима автопилота (см. [README_AUTO.md](https://github.com/awaku7/agentcli/blob/main/docs/README_AUTO.md)).
 
 ### 🕵️ Автоматизация браузера и веб-инспектор
 
@@ -185,7 +185,7 @@ Human_ask позволяет LLM приостанавливать работу �
 - **API ответов**: установите `UAGENT_RESPONSES=1` для режима API ответов (OpenAI/Azure/Bedrock/OpenRouter/Ollama/Alibaba/LM Studio/Sakana AI). Автоматически включается для Sakana AI (Fugu).
 - **Документация для разработчиков**: [DEVELOP.md](https://github.com/awaku7/agentcli/blob/main/src/uagent/docs/DEVELOP.md)
 - **Поток инструментов**: [TOOL_FLOW.md](../src/uagent/docs/TOOL_FLOW.md)
-- **Небольшие советы по программе LLM**: [SLM_TIPS.md](https://github.com/awaku7/agentcli/blob/main/SLM_TIPS.md)
+- **Небольшие советы по программе LLM**: [SLM_TIPS.md](https://github.com/awaku7/agentcli/blob/main/docs/SLM_TIPS.md)
 
 ## Философия проекта
 

@@ -92,12 +92,12 @@ Vain luku -työkalut (tiedostohaku, hash-laskenta, hakemistolistaus, käännös,
 | **GUI** | "uagg" | Työpöytäkäyttöliittymä tkinterin kautta |
 | **Web** | "uagw" | Selainpohjainen pääsy |
 | **A2A-palvelin** | "uaga" | Agent2Agent-protokolla usean agentin tietoliikenteeseen |
-| **VS-koodi** | — | [Laajennus](https://github.com/awaku7/agentcli/blob/main/VSCODE.md) chat-paneelilla, selityksellä, uudelleentekijällä, korjausvirheellä ja työkaluilla puunäkymä |
+| **VS-koodi** | — | [Laajennus](https://github.com/awaku7/agentcli/blob/main/docs/VSCODE.md) chat-paneelilla, selityksellä, uudelleentekijällä, korjausvirheellä ja työkaluilla puunäkymä |
 
-Katso [VSCODE.md](https://github.com/awaku7/agentcli/blob/main/VSCODE.md) saadaksesi lisätietoja VS-koodilaajennuksesta – asennuksesta, komennoista, näppäimistä ja määrityksistä.
+Katso [VSCODE.md](https://github.com/awaku7/agentcli/blob/main/docs/VSCODE.md) saadaksesi lisätietoja VS-koodilaajennuksesta – asennuksesta, komennoista, näppäimistä ja määrityksistä.
 
 ### 🏠 IoT-laitteiden ohjaus
-Katso [IOT_USECASE.md](https://github.com/awaku7/agentcli/blob/main/IOT_USECASE.md)
+Katso [IOT_USECASE.md](https://github.com/awaku7/agentcli/blob/main/docs/IOT_USECASE.md)
 
 
 ### 🏠 IoT-laitteiden ohjaus
@@ -125,7 +125,7 @@ uag voi **pyrkiä itsenäisesti tavoitteeseen useilla LLM-kierroksilla**. Täyde
 - **Poistu milloin tahansa**: Paina `x`-näppäintä lopettaaksesi välittömästi, jopa kesken vastauksen. Tai anna arvioijan päättää, milloin tavoite saavutetaan.
 - **Määritettävä**: `--max-kierrokset N' budjetin hallitsemiseksi.
 
-Katso täydelliset asiakirjat kohdasta [README_AUTO.md](https://github.com/awaku7/agentcli/blob/main/README_AUTO.md).
+Katso täydelliset asiakirjat kohdasta [README_AUTO.md](https://github.com/awaku7/agentcli/blob/main/docs/README_AUTO.md).
 
 ### 🧩 Erätilan johtaja
 
@@ -147,7 +147,7 @@ Pysäytä LLM-vastauksen luominen milloin tahansa ja anna pysäytyskomento takai
 
 Keskeytys toimii "prompt-injektiona": pelkän keskeyttämisen sijaan se syöttää "Stop"' takaisin LLM:lle käyttäjäviestinä, jolloin se voi päättää tai kuitata keskeytyksen sulavasti.
 
-Poistu automaattiohjaustilasta painamalla x-näppäintä (katso [README_AUTO.md](https://github.com/awaku7/agentcli/blob/main/README_AUTO.md)).
+Poistu automaattiohjaustilasta painamalla x-näppäintä (katso [README_AUTO.md](https://github.com/awaku7/agentcli/blob/main/docs/README_AUTO.md)).
 
 ### 🕵️ Selainautomaatio ja Web Inspector
 
@@ -181,7 +181,7 @@ Hallinnoi komennolla "uag_envsec".
 - **Responses API**: Aseta `UAGENT_RESPONSES=1` Responses API -tilalle (OpenAI/Azure/Bedrock/OpenRouter/Ollama/Alibaba/LM Studio/Sakana AI). Automaattinen käytössä Sakana AI:lle (Fugu).
 - **Kehittäjien asiakirjat**: [DEVELOP.md](https://github.com/awaku7/agentcli/blob/main/src/uagent/docs/DEVELOP.md)
 - **Tool flow**: [TOOL_FLOW.md](../src/uagent/docs/TOOL_FLOW.md)
-- **Pienet LLM-vinkit**: [SLM_TIPS.md](https://github.com/awaku7/agentcli/blob/main/SLM_TIPS.md)
+- **Pienet LLM-vinkit**: [SLM_TIPS.md](https://github.com/awaku7/agentcli/blob/main/docs/SLM_TIPS.md)
 
 ## Projektifilosofia
 

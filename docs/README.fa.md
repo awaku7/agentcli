@@ -92,14 +92,14 @@ OpenAI / Azure / Bedrock / OpenRouter / Ollama / Gemini / Vertex AI / Claude / G
 | ** رابط کاربری گرافیکی ** | "uagg" | رابط کاربری دسکتاپ از طریق tkinter |
 | **وب** | `uagw` | دسترسی مبتنی بر مرورگر |
 | **سرور A2A** | `uaga` | پروتکل Agent2Agent برای ارتباط چند عاملی |
-| ** کد VS ** | — | [افزونه](https://github.com/awaku7/agentcli/blob/main/VSCODE.md) با پنل چت، توضیح، Refactor، رفع خطا، و نمای درختی ابزارها |
+| ** کد VS ** | — | [افزونه](https://github.com/awaku7/agentcli/blob/main/docs/VSCODE.md) با پنل چت، توضیح، Refactor، رفع خطا، و نمای درختی ابزارها |
 
-[VSCODE.md](https://github.com/awaku7/agentcli/blob/main/VSCODE.md) را برای جزئیات بیشتر در مورد برنامه افزودنی VS Code - نصب، دستورات، کلیدبندی و پیکربندی ببینید.
+[VSCODE.md](https://github.com/awaku7/agentcli/blob/main/docs/VSCODE.md) را برای جزئیات بیشتر در مورد برنامه افزودنی VS Code - نصب، دستورات، کلیدبندی و پیکربندی ببینید.
 
 ### 🏠 کنترل دستگاه اینترنت اشیا
 - **موضوع**: بازرسی فقط خواندنی توپولوژی کنترلر/پل/دستگاه
 
-[IOT_USECASE.md](https://github.com/awaku7/agentcli/blob/main/IOT_USECASE.md) را ببینید
+[IOT_USECASE.md](https://github.com/awaku7/agentcli/blob/main/docs/IOT_USECASE.md) را ببینید
 
 
 ### 🏠 کنترل دستگاه اینترنت اشیا
@@ -129,7 +129,7 @@ uag می تواند **به طور مستقل هدفی را در چندین دو�
 - **خروج در هر زمان**: کلید "x" را فشار دهید تا فورا متوقف شود، حتی در اواسط پاسخ. یا اجازه دهید داور تصمیم بگیرد که چه زمانی به هدف رسیده است.
 - **قابل تنظیم**: "--max-round N" برای کنترل بودجه.
 
-برای مستندات کامل به [README_AUTO.md](https://github.com/awaku7/agentcli/blob/main/README_AUTO.md) مراجعه کنید.
+برای مستندات کامل به [README_AUTO.md](https://github.com/awaku7/agentcli/blob/main/docs/README_AUTO.md) مراجعه کنید.
 
 ### 🧩 Batch State Manager
 
@@ -151,7 +151,7 @@ uag می تواند پیشرفت را در وظایف طولانی مدت چند
 
 وقفه به‌عنوان «تزریق سریع» عمل می‌کند: به جای صرفاً سقط، «توقف» را به عنوان یک پیام کاربر به LLM برمی‌گرداند و به آن اجازه می‌دهد تا به‌خوبی وقفه را به پایان برساند یا تأیید کند.
 
-برای خروج از حالت خلبان خودکار، کلید «x» را فشار دهید (به [README_AUTO.md](https://github.com/awaku7/agentcli/blob/main/README_AUTO.md) مراجعه کنید).
+برای خروج از حالت خلبان خودکار، کلید «x» را فشار دهید (به [README_AUTO.md](https://github.com/awaku7/agentcli/blob/main/docs/README_AUTO.md) مراجعه کنید).
 
 ### 🕵️ اتوماسیون مرورگر و بازرس وب
 
@@ -185,7 +185,7 @@ uag می تواند پیشرفت را در وظایف طولانی مدت چند
 - **Responses API**: "UAGENT_RESPONSES=1" را برای حالت Responses API (OpenAI/Azure/Bedrock/OpenRouter/Ollama/Alibaba/LM Studio/Sakana AI) تنظیم کنید. به طور خودکار برای Sakana AI (Fugu) فعال شده است.
 - **اسناد برنامه‌نویس**: [DEVELOP.md](https://github.com/awaku7/agentcli/blob/main/src/uagent/docs/DEVELOP.md)
 - **Tool flow**: [TOOL_FLOW.md](../src/uagent/docs/TOOL_FLOW.md)
-- **نکات کوچک LLM**: [SLM_TIPS.md](https://github.com/awaku7/agentcli/blob/main/SLM_TIPS.md)
+- **نکات کوچک LLM**: [SLM_TIPS.md](https://github.com/awaku7/agentcli/blob/main/docs/SLM_TIPS.md)
 
 ## فلسفه پروژه
 

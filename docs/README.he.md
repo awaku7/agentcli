@@ -92,14 +92,14 @@ OpenAI / Azure / Bedrock / OpenRouter / Ollama / Gemini / Vertex AI / Claude / G
 | **GUI** | `uagg` | ממשק משתמש שולחני באמצעות tkinter |
 | **אינטרנט** | `uagw` | גישה מבוססת דפדפן |
 | **שרת A2A** | `uaga` | פרוטוקול Agent2Agent לתקשורת מרובת סוכנים |
-| **קוד VS** | — | [הרחבה](https://github.com/awaku7/agentcli/blob/main/VSCODE.md) עם לוח צ'אט, הסבר, Refactor, תיקון שגיאה ותצוגת עץ של כלים |
+| **קוד VS** | — | [הרחבה](https://github.com/awaku7/agentcli/blob/main/docs/VSCODE.md) עם לוח צ'אט, הסבר, Refactor, תיקון שגיאה ותצוגת עץ של כלים |
 
-ראה [VSCODE.md](https://github.com/awaku7/agentcli/blob/main/VSCODE.md) לפרטים על תוסף VS Code - התקנה, פקודות, חיבורי מקשים ותצורה.
+ראה [VSCODE.md](https://github.com/awaku7/agentcli/blob/main/docs/VSCODE.md) לפרטים על תוסף VS Code - התקנה, פקודות, חיבורי מקשים ותצורה.
 
 ### 🏠 בקרת מכשירי IoT
 - **עניין**: בדיקה לקריאה בלבד של טופולוגיה של בקר/גשר/התקן
 
-ראה [IOT_USECASE.md](https://github.com/awaku7/agentcli/blob/main/IOT_USECASE.md)
+ראה [IOT_USECASE.md](https://github.com/awaku7/agentcli/blob/main/docs/IOT_USECASE.md)
 
 
 ### 🏠 בקרת מכשירי IoT
@@ -127,7 +127,7 @@ uag יכולה **לרדוף אחר יעד באופן אוטונומי על פנ�
 - **צא בכל עת**: הקש על מקש 'x' כדי לעצור מיד, אפילו באמצע התגובה. או לתת למבקר להחליט מתי היעד מושג.
 - **ניתן להגדרה**: `--max-rounds N` כדי לשלוט בתקציב.
 
-ראה [README_AUTO.md](https://github.com/awaku7/agentcli/blob/main/README_AUTO.md) לתיעוד מלא.
+ראה [README_AUTO.md](https://github.com/awaku7/agentcli/blob/main/docs/README_AUTO.md) לתיעוד מלא.
 
 ### 🧩 מנהל מצב אצווה
 
@@ -149,7 +149,7 @@ uag יכול לעקוב אחר התקדמות לאורך משימות מרובו
 
 ההפרעה פועלת כ"הזרקה מהירה": במקום פשוט להפסיק, היא מחזירה את `"עצור"` אל ה-LLM כהודעת משתמש, ומאפשרת לו לסיים בחינניות או לאשר את ההפרעה.
 
-הקש על מקש 'x' כדי לצאת ממצב טייס אוטומטי (ראה [README_AUTO.md](https://github.com/awaku7/agentcli/blob/main/README_AUTO.md)).
+הקש על מקש 'x' כדי לצאת ממצב טייס אוטומטי (ראה [README_AUTO.md](https://github.com/awaku7/agentcli/blob/main/docs/README_AUTO.md)).
 
 ### 🕵️ אוטומציה של דפדפן ומפקח אינטרנט
 
@@ -183,7 +183,7 @@ uag יכול לעקוב אחר התקדמות לאורך משימות מרובו
 - **Responses API**: הגדר 'UAGENT_RESPONSES=1' למצב תגובות API (OpenAI/Azure/Bedrock/OpenRouter/Ollama/Alibaba/LM Studio/Sakana AI). מופעל אוטומטי עבור Sakana AI (Fugu).
 - **מסמכי מפתח**: [DEVELOP.md](https://github.com/awaku7/agentcli/blob/main/src/uagent/docs/DEVELOP.md)
 - **Tool flow**: [TOOL_FLOW.md](../src/uagent/docs/TOOL_FLOW.md)
-- **טיפים קטנים LLM**: [SLM_TIPS.md](https://github.com/awaku7/agentcli/blob/main/SLM_TIPS.md)
+- **טיפים קטנים LLM**: [SLM_TIPS.md](https://github.com/awaku7/agentcli/blob/main/docs/SLM_TIPS.md)
 
 ## פילוסופיית הפרויקט
 

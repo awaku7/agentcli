@@ -92,12 +92,12 @@ A csak olvasható eszközök (fájlkeresés, hash számítás, könyvtárlista, 
 | **GUI** | "uagg" | Asztali felhasználói felület a tkinterrel |
 | **Web** | "uagw" | Böngésző alapú hozzáférés |
 | **A2A szerver** | "uaga" | Agent2Agent protokoll többügynökös kommunikációhoz |
-| **VS kód** | — | [Bővítmény](https://github.com/awaku7/agentcli/blob/main/VSCODE.md) Csevegőpanellel, Magyarázattal, Refaktorral, Hibajavítással és Eszközök fanézettel |
+| **VS kód** | — | [Bővítmény](https://github.com/awaku7/agentcli/blob/main/docs/VSCODE.md) Csevegőpanellel, Magyarázattal, Refaktorral, Hibajavítással és Eszközök fanézettel |
 
-Tekintse meg a [VSCODE.md](https://github.com/awaku7/agentcli/blob/main/VSCODE.md) webhelyet a VS Code bővítmény részleteiért – telepítés, parancsok, billentyűkombinációk és konfiguráció.
+Tekintse meg a [VSCODE.md](https://github.com/awaku7/agentcli/blob/main/docs/VSCODE.md) webhelyet a VS Code bővítmény részleteiért – telepítés, parancsok, billentyűkombinációk és konfiguráció.
 
 ### 🏠 IoT-eszközvezérlés
-Lásd: [IOT_USECASE.md](https://github.com/awaku7/agentcli/blob/main/IOT_USECASE.md)
+Lásd: [IOT_USECASE.md](https://github.com/awaku7/agentcli/blob/main/docs/IOT_USECASE.md)
 
 
 ### 🏠 IoT-eszközvezérlés
@@ -125,7 +125,7 @@ Az uag **autonóm módon követheti a célt több LLM-körön keresztül**. Tök
 - **Bármikor kilépés**: Nyomja meg az `x` billentyűt az azonnali leállításhoz, akár válasz közben is. Vagy hagyja, hogy az értékelő döntse el, mikor teljesül a cél.
 - **Konfigurálható**: `--max-kör N` a költségvetés szabályozásához.
 
-A teljes dokumentációért lásd: [README_AUTO.md](https://github.com/awaku7/agentcli/blob/main/README_AUTO.md).
+A teljes dokumentációért lásd: [README_AUTO.md](https://github.com/awaku7/agentcli/blob/main/docs/README_AUTO.md).
 
 ### 🧩 Batch State Manager
 
@@ -147,7 +147,7 @@ Bármikor leállíthatja az LLM-válasz generálását, és visszaadhatja a stop
 
 A megszakítás "prompt injekcióként" működik: ahelyett, hogy egyszerűen megszakítaná, a "Stop"-t visszaadja az LLM-nek felhasználói üzenetként, lehetővé téve a megszakítás kecses befejezését vagy nyugtázását.
 
-Nyomja meg az „x” billentyűt az automatikus pilóta módból való kilépéshez (lásd: [README_AUTO.md](https://github.com/awaku7/agentcli/blob/main/README_AUTO.md)).
+Nyomja meg az „x” billentyűt az automatikus pilóta módból való kilépéshez (lásd: [README_AUTO.md](https://github.com/awaku7/agentcli/blob/main/docs/README_AUTO.md)).
 
 ### 🕵️ Böngészőautomatizálás és webellenőr
 
@@ -181,7 +181,7 @@ Kezelje az "uag_envsec" segítségével.
 - **Responses API**: Állítsa be az "UAGENT_RESPONSES=1" értéket a Responses API módhoz (OpenAI/Azure/Bedrock/OpenRouter/Ollama/Alibaba/LM Studio/Sakana AI). Automatikusan engedélyezve a Sakana AI (Fugu) számára.
 - **Fejlesztői dokumentumok**: [DEVELOP.md](https://github.com/awaku7/agentcli/blob/main/src/uagent/docs/DEVELOP.md)
 - **Tool flow**: [TOOL_FLOW.md](../src/uagent/docs/TOOL_FLOW.md)
-- **Kis LLM-tippek**: [SLM_TIPS.md](https://github.com/awaku7/agentcli/blob/main/SLM_TIPS.md)
+- **Kis LLM-tippek**: [SLM_TIPS.md](https://github.com/awaku7/agentcli/blob/main/docs/SLM_TIPS.md)
 
 ## Projektfilozófia
 

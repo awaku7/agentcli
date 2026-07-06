@@ -92,14 +92,14 @@ Las herramientas de solo lectura (búsqueda de archivos, cálculo hash, listado 
 | **GUI** | `uagg` | UI de escritorio a través de tkinter |
 | **Web** | `uagw` | Acceso basado en navegador |
 | **Servidor A2A** | `uagá` | Protocolo Agent2Agent para comunicación multiagente |
-| **Código VS** | — | [Extensión](https://github.com/awak7/agentcli/blob/main/VSCODE.md) con panel de chat, explicación, refactorización, corrección de errores y vista de árbol de herramientas |
+| **Código VS** | — | [Extensión](https://github.com/awaku7/agentcli/blob/main/docs/VSCODE.md) con panel de chat, explicación, refactorización, corrección de errores y vista de árbol de herramientas |
 
-Consulte [VSCODE.md](https://github.com/awaku7/agentcli/blob/main/VSCODE.md) para obtener detalles sobre la extensión VS Code: instalación, comandos, combinaciones de teclas y configuración.
+Consulte [VSCODE.md](https://github.com/awaku7/agentcli/blob/main/docs/VSCODE.md) para obtener detalles sobre la extensión VS Code: instalación, comandos, combinaciones de teclas y configuración.
 
 ### 🏠 Control de dispositivos IoT
 - **Asunto**: Inspección de solo lectura de la topología del controlador/puente/dispositivo
 
-Consulte [IOT_USECASE.md](https://github.com/awaku7/agentcli/blob/main/IOT_USECASE.md)
+Consulte [IOT_USECASE.md](https://github.com/awaku7/agentcli/blob/main/docs/IOT_USECASE.md)
 
 
 ### 🏠 Control de dispositivos IoT
@@ -129,7 +129,7 @@ uag puede **perseguir un objetivo de forma autónoma en varias rondas de LLM**. 
 - **Salir en cualquier momento**: presione la tecla `x` para detenerse inmediatamente, incluso a mitad de respuesta. O dejar que el revisor decida cuándo se alcanza el objetivo.
 - **Configurable**: `--max-rounds N` para controlar el presupuesto.
 
-Consulte [README_AUTO.md](https://github.com/awaku7/agentcli/blob/main/README_AUTO.md) para obtener la documentación completa.
+Consulte [README_AUTO.md](https://github.com/awaku7/agentcli/blob/main/docs/README_AUTO.md) para obtener la documentación completa.
 
 ### 🧩 Administrador de estado de lotes
 
@@ -151,7 +151,7 @@ Detenga la generación de respuesta de LLM en cualquier momento e inyecte un com
 
 La interrupción funciona como una "inyección rápida": en lugar de simplemente abortar, envía "Detener" al LLM como un mensaje de usuario, lo que le permite concluir o reconocer la interrupción con elegancia.
 
-Presione la tecla `x` para salir del modo de piloto automático (consulte [README_AUTO.md](https://github.com/awaku7/agentcli/blob/main/README_AUTO.md)).
+Presione la tecla `x` para salir del modo de piloto automático (consulte [README_AUTO.md](https://github.com/awaku7/agentcli/blob/main/docs/README_AUTO.md)).
 
 ### 🕵️ Automatización del navegador e inspector web
 
@@ -185,7 +185,7 @@ Administrar con `uag_envsec`.
 - **API de respuestas**: establezca `UAGENT_RESPONSES=1` para el modo API de respuestas (OpenAI/Azure/Bedrock/OpenRouter/Ollama/Alibaba/LM Studio/Sakana AI). Habilitado automáticamente para Sakana AI (Fugu).
 - **Documentos del desarrollador**: [DEVELOP.md](https://github.com/awaku7/agentcli/blob/main/src/uagent/docs/DEVELOP.md)
 - **Flujo de herramientas**: [TOOL_FLOW.md](../src/uagent/docs/TOOL_FLOW.md)
-- **Pequeños consejos de LLM**: [SLM_TIPS.md](https://github.com/awaku7/agentcli/blob/main/SLM_TIPS.md)
+- **Pequeños consejos de LLM**: [SLM_TIPS.md](https://github.com/awaku7/agentcli/blob/main/docs/SLM_TIPS.md)
 
 ## Filosofía del proyecto
 

@@ -92,14 +92,14 @@ Ferramentas somente leitura (pesquisa de arquivos, cálculo de hash, listagem de
 | **GUI** | `uagg` | UI da área de trabalho via tkinter |
 | **Web** | `uagw` | Acesso baseado em navegador |
 | **Servidor A2A** | `uaga` | Protocolo Agent2Agent para comunicação multiagente |
-| **Código VS** | — | [Extensão](https://github.com/awaku7/agentcli/blob/main/VSCODE.md) com painel de bate-papo, explicação, refatoração, correção de erros e visualização em árvore de ferramentas |
+| **Código VS** | — | [Extensão](https://github.com/awaku7/agentcli/blob/main/docs/VSCODE.md) com painel de bate-papo, explicação, refatoração, correção de erros e visualização em árvore de ferramentas |
 
-Consulte [VSCODE.md](https://github.com/awaku7/agentcli/blob/main/VSCODE.md) para obter detalhes sobre a extensão do VS Code — instalação, comandos, atalhos de teclado e configuração.
+Consulte [VSCODE.md](https://github.com/awaku7/agentcli/blob/main/docs/VSCODE.md) para obter detalhes sobre a extensão do VS Code — instalação, comandos, atalhos de teclado e configuração.
 
 ### 🏠 Controle de dispositivos IoT
 - **Matéria**: Inspeção somente leitura da topologia do controlador/ponte/dispositivo
 
-Consulte [IOT_USECASE.md](https://github.com/awaku7/agentcli/blob/main/IOT_USECASE.md)
+Consulte [IOT_USECASE.md](https://github.com/awaku7/agentcli/blob/main/docs/IOT_USECASE.md)
 
 
 ### 🏠 Controle de dispositivos IoT
@@ -129,7 +129,7 @@ uag pode **perseguir uma meta de forma autônoma em várias rodadas de LLM**. Pe
 - **Sair a qualquer momento**: Pressione a tecla `x` para parar imediatamente, mesmo no meio da resposta. Ou deixe o revisor decidir quando a meta será alcançada.
 - **Configurável**: `--max-rounds N` para controlar o orçamento.
 
-Consulte [README_AUTO.md](https://github.com/awaku7/agentcli/blob/main/README_AUTO.md) para obter a documentação completa.
+Consulte [README_AUTO.md](https://github.com/awaku7/agentcli/blob/main/docs/README_AUTO.md) para obter a documentação completa.
 
 ### 🧩 Gerenciador de estado em lote
 
@@ -151,7 +151,7 @@ Pare a geração de resposta do LLM a qualquer momento e injete um comando de pa
 
 A interrupção funciona como uma "injeção de prompt": em vez de apenas abortar, ela envia `"Stop"` de volta ao LLM como uma mensagem do usuário, permitindo que ele conclua ou reconheça a interrupção normalmente.
 
-Pressione a tecla `x` para sair do modo piloto automático (consulte [README_AUTO.md](https://github.com/awaku7/agentcli/blob/main/README_AUTO.md)).
+Pressione a tecla `x` para sair do modo piloto automático (consulte [README_AUTO.md](https://github.com/awaku7/agentcli/blob/main/docs/README_AUTO.md)).
 
 ### 🕵️ Automação do navegador e inspetor da Web
 
@@ -185,7 +185,7 @@ Gerencie com `uag_envsec`.
 - **API de respostas**: defina `UAGENT_RESPONSES=1` para o modo API de respostas (OpenAI/Azure/Bedrock/OpenRouter/Ollama/Alibaba/LM Studio/Sakana AI). Habilitado automaticamente para Sakana AI (Fugu).
 - **Documentos para desenvolvedores**: [DEVELOP.md](https://github.com/awaku7/agentcli/blob/main/src/uagent/docs/DEVELOP.md)
 - **Tool flow**: [TOOL_FLOW.md](../src/uagent/docs/TOOL_FLOW.md)
-- **Pequenas dicas de LLM**: [SLM_TIPS.md](https://github.com/awaku7/agentcli/blob/main/SLM_TIPS.md)
+- **Pequenas dicas de LLM**: [SLM_TIPS.md](https://github.com/awaku7/agentcli/blob/main/docs/SLM_TIPS.md)
 
 ## Filosofia do Projeto
 

@@ -92,14 +92,14 @@ OpenAI / Azure / Bedrock / OpenRouter / Ollama / Gemini / Vertex AI / Claude / G
 | ** واجهة المستخدم الرسومية ** | `واغ` | واجهة مستخدم سطح المكتب عبر tkinter |
 | **الويب** | `واجو` | الوصول عبر المتصفح |
 | **خادم A2A** | `واجا` | بروتوكول Agent2Agent للاتصال متعدد الوكلاء |
-| **رمز VS** | — | [ملحق](https://github.com/awaku7/agentcli/blob/main/VSCODE.md) مع لوحة الدردشة والشرح وإعادة البناء وإصلاح الخطأ وعرض شجرة الأدوات |
+| **رمز VS** | — | [ملحق](https://github.com/awaku7/agentcli/blob/main/docs/VSCODE.md) مع لوحة الدردشة والشرح وإعادة البناء وإصلاح الخطأ وعرض شجرة الأدوات |
 
-راجع [VSCODE.md](https://github.com/awaku7/agentcli/blob/main/VSCODE.md) للحصول على تفاصيل حول ملحق VS Code - التثبيت والأوامر وارتباطات المفاتيح والتكوين.
+راجع [VSCODE.md](https://github.com/awaku7/agentcli/blob/main/docs/VSCODE.md) للحصول على تفاصيل حول ملحق VS Code - التثبيت والأوامر وارتباطات المفاتيح والتكوين.
 
 ### 🏠 التحكم في أجهزة إنترنت الأشياء
 - **المسألة**: فحص للقراءة فقط لهيكل وحدة التحكم/الجسر/الجهاز
 
-راجع [IOT_USECASE.md](https://github.com/awaku7/agentcli/blob/main/IOT_USECASE.md)
+راجع [IOT_USECASE.md](https://github.com/awaku7/agentcli/blob/main/docs/IOT_USECASE.md)
 
 
 ### 🏠 التحكم في جهاز إنترنت الأشياء
@@ -129,7 +129,7 @@ OpenAI / Azure / Bedrock / OpenRouter / Ollama / Gemini / Vertex AI / Claude / G
 - **الخروج في أي وقت**: اضغط على مفتاح x للتوقف فورًا، حتى في منتصف الاستجابة. أو دع المراجع يقرر متى يتم تحقيق الهدف.
 - **قابل للتكوين**: `--max-rounds N` للتحكم في الميزانية.
 
-راجع [README_AUTO.md](https://github.com/awaku7/agentcli/blob/main/README_AUTO.md) للحصول على الوثائق الكاملة.
+راجع [README_AUTO.md](https://github.com/awaku7/agentcli/blob/main/docs/README_AUTO.md) للحصول على الوثائق الكاملة.
 
 ### 🧩 مدير حالة الدفعة
 
@@ -151,7 +151,7 @@ OpenAI / Azure / Bedrock / OpenRouter / Ollama / Gemini / Vertex AI / Claude / G
 
 تعمل المقاطعة كـ "إدخال سريع": بدلاً من مجرد الإجهاض، فإنها تغذي ""Stop"" مرة أخرى إلى LLM كرسالة مستخدم، مما يسمح لها بإنهاء المقاطعة أو الإقرار بها بأمان.
 
-اضغط على المفتاح "x" للخروج من وضع الطيار التلقائي (راجع [README_AUTO.md](https://github.com/awaku7/agentcli/blob/main/README_AUTO.md)).
+اضغط على المفتاح "x" للخروج من وضع الطيار التلقائي (راجع [README_AUTO.md](https://github.com/awaku7/agentcli/blob/main/docs/README_AUTO.md)).
 
 ### 🕵️ أتمتة المتصفح ومفتش الويب
 
@@ -185,7 +185,7 @@ OpenAI / Azure / Bedrock / OpenRouter / Ollama / Gemini / Vertex AI / Claude / G
 - **Responses API**: قم بتعيين `UAGENT_RESPONSES=1` لوضع واجهة برمجة التطبيقات للاستجابات (OpenAI/Azure/Bedrock/OpenRouter/Ollama/Alibaba/LM Studio/Sakana AI). تم تمكينه تلقائيًا لـ Sakana AI (Fugu).
 - **مستندات المطورين**: [DEVELOP.md](https://github.com/awaku7/agentcli/blob/main/src/uagent/docs/DEVELOP.md)
 - **Tool flow**: [TOOL_FLOW.md](../src/uagent/docs/TOOL_FLOW.md)
-- **نصائح LLM الصغيرة**: [SLM_TIPS.md](https://github.com/awaku7/agentcli/blob/main/SLM_TIPS.md)
+- **نصائح LLM الصغيرة**: [SLM_TIPS.md](https://github.com/awaku7/agentcli/blob/main/docs/SLM_TIPS.md)
 
 ## فلسفة المشروع
 

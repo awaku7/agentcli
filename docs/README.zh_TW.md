@@ -92,14 +92,14 @@ OpenAI / Azure / Bedrock / OpenRouter / Ollama / Gemini / Vertex AI / Claude/
 | **圖形使用者介面** | `uagg` |透過 tkinter 的桌面 UI |
 | **網頁** | `uagw` |基於瀏覽器的存取 |
 | **A2A 伺服器** | `瓦加` |用於多代理通訊的Agent2Agent協定|
-| **VS 程式碼** | — | [擴充](https://github.com/awaku7/agentcli/blob/main/VSCODE.md) 附有聊天面板、解釋、重構、修復錯誤和工具樹視圖 |
+| **VS 程式碼** | — | [擴充](https://github.com/awaku7/agentcli/blob/main/docs/VSCODE.md) 附有聊天面板、解釋、重構、修復錯誤和工具樹視圖 |
 
-有關 VS Code 擴充功能的詳細資訊 - 安裝、命令、鍵綁定和配置，請參閱 [VSCODE.md](https://github.com/awaku7/agentcli/blob/main/VSCODE.md)。
+有關 VS Code 擴充功能的詳細資訊 - 安裝、命令、鍵綁定和配置，請參閱 [VSCODE.md](https://github.com/awaku7/agentcli/blob/main/docs/VSCODE.md)。
 
 ### 🏠 物聯網設備控制
 - **事項**：控制器/橋接器/設備拓樸的唯讀檢查
 
-請參閱 [IOT_USECASE.md](https://github.com/awaku7/agentcli/blob/main/IOT_USECASE.md)
+請參閱 [IOT_USECASE.md](https://github.com/awaku7/agentcli/blob/main/docs/IOT_USECASE.md)
 
 
 ### 🏠 IoT 設備控制
@@ -129,7 +129,7 @@ uag 可以**在多輪法學碩士課程中自主追求一個目標**。非常適
 - **隨時退出**：按下「x」鍵立即停止，即使是在回應中。或讓評審者決定何時達到目標。
 - **可設定**：`--max-rounds N` 來控制預算。
 
-完整文檔，請參閱 [README_AUTO.md](https://github.com/awaku7/agentcli/blob/main/README_AUTO.md)。
+完整文檔，請參閱 [README_AUTO.md](https://github.com/awaku7/agentcli/blob/main/docs/README_AUTO.md)。
 
 ### 🧩 批次狀態管理器
 
@@ -151,7 +151,7 @@ uag 可以追蹤長時間運行的多檔案任務的進度。當 LLM 處理數�
 
 中斷充當「提示注入」：它不僅僅是中止，而是將「停止」作為使用者訊息回饋給 LLM，使其能夠優雅地結束或確認中斷。
 
-按下「x」鍵退出自動駕駛模式（請參閱 [README_AUTO.md](https://github.com/awaku7/agentcli/blob/main/README_AUTO.md)）。
+按下「x」鍵退出自動駕駛模式（請參閱 [README_AUTO.md](https://github.com/awaku7/agentcli/blob/main/docs/README_AUTO.md)）。
 
 ### 🕵️ 瀏覽器自動化和 Web 檢查器
 
@@ -185,7 +185,7 @@ uag 可以追蹤長時間運行的多檔案任務的進度。當 LLM 處理數�
 - **回應 API**：為回應 API 模式設定「UAGENT_RESPONSES=1」（OpenAI/Azure/Bedrock/OpenRouter/Ollama/Alibaba/LM Studio/Sakana AI）。自動啟用 Sakana AI (Fugu)。
 - **開發人員文件**：[DEVELOP.md](https://github.com/awaku7/agentcli/blob/main/src/uagent/docs/DEVELOP.md)
 - **Tool flow**: [TOOL_FLOW.md](../src/uagent/docs/TOOL_FLOW.md)
-- **LLM小技巧**：[SLM_TIPS.md](https://github.com/awaku7/agentcli/blob/main/SLM_TIPS.md)
+- **LLM小技巧**：[SLM_TIPS.md](https://github.com/awaku7/agentcli/blob/main/docs/SLM_TIPS.md)
 
 ## 專案理念
 

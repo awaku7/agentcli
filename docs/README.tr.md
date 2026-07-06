@@ -92,14 +92,14 @@ Salt okunur araçlar (dosya arama, karma hesaplama, dizin listeleme, çeviri, ve
 | **GUI** | 'uagg' | tkinter aracılığıyla Masaüstü Kullanıcı Arayüzü |
 | **Web** | 'uagw' | Tarayıcı tabanlı erişim |
 | **A2A Sunucusu** | 'uaga' | Çoklu aracı iletişimi için Agent2Agent protokolü |
-| **VS Kodu** | — | [Uzantı](https://github.com/awaku7/agentcli/blob/main/VSCODE.md) Sohbet Paneli, Açıklama, Yeniden Düzenleme, Hata Düzeltme ve Araç Ağacı Görünümü ile |
+| **VS Kodu** | — | [Uzantı](https://github.com/awaku7/agentcli/blob/main/docs/VSCODE.md) Sohbet Paneli, Açıklama, Yeniden Düzenleme, Hata Düzeltme ve Araç Ağacı Görünümü ile |
 
-Kurulum, komutlar, tuş atamaları ve yapılandırma gibi VS Code uzantısıyla ilgili ayrıntılar için [VSCODE.md](https://github.com/awaku7/agentcli/blob/main/VSCODE.md) adresine bakın.
+Kurulum, komutlar, tuş atamaları ve yapılandırma gibi VS Code uzantısıyla ilgili ayrıntılar için [VSCODE.md](https://github.com/awaku7/agentcli/blob/main/docs/VSCODE.md) adresine bakın.
 
 ### 🏠 IoT Cihaz Kontrolü
 - **Madde**: Denetleyici/köprü/cihaz topolojisinin salt okunur denetimi
 
-Bkz. [IOT_USECASE.md](https://github.com/awaku7/agentcli/blob/main/IOT_USECASE.md)
+Bkz. [IOT_USECASE.md](https://github.com/awaku7/agentcli/blob/main/docs/IOT_USECASE.md)
 
 
 ### 🏠 IoT Cihaz Kontrolü
@@ -129,7 +129,7 @@ uag **birden fazla LLM turunda bağımsız olarak bir hedefi takip edebilir**. Y
 - **İstediğiniz zaman çıkın**: Yanıtın ortasında bile olsa hemen durdurmak için 'x' tuşuna basın. Veya hedefe ne zaman ulaşılacağına incelemecinin karar vermesine izin verin.
 - **Ayarlanabilir**: bütçeyi kontrol etmek için `--max-rounds N`.
 
-Belgelerin tamamı için [README_AUTO.md](https://github.com/awaku7/agentcli/blob/main/README_AUTO.md) adresine bakın.
+Belgelerin tamamı için [README_AUTO.md](https://github.com/awaku7/agentcli/blob/main/docs/README_AUTO.md) adresine bakın.
 
 ### 🧩 Grup Durum Yöneticisi
 
@@ -151,7 +151,7 @@ LLM yanıt oluşturmayı istediğiniz zaman durdurun ve LLM'ye geri bir durdurma
 
 Kesinti, "hızlı enjeksiyon" olarak çalışır: sadece iptal etmek yerine, LLM'ye bir kullanıcı mesajı olarak "Durdur"u geri gönderir ve kesintiyi zarif bir şekilde sonlandırmasına veya onaylamasına olanak tanır.
 
-Otomatik pilot modundan çıkmak için 'x' tuşuna basın (bkz. [README_AUTO.md](https://github.com/awaku7/agentcli/blob/main/README_AUTO.md)).
+Otomatik pilot modundan çıkmak için 'x' tuşuna basın (bkz. [README_AUTO.md](https://github.com/awaku7/agentcli/blob/main/docs/README_AUTO.md)).
 
 ### 🕵️ Tarayıcı Otomasyonu ve Web Denetleyicisi
 
@@ -185,7 +185,7 @@ API anahtarlarını ve sırlarını, şifrelenmiş bir ".env" dosyası olan ".en
 - **Responses API**: Responses API modu için `UAGENT_RESPONSES=1'i ayarlayın (OpenAI/Azure/Bedrock/OpenRouter/Ollama/Alibaba/LM Studio/Sakana AI). Sakana AI (Fugu) için otomatik olarak etkinleştirildi.
 - **Geliştirici belgeleri**: [DEVELOP.md](https://github.com/awaku7/agentcli/blob/main/src/uagent/docs/DEVELOP.md)
 - **Tool flow**: [TOOL_FLOW.md](../src/uagent/docs/TOOL_FLOW.md)
-- **Küçük LLM ipuçları**: [SLM_TIPS.md](https://github.com/awaku7/agentcli/blob/main/SLM_TIPS.md)
+- **Küçük LLM ipuçları**: [SLM_TIPS.md](https://github.com/awaku7/agentcli/blob/main/docs/SLM_TIPS.md)
 
 ## Proje Felsefesi
 

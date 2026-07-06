@@ -93,9 +93,9 @@ Read-only tools (file search, hash calculation, directory listing, translation, 
 | **GUI** | `uagg` | Desktop UI via tkinter |
 | **Web** | `uagw` | Browser-based access |
 | **A2A Server** | `uaga` | Agent2Agent protocol for multi-agent communication |
-| **VS Code** | — | [Extension](https://github.com/awaku7/agentcli/blob/main/VSCODE.md) with Chat Panel, Explain, Refactor, Fix Error, and Tools Tree View |
+| **VS Code** | — | [Extension](https://github.com/awaku7/agentcli/blob/main/docs/VSCODE.md) with Chat Panel, Explain, Refactor, Fix Error, and Tools Tree View |
 
-See [VSCODE.md](https://github.com/awaku7/agentcli/blob/main/VSCODE.md) for details on the VS Code extension — installation, commands, keybindings, and configuration.
+See [VSCODE.md](https://github.com/awaku7/agentcli/blob/main/docs/VSCODE.md) for details on the VS Code extension — installation, commands, keybindings, and configuration.
 
 ### 🏠 IoT Device Control
 
@@ -107,7 +107,7 @@ See [VSCODE.md](https://github.com/awaku7/agentcli/blob/main/VSCODE.md) for deta
 - **Matter**: Read/write control + attribute subscription for state change monitoring
 - **UPnP**: Device discovery & IGD port forwarding
 
-See [IOT_USECASE.md](https://github.com/awaku7/agentcli/blob/main/IOT_USECASE.md)
+See [IOT_USECASE.md](https://github.com/awaku7/agentcli/blob/main/docs/IOT_USECASE.md)
 
 ### 🎯 Agent Skills Marketplace
 
@@ -124,7 +124,7 @@ uag can **autonomously pursue a goal across multiple LLM rounds**. Perfect for c
 - **Exit anytime**: Press `x` key to stop immediately, even mid-response. Or let the reviewer decide when the goal is met.
 - **Configurable**: `--max-rounds N` to control the budget.
 
-See [README_AUTO.md](https://github.com/awaku7/agentcli/blob/main/README_AUTO.md) for full documentation.
+See [README_AUTO.md](https://github.com/awaku7/agentcli/blob/main/docs/README_AUTO.md) for full documentation.
 
 ### 🧩 Batch State Manager
 
@@ -146,7 +146,7 @@ Stop LLM response generation at any time and inject a stop command back to the L
 
 The interrupt works as "prompt injection": instead of just aborting, it feeds `"Stop"` back to the LLM as a user message, allowing it to gracefully conclude or acknowledge the interruption.
 
-Press `x` key to exit auto-pilot mode (see [README_AUTO.md](https://github.com/awaku7/agentcli/blob/main/README_AUTO.md)).
+Press `x` key to exit auto-pilot mode (see [README_AUTO.md](https://github.com/awaku7/agentcli/blob/main/docs/README_AUTO.md)).
 
 ### 🕵️ Browser Automation & Web Inspector
 
@@ -180,7 +180,7 @@ Manage with `uag_envsec`.
 - **Responses API**: Set `UAGENT_RESPONSES=1` for Responses API mode (OpenAI/Azure/Bedrock/OpenRouter/Ollama/Alibaba/LM Studio/Sakana AI). Auto-enabled for Sakana AI (Fugu).
 - **Developer docs**: [DEVELOP.md](https://github.com/awaku7/agentcli/blob/main/src/uagent/docs/DEVELOP.md)
 - **Tool flow**: [TOOL_FLOW.md](https://github.com/awaku7/agentcli/blob/main/src/uagent/docs/TOOL_FLOW.md) — how tools are sent to LLMs (genre mask, tool_catalog, GPT-5.4+ native tool_search)
-- **Small LLM tips**: [SLM_TIPS.md](https://github.com/awaku7/agentcli/blob/main/SLM_TIPS.md)
+- **Small LLM tips**: [SLM_TIPS.md](https://github.com/awaku7/agentcli/blob/main/docs/SLM_TIPS.md)
 
 ## Project Philosophy
 

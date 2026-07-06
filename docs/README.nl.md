@@ -92,14 +92,14 @@ Alleen-lezen tools (zoeken naar bestanden, hash-berekening, directorylijst, vert
 | **GUI** | `uagg` | Desktop-UI via tkinter |
 | **Web** | `uagw` | Browsergebaseerde toegang |
 | **A2A-server** | `uaga` | Agent2Agent-protocol voor communicatie met meerdere agenten |
-| **VS-code** | — | [Extensie](https://github.com/awaku7/agentcli/blob/main/VSCODE.md) met chatpaneel, uitleg, refactor, fout repareren en boomstructuurweergave van tools |
+| **VS-code** | — | [Extensie](https://github.com/awaku7/agentcli/blob/main/docs/VSCODE.md) met chatpaneel, uitleg, refactor, fout repareren en boomstructuurweergave van tools |
 
-Zie [VSCODE.md](https://github.com/awaku7/agentcli/blob/main/VSCODE.md) voor details over de VS Code-extensie: installatie, opdrachten, sneltoetsen en configuratie.
+Zie [VSCODE.md](https://github.com/awaku7/agentcli/blob/main/docs/VSCODE.md) voor details over de VS Code-extensie: installatie, opdrachten, sneltoetsen en configuratie.
 
 ### 🏠 IoT-apparaatbeheer
 - **Kwestie**: alleen-lezen-inspectie van controller/bridge/apparaattopologie
 
-Zie [IOT_USECASE.md](https://github.com/awaku7/agentcli/blob/main/IOT_USECASE.md)
+Zie [IOT_USECASE.md](https://github.com/awaku7/agentcli/blob/main/docs/IOT_USECASE.md)
 
 
 ### 🏠 IoT-apparaatbeheer
@@ -129,7 +129,7 @@ uag kan **autonoom een ​​doel nastreven in meerdere LLM-rondes**. Perfect vo
 - **Op elk gewenst moment afsluiten**: druk op de `x`-toets om onmiddellijk te stoppen, zelfs halverwege de reactie. Of laat de reviewer beslissen wanneer het doel bereikt is.
 - **Configureerbaar**: `--max-rondes N` om het budget te controleren.
 
-Zie [README_AUTO.md](https://github.com/awaku7/agentcli/blob/main/README_AUTO.md) voor volledige documentatie.
+Zie [README_AUTO.md](https://github.com/awaku7/agentcli/blob/main/docs/README_AUTO.md) voor volledige documentatie.
 
 ### 🧩 Batchstatusmanager
 
@@ -151,7 +151,7 @@ Stop het genereren van LLM-reacties op elk gewenst moment en injecteer een stopc
 
 De interrupt werkt als een "prompt injectie": in plaats van alleen maar af te breken, stuurt hij "Stop" terug naar de LLM als een gebruikersbericht, waardoor deze de onderbreking netjes kan beëindigen of bevestigen.
 
-Druk op de `x`-toets om de automatische pilootmodus te verlaten (zie [README_AUTO.md](https://github.com/awaku7/agentcli/blob/main/README_AUTO.md)).
+Druk op de `x`-toets om de automatische pilootmodus te verlaten (zie [README_AUTO.md](https://github.com/awaku7/agentcli/blob/main/docs/README_AUTO.md)).
 
 ### 🕵️ Browserautomatisering en webinspecteur
 
@@ -185,7 +185,7 @@ Beheer met `uag_envsec`.
 - **Responses API**: Stel `UAGENT_RESPONSES=1` in voor de Responses API-modus (OpenAI/Azure/Bedrock/OpenRouter/Ollama/Alibaba/LM Studio/Sakana AI). Automatisch ingeschakeld voor Sakana AI (Fugu).
 - **Ontwikkelaarsdocumentatie**: [DEVELOP.md](https://github.com/awaku7/agentcli/blob/main/src/uagent/docs/DEVELOP.md)
 - **Tool flow**: [TOOL_FLOW.md](../src/uagent/docs/TOOL_FLOW.md)
-- **Kleine LLM-tips**: [SLM_TIPS.md](https://github.com/awaku7/agentcli/blob/main/SLM_TIPS.md)
+- **Kleine LLM-tips**: [SLM_TIPS.md](https://github.com/awaku7/agentcli/blob/main/docs/SLM_TIPS.md)
 
 ## Projectfilosofie
 
