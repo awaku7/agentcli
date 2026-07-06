@@ -98,7 +98,7 @@ class AP2Client(UCPClient):
 
 | 項目 | 値 |
 |------|-----|
-| tool_name | `ucp_search_catalog` |
+| tool_name | `ucp_catalog` (mode='search') |
 | 入力 | `business_url`, `query`, `currency`(opt), `context`(opt) |
 | 出力 | 商品一覧（タイトル・価格・通貨・説明・画像URL） |
 | 内部動作 | `POST {endpoint}/search` |
@@ -110,7 +110,7 @@ class AP2Client(UCPClient):
 
 | 項目 | 値 |
 |------|-----|
-| tool_name | `ucp_lookup_catalog` |
+| tool_name | `ucp_catalog` (mode='lookup') |
 | 入力 | `business_url`, `item_ids` (list[str]) |
 | 出力 | 商品詳細（価格・在庫・バリエーション・配送情報） |
 | 内部動作 | `POST {endpoint}/lookup-catalog` |
@@ -122,7 +122,7 @@ class AP2Client(UCPClient):
 
 | 項目 | 値 |
 |------|-----|
-| tool_name | `ucp_create_cart` |
+| tool_name | `ucp_cart` (mode='create') |
 | 入力 | `business_url`, `line_items`, `currency`, `context`(opt) |
 | 出力 | カートID、見積もり合計、メッセージ |
 | 内部動作 | `POST {endpoint}/carts` |
@@ -134,7 +134,7 @@ class AP2Client(UCPClient):
 
 | 項目 | 値 |
 |------|-----|
-| tool_name | `ucp_get_cart` |
+| tool_name | `ucp_cart` (mode='get') |
 | 入力 | `business_url`, `cart_id` |
 | 出力 | カート内容、合計、メッセージ |
 | 内部動作 | `GET {endpoint}/carts/{id}` |
@@ -145,7 +145,7 @@ class AP2Client(UCPClient):
 
 | 項目 | 値 |
 |------|-----|
-| tool_name | `ucp_update_cart` |
+| tool_name | `ucp_cart` (mode='update') |
 | 入力 | `business_url`, `cart_id`, `line_items` |
 | 出力 | 更新後のカート |
 | 内部動作 | `PATCH {endpoint}/carts/{id}` |
@@ -156,7 +156,7 @@ class AP2Client(UCPClient):
 
 | 項目 | 値 |
 |------|-----|
-| tool_name | `ucp_create_checkout` |
+| tool_name | `ucp_checkout` (mode='create') |
 | 入力 | `business_url`, `cart_id`(opt), `line_items`(opt), `buyer`(opt), `context`(opt) |
 | 出力 | checkout_id, status, payment_handlers, continue_url, totals |
 | 内部動作 | `POST {endpoint}/checkout-sessions` |
@@ -168,7 +168,7 @@ class AP2Client(UCPClient):
 
 | 項目 | 値 |
 |------|-----|
-| tool_name | `ucp_get_checkout` |
+| tool_name | `ucp_checkout` (mode='get') |
 | 入力 | `business_url`, `checkout_id` |
 | 出力 | ステータス（incomplete / ready_for_complete / completed / canceled）、メッセージ |
 | 内部動作 | `GET {endpoint}/checkout-sessions/{id}` |
@@ -179,7 +179,7 @@ class AP2Client(UCPClient):
 
 | 項目 | 値 |
 |------|-----|
-| tool_name | `ucp_update_checkout` |
+| tool_name | `ucp_checkout` (mode='update') |
 | 入力 | `business_url`, `checkout_id`, 更新フィールド |
 | 出力 | 更新後のチェックアウト |
 | 内部動作 | `PATCH {endpoint}/checkout-sessions/{id}` |
@@ -190,7 +190,7 @@ class AP2Client(UCPClient):
 
 | 項目 | 値 |
 |------|-----|
-| tool_name | `ucp_complete_checkout` |
+| tool_name | `ucp_checkout` (mode='complete') |
 | 入力 | `business_url`, `checkout_id`, `ap2_token`(opt) |
 | 出力 | 注文ID、ステータス（completed / requires_escalation）、continue_url |
 | 内部動作 | `POST {endpoint}/checkout-sessions/{id}/complete` |
@@ -202,7 +202,7 @@ class AP2Client(UCPClient):
 
 | 項目 | 値 |
 |------|-----|
-| tool_name | `ucp_list_orders` |
+| tool_name | `ucp_order` (mode='list') |
 | 入力 | `business_url` |
 | 出力 | 注文一覧 |
 | 内部動作 | `POST {endpoint}/list-orders` |
@@ -214,7 +214,7 @@ class AP2Client(UCPClient):
 
 | 項目 | 値 |
 |------|-----|
-| tool_name | `ucp_get_order` |
+| tool_name | `ucp_order` (mode='get') |
 | 入力 | `business_url`, `order_id` |
 | 出力 | 注文詳細（ステータス・配送状況・決済情報） |
 | 内部動作 | `POST {endpoint}/get-order` |
@@ -225,7 +225,7 @@ class AP2Client(UCPClient):
 
 | 項目 | 値 |
 |------|-----|
-| tool_name | `ucp_identity_link` |
+| tool_name | `ucp_identity` (mode='link') |
 | 入力 | `business_url`, `redirect_uri` |
 | 出力 | authorization_url（ブラウザで開くURL） |
 | 内部動作 | OAuth 2.0 Authorization Code flow |
@@ -237,22 +237,22 @@ class AP2Client(UCPClient):
 
 | 項目 | 値 |
 |------|-----|
-| tool_name | `ucp_identity_status` |
+| tool_name | `ucp_identity` (mode='status') |
 | 入力 | `business_url`, `link_id` |
 | 出力 | 連携状態（linked / expired / pending） |
 | 内部動作 | `POST {endpoint}/identity-link-status` |
 
-### ucp_ap2_execute
+### ucp_ap2_mandate_create
 
-AP2 決済トークンを実行する（自律決済 Scenario C）。
+AP2支払いマンデートを作成する（自律決済の事前承認）。
 
 | 項目 | 値 |
 |------|-----|
-| tool_name | `ucp_ap2_execute` |
-| 入力 | `business_url`, `mandate_id`, `checkout_id` |
-| 出力 | AP2Token, status（active / completed / challenge_required） |
-| 内部動作 | AP2 Token Execution |
-| 対応UCP | AP2 over UCP (Scenario C) |
+| tool_name | `ucp_ap2` (mode='mandate_create') |
+| 入力 | `business_url`, `merchant_name`, `max_amount`, `currency` |
+| 出力 | mandate_id, signed_jwt, authorization_url |
+| 内部動作 | RSA署名付き JWT 生成、Trusted Surface での承認待ち |
+| 対応 | AP2 over UCP (Scenario C) |
 
 ### ucp_ap2_mandate_list
 
@@ -260,10 +260,29 @@ AP2 決済トークンを実行する（自律決済 Scenario C）。
 
 | 項目 | 値 |
 |------|-----|
-| tool_name | `ucp_ap2_mandate_list` |
-| 入力 | `business_url` |
+| tool_name | `ucp_ap2` (mode='mandate_list') |
+| 入力 | なし |
 | 出力 | Mandate一覧（有効期限・金額上限・プロバイダ） |
-| 内部動作 | AP2 Mandate Query |
+
+### ucp_ap2_execute
+
+AP2 決済トークンを実行する（自律決済）。
+
+| 項目 | 値 |
+|------|-----|
+| tool_name | `ucp_ap2` (mode='execute') |
+| 入力 | `mandate_id`, `checkout_id`, `amount`, `currency` |
+| 出力 | signed_token（ucp_checkout complete の ap2_token として使用） |
+
+### ucp_ap2_verify
+
+AP2決済トークンを検証する。
+
+| 項目 | 値 |
+|------|-----|
+| tool_name | `ucp_ap2` (mode='verify') |
+| 入力 | `ap2_token` |
+| 出力 | デコードされたペイロード（vct, token_id, amount等） |
 
 ## データフロー例
 
@@ -386,6 +405,17 @@ https://github.com/hemanth/ucp-demo
 
 UCPのインタラクティブデモ。フロントエンド中心だが、APIの動作イメージを掴むのに有用。
 
+### モックサーバー（uag内蔵）
+
+`tests/ucp_mock_server.py` に全Phase対応のモックサーバーを含む。
+
+```
+python tests/ucp_mock_server.py
+# http://localhost:8080/.well-known/ucp
+```
+
+カタログ・カート・チェックアウト（continue_url + AP2）・注文・ID連携・AP2マンデート認証をすべて模擬。
+
 ## その他考慮事項
 
 ### Transport の選択
@@ -424,6 +454,27 @@ Business 側のレート制限（429 Too Many Requests）が発生した場合�
 | Agent-authenticated | Client ID/Secret | ゲスト購入、カート作成 |
 | User-authenticated | + OAuth 2.0 token | 住所連携、過去注文参照 |
 
+## 既知の問題点
+
+### 設計上の制約（要対応）
+
+| # | 問題 | 影響 | 優先度 | 対応案 |
+|---|------|------|--------|--------|
+| 1 | **AP2マンデートストアがインメモリ**：`ucp_ap2_tool.py` の `_mandates` はモジュール内蔵dict。ツールリロード（`system_reload`）やuag再起動で全マンデートが消失する。 | マンデート消失によりAP2決済フローが中断 | 高 | ファイル永続化（JSON）またはSchedulerStoreへの保存 |
+| 2 | **UCP Clientの認証情報が環境変数依存**：`UCP_DEFAULT_CLIENT_ID` / `UCP_DEFAULT_CLIENT_SECRET` は全ビジネスで共有。複数ビジネスを扱う場合に認証情報を切り替えられない。 | 単一会社向けには問題ないが、マルチテナント対応不可 | 中 | ツールパラメータで認証情報をオーバーライド可能にする |
+| 3 | **HTTP Message Signatures (RFC 9421) 未実装**：`ucp_shared.py` ではOAuth 2.0とAPI Keyのみ対応。UCP仕様で定義されるHTTP Message Signaturesは未実装。 | 一部のBusinessで認証エラーになる可能性 | 中 | `_request()` に署名生成ロジックを追加 |
+| 4 | **SD-JWT（Selective Disclosure JWT）未対応**：AP2仕様ではSD-JWTによる属性の選択的開示が定義されているが、現状は通常のJWTのみ。 | プライバシー保護機能が不足。ただしAP2 v0.2では任意実装 | 低 | `sd-jwt` ライブラリ導入 |
+| 5 | **A2A Transport未対応**：UCPはA2Aトランスポートを定義しているが、Phase 5未着手のため未実装。 | UCP over A2A のユースケース（他エージェント経由の購入）が不可 | 低 | Phase 5で対応予定 |
+
+### 実装上の軽微な問題
+
+| # | 問題 | ステータス |
+|---|------|-----------|
+| 6 | `ucp_discover` の `capability.version` 取得で `capabilities[cap_name][0].get("version")` とハードコードしている。リスト構造が異なるBusinessがあるとエラー。 | 要修正（try/except追加） |
+| 7 | `ucp_ap2_tool.py` のマンデート有効期限チェックは `ap2_execute_token` 内で行っているが、期限切れマンデートの自動削除は未実装。 | 低優先度 |
+| 8 | モックサーバーの `complete_checkout` にデッドコード `_orders_seq_inner = __import__('uuid').uuid4()` が残っている。 | 無害、削除推奨 |
+| 9 | 全ツールの `fmt` パラメータ未対応：既存ツール（echonet_*）には `fmt=json|text` があるが、UCPツールはJSON固定。 | 低優先度（LLM用ならJSON固定で十分） |
+
 ### 現時点での制約・リスク
 
 - UCP は 2026年4月公開の新しいプロトコル。対応Business（加盟店）がまだ少ない
@@ -433,54 +484,45 @@ Business 側のレート制限（429 Too Many Requests）が発生した場合�
 
 ## ロードマップ
 
-### Phase 1 - Core (v0.6.0)
+### Phase 1 - Core (v0.6.0) ✅ 完了
 
 目標: カタログ検索・カート構築・チェックアウト作成までの基本フロー
 
-- [ ] `ucp_shared.py` - UCPClient（探索・認証・署名・リクエスト）
-- [ ] `ucp_discover_tool.py`
-- [ ] `ucp_search_catalog_tool.py`
-- [ ] `ucp_lookup_catalog_tool.py`
-- [ ] `ucp_create_cart_tool.py`
-- [ ] `ucp_get_cart_tool.py`
-- [ ] `ucp_update_cart_tool.py`
-- [ ] `ucp_create_checkout_tool.py`
-- [ ] `ucp_get_checkout_tool.py`
-- [ ] `ucp_update_checkout_tool.py`
-- [ ] テスト（GitHub Samples の Python サーバーとの疎通）
+- [x] `ucp_shared.py` - UCPClient（探索・認証・署名・リクエスト）
+- [x] `ucp_discover_tool.py`
+- [x] `ucp_catalog_tool.py`（search + lookup）
+- [x] `ucp_cart_tool.py`（create + get + update）
+- [x] `ucp_checkout_tool.py`（create + get + update）
+- [x] テスト（モックサーバーとの疎通確認）
 
-### Phase 2 - Continue URL Checkout (v0.6.1)
+### Phase 2 - Continue URL Checkout (v0.6.1) ✅ 完了
 
 目標: continue_url 経由の決済完了フロー（Scenario A/B）
 
-- [ ] `ucp_complete_checkout_tool.py`（continue_url 返却対応）
-- [ ] continue_url のユーザー提示（ブラウザで開くよう促す）
-- [ ] Idempotency-Key 再送防止
-- [ ] チェックアウトステータス監視（completed になるまでポーリング）
-- [ ] レート制限・Retry-After 対応
-- [ ] Google Merchant Center Sandbox との結合テスト
+- [x] `ucp_checkout_tool.py` complete モード（continue_url 返却対応）
+- [x] continue_url のユーザー提示（ブラウザで開くよう促す）
+- [x] Idempotency-Key 再送防止
+- [x] チェックアウトステータス監視（poll モード）
+- [ ] Google Merchant Center Sandbox との結合テスト（外部依存のため未実施）
 
-### Phase 3 - AP2 Autonomous Payment (v0.6.2)
+### Phase 3 - AP2 Autonomous Payment (v0.6.2) ✅ 完了
 
 目標: AP2 を使った完全自律エージェント決済（Scenario C）
 
-- [ ] `ucp_ap2_tool.py`（AP2Client）
-- [ ] `ucp_ap2_execute` - AP2 Token Execution
-- [ ] `ucp_ap2_mandate_list` - Payment Mandate 管理
-- [ ] Verifiable Credential の生成・管理
-- [ ] AP2 Token の `complete_checkout` への受け渡し
-- [ ] テスト（AP2対応決済プロバイダとの疎通）
+- [x] `ucp_ap2_tool.py`（mandate_create / mandate_list / execute / verify）
+- [x] AP2 Token Execution（RSA署名JWT）
+- [x] Payment Mandate 管理（作成・一覧・期限チェック）
+- [x] AP2 Token の `complete_checkout` への受け渡し
+- [x] テスト（モックサーバー -> 全フロー確認）
 
-### Phase 4 - Orders & Identity (v0.6.3)
+### Phase 4 - Orders & Identity (v0.6.3) ✅ 完了
 
 目標: 注文管理・アカウント連携
 
-- [ ] `ucp_list_orders_tool.py`
-- [ ] `ucp_get_order_tool.py`
-- [ ] `ucp_identity_link_tool.py`
-- [ ] `ucp_identity_status_tool.py`
-- [ ] OAuth 2.0 Authorization Code flow
-- [ ] アクセストークン管理（リフレッシュ・失効）
+- [x] `ucp_order_tool.py`（list + get）
+- [x] `ucp_identity_tool.py`（link + status）
+- [x] OAuth 2.0 Authorization Code flow（モック）
+- [ ] アクセストークン管理（リフレッシュ・失効）は未実装
 
 ### Phase 5 - MCP Transport (v0.7.0)
 
