@@ -276,10 +276,17 @@ def _read_text_robust(path: str, encoding: str, max_bytes: int) -> tuple[str, An
             content = f.read()
             return content, f.newlines, enc
 
-    try:
-        return try_read(encoding, "strict")
-    except (UnicodeDecodeError, LookupError):
-        return try_read("utf-8", "replace")
+    candidates = [encoding, "utf-8", "cp932", "shift_jis", "euc-jp", "latin-1"]
+    seen: set[str] = set()
+    for enc in candidates:
+        if enc in seen:
+            continue
+        seen.add(enc)
+        try:
+            return try_read(enc, "strict")
+        except (UnicodeDecodeError, LookupError):
+            continue
+    return try_read("utf-8", "replace")
 
 
 MAX_DIFF_INPUT_CHARS = 1_000_000
@@ -324,13 +331,19 @@ def _write_text_robust(path: str, text: str, encoding: str) -> None:
 
 
 def _expand_newline_tokens_to_lf(s: str) -> str:
-    return (
-        s.replace("\\r\\n", "\n")
-        .replace("\\r", "\n")
-        .replace("\\n", "\n")
-        .replace("\r\n", "\n")
-        .replace("\r", "\n")
-    )
+    """Expand common backslash escape sequences, then normalize actual newlines to LF.
+
+    Order matters: \\r\\n (4 chars) must be handled before \\r (2 chars).
+    Also handles \\t, \\\\, and leaves other sequences as-is.
+    """
+    s = s.replace("\\r\\n", "\n")   # escaped CRLF
+    s = s.replace("\\r", "\n")         # escaped CR
+    s = s.replace("\\n", "\n")         # escaped LF
+    s = s.replace("\\t", "\t")         # escaped TAB
+    s = s.replace("\\\\", "\\")      # escaped backslash
+    s = s.replace("\r\n", "\n")        # actual CRLF
+    s = s.replace("\r", "\n")           # actual CR
+    return s
 
 
 def _normalize_replacement_newlines(text: str, newline: Any) -> str:
@@ -432,6 +445,48 @@ def _sha256_file(path: str) -> str:
     return h.hexdigest()
 
 
+def _find_best_fuzzy_match(text: str, pattern: str) -> dict[str, Any] | None:
+    """Find the closest matching location for pattern in text when exact match fails.
+
+    Returns a dict with position, similarity, and context, or None.
+    """
+    if not pattern or not text:
+        return None
+
+    text_lower = text.lower()
+    pattern_lower = pattern.lower()
+
+    # Try exact match first (case-insensitive)
+    pos = text_lower.find(pattern_lower)
+    if pos >= 0:
+        return {
+            "position": pos,
+            "similarity": 1.0,
+            "exact": True,
+            "before_context": text[max(0, pos - 30):pos],
+            "matched_part": text[pos:pos + len(pattern)],
+            "after_context": text[pos + len(pattern):pos + len(pattern) + 30],
+        }
+
+    if len(pattern) < 5:
+        return None
+
+    matcher = difflib.SequenceMatcher(None, text_lower, pattern_lower)
+    match = matcher.find_longest_match(0, len(text), 0, len(pattern))
+    if match.size >= max(5, len(pattern) // 3):
+        pos = match.a
+        similarity = match.size / len(pattern)
+        return {
+            "position": pos,
+            "similarity": round(similarity, 3),
+            "exact": False,
+            "before_context": text[max(0, pos - 30):pos],
+            "matched_part": text[pos:pos + match.size],
+            "after_context": text[pos + match.size:pos + match.size + 30],
+        }
+
+    return None
+
 def _get_failure_hint(original: str, pattern: str, mode: str) -> str | None:
     if not pattern:
         return None
@@ -446,6 +501,27 @@ def _get_failure_hint(original: str, pattern: str, mode: str) -> str | None:
             "hint.possible_regex",
             default="Pattern looks like it contains regex-style meta-characters but 'mode' is 'literal'.",
         )
+    fuzzy = _find_best_fuzzy_match(original, pattern)
+    if fuzzy and not fuzzy.get("exact"):
+        sim = fuzzy.get("similarity", 0)
+        matched = fuzzy.get("matched_part", "")
+        before = fuzzy.get("before_context", "")
+        after = fuzzy.get("after_context", "")
+        if sim >= 0.5:
+            return _(
+                "hint.fuzzy_match",
+                default=(
+                    "No exact match found, but {sim:.0%} similar content found near "
+                    "position {pos}: ...{before}[{matched}]{after}... "
+                    "Check whitespace, indentation, or special characters."
+                ),
+            ).format(
+                sim=sim,
+                pos=fuzzy.get("position", 0),
+                before=before[-20:],
+                matched=matched[:40],
+                after=after[:20],
+            )
     return _(
         "hint.check_exact",
         default="No matches. Use 'search_files' or 'read_file' to copy the exact content including spaces.",
@@ -639,6 +715,32 @@ def _build_no_match_diagnostics(
 
     hints: list[str] = []
     stripped = search_text.strip()
+
+    # Fuzzy match hint first (highest priority diagnostic)
+    if action in ("replace", "insert_before", "insert_after") and search_text:
+        fuzzy = _find_best_fuzzy_match(original, search_text)
+        if fuzzy and not fuzzy.get("exact") and fuzzy.get("similarity", 0) >= 0.5:
+            sim = fuzzy.get("similarity", 0)
+            matched = fuzzy.get("matched_part", "")
+            before = fuzzy.get("before_context", "")
+            after = fuzzy.get("after_context", "")
+            hints.append(
+                _(
+                    "hint.fuzzy_match",
+                    default=(
+                        "No exact match found, but {sim:.0%} similar content near "
+                        "position {pos}: ...{before}[{matched}]{after}... "
+                        "Check whitespace, indentation, or special characters."
+                    ),
+                ).format(
+                    sim=sim,
+                    pos=fuzzy.get("position", 0),
+                    before=before[-20:],
+                    matched=matched[:40],
+                    after=after[:20],
+                )
+            )
+
     if not expand_newline_tokens and diagnostics["contains_escaped_newline_tokens"]:
         hints.append(
             _(
