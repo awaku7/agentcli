@@ -8,5 +8,335 @@
     "msg.summary": "BACnet/IP discovery completed: {count} device(s) found in {ms} ms.",
     "msg.no_devices": "No BACnet/IP devices were found.",
     "err.bac0_install": "BAC0 library could not be installed."
+  },
+  "ar": {
+    "tool.description": "اكتشف أجهزة BACnet/IP على الشبكة المحلية. يرسل بث Who-Is ويعيد استجابات I-Am كقائمة JSON أو قائمة نصية.",
+    "param.timeout.description": "زمن انتظار استجابة Who-Is بالثواني.",
+    "param.interface.description": "عنوان IPv4 المحلي المطلوب ربطه (على سبيل المثال \"192.168.1.100\"). إذا تم حذفه، يقوم BAC0 بالكشف التلقائي عن الواجهة المحلية.",
+    "param.limit.description": "الحد الأقصى لعدد الأجهزة المراد إرجاعها. 0 يعني غير محدود.",
+    "param.fmt.description": "التنسيق: json أو نص.",
+    "msg.summary": "اكتمل اكتشاف BACnet/IP: تم العثور على {count} جهاز (أجهزة) خلال {ms} مللي ثانية.",
+    "msg.no_devices": "لم يتم العثور على أجهزة BACnet/IP.",
+    "err.bac0_install": "تعذر تثبيت مكتبة BAC0."
+  },
+  "bn": {
+    "tool.description": "স্থানীয় নেটওয়ার্কে BACnet/IP ডিভাইসগুলি আবিষ্কার করুন। কে-ইজ ব্রডকাস্ট পাঠায় এবং JSON বা পাঠ্য তালিকা হিসাবে I-Am প্রতিক্রিয়া ফেরত দেয়।",
+    "param.timeout.description": "কে-ইজ প্রতিক্রিয়া সেকেন্ডে অপেক্ষা করার সময়।",
+    "param.interface.description": "আবদ্ধ করার জন্য স্থানীয় IPv4 ঠিকানা (যেমন '192.168.1.100')। যদি বাদ দেওয়া হয়, BAC0 স্বয়ংক্রিয়ভাবে স্থানীয় ইন্টারফেস সনাক্ত করে।",
+    "param.limit.description": "ফেরত দেওয়ার জন্য সর্বাধিক সংখ্যক ডিভাইস। 0 মানে সীমাহীন।",
+    "param.fmt.description": "বিন্যাস: json বা পাঠ্য।",
+    "msg.summary": "BACnet/IP আবিষ্কার সম্পন্ন হয়েছে: {count} ডিভাইস(গুলি) {ms} ms এ পাওয়া গেছে।",
+    "msg.no_devices": "কোনো BACnet/IP ডিভাইস পাওয়া যায়নি।",
+    "err.bac0_install": "BAC0 লাইব্রেরি ইনস্টল করা যায়নি।"
+  },
+  "cs": {
+    "tool.description": "Objevte BACnet/IP zařízení v místní síti. Odešle vysílání Who-Is a vrátí odpovědi I-Am jako JSON nebo textový seznam.",
+    "param.timeout.description": "Čekací doba odpovědi Who-I v sekundách.",
+    "param.interface.description": "Místní adresa IPv4 pro vazbu (např. '192.168.1.100'). Pokud je vynechán, BAC0 automaticky detekuje místní rozhraní.",
+    "param.limit.description": "Maximální počet zařízení k vrácení. 0 znamená neomezené.",
+    "param.fmt.description": "Formát: json nebo text.",
+    "msg.summary": "Zjišťování BACnet/IP dokončeno: {count} zařízení nalezeno za {ms} ms.",
+    "msg.no_devices": "Nebyla nalezena žádná zařízení BACnet/IP.",
+    "err.bac0_install": "Knihovnu BAC0 nelze nainstalovat."
+  },
+  "de": {
+    "tool.description": "Entdecken Sie BACnet/IP-Geräte im lokalen Netzwerk. Sendet eine Who-Is-Übertragung und gibt I-Am-Antworten als JSON- oder Textliste zurück.",
+    "param.timeout.description": "Wartezeit für die Who-Is-Antwort in Sekunden.",
+    "param.interface.description": "Lokale IPv4-Adresse zum Binden (z. B. „192.168.1.100“). Wenn es weggelassen wird, erkennt BAC0 die lokale Schnittstelle automatisch.",
+    "param.limit.description": "Maximale Anzahl der zurückzugebenden Geräte. 0 bedeutet unbegrenzt.",
+    "param.fmt.description": "Format: JSON oder Text.",
+    "msg.summary": "BACnet/IP-Erkennung abgeschlossen: {count} Gerät(e) in {ms} ms gefunden.",
+    "msg.no_devices": "Es wurden keine BACnet/IP-Geräte gefunden.",
+    "err.bac0_install": "Die BAC0-Bibliothek konnte nicht installiert werden."
+  },
+  "el": {
+    "tool.description": "Ανακαλύψτε συσκευές BACnet/IP στο τοπικό δίκτυο. Στέλνει μια εκπομπή Who-Is και επιστρέφει απαντήσεις I-Am ως JSON ή λίστα κειμένου.",
+    "param.timeout.description": "Χρόνος αναμονής απόκρισης Who-I σε δευτερόλεπτα.",
+    "param.interface.description": "Τοπική διεύθυνση IPv4 προς σύνδεση (π.χ. '192.168.1.100'). Εάν παραλειφθεί, το BAC0 εντοπίζει αυτόματα την τοπική διεπαφή.",
+    "param.limit.description": "Μέγιστος αριθμός συσκευών προς επιστροφή. Το 0 σημαίνει απεριόριστο.",
+    "param.fmt.description": "Μορφή: json ή κείμενο.",
+    "msg.summary": "Ολοκληρώθηκε η ανακάλυψη BACnet/IP: {count} συσκευή(ες) βρέθηκαν σε {ms} ms.",
+    "msg.no_devices": "Δεν βρέθηκαν συσκευές BACnet/IP.",
+    "err.bac0_install": "Δεν ήταν δυνατή η εγκατάσταση της βιβλιοθήκης BAC0."
+  },
+  "es": {
+    "tool.description": "Descubra dispositivos BACnet/IP en la red local. Envía una transmisión de Quién es y devuelve respuestas de Yo soy como una lista de texto o JSON.",
+    "param.timeout.description": "Tiempo de espera de respuesta de Who-Is en segundos.",
+    "param.interface.description": "Dirección IPv4 local para vincular (por ejemplo, '192.168.1.100'). Si se omite, BAC0 detecta automáticamente la interfaz local.",
+    "param.limit.description": "Número máximo de dispositivos a devolver. 0 significa ilimitado.",
+    "param.fmt.description": "Formato: json o texto.",
+    "msg.summary": "Descubrimiento de BACnet/IP completado: {count} dispositivos encontrados en {ms} ms.",
+    "msg.no_devices": "No se encontraron dispositivos BACnet/IP.",
+    "err.bac0_install": "No se pudo instalar la biblioteca BAC0."
+  },
+  "fa": {
+    "tool.description": "دستگاه های BACnet/IP را در شبکه محلی کشف کنید. پخش Who-Is ارسال می کند و پاسخ های I-Am را به صورت JSON یا لیست متنی برمی گرداند.",
+    "param.timeout.description": "زمان انتظار پاسخ Who-I در چند ثانیه.",
+    "param.interface.description": "آدرس IPv4 محلی برای اتصال (به عنوان مثال '192.168.1.100'). اگر حذف شود، BAC0 به طور خودکار رابط محلی را تشخیص می دهد.",
+    "param.limit.description": "حداکثر تعداد دستگاه برای بازگشت. 0 به معنی نامحدود است.",
+    "param.fmt.description": "فرمت: json یا متن.",
+    "msg.summary": "کشف BACnet/IP تکمیل شد: {count} دستگاه در {ms} میلی‌ثانیه یافت شد.",
+    "msg.no_devices": "هیچ دستگاه BACnet/IP پیدا نشد.",
+    "err.bac0_install": "کتابخانه BAC0 نصب نشد."
+  },
+  "fi": {
+    "tool.description": "Löydä BACnet/IP-laitteet paikallisverkosta. Lähettää Who-Is-lähetyksen ja palauttaa I-Am-vastaukset JSON- tai tekstiluettelona.",
+    "param.timeout.description": "Kuka on vastauksen odotusaika sekunneissa.",
+    "param.interface.description": "Sidottava paikallinen IPv4-osoite (esim. '192.168.1.100'). Jos se jätetään pois, BAC0 tunnistaa paikallisen rajapinnan automaattisesti.",
+    "param.limit.description": "Palautettavien laitteiden enimmäismäärä. 0 tarkoittaa rajatonta.",
+    "param.fmt.description": "Muoto: json tai teksti.",
+    "msg.summary": "BACnet/IP-etsintä valmis: {count} laitetta löydetty {ms} ms:ssa.",
+    "msg.no_devices": "BACnet/IP-laitteita ei löytynyt.",
+    "err.bac0_install": "BAC0-kirjastoa ei voitu asentaa."
+  },
+  "fr": {
+    "tool.description": "Découvrez les appareils BACnet/IP sur le réseau local. Envoie une diffusion Who-Is et renvoie les réponses I-Am sous forme de liste JSON ou de texte.",
+    "param.timeout.description": "Temps d’attente de réponse Who-Is en secondes.",
+    "param.interface.description": "Adresse IPv4 locale à lier (par exemple « 192.168.1.100 »). En cas d'omission, BAC0 détecte automatiquement l'interface locale.",
+    "param.limit.description": "Nombre maximum d'appareils à renvoyer. 0 signifie illimité.",
+    "param.fmt.description": "Format : json ou texte.",
+    "msg.summary": "Découverte BACnet/IP terminée : {count} appareil(s) trouvé(s) en {ms} ms.",
+    "msg.no_devices": "Aucun appareil BACnet/IP n'a été trouvé.",
+    "err.bac0_install": "La bibliothèque BAC0 n'a pas pu être installée."
+  },
+  "he": {
+    "tool.description": "גלה התקני BACnet/IP ברשת המקומית. שולח שידור Who-Is ומחזיר תגובות I-Am כרשימת JSON או טקסט.",
+    "param.timeout.description": "זמן המתנה לתגובת מי-האם בשניות.",
+    "param.interface.description": "כתובת IPv4 מקומית לאגד (למשל '192.168.1.100'). אם מושמט, BAC0 מזהה אוטומטית את הממשק המקומי.",
+    "param.limit.description": "מספר מכשירים מקסימלי להחזרה. 0 פירושו בלתי מוגבל.",
+    "param.fmt.description": "פורמט: json או טקסט.",
+    "msg.summary": "גילוי BACnet/IP הושלם: {count} מכשירים נמצאו תוך {ms} אלפיות השנייה.",
+    "msg.no_devices": "לא נמצאו התקני BACnet/IP.",
+    "err.bac0_install": "לא ניתן היה להתקין את ספריית BAC0."
+  },
+  "hi": {
+    "tool.description": "स्थानीय नेटवर्क पर बीएसीनेट/आईपी डिवाइस खोजें। हू-इज़ प्रसारण भेजता है और I-Am प्रतिक्रियाओं को JSON या टेक्स्ट सूची के रूप में लौटाता है।",
+    "param.timeout.description": "कौन है प्रतिक्रिया प्रतीक्षा समय सेकंड में।",
+    "param.interface.description": "बाइंड करने के लिए स्थानीय IPv4 पता (जैसे '192.168.1.100')। यदि छोड़ दिया जाए, तो BAC0 स्थानीय इंटरफ़ेस का स्वतः पता लगाता है।",
+    "param.limit.description": "वापस करने के लिए उपकरणों की अधिकतम संख्या. 0 का मतलब असीमित है.",
+    "param.fmt.description": "प्रारूप: json या text.",
+    "msg.summary": "BACnet/IP खोज पूरी हुई: {count} डिवाइस {ms} एमएस में मिलीं।",
+    "msg.no_devices": "कोई बीएसीनेट/आईपी डिवाइस नहीं मिला।",
+    "err.bac0_install": "BAC0 लाइब्रेरी स्थापित नहीं की जा सकी."
+  },
+  "hu": {
+    "tool.description": "Fedezze fel a BACnet/IP eszközöket a helyi hálózaton. Kiküldést küld, és JSON-ként vagy szöveges listaként adja vissza az I-Am válaszokat.",
+    "param.timeout.description": "A ki válaszának várakozási ideje másodpercben.",
+    "param.interface.description": "Helyi IPv4-cím a kötéshez (pl. „192.168.1.100”). Ha kihagyja, a BAC0 automatikusan felismeri a helyi interfészt.",
+    "param.limit.description": "A visszaküldendő eszközök maximális száma. A 0 azt jelenti, hogy korlátlan.",
+    "param.fmt.description": "Formátum: json vagy szöveg.",
+    "msg.summary": "A BACnet/IP-felderítés befejeződött: {count} eszköz található {ms} ms alatt.",
+    "msg.no_devices": "Nem található BACnet/IP eszköz.",
+    "err.bac0_install": "A BAC0 könyvtárat nem sikerült telepíteni."
+  },
+  "id": {
+    "tool.description": "Temukan perangkat BACnet/IP di jaringan lokal. Mengirimkan siaran Who-Is dan mengembalikan respons I-Am sebagai JSON atau daftar teks.",
+    "param.timeout.description": "Waktu tunggu respons Who-Is dalam hitungan detik.",
+    "param.interface.description": "Alamat IPv4 lokal yang akan diikat (misalnya '192.168.1.100'). Jika dihilangkan, BAC0 secara otomatis mendeteksi antarmuka lokal.",
+    "param.limit.description": "Jumlah maksimum perangkat yang akan dikembalikan. 0 berarti tidak terbatas.",
+    "param.fmt.description": "Format: json atau teks.",
+    "msg.summary": "Penemuan BACnet/IP selesai: {count} perangkat ditemukan dalam {ms} ms.",
+    "msg.no_devices": "Tidak ada perangkat BACnet/IP yang ditemukan.",
+    "err.bac0_install": "Pustaka BAC0 tidak dapat diinstal."
+  },
+  "it": {
+    "tool.description": "Rileva i dispositivi BACnet/IP sulla rete locale. Invia una trasmissione Who-Is e restituisce le risposte I-Am come JSON o elenco di testo.",
+    "param.timeout.description": "Tempo di attesa della risposta Who-Is in secondi.",
+    "param.interface.description": "Indirizzo IPv4 locale da associare (ad esempio \"192.168.1.100\"). Se omesso, BAC0 rileva automaticamente l'interfaccia locale.",
+    "param.limit.description": "Numero massimo di dispositivi da restituire. 0 significa illimitato.",
+    "param.fmt.description": "Formato: json o testo.",
+    "msg.summary": "Rilevamento BACnet/IP completato: {count} dispositivi trovati in {ms} ms.",
+    "msg.no_devices": "Nessun dispositivo BACnet/IP trovato.",
+    "err.bac0_install": "Impossibile installare la libreria BAC0."
+  },
+  "ja": {
+    "tool.description": "ローカル ネットワーク上の BACnet/IP デバイスを検出します。 Who-Is ブロードキャストを送信し、I-Am 応答を JSON またはテキスト リストとして返します。",
+    "param.timeout.description": "Who-Is 応答待機時間 (秒単位)。",
+    "param.interface.description": "バインドするローカル IPv4 アドレス (例: '192.168.1.100')。省略した場合、BAC0 はローカル インターフェイスを自動検出します。",
+    "param.limit.description": "返されるデバイスの最大数。 0 は無制限を意味します。",
+    "param.fmt.description": "形式: json またはテキスト。",
+    "msg.summary": "BACnet/IP 検出が完了しました: {count} 個のデバイスが {ms} ミリ秒以内に見つかりました。",
+    "msg.no_devices": "BACnet/IP デバイスが見つかりませんでした。",
+    "err.bac0_install": "BAC0 ライブラリをインストールできませんでした。"
+  },
+  "ko": {
+    "tool.description": "로컬 네트워크에서 BACnet/IP 장치를 검색합니다. Who-Is 브로드캐스트를 보내고 I-Am 응답을 JSON 또는 텍스트 목록으로 반환합니다.",
+    "param.timeout.description": "Who-Is 응답 대기 시간(초)입니다.",
+    "param.interface.description": "바인딩할 로컬 IPv4 주소(예: '192.168.1.100') 생략하면 BAC0은 로컬 인터페이스를 자동 감지합니다.",
+    "param.limit.description": "반환할 최대 장치 수입니다. 0은 무제한을 의미합니다.",
+    "param.fmt.description": "형식: json 또는 텍스트.",
+    "msg.summary": "BACnet/IP 검색 완료: {ms} ms 동안 {count} 장치를 찾았습니다.",
+    "msg.no_devices": "BACnet/IP 장치를 찾을 수 없습니다.",
+    "err.bac0_install": "BAC0 라이브러리를 설치할 수 없습니다."
+  },
+  "mn": {
+    "tool.description": "Дотоод сүлжээн дэх BACnet/IP төхөөрөмжүүдтэй танилцаарай. Who-Is нэвтрүүлгийг илгээж, I-Am хариултыг JSON эсвэл текстийн жагсаалт хэлбэрээр буцаана.",
+    "param.timeout.description": "Who-Is хариу секундээр хүлээх хугацаа.",
+    "param.interface.description": "Холбох локал IPv4 хаяг (жишээ нь '192.168.1.100'). Хэрэв орхигдуулсан бол BAC0 нь дотоод интерфейсийг автоматаар илрүүлдэг.",
+    "param.limit.description": "Буцах төхөөрөмжийн хамгийн их тоо. 0 гэдэг нь хязгааргүй гэсэн үг.",
+    "param.fmt.description": "Формат: json эсвэл текст.",
+    "msg.summary": "BACnet/IP илрүүлэлт дууссан: {ms} мс-д {count} төхөөрөмж олдсон.",
+    "msg.no_devices": "BACnet/IP төхөөрөмж олдсонгүй.",
+    "err.bac0_install": "BAC0 номын санг суулгаж чадсангүй."
+  },
+  "mr": {
+    "tool.description": "स्थानिक नेटवर्कवर BACnet/IP डिव्हाइस शोधा. कोण-काय प्रसारण पाठवते आणि JSON किंवा मजकूर सूची म्हणून I-Am प्रतिसाद परत करते.",
+    "param.timeout.description": "कोण आहे प्रतिसाद सेकंदात प्रतीक्षा वेळ.",
+    "param.interface.description": "बांधण्यासाठी स्थानिक IPv4 पत्ता (उदा. '192.168.1.100'). वगळल्यास, BAC0 स्थानिक इंटरफेस स्वयं-शोधते.",
+    "param.limit.description": "परत करण्यासाठी डिव्हाइसेसची कमाल संख्या. 0 म्हणजे अमर्यादित.",
+    "param.fmt.description": "स्वरूप: json किंवा मजकूर.",
+    "msg.summary": "BACnet/IP शोध पूर्ण झाला: {count} डिव्हाइस(ले) {ms} ms मध्ये सापडले.",
+    "msg.no_devices": "कोणतेही BACnet/IP डिव्हाइस आढळले नाहीत.",
+    "err.bac0_install": "BAC0 लायब्ररी स्थापित करणे शक्य नाही."
+  },
+  "nb": {
+    "tool.description": "Oppdag BACnet/IP-enheter på det lokale nettverket. Sender en Who-Is-sending og returnerer I-Am-svar som en JSON- eller tekstliste.",
+    "param.timeout.description": "Hvem-er-svar ventetid i sekunder.",
+    "param.interface.description": "Lokal IPv4-adresse som skal bindes (f.eks. '192.168.1.100'). Hvis utelatt, oppdager BAC0 automatisk det lokale grensesnittet.",
+    "param.limit.description": "Maksimalt antall enheter å returnere. 0 betyr ubegrenset.",
+    "param.fmt.description": "Format: json eller tekst.",
+    "msg.summary": "BACnet/IP-oppdagelse fullført: {count} enhet(er) funnet på {ms} ms.",
+    "msg.no_devices": "Ingen BACnet/IP-enheter ble funnet.",
+    "err.bac0_install": "BAC0-biblioteket kunne ikke installeres."
+  },
+  "nl": {
+    "tool.description": "Ontdek BACnet/IP-apparaten op het lokale netwerk. Verzendt een Who-Is-uitzending en retourneert I-Am-antwoorden als een JSON- of tekstlijst.",
+    "param.timeout.description": "Wachttijd voor wie-is-reactie in seconden.",
+    "param.interface.description": "Lokaal IPv4-adres dat moet worden gekoppeld (bijvoorbeeld '192.168.1.100'). Indien dit wordt weggelaten, detecteert BAC0 automatisch de lokale interface.",
+    "param.limit.description": "Maximaal aantal apparaten dat kan worden geretourneerd. 0 betekent onbeperkt.",
+    "param.fmt.description": "Formaat: json of tekst.",
+    "msg.summary": "BACnet/IP-detectie voltooid: {count} apparaat(en) gevonden in {ms} ms.",
+    "msg.no_devices": "Er zijn geen BACnet/IP-apparaten gevonden.",
+    "err.bac0_install": "BAC0-bibliotheek kan niet worden geïnstalleerd."
+  },
+  "pl": {
+    "tool.description": "Odkryj urządzenia BACnet/IP w sieci lokalnej. Wysyła transmisję Who-Is i zwraca odpowiedzi I-Am w postaci JSON lub listy tekstowej.",
+    "param.timeout.description": "Czas oczekiwania na odpowiedź „Who-Is” w sekundach.",
+    "param.interface.description": "Lokalny adres IPv4 do powiązania (np. „192.168.1.100”). Jeśli zostanie pominięty, BAC0 automatycznie wykryje interfejs lokalny.",
+    "param.limit.description": "Maksymalna liczba urządzeń do zwrotu. 0 oznacza nieograniczone.",
+    "param.fmt.description": "Format: json lub tekst.",
+    "msg.summary": "Zakończono wykrywanie BACnet/IP: znaleziono {count} urządzeń w ciągu {ms} ms.",
+    "msg.no_devices": "Nie znaleziono urządzeń BACnet/IP.",
+    "err.bac0_install": "Nie można zainstalować biblioteki BAC0."
+  },
+  "pt": {
+    "tool.description": "Descubra dispositivos BACnet/IP na rede local. Envia uma transmissão Who-Is e retorna respostas I-Am como JSON ou lista de texto.",
+    "param.timeout.description": "Tempo de espera da resposta de quem é em segundos.",
+    "param.interface.description": "Endereço IPv4 local para vincular (por exemplo, '192.168.1.100'). Se omitido, o BAC0 detecta automaticamente a interface local.",
+    "param.limit.description": "Número máximo de dispositivos a serem devolvidos. 0 significa ilimitado.",
+    "param.fmt.description": "Formato: json ou texto.",
+    "msg.summary": "Descoberta BACnet/IP concluída: {count} dispositivos encontrados em {ms} ms.",
+    "msg.no_devices": "Nenhum dispositivo BACnet/IP foi encontrado.",
+    "err.bac0_install": "A biblioteca BAC0 não pôde ser instalada."
+  },
+  "pt_BR": {
+    "tool.description": "Descubra dispositivos BACnet/IP na rede local. Envia uma transmissão Who-Is e retorna respostas I-Am como JSON ou lista de texto.",
+    "param.timeout.description": "Tempo de espera da resposta de quem é em segundos.",
+    "param.interface.description": "Endereço IPv4 local para vincular (por exemplo, '192.168.1.100'). Se omitido, o BAC0 detecta automaticamente a interface local.",
+    "param.limit.description": "Número máximo de dispositivos a serem devolvidos. 0 significa ilimitado.",
+    "param.fmt.description": "Formato: json ou texto.",
+    "msg.summary": "Descoberta BACnet/IP concluída: {count} dispositivos encontrados em {ms} ms.",
+    "msg.no_devices": "Nenhum dispositivo BACnet/IP foi encontrado.",
+    "err.bac0_install": "A biblioteca BAC0 não pôde ser instalada."
+  },
+  "ro": {
+    "tool.description": "Descoperiți dispozitivele BACnet/IP în rețeaua locală. Trimite o difuzare Who-Is și returnează răspunsurile I-Am ca JSON sau listă text.",
+    "param.timeout.description": "Timpul de așteptare a răspunsului Who-Is în secunde.",
+    "param.interface.description": "Adresă IPv4 locală de legat (de exemplu, „192.168.1.100”). Dacă este omis, BAC0 detectează automat interfața locală.",
+    "param.limit.description": "Numărul maxim de dispozitive de returnat. 0 înseamnă nelimitat.",
+    "param.fmt.description": "Format: json sau text.",
+    "msg.summary": "Descoperirea BACnet/IP finalizată: {count} dispozitiv(e) găsit(e) în {ms} ms.",
+    "msg.no_devices": "Nu au fost găsite dispozitive BACnet/IP.",
+    "err.bac0_install": "Biblioteca BAC0 nu a putut fi instalată."
+  },
+  "ru": {
+    "tool.description": "Обнаружение устройств BACnet/IP в локальной сети. Отправляет широковещательную рассылку Who-Is и возвращает ответы I-Am в виде JSON или текстового списка.",
+    "param.timeout.description": "Время ожидания ответа «Кто есть» в секундах.",
+    "param.interface.description": "Локальный IPv4-адрес для привязки (например, «192.168.1.100»). Если этот параметр опущен, BAC0 автоматически определяет локальный интерфейс.",
+    "param.limit.description": "Максимальное количество возвращаемых устройств. 0 означает неограниченный.",
+    "param.fmt.description": "Формат: json или текст.",
+    "msg.summary": "Обнаружение BACnet/IP завершено: {count} устройств обнаружено за {ms} мс.",
+    "msg.no_devices": "Устройства BACnet/IP не обнаружены.",
+    "err.bac0_install": "Не удалось установить библиотеку BAC0."
+  },
+  "sv": {
+    "tool.description": "Upptäck BACnet/IP-enheter på det lokala nätverket. Skickar en Who-Is-sändning och returnerar I-Am-svar som en JSON eller textlista.",
+    "param.timeout.description": "Vem-är svarsväntetid i sekunder.",
+    "param.interface.description": "Lokal IPv4-adress att binda (t.ex. '192.168.1.100'). Om det utelämnas, upptäcker BAC0 automatiskt det lokala gränssnittet.",
+    "param.limit.description": "Maximalt antal enheter att returnera. 0 betyder obegränsat.",
+    "param.fmt.description": "Format: json eller text.",
+    "msg.summary": "BACnet/IP-upptäckt slutförd: {count} enhet(er) hittades på {ms} ms.",
+    "msg.no_devices": "Inga BACnet/IP-enheter hittades.",
+    "err.bac0_install": "BAC0-biblioteket kunde inte installeras."
+  },
+  "sw": {
+    "tool.description": "Gundua vifaa vya BACnet/IP kwenye mtandao wa ndani. Hutuma tangazo la Who-Is na kurejesha majibu ya I-Am kama JSON au orodha ya maandishi.",
+    "param.timeout.description": "Muda wa kusubiri wa majibu ni nani kwa sekunde.",
+    "param.interface.description": "Anwani ya ndani ya IPv4 ya kufunga (k.m. '192.168.1.100'). Ikiwa imeachwa, BAC0 hutambua kiolesura cha ndani kiotomatiki.",
+    "param.limit.description": "Idadi ya juu zaidi ya vifaa vya kurejesha. 0 inamaanisha kutokuwa na kikomo.",
+    "param.fmt.description": "Umbizo: json au maandishi.",
+    "msg.summary": "Ugunduzi wa BACnet/IP umekamilika: {count} kifaa/vifaa vimepatikana katika {ms} ms.",
+    "msg.no_devices": "Hakuna vifaa vya BACnet/IP vilivyopatikana.",
+    "err.bac0_install": "Maktaba ya BAC0 haikuweza kusakinishwa."
+  },
+  "th": {
+    "tool.description": "ค้นหาอุปกรณ์ BACnet/IP บนเครือข่ายท้องถิ่น ส่งการออกอากาศ Who-Is และส่งกลับการตอบกลับ I-Am ในรูปแบบ JSON หรือรายการข้อความ",
+    "param.timeout.description": "เวลารอการตอบสนองของใครคือหน่วยวินาที",
+    "param.interface.description": "ที่อยู่ IPv4 ในเครื่องที่จะผูก (เช่น '192.168.1.100') หากละเว้น BAC0 จะตรวจหาอินเทอร์เฟซภายในเครื่องโดยอัตโนมัติ",
+    "param.limit.description": "จำนวนอุปกรณ์สูงสุดที่จะส่งคืน 0 หมายถึงไม่จำกัด",
+    "param.fmt.description": "รูปแบบ: json หรือข้อความ",
+    "msg.summary": "การค้นพบ BACnet/IP เสร็จสมบูรณ์: พบอุปกรณ์ {count} เครื่องใน {ms} ms",
+    "msg.no_devices": "ไม่พบอุปกรณ์ BACnet/IP",
+    "err.bac0_install": "ไม่สามารถติดตั้งไลบรารี BAC0"
+  },
+  "tr": {
+    "tool.description": "Yerel ağdaki BACnet/IP cihazlarını keşfedin. Bir Who-Is yayını gönderir ve I-Am yanıtlarını JSON veya metin listesi olarak döndürür.",
+    "param.timeout.description": "Kimdir yanıtının saniye cinsinden bekleme süresi.",
+    "param.interface.description": "Bağlanacak yerel IPv4 adresi (ör. '192.168.1.100'). Atlanırsa BAC0 yerel arayüzü otomatik olarak algılar.",
+    "param.limit.description": "İade edilecek maksimum cihaz sayısı. 0 sınırsız anlamına gelir.",
+    "param.fmt.description": "Biçim: json veya metin.",
+    "msg.summary": "BACnet/IP keşfi tamamlandı: {ms} ms içinde {count} cihaz bulundu.",
+    "msg.no_devices": "Hiçbir BACnet/IP cihazı bulunamadı.",
+    "err.bac0_install": "BAC0 kitaplığı yüklenemedi."
+  },
+  "uk": {
+    "tool.description": "Знайдіть пристрої BACnet/IP у локальній мережі. Надсилає трансляцію «Хто Є» та повертає відповіді «Я Є» у вигляді JSON або текстового списку.",
+    "param.timeout.description": "Час очікування відповіді Who-Is у секундах.",
+    "param.interface.description": "Локальна адреса IPv4 для прив’язки (наприклад, «192.168.1.100»). Якщо опущено, BAC0 автоматично визначає локальний інтерфейс.",
+    "param.limit.description": "Максимальна кількість пристроїв для повернення. 0 означає необмежений.",
+    "param.fmt.description": "Формат: json або текстовий.",
+    "msg.summary": "Виявлення BACnet/IP завершено: {count} пристроїв знайдено за {ms} мс.",
+    "msg.no_devices": "Пристроїв BACnet/IP не знайдено.",
+    "err.bac0_install": "Не вдалося встановити бібліотеку BAC0."
+  },
+  "vi": {
+    "tool.description": "Khám phá các thiết bị BACnet/IP trên mạng cục bộ. Gửi thông báo Who-Is và trả về câu trả lời I-Am dưới dạng JSON hoặc danh sách văn bản.",
+    "param.timeout.description": "Thời gian chờ phản hồi của Who-Is tính bằng giây.",
+    "param.interface.description": "Địa chỉ IPv4 cục bộ để liên kết (ví dụ: '192.168.1.100'). Nếu bị bỏ qua, BAC0 sẽ tự động phát hiện giao diện cục bộ.",
+    "param.limit.description": "Số lượng thiết bị tối đa cần trả lại. 0 có nghĩa là không giới hạn.",
+    "param.fmt.description": "Định dạng: json hoặc văn bản.",
+    "msg.summary": "Quá trình khám phá BACnet/IP đã hoàn tất: Đã tìm thấy {count} thiết bị sau {ms} mili giây.",
+    "msg.no_devices": "Không tìm thấy thiết bị BACnet/IP nào.",
+    "err.bac0_install": "Không thể cài đặt thư viện BAC0."
+  },
+  "zh_CN": {
+    "tool.description": "发现本地网络上的 BACnet/IP 设备。发送 Who-Is 广播并以 JSON 或文本列表形式返回 I-Am 响应。",
+    "param.timeout.description": "Who-Is 响应等待时间（以秒为单位）。",
+    "param.interface.description": "要绑定的本地 IPv4 地址（例如“192.168.1.100”）。如果省略，BAC0 将自动检测本地接口。",
+    "param.limit.description": "返回的设备的最大数量。 0 表示无限制。",
+    "param.fmt.description": "格式：json 或文本。",
+    "msg.summary": "BACnet/IP 发现已完成：在 {ms} 毫秒内找到 {count} 个设备。",
+    "msg.no_devices": "未找到 BACnet/IP 设备。",
+    "err.bac0_install": "无法安装 BAC0 库。"
+  },
+  "zh_TW": {
+    "tool.description": "發現本地網路上的 BACnet/IP 設備。傳送 Who-Is 廣播並以 JSON 或文字清單形式傳回 I-Am 回應。",
+    "param.timeout.description": "Who-Is 回應等待時間（以秒為單位）。",
+    "param.interface.description": "要綁定的本機 IPv4 位址（例如「192.168.1.100」）。如果省略，BAC0 將自動偵測本地介面。",
+    "param.limit.description": "返回的設備的最大數量。 0 表示無限制。",
+    "param.fmt.description": "格式：json 或文字。",
+    "msg.summary": "BACnet/IP 發現已完成：在 {ms} 毫秒內找到 {count} 個裝置。",
+    "msg.no_devices": "未找到 BACnet/IP 設備。",
+    "err.bac0_install": "無法安裝 BAC0 庫。"
   }
 }

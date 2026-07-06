@@ -8,5 +8,335 @@
     "msg.subscriptions_header": "Active COV subscriptions ({count}):",
     "msg.unsubscribed": "COV subscription task_id={task_id} cancelled.",
     "err.task_id_required": "task_id is required for action=unsubscribe."
+  },
+  "ar": {
+    "tool.description": "قم بإلغاء اشتراك BACnet COV بواسطة Task_id، أو قم بإدراج الاشتراكات النشطة.",
+    "param.action.description": "الإجراء: \"إلغاء الاشتراك\" (افتراضي) للإلغاء بواسطة Task_id، أو \"قائمة\" لإظهار الاشتراكات النشطة.",
+    "param.task_id.description": "COV Task_id لإلغاء الاشتراك (مطلوب للإجراء = إلغاء الاشتراك).",
+    "param.fmt.description": "التنسيق: json أو نص.",
+    "msg.no_subscriptions": "لا توجد اشتراكات COV نشطة.",
+    "msg.subscriptions_header": "اشتراكات COV النشطة ({count}):",
+    "msg.unsubscribed": "تم إلغاء اشتراك COV Task_id={task_id}.",
+    "err.task_id_required": "مطلوب Task_id للعمل = إلغاء الاشتراك."
+  },
+  "bn": {
+    "tool.description": "task_id দ্বারা একটি BACnet COV সাবস্ক্রিপশন বাতিল করুন বা সক্রিয় সদস্যতা তালিকাভুক্ত করুন।",
+    "param.action.description": "অ্যাকশন: task_id দ্বারা বাতিল করতে 'আনসাবস্ক্রাইব' (ডিফল্ট), অথবা সক্রিয় সদস্যতা দেখানোর জন্য 'তালিকা'।",
+    "param.task_id.description": "সদস্যতা ত্যাগ করার জন্য COV task_id (অ্যাকশন=আনসাবস্ক্রাইব করার জন্য প্রয়োজনীয়)।",
+    "param.fmt.description": "বিন্যাস: json বা পাঠ্য।",
+    "msg.no_subscriptions": "কোনো সক্রিয় COV সদস্যতা নেই।",
+    "msg.subscriptions_header": "সক্রিয় COV সদস্যতা ({count}):",
+    "msg.unsubscribed": "COV সদস্যতা task_id={task_id} বাতিল করা হয়েছে৷",
+    "err.task_id_required": "action=unsubscribe এর জন্য task_id প্রয়োজন।"
+  },
+  "cs": {
+    "tool.description": "Zrušte předplatné BACnet COV pomocí task_id nebo vypište aktivní předplatné.",
+    "param.action.description": "Akce: 'unsubscribe' (výchozí) pro zrušení pomocí task_id, nebo 'list' pro zobrazení aktivních odběrů.",
+    "param.task_id.description": "COV task_id pro odhlášení (vyžadováno pro action=unsubscribe).",
+    "param.fmt.description": "Formát: json nebo text.",
+    "msg.no_subscriptions": "Žádné aktivní předplatné COV.",
+    "msg.subscriptions_header": "Aktivní odběry COV ({count}):",
+    "msg.unsubscribed": "Předplatné COV task_id={task_id} zrušeno.",
+    "err.task_id_required": "task_id je vyžadován pro action=unsubscribe."
+  },
+  "de": {
+    "tool.description": "Kündigen Sie ein BACnet COV-Abonnement mit der Task-ID oder listen Sie aktive Abonnements auf.",
+    "param.action.description": "Aktion: „unsubscribe“ (Standard) zum Abbrechen nach Task-ID oder „list“, um aktive Abonnements anzuzeigen.",
+    "param.task_id.description": "COV task_id zum Abbestellen (erforderlich für action=unsubscribe).",
+    "param.fmt.description": "Format: JSON oder Text.",
+    "msg.no_subscriptions": "Keine aktiven COV-Abonnements.",
+    "msg.subscriptions_header": "Aktive COV-Abonnements ({count}):",
+    "msg.unsubscribed": "COV-Abonnement task_id={task_id} gekündigt.",
+    "err.task_id_required": "task_id ist für action=unsubscribe erforderlich."
+  },
+  "el": {
+    "tool.description": "Ακυρώστε μια συνδρομή BACnet COV κατά task_id ή καταχωρίστε τις ενεργές συνδρομές.",
+    "param.action.description": "Ενέργεια: 'κατάργηση εγγραφής' (προεπιλογή) για ακύρωση κατά task_id ή 'list' για εμφάνιση ενεργών συνδρομών.",
+    "param.task_id.description": "COV task_id για απεγγραφή (απαιτείται για action=unsubscribe).",
+    "param.fmt.description": "Μορφή: json ή κείμενο.",
+    "msg.no_subscriptions": "Δεν υπάρχουν ενεργές συνδρομές COV.",
+    "msg.subscriptions_header": "Ενεργές συνδρομές COV ({count}):",
+    "msg.unsubscribed": "Η συνδρομή COV task_id={task_id} ακυρώθηκε.",
+    "err.task_id_required": "Το task_id απαιτείται για action=unsubscribe."
+  },
+  "es": {
+    "tool.description": "Cancele una suscripción a BACnet COV por task_id o enumere las suscripciones activas.",
+    "param.action.description": "Acción: 'cancelar suscripción' (predeterminado) para cancelar por task_id, o 'lista' para mostrar las suscripciones activas.",
+    "param.task_id.description": "COV task_id para cancelar la suscripción (obligatorio para acción = cancelar la suscripción).",
+    "param.fmt.description": "Formato: json o texto.",
+    "msg.no_subscriptions": "No hay suscripciones COV activas.",
+    "msg.subscriptions_header": "Suscripciones COV activas ({count}):",
+    "msg.unsubscribed": "Suscripción COV task_id={task_id} cancelada.",
+    "err.task_id_required": "task_id es necesario para action=cancelar suscripción."
+  },
+  "fa": {
+    "tool.description": "اشتراک BACnet COV را با task_id لغو کنید یا اشتراک‌های فعال را فهرست کنید.",
+    "param.action.description": "اقدام: «لغو اشتراک» (پیش‌فرض) برای لغو با task_id، یا «list» برای نشان دادن اشتراک‌های فعال.",
+    "param.task_id.description": "COV task_id برای لغو اشتراک (الزامی برای اقدام = لغو اشتراک).",
+    "param.fmt.description": "فرمت: json یا متن.",
+    "msg.no_subscriptions": "هیچ اشتراک COV فعالی وجود ندارد.",
+    "msg.subscriptions_header": "اشتراک‌های فعال COV ({count}):",
+    "msg.unsubscribed": "اشتراک COV task_id={task_id} لغو شد.",
+    "err.task_id_required": "task_id برای action=unsubscribe مورد نیاز است."
+  },
+  "fi": {
+    "tool.description": "Peruuta BACnet COV -tilaus task_id-tunnuksella tai luettele aktiiviset tilaukset.",
+    "param.action.description": "Toimi: \"unsubscribe\" (oletus) peruuttaaksesi tehtävän_id:n tai \"luettelo\" näyttääksesi aktiiviset tilaukset.",
+    "param.task_id.description": "COV task_id tilauksen peruuttamiseen (pakollinen toimintoon = unsubscribe).",
+    "param.fmt.description": "Muoto: json tai teksti.",
+    "msg.no_subscriptions": "Ei aktiivisia COV-tilauksia.",
+    "msg.subscriptions_header": "Aktiiviset COV-tilaukset ({count}):",
+    "msg.unsubscribed": "COV-tilaus task_id={task_id} peruutettu.",
+    "err.task_id_required": "tehtävän_tunnus vaaditaan parametrille action=unsubscribe."
+  },
+  "fr": {
+    "tool.description": "Annulez un abonnement BACnet COV par task_id ou répertoriez les abonnements actifs.",
+    "param.action.description": "Action : « désabonnement » (par défaut) pour annuler par task_id, ou « liste » pour afficher les abonnements actifs.",
+    "param.task_id.description": "COV task_id pour se désinscrire (obligatoire pour action=unsubscribe).",
+    "param.fmt.description": "Format : json ou texte.",
+    "msg.no_subscriptions": "Aucun abonnement COV actif.",
+    "msg.subscriptions_header": "Abonnements COV actifs ({count}) :",
+    "msg.unsubscribed": "Abonnement COV task_id={task_id} annulé.",
+    "err.task_id_required": "task_id est requis pour action=unsubscribe."
+  },
+  "he": {
+    "tool.description": "בטל מנוי BACnet COV לפי task_id, או רשום מנויים פעילים.",
+    "param.action.description": "פעולה: 'בטל מנוי' (ברירת מחדל) לביטול לפי task_id, או 'רשימה' כדי להציג מנויים פעילים.",
+    "param.task_id.description": "COV task_id לביטול המנוי (נדרש עבור action=unsubscribe).",
+    "param.fmt.description": "פורמט: json או טקסט.",
+    "msg.no_subscriptions": "אין מנויי COV פעילים.",
+    "msg.subscriptions_header": "מנויי COV פעילים ({count}):",
+    "msg.unsubscribed": "מנוי COV task_id={task_id} בוטל.",
+    "err.task_id_required": "task_id נדרש עבור action=unsubscribe."
+  },
+  "hi": {
+    "tool.description": "Task_id द्वारा BACnet COV सदस्यता रद्द करें, या सक्रिय सदस्यताएँ सूचीबद्ध करें।",
+    "param.action.description": "क्रिया: टास्क_आईडी द्वारा रद्द करने के लिए 'सदस्यता समाप्त करें' (डिफ़ॉल्ट), या सक्रिय सदस्यता दिखाने के लिए 'सूची'।",
+    "param.task_id.description": "सदस्यता समाप्त करने के लिए COV कार्य_आईडी (क्रिया = सदस्यता समाप्त करने के लिए आवश्यक)।",
+    "param.fmt.description": "प्रारूप: json या text.",
+    "msg.no_subscriptions": "कोई सक्रिय COV सदस्यता नहीं.",
+    "msg.subscriptions_header": "सक्रिय COV सदस्यताएँ ({count}):",
+    "msg.unsubscribed": "COV सदस्यता Task_id={task_id} रद्द कर दी गई.",
+    "err.task_id_required": "कार्रवाई=सदस्यता समाप्त करने के लिए Task_id आवश्यक है।"
+  },
+  "hu": {
+    "tool.description": "Töröljön egy BACnet COV-előfizetést a task_id alapján, vagy sorolja fel az aktív előfizetéseket.",
+    "param.action.description": "Művelet: „leiratkozás” (alapértelmezett) a task_id alapján történő lemondáshoz, vagy „lista” az aktív előfizetések megjelenítéséhez.",
+    "param.task_id.description": "COV task_id a leiratkozáshoz (szükséges az action=unsubscribe).",
+    "param.fmt.description": "Formátum: json vagy szöveg.",
+    "msg.no_subscriptions": "Nincs aktív COV-előfizetés.",
+    "msg.subscriptions_header": "Aktív COV-előfizetések ({count}):",
+    "msg.unsubscribed": "A COV-előfizetés task_id={task_id} törölve.",
+    "err.task_id_required": "A task_id megadása szükséges az action=unsubscribe paraméterhez."
+  },
+  "id": {
+    "tool.description": "Batalkan langganan BACnet COV berdasarkan task_id, atau daftarkan langganan aktif.",
+    "param.action.description": "Tindakan: 'berhenti berlangganan' (default) untuk membatalkan berdasarkan task_id, atau 'daftar' untuk menampilkan langganan aktif.",
+    "param.task_id.description": "COV task_id untuk berhenti berlangganan (diperlukan untuk tindakan=berhenti berlangganan).",
+    "param.fmt.description": "Format: json atau teks.",
+    "msg.no_subscriptions": "Tidak ada langganan COV yang aktif.",
+    "msg.subscriptions_header": "Langganan COV aktif ({count}):",
+    "msg.unsubscribed": "Langganan COV task_id={task_id} dibatalkan.",
+    "err.task_id_required": "task_id diperlukan untuk tindakan=berhenti berlangganan."
+  },
+  "it": {
+    "tool.description": "Annulla un abbonamento BACnet COV tramite task_id o elenca gli abbonamenti attivi.",
+    "param.action.description": "Azione: \"annulla iscrizione\" (impostazione predefinita) per annullare tramite task_id o \"elenco\" per mostrare le iscrizioni attive.",
+    "param.task_id.description": "COV task_id per annullare l'iscrizione (richiesto per action=unsubscribe).",
+    "param.fmt.description": "Formato: json o testo.",
+    "msg.no_subscriptions": "Nessun abbonamento COV attivo.",
+    "msg.subscriptions_header": "Abbonamenti COV attivi ({count}):",
+    "msg.unsubscribed": "Sottoscrizione COV task_id={task_id} annullata.",
+    "err.task_id_required": "task_id è obbligatorio per action=unsubscribe."
+  },
+  "ja": {
+    "tool.description": "task_id で BACnet COV サブスクリプションをキャンセルするか、アクティブなサブスクリプションを一覧表示します。",
+    "param.action.description": "アクション: task_id によってキャンセルするには「unsubscribe」 (デフォルト)、アクティブなサブスクリプションを表示するには「list」を使用します。",
+    "param.task_id.description": "サブスクライブを解除する COV task_id (action=unsubscribe の場合に必要)。",
+    "param.fmt.description": "形式: json またはテキスト。",
+    "msg.no_subscriptions": "アクティブな COV サブスクリプションはありません。",
+    "msg.subscriptions_header": "アクティブな COV サブスクリプション ({count}):",
+    "msg.unsubscribed": "COV サブスクリプション task_id={task_id} がキャンセルされました。",
+    "err.task_id_required": "action=unsubscribe には task_id が必要です。"
+  },
+  "ko": {
+    "tool.description": "task_id로 BACnet COV 구독을 취소하거나 활성 구독을 나열합니다.",
+    "param.action.description": "작업: task_id로 취소하려면 'unsubscribe'(기본값), 활성 구독을 표시하려면 'list'.",
+    "param.task_id.description": "구독을 취소할 COV task_id입니다(작업=구독 취소에 필수).",
+    "param.fmt.description": "형식: json 또는 텍스트.",
+    "msg.no_subscriptions": "활성 COV 구독이 없습니다.",
+    "msg.subscriptions_header": "활성 COV 구독({count}):",
+    "msg.unsubscribed": "COV 구독 task_id={task_id}이 취소되었습니다.",
+    "err.task_id_required": "작업=구독 취소에는 task_id가 필요합니다."
+  },
+  "mn": {
+    "tool.description": "task_id-р BACnet COV захиалгыг цуцлах эсвэл идэвхтэй захиалгыг жагсаана уу.",
+    "param.action.description": "Үйлдэл: task_id-р цуцлахын тулд 'бүртгэлээ цуцлах' (өгөгдмөл) эсвэл идэвхтэй захиалгыг харуулахын тулд 'жагсаалт'.",
+    "param.task_id.description": "Бүртгэлээ цуцлах COV task_id (үйлдэл хийх шаардлагатай=бүртгэлээ цуцлах).",
+    "param.fmt.description": "Формат: json эсвэл текст.",
+    "msg.no_subscriptions": "Идэвхтэй COV захиалга алга.",
+    "msg.subscriptions_header": "Идэвхтэй COV захиалга ({count}):",
+    "msg.unsubscribed": "COV захиалгын task_id={task_id} цуцлагдсан.",
+    "err.task_id_required": "Үйлдэл=бүртгэлээ цуцлахад task_id шаардлагатай."
+  },
+  "mr": {
+    "tool.description": "task_id द्वारे BACnet COV सदस्यत्व रद्द करा किंवा सक्रिय सदस्यांची यादी करा.",
+    "param.action.description": "क्रिया: task_id द्वारे रद्द करण्यासाठी 'सदस्यता रद्द करा' (डीफॉल्ट), किंवा सक्रिय सदस्यत्वे दाखवण्यासाठी 'सूची'.",
+    "param.task_id.description": "सदस्यता रद्द करण्यासाठी COV task_id (कृती = सदस्यत्व रद्द करण्यासाठी आवश्यक).",
+    "param.fmt.description": "स्वरूप: json किंवा मजकूर.",
+    "msg.no_subscriptions": "सक्रिय COV सदस्यता नाहीत.",
+    "msg.subscriptions_header": "सक्रिय COV सदस्यता ({count}):",
+    "msg.unsubscribed": "COV सदस्यता task_id={task_id} रद्द केली.",
+    "err.task_id_required": "action=unsubscribe साठी task_id आवश्यक आहे."
+  },
+  "nb": {
+    "tool.description": "Avbryt et BACnet COV-abonnement etter oppgave-id, eller oppgi aktive abonnementer.",
+    "param.action.description": "Handling: 'unsubscribe' (standard) for å avbryte med task_id, eller 'list' for å vise aktive abonnementer.",
+    "param.task_id.description": "COV task_id for å avslutte abonnementet (påkrevd for action=unsubscribe).",
+    "param.fmt.description": "Format: json eller tekst.",
+    "msg.no_subscriptions": "Ingen aktive COV-abonnementer.",
+    "msg.subscriptions_header": "Aktive COV-abonnementer ({count}):",
+    "msg.unsubscribed": "COV-abonnement task_id={task_id} kansellert.",
+    "err.task_id_required": "task_id kreves for action=unsubscribe."
+  },
+  "nl": {
+    "tool.description": "Annuleer een BACnet COV-abonnement via task_id of vermeld actieve abonnementen.",
+    "param.action.description": "Actie: 'unsubscribe' (standaard) om te annuleren op task_id, of 'list' om actieve abonnementen te tonen.",
+    "param.task_id.description": "COV task_id om u af te melden (vereist voor actie=afmelden).",
+    "param.fmt.description": "Formaat: json of tekst.",
+    "msg.no_subscriptions": "Geen actieve COV-abonnementen.",
+    "msg.subscriptions_header": "Actieve COV-abonnementen ({count}):",
+    "msg.unsubscribed": "COV-abonnement task_id={task_id} geannuleerd.",
+    "err.task_id_required": "task_id is vereist voor action=unsubscribe."
+  },
+  "pl": {
+    "tool.description": "Anuluj subskrypcję BACnet COV według task_id lub wyświetl aktywne subskrypcje.",
+    "param.action.description": "Akcja: „unsubscribe” (domyślnie), aby anulować według identyfikatora zadania lub „list”, aby wyświetlić aktywne subskrypcje.",
+    "param.task_id.description": "COV task_id do anulowania subskrypcji (wymagane dla akcji = anulowanie subskrypcji).",
+    "param.fmt.description": "Format: json lub tekst.",
+    "msg.no_subscriptions": "Brak aktywnych subskrypcji COV.",
+    "msg.subscriptions_header": "Aktywne subskrypcje COV ({count}):",
+    "msg.unsubscribed": "Subskrypcja COV task_id={task_id} anulowana.",
+    "err.task_id_required": "id_zadania jest wymagany dla akcji=unsubscribe."
+  },
+  "pt": {
+    "tool.description": "Cancele uma assinatura BACnet COV por task_id ou liste assinaturas ativas.",
+    "param.action.description": "Ação: 'unsubscribe' (padrão) para cancelar por task_id ou 'list' para mostrar assinaturas ativas.",
+    "param.task_id.description": "COV task_id para cancelar a assinatura (obrigatório para action=unsubscribe).",
+    "param.fmt.description": "Formato: json ou texto.",
+    "msg.no_subscriptions": "Nenhuma assinatura COV ativa.",
+    "msg.subscriptions_header": "Assinaturas COV ativas ({count}):",
+    "msg.unsubscribed": "Assinatura COV task_id={task_id} cancelada.",
+    "err.task_id_required": "task_id é necessário para action=unsubscribe."
+  },
+  "pt_BR": {
+    "tool.description": "Cancele uma assinatura BACnet COV por task_id ou liste assinaturas ativas.",
+    "param.action.description": "Ação: 'unsubscribe' (padrão) para cancelar por task_id ou 'list' para mostrar assinaturas ativas.",
+    "param.task_id.description": "COV task_id para cancelar a assinatura (obrigatório para action=unsubscribe).",
+    "param.fmt.description": "Formato: json ou texto.",
+    "msg.no_subscriptions": "Nenhuma assinatura COV ativa.",
+    "msg.subscriptions_header": "Assinaturas COV ativas ({count}):",
+    "msg.unsubscribed": "Assinatura COV task_id={task_id} cancelada.",
+    "err.task_id_required": "task_id é necessário para action=unsubscribe."
+  },
+  "ro": {
+    "tool.description": "Anulați un abonament BACnet COV după task_id sau enumerați abonamentele active.",
+    "param.action.description": "Acțiune: „dezabonare” (implicit) pentru a anula prin task_id sau „listă” pentru a afișa abonamentele active.",
+    "param.task_id.description": "COV task_id pentru a se dezabona (necesar pentru acțiune=dezabonare).",
+    "param.fmt.description": "Format: json sau text.",
+    "msg.no_subscriptions": "Nu există abonamente COV active.",
+    "msg.subscriptions_header": "Abonamente COV active ({count}):",
+    "msg.unsubscribed": "Abonamentul COV task_id={task_id} a fost anulat.",
+    "err.task_id_required": "task_id este necesar pentru action=unsubscribe."
+  },
+  "ru": {
+    "tool.description": "Отмените подписку BACnet COV по идентификатору задачи или перечислите активные подписки.",
+    "param.action.description": "Действие: «отписаться» (по умолчанию) для отмены по идентификатору задачи или «список» для отображения активных подписок.",
+    "param.task_id.description": "COV Task_id для отказа от подписки (обязательно для действия = отписаться).",
+    "param.fmt.description": "Формат: json или текст.",
+    "msg.no_subscriptions": "Нет активных подписок COV.",
+    "msg.subscriptions_header": "Активные подписки COV ({count}):",
+    "msg.unsubscribed": "Подписка COV Task_id={task_id} отменена.",
+    "err.task_id_required": "Task_id необходим для действия = отписаться."
+  },
+  "sv": {
+    "tool.description": "Avsluta en BACnet COV-prenumeration med task_id, eller lista aktiva prenumerationer.",
+    "param.action.description": "Åtgärd: 'unsubscribe' (standard) för att avbryta genom task_id, eller 'list' för att visa aktiva prenumerationer.",
+    "param.task_id.description": "COV task_id för att avsluta prenumerationen (krävs för action=unsubscribe).",
+    "param.fmt.description": "Format: json eller text.",
+    "msg.no_subscriptions": "Inga aktiva COV-prenumerationer.",
+    "msg.subscriptions_header": "Aktiva COV-prenumerationer ({count}):",
+    "msg.unsubscribed": "COV-prenumeration task_id={task_id} avbröts.",
+    "err.task_id_required": "task_id krävs för action=unsubscribe."
+  },
+  "sw": {
+    "tool.description": "Ghairi usajili wa BACnet COV kwa kitambulisho cha kazi, au orodhesha usajili unaotumika.",
+    "param.action.description": "Kitendo: 'jiondoe' (chaguo-msingi) ili kughairi kwa task_id, au 'orodha' ili kuonyesha usajili unaoendelea.",
+    "param.task_id.description": "Task_id ya COV ili kujiondoa (inahitajika kwa kitendo=kujiondoa).",
+    "param.fmt.description": "Umbizo: json au maandishi.",
+    "msg.no_subscriptions": "Hakuna usajili unaoendelea wa COV.",
+    "msg.subscriptions_header": "Usajili unaotumika wa COV ({count}):",
+    "msg.unsubscribed": "Usajili wa COV task_id={task_id} umeghairiwa.",
+    "err.task_id_required": "task_id inahitajika kwa action=kujiondoa."
+  },
+  "th": {
+    "tool.description": "ยกเลิกการสมัครสมาชิก BACnet COV ตาม Task_id หรือแสดงรายการการสมัครสมาชิกที่ใช้งานอยู่",
+    "param.action.description": "การดำเนินการ: 'ยกเลิกการสมัคร' (ค่าเริ่มต้น) เพื่อยกเลิกโดย Task_id หรือ 'รายการ' เพื่อแสดงการสมัครรับข้อมูลที่ใช้งานอยู่",
+    "param.task_id.description": "COV task_id เพื่อยกเลิกการสมัคร (จำเป็นสำหรับ action=unsubscribe)",
+    "param.fmt.description": "รูปแบบ: json หรือข้อความ",
+    "msg.no_subscriptions": "ไม่มีการสมัครสมาชิก COV ที่ใช้งานอยู่",
+    "msg.subscriptions_header": "การสมัคร COV ที่ใช้งานอยู่ ({count}):",
+    "msg.unsubscribed": "การสมัครรับข้อมูล COV task_id={task_id} ถูกยกเลิก",
+    "err.task_id_required": "จำเป็นต้องมี Task_id เพื่อดำเนินการ = ยกเลิกการสมัคร"
+  },
+  "tr": {
+    "tool.description": "BACnet COV aboneliğini görev_id'ye göre iptal edin veya aktif abonelikleri listeleyin.",
+    "param.action.description": "Eylem: Görev_id'sine göre iptal etmek için 'abonelikten çık' (varsayılan), veya etkin abonelikleri göstermek için 'listele'.",
+    "param.task_id.description": "Abonelikten çıkmak için COV görev_id'si (eylem=abonelikten çıkma için gereklidir).",
+    "param.fmt.description": "Biçim: json veya metin.",
+    "msg.no_subscriptions": "Aktif COV aboneliği yok.",
+    "msg.subscriptions_header": "Etkin COV abonelikleri ({count}):",
+    "msg.unsubscribed": "COV aboneliği görev_id={task_id} iptal edildi.",
+    "err.task_id_required": "action=aboneliği iptal etmek için görev_id'si gereklidir."
+  },
+  "uk": {
+    "tool.description": "Скасуйте підписку BACnet COV за ідентифікатором завдання або перелікуйте активні підписки.",
+    "param.action.description": "Дія: 'скасувати підписку' (за замовчуванням), щоб скасувати за task_id, або 'список', щоб показати активні підписки.",
+    "param.task_id.description": "COV task_id для скасування підписки (потрібно для action=unsubscribe).",
+    "param.fmt.description": "Формат: json або текстовий.",
+    "msg.no_subscriptions": "Немає активних підписок на COV.",
+    "msg.subscriptions_header": "Активні підписки на COV ({count}):",
+    "msg.unsubscribed": "Підписку COV task_id={task_id} скасовано.",
+    "err.task_id_required": "task_id необхідний для action=unsubscribe."
+  },
+  "vi": {
+    "tool.description": "Hủy đăng ký BACnet COV theo task_id hoặc liệt kê các đăng ký đang hoạt động.",
+    "param.action.description": "Hành động: 'hủy đăng ký' (mặc định) để hủy theo task_id hoặc 'danh sách' để hiển thị các đăng ký đang hoạt động.",
+    "param.task_id.description": "COV task_id để hủy đăng ký (bắt buộc đối với hành động=hủy đăng ký).",
+    "param.fmt.description": "Định dạng: json hoặc văn bản.",
+    "msg.no_subscriptions": "Không có đăng ký COV đang hoạt động.",
+    "msg.subscriptions_header": "Đăng ký COV đang hoạt động ({count}):",
+    "msg.unsubscribed": "Đăng ký COV task_id={task_id} đã bị hủy.",
+    "err.task_id_required": "task_id là bắt buộc đối với action=unsubscribe."
+  },
+  "zh_CN": {
+    "tool.description": "按 task_id 取消 BACnet COV 订阅，或列出活动订阅。",
+    "param.action.description": "操作：“取消订阅”（默认）按任务 ID 取消，或“列表”显示活动订阅。",
+    "param.task_id.description": "要取消订阅的 COV task_id（action=unsubscribe 需要）。",
+    "param.fmt.description": "格式：json 或文本。",
+    "msg.no_subscriptions": "没有有效的 COV 订阅。",
+    "msg.subscriptions_header": "有效 COV 订阅 ({count})：",
+    "msg.unsubscribed": "COV 订阅 task_id={task_id} 已取消。",
+    "err.task_id_required": "action=unsubscribe 需要 task_id。"
+  },
+  "zh_TW": {
+    "tool.description": "按 task_id 取消 BACnet COV 訂閱，或列出活動訂閱。",
+    "param.action.description": "操作：「取消訂閱」（預設）按任務 ID 取消，或「清單」顯示活動訂閱。",
+    "param.task_id.description": "要取消訂閱的 COV task_id（action=unsubscribe 需要）。",
+    "param.fmt.description": "格式：json 或文字。",
+    "msg.no_subscriptions": "沒有有效的 COV 訂閱。",
+    "msg.subscriptions_header": "有效 COV 訂閱 ({count})：",
+    "msg.unsubscribed": "COV 訂閱 task_id={task_id} 已取消。",
+    "err.task_id_required": "action=unsubscribe 需要 task_id。"
   }
 }
