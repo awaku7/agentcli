@@ -413,19 +413,31 @@ def _prompt_toolkit_input(
         return None
 
     try:
+        from prompt_toolkit.key_binding import KeyBindings
         from prompt_toolkit.patch_stdout import patch_stdout
     except Exception:
+        KeyBindings = None  # type: ignore[assignment]
         patch_stdout = None  # type: ignore
+
+    kb = None
+    if KeyBindings is not None:
+        kb = KeyBindings()
+
+        @kb.add("escape", eager=True)
+        def _cancel(event: Any) -> None:
+            raise KeyboardInterrupt()
 
     try:
         if patch_stdout is not None:
             with patch_stdout():
-                return session.prompt(prompt, is_password=is_password)
-        return session.prompt(prompt, is_password=is_password)
+                return session.prompt(
+                    prompt, is_password=is_password, key_bindings=kb
+                )
+        return session.prompt(prompt, is_password=is_password, key_bindings=kb)
     except EOFError:
         raise
     except KeyboardInterrupt:
-        raise
+        return None
     except Exception:
         return None
 
