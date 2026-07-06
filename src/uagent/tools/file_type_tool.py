@@ -70,7 +70,41 @@ _MAGIC_PATTERNS: list[tuple[int, bytes, str, str]] = [
 ]
 
 
+def _ensure_python_magic() -> Any:
+    """Try to import python-magic; auto-install if missing. Returns the module or None."""
+    try:
+        import magic as _magic
+        return _magic
+    except ImportError:
+        pass
+    try:
+        from .._pip_auto import install_with_status
+        if install_with_status("python-magic", "magic"):
+            import magic as _magic
+            return _magic
+    except Exception:
+        pass
+    return None
+
+
+_PYTHON_MAGIC: Any = None
+
+
 def _detect_by_magic(path: str) -> dict[str, Any] | None:
+    global _PYTHON_MAGIC
+    if _PYTHON_MAGIC is None:
+        _PYTHON_MAGIC = _ensure_python_magic()
+
+    # Prefer python-magic (libmagic binding) when available
+    if _PYTHON_MAGIC is not None:
+        try:
+            mime = _PYTHON_MAGIC.from_file(path, mime=True)
+            desc = _PYTHON_MAGIC.from_file(path)
+            return {"mime_type": mime, "description": desc, "source": "python-magic"}
+        except Exception:
+            pass
+
+    # Fallback: built-in magic byte dictionary
     try:
         with open(path, "rb") as f:
             header = f.read(512)
@@ -79,7 +113,7 @@ def _detect_by_magic(path: str) -> dict[str, Any] | None:
     for offset, sig, mime, desc in _MAGIC_PATTERNS:
         end = offset + len(sig)
         if len(header) >= end and header[offset:end] == sig:
-            return {"mime_type": mime, "description": desc}
+            return {"mime_type": mime, "description": desc, "source": "builtin"}
     return None
 
 
