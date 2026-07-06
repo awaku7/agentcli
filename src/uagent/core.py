@@ -349,7 +349,8 @@ def _get_responses_state_base_dir() -> str:
     Priority:
     1) UAGENT_RESPONSES_STATE_DIR env var
     2) UAGENT_WORKDIR env var
-    3) os.getcwd() (fallback)
+    3) ~/.uag/ (user home .uag directory)
+    4) os.getcwd() (fallback)
     """
     d = (env_get("UAGENT_RESPONSES_STATE_DIR") or "").strip()
     if d:
@@ -357,6 +358,12 @@ def _get_responses_state_base_dir() -> str:
     d = (env_get("UAGENT_WORKDIR") or "").strip()
     if d:
         return d
+    try:
+        home_uag = os.path.join(os.path.expanduser("~"), ".uag")
+        if home_uag:
+            return home_uag
+    except Exception:
+        pass
     return os.getcwd()
 
 
