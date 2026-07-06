@@ -1,0 +1,342 @@
+{
+  "en": {
+    "tool.description": "Cancel an MQTT subscription by subscription_id, or list active subscriptions.",
+    "param.action.description": "Action: 'unsubscribe' or 'list'.",
+    "param.subscription_id.description": "Subscription ID to cancel.",
+    "param.fmt.description": "Format: json or text.",
+    "msg.no_subscriptions": "No active MQTT subscriptions.",
+    "msg.header": "Active MQTT subscriptions ({count}):",
+    "msg.unsubscribed": "MQTT subscription {id} cancelled.",
+    "err.id_required": "subscription_id is required."
+  },
+  "ar": {
+    "tool.description": "قم بإلغاء اشتراك MQTT بواسطة Subscription_id، أو قم بإدراج الاشتراكات النشطة.",
+    "param.action.description": "الإجراء: \"إلغاء الاشتراك\" أو \"القائمة\".",
+    "param.subscription_id.description": "معرف الاشتراك للإلغاء.",
+    "param.fmt.description": "التنسيق: json أو نص.",
+    "msg.no_subscriptions": "لا توجد اشتراكات MQTT نشطة.",
+    "msg.header": "اشتراكات MQTT النشطة ({count}):",
+    "msg.unsubscribed": "تم إلغاء اشتراك MQTT {id}.",
+    "err.id_required": "معرف الاشتراك مطلوب."
+  },
+  "bn": {
+    "tool.description": "subscription_id দ্বারা একটি MQTT সাবস্ক্রিপশন বাতিল করুন, অথবা সক্রিয় সদস্যতা তালিকাভুক্ত করুন।",
+    "param.action.description": "কর্ম: 'আনসাবস্ক্রাইব' বা 'তালিকা'।",
+    "param.subscription_id.description": "সাবস্ক্রিপশন আইডি বাতিল করতে।",
+    "param.fmt.description": "বিন্যাস: json বা পাঠ্য।",
+    "msg.no_subscriptions": "কোন সক্রিয় MQTT সদস্যতা নেই.",
+    "msg.header": "সক্রিয় MQTT সদস্যতা ({count}):",
+    "msg.unsubscribed": "MQTT সদস্যতা {id} বাতিল করা হয়েছে৷",
+    "err.id_required": "subscription_id প্রয়োজন।"
+  },
+  "cs": {
+    "tool.description": "Zrušte odběr MQTT pomocí id_předplatného nebo uveďte aktivní odběry.",
+    "param.action.description": "Akce: 'odhlásit se' nebo 'seznam'.",
+    "param.subscription_id.description": "ID předplatného ke zrušení.",
+    "param.fmt.description": "Formát: json nebo text.",
+    "msg.no_subscriptions": "Žádné aktivní předplatné MQTT.",
+    "msg.header": "Aktivní odběry MQTT ({count}):",
+    "msg.unsubscribed": "Předplatné MQTT {id} bylo zrušeno.",
+    "err.id_required": "je vyžadováno id_předplatného."
+  },
+  "de": {
+    "tool.description": "Kündigen Sie ein MQTT-Abonnement über subscription_id oder listen Sie aktive Abonnements auf.",
+    "param.action.description": "Aktion: „Abbestellen“ oder „Auflisten“.",
+    "param.subscription_id.description": "Zu kündigende Abonnement-ID.",
+    "param.fmt.description": "Format: JSON oder Text.",
+    "msg.no_subscriptions": "Keine aktiven MQTT-Abonnements.",
+    "msg.header": "Aktive MQTT-Abonnements ({count}):",
+    "msg.unsubscribed": "MQTT-Abonnement {id} gekündigt.",
+    "err.id_required": "subscription_id ist erforderlich."
+  },
+  "el": {
+    "tool.description": "Ακυρώστε μια συνδρομή MQTT κατά subscription_id ή καταχωρίστε τις ενεργές συνδρομές.",
+    "param.action.description": "Ενέργεια: 'κατάργηση εγγραφής' ή 'λίστα'.",
+    "param.subscription_id.description": "Αναγνωριστικό συνδρομής για ακύρωση.",
+    "param.fmt.description": "Μορφή: json ή κείμενο.",
+    "msg.no_subscriptions": "Δεν υπάρχουν ενεργές συνδρομές MQTT.",
+    "msg.header": "Ενεργές συνδρομές MQTT ({count}):",
+    "msg.unsubscribed": "Η συνδρομή MQTT {id} ακυρώθηκε.",
+    "err.id_required": "subscription_id απαιτείται."
+  },
+  "es": {
+    "tool.description": "Cancele una suscripción MQTT por id_suscripción o enumere las suscripciones activas.",
+    "param.action.description": "Acción: 'cancelar suscripción' o 'listar'.",
+    "param.subscription_id.description": "ID de suscripción para cancelar.",
+    "param.fmt.description": "Formato: json o texto.",
+    "msg.no_subscriptions": "No hay suscripciones MQTT activas.",
+    "msg.header": "Suscripciones MQTT activas ({count}):",
+    "msg.unsubscribed": "Suscripción MQTT {id} cancelada.",
+    "err.id_required": "Se requiere id_suscripción."
+  },
+  "fa": {
+    "tool.description": "اشتراک MQTT را با subscription_id لغو کنید یا اشتراک‌های فعال را فهرست کنید.",
+    "param.action.description": "اقدام: \"لغو اشتراک\" یا \"لیست\".",
+    "param.subscription_id.description": "شناسه اشتراک برای لغو.",
+    "param.fmt.description": "فرمت: json یا متن.",
+    "msg.no_subscriptions": "هیچ اشتراک MQTT فعالی وجود ندارد.",
+    "msg.header": "اشتراک‌های فعال MQTT ({count}):",
+    "msg.unsubscribed": "اشتراک MQTT {id} لغو شد.",
+    "err.id_required": "subscription_id مورد نیاز است."
+  },
+  "fi": {
+    "tool.description": "Peruuta MQTT-tilaus subscription_id-tunnuksella tai luettele aktiiviset tilaukset.",
+    "param.action.description": "Toimi: \"peru tilaus\" tai \"luettelo\".",
+    "param.subscription_id.description": "Peruutettava tilaustunnus.",
+    "param.fmt.description": "Muoto: json tai teksti.",
+    "msg.no_subscriptions": "Ei aktiivisia MQTT-tilauksia.",
+    "msg.header": "Aktiiviset MQTT-tilaukset ({count}):",
+    "msg.unsubscribed": "MQTT-tilaus {id} peruutettu.",
+    "err.id_required": "tilaustunnus vaaditaan."
+  },
+  "fr": {
+    "tool.description": "Annulez un abonnement MQTT par souscription_id ou répertoriez les abonnements actifs.",
+    "param.action.description": "Action : « se désabonner » ou « lister ».",
+    "param.subscription_id.description": "Identifiant d'abonnement à annuler.",
+    "param.fmt.description": "Format : json ou texte.",
+    "msg.no_subscriptions": "Aucun abonnement MQTT actif.",
+    "msg.header": "Abonnements MQTT actifs ({count}) :",
+    "msg.unsubscribed": "Abonnement MQTT {id} annulé.",
+    "err.id_required": "abonnement_id est requis."
+  },
+  "he": {
+    "tool.description": "בטל מנוי MQTT לפי subscription_id, או רשום מנויים פעילים.",
+    "param.action.description": "פעולה: 'בטל מנוי' או 'רשימה'.",
+    "param.subscription_id.description": "מזהה מנוי לביטול.",
+    "param.fmt.description": "פורמט: json או טקסט.",
+    "msg.no_subscriptions": "אין מנויי MQTT פעילים.",
+    "msg.header": "מנויי MQTT פעילים ({count}):",
+    "msg.unsubscribed": "מנוי MQTT {id} בוטל.",
+    "err.id_required": "נדרש subscription_id."
+  },
+  "hi": {
+    "tool.description": "Subscription_id द्वारा MQTT सदस्यता रद्द करें, या सक्रिय सदस्यताएँ सूचीबद्ध करें।",
+    "param.action.description": "क्रिया: 'सदस्यता समाप्त करें' या 'सूची'।",
+    "param.subscription_id.description": "रद्द करने के लिए सदस्यता आईडी.",
+    "param.fmt.description": "प्रारूप: json या text.",
+    "msg.no_subscriptions": "कोई सक्रिय MQTT सदस्यता नहीं.",
+    "msg.header": "सक्रिय MQTT सदस्यताएँ ({count}):",
+    "msg.unsubscribed": "MQTT सदस्यता {id} रद्द कर दी गई।",
+    "err.id_required": "subscribe_id आवश्यक है."
+  },
+  "hu": {
+    "tool.description": "Töröljön egy MQTT-előfizetést a subscription_id alapján, vagy sorolja fel az aktív előfizetéseket.",
+    "param.action.description": "Művelet: „leiratkozás” vagy „lista”.",
+    "param.subscription_id.description": "Lemondandó előfizetési azonosító.",
+    "param.fmt.description": "Formátum: json vagy szöveg.",
+    "msg.no_subscriptions": "Nincs aktív MQTT-előfizetés.",
+    "msg.header": "Aktív MQTT-előfizetések ({count}):",
+    "msg.unsubscribed": "A {id} MQTT-előfizetés lemondva.",
+    "err.id_required": "subscription_id szükséges."
+  },
+  "id": {
+    "tool.description": "Batalkan langganan MQTT berdasarkan langganan_id, atau daftarkan langganan aktif.",
+    "param.action.description": "Tindakan: 'berhenti berlangganan' atau 'daftar'.",
+    "param.subscription_id.description": "ID Langganan untuk dibatalkan.",
+    "param.fmt.description": "Format: json atau teks.",
+    "msg.no_subscriptions": "Tidak ada langganan MQTT yang aktif.",
+    "msg.header": "Langganan MQTT aktif ({count}):",
+    "msg.unsubscribed": "Langganan MQTT {id} dibatalkan.",
+    "err.id_required": "langganan_id diperlukan."
+  },
+  "it": {
+    "tool.description": "Annulla un abbonamento MQTT tramite membership_id o elenca gli abbonamenti attivi.",
+    "param.action.description": "Azione: 'annulla iscrizione' o 'lista'.",
+    "param.subscription_id.description": "ID abbonamento da annullare.",
+    "param.fmt.description": "Formato: json o testo.",
+    "msg.no_subscriptions": "Nessun abbonamento MQTT attivo.",
+    "msg.header": "Abbonamenti MQTT attivi ({count}):",
+    "msg.unsubscribed": "Abbonamento MQTT {id} annullato.",
+    "err.id_required": "l'id_abbonamento è obbligatorio."
+  },
+  "ja": {
+    "tool.description": "subscription_id で MQTT サブスクリプションをキャンセルするか、アクティブなサブスクリプションを一覧表示します。",
+    "param.action.description": "アクション: 「購読解除」または「リスト」。",
+    "param.subscription_id.description": "キャンセルするサブスクリプション ID。",
+    "param.fmt.description": "形式: json またはテキスト。",
+    "msg.no_subscriptions": "アクティブな MQTT サブスクリプションがありません。",
+    "msg.header": "アクティブな MQTT サブスクリプション ({count}):",
+    "msg.unsubscribed": "MQTT サブスクリプション {id} がキャンセルされました。",
+    "err.id_required": "subscription_id は必須です。"
+  },
+  "ko": {
+    "tool.description": "subscribe_id로 MQTT 구독을 취소하거나 활성 구독을 나열하세요.",
+    "param.action.description": "조치: '구독 취소' 또는 '목록'.",
+    "param.subscription_id.description": "취소할 구독 ID입니다.",
+    "param.fmt.description": "형식: json 또는 텍스트.",
+    "msg.no_subscriptions": "활성 MQTT 구독이 없습니다.",
+    "msg.header": "활성 MQTT 구독({count}):",
+    "msg.unsubscribed": "MQTT 구독 {id}이 취소되었습니다.",
+    "err.id_required": "구독_ID가 필요합니다."
+  },
+  "mn": {
+    "tool.description": "MQTT захиалгыг subscription_id-ээр цуцлах эсвэл идэвхтэй захиалгыг жагсаана уу.",
+    "param.action.description": "Үйлдэл: \"бүртгэлээ цуцлах\" эсвэл \"жагсаалт\".",
+    "param.subscription_id.description": "Цуцлах захиалгын ID.",
+    "param.fmt.description": "Формат: json эсвэл текст.",
+    "msg.no_subscriptions": "Идэвхтэй MQTT захиалга алга.",
+    "msg.header": "Идэвхтэй MQTT захиалга ({count}):",
+    "msg.unsubscribed": "MQTT захиалга {id} цуцлагдсан.",
+    "err.id_required": "subscription_id шаардлагатай."
+  },
+  "mr": {
+    "tool.description": "subscription_id द्वारे MQTT सदस्यत्व रद्द करा किंवा सक्रिय सदस्यांची यादी करा.",
+    "param.action.description": "क्रिया: 'सदस्यता रद्द करा' किंवा 'सूची'.",
+    "param.subscription_id.description": "रद्द करण्यासाठी सदस्यता आयडी.",
+    "param.fmt.description": "स्वरूप: json किंवा मजकूर.",
+    "msg.no_subscriptions": "कोणतेही सक्रिय MQTT सदस्यता नाहीत.",
+    "msg.header": "सक्रिय MQTT सदस्यत्वे ({count}):",
+    "msg.unsubscribed": "MQTT सदस्यता {id} रद्द केली.",
+    "err.id_required": "subscription_id आवश्यक आहे."
+  },
+  "nb": {
+    "tool.description": "Avbryt et MQTT-abonnement med subscription_id, eller oppgi aktive abonnementer.",
+    "param.action.description": "Handling: 'unsubscribe' eller 'list'.",
+    "param.subscription_id.description": "Abonnements-ID for å kansellere.",
+    "param.fmt.description": "Format: json eller tekst.",
+    "msg.no_subscriptions": "Ingen aktive MQTT-abonnementer.",
+    "msg.header": "Aktive MQTT-abonnementer ({count}):",
+    "msg.unsubscribed": "MQTT-abonnement {id} kansellert.",
+    "err.id_required": "subscription_id kreves."
+  },
+  "nl": {
+    "tool.description": "Annuleer een MQTT-abonnement via abonnement_id of vermeld actieve abonnementen.",
+    "param.action.description": "Actie: 'uitschrijven' of 'lijst'.",
+    "param.subscription_id.description": "Abonnement-ID om op te zeggen.",
+    "param.fmt.description": "Formaat: json of tekst.",
+    "msg.no_subscriptions": "Geen actieve MQTT-abonnementen.",
+    "msg.header": "Actieve MQTT-abonnementen ({count}):",
+    "msg.unsubscribed": "MQTT-abonnement {id} geannuleerd.",
+    "err.id_required": "abonnement_id is vereist."
+  },
+  "pl": {
+    "tool.description": "Anuluj subskrypcję MQTT według identyfikatora subskrypcji lub wyświetl listę aktywnych subskrypcji.",
+    "param.action.description": "Akcja: „wypisz się” lub „lista”.",
+    "param.subscription_id.description": "Identyfikator subskrypcji do anulowania.",
+    "param.fmt.description": "Format: json lub tekst.",
+    "msg.no_subscriptions": "Brak aktywnych subskrypcji MQTT.",
+    "msg.header": "Aktywne subskrypcje MQTT ({count}):",
+    "msg.unsubscribed": "Subskrypcja MQTT {id} anulowana.",
+    "err.id_required": "identyfikator_subskrypcji jest wymagany."
+  },
+  "pt": {
+    "tool.description": "Cancele uma assinatura MQTT por subscription_id ou liste assinaturas ativas.",
+    "param.action.description": "Ação: 'cancelar inscrição' ou 'listar'.",
+    "param.subscription_id.description": "ID da assinatura para cancelar.",
+    "param.fmt.description": "Formato: json ou texto.",
+    "msg.no_subscriptions": "Nenhuma assinatura MQTT ativa.",
+    "msg.header": "Assinaturas MQTT ativas ({count}):",
+    "msg.unsubscribed": "Assinatura MQTT {id} cancelada.",
+    "err.id_required": "subscription_id é obrigatório."
+  },
+  "pt_BR": {
+    "tool.description": "Cancele uma assinatura MQTT por subscription_id ou liste assinaturas ativas.",
+    "param.action.description": "Ação: 'cancelar inscrição' ou 'listar'.",
+    "param.subscription_id.description": "ID da assinatura para cancelar.",
+    "param.fmt.description": "Formato: json ou texto.",
+    "msg.no_subscriptions": "Nenhuma assinatura MQTT ativa.",
+    "msg.header": "Assinaturas MQTT ativas ({count}):",
+    "msg.unsubscribed": "Assinatura MQTT {id} cancelada.",
+    "err.id_required": "subscription_id é obrigatório."
+  },
+  "ro": {
+    "tool.description": "Anulați un abonament MQTT prin subscription_id sau enumerați abonamentele active.",
+    "param.action.description": "Acțiune: „dezabonare” sau „listă”.",
+    "param.subscription_id.description": "ID abonament de anulat.",
+    "param.fmt.description": "Format: json sau text.",
+    "msg.no_subscriptions": "Nu există abonamente MQTT active.",
+    "msg.header": "Abonamente MQTT active ({count}):",
+    "msg.unsubscribed": "Abonamentul MQTT {id} a fost anulat.",
+    "err.id_required": "subscription_id este necesar."
+  },
+  "ru": {
+    "tool.description": "Отмените подписку MQTT по идентификатору подписки или перечислите активные подписки.",
+    "param.action.description": "Действие: «отписаться» или «список».",
+    "param.subscription_id.description": "Идентификатор подписки, которую нужно отменить.",
+    "param.fmt.description": "Формат: json или текст.",
+    "msg.no_subscriptions": "Нет активных подписок MQTT.",
+    "msg.header": "Активные подписки MQTT ({count}):",
+    "msg.unsubscribed": "Подписка MQTT {id} отменена.",
+    "err.id_required": "Subscription_id является обязательным."
+  },
+  "sv": {
+    "tool.description": "Avsluta en MQTT-prenumeration med subscription_id, eller lista aktiva prenumerationer.",
+    "param.action.description": "Åtgärd: \"avsluta prenumeration\" eller \"lista\".",
+    "param.subscription_id.description": "Prenumerations-ID för att avbryta.",
+    "param.fmt.description": "Format: json eller text.",
+    "msg.no_subscriptions": "Inga aktiva MQTT-prenumerationer.",
+    "msg.header": "Aktiva MQTT-prenumerationer ({count}):",
+    "msg.unsubscribed": "MQTT-prenumeration {id} avbröts.",
+    "err.id_required": "subscription_id krävs."
+  },
+  "sw": {
+    "tool.description": "Ghairi usajili wa MQTT kwa subscription_id, au orodhesha usajili unaotumika.",
+    "param.action.description": "Kitendo: 'jiondoe' au 'orodhesha'.",
+    "param.subscription_id.description": "Kitambulisho cha Usajili ili kughairi.",
+    "param.fmt.description": "Umbizo: json au maandishi.",
+    "msg.no_subscriptions": "Hakuna usajili unaoendelea wa MQTT.",
+    "msg.header": "Usajili unaotumika wa MQTT ({count}):",
+    "msg.unsubscribed": "Usajili wa MQTT {id} umeghairiwa.",
+    "err.id_required": "subscription_id inahitajika."
+  },
+  "th": {
+    "tool.description": "ยกเลิกการสมัครสมาชิก MQTT โดย Subscribe_id หรือแสดงรายการการสมัครใช้งานที่ใช้งานอยู่",
+    "param.action.description": "การดำเนินการ: 'ยกเลิกการสมัคร' หรือ 'รายการ'",
+    "param.subscription_id.description": "ID การสมัครสมาชิกที่จะยกเลิก",
+    "param.fmt.description": "รูปแบบ: json หรือข้อความ",
+    "msg.no_subscriptions": "ไม่มีการสมัครสมาชิก MQTT ที่ใช้งานอยู่",
+    "msg.header": "การสมัครรับข้อมูล MQTT ที่ใช้งานอยู่ ({count}):",
+    "msg.unsubscribed": "การสมัคร MQTT {id} ถูกยกเลิก",
+    "err.id_required": "ต้องสมัครสมาชิก_id"
+  },
+  "tr": {
+    "tool.description": "Abonelik_id'sine göre bir MQTT aboneliğini iptal edin veya etkin abonelikleri listeleyin.",
+    "param.action.description": "Eylem: 'abonelikten çık' veya 'listele'.",
+    "param.subscription_id.description": "İptal edilecek abonelik kimliği.",
+    "param.fmt.description": "Biçim: json veya metin.",
+    "msg.no_subscriptions": "Aktif MQTT aboneliği yok.",
+    "msg.header": "Etkin MQTT abonelikleri ({count}):",
+    "msg.unsubscribed": "MQTT aboneliği {id} iptal edildi.",
+    "err.id_required": "abonelik_kimliği gerekli."
+  },
+  "uk": {
+    "tool.description": "Скасуйте підписку на MQTT за subscription_id або виведіть список активних підписок.",
+    "param.action.description": "Дія: «скасувати підписку» або «список».",
+    "param.subscription_id.description": "Ідентифікатор підписки для скасування.",
+    "param.fmt.description": "Формат: json або текстовий.",
+    "msg.no_subscriptions": "Немає активних підписок на MQTT.",
+    "msg.header": "Активні підписки на MQTT ({count}):",
+    "msg.unsubscribed": "Підписку на MQTT {id} скасовано.",
+    "err.id_required": "необхідний subscription_id."
+  },
+  "vi": {
+    "tool.description": "Hủy đăng ký MQTT theo subscribe_id hoặc liệt kê các đăng ký đang hoạt động.",
+    "param.action.description": "Hành động: 'hủy đăng ký' hoặc 'danh sách'.",
+    "param.subscription_id.description": "ID đăng ký để hủy.",
+    "param.fmt.description": "Định dạng: json hoặc văn bản.",
+    "msg.no_subscriptions": "Không có đăng ký MQTT hoạt động.",
+    "msg.header": "Đăng ký MQTT đang hoạt động ({count}):",
+    "msg.unsubscribed": "Đăng ký MQTT {id} đã bị hủy.",
+    "err.id_required": "đăng ký_id là bắt buộc."
+  },
+  "zh_CN": {
+    "tool.description": "通过 subscription_id 取消 MQTT 订阅，或列出活动订阅。",
+    "param.action.description": "操作：“取消订阅”或“列出”。",
+    "param.subscription_id.description": "要取消的订阅 ID。",
+    "param.fmt.description": "格式：json 或文本。",
+    "msg.no_subscriptions": "没有活动的 MQTT 订阅。",
+    "msg.header": "活动 MQTT 订阅 ({count})：",
+    "msg.unsubscribed": "MQTT 订阅 {id} 已取消。",
+    "err.id_required": "subscription_id 是必需的。"
+  },
+  "zh_TW": {
+    "tool.description": "透過 subscription_id 取消 MQTT 訂閱，或列出活動訂閱。",
+    "param.action.description": "操作：「取消訂閱」或「列出」。",
+    "param.subscription_id.description": "要取消的訂閱 ID。",
+    "param.fmt.description": "格式：json 或文字。",
+    "msg.no_subscriptions": "沒有活動的 MQTT 訂閱。",
+    "msg.header": "活動 MQTT 訂閱 ({count})：",
+    "msg.unsubscribed": "MQTT 訂閱 {id} 已取消。",
+    "err.id_required": "subscription_id 是必需的。"
+  }
+}

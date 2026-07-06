@@ -55,6 +55,19 @@ The main `tool_genre: "iot"` tools are:
 - `bacnet_cov_subscribe`
 - `bacnet_cov_unsubscribe`
 
+### MQTT
+
+- `mqtt_publish`
+- `mqtt_subscribe`
+- `mqtt_unsubscribe`
+
+Best for:
+
+- Pub/sub messaging with IoT/BEMS devices
+- Sensor data streaming
+- Cloud platform integration (AWS IoT, Azure IoT Hub)
+- Requires an MQTT broker (Mosquitto, EMQX, etc.)
+
 ### DALI
 
 - `dali_scan`
@@ -187,6 +200,7 @@ Only do this when the target is clear and the action is supported.
 - ECHONET Lite: `echonet_property_set`, `echonet_control`
 - BACnet: `bacnet_write`
 - DALI: `dali_write`
+- MQTT: `mqtt_publish`
 - Matter: `matter_control`
 - Modbus: `modbus_write`
 - OPC UA: `opcua_write`
@@ -204,6 +218,7 @@ Use subscription tools to receive push or polling notifications.
 | BACnet | COV (Change of Value) push | `bacnet_cov_subscribe` | `bacnet_cov_unsubscribe` | Device pushes changes automatically. Fastest. |
 | Matter | Attribute Subscription | `matter_subscribe` | `matter_unsubscribe` | Device pushes attribute changes. |
 | ECHONET Lite | INF notification (UDP multicast) | `echonet_subscribe` | `echonet_unsubscribe` | Device broadcasts unsolicited property changes. |
+| MQTT | Message subscription | `mqtt_subscribe` | `mqtt_unsubscribe` | Pub/sub messaging. Wildcard topics supported. |
 | SwitchBot Cloud | Polling (interval-based) | `switchbot_subscribe` | `switchbot_unsubscribe` | No webhook; polls at configurable interval (min 10s). |
 
 All subscriptions queue events into the internal scheduler. When a change is detected,
