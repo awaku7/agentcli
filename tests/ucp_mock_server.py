@@ -25,11 +25,23 @@ _ap2_mandates: dict[str, dict] = {}
 # Sample products
 # ---------------------------------------------------------------------------
 PRODUCTS = [
-    {"id": "item_001", "title": "Monos Carry-On Pro", "price": 26550, "currency": "USD", "description": "Premium carry-on luggage"},
-    {"id": "item_002", "title": "Away Bigger Carry-On", "price": 29500, "currency": "USD", "description": "Polycarbonate carry-on"},
-    {"id": "item_003", "title": "Away Large Suitcase", "price": 34500, "currency": "USD", "description": "Checked luggage 75L"},
-    {"id": "item_004", "title": "Peak Design Travel Backpack 45L", "price": 29995, "currency": "USD", "description": "Travel backpack"},
-    {"id": "item_005", "title": "Apple AirTag (4-pack)", "price": 9900, "currency": "USD", "description": "Item tracker"},
+    {"id": "item_001", "title": "Monos Carry-On Pro", "price": 26550, "currency": "USD", "description": "Premium carry-on luggage", "category": "luggage"},
+    {"id": "item_002", "title": "Away Bigger Carry-On", "price": 29500, "currency": "USD", "description": "Polycarbonate carry-on", "category": "luggage"},
+    {"id": "item_003", "title": "Away Large Suitcase", "price": 34500, "currency": "USD", "description": "Checked luggage 75L", "category": "luggage"},
+    {"id": "item_004", "title": "Peak Design Travel Backpack 45L", "price": 29995, "currency": "USD", "description": "Travel backpack", "category": "bags"},
+    {"id": "item_005", "title": "Apple AirTag (4-pack)", "price": 9900, "currency": "USD", "description": "Item tracker", "category": "accessories"},
+
+    # 新規商品
+    {"id": "item_010", "title": "Organic Coffee Beans - Medium Roast", "price": 1850, "currency": "USD", "description": "Fair trade organic coffee 12oz", "category": "food"},
+    {"id": "item_011", "title": "Matcha Green Tea Powder", "price": 2800, "currency": "USD", "description": "Ceremonial grade matcha 100g", "category": "food"},
+    {"id": "item_012", "title": "Dark Chocolate Bar 72%", "price": 450, "currency": "USD", "description": "Single origin dark chocolate", "category": "food"},
+    {"id": "item_020", "title": "Bamboo Cutting Board", "price": 2495, "currency": "USD", "description": "Large bamboo cutting board", "category": "kitchen"},
+    {"id": "item_021", "title": "Stainless Steel Water Bottle 1L", "price": 3500, "currency": "USD", "description": "Double wall vacuum insulated", "category": "kitchen"},
+    {"id": "item_030", "title": "Merino Wool T-Shirt", "price": 6500, "currency": "USD", "description": "Lightweight merino wool crew neck", "category": "clothing"},
+    {"id": "item_031", "title": "Cashmere Beanie", "price": 4500, "currency": "USD", "description": "Premium cashmere knit beanie", "category": "clothing"},
+    {"id": "item_040", "title": "Yoga Mat Premium", "price": 6800, "currency": "USD", "description": "Non-slip eco-friendly yoga mat 6mm", "category": "sports"},
+    {"id": "item_041", "title": "Resistance Bands Set", "price": 2200, "currency": "USD", "description": "Set of 5 resistance bands", "category": "sports"},
+    {"id": "item_050", "title": "LED Desk Lamp", "price": 4200, "currency": "USD", "description": "Adjustable LED desk lamp with USB", "category": "home"},
 ]
 
 # ---------------------------------------------------------------------------
@@ -134,12 +146,22 @@ async def create_checkout(request: Request):
     if cart_id and cart_id in _carts:
         line_items = _carts[cart_id].get("line_items", [])
     total = sum(item.get("unit_price", 0) * item.get("quantity", 1) for item in line_items)
-    _checkouts[checkout_id] = {
+    checkout_data = {
         "id": checkout_id, "line_items": line_items, "status": "ready_for_complete",
         "currency": body.get("currency", "USD"),
         "totals": {"total": total, "subtotal": total}, "messages": [],
         "payment": {"handlers": [{"id": "gpay", "name": "Google Pay", "type": "card"}]},
+        "buyer": body.get("buyer"),
     }
+    # Handle fulfillment (shipping)
+    fulfillment = body.get("fulfillment")
+    if fulfillment:
+        checkout_data["fulfillment"] = fulfillment
+    # Handle vendor extensions
+    extensions = body.get("extensions")
+    if extensions:
+        checkout_data["extensions"] = extensions
+    _checkouts[checkout_id] = checkout_data
     return JSONResponse(content=_checkouts[checkout_id], status_code=201)
 
 
@@ -359,7 +381,7 @@ async def ap2_register_mandate(request: Request):
 # ---------------------------------------------------------------------------
 if __name__ == "__main__":
     print("=" * 60)
-    print("UCP Mock Merchant Server v0.5.0 (AP2 + 全Phase対応)")
+    print("UCP Mock Merchant Server v0.6.0 (Phase6 Extensions)")
     print("Profile: http://localhost:8080/.well-known/ucp")
     print("AP2:     /ap2/authorize/{id}, /ap2/mandate-status")
     print("=" * 60)

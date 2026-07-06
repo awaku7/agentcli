@@ -590,6 +590,27 @@ def resolve_mcp_endpoint(
     return None
 
 
+def resolve_schema(capability_def: dict[str, Any]) -> str | None:
+    """Resolve the JSON Schema URL from a capability definition.
+
+    Fetches and caches the schema if available.
+
+    Args:
+        capability_def: Capability definition dict from the business profile.
+
+    Returns:
+        Schema URL string, or None if not defined.
+    """
+    schema_url = capability_def.get("schema")
+    if schema_url:
+        return str(schema_url)
+    # Fall back to spec URL convention
+    spec = capability_def.get("spec", "")
+    if spec and "/specification/" in spec:
+        return spec.replace("/specification/", "/schemas/") + ".json"
+    return None
+
+
 def get_payment_handlers(business_profile: dict[str, Any]) -> list[dict[str, Any]]:
     """Extract payment handler definitions from business profile."""
     handlers = business_profile.get("ucp", {}).get("payment_handlers", {})

@@ -118,6 +118,29 @@ TOOL_SPEC: dict[str, Any] = {
                         default="Seconds between poll attempts (mode='poll' only, default 3).",
                     ),
                 },
+                "shipping_address": {
+                    "type": "object",
+                    "description": _(
+                        "param.shipping_address.description",
+                        default="Shipping address for fulfillment (optional). "
+                                "Fields: street_address, address_locality, address_region, postal_code, address_country.",
+                    ),
+                },
+                "buyer": {
+                    "type": "object",
+                    "description": _(
+                        "param.buyer.description",
+                        default="Buyer information (optional). Fields: email, first_name, last_name.",
+                    ),
+                },
+                "extensions": {
+                    "type": "object",
+                    "description": _(
+                        "param.extensions.description",
+                        default="Vendor-specific extensions (optional). "
+                                "Key-value pairs for com.vendor.* capabilities.",
+                    ),
+                },
             },
             "required": ["mode", "business_url"],
             "additionalProperties": False,
@@ -136,6 +159,9 @@ def run_tool(args: dict[str, Any]) -> str:
     currency = str(args.get("currency") or "").strip() or None
     poll_timeout = int(args.get("poll_timeout", 120))
     poll_interval = int(args.get("poll_interval", 3))
+    shipping_address = args.get("shipping_address")
+    buyer = args.get("buyer")
+    extensions = args.get("extensions")
 
     if not business_url:
         return json.dumps({
@@ -167,6 +193,12 @@ def run_tool(args: dict[str, Any]) -> str:
                 body["line_items"] = line_items
             if currency:
                 body["currency"] = currency
+            if shipping_address:
+                body["fulfillment"] = {"shipping": {"destinations": [shipping_address]}}
+            if buyer:
+                body["buyer"] = buyer
+            if extensions:
+                body["extensions"] = extensions
             resp = ucp_request(
                 business_url, "checkout-sessions",
                 method="POST", body=body if body else None,
