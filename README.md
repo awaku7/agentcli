@@ -99,9 +99,10 @@ See [VSCODE.md](https://github.com/awaku7/agentcli/blob/main/VSCODE.md) for deta
 
 ### 🏠 IoT Device Control
 
-- **SwitchBot**: Cloud batch control & BLE scan/control
-- **ECHONET Lite**: Discover and control home appliances (AC, lights, water heaters, etc.) on local network
-- **Matter**: Read-only inspection of controller/bridge/device topology
+- **BACnet**: Read/write BACnet/IP devices (HVAC, lighting, power meters). COV subscription for push notifications
+- **SwitchBot**: Cloud batch control & BLE scan/control. Polling-based subscription
+- **ECHONET Lite**: Discover, control, and subscribe to INF notifications from home appliances (AC, lights, water heaters, etc.)
+- **Matter**: Read-only inspection + attribute subscription for state change monitoring
 - **UPnP**: Device discovery & IGD port forwarding
 
 See [IOT_USECASE.md](https://github.com/awaku7/agentcli/blob/main/IOT_USECASE.md)
