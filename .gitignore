@@ -43,3 +43,6 @@ vscode-extension/*.vsix
 .uagent_web_uploads/
 
 .uagent.key
+
+# Responses API state (auto-generated)
+responses_state_*.json
