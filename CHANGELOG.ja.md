@@ -1,5 +1,31 @@
 # 変更履歴
 
+## [0.5.38] - 2026-07-06
+
+### 追加
+- ECHONET Lite: 全55のEOJクラス名を34言語に対応。日本語ロケールは日本語名、他言語は `echonet_scan_tool.json` の翻訳を表示。
+- ECHONET Lite: スキャン結果にメーカー名、デバイス種別表示、RAW EOJコードマッピングを追加。
+- i18n: `_pip_auto.py` の pip インストールメッセージを34言語に翻訳。
+
+### 変更
+- ECHONET Lite: pyhems 由来の修正（TID処理、マルチキャスト参加、ポート3610バインド）+ キャッシュTTL + refresh パラメータ。
+- ECHONET Lite: `_eoj_class_name()` が EOJ クラス名の翻訳に gettext ではなく `detect_lang()` を直接使用するよう変更。
+- i18n: `tools/i18n_helper.detect_lang()` を `uagent.i18n.detect_lang()` と同じフォールバックチェーンに統一（getdefaultlocale + Windows コンソールコードページ検出）。
+
+### パフォーマンス
+- `modbus_scan`: ThreadPoolExecutor + TCP事前チェックによる並列化で高速化。
+
+### ドキュメント
+- IOT_USECASE.md: echonet_* ツールのEOJクラス名ローカライゼーションに関する説明を追加。
+
+### 修正
+- i18n: Windows環境で `locale.getlocale()` が `(None, None)` を返す場合でも、human_ask 他ツールの日本語翻訳が正しく表示されるよう修正。
+
+### その他
+- 不要な `_mfr_list.pdf` を削除。
+- `.gitignore` に `.mypy_cache/` と `.ruff_cache/` を追加。
+- lint: 未使用変数削除、インポート整理。
+
 ## [0.5.37] - 2026-07-04
 
 ### 追加
