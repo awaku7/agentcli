@@ -31,7 +31,6 @@
 - **Kebebasan penyedia**: OpenAI, Claude, Gemini, DeepSeek, Ollama, Azure, Bedrock, HuggingFace... 15+ penyedia, semuanya dapat diakses dari satu antarmuka. Bertukar di antara keduanya dengan mengonfigurasi ulang variabel lingkungan — tanpa instalasi ulang, tanpa migrasi.
 - **136 alat**: I/O file, penelusuran web, pembuatan gambar, Gmail, pemindaian perangkat BLE, integrasi server MCP — **78 aman secara paralel** (hingga 8 dijalankan secara bersamaan melalui kumpulan thread, dapat dikonfigurasi melalui `UAGENT_PARALLEL_WORKERS`). Saat LLM mengaktifkan beberapa panggilan alat sekaligus, uag secara otomatis memparalelkannya.
 - **3 UI + A2A**: CLI, GUI, Web, dan protokol Agen-ke-Agen. Mesin yang sama, antarmuka apa pun.
-- **Siap IoT**: SwitchBot, ECHONET Lite, Matter, UPnP — kendalikan perangkat rumah Anda melalui AI.
 - **Keterampilan Agen**: Instal keterampilan yang dibangun komunitas dari pasar. Perpanjang uag tanpa henti.
 
 uag adalah **asisten AI sesuai keinginan Anda**. Tidak terikat pada penyedia, tidak terikat pada antarmuka, tidak terikat pada platform.
@@ -78,7 +77,7 @@ Alat read-only (pencarian file, penghitungan hash, daftar direktori, terjemahan,
 | **Media** | menghasilkan_gambar, menganalisis_gambar, img2img, audio_speech, audio_transkripsikan |
 | **Dokumen** | Ekstraksi PDF/PPTX/DOCX/RTF/ODT, ekstraksi terstruktur Excel |
 | **Komunikasi** | gmail_send, gmail_read, bluesky, discord_channel, team_webhook — lihat [COMMUNICATION.md](https://github.com/awaku7/agentcli/blob/main/docs/COMMUNICATION.md) |
-| **IoT** | SwitchBot (Cloud + BLE), ECHONET Lite, Materi, UPnP |
+| **IoT** | BACnet、Modbus TCP、OPC UA、SwitchBot（Cloud + BLE）、ECHONET Lite、Matter、UPnP |
 | **Alat Pengembang** | git_ops, python_compile, lint_format, run_tests, db_query, **13 navigator kode sumber (keluarga idx)** |
 | **MCP** | Hubungkan ke server MCP eksternal, daftar alat, jalankan |
 | **A2A** | Komunikasi agen-ke-agen (dengan instans uag lain atau server yang kompatibel dengan A2A) |
@@ -98,13 +97,22 @@ Alat read-only (pencarian file, penghitungan hash, daftar direktori, terjemahan,
 Lihat [VSCODE.md](https://github.com/awaku7/agentcli/blob/main/VSCODE.md) untuk detail tentang ekstensi VS Code — instalasi, perintah, pengikatan kunci, dan konfigurasi.
 
 ### 🏠 Kontrol Perangkat IoT
-
-- **SwitchBot**: Kontrol batch cloud & pemindaian/kontrol BLE
-- **ECHONET Lite**: Temukan dan kendalikan peralatan rumah tangga (AC, lampu, pemanas air, dll.) di jaringan lokal
 - **Materi**: Pemeriksaan topologi pengontrol/jembatan/perangkat hanya-baca
-- **UPnP**: Penemuan perangkat & penerusan port IGD
 
 Lihat [IOT_USECASE.md](https://github.com/awaku7/agentcli/blob/main/IOT_USECASE.md)
+
+
+### 🏠 Kontrol Perangkat IoT
+
+- **BACnet**: Membaca/menulis perangkat BACnet/IP (HVAC, penerangan, pengukur daya). Langganan COV untuk pemberitahuan push
+- **Modbus TCP**: Baca/tulis holding/input register dan koil. Pemantauan perubahan berbasis polling
+- **OPC UA**: Telusuri ruang alamat, baca/tulis variabel, berlangganan perubahan data
+- **SwitchBot**: Kontrol batch cloud & pemindaian/kontrol BLE. Langganan berbasis polling
+- **ECHONET Lite**: Temukan, kontrol, dan berlangganan notifikasi INF dari peralatan rumah tangga (AC, lampu, pemanas air, dll.)
+- **Materi**: Kontrol baca/tulis + langganan atribut untuk pemantauan perubahan status
+- **UPnP**: Penemuan perangkat & penerusan port IGD
+
+Lihat [IOT_USECASE.md](../IOT_USECASE.md)
 
 ### 🎯 Pasar Keterampilan Agen
 

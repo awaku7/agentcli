@@ -31,7 +31,6 @@
 - **提供者自由**：OpenAI、Claude、Gemini、DeepSeek、Ollama、Azure、Bedrock、HuggingFace...超過 15 個提供者，均可透過單一介面存取。透過重新配置環境變數在它們之間進行交換—無需重新安裝，無需遷移。
 - **136 個工具**：檔案 I/O、網路搜尋、影像產生、Gmail、BLE 裝置掃描、MCP 伺服器整合 — **78 個工具是並行安全的**（最多 8 個透過執行緒池並發執行，可透過「UAGENT_PARALLEL_WORKERS」進行設定）。當 LLM 一次觸發多個工具呼叫時，uag 會自動並行化它們。
 - **3 UI + A2A**：CLI、GUI、Web 和代理到代理協定。相同的引擎，任何接口。
-- **物聯網就緒**：SwitchBot、ECHONET Lite、Matter、UPnP — 透過人工智慧控制您的家庭設備。
 - **代理技能**：從市場安裝社群建立的技能。無限延伸uag。
 
 uag 是**您的人工智慧助手，按照您的意願**。不依賴提供者、不依賴介面、不依賴平台。
@@ -98,13 +97,22 @@ OpenAI / Azure / Bedrock / OpenRouter / Ollama / Gemini / Vertex AI / Claude/
 有關 VS Code 擴充功能的詳細資訊 - 安裝、命令、鍵綁定和配置，請參閱 [VSCODE.md](https://github.com/awaku7/agentcli/blob/main/VSCODE.md)。
 
 ### 🏠 物聯網設備控制
-
-- **SwitchBot**：雲端批量控制和BLE掃描/控制
-- **ECHONET Lite**：發現並控製本地網路上的家用電器（空調、燈、熱水器等）
 - **事項**：控制器/橋接器/設備拓樸的唯讀檢查
-- **UPnP**：設備發現和 IGD 連接埠轉發
 
 請參閱 [IOT_USECASE.md](https://github.com/awaku7/agentcli/blob/main/IOT_USECASE.md)
+
+
+### 🏠 IoT 設備控制
+
+- **BACnet**：讀取/寫入 BACnet/IP 設備（HVAC、照明、電錶）。用於推播通知的 COV 訂閱
+- **Modbus TCP**：讀取/寫入保持/輸入暫存器和線圈。基于轮询的更改监控
+- **OPC UA**：浏览地址空间、读/写变量、订阅数据更改
+- **SwitchBot**：云批量控制和 BLE 扫描/控制。基于轮询的订阅
+- **ECHONET Lite**：发现、控制和订阅来自家用电器（空调、灯、热水器等）的 INF 通知
+- **Matter**：读/写控制 + 用于状态变化监控的属性订阅
+- **UPnP**：设备发现和 IGD連接埠轉送
+
+請參閱[IOT_USECASE.md](../IOT_USECASE.md)
 
 ### 🎯 代理技能市場
 

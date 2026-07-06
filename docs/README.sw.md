@@ -31,7 +31,6 @@
 - **Uhuru wa mtoa huduma**: OpenAI, Claude, Gemini, DeepSeek, Ollama, Azure, Bedrock, HuggingFace... 15+ watoa huduma, wote wanaweza kufikiwa kutoka kwa kiolesura kimoja. Badilisha kati yao kwa kusanidi upya anuwai za mazingira - hakuna kusakinisha tena, hakuna uhamiaji.
 - **Zana 136**: Faili ya I/O, utafutaji wa wavuti, kutengeneza picha, Gmail, kuchanganua kifaa cha BLE, muunganisho wa seva ya MCP — **78 ni salama sambamba** (hadi 8 hutekelezwa kwa wakati mmoja kupitia mkusanyiko wa mazungumzo, inaweza kusanidiwa kupitia `UAGENT_PARALLEL_WORKERS`). Wakati LLM inapiga simu za zana nyingi mara moja, uag huzilinganisha kiotomatiki.
 - **UI 3 + A2A**: CLI, GUI, Wavuti, na itifaki ya Wakala kwa Wakala. Injini sawa, interface yoyote.
-- **IoT tayari**: SwitchBot, ECHONET Lite, Matter, UPnP - dhibiti vifaa vyako vya nyumbani kupitia AI.
 - **Ujuzi wa Wakala**: Sakinisha ujuzi uliojengwa na jamii kutoka sokoni. Panua uag bila mwisho.
 
 uag ni **msaidizi wako wa AI kwa masharti yako**. Haijafungwa kwa mtoa huduma, haijafungwa kwenye kiolesura, haijafungwa kwenye jukwaa.
@@ -78,7 +77,7 @@ Zana za kusoma pekee (utaftaji wa faili, hesabu ya heshi, orodha ya saraka, tafs
 | **Vyombo vya habari** | zalisha_picha, changanua_picha, img2img, hotuba_ya_sauti,nukuu_sauti |
 | **Nyaraka** | Uchimbaji wa PDF/PPTX/DOCX/RTF/ODT, uchimbaji muundo wa Excel |
 | **Mawasiliano** | gmail_send, gmail_read, bluesky, discord_channel, team_webhook — tazama [COMMUNICATION.md](https://github.com/awaku7/agentcli/blob/main/docs/COMMUNICATION.md) |
-| **IoT** | SwitchBot (Wingu + BLE), ECHONET Lite, Matter, UPnP |
+| **IoT** | BACnet、Modbus TCP、OPC UA、SwitchBot（Cloud + BLE）、ECHONET Lite、Matter、UPnP |
 | **Zana za Usanidi** | git_ops, python_compile, lint_format, run_tets, db_query, **vielekezi 13 vya msimbo wa chanzo (idx family)** |
 | **MCP** | Unganisha kwa seva za MCP za nje, orodhesha zana, tekeleza |
 | **A2A** | Mawasiliano ya wakala kwa wakala (pamoja na matukio mengine ya uag au seva zinazooana na A2A) |
@@ -98,13 +97,20 @@ Zana za kusoma pekee (utaftaji wa faili, hesabu ya heshi, orodha ya saraka, tafs
 Tazama [VSCODE.md](https://github.com/awaku7/agentcli/blob/main/VSCODE.md) kwa maelezo kuhusu kiendelezi cha Msimbo wa VS - usakinishaji, amri, vifungo muhimu na usanidi.
 
 ### 🏠 Kidhibiti cha Kifaa cha IoT
-
-- **SwitchBot**: Udhibiti wa bechi ya wingu & skanisho/udhibiti wa BLE
-- **ECHONET Lite**: Gundua na udhibiti vifaa vya nyumbani (AC, taa, hita za maji, n.k.) kwenye mtandao wa ndani
 - **Jambo**: Ukaguzi wa kusoma pekee wa kidhibiti/daraja/topolojia ya kifaa
-- **UPnP**: Ugunduzi wa kifaa na usambazaji wa mlango wa IGD
 
 Tazama [IOT_USECASE.md](https://github.com/awaku7/agentcli/blob/main/IOT_USECASE.md)
+
+
+### 🏠 Kidhibiti cha Kifaa cha IoT
+
+- **BACnet**: Soma/andika vifaa vya BACnet/IP (HVAC, taa, mita za umeme). Usajili wa COV kwa arifa zinazotumwa na programu huitumii
+- **Modbus TCP**: Soma/andika rejista za kushikilia/kuingiza na koili. Ufuatiliaji wa mabadiliko kulingana na upigaji kura
+- **OPC UA**: Vinjari nafasi ya anwani, vibadilishi vya kusoma/kuandika, jisajili ili upate mabadiliko ya data
+- **SwitchBot**: Udhibiti wa bechi ya Wingu & uchanganuzi/udhibiti wa BLE. Usajili unaotegemea upigaji kura
+- **ECHONET Lite**: Gundua, dhibiti na ujiandikishe kupokea arifa za INF kutoka kwa vifaa vya nyumbani (AC, taa, hita za maji, n.k.)
+- **Jambo**: Udhibiti wa Kusoma/kuandika + sifa kwa ufuatiliaji wa mabadiliko ya hali
+- **UPnP**: Ugunduzi wa DUPnP**: Ugunduzi wa kifaa na[=[=] [IOT_USECASE.md](../IOT_USECASE.md)
 
 ### 🎯 Soko la Ujuzi wa Wakala
 

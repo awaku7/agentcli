@@ -31,7 +31,6 @@
 - **Svoboda poskytovatelů**: OpenAI, Claude, Gemini, DeepSeek, Ollama, Azure, Bedrock, HuggingFace... 15+ poskytovatelů, vše přístupné z jediného rozhraní. Přepínejte mezi nimi překonfigurováním proměnných prostředí – žádná přeinstalace, žádná migrace.
 - **136 nástrojů**: I/O souborů, vyhledávání na webu, generování obrázků, Gmail, skenování zařízení BLE, integrace serveru MCP — **78 je paralelně bezpečných** (až 8 spouští souběžně prostřednictvím fondu vláken, konfigurovatelné pomocí `UAGENT_PARALLEL_WORKERS`). Když LLM spustí více volání nástrojů najednou, uag je automaticky paralelizuje.
 - **3 UI + A2A**: CLI, GUI, Web a Agent-to-Agent protokol. Stejný engine, jakékoli rozhraní.
-- **IoT ready**: SwitchBot, ECHONET Lite, Matter, UPnP – ovládejte svá domácí zařízení pomocí AI.
 - **Schopnosti agentů**: Nainstalujte si dovednosti vytvořené komunitou z trhu. Prodlužujte uag donekonečna.
 
 uag je **váš asistent AI podle vašich podmínek**. Není vázáno na poskytovatele, není vázáno na rozhraní, není vázáno na platformu.
@@ -78,7 +77,7 @@ Nástroje pouze pro čtení (prohledávání souborů, výpočet hashů, výpis 
 | **Média** | generovat_image, analyzovat_obraz, img2img, audio_speech, audio_transscribe |
 | **Dokumenty** | Extrakce PDF/PPTX/DOCX/RTF/ODT, strukturovaná extrakce Excel |
 | **Komunikace** | gmail_send, gmail_read, bluesky, discord_channel, teamy_webhook — viz [COMMUNICATION.md](https://github.com/awaku7/agentcli/blob/main/docs/COMMUNICATION.md) |
-| **IoT** | SwitchBot (Cloud + BLE), ECHONET Lite, Matter, UPnP |
+| **IoT** | BACnet、Modbus TCP、OPC UA、SwitchBot（Cloud + BLE）、ECHONET Lite、Matter、UPnP |
 | **Nástroje pro vývojáře** | git_ops, python_compile, lint_format, run_tests, db_query, **13 navigátorů zdrojového kódu (rodina idx)** |
 | **MCP** | Připojte se k externím serverům MCP, vypište nástroje, spusťte |
 | **A2A** | Komunikace agent-agent (s jinými instancemi uag nebo servery kompatibilními s A2A) |
@@ -98,13 +97,21 @@ Nástroje pouze pro čtení (prohledávání souborů, výpočet hashů, výpis 
 Podrobnosti o rozšíření VS Code – instalace, příkazy, klávesové zkratky a konfigurace najdete na [VSCODE.md](https://github.com/awaku7/agentcli/blob/main/VSCODE.md).
 
 ### 🏠 Ovládání zařízení IoT
-
-- **SwitchBot**: Cloudové dávkové ovládání a BLE skenování/ovládání
-- **ECHONET Lite**: Objevujte a ovládejte domácí spotřebiče (AC, světla, ohřívače vody atd.) v místní síti
 - **Záležitost**: Kontrola topologie řadiče/můstku/zařízení pouze pro čtení
-- **UPnP**: Zjištění zařízení a přesměrování portů IGD
 
 Viz [IOT_USECASE.md](https://github.com/awaku7/agentcli/blob/main/IOT_USECASE.md)
+
+
+### 🏠 Ovládání zařízení IoT
+
+- **BACnet**: Čtení/zápis zařízení BACnet/IP (HVAC, osvětlení, měřiče výkonu). Předplatné COV pro oznámení push
+- **Modbus TCP**: Čtení/zápis přidržovacích/vstupních registrů a cívek. Monitorování změn založené na dotazování
+- **OPC UA**: Procházení adresního prostoru, čtení/zápis proměnných, přihlášení k odběru změn dat
+- **SwitchBot**: Cloudové dávkové řízení a BLE skenování/ovládání. Předplatné založené na hlasování
+– **ECHONET Lite**: Objevte, ovládejte a přihlaste se k odběru oznámení INF z domácích spotřebičů (klimatizace, světla, ohřívače vody atd.)
+– **Záležitost**: Řízení čtení/zápisu + předplatné atributů pro sledování změny stavu
+– **UPnP**: Zjišťování zařízení a přesměrování portů IGD[=EBR=]
+ [IOT_USECASE.md](../IOT_USECASE.md)
 
 ### 🎯 Trh dovedností agentů
 

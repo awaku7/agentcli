@@ -31,7 +31,6 @@
 - **Quyền tự do của nhà cung cấp**: OpenAI, Claude, Gemini, DeepSeek, Ollama, Azure, Bedrock, HuggingFace... Hơn 15 nhà cung cấp, tất cả đều có thể truy cập từ một giao diện duy nhất. Hoán đổi giữa chúng bằng cách cấu hình lại các biến môi trường — không cần cài đặt lại, không di chuyển.
 - **136 công cụ**: I/O tệp, tìm kiếm trên web, tạo hình ảnh, Gmail, quét thiết bị BLE, tích hợp máy chủ MCP — **78 công cụ an toàn song song** (tối đa 8 công cụ thực thi đồng thời qua nhóm luồng, có thể định cấu hình qua `UAGENT_PARALLEL_WORKERS`). Khi LLM thực hiện nhiều lệnh gọi công cụ cùng một lúc, uag sẽ tự động song song chúng.
 - **3 UI + A2A**: CLI, GUI, Web và giao thức Agent-to-Agent. Cùng một động cơ, bất kỳ giao diện nào.
-- **Sẵn sàng cho IoT**: SwitchBot, ECHONET Lite, Matter, UPnP — điều khiển các thiết bị trong nhà của bạn thông qua AI.
 - **Kỹ năng đại lý**: Cài đặt các kỹ năng do cộng đồng xây dựng từ thị trường. Mở rộng uag vô tận.
 
 uag là **trợ lý AI theo điều kiện của bạn**. Không bị ràng buộc với nhà cung cấp, không bị ràng buộc với giao diện, không bị ràng buộc với nền tảng.
@@ -78,7 +77,7 @@ Các công cụ chỉ đọc (tìm kiếm tệp, tính toán hàm băm, liệt k
 | **Truyền thông** | tạo_hình ảnh, phân tích_hình ảnh, img2img, audio_speech, audio_transcribe |
 | **Tài liệu** | Trích xuất PDF/PPTX/DOCX/RTF/ODT, trích xuất có cấu trúc Excel |
 | **Giao tiếp** | gmail_send, gmail_read, bluesky, discord_channel, Team_webhook — xem [COMMUNICATION.md](https://github.com/awaku7/agentcli/blob/main/docs/COMMUNICATION.md) |
-| **IoT** | SwitchBot (Đám mây + BLE), ECHONET Lite, Matter, UPnP |
+| **IoT** | BACnet、Modbus TCP、OPC UA、SwitchBot（Cloud + BLE）、ECHONET Lite、Matter、UPnP |
 | **Công cụ dành cho nhà phát triển** | git_ops, python_compile, lint_format, run_tests, db_query, **13 trình điều hướng mã nguồn (dòng idx)** |
 | **MCP** | Kết nối với máy chủ MCP bên ngoài, liệt kê các công cụ, thực thi |
 | **A2A** | Giao tiếp giữa các đại lý (với các phiên bản uag khác hoặc máy chủ tương thích với A2A) |
@@ -98,13 +97,22 @@ Các công cụ chỉ đọc (tìm kiếm tệp, tính toán hàm băm, liệt k
 Xem [VSCODE.md](https://github.com/awaku7/agentcli/blob/main/VSCODE.md) để biết thông tin chi tiết về tiện ích mở rộng VS Code — cài đặt, lệnh, tổ hợp phím và cấu hình.
 
 ### 🏠 Kiểm soát thiết bị IoT
-
-- **SwitchBot**: Kiểm soát hàng loạt đám mây & quét/điều khiển BLE
-- **ECHONET Lite**: Khám phá và điều khiển các thiết bị gia dụng (AC, đèn, máy nước nóng, v.v.) trên mạng cục bộ
 - **Vấn đề**: Kiểm tra chỉ đọc cấu trúc liên kết bộ điều khiển/cầu nối/thiết bị
-- **UPnP**: Phát hiện thiết bị & chuyển tiếp cổng IGD
 
 Xem [IOT_USECASE.md](https://github.com/awaku7/agentcli/blob/main/IOT_USECASE.md)
+
+
+### 🏠 Điều khiển thiết bị IoT
+
+- **BACnet**: Đọc/ghi các thiết bị BACnet/IP (HVAC, hệ thống chiếu sáng, đồng hồ đo điện). Đăng ký COV cho thông báo đẩy
+- **Modbus TCP**: Đọc/ghi các thanh ghi giữ/đầu vào và cuộn dây. Giám sát thay đổi dựa trên thăm dò ý kiến
+- **OPC UA**: Duyệt qua không gian địa chỉ, đọc/ghi các biến, đăng ký các thay đổi dữ liệu
+- **SwitchBot**: Kiểm soát hàng loạt đám mây & quét/kiểm soát BLE. Đăng ký dựa trên thăm dò ý kiến
+- **ECHONET Lite**: Khám phá, kiểm soát và đăng ký thông báo INF từ các thiết bị gia dụng (AC, đèn, máy nước nóng, v.v.)
+- **Vấn đề**: Kiểm soát đọc/ghi + đăng ký thuộc tính để giám sát thay đổi trạng thái
+- **UPnP**: Khám phá thiết bị và chuyển tiếp cổng IGD
+
+Xem [IOT_USECASE.md](../IOT_USECASE.md)
 
 ### 🎯 Thị trường kỹ năng đại lý
 

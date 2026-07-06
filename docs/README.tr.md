@@ -31,7 +31,6 @@
 - **Sağlayıcı özgürlüğü**: OpenAI, Claude, Gemini, DeepSeek, Ollama, Azure, Bedrock, HuggingFace... 15'ten fazla sağlayıcı, hepsine tek bir arayüzden erişilebilir. Ortam değişkenlerini yeniden yapılandırarak bunlar arasında geçiş yapın; yeniden yükleme yok, geçiş yok.
 - **136 araç**: Dosya G/Ç, web araması, görüntü oluşturma, Gmail, BLE cihaz tarama, MCP sunucu entegrasyonu — **78 araç paralel güvenlidir** (iş parçacığı havuzu aracılığıyla en fazla 8 eşzamanlı yürütme, "UAGENT_PARALLEL_WORKERS" aracılığıyla yapılandırılabilir). LLM aynı anda birden fazla araç çağrısı başlattığında, uag bunları otomatik olarak paralelleştirir.
 - **3 kullanıcı arayüzü + A2A**: CLI, GUI, Web ve Aracıdan Aracıya protokolü. Aynı motor, herhangi bir arayüz.
-- **IoT'ye hazır**: SwitchBot, ECHONET Lite, Matter, UPnP — ev cihazlarınızı yapay zeka aracılığıyla kontrol edin.
 - **Ajan Becerileri**: Piyasadan topluluk tarafından oluşturulan becerileri yükleyin. Uag'ı sonsuza kadar uzatın.
 
 uag **kendi şartlarınıza göre yapay zeka asistanınızdır**. Bir sağlayıcıya bağlı değil, bir arayüze bağlı değil, bir platforma bağlı değil.
@@ -78,7 +77,7 @@ Salt okunur araçlar (dosya arama, karma hesaplama, dizin listeleme, çeviri, ve
 | **Medya** | created_image, analyze_image, img2img, audio_speech, audio_transcribe |
 | **Belgeler** | PDF/PPTX/DOCX/RTF/ODT çıkarma, Excel yapılandırılmış çıkarma |
 | **İletişim** | gmail_send, gmail_read, bluesky, discord_channel, takımlar_webhook — bkz. [COMMUNICATION.md](https://github.com/awaku7/agentcli/blob/main/docs/COMMUNICATION.md) |
-| **IoT** | SwitchBot (Bulut + BLE), ECHONET Lite, Matter, UPnP |
+| **IoT** | BACnet、Modbus TCP、OPC UA、SwitchBot（Cloud + BLE）、ECHONET Lite、Matter、UPnP |
 | **Geliştirme Araçları** | git_ops, python_compile, lint_format, run_tests, db_query, **13 kaynak kodu gezgini (idx ailesi)** |
 | **MCP** | Harici MCP sunucularına bağlanın, araçları listeleyin, çalıştırın |
 | **A2A** | Aracıdan aracıya iletişim (diğer uag örnekleri veya A2A uyumlu sunucularla) |
@@ -98,13 +97,22 @@ Salt okunur araçlar (dosya arama, karma hesaplama, dizin listeleme, çeviri, ve
 Kurulum, komutlar, tuş atamaları ve yapılandırma gibi VS Code uzantısıyla ilgili ayrıntılar için [VSCODE.md](https://github.com/awaku7/agentcli/blob/main/VSCODE.md) adresine bakın.
 
 ### 🏠 IoT Cihaz Kontrolü
-
-- **SwitchBot**: Bulut toplu kontrolü ve BLE tarama/kontrol
-- **ECHONET Lite**: Yerel ağdaki ev aletlerini (klima, ışıklar, su ısıtıcıları vb.) keşfedin ve kontrol edin
 - **Madde**: Denetleyici/köprü/cihaz topolojisinin salt okunur denetimi
-- **UPnP**: Cihaz keşfi ve IGD bağlantı noktası iletme
 
 Bkz. [IOT_USECASE.md](https://github.com/awaku7/agentcli/blob/main/IOT_USECASE.md)
+
+
+### 🏠 IoT Cihaz Kontrolü
+
+- **BACnet**: BACnet/IP cihazlarını (HVAC, aydınlatma, güç sayaçları) okuma/yazma. Anında bildirimler için COV aboneliği
+- **Modbus TCP**: Tutma/giriş kayıtlarını ve bobinlerini okuma/yazma. Yoklama tabanlı değişiklik izleme
+- **OPC UA**: Adres alanına göz atın, değişkenleri okuyun/yazın, veri değişikliklerine abone olun
+- **SwitchBot**: Bulut toplu kontrolü ve BLE tarama/kontrol. Anket tabanlı abonelik
+- **ECHONET Lite**: Ev aletlerinden (AC, ışıklar, su ısıtıcıları vb.) gelen INF bildirimlerini keşfedin, kontrol edin ve abone olun
+- **Madde**: Durum değişikliği izleme için okuma/yazma kontrolü + özellik aboneliği
+- **UPnP**: Cihaz keşfi ve IGD bağlantı noktası yönlendirme
+
+Bkz. [IOT_USECASE.md](../IOT_USECASE.md)
 
 ### 🎯 Temsilci Becerileri Pazarı
 

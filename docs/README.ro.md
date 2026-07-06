@@ -31,7 +31,6 @@
 - **Libertatea furnizorului**: OpenAI, Claude, Gemini, DeepSeek, Ollama, Azure, Bedrock, HuggingFace... Peste 15 furnizori, toți accesibili dintr-o singură interfață. Schimbați între ele prin reconfigurarea variabilelor de mediu - fără reinstalare, fără migrare.
 - **136 instrumente**: I/O fișiere, căutare web, generare de imagini, Gmail, scanare dispozitiv BLE, integrare server MCP — **78 sunt sigure pentru paralel** (până la 8 se execută simultan prin pool-ul de fire, configurabile prin `UAGENT_PARALLEL_WORKERS`). Când LLM declanșează mai multe apeluri de instrumente simultan, uag le paralelizează automat.
 - **3 interfețe de utilizare + A2A**: CLI, GUI, Web și protocol Agent-to-Agent. Același motor, orice interfață.
-- **Pregătit pentru IoT**: SwitchBot, ECHONET Lite, Matter, UPnP — controlați-vă dispozitivele de acasă prin AI.
 - **Abilități de agent**: Instalați abilități create de comunitate de pe piață. Extinde uag la nesfârșit.
 
 uag este **asistentul tău AI conform condițiilor tale**. Nu este legat de un furnizor, nu este legat de o interfață, nu este legat de o platformă.
@@ -78,7 +77,7 @@ Instrumentele numai pentru citire (căutarea fișierelor, calculul hash, listare
 | **Media** | genera_imagine, analizează_imagine, img2img, vorbire_audio, transcriere_audio |
 | **Documente** | Extracție PDF/PPTX/DOCX/RTF/ODT, extracție structurată Excel |
 | **Comunicare** | gmail_send, gmail_read, bluesky, discord_channel, teams_webhook — vezi [COMMUNICATION.md](https://github.com/awaku7/agentcli/blob/main/docs/COMMUNICATION.md) |
-| **IoT** | SwitchBot (Cloud + BLE), ECHONET Lite, Matter, UPnP |
+| **IoT** | BACnet、Modbus TCP、OPC UA、SwitchBot（Cloud + BLE）、ECHONET Lite、Matter、UPnP |
 | **Instrumente de dezvoltare** | git_ops, python_compile, lint_format, run_tests, db_query, **13 navigatoare de cod sursă (familia idx)** |
 | **MCP** | Conectați-vă la servere MCP externe, listați instrumentele, executați |
 | **A2A** | Comunicare agent la agent (cu alte instanțe uag sau servere compatibile A2A) |
@@ -98,13 +97,20 @@ Instrumentele numai pentru citire (căutarea fișierelor, calculul hash, listare
 Consultați [VSCODE.md](https://github.com/awaku7/agentcli/blob/main/VSCODE.md) pentru detalii despre extensia VS Code — instalare, comenzi, legături de taste și configurare.
 
 ### 🏠 Controlul dispozitivelor IoT
-
-- **SwitchBot**: controlul loturilor în cloud și scanarea/controlul BLE
-- **ECHONET Lite**: Descoperiți și controlați aparatele electrocasnice (AC, lumini, încălzitoare de apă etc.) în rețeaua locală
 - **Materia**: inspecție numai în citire a topologiei controlerului/puntului/dispozitivului
-- **UPnP**: Descoperirea dispozitivului și redirecționarea portului IGD
 
 Vezi [IOT_USECASE.md](https://github.com/awaku7/agentcli/blob/main/IOT_USECASE.md)
+
+
+### 🏠 Control dispozitiv IoT
+
+- **BACnet**: citire/scriere dispozitive BACnet/IP (HVAC, iluminat, contoare de putere). Abonament COV pentru notificări push
+- **Modbus TCP**: Citiți/scrieți registre și bobine de păstrare/intrare. Monitorizarea modificărilor bazată pe sondaje
+- **OPC UA**: Răsfoiți spațiul de adrese, citiți/scrieți variabile, abonați-vă la modificările datelor
+- **SwitchBot**: Controlul loturilor în cloud și scanarea/controlul BLE. Abonament bazat pe sondaje
+- **ECHONET Lite**: Descoperiți, controlați și abonați-vă la notificările INF de la aparatele electrocasnice (AC, lumini, încălzitoare de apă, etc.)
+- **Materia**: Control de citire/scriere + abonament de atribut pentru monitorizarea schimbării stării
+- **UPnPPD**: Descoperirea dispozitivului[=BR==]=] [IOT_USECASE.md](../IOT_USECASE.md)
 
 ### 🎯 Piața abilităților de agenți
 

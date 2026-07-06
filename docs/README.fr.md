@@ -31,7 +31,6 @@
 - **Liberté des fournisseurs** : OpenAI, Claude, Gemini, DeepSeek, Ollama, Azure, Bedrock, HuggingFace... Plus de 15 fournisseurs, tous accessibles depuis une seule interface. Passez de l'un à l'autre en reconfigurant les variables d'environnement : pas de réinstallation, pas de migration.
 - **136 outils** : E/S de fichiers, recherche sur le Web, génération d'images, Gmail, analyse de périphériques BLE, intégration de serveur MCP — **78 sont sécurisés en parallèle** (jusqu'à 8 s'exécutent simultanément via un pool de threads, configurables via `UAGENT_PARALLEL_WORKERS`). Lorsque le LLM déclenche plusieurs appels d'outil à la fois, uag les parallélise automatiquement.
 - **3 interfaces utilisateur + A2A** : CLI, GUI, Web et protocole agent à agent. Même moteur, n’importe quelle interface.
-- **Prêt pour l'IoT** : SwitchBot, ECHONET Lite, Matter, UPnP — contrôlez vos appareils domestiques via l'IA.
 - **Compétences d'agent** : installez des compétences développées par la communauté à partir du marché. Prolongez l'UAG à l'infini.
 
 uag est **votre assistant IA selon vos conditions**. Pas lié à un fournisseur, pas lié à une interface, pas lié à une plateforme.
@@ -98,13 +97,20 @@ Les outils en lecture seule (recherche de fichiers, calcul de hachage, liste de 
 Voir [VSCODE.md](https://github.com/awaku7/agentcli/blob/main/VSCODE.md) pour plus de détails sur l'extension VS Code — installation, commandes, raccourcis clavier et configuration.
 
 ### 🏠 Contrôle des appareils IoT
-
-- **SwitchBot** : contrôle par lots dans le cloud et analyse/contrôle BLE
-- **ECHONET Lite** : Découvrez et contrôlez les appareils électroménagers (AC, lumières, chauffe-eau, etc.) sur le réseau local
-- **Matter** : inspection en lecture seule de la topologie du contrôleur/pont/appareil
-- **UPnP** : découverte de périphériques et redirection de port IGD
-
 Voir [IOT_USECASE.md](https://github.com/awaku7/agentcli/blob/main/IOT_USECASE.md)
+
+
+### 🏠 Contrôle des appareils IoT
+
+- **BACnet** : lecture/écriture des appareils BACnet/IP (CVC, éclairage, compteurs d'énergie). Abonnement COV pour les notifications push
+- **Modbus TCP** : registres et bobines de maintien/entrée en lecture/écriture. Surveillance des modifications basée sur les interrogations
+- **OPC UA** : parcourir l'espace d'adressage, lire/écrire des variables, s'abonner aux modifications de données
+- **SwitchBot** : contrôle par lots dans le cloud et analyse/contrôle BLE. Abonnement basé sur des sondages
+- **ECHONET Lite** : découvrez, contrôlez et abonnez-vous aux notifications INF provenant d'appareils électroménagers (climatisation, lumières, chauffe-eau, etc.)
+- **Matter** : contrôle de lecture/écriture + abonnement d'attributs pour la surveillance des changements d'état
+- **UPnP** : découverte d'appareils et transfert de port IGD
+
+Voir [IOT_USECASE.md](../IOT_USECASE.md)
 
 ### 🎯 Marché des compétences d'agent
 

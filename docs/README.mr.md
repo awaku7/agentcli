@@ -31,7 +31,6 @@
 - **Provider freedom**: OpenAI, Claude, Gemini, DeepSeek, Ollama, Azure, Bedrock, HuggingFace... 15+ providers, all accessible from a single interface. Swap between them by reconfiguring environment variables — no reinstall, no migration.
 - **136 tools**: File I/O, web search, image generation, Gmail, BLE device scanning, MCP server integration — **78 are parallel-safe** (up to 8 execute concurrently via thread pool, configurable via `UAGENT_PARALLEL_WORKERS`). When the LLM fires multiple tool calls at once, uag automatically parallelizes them.
 - **3 UIs + A2A**: CLI, GUI, Web, and Agent-to-Agent protocol. Same engine, any interface.
-- **IoT ready**: SwitchBot, ECHONET Lite, Matter, UPnP — control your home devices through AI.
 - **Agent Skills**: Install community-built skills from the marketplace. Extend uag endlessly.
 
 uag हा **तुमच्या अटींवर तुमचा AI सहाय्यक आहे**. प्रदात्याशी बांधलेले नाही, इंटरफेसशी बांधलेले नाही, प्लॅटफॉर्मशी बांधलेले नाही.
@@ -78,7 +77,7 @@ OpenAI / Azure / Bedrock / OpenRouter / Ollama / Gemini / Vertex AI / Claude / G
 | **मीडिया** | generate_image, analyze_image, img2img, audio_speech, audio_transscribe |
 | **कागदपत्रे** | PDF/PPTX/DOCX/RTF/ODT एक्स्ट्रॅक्शन, एक्सेल स्ट्रक्चर्ड एक्सट्रॅक्शन |
 | **संवाद** | gmail_send, gmail_read, bluesky, discord_channel, teams_webhook — पहा [COMMUNICATION.md](https://github.com/awaku7/agentcli/blob/main/docs/COMMUNICATION.md) |
-| **IoT** | SwitchBot (Cloud + BLE), ECHONET Lite, Matter, UPnP |
+| **IoT** | BACnet、Modbus TCP、OPC UA、SwitchBot（Cloud + BLE）、ECHONET Lite、Matter、UPnP |
 | **देव साधने** | git_ops, python_compile, lint_format, run_tests, db_query, **१३ सोर्स कोड नेव्हिगेटर (idx फॅमिली)** |
 | **MCP** | बाह्य MCP सर्व्हरशी कनेक्ट करा, साधने सूची करा, कार्यान्वित करा |
 | **A2A** | एजंट-टू-एजंट संप्रेषण (इतर uag उदाहरणे किंवा A2A-सुसंगत सर्व्हरसह) |
@@ -98,13 +97,23 @@ OpenAI / Azure / Bedrock / OpenRouter / Ollama / Gemini / Vertex AI / Claude / G
 व्हीएस कोड एक्स्टेंशन — इंस्टॉलेशन, कमांड, कीबाइंडिंग आणि कॉन्फिगरेशनच्या तपशीलांसाठी [VSCODE.md](https://github.com/awaku7/agentcli/blob/main/VSCODE.md) पहा.
 
 ### 🏠 IoT डिव्हाइस नियंत्रण
-
 - **स्विचबॉट**: क्लाउड बॅच कंट्रोल आणि BLE स्कॅन/नियंत्रण
-- **ECHONET Lite**: स्थानिक नेटवर्कवर घरगुती उपकरणे (AC, लाइट, वॉटर हीटर्स इ.) शोधा आणि नियंत्रित करा
 - **मॅटर**: कंट्रोलर/ब्रिज/डिव्हाइस टोपोलॉजीची केवळ वाचनीय तपासणी
-- **UPnP**: डिव्हाइस शोध आणि IGD पोर्ट फॉरवर्डिंग
 
 पहा [IOT_USECASE.md](https://github.com/awaku7/agentcli/blob/main/IOT_USECASE.md)
+
+
+### 🏠 IoT डिव्हाइस नियंत्रण
+
+- **BACnet**: BACnet/IP डिव्हाइस वाचा/लिहा (HVAC, प्रकाश, वीज मीटर). पुश नोटिफिकेशन्ससाठी COV सबस्क्रिप्शन
+- **Modbus TCP**: होल्डिंग/इनपुट रजिस्टर आणि कॉइल वाचा/लिहा. मतदान-आधारित बदल निरीक्षण
+- **OPC UA**: ॲड्रेस स्पेस ब्राउझ करा, व्हेरिएबल्स वाचा/लिहा, डेटा बदलांची सदस्यता घ्या
+- **स्विचबॉट**: क्लाउड बॅच कंट्रोल आणि BLE स्कॅन/नियंत्रण. मतदान-आधारित सदस्यत्व
+- **ECHONET Lite**: घरगुती उपकरणे (AC, लाइट, वॉटर हीटर्स इ.) वरून INF सूचना शोधा, नियंत्रित करा आणि सदस्यत्व घ्या
+- **मॅटर**: वाचा/लिहा नियंत्रण + राज्य बदल निरीक्षणासाठी विशेषता सदस्यता
+- **UPnP** 
+- **UPnP**= फॉरवर्ड करणे 
+- **UPnP**: डीव्हाइस शोधणे [IOT_USECASE.md](../IOT_USECASE.md)
 
 ### 🎯 एजंट स्किल्स मार्केटप्लेस
 

@@ -31,7 +31,6 @@
 - **제공자의 자유**: OpenAI, Claude, Gemini, DeepSeek, Ollama, Azure, Bedrock, HuggingFace... 15개 이상의 제공자, 모두 단일 인터페이스에서 액세스 가능. 환경 변수를 재구성하여 서로 교체하세요. 다시 설치하거나 마이그레이션할 필요가 없습니다.
 - **135개 도구**: 파일 I/O, 웹 검색, 이미지 생성, Gmail, BLE 장치 검색, MCP 서버 통합 — **78개는 병렬 안전**(스레드 풀을 통해 최대 8개가 동시에 실행되고 `UAGENT_PARALLEL_WORKERS`를 통해 구성 가능). LLM이 한 번에 여러 도구 호출을 실행하면 uag가 자동으로 이를 병렬화합니다.
 - **3개의 UI + A2A**: CLI, GUI, 웹 및 에이전트 간 프로토콜. 동일한 엔진, 모든 인터페이스.
-- **IoT 지원**: SwitchBot, ECHONET Lite, Matter, UPnP — AI를 통해 홈 장치를 제어하세요.
 - **에이전트 스킬**: 마켓플레이스에서 커뮤니티 구축 스킬을 설치합니다. uag를 끝없이 확장하세요.
 
 uag는 **귀하의 조건에 맞는 AI 비서**입니다. 공급자에 묶이지 않고, 인터페이스에 묶이지 않고, 플랫폼에 묶이지 않습니다.
@@ -78,7 +77,7 @@ LLM이 여러 도구를 동시에 요청하면 uag가 해당 도구를 **자동�
 | **미디어** | generate_image, analyze_image, img2img, audio_speech, audio_transcribe |
 | **문서** | PDF/PPTX/DOCX/RTF/ODT 추출, Excel 구조 추출 |
 | **커뮤니케이션** | gmail_send, gmail_read, bluesky, discord_channel, team_webhook — [COMMUNICATION.md](https://github.com/awaku7/agentcli/blob/main/docs/COMMUNICATION.md) 참조 |
-| **IoT** | SwitchBot(클라우드 + BLE), ECHONET Lite, Matter, UPnP |
+| **IoT** | BACnet、Modbus TCP、OPC UA、SwitchBot（Cloud + BLE）、ECHONET Lite、Matter、UPnP |
 | **개발 도구** | git_ops, python_compile, lint_format, run_tests, db_query, **13개의 소스 코드 탐색기(idx 제품군)** |
 | **MCP** | 외부 MCP 서버에 연결하고, 도구를 나열하고, 실행 |
 | **A2A** | 에이전트 간 통신(다른 uag 인스턴스 또는 A2A 호환 서버 사용) |
@@ -98,13 +97,22 @@ LLM이 여러 도구를 동시에 요청하면 uag가 해당 도구를 **자동�
 VS Code 확장(설치, 명령, 키 바인딩 및 구성)에 대한 자세한 내용은 [VSCODE.md](https://github.com/awaku7/agentcli/blob/main/VSCODE.md)를 참조하세요.
 
 ### 🏠 IoT 장치 제어
-
-- **SwitchBot**: 클라우드 일괄 제어 및 BLE 스캔/제어
-- **ECHONET Lite**: 로컬 네트워크에서 가전제품(AC, 조명, 온수기 등)을 검색하고 제어합니다.
 - **사항**: 컨트롤러/브릿지/장치 토폴로지의 읽기 전용 검사
-- **UPnP**: 장치 검색 및 IGD 포트 전달
 
 [IOT_USECASE.md](https://github.com/awaku7/agentcli/blob/main/IOT_USECASE.md)를 참조하세요.
+
+
+### 🏠 IoT 장치 제어
+
+- **BACnet**: BACnet/IP 장치(HVAC, 조명, 전력계) 읽기/쓰기. 푸시 알림을 위한 COV 구독
+- **Modbus TCP**: 보유/입력 레지스터 및 코일 읽기/쓰기. 폴링 기반 변경 모니터링
+- **OPC UA**: 주소 공간 탐색, 변수 읽기/쓰기, 데이터 변경 구독
+- **SwitchBot**: 클라우드 일괄 제어 및 BLE 스캔/제어. 폴링 기반 구독
+- **ECHONET Lite**: 가전제품(AC, 조명, 온수기 등)의 INF 알림을 검색, 제어 및 구독합니다.
+- **문제**: 읽기/쓰기 제어 + 상태 변경 모니터링을 위한 속성 구독
+- **UPnP**: 장치 검색 및 IGD 포트 전달
+
+참조 [IOT_USECASE.md](../IOT_USECASE.md)
 
 ### 🎯 상담원 기술 마켓플레이스
 

@@ -29,9 +29,8 @@
 
 - **あなたのマシンでローカルに動作**。データはあなたの手元に残ります（API呼び出しは除く）。
 - **プロバイダの自由**: OpenAI、Claude、Gemini、DeepSeek、Ollama、Azure、Bedrock、HuggingFace…15以上のプロバイダを1つのインターフェースから利用可能。環境変数を変えるだけで切り替えられます。再インストールや移行は不要です。
-- **135のツール**: ファイルI/O、Web検索、画像生成、Gmail、BLEデバイススキャン、MCPサーバ統合 — **78のツールは並列実行に対応**（スレッドプールで最大8つ同時実行、`UAGENT_PARALLEL_WORKERS` で変更可能）。LLMが複数のツール呼び出しを同時に要求すると、uagは自動的に並列化します。
+- **140以上のツール**: ファイルI/O、Web検索、画像生成、Gmail、BLEデバイススキャン、MCPサーバ統合 — **78のツールは並行実行に対応**（スレッドプールで最大8つ同時実行、`UAGENT_PARALLEL_WORKERS`で変更可能）。LLMが複数のツール呼び出しを同時に要求すると、uagは自動的に発音化します。
 - **3つのUI + A2A**: CLI、GUI、Web、そしてエージェント間プロトコル。同じエンジンをどのインターフェースでも使えます。
-- **IoT対応**: SwitchBot、ECHONET Lite、Matter、UPnP — AIで家電を制御。
 - **エージェントスキル**: マーケットプレイスからコミュニティ製スキルをインストール。uagを無限に拡張できます。
 
 uagは **あなたの思い通りに動くAIアシスタント**です。プロバイダに縛られず、インターフェースに縛られず、プラットフォームに縛られません。
@@ -78,7 +77,7 @@ LLMが複数のツールを同時に要求すると、uagは **自動的に並�
 | **メディア** | generate_image、analyze_image、img2img、audio_speech、audio_transcribe |
 | **ドキュメント** | PDF/PPTX/DOCX/RTF/ODT抽出、Excel構造化抽出 |
 | **コミュニケーション** | gmail_send、gmail_read、bluesky、discord_channel、teams_webhook — [COMMUNICATION.md](COMMUNICATION.md) 参照 |
-| **IoT** | SwitchBot（Cloud + BLE）、ECHONET Lite、Matter、UPnP |
+| **IoT** | BACnet、Modbus TCP、OPC UA、SwitchBot（Cloud + BLE）、ECHONET Lite、Matter、UPnP |
 | **開発ツール** | git_ops、python_compile、lint_format、run_tests、db_query、**13のソースコードナビゲーター（idxファミリ）** |
 | **MCP** | 外部MCPサーバへの接続、ツール一覧、実行 |
 | **A2A** | エージェント間通信（他のuagインスタンスやA2A対応サーバと） |
@@ -97,12 +96,17 @@ LLMが複数のツールを同時に要求すると、uagは **自動的に並�
 
 ### 🏠 IoTデバイス制御
 
-- **SwitchBot**: クラウド一括制御 & BLEスキャン/制御
-- **ECHONET Lite**: ローカルネットワーク上の家電（エアコン、照明、給湯器など）を検出・制御
-- **Matter**: コントローラ/ブリッジ/デバイスのトポロジを読み取り専用で検査
-- **UPnP**: デバイス検出とIGDポート転送
+### 🏠 IoT デバイス制御
 
-詳しくは [IOT_USECASE.md](../IOT_USECASE.md) を参照。
+- **BACnet**: BACnet/IP デバイス (HVAC、照明、電力メーター) の読み取り/書き込み。プッシュ通知の COV サブスクリプション
+- **Modbus TCP**: 保持/入力レジスタおよびコイルの読み取り/書き込み。ポーリングベースの変更監視
+- **OPC UA**: アドレス空間の参照、変数の読み取り/書き込み、データ変更のサブスクライブ
+- **SwitchBot**: クラウドのバッチ制御と BLE スキャン/制御。ポーリングベースのサブスクリプション
+- **ECHONET Lite**: 家電製品 (AC、照明、給湯器など) からの INF 通知を検出、制御、サブスクライブ
+- **重要**: 状態変化監視のための読み取り/書き込み制御 + 属性サブスクリプション
+- **UPnP**: デバイスの検出と IGD ポート転送
+
+を参照[IOT_USECASE.md](../IOT_USECASE.md)
 
 ### 🎯 エージェントスキルマーケットプレイス
 

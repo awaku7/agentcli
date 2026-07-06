@@ -31,7 +31,6 @@
 - **חופש הספק**: OpenAI, Claude, Gemini, DeepSeek, Ollama, Azure, Bedrock, HuggingFace... 15+ ספקים, כולם נגישים מממשק אחד. החלף ביניהם על ידי הגדרה מחדש של משתני סביבה - ללא התקנה מחדש, ללא העברה.
 - **136 כלים**: קלט/פלט של קבצים, חיפוש באינטרנט, יצירת תמונות, Gmail, סריקת מכשירי BLE, שילוב שרת MCP - **78 בטוחים במקביל** (עד 8 מופעלים במקביל דרך מאגר שרשורים, ניתנים להגדרה באמצעות `UAGENT_PARALLEL_WORKERS`). כאשר ה-LLM יורה שיחות כלים מרובות בו-זמנית, uag מקביל אותן באופן אוטומטי.
 - **3 ממשקי משתמש + A2A**: CLI, GUI, אינטרנט ופרוטוקול סוכן לסוכן. אותו מנוע, כל ממשק.
-- **מוכן ל-IoT**: SwitchBot, ECHONET Lite, Matter, UPnP - שלטו במכשירים הביתיים שלכם באמצעות AI.
 - **מיומנויות סוכן**: התקן מיומנויות שנבנו בקהילה מהשוק. להאריך את uag בלי סוף.
 
 uag הוא **עוזר הבינה המלאכותית שלך בתנאים שלך**. לא קשור לספק, לא קשור לממשק, לא קשור לפלטפורמה.
@@ -78,7 +77,7 @@ OpenAI / Azure / Bedrock / OpenRouter / Ollama / Gemini / Vertex AI / Claude / G
 | **מדיה** | gener_image, analys_image, img2img, audio_speech, audio_transscribe |
 | **מסמכים** | חילוץ PDF/PPTX/DOCX/RTF/ODT, חילוץ מובנה של Excel |
 | **תקשורת** | gmail_send, gmail_read, bluesky, discord_channel, teams_webhook — ראה [COMMUNICATION.md](https://github.com/awaku7/agentcli/blob/main/docs/COMMUNICATION.md) |
-| **IoT** | SwitchBot (ענן + BLE), ECHONET Lite, Matter, UPnP |
+| **IoT** | BACnet、Modbus TCP、OPC UA、SwitchBot（Cloud + BLE）、ECHONET Lite、Matter、UPnP |
 | **כלי פיתוח** | git_ops, python_compile, lint_format, run_tests, db_query, **13 נווטי קוד מקור (משפחת idx)** |
 | **MCP** | התחבר לשרתי MCP חיצוניים, רשום כלים, בצע |
 | **A2A** | תקשורת סוכן לסוכן (עם מופעי uag אחרים או שרתים תואמי A2A) |
@@ -98,13 +97,20 @@ OpenAI / Azure / Bedrock / OpenRouter / Ollama / Gemini / Vertex AI / Claude / G
 ראה [VSCODE.md](https://github.com/awaku7/agentcli/blob/main/VSCODE.md) לפרטים על תוסף VS Code - התקנה, פקודות, חיבורי מקשים ותצורה.
 
 ### 🏠 בקרת מכשירי IoT
-
-- **SwitchBot**: בקרת אצווה בענן וסריקה/בקרה BLE
-- **ECHONET Lite**: גלה ושלוט במכשירי חשמל ביתיים (AC, אורות, מחממי מים וכו') ברשת המקומית
 - **עניין**: בדיקה לקריאה בלבד של טופולוגיה של בקר/גשר/התקן
-- **UPnP**: גילוי מכשירים והעברת יציאות IGD
 
 ראה [IOT_USECASE.md](https://github.com/awaku7/agentcli/blob/main/IOT_USECASE.md)
+
+
+### 🏠 בקרת מכשירי IoT
+
+- **BACnet**: קריאה/כתיבה של התקני BACnet/IP (HVAC, תאורה, מדי כוח). מנוי COV להודעות דחיפה
+- **Modbus TCP**: קריאה/כתיבה של אוגרי החזקה/קלט וסלילים. ניטור שינויים מבוסס סקרים
+- **OPC UA**: דפדוף במרחב כתובות, קריאה/כתיבה משתנים, הירשם לשינויי נתונים
+- **SwitchBot**: בקרת אצווה בענן וסריקה/בקרה BLE. מנוי מבוסס סקרים
+- **ECHONET Lite**: גלה, שלט והירשם להודעות INF ממכשירי חשמל ביתיים (AC, תאורה, מחממי מים וכו')
+- **עניין**: בקרת קריאה/כתיבה + מנוי לניטור שינוי מצב
+- **UPnP]- **UPnP**: [IOT_USECASE.md](../IOT_USECASE.md)
 
 ### 🎯 Agent Skills Marketplace
 

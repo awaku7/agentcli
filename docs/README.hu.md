@@ -31,7 +31,6 @@
 - **Szolgáltatói szabadság**: OpenAI, Claude, Gemini, DeepSeek, Ollama, Azure, Bedrock, HuggingFace... 15+ szolgáltató, mindegyik egyetlen felületről elérhető. Váltson közöttük a környezeti változók újrakonfigurálásával – nincs újratelepítés, nincs migráció.
 - **136 eszköz**: Fájl I/O, webes keresés, képgenerálás, Gmail, BLE-eszközök szkennelése, MCP-szerver integráció – **78 párhuzamosan biztonságos** (akár 8 végrehajtása párhuzamosan a szálkészleten keresztül, az `UAGENT_PARALLEL_WORKERS`-en keresztül konfigurálható). Amikor az LLM egyszerre több eszközhívást indít el, az uag automatikusan párhuzamosítja azokat.
 - **3 felhasználói felület + A2A**: CLI, GUI, web és Agent-to-Agent protokoll. Ugyanaz a motor, bármilyen interfész.
-- **IoT-kész**: SwitchBot, ECHONET Lite, Matter, UPnP – vezérelje otthoni eszközeit mesterséges intelligencia segítségével.
 - **Agent Skills**: Telepítse a közösség által épített készségeket a piactérről. Hosszabbítsa meg az uag-ot végtelenül.
 
 uag **az Ön AI-asszisztense az Ön feltételei szerint**. Nincs szolgáltatóhoz, nem interfészhez, nem platformhoz kötve.
@@ -78,7 +77,7 @@ A csak olvasható eszközök (fájlkeresés, hash számítás, könyvtárlista, 
 | **Média** | gener_image, analysis_image, img2img, audio_speech, audio_transcribe |
 | **Dokumentumok** | PDF/PPTX/DOCX/RTF/ODT kinyerés, Excel strukturált kivonat |
 | **Kommunikáció** | gmail_send, gmail_read, bluesky, discord_channel, teams_webhook – lásd: [COMMUNICATION.md](https://github.com/awaku7/agentcli/blob/main/docs/COMMUNICATION.md) |
-| **IoT** | SwitchBot (Cloud + BLE), ECHONET Lite, Matter, UPnP |
+| **IoT** | BACnet、Modbus TCP、OPC UA、SwitchBot（Cloud + BLE）、ECHONET Lite、Matter、UPnP |
 | **Fejlesztői eszközök** | git_ops, python_compile, lint_format, run_tests, db_query, **13 forráskód-navigátor (idx család)** |
 | **MCP** | Csatlakozás külső MCP-kiszolgálókhoz, eszközök listázása, |
 | **A2A** | Ügynök-ügynök kommunikáció (más uag-példányokkal vagy A2A-kompatibilis szerverekkel) |
@@ -98,13 +97,18 @@ A csak olvasható eszközök (fájlkeresés, hash számítás, könyvtárlista, 
 Tekintse meg a [VSCODE.md](https://github.com/awaku7/agentcli/blob/main/VSCODE.md) webhelyet a VS Code bővítmény részleteiért – telepítés, parancsok, billentyűkombinációk és konfiguráció.
 
 ### 🏠 IoT-eszközvezérlés
-
-- **SwitchBot**: Cloud kötegelt vezérlés és BLE szkennelés/vezérlés
-- **ECHONET Lite**: Fedezze fel és irányítsa a háztartási készülékeket (AC, lámpák, vízmelegítők stb.) a helyi hálózaton
-- **Matter**: A vezérlő/híd/eszköz topológia csak olvasható ellenőrzése
-- **UPnP**: Eszközfelderítés és IGD port továbbítás
-
 Lásd: [IOT_USECASE.md](https://github.com/awaku7/agentcli/blob/main/IOT_USECASE.md)
+
+
+### 🏠 IoT-eszközvezérlés
+
+- **BACnet**: BACnet/IP-eszközök olvasása/írása (HVAC, világítás, teljesítménymérők). COV-előfizetés a push értesítésekhez
+- **Modbus TCP**: tartási/bemeneti regiszterek és tekercsek olvasása/írása. Lekérdezésalapú változásfigyelés
+- **OPC UA**: Böngésszen a címtérben, olvasson/írjon változókat, iratkozzon fel az adatok változásaira
+- **SwitchBot**: Kötegelt felhővezérlés és BLE-vizsgálat/vezérlés. Lekérdezésalapú előfizetés
+- **ECHONET Lite**: Fedezze fel, vezérelje és iratkozzon fel a háztartási készülékek INF-értesítéseire (AC, lámpák, vízmelegítők stb.)
+- **Lényeg**: olvasási/írási vezérlés + attribútum-előfizetés az állapotváltozás figyeléséhez
+- **UPnP**: Eszközfelderítés és IGD-port továbbítása[=] [IOT_USECASE.md](../IOT_USECASE.md)
 
 ### 🎯 Agent Skills Marketplace
 

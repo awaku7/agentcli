@@ -31,7 +31,6 @@
 - **Leverandørfrihet**: OpenAI, Claude, Gemini, DeepSeek, Ollama, Azure, Bedrock, HuggingFace... 15+ leverandører, alle tilgjengelige fra ett enkelt grensesnitt. Bytt mellom dem ved å rekonfigurere miljøvariabler – ingen reinstallering, ingen migrering.
 - **136 verktøy**: Fil-I/O, nettsøk, bildegenerering, Gmail, BLE-enhetsskanning, MCP-serverintegrasjon — **78 er parallellsikre** (opptil 8 kjøres samtidig via trådpool, konfigurerbar via `UAGENT_PARALLEL_WORKERS`). Når LLM utløser flere verktøyanrop samtidig, parallelliserer uag dem automatisk.
 - **3 brukergrensesnitt + A2A**: CLI, GUI, Web og Agent-to-Agent-protokoll. Samme motor, hvilket som helst grensesnitt.
-- **IoT-klar**: SwitchBot, ECHONET Lite, Matter, UPnP — kontroller hjemmeenhetene dine gjennom AI.
 - **Agentferdigheter**: Installer fellesskapsbygde ferdigheter fra markedsplassen. Utvid uag uendelig.
 
 uag er **din AI-assistent på dine vilkår**. Ikke knyttet til en leverandør, ikke knyttet til et grensesnitt, ikke knyttet til en plattform.
@@ -78,7 +77,7 @@ Skrivebeskyttede verktøy (filsøk, hash-beregning, katalogoppføring, oversette
 | **Media** | generere_bilde, analyse_bilde, img2img, audio_tale, audio_transkribering |
 | **Dokumenter** | PDF/PPTX/DOCX/RTF/ODT-utvinning, Excel-strukturert utvinning |
 | **Kommunikasjon** | gmail_send, gmail_read, bluesky, discord_channel, teams_webhook — se [COMMUNICATION.md](https://github.com/awaku7/agentcli/blob/main/docs/COMMUNICATION.md) |
-| **IoT** | SwitchBot (Cloud + BLE), ECHONET Lite, Matter, UPnP |
+| **IoT** | BACnet、Modbus TCP、OPC UA、SwitchBot（Cloud + BLE）、ECHONET Lite、Matter、UPnP |
 | **Utviklerverktøy** | git_ops, python_compile, lint_format, run_tests, db_query, **13 kildekodenavigatorer (idx-familie)** |
 | **MCP** | Koble til eksterne MCP-servere, liste opp verktøy, kjør |
 | **A2A** | Agent-til-agent-kommunikasjon (med andre uag-instanser eller A2A-kompatible servere) |
@@ -98,13 +97,20 @@ Skrivebeskyttede verktøy (filsøk, hash-beregning, katalogoppføring, oversette
 Se [VSCODE.md](https://github.com/awaku7/agentcli/blob/main/VSCODE.md) for detaljer om VS Code-utvidelsen – installasjon, kommandoer, tastebindinger og konfigurasjon.
 
 ### 🏠 IoT-enhetskontroll
-
-- **SwitchBot**: Cloud batchkontroll og BLE-skanning/kontroll
-- **ECHONET Lite**: Oppdag og kontroller husholdningsapparater (AC, lys, varmtvannsberedere osv.) på lokalt nettverk
 - **Materie**: Skrivebeskyttet inspeksjon av kontroller/bro/enhetstopologi
-- **UPnP**: Enhetsoppdagelse og videresending av IGD-porter
 
 Se [IOT_USECASE.md](https://github.com/awaku7/agentcli/blob/main/IOT_USECASE.md)
+
+
+### 🏠 IoT-enhetskontroll
+
+- **BACnet**: Les/skriv BACnet/IP-enheter (HVAC, belysning, strømmålere). COV-abonnement for push-varsler
+- **Modbus TCP**: Les/skriv holde-/inndataregistre og spoler. Polling-basert endringsovervåking
+- **OPC UA**: Bla gjennom adresserom, les/skriv variabler, abonner på dataendringer
+- **SwitchBot**: Cloud batchkontroll og BLE-skanning/kontroll. Avstemningsbasert abonnement
+- **ECHONET Lite**: Oppdag, kontroller og abonner på INF-varslinger fra husholdningsapparater (AC, lys, varmtvannsberedere osv.)
+- **Saker**: Lese-/skrivekontroll + attributtabonnement for overvåking av tilstandsendringer
+- **UPnP[=Device forwarding**: [IOT_USECASE.md](../IOT_USECASE.md)
 
 ### 🎯 Agent Skills Marketplace
 
