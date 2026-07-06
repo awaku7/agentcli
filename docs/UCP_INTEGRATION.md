@@ -456,24 +456,29 @@ Business 側のレート制限（429 Too Many Requests）が発生した場合�
 
 ## 既知の問題点
 
-### 設計上の制約（要対応）
+### 解決済み
+
+| # | 問題 | 対応 | 状態 |
+|---|------|------|------|
+| 1 | **AP2マンデートストアがインメモリ**：ツールリロードや再起動で消失 | `~/.uag/ucp_mandates.json` にファイル永続化。アトミック書き込み対応 | ✅ 解決 |
+| 7 | **期限切れマンデートの自動削除なし** | 読み込み時に `_delete_expired_mandates()` で自動パージ | ✅ 解決 |
+| 8 | **モックサーバーのデッドコード** | 無害のため温存 | ✅ 確認済み |
+
+### 未解決（設計上の制約）
 
 | # | 問題 | 影響 | 優先度 | 対応案 |
 |---|------|------|--------|--------|
-| 1 | **AP2マンデートストアがインメモリ**：`ucp_ap2_tool.py` の `_mandates` はモジュール内蔵dict。ツールリロード（`system_reload`）やuag再起動で全マンデートが消失する。 | マンデート消失によりAP2決済フローが中断 | 高 | ファイル永続化（JSON）またはSchedulerStoreへの保存 |
-| 2 | **UCP Clientの認証情報が環境変数依存**：`UCP_DEFAULT_CLIENT_ID` / `UCP_DEFAULT_CLIENT_SECRET` は全ビジネスで共有。複数ビジネスを扱う場合に認証情報を切り替えられない。 | 単一会社向けには問題ないが、マルチテナント対応不可 | 中 | ツールパラメータで認証情報をオーバーライド可能にする |
-| 3 | **HTTP Message Signatures (RFC 9421) 未実装**：`ucp_shared.py` ではOAuth 2.0とAPI Keyのみ対応。UCP仕様で定義されるHTTP Message Signaturesは未実装。 | 一部のBusinessで認証エラーになる可能性 | 中 | `_request()` に署名生成ロジックを追加 |
-| 4 | **SD-JWT（Selective Disclosure JWT）未対応**：AP2仕様ではSD-JWTによる属性の選択的開示が定義されているが、現状は通常のJWTのみ。 | プライバシー保護機能が不足。ただしAP2 v0.2では任意実装 | 低 | `sd-jwt` ライブラリ導入 |
-| 5 | **A2A Transport未対応**：UCPはA2Aトランスポートを定義しているが、Phase 5未着手のため未実装。 | UCP over A2A のユースケース（他エージェント経由の購入）が不可 | 低 | Phase 5で対応予定 |
+| 2 | **UCP Clientの認証情報が環境変数依存**：`UCP_DEFAULT_CLIENT_ID` / `UCP_DEFAULT_CLIENT_SECRET` は全ビジネスで共有 | マルチテナント不可 | 中 | ツールパラメータで認証情報をオーバーライド可能にする |
+| 3 | **HTTP Message Signatures (RFC 9421) 未実装**：OAuth 2.0とAPI Keyのみ対応 | 一部Businessで認証エラー可能性 | 中 | `_request()` に署名生成ロジックを追加 |
+| 4 | **SD-JWT（Selective Disclosure JWT）未対応**：AP2仕様の属性選択的開示が未実装 | プライバシー保護機能不足（AP2 v0.2では任意実装） | 低 | `sd-jwt` ライブラリ導入 |
+| 5 | **A2A Transport未対応**：UCP over A2A（他エージェント経由購入）が不可 | ユースケース制限 | 低 | 今後の拡張候補 |
 
-### 実装上の軽微な問題
+### 軽微な未対応
 
-| # | 問題 | ステータス |
-|---|------|-----------|
-| 6 | `ucp_discover` の `capability.version` 取得で `capabilities[cap_name][0].get("version")` とハードコードしている。リスト構造が異なるBusinessがあるとエラー。 | 要修正（try/except追加） |
-| 7 | `ucp_ap2_tool.py` のマンデート有効期限チェックは `ap2_execute_token` 内で行っているが、期限切れマンデートの自動削除は未実装。 | 低優先度 |
-| 8 | モックサーバーの `complete_checkout` にデッドコード `_orders_seq_inner = __import__('uuid').uuid4()` が残っている。 | 無害、削除推奨 |
-| 9 | 全ツールの `fmt` パラメータ未対応：既存ツール（echonet_*）には `fmt=json|text` があるが、UCPツールはJSON固定。 | 低優先度（LLM用ならJSON固定で十分） |
+| # | 問題 | 備考 |
+|---|------|------|
+| 6 | **capability version パースがリスト構造依存**：`capabilities[cap_name][0].get("version")` がハードコード | BusinessのProfile構造次第でエラー。低優先度 |
+| 9 | **fmt パラメータ未対応**：既存ツール（echonet_*）には `fmt=json|text` があるがUCPツールはJSON固定 | LLM用ならJSON固定で十分 |
 
 ### 現時点での制約・リスク
 
@@ -524,19 +529,21 @@ Business 側のレート制限（429 Too Many Requests）が発生した場合�
 - [x] OAuth 2.0 Authorization Code flow（モック）
 - [ ] アクセストークン管理（リフレッシュ・失効）は未実装
 
-### Phase 5 - MCP Transport (v0.7.0)
+### Phase 5 - MCP Transport (v0.7.0) ✅ 完了
 
 目標: REST に加えて MCP トランスポート対応
 
-- [ ] MCP transport 対応（`ucp_shared.py` 拡張）
-- [ ] MCPツールとしてのUCPケイパビリティ公開
-- [ ] 複数トランスポートの自動選択（Business の Profile に従う）
+- [x] MCP transport 対応（`resolve_mcp_endpoint()` 追加）
+- [x] MCPサーバーツール（`ucp_mcp_server_tool.py`）：start/stop/status
+- [x] MCPサーバー本体（`ucp_mcp_server_main.py`）：UCP REST を MCP tools として公開
+- [x] `ucp_discover` が MCP エンドポイントを表示
+- [x] 複数トランスポートの自動選択（REST > MCP > A2A > Embedded）
 
-### Phase 6 - Extensions (v0.8.0)
+### Phase 6 - Extensions (v0.8.0) ✅ 完了
 
 目標: カスタムケイパビリティ・コミュニティ拡張
 
-- [ ] ベンダー独自 capability（`com.vendor.*`）のサポート
-- [ ] 拡張スキーマの動的解決
-- [ ] Fulfillment 拡張のサポート
-- [ ] サンプル実装（ダミー加盟店の完成度向上）
+- [x] ベンダー独自 capability（`com.vendor.*`）のサポート（extensions パラメータ）
+- [x] 拡張スキーマの動的解決（`resolve_schema()` 追加）
+- [x] Fulfillment 拡張のサポート（checkout 作成時の配送先・買い手情報）
+- [x] サンプル実装の完成度向上（モックサーバーの商品を15種類に拡充、カテゴリ分類）
