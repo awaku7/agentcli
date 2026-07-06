@@ -9,14 +9,334 @@
     "param.clear.description": "If true, clear all history.",
     "param.fmt.description": "Format: json or text."
   },
+  "ar": {
+    "tool.description": "الاستعلام عن تاريخ تغيير حالة الجهاز.",
+    "param.dev.description": "معرف الجهاز (اختياري، حذف للجميع).",
+    "param.attribute.description": "مرشح اسم السمة (اختياري).",
+    "param.since.description": "وقت البدء ISO8601 (اختياري).",
+    "param.until.description": "وقت الانتهاء ISO8601 (اختياري).",
+    "param.limit.description": "الحد الأقصى للإدخالات (الافتراضي 100، الحد الأقصى 10000).",
+    "param.clear.description": "إذا كان صحيحا، مسح كل التاريخ.",
+    "param.fmt.description": "التنسيق: json أو نص."
+  },
+  "bn": {
+    "tool.description": "ক্যোয়ারী ম্যাটার ডিভাইসের অবস্থা পরিবর্তনের ইতিহাস।",
+    "param.dev.description": "ডিভাইস আইডি (ঐচ্ছিক, সবার জন্য বাদ দিন)।",
+    "param.attribute.description": "অ্যাট্রিবিউট নামের ফিল্টার (ঐচ্ছিক)।",
+    "param.since.description": "শুরুর সময় ISO8601 (ঐচ্ছিক)।",
+    "param.until.description": "শেষ সময় ISO8601 (ঐচ্ছিক)।",
+    "param.limit.description": "সর্বোচ্চ এন্ট্রি (ডিফল্ট 100, সর্বোচ্চ 10000)।",
+    "param.clear.description": "সত্য হলে, সমস্ত ইতিহাস মুছে দিন।",
+    "param.fmt.description": "বিন্যাস: json বা পাঠ্য।"
+  },
+  "cs": {
+    "tool.description": "Historie změn stavu zařízení Query Matter.",
+    "param.dev.description": "ID zařízení (volitelné, vynechat pro všechny).",
+    "param.attribute.description": "Filtr názvu atributu (volitelné).",
+    "param.since.description": "Čas zahájení ISO8601 (volitelné).",
+    "param.until.description": "Čas ukončení ISO8601 (volitelné).",
+    "param.limit.description": "Maximální počet položek (výchozí 100, max. 10 000).",
+    "param.clear.description": "Pokud je to pravda, vymažte celou historii.",
+    "param.fmt.description": "Formát: json nebo text."
+  },
+  "de": {
+    "tool.description": "Query Matter-Gerätestatus-Änderungsverlauf.",
+    "param.dev.description": "Geräte-ID (optional, für alle weglassen).",
+    "param.attribute.description": "Attributnamenfilter (optional).",
+    "param.since.description": "Startzeit ISO8601 (optional).",
+    "param.until.description": "Endzeit ISO8601 (optional).",
+    "param.limit.description": "Maximale Einträge (Standard 100, max. 10.000).",
+    "param.clear.description": "Wenn dies zutrifft, löschen Sie den gesamten Verlauf.",
+    "param.fmt.description": "Format: JSON oder Text."
+  },
+  "el": {
+    "tool.description": "Ιστορικό αλλαγών κατάστασης συσκευής Query Matter.",
+    "param.dev.description": "Αναγνωριστικό συσκευής (προαιρετικό, παράλειψη για όλους).",
+    "param.attribute.description": "Φίλτρο ονόματος χαρακτηριστικού (προαιρετικό).",
+    "param.since.description": "Ώρα έναρξης ISO8601 (προαιρετικό).",
+    "param.until.description": "Ώρα λήξης ISO8601 (προαιρετικό).",
+    "param.limit.description": "Μέγιστες καταχωρίσεις (προεπιλογή 100, μέγιστο 10000).",
+    "param.clear.description": "Εάν ισχύει, διαγράψτε όλο το ιστορικό.",
+    "param.fmt.description": "Μορφή: json ή κείμενο."
+  },
+  "es": {
+    "tool.description": "Consulta el historial de cambios de estado del dispositivo.",
+    "param.dev.description": "ID del dispositivo (opcional, omitir para todos).",
+    "param.attribute.description": "Filtro de nombre de atributo (opcional).",
+    "param.since.description": "Hora de inicio ISO8601 (opcional).",
+    "param.until.description": "Hora de finalización ISO8601 (opcional).",
+    "param.limit.description": "Entradas máximas (predeterminado 100, máximo 10000).",
+    "param.clear.description": "Si es cierto, borre todo el historial.",
+    "param.fmt.description": "Formato: json o texto."
+  },
+  "fa": {
+    "tool.description": "سابقه تغییر وضعیت دستگاه Query Matter.",
+    "param.dev.description": "شناسه دستگاه (اختیاری، حذف برای همه).",
+    "param.attribute.description": "فیلتر نام ویژگی (اختیاری).",
+    "param.since.description": "زمان شروع ISO8601 (اختیاری).",
+    "param.until.description": "زمان پایان ISO8601 (اختیاری).",
+    "param.limit.description": "حداکثر ورودی (پیش‌فرض 100، حداکثر 10000).",
+    "param.clear.description": "اگر درست است، تمام تاریخچه را پاک کنید.",
+    "param.fmt.description": "فرمت: json یا متن."
+  },
+  "fi": {
+    "tool.description": "Query Matter -laitteen tilan muutoshistoria.",
+    "param.dev.description": "Laitetunnus (valinnainen, ohita kaikki).",
+    "param.attribute.description": "Attribuutin nimisuodatin (valinnainen).",
+    "param.since.description": "Aloitusaika ISO8601 (valinnainen).",
+    "param.until.description": "Päättymisaika ISO8601 (valinnainen).",
+    "param.limit.description": "Enimmäismäärä (oletus 100, enintään 10 000).",
+    "param.clear.description": "Jos totta, tyhjennä koko historia.",
+    "param.fmt.description": "Muoto: json tai teksti."
+  },
+  "fr": {
+    "tool.description": "Historique des changements d’état de l’appareil Query Matter.",
+    "param.dev.description": "ID de l'appareil (facultatif, omettre pour tous).",
+    "param.attribute.description": "Filtre de nom d'attribut (facultatif).",
+    "param.since.description": "Heure de début ISO8601 (en option).",
+    "param.until.description": "Heure de fin ISO8601 (facultatif).",
+    "param.limit.description": "Nombre maximum d'entrées (100 par défaut, 10 000 maximum).",
+    "param.clear.description": "Si c'est vrai, effacez tout l'historique.",
+    "param.fmt.description": "Format : json ou texte."
+  },
+  "he": {
+    "tool.description": "היסטוריית שינויים במצב מכשיר Query Matter.",
+    "param.dev.description": "מזהה מכשיר (אופציונלי, השמט עבור כולם).",
+    "param.attribute.description": "מסנן שמות מאפיינים (אופציונלי).",
+    "param.since.description": "זמן התחלה ISO8601 (אופציונלי).",
+    "param.until.description": "זמן סיום ISO8601 (אופציונלי).",
+    "param.limit.description": "מקסימום ערכים (ברירת מחדל 100, מקסימום 10000).",
+    "param.clear.description": "אם זה נכון, נקה את כל ההיסטוריה.",
+    "param.fmt.description": "פורמט: json או טקסט."
+  },
+  "hi": {
+    "tool.description": "क्वेरी मैटर डिवाइस स्थिति परिवर्तन इतिहास।",
+    "param.dev.description": "डिवाइस आईडी (वैकल्पिक, सभी के लिए छोड़ें)।",
+    "param.attribute.description": "विशेषता नाम फ़िल्टर (वैकल्पिक)।",
+    "param.since.description": "प्रारंभ समय ISO8601 (वैकल्पिक)।",
+    "param.until.description": "समाप्ति समय ISO8601 (वैकल्पिक)।",
+    "param.limit.description": "अधिकतम प्रविष्टियाँ (डिफ़ॉल्ट 100, अधिकतम 10000)।",
+    "param.clear.description": "यदि सत्य है, तो सारा इतिहास साफ़ करें।",
+    "param.fmt.description": "प्रारूप: json या text."
+  },
+  "hu": {
+    "tool.description": "A Query Matter eszközállapot-változási előzményei.",
+    "param.dev.description": "Eszközazonosító (opcionális, hagyja ki mindennél).",
+    "param.attribute.description": "Attribútumnév-szűrő (opcionális).",
+    "param.since.description": "Kezdési időpont ISO8601 (opcionális).",
+    "param.until.description": "Befejezési idő ISO8601 (opcionális).",
+    "param.limit.description": "Maximális bejegyzések (alapértelmezett 100, maximum 10000).",
+    "param.clear.description": "Ha igaz, törölje az összes előzményt.",
+    "param.fmt.description": "Formátum: json vagy szöveg."
+  },
+  "id": {
+    "tool.description": "Riwayat perubahan status perangkat Query Matter.",
+    "param.dev.description": "ID Perangkat (opsional, hilangkan untuk semua).",
+    "param.attribute.description": "Filter nama atribut (opsional).",
+    "param.since.description": "Waktu mulai ISO8601 (opsional).",
+    "param.until.description": "Waktu berakhir ISO8601 (opsional).",
+    "param.limit.description": "Entri maks (default 100, maks 10.000).",
+    "param.clear.description": "Jika benar, hapus semua riwayat.",
+    "param.fmt.description": "Format: json atau teks."
+  },
+  "it": {
+    "tool.description": "Interroga la cronologia delle modifiche allo stato del dispositivo.",
+    "param.dev.description": "ID dispositivo (facoltativo, omettere per tutti).",
+    "param.attribute.description": "Filtro nome attributo (facoltativo).",
+    "param.since.description": "Ora di inizio ISO8601 (opzionale).",
+    "param.until.description": "Ora di fine ISO8601 (opzionale).",
+    "param.limit.description": "Voci massime (predefinito 100, massimo 10000).",
+    "param.clear.description": "Se è vero, cancella tutta la cronologia.",
+    "param.fmt.description": "Formato: json o testo."
+  },
   "ja": {
-    "param.attribute.description": "属性名フィルター (オプション)。",
-    "param.clear.description": "true の場合、すべての履歴をクリアします。",
+    "tool.description": "デバイス状態の変更履歴を照会します。",
     "param.dev.description": "デバイス ID (オプション、すべて省略)。",
-    "param.fmt.description": "Format: json or text.",
-    "param.limit.description": "最大エントリ数 (デフォルトは 100、最大 10000)。",
-    "param.since.description": "Start time ISO8601 (optional).",
+    "param.attribute.description": "属性名フィルター (オプション)。",
+    "param.since.description": "開始時間 ISO8601 (オプション)。",
     "param.until.description": "終了時刻 ISO8601 (オプション)。",
-    "tool.description": "デバイス状態の変更履歴を照会します。"
+    "param.limit.description": "最大エントリ数 (デフォルトは 100、最大 10000)。",
+    "param.clear.description": "true の場合、すべての履歴をクリアします。",
+    "param.fmt.description": "形式: json またはテキスト。"
+  },
+  "ko": {
+    "tool.description": "Matter 장치 상태 변경 내역을 쿼리합니다.",
+    "param.dev.description": "장치 ID(선택 사항, 모두 생략).",
+    "param.attribute.description": "속성 이름 필터(선택 사항).",
+    "param.since.description": "시작 시간 ISO8601(선택 사항).",
+    "param.until.description": "종료 시간 ISO8601(선택 사항).",
+    "param.limit.description": "최대 항목(기본값 100, 최대 10000).",
+    "param.clear.description": "사실이라면 모든 기록을 지웁니다.",
+    "param.fmt.description": "형식: json 또는 텍스트."
+  },
+  "mn": {
+    "tool.description": "Асуулт төхөөрөмжийн төлөвийн өөрчлөлтийн түүх.",
+    "param.dev.description": "Төхөөрөмжийн ID (заавал биш, бүгдийг нь орхих).",
+    "param.attribute.description": "Атрибут нэрийн шүүлтүүр (заавал биш).",
+    "param.since.description": "Эхлэх цаг ISO8601 (заавал биш).",
+    "param.until.description": "Дуусах хугацаа ISO8601 (заавал биш).",
+    "param.limit.description": "Хамгийн их оруулга (өгөгдмөл 100, хамгийн ихдээ 10000).",
+    "param.clear.description": "Хэрэв үнэн бол бүх түүхийг арилга.",
+    "param.fmt.description": "Формат: json эсвэл текст."
+  },
+  "mr": {
+    "tool.description": "क्वेरी मॅटर डिव्हाइस स्थिती बदल इतिहास.",
+    "param.dev.description": "डिव्हाइस आयडी (पर्यायी, सर्वांसाठी वगळा).",
+    "param.attribute.description": "विशेषता नाव फिल्टर (पर्यायी).",
+    "param.since.description": "प्रारंभ वेळ ISO8601 (पर्यायी).",
+    "param.until.description": "समाप्ती वेळ ISO8601 (पर्यायी).",
+    "param.limit.description": "कमाल नोंदी (डिफॉल्ट 100, कमाल 10000).",
+    "param.clear.description": "खरे असल्यास, सर्व इतिहास साफ करा.",
+    "param.fmt.description": "स्वरूप: json किंवा मजकूर."
+  },
+  "nb": {
+    "tool.description": "Query Matter endringslogg for enhetstilstand.",
+    "param.dev.description": "Enhets-ID (valgfritt, utelat for alle).",
+    "param.attribute.description": "Attributtnavnfilter (valgfritt).",
+    "param.since.description": "Starttid ISO8601 (valgfritt).",
+    "param.until.description": "Sluttid ISO8601 (valgfritt).",
+    "param.limit.description": "Maks. oppføringer (standard 100, maks 10000).",
+    "param.clear.description": "Hvis det er sant, fjern all historikk.",
+    "param.fmt.description": "Format: json eller tekst."
+  },
+  "nl": {
+    "tool.description": "Query Matter-geschiedenis van apparaatstatuswijzigingen.",
+    "param.dev.description": "Apparaat-ID (optioneel, weglaten voor iedereen).",
+    "param.attribute.description": "Kenmerknaamfilter (optioneel).",
+    "param.since.description": "Starttijd ISO8601 (optioneel).",
+    "param.until.description": "Eindtijd ISO8601 (optioneel).",
+    "param.limit.description": "Max. invoer (standaard 100, max. 10.000).",
+    "param.clear.description": "Indien waar, wis dan de hele geschiedenis.",
+    "param.fmt.description": "Formaat: json of tekst."
+  },
+  "pl": {
+    "tool.description": "Historia zmian stanu urządzenia Query Matter.",
+    "param.dev.description": "Identyfikator urządzenia (opcjonalnie, pomiń dla wszystkich).",
+    "param.attribute.description": "Filtr nazw atrybutów (opcjonalnie).",
+    "param.since.description": "Czas rozpoczęcia ISO8601 (opcjonalnie).",
+    "param.until.description": "Czas zakończenia ISO8601 (opcjonalnie).",
+    "param.limit.description": "Maksymalna liczba wpisów (domyślnie 100, maks. 10000).",
+    "param.clear.description": "Jeśli to prawda, wyczyść całą historię.",
+    "param.fmt.description": "Format: json lub tekst."
+  },
+  "pt": {
+    "tool.description": "Histórico de alterações de estado do dispositivo Query Matter.",
+    "param.dev.description": "ID do dispositivo (opcional, omitir para todos).",
+    "param.attribute.description": "Filtro de nome de atributo (opcional).",
+    "param.since.description": "Hora de início ISO8601 (opcional).",
+    "param.until.description": "Hora de término ISO8601 (opcional).",
+    "param.limit.description": "Máximo de entradas (padrão 100, máximo 10.000).",
+    "param.clear.description": "Se for verdade, limpe todo o histórico.",
+    "param.fmt.description": "Formato: json ou texto."
+  },
+  "pt_BR": {
+    "tool.description": "Histórico de alterações de estado do dispositivo Query Matter.",
+    "param.dev.description": "ID do dispositivo (opcional, omitir para todos).",
+    "param.attribute.description": "Filtro de nome de atributo (opcional).",
+    "param.since.description": "Hora de início ISO8601 (opcional).",
+    "param.until.description": "Hora de término ISO8601 (opcional).",
+    "param.limit.description": "Máximo de entradas (padrão 100, máximo 10.000).",
+    "param.clear.description": "Se for verdade, limpe todo o histórico.",
+    "param.fmt.description": "Formato: json ou texto."
+  },
+  "ro": {
+    "tool.description": "Istoricul modificărilor stării dispozitivului Query Matter.",
+    "param.dev.description": "ID dispozitiv (opțional, omiteți pentru toate).",
+    "param.attribute.description": "Filtru de nume de atribut (opțional).",
+    "param.since.description": "Ora de începere ISO8601 (opțional).",
+    "param.until.description": "Ora de încheiere ISO8601 (opțional).",
+    "param.limit.description": "Înregistrări maxime (implicit 100, max 10000).",
+    "param.clear.description": "Dacă este adevărat, ștergeți toată istoria.",
+    "param.fmt.description": "Format: json sau text."
+  },
+  "ru": {
+    "tool.description": "История изменения состояния устройства Query Matter.",
+    "param.dev.description": "Идентификатор устройства (необязательно, пропустить во всех случаях).",
+    "param.attribute.description": "Фильтр имени атрибута (необязательно).",
+    "param.since.description": "Время начала ISO8601 (необязательно).",
+    "param.until.description": "Время окончания ISO8601 (необязательно).",
+    "param.limit.description": "Максимальное количество записей (по умолчанию 100, максимум 10 000).",
+    "param.clear.description": "Если это правда, очистите всю историю.",
+    "param.fmt.description": "Формат: json или текст."
+  },
+  "sv": {
+    "tool.description": "Query Matter ändringshistorik för enhetstillstånd.",
+    "param.dev.description": "Enhets-ID (valfritt, utelämna för alla).",
+    "param.attribute.description": "Attributnamnfilter (valfritt).",
+    "param.since.description": "Starttid ISO8601 (valfritt).",
+    "param.until.description": "Sluttid ISO8601 (valfritt).",
+    "param.limit.description": "Max poster (standard 100, max 10 000).",
+    "param.clear.description": "Om det är sant, rensa all historik.",
+    "param.fmt.description": "Format: json eller text."
+  },
+  "sw": {
+    "tool.description": "Historia ya mabadiliko ya hali ya kifaa cha Query Matter.",
+    "param.dev.description": "Kitambulisho cha Kifaa (hiari, acha kwa wote).",
+    "param.attribute.description": "Kichujio cha jina la sifa (si lazima).",
+    "param.since.description": "Wakati wa kuanza ISO8601 (si lazima).",
+    "param.until.description": "Muda wa mwisho ISO8601 (si lazima).",
+    "param.limit.description": "Maingizo ya juu zaidi (chaguo-msingi 100, max 10000).",
+    "param.clear.description": "Ikiwa ni kweli, futa historia yote.",
+    "param.fmt.description": "Umbizo: json au maandishi."
+  },
+  "th": {
+    "tool.description": "ประวัติการเปลี่ยนแปลงสถานะอุปกรณ์ของ Query Matter",
+    "param.dev.description": "รหัสอุปกรณ์ (ไม่บังคับ ไม่ต้องใส่ทั้งหมด)",
+    "param.attribute.description": "ตัวกรองชื่อแอตทริบิวต์ (ไม่บังคับ)",
+    "param.since.description": "เวลาเริ่มต้น ISO8601 (ไม่บังคับ)",
+    "param.until.description": "เวลาสิ้นสุด ISO8601 (ไม่บังคับ)",
+    "param.limit.description": "รายการสูงสุด (ค่าเริ่มต้น 100, สูงสุด 10,000)",
+    "param.clear.description": "หากเป็นจริงให้ล้างประวัติทั้งหมด",
+    "param.fmt.description": "รูปแบบ: json หรือข้อความ"
+  },
+  "tr": {
+    "tool.description": "Matter cihaz durumu değişiklik geçmişini sorgulayın.",
+    "param.dev.description": "Cihaz Kimliği (isteğe bağlı, tümü için atlayın).",
+    "param.attribute.description": "Özellik adı filtresi (isteğe bağlı).",
+    "param.since.description": "Başlangıç ​​zamanı ISO8601 (isteğe bağlı).",
+    "param.until.description": "Bitiş zamanı ISO8601 (isteğe bağlı).",
+    "param.limit.description": "Maksimum giriş (varsayılan 100, maksimum 10000).",
+    "param.clear.description": "Doğruysa tüm geçmişi temizleyin.",
+    "param.fmt.description": "Biçim: json veya metin."
+  },
+  "uk": {
+    "tool.description": "Історія змін стану пристрою Query Matter.",
+    "param.dev.description": "Ідентифікатор пристрою (необов’язково, пропустити для всіх).",
+    "param.attribute.description": "Фільтр імені атрибута (необов’язково).",
+    "param.since.description": "Час початку ISO8601 (необов’язково).",
+    "param.until.description": "Час закінчення ISO8601 (необов’язково).",
+    "param.limit.description": "Максимальна кількість записів (за замовчуванням 100, максимум 10000).",
+    "param.clear.description": "Якщо правда, очистити всю історію.",
+    "param.fmt.description": "Формат: json або текстовий."
+  },
+  "vi": {
+    "tool.description": "Lịch sử thay đổi trạng thái thiết bị của Query Matter.",
+    "param.dev.description": "ID thiết bị (tùy chọn, bỏ qua tất cả).",
+    "param.attribute.description": "Bộ lọc tên thuộc tính (tùy chọn).",
+    "param.since.description": "Thời gian bắt đầu ISO8601 (tùy chọn).",
+    "param.until.description": "Thời gian kết thúc ISO8601 (tùy chọn).",
+    "param.limit.description": "Mục nhập tối đa (mặc định 100, tối đa 10000).",
+    "param.clear.description": "Nếu đúng, hãy xóa tất cả lịch sử.",
+    "param.fmt.description": "Định dạng: json hoặc văn bản."
+  },
+  "zh_CN": {
+    "tool.description": "查询Material设备状态变化历史记录。",
+    "param.dev.description": "设备 ID（可选，全部省略）。",
+    "param.attribute.description": "属性名称过滤器（可选）。",
+    "param.since.description": "开始时间 ISO8601（可选）。",
+    "param.until.description": "结束时间 ISO8601（可选）。",
+    "param.limit.description": "最大条目数（默认 100，最大 10000）。",
+    "param.clear.description": "如果属实，则清除所有历史记录。",
+    "param.fmt.description": "格式：json 或文本。"
+  },
+  "zh_TW": {
+    "tool.description": "查詢Material設備狀態變更歷史記錄。",
+    "param.dev.description": "設備 ID（可選，全部省略）。",
+    "param.attribute.description": "屬性名稱過濾器（可選）。",
+    "param.since.description": "開始時間 ISO8601（可選）。",
+    "param.until.description": "結束時間 ISO8601（可選）。",
+    "param.limit.description": "最大條目數（預設 100，最大 10000）。",
+    "param.clear.description": "如果屬實，則清除所有歷史記錄。",
+    "param.fmt.description": "格式：json 或文字。"
   }
 }

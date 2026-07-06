@@ -9,14 +9,334 @@
     "param.duration.description": "Subscription duration in seconds (default 3600).",
     "param.fmt.description": "Format: json or text."
   },
+  "ar": {
+    "tool.description": "اشترك في تغييرات حالة جهاز Matter.",
+    "err.device_id_required": "معرف الجهاز مطلوب.",
+    "param.dev.description": "معرف الجهاز (مطلوب).",
+    "param.endpoint.description": "مرشح نقطة النهاية (اختياري).",
+    "param.cluster.description": "مرشح الكتلة (اختياري).",
+    "param.attribute.description": "مرشح السمات (اختياري).",
+    "param.duration.description": "مدة الاشتراك بالثواني (الافتراضي 3600).",
+    "param.fmt.description": "التنسيق: json أو نص."
+  },
+  "bn": {
+    "tool.description": "একটি ম্যাটার ডিভাইসের অবস্থা পরিবর্তন সাবস্ক্রাইব করুন.",
+    "err.device_id_required": "ডিভাইস আইডি প্রয়োজন.",
+    "param.dev.description": "ডিভাইস আইডি (প্রয়োজনীয়)।",
+    "param.endpoint.description": "এন্ডপয়েন্ট ফিল্টার (ঐচ্ছিক)।",
+    "param.cluster.description": "ক্লাস্টার ফিল্টার (ঐচ্ছিক)।",
+    "param.attribute.description": "অ্যাট্রিবিউট ফিল্টার (ঐচ্ছিক)।",
+    "param.duration.description": "সাবস্ক্রিপশনের সময়কাল সেকেন্ডে (ডিফল্ট 3600)।",
+    "param.fmt.description": "বিন্যাস: json বা পাঠ্য।"
+  },
+  "cs": {
+    "tool.description": "Přihlaste se k odběru změn stavu zařízení Matter.",
+    "err.device_id_required": "ID zařízení je povinné.",
+    "param.dev.description": "ID zařízení (povinné).",
+    "param.endpoint.description": "Filtr koncových bodů (volitelné).",
+    "param.cluster.description": "Clusterový filtr (volitelné).",
+    "param.attribute.description": "Filtr atributů (volitelné).",
+    "param.duration.description": "Trvání předplatného v sekundách (výchozí 3600).",
+    "param.fmt.description": "Formát: json nebo text."
+  },
+  "de": {
+    "tool.description": "Abonnieren Sie Statusänderungen eines Matter-Geräts.",
+    "err.device_id_required": "Geräte-ID ist erforderlich.",
+    "param.dev.description": "Geräte-ID (erforderlich).",
+    "param.endpoint.description": "Endpunktfilter (optional).",
+    "param.cluster.description": "Clusterfilter (optional).",
+    "param.attribute.description": "Attributfilter (optional).",
+    "param.duration.description": "Abonnementdauer in Sekunden (Standard 3600).",
+    "param.fmt.description": "Format: JSON oder Text."
+  },
+  "el": {
+    "tool.description": "Εγγραφείτε στις αλλαγές κατάστασης μιας συσκευής Matter.",
+    "err.device_id_required": "Απαιτείται αναγνωριστικό συσκευής.",
+    "param.dev.description": "Αναγνωριστικό συσκευής (απαιτείται).",
+    "param.endpoint.description": "Φίλτρο τελικού σημείου (προαιρετικό).",
+    "param.cluster.description": "Φίλτρο συμπλέγματος (προαιρετικό).",
+    "param.attribute.description": "Φίλτρο χαρακτηριστικών (προαιρετικό).",
+    "param.duration.description": "Διάρκεια συνδρομής σε δευτερόλεπτα (προεπιλογή 3600).",
+    "param.fmt.description": "Μορφή: json ή κείμενο."
+  },
+  "es": {
+    "tool.description": "Suscríbete a los cambios de estado de un dispositivo Matter.",
+    "err.device_id_required": "Se requiere identificación del dispositivo.",
+    "param.dev.description": "ID del dispositivo (obligatorio).",
+    "param.endpoint.description": "Filtro de punto final (opcional).",
+    "param.cluster.description": "Filtro de clúster (opcional).",
+    "param.attribute.description": "Filtro de atributos (opcional).",
+    "param.duration.description": "Duración de la suscripción en segundos (predeterminado 3600).",
+    "param.fmt.description": "Formato: json o texto."
+  },
+  "fa": {
+    "tool.description": "برای تغییرات وضعیت یک دستگاه Matter مشترک شوید.",
+    "err.device_id_required": "شناسه دستگاه مورد نیاز است.",
+    "param.dev.description": "شناسه دستگاه (الزامی).",
+    "param.endpoint.description": "فیلتر نقطه پایانی (اختیاری).",
+    "param.cluster.description": "فیلتر خوشه ای (اختیاری).",
+    "param.attribute.description": "فیلتر ویژگی (اختیاری).",
+    "param.duration.description": "مدت زمان اشتراک بر حسب ثانیه (پیش‌فرض 3600).",
+    "param.fmt.description": "فرمت: json یا متن."
+  },
+  "fi": {
+    "tool.description": "Tilaa Matter-laitteen tilan muutokset.",
+    "err.device_id_required": "Laitteen tunnus vaaditaan.",
+    "param.dev.description": "Laitetunnus (pakollinen).",
+    "param.endpoint.description": "Päätepistesuodatin (valinnainen).",
+    "param.cluster.description": "Klusterisuodatin (valinnainen).",
+    "param.attribute.description": "Attribuuttisuodatin (valinnainen).",
+    "param.duration.description": "Tilauksen kesto sekunneissa (oletus 3600).",
+    "param.fmt.description": "Muoto: json tai teksti."
+  },
+  "fr": {
+    "tool.description": "Abonnez-vous aux changements d'état d'un appareil Matter.",
+    "err.device_id_required": "L’ID de l’appareil est requis.",
+    "param.dev.description": "ID de l'appareil (obligatoire).",
+    "param.endpoint.description": "Filtre de point de terminaison (facultatif).",
+    "param.cluster.description": "Filtre de cluster (facultatif).",
+    "param.attribute.description": "Filtre d'attribut (facultatif).",
+    "param.duration.description": "Durée de l'abonnement en secondes (3 600 par défaut).",
+    "param.fmt.description": "Format : json ou texte."
+  },
+  "he": {
+    "tool.description": "הירשם לשינויי מצב של מכשיר Matter.",
+    "err.device_id_required": "נדרש מזהה מכשיר.",
+    "param.dev.description": "מזהה מכשיר (חובה).",
+    "param.endpoint.description": "מסנן נקודת קצה (אופציונלי).",
+    "param.cluster.description": "מסנן אשכול (אופציונלי).",
+    "param.attribute.description": "מסנן תכונות (אופציונלי).",
+    "param.duration.description": "משך המנוי בשניות (ברירת מחדל 3600).",
+    "param.fmt.description": "פורמט: json או טקסט."
+  },
+  "hi": {
+    "tool.description": "किसी मैटर डिवाइस के राज्य परिवर्तनों की सदस्यता लें।",
+    "err.device_id_required": "डिवाइस आईडी आवश्यक है.",
+    "param.dev.description": "डिवाइस आईडी (आवश्यक)।",
+    "param.endpoint.description": "समापन बिंदु फ़िल्टर (वैकल्पिक)।",
+    "param.cluster.description": "क्लस्टर फ़िल्टर (वैकल्पिक)।",
+    "param.attribute.description": "विशेषता फ़िल्टर (वैकल्पिक).",
+    "param.duration.description": "सदस्यता अवधि सेकंड में (डिफ़ॉल्ट 3600)।",
+    "param.fmt.description": "प्रारूप: json या text."
+  },
+  "hu": {
+    "tool.description": "Iratkozzon fel egy Matter eszköz állapotváltozásaira.",
+    "err.device_id_required": "Eszközazonosító szükséges.",
+    "param.dev.description": "Eszközazonosító (kötelező).",
+    "param.endpoint.description": "Végpontszűrő (opcionális).",
+    "param.cluster.description": "Fürtszűrő (opcionális).",
+    "param.attribute.description": "Attribútumszűrő (opcionális).",
+    "param.duration.description": "Az előfizetés időtartama másodpercben (alapértelmezett 3600).",
+    "param.fmt.description": "Formátum: json vagy szöveg."
+  },
+  "id": {
+    "tool.description": "Berlangganan perubahan status perangkat Matter.",
+    "err.device_id_required": "ID perangkat diperlukan.",
+    "param.dev.description": "ID Perangkat (wajib).",
+    "param.endpoint.description": "Filter titik akhir (opsional).",
+    "param.cluster.description": "Filter cluster (opsional).",
+    "param.attribute.description": "Filter atribut (opsional).",
+    "param.duration.description": "Durasi berlangganan dalam hitungan detik (default 3600).",
+    "param.fmt.description": "Format: json atau teks."
+  },
+  "it": {
+    "tool.description": "Iscriviti ai cambiamenti di stato di un dispositivo Matter.",
+    "err.device_id_required": "L'ID del dispositivo è obbligatorio.",
+    "param.dev.description": "ID dispositivo (obbligatorio).",
+    "param.endpoint.description": "Filtro endpoint (facoltativo).",
+    "param.cluster.description": "Filtro cluster (opzionale).",
+    "param.attribute.description": "Filtro attributo (facoltativo).",
+    "param.duration.description": "Durata dell'abbonamento in secondi (predefinito 3600).",
+    "param.fmt.description": "Formato: json o testo."
+  },
   "ja": {
+    "tool.description": "Matter デバイスの状態変化をサブスクライブします。",
     "err.device_id_required": "デバイスIDは必須です。",
-    "param.attribute.description": "属性フィルター (オプション)。",
-    "param.cluster.description": "クラスターフィルター (オプション)。",
-    "param.dev.description": "Device ID (required).",
-    "param.duration.description": "Subscription duration in seconds (default 3600).",
+    "param.dev.description": "デバイス ID (必須)。",
     "param.endpoint.description": "エンドポイントフィルター (オプション)。",
-    "param.fmt.description": "Format: json or text.",
-    "tool.description": "Matter デバイスの状態変化をサブスクライブします。"
+    "param.cluster.description": "クラスターフィルター (オプション)。",
+    "param.attribute.description": "属性フィルター (オプション)。",
+    "param.duration.description": "サブスクリプション期間 (秒単位) (デフォルトは 3600)。",
+    "param.fmt.description": "形式: json またはテキスト。"
+  },
+  "ko": {
+    "tool.description": "Matter 장치의 상태 변경을 구독합니다.",
+    "err.device_id_required": "장치 ID가 필요합니다.",
+    "param.dev.description": "장치 ID(필수).",
+    "param.endpoint.description": "엔드포인트 필터(선택 사항).",
+    "param.cluster.description": "클러스터 필터(선택 사항).",
+    "param.attribute.description": "속성 필터(선택 사항).",
+    "param.duration.description": "구독 기간(초)(기본값 3600)",
+    "param.fmt.description": "형식: json 또는 텍스트."
+  },
+  "mn": {
+    "tool.description": "Асуудлын төхөөрөмжийн төлөвийн өөрчлөлтийг захиалах.",
+    "err.device_id_required": "Төхөөрөмжийн ID шаардлагатай.",
+    "param.dev.description": "Төхөөрөмжийн ID (шаардлагатай).",
+    "param.endpoint.description": "Төгсгөлийн шүүлтүүр (заавал биш).",
+    "param.cluster.description": "Кластер шүүлтүүр (заавал биш).",
+    "param.attribute.description": "Аттрибут шүүлтүүр (заавал биш).",
+    "param.duration.description": "Захиалгын үргэлжлэх хугацаа секундээр (өгөгдмөл 3600).",
+    "param.fmt.description": "Формат: json эсвэл текст."
+  },
+  "mr": {
+    "tool.description": "मॅटर डिव्हाइसच्या स्थितीतील बदलांची सदस्यता घ्या.",
+    "err.device_id_required": "डिव्हाइस आयडी आवश्यक आहे.",
+    "param.dev.description": "डिव्हाइस आयडी (आवश्यक).",
+    "param.endpoint.description": "एंडपॉइंट फिल्टर (पर्यायी).",
+    "param.cluster.description": "क्लस्टर फिल्टर (पर्यायी).",
+    "param.attribute.description": "विशेषता फिल्टर (पर्यायी).",
+    "param.duration.description": "सदस्यता कालावधी सेकंदांमध्ये (डिफॉल्ट 3600).",
+    "param.fmt.description": "स्वरूप: json किंवा मजकूर."
+  },
+  "nb": {
+    "tool.description": "Abonner på tilstandsendringer for en Matter-enhet.",
+    "err.device_id_required": "Enhets-ID kreves.",
+    "param.dev.description": "Enhets-ID (påkrevd).",
+    "param.endpoint.description": "Endepunktfilter (valgfritt).",
+    "param.cluster.description": "Klyngefilter (valgfritt).",
+    "param.attribute.description": "Attributtfilter (valgfritt).",
+    "param.duration.description": "Abonnementsvarighet i sekunder (standard 3600).",
+    "param.fmt.description": "Format: json eller tekst."
+  },
+  "nl": {
+    "tool.description": "Abonneer u op statuswijzigingen van een Matter-apparaat.",
+    "err.device_id_required": "Apparaat-ID is vereist.",
+    "param.dev.description": "Apparaat-ID (vereist).",
+    "param.endpoint.description": "Eindpuntfilter (optioneel).",
+    "param.cluster.description": "Clusterfilter (optioneel).",
+    "param.attribute.description": "Kenmerkfilter (optioneel).",
+    "param.duration.description": "Abonnementsduur in seconden (standaard 3600).",
+    "param.fmt.description": "Formaat: json of tekst."
+  },
+  "pl": {
+    "tool.description": "Subskrybuj zmiany stanu urządzenia Matter.",
+    "err.device_id_required": "Wymagany jest identyfikator urządzenia.",
+    "param.dev.description": "Identyfikator urządzenia (wymagany).",
+    "param.endpoint.description": "Filtr punktu końcowego (opcjonalnie).",
+    "param.cluster.description": "Filtr klastrów (opcjonalnie).",
+    "param.attribute.description": "Filtr atrybutów (opcjonalnie).",
+    "param.duration.description": "Czas trwania subskrypcji w sekundach (domyślnie 3600).",
+    "param.fmt.description": "Format: json lub tekst."
+  },
+  "pt": {
+    "tool.description": "Assine as mudanças de estado de um dispositivo Matter.",
+    "err.device_id_required": "O ID do dispositivo é obrigatório.",
+    "param.dev.description": "ID do dispositivo (obrigatório).",
+    "param.endpoint.description": "Filtro de endpoint (opcional).",
+    "param.cluster.description": "Filtro de cluster (opcional).",
+    "param.attribute.description": "Filtro de atributos (opcional).",
+    "param.duration.description": "Duração da assinatura em segundos (padrão 3600).",
+    "param.fmt.description": "Formato: json ou texto."
+  },
+  "pt_BR": {
+    "tool.description": "Assine as mudanças de estado de um dispositivo Matter.",
+    "err.device_id_required": "O ID do dispositivo é obrigatório.",
+    "param.dev.description": "ID do dispositivo (obrigatório).",
+    "param.endpoint.description": "Filtro de endpoint (opcional).",
+    "param.cluster.description": "Filtro de cluster (opcional).",
+    "param.attribute.description": "Filtro de atributos (opcional).",
+    "param.duration.description": "Duração da assinatura em segundos (padrão 3600).",
+    "param.fmt.description": "Formato: json ou texto."
+  },
+  "ro": {
+    "tool.description": "Abonați-vă la modificările de stare ale unui dispozitiv Matter.",
+    "err.device_id_required": "ID-ul dispozitivului este necesar.",
+    "param.dev.description": "ID dispozitiv (obligatoriu).",
+    "param.endpoint.description": "Filtru de punct final (opțional).",
+    "param.cluster.description": "Filtru cluster (opțional).",
+    "param.attribute.description": "Filtru de atribute (opțional).",
+    "param.duration.description": "Durata abonamentului în secunde (implicit 3600).",
+    "param.fmt.description": "Format: json sau text."
+  },
+  "ru": {
+    "tool.description": "Подпишитесь на изменения состояния устройства Материи.",
+    "err.device_id_required": "Требуется идентификатор устройства.",
+    "param.dev.description": "Идентификатор устройства (обязательно).",
+    "param.endpoint.description": "Фильтр конечных точек (необязательно).",
+    "param.cluster.description": "Кластерный фильтр (опционально).",
+    "param.attribute.description": "Фильтр атрибутов (необязательно).",
+    "param.duration.description": "Продолжительность подписки в секундах (по умолчанию 3600).",
+    "param.fmt.description": "Формат: json или текст."
+  },
+  "sv": {
+    "tool.description": "Prenumerera på tillståndsändringar för en Matter-enhet.",
+    "err.device_id_required": "Enhets-ID krävs.",
+    "param.dev.description": "Enhets-ID (krävs).",
+    "param.endpoint.description": "Slutpunktsfilter (tillval).",
+    "param.cluster.description": "Klusterfilter (tillval).",
+    "param.attribute.description": "Attributfilter (valfritt).",
+    "param.duration.description": "Abonnemangets varaktighet i sekunder (standard 3600).",
+    "param.fmt.description": "Format: json eller text."
+  },
+  "sw": {
+    "tool.description": "Jisajili ili kubadilisha hali ya kifaa cha Matter.",
+    "err.device_id_required": "Kitambulisho cha Kifaa kinahitajika.",
+    "param.dev.description": "Kitambulisho cha Kifaa (kinahitajika).",
+    "param.endpoint.description": "Kichujio cha mwisho (si lazima).",
+    "param.cluster.description": "Kichujio cha nguzo (hiari).",
+    "param.attribute.description": "Kichujio cha sifa (si lazima).",
+    "param.duration.description": "Muda wa usajili kwa sekunde (chaguo-msingi 3600).",
+    "param.fmt.description": "Umbizo: json au maandishi."
+  },
+  "th": {
+    "tool.description": "สมัครรับการเปลี่ยนแปลงสถานะของอุปกรณ์ Matter",
+    "err.device_id_required": "ต้องระบุรหัสอุปกรณ์",
+    "param.dev.description": "รหัสอุปกรณ์ (จำเป็น)",
+    "param.endpoint.description": "ตัวกรองปลายทาง (ไม่จำเป็น)",
+    "param.cluster.description": "ตัวกรองคลัสเตอร์ (ไม่จำเป็น)",
+    "param.attribute.description": "ตัวกรองแอตทริบิวต์ (ไม่บังคับ)",
+    "param.duration.description": "ระยะเวลาการสมัครสมาชิกเป็นวินาที (ค่าเริ่มต้น 3600)",
+    "param.fmt.description": "รูปแบบ: json หรือข้อความ"
+  },
+  "tr": {
+    "tool.description": "Bir Matter cihazının durum değişikliklerine abone olun.",
+    "err.device_id_required": "Cihaz kimliği gerekli.",
+    "param.dev.description": "Cihaz Kimliği (gerekli).",
+    "param.endpoint.description": "Uç nokta filtresi (isteğe bağlı).",
+    "param.cluster.description": "Küme filtresi (isteğe bağlı).",
+    "param.attribute.description": "Özellik filtresi (isteğe bağlı).",
+    "param.duration.description": "Saniye cinsinden abonelik süresi (varsayılan 3600).",
+    "param.fmt.description": "Biçim: json veya metin."
+  },
+  "uk": {
+    "tool.description": "Підпишіться на зміни стану пристрою Matter.",
+    "err.device_id_required": "Потрібен ідентифікатор пристрою.",
+    "param.dev.description": "ID пристрою (обов’язково).",
+    "param.endpoint.description": "Фільтр кінцевої точки (необов’язково).",
+    "param.cluster.description": "Кластерний фільтр (опціонально).",
+    "param.attribute.description": "Фільтр атрибутів (необов'язково).",
+    "param.duration.description": "Тривалість підписки в секундах (за замовчуванням 3600).",
+    "param.fmt.description": "Формат: json або текстовий."
+  },
+  "vi": {
+    "tool.description": "Đăng ký các thay đổi trạng thái của thiết bị Matter.",
+    "err.device_id_required": "ID thiết bị là bắt buộc.",
+    "param.dev.description": "ID thiết bị (bắt buộc).",
+    "param.endpoint.description": "Bộ lọc điểm cuối (tùy chọn).",
+    "param.cluster.description": "Bộ lọc cụm (tùy chọn).",
+    "param.attribute.description": "Bộ lọc thuộc tính (tùy chọn).",
+    "param.duration.description": "Thời lượng đăng ký tính bằng giây (mặc định 3600).",
+    "param.fmt.description": "Định dạng: json hoặc văn bản."
+  },
+  "zh_CN": {
+    "tool.description": "订阅 Matter 设备的状态变化。",
+    "err.device_id_required": "需要设备 ID。",
+    "param.dev.description": "设备 ID（必填）。",
+    "param.endpoint.description": "端点过滤器（可选）。",
+    "param.cluster.description": "集群过滤器（可选）。",
+    "param.attribute.description": "属性过滤器（可选）。",
+    "param.duration.description": "订阅持续时间（以秒为单位）（默认 3600）。",
+    "param.fmt.description": "格式：json 或文本。"
+  },
+  "zh_TW": {
+    "tool.description": "訂閱 Matter 設備的狀態變化。",
+    "err.device_id_required": "需要設備 ID。",
+    "param.dev.description": "設備 ID（必填）。",
+    "param.endpoint.description": "端點過濾器（可選）。",
+    "param.cluster.description": "集群過濾器（可選）。",
+    "param.attribute.description": "屬性過濾器（可選）。",
+    "param.duration.description": "訂閱持續時間（以秒為單位）（預設 3600）。",
+    "param.fmt.description": "格式：json 或文字。"
   }
 }

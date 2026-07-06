@@ -3,8 +3,136 @@
     "tool.description": "List active Matter device subscriptions.",
     "param.fmt.description": "Format: json or text."
   },
+  "ar": {
+    "tool.description": "قائمة اشتراكات جهاز Matter النشطة.",
+    "param.fmt.description": "التنسيق: json أو نص."
+  },
+  "bn": {
+    "tool.description": "সক্রিয় ম্যাটার ডিভাইস সদস্যতা তালিকা.",
+    "param.fmt.description": "বিন্যাস: json বা পাঠ্য।"
+  },
+  "cs": {
+    "tool.description": "Seznam aktivních odběrů zařízení Matter.",
+    "param.fmt.description": "Formát: json nebo text."
+  },
+  "de": {
+    "tool.description": "Aktive Matter-Geräteabonnements auflisten.",
+    "param.fmt.description": "Format: JSON oder Text."
+  },
+  "el": {
+    "tool.description": "Καταχωρίστε τις ενεργές συνδρομές συσκευών Matter.",
+    "param.fmt.description": "Μορφή: json ή κείμενο."
+  },
+  "es": {
+    "tool.description": "Enumere las suscripciones activas de dispositivos Matter.",
+    "param.fmt.description": "Formato: json o texto."
+  },
+  "fa": {
+    "tool.description": "اشتراک‌های فعال دستگاه Matter را فهرست کنید.",
+    "param.fmt.description": "فرمت: json یا متن."
+  },
+  "fi": {
+    "tool.description": "Listaa aktiiviset Matter-laitetilaukset.",
+    "param.fmt.description": "Muoto: json tai teksti."
+  },
+  "fr": {
+    "tool.description": "Répertoriez les abonnements actifs aux appareils Matter.",
+    "param.fmt.description": "Format : json ou texte."
+  },
+  "he": {
+    "tool.description": "רשום מנויי מכשירי Matter פעילים.",
+    "param.fmt.description": "פורמט: json או טקסט."
+  },
+  "hi": {
+    "tool.description": "सक्रिय मैटर डिवाइस सदस्यताएँ सूचीबद्ध करें।",
+    "param.fmt.description": "प्रारूप: json या text."
+  },
+  "hu": {
+    "tool.description": "Az aktív Matter-eszköz-előfizetések listázása.",
+    "param.fmt.description": "Formátum: json vagy szöveg."
+  },
+  "id": {
+    "tool.description": "Cantumkan langganan perangkat Matter yang aktif.",
+    "param.fmt.description": "Format: json atau teks."
+  },
+  "it": {
+    "tool.description": "Elenca gli abbonamenti attivi dei dispositivi Matter.",
+    "param.fmt.description": "Formato: json o testo."
+  },
   "ja": {
-    "param.fmt.description": "形式: json またはテキスト。",
-    "tool.description": "アクティブな Matter デバイスのサブスクリプションを一覧表示します。"
+    "tool.description": "アクティブな Matter デバイスのサブスクリプションを一覧表示します。",
+    "param.fmt.description": "形式: json またはテキスト。"
+  },
+  "ko": {
+    "tool.description": "활성 Matter 장치 구독을 나열합니다.",
+    "param.fmt.description": "형식: json 또는 텍스트."
+  },
+  "mn": {
+    "tool.description": "Идэвхтэй Matter төхөөрөмжийн захиалгыг жагсаах.",
+    "param.fmt.description": "Формат: json эсвэл текст."
+  },
+  "mr": {
+    "tool.description": "सक्रिय मॅटर डिव्हाइस सदस्यत्वांची यादी करा.",
+    "param.fmt.description": "स्वरूप: json किंवा मजकूर."
+  },
+  "nb": {
+    "tool.description": "List opp aktive Matter-enhetsabonnementer.",
+    "param.fmt.description": "Format: json eller tekst."
+  },
+  "nl": {
+    "tool.description": "Geef een overzicht van actieve Matter-apparaatabonnementen.",
+    "param.fmt.description": "Formaat: json of tekst."
+  },
+  "pl": {
+    "tool.description": "Lista aktywnych subskrypcji urządzeń Matter.",
+    "param.fmt.description": "Format: json lub tekst."
+  },
+  "pt": {
+    "tool.description": "Listar assinaturas ativas de dispositivos Matter.",
+    "param.fmt.description": "Formato: json ou texto."
+  },
+  "pt_BR": {
+    "tool.description": "Listar assinaturas ativas de dispositivos Matter.",
+    "param.fmt.description": "Formato: json ou texto."
+  },
+  "ro": {
+    "tool.description": "Listați abonamentele active la dispozitive Matter.",
+    "param.fmt.description": "Format: json sau text."
+  },
+  "ru": {
+    "tool.description": "Список активных подписок на устройства Matter.",
+    "param.fmt.description": "Формат: json или текст."
+  },
+  "sv": {
+    "tool.description": "Lista aktiva Matter-enhetsprenumerationer.",
+    "param.fmt.description": "Format: json eller text."
+  },
+  "sw": {
+    "tool.description": "Orodhesha usajili unaotumika wa kifaa cha Matter.",
+    "param.fmt.description": "Umbizo: json au maandishi."
+  },
+  "th": {
+    "tool.description": "แสดงรายการการสมัครรับข้อมูลอุปกรณ์ Matter ที่ใช้งานอยู่",
+    "param.fmt.description": "รูปแบบ: json หรือข้อความ"
+  },
+  "tr": {
+    "tool.description": "Aktif Matt cihazı aboneliklerini listeleyin.",
+    "param.fmt.description": "Biçim: json veya metin."
+  },
+  "uk": {
+    "tool.description": "Список активних підписок на пристрої Matter.",
+    "param.fmt.description": "Формат: json або текстовий."
+  },
+  "vi": {
+    "tool.description": "Liệt kê các đăng ký thiết bị Matter đang hoạt động.",
+    "param.fmt.description": "Định dạng: json hoặc văn bản."
+  },
+  "zh_CN": {
+    "tool.description": "列出活跃的 Matter 设备订阅。",
+    "param.fmt.description": "格式：json 或文本。"
+  },
+  "zh_TW": {
+    "tool.description": "列出活躍的 Matter 裝置訂閱。",
+    "param.fmt.description": "格式：json 或文字。"
   }
 }
