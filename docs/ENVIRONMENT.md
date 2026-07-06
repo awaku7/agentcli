@@ -202,7 +202,7 @@ Required if `UAGENT_PROVIDER=sakura`:
 - `UAGENT_REASONING`: Reasoning effort level for reasoning models (`off`, `auto`, `minimal`, `low`, `medium`, `high`, `xhigh`).
 - `UAGENT_STREAMING_DEBUG`: Set to `1` to dump each streaming event (JSON) to `outputs/streaming_debug/`.
 - `UAGENT_RESPONSES_STATE_FILE`: absolute path to a specific Responses API state file (overrides auto path).
-- `UAGENT_RESPONSES_STATE_DIR`: directory for Responses API state files (default: `~/.uag/` or `UAGENT_WORKDIR`).
+- `UAGENT_RESPONSES_STATE_DIR`: directory for Responses API state files (optional; default: `~/.uag/`).
 
 ### 5. Built-in Web Search
 
