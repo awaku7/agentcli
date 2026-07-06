@@ -12,6 +12,8 @@ build/
 logs/
 *.org
 *.org*
+.mypy_cache/
+.ruff_cache/
 .env
 .env.sec
 src/scheck/README.md
