@@ -4,6 +4,9 @@ AP2 (Agent Payments Protocol) — autonomous payment management.
 
 Enables the agent to create, list, and execute AP2 payment mandates
 for autonomous checkout completion without user interaction.
+
+Mandates are persisted to ~/.uag/ucp_mandates.json (or UAGENT_WORKDIR).
+Optional Fernet encryption is applied when UCP_MANDATES_KEY is set.
 """
 
 from __future__ import annotations
@@ -13,7 +16,9 @@ from .i18n_helper import make_tool_translator
 _ = make_tool_translator(__file__)
 
 import json
+import os
 import time
+from pathlib import Path
 from typing import Any
 
 from .ucp_shared import (
@@ -123,8 +128,133 @@ TOOL_SPEC: dict[str, Any] = {
     },
 }
 
-# In-memory mandate store
-_mandates: dict[str, dict[str, Any]] = {}
+
+# ---------------------------------------------------------------------------
+# File persistence
+# ---------------------------------------------------------------------------
+
+_MANDATES_DIR: Path | None = None
+_MANDATES_PATH: Path | None = None
+_ENCRYPTION_KEY: str | None = None
+
+
+def _get_mandates_dir() -> Path:
+    """Get the directory for mandate storage."""
+    global _MANDATES_DIR
+    if _MANDATES_DIR is not None:
+        return _MANDATES_DIR
+
+    workdir = os.getenv("UAGENT_WORKDIR")
+    if workdir:
+        base = Path(workdir)
+    else:
+        base = Path.home() / ".uag"
+
+    _MANDATES_DIR = base
+    return _MANDATES_DIR
+
+
+def _get_mandates_path() -> Path:
+    """Get the full path to the mandates file."""
+    global _MANDATES_PATH
+    if _MANDATES_PATH is not None:
+        return _MANDATES_PATH
+
+    d = _get_mandates_dir()
+    _MANDATES_PATH = d / "ucp_mandates.json"
+    return _MANDATES_PATH
+
+
+def _get_encryption_key() -> str | None:
+    """Get the optional Fernet encryption key from environment."""
+    global _ENCRYPTION_KEY
+    if _ENCRYPTION_KEY is not None:
+        return _ENCRYPTION_KEY or None
+
+    key = os.getenv("UCP_MANDATES_KEY", "").strip()
+    _ENCRYPTION_KEY = key or None
+    return _ENCRYPTION_KEY
+
+
+def _fernet_encrypt(data: bytes, key: str) -> bytes:
+    """Encrypt data using Fernet (symmetric)."""
+    import base64
+    from cryptography.fernet import Fernet
+    # If key is not 32-byte base64, derive a Fernet-compatible key
+    try:
+        f = Fernet(key.encode() if isinstance(key, str) else key)
+    except Exception:
+        # Derive key via SHA-256
+        from cryptography.hazmat.primitives import hashes
+        from cryptography.hazmat.primitives.kdf.pbkdf2 import PBKDF2HMAC
+        salt = b"ucp_mandates_v1"
+        kdf = PBKDF2HMAC(algorithm=hashes.SHA256(), length=32, salt=salt, iterations=100000)
+        raw_key = base64.urlsafe_b64encode(kdf.derive(key.encode() if isinstance(key, str) else key))
+        f = Fernet(raw_key)
+    return f.encrypt(data)
+
+
+def _fernet_decrypt(data: bytes, key: str) -> bytes:
+    """Decrypt Fernet-encrypted data."""
+    import base64
+    from cryptography.fernet import Fernet, InvalidToken
+    try:
+        f = Fernet(key.encode() if isinstance(key, str) else key)
+        return f.decrypt(data)
+    except (InvalidToken, Exception):
+        from cryptography.hazmat.primitives import hashes
+        from cryptography.hazmat.primitives.kdf.pbkdf2 import PBKDF2HMAC
+        salt = b"ucp_mandates_v1"
+        kdf = PBKDF2HMAC(algorithm=hashes.SHA256(), length=32, salt=salt, iterations=100000)
+        raw_key = base64.urlsafe_b64encode(kdf.derive(key.encode() if isinstance(key, str) else key))
+        f = Fernet(raw_key)
+        return f.decrypt(data)
+
+
+def _load_mandates() -> dict[str, dict[str, Any]]:
+    """Load mandates from the file (with optional decryption)."""
+    path = _get_mandates_path()
+    if not path.exists():
+        return {}
+
+    try:
+        raw = path.read_bytes()
+        key = _get_encryption_key()
+        if key:
+            raw = _fernet_decrypt(raw, key)
+        data = json.loads(raw.decode("utf-8"))
+        if isinstance(data, dict):
+            return data
+        return {}
+    except Exception:
+        return {}
+
+
+def _save_mandates(mandates: dict[str, dict[str, Any]]) -> None:
+    """Save mandates to the file (with optional encryption)."""
+    path = _get_mandates_path()
+    path.parent.mkdir(parents=True, exist_ok=True)
+
+    raw = json.dumps(mandates, ensure_ascii=False, indent=2).encode("utf-8")
+    key = _get_encryption_key()
+    if key:
+        raw = _fernet_encrypt(raw, key)
+
+    # Atomic write: write to temp, then rename
+    tmp = path.with_suffix(".json.tmp")
+    tmp.write_bytes(raw)
+    tmp.replace(path)
+
+
+def _delete_expired_mandates(mandates: dict[str, dict[str, Any]]) -> dict[str, dict[str, Any]]:
+    """Remove expired mandates."""
+    now = time.time()
+    return {k: v for k, v in mandates.items() if v.get("expires_at", now) > now}
+
+
+# ---------------------------------------------------------------------------
+# Tool entry point
+# ---------------------------------------------------------------------------
 
 
 def run_tool(args: dict[str, Any]) -> str:
@@ -138,11 +268,16 @@ def run_tool(args: dict[str, Any]) -> str:
     amount = args.get("amount")
     ap2_token = str(args.get("ap2_token") or "").strip()
 
-    global _mandates
+    # Load mandates from file, purge expired
+    mandates = _load_mandates()
+    cleaned = _delete_expired_mandates(mandates)
+    if len(cleaned) != len(mandates):
+        _save_mandates(cleaned)
+        mandates = cleaned
 
     if mode == "mandate_list":
         result_list = []
-        for mid, m in _mandates.items():
+        for mid, m in mandates.items():
             result_list.append({
                 "id": mid,
                 "status": m.get("status"),
@@ -177,7 +312,8 @@ def run_tool(args: dict[str, Any]) -> str:
             currency=currency,
         )
         mandate["created_at"] = int(time.time())
-        _mandates[mandate["id"]] = mandate
+        mandates[mandate["id"]] = mandate
+        _save_mandates(mandates)
 
         result = {
             "ok": True,
@@ -211,7 +347,7 @@ def run_tool(args: dict[str, Any]) -> str:
                           "message": "mandate_id, checkout_id, and amount are required for execute."},
             }, ensure_ascii=False)
 
-        mandate = _mandates.get(mandate_id)
+        mandate = mandates.get(mandate_id)
         if not mandate:
             return json.dumps({
                 "ok": False,
