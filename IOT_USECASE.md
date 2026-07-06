@@ -60,6 +60,25 @@ The main `tool_genre: "iot"` tools are:
 - `upnp_scan`
 - `upnp_igd_control`
 
+### Modbus TCP
+
+- `modbus_scan`
+- `modbus_read`
+- `modbus_write`
+- `modbus_monitor`
+
+Best for:
+
+- Reading sensors and meters (input registers, holding registers)
+- Controlling actuators (coils, holding registers)
+- Periodic polling with change detection
+
+Notes:
+
+- Modbus has no built-in discovery; `modbus_scan` probes IP ranges and unit IDs
+- Default port: 502
+- Unit ID range: 1-247
+
 ### Matter
 
 Use Matter tools for Matter-connected devices.
