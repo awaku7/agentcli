@@ -356,7 +356,7 @@ def _get_responses_state_base_dir() -> str:
         return d
     d = (env_get("UAGENT_WORKDIR") or "").strip()
     if d:
-        return os.path.expanduser(d)
+        return d
     return os.getcwd()
 
 
