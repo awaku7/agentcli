@@ -354,13 +354,26 @@ def _query_node(
             sock.bind(("0.0.0.0", 0))
         sock.settimeout(0.25)
 
-        packet = _build_get_request(target_eoj, epc)
-        sock.sendto(packet, (ip_address, 3610))
-
         deadline = time.monotonic() + timeout
+        retry_interval = 0.8  # retransmit if no frames received within this period
+        next_retry = 0.0
         frames: list[dict[str, Any]] = []
         seen: set[tuple[str, str, str]] = set()
+        transmitted = False
+
         while time.monotonic() < deadline:
+            now = time.monotonic()
+            # (Re)transmit if not yet sent, or retry interval elapsed with no frames
+            if not transmitted:
+                packet = _build_get_request(target_eoj, epc)
+                sock.sendto(packet, (ip_address, 3610))
+                transmitted = True
+                next_retry = now + retry_interval
+            elif now >= next_retry and not frames:
+                packet = _build_get_request(target_eoj, epc)
+                sock.sendto(packet, (ip_address, 3610))
+                next_retry = now + retry_interval
+
             try:
                 data, source = sock.recvfrom(65535)
             except socket.timeout:

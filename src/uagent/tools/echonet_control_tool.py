@@ -62,31 +62,19 @@ TOOL_SPEC: dict[str, Any] = {
                     "type": "string",
                     "description": _(
                         "param.eoj.description",
-                        default=(
-                            "Optional target EOJ (e.g. '013001'). If omitted, the node profile object is used."
-                        ),
+                        default=("Target EOJ (default: node profile)."),
                     ),
                 },
                 "obj": {
                     "type": "string",
                     "description": _(
                         "param.obj.description",
-                        default=(
-                            "Optional object code to narrow the queried object (e.g. '0130')."
-                        ),
+                        default=("Object code filter (e.g. '0130')."),
                     ),
                 },
                 "action": {
                     "type": "string",
-                    "enum": [
-                        "on",
-                        "off",
-                        "open",
-                        "close",
-                        "set_value",
-                        "lock",
-                        "unlock",
-                    ],
+                    "enum": ["on", "off", "open", "close", "set_value", "lock", "unlock"],
                     "description": _(
                         "param.action.description",
                         default="Action: on/off/open/close/set_value/lock/unlock.",
@@ -98,9 +86,7 @@ TOOL_SPEC: dict[str, Any] = {
                     "maximum": 100,
                     "description": _(
                         "param.value.description",
-                        default=(
-                            "Optional numeric value for set_value/open/close actions. Range: 0-100."
-                        ),
+                        default="Optional numeric value for set_value/open/close actions. Range: 0 to 100.",
                     ),
                 },
                 "timeout": {
@@ -189,18 +175,30 @@ def _normalize_object_code(text: str | None) -> str | None:
     return raw
 
 
+def _normalize_epc(text: str | None) -> str | None:
+    if text is None:
+        return None
+    raw = str(text).strip()
+    if not raw:
+        return None
+    raw = raw.replace("0x", "").replace("0X", "")
+    for sep in (" ", ":", "-", "."):
+        raw = raw.replace(sep, "")
+    raw = raw.upper()
+    if len(raw) != 2:
+        return None
+    try:
+        bytes.fromhex(raw)
+    except Exception:
+        return None
+    return raw
+
+
 def _eoj_bytes(text: str | None) -> bytes | None:
     normalized = _normalize_eoj(text)
     if normalized is None:
         return None
     return bytes.fromhex(normalized)
-
-
-def _object_code_to_eoj(object_code: str | None) -> str | None:
-    normalized = _normalize_object_code(object_code)
-    if not normalized:
-        return None
-    return f"{normalized}01"
 
 
 def _decode_eoj_list(data: bytes) -> list[str]:
@@ -230,8 +228,14 @@ def _property_value(epc: int, edt: bytes) -> tuple[Any, str]:
     return edt.hex().upper(), "hex"
 
 
-def _build_set_request(target_eoj: bytes, epc: int, edt: bytes, tid: int | None = None) -> bytes:
-    tid_bytes = struct.pack(">H", tid & 0xFFFF) if tid is not None else struct.pack(">H", random.randint(1, 0xFFFF))
+def _build_set_request(
+    target_eoj: bytes, epc: int, edt: bytes, tid: int | None = None
+) -> bytes:
+    tid_bytes = (
+        struct.pack(">H", tid & 0xFFFF)
+        if tid is not None
+        else struct.pack(">H", random.randint(1, 0xFFFF))
+    )
     return b"".join(
         [
             b"\x10\x81",
@@ -240,8 +244,7 @@ def _build_set_request(target_eoj: bytes, epc: int, edt: bytes, tid: int | None 
             target_eoj,
             b"\x61",
             b"\x01",
-            bytes([epc & 0xFF]),
-            bytes([len(edt) & 0xFF]),
+            bytes([epc & 0xFF, len(edt)]),
             edt,
         ]
     )
@@ -293,20 +296,9 @@ def _property_map(properties: list[dict[str, Any]]) -> dict[str, dict[str, Any]]
     mapped: dict[str, dict[str, Any]] = {}
     for prop in properties:
         epc = str(prop.get("epc") or "").upper()
-        if not epc:
-            continue
-        mapped[epc] = dict(prop)
+        if epc:
+            mapped[epc] = dict(prop)
     return mapped
-
-
-def _merge_properties(*groups: list[dict[str, Any]]) -> list[dict[str, Any]]:
-    merged: dict[tuple[str, str], dict[str, Any]] = {}
-    for group in groups:
-        for prop in group:
-            key = (str(prop.get("epc") or ""), str(prop.get("raw_hex") or ""))
-            if key[0]:
-                merged[key] = dict(prop)
-    return list(merged.values())
 
 
 def _class_name_from_eoj(eoj: str | None) -> str | None:
@@ -314,6 +306,13 @@ def _class_name_from_eoj(eoj: str | None) -> str | None:
     if not normalized:
         return None
     return f"EOJ_{normalized}"
+
+
+def _object_code_to_eoj(object_code: str | None) -> str | None:
+    normalized = _normalize_object_code(object_code)
+    if not normalized:
+        return None
+    return f"{normalized}01"
 
 
 def _resolve_target_eoj(
@@ -346,96 +345,28 @@ def _resolve_target_eoj(
     return "0EF001", _NODE_PROFILE_EOJ, "node_profile"
 
 
-_TARGET_KIND_BY_CLASS_CODE = {
-    "0290": "lighting",
-    "0260": "curtain_or_blind",
-    "0130": "air_conditioner",
-    "026F": "lock",
-}
-
-_TARGET_KIND_LABELS = {
-    "lighting": "lighting",
-    "curtain_or_blind": "curtain/blind",
-    "air_conditioner": "air conditioner",
-    "lock": "lock",
-}
-
-_ALLOWED_ACTIONS_BY_KIND = {
-    "lighting": {"on", "off"},
-    "curtain_or_blind": {"open", "close", "set_value"},
-    "lock": {"lock", "unlock"},
-}
-
-
-def _target_device_kind(target_eoj: str | None) -> str | None:
-    normalized = _normalize_eoj(target_eoj)
-    if not normalized:
-        return None
-    return _TARGET_KIND_BY_CLASS_CODE.get(normalized[:4])
-
-
-def _build_target_info(
-    target_eoj: str | None, object_code: str | None
-) -> dict[str, Any]:
-    normalized_eoj = _normalize_eoj(target_eoj)
-    kind = _target_device_kind(normalized_eoj)
-    class_code = normalized_eoj[:4] if normalized_eoj else None
-    return {
-        "eoj": normalized_eoj or target_eoj,
-        "class_name": _class_name_from_eoj(normalized_eoj),
-        "obj": _normalize_object_code(object_code),
-        "class_code": class_code,
-        "device_kind": kind or "unknown",
-        "device_label": _TARGET_KIND_LABELS.get(kind, "unknown") if kind else "unknown",
-        "supported": bool(kind and kind in _ALLOWED_ACTIONS_BY_KIND),
+def _resolve_device_kind(
+    target_eoj_text: str,
+) -> tuple[str, str | None]:
+    eoj_upper = target_eoj_text.upper()
+    class_code = eoj_upper[2:4]
+    DEVICE_KINDS: dict[str, tuple[str, set[str]]] = {
+        "30": ("aircon", {"on", "off", "set_value"}),
+        "33": ("ventfan", {"on", "off"}),
+        "34": ("ventfan_ac", {"on", "off"}),
+        "35": ("aircleaner", {"on", "off"}),
+        "90": ("lighting", {"on", "off"}),
+        "91": ("lighting", {"on", "off"}),
+        "92": ("lighting", {"on", "off"}),
+        "A0": ("buzzer", {"on", "off"}),
+        "A1": ("ev_charger", {"on", "off", "set_value"}),
+        "6E": ("toilet", {"lock", "unlock"}),
+        "6F": ("lock", {"lock", "unlock"}),
     }
-
-
-def _validate_control_target(
-    target_eoj: str | None,
-    action: str,
-) -> tuple[str | None, dict[str, Any] | None]:
-    kind = _target_device_kind(target_eoj)
-    target_code = _normalize_eoj(target_eoj)
-    if kind is None:
-        code_label = target_code[:4] if target_code else "unknown"
-        return None, {
-            "code": "unsupported_device",
-            "message": _(
-                "err.unsupported_device",
-                default="Error: Device class '{target}' is not supported yet.",
-                target=code_label,
-            ),
-        }
-
-    allowed_actions = _ALLOWED_ACTIONS_BY_KIND.get(kind)
-    if not allowed_actions:
-        code_label = _TARGET_KIND_LABELS.get(
-            kind, target_code[:4] if target_code else "unknown"
-        )
-        return None, {
-            "code": "unsupported_device",
-            "message": _(
-                "err.unsupported_device",
-                default="Error: Device class '{target}' is not supported yet.",
-                target=code_label,
-            ),
-        }
-
-    normalized_action = action.casefold().strip()
-    if normalized_action not in allowed_actions:
-        kind_label = _TARGET_KIND_LABELS.get(kind, kind)
-        return None, {
-            "code": "unsupported_property",
-            "message": _(
-                "err.unsupported_action_for_device",
-                default="Error: action '{action}' is not supported for {kind} yet.",
-                action=action,
-                kind=kind_label,
-            ),
-        }
-
-    return kind, None
+    entry = DEVICE_KINDS.get(class_code)
+    if entry is None:
+        return "unknown", None
+    return entry
 
 
 def _build_control_payload(
@@ -443,9 +374,9 @@ def _build_control_payload(
 ) -> tuple[int, bytes, int | None, dict[str, Any] | None]:
     normalized = action.casefold().strip()
     if normalized == "on":
-        return 0x80, bytes([0x31]), 1, None
+        return 0x80, bytes([0x30]), 1, None
     if normalized == "off":
-        return 0x80, bytes([0x30]), 0, None
+        return 0x80, bytes([0x31]), 0, None
     if normalized == "open":
         if value is not None and (value < 0 or value > 100):
             return (
@@ -476,8 +407,8 @@ def _build_control_payload(
                 },
             )
         return 0xE0, bytes([0x42]), 0, None
-    if normalized == "set_value":
-        if value is None:
+    if normalized == "lock":
+        if value is not None and (value < 0 or value > 100):
             return (
                 0,
                 b"",
@@ -485,8 +416,38 @@ def _build_control_payload(
                 {
                     "code": "invalid_argument",
                     "message": _(
-                        "err.value_required",
-                        default="The value field is required for set_value.",
+                        "err.invalid_value_range",
+                        default="The value field must be between 0 and 100.",
+                    ),
+                },
+            )
+        return 0xE0, bytes([0x31]), 1, None
+    if normalized == "unlock":
+        if value is not None and (value < 0 or value > 100):
+            return (
+                0,
+                b"",
+                None,
+                {
+                    "code": "invalid_argument",
+                    "message": _(
+                        "err.invalid_value_range",
+                        default="The value field must be between 0 and 100.",
+                    ),
+                },
+            )
+        return 0xE0, bytes([0x30]), 2, None
+    if normalized == "set_value":
+        if value is None:
+            return (
+                0,
+                b"",
+                None,
+                {
+                    "code": "missing_argument",
+                    "message": _(
+                        "err.missing_value_for_set_value",
+                        default="Error: value field is required for set_value action.",
                     ),
                 },
             )
@@ -503,54 +464,23 @@ def _build_control_payload(
                     ),
                 },
             )
-        level = max(1, min(8, ((int(value) * 7) + 50) // 100 + 1))
-        return 0xE1, bytes([0x30 + level]), int(value), None
-    if normalized == "lock":
-        if value is not None and (value < 0 or value > 100):
-            return (
-                0,
-                b"",
-                None,
-                {
-                    "code": "invalid_argument",
-                    "message": _(
-                        "err.invalid_value_range",
-                        default="The value field must be between 0 and 100.",
-                    ),
-                },
-            )
-        return 0xE0, bytes([0x41]), 1, None
-    if normalized == "unlock":
-        if value is not None and (value < 0 or value > 100):
-            return (
-                0,
-                b"",
-                None,
-                {
-                    "code": "invalid_argument",
-                    "message": _(
-                        "err.invalid_value_range",
-                        default="The value field must be between 0 and 100.",
-                    ),
-                },
-            )
-        return 0xE0, bytes([0x42]), 0, None
+        return 0xB3, bytes([value]), value, None
     return (
         0,
         b"",
         None,
         {
-            "code": "invalid_argument",
+            "code": "unsupported_action",
             "message": _(
-                "err.unknown_action",
-                default="Error: Unknown action '{action}'.",
+                "err.unsupported_action",
+                default="Error: Unsupported action '{action}'.",
                 action=action,
             ),
         },
     )
 
 
-def _query_node(
+def _send_control(
     *,
     ip_address: str,
     target_eoj: bytes,
@@ -565,22 +495,30 @@ def _query_node(
         except Exception:
             pass
         try:
-            sock.setsockopt(socket.IPPROTO_IP, socket.IP_MULTICAST_TTL, 2)
-        except Exception:
-            pass
-        try:
             sock.bind(("0.0.0.0", 3610))
         except OSError:
             sock.bind(("0.0.0.0", 0))
         sock.settimeout(0.25)
 
-        packet = _build_set_request(target_eoj, epc, edt)
-        sock.sendto(packet, (ip_address, 3610))
-
         deadline = time.monotonic() + timeout
+        retry_interval = 0.8
+        next_retry = 0.0
         frames: list[dict[str, Any]] = []
         seen: set[tuple[str, str, str]] = set()
+        transmitted = False
+
         while time.monotonic() < deadline:
+            now = time.monotonic()
+            if not transmitted:
+                packet = _build_set_request(target_eoj, epc, edt)
+                sock.sendto(packet, (ip_address, 3610))
+                transmitted = True
+                next_retry = now + retry_interval
+            elif now >= next_retry and not frames:
+                packet = _build_set_request(target_eoj, epc, edt)
+                sock.sendto(packet, (ip_address, 3610))
+                next_retry = now + retry_interval
+
             try:
                 data, source = sock.recvfrom(65535)
             except socket.timeout:
@@ -607,10 +545,10 @@ def _build_result(
     ip_address: str,
     target_eoj: str,
     frames: list[dict[str, Any]],
-    epc_text: str,
+    epc: int,
+    edt: bytes,
     action: str,
-    normalized_value: int | None,
-    payload_hex: str,
+    value: int | None,
 ) -> dict[str, Any]:
     properties: list[dict[str, Any]] = []
     frames_by_object: dict[str, list[dict[str, Any]]] = {}
@@ -622,62 +560,36 @@ def _build_result(
         merged_props: list[dict[str, Any]] = []
         for frame in group:
             merged_props.extend(frame.get("properties") or [])
-        for prop in merged_props:
-            if str(prop.get("epc") or "").upper() != epc_text:
-                continue
-            properties.append(dict(prop))
+        properties.extend(merged_props)
 
-    node_profile_props = (
-        _property_map(properties) if target_eoj.upper() == "0EF001" else {}
-    )
-    node = {
-        "ip": ip_address,
-        "node_id": ip_address,
-        "node_profile": {
-            "eoj": target_eoj,
-            "properties": properties if target_eoj.upper() == "0EF001" else [],
-        },
-        "manufacturer": (
-            node_profile_props.get("8A", {}).get("raw_hex")
-            if node_profile_props
-            else None
-        ),
-        "model": (
-            node_profile_props.get("8B", {}).get("raw_hex")
-            if node_profile_props
-            else None
-        ),
-        "available": bool(frames),
-        "reachable": bool(frames),
-        "last_updated": _now_iso(),
-    }
-
-    status: dict[str, Any] = {
-        "target_eoj": target_eoj,
-        "epc": epc_text,
-        "reachable": bool(frames),
-        "response_count": len(frames),
-        "last_updated": _now_iso(),
-        "action": action,
-        "value": normalized_value,
-        "payload_hex": payload_hex,
-    }
-    if node_profile_props.get("80"):
-        status["operation_status"] = node_profile_props["80"].get("value")
+    value_ref, fmt = _property_value(epc, edt)
 
     return {
-        "node": node,
-        "properties": properties,
-        "status": status,
+        "node": {
+            "ip": ip_address,
+            "node_id": ip_address,
+            "available": bool(frames),
+            "reachable": bool(frames),
+            "last_updated": _now_iso(),
+        },
+        "properties": properties[:10],
+        "control": {
+            "action": action,
+            "epc": f"{epc:02X}",
+            "edt_hex": edt.hex().upper(),
+            "value": value,
+            "success": bool(frames),
+        },
     }
 
 
 def _format_text(payload: dict[str, Any]) -> str:
+    control = payload.get("control") or {}
     lines = [
         _(
             "msg.summary",
             default="ECHONET Lite control completed: {action} on {ip_address} in {elapsed_ms} ms.",
-            action=payload.get("status", {}).get("action") or "(unknown)",
+            action=control.get("action") or "(unknown)",
             ip_address=payload.get("node", {}).get("ip") or "(unknown)",
             elapsed_ms=payload.get("elapsed_ms", 0),
         )
@@ -689,15 +601,18 @@ def _format_text(payload: dict[str, Any]) -> str:
     lines.append(f"Available: {node.get('available')}")
     lines.append(f"Reachable: {node.get('reachable')}")
     lines.append(f"Properties: {len(payload.get('properties') or [])}")
-    status = payload.get("status") or {}
-    lines.append(f"Action: {status.get('action')}")
-    lines.append(f"EPC: {status.get('epc')}")
-    if status.get("value") is not None:
-        lines.append(f"Value: {status.get('value')}")
-    if status.get("payload_hex"):
-        lines.append(f"Payload: {status.get('payload_hex')}")
-    if status.get("operation_status") is not None:
-        lines.append(f"Operation status: {status.get('operation_status')}")
+    for prop in (payload.get("properties") or [])[:5]:
+        lines.append(
+            "- {epc} {name} = {value}".format(
+                epc=prop.get("epc") or "-",
+                name=prop.get("name") or "-",
+                value=prop.get("value"),
+            )
+        )
+    lines.append(f"Action: {control.get('action')}")
+    lines.append(f"EPC: {control.get('epc')}")
+    lines.append(f"Value: {control.get('value')}")
+    lines.append(f"Payload: {control.get('edt_hex')}")
     return "\n".join(lines).strip()
 
 
@@ -706,6 +621,7 @@ def run_tool(args: dict[str, Any]) -> str:
     eoj = args.get("eoj")
     object_code = args.get("obj")
     action = str(args.get("action") or "").strip()
+    raw_value = args.get("value")
     output_format = str(args.get("fmt") or "json").strip().lower()
 
     try:
@@ -732,13 +648,27 @@ def run_tool(args: dict[str, Any]) -> str:
             else json.dumps(payload, ensure_ascii=False)
         )
 
+    if not action:
+        payload = {
+            "ok": False,
+            "error": {
+                "code": "invalid_argument",
+                "message": _(
+                    "err.missing_action",
+                    default="Error: action is required.",
+                ),
+            },
+        }
+        return (
+            json.dumps(payload, ensure_ascii=False, indent=2)
+            if output_format == "text"
+            else json.dumps(payload, ensure_ascii=False)
+        )
+
     try:
         target_eoj_text, target_eoj_bytes, class_name = _resolve_target_eoj(
             str(eoj) if eoj is not None else None,
             str(object_code) if object_code is not None else None,
-        )
-        target_info = _build_target_info(
-            target_eoj_text, object_code if object_code is not None else None
         )
     except ValueError as exc:
         payload = {
@@ -754,24 +684,18 @@ def run_tool(args: dict[str, Any]) -> str:
             else json.dumps(payload, ensure_ascii=False)
         )
 
-    try:
-        epc, edt, normalized_value, build_err = _build_control_payload(
-            action, args.get("value")
-        )
-        if build_err is not None:
-            payload = {"ok": False, "error": build_err}
-            return (
-                json.dumps(payload, ensure_ascii=False, indent=2)
-                if output_format == "text"
-                else json.dumps(payload, ensure_ascii=False)
-            )
-        epc_text = f"{epc:02X}"
-    except Exception as exc:
+    kind_label, supported_actions = _resolve_device_kind(target_eoj_text)
+    if supported_actions is not None and action.casefold() not in supported_actions:
         payload = {
             "ok": False,
             "error": {
-                "code": "invalid_argument",
-                "message": str(exc),
+                "code": "unsupported_action_for_device",
+                "message": _(
+                    "err.unsupported_action_for_device",
+                    default="Error: action '{action}' is not supported for {kind} yet.",
+                    action=action,
+                    kind=kind_label,
+                ),
             },
         }
         return (
@@ -780,9 +704,25 @@ def run_tool(args: dict[str, Any]) -> str:
             else json.dumps(payload, ensure_ascii=False)
         )
 
-    started = time.monotonic()
+    value_arg: int | None = None
+    if raw_value is not None:
+        try:
+            value_arg = int(raw_value)
+        except (ValueError, TypeError):
+            pass
+
+    epc, edt, value_ref, err = _build_control_payload(action, value_arg)
+    if err:
+        payload = {"ok": False, "error": err}
+        return (
+            json.dumps(payload, ensure_ascii=False, indent=2)
+            if output_format == "text"
+            else json.dumps(payload, ensure_ascii=False)
+        )
+
+    start = time.monotonic()
     try:
-        frames = _query_node(
+        frames = _send_control(
             ip_address=ip_address,
             target_eoj=target_eoj_bytes,
             epc=epc,
@@ -793,31 +733,20 @@ def run_tool(args: dict[str, Any]) -> str:
             ip_address=ip_address,
             target_eoj=target_eoj_text,
             frames=frames,
-            epc_text=epc_text,
+            epc=epc,
+            edt=edt,
             action=action,
-            normalized_value=normalized_value,
-            payload_hex=edt.hex().upper(),
+            value=value_ref,
         )
         payload.update(
             {
                 "ok": True,
-                "elapsed_ms": int((time.monotonic() - started) * 1000),
+                "elapsed_ms": int((time.monotonic() - start) * 1000),
                 "target": {
-                    "eoj": target_info.get("eoj") or target_eoj_text,
-                    "class_name": target_info.get("class_name") or class_name,
-                    "class_code": target_info.get("class_code"),
-                    "device_kind": target_info.get("device_kind"),
-                    "device_label": target_info.get("device_label"),
-                    "supported": target_info.get("supported"),
-                    "obj": target_info.get("obj"),
-                },
-                "property": {
-                    "epc": epc_text,
-                    "name": _EPC_NAMES.get(epc, f"epc_{epc_text}"),
-                    "value": normalized_value,
-                    "format": "uint8",
-                    "access": "write",
-                    "raw_hex": edt.hex().upper(),
+                    "eoj": target_eoj_text,
+                    "class_name": class_name,
+                    "obj": _normalize_object_code(object_code),
+                    "action": action,
                 },
             }
         )
@@ -831,7 +760,7 @@ def run_tool(args: dict[str, Any]) -> str:
                 "code": "communication_failed",
                 "message": str(exc),
             },
-            "elapsed_ms": int((time.monotonic() - started) * 1000),
+            "elapsed_ms": int((time.monotonic() - start) * 1000),
         }
         if output_format == "text":
             return f"Error: {exc}"
