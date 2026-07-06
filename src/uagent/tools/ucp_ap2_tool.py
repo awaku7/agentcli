@@ -6,7 +6,6 @@ Enables the agent to create, list, and execute AP2 payment mandates
 for autonomous checkout completion without user interaction.
 
 Mandates are persisted to ~/.uag/ucp_mandates.json.
-Optional Fernet encryption is applied when UCP_MANDATES_KEY is set.
 """
 
 from __future__ import annotations
@@ -16,7 +15,6 @@ from .i18n_helper import make_tool_translator
 _ = make_tool_translator(__file__)
 
 import json
-import os
 import time
 from pathlib import Path
 from typing import Any
@@ -130,11 +128,10 @@ TOOL_SPEC: dict[str, Any] = {
 
 
 # ---------------------------------------------------------------------------
-# File persistence
+# File persistence (plain JSON)
 # ---------------------------------------------------------------------------
 
 _MANDATES_PATH: Path | None = None
-_ENCRYPTION_KEY: str | None = None
 
 
 def _get_mandates_path() -> Path:
@@ -142,87 +139,28 @@ def _get_mandates_path() -> Path:
     global _MANDATES_PATH
     if _MANDATES_PATH is not None:
         return _MANDATES_PATH
-
-    base = Path.home() / ".uag"
-    _MANDATES_PATH = base / "ucp_mandates.json"
+    _MANDATES_PATH = Path.home() / ".uag" / "ucp_mandates.json"
     return _MANDATES_PATH
 
 
-def _get_encryption_key() -> str | None:
-    """Get the optional Fernet encryption key from environment."""
-    global _ENCRYPTION_KEY
-    if _ENCRYPTION_KEY is not None:
-        return _ENCRYPTION_KEY or None
-
-    key = os.getenv("UCP_MANDATES_KEY", "").strip()
-    _ENCRYPTION_KEY = key or None
-    return _ENCRYPTION_KEY
-
-
-def _fernet_encrypt(data: bytes, key: str) -> bytes:
-    """Encrypt data using Fernet (symmetric)."""
-    import base64
-    from cryptography.fernet import Fernet
-    try:
-        f = Fernet(key.encode() if isinstance(key, str) else key)
-    except Exception:
-        from cryptography.hazmat.primitives import hashes
-        from cryptography.hazmat.primitives.kdf.pbkdf2 import PBKDF2HMAC
-        salt = b"ucp_mandates_v1"
-        kdf = PBKDF2HMAC(algorithm=hashes.SHA256(), length=32, salt=salt, iterations=100000)
-        raw_key = base64.urlsafe_b64encode(kdf.derive(key.encode() if isinstance(key, str) else key))
-        f = Fernet(raw_key)
-    return f.encrypt(data)
-
-
-def _fernet_decrypt(data: bytes, key: str) -> bytes:
-    """Decrypt Fernet-encrypted data."""
-    import base64
-    from cryptography.fernet import Fernet, InvalidToken
-    try:
-        f = Fernet(key.encode() if isinstance(key, str) else key)
-        return f.decrypt(data)
-    except (InvalidToken, Exception):
-        from cryptography.hazmat.primitives import hashes
-        from cryptography.hazmat.primitives.kdf.pbkdf2 import PBKDF2HMAC
-        salt = b"ucp_mandates_v1"
-        kdf = PBKDF2HMAC(algorithm=hashes.SHA256(), length=32, salt=salt, iterations=100000)
-        raw_key = base64.urlsafe_b64encode(kdf.derive(key.encode() if isinstance(key, str) else key))
-        f = Fernet(raw_key)
-        return f.decrypt(data)
-
-
 def _load_mandates() -> dict[str, dict[str, Any]]:
-    """Load mandates from ~/.uag/ucp_mandates.json (with optional decryption)."""
+    """Load mandates from ~/.uag/ucp_mandates.json."""
     path = _get_mandates_path()
     if not path.exists():
         return {}
-
     try:
-        raw = path.read_bytes()
-        key = _get_encryption_key()
-        if key:
-            raw = _fernet_decrypt(raw, key)
-        data = json.loads(raw.decode("utf-8"))
-        if isinstance(data, dict):
-            return data
-        return {}
+        data = json.loads(path.read_text("utf-8"))
+        return data if isinstance(data, dict) else {}
     except Exception:
         return {}
 
 
 def _save_mandates(mandates: dict[str, dict[str, Any]]) -> None:
-    """Save mandates to ~/.uag/ucp_mandates.json (with optional encryption)."""
+    """Save mandates to ~/.uag/ucp_mandates.json (atomic write)."""
     path = _get_mandates_path()
     path.parent.mkdir(parents=True, exist_ok=True)
-
-    raw = json.dumps(mandates, ensure_ascii=False, indent=2).encode("utf-8")
-    key = _get_encryption_key()
-    if key:
-        raw = _fernet_encrypt(raw, key)
-
     tmp = path.with_suffix(".json.tmp")
-    tmp.write_bytes(raw)
+    tmp.write_text(json.dumps(mandates, ensure_ascii=False, indent=2), "utf-8")
     tmp.replace(path)
 
 
