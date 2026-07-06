@@ -112,7 +112,7 @@ Consulte [IOT_USECASE.md](https://github.com/awaku7/agentcli/blob/main/IOT_USECA
 - **Materia**: control de lectura/escritura + suscripción de atributos para monitoreo de cambios de estado
 - **UPnP**: descubrimiento de dispositivos y reenvío de puertos IGD
 
-Ver [IOT_USECASE.md](../IOT_USECASE.md)
+Ver [IOT_USECASE.md](IOT_USECASE.md)
 
 ### 🎯 Mercado de habilidades para agentes
 

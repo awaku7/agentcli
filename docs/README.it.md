@@ -112,7 +112,7 @@ Vedere [IOT_USECASE.md](https://github.com/awaku7/agentcli/blob/main/IOT_USECASE
 - **Matter**: controllo lettura/scrittura + abbonamento attributi per il monitoraggio del cambiamento di stato
 - **UPnP**: rilevamento dispositivi e inoltro porta IGD
 
-Vedi [IOT_USECASE.md](../IOT_USECASE.md)
+Vedi [IOT_USECASE.md](IOT_USECASE.md)
 
 ### 🎯 Mercato delle competenze degli agenti
 

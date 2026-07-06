@@ -110,7 +110,7 @@ Vezi [IOT_USECASE.md](https://github.com/awaku7/agentcli/blob/main/IOT_USECASE.m
 - **SwitchBot**: Controlul loturilor în cloud și scanarea/controlul BLE. Abonament bazat pe sondaje
 - **ECHONET Lite**: Descoperiți, controlați și abonați-vă la notificările INF de la aparatele electrocasnice (AC, lumini, încălzitoare de apă, etc.)
 - **Materia**: Control de citire/scriere + abonament de atribut pentru monitorizarea schimbării stării
-- **UPnPPD**: Descoperirea dispozitivului[=BR==]=] [IOT_USECASE.md](../IOT_USECASE.md)
+- **UPnPPD**: Descoperirea dispozitivului[=BR==]=] [IOT_USECASE.md](IOT_USECASE.md)
 
 ### 🎯 Piața abilităților de agenți
 

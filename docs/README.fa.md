@@ -112,7 +112,7 @@ OpenAI / Azure / Bedrock / OpenRouter / Ollama / Gemini / Vertex AI / Claude / G
 - **موضوع**: کنترل خواندن/نوشتن + اشتراک ویژگی برای نظارت بر تغییر وضعیت
 - ** درگاه UPnP** ارسال
 
-به [IOT_USECASE.md](../IOT_USECASE.md) مراجعه کنید
+به [IOT_USECASE.md](IOT_USECASE.md) مراجعه کنید
 
 ### 🎯 بازار مهارت های نماینده
 

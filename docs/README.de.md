@@ -110,7 +110,7 @@ Siehe [IOT_USECASE.md](https://github.com/awaku7/agentcli/blob/main/IOT_USECASE.
 - **Matter**: Lese-/Schreibsteuerung + Attributabonnement für die Überwachung von Zustandsänderungen
 - **UPnP**: Geräteerkennung und IGD-Portweiterleitung
 
-Siehe [IOT_USECASE.md](../IOT_USECASE.md)
+Siehe [IOT_USECASE.md](IOT_USECASE.md)
 
 ### 🎯 Marktplatz für Agentenkompetenzen
 

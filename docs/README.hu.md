@@ -108,7 +108,7 @@ Lásd: [IOT_USECASE.md](https://github.com/awaku7/agentcli/blob/main/IOT_USECASE
 - **SwitchBot**: Kötegelt felhővezérlés és BLE-vizsgálat/vezérlés. Lekérdezésalapú előfizetés
 - **ECHONET Lite**: Fedezze fel, vezérelje és iratkozzon fel a háztartási készülékek INF-értesítéseire (AC, lámpák, vízmelegítők stb.)
 - **Lényeg**: olvasási/írási vezérlés + attribútum-előfizetés az állapotváltozás figyeléséhez
-- **UPnP**: Eszközfelderítés és IGD-port továbbítása[=] [IOT_USECASE.md](../IOT_USECASE.md)
+- **UPnP**: Eszközfelderítés és IGD-port továbbítása[=] [IOT_USECASE.md](IOT_USECASE.md)
 
 ### 🎯 Agent Skills Marketplace
 

@@ -110,7 +110,7 @@ Se [IOT_USECASE.md](https://github.com/awaku7/agentcli/blob/main/IOT_USECASE.md)
 - **SwitchBot**: Molnbatchkontroll och BLE-skanning/kontroll. Polling-baserad prenumeration
 - **ECHONET Lite**: Upptäck, kontrollera och prenumerera på INF-aviseringar från hushållsapparater (AC, lampor, varmvattenberedare, etc.)
 - **Ärende**: Läs-/skrivkontroll + attributprenumeration för övervakning av tillståndsändringar
-- **UPnP]- **UPnP]=Device forwarding**: [IOT_USECASE.md](../IOT_USECASE.md)
+- **UPnP]- **UPnP]=Device forwarding**: [IOT_USECASE.md](IOT_USECASE.md)
 
 ### 🎯 Agent Skills Marketplace
 

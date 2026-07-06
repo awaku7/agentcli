@@ -186,7 +186,7 @@ In-session commands (CLI/GUI/Web):
 - `:r [0|1|2|3|auto|minimal|xhigh]` (no arg: keep current)
 - `:v [0|1|2|3]` (no arg: keep current)
 
-For details, see the "Optional Responses API knobs (reasoning / verbosity)" section in [`README.md`](README.md).
+For details, see the "Optional Responses API knobs (reasoning / verbosity)" section in [`README.md`](../README.md).
 
 ### 6.4 (Optional) Auto shrink_llm
 
@@ -205,7 +205,7 @@ Notes:
 
 For provider-specific details (required environment variables, base URL, model settings, etc.), see:
 
-- [`README.md`](README.md) (Provider section)
+- [`README.md`](../README.md) (Provider section)
 - [`AGENTS.md`](AGENTS.md) (list of environment variables)
 
 ______________________________________________________________________
@@ -223,13 +223,13 @@ Examples:
 - Explore the folder structure
   - "Analyze this folder and tell me important files, structure, and how to run it."
 - Read a specific file
-  - "Read [`README.md`](README.md) and summarize the key points."
+  - "Read [`README.md`](../README.md) and summarize the key points."
 
 ______________________________________________________________________
 
 ## 8. Next to read
 
-- [`README.md`](README.md) (overview / Provider / Web Inspector, etc.)
+- [`README.md`](../README.md) (overview / Provider / Web Inspector, etc.)
 - [`AGENTS.md`](AGENTS.md) (tools list / environment variables / MCP shortest example)
 - [`README_AUTO.md`](README_AUTO.md) (`:auto` command guide)
 - [`INTERRUPT.md`](INTERRUPT.md) (c-key interrupt details)

@@ -112,7 +112,7 @@ OpenAI / Azure / Bedrock / OpenRouter / Ollama / Gemini / Vertex AI / Claude / G
 - **Matter**: Read/write control + attribute subscription for state change monitoring
 - **UPnP**: Device discovery & IGD port forwarding
 
-See [IOT_USECASE.md](../IOT_USECASE.md)
+See [IOT_USECASE.md](IOT_USECASE.md)
 
 ### 🎯 代理技能市场
 

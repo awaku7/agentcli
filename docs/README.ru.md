@@ -112,7 +112,7 @@ OpenAI / Azure / Bedrock / OpenRouter / Ollama / Gemini / Vertex AI / Claude / G
 – **Matter**: управление чтением/записью + подписка на атрибуты для мониторинга изменений состояния
 – **UPnP**: обнаружение устройств и переадресация портов IGD
 
-См. [IOT_USECASE.md](../IOT_USECASE.md)
+См. [IOT_USECASE.md](IOT_USECASE.md)
 
 ### 🎯 Биржа навыков агентов
 

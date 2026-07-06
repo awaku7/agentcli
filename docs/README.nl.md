@@ -112,7 +112,7 @@ Zie [IOT_USECASE.md](https://github.com/awaku7/agentcli/blob/main/IOT_USECASE.md
 - **Kwestie**: lees-/schrijfcontrole + attribuutabonnement voor monitoring van statuswijzigingen
 - **UPnP**: apparaatdetectie en IGD-poort doorsturen
 
-Zie [IOT_USECASE.md](../IOT_USECASE.md)
+Zie [IOT_USECASE.md](IOT_USECASE.md)
 
 ### 🎯 Marktplaats voor agentenvaardigheden
 

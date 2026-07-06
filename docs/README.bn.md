@@ -115,7 +115,7 @@ VS কোড এক্সটেনশন — ইনস্টলেশন, কম
 - **UPnP** 
 - **UPnP** 
  ডিস্কভারিং 
-Dvices [IOT_USECASE.md](../IOT_USECASE.md)
+Dvices [IOT_USECASE.md](IOT_USECASE.md)
 
 ### 🎯 এজেন্ট স্কিল মার্কেটপ্লেস
 

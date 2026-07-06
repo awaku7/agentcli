@@ -112,7 +112,7 @@ Zobacz [IOT_USECASE.md](https://github.com/awaku7/agentcli/blob/main/IOT_USECASE
 - **Materia**: kontrola odczytu/zapisu + subskrypcja atrybutów do monitorowania zmiany stanu
 - **UPnP**: wykrywanie urządzeń i przekierowywanie portów IGD
 
-Zobacz [IOT_USECASE.md](../IOT_USECASE.md)
+Zobacz [IOT_USECASE.md](IOT_USECASE.md)
 
 ### 🎯 Rynek umiejętności agentów
 

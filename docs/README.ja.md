@@ -92,7 +92,7 @@ LLMが複数のツールを同時に要求すると、uagは **自動的に並�
 | **GUI** | `uagg` | tkinterによるデスクトップUI |
 | **Web** | `uagw` | ブラウザベースのアクセス |
 | **A2Aサーバ** | `uaga` | マルチエージェント通信用のAgent2Agentプロトコル |
-| **VS Code** | — | チャットパネル、説明、リファクタリング、エラー修正、ツールツリービュー — [VSCODE.md](../VSCODE.md) 参照 |
+| **VS Code** | — | チャットパネル、説明、リファクタリング、エラー修正、ツールツリービュー — [VSCODE.md](VSCODE.md) 参照 |
 
 ### 🏠 IoTデバイス制御
 
@@ -106,7 +106,7 @@ LLMが複数のツールを同時に要求すると、uagは **自動的に並�
 - **重要**: 状態変化監視のための読み取り/書き込み制御 + 属性サブスクリプション
 - **UPnP**: デバイスの検出と IGD ポート転送
 
-を参照[IOT_USECASE.md](../IOT_USECASE.md)
+を参照[IOT_USECASE.md](IOT_USECASE.md)
 
 ### 🎯 エージェントスキルマーケットプレイス
 
@@ -176,7 +176,7 @@ APIキーやシークレットは `.env.sec`（暗号化された `.env` ファ�
 - **Responses API**: `UAGENT_RESPONSES=1` でResponses APIモードに（OpenAI/Azure/Bedrock/OpenRouter/Ollama/Alibaba/LM Studio/Sakana AI）。Sakana AI（Fugu）では自動的に有効になります。
 - **開発者向けドキュメント**: [DEVELOP.md](../src/uagent/docs/DEVELOP.md)
 - **ツールフロー**: [TOOL_FLOW.md](../src/uagent/docs/TOOL_FLOW.md) — ツール送信方式の詳細（genre mask, tool_catalog, GPT-5.4+ native tool_search）
-- **軽量LLM向けヒント**: [SLM_TIPS.md](../SLM_TIPS.md)
+- **軽量LLM向けヒント**: [SLM_TIPS.md](SLM_TIPS.md)
 
 ## プロジェクトの理念
 

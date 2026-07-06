@@ -112,7 +112,7 @@ Bkz. [IOT_USECASE.md](https://github.com/awaku7/agentcli/blob/main/IOT_USECASE.m
 - **Madde**: Durum değişikliği izleme için okuma/yazma kontrolü + özellik aboneliği
 - **UPnP**: Cihaz keşfi ve IGD bağlantı noktası yönlendirme
 
-Bkz. [IOT_USECASE.md](../IOT_USECASE.md)
+Bkz. [IOT_USECASE.md](IOT_USECASE.md)
 
 ### 🎯 Temsilci Becerileri Pazarı
 

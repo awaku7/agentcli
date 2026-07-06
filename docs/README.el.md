@@ -112,7 +112,7 @@ OpenAI / Azure / Bedrock / OpenRouter / Ollama / Gemini / Vertex AI / Claude / G
 - **Θέμα**: Έλεγχος ανάγνωσης/εγγραφής + συνδρομή χαρακτηριστικών για παρακολούθηση αλλαγών κατάστασης
 - **Πόρτα συσκευής UPnP** προώθηση
 
-Δείτε [IOT_USECASE.md](../IOT_USECASE.md)
+Δείτε [IOT_USECASE.md](IOT_USECASE.md)
 
 ### 🎯 Agent Skills Marketplace
 

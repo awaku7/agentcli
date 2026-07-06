@@ -112,7 +112,7 @@ Xem [IOT_USECASE.md](https://github.com/awaku7/agentcli/blob/main/IOT_USECASE.md
 - **Vấn đề**: Kiểm soát đọc/ghi + đăng ký thuộc tính để giám sát thay đổi trạng thái
 - **UPnP**: Khám phá thiết bị và chuyển tiếp cổng IGD
 
-Xem [IOT_USECASE.md](../IOT_USECASE.md)
+Xem [IOT_USECASE.md](IOT_USECASE.md)
 
 ### 🎯 Thị trường kỹ năng đại lý
 

@@ -112,7 +112,7 @@ VS Code 확장(설치, 명령, 키 바인딩 및 구성)에 대한 자세한 내
 - **문제**: 읽기/쓰기 제어 + 상태 변경 모니터링을 위한 속성 구독
 - **UPnP**: 장치 검색 및 IGD 포트 전달
 
-참조 [IOT_USECASE.md](../IOT_USECASE.md)
+참조 [IOT_USECASE.md](IOT_USECASE.md)
 
 ### 🎯 상담원 기술 마켓플레이스
 

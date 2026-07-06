@@ -112,7 +112,7 @@ OpenAI / Azure / Bedrock / OpenRouter / Ollama / Gemini / Vertex AI / Claude / G
 - **สำคัญ**: การควบคุมการอ่าน/เขียน + การสมัครสมาชิกแอตทริบิวต์สำหรับการตรวจสอบการเปลี่ยนแปลงสถานะ
 - **UPnP**: การค้นพบอุปกรณ์และการส่งต่อพอร์ต IGD
 
-ดู [IOT_USECASE.md](../IOT_USECASE.md)
+ดู [IOT_USECASE.md](IOT_USECASE.md)
 
 ### 🎯 ตลาดทักษะตัวแทน
 

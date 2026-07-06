@@ -110,7 +110,7 @@ Tazama [IOT_USECASE.md](https://github.com/awaku7/agentcli/blob/main/IOT_USECASE
 - **SwitchBot**: Udhibiti wa bechi ya Wingu & uchanganuzi/udhibiti wa BLE. Usajili unaotegemea upigaji kura
 - **ECHONET Lite**: Gundua, dhibiti na ujiandikishe kupokea arifa za INF kutoka kwa vifaa vya nyumbani (AC, taa, hita za maji, n.k.)
 - **Jambo**: Udhibiti wa Kusoma/kuandika + sifa kwa ufuatiliaji wa mabadiliko ya hali
-- **UPnP**: Ugunduzi wa DUPnP**: Ugunduzi wa kifaa na[=[=] [IOT_USECASE.md](../IOT_USECASE.md)
+- **UPnP**: Ugunduzi wa DUPnP**: Ugunduzi wa kifaa na[=[=] [IOT_USECASE.md](IOT_USECASE.md)
 
 ### 🎯 Soko la Ujuzi wa Wakala
 

@@ -112,7 +112,7 @@ OpenAI / Azure / Bedrock / OpenRouter / Ollama / Gemini / Vertex AI / Claude/
 - **Matter**：读/写控制 + 用于状态变化监控的属性订阅
 - **UPnP**：设备发现和 IGD連接埠轉送
 
-請參閱[IOT_USECASE.md](../IOT_USECASE.md)
+請參閱[IOT_USECASE.md](IOT_USECASE.md)
 
 ### 🎯 代理技能市場
 

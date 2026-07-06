@@ -110,7 +110,7 @@ Se [IOT_USECASE.md](https://github.com/awaku7/agentcli/blob/main/IOT_USECASE.md)
 - **SwitchBot**: Cloud batchkontroll og BLE-skanning/kontroll. Avstemningsbasert abonnement
 - **ECHONET Lite**: Oppdag, kontroller og abonner på INF-varslinger fra husholdningsapparater (AC, lys, varmtvannsberedere osv.)
 - **Saker**: Lese-/skrivekontroll + attributtabonnement for overvåking av tilstandsendringer
-- **UPnP[=Device forwarding**: [IOT_USECASE.md](../IOT_USECASE.md)
+- **UPnP[=Device forwarding**: [IOT_USECASE.md](IOT_USECASE.md)
 
 ### 🎯 Agent Skills Marketplace
 

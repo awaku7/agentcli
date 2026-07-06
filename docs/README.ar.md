@@ -112,7 +112,7 @@ OpenAI / Azure / Bedrock / OpenRouter / Ollama / Gemini / Vertex AI / Claude / G
 - **Matter**: التحكم في القراءة/الكتابة + الاشتراك في السمات لمراقبة تغيير الحالة
 - **UPnP**: اكتشاف الأجهزة وإعادة توجيه منفذ IGD
 
-راجع [IOT_USECASE.md](../IOT_USECASE.md)
+راجع [IOT_USECASE.md](IOT_USECASE.md)
 
 ### 🎯 سوق مهارات الوكيل
 

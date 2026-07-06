@@ -110,7 +110,7 @@ OpenAI / Azure / Bedrock / OpenRouter / Ollama / Gemini / Vertex AI / Claude / G
 - **SwitchBot**: בקרת אצווה בענן וסריקה/בקרה BLE. מנוי מבוסס סקרים
 - **ECHONET Lite**: גלה, שלט והירשם להודעות INF ממכשירי חשמל ביתיים (AC, תאורה, מחממי מים וכו')
 - **עניין**: בקרת קריאה/כתיבה + מנוי לניטור שינוי מצב
-- **UPnP]- **UPnP**: [IOT_USECASE.md](../IOT_USECASE.md)
+- **UPnP]- **UPnP**: [IOT_USECASE.md](IOT_USECASE.md)
 
 ### 🎯 Agent Skills Marketplace
 

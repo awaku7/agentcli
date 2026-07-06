@@ -111,7 +111,7 @@ Viz [IOT_USECASE.md](https://github.com/awaku7/agentcli/blob/main/IOT_USECASE.md
 – **ECHONET Lite**: Objevte, ovládejte a přihlaste se k odběru oznámení INF z domácích spotřebičů (klimatizace, světla, ohřívače vody atd.)
 – **Záležitost**: Řízení čtení/zápisu + předplatné atributů pro sledování změny stavu
 – **UPnP**: Zjišťování zařízení a přesměrování portů IGD[=EBR=]
- [IOT_USECASE.md](../IOT_USECASE.md)
+ [IOT_USECASE.md](IOT_USECASE.md)
 
 ### 🎯 Trh dovedností agentů
 

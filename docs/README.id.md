@@ -112,7 +112,7 @@ Lihat [IOT_USECASE.md](https://github.com/awaku7/agentcli/blob/main/IOT_USECASE.
 - **Materi**: Kontrol baca/tulis + langganan atribut untuk pemantauan perubahan status
 - **UPnP**: Penemuan perangkat & penerusan port IGD
 
-Lihat [IOT_USECASE.md](../IOT_USECASE.md)
+Lihat [IOT_USECASE.md](IOT_USECASE.md)
 
 ### 🎯 Pasar Keterampilan Agen
 

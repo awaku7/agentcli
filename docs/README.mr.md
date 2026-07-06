@@ -113,7 +113,7 @@ OpenAI / Azure / Bedrock / OpenRouter / Ollama / Gemini / Vertex AI / Claude / G
 - **मॅटर**: वाचा/लिहा नियंत्रण + राज्य बदल निरीक्षणासाठी विशेषता सदस्यता
 - **UPnP** 
 - **UPnP**= फॉरवर्ड करणे 
-- **UPnP**: डीव्हाइस शोधणे [IOT_USECASE.md](../IOT_USECASE.md)
+- **UPnP**: डीव्हाइस शोधणे [IOT_USECASE.md](IOT_USECASE.md)
 
 ### 🎯 एजंट स्किल्स मार्केटप्लेस
 
