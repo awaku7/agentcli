@@ -29,7 +29,7 @@
 
 - **Rulează local** pe computer. Datele tale rămân cu tine (cu excepția apelurilor API pe care le faci).
 - **Libertatea furnizorului**: OpenAI, Claude, Gemini, DeepSeek, Ollama, Azure, Bedrock, HuggingFace... Peste 15 furnizori, toți accesibili dintr-o singură interfață. Schimbați între ele prin reconfigurarea variabilelor de mediu - fără reinstalare, fără migrare.
-- **135 instrumente**: I/O fișiere, căutare web, generare de imagini, Gmail, scanare dispozitiv BLE, integrare server MCP — **78 sunt sigure pentru paralel** (până la 8 se execută simultan prin pool-ul de fire, configurabile prin `UAGENT_PARALLEL_WORKERS`). Când LLM declanșează mai multe apeluri de instrumente simultan, uag le paralelizează automat.
+- **136 instrumente**: I/O fișiere, căutare web, generare de imagini, Gmail, scanare dispozitiv BLE, integrare server MCP — **78 sunt sigure pentru paralel** (până la 8 se execută simultan prin pool-ul de fire, configurabile prin `UAGENT_PARALLEL_WORKERS`). Când LLM declanșează mai multe apeluri de instrumente simultan, uag le paralelizează automat.
 - **3 interfețe de utilizare + A2A**: CLI, GUI, Web și protocol Agent-to-Agent. Același motor, orice interfață.
 - **Pregătit pentru IoT**: SwitchBot, ECHONET Lite, Matter, UPnP — controlați-vă dispozitivele de acasă prin AI.
 - **Abilități de agent**: Instalați abilități create de comunitate de pe piață. Extinde uag la nesfârșit.
@@ -69,11 +69,11 @@ Instrumentele numai pentru citire (căutarea fișierelor, calculul hash, listare
 - **Reload past sessions** with `:load <index>` — pick up where you left off.
 - **Tool result caching** avoids redundant re-execution when the same tool call repeats.
 
-### 🛠 135 de instrumente
+### 🛠 136 de instrumente
 
 | Categoria | Instrumente |
 |---|---|
-| **Operațiuni cu fișiere** | citire/scriere/creare/ștergere/căutare/grep/hash/zip, parse_eml (fișiere .eml) |
+| **Operațiuni cu fișiere** | citire/scriere/creare/ștergere/căutare/grep/hash/zip, file_type, parse_eml (fișiere .eml) |
 | **Web** | fetch_url, search_web, screenshot, browser_playwright |
 | **Media** | genera_imagine, analizează_imagine, img2img, vorbire_audio, transcriere_audio |
 | **Documente** | Extracție PDF/PPTX/DOCX/RTF/ODT, extracție structurată Excel |

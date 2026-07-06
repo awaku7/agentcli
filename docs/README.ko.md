@@ -69,11 +69,11 @@ LLM이 여러 도구를 동시에 요청하면 uag가 해당 도구를 **자동�
 - **Reload past sessions** with `:load <index>` — pick up where you left off.
 - **Tool result caching** avoids redundant re-execution when the same tool call repeats.
 
-### 🛠 135 도구
+### 🛠 136 도구
 
 | 카테고리 | 도구 |
 |---|---|
-| **파일 작업** | 읽기/쓰기/생성/삭제/검색/grep/hash/zip, parse_eml(.eml 파일) |
+| **파일 작업** | 읽기/쓰기/생성/삭제/검색/grep/hash/zip, file_type, parse_eml(.eml 파일) |
 | **웹** | fetch_url, search_web, 스크린샷, browser_playwright |
 | **미디어** | generate_image, analyze_image, img2img, audio_speech, audio_transcribe |
 | **문서** | PDF/PPTX/DOCX/RTF/ODT 추출, Excel 구조 추출 |

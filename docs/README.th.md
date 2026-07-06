@@ -69,11 +69,11 @@ OpenAI / Azure / Bedrock / OpenRouter / Ollama / Gemini / Vertex AI / Claude / G
 - **Reload past sessions** with `:load <index>` — pick up where you left off.
 - **Tool result caching** avoids redundant re-execution when the same tool call repeats.
 
-### 🛠 135 เครื่องมือ
+### 🛠 136 เครื่องมือ
 
 | หมวดหมู่ | เครื่องมือ |
 |---|---|
-| **การทำงานของไฟล์** | อ่าน/เขียน/สร้าง/ลบ/ค้นหา/grep/hash/zip, parse_eml (ไฟล์ .eml) |
+| **การทำงานของไฟล์** | อ่าน/เขียน/สร้าง/ลบ/ค้นหา/grep/hash/zip, file_type, parse_eml (ไฟล์ .eml) |
 | **เว็บ** | fetch_url, search_web, ภาพหน้าจอ, browser_playwright |
 | **สื่อ** | Generate_image, analy_image, img2img, audio_speech, audio_transcribe |
 | **เอกสาร** | การแยก PDF/PPTX/DOCX/RTF/ODT, การแยกโครงสร้าง Excel |
