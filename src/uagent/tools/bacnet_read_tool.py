@@ -261,7 +261,6 @@ def run_tool(args: dict[str, Any]) -> str:
         result: dict[str, Any] = {
             "ok": True,
             "value": value_str,
-            "value_raw": value_str,
             "value_type": value_type,
             "value_numeric": value_num,
             "units": None,
@@ -277,29 +276,8 @@ def run_tool(args: dict[str, Any]) -> str:
             "elapsed_ms": int((time.monotonic() - start_time) * 1000),
         }
 
-        try:
-            desc_addr = f"{address} {object_type} {object_instance} description"
-            desc_val = bacnet_instance.read(desc_addr)
-            if desc_val:
-                result["description"] = str(desc_val)
-        except Exception:
-            pass
-
-        try:
-            units_addr = f"{address} {object_type} {object_instance} units"
-            units_val = bacnet_instance.read(units_addr)
-            if units_val:
-                result["units"] = str(units_val)
-        except Exception:
-            pass
-
-        try:
-            sf_addr = f"{address} {object_type} {object_instance} statusFlags"
-            sf_val = bacnet_instance.read(sf_addr)
-            if sf_val is not None:
-                result["status_flags"] = str(sf_val)
-        except Exception:
-            pass
+        # Note: parsing of description/units/statusFlags is omitted intentionally.
+        # Each additional read would multiply latency (BAC0 has no per-read timeout).
 
         if output_format == "text":
             return _format_text(result)

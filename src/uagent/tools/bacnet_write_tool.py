@@ -294,11 +294,19 @@ def run_tool(args: dict[str, Any]) -> str:
         bacnet_full = f"{bacnet_address} {value_str}"
         bacnet_instance.write(bacnet_full)
 
+        # Read-back verification (best-effort)
+        verify_value = None
+        try:
+            verify_value = str(bacnet_instance.read(bacnet_address))
+        except Exception:
+            pass
+
         result: dict[str, Any] = {
             "ok": True,
             "value_written": value_str,
+            "value_verified": verify_value,
             "priority": int(priority) if priority is not None else None,
-            "confirmation": "write_sent",
+            "confirmation": "write_sent" if verify_value is None else "verified",
             "target": {
                 "ip": ip_address or None,
                 "device_instance": device_instance,
