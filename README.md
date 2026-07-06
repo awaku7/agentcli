@@ -100,9 +100,11 @@ See [VSCODE.md](https://github.com/awaku7/agentcli/blob/main/VSCODE.md) for deta
 ### 🏠 IoT Device Control
 
 - **BACnet**: Read/write BACnet/IP devices (HVAC, lighting, power meters). COV subscription for push notifications
+- **Modbus TCP**: Read/write holding/input registers and coils. Polling-based change monitoring
+- **OPC UA**: Browse address space, read/write variables, subscribe to data changes
 - **SwitchBot**: Cloud batch control & BLE scan/control. Polling-based subscription
 - **ECHONET Lite**: Discover, control, and subscribe to INF notifications from home appliances (AC, lights, water heaters, etc.)
-- **Matter**: Read-only inspection + attribute subscription for state change monitoring
+- **Matter**: Read/write control + attribute subscription for state change monitoring
 - **UPnP**: Device discovery & IGD port forwarding
 
 See [IOT_USECASE.md](https://github.com/awaku7/agentcli/blob/main/IOT_USECASE.md)
