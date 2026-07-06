@@ -1,7 +1,8 @@
-"""MQTT shared resources: client management."""
+"""MQTT shared resources: client management (TLS supported)."""
 from __future__ import annotations
 
 import json
+import ssl
 import threading
 import time
 from typing import Any, Callable
@@ -32,10 +33,17 @@ def create_client(client_id: str | None = None, clean_session: bool = True) -> A
 
 
 def connect(client: Any, host: str, port: int = 1883, timeout: int = 10,
-            username: str = "", password: str = "") -> None:
-    """Connect to an MQTT broker."""
+            username: str = "", password: str = "",
+            use_tls: bool = False, insecure: bool = False) -> None:
+    """Connect to an MQTT broker. Supports TLS (MQTTS) when use_tls=True."""
     if username:
         client.username_pw_set(username, password)
+    if use_tls:
+        if insecure:
+            client.tls_set(cert_reqs=ssl.CERT_NONE)
+            client.tls_insecure_set(True)
+        else:
+            client.tls_set()
     client.connect(host, port, timeout)
     client.loop_start()
 

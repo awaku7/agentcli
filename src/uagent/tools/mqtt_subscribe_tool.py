@@ -68,6 +68,14 @@ TOOL_SPEC: dict[str, Any] = {
                     "type": "string",
                     "description": _("param.password.description", default="MQTT password (optional)."),
                 },
+                "use_tls": {
+                    "type": "boolean", "default": False,
+                    "description": _("param.use_tls.description", default="Enable TLS/SSL (MQTTS). Default port becomes 8883."),
+                },
+                "insecure": {
+                    "type": "boolean", "default": False,
+                    "description": _("param.insecure.description", default="Skip TLS certificate verification (insecure)."),
+                },
                 "fmt": {
                     "type": "string", "enum": ["json", "text"], "default": "json",
                     "description": _("param.fmt.description", default="Format: json or text."),
@@ -98,6 +106,10 @@ def run_tool(args: dict[str, Any]) -> str:
     on_message_prompt = str(args.get("on_message_prompt") or "").strip()
     username = str(args.get("username") or "").strip()
     password = str(args.get("password") or "").strip()
+    use_tls = bool(args.get("use_tls", False))
+    insecure = bool(args.get("insecure", False))
+    if use_tls and args.get("port") is None:
+        port = 8883
     output_format = str(args.get("fmt") or "json").strip().lower()
 
     if not host or not topic:
@@ -125,7 +137,8 @@ def run_tool(args: dict[str, Any]) -> str:
         SchedulerStore().add_item(item)
 
     try:
-        connect(client, host, port, username=username, password=password)
+        connect(client, host, port, username=username, password=password,
+                 use_tls=use_tls, insecure=insecure)
         subscribe(client, topic, qos=qos, callback=_on_message)
 
         info = {
