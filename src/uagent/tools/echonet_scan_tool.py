@@ -10,6 +10,7 @@ from datetime import datetime, timezone
 from typing import Any
 
 from .echonet_cache_shared import cache_get, cache_set
+from ..i18n import detect_lang
 from .i18n_helper import make_tool_translator
 
 _ = make_tool_translator(__file__)
@@ -755,19 +756,7 @@ def _format_text(payload: dict[str, Any]) -> str:
         eoj_items = item.get('eoj_list') or []
         dev_name = ""
         for eoj_code in eoj_items:
-            combined = eoj_code[:4] if len(eoj_code) >= 4 else eoj_code
-            # Try raw map first (for non-standard byte ordering)
-            mapped = _EOJ_RAW_MAP.get(eoj_code)
-            if mapped is not None:
-                for ecc, (en, ja) in _EOJ_CLASS_NAMES.items():
-                    if ecc == mapped:
-                        dev_name = en
-                        break
-            else:
-                for ecc, (en, ja) in _EOJ_CLASS_NAMES.items():
-                    if f"{ecc:04X}" == combined:
-                        dev_name = en
-                        break
+            dev_name = _eoj_class_name(eoj_code)
             if dev_name:
                 break
         if dev_name:
@@ -789,24 +778,7 @@ def _format_text(payload: dict[str, Any]) -> str:
             eoj_items = item.get("eoj_list") or []
             eoj_parts = []
             for eoj_code in eoj_items:
-                name = ""
-                # EOJ hex encoding: class_group(2)+class_code(2)+instance(2)
-                if len(eoj_code) >= 4:
-                    combined = eoj_code[:4]
-                else:
-                    combined = eoj_code
-                # Try raw map first
-                mapped = _EOJ_RAW_MAP.get(eoj_code)
-                if mapped is not None:
-                    for ecc, (en, ja) in _EOJ_CLASS_NAMES.items():
-                        if ecc == mapped:
-                            name = en
-                            break
-                else:
-                    for ecc, (en, ja) in _EOJ_CLASS_NAMES.items():
-                        if f"{ecc:04X}" == combined:
-                            name = en
-                            break
+                name = _eoj_class_name(eoj_code)
                 if name:
                     eoj_parts.append(f"{eoj_code} ({name})")
                 else:
@@ -820,6 +792,30 @@ def _format_text(payload: dict[str, Any]) -> str:
         lines.append(f"  node_profile_properties: {len(props)}")
         lines.append("")
     return "\n".join(lines).strip()
+
+
+def _eoj_class_name(eoj_code: str) -> str:
+    """Get localized EOJ class name for display.
+
+    Returns English or Japanese name based on current UI language.
+    Falls back to empty string if not found.
+    """
+    lang = detect_lang()
+    use_ja = lang.startswith("ja")
+    mapped = _EOJ_RAW_MAP.get(eoj_code)
+    if mapped is not None:
+        entry = _EOJ_CLASS_NAMES.get(mapped)
+        if entry:
+            return entry[1] if use_ja else entry[0]
+    combined = eoj_code[:4] if len(eoj_code) >= 4 else eoj_code
+    try:
+        ecc = int(combined, 16)
+        entry = _EOJ_CLASS_NAMES.get(ecc)
+        if entry:
+            return entry[1] if use_ja else entry[0]
+    except ValueError:
+        pass
+    return ""
 
 
 def run_tool(args: dict[str, Any]) -> str:
