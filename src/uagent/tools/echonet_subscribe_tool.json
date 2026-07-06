@@ -8,5 +8,335 @@
     "param.fmt.description": "Format: json or text.",
     "msg.subscribed": "ECHONET Lite subscription active: id={id}, {label}",
     "err.ip_required": "ip is required."
+  },
+  "ar": {
+    "tool.description": "اشترك في رسائل ECHONET Lite INF (الإشعارات) من أحد الأجهزة. عندما يرسل الجهاز إشعارًا بتغيير خاصية غير مرغوب فيها، يتم إبلاغ LLM تلقائيًا.",
+    "param.ip.description": "عنوان IPv4 للجهاز المستهدف للمراقبة (مطلوب).",
+    "param.eoj.description": "مرشح EOJ اختياري (على سبيل المثال، \"013001\" لمكيف هواء محدد، \"0130\" لجميع مكيفات الهواء). تجاهل تلقي كافة الإخطارات من عنوان IP هذا.",
+    "param.label.description": "تسمية يمكن قراءتها بواسطة الإنسان (على سبيل المثال \"リビング_エアコン\").",
+    "param.on_change_prompt.description": "يتم إدخال مطالبة اختيارية في LLM عند وصول إشعار.",
+    "param.fmt.description": "التنسيق: json أو نص.",
+    "msg.subscribed": "اشتراك ECHONET Lite نشط: المعرف={id}، {label}",
+    "err.ip_required": "مطلوب الملكية الفكرية."
+  },
+  "bn": {
+    "tool.description": "একটি ডিভাইস থেকে ECHONET Lite INF (বিজ্ঞপ্তি) বার্তাগুলিতে সদস্যতা নিন৷ যখন ডিভাইসটি একটি অযাচিত সম্পত্তি পরিবর্তনের বিজ্ঞপ্তি পাঠায়, LLM স্বয়ংক্রিয়ভাবে অবহিত হয়।",
+    "param.ip.description": "নিরীক্ষণের জন্য লক্ষ্য ডিভাইস IPv4 ঠিকানা (প্রয়োজনীয়)।",
+    "param.eoj.description": "ঐচ্ছিক EOJ ফিল্টার (যেমন একটি নির্দিষ্ট AC এর জন্য '013001', সমস্ত AC এর জন্য '0130')। এই আইপি থেকে সমস্ত বিজ্ঞপ্তি পেতে বাদ দিন।",
+    "param.label.description": "মানব-পাঠযোগ্য লেবেল (যেমন 'リビング_エアコン')।",
+    "param.on_change_prompt.description": "একটি বিজ্ঞপ্তি এলে এলএলএম-এ ঐচ্ছিক প্রম্পট ইনজেক্ট করা হয়।",
+    "param.fmt.description": "বিন্যাস: json বা পাঠ্য।",
+    "msg.subscribed": "ECHONET Lite সদস্যতা সক্রিয়: id={id}, {label}",
+    "err.ip_required": "আইপি প্রয়োজন।"
+  },
+  "cs": {
+    "tool.description": "Přihlaste se k odběru zpráv ECHONET Lite INF (oznámení) ze zařízení. Když zařízení odešle oznámení o nevyžádané změně vlastnosti, LLM je automaticky informován.",
+    "param.ip.description": "Cílová adresa IPv4 zařízení k monitorování (povinné).",
+    "param.eoj.description": "Volitelný filtr EOJ (např. „013001“ pro konkrétní AC, „0130“ pro všechny AC). Vynechat přijímat všechna upozornění z této IP.",
+    "param.label.description": "Lidsky čitelný štítek (např. „リビング_エアコン“).",
+    "param.on_change_prompt.description": "Volitelná výzva vložená do LLM, když přijde oznámení.",
+    "param.fmt.description": "Formát: json nebo text.",
+    "msg.subscribed": "Aktivní předplatné ECHONET Lite: id={id}, {label}",
+    "err.ip_required": "IP je vyžadováno."
+  },
+  "de": {
+    "tool.description": "Abonnieren Sie ECHONET Lite INF-Nachrichten (Benachrichtigungen) von einem Gerät. Wenn das Gerät unaufgefordert eine Eigenschaftsänderungsbenachrichtigung sendet, wird das LLM automatisch informiert.",
+    "param.ip.description": "Zu überwachende IPv4-Adresse des Zielgeräts (erforderlich).",
+    "param.eoj.description": "Optionaler EOJ-Filter (z. B. „013001“ für einen bestimmten AC, „0130“ für alle ACs). Lassen Sie es weg, um alle Benachrichtigungen von dieser IP zu erhalten.",
+    "param.label.description": "Für Menschen lesbares Etikett (z. B. „リビング_エアコン“).",
+    "param.on_change_prompt.description": "Optionale Eingabeaufforderung, die in das LLM eingefügt wird, wenn eine Benachrichtigung eintrifft.",
+    "param.fmt.description": "Format: JSON oder Text.",
+    "msg.subscribed": "ECHONET Lite-Abonnement aktiv: id={id}, {label}",
+    "err.ip_required": "IP ist erforderlich."
+  },
+  "el": {
+    "tool.description": "Εγγραφείτε σε μηνύματα ECHONET Lite INF (ειδοποίηση) από μια συσκευή. Όταν η συσκευή στέλνει μια αυτόκλητη ειδοποίηση αλλαγής ιδιότητας, το LLM ενημερώνεται αυτόματα.",
+    "param.ip.description": "Στοχεύστε τη διεύθυνση IPv4 της συσκευής στην παρακολούθηση (απαιτείται).",
+    "param.eoj.description": "Προαιρετικό φίλτρο EOJ (π.χ. '013001' για ένα συγκεκριμένο AC, '0130' για όλα τα AC). Παραλείψτε να λαμβάνετε όλες τις ειδοποιήσεις από αυτήν την IP.",
+    "param.label.description": "Ετικέτα αναγνώσιμη από τον άνθρωπο (π.χ. \"リビング_エアコン\").",
+    "param.on_change_prompt.description": "Προαιρετικό μήνυμα προτροπής που εισάγεται στο LLM όταν φτάσει μια ειδοποίηση.",
+    "param.fmt.description": "Μορφή: json ή κείμενο.",
+    "msg.subscribed": "Ενεργή συνδρομή ECHONET Lite: id={id}, {label}",
+    "err.ip_required": "απαιτείται ip."
+  },
+  "es": {
+    "tool.description": "Suscríbase a mensajes INF (notificación) de ECHONET Lite desde un dispositivo. Cuando el dispositivo envía una notificación de cambio de propiedad no solicitada, se informa automáticamente al LLM.",
+    "param.ip.description": "Dirección IPv4 del dispositivo de destino para monitorear (obligatorio).",
+    "param.eoj.description": "Filtro EOJ opcional (por ejemplo, '013001' para un AC específico, '0130' para todos los AC). Omitir recibir todas las notificaciones de esta IP.",
+    "param.label.description": "Etiqueta legible por humanos (por ejemplo, 'リビング_エアコン').",
+    "param.on_change_prompt.description": "Aviso opcional inyectado en el LLM cuando llega una notificación.",
+    "param.fmt.description": "Formato: json o texto.",
+    "msg.subscribed": "Suscripción a ECHONET Lite activa: id={id}, {label}",
+    "err.ip_required": "Se requiere IP."
+  },
+  "fa": {
+    "tool.description": "در پیام‌های ECHONET Lite INF (اعلان) از یک دستگاه مشترک شوید. هنگامی که دستگاه یک اعلان تغییر ملک ناخواسته ارسال می کند، LLM به طور خودکار مطلع می شود.",
+    "param.ip.description": "آدرس IPv4 دستگاه را برای نظارت (الزامی) هدف قرار دهید.",
+    "param.eoj.description": "فیلتر EOJ اختیاری (مثلاً '013001' برای یک AC خاص، '0130' برای همه AC). دریافت تمام اعلان ها از این IP را حذف کنید.",
+    "param.label.description": "برچسب قابل خواندن برای انسان (به عنوان مثال \"リビング_エアコン\").",
+    "param.on_change_prompt.description": "هنگامی که اعلان می رسد، درخواست اختیاری به LLM تزریق می شود.",
+    "param.fmt.description": "فرمت: json یا متن.",
+    "msg.subscribed": "اشتراک ECHONET Lite فعال است: id={id}، {label}",
+    "err.ip_required": "ip مورد نیاز است."
+  },
+  "fi": {
+    "tool.description": "Tilaa ECHONET Lite INF (ilmoitus) -viestit laitteesta. Kun laite lähettää ei-toivotun omaisuuden muutosilmoituksen, LLM saa siitä automaattisesti tiedon.",
+    "param.ip.description": "Kohdelaitteen IPv4-osoite valvottavaksi (pakollinen).",
+    "param.eoj.description": "Valinnainen EOJ-suodatin (esim. '013001' tietylle AC:lle, '0130' kaikille AC:ille). Älä vastaanota kaikkia ilmoituksia tästä IP-osoitteesta.",
+    "param.label.description": "Ihmisen luettavissa oleva etiketti (esim. \"リビング_エアコン\").",
+    "param.on_change_prompt.description": "Valinnainen kehote ruiskutetaan LLM:ään, kun ilmoitus saapuu.",
+    "param.fmt.description": "Muoto: json tai teksti.",
+    "msg.subscribed": "ECHONET Lite -tilaus aktiivinen: id={id}, {label}",
+    "err.ip_required": "ip vaaditaan."
+  },
+  "fr": {
+    "tool.description": "Abonnez-vous aux messages ECHONET Lite INF (notification) à partir d'un appareil. Lorsque l'appareil envoie une notification de changement de propriété non sollicitée, le LLM en est automatiquement informé.",
+    "param.ip.description": "Adresse IPv4 de l’appareil cible à surveiller (obligatoire).",
+    "param.eoj.description": "Filtre EOJ en option (par exemple « 013001 » pour un AC spécifique, « 0130 » pour tous les AC). Omettez de recevoir toutes les notifications de cette adresse IP.",
+    "param.label.description": "Étiquette lisible par l'homme (par exemple « リビング_エアコン »).",
+    "param.on_change_prompt.description": "Invite facultative injectée dans le LLM lorsqu’une notification arrive.",
+    "param.fmt.description": "Format : json ou texte.",
+    "msg.subscribed": "Abonnement ECHONET Lite actif : id={id}, {label}",
+    "err.ip_required": "l'adresse IP est requise."
+  },
+  "he": {
+    "tool.description": "הירשם להודעות ECHONET Lite INF (התראה) ממכשיר. כאשר המכשיר שולח הודעה על שינוי נכס לא רצוי, ה- LLM מקבל הודעה אוטומטית.",
+    "param.ip.description": "כוון את כתובת ה-IPv4 של המכשיר לניטור (חובה).",
+    "param.eoj.description": "מסנן EOJ אופציונלי (לדוגמה, '013001' עבור AC ספציפי, '0130' עבור כל ACs). הסר כדי לקבל את כל ההתראות מ-IP זה.",
+    "param.label.description": "תווית קריא לאדם (למשל 'リビング_エアコン').",
+    "param.on_change_prompt.description": "הנחיה אופציונלית מוזרקת ל-LLM כאשר מגיעה הודעה.",
+    "param.fmt.description": "פורמט: json או טקסט.",
+    "msg.subscribed": "מנוי ECHONET Lite פעיל: id={id}, {label}",
+    "err.ip_required": "נדרש ip."
+  },
+  "hi": {
+    "tool.description": "किसी डिवाइस से ECHONET Lite INF (अधिसूचना) संदेशों की सदस्यता लें। जब डिवाइस एक अवांछित संपत्ति परिवर्तन अधिसूचना भेजता है, तो एलएलएम को स्वचालित रूप से सूचित किया जाता है।",
+    "param.ip.description": "मॉनिटर करने के लिए लक्षित डिवाइस IPv4 पता (आवश्यक)।",
+    "param.eoj.description": "वैकल्पिक ईओजे फ़िल्टर (उदाहरण के लिए एक विशिष्ट एसी के लिए '013001', सभी एसी के लिए '0130')। इस आईपी से सभी सूचनाएं प्राप्त करना छोड़ें।",
+    "param.label.description": "मानव-पठनीय लेबल (जैसे 'リビング_エアコン')।",
+    "param.on_change_prompt.description": "अधिसूचना आने पर एलएलएम में वैकल्पिक संकेत डाला जाता है।",
+    "param.fmt.description": "प्रारूप: json या text.",
+    "msg.subscribed": "ECHONET लाइट सदस्यता सक्रिय: id={id}, {label}",
+    "err.ip_required": "आईपी आवश्यक है."
+  },
+  "hu": {
+    "tool.description": "Feliratkozás az ECHONET Lite INF (értesítés) üzenetekre egy eszközről. Amikor az eszköz kéretlen tulajdonmódosítási értesítést küld, az LLM automatikusan értesítést kap.",
+    "param.ip.description": "Céleszköz IPv4-címe a figyeléshez (kötelező).",
+    "param.eoj.description": "Opcionális EOJ szűrő (pl. „013001” egy adott váltóáramhoz, „0130” az összes váltóáramhoz). Hagyja ki az összes értesítést erről az IP-ről.",
+    "param.label.description": "Ember által olvasható címke (pl. „リビング_エアコン”).",
+    "param.on_change_prompt.description": "Opcionális felszólítás beadva az LLM-be, amikor értesítés érkezik.",
+    "param.fmt.description": "Formátum: json vagy szöveg.",
+    "msg.subscribed": "ECHONET Lite előfizetés aktív: id={id}, {label}",
+    "err.ip_required": "ip szükséges."
+  },
+  "id": {
+    "tool.description": "Berlangganan pesan ECHONET Lite INF (pemberitahuan) dari perangkat. Ketika perangkat mengirimkan pemberitahuan perubahan properti yang tidak diminta, LLM secara otomatis diberitahu.",
+    "param.ip.description": "Targetkan alamat IPv4 perangkat yang akan dipantau (wajib).",
+    "param.eoj.description": "Filter EOJ opsional (misalnya '013001' untuk AC tertentu, '0130' untuk semua AC). Abaikan untuk menerima semua notifikasi dari IP ini.",
+    "param.label.description": "Label yang dapat dibaca manusia (misalnya 'リビング_エアコン').",
+    "param.on_change_prompt.description": "Prompt opsional dimasukkan ke dalam LLM ketika pemberitahuan tiba.",
+    "param.fmt.description": "Format: json atau teks.",
+    "msg.subscribed": "Langganan ECHONET Lite aktif: id={id}, {label}",
+    "err.ip_required": "diperlukan."
+  },
+  "it": {
+    "tool.description": "Iscriviti ai messaggi INF (notifica) di ECHONET Lite da un dispositivo. Quando il dispositivo invia una notifica di modifica della proprietà non richiesta, LLM viene automaticamente informato.",
+    "param.ip.description": "Indirizzo IPv4 del dispositivo di destinazione da monitorare (obbligatorio).",
+    "param.eoj.description": "Filtro EOJ opzionale (ad esempio \"013001\" per un AC specifico, \"0130\" per tutti gli AC). Ometti di ricevere tutte le notifiche da questo IP.",
+    "param.label.description": "Etichetta leggibile dall'uomo (ad esempio 'リビング_エアコン').",
+    "param.on_change_prompt.description": "Prompt facoltativo inserito in LLM quando arriva una notifica.",
+    "param.fmt.description": "Formato: json o testo.",
+    "msg.subscribed": "Abbonamento ECHONET Lite attivo: id={id}, {label}",
+    "err.ip_required": "l'IP è obbligatorio."
+  },
+  "ja": {
+    "tool.description": "機器からのECHONET Lite INF（通知）メッセージを受信します。デバイスが一方的なプロパティ変更通知を送信すると、LLM に自動的に通知されます。",
+    "param.ip.description": "監視するターゲットデバイスのIPv4アドレス(必須)。",
+    "param.eoj.description": "オプションの EOJ フィルター (例: 特定の AC の場合は「013001」、すべての AC の場合は「0130」)。この IP からのすべての通知の受信を省略します。",
+    "param.label.description": "人間が読めるラベル (例: 「リビング_エアコン」)。",
+    "param.on_change_prompt.description": "通知の到着時に LLM に挿入されるオプションのプロンプト。",
+    "param.fmt.description": "形式: json またはテキスト。",
+    "msg.subscribed": "ECHONET Lite サブスクリプションが有効です: id={id}、{label}",
+    "err.ip_required": "IPは必須です。"
+  },
+  "ko": {
+    "tool.description": "장치에서 ECHONET Lite INF(알림) 메시지를 구독합니다. 장치가 원치 않는 속성 변경 알림을 보내면 LLM에 자동으로 통보됩니다.",
+    "param.ip.description": "모니터링할 대상 장치 IPv4 주소(필수)",
+    "param.eoj.description": "선택적 EOJ 필터(예: 특정 AC의 경우 '013001', 모든 AC의 경우 '0130'). 이 IP로부터 모든 알림을 수신하려면 생략하세요.",
+    "param.label.description": "사람이 읽을 수 있는 라벨(예: 'RIBING_EACON')",
+    "param.on_change_prompt.description": "알림이 도착하면 LLM에 선택적 프롬프트가 삽입됩니다.",
+    "param.fmt.description": "형식: json 또는 텍스트.",
+    "msg.subscribed": "ECHONET Lite 구독 활성: ID={id}, {label}",
+    "err.ip_required": "ip가 필요합니다."
+  },
+  "mn": {
+    "tool.description": "Төхөөрөмжөөс ECHONET Lite INF (мэдэгдэл) мессежийг захиалаарай. Төхөөрөмж үл хөдлөх хөрөнгийн өөрчлөлтийн мэдэгдэл илгээх үед LLM автоматаар мэдэгдэнэ.",
+    "param.ip.description": "Хяналт хийх зорилтот төхөөрөмжийн IPv4 хаяг (шаардлагатай).",
+    "param.eoj.description": "Нэмэлт EOJ шүүлтүүр (жишээ нь, тодорхой хувьсах гүйдлийн хувьд '013001', бүх АС-д '0130'). Энэ IP-ээс бүх мэдэгдлийг хүлээн авахыг орхи.",
+    "param.label.description": "Хүн унших боломжтой шошго (жишээ нь 'リビング_エアコン').",
+    "param.on_change_prompt.description": "Мэдэгдэл ирэх үед LLM-д нэмэлт сануулга оруулна.",
+    "param.fmt.description": "Формат: json эсвэл текст.",
+    "msg.subscribed": "ECHONET Lite-н захиалга идэвхтэй: id={id}, {label}",
+    "err.ip_required": "ip шаардлагатай."
+  },
+  "mr": {
+    "tool.description": "डिव्हाइसवरून ECHONET Lite INF (सूचना) संदेशांची सदस्यता घ्या. जेव्हा डिव्हाइस अवांछित मालमत्ता बदल सूचना पाठवते, तेव्हा LLM ला स्वयंचलितपणे सूचित केले जाते.",
+    "param.ip.description": "लक्ष्यित डिव्हाइस IPv4 पत्ता निरीक्षण करण्यासाठी (आवश्यक).",
+    "param.eoj.description": "पर्यायी EOJ फिल्टर (उदा. विशिष्ट AC साठी '013001', सर्व AC साठी '0130'). या IP वरून सर्व सूचना प्राप्त करणे वगळा.",
+    "param.label.description": "मानवी-वाचनीय लेबल (उदा. 'リビング_エアコン').",
+    "param.on_change_prompt.description": "सूचना आल्यावर LLM मध्ये पर्यायी प्रॉम्प्ट इंजेक्ट केले जाते.",
+    "param.fmt.description": "स्वरूप: json किंवा मजकूर.",
+    "msg.subscribed": "ECHONET Lite सदस्यता सक्रिय: id={id}, {label}",
+    "err.ip_required": "ip आवश्यक आहे."
+  },
+  "nb": {
+    "tool.description": "Abonner på ECHONET Lite INF-meldinger (varsling) fra en enhet. Når enheten sender en uoppfordret melding om endring av eiendom, blir LLM automatisk informert.",
+    "param.ip.description": "Målrett enhetens IPv4-adresse for å overvåke (påkrevd).",
+    "param.eoj.description": "Valgfritt EOJ-filter (f.eks. '013001' for en spesifikk AC, '0130' for alle AC-er). Utelat for å motta alle varsler fra denne IP-en.",
+    "param.label.description": "Etikett som kan leses av mennesker (f.eks. 'リビング_エアコン').",
+    "param.on_change_prompt.description": "Valgfri melding injisert i LLM når et varsel kommer.",
+    "param.fmt.description": "Format: json eller tekst.",
+    "msg.subscribed": "ECHONET Lite-abonnement aktivt: id={id}, {label}",
+    "err.ip_required": "ip kreves."
+  },
+  "nl": {
+    "tool.description": "Abonneer u op ECHONET Lite INF-berichten (meldingen) vanaf een apparaat. Wanneer het apparaat een ongevraagde melding van een eigendomswijziging verzendt, wordt de LLM automatisch op de hoogte gebracht.",
+    "param.ip.description": "Doelapparaat IPv4-adres om te monitoren (vereist).",
+    "param.eoj.description": "Optioneel EOJ-filter (bijvoorbeeld '013001' voor een specifieke AC, '0130' voor alle AC's). Laat het achterwege om alle meldingen van dit IP-adres te ontvangen.",
+    "param.label.description": "Voor mensen leesbaar label (bijv. 'リビング_エアコン').",
+    "param.on_change_prompt.description": "Optionele prompt geïnjecteerd in de LLM wanneer er een melding binnenkomt.",
+    "param.fmt.description": "Formaat: json of tekst.",
+    "msg.subscribed": "ECHONET Lite-abonnement actief: id={id}, {label}",
+    "err.ip_required": "ip is vereist."
+  },
+  "pl": {
+    "tool.description": "Subskrybuj wiadomości ECHONET Lite INF (powiadomienia) z urządzenia. Gdy urządzenie wyśle ​​​​niezamówione powiadomienie o zmianie właściwości, LLM zostanie automatycznie o tym poinformowany.",
+    "param.ip.description": "Adres IPv4 urządzenia docelowego do monitorowania (wymagane).",
+    "param.eoj.description": "Opcjonalny filtr EOJ (np. „013001” dla konkretnego AC, „0130” dla wszystkich AC). Pomiń otrzymywanie wszystkich powiadomień z tego adresu IP.",
+    "param.label.description": "Etykieta czytelna dla człowieka (np. „リビング_エアコン”).",
+    "param.on_change_prompt.description": "Opcjonalny monit wprowadzany do LLM po nadejściu powiadomienia.",
+    "param.fmt.description": "Format: json lub tekst.",
+    "msg.subscribed": "Aktywna subskrypcja ECHONET Lite: id={id}, {label}",
+    "err.ip_required": "wymagane jest IP."
+  },
+  "pt": {
+    "tool.description": "Assine mensagens ECHONET Lite INF (notificação) de um dispositivo. Quando o dispositivo envia uma notificação de alteração de propriedade não solicitada, o LLM é informado automaticamente.",
+    "param.ip.description": "Endereço IPv4 do dispositivo de destino a ser monitorado (obrigatório).",
+    "param.eoj.description": "Filtro EOJ opcional (por exemplo, '013001' para um AC específico, '0130' para todos os ACs). Omitir o recebimento de todas as notificações deste IP.",
+    "param.label.description": "Rótulo legível por humanos (por exemplo, 'リビング_エアコン').",
+    "param.on_change_prompt.description": "Prompt opcional injetado no LLM quando uma notificação chega.",
+    "param.fmt.description": "Formato: json ou texto.",
+    "msg.subscribed": "Assinatura ECHONET Lite ativa: id={id}, {label}",
+    "err.ip_required": "ip é obrigatório."
+  },
+  "pt_BR": {
+    "tool.description": "Assine mensagens ECHONET Lite INF (notificação) de um dispositivo. Quando o dispositivo envia uma notificação de alteração de propriedade não solicitada, o LLM é informado automaticamente.",
+    "param.ip.description": "Endereço IPv4 do dispositivo de destino a ser monitorado (obrigatório).",
+    "param.eoj.description": "Filtro EOJ opcional (por exemplo, '013001' para um AC específico, '0130' para todos os ACs). Omitir o recebimento de todas as notificações deste IP.",
+    "param.label.description": "Rótulo legível por humanos (por exemplo, 'リビング_エアコン').",
+    "param.on_change_prompt.description": "Prompt opcional injetado no LLM quando uma notificação chega.",
+    "param.fmt.description": "Formato: json ou texto.",
+    "msg.subscribed": "Assinatura ECHONET Lite ativa: id={id}, {label}",
+    "err.ip_required": "ip é obrigatório."
+  },
+  "ro": {
+    "tool.description": "Abonați-vă la mesajele ECHONET Lite INF (notificare) de pe un dispozitiv. Când dispozitivul trimite o notificare de modificare nesolicitată a proprietății, LLM este informat automat.",
+    "param.ip.description": "Adresa IPv4 a dispozitivului țintă de monitorizat (obligatoriu).",
+    "param.eoj.description": "Filtru EOJ opțional (de exemplu, „013001” pentru un anumit AC, „0130” pentru toate AC). Omiteți să primiți toate notificările de la acest IP.",
+    "param.label.description": "Etichetă care poate fi citită de om (de exemplu, „リビング_エアコン”).",
+    "param.on_change_prompt.description": "Prompt opțional injectat în LLM când sosește o notificare.",
+    "param.fmt.description": "Format: json sau text.",
+    "msg.subscribed": "Abonament ECHONET Lite activ: id={id}, {label}",
+    "err.ip_required": "ip este necesar."
+  },
+  "ru": {
+    "tool.description": "Подпишитесь на INF-сообщения (уведомления) ECHONET Lite с устройства. Когда устройство отправляет незапрошенное уведомление об изменении свойств, LLM автоматически уведомляется об этом.",
+    "param.ip.description": "IPv4-адрес целевого устройства для мониторинга (обязательно).",
+    "param.eoj.description": "Дополнительный фильтр EOJ (например, «013001» для конкретного AC, «0130» для всех AC). Пропустить получение всех уведомлений с этого IP.",
+    "param.label.description": "Читаемая человеком этикетка (например, «リビング_エアコン»).",
+    "param.on_change_prompt.description": "Дополнительный запрос, добавляемый в LLM при поступлении уведомления.",
+    "param.fmt.description": "Формат: json или текст.",
+    "msg.subscribed": "Подписка ECHONET Lite активна: id={id}, {label}",
+    "err.ip_required": "айпи обязателен."
+  },
+  "sv": {
+    "tool.description": "Prenumerera på ECHONET Lite INF-meddelanden (aviseringar) från en enhet. När enheten skickar ett oönskat meddelande om fastighetsändring, informeras LLM automatiskt.",
+    "param.ip.description": "Rikta enhetens IPv4-adress att övervaka (krävs).",
+    "param.eoj.description": "Valfritt EOJ-filter (t.ex. \"013001\" för en specifik AC, \"0130\" för alla AC). Uteslut för att ta emot alla meddelanden från denna IP.",
+    "param.label.description": "Människor läsbar etikett (t.ex. 'リビング_エアコン').",
+    "param.on_change_prompt.description": "Valfri uppmaning injiceras i LLM när ett meddelande kommer.",
+    "param.fmt.description": "Format: json eller text.",
+    "msg.subscribed": "ECHONET Lite-prenumeration aktiv: id={id}, {label}",
+    "err.ip_required": "ip krävs."
+  },
+  "sw": {
+    "tool.description": "Jisajili kwa jumbe za ECHONET Lite INF (arifa) kutoka kwa kifaa. Wakati kifaa kinatuma arifa ya mabadiliko ya mali ambayo haijaombwa, LLM inaarifiwa kiotomatiki.",
+    "param.ip.description": "Lenga anwani ya IPv4 ya kifaa kufuatilia (inahitajika).",
+    "param.eoj.description": "Kichujio cha hiari cha EOJ (k.m. '013001' kwa AC mahususi, '0130' kwa AC zote). Acha kupokea arifa zote kutoka kwa IP hii.",
+    "param.label.description": "Lebo inayoweza kusomeka na binadamu (k.m. 'リビング_エアコン').",
+    "param.on_change_prompt.description": "Kidokezo cha hiari hudungwa kwenye LLM arifa inapofika.",
+    "param.fmt.description": "Umbizo: json au maandishi.",
+    "msg.subscribed": "Usajili wa ECHONET Lite unaendelea: id={id}, {label}",
+    "err.ip_required": "ip inahitajika."
+  },
+  "th": {
+    "tool.description": "สมัครรับข้อความ ECHONET Lite INF (การแจ้งเตือน) จากอุปกรณ์ เมื่ออุปกรณ์ส่งการแจ้งเตือนการเปลี่ยนแปลงทรัพย์สินที่ไม่พึงประสงค์ LLM จะได้รับแจ้งโดยอัตโนมัติ",
+    "param.ip.description": "ที่อยู่ IPv4 ของอุปกรณ์เป้าหมายที่จะตรวจสอบ (จำเป็น)",
+    "param.eoj.description": "ตัวกรอง EOJ เสริม (เช่น '013001' สำหรับ AC เฉพาะ, '0130' สำหรับ AC ทั้งหมด) ละเว้นที่จะรับการแจ้งเตือนทั้งหมดจาก IP นี้",
+    "param.label.description": "ป้ายกำกับที่มนุษย์สามารถอ่านได้ (เช่น 'リビング_エАCON')",
+    "param.on_change_prompt.description": "ตัวเลือกเสริมจะถูกแทรกเข้าไปใน LLM เมื่อมีการแจ้งเตือนมาถึง",
+    "param.fmt.description": "รูปแบบ: json หรือข้อความ",
+    "msg.subscribed": "การสมัคร ECHONET Lite ใช้งานอยู่: id={id}, {label}",
+    "err.ip_required": "จำเป็นต้องมีไอพี"
+  },
+  "tr": {
+    "tool.description": "Bir cihazdan ECHONET Lite INF (bildirim) mesajlarına abone olun. Cihaz istenmeyen bir özellik değişikliği bildirimi gönderdiğinde LLM otomatik olarak bilgilendirilir.",
+    "param.ip.description": "İzlenecek hedef cihazın IPv4 adresi (gerekli).",
+    "param.eoj.description": "İsteğe bağlı EOJ filtresi (örneğin, belirli bir AC için '013001', tüm AC'ler için '0130'). Bu IP'den tüm bildirimleri almayı ihmal edin.",
+    "param.label.description": "İnsanların okuyabileceği etiket (ör. 'リビング_エアコン').",
+    "param.on_change_prompt.description": "Bir bildirim geldiğinde LLM'ye isteğe bağlı bilgi istemi enjekte edilir.",
+    "param.fmt.description": "Biçim: json veya metin.",
+    "msg.subscribed": "ECHONET Lite aboneliği etkin: kimlik={id}, {label}",
+    "err.ip_required": "ip gereklidir."
+  },
+  "uk": {
+    "tool.description": "Підпишіться на повідомлення ECHONET Lite INF (сповіщення) з пристрою. Коли пристрій надсилає небажане сповіщення про зміну властивостей, LLM автоматично інформується про це.",
+    "param.ip.description": "IPv4-адреса цільового пристрою для моніторингу (обов’язково).",
+    "param.eoj.description": "Додатковий фільтр EOJ (наприклад, «013001» для певного AC, «0130» для всіх AC). Не отримувати всі сповіщення з цієї IP-адреси.",
+    "param.label.description": "Зрозуміла мітка (наприклад, «リビング_エアコン»).",
+    "param.on_change_prompt.description": "Додаткова підказка, введена в LLM, коли надходить сповіщення.",
+    "param.fmt.description": "Формат: json або текстовий.",
+    "msg.subscribed": "Підписка на ECHONET Lite активна: id={id}, {label}",
+    "err.ip_required": "потрібен ip."
+  },
+  "vi": {
+    "tool.description": "Đăng ký tin nhắn ECHONET Lite INF (thông báo) từ một thiết bị. Khi thiết bị gửi thông báo thay đổi thuộc tính không được yêu cầu, LLM sẽ tự động được thông báo.",
+    "param.ip.description": "Nhắm mục tiêu địa chỉ IPv4 của thiết bị để theo dõi (bắt buộc).",
+    "param.eoj.description": "Bộ lọc EOJ tùy chọn (ví dụ: '013001' cho một AC cụ thể, '0130' cho tất cả các AC). Bỏ qua để nhận tất cả thông báo từ IP này.",
+    "param.label.description": "Nhãn mà con người có thể đọc được (ví dụ: 'リビング_エアコン').",
+    "param.on_change_prompt.description": "Lời nhắc tùy chọn được đưa vào LLM khi có thông báo.",
+    "param.fmt.description": "Định dạng: json hoặc văn bản.",
+    "msg.subscribed": "Đăng ký ECHONET Lite đang hoạt động: id={id}, {label}",
+    "err.ip_required": "ip là bắt buộc."
+  },
+  "zh_CN": {
+    "tool.description": "订阅来自设备的 ECHONET Lite INF（通知）消息。当设备发送未经请求的属性更改通知时，LLM 会自动收到通知。",
+    "param.ip.description": "要监控的目标设备 IPv4 地址（必需）。",
+    "param.eoj.description": "可选的 EOJ 过滤器（例如，“013001”表示特定 AC，“0130”表示所有 AC）。忽略接收来自该 IP 的所有通知。",
+    "param.label.description": "人类可读的标签（例如“ribingu_エakon”）。",
+    "param.on_change_prompt.description": "当通知到达时，可选提示会注入 LLM。",
+    "param.fmt.description": "格式：json 或文本。",
+    "msg.subscribed": "ECHONET Lite 订阅有效：id={id}、{label}",
+    "err.ip_required": "ip 是必需的。"
+  },
+  "zh_TW": {
+    "tool.description": "訂閱來自裝置的 ECHONET Lite INF（通知）訊息。當裝置發送未經請求的屬性變更通知時，LLM 會自動收到通知。",
+    "param.ip.description": "要監控的目標設備 IPv4 位址（必需）。",
+    "param.eoj.description": "可選的 EOJ 過濾器（例如，“013001”表示特定 AC，“0130”表示所有 AC）。忽略接收來自該 IP 的所有通知。",
+    "param.label.description": "人類可讀的標籤（例如“ribingu_エakon”）。",
+    "param.on_change_prompt.description": "當通知到達時，可選提示會注入 LLM。",
+    "param.fmt.description": "格式：json 或文字。",
+    "msg.subscribed": "ECHONET Lite 訂閱有效：id={id}、{label}",
+    "err.ip_required": "ip 是必需的。"
   }
 }
