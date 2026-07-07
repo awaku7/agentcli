@@ -748,3 +748,26 @@ async def execute_actions(
         finally:
             await context.close()
             await browser.close()
+
+
+
+def browser_playwright_run(args: dict[str, Any]) -> dict[str, Any]:
+    # Copy to avoid mutating caller's dict; keep all keys (including trace*)
+    # so they reach execute_actions via kwargs.
+    cleaned = dict(args)
+    actions = cleaned.pop("actions", [])
+    headless = cleaned.pop("headless", True)
+    try:
+        return asyncio.run(execute_actions(actions, headless, **cleaned))
+    except RuntimeError:
+        loop = asyncio.new_event_loop()
+        try:
+            return loop.run_until_complete(
+                execute_actions(actions, headless, **cleaned)
+            )
+        finally:
+            loop.close()
+
+
+# Alias for tool loader
+run_tool = browser_playwright_run
