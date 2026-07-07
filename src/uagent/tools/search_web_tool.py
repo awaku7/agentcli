@@ -498,9 +498,9 @@ def _yahoo_jp_search(
 def search_web(
     query: str,
     max_results: int = DEFAULT_MAX_RESULTS,
-    engine: str = "duckduckgo",
+    engine: str = "startpage",
 ) -> list[dict[str, str]]:
-    """Search the web using specified engine (duckduckgo, brave, yahoo_jp, or startpage)."""
+    """Search the web using specified engine (startpage (default), duckduckgo, brave, or yahoo_jp)."""
     if engine == "brave":
         return _brave_search(query=query, max_results=max_results)
     if engine == "startpage":
