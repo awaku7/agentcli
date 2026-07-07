@@ -21,10 +21,16 @@
   "ja": {
     "tool.description": "Word系文書(.docx/.rtf/.odt)からテキストと構造を抽出。",
     "x_search_terms": [
-      "document_extract",
       "document extract",
-      "文書抽出",
-      "テキスト抽出"
+      "docx",
+      "word",
+      "office document",
+      "document parsing",
+      "extract text",
+      "document read",
+      "rtf",
+      "odt",
+      "word document"
     ],
     "param.path.description": "入力ドキュメント（.docx, .rtf, .odt）のパス。",
     "param.password.description": "パスワード（必要な場合はプロンプト表示）。",
@@ -34,10 +40,16 @@
   "es": {
     "tool.description": "Extrae texto y una estructura básica de documentos tipo Word (.",
     "x_search_terms": [
-      "document_extract",
       "document extract",
-      "extraer documento",
-      "extraer texto"
+      "docx",
+      "word",
+      "office document",
+      "document parsing",
+      "extract text",
+      "document read",
+      "rtf",
+      "odt",
+      "word document"
     ],
     "param.path.description": "Ruta del documento de entrada (.docx, .rtf, .odt).",
     "param.password.description": "Contraseña (solicitudes si es necesario).",
@@ -47,10 +59,16 @@
   "fr": {
     "tool.description": "Extraire le texte et la structure de base de documents de type Word (. docx, .",
     "x_search_terms": [
-      "document_extract",
       "document extract",
-      "extraire document",
-      "extraire texte"
+      "docx",
+      "word",
+      "office document",
+      "document parsing",
+      "extract text",
+      "document read",
+      "rtf",
+      "odt",
+      "word document"
     ],
     "param.path.description": "Chemin du document d’entrée (.docx, .rtf, .odt).",
     "param.password.description": "Mot de passe (invite si nécessaire).",
@@ -60,10 +78,16 @@
   "ko": {
     "tool.description": "Word 문서(.docx/.rtf/.odt)에서 텍스트와 구조 추출.",
     "x_search_terms": [
-      "document_extract",
       "document extract",
-      "문서 추출",
-      "텍스트 추출"
+      "docx",
+      "word",
+      "office document",
+      "document parsing",
+      "extract text",
+      "document read",
+      "rtf",
+      "odt",
+      "word document"
     ],
     "param.path.description": "입력 문서(.docx, .rtf, .odt)의 경로.",
     "param.password.description": "비밀번호(필요시 프롬프트 표시).",
@@ -73,10 +97,16 @@
   "de": {
     "tool.description": "Text und Grundstruktur aus Word-ähnlichen Dokumenten extrahieren (. docx, .",
     "x_search_terms": [
-      "document_extract",
       "document extract",
-      "dokument extrahieren",
-      "text extrahieren"
+      "docx",
+      "word",
+      "office document",
+      "document parsing",
+      "extract text",
+      "document read",
+      "rtf",
+      "odt",
+      "word document"
     ],
     "param.path.description": "Pfad zum Eingabedokument (.docx, .rtf, .odt).",
     "param.password.description": "Passwort (fragt bei Bedarf nach).",
@@ -86,10 +116,16 @@
   "it": {
     "tool.description": "Estrae testo e una struttura di base da documenti simili a Word (.",
     "x_search_terms": [
-      "document_extract",
       "document extract",
-      "estrai documento",
-      "estrai testo"
+      "docx",
+      "word",
+      "office document",
+      "document parsing",
+      "extract text",
+      "document read",
+      "rtf",
+      "odt",
+      "word document"
     ],
     "param.path.description": "Percorso del documento di input (.docx, .rtf, .",
     "param.password.description": "Password (richiesta se necessario).",
@@ -99,10 +135,16 @@
   "ru": {
     "tool.description": "Извлекает текст и базовую структуру из документов в стиле Word (.",
     "x_search_terms": [
-      "document_extract",
       "document extract",
-      "извлечь документ",
-      "извлечь текст"
+      "docx",
+      "word",
+      "office document",
+      "document parsing",
+      "extract text",
+      "document read",
+      "rtf",
+      "odt",
+      "word document"
     ],
     "param.path.description": "Путь к входному документу (.docx, .rtf, .odt).",
     "param.password.description": "Взаимодействие с определенным каналом Discord с помощью токена бота: отправка сообщений, чтение последних сообщений и, при необходимости, ожидание ответов после отправки.",
@@ -112,10 +154,16 @@
   "pt_BR": {
     "tool.description": "Extrai texto e uma estrutura básica de documentos no estilo Word (.",
     "x_search_terms": [
-      "document_extract",
       "document extract",
-      "extrair documento",
-      "extrair texto"
+      "docx",
+      "word",
+      "office document",
+      "document parsing",
+      "extract text",
+      "document read",
+      "rtf",
+      "odt",
+      "word document"
     ],
     "param.path.description": "Caminho do documento de entrada (.docx, .rtf, .",
     "param.password.description": "Senha (solicita se necessário).",
@@ -125,10 +173,16 @@
   "pt": {
     "tool.description": "Extraia texto e estrutura básica de documentos semelhantes a Word (. docx, .",
     "x_search_terms": [
-      "document_extract",
       "document extract",
-      "extrair documento",
-      "extrair texto"
+      "docx",
+      "word",
+      "office document",
+      "document parsing",
+      "extract text",
+      "document read",
+      "rtf",
+      "odt",
+      "word document"
     ],
     "param.path.description": "Caminho para o documento de entrada (.docx, .",
     "param.password.description": "Senha (solicita se necessário).",
@@ -138,10 +192,16 @@
   "id": {
     "tool.description": "Mengekstrak teks dan struktur dasar dari dokumen mirip Word (.",
     "x_search_terms": [
-      "document_extract",
       "document extract",
-      "ekstrak dokumen",
-      "ekstrak teks"
+      "docx",
+      "word",
+      "office document",
+      "document parsing",
+      "extract text",
+      "document read",
+      "rtf",
+      "odt",
+      "word document"
     ],
     "param.path.description": "Path dokumen input (.docx, .rtf, .odt).",
     "param.password.description": "Kata sandi (diminta jika diperlukan).",
@@ -151,10 +211,16 @@
   "vi": {
     "tool.description": "Trích xuất văn bản và cấu trúc cơ bản từ tài liệu dạng Word (.",
     "x_search_terms": [
-      "document_extract",
       "document extract",
-      "trích xuất tài liệu",
-      "trích xuất văn bản"
+      "docx",
+      "word",
+      "office document",
+      "document parsing",
+      "extract text",
+      "document read",
+      "rtf",
+      "odt",
+      "word document"
     ],
     "param.path.description": "Đường dẫn đến tài liệu đầu vào (.docx, .rtf, .odt).",
     "param.password.description": "Mật khẩu (nhắc nếu cần).",
@@ -164,10 +230,16 @@
   "pl": {
     "tool.description": "Wyodrębnij tekst i podstawową strukturę z dokumentów typu Word (.docx, .",
     "x_search_terms": [
-      "document_extract",
       "document extract",
-      "wyodrębnij dokument",
-      "wyodrębnij tekst"
+      "docx",
+      "word",
+      "office document",
+      "document parsing",
+      "extract text",
+      "document read",
+      "rtf",
+      "odt",
+      "word document"
     ],
     "param.path.description": "Ścieżka do dokumentu wejściowego (.docx, .",
     "param.password.description": "Hasło (w razie potrzeby wyświetli monit).",
@@ -177,10 +249,16 @@
   "hi": {
     "tool.description": "Word-जैसे दस्तावेज़ों (.docx, .rtf, .",
     "x_search_terms": [
-      "document_extract",
       "document extract",
-      "दस्तावेज़ निकालें",
-      "पाठ निकालें"
+      "docx",
+      "word",
+      "office document",
+      "document parsing",
+      "extract text",
+      "document read",
+      "rtf",
+      "odt",
+      "word document"
     ],
     "param.path.description": "इनपुट दस्तावेज़ का पथ (.docx, .rtf, .odt)।",
     "param.password.description": "पासवर्ड (यदि आवश्यक हो तो संकेत दें)।",
@@ -190,10 +268,16 @@
   "ar": {
     "tool.description": "استخرج النص والبنية الأساسية من المستندات الشبيهة بـ Word (.docx، .",
     "x_search_terms": [
-      "document_extract",
       "document extract",
-      "استخراج مستند",
-      "استخراج نص"
+      "docx",
+      "word",
+      "office document",
+      "document parsing",
+      "extract text",
+      "document read",
+      "rtf",
+      "odt",
+      "word document"
     ],
     "param.path.description": "المسار إلى مستند الإدخال (.docx، .rtf، .odt).",
     "param.password.description": "كلمة المرور (مطالبة إذا لزم الأمر).",
@@ -203,10 +287,16 @@
   "sv": {
     "tool.description": "Extrahera text och grundläggande struktur från Word-liknande dokument (. docx, .",
     "x_search_terms": [
-      "document_extract",
       "document extract",
-      "extrahera dokument",
-      "extrahera text"
+      "docx",
+      "word",
+      "office document",
+      "document parsing",
+      "extract text",
+      "document read",
+      "rtf",
+      "odt",
+      "word document"
     ],
     "param.path.description": "Sökväg till indokumentet (.docx, .rtf, .odt).",
     "param.password.description": "Lösenord (meddelanden om det behövs).",
@@ -216,10 +306,16 @@
   "sw": {
     "tool.description": "Toa maandishi na muundo wa msingi kutoka kwa hati za Word (.docx, .",
     "x_search_terms": [
-      "document_extract",
       "document extract",
-      "toa hati",
-      "toa maandishi"
+      "docx",
+      "word",
+      "office document",
+      "document parsing",
+      "extract text",
+      "document read",
+      "rtf",
+      "odt",
+      "word document"
     ],
     "param.path.description": "Njia ya hati ya ingizo (.docx, .rtf, .odt).",
     "param.password.description": "Nenosiri (vidokezo ikihitajika",
@@ -229,10 +325,16 @@
   "nb": {
     "tool.description": "Trekk ut tekst og grunnleggende struktur fra Word-lignende dokumenter (. docx, .",
     "x_search_terms": [
-      "document_extract",
       "document extract",
-      "ekstraher dokument",
-      "ekstraher tekst"
+      "docx",
+      "word",
+      "office document",
+      "document parsing",
+      "extract text",
+      "document read",
+      "rtf",
+      "odt",
+      "word document"
     ],
     "param.path.description": "Sti til inndokumentet (.docx, .rtf, .odt).",
     "param.password.description": "Passord (spør om nødvendig).",
@@ -242,10 +344,16 @@
   "nl": {
     "tool.description": "Extraheer tekst en basisstructuur uit Word-documenten (.docx, .",
     "x_search_terms": [
-      "document_extract",
       "document extract",
-      "document extraheren",
-      "tekst extraheren"
+      "docx",
+      "word",
+      "office document",
+      "document parsing",
+      "extract text",
+      "document read",
+      "rtf",
+      "odt",
+      "word document"
     ],
     "param.path.description": "Pad naar het invoerdocument (.docx, .rtf, .odt).",
     "param.password.description": "Wachtwoord (vraagt ​​indien nodig).",
@@ -255,10 +363,16 @@
   "fi": {
     "tool.description": "Poimi teksti ja perusrakenne Word-asiakirjoista (.docx, .rtf, .odt).",
     "x_search_terms": [
-      "document_extract",
       "document extract",
-      "poimi asiakirja",
-      "poimi teksti"
+      "docx",
+      "word",
+      "office document",
+      "document parsing",
+      "extract text",
+      "document read",
+      "rtf",
+      "odt",
+      "word document"
     ],
     "param.path.description": "Syöteasiakirjan polku (.docx, .rtf, .odt).",
     "param.password.description": "Salasana (kehottaa tarvittaessa).",
@@ -268,10 +382,16 @@
   "cs": {
     "tool.description": "Extrahuje text a základní strukturu z dokumentů podobných Wordu (.",
     "x_search_terms": [
-      "document_extract",
       "document extract",
-      "extrahovat dokument",
-      "extrahovat text"
+      "docx",
+      "word",
+      "office document",
+      "document parsing",
+      "extract text",
+      "document read",
+      "rtf",
+      "odt",
+      "word document"
     ],
     "param.path.description": "Cesta k vstupnímu dokumentu (.docx, .rtf, .odt).",
     "param.password.description": "Heslo (v případě potřeby se zobrazí výzva).",
@@ -281,10 +401,16 @@
   "uk": {
     "tool.description": "Витягує текст і базову структуру з документів на кшталт Word (.",
     "x_search_terms": [
-      "document_extract",
       "document extract",
-      "витягти документ",
-      "витягти текст"
+      "docx",
+      "word",
+      "office document",
+      "document parsing",
+      "extract text",
+      "document read",
+      "rtf",
+      "odt",
+      "word document"
     ],
     "param.path.description": "Шлях до вхідного документа (.docx, .rtf, .odt).",
     "param.password.description": "Інтервал опитування під час очікування відповідей (у секундах).",
@@ -294,10 +420,16 @@
   "tr": {
     "tool.description": "Word benzeri belgelerden (.docx, .rtf, .",
     "x_search_terms": [
-      "document_extract",
       "document extract",
-      "belge çıkar",
-      "metin çıkar"
+      "docx",
+      "word",
+      "office document",
+      "document parsing",
+      "extract text",
+      "document read",
+      "rtf",
+      "odt",
+      "word document"
     ],
     "param.path.description": "Giriş belgesinin yolu (.docx, .rtf, .odt).",
     "param.password.description": "Şifre (gerekirse istemde bulunur).",
@@ -307,10 +439,16 @@
   "th": {
     "tool.description": "แยกข้อความและโครงสร้างพื้นฐานจากเอกสารสไตล์ Word (.docx, .rtf, .",
     "x_search_terms": [
-      "document_extract",
       "document extract",
-      "แยกเอกสาร",
-      "แยกข้อความ"
+      "docx",
+      "word",
+      "office document",
+      "document parsing",
+      "extract text",
+      "document read",
+      "rtf",
+      "odt",
+      "word document"
     ],
     "param.path.description": "พาธของเอกสารต้นทาง (.docx, .rtf, .odt)",
     "param.password.description": "รหัสผ่าน (แจ้งหากจำเป็น)",
@@ -320,10 +458,16 @@
   "zh_CN": {
     "tool.description": "从Word文档(.docx/.rtf/.odt)中提取文本和基本结构。",
     "x_search_terms": [
-      "document_extract",
       "document extract",
-      "文档提取",
-      "文本提取"
+      "docx",
+      "word",
+      "office document",
+      "document parsing",
+      "extract text",
+      "document read",
+      "rtf",
+      "odt",
+      "word document"
     ],
     "param.path.description": "输入文档（.docx、.rtf、.odt）的路径。",
     "param.password.description": "密码（需要时提示输入）。",
@@ -333,10 +477,16 @@
   "zh_TW": {
     "tool.description": "从Word文档(.docx/.rtf/.odt)中提取文本和基本结构。",
     "x_search_terms": [
-      "document_extract",
       "document extract",
-      "文件擷取",
-      "文字擷取"
+      "docx",
+      "word",
+      "office document",
+      "document parsing",
+      "extract text",
+      "document read",
+      "rtf",
+      "odt",
+      "word document"
     ],
     "param.path.description": "輸入文件（.docx、.rtf、.odt）的路徑。",
     "param.password.description": "密码（需要时提示输入）。",
@@ -346,10 +496,16 @@
   "bn": {
     "tool.description": "Word-এর মতো ডকুমেন্ট (.docx, .rtf, .",
     "x_search_terms": [
-      "document_extract",
       "document extract",
-      "নথি নির্যাস",
-      "পাঠ্য নির্যাস"
+      "docx",
+      "word",
+      "office document",
+      "document parsing",
+      "extract text",
+      "document read",
+      "rtf",
+      "odt",
+      "word document"
     ],
     "param.path.description": "ইনপুট ডকুমেন্টের পথ (.docx, .rtf, .odt)।",
     "param.password.description": "পাসওয়ার্ড (প্রয়োজন হলে প্রম্পট)।",
@@ -359,10 +515,16 @@
   "fa": {
     "tool.description": "متن و ساختار پایه را از سندهای شبیه Word (.docx، .rtf، .",
     "x_search_terms": [
-      "document_extract",
       "document extract",
-      "استخراج سند",
-      "استخراج متن"
+      "docx",
+      "word",
+      "office document",
+      "document parsing",
+      "extract text",
+      "document read",
+      "rtf",
+      "odt",
+      "word document"
     ],
     "param.path.description": "مسیر سند ورودی (.docx، .rtf، .odt).",
     "param.password.description": "رمز عبور (در صورت نیاز درخواست می کند).",
@@ -372,10 +534,16 @@
   "mn": {
     "tool.description": "Word-тэй төстэй баримтууд (.docx, .rtf, .",
     "x_search_terms": [
-      "document_extract",
       "document extract",
-      "баримт задлах",
-      "текст задлах"
+      "docx",
+      "word",
+      "office document",
+      "document parsing",
+      "extract text",
+      "document read",
+      "rtf",
+      "odt",
+      "word document"
     ],
     "param.path.description": "Оролтын баримтын зам (.docx, .rtf, .odt).",
     "param.password.description": "Нууц үг (шаардлагатай бол сануулна).",
@@ -385,10 +553,16 @@
   "mr": {
     "tool.description": "Word-सदृश दस्तऐवजांमधून (.docx, .rtf, .",
     "x_search_terms": [
-      "document_extract",
       "document extract",
-      "दस्तऐवज काढा",
-      "मजकूर काढा"
+      "docx",
+      "word",
+      "office document",
+      "document parsing",
+      "extract text",
+      "document read",
+      "rtf",
+      "odt",
+      "word document"
     ],
     "param.path.description": "इनपुट दस्तऐवजाचा मार्ग (.docx, .rtf, .odt).",
     "param.password.description": "पासवर्ड (आवश्यक असल्यास सूचना).",
@@ -398,12 +572,16 @@
   "el": {
     "tool.description": "Εξαγωγή κειμένου και βασικής δομής από έγγραφα τύπου Word (. docx, .",
     "x_search_terms": [
-      "έγγραφο_απόσπασμα",
-      "απόσπασμα εγγράφου",
+      "document extract",
       "docx",
+      "word",
+      "office document",
+      "document parsing",
+      "extract text",
+      "document read",
       "rtf",
       "odt",
-      "εξαγωγή κειμένου"
+      "word document"
     ],
     "param.path.description": "Διαδρομή προς το έγγραφο εισόδου (.docx, .rtf, .odt).",
     "param.password.description": "Κωδικός πρόσβασης (ζητείται εάν χρειάζεται).",
@@ -413,12 +591,16 @@
   "he": {
     "tool.description": "חלץ טקסט ומבנה בסיסי ממסמכים דמויי Word (. docx, .",
     "x_search_terms": [
-      "document_extract",
-      "תמצית מסמך",
+      "document extract",
       "docx",
+      "word",
+      "office document",
+      "document parsing",
+      "extract text",
+      "document read",
       "rtf",
       "odt",
-      "לחלץ טקסט"
+      "word document"
     ],
     "param.path.description": "נתיב למסמך הקלט (.docx, .rtf, .odt).",
     "param.password.description": "סיסמה (מבקש במידת הצורך).",
@@ -428,12 +610,16 @@
   "hu": {
     "tool.description": "Szöveg és alapstruktúra kinyerése Word-szerű dokumentumokból (. docx, .",
     "x_search_terms": [
-      "dokumentum_kivonat",
-      "dokumentum kivonat",
+      "document extract",
       "docx",
+      "word",
+      "office document",
+      "document parsing",
+      "extract text",
+      "document read",
       "rtf",
       "odt",
-      "kivonat szöveget"
+      "word document"
     ],
     "param.path.description": "A bemeneti dokumentum elérési útja (.docx, .rtf, .odt).",
     "param.password.description": "Jelszó (szükség esetén kéri).",
@@ -443,12 +629,16 @@
   "ro": {
     "tool.description": "Extrageți text și structura de bază din documente similare Word (. docx, .",
     "x_search_terms": [
-      "extras_document",
-      "extras de document",
+      "document extract",
       "docx",
+      "word",
+      "office document",
+      "document parsing",
+      "extract text",
+      "document read",
       "rtf",
       "odt",
-      "extrage text"
+      "word document"
     ],
     "param.path.description": "Calea către documentul de intrare (.docx, .rtf, .odt).",
     "param.password.description": "Parola (se solicită dacă este necesar).",

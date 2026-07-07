@@ -17,314 +17,496 @@
   "ja": {
     "tool.description": "現在の時刻と詳細な日時情報（タイムゾーン、曜日、UTC時刻）を返します。現在の曜日とUTCオフセットを確認することで、「今日」「明日」「今週末」「来月の第3火曜日」などの相対的な日付表現を解決するために使用します。",
     "x_search_terms": [
-      "get_current_time",
-      "現在時刻",
-      "今の時刻",
-      "日時確認"
+      "current time",
+      "get time",
+      "now",
+      "current date",
+      "date time",
+      "time now",
+      "today",
+      "timestamp",
+      "local time",
+      "system time"
     ]
   },
   "es": {
     "tool.description": "Devuelve la hora actual e información detallada de fecha/hora (zona horaria, día de la semana, hora UTC).",
     "x_search_terms": [
-      "get_current_time",
-      "hora actual",
-      "fecha y hora",
-      "tiempo actual"
+      "current time",
+      "get time",
+      "now",
+      "current date",
+      "date time",
+      "time now",
+      "today",
+      "timestamp",
+      "local time",
+      "system time"
     ]
   },
   "fr": {
     "tool.description": "Renvoie l’heure actuelle et les informations détaillées sur la date/heure (fuseau horaire, jour de la semaine, heure UTC).",
     "x_search_terms": [
-      "get_current_time",
-      "heure actuelle",
-      "date et heure",
-      "temps actuel"
+      "current time",
+      "get time",
+      "now",
+      "current date",
+      "date time",
+      "time now",
+      "today",
+      "timestamp",
+      "local time",
+      "system time"
     ]
   },
   "ko": {
     "tool.description": "현재 시간과 자세한 날짜/시간 정보(시간대, 요일, UTC 시간)를 반환합니다. 이를 사용하여 현재 요일과 UTC 오프셋을 확인한 뒤 상대적인 날짜 표현(예: '오늘', '내일', '이번 주말', '다음 달 세 번째 화요일')을 해석합니다.",
     "x_search_terms": [
-      "get_current_time",
-      "현재 시간",
-      "현재 시각",
-      "날짜 시간"
+      "current time",
+      "get time",
+      "now",
+      "current date",
+      "date time",
+      "time now",
+      "today",
+      "timestamp",
+      "local time",
+      "system time"
     ]
   },
   "de": {
     "tool.description": "Gibt die aktuelle Uhrzeit und detaillierte Datums-/Uhrzeitinformationen (Zeitzone, Wochentag, UTC-Zeit) zurück.",
     "x_search_terms": [
-      "get_current_time",
-      "aktuelle zeit",
-      "datum und uhrzeit",
-      "uhrzeit jetzt"
+      "current time",
+      "get time",
+      "now",
+      "current date",
+      "date time",
+      "time now",
+      "today",
+      "timestamp",
+      "local time",
+      "system time"
     ]
   },
   "it": {
     "tool.description": "Restituisce l'ora corrente e informazioni dettagliate su data/ora (fuso orario, giorno della settimana, ora UTC).",
     "x_search_terms": [
-      "get_current_time",
-      "ora attuale",
-      "data e ora",
-      "ora corrente"
+      "current time",
+      "get time",
+      "now",
+      "current date",
+      "date time",
+      "time now",
+      "today",
+      "timestamp",
+      "local time",
+      "system time"
     ]
   },
   "ru": {
     "tool.description": "Возвращает текущее время и подробную информацию о дате/времени (часовой пояс, день недели, время UTC).",
     "x_search_terms": [
-      "get_current_time",
-      "текущее время",
-      "дата и время",
-      "время сейчас"
+      "current time",
+      "get time",
+      "now",
+      "current date",
+      "date time",
+      "time now",
+      "today",
+      "timestamp",
+      "local time",
+      "system time"
     ]
   },
   "pt_BR": {
     "tool.description": "Retorna a hora atual e informações detalhadas de data/hora (fuso horário, dia da semana, horário UTC).",
     "x_search_terms": [
-      "get_current_time",
-      "hora atual",
-      "data e hora",
-      "tempo atual"
+      "current time",
+      "get time",
+      "now",
+      "current date",
+      "date time",
+      "time now",
+      "today",
+      "timestamp",
+      "local time",
+      "system time"
     ]
   },
   "pt": {
     "tool.description": "Retorna a hora atual e informações detalhadas de data/hora (fuso horário, dia da semana, horário UTC).",
     "x_search_terms": [
-      "get_current_time",
-      "hora atual",
-      "data e hora",
-      "tempo atual"
+      "current time",
+      "get time",
+      "now",
+      "current date",
+      "date time",
+      "time now",
+      "today",
+      "timestamp",
+      "local time",
+      "system time"
     ]
   },
   "id": {
     "tool.description": "Kembalikan waktu saat ini dan informasi tanggal/waktu terperinci (zona waktu, hari dalam minggu, waktu UTC).",
     "x_search_terms": [
-      "get_current_time",
-      "waktu saat ini",
-      "tanggal dan waktu",
-      "waktu sekarang"
+      "current time",
+      "get time",
+      "now",
+      "current date",
+      "date time",
+      "time now",
+      "today",
+      "timestamp",
+      "local time",
+      "system time"
     ]
   },
   "vi": {
     "tool.description": "Trả về thời gian hiện tại và thông tin ngày/giờ chi tiết (múi giờ, ngày trong tuần, giờ UTC).",
     "x_search_terms": [
-      "get_current_time",
-      "thời gian hiện tại",
-      "ngày giờ",
-      "giờ hiện tại"
+      "current time",
+      "get time",
+      "now",
+      "current date",
+      "date time",
+      "time now",
+      "today",
+      "timestamp",
+      "local time",
+      "system time"
     ]
   },
   "pl": {
     "tool.description": "Zwróć bieżący czas i szczegółowe informacje o dacie/godzinie (strefa czasowa, dzień tygodnia, czas UTC).",
     "x_search_terms": [
-      "get_current_time",
-      "aktualny czas",
-      "data i czas",
-      "czas teraz"
+      "current time",
+      "get time",
+      "now",
+      "current date",
+      "date time",
+      "time now",
+      "today",
+      "timestamp",
+      "local time",
+      "system time"
     ]
   },
   "hi": {
     "tool.description": "वर्तमान समय और विस्तृत दिनांक/समय जानकारी (समयक्षेत्र, कार्यदिवस, UTC समय) लौटाएं। सापेक्ष दिनांक अभिव्यक्तियों को हल करने के लिए इसका उपयोग करें (e.",
     "x_search_terms": [
-      "get_current_time",
-      "वर्तमान समय",
-      "दिनांक और समय",
-      "समय अभी"
+      "current time",
+      "get time",
+      "now",
+      "current date",
+      "date time",
+      "time now",
+      "today",
+      "timestamp",
+      "local time",
+      "system time"
     ]
   },
   "ar": {
     "tool.description": "قم بإرجاع الوقت الحالي ومعلومات التاريخ/الوقت التفصيلية (المنطقة الزمنية، أيام الأسبوع، توقيت UTC).",
     "x_search_terms": [
-      "get_current_time",
-      "الوقت الحالي",
-      "التاريخ والوقت",
-      "الوقت الآن"
+      "current time",
+      "get time",
+      "now",
+      "current date",
+      "date time",
+      "time now",
+      "today",
+      "timestamp",
+      "local time",
+      "system time"
     ]
   },
   "sv": {
     "tool.description": "Returnerar aktuell tid och detaljerad datum-/tidsinformation (tidszon, veckodag, UTC-tid).",
     "x_search_terms": [
-      "get_current_time",
-      "aktuell tid",
-      "datum och tid",
-      "tid nu"
+      "current time",
+      "get time",
+      "now",
+      "current date",
+      "date time",
+      "time now",
+      "today",
+      "timestamp",
+      "local time",
+      "system time"
     ]
   },
   "sw": {
     "tool.description": "Rudisha muda wa sasa na maelezo ya kina ya tarehe/muda (eneo la saa, siku ya wiki, muda wa UTC).",
     "x_search_terms": [
-      "get_current_time",
-      "muda wa sasa",
-      "tarehe na muda",
-      "muda sasa"
+      "current time",
+      "get time",
+      "now",
+      "current date",
+      "date time",
+      "time now",
+      "today",
+      "timestamp",
+      "local time",
+      "system time"
     ]
   },
   "nb": {
     "tool.description": "Returnerer gjeldende tid og detaljert dato-/tidsinformasjon (tidssone, ukedag, UTC-tid).",
     "x_search_terms": [
-      "get_current_time",
-      "gjeldende tid",
-      "dato og tid",
-      "tid nå"
+      "current time",
+      "get time",
+      "now",
+      "current date",
+      "date time",
+      "time now",
+      "today",
+      "timestamp",
+      "local time",
+      "system time"
     ]
   },
   "nl": {
     "tool.description": "Gee de huidige tijd en gedetailleerde datum/tijd-informatie terug (tijdzone, weekdag, UTC-tijd).",
     "x_search_terms": [
-      "get_current_time",
-      "huidige tijd",
-      "datum en tijd",
-      "tijd nu"
+      "current time",
+      "get time",
+      "now",
+      "current date",
+      "date time",
+      "time now",
+      "today",
+      "timestamp",
+      "local time",
+      "system time"
     ]
   },
   "fi": {
     "tool.description": "Palauttaa nykyisen ajan ja yksityiskohtaiset päivämäärä-/aikatiedot (aikavyöhyke, viikonpäivä, UTC-aika).",
     "x_search_terms": [
-      "get_current_time",
-      "nykyinen aika",
-      "päivämäärä ja aika",
-      "aika nyt"
+      "current time",
+      "get time",
+      "now",
+      "current date",
+      "date time",
+      "time now",
+      "today",
+      "timestamp",
+      "local time",
+      "system time"
     ]
   },
   "cs": {
     "tool.description": "Vraťte aktuální čas a podrobné informace o datu/čase (časové pásmo, den v týdnu, čas UTC).",
     "x_search_terms": [
-      "get_current_time",
-      "aktuální čas",
-      "datum a čas",
-      "čas nyní"
+      "current time",
+      "get time",
+      "now",
+      "current date",
+      "date time",
+      "time now",
+      "today",
+      "timestamp",
+      "local time",
+      "system time"
     ]
   },
   "uk": {
     "tool.description": "Повертає поточний час і докладну інформацію про дату/час (часовий пояс, день тижня, UTC-час).",
     "x_search_terms": [
-      "get_current_time",
-      "поточний час",
-      "дата і час",
-      "час зараз"
+      "current time",
+      "get time",
+      "now",
+      "current date",
+      "date time",
+      "time now",
+      "today",
+      "timestamp",
+      "local time",
+      "system time"
     ]
   },
   "tr": {
     "tool.description": "Geçerli saati ve ayrıntılı tarih/saat bilgilerini (saat dilimi, hafta içi, UTC saati) döndürür.",
     "x_search_terms": [
-      "get_current_time",
-      "geçerli saat",
-      "tarih ve saat",
-      "şimdi"
+      "current time",
+      "get time",
+      "now",
+      "current date",
+      "date time",
+      "time now",
+      "today",
+      "timestamp",
+      "local time",
+      "system time"
     ]
   },
   "th": {
     "tool.description": "ส่งกลับเวลาปัจจุบันและข้อมูลวันที่/เวลาโดยละเอียด (เขตเวลา วันธรรมดา เวลา UTC) ใช้ตัวเลือกนี้เพื่อแก้ไขนิพจน์วันที่ที่สัมพันธ์กัน (เช่น",
     "x_search_terms": [
-      "get_current_time",
-      "เวลาปัจจุบัน",
-      "วันที่และเวลา",
-      "เวลาตอนนี้"
+      "current time",
+      "get time",
+      "now",
+      "current date",
+      "date time",
+      "time now",
+      "today",
+      "timestamp",
+      "local time",
+      "system time"
     ]
   },
   "zh_CN": {
     "tool.description": "返回当前时间和详细的日期/时间信息（时区、星期、UTC 时间）。使用它通过确定当前星期和 UTC 偏移量来解析相对日期表达式（例如，“今天”、“明天”、“本周末”、“下个月的第三个星期二”）。",
     "x_search_terms": [
-      "get_current_time",
-      "当前时间",
-      "日期和时间",
-      "现在时间"
+      "current time",
+      "get time",
+      "now",
+      "current date",
+      "date time",
+      "time now",
+      "today",
+      "timestamp",
+      "local time",
+      "system time"
     ]
   },
   "zh_TW": {
     "tool.description": "傳回目前時間和詳細的日期/時間資訊（時區、星期、UTC 時間）。使用它透過確定目前星期和 UTC 偏移量來解析相對日期表達式（例如，「今天」、「明天」、「本週末」、「下個月的第三個星期二」）。",
     "x_search_terms": [
-      "get_current_time",
-      "目前時間",
-      "日期和時間",
-      "現在時間"
+      "current time",
+      "get time",
+      "now",
+      "current date",
+      "date time",
+      "time now",
+      "today",
+      "timestamp",
+      "local time",
+      "system time"
     ]
   },
   "bn": {
     "tool.description": "বর্তমান সময় এবং বিস্তারিত তারিখ/সময় তথ্য (টাইমজোন, সপ্তাহের দিন, UTC সময়) ফেরত দিন। আপেক্ষিক তারিখের অভিব্যক্তিগুলি সমাধান করতে এটি ব্যবহার করুন (উদাঃ",
     "x_search_terms": [
-      "get_current_time",
-      "বর্তমান সময়",
-      "তারিখ ও সময়",
-      "এখনের সময়"
+      "current time",
+      "get time",
+      "now",
+      "current date",
+      "date time",
+      "time now",
+      "today",
+      "timestamp",
+      "local time",
+      "system time"
     ]
   },
   "fa": {
     "tool.description": "زمان فعلی و اطلاعات دقیق تاریخ/زمان (منطقهٔ زمانی، روز هفته، زمان UTC) را برمی‌گرداند.",
     "x_search_terms": [
-      "get_current_time",
-      "زمان فعلی",
-      "تاریخ و زمان",
-      "زمان اکنون"
+      "current time",
+      "get time",
+      "now",
+      "current date",
+      "date time",
+      "time now",
+      "today",
+      "timestamp",
+      "local time",
+      "system time"
     ]
   },
   "mn": {
     "tool.description": "Одоогийн цаг болон дэлгэрэнгүй огноо/цагийн мэдээлэл (цагийн бүс, долоо хоногийн өдөр, UTC цаг) буцаана.",
     "x_search_terms": [
-      "get_current_time",
-      "одоогийн цаг",
-      "огноо ба цаг",
-      "одоо цаг"
+      "current time",
+      "get time",
+      "now",
+      "current date",
+      "date time",
+      "time now",
+      "today",
+      "timestamp",
+      "local time",
+      "system time"
     ]
   },
   "mr": {
     "tool.description": "सध्याचा वेळ आणि तपशीलवार दिनांक/वेळ माहिती (time zone, weekday, UTC वेळ) परत करते.",
     "x_search_terms": [
-      "get_current_time",
-      "सध्याचा वेळ",
-      "तारीख आणि वेळ",
-      "आत्ता वेळ"
+      "current time",
+      "get time",
+      "now",
+      "current date",
+      "date time",
+      "time now",
+      "today",
+      "timestamp",
+      "local time",
+      "system time"
     ]
   },
   "el": {
     "tool.description": "Επιστρέψτε την τρέχουσα ώρα και λεπτομερείς πληροφορίες ημερομηνίας/ώρας (ζώνη ώρας, ημέρα της εβδομάδας, ώρα UTC). Χρησιμοποιήστε το για να επιλύσετε σχετικές εκφράσεις ημερομηνίας (π.χ.",
     "x_search_terms": [
-      "τρέχουσα ώρα",
-      "τώρα",
-      "ζώνη ώρας",
-      "現在時刻",
-      "hora actual",
-      "heure actuelle",
-      "현재 시간",
-      "текум"
+      "current time",
+      "get time",
+      "now",
+      "current date",
+      "date time",
+      "time now",
+      "today",
+      "timestamp",
+      "local time",
+      "system time"
     ]
   },
   "he": {
     "tool.description": "החזר את השעה הנוכחית ומידע מפורט על תאריך/שעה (אזור זמן, יום חול, זמן UTC). השתמש בזה כדי לפתור ביטויי תאריך יחסיים (למשל",
     "x_search_terms": [
-      "זמן נוכחי",
-      "כעת",
-      "אזור זמן",
-      "現在時刻",
-      "hora actual",
-      "heure actuelle",
-      "현재 시간е",
-      "те true, מסווה את הערך (לדוגמה, עבור סודות הוא true"
+      "current time",
+      "get time",
+      "now",
+      "current date",
+      "date time",
+      "time now",
+      "today",
+      "timestamp",
+      "local time",
+      "system time"
     ]
   },
   "hu": {
     "tool.description": "Visszaadja az aktuális időt és a részletes dátum/idő információkat (időzóna, hétköznap, UTC idő). Használja ezt a relatív dátumkifejezések feloldására (pl.",
     "x_search_terms": [
-      "aktuális idő",
-      "most",
-      "időzóna",
-      "現在時刻",
-      "aktuális hora",
-      "heure actuelle",
-      "현재 시간",
-      "текущее время"
+      "current time",
+      "get time",
+      "now",
+      "current date",
+      "date time",
+      "time now",
+      "today",
+      "timestamp",
+      "local time",
+      "system time"
     ]
   },
   "ro": {
     "tool.description": "Returnează ora curentă și informații detaliate despre dată/ora (fus orar, ziua săptămânii, ora UTC). Folosiți-o pentru a rezolva expresiile de dată relativă (de ex.",
     "x_search_terms": [
-      "ora curentă",
-      "acum",
-      "fus orar",
-      "現在時刻",
-      "hora actual",
-      "heure actuală",
-      "현재 시간",
-      "текущее время"
+      "current time",
+      "get time",
+      "now",
+      "current date",
+      "date time",
+      "time now",
+      "today",
+      "timestamp",
+      "local time",
+      "system time"
     ]
   }
 }

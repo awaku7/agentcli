@@ -26,10 +26,16 @@
     "param.dry_run.description": "有効にすると、一致したパスを一覧表示するだけで、削除は行いません。",
     "param.filename.description": "削除するパス、または削除対象のパス / glob パターンの一覧です。",
     "x_search_terms": [
-      "delete_file",
-      "ファイル削除",
-      "ディレクトリ削除",
-      "削除"
+      "delete file",
+      "remove file",
+      "erase file",
+      "file delete",
+      "delete folder",
+      "remove folder",
+      "file removal",
+      "delete directory",
+      "erase directory",
+      "delete item"
     ],
     "param.skip.description": "有効にすると、パスが存在しなくてもエラーにしません。",
     "confirm.delete_paths_bulk": "{count} 個のパスを削除しますか?\n\n{paths}\n\n続行するには y を入力し、キャンセルするには c を入力します。",
@@ -41,10 +47,16 @@
     "param.dry_run.description": ". Si es verdadero, solo enumera las rutas coincidentes y no elimina nada.",
     "param.filename.description": "Ruta a eliminar o lista de rutas/patrones glob.",
     "x_search_terms": [
-      "delete_file",
-      "eliminar archivo",
-      "eliminar carpeta",
-      "borrar archivo"
+      "delete file",
+      "remove file",
+      "erase file",
+      "file delete",
+      "delete folder",
+      "remove folder",
+      "file removal",
+      "delete directory",
+      "erase directory",
+      "delete item"
     ],
     "param.skip.description": "Si es verdadero, no genera error cuando la ruta no existe."
   },
@@ -54,10 +66,16 @@
     "param.dry_run.description": "Si vrai, répertoriez uniquement les chemins correspondants et ne supprimez rien.",
     "param.filename.description": "Chemin à supprimer ou liste de chemins/modèles glob à supprimer.",
     "x_search_terms": [
-      "delete_file",
-      "supprimer fichier",
-      "supprimer dossier",
-      "effacer fichier"
+      "delete file",
+      "remove file",
+      "erase file",
+      "file delete",
+      "delete folder",
+      "remove folder",
+      "file removal",
+      "delete directory",
+      "erase directory",
+      "delete item"
     ],
     "param.skip.description": "Si c'est vrai, ne faites pas d'erreur lorsque le chemin n'existe pas."
   },
@@ -67,10 +85,16 @@
     "param.dry_run.description": "활성화하면 일치하는 경로만 나열하고 실제 삭제는 수행하지 않습니다.",
     "param.filename.description": "삭제할 경로 또는 경로/glob 패턴 목록입니다.",
     "x_search_terms": [
-      "delete_file",
-      "파일 삭제",
-      "디렉터리 삭제",
-      "삭제"
+      "delete file",
+      "remove file",
+      "erase file",
+      "file delete",
+      "delete folder",
+      "remove folder",
+      "file removal",
+      "delete directory",
+      "erase directory",
+      "delete item"
     ],
     "param.skip.description": "활성화하면 경로가 존재하지 않아도 에러를 발생시키지 않습니다."
   },
@@ -80,10 +104,16 @@
     "param.dry_run.description": "Wenn „true“, nur übereinstimmende Pfade auflisten und nichts löschen.",
     "param.filename.description": "Zu löschender Pfad oder eine Liste von Pfaden bzw. Glob-Mustern.",
     "x_search_terms": [
-      "delete_file",
-      "datei löschen",
-      "verzeichnis löschen",
-      "entfernen"
+      "delete file",
+      "remove file",
+      "erase file",
+      "file delete",
+      "delete folder",
+      "remove folder",
+      "file removal",
+      "delete directory",
+      "erase directory",
+      "delete item"
     ],
     "param.skip.description": "Wenn wahr, wird kein Fehler angezeigt, wenn der Pfad nicht vorhanden ist."
   },
@@ -93,10 +123,16 @@
     "param.dry_run.description": "Se vero, elenca solo i percorsi corrispondenti e non elimina nulla",
     "param.filename.description": "Percorso da eliminare o elenco di percorsi/pattern glob.",
     "x_search_terms": [
-      "delete_file",
-      "elimina file",
-      "elimina cartella",
-      "rimuovi file"
+      "delete file",
+      "remove file",
+      "erase file",
+      "file delete",
+      "delete folder",
+      "remove folder",
+      "file removal",
+      "delete directory",
+      "erase directory",
+      "delete item"
     ],
     "param.skip.description": "Se vero, non generare errori quando il percorso non esiste"
   },
@@ -106,10 +142,16 @@
     "param.dry_run.description": "Если включено, только выводит список найденных путей без удаления.",
     "param.filename.description": "Путь для удаления или список путей/шаблонов glob.",
     "x_search_terms": [
-      "delete_file",
-      "удалить файл",
-      "удалить каталог",
-      "удаление"
+      "delete file",
+      "remove file",
+      "erase file",
+      "file delete",
+      "delete folder",
+      "remove folder",
+      "file removal",
+      "delete directory",
+      "erase directory",
+      "delete item"
     ],
     "param.skip.description": "Если это правда, не допускайте ошибок, если путь не существует."
   },
@@ -119,10 +161,16 @@
     "param.dry_run.description": "Se ativado, lista apenas os caminhos encontrados sem excluir nada.",
     "param.filename.description": "Caminho a excluir ou lista de caminhos/padrões glob.",
     "x_search_terms": [
-      "delete_file",
-      "excluir arquivo",
-      "excluir pasta",
-      "remover arquivo"
+      "delete file",
+      "remove file",
+      "erase file",
+      "file delete",
+      "delete folder",
+      "remove folder",
+      "file removal",
+      "delete directory",
+      "erase directory",
+      "delete item"
     ],
     "param.skip.description": "Se ativado, não gera erro se o caminho não existir."
   },
@@ -132,10 +180,16 @@
     "param.dry_run.description": "Se verdadeiro, liste apenas os caminhos correspondentes e não exclua nada",
     "param.filename.description": "Caminho a ser excluído ou uma lista de caminhos/padrões glob a serem excluídos.",
     "x_search_terms": [
-      "delete_file",
-      "excluir ficheiro",
-      "excluir pasta",
-      "remover ficheiro"
+      "delete file",
+      "remove file",
+      "erase file",
+      "file delete",
+      "delete folder",
+      "remove folder",
+      "file removal",
+      "delete directory",
+      "erase directory",
+      "delete item"
     ],
     "param.skip.description": "Se verdadeiro, não comete erros quando o caminho não existe."
   },
@@ -145,10 +199,16 @@
     "param.dry_run.description": "Jika benar, hanya daftarkan jalur yang cocok dan jangan hapus apa pun.",
     "param.filename.description": "Jalur yang akan dihapus, atau daftar jalur/pola gumpalan yang akan dihapus.",
     "x_search_terms": [
-      "delete_file",
-      "hapus file",
-      "hapus folder",
-      "hapus"
+      "delete file",
+      "remove file",
+      "erase file",
+      "file delete",
+      "delete folder",
+      "remove folder",
+      "file removal",
+      "delete directory",
+      "erase directory",
+      "delete item"
     ],
     "param.skip.description": "Jika diaktifkan, tidak error saat path tidak ada."
   },
@@ -158,10 +218,16 @@
     "param.dry_run.description": "Nếu đúng, chỉ liệt kê các đường dẫn phù hợp và không xóa bất kỳ thứ gì.",
     "param.filename.description": "Đường dẫn cần xóa hoặc danh sách các đường dẫn/mẫu glob cần xóa.",
     "x_search_terms": [
-      "delete_file",
-      "xóa tệp",
-      "xóa thư mục",
-      "xóa"
+      "delete file",
+      "remove file",
+      "erase file",
+      "file delete",
+      "delete folder",
+      "remove folder",
+      "file removal",
+      "delete directory",
+      "erase directory",
+      "delete item"
     ],
     "param.skip.description": "Nếu đúng, không xảy ra lỗi khi đường dẫn không tồn tại."
   },
@@ -171,10 +237,16 @@
     "param.dry_run.description": "Jeśli true, wyświetl tylko dopasowane ścieżki i niczego nie usuwaj.",
     "param.filename.description": "Ścieżka do usunięcia lub lista ścieżek/wzorców globalnych do usunięcia.",
     "x_search_terms": [
-      "delete_file",
-      "usuń plik",
-      "usuń katalog",
-      "usuń"
+      "delete file",
+      "remove file",
+      "erase file",
+      "file delete",
+      "delete folder",
+      "remove folder",
+      "file removal",
+      "delete directory",
+      "erase directory",
+      "delete item"
     ],
     "param.skip.description": "Jeśli true, nie popełniaj błędu, gdy ścieżka nie istnieje."
   },
@@ -184,10 +256,16 @@
     "param.dry_run.description": "यदि सत्य है, तो ग्लोब द्वारा मिलान की गई निर्देशिकाओं को हटाने की अनुमति दें।",
     "param.filename.description": "हटाने के लिए पथ, या हटाने के लिए पथ/ग्लोब पैटर्न की एक सूची।",
     "x_search_terms": [
-      "delete_file",
-      "फ़ाइल हटाएं",
-      "फ़ोल्डर हटाएं",
-      "हटाएं"
+      "delete file",
+      "remove file",
+      "erase file",
+      "file delete",
+      "delete folder",
+      "remove folder",
+      "file removal",
+      "delete directory",
+      "erase directory",
+      "delete item"
     ],
     "param.skip.description": "यदि सक्षम है, तो पथ मौजूद न होने पर त्रुटि न करें।"
   },
@@ -197,10 +275,16 @@
     "param.dry_run.description": "في حالة التمكين، قم بإدراج المسارات المتطابقة فقط ولا تحذف أي شيء.",
     "param.filename.description": "المسار المراد حذفه، أو قائمة المسارات/أنماط glob المراد حذفها.",
     "x_search_terms": [
-      "delete_file",
-      "حذف ملف",
-      "حذف مجلد",
-      "إزالة"
+      "delete file",
+      "remove file",
+      "erase file",
+      "file delete",
+      "delete folder",
+      "remove folder",
+      "file removal",
+      "delete directory",
+      "erase directory",
+      "delete item"
     ],
     "param.skip.description": "إذا تم تمكينه، فلا تخطئ عندما يكون المسار غير موجود."
   },
@@ -210,10 +294,16 @@
     "param.dry_run.description": "Om sant, lista bara matchade sökvägar och ta inte bort någonting.",
     "param.filename.description": "Sökväg att radera, eller en lista med sökvägar/globmönster att radera.",
     "x_search_terms": [
-      "delete_file",
-      "ta bort fil",
-      "ta bort mapp",
-      "radera"
+      "delete file",
+      "remove file",
+      "erase file",
+      "file delete",
+      "delete folder",
+      "remove folder",
+      "file removal",
+      "delete directory",
+      "erase directory",
+      "delete item"
     ],
     "param.skip.description": "Om sant, fel inte när sökvägen inte finns."
   },
@@ -223,10 +313,16 @@
     "param.dry_run.description": "Ikiwashwa, orodhesha tu njia zinazolingana na usifute chochote.",
     "param.filename.description": "Njia ya kufuta, au orodha ya njia/viwango vya glob vya kufuta.",
     "x_search_terms": [
-      "delete_file",
-      "futa faili",
-      "futa folda",
-      "ondoa"
+      "delete file",
+      "remove file",
+      "erase file",
+      "file delete",
+      "delete folder",
+      "remove folder",
+      "file removal",
+      "delete directory",
+      "erase directory",
+      "delete item"
     ],
     "param.skip.description": "Ikiwashwa, usitoe hitilafu njia isipokuwepo."
   },
@@ -236,10 +332,16 @@
     "param.dry_run.description": "Hvis det er sant, må du bare angi samsvarende stier og ikke slette noe.",
     "param.filename.description": "Sti som skal slettes, eller en liste over stier/glob-mønstre.",
     "x_search_terms": [
-      "delete_file",
-      "slett fil",
-      "slett mappe",
-      "fjern"
+      "delete file",
+      "remove file",
+      "erase file",
+      "file delete",
+      "delete folder",
+      "remove folder",
+      "file removal",
+      "delete directory",
+      "erase directory",
+      "delete item"
     ],
     "param.skip.description": "Hvis sant, ikke feil når banen ikke eksisterer."
   },
@@ -249,10 +351,16 @@
     "param.dry_run.description": "Indien waar, vermeld dan alleen de overeenkomende paden en verwijder niets.",
     "param.filename.description": "Pad dat moet worden verwijderd, of een lijst met paden/globpatronen die moeten worden verwijderd.",
     "x_search_terms": [
-      "delete_file",
-      "bestand verwijderen",
-      "map verwijderen",
-      "verwijderen"
+      "delete file",
+      "remove file",
+      "erase file",
+      "file delete",
+      "delete folder",
+      "remove folder",
+      "file removal",
+      "delete directory",
+      "erase directory",
+      "delete item"
     ],
     "param.skip.description": "Indien waar, geef dan geen foutmelding als het pad niet bestaat."
   },
@@ -262,10 +370,16 @@
     "param.dry_run.description": "Kun käytössä, listaa vain osuvat polut äläkä poista mitään.",
     "param.filename.description": "Poistettava polku tai luettelo poistetuista polkuista/globaalikuvioista.",
     "x_search_terms": [
-      "delete_file",
-      "poista tiedosto",
-      "poista kansio",
-      "poista"
+      "delete file",
+      "remove file",
+      "erase file",
+      "file delete",
+      "delete folder",
+      "remove folder",
+      "file removal",
+      "delete directory",
+      "erase directory",
+      "delete item"
     ],
     "param.skip.description": "Jos tosi, älä tee virhettä, kun polkua ei ole olemassa."
   },
@@ -275,10 +389,16 @@
     "param.dry_run.description": "Je-li povoleno, pouze vypíše odpovídající cesty a nic nesmaže.",
     "param.filename.description": "Cesta ke smazání nebo seznam cest / glob vzorů ke smazání.",
     "x_search_terms": [
-      "delete_file",
-      "smazat soubor",
-      "smazat složku",
-      "odstranit"
+      "delete file",
+      "remove file",
+      "erase file",
+      "file delete",
+      "delete folder",
+      "remove folder",
+      "file removal",
+      "delete directory",
+      "erase directory",
+      "delete item"
     ],
     "param.skip.description": "Je-li povoleno, nevyvolá chybu, pokud cesta neexistuje."
   },
@@ -288,10 +408,16 @@
     "param.dry_run.description": "Років для додавання шляхи і не видаляти.",
     "param.filename.description": "Шлях до видалення.",
     "x_search_terms": [
-      "delete_file",
-      "видалити файл",
-      "видалити каталог",
-      "видалення"
+      "delete file",
+      "remove file",
+      "erase file",
+      "file delete",
+      "delete folder",
+      "remove folder",
+      "file removal",
+      "delete directory",
+      "erase directory",
+      "delete item"
     ],
     "param.skip.description": "Якщо шлях не існує."
   },
@@ -301,10 +427,16 @@
     "param.dry_run.description": "Doğruysa yalnızca eşleşen yolları listeleyin ve hiçbir şeyi silmeyin.",
     "param.filename.description": "Silinecek yol veya silinecek yolların/küre desenlerinin listesi.",
     "x_search_terms": [
-      "delete_file",
-      "dosya sil",
-      "klasör sil",
-      "sil"
+      "delete file",
+      "remove file",
+      "erase file",
+      "file delete",
+      "delete folder",
+      "remove folder",
+      "file removal",
+      "delete directory",
+      "erase directory",
+      "delete item"
     ],
     "param.skip.description": "Etkinleştirilirse, yol mevcut olmadığında hata yapmayın."
   },
@@ -314,10 +446,16 @@
     "param.dry_run.description": "หากเปิดใช้งาน จะแสดงเฉพาะรายการที่ตรงกันโดยไม่มีการลบจริง",
     "param.filename.description": "เส้นทางที่จะลบ หรือรายการของเส้นทาง/รูปแบบ glob",
     "x_search_terms": [
-      "delete_file",
-      "ลบไฟล์",
-      "ลบโฟลเดอร์",
-      "ลบ"
+      "delete file",
+      "remove file",
+      "erase file",
+      "file delete",
+      "delete folder",
+      "remove folder",
+      "file removal",
+      "delete directory",
+      "erase directory",
+      "delete item"
     ],
     "param.skip.description": "หากเปิดใช้งาน จะไม่แสดงข้อผิดพลาดหากไม่พบเส้นทาง"
   },
@@ -327,10 +465,16 @@
     "param.dry_run.description": "如果启用，仅列出匹配的路径，而不执行删除。",
     "param.filename.description": "要删除的路径，或路径/glob 模式列表。",
     "x_search_terms": [
-      "delete_file",
-      "删除文件",
-      "删除目录",
-      "移除"
+      "delete file",
+      "remove file",
+      "erase file",
+      "file delete",
+      "delete folder",
+      "remove folder",
+      "file removal",
+      "delete directory",
+      "erase directory",
+      "delete item"
     ],
     "param.skip.description": "如果启用，路径不存在时不会报错。"
   },
@@ -340,10 +484,16 @@
     "param.dry_run.description": "如果啟用，僅列出相符的路徑，而不執行刪除。",
     "param.filename.description": "要刪除的路徑，或路徑/glob 模式清單。",
     "x_search_terms": [
-      "delete_file",
-      "刪除檔案",
-      "刪除資料夾",
-      "移除"
+      "delete file",
+      "remove file",
+      "erase file",
+      "file delete",
+      "delete folder",
+      "remove folder",
+      "file removal",
+      "delete directory",
+      "erase directory",
+      "delete item"
     ],
     "param.skip.description": "如果啟用，路徑不存在時不會報錯。"
   },
@@ -353,10 +503,16 @@
     "param.dry_run.description": "সক্ষম থাকলে শুধু মিল থাকা পথগুলো দেখাবে, কিছুই মুছবে না।",
     "param.filename.description": "মুছে ফেলার পথ, অথবা মুছে ফেলার পাথ/গ্লোব প্যাটার্নের একটি তালিকা।",
     "x_search_terms": [
-      "delete_file",
-      "ফাইল মুছুন",
-      "ফোল্ডার মুছুন",
-      "মুছুন"
+      "delete file",
+      "remove file",
+      "erase file",
+      "file delete",
+      "delete folder",
+      "remove folder",
+      "file removal",
+      "delete directory",
+      "erase directory",
+      "delete item"
     ],
     "param.skip.description": "সক্ষম থাকলে পথ না থাকলেও ত্রুটি দেবে না।"
   },
@@ -366,10 +522,16 @@
     "param.dry_run.description": "اگر درست است، فقط مسیرهای منطبق را فهرست کنید و چیزی را حذف نکنید.",
     "param.filename.description": "مسیری برای حذف، یا فهرستی از مسیرها/الگوهای جهانی برای حذف.",
     "x_search_terms": [
-      "delete_file",
-      "حذف فایل",
-      "حذف پوشه",
-      "حذف"
+      "delete file",
+      "remove file",
+      "erase file",
+      "file delete",
+      "delete folder",
+      "remove folder",
+      "file removal",
+      "delete directory",
+      "erase directory",
+      "delete item"
     ],
     "param.skip.description": "اگر فعال باشد، نبودن مسیر خطا محسوب نمی‌شود."
   },
@@ -379,10 +541,16 @@
     "param.dry_run.description": "Идэвхтэй бол зөвхөн таарсан замуудыг жагсааж, юу ч устгахгүй.",
     "param.filename.description": "Устгах зам, эсвэл устгах зам/glob хэв маягийн жагсаалт.",
     "x_search_terms": [
-      "delete_file",
-      "файл устгах",
-      "хавтас устгах",
-      "устгах"
+      "delete file",
+      "remove file",
+      "erase file",
+      "file delete",
+      "delete folder",
+      "remove folder",
+      "file removal",
+      "delete directory",
+      "erase directory",
+      "delete item"
     ],
     "param.skip.description": "Идэвхтэй бол зам байхгүй үед алдаа гаргахгүй."
   },
@@ -392,10 +560,16 @@
     "param.dry_run.description": "सक्षम असल्यास, फक्त जुळणारे मार्ग दाखवा आणि काहीही हटवू नका.",
     "param.filename.description": "हटवायचा मार्ग, किंवा हटवायच्या मार्गांची/glob नमुन्यांची यादी.",
     "x_search_terms": [
-      "delete_file",
-      "फाइल हटवा",
-      "फोल्डर हटवा",
-      "हटवा"
+      "delete file",
+      "remove file",
+      "erase file",
+      "file delete",
+      "delete folder",
+      "remove folder",
+      "file removal",
+      "delete directory",
+      "erase directory",
+      "delete item"
     ],
     "param.skip.description": "सक्षम असल्यास, मार्ग अस्तित्वात नसला तरी त्रुटी देऊ नका."
   },
@@ -405,14 +579,16 @@
     "param.dry_run.description": "Εάν είναι αληθές, απαριθμήστε μόνο τις αντιστοιχισμένες διαδρομές και μην διαγράψετε τίποτα.",
     "param.filename.description": "Διαδρομή προς διαγραφή ή λίστα διαδρομών/μοτίβων σφαιρών προς διαγραφή.",
     "x_search_terms": [
-      "διαγραφή αρχείου",
-      "αφαιρέστε το αρχείο",
-      "εξάλειψη",
-      "ファイル削除",
-      "εξάλειψη αρχείου",
-      "suprimer fichier",
-      "파일 삭제",
-      "удалить αρχείο"
+      "delete file",
+      "remove file",
+      "erase file",
+      "file delete",
+      "delete folder",
+      "remove folder",
+      "file removal",
+      "delete directory",
+      "erase directory",
+      "delete item"
     ],
     "param.skip.description": "Εάν ισχύει, μην κάνετε λάθος όταν η διαδρομή δεν υπάρχει."
   },
@@ -422,14 +598,16 @@
     "param.dry_run.description": "אם נכון, רשום רק נתיבים תואמים ואל תמחק שום דבר.",
     "param.filename.description": "נתיב למחיקה, או רשימה של נתיבים/דפוסי גלוב למחיקה.",
     "x_search_terms": [
-      "למחוק קובץ",
-      "להסיר קובץ",
-      "לִמְחוֹק",
-      "ファイル削除",
-      "ביטול ארכיון",
-      "supprimer fichier",
-      "파일 삭제",
-      "удалить файл"
+      "delete file",
+      "remove file",
+      "erase file",
+      "file delete",
+      "delete folder",
+      "remove folder",
+      "file removal",
+      "delete directory",
+      "erase directory",
+      "delete item"
     ],
     "param.skip.description": "אם נכון, אל תטעה כאשר הנתיב אינו קיים."
   },
@@ -439,14 +617,16 @@
     "param.dry_run.description": "Ha igaz, csak az egyező útvonalakat sorolja fel, és ne töröljön semmit.",
     "param.filename.description": "A törlendő elérési út vagy a törölni kívánt útvonalak/globális minták listája.",
     "x_search_terms": [
-      "fájl törlése",
-      "fájl eltávolítása",
-      "törölni",
-      "ファイル削除",
-      "eliminar archivo",
-      "supprimer fichier",
-      "파일 삭제",
-      "удалить файл"
+      "delete file",
+      "remove file",
+      "erase file",
+      "file delete",
+      "delete folder",
+      "remove folder",
+      "file removal",
+      "delete directory",
+      "erase directory",
+      "delete item"
     ],
     "param.skip.description": "Ha igaz, ne hibázz, ha az elérési út nem létezik."
   },
@@ -456,14 +636,16 @@
     "param.dry_run.description": "Dacă este adevărat, enumerați doar căile potrivite și nu ștergeți nimic.",
     "param.filename.description": "Cale de șters sau o listă de căi/modeluri glob de șters.",
     "x_search_terms": [
-      "șterge fișierul",
-      "eliminați fișierul",
-      "şterge",
-      "ファイル削除",
-      "eliminați fișierul",
-      "șterge fișierul",
-      "파일 삭제",
-      "удалить файл"
+      "delete file",
+      "remove file",
+      "erase file",
+      "file delete",
+      "delete folder",
+      "remove folder",
+      "file removal",
+      "delete directory",
+      "erase directory",
+      "delete item"
     ],
     "param.skip.description": "Dacă este adevărat, nu eroați atunci când calea nu există."
   }

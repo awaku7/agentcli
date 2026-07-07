@@ -28,11 +28,16 @@
   },
   "ja": {
     "x_search_terms": [
-      "Goファイルを読む",
-      "Go インデックス",
-      "関数一覧",
-      "構造体一覧",
-      "インターフェース一覧"
+      "golang",
+      "go code",
+      "go analysis",
+      "code index",
+      "go source",
+      "go parser",
+      "go function",
+      "go struct",
+      "go file",
+      "go module"
     ],
     "param.path.description": "Go (.go) ファイルへのパス。",
     "param.section.description": "取得するセクション番号（mode='section' の場合のみ使用）。目次出力から番号を取得してください。",

@@ -24,10 +24,16 @@
     "param.shell.description": "使用する PowerShell 実行ファイル。'pwsh'（PowerShell 7+）または 'powershell'（Windows PowerShell）。省略時は自動選択。",
     "tool.description": "【最終手段】PowerShell を実行します。他の適切なツール（MCP など）が使えない場合にのみ使用してください。",
     "x_search_terms": [
-      "pwsh_exec",
-      "pwsh 実行",
       "powershell",
-      "最終手段"
+      "pwsh",
+      "power shell",
+      "shell command",
+      "script execution",
+      "windows powershell",
+      "command",
+      "execute powershell",
+      "run script",
+      "ps command"
     ],
     "err.command_required": "[pwsh_exec error] 'command' is required"
   },
@@ -37,10 +43,16 @@
     "param.shell.description": "Ejecutable de PowerShell a utilizar: 'pwsh' (PowerShell 7+) o 'powershell' (Windows PowerShell).",
     "tool.description": "Como último recurso, ejecute PowerShell.",
     "x_search_terms": [
-      "pwsh_exec",
-      "pwsh exec",
       "powershell",
-      "último recurso"
+      "pwsh",
+      "power shell",
+      "shell command",
+      "script execution",
+      "windows powershell",
+      "command",
+      "execute powershell",
+      "run script",
+      "ps command"
     ],
     "err.command_required": "[pwsh_exec error] 'command' is required"
   },
@@ -50,10 +62,16 @@
     "param.shell.description": "Exécutable PowerShell à utiliser : 'pwsh' (PowerShell 7+) ou 'powershell' (Windows PowerShell).",
     "tool.description": "En dernier recours, exécutez PowerShell.",
     "x_search_terms": [
-      "pwsh_exec",
-      "pwsh exec",
       "powershell",
-      "dernier recours"
+      "pwsh",
+      "power shell",
+      "shell command",
+      "script execution",
+      "windows powershell",
+      "command",
+      "execute powershell",
+      "run script",
+      "ps command"
     ],
     "err.command_required": "[pwsh_exec error] 'command' is required"
   },
@@ -63,10 +81,16 @@
     "param.shell.description": "사용할 PowerShell 실행 파일입니다. 'pwsh'(PowerShell 7+) 또는 'powershell'(Windows PowerShell) 중 하나를 사용합니다. 생략하면 자동으로 선택합니다.",
     "tool.description": "최후의 수단으로 PowerShell을 실행합니다. 다른 적절한 도구(예: MCP)를 사용할 수 없는 경우에만 사용하세요.",
     "x_search_terms": [
-      "pwsh_exec",
-      "pwsh 실행",
       "powershell",
-      "최후 수단"
+      "pwsh",
+      "power shell",
+      "shell command",
+      "script execution",
+      "windows powershell",
+      "command",
+      "execute powershell",
+      "run script",
+      "ps command"
     ],
     "err.command_required": "[pwsh_exec error] 'command' is required"
   },
@@ -76,10 +100,16 @@
     "param.shell.description": "Zu verwendende PowerShell-Exe: 'pwsh' (PowerShell 7+) oder 'powershell' (Windows PowerShell).",
     "tool.description": "Als letzten Ausweg führen Sie PowerShell aus.",
     "x_search_terms": [
-      "pwsh_exec",
-      "pwsh ausführen",
       "powershell",
-      "letzter ausweg"
+      "pwsh",
+      "power shell",
+      "shell command",
+      "script execution",
+      "windows powershell",
+      "command",
+      "execute powershell",
+      "run script",
+      "ps command"
     ],
     "err.command_required": "[pwsh_exec error] 'command' is required"
   },
@@ -89,10 +119,16 @@
     "param.shell.description": "Eseguibile di PowerShell da usare: 'pwsh' (PowerShell 7+) o 'powershell' (Windows PowerShell).",
     "tool.description": "Come ultima risorsa, esegui PowerShell.",
     "x_search_terms": [
-      "pwsh_exec",
-      "pwsh esegui",
       "powershell",
-      "ultima risorsa"
+      "pwsh",
+      "power shell",
+      "shell command",
+      "script execution",
+      "windows powershell",
+      "command",
+      "execute powershell",
+      "run script",
+      "ps command"
     ],
     "err.command_required": "[pwsh_exec error] 'command' is required"
   },
@@ -102,10 +138,16 @@
     "param.shell.description": "Исполняемый файл PowerShell для использования: 'pwsh' (PowerShell 7+) или 'powershell' (Windows PowerShell).",
     "tool.description": "В крайнем случае выполните PowerShell.",
     "x_search_terms": [
-      "pwsh_exec",
-      "pwsh запуск",
       "powershell",
-      "крайняя мера"
+      "pwsh",
+      "power shell",
+      "shell command",
+      "script execution",
+      "windows powershell",
+      "command",
+      "execute powershell",
+      "run script",
+      "ps command"
     ],
     "err.command_required": "[pwsh_exec error] 'command' is required"
   },
@@ -115,10 +157,16 @@
     "param.shell.description": "Executável do PowerShell a usar: 'pwsh' (PowerShell 7+) ou 'powershell' (Windows PowerShell).",
     "tool.description": "Como último recurso, execute o PowerShell.",
     "x_search_terms": [
-      "pwsh_exec",
-      "pwsh exec",
       "powershell",
-      "último recurso"
+      "pwsh",
+      "power shell",
+      "shell command",
+      "script execution",
+      "windows powershell",
+      "command",
+      "execute powershell",
+      "run script",
+      "ps command"
     ],
     "err.command_required": "[pwsh_exec error] 'command' is required"
   },
@@ -128,10 +176,16 @@
     "param.shell.description": "Executável do PowerShell para usar: 'pwsh' (PowerShell 7+) ou 'powershell' (Windows PowerShell).",
     "tool.description": "Como último recurso, execute o PowerShell.",
     "x_search_terms": [
-      "pwsh_exec",
-      "pwsh exec",
       "powershell",
-      "último recurso"
+      "pwsh",
+      "power shell",
+      "shell command",
+      "script execution",
+      "windows powershell",
+      "command",
+      "execute powershell",
+      "run script",
+      "ps command"
     ],
     "err.command_required": "[pwsh_exec error] 'command' is required"
   },
@@ -141,10 +195,16 @@
     "param.shell.description": "Executable PowerShell yang digunakan: 'pwsh' (PowerShell 7+) atau 'powershell' (Windows PowerShell).",
     "tool.description": "Sebagai upaya terakhir, jalankan PowerShell.",
     "x_search_terms": [
-      "pwsh_exec",
-      "pwsh jalankan",
       "powershell",
-      "upaya terakhir"
+      "pwsh",
+      "power shell",
+      "shell command",
+      "script execution",
+      "windows powershell",
+      "command",
+      "execute powershell",
+      "run script",
+      "ps command"
     ],
     "err.command_required": "[pwsh_exec error] 'command' is required"
   },
@@ -154,10 +214,16 @@
     "param.shell.description": "PowerShell có thể thực thi để sử dụng: 'pwsh' (PowerShell 7+) hoặc 'powershell' (Windows PowerShell).",
     "tool.description": "Phương án cuối cùng là thực thi PowerShell.",
     "x_search_terms": [
-      "pwsh_exec",
-      "pwsh thực thi",
       "powershell",
-      "phương án cuối"
+      "pwsh",
+      "power shell",
+      "shell command",
+      "script execution",
+      "windows powershell",
+      "command",
+      "execute powershell",
+      "run script",
+      "ps command"
     ],
     "err.command_required": "[pwsh_exec error] 'command' is required"
   },
@@ -167,10 +233,16 @@
     "param.shell.description": "Plik wykonywalny PowerShell do użycia: „pwsh” (PowerShell 7+) lub „powershell” (Windows PowerShell).",
     "tool.description": "W ostateczności uruchom PowerShell.",
     "x_search_terms": [
-      "pwsh_exec",
-      "pwsh uruchom",
       "powershell",
-      "ostateczność"
+      "pwsh",
+      "power shell",
+      "shell command",
+      "script execution",
+      "windows powershell",
+      "command",
+      "execute powershell",
+      "run script",
+      "ps command"
     ],
     "err.command_required": "[pwsh_exec error] 'command' is required"
   },
@@ -180,10 +252,16 @@
     "param.shell.description": "उपयोग करने के लिए पावरशेल निष्पादन योग्य: 'pwsh' (पॉवरशेल 7+) या 'पॉवरशेल' (विंडोज पॉवरशेल)। यदि छोड़ा गया है, तो",
     "tool.description": "MCP सर्वर से कनेक्ट करें। उपलब्ध टूल की सूची।",
     "x_search_terms": [
-      "pwsh_exec",
-      "pwsh चलाएँ",
       "powershell",
-      "अंतिम उपाय"
+      "pwsh",
+      "power shell",
+      "shell command",
+      "script execution",
+      "windows powershell",
+      "command",
+      "execute powershell",
+      "run script",
+      "ps command"
     ],
     "err.command_required": "[pwsh_exec error] 'command' is required"
   },
@@ -193,10 +271,16 @@
     "param.shell.description": "ملف PowerShell التنفيذي المستخدم: 'pwsh' (PowerShell 7+) أو 'powershell' (Windows PowerShell).",
     "tool.description": "كحل أخير، قم بتنفيذ PowerShell.",
     "x_search_terms": [
-      "pwsh_exec",
-      "تشغيل pwsh",
       "powershell",
-      "آخر ملاذ"
+      "pwsh",
+      "power shell",
+      "shell command",
+      "script execution",
+      "windows powershell",
+      "command",
+      "execute powershell",
+      "run script",
+      "ps command"
     ],
     "err.command_required": "[pwsh_exec error] 'command' is required"
   },
@@ -206,10 +290,16 @@
     "param.shell.description": "PowerShell-exekveringsfil att använda: 'pwsh' (PowerShell 7+) eller 'powershell' (Windows PowerShell).",
     "tool.description": "Som sista utväg, kör PowerShell.",
     "x_search_terms": [
-      "pwsh_exec",
-      "pwsh kör",
       "powershell",
-      "sista utväg"
+      "pwsh",
+      "power shell",
+      "shell command",
+      "script execution",
+      "windows powershell",
+      "command",
+      "execute powershell",
+      "run script",
+      "ps command"
     ],
     "err.command_required": "[pwsh_exec error] 'command' is required"
   },
@@ -219,10 +309,16 @@
     "param.shell.description": "PowerShell executable to use: 'pwsh' (PowerShell 7+) or 'powershell' (Windows PowerShell). If omitted, auto-select.",
     "tool.description": "As a last resort, execute PowerShell.Use only when no other appropriate tool (e.g.",
     "x_search_terms": [
-      "pwsh_exec",
-      "pwsh run",
       "powershell",
-      "last resort"
+      "pwsh",
+      "power shell",
+      "shell command",
+      "script execution",
+      "windows powershell",
+      "command",
+      "execute powershell",
+      "run script",
+      "ps command"
     ],
     "err.command_required": "[pwsh_exec error] 'command' is required"
   },
@@ -232,10 +328,16 @@
     "param.shell.description": "PowerShell-kjørbar fil som skal brukes: 'pwsh' (PowerShell 7+) eller 'powershell' (Windows PowerShell).",
     "tool.description": "Som siste utvei, kjør PowerShell.",
     "x_search_terms": [
-      "pwsh_exec",
-      "pwsh kjør",
       "powershell",
-      "siste utvei"
+      "pwsh",
+      "power shell",
+      "shell command",
+      "script execution",
+      "windows powershell",
+      "command",
+      "execute powershell",
+      "run script",
+      "ps command"
     ],
     "err.command_required": "[pwsh_exec error] 'command' is required"
   },
@@ -245,10 +347,16 @@
     "param.shell.description": "PowerShell-uitvoerbaar bestand om te gebruiken: 'pwsh' (PowerShell 7+) of 'powershell' (Windows PowerShell).",
     "tool.description": "Voer als laatste redmiddel PowerShell uit.",
     "x_search_terms": [
-      "pwsh_exec",
-      "pwsh uitvoeren",
       "powershell",
-      "laatste redmiddel"
+      "pwsh",
+      "power shell",
+      "shell command",
+      "script execution",
+      "windows powershell",
+      "command",
+      "execute powershell",
+      "run script",
+      "ps command"
     ],
     "err.command_required": "[pwsh_exec error] 'command' is required"
   },
@@ -258,10 +366,16 @@
     "param.shell.description": "Käytettävä PowerShell-suoritettava: 'pwsh' (PowerShell 7+) tai 'powershell' (Windows PowerShell).",
     "tool.description": "Suorita PowerShell vain viimeisenä keinona.",
     "x_search_terms": [
-      "pwsh_exec",
-      "pwsh suorita",
       "powershell",
-      "viimeinen keino"
+      "pwsh",
+      "power shell",
+      "shell command",
+      "script execution",
+      "windows powershell",
+      "command",
+      "execute powershell",
+      "run script",
+      "ps command"
     ],
     "err.command_required": "[pwsh_exec error] 'command' is required"
   },
@@ -271,10 +385,16 @@
     "param.shell.description": "Spustitelný soubor PowerShellu, který se použije: 'pwsh' (PowerShell 7+) nebo 'powershell' (Windows PowerShell).",
     "tool.description": "Jako poslední možnost spusťte PowerShell.",
     "x_search_terms": [
-      "pwsh_exec",
-      "pwsh spustit",
       "powershell",
-      "poslední možnost"
+      "pwsh",
+      "power shell",
+      "shell command",
+      "script execution",
+      "windows powershell",
+      "command",
+      "execute powershell",
+      "run script",
+      "ps command"
     ],
     "err.command_required": "[pwsh_exec error] 'command' is required"
   },
@@ -284,10 +404,16 @@
     "param.shell.description": "Виконуваний файл PowerShell для використання: 'pwsh' (PowerShell 7+) або 'powershell' (Windows PowerShell).",
     "tool.description": "Як крайній захід, виконайте PowerShell.",
     "x_search_terms": [
-      "pwsh_exec",
-      "pwsh запуск",
       "powershell",
-      "крайній захід"
+      "pwsh",
+      "power shell",
+      "shell command",
+      "script execution",
+      "windows powershell",
+      "command",
+      "execute powershell",
+      "run script",
+      "ps command"
     ],
     "err.command_required": "[pwsh_exec error] 'command' is required"
   },
@@ -297,10 +423,16 @@
     "param.shell.description": "Kullanılacak PowerShell yürütülebilir dosyası: 'pwsh' (PowerShell 7+) veya 'powershell' (Windows PowerShell).",
     "tool.description": "Son çare olarak PowerShell'i çalıştırın.Yalnızca başka uygun bir araç (örn.",
     "x_search_terms": [
-      "pwsh_exec",
-      "pwsh çalıştır",
       "powershell",
-      "son çare"
+      "pwsh",
+      "power shell",
+      "shell command",
+      "script execution",
+      "windows powershell",
+      "command",
+      "execute powershell",
+      "run script",
+      "ps command"
     ],
     "err.command_required": "[pwsh_exec error] 'command' is required"
   },
@@ -310,10 +442,16 @@
     "param.shell.description": "ไฟล์ปฏิบัติการ PowerShell ที่จะใช้: 'pwsh' (PowerShell 7+) หรือ 'powershell' (Windows PowerShell) หากละเว้น ให้เลือกอัตโนมัติ",
     "tool.description": "เป็นทางเลือกสุดท้าย ให้รัน PowerShell ใช้เมื่อไม่มีเครื่องมืออื่นที่เหมาะสม เช่น MCP เท่านั้น",
     "x_search_terms": [
-      "pwsh_exec",
-      "รัน pwsh",
       "powershell",
-      "ทางเลือกสุดท้าย"
+      "pwsh",
+      "power shell",
+      "shell command",
+      "script execution",
+      "windows powershell",
+      "command",
+      "execute powershell",
+      "run script",
+      "ps command"
     ],
     "err.command_required": "[pwsh_exec error] 'command' is required"
   },
@@ -323,10 +461,16 @@
     "param.shell.description": "要使用的 PowerShell 可执行文件：'pwsh'（PowerShell 7+）或 'powershell'（Windows PowerShell）。如果省略，则自动选择。",
     "tool.description": "作为最后手段执行 PowerShell。仅在没有其他合适工具（例如 MCP）可用时使用。",
     "x_search_terms": [
-      "pwsh_exec",
-      "pwsh 执行",
       "powershell",
-      "最后手段"
+      "pwsh",
+      "power shell",
+      "shell command",
+      "script execution",
+      "windows powershell",
+      "command",
+      "execute powershell",
+      "run script",
+      "ps command"
     ],
     "err.command_required": "[pwsh_exec error] 'command' is required"
   },
@@ -336,10 +480,16 @@
     "param.shell.description": "要使用的 PowerShell 執行檔：'pwsh'（PowerShell 7+）或 'powershell'（Windows PowerShell）。如果省略，則自動選擇。",
     "tool.description": "作為最後手段執行 PowerShell。僅在沒有其他合適的工具（例如 MCP）可用時才使用。",
     "x_search_terms": [
-      "pwsh_exec",
-      "pwsh 執行",
       "powershell",
-      "最後手段"
+      "pwsh",
+      "power shell",
+      "shell command",
+      "script execution",
+      "windows powershell",
+      "command",
+      "execute powershell",
+      "run script",
+      "ps command"
     ],
     "err.command_required": "[pwsh_exec error] 'command' is required"
   },
@@ -349,10 +499,16 @@
     "param.shell.description": "পাওয়ারশেল এক্সিকিউটেবল: 'pwsh' (PowerShell 7+) (Windows PowerShell)",
     "tool.description": "যদি সত্য হয়, JSON আউটপুট (ডিফল্ট: সত্য) প্রিন্ট-প্রিন্ট করুন। এবং উপলভ্য সরঞ্জামগুলিকে সমর্থন করে",
     "x_search_terms": [
-      "pwsh_exec",
-      "pwsh চালান",
       "powershell",
-      "শেষ উপায়"
+      "pwsh",
+      "power shell",
+      "shell command",
+      "script execution",
+      "windows powershell",
+      "command",
+      "execute powershell",
+      "run script",
+      "ps command"
     ],
     "err.command_required": "[pwsh_exec error] 'command' is required"
   },
@@ -362,10 +518,16 @@
     "param.shell.description": "اجرای PowerShell مورد استفاده: 'pwsh' (PowerShell 7+) یا 'powershell' (Windows PowerShell).",
     "tool.description": "در آخرین چاره، PowerShell را اجرا کنید.",
     "x_search_terms": [
-      "pwsh_exec",
-      "اجرای pwsh",
       "powershell",
-      "آخرین راه"
+      "pwsh",
+      "power shell",
+      "shell command",
+      "script execution",
+      "windows powershell",
+      "command",
+      "execute powershell",
+      "run script",
+      "ps command"
     ],
     "err.command_required": "[pwsh_exec error] 'command' is required"
   },
@@ -375,10 +537,16 @@
     "param.shell.description": "Ашиглах PowerShell executable: 'pwsh' (PowerShell 7+) эсвэл 'powershell' (Windows PowerShell).",
     "tool.description": "Сүүлчийн арга болгон PowerShell ажиллуулна.Өөр тохирох хэрэгсэл (жиш.",
     "x_search_terms": [
-      "pwsh_exec",
-      "pwsh ажиллуулах",
       "powershell",
-      "сүүлийн арга"
+      "pwsh",
+      "power shell",
+      "shell command",
+      "script execution",
+      "windows powershell",
+      "command",
+      "execute powershell",
+      "run script",
+      "ps command"
     ],
     "err.command_required": "[pwsh_exec error] 'command' is required"
   },
@@ -388,10 +556,16 @@
     "param.shell.description": "वापरण्यासाठी PowerShell executable: 'pwsh' (PowerShell 7+) किंवा 'powershell' (Windows PowerShell).",
     "tool.description": "शेवटचा उपाय म्हणून PowerShell चालवा. इतर कोणतेही योग्य tool (उदा. MCP) उपलब्ध नसल्यासच वापरा.",
     "x_search_terms": [
-      "pwsh_exec",
-      "pwsh चालवा",
       "powershell",
-      "शेवटचा पर्याय"
+      "pwsh",
+      "power shell",
+      "shell command",
+      "script execution",
+      "windows powershell",
+      "command",
+      "execute powershell",
+      "run script",
+      "ps command"
     ],
     "err.command_required": "[pwsh_exec error] 'command' is required"
   },
@@ -401,8 +575,16 @@
     "param.shell.description": "PowerShell εκτελέσιμο για χρήση: 'pwsh' (PowerShell 7+) ή 'powershell' (Windows PowerShell). Εάν παραλειφθεί, επιλέξτε αυτόματα.",
     "tool.description": "Συνδεθείτε σε διακομιστή MCP και παραθέστε τα διαθέσιμα εργαλεία. Υποστηρίζει μεταφορές HTTP και stdio.",
     "x_search_terms": [
-      "pwsh_exec",
-      "pwsh exec"
+      "powershell",
+      "pwsh",
+      "power shell",
+      "shell command",
+      "script execution",
+      "windows powershell",
+      "command",
+      "execute powershell",
+      "run script",
+      "ps command"
     ],
     "err.command_required": "[σφάλμα pwsh_exec] Απαιτείται «εντολή»"
   },
@@ -412,8 +594,16 @@
     "param.shell.description": "קובץ הפעלה של PowerShell לשימוש: 'pwsh' (PowerShell 7+) או 'powershell' (Windows PowerShell). אם הושמט, בחירה אוטומטית.",
     "tool.description": "התחבר לשרת MCP ורשום כלים זמינים. תומך בהעברות HTTP ו-stdio.",
     "x_search_terms": [
-      "pwsh_exec",
-      "pwsh exec"
+      "powershell",
+      "pwsh",
+      "power shell",
+      "shell command",
+      "script execution",
+      "windows powershell",
+      "command",
+      "execute powershell",
+      "run script",
+      "ps command"
     ],
     "err.command_required": "[שגיאת pwsh_exec] נדרשת 'פקודה'"
   },
@@ -423,8 +613,16 @@
     "param.shell.description": "Használható PowerShell futtatható fájl: „pwsh” (PowerShell 7+) vagy „powershell” (Windows PowerShell). Ha kimarad, automatikus kiválasztás.",
     "tool.description": "Csatlakozzon egy MCP-kiszolgálóhoz, és sorolja fel az elérhető eszközöket. Támogatja a HTTP és az stdio átvitelt.",
     "x_search_terms": [
-      "pwsh_exec",
-      "pwsh exec"
+      "powershell",
+      "pwsh",
+      "power shell",
+      "shell command",
+      "script execution",
+      "windows powershell",
+      "command",
+      "execute powershell",
+      "run script",
+      "ps command"
     ],
     "err.command_required": "[pwsh_exec hiba] \"parancs\" szükséges"
   },
@@ -434,8 +632,16 @@
     "param.shell.description": "PowerShell executabil de utilizat: „pwsh” (PowerShell 7+) sau „powershell” (Windows PowerShell). Dacă este omisă, selectați automat.",
     "tool.description": "Conectați-vă la un server MCP și enumerați instrumentele disponibile. Suportă transporturi HTTP și stdio.",
     "x_search_terms": [
-      "pwsh_exec",
-      "pwsh exec"
+      "powershell",
+      "pwsh",
+      "power shell",
+      "shell command",
+      "script execution",
+      "windows powershell",
+      "command",
+      "execute powershell",
+      "run script",
+      "ps command"
     ],
     "err.command_required": "[pwsh_exec error] „comanda” este necesară"
   }

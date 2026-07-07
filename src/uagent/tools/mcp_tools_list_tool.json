@@ -22,10 +22,16 @@
     "param.server_name.description": "設定ファイル内のサーバー名。",
     "tool.description": "MCPサーバーに接続して利用可能なツール一覧を取得。HTTP/stdio両対応。",
     "x_search_terms": [
-      "mcp_tools_list",
-      "mcp ツール一覧",
-      "ツール一覧取得",
-      "mcp 調査"
+      "mcp",
+      "mcp tools",
+      "tool list",
+      "mcp server",
+      "available tools",
+      "mcp capabilities",
+      "server tools",
+      "tool catalog",
+      "mcp functions",
+      "mcp endpoints"
     ],
     "param.url.description": "MCP サーバーのエンドポイント URL。省略した場合、構成されたサーバーが使用される可能性があります。"
   },
@@ -34,10 +40,16 @@
     "param.server_name.description": "Nombre del servidor del archivo de configuración.",
     "tool.description": "Conéctese a un servidor MCP y enumere las herramientas disponibles. Admite transportes HTTP y stdio.",
     "x_search_terms": [
-      "mcp_tools_list",
-      "lista herramientas mcp",
-      "listar herramientas mcp",
-      "descubrir herramientas"
+      "mcp",
+      "mcp tools",
+      "tool list",
+      "mcp server",
+      "available tools",
+      "mcp capabilities",
+      "server tools",
+      "tool catalog",
+      "mcp functions",
+      "mcp endpoints"
     ]
   },
   "fr": {
@@ -45,10 +57,16 @@
     "param.server_name.description": "Nom du serveur figurant dans le fichier de configuration.",
     "tool.description": "Connectez-vous à un serveur MCP et répertoriez les outils disponibles. Prend en charge les transports HTTP et stdio.",
     "x_search_terms": [
-      "mcp_tools_list",
-      "liste outils mcp",
-      "lister outils mcp",
-      "découvrir outils"
+      "mcp",
+      "mcp tools",
+      "tool list",
+      "mcp server",
+      "available tools",
+      "mcp capabilities",
+      "server tools",
+      "tool catalog",
+      "mcp functions",
+      "mcp endpoints"
     ]
   },
   "ko": {
@@ -56,10 +74,16 @@
     "param.server_name.description": "구성 파일의 서버 이름입니다.",
     "tool.description": "MCP 서버에 연결하여 사용 가능한 도구 목록 조회. HTTP/stdio 지원.",
     "x_search_terms": [
-      "mcp_tools_list",
-      "mcp 도구 목록",
-      "도구 목록 조회",
-      "mcp 탐색"
+      "mcp",
+      "mcp tools",
+      "tool list",
+      "mcp server",
+      "available tools",
+      "mcp capabilities",
+      "server tools",
+      "tool catalog",
+      "mcp functions",
+      "mcp endpoints"
     ]
   },
   "de": {
@@ -67,10 +91,16 @@
     "param.server_name.description": "Servername aus der Konfigurationsdatei.",
     "tool.description": "Stellen Sie eine Verbindung zu einem MCP-Server her und listen Sie die verfügbaren Tools auf. Unterstützt HTTP- und Standardtransporte.",
     "x_search_terms": [
-      "mcp_tools_list",
-      "mcp tools liste",
-      "mcp werkzeuge",
-      "tools entdecken"
+      "mcp",
+      "mcp tools",
+      "tool list",
+      "mcp server",
+      "available tools",
+      "mcp capabilities",
+      "server tools",
+      "tool catalog",
+      "mcp functions",
+      "mcp endpoints"
     ]
   },
   "it": {
@@ -78,10 +108,16 @@
     "param.server_name.description": "Nome del server nel file di configurazione.",
     "tool.description": "Connettersi a un server MCP ed elencare gli strumenti disponibili. Supporta i trasporti HTTP e stdio.",
     "x_search_terms": [
-      "mcp_tools_list",
-      "lista strumenti mcp",
-      "elenca strumenti mcp",
-      "scopri strumenti"
+      "mcp",
+      "mcp tools",
+      "tool list",
+      "mcp server",
+      "available tools",
+      "mcp capabilities",
+      "server tools",
+      "tool catalog",
+      "mcp functions",
+      "mcp endpoints"
     ]
   },
   "ru": {
@@ -89,10 +125,16 @@
     "param.server_name.description": "Имя сервера из файла конфигурации.",
     "tool.description": "Подключитесь к серверу MCP и перечислите доступные инструменты. Поддерживает транспорт HTTP и stdio.",
     "x_search_terms": [
-      "mcp_tools_list",
-      "список инструментов mcp",
-      "перечень mcp инструментов",
-      "обнаружить инструменты"
+      "mcp",
+      "mcp tools",
+      "tool list",
+      "mcp server",
+      "available tools",
+      "mcp capabilities",
+      "server tools",
+      "tool catalog",
+      "mcp functions",
+      "mcp endpoints"
     ]
   },
   "pt_BR": {
@@ -100,10 +142,16 @@
     "param.server_name.description": "Nome do servidor no arquivo de configuração.",
     "tool.description": "Conecte-se a um servidor MCP e liste as ferramentas disponíveis. Suporta transportes HTTP e stdio.",
     "x_search_terms": [
-      "mcp_tools_list",
-      "lista ferramentas mcp",
-      "listar ferramentas mcp",
-      "descobrir ferramentas"
+      "mcp",
+      "mcp tools",
+      "tool list",
+      "mcp server",
+      "available tools",
+      "mcp capabilities",
+      "server tools",
+      "tool catalog",
+      "mcp functions",
+      "mcp endpoints"
     ]
   },
   "pt": {
@@ -111,10 +159,16 @@
     "param.server_name.description": "Nome do servidor do arquivo de configuração.",
     "tool.description": "Conecte-se a um servidor MCP e liste as ferramentas disponíveis. Suporta transportes HTTP e stdio.",
     "x_search_terms": [
-      "mcp_tools_list",
-      "lista ferramentas mcp",
-      "listar ferramentas mcp",
-      "descobrir ferramentas"
+      "mcp",
+      "mcp tools",
+      "tool list",
+      "mcp server",
+      "available tools",
+      "mcp capabilities",
+      "server tools",
+      "tool catalog",
+      "mcp functions",
+      "mcp endpoints"
     ]
   },
   "id": {
@@ -122,10 +176,16 @@
     "param.server_name.description": "Nama server dari file konfigurasi.",
     "tool.description": "Hubungkan ke server MCP dan daftar alat yang tersedia. Mendukung transportasi HTTP dan stdio.",
     "x_search_terms": [
-      "mcp_tools_list",
-      "daftar alat mcp",
-      "daftar mcp tools",
-      "temukan alat"
+      "mcp",
+      "mcp tools",
+      "tool list",
+      "mcp server",
+      "available tools",
+      "mcp capabilities",
+      "server tools",
+      "tool catalog",
+      "mcp functions",
+      "mcp endpoints"
     ]
   },
   "vi": {
@@ -133,10 +193,16 @@
     "param.server_name.description": "Tên máy chủ từ tệp cấu hình.",
     "tool.description": "Kết nối với máy chủ MCP và liệt kê các công cụ có sẵn. Hỗ trợ vận chuyển HTTP và stdio.",
     "x_search_terms": [
-      "mcp_tools_list",
-      "danh sách công cụ mcp",
-      "liệt kê công cụ mcp",
-      "khám phá công cụ"
+      "mcp",
+      "mcp tools",
+      "tool list",
+      "mcp server",
+      "available tools",
+      "mcp capabilities",
+      "server tools",
+      "tool catalog",
+      "mcp functions",
+      "mcp endpoints"
     ]
   },
   "pl": {
@@ -144,10 +210,16 @@
     "param.server_name.description": "Nazwa serwera z pliku konfiguracyjnego.",
     "tool.description": "Połącz się z serwerem MCP i wyświetl listę dostępnych narzędzi. Obsługuje transporty HTTP i stdio.",
     "x_search_terms": [
-      "mcp_tools_list",
-      "lista narzędzi mcp",
-      "wylistuj narzędzia mcp",
-      "odkryj narzędzia"
+      "mcp",
+      "mcp tools",
+      "tool list",
+      "mcp server",
+      "available tools",
+      "mcp capabilities",
+      "server tools",
+      "tool catalog",
+      "mcp functions",
+      "mcp endpoints"
     ]
   },
   "hi": {
@@ -155,10 +227,16 @@
     "param.server_name.description": "कॉन्फ़िगरेशन फ़ाइल से सर्वर का नाम.",
     "tool.description": "MCP सर्वर से कनेक्ट करें। उपलब्ध टूल की सूची।",
     "x_search_terms": [
-      "mcp_tools_list",
-      "mcp टूल सूची",
-      "mcp टूल्स सूची",
-      "टूल खोज"
+      "mcp",
+      "mcp tools",
+      "tool list",
+      "mcp server",
+      "available tools",
+      "mcp capabilities",
+      "server tools",
+      "tool catalog",
+      "mcp functions",
+      "mcp endpoints"
     ]
   },
   "ar": {
@@ -166,10 +244,16 @@
     "param.server_name.description": "اسم الخادم من ملف التكوين.",
     "tool.description": "اتصل بخادم MCP وأدرج الأدوات المتاحة. يدعم عمليات النقل HTTP وstdio.",
     "x_search_terms": [
-      "mcp_tools_list",
-      "قائمة أدوات mcp",
-      "سرد أدوات mcp",
-      "اكتشاف الأدوات"
+      "mcp",
+      "mcp tools",
+      "tool list",
+      "mcp server",
+      "available tools",
+      "mcp capabilities",
+      "server tools",
+      "tool catalog",
+      "mcp functions",
+      "mcp endpoints"
     ]
   },
   "sv": {
@@ -177,10 +261,16 @@
     "param.server_name.description": "Servernamn från konfigurationsfilen.",
     "tool.description": "Anslut till en MCP-server och lista tillgängliga verktyg. Stöder HTTP och stdio-transporter.",
     "x_search_terms": [
-      "mcp_tools_list",
-      "mcp verktyg lista",
-      "lista mcp verktyg",
-      "upptäck verktyg"
+      "mcp",
+      "mcp tools",
+      "tool list",
+      "mcp server",
+      "available tools",
+      "mcp capabilities",
+      "server tools",
+      "tool catalog",
+      "mcp functions",
+      "mcp endpoints"
     ]
   },
   "sw": {
@@ -188,10 +278,16 @@
     "param.server_name.description": "Server name from the config file.",
     "tool.description": "Unganisha kwa seva ya MCP na uorodheshe zana zinazopatikana. Inaauni usafirishaji wa HTTP na stdio.",
     "x_search_terms": [
-      "mcp_tools_list",
-      "orodha ya zana za mcp",
-      "orodhesha zana mcp",
-      "gundua zana"
+      "mcp",
+      "mcp tools",
+      "tool list",
+      "mcp server",
+      "available tools",
+      "mcp capabilities",
+      "server tools",
+      "tool catalog",
+      "mcp functions",
+      "mcp endpoints"
     ]
   },
   "nb": {
@@ -199,10 +295,16 @@
     "param.server_name.description": "Servernavn fra konfigurasjonsfilen.",
     "tool.description": "Koble til en MCP-server og vis tilgjengelige verktøy. Støtter HTTP og stdio-transporter.",
     "x_search_terms": [
-      "mcp_tools_list",
-      "mcp-verktøy liste",
-      "liste mcp-verktøy",
-      "oppdag verktøy"
+      "mcp",
+      "mcp tools",
+      "tool list",
+      "mcp server",
+      "available tools",
+      "mcp capabilities",
+      "server tools",
+      "tool catalog",
+      "mcp functions",
+      "mcp endpoints"
     ]
   },
   "nl": {
@@ -210,10 +312,16 @@
     "param.server_name.description": "Servernaam uit het configuratiebestand.",
     "tool.description": "Maak verbinding met een MCP-server en vermeld de beschikbare tools. Ondersteunt HTTP- en stdio-transporten.",
     "x_search_terms": [
-      "mcp_tools_list",
-      "mcp tools lijst",
-      "lijst mcp tools",
-      "tools ontdekken"
+      "mcp",
+      "mcp tools",
+      "tool list",
+      "mcp server",
+      "available tools",
+      "mcp capabilities",
+      "server tools",
+      "tool catalog",
+      "mcp functions",
+      "mcp endpoints"
     ]
   },
   "fi": {
@@ -221,10 +329,16 @@
     "param.server_name.description": "Palvelimen nimi asetustiedostosta.",
     "tool.description": "Muodosta yhteys MCP-palvelimeen ja luettele käytettävissä olevat työkalut. Tukee HTTP- ja stdio-siirtoja.",
     "x_search_terms": [
-      "mcp_tools_list",
-      "mcp työkalut lista",
-      "listaa mcp työkalut",
-      "löydä työkalut"
+      "mcp",
+      "mcp tools",
+      "tool list",
+      "mcp server",
+      "available tools",
+      "mcp capabilities",
+      "server tools",
+      "tool catalog",
+      "mcp functions",
+      "mcp endpoints"
     ]
   },
   "cs": {
@@ -232,10 +346,16 @@
     "param.server_name.description": "Název serveru z konfiguračního souboru.",
     "tool.description": "Připojte se k serveru MCP a vypište dostupné nástroje. Podporuje přenosy HTTP a stdio.",
     "x_search_terms": [
-      "mcp_tools_list",
-      "seznam mcp nástrojů",
-      "vypsat mcp nástroje",
-      "objevit nástroje"
+      "mcp",
+      "mcp tools",
+      "tool list",
+      "mcp server",
+      "available tools",
+      "mcp capabilities",
+      "server tools",
+      "tool catalog",
+      "mcp functions",
+      "mcp endpoints"
     ]
   },
   "uk": {
@@ -243,10 +363,16 @@
     "param.server_name.description": "Назва сервера з файлу конфігурації.",
     "tool.description": "Підключіться до сервера MCP і перелічіть доступні інструменти. Підтримує HTTP і stdio транспорти.",
     "x_search_terms": [
-      "mcp_tools_list",
-      "список інструментів mcp",
-      "перелік mcp інструментів",
-      "знайти інструменти"
+      "mcp",
+      "mcp tools",
+      "tool list",
+      "mcp server",
+      "available tools",
+      "mcp capabilities",
+      "server tools",
+      "tool catalog",
+      "mcp functions",
+      "mcp endpoints"
     ]
   },
   "tr": {
@@ -254,10 +380,16 @@
     "param.server_name.description": "Yapılandırma dosyasından sunucu adı.",
     "tool.description": "Bir MCP sunucusuna bağlanın ve mevcut araçları listeleyin. HTTP ve stdio aktarımlarını destekler.",
     "x_search_terms": [
-      "mcp_tools_list",
-      "mcp araç listesi",
-      "mcp araçlarını listele",
-      "araçları keşfet"
+      "mcp",
+      "mcp tools",
+      "tool list",
+      "mcp server",
+      "available tools",
+      "mcp capabilities",
+      "server tools",
+      "tool catalog",
+      "mcp functions",
+      "mcp endpoints"
     ]
   },
   "th": {
@@ -265,10 +397,16 @@
     "param.server_name.description": "ชื่อเซิร์ฟเวอร์จากไฟล์ปรับแต่ง",
     "tool.description": "เชื่อมต่อกับเซิร์ฟเวอร์ MCP และแสดงรายการเครื่องมือที่มีอยู่ รองรับการขนส่ง HTTP และ stdio",
     "x_search_terms": [
-      "mcp_tools_list",
-      "รายการเครื่องมือ mcp",
-      "แสดงเครื่องมือ mcp",
-      "ค้นหาเครื่องมือ"
+      "mcp",
+      "mcp tools",
+      "tool list",
+      "mcp server",
+      "available tools",
+      "mcp capabilities",
+      "server tools",
+      "tool catalog",
+      "mcp functions",
+      "mcp endpoints"
     ]
   },
   "zh_CN": {
@@ -276,10 +414,16 @@
     "param.server_name.description": "配置文件中的服务器名称。",
     "tool.description": "连接MCP服务器并列出可用工具。支持HTTP和stdio传输。",
     "x_search_terms": [
-      "mcp_tools_list",
-      "mcp 工具列表",
-      "列出 mcp 工具",
-      "发现工具"
+      "mcp",
+      "mcp tools",
+      "tool list",
+      "mcp server",
+      "available tools",
+      "mcp capabilities",
+      "server tools",
+      "tool catalog",
+      "mcp functions",
+      "mcp endpoints"
     ]
   },
   "zh_TW": {
@@ -287,10 +431,16 @@
     "param.server_name.description": "設定檔中的伺服器名稱。",
     "tool.description": "连接MCP服务器并列出可用工具。支持HTTP和stdio传输。",
     "x_search_terms": [
-      "mcp_tools_list",
-      "mcp 工具列表",
-      "列出 mcp 工具",
-      "探索工具"
+      "mcp",
+      "mcp tools",
+      "tool list",
+      "mcp server",
+      "available tools",
+      "mcp capabilities",
+      "server tools",
+      "tool catalog",
+      "mcp functions",
+      "mcp endpoints"
     ]
   },
   "bn": {
@@ -298,10 +448,16 @@
     "param.server_name.description": "কনফিগ ফাইলের server name।",
     "tool.description": "যদি সত্য হয়, JSON আউটপুট (ডিফল্ট: সত্য) প্রিন্ট-প্রিন্ট করুন। এবং উপলভ্য সরঞ্জামগুলিকে সমর্থন করে",
     "x_search_terms": [
-      "mcp_tools_list",
-      "mcp টুল তালিকা",
-      "mcp টুল দেখাও",
-      "টুল খুঁজুন"
+      "mcp",
+      "mcp tools",
+      "tool list",
+      "mcp server",
+      "available tools",
+      "mcp capabilities",
+      "server tools",
+      "tool catalog",
+      "mcp functions",
+      "mcp endpoints"
     ]
   },
   "fa": {
@@ -309,10 +465,16 @@
     "param.server_name.description": "نام سرور از فایل پیکربندی.",
     "tool.description": "به یک سرور MCP متصل شوید و ابزارهای موجود را فهرست کنید. از انتقال HTTP و stdio پشتیبانی می کند.",
     "x_search_terms": [
-      "mcp_tools_list",
-      "فهرست ابزارهای mcp",
-      "فهرست ابزار mcp",
-      "کشف ابزارها"
+      "mcp",
+      "mcp tools",
+      "tool list",
+      "mcp server",
+      "available tools",
+      "mcp capabilities",
+      "server tools",
+      "tool catalog",
+      "mcp functions",
+      "mcp endpoints"
     ]
   },
   "mn": {
@@ -320,10 +482,16 @@
     "param.server_name.description": "Тохиргооны файл дахь server name.",
     "tool.description": "MCP серверт холбогдож, боломжтой хэрэгслүүдийг жагсаана уу. HTTP болон stdio дамжуулалтыг дэмждэг.",
     "x_search_terms": [
-      "mcp_tools_list",
-      "mcp хэрэгслийн жагсаалт",
-      "mcp хэрэгслийг жагсаах",
-      "хэрэгсэл илрүүлэх"
+      "mcp",
+      "mcp tools",
+      "tool list",
+      "mcp server",
+      "available tools",
+      "mcp capabilities",
+      "server tools",
+      "tool catalog",
+      "mcp functions",
+      "mcp endpoints"
     ]
   },
   "mr": {
@@ -331,10 +499,16 @@
     "param.server_name.description": "कॉन्फिग फाइलमधील server नाव.",
     "tool.description": "MCP सर्व्हरशी कनेक्ट करा आणि उपलब्ध साधनांची यादी करा. HTTP आणि stdio ट्रान्सपोर्टला सपोर्ट करते.",
     "x_search_terms": [
-      "mcp_tools_list",
-      "mcp साधनांची यादी",
-      "mcp साधने सूचीबद्ध करा",
-      "साधने शोधा"
+      "mcp",
+      "mcp tools",
+      "tool list",
+      "mcp server",
+      "available tools",
+      "mcp capabilities",
+      "server tools",
+      "tool catalog",
+      "mcp functions",
+      "mcp endpoints"
     ]
   },
   "el": {
@@ -342,8 +516,16 @@
     "param.server_name.description": "Όνομα διακομιστή από το αρχείο διαμόρφωσης.",
     "tool.description": "Συνδεθείτε σε διακομιστή MCP και παραθέστε τα διαθέσιμα εργαλεία. Υποστηρίζει μεταφορές HTTP και stdio.",
     "x_search_terms": [
-      "mcps_list",
-      "mcps list"
+      "mcp",
+      "mcp tools",
+      "tool list",
+      "mcp server",
+      "available tools",
+      "mcp capabilities",
+      "server tools",
+      "tool catalog",
+      "mcp functions",
+      "mcp endpoints"
     ]
   },
   "he": {
@@ -351,8 +533,16 @@
     "param.server_name.description": "שם השרת מקובץ התצורה.",
     "tool.description": "התחבר לשרת MCP ורשום כלים זמינים. תומך בהעברות HTTP ו-stdio.",
     "x_search_terms": [
-      "mcps_list",
-      "mcps list"
+      "mcp",
+      "mcp tools",
+      "tool list",
+      "mcp server",
+      "available tools",
+      "mcp capabilities",
+      "server tools",
+      "tool catalog",
+      "mcp functions",
+      "mcp endpoints"
     ]
   },
   "hu": {
@@ -360,8 +550,16 @@
     "param.server_name.description": "Szervernév a konfigurációs fájlból.",
     "tool.description": "Csatlakozzon egy MCP-kiszolgálóhoz, és sorolja fel az elérhető eszközöket. Támogatja a HTTP és az stdio átvitelt.",
     "x_search_terms": [
-      "mcps_list",
-      "mcps lista"
+      "mcp",
+      "mcp tools",
+      "tool list",
+      "mcp server",
+      "available tools",
+      "mcp capabilities",
+      "server tools",
+      "tool catalog",
+      "mcp functions",
+      "mcp endpoints"
     ]
   },
   "ro": {
@@ -369,8 +567,16 @@
     "param.server_name.description": "Numele serverului din fișierul de configurare.",
     "tool.description": "Conectați-vă la un server MCP și enumerați instrumentele disponibile. Suportă transporturi HTTP și stdio.",
     "x_search_terms": [
-      "mcps_list",
-      "mcps list"
+      "mcp",
+      "mcp tools",
+      "tool list",
+      "mcp server",
+      "available tools",
+      "mcp capabilities",
+      "server tools",
+      "tool catalog",
+      "mcp functions",
+      "mcp endpoints"
     ]
   }
 }

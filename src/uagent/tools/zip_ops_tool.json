@@ -70,10 +70,16 @@
     "param.zip_path.description": "zip ファイルのパス。",
     "tool.description": "ZIP ファイルの作成・展開・一覧取得を行います（Zip Slip / Zip Bomb 対策あり）。",
     "x_search_terms": [
-      "zip_ops",
-      "zip 操作",
-      "zip 作成",
-      "zip 展開"
+      "zip",
+      "compress",
+      "archive",
+      "zip file",
+      "unzip",
+      "extract zip",
+      "zip compress",
+      "zip archive",
+      "file compression",
+      "decompress"
     ],
     "confirm.extract_overwrite": "zip_ops(extract) は既存のファイルを上書きする可能性があります。\nzip: {zip_path}\n宛先: {dest_dir}\nエントリ: {entries}\n\n続行するには y を入力し、キャンセルするには c を入力します。"
   },
@@ -106,10 +112,16 @@
     "param.zip_path.description": "Ruta al archivo zip.",
     "tool.description": "Crea, extrae y enumera archivos ZIP (con protecciones Zip Slip/Zip Bomb).",
     "x_search_terms": [
-      "zip_ops",
-      "operaciones zip",
-      "crear zip",
-      "extraer zip"
+      "zip",
+      "compress",
+      "archive",
+      "zip file",
+      "unzip",
+      "extract zip",
+      "zip compress",
+      "zip archive",
+      "file compression",
+      "decompress"
     ]
   },
   "fr": {
@@ -141,10 +153,16 @@
     "param.zip_path.description": "Chemin d'accès au fichier zip.",
     "tool.description": "Créer/extraire/lister les fichiers ZIP (avec protections Zip Slip/Zip Bomb).",
     "x_search_terms": [
-      "zip_ops",
-      "opérations zip",
-      "créer zip",
-      "extraire zip"
+      "zip",
+      "compress",
+      "archive",
+      "zip file",
+      "unzip",
+      "extract zip",
+      "zip compress",
+      "zip archive",
+      "file compression",
+      "decompress"
     ]
   },
   "ko": {
@@ -176,10 +194,16 @@
     "param.zip_path.description": "zip 파일의 경로입니다.",
     "tool.description": "ZIP 파일을 만들고, 추출하고, 목록을 표시합니다(Zip Slip/Zip Bomb 보호 포함).",
     "x_search_terms": [
-      "zip_ops",
-      "zip 작업",
-      "zip 만들기",
-      "zip 풀기"
+      "zip",
+      "compress",
+      "archive",
+      "zip file",
+      "unzip",
+      "extract zip",
+      "zip compress",
+      "zip archive",
+      "file compression",
+      "decompress"
     ]
   },
   "de": {
@@ -211,10 +235,16 @@
     "param.zip_path.description": "Pfad zur Zip-Datei.",
     "tool.description": "ZIP-Dateien erstellen/extrahieren/auflisten (mit Zip Slip/Zip Bomb-Schutz).",
     "x_search_terms": [
-      "zip_ops",
-      "zip-ops",
-      "zip erstellen",
-      "zip entpacken"
+      "zip",
+      "compress",
+      "archive",
+      "zip file",
+      "unzip",
+      "extract zip",
+      "zip compress",
+      "zip archive",
+      "file compression",
+      "decompress"
     ]
   },
   "it": {
@@ -246,10 +276,16 @@
     "param.zip_path.description": "Percorso del file zip.",
     "tool.description": "Crea/estrae/elenca file ZIP (con protezioni Zip Slip / Zip Bomb).",
     "x_search_terms": [
-      "zip_ops",
-      "operazioni zip",
-      "crea zip",
-      "estrae zip"
+      "zip",
+      "compress",
+      "archive",
+      "zip file",
+      "unzip",
+      "extract zip",
+      "zip compress",
+      "zip archive",
+      "file compression",
+      "decompress"
     ]
   },
   "ru": {
@@ -281,10 +317,16 @@
     "param.zip_path.description": "Путь к zip-файлу.",
     "tool.description": "Создаёт/распаковывает/перечисляет ZIP-файлы (с защитой Zip Slip / Zip Bomb).",
     "x_search_terms": [
-      "zip_ops",
-      "операции zip",
-      "создать zip",
-      "распаковать zip"
+      "zip",
+      "compress",
+      "archive",
+      "zip file",
+      "unzip",
+      "extract zip",
+      "zip compress",
+      "zip archive",
+      "file compression",
+      "decompress"
     ]
   },
   "pt_BR": {
@@ -316,10 +358,16 @@
     "param.zip_path.description": "Caminho do arquivo zip.",
     "tool.description": "Criar/extrair/listar arquivos ZIP (com proteções Zip Slip / Zip Bomb).",
     "x_search_terms": [
-      "zip_ops",
-      "operações zip",
-      "criar zip",
-      "extrair zip"
+      "zip",
+      "compress",
+      "archive",
+      "zip file",
+      "unzip",
+      "extract zip",
+      "zip compress",
+      "zip archive",
+      "file compression",
+      "decompress"
     ]
   },
   "pt": {
@@ -351,10 +399,16 @@
     "param.zip_path.description": "Caminho para o arquivo zip.",
     "tool.description": "Crie/extraia/liste arquivos ZIP (com proteções Zip Slip/Zip Bomb).",
     "x_search_terms": [
-      "zip_ops",
-      "operações zip",
-      "criar zip",
-      "extrair zip"
+      "zip",
+      "compress",
+      "archive",
+      "zip file",
+      "unzip",
+      "extract zip",
+      "zip compress",
+      "zip archive",
+      "file compression",
+      "decompress"
     ]
   },
   "id": {
@@ -386,10 +440,16 @@
     "param.zip_path.description": "Path ke file zip.",
     "tool.description": "Buat/ekstrak/daftar file ZIP (dengan perlindungan Zip Slip/Zip Bomb).",
     "x_search_terms": [
-      "zip_ops",
-      "operasi zip",
-      "buat zip",
-      "ekstrak zip"
+      "zip",
+      "compress",
+      "archive",
+      "zip file",
+      "unzip",
+      "extract zip",
+      "zip compress",
+      "zip archive",
+      "file compression",
+      "decompress"
     ]
   },
   "vi": {
@@ -421,10 +481,16 @@
     "param.zip_path.description": "Đường dẫn đến tệp zip.",
     "tool.description": "Tạo/giải nén/liệt kê các tệp ZIP (có tính năng bảo vệ Zip Slip/Zip Bomb).",
     "x_search_terms": [
-      "zip_ops",
-      "thao tác zip",
-      "tạo zip",
-      "giải nén zip"
+      "zip",
+      "compress",
+      "archive",
+      "zip file",
+      "unzip",
+      "extract zip",
+      "zip compress",
+      "zip archive",
+      "file compression",
+      "decompress"
     ]
   },
   "pl": {
@@ -456,10 +522,16 @@
     "param.zip_path.description": "Ścieżka do pliku zip.",
     "tool.description": "Twórz/wyodrębniaj/listuj pliki ZIP (z zabezpieczeniami Zip Slip/Zip Bomb).",
     "x_search_terms": [
-      "zip_ops",
-      "operacje zip",
-      "utwórz zip",
-      "rozpakuj zip"
+      "zip",
+      "compress",
+      "archive",
+      "zip file",
+      "unzip",
+      "extract zip",
+      "zip compress",
+      "zip archive",
+      "file compression",
+      "decompress"
     ]
   },
   "hi": {
@@ -491,10 +563,16 @@
     "param.zip_path.description": "ज़िप फ़ाइल का पथ.",
     "tool.description": "ज़िप फ़ाइलें बनाएं/निकालें/सूचीबद्ध करें (ज़िप स्लिप/ज़िप बम सुरक्षा के साथ)।",
     "x_search_terms": [
-      "zip_ops",
-      "zip ऑपरेशन",
-      "zip बनाएं",
-      "zip निकालें"
+      "zip",
+      "compress",
+      "archive",
+      "zip file",
+      "unzip",
+      "extract zip",
+      "zip compress",
+      "zip archive",
+      "file compression",
+      "decompress"
     ]
   },
   "ar": {
@@ -526,10 +604,16 @@
     "param.zip_path.description": "المسار إلى الملف المضغوط.",
     "tool.description": "إنشاء/استخراج/قائمة ملفات ZIP (مع حماية Zip Slip/Zip Bomb).",
     "x_search_terms": [
-      "zip_ops",
-      "عمليات zip",
-      "إنشاء zip",
-      "استخراج zip"
+      "zip",
+      "compress",
+      "archive",
+      "zip file",
+      "unzip",
+      "extract zip",
+      "zip compress",
+      "zip archive",
+      "file compression",
+      "decompress"
     ]
   },
   "sv": {
@@ -561,10 +645,16 @@
     "param.zip_path.description": "Sökväg till zip-filen.",
     "tool.description": "Skapa/extrahera/lista ZIP-filer (med skydd mot Zip Slip/Zip Bomb).",
     "x_search_terms": [
-      "zip_ops",
-      "zip-operationer",
-      "skapa zip",
-      "extrahera zip"
+      "zip",
+      "compress",
+      "archive",
+      "zip file",
+      "unzip",
+      "extract zip",
+      "zip compress",
+      "zip archive",
+      "file compression",
+      "decompress"
     ]
   },
   "sw": {
@@ -596,10 +686,16 @@
     "param.zip_path.description": "Njia ya faili la zip.",
     "tool.description": "Unda, toa na orodhesha faili za ZIP (kwa ulinzi dhidi ya Zip Slip / Zip Bomb).",
     "x_search_terms": [
-      "zip_ops",
-      "ughuli za zip",
-      "unda zip",
-      "toa zip"
+      "zip",
+      "compress",
+      "archive",
+      "zip file",
+      "unzip",
+      "extract zip",
+      "zip compress",
+      "zip archive",
+      "file compression",
+      "decompress"
     ]
   },
   "nb": {
@@ -631,10 +727,16 @@
     "param.zip_path.description": "Sti til zip-filen.",
     "tool.description": "Opprett/pakk ut/list ZIP-filer (med beskyttelse mot Zip Slip/Zip Bomb).",
     "x_search_terms": [
-      "zip_ops",
-      "zip-operasjoner",
-      "opprett zip",
-      "pakk ut zip"
+      "zip",
+      "compress",
+      "archive",
+      "zip file",
+      "unzip",
+      "extract zip",
+      "zip compress",
+      "zip archive",
+      "file compression",
+      "decompress"
     ]
   },
   "nl": {
@@ -666,10 +768,16 @@
     "param.zip_path.description": "Pad naar het zipbestand.",
     "tool.description": "ZIP-bestanden maken/uitpakken/lijsten (met Zip Slip/Zip Bomb-beveiliging).",
     "x_search_terms": [
-      "zip_ops",
-      "zip-bewerkingen",
-      "zip maken",
-      "zip uitpakken"
+      "zip",
+      "compress",
+      "archive",
+      "zip file",
+      "unzip",
+      "extract zip",
+      "zip compress",
+      "zip archive",
+      "file compression",
+      "decompress"
     ]
   },
   "fi": {
@@ -701,10 +809,16 @@
     "param.zip_path.description": "Polku zip-tiedostoon.",
     "tool.description": "Luo/purkaa/listaa ZIP-tiedostoja (Zip Slip / Zip Bomb -suojauksilla).",
     "x_search_terms": [
-      "zip_ops",
-      "zip-toiminnot",
-      "luo zip",
-      "pura zip"
+      "zip",
+      "compress",
+      "archive",
+      "zip file",
+      "unzip",
+      "extract zip",
+      "zip compress",
+      "zip archive",
+      "file compression",
+      "decompress"
     ]
   },
   "cs": {
@@ -736,10 +850,16 @@
     "param.zip_path.description": "Cesta k ZIP souboru.",
     "tool.description": "Vytváří/rozbaluje/vypisuje ZIP soubory (s ochranou proti Zip Slip/Zip Bomb).",
     "x_search_terms": [
-      "zip_ops",
-      "zip operace",
-      "vytvořit zip",
-      "rozbalit zip"
+      "zip",
+      "compress",
+      "archive",
+      "zip file",
+      "unzip",
+      "extract zip",
+      "zip compress",
+      "zip archive",
+      "file compression",
+      "decompress"
     ]
   },
   "uk": {
@@ -771,10 +891,16 @@
     "param.zip_path.description": "Шлях до ZIP-файла.",
     "tool.description": "Створює/розпаковує/перелічує ZIP-файли (із захистом від Zip Slip/Zip Bomb).",
     "x_search_terms": [
-      "zip_ops",
-      "операції zip",
-      "створити zip",
-      "розпакувати zip"
+      "zip",
+      "compress",
+      "archive",
+      "zip file",
+      "unzip",
+      "extract zip",
+      "zip compress",
+      "zip archive",
+      "file compression",
+      "decompress"
     ]
   },
   "tr": {
@@ -806,10 +932,16 @@
     "param.zip_path.description": "zip dosyasının yolu.",
     "tool.description": "ZIP dosyaları oluşturun/çıkarın/listeleyin (Zip Slip/Zip Bomb korumalarıyla).",
     "x_search_terms": [
-      "zip_ops",
-      "zip işlemleri",
-      "zip oluştur",
-      "zip çıkar"
+      "zip",
+      "compress",
+      "archive",
+      "zip file",
+      "unzip",
+      "extract zip",
+      "zip compress",
+      "zip archive",
+      "file compression",
+      "decompress"
     ]
   },
   "th": {
@@ -841,10 +973,16 @@
     "param.zip_path.description": "เส้นทางไปยังไฟล์ zip",
     "tool.description": "สร้าง แยก และแสดงรายการไฟล์ ZIP (พร้อมการป้องกัน Zip Slip / Zip Bomb)",
     "x_search_terms": [
-      "zip_ops",
-      "การทำงาน zip",
-      "สร้าง zip",
-      "แตก zip"
+      "zip",
+      "compress",
+      "archive",
+      "zip file",
+      "unzip",
+      "extract zip",
+      "zip compress",
+      "zip archive",
+      "file compression",
+      "decompress"
     ]
   },
   "zh_CN": {
@@ -876,10 +1014,16 @@
     "param.zip_path.description": "zip 文件的路径。",
     "tool.description": "创建、提取和列出 ZIP 文件（带有 Zip Slip / Zip Bomb 保护）。",
     "x_search_terms": [
-      "zip_ops",
-      "zip 操作",
-      "创建 zip",
-      "解压 zip"
+      "zip",
+      "compress",
+      "archive",
+      "zip file",
+      "unzip",
+      "extract zip",
+      "zip compress",
+      "zip archive",
+      "file compression",
+      "decompress"
     ]
   },
   "zh_TW": {
@@ -911,10 +1055,16 @@
     "param.zip_path.description": "zip 檔案的路徑。",
     "tool.description": "建立、提取與列出 ZIP 檔案（具備 Zip Slip / Zip Bomb 防護）。",
     "x_search_terms": [
-      "zip_ops",
-      "zip 操作",
-      "建立 zip",
-      "解壓 zip"
+      "zip",
+      "compress",
+      "archive",
+      "zip file",
+      "unzip",
+      "extract zip",
+      "zip compress",
+      "zip archive",
+      "file compression",
+      "decompress"
     ]
   },
   "bn": {
@@ -946,10 +1096,16 @@
     "param.zip_path.description": "zip ফাইলের পথ।",
     "tool.description": "ZIP ফাইল তৈরি/extract/তালিকা দেখায় (Zip Slip/Zip Bomb সুরক্ষা সহ)।",
     "x_search_terms": [
-      "zip_ops",
-      "zip অপারেশন",
-      "zip তৈরি",
-      "zip বের করুন"
+      "zip",
+      "compress",
+      "archive",
+      "zip file",
+      "unzip",
+      "extract zip",
+      "zip compress",
+      "zip archive",
+      "file compression",
+      "decompress"
     ]
   },
   "fa": {
@@ -981,10 +1137,16 @@
     "param.zip_path.description": "مسیر فایل zip.",
     "tool.description": "ایجاد/استخراج/فهرست فایل های ZIP (با حفاظت های Zip Slip/Zip Bomb) مورد نیاز است.",
     "x_search_terms": [
-      "zip_ops",
-      "عملیات zip",
-      "ایجاد zip",
-      "استخراج zip"
+      "zip",
+      "compress",
+      "archive",
+      "zip file",
+      "unzip",
+      "extract zip",
+      "zip compress",
+      "zip archive",
+      "file compression",
+      "decompress"
     ]
   },
   "mn": {
@@ -1016,10 +1178,16 @@
     "param.zip_path.description": "zip файлын зам.",
     "tool.description": "ZIP файлуудыг үүсгэх/задлах/жагсаах (Zip Slip/Zip Bomb хамгаалалттай).",
     "x_search_terms": [
-      "zip_ops",
-      "zip үйлдлүүд",
-      "zip үүсгэх",
-      "zip задлах"
+      "zip",
+      "compress",
+      "archive",
+      "zip file",
+      "unzip",
+      "extract zip",
+      "zip compress",
+      "zip archive",
+      "file compression",
+      "decompress"
     ]
   },
   "mr": {
@@ -1051,10 +1219,16 @@
     "param.zip_path.description": "zip फाइलचा मार्ग.",
     "tool.description": "ZIP फायली तयार/extract/यादी करतो (Zip Slip/Zip Bomb संरक्षणासह).",
     "x_search_terms": [
-      "zip_ops",
-      "झिप ऑपरेशन्स",
-      "झिप तयार करा",
-      "झिप काढा"
+      "zip",
+      "compress",
+      "archive",
+      "zip file",
+      "unzip",
+      "extract zip",
+      "zip compress",
+      "zip archive",
+      "file compression",
+      "decompress"
     ]
   },
   "el": {
@@ -1086,12 +1260,16 @@
     "param.zip_path.description": "Διαδρομή προς το αρχείο zip.",
     "tool.description": "Δημιουργία/εξαγωγή/λίστα αρχείων ZIP (με προστασίες Zip Slip/Zip Bomb).",
     "x_search_terms": [
-      "zip_ops",
-      "zip ops",
       "zip",
-      "αρχείο",
-      "εξαγωγή zip",
-      "συμπίεση"
+      "compress",
+      "archive",
+      "zip file",
+      "unzip",
+      "extract zip",
+      "zip compress",
+      "zip archive",
+      "file compression",
+      "decompress"
     ]
   },
   "he": {
@@ -1123,12 +1301,16 @@
     "param.zip_path.description": "נתיב לקובץ ה-zip.",
     "tool.description": "צור/חלץ/רשום קובצי ZIP (עם הגנות Zip Slip/Zip Bomb).",
     "x_search_terms": [
-      "zip_ops",
-      "zip ops",
       "zip",
-      "ארכיון",
-      "חילוץ zip",
-      "דחיסה"
+      "compress",
+      "archive",
+      "zip file",
+      "unzip",
+      "extract zip",
+      "zip compress",
+      "zip archive",
+      "file compression",
+      "decompress"
     ]
   },
   "hu": {
@@ -1160,12 +1342,16 @@
     "param.zip_path.description": "A ZIP-fájl elérési útja.",
     "tool.description": "ZIP-fájlok létrehozása/kibontása/listázása (zip-/cipzárbomba-védelemmel).",
     "x_search_terms": [
-      "zip_ops",
-      "tömörítés",
       "zip",
-      "archív",
-      "tömörítés kibontása",
-      "tömörítés"
+      "compress",
+      "archive",
+      "zip file",
+      "unzip",
+      "extract zip",
+      "zip compress",
+      "zip archive",
+      "file compression",
+      "decompress"
     ]
   },
   "ro": {
@@ -1197,12 +1383,16 @@
     "param.zip_path.description": "Calea către fișierul zip.",
     "tool.description": "Creați/extrageți/listați fișiere ZIP (cu protecție Zip Slip/Zip Bomb).",
     "x_search_terms": [
-      "zip_ops",
-      "zip ops",
       "zip",
-      "arhiva",
-      "extrage zip",
-      "comprima"
+      "compress",
+      "archive",
+      "zip file",
+      "unzip",
+      "extract zip",
+      "zip compress",
+      "zip archive",
+      "file compression",
+      "decompress"
     ]
   }
 }

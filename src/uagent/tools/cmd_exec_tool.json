@@ -19,338 +19,528 @@
     "param.command.description": "実行するコマンド文字列。",
     "tool.description": "最終手段として Windows コマンドを実行します。Python 実行や MCP など、他に適切なツールがない場合にのみ使用してください。",
     "x_search_terms": [
-      "cmd_exec",
+      "cmd",
+      "command",
+      "windows cmd",
+      "command prompt",
       "cmd exec",
-      "Windows コマンド",
-      "シェルコマンド"
+      "run command",
+      "execute",
+      "dos command",
+      "shell",
+      "command line"
     ]
   },
   "es": {
     "param.command.description": "Cadena de comando a ejecutar.",
     "tool.description": "Como último recurso, ejecuta un comando de Windows.",
     "x_search_terms": [
-      "cmd_exec",
+      "cmd",
+      "command",
+      "windows cmd",
+      "command prompt",
       "cmd exec",
-      "comando de Windows",
-      "comando shell"
+      "run command",
+      "execute",
+      "dos command",
+      "shell",
+      "command line"
     ]
   },
   "fr": {
     "param.command.description": "Chaîne de commande à exécuter.",
     "tool.description": "En dernier recours, exécutez une commande Windows.",
     "x_search_terms": [
-      "cmd_exec",
+      "cmd",
+      "command",
+      "windows cmd",
+      "command prompt",
       "cmd exec",
-      "commande Windows",
-      "commande shell"
+      "run command",
+      "execute",
+      "dos command",
+      "shell",
+      "command line"
     ]
   },
   "ko": {
     "param.command.description": "실행할 명령 문자열입니다.",
     "tool.description": "최후의 수단으로 Windows 명령을 실행합니다. Python이나 MCP처럼 다른 적절한 도구를 사용할 수 없는 경우에만 사용하세요.",
     "x_search_terms": [
-      "cmd_exec",
+      "cmd",
+      "command",
+      "windows cmd",
+      "command prompt",
       "cmd exec",
-      "Windows 명령",
-      "쉘 명령"
+      "run command",
+      "execute",
+      "dos command",
+      "shell",
+      "command line"
     ]
   },
   "de": {
     "param.command.description": "Befehlszeichenfolge zum Ausführen.",
     "tool.description": "Führt als letzter Ausweg einen Windows-Befehl aus.",
     "x_search_terms": [
-      "cmd_exec",
+      "cmd",
+      "command",
+      "windows cmd",
+      "command prompt",
       "cmd exec",
-      "Windows-Befehl",
-      "Shell-Befehl"
+      "run command",
+      "execute",
+      "dos command",
+      "shell",
+      "command line"
     ]
   },
   "it": {
     "param.command.description": "Stringa di comando da eseguire.",
     "tool.description": "Come ultima risorsa, esegui un comando Windows.",
     "x_search_terms": [
-      "cmd_exec",
+      "cmd",
+      "command",
+      "windows cmd",
+      "command prompt",
       "cmd exec",
-      "comando Windows",
-      "comando shell"
+      "run command",
+      "execute",
+      "dos command",
+      "shell",
+      "command line"
     ]
   },
   "ru": {
     "param.command.description": "Командная строка для выполнения.",
     "tool.description": "В крайнем случае выполните команду Windows.",
     "x_search_terms": [
-      "cmd_exec",
+      "cmd",
+      "command",
+      "windows cmd",
+      "command prompt",
       "cmd exec",
-      "команда Windows",
-      "команда shell"
+      "run command",
+      "execute",
+      "dos command",
+      "shell",
+      "command line"
     ]
   },
   "pt_BR": {
     "param.command.description": "Comando a ser executado.",
     "tool.description": "Como último recurso, execute um comando do Windows.",
     "x_search_terms": [
-      "cmd_exec",
+      "cmd",
+      "command",
+      "windows cmd",
+      "command prompt",
       "cmd exec",
-      "comando Windows",
-      "comando shell"
+      "run command",
+      "execute",
+      "dos command",
+      "shell",
+      "command line"
     ]
   },
   "pt": {
     "param.command.description": "Cadeia de comandos a ser executada.",
     "tool.description": "Como último recurso, execute um comando do Windows.",
     "x_search_terms": [
-      "cmd_exec",
+      "cmd",
+      "command",
+      "windows cmd",
+      "command prompt",
       "cmd exec",
-      "comando Windows",
-      "comando shell"
+      "run command",
+      "execute",
+      "dos command",
+      "shell",
+      "command line"
     ]
   },
   "id": {
     "param.command.description": "String perintah yang akan dijalankan.",
     "tool.description": "Sebagai upaya terakhir, jalankan perintah Windows.",
     "x_search_terms": [
-      "cmd_exec",
+      "cmd",
+      "command",
+      "windows cmd",
+      "command prompt",
       "cmd exec",
-      "perintah Windows",
-      "perintah shell"
+      "run command",
+      "execute",
+      "dos command",
+      "shell",
+      "command line"
     ]
   },
   "vi": {
     "param.command.description": "Chuỗi lệnh để thực thi.",
     "tool.description": "Phương án cuối cùng là thực thi lệnh Windows.",
     "x_search_terms": [
-      "cmd_exec",
+      "cmd",
+      "command",
+      "windows cmd",
+      "command prompt",
       "cmd exec",
-      "lệnh Windows",
-      "lệnh shell"
+      "run command",
+      "execute",
+      "dos command",
+      "shell",
+      "command line"
     ]
   },
   "pl": {
     "param.command.description": "Ciąg poleceń do wykonania.",
     "tool.description": "W ostateczności wykonaj polecenie systemu Windows.",
     "x_search_terms": [
-      "cmd_exec",
+      "cmd",
+      "command",
+      "windows cmd",
+      "command prompt",
       "cmd exec",
-      "polecenie Windows",
-      "polecenie shell"
+      "run command",
+      "execute",
+      "dos command",
+      "shell",
+      "command line"
     ]
   },
   "hi": {
     "param.command.description": "निष्पादित करने के लिए कमांड स्ट्रिंग.",
     "tool.description": "अंतिम उपाय के रूप में Windows कमांड चलाएँ। केवल तभी उपयोग करें जब Python या MCP जैसा कोई अन्य उपयुक्त उपकरण उपलब्ध न हो।",
     "x_search_terms": [
-      "cmd_exec",
+      "cmd",
+      "command",
+      "windows cmd",
+      "command prompt",
       "cmd exec",
-      "Windows कमांड",
-      "shell कमांड"
+      "run command",
+      "execute",
+      "dos command",
+      "shell",
+      "command line"
     ]
   },
   "ar": {
     "param.command.description": "سلسلة الأوامر المراد تنفيذها.",
     "tool.description": "كحل أخير، قم بتنفيذ أمر Windows. يُستخدم فقط في حالة عدم توفر أي أداة مناسبة أخرى، مثل Python أو MCP.",
     "x_search_terms": [
-      "cmd_exec",
+      "cmd",
+      "command",
+      "windows cmd",
+      "command prompt",
       "cmd exec",
-      "أمر Windows",
-      "أمر shell"
+      "run command",
+      "execute",
+      "dos command",
+      "shell",
+      "command line"
     ]
   },
   "sv": {
     "param.command.description": "Kommandosträng att köra.",
     "tool.description": "Kör ett Windows-kommando som sista utväg.",
     "x_search_terms": [
-      "cmd_exec",
+      "cmd",
+      "command",
+      "windows cmd",
+      "command prompt",
       "cmd exec",
-      "Windows-kommando",
-      "shellkommando"
+      "run command",
+      "execute",
+      "dos command",
+      "shell",
+      "command line"
     ]
   },
   "sw": {
     "param.command.description": "Mfuatano wa amri wa kutekeleza.",
     "tool.description": "Kama suluhisho la mwisho, tekeleza amri ya Windows.",
     "x_search_terms": [
-      "cmd_exec",
+      "cmd",
+      "command",
+      "windows cmd",
+      "command prompt",
       "cmd exec",
-      "amri ya Windows",
-      "amri ya shell"
+      "run command",
+      "execute",
+      "dos command",
+      "shell",
+      "command line"
     ]
   },
   "nb": {
     "param.command.description": "Kommandostreng som skal kjøres.",
     "tool.description": "Kjør en Windows-kommando som siste utvei.",
     "x_search_terms": [
-      "cmd_exec",
+      "cmd",
+      "command",
+      "windows cmd",
+      "command prompt",
       "cmd exec",
-      "Windows-kommando",
-      "shellkommando"
+      "run command",
+      "execute",
+      "dos command",
+      "shell",
+      "command line"
     ]
   },
   "nl": {
     "param.command.description": "Uit te voeren opdrachtregel.",
     "tool.description": "Voer als laatste redmiddel een Windows-opdracht uit.",
     "x_search_terms": [
-      "cmd_exec",
+      "cmd",
+      "command",
+      "windows cmd",
+      "command prompt",
       "cmd exec",
-      "Windows-opdracht",
-      "shellopdracht"
+      "run command",
+      "execute",
+      "dos command",
+      "shell",
+      "command line"
     ]
   },
   "fi": {
     "param.command.description": "Suoritettava komentorivi.",
     "tool.description": "Suorita Windows-komento vain viimeisenä keinona.",
     "x_search_terms": [
-      "cmd_exec",
+      "cmd",
+      "command",
+      "windows cmd",
+      "command prompt",
       "cmd exec",
-      "Windows-komento",
-      "shell-komento"
+      "run command",
+      "execute",
+      "dos command",
+      "shell",
+      "command line"
     ]
   },
   "cs": {
     "param.command.description": "Řetězec příkazu k vykonání.",
     "tool.description": "Jako poslední možnost spustí příkaz Windows.",
     "x_search_terms": [
-      "cmd_exec",
+      "cmd",
+      "command",
+      "windows cmd",
+      "command prompt",
       "cmd exec",
-      "příkaz Windows",
-      "shell příkaz"
+      "run command",
+      "execute",
+      "dos command",
+      "shell",
+      "command line"
     ]
   },
   "uk": {
     "param.command.description": "Рядок команди для виконання.",
     "tool.description": "Як крайній захід, виконує команду Windows.",
     "x_search_terms": [
-      "cmd_exec",
+      "cmd",
+      "command",
+      "windows cmd",
+      "command prompt",
       "cmd exec",
-      "команда Windows",
-      "команда shell"
+      "run command",
+      "execute",
+      "dos command",
+      "shell",
+      "command line"
     ]
   },
   "tr": {
     "param.command.description": "Yürütülecek komut dizisi.",
     "tool.description": "Son çare olarak bir Windows komutunu çalıştırın.",
     "x_search_terms": [
-      "cmd_exec",
+      "cmd",
+      "command",
+      "windows cmd",
+      "command prompt",
       "cmd exec",
-      "Windows komutu",
-      "kabuk komutu"
+      "run command",
+      "execute",
+      "dos command",
+      "shell",
+      "command line"
     ]
   },
   "th": {
     "param.command.description": "สตริงคำสั่งที่จะดำเนินการ",
     "tool.description": "ใช้คำสั่ง Windows เป็นทางเลือกสุดท้ายเท่านั้น เมื่อไม่มีเครื่องมืออื่นที่เหมาะสม เช่น Python หรือ MCP",
     "x_search_terms": [
-      "cmd_exec",
+      "cmd",
+      "command",
+      "windows cmd",
+      "command prompt",
       "cmd exec",
-      "คำสั่ง Windows",
-      "คำสั่งเชลล์"
+      "run command",
+      "execute",
+      "dos command",
+      "shell",
+      "command line"
     ]
   },
   "zh_CN": {
     "param.command.description": "要执行的命令字符串。",
     "tool.description": "作为最后手段，执行 Windows 命令。仅当没有其他合适的工具（如 Python 或 MCP）可用时才使用。",
     "x_search_terms": [
-      "cmd_exec",
+      "cmd",
+      "command",
+      "windows cmd",
+      "command prompt",
       "cmd exec",
-      "Windows 命令",
-      "shell 命令"
+      "run command",
+      "execute",
+      "dos command",
+      "shell",
+      "command line"
     ]
   },
   "zh_TW": {
     "param.command.description": "要執行的命令字串。",
     "tool.description": "作為最後手段，執行 Windows 指令。僅當沒有其他合適的工具（如 Python 或 MCP）可用時才使用。",
     "x_search_terms": [
-      "cmd_exec",
+      "cmd",
+      "command",
+      "windows cmd",
+      "command prompt",
       "cmd exec",
-      "Windows 指令",
-      "shell 指令"
+      "run command",
+      "execute",
+      "dos command",
+      "shell",
+      "command line"
     ]
   },
   "bn": {
     "param.command.description": "চালানোর জন্য কমান্ড স্ট্রিং।",
     "tool.description": "শেষ উপায় হিসেবে Windows কমান্ড চালায়। Python বা MCP-এর মতো অন্য উপযুক্ত টুল না থাকলেই কেবল ব্যবহার করুন।",
     "x_search_terms": [
-      "cmd_exec",
+      "cmd",
+      "command",
+      "windows cmd",
+      "command prompt",
       "cmd exec",
-      "Windows কমান্ড",
-      "shell কমান্ড"
+      "run command",
+      "execute",
+      "dos command",
+      "shell",
+      "command line"
     ]
   },
   "fa": {
     "param.command.description": "رشتهٔ فرمان برای اجرا.",
     "tool.description": "به‌عنوان آخرین راه‌حل، یک فرمان Windows اجرا می‌کند.",
     "x_search_terms": [
-      "cmd_exec",
+      "cmd",
+      "command",
+      "windows cmd",
+      "command prompt",
       "cmd exec",
-      "فرمان ویندوز",
-      "فرمان شل"
+      "run command",
+      "execute",
+      "dos command",
+      "shell",
+      "command line"
     ]
   },
   "mn": {
     "param.command.description": "Ажиллуулах командын мөр.",
     "tool.description": "Хамгийн сүүлчийн арга болгон Windows команд ажиллуулна.",
     "x_search_terms": [
-      "cmd_exec",
+      "cmd",
+      "command",
+      "windows cmd",
+      "command prompt",
       "cmd exec",
-      "Windows тушаал",
-      "shell тушаал"
+      "run command",
+      "execute",
+      "dos command",
+      "shell",
+      "command line"
     ]
   },
   "mr": {
     "param.command.description": "चालवण्यासाठी कमांड स्ट्रिंग.",
     "tool.description": "शेवटचा उपाय म्हणून Windows कमांड चालवा. Python किंवा MCP सारखे इतर योग्य साधन उपलब्ध नसल्यासच वापरा.",
     "x_search_terms": [
-      "cmd_exec",
+      "cmd",
+      "command",
+      "windows cmd",
+      "command prompt",
       "cmd exec",
-      "Windows कमांड",
-      "shell कमांड"
+      "run command",
+      "execute",
+      "dos command",
+      "shell",
+      "command line"
     ]
   },
   "el": {
     "param.command.description": "Συμβολοσειρά εντολών για εκτέλεση.",
     "tool.description": "Ως τελευταία λύση, εκτελέστε μια εντολή των Windows. Χρησιμοποιήστε μόνο όταν δεν υπάρχει άλλο κατάλληλο εργαλείο (π.χ. MCP).",
     "x_search_terms": [
-      "cmd_exec",
-      "cmd exec",
-      "εντολή windows",
-      "γραμμή εντολών",
       "cmd",
-      "εντολή κελύφους"
+      "command",
+      "windows cmd",
+      "command prompt",
+      "cmd exec",
+      "run command",
+      "execute",
+      "dos command",
+      "shell",
+      "command line"
     ]
   },
   "he": {
     "param.command.description": "מחרוזת פקודה לביצוע.",
     "tool.description": "כמוצא אחרון, בצע פקודת Windows. השתמש רק כאשר אין כלי מתאים אחר (למשל, MCP) זמין.",
     "x_search_terms": [
-      "cmd_exec",
-      "cmd exec",
-      "פקודת windows",
-      "שורת הפקודה",
       "cmd",
-      "פקודת מעטפת"
+      "command",
+      "windows cmd",
+      "command prompt",
+      "cmd exec",
+      "run command",
+      "execute",
+      "dos command",
+      "shell",
+      "command line"
     ]
   },
   "hu": {
     "param.command.description": "A végrehajtandó parancssor.",
     "tool.description": "Végső lehetőségként futtasson egy Windows parancsot. Csak akkor használja, ha más megfelelő eszköz (pl. MCP) nem áll rendelkezésre.",
     "x_search_terms": [
-      "cmd_exec",
-      "cmd végrehajt",
-      "windows parancs",
-      "parancssor",
       "cmd",
-      "shell parancs"
+      "command",
+      "windows cmd",
+      "command prompt",
+      "cmd exec",
+      "run command",
+      "execute",
+      "dos command",
+      "shell",
+      "command line"
     ]
   },
   "ro": {
     "param.command.description": "Șir de comandă de executat.",
     "tool.description": "Ca ultimă soluție, executați o comandă Windows. Utilizați numai atunci când nu este disponibil niciun alt instrument adecvat (de exemplu, MCP).",
     "x_search_terms": [
-      "cmd_exec",
-      "cmd exec",
-      "comanda Windows",
-      "prompt de comandă",
       "cmd",
-      "comanda shell"
+      "command",
+      "windows cmd",
+      "command prompt",
+      "cmd exec",
+      "run command",
+      "execute",
+      "dos command",
+      "shell",
+      "command line"
     ]
   }
 }

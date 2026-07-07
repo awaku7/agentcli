@@ -29,10 +29,16 @@
   },
   "ja": {
     "x_search_terms": [
-      "Dartファイルを読む",
-      "Dart インデックス",
-      "クラス一覧",
-      "メソッド一覧"
+      "dart",
+      "dart code",
+      "dart analysis",
+      "code index",
+      "dart index",
+      "dart source",
+      "dart parser",
+      "dart function",
+      "dart class",
+      "dart file"
     ],
     "param.path.description": "Dart (.dart) ファイルへのパス。",
     "err.path_required": "エラー: 'path' は必須です。",

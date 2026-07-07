@@ -45,9 +45,15 @@
     "param.root_path.description": "検索・インデックスの起点となるディレクトリ。既定はカレントディレクトリです。",
     "x_search_terms": [
       "index_files",
-      "ファイル索引",
-      "意味検索",
-      "ベクトルDB"
+      "index files",
+      "file indexing",
+      "indexing files",
+      "semantic indexing",
+      "vector index",
+      "build index",
+      "batch index",
+      "index directory",
+      "glob index"
     ],
     "param.recur.description": "パターンに '**' を含む場合に再帰的に探索するかどうか。",
     "out.total": "Total files: {count}",
@@ -69,9 +75,15 @@
     "param.root_path.description": "Directorio que sirve como punto de partida para búsquedas e índices.",
     "x_search_terms": [
       "index_files",
-      "indexar archivos",
-      "búsqueda semántica",
-      "índice vectorial"
+      "index files",
+      "file indexing",
+      "indexing files",
+      "semantic indexing",
+      "vector index",
+      "build index",
+      "batch index",
+      "index directory",
+      "glob index"
     ],
     "param.recur.description": "Si se debe buscar recursivamente cuando el patrón contiene '**'.",
     "out.total": "Total files: {count}",
@@ -93,9 +105,15 @@
     "param.root_path.description": "Répertoire qui sert de point de départ pour les recherches et les index.",
     "x_search_terms": [
       "index_files",
-      "indexer fichiers",
-      "recherche sémantique",
-      "index vectoriel"
+      "index files",
+      "file indexing",
+      "indexing files",
+      "semantic indexing",
+      "vector index",
+      "build index",
+      "batch index",
+      "index directory",
+      "glob index"
     ],
     "param.recur.description": "S'il faut effectuer une recherche récursive lorsque le modèle contient '**'.",
     "out.total": "Total files: {count}",
@@ -117,9 +135,15 @@
     "param.root_path.description": "검색과 색인의 시작점이 되는 디렉터리입니다. 기본값은 현재 디렉터리입니다.",
     "x_search_terms": [
       "index_files",
-      "파일 색인",
-      "의미 검색",
-      "벡터 DB"
+      "index files",
+      "file indexing",
+      "indexing files",
+      "semantic indexing",
+      "vector index",
+      "build index",
+      "batch index",
+      "index directory",
+      "glob index"
     ],
     "param.recur.description": "패턴에 '**'가 포함된 경우 재귀적으로 검색할지 여부입니다.",
     "out.total": "Total files: {count}",
@@ -141,9 +165,15 @@
     "param.root_path.description": "Verzeichnis, das als Ausgangspunkt für Suchen und Indizes dient.",
     "x_search_terms": [
       "index_files",
-      "dateien indexieren",
-      "semantische suche",
-      "vektorindex"
+      "index files",
+      "file indexing",
+      "indexing files",
+      "semantic indexing",
+      "vector index",
+      "build index",
+      "batch index",
+      "index directory",
+      "glob index"
     ],
     "param.recur.description": "Ob rekursiv gesucht werden soll, wenn das Muster '**' enthält.",
     "out.total": "Total files: {count}",
@@ -165,9 +195,15 @@
     "param.root_path.description": "Directory che funge da punto di partenza per ricerche e indici.",
     "x_search_terms": [
       "index_files",
-      "indicizza file",
-      "ricerca semantica",
-      "indice vettoriale"
+      "index files",
+      "file indexing",
+      "indexing files",
+      "semantic indexing",
+      "vector index",
+      "build index",
+      "batch index",
+      "index directory",
+      "glob index"
     ],
     "param.recur.description": "Indica se eseguire la ricerca ricorsivamente quando il modello contiene '**'.",
     "out.total": "Total files: {count}",
@@ -189,9 +225,15 @@
     "param.root_path.description": "Каталог, который является отправной точкой для поиска и индексирования.",
     "x_search_terms": [
       "index_files",
-      "индексировать файлы",
-      "семантический поиск",
-      "векторный индекс"
+      "index files",
+      "file indexing",
+      "indexing files",
+      "semantic indexing",
+      "vector index",
+      "build index",
+      "batch index",
+      "index directory",
+      "glob index"
     ],
     "param.recur.description": "Следует ли выполнять рекурсивный поиск, если шаблон содержит '**'.",
     "out.total": "Total files: {count}",
@@ -213,9 +255,15 @@
     "param.root_path.description": "Diretório que serve como ponto de partida para buscas e índices.",
     "x_search_terms": [
       "index_files",
-      "indexar arquivos",
-      "busca semântica",
-      "índice vetorial"
+      "index files",
+      "file indexing",
+      "indexing files",
+      "semantic indexing",
+      "vector index",
+      "build index",
+      "batch index",
+      "index directory",
+      "glob index"
     ],
     "param.recur.description": "Se deve pesquisar recursivamente quando o padrão contém '**'.",
     "out.total": "Total files: {count}",
@@ -237,9 +285,15 @@
     "param.root_path.description": "Diretório que é o ponto de partida para pesquisas e índices.",
     "x_search_terms": [
       "index_files",
-      "indexar ficheiros",
-      "pesquisa semântica",
-      "índice vetorial"
+      "index files",
+      "file indexing",
+      "indexing files",
+      "semantic indexing",
+      "vector index",
+      "build index",
+      "batch index",
+      "index directory",
+      "glob index"
     ],
     "param.recur.description": "Se deve pesquisar recursivamente quando o padrão contém '**'.",
     "out.total": "Total files: {count}",
@@ -261,9 +315,15 @@
     "param.root_path.description": "Direktori awal untuk pencarian dan pengindeksan.",
     "x_search_terms": [
       "index_files",
-      "indeks file",
-      "pencarian semantik",
-      "indeks vektor"
+      "index files",
+      "file indexing",
+      "indexing files",
+      "semantic indexing",
+      "vector index",
+      "build index",
+      "batch index",
+      "index directory",
+      "glob index"
     ],
     "param.recur.description": "Apakah mencari secara rekursif ketika pola berisi '**'.",
     "out.total": "Total files: {count}",
@@ -285,9 +345,15 @@
     "param.root_path.description": "Thư mục là điểm bắt đầu cho việc tìm kiếm và lập chỉ mục.",
     "x_search_terms": [
       "index_files",
-      "lập chỉ mục tệp",
-      "tìm kiếm ngữ nghĩa",
-      "chỉ mục vector"
+      "index files",
+      "file indexing",
+      "indexing files",
+      "semantic indexing",
+      "vector index",
+      "build index",
+      "batch index",
+      "index directory",
+      "glob index"
     ],
     "param.recur.description": "Có tìm kiếm đệ quy khi mẫu chứa '**' hay không.",
     "out.total": "Total files: {count}",
@@ -309,9 +375,15 @@
     "param.root_path.description": "Katalog będący punktem wyjścia do wyszukiwań i indeksów.",
     "x_search_terms": [
       "index_files",
-      "indeksuj pliki",
-      "wyszukiwanie semantyczne",
-      "indeks wektorowy"
+      "index files",
+      "file indexing",
+      "indexing files",
+      "semantic indexing",
+      "vector index",
+      "build index",
+      "batch index",
+      "index directory",
+      "glob index"
     ],
     "param.recur.description": "Określa, czy szukać rekurencyjnie, gdy wzorzec zawiera „**”.",
     "out.total": "Total files: {count}",
@@ -333,9 +405,15 @@
     "param.root_path.description": "खोज और अनुक्रमण के लिए मूल निर्देशिका। वर्तमान निर्देशिका में डिफ़ॉल्ट.",
     "x_search_terms": [
       "index_files",
-      "फ़ाइल अनुक्रमण",
-      "अर्थगत खोज",
-      "वेक्टर सूचकांक"
+      "index files",
+      "file indexing",
+      "indexing files",
+      "semantic indexing",
+      "vector index",
+      "build index",
+      "batch index",
+      "index directory",
+      "glob index"
     ],
     "param.recur.description": "जब पैटर्न में '**' हो तो क्या पुनरावर्ती रूप से खोजना है।",
     "out.total": "Total files: {count}",
@@ -357,9 +435,15 @@
     "param.root_path.description": "الدليل الذي يمثل نقطة البداية لعمليات البحث والفهارس. الافتراضي هو الدليل الحالي.",
     "x_search_terms": [
       "index_files",
-      "فهرسة الملفات",
-      "البحث الدلالي",
-      "فهرس متجه"
+      "index files",
+      "file indexing",
+      "indexing files",
+      "semantic indexing",
+      "vector index",
+      "build index",
+      "batch index",
+      "index directory",
+      "glob index"
     ],
     "param.recur.description": "ما إذا كان سيتم البحث بشكل متكرر عندما يحتوي النمط على \"**\".",
     "out.total": "Total files: {count}",
@@ -381,9 +465,15 @@
     "param.root_path.description": "Katalog som fungerar som startpunkt för sökningar och indexering.",
     "x_search_terms": [
       "index_files",
-      "indexera filer",
-      "semantisk sökning",
-      "vektorindex"
+      "index files",
+      "file indexing",
+      "indexing files",
+      "semantic indexing",
+      "vector index",
+      "build index",
+      "batch index",
+      "index directory",
+      "glob index"
     ],
     "param.recur.description": "Om sökningen ska vara rekursiv när mönstret innehåller \"**\".",
     "out.total": "Total files: {count}",
@@ -405,9 +495,15 @@
     "param.root_path.description": "Directory that is the starting point for searches and indexes.",
     "x_search_terms": [
       "index_files",
-      "kudana faili",
-      "utafutaji wa kimaana",
-      "rejeleo la vekta"
+      "index files",
+      "file indexing",
+      "indexing files",
+      "semantic indexing",
+      "vector index",
+      "build index",
+      "batch index",
+      "index directory",
+      "glob index"
     ],
     "param.recur.description": "Whether to search recursively when the pattern contains '**'.",
     "out.total": "Total files: {count}",
@@ -429,9 +525,15 @@
     "param.root_path.description": "Katalogen som fungerer som utgangspunkt for søk og indeksering.",
     "x_search_terms": [
       "index_files",
-      "indekser filer",
-      "semantisk søk",
-      "vektorindeks"
+      "index files",
+      "file indexing",
+      "indexing files",
+      "semantic indexing",
+      "vector index",
+      "build index",
+      "batch index",
+      "index directory",
+      "glob index"
     ],
     "param.recur.description": "Om søket skal være rekursivt når mønsteret inneholder \"**\".",
     "out.total": "Total files: {count}",
@@ -453,9 +555,15 @@
     "param.root_path.description": "Map die het startpunt is voor zoek- en indexbewerkingen.",
     "x_search_terms": [
       "index_files",
-      "bestanden indexeren",
-      "semantisch zoeken",
-      "vectorindex"
+      "index files",
+      "file indexing",
+      "indexing files",
+      "semantic indexing",
+      "vector index",
+      "build index",
+      "batch index",
+      "index directory",
+      "glob index"
     ],
     "param.recur.description": "Of recursief gezocht wordt wanneer het patroon '**' bevat.",
     "out.total": "Total files: {count}",
@@ -477,9 +585,15 @@
     "param.root_path.description": "Hakemisto, joka on haun ja indeksoinnin aloituspiste.",
     "x_search_terms": [
       "index_files",
-      "indeksoi tiedostot",
-      "semanttinen haku",
-      "vektorihakemisto"
+      "index files",
+      "file indexing",
+      "indexing files",
+      "semantic indexing",
+      "vector index",
+      "build index",
+      "batch index",
+      "index directory",
+      "glob index"
     ],
     "param.recur.description": "Etsitäänkö rekursiivisesti, kun kaava sisältää '**'.",
     "out.total": "Total files: {count}",
@@ -501,9 +615,15 @@
     "param.root_path.description": "Adresář, který je výchozím bodem pro vyhledávání a indexování.",
     "x_search_terms": [
       "index_files",
-      "indexovat soubory",
-      "sémantické vyhledávání",
-      "vektorový index"
+      "index files",
+      "file indexing",
+      "indexing files",
+      "semantic indexing",
+      "vector index",
+      "build index",
+      "batch index",
+      "index directory",
+      "glob index"
     ],
     "param.recur.description": "Zda při vzoru obsahujícím '**' hledat rekurzivně.",
     "out.total": "Total files: {count}",
@@ -525,9 +645,15 @@
     "param.root_path.description": "Каталог, який є відправною точкою для пошуку та індексування.",
     "x_search_terms": [
       "index_files",
-      "індексувати файли",
-      "семантичний пошук",
-      "векторний індекс"
+      "index files",
+      "file indexing",
+      "indexing files",
+      "semantic indexing",
+      "vector index",
+      "build index",
+      "batch index",
+      "index directory",
+      "glob index"
     ],
     "param.recur.description": "Чи виконувати рекурсивний пошук, коли шаблон містить '**'.",
     "out.total": "Total files: {count}",
@@ -549,9 +675,15 @@
     "param.root_path.description": "Aramalar ve dizinler için başlangıç ​​noktası olan dizin.",
     "x_search_terms": [
       "index_files",
-      "dosya indeksleme",
-      "anlamsal arama",
-      "vektör dizini"
+      "index files",
+      "file indexing",
+      "indexing files",
+      "semantic indexing",
+      "vector index",
+      "build index",
+      "batch index",
+      "index directory",
+      "glob index"
     ],
     "param.recur.description": "Desen '**' içerdiğinde yinelemeli olarak arama yapılıp yapılmayacağı.",
     "out.total": "Total files: {count}",
@@ -573,9 +705,15 @@
     "param.root_path.description": "ไดเร็กทอรีรากสำหรับการค้นหาและการจัดทำดัชนี ค่าเริ่มต้นเป็นไดเร็กทอรีปัจจุบัน",
     "x_search_terms": [
       "index_files",
-      "จัดทำดัชนีไฟล์",
-      "ค้นหาเชิงความหมาย",
-      "ดัชนีเวกเตอร์"
+      "index files",
+      "file indexing",
+      "indexing files",
+      "semantic indexing",
+      "vector index",
+      "build index",
+      "batch index",
+      "index directory",
+      "glob index"
     ],
     "param.recur.description": "จะค้นหาแบบวนซ้ำหรือไม่เมื่อรูปแบบมี '**'",
     "out.total": "Total files: {count}",
@@ -597,9 +735,15 @@
     "param.root_path.description": "作为搜索和索引起点的目录。默认是当前目录。",
     "x_search_terms": [
       "index_files",
-      "文件索引",
-      "语义搜索",
-      "向量索引"
+      "index files",
+      "file indexing",
+      "indexing files",
+      "semantic indexing",
+      "vector index",
+      "build index",
+      "batch index",
+      "index directory",
+      "glob index"
     ],
     "param.recur.description": "当模式包含“**”时是否递归搜索。",
     "out.total": "Total files: {count}",
@@ -621,9 +765,15 @@
     "param.root_path.description": "作為搜尋與索引起點的目錄。預設為目前目錄。",
     "x_search_terms": [
       "index_files",
-      "檔案索引",
-      "語義搜尋",
-      "向量索引"
+      "index files",
+      "file indexing",
+      "indexing files",
+      "semantic indexing",
+      "vector index",
+      "build index",
+      "batch index",
+      "index directory",
+      "glob index"
     ],
     "param.recur.description": "當模式包含「**」時是否遞迴搜尋。",
     "out.total": "Total files: {count}",
@@ -645,9 +795,15 @@
     "param.root_path.description": "Search ও index-এর শুরুর directory। ডিফল্ট হলো current directory।",
     "x_search_terms": [
       "index_files",
-      "ফাইল সূচীকরণ",
-      "অর্থগত অনুসন্ধান",
-      "ভেক্টর সূচি"
+      "index files",
+      "file indexing",
+      "indexing files",
+      "semantic indexing",
+      "vector index",
+      "build index",
+      "batch index",
+      "index directory",
+      "glob index"
     ],
     "param.recur.description": "Pattern-এ '**' থাকলে recursive search করা হবে কি না।",
     "out.total": "Total files: {count}",
@@ -669,9 +825,15 @@
     "param.root_path.description": "پوشه‌ای که نقطهٔ شروع جستجو و index است. پیش‌فرض پوشهٔ فعلی است.",
     "x_search_terms": [
       "index_files",
-      "فهرست‌گذاری فایل‌ها",
-      "جستجوی معنایی",
-      "فهرست برداری"
+      "index files",
+      "file indexing",
+      "indexing files",
+      "semantic indexing",
+      "vector index",
+      "build index",
+      "batch index",
+      "index directory",
+      "glob index"
     ],
     "param.recur.description": "اگر pattern شامل '**' باشد، جستجوی بازگشتی انجام شود یا نه.",
     "out.total": "Total files: {count}",
@@ -693,9 +855,15 @@
     "param.root_path.description": "Хайлт болон index-ийн эхлэх directory. Анхдагч нь current directory.",
     "x_search_terms": [
       "index_files",
-      "файл индекстэх",
-      "семантик хайлт",
-      "вектор индекс"
+      "index files",
+      "file indexing",
+      "indexing files",
+      "semantic indexing",
+      "vector index",
+      "build index",
+      "batch index",
+      "index directory",
+      "glob index"
     ],
     "param.recur.description": "Pattern дотор '**' байвал recursive search хийх эсэх.",
     "out.total": "Total files: {count}",
@@ -717,9 +885,15 @@
     "param.root_path.description": "Search आणि index सुरू करण्यासाठीची directory. डीफॉल्ट current directory आहे.",
     "x_search_terms": [
       "index_files",
-      "फाइल अनुक्रमण",
-      "अर्थपूर्ण शोध",
-      "व्हेक्टर अनुक्रमणिका"
+      "index files",
+      "file indexing",
+      "indexing files",
+      "semantic indexing",
+      "vector index",
+      "build index",
+      "batch index",
+      "index directory",
+      "glob index"
     ],
     "param.recur.description": "Pattern मध्ये '**' असल्यास recursive search करायची का.",
     "out.total": "Total files: {count}",

@@ -30,10 +30,16 @@
   },
   "ja": {
     "x_search_terms": [
-      "preprocess_image",
-      "画像前処理",
-      "ocr 前処理",
-      "画像補正"
+      "preprocess image",
+      "image preprocess",
+      "image processing",
+      "image prepare",
+      "image transform",
+      "preprocess",
+      "image normalize",
+      "resize image",
+      "image enhancement",
+      "image ops"
     ],
     "param.mode.description": "前処理モード。",
     "param.grayscale.description": "画像をグレースケール化します。",
@@ -53,10 +59,16 @@
   },
   "es": {
     "x_search_terms": [
-      "preprocess_image",
-      "preprocesar imagen",
-      "preprocesado ocr",
-      "limpieza de imagen"
+      "preprocess image",
+      "image preprocess",
+      "image processing",
+      "image prepare",
+      "image transform",
+      "preprocess",
+      "image normalize",
+      "resize image",
+      "image enhancement",
+      "image ops"
     ],
     "param.deskew.description": "Attempt to correct small image skew (lightweight heuristic).",
     "ok.generated": "[OK] generated: {path}",
@@ -75,10 +87,16 @@
   },
   "fr": {
     "x_search_terms": [
-      "preprocess_image",
-      "prétraitement image",
-      "prétraitement ocr",
-      "nettoyage image"
+      "preprocess image",
+      "image preprocess",
+      "image processing",
+      "image prepare",
+      "image transform",
+      "preprocess",
+      "image normalize",
+      "resize image",
+      "image enhancement",
+      "image ops"
     ],
     "param.deskew.description": "Attempt to correct small image skew (lightweight heuristic).",
     "ok.generated": "[OK] generated: {path}",
@@ -97,10 +115,16 @@
   },
   "ko": {
     "x_search_terms": [
-      "preprocess_image",
-      "이미지 전처리",
-      "ocr 전처리",
-      "이미지 정리"
+      "preprocess image",
+      "image preprocess",
+      "image processing",
+      "image prepare",
+      "image transform",
+      "preprocess",
+      "image normalize",
+      "resize image",
+      "image enhancement",
+      "image ops"
     ],
     "param.deskew.description": "Attempt to correct small image skew (lightweight heuristic).",
     "ok.generated": "[OK] generated: {path}",
@@ -119,10 +143,16 @@
   },
   "de": {
     "x_search_terms": [
-      "preprocess_image",
-      "bild vorverarbeitung",
-      "ocr vorverarbeitung",
-      "bild bereinigen"
+      "preprocess image",
+      "image preprocess",
+      "image processing",
+      "image prepare",
+      "image transform",
+      "preprocess",
+      "image normalize",
+      "resize image",
+      "image enhancement",
+      "image ops"
     ],
     "param.deskew.description": "Attempt to correct small image skew (lightweight heuristic).",
     "ok.generated": "[OK] generated: {path}",
@@ -141,10 +171,16 @@
   },
   "it": {
     "x_search_terms": [
-      "preprocess_image",
-      "pretrattamento immagine",
-      "pretrattamento ocr",
-      "pulizia immagine"
+      "preprocess image",
+      "image preprocess",
+      "image processing",
+      "image prepare",
+      "image transform",
+      "preprocess",
+      "image normalize",
+      "resize image",
+      "image enhancement",
+      "image ops"
     ],
     "param.deskew.description": "Attempt to correct small image skew (lightweight heuristic).",
     "ok.generated": "[OK] generated: {path}",
@@ -163,10 +199,16 @@
   },
   "ru": {
     "x_search_terms": [
-      "preprocess_image",
-      "предобработка изображения",
-      "ocr предобработка",
-      "очистка изображения"
+      "preprocess image",
+      "image preprocess",
+      "image processing",
+      "image prepare",
+      "image transform",
+      "preprocess",
+      "image normalize",
+      "resize image",
+      "image enhancement",
+      "image ops"
     ],
     "param.deskew.description": "Attempt to correct small image skew (lightweight heuristic).",
     "ok.generated": "[OK] generated: {path}",
@@ -185,10 +227,16 @@
   },
   "pt_BR": {
     "x_search_terms": [
-      "preprocess_image",
-      "pré-processar imagem",
-      "pré-processamento ocr",
-      "limpeza de imagem"
+      "preprocess image",
+      "image preprocess",
+      "image processing",
+      "image prepare",
+      "image transform",
+      "preprocess",
+      "image normalize",
+      "resize image",
+      "image enhancement",
+      "image ops"
     ],
     "param.deskew.description": "Attempt to correct small image skew (lightweight heuristic).",
     "ok.generated": "[OK] generated: {path}",
@@ -207,10 +255,16 @@
   },
   "pt": {
     "x_search_terms": [
-      "preprocess_image",
-      "pré-processar imagem",
-      "pré-processamento ocr",
-      "limpeza de imagem"
+      "preprocess image",
+      "image preprocess",
+      "image processing",
+      "image prepare",
+      "image transform",
+      "preprocess",
+      "image normalize",
+      "resize image",
+      "image enhancement",
+      "image ops"
     ],
     "param.deskew.description": "Attempt to correct small image skew (lightweight heuristic).",
     "ok.generated": "[OK] generated: {path}",
@@ -229,10 +283,16 @@
   },
   "id": {
     "x_search_terms": [
-      "preprocess_image",
-      "pra-pemrosesan gambar",
-      "ocr preprocess",
-      "pembersihan gambar"
+      "preprocess image",
+      "image preprocess",
+      "image processing",
+      "image prepare",
+      "image transform",
+      "preprocess",
+      "image normalize",
+      "resize image",
+      "image enhancement",
+      "image ops"
     ],
     "param.deskew.description": "Attempt to correct small image skew (lightweight heuristic).",
     "ok.generated": "[OK] generated: {path}",
@@ -251,10 +311,16 @@
   },
   "vi": {
     "x_search_terms": [
-      "preprocess_image",
-      "tiền xử lý ảnh",
-      "ocr tiền xử lý",
-      "làm sạch ảnh"
+      "preprocess image",
+      "image preprocess",
+      "image processing",
+      "image prepare",
+      "image transform",
+      "preprocess",
+      "image normalize",
+      "resize image",
+      "image enhancement",
+      "image ops"
     ],
     "param.deskew.description": "Attempt to correct small image skew (lightweight heuristic).",
     "ok.generated": "[OK] generated: {path}",
@@ -273,10 +339,16 @@
   },
   "pl": {
     "x_search_terms": [
-      "preprocess_image",
-      "wstępne przetwarzanie obrazu",
-      "ocr preprocess",
-      "czyszczenie obrazu"
+      "preprocess image",
+      "image preprocess",
+      "image processing",
+      "image prepare",
+      "image transform",
+      "preprocess",
+      "image normalize",
+      "resize image",
+      "image enhancement",
+      "image ops"
     ],
     "param.deskew.description": "Attempt to correct small image skew (lightweight heuristic).",
     "ok.generated": "[OK] generated: {path}",
@@ -295,10 +367,16 @@
   },
   "hi": {
     "x_search_terms": [
-      "preprocess_image",
-      "छवि पूर्वप्रसंस्करण",
-      "ocr पूर्वप्रसंस्करण",
-      "छवि सफाई"
+      "preprocess image",
+      "image preprocess",
+      "image processing",
+      "image prepare",
+      "image transform",
+      "preprocess",
+      "image normalize",
+      "resize image",
+      "image enhancement",
+      "image ops"
     ],
     "param.deskew.description": "Attempt to correct small image skew (lightweight heuristic).",
     "ok.generated": "[OK] generated: {path}",
@@ -317,10 +395,16 @@
   },
   "ar": {
     "x_search_terms": [
-      "preprocess_image",
-      "معالجة مسبقة للصورة",
-      "ocr preprocess",
-      "تنظيف الصورة"
+      "preprocess image",
+      "image preprocess",
+      "image processing",
+      "image prepare",
+      "image transform",
+      "preprocess",
+      "image normalize",
+      "resize image",
+      "image enhancement",
+      "image ops"
     ],
     "param.deskew.description": "Attempt to correct small image skew (lightweight heuristic).",
     "ok.generated": "[OK] generated: {path}",
@@ -339,10 +423,16 @@
   },
   "sv": {
     "x_search_terms": [
-      "preprocess_image",
-      "bildförbehandling",
-      "ocr-förbehandling",
-      "bildrensning"
+      "preprocess image",
+      "image preprocess",
+      "image processing",
+      "image prepare",
+      "image transform",
+      "preprocess",
+      "image normalize",
+      "resize image",
+      "image enhancement",
+      "image ops"
     ],
     "param.deskew.description": "Attempt to correct small image skew (lightweight heuristic).",
     "ok.generated": "[OK] generated: {path}",
@@ -361,10 +451,16 @@
   },
   "sw": {
     "x_search_terms": [
-      "preprocess_image",
-      "uandaaji awali wa picha",
-      "ocr preprocess",
-      "usafishaji wa picha"
+      "preprocess image",
+      "image preprocess",
+      "image processing",
+      "image prepare",
+      "image transform",
+      "preprocess",
+      "image normalize",
+      "resize image",
+      "image enhancement",
+      "image ops"
     ],
     "param.deskew.description": "Attempt to correct small image skew (lightweight heuristic).",
     "ok.generated": "[OK] generated: {path}",
@@ -383,10 +479,16 @@
   },
   "nb": {
     "x_search_terms": [
-      "preprocess_image",
-      "bildeforbehandling",
-      "ocr-forbehandling",
-      "bildrens"
+      "preprocess image",
+      "image preprocess",
+      "image processing",
+      "image prepare",
+      "image transform",
+      "preprocess",
+      "image normalize",
+      "resize image",
+      "image enhancement",
+      "image ops"
     ],
     "param.deskew.description": "Attempt to correct small image skew (lightweight heuristic).",
     "ok.generated": "[OK] generated: {path}",
@@ -405,10 +507,16 @@
   },
   "nl": {
     "x_search_terms": [
-      "preprocess_image",
-      "beeldvoorbewerking",
-      "ocr-voorbewerking",
-      "beeldopruiming"
+      "preprocess image",
+      "image preprocess",
+      "image processing",
+      "image prepare",
+      "image transform",
+      "preprocess",
+      "image normalize",
+      "resize image",
+      "image enhancement",
+      "image ops"
     ],
     "param.deskew.description": "Attempt to correct small image skew (lightweight heuristic).",
     "ok.generated": "[OK] generated: {path}",
@@ -427,10 +535,16 @@
   },
   "fi": {
     "x_search_terms": [
-      "preprocess_image",
-      "kuvan esikäsittely",
-      "ocr-esikäsittely",
-      "kuvan puhdistus"
+      "preprocess image",
+      "image preprocess",
+      "image processing",
+      "image prepare",
+      "image transform",
+      "preprocess",
+      "image normalize",
+      "resize image",
+      "image enhancement",
+      "image ops"
     ],
     "param.deskew.description": "Attempt to correct small image skew (lightweight heuristic).",
     "ok.generated": "[OK] generated: {path}",
@@ -449,10 +563,16 @@
   },
   "cs": {
     "x_search_terms": [
-      "preprocess_image",
-      "předzpracování obrázku",
-      "ocr předzpracování",
-      "čištění obrázku"
+      "preprocess image",
+      "image preprocess",
+      "image processing",
+      "image prepare",
+      "image transform",
+      "preprocess",
+      "image normalize",
+      "resize image",
+      "image enhancement",
+      "image ops"
     ],
     "param.deskew.description": "Attempt to correct small image skew (lightweight heuristic).",
     "ok.generated": "[OK] generated: {path}",
@@ -471,10 +591,16 @@
   },
   "uk": {
     "x_search_terms": [
-      "preprocess_image",
-      "попередня обробка зображення",
-      "ocr попередня обробка",
-      "очищення зображення"
+      "preprocess image",
+      "image preprocess",
+      "image processing",
+      "image prepare",
+      "image transform",
+      "preprocess",
+      "image normalize",
+      "resize image",
+      "image enhancement",
+      "image ops"
     ],
     "param.deskew.description": "Attempt to correct small image skew (lightweight heuristic).",
     "ok.generated": "[OK] generated: {path}",
@@ -493,10 +619,16 @@
   },
   "tr": {
     "x_search_terms": [
-      "preprocess_image",
-      "görüntü ön işleme",
-      "ocr ön işleme",
-      "görüntü temizleme"
+      "preprocess image",
+      "image preprocess",
+      "image processing",
+      "image prepare",
+      "image transform",
+      "preprocess",
+      "image normalize",
+      "resize image",
+      "image enhancement",
+      "image ops"
     ],
     "param.deskew.description": "Attempt to correct small image skew (lightweight heuristic).",
     "ok.generated": "[OK] generated: {path}",
@@ -515,10 +647,16 @@
   },
   "th": {
     "x_search_terms": [
-      "preprocess_image",
-      "เตรียมภาพก่อนประมวลผล",
-      "ocr เตรียมภาพ",
-      "ล้างภาพ"
+      "preprocess image",
+      "image preprocess",
+      "image processing",
+      "image prepare",
+      "image transform",
+      "preprocess",
+      "image normalize",
+      "resize image",
+      "image enhancement",
+      "image ops"
     ],
     "param.deskew.description": "Attempt to correct small image skew (lightweight heuristic).",
     "ok.generated": "[OK] generated: {path}",
@@ -537,10 +675,16 @@
   },
   "zh_CN": {
     "x_search_terms": [
-      "preprocess_image",
-      "图像预处理",
-      "ocr 预处理",
-      "图像清理"
+      "preprocess image",
+      "image preprocess",
+      "image processing",
+      "image prepare",
+      "image transform",
+      "preprocess",
+      "image normalize",
+      "resize image",
+      "image enhancement",
+      "image ops"
     ],
     "param.deskew.description": "Attempt to correct small image skew (lightweight heuristic).",
     "ok.generated": "[OK] generated: {path}",
@@ -559,10 +703,16 @@
   },
   "zh_TW": {
     "x_search_terms": [
-      "preprocess_image",
-      "影像前處理",
-      "ocr 前處理",
-      "影像清理"
+      "preprocess image",
+      "image preprocess",
+      "image processing",
+      "image prepare",
+      "image transform",
+      "preprocess",
+      "image normalize",
+      "resize image",
+      "image enhancement",
+      "image ops"
     ],
     "param.deskew.description": "Attempt to correct small image skew (lightweight heuristic).",
     "ok.generated": "[OK] generated: {path}",
@@ -581,10 +731,16 @@
   },
   "bn": {
     "x_search_terms": [
-      "preprocess_image",
-      "ছবি প্রিপ্রসেস",
-      "ocr প্রিপ্রসেস",
-      "ছবি পরিষ্কার"
+      "preprocess image",
+      "image preprocess",
+      "image processing",
+      "image prepare",
+      "image transform",
+      "preprocess",
+      "image normalize",
+      "resize image",
+      "image enhancement",
+      "image ops"
     ],
     "param.mode.description": "--- PLED_113__ ইমেজ প্রি-প্রসেসিং যেমন গ্রেস্কেল, ডিনোইস, বাইনারিজেশন, তারপর ফলাফলটিকে পিএনজি হিসেবে সেভ করুন",
     "param.grayscale.description": "ছবিটিকে grayscale-এ রূপান্তর করুন।",
@@ -603,10 +759,16 @@
   },
   "fa": {
     "x_search_terms": [
-      "preprocess_image",
-      "پیش‌پردازش تصویر",
-      "ocr پیش‌پردازش",
-      "پاکسازی تصویر"
+      "preprocess image",
+      "image preprocess",
+      "image processing",
+      "image prepare",
+      "image transform",
+      "preprocess",
+      "image normalize",
+      "resize image",
+      "image enhancement",
+      "image ops"
     ],
     "param.mode.description": "حالت پیش پردازش.",
     "param.grayscale.description": "تصویر را به خاکستری تبدیل کنید.",
@@ -625,10 +787,16 @@
   },
   "mn": {
     "x_search_terms": [
-      "preprocess_image",
-      "зураг урьдчилан боловсруулах",
-      "ocr урьдчилан боловсруулах",
-      "зураг цэвэрлэх"
+      "preprocess image",
+      "image preprocess",
+      "image processing",
+      "image prepare",
+      "image transform",
+      "preprocess",
+      "image normalize",
+      "resize image",
+      "image enhancement",
+      "image ops"
     ],
     "param.mode.description": "Урьдчилан боловсруулах горим.",
     "param.grayscale.description": "Зургийг grayscale болгоно.",
@@ -647,10 +815,16 @@
   },
   "mr": {
     "x_search_terms": [
-      "preprocess_image",
-      "प्रतिमा पूर्वप्रक्रिया",
-      "ocr पूर्वप्रक्रिया",
-      "प्रतिमा स्वच्छता"
+      "preprocess image",
+      "image preprocess",
+      "image processing",
+      "image prepare",
+      "image transform",
+      "preprocess",
+      "image normalize",
+      "resize image",
+      "image enhancement",
+      "image ops"
     ],
     "param.mode.description": "प्रीप्रोसेस मोड.",
     "param.grayscale.description": "प्रतिमा ग्रेस्केलमध्ये रूपांतरित करा.",
@@ -669,12 +843,16 @@
   },
   "el": {
     "x_search_terms": [
-      "preprocess_image",
-      "εικόνα προεπεξεργασίας",
-      "ocr προεπεξεργασία",
-      "καθαρισμός εικόνας",
-      "σάρωση εικόνας",
-      "εικόνα εγγράφου"
+      "preprocess image",
+      "image preprocess",
+      "image processing",
+      "image prepare",
+      "image transform",
+      "preprocess",
+      "image normalize",
+      "resize image",
+      "image enhancement",
+      "image ops"
     ],
     "param.mode.description": "Λειτουργία προεπεξεργασίας.",
     "param.grayscale.description": "Μετατρέψτε την εικόνα σε κλίμακα του γκρι.",
@@ -694,11 +872,15 @@
   "he": {
     "x_search_terms": [
       "preprocess image",
-      "ocr preprocess",
-      "ניקוי תמונה",
-      "סריקת תמונה",
-      "תמונת מסמך",
-      "מצב עיבוד מקדים."
+      "image preprocess",
+      "image processing",
+      "image prepare",
+      "image transform",
+      "preprocess",
+      "image normalize",
+      "resize image",
+      "image enhancement",
+      "image ops"
     ],
     "param.mode.description": "המר את התמונה לגווני אפור.",
     "param.grayscale.description": "החל דה-noising / החלקה.",
@@ -717,12 +899,16 @@
   },
   "hu": {
     "x_search_terms": [
-      "előfeldolgozási kép",
-      "ocr előfeldolgozás",
-      "képtisztítás",
-      "beolvasott kép",
-      "dokumentum képe",
-      "Előfeldolgozási mód."
+      "preprocess image",
+      "image preprocess",
+      "image processing",
+      "image prepare",
+      "image transform",
+      "preprocess",
+      "image normalize",
+      "resize image",
+      "image enhancement",
+      "image ops"
     ],
     "param.mode.description": "A kép átalakítása szürkeárnyalatossá.",
     "param.grayscale.description": "Alkalmazzon zajcsökkentést/simítást.",
@@ -741,12 +927,16 @@
   },
   "ro": {
     "x_search_terms": [
-      "preprocess_image",
-      "preprocess imagine",
-      "ocr preprocess",
-      "curățare imagine",
-      "scanare imagine",
-      "imagine document"
+      "preprocess image",
+      "image preprocess",
+      "image processing",
+      "image prepare",
+      "image transform",
+      "preprocess",
+      "image normalize",
+      "resize image",
+      "image enhancement",
+      "image ops"
     ],
     "param.mode.description": "Mod preprocess.",
     "param.grayscale.description": "Convertiți imaginea în tonuri de gri.",

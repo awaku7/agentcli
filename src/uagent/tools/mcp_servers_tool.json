@@ -53,10 +53,16 @@
   "ja": {
     "tool.description": "mcp_servers.json で MCP サーバー定義を管理します (list/add/remove/set_default/validate/init_template)。",
     "x_search_terms": [
-      "mcp_servers",
-      "mcp サーバー",
-      "サーバー管理",
-      "json 出力"
+      "mcp servers",
+      "mcp list",
+      "server list",
+      "mcp config",
+      "mcp settings",
+      "mcp server list",
+      "configure mcp",
+      "mcp endpoints",
+      "server management",
+      "mcp connection"
     ],
     "param.path.description": "mcp_servers.json のパス。省略時は既定の場所を使用します。",
     "param.pretty.description": "true の場合、JSON 出力を整形します（既定: true）。",
@@ -98,10 +104,16 @@
   "es": {
     "tool.description": "Administra definiciones de servidores MCP almacenadas en mcp_servers.",
     "x_search_terms": [
-      "mcp_servers",
-      "servidores mcp",
-      "gestión de servidores",
-      "solo json"
+      "mcp servers",
+      "mcp list",
+      "server list",
+      "mcp config",
+      "mcp settings",
+      "mcp server list",
+      "configure mcp",
+      "mcp endpoints",
+      "server management",
+      "mcp connection"
     ],
     "param.path.description": "Ruta a mcp_servers.json. Si se omite, usa la ubicación predeterminada.",
     "param.pretty.description": "Si es verdadero, imprime la salida JSON (predeterminado: verdadero).",
@@ -142,10 +154,16 @@
   "fr": {
     "tool.description": "Gère les définitions de serveurs MCP stockées dans mcp_servers.",
     "x_search_terms": [
-      "mcp_servers",
-      "serveurs mcp",
-      "gestion serveur",
-      "json seulement"
+      "mcp servers",
+      "mcp list",
+      "server list",
+      "mcp config",
+      "mcp settings",
+      "mcp server list",
+      "configure mcp",
+      "mcp endpoints",
+      "server management",
+      "mcp connection"
     ],
     "param.path.description": "Chemin vers mcp_servers.json.",
     "param.pretty.description": "Si true, formate la sortie JSON (par défaut : true).",
@@ -186,10 +204,16 @@
   "ko": {
     "tool.description": "mcp_servers.json의 MCP 서버 정의 관리.",
     "x_search_terms": [
-      "mcp_servers",
-      "mcp 서버",
-      "서버 관리",
-      "json 출력"
+      "mcp servers",
+      "mcp list",
+      "server list",
+      "mcp config",
+      "mcp settings",
+      "mcp server list",
+      "configure mcp",
+      "mcp endpoints",
+      "server management",
+      "mcp connection"
     ],
     "param.path.description": "mcp_servers.json 경로. 생략하면 기본 위치를 사용합니다.",
     "param.pretty.description": "true이면 JSON 출력을 보기 좋게 포맷합니다(기본: true).",
@@ -230,10 +254,16 @@
   "de": {
     "tool.description": "Verwalten Sie MCP-Serverdefinitionen in mcp_servers.",
     "x_search_terms": [
-      "mcp_servers",
-      "mcp server",
-      "serververwaltung",
-      "nur json"
+      "mcp servers",
+      "mcp list",
+      "server list",
+      "mcp config",
+      "mcp settings",
+      "mcp server list",
+      "configure mcp",
+      "mcp endpoints",
+      "server management",
+      "mcp connection"
     ],
     "param.path.description": "Pfad zu mcp_servers.json.",
     "param.pretty.description": "Wenn „true“, JSON-Ausgabe im Pretty-Print-Format (Standard: true).",
@@ -274,10 +304,16 @@
   "it": {
     "tool.description": "Gestisci le definizioni del server MCP in mcp_servers.",
     "x_search_terms": [
-      "mcp_servers",
-      "server mcp",
-      "gestione server",
-      "solo json"
+      "mcp servers",
+      "mcp list",
+      "server list",
+      "mcp config",
+      "mcp settings",
+      "mcp server list",
+      "configure mcp",
+      "mcp endpoints",
+      "server management",
+      "mcp connection"
     ],
     "param.path.description": "Percorso di mcp_servers.json.",
     "param.pretty.description": "Se true, stampa l'output JSON in modo grazioso (impostazione predefinita: true).",
@@ -318,10 +354,16 @@
   "ru": {
     "tool.description": "Управление определениями MCP-серверов в mcp_servers.",
     "x_search_terms": [
-      "mcp_servers",
-      "mcp серверы",
-      "управление серверами",
-      "только json"
+      "mcp servers",
+      "mcp list",
+      "server list",
+      "mcp config",
+      "mcp settings",
+      "mcp server list",
+      "configure mcp",
+      "mcp endpoints",
+      "server management",
+      "mcp connection"
     ],
     "param.path.description": "Путь к mcp_servers.json.",
     "param.pretty.description": "Если true, вывод JSON будет красиво распечатан (по умолчанию: true).",
@@ -362,10 +404,16 @@
   "pt_BR": {
     "tool.description": "Gerencie as definições de servidores MCP em mcp_servers.",
     "x_search_terms": [
-      "mcp_servers",
-      "servidores mcp",
-      "gestão de servidores",
-      "somente json"
+      "mcp servers",
+      "mcp list",
+      "server list",
+      "mcp config",
+      "mcp settings",
+      "mcp server list",
+      "configure mcp",
+      "mcp endpoints",
+      "server management",
+      "mcp connection"
     ],
     "param.path.description": "Caminho para mcp_servers.json. Se omitido, usa o local padrão.",
     "param.pretty.description": "Se true, formata a saída JSON (padrão: true).",
@@ -406,10 +454,16 @@
   "pt": {
     "tool.description": "Gerencie as definições do servidor MCP em mcp_servers.",
     "x_search_terms": [
-      "mcp_servers",
-      "servidores mcp",
-      "gestão de servidores",
-      "somente json"
+      "mcp servers",
+      "mcp list",
+      "server list",
+      "mcp config",
+      "mcp settings",
+      "mcp server list",
+      "configure mcp",
+      "mcp endpoints",
+      "server management",
+      "mcp connection"
     ],
     "param.path.description": "Caminho para mcp_servers.json. Se omitido, usa o local padrão.",
     "param.pretty.description": "Se verdadeiro, saída JSON de impressão bonita (padrão: verdadeiro).",
@@ -450,10 +504,16 @@
   "id": {
     "tool.description": "Kelola definisi server MCP di mcp_servers.json (list/add/remove/set_default/validate/init_template).",
     "x_search_terms": [
-      "mcp_servers",
-      "server mcp",
-      "manajemen server",
-      "json saja"
+      "mcp servers",
+      "mcp list",
+      "server list",
+      "mcp config",
+      "mcp settings",
+      "mcp server list",
+      "configure mcp",
+      "mcp endpoints",
+      "server management",
+      "mcp connection"
     ],
     "param.path.description": "Path ke mcp_servers.json. Jika dihilangkan, gunakan lokasi default.",
     "param.pretty.description": "Jika benar, cetaklah keluaran JSON dengan cantik (default: benar).",
@@ -494,10 +554,16 @@
   "vi": {
     "tool.description": "Quản lý các định nghĩa máy chủ MCP trong mcp_servers.",
     "x_search_terms": [
-      "mcp_servers",
-      "máy chủ mcp",
-      "quản lý máy chủ",
-      "chỉ json"
+      "mcp servers",
+      "mcp list",
+      "server list",
+      "mcp config",
+      "mcp settings",
+      "mcp server list",
+      "configure mcp",
+      "mcp endpoints",
+      "server management",
+      "mcp connection"
     ],
     "param.path.description": "Đường dẫn đến mcp_servers.json. Nếu bỏ qua, sử dụng vị trí mặc định.",
     "param.pretty.description": "Nếu đúng, đầu ra JSON được in đẹp (mặc định: true).",
@@ -538,10 +604,16 @@
   "pl": {
     "tool.description": "Zarządzaj definicjami serwerów MCP w pliku mcp_servers.",
     "x_search_terms": [
-      "mcp_servers",
-      "serwery mcp",
-      "zarządzanie serwerami",
-      "tylko json"
+      "mcp servers",
+      "mcp list",
+      "server list",
+      "mcp config",
+      "mcp settings",
+      "mcp server list",
+      "configure mcp",
+      "mcp endpoints",
+      "server management",
+      "mcp connection"
     ],
     "param.path.description": "Ścieżka do pliku mcp_servers.json.",
     "param.pretty.description": "Jeśli prawda, ładnie wydrukuj dane wyjściowe JSON (domyślnie: prawda).",
@@ -582,10 +654,16 @@
   "hi": {
     "tool.description": "mcp_servers.",
     "x_search_terms": [
-      "mcp_servers",
-      "mcp सर्वर",
-      "सर्वर प्रबंधन",
-      "केवल json"
+      "mcp servers",
+      "mcp list",
+      "server list",
+      "mcp config",
+      "mcp settings",
+      "mcp server list",
+      "configure mcp",
+      "mcp endpoints",
+      "server management",
+      "mcp connection"
     ],
     "param.path.description": "mcp_servers.",
     "param.pretty.description": "यदि सत्य है, तो प्रीटी-प्रिंट JSON आउटपुट (डिफ़ॉल्ट: सत्य)।",
@@ -626,10 +704,16 @@
   "ar": {
     "tool.description": "إدارة تعريفات خادم MCP في mcp_servers.json (list/add/remove/set_default/validate/init_template). إخراج JSON فقط.",
     "x_search_terms": [
-      "mcp_servers",
-      "خوادم mcp",
-      "إدارة الخوادم",
-      "json فقط"
+      "mcp servers",
+      "mcp list",
+      "server list",
+      "mcp config",
+      "mcp settings",
+      "mcp server list",
+      "configure mcp",
+      "mcp endpoints",
+      "server management",
+      "mcp connection"
     ],
     "param.path.description": "المسار إلى mcp_servers.json. إذا تم حذفه، يستخدم الموقع الافتراضي.",
     "param.pretty.description": "إذا كان صحيحًا، فسيتم إخراج JSON بطباعة جميلة (الافتراضي: صحيح).",
@@ -670,10 +754,16 @@
   "sv": {
     "tool.description": "Hantera MCP-serverdefinitioner i mcp_servers.json (list/add/remove/set_default/validate/init_template).",
     "x_search_terms": [
-      "mcp_servers",
-      "mcp-servrar",
-      "serverhantering",
-      "endast json"
+      "mcp servers",
+      "mcp list",
+      "server list",
+      "mcp config",
+      "mcp settings",
+      "mcp server list",
+      "configure mcp",
+      "mcp endpoints",
+      "server management",
+      "mcp connection"
     ],
     "param.path.description": "Sökväg till mcp_servers.json.",
     "param.pretty.description": "Om true, formatera JSON-utdata snyggt (standard: true).",
@@ -714,10 +804,16 @@
   "sw": {
     "tool.description": "Manage MCP server definitions stored in mcp_servers.",
     "x_search_terms": [
-      "mcp_servers",
       "mcp servers",
+      "mcp list",
+      "server list",
+      "mcp config",
+      "mcp settings",
+      "mcp server list",
+      "configure mcp",
+      "mcp endpoints",
       "server management",
-      "json only"
+      "mcp connection"
     ],
     "param.path.description": "Njia ya mcp_servers.json. Iwapo imeachwa, tumia eneo chaguo-msingi.",
     "param.pretty.description": "Iwapo ni kweli, chapisha vizuri toleo la JSON (chaguo-msingi: kweli).",
@@ -758,10 +854,16 @@
   "nb": {
     "tool.description": "Administrer MCP-serverdefinisjoner i mcp_servers.",
     "x_search_terms": [
-      "mcp_servers",
-      "mcp-servere",
-      "serveradministrasjon",
-      "bare json"
+      "mcp servers",
+      "mcp list",
+      "server list",
+      "mcp config",
+      "mcp settings",
+      "mcp server list",
+      "configure mcp",
+      "mcp endpoints",
+      "server management",
+      "mcp connection"
     ],
     "param.path.description": "Sti til mcp_servers.json. Hvis utelatt, brukes standardplasseringen.",
     "param.pretty.description": "Hvis true, formater JSON-utdata pent (standard: true).",
@@ -802,10 +904,16 @@
   "nl": {
     "tool.description": "Beheert MCP-serverdefinities die zijn opgeslagen in mcp_servers.",
     "x_search_terms": [
-      "mcp_servers",
-      "mcp-servers",
-      "serverbeheer",
-      "alleen json"
+      "mcp servers",
+      "mcp list",
+      "server list",
+      "mcp config",
+      "mcp settings",
+      "mcp server list",
+      "configure mcp",
+      "mcp endpoints",
+      "server management",
+      "mcp connection"
     ],
     "param.path.description": "Pad naar mcp_servers.json.",
     "param.pretty.description": "Indien waar, wordt de JSON-uitvoer mooi afgedrukt (standaard: waar).",
@@ -846,10 +954,16 @@
   "fi": {
     "tool.description": "Hallitsee mcp_servers.",
     "x_search_terms": [
-      "mcp_servers",
-      "mcp-palvelimet",
-      "palvelinhallinta",
-      "vain json"
+      "mcp servers",
+      "mcp list",
+      "server list",
+      "mcp config",
+      "mcp settings",
+      "mcp server list",
+      "configure mcp",
+      "mcp endpoints",
+      "server management",
+      "mcp connection"
     ],
     "param.path.description": "Polku mcp_servers.json -tiedostoon.",
     "param.pretty.description": "Jos true, muotoile JSON-tuloste (oletus: true).",
@@ -890,10 +1004,16 @@
   "cs": {
     "tool.description": "Spravuje definice MCP serverů uložené v mcp_servers.",
     "x_search_terms": [
-      "mcp_servers",
-      "mcp servery",
-      "správa serverů",
-      "jen json"
+      "mcp servers",
+      "mcp list",
+      "server list",
+      "mcp config",
+      "mcp settings",
+      "mcp server list",
+      "configure mcp",
+      "mcp endpoints",
+      "server management",
+      "mcp connection"
     ],
     "param.path.description": "Cesta k mcp_servers.json.",
     "param.pretty.description": "Je-li true, formátuje JSON výstup (výchozí: true).",
@@ -934,10 +1054,16 @@
   "uk": {
     "tool.description": "Керує визначеннями MCP-серверів, збереженими в mcp_servers.",
     "x_search_terms": [
-      "mcp_servers",
-      "mcp сервери",
-      "керування серверами",
-      "лише json"
+      "mcp servers",
+      "mcp list",
+      "server list",
+      "mcp config",
+      "mcp settings",
+      "mcp server list",
+      "configure mcp",
+      "mcp endpoints",
+      "server management",
+      "mcp connection"
     ],
     "param.path.description": "Шлях до mcp_servers.json.",
     "param.pretty.description": "Якщо true, форматувати JSON-вивід (типово: true).",
@@ -978,10 +1104,16 @@
   "tr": {
     "tool.description": "mcp_servers.",
     "x_search_terms": [
-      "mcp_servers",
-      "mcp sunucuları",
-      "sunucu yönetimi",
-      "yalnızca json"
+      "mcp servers",
+      "mcp list",
+      "server list",
+      "mcp config",
+      "mcp settings",
+      "mcp server list",
+      "configure mcp",
+      "mcp endpoints",
+      "server management",
+      "mcp connection"
     ],
     "param.path.description": "mcp_servers.json yolu. Atlanırsa varsayılan konumu kullanır.",
     "param.pretty.description": "Doğruysa, JSON çıktısını güzel yazdırın (varsayılan: doğru).",
@@ -1022,10 +1154,16 @@
   "th": {
     "tool.description": "จัดการนิยามเซิร์ฟเวอร์ MCP ที่บันทึกไว้ใน mcp_servers.",
     "x_search_terms": [
-      "mcp_servers",
-      "เซิร์ฟเวอร์ mcp",
-      "การจัดการเซิร์ฟเวอร์",
-      "json เท่านั้น"
+      "mcp servers",
+      "mcp list",
+      "server list",
+      "mcp config",
+      "mcp settings",
+      "mcp server list",
+      "configure mcp",
+      "mcp endpoints",
+      "server management",
+      "mcp connection"
     ],
     "param.path.description": "พาธไปยัง mcp_servers.json หากละไว้จะใช้ตำแหน่งเริ่มต้น",
     "param.pretty.description": "ถ้าเป็นจริง เอาต์พุต JSON แบบค่อนข้างพิมพ์ (ค่าเริ่มต้น: จริง)",
@@ -1066,10 +1204,16 @@
   "zh_CN": {
     "tool.description": "管理保存在 mcp_servers.json 中的 MCP 服务器定义（list/add/remove/set_default/validate/init_template）。仅输出 JSON。",
     "x_search_terms": [
-      "mcp_servers",
-      "mcp 服务器",
-      "服务器管理",
-      "仅 json"
+      "mcp servers",
+      "mcp list",
+      "server list",
+      "mcp config",
+      "mcp settings",
+      "mcp server list",
+      "configure mcp",
+      "mcp endpoints",
+      "server management",
+      "mcp connection"
     ],
     "param.path.description": "mcp_servers.json 的路径。省略时使用默认位置。",
     "param.pretty.description": "为 true 时，对 JSON 输出进行美化格式化（默认：true）。",
@@ -1110,10 +1254,16 @@
   "zh_TW": {
     "tool.description": "管理儲存在 mcp_servers.json 中的 MCP 伺服器定義（list/add/remove/set_default/validate/init_template）。僅輸出 JSON。",
     "x_search_terms": [
-      "mcp_servers",
-      "mcp 伺服器",
-      "伺服器管理",
-      "僅 json"
+      "mcp servers",
+      "mcp list",
+      "server list",
+      "mcp config",
+      "mcp settings",
+      "mcp server list",
+      "configure mcp",
+      "mcp endpoints",
+      "server management",
+      "mcp connection"
     ],
     "param.path.description": "mcp_servers.json 的路徑。省略時使用預設位置。",
     "param.pretty.description": "為 true 時，將 JSON 輸出美化格式化（預設：true）。",
@@ -1154,10 +1304,16 @@
   "bn": {
     "tool.description": "mcp_servers.",
     "x_search_terms": [
-      "mcp_servers",
-      "mcp সার্ভার",
-      "সার্ভার ব্যবস্থাপনা",
-      "শুধু json"
+      "mcp servers",
+      "mcp list",
+      "server list",
+      "mcp config",
+      "mcp settings",
+      "mcp server list",
+      "configure mcp",
+      "mcp endpoints",
+      "server management",
+      "mcp connection"
     ],
     "param.path.description": "mcp_servers.json-এর পথ। উল্লেখ না করলে ডিফল্ট অবস্থান ব্যবহার করা হয়।",
     "param.pretty.description": "সত্য হলে, JSON আউটপুট সুন্দর-প্রিন্ট করুন (ডিফল্ট: সত্য)।",
@@ -1198,10 +1354,16 @@
   "fa": {
     "tool.description": "تعاریف سرور MCP ذخیره‌شده در mcp_servers.",
     "x_search_terms": [
-      "mcp_servers",
-      "سرورهای mcp",
-      "مدیریت سرور",
-      "فقط json"
+      "mcp servers",
+      "mcp list",
+      "server list",
+      "mcp config",
+      "mcp settings",
+      "mcp server list",
+      "configure mcp",
+      "mcp endpoints",
+      "server management",
+      "mcp connection"
     ],
     "param.path.description": "مسیر mcp_servers.json. اگر مشخص نشود، از مکان پیش‌فرض استفاده می‌شود.",
     "param.pretty.description": "اگر درست است، خروجی JSON زیبا چاپ کنید (پیش‌فرض: درست).",
@@ -1242,10 +1404,16 @@
   "mn": {
     "tool.description": "mcp_servers.",
     "x_search_terms": [
-      "mcp_servers",
-      "mcp серверүүд",
-      "серверийн удирдлага",
-      "зөвхөн json"
+      "mcp servers",
+      "mcp list",
+      "server list",
+      "mcp config",
+      "mcp settings",
+      "mcp server list",
+      "configure mcp",
+      "mcp endpoints",
+      "server management",
+      "mcp connection"
     ],
     "param.path.description": "mcp_servers.json-ийн зам. Заагаагүй бол анхдагч байршлыг ашиглана.",
     "param.pretty.description": "true бол JSON гаралтыг гоёор хэвлэнэ (анхдагч: true).",
@@ -1286,10 +1454,16 @@
   "mr": {
     "tool.description": "mcp_servers.",
     "x_search_terms": [
-      "mcp_servers",
-      "mcp सर्व्हर",
-      "सर्व्हर व्यवस्थापन",
-      "फक्त json"
+      "mcp servers",
+      "mcp list",
+      "server list",
+      "mcp config",
+      "mcp settings",
+      "mcp server list",
+      "configure mcp",
+      "mcp endpoints",
+      "server management",
+      "mcp connection"
     ],
     "param.path.description": "mcp_servers.json चा path. दिला नाही तर default location वापरली जाते.",
     "param.pretty.description": "सत्य असल्यास, JSON आउटपुट प्री-प्रिंट करा (डीफॉल्ट: सत्य).",
@@ -1330,12 +1504,16 @@
   "el": {
     "tool.description": "Διαχειριστείτε τους ορισμούς διακομιστή MCP στο mcp_servers.json (list/add/remove/set_default/validate/init_template).",
     "x_search_terms": [
-      "mcp_servers",
       "mcp servers",
-      "mcp server",
-      "διαχείριση διακομιστών",
-      "μήνυμα προφίλ",
-      "mcp config"
+      "mcp list",
+      "server list",
+      "mcp config",
+      "mcp settings",
+      "mcp server list",
+      "configure mcp",
+      "mcp endpoints",
+      "server management",
+      "mcp connection"
     ],
     "param.path.description": "Διαδρομή προς mcp_servers.json. Εάν παραλειφθεί, χρησιμοποιεί την προεπιλεγμένη θέση.",
     "param.pretty.description": "Εάν είναι αληθές, η έξοδος JSON με όμορφη εκτύπωση (προεπιλογή: true).",
@@ -1376,12 +1554,16 @@
   "he": {
     "tool.description": "נהל הגדרות שרת MCP ב-mcp_servers.json (list/add/remove/set_default/validate/init_template).",
     "x_search_terms": [
-      "mcp_servers",
       "mcp servers",
-      "mcp server",
-      "מנהלים שרתים",
-      "פרופיל הודעה",
-      "mcp config"
+      "mcp list",
+      "server list",
+      "mcp config",
+      "mcp settings",
+      "mcp server list",
+      "configure mcp",
+      "mcp endpoints",
+      "server management",
+      "mcp connection"
     ],
     "param.path.description": "נתיב אל mcp_servers.json. אם מושמט, משתמש במיקום ברירת המחדל.",
     "param.pretty.description": "אם נכון, פלט JSON להדפיס יפה (ברירת מחדל: true).",
@@ -1422,12 +1604,16 @@
   "hu": {
     "tool.description": "Az MCP-kiszolgáló definícióinak kezelése az mcp_servers.json fájlban (list/add/remove/set_default/validate/init_template).",
     "x_search_terms": [
-      "mcp_szerver",
-      "mcp-szerver",
-      "mcp-szerver",
-      "szerverek kezelése",
-      "profilüzenet",
-      "mcp-konfiguráció"
+      "mcp servers",
+      "mcp list",
+      "server list",
+      "mcp config",
+      "mcp settings",
+      "mcp server list",
+      "configure mcp",
+      "mcp endpoints",
+      "server management",
+      "mcp connection"
     ],
     "param.path.description": "Az mcp_servers.json elérési útja. Ha kihagyja, az alapértelmezett helyet használja.",
     "param.pretty.description": "Ha igaz, szép nyomtatású JSON-kimenet (alapértelmezett: igaz).",
@@ -1468,12 +1654,16 @@
   "ro": {
     "tool.description": "Gestionați definițiile serverului MCP în mcp_servers.json (list/add/remove/set_default/validate/init_template).",
     "x_search_terms": [
-      "mcp_servers",
       "mcp servers",
-      "mcp server",
-      "gestionează serverele",
-      "mesaj profil",
-      "mcp config"
+      "mcp list",
+      "server list",
+      "mcp config",
+      "mcp settings",
+      "mcp server list",
+      "configure mcp",
+      "mcp endpoints",
+      "server management",
+      "mcp connection"
     ],
     "param.path.description": "Calea către mcp_servers.json. Dacă este omis, folosește locația implicită.",
     "param.pretty.description": "Dacă este adevărat, imprimați destul de ieșire JSON (implicit: adevărat).",

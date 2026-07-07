@@ -40,9 +40,16 @@
     "param.splice_op.description": "splice 操作（splice モード）。",
     "tool.description": "ファイルを生バイトで編集（オフセット書換、検索/置換、挿入/削除、JSONパッチ）。",
     "x_search_terms": [
-      "ローカルファイルをバイナリ（生バイト列）として編集します。オフセット書き換え、検索/置換、挿入/削除（splice）、簡易 JSON パッチ適用に対応します。危険: ファイルを破損させる可能性があります",
-      "binary_edit",
-      "binary edit"
+      "binary edit",
+      "hex edit",
+      "binary file",
+      "edit binary",
+      "hex editor",
+      "binary modify",
+      "binary patch",
+      "binary data",
+      "file hex",
+      "binary editor"
     ],
     "param.maxb.description": "このサイズ（バイト）を超えるファイルは拒否します。"
   },
@@ -60,9 +67,16 @@
     "param.splice_op.description": "Operación de splice (modo splice).",
     "tool.description": "Edita un archivo local como bytes sin procesar (binario).",
     "x_search_terms": [
-      "Edita un archivo local como bytes sin procesar (binario). Admite escritura por desplazamiento, búsqueda/reemplazo, splice (insertar/eliminar) y la aplicación de un parche JSON sencillo. Peligroso: esta herramienta puede dañar archivos",
-      "binary_edit",
-      "binary edit"
+      "binary edit",
+      "hex edit",
+      "binary file",
+      "edit binary",
+      "hex editor",
+      "binary modify",
+      "binary patch",
+      "binary data",
+      "file hex",
+      "binary editor"
     ],
     "param.maxb.description": "Rechazar archivos mayores a este tamaño (bytes)."
   },
@@ -80,9 +94,16 @@
     "param.splice_op.description": "Opération de splice (mode splice).",
     "tool.description": "Modifiez un fichier local sous forme d'octets bruts (binaire).",
     "x_search_terms": [
-      "Modifiez un fichier local sous forme d'octets bruts (binaire). Prend en charge l'écriture à un décalage, la recherche/remplacement, le splice (insertion/suppression) et l'application d'un correctif JSON simple. Dangereux : cet outil peut corrompre des fichiers",
-      "binary_edit",
-      "binary edit"
+      "binary edit",
+      "hex edit",
+      "binary file",
+      "edit binary",
+      "hex editor",
+      "binary modify",
+      "binary patch",
+      "binary data",
+      "file hex",
+      "binary editor"
     ],
     "param.maxb.description": "Rejetez les fichiers plus grands que cette taille (octets)."
   },
@@ -100,9 +121,16 @@
     "param.splice_op.description": "splice 작업(splice 모드)입니다.",
     "tool.description": "파일을 원시 바이트로 편집(오프셋 쓰기, 검색/치환, 삽입/삭제, JSON 패치).",
     "x_search_terms": [
-      "로컬 파일을 원시 바이트(바이너리)로 편집합니다. 오프셋 쓰기, 검색/바꾸기, splice(삽입/삭제), 간단한 JSON 패치 적용을 지원합니다. 위험: 이 도구는 파일을 손상시킬 수 있습니다",
-      "binary_edit",
-      "binary edit"
+      "binary edit",
+      "hex edit",
+      "binary file",
+      "edit binary",
+      "hex editor",
+      "binary modify",
+      "binary patch",
+      "binary data",
+      "file hex",
+      "binary editor"
     ],
     "param.maxb.description": "이 크기(바이트)보다 큰 파일은 거부합니다."
   },
@@ -120,9 +148,16 @@
     "param.splice_op.description": "Splice-Vorgang (Modus splice).",
     "tool.description": "Bearbeitet eine lokale Datei als Rohbytes (binär).",
     "x_search_terms": [
-      "Bearbeitet eine lokale Datei als Rohbytes (binär). Unterstützt Schreiben mit Offset, Suchen/Ersetzen, Splice (Einfügen/Löschen) und das Anwenden eines einfachen JSON-Patches. Gefährlich: Dieses Tool kann Dateien beschädigen",
-      "binary_edit",
-      "binary edit"
+      "binary edit",
+      "hex edit",
+      "binary file",
+      "edit binary",
+      "hex editor",
+      "binary modify",
+      "binary patch",
+      "binary data",
+      "file hex",
+      "binary editor"
     ],
     "param.maxb.description": "Lehnt Dateien ab, die größer als diese Größe (Bytes) sind."
   },
@@ -140,9 +175,16 @@
     "param.splice_op.description": "Operazione di giunzione (modalità di giunzione).",
     "tool.description": "Modifica un file locale come byte grezzi (binario).",
     "x_search_terms": [
-      "Modifica un file locale come byte grezzi (binario). Supporta la scrittura a offset, la ricerca/sostituzione, lo splice (inserimento/eliminazione) e l'applicazione di un semplice patch JSON. Pericoloso: questo strumento può corrompere i file",
-      "binary_edit",
-      "binary edit"
+      "binary edit",
+      "hex edit",
+      "binary file",
+      "edit binary",
+      "hex editor",
+      "binary modify",
+      "binary patch",
+      "binary data",
+      "file hex",
+      "binary editor"
     ],
     "param.maxb.description": "Rifiuta file più grandi di questa dimensione (byte)."
   },
@@ -160,9 +202,16 @@
     "param.splice_op.description": "Операция splice (режим splice).",
     "tool.description": "Редактирует локальный файл как необработанные байты (двоичные данные).",
     "x_search_terms": [
-      "Редактирует локальный файл как необработанные байты (двоичные данные). Поддерживает запись со смещением, поиск/замену, splice (вставку/удаление) и применение простого JSON-патча. Опасно: этот инструмент может повредить файлы",
-      "binary_edit",
-      "binary edit"
+      "binary edit",
+      "hex edit",
+      "binary file",
+      "edit binary",
+      "hex editor",
+      "binary modify",
+      "binary patch",
+      "binary data",
+      "file hex",
+      "binary editor"
     ],
     "param.maxb.description": "Отклонять файлы, размер которых превышает этот размер (в байтах)."
   },
@@ -180,9 +229,16 @@
     "param.splice_op.description": "Operação de splice (modo splice).",
     "tool.description": "Edite um arquivo local como bytes brutos (binários).",
     "x_search_terms": [
-      "Edite um arquivo local como bytes brutos (binários). Suporta gravação por deslocamento, pesquisa/substituição, splice (inserção/exclusão) e aplicação de um JSON patch simples. Perigoso: esta ferramenta pode corromper arquivos",
-      "binary_edit",
-      "binary edit"
+      "binary edit",
+      "hex edit",
+      "binary file",
+      "edit binary",
+      "hex editor",
+      "binary modify",
+      "binary patch",
+      "binary data",
+      "file hex",
+      "binary editor"
     ],
     "param.maxb.description": "Rejeite arquivos maiores que esse tamanho (bytes)."
   },
@@ -200,9 +256,16 @@
     "param.splice_op.description": "Operação de emenda (modo de emenda).",
     "tool.description": "Edite um arquivo local como bytes brutos (binários).",
     "x_search_terms": [
-      "Edite um arquivo local como bytes brutos (binários). Suporta gravação de deslocamento, pesquisa/substituição, emenda (inserção/exclusão) e aplicação de um patch JSON simples. Perigoso: esta ferramenta pode corromper arquivos",
-      "binary_edit",
-      "binary edit"
+      "binary edit",
+      "hex edit",
+      "binary file",
+      "edit binary",
+      "hex editor",
+      "binary modify",
+      "binary patch",
+      "binary data",
+      "file hex",
+      "binary editor"
     ],
     "param.maxb.description": "Rejeite arquivos maiores que esse tamanho (bytes)."
   },
@@ -220,9 +283,16 @@
     "param.splice_op.description": "Operasi splice (mode splice).",
     "tool.description": "Edit file lokal sebagai byte mentah (binary).",
     "x_search_terms": [
-      "Edit file lokal sebagai byte mentah (binary). Mendukung penulisan pada offset, pencarian/penggantian, splice (insert/delete), dan penerapan patch JSON sederhana. Berbahaya: alat ini dapat merusak file",
-      "binary_edit",
-      "binary edit"
+      "binary edit",
+      "hex edit",
+      "binary file",
+      "edit binary",
+      "hex editor",
+      "binary modify",
+      "binary patch",
+      "binary data",
+      "file hex",
+      "binary editor"
     ],
     "param.maxb.description": "Tolak file yang lebih besar dari ukuran ini (byte)."
   },
@@ -240,9 +310,16 @@
     "param.splice_op.description": "Thao tác ghép nối (chế độ ghép nối).",
     "tool.description": "Chỉnh sửa tệp cục bộ dưới dạng byte thô (nhị phân).",
     "x_search_terms": [
-      "Chỉnh sửa tệp cục bộ dưới dạng byte thô (nhị phân). Hỗ trợ ghi offset, tìm kiếm/thay thế, ghép (chèn/xóa) và áp dụng bản vá JSON đơn giản. Nguy hiểm: công cụ này có thể làm hỏng tập tin",
-      "binary_edit",
-      "binary edit"
+      "binary edit",
+      "hex edit",
+      "binary file",
+      "edit binary",
+      "hex editor",
+      "binary modify",
+      "binary patch",
+      "binary data",
+      "file hex",
+      "binary editor"
     ],
     "param.maxb.description": "Từ chối các tệp lớn hơn kích thước này (byte)."
   },
@@ -260,9 +337,16 @@
     "param.splice_op.description": "Operacja splotu (tryb splotu).",
     "tool.description": "Edytuj plik lokalny jako surowe bajty (binarne).",
     "x_search_terms": [
-      "Edytuj plik lokalny jako surowe bajty (binarne). Obsługuje zapis offsetowy, wyszukiwanie/zamiana, łączenie (wstawianie/usuwanie) i stosowanie prostej łatki JSON. Niebezpieczne: to narzędzie może uszkodzić pliki",
-      "binary_edit",
-      "binary edit"
+      "binary edit",
+      "hex edit",
+      "binary file",
+      "edit binary",
+      "hex editor",
+      "binary modify",
+      "binary patch",
+      "binary data",
+      "file hex",
+      "binary editor"
     ],
     "param.maxb.description": "Odrzuć pliki większe niż ten rozmiar (w bajtach)."
   },
@@ -280,9 +364,16 @@
     "param.splice_op.description": "स्प्लिस ऑपरेशन (स्प्लिस मोड)।",
     "tool.description": "स्थानीय फ़ाइल को कच्चे बाइट्स के रूप में संपादित करें: ऑफसेट लिखना, खोजना/बदलना, सम्मिलित करना/हटाना (स्प्लिस), JSON पैच।",
     "x_search_terms": [
-      "स्थानीय फ़ाइल को कच्चे बाइट्स (बाइनरी) के रूप में संपादित करें। ऑफसेट लिखने, खोजने/प्रतिस्थापित करने, जोड़ने (डालने/हटाने) और एक सरल JSON पैच लागू करने का समर्थन करता है। खतरनाक: यह टूल फ़ाइलों को दूषित कर सकता है।",
-      "binary_edit",
-      "binary edit"
+      "binary edit",
+      "hex edit",
+      "binary file",
+      "edit binary",
+      "hex editor",
+      "binary modify",
+      "binary patch",
+      "binary data",
+      "file hex",
+      "binary editor"
     ],
     "param.maxb.description": "इस आकार (बाइट्स) से बड़ी फ़ाइलों को अस्वीकार करें।"
   },
@@ -300,9 +391,16 @@
     "param.splice_op.description": "عملية splice (وضع splice).",
     "tool.description": "تحرير ملف محلي على شكل بايتات خام (ثنائي).",
     "x_search_terms": [
-      "تحرير ملف محلي على شكل بايتات خام (ثنائي). يدعم الكتابة بالإزاحة، البحث/الاستبدال، splice (إدراج/حذف)، وتطبيق رقعة JSON بسيطة. تحذير: قد تتسبب هذه الأداة في إتلاف الملفات",
-      "binary_edit",
-      "binary edit"
+      "binary edit",
+      "hex edit",
+      "binary file",
+      "edit binary",
+      "hex editor",
+      "binary modify",
+      "binary patch",
+      "binary data",
+      "file hex",
+      "binary editor"
     ],
     "param.maxb.description": "ارفض الملفات الأكبر من هذا الحجم (بالبايت)."
   },
@@ -320,9 +418,16 @@
     "param.splice_op.description": "Splice-operation (splice-läge).",
     "tool.description": "Redigera en lokal fil som råa byte (binär).",
     "x_search_terms": [
-      "Redigera en lokal fil som råa byte (binär). Stöder offset-skrivning, sök/ersätt, splice (infoga/ta bort) och enkel JSON-patchning. Farligt: det här verktyget kan förstöra filer",
-      "binary_edit",
-      "binary edit"
+      "binary edit",
+      "hex edit",
+      "binary file",
+      "edit binary",
+      "hex editor",
+      "binary modify",
+      "binary patch",
+      "binary data",
+      "file hex",
+      "binary editor"
     ],
     "param.maxb.description": "Avvisa filer större än denna storlek (byte)."
   },
@@ -340,9 +445,16 @@
     "param.splice_op.description": "Uendeshaji wa sehemu (mode ya sehemu).",
     "tool.description": "Hariri faili kama bytes ghafi (binary).",
     "x_search_terms": [
-      "Hariri faili kama bytes ghafi (binary). Inaunga mkono kuandika kwa offset, kutafuta/kubadilisha, splice (kuingiza/kufuta), na kutumia kiraka rahisi cha JSON. Hatari: zana hii inaweza kuharibu faili",
-      "binary_edit",
-      "binary edit"
+      "binary edit",
+      "hex edit",
+      "binary file",
+      "edit binary",
+      "hex editor",
+      "binary modify",
+      "binary patch",
+      "binary data",
+      "file hex",
+      "binary editor"
     ],
     "param.maxb.description": "Kataa faili kubwa kuliko ukubwa huu (baiti)."
   },
@@ -360,9 +472,16 @@
     "param.splice_op.description": "Splice-operasjon (splice-modus).",
     "tool.description": "Rediger en lokal fil som rå byte (binær).",
     "x_search_terms": [
-      "Rediger en lokal fil som rå byte (binær). Støtter offset-skriving, søk/erstatt, splice (sett inn/slett) og enkel JSON-patching. Farlig: dette verktøyet kan ødelegge filer",
-      "binary_edit",
-      "binary edit"
+      "binary edit",
+      "hex edit",
+      "binary file",
+      "edit binary",
+      "hex editor",
+      "binary modify",
+      "binary patch",
+      "binary data",
+      "file hex",
+      "binary editor"
     ],
     "param.maxb.description": "Avvis filer større enn denne størrelsen (bytes)."
   },
@@ -380,9 +499,16 @@
     "param.splice_op.description": "Splice-operatie (splice-modus).",
     "tool.description": "Bewerk een lokaal bestand als ruwe bytes (binair).",
     "x_search_terms": [
-      "Bewerk een lokaal bestand als ruwe bytes (binair). Ondersteunt offset write, zoeken/vervangen, splice (insert/delete) en het toepassen van een eenvoudige JSON-patch. Gevaarlijk: deze tool kan bestanden beschadigen",
-      "binary_edit",
-      "binary edit"
+      "binary edit",
+      "hex edit",
+      "binary file",
+      "edit binary",
+      "hex editor",
+      "binary modify",
+      "binary patch",
+      "binary data",
+      "file hex",
+      "binary editor"
     ],
     "param.maxb.description": "Bestanden weigeren die groter zijn dan deze grootte (bytes)."
   },
@@ -400,9 +526,16 @@
     "param.splice_op.description": "Splice-toiminto (splice-tila).",
     "tool.description": "Muokkaa paikallista tiedostoa raakatavuina (binäärinä).",
     "x_search_terms": [
-      "Muokkaa paikallista tiedostoa raakatavuina (binäärinä). Tukee offset-kirjoitusta, haku/korvausta, spliceä (insert/delete) ja yksinkertaista JSON-paikkausta. Vaarallinen: tämä työkalu voi rikkoa tiedostoja",
-      "binary_edit",
-      "binary edit"
+      "binary edit",
+      "hex edit",
+      "binary file",
+      "edit binary",
+      "hex editor",
+      "binary modify",
+      "binary patch",
+      "binary data",
+      "file hex",
+      "binary editor"
     ],
     "param.maxb.description": "Hylkää tätä suuremmat tiedostot (tavuina)."
   },
@@ -420,9 +553,16 @@
     "param.splice_op.description": "Operace splice (režim splice).",
     "tool.description": "Upravuje místní soubor jako surové bajty (binárně).",
     "x_search_terms": [
-      "Upravuje místní soubor jako surové bajty (binárně). Podporuje zápis s offsetem, hledání/nahrazování, splice (vložení/smazání) a jednoduchý JSON patch. Nebezpečné: tento nástroj může poškodit soubory",
-      "binary_edit",
-      "binary edit"
+      "binary edit",
+      "hex edit",
+      "binary file",
+      "edit binary",
+      "hex editor",
+      "binary modify",
+      "binary patch",
+      "binary data",
+      "file hex",
+      "binary editor"
     ],
     "param.maxb.description": "Odmítněte soubory větší než tato velikost (bajty)."
   },
@@ -440,9 +580,16 @@
     "param.splice_op.description": "Операція splice (режим splice).",
     "tool.description": "Редагує локальний файл як необроблені байти (бінарно).",
     "x_search_terms": [
-      "Редагує локальний файл як необроблені байти (бінарно). Підтримує запис зі зсувом, пошук/заміни, splice (вставку/видалення) і простий JSON-патч. Небезпечно: цей інструмент може пошкодити файли",
-      "binary_edit",
-      "binary edit"
+      "binary edit",
+      "hex edit",
+      "binary file",
+      "edit binary",
+      "hex editor",
+      "binary modify",
+      "binary patch",
+      "binary data",
+      "file hex",
+      "binary editor"
     ],
     "param.maxb.description": "Відхиляти файли, розмір яких перевищує цей розмір (у байтах)."
   },
@@ -460,9 +607,16 @@
     "param.splice_op.description": "Ekleme işlemi (ekleme modu).",
     "tool.description": "Yerel bir dosyayı ham bayt (ikili) olarak düzenleyin.",
     "x_search_terms": [
-      "Yerel bir dosyayı ham bayt (ikili) olarak düzenleyin. Ofset yazma, arama/değiştirme, ekleme (ekleme/silme) ve basit bir JSON yaması uygulamayı destekler. Tehlikeli: Bu araç dosyaları bozabilir",
-      "binary_edit",
-      "binary edit"
+      "binary edit",
+      "hex edit",
+      "binary file",
+      "edit binary",
+      "hex editor",
+      "binary modify",
+      "binary patch",
+      "binary data",
+      "file hex",
+      "binary editor"
     ],
     "param.maxb.description": "Bu boyuttan (bayt) daha büyük dosyaları reddedin."
   },
@@ -480,9 +634,16 @@
     "param.splice_op.description": "การดำเนินการประกบ (โหมดประกบ)",
     "tool.description": "แก้ไขไฟล์ในเครื่องเป็นไบต์ดิบ: การเขียนออฟเซ็ต, ค้นหา/แทนที่, แทรก/ลบ (ประกบกัน), แพตช์ JSON",
     "x_search_terms": [
-      "แก้ไขไฟล์ในเครื่องในรูปแบบไบต์ดิบ (ไบนารี) รองรับการเขียนตามออฟเซ็ต การค้นหา/แทนที่ splice (แทรก/ลบ) และการใช้ JSON patch แบบง่าย ๆ อันตราย: เครื่องมือนี้อาจทำให้ไฟล์เสียหายได้",
-      "binary_edit",
-      "binary edit"
+      "binary edit",
+      "hex edit",
+      "binary file",
+      "edit binary",
+      "hex editor",
+      "binary modify",
+      "binary patch",
+      "binary data",
+      "file hex",
+      "binary editor"
     ],
     "param.maxb.description": "ปฏิเสธไฟล์ที่มีขนาดใหญ่กว่านี้ (ไบต์)"
   },
@@ -500,9 +661,16 @@
     "param.splice_op.description": "splice 操作（splice 模式）。",
     "tool.description": "将本地文件按原始字节（二进制）进行编辑。支持按偏移写入、搜索/替换、splice（插入/删除）以及应用简单的 JSON 补丁。危险：此工具可能损坏文件。",
     "x_search_terms": [
-      "将本地文件按原始字节（二进制）进行编辑。支持按偏移写入、搜索/替换、splice（插入/删除）以及应用简单的 JSON 补丁。危险：此工具可能损坏文件",
-      "binary_edit",
-      "binary edit"
+      "binary edit",
+      "hex edit",
+      "binary file",
+      "edit binary",
+      "hex editor",
+      "binary modify",
+      "binary patch",
+      "binary data",
+      "file hex",
+      "binary editor"
     ],
     "param.maxb.description": "拒绝大于此大小（字节）的文件。"
   },
@@ -520,9 +688,16 @@
     "param.splice_op.description": "splice 操作（splice 模式）。",
     "tool.description": "將本機檔案以原始位元組（二進位）方式編輯。支援依位移寫入、搜尋/取代、splice（插入/刪除）以及套用簡單的 JSON 修補。危險：此工具可能會損毀檔案。",
     "x_search_terms": [
-      "將本機檔案以原始位元組（二進位）方式編輯。支援依位移寫入、搜尋/取代、splice（插入/刪除）以及套用簡單的 JSON 修補。危險：此工具可能會損毀檔案",
-      "binary_edit",
-      "binary edit"
+      "binary edit",
+      "hex edit",
+      "binary file",
+      "edit binary",
+      "hex editor",
+      "binary modify",
+      "binary patch",
+      "binary data",
+      "file hex",
+      "binary editor"
     ],
     "param.maxb.description": "拒絕大於此大小（位元組）的檔案。"
   },
@@ -540,9 +715,16 @@
     "param.splice_op.description": "splice অপারেশন (splice mode)।",
     "tool.description": "একটি স্থানীয় ফাইলকে কাঁচা বাইট হিসাবে সম্পাদনা করুন: অফসেট লিখুন, অনুসন্ধান/প্রতিস্থাপন করুন, সন্নিবেশ করুন/মুছুন (বিচ্ছিন্ন), JSON প্যাচ।",
     "x_search_terms": [
-      "একটি লোকাল ফাইলকে raw bytes (binary) হিসেবে সম্পাদনা করে। offset write, search/replace, splice (insert/delete), এবং সাধারণ JSON patch প্রয়োগ সমর্থন করে। বিপজ্জনক: এই টুল ফাইল নষ্ট করতে পারে",
-      "binary_edit",
-      "binary edit"
+      "binary edit",
+      "hex edit",
+      "binary file",
+      "edit binary",
+      "hex editor",
+      "binary modify",
+      "binary patch",
+      "binary data",
+      "file hex",
+      "binary editor"
     ],
     "param.maxb.description": "এই আকারের (বাইট) থেকে বড় ফাইল প্রত্যাখ্যান করুন।"
   },
@@ -560,9 +742,16 @@
     "param.splice_op.description": "عملیات splice (حالت splice).",
     "tool.description": "یک فایل محلی را به‌صورت بایت‌های خام (binary) ویرایش می‌کند.",
     "x_search_terms": [
-      "یک فایل محلی را به‌صورت بایت‌های خام (binary) ویرایش می‌کند. نوشتن با offset، جستجو/جایگزینی، splice (درج/حذف) و اعمال یک پچ JSON ساده را پشتیبانی می‌کند. خطرناک است: این ابزار می‌تواند فایل‌ها را خراب کند",
-      "binary_edit",
-      "binary edit"
+      "binary edit",
+      "hex edit",
+      "binary file",
+      "edit binary",
+      "hex editor",
+      "binary modify",
+      "binary patch",
+      "binary data",
+      "file hex",
+      "binary editor"
     ],
     "param.maxb.description": "فایل های بزرگتر از این اندازه (بایت) را رد کنید."
   },
@@ -580,9 +769,16 @@
     "param.splice_op.description": "Splice үйлдэл (splice горим).",
     "tool.description": "Орон нутгийн файлыг raw bytes (binary) хэлбэрээр засварлана.",
     "x_search_terms": [
-      "Орон нутгийн файлыг raw bytes (binary) хэлбэрээр засварлана. Offset write, search/replace, splice (insert/delete), мөн энгийн JSON patch хэрэглэхийг дэмжинэ. Аюултай: энэ хэрэгсэл файлыг гэмтээж болно",
-      "binary_edit",
-      "binary edit"
+      "binary edit",
+      "hex edit",
+      "binary file",
+      "edit binary",
+      "hex editor",
+      "binary modify",
+      "binary patch",
+      "binary data",
+      "file hex",
+      "binary editor"
     ],
     "param.maxb.description": "Энэ хэмжээнээс (байт) том файлуудыг татгалзана."
   },
@@ -600,9 +796,16 @@
     "param.splice_op.description": "splice ऑपरेशन (splice मोड).",
     "tool.description": "स्थानिक फाइल raw bytes (binary) म्हणून संपादित करते.",
     "x_search_terms": [
-      "स्थानिक फाइल raw bytes (binary) म्हणून संपादित करते. offset write, search/replace, splice (insert/delete), आणि साधा JSON patch लागू करणे समर्थित आहे. धोकादायक: हे टूल फाइल खराब करू शकते",
-      "binary_edit",
-      "binary edit"
+      "binary edit",
+      "hex edit",
+      "binary file",
+      "edit binary",
+      "hex editor",
+      "binary modify",
+      "binary patch",
+      "binary data",
+      "file hex",
+      "binary editor"
     ],
     "param.maxb.description": "या आकारापेक्षा (बाइट्स) मोठ्या फाइल्स नाकारणे."
   },
@@ -620,12 +823,16 @@
     "param.splice_op.description": "Λειτουργία συναρμογής (λειτουργία συναρμογής).",
     "tool.description": "Επεξεργαστείτε ένα τοπικό αρχείο ως ακατέργαστα byte: μετατόπιση εγγραφής, αναζήτηση/αντικατάσταση, εισαγωγή/διαγραφή (συναρμολόγηση), ενημερωμένη έκδοση κώδικα JSON.",
     "x_search_terms": [
-      "binary_edit",
-      "δυαδική επεξεργασία",
-      "ακατέργαστα byte",
-      "δυαδικό έμπλαστρο",
-      "μετατόπιση επεξεργασίας",
-      "συνδέω"
+      "binary edit",
+      "hex edit",
+      "binary file",
+      "edit binary",
+      "hex editor",
+      "binary modify",
+      "binary patch",
+      "binary data",
+      "file hex",
+      "binary editor"
     ],
     "param.maxb.description": "Απορρίψτε αρχεία μεγαλύτερα από αυτό το μέγεθος (byte)."
   },
@@ -643,12 +850,16 @@
     "param.splice_op.description": "פעולת ספייס (מצב ספייס).",
     "tool.description": "ערוך קובץ מקומי כבייטים גולמיים: ביטול כתיבה, חיפוש/החלפה, הוספה/מחיקה (חבור), תיקון JSON.",
     "x_search_terms": [
-      "עריכה_בינארית",
-      "עריכה בינארית",
-      "בייטים גולמיים",
-      "תיקון בינארי",
-      "עריכת אופסט",
-      "אִחוּי"
+      "binary edit",
+      "hex edit",
+      "binary file",
+      "edit binary",
+      "hex editor",
+      "binary modify",
+      "binary patch",
+      "binary data",
+      "file hex",
+      "binary editor"
     ],
     "param.maxb.description": "דחה קבצים גדולים מגודל זה (בתים)."
   },
@@ -666,12 +877,16 @@
     "param.splice_op.description": "Összeillesztési művelet (illesztési mód).",
     "tool.description": "Szerkesszen egy helyi fájlt nyers bájtként: írás eltolása, keresés/csere, beszúrás/törlés (illesztés), JSON javítás.",
     "x_search_terms": [
-      "bináris_szerkesztés",
-      "bináris szerkesztés",
-      "nyers bájtok",
-      "bináris patch",
-      "ofszet szerkesztés",
-      "toldás"
+      "binary edit",
+      "hex edit",
+      "binary file",
+      "edit binary",
+      "hex editor",
+      "binary modify",
+      "binary patch",
+      "binary data",
+      "file hex",
+      "binary editor"
     ],
     "param.maxb.description": "Ennél a méretnél (byte) nagyobb fájlok elutasítása."
   },
@@ -689,12 +904,16 @@
     "param.splice_op.description": "Operare de îmbinare (mod de îmbinare).",
     "tool.description": "Editați un fișier local ca octeți bruti: scriere offset, căutare/înlocuire, inserare/ștergere (splice), patch JSON.",
     "x_search_terms": [
-      "binary_edit",
-      "editare binară",
-      "octeți bruti",
-      "patch binar",
-      "editare offset",
-      "lipitură"
+      "binary edit",
+      "hex edit",
+      "binary file",
+      "edit binary",
+      "hex editor",
+      "binary modify",
+      "binary patch",
+      "binary data",
+      "file hex",
+      "binary editor"
     ],
     "param.maxb.description": "Respingeți fișierele mai mari decât această dimensiune (octeți)."
   }

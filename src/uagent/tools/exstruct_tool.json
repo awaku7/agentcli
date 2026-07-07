@@ -47,8 +47,15 @@
     "tool.description": "exstructでExcel(.xlsx)から構造化データを抽出しJSON/YAMLとして返す/保存。",
     "x_search_terms": [
       "exstruct",
-      "構造化データ",
-      "json yaml"
+      "extract structure",
+      "struct extract",
+      "binary structure",
+      "data structure",
+      "structure parser",
+      "data extraction",
+      "extract binary",
+      "structure analysis",
+      "struct parser"
     ],
     "param.password.description": "パスワード（必要な場合はプロンプト表示）。",
     "error.missing_exstruct": "「exstruct」パッケージがインストールされていません。 pip install exstruct でインストールしてください。",
@@ -72,8 +79,15 @@
     "tool.description": "Use exstruct para extraer datos estructurados de un archivo Excel (.",
     "x_search_terms": [
       "exstruct",
-      "datos estructurados",
-      "json yaml"
+      "extract structure",
+      "struct extract",
+      "binary structure",
+      "data structure",
+      "structure parser",
+      "data extraction",
+      "extract binary",
+      "structure analysis",
+      "struct parser"
     ],
     "param.password.description": "Contraseña (solicitudes si es necesario).",
     "error.missing_exstruct": "El paquete 'exstruct' no está instalado. Instálelo con: pip install exstruct",
@@ -95,8 +109,15 @@
     "tool.description": "Utilisez exstruct pour extraire des données structurées d'un fichier Excel (.",
     "x_search_terms": [
       "exstruct",
-      "données structurées",
-      "json yaml"
+      "extract structure",
+      "struct extract",
+      "binary structure",
+      "data structure",
+      "structure parser",
+      "data extraction",
+      "extract binary",
+      "structure analysis",
+      "struct parser"
     ],
     "param.password.description": "Mot de passe (invite si nécessaire).",
     "error.missing_exstruct": "Le package 'exstruct' n'est pas installé. Veuillez l'installer avec : pip install exstruct",
@@ -118,8 +139,15 @@
     "tool.description": "exstruct로 Excel(.xlsx)에서 구조화 데이터 추출, JSON/YAML로 반환/저장.",
     "x_search_terms": [
       "exstruct",
-      "구조화 데이터",
-      "json yaml"
+      "extract structure",
+      "struct extract",
+      "binary structure",
+      "data structure",
+      "structure parser",
+      "data extraction",
+      "extract binary",
+      "structure analysis",
+      "struct parser"
     ],
     "param.password.description": "비밀번호(필요시 프롬프트 표시).",
     "error.missing_exstruct": "'exstruct' 패키지가 설치되지 않았습니다. 다음을 사용하여 설치하십시오: pip install exstruct",
@@ -141,8 +169,15 @@
     "tool.description": "Verwenden Sie exstruct, um strukturierte Daten aus einer Excel-Datei (.",
     "x_search_terms": [
       "exstruct",
-      "strukturierte daten",
-      "json yaml"
+      "extract structure",
+      "struct extract",
+      "binary structure",
+      "data structure",
+      "structure parser",
+      "data extraction",
+      "extract binary",
+      "structure analysis",
+      "struct parser"
     ],
     "param.password.description": "Passwort (fragt bei Bedarf nach).",
     "error.missing_exstruct": "Das Paket „exstruct“ ist nicht installiert. Bitte installieren Sie es mit: pip install exstruct",
@@ -164,8 +199,15 @@
     "tool.description": "Usa exstruct per estrarre dati strutturati da un file Excel (.",
     "x_search_terms": [
       "exstruct",
-      "dati strutturati",
-      "json yaml"
+      "extract structure",
+      "struct extract",
+      "binary structure",
+      "data structure",
+      "structure parser",
+      "data extraction",
+      "extract binary",
+      "structure analysis",
+      "struct parser"
     ],
     "param.password.description": "Password (richiesta se necessario).",
     "error.missing_exstruct": "Il pacchetto 'exstruct' non è installato. Installalo con: pip install exstruct",
@@ -187,8 +229,15 @@
     "tool.description": "Используйте exstruct, чтобы извлекать структурированные данные из Excel (.",
     "x_search_terms": [
       "exstruct",
-      "структурированные данные",
-      "json yaml"
+      "extract structure",
+      "struct extract",
+      "binary structure",
+      "data structure",
+      "structure parser",
+      "data extraction",
+      "extract binary",
+      "structure analysis",
+      "struct parser"
     ],
     "param.password.description": "Взаимодействие с определенным каналом Discord с помощью токена бота: отправка сообщений, чтение последних сообщений и, при необходимости, ожидание ответов после отправки.",
     "error.missing_exstruct": "Пакет exstruct не установлен. Пожалуйста, установите его с помощью: pip install exstruct",
@@ -210,8 +259,15 @@
     "tool.description": "Use exstruct para extrair dados estruturados de um arquivo Excel (.",
     "x_search_terms": [
       "exstruct",
-      "dados estruturados",
-      "json yaml"
+      "extract structure",
+      "struct extract",
+      "binary structure",
+      "data structure",
+      "structure parser",
+      "data extraction",
+      "extract binary",
+      "structure analysis",
+      "struct parser"
     ],
     "param.password.description": "Senha (solicita se necessário).",
     "error.missing_exstruct": "O pacote 'exstruct' não está instalado. Instale-o com: pip install exstruct",
@@ -233,8 +289,15 @@
     "tool.description": "Use o exstruct para extrair dados estruturados de um arquivo Excel (.",
     "x_search_terms": [
       "exstruct",
-      "dados estruturados",
-      "json yaml"
+      "extract structure",
+      "struct extract",
+      "binary structure",
+      "data structure",
+      "structure parser",
+      "data extraction",
+      "extract binary",
+      "structure analysis",
+      "struct parser"
     ],
     "param.password.description": "Senha (solicita se necessário).",
     "error.missing_exstruct": "O pacote 'exstruct' não está instalado. Instale-o com: pip install exstruct",
@@ -256,8 +319,15 @@
     "tool.description": "Gunakan exstruct untuk mengekstrak data terstruktur dari file Excel (.",
     "x_search_terms": [
       "exstruct",
-      "data terstruktur",
-      "json yaml"
+      "extract structure",
+      "struct extract",
+      "binary structure",
+      "data structure",
+      "structure parser",
+      "data extraction",
+      "extract binary",
+      "structure analysis",
+      "struct parser"
     ],
     "param.password.description": "Kata sandi (diminta jika diperlukan).",
     "error.missing_exstruct": "Paket 'exstruct' tidak diinstal. Silakan instal dengan: pip install exstruct",
@@ -279,8 +349,15 @@
     "tool.description": "Dùng exstruct để trích xuất dữ liệu có cấu trúc từ tệp Excel (.",
     "x_search_terms": [
       "exstruct",
-      "dữ liệu có cấu trúc",
-      "json yaml"
+      "extract structure",
+      "struct extract",
+      "binary structure",
+      "data structure",
+      "structure parser",
+      "data extraction",
+      "extract binary",
+      "structure analysis",
+      "struct parser"
     ],
     "param.password.description": "Mật khẩu tùy chọn cho tệp .",
     "error.missing_exstruct": "Gói 'exstruct' chưa được cài đặt. Vui lòng cài đặt nó với: pip install exstruct",
@@ -302,8 +379,15 @@
     "tool.description": "Użyj exstruct, aby wyodrębnić dane strukturalne z pliku Excel (.",
     "x_search_terms": [
       "exstruct",
-      "dane strukturalne",
-      "json yaml"
+      "extract structure",
+      "struct extract",
+      "binary structure",
+      "data structure",
+      "structure parser",
+      "data extraction",
+      "extract binary",
+      "structure analysis",
+      "struct parser"
     ],
     "param.password.description": "Hasło (w razie potrzeby wyświetli monit).",
     "error.missing_exstruct": "Pakiet „exstruct” nie jest zainstalowany. Zainstaluj go za pomocą: pip install exstruct",
@@ -325,8 +409,15 @@
     "tool.description": "exstruct का उपयोग करके Excel (.",
     "x_search_terms": [
       "exstruct",
-      "संरचित डेटा",
-      "json yaml"
+      "extract structure",
+      "struct extract",
+      "binary structure",
+      "data structure",
+      "structure parser",
+      "data extraction",
+      "extract binary",
+      "structure analysis",
+      "struct parser"
     ],
     "param.password.description": "एन्क्रिप्टेड .",
     "error.missing_exstruct": "'एक्सस्ट्रक्ट' पैकेज स्थापित नहीं है। कृपया इसे इसके साथ इंस्टॉल करें: pip install exstruct",
@@ -348,8 +439,15 @@
     "tool.description": "استخدم exstruct لاستخراج بيانات منظمة من ملف Excel (.",
     "x_search_terms": [
       "exstruct",
-      "بيانات منظمة",
-      "json yaml"
+      "extract structure",
+      "struct extract",
+      "binary structure",
+      "data structure",
+      "structure parser",
+      "data extraction",
+      "extract binary",
+      "structure analysis",
+      "struct parser"
     ],
     "param.password.description": "كلمة مرور اختيارية لملفات .",
     "error.missing_exstruct": "لم يتم تثبيت الحزمة \"exstruct\". يرجى تثبيته باستخدام: pip install exstruct",
@@ -371,8 +469,15 @@
     "tool.description": "Använd exstruct för att extrahera strukturerade data från en Excel-fil (.",
     "x_search_terms": [
       "exstruct",
-      "strukturerad data",
-      "json yaml"
+      "extract structure",
+      "struct extract",
+      "binary structure",
+      "data structure",
+      "structure parser",
+      "data extraction",
+      "extract binary",
+      "structure analysis",
+      "struct parser"
     ],
     "param.password.description": "Lösenord (meddelanden om det behövs).",
     "error.missing_exstruct": "Paketet 'exstruct' är inte installerat. Installera den med: pip install exstruct",
@@ -394,8 +499,15 @@
     "tool.description": "Tumia exstruct kutoa data iliyopangwa kutoka kwenye faili la Excel (.",
     "x_search_terms": [
       "exstruct",
-      "data zilizopangwa",
-      "json yaml"
+      "extract structure",
+      "struct extract",
+      "binary structure",
+      "data structure",
+      "structure parser",
+      "data extraction",
+      "extract binary",
+      "structure analysis",
+      "struct parser"
     ],
     "param.password.description": "Nenosiri (vidokezo ikihitajika",
     "error.missing_exstruct": "Kifurushi cha 'exstruct' hakijasakinishwa. Tafadhali isakinishe kwa: pip install exstruct",
@@ -417,8 +529,15 @@
     "tool.description": "Bruk exstruct til å trekke ut strukturerte data fra en Excel-fil (.",
     "x_search_terms": [
       "exstruct",
-      "strukturert data",
-      "json yaml"
+      "extract structure",
+      "struct extract",
+      "binary structure",
+      "data structure",
+      "structure parser",
+      "data extraction",
+      "extract binary",
+      "structure analysis",
+      "struct parser"
     ],
     "param.password.description": "Passord (spør om nødvendig).",
     "error.missing_exstruct": "'exstruct'-pakken er ikke installert. Vennligst installer den med: pip install exstruct",
@@ -440,8 +559,15 @@
     "tool.description": "Gebruik exstruct om gestructureerde gegevens uit een Excelbestand (.",
     "x_search_terms": [
       "exstruct",
-      "gestructureerde data",
-      "json yaml"
+      "extract structure",
+      "struct extract",
+      "binary structure",
+      "data structure",
+      "structure parser",
+      "data extraction",
+      "extract binary",
+      "structure analysis",
+      "struct parser"
     ],
     "param.password.description": "Wachtwoord (vraagt ​​indien nodig).",
     "error.missing_exstruct": "Het 'exstruct'-pakket is niet geïnstalleerd. Installeer het alstublieft met: pip install exstruct",
@@ -463,8 +589,15 @@
     "tool.description": "Käytä exstructia poimiaksesi rakenteista dataa Excel (.",
     "x_search_terms": [
       "exstruct",
-      "rakenteinen data",
-      "json yaml"
+      "extract structure",
+      "struct extract",
+      "binary structure",
+      "data structure",
+      "structure parser",
+      "data extraction",
+      "extract binary",
+      "structure analysis",
+      "struct parser"
     ],
     "param.password.description": "Salasana salatuille .",
     "error.missing_exstruct": "Exstruct-pakettia ei ole asennettu. Asenna se komennolla: pip install exstruct",
@@ -486,8 +619,15 @@
     "tool.description": "Použijte exstruct k extrahování strukturovaných dat ze souboru Excel (.",
     "x_search_terms": [
       "exstruct",
-      "strukturovaná data",
-      "json yaml"
+      "extract structure",
+      "struct extract",
+      "binary structure",
+      "data structure",
+      "structure parser",
+      "data extraction",
+      "extract binary",
+      "structure analysis",
+      "struct parser"
     ],
     "param.password.description": "Heslo (v případě potřeby se zobrazí výzva).",
     "error.missing_exstruct": "Balíček 'exstruct' není nainstalován. Nainstalujte jej prosím pomocí: pip install exstruct",
@@ -509,8 +649,15 @@
     "tool.description": "Використовуйте exstruct для витягання структурованих даних із файлу Excel (.",
     "x_search_terms": [
       "exstruct",
-      "структуровані дані",
-      "json yaml"
+      "extract structure",
+      "struct extract",
+      "binary structure",
+      "data structure",
+      "structure parser",
+      "data extraction",
+      "extract binary",
+      "structure analysis",
+      "struct parser"
     ],
     "param.password.description": "Інтервал опитування під час очікування відповідей (у секундах).",
     "error.missing_exstruct": "Пакет exstruct не встановлено. Встановіть його за допомогою: pip install exstruct",
@@ -532,8 +679,15 @@
     "tool.description": "Bir Excel (.",
     "x_search_terms": [
       "exstruct",
-      "yapılandırılmış veri",
-      "json yaml"
+      "extract structure",
+      "struct extract",
+      "binary structure",
+      "data structure",
+      "structure parser",
+      "data extraction",
+      "extract binary",
+      "structure analysis",
+      "struct parser"
     ],
     "param.password.description": "Şifrelenmiş .",
     "error.missing_exstruct": "'Exstruct' paketi kurulu değil. Lütfen şu şekilde yükleyin: pip install exstruct",
@@ -555,8 +709,15 @@
     "tool.description": "ใช้ exstruct เพื่อแยกข้อมูลเชิงโครงสร้างจากไฟล์ Excel (.",
     "x_search_terms": [
       "exstruct",
-      "ข้อมูลโครงสร้าง",
-      "json yaml"
+      "extract structure",
+      "struct extract",
+      "binary structure",
+      "data structure",
+      "structure parser",
+      "data extraction",
+      "extract binary",
+      "structure analysis",
+      "struct parser"
     ],
     "param.password.description": "รหัสผ่านสำหรับไฟล์ .",
     "error.missing_exstruct": "ไม่ได้ติดตั้งแพ็คเกจ 'exstruct' กรุณาติดตั้งด้วย: pip install exstruct",
@@ -578,8 +739,15 @@
     "tool.description": "使用exstruct从Excel(.xlsx)提取结构化数据，返回/保存为JSON/YAML。",
     "x_search_terms": [
       "exstruct",
-      "结构化数据",
-      "json yaml"
+      "extract structure",
+      "struct extract",
+      "binary structure",
+      "data structure",
+      "structure parser",
+      "data extraction",
+      "extract binary",
+      "structure analysis",
+      "struct parser"
     ],
     "param.password.description": "密码（需要时提示输入）。",
     "error.missing_exstruct": "未安装\"exstruct\"包。请使用以下命令安装：pip install exstruct",
@@ -601,8 +769,15 @@
     "tool.description": "使用exstruct从Excel(.xlsx)提取结构化数据，返回/保存为JSON/YAML。",
     "x_search_terms": [
       "exstruct",
-      "結構化資料",
-      "json yaml"
+      "extract structure",
+      "struct extract",
+      "binary structure",
+      "data structure",
+      "structure parser",
+      "data extraction",
+      "extract binary",
+      "structure analysis",
+      "struct parser"
     ],
     "param.password.description": "密码（需要时提示输入）。",
     "error.missing_exstruct": "未安裝\"exstruct\"包。請使用以下指令安裝：pip install exstruct",
@@ -624,8 +799,15 @@
     "tool.description": "exstruct ব্যবহার করে Excel (.",
     "x_search_terms": [
       "exstruct",
-      "কাঠামোবদ্ধ ডেটা",
-      "json yaml"
+      "extract structure",
+      "struct extract",
+      "binary structure",
+      "data structure",
+      "structure parser",
+      "data extraction",
+      "extract binary",
+      "structure analysis",
+      "struct parser"
     ],
     "param.password.description": "এনক্রিপ্ট করা .",
     "error.missing_exstruct": "'exstruct' প্যাকেজ ইনস্টল করা নেই। অনুগ্রহ করে এটি দিয়ে ইনস্টল করুন: pip install exstruct",
@@ -647,8 +829,15 @@
     "tool.description": "با exstruct داده‌های ساختاریافته را از یک فایل Excel (.",
     "x_search_terms": [
       "exstruct",
-      "داده ساخت‌یافته",
-      "json yaml"
+      "extract structure",
+      "struct extract",
+      "binary structure",
+      "data structure",
+      "structure parser",
+      "data extraction",
+      "extract binary",
+      "structure analysis",
+      "struct parser"
     ],
     "param.password.description": "رمز عبور (در صورت نیاز درخواست می کند).",
     "error.missing_exstruct": "بسته \"exstruct\" نصب نشده است. لطفا آن را با: pip install exstruct نصب کنید",
@@ -670,8 +859,15 @@
     "tool.description": "exstruct ашиглан Excel (.",
     "x_search_terms": [
       "exstruct",
-      "бүтэцтэй өгөгдөл",
-      "json yaml"
+      "extract structure",
+      "struct extract",
+      "binary structure",
+      "data structure",
+      "structure parser",
+      "data extraction",
+      "extract binary",
+      "structure analysis",
+      "struct parser"
     ],
     "param.password.description": "Шифрлэгдсэн .",
     "error.missing_exstruct": "\"Exstruct\" багцыг суулгаагүй байна. Үүнийг дараахаар суулгана уу: pip install exstruct",
@@ -693,8 +889,15 @@
     "tool.description": "exstruct वापरून Excel (.",
     "x_search_terms": [
       "exstruct",
-      "संरचित डेटा",
-      "json yaml"
+      "extract structure",
+      "struct extract",
+      "binary structure",
+      "data structure",
+      "structure parser",
+      "data extraction",
+      "extract binary",
+      "structure analysis",
+      "struct parser"
     ],
     "param.password.description": "एन्क्रिप्ट केलेल्या .",
     "error.missing_exstruct": "'exstruct' पॅकेज स्थापित केलेले नाही. कृपया ते यासह स्थापित करा: pip install exstruct",
@@ -715,12 +918,16 @@
     "param.table_score_threshold.description": "Όριο ανίχνευσης πίνακα.",
     "tool.description": "Χρησιμοποιήστε το exstruct για εξαγωγή δομημένων δεδομένων από ένα Excel (. xlsx) και επιστροφή/αποθήκευση ως JSON/YAML.",
     "x_search_terms": [
-      "εξοντώνω",
-      "εξοντώνω",
-      "δομημένα δεδομένα",
-      "δομή του Excel",
-      "εξαγωγή json",
-      "εξαγωγή yaml"
+      "exstruct",
+      "extract structure",
+      "struct extract",
+      "binary structure",
+      "data structure",
+      "structure parser",
+      "data extraction",
+      "extract binary",
+      "structure analysis",
+      "struct parser"
     ],
     "param.password.description": "Κωδικός πρόσβασης (ζητείται εάν χρειάζεται).",
     "error.missing_exstruct": "Το πακέτο «exstruct» δεν είναι εγκατεστημένο. Εγκαταστήστε το με: pip install exstruct",
@@ -741,12 +948,16 @@
     "param.table_score_threshold.description": "סף זיהוי טבלה.",
     "tool.description": "השתמש ב-exstruct כדי לחלץ נתונים מובנים מ-Excel (. xlsx) ולהחזיר/שמור כ-JSON/YAML.",
     "x_search_terms": [
-      "להמחיש",
-      "להמחיש",
-      "נתונים מובנים",
-      "מבנה אקסל",
-      "ייצוא json",
-      "ייצא יאמל"
+      "exstruct",
+      "extract structure",
+      "struct extract",
+      "binary structure",
+      "data structure",
+      "structure parser",
+      "data extraction",
+      "extract binary",
+      "structure analysis",
+      "struct parser"
     ],
     "param.password.description": "סיסמה (מבקש במידת הצורך).",
     "error.missing_exstruct": "החבילה 'exstruct' אינה מותקנת. אנא התקן אותו עם: pip install exstruct",
@@ -768,11 +979,15 @@
     "tool.description": "Az exstruct használatával strukturált adatokat bonthat ki egy Excelből (. xlsx), és térhet vissza/menthet JSON/YAML-ként.",
     "x_search_terms": [
       "exstruct",
-      "exstruct",
-      "strukturált adatok",
-      "excel szerkezet",
-      "json exportálása",
-      "export yaml"
+      "extract structure",
+      "struct extract",
+      "binary structure",
+      "data structure",
+      "structure parser",
+      "data extraction",
+      "extract binary",
+      "structure analysis",
+      "struct parser"
     ],
     "param.password.description": "Jelszó (szükség esetén kéri).",
     "error.missing_exstruct": "Az \"exstruct\" csomag nincs telepítve. Kérjük, telepítse a következővel: pip install exstruct",
@@ -794,11 +1009,15 @@
     "tool.description": "Utilizați exstruct pentru a extrage date structurate dintr-un Excel (. xlsx) și returnați/salvați ca JSON/YAML.",
     "x_search_terms": [
       "exstruct",
-      "exstruct",
-      "date structurate",
-      "structura excel",
-      "export json",
-      "export yaml"
+      "extract structure",
+      "struct extract",
+      "binary structure",
+      "data structure",
+      "structure parser",
+      "data extraction",
+      "extract binary",
+      "structure analysis",
+      "struct parser"
     ],
     "param.password.description": "Parola (se solicită dacă este necesar).",
     "error.missing_exstruct": "Pachetul „exstruct” nu este instalat. Instalați-l cu: pip install exstruct",

@@ -27,10 +27,16 @@
     "param.tools.description": "実行するツール名の配列。空なら自動選択（ruff/black/mypyの順で存在確認）。",
     "tool.description": "静的解析・フォーマッタ（ruff/black/mypy など）を実行します。mode=fix はファイルを変更するため、確認が必要です。",
     "x_search_terms": [
-      "lint_format",
-      "静的解析",
-      "コード整形",
-      "lint 実行"
+      "lint",
+      "format",
+      "code lint",
+      "code format",
+      "linter",
+      "formatter",
+      "code style",
+      "static analysis",
+      "linting",
+      "formatting"
     ],
     "param.xargs.description": "追加引数（配列）。危険なメタ文字は拒否します。",
     "confirm.msg": "lint_format(mode=fix) はファイルを上書きする可能性があります。\nツール: {tools}\nターゲット: {targets}\ncwd: {cwd}\n\n続行するには y を入力し、キャンセルするには c を入力します。"
@@ -42,10 +48,16 @@
     "param.tools.description": "Una serie de nombres de herramientas para ejecutar. Si está vacío, se seleccionará automáticamente.",
     "tool.description": "Ejecute análisis/formateadores estáticos (por ejemplo, ruff/black/mypy).",
     "x_search_terms": [
-      "lint_format",
-      "formatear código",
-      "análisis estático",
-      "ejecutar linters"
+      "lint",
+      "format",
+      "code lint",
+      "code format",
+      "linter",
+      "formatter",
+      "code style",
+      "static analysis",
+      "linting",
+      "formatting"
     ],
     "param.xargs.description": "Argumentos adicionales (matriz). Rechaza metacaracteres peligrosos."
   },
@@ -56,10 +68,16 @@
     "param.tools.description": "Un tableau de noms d'outils à exécuter. S'il est vide, il sera automatiquement sélectionné.",
     "tool.description": "Exécutez des analyses/formateurs statiques (par exemple, ruff/black/mypy).",
     "x_search_terms": [
-      "lint_format",
-      "formater code",
-      "analyse statique",
-      "exécuter linters"
+      "lint",
+      "format",
+      "code lint",
+      "code format",
+      "linter",
+      "formatter",
+      "code style",
+      "static analysis",
+      "linting",
+      "formatting"
     ],
     "param.xargs.description": "Arguments supplémentaires (tableau). Rejetez les métacaractères dangereux."
   },
@@ -70,10 +88,16 @@
     "param.tools.description": "실행할 도구 이름의 배열. 비어 있으면 자동으로 선택됩니다.",
     "tool.description": "정적 분석/포매터(예: ruff/black/mypy)를 실행합니다. mode=fix는 파일을 수정하며 확인이 필요합니다.",
     "x_search_terms": [
-      "lint_format",
-      "정적 분석",
-      "코드 포맷",
-      "lint 실행"
+      "lint",
+      "format",
+      "code lint",
+      "code format",
+      "linter",
+      "formatter",
+      "code style",
+      "static analysis",
+      "linting",
+      "formatting"
     ],
     "param.xargs.description": "추가 인수(배열). 위험한 메타문자를 거부하세요."
   },
@@ -84,10 +108,16 @@
     "param.tools.description": "Ein Array der auszuführenden Werkzeuge. Wenn leer, wird automatisch ausgewählt.",
     "tool.description": "Statische Analyse-/Formatierungswerkzeuge ausführen (z.B.ruff/black/mypy).",
     "x_search_terms": [
-      "lint_format",
-      "code formatieren",
-      "statische analyse",
-      "linters ausführen"
+      "lint",
+      "format",
+      "code lint",
+      "code format",
+      "linter",
+      "formatter",
+      "code style",
+      "static analysis",
+      "linting",
+      "formatting"
     ],
     "param.xargs.description": "Zusätzliche Argumente (Array). Gefährliche Metazeichen ablehnen."
   },
@@ -98,10 +128,16 @@
     "param.tools.description": "Un array di nomi di strumenti da eseguire. Se è vuoto, verrà selezionato automaticamente.",
     "tool.description": "Esegui analisi/formattatori statici (ad esempio, ruff/black/mypy).",
     "x_search_terms": [
-      "lint_format",
-      "formattare codice",
-      "analisi statica",
-      "eseguire lint"
+      "lint",
+      "format",
+      "code lint",
+      "code format",
+      "linter",
+      "formatter",
+      "code style",
+      "static analysis",
+      "linting",
+      "formatting"
     ],
     "param.xargs.description": "Argomenti aggiuntivi (array). Rifiuta i metacaratteri pericolosi."
   },
@@ -112,10 +148,16 @@
     "param.tools.description": "Массив имен инструментов для запуска. Если он пуст, он будет выбран автоматически.",
     "tool.description": "Запустите статический анализ/форматирование (например, ruff/black/mypy).",
     "x_search_terms": [
-      "lint_format",
-      "форматировать код",
-      "статический анализ",
-      "запуск linters"
+      "lint",
+      "format",
+      "code lint",
+      "code format",
+      "linter",
+      "formatter",
+      "code style",
+      "static analysis",
+      "linting",
+      "formatting"
     ],
     "param.xargs.description": "Дополнительные аргументы (массив). Отклоняйте опасные метасимволы."
   },
@@ -126,10 +168,16 @@
     "param.tools.description": "Uma matriz de nomes de ferramentas a serem executadas. Se estiver vazio, será selecionado automaticamente.",
     "tool.description": "Execute análises/formatadores estáticos (por exemplo, ruff/black/mypy).",
     "x_search_terms": [
-      "lint_format",
-      "formatar código",
-      "análise estática",
-      "executar linters"
+      "lint",
+      "format",
+      "code lint",
+      "code format",
+      "linter",
+      "formatter",
+      "code style",
+      "static analysis",
+      "linting",
+      "formatting"
     ],
     "param.xargs.description": "Argumentos adicionais (matriz). Rejeite metacaracteres perigosos."
   },
@@ -140,10 +188,16 @@
     "param.tools.description": "Uma matriz de nomes de ferramentas a serem executadas. Se estiver vazio, será selecionado automaticamente.",
     "tool.description": "Execute análises/formatadores estáticos (por exemplo, ruff/black/mypy).",
     "x_search_terms": [
-      "lint_format",
-      "formatar código",
-      "análise estática",
-      "executar linters"
+      "lint",
+      "format",
+      "code lint",
+      "code format",
+      "linter",
+      "formatter",
+      "code style",
+      "static analysis",
+      "linting",
+      "formatting"
     ],
     "param.xargs.description": "Argumentos adicionais (matriz). Rejeite metacaracteres perigosos."
   },
@@ -154,10 +208,16 @@
     "param.tools.description": "Array nama tool yang akan dijalankan. Jika kosong, dipilih otomatis.",
     "tool.description": "Jalankan static analysis/formatter (mis.ruff/black/mypy).",
     "x_search_terms": [
-      "lint_format",
-      "format kode",
-      "analisis statis",
-      "jalankan linter"
+      "lint",
+      "format",
+      "code lint",
+      "code format",
+      "linter",
+      "formatter",
+      "code style",
+      "static analysis",
+      "linting",
+      "formatting"
     ],
     "param.xargs.description": "Argumen tambahan (array). Tolak jika ada metakarakter shell berbahaya."
   },
@@ -168,10 +228,16 @@
     "param.tools.description": "Một loạt tên công cụ để chạy. Nếu trống, nó sẽ được chọn tự động.",
     "tool.description": "Chạy phân tích/định dạng tĩnh (ví dụ: ruff/black/mypy). mode=fix sửa đổi tập tin và yêu cầu xác nhận.",
     "x_search_terms": [
-      "lint_format",
-      "định dạng code",
-      "phân tích tĩnh",
-      "chạy linter"
+      "lint",
+      "format",
+      "code lint",
+      "code format",
+      "linter",
+      "formatter",
+      "code style",
+      "static analysis",
+      "linting",
+      "formatting"
     ],
     "param.xargs.description": "Đối số bổ sung (mảng). Từ chối các siêu ký tự nguy hiểm."
   },
@@ -182,10 +248,16 @@
     "param.tools.description": "Tablica nazw narzędzi do uruchomienia. Jeśli pusta, zostanie wybrana automatycznie.",
     "tool.description": "Uruchamia statyczną analizę/formatowanie (np.ruff/black/mypy).",
     "x_search_terms": [
-      "lint_format",
-      "formatowanie kodu",
-      "analiza statyczna",
-      "uruchom linter"
+      "lint",
+      "format",
+      "code lint",
+      "code format",
+      "linter",
+      "formatter",
+      "code style",
+      "static analysis",
+      "linting",
+      "formatting"
     ],
     "param.xargs.description": "Dodatkowe argumenty (tablica). Odrzuć niebezpieczne metaznaki."
   },
@@ -196,10 +268,16 @@
     "param.tools.description": "चलाने के लिए टूल नामों की एक सरणी। यदि यह खाली है, तो स्वचालित रूप से चुना जाएगा।",
     "tool.description": "स्थैतिक विश्लेषण/फ़ॉर्मेटर (रफ़/ब्लैक/माइपी) चलाएँ। मोड=फ़िक्स फ़ाइलों को संशोधित करता है, पुष्टि की आवश्यकता है।",
     "x_search_terms": [
-      "lint_format",
-      "कोड फ़ॉर्मैट",
-      "स्थैतिक विश्लेषण",
-      "लिंटर चलाएँ"
+      "lint",
+      "format",
+      "code lint",
+      "code format",
+      "linter",
+      "formatter",
+      "code style",
+      "static analysis",
+      "linting",
+      "formatting"
     ],
     "param.xargs.description": "अतिरिक्त तर्क (सरणी)। खतरनाक मेटाकैरेक्टर अस्वीकार करें।"
   },
@@ -210,10 +288,16 @@
     "param.tools.description": "مصفوفة بأسماء الأدوات المراد تشغيلها. إذا كانت فارغة فسيتم الاختيار تلقائياً.",
     "tool.description": "شغّل أدوات التحليل الثابت/التنسيق (مثل ruff/black/mypy). mode=fix يغيّر الملفات ويتطلب تأكيداً.",
     "x_search_terms": [
-      "lint_format",
-      "تنسيق الكود",
-      "تحليل ثابت",
-      "تشغيل linters"
+      "lint",
+      "format",
+      "code lint",
+      "code format",
+      "linter",
+      "formatter",
+      "code style",
+      "static analysis",
+      "linting",
+      "formatting"
     ],
     "param.xargs.description": "وسائط إضافية (مصفوفة). ارفض المحارف الخاصة الخطرة."
   },
@@ -224,10 +308,16 @@
     "param.tools.description": "En array med verktygsnamn att köra. Om den är tom väljs den automatiskt.",
     "tool.description": "Kör statisk analys/formaterare (t.ex. ruff/black/mypy). mode=fix ändrar filer och kräver bekräftelse.",
     "x_search_terms": [
-      "lint_format",
-      "formatera kod",
-      "statisk analys",
-      "köra linters"
+      "lint",
+      "format",
+      "code lint",
+      "code format",
+      "linter",
+      "formatter",
+      "code style",
+      "static analysis",
+      "linting",
+      "formatting"
     ],
     "param.xargs.description": "Ytterligare argument (array). Avvisa farliga metatecken."
   },
@@ -238,10 +328,16 @@
     "param.tools.description": "An array of tool names to run. If empty, tools are selected automatically.",
     "tool.description": "Run static analysis/formatters (e.g., ruff/black/mypy).",
     "x_search_terms": [
-      "lint_format",
-      "umbizo la msimbo",
-      "uchambuzi tuli",
-      "endesha linter"
+      "lint",
+      "format",
+      "code lint",
+      "code format",
+      "linter",
+      "formatter",
+      "code style",
+      "static analysis",
+      "linting",
+      "formatting"
     ],
     "param.xargs.description": "Additional arguments (array). Reject dangerous metacharacters."
   },
@@ -252,10 +348,16 @@
     "param.tools.description": "En liste over verktøynavn som skal kjøres. Hvis den er tom, velges den automatisk.",
     "tool.description": "Kjør statisk analyse/formateringsverktøy (for eksempel ruff/black/mypy).",
     "x_search_terms": [
-      "lint_format",
-      "formatere kode",
-      "statisk analyse",
-      "kjøre linters"
+      "lint",
+      "format",
+      "code lint",
+      "code format",
+      "linter",
+      "formatter",
+      "code style",
+      "static analysis",
+      "linting",
+      "formatting"
     ],
     "param.xargs.description": "Tilleggsargumenter (liste). Avvis farlige metategn."
   },
@@ -266,10 +368,16 @@
     "param.tools.description": "Een array met toolnamen om uit te voeren. Als deze leeg is, wordt automatisch gekozen.",
     "tool.description": "Voer statische analyse/opmaaktools uit (bijv.ruff/black/mypy).",
     "x_search_terms": [
-      "lint_format",
-      "code opmaken",
-      "statische analyse",
-      "linters uitvoeren"
+      "lint",
+      "format",
+      "code lint",
+      "code format",
+      "linter",
+      "formatter",
+      "code style",
+      "static analysis",
+      "linting",
+      "formatting"
     ],
     "param.xargs.description": "Aanvullende argumenten (array). Weiger gevaarlijke metatekens."
   },
@@ -280,10 +388,16 @@
     "param.tools.description": "Taulukko suoritettavien työkalujen nimistä. Jos se on tyhjä, valinta tehdään automaattisesti.",
     "tool.description": "Suorita staattinen analyysi/muotoilutyökalut (esim.ruff/black/mypy).",
     "x_search_terms": [
-      "lint_format",
-      "koodin muotoilu",
-      "staattinen analyysi",
-      "aja linters"
+      "lint",
+      "format",
+      "code lint",
+      "code format",
+      "linter",
+      "formatter",
+      "code style",
+      "static analysis",
+      "linting",
+      "formatting"
     ],
     "param.xargs.description": "Lisäargumentit (taulukko). Hylkää vaaralliset metamerkit."
   },
@@ -294,10 +408,16 @@
     "param.tools.description": "Pole názvů nástrojů, které se mají spustit. Pokud je prázdné, vybere se automaticky.",
     "tool.description": "Spouští statickou analýzu/formátovače (např.ruff/black/mypy).",
     "x_search_terms": [
-      "lint_format",
-      "formátovat kód",
-      "statická analýza",
-      "spustit linters"
+      "lint",
+      "format",
+      "code lint",
+      "code format",
+      "linter",
+      "formatter",
+      "code style",
+      "static analysis",
+      "linting",
+      "formatting"
     ],
     "param.xargs.description": "Další argumenty (pole). Odmítněte nebezpečné metaznaky."
   },
@@ -308,10 +428,16 @@
     "param.tools.description": "Масив назв інструментів для запуску. Якщо порожній, буде вибрано автоматично.",
     "tool.description": "Запускає статичний аналіз/форматери (наприклад, ruff/black/mypy).",
     "x_search_terms": [
-      "lint_format",
-      "форматувати код",
-      "статичний аналіз",
-      "запуск linters"
+      "lint",
+      "format",
+      "code lint",
+      "code format",
+      "linter",
+      "formatter",
+      "code style",
+      "static analysis",
+      "linting",
+      "formatting"
     ],
     "param.xargs.description": "Додаткові аргументи (масив). Відхиляйте небезпечні метасимволи."
   },
@@ -322,10 +448,16 @@
     "param.tools.description": "Çalıştırılacak bir dizi araç adı. Boşsa araçlar otomatik olarak seçilir.",
     "tool.description": "Statik analiz/biçimlendiricileri çalıştırın (ör.ruff/black/mypy).",
     "x_search_terms": [
-      "lint_format",
-      "kodu biçimlendir",
-      "statik analiz",
-      "linter çalıştır"
+      "lint",
+      "format",
+      "code lint",
+      "code format",
+      "linter",
+      "formatter",
+      "code style",
+      "static analysis",
+      "linting",
+      "formatting"
     ],
     "param.xargs.description": "Ek bağımsız değişkenler (dizi). Tehlikeli meta karakterleri reddedin."
   },
@@ -336,10 +468,16 @@
     "param.tools.description": "อาร์เรย์ของชื่อเครื่องมือที่จะรัน หากว่างเปล่าจะเลือกโดยอัตโนมัติ",
     "tool.description": "รันการวิเคราะห์สถิติ/ตัวจัดรูปแบบ (เช่น ruff/black/mypy) mode=fix จะแก้ไขไฟล์และต้องมีการยืนยัน",
     "x_search_terms": [
-      "lint_format",
-      "จัดรูปแบบโค้ด",
-      "การวิเคราะห์แบบคงที่",
-      "รัน linter"
+      "lint",
+      "format",
+      "code lint",
+      "code format",
+      "linter",
+      "formatter",
+      "code style",
+      "static analysis",
+      "linting",
+      "formatting"
     ],
     "param.xargs.description": "อาร์กิวเมนต์เพิ่มเติม (อาร์เรย์) ปฏิเสธเมตาอักขระที่เป็นอันตราย"
   },
@@ -350,10 +488,16 @@
     "param.tools.description": "要运行的工具名称数组。如果为空，将自动选择。",
     "tool.description": "运行静态分析/格式化程序（例如 ruff/black/mypy）。mode=fix 会修改文件并需要确认。",
     "x_search_terms": [
-      "lint_format",
-      "代码格式化",
-      "静态分析",
-      "运行 linter"
+      "lint",
+      "format",
+      "code lint",
+      "code format",
+      "linter",
+      "formatter",
+      "code style",
+      "static analysis",
+      "linting",
+      "formatting"
     ],
     "param.xargs.description": "附加参数（数组）。拒绝危险的元字符。"
   },
@@ -364,10 +508,16 @@
     "param.tools.description": "要執行的工具名稱陣列。如果為空，將自動選擇。",
     "tool.description": "執行靜態分析/格式化程式（例如 ruff/black/mypy）。mode=fix 會修改檔案並需要確認。",
     "x_search_terms": [
-      "lint_format",
-      "程式碼格式化",
-      "靜態分析",
-      "執行 linter"
+      "lint",
+      "format",
+      "code lint",
+      "code format",
+      "linter",
+      "formatter",
+      "code style",
+      "static analysis",
+      "linting",
+      "formatting"
     ],
     "param.xargs.description": "附加參數（陣列）。拒絕危險的元字元。"
   },
@@ -378,10 +528,16 @@
     "param.tools.description": "চালানোর জন্য টুলের নামের array। খালি হলে স্বয়ংক্রিয়ভাবে বাছাই করা হবে।",
     "tool.description": "স্ট্যাটিক বিশ্লেষণ/ফরম্যাটার চালান (যেমন ruff/black/mypy)। mode=fix ফাইল বদলায় এবং নিশ্চিতকরণ লাগে।",
     "x_search_terms": [
-      "lint_format",
-      "কোড ফরম্যাট",
-      "স্থির বিশ্লেষণ",
-      "লিন্টার চালান"
+      "lint",
+      "format",
+      "code lint",
+      "code format",
+      "linter",
+      "formatter",
+      "code style",
+      "static analysis",
+      "linting",
+      "formatting"
     ],
     "param.xargs.description": "অতিরিক্ত আর্গুমেন্ট (array)। বিপজ্জনক metacharacter প্রত্যাখ্যান করুন।"
   },
@@ -392,10 +548,16 @@
     "param.tools.description": "آرایه‌ای از نام ابزارهایی که باید اجرا شوند. اگر خالی باشد، به‌طور خودکار انتخاب می‌شوند.",
     "tool.description": "تحلیل ایستا/قالب‌بندها را اجرا کنید (مثلاً ruff/black/mypy).",
     "x_search_terms": [
-      "lint_format",
-      "فرمت کد",
-      "تحلیل ایستا",
-      "اجرای lint"
+      "lint",
+      "format",
+      "code lint",
+      "code format",
+      "linter",
+      "formatter",
+      "code style",
+      "static analysis",
+      "linting",
+      "formatting"
     ],
     "param.xargs.description": "آرگومان‌های اضافی (آرایه). metacharacterهای خطرناک را رد کنید."
   },
@@ -406,10 +568,16 @@
     "param.tools.description": "Ажиллуулах хэрэгслүүдийн нэрсийн array. Хоосон бол автоматаар сонгоно.",
     "tool.description": "Статик шинжилгээ/форматлагчдыг ажиллуулна (жишээ нь ruff/black/mypy).",
     "x_search_terms": [
-      "lint_format",
-      "код форматлах",
-      "статик шинжилгээ",
-      "linters ажиллуулах"
+      "lint",
+      "format",
+      "code lint",
+      "code format",
+      "linter",
+      "formatter",
+      "code style",
+      "static analysis",
+      "linting",
+      "formatting"
     ],
     "param.xargs.description": "Нэмэлт аргументууд (array). Аюултай metacharacter-уудыг татгалзана."
   },
@@ -420,10 +588,16 @@
     "param.tools.description": "चालवायच्या साधनांच्या नावांची array. रिकामी असल्यास स्वयंचलितपणे निवड केली जाईल.",
     "tool.description": "स्थिर विश्लेषण/formatter चालवा (उदा. ruff/black/mypy). mode=fix फाइल्स बदलते आणि पुष्टी आवश्यक असते.",
     "x_search_terms": [
-      "lint_format",
-      "कोड फॉरमॅट",
-      "स्थिर विश्लेषण",
-      "लिंटर चालवा"
+      "lint",
+      "format",
+      "code lint",
+      "code format",
+      "linter",
+      "formatter",
+      "code style",
+      "static analysis",
+      "linting",
+      "formatting"
     ],
     "param.xargs.description": "अतिरिक्त arguments (array). धोकादायक metacharacter नाकारावेत."
   },
@@ -436,10 +610,14 @@
     "x_search_terms": [
       "lint",
       "format",
-      "ruff",
-      "μαύρο",
-      "Πρόσθετα ορίσματα (πίνακας). Απορρίψτε επικίνδυνους μεταχαρακτήρες.",
-      "Καταχωρίσεις λίστας σε έναν κατάλογο με σελιδοποίηση, παρόμοια με το ls."
+      "code lint",
+      "code format",
+      "linter",
+      "formatter",
+      "code style",
+      "static analysis",
+      "linting",
+      "formatting"
     ],
     "param.xargs.description": "Πρόσθετα ορίσματα (πίνακας). Απορρίψτε επικίνδυνους μεταχαρακτήρες."
   },
@@ -450,12 +628,16 @@
     "param.tools.description": "מערך נתיב יעד (מותר רק תחת workdir).",
     "tool.description": "מערך של שמות כלים להפעלה. אם ריקים, הכלים נבחרים באופן אוטומטי.",
     "x_search_terms": [
-      "הפעל ניתוח/פורמטים סטטיים (ruff/black/mypy). mode=fix משנה קבצים, צריך אישור.",
-      "lint_format",
-      "lint format",
       "lint",
-      "פורמט",
-      "ruff"
+      "format",
+      "code lint",
+      "code format",
+      "linter",
+      "formatter",
+      "code style",
+      "static analysis",
+      "linting",
+      "formatting"
     ],
     "param.xargs.description": "ארגומנטים נוספים (מערך). דחה דמויות מטא מסוכנות."
   },
@@ -466,12 +648,16 @@
     "param.tools.description": "A futtatandó szerszámnevek tömbje. Ha üres, a szerszámok kiválasztása automatikusan történik.",
     "tool.description": "Statikus elemzés/formázók futtatása (ruff/black/mypy). A mode=fix fájlokat módosít, megerősítést igényel.",
     "x_search_terms": [
-      "lint_format",
-      "lint formátum",
       "lint",
-      "formátum",
-      "ruff",
-      "fekete"
+      "format",
+      "code lint",
+      "code format",
+      "linter",
+      "formatter",
+      "code style",
+      "static analysis",
+      "linting",
+      "formatting"
     ],
     "param.xargs.description": "További argumentumok (tömb). Veszélyes metakarakterek elutasítása."
   },
@@ -482,12 +668,16 @@
     "param.tools.description": "Rulați analize/formatatoare statice (ruff/black/mypy). mode=fix modifică fișierele, necesită confirmare.",
     "tool.description": "Rulați analize/formatatoare statice (ruff/black/mypy). mode=fix modifică fișierele, necesită confirmare.",
     "x_search_terms": [
-      "lint format",
       "lint",
       "format",
-      "ruff",
-      "negru",
-      "Argumente suplimentare (matrice). Respinge metacaracterele periculoase."
+      "code lint",
+      "code format",
+      "linter",
+      "formatter",
+      "code style",
+      "static analysis",
+      "linting",
+      "formatting"
     ],
     "param.xargs.description": "Listează intrările dintr-un director cu paginare, similar cu ls."
   }

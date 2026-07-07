@@ -29,11 +29,16 @@
   "ja": {
     "tool.description": "Swift (.swift) ファイルをクラス、構造体、列挙型、プロトコル、拡張機能、関数、およびメソッドに解析し、番号付きインデックスまたは特定の定義セクションを返します。大きな .swift ファイルを読み取る必要がある場合は、これを使用します。まず、mode='index' を指定して呼び出して目次を取得し、次に mode='section' とセクション番号を指定して呼び出して、必要な定義のみを取得します。",
     "x_search_terms": [
-      "Swiftファイルを読む",
-      "Swift インデックス",
-      "クラス一覧",
-      "関数一覧",
-      "メソッド一覧"
+      "swift",
+      "swift code",
+      "swift analysis",
+      "code index",
+      "swift source",
+      "swift parser",
+      "swift function",
+      "swift class",
+      "swift file",
+      "swift module"
     ],
     "param.path.description": "Swift (.swift) ファイルへのパス。",
     "param.section.description": "取得するセクション番号（mode='section' の場合のみ使用）。目次出力から番号を取得してください。",

@@ -36,11 +36,16 @@
   },
   "ja": {
     "x_search_terms": [
-      "COBOLファイルを読む",
-      "COBOL インデックス",
-      "COBOL プログラム構造",
-      "DIVISION一覧",
-      "パラグラフ一覧"
+      "cobol",
+      "cobol code",
+      "cobol analysis",
+      "code index",
+      "cobol source",
+      "cobol parser",
+      "cobol program",
+      "cobol file",
+      "legacy code",
+      "mainframe"
     ],
     "x_search_terms_en": [
       "read cobol file",
@@ -75,11 +80,16 @@
     "msg.no_entries": "(no se encontraron definiciones)",
     "param.path.description": "Ruta al archivo COBOL (.cbl/.cob/.cpy).",
     "x_search_terms": [
-      "read cobol file",
-      "cobol file index",
-      "cobol program structure",
-      "cobol division",
-      "cobol paragraph"
+      "cobol",
+      "cobol code",
+      "cobol analysis",
+      "code index",
+      "cobol source",
+      "cobol parser",
+      "cobol program",
+      "cobol file",
+      "legacy code",
+      "mainframe"
     ],
     "x_search_terms_en": [
       "read cobol file",
@@ -101,11 +111,16 @@
     "msg.no_entries": "(aucune définition trouvée)",
     "param.path.description": "Chemin d'accès au fichier COBOL (.cbl/.cob/.cpy).",
     "x_search_terms": [
-      "read cobol file",
-      "cobol file index",
-      "cobol program structure",
-      "cobol division",
-      "cobol paragraph"
+      "cobol",
+      "cobol code",
+      "cobol analysis",
+      "code index",
+      "cobol source",
+      "cobol parser",
+      "cobol program",
+      "cobol file",
+      "legacy code",
+      "mainframe"
     ],
     "x_search_terms_en": [
       "read cobol file",
@@ -127,11 +142,16 @@
     "msg.no_entries": "(정의를 찾을 수 없음)",
     "param.path.description": "COBOL(.cbl/.cob/.cpy) 파일의 경로입니다.",
     "x_search_terms": [
-      "read cobol file",
-      "cobol file index",
-      "cobol program structure",
-      "cobol division",
-      "cobol paragraph"
+      "cobol",
+      "cobol code",
+      "cobol analysis",
+      "code index",
+      "cobol source",
+      "cobol parser",
+      "cobol program",
+      "cobol file",
+      "legacy code",
+      "mainframe"
     ],
     "x_search_terms_en": [
       "read cobol file",
@@ -153,11 +173,16 @@
     "msg.no_entries": "(keine Definitionen gefunden)",
     "param.path.description": "Pfad zur COBOL-Datei (.cbl/.cob/.cpy).",
     "x_search_terms": [
-      "read cobol file",
-      "cobol file index",
-      "cobol program structure",
-      "cobol division",
-      "cobol paragraph"
+      "cobol",
+      "cobol code",
+      "cobol analysis",
+      "code index",
+      "cobol source",
+      "cobol parser",
+      "cobol program",
+      "cobol file",
+      "legacy code",
+      "mainframe"
     ],
     "x_search_terms_en": [
       "read cobol file",
@@ -179,11 +204,16 @@
     "msg.no_entries": "(nessuna definizione trovata)",
     "param.path.description": "Percorso del file COBOL (.cbl/.cob/.cpy).",
     "x_search_terms": [
-      "read cobol file",
-      "cobol file index",
-      "cobol program structure",
-      "cobol division",
-      "cobol paragraph"
+      "cobol",
+      "cobol code",
+      "cobol analysis",
+      "code index",
+      "cobol source",
+      "cobol parser",
+      "cobol program",
+      "cobol file",
+      "legacy code",
+      "mainframe"
     ],
     "x_search_terms_en": [
       "read cobol file",
@@ -205,11 +235,16 @@
     "msg.no_entries": "(определений не найдено)",
     "param.path.description": "Путь к файлу COBOL (.cbl/.cob/.cpy).",
     "x_search_terms": [
-      "read cobol file",
-      "cobol file index",
-      "cobol program structure",
-      "cobol division",
-      "cobol paragraph"
+      "cobol",
+      "cobol code",
+      "cobol analysis",
+      "code index",
+      "cobol source",
+      "cobol parser",
+      "cobol program",
+      "cobol file",
+      "legacy code",
+      "mainframe"
     ],
     "x_search_terms_en": [
       "read cobol file",
@@ -231,11 +266,16 @@
     "msg.no_entries": "(nenhuma definição encontrada)",
     "param.path.description": "Caminho para o arquivo COBOL (.cbl/.cob/.cpy).",
     "x_search_terms": [
-      "read cobol file",
-      "cobol file index",
-      "cobol program structure",
-      "cobol division",
-      "cobol paragraph"
+      "cobol",
+      "cobol code",
+      "cobol analysis",
+      "code index",
+      "cobol source",
+      "cobol parser",
+      "cobol program",
+      "cobol file",
+      "legacy code",
+      "mainframe"
     ],
     "x_search_terms_en": [
       "read cobol file",
@@ -257,11 +297,16 @@
     "msg.no_entries": "(nenhuma definição encontrada)",
     "param.path.description": "Caminho para o arquivo COBOL (.cbl/.cob/.cpy).",
     "x_search_terms": [
-      "read cobol file",
-      "cobol file index",
-      "cobol program structure",
-      "cobol division",
-      "cobol paragraph"
+      "cobol",
+      "cobol code",
+      "cobol analysis",
+      "code index",
+      "cobol source",
+      "cobol parser",
+      "cobol program",
+      "cobol file",
+      "legacy code",
+      "mainframe"
     ],
     "x_search_terms_en": [
       "read cobol file",
@@ -283,11 +328,16 @@
     "msg.no_entries": "(tidak ada definisi yang ditemukan)",
     "param.path.description": "Jalur ke file COBOL (.cbl/.cob/.cpy).",
     "x_search_terms": [
-      "read cobol file",
-      "cobol file index",
-      "cobol program structure",
-      "cobol division",
-      "cobol paragraph"
+      "cobol",
+      "cobol code",
+      "cobol analysis",
+      "code index",
+      "cobol source",
+      "cobol parser",
+      "cobol program",
+      "cobol file",
+      "legacy code",
+      "mainframe"
     ],
     "x_search_terms_en": [
       "read cobol file",
@@ -309,11 +359,16 @@
     "msg.no_entries": "(không tìm thấy định nghĩa)",
     "param.path.description": "Đường dẫn đến tệp COBOL (.cbl/.cob/.cpy).",
     "x_search_terms": [
-      "read cobol file",
-      "cobol file index",
-      "cobol program structure",
-      "cobol division",
-      "cobol paragraph"
+      "cobol",
+      "cobol code",
+      "cobol analysis",
+      "code index",
+      "cobol source",
+      "cobol parser",
+      "cobol program",
+      "cobol file",
+      "legacy code",
+      "mainframe"
     ],
     "x_search_terms_en": [
       "read cobol file",
@@ -335,11 +390,16 @@
     "msg.no_entries": "(nie znaleziono definicji)",
     "param.path.description": "Ścieżka do pliku COBOL (.cbl/.cob/.cpy).",
     "x_search_terms": [
-      "read cobol file",
-      "cobol file index",
-      "cobol program structure",
-      "cobol division",
-      "cobol paragraph"
+      "cobol",
+      "cobol code",
+      "cobol analysis",
+      "code index",
+      "cobol source",
+      "cobol parser",
+      "cobol program",
+      "cobol file",
+      "legacy code",
+      "mainframe"
     ],
     "x_search_terms_en": [
       "read cobol file",
@@ -361,11 +421,16 @@
     "msg.no_entries": "(कोई परिभाषा नहीं मिली)",
     "param.path.description": "COBOL (.cbl/.cob/.cpy) फ़ाइल का पथ।",
     "x_search_terms": [
-      "read cobol file",
-      "cobol file index",
-      "cobol program structure",
-      "cobol division",
-      "cobol paragraph"
+      "cobol",
+      "cobol code",
+      "cobol analysis",
+      "code index",
+      "cobol source",
+      "cobol parser",
+      "cobol program",
+      "cobol file",
+      "legacy code",
+      "mainframe"
     ],
     "x_search_terms_en": [
       "read cobol file",
@@ -387,11 +452,16 @@
     "msg.no_entries": "(لم يتم العثور على تعريفات)",
     "param.path.description": "المسار إلى ملف COBOL (.cbl/.cob/.cpy).",
     "x_search_terms": [
-      "read cobol file",
-      "cobol file index",
-      "cobol program structure",
-      "cobol division",
-      "cobol paragraph"
+      "cobol",
+      "cobol code",
+      "cobol analysis",
+      "code index",
+      "cobol source",
+      "cobol parser",
+      "cobol program",
+      "cobol file",
+      "legacy code",
+      "mainframe"
     ],
     "x_search_terms_en": [
       "read cobol file",
@@ -413,11 +483,16 @@
     "msg.no_entries": "(inga definitioner hittades)",
     "param.path.description": "Sökväg till filen COBOL (.cbl/.cob/.cpy).",
     "x_search_terms": [
-      "read cobol file",
-      "cobol file index",
-      "cobol program structure",
-      "cobol division",
-      "cobol paragraph"
+      "cobol",
+      "cobol code",
+      "cobol analysis",
+      "code index",
+      "cobol source",
+      "cobol parser",
+      "cobol program",
+      "cobol file",
+      "legacy code",
+      "mainframe"
     ],
     "x_search_terms_en": [
       "read cobol file",
@@ -439,11 +514,16 @@
     "msg.no_entries": "(hakuna ufafanuzi uliopatikana)",
     "param.path.description": "Njia ya kwenda kwa faili ya COBOL (.cbl/.cob/.cpy).",
     "x_search_terms": [
-      "read cobol file",
-      "cobol file index",
-      "cobol program structure",
-      "cobol division",
-      "cobol paragraph"
+      "cobol",
+      "cobol code",
+      "cobol analysis",
+      "code index",
+      "cobol source",
+      "cobol parser",
+      "cobol program",
+      "cobol file",
+      "legacy code",
+      "mainframe"
     ],
     "x_search_terms_en": [
       "read cobol file",
@@ -465,11 +545,16 @@
     "msg.no_entries": "(ingen definisjoner funnet)",
     "param.path.description": "Banen til COBOL-filen (.cbl/.cob/.cpy).",
     "x_search_terms": [
-      "read cobol file",
-      "cobol file index",
-      "cobol program structure",
-      "cobol division",
-      "cobol paragraph"
+      "cobol",
+      "cobol code",
+      "cobol analysis",
+      "code index",
+      "cobol source",
+      "cobol parser",
+      "cobol program",
+      "cobol file",
+      "legacy code",
+      "mainframe"
     ],
     "x_search_terms_en": [
       "read cobol file",
@@ -491,11 +576,16 @@
     "msg.no_entries": "(geen definities gevonden)",
     "param.path.description": "Pad naar het COBOL-bestand (.cbl/.cob/.cpy).",
     "x_search_terms": [
-      "read cobol file",
-      "cobol file index",
-      "cobol program structure",
-      "cobol division",
-      "cobol paragraph"
+      "cobol",
+      "cobol code",
+      "cobol analysis",
+      "code index",
+      "cobol source",
+      "cobol parser",
+      "cobol program",
+      "cobol file",
+      "legacy code",
+      "mainframe"
     ],
     "x_search_terms_en": [
       "read cobol file",
@@ -517,11 +607,16 @@
     "msg.no_entries": "(määritelmiä ei löytynyt)",
     "param.path.description": "Polku COBOL-tiedostoon (.cbl/.cob/.cpy).",
     "x_search_terms": [
-      "read cobol file",
-      "cobol file index",
-      "cobol program structure",
-      "cobol division",
-      "cobol paragraph"
+      "cobol",
+      "cobol code",
+      "cobol analysis",
+      "code index",
+      "cobol source",
+      "cobol parser",
+      "cobol program",
+      "cobol file",
+      "legacy code",
+      "mainframe"
     ],
     "x_search_terms_en": [
       "read cobol file",
@@ -543,11 +638,16 @@
     "msg.no_entries": "(nenalezeny žádné definice)",
     "param.path.description": "Cesta k souboru COBOL (.cbl/.cob/.cpy).",
     "x_search_terms": [
-      "read cobol file",
-      "cobol file index",
-      "cobol program structure",
-      "cobol division",
-      "cobol paragraph"
+      "cobol",
+      "cobol code",
+      "cobol analysis",
+      "code index",
+      "cobol source",
+      "cobol parser",
+      "cobol program",
+      "cobol file",
+      "legacy code",
+      "mainframe"
     ],
     "x_search_terms_en": [
       "read cobol file",
@@ -569,11 +669,16 @@
     "msg.no_entries": "(визначення не знайдено)",
     "param.path.description": "Шлях до файлу COBOL (.cbl/.cob/.cpy).",
     "x_search_terms": [
-      "read cobol file",
-      "cobol file index",
-      "cobol program structure",
-      "cobol division",
-      "cobol paragraph"
+      "cobol",
+      "cobol code",
+      "cobol analysis",
+      "code index",
+      "cobol source",
+      "cobol parser",
+      "cobol program",
+      "cobol file",
+      "legacy code",
+      "mainframe"
     ],
     "x_search_terms_en": [
       "read cobol file",
@@ -595,11 +700,16 @@
     "msg.no_entries": "(tanım bulunamadı)",
     "param.path.description": "COBOL (.cbl/.cob/.cpy) dosyasının yolu.",
     "x_search_terms": [
-      "read cobol file",
-      "cobol file index",
-      "cobol program structure",
-      "cobol division",
-      "cobol paragraph"
+      "cobol",
+      "cobol code",
+      "cobol analysis",
+      "code index",
+      "cobol source",
+      "cobol parser",
+      "cobol program",
+      "cobol file",
+      "legacy code",
+      "mainframe"
     ],
     "x_search_terms_en": [
       "read cobol file",
@@ -621,11 +731,16 @@
     "msg.no_entries": "(ไม่พบคำจำกัดความ)",
     "param.path.description": "เส้นทางไปยังไฟล์ COBOL (.cbl/.cob/.cpy)",
     "x_search_terms": [
-      "read cobol file",
-      "cobol file index",
-      "cobol program structure",
-      "cobol division",
-      "cobol paragraph"
+      "cobol",
+      "cobol code",
+      "cobol analysis",
+      "code index",
+      "cobol source",
+      "cobol parser",
+      "cobol program",
+      "cobol file",
+      "legacy code",
+      "mainframe"
     ],
     "x_search_terms_en": [
       "read cobol file",
@@ -647,11 +762,16 @@
     "msg.no_entries": "（未找到定义）",
     "param.path.description": "COBOL (.cbl/.cob/.cpy) 文件的路径。",
     "x_search_terms": [
-      "read cobol file",
-      "cobol file index",
-      "cobol program structure",
-      "cobol division",
-      "cobol paragraph"
+      "cobol",
+      "cobol code",
+      "cobol analysis",
+      "code index",
+      "cobol source",
+      "cobol parser",
+      "cobol program",
+      "cobol file",
+      "legacy code",
+      "mainframe"
     ],
     "x_search_terms_en": [
       "read cobol file",
@@ -673,11 +793,16 @@
     "msg.no_entries": "（未找到定義）",
     "param.path.description": "COBOL (.cbl/.cob/.cpy) 檔案的路徑。",
     "x_search_terms": [
-      "read cobol file",
-      "cobol file index",
-      "cobol program structure",
-      "cobol division",
-      "cobol paragraph"
+      "cobol",
+      "cobol code",
+      "cobol analysis",
+      "code index",
+      "cobol source",
+      "cobol parser",
+      "cobol program",
+      "cobol file",
+      "legacy code",
+      "mainframe"
     ],
     "x_search_terms_en": [
       "read cobol file",
@@ -699,11 +824,16 @@
     "msg.no_entries": "(কোন সংজ্ঞা পাওয়া যায়নি)",
     "param.path.description": "COBOL (.cbl/.cob/.cpy) ফাইলের পথ।",
     "x_search_terms": [
-      "read cobol file",
-      "cobol file index",
-      "cobol program structure",
-      "cobol division",
-      "cobol paragraph"
+      "cobol",
+      "cobol code",
+      "cobol analysis",
+      "code index",
+      "cobol source",
+      "cobol parser",
+      "cobol program",
+      "cobol file",
+      "legacy code",
+      "mainframe"
     ],
     "x_search_terms_en": [
       "read cobol file",
@@ -725,11 +855,16 @@
     "msg.no_entries": "(هیچ تعریفی یافت نشد)",
     "param.path.description": "مسیر فایل COBOL (.cbl/.cob/.cpy).",
     "x_search_terms": [
-      "read cobol file",
-      "cobol file index",
-      "cobol program structure",
-      "cobol division",
-      "cobol paragraph"
+      "cobol",
+      "cobol code",
+      "cobol analysis",
+      "code index",
+      "cobol source",
+      "cobol parser",
+      "cobol program",
+      "cobol file",
+      "legacy code",
+      "mainframe"
     ],
     "x_search_terms_en": [
       "read cobol file",
@@ -751,11 +886,16 @@
     "msg.no_entries": "(тодорхойлолт олдсонгүй)",
     "param.path.description": "COBOL (.cbl/.cob/.cpy) файлын зам.",
     "x_search_terms": [
-      "read cobol file",
-      "cobol file index",
-      "cobol program structure",
-      "cobol division",
-      "cobol paragraph"
+      "cobol",
+      "cobol code",
+      "cobol analysis",
+      "code index",
+      "cobol source",
+      "cobol parser",
+      "cobol program",
+      "cobol file",
+      "legacy code",
+      "mainframe"
     ],
     "x_search_terms_en": [
       "read cobol file",
@@ -777,11 +917,16 @@
     "msg.no_entries": "(कोणतीही व्याख्या सापडली नाही)",
     "param.path.description": "COBOL (.cbl/.cob/.cpy) फाइलचा मार्ग.",
     "x_search_terms": [
-      "read cobol file",
-      "cobol file index",
-      "cobol program structure",
-      "cobol division",
-      "cobol paragraph"
+      "cobol",
+      "cobol code",
+      "cobol analysis",
+      "code index",
+      "cobol source",
+      "cobol parser",
+      "cobol program",
+      "cobol file",
+      "legacy code",
+      "mainframe"
     ],
     "x_search_terms_en": [
       "read cobol file",
@@ -803,11 +948,16 @@
     "msg.no_entries": "(δεν βρέθηκαν ορισμοί)",
     "param.path.description": "Διαδρομή προς το αρχείο COBOL (.cbl/.cob/.cpy).",
     "x_search_terms": [
-      "read cobol file",
-      "cobol file index",
-      "cobol program structure",
-      "cobol division",
-      "cobol paragraph"
+      "cobol",
+      "cobol code",
+      "cobol analysis",
+      "code index",
+      "cobol source",
+      "cobol parser",
+      "cobol program",
+      "cobol file",
+      "legacy code",
+      "mainframe"
     ],
     "x_search_terms_en": [
       "read cobol file",
@@ -829,11 +979,16 @@
     "msg.no_entries": "(לא נמצאו הגדרות)",
     "param.path.description": "נתיב לקובץ COBOL (.cbl/.cob/.cpy).",
     "x_search_terms": [
-      "read cobol file",
-      "cobol file index",
-      "cobol program structure",
-      "cobol division",
-      "cobol paragraph"
+      "cobol",
+      "cobol code",
+      "cobol analysis",
+      "code index",
+      "cobol source",
+      "cobol parser",
+      "cobol program",
+      "cobol file",
+      "legacy code",
+      "mainframe"
     ],
     "x_search_terms_en": [
       "read cobol file",
@@ -855,11 +1010,16 @@
     "msg.no_entries": "(nem található definíció)",
     "param.path.description": "A COBOL (.cbl/.cob/.cpy) fájl elérési útja.",
     "x_search_terms": [
-      "read cobol file",
-      "cobol file index",
-      "cobol program structure",
-      "cobol division",
-      "cobol paragraph"
+      "cobol",
+      "cobol code",
+      "cobol analysis",
+      "code index",
+      "cobol source",
+      "cobol parser",
+      "cobol program",
+      "cobol file",
+      "legacy code",
+      "mainframe"
     ],
     "x_search_terms_en": [
       "read cobol file",
@@ -881,11 +1041,16 @@
     "msg.no_entries": "(nu au fost găsite definiții)",
     "param.path.description": "Calea către fișierul COBOL (.cbl/.cob/.cpy).",
     "x_search_terms": [
-      "read cobol file",
-      "cobol file index",
-      "cobol program structure",
-      "cobol division",
-      "cobol paragraph"
+      "cobol",
+      "cobol code",
+      "cobol analysis",
+      "code index",
+      "cobol source",
+      "cobol parser",
+      "cobol program",
+      "cobol file",
+      "legacy code",
+      "mainframe"
     ],
     "x_search_terms_en": [
       "read cobol file",

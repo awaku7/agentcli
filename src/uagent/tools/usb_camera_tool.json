@@ -2,7 +2,16 @@
   "ar": {
     "tool.description": "التقاط صورة من كاميرا USB.",
     "x_search_terms": [
-      "capture"
+      "usb camera",
+      "webcam",
+      "camera capture",
+      "video",
+      "image capture",
+      "usb webcam",
+      "camera stream",
+      "photo",
+      "video capture",
+      "camera device"
     ],
     "param.camera_id.description": "فهرس جهاز الكاميرا (0 = افتراضي).",
     "param.width.description": "عرض الصورة بالبكسل.",
@@ -15,7 +24,16 @@
   "bn": {
     "tool.description": "USB ক্যামেরা থেকে ছবি ক্যাপচার করুন।",
     "x_search_terms": [
-      "capture"
+      "usb camera",
+      "webcam",
+      "camera capture",
+      "video",
+      "image capture",
+      "usb webcam",
+      "camera stream",
+      "photo",
+      "video capture",
+      "camera device"
     ],
     "param.camera_id.description": "ক্যামেরা ডিভাইস সূচক (0 = ডিফল্ট)।",
     "param.width.description": "পিক্সেলে ছবির প্রস্থ।",
@@ -28,7 +46,16 @@
   "cs": {
     "tool.description": "Zachytit snímek z USB kamery.",
     "x_search_terms": [
-      "capture"
+      "usb camera",
+      "webcam",
+      "camera capture",
+      "video",
+      "image capture",
+      "usb webcam",
+      "camera stream",
+      "photo",
+      "video capture",
+      "camera device"
     ],
     "param.camera_id.description": "Index zařízení kamery (0 = výchozí).",
     "param.width.description": "Šířka obrázku v pixelech.",
@@ -41,7 +68,16 @@
   "de": {
     "tool.description": "Bild von einer USB-Kamera aufnehmen.",
     "x_search_terms": [
-      "capture"
+      "usb camera",
+      "webcam",
+      "camera capture",
+      "video",
+      "image capture",
+      "usb webcam",
+      "camera stream",
+      "photo",
+      "video capture",
+      "camera device"
     ],
     "param.camera_id.description": "Kamera-Geräteindex (0 = Standard).",
     "param.width.description": "Bildbreite in Pixeln.",
@@ -76,7 +112,16 @@
   "es": {
     "tool.description": "Capturar imagen de una cámara USB.",
     "x_search_terms": [
-      "capture"
+      "usb camera",
+      "webcam",
+      "camera capture",
+      "video",
+      "image capture",
+      "usb webcam",
+      "camera stream",
+      "photo",
+      "video capture",
+      "camera device"
     ],
     "param.camera_id.description": "Índice del dispositivo de cámara (0 = predeterminado).",
     "param.width.description": "Ancho de la imagen en píxeles.",
@@ -89,7 +134,16 @@
   "fa": {
     "tool.description": "گرفتن تصویر از دوربین USB.",
     "x_search_terms": [
-      "capture"
+      "usb camera",
+      "webcam",
+      "camera capture",
+      "video",
+      "image capture",
+      "usb webcam",
+      "camera stream",
+      "photo",
+      "video capture",
+      "camera device"
     ],
     "param.camera_id.description": "شاخص دستگاه دوربین (0 = پیش‌فرض).",
     "param.width.description": "عرض تصویر بر حسب پیکسل.",
@@ -102,7 +156,16 @@
   "fi": {
     "tool.description": "Ota kuva USB-kamerasta.",
     "x_search_terms": [
-      "capture"
+      "usb camera",
+      "webcam",
+      "camera capture",
+      "video",
+      "image capture",
+      "usb webcam",
+      "camera stream",
+      "photo",
+      "video capture",
+      "camera device"
     ],
     "param.camera_id.description": "Kameran laiteindeksi (0 = oletus).",
     "param.width.description": "Kuvan leveys pikseleinä.",
@@ -115,7 +178,16 @@
   "fr": {
     "tool.description": "Capturer une image depuis une caméra USB.",
     "x_search_terms": [
-      "capture"
+      "usb camera",
+      "webcam",
+      "camera capture",
+      "video",
+      "image capture",
+      "usb webcam",
+      "camera stream",
+      "photo",
+      "video capture",
+      "camera device"
     ],
     "param.camera_id.description": "Index du périphérique de la caméra (0 = défaut).",
     "param.width.description": "Largeur de l'image en pixels.",
@@ -128,7 +200,16 @@
   "hi": {
     "tool.description": "USB कैमरे से चित्र कैप्चर करें।",
     "x_search_terms": [
-      "capture"
+      "usb camera",
+      "webcam",
+      "camera capture",
+      "video",
+      "image capture",
+      "usb webcam",
+      "camera stream",
+      "photo",
+      "video capture",
+      "camera device"
     ],
     "param.camera_id.description": "कैमरा डिवाइस इंडेक्स (0 = डिफ़ॉल्ट)।",
     "param.width.description": "पिक्सेल में चित्र चौड़ाई।",
@@ -141,7 +222,16 @@
   "id": {
     "tool.description": "Ambil gambar dari kamera USB.",
     "x_search_terms": [
-      "capture"
+      "usb camera",
+      "webcam",
+      "camera capture",
+      "video",
+      "image capture",
+      "usb webcam",
+      "camera stream",
+      "photo",
+      "video capture",
+      "camera device"
     ],
     "param.camera_id.description": "Indeks perangkat kamera (0 = default).",
     "param.width.description": "Lebar gambar dalam piksel.",
@@ -154,7 +244,16 @@
   "it": {
     "tool.description": "Catturare immagine da una fotocamera USB.",
     "x_search_terms": [
-      "capture"
+      "usb camera",
+      "webcam",
+      "camera capture",
+      "video",
+      "image capture",
+      "usb webcam",
+      "camera stream",
+      "photo",
+      "video capture",
+      "camera device"
     ],
     "param.camera_id.description": "Indice del dispositivo fotocamera (0 = predefinito).",
     "param.width.description": "Larghezza immagine in pixel.",
@@ -167,7 +266,16 @@
   "ja": {
     "tool.description": "ffmpeg 経由で USB カメラから写真をキャプチャするか、利用可能なビデオ デバイスをリストします。Windows (dshow)、Linux (v4l2)、macOS (avfoundation) をサポートします。",
     "x_search_terms": [
-      "capture"
+      "usb camera",
+      "webcam",
+      "camera capture",
+      "video",
+      "image capture",
+      "usb webcam",
+      "camera stream",
+      "photo",
+      "video capture",
+      "camera device"
     ],
     "param.camera_id.description": "カメラデバイスインデックス（0 = デフォルト）。",
     "param.width.description": "画像の幅（ピクセル）。",
@@ -185,7 +293,16 @@
   "ko": {
     "tool.description": "USB 카메라에서 이미지를 캡쳐합니다.",
     "x_search_terms": [
-      "capture"
+      "usb camera",
+      "webcam",
+      "camera capture",
+      "video",
+      "image capture",
+      "usb webcam",
+      "camera stream",
+      "photo",
+      "video capture",
+      "camera device"
     ],
     "param.camera_id.description": "카메라 장치 인덱스 (0 = 기본값).",
     "param.width.description": "이미지 너비(픽셀).",
@@ -198,7 +315,16 @@
   "mn": {
     "tool.description": "USB камераас зураг авах.",
     "x_search_terms": [
-      "capture"
+      "usb camera",
+      "webcam",
+      "camera capture",
+      "video",
+      "image capture",
+      "usb webcam",
+      "camera stream",
+      "photo",
+      "video capture",
+      "camera device"
     ],
     "param.camera_id.description": "Камерын төхөөрөмжийн индекс (0 = анхдагч).",
     "param.width.description": "Зургийн өргөн (пикселээр).",
@@ -211,7 +337,16 @@
   "mr": {
     "tool.description": "USB कॅमेर्यातून प्रतिमा कॅप्चर करा.",
     "x_search_terms": [
-      "capture"
+      "usb camera",
+      "webcam",
+      "camera capture",
+      "video",
+      "image capture",
+      "usb webcam",
+      "camera stream",
+      "photo",
+      "video capture",
+      "camera device"
     ],
     "param.camera_id.description": "कॅमेरा उपकरण अनुक्रमणिका (0 = डीफॉल्ट).",
     "param.width.description": "पिक्सेलमध्ये प्रतिमा रुंदी.",
@@ -231,7 +366,16 @@
     "param.fps.description": "Καρέ ανά δευτερόλεπτο (π.χ. 30). Χρησιμοποιεί προεπιλογή εάν παραλειφθεί.",
     "param.outdir.description": "Κατάλογος εξόδου για εικόνες που τραβήχτηκαν. Προεπιλογή: έξοδοι/usb_camera.",
     "x_search_terms": [
-      "capture"
+      "usb camera",
+      "webcam",
+      "camera capture",
+      "video",
+      "image capture",
+      "usb webcam",
+      "camera stream",
+      "photo",
+      "video capture",
+      "camera device"
     ]
   },
   "he": {
@@ -244,7 +388,16 @@
     "param.fps.description": "פריימים לשנייה (למשל 30). משתמש בברירת המחדל אם מושמט.",
     "param.outdir.description": "ספריית פלט לתמונות שצולמו. ברירת מחדל: outputs/usb_camera.",
     "x_search_terms": [
-      "capture"
+      "usb camera",
+      "webcam",
+      "camera capture",
+      "video",
+      "image capture",
+      "usb webcam",
+      "camera stream",
+      "photo",
+      "video capture",
+      "camera device"
     ]
   },
   "hu": {
@@ -257,7 +410,16 @@
     "param.fps.description": "Képkocka/másodperc (pl. 30). Az alapértelmezett értéket használja, ha kihagyja.",
     "param.outdir.description": "Kimeneti könyvtár a rögzített képekhez. Alapértelmezés: outputs/usb_camera.",
     "x_search_terms": [
-      "capture"
+      "usb camera",
+      "webcam",
+      "camera capture",
+      "video",
+      "image capture",
+      "usb webcam",
+      "camera stream",
+      "photo",
+      "video capture",
+      "camera device"
     ]
   },
   "ro": {
@@ -270,13 +432,31 @@
     "param.fps.description": "Cadre pe secundă (de exemplu, 30). Folosește implicit dacă este omis.",
     "param.outdir.description": "Director de ieșire pentru imaginile capturate. Implicit: outputs/usb_camera.",
     "x_search_terms": [
-      "capture"
+      "usb camera",
+      "webcam",
+      "camera capture",
+      "video",
+      "image capture",
+      "usb webcam",
+      "camera stream",
+      "photo",
+      "video capture",
+      "camera device"
     ]
   },
   "nb": {
     "tool.description": "Ta bilde fra et USB-kamera.",
     "x_search_terms": [
-      "capture"
+      "usb camera",
+      "webcam",
+      "camera capture",
+      "video",
+      "image capture",
+      "usb webcam",
+      "camera stream",
+      "photo",
+      "video capture",
+      "camera device"
     ],
     "param.camera_id.description": "Kameraenhetsindeks (0 = standard).",
     "param.width.description": "Bildebredde i piksler.",
@@ -289,7 +469,16 @@
   "nl": {
     "tool.description": "Afbeelding vastleggen van een USB-camera.",
     "x_search_terms": [
-      "capture"
+      "usb camera",
+      "webcam",
+      "camera capture",
+      "video",
+      "image capture",
+      "usb webcam",
+      "camera stream",
+      "photo",
+      "video capture",
+      "camera device"
     ],
     "param.camera_id.description": "Camera-apparaatindex (0 = standaard).",
     "param.width.description": "Afbeeldingsbreedte in pixels.",
@@ -302,7 +491,16 @@
   "pl": {
     "tool.description": "Przechwyć obraz z kamery USB.",
     "x_search_terms": [
-      "capture"
+      "usb camera",
+      "webcam",
+      "camera capture",
+      "video",
+      "image capture",
+      "usb webcam",
+      "camera stream",
+      "photo",
+      "video capture",
+      "camera device"
     ],
     "param.camera_id.description": "Indeks urządzenia kamery (0 = domyślny).",
     "param.width.description": "Szerokość obrazu w pikselach.",
@@ -315,7 +513,16 @@
   "pt": {
     "tool.description": "Capturar imagem de uma câmara USB.",
     "x_search_terms": [
-      "capture"
+      "usb camera",
+      "webcam",
+      "camera capture",
+      "video",
+      "image capture",
+      "usb webcam",
+      "camera stream",
+      "photo",
+      "video capture",
+      "camera device"
     ],
     "param.camera_id.description": "Índice do dispositivo da câmara (0 = padrão).",
     "param.width.description": "Largura da imagem em píxeis.",
@@ -328,7 +535,16 @@
   "pt_BR": {
     "tool.description": "Capturar imagem de uma câmera USB.",
     "x_search_terms": [
-      "capture"
+      "usb camera",
+      "webcam",
+      "camera capture",
+      "video",
+      "image capture",
+      "usb webcam",
+      "camera stream",
+      "photo",
+      "video capture",
+      "camera device"
     ],
     "param.camera_id.description": "Índice do dispositivo de câmera (0 = padrão).",
     "param.width.description": "Largura da imagem em pixels.",
@@ -341,7 +557,16 @@
   "ru": {
     "tool.description": "Захватить изображение с USB-камеры.",
     "x_search_terms": [
-      "capture"
+      "usb camera",
+      "webcam",
+      "camera capture",
+      "video",
+      "image capture",
+      "usb webcam",
+      "camera stream",
+      "photo",
+      "video capture",
+      "camera device"
     ],
     "param.camera_id.description": "Индекс устройства камеры (0 = по умолчанию).",
     "param.width.description": "Ширина изображения в пикселях.",
@@ -354,7 +579,16 @@
   "sv": {
     "tool.description": "Fånga bild från en USB-kamera.",
     "x_search_terms": [
-      "capture"
+      "usb camera",
+      "webcam",
+      "camera capture",
+      "video",
+      "image capture",
+      "usb webcam",
+      "camera stream",
+      "photo",
+      "video capture",
+      "camera device"
     ],
     "param.camera_id.description": "Kamerans enhetsindex (0 = standard).",
     "param.width.description": "Bildbredd i pixlar.",
@@ -367,7 +601,16 @@
   "sw": {
     "tool.description": "Nasa picha kutoka kwenye kamera ya USB.",
     "x_search_terms": [
-      "capture"
+      "usb camera",
+      "webcam",
+      "camera capture",
+      "video",
+      "image capture",
+      "usb webcam",
+      "camera stream",
+      "photo",
+      "video capture",
+      "camera device"
     ],
     "param.camera_id.description": "Faharasa ya kifaa cha kamera (0 = chaguo-msingi).",
     "param.width.description": "Upana wa picha katika pikseli.",
@@ -380,7 +623,16 @@
   "th": {
     "tool.description": "จับภาพจากกล้อง USB",
     "x_search_terms": [
-      "capture"
+      "usb camera",
+      "webcam",
+      "camera capture",
+      "video",
+      "image capture",
+      "usb webcam",
+      "camera stream",
+      "photo",
+      "video capture",
+      "camera device"
     ],
     "param.camera_id.description": "ดัชนีอุปกรณ์กล้อง (0 = ค่าเริ่มต้น)",
     "param.width.description": "ความกว้างภาพเป็นพิกเซล",
@@ -393,7 +645,16 @@
   "tr": {
     "tool.description": "USB kameradan görüntü yakalayın.",
     "x_search_terms": [
-      "capture"
+      "usb camera",
+      "webcam",
+      "camera capture",
+      "video",
+      "image capture",
+      "usb webcam",
+      "camera stream",
+      "photo",
+      "video capture",
+      "camera device"
     ],
     "param.camera_id.description": "Kamera cihaz indeksi (0 = varsayılan).",
     "param.width.description": "Piksel cinsinden görüntü genişliği.",
@@ -406,7 +667,16 @@
   "uk": {
     "tool.description": "Захопити зображення з USB-камери.",
     "x_search_terms": [
-      "capture"
+      "usb camera",
+      "webcam",
+      "camera capture",
+      "video",
+      "image capture",
+      "usb webcam",
+      "camera stream",
+      "photo",
+      "video capture",
+      "camera device"
     ],
     "param.camera_id.description": "Індекс пристрою камери (0 = за замовчуванням).",
     "param.width.description": "Ширина зображення в пікселях.",
@@ -419,7 +689,16 @@
   "vi": {
     "tool.description": "Chụp ảnh từ camera USB.",
     "x_search_terms": [
-      "capture"
+      "usb camera",
+      "webcam",
+      "camera capture",
+      "video",
+      "image capture",
+      "usb webcam",
+      "camera stream",
+      "photo",
+      "video capture",
+      "camera device"
     ],
     "param.camera_id.description": "Chỉ số thiết bị camera (0 = mặc định).",
     "param.width.description": "Chiều rộng ảnh tính bằng pixel.",
@@ -432,7 +711,16 @@
   "zh_CN": {
     "tool.description": "从USB摄像头捕获图像。",
     "x_search_terms": [
-      "capture"
+      "usb camera",
+      "webcam",
+      "camera capture",
+      "video",
+      "image capture",
+      "usb webcam",
+      "camera stream",
+      "photo",
+      "video capture",
+      "camera device"
     ],
     "param.camera_id.description": "摄像头设备索引（0 = 默认）。",
     "param.width.description": "图像宽度（像素）。",
@@ -445,7 +733,16 @@
   "zh_TW": {
     "tool.description": "從 USB 攝影機擷取影像。",
     "x_search_terms": [
-      "capture"
+      "usb camera",
+      "webcam",
+      "camera capture",
+      "video",
+      "image capture",
+      "usb webcam",
+      "camera stream",
+      "photo",
+      "video capture",
+      "camera device"
     ],
     "param.camera_id.description": "攝影機裝置索引（0 = 預設）。",
     "param.width.description": "影像寬度（像素）。",

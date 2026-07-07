@@ -29,10 +29,16 @@
     "param.overwrite.description": "既存ファイルがある場合に上書きするか（既定: false）。",
     "tool.description": "テキストファイルを作成。上書き時はバックアップ(.org)を作成。Excel用はutf-8-sig、プログラム用はutf-8。",
     "x_search_terms": [
-      "create_file",
-      "ファイル作成",
-      "テキストファイル",
-      "新規作成"
+      "create file",
+      "make file",
+      "new file",
+      "write file",
+      "file create",
+      "generate file",
+      "create document",
+      "new document",
+      "file write",
+      "save file"
     ],
     "err.file_exists": "ファイルはすでに存在します: {path}",
     "err.path_missing": "ファイル名/パスは必須です",
@@ -46,10 +52,16 @@
     "param.overwrite.description": "Sobrescribir si existe (predeterminado: falso).",
     "tool.description": "Cree un archivo de texto.De forma predeterminada, no se sobrescriben archivos existentes.",
     "x_search_terms": [
-      "create_file",
-      "crear archivo",
-      "archivo de texto",
-      "nuevo archivo"
+      "create file",
+      "make file",
+      "new file",
+      "write file",
+      "file create",
+      "generate file",
+      "create document",
+      "new document",
+      "file write",
+      "save file"
     ]
   },
   "fr": {
@@ -59,10 +71,16 @@
     "param.overwrite.description": "Écraser s'il existe (par défaut : faux).",
     "tool.description": "Créez un fichier texte.Par défaut, les fichiers existants ne sont pas écrasés.",
     "x_search_terms": [
-      "create_file",
-      "créer fichier",
-      "fichier texte",
-      "nouveau fichier"
+      "create file",
+      "make file",
+      "new file",
+      "write file",
+      "file create",
+      "generate file",
+      "create document",
+      "new document",
+      "file write",
+      "save file"
     ]
   },
   "ko": {
@@ -72,10 +90,16 @@
     "param.overwrite.description": "파일이 이미 존재할 경우 덮어쓸지 여부 (기본값: false).",
     "tool.description": "텍스트 파일 생성. 덮어쓰기 시 백업(.org) 생성. Excel용 utf-8-sig, 프로그램용 utf-8.",
     "x_search_terms": [
-      "create_file",
-      "파일 생성",
-      "텍스트 파일",
-      "새 파일"
+      "create file",
+      "make file",
+      "new file",
+      "write file",
+      "file create",
+      "generate file",
+      "create document",
+      "new document",
+      "file write",
+      "save file"
     ]
   },
   "de": {
@@ -85,10 +109,16 @@
     "param.overwrite.description": "Überschreiben, falls vorhanden (Standard: false).",
     "tool.description": "Erstellen Sie eine Textdatei.Standardmäßig werden vorhandene Dateien nicht überschrieben.",
     "x_search_terms": [
-      "create_file",
-      "datei erstellen",
-      "textdatei",
-      "neue datei"
+      "create file",
+      "make file",
+      "new file",
+      "write file",
+      "file create",
+      "generate file",
+      "create document",
+      "new document",
+      "file write",
+      "save file"
     ]
   },
   "it": {
@@ -98,10 +128,16 @@
     "param.overwrite.description": "Sovrascrivi se esiste (impostazione predefinita: false).",
     "tool.description": "Crea un file di testo.Per impostazione predefinita, i file esistenti non vengono sovrascritti.",
     "x_search_terms": [
-      "create_file",
-      "crea file",
-      "file di testo",
-      "nuovo file"
+      "create file",
+      "make file",
+      "new file",
+      "write file",
+      "file create",
+      "generate file",
+      "create document",
+      "new document",
+      "file write",
+      "save file"
     ]
   },
   "ru": {
@@ -111,10 +147,16 @@
     "param.overwrite.description": "Перезаписать, если существует (по умолчанию: false).",
     "tool.description": "Создает текстовый файл.По умолчанию не перезаписывает файлы.",
     "x_search_terms": [
-      "create_file",
-      "создать файл",
-      "текстовый файл",
-      "новый файл"
+      "create file",
+      "make file",
+      "new file",
+      "write file",
+      "file create",
+      "generate file",
+      "create document",
+      "new document",
+      "file write",
+      "save file"
     ]
   },
   "pt_BR": {
@@ -124,10 +166,16 @@
     "param.overwrite.description": "Substituir se existir (padrão: falso).",
     "tool.description": "Crie um arquivo de texto.Por padrão, a ferramenta não sobrescreve um arquivo existente.",
     "x_search_terms": [
-      "create_file",
-      "criar arquivo",
-      "arquivo de texto",
-      "novo arquivo"
+      "create file",
+      "make file",
+      "new file",
+      "write file",
+      "file create",
+      "generate file",
+      "create document",
+      "new document",
+      "file write",
+      "save file"
     ]
   },
   "pt": {
@@ -137,10 +185,16 @@
     "param.overwrite.description": "Substituir se existir (padrão: falso).",
     "tool.description": "Crie um arquivo de texto.Por padrão, arquivos existentes não são sobrescritos.",
     "x_search_terms": [
-      "create_file",
-      "criar arquivo",
-      "arquivo de texto",
-      "novo arquivo"
+      "create file",
+      "make file",
+      "new file",
+      "write file",
+      "file create",
+      "generate file",
+      "create document",
+      "new document",
+      "file write",
+      "save file"
     ]
   },
   "id": {
@@ -150,10 +204,16 @@
     "param.overwrite.description": "Timpa jika ada (default: false).",
     "tool.description": "Buat file teks.Secara default, alat tidak akan menimpa file yang sudah ada.",
     "x_search_terms": [
-      "create_file",
-      "buat file",
-      "file teks",
-      "file baru"
+      "create file",
+      "make file",
+      "new file",
+      "write file",
+      "file create",
+      "generate file",
+      "create document",
+      "new document",
+      "file write",
+      "save file"
     ]
   },
   "vi": {
@@ -163,10 +223,16 @@
     "param.overwrite.description": "Ghi đè nếu tồn tại (mặc định: sai).",
     "tool.description": "Tạo một tập tin văn bản.Theo mặc định, công cụ sẽ không ghi đè lên tệp hiện có.",
     "x_search_terms": [
-      "create_file",
-      "tạo tệp",
-      "tệp văn bản",
-      "tệp mới"
+      "create file",
+      "make file",
+      "new file",
+      "write file",
+      "file create",
+      "generate file",
+      "create document",
+      "new document",
+      "file write",
+      "save file"
     ]
   },
   "pl": {
@@ -176,10 +242,16 @@
     "param.overwrite.description": "Zastąp, jeśli istnieje (domyślnie: fałsz).",
     "tool.description": "Utwórz plik tekstowy.Domyślnie narzędzie nie nadpisze istniejącego pliku.",
     "x_search_terms": [
-      "create_file",
-      "utwórz plik",
-      "plik tekstowy",
-      "nowy plik"
+      "create file",
+      "make file",
+      "new file",
+      "write file",
+      "file create",
+      "generate file",
+      "create document",
+      "new document",
+      "file write",
+      "save file"
     ]
   },
   "hi": {
@@ -189,10 +261,16 @@
     "param.overwrite.description": "यदि मौजूद है (डिफ़ॉल्ट: गलत)।",
     "tool.description": "एक टेक्स्ट फ़ाइल बनाएं। बैकअप (.org) के साथ वैकल्पिक अधिलेखित करें। एक्सेल (utf-8-sig) या प्रोग्रामेटिक (utf-8) के लिए एन्कोडिंग चुनें।",
     "x_search_terms": [
-      "create_file",
-      "फ़ाइल बनाएं",
-      "पाठ फ़ाइल",
-      "नई फ़ाइल"
+      "create file",
+      "make file",
+      "new file",
+      "write file",
+      "file create",
+      "generate file",
+      "create document",
+      "new document",
+      "file write",
+      "save file"
     ]
   },
   "ar": {
@@ -202,10 +280,16 @@
     "param.overwrite.description": "الكتابة فوق إذا كان موجودًا (الافتراضي: false).",
     "tool.description": "إنشاء ملف نصي.بشكل افتراضي، لن تقوم الأداة بالكتابة فوق ملف موجود.",
     "x_search_terms": [
-      "create_file",
-      "إنشاء ملف",
-      "ملف نصي",
-      "ملف جديد"
+      "create file",
+      "make file",
+      "new file",
+      "write file",
+      "file create",
+      "generate file",
+      "create document",
+      "new document",
+      "file write",
+      "save file"
     ]
   },
   "sv": {
@@ -215,10 +299,16 @@
     "param.overwrite.description": "Skriv över om det finns (standard: false).",
     "tool.description": "Skapa en textfil.Som standard skrivs inte en befintlig fil över.",
     "x_search_terms": [
-      "create_file",
-      "skapa fil",
-      "textfil",
-      "ny fil"
+      "create file",
+      "make file",
+      "new file",
+      "write file",
+      "file create",
+      "generate file",
+      "create document",
+      "new document",
+      "file write",
+      "save file"
     ]
   },
   "sw": {
@@ -228,10 +318,16 @@
     "param.overwrite.description": "Njia ya faili ikiwa_7 ipo zaidi ya_ELIM_7. (chaguo-msingi: si kweli).",
     "tool.description": "Unda faili la maandishi.Kwa chaguo-msingi, faili zilizopo haziandikwi juu.",
     "x_search_terms": [
-      "create_file",
-      "tengeneza faili",
-      "faili la maandishi",
-      "faili mpya"
+      "create file",
+      "make file",
+      "new file",
+      "write file",
+      "file create",
+      "generate file",
+      "create document",
+      "new document",
+      "file write",
+      "save file"
     ]
   },
   "nb": {
@@ -241,10 +337,16 @@
     "param.overwrite.description": "Overskriv hvis det finnes (standard: usann).",
     "tool.description": "Opprett en tekstfil.Som standard blir ikke en eksisterende fil overskrevet.",
     "x_search_terms": [
-      "create_file",
-      "opprett fil",
-      "tekstfil",
-      "ny fil"
+      "create file",
+      "make file",
+      "new file",
+      "write file",
+      "file create",
+      "generate file",
+      "create document",
+      "new document",
+      "file write",
+      "save file"
     ]
   },
   "nl": {
@@ -254,10 +356,16 @@
     "param.overwrite.description": "Overschrijven indien aanwezig (standaard: false).",
     "tool.description": "Maak een tekstbestand.Standaard wordt een bestaand bestand niet overschreven.",
     "x_search_terms": [
-      "create_file",
-      "bestand maken",
-      "tekstbestand",
-      "nieuw bestand"
+      "create file",
+      "make file",
+      "new file",
+      "write file",
+      "file create",
+      "generate file",
+      "create document",
+      "new document",
+      "file write",
+      "save file"
     ]
   },
   "fi": {
@@ -267,10 +375,16 @@
     "param.overwrite.description": "Korvaa, jos se on olemassa (oletus: false).",
     "tool.description": "Luo tekstitiedosto.Oletuksena olemassa olevaa tiedostoa ei korvata.",
     "x_search_terms": [
-      "create_file",
-      "luo tiedosto",
-      "tekstitiedosto",
-      "uusi tiedosto"
+      "create file",
+      "make file",
+      "new file",
+      "write file",
+      "file create",
+      "generate file",
+      "create document",
+      "new document",
+      "file write",
+      "save file"
     ]
   },
   "cs": {
@@ -280,10 +394,16 @@
     "param.overwrite.description": "Přepsat, pokud existuje (výchozí: false).",
     "tool.description": "Vytvoří textový soubor.Ve výchozím nastavení nástroj neprepíše existující soubor.",
     "x_search_terms": [
-      "create_file",
-      "vytvořit soubor",
-      "textový soubor",
-      "nový soubor"
+      "create file",
+      "make file",
+      "new file",
+      "write file",
+      "file create",
+      "generate file",
+      "create document",
+      "new document",
+      "file write",
+      "save file"
     ]
   },
   "uk": {
@@ -293,10 +413,16 @@
     "param.overwrite.description": "Перезаписати, якщо існує (за замовчуванням: false).",
     "tool.description": "Створює текстовий файл.За замовчуванням інструмент не перезаписує наявний файл.",
     "x_search_terms": [
-      "create_file",
-      "створити файл",
-      "текстовий файл",
-      "новий файл"
+      "create file",
+      "make file",
+      "new file",
+      "write file",
+      "file create",
+      "generate file",
+      "create document",
+      "new document",
+      "file write",
+      "save file"
     ]
   },
   "tr": {
@@ -306,10 +432,16 @@
     "param.overwrite.description": "Varsa üzerine yazın (varsayılan: false).",
     "tool.description": "Bir metin dosyası oluşturun.Varsayılan olarak mevcut dosyaların üzerine yazılmaz.",
     "x_search_terms": [
-      "create_file",
-      "dosya oluştur",
-      "metin dosyası",
-      "yeni dosya"
+      "create file",
+      "make file",
+      "new file",
+      "write file",
+      "file create",
+      "generate file",
+      "create document",
+      "new document",
+      "file write",
+      "save file"
     ]
   },
   "th": {
@@ -319,10 +451,16 @@
     "param.overwrite.description": "เขียนทับหากมี (ค่าเริ่มต้น: false)",
     "tool.description": "สร้างไฟล์ข้อความ ตัวเลือกเขียนทับด้วยการสำรองข้อมูล (.org) เลือกการเข้ารหัสสำหรับ Excel (utf-8-sig) หรือแบบเป็นโปรแกรม (utf-8)",
     "x_search_terms": [
-      "create_file",
-      "สร้างไฟล์",
-      "ไฟล์ข้อความ",
-      "ไฟล์ใหม่"
+      "create file",
+      "make file",
+      "new file",
+      "write file",
+      "file create",
+      "generate file",
+      "create document",
+      "new document",
+      "file write",
+      "save file"
     ]
   },
   "zh_CN": {
@@ -332,10 +470,16 @@
     "param.overwrite.description": "如果文件已存在是否覆盖（默认：false）。",
     "tool.description": "创建文本文件。覆盖前创建备份(.org)。Excel用utf-8-sig，程序处理用utf-8。",
     "x_search_terms": [
-      "create_file",
-      "创建文件",
-      "文本文件",
-      "新文件"
+      "create file",
+      "make file",
+      "new file",
+      "write file",
+      "file create",
+      "generate file",
+      "create document",
+      "new document",
+      "file write",
+      "save file"
     ]
   },
   "zh_TW": {
@@ -345,10 +489,16 @@
     "param.overwrite.description": "如果檔案已存在是否覆蓋（預設：false）。",
     "tool.description": "创建文本文件。覆盖前创建备份(.org)。Excel用utf-8-sig，程序处理用utf-8。",
     "x_search_terms": [
-      "create_file",
-      "建立檔案",
-      "文字檔",
-      "新檔案"
+      "create file",
+      "make file",
+      "new file",
+      "write file",
+      "file create",
+      "generate file",
+      "create document",
+      "new document",
+      "file write",
+      "save file"
     ]
   },
   "bn": {
@@ -358,10 +508,16 @@
     "param.overwrite.description": "বিদ্যমান থাকলে ওভাররাইট করুন (ডিফল্ট: মিথ্যা)।",
     "tool.description": "একটি পাঠ্য ফাইল তৈরি করুন। ব্যাকআপের সাথে ঐচ্ছিক ওভাররাইট (.org)। Excel (utf-8-sig) বা প্রোগ্রামেটিক (utf-8) এর জন্য এনকোডিং বেছে নিন।",
     "x_search_terms": [
-      "create_file",
-      "ফাইল তৈরি",
-      "টেক্সট ফাইল",
-      "নতুন ফাইল"
+      "create file",
+      "make file",
+      "new file",
+      "write file",
+      "file create",
+      "generate file",
+      "create document",
+      "new document",
+      "file write",
+      "save file"
     ]
   },
   "fa": {
@@ -371,10 +527,16 @@
     "param.overwrite.description": "در صورت وجود بازنویسی کنید (پیش‌فرض: غلط).",
     "tool.description": "یک فایل متنی ایجاد کنید.به‌طور پیش‌فرض فایل‌های موجود بازنویسی نمی‌شوند.",
     "x_search_terms": [
-      "create_file",
-      "ایجاد فایل",
-      "فایل متنی",
-      "فایل جدید"
+      "create file",
+      "make file",
+      "new file",
+      "write file",
+      "file create",
+      "generate file",
+      "create document",
+      "new document",
+      "file write",
+      "save file"
     ]
   },
   "mn": {
@@ -384,10 +546,16 @@
     "param.overwrite.description": "Хэрэв байгаа бол (худал бол: дарж бичих).",
     "tool.description": "Текст файл үүсгэнэ.Өгөгдмөлөөр одоо байгаа файлыг дарж бичихгүй.",
     "x_search_terms": [
-      "create_file",
-      "файл үүсгэх",
-      "текст файл",
-      "шинэ файл"
+      "create file",
+      "make file",
+      "new file",
+      "write file",
+      "file create",
+      "generate file",
+      "create document",
+      "new document",
+      "file write",
+      "save file"
     ]
   },
   "mr": {
@@ -397,10 +565,16 @@
     "param.overwrite.description": "अस्तित्वात असल्यास अधिलिखित करा (डीफॉल्ट: असत्य).",
     "tool.description": "एक टेक्स्ट फाइल तयार करा.डीफॉल्टने विद्यमान फाइल ओव्हरराइट केली जात नाही.",
     "x_search_terms": [
-      "create_file",
-      "फाइल तयार करा",
-      "मजकूर फाइल",
-      "नवीन फाइल"
+      "create file",
+      "make file",
+      "new file",
+      "write file",
+      "file create",
+      "generate file",
+      "create document",
+      "new document",
+      "file write",
+      "save file"
     ]
   },
   "el": {
@@ -410,14 +584,16 @@
     "param.overwrite.description": "Αντικαταστήστε εάν υπάρχει (προεπιλογή: false).",
     "tool.description": "Δημιουργήστε ένα αρχείο κειμένου. Προαιρετική αντικατάσταση με αντίγραφο ασφαλείας (.org). Επιλέξτε κωδικοποίηση για Excel (utf-8-sig) ή μέσω προγραμματισμού (utf-8).",
     "x_search_terms": [
-      "δημιουργία αρχείου",
-      "νέο αρχείο",
-      "εγγραφή αρχείου",
-      "ファイルを作成",
-      "δημιουργία αρχείου",
-      "créer fichier",
-      "파일 만들기",
-      "создать αρχείο"
+      "create file",
+      "make file",
+      "new file",
+      "write file",
+      "file create",
+      "generate file",
+      "create document",
+      "new document",
+      "file write",
+      "save file"
     ]
   },
   "he": {
@@ -427,14 +603,16 @@
     "param.overwrite.description": "החלף אם קיים (ברירת מחדל: false).",
     "tool.description": "צור קובץ טקסט. החלפה אופציונלית עם גיבוי (.org). בחר קידוד עבור Excel (utf-8-sig) או פרוגרמטי (utf-8).",
     "x_search_terms": [
-      "ליצור קובץ",
-      "קובץ חדש",
-      "לכתוב קובץ",
-      "ファイルを作成",
-      "יצירת ארכיון",
-      "קריר עלוב יותר",
-      "파일 만들기",
-      "создать файл"
+      "create file",
+      "make file",
+      "new file",
+      "write file",
+      "file create",
+      "generate file",
+      "create document",
+      "new document",
+      "file write",
+      "save file"
     ]
   },
   "hu": {
@@ -444,14 +622,16 @@
     "param.overwrite.description": "Felülírni, ha létezik (alapértelmezett: false).",
     "tool.description": "Hozzon létre egy szöveges fájlt. Opcionális felülírás biztonsági mentéssel (.org). Válassza ki az Excel (utf-8-sig) vagy a programozott (utf-8) kódolást.",
     "x_search_terms": [
-      "fájl létrehozása",
-      "új fájl",
-      "fájl írása",
-      "ファイルを作成",
-      "archivo létrehozása",
-      "créer fichier",
-      "파일 만들기",
-      "создать файл"
+      "create file",
+      "make file",
+      "new file",
+      "write file",
+      "file create",
+      "generate file",
+      "create document",
+      "new document",
+      "file write",
+      "save file"
     ]
   },
   "ro": {
@@ -461,14 +641,16 @@
     "param.overwrite.description": "Suprascrie dacă există (implicit: fals).",
     "tool.description": "Creați un fișier text. Suprascrie opțională cu backup (.org). Alegeți codificarea pentru Excel (utf-8-sig) sau programatică (utf-8).",
     "x_search_terms": [
-      "creați fișierul",
-      "fișier nou",
-      "scrie fisierul",
-      "ファイルを作成",
-      "crea arquivo",
-      "creează fișier",
-      "파일 만들기",
-      "создать файл"
+      "create file",
+      "make file",
+      "new file",
+      "write file",
+      "file create",
+      "generate file",
+      "create document",
+      "new document",
+      "file write",
+      "save file"
     ]
   }
 }

@@ -29,11 +29,16 @@
   },
   "ja": {
     "x_search_terms": [
-      "Rustファイルを読む",
-      "Rust インデックス",
-      "関数一覧",
-      "構造体一覧",
-      "トレイト一覧"
+      "rust",
+      "rust code",
+      "rust analysis",
+      "code index",
+      "rust source",
+      "rust parser",
+      "rust function",
+      "rust struct",
+      "rust file",
+      "rust module"
     ],
     "param.path.description": "Rust (.rs) ファイルへのパス。",
     "err.path_required": "エラー: 'path' は必須です。",

@@ -28,12 +28,16 @@
   "ja": {
     "tool.description": "SkillsMPマーケットプレイス（skillsmp.com）でAgent Skillを検索・ブラウズします。スキル名、作者、説明、スター数、GitHub URLを返します。",
     "x_search_terms": [
-      "skills_mp_search",
-      "skillsmp",
-      "マーケットプレイス",
-      "スキル検索",
-      "スキルを見つける",
-      "スキル一覧"
+      "skill search",
+      "marketplace",
+      "search skills",
+      "find skills",
+      "skill marketplace",
+      "discover skills",
+      "search marketplace",
+      "skill directory",
+      "skill discovery",
+      "browse skills"
     ],
     "param.query.description": "スキル名や説明文でフィルタする検索クエリ。",
     "param.page.description": "ページネーションのページ番号（既定: 1）。",
@@ -59,13 +63,16 @@
     "msg.install_hint": "قم بتثبيت مهارة باستخدام: skills_install source=<githubUrl>",
     "msg.install_hint_clawhub": "قم بتثبيت مهارة باستخدام: skills_install source=<url>",
     "x_search_terms": [
-      "skills_mp_search",
-      "skillsmp",
-      "سوق",
-      "بحث عن مهارة",
-      "تصفح مهارة",
-      "اعثر على مهارة",
-      "دليل المهارات"
+      "skill search",
+      "marketplace",
+      "search skills",
+      "find skills",
+      "skill marketplace",
+      "discover skills",
+      "search marketplace",
+      "skill directory",
+      "skill discovery",
+      "browse skills"
     ]
   },
   "bn": {
@@ -80,13 +87,16 @@
     "msg.install_hint": "একটি দক্ষতা ইনস্টল করুন: skills_install source=<githubUrl>",
     "msg.install_hint_clawhub": "একটি দক্ষতা ইনস্টল করুন: skills_install source=<url>",
     "x_search_terms": [
-      "skills_mp_search",
-      "skillsmp",
-      "মার্কেটপ্লেস",
-      "দক্ষতা অনুসন্ধান",
-      "দক্ষতা ব্রাউজ",
-      "দক্ষতা খুঁজুন",
-      "দক্ষতা ডিরেক্টরি"
+      "skill search",
+      "marketplace",
+      "search skills",
+      "find skills",
+      "skill marketplace",
+      "discover skills",
+      "search marketplace",
+      "skill directory",
+      "skill discovery",
+      "browse skills"
     ]
   },
   "cs": {
@@ -101,13 +111,16 @@
     "msg.install_hint": "Nainstalujte dovednost pomocí: skills_install source=<githubUrl>",
     "msg.install_hint_clawhub": "Nainstalujte dovednost pomocí: skills_install source=<url>",
     "x_search_terms": [
-      "skills_mp_search",
-      "skillsmp",
-      "tržiště",
-      "hledat dovednost",
-      "procházet dovednost",
-      "najít dovednost",
-      "adresář dovedností"
+      "skill search",
+      "marketplace",
+      "search skills",
+      "find skills",
+      "skill marketplace",
+      "discover skills",
+      "search marketplace",
+      "skill directory",
+      "skill discovery",
+      "browse skills"
     ]
   },
   "de": {
@@ -122,13 +135,16 @@
     "msg.install_hint": "Installieren Sie einen Skill mit: skills_install source=<githubUrl>",
     "msg.install_hint_clawhub": "Installieren Sie einen Skill mit: skills_install source=<url>",
     "x_search_terms": [
-      "skills_mp_search",
-      "skillsmp",
-      "Marktplatz",
-      "Skill suchen",
-      "Skill durchsuchen",
-      "Skill finden",
-      "Skill-Verzeichnis"
+      "skill search",
+      "marketplace",
+      "search skills",
+      "find skills",
+      "skill marketplace",
+      "discover skills",
+      "search marketplace",
+      "skill directory",
+      "skill discovery",
+      "browse skills"
     ]
   },
   "es": {
@@ -143,13 +159,16 @@
     "msg.install_hint": "Instala una habilidad con: skills_install source=<githubUrl>",
     "msg.install_hint_clawhub": "Instala una habilidad con: skills_install source=<url>",
     "x_search_terms": [
-      "skills_mp_search",
-      "skillsmp",
-      "mercado",
-      "buscar habilidad",
-      "navegar habilidad",
-      "encontrar habilidad",
-      "directorio de habilidades"
+      "skill search",
+      "marketplace",
+      "search skills",
+      "find skills",
+      "skill marketplace",
+      "discover skills",
+      "search marketplace",
+      "skill directory",
+      "skill discovery",
+      "browse skills"
     ]
   },
   "fa": {
@@ -164,13 +183,16 @@
     "msg.install_hint": "نصب یک مهارت با: skills_install source=<githubUrl>",
     "msg.install_hint_clawhub": "نصب یک مهارت با: skills_install source=<url>",
     "x_search_terms": [
-      "skills_mp_search",
-      "skillsmp",
-      "بازار",
-      "جستجوی مهارت",
-      "مرور مهارت",
-      "یافتن مهارت",
-      "راهنمای مهارت‌ها"
+      "skill search",
+      "marketplace",
+      "search skills",
+      "find skills",
+      "skill marketplace",
+      "discover skills",
+      "search marketplace",
+      "skill directory",
+      "skill discovery",
+      "browse skills"
     ]
   },
   "fi": {
@@ -185,13 +207,16 @@
     "msg.install_hint": "Asenna taito komennolla: skills_install source=<githubUrl>",
     "msg.install_hint_clawhub": "Asenna taito komennolla: skills_install source=<url>",
     "x_search_terms": [
-      "skills_mp_search",
-      "skillsmp",
-      "markkinapaikka",
-      "etsi taito",
-      "selaa taitoa",
-      "löydä taito",
-      "taitohakemisto"
+      "skill search",
+      "marketplace",
+      "search skills",
+      "find skills",
+      "skill marketplace",
+      "discover skills",
+      "search marketplace",
+      "skill directory",
+      "skill discovery",
+      "browse skills"
     ]
   },
   "fr": {
@@ -206,13 +231,16 @@
     "msg.install_hint": "Installez une compétence avec : skills_install source=<githubUrl>",
     "msg.install_hint_clawhub": "Installez une compétence avec : skills_install source=<url>",
     "x_search_terms": [
-      "skills_mp_search",
-      "skillsmp",
+      "skill search",
       "marketplace",
-      "rechercher compétence",
-      "parcourir compétence",
-      "trouver compétence",
-      "répertoire de compétences"
+      "search skills",
+      "find skills",
+      "skill marketplace",
+      "discover skills",
+      "search marketplace",
+      "skill directory",
+      "skill discovery",
+      "browse skills"
     ]
   },
   "hi": {
@@ -227,13 +255,16 @@
     "msg.install_hint": "एक कौशल स्थापित करें: skills_install source=<githubUrl>",
     "msg.install_hint_clawhub": "एक कौशल स्थापित करें: skills_install source=<url>",
     "x_search_terms": [
-      "skills_mp_search",
-      "skillsmp",
-      "मार्केटप्लेस",
-      "कौशल खोजें",
-      "कौशल ब्राउज़ करें",
-      "कौशल ढूँढें",
-      "कौशल निर्देशिका"
+      "skill search",
+      "marketplace",
+      "search skills",
+      "find skills",
+      "skill marketplace",
+      "discover skills",
+      "search marketplace",
+      "skill directory",
+      "skill discovery",
+      "browse skills"
     ]
   },
   "id": {
@@ -248,13 +279,16 @@
     "msg.install_hint": "Instal skill dengan: skills_install source=<githubUrl>",
     "msg.install_hint_clawhub": "Instal skill dengan: skills_install source=<url>",
     "x_search_terms": [
-      "skills_mp_search",
-      "skillsmp",
+      "skill search",
       "marketplace",
-      "cari skill",
-      "jelajahi skill",
-      "temukan skill",
-      "direktori skill"
+      "search skills",
+      "find skills",
+      "skill marketplace",
+      "discover skills",
+      "search marketplace",
+      "skill directory",
+      "skill discovery",
+      "browse skills"
     ]
   },
   "it": {
@@ -269,13 +303,16 @@
     "msg.install_hint": "Installa una competenza con: skills_install source=<githubUrl>",
     "msg.install_hint_clawhub": "Installa una competenza con: skills_install source=<url>",
     "x_search_terms": [
-      "skills_mp_search",
-      "skillsmp",
+      "skill search",
       "marketplace",
-      "cerca competenza",
-      "sfoglia competenza",
-      "trova competenza",
-      "directory competenze"
+      "search skills",
+      "find skills",
+      "skill marketplace",
+      "discover skills",
+      "search marketplace",
+      "skill directory",
+      "skill discovery",
+      "browse skills"
     ]
   },
   "ko": {
@@ -290,13 +327,16 @@
     "msg.install_hint": "스킬 설치: skills_install source=<githubUrl>",
     "msg.install_hint_clawhub": "스킬 설치: skills_install source=<url>",
     "x_search_terms": [
-      "skills_mp_search",
-      "skillsmp",
-      "마켓플레이스",
-      "스킬 검색",
-      "스킬 탐색",
-      "스킬 찾기",
-      "스킬 디렉토리"
+      "skill search",
+      "marketplace",
+      "search skills",
+      "find skills",
+      "skill marketplace",
+      "discover skills",
+      "search marketplace",
+      "skill directory",
+      "skill discovery",
+      "browse skills"
     ]
   },
   "mn": {
@@ -311,13 +351,16 @@
     "msg.install_hint": "Ур чадварыг суулгах: skills_install source=<githubUrl>",
     "msg.install_hint_clawhub": "Ур чадварыг суулгах: skills_install source=<url>",
     "x_search_terms": [
-      "skills_mp_search",
-      "skillsmp",
-      "зах зээл",
-      "ур чадвар хайх",
-      "ур чадвар үзэх",
-      "ур чадвар олох",
-      "ур чадварын лавлах"
+      "skill search",
+      "marketplace",
+      "search skills",
+      "find skills",
+      "skill marketplace",
+      "discover skills",
+      "search marketplace",
+      "skill directory",
+      "skill discovery",
+      "browse skills"
     ]
   },
   "mr": {
@@ -332,25 +375,31 @@
     "msg.install_hint": "कौशल्य स्थापित करा: skills_install source=<githubUrl>",
     "msg.install_hint_clawhub": "कौशल्य स्थापित करा: skills_install source=<url>",
     "x_search_terms": [
-      "skills_mp_search",
-      "skillsmp",
-      "मार्केटप्लेस",
-      "कौशल्य शोधा",
-      "कौशल्य ब्राउझ करा",
-      "कौशल्य शोधा",
-      "कौशल्य निर्देशिका"
+      "skill search",
+      "marketplace",
+      "search skills",
+      "find skills",
+      "skill marketplace",
+      "discover skills",
+      "search marketplace",
+      "skill directory",
+      "skill discovery",
+      "browse skills"
     ]
   },
   "el": {
     "tool.description": "Αναζητήστε και περιηγηθείτε στην αγορά SkillsMP (skillsmp.com) για Agent Skills. Επιστρέφει μια λίστα δεξιοτήτων με όνομα, συγγραφέα, περιγραφή, αστέρια και διεύθυνση URL του GitHub.",
     "x_search_terms": [
-      "δεξιότητα εύρεσης",
+      "skill search",
+      "marketplace",
+      "search skills",
+      "find skills",
+      "skill marketplace",
+      "discover skills",
+      "search marketplace",
       "skill directory",
-      "Ερώτημα αναζήτησης για φιλτράρισμα δεξιοτήτων με βάση το όνομα ή την περιγραφή των αποτελεσμάτων [=#g] σελίδας",
-      "(προεπιλογή: 10, μέγιστος αριθμός: 50). δεξιότητες που βρέθηκαν",
-      "SkillsMP Marketplace — Σελίδα {page}/{total}",
-      "ClawHub Marketplace — Σελίδα {page}/{total}",
-      "Χρησιμοποιήστε τη σελίδα={next} για να δείτε περισσότερα αποτελέσματα"
+      "skill discovery",
+      "browse skills"
     ],
     "param.query.description": "Εγκαταστήστε μια ικανότητα με: skills_install source=<githubr.",
     "param.page.description": "Αριθμός σελίδας για σελιδοποίηση (προεπιλογή: 1).",
@@ -365,13 +414,16 @@
   "he": {
     "tool.description": "חפש ודפדף בשוק SkillsMP (skillsmp.com) עבור Agent Skills. מחזירה רשימה של מיומנויות עם שם, מחבר, תיאור, כוכבים וכתובת GitHub.",
     "x_search_terms": [
-      "מספר תוצאות לכל עמוד (ברירת מחדל: 50, מקסימום: 'אחרון' (החדש ביותר הראשון), 'כוכבים', 'כוכבים'.",
-      "מקור השוק: 'skillsmp' (skillsmp.com) או 'clawhub' (clawhub.ai) ברירת מחדל: 'skillsmp'",
-      "לא נמצאו מיומנויות",
-      "SkillsMP Marketplace — עמוד {page}/{total}",
-      "ClawHub Marketplace — עמוד {page}/ext.",
-      "התקן מיומנות עם: skills_install source=<githubUrl>",
-      "ספריית מיומנויות"
+      "skill search",
+      "marketplace",
+      "search skills",
+      "find skills",
+      "skill marketplace",
+      "discover skills",
+      "search marketplace",
+      "skill directory",
+      "skill discovery",
+      "browse skills"
     ],
     "param.query.description": "שאילתת חיפוש לסינון מיומנויות לפי שם או תיאור.",
     "param.page.description": "מספר עמוד לעימוד (ברירת מחדל: 1).",
@@ -386,13 +438,16 @@
   "hu": {
     "tool.description": "Keressen és böngésszen a SkillsMP piacterén (skillsmp.com) az Agent Skillsért. A készségek listáját adja vissza névvel, szerzővel, leírással, csillagokkal és GitHub URL-lel.",
     "x_search_terms": [
-      "készség keresése",
-      "Keresési lekérdezés a készségek szűréséhez név vagy leírás alapján (alapértelmezett: 1",
-      "Eredmények száma oldalanként (alapértelmezett: 10, maximum: 50",
-      "Rendezési sorrend: 'recent't' (legújabb)). Alapértelmezett: 'recent'",
-      "Marketplace forrás: 'skillsmp' (skillsmp.com) vagy 'clawhub' (clawhub.ai).",
-      "További eredmények megtekintéséhez használja a page={next} parancsot.",
-      "Telepítsen egy készséget a következővel: skill_install source=<githubUrl>"
+      "skill search",
+      "marketplace",
+      "search skills",
+      "find skills",
+      "skill marketplace",
+      "discover skills",
+      "search marketplace",
+      "skill directory",
+      "skill discovery",
+      "browse skills"
     ],
     "param.query.description": "Keresési lekérdezés a készségek név vagy leírás szerinti szűréséhez.",
     "param.page.description": "Oldalszám az oldalszámozáshoz (alapértelmezett: 1).",
@@ -407,13 +462,16 @@
   "ro": {
     "tool.description": "Căutați și răsfoiți pe piața SkillsMP (skillsmp.com) pentru abilități de agent. Returnează o listă de abilități cu nume, autor, descriere, stele și URL GitHub.",
     "x_search_terms": [
-      "Căutare interogare pentru a filtra abilitățile după nume sau descriere",
-      "Număr de pagină pentru paginare (implicit: 1",
-      "Număr de rezultate pe pagină (implicit: 10, max: 50, stea [='='), stele (în primul rând). „nume” (în ordine alfabetică): „recent”",
-      "Sursa pieței: „skillsmp” (skillsmp.com) sau „clawhub” (clawhub.ai): „skillsmp”",
-      "SkillsMP Marketplace — {} total (pagină)/{}.",
-      "Utilizați page={next} pentru a vedea mai multe rezultate",
-      "Instalați o abilitate cu: skills_install source=<githubUrl>"
+      "skill search",
+      "marketplace",
+      "search skills",
+      "find skills",
+      "skill marketplace",
+      "discover skills",
+      "search marketplace",
+      "skill directory",
+      "skill discovery",
+      "browse skills"
     ],
     "param.query.description": "Căutare interogare pentru a filtra competențele după nume sau descriere.",
     "param.page.description": "Numărul paginii pentru paginare (implicit: 1).",
@@ -437,13 +495,16 @@
     "msg.install_hint": "Installer en ferdighet med: skills_install source=<githubUrl>",
     "msg.install_hint_clawhub": "Installer en ferdighet med: skills_install source=<url>",
     "x_search_terms": [
-      "skills_mp_search",
-      "skillsmp",
-      "markedsplass",
-      "søk ferdighet",
-      "bla ferdighet",
-      "finn ferdighet",
-      "ferdighetskatalog"
+      "skill search",
+      "marketplace",
+      "search skills",
+      "find skills",
+      "skill marketplace",
+      "discover skills",
+      "search marketplace",
+      "skill directory",
+      "skill discovery",
+      "browse skills"
     ]
   },
   "nl": {
@@ -458,13 +519,16 @@
     "msg.install_hint": "Installeer een vaardigheid met: skills_install source=<githubUrl>",
     "msg.install_hint_clawhub": "Installeer een vaardigheid met: skills_install source=<url>",
     "x_search_terms": [
-      "skills_mp_search",
-      "skillsmp",
-      "marktplaats",
-      "vaardigheid zoeken",
-      "vaardigheid bladeren",
-      "vaardigheid vinden",
-      "vaardighedengids"
+      "skill search",
+      "marketplace",
+      "search skills",
+      "find skills",
+      "skill marketplace",
+      "discover skills",
+      "search marketplace",
+      "skill directory",
+      "skill discovery",
+      "browse skills"
     ]
   },
   "pl": {
@@ -479,13 +543,16 @@
     "msg.install_hint": "Zainstaluj umiejętność za pomocą: skills_install source=<githubUrl>",
     "msg.install_hint_clawhub": "Zainstaluj umiejętność za pomocą: skills_install source=<url>",
     "x_search_terms": [
-      "skills_mp_search",
-      "skillsmp",
+      "skill search",
       "marketplace",
-      "szukaj umiejętności",
-      "przeglądaj umiejętności",
-      "znajdź umiejętność",
-      "katalog umiejętności"
+      "search skills",
+      "find skills",
+      "skill marketplace",
+      "discover skills",
+      "search marketplace",
+      "skill directory",
+      "skill discovery",
+      "browse skills"
     ]
   },
   "pt": {
@@ -500,13 +567,16 @@
     "msg.install_hint": "Instale uma habilidade com: skills_install source=<githubUrl>",
     "msg.install_hint_clawhub": "Instale uma habilidade com: skills_install source=<url>",
     "x_search_terms": [
-      "skills_mp_search",
-      "skillsmp",
+      "skill search",
       "marketplace",
-      "pesquisar habilidade",
-      "navegar habilidade",
-      "encontrar habilidade",
-      "diretório de habilidades"
+      "search skills",
+      "find skills",
+      "skill marketplace",
+      "discover skills",
+      "search marketplace",
+      "skill directory",
+      "skill discovery",
+      "browse skills"
     ]
   },
   "pt_BR": {
@@ -521,13 +591,16 @@
     "msg.install_hint": "Instale uma habilidade com: skills_install source=<githubUrl>",
     "msg.install_hint_clawhub": "Instale uma habilidade com: skills_install source=<url>",
     "x_search_terms": [
-      "skills_mp_search",
-      "skillsmp",
+      "skill search",
       "marketplace",
-      "pesquisar habilidade",
-      "navegar habilidade",
-      "encontrar habilidade",
-      "diretório de habilidades"
+      "search skills",
+      "find skills",
+      "skill marketplace",
+      "discover skills",
+      "search marketplace",
+      "skill directory",
+      "skill discovery",
+      "browse skills"
     ]
   },
   "ru": {
@@ -542,13 +615,16 @@
     "msg.install_hint": "Установите навык с помощью: skills_install source=<githubUrl>",
     "msg.install_hint_clawhub": "Установите навык с помощью: skills_install source=<url>",
     "x_search_terms": [
-      "skills_mp_search",
-      "skillsmp",
-      "торговая площадка",
-      "искать навык",
-      "просматривать навык",
-      "найти навык",
-      "каталог навыков"
+      "skill search",
+      "marketplace",
+      "search skills",
+      "find skills",
+      "skill marketplace",
+      "discover skills",
+      "search marketplace",
+      "skill directory",
+      "skill discovery",
+      "browse skills"
     ]
   },
   "sv": {
@@ -563,13 +639,16 @@
     "msg.install_hint": "Installera en färdighet med: skills_install source=<githubUrl>",
     "msg.install_hint_clawhub": "Installera en färdighet med: skills_install source=<url>",
     "x_search_terms": [
-      "skills_mp_search",
-      "skillsmp",
-      "marknadsplats",
-      "sök färdighet",
-      "bläddra färdighet",
-      "hitta färdighet",
-      "färdighetskatalog"
+      "skill search",
+      "marketplace",
+      "search skills",
+      "find skills",
+      "skill marketplace",
+      "discover skills",
+      "search marketplace",
+      "skill directory",
+      "skill discovery",
+      "browse skills"
     ]
   },
   "sw": {
@@ -584,13 +663,16 @@
     "msg.install_hint": "Sakinisha ujuzi kwa: skills_install source=<githubUrl>",
     "msg.install_hint_clawhub": "Sakinisha ujuzi kwa: skills_install source=<url>",
     "x_search_terms": [
-      "skills_mp_search",
-      "skillsmp",
-      "soko",
-      "tafuta ujuzi",
-      "vinjari ujuzi",
-      "pata ujuzi",
-      "saraka ya ujuzi"
+      "skill search",
+      "marketplace",
+      "search skills",
+      "find skills",
+      "skill marketplace",
+      "discover skills",
+      "search marketplace",
+      "skill directory",
+      "skill discovery",
+      "browse skills"
     ]
   },
   "th": {
@@ -605,13 +687,16 @@
     "msg.install_hint": "ติดตั้งทักษะด้วย: skills_install source=<githubUrl>",
     "msg.install_hint_clawhub": "ติดตั้งทักษะด้วย: skills_install source=<url>",
     "x_search_terms": [
-      "skills_mp_search",
-      "skillsmp",
-      "ตลาด",
-      "ค้นหาทักษะ",
-      "เรียกดูทักษะ",
-      "หาทักษะ",
-      "สารบบทักษะ"
+      "skill search",
+      "marketplace",
+      "search skills",
+      "find skills",
+      "skill marketplace",
+      "discover skills",
+      "search marketplace",
+      "skill directory",
+      "skill discovery",
+      "browse skills"
     ]
   },
   "tr": {
@@ -626,13 +711,16 @@
     "msg.install_hint": "Bir beceri yükleyin: skills_install source=<githubUrl>",
     "msg.install_hint_clawhub": "Bir beceri yükleyin: skills_install source=<url>",
     "x_search_terms": [
-      "skills_mp_search",
-      "skillsmp",
-      "pazar yeri",
-      "beceri ara",
-      "beceri göz at",
-      "beceri bul",
-      "beceri dizini"
+      "skill search",
+      "marketplace",
+      "search skills",
+      "find skills",
+      "skill marketplace",
+      "discover skills",
+      "search marketplace",
+      "skill directory",
+      "skill discovery",
+      "browse skills"
     ]
   },
   "uk": {
@@ -647,13 +735,16 @@
     "msg.install_hint": "Встановіть навичку за допомогою: skills_install source=<githubUrl>",
     "msg.install_hint_clawhub": "Встановіть навичку за допомогою: skills_install source=<url>",
     "x_search_terms": [
-      "skills_mp_search",
-      "skillsmp",
-      "торговельний майданчик",
-      "шукати навичку",
-      "переглядати навичку",
-      "знайти навичку",
-      "каталог навичок"
+      "skill search",
+      "marketplace",
+      "search skills",
+      "find skills",
+      "skill marketplace",
+      "discover skills",
+      "search marketplace",
+      "skill directory",
+      "skill discovery",
+      "browse skills"
     ]
   },
   "vi": {
@@ -668,13 +759,16 @@
     "msg.install_hint": "Cài đặt một kỹ năng với: skills_install source=<githubUrl>",
     "msg.install_hint_clawhub": "Cài đặt một kỹ năng với: skills_install source=<url>",
     "x_search_terms": [
-      "skills_mp_search",
-      "skillsmp",
-      "thị trường",
-      "tìm kiếm kỹ năng",
-      "duyệt kỹ năng",
-      "tìm kỹ năng",
-      "danh mục kỹ năng"
+      "skill search",
+      "marketplace",
+      "search skills",
+      "find skills",
+      "skill marketplace",
+      "discover skills",
+      "search marketplace",
+      "skill directory",
+      "skill discovery",
+      "browse skills"
     ]
   },
   "zh_CN": {
@@ -689,13 +783,16 @@
     "msg.install_hint": "安装技能：skills_install source=<githubUrl>",
     "msg.install_hint_clawhub": "安装技能：skills_install source=<url>",
     "x_search_terms": [
-      "skills_mp_search",
-      "skillsmp",
-      "市场",
-      "搜索技能",
-      "浏览技能",
-      "查找技能",
-      "技能目录"
+      "skill search",
+      "marketplace",
+      "search skills",
+      "find skills",
+      "skill marketplace",
+      "discover skills",
+      "search marketplace",
+      "skill directory",
+      "skill discovery",
+      "browse skills"
     ]
   },
   "zh_TW": {
@@ -710,13 +807,16 @@
     "msg.install_hint": "安裝技能：skills_install source=<githubUrl>",
     "msg.install_hint_clawhub": "安裝技能：skills_install source=<url>",
     "x_search_terms": [
-      "skills_mp_search",
-      "skillsmp",
-      "市集",
-      "搜尋技能",
-      "瀏覽技能",
-      "尋找技能",
-      "技能目錄"
+      "skill search",
+      "marketplace",
+      "search skills",
+      "find skills",
+      "skill marketplace",
+      "discover skills",
+      "search marketplace",
+      "skill directory",
+      "skill discovery",
+      "browse skills"
     ]
   }
 }

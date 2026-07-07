@@ -20,10 +20,16 @@
     "param.command.description": "OS シェルに渡すコマンド文字列。Windows では cmd.exe /c を使います。",
     "tool.description": "最終手段としてシェルコマンドを実行し、JSON 結果を返します。より安全または適切なツールがない場合にのみ使用してください。",
     "x_search_terms": [
-      "cmd_exec_json",
-      "cmd exec json",
-      "シェルコマンド",
-      "json結果"
+      "cmd json",
+      "command json",
+      "structured output",
+      "json result",
+      "cmd structured",
+      "command output",
+      "command result",
+      "execute json",
+      "json command",
+      "cmd result"
     ],
     "param.cwd.description": "作業ディレクトリ。workdir の下の相対パスのみが許可されます。null の場合、現在のディレクトリが使用されます。"
   },
@@ -31,328 +37,512 @@
     "param.command.description": "Cadena de comando que se pasa al shell del sistema.",
     "tool.description": "Como último recurso, ejecuta un comando de shell y devuelve un resultado JSON.",
     "x_search_terms": [
-      "cmd_exec_json",
-      "cmd exec json",
-      "comando shell",
-      "resultado json"
+      "cmd json",
+      "command json",
+      "structured output",
+      "json result",
+      "cmd structured",
+      "command output",
+      "command result",
+      "execute json",
+      "json command",
+      "cmd result"
     ]
   },
   "fr": {
     "param.command.description": "Chaîne de commande transmise au shell du système.Sous Windows, cmd.",
     "tool.description": "En dernier recours, exécute une commande shell et renvoie un résultat JSON.",
     "x_search_terms": [
-      "cmd_exec_json",
-      "cmd exec json",
-      "commande shell",
-      "résultat json"
+      "cmd json",
+      "command json",
+      "structured output",
+      "json result",
+      "cmd structured",
+      "command output",
+      "command result",
+      "execute json",
+      "json command",
+      "cmd result"
     ]
   },
   "ko": {
     "param.command.description": "시스템 셸에 전달되는 명령 문자열입니다. Windows에서는 cmd.exe /c를 사용합니다.",
     "tool.description": "최후의 수단으로 쉘 명령을 실행하고 JSON 결과를 반환합니다. 더 안전하거나 더 구체적인 도구를 사용할 수 없는 경우에만 사용하세요(예: MCP 통합).",
     "x_search_terms": [
-      "cmd_exec_json",
-      "cmd exec json",
-      "쉘 명령",
-      "json 결과"
+      "cmd json",
+      "command json",
+      "structured output",
+      "json result",
+      "cmd structured",
+      "command output",
+      "command result",
+      "execute json",
+      "json command",
+      "cmd result"
     ]
   },
   "de": {
     "param.command.description": "Befehlszeichenfolge, die an die System-Shell übergeben wird.",
     "tool.description": "Führt als letzter Ausweg einen Shell-Befehl aus und gibt ein JSON-Ergebnis zurück.",
     "x_search_terms": [
-      "cmd_exec_json",
-      "cmd exec json",
-      "shell-befehl",
-      "json-ergebnis"
+      "cmd json",
+      "command json",
+      "structured output",
+      "json result",
+      "cmd structured",
+      "command output",
+      "command result",
+      "execute json",
+      "json command",
+      "cmd result"
     ]
   },
   "it": {
     "param.command.description": "Stringa di comando passata alla shell di sistema.",
     "tool.description": "Come ultima risorsa, esegue un comando di shell e restituisce un risultato JSON.",
     "x_search_terms": [
-      "cmd_exec_json",
-      "cmd exec json",
-      "comando shell",
-      "risultato json"
+      "cmd json",
+      "command json",
+      "structured output",
+      "json result",
+      "cmd structured",
+      "command output",
+      "command result",
+      "execute json",
+      "json command",
+      "cmd result"
     ]
   },
   "ru": {
     "param.command.description": "Строка команды, передаваемая системной оболочке.",
     "tool.description": "В крайнем случае выполняет команду оболочки и возвращает результат в формате JSON.",
     "x_search_terms": [
-      "cmd_exec_json",
-      "cmd exec json",
-      "команда shell",
-      "json результат"
+      "cmd json",
+      "command json",
+      "structured output",
+      "json result",
+      "cmd structured",
+      "command output",
+      "command result",
+      "execute json",
+      "json command",
+      "cmd result"
     ]
   },
   "pt_BR": {
     "param.command.description": "Cadeia de comandos passada para o shell do sistema.",
     "tool.description": "Como último recurso, executa um comando de shell e retorna um resultado em JSON.",
     "x_search_terms": [
-      "cmd_exec_json",
-      "cmd exec json",
-      "comando shell",
-      "resultado json"
+      "cmd json",
+      "command json",
+      "structured output",
+      "json result",
+      "cmd structured",
+      "command output",
+      "command result",
+      "execute json",
+      "json command",
+      "cmd result"
     ]
   },
   "pt": {
     "param.command.description": "Cadeia de comandos passada para o shell do sistema.",
     "tool.description": "Como último recurso, execute um comando shell e retorne um resultado JSON.",
     "x_search_terms": [
-      "cmd_exec_json",
-      "cmd exec json",
-      "comando shell",
-      "resultado json"
+      "cmd json",
+      "command json",
+      "structured output",
+      "json result",
+      "cmd structured",
+      "command output",
+      "command result",
+      "execute json",
+      "json command",
+      "cmd result"
     ]
   },
   "id": {
     "param.command.description": "String perintah yang diteruskan ke shell sistem.",
     "tool.description": "Sebagai upaya terakhir, jalankan perintah shell dan kembalikan hasil JSON.",
     "x_search_terms": [
-      "cmd_exec_json",
-      "cmd exec json",
-      "perintah shell",
-      "hasil json"
+      "cmd json",
+      "command json",
+      "structured output",
+      "json result",
+      "cmd structured",
+      "command output",
+      "command result",
+      "execute json",
+      "json command",
+      "cmd result"
     ]
   },
   "vi": {
     "param.command.description": "Chuỗi lệnh được truyền đến shell hệ thống. Trên Windows, dùng cmd.exe /c.",
     "tool.description": "Phương án cuối cùng là thực thi lệnh shell và trả về kết quả JSON.",
     "x_search_terms": [
-      "cmd_exec_json",
-      "cmd exec json",
-      "lệnh shell",
-      "kết quả json"
+      "cmd json",
+      "command json",
+      "structured output",
+      "json result",
+      "cmd structured",
+      "command output",
+      "command result",
+      "execute json",
+      "json command",
+      "cmd result"
     ]
   },
   "pl": {
     "param.command.description": "Ciąg polecenia przekazywany do powłoki systemowej.",
     "tool.description": "W ostateczności wykonaj polecenie powłoki i zwróć wynik JSON.",
     "x_search_terms": [
-      "cmd_exec_json",
-      "cmd exec json",
-      "polecenie shell",
-      "wynik json"
+      "cmd json",
+      "command json",
+      "structured output",
+      "json result",
+      "cmd structured",
+      "command output",
+      "command result",
+      "execute json",
+      "json command",
+      "cmd result"
     ]
   },
   "hi": {
     "param.command.description": "सिस्टम शेल को दी जाने वाली कमांड स्ट्रिंग। Windows पर cmd.",
     "tool.description": "अंतिम उपाय के रूप में, एक शेल कमांड निष्पादित करें और JSON परिणाम लौटाएं। केवल तभी उपयोग करें जब कोई सुरक्षित या अधिक विशिष्ट उपकरण उपलब्ध न हो (जैसे।",
     "x_search_terms": [
-      "cmd_exec_json",
-      "cmd exec json",
-      "शेल कमांड",
-      "json परिणाम"
+      "cmd json",
+      "command json",
+      "structured output",
+      "json result",
+      "cmd structured",
+      "command output",
+      "command result",
+      "execute json",
+      "json command",
+      "cmd result"
     ]
   },
   "ar": {
     "param.command.description": "سلسلة الأوامر التي تُمرَّر إلى غلاف النظام. في Windows يُستخدم cmd.exe /c.",
     "tool.description": "كحل أخير، قم بتنفيذ أمر shell وإرجاع نتيجة JSON. استخدم فقط في حالة عدم توفر أداة أكثر أمانًا أو أكثر تحديدًا (على سبيل المثال، تكامل MCP).",
     "x_search_terms": [
-      "cmd_exec_json",
-      "cmd exec json",
-      "أمر shell",
-      "نتيجة json"
+      "cmd json",
+      "command json",
+      "structured output",
+      "json result",
+      "cmd structured",
+      "command output",
+      "command result",
+      "execute json",
+      "json command",
+      "cmd result"
     ]
   },
   "sv": {
     "param.command.description": "Kommandosträng som skickas till systemets skal. I Windows används cmd.exe /c.",
     "tool.description": "Kör ett shell-kommando som sista utväg och returnera ett JSON-resultat.",
     "x_search_terms": [
-      "cmd_exec_json",
-      "cmd exec json",
-      "shellkommando",
-      "json-resultat"
+      "cmd json",
+      "command json",
+      "structured output",
+      "json result",
+      "cmd structured",
+      "command output",
+      "command result",
+      "execute json",
+      "json command",
+      "cmd result"
     ]
   },
   "sw": {
     "param.command.description": "Mfuatano wa amri unaopitishwa kwa ganda la mfumo.",
     "tool.description": "Kama suluhisho la mwisho, tekeleza amri ya shell na urudishe matokeo ya JSON.",
     "x_search_terms": [
-      "cmd_exec_json",
-      "cmd exec json",
-      "amri shell",
-      "matokeo ya json"
+      "cmd json",
+      "command json",
+      "structured output",
+      "json result",
+      "cmd structured",
+      "command output",
+      "command result",
+      "execute json",
+      "json command",
+      "cmd result"
     ]
   },
   "nb": {
     "param.command.description": "Kommandostreng som sendes til systemskallet. På Windows brukes cmd.exe /c.",
     "tool.description": "Kjør en shell-kommando som siste utvei og returner et JSON-resultat.",
     "x_search_terms": [
-      "cmd_exec_json",
-      "cmd exec json",
-      "shellkommando",
-      "json-resultat"
+      "cmd json",
+      "command json",
+      "structured output",
+      "json result",
+      "cmd structured",
+      "command output",
+      "command result",
+      "execute json",
+      "json command",
+      "cmd result"
     ]
   },
   "nl": {
     "param.command.description": "Opdrachtregel die naar de systeem-shell wordt doorgegeven.",
     "tool.description": "Voer als laatste redmiddel een shell-opdracht uit en geef een JSON-resultaat terug.",
     "x_search_terms": [
-      "cmd_exec_json",
-      "cmd exec json",
-      "shellopdracht",
-      "jsonresultaat"
+      "cmd json",
+      "command json",
+      "structured output",
+      "json result",
+      "cmd structured",
+      "command output",
+      "command result",
+      "execute json",
+      "json command",
+      "cmd result"
     ]
   },
   "fi": {
     "param.command.description": "Komentorivi, joka välitetään järjestelmän komentotulkille.",
     "tool.description": "Suorita viimeisenä keinona shell-komento ja palauta JSON-tulos.",
     "x_search_terms": [
-      "cmd_exec_json",
-      "cmd exec json",
-      "shell-komento",
-      "json-tulos"
+      "cmd json",
+      "command json",
+      "structured output",
+      "json result",
+      "cmd structured",
+      "command output",
+      "command result",
+      "execute json",
+      "json command",
+      "cmd result"
     ]
   },
   "cs": {
     "param.command.description": "Řetězec příkazu předávaný systémovému shellu.",
     "tool.description": "Jako poslední možnost spustí shellový příkaz a vrátí JSON výsledek.",
     "x_search_terms": [
-      "cmd_exec_json",
-      "cmd exec json",
-      "shell příkaz",
-      "json výsledek"
+      "cmd json",
+      "command json",
+      "structured output",
+      "json result",
+      "cmd structured",
+      "command output",
+      "command result",
+      "execute json",
+      "json command",
+      "cmd result"
     ]
   },
   "uk": {
     "param.command.description": "Рядок команди, що передається системній оболонці.",
     "tool.description": "Як крайній захід, виконує команду shell і повертає JSON-результат.",
     "x_search_terms": [
-      "cmd_exec_json",
-      "cmd exec json",
-      "команда shell",
-      "json результат"
+      "cmd json",
+      "command json",
+      "structured output",
+      "json result",
+      "cmd structured",
+      "command output",
+      "command result",
+      "execute json",
+      "json command",
+      "cmd result"
     ]
   },
   "tr": {
     "param.command.description": "Sistem kabuğuna iletilen komut dizisi. Windows’ta cmd.exe /c kullanılır.",
     "tool.description": "Son çare olarak, bir kabuk komutu yürütün ve JSON sonucunu döndürün.",
     "x_search_terms": [
-      "cmd_exec_json",
-      "cmd exec json",
-      "kabuk komutu",
-      "json sonucu"
+      "cmd json",
+      "command json",
+      "structured output",
+      "json result",
+      "cmd structured",
+      "command output",
+      "command result",
+      "execute json",
+      "json command",
+      "cmd result"
     ]
   },
   "th": {
     "param.command.description": "สตริงคำสั่งที่ส่งไปยังเชลล์ของระบบ บน Windows ใช้ cmd.exe /c",
     "tool.description": "เป็นทางเลือกสุดท้าย ให้ดำเนินการคำสั่งเชลล์และส่งกลับผลลัพธ์ JSON ใช้เฉพาะเมื่อไม่มีเครื่องมือที่ปลอดภัยกว่าหรือเฉพาะเจาะจงกว่านี้เท่านั้น (เช่น",
     "x_search_terms": [
-      "cmd_exec_json",
-      "cmd exec json",
-      "คำสั่งเชลล์",
-      "ผลลัพธ์ json"
+      "cmd json",
+      "command json",
+      "structured output",
+      "json result",
+      "cmd structured",
+      "command output",
+      "command result",
+      "execute json",
+      "json command",
+      "cmd result"
     ]
   },
   "zh_CN": {
     "param.command.description": "传递给系统 shell 的命令字符串。Windows 上使用 cmd.exe /c。",
     "tool.description": "作为最后手段，执行 shell 命令并返回 JSON 结果。仅当没有更安全或更具体的工具可用时使用（例如 MCP 集成）。",
     "x_search_terms": [
-      "cmd_exec_json",
-      "cmd exec json",
-      "shell 命令",
-      "json 结果"
+      "cmd json",
+      "command json",
+      "structured output",
+      "json result",
+      "cmd structured",
+      "command output",
+      "command result",
+      "execute json",
+      "json command",
+      "cmd result"
     ]
   },
   "zh_TW": {
     "param.command.description": "傳遞給系統 shell 的命令字串。Windows 會使用 cmd.exe /c。",
     "tool.description": "作為最後手段，執行 shell 指令並傳回 JSON 結果。僅在沒有更安全或更具體的工具可用時使用（例如 MCP 整合）。",
     "x_search_terms": [
-      "cmd_exec_json",
-      "cmd exec json",
-      "shell 指令",
-      "json 結果"
+      "cmd json",
+      "command json",
+      "structured output",
+      "json result",
+      "cmd structured",
+      "command output",
+      "command result",
+      "execute json",
+      "json command",
+      "cmd result"
     ]
   },
   "bn": {
     "param.command.description": "OS shell-এ পাঠানোর কমান্ড স্ট্রিং। Windows-এ cmd.exe /c ব্যবহার করা হয়।",
     "tool.description": "একটি শেষ অবলম্বন হিসাবে, একটি শেল কমান্ড চালান এবং একটি JSON ফলাফল প্রদান করুন। শুধুমাত্র তখনই ব্যবহার করুন যখন কোনো নিরাপদ বা আরও নির্দিষ্ট টুল উপলব্ধ না থাকে (যেমন",
     "x_search_terms": [
-      "cmd_exec_json",
-      "cmd exec json",
-      "শেল কমান্ড",
-      "json ফলাফল"
+      "cmd json",
+      "command json",
+      "structured output",
+      "json result",
+      "cmd structured",
+      "command output",
+      "command result",
+      "execute json",
+      "json command",
+      "cmd result"
     ]
   },
   "fa": {
     "param.command.description": "رشتهٔ فرمانی که به پوستهٔ سیستم داده می‌شود.در ویندوز از cmd.",
     "tool.description": "به‌عنوان آخرین راه‌حل، یک فرمان shell اجرا می‌کند و نتیجه را به‌صورت JSON برمی‌گرداند.",
     "x_search_terms": [
-      "cmd_exec_json",
-      "cmd exec json",
-      "فرمان شل",
-      "نتیجه json"
+      "cmd json",
+      "command json",
+      "structured output",
+      "json result",
+      "cmd structured",
+      "command output",
+      "command result",
+      "execute json",
+      "json command",
+      "cmd result"
     ]
   },
   "mn": {
     "param.command.description": "Системийн shell-д дамжуулах командын мөр. Windows дээр cmd.exe /c ашиглана.",
     "tool.description": "Хамгийн сүүлчийн арга болгон shell команд ажиллуулж JSON үр дүнг буцаана.",
     "x_search_terms": [
-      "cmd_exec_json",
-      "cmd exec json",
-      "shell тушаал",
-      "json үр дүн"
+      "cmd json",
+      "command json",
+      "structured output",
+      "json result",
+      "cmd structured",
+      "command output",
+      "command result",
+      "execute json",
+      "json command",
+      "cmd result"
     ]
   },
   "mr": {
     "param.command.description": "OS shell ला दिलेली कमांड स्ट्रिंग. Windows वर cmd.exe /c वापरले जाते.",
     "tool.description": "शेवटचा उपाय म्हणून शेल कमांड चालवा आणि JSON निकाल परत करा. अधिक सुरक्षित किंवा अधिक विशिष्ट साधन उपलब्ध नसल्यासच वापरा (उदा. MCP एकत्रीकरण).",
     "x_search_terms": [
-      "cmd_exec_json",
-      "cmd exec json",
-      "शेल कमांड",
-      "json निकाल"
+      "cmd json",
+      "command json",
+      "structured output",
+      "json result",
+      "cmd structured",
+      "command output",
+      "command result",
+      "execute json",
+      "json command",
+      "cmd result"
     ]
   },
   "el": {
     "param.command.description": "Η συμβολοσειρά εντολών πέρασε στο κέλυφος του λειτουργικού συστήματος. Στα Windows χρησιμοποιείται το cmd.exe /c.",
     "tool.description": "Ως έσχατη λύση, εκτελέστε μια εντολή φλοιού και επιστρέψτε ένα αποτέλεσμα JSON. Χρησιμοποιήστε μόνο όταν δεν διατίθεται ασφαλέστερο ή πιο συγκεκριμένο εργαλείο (π.",
     "x_search_terms": [
-      "cmd_exec_json",
-      "cmd exec json",
-      "εντολή κελύφους",
-      "εκτελέσει το κέλυφος",
-      "εντολή json",
-      "cmd"
+      "cmd json",
+      "command json",
+      "structured output",
+      "json result",
+      "cmd structured",
+      "command output",
+      "command result",
+      "execute json",
+      "json command",
+      "cmd result"
     ]
   },
   "he": {
     "param.command.description": "מחרוזת הפקודה הועברה למעטפת מערכת ההפעלה. ב-Windows, נעשה שימוש ב-cmd.exe /c.",
     "tool.description": "כמוצא אחרון, בצע פקודת מעטפת והחזר תוצאת JSON. השתמש רק כאשר אין כלי בטוח או ספציפי יותר זמין (למשל.",
     "x_search_terms": [
-      "cmd_exec_json",
-      "cmd exec json",
-      "פקודת מעטפת",
-      "לבצע פגז",
-      "פקודת json",
-      "cmd"
+      "cmd json",
+      "command json",
+      "structured output",
+      "json result",
+      "cmd structured",
+      "command output",
+      "command result",
+      "execute json",
+      "json command",
+      "cmd result"
     ]
   },
   "hu": {
     "param.command.description": "A parancssor átkerült az operációs rendszer parancsértelmezőjébe. Windows rendszeren a cmd.exe /c fájl használatos.",
     "tool.description": "Végső megoldásként hajtson végre egy shell parancsot, és adjon vissza egy JSON eredményt. Csak akkor használja, ha nem áll rendelkezésre biztonságosabb vagy specifikusabb eszköz (pl.",
     "x_search_terms": [
-      "cmd_exec_json",
-      "cmd exec json",
-      "shell parancs",
-      "shell végrehajtása",
-      "json parancsot",
-      "cmd"
+      "cmd json",
+      "command json",
+      "structured output",
+      "json result",
+      "cmd structured",
+      "command output",
+      "command result",
+      "execute json",
+      "json command",
+      "cmd result"
     ]
   },
   "ro": {
     "param.command.description": "Șirul de comandă a fost transmis shell-ului sistemului de operare. Pe Windows, se folosește cmd.exe /c.",
     "tool.description": "Ca ultimă soluție, executați o comandă shell și returnați un rezultat JSON. Utilizați numai atunci când nu este disponibil un instrument mai sigur sau mai specific (de ex.",
     "x_search_terms": [
-      "cmd_exec_json",
-      "cmd exec json",
-      "comanda shell",
-      "executa shell",
-      "comanda json",
-      "cmd"
+      "cmd json",
+      "command json",
+      "structured output",
+      "json result",
+      "cmd structured",
+      "command output",
+      "command result",
+      "execute json",
+      "json command",
+      "cmd result"
     ]
   }
 }

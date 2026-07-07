@@ -29,11 +29,16 @@
   "ja": {
     "tool.description": "Kotlin (.kt) ファイルをクラス、インターフェイス、オブジェクト、関数、プロパティに解析し、番号付きインデックスまたは特定の定義セクションを返します。大きな .kt ファイルを読み取る必要がある場合は、これを使用します。まず、mode='index' を指定して呼び出して目次を取得し、次に mode='section' とセクション番号を指定して呼び出して、必要な定義のみを取得します。",
     "x_search_terms": [
-      "Kotlinファイルを読む",
-      "Kotlin インデックス",
-      "クラス一覧",
-      "関数一覧",
-      "プロパティ一覧"
+      "kotlin",
+      "kotlin code",
+      "kotlin analysis",
+      "code index",
+      "kotlin source",
+      "kotlin parser",
+      "kotlin function",
+      "kotlin class",
+      "kotlin file",
+      "kotlin module"
     ],
     "param.path.description": "Kotlin (.kt) ファイルへのパス。",
     "param.section.description": "取得するセクション番号（mode='section' の場合のみ使用）。目次出力から番号を取得してください。",

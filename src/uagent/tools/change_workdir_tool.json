@@ -23,10 +23,16 @@
     "param.new_dir.description": "切り替え先のディレクトリパス。",
     "tool.description": "ユーザー確認の後、現在の作業ディレクトリを変更します。",
     "x_search_terms": [
-      "change_workdir",
-      "作業ディレクトリ変更",
-      "ディレクトリ切り替え",
-      "ワークディレクトリ"
+      "change dir",
+      "change directory",
+      "workdir",
+      "working directory",
+      "cd",
+      "set workdir",
+      "change folder",
+      "switch directory",
+      "set directory",
+      "change path"
     ]
   },
   "es": {
@@ -35,10 +41,16 @@
     "param.new_dir.description": "La nueva ruta del directorio al que cambiar.",
     "tool.description": "Cambiar el directorio de trabajo actual después de la confirmación del usuario.",
     "x_search_terms": [
-      "change_workdir",
-      "cambiar directorio",
-      "cambiar workdir",
-      "directorio de trabajo"
+      "change dir",
+      "change directory",
+      "workdir",
+      "working directory",
+      "cd",
+      "set workdir",
+      "change folder",
+      "switch directory",
+      "set directory",
+      "change path"
     ]
   },
   "fr": {
@@ -47,10 +59,16 @@
     "param.new_dir.description": "Le nouveau chemin du répertoire vers lequel basculer.",
     "tool.description": "Changer le répertoire de travail actuel après confirmation de l'utilisateur.",
     "x_search_terms": [
-      "change_workdir",
-      "changer répertoire",
-      "changer workdir",
-      "répertoire de travail"
+      "change dir",
+      "change directory",
+      "workdir",
+      "working directory",
+      "cd",
+      "set workdir",
+      "change folder",
+      "switch directory",
+      "set directory",
+      "change path"
     ]
   },
   "ko": {
@@ -59,10 +77,16 @@
     "param.new_dir.description": "전환할 새 디렉터리 경로입니다.",
     "tool.description": "사용자 확인 후 현재 작업 디렉터리를 변경합니다.",
     "x_search_terms": [
-      "change_workdir",
-      "작업 디렉터리 변경",
-      "디렉터리 전환",
-      "워크 디렉터리"
+      "change dir",
+      "change directory",
+      "workdir",
+      "working directory",
+      "cd",
+      "set workdir",
+      "change folder",
+      "switch directory",
+      "set directory",
+      "change path"
     ]
   },
   "de": {
@@ -71,10 +95,16 @@
     "param.new_dir.description": "Der neue Verzeichnispfad, zu dem gewechselt werden soll.",
     "tool.description": "Ändern Sie das aktuelle Arbeitsverzeichnis nach Bestätigung durch den Benutzer.",
     "x_search_terms": [
-      "change_workdir",
-      "arbeitsverzeichnis ändern",
-      "verzeichnis wechseln",
-      "working directory"
+      "change dir",
+      "change directory",
+      "workdir",
+      "working directory",
+      "cd",
+      "set workdir",
+      "change folder",
+      "switch directory",
+      "set directory",
+      "change path"
     ]
   },
   "it": {
@@ -83,10 +113,16 @@
     "param.new_dir.description": "Il nuovo percorso della directory a cui passare.",
     "tool.description": "Cambia la directory di lavoro corrente dopo la conferma dell'utente.",
     "x_search_terms": [
-      "change_workdir",
-      "cambia directory",
-      "cambia workdir",
-      "directory di lavoro"
+      "change dir",
+      "change directory",
+      "workdir",
+      "working directory",
+      "cd",
+      "set workdir",
+      "change folder",
+      "switch directory",
+      "set directory",
+      "change path"
     ]
   },
   "ru": {
@@ -95,10 +131,16 @@
     "param.new_dir.description": "Новый путь к каталогу для переключения.",
     "tool.description": "Изменяет текущий рабочий каталог после подтверждения пользователя.",
     "x_search_terms": [
-      "change_workdir",
-      "сменить каталог",
-      "сменить workdir",
-      "рабочий каталог"
+      "change dir",
+      "change directory",
+      "workdir",
+      "working directory",
+      "cd",
+      "set workdir",
+      "change folder",
+      "switch directory",
+      "set directory",
+      "change path"
     ]
   },
   "pt_BR": {
@@ -107,10 +149,16 @@
     "param.new_dir.description": "O novo caminho do diretório para o qual alternar.",
     "tool.description": "Altera o diretório de trabalho atual após a confirmação do usuário.",
     "x_search_terms": [
-      "change_workdir",
-      "mudar diretório",
-      "mudar workdir",
-      "diretório de trabalho"
+      "change dir",
+      "change directory",
+      "workdir",
+      "working directory",
+      "cd",
+      "set workdir",
+      "change folder",
+      "switch directory",
+      "set directory",
+      "change path"
     ]
   },
   "pt": {
@@ -119,10 +167,16 @@
     "param.new_dir.description": "O novo caminho do diretório para o qual alternar.",
     "tool.description": "Altere o diretório de trabalho atual após a confirmação do usuário.",
     "x_search_terms": [
-      "change_workdir",
-      "mudar diretório",
-      "mudar workdir",
-      "diretório de trabalho"
+      "change dir",
+      "change directory",
+      "workdir",
+      "working directory",
+      "cd",
+      "set workdir",
+      "change folder",
+      "switch directory",
+      "set directory",
+      "change path"
     ]
   },
   "id": {
@@ -131,10 +185,16 @@
     "param.new_dir.description": "Jalur direktori baru untuk dialihkan ke sana.",
     "tool.description": "Ubah direktori kerja saat ini setelah konfirmasi pengguna.",
     "x_search_terms": [
-      "change_workdir",
-      "ubah direktori",
-      "ubah workdir",
-      "direktori kerja"
+      "change dir",
+      "change directory",
+      "workdir",
+      "working directory",
+      "cd",
+      "set workdir",
+      "change folder",
+      "switch directory",
+      "set directory",
+      "change path"
     ]
   },
   "vi": {
@@ -143,10 +203,16 @@
     "param.new_dir.description": "Đường dẫn thư mục mới để chuyển sang.",
     "tool.description": "Thay đổi thư mục làm việc hiện tại sau khi người dùng xác nhận.",
     "x_search_terms": [
-      "change_workdir",
-      "đổi thư mục",
-      "đổi workdir",
-      "thư mục làm việc"
+      "change dir",
+      "change directory",
+      "workdir",
+      "working directory",
+      "cd",
+      "set workdir",
+      "change folder",
+      "switch directory",
+      "set directory",
+      "change path"
     ]
   },
   "pl": {
@@ -155,10 +221,16 @@
     "param.new_dir.description": "Nowa ścieżka katalogu, do którego należy się przełączyć.",
     "tool.description": "Zmień bieżący katalog roboczy po potwierdzeniu przez użytkownika.",
     "x_search_terms": [
-      "change_workdir",
-      "zmień katalog",
-      "zmień workdir",
-      "katalog roboczy"
+      "change dir",
+      "change directory",
+      "workdir",
+      "working directory",
+      "cd",
+      "set workdir",
+      "change folder",
+      "switch directory",
+      "set directory",
+      "change path"
     ]
   },
   "hi": {
@@ -167,10 +239,16 @@
     "param.new_dir.description": "स्विच करने के लिए नई निर्देशिका का पथ।",
     "tool.description": "उपयोगकर्ता की पुष्टि के बाद वर्तमान कार्यशील निर्देशिका को बदलें।",
     "x_search_terms": [
-      "change_workdir",
-      "कार्य निर्देशिका बदलें",
-      "workdir बदलें",
-      "कार्यशील निर्देशिका"
+      "change dir",
+      "change directory",
+      "workdir",
+      "working directory",
+      "cd",
+      "set workdir",
+      "change folder",
+      "switch directory",
+      "set directory",
+      "change path"
     ]
   },
   "ar": {
@@ -179,10 +257,16 @@
     "param.new_dir.description": "مسار الدليل الجديد للتبديل إليه.",
     "tool.description": "قم بتغيير دليل العمل الحالي بعد تأكيد المستخدم.",
     "x_search_terms": [
-      "change_workdir",
-      "تغيير المجلد",
-      "تغيير workdir",
-      "مجلد العمل"
+      "change dir",
+      "change directory",
+      "workdir",
+      "working directory",
+      "cd",
+      "set workdir",
+      "change folder",
+      "switch directory",
+      "set directory",
+      "change path"
     ]
   },
   "sv": {
@@ -191,10 +275,16 @@
     "param.new_dir.description": "Den nya katalogsökvägen att byta till.",
     "tool.description": "Ändra den aktuella arbetskatalogen efter användarens bekräftelse.",
     "x_search_terms": [
-      "change_workdir",
-      "ändra katalog",
-      "byt workdir",
-      "arbetskatalog"
+      "change dir",
+      "change directory",
+      "workdir",
+      "working directory",
+      "cd",
+      "set workdir",
+      "change folder",
+      "switch directory",
+      "set directory",
+      "change path"
     ]
   },
   "sw": {
@@ -203,10 +293,16 @@
     "param.new_dir.description": "Njia ya saraka mpya ya kuhamia.",
     "tool.description": "Badilisha saraka ya sasa ya kazi baada ya uthibitisho wa mtumiaji.",
     "x_search_terms": [
-      "change_workdir",
-      "badili saraka",
-      "badili workdir",
-      "saraka ya kazi"
+      "change dir",
+      "change directory",
+      "workdir",
+      "working directory",
+      "cd",
+      "set workdir",
+      "change folder",
+      "switch directory",
+      "set directory",
+      "change path"
     ]
   },
   "nb": {
@@ -215,10 +311,16 @@
     "param.new_dir.description": "Den nye katalogstien det skal byttes til.",
     "tool.description": "Endre gjeldende arbeidskatalog etter brukerbekreftelse.",
     "x_search_terms": [
-      "change_workdir",
-      "endre katalog",
-      "bytt workdir",
-      "arbeidskatalog"
+      "change dir",
+      "change directory",
+      "workdir",
+      "working directory",
+      "cd",
+      "set workdir",
+      "change folder",
+      "switch directory",
+      "set directory",
+      "change path"
     ]
   },
   "nl": {
@@ -227,10 +329,16 @@
     "param.new_dir.description": "Het nieuwe mappad waarnaar moet worden overgeschakeld.",
     "tool.description": "Wijzig de huidige werkmap na bevestiging van de gebruiker.",
     "x_search_terms": [
-      "change_workdir",
-      "map wijzigen",
-      "workdir wijzigen",
-      "werkmappen"
+      "change dir",
+      "change directory",
+      "workdir",
+      "working directory",
+      "cd",
+      "set workdir",
+      "change folder",
+      "switch directory",
+      "set directory",
+      "change path"
     ]
   },
   "fi": {
@@ -239,10 +347,16 @@
     "param.new_dir.description": "Uusi hakemistopolku, johon vaihdetaan.",
     "tool.description": "Muuta nykyistä työhakemistoa käyttäjän vahvistuksen jälkeen.",
     "x_search_terms": [
-      "change_workdir",
-      "vaihda kansio",
-      "vaihda workdir",
-      "työhakemisto"
+      "change dir",
+      "change directory",
+      "workdir",
+      "working directory",
+      "cd",
+      "set workdir",
+      "change folder",
+      "switch directory",
+      "set directory",
+      "change path"
     ]
   },
   "cs": {
@@ -251,10 +365,16 @@
     "param.new_dir.description": "Nová cesta k adresáři, do které se má přepnout.",
     "tool.description": "Změní aktuální pracovní adresář po potvrzení od uživatele.",
     "x_search_terms": [
-      "change_workdir",
-      "změnit adresář",
-      "změnit workdir",
-      "pracovní adresář"
+      "change dir",
+      "change directory",
+      "workdir",
+      "working directory",
+      "cd",
+      "set workdir",
+      "change folder",
+      "switch directory",
+      "set directory",
+      "change path"
     ]
   },
   "uk": {
@@ -263,10 +383,16 @@
     "param.new_dir.description": "Шлях до нового каталогу, на який потрібно перейти.",
     "tool.description": "Змінює поточний робочий каталог після підтвердження користувача.",
     "x_search_terms": [
-      "change_workdir",
-      "змінити каталог",
-      "змінити workdir",
-      "робочий каталог"
+      "change dir",
+      "change directory",
+      "workdir",
+      "working directory",
+      "cd",
+      "set workdir",
+      "change folder",
+      "switch directory",
+      "set directory",
+      "change path"
     ]
   },
   "tr": {
@@ -275,10 +401,16 @@
     "param.new_dir.description": "Geçiş yapılacak yeni dizin yolu.",
     "tool.description": "Kullanıcı onayından sonra mevcut çalışma dizinini değiştirin.",
     "x_search_terms": [
-      "change_workdir",
-      "dizini değiştir",
-      "workdir değiştir",
-      "çalışma dizini"
+      "change dir",
+      "change directory",
+      "workdir",
+      "working directory",
+      "cd",
+      "set workdir",
+      "change folder",
+      "switch directory",
+      "set directory",
+      "change path"
     ]
   },
   "th": {
@@ -287,10 +419,16 @@
     "param.new_dir.description": "เส้นทางไดเรกทอรีใหม่ที่จะเปลี่ยนไป",
     "tool.description": "เปลี่ยนไดเรกทอรีทำงานปัจจุบันหลังจากผู้ใช้ยืนยัน",
     "x_search_terms": [
-      "change_workdir",
-      "เปลี่ยนไดเรกทอรี",
-      "เปลี่ยน workdir",
-      "ไดเรกทอรีทำงาน"
+      "change dir",
+      "change directory",
+      "workdir",
+      "working directory",
+      "cd",
+      "set workdir",
+      "change folder",
+      "switch directory",
+      "set directory",
+      "change path"
     ]
   },
   "zh_CN": {
@@ -299,10 +437,16 @@
     "param.new_dir.description": "要切换到的新目录路径。",
     "tool.description": "在用户确认后更改当前工作目录。",
     "x_search_terms": [
-      "change_workdir",
-      "更改工作目录",
-      "切换目录",
-      "工作目录"
+      "change dir",
+      "change directory",
+      "workdir",
+      "working directory",
+      "cd",
+      "set workdir",
+      "change folder",
+      "switch directory",
+      "set directory",
+      "change path"
     ]
   },
   "zh_TW": {
@@ -311,10 +455,16 @@
     "param.new_dir.description": "要切換到的新目錄路徑。",
     "tool.description": "在使用者確認後變更目前工作目錄。",
     "x_search_terms": [
-      "change_workdir",
-      "變更工作目錄",
-      "切換目錄",
-      "工作目錄"
+      "change dir",
+      "change directory",
+      "workdir",
+      "working directory",
+      "cd",
+      "set workdir",
+      "change folder",
+      "switch directory",
+      "set directory",
+      "change path"
     ]
   },
   "bn": {
@@ -323,10 +473,16 @@
     "param.new_dir.description": "যে নতুন ডিরেক্টরিতে স্যুইচ করা হবে তার পথ।",
     "tool.description": "ব্যবহারকারীর নিশ্চিতকরণের পরে বর্তমান কাজের ডিরেক্টরি পরিবর্তন করে।",
     "x_search_terms": [
-      "change_workdir",
-      "কাজের ডিরেক্টরি বদলান",
-      "workdir বদলান",
-      "কাজের ডিরেক্টরি"
+      "change dir",
+      "change directory",
+      "workdir",
+      "working directory",
+      "cd",
+      "set workdir",
+      "change folder",
+      "switch directory",
+      "set directory",
+      "change path"
     ]
   },
   "fa": {
@@ -335,10 +491,16 @@
     "param.new_dir.description": "مسیر دایرکتوری جدیدی که باید به آن رفت.",
     "tool.description": "پس از تأیید کاربر، دایرکتوری کاری فعلی را تغییر می‌دهد.",
     "x_search_terms": [
-      "change_workdir",
-      "تغییر پوشه",
-      "تغییر workdir",
-      "پوشهٔ کاری"
+      "change dir",
+      "change directory",
+      "workdir",
+      "working directory",
+      "cd",
+      "set workdir",
+      "change folder",
+      "switch directory",
+      "set directory",
+      "change path"
     ]
   },
   "mn": {
@@ -347,10 +509,16 @@
     "param.new_dir.description": "Шилжих шинэ лавлахын зам.",
     "tool.description": "Хэрэглэгч баталгаажуулсны дараа одоогийн ажиллах лавлахыг өөрчилнө.",
     "x_search_terms": [
-      "change_workdir",
-      "ажлын хавтас солих",
-      "workdir солих",
-      "ажлын лавлах"
+      "change dir",
+      "change directory",
+      "workdir",
+      "working directory",
+      "cd",
+      "set workdir",
+      "change folder",
+      "switch directory",
+      "set directory",
+      "change path"
     ]
   },
   "mr": {
@@ -359,10 +527,16 @@
     "param.new_dir.description": "ज्या नवीन निर्देशिकेत स्विच करायचे त्याचा मार्ग.",
     "tool.description": "वापरकर्त्याच्या पुष्टीनंतर सध्याची कार्यरत निर्देशिका बदलते.",
     "x_search_terms": [
-      "change_workdir",
-      "कार्य निर्देशिका बदला",
-      "workdir बदला",
-      "कार्यशील निर्देशिका"
+      "change dir",
+      "change directory",
+      "workdir",
+      "working directory",
+      "cd",
+      "set workdir",
+      "change folder",
+      "switch directory",
+      "set directory",
+      "change path"
     ]
   },
   "el": {
@@ -371,14 +545,16 @@
     "param.new_dir.description": "Η νέα διαδρομή καταλόγου προς εναλλαγή.",
     "tool.description": "Αλλάξτε τον τρέχοντα κατάλογο εργασίας μετά την επιβεβαίωση του χρήστη.",
     "x_search_terms": [
-      "αλλαγή καταλόγου",
-      "CD",
-      "διακόπτης σκην",
-      "ディレクトリ変更",
-      "cambiar directorio",
-      "αλλαγή του ρεπερτορίου",
-      "디렉터리 변경",
-      "сменить директорию"
+      "change dir",
+      "change directory",
+      "workdir",
+      "working directory",
+      "cd",
+      "set workdir",
+      "change folder",
+      "switch directory",
+      "set directory",
+      "change path"
     ]
   },
   "he": {
@@ -387,14 +563,16 @@
     "param.new_dir.description": "נתיב הספרייה החדש שאליו יש לעבור.",
     "tool.description": "שנה את ספריית העבודה הנוכחית לאחר אישור המשתמש.",
     "x_search_terms": [
-      "לשנות ספרייה",
-      "CD",
-      "להחליף מדריך",
-      "ディレクトリ変更",
-      "מדריך קמביאר",
-      "מחליף רפרטואר",
-      "디렉터리 변경",
-      "сменить директорию"
+      "change dir",
+      "change directory",
+      "workdir",
+      "working directory",
+      "cd",
+      "set workdir",
+      "change folder",
+      "switch directory",
+      "set directory",
+      "change path"
     ]
   },
   "hu": {
@@ -403,14 +581,16 @@
     "param.new_dir.description": "Az új könyvtár elérési útja, amelyre váltani kell.",
     "tool.description": "Módosítsa az aktuális munkakönyvtárat a felhasználó jóváhagyása után.",
     "x_search_terms": [
-      "könyvtár módosítása",
-      "CD",
-      "kapcsoló dir",
-      "ディレクトリ変更",
-      "cambiar directorio",
-      "répertoire váltó",
-      "디렉터리 변경",
-      "сменить директорию"
+      "change dir",
+      "change directory",
+      "workdir",
+      "working directory",
+      "cd",
+      "set workdir",
+      "change folder",
+      "switch directory",
+      "set directory",
+      "change path"
     ]
   },
   "ro": {
@@ -419,14 +599,16 @@
     "param.new_dir.description": "Noua cale de director la care să comutați.",
     "tool.description": "Schimbați directorul de lucru curent după confirmarea utilizatorului.",
     "x_search_terms": [
-      "schimba directorul",
-      "CD",
-      "comutare dir",
-      "ディレクトリ変更",
-      "schimba directorul",
-      "changer de répertoire",
-      "디렉터리 변경",
-      "сменить директорию"
+      "change dir",
+      "change directory",
+      "workdir",
+      "working directory",
+      "cd",
+      "set workdir",
+      "change folder",
+      "switch directory",
+      "set directory",
+      "change path"
     ]
   }
 }

@@ -20,11 +20,16 @@
     "err.unavailable": "このツールは bash がインストールされた Unix 系でのみ利用できます。",
     "param.command.description": "bash -lc に渡すコマンド文字列。",
     "x_search_terms": [
-      "bash_exec",
-      "bash exec",
       "bash",
-      "シェルコマンド",
-      "コマンド実行"
+      "shell",
+      "bash command",
+      "shell exec",
+      "command line",
+      "linux shell",
+      "run command",
+      "execute bash",
+      "bash script",
+      "terminal"
     ],
     "tool.description": "最後の手段として、bash コマンドを実行します。他に適切なツールが利用できない場合にのみ使用してください。"
   },
@@ -32,352 +37,512 @@
     "err.unavailable": "Esta herramienta está disponible en sistemas tipo Unix con bash instalado.",
     "param.command.description": "Cadena de comando pasada a bash -lc.",
     "x_search_terms": [
-      "bash_exec",
-      "bash exec",
       "bash",
-      "comando shell",
-      "ejecutar shell"
+      "shell",
+      "bash command",
+      "shell exec",
+      "command line",
+      "linux shell",
+      "run command",
+      "execute bash",
+      "bash script",
+      "terminal"
     ]
   },
   "fr": {
     "err.unavailable": "Cet outil est disponible sur les systèmes de type Unix avec bash installé.",
     "param.command.description": "Chaîne de commande transmise à bash -lc.",
     "x_search_terms": [
-      "bash_exec",
-      "bash exec",
       "bash",
-      "commande shell",
-      "exécuter shell"
+      "shell",
+      "bash command",
+      "shell exec",
+      "command line",
+      "linux shell",
+      "run command",
+      "execute bash",
+      "bash script",
+      "terminal"
     ]
   },
   "ko": {
     "err.unavailable": "이 도구는 bash가 설치된 Unix 계열에서만 사용할 수 있습니다.",
     "param.command.description": "bash -lc에 전달할 명령 문자열입니다.",
     "x_search_terms": [
-      "bash_exec",
-      "bash exec",
       "bash",
-      "쉘 명령",
-      "bash 명령"
+      "shell",
+      "bash command",
+      "shell exec",
+      "command line",
+      "linux shell",
+      "run command",
+      "execute bash",
+      "bash script",
+      "terminal"
     ]
   },
   "de": {
     "err.unavailable": "Dieses Tool ist auf Unix-ähnlichen Systemen mit installierter Bash verfügbar.",
     "param.command.description": "Befehlszeichenfolge, die an bash -lc übergeben wird.",
     "x_search_terms": [
-      "bash_exec",
-      "bash exec",
       "bash",
-      "Shell-Befehl",
-      "bash-Befehl"
+      "shell",
+      "bash command",
+      "shell exec",
+      "command line",
+      "linux shell",
+      "run command",
+      "execute bash",
+      "bash script",
+      "terminal"
     ]
   },
   "it": {
     "err.unavailable": "Questo strumento è disponibile su sistemi simili a Unix con bash installato.",
     "param.command.description": "Stringa di comando passata a bash -lc.",
     "x_search_terms": [
-      "bash_exec",
-      "bash exec",
       "bash",
-      "comando shell",
-      "eseguire shell"
+      "shell",
+      "bash command",
+      "shell exec",
+      "command line",
+      "linux shell",
+      "run command",
+      "execute bash",
+      "bash script",
+      "terminal"
     ]
   },
   "ru": {
     "err.unavailable": "Этот инструмент доступен в Unix-подобных системах с установленным bash.",
     "param.command.description": "Командная строка, передаваемая в bash -lc.",
     "x_search_terms": [
-      "bash_exec",
-      "bash exec",
       "bash",
-      "команда shell",
-      "bash команда"
+      "shell",
+      "bash command",
+      "shell exec",
+      "command line",
+      "linux shell",
+      "run command",
+      "execute bash",
+      "bash script",
+      "terminal"
     ]
   },
   "pt_BR": {
     "err.unavailable": "Esta ferramenta está disponível em sistemas do tipo Unix com bash instalado.",
     "param.command.description": "Sequência de comando passada para bash -lc.",
     "x_search_terms": [
-      "bash_exec",
-      "bash exec",
       "bash",
-      "comando shell",
-      "executar shell"
+      "shell",
+      "bash command",
+      "shell exec",
+      "command line",
+      "linux shell",
+      "run command",
+      "execute bash",
+      "bash script",
+      "terminal"
     ]
   },
   "pt": {
     "err.unavailable": "Esta ferramenta está disponível em sistemas do tipo Unix com bash instalado.",
     "param.command.description": "Sequência de comando passada para bash -lc.",
     "x_search_terms": [
-      "bash_exec",
-      "bash exec",
       "bash",
-      "comando shell",
-      "executar shell"
+      "shell",
+      "bash command",
+      "shell exec",
+      "command line",
+      "linux shell",
+      "run command",
+      "execute bash",
+      "bash script",
+      "terminal"
     ]
   },
   "id": {
     "err.unavailable": "Alat ini tersedia pada sistem mirip Unix dengan bash terpasang.",
     "param.command.description": "String perintah diteruskan ke bash -lc.",
     "x_search_terms": [
-      "bash_exec",
-      "bash exec",
       "bash",
-      "perintah shell",
-      "jalankan shell"
+      "shell",
+      "bash command",
+      "shell exec",
+      "command line",
+      "linux shell",
+      "run command",
+      "execute bash",
+      "bash script",
+      "terminal"
     ]
   },
   "vi": {
     "err.unavailable": "Công cụ này có sẵn trên các hệ thống giống Unix có cài đặt bash.",
     "param.command.description": "Chuỗi lệnh được truyền cho bash -lc.",
     "x_search_terms": [
-      "bash_exec",
-      "bash exec",
       "bash",
-      "lệnh shell",
-      "thực thi shell"
+      "shell",
+      "bash command",
+      "shell exec",
+      "command line",
+      "linux shell",
+      "run command",
+      "execute bash",
+      "bash script",
+      "terminal"
     ]
   },
   "pl": {
     "err.unavailable": "To narzędzie jest dostępne w systemach typu Unix z zainstalowanym bashem.",
     "param.command.description": "Ciąg poleceń przekazany do bash -lc.",
     "x_search_terms": [
-      "bash_exec",
-      "bash exec",
       "bash",
-      "polecenie shell",
-      "uruchom shell"
+      "shell",
+      "bash command",
+      "shell exec",
+      "command line",
+      "linux shell",
+      "run command",
+      "execute bash",
+      "bash script",
+      "terminal"
     ]
   },
   "hi": {
     "err.unavailable": "यह उपकरण bash स्थापित Unix-जैसे सिस्टम पर उपलब्ध है।",
     "param.command.description": "कमांड स्ट्रिंग बैश -एलसी को पास कर दी गई।",
     "x_search_terms": [
-      "bash_exec",
-      "bash exec",
       "bash",
-      "shell कमांड",
-      "shell चलाएँ"
+      "shell",
+      "bash command",
+      "shell exec",
+      "command line",
+      "linux shell",
+      "run command",
+      "execute bash",
+      "bash script",
+      "terminal"
     ]
   },
   "ar": {
     "err.unavailable": "هذه الأداة متاحة على أنظمة شبيهة بـ Unix التي يحتوي عليها bash.",
     "param.command.description": "تم تمرير سلسلة الأوامر إلى bash -lc.",
     "x_search_terms": [
-      "bash_exec",
-      "bash exec",
       "bash",
-      "أمر bash",
-      "أمر shell"
+      "shell",
+      "bash command",
+      "shell exec",
+      "command line",
+      "linux shell",
+      "run command",
+      "execute bash",
+      "bash script",
+      "terminal"
     ]
   },
   "sv": {
     "err.unavailable": "Det här verktyget är tillgängligt på Unix-liknande system med bash installerat.",
     "param.command.description": "Kommandosträng skickas till bash -lc.",
     "x_search_terms": [
-      "bash_exec",
-      "bash exec",
       "bash",
-      "shellkommando",
-      "bash-kommando"
+      "shell",
+      "bash command",
+      "shell exec",
+      "command line",
+      "linux shell",
+      "run command",
+      "execute bash",
+      "bash script",
+      "terminal"
     ]
   },
   "sw": {
     "err.unavailable": "Zana hii inapatikana kwenye mifumo inayofanana na Unix iliyosakinishwa bash.",
     "param.command.description": "Kamba ya amri iliyopitishwa kwa bash -lc.",
     "x_search_terms": [
-      "bash_exec",
-      "bash exec",
       "bash",
-      "amri ya shell",
-      "kutekeleza shell"
+      "shell",
+      "bash command",
+      "shell exec",
+      "command line",
+      "linux shell",
+      "run command",
+      "execute bash",
+      "bash script",
+      "terminal"
     ]
   },
   "nb": {
     "err.unavailable": "Dette verktøyet er tilgjengelig på Unix-lignende systemer med bash installert.",
     "param.command.description": "Kommandostreng sendt til bash -lc.",
     "x_search_terms": [
-      "bash_exec",
-      "bash exec",
       "bash",
-      "shellkommando",
-      "bash-kommando"
+      "shell",
+      "bash command",
+      "shell exec",
+      "command line",
+      "linux shell",
+      "run command",
+      "execute bash",
+      "bash script",
+      "terminal"
     ]
   },
   "nl": {
     "err.unavailable": "Deze tool is beschikbaar op Unix-achtige systemen waarop bash is geïnstalleerd.",
     "param.command.description": "Commandoreeks doorgegeven aan bash -lc.",
     "x_search_terms": [
-      "bash_exec",
-      "bash exec",
       "bash",
-      "shellopdracht",
-      "bash-opdracht"
+      "shell",
+      "bash command",
+      "shell exec",
+      "command line",
+      "linux shell",
+      "run command",
+      "execute bash",
+      "bash script",
+      "terminal"
     ]
   },
   "fi": {
     "err.unavailable": "Tämä työkalu on saatavilla Unix-tyyppisissä järjestelmissä, joihin on asennettu bash.",
     "param.command.description": "Komentomerkkijono välitetty bash -lc:lle.",
     "x_search_terms": [
-      "bash_exec",
-      "bash exec",
       "bash",
-      "shell-komento",
-      "bash-komento"
+      "shell",
+      "bash command",
+      "shell exec",
+      "command line",
+      "linux shell",
+      "run command",
+      "execute bash",
+      "bash script",
+      "terminal"
     ]
   },
   "cs": {
     "err.unavailable": "Tento nástroj je dostupný v unixových systémech s nainstalovaným bash.",
     "param.command.description": "Řetězec příkazu předaný do bash -lc.",
     "x_search_terms": [
-      "bash_exec",
-      "bash exec",
       "bash",
-      "shell příkaz",
-      "bash příkaz"
+      "shell",
+      "bash command",
+      "shell exec",
+      "command line",
+      "linux shell",
+      "run command",
+      "execute bash",
+      "bash script",
+      "terminal"
     ]
   },
   "uk": {
     "err.unavailable": "Цей інструмент доступний у Unix-подібних системах із встановленим bash.",
     "param.command.description": "Командний рядок передано в bash -lc.",
     "x_search_terms": [
-      "bash_exec",
-      "bash exec",
       "bash",
-      "команда bash",
-      "команда shell"
+      "shell",
+      "bash command",
+      "shell exec",
+      "command line",
+      "linux shell",
+      "run command",
+      "execute bash",
+      "bash script",
+      "terminal"
     ]
   },
   "tr": {
     "err.unavailable": "Bu araç, bash yüklü Unix benzeri sistemlerde kullanılabilir.",
     "param.command.description": "bash -lc'ye iletilen komut dizesi.",
     "x_search_terms": [
-      "bash_exec",
-      "bash exec",
       "bash",
-      "bash komutu",
-      "kabuk komutu"
+      "shell",
+      "bash command",
+      "shell exec",
+      "command line",
+      "linux shell",
+      "run command",
+      "execute bash",
+      "bash script",
+      "terminal"
     ]
   },
   "th": {
     "err.unavailable": "เครื่องมือนี้ใช้ได้บนระบบ Unix ที่ติดตั้ง bash",
     "param.command.description": "สตริงคำสั่งที่จะส่งให้ bash -lc",
     "x_search_terms": [
-      "bash_exec",
-      "bash exec",
       "bash",
-      "คำสั่ง bash",
-      "เชลล์"
+      "shell",
+      "bash command",
+      "shell exec",
+      "command line",
+      "linux shell",
+      "run command",
+      "execute bash",
+      "bash script",
+      "terminal"
     ]
   },
   "zh_CN": {
     "err.unavailable": "该工具可在已安装 bash 的类 Unix 系统上使用。",
     "param.command.description": "传递给 bash -lc 的命令字符串。",
     "x_search_terms": [
-      "bash_exec",
-      "bash exec",
       "bash",
-      "shell 命令",
-      "bash 命令"
+      "shell",
+      "bash command",
+      "shell exec",
+      "command line",
+      "linux shell",
+      "run command",
+      "execute bash",
+      "bash script",
+      "terminal"
     ]
   },
   "zh_TW": {
     "err.unavailable": "此工具可在已安裝 bash 的類 Unix 系統上使用。",
     "param.command.description": "傳遞給 bash -lc 的命令字串。",
     "x_search_terms": [
-      "bash_exec",
-      "bash exec",
       "bash",
-      "shell 指令",
-      "bash 指令"
+      "shell",
+      "bash command",
+      "shell exec",
+      "command line",
+      "linux shell",
+      "run command",
+      "execute bash",
+      "bash script",
+      "terminal"
     ]
   },
   "bn": {
     "err.unavailable": "এই টুলটি bash ইনস্টল করা Unix-ধরনের সিস্টেমে ব্যবহার করা যায়।",
     "param.command.description": "কমান্ড স্ট্রিং bash -lc এ পাস হয়েছে।",
     "x_search_terms": [
-      "bash_exec",
-      "bash exec",
       "bash",
-      "bash কমান্ড",
-      "শেল কমান্ড"
+      "shell",
+      "bash command",
+      "shell exec",
+      "command line",
+      "linux shell",
+      "run command",
+      "execute bash",
+      "bash script",
+      "terminal"
     ]
   },
   "fa": {
     "err.unavailable": "این ابزار روی سیستم‌های شبه‌Unix که bash نصب دارند در دسترس است.",
     "param.command.description": "رشته فرمان به bash -lc منتقل شد.",
     "x_search_terms": [
-      "bash_exec",
-      "bash exec",
       "bash",
-      "فرمان bash",
-      "فرمان شل"
+      "shell",
+      "bash command",
+      "shell exec",
+      "command line",
+      "linux shell",
+      "run command",
+      "execute bash",
+      "bash script",
+      "terminal"
     ]
   },
   "mn": {
     "err.unavailable": "Энэ хэрэгсэл нь bash суулгасан Unix-тэй төстэй системүүдэд боломжтой.",
     "param.command.description": "bash -lc руу дамжуулах командын мөр.",
     "x_search_terms": [
-      "bash_exec",
-      "bash exec",
       "bash",
-      "bash команд",
-      "shell тушаал"
+      "shell",
+      "bash command",
+      "shell exec",
+      "command line",
+      "linux shell",
+      "run command",
+      "execute bash",
+      "bash script",
+      "terminal"
     ]
   },
   "mr": {
     "err.unavailable": "हे साधन bash स्थापित असलेल्या Unix-सदृश प्रणालींवर उपलब्ध आहे.",
     "param.command.description": "bash -lc ला दिलेली कमांड स्ट्रिंग.",
     "x_search_terms": [
-      "bash_exec",
-      "bash exec",
       "bash",
-      "bash कमांड",
-      "शेल कमांड"
+      "shell",
+      "bash command",
+      "shell exec",
+      "command line",
+      "linux shell",
+      "run command",
+      "execute bash",
+      "bash script",
+      "terminal"
     ]
   },
   "el": {
     "err.unavailable": "Αυτό το εργαλείο είναι διαθέσιμο σε συστήματα τύπου Unix με εγκατεστημένο το bash.",
     "param.command.description": "Η συμβολοσειρά εντολών πέρασε στο bash -lc.",
     "x_search_terms": [
-      "bash_exec",
-      "bash exec",
-      "βίαιο χτύπημα",
-      "εντολή κελύφους",
-      "εκτελέσει το κέλυφος"
+      "bash",
+      "shell",
+      "bash command",
+      "shell exec",
+      "command line",
+      "linux shell",
+      "run command",
+      "execute bash",
+      "bash script",
+      "terminal"
     ]
   },
   "he": {
     "err.unavailable": "כלי זה זמין במערכות דמויות Unix עם bash מותקן.",
     "param.command.description": "מחרוזת הפקודה הועברה ל-bash -lc.",
     "x_search_terms": [
-      "bash_exec",
-      "bash exec",
-      "לַחֲבוֹט",
-      "פקודת מעטפת",
-      "לבצע פגז"
+      "bash",
+      "shell",
+      "bash command",
+      "shell exec",
+      "command line",
+      "linux shell",
+      "run command",
+      "execute bash",
+      "bash script",
+      "terminal"
     ]
   },
   "hu": {
     "err.unavailable": "Ez az eszköz Unix-szerű rendszereken érhető el, amelyekre telepítve van a bash.",
     "param.command.description": "A parancssor átadva a bash -lc-nek.",
     "x_search_terms": [
-      "bash_exec",
-      "bash exec",
       "bash",
-      "shell parancs",
-      "shell végrehajtása"
+      "shell",
+      "bash command",
+      "shell exec",
+      "command line",
+      "linux shell",
+      "run command",
+      "execute bash",
+      "bash script",
+      "terminal"
     ]
   },
   "ro": {
     "err.unavailable": "Acest instrument este disponibil pe sisteme asemănătoare Unix cu bash instalat.",
     "param.command.description": "Șirul de comandă a fost transmis la bash -lc.",
     "x_search_terms": [
-      "bash_exec",
-      "bash exec",
       "bash",
-      "comanda shell",
-      "executa shell"
+      "shell",
+      "bash command",
+      "shell exec",
+      "command line",
+      "linux shell",
+      "run command",
+      "execute bash",
+      "bash script",
+      "terminal"
     ]
   }
 }

@@ -29,11 +29,16 @@
   },
   "ja": {
     "x_search_terms": [
-      "Pythonファイルを読む",
-      "Python インデックス",
-      "関数一覧",
-      "クラス一覧",
-      "ソースコードナビゲーション"
+      "python",
+      "python code",
+      "python analysis",
+      "code index",
+      "python source",
+      "python parser",
+      "python function",
+      "python class",
+      "python file",
+      "python module"
     ],
     "param.path.description": "Python (.py) ファイルへのパス。",
     "err.path_required": "エラー: 'path' は必須です。",

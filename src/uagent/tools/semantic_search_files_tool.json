@@ -44,9 +44,15 @@
     "param.top_k.description": "件数。",
     "x_search_terms": [
       "semantic_search_files",
-      "意味検索",
-      "ベクトル検索",
-      "埋め込み検索"
+      "semantic search files",
+      "semantic search",
+      "vector search",
+      "embedding search",
+      "local file search",
+      "search files",
+      "document search",
+      "file retrieval",
+      "semantic retrieval"
     ],
     "err.no_index": "Error: No indexed vectors found. Run index_files first.",
     "tool.description": "ローカルファイルに対してセマンティック検索（ベクター検索）を実行します。Embedding APIを使用してファイル内容をベクトル化し、関連する文書の一節を抽出します。"
@@ -67,9 +73,15 @@
     "param.top_k.description": "número.",
     "x_search_terms": [
       "semantic_search_files",
-      "búsqueda semántica",
-      "búsqueda vectorial",
-      "archivos locales"
+      "semantic search files",
+      "semantic search",
+      "vector search",
+      "embedding search",
+      "local file search",
+      "search files",
+      "document search",
+      "file retrieval",
+      "semantic retrieval"
     ],
     "err.no_index": "Error: No indexed vectors found. Run index_files first.",
     "tool.description": "Realiza una búsqueda semántica (búsqueda vectorial) contra archivos locales. Utiliza la API de Embedding para vectorizar el contenido de los archivos y extraer pasajes de documentos relevantes."
@@ -90,9 +102,15 @@
     "param.top_k.description": "nombre.",
     "x_search_terms": [
       "semantic_search_files",
-      "recherche sémantique",
-      "recherche vectorielle",
-      "fichiers locaux"
+      "semantic search files",
+      "semantic search",
+      "vector search",
+      "embedding search",
+      "local file search",
+      "search files",
+      "document search",
+      "file retrieval",
+      "semantic retrieval"
     ],
     "err.no_index": "Error: No indexed vectors found. Run index_files first.",
     "tool.description": "Effectue une recherche sémantique (recherche vectorielle) dans les fichiers locaux. Utilise l'API d'Embedding pour vectoriser le contenu des fichiers et extrait les passages de documents pertinents."
@@ -113,9 +131,15 @@
     "param.top_k.description": "숫자.",
     "x_search_terms": [
       "semantic_search_files",
-      "의미 검색",
-      "벡터 검색",
-      "임베딩 검색"
+      "semantic search files",
+      "semantic search",
+      "vector search",
+      "embedding search",
+      "local file search",
+      "search files",
+      "document search",
+      "file retrieval",
+      "semantic retrieval"
     ],
     "err.no_index": "Error: No indexed vectors found. Run index_files first.",
     "tool.description": "로컬 파일에 대해 의미 검색(벡터 검색)을 수행합니다. Embedding API를 사용하여 파일 내용을 벡터화하고 관련 문서 구절을 추출합니다."
@@ -136,9 +160,15 @@
     "param.top_k.description": "Anzahl.",
     "x_search_terms": [
       "semantic_search_files",
-      "semantische suche",
-      "vektorsuche",
-      "lokale dateien"
+      "semantic search files",
+      "semantic search",
+      "vector search",
+      "embedding search",
+      "local file search",
+      "search files",
+      "document search",
+      "file retrieval",
+      "semantic retrieval"
     ],
     "err.no_index": "Error: No indexed vectors found. Run index_files first.",
     "tool.description": "Führt eine semantische Suche (Vektorsuche) gegen lokale Dateien durch. Verwendet die Embedding-API, um Dateiinhalte zu vektorisieren und relevante Dokumentpassagen zu extrahieren."
@@ -159,9 +189,15 @@
     "param.top_k.description": "numero.",
     "x_search_terms": [
       "semantic_search_files",
-      "ricerca semantica",
-      "ricerca vettoriale",
-      "file locali"
+      "semantic search files",
+      "semantic search",
+      "vector search",
+      "embedding search",
+      "local file search",
+      "search files",
+      "document search",
+      "file retrieval",
+      "semantic retrieval"
     ],
     "err.no_index": "Error: No indexed vectors found. Run index_files first.",
     "tool.description": "Esegue una ricerca semantica (ricerca vettoriale) sui file locali. Usa l'API di Embedding per vettorizzare i contenuti dei file ed estrarre passaggi di documento rilevanti."
@@ -182,9 +218,15 @@
     "param.top_k.description": "число.",
     "x_search_terms": [
       "semantic_search_files",
-      "семантический поиск",
-      "векторный поиск",
-      "локальные файлы"
+      "semantic search files",
+      "semantic search",
+      "vector search",
+      "embedding search",
+      "local file search",
+      "search files",
+      "document search",
+      "file retrieval",
+      "semantic retrieval"
     ],
     "err.no_index": "Error: No indexed vectors found. Run index_files first.",
     "tool.description": "Выполняет семантический поиск (векторный поиск) по локальным файлам. Использует Embedding API для векторизации содержимого файлов и извлекает релевантные фрагменты документов."
@@ -205,9 +247,15 @@
     "param.top_k.description": "número.",
     "x_search_terms": [
       "semantic_search_files",
-      "busca semântica",
-      "busca vetorial",
-      "arquivos locais"
+      "semantic search files",
+      "semantic search",
+      "vector search",
+      "embedding search",
+      "local file search",
+      "search files",
+      "document search",
+      "file retrieval",
+      "semantic retrieval"
     ],
     "err.no_index": "Error: No indexed vectors found. Run index_files first.",
     "tool.description": "Realiza uma pesquisa semântica (busca vetorial) em arquivos locais. Usa a API de Embedding para vetorizar o conteúdo dos arquivos e extrair passagens relevantes dos documentos."
@@ -228,9 +276,15 @@
     "param.top_k.description": "número.",
     "x_search_terms": [
       "semantic_search_files",
-      "pesquisa semântica",
-      "busca vetorial",
-      "arquivos locais"
+      "semantic search files",
+      "semantic search",
+      "vector search",
+      "embedding search",
+      "local file search",
+      "search files",
+      "document search",
+      "file retrieval",
+      "semantic retrieval"
     ],
     "err.no_index": "Error: No indexed vectors found. Run index_files first.",
     "tool.description": "Realiza uma pesquisa semântica (pesquisa vetorial) contra ficheiros locais. Usa a API de Embedding para vetorizar o conteúdo dos ficheiros e extrai passagens de documentos relevantes."
@@ -251,9 +305,15 @@
     "param.top_k.description": "angka.",
     "x_search_terms": [
       "semantic_search_files",
-      "pencarian semantik",
-      "pencarian vektor",
-      "file lokal"
+      "semantic search files",
+      "semantic search",
+      "vector search",
+      "embedding search",
+      "local file search",
+      "search files",
+      "document search",
+      "file retrieval",
+      "semantic retrieval"
     ],
     "err.no_index": "Error: No indexed vectors found. Run index_files first.",
     "tool.description": "Melakukan pencarian semantik (pencarian vektor) terhadap file lokal. Menggunakan API Embedding untuk memvektorkan konten file dan mengekstrak bagian dokumen yang relevan."
@@ -274,9 +334,15 @@
     "param.top_k.description": "Số lượng.",
     "x_search_terms": [
       "semantic_search_files",
-      "tìm kiếm ngữ nghĩa",
-      "tìm kiếm vector",
-      "tệp cục bộ"
+      "semantic search files",
+      "semantic search",
+      "vector search",
+      "embedding search",
+      "local file search",
+      "search files",
+      "document search",
+      "file retrieval",
+      "semantic retrieval"
     ],
     "err.no_index": "Error: No indexed vectors found. Run index_files first.",
     "tool.description": "Thực hiện tìm kiếm ngữ nghĩa (tìm kiếm vector) trên các tệp cục bộ. Sử dụng API Nhúng để vector hóa nội dung tệp và trích xuất các đoạn tài liệu liên quan."
@@ -297,9 +363,15 @@
     "param.top_k.description": "Liczba.",
     "x_search_terms": [
       "semantic_search_files",
-      "wyszukiwanie semantyczne",
-      "wyszukiwanie wektorowe",
-      "pliki lokalne"
+      "semantic search files",
+      "semantic search",
+      "vector search",
+      "embedding search",
+      "local file search",
+      "search files",
+      "document search",
+      "file retrieval",
+      "semantic retrieval"
     ],
     "err.no_index": "Error: No indexed vectors found. Run index_files first.",
     "tool.description": "Wykonuje wyszukiwanie semantyczne (wyszukiwanie wektorowe) w plikach lokalnych. Używa API osadzania do wektoryzacji zawartości plików i wyodrębnia odpowiednie fragmenty dokumentów."
@@ -320,9 +392,15 @@
     "param.top_k.description": "संख्या।",
     "x_search_terms": [
       "semantic_search_files",
-      "अर्थगत खोज",
-      "वेक्टर खोज",
-      "स्थानीय फ़ाइलें"
+      "semantic search files",
+      "semantic search",
+      "vector search",
+      "embedding search",
+      "local file search",
+      "search files",
+      "document search",
+      "file retrieval",
+      "semantic retrieval"
     ],
     "err.no_index": "Error: No indexed vectors found. Run index_files first.",
     "tool.description": "स्थानीय फ़ाइलों के विरुद्ध एक सिमैंटिक खोज (वेक्टर खोज) करता है। फ़ाइल सामग्री को वेक्टराइज़ करने और प्रासंगिक दस्तावेज़ अंश निकालने के लिए Embedding API का उपयोग करता है।"
@@ -343,9 +421,15 @@
     "param.top_k.description": "العدد.",
     "x_search_terms": [
       "semantic_search_files",
-      "البحث الدلالي",
-      "البحث المتجهي",
-      "الملفات المحلية"
+      "semantic search files",
+      "semantic search",
+      "vector search",
+      "embedding search",
+      "local file search",
+      "search files",
+      "document search",
+      "file retrieval",
+      "semantic retrieval"
     ],
     "err.no_index": "Error: No indexed vectors found. Run index_files first.",
     "tool.description": "إجراء بحث دلالي (بحث متجه) ضد الملفات المحلية. يستخدم واجهة برمجة التطبيقات للتضمين لتحويل محتويات الملفات إلى متجهات واستخراج مقاطع المستندات ذات الصلة."
@@ -366,9 +450,15 @@
     "param.top_k.description": "antal.",
     "x_search_terms": [
       "semantic_search_files",
-      "semantisk sökning",
-      "vektorsökning",
-      "lokala filer"
+      "semantic search files",
+      "semantic search",
+      "vector search",
+      "embedding search",
+      "local file search",
+      "search files",
+      "document search",
+      "file retrieval",
+      "semantic retrieval"
     ],
     "err.no_index": "Error: No indexed vectors found. Run index_files first.",
     "tool.description": "Utför en semantisk sökning (vektorsökning) mot lokala filer. Använder inbäddnings-API:et för att vektorisera filinnehåll och extraherar relevanta dokumentavsnitt."
@@ -389,9 +479,15 @@
     "param.top_k.description": "idadi.",
     "x_search_terms": [
       "semantic_search_files",
-      "utafutaji wa kisemantiki",
-      "utafutaji wa vekta",
-      "faili za ndani"
+      "semantic search files",
+      "semantic search",
+      "vector search",
+      "embedding search",
+      "local file search",
+      "search files",
+      "document search",
+      "file retrieval",
+      "semantic retrieval"
     ],
     "err.no_index": "Error: No indexed vectors found. Run index_files first.",
     "tool.description": "Fanya utafutaji wa kisemantiki (utafutaji wa vekta) dhidi ya faili za ndani. Tumia API ya Upachikaji kuweka maudhui ya faili katika vekta na kutoa vifungu muhimu vya nyaraka."
@@ -412,9 +508,15 @@
     "param.top_k.description": "antall.",
     "x_search_terms": [
       "semantic_search_files",
-      "semantisk søk",
-      "vektorsøk",
-      "lokale filer"
+      "semantic search files",
+      "semantic search",
+      "vector search",
+      "embedding search",
+      "local file search",
+      "search files",
+      "document search",
+      "file retrieval",
+      "semantic retrieval"
     ],
     "err.no_index": "Error: No indexed vectors found. Run index_files first.",
     "tool.description": "Utfører et semantisk søk (vektorsøk) mot lokale filer. Bruker Embedding API til å vektorisere filinnhold og trekker ut relevante dokumentpassasjer."
@@ -435,9 +537,15 @@
     "param.top_k.description": "aantal.",
     "x_search_terms": [
       "semantic_search_files",
-      "semantische zoekopdracht",
-      "vector zoekopdracht",
-      "lokale bestanden"
+      "semantic search files",
+      "semantic search",
+      "vector search",
+      "embedding search",
+      "local file search",
+      "search files",
+      "document search",
+      "file retrieval",
+      "semantic retrieval"
     ],
     "err.no_index": "Error: No indexed vectors found. Run index_files first.",
     "tool.description": "Voert een semantische zoekopdracht (vectorzoekopdracht) uit op lokale bestanden. Gebruikt de Embedding-API om bestandsinhoud te vectoriseren en relevante documentpassages te extraheren."
@@ -458,9 +566,15 @@
     "param.top_k.description": "määrä.",
     "x_search_terms": [
       "semantic_search_files",
-      "semanttinen haku",
-      "vektorihaku",
-      "paikalliset tiedostot"
+      "semantic search files",
+      "semantic search",
+      "vector search",
+      "embedding search",
+      "local file search",
+      "search files",
+      "document search",
+      "file retrieval",
+      "semantic retrieval"
     ],
     "err.no_index": "Error: No indexed vectors found. Run index_files first.",
     "tool.description": "Suorittaa semanttisen haun (vektorihaku) paikallisia tiedostoja vastaan. Käyttää upotus-API:a tiedostojen sisällön vektoroimiseen ja poimii asiaankuuluvia dokumenttikatkelmia."
@@ -481,9 +595,15 @@
     "param.top_k.description": "počet.",
     "x_search_terms": [
       "semantic_search_files",
-      "sémantické hledání",
-      "vektorové hledání",
-      "místní soubory"
+      "semantic search files",
+      "semantic search",
+      "vector search",
+      "embedding search",
+      "local file search",
+      "search files",
+      "document search",
+      "file retrieval",
+      "semantic retrieval"
     ],
     "err.no_index": "Error: No indexed vectors found. Run index_files first.",
     "tool.description": "Provádí sémantické vyhledávání (vektorové vyhledávání) proti místním souborům. Používá Embedding API k vektorizaci obsahu souborů a extrahuje relevantní pasáže dokumentů."
@@ -504,9 +624,15 @@
     "param.top_k.description": "число.",
     "x_search_terms": [
       "semantic_search_files",
-      "семантичний пошук",
-      "векторний пошук",
-      "локальні файли"
+      "semantic search files",
+      "semantic search",
+      "vector search",
+      "embedding search",
+      "local file search",
+      "search files",
+      "document search",
+      "file retrieval",
+      "semantic retrieval"
     ],
     "err.no_index": "Error: No indexed vectors found. Run index_files first.",
     "tool.description": "Виконує семантичний пошук (векторний пошук) по локальних файлах. Використовує Embedding API для векторизації вмісту файлів та вилучення відповідних фрагментів документів."
@@ -527,9 +653,15 @@
     "param.top_k.description": "sayı.",
     "x_search_terms": [
       "semantic_search_files",
-      "anlamsal arama",
-      "vektör arama",
-      "yerel dosyalar"
+      "semantic search files",
+      "semantic search",
+      "vector search",
+      "embedding search",
+      "local file search",
+      "search files",
+      "document search",
+      "file retrieval",
+      "semantic retrieval"
     ],
     "err.no_index": "Error: No indexed vectors found. Run index_files first.",
     "tool.description": "Yerel dosyalara karşı anlamsal arama (vektör araması) gerçekleştirir. Dosya içeriklerini vektörleştirmek için Embedding API'sini kullanır ve ilgili belge pasajlarını çıkarır."
@@ -550,9 +682,15 @@
     "param.top_k.description": "ตัวเลข.",
     "x_search_terms": [
       "semantic_search_files",
-      "ค้นหาเชิงความหมาย",
-      "ค้นหาเวกเตอร์",
-      "ไฟล์ในเครื่อง"
+      "semantic search files",
+      "semantic search",
+      "vector search",
+      "embedding search",
+      "local file search",
+      "search files",
+      "document search",
+      "file retrieval",
+      "semantic retrieval"
     ],
     "err.no_index": "Error: No indexed vectors found. Run index_files first.",
     "tool.description": "ดำเนินการค้นหาเชิงความหมาย (การค้นหาเวกเตอร์) กับไฟล์ในเครื่อง ใช้ Embedding API เพื่อแปลงเนื้อหาไฟล์เป็นเวกเตอร์และแยกข้อความที่เกี่ยวข้องจากเอกสาร"
@@ -573,9 +711,15 @@
     "param.top_k.description": "数字。",
     "x_search_terms": [
       "semantic_search_files",
-      "语义搜索",
-      "向量搜索",
-      "本地文件"
+      "semantic search files",
+      "semantic search",
+      "vector search",
+      "embedding search",
+      "local file search",
+      "search files",
+      "document search",
+      "file retrieval",
+      "semantic retrieval"
     ],
     "err.no_index": "Error: No indexed vectors found. Run index_files first.",
     "tool.description": "对本地文件执行语义搜索（向量搜索）。使用嵌入API对文件内容进行向量化，并提取相关文档段落。"
@@ -596,9 +740,15 @@
     "param.top_k.description": "數字。",
     "x_search_terms": [
       "semantic_search_files",
-      "語意搜尋",
-      "向量搜尋",
-      "本機檔案"
+      "semantic search files",
+      "semantic search",
+      "vector search",
+      "embedding search",
+      "local file search",
+      "search files",
+      "document search",
+      "file retrieval",
+      "semantic retrieval"
     ],
     "err.no_index": "Error: No indexed vectors found. Run index_files first.",
     "tool.description": "對本地檔案執行語意搜尋（向量搜尋）。使用 Embedding API 將檔案內容向量化，並提取相關的文件段落。"
@@ -619,9 +769,15 @@
     "param.top_k.description": "সংখ্যা।",
     "x_search_terms": [
       "semantic_search_files",
-      "অর্থগত অনুসন্ধান",
-      "ভেক্টর অনুসন্ধান",
-      "স্থানীয় ফাইল"
+      "semantic search files",
+      "semantic search",
+      "vector search",
+      "embedding search",
+      "local file search",
+      "search files",
+      "document search",
+      "file retrieval",
+      "semantic retrieval"
     ],
     "err.no_index": "Error: No indexed vectors found. Run index_files first.",
     "tool.description": "স্থানীয় ফাইলগুলির বিরুদ্ধে একটি সিম্যান্টিক সার্চ (ভেক্টর সার্চ) সম্পাদন করে। ফাইলের বিষয়বস্তু ভেক্টরাইজ করতে এম্বেডিং API ব্যবহার করে এবং প্রাসঙ্গিক ডকুমেন্ট প্যাসেজ বের করে।"
@@ -642,9 +798,15 @@
     "param.top_k.description": "عدد.",
     "x_search_terms": [
       "semantic_search_files",
-      "جستجوی معنایی",
-      "جستجوی برداری",
-      "فایل‌های محلی"
+      "semantic search files",
+      "semantic search",
+      "vector search",
+      "embedding search",
+      "local file search",
+      "search files",
+      "document search",
+      "file retrieval",
+      "semantic retrieval"
     ],
     "err.no_index": "Error: No indexed vectors found. Run index_files first.",
     "tool.description": "یک جستجوی معنایی (جستجوی برداری) را در برابر فایل‌های محلی انجام می‌دهد. از API جاسازی برای برداری کردن محتوای فایل‌ها و استخراج بخش‌های مرتبط سند استفاده می‌کند."
@@ -665,9 +827,15 @@
     "param.top_k.description": "тоо.",
     "x_search_terms": [
       "semantic_search_files",
-      "семантик хайлт",
-      "вектор хайлт",
-      "орон нутгийн файл"
+      "semantic search files",
+      "semantic search",
+      "vector search",
+      "embedding search",
+      "local file search",
+      "search files",
+      "document search",
+      "file retrieval",
+      "semantic retrieval"
     ],
     "err.no_index": "Error: No indexed vectors found. Run index_files first.",
     "tool.description": "Орон нутгийн файлуудын эсрэг семантик хайлт (вектор хайлт) гүйцэтгэх. Файлын агуулгыг векторжуулахын тулд Embedding API ашиглаж, холбогдох баримтын хэсгүүдийг гаргаж авна."
@@ -688,9 +856,15 @@
     "param.top_k.description": "संख्या.",
     "x_search_terms": [
       "semantic_search_files",
-      "अर्थपूर्ण शोध",
-      "व्हेक्टर शोध",
-      "स्थानिक फाइल्स"
+      "semantic search files",
+      "semantic search",
+      "vector search",
+      "embedding search",
+      "local file search",
+      "search files",
+      "document search",
+      "file retrieval",
+      "semantic retrieval"
     ],
     "err.no_index": "Error: No indexed vectors found. Run index_files first.",
     "tool.description": "स्थानिक फाइल्स विरुद्ध सिमेंटिक शोध (वेक्टर शोध) करते. फाइल सामग्री वेक्टराइज करण्यासाठी Embedding API वापरते आणि संबंधित दस्तऐवज परिच्छेद काढते."

@@ -29,11 +29,16 @@
   },
   "ja": {
     "x_search_terms": [
-      "C#ファイルを読む",
-      "C# インデックス",
-      "クラス一覧",
-      "メソッド一覧",
-      "プロパティ一覧"
+      "c sharp",
+      "c#",
+      "csharp code",
+      "code index",
+      "csharp analysis",
+      "csharp source",
+      "csharp parser",
+      "csharp class",
+      "dotnet",
+      "csharp file"
     ],
     "param.path.description": "C# (.cs) ファイルへのパス。",
     "err.path_required": "エラー: 'path' は必須です。",

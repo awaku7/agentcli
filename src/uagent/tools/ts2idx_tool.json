@@ -29,11 +29,16 @@
   },
   "ja": {
     "x_search_terms": [
-      "TypeScriptファイルを読む",
-      "JavaScriptファイルを読む",
-      "TS/JS インデックス",
-      "関数一覧",
-      "クラス一覧"
+      "typescript",
+      "ts",
+      "typescript code",
+      "ts code",
+      "code index",
+      "typescript analysis",
+      "ts parser",
+      "ts function",
+      "ts class",
+      "ts file"
     ],
     "param.path.description": "TypeScript/JavaScript (.ts/.js) ファイルへのパス。",
     "err.path_required": "エラー: 'path' は必須です。",

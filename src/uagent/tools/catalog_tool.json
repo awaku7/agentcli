@@ -27,10 +27,16 @@
   },
   "ja": {
     "x_search_terms": [
-      "catalog",
-      "ツールカタログ",
-      "ツール検索",
-      "ツール発見"
+      "tool catalog",
+      "available tools",
+      "tool list",
+      "list tools",
+      "search tools",
+      "tool discovery",
+      "find tool",
+      "tool search",
+      "catalog search",
+      "tool lookup"
     ],
     "param.query.description": "必要な機能を説明する自然言語のクエリ。ヒント: 目的を細かい作業ステップに分解してクエリに含めると（例: 'geoip 位置情報 + 天気予報'）、マッチ精度が向上します。",
     "tool_load.description": "ツールを名前で読み込み、使用可能にします。tool_catalog が loaded=false のツールを返した後に使用します。読み込まれたツールの情報、またはエラーを返します。",
@@ -47,10 +53,16 @@
   },
   "es": {
     "x_search_terms": [
-      "catálogo",
-      "catálogo de herramientas",
-      "descubrir herramientas",
-      "descubrimiento de herramientas"
+      "tool catalog",
+      "available tools",
+      "tool list",
+      "list tools",
+      "search tools",
+      "tool discovery",
+      "find tool",
+      "tool search",
+      "catalog search",
+      "tool lookup"
     ],
     "param.query.description": "Consulta en lenguaje natural que describe la capacidad necesaria. Consejo: descomponga su objetivo en pasos (ej. 'geoip ubicación + pronóstico del tiempo') para mejorar la coincidencia.",
     "tool_load.description": "Carga una herramienta por nombre para que esté disponible. Use esto después de que tool_catalog devuelva una herramienta con loaded=false. Devuelve la información de la herramienta cargada o un error si no se encuentra.",
@@ -62,10 +74,16 @@
   },
   "fr": {
     "x_search_terms": [
-      "catalogue",
-      "catalogue d'outils",
-      "découvrir des outils",
-      "découverte d'outils"
+      "tool catalog",
+      "available tools",
+      "tool list",
+      "list tools",
+      "search tools",
+      "tool discovery",
+      "find tool",
+      "tool search",
+      "catalog search",
+      "tool lookup"
     ],
     "param.query.description": "Requête en langage naturel décrivant la capacité nécessaire. Astuce: décomposez votre objectif en sous-étapes (ex. 'geoip localisation + prévisions météo') pour améliorer la pertinence.",
     "tool_load.description": "Charge un outil par son nom pour le rendre disponible. Utilisez ceci après que tool_catalog retourne un outil avec loaded=false. Retourne les informations de l'outil chargé ou une erreur s'il n'est pas trouvé.",
@@ -77,10 +95,16 @@
   },
   "ko": {
     "x_search_terms": [
-      "카탈로그",
-      "도구 카탈로그",
-      "도구 검색",
-      "도구 발견"
+      "tool catalog",
+      "available tools",
+      "tool list",
+      "list tools",
+      "search tools",
+      "tool discovery",
+      "find tool",
+      "tool search",
+      "catalog search",
+      "tool lookup"
     ],
     "param.query.description": "필요한 기능을 설명하는 자연어 질의. 팁: 목표를 세부 단계로 나누어 쿼리에 포함하면(예: 'geoip 위치 + 날씨 예보') 매칭이 향상됩니다.",
     "tool_load.description": "도구를 이름으로 로드하여 사용 가능하게 합니다. tool_catalog가 loaded=false인 도구를 반환한 후에 사용하십시오. 로드된 도구 정보를 반환하거나 찾을 수 없으면 오류를 반환합니다.",
@@ -92,10 +116,16 @@
   },
   "de": {
     "x_search_terms": [
-      "Katalog",
-      "Werkzeugkatalog",
-      "Werkzeuge entdecken",
-      "Werkzeugentdeckung"
+      "tool catalog",
+      "available tools",
+      "tool list",
+      "list tools",
+      "search tools",
+      "tool discovery",
+      "find tool",
+      "tool search",
+      "catalog search",
+      "tool lookup"
     ],
     "param.query.description": "Natürlichsprachliche Abfrage, die die benötigte Fähigkeit beschreibt. Tipp: Zerlegen Sie Ihr Ziel in Unterschritte (z.B. 'geoip Standort + Wettervorhersage') um die Treffer zu verbessern.",
     "tool_load.description": "Lädt ein Werkzeug mit seinem Namen, sodass es zur Verwendung verfügbar wird. Verwenden Sie dies, nachdem tool_catalog ein Werkzeug mit loaded=false zurückgegeben hat. Gibt die geladenen Werkzeuginformationen oder einen Fehler zurück, wenn nicht gefunden.",
@@ -107,10 +137,16 @@
   },
   "it": {
     "x_search_terms": [
-      "catalogo",
-      "catalogo strumenti",
-      "scopri strumenti",
-      "scoperta strumenti"
+      "tool catalog",
+      "available tools",
+      "tool list",
+      "list tools",
+      "search tools",
+      "tool discovery",
+      "find tool",
+      "tool search",
+      "catalog search",
+      "tool lookup"
     ],
     "param.query.description": "Query in linguaggio naturale che descrive la capacità necessaria. Suggerimento: scomponi il tuo obiettivo in sotto-passaggi (es. 'geoip posizione + previsioni meteo') per migliorare la corrispondenza.",
     "tool_load.description": "Carica uno strumento per nome in modo che diventi disponibile per l'uso. Usa questo dopo che tool_catalog restituisce uno strumento con loaded=false. Restituisce le informazioni dello strumento caricato o un errore se non trovato.",
@@ -122,10 +158,16 @@
   },
   "ru": {
     "x_search_terms": [
-      "каталог",
-      "каталог инструментов",
-      "обнаружить инструменты",
-      "обнаружение инструментов"
+      "tool catalog",
+      "available tools",
+      "tool list",
+      "list tools",
+      "search tools",
+      "tool discovery",
+      "find tool",
+      "tool search",
+      "catalog search",
+      "tool lookup"
     ],
     "param.query.description": "Запрос на естественном языке, описывающий необходимую возможность. Совет: разбейте цель на подшаги (например, 'geoip местоположение + прогноз погоды') для улучшения соответствия.",
     "tool_load.description": "Загружает инструмент по имени, чтобы он стал доступен для использования. Используйте это после того, как tool_catalog вернет инструмент с loaded=false. Возвращает информацию о загруженном инструменте или ошибку, если не найдено.",
@@ -137,10 +179,16 @@
   },
   "pt_BR": {
     "x_search_terms": [
-      "catálogo",
-      "catálogo de ferramentas",
-      "descobrir ferramentas",
-      "descoberta de ferramentas"
+      "tool catalog",
+      "available tools",
+      "tool list",
+      "list tools",
+      "search tools",
+      "tool discovery",
+      "find tool",
+      "tool search",
+      "catalog search",
+      "tool lookup"
     ],
     "param.query.description": "Consulta em linguagem natural descrevendo a capacidade necessária. Dica: decomponha seu objetivo em sub-etapas (ex.: 'geoip localização + previsão do tempo') para melhorar a correspondência.",
     "tool_load.description": "Carrega uma ferramenta pelo nome para que ela se torne disponível para uso. Use isto depois que tool_catalog retornar uma ferramenta com loaded=false. Retorna as informações da ferramenta carregada ou um erro se não encontrada.",
@@ -152,10 +200,16 @@
   },
   "pt": {
     "x_search_terms": [
-      "catálogo",
-      "catálogo de ferramentas",
-      "descobrir ferramentas",
-      "descoberta de ferramentas"
+      "tool catalog",
+      "available tools",
+      "tool list",
+      "list tools",
+      "search tools",
+      "tool discovery",
+      "find tool",
+      "tool search",
+      "catalog search",
+      "tool lookup"
     ],
     "param.query.description": "Consulta em linguagem natural descrevendo a capacidade necessária. Dica: decomponha seu objetivo em sub-etapas (ex.: 'geoip localização + previsão do tempo') para melhorar a correspondência.",
     "tool_load.description": "Carrega uma ferramenta pelo nome para que ela se torne disponível para uso. Use isto depois que tool_catalog retornar uma ferramenta com loaded=false. Retorna as informações da ferramenta carregada ou um erro se não encontrada.",
@@ -167,10 +221,16 @@
   },
   "id": {
     "x_search_terms": [
-      "katalog",
-      "katalog alat",
-      "temukan alat",
-      "penemuan alat"
+      "tool catalog",
+      "available tools",
+      "tool list",
+      "list tools",
+      "search tools",
+      "tool discovery",
+      "find tool",
+      "tool search",
+      "catalog search",
+      "tool lookup"
     ],
     "param.query.description": "Kueri bahasa alami yang menjelaskan kemampuan yang diperlukan. Tips: uraikan tujuan Anda menjadi langkah-langkah kecil (mis. 'geoip lokasi + ramalan cuaca') untuk meningkatkan kecocokan.",
     "tool_load.description": "Memuat alat berdasarkan nama sehingga tersedia untuk digunakan. Gunakan ini setelah tool_catalog mengembalikan alat dengan loaded=false. Mengembalikan info alat yang dimuat atau kesalahan jika tidak ditemukan.",
@@ -182,10 +242,16 @@
   },
   "vi": {
     "x_search_terms": [
-      "danh mục",
-      "danh mục công cụ",
-      "khám phá công cụ",
-      "phát hiện công cụ"
+      "tool catalog",
+      "available tools",
+      "tool list",
+      "list tools",
+      "search tools",
+      "tool discovery",
+      "find tool",
+      "tool search",
+      "catalog search",
+      "tool lookup"
     ],
     "param.query.description": "Truy vấn ngôn ngữ tự nhiên mô tả khả năng cần thiết. Mẹo: phân chia mục tiêu thành các bước nhỏ (ví dụ: 'geoip vị trí + dự báo thời tiết') để cải thiện độ khớp.",
     "tool_load.description": "Tải một công cụ theo tên để nó có sẵn để sử dụng. Sử dụng điều này sau khi tool_catalog trả về công cụ với loaded=false. Trả về thông tin công cụ đã tải hoặc lỗi nếu không tìm thấy.",
@@ -197,10 +263,16 @@
   },
   "pl": {
     "x_search_terms": [
-      "katalog",
-      "katalog narzędzi",
-      "odkrywaj narzędzia",
-      "odkrywanie narzędzi"
+      "tool catalog",
+      "available tools",
+      "tool list",
+      "list tools",
+      "search tools",
+      "tool discovery",
+      "find tool",
+      "tool search",
+      "catalog search",
+      "tool lookup"
     ],
     "param.query.description": "Zapytanie w języku naturalnym opisujące potrzebną funkcjonalność. Wskazówka: rozbij cel na podetapy (np. 'geoip lokalizacja + prognoza pogody') aby poprawić dopasowanie.",
     "tool_load.description": "Ładuje narzędzie po nazwie, aby stało się dostępne. Użyj tego, gdy tool_catalog zwróci narzędzie z loaded=false. Zwraca informacje o załadowanym narzędziu lub błąd, jeśli nie znaleziono.",
@@ -212,10 +284,16 @@
   },
   "hi": {
     "x_search_terms": [
-      "सूची",
-      "उपकरण सूची",
-      "उपकरण खोजें",
-      "उपकरण खोज"
+      "tool catalog",
+      "available tools",
+      "tool list",
+      "list tools",
+      "search tools",
+      "tool discovery",
+      "find tool",
+      "tool search",
+      "catalog search",
+      "tool lookup"
     ],
     "param.query.description": "आवश्यक क्षमता का वर्णन करने वाली प्राकृतिक भाषा क्वेरी। टिप: अपने लक्ष्य को उप-चरणों में विभाजित करें (जैसे 'geoip स्थान + मौसम पूर्वानुमान') मिलान बेहतर बनाने के लिए।",
     "tool_load.description": "एक उपकरण को नाम से लोड करें ताकि वह उपयोग के लिए उपलब्ध हो जाए। tool_catalog द्वारा loaded=false वाला उपकरण लौटाने के बाद इसका उपयोग करें। लोड किए गए उपकरण की जानकारी या न मिलने पर त्रुटि लौटाता है।",
@@ -227,10 +305,16 @@
   },
   "ar": {
     "x_search_terms": [
-      "كتالوج",
-      "كتالوج الأدوات",
-      "اكتشف الأدوات",
-      "اكتشاف الأدوات"
+      "tool catalog",
+      "available tools",
+      "tool list",
+      "list tools",
+      "search tools",
+      "tool discovery",
+      "find tool",
+      "tool search",
+      "catalog search",
+      "tool lookup"
     ],
     "param.query.description": "استعلام بلغة طبيعية يصف القدرة المطلوبة. نصيحة: قم بتفكيك هدفك إلى خطوات فرعية (مثل 'geoip موقع + توقعات الطقس') لتحسين المطابقة.",
     "tool_load.description": "تحميل أداة بالاسم لتصبح متاحة للاستخدام. استخدم هذا بعد أن يعيد tool_catalog أداة مع loaded=false. يعيد معلومات الأداة المحملة أو خطأ إذا لم يتم العثور عليها.",
@@ -242,10 +326,16 @@
   },
   "sv": {
     "x_search_terms": [
-      "katalog",
-      "verktygskatalog",
-      "upptäck verktyg",
-      "verktygsupptäckt"
+      "tool catalog",
+      "available tools",
+      "tool list",
+      "list tools",
+      "search tools",
+      "tool discovery",
+      "find tool",
+      "tool search",
+      "catalog search",
+      "tool lookup"
     ],
     "param.query.description": "Naturlig-språk-fråga som beskriver den nödvändiga kapaciteten. Tips: dela upp ditt mål i delsteg (t.ex. 'geoip plats + väderprognos') för att förbättra matchningen.",
     "tool_load.description": "Ladda ett verktyg vid namn så att det blir tillgängligt för användning. Använd detta efter att tool_catalog returnerar ett verktyg med loaded=false. Returnerar den laddade verktygsinformationen eller ett fel om inte hittad.",
@@ -257,10 +347,16 @@
   },
   "sw": {
     "x_search_terms": [
-      "katalogi",
-      "katalogi ya zana",
-      "gundua zana",
-      "ugunduzi wa zana"
+      "tool catalog",
+      "available tools",
+      "tool list",
+      "list tools",
+      "search tools",
+      "tool discovery",
+      "find tool",
+      "tool search",
+      "catalog search",
+      "tool lookup"
     ],
     "param.query.description": "Hoja ya lugha asilia inayoelezea uwezo unaohitajika. Kidokezo: tenga lengo lako katika hatua ndogo (mfano 'geoip eneo + utabiri wa hali ya hewa') ili kuboresha ulinganifu.",
     "tool_load.description": "Pakia zana kwa jina ili iweze kutumika. Tumia hii baada ya tool_catalog kurudisha zana yenye loaded=false. Inarudisha maelezo ya zana iliyopakiwa au hitilafu ikiwa haipatikani.",
@@ -272,10 +368,16 @@
   },
   "nb": {
     "x_search_terms": [
-      "katalog",
-      "verktøykatalog",
-      "oppdag verktøy",
-      "verktøyoppdagelse"
+      "tool catalog",
+      "available tools",
+      "tool list",
+      "list tools",
+      "search tools",
+      "tool discovery",
+      "find tool",
+      "tool search",
+      "catalog search",
+      "tool lookup"
     ],
     "param.query.description": "Naturlig språk-spørring som beskriver den nødvendige kapasiteten. Tips: del opp målet ditt i delsteg (f.eks. 'geoip plassering + værmelding') for å forbedre treff.",
     "tool_load.description": "Laster et verktøy ved navn slik at det blir tilgjengelig for bruk. Bruk dette etter at tool_catalog returnerer et verktøy med loaded=false. Returnerer den lastede verktøyinformasjonen eller en feil hvis ikke funnet.",
@@ -287,10 +389,16 @@
   },
   "nl": {
     "x_search_terms": [
-      "catalogus",
-      "toolcatalogus",
-      "tools ontdekken",
-      "toolontdekking"
+      "tool catalog",
+      "available tools",
+      "tool list",
+      "list tools",
+      "search tools",
+      "tool discovery",
+      "find tool",
+      "tool search",
+      "catalog search",
+      "tool lookup"
     ],
     "param.query.description": "Natuurlijke-taalquery die de benodigde mogelijkheid beschrijft. Tip: splits je doel op in substappen (bijv. 'geoip locatie + weersverwachting') om de matching te verbeteren.",
     "tool_load.description": "Laadt een tool op naam zodat deze beschikbaar wordt voor gebruik. Gebruik dit nadat tool_catalog een tool retourneert met loaded=false. Retourneert de geladen toolinfo of een foutmelding als niet gevonden.",
@@ -302,10 +410,16 @@
   },
   "fi": {
     "x_search_terms": [
-      "luettelo",
-      "työkaluvalikoima",
-      "löydä työkaluja",
-      "työkalujen löytäminen"
+      "tool catalog",
+      "available tools",
+      "tool list",
+      "list tools",
+      "search tools",
+      "tool discovery",
+      "find tool",
+      "tool search",
+      "catalog search",
+      "tool lookup"
     ],
     "param.query.description": "Luonnollisen kielen kysely, joka kuvaa tarvittavaa kyvykkyyttä. Vinkki: jaa tavoitteesi alavaiheisiin (esim. 'geoip sijainti + sääennuste') parantaaksesi osumia.",
     "tool_load.description": "Lataa työkalu nimellä, jotta se tulee käytettäväksi. Käytä tätä, kun tool_catalog palauttaa työkalun, jolla on loaded=false. Palauttaa ladatun työkalun tiedot tai virheen, jos sitä ei löydy.",
@@ -317,10 +431,16 @@
   },
   "cs": {
     "x_search_terms": [
-      "katalog",
-      "katalog nástrojů",
-      "objevovat nástroje",
-      "objevování nástrojů"
+      "tool catalog",
+      "available tools",
+      "tool list",
+      "list tools",
+      "search tools",
+      "tool discovery",
+      "find tool",
+      "tool search",
+      "catalog search",
+      "tool lookup"
     ],
     "param.query.description": "Dotaz v přirozeném jazyce popisující požadovanou schopnost. Tip: rozdělte svůj cíl na dílčí kroky (např. 'geoip poloha + předpověď počasí') pro lepší shodu.",
     "tool_load.description": "Načte nástroj podle názvu, aby byl k dispozici pro použití. Použijte to poté, co tool_catalog vrátí nástroj s loaded=false. Vrací informace o načteném nástroji nebo chybu, pokud není nalezen.",
@@ -332,10 +452,16 @@
   },
   "uk": {
     "x_search_terms": [
-      "каталог",
-      "каталог інструментів",
-      "виявити інструменти",
-      "виявлення інструментів"
+      "tool catalog",
+      "available tools",
+      "tool list",
+      "list tools",
+      "search tools",
+      "tool discovery",
+      "find tool",
+      "tool search",
+      "catalog search",
+      "tool lookup"
     ],
     "param.query.description": "Запит природною мовою, що описує необхідну можливість. Порада: розбийте мету на підкроки (наприклад, 'geoip місцезнаходження + прогноз погоди') для покращення відповідності.",
     "tool_load.description": "Завантажує інструмент за назвою, щоб він став доступним для використання. Використовуйте це після того, як tool_catalog поверне інструмент із loaded=false. Повертає інформацію про завантажений інструмент або помилку, якщо не знайдено.",
@@ -347,10 +473,16 @@
   },
   "tr": {
     "x_search_terms": [
-      "katalog",
-      "araç kataloğu",
-      "araçları keşfet",
-      "araç keşfi"
+      "tool catalog",
+      "available tools",
+      "tool list",
+      "list tools",
+      "search tools",
+      "tool discovery",
+      "find tool",
+      "tool search",
+      "catalog search",
+      "tool lookup"
     ],
     "param.query.description": "Gerekli yeteneği tanımlayan doğal dil sorgusu. İpucu: hedefinizi alt adımlara ayırın (örn. 'geoip konum + hava durumu tahmini') eşleşmeyi iyileştirmek için.",
     "tool_load.description": "Bir aracı ada göre yükleyerek kullanıma hazır hale getirir. tool_catalog'un loaded=false ile bir araç döndürmesinden sonra bunu kullanın. Yüklenen araç bilgisini veya bulunamazsa bir hata döndürür.",
@@ -362,10 +494,16 @@
   },
   "th": {
     "x_search_terms": [
-      "แคตตาล็อก",
-      "แคตตาล็อกเครื่องมือ",
-      "ค้นพบเครื่องมือ",
-      "การค้นพบเครื่องมือ"
+      "tool catalog",
+      "available tools",
+      "tool list",
+      "list tools",
+      "search tools",
+      "tool discovery",
+      "find tool",
+      "tool search",
+      "catalog search",
+      "tool lookup"
     ],
     "param.query.description": "ข้อความค้นหาภาษาธรรมชาติที่อธิบายความสามารถที่ต้องการ เคล็ดลับ: แบ่งเป้าหมายของคุณเป็นขั้นตอนย่อย (เช่น 'geoip ตำแหน่ง + พยากรณ์อากาศ') เพื่อปรับปรุงการจับคู่",
     "tool_load.description": "โหลดเครื่องมือตามชื่อเพื่อให้พร้อมใช้งาน ใช้สิ่งนี้หลังจาก tool_catalog ส่งคืนเครื่องมือที่มี loaded=false ส่งคืนข้อมูลเครื่องมือที่โหลดหรือข้อผิดพลาดหากไม่พบ",
@@ -377,10 +515,16 @@
   },
   "zh_CN": {
     "x_search_terms": [
-      "目录",
-      "工具目录",
-      "发现工具",
-      "工具发现"
+      "tool catalog",
+      "available tools",
+      "tool list",
+      "list tools",
+      "search tools",
+      "tool discovery",
+      "find tool",
+      "tool search",
+      "catalog search",
+      "tool lookup"
     ],
     "param.query.description": "描述所需功能的自然语言查询。提示：将目标分解为子步骤（例如 'geoip 位置 + 天气预报'）以改进匹配。",
     "tool_load.description": "按名称加载工具，使其可用于使用。在 tool_catalog 返回 loaded=false 的工具后使用此功能。返回加载的工具信息，如果未找到则返回错误。",
@@ -392,10 +536,16 @@
   },
   "zh_TW": {
     "x_search_terms": [
-      "目錄",
-      "工具目錄",
-      "發現工具",
-      "工具發現"
+      "tool catalog",
+      "available tools",
+      "tool list",
+      "list tools",
+      "search tools",
+      "tool discovery",
+      "find tool",
+      "tool search",
+      "catalog search",
+      "tool lookup"
     ],
     "param.query.description": "描述所需功能的自然語言查詢。提示：將目標分解為子步驟（例如 'geoip 位置 + 天氣預報'）以改進匹配。",
     "tool_load.description": "按名稱載入工具，使其可用於使用。在 tool_catalog 返回 loaded=false 的工具後使用此功能。返回載入的工具資訊，如果未找到則返回錯誤。",
@@ -407,10 +557,16 @@
   },
   "bn": {
     "x_search_terms": [
-      "ক্যাটালগ",
-      "টুল ক্যাটালগ",
-      "টুল আবিষ্কার করুন",
-      "টুল আবিষ্কার"
+      "tool catalog",
+      "available tools",
+      "tool list",
+      "list tools",
+      "search tools",
+      "tool discovery",
+      "find tool",
+      "tool search",
+      "catalog search",
+      "tool lookup"
     ],
     "param.query.description": "প্রয়োজনীয় ক্ষমতা বর্ণনা করে প্রাকৃতিক ভাষার প্রশ্ন। টিপ: আপনার লক্ষ্যকে উপ-ধাপে বিভক্ত করুন (যেমন 'geoip অবস্থান + আবহাওয়ার পূর্বাভাস') মিল উন্নত করতে।",
     "tool_load.description": "একটি টুল নাম দিয়ে লোড করুন যাতে এটি ব্যবহারের জন্য উপলব্ধ হয়। tool_catalog loaded=false সহ একটি টুল ফেরত দেওয়ার পরে এটি ব্যবহার করুন। লোড করা টুল তথ্য বা না পাওয়া গেলে একটি ত্রুটি ফেরত দেয়।",
@@ -422,10 +578,16 @@
   },
   "fa": {
     "x_search_terms": [
-      "کاتالوگ",
-      "کاتالوگ ابزار",
-      "کشف ابزارها",
-      "کشف ابزار"
+      "tool catalog",
+      "available tools",
+      "tool list",
+      "list tools",
+      "search tools",
+      "tool discovery",
+      "find tool",
+      "tool search",
+      "catalog search",
+      "tool lookup"
     ],
     "param.query.description": "پرس و جوی زبان طبیعی که قابلیت مورد نیاز را توصیف می‌کند. نکته: هدف خود را به مراحل فرعی تقسیم کنید (مثلاً 'geoip موقعیت + پیش‌بینی آب و هوا') برای بهبود تطابق.",
     "tool_load.description": "یک ابزار را با نام بارگذاری کنید تا برای استفاده در دسترس باشد. پس از اینکه tool_catalog ابزاری با loaded=false برگرداند، از این استفاده کنید. اطلاعات ابزار بارگذاری شده یا در صورت یافتن نشدن خطا برمی‌گرداند.",
@@ -437,10 +599,16 @@
   },
   "mn": {
     "x_search_terms": [
-      "каталог",
-      "хэрэгслийн каталог",
-      "хэрэгслүүдийг нээх",
-      "хэрэгсэл нээлт"
+      "tool catalog",
+      "available tools",
+      "tool list",
+      "list tools",
+      "search tools",
+      "tool discovery",
+      "find tool",
+      "tool search",
+      "catalog search",
+      "tool lookup"
     ],
     "param.query.description": "Шаардлагатай чадварыг тодорхойлсон байгалийн хэлний асуулт. Зөвлөгөө: зорилгоо дэд алхам болгон задал (жишээ нь 'geoip байршил + цаг агаарын урьдчилсан мэдээ') тохирохыг сайжруулах.",
     "tool_load.description": "Хэрэгслийг нэрээр нь ачаалж, ашиглах боломжтой болгоно. tool_catalog нь loaded=false-тэй хэрэгсэл буцаасны дараа үүнийг ашиглана уу. Ачаалагдсан хэрэгслийн мэдээллийг эсвэл олдохгүй бол алдааг буцаана.",
@@ -452,10 +620,16 @@
   },
   "mr": {
     "x_search_terms": [
-      "कॅटलॉग",
-      "साधन कॅटलॉग",
-      "साधने शोधा",
-      "साधन शोध"
+      "tool catalog",
+      "available tools",
+      "tool list",
+      "list tools",
+      "search tools",
+      "tool discovery",
+      "find tool",
+      "tool search",
+      "catalog search",
+      "tool lookup"
     ],
     "param.query.description": "आवश्यक क्षमतेचे वर्णन करणारी नैसर्गिक भाषा क्वेरी. टिप: तुमचे ध्येय उप-चरणांमध्ये विभाजित करा (उदा. 'geoip स्थान + हवामान अंदाज') जुळणी सुधारण्यासाठी.",
     "tool_load.description": "एखादे साधन नावाने लोड करा जेणेकरून ते वापरासाठी उपलब्ध होईल. tool_catalog ने loaded=false सह साधन परत केल्यानंतर हे वापरा. लोड केलेले साधन माहिती किंवा सापडले नाही तर त्रुटी परत करते.",
@@ -467,10 +641,16 @@
   },
   "el": {
     "x_search_terms": [
-      "κατάλογος",
-      "κατάλογος εργαλείων",
-      "ανακαλύψτε εργαλεία",
-      "ανακάλυψη εργαλείου"
+      "tool catalog",
+      "available tools",
+      "tool list",
+      "list tools",
+      "search tools",
+      "tool discovery",
+      "find tool",
+      "tool search",
+      "catalog search",
+      "tool lookup"
     ],
     "param.query.description": "Ερώτημα φυσικής γλώσσας που περιγράφει την απαιτούμενη ικανότητα. Συμβουλή: αναλύστε τον στόχο σας σε επιμέρους βήματα (π.χ. \"τοποθεσία geoip + πρόγνωση καιρού\") για να βελτιώσετε την αντιστοίχιση.",
     "tool_load.description": "Φορτώστε ένα εργαλείο με το όνομα, ώστε να είναι διαθέσιμο για χρήση. Χρησιμοποιήστε το αφού το tool_catalog επιστρέψει ένα εργαλείο με loaded=false. Επιστρέφει τις φορτωμένες πληροφορίες εργαλείου ή ένα σφάλμα εάν δεν βρεθεί.",
@@ -482,10 +662,16 @@
   },
   "he": {
     "x_search_terms": [
-      "קָטָלוֹג",
-      "קטלוג כלים",
-      "לגלות כלים",
-      "גילוי כלי"
+      "tool catalog",
+      "available tools",
+      "tool list",
+      "list tools",
+      "search tools",
+      "tool discovery",
+      "find tool",
+      "tool search",
+      "catalog search",
+      "tool lookup"
     ],
     "param.query.description": "שאילתה בשפה טבעית המתארת ​​את היכולת הדרושה. טיפ: פרק את המטרה שלך לשלבי משנה (למשל, 'מיקום גיאוגרפי + תחזית מזג אוויר') כדי לשפר את ההתאמה.",
     "tool_load.description": "טען כלי לפי שם כך שהוא יהפוך זמין לשימוש. השתמש בזה לאחר tool_catalog מחזיר כלי עם loaded=false. מחזיר את פרטי הכלי שנטען או שגיאה אם ​​לא נמצא.",
@@ -497,10 +683,16 @@
   },
   "hu": {
     "x_search_terms": [
-      "katalógus",
-      "szerszámkatalógus",
-      "eszközöket fedezzen fel",
-      "szerszám felfedezése"
+      "tool catalog",
+      "available tools",
+      "tool list",
+      "list tools",
+      "search tools",
+      "tool discovery",
+      "find tool",
+      "tool search",
+      "catalog search",
+      "tool lookup"
     ],
     "param.query.description": "Természetes nyelvű lekérdezés, amely leírja a szükséges képességet. Tipp: bontsa a célt részlépésekre (pl. „geoip hely + időjárás előrejelzés”) az egyezés javítása érdekében.",
     "tool_load.description": "Töltsön be egy eszközt név szerint, hogy használható legyen. Használja ezt, miután a tool_catalog egy loaded=false értékkel tér vissza. Visszaadja a betöltött szerszámadatokat, vagy hibát jelez, ha nem található.",
@@ -512,10 +704,16 @@
   },
   "ro": {
     "x_search_terms": [
-      "catalog",
-      "catalog de instrumente",
-      "descoperi instrumente",
-      "descoperirea instrumentului"
+      "tool catalog",
+      "available tools",
+      "tool list",
+      "list tools",
+      "search tools",
+      "tool discovery",
+      "find tool",
+      "tool search",
+      "catalog search",
+      "tool lookup"
     ],
     "param.query.description": "Interogare în limbaj natural care descrie capacitatea necesară. Sfat: descompuneți obiectivul în subpași (de exemplu, „Locație geografică + prognoză meteo”) pentru a îmbunătăți potrivirea.",
     "tool_load.description": "Încărcați un instrument după nume, astfel încât să devină disponibil pentru utilizare. Utilizați acest lucru după ce tool_catalog returnează o unealtă cu loaded=false. Returnează informațiile despre instrumentul încărcat sau o eroare dacă nu este găsită.",

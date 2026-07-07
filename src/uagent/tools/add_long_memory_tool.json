@@ -18,10 +18,16 @@
   },
   "ja": {
     "x_search_terms": [
-      "add_long_memory",
-      "add long memory",
-      "long memory",
-      "save memory"
+      "add memory",
+      "long term memory",
+      "save memory",
+      "store memory",
+      "memory add",
+      "agent memory",
+      "remember",
+      "persist memory",
+      "save info",
+      "memory store"
     ],
     "err.note_empty": "[add_long_memory error] note is empty",
     "param.note.description": "今後の会話で再利用できる簡潔なメモを 1 つだけ書きます (日本語が望ましい)。",
@@ -29,297 +35,481 @@
   },
   "es": {
     "x_search_terms": [
-      "add_long_memory",
-      "add long memory",
-      "long memory",
-      "save memory"
+      "add memory",
+      "long term memory",
+      "save memory",
+      "store memory",
+      "memory add",
+      "agent memory",
+      "remember",
+      "persist memory",
+      "save info",
+      "memory store"
     ],
     "err.note_empty": "[add_long_memory error] note is empty"
   },
   "fr": {
     "x_search_terms": [
-      "add_long_memory",
-      "add long memory",
-      "long memory",
-      "save memory"
+      "add memory",
+      "long term memory",
+      "save memory",
+      "store memory",
+      "memory add",
+      "agent memory",
+      "remember",
+      "persist memory",
+      "save info",
+      "memory store"
     ],
     "err.note_empty": "[add_long_memory error] note is empty"
   },
   "ko": {
     "x_search_terms": [
-      "add_long_memory",
-      "add long memory",
-      "long memory",
-      "save memory"
+      "add memory",
+      "long term memory",
+      "save memory",
+      "store memory",
+      "memory add",
+      "agent memory",
+      "remember",
+      "persist memory",
+      "save info",
+      "memory store"
     ],
     "err.note_empty": "[add_long_memory error] note is empty"
   },
   "de": {
     "x_search_terms": [
-      "add_long_memory",
-      "add long memory",
-      "long memory",
-      "save memory"
+      "add memory",
+      "long term memory",
+      "save memory",
+      "store memory",
+      "memory add",
+      "agent memory",
+      "remember",
+      "persist memory",
+      "save info",
+      "memory store"
     ],
     "err.note_empty": "[add_long_memory error] note is empty"
   },
   "it": {
     "x_search_terms": [
-      "add_long_memory",
-      "add long memory",
-      "long memory",
-      "save memory"
+      "add memory",
+      "long term memory",
+      "save memory",
+      "store memory",
+      "memory add",
+      "agent memory",
+      "remember",
+      "persist memory",
+      "save info",
+      "memory store"
     ],
     "err.note_empty": "[add_long_memory error] note is empty"
   },
   "ru": {
     "x_search_terms": [
-      "add_long_memory",
-      "add long memory",
-      "long memory",
-      "save memory"
+      "add memory",
+      "long term memory",
+      "save memory",
+      "store memory",
+      "memory add",
+      "agent memory",
+      "remember",
+      "persist memory",
+      "save info",
+      "memory store"
     ],
     "err.note_empty": "[add_long_memory error] note is empty"
   },
   "pt_BR": {
     "x_search_terms": [
-      "add_long_memory",
-      "add long memory",
-      "long memory",
-      "save memory"
+      "add memory",
+      "long term memory",
+      "save memory",
+      "store memory",
+      "memory add",
+      "agent memory",
+      "remember",
+      "persist memory",
+      "save info",
+      "memory store"
     ],
     "err.note_empty": "[add_long_memory error] note is empty"
   },
   "pt": {
     "x_search_terms": [
-      "add_long_memory",
-      "add long memory",
-      "long memory",
-      "save memory"
+      "add memory",
+      "long term memory",
+      "save memory",
+      "store memory",
+      "memory add",
+      "agent memory",
+      "remember",
+      "persist memory",
+      "save info",
+      "memory store"
     ],
     "err.note_empty": "[add_long_memory error] note is empty"
   },
   "id": {
     "x_search_terms": [
-      "add_long_memory",
-      "add long memory",
-      "long memory",
-      "save memory"
+      "add memory",
+      "long term memory",
+      "save memory",
+      "store memory",
+      "memory add",
+      "agent memory",
+      "remember",
+      "persist memory",
+      "save info",
+      "memory store"
     ],
     "err.note_empty": "[add_long_memory error] note is empty"
   },
   "vi": {
     "x_search_terms": [
-      "add_long_memory",
-      "add long memory",
-      "long memory",
-      "save memory"
+      "add memory",
+      "long term memory",
+      "save memory",
+      "store memory",
+      "memory add",
+      "agent memory",
+      "remember",
+      "persist memory",
+      "save info",
+      "memory store"
     ],
     "err.note_empty": "[add_long_memory error] note is empty"
   },
   "pl": {
     "x_search_terms": [
-      "add_long_memory",
-      "add long memory",
-      "long memory",
-      "save memory"
+      "add memory",
+      "long term memory",
+      "save memory",
+      "store memory",
+      "memory add",
+      "agent memory",
+      "remember",
+      "persist memory",
+      "save info",
+      "memory store"
     ],
     "err.note_empty": "[add_long_memory error] note is empty"
   },
   "hi": {
     "x_search_terms": [
-      "add_long_memory",
-      "add long memory",
-      "long memory",
-      "save memory"
+      "add memory",
+      "long term memory",
+      "save memory",
+      "store memory",
+      "memory add",
+      "agent memory",
+      "remember",
+      "persist memory",
+      "save info",
+      "memory store"
     ],
     "err.note_empty": "[add_long_memory error] note is empty"
   },
   "ar": {
     "x_search_terms": [
-      "add_long_memory",
-      "add long memory",
-      "long memory",
-      "save memory"
+      "add memory",
+      "long term memory",
+      "save memory",
+      "store memory",
+      "memory add",
+      "agent memory",
+      "remember",
+      "persist memory",
+      "save info",
+      "memory store"
     ],
     "err.note_empty": "[add_long_memory error] note is empty"
   },
   "sv": {
     "x_search_terms": [
-      "add_long_memory",
-      "add long memory",
-      "long memory",
-      "save memory"
+      "add memory",
+      "long term memory",
+      "save memory",
+      "store memory",
+      "memory add",
+      "agent memory",
+      "remember",
+      "persist memory",
+      "save info",
+      "memory store"
     ],
     "err.note_empty": "[add_long_memory error] note is empty"
   },
   "sw": {
     "x_search_terms": [
-      "add_long_memory",
-      "add long memory",
-      "long memory",
-      "save memory"
+      "add memory",
+      "long term memory",
+      "save memory",
+      "store memory",
+      "memory add",
+      "agent memory",
+      "remember",
+      "persist memory",
+      "save info",
+      "memory store"
     ],
     "err.note_empty": "[add_long_memory error] note is empty"
   },
   "nb": {
     "x_search_terms": [
-      "add_long_memory",
-      "add long memory",
-      "long memory",
-      "save memory"
+      "add memory",
+      "long term memory",
+      "save memory",
+      "store memory",
+      "memory add",
+      "agent memory",
+      "remember",
+      "persist memory",
+      "save info",
+      "memory store"
     ],
     "err.note_empty": "[add_long_memory error] note is empty"
   },
   "nl": {
     "x_search_terms": [
-      "add_long_memory",
-      "add long memory",
-      "long memory",
-      "save memory"
+      "add memory",
+      "long term memory",
+      "save memory",
+      "store memory",
+      "memory add",
+      "agent memory",
+      "remember",
+      "persist memory",
+      "save info",
+      "memory store"
     ],
     "err.note_empty": "[add_long_memory error] note is empty"
   },
   "fi": {
     "x_search_terms": [
-      "add_long_memory",
-      "add long memory",
-      "long memory",
-      "save memory"
+      "add memory",
+      "long term memory",
+      "save memory",
+      "store memory",
+      "memory add",
+      "agent memory",
+      "remember",
+      "persist memory",
+      "save info",
+      "memory store"
     ],
     "err.note_empty": "[add_long_memory error] note is empty"
   },
   "cs": {
     "x_search_terms": [
-      "add_long_memory",
-      "add long memory",
-      "long memory",
-      "save memory"
+      "add memory",
+      "long term memory",
+      "save memory",
+      "store memory",
+      "memory add",
+      "agent memory",
+      "remember",
+      "persist memory",
+      "save info",
+      "memory store"
     ],
     "err.note_empty": "[add_long_memory error] note is empty"
   },
   "uk": {
     "x_search_terms": [
-      "add_long_memory",
-      "add long memory",
-      "long memory",
-      "save memory"
+      "add memory",
+      "long term memory",
+      "save memory",
+      "store memory",
+      "memory add",
+      "agent memory",
+      "remember",
+      "persist memory",
+      "save info",
+      "memory store"
     ],
     "err.note_empty": "[add_long_memory error] note is empty"
   },
   "tr": {
     "x_search_terms": [
-      "add_long_memory",
-      "add long memory",
-      "long memory",
-      "save memory"
+      "add memory",
+      "long term memory",
+      "save memory",
+      "store memory",
+      "memory add",
+      "agent memory",
+      "remember",
+      "persist memory",
+      "save info",
+      "memory store"
     ],
     "err.note_empty": "[add_long_memory error] note is empty"
   },
   "th": {
     "x_search_terms": [
-      "add_long_memory",
-      "add long memory",
-      "long memory",
-      "save memory"
+      "add memory",
+      "long term memory",
+      "save memory",
+      "store memory",
+      "memory add",
+      "agent memory",
+      "remember",
+      "persist memory",
+      "save info",
+      "memory store"
     ],
     "err.note_empty": "[add_long_memory error] note is empty"
   },
   "zh_CN": {
     "x_search_terms": [
-      "add_long_memory",
-      "add long memory",
-      "long memory",
-      "save memory"
+      "add memory",
+      "long term memory",
+      "save memory",
+      "store memory",
+      "memory add",
+      "agent memory",
+      "remember",
+      "persist memory",
+      "save info",
+      "memory store"
     ],
     "err.note_empty": "[add_long_memory error] note is empty"
   },
   "zh_TW": {
     "x_search_terms": [
-      "add_long_memory",
-      "add long memory",
-      "long memory",
-      "save memory"
+      "add memory",
+      "long term memory",
+      "save memory",
+      "store memory",
+      "memory add",
+      "agent memory",
+      "remember",
+      "persist memory",
+      "save info",
+      "memory store"
     ],
     "err.note_empty": "[add_long_memory error] note is empty"
   },
   "bn": {
     "x_search_terms": [
-      "add_long_memory",
-      "add long memory",
-      "long memory",
-      "save memory"
+      "add memory",
+      "long term memory",
+      "save memory",
+      "store memory",
+      "memory add",
+      "agent memory",
+      "remember",
+      "persist memory",
+      "save info",
+      "memory store"
     ],
     "err.note_empty": "[add_long_memory error] note is empty"
   },
   "fa": {
     "x_search_terms": [
-      "add_long_memory",
-      "add long memory",
-      "long memory",
-      "save memory"
+      "add memory",
+      "long term memory",
+      "save memory",
+      "store memory",
+      "memory add",
+      "agent memory",
+      "remember",
+      "persist memory",
+      "save info",
+      "memory store"
     ],
     "err.note_empty": "[add_long_memory error] note is empty"
   },
   "mn": {
     "x_search_terms": [
-      "add_long_memory",
-      "add long memory",
-      "long memory",
-      "save memory"
+      "add memory",
+      "long term memory",
+      "save memory",
+      "store memory",
+      "memory add",
+      "agent memory",
+      "remember",
+      "persist memory",
+      "save info",
+      "memory store"
     ],
     "err.note_empty": "[add_long_memory error] note is empty"
   },
   "mr": {
     "x_search_terms": [
-      "add_long_memory",
-      "add long memory",
-      "long memory",
-      "save memory"
+      "add memory",
+      "long term memory",
+      "save memory",
+      "store memory",
+      "memory add",
+      "agent memory",
+      "remember",
+      "persist memory",
+      "save info",
+      "memory store"
     ],
     "err.note_empty": "[add_long_memory error] note is empty"
   },
   "el": {
     "x_search_terms": [
-      "add_long_memory",
-      "προσθέστε μεγάλη μνήμη",
-      "αποθήκευση σημείωσης",
-      "θυμάμαι",
-      "σημείωση μνήμης",
-      "μακροπρόθεσμη μνήμη"
+      "add memory",
+      "long term memory",
+      "save memory",
+      "store memory",
+      "memory add",
+      "agent memory",
+      "remember",
+      "persist memory",
+      "save info",
+      "memory store"
     ],
     "err.note_empty": "Η σημείωση [add_long_memory error] είναι κενή"
   },
   "he": {
     "x_search_terms": [
-      "add_long_memory",
-      "להוסיף זיכרון ארוך",
-      "לשמור הערה",
-      "לִזכּוֹר",
-      "הערת זיכרון",
-      "זיכרון לטווח ארוך"
+      "add memory",
+      "long term memory",
+      "save memory",
+      "store memory",
+      "memory add",
+      "agent memory",
+      "remember",
+      "persist memory",
+      "save info",
+      "memory store"
     ],
     "err.note_empty": "הערה [add_long_memory error] ריקה"
   },
   "hu": {
     "x_search_terms": [
-      "add_long_memory",
-      "hosszú memória hozzáadása",
-      "jegyzet mentése",
-      "emlékezz",
-      "emlékjegy",
-      "hosszú távú memória"
+      "add memory",
+      "long term memory",
+      "save memory",
+      "store memory",
+      "memory add",
+      "agent memory",
+      "remember",
+      "persist memory",
+      "save info",
+      "memory store"
     ],
     "err.note_empty": "Az [add_long_memory error] megjegyzés üres"
   },
   "ro": {
     "x_search_terms": [
-      "add_long_memory",
-      "adăugați memorie lungă",
-      "salvați nota",
-      "amintește-ți",
-      "nota de memorie",
-      "memorie pe termen lung"
+      "add memory",
+      "long term memory",
+      "save memory",
+      "store memory",
+      "memory add",
+      "agent memory",
+      "remember",
+      "persist memory",
+      "save info",
+      "memory store"
     ],
     "err.note_empty": "[add_long_memory error] nota este goală"
   }

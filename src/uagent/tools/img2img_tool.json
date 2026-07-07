@@ -25,10 +25,16 @@
   },
   "ja": {
     "x_search_terms": [
+      "image to image",
       "img2img",
-      "画像編集",
-      "画像プロンプト",
-      "編集"
+      "image generation",
+      "image editing",
+      "image transform",
+      "stable diffusion",
+      "image processing",
+      "image modification",
+      "image variation",
+      "image enhancement"
     ],
     "param.prompt.description": "画像の編集内容を指示します。",
     "param.size.description": "画像サイズ。",
@@ -43,10 +49,16 @@
   },
   "es": {
     "x_search_terms": [
+      "image to image",
       "img2img",
-      "editar imagen",
-      "prompt de imagen",
-      "edición"
+      "image generation",
+      "image editing",
+      "image transform",
+      "stable diffusion",
+      "image processing",
+      "image modification",
+      "image variation",
+      "image enhancement"
     ],
     "param.prompt.description": "Instrucciones sobre cómo editar la imagen.",
     "param.size.description": "Tamaño de imagen.",
@@ -58,10 +70,16 @@
   },
   "fr": {
     "x_search_terms": [
+      "image to image",
       "img2img",
-      "éditer image",
-      "prompt image",
-      "édition image"
+      "image generation",
+      "image editing",
+      "image transform",
+      "stable diffusion",
+      "image processing",
+      "image modification",
+      "image variation",
+      "image enhancement"
     ],
     "param.prompt.description": "Instructions pour modifier l'image.",
     "param.size.description": "Taille de l'image.",
@@ -73,10 +91,16 @@
   },
   "ko": {
     "x_search_terms": [
+      "image to image",
       "img2img",
-      "이미지 편집",
-      "이미지 프롬프트",
-      "편집"
+      "image generation",
+      "image editing",
+      "image transform",
+      "stable diffusion",
+      "image processing",
+      "image modification",
+      "image variation",
+      "image enhancement"
     ],
     "param.prompt.description": "이미지를 어떻게 편집할지에 대한 지시입니다.",
     "param.size.description": "이미지 크기.",
@@ -88,10 +112,16 @@
   },
   "de": {
     "x_search_terms": [
+      "image to image",
       "img2img",
-      "bild bearbeiten",
-      "bild prompt",
-      "bild edit"
+      "image generation",
+      "image editing",
+      "image transform",
+      "stable diffusion",
+      "image processing",
+      "image modification",
+      "image variation",
+      "image enhancement"
     ],
     "param.prompt.description": "Anleitung zum Bearbeiten des Bildes.",
     "param.size.description": "Bildgröße.",
@@ -103,10 +133,16 @@
   },
   "it": {
     "x_search_terms": [
+      "image to image",
       "img2img",
-      "modifica immagine",
-      "prompt immagine",
-      "edit immagine"
+      "image generation",
+      "image editing",
+      "image transform",
+      "stable diffusion",
+      "image processing",
+      "image modification",
+      "image variation",
+      "image enhancement"
     ],
     "param.prompt.description": "Istruzioni su come modificare l’immagine.",
     "param.size.description": "Dimensioni immagine.",
@@ -118,10 +154,16 @@
   },
   "ru": {
     "x_search_terms": [
+      "image to image",
       "img2img",
-      "редактировать изображение",
-      "prompt изображения",
-      "редактирование"
+      "image generation",
+      "image editing",
+      "image transform",
+      "stable diffusion",
+      "image processing",
+      "image modification",
+      "image variation",
+      "image enhancement"
     ],
     "param.prompt.description": "Инструкция по редактированию изображения.",
     "param.size.description": "Размер изображения.",
@@ -133,10 +175,16 @@
   },
   "pt_BR": {
     "x_search_terms": [
+      "image to image",
       "img2img",
-      "editar imagem",
-      "prompt de imagem",
-      "edição de imagem"
+      "image generation",
+      "image editing",
+      "image transform",
+      "stable diffusion",
+      "image processing",
+      "image modification",
+      "image variation",
+      "image enhancement"
     ],
     "param.prompt.description": "Instruções de como editar a imagem.",
     "param.size.description": "Tamanho da imagem.",
@@ -148,10 +196,16 @@
   },
   "pt": {
     "x_search_terms": [
+      "image to image",
       "img2img",
-      "editar imagem",
-      "prompt de imagem",
-      "edição de imagem"
+      "image generation",
+      "image editing",
+      "image transform",
+      "stable diffusion",
+      "image processing",
+      "image modification",
+      "image variation",
+      "image enhancement"
     ],
     "param.prompt.description": "Instruções de como editar a imagem.",
     "param.size.description": "Tamanho da imagem.",
@@ -163,10 +217,16 @@
   },
   "id": {
     "x_search_terms": [
+      "image to image",
       "img2img",
-      "edit gambar",
-      "prompt gambar",
-      "ubah gambar"
+      "image generation",
+      "image editing",
+      "image transform",
+      "stable diffusion",
+      "image processing",
+      "image modification",
+      "image variation",
+      "image enhancement"
     ],
     "param.prompt.description": "Instruksi tentang cara mengedit gambar.",
     "param.size.description": "Ukuran gambar.",
@@ -178,10 +238,16 @@
   },
   "vi": {
     "x_search_terms": [
+      "image to image",
       "img2img",
-      "chỉnh ảnh",
-      "prompt ảnh",
-      "sửa ảnh"
+      "image generation",
+      "image editing",
+      "image transform",
+      "stable diffusion",
+      "image processing",
+      "image modification",
+      "image variation",
+      "image enhancement"
     ],
     "param.prompt.description": "Hướng dẫn về cách chỉnh sửa ảnh.",
     "param.size.description": "Kích thước hình ảnh.",
@@ -193,10 +259,16 @@
   },
   "pl": {
     "x_search_terms": [
+      "image to image",
       "img2img",
-      "edytuj obraz",
-      "prompt obrazu",
-      "edycja obrazu"
+      "image generation",
+      "image editing",
+      "image transform",
+      "stable diffusion",
+      "image processing",
+      "image modification",
+      "image variation",
+      "image enhancement"
     ],
     "param.prompt.description": "Instrukcja edycji obrazu.",
     "param.size.description": "Rozmiar obrazu",
@@ -208,10 +280,16 @@
   },
   "cs": {
     "x_search_terms": [
+      "image to image",
       "img2img",
-      "upravit obrázek",
-      "prompt obrázku",
-      "úprava obrázku"
+      "image generation",
+      "image editing",
+      "image transform",
+      "stable diffusion",
+      "image processing",
+      "image modification",
+      "image variation",
+      "image enhancement"
     ],
     "param.prompt.description": "Pokyny, jak má být obrázek upraven.",
     "param.size.description": "Velikost obrázku.",
@@ -223,10 +301,16 @@
   },
   "uk": {
     "x_search_terms": [
+      "image to image",
       "img2img",
-      "редагувати зображення",
-      "prompt зображення",
-      "редагування"
+      "image generation",
+      "image editing",
+      "image transform",
+      "stable diffusion",
+      "image processing",
+      "image modification",
+      "image variation",
+      "image enhancement"
     ],
     "param.prompt.description": "Інструкції щодо редагування зображення.",
     "param.size.description": "Розмір зображення.",
@@ -238,10 +322,16 @@
   },
   "ar": {
     "x_search_terms": [
+      "image to image",
       "img2img",
-      "تحرير صورة",
-      "موجه صورة",
-      "تعديل صورة"
+      "image generation",
+      "image editing",
+      "image transform",
+      "stable diffusion",
+      "image processing",
+      "image modification",
+      "image variation",
+      "image enhancement"
     ],
     "param.prompt.description": "تعليمات حول كيفية تحرير الصورة.",
     "param.size.description": "حجم الصورة.",
@@ -253,10 +343,16 @@
   },
   "sv": {
     "x_search_terms": [
+      "image to image",
       "img2img",
-      "redigera bild",
-      "bildprompt",
-      "bildredigering"
+      "image generation",
+      "image editing",
+      "image transform",
+      "stable diffusion",
+      "image processing",
+      "image modification",
+      "image variation",
+      "image enhancement"
     ],
     "param.prompt.description": "Instruktioner för hur man redigerar bilden.",
     "param.size.description": "Bildstorlek.",
@@ -268,10 +364,16 @@
   },
   "th": {
     "x_search_terms": [
+      "image to image",
       "img2img",
-      "แก้ไขภาพ",
-      "พรอมต์ภาพ",
-      "ปรับแต่งภาพ"
+      "image generation",
+      "image editing",
+      "image transform",
+      "stable diffusion",
+      "image processing",
+      "image modification",
+      "image variation",
+      "image enhancement"
     ],
     "param.prompt.description": "คำสั่งว่าต้องการแก้ไขภาพอย่างไร",
     "param.size.description": "ขนาดภาพ",
@@ -283,10 +385,16 @@
   },
   "tr": {
     "x_search_terms": [
+      "image to image",
       "img2img",
-      "görsel düzenle",
-      "görsel prompt",
-      "görsel düzenleme"
+      "image generation",
+      "image editing",
+      "image transform",
+      "stable diffusion",
+      "image processing",
+      "image modification",
+      "image variation",
+      "image enhancement"
     ],
     "param.prompt.description": "Resmin nasıl düzenleneceğine ilişkin talimatlar.",
     "param.size.description": "Resim boyutu.",
@@ -298,10 +406,16 @@
   },
   "nb": {
     "x_search_terms": [
+      "image to image",
       "img2img",
-      "rediger bilde",
-      "bildeprompt",
-      "bilderedigering"
+      "image generation",
+      "image editing",
+      "image transform",
+      "stable diffusion",
+      "image processing",
+      "image modification",
+      "image variation",
+      "image enhancement"
     ],
     "param.prompt.description": "Instruksjoner for hvordan du redigerer bildet.",
     "param.size.description": "Bildestørrelse.",
@@ -313,10 +427,16 @@
   },
   "nl": {
     "x_search_terms": [
+      "image to image",
       "img2img",
-      "afbeelding bewerken",
-      "afbeelding prompt",
-      "beeldbewerking"
+      "image generation",
+      "image editing",
+      "image transform",
+      "stable diffusion",
+      "image processing",
+      "image modification",
+      "image variation",
+      "image enhancement"
     ],
     "param.prompt.description": "Instructies voor het bewerken van de afbeelding.",
     "param.size.description": "Afbeeldingsgrootte.",
@@ -328,10 +448,16 @@
   },
   "fi": {
     "x_search_terms": [
+      "image to image",
       "img2img",
-      "muokkaa kuvaa",
-      "kuvaprompti",
-      "kuvankäsittely"
+      "image generation",
+      "image editing",
+      "image transform",
+      "stable diffusion",
+      "image processing",
+      "image modification",
+      "image variation",
+      "image enhancement"
     ],
     "param.prompt.description": "Ohjeet siitä, miten kuvaa tulee muokata.",
     "param.size.description": "Kuvan koko.",
@@ -343,10 +469,16 @@
   },
   "sw": {
     "x_search_terms": [
+      "image to image",
       "img2img",
-      "hariri picha",
-      "prompt ya picha",
-      "uhariri wa picha"
+      "image generation",
+      "image editing",
+      "image transform",
+      "stable diffusion",
+      "image processing",
+      "image modification",
+      "image variation",
+      "image enhancement"
     ],
     "param.prompt.description": "Maagizo ya jinsi ya kuhariri picha.",
     "param.size.description": "Ukubwa wa picha",
@@ -358,10 +490,16 @@
   },
   "hi": {
     "x_search_terms": [
+      "image to image",
       "img2img",
-      "छवि संपादन",
-      "छवि प्रॉम्प्ट",
-      "संपादन"
+      "image generation",
+      "image editing",
+      "image transform",
+      "stable diffusion",
+      "image processing",
+      "image modification",
+      "image variation",
+      "image enhancement"
     ],
     "param.prompt.description": "छवि को कैसे संपादित करना है, इसके निर्देश।",
     "param.size.description": "खंड आकार।",
@@ -373,10 +511,16 @@
   },
   "zh_CN": {
     "x_search_terms": [
+      "image to image",
       "img2img",
-      "图像编辑",
-      "图像提示词",
-      "编辑图片"
+      "image generation",
+      "image editing",
+      "image transform",
+      "stable diffusion",
+      "image processing",
+      "image modification",
+      "image variation",
+      "image enhancement"
     ],
     "param.prompt.description": "如何编辑图像的说明。",
     "param.size.description": "图片尺寸。",
@@ -388,10 +532,16 @@
   },
   "zh_TW": {
     "x_search_terms": [
+      "image to image",
       "img2img",
-      "影像編輯",
-      "影像提示詞",
-      "編輯圖片"
+      "image generation",
+      "image editing",
+      "image transform",
+      "stable diffusion",
+      "image processing",
+      "image modification",
+      "image variation",
+      "image enhancement"
     ],
     "param.prompt.description": "如何編輯影像的說明。",
     "param.size.description": "图片尺寸。",
@@ -403,10 +553,16 @@
   },
   "bn": {
     "x_search_terms": [
+      "image to image",
       "img2img",
-      "ছবি সম্পাদনা",
-      "ছবি প্রম্পট",
-      "ছবি এডিট"
+      "image generation",
+      "image editing",
+      "image transform",
+      "stable diffusion",
+      "image processing",
+      "image modification",
+      "image variation",
+      "image enhancement"
     ],
     "param.prompt.description": "ছবি কিভাবে সম্পাদনা করতে হয় তার জন্য নির্দেশাবলী।",
     "param.size.description": "ছবির আকার।",
@@ -418,10 +574,16 @@
   },
   "fa": {
     "x_search_terms": [
+      "image to image",
       "img2img",
-      "ویرایش تصویر",
-      "پرامپت تصویر",
-      "ادیت تصویر"
+      "image generation",
+      "image editing",
+      "image transform",
+      "stable diffusion",
+      "image processing",
+      "image modification",
+      "image variation",
+      "image enhancement"
     ],
     "param.prompt.description": "دستورالعملِ نحوهٔ ویرایش تصویر.",
     "param.size.description": "اندازه تصویر.",
@@ -433,10 +595,16 @@
   },
   "mn": {
     "x_search_terms": [
+      "image to image",
       "img2img",
-      "зураг засах",
-      "зураг prompt",
-      "зураг edit"
+      "image generation",
+      "image editing",
+      "image transform",
+      "stable diffusion",
+      "image processing",
+      "image modification",
+      "image variation",
+      "image enhancement"
     ],
     "param.prompt.description": "Зургийг хэрхэн засах тухай заавар.",
     "param.size.description": "Хэрэглэгчийн сонголтын эцсийн мессеж",
@@ -448,10 +616,16 @@
   },
   "mr": {
     "x_search_terms": [
+      "image to image",
       "img2img",
-      "प्रतिमा संपादन",
-      "प्रतिमा प्रॉम्प्ट",
-      "संपादन"
+      "image generation",
+      "image editing",
+      "image transform",
+      "stable diffusion",
+      "image processing",
+      "image modification",
+      "image variation",
+      "image enhancement"
     ],
     "param.prompt.description": "प्रतिमा कशी संपादित करायची याच्या सूचना.",
     "param.size.description": "प्रतिमा आकार.",
@@ -463,8 +637,16 @@
   },
   "el": {
     "x_search_terms": [
-      "Επεξεργαστείτε μια εικόνα εισαγωγής χρησιμοποιώντας μια προτροπή κειμένου, αποθηκεύστε το αποτέλεσμα ως PNG και επιστρέψτε την αποθηκευμένη διαδρομή.",
-      "Επεξεργαστείτε μια εικόνα εισαγωγής χρησιμοποιώντας μια προτροπή κειμένου, αποθηκεύστε το αποτέλεσμα ως PNG και επιστρέψτε την αποθηκευμένη διαδρομή."
+      "image to image",
+      "img2img",
+      "image generation",
+      "image editing",
+      "image transform",
+      "stable diffusion",
+      "image processing",
+      "image modification",
+      "image variation",
+      "image enhancement"
     ],
     "param.prompt.description": "Οδηγίες για τον τρόπο επεξεργασίας της εικόνας.",
     "param.size.description": "Μέγεθος εικόνας.",
@@ -476,8 +658,16 @@
   },
   "he": {
     "x_search_terms": [
+      "image to image",
       "img2img",
-      "img2img"
+      "image generation",
+      "image editing",
+      "image transform",
+      "stable diffusion",
+      "image processing",
+      "image modification",
+      "image variation",
+      "image enhancement"
     ],
     "param.prompt.description": "הוראות כיצד לערוך את התמונה.",
     "param.size.description": "גודל תמונה.",
@@ -489,8 +679,16 @@
   },
   "hu": {
     "x_search_terms": [
+      "image to image",
       "img2img",
-      "img2img"
+      "image generation",
+      "image editing",
+      "image transform",
+      "stable diffusion",
+      "image processing",
+      "image modification",
+      "image variation",
+      "image enhancement"
     ],
     "param.prompt.description": "Útmutató a kép szerkesztéséhez.",
     "param.size.description": "Képméret.",
@@ -502,8 +700,16 @@
   },
   "ro": {
     "x_search_terms": [
+      "image to image",
       "img2img",
-      "img2img"
+      "image generation",
+      "image editing",
+      "image transform",
+      "stable diffusion",
+      "image processing",
+      "image modification",
+      "image variation",
+      "image enhancement"
     ],
     "param.prompt.description": "Instrucțiuni pentru editarea imaginii.",
     "param.size.description": "Dimensiunea imaginii.",

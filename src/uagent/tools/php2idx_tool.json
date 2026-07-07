@@ -29,10 +29,16 @@
   },
   "ja": {
     "x_search_terms": [
-      "PHPファイルを読む",
-      "PHP インデックス",
-      "クラス一覧",
-      "メソッド一覧"
+      "php",
+      "php code",
+      "php analysis",
+      "code index",
+      "php source",
+      "php parser",
+      "php function",
+      "php class",
+      "php method",
+      "php file"
     ],
     "param.path.description": "PHP (.php) ファイルへのパス。",
     "err.path_required": "エラー: 'path' は必須です。",

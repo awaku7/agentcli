@@ -19,10 +19,16 @@
   "ja": {
     "param.code.description": "Pythonコード。",
     "x_search_terms": [
-      "python_exec",
-      "python 実行",
-      "python スクリプト",
-      "py_compile"
+      "python exec",
+      "run python",
+      "execute python",
+      "python code",
+      "python script",
+      "python run",
+      "python execute",
+      "python command",
+      "python interpreter",
+      "python program"
     ],
     "tool.description": "Python コードを制御された方法で実行します。このツールは、計算、データ処理、または短いスクリプトの実行に使用します。このツールを使用する前に、`tool_catalog` で他の適切なツールを検索してください。",
     "[python_exec error] Provide 'code'.": ""
@@ -30,305 +36,481 @@
   "es": {
     "param.code.description": "Código Python.",
     "x_search_terms": [
-      "python_exec",
-      "ejecutar python",
-      "script python",
-      "py_compile"
+      "python exec",
+      "run python",
+      "execute python",
+      "python code",
+      "python script",
+      "python run",
+      "python execute",
+      "python command",
+      "python interpreter",
+      "python program"
     ]
   },
   "fr": {
     "param.code.description": "Code Python.",
     "x_search_terms": [
-      "python_exec",
-      "exécuter python",
-      "script python",
-      "py_compile"
+      "python exec",
+      "run python",
+      "execute python",
+      "python code",
+      "python script",
+      "python run",
+      "python execute",
+      "python command",
+      "python interpreter",
+      "python program"
     ]
   },
   "ko": {
     "param.code.description": "Python 코드.",
     "x_search_terms": [
-      "python_exec",
-      "python 실행",
-      "python 스크립트",
-      "py_compile"
+      "python exec",
+      "run python",
+      "execute python",
+      "python code",
+      "python script",
+      "python run",
+      "python execute",
+      "python command",
+      "python interpreter",
+      "python program"
     ]
   },
   "de": {
     "param.code.description": "Python-Code.",
     "x_search_terms": [
-      "python_exec",
-      "python ausführen",
-      "python skript",
-      "py_compile"
+      "python exec",
+      "run python",
+      "execute python",
+      "python code",
+      "python script",
+      "python run",
+      "python execute",
+      "python command",
+      "python interpreter",
+      "python program"
     ]
   },
   "it": {
     "param.code.description": "Codice Python.",
     "x_search_terms": [
-      "python_exec",
-      "esegui python",
-      "script python",
-      "py_compile"
+      "python exec",
+      "run python",
+      "execute python",
+      "python code",
+      "python script",
+      "python run",
+      "python execute",
+      "python command",
+      "python interpreter",
+      "python program"
     ]
   },
   "ru": {
     "param.code.description": "Код Python.",
     "x_search_terms": [
-      "python_exec",
-      "запуск python",
-      "python скрипт",
-      "py_compile"
+      "python exec",
+      "run python",
+      "execute python",
+      "python code",
+      "python script",
+      "python run",
+      "python execute",
+      "python command",
+      "python interpreter",
+      "python program"
     ]
   },
   "pt_BR": {
     "param.code.description": "Código Python.",
     "x_search_terms": [
-      "python_exec",
-      "executar python",
-      "script python",
-      "py_compile"
+      "python exec",
+      "run python",
+      "execute python",
+      "python code",
+      "python script",
+      "python run",
+      "python execute",
+      "python command",
+      "python interpreter",
+      "python program"
     ]
   },
   "pt": {
     "param.code.description": "Código Python.",
     "x_search_terms": [
-      "python_exec",
-      "executar python",
-      "script python",
-      "py_compile"
+      "python exec",
+      "run python",
+      "execute python",
+      "python code",
+      "python script",
+      "python run",
+      "python execute",
+      "python command",
+      "python interpreter",
+      "python program"
     ]
   },
   "id": {
     "param.code.description": "Kode Python.",
     "x_search_terms": [
-      "python_exec",
-      "jalankan python",
-      "skrip python",
-      "py_compile"
+      "python exec",
+      "run python",
+      "execute python",
+      "python code",
+      "python script",
+      "python run",
+      "python execute",
+      "python command",
+      "python interpreter",
+      "python program"
     ]
   },
   "vi": {
     "param.code.description": "Mã Python.",
     "x_search_terms": [
-      "python_exec",
-      "chạy python",
-      "script python",
-      "py_compile"
+      "python exec",
+      "run python",
+      "execute python",
+      "python code",
+      "python script",
+      "python run",
+      "python execute",
+      "python command",
+      "python interpreter",
+      "python program"
     ]
   },
   "pl": {
     "param.code.description": "Kod Pythona.",
     "x_search_terms": [
-      "python_exec",
-      "uruchom python",
-      "skrypt python",
-      "py_compile"
+      "python exec",
+      "run python",
+      "execute python",
+      "python code",
+      "python script",
+      "python run",
+      "python execute",
+      "python command",
+      "python interpreter",
+      "python program"
     ]
   },
   "hi": {
     "param.code.description": "उपयोग के लिए पॉवरशेल निष्पादन योग्य: 'pwsh' (पावरशेल 7+) या 'पॉवरशेल'।",
     "x_search_terms": [
-      "python_exec",
-      "python चलाएँ",
-      "python स्क्रिप्ट",
-      "py_compile"
+      "python exec",
+      "run python",
+      "execute python",
+      "python code",
+      "python script",
+      "python run",
+      "python execute",
+      "python command",
+      "python interpreter",
+      "python program"
     ]
   },
   "ar": {
     "param.code.description": "كود بايثون.",
     "x_search_terms": [
-      "python_exec",
-      "تشغيل python",
-      "سكربت python",
-      "py_compile"
+      "python exec",
+      "run python",
+      "execute python",
+      "python code",
+      "python script",
+      "python run",
+      "python execute",
+      "python command",
+      "python interpreter",
+      "python program"
     ]
   },
   "sv": {
     "param.code.description": "Python-kod.",
     "x_search_terms": [
-      "python_exec",
-      "kör python",
-      "python skript",
-      "py_compile"
+      "python exec",
+      "run python",
+      "execute python",
+      "python code",
+      "python script",
+      "python run",
+      "python execute",
+      "python command",
+      "python interpreter",
+      "python program"
     ]
   },
   "sw": {
     "param.code.description": "Msimbo wa chatu.",
     "x_search_terms": [
-      "python_exec",
+      "python exec",
       "run python",
+      "execute python",
+      "python code",
       "python script",
-      "py_compile"
+      "python run",
+      "python execute",
+      "python command",
+      "python interpreter",
+      "python program"
     ]
   },
   "nb": {
     "param.code.description": "Python-kode.",
     "x_search_terms": [
-      "python_exec",
-      "kjør python",
-      "python skript",
-      "py_compile"
+      "python exec",
+      "run python",
+      "execute python",
+      "python code",
+      "python script",
+      "python run",
+      "python execute",
+      "python command",
+      "python interpreter",
+      "python program"
     ]
   },
   "nl": {
     "param.code.description": "Python-code.",
     "x_search_terms": [
-      "python_exec",
-      "python uitvoeren",
+      "python exec",
+      "run python",
+      "execute python",
+      "python code",
       "python script",
-      "py_compile"
+      "python run",
+      "python execute",
+      "python command",
+      "python interpreter",
+      "python program"
     ]
   },
   "fi": {
     "param.code.description": "Python-koodi.",
     "x_search_terms": [
-      "python_exec",
-      "suorita python",
-      "python skripti",
-      "py_compile"
+      "python exec",
+      "run python",
+      "execute python",
+      "python code",
+      "python script",
+      "python run",
+      "python execute",
+      "python command",
+      "python interpreter",
+      "python program"
     ]
   },
   "cs": {
     "param.code.description": "kód Pythonu.",
     "x_search_terms": [
-      "python_exec",
-      "spustit python",
-      "python skript",
-      "py_compile"
+      "python exec",
+      "run python",
+      "execute python",
+      "python code",
+      "python script",
+      "python run",
+      "python execute",
+      "python command",
+      "python interpreter",
+      "python program"
     ]
   },
   "uk": {
     "param.code.description": "Код Python.",
     "x_search_terms": [
-      "python_exec",
-      "запустити python",
-      "python скрипт",
-      "py_compile"
+      "python exec",
+      "run python",
+      "execute python",
+      "python code",
+      "python script",
+      "python run",
+      "python execute",
+      "python command",
+      "python interpreter",
+      "python program"
     ]
   },
   "tr": {
     "param.code.description": "Python kodu.",
     "x_search_terms": [
-      "python_exec",
-      "python çalıştır",
-      "python betik",
-      "py_compile"
+      "python exec",
+      "run python",
+      "execute python",
+      "python code",
+      "python script",
+      "python run",
+      "python execute",
+      "python command",
+      "python interpreter",
+      "python program"
     ]
   },
   "th": {
     "param.code.description": "ปฏิบัติการ PowerShell ได้: 'pwsh' (PowerShell 7+) หรือ 'powershell' (Windows PowerShell) หากละเว้น ให้เลือกอัตโนมัติ",
     "x_search_terms": [
-      "python_exec",
-      "รัน python",
-      "สคริปต์ python",
-      "py_compile"
+      "python exec",
+      "run python",
+      "execute python",
+      "python code",
+      "python script",
+      "python run",
+      "python execute",
+      "python command",
+      "python interpreter",
+      "python program"
     ]
   },
   "zh_CN": {
     "param.code.description": "Python代码。",
     "x_search_terms": [
-      "python_exec",
-      "运行 python",
-      "python 脚本",
-      "py_compile"
+      "python exec",
+      "run python",
+      "execute python",
+      "python code",
+      "python script",
+      "python run",
+      "python execute",
+      "python command",
+      "python interpreter",
+      "python program"
     ]
   },
   "zh_TW": {
     "param.code.description": "Python代码。",
     "x_search_terms": [
-      "python_exec",
-      "執行 python",
-      "python 腳本",
-      "py_compile"
+      "python exec",
+      "run python",
+      "execute python",
+      "python code",
+      "python script",
+      "python run",
+      "python execute",
+      "python command",
+      "python interpreter",
+      "python program"
     ]
   },
   "bn": {
     "param.code.description": "প্রয়োগ করুন py_compile এর সাথে Python ফাইলগুলিকে যাচাই করুন, Python কোড__DEL_5.",
     "x_search_terms": [
-      "python_exec",
-      "python চালান",
-      "python স্ক্রিপ্ট",
-      "py_compile"
+      "python exec",
+      "run python",
+      "execute python",
+      "python code",
+      "python script",
+      "python run",
+      "python execute",
+      "python command",
+      "python interpreter",
+      "python program"
     ]
   },
   "fa": {
     "param.code.description": "کد پایتون.",
     "x_search_terms": [
-      "python_exec",
-      "اجرای python",
-      "اسکریپت python",
-      "py_compile"
+      "python exec",
+      "run python",
+      "execute python",
+      "python code",
+      "python script",
+      "python run",
+      "python execute",
+      "python command",
+      "python interpreter",
+      "python program"
     ]
   },
   "mn": {
     "param.code.description": "Python код.",
     "x_search_terms": [
-      "python_exec",
-      "python ажиллуулах",
-      "python скрипт",
-      "py_compile"
+      "python exec",
+      "run python",
+      "execute python",
+      "python code",
+      "python script",
+      "python run",
+      "python execute",
+      "python command",
+      "python interpreter",
+      "python program"
     ]
   },
   "mr": {
     "param.code.description": "पायथन कोड.",
     "x_search_terms": [
-      "python_exec",
-      "python चालवा",
-      "python स्क्रिप्ट",
-      "py_compile"
+      "python exec",
+      "run python",
+      "execute python",
+      "python code",
+      "python script",
+      "python run",
+      "python execute",
+      "python command",
+      "python interpreter",
+      "python program"
     ]
   },
   "el": {
     "param.code.description": "Κώδικας Python.",
     "x_search_terms": [
-      "python",
-      "τρέχει python",
-      "εκτέλεση σεναρίου",
-      "Python 実行",
-      "ejecutar python",
-      "εκτελεστής python",
-      "파이썬 실행 [=#_=] 파이썬 실행 [=#_=] error] Δώστε «κωδικό».",
-      "[Σφάλμα ανάγνωσης_αρχείου] οι γραμμές_κεφαλίδας και οι ουρά_γραμμές δεν μπορούν να καθοριστούν μαζί"
+      "python exec",
+      "run python",
+      "execute python",
+      "python code",
+      "python script",
+      "python run",
+      "python execute",
+      "python command",
+      "python interpreter",
+      "python program"
     ]
   },
   "he": {
     "param.code.description": "קוד Python.",
     "x_search_terms": [
-      "python",
-      "הפעל את python",
-      "בצע סקריפט",
-      "Python 実行",
-      "ejecutar python",
-      "exécuter python",
-      "파이썬 실стhon 파이썬 실стhon] ть з=у=python 행",
-      "[python_exec error] ספק 'קוד'."
+      "python exec",
+      "run python",
+      "execute python",
+      "python code",
+      "python script",
+      "python run",
+      "python execute",
+      "python command",
+      "python interpreter",
+      "python program"
     ]
   },
   "hu": {
     "param.code.description": "Python-kód.",
     "x_search_terms": [
-      "python",
-      "python futtatása",
-      "szkript végrehajtása",
-      "Python 実行",
-      "ejecutar python",
-      "python végrehajtó",
-      "파이썬 실행 [=] пу=honсти] 실행 [python_exec error] Adja meg a „kódot”.",
-      "[read_file error] head_lines és tail_lines nem adható meg együtt"
+      "python exec",
+      "run python",
+      "execute python",
+      "python code",
+      "python script",
+      "python run",
+      "python execute",
+      "python command",
+      "python interpreter",
+      "python program"
     ]
   },
   "ro": {
     "param.code.description": "Cod Python.",
     "x_search_terms": [
-      "python",
+      "python exec",
       "run python",
-      "execute script",
-      "Python 実行",
-      "executar python",
-      "exécuter python",
-      "파이썬 실행",
-      "python"
+      "execute python",
+      "python code",
+      "python script",
+      "python run",
+      "python execute",
+      "python command",
+      "python interpreter",
+      "python program"
     ]
   }
 }

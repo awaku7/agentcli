@@ -37,11 +37,16 @@
     "param.args.description": "Git コマンドに渡す引数のリスト。",
     "param.command.description": "実行する Git サブコマンド（安全のため制限あり）。",
     "x_search_terms": [
-      "git_ops",
-      "git 操作",
-      "git コマンド",
-      "安全第一",
-      "push"
+      "git",
+      "git operations",
+      "git command",
+      "version control",
+      "git repo",
+      "source control",
+      "git commit",
+      "git push",
+      "git pull",
+      "vcs"
     ],
     "param.allow_danger.description": "危険な操作を許可するかどうか (デフォルトは false)。例: プッシュ --force、リセット --ハード。",
     "tool.description": "安全第一の制限を設けて Git コマンドを実行します。一部の操作や引数内の特殊文字は、セキュリティのために制限される場合があります。"
@@ -58,11 +63,16 @@
     "param.args.description": "Lista de argumentos que se pasan al comando Git.",
     "param.command.description": "Subcomando Git (restringido).",
     "x_search_terms": [
-      "git_ops",
-      "git ops",
-      "comandos git",
-      "git seguro",
-      "push"
+      "git",
+      "git operations",
+      "git command",
+      "version control",
+      "git repo",
+      "source control",
+      "git commit",
+      "git push",
+      "git pull",
+      "vcs"
     ]
   },
   "fr": {
@@ -77,11 +87,16 @@
     "param.args.description": "Liste des arguments passés à la commande Git.",
     "param.command.description": "Sous-commande Git (restreinte).",
     "x_search_terms": [
-      "git_ops",
-      "git ops",
-      "commandes git",
-      "git sûr",
-      "push"
+      "git",
+      "git operations",
+      "git command",
+      "version control",
+      "git repo",
+      "source control",
+      "git commit",
+      "git push",
+      "git pull",
+      "vcs"
     ]
   },
   "ko": {
@@ -96,11 +111,16 @@
     "param.args.description": "Git 명령에 전달할 인수 목록.",
     "param.command.description": "실행할 Git 하위 명령(보안 제한이 적용됩니다).",
     "x_search_terms": [
-      "git_ops",
-      "git 작업",
-      "git 명령",
-      "안전 git",
-      "push"
+      "git",
+      "git operations",
+      "git command",
+      "version control",
+      "git repo",
+      "source control",
+      "git commit",
+      "git push",
+      "git pull",
+      "vcs"
     ]
   },
   "de": {
@@ -115,11 +135,16 @@
     "param.args.description": "Liste der Argumente, die an den Git-Befehl übergeben werden.",
     "param.command.description": "Git-Unterbefehl (eingeschränkt).",
     "x_search_terms": [
-      "git_ops",
-      "git ops",
-      "git befehle",
-      "sicheres git",
-      "push"
+      "git",
+      "git operations",
+      "git command",
+      "version control",
+      "git repo",
+      "source control",
+      "git commit",
+      "git push",
+      "git pull",
+      "vcs"
     ]
   },
   "it": {
@@ -134,11 +159,16 @@
     "param.args.description": "Elenco degli argomenti passati al comando Git.",
     "param.command.description": "Sottocomando Git (limitato).",
     "x_search_terms": [
-      "git_ops",
-      "git ops",
-      "comandi git",
-      "git sicuro",
-      "push"
+      "git",
+      "git operations",
+      "git command",
+      "version control",
+      "git repo",
+      "source control",
+      "git commit",
+      "git push",
+      "git pull",
+      "vcs"
     ]
   },
   "ru": {
@@ -153,11 +183,16 @@
     "param.args.description": "Список аргументов, передаваемых команде Git.",
     "param.command.description": "Подкоманда Git (ограничено)",
     "x_search_terms": [
-      "git_ops",
-      "git ops",
-      "git команды",
-      "безопасный git",
-      "push"
+      "git",
+      "git operations",
+      "git command",
+      "version control",
+      "git repo",
+      "source control",
+      "git commit",
+      "git push",
+      "git pull",
+      "vcs"
     ]
   },
   "pt_BR": {
@@ -172,11 +207,16 @@
     "param.args.description": "Lista de argumentos passados ao comando Git.",
     "param.command.description": "Subcomando Git (restrito",
     "x_search_terms": [
-      "git_ops",
-      "git ops",
-      "comandos git",
-      "git seguro",
-      "push"
+      "git",
+      "git operations",
+      "git command",
+      "version control",
+      "git repo",
+      "source control",
+      "git commit",
+      "git push",
+      "git pull",
+      "vcs"
     ]
   },
   "pt": {
@@ -191,11 +231,16 @@
     "param.args.description": "Lista de argumentos passados ​​para o comando Git.",
     "param.command.description": "Subcomando Git (restrito).",
     "x_search_terms": [
-      "git_ops",
-      "git ops",
-      "comandos git",
-      "git seguro",
-      "push"
+      "git",
+      "git operations",
+      "git command",
+      "version control",
+      "git repo",
+      "source control",
+      "git commit",
+      "git push",
+      "git pull",
+      "vcs"
     ]
   },
   "id": {
@@ -210,11 +255,16 @@
     "param.args.description": "Daftar argumen yang diteruskan ke perintah Git.",
     "param.command.description": "Subperintah Git (dibatasi).",
     "x_search_terms": [
-      "git_ops",
-      "git ops",
-      "perintah git",
-      "git aman",
-      "push"
+      "git",
+      "git operations",
+      "git command",
+      "version control",
+      "git repo",
+      "source control",
+      "git commit",
+      "git push",
+      "git pull",
+      "vcs"
     ]
   },
   "vi": {
@@ -229,11 +279,16 @@
     "param.args.description": "Danh sách các đối số được truyền cho lệnh Git.",
     "param.command.description": "Lệnh con Git (bị hạn chế).",
     "x_search_terms": [
-      "git_ops",
-      "git ops",
-      "lệnh git",
-      "git an toàn",
-      "push"
+      "git",
+      "git operations",
+      "git command",
+      "version control",
+      "git repo",
+      "source control",
+      "git commit",
+      "git push",
+      "git pull",
+      "vcs"
     ]
   },
   "pl": {
@@ -248,11 +303,16 @@
     "param.args.description": "Lista argumentów przekazanych do polecenia Git.",
     "param.command.description": "Podkomenda Git (ograniczona).",
     "x_search_terms": [
-      "git_ops",
-      "git ops",
-      "polecenia git",
-      "bezpieczny git",
-      "push"
+      "git",
+      "git operations",
+      "git command",
+      "version control",
+      "git repo",
+      "source control",
+      "git commit",
+      "git push",
+      "git pull",
+      "vcs"
     ]
   },
   "hi": {
@@ -267,11 +327,16 @@
     "param.args.description": "Git कमांड को दिए गए तर्कों की सूची।",
     "param.command.description": "Git उपकमांड (प्रतिबंधित)।",
     "x_search_terms": [
-      "git_ops",
-      "git ops",
-      "git कमांड",
-      "सुरक्षित git",
-      "push"
+      "git",
+      "git operations",
+      "git command",
+      "version control",
+      "git repo",
+      "source control",
+      "git commit",
+      "git push",
+      "git pull",
+      "vcs"
     ]
   },
   "ar": {
@@ -286,11 +351,16 @@
     "param.args.description": "قائمة الوسائط التي تم تمريرها إلى أمر Git.",
     "param.command.description": "احصل على جميع ملاحظات الذاكرة طويلة المدى المحفوظة (JSONL__). أمر Git الفرعي (مقيد).",
     "x_search_terms": [
-      "git_ops",
-      "git ops",
-      "أوامر git",
-      "git آمن",
-      "push"
+      "git",
+      "git operations",
+      "git command",
+      "version control",
+      "git repo",
+      "source control",
+      "git commit",
+      "git push",
+      "git pull",
+      "vcs"
     ]
   },
   "sv": {
@@ -305,11 +375,16 @@
     "param.args.description": "Lista över argument som skickas till Git-kommandot.",
     "param.command.description": "Git-underkommando (begränsat).",
     "x_search_terms": [
-      "git_ops",
-      "git ops",
-      "git-kommandon",
-      "säker git",
-      "push"
+      "git",
+      "git operations",
+      "git command",
+      "version control",
+      "git repo",
+      "source control",
+      "git commit",
+      "git push",
+      "git pull",
+      "vcs"
     ]
   },
   "sw": {
@@ -324,11 +399,16 @@
     "param.args.description": "List of arguments passed to the Git command.",
     "param.command.description": "Amri ndogo ya Git (imezuiliwa).",
     "x_search_terms": [
-      "git_ops",
-      "git ops",
-      "amri za git",
-      "git salama",
-      "push"
+      "git",
+      "git operations",
+      "git command",
+      "version control",
+      "git repo",
+      "source control",
+      "git commit",
+      "git push",
+      "git pull",
+      "vcs"
     ]
   },
   "nb": {
@@ -343,11 +423,16 @@
     "param.args.description": "Liste over argumenter sendt til Git-kommandoen.",
     "param.command.description": "Git-underkommando (begrenset).",
     "x_search_terms": [
-      "git_ops",
-      "git ops",
-      "git-kommandoer",
-      "trygg git",
-      "push"
+      "git",
+      "git operations",
+      "git command",
+      "version control",
+      "git repo",
+      "source control",
+      "git commit",
+      "git push",
+      "git pull",
+      "vcs"
     ]
   },
   "nl": {
@@ -362,11 +447,16 @@
     "param.args.description": "Lijst met argumenten die aan het Git-commando zijn doorgegeven.",
     "param.command.description": "Git-subopdracht (beperkt).",
     "x_search_terms": [
-      "git_ops",
-      "git ops",
-      "git opdrachten",
-      "veilige git",
-      "push"
+      "git",
+      "git operations",
+      "git command",
+      "version control",
+      "git repo",
+      "source control",
+      "git commit",
+      "git push",
+      "git pull",
+      "vcs"
     ]
   },
   "fi": {
@@ -381,11 +471,16 @@
     "param.args.description": "Luettelo Git-komennolle välitetyistä argumenteista.",
     "param.command.description": "Git-alikomento (rajoitettu).",
     "x_search_terms": [
-      "git_ops",
-      "git ops",
-      "git-komennot",
-      "turvallinen git",
-      "push"
+      "git",
+      "git operations",
+      "git command",
+      "version control",
+      "git repo",
+      "source control",
+      "git commit",
+      "git push",
+      "git pull",
+      "vcs"
     ]
   },
   "cs": {
@@ -400,11 +495,16 @@
     "param.args.description": "Seznam argumentů předaných příkazu Git.",
     "param.command.description": "Dílčí příkaz Git (omezeno).",
     "x_search_terms": [
-      "git_ops",
-      "git ops",
-      "git příkazy",
-      "bezpečný git",
-      "push"
+      "git",
+      "git operations",
+      "git command",
+      "version control",
+      "git repo",
+      "source control",
+      "git commit",
+      "git push",
+      "git pull",
+      "vcs"
     ]
   },
   "uk": {
@@ -419,11 +519,16 @@
     "param.args.description": "Список аргументів, переданих команді Git.",
     "param.command.description": "Підкоманда Git (обмежена).",
     "x_search_terms": [
-      "git_ops",
-      "git ops",
-      "git команди",
-      "безпечний git",
-      "push"
+      "git",
+      "git operations",
+      "git command",
+      "version control",
+      "git repo",
+      "source control",
+      "git commit",
+      "git push",
+      "git pull",
+      "vcs"
     ]
   },
   "tr": {
@@ -438,11 +543,16 @@
     "param.args.description": "Git komutuna iletilen bağımsız değişkenlerin listesi.",
     "param.command.description": "Git alt komutu (kısıtlı).",
     "x_search_terms": [
-      "git_ops",
-      "git ops",
-      "git komutları",
-      "güvenli git",
-      "push"
+      "git",
+      "git operations",
+      "git command",
+      "version control",
+      "git repo",
+      "source control",
+      "git commit",
+      "git push",
+      "git pull",
+      "vcs"
     ]
   },
   "th": {
@@ -457,11 +567,16 @@
     "param.args.description": "รายการอาร์กิวเมนต์ที่ส่งไปยังคำสั่ง Git",
     "param.command.description": "คำสั่งย่อย Git (จำกัด)",
     "x_search_terms": [
-      "git_ops",
-      "git ops",
-      "คำสั่ง git",
-      "git ปลอดภัย",
-      "push"
+      "git",
+      "git operations",
+      "git command",
+      "version control",
+      "git repo",
+      "source control",
+      "git commit",
+      "git push",
+      "git pull",
+      "vcs"
     ]
   },
   "zh_CN": {
@@ -476,11 +591,16 @@
     "param.args.description": "传递给 Git 命令的参数列表。",
     "param.command.description": "要运行的 Git 子命令（适用安全第一限制）。",
     "x_search_terms": [
-      "git_ops",
-      "git ops",
-      "git 命令",
-      "安全 git",
-      "push"
+      "git",
+      "git operations",
+      "git command",
+      "version control",
+      "git repo",
+      "source control",
+      "git commit",
+      "git push",
+      "git pull",
+      "vcs"
     ]
   },
   "zh_TW": {
@@ -495,11 +615,16 @@
     "param.args.description": "傳遞給 Git 指令的參數列表。",
     "param.command.description": "要執行的 Git 子命令（適用安全第一限制）。",
     "x_search_terms": [
-      "git_ops",
-      "git ops",
-      "git 命令",
-      "安全 git",
-      "push"
+      "git",
+      "git operations",
+      "git command",
+      "version control",
+      "git repo",
+      "source control",
+      "git commit",
+      "git push",
+      "git pull",
+      "vcs"
     ]
   },
   "bn": {
@@ -514,11 +639,16 @@
     "param.args.description": "Git command-এ পাঠানো args-এর তালিকা।",
     "param.command.description": "গিট সাবকমান্ড (সীমাবদ্ধ)।",
     "x_search_terms": [
-      "git_ops",
-      "git ops",
-      "git কমান্ড",
-      "নিরাপদ git",
-      "push"
+      "git",
+      "git operations",
+      "git command",
+      "version control",
+      "git repo",
+      "source control",
+      "git commit",
+      "git push",
+      "git pull",
+      "vcs"
     ]
   },
   "fa": {
@@ -533,11 +663,16 @@
     "param.args.description": "فهرست آرگومان‌هایی که به فرمان Git داده می‌شود.",
     "param.command.description": "دستور فرعی Git (محدود شده).",
     "x_search_terms": [
-      "git_ops",
-      "git ops",
-      "دستورهای git",
-      "git امن",
-      "push"
+      "git",
+      "git operations",
+      "git command",
+      "version control",
+      "git repo",
+      "source control",
+      "git commit",
+      "git push",
+      "git pull",
+      "vcs"
     ]
   },
   "mn": {
@@ -552,11 +687,16 @@
     "param.args.description": "Git command-д дамжуулах аргументуудын жагсаалт.",
     "param.command.description": "Git дэд команд (хязгаарлагдсан).",
     "x_search_terms": [
-      "git_ops",
-      "git ops",
-      "git тушаалууд",
-      "аюулгүй git",
-      "push"
+      "git",
+      "git operations",
+      "git command",
+      "version control",
+      "git repo",
+      "source control",
+      "git commit",
+      "git push",
+      "git pull",
+      "vcs"
     ]
   },
   "mr": {
@@ -571,11 +711,16 @@
     "param.args.description": "Git कमांडला पास केलेल्या वितर्कांची सूची.",
     "param.command.description": "Git सबकमांड (प्रतिबंधित).",
     "x_search_terms": [
-      "git_ops",
-      "git ops",
-      "git आज्ञा",
-      "सुरक्षित git",
-      "push"
+      "git",
+      "git operations",
+      "git command",
+      "version control",
+      "git repo",
+      "source control",
+      "git commit",
+      "git push",
+      "git pull",
+      "vcs"
     ]
   },
   "el": {
@@ -591,14 +736,15 @@
     "param.command.description": "Υποεντολή Git (περιορισμένη).",
     "x_search_terms": [
       "git",
-      "κλάδος",
-      "δέσμευση",
-      "git コマンド",
-      "git",
-      "git",
-      "깃",
-      "git",
-      "push"
+      "git operations",
+      "git command",
+      "version control",
+      "git repo",
+      "source control",
+      "git commit",
+      "git push",
+      "git pull",
+      "vcs"
     ]
   },
   "he": {
@@ -614,14 +760,15 @@
     "param.command.description": "תת-פקודה Git (מוגבל).",
     "x_search_terms": [
       "git",
-      "branch",
-      "commit",
-      "git コマンド",
-      "git",
-      "git",
-      "깃",
-      "git",
-      "push"
+      "git operations",
+      "git command",
+      "version control",
+      "git repo",
+      "source control",
+      "git commit",
+      "git push",
+      "git pull",
+      "vcs"
     ]
   },
   "hu": {
@@ -637,14 +784,15 @@
     "param.command.description": "Git-alparancs (korlátozott).",
     "x_search_terms": [
       "git",
-      "ág",
-      "véglegesítés",
-      "git コマンド",
-      "git",
-      "git",
-      "깃",
-      "git",
-      "push"
+      "git operations",
+      "git command",
+      "version control",
+      "git repo",
+      "source control",
+      "git commit",
+      "git push",
+      "git pull",
+      "vcs"
     ]
   },
   "ro": {
@@ -660,14 +808,15 @@
     "param.command.description": "Subcomandă Git (restricționată).",
     "x_search_terms": [
       "git",
-      "branch",
-      "commit",
-      "git コマンド",
-      "git",
-      "git",
-      "깃",
-      "git",
-      "push"
+      "git operations",
+      "git command",
+      "version control",
+      "git repo",
+      "source control",
+      "git commit",
+      "git push",
+      "git pull",
+      "vcs"
     ]
   }
 }

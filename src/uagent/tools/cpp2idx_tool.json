@@ -29,12 +29,16 @@
   },
   "ja": {
     "x_search_terms": [
-      "Cファイルを読む",
-      "C++ファイルを読む",
-      "C言語 インデックス",
-      "関数一覧",
-      "クラス一覧",
-      "マクロ一覧"
+      "c plus plus",
+      "cpp",
+      "c++",
+      "cpp code",
+      "cpp analysis",
+      "code index",
+      "cpp source",
+      "cpp parser",
+      "cpp function",
+      "cpp class"
     ],
     "param.path.description": "C/C++ (.c/.cpp/.h/.hpp) ファイルへのパス。",
     "err.path_required": "エラー: 'path' は必須です。",
