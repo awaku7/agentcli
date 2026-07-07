@@ -1,5 +1,27 @@
 # Changelog
 
+## [0.5.40] - 2026-07-07
+
+### Added
+- `generate_zai`: new tool for generating ZhipuAI (ZAI) compatible code from prompts.
+- `reverse_geocode`: new tool using Nominatim for reverse geocoding with 39-language i18n.
+- `code_map`: add ontology (JSON-LD) export, import/relation extraction, and i18n support.
+- GUI/Web/A2A/VSCode: `.env.sec` files are now automatically created/overwritten when missing.
+- `translate_text`: extended supported languages for broader coverage.
+
+### Fixed
+- Responses retry state and tool utility edge cases.
+- `browser_playwright_run` and `run_tool` alias restored.
+- i18n: `:tools reload` message now translated for all 34 locales.
+
+### Changed
+- GPT-5.4+ tool list display adjusted.
+- Docs: tool counts updated to 171 tools (87 parallel-safe), reverse_geocode added to IoT table.
+- Docs: JSON-LD ontology and Mermaid dependency graph added to DEVELOP.md.
+- Remove unused skills/servicenow-open/ directory.
+
+# Changelog
+
 ## [0.5.39] - 2026-07-06
 
 ### Fixed

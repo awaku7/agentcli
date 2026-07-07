@@ -1,5 +1,27 @@
 # 変更履歴
 
+## [0.5.40] - 2026-07-07
+
+### 追加
+- `generate_zai`: プロンプトからZhipuAI (ZAI) 互換コードを生成する新ツール。
+- `reverse_geocode`: Nominatimを使用した逆ジオコーディングツール（39言語i18n対応）。
+- `code_map`: JSON-LDオントロジー出力、import/関係抽出、i18n対応を追加。
+- GUI/Web/A2A/VSCode: `.env.sec` ファイルが存在しない場合、自動で作成/上書きされるよう変更。
+- `translate_text`: サポート言語を拡張。
+
+### 修正
+- Responses のリトライ状態とツールユーティリティのエッジケースを修正。
+- 前回のリファクタリングで失われた `browser_playwright_run` と `run_tool` エリアスを復元。
+- i18n: `:tools reload` メッセージが全34ロケールで翻訳されるよう修正。
+
+### 変更
+- GPT-5.4+ のツールリスト表示を調整。
+- ドキュメント: ツール数を171（87並列対応）に更新、全33言語READMEに reverse_geocode をIoTテーブルに追加。
+- ドキュメント: JSON-LD オントロジーと Mermaid 依存関係グラフを DEVELOP.md に追加。
+- 未使用の skills/servicenow-open/ ディレクトリを削除。
+
+# 変更履歴
+
 ## [0.5.39] - 2026-07-06
 
 ### 修正
