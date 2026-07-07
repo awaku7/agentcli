@@ -374,3 +374,220 @@ The `*2idx` tools let you fetch a numbered index or a specific definition sectio
 | `kt2idx`  | .kt             | regex          | class, interface, object, enum class, data class, fun, val/var, init, companion, extension function |
 
 All idx tools have zero external dependencies (stdlib only).
+
+
+______________________________________________________________________
+
+## 8. プロジェクト全体スキャン (code_map 2026-06-19)
+
+### 8.1 アーキテクチャ図
+
+```mermaid
+flowchart TD
+    subgraph EntryPoints["エントリポイント"]
+        CLI["cli.py<br/>stdin_loop / main"]
+        GUI["scheckgui.py<br/>PySide6 MainWindow"]
+        WEB["web.py<br/>FastAPI + WebSocket"]
+        A2A["a2a/server.py<br/>A2A Protocol Server"]
+    end
+
+    subgraph Core["コアエンジン"]
+        direction TB
+        LLM["uagent_llm.py<br/>run_llm_rounds"]
+        CMD["util_tools.py<br/>handle_command"]
+        CORE["core.py<br/>system_prompt / messages<br/>sanitize / shrink"]
+        I18N["i18n.py<br/>gettext 翻訳"]
+        PROF["profile_manager.py<br/>長期記憶 / profiling"]
+        STARTUP["cli_startup.py<br/>起動時ツール選択"]
+        SETUP["setup_cli.py<br/>セットアップウィザード"]
+        ENV["runtime/runtime_env.py<br/>環境変数管理"]
+        WORKDIR["runtime/runtime_workdir.py<br/>作業ディレクトリ"]
+    end
+
+    subgraph Providers["LLMプロバイダ"]
+        CLAUDE["llm_claude.py<br/>Anthropic"]
+        GEMINI["llm_gemini.py<br/>Google"]
+        DS["llm_deepseek.py<br/>DeepSeek"]
+        OAI["llm_openai_responses.py<br/>OpenAI Responses API"]
+        OR["llm_openrouter.py<br/>OpenRouter"]
+        OLLAMA["llm_ollama.py<br/>Ollama (local)"]
+        ZAI["llm_zai.py<br/>ZAI (iai)"]
+        BR["llm_bedrock_responses.py<br/>AWS Bedrock"]
+    end
+
+    subgraph Tools["ツール (200+)"]
+        direction TB
+        GENRE_BASIC["basic<br/>browser, fetch_url, search_web<br/>human_ask, calculator, db_query"]
+        GENRE_FILE["file<br/>create/read/delete/replace_in_file<br/>search_files, file_grep, zip_ops"]
+        GENRE_EXEC["exec<br/>cmd_exec, python_exec<br/>bash_exec, pwsh_exec"]
+        GENRE_DEVEL["devel<br/>code_map, lint_format, python_compile<br/>git_ops, run_tests, index系 (10言語)"]
+        GENRE_EXTERNAL["external<br/>bluesky, discord, gmail<br/>teams_webhook, mcp_servers"]
+        GENRE_IOT["iot<br/>BACnet, DALI, ECHONET Lite<br/>Modbus, OPC UA, Matter<br/>MQTT, SwitchBot, UPnP"]
+        GENRE_MEDIA["media<br/>generate_image, img2img<br/>analyze_image, audio_speech"]
+        GENRE_OFFICE["office<br/>excel_ops, read_pptx_pdf<br/>document_extract, pdf_export"]
+        GENRE_INDEX["index<br/>py2idx, ts2idx, go2idx<br/>rs2idx, md2idx 等 (10言語)"]
+    end
+
+    subgraph Subsystems["サブシステム"]
+        SCHED["scheduler/<br/>タイマー/定期実行"]
+        A2A_PROTO["a2a/<br/>A2A Protocol (server/client)"]
+        WS["ws_server.py<br/>WebSocket Server"]
+        SECRET["uag_envsec/<br/>.env.sec 暗号化"]
+        UTILS["utils/<br/>paths, scan_filters"]
+    end
+
+    subgraph Extras["付属"]
+        VSCODE["vscode-extension/<br/>TypeScript 拡張"]
+        SCRIPTS["scripts/<br/>i18n ツール, locale 管理"]
+        TESTS["tests/<br/>pytest (120+ テスト)"]
+        DOCS["docs/<br/>ユーザーマニュアル"]
+    end
+
+    CLI --> Core
+    GUI --> Core
+    WEB --> Core
+    A2A --> Core
+
+    Core --> Providers
+    Core --> Tools
+
+    Core --> Subsystems
+    Core --> Extras
+```
+
+### 8.2 ディレクトリ構成
+
+| パス | 説明 | 概算ファイル数 |
+|---|---|---|
+| `src/uagent/` | メインパッケージ | 25 |
+| `src/uagent/providers/` | LLMプロバイダ実装 | 14 |
+| `src/uagent/tools/` | ツール実装 | 147 |
+| `src/uagent/a2a/` | A2Aプロトコル | 7 |
+| `src/uagent/runtime/` | ランタイム (env/workdir/memory/banner) | 6 |
+| `src/uagent/scheduler/` | スケジューラー | 4 |
+| `src/uagent/utils/` | ユーティリティ | 3 |
+| `src/uag_envsec/` | .env.sec 暗号化 | 3 |
+| `scripts/` | ビルド/管理スクリプト | 7 |
+| `tests/` | テスト | 30+ |
+| `vscode-extension/` | VSCode拡張 (TypeScript) | 5 |
+| `skills/` | エージェントスキル | 1 |
+
+**総ファイル数: 354**
+
+### 8.3 主要データフロー
+
+```
+ユーザー入力
+  → エントリポイント (CLI/GUI/Web/A2A)
+    → cli_startup / runtime_init (環境・workdir初期化)
+      → run_llm_rounds (uagent_llm.py)
+        → _build_call_messages (メッセージ構築)
+        → プロバイダ別ラウンド関数 (claude/gemini/deepseek/openai_responses...)
+          → LLM API 呼び出し
+          → レスポンス解析 (テキスト or tool_calls)
+        → tool_calls がある場合:
+          → _execute_tool_calls (llm_flow_helpers.py)
+          → ツール実行 → 結果を次のラウンドへ
+        → ツールがない場合:
+          → 最終応答をユーザーへ表示
+```
+
+### 8.4 ツール一覧 (ジャンル別)
+
+**basic**
+browser_playwright, fetch_url, search_web, human_ask, calculator, get_geoip,
+wttrin, get_current_time, get_env, db_query, generate_qr_code, date_calc,
+zipcode_check, file_type, system_specs, list_windows_titles, change_workdir,
+get_workdir, add/get_long_memory, add/get_shared_memory, tool_catalog, generate_prompt
+
+**file**
+create_file, read_file, replace_in_file, delete_file, search_files, file_grep,
+file_hash, file_exists, list_dir, rename_path, binary_edit, zip_ops
+
+**exec**
+cmd_exec, cmd_exec_json, python_exec, python_compile, bash_exec, pwsh_exec,
+spawn_process
+
+**devel**
+code_map, lint_format, run_tests, git_ops, system_reload
+- 言語別索引: py2idx, ts2idx, go2idx, rs2idx, cs2idx, cpp2idx, jv2idx, kt2idx,
+  php2idx, dart2idx, swift2idx, cobol2idx, md2idx
+
+**external (外部サービス連携)**
+bluesky, discord_channel, gmail_read/send, teams_webhook, mcp_servers,
+mcp_tools_list, handle_mcp_v2, a2a_send/poll/servers, secrets
+
+**iot (IoT/産業機器)**
+BACnet (read/write/scan/cov_subscribe/unsubscribe)
+DALI (read/write/scan)
+ECHONET Lite (scan/control/monitor/subscribe/property系/object_list/node_status)
+Modbus (read/write/scan/monitor)
+OPC UA (read/write/scan/browse/subscribe/unsubscribe)
+MQTT (publish/subscribe/unsubscribe)
+Matter (controller/bridge/device_status/endpoint/cluster/control/subscribe/unsubscribe/history/cache)
+SwitchBot BLE (scan/status/control)
+SwitchBot Cloud (list/status/control/batch)
+UPnP (scan/device_info/igd_control)
+USB Camera
+
+**media**
+generate_image, img2img, preprocess_image, analyze_image
+(OpenAI/Gemini/DeepSeek/Ollama/ZAI), screenshot, audio_speech, audio_transcribe
+
+**office**
+excel_ops, recalc_excel, read_pptx_pdf, document_extract, exstruct,
+parse_eml, pdf_export, translate_text
+
+**index (ファイル索引)**
+py2idx, ts2idx, go2idx, rs2idx, cs2idx, cpp2idx, jv2idx, kt2idx,
+php2idx, dart2idx, swift2idx, cobol2idx, md2idx
+
+**その他**
+batch_state, image_session, index_files, semantic_search_files
+
+### 8.5 コードオントロジー (JSON-LD)
+
+code_map の `format="ontology"` で生成したプロジェクト全体のオントロジー:
+
+- [code_map_20260707_140601.jsonld](code_map_20260707_140601.jsonld) (JSON-LD 形式, 約 700KB)
+
+生成コマンド:
+```
+code_map(path=".", format="ontology", include_symbols=true)
+```
+
+ノードタイプ: SourceFile / Function / Class / Interface / Struct / Enum / Symbol / ImportRelation / Project / ScanStats
+
+#### 依存関係図 (Mermaid)
+
+code_map の ontology データから生成した実測の import 依存関係:
+
+```mermaid
+graph TD
+    classDef py fill:#f0f8ff,stroke:#2196f3;
+    classDef ts fill:#e1f5fe,stroke:#0288d1;
+
+    subgraph VSCode["VSCode Extension (import関係: ontology実測)"]
+        v0["extension.ts"]:::ts
+        v1["panel.ts"]:::ts
+        v2["editorIntegration.ts"]:::ts
+        v3["treeProvider.ts"]:::ts
+        v4["wsClient.ts"]:::ts
+        v0 -->|"./wsClient"| v4
+        v0 -->|"./panel"| v1
+        v0 -->|"./treeProvider"| v3
+        v0 -->|"./editorIntegration"| v2
+        v1 -->|"./wsClient"| v4
+        v2 -->|"./wsClient"| v4
+        v2 -->|"./panel"| v1
+        v3 -->|"./wsClient"| v4
+    end
+
+    subgraph PythonEdges["Python import関係 (ontology実測)"]
+        gui["src/uagent/gui.py"]:::py
+        sc["scheckgui.py"]:::py
+        gui -->|"import scheckgui"| sc
+    end
+```
+
+- MMD ファイル: [code_map_20260707_dep.mmd](code_map_20260707_dep.mmd)

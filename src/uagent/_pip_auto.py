@@ -120,3 +120,41 @@ def install_with_status(
 
     print(_("Failed to install %(label)s.") % {"label": label}, file=sys.stderr)
     return False
+
+
+
+
+def install_playwright_with_chromium() -> bool:
+    """Ensure playwright and chromium browser are installed.
+
+    Installs the pip package if missing, and installs the Chromium browser
+    binary via 'playwright install chromium' if not already present.
+
+    Returns True if playwright and chromium are available after the attempt,
+    False otherwise.
+    """
+    try:
+        import playwright  # noqa: F401
+    except ImportError:
+        ok = install_with_status("playwright", display_name="playwright")
+        if not ok:
+            return False
+        try:
+            import playwright  # noqa: F401
+        except ImportError:
+            return False
+
+    # Ensure Chromium browser binary is installed
+    import subprocess
+    import sys
+    try:
+        subprocess.run(
+            [sys.executable, "-m", "playwright", "install", "chromium"],
+            stdout=sys.stderr,
+            stderr=sys.stderr,
+            timeout=300,
+        )
+    except Exception:
+        return False
+
+    return True

@@ -174,6 +174,10 @@ TOOL_SPEC: dict[str, Any] = {
                     },
                 },
                 "headless": {"type": "boolean", "default": True},
+                "browser_channel": {
+                    "type": "string",
+                    "description": "Browser channel to use (e.g. \"msedge\" for Microsoft Edge, \"chrome\" for Google Chrome). Default: built-in Chromium.",
+                },
                 "storage_state": {"type": "string"},
                 "mobile_device": {"type": "string"},
                 "user_agent": {"type": "string"},
@@ -234,9 +238,15 @@ TOOL_SPEC: dict[str, Any] = {
 async def execute_actions(
     actions: List[Dict[str, Any]], headless: bool, **kwargs
 ) -> Dict[str, Any]:
-    from .._pip_auto import install_playwright_with_chromium as _install_pw
-    if not _install_pw():
+    from .._pip_auto import install_with_status as _install_pw
+    if not _install_pw("playwright", display_name="playwright"):
         return {"ok": False, "error": "playwright is not installed."}
+    import subprocess as _sp, sys as _sys
+    try:
+        _sp.run([_sys.executable, "-m", "playwright", "install", "chromium"],
+                stdout=_sys.stderr, stderr=_sys.stderr, timeout=300)
+    except Exception:
+        return {"ok": False, "error": "playwright chromium browser install failed."}
     from playwright.async_api import async_playwright
 
     results = []
@@ -244,7 +254,11 @@ async def execute_actions(
     console_logs = []
 
     async with async_playwright() as p:
-        browser = await p.chromium.launch(headless=headless)
+        browser_channel = kwargs.get("browser_channel")
+        launch_kwargs = {"headless": headless}
+        if browser_channel:
+            launch_kwargs["channel"] = browser_channel
+        browser = await p.chromium.launch(**launch_kwargs)
         context_args = {}
 
         # -- mobile device config first, so user args can override --
