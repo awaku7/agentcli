@@ -384,10 +384,32 @@ def _call_openai_azure_round(
                 if use_gpt54_tool_search and _is_legacy_mode():
                     # Legacy mode: narrow tools via tool_catalog (client-side)
                     responses_tool_specs = _select_tool_specs_legacy(call_messages)
+                elif use_gpt54_tool_search:
+                    # Native mode: scan all tool modules from disk (bypass genre),
+                    # exclude management tools. Server-side tool_search does narrowing.
+                    _excluded = {"tool_catalog", "tool_load", "unload_tool"}
+                    _all_tools: list[dict[str, Any]] = []
+                    try:
+                        from .tools._genre_control_util import _find_tool_modules
+                        for _mname, _mod in _find_tool_modules():
+                            _spec = getattr(_mod, "TOOL_SPEC", None)
+                            if not isinstance(_spec, dict):
+                                continue
+                            _fn = _spec.get("function", {})
+                            if not isinstance(_fn, dict):
+                                continue
+                            if _fn.get("name") in _excluded:
+                                continue
+                            _all_tools.append(_spec)
+                    except Exception:
+                        pass
+                    if not _all_tools:
+                        # Fallback: use already-registered tools
+                        _all_tools = tools.get_tool_specs()
+                    responses_tool_specs = _all_tools
                 else:
-                    # Default / native mode: send all tools, let server narrow via tool_search
+                    # Standard Responses API path (non-GPT-5.4): genre-filtered + tool_catalog
                     responses_tool_specs = None
-
                 if provider == "bedrock":
                     _bedrock_req = build_bedrock_responses_request(
                         call_messages,

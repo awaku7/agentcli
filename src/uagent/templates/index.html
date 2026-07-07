@@ -782,8 +782,8 @@
                     }
                 }
             }
-            if (WEB_VERBOSE && Array.isArray(msgForRender.tool_calls) && msgForRender.tool_calls.length) {
-                msgForRender.tool_calls.forEach(function(tc) { var toolName = tc && tc.function && tc.function.name ? tc.function.name : ''; content += '<div class="text-xs text-blue-600 font-mono mt-2 border-t pt-1">Tool Call: ' + escapeHtml(String(toolName)) + '</div>'; });
+            if (Array.isArray(msgForRender.tool_calls) && msgForRender.tool_calls.length) {
+                msgForRender.tool_calls.forEach(function(tc) { var toolName = tc && tc.function && tc.function.name ? tc.function.name : ''; var toolArgs = tc && tc.function && tc.function.arguments ? tc.function.arguments : ''; content += '<div class="text-xs text-blue-600 font-mono mt-2 border-t pt-1">Tool Call: ' + escapeHtml(String(toolName)) + (toolArgs ? ' args: ' + escapeHtml(String(toolArgs)) : '') + '</div>'; });
             }
             const attachmentsHtml = renderMessageAttachments(msgForRender);
             if (attachmentsHtml) content += attachmentsHtml;
@@ -800,6 +800,16 @@
                 streamAssistant.div = null; streamAssistant.pre = null;
                 chatBox.scrollTop = chatBox.scrollHeight;
                 return;
+            }
+            var isToolMsg = String(msgForRender.role || '').toLowerCase() === 'tool';
+            if (isToolMsg && chatBox.lastElementChild) {
+                var lastRole = chatBox.lastElementChild.dataset ? chatBox.lastElementChild.dataset.role || '' : '';
+                if (lastRole === 'tool') {
+                    chatBox.lastElementChild.innerHTML = content;
+                    bindAttachmentClicks(chatBox.lastElementChild);
+                    chatBox.scrollTop = chatBox.scrollHeight;
+                    return;
+                }
             }
             const div = document.createElement('div');
             div.className = 'p-3 rounded-lg max-w-[85%] ' + getRoleClass(msgForRender.role);

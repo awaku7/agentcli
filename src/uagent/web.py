@@ -674,6 +674,11 @@ def run_agent_worker(
                 "assistant",
                 "tool",
             ):
+                if msg.get("role") == "assistant" and stream_state.get("active"):
+                    return
+                if msg.get("role") == "assistant" and stream_state.get("suppress_next_assistant_message"):
+                    stream_state["suppress_next_assistant_message"] = False
+                    return
                 room.add_message(dict(msg))
         except Exception:
             pass

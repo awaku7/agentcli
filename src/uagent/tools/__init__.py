@@ -50,6 +50,11 @@ def _should_preload_lazy_specs() -> bool:
 
     Returns True when GPT-5.4 native tool_search is active
     (Responses API + OpenAI/Azure + GPT-5.4+ model, mode != off).
+
+    NOTE: This only affects startup-time registration (TOOL_SPECS).
+          It is safe to keep False here; the GPT-5.4+ native mode
+          path in _call_openai_azure_round() dynamically loads all
+          tools from disk when needed.
     """
     raw = (env_get("UAGENT_GPT54_TOOL_SEARCH") or "").strip().lower()
     if raw in ("native", "1", "true", "yes"):
