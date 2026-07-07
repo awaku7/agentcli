@@ -174,6 +174,8 @@ class _OpenRouterCompatClient:
 
 def _normalize_openrouter_send_kwargs(kwargs: dict[str, Any]) -> dict[str, Any]:
     out = dict(kwargs)
+    # OpenRouter Responses API does not support context_management.
+    out.pop("context_management", None)
     extra_body = out.pop("extra_body", None)
     if not isinstance(extra_body, dict):
         return out
@@ -581,10 +583,12 @@ def make_client(core: Any) -> tuple[str, Any, str]:
         return provider, client, model_name
 
     if provider == "zai":
-        try:
-            from zhipuai import ZhipuAI  # lazy, prefer official SDK
-        except ImportError:
-            ZhipuAI = None
+        # Auto-install zai-sdk if missing
+        from .._pip_auto import install_with_status as _install_zai_sdk
+
+        ZaiClient = None
+        if _install_zai_sdk("zai-sdk", "zai", display_name="zai-sdk"):
+            from zai import ZaiClient
 
         api_key = core.get_env("UAGENT_ZAI_API_KEY")
         base_url = core.get_env_url(
@@ -593,13 +597,13 @@ def make_client(core: Any) -> tuple[str, Any, str]:
 
         http_client = make_httpx_client()
 
-        if ZhipuAI is not None:
+        if ZaiClient is not None:
             try:
-                client = ZhipuAI(
+                client = ZaiClient(
                     api_key=api_key, base_url=base_url, http_client=http_client
                 )
             except TypeError:
-                client = ZhipuAI(api_key=api_key, base_url=base_url)
+                client = ZaiClient(api_key=api_key, base_url=base_url)
         else:
             from openai import OpenAI  # fallback to OpenAI-compatible
 

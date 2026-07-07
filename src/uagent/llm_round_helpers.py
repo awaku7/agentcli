@@ -1,4 +1,4 @@
-from __future__ import annotations
+﻿from __future__ import annotations
 
 import json
 import traceback
@@ -391,6 +391,7 @@ def _call_openai_azure_round(
                     _all_tools: list[dict[str, Any]] = []
                     try:
                         from .tools._genre_control_util import _find_tool_modules
+
                         for _mname, _mod in _find_tool_modules():
                             _spec = getattr(_mod, "TOOL_SPEC", None)
                             if not isinstance(_spec, dict):
@@ -529,6 +530,7 @@ def _call_openai_azure_round(
                     if _stream_rid and isinstance(responses_state, dict):
                         responses_state["previous_response_id"] = _stream_rid
                         from .core import _save_responses_state
+
                         _save_responses_state()
                     # ensure newline after streaming output
                     if (
@@ -575,6 +577,7 @@ def _call_openai_azure_round(
                     if _resp_rid and isinstance(responses_state, dict):
                         responses_state["previous_response_id"] = _resp_rid
                         from .core import _save_responses_state
+
                         _save_responses_state()
 
                     # Auto retry (non-streaming only): if output looks unusable, retry once with higher effort.
@@ -601,13 +604,16 @@ def _call_openai_azure_round(
                             resp = call_maybe_thread_fn(
                                 lambda: client.responses.create(**resp_kwargs)
                             )
-                            assistant_text, tool_calls_list, _retry_rid = parse_responses_response(
-                                resp,
-                                core=core,
+                            assistant_text, tool_calls_list, _retry_rid = (
+                                parse_responses_response(
+                                    resp,
+                                    core=core,
+                                )
                             )
                             if _retry_rid and isinstance(responses_state, dict):
                                 responses_state["previous_response_id"] = _retry_rid
                                 from .core import _save_responses_state
+
                                 _save_responses_state()
             else:
                 req_tools = tools.get_tool_specs() if send_tools_this_round else None
@@ -680,7 +686,9 @@ def _call_openai_azure_round(
             if isinstance(responses_state, dict):
                 responses_state.pop("previous_response_id", None)
                 from .core import _save_responses_state
+
                 _save_responses_state()
+
             # NOTE: i18n function _ is a global import, but some exception paths
             # previously triggered UnboundLocalError: '_' due to local-scope issues.
             # Use a safe fallback translator to avoid crashing while reporting errors.
@@ -711,6 +719,7 @@ def _call_openai_azure_round(
                         "Auto-disabling tools and retrying..."
                     )
                     from . import core as _core_module
+
                     _core_module.tools_enabled = False
                     send_tools_this_round = False
                     continue
@@ -734,7 +743,10 @@ def _call_openai_azure_round(
                     )
                     continue
                 print("[Azure/OpenAI Error] " + _("400 BadRequest"))
-                print("[Azure/OpenAI Error] " + _("Error code: %(code)d - %(err)s") % {"code": 400, "err": e})
+                print(
+                    "[Azure/OpenAI Error] "
+                    + _("Error code: %(code)d - %(err)s") % {"code": 400, "err": e}
+                )
                 return False, client, "", []
             if APIConnectionError is not None and isinstance(e, APIConnectionError):
                 print("[Azure/OpenAI Error] " + _t("Connection error"))
@@ -908,7 +920,7 @@ def _call_zai_round(
     retry_base: float,
     retry_cap: float,
 ) -> tuple[bool, Any, str, str, list[dict[str, Any]]]:
-    """Thin wrapper: delegates to providers/llm_zai.py (Z.AI / zhipuai SDK).
+    """Thin wrapper: delegates to providers/llm_zai.py (Z.AI / zai-sdk).
 
     Returns ``(ok, client, assistant_text, reasoning_content, tool_calls_list)``.
     """

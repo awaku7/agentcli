@@ -1,4 +1,4 @@
-# tools/generate_image_tool.py
+﻿# tools/generate_image_tool.py
 # -*- coding: utf-8 -*-
 """generate_image tool
 
@@ -179,6 +179,7 @@ def _get_provider() -> str:
         "gemini",
         "nvidia",
         "vertexai",
+        "zai",
     ):
         raise RuntimeError(
             _msg(
@@ -254,6 +255,8 @@ def _get_image_depname(cb_get_env, provider: str) -> str:
         return "gpt-image-1"
     if provider in ("gemini", "vertexai"):
         return "imagen-3.0-generate-002"
+    if provider == "zai":
+        return "glm-image"
     raise RuntimeError(
         _msg(
             "err.required_env_vars_missing",
@@ -719,6 +722,31 @@ def run_tool(args: dict[str, Any]) -> str:
             meta_payload["items"] = [
                 {"index": i + 1, "has_b64_json": True} for i in range(len(b64_list))
             ]
+        elif provider == "zai":
+            from .generate_zai import generate_image_zai
+
+            res = generate_image_zai(
+                prompt=prompt,
+                size=size2,
+                n=n,
+                quality=quality,
+            )
+            if not res.get("ok"):
+                raise RuntimeError(res.get("error", "Z.AI image generation failed"))
+            url_list = res.get("url_list") or []
+            meta_payload["items"] = res.get("items") or []
+            meta_payload["downloaded_urls"] = []
+            for i, url in enumerate(url_list):
+                fn = (
+                    f"{file_prefix}_{ts}_url_{i+1}.png"
+                    if len(url_list) > 1
+                    else f"{file_prefix}_{ts}_url.png"
+                )
+                out_path = os.path.join(outdir, fn)
+                _download_to_png(url, out_path)
+                saved.append(out_path)
+                meta_payload["downloaded_urls"].append(url)
+
         else:
             return _msg(
                 "err.unsupported_provider",

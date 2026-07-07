@@ -1,14 +1,14 @@
-"""Z.AI (Zhipu AI) chat completion helper using the zhipuai SDK.
+"""Z.AI (Zhipu AI) chat completion helper using the zai-sdk.
 
 Compared to the DeepSeek path (llm_deepseek.py):
 
 - ``thinking`` is passed as a **direct** SDK parameter (not via ``extra_body``).
-- ``reasoning_effort`` is passed through ``extra_body`` because the zhipuai SDK
+- ``reasoning_effort`` is passed through ``extra_body`` because the zai-sdk
   does **not** expose it as a top-level parameter, whereas the Z.AI REST API
   accepts it as a top-level JSON field.
-- Exception handling uses ``zhipuai.core`` errors instead of ``openai`` errors.
+- Exception handling uses ``zai.core`` errors instead of ``openai`` errors.
 - Response parsing reuses ``parse_deepseek_stream`` and
-  ``parse_deepseek_response`` from ``llm_deepseek`` because the zhipuai SDK
+  ``parse_deepseek_response`` from ``llm_deepseek`` because the zai-sdk
   returns objects with the same attribute names
   (``reasoning_content``, ``tool_calls``, etc.).
 """
@@ -31,7 +31,7 @@ from ..llm_helpers import (
     _maybe_print_certifi_where,
 )
 
-# Reuse DeepSeek response parsers (compatible with zhipuai SDK response format)
+# Reuse DeepSeek response parsers (compatible with zai-sdk response format)
 from .llm_deepseek import (
     parse_deepseek_response,
     parse_deepseek_stream,
@@ -69,7 +69,7 @@ def build_zai_chat_kwargs(
     reasoning: str,
     auto_user_text: str,
 ) -> tuple[dict[str, Any], str | None]:
-    """Build the kwargs dict for ``client.chat.completions.create`` (zhipuai SDK).
+    """Build the kwargs dict for ``client.chat.completions.create`` (zai-sdk).
 
     Returns ``(chat_kwargs, effort_used)`` where ``effort_used`` is the
     resolved reasoning_effort string (or None if thinking is disabled).
@@ -103,9 +103,9 @@ def build_zai_chat_kwargs(
             effort_used = mapped
 
     if effort_used in _VALID_EFFORTS:
-        # zhipuai SDK's create() has a direct `thinking` parameter
+        # zai-sdk's create() has a direct `thinking` parameter
         chat_kwargs["thinking"] = {"type": "enabled"}
-        # reasoning_effort is NOT a parameter of zhipuai SDK, but the Z.AI REST
+        # reasoning_effort is NOT a parameter of zai-sdk, but the Z.AI REST
         # API accepts it as a top-level JSON field.  Pass through extra_body.
         chat_kwargs.setdefault("extra_body", {})
         chat_kwargs["extra_body"]["reasoning_effort"] = effort_used
@@ -152,34 +152,34 @@ def build_zai_chat_kwargs(
 
 
 # ---------------------------------------------------------------------------
-# zhipuai SDK error wrappers
+# zai-sdk error wrappers
 # ---------------------------------------------------------------------------
 
-_ZHIPUAI_AVAILABLE = False
-_ZhipuaiAPIConnectionError: type[Exception] | None = None
-_ZhipuaiAPIStatusError: type[Exception] | None = None
-_ZhipuaiAPIReachLimitError: type[Exception] | None = None
+_ZAI_SDK_AVAILABLE = False
+_ZaiAPIConnectionError: type[Exception] | None = None
+_ZaiAPIStatusError: type[Exception] | None = None
+_ZaiAPIReachLimitError: type[Exception] | None = None
 
 try:
-    from zhipuai.core import (
-        APIConnectionError as _ZhipuaiAPIConnectionError,
-        APIStatusError as _ZhipuaiAPIStatusError,
+    from zai.core import (
+        APIConnectionError as _ZaiAPIConnectionError,
+        APIStatusError as _ZaiAPIStatusError,
     )
 
-    _ZHIPUAI_AVAILABLE = True
+    _ZAI_SDK_AVAILABLE = True
 except Exception:
     pass
 
 
 def _get_zai_client_error_info(e: Exception) -> tuple[int | None, str | None]:
-    """Extract (status_code, error_text) from a zhipuai SDK exception."""
+    """Extract (status_code, error_text) from a zai-sdk exception."""
     status: int | None = None
     body_str: str | None = None
 
     # Try common attributes
-    if _ZhipuaiAPIStatusError is not None and isinstance(e, _ZhipuaiAPIStatusError):
+    if _ZaiAPIStatusError is not None and isinstance(e, _ZaiAPIStatusError):
         status = getattr(e, "status_code", None) or getattr(e, "status", None)
-        # zhipuai's APIStatusError has .body or .response
+        # zai-sdk's APIStatusError has .body or .response
         body = getattr(e, "body", None) or getattr(e, "response", None)
         if body is not None:
             if isinstance(body, (bytes, bytearray)):
@@ -219,7 +219,7 @@ def zai_chat_with_tools(
     retry_cap: float,
     stream: bool = True,
 ) -> tuple[bool, Any, str, str, list[dict[str, Any]]]:
-    """Run one Z.AI (zhipuai SDK) chat completion round.
+    """Run one Z.AI (zai-sdk) chat completion round.
 
     Returns ``(ok, client, assistant_text, reasoning_content, tool_calls_list)``.
     """
@@ -316,11 +316,11 @@ def zai_chat_with_tools(
                 print(repr(e))
                 return False, client, "", "", []
 
-            # 400 BadRequest (zhipuai SDK raises APIStatusError)
+            # 400 BadRequest (zai-sdk raises APIStatusError)
             status, body_str = _get_zai_client_error_info(e)
             if status == 400 or (
-                _ZhipuaiAPIStatusError is not None
-                and isinstance(e, _ZhipuaiAPIStatusError)
+                _ZaiAPIStatusError is not None
+                and isinstance(e, _ZaiAPIStatusError)
                 and status in (None, 400)
             ):
                 err_text_lower = err.lower()
@@ -330,6 +330,7 @@ def zai_chat_with_tools(
                         "Auto-disabling tools and retrying..."
                     )
                     from .. import core as _core_module
+
                     _core_module.tools_enabled = False
                     send_tools_this_round = False
                     req_tools = None
@@ -340,6 +341,7 @@ def zai_chat_with_tools(
                         "Disabling thinking via UAGENT_REASONING=off and retrying..."
                     )
                     import os
+
                     os.environ["UAGENT_REASONING"] = "off"
                     continue
                 if (
@@ -358,18 +360,22 @@ def zai_chat_with_tools(
                         )
                         continue
                     print(
-                        f"[{_LABEL}] " + _("Repair did not change messages, giving up."),
+                        f"[{_LABEL}] "
+                        + _("Repair did not change messages, giving up."),
                         file=sys.stderr,
                     )
                 print(f"[{_LABEL} Error] " + _("400 BadRequest"))
                 if body_str:
-                    print(f"[{_LABEL} Error] " + _("Response body: %(body)s") % {"body": body_str[:500]})
+                    print(
+                        f"[{_LABEL} Error] "
+                        + _("Response body: %(body)s") % {"body": body_str[:500]}
+                    )
                 print(repr(e))
                 return False, client, "", "", []
 
             # Connection error
-            if _ZhipuaiAPIConnectionError is not None and isinstance(
-                e, _ZhipuaiAPIConnectionError
+            if _ZaiAPIConnectionError is not None and isinstance(
+                e, _ZaiAPIConnectionError
             ):
                 print(f"[{_LABEL} Error] " + _("Connection error"))
                 _maybe_print_certifi_where(e)

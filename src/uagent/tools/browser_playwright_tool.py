@@ -241,7 +241,8 @@ async def execute_actions(
     from .._pip_auto import install_with_status as _install_pw
     if not _install_pw("playwright", display_name="playwright"):
         return {"ok": False, "error": "playwright is not installed."}
-    import subprocess as _sp, sys as _sys
+    import subprocess as _sp
+    import sys as _sys
     try:
         _sp.run([_sys.executable, "-m", "playwright", "install", "chromium"],
                 stdout=_sys.stderr, stderr=_sys.stderr, timeout=300)

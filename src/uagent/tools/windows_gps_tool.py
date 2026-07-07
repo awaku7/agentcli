@@ -21,11 +21,13 @@ if sys.platform == "win32":
             "x_search_terms": _(
                 "x_search_terms",
                 default=[
+                    "gps",
                     "location",
                     "現在地",
                 ],
             ),
             "x_search_terms_en": [
+                "gps",
                 "location",
                 "current location",
             ],

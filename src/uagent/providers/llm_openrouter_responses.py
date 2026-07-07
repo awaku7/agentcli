@@ -60,6 +60,12 @@ def apply_openrouter_responses_compat(
     except Exception:
         pass
 
+    # OpenRouter Responses API does not support context_management (OpenAI-only).
+    try:
+        resp_kwargs.pop("context_management", None)
+    except Exception:
+        pass
+
     # OpenRouter rejects OpenAI-style Responses input (array-of-messages/content-items).
     # Convert to a plain string prompt.
     try:

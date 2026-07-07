@@ -8,7 +8,8 @@ Notes:
   so the OpenAI SDK is used for chat completions with image_url content.
 - Default vision model is "glm-4.6v". Override with UAGENT_ZAI_IMG_ANALYSIS_DEPNAME
   or UAGENT_IMG_ANALYSIS_DEPNAME.
-- The zhipuai SDK is tried first; if unavailable, falls back to the OpenAI SDK.
+- The zai-sdk (ZaiClient) is used with auto-install; if unavailable,
+  falls back to the OpenAI SDK.
 """
 
 from __future__ import annotations
@@ -40,6 +41,11 @@ def _image_file_to_data_url(path: str, *, max_bytes: int = 10_000_000) -> str:
     return f"data:{mime or 'image/jpeg'};base64,{b64}"
 
 
+def _ssl_verify_enabled() -> bool:
+    v = (env_get("UAGENT_SSL_VERIFY") or "").strip().lower()
+    return v in ("1", "true", "yes", "on")
+
+
 def _env_first(keys: list[str], *, default: str = "") -> str:
     for k in keys:
         v = (env_get(k) or "").strip()
@@ -51,7 +57,7 @@ def _env_first(keys: list[str], *, default: str = "") -> str:
 def _get_zai_vision_client_and_model():
     """Build a Z.AI client for vision calls.
 
-    Tries the zhipuai SDK first, then falls back to the OpenAI SDK.
+    Uses the zai-sdk (ZaiClient) with auto-install.
     Returns (client, model_name).
     """
     api_key = _env_first(
@@ -83,22 +89,36 @@ def _get_zai_vision_client_and_model():
             )
         )
 
-    # Try zhipuai SDK first (preferred for Z.AI)
-    try:
-        from zhipuai import ZhipuAI
+    # Use zai-sdk (preferred for Z.AI, with auto-install)
+    from .._pip_auto import install_with_status as _install_zai_sdk
 
-        try:
-            client = ZhipuAI(api_key=api_key, base_url=base_url)
-        except TypeError:
-            client = ZhipuAI(api_key=api_key, base_url=base_url)
-        return client, model
-    except ImportError:
+    if not _install_zai_sdk("zai-sdk", "zai", display_name="zai-sdk"):
+        raise RuntimeError(
+            _(
+                "err.zai_import",
+                default="Failed to import zai-sdk. Install with: pip install zai-sdk",
+            )
+        )
+    from zai import ZaiClient
+
+    # Build httpx client with SSL settings
+    http_client = None
+    try:
+        from ..providers import util_providers as providers  # type: ignore
+
+        http_client = providers.make_httpx_client(verify=_ssl_verify_enabled())
+    except Exception:
         pass
 
-    # Fallback to OpenAI SDK (Z.AI endpoint is OpenAI-compatible)
-    from openai import OpenAI
-
-    client = OpenAI(api_key=api_key, base_url=base_url)
+    try:
+        if http_client is not None:
+            client = ZaiClient(
+                api_key=api_key, base_url=base_url, http_client=http_client
+            )
+        else:
+            client = ZaiClient(api_key=api_key, base_url=base_url)
+    except TypeError:
+        client = ZaiClient(api_key=api_key, base_url=base_url)
     return client, model
 
 

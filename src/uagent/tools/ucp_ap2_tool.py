@@ -20,12 +20,9 @@ from pathlib import Path
 from typing import Any
 
 from .ucp_shared import (
-    discover_business,
-    ucp_request,
     ap2_create_payment_mandate,
     ap2_execute_token,
     ap2_verify_payment_token,
-    UCPError,
 )
 
 BUSY_LABEL = True

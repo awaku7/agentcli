@@ -96,8 +96,6 @@ def _ap2_verify_jwt(token: str) -> dict[str, Any] | None:
 def _ap2_get_public_jwk() -> dict[str, Any]:
     """Get the AP2 public key in JWK format."""
     _load_ap2_keys()
-    from cryptography.hazmat.primitives import serialization
-    from cryptography.hazmat.primitives.asymmetric import rsa
     nums = _AP2_PUBLIC_KEY.public_numbers()
     import base64
     def _b64(n: int) -> str:

@@ -242,7 +242,8 @@ def handle_cmd_tools_reload(arg: str, **kw: Any) -> Any:
     """Handle :tools reload - reload all tool code from disk."""
     from ..util_tools import CommandResult
     try:
-        import importlib, sys
+        import importlib
+        import sys
         mod = sys.modules.get("uagent.tools") or __import__("uagent.tools")
         importlib.reload(mod)
         print(_(

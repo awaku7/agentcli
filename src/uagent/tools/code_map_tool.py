@@ -725,7 +725,6 @@ def _resolve_python_module(
     # Try relative to root for each package part
     for i in range(len(parts), 0, -1):
         prefix = parts[:i]
-        suffix = parts[i:]
         prefix_path = root_path.joinpath(*prefix)
         candidates = _find_python_file_for_module_path(prefix_path)
         if candidates:

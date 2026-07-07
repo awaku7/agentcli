@@ -15,7 +15,6 @@ _ = make_tool_translator(__file__)
 
 import json
 import os
-import signal
 import subprocess
 import sys
 import threading
@@ -96,11 +95,6 @@ def _get_server_script_path() -> str:
 def _get_server_script_path_str() -> str:
     """Return the path to the UCP MCP server script."""
     return _get_server_script_path()
-
-    return _get_server_script_path()
-    with open(path, "w", encoding="utf-8") as f:
-        f.write(script)
-    return path
 
 
 def run_tool(args: dict[str, Any]) -> str:

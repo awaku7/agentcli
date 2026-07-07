@@ -316,7 +316,7 @@ def _brave_search(
     """Brave Search: 環境変数 UAGENT_BRAVE_API_KEY があればAPI経由、なければHTMLスクレイピング"""
     api_key = os.environ.get("UAGENT_BRAVE_API_KEY", "").strip()
     if api_key:
-        _emit_debug(f"Brave API key found, using API")
+        _emit_debug("Brave API key found, using API")
         try:
             return _brave_api_search(query, max_results, api_key, timeout_sec, proxies)
         except Exception as e:
