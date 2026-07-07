@@ -180,7 +180,9 @@ def run_tool(args: dict[str, Any]) -> str:
         return _("msg.empty_dir", default="(empty directory)")
 
     # Paginate
-    page_entries = paginate_results(all_entries, page=page, max_results=limit)
+    page_entries, page, total_pages, total_results = paginate_results(
+        all_entries, page=page, max_results=limit
+    )
 
     lines = [
         (
@@ -197,9 +199,9 @@ def run_tool(args: dict[str, Any]) -> str:
         default="Page {page} of {total_pages} (showing {count} of {total} entries)",
     ).format(
         page=page,
-        total_pages=max(1, (len(all_entries) + limit - 1) // limit),
+        total_pages=total_pages,
         count=len(page_entries),
-        total=len(all_entries),
+        total=total_results,
     )
 
     return header + "\n" + "\n".join(lines)

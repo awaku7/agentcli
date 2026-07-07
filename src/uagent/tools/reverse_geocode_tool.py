@@ -3,6 +3,7 @@ from __future__ import annotations
 
 import json
 import sys
+from pathlib import Path
 from typing import Any
 from urllib.request import Request, urlopen
 from urllib.error import HTTPError, URLError
@@ -199,6 +200,14 @@ def run_tool(args: dict[str, Any]) -> str:
         "osm_id": data.get("osm_id"),
         "licence": data.get("licence", ""),
     }
+
+    try:
+        save_dir = Path.home() / ".uag"
+        save_dir.mkdir(parents=True, exist_ok=True)
+        save_path = save_dir / "nominatim_reverse.json"
+        save_path.write_text(json.dumps(data, ensure_ascii=False, indent=2), encoding="utf-8")
+    except Exception:
+        pass
 
     # Use address components for a nicely formatted output
     address = result["address"]

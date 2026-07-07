@@ -526,7 +526,7 @@ def _call_openai_azure_round(
                         )
                     )
                     assistant_text, tool_calls_list, _stream_rid = _stream_result
-                    if _stream_rid and isinstance(responses_state, dict) and not _stale_rid_retried:
+                    if _stream_rid and isinstance(responses_state, dict):
                         responses_state["previous_response_id"] = _stream_rid
                         from .core import _save_responses_state
                         _save_responses_state()
@@ -572,7 +572,7 @@ def _call_openai_azure_round(
                         )
                     )
                     assistant_text, tool_calls_list, _resp_rid = _resp_result
-                    if _resp_rid and isinstance(responses_state, dict) and not _stale_rid_retried:
+                    if _resp_rid and isinstance(responses_state, dict):
                         responses_state["previous_response_id"] = _resp_rid
                         from .core import _save_responses_state
                         _save_responses_state()
@@ -605,7 +605,7 @@ def _call_openai_azure_round(
                                 resp,
                                 core=core,
                             )
-                            if _retry_rid and isinstance(responses_state, dict) and not _stale_rid_retried:
+                            if _retry_rid and isinstance(responses_state, dict):
                                 responses_state["previous_response_id"] = _retry_rid
                                 from .core import _save_responses_state
                                 _save_responses_state()
