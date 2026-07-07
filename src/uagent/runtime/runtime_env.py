@@ -207,13 +207,24 @@ def _maybe_offer_envsec_sync(
             if answer not in ("y", "yes"):
                 return False
         else:
-            print(
-                _(
-                    "[INFO] .env.sec content does not match the current startup UAGENT_* environment variables. Use `uag_envsec` to update it."
-                ),
-                file=sys.__stderr__,
-            )
-            return False
+            # GUI/Web/A2A/VSCode: auto-update .env.sec with current values
+            try:
+                ensure_key_file()
+                merged_values = dict(sec_values)
+                merged_values.update(snapshot)
+                plaintext = _build_uagent_env_text(merged_values)
+                _write_text_atomic(sec_path, encrypt_text(plaintext) + "\n")
+                print(
+                    _("Updated .env.sec: %(path)s", path=sec_path),
+                    file=sys.__stderr__,
+                )
+                return True
+            except Exception as e:
+                print(
+                    _("[WARN] Failed to update .env.sec: %(err)s", err=e),
+                    file=sys.__stderr__,
+                )
+                return False
 
         try:
             ensure_key_file()
@@ -249,13 +260,22 @@ def _maybe_offer_envsec_sync(
         if answer not in ("y", "yes"):
             return False
     else:
-        print(
-            _(
-                "[INFO] .env.sec is missing. Use `uag_envsec` to create it from the current startup UAGENT_* environment variables."
-            ),
-            file=sys.__stderr__,
-        )
-        return False
+        # GUI/Web/A2A/VSCode: auto-create .env.sec from current env vars
+        try:
+            ensure_key_file()
+            plaintext = _build_uagent_env_text(snapshot)
+            _write_text_atomic(sec_path, encrypt_text(plaintext) + "\n")
+            print(
+                _("Created .env.sec: %(path)s", path=sec_path),
+                file=sys.__stderr__,
+            )
+            return True
+        except Exception as e:
+            print(
+                _("[WARN] Failed to create .env.sec: %(err)s", err=e),
+                file=sys.__stderr__,
+            )
+            return False
 
     try:
         ensure_key_file()
