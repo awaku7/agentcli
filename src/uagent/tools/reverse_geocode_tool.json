@@ -1,0 +1,266 @@
+{
+  "ja": {
+    "tool.description": "緯度経度から住所を検索します（逆ジオコーディング）。OpenStreetMap Nominatim APIを使用します。全世界対応。",
+    "param.lat.description": "緯度（例: 35.6895）。",
+    "param.lon.description": "経度（例: 139.6917）。",
+    "param.language.description": "結果の言語（ISO 639-1言語コード、例: ja, en, zh, ko）。未指定の場合は自動検出。",
+    "x_search_terms": [
+      "逆ジオコーディング",
+      "リバースジオコーディング",
+      "緯度経度から住所",
+      "住所検索",
+      "位置情報",
+      "reverse geocode",
+      "geocode reverse",
+      "address from coordinates",
+      "lat lon to address",
+      "gps to address"
+    ]
+  },
+  "en": {
+    "tool.description": "Look up an address from latitude/longitude (reverse geocoding). Uses the OpenStreetMap Nominatim API. Worldwide coverage.",
+    "param.lat.description": "Latitude (e.g. 35.6895).",
+    "param.lon.description": "Longitude (e.g. 139.6917).",
+    "param.language.description": "Language for the result (ISO 639-1 code, e.g. ja, en, zh, ko). Auto-detected if omitted.",
+    "x_search_terms": [
+      "reverse geocode",
+      "reverse geocoding",
+      "address from coordinates",
+      "lat lon to address",
+      "gps to address",
+      "geocode reverse",
+      "location lookup",
+      "address lookup",
+      "coordinates to address",
+      "geo address"
+    ]
+  },
+  "zh_CN": {
+    "tool.description": "根据经纬度查找地址（反向地理编码）。使用OpenStreetMap Nominatim API。全球覆盖。",
+    "param.lat.description": "纬度（例如: 35.6895）。",
+    "param.lon.description": "经度（例如: 139.6917）。",
+    "param.language.description": "结果语言（ISO 639-1语言代码，例如: ja, en, zh, ko）。未指定时自动检测。"
+  },
+  "zh_TW": {
+    "tool.description": "根據經緯度查找地址（反向地理編碼）。使用OpenStreetMap Nominatim API。全球覆蓋。",
+    "param.lat.description": "緯度（例如: 35.6895）。",
+    "param.lon.description": "經度（例如: 139.6917）。",
+    "param.language.description": "結果語言（ISO 639-1語言代碼，例如: ja, en, zh, ko）。未指定時自動檢測。"
+  },
+  "ko": {
+    "tool.description": "위도/경도에서 주소를 검색합니다（역방향 지오코딩）。OpenStreetMap Nominatim API를 사용합니다. 전 세계 지원.",
+    "param.lat.description": "위도（예: 35.6895）。",
+    "param.lon.description": "경도（예: 139.6917）。",
+    "param.language.description": "결과 언어（ISO 639-1 언어 코드, 예: ja, en, zh, ko）。지정하지 않으면 자동 감지."
+  },
+  "fr": {
+    "tool.description": "Recherche une adresse à partir de la latitude/longitude (g\u00e9ocodage inverse). Utilise l'API OpenStreetMap Nominatim. Couverture mondiale.",
+    "param.lat.description": "Latitude (ex: 35.6895).",
+    "param.lon.description": "Longitude (ex: 139.6917).",
+    "param.language.description": "Langue du r\u00e9sultat (code ISO 639-1, ex: ja, en, zh, ko). D\u00e9tection automatique si omis."
+  },
+  "de": {
+    "tool.description": "Adresse aus Breiten-/L\u00e4ngengrad suchen (Reverse Geocoding). Nutzt die OpenStreetMap Nominatim API. Weltweite Abdeckung.",
+    "param.lat.description": "Breitengrad (z.B. 35.6895).",
+    "param.lon.description": "L\u00e4ngengrad (z.B. 139.6917).",
+    "param.language.description": "Sprache des Ergebnisses (ISO 639-1 Code, z.B. ja, en, zh, ko). Automatische Erkennung wenn nicht angegeben."
+  },
+  "es": {
+    "tool.description": "Buscar una direcci\u00f3n a partir de latitud/longitud (geocodificaci\u00f3n inversa). Utiliza la API de OpenStreetMap Nominatim. Cobertura mundial.",
+    "param.lat.description": "Latitud (ej: 35.6895).",
+    "param.lon.description": "Longitud (ej: 139.6917).",
+    "param.language.description": "Idioma del resultado (c\u00f3digo ISO 639-1, ej: ja, en, zh, ko). Detecci\u00f3n autom\u00e1tica si se omite."
+  },
+  "pt_BR": {
+    "tool.description": "Pesquisar um endere\u00e7o a partir de latitude/longitude (geocodifica\u00e7\u00e3o reversa). Usa a API OpenStreetMap Nominatim. Cobertura mundial.",
+    "param.lat.description": "Latitude (ex: 35.6895).",
+    "param.lon.description": "Longitude (ex: 139.6917).",
+    "param.language.description": "Idioma do resultado (c\u00f3digo ISO 639-1, ex: ja, en, zh, ko). Detec\u00e7\u00e3o autom\u00e1tica se omitido."
+  },
+  "ru": {
+    "tool.description": "\u041f\u043e\u0438\u0441\u043a \u0430\u0434\u0440\u0435\u0441\u0430 \u043f\u043e \u0448\u0438\u0440\u043e\u0442\u0435/\u0434\u043e\u043b\u0433\u043e\u0442\u0435 (\u043e\u0431\u0440\u0430\u0442\u043d\u043e\u0435 \u0433\u0435\u043e\u043a\u043e\u0434\u0438\u0440\u043e\u0432\u0430\u043d\u0438\u0435). \u0418\u0441\u043f\u043e\u043b\u044c\u0437\u0443\u0435\u0442 API OpenStreetMap Nominatim. \u041f\u043e\u043a\u0440\u044b\u0442\u0438\u0435 \u043f\u043e \u0432\u0441\u0435\u043c\u0443 \u043c\u0438\u0440\u0443.",
+    "param.lat.description": "\u0428\u0438\u0440\u043e\u0442\u0430 (\u043d\u0430\u043f\u0440\u0438\u043c\u0435\u0440: 35.6895).",
+    "param.lon.description": "\u0414\u043e\u043b\u0433\u043e\u0442\u0430 (\u043d\u0430\u043f\u0440\u0438\u043c\u0435\u0440: 139.6917).",
+    "param.language.description": "\u042f\u0437\u044b\u043a \u0440\u0435\u0437\u0443\u043b\u044c\u0442\u0430\u0442\u0430 (\u043a\u043e\u0434 ISO 639-1, \u043d\u0430\u043f\u0440\u0438\u043c\u0435\u0440: ja, en, zh, ko). \u0410\u0432\u0442\u043e\u043e\u043f\u0440\u0435\u0434\u0435\u043b\u0435\u043d\u0438\u0435 \u0435\u0441\u043b\u0438 \u043d\u0435 \u0443\u043a\u0430\u0437\u0430\u043d."
+  },
+  "ar": {
+    "tool.description": "\u0627\u0644\u0628\u062d\u062b \u0639\u0646 \u0639\u0646\u0648\u0627\u0646 \u0645\u0646 \u062e\u0637 \u0627\u0644\u0639\u0631\u0636/\u062e\u0637 \u0627\u0644\u0637\u0648\u0644 (\u0627\u0644\u062c\u064a\u0648\u0643\u0648\u062f\u064a\u0646\u063a \u0627\u0644\u0639\u0643\u0633\u064a). \u064a\u0633\u062a\u062e\u062f\u0645 API OpenStreetMap Nominatim. \u062a\u063a\u0637\u064a\u0629 \u0639\u0627\u0644\u0645\u064a\u0629.",
+    "param.lat.description": "\u062e\u0637 \u0627\u0644\u0639\u0631\u0636 (\u0645\u062b\u0627\u0644: 35.6895).",
+    "param.lon.description": "\u062e\u0637 \u0627\u0644\u0637\u0648\u0644 (\u0645\u062b\u0627\u0644: 139.6917).",
+    "param.language.description": "\u0644\u063a\u0629 \u0627\u0644\u0646\u062a\u064a\u062c\u0629 (\u0631\u0645\u0632 ISO 639-1\u060c \u0645\u062b\u0627\u0644: ja, en, zh, ko). \u0627\u0643\u062a\u0634\u0627\u0641 \u062a\u0644\u0642\u0627\u0626\u064a \u0625\u0630\u0627 \u062a\u0645 \u062d\u0630\u0641\u0647."
+  },
+  "hi": {
+    "tool.description": "\u0905\u0915\u094d\u0937\u093e\u0902\u0936/\u0926\u0947\u0936\u093e\u0902\u0924\u0930 \u0938\u0947 \u092a\u0924\u093e \u0916\u094b\u091c\u0947\u0902 (\u0930\u093f\u0935\u0930\u094d\u0938 \u091c\u093f\u092f\u094b\u0915\u094b\u0921\u093f\u0902\u0917)\u0964 OpenStreetMap Nominatim API \u0915\u093e \u0909\u092a\u092f\u094b\u0917 \u0915\u0930\u0924\u093e \u0939\u0948\u0964 \u0935\u0948\u0936\u094d\u0935\u093f\u0915 \u0915\u0935\u0930\u0947\u091c\u0964",
+    "param.lat.description": "\u0905\u0915\u094d\u0937\u093e\u0902\u0936 (\u0909\u0926\u093e: 35.6895)\u0964",
+    "param.lon.description": "\u0926\u0947\u0936\u093e\u0902\u0924\u0930 (\u0909\u0926\u093e: 139.6917)\u0964",
+    "param.language.description": "\u092a\u0930\u093f\u0923\u093e\u092e \u0915\u0940 \u092d\u093e\u0937\u093e (ISO 639-1 \u0915\u094b\u0921, \u0909\u0926\u093e: ja, en, zh, ko)\u0964 \u091b\u094b\u0921\u093c\u0947 \u091c\u093e\u0928\u0947 \u092a\u0930 \u0938\u094d\u0935\u0924\u0903 \u092a\u0924\u093e \u0932\u0917\u093e\u092f\u093e \u091c\u093e\u0924\u093e \u0939\u0948\u0964"
+  },
+  "it": {
+    "tool.description": "Cerca un indirizzo da latitudine/longitudine (geocodificazione inversa). Utilizza l'API Nominatim di OpenStreetMap. Copertura mondiale.",
+    "param.lat.description": "Latitudine (es. 35.6895).",
+    "param.lon.description": "Longitudine (es. 139.6917).",
+    "param.language.description": "Lingua per il risultato (codice ISO 639-1, ad esempio ja, en, zh, ko). Rilevato automaticamente se omesso."
+  },
+  "nl": {
+    "tool.description": "Zoek een adres op aan de hand van lengte- en breedtegraad (omgekeerde geocodering). Maakt gebruik van de OpenStreetMap Nominatim-API. Wereldwijde dekking.",
+    "param.lat.description": "Breedtegraad (bijvoorbeeld 35,6895).",
+    "param.lon.description": "Lengtegraad (bijvoorbeeld 139,6917).",
+    "param.language.description": "Taal voor het resultaat (ISO 639-1-code, bijvoorbeeld ja, en, zh, ko). Wordt automatisch gedetecteerd indien weggelaten."
+  },
+  "sv": {
+    "tool.description": "Sl\u00e5 upp en adress fr\u00e5n latitud/longitud (omv\u00e4nd geokodning). Anv\u00e4nder OpenStreetMap Nominatim API. V\u00e4rldsomsp\u00e4nnande t\u00e4ckning.",
+    "param.lat.description": "Latitud (t.ex. 35.6895).",
+    "param.lon.description": "Longitud (t.ex. 139,6917).",
+    "param.language.description": "Spr\u00e5k f\u00f6r resultatet (ISO 639-1-kod, t.ex. ja, en, zh, ko). Uppt\u00e4cks automatiskt om den utel\u00e4mnas."
+  },
+  "fi": {
+    "tool.description": "Etsi osoite leveys-/pituusasteista (k\u00e4\u00e4nteinen geokoodaus). K\u00e4ytt\u00e4\u00e4 OpenStreetMap Nominatim API:ta. Maailmanlaajuinen kattavuus.",
+    "param.lat.description": "Leveysaste (esim. 35,6895).",
+    "param.lon.description": "Pituusaste (esim. 139,6917).",
+    "param.language.description": "Tuloksen kieli (ISO 639-1 koodi, esim. ja, en, zh, ko). Havaitsee automaattisesti, jos se j\u00e4tet\u00e4\u00e4n pois."
+  },
+  "pl": {
+    "tool.description": "Wyszukaj adres na podstawie szeroko\u015bci/d\u0142ugo\u015bci geograficznej (odwrotne geokodowanie). Korzysta z interfejsu API OpenStreetMap Nominatim. Zasi\u0119g og\u00f3lno\u015bwiatowy.",
+    "param.lat.description": "Szeroko\u015b\u0107 geograficzna (np. 35,6895).",
+    "param.lon.description": "D\u0142ugo\u015b\u0107 geograficzna (np. 139,6917).",
+    "param.language.description": "J\u0119zyk wyniku (kod ISO 639-1, np. ja, en, zh, ko). Wykrywane automatycznie w przypadku pomini\u0119cia."
+  },
+  "cs": {
+    "tool.description": "Vyhledejte adresu ze zem\u011bpisn\u00e9 \u0161\u00ed\u0159ky/d\u00e9lky (obr\u00e1cen\u00e9 geok\u00f3dov\u00e1n\u00ed). Pou\u017e\u00edv\u00e1 OpenStreetMap Nominatim API. Celosv\u011btov\u00e9 pokryt\u00ed.",
+    "param.lat.description": "Zem\u011bpisn\u00e1 \u0161\u00ed\u0159ka (nap\u0159. 35,6895).",
+    "param.lon.description": "Zem\u011bpisn\u00e1 d\u00e9lka (nap\u0159. 139,6917).",
+    "param.language.description": "Jazyk pro v\u00fdsledek (k\u00f3d ISO 639-1, nap\u0159. ja, en, zh, ko). Automaticky zji\u0161t\u011bno, pokud je vynech\u00e1no."
+  },
+  "hu": {
+    "tool.description": "Keressen egy c\u00edmet a sz\u00e9less\u00e9gi/hossz\u00fas\u00e1gi fok alapj\u00e1n (ford\u00edtott geok\u00f3dol\u00e1s). Az OpenStreetMap Nominatim API-t haszn\u00e1lja. Vil\u00e1gszerte lefedetts\u00e9g.",
+    "param.lat.description": "Sz\u00e9less\u00e9g (pl. 35,6895).",
+    "param.lon.description": "Hossz\u00fas\u00e1g (pl. 139,6917).",
+    "param.language.description": "Az eredm\u00e9ny nyelve (ISO 639-1 k\u00f3d, pl. ja, en, zh, ko). Kihagy\u00e1s eset\u00e9n automatikusan \u00e9szleli."
+  },
+  "ro": {
+    "tool.description": "C\u0103uta\u021bi o adres\u0103 de la latitudine/longitudine (geocodare invers\u0103). Utilizeaz\u0103 API-ul OpenStreetMap Nominatim. Acoperire la nivel mondial.",
+    "param.lat.description": "Latitudine (de exemplu, 35,6895).",
+    "param.lon.description": "Longitudine (de ex. 139,6917).",
+    "param.language.description": "Limb\u0103 pentru rezultat (cod ISO 639-1, de exemplu, ja, en, zh, ko). Detectat automat dac\u0103 este omis."
+  },
+  "el": {
+    "tool.description": "\u0391\u03bd\u03b1\u03b6\u03b7\u03c4\u03ae\u03c3\u03c4\u03b5 \u03bc\u03b9\u03b1 \u03b4\u03b9\u03b5\u03cd\u03b8\u03c5\u03bd\u03c3\u03b7 \u03b1\u03c0\u03cc \u03b3\u03b5\u03c9\u03b3\u03c1\u03b1\u03c6\u03b9\u03ba\u03cc \u03c0\u03bb\u03ac\u03c4\u03bf\u03c2/\u03bc\u03ae\u03ba\u03bf\u03c2 (\u03b1\u03bd\u03c4\u03af\u03c3\u03c4\u03c1\u03bf\u03c6\u03b7 \u03b3\u03b5\u03c9\u03ba\u03c9\u03b4\u03b9\u03ba\u03bf\u03c0\u03bf\u03af\u03b7\u03c3\u03b7). \u03a7\u03c1\u03b7\u03c3\u03b9\u03bc\u03bf\u03c0\u03bf\u03b9\u03b5\u03af \u03c4\u03bf OpenStreetMap Nominatim API. \u03a0\u03b1\u03b3\u03ba\u03cc\u03c3\u03bc\u03b9\u03b1 \u03ba\u03ac\u03bb\u03c5\u03c8\u03b7.",
+    "param.lat.description": "\u0393\u03b5\u03c9\u03b3\u03c1\u03b1\u03c6\u03b9\u03ba\u03cc \u03c0\u03bb\u03ac\u03c4\u03bf\u03c2 (\u03c0.\u03c7. 35,6895).",
+    "param.lon.description": "\u0393\u03b5\u03c9\u03b3\u03c1\u03b1\u03c6\u03b9\u03ba\u03cc \u03bc\u03ae\u03ba\u03bf\u03c2 (\u03c0.\u03c7. 139,6917).",
+    "param.language.description": "\u0393\u03bb\u03ce\u03c3\u03c3\u03b1 \u03b3\u03b9\u03b1 \u03c4\u03bf \u03b1\u03c0\u03bf\u03c4\u03ad\u03bb\u03b5\u03c3\u03bc\u03b1 (\u03ba\u03c9\u03b4\u03b9\u03ba\u03cc\u03c2 ISO 639-1, \u03c0.\u03c7. ja, en, zh, ko). \u0391\u03bd\u03b9\u03c7\u03bd\u03b5\u03cd\u03b5\u03c4\u03b1\u03b9 \u03b1\u03c5\u03c4\u03cc\u03bc\u03b1\u03c4\u03b1 \u03b5\u03ac\u03bd \u03c0\u03b1\u03c1\u03b1\u03bb\u03b5\u03b9\u03c6\u03b8\u03b5\u03af."
+  },
+  "tr": {
+    "tool.description": "Enlem/boylamdan bir adres aray\u0131n (ters co\u011frafi kodlama). OpenStreetMap Nominatim API'sini kullan\u0131r. D\u00fcnya \u00e7ap\u0131nda kapsama.",
+    "param.lat.description": "Enlem (\u00f6r. 35,6895).",
+    "param.lon.description": "Boylam (\u00f6r. 139.6917).",
+    "param.language.description": "Sonucun dili (ISO 639-1 kodu, \u00f6rn. ja, en, zh, ko). Atlan\u0131rsa otomatik olarak alg\u0131lan\u0131r."
+  },
+  "uk": {
+    "tool.description": "\u041f\u043e\u0448\u0443\u043a \u0430\u0434\u0440\u0435\u0441\u0438 \u0437\u0430 \u0448\u0438\u0440\u043e\u0442\u043e\u044e/\u0434\u043e\u0432\u0433\u043e\u0442\u043e\u044e (\u0437\u0432\u043e\u0440\u043e\u0442\u043d\u0435 \u0433\u0435\u043e\u043a\u043e\u0434\u0443\u0432\u0430\u043d\u043d\u044f). \u0412\u0438\u043a\u043e\u0440\u0438\u0441\u0442\u043e\u0432\u0443\u0454 OpenStreetMap Nominatim API. \u0412\u0441\u0435\u0441\u0432\u0456\u0442\u043d\u0454 \u043f\u043e\u043a\u0440\u0438\u0442\u0442\u044f.",
+    "param.lat.description": "\u0428\u0438\u0440\u043e\u0442\u0430 (\u043d\u0430\u043f\u0440\u0438\u043a\u043b\u0430\u0434, 35,6895).",
+    "param.lon.description": "\u0414\u043e\u0432\u0433\u043e\u0442\u0430 (\u043d\u0430\u043f\u0440\u0438\u043a\u043b\u0430\u0434, 139,6917).",
+    "param.language.description": "\u041c\u043e\u0432\u0430 \u0434\u043b\u044f \u0440\u0435\u0437\u0443\u043b\u044c\u0442\u0430\u0442\u0443 (\u043a\u043e\u0434 ISO 639-1, \u043d\u0430\u043f\u0440\u0438\u043a\u043b\u0430\u0434 ja, en, zh, ko). \u0412\u0438\u0437\u043d\u0430\u0447\u0430\u0454\u0442\u044c\u0441\u044f \u0430\u0432\u0442\u043e\u043c\u0430\u0442\u0438\u0447\u043d\u043e, \u044f\u043a\u0449\u043e \u043e\u043f\u0443\u0449\u0435\u043d\u043e."
+  },
+  "th": {
+    "tool.description": "\u0e04\u0e49\u0e19\u0e2b\u0e32\u0e17\u0e35\u0e48\u0e2d\u0e22\u0e39\u0e48\u0e08\u0e32\u0e01\u0e25\u0e30\u0e15\u0e34\u0e08\u0e39\u0e14/\u0e25\u0e2d\u0e07\u0e08\u0e34\u0e08\u0e39\u0e14 (Reverse Geocoding) \u0e43\u0e0a\u0e49 OpenStreetMap Nominatim API \u0e04\u0e23\u0e2d\u0e1a\u0e04\u0e38\u0e21\u0e17\u0e31\u0e48\u0e27\u0e42\u0e25\u0e01",
+    "param.lat.description": "\u0e25\u0e30\u0e15\u0e34\u0e08\u0e39\u0e14 (\u0e40\u0e0a\u0e48\u0e19 35.6895)",
+    "param.lon.description": "\u0e25\u0e2d\u0e07\u0e08\u0e34\u0e08\u0e39\u0e14 (\u0e40\u0e0a\u0e48\u0e19 139.6917)",
+    "param.language.description": "\u0e20\u0e32\u0e29\u0e32\u0e2a\u0e33\u0e2b\u0e23\u0e31\u0e1a\u0e1c\u0e25\u0e25\u0e31\u0e1e\u0e18\u0e4c (\u0e23\u0e2b\u0e31\u0e2a ISO 639-1 \u0e40\u0e0a\u0e48\u0e19 ja, en, zh, ko) \u0e15\u0e23\u0e27\u0e08\u0e1e\u0e1a\u0e2d\u0e31\u0e15\u0e42\u0e19\u0e21\u0e31\u0e15\u0e34\u0e2b\u0e32\u0e01\u0e25\u0e30\u0e40\u0e27\u0e49\u0e19"
+  },
+  "vi": {
+    "tool.description": "Tra c\u1ee9u \u0111\u1ecba ch\u1ec9 t\u1eeb v\u0129 \u0111\u1ed9/kinh \u0111\u1ed9 (m\u00e3 h\u00f3a \u0111\u1ecba l\u00fd \u0111\u1ea3o ng\u01b0\u1ee3c). S\u1eed d\u1ee5ng API Nominatim OpenStreetMap. B\u1ea3o hi\u1ec3m tr\u00ean to\u00e0n th\u1ebf gi\u1edbi.",
+    "param.lat.description": "V\u0129 \u0111\u1ed9 (v\u00ed d\u1ee5: 35,6895).",
+    "param.lon.description": "Kinh \u0111\u1ed9 (v\u00ed d\u1ee5: 139,6917).",
+    "param.language.description": "Ng\u00f4n ng\u1eef cho k\u1ebft qu\u1ea3 (m\u00e3 ISO 639-1, v\u00ed d\u1ee5: ja, en, zh, ko). T\u1ef1 \u0111\u1ed9ng ph\u00e1t hi\u1ec7n n\u1ebfu b\u1ecf qua."
+  },
+  "id": {
+    "tool.description": "Cari alamat dari lintang/bujur (geocoding terbalik). Menggunakan API Nominatim OpenStreetMap. Cakupan di seluruh dunia.",
+    "param.lat.description": "Lintang (misalnya 35.6895).",
+    "param.lon.description": "Bujur (misalnya 139.6917).",
+    "param.language.description": "Bahasa untuk hasil (kode ISO 639-1, misal ja, en, zh, ko). Terdeteksi otomatis jika dihilangkan."
+  },
+  "bn": {
+    "tool.description": "\u0985\u0995\u09cd\u09b7\u09be\u0982\u09b6/\u09a6\u09cd\u09b0\u09be\u0998\u09bf\u09ae\u09be\u0982\u09b6 \u09a5\u09c7\u0995\u09c7 \u098f\u0995\u099f\u09bf \u09a0\u09bf\u0995\u09be\u09a8\u09be \u09a6\u09c7\u0996\u09c1\u09a8 (\u09ac\u09bf\u09aa\u09b0\u09c0\u09a4 \u099c\u09bf\u09af\u09bc\u09cb\u0995\u09cb\u09a1\u09bf\u0982)\u0964 OpenStreetMap Nominatim API \u09ac\u09cd\u09af\u09ac\u09b9\u09be\u09b0 \u0995\u09b0\u09c7\u0964 \u09ac\u09bf\u09b6\u09cd\u09ac\u09ac\u09cd\u09af\u09be\u09aa\u09c0 \u0995\u09ad\u09be\u09b0\u09c7\u099c\u0964",
+    "param.lat.description": "\u0985\u0995\u09cd\u09b7\u09be\u0982\u09b6 (\u09af\u09c7\u09ae\u09a8 35.6895)\u0964",
+    "param.lon.description": "\u09a6\u09cd\u09b0\u09be\u0998\u09bf\u09ae\u09be\u0982\u09b6 (\u09af\u09c7\u09ae\u09a8 139.6917)\u0964",
+    "param.language.description": "\u09ab\u09b2\u09be\u09ab\u09b2\u09c7\u09b0 \u099c\u09a8\u09cd\u09af \u09ad\u09be\u09b7\u09be (ISO 639-1 \u0995\u09cb\u09a1, \u09af\u09c7\u09ae\u09a8 ja, en, zh, ko)\u0964 \u09ac\u09be\u09a6 \u09a6\u09bf\u09b2\u09c7 \u09b8\u09cd\u09ac\u09af\u09bc\u0982\u0995\u09cd\u09b0\u09bf\u09af\u09bc\u09ad\u09be\u09ac\u09c7 \u09b8\u09a8\u09be\u0995\u09cd\u09a4 \u0995\u09b0\u09be \u09af\u09be\u09af\u09bc\u0964"
+  },
+  "sw": {
+    "tool.description": "Tafuta anwani kutoka latitudo/longitudo (reverse geocoding). Inatumia API ya OpenStreetMap Nominatim. Chanjo duniani kote.",
+    "param.lat.description": "Latitudo (k.m. 35.6895).",
+    "param.lon.description": "Longitudo (k.m. 139.6917).",
+    "param.language.description": "Lugha ya matokeo (msimbo wa ISO 639-1, k.m. ja, en, zh, ko). Imegunduliwa kiotomatiki ikiwa imeachwa."
+  },
+  "fa": {
+    "tool.description": "\u0622\u062f\u0631\u0633\u06cc \u0631\u0627 \u0627\u0632 \u0637\u0648\u0644 \u0648 \u0639\u0631\u0636 \u062c\u063a\u0631\u0627\u0641\u06cc\u0627\u06cc\u06cc \u062c\u0633\u062a\u062c\u0648 \u06a9\u0646\u06cc\u062f (\u0698\u0626\u0648\u06a9\u062f\u06cc\u0646\u06af \u0645\u0639\u06a9\u0648\u0633). \u0627\u0632 OpenStreetMap Nominatim API \u0627\u0633\u062a\u0641\u0627\u062f\u0647 \u0645\u06cc \u06a9\u0646\u062f. \u067e\u0648\u0634\u0634 \u062c\u0647\u0627\u0646\u06cc.",
+    "param.lat.description": "\u0639\u0631\u0636 \u062c\u063a\u0631\u0627\u0641\u06cc\u0627\u06cc\u06cc (\u0628\u0647 \u0639\u0646\u0648\u0627\u0646 \u0645\u062b\u0627\u0644 35.6895).",
+    "param.lon.description": "\u0637\u0648\u0644 \u062c\u063a\u0631\u0627\u0641\u06cc\u0627\u06cc\u06cc (\u0628\u0647 \u0639\u0646\u0648\u0627\u0646 \u0645\u062b\u0627\u0644 139.6917).",
+    "param.language.description": "\u0632\u0628\u0627\u0646 \u0646\u062a\u06cc\u062c\u0647 (\u06a9\u062f ISO 639-1\u060c \u0628\u0647 \u0639\u0646\u0648\u0627\u0646 \u0645\u062b\u0627\u0644 ja\u060c en\u060c zh\u060c ko). \u062f\u0631 \u0635\u0648\u0631\u062a \u062d\u0630\u0641 \u0628\u0647 \u0637\u0648\u0631 \u062e\u0648\u062f\u06a9\u0627\u0631 \u0634\u0646\u0627\u0633\u0627\u06cc\u06cc \u0645\u06cc \u0634\u0648\u062f."
+  },
+  "he": {
+    "tool.description": "\u05d7\u05e4\u05e9 \u05db\u05ea\u05d5\u05d1\u05ea \u05de\u05e7\u05d5 \u05e8\u05d5\u05d7\u05d1/\u05e7\u05d5 \u05d0\u05d5\u05e8\u05da (\u05e7\u05d9\u05d3\u05d5\u05d3 \u05d2\u05d0\u05d5\u05d2\u05e8\u05e4\u05d9 \u05d4\u05e4\u05d5\u05da). \u05de\u05e9\u05ea\u05de\u05e9 \u05d1-OpenStreetMap Nominatim API. \u05db\u05d9\u05e1\u05d5\u05d9 \u05e2\u05d5\u05dc\u05de\u05d9.",
+    "param.lat.description": "\u05e7\u05d5 \u05e8\u05d5\u05d7\u05d1 (\u05dc\u05de\u05e9\u05dc 35.6895).",
+    "param.lon.description": "\u05e7\u05d5 \u05d0\u05d5\u05e8\u05da (\u05dc\u05de\u05e9\u05dc 139.6917).",
+    "param.language.description": "\u05e9\u05e4\u05d4 \u05dc\u05ea\u05d5\u05e6\u05d0\u05d4 (\u05e7\u05d5\u05d3 ISO 639-1, \u05dc\u05de\u05e9\u05dc ja, en, zh, ko). \u05d6\u05d5\u05d4\u05d4 \u05d0\u05d5\u05d8\u05d5\u05de\u05d8\u05d9\u05ea \u05d0\u05dd \u05d4\u05d5\u05e9\u05de\u05d8\u05d4."
+  },
+  "pt": {
+    "tool.description": "Procure um endere\u00e7o por latitude/longitude (geocodifica\u00e7\u00e3o reversa). Usa a API OpenStreetMap Nominatim. Cobertura mundial.",
+    "param.lat.description": "Latitude (por exemplo, 35,6895).",
+    "param.lon.description": "Longitude (por exemplo, 139,6917).",
+    "param.language.description": "Idioma do resultado (c\u00f3digo ISO 639-1, por exemplo, ja, en, zh, ko). Detectado automaticamente se omitido."
+  },
+  "nb": {
+    "tool.description": "Sl\u00e5 opp en adresse fra breddegrad/lengdegrad (omvendt geokoding). Bruker OpenStreetMap Nominatim API. Verdensomspennende dekning.",
+    "param.lat.description": "Breddegrad (f.eks. 35.6895).",
+    "param.lon.description": "Lengdegrad (f.eks. 139.6917).",
+    "param.language.description": "Spr\u00e5k for resultatet (ISO 639-1-kode, f.eks. ja, en, zh, ko). Automatisk oppdaget hvis utelatt."
+  },
+  "da": {
+    "tool.description": "Sl\u00e5 en adresse op fra breddegrad/l\u00e6ngdegrad (omvendt geokodning). Bruger OpenStreetMap Nominatim API. Verdensomsp\u00e6ndende d\u00e6kning.",
+    "param.lat.description": "Breddegrad (f.eks. 35.6895).",
+    "param.lon.description": "L\u00e6ngdegrad (f.eks. 139.6917).",
+    "param.language.description": "Sprog for resultatet (ISO 639-1-kode, f.eks. ja, en, zh, ko). Auto-detekteret hvis udeladt."
+  },
+  "bg": {
+    "tool.description": "\u041f\u043e\u0442\u044a\u0440\u0441\u0435\u0442\u0435 \u0430\u0434\u0440\u0435\u0441 \u043e\u0442 \u0433\u0435\u043e\u0433\u0440\u0430\u0444\u0441\u043a\u0430 \u0448\u0438\u0440\u0438\u043d\u0430/\u0434\u044a\u043b\u0436\u0438\u043d\u0430 (\u043e\u0431\u0440\u0430\u0442\u043d\u043e \u0433\u0435\u043e\u043a\u043e\u0434\u0438\u0440\u0430\u043d\u0435). \u0418\u0437\u043f\u043e\u043b\u0437\u0432\u0430 OpenStreetMap Nominatim API. \u0421\u0432\u0435\u0442\u043e\u0432\u043d\u043e \u043f\u043e\u043a\u0440\u0438\u0442\u0438\u0435.",
+    "param.lat.description": "\u0413\u0435\u043e\u0433\u0440\u0430\u0444\u0441\u043a\u0430 \u0448\u0438\u0440\u0438\u043d\u0430 (\u043d\u0430\u043f\u0440. 35.6895).",
+    "param.lon.description": "\u0413\u0435\u043e\u0433\u0440\u0430\u0444\u0441\u043a\u0430 \u0434\u044a\u043b\u0436\u0438\u043d\u0430 (\u043d\u0430\u043f\u0440. 139.6917).",
+    "param.language.description": "\u0415\u0437\u0438\u043a \u0437\u0430 \u0440\u0435\u0437\u0443\u043b\u0442\u0430\u0442\u0430 (\u043a\u043e\u0434 \u043f\u043e ISO 639-1, \u043d\u0430\u043f\u0440. ja, en, zh, ko). \u041e\u0442\u043a\u0440\u0438\u0432\u0430 \u0441\u0435 \u0430\u0432\u0442\u043e\u043c\u0430\u0442\u0438\u0447\u043d\u043e, \u0430\u043a\u043e \u0435 \u043f\u0440\u043e\u043f\u0443\u0441\u043d\u0430\u0442\u043e."
+  },
+  "sr": {
+    "tool.description": "\u041f\u043e\u0442\u0440\u0430\u0436\u0438\u0442\u0435 \u0430\u0434\u0440\u0435\u0441\u0443 \u0438\u0437 \u0433\u0435\u043e\u0433\u0440\u0430\u0444\u0441\u043a\u0435 \u0448\u0438\u0440\u0438\u043d\u0435/\u0434\u0443\u0436\u0438\u043d\u0435 (\u043e\u0431\u0440\u043d\u0443\u0442\u043e \u0433\u0435\u043e\u043a\u043e\u0434\u0438\u0440\u0430\u045a\u0435). \u041a\u043e\u0440\u0438\u0441\u0442\u0438 \u041e\u043f\u0435\u043d\u0421\u0442\u0440\u0435\u0435\u0442\u041c\u0430\u043f \u041d\u043e\u043c\u0438\u043d\u0430\u0442\u0438\u043c \u0410\u041f\u0418. \u041f\u043e\u043a\u0440\u0438\u0432\u0435\u043d\u043e\u0441\u0442 \u0448\u0438\u0440\u043e\u043c \u0441\u0432\u0435\u0442\u0430.",
+    "param.lat.description": "\u0413\u0435\u043e\u0433\u0440\u0430\u0444\u0441\u043a\u0430 \u0448\u0438\u0440\u0438\u043d\u0430 (\u043d\u043f\u0440. 35,6895).",
+    "param.lon.description": "\u0413\u0435\u043e\u0433\u0440\u0430\u0444\u0441\u043a\u0430 \u0434\u0443\u0436\u0438\u043d\u0430 (\u043d\u043f\u0440. 139,6917).",
+    "param.language.description": "\u0408\u0435\u0437\u0438\u043a \u0437\u0430 \u0440\u0435\u0437\u0443\u043b\u0442\u0430\u0442 (\u0418\u0421\u041e 639-1 \u043a\u043e\u0434, \u043d\u043f\u0440. \u0458\u0430, \u0435\u043d, \u0437\u0445, \u043a\u043e). \u0410\u0443\u0442\u043e\u043c\u0430\u0442\u0441\u043a\u0438 \u0441\u0435 \u043e\u0442\u043a\u0440\u0438\u0432\u0430 \u0430\u043a\u043e \u0441\u0435 \u0438\u0437\u043e\u0441\u0442\u0430\u0432\u0438."
+  },
+  "hr": {
+    "tool.description": "Potra\u017eite adresu iz zemljopisne \u0161irine/du\u017eine (obrnuto geokodiranje). Koristi OpenStreetMap Nominatim API. Pokrivenost diljem svijeta.",
+    "param.lat.description": "Geografska \u0161irina (npr. 35,6895).",
+    "param.lon.description": "Zemljopisna du\u017eina (npr. 139,6917).",
+    "param.language.description": "Jezik za rezultat (kod ISO 639-1, npr. ja, en, zh, ko). Automatski otkriveno ako je izostavljeno."
+  },
+  "ms": {
+    "tool.description": "Cari alamat dari latitud/longitud (geokod terbalik). Menggunakan OpenStreetMap Nominatim API. Liputan seluruh dunia.",
+    "param.lat.description": "Latitud (cth. 35.6895).",
+    "param.lon.description": "Longitud (cth. 139.6917).",
+    "param.language.description": "Bahasa untuk keputusan (kod ISO 639-1, cth. ja, en, zh, ko). Auto dikesan jika ditinggalkan."
+  },
+  "ta": {
+    "tool.description": "\u0b85\u0b9f\u0bcd\u0b9a\u0bb0\u0bc7\u0b95\u0bc8 / \u0ba4\u0bc0\u0bb0\u0bcd\u0b95\u0bcd\u0b95\u0bb0\u0bc7\u0b95\u0bc8 (\u0ba4\u0bb2\u0bc8\u0b95\u0bc0\u0bb4\u0bcd \u0baa\u0bc1\u0bb5\u0bbf\u0b9a\u0bbe\u0bb0\u0bcd \u0b95\u0bc1\u0bb1\u0bbf\u0baf\u0bc0\u0b9f\u0bc1) \u0b87\u0bb2\u0bbf\u0bb0\u0bc1\u0ba8\u0bcd\u0ba4\u0bc1 \u0b92\u0bb0\u0bc1 \u0bae\u0bc1\u0b95\u0bb5\u0bb0\u0bbf\u0baf\u0bc8\u0baa\u0bcd \u0baa\u0bbe\u0bb0\u0bcd\u0b95\u0bcd\u0b95\u0bb5\u0bc1\u0bae\u0bcd. OpenStreetMap Nominatim API \u0b90\u0baa\u0bcd \u0baa\u0baf\u0ba9\u0bcd\u0baa\u0b9f\u0bc1\u0ba4\u0bcd\u0ba4\u0bc1\u0b95\u0bbf\u0bb1\u0ba4\u0bc1. \u0b89\u0bb2\u0b95\u0bb3\u0bbe\u0bb5\u0bbf\u0baf \u0b95\u0bb5\u0bb0\u0bc7\u0b9c\u0bcd.",
+    "param.lat.description": "\u0b85\u0b9f\u0bcd\u0b9a\u0bb0\u0bc7\u0b95\u0bc8 (\u0b8e.\u0b95\u0bbe. 35.6895).",
+    "param.lon.description": "\u0ba4\u0bc0\u0bb0\u0bcd\u0b95\u0bcd\u0b95\u0bb0\u0bc7\u0b95\u0bc8 (\u0b8e.\u0b95\u0bbe. 139.6917).",
+    "param.language.description": "\u0bae\u0bc1\u0b9f\u0bbf\u0bb5\u0bc1\u0b95\u0bcd\u0b95\u0bbe\u0ba9 \u0bae\u0bca\u0bb4\u0bbf (ISO 639-1 \u0b95\u0bc1\u0bb1\u0bbf\u0baf\u0bc0\u0b9f\u0bc1, \u0b8e.\u0b95\u0bbe. ja, en, zh, ko). \u0ba4\u0bb5\u0bbf\u0bb0\u0bcd\u0b95\u0bcd\u0b95\u0baa\u0bcd\u0baa\u0b9f\u0bcd\u0b9f\u0bbe\u0bb2\u0bcd \u0ba4\u0bbe\u0ba9\u0bbe\u0b95\u0bb5\u0bc7 \u0b95\u0ba3\u0bcd\u0b9f\u0bb1\u0bbf\u0baf\u0baa\u0bcd\u0baa\u0b9f\u0bc1\u0bae\u0bcd."
+  },
+  "ur": {
+    "tool.description": "\u0639\u0631\u0636 \u0627\u0644\u0628\u0644\u062f/\u0637\u0648\u0644 \u0627\u0644\u0628\u0644\u062f (\u0631\u06cc\u0648\u0631\u0633 \u062c\u06cc\u0648 \u06a9\u0648\u0688\u0646\u06af) \u0633\u06d2 \u067e\u062a\u06c1 \u062a\u0644\u0627\u0634 \u06a9\u0631\u06cc\u06ba\u06d4 OpenStreetMap Nominatim API \u0627\u0633\u062a\u0639\u0645\u0627\u0644 \u06a9\u0631\u062a\u0627 \u06c1\u06d2\u06d4 \u062f\u0646\u06cc\u0627 \u0628\u06be\u0631 \u0645\u06cc\u06ba \u06a9\u0648\u0631\u06cc\u062c\u06d4",
+    "param.lat.description": "\u0639\u0631\u0636 \u0627\u0644\u0628\u0644\u062f (\u0645\u062b\u0627\u0644\u0627\u064b 35.6895)\u06d4",
+    "param.lon.description": "\u0637\u0648\u0644 \u0627\u0644\u0628\u0644\u062f (\u0645\u062b\u0627\u0644\u0627\u064b 139.6917)\u06d4",
+    "param.language.description": "\u0646\u062a\u06cc\u062c\u06c1 \u06a9\u06d2 \u0644\u06cc\u06d2 \u0632\u0628\u0627\u0646 (ISO 639-1 \u06a9\u0648\u0688\u060c \u062c\u06cc\u0633\u06d2 ja, en, zh, ko)\u06d4 \u0627\u06af\u0631 \u0686\u06be\u0648\u0691 \u062f\u06cc\u0627 \u062c\u0627\u0626\u06d2 \u062a\u0648 \u062e\u0648\u062f \u0628\u06be\u06cc \u067e\u062a\u06c1 \u0686\u0644\u0627\u06d4"
+  },
+  "ne": {
+    "tool.description": "\u0905\u0915\u094d\u0937\u093e\u0902\u0936/\u0926\u0947\u0936\u093e\u0928\u094d\u0924\u0930\u092c\u093e\u091f \u0920\u0947\u0917\u093e\u0928\u093e \u0939\u0947\u0930\u094d\u0928\u0941\u0939\u094b\u0938\u094d (\u0930\u093f\u092d\u0930\u094d\u0938 \u091c\u093f\u092f\u094b\u0915\u094b\u0921\u093f\u0919)\u0964 OpenStreetMap Nominatim API \u092a\u094d\u0930\u092f\u094b\u0917 \u0917\u0930\u094d\u0926\u091b\u0964 \u0935\u093f\u0936\u094d\u0935\u0935\u094d\u092f\u093e\u092a\u0940 \u0915\u092d\u0930\u0947\u091c\u0964",
+    "param.lat.description": "\u0905\u0915\u094d\u0937\u093e\u0902\u0936 (\u091c\u0938\u094d\u0924\u0948 35.6895)\u0964",
+    "param.lon.description": "\u0926\u0947\u0936\u093e\u0928\u094d\u0924\u0930 (\u091c\u0938\u094d\u0924\u0948 \u0967\u0969\u096e\u096e\u096e\u096e\u096e\u096e\u096e)\u0964",
+    "param.language.description": "\u0928\u0924\u093f\u091c\u093e\u0915\u094b \u0932\u093e\u0917\u093f \u092d\u093e\u0937\u093e (ISO 639-1 \u0915\u094b\u0921, \u091c\u0633\u094d\u0924\u0948 ja, en, zh, ko)\u0964 \u0939\u091f\u093e\u0907\u092f\u094b \u092d\u092f\u0947 \u0938\u094d\u0935\u0924: \u092a\u0924\u094d\u0924\u093e \u0932\u0917\u093e\u0907\u0928\u094d\u091b\u0964"
+  }
+}

@@ -23,6 +23,8 @@ _LOCALE_TO_GOOGLE: dict[str, str] = {
     "sv": "sv", "sw": "sw", "nb": "no", "nl": "nl", "fi": "fi",
     "cs": "cs", "uk": "uk", "tr": "tr", "th": "th",
     "zh_cn": "zh-CN", "zh_tw": "zh-TW",
+    "da": "da", "bg": "bg", "sr": "sr", "hr": "hr",
+    "ms": "ms", "ta": "ta", "ur": "ur", "ne": "ne",
     "bn": "bn", "fa": "fa", "mn": "mn", "mr": "mr",
     "el": "el", "he": "iw", "hu": "hu", "ro": "ro",
 }
@@ -278,14 +280,16 @@ def run_tool(args: dict[str, Any]) -> str:
     target_norm = target_lang.lower().replace("-", "_")
     google_target = _LOCALE_TO_GOOGLE.get(target_norm)
     if google_target is None:
-        return json.dumps({"error": f"Unsupported target language: {target_lang}"}, ensure_ascii=False)
+        # Fallback: pass the original code directly to Google (many ISO 639-1 codes
+        # work without an explicit mapping).
+        google_target = target_lang
 
     google_source: str | None = None
     if source_lang:
         source_norm = source_lang.lower().replace("-", "_")
         google_source = _LOCALE_TO_GOOGLE.get(source_norm)
         if google_source is None:
-            return json.dumps({"error": f"Unsupported source language: {source_lang}"}, ensure_ascii=False)
+            google_source = source_lang
 
     # ---------------------------------------------------------------
     # Batch: protect each element, join with \n, single API call
