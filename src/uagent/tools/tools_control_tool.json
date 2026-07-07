@@ -9,7 +9,8 @@
     "msg.tools.output_state": "[tools] Tool output display is now {state}",
     "msg.tools.list_header": "[tools] Loaded tools ({count}):",
     "msg.tools.no_match": "[tools] No matching tools: {q}",
-    "cmd.help.tools_reload": "  :tools reload                    Reload all tool code from disk."
+    "cmd.help.tools_reload": "  :tools reload                    Reload all tool code from disk.",
+    "msg.tools.reloaded": "[tools] System reloaded successfully. All tools updated with latest code."
   },
   "ja": {
     "cmd.help.tools_list": "  :tools list [query]               読み込んだツール一覧を表示（名前/説明でフィルタ可）",
@@ -21,7 +22,8 @@
     "msg.tools.output_state": "[tools] ツール出力表示: {state}",
     "msg.tools.list_header": "[ツール] ロードされたツール ({count}):",
     "msg.tools.no_match": "[ツール] 一致するツールがありません: {q}",
-    "cmd.help.tools_reload": "  :tools reload                    ツールコードをすべてディスクから再読み込みします。"
+    "cmd.help.tools_reload": "  :tools reload                    ツールコードをすべてディスクから再読み込みします。",
+    "msg.tools.reloaded": "[tools] システムは正常にリロードされました。すべてのツールが最新のコードで更新されました。"
   },
   "es": {
     "cmd.help.tools_list": "  :tools list [query]               Listar herramientas cargadas, opcionalmente filtradas por nombre/descripción",
@@ -31,7 +33,8 @@
     "msg.tools.not_found": "[tools] Herramienta no encontrada: {name}",
     "cmd.help.tools_output": "  :tools output                     Alternar visualización de resultados de herramientas",
     "msg.tools.output_state": "[tools] Visualización de salida de herramientas: {state}",
-    "cmd.help.tools_reload": "  :tools reload                    Recargar todo el codigo de herramientas desde el disco."
+    "cmd.help.tools_reload": "  :tools reload                    Recargar todo el codigo de herramientas desde el disco.",
+    "msg.tools.reloaded": "[tools] El sistema se recargó exitosamente. Todas las herramientas actualizadas con el código más reciente."
   },
   "fr": {
     "cmd.help.tools_list": "  :tools list [query]               Lister les outils chargés, éventuellement filtrés par nom/description",
@@ -41,7 +44,8 @@
     "msg.tools.not_found": "[tools] Outil non trouvé : {name}",
     "cmd.help.tools_output": "  :tools output                     Afficher/masquer les résultats d'exécution des outils",
     "msg.tools.output_state": "[tools] Affichage des résultats d'outils: {state}",
-    "cmd.help.tools_reload": "  :tools reload                    Recharger tout le code des outils depuis le disque."
+    "cmd.help.tools_reload": "  :tools reload                    Recharger tout le code des outils depuis le disque.",
+    "msg.tools.reloaded": "[tools] Le système a été rechargé avec succès. Tous les outils mis à jour avec le dernier code."
   },
   "ko": {
     "cmd.help.tools_list": "  :tools list [query]               로드된 도구를 나열하며, 선택적으로 이름/설명으로 필터링",
@@ -51,7 +55,8 @@
     "msg.tools.not_found": "[tools] 도구를 찾을 수 없음: {name}",
     "cmd.help.tools_output": "  :tools output                     도구 실행 결과 표시 전환",
     "msg.tools.output_state": "[tools] 도구 출력 표시: {state}",
-    "cmd.help.tools_reload": "  :tools reload                    디스크에서 모든 도구 코드를 다시 로드합니다."
+    "cmd.help.tools_reload": "  :tools reload                    디스크에서 모든 도구 코드를 다시 로드합니다.",
+    "msg.tools.reloaded": "[tools] 시스템이 성공적으로 다시 로드되었습니다. 모든 도구가 최신 코드로 업데이트되었습니다."
   },
   "de": {
     "cmd.help.tools_list": "  :tools list [query]               Geladene Werkzeuge auflisten, optional nach Name/Beschreibung gefiltert",
@@ -61,7 +66,8 @@
     "msg.tools.not_found": "[tools] Werkzeug nicht gefunden: {name}",
     "cmd.help.tools_output": "  :tools output                     Anzeige der Tool-Ergebnisse umschalten",
     "msg.tools.output_state": "[tools] Tool-Ausgabeanzeige: {state}",
-    "cmd.help.tools_reload": "  :tools reload                    Den gesamten Werkzeugcode von der Festplatte neu laden."
+    "cmd.help.tools_reload": "  :tools reload                    Den gesamten Werkzeugcode von der Festplatte neu laden.",
+    "msg.tools.reloaded": "[tools] System wurde erfolgreich neu geladen. Alle Tools wurden mit dem neuesten Code aktualisiert."
   },
   "it": {
     "cmd.help.tools_list": "  :tools list [query]               Elenca gli strumenti caricati, opzionalmente filtrati per nome/descrizione",
@@ -71,7 +77,8 @@
     "msg.tools.not_found": "[tools] Strumento non trovato: {name}",
     "cmd.help.tools_output": "  :tools output                     Attiva/disattiva visualizzazione risultati strumenti",
     "msg.tools.output_state": "[tools] Visualizzazione output strumenti: {state}",
-    "cmd.help.tools_reload": "  :tools reload                    Ricaricare tutto il codice degli strumenti dal disco."
+    "cmd.help.tools_reload": "  :tools reload                    Ricaricare tutto il codice degli strumenti dal disco.",
+    "msg.tools.reloaded": "[tools] Sistema ricaricato con successo. Tutti gli strumenti aggiornati con il codice più recente."
   },
   "ru": {
     "cmd.help.tools_list": "  :tools list [query]               Список загруженных инструментов, опционально отфильтрованных по имени/описанию",
@@ -81,7 +88,8 @@
     "msg.tools.not_found": "[tools] Инструмент не найден: {name}",
     "cmd.help.tools_output": "  :tools output                     Переключить отображение результатов инструментов",
     "msg.tools.output_state": "[tools] Отображение вывода инструментов: {state}",
-    "cmd.help.tools_reload": "  :tools reload                    Перезагрузить весь код инструментов с диска."
+    "cmd.help.tools_reload": "  :tools reload                    Перезагрузить весь код инструментов с диска.",
+    "msg.tools.reloaded": "[tools] Система успешно перезагрузилась. Все инструменты обновлены последней версией кода."
   },
   "pt_BR": {
     "cmd.help.tools_list": "  :tools list [query]               Listar ferramentas carregadas, opcionalmente filtradas por nome/descrição",
@@ -91,7 +99,8 @@
     "msg.tools.not_found": "[tools] Ferramenta não encontrada: {name}",
     "cmd.help.tools_output": "  :tools output                     Alternar exibição de resultados de ferramentas",
     "msg.tools.output_state": "[tools] Exibição de saída de ferramentas: {state}",
-    "cmd.help.tools_reload": "  :tools reload                    Recarregar todo o codigo da ferramenta do disco."
+    "cmd.help.tools_reload": "  :tools reload                    Recarregar todo o codigo da ferramenta do disco.",
+    "msg.tools.reloaded": "[tools] Sistema recarregado com sucesso. Todas as ferramentas atualizadas com o código mais recente."
   },
   "pt": {
     "cmd.help.tools_list": "  :tools list [query]               Listar ferramentas carregadas, opcionalmente filtradas por nome/descrição",
@@ -101,7 +110,8 @@
     "msg.tools.not_found": "[tools] Ferramenta não encontrada: {name}",
     "cmd.help.tools_output": "  :tools output                     Alternar exibição de resultados de ferramentas",
     "msg.tools.output_state": "[tools] Exibição de saída de ferramentas: {state}",
-    "cmd.help.tools_reload": "  :tools reload                    Recarregar todo o codigo da ferramenta do disco."
+    "cmd.help.tools_reload": "  :tools reload                    Recarregar todo o codigo da ferramenta do disco.",
+    "msg.tools.reloaded": "[tools] Sistema recarregado com sucesso. Todas as ferramentas atualizadas com o código mais recente."
   },
   "id": {
     "cmd.help.tools_list": "  :tools list [query]               Daftar alat yang dimuat, opsional difilter berdasarkan nama/deskripsi",
@@ -111,7 +121,8 @@
     "msg.tools.not_found": "[tools] Alat tidak ditemukan: {name}",
     "cmd.help.tools_output": "  :tools output                     Alihkan tampilan hasil eksekusi alat",
     "msg.tools.output_state": "[tools] Tampilan output alat: {state}",
-    "cmd.help.tools_reload": "  :tools reload                    Memuat ulang semua kode alat dari disk."
+    "cmd.help.tools_reload": "  :tools reload                    Memuat ulang semua kode alat dari disk.",
+    "msg.tools.reloaded": "[tools] Sistem berhasil dimuat ulang. Semua alat diperbarui dengan kode terbaru."
   },
   "vi": {
     "cmd.help.tools_list": "  :tools list [query]               Liệt kê các công cụ đã tải, tùy chọn lọc theo tên/mô tả",
@@ -121,7 +132,8 @@
     "msg.tools.not_found": "[tools] Không tìm thấy công cụ: {name}",
     "cmd.help.tools_output": "  :tools output                     Chuyển đổi hiển thị kết quả công cụ",
     "msg.tools.output_state": "[tools] Hiển thị đầu ra công cụ: {state}",
-    "cmd.help.tools_reload": "  :tools reload                    Tai lai toan bo ma cong cu tu dia."
+    "cmd.help.tools_reload": "  :tools reload                    Tai lai toan bo ma cong cu tu dia.",
+    "msg.tools.reloaded": "[tools] Hệ thống đã được tải lại thành công. Tất cả các công cụ được cập nhật với mã mới nhất."
   },
   "pl": {
     "cmd.help.tools_list": "  :tools list [query]               Wymień załadowane narzędzia, opcjonalnie filtrowane według nazwy/opisu",
@@ -131,7 +143,8 @@
     "msg.tools.not_found": "[tools] Nie znaleziono narzędzia: {name}",
     "cmd.help.tools_output": "  :tools output                     Przełącz wyświetlanie wyników narzędzi",
     "msg.tools.output_state": "[tools] Wyświetlanie wyników narzędzi: {state}",
-    "cmd.help.tools_reload": "  :tools reload                    Przeladuj caly kod narzedzia z dysku."
+    "cmd.help.tools_reload": "  :tools reload                    Przeladuj caly kod narzedzia z dysku.",
+    "msg.tools.reloaded": "[tools] System został pomyślnie załadowany ponownie. Wszystkie narzędzia zaktualizowane o najnowszy kod."
   },
   "hi": {
     "cmd.help.tools_list": "  :tools list [query]               लोड किए गए उपकरणों की सूची बनाएं, वैकल्पिक रूप से नाम/विवरण के अनुसार फ़िल्टर किया गया",
@@ -141,7 +154,8 @@
     "msg.tools.not_found": "[tools] उपकरण नहीं मिला: {name}",
     "cmd.help.tools_output": "  :tools output                     उपकरण निष्पादन परिणाम प्रदर्शन टॉगल करें",
     "msg.tools.output_state": "[tools] उपकरण आउटपुट प्रदर्शन: {state}",
-    "cmd.help.tools_reload": "  :tools reload                    डिस्क से सभी टूल कोड को पुनः लोड करें।"
+    "cmd.help.tools_reload": "  :tools reload                    डिस्क से सभी टूल कोड को पुनः लोड करें।",
+    "msg.tools.reloaded": "[tools] सिस्टम सफलतापूर्वक पुनः लोड हुआ। सभी उपकरण नवीनतम कोड के साथ अद्यतन किए गए।"
   },
   "ar": {
     "cmd.help.tools_list": "  :tools list [query]               قائمة الأدوات المحملة، اختيارياً تمت تصفيتها حسب الاسم/الوصف",
@@ -151,7 +165,8 @@
     "msg.tools.not_found": "[tools] الأداة غير موجودة: {name}",
     "cmd.help.tools_output": "  :tools output                     تبديل عرض نتائج تنفيذ الأدوات",
     "msg.tools.output_state": "[tools] عرض مخرجات الأدوات: {state}",
-    "cmd.help.tools_reload": "  :tools reload                    اعادة تحميل كل كود الاداة من القرص."
+    "cmd.help.tools_reload": "  :tools reload                    اعادة تحميل كل كود الاداة من القرص.",
+    "msg.tools.reloaded": "[tools] تم إعادة تحميل النظام بنجاح. تم تحديث جميع الأدوات بأحدث التعليمات البرمجية."
   },
   "sv": {
     "cmd.help.tools_list": "  :tools list [query]               Lista laddade verktyg, eventuellt filtrerade efter namn/beskrivning",
@@ -161,7 +176,8 @@
     "msg.tools.not_found": "[tools] Verktyg hittades inte: {name}",
     "cmd.help.tools_output": "  :tools output                     Växla visning av verktygsresultat",
     "msg.tools.output_state": "[tools] Verktygsutdatavisning: {state}",
-    "cmd.help.tools_reload": "  :tools reload                    Ladda om all verktygskod fran disken."
+    "cmd.help.tools_reload": "  :tools reload                    Ladda om all verktygskod fran disken.",
+    "msg.tools.reloaded": "[tools] Systemet har laddats om. Alla verktyg uppdaterade med senaste kod."
   },
   "sw": {
     "cmd.help.tools_list": "  :tools list [query]               Orodhesha zana zilizopakiwa, kwa hiari kuchujwa kwa jina/maelezo",
@@ -171,7 +187,8 @@
     "msg.tools.not_found": "[tools] Chombo hakijapatikana: {name}",
     "cmd.help.tools_output": "  :tools output                     Geuza onyesho la matokeo ya utekelezaji wa zana",
     "msg.tools.output_state": "[tools] Onyesho la matokeo ya zana: {state}",
-    "cmd.help.tools_reload": "  :tools reload                    Pakia upya msimbo wote wa zana kutoka kwa diski."
+    "cmd.help.tools_reload": "  :tools reload                    Pakia upya msimbo wote wa zana kutoka kwa diski.",
+    "msg.tools.reloaded": "[tools] Mfumo umepakiwa upya. Zana zote zimesasishwa na msimbo wa hivi punde."
   },
   "nb": {
     "cmd.help.tools_list": "  :tools list [query]               List innlastede verktøy, eventuelt filtrert etter navn/beskrivelse",
@@ -181,7 +198,8 @@
     "msg.tools.not_found": "[tools] Verktøy ikke funnet: {name}",
     "cmd.help.tools_output": "  :tools output                     Veksle visning av verktøyresultater",
     "msg.tools.output_state": "[tools] Verktøyutdatavisning: {state}",
-    "cmd.help.tools_reload": "  :tools reload                    Last inn alt verktoykoden fra disken pa nytt."
+    "cmd.help.tools_reload": "  :tools reload                    Last inn alt verktoykoden fra disken pa nytt.",
+    "msg.tools.reloaded": "[tools] Systemet ble lastet inn på nytt. Alle verktøy oppdatert med siste kode."
   },
   "nl": {
     "cmd.help.tools_list": "  :tools list [query]               Toon geladen tools, optioneel gefilterd op naam/beschrijving",
@@ -191,7 +209,8 @@
     "msg.tools.not_found": "[tools] Tool niet gevonden: {name}",
     "cmd.help.tools_output": "  :tools output                     Schakel weergave van toolresultaten",
     "msg.tools.output_state": "[tools] Tooluitvoerweergave: {state}",
-    "cmd.help.tools_reload": "  :tools reload                    Herlaad alle toolcode van de schijf."
+    "cmd.help.tools_reload": "  :tools reload                    Herlaad alle toolcode van de schijf.",
+    "msg.tools.reloaded": "[tools] Systeem is succesvol opnieuw geladen. Alle tools bijgewerkt met de nieuwste code."
   },
   "fi": {
     "cmd.help.tools_list": "  :tools list [query]               Listaa ladatut työkalut, valinnaisesti suodatettuna nimen/kuvauksen perusteella",
@@ -201,7 +220,8 @@
     "msg.tools.not_found": "[tools] Työkalua ei löydy: {name}",
     "cmd.help.tools_output": "  :tools output                     Vaihda työkalujen tulosten näyttöä",
     "msg.tools.output_state": "[tools] Työkalujen tulostusnäyttö: {state}",
-    "cmd.help.tools_reload": "  :tools reload                    Lataa kaikki tyokalukoodi uudelleen levylta."
+    "cmd.help.tools_reload": "  :tools reload                    Lataa kaikki tyokalukoodi uudelleen levylta.",
+    "msg.tools.reloaded": "[tools] Järjestelmän uudelleenlataus onnistui. Kaikki työkalut päivitetty uusimmalla koodilla."
   },
   "cs": {
     "cmd.help.tools_list": "  :tools list [query]               Seznam načtených nástrojů, volitelně filtrovaných podle názvu/popisu",
@@ -211,7 +231,8 @@
     "msg.tools.not_found": "[tools] Nástroj nenalezen: {name}",
     "cmd.help.tools_output": "  :tools output                     Přepnout zobrazení výsledků nástrojů",
     "msg.tools.output_state": "[tools] Zobrazení výstupu nástrojů: {state}",
-    "cmd.help.tools_reload": "  :tools reload                    Znovu nacist veskery kod nastroje z disku."
+    "cmd.help.tools_reload": "  :tools reload                    Znovu nacist veskery kod nastroje z disku.",
+    "msg.tools.reloaded": "[tools] Systém byl úspěšně znovu načten. Všechny nástroje aktualizovány nejnovějším kódem."
   },
   "uk": {
     "cmd.help.tools_list": "  :tools list [query]               Список завантажених інструментів, опціонально відфільтрованих за назвою/описом",
@@ -221,7 +242,8 @@
     "msg.tools.not_found": "[tools] Інструмент не знайдено: {name}",
     "cmd.help.tools_output": "  :tools output                     Перемкнути відображення результатів інструментів",
     "msg.tools.output_state": "[tools] Відображення виводу інструментів: {state}",
-    "cmd.help.tools_reload": "  :tools reload                    Pereavantazhyty ves kod instrumentu z dyska."
+    "cmd.help.tools_reload": "  :tools reload                    Pereavantazhyty ves kod instrumentu z dyska.",
+    "msg.tools.reloaded": "[tools] Систему успішно перезавантажено. Усі інструменти оновлено останнім кодом."
   },
   "tr": {
     "cmd.help.tools_list": "  :tools list [query]               Yüklenmiş araçları listele, isteğe bağlı olarak ad/açıklamaya göre filtrele",
@@ -231,7 +253,8 @@
     "msg.tools.not_found": "[tools] Araç bulunamadı: {name}",
     "cmd.help.tools_output": "  :tools output                     Araç yürütme sonuçlarının görüntülenmesini aç/kapat",
     "msg.tools.output_state": "[tools] Araç çıktı görüntüleme: {state}",
-    "cmd.help.tools_reload": "  :tools reload                    Diskteki tum arac kodlarini yeniden yukleyin."
+    "cmd.help.tools_reload": "  :tools reload                    Diskteki tum arac kodlarini yeniden yukleyin.",
+    "msg.tools.reloaded": "[tools] Sistem başarıyla yeniden yüklendi. Tüm araçlar en son kodla güncellendi."
   },
   "th": {
     "cmd.help.tools_list": "  :tools list [query]               แสดงรายการเครื่องมือที่โหลดแล้ว สามารถกรองตามชื่อ/คำอธิบายได้",
@@ -241,7 +264,8 @@
     "msg.tools.not_found": "[tools] ไม่พบเครื่องมือ: {name}",
     "cmd.help.tools_output": "  :tools output                     สลับการแสดงผลลัพธ์การทำงานของเครื่องมือ",
     "msg.tools.output_state": "[tools] การแสดงผลลัพธ์ของเครื่องมือ: {state}",
-    "cmd.help.tools_reload": "  :tools reload                    โหลดโค้ดเครื่องมือทั้งหมดจากดิสก์อีกครั้ง"
+    "cmd.help.tools_reload": "  :tools reload                    โหลดโค้ดเครื่องมือทั้งหมดจากดิสก์อีกครั้ง",
+    "msg.tools.reloaded": "[tools] โหลดระบบสำเร็จแล้ว เครื่องมือทั้งหมดอัปเดตด้วยรหัสล่าสุด"
   },
   "zh_CN": {
     "cmd.help.tools_list": "  :tools list [query]               列出已加载的工具，可选按名称/描述筛选",
@@ -251,7 +275,8 @@
     "msg.tools.not_found": "[tools] 未找到工具: {name}",
     "cmd.help.tools_output": "  :tools output                     切换工具执行结果的显示",
     "msg.tools.output_state": "[tools] 工具输出显示: {state}",
-    "cmd.help.tools_reload": "  :tools reload                    从磁盘重新加载所有工具代码。"
+    "cmd.help.tools_reload": "  :tools reload                    从磁盘重新加载所有工具代码。",
+    "msg.tools.reloaded": "[tools] 系统重新加载成功。所有工具均更新为最新代码。"
   },
   "zh_TW": {
     "cmd.help.tools_list": "  :tools list [query]               列出已載入的工具，可選按名稱/描述篩選",
@@ -261,7 +286,8 @@
     "msg.tools.not_found": "[tools] 找不到工具: {name}",
     "cmd.help.tools_output": "  :tools output                     切換工具執行結果的顯示",
     "msg.tools.output_state": "[tools] 工具輸出顯示: {state}",
-    "cmd.help.tools_reload": "  :tools reload                    從磁碟重新載入所有工具程式碼。"
+    "cmd.help.tools_reload": "  :tools reload                    從磁碟重新載入所有工具程式碼。",
+    "msg.tools.reloaded": "[tools] 系統重新載入成功。所有工具均更新為最新程式碼。"
   },
   "bn": {
     "cmd.help.tools_list": "  :tools list [query]               লোড করা টুলগুলি তালিকাভুক্ত করুন, ঐচ্ছিকভাবে নাম/বিবরণ অনুসারে ফিল্টার করুন",
@@ -271,7 +297,8 @@
     "msg.tools.not_found": "[tools] টুল পাওয়া যায়নি: {name}",
     "cmd.help.tools_output": "  :tools output                     টুল নির্বাহের ফলাফল প্রদর্শন টগল করুন",
     "msg.tools.output_state": "[tools] টুল আউটপুট প্রদর্শন: {state}",
-    "cmd.help.tools_reload": "  :tools reload                    ডিস্ক থেকে সমস্ত টুল কোড পুনরায় লোড করুন।"
+    "cmd.help.tools_reload": "  :tools reload                    ডিস্ক থেকে সমস্ত টুল কোড পুনরায় লোড করুন।",
+    "msg.tools.reloaded": "[tools] সিস্টেম সফলভাবে পুনরায় লোড হয়েছে। সমস্ত সরঞ্জাম সর্বশেষ কোড সহ আপডেট করা হয়েছে।"
   },
   "fa": {
     "cmd.help.tools_list": "  :tools list [query]               فهرست ابزارهای بارگذاری شده، به صورت اختیاری بر اساس نام/توضیح فیلتر شده",
@@ -281,7 +308,8 @@
     "msg.tools.not_found": "[tools] ابزار یافت نشد: {name}",
     "cmd.help.tools_output": "  :tools output                     تغییر نمایش نتایج اجرای ابزارها",
     "msg.tools.output_state": "[tools] نمایش خروجی ابزار: {state}",
-    "cmd.help.tools_reload": "  :tools reload                    بارگذاري مجدد تمام کد ابزار از ديسک."
+    "cmd.help.tools_reload": "  :tools reload                    بارگذاري مجدد تمام کد ابزار از ديسک.",
+    "msg.tools.reloaded": "[tools] سیستم با موفقیت بارگیری مجدد شد. همه ابزارها با آخرین کد به روز شده اند."
   },
   "mn": {
     "cmd.help.tools_list": "  :tools list [query]               Ачаалагдсан хэрэгслүүдийг жагсаах, нэр/тодорхойлолтоор шүүх боломжтой",
@@ -291,7 +319,8 @@
     "msg.tools.not_found": "[tools] Хэрэгсэл олдсонгүй: {name}",
     "cmd.help.tools_output": "  :tools output                     Хэрэгслийн гүйцэтгэлийн үр дүнг харуулахыг идэвх/идэвхгүй болгох",
     "msg.tools.output_state": "[tools] Хэрэгслийн гаралтын дэлгэц: {state}",
-    "cmd.help.tools_reload": "  :tools reload                    Дискээс бүх хэрэгслийн кодыг дахин ачаалах."
+    "cmd.help.tools_reload": "  :tools reload                    Дискээс бүх хэрэгслийн кодыг дахин ачаалах.",
+    "msg.tools.reloaded": "[tools] Системийг амжилттай дахин ачааллаа. Бүх хэрэгслийг хамгийн сүүлийн кодоор шинэчилсэн."
   },
   "mr": {
     "cmd.help.tools_list": "  :tools list [query]               लोड केलेली साधने यादी करा, वैकल्पिकरित्या नाव/वर्णनानुसार फिल्टर केलेले",
@@ -301,7 +330,8 @@
     "msg.tools.not_found": "[tools] साधन सापडले नाही: {name}",
     "cmd.help.tools_output": "  :tools output                     साधन अंमलबजावणी परिणाम प्रदर्शन टॉगल करा",
     "msg.tools.output_state": "[tools] साधन आउटपुट प्रदर्शन: {state}",
-    "cmd.help.tools_reload": "  :tools reload                    डिस्कवरून सर्व टूल कोड पुन्हा लोड करा."
+    "cmd.help.tools_reload": "  :tools reload                    डिस्कवरून सर्व टूल कोड पुन्हा लोड करा.",
+    "msg.tools.reloaded": "[tools] प्रणाली यशस्वीरित्या रीलोड झाली. सर्व साधने नवीनतम कोडसह अद्यतनित केली आहेत."
   },
   "el": {
     "cmd.help.tools_list": ":tools on comm Ενεργοποίηση εργαλείων επικοινωνίας (Ομάδες, Discord)\n  :tools on office Ενεργοποίηση εργαλείων του Office (Excel, Word, κ.λπ.)\n  :tools on devel Ενεργοποίηση εργαλείων ανάπτυξης (lint, py_compile, tests)\n  :tools on iot Ενεργοποίηση εργαλείων IoT (Bluetooth, κ.λπ.)",
@@ -311,7 +341,8 @@
     "msg.tools.not_found": "[εργαλεία] Δεν φορτώθηκαν εργαλεία.",
     "cmd.help.tools_output": "  :tools output                     Εναλλαγή εμφάνισης αποτελεσμάτων εργαλείων",
     "msg.tools.output_state": "[tools] Εμφάνιση εξόδου εργαλείου: {state}",
-    "cmd.help.tools_reload": "  :tools reload                    Επαναφορτωστε ολο τον κωδικα εργαλειου απο τον δισκο."
+    "cmd.help.tools_reload": "  :tools reload                    Επαναφορτωστε ολο τον κωδικα εργαλειου απο τον δισκο.",
+    "msg.tools.reloaded": "[tools] Το σύστημα επαναφορτώθηκε με επιτυχία. Όλα τα εργαλεία ενημερώθηκαν με τον πιο πρόσφατο κώδικα."
   },
   "he": {
     "cmd.help.tools_list": ":כלים ב-comm הפעל כלי תקשורת (צוותים, דיסקורד)\n  :tools on office הפעל כלי Office (Excel, Word וכו')\n  :tools on devel אפשר כלי פיתוח (lint, py_compile, tests)\n  :tools on iot הפעל כלי IoT (Bluetooth וכו')",
@@ -321,7 +352,8 @@
     "msg.tools.not_found": "[כלים] לא נטענו כלים.",
     "cmd.help.tools_output": "  :tools output                     החלף תצוגת תוצאות הפעלת כלים",
     "msg.tools.output_state": "[tools] תצוגת פלט כלים: {state}",
-    "cmd.help.tools_reload": "  :tools reload                    טען מחדש את כל קוד הכלי מהדיסק."
+    "cmd.help.tools_reload": "  :tools reload                    טען מחדש את כל קוד הכלי מהדיסק.",
+    "msg.tools.reloaded": "[tools] המערכת נטענה מחדש בהצלחה. כל הכלים מעודכנים בקוד העדכני ביותר."
   },
   "hu": {
     "cmd.help.tools_list": ":tools on comm Kommunikációs eszközök engedélyezése (Teams, Discord)\n  :tools on office Engedélyezze az Office-eszközöket (Excel, Word stb.)\n  :tools on devel Fejlesztői eszközök engedélyezése (lint, py_compile, tesztek)\n  :tools on iot IoT-eszközök engedélyezése (Bluetooth stb.)",
@@ -331,7 +363,8 @@
     "msg.tools.not_found": "[eszközök] Nincsenek betöltött eszközök.",
     "cmd.help.tools_output": "  :tools output                     Eszközök végrehajtási eredményeinek megjelenítésének váltása",
     "msg.tools.output_state": "[tools] Eszköz kimenet megjelenítése: {state}",
-    "cmd.help.tools_reload": "  :tools reload                    Az osszes eszkozkod ujratoltese a lemezrol."
+    "cmd.help.tools_reload": "  :tools reload                    Az osszes eszkozkod ujratoltese a lemezrol.",
+    "msg.tools.reloaded": "[tools] A rendszer újratöltése sikeresen megtörtént. Minden eszköz frissítve a legújabb kóddal."
   },
   "ro": {
     "cmd.help.tools_list": ":listă instrumente [interogare] Listează instrumentele încărcate, opțional filtrate după nume/descriere",
@@ -341,6 +374,7 @@
     "msg.tools.not_found": "[tools] Nu s-a încărcat unelte.",
     "cmd.help.tools_output": "  :tools output                     Comutarea afișării rezultatelor de execuție a instrumentelor",
     "msg.tools.output_state": "[tools] Afișare ieșire instrument: {state}",
-    "cmd.help.tools_reload": "  :tools reload                    Reincarcati tot codul instrumentului de pe disc."
+    "cmd.help.tools_reload": "  :tools reload                    Reincarcati tot codul instrumentului de pe disc.",
+    "msg.tools.reloaded": "[tools] Sistemul a fost reîncărcat cu succes. Toate instrumentele au fost actualizate cu cel mai recent cod."
   }
 }
