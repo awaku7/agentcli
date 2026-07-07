@@ -378,7 +378,7 @@ def _brave_search(
 # ------------------------------
 
 
-def _yahoo_search(
+def _yahoo_jp_search(
     query: str,
     max_results: int = DEFAULT_MAX_RESULTS,
     timeout_sec: int = DEFAULT_TIMEOUT_SEC,
@@ -430,11 +430,13 @@ def search_web(
     max_results: int = DEFAULT_MAX_RESULTS,
     engine: str = "duckduckgo",
 ) -> list[dict[str, str]]:
-    """Search the web using specified engine (duckduckgo, brave, or yahoo)."""
+    """Search the web using specified engine (duckduckgo, brave, or yahoo_jp)."""
     if engine == "brave":
         return _brave_search(query=query, max_results=max_results)
+    if engine == "yahoo_jp":
+        return _yahoo_jp_search(query=query, max_results=max_results)
     if engine == "yahoo":
-        return _yahoo_search(query=query, max_results=max_results)
+        return _yahoo_jp_search(query=query, max_results=max_results)
     return _duckduckgo_search(query=query, max_results=max_results)
 
 
@@ -494,9 +496,9 @@ TOOL_SPEC: dict[str, Any] = {
                     "type": "string",
                     "description": _(
                         "param.engine.description",
-                        default="Search engine: 'duckduckgo' (default), 'brave', or 'yahoo'.",
+                        default="Search engine: 'duckduckgo' (default), 'brave', 'yahoo', or 'yahoo_jp'.",
                     ),
-                    "enum": ["duckduckgo", "brave", "yahoo"],
+                    "enum": ["duckduckgo", "brave", "yahoo", "yahoo_jp"],
                 },
             },
             "required": ["query"],
@@ -533,7 +535,7 @@ def run_tool(args: dict[str, Any]) -> str:
             n = DEFAULT_MAX_RESULTS
 
         engine = args.get("engine", "duckduckgo")
-        if engine not in ("duckduckgo", "brave", "yahoo"):
+        if engine not in ("duckduckgo", "brave", "yahoo", "yahoo_jp"):
             engine = "duckduckgo"
 
         q_str = str(q)
@@ -567,7 +569,7 @@ def main() -> None:
     parser = argparse.ArgumentParser(description="Web search wrapper (DuckDuckGo / Brave)")
     parser.add_argument("query", help="Search query string")
     parser.add_argument("-n", "--number", type=int, default=DEFAULT_MAX_RESULTS, help="Max results (default: 5)")
-    parser.add_argument("--engine", choices=["duckduckgo", "brave", "yahoo"], default="duckduckgo", help="Search engine (default: duckduckgo)")
+    parser.add_argument("--engine", choices=["duckduckgo", "brave", "yahoo", "yahoo_jp"], default="duckduckgo", help="Search engine (default: duckduckgo)")
     args = parser.parse_args()
 
     try:
