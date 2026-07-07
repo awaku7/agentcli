@@ -435,6 +435,11 @@ def _startpage_search(
             if results:
                 _emit_debug(f"Found {len(results)} StartPage results")
                 return results
+            # CAPTCHA判定
+            if "captcha" in resp.url.lower():
+                raise RuntimeError(
+                    _("error.startpage_captcha", default="StartPage CAPTCHA triggered. Try again later or use a different engine.")
+                )
         except requests.RequestException as exc:
             last_exc = exc
             _emit_debug(f"StartPage request failed: {exc}")
@@ -444,7 +449,7 @@ def _startpage_search(
             break
 
     raise RuntimeError(
-        _("error.startpage_failed", default="StartPage search request failed: {error}").format(error=last_exc)
+        _("error.startpage_failed", default="StartPage search request failed: {error}").format(error=last_exc or "no results")
     )
 
 
@@ -504,7 +509,11 @@ def search_web(
     if engine == "brave":
         return _brave_search(query=query, max_results=max_results)
     if engine == "startpage":
-        return _startpage_search(query=query, max_results=max_results)
+        try:
+            return _startpage_search(query=query, max_results=max_results)
+        except Exception as e:
+            _emit_debug(f"StartPage failed ({e}), falling back to yahoo_jp")
+            return _yahoo_jp_search(query=query, max_results=max_results)
     if engine == "yahoo_jp":
         return _yahoo_jp_search(query=query, max_results=max_results)
     if engine == "yahoo":
@@ -606,9 +615,9 @@ def run_tool(args: dict[str, Any]) -> str:
         else:
             n = DEFAULT_MAX_RESULTS
 
-        engine = args.get("engine", "duckduckgo")
+        engine = args.get("engine", "startpage")
         if engine not in ("duckduckgo", "brave", "yahoo", "yahoo_jp", "startpage"):
-            engine = "duckduckgo"
+            engine = "startpage"
 
         q_str = str(q)
         results = search_web(q_str, n, engine)
