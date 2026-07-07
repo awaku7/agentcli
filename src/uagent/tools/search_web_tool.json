@@ -18,8 +18,9 @@
     "param.limit.description": "Maximum number of results to return (default: 5).",
     "error.brave_failed_after_retries": "Brave Search request failed after retries: {error}",
     "error.brave_429_with_api_hint": "Brave Search rate limited (429). Set environment variable UAGENT_BRAVE_API_KEY with a Brave Search API key (free tier available at https://brave.com/search/api/) to use the API instead of HTML scraping.",
-    "param.engine.description": "Search engine: 'duckduckgo' (default), 'brave', 'yahoo_jp', or 'yahoo' (alias for yahoo_jp).",
-    "error.yahoo_failed": "Yahoo Japan search request failed: {error}"
+    "param.engine.description": "Search engine: 'duckduckgo' (default), 'brave', 'yahoo_jp', 'startpage', or 'yahoo'.",
+    "error.yahoo_failed": "Yahoo Japan search request failed: {error}",
+    "error.startpage_failed": "StartPage search request failed: {error}"
   },
   "ja": {
     "error.args_must_be_dict": "argsはdictである必要があります",
@@ -41,8 +42,9 @@
     "param.limit.description": "返す最大件数（既定: 5）。",
     "error.brave_failed_after_retries": "Brave Search へのリクエストがリトライ後も失敗しました: {error}",
     "error.brave_429_with_api_hint": "Brave Search がレート制限されました (429)。環境変数 UAGENT_BRAVE_API_KEY に Brave Search API キーを設定してください（無料枠あり: https://brave.com/search/api/）。API を使用すると安定した検索が可能です。",
-    "param.engine.description": "検索エンジン: 'duckduckgo'（既定）, 'brave', 'yahoo_jp', または 'yahoo'（yahoo_jpの別名）。",
-    "error.yahoo_failed": "Yahoo Japan 検索リクエストが失敗しました: {error}"
+    "param.engine.description": "検索エンジン: 'duckduckgo'（既定）, 'brave', 'yahoo_jp', 'startpage', または 'yahoo'。",
+    "error.yahoo_failed": "Yahoo Japan 検索リクエストが失敗しました: {error}",
+    "error.startpage_failed": "StartPage 検索リクエストが失敗しました: {error}"
   },
   "es": {
     "error.args_must_be_dict": "deben ser un dictado",
@@ -66,8 +68,9 @@
     "param.limit.description": "Número máximo de resultados a devolver (predeterminado: 5).",
     "error.brave_failed_after_retries": "La solicitud a Brave Search falló después de reintentos: {error}",
     "error.brave_429_with_api_hint": "Límite de tasa de Brave Search excedido (429). Configure la variable de entorno UAGENT_BRAVE_API_KEY con una clave API de Brave Search (nivel gratuito disponible en https://brave.com/search/api/) para usar la API en lugar del scraping HTML.",
-    "param.engine.description": "Search engine: 'duckduckgo' (default), 'brave', 'yahoo_jp', or 'yahoo'.",
-    "error.yahoo_failed": "Yahoo Japan search request failed: {error}"
+    "param.engine.description": "Search engine: 'duckduckgo' (default), 'brave', 'yahoo_jp', 'startpage', or 'yahoo'.",
+    "error.yahoo_failed": "Yahoo Japan search request failed: {error}",
+    "error.startpage_failed": "StartPage search request failed: {error}"
   },
   "fr": {
     "error.args_must_be_dict": "doivent être une requête de recherche",
@@ -91,8 +94,9 @@
     "param.limit.description": "Nombre maximum de résultats à retourner (par défaut : 5).",
     "error.brave_failed_after_retries": "La requête Brave Search a échoué après plusieurs tentatives : {error}",
     "error.brave_429_with_api_hint": "Limite de débit Brave Search dépassée (429). Définissez la variable d'environnement UAGENT_BRAVE_API_KEY avec une clé API Brave Search (offre gratuite disponible sur https://brave.com/search/api/) pour utiliser l'API au lieu du scraping HTML.",
-    "param.engine.description": "Search engine: 'duckduckgo' (default), 'brave', 'yahoo_jp', or 'yahoo'.",
-    "error.yahoo_failed": "Yahoo Japan search request failed: {error}"
+    "param.engine.description": "Search engine: 'duckduckgo' (default), 'brave', 'yahoo_jp', 'startpage', or 'yahoo'.",
+    "error.yahoo_failed": "Yahoo Japan search request failed: {error}",
+    "error.startpage_failed": "StartPage search request failed: {error}"
   },
   "ko": {
     "error.args_must_be_dict": "args는 딕셔너리여야 합니다",
@@ -116,8 +120,9 @@
     "param.limit.description": "반환할 최대 결과 수(기본값: 5)",
     "error.brave_failed_after_retries": "Brave Search 요청이 재시도 후 실패했습니다: {error}",
     "error.brave_429_with_api_hint": "Brave Search 요청 한도 초과 (429). 환경 변수 UAGENT_BRAVE_API_KEY에 Brave Search API 키를 설정하세요 (무료 티어: https://brave.com/search/api/). HTML 스크래핑 대신 API를 사용할 수 있습니다.",
-    "param.engine.description": "Search engine: 'duckduckgo' (default), 'brave', 'yahoo_jp', or 'yahoo'.",
-    "error.yahoo_failed": "Yahoo Japan search request failed: {error}"
+    "param.engine.description": "Search engine: 'duckduckgo' (default), 'brave', 'yahoo_jp', 'startpage', or 'yahoo'.",
+    "error.yahoo_failed": "Yahoo Japan search request failed: {error}",
+    "error.startpage_failed": "StartPage search request failed: {error}"
   },
   "de": {
     "error.args_must_be_dict": "Argumente müssen ein Diktat sein.",
@@ -141,8 +146,9 @@
     "param.limit.description": "Maximale Anzahl der zurückzugebenden Ergebnisse (Standard: 5).",
     "error.brave_failed_after_retries": "Brave Search-Anfrage nach Wiederholungen fehlgeschlagen: {error}",
     "error.brave_429_with_api_hint": "Brave Search-Ratenlimit erreicht (429). Setzen Sie die Umgebungsvariable UAGENT_BRAVE_API_KEY mit einem Brave Search API-Schlüssel (kostenlose Stufe verfügbar unter https://brave.com/search/api/), um die API anstelle von HTML-Scraping zu verwenden.",
-    "param.engine.description": "Search engine: 'duckduckgo' (default), 'brave', 'yahoo_jp', or 'yahoo'.",
-    "error.yahoo_failed": "Yahoo Japan search request failed: {error}"
+    "param.engine.description": "Search engine: 'duckduckgo' (default), 'brave', 'yahoo_jp', 'startpage', or 'yahoo'.",
+    "error.yahoo_failed": "Yahoo Japan search request failed: {error}",
+    "error.startpage_failed": "StartPage search request failed: {error}"
   },
   "it": {
     "error.args_must_be_dict": "args deve essere una query di ricerca dict",
@@ -166,8 +172,9 @@
     "param.limit.description": "Numero massimo di risultati da restituire (predefinito: 5).",
     "error.brave_failed_after_retries": "Richiesta Brave Search fallita dopo i tentativi: {error}",
     "error.brave_429_with_api_hint": "Limite di frequenza Brave Search superato (429). Imposta la variabile d'ambiente UAGENT_BRAVE_API_KEY con una chiave API Brave Search (piano gratuito disponibile su https://brave.com/search/api/) per utilizzare l'API invece dello scraping HTML.",
-    "param.engine.description": "Search engine: 'duckduckgo' (default), 'brave', 'yahoo_jp', or 'yahoo'.",
-    "error.yahoo_failed": "Yahoo Japan search request failed: {error}"
+    "param.engine.description": "Search engine: 'duckduckgo' (default), 'brave', 'yahoo_jp', 'startpage', or 'yahoo'.",
+    "error.yahoo_failed": "Yahoo Japan search request failed: {error}",
+    "error.startpage_failed": "StartPage search request failed: {error}"
   },
   "ru": {
     "error.args_must_be_dict": "аргументы должны быть dict",
@@ -191,8 +198,9 @@
     "param.limit.description": "Максимальное количество возвращаемых результатов (по умолчанию: 5).",
     "error.brave_failed_after_retries": "Запрос к Brave Search не удался после повторных попыток: {error}",
     "error.brave_429_with_api_hint": "Превышен лимит запросов Brave Search (429). Установите переменную окружения UAGENT_BRAVE_API_KEY с ключом API Brave Search (бесплатный уровень доступен на https://brave.com/search/api/) для использования API вместо парсинга HTML.",
-    "param.engine.description": "Search engine: 'duckduckgo' (default), 'brave', 'yahoo_jp', or 'yahoo'.",
-    "error.yahoo_failed": "Yahoo Japan search request failed: {error}"
+    "param.engine.description": "Search engine: 'duckduckgo' (default), 'brave', 'yahoo_jp', 'startpage', or 'yahoo'.",
+    "error.yahoo_failed": "Yahoo Japan search request failed: {error}",
+    "error.startpage_failed": "StartPage search request failed: {error}"
   },
   "pt_BR": {
     "error.args_must_be_dict": "args deve ser um dict",
@@ -216,8 +224,9 @@
     "param.limit.description": "Número máximo de resultados a retornar (padrão: 5).",
     "error.brave_failed_after_retries": "A solicitação ao Brave Search falhou após tentativas: {error}",
     "error.brave_429_with_api_hint": "Limite de taxa do Brave Search excedido (429). Defina a variável de ambiente UAGENT_BRAVE_API_KEY com uma chave de API do Brave Search (nível gratuito disponível em https://brave.com/search/api/) para usar a API em vez de scraping HTML.",
-    "param.engine.description": "Search engine: 'duckduckgo' (default), 'brave', 'yahoo_jp', or 'yahoo'.",
-    "error.yahoo_failed": "Yahoo Japan search request failed: {error}"
+    "param.engine.description": "Search engine: 'duckduckgo' (default), 'brave', 'yahoo_jp', 'startpage', or 'yahoo'.",
+    "error.yahoo_failed": "Yahoo Japan search request failed: {error}",
+    "error.startpage_failed": "StartPage search request failed: {error}"
   },
   "pt": {
     "error.args_must_be_dict": "args deve ser um dict",
@@ -241,8 +250,9 @@
     "param.limit.description": "Número máximo de resultados a serem retornados (padrão: 5).",
     "error.brave_failed_after_retries": "O pedido ao Brave Search falhou após tentativas: {error}",
     "error.brave_429_with_api_hint": "Limite de taxa do Brave Search excedido (429). Defina a variável de ambiente UAGENT_BRAVE_API_KEY com uma chave API do Brave Search (nível gratuito disponível em https://brave.com/search/api/) para usar a API em vez de scraping HTML.",
-    "param.engine.description": "Search engine: 'duckduckgo' (default), 'brave', 'yahoo_jp', or 'yahoo'.",
-    "error.yahoo_failed": "Yahoo Japan search request failed: {error}"
+    "param.engine.description": "Search engine: 'duckduckgo' (default), 'brave', 'yahoo_jp', 'startpage', or 'yahoo'.",
+    "error.yahoo_failed": "Yahoo Japan search request failed: {error}",
+    "error.startpage_failed": "StartPage search request failed: {error}"
   },
   "id": {
     "error.args_must_be_dict": "argumen harus berupa dict",
@@ -266,8 +276,9 @@
     "param.limit.description": "Jumlah maksimum hasil yang dikembalikan (default: 5).",
     "error.brave_failed_after_retries": "Permintaan Brave Search gagal setelah percobaan ulang: {error}",
     "error.brave_429_with_api_hint": "Brave Search dibatasi kecepatannya (429). Atur variabel lingkungan UAGENT_BRAVE_API_KEY dengan kunci API Brave Search (tingkat gratis tersedia di https://brave.com/search/api/) untuk menggunakan API sebagai pengganti scraping HTML.",
-    "param.engine.description": "Search engine: 'duckduckgo' (default), 'brave', 'yahoo_jp', or 'yahoo'.",
-    "error.yahoo_failed": "Yahoo Japan search request failed: {error}"
+    "param.engine.description": "Search engine: 'duckduckgo' (default), 'brave', 'yahoo_jp', 'startpage', or 'yahoo'.",
+    "error.yahoo_failed": "Yahoo Japan search request failed: {error}",
+    "error.startpage_failed": "StartPage search request failed: {error}"
   },
   "vi": {
     "error.args_must_be_dict": "đối số phải là một lệnh",
@@ -291,8 +302,9 @@
     "param.limit.description": "Số kết quả trả về tối đa (mặc định: 5).",
     "error.brave_failed_after_retries": "Yêu cầu Brave Search thất bại sau khi thử lại: {error}",
     "error.brave_429_with_api_hint": "Brave Search bị giới hạn tần suất (429). Đặt biến môi trường UAGENT_BRAVE_API_KEY với khóa API Brave Search (gói miễn phí tại https://brave.com/search/api/) để sử dụng API thay vì quét HTML.",
-    "param.engine.description": "Search engine: 'duckduckgo' (default), 'brave', 'yahoo_jp', or 'yahoo'.",
-    "error.yahoo_failed": "Yahoo Japan search request failed: {error}"
+    "param.engine.description": "Search engine: 'duckduckgo' (default), 'brave', 'yahoo_jp', 'startpage', or 'yahoo'.",
+    "error.yahoo_failed": "Yahoo Japan search request failed: {error}",
+    "error.startpage_failed": "StartPage search request failed: {error}"
   },
   "pl": {
     "error.args_must_be_dict": "args musi być dict",
@@ -316,8 +328,9 @@
     "param.limit.description": "Maksymalna liczba zwracanych wyników (domyślnie: 5).",
     "error.brave_failed_after_retries": "Żądanie Brave Search nie powiodło się po ponownych próbach: {error}",
     "error.brave_429_with_api_hint": "Ograniczenie liczby żądań Brave Search (429). Ustaw zmienną środowiskową UAGENT_BRAVE_API_KEY z kluczem API Brave Search (darmowy poziom dostępny na https://brave.com/search/api/), aby użyć API zamiast skrobania HTML.",
-    "param.engine.description": "Search engine: 'duckduckgo' (default), 'brave', 'yahoo_jp', or 'yahoo'.",
-    "error.yahoo_failed": "Yahoo Japan search request failed: {error}"
+    "param.engine.description": "Search engine: 'duckduckgo' (default), 'brave', 'yahoo_jp', 'startpage', or 'yahoo'.",
+    "error.yahoo_failed": "Yahoo Japan search request failed: {error}",
+    "error.startpage_failed": "StartPage search request failed: {error}"
   },
   "hi": {
     "error.args_must_be_dict": "args एक निर्देश होना चाहिए",
@@ -341,8 +354,9 @@
     "param.limit.description": "लौटने के लिए परिणामों की अधिकतम संख्या (डिफ़ॉल्ट: 5)।",
     "error.brave_failed_after_retries": "पुनः प्रयास के बाद Brave Search अनुरोध विफल रहा: {error}",
     "error.brave_429_with_api_hint": "Brave Search दर सीमित (429)। HTML स्क्रैपिंग के बजाय एपीआई का उपयोग करने के लिए Brave Search API कुंजी (https://brave.com/search/api/ पर मुफ्त टियर उपलब्ध) के साथ पर्यावरण चर UAGENT_BRAVE_API_KEY सेट करें।",
-    "param.engine.description": "Search engine: 'duckduckgo' (default), 'brave', 'yahoo_jp', or 'yahoo'.",
-    "error.yahoo_failed": "Yahoo Japan search request failed: {error}"
+    "param.engine.description": "Search engine: 'duckduckgo' (default), 'brave', 'yahoo_jp', 'startpage', or 'yahoo'.",
+    "error.yahoo_failed": "Yahoo Japan search request failed: {error}",
+    "error.startpage_failed": "StartPage search request failed: {error}"
   },
   "ar": {
     "error.args_must_be_dict": "يجب أن تكون الوسائط بمثابة إملاء",
@@ -366,8 +380,9 @@
     "param.limit.description": "الحد الأقصى لعدد النتائج المراد إرجاعها (الافتراضي: 5).",
     "error.brave_failed_after_retries": "فشل طلب Brave Search بعد إعادة المحاولة: {error}",
     "error.brave_429_with_api_hint": "معدل Brave Search محدود (429). قم بتعيين متغير البيئة UAGENT_BRAVE_API_KEY باستخدام مفتاح Brave Search API (الطبقة المجانية المتوفرة على https://brave.com/search/api/) لاستخدام API بدلاً من تجريف HTML.",
-    "param.engine.description": "Search engine: 'duckduckgo' (default), 'brave', 'yahoo_jp', or 'yahoo'.",
-    "error.yahoo_failed": "Yahoo Japan search request failed: {error}"
+    "param.engine.description": "Search engine: 'duckduckgo' (default), 'brave', 'yahoo_jp', 'startpage', or 'yahoo'.",
+    "error.yahoo_failed": "Yahoo Japan search request failed: {error}",
+    "error.startpage_failed": "StartPage search request failed: {error}"
   },
   "sv": {
     "error.args_must_be_dict": "args måste vara en dict",
@@ -391,8 +406,9 @@
     "param.limit.description": "Maximalt antal resultat att returnera (standard: 5).",
     "error.brave_failed_after_retries": "Brave Search-begäran misslyckades efter försök: {error}",
     "error.brave_429_with_api_hint": "Brave Search-begränsning (429). Ställ in miljövariabeln UAGENT_BRAVE_API_KEY med en Brave Search API-nyckel (gratis nivå tillgänglig på https://brave.com/search/api/) för att använda API:t istället för HTML-skrapning.",
-    "param.engine.description": "Search engine: 'duckduckgo' (default), 'brave', 'yahoo_jp', or 'yahoo'.",
-    "error.yahoo_failed": "Yahoo Japan search request failed: {error}"
+    "param.engine.description": "Search engine: 'duckduckgo' (default), 'brave', 'yahoo_jp', 'startpage', or 'yahoo'.",
+    "error.yahoo_failed": "Yahoo Japan search request failed: {error}",
+    "error.startpage_failed": "StartPage search request failed: {error}"
   },
   "sw": {
     "error.args_must_be_dict": "args lazima iwe dict",
@@ -416,8 +432,9 @@
     "param.limit.description": "Idadi ya juu zaidi ya matokeo ya kurejesha (chaguo-msingi: 5).",
     "error.brave_failed_after_retries": "Ombi la Brave Search halikufaulu baada ya kujaribu tena: {error}",
     "error.brave_429_with_api_hint": "Kiwango cha Brave Search kimezuiwa (429). Weka kigezo cha mazingira UAGENT_BRAVE_API_KEY kwa kutumia ufunguo wa API ya Brave Search (ngao ya bure inapatikana kwenye https://brave.com/search/api/) ili kutumia API badala ya kufuta HTML.",
-    "param.engine.description": "Search engine: 'duckduckgo' (default), 'brave', 'yahoo_jp', or 'yahoo'.",
-    "error.yahoo_failed": "Yahoo Japan search request failed: {error}"
+    "param.engine.description": "Search engine: 'duckduckgo' (default), 'brave', 'yahoo_jp', 'startpage', or 'yahoo'.",
+    "error.yahoo_failed": "Yahoo Japan search request failed: {error}",
+    "error.startpage_failed": "StartPage search request failed: {error}"
   },
   "nb": {
     "error.args_must_be_dict": "args må være en dict",
@@ -441,8 +458,9 @@
     "param.limit.description": "Maksimalt antall resultater å returnere (standard: 5).",
     "error.brave_failed_after_retries": "Brave Search-forespørsel mislyktes etter forsøk: {error}",
     "error.brave_429_with_api_hint": "Brave Search-frekvensbegrensning (429). Angi miljøvariabelen UAGENT_BRAVE_API_KEY med en Brave Search API-nøkkel (gratis nivå tilgjengelig på https://brave.com/search/api/) for å bruke API i stedet for HTML-skraping.",
-    "param.engine.description": "Search engine: 'duckduckgo' (default), 'brave', 'yahoo_jp', or 'yahoo'.",
-    "error.yahoo_failed": "Yahoo Japan search request failed: {error}"
+    "param.engine.description": "Search engine: 'duckduckgo' (default), 'brave', 'yahoo_jp', 'startpage', or 'yahoo'.",
+    "error.yahoo_failed": "Yahoo Japan search request failed: {error}",
+    "error.startpage_failed": "StartPage search request failed: {error}"
   },
   "nl": {
     "error.args_must_be_dict": "args moeten een dictaat zijn",
@@ -466,8 +484,9 @@
     "param.limit.description": "Maximaal aantal resultaten dat moet worden geretourneerd (standaard: 5).",
     "error.brave_failed_after_retries": "Brave Search-verzoek mislukt na nieuwe pogingen: {error}",
     "error.brave_429_with_api_hint": "Brave Search-snelheid beperkt (429). Stel de omgevingsvariabele UAGENT_BRAVE_API_KEY in met een Brave Search API-sleutel (gratis laag beschikbaar op https://brave.com/search/api/) om de API te gebruiken in plaats van HTML-scraping.",
-    "param.engine.description": "Search engine: 'duckduckgo' (default), 'brave', 'yahoo_jp', or 'yahoo'.",
-    "error.yahoo_failed": "Yahoo Japan search request failed: {error}"
+    "param.engine.description": "Search engine: 'duckduckgo' (default), 'brave', 'yahoo_jp', 'startpage', or 'yahoo'.",
+    "error.yahoo_failed": "Yahoo Japan search request failed: {error}",
+    "error.startpage_failed": "StartPage search request failed: {error}"
   },
   "fi": {
     "error.args_must_be_dict": "argin on oltava sanelu",
@@ -491,8 +510,9 @@
     "param.limit.description": "Palautettavien tulosten enimmäismäärä (oletus: 5).",
     "error.brave_failed_after_retries": "Brave Search -pyyntö epäonnistui uudelleenyritysten jälkeen: {error}",
     "error.brave_429_with_api_hint": "Brave Search -nopeusrajoitettu (429). Aseta ympäristömuuttuja UAGENT_BRAVE_API_KEY Brave Search API -avaimella (ilmainen taso saatavilla osoitteessa https://brave.com/search/api/) käyttämään API:a HTML-kaavinnan sijaan.",
-    "param.engine.description": "Search engine: 'duckduckgo' (default), 'brave', 'yahoo_jp', or 'yahoo'.",
-    "error.yahoo_failed": "Yahoo Japan search request failed: {error}"
+    "param.engine.description": "Search engine: 'duckduckgo' (default), 'brave', 'yahoo_jp', 'startpage', or 'yahoo'.",
+    "error.yahoo_failed": "Yahoo Japan search request failed: {error}",
+    "error.startpage_failed": "StartPage search request failed: {error}"
   },
   "cs": {
     "error.args_must_be_dict": "args musí být dict",
@@ -516,8 +536,9 @@
     "param.limit.description": "Maximální počet vracených výsledků (výchozí: 5).",
     "error.brave_failed_after_retries": "Požadavek Brave Search selhal po opakovaných pokusech: {error}",
     "error.brave_429_with_api_hint": "Brave Search rate limited (429). Nastavte proměnnou prostředí UAGENT_BRAVE_API_KEY s klíčem Brave Search API (bezplatná úroveň dostupná na https://brave.com/search/api/), aby se místo scrapování HTML používalo API.",
-    "param.engine.description": "Search engine: 'duckduckgo' (default), 'brave', 'yahoo_jp', or 'yahoo'.",
-    "error.yahoo_failed": "Yahoo Japan search request failed: {error}"
+    "param.engine.description": "Search engine: 'duckduckgo' (default), 'brave', 'yahoo_jp', 'startpage', or 'yahoo'.",
+    "error.yahoo_failed": "Yahoo Japan search request failed: {error}",
+    "error.startpage_failed": "StartPage search request failed: {error}"
   },
   "uk": {
     "error.args_must_be_dict": "args має бути dict",
@@ -541,8 +562,9 @@
     "param.limit.description": "Максимальна кількість результатів для повернення (за замовчуванням: 5).",
     "error.brave_failed_after_retries": "Запит Brave Search не вдався після повторних спроб: {error}",
     "error.brave_429_with_api_hint": "Brave Search обмеження частоти (429). Встановіть змінну середовища UAGENT_BRAVE_API_KEY за допомогою ключа Brave Search API (безкоштовний рівень доступний на https://brave.com/search/api/), щоб використовувати API замість скрапінгу HTML.",
-    "param.engine.description": "Search engine: 'duckduckgo' (default), 'brave', 'yahoo_jp', or 'yahoo'.",
-    "error.yahoo_failed": "Yahoo Japan search request failed: {error}"
+    "param.engine.description": "Search engine: 'duckduckgo' (default), 'brave', 'yahoo_jp', 'startpage', or 'yahoo'.",
+    "error.yahoo_failed": "Yahoo Japan search request failed: {error}",
+    "error.startpage_failed": "StartPage search request failed: {error}"
   },
   "tr": {
     "error.args_must_be_dict": "bağımsız değişkenler bir dikte olmalıdır",
@@ -566,8 +588,9 @@
     "param.limit.description": "Döndürülecek maksimum sonuç sayısı (varsayılan: 5).",
     "error.brave_failed_after_retries": "Brave Search isteği yeniden denemelerden sonra başarısız oldu: {error}",
     "error.brave_429_with_api_hint": "Brave Search hız sınırı (429). HTML kazıma yerine API'yi kullanmak için UAGENT_BRAVE_API_KEY ortam değişkenini bir Brave Search API anahtarıyla (ücretsiz katman https://brave.com/search/api/ adresinde mevcuttur) ayarlayın.",
-    "param.engine.description": "Search engine: 'duckduckgo' (default), 'brave', 'yahoo_jp', or 'yahoo'.",
-    "error.yahoo_failed": "Yahoo Japan search request failed: {error}"
+    "param.engine.description": "Search engine: 'duckduckgo' (default), 'brave', 'yahoo_jp', 'startpage', or 'yahoo'.",
+    "error.yahoo_failed": "Yahoo Japan search request failed: {error}",
+    "error.startpage_failed": "StartPage search request failed: {error}"
   },
   "th": {
     "error.args_must_be_dict": "args ต้องเป็น dict",
@@ -591,8 +614,9 @@
     "param.limit.description": "จำนวนผลลัพธ์สูงสุดที่จะส่งคืน (ค่าเริ่มต้น: 5)",
     "error.brave_failed_after_retries": "คำขอ Brave Search ล้มเหลวหลังจากลองอีกครั้ง: {error}",
     "error.brave_429_with_api_hint": "Brave Search ถูกจำกัดอัตราการใช้ (429) ตั้งค่าตัวแปรสภาพแวดล้อม UAGENT_BRAVE_API_KEY ด้วยคีย์ API ของ Brave Search (มีบริการฟรีที่ https://brave.com/search/api/) เพื่อใช้ API แทนการขูดข้อมูล HTML",
-    "param.engine.description": "Search engine: 'duckduckgo' (default), 'brave', 'yahoo_jp', or 'yahoo'.",
-    "error.yahoo_failed": "Yahoo Japan search request failed: {error}"
+    "param.engine.description": "Search engine: 'duckduckgo' (default), 'brave', 'yahoo_jp', 'startpage', or 'yahoo'.",
+    "error.yahoo_failed": "Yahoo Japan search request failed: {error}",
+    "error.startpage_failed": "StartPage search request failed: {error}"
   },
   "zh_CN": {
     "error.args_must_be_dict": "args 必须是一个字典",
@@ -616,8 +640,9 @@
     "param.limit.description": "返回结果的最大数量（默认值：5）。",
     "error.brave_failed_after_retries": "Brave Search 请求重试后失败: {error}",
     "error.brave_429_with_api_hint": "Brave Search 请求频率受限 (429)。请设置环境变量 UAGENT_BRAVE_API_KEY，填入 Brave Search API 密钥（免费额度: https://brave.com/search/api/）以使用 API 而非 HTML 抓取。",
-    "param.engine.description": "Search engine: 'duckduckgo' (default), 'brave', 'yahoo_jp', or 'yahoo'.",
-    "error.yahoo_failed": "Yahoo Japan search request failed: {error}"
+    "param.engine.description": "Search engine: 'duckduckgo' (default), 'brave', 'yahoo_jp', 'startpage', or 'yahoo'.",
+    "error.yahoo_failed": "Yahoo Japan search request failed: {error}",
+    "error.startpage_failed": "StartPage search request failed: {error}"
   },
   "zh_TW": {
     "error.args_must_be_dict": "args 必須是字典",
@@ -641,8 +666,9 @@
     "param.limit.description": "傳回結果的最大數量（預設值：5）。",
     "error.brave_failed_after_retries": "Brave Search 請求重試後失敗: {error}",
     "error.brave_429_with_api_hint": "Brave Search 請求頻率受限 (429)。請設定環境變數 UAGENT_BRAVE_API_KEY，填入 Brave Search API 金鑰（免費額度: https://brave.com/search/api/）以使用 API 而非 HTML 抓取。",
-    "param.engine.description": "Search engine: 'duckduckgo' (default), 'brave', 'yahoo_jp', or 'yahoo'.",
-    "error.yahoo_failed": "Yahoo Japan search request failed: {error}"
+    "param.engine.description": "Search engine: 'duckduckgo' (default), 'brave', 'yahoo_jp', 'startpage', or 'yahoo'.",
+    "error.yahoo_failed": "Yahoo Japan search request failed: {error}",
+    "error.startpage_failed": "StartPage search request failed: {error}"
   },
   "bn": {
     "error.args_must_be_dict": "args অবশ্যই একটি dict হতে হবে",
@@ -666,8 +692,9 @@
     "param.limit.description": "ফেরত দেওয়ার সর্বোচ্চ ফলাফলের সংখ্যা (ডিফল্ট: 5)।",
     "error.brave_failed_after_retries": "পুনরায় চেষ্টা করার পরে Brave Search অনুরোধ ব্যর্থ হয়েছে: {error}",
     "error.brave_429_with_api_hint": "Brave Search হার সীমিত (429)। HTML স্ক্র্যাপিংয়ের পরিবর্তে API ব্যবহার করার জন্য Brave Search API কী (https://brave.com/search/api/-এ বিনামূল্যের স্তর উপলব্ধ) সহ পরিবেশ চলক UAGENT_BRAVE_API_KEY সেট করুন।",
-    "param.engine.description": "Search engine: 'duckduckgo' (default), 'brave', 'yahoo_jp', or 'yahoo'.",
-    "error.yahoo_failed": "Yahoo Japan search request failed: {error}"
+    "param.engine.description": "Search engine: 'duckduckgo' (default), 'brave', 'yahoo_jp', 'startpage', or 'yahoo'.",
+    "error.yahoo_failed": "Yahoo Japan search request failed: {error}",
+    "error.startpage_failed": "StartPage search request failed: {error}"
   },
   "fa": {
     "error.args_must_be_dict": "باید دیکته باشند",
@@ -691,8 +718,9 @@
     "param.limit.description": "حداکثر تعداد نتایج برای بازگشت (پیش‌فرض: 5).",
     "error.brave_failed_after_retries": "درخواست Brave Search پس از تلاش مجدد ناموفق بود: {error}",
     "error.brave_429_with_api_hint": "میزان Brave Search محدود (429). متغیر محیطی UAGENT_BRAVE_API_KEY را با کلید Brave Search API (سطح رایگان موجود در https://brave.com/search/api/) تنظیم کنید تا از API به جای اسکرپینگ HTML استفاده کنید.",
-    "param.engine.description": "Search engine: 'duckduckgo' (default), 'brave', 'yahoo_jp', or 'yahoo'.",
-    "error.yahoo_failed": "Yahoo Japan search request failed: {error}"
+    "param.engine.description": "Search engine: 'duckduckgo' (default), 'brave', 'yahoo_jp', 'startpage', or 'yahoo'.",
+    "error.yahoo_failed": "Yahoo Japan search request failed: {error}",
+    "error.startpage_failed": "StartPage search request failed: {error}"
   },
   "mn": {
     "error.args_must_be_dict": "args нь dict байх ёстой",
@@ -716,8 +744,9 @@
     "param.limit.description": "Буцаах үр дүнгийн дээд тоо (анхдагч: 5).",
     "error.brave_failed_after_retries": "Дахин оролдсоны дараа Brave Search хүсэлт амжилтгүй боллоо: {error}",
     "error.brave_429_with_api_hint": "Brave Search хурдны хязгаарлалт (429). HTML хусахаас илүү API ашиглахын тулд UAGENT_BRAVE_API_KEY орчны хувьсагчийг Brave Search API түлхүүрээр (үнэгүй түвшин https://brave.com/search/api/ дээр байна) тохируулна уу.",
-    "param.engine.description": "Search engine: 'duckduckgo' (default), 'brave', 'yahoo_jp', or 'yahoo'.",
-    "error.yahoo_failed": "Yahoo Japan search request failed: {error}"
+    "param.engine.description": "Search engine: 'duckduckgo' (default), 'brave', 'yahoo_jp', 'startpage', or 'yahoo'.",
+    "error.yahoo_failed": "Yahoo Japan search request failed: {error}",
+    "error.startpage_failed": "StartPage search request failed: {error}"
   },
   "mr": {
     "error.args_must_be_dict": "args एक dict असणे आवश्यक आहे",
@@ -741,8 +770,9 @@
     "param.limit.description": "परत करायच्या परिणामांची कमाल संख्या (डीफॉल्ट: 5).",
     "error.brave_failed_after_retries": "प्रयत्नांनंतर Brave Search विनंती अयशस्वी झाली: {error}",
     "error.brave_429_with_api_hint": "Brave Search दर मर्यादित (429). HTML स्क्रॅपिंगऐवजी API वापरण्यासाठी Brave Search API की (https://brave.com/search/api/ येथे मोफत टियर उपलब्ध) सह पर्यावरण व्हेरिएबल UAGENT_BRAVE_API_KEY सेट करा.",
-    "param.engine.description": "Search engine: 'duckduckgo' (default), 'brave', 'yahoo_jp', or 'yahoo'.",
-    "error.yahoo_failed": "Yahoo Japan search request failed: {error}"
+    "param.engine.description": "Search engine: 'duckduckgo' (default), 'brave', 'yahoo_jp', 'startpage', or 'yahoo'.",
+    "error.yahoo_failed": "Yahoo Japan search request failed: {error}",
+    "error.startpage_failed": "StartPage search request failed: {error}"
   },
   "el": {
     "error.args_must_be_dict": "Το args πρέπει να είναι μια εντολή",
@@ -766,8 +796,9 @@
     "param.limit.description": "Διαχειριστείτε τοπικά μυστικά χρησιμοποιώντας συμμετρικό κλειδί στον κατάλογο καταστάσεων uagent.",
     "error.brave_failed_after_retries": "Το αίτημα Brave Search απέτυχε μετά από επαναλήψεις: {error}",
     "error.brave_429_with_api_hint": "Brave Search περιορισμός ρυθμού (429). Ορίστε τη μεταβλητή περιβάλλοντος UAGENT_BRAVE_API_KEY με ένα κλειδί Brave Search API (δωρεάν επίπεδο διαθέσιμο στη διεύθυνση https://brave.com/search/api/) για να χρησιμοποιήσετε το API αντί για HTML scraping.",
-    "param.engine.description": "Search engine: 'duckduckgo' (default), 'brave', 'yahoo_jp', or 'yahoo'.",
-    "error.yahoo_failed": "Yahoo Japan search request failed: {error}"
+    "param.engine.description": "Search engine: 'duckduckgo' (default), 'brave', 'yahoo_jp', 'startpage', or 'yahoo'.",
+    "error.yahoo_failed": "Yahoo Japan search request failed: {error}",
+    "error.startpage_failed": "StartPage search request failed: {error}"
   },
   "he": {
     "error.args_must_be_dict": "שורש חיפוש (ברירת מחדל: cwd).",
@@ -791,8 +822,9 @@
     "param.limit.description": "נהל סודות מקומיים באמצעות מפתח סימטרי בספריית המצב של uagent.",
     "error.brave_failed_after_retries": "בקשת Brave Search נכשלה לאחר ניסיונות חוזרים: {error}",
     "error.brave_429_with_api_hint": "Brave Search הוגבל בקצב (429). הגדר את משתנה הסביבה UAGENT_BRAVE_API_KEY עם מפתח Brave Search API (שכבה חינמית זמינה בכתובת https://brave.com/search/api/) כדי להשתמש ב-API במקום גירוד HTML.",
-    "param.engine.description": "Search engine: 'duckduckgo' (default), 'brave', 'yahoo_jp', or 'yahoo'.",
-    "error.yahoo_failed": "Yahoo Japan search request failed: {error}"
+    "param.engine.description": "Search engine: 'duckduckgo' (default), 'brave', 'yahoo_jp', 'startpage', or 'yahoo'.",
+    "error.yahoo_failed": "Yahoo Japan search request failed: {error}",
+    "error.startpage_failed": "StartPage search request failed: {error}"
   },
   "hu": {
     "error.args_must_be_dict": "az args diktálásnak kell lennie",
@@ -816,8 +848,9 @@
     "param.limit.description": "Kezelje a helyi titkokat szimmetrikus kulccsal az uagent állapotkönyvtárában.",
     "error.brave_failed_after_retries": "A Brave Search kérés sikertelen volt az újrapróbálkozások után: {error}",
     "error.brave_429_with_api_hint": "Brave Search sebességkorlátozás (429). Állítsa be az UAGENT_BRAVE_API_KEY környezeti változót egy Brave Search API-kulccsal (ingyenes szint elérhető a https://brave.com/search/api/ címen), hogy az API-t használja a HTML-kaparás helyett.",
-    "param.engine.description": "Search engine: 'duckduckgo' (default), 'brave', 'yahoo_jp', or 'yahoo'.",
-    "error.yahoo_failed": "Yahoo Japan search request failed: {error}"
+    "param.engine.description": "Search engine: 'duckduckgo' (default), 'brave', 'yahoo_jp', 'startpage', or 'yahoo'.",
+    "error.yahoo_failed": "Yahoo Japan search request failed: {error}",
+    "error.startpage_failed": "StartPage search request failed: {error}"
   },
   "ro": {
     "error.args_must_be_dict": "argumentele trebuie să fie un dictat",
@@ -841,7 +874,8 @@
     "param.limit.description": "Gestionați secretele locale folosind cheia simetrică în directorul de stare uagent.",
     "error.brave_failed_after_retries": "Solicitarea Brave Search a eșuat după reîncercări: {error}",
     "error.brave_429_with_api_hint": "Brave Search limitare de rată (429). Setați variabila de mediu UAGENT_BRAVE_API_KEY cu o cheie Brave Search API (nivel gratuit disponibil la https://brave.com/search/api/) pentru a utiliza API-ul în loc de scraping HTML.",
-    "param.engine.description": "Search engine: 'duckduckgo' (default), 'brave', 'yahoo_jp', or 'yahoo'.",
-    "error.yahoo_failed": "Yahoo Japan search request failed: {error}"
+    "param.engine.description": "Search engine: 'duckduckgo' (default), 'brave', 'yahoo_jp', 'startpage', or 'yahoo'.",
+    "error.yahoo_failed": "Yahoo Japan search request failed: {error}",
+    "error.startpage_failed": "StartPage search request failed: {error}"
   }
 }

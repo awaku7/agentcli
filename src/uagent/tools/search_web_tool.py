@@ -54,6 +54,7 @@ DG_ENDPOINT = "https://html.duckduckgo.com/html/"
 BRAVE_ENDPOINT = "https://search.brave.com/search"
 BRAVE_API_ENDPOINT = "https://api.search.brave.com/res/v1/web/search"
 YAHOO_ENDPOINT = "https://search.yahoo.co.jp/search"
+STARTPAGE_ENDPOINT = "https://www.startpage.com/sp/search"
 DEFAULT_TIMEOUT_SEC = 15
 DEFAULT_MAX_RESULTS = 5
 DEFAULT_RETRIES = 0
@@ -378,6 +379,75 @@ def _brave_search(
 # ------------------------------
 
 
+def _parse_startpage_results(html: str, max_results: int) -> list[dict[str, str]]:
+    """Parse StartPage search results (Google-quality, privacy-focused)."""
+    try:
+        from bs4 import BeautifulSoup
+    except ImportError:
+        from .._pip_auto import install_with_status as _install_bs4
+        _install_bs4("beautifulsoup4", "bs4")
+        from bs4 import BeautifulSoup
+
+    soup = BeautifulSoup(html, "html.parser")
+    results: list[dict[str, str]] = []
+    for result in soup.select(".result"):
+        a = result.select_one("a.result-link, a[href^=\"http\"]")
+        if not a:
+            continue
+        href = str(a.get("href", ""))
+        title_el = result.select_one(".wgl-title")
+        title = title_el.get_text(strip=True) if title_el else a.get_text(strip=True)
+        desc_el = result.select_one("p")
+        desc = desc_el.get_text(strip=True) if desc_el else ""
+        if title and href and href.startswith("http"):
+            results.append({"title": title, "href": href, "text": desc})
+            if len(results) >= max_results:
+                break
+    return results
+
+
+def _startpage_search(
+    query: str,
+    max_results: int = DEFAULT_MAX_RESULTS,
+    timeout_sec: int = DEFAULT_TIMEOUT_SEC,
+    retries: int = DEFAULT_RETRIES,
+    proxies: Optional[dict[str, str]] = DEFAULT_PROXIES,
+) -> list[dict[str, str]]:
+    _emit_debug(f"Performing StartPage search: {query}")
+    params = {"query": query}
+    headers = _default_headers()
+    verify = _ssl_verify_setting()
+
+    last_exc: Optional[Exception] = None
+    for attempt in range(retries + 1):
+        try:
+            resp = requests.get(
+                STARTPAGE_ENDPOINT,
+                params=params,
+                headers=headers,
+                timeout=timeout_sec,
+                verify=verify,
+                proxies=proxies,
+                allow_redirects=True,
+            )
+            resp.raise_for_status()
+            results = _parse_startpage_results(resp.text, max_results)
+            if results:
+                _emit_debug(f"Found {len(results)} StartPage results")
+                return results
+        except requests.RequestException as exc:
+            last_exc = exc
+            _emit_debug(f"StartPage request failed: {exc}")
+            if attempt < retries:
+                _sleep_backoff(attempt)
+                continue
+            break
+
+    raise RuntimeError(
+        _("error.startpage_failed", default="StartPage search request failed: {error}").format(error=last_exc)
+    )
+
+
 def _yahoo_jp_search(
     query: str,
     max_results: int = DEFAULT_MAX_RESULTS,
@@ -430,9 +500,11 @@ def search_web(
     max_results: int = DEFAULT_MAX_RESULTS,
     engine: str = "duckduckgo",
 ) -> list[dict[str, str]]:
-    """Search the web using specified engine (duckduckgo, brave, or yahoo_jp)."""
+    """Search the web using specified engine (duckduckgo, brave, yahoo_jp, or startpage)."""
     if engine == "brave":
         return _brave_search(query=query, max_results=max_results)
+    if engine == "startpage":
+        return _startpage_search(query=query, max_results=max_results)
     if engine == "yahoo_jp":
         return _yahoo_jp_search(query=query, max_results=max_results)
     if engine == "yahoo":
@@ -498,7 +570,7 @@ TOOL_SPEC: dict[str, Any] = {
                         "param.engine.description",
                         default="Search engine: 'duckduckgo' (default), 'brave', 'yahoo', or 'yahoo_jp'.",
                     ),
-                    "enum": ["duckduckgo", "brave", "yahoo", "yahoo_jp"],
+                    "enum": ["duckduckgo", "brave", "yahoo", "yahoo_jp", "startpage"],
                 },
             },
             "required": ["query"],
@@ -535,7 +607,7 @@ def run_tool(args: dict[str, Any]) -> str:
             n = DEFAULT_MAX_RESULTS
 
         engine = args.get("engine", "duckduckgo")
-        if engine not in ("duckduckgo", "brave", "yahoo", "yahoo_jp"):
+        if engine not in ("duckduckgo", "brave", "yahoo", "yahoo_jp", "startpage"):
             engine = "duckduckgo"
 
         q_str = str(q)
@@ -569,7 +641,7 @@ def main() -> None:
     parser = argparse.ArgumentParser(description="Web search wrapper (DuckDuckGo / Brave)")
     parser.add_argument("query", help="Search query string")
     parser.add_argument("-n", "--number", type=int, default=DEFAULT_MAX_RESULTS, help="Max results (default: 5)")
-    parser.add_argument("--engine", choices=["duckduckgo", "brave", "yahoo", "yahoo_jp"], default="duckduckgo", help="Search engine (default: duckduckgo)")
+    parser.add_argument("--engine", choices=["duckduckgo", "brave", "yahoo", "yahoo_jp", "startpage"], default="duckduckgo", help="Search engine (default: duckduckgo)")
     args = parser.parse_args()
 
     try:
