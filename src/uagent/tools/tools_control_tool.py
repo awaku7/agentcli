@@ -218,6 +218,15 @@ def _register_tools_subcommands() -> None:
         {"command": "tools", "subcommand": "off", "handler": handle_cmd_tools_off},
         {
             "command": "tools",
+            "subcommand": "reload",
+            "handler": handle_cmd_tools_reload,
+            "help_text": _(
+                "cmd.help.tools_reload",
+                default="  :tools reload                    Reload all tool code from disk.",
+            ),
+        },
+        {
+            "command": "tools",
             "subcommand": "output",
             "handler": handle_cmd_tools_output,
             "help_text": _(
@@ -226,6 +235,20 @@ def _register_tools_subcommands() -> None:
             ),
         },
     ]
+
+
+
+def handle_cmd_tools_reload(arg: str, **kw: Any) -> Any:
+    """Handle :tools reload - reload all tool code from disk."""
+    from ..util_tools import CommandResult
+    try:
+        import importlib, sys
+        mod = sys.modules.get("uagent.tools") or __import__("uagent.tools")
+        importlib.reload(mod)
+        print("[tools] System reloaded successfully. All tools updated with latest code.")
+    except Exception as e:
+        print(f"[tools error] Reload failed: {type(e).__name__}: {e}")
+    return CommandResult()
 
 
 def handle_cmd_tools_output(arg: str, **kw: Any) -> Any:
