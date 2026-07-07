@@ -1,10 +1,16 @@
 {
   "en": {
     "x_search_terms": [
-      "catalog",
       "tool catalog",
-      "discover tools",
-      "tool discovery"
+      "available tools",
+      "tool list",
+      "list tools",
+      "search tools",
+      "tool discovery",
+      "find tool",
+      "tool search",
+      "catalog search",
+      "tool lookup"
     ],
     "param.query.description": "Natural-language query describing the needed capability. Tip: decompose your goal into sub-steps (e.g., 'geoip location + weather forecast') to improve matching.",
     "tool_load.description": "Load a tool by name so it becomes available for use. Use this after tool_catalog returns a tool with loaded=false. Returns the loaded tool info or an error if not found.",

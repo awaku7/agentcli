@@ -5,8 +5,16 @@
     "param.shell.description": "PowerShell executable to use: 'pwsh' (PowerShell 7+) or 'powershell' (Windows PowerShell). If omitted, auto-select.",
     "tool.description": "Connect to an MCP server and list available tools. Supports HTTP and stdio transports.",
     "x_search_terms": [
-      "pwsh_exec",
-      "pwsh exec"
+      "powershell",
+      "pwsh",
+      "power shell",
+      "shell command",
+      "script execution",
+      "windows powershell",
+      "command",
+      "execute powershell",
+      "run script",
+      "ps command"
     ],
     "err.command_required": "[pwsh_exec error] 'command' is required"
   },

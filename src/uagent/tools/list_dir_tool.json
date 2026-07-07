@@ -2,12 +2,16 @@
   "en": {
     "tool.description": "List entries in a directory with pagination, similar to ls.",
     "x_search_terms": [
-      "list_dir",
-      "ls",
-      "directory listing",
-      "folder listing",
+      "list dir",
+      "directory",
+      "list directory",
+      "dir listing",
+      "folder",
       "list files",
-      "list folders"
+      "directory listing",
+      "file list",
+      "show dir",
+      "folder contents"
     ],
     "param.path.description": "Directory to list (default: current directory). Alias of root_path.",
     "param.show_hidden.description": "Include hidden entries in the listing.",

@@ -3,13 +3,15 @@
     "tool.description": "Return the current time and detailed date/time information (timezone, weekday, UTC time). Use this to resolve relative date expressions (e.",
     "x_search_terms": [
       "current time",
+      "get time",
       "now",
-      "timezone",
-      "現在時刻",
-      "hora actual",
-      "heure actuelle",
-      "현재 시간",
-      "текущее время"
+      "current date",
+      "date time",
+      "time now",
+      "today",
+      "timestamp",
+      "local time",
+      "system time"
     ]
   },
   "ja": {

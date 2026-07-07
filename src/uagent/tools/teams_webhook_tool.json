@@ -2,11 +2,16 @@
   "en": {
     "tool.description": "Post a message or webhook-supported JSON payload to a Microsoft Teams Incoming Webhook URL stored in an environment variable.",
     "x_search_terms": [
-      "teams_webhook",
+      "teams",
+      "microsoft teams",
+      "webhook",
       "teams webhook",
-      "post message",
-      "incoming webhook",
-      "notify teams"
+      "teams message",
+      "send teams",
+      "teams notification",
+      "webhook send",
+      "teams channel",
+      "teams alert"
     ],
     "param.message.description": "Message text to post to Teams. Used as plain text unless card fields are provided.",
     "param.title.description": "Card title for webhook-supported payloads.",

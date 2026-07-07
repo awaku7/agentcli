@@ -2,12 +2,16 @@
   "en": {
     "tool.description": "Extract text and basic structure from Word-like documents (. docx, .",
     "x_search_terms": [
-      "document_extract",
       "document extract",
       "docx",
+      "word",
+      "office document",
+      "document parsing",
+      "extract text",
+      "document read",
       "rtf",
       "odt",
-      "extract text"
+      "word document"
     ],
     "param.path.description": "Path to the input document (.docx, .rtf, .odt).",
     "param.password.description": "Password (prompts if needed).",

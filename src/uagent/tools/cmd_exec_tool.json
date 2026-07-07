@@ -3,12 +3,16 @@
     "param.command.description": "Command string to execute.",
     "tool.description": "As a last resort, execute a Windows command. Use only when no other appropriate tool (e.g., MCP) is available.",
     "x_search_terms": [
-      "cmd_exec",
-      "cmd exec",
-      "windows command",
-      "command prompt",
       "cmd",
-      "shell command"
+      "command",
+      "windows cmd",
+      "command prompt",
+      "cmd exec",
+      "run command",
+      "execute",
+      "dos command",
+      "shell",
+      "command line"
     ]
   },
   "ja": {

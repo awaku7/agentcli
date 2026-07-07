@@ -7,13 +7,15 @@
     "param.project_only.description": "Only scan files referenced by project files (.sln, .csproj, build.gradle.kts, etc.).",
     "x_search_terms": [
       "code map",
-      "codebase structure",
-      "file tree",
-      "symbol list",
-      "project analysis",
-      "source code overview",
-      "repository structure",
-      "コードマップ"
+      "code analysis",
+      "code structure",
+      "code visualization",
+      "code mapping",
+      "code overview",
+      "code graph",
+      "code dependency",
+      "code relationship",
+      "code architecture"
     ],
     "param.format.description": "Output format: 'json' for structured data, 'mermaid' for visual diagram.",
     "param.output_dir.description": "Directory to save the output file instead of returning it. For mermaid format with render_image=true, saves as PNG. Uses naming convention: code_map_<timestamp>.<ext>.",

@@ -7,12 +7,14 @@
     "x_search_terms": [
       "delete file",
       "remove file",
-      "erase",
-      "ファイル削除",
-      "eliminar archivo",
-      "supprimer fichier",
-      "파일 삭제",
-      "удалить файл"
+      "erase file",
+      "file delete",
+      "delete folder",
+      "remove folder",
+      "file removal",
+      "delete directory",
+      "erase directory",
+      "delete item"
     ],
     "param.skip.description": "If true, do not error when the path does not exist.",
     "confirm.delete_paths_bulk": "Delete {count} paths?\n\n{paths}\n\nEnter y to proceed, or c to cancel.",

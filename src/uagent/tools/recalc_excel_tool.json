@@ -19,12 +19,16 @@
     "param.visible.description": "Show Excel window during automation. Default: false.",
     "tool.description": "Recalculate Excel formulas by automating Microsoft Excel (Windows COM) and save updated cached values. Supports a single .",
     "x_search_terms": [
-      "recalc_excel",
       "recalc excel",
-      "recalculate",
+      "excel recalc",
       "excel formula",
-      "windows com",
-      "cache values"
+      "calculate excel",
+      "update excel",
+      "refresh excel",
+      "excel calculation",
+      "formula recalc",
+      "excel update",
+      "recalculate"
     ],
     "param.password.description": "Password (prompts if needed).",
     "prompt.password": "Enter the password for this file:\n{path}",

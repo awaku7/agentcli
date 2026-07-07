@@ -1,10 +1,16 @@
 {
   "en": {
     "x_search_terms": [
-      "read rust file",
-      "rust file index",
-      "function list",
-      "struct list"
+      "rust",
+      "rust code",
+      "rust analysis",
+      "code index",
+      "rust source",
+      "rust parser",
+      "rust function",
+      "rust struct",
+      "rust file",
+      "rust module"
     ],
     "param.path.description": "Path to the Rust (.rs) file.",
     "err.path_required": "Error: 'path' is required.",

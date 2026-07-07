@@ -3,12 +3,16 @@
     "param.command.description": "Command string passed to the OS shell. On Windows, cmd.exe /c is used.",
     "tool.description": "As a last resort, execute a shell command and return a JSON result. Use only when no safer or more specific tool is available (e.",
     "x_search_terms": [
-      "cmd_exec_json",
-      "cmd exec json",
-      "shell command",
-      "execute shell",
+      "cmd json",
+      "command json",
+      "structured output",
+      "json result",
+      "cmd structured",
+      "command output",
+      "command result",
+      "execute json",
       "json command",
-      "cmd"
+      "cmd result"
     ],
     "param.cwd.description": "Working directory. Only relative paths under workdir are allowed. If null, uses the current directory."
   },

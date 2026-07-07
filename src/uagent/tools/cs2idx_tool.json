@@ -1,11 +1,16 @@
 {
   "en": {
     "x_search_terms": [
-      "read csharp file",
-      "read cs file",
-      "csharp file index",
-      "class list",
-      "method list"
+      "c sharp",
+      "c#",
+      "csharp code",
+      "code index",
+      "csharp analysis",
+      "csharp source",
+      "csharp parser",
+      "csharp class",
+      "dotnet",
+      "csharp file"
     ],
     "param.path.description": "Path to the C# (.cs) file.",
     "err.path_required": "Error: 'path' is required.",

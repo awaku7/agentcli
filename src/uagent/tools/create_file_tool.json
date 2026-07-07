@@ -7,13 +7,15 @@
     "tool.description": "Create a text file. Optional overwrite with backup (.org). Choose encoding for Excel (utf-8-sig) or programmatic (utf-8).",
     "x_search_terms": [
       "create file",
+      "make file",
       "new file",
       "write file",
-      "ファイルを作成",
-      "crear archivo",
-      "créer fichier",
-      "파일 만들기",
-      "создать файл"
+      "file create",
+      "generate file",
+      "create document",
+      "new document",
+      "file write",
+      "save file"
     ],
     "err.file_exists": "File already exists: {path}",
     "err.path_missing": "filename/path is required",

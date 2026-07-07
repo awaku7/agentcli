@@ -2,11 +2,16 @@
   "en": {
     "tool.description": "Parse a Kotlin (.kt) file into classes, interfaces, objects, functions, and properties and return a numbered index or a specific definition section. Use this when you need to read a large .kt file: first call with mode='index' to get the table of contents, then call with mode='section' and the section number to retrieve only the definition you need.",
     "x_search_terms": [
-      "read kotlin file",
-      "kotlin file index",
-      "class list",
-      "function list",
-      "property list"
+      "kotlin",
+      "kotlin code",
+      "kotlin analysis",
+      "code index",
+      "kotlin source",
+      "kotlin parser",
+      "kotlin function",
+      "kotlin class",
+      "kotlin file",
+      "kotlin module"
     ],
     "param.path.description": "Path to the Kotlin (.kt) file.",
     "param.section.description": "Section number to retrieve (used only when mode='section'). Get the number from the index output.",

@@ -1,14 +1,16 @@
 {
   "en": {
     "x_search_terms": [
-      "audio_transcribe",
       "audio transcribe",
-      "audio",
-      "voice",
-      "speech",
-      "sound",
+      "speech to text",
+      "stt",
+      "transcription",
+      "audio to text",
       "transcribe",
-      "speech to text"
+      "speech recognition",
+      "voice to text",
+      "audio recognition",
+      "speech transcription"
     ],
     "param.path.description": "Path to the input audio file.",
     "param.prompt.description": "Optional context prompt to improve transcription quality.",

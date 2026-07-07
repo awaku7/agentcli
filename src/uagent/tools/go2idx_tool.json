@@ -1,11 +1,16 @@
 {
   "en": {
     "x_search_terms": [
-      "read go file",
-      "go file index",
-      "function list",
-      "struct list",
-      "interface list"
+      "golang",
+      "go code",
+      "go analysis",
+      "code index",
+      "go source",
+      "go parser",
+      "go function",
+      "go struct",
+      "go file",
+      "go module"
     ],
     "param.path.description": "Path to the Go (.go) file.",
     "param.section.description": "Section number to retrieve (used only when mode='section'). Get the number from the index output.",

@@ -12,14 +12,15 @@
     "param.command.description": "Git subcommand (restricted).",
     "x_search_terms": [
       "git",
-      "branch",
-      "commit",
-      "git コマンド",
-      "git",
-      "git",
-      "깃",
-      "git",
-      "push"
+      "git operations",
+      "git command",
+      "version control",
+      "git repo",
+      "source control",
+      "git commit",
+      "git push",
+      "git pull",
+      "vcs"
     ],
     "param.allow_danger.description": "Whether to allow dangerous operations (default false). Example: push --force, reset --hard.",
     "tool.description": "Run Git commands with safety-first restrictions. Some operations or special characters in arguments may be restricted for security."

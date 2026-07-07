@@ -6,12 +6,16 @@
     "param.tools.description": "An array of tool names to run. If empty, tools are selected automatically.",
     "tool.description": "Run static analysis/formatters (ruff/black/mypy). mode=fix modifies files, needs confirmation.",
     "x_search_terms": [
-      "lint_format",
-      "lint format",
       "lint",
       "format",
-      "ruff",
-      "black"
+      "code lint",
+      "code format",
+      "linter",
+      "formatter",
+      "code style",
+      "static analysis",
+      "linting",
+      "formatting"
     ],
     "param.xargs.description": "Additional arguments (array). Reject dangerous metacharacters.",
     "confirm.msg": "lint_format(mode=fix) might overwrite files.\ntools: {tools}\ntargets: {targets}\ncwd: {cwd}\n\nReply with y to proceed, or c to cancel."

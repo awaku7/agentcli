@@ -1,8 +1,16 @@
 {
   "en": {
     "x_search_terms": [
+      "image to image",
       "img2img",
-      "img2img"
+      "image generation",
+      "image editing",
+      "image transform",
+      "stable diffusion",
+      "image processing",
+      "image modification",
+      "image variation",
+      "image enhancement"
     ],
     "param.prompt.description": "Instructions for how to edit the image.",
     "param.size.description": "Image size.",

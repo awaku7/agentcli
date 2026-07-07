@@ -4,8 +4,16 @@
     "param.server_name.description": "Server name from the config file.",
     "tool.description": "Connect to an MCP server and list available tools. Supports HTTP and stdio transports.",
     "x_search_terms": [
-      "mcps_list",
-      "mcps list"
+      "mcp",
+      "mcp tools",
+      "tool list",
+      "mcp server",
+      "available tools",
+      "mcp capabilities",
+      "server tools",
+      "tool catalog",
+      "mcp functions",
+      "mcp endpoints"
     ],
     "param.url.description": "MCP server endpoint URL. If omitted, a configured server may be used."
   },

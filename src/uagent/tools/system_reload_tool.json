@@ -2,14 +2,16 @@
   "en": {
     "tool.description": "Reload the system and load the latest code for all tools under tools/ (Python .py files) into memory. Run this after modifying code.",
     "x_search_terms": [
-      "reload system",
+      "system reload",
+      "reload tools",
+      "reload config",
       "refresh tools",
-      "reload code",
-      "システムリロード",
-      "recargar sistema",
-      "recharger le système",
-      "시스템 재로드",
-      "перезагрузить систему"
+      "restart tools",
+      "reload system",
+      "tool reload",
+      "reload agent",
+      "system refresh",
+      "hot reload"
     ]
   },
   "ja": {

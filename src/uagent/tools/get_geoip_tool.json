@@ -4,13 +4,16 @@
     "param.ip.description": "Optional IP address to look up. If omitted, the current public IP is used (API mode only).",
     "tool.description": "Estimate the user's rough city-level location from their public IP address. Low precision (city only, not actual coordinates). Inaccurate with VPN/proxy/mobile. Prefer get_windows_gps for accurate GPS coordinates.",
     "x_search_terms": [
-      "get_geoip",
-      "get geoip",
-      "location",
-      "country",
+      "geoip",
+      "geolocation",
+      "ip location",
+      "ip geo",
+      "ip address location",
+      "geo location",
+      "ip lookup",
+      "location from ip",
       "ip geolocation",
-      "geo ip",
-      "current location"
+      "ip info"
     ],
     "err.format_invalid": "[get_geoip error] format must be 'text' or 'json'",
     "err.local_db_unavailable": "[get_geoip error] Local DB not configured. Set UAGENT_GEOIP_DB_PATH to a .mmdb file and install maxminddb to look up arbitrary IP addresses offline."

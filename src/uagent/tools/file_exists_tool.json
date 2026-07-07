@@ -4,14 +4,16 @@
     "param.path.description": "Path of the file or directory to check for existence (supports ~).",
     "tool.description": "Checks whether a file or directory exists at the specified path and, if it does, returns its type, size, and modification time.",
     "x_search_terms": [
-      "exists",
+      "file exists",
       "check file",
+      "file check",
+      "file exist",
+      "file present",
+      "exists check",
+      "file available",
+      "file found",
       "check path",
-      "存在確認",
-      "comprobar archivo",
-      "vérifier fichier",
-      "존재 확인",
-      "проверить файл"
+      "path exists"
     ]
   },
   "ja": {

@@ -1,10 +1,16 @@
 {
   "en": {
     "x_search_terms": [
-      "read php file",
-      "php file index",
-      "class list",
-      "method list"
+      "php",
+      "php code",
+      "php analysis",
+      "code index",
+      "php source",
+      "php parser",
+      "php function",
+      "php class",
+      "php method",
+      "php file"
     ],
     "param.path.description": "Path to the PHP (.php) file.",
     "err.path_required": "Error: 'path' is required.",

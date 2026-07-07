@@ -6,14 +6,16 @@
     "param.src.description": "Original path (file/directory). Relative path recommended.",
     "tool.description": "Rename (move) a file or directory.",
     "x_search_terms": [
-      "rename file",
+      "rename",
       "move file",
-      "rename path",
-      "名前変更",
-      "renombrar archivo",
-      "renommer fichier",
-      "이름 변경",
-      "переименовать"
+      "rename file",
+      "rename folder",
+      "file rename",
+      "move path",
+      "rename directory",
+      "file move",
+      "path rename",
+      "mv"
     ]
   },
   "ja": {

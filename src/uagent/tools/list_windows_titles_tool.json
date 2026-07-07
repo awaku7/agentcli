@@ -5,12 +5,16 @@
     "param.pid.description": "Include process IDs.",
     "tool.description": "Enumerate top-level window titles on Windows and return structured JSON. Parameters: 'all' (include non-visible), 'pid' (include PID), 'class' (include class name).",
     "x_search_terms": [
-      "list_windows_titles",
-      "list windows titles",
       "window titles",
-      "top-level windows",
-      "pid",
-      "class name"
+      "list windows",
+      "window list",
+      "open windows",
+      "window title",
+      "enum windows",
+      "active windows",
+      "desktop windows",
+      "windows enumeration",
+      "application windows"
     ]
   },
   "ja": {

@@ -1,12 +1,16 @@
 {
   "en": {
     "x_search_terms": [
-      "read c file",
-      "read cpp file",
-      "c header file",
-      "c++ file index",
-      "function list",
-      "class list"
+      "c plus plus",
+      "cpp",
+      "c++",
+      "cpp code",
+      "cpp analysis",
+      "code index",
+      "cpp source",
+      "cpp parser",
+      "cpp function",
+      "cpp class"
     ],
     "param.path.description": "Path to the C/C++ (.c/.cpp/.h/.hpp) file.",
     "err.path_required": "Error: 'path' is required.",

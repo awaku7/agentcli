@@ -5,14 +5,16 @@
     "param.new_dir.description": "The new directory path to switch to.",
     "tool.description": "Change the current working directory after user confirmation.",
     "x_search_terms": [
+      "change dir",
       "change directory",
+      "workdir",
+      "working directory",
       "cd",
-      "switch dir",
-      "ディレクトリ変更",
-      "cambiar directorio",
-      "changer de répertoire",
-      "디렉터리 변경",
-      "сменить директорию"
+      "set workdir",
+      "change folder",
+      "switch directory",
+      "set directory",
+      "change path"
     ]
   },
   "ja": {

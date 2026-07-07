@@ -1,12 +1,16 @@
 {
   "en": {
     "x_search_terms": [
-      "preprocess_image",
       "preprocess image",
-      "ocr preprocess",
-      "image cleanup",
-      "scan image",
-      "document image"
+      "image preprocess",
+      "image processing",
+      "image prepare",
+      "image transform",
+      "preprocess",
+      "image normalize",
+      "resize image",
+      "image enhancement",
+      "image ops"
     ],
     "param.mode.description": "Preprocess mode.",
     "param.grayscale.description": "Convert the image to grayscale.",

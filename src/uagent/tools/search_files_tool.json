@@ -12,13 +12,15 @@
     "tool.description": "Search files under a directory by name pattern (glob) and/or by content (regex).",
     "x_search_terms": [
       "search files",
-      "glob",
-      "regex search",
-      "ファイル検索",
-      "buscar archivos",
-      "rechercher des fichiers",
-      "파일 찾기",
-      "поиск файлов"
+      "find files",
+      "file search",
+      "search file",
+      "find file",
+      "file find",
+      "locate file",
+      "search path",
+      "file lookup",
+      "search directory"
     ],
     "param.cs.description": "Whether the content search is case-sensitive (default: false).",
     "param.re_content.description": "Regular expression to search within files. If omitted, only filename matching is performed.",

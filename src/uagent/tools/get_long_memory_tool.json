@@ -2,12 +2,16 @@
   "en": {
     "tool.description": "Get all saved long-term memory notes (JSONL).",
     "x_search_terms": [
-      "get_long_memory",
-      "get long memory",
-      "memory",
-      "notes",
-      "history",
-      "long term memory"
+      "get memory",
+      "long memory",
+      "read memory",
+      "retrieve memory",
+      "memory recall",
+      "agent memory",
+      "get remembered",
+      "memory get",
+      "recall info",
+      "load memory"
     ]
   },
   "ja": {

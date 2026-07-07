@@ -4,12 +4,16 @@
     "param.sql.description": "SQL to execute.",
     "tool.description": "Execute SQL queries against an SQLite database and return the result. Only read-only operations (SELECT) and schema inspection (PRAGMA) are supported.",
     "x_search_terms": [
-      "db_query",
+      "database",
       "db query",
       "sql",
-      "database",
-      "sqlite",
-      "query"
+      "query database",
+      "database query",
+      "sql query",
+      "db select",
+      "run query",
+      "data query",
+      "database search"
     ],
     "err.readonly": "[db_query error] Only SELECT and PRAGMA statements are allowed.",
     "msg.result": "[db_query]\nrows={rows}\ncolumns={cols}"

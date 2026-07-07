@@ -2,14 +2,16 @@
   "en": {
     "param.code.description": "Python code.",
     "x_search_terms": [
-      "python",
+      "python exec",
       "run python",
-      "execute script",
-      "Python 実行",
-      "ejecutar python",
-      "exécuter python",
-      "파이썬 실행",
-      "запустить python"
+      "execute python",
+      "python code",
+      "python script",
+      "python run",
+      "python execute",
+      "python command",
+      "python interpreter",
+      "python program"
     ],
     "[python_exec error] Provide 'code'.": "",
     "tool.description": "Execute Python code in a controlled way. Use this tool for calculations, data processing, or running short scripts. Search for other suitable tools via `tool_catalog` before using this tool."

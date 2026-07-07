@@ -5,12 +5,16 @@
     "param.url.description": "MCP server endpoint URL (http://... or stdio://command...).",
     "tool.description": "Call a tool from an MCP server. Provide tool arguments as a dictionary in tool_arguments.",
     "x_search_terms": [
-      "handle_mcp_v2",
-      "handle mcp v2",
+      "mcp",
       "mcp tool",
-      "model context protocol",
-      "call remote tool",
-      "mcp"
+      "mcp call",
+      "mcp execute",
+      "mcp invoke",
+      "mcp server call",
+      "tool call",
+      "mcp function",
+      "mcp request",
+      "model context protocol"
     ],
     "param.args.description": "Tool arguments to pass through to the MCP tool. Provide either a JSON object (recommended) or a JSON string.",
     "err.tool_name_required": "Error: tool_name is required.",

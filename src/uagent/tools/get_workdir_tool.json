@@ -2,14 +2,16 @@
   "en": {
     "tool.description": "Get the current working directory.",
     "x_search_terms": [
+      "get workdir",
       "working directory",
-      "cwd",
-      "current dir",
-      "作業ディレクトリ",
-      "directorio de trabajo",
-      "répertoire de travail",
-      "작업 디렉터리",
-      "рабочая директория"
+      "current directory",
+      "work dir",
+      "pwd",
+      "current folder",
+      "get folder",
+      "show directory",
+      "work path",
+      "get path"
     ]
   },
   "ja": {

@@ -2,12 +2,16 @@
   "en": {
     "tool.description": "Parse a Swift (.swift) file into classes, structs, enums, protocols, extensions, functions, and methods and return a numbered index or a specific definition section. Use this when you need to read a large .swift file: first call with mode='index' to get the table of contents, then call with mode='section' and the section number to retrieve only the definition you need.",
     "x_search_terms": [
-      "read swift file",
-      "swift file index",
-      "class list",
-      "function list",
-      "method list",
-      "protocol list"
+      "swift",
+      "swift code",
+      "swift analysis",
+      "code index",
+      "swift source",
+      "swift parser",
+      "swift function",
+      "swift class",
+      "swift file",
+      "swift module"
     ],
     "param.path.description": "Path to the Swift (.swift) file.",
     "param.section.description": "Section number to retrieve (used only when mode='section'). Get the number from the index output.",

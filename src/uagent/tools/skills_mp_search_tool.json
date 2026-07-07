@@ -2,13 +2,16 @@
   "en": {
     "tool.description": "Search and browse the SkillsMP marketplace (skillsmp.com) for Agent Skills. Returns a list of skills with name, author, description, stars, and GitHub URL.",
     "x_search_terms": [
-      "skills_mp_search",
-      "skillsmp",
+      "skill search",
       "marketplace",
-      "search skill",
-      "browse skill",
-      "find skill",
-      "skill directory"
+      "search skills",
+      "find skills",
+      "skill marketplace",
+      "discover skills",
+      "search marketplace",
+      "skill directory",
+      "skill discovery",
+      "browse skills"
     ],
     "param.query.description": "Search query to filter skills by name or description.",
     "param.page.description": "Page number for pagination (default: 1).",

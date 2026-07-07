@@ -3,14 +3,15 @@
     "tool.description": "Determine the MIME type and format of files using extension, magic bytes, and heuristics.",
     "x_search_terms": [
       "file type",
-      "mime type",
-      "file format",
       "detect type",
-      "file info",
-      "file identification",
-      "what type of file",
-      "file signature",
-      "magic bytes"
+      "mime type",
+      "file extension",
+      "file kind",
+      "type detect",
+      "magic bytes",
+      "file format",
+      "file category",
+      "identify file"
     ],
     "param.paths.description": "One or more file paths to identify.",
     "err.no_paths": "No paths provided.",

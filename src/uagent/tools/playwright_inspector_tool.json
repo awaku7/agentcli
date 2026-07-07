@@ -6,12 +6,16 @@
     "param.url.description": "First URL to open (default: about:blank)",
     "tool.description": "Launch Playwright Inspector to capture browser operations. Opens the specified URL and saves the page state (HTML and image) after the user clicks the target element.",
     "x_search_terms": [
-      "playwright_inspector",
       "playwright inspector",
-      "browser automation",
-      "inspector",
-      "capture page",
-      "playwright"
+      "browser inspector",
+      "page inspector",
+      "inspect element",
+      "capture click",
+      "playwright debug",
+      "selector pick",
+      "element inspector",
+      "browser debug",
+      "ui inspector"
     ],
     "ui.captured": "--- CAPTURED: {html}, {png}, {flow}, {snapshots}/ ---",
     "ui.resume_prompt": "After the operation, press Resume (▷) in the Inspector.",

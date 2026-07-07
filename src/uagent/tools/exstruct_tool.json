@@ -15,11 +15,15 @@
     "tool.description": "Use exstruct to extract structured data from an Excel (. xlsx) and return/save as JSON/YAML.",
     "x_search_terms": [
       "exstruct",
-      "exstruct",
-      "structured data",
-      "excel structure",
-      "export json",
-      "export yaml"
+      "extract structure",
+      "struct extract",
+      "binary structure",
+      "data structure",
+      "structure parser",
+      "data extraction",
+      "extract binary",
+      "structure analysis",
+      "struct parser"
     ],
     "param.password.description": "Password (prompts if needed).",
     "error.missing_exstruct": "The 'exstruct' package is not installed. Please install it with: pip install exstruct",

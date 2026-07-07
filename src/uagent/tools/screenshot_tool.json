@@ -12,12 +12,15 @@
     "tool.description": "Captures a screenshot of the entire desktop or a specific window.",
     "x_search_terms": [
       "screenshot",
-      "screenshot",
       "screen capture",
-      "window capture",
-      "desktop screenshot",
-      "png capture",
-      "snapshot"
+      "capture screen",
+      "screen grab",
+      "screenshot tool",
+      "screen snapshot",
+      "display capture",
+      "print screen",
+      "screen image",
+      "capture display"
     ],
     "next_action.analyze_screenshot": "Please analyze this screenshot.",
     "param.close.description": "Whether to close the window after capture. Only effective if window_title is specified.",

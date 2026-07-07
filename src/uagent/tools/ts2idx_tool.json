@@ -1,12 +1,16 @@
 {
   "en": {
     "x_search_terms": [
-      "read typescript file",
-      "read javascript file",
-      "ts file index",
-      "js file index",
-      "function list",
-      "class index"
+      "typescript",
+      "ts",
+      "typescript code",
+      "ts code",
+      "code index",
+      "typescript analysis",
+      "ts parser",
+      "ts function",
+      "ts class",
+      "ts file"
     ],
     "param.path.description": "Path to the TypeScript/JavaScript (.ts/.js) file.",
     "err.path_required": "Error: 'path' is required.",

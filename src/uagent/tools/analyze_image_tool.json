@@ -3,14 +3,16 @@
     "param.prompt.description": "What you want to know about the image.",
     "tool.description": "Load an image and have AI (Vision) describe it. Useful for screenshots, charts, and tables.",
     "x_search_terms": [
-      "analyze_image",
       "analyze image",
-      "image",
-      "picture",
-      "photo",
-      "diagram",
-      "ocr",
-      "vision"
+      "image analysis",
+      "image recognition",
+      "vision",
+      "image understanding",
+      "image describe",
+      "image content",
+      "image ai",
+      "visual analysis",
+      "image detection"
     ],
     "param.img.description": "Path to the image file to analyze."
   },

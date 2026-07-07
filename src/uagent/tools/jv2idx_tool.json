@@ -1,10 +1,16 @@
 {
   "en": {
     "x_search_terms": [
-      "read java file",
-      "java file index",
-      "class list",
-      "method list"
+      "java",
+      "java code",
+      "java analysis",
+      "code index",
+      "java source",
+      "java parser",
+      "java function",
+      "java class",
+      "java method",
+      "java file"
     ],
     "param.path.description": "Path to the Java (.java) file.",
     "err.path_required": "Error: 'path' is required.",

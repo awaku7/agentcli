@@ -61,7 +61,16 @@
     "param.fps.description": "Frames per second (e.g. 30). Uses default if omitted.",
     "param.outdir.description": "Output directory for captured images. Default: outputs/usb_camera.",
     "x_search_terms": [
-      "capture"
+      "usb camera",
+      "webcam",
+      "camera capture",
+      "video",
+      "image capture",
+      "usb webcam",
+      "camera stream",
+      "photo",
+      "video capture",
+      "camera device"
     ]
   },
   "es": {

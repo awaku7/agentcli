@@ -16,8 +16,15 @@
     "err.processing": "Error processing data: {err}",
     "x_search_terms": [
       "weather",
-      "forecast",
-      "temperature"
+      "wttr",
+      "weather forecast",
+      "temperature",
+      "weather info",
+      "current weather",
+      "weather report",
+      "天気",
+      "climate",
+      "weather condition"
     ],
     "err.geocoding_failed": "Error: Could not locate city '{city}'.",
     "err.fallback_source": "[via Open-Meteo fallback]",

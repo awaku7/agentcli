@@ -28,12 +28,16 @@
     "param.zip_path.description": "Path to the zip file.",
     "tool.description": "Create/extract/list ZIP files (with Zip Slip/Zip Bomb protections).",
     "x_search_terms": [
-      "zip_ops",
-      "zip ops",
       "zip",
+      "compress",
       "archive",
+      "zip file",
+      "unzip",
       "extract zip",
-      "compress"
+      "zip compress",
+      "zip archive",
+      "file compression",
+      "decompress"
     ],
     "confirm.extract_overwrite": "zip_ops(extract) may overwrite existing files.\nzip: {zip_path}\ndest: {dest_dir}\nentries: {entries}\n\nEnter y to proceed, or c to cancel."
   },

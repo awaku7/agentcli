@@ -2,12 +2,16 @@
   "en": {
     "tool.description": "Generates an image from a text prompt, saves it as a PNG, and returns the file path. Opening is handled by the caller (CLI/GUI/Web).",
     "x_search_terms": [
-      "generate_image",
       "generate image",
-      "image generation",
-      "png",
+      "image creation",
+      "image gen",
       "text to image",
-      "art"
+      "ai image",
+      "image generate",
+      "create image",
+      "image generator",
+      "image ai",
+      "text2image"
     ],
     "param.prompt.description": "Instructions (prompt) for the image you want to generate.",
     "param.size.description": "Image size.",

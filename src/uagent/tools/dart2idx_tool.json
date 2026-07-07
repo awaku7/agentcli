@@ -1,10 +1,16 @@
 {
   "en": {
     "x_search_terms": [
-      "read dart file",
-      "dart file index",
-      "class list",
-      "method list"
+      "dart",
+      "dart code",
+      "dart analysis",
+      "code index",
+      "dart index",
+      "dart source",
+      "dart parser",
+      "dart function",
+      "dart class",
+      "dart file"
     ],
     "param.path.description": "Path to the Dart (.dart) file.",
     "err.path_required": "Error: 'path' is required.",

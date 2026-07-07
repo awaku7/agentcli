@@ -8,14 +8,16 @@
     "param.pattern.description": "Regex pattern to search for.",
     "tool.description": "Search for a pattern in files and return matching lines with line numbers (like grep -n). Pattern is required.",
     "x_search_terms": [
+      "file grep",
+      "search text",
       "grep",
-      "search lines",
-      "find in file",
-      "ファイル内検索",
-      "buscar en archivos",
-      "rechercher dans les fichiers",
-      "파일 검색",
-      "поиск в файлах"
+      "find text",
+      "text search",
+      "search in file",
+      "file search",
+      "pattern search",
+      "search content",
+      "text find"
     ],
     "param.limit.description": "Maximum number of match lines to return (default: 100).",
     "param.recur.description": "Whether to search subdirectories recursively.",

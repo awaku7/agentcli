@@ -4,11 +4,14 @@
     "x_search_terms": [
       "zipcode",
       "postal code",
-      "Japan address",
-      "address lookup",
-      "Japanese zipcode",
+      "郵便番号",
       "zip code",
-      "postal"
+      "japan zipcode",
+      "japanese zip",
+      "postcode",
+      "address lookup",
+      "japan address",
+      "〒"
     ],
     "param.zipcode.description": "7-digit Japanese zipcode to look up (e.g. '1000001'). Hyphens are ignored.",
     "param.prefecture.description": "Japanese prefecture name to list cities in (e.g. '東京都', 'Kanagawa'). Kanji, kana, or romaji accepted."

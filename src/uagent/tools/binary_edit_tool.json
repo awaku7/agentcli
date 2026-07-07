@@ -13,12 +13,16 @@
     "param.splice_op.description": "Splice operation (splice mode).",
     "tool.description": "Edit a local file as raw bytes: offset write, search/replace, insert/delete (splice), JSON patch.",
     "x_search_terms": [
-      "binary_edit",
       "binary edit",
-      "raw bytes",
+      "hex edit",
+      "binary file",
+      "edit binary",
+      "hex editor",
+      "binary modify",
       "binary patch",
-      "offset edit",
-      "splice"
+      "binary data",
+      "file hex",
+      "binary editor"
     ],
     "param.maxb.description": "Reject files larger than this size (bytes)."
   },

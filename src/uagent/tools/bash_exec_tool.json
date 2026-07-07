@@ -3,11 +3,16 @@
     "err.unavailable": "This tool is available on Unix-like systems with bash installed.",
     "param.command.description": "Command string passed to bash -lc.",
     "x_search_terms": [
-      "bash_exec",
-      "bash exec",
       "bash",
-      "shell command",
-      "execute shell"
+      "shell",
+      "bash command",
+      "shell exec",
+      "command line",
+      "linux shell",
+      "run command",
+      "execute bash",
+      "bash script",
+      "terminal"
     ],
     "tool.description": "As a last resort, execute a bash command. Use only when no other appropriate tool is available."
   },

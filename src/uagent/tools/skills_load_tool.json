@@ -5,12 +5,16 @@
     "param.skill_dir.description": "The skill directory (must contain SKILL.md).",
     "tool.description": "Loads the SKILL.md for an Agent Skill and returns its YAML frontmatter and Markdown body.",
     "x_search_terms": [
-      "skills_load",
-      "skills load",
-      "agent skill",
-      "skill management",
-      "skill file",
-      "SKILL.md"
+      "skill load",
+      "load skill",
+      "activate skill",
+      "enable skill",
+      "skill activation",
+      "load agent skill",
+      "skill enable",
+      "use skill",
+      "skill import",
+      "activate agent skill"
     ]
   },
   "ja": {

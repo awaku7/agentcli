@@ -9,15 +9,16 @@
     "param.seconds.description": "Timer duration in seconds (required for action=create).",
     "tool.description": "Shows a message after a specified number of seconds. Optionally, it can send an automatic message to the LLM. Supports OS-level scheduling (schtasks/at) with os_persist=True.",
     "x_search_terms": [
-      "set_timer",
       "set timer",
       "timer",
       "reminder",
+      "schedule",
       "alarm",
       "delay",
-      "os schedule",
-      "schtasks",
-      "cron"
+      "timeout",
+      "set timeout",
+      "schedule task",
+      "countdown"
     ],
     "param.action.description": "Action to perform: create (default), delete, or list.",
     "param.os_persist.description": "Register with the OS scheduler (schtasks on Windows, at on Linux/macOS). Timer fires even if uag is not running.",

@@ -22,8 +22,16 @@
     "output.source": "- **Source**: {src}",
     "output.timestamp": "- **Timestamp**: {ts}",
     "x_search_terms": [
+      "gps",
       "location",
-      "current location"
+      "windows gps",
+      "geolocation",
+      "position",
+      "current location",
+      "gps coordinates",
+      "latitude longitude",
+      "windows location",
+      "gps sensor"
     ]
   },
   "ja": {

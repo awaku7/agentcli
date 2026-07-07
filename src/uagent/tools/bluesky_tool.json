@@ -91,9 +91,15 @@
     "param.text.description": "Post content (plain text, max 300 chars). Required for 'post'.",
     "x_search_terms": [
       "bluesky",
-      "at protocol",
+      "bsky",
       "social",
-      "post"
+      "social media",
+      "post",
+      "bluesky social",
+      "at protocol",
+      "microblog",
+      "social network",
+      "bluesky post"
     ]
   },
   "es": {

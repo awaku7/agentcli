@@ -2,12 +2,16 @@
   "en": {
     "tool.description": "Append a single note to the shared long-term memory store (shared across users/sessions). If shared memory is not configured, the tool reports that it is unavailable.",
     "x_search_terms": [
-      "add_shared_memory",
-      "add shared memory",
-      "append note",
       "shared memory",
-      "share note",
-      "memory store"
+      "add shared",
+      "share memory",
+      "memory share",
+      "collaborative memory",
+      "team memory",
+      "shared storage",
+      "memory add",
+      "group memory",
+      "shared info"
     ],
     "param.note.description": "The note text to share. Use this for project-wide assumptions/policies that should be reused across sessions."
   },

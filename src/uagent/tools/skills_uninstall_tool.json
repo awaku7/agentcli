@@ -3,10 +3,16 @@
     "param.name.description": "The folder name of the skill to uninstall.",
     "tool.description": "Uninstall an Agent Skill from ~/.uag/skills.",
     "x_search_terms": [
-      "skills_uninstall",
+      "skill uninstall",
       "uninstall skill",
       "remove skill",
-      "delete skill"
+      "delete skill",
+      "skill remove",
+      "agent skill",
+      "uninstall",
+      "skill management",
+      "skill delete",
+      "remove agent skill"
     ],
     "err.name_required": "Skill name is required.",
     "err.invalid_name": "Invalid skill folder name: {name}",

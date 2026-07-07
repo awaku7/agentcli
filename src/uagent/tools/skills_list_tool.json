@@ -5,12 +5,16 @@
     "param.strict.description": "Whether to treat validation warnings as errors (default: false).",
     "tool.description": "Returns a list of skills under the specified root (reads frontmatter only) based on Agent Skills spec (SKILL. md).",
     "x_search_terms": [
-      "skills_list",
-      "skills list",
-      "agent skill",
-      "skill management",
-      "skill file",
-      "SKILL.md"
+      "skill list",
+      "list skills",
+      "skills",
+      "available skills",
+      "skill catalog",
+      "show skills",
+      "skills directory",
+      "installed skills",
+      "agent skills",
+      "skill overview"
     ],
     "param.recur.description": "Search recursively (default: true)"
   },

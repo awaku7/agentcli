@@ -8,12 +8,16 @@
     "param.skill_dir.description": "স্কিল ডিরেক্টরি",
     "tool.description": "Safely reads a file under a skill directory using a relative path. Path traversal is blocked.",
     "x_search_terms": [
-      "skills_read_file",
-      "skills read file",
-      "open file",
-      "read file",
-      "file contents",
-      "text file"
+      "skill read",
+      "read skill file",
+      "skill file",
+      "skill content",
+      "skill source",
+      "view skill",
+      "open skill",
+      "skill script",
+      "skill code",
+      "read reference"
     ],
     "param.maxb.description": "Maximum number of bytes to read (default: 5000000)"
   },

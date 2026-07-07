@@ -5,11 +5,16 @@
     "param.overwrite.description": "Whether to overwrite or update the destination if it already exists. Defaults to true.",
     "tool.description": "Install or update an Agent Skill (Git repo, remote/local ZIP, local dir).",
     "x_search_terms": [
-      "skills_install",
+      "skill install",
       "install skill",
       "add skill",
-      "download skill",
-      "git clone skill"
+      "skill add",
+      "install agent skill",
+      "skill setup",
+      "skill deployment",
+      "install agent",
+      "skill management",
+      "add agent skill"
     ],
     "title.install_confirm": "Skill Installation Confirmation",
     "label.skill_name": "Skill:  %(name)s",

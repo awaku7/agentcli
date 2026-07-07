@@ -11,12 +11,16 @@
     "param.message.description": "Message to show to the human user.",
     "tool.description": "A tool to ask the human user for an input/decision that the model cannot complete by itself. Security note: when requesting secrets (passwords/tokens) the input is masked.",
     "x_search_terms": [
-      "human_ask",
       "human ask",
       "ask user",
-      "prompt user",
+      "user input",
       "human input",
-      "decision"
+      "prompt user",
+      "ask human",
+      "question",
+      "user prompt",
+      "request input",
+      "get answer"
     ],
     "ui.footer": "=== /human_ask ===",
     "ui.title": "=== Human request (human_ask) ===",

@@ -1,14 +1,16 @@
 {
   "en": {
     "x_search_terms": [
-      "audio_speech",
       "audio speech",
-      "audio",
-      "voice",
-      "speech",
-      "sound",
+      "speech synthesis",
+      "text to speech",
       "tts",
-      "text to speech"
+      "audio generate",
+      "speak text",
+      "voice",
+      "voice synthesis",
+      "audio create",
+      "speech generate"
     ],
     "param.text.description": "Text to synthesize into speech.",
     "param.output_path.description": "Path where the generated audio file will be saved.",

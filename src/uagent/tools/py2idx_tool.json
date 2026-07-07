@@ -1,11 +1,16 @@
 {
   "en": {
     "x_search_terms": [
-      "read python file",
-      "python file index",
-      "python source code",
-      "function list",
-      "class index"
+      "python",
+      "python code",
+      "python analysis",
+      "code index",
+      "python source",
+      "python parser",
+      "python function",
+      "python class",
+      "python file",
+      "python module"
     ],
     "param.path.description": "Path to the Python (.py) file.",
     "err.path_required": "Error: 'path' is required.",

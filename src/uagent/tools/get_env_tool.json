@@ -5,12 +5,16 @@
     "param.unmasked_chars.description": "Number of characters to leave at the beginning and end when masking. Default is 2.",
     "tool.description": "Gets the value of a specified environment variable and returns it. Optionally masks the value.",
     "x_search_terms": [
-      "get_env",
       "get env",
       "environment variable",
-      "config",
-      "secret",
-      "env var"
+      "env var",
+      "environment",
+      "get environment",
+      "read env",
+      "env value",
+      "system env",
+      "environment value",
+      "env get"
     ],
     "param.skip.description": "If true, return '(not set)' instead of an error when missing. Default is false.",
     "err.name_required": "[get_env error] 'name' is required"

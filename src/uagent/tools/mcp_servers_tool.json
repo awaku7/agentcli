@@ -2,12 +2,16 @@
   "en": {
     "tool.description": "Manage MCP server definitions in mcp_servers.json (list/add/remove/set_default/validate/init_template).",
     "x_search_terms": [
-      "mcp_servers",
       "mcp servers",
-      "mcp server",
-      "manage servers",
-      "server profile",
-      "mcp config"
+      "mcp list",
+      "server list",
+      "mcp config",
+      "mcp settings",
+      "mcp server list",
+      "configure mcp",
+      "mcp endpoints",
+      "server management",
+      "mcp connection"
     ],
     "param.path.description": "Path to mcp_servers.json. If omitted, uses the default location.",
     "param.pretty.description": "If true, pretty-print JSON output (default: true).",

@@ -6,12 +6,16 @@
     "param.strict.description": "Should warnings also be treated as a failure? (default: false)",
     "tool.description": "Validates a skill directory (SKILL.md) according to the Agent Skills spec and returns errors and warnings.",
     "x_search_terms": [
-      "skills_validate",
-      "skills validate",
-      "agent skill",
-      "skill management",
-      "skill file",
-      "SKILL.md"
+      "skill validate",
+      "validate skill",
+      "check skill",
+      "skill test",
+      "skill verify",
+      "skill check",
+      "validation",
+      "skill review",
+      "test skill",
+      "skill analysis"
     ]
   },
   "ja": {

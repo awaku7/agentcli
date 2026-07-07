@@ -14,14 +14,16 @@
     "param.target.description": "Target (pytest path, unittest start directory, npm script, etc.). If null, defaults are used.",
     "tool.description": "Run tests (auto-detect pytest/unittest/npm). Reject shell metacharacters in extra_args.",
     "x_search_terms": [
+      "run tests",
       "test",
       "pytest",
       "unittest",
-      "テスト実行",
-      "ejecutar pruebas",
-      "exécuter les tests",
-      "테스트 실행",
-      "запустить тесты"
+      "test runner",
+      "execute tests",
+      "test execution",
+      "run unittest",
+      "test suite",
+      "testing"
     ],
     "param.xargs.description": "Additional arguments array. Reject if shell metacharacters are present."
   },

@@ -1,12 +1,16 @@
 {
   "en": {
     "x_search_terms": [
-      "add_long_memory",
-      "add long memory",
-      "save note",
+      "add memory",
+      "long term memory",
+      "save memory",
+      "store memory",
+      "memory add",
+      "agent memory",
       "remember",
-      "memory note",
-      "long term memory"
+      "persist memory",
+      "save info",
+      "memory store"
     ],
     "err.note_empty": "[add_long_memory error] note is empty",
     "param.note.description": "Write exactly one concise note (Japanese preferred) that should be reusable in future conversations.",

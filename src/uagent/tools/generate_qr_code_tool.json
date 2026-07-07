@@ -2,11 +2,16 @@
   "en": {
     "tool.description": "Generate a QR code image (PNG) from text or URL. Customizable colors and size.",
     "x_search_terms": [
+      "qr code",
       "qr",
       "qrcode",
       "generate qr",
-      "make qr",
-      "qr code"
+      "qr generator",
+      "barcode",
+      "qr image",
+      "qr create",
+      "qr generation",
+      "make qr"
     ],
     "param.text.description": "The text or URL to encode into the QR code.",
     "param.filename.description": "The output filename (e.g., 'qrcode.png'). Must end with .png.",

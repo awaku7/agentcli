@@ -6,10 +6,14 @@
     "x_search_terms": [
       "translate",
       "translation",
+      "text translate",
+      "language translate",
+      "translate text",
       "google translate",
-      "language",
-      "i18n",
-      "localization"
+      "translator",
+      "language conversion",
+      "multi language",
+      "translate language"
     ],
     "param.protect_placeholders.description": "If true, protect placeholders (auto-detected from content) from being translated. Default: true.",
     "param.texts.description": "Array of text strings to translate (max 10000 characters each). Send full text without truncation; the API handles length natively. Texts are joined and translated as a single block (context preserved)."
