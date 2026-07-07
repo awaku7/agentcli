@@ -1,6 +1,7 @@
 # src/uagent/tools/code_map_tool.py
 from __future__ import annotations
 
+import ast
 import datetime
 import json
 import urllib.request
@@ -85,9 +86,9 @@ TOOL_SPEC: dict[str, Any] = {
                     "type": "string",
                     "description": _(
                         "param.format.description",
-                        default="Output format: 'json' for structured data, 'mermaid' for visual diagram.",
+                        default="Output format: 'json' for structured data, 'mermaid' for visual diagram, 'ontology' for JSON-LD knowledge graph with file relations.",
                     ),
-                    "enum": ["json", "mermaid"],
+                    "enum": ["json", "mermaid", "ontology"],
                     "default": "json",
                 },
                 "output_dir": {
@@ -104,6 +105,13 @@ TOOL_SPEC: dict[str, Any] = {
                         default="When format is 'mermaid' and output_dir is set, also render the diagram as a PNG image via Mermaid.ink API.",
                     ),
                     "default": False,
+                },
+                "include_relations": {
+                    "type": "boolean",
+                    "description": _(
+                        "param.include_relations.description",
+                        default="Extract import/require relations between files. When format='ontology', defaults to True. Supported languages: Python, TypeScript, JavaScript, Go, Rust.",
+                    ),
                 },
             },
             "required": [],
@@ -148,6 +156,17 @@ EXTENSION_MAP: dict[str, str] = {
     ".r": "R",
     ".m": "Objective-C",
     ".mm": "Objective-C++",
+}
+
+# Languages supporting import/relation extraction
+RELATION_LANGUAGES: set[str] = {
+    "Python",
+    "TypeScript",
+    "JavaScript",
+    "TypeScript (React)",
+    "JavaScript (React)",
+    "Go",
+    "Rust",
 }
 
 # ---------------------------------------------------------------------------
@@ -457,7 +476,7 @@ def _extract_symbols(filepath: str) -> list[dict[str, Any]]:
             for m in re.finditer(pattern, stripped):
                 name = m.group(1) if m.lastindex else m.group(0)
                 if name and name not in seen:
-                    # Filter out non-symbol matches (e.g. template <...>)
+                    # Filter out non-symbol matches
                     if name in (
                         "if",
                         "else",
@@ -470,22 +489,531 @@ def _extract_symbols(filepath: str) -> list[dict[str, Any]]:
                     ):
                         continue
                     seen.add(name)
+                    symbol_type: str = "symbol"
+                    if "def " in pattern or "fn " in pattern or "func " in pattern:
+                        symbol_type = "function"
+                    elif "class " in pattern:
+                        symbol_type = "class"
+                    elif "interface " in pattern:
+                        symbol_type = "interface"
+                    elif "struct " in pattern:
+                        symbol_type = "struct"
+                    elif "enum " in pattern:
+                        symbol_type = "enum"
                     symbols.append(
                         {
                             "name": name,
                             "line": lineno,
-                            "type": (
-                                "function"
-                                if "def " in pattern
-                                or "fn " in pattern
-                                or "func " in pattern
-                                else "class" if "class " in pattern else "symbol"
-                            ),
+                            "type": symbol_type,
                         }
                     )
                     break  # one match per line (first pattern wins)
 
     return symbols
+
+
+# ---------------------------------------------------------------------------
+# Import / relation extraction
+# ---------------------------------------------------------------------------
+
+
+def _extract_imports_python(filepath: str) -> list[dict[str, Any]]:
+    """Extract import relations from a Python file using AST."""
+    imports: list[dict[str, Any]] = []
+    try:
+        with open(filepath, "r", encoding="utf-8", errors="replace") as f:
+            source = f.read()
+        tree = ast.parse(source, filename=filepath)
+    except (SyntaxError, Exception):
+        return imports
+
+    for node in ast.walk(tree):
+        if isinstance(node, ast.Import):
+            for alias in node.names:
+                imports.append({
+                    "type": "import",
+                    "module": alias.name,
+                    "line": node.lineno,
+                })
+        elif isinstance(node, ast.ImportFrom):
+            module = node.module or ""
+            names = [alias.name for alias in node.names]
+            imports.append({
+                "type": "import_from",
+                "module": module,
+                "names": names,
+                "line": node.lineno,
+            })
+    return imports
+
+
+def _extract_imports_typescript(filepath: str) -> list[dict[str, Any]]:
+    """Extract import/require relations from TypeScript/JavaScript using regex."""
+    imports: list[dict[str, Any]] = []
+    try:
+        with open(filepath, "r", encoding="utf-8", errors="replace") as f:
+            source = f.read()
+    except Exception:
+        return imports
+
+    # import ... from '...'
+    for m in re.finditer(
+        r'(?:import\s+(?:[\w*{}\s,]+)\s+from\s+[\'"]([^\'"]+)[\'"]|'
+        r'import\s+[\'"]([^\'"]+)[\'"])',
+        source,
+    ):
+        module = m.group(1) or m.group(2)
+        if module.startswith("."):
+            imports.append({
+                "type": "import",
+                "module": module,
+                "names": [],
+                "line": source[: m.start()].count("\n") + 1,
+            })
+
+    # const x = require('...')
+    for m in re.finditer(
+        r"(?:require|import)\s*\([\'\"]([^\'\"]+)[\'\"]\)", source
+    ):
+        module = m.group(1)
+        if module.startswith("."):
+            imports.append({
+                "type": "require",
+                "module": module,
+                "line": source[: m.start()].count("\n") + 1,
+            })
+
+    return imports
+
+
+def _extract_imports_go(filepath: str) -> list[dict[str, Any]]:
+    """Extract import relations from a Go file using regex."""
+    imports: list[dict[str, Any]] = []
+    try:
+        with open(filepath, "r", encoding="utf-8", errors="replace") as f:
+            source = f.read()
+    except Exception:
+        return imports
+
+    # import ( "..." )  or  import "..."
+    # Extract quoted paths
+    in_import_block = False
+    for line in source.split("\n"):
+        stripped = line.strip()
+        if stripped.startswith("import"):
+            in_import_block = True
+            # Single-line import
+            for m in re.finditer(r'"([^"]+)"', stripped):
+                imports.append({
+                    "type": "import",
+                    "module": m.group(1),
+                })
+            if "(" not in stripped:
+                in_import_block = False
+        elif in_import_block:
+            if stripped.startswith(")"):
+                in_import_block = False
+            else:
+                for m in re.finditer(r'"([^"]+)"', stripped):
+                    imports.append({
+                        "type": "import",
+                        "module": m.group(1),
+                    })
+    return imports
+
+
+def _extract_imports_rust(filepath: str) -> list[dict[str, Any]]:
+    """Extract import relations from a Rust file using regex."""
+    imports: list[dict[str, Any]] = []
+    try:
+        with open(filepath, "r", encoding="utf-8", errors="replace") as f:
+            source = f.read()
+    except Exception:
+        return imports
+
+    # use crate::...  or  use ...::...
+    for m in re.finditer(r"^\s*use\s+([^;]+);", source, re.MULTILINE):
+        module_path = m.group(1).strip()
+        imports.append({
+            "type": "use",
+            "module": module_path,
+            "line": source[: m.start()].count("\n") + 1,
+        })
+
+    # extern crate ...
+    for m in re.finditer(r"^\s*extern\s+crate\s+(\w+);", source, re.MULTILINE):
+        imports.append({
+            "type": "extern_crate",
+            "module": m.group(1),
+        })
+
+    return imports
+
+
+def _extract_imports(filepath: str) -> list[dict[str, Any]]:
+    """Extract import relations from a source file based on its extension."""
+    ext = Path(filepath).suffix.lower()
+    lang = EXTENSION_MAP.get(ext)
+    if lang == "Python":
+        return _extract_imports_python(filepath)
+    elif lang in (
+        "TypeScript", "JavaScript",
+        "TypeScript (React)", "JavaScript (React)",
+    ):
+        return _extract_imports_typescript(filepath)
+    elif lang == "Go":
+        return _extract_imports_go(filepath)
+    elif lang == "Rust":
+        return _extract_imports_rust(filepath)
+    return []
+
+
+# ---------------------------------------------------------------------------
+# Module → file path resolution
+# ---------------------------------------------------------------------------
+
+_RELATIVE_IMPORT_RE = re.compile(r"^\.+")
+
+
+def _resolve_module_to_file(
+    module: str,
+    importing_file: str,
+    root: str,
+    language: str,
+) -> list[str]:
+    """Resolve a module/import name to actual file paths within the project.
+
+    Returns a list of candidate file paths (empty if unresolvable).
+    """
+    if language == "Python":
+        return _resolve_python_module(module, importing_file, root)
+    elif language in (
+        "TypeScript", "JavaScript",
+        "TypeScript (React)", "JavaScript (React)",
+    ):
+        return _resolve_ts_module(module, importing_file, root)
+    return []
+
+
+def _resolve_python_module(
+    module: str, importing_file: str, root: str
+) -> list[str]:
+    """Resolve a Python module path to file path(s)."""
+    imp_dir = Path(importing_file).parent
+
+    if module.startswith("."):
+        # Relative import
+        depth = len(_RELATIVE_IMPORT_RE.match(module).group())
+        rel_module = module[depth:]
+        # Go up `depth - 1` directories
+        rel_dir = imp_dir
+        for _ in range(depth - 1):
+            rel_dir = rel_dir.parent
+        if rel_module:
+            parts = rel_module.split(".")
+            candidate = rel_dir.joinpath(*parts)
+        else:
+            candidate = rel_dir
+        return _find_python_file_for_module_path(candidate)
+
+    # Absolute import: try relative to root
+    parts = module.split(".")
+    # Try module as file: src/uagent/core.py → src/uagent/core.py
+    # Try module as package: src/uagent/__init__.py
+    root_path = Path(root)
+
+    # Try relative to root for each package part
+    for i in range(len(parts), 0, -1):
+        prefix = parts[:i]
+        suffix = parts[i:]
+        prefix_path = root_path.joinpath(*prefix)
+        candidates = _find_python_file_for_module_path(prefix_path)
+        if candidates:
+            return candidates
+
+    return []
+
+
+def _find_python_file_for_module_path(base: Path) -> list[str]:
+    """Find .py file(s) for a dotted module path base."""
+    results: list[str] = []
+    py_file = base.with_suffix(".py")
+    if py_file.exists() and py_file.is_file():
+        results.append(str(py_file.resolve()))
+    init_file = base / "__init__.py"
+    if init_file.exists() and init_file.is_file():
+        results.append(str(init_file.resolve()))
+    return results
+
+
+def _resolve_ts_module(
+    module: str, importing_file: str, root: str
+) -> list[str]:
+    """Resolve a TypeScript/JavaScript module path to file path(s)."""
+    imp_dir = Path(importing_file).parent
+
+    if module.startswith("."):
+        # Relative import: resolve from importing file's directory
+        rel_path = imp_dir / module
+    else:
+        # Absolute import: resolve from root/src
+        root_path = Path(root)
+        for base_dir in [root_path / "src", root_path]:
+            candidate = base_dir / module
+            files = _find_ts_file_for_module_path(candidate)
+            if files:
+                return files
+        return []
+
+    return _find_ts_file_for_module_path(rel_path)
+
+
+def _find_ts_file_for_module_path(base: Path) -> list[str]:
+    """Find TS/JS file(s) for a bare module path (no extension)."""
+    results: list[str] = []
+    for ext in [".ts", ".tsx", ".js", ".jsx", ".mjs", ".cjs"]:
+        f = base.with_suffix(ext)
+        if f.exists() and f.is_file():
+            results.append(str(f.resolve()))
+    # index files
+    for ext in [".ts", ".tsx", ".js", ".jsx"]:
+        index_file = base / f"index{ext}"
+        if index_file.exists() and index_file.is_file():
+            results.append(str(index_file.resolve()))
+    return results
+
+
+# ---------------------------------------------------------------------------
+# Relation graph builder
+# ---------------------------------------------------------------------------
+
+
+def _build_relations(
+    files_with_symbols: list[dict[str, Any]],
+    root: str,
+) -> list[dict[str, Any]]:
+    """Build a relation graph from import statements across all files.
+
+    Returns a list of relation objects:
+      {
+        "type": "import",
+        "source": "<absolute path of importing file>",
+        "target": "<absolute path of imported file>",
+        "source_line": <line number>,
+        "module": "<raw module string>"
+      }
+    """
+    # Build a lookup of absolute path → file entry for quick resolution
+    file_paths: set[str] = {entry["path"] for entry in files_with_symbols}
+    relations: list[dict[str, Any]] = []
+
+    for entry in files_with_symbols:
+        fpath = entry["path"]
+        lang = entry.get("language", "")
+        if lang not in RELATION_LANGUAGES:
+            continue
+
+        imports = _extract_imports(fpath)
+        for imp in imports:
+            module = imp.get("module", "")
+            if not module:
+                continue
+
+            if lang == "Rust":
+                # For Rust, check crate:: or self:: references
+                if "crate::" in module or "self::" in module:
+                    resolved = _resolve_rs_internal(
+                        module, fpath, root, file_paths
+                    )
+                else:
+                    # External crate reference - skip unless it's a relative path
+                    continue
+            elif lang == "Go":
+                # For Go, check if the import path contains our root path
+                root_path = Path(root).resolve()
+                if str(root_path) in module or module.startswith("./") or module.startswith("../"):
+                    resolved = _resolve_go_module(module, fpath, root, file_paths)
+                else:
+                    # External dependency - skip
+                    continue
+            else:
+                resolved = _resolve_module_to_file(
+                    module, fpath, root, lang
+                )
+
+            for target_path in resolved:
+                if target_path in file_paths:
+                    relations.append({
+                        "type": "import",
+                        "source": fpath,
+                        "target": target_path,
+                        "source_line": imp.get("line", 0),
+                        "module": module,
+                    })
+
+    return relations
+
+
+def _resolve_rs_internal(
+    module: str, importing_file: str, root: str, file_paths: set[str]
+) -> list[str]:
+    """Resolve Rust crate:: and self:: paths to actual files."""
+    imp_dir = Path(importing_file).parent
+    root_path = Path(root).resolve()
+
+    # crate::symbol → look in src/
+    module = module.replace("crate::", "")
+    # self::symbol → relative to current file's directory
+    module = module.replace("self::", "")
+
+    parts = module.split("::")
+    # Try as files in src/ or relative
+    src_dirs = [root_path / "src", imp_dir]
+    results: list[str] = []
+    for src_dir in src_dirs:
+        for i in range(len(parts), 0, -1):
+            prefix = parts[:i]
+            candidate = src_dir.joinpath(*prefix)
+            # Check candidate.rs
+            rs_file = candidate.with_suffix(".rs")
+            if rs_file.exists() and str(rs_file.resolve()) in file_paths:
+                results.append(str(rs_file.resolve()))
+            # Check candidate/mod.rs
+            mod_file = candidate / "mod.rs"
+            if mod_file.exists() and str(mod_file.resolve()) in file_paths:
+                results.append(str(mod_file.resolve()))
+    return results
+
+
+def _resolve_go_module(
+    module: str, importing_file: str, root: str, file_paths: set[str]
+) -> list[str]:
+    """Resolve a Go import (relative) to actual file path."""
+    imp_dir = Path(importing_file).parent
+    try:
+        candidate = (imp_dir / module).resolve()
+    except ValueError:
+        return []
+    if candidate.is_dir():
+        # Importing a package directory - check for .go files
+        go_files = list(candidate.rglob("*.go"))
+        return [str(f.resolve()) for f in go_files if str(f.resolve()) in file_paths]
+    return []
+
+
+# ---------------------------------------------------------------------------
+# JSON-LD ontology builder
+# ---------------------------------------------------------------------------
+
+
+def _make_uri(path: str, root: str) -> str:
+    """Create a URI-safe identifier from a file path."""
+    root_path = Path(root).resolve()
+    try:
+        rel = Path(path).resolve().relative_to(root_path)
+    except ValueError:
+        rel = Path(path).name
+    return f"uag:file/{rel.as_posix()}"
+
+
+def _make_symbol_uri(symbol_name: str, file_uri: str) -> str:
+    """Create a URI for a symbol."""
+    return f"{file_uri}#{symbol_name}"
+
+
+def _build_ontology(
+    core_result: dict[str, Any],
+    relations: list[dict[str, Any]],
+) -> dict[str, Any]:
+    """Build a JSON-LD ontology graph from code_map results and relations."""
+    root = core_result["root"]
+    graph: list[dict[str, Any]] = []
+
+    # File nodes
+    file_uri_map: dict[str, str] = {}  # absolute path → URI
+
+    for entry in core_result["files"]:
+        fpath = entry["path"]
+        uri = _make_uri(fpath, root)
+        file_uri_map[fpath] = uri
+
+        # File node
+        file_node: dict[str, Any] = {
+            "@id": uri,
+            "@type": "uag:SourceFile",
+            "uag:language": entry.get("language", "Unknown"),
+            "uag:relative_path": entry.get("relative_path", ""),
+        }
+        graph.append(file_node)
+
+        # Symbol nodes
+        for sym in entry.get("symbols", []):
+            sym_uri = _make_symbol_uri(sym["name"], uri)
+            sym_type = _symbol_type_to_ontology(sym.get("type", "symbol"))
+            sym_node: dict[str, Any] = {
+                "@id": sym_uri,
+                "@type": sym_type,
+                "uag:file": {"@id": uri},
+                "uag:line": sym["line"],
+                "uag:name": sym["name"],
+            }
+            graph.append(sym_node)
+
+    # Relation edges
+    for rel in relations:
+        source_uri = file_uri_map.get(rel["source"])
+        target_uri = file_uri_map.get(rel["target"])
+        if source_uri and target_uri:
+            rel_node: dict[str, Any] = {
+                "@id": f"{source_uri}/imports/{Path(rel['target']).name}",
+                "@type": "uag:ImportRelation",
+                "uag:source": {"@id": source_uri},
+                "uag:target": {"@id": target_uri},
+                "uag:module": rel.get("module", ""),
+                "uag:source_line": rel.get("source_line", 0),
+            }
+            graph.append(rel_node)
+
+    # Project metadata node
+    project_info = core_result.get("project")
+    if project_info:
+        graph.append({
+            "@id": "uag:project",
+            "@type": "uag:Project",
+            "uag:project_type": project_info.get("type"),
+            "uag:root": root,
+            "uag:total_files": core_result.get("total_files", 0),
+        })
+
+    # Stats node
+    graph.append({
+        "@id": "uag:stats",
+        "@type": "uag:ScanStats",
+        "uag:total_files": core_result.get("total_files", 0),
+        "uag:total_relations": len(relations),
+        "uag:root": root,
+    })
+
+    return {
+        "@context": {
+            "schema": "https://schema.org/",
+            "uag": "https://uagent.local/ontology/",
+        },
+        "@graph": graph,
+    }
+
+
+def _symbol_type_to_ontology(symbol_type: str) -> str:
+    """Map code_map symbol types to ontology types."""
+    mapping = {
+        "function": "uag:Function",
+        "class": "uag:Class",
+        "interface": "uag:Interface",
+        "struct": "uag:Struct",
+        "enum": "uag:Enum",
+        "symbol": "uag:Symbol",
+    }
+    return mapping.get(symbol_type, "uag:Symbol")
 
 
 # ---------------------------------------------------------------------------
@@ -582,7 +1110,7 @@ def _render_mermaid_to_image(mermaid_code: str, output_path: str) -> str | None:
     Returns None on success, or an error message string on failure.
     Uses mermaid-cli (playwright-based) if available, falls back to Mermaid.ink API.
     """
-    mermaid_cli_hint = 'Install mermaid-cli: pip install mermaid-cli'
+    mermaid_cli_hint = "Install mermaid-cli: pip install mermaid-cli"
     from .._pip_auto import install_with_status
 
     # Try mermaid-cli Python package first (local playwright rendering)
@@ -641,6 +1169,13 @@ def run_tool(args: dict[str, Any]) -> str:
     output_format = args.get("format", "json")
     output_dir = args.get("output_dir", "").strip() or None
     render_image = bool(args.get("render_image", False))
+
+    # include_relations: default True when format=ontology
+    include_relations_raw = args.get("include_relations")
+    if include_relations_raw is None:
+        include_relations = output_format == "ontology"
+    else:
+        include_relations = bool(include_relations_raw)
 
     root = Path(base_path).resolve()
     if not root.exists() or not root.is_dir():
@@ -707,7 +1242,6 @@ def run_tool(args: dict[str, Any]) -> str:
         extra = [f for f in file_list if f not in set(project_info["sources"])]
         file_list = list(dict.fromkeys(project_info["sources"] + extra))
 
-    # Build tree
     # Extract symbols
     files_with_symbols: list[dict[str, Any]] = []
     for fpath in file_list:
@@ -730,6 +1264,11 @@ def run_tool(args: dict[str, Any]) -> str:
 
     result["files"] = files_with_symbols
     result["total_files"] = len(files_with_symbols)
+
+    # Build relations if requested
+    relations: list[dict[str, Any]] = []
+    if include_relations:
+        relations = _build_relations(files_with_symbols, str(root))
 
     # Build tree structure
     tree_root = _build_tree(file_list, str(root), max_depth)
@@ -779,7 +1318,29 @@ def run_tool(args: dict[str, Any]) -> str:
 
         return mermaid_output
 
-    # JSON output
+    # Ontology output (JSON-LD)
+    if output_format == "ontology":
+        ontology = _build_ontology(result, relations)
+        json_output = json.dumps(ontology, ensure_ascii=False, indent=2)
+
+        if output_dir:
+            jsonld_path = _save_file(json_output, "jsonld")
+            return json.dumps(
+                {
+                    "ok": True,
+                    "saved_files": [jsonld_path],
+                    "message": f"Saved ontology to {jsonld_path}",
+                },
+                ensure_ascii=False,
+                indent=2,
+            )
+
+        return json_output
+
+    # JSON output (standard)
+    if include_relations and relations:
+        result["relations"] = relations
+
     json_output = json.dumps(result, ensure_ascii=False, indent=2)
 
     if output_dir:
