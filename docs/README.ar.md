@@ -29,7 +29,7 @@
 
 - **يعمل محليًا** على جهازك. تظل بياناتك معك (باستثناء استدعاءات واجهة برمجة التطبيقات التي تجريها).
 - **حرية المزود**: OpenAI، وClaude، وGemini، وDeepSeek، وOllama، وAzure، وBedrock، وHuggingFace... أكثر من 15 مقدمًا، يمكن الوصول إليهم جميعًا من واجهة واحدة. قم بالتبديل بينهما عن طريق إعادة تكوين متغيرات البيئة - دون الحاجة إلى إعادة التثبيت أو الترحيل.
-- **136 أداة**: إدخال/إخراج الملفات، وبحث الويب، وإنشاء الصور، وGmail، ومسح جهاز BLE، وتكامل خادم MCP - **78 أداة آمنة بالتوازي** (يتم تنفيذ ما يصل إلى 8 أدوات بشكل متزامن عبر مجموعة مؤشرات الترابط، ويمكن تكوينها عبر `UAGENT_PARALLEL_WORKERS`). عندما يطلق LLM استدعاءات متعددة للأدوات مرة واحدة، يقوم uag بموازاة هذه الاستدعاءات تلقائيًا.
+- **171 أداة**: إدخال/إخراج الملفات، وبحث الويب، وإنشاء الصور، وGmail، ومسح جهاز BLE، وتكامل خادم MCP - **87 أداة آمنة بالتوازي** (يتم تنفيذ ما يصل إلى 8 أدوات بشكل متزامن عبر مجموعة مؤشرات الترابط، ويمكن تكوينها عبر `UAGENT_PARALLEL_WORKERS`). عندما يطلق LLM استدعاءات متعددة للأدوات مرة واحدة، يقوم uag بموازاة هذه الاستدعاءات تلقائيًا.
 - **3 واجهات مستخدم + A2A**: واجهة سطر الأوامر (CLI) وواجهة المستخدم الرسومية (GUI) والويب وبروتوكول وكيل إلى وكيل. نفس المحرك، أي واجهة.
 - **مهارات الوكيل**: قم بتثبيت المهارات المجتمعية من السوق. تمديد UAG إلى ما لا نهاية.
 
@@ -56,7 +56,7 @@ OpenAI / Azure / Bedrock / OpenRouter / Ollama / Gemini / Vertex AI / Claude / G
 ### ⚡ تنفيذ الأداة الموازية
 
 عندما يطلب LLM أدوات متعددة في وقت واحد، يقوم uag بموازاة هذه الأدوات تلقائيًا.
-تم وضع علامة على 106 أداة `x_parallel_safe` ويتم تنفيذها بشكل متزامن عبر `ThreadPoolExecutor` (8 سلاسل بشكل افتراضي؛ قم بتعيين `UAGENT_PARALLEL_WORKERS` للتغيير).
+تم وضع علامة على 87 أداة `x_parallel_safe` ويتم تنفيذها بشكل متزامن عبر `ThreadPoolExecutor` (8 سلاسل بشكل افتراضي؛ قم بتعيين `UAGENT_PARALLEL_WORKERS` للتغيير).
 
 **مثال**: اسأل "التحقق من الطقس في عواصم بلدان الشمال الأوروبي" ← تطلق LLM `search_web` × 5 دول ← يتم تشغيل جميع عمليات البحث الخمسة بالتوازي ← يتم جمع النتائج في دفعة واحدة.
 
@@ -68,7 +68,7 @@ OpenAI / Azure / Bedrock / OpenRouter / Ollama / Gemini / Vertex AI / Claude / G
 - **Reload past sessions** with `:load <index>` — pick up where you left off.
 - **Tool result caching** avoids redundant re-execution when the same tool call repeats.
 
-### 🛠 164 أداة
+### 🛠 171 أداة
 
 | الفئة | أدوات |
 |---|---|
@@ -77,7 +77,7 @@ OpenAI / Azure / Bedrock / OpenRouter / Ollama / Gemini / Vertex AI / Claude / G
 | **الإعلام** | إنشاء صورة، تحليل الصورة، img2img، audio_speech، audio_transcribe |
 | **الوثائق** | استخراج PDF/PPTX/DOCX/RTF/ODT، استخراج منظم لـ Excel |
 | **الاتصالات** | gmail_send، gmail_read، bluesky، discord_channel، Teams_webhook — راجع [COMMUNICATION.md](https://github.com/awaku7/agentcli/blob/main/docs/COMMUNICATION.md) |
-| **إنترنت الأشياء** | SwitchBot (Cloud + BLE)، ECHONET Lite، Matter، UPnP |
+| **إنترنت الأشياء** | SwitchBot (Cloud + BLE)، ECHONET Lite، Matter، UPnP، reverse_geocode |
 | ** أدوات التطوير ** | git_ops، python_compile، lint_format، run_tests، db_query، ** 13 متصفحًا لكود المصدر (عائلة idx) ** |
 | **الخطة التشاورية المتعددة الأطراف** | الاتصال بخوادم MCP الخارجية، وقائمة الأدوات، وتنفيذ |
 | **A2A** | الاتصال من وكيل إلى وكيل (مع مثيلات UAG الأخرى أو الخوادم المتوافقة مع A2A) |

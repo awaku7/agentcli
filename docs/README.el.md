@@ -29,7 +29,7 @@
 
 - **Εκτελείται τοπικά** στο μηχάνημά σας. Τα δεδομένα σας παραμένουν μαζί σας (εκτός από τις κλήσεις API που πραγματοποιείτε).
 - **Ελευθερία παρόχου**: OpenAI, Claude, Gemini, DeepSeek, Ollama, Azure, Bedrock, HuggingFace... 15+ πάροχοι, όλοι προσβάσιμοι από μια ενιαία διεπαφή. Εναλλάξτε μεταξύ τους ρυθμίζοντας εκ νέου τις μεταβλητές περιβάλλοντος — χωρίς επανεγκατάσταση, χωρίς μετεγκατάσταση.
-- **136 εργαλεία**: I/O αρχείων, αναζήτηση ιστού, δημιουργία εικόνων, Gmail, σάρωση συσκευής BLE, ενσωμάτωση διακομιστή MCP — **78 είναι παράλληλα ασφαλή** (έως 8 εκτελούνται ταυτόχρονα μέσω νήμα, με δυνατότητα διαμόρφωσης μέσω "UAGENT_PARALLEL_WORKERS"). Όταν το LLM ενεργοποιεί πολλές κλήσεις εργαλείων ταυτόχρονα, το uag τις παραλληλίζει αυτόματα.
+- **171 εργαλεία**: I/O αρχείων, αναζήτηση ιστού, δημιουργία εικόνων, Gmail, σάρωση συσκευής BLE, ενσωμάτωση διακομιστή MCP — **87 είναι παράλληλα ασφαλή** (έως 8 εκτελούνται ταυτόχρονα μέσω νήμα, με δυνατότητα διαμόρφωσης μέσω "UAGENT_PARALLEL_WORKERS"). Όταν το LLM ενεργοποιεί πολλές κλήσεις εργαλείων ταυτόχρονα, το uag τις παραλληλίζει αυτόματα.
 - **3 διεπαφές χρήστη + A2A**: Πρωτόκολλο CLI, GUI, Web και Agent-to-Agent. Ίδιος κινητήρας, οποιαδήποτε διεπαφή.
 - **Δεξιότητες πράκτορα**: Εγκαταστήστε δεξιότητες που δημιουργούνται από την κοινότητα από την αγορά. Επεκτείνετε το uag ατελείωτα.
 
@@ -56,7 +56,7 @@ OpenAI / Azure / Bedrock / OpenRouter / Ollama / Gemini / Vertex AI / Claude / G
 ### ⚡ Παράλληλη εκτέλεση εργαλείου
 
 Όταν το LLM ζητά πολλά εργαλεία ταυτόχρονα, το uag **τα παραλληλίζει αυτόματα**.
-78 εργαλεία επισημαίνονται ως "x_parallel_safe" και εκτελούνται ταυτόχρονα μέσω ενός "ThreadPoolExecutor" (8 νήματα από προεπιλογή, ορίστε το "UAGENT_PARALLEL_WORKERS" για αλλαγή).
+87 εργαλεία επισημαίνονται ως "x_parallel_safe" και εκτελούνται ταυτόχρονα μέσω ενός "ThreadPoolExecutor" (8 νήματα από προεπιλογή, ορίστε το "UAGENT_PARALLEL_WORKERS" για αλλαγή).
 
 **Παράδειγμα**: Ρωτήστε "Έλεγχος του καιρού στις σκανδιναβικές πρωτεύουσες" → Το LLM ενεργοποιεί το `search_web` × 5 χώρες → και οι 5 αναζητήσεις εκτελούνται παράλληλα → αποτελέσματα που συλλέγονται σε μία παρτίδα.
 
@@ -68,7 +68,7 @@ OpenAI / Azure / Bedrock / OpenRouter / Ollama / Gemini / Vertex AI / Claude / G
 - **Reload past sessions** with `:load <index>` — pick up where you left off.
 - **Tool result caching** avoids redundant re-execution when the same tool call repeats.
 
-### 🛠 164 Εργαλεία
+### 🛠 171 Εργαλεία
 
 | Κατηγορία | Εργαλεία |
 |---|---|
@@ -77,7 +77,7 @@ OpenAI / Azure / Bedrock / OpenRouter / Ollama / Gemini / Vertex AI / Claude / G
 | **ΜΜΕ** | δημιουργία_εικόνας, ανάλυση_εικόνας, img2img, audio_speech, audio_transscribe |
 | **Έγγραφα** | Εξαγωγή PDF/PPTX/DOCX/RTF/ODT, δομημένη εξαγωγή Excel |
 | **Επικοινωνία** | gmail_send, gmail_read, bluesky, discord_channel, teams_webhook — δείτε [COMMUNICATION.md](https://github.com/awaku7/agentcli/blob/main/docs/COMMUNICATION.md) |
-| **IoT** | BACnet、Modbus TCP、OPC UA、SwitchBot（Cloud + BLE）、ECHONET Lite、Matter、UPnP |
+| **IoT** | BACnet、Modbus TCP、OPC UA、SwitchBot（Cloud + BLE）、ECHONET Lite、Matter、UPnP、reverse_geocode |
 | **Εργαλεία προγραμματιστών** | git_ops, python_compile, lint_format, run_tests, db_query, **13 προγράμματα πλοήγησης πηγαίου κώδικα (οικογένεια idx)** |
 | **MCP** | Σύνδεση σε εξωτερικούς διακομιστές MCP, λίστα εργαλείων, εκτέλεση |
 | **A2A** | Επικοινωνία agent-to-agent (με άλλες παρουσίες uag ή διακομιστές συμβατούς με A2A) |

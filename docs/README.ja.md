@@ -29,7 +29,7 @@
 
 - **あなたのマシンでローカルに動作**。データはあなたの手元に残ります（API呼び出しは除く）。
 - **プロバイダの自由**: OpenAI、Claude、Gemini、DeepSeek、Ollama、Azure、Bedrock、HuggingFace…15以上のプロバイダを1つのインターフェースから利用可能。環境変数を変えるだけで切り替えられます。再インストールや移行は不要です。
-- **140以上のツール**: ファイルI/O、Web検索、画像生成、Gmail、BLEデバイススキャン、MCPサーバ統合 — **78のツールは並行実行に対応**（スレッドプールで最大8つ同時実行、`UAGENT_PARALLEL_WORKERS`で変更可能）。LLMが複数のツール呼び出しを同時に要求すると、uagは自動的に発音化します。
+- **170以上のツール**: ファイルI/O、Web検索、画像生成、Gmail、BLEデバイススキャン、MCPサーバ統合 — **87のツールは並行実行に対応**（スレッドプールで最大8つ同時実行、`UAGENT_PARALLEL_WORKERS`で変更可能）。LLMが複数のツール呼び出しを同時に要求すると、uagは自動的に発音化します。
 - **3つのUI + A2A**: CLI、GUI、Web、そしてエージェント間プロトコル。同じエンジンをどのインターフェースでも使えます。
 - **エージェントスキル**: マーケットプレイスからコミュニティ製スキルをインストール。uagを無限に拡張できます。
 
@@ -77,7 +77,7 @@ LLMが複数のツールを同時に要求すると、uagは **自動的に並�
 | **メディア** | generate_image、analyze_image、img2img、audio_speech、audio_transcribe |
 | **ドキュメント** | PDF/PPTX/DOCX/RTF/ODT抽出、Excel構造化抽出 |
 | **コミュニケーション** | gmail_send、gmail_read、bluesky、discord_channel、teams_webhook — [COMMUNICATION.md](COMMUNICATION.md) 参照 |
-| **IoT** | BACnet、Modbus TCP、OPC UA、SwitchBot（Cloud + BLE）、ECHONET Lite、Matter、UPnP |
+| **IoT** | BACnet、Modbus TCP、OPC UA、SwitchBot（Cloud + BLE）、ECHONET Lite、Matter、UPnP、reverse_geocode |
 | **開発ツール** | git_ops、python_compile、lint_format、run_tests、db_query、**13のソースコードナビゲーター（idxファミリ）** |
 | **MCP** | 外部MCPサーバへの接続、ツール一覧、実行 |
 | **A2A** | エージェント間通信（他のuagインスタンスやA2A対応サーバと） |

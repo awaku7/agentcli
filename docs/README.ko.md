@@ -68,7 +68,7 @@ LLM이 여러 도구를 동시에 요청하면 uag가 해당 도구를 **자동�
 - **Reload past sessions** with `:load <index>` — pick up where you left off.
 - **Tool result caching** avoids redundant re-execution when the same tool call repeats.
 
-### 🛠 164 도구
+### 🛠 171 도구
 
 | 카테고리 | 도구 |
 |---|---|
@@ -77,7 +77,7 @@ LLM이 여러 도구를 동시에 요청하면 uag가 해당 도구를 **자동�
 | **미디어** | generate_image, analyze_image, img2img, audio_speech, audio_transcribe |
 | **문서** | PDF/PPTX/DOCX/RTF/ODT 추출, Excel 구조 추출 |
 | **커뮤니케이션** | gmail_send, gmail_read, bluesky, discord_channel, team_webhook — [COMMUNICATION.md](https://github.com/awaku7/agentcli/blob/main/docs/COMMUNICATION.md) 참조 |
-| **IoT** | BACnet、Modbus TCP、OPC UA、SwitchBot（Cloud + BLE）、ECHONET Lite、Matter、UPnP |
+| **IoT** | BACnet、Modbus TCP、OPC UA、SwitchBot（Cloud + BLE）、ECHONET Lite、Matter、UPnP、reverse_geocode |
 | **개발 도구** | git_ops, python_compile, lint_format, run_tests, db_query, **13개의 소스 코드 탐색기(idx 제품군)** |
 | **MCP** | 외부 MCP 서버에 연결하고, 도구를 나열하고, 실행 |
 | **A2A** | 에이전트 간 통신(다른 uag 인스턴스 또는 A2A 호환 서버 사용) |

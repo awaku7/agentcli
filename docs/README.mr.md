@@ -29,7 +29,7 @@
 
 - **Runs locally** on your machine. Your data stays with you (except API calls you make).
 - **Provider freedom**: OpenAI, Claude, Gemini, DeepSeek, Ollama, Azure, Bedrock, HuggingFace... 15+ providers, all accessible from a single interface. Swap between them by reconfiguring environment variables — no reinstall, no migration.
-- **164 tools**: File I/O, web search, image generation, Gmail, BLE device scanning, MCP server integration — **106 are parallel-safe** (up to 8 execute concurrently via thread pool, configurable via `UAGENT_PARALLEL_WORKERS`). When the LLM fires multiple tool calls at once, uag automatically parallelizes them.
+- **171 tools**: File I/O, web search, image generation, Gmail, BLE device scanning, MCP server integration — **87 are parallel-safe** (up to 8 execute concurrently via thread pool, configurable via `UAGENT_PARALLEL_WORKERS`). When the LLM fires multiple tool calls at once, uag automatically parallelizes them.
 - **3 UIs + A2A**: CLI, GUI, Web, and Agent-to-Agent protocol. Same engine, any interface.
 - **Agent Skills**: Install community-built skills from the marketplace. Extend uag endlessly.
 
@@ -56,7 +56,7 @@ OpenAI / Azure / Bedrock / OpenRouter / Ollama / Gemini / Vertex AI / Claude / G
 ### ⚡ समांतर टूल एक्झिक्यूशन
 
 जेव्हा LLM एकाच वेळी अनेक साधनांची विनंती करते, तेव्हा uag **आपोआप त्यांना समांतर करते**.
-78 साधने `x_parallel_safe` म्हणून चिन्हांकित केली आहेत आणि `ThreadPoolExecutor` द्वारे एकाच वेळी कार्यान्वित करा (8 थ्रेड बाय डीफॉल्ट; बदलण्यासाठी `UAGENT_PARALLEL_WORKERS` सेट करा).
+87 साधने `x_parallel_safe` म्हणून चिन्हांकित केली आहेत आणि `ThreadPoolExecutor` द्वारे एकाच वेळी कार्यान्वित करा (8 थ्रेड बाय डीफॉल्ट; बदलण्यासाठी `UAGENT_PARALLEL_WORKERS` सेट करा).
 
 **उदाहरण**: "नॉर्डिक कॅपिटलमधील हवामान तपासा" विचारा → LLM फायर्स `search_web` × 5 देश → सर्व 5 शोध समांतर चालतात → एका बॅचमध्ये एकत्रित केलेले परिणाम.
 
@@ -77,7 +77,7 @@ OpenAI / Azure / Bedrock / OpenRouter / Ollama / Gemini / Vertex AI / Claude / G
 | **मीडिया** | generate_image, analyze_image, img2img, audio_speech, audio_transscribe |
 | **कागदपत्रे** | PDF/PPTX/DOCX/RTF/ODT एक्स्ट्रॅक्शन, एक्सेल स्ट्रक्चर्ड एक्सट्रॅक्शन |
 | **संवाद** | gmail_send, gmail_read, bluesky, discord_channel, teams_webhook — पहा [COMMUNICATION.md](https://github.com/awaku7/agentcli/blob/main/docs/COMMUNICATION.md) |
-| **IoT** | BACnet、Modbus TCP、OPC UA、SwitchBot（Cloud + BLE）、ECHONET Lite、Matter、UPnP |
+| **IoT** | BACnet、Modbus TCP、OPC UA、SwitchBot（Cloud + BLE）、ECHONET Lite、Matter、UPnP、reverse_geocode |
 | **देव साधने** | git_ops, python_compile, lint_format, run_tests, db_query, **१३ सोर्स कोड नेव्हिगेटर (idx फॅमिली)** |
 | **MCP** | बाह्य MCP सर्व्हरशी कनेक्ट करा, साधने सूची करा, कार्यान्वित करा |
 | **A2A** | एजंट-टू-एजंट संप्रेषण (इतर uag उदाहरणे किंवा A2A-सुसंगत सर्व्हरसह) |
