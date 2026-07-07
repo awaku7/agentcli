@@ -55,6 +55,11 @@ def run_tool(args: dict[str, Any]) -> str:
         if mod is None:
             mod = importlib.import_module(pkg_name)
         importlib.reload(mod)
+        # _INITIALIZEDをリセットしてプラグインを再読み込み
+        mod._INITIALIZED = False
+        mod._DYNAMIC_COMMANDS.clear()
+        mod._load_plugins()
+        mod._INITIALIZED = True
         return "System reload successful. All tools were reloaded with the latest code."
     except Exception as e:
         return f"Error during system reload: {str(e)}"
