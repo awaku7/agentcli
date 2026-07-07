@@ -1,44 +1,51 @@
 ---
 name: jp-postage
-description: "日本郵便の公式サイトから郵便物（手紙・はがき・レターパック等）の最新料金をスクレイピングして表示するスキル。"
+description: "日本郵便の郵便料金（手紙・はがき・定形外・ゆうメール・速達・書留）を検索できるスキル。2025年11月改訂版データを組み込み。"
 license: Apache-2.0
 metadata:
   author: uagent
-  version: "1.0"
+  version: "2.0"
 ---
 
 # JP Postage Skill
 
-日本郵便の公式サイトから手紙・はがき・レターパックの最新料金を取得します。
+日本郵便の**最新料金データ（2025年11月改訂）** をスクリプト内に直接保持しています。
+外部サイトへのアクセスは不要で、オフラインでも使えます。
 
 ## 使用方法
 
-以下のスクリプトを実行するだけで最新料金が取得できます。
+### 全料金一覧を表示
 
 ```bash
-python skills/jp-postage/scripts/postage_scraper.py
+python skills/jp-postage/scripts/postage_lookup.py
 ```
 
-## スクリプトの説明
+### キーワード検索
 
-- `scripts/postage_scraper.py` が本体です
-- Playwright で日本郵便の料金ページを開き、7つのテーブルから料金データを抽出します
-- 抽出結果は Markdown 形式で標準出力に出力されます
-- 依存関係: `playwright`, `beautifulsoup4`（環境にインストール済み）
+```bash
+python skills/jp-postage/scripts/postage_lookup.py はがき
+python skills/jp-postage/scripts/postage_lookup.py 定形
+python skills/jp-postage/scripts/postage_lookup.py 速達
+python skills/jp-postage/scripts/postage_lookup.py ゆうメール
+python skills/jp-postage/scripts/postage_lookup.py 書留
+```
 
-## テーブル構成
+## 収録データ
 
-| テーブル | 内容 |
+| カテゴリ | 内容 |
 |---------|------|
-| Table 1 | 定形郵便物（50g以内 110円） |
-| Table 2 | 定形外郵便物 規格内/規格外 |
-| Table 3 | ミニレター（25g以内 85円） |
-| Table 4 | レターパックライト（4kg以内 430円） |
-| Table 5 | レターパックプラス（4kg以内 600円） |
-| Table 6 | スマートレター（1kg以内 210円） |
+| 定形郵便物 | 50g以内 110円 |
+| 定形外（規格内） | 50g〜1kg 140〜750円 |
+| 定形外（規格外） | 50g〜4kg 260〜1,750円 |
+| はがき（通常） | 85円 |
+| はがき（往復） | 170円 |
+| ゆうメール | 150g〜1kg 190〜380円 |
+| 速達 | 250g〜4kg 300〜690円 |
+| 配達時間帯指定 | 250g〜4kg 440〜920円 |
+| 書留 | 簡易350円 / 一般480円〜 |
 
 ## 注意事項
 
-- 日本郵便のサイト構造が変更された場合はスクリプトの修正が必要
-- ページがJSレンダリング必須のため Playwright を使用
-- 取得に失敗した場合はエラーメッセージを表示して終了する
+- 料金は **2025年11月1日改訂** 時点のものです
+- 日本郵便の公式発表による変更があった場合は手動で更新が必要です
+- スクリプトは `python` のみで動作し、外部依存関係はありません

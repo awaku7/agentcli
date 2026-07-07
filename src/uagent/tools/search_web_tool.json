@@ -5,7 +5,7 @@
     "error.missing_query_parameter": "missing 'query' parameter",
     "error.run_tool_error": "run_tool error: {error}",
     "param.query.description": "Search query.",
-    "tool.description": "Search the web via DuckDuckGo HTML interface. Returns title/link/snippet.",
+    "tool.description": "Search the web via DuckDuckGo (default) or Brave Search HTML interface. Returns title/link/snippet. Brave Search is better for Japanese/local queries.",
     "x_search_terms": [
       "web search",
       "duckduckgo",
@@ -18,7 +18,10 @@
       "google",
       "browse"
     ],
-    "param.limit.description": "Maximum number of results to return (default: 5)."
+    "param.limit.description": "Maximum number of results to return (default: 5).",
+    "error.brave_failed_after_retries": "Brave Search request failed after retries: {error}",
+    "error.brave_429_with_api_hint": "Brave Search rate limited (429). Set environment variable UAGENT_BRAVE_API_KEY with a Brave Search API key (free tier available at https://brave.com/search/api/) to use the API instead of HTML scraping.",
+    "param.engine.description": "Search engine: 'duckduckgo' (default) or 'brave'."
   },
   "ja": {
     "error.args_must_be_dict": "argsはdictである必要があります",
@@ -26,7 +29,7 @@
     "error.missing_query_parameter": "'query' パラメータがありません",
     "error.run_tool_error": "run_tool 実行エラー: {error}",
     "param.query.description": "検索クエリ文字列。",
-    "tool.description": "DuckDuckGo の HTML インターフェースで Web 検索を行い、title/link/snippet を返します。",
+    "tool.description": "DuckDuckGo（既定）または Brave Search の HTML インターフェースで Web 検索を行い、title/link/snippet を返します。Brave Search は日本語のローカル検索に適しています。",
     "x_search_terms": [
       "search_web",
       "ウェブ検索",
@@ -35,7 +38,10 @@
       "google",
       "browse"
     ],
-    "param.limit.description": "返す最大件数（既定: 5）。"
+    "param.limit.description": "返す最大件数（既定: 5）。",
+    "error.brave_failed_after_retries": "Brave Search へのリクエストがリトライ後も失敗しました: {error}",
+    "error.brave_429_with_api_hint": "Brave Search がレート制限されました (429)。環境変数 UAGENT_BRAVE_API_KEY に Brave Search API キーを設定してください（無料枠あり: https://brave.com/search/api/）。API を使用すると安定した検索が可能です。",
+    "param.engine.description": "検索エンジン: 'duckduckgo'（既定）または 'brave'。"
   },
   "es": {
     "error.args_must_be_dict": "deben ser un dictado",
@@ -43,7 +49,7 @@
     "error.missing_query_parameter": "falta el parámetro 'query'",
     "error.run_tool_error": "error de ejecución_herramienta: {error}",
     "param.query.description": "Consulta de búsqueda.",
-    "tool.description": "Busque en la web a través de la interfaz HTML de DuckDuckGo. Devuelve título/enlace/fragmento.",
+    "tool.description": "Busque en la web a través de la interfaz HTML de DuckDuckGo (predeterminado) o Brave Search. Devuelve título/enlace/fragmento. Brave Search es mejor para consultas en japonés/locales.",
     "x_search_terms": [
       "search_web",
       "buscar web",
@@ -52,7 +58,10 @@
       "google",
       "browse"
     ],
-    "param.limit.description": "Número máximo de resultados a devolver (predeterminado: 5)."
+    "param.limit.description": "Número máximo de resultados a devolver (predeterminado: 5).",
+    "error.brave_failed_after_retries": "La solicitud a Brave Search falló después de reintentos: {error}",
+    "error.brave_429_with_api_hint": "Límite de tasa de Brave Search excedido (429). Configure la variable de entorno UAGENT_BRAVE_API_KEY con una clave API de Brave Search (nivel gratuito disponible en https://brave.com/search/api/) para usar la API en lugar del scraping HTML.",
+    "param.engine.description": "Motor de búsqueda: 'duckduckgo' (predeterminado) o 'brave'."
   },
   "fr": {
     "error.args_must_be_dict": "doivent être une requête de recherche",
@@ -60,7 +69,7 @@
     "error.missing_query_parameter": "paramètre 'query' manquant",
     "error.run_tool_error": "Erreur run_tool : {error}",
     "param.query.description": ".",
-    "tool.description": "Recherchez sur le Web via l'interface HTML DuckDuckGo. Renvoie le titre/lien/extrait.",
+    "tool.description": "Recherchez sur le Web via l'interface HTML de DuckDuckGo (par défaut) ou Brave Search. Retourne titre/lien/extrait. Brave Search est meilleur pour les requêtes en japonais/locales.",
     "x_search_terms": [
       "search_web",
       "recherche web",
@@ -69,7 +78,10 @@
       "google",
       "browse"
     ],
-    "param.limit.description": "Nombre maximum de résultats à retourner (par défaut : 5)."
+    "param.limit.description": "Nombre maximum de résultats à retourner (par défaut : 5).",
+    "error.brave_failed_after_retries": "La requête Brave Search a échoué après plusieurs tentatives : {error}",
+    "error.brave_429_with_api_hint": "Limite de débit Brave Search dépassée (429). Définissez la variable d'environnement UAGENT_BRAVE_API_KEY avec une clé API Brave Search (offre gratuite disponible sur https://brave.com/search/api/) pour utiliser l'API au lieu du scraping HTML.",
+    "param.engine.description": "Moteur de recherche : 'duckduckgo' (par défaut) ou 'brave'."
   },
   "ko": {
     "error.args_must_be_dict": "args는 딕셔너리여야 합니다",
@@ -77,7 +89,7 @@
     "error.missing_query_parameter": "'쿼리' 매개변수가 누락되었습니다.",
     "error.run_tool_error": "run_tool 오류: {error}",
     "param.query.description": "검색어 문자열입니다.",
-    "tool.description": "DuckDuckGo HTML 인터페이스를 통해 웹을 검색하고 제목/링크/스니펫을 반환합니다.",
+    "tool.description": "DuckDuckGo(기본) 또는 Brave Search HTML 인터페이스로 웹 검색을 수행합니다. 제목/링크/요약을 반환합니다. Brave Search는 일본어/로컬 검색에 더 적합합니다.",
     "x_search_terms": [
       "search_web",
       "웹 검색",
@@ -86,7 +98,10 @@
       "google",
       "browse"
     ],
-    "param.limit.description": "반환할 최대 결과 수(기본값: 5)"
+    "param.limit.description": "반환할 최대 결과 수(기본값: 5)",
+    "error.brave_failed_after_retries": "Brave Search 요청이 재시도 후 실패했습니다: {error}",
+    "error.brave_429_with_api_hint": "Brave Search 요청 한도 초과 (429). 환경 변수 UAGENT_BRAVE_API_KEY에 Brave Search API 키를 설정하세요 (무료 티어: https://brave.com/search/api/). HTML 스크래핑 대신 API를 사용할 수 있습니다.",
+    "param.engine.description": "검색 엔진: 'duckduckgo' (기본) 또는 'brave'."
   },
   "de": {
     "error.args_must_be_dict": "Argumente müssen ein Diktat sein.",
@@ -94,7 +109,7 @@
     "error.missing_query_parameter": "fehlender 'query'-Parameter",
     "error.run_tool_error": "run_tool-Fehler: {error}",
     "param.query.description": "Suchabfrage.",
-    "tool.description": "Durchsuchen Sie das Web über die DuckDuckGo-HTML-Schnittstelle. Gibt Titel/Link/Snippet zurück.",
+    "tool.description": "Durchsuchen Sie das Web über die HTML-Schnittstelle von DuckDuckGo (Standard) oder Brave Search. Gibt Titel/Link/Auszug zurück. Brave Search eignet sich besser für japanische/lokale Abfragen.",
     "x_search_terms": [
       "search_web",
       "websuche",
@@ -103,7 +118,10 @@
       "google",
       "browse"
     ],
-    "param.limit.description": "Maximale Anzahl der zurückzugebenden Ergebnisse (Standard: 5)."
+    "param.limit.description": "Maximale Anzahl der zurückzugebenden Ergebnisse (Standard: 5).",
+    "error.brave_failed_after_retries": "Brave Search-Anfrage nach Wiederholungen fehlgeschlagen: {error}",
+    "error.brave_429_with_api_hint": "Brave Search-Ratenlimit erreicht (429). Setzen Sie die Umgebungsvariable UAGENT_BRAVE_API_KEY mit einem Brave Search API-Schlüssel (kostenlose Stufe verfügbar unter https://brave.com/search/api/), um die API anstelle von HTML-Scraping zu verwenden.",
+    "param.engine.description": "Suchmaschine: 'duckduckgo' (Standard) oder 'brave'."
   },
   "it": {
     "error.args_must_be_dict": "args deve essere una query di ricerca dict",
@@ -111,7 +129,7 @@
     "error.missing_query_parameter": "manca il parametro 'query'",
     "error.run_tool_error": "errore run_tool: {error}",
     "param.query.description": ".",
-    "tool.description": "Cerca sul web tramite l'interfaccia HTML di DuckDuckGo. Restituisce titolo/link/snippet.",
+    "tool.description": "Cerca sul web tramite l'interfaccia HTML di DuckDuckGo (predefinita) o Brave Search. Restituisce titolo/link/estratto. Brave Search è migliore per le query in giapponese/locali.",
     "x_search_terms": [
       "search_web",
       "ricerca web",
@@ -120,7 +138,10 @@
       "google",
       "browse"
     ],
-    "param.limit.description": "Numero massimo di risultati da restituire (predefinito: 5)."
+    "param.limit.description": "Numero massimo di risultati da restituire (predefinito: 5).",
+    "error.brave_failed_after_retries": "Richiesta Brave Search fallita dopo i tentativi: {error}",
+    "error.brave_429_with_api_hint": "Limite di frequenza Brave Search superato (429). Imposta la variabile d'ambiente UAGENT_BRAVE_API_KEY con una chiave API Brave Search (piano gratuito disponibile su https://brave.com/search/api/) per utilizzare l'API invece dello scraping HTML.",
+    "param.engine.description": "Motore di ricerca: 'duckduckgo' (predefinito) o 'brave'."
   },
   "ru": {
     "error.args_must_be_dict": "аргументы должны быть dict",
@@ -128,7 +149,7 @@
     "error.missing_query_parameter": "отсутствует параметр запроса",
     "error.run_tool_error": "ошибка run_tool: {error}",
     "param.query.description": "Поисковый запрос.",
-    "tool.description": "Выполняйте поиск в Интернете через HTML-интерфейс DuckDuckGo. Возвращает заголовок/ссылку/фрагмент.",
+    "tool.description": "Поиск в Интернете через HTML-интерфейс DuckDuckGo (по умолчанию) или Brave Search. Возвращает заголовок/ссылку/фрагмент. Brave Search лучше подходит для японских/локальных запросов.",
     "x_search_terms": [
       "search_web",
       "поиск в вебе",
@@ -137,7 +158,10 @@
       "google",
       "browse"
     ],
-    "param.limit.description": "Максимальное количество возвращаемых результатов (по умолчанию: 5)."
+    "param.limit.description": "Максимальное количество возвращаемых результатов (по умолчанию: 5).",
+    "error.brave_failed_after_retries": "Запрос к Brave Search не удался после повторных попыток: {error}",
+    "error.brave_429_with_api_hint": "Превышен лимит запросов Brave Search (429). Установите переменную окружения UAGENT_BRAVE_API_KEY с ключом API Brave Search (бесплатный уровень доступен на https://brave.com/search/api/) для использования API вместо парсинга HTML.",
+    "param.engine.description": "Поисковая система: 'duckduckgo' (по умолчанию) или 'brave'."
   },
   "pt_BR": {
     "error.args_must_be_dict": "args deve ser um dict",
@@ -145,7 +169,7 @@
     "error.missing_query_parameter": "falta o parâmetro 'query'",
     "error.run_tool_error": "erro run_tool: {error}",
     "param.query.description": "Consulta de pesquisa.",
-    "tool.description": "Pesquise na web pela interface HTML do DuckDuckGo e retorne título/link/trecho.",
+    "tool.description": "Pesquise na web através da interface HTML do DuckDuckGo (padrão) ou Brave Search. Retorna título/link/trecho. Brave Search é melhor para consultas em japonês/locais.",
     "x_search_terms": [
       "search_web",
       "buscar na web",
@@ -154,7 +178,10 @@
       "google",
       "browse"
     ],
-    "param.limit.description": "Número máximo de resultados a retornar (padrão: 5)."
+    "param.limit.description": "Número máximo de resultados a retornar (padrão: 5).",
+    "error.brave_failed_after_retries": "A solicitação ao Brave Search falhou após tentativas: {error}",
+    "error.brave_429_with_api_hint": "Limite de taxa do Brave Search excedido (429). Defina a variável de ambiente UAGENT_BRAVE_API_KEY com uma chave de API do Brave Search (nível gratuito disponível em https://brave.com/search/api/) para usar a API em vez de scraping HTML.",
+    "param.engine.description": "Mecanismo de busca: 'duckduckgo' (padrão) ou 'brave'."
   },
   "pt": {
     "error.args_must_be_dict": "args deve ser um dict",
@@ -162,7 +189,7 @@
     "error.missing_query_parameter": "falta o parâmetro 'query'",
     "error.run_tool_error": "erro run_tool: {error}",
     "param.query.description": "Consulta de pesquisa.",
-    "tool.description": "Pesquise na web por meio da interface HTML do DuckDuckGo. Retorna título/link/snippet.",
+    "tool.description": "Pesquise na web através da interface HTML do DuckDuckGo (padrão) ou Brave Search. Retorna título/trecho. Brave Search é melhor para consultas em japonês/locais.",
     "x_search_terms": [
       "search_web",
       "pesquisa na web",
@@ -171,7 +198,10 @@
       "google",
       "browse"
     ],
-    "param.limit.description": "Número máximo de resultados a serem retornados (padrão: 5)."
+    "param.limit.description": "Número máximo de resultados a serem retornados (padrão: 5).",
+    "error.brave_failed_after_retries": "O pedido ao Brave Search falhou após tentativas: {error}",
+    "error.brave_429_with_api_hint": "Limite de taxa do Brave Search excedido (429). Defina a variável de ambiente UAGENT_BRAVE_API_KEY com uma chave API do Brave Search (nível gratuito disponível em https://brave.com/search/api/) para usar a API em vez de scraping HTML.",
+    "param.engine.description": "Motor de busca: 'duckduckgo' (padrão) ou 'brave'."
   },
   "id": {
     "error.args_must_be_dict": "argumen harus berupa dict",
@@ -179,7 +209,7 @@
     "error.missing_query_parameter": "parameter 'query' tidak ada",
     "error.run_tool_error": "Galat run_tool: {error}",
     "param.query.description": "Kueri penelusuran.",
-    "tool.description": "Cari web melalui antarmuka DuckDuckGo HTML dan kembalikan title/link/snippet.",
+    "tool.description": "Cari web melalui antarmuka HTML DuckDuckGo (default) atau Brave Search. Mengembalikan judul/tautan/cuplikan. Brave Search lebih baik untuk kueri bahasa Jepang/lokal.",
     "x_search_terms": [
       "search_web",
       "pencarian web",
@@ -188,7 +218,10 @@
       "google",
       "browse"
     ],
-    "param.limit.description": "Jumlah maksimum hasil yang dikembalikan (default: 5)."
+    "param.limit.description": "Jumlah maksimum hasil yang dikembalikan (default: 5).",
+    "error.brave_failed_after_retries": "Permintaan Brave Search gagal setelah percobaan ulang: {error}",
+    "error.brave_429_with_api_hint": "Brave Search dibatasi kecepatannya (429). Atur variabel lingkungan UAGENT_BRAVE_API_KEY dengan kunci API Brave Search (tingkat gratis tersedia di https://brave.com/search/api/) untuk menggunakan API sebagai pengganti scraping HTML.",
+    "param.engine.description": "Mesin pencari: 'duckduckgo' (default) atau 'brave'."
   },
   "vi": {
     "error.args_must_be_dict": "đối số phải là một lệnh",
@@ -196,7 +229,7 @@
     "error.missing_query_parameter": "thiếu tham số 'query'",
     "error.run_tool_error": "lỗi run_tool: {error}",
     "param.query.description": "Truy vấn tìm kiếm.",
-    "tool.description": "Tìm kiếm trên web thông qua giao diện DuckDuckGo HTML. Trả về tiêu đề/liên kết/đoạn trích.",
+    "tool.description": "Tìm kiếm web qua giao diện HTML của DuckDuckGo (mặc định) hoặc Brave Search. Trả về tiêu đề/liên kết/đoạn trích. Brave Search tốt hơn cho các truy vấn tiếng Nhật/địa phương.",
     "x_search_terms": [
       "search_web",
       "tìm kiếm web",
@@ -205,7 +238,10 @@
       "google",
       "browse"
     ],
-    "param.limit.description": "Số kết quả trả về tối đa (mặc định: 5)."
+    "param.limit.description": "Số kết quả trả về tối đa (mặc định: 5).",
+    "error.brave_failed_after_retries": "Yêu cầu Brave Search thất bại sau khi thử lại: {error}",
+    "error.brave_429_with_api_hint": "Brave Search bị giới hạn tần suất (429). Đặt biến môi trường UAGENT_BRAVE_API_KEY với khóa API Brave Search (gói miễn phí tại https://brave.com/search/api/) để sử dụng API thay vì quét HTML.",
+    "param.engine.description": "Công cụ tìm kiếm: 'duckduckgo' (mặc định) hoặc 'brave'."
   },
   "pl": {
     "error.args_must_be_dict": "args musi być dict",
@@ -213,7 +249,7 @@
     "error.missing_query_parameter": "brakuje parametru 'query'",
     "error.run_tool_error": "błąd run_tool: {error}",
     "param.query.description": "Zapytanie wyszukiwania.",
-    "tool.description": "Przeszukuj Internet za pomocą interfejsu HTML DuckDuckGo. Zwraca tytuł/link/fragment.",
+    "tool.description": "Przeszukuj sieć przez interfejs HTML DuckDuckGo (domyślnie) lub Brave Search. Zwraca tytuł/link/fragment. Brave Search jest lepszy w przypadku zapytań w języku japońskim/lokalnych.",
     "x_search_terms": [
       "search_web",
       "wyszukiwanie w sieci",
@@ -222,7 +258,10 @@
       "google",
       "browse"
     ],
-    "param.limit.description": "Maksymalna liczba zwracanych wyników (domyślnie: 5)."
+    "param.limit.description": "Maksymalna liczba zwracanych wyników (domyślnie: 5).",
+    "error.brave_failed_after_retries": "Żądanie Brave Search nie powiodło się po ponownych próbach: {error}",
+    "error.brave_429_with_api_hint": "Ograniczenie liczby żądań Brave Search (429). Ustaw zmienną środowiskową UAGENT_BRAVE_API_KEY z kluczem API Brave Search (darmowy poziom dostępny na https://brave.com/search/api/), aby użyć API zamiast skrobania HTML.",
+    "param.engine.description": "Wyszukiwarka: 'duckduckgo' (domyślnie) lub 'brave'."
   },
   "hi": {
     "error.args_must_be_dict": "args एक निर्देश होना चाहिए",
@@ -230,7 +269,7 @@
     "error.missing_query_parameter": "'query' पैरामीटर गायब है",
     "error.run_tool_error": "run_tool त्रुटि: {error}",
     "param.query.description": "खोज क्वेरी।",
-    "tool.description": "DuckDuckGo HTML इंटरफ़ेस के माध्यम से वेब खोजें और शीर्षक/लिंक/स्निपेट लौटाएँ।",
+    "tool.description": "DuckDuckGo (डिफ़ॉल्ट) या Brave Search HTML इंटरफ़ेस के माध्यम से वेब पर खोजें। शीर्षक/लिंक/स्निपेट लौटाता है। Brave Search जापानी/स्थानीय प्रश्नों के लिए बेहतर है।",
     "x_search_terms": [
       "search_web",
       "वेब खोज",
@@ -239,7 +278,10 @@
       "google",
       "browse"
     ],
-    "param.limit.description": "लौटने के लिए परिणामों की अधिकतम संख्या (डिफ़ॉल्ट: 5)।"
+    "param.limit.description": "लौटने के लिए परिणामों की अधिकतम संख्या (डिफ़ॉल्ट: 5)।",
+    "error.brave_failed_after_retries": "पुनः प्रयास के बाद Brave Search अनुरोध विफल रहा: {error}",
+    "error.brave_429_with_api_hint": "Brave Search दर सीमित (429)। HTML स्क्रैपिंग के बजाय एपीआई का उपयोग करने के लिए Brave Search API कुंजी (https://brave.com/search/api/ पर मुफ्त टियर उपलब्ध) के साथ पर्यावरण चर UAGENT_BRAVE_API_KEY सेट करें।",
+    "param.engine.description": "खोज इंजन: 'duckduckgo' (डिफ़ॉल्ट) या 'brave'।"
   },
   "ar": {
     "error.args_must_be_dict": "يجب أن تكون الوسائط بمثابة إملاء",
@@ -247,7 +289,7 @@
     "error.missing_query_parameter": "المعامل 'query' مفقود",
     "error.run_tool_error": "خطأ في run_tool: {error}",
     "param.query.description": "استعلام بحث.",
-    "tool.description": "ابحث في الويب عبر واجهة DuckDuckGo HTML وأرجِع العنوان/الرابط/المقتطف.",
+    "tool.description": "ابحث في الويب عبر DuckDuckGo (افتراضي) أو واجهة Brave Search HTML. يعيد العنوان/الرابط/المقتطف. Brave Search أفضل للاستعلامات اليابانية/المحلية.",
     "x_search_terms": [
       "search_web",
       "بحث الويب",
@@ -256,7 +298,10 @@
       "google",
       "browse"
     ],
-    "param.limit.description": "الحد الأقصى لعدد النتائج المراد إرجاعها (الافتراضي: 5)."
+    "param.limit.description": "الحد الأقصى لعدد النتائج المراد إرجاعها (الافتراضي: 5).",
+    "error.brave_failed_after_retries": "فشل طلب Brave Search بعد إعادة المحاولة: {error}",
+    "error.brave_429_with_api_hint": "معدل Brave Search محدود (429). قم بتعيين متغير البيئة UAGENT_BRAVE_API_KEY باستخدام مفتاح Brave Search API (الطبقة المجانية المتوفرة على https://brave.com/search/api/) لاستخدام API بدلاً من تجريف HTML.",
+    "param.engine.description": "محرك البحث: 'duckduckgo' (افتراضي) أو 'brave'."
   },
   "sv": {
     "error.args_must_be_dict": "args måste vara en dict",
@@ -264,7 +309,7 @@
     "error.missing_query_parameter": "saknar parametern 'query'",
     "error.run_tool_error": "run_tool-fel: {error}",
     "param.query.description": "Sökfråga.",
-    "tool.description": "Sök på webben via DuckDuckGo HTML-gränssnitt och returnera titel/länk/snutt.",
+    "tool.description": "Sök på webben via DuckDuckGo (standard) eller Brave Search HTML-gränssnitt. Returnerar titel/länk/utdrag. Brave Search är bättre för japanska/lokala frågor.",
     "x_search_terms": [
       "search_web",
       "webbsök",
@@ -273,7 +318,10 @@
       "google",
       "browse"
     ],
-    "param.limit.description": "Maximalt antal resultat att returnera (standard: 5)."
+    "param.limit.description": "Maximalt antal resultat att returnera (standard: 5).",
+    "error.brave_failed_after_retries": "Brave Search-begäran misslyckades efter försök: {error}",
+    "error.brave_429_with_api_hint": "Brave Search-begränsning (429). Ställ in miljövariabeln UAGENT_BRAVE_API_KEY med en Brave Search API-nyckel (gratis nivå tillgänglig på https://brave.com/search/api/) för att använda API:t istället för HTML-skrapning.",
+    "param.engine.description": "Sökmotor: 'duckduckgo' (standard) eller 'brave'."
   },
   "sw": {
     "error.args_must_be_dict": "args lazima iwe dict",
@@ -281,7 +329,7 @@
     "error.missing_query_parameter": "'query' haipo",
     "error.run_tool_error": "hitilafu_ya_zana: {error}",
     "param.query.description": "Hoja ya utafutaji.",
-    "tool.description": "Tafuta wavuti kupitia kiolesura cha HTML cha DuckDuckGo. Hurejesha kichwa/kiungo/kijisehemu.",
+    "tool.description": "Tafuta wavuti kupitia DuckDuckGo (chaguo-msingi) au kiolesura cha HTML cha Brave Search. Hurejesha kichwa/kiungo/kijisehemu. Brave Search ni bora kwa maswali ya Kijapani/ya ndani.",
     "x_search_terms": [
       "search_web",
       "utafutaji wa wavuti",
@@ -290,7 +338,10 @@
       "google",
       "browse"
     ],
-    "param.limit.description": "Idadi ya juu zaidi ya matokeo ya kurejesha (chaguo-msingi: 5)."
+    "param.limit.description": "Idadi ya juu zaidi ya matokeo ya kurejesha (chaguo-msingi: 5).",
+    "error.brave_failed_after_retries": "Ombi la Brave Search halikufaulu baada ya kujaribu tena: {error}",
+    "error.brave_429_with_api_hint": "Kiwango cha Brave Search kimezuiwa (429). Weka kigezo cha mazingira UAGENT_BRAVE_API_KEY kwa kutumia ufunguo wa API ya Brave Search (ngao ya bure inapatikana kwenye https://brave.com/search/api/) ili kutumia API badala ya kufuta HTML.",
+    "param.engine.description": "Injini ya utafutaji: 'duckduckgo' (chaguo-msingi) au 'brave'."
   },
   "nb": {
     "error.args_must_be_dict": "args må være en dict",
@@ -298,7 +349,7 @@
     "error.missing_query_parameter": "mangler parameteren 'query'",
     "error.run_tool_error": "run_tool-feil: {error}",
     "param.query.description": "Søkespørring.",
-    "tool.description": "Søk på nettet via DuckDuckGo HTML-grensesnittet og returner tittel/lenke/utdrag.",
+    "tool.description": "Søk på nettet via DuckDuckGo (standard) eller Brave Search HTML-grensesnitt. Returnerer tittel/lenke/utdrag. Brave Search er bedre for japanske/lokale søk.",
     "x_search_terms": [
       "search_web",
       "nettsøk",
@@ -307,7 +358,10 @@
       "google",
       "browse"
     ],
-    "param.limit.description": "Maksimalt antall resultater å returnere (standard: 5)."
+    "param.limit.description": "Maksimalt antall resultater å returnere (standard: 5).",
+    "error.brave_failed_after_retries": "Brave Search-forespørsel mislyktes etter forsøk: {error}",
+    "error.brave_429_with_api_hint": "Brave Search-frekvensbegrensning (429). Angi miljøvariabelen UAGENT_BRAVE_API_KEY med en Brave Search API-nøkkel (gratis nivå tilgjengelig på https://brave.com/search/api/) for å bruke API i stedet for HTML-skraping.",
+    "param.engine.description": "Søkemotor: 'duckduckgo' (standard) eller 'brave'."
   },
   "nl": {
     "error.args_must_be_dict": "args moeten een dictaat zijn",
@@ -315,7 +369,7 @@
     "error.missing_query_parameter": "ontbrekende 'query'-parameter",
     "error.run_tool_error": "run_tool fout: {error}",
     "param.query.description": "Zoekopdracht.",
-    "tool.description": "Zoek op internet via de DuckDuckGo HTML-interface. Retourneert titel/link/fragment.",
+    "tool.description": "Zoek op internet via DuckDuckGo (standaard) of Brave Search HTML-interface. Retourneert titel/link/fragment. Brave Search is beter voor Japanse/lokale zoekopdrachten.",
     "x_search_terms": [
       "search_web",
       "webzoek",
@@ -324,7 +378,10 @@
       "google",
       "browse"
     ],
-    "param.limit.description": "Maximaal aantal resultaten dat moet worden geretourneerd (standaard: 5)."
+    "param.limit.description": "Maximaal aantal resultaten dat moet worden geretourneerd (standaard: 5).",
+    "error.brave_failed_after_retries": "Brave Search-verzoek mislukt na nieuwe pogingen: {error}",
+    "error.brave_429_with_api_hint": "Brave Search-snelheid beperkt (429). Stel de omgevingsvariabele UAGENT_BRAVE_API_KEY in met een Brave Search API-sleutel (gratis laag beschikbaar op https://brave.com/search/api/) om de API te gebruiken in plaats van HTML-scraping.",
+    "param.engine.description": "Zoekmachine: 'duckduckgo' (standaard) of 'brave'."
   },
   "fi": {
     "error.args_must_be_dict": "argin on oltava sanelu",
@@ -332,7 +389,7 @@
     "error.missing_query_parameter": "puuttuva 'query'-parametri",
     "error.run_tool_error": "run_tool-virhe: {error}",
     "param.query.description": "Hakukysely.",
-    "tool.description": "Hae verkosta DuckDuckGo HTML -käyttöliittymän kautta. Palauttaa otsikon/linkin/katkelman.",
+    "tool.description": "Hae verkosta DuckDuckGon (oletus) tai Brave Searchin HTML-käyttöliittymän kautta. Palauttaa otsikon/linkin/otteeen. Brave Search on parempi japanilaisille/paikallisille kyselyille.",
     "x_search_terms": [
       "search_web",
       "verkkohaku",
@@ -341,7 +398,10 @@
       "google",
       "browse"
     ],
-    "param.limit.description": "Palautettavien tulosten enimmäismäärä (oletus: 5)."
+    "param.limit.description": "Palautettavien tulosten enimmäismäärä (oletus: 5).",
+    "error.brave_failed_after_retries": "Brave Search -pyyntö epäonnistui uudelleenyritysten jälkeen: {error}",
+    "error.brave_429_with_api_hint": "Brave Search -nopeusrajoitettu (429). Aseta ympäristömuuttuja UAGENT_BRAVE_API_KEY Brave Search API -avaimella (ilmainen taso saatavilla osoitteessa https://brave.com/search/api/) käyttämään API:a HTML-kaavinnan sijaan.",
+    "param.engine.description": "Hakukone: 'duckduckgo' (oletus) tai 'brave'."
   },
   "cs": {
     "error.args_must_be_dict": "args musí být dict",
@@ -349,7 +409,7 @@
     "error.missing_query_parameter": "chybí parametr 'query'",
     "error.run_tool_error": "chyba run_tool: {error}",
     "param.query.description": "Vyhledávací dotaz.",
-    "tool.description": "Vyhledává na webu přes HTML rozhraní DuckDuckGo a vrací titul/odkaz/úryvek.",
+    "tool.description": "Prohledávejte web prostřednictvím rozhraní DuckDuckGo (výchozí) nebo Brave Search HTML. Vrací název/odkaz/úryvek. Brave Search je lepší pro japonské/místní dotazy.",
     "x_search_terms": [
       "search_web",
       "vyhledávání na webu",
@@ -358,7 +418,10 @@
       "google",
       "browse"
     ],
-    "param.limit.description": "Maximální počet vracených výsledků (výchozí: 5)."
+    "param.limit.description": "Maximální počet vracených výsledků (výchozí: 5).",
+    "error.brave_failed_after_retries": "Požadavek Brave Search selhal po opakovaných pokusech: {error}",
+    "error.brave_429_with_api_hint": "Brave Search rate limited (429). Nastavte proměnnou prostředí UAGENT_BRAVE_API_KEY s klíčem Brave Search API (bezplatná úroveň dostupná na https://brave.com/search/api/), aby se místo scrapování HTML používalo API.",
+    "param.engine.description": "Vyhledávač: 'duckduckgo' (výchozí) nebo 'brave'."
   },
   "uk": {
     "error.args_must_be_dict": "args має бути dict",
@@ -366,7 +429,7 @@
     "error.missing_query_parameter": "відсутній параметр 'query'",
     "error.run_tool_error": "помилка run_tool: {error}",
     "param.query.description": "Пошуковий запит.",
-    "tool.description": "Шукайте в Інтернеті через HTML-інтерфейс DuckDuckGo. Повертає назву/посилання/фрагмент.",
+    "tool.description": "Шукайте в Інтернеті через HTML-інтерфейс DuckDuckGo (за замовчуванням) або Brave Search. Повертає назву/посилання/фрагмент. Brave Search краще підходить для японських/місцевих запитів.",
     "x_search_terms": [
       "search_web",
       "пошук в вебі",
@@ -375,7 +438,10 @@
       "google",
       "browse"
     ],
-    "param.limit.description": "Максимальна кількість результатів для повернення (за замовчуванням: 5)."
+    "param.limit.description": "Максимальна кількість результатів для повернення (за замовчуванням: 5).",
+    "error.brave_failed_after_retries": "Запит Brave Search не вдався після повторних спроб: {error}",
+    "error.brave_429_with_api_hint": "Brave Search обмеження частоти (429). Встановіть змінну середовища UAGENT_BRAVE_API_KEY за допомогою ключа Brave Search API (безкоштовний рівень доступний на https://brave.com/search/api/), щоб використовувати API замість скрапінгу HTML.",
+    "param.engine.description": "Пошукова система: 'duckduckgo' (за замовчуванням) або 'brave'."
   },
   "tr": {
     "error.args_must_be_dict": "bağımsız değişkenler bir dikte olmalıdır",
@@ -383,7 +449,7 @@
     "error.missing_query_parameter": "'query' parametresi eksik",
     "error.run_tool_error": "run_tool hatası: {error}",
     "param.query.description": "Arama sorgusu.",
-    "tool.description": "DuckDuckGo HTML arayüzü aracılığıyla web'de arama yapın. Başlığı/bağlantıyı/parçacığı döndürür.",
+    "tool.description": "DuckDuckGo (varsayılan) veya Brave Search HTML arayüzü aracılığıyla web'de arama yapın. Başlık/bağlantı/parçacık döndürür. Brave Search, Japonca/yerel sorgular için daha iyidir.",
     "x_search_terms": [
       "search_web",
       "web arama",
@@ -392,7 +458,10 @@
       "google",
       "browse"
     ],
-    "param.limit.description": "Döndürülecek maksimum sonuç sayısı (varsayılan: 5)."
+    "param.limit.description": "Döndürülecek maksimum sonuç sayısı (varsayılan: 5).",
+    "error.brave_failed_after_retries": "Brave Search isteği yeniden denemelerden sonra başarısız oldu: {error}",
+    "error.brave_429_with_api_hint": "Brave Search hız sınırı (429). HTML kazıma yerine API'yi kullanmak için UAGENT_BRAVE_API_KEY ortam değişkenini bir Brave Search API anahtarıyla (ücretsiz katman https://brave.com/search/api/ adresinde mevcuttur) ayarlayın.",
+    "param.engine.description": "Arama motoru: 'duckduckgo' (varsayılan) veya 'brave'."
   },
   "th": {
     "error.args_must_be_dict": "args ต้องเป็น dict",
@@ -400,7 +469,7 @@
     "error.missing_query_parameter": "ไม่มีพารามิเตอร์ 'query'",
     "error.run_tool_error": "ข้อผิดพลาด run_tool: {error}",
     "param.query.description": "สตริงคำค้นหา",
-    "tool.description": "ค้นหาเว็บผ่านอินเทอร์เฟซ DuckDuckGo HTML และส่งคืนชื่อ/ลิงก์/ข้อความสรุป",
+    "tool.description": "ค้นหาเว็บผ่านอินเทอร์เฟซ HTML ของ DuckDuckGo (ค่าเริ่มต้น) หรือ Brave Search คืนค่าชื่อเรื่อง/ลิงก์/ตัวอย่างข้อความ Brave Search เหมาะกว่าสำหรับคำค้นหาภาษาญี่ปุ่นหรือท้องถิ่น",
     "x_search_terms": [
       "search_web",
       "ค้นหาเว็บ",
@@ -409,7 +478,10 @@
       "google",
       "browse"
     ],
-    "param.limit.description": "จำนวนผลลัพธ์สูงสุดที่จะส่งคืน (ค่าเริ่มต้น: 5)"
+    "param.limit.description": "จำนวนผลลัพธ์สูงสุดที่จะส่งคืน (ค่าเริ่มต้น: 5)",
+    "error.brave_failed_after_retries": "คำขอ Brave Search ล้มเหลวหลังจากลองอีกครั้ง: {error}",
+    "error.brave_429_with_api_hint": "Brave Search ถูกจำกัดอัตราการใช้ (429) ตั้งค่าตัวแปรสภาพแวดล้อม UAGENT_BRAVE_API_KEY ด้วยคีย์ API ของ Brave Search (มีบริการฟรีที่ https://brave.com/search/api/) เพื่อใช้ API แทนการขูดข้อมูล HTML",
+    "param.engine.description": "เครื่องมือค้นหา: 'duckduckgo' (ค่าเริ่มต้น) หรือ 'brave'"
   },
   "zh_CN": {
     "error.args_must_be_dict": "args 必须是一个字典",
@@ -417,7 +489,7 @@
     "error.missing_query_parameter": "缺少“查询”参数",
     "error.run_tool_error": "运行工具错误：{error}",
     "param.query.description": "搜索查询字符串。",
-    "tool.description": "通过 DuckDuckGo HTML 界面搜索网络并返回标题/链接/片段。",
+    "tool.description": "通过 DuckDuckGo（默认）或 Brave Search 的 HTML 界面进行网页搜索，返回标题/链接/摘要。Brave Search 更适合日语/本地化查询。",
     "x_search_terms": [
       "search_web",
       "网页搜索",
@@ -426,7 +498,10 @@
       "google",
       "browse"
     ],
-    "param.limit.description": "返回结果的最大数量（默认值：5）。"
+    "param.limit.description": "返回结果的最大数量（默认值：5）。",
+    "error.brave_failed_after_retries": "Brave Search 请求重试后失败: {error}",
+    "error.brave_429_with_api_hint": "Brave Search 请求频率受限 (429)。请设置环境变量 UAGENT_BRAVE_API_KEY，填入 Brave Search API 密钥（免费额度: https://brave.com/search/api/）以使用 API 而非 HTML 抓取。",
+    "param.engine.description": "搜索引擎: 'duckduckgo'（默认）或 'brave'。"
   },
   "zh_TW": {
     "error.args_must_be_dict": "args 必須是字典",
@@ -434,7 +509,7 @@
     "error.missing_query_parameter": "缺少“查詢”參數",
     "error.run_tool_error": "運行工具錯誤：{error}",
     "param.query.description": "搜尋查詢字串。",
-    "tool.description": "透過 DuckDuckGo HTML 介面搜尋網路並返回標題/連結/片段。",
+    "tool.description": "透過 DuckDuckGo（預設）或 Brave Search 的 HTML 介面進行網頁搜尋，回傳標題/連結/摘要。Brave Search 更適合日語/本地化查詢。",
     "x_search_terms": [
       "search_web",
       "網頁搜尋",
@@ -443,7 +518,10 @@
       "google",
       "browse"
     ],
-    "param.limit.description": "傳回結果的最大數量（預設值：5）。"
+    "param.limit.description": "傳回結果的最大數量（預設值：5）。",
+    "error.brave_failed_after_retries": "Brave Search 請求重試後失敗: {error}",
+    "error.brave_429_with_api_hint": "Brave Search 請求頻率受限 (429)。請設定環境變數 UAGENT_BRAVE_API_KEY，填入 Brave Search API 金鑰（免費額度: https://brave.com/search/api/）以使用 API 而非 HTML 抓取。",
+    "param.engine.description": "搜尋引擎: 'duckduckgo'（預設）或 'brave'。"
   },
   "bn": {
     "error.args_must_be_dict": "args অবশ্যই একটি dict হতে হবে",
@@ -451,7 +529,7 @@
     "error.missing_query_parameter": "অনুপস্থিত 'query' প্যারামিটার",
     "error.run_tool_error": "run_tool ত্রুটি: {error}",
     "param.query.description": "টার্গেট উইন্ডো শিরোনাম (যদি নির্দিষ্ট করা থাকে) __DELIM_157 এর চেয়ে দ্রুত ক্যাপচার করা হয়। 8000000 ≈ 8MB)। 'ক্যোয়ারী' প্যারামিটার",
-    "tool.description": "ওয়েবে অনুসন্ধান করুন শিরোনাম/লিঙ্ক/স্নিপেট",
+    "tool.description": "DuckDuckGo (ডিফল্ট) বা Brave Search HTML ইন্টারফেসের মাধ্যমে ওয়েবে অনুসন্ধান করুন। শিরোনাম/লিঙ্ক/স্নিপেট প্রদান করে। Brave Search জাপানি/স্থানীয় প্রশ্নের জন্য ভাল।",
     "x_search_terms": [
       "search_web",
       "ওয়েব অনুসন্ধান",
@@ -460,7 +538,10 @@
       "google",
       "browse"
     ],
-    "param.limit.description": "ফেরত দেওয়ার সর্বোচ্চ ফলাফলের সংখ্যা (ডিফল্ট: 5)।"
+    "param.limit.description": "ফেরত দেওয়ার সর্বোচ্চ ফলাফলের সংখ্যা (ডিফল্ট: 5)।",
+    "error.brave_failed_after_retries": "পুনরায় চেষ্টা করার পরে Brave Search অনুরোধ ব্যর্থ হয়েছে: {error}",
+    "error.brave_429_with_api_hint": "Brave Search হার সীমিত (429)। HTML স্ক্র্যাপিংয়ের পরিবর্তে API ব্যবহার করার জন্য Brave Search API কী (https://brave.com/search/api/-এ বিনামূল্যের স্তর উপলব্ধ) সহ পরিবেশ চলক UAGENT_BRAVE_API_KEY সেট করুন।",
+    "param.engine.description": "সার্চ ইঞ্জিন: 'duckduckgo' (ডিফল্ট) বা 'brave'।"
   },
   "fa": {
     "error.args_must_be_dict": "باید دیکته باشند",
@@ -468,7 +549,7 @@
     "error.missing_query_parameter": "پارامتر 'query' موجود نیست",
     "error.run_tool_error": "خطای run_tool: {error}",
     "param.query.description": "رشتهٔ جستجو.",
-    "tool.description": "از طریق رابط HTML داک‌داک‌گو در وب جستجو کنید و عنوان/لینک/چکیده را برگردانید.",
+    "tool.description": "وب را از طریق DuckDuckGo (پیش‌فرض) یا رابط HTML Brave Search جستجو کنید. عنوان/پیوند/بازه‌ای را برمی‌گرداند. Brave Search برای جستارهای ژاپنی/محلی بهتر است.",
     "x_search_terms": [
       "search_web",
       "جستجوی وب",
@@ -477,7 +558,10 @@
       "google",
       "browse"
     ],
-    "param.limit.description": "حداکثر تعداد نتایج برای بازگشت (پیش‌فرض: 5)."
+    "param.limit.description": "حداکثر تعداد نتایج برای بازگشت (پیش‌فرض: 5).",
+    "error.brave_failed_after_retries": "درخواست Brave Search پس از تلاش مجدد ناموفق بود: {error}",
+    "error.brave_429_with_api_hint": "میزان Brave Search محدود (429). متغیر محیطی UAGENT_BRAVE_API_KEY را با کلید Brave Search API (سطح رایگان موجود در https://brave.com/search/api/) تنظیم کنید تا از API به جای اسکرپینگ HTML استفاده کنید.",
+    "param.engine.description": "موتور جستجو: 'duckduckgo' (پیش‌فرض) یا 'brave'."
   },
   "mn": {
     "error.args_must_be_dict": "args нь dict байх ёстой",
@@ -485,7 +569,7 @@
     "error.missing_query_parameter": "'асуулга' параметр",
     "error.run_tool_error": "run_tool алдаа: {error}",
     "param.query.description": "Хайлтын асуулга дутуу байна.",
-    "tool.description": "DuckDuckGo HTML интерфэйсээр вэбээс хайж, гарчиг/линк/snippet буцаана.",
+    "tool.description": "DuckDuckGo (анхдагч) эсвэл Brave Search HTML интерфейсээр дамжуулан вэбээс хайх. Гарчиг/холбоос/хэсгийг буцаана. Brave Search нь Япон/орон нутгийн асуулгад илүү тохиромжтой.",
     "x_search_terms": [
       "search_web",
       "вэб хайлт",
@@ -494,7 +578,10 @@
       "google",
       "browse"
     ],
-    "param.limit.description": "Буцаах үр дүнгийн дээд тоо (анхдагч: 5)."
+    "param.limit.description": "Буцаах үр дүнгийн дээд тоо (анхдагч: 5).",
+    "error.brave_failed_after_retries": "Дахин оролдсоны дараа Brave Search хүсэлт амжилтгүй боллоо: {error}",
+    "error.brave_429_with_api_hint": "Brave Search хурдны хязгаарлалт (429). HTML хусахаас илүү API ашиглахын тулд UAGENT_BRAVE_API_KEY орчны хувьсагчийг Brave Search API түлхүүрээр (үнэгүй түвшин https://brave.com/search/api/ дээр байна) тохируулна уу.",
+    "param.engine.description": "Хайлтын систем: 'duckduckgo' (анхдагч) эсвэл 'brave'."
   },
   "mr": {
     "error.args_must_be_dict": "args एक dict असणे आवश्यक आहे",
@@ -502,7 +589,7 @@
     "error.missing_query_parameter": "'query' पॅरामीटर नाही",
     "error.run_tool_error": "run_tool त्रुटी: {error}",
     "param.query.description": "शोध क्वेरी.",
-    "tool.description": "DuckDuckGo HTML इंटरफेसद्वारे वेबवर शोधा आणि शीर्षक/लिंक/स्निपेट परत करा.",
+    "tool.description": "DuckDuckGo (डीफॉल्ट) किंवा Brave Search HTML इंटरफेस द्वारे वेब शोधा. शीर्षक/लिंक/स्निपेट मिळवते. Brave Search जपानी/स्थानिक प्रश्नांसाठी अधिक चांगला आहे.",
     "x_search_terms": [
       "search_web",
       "वेब शोध",
@@ -511,7 +598,10 @@
       "google",
       "browse"
     ],
-    "param.limit.description": "परत करायच्या परिणामांची कमाल संख्या (डीफॉल्ट: 5)."
+    "param.limit.description": "परत करायच्या परिणामांची कमाल संख्या (डीफॉल्ट: 5).",
+    "error.brave_failed_after_retries": "प्रयत्नांनंतर Brave Search विनंती अयशस्वी झाली: {error}",
+    "error.brave_429_with_api_hint": "Brave Search दर मर्यादित (429). HTML स्क्रॅपिंगऐवजी API वापरण्यासाठी Brave Search API की (https://brave.com/search/api/ येथे मोफत टियर उपलब्ध) सह पर्यावरण व्हेरिएबल UAGENT_BRAVE_API_KEY सेट करा.",
+    "param.engine.description": "शोध इंजिन: 'duckduckgo' (डिफॉल्ट) किंवा 'brave'."
   },
   "el": {
     "error.args_must_be_dict": "Το args πρέπει να είναι μια εντολή",
@@ -519,7 +609,7 @@
     "error.missing_query_parameter": "λείπει η παράμετρος 'query'",
     "error.run_tool_error": "σφάλμα run_tool: {error}",
     "param.query.description": "Ερώτημα αναζήτησης.",
-    "tool.description": "Αναζήτηση στον ιστό μέσω της διεπαφής DuckDuckGo HTML. Επιστρέφει τίτλο/σύνδεσμο/απόσπασμα.",
+    "tool.description": "Αναζητήστε στον ιστό μέσω της διεπαφής DuckDuckGo (προεπιλογή) ή Brave Search HTML. Επιστρέφει τίτλο/σύνδεσμο/απόσπασμα. Το Brave Search είναι καλύτερο για ιαπωνικά/τοπικά ερωτήματα.",
     "x_search_terms": [
       "αναζήτηση στον ιστό",
       "duckduckgo",
@@ -532,7 +622,10 @@
       "google",
       "browse"
     ],
-    "param.limit.description": "Διαχειριστείτε τοπικά μυστικά χρησιμοποιώντας συμμετρικό κλειδί στον κατάλογο καταστάσεων uagent."
+    "param.limit.description": "Διαχειριστείτε τοπικά μυστικά χρησιμοποιώντας συμμετρικό κλειδί στον κατάλογο καταστάσεων uagent.",
+    "error.brave_failed_after_retries": "Το αίτημα Brave Search απέτυχε μετά από επαναλήψεις: {error}",
+    "error.brave_429_with_api_hint": "Brave Search περιορισμός ρυθμού (429). Ορίστε τη μεταβλητή περιβάλλοντος UAGENT_BRAVE_API_KEY με ένα κλειδί Brave Search API (δωρεάν επίπεδο διαθέσιμο στη διεύθυνση https://brave.com/search/api/) για να χρησιμοποιήσετε το API αντί για HTML scraping.",
+    "param.engine.description": "Μηχανή αναζήτησης: 'duckduckgo' (προεπιλογή) ή 'brave'."
   },
   "he": {
     "error.args_must_be_dict": "שורש חיפוש (ברירת מחדל: cwd).",
@@ -540,7 +633,7 @@
     "error.missing_query_parameter": "חסר פרמטר 'query'",
     "error.run_tool_error": "run_tool error: {error}",
     "param.query.description": "שאילתת חיפוש.",
-    "tool.description": "חפש באינטרנט באמצעות ממשק DuckDuckGo HTML. מחזיר כותרת/קישור/קטע.",
+    "tool.description": "חפש באינטרנט באמצעות DuckDuckGo (ברירת מחדל) או ממשק Brave Search HTML. מחזיר כותרת/קישור/קטע. Brave Search עדיף עבור שאילתות יפניות/מקומיות.",
     "x_search_terms": [
       "חיפוש באינטרנט",
       "duckduckgo",
@@ -553,7 +646,10 @@
       "google",
       "browse"
     ],
-    "param.limit.description": "נהל סודות מקומיים באמצעות מפתח סימטרי בספריית המצב של uagent."
+    "param.limit.description": "נהל סודות מקומיים באמצעות מפתח סימטרי בספריית המצב של uagent.",
+    "error.brave_failed_after_retries": "בקשת Brave Search נכשלה לאחר ניסיונות חוזרים: {error}",
+    "error.brave_429_with_api_hint": "Brave Search הוגבל בקצב (429). הגדר את משתנה הסביבה UAGENT_BRAVE_API_KEY עם מפתח Brave Search API (שכבה חינמית זמינה בכתובת https://brave.com/search/api/) כדי להשתמש ב-API במקום גירוד HTML.",
+    "param.engine.description": "מנוע חיפוש: 'duckduckgo' (ברירת מחדל) או 'brave'."
   },
   "hu": {
     "error.args_must_be_dict": "az args diktálásnak kell lennie",
@@ -561,7 +657,7 @@
     "error.missing_query_parameter": "hiányzik a „query” paraméter",
     "error.run_tool_error": "run_tool hiba: {error}",
     "param.query.description": "Keresési lekérdezés.",
-    "tool.description": "Keresés az interneten a DuckDuckGo HTML felületén keresztül. Visszaadja a címet/linket/részletet.",
+    "tool.description": "Keressen az interneten a DuckDuckGo (alapértelmezett) vagy a Brave Search HTML felületen keresztül. Címet/linket/részletet ad vissza. A Brave Search jobb a japán/helyi lekérdezésekhez.",
     "x_search_terms": [
       "internetes keresés",
       "duckduckgo",
@@ -574,7 +670,10 @@
       "google",
       "browse"
     ],
-    "param.limit.description": "Kezelje a helyi titkokat szimmetrikus kulccsal az uagent állapotkönyvtárában."
+    "param.limit.description": "Kezelje a helyi titkokat szimmetrikus kulccsal az uagent állapotkönyvtárában.",
+    "error.brave_failed_after_retries": "A Brave Search kérés sikertelen volt az újrapróbálkozások után: {error}",
+    "error.brave_429_with_api_hint": "Brave Search sebességkorlátozás (429). Állítsa be az UAGENT_BRAVE_API_KEY környezeti változót egy Brave Search API-kulccsal (ingyenes szint elérhető a https://brave.com/search/api/ címen), hogy az API-t használja a HTML-kaparás helyett.",
+    "param.engine.description": "Keresőmotor: 'duckduckgo' (alapértelmezett) vagy 'brave'."
   },
   "ro": {
     "error.args_must_be_dict": "argumentele trebuie să fie un dictat",
@@ -582,7 +681,7 @@
     "error.missing_query_parameter": "lipsește parametrul „interogare”",
     "error.run_tool_error": "run_tool error: {error}",
     "param.query.description": "Interogare de căutare.",
-    "tool.description": "Căutați pe web prin interfața HTML DuckDuckGo. Returnează titlul/linkul/fragmentul.",
+    "tool.description": "Căutați pe web prin DuckDuckGo (implicit) sau interfața HTML Brave Search. Returnează titlul/linkul/fragmentul. Brave Search este mai bun pentru interogările în limba japoneză/locale.",
     "x_search_terms": [
       "căutare pe web",
       "duckduckgo",
@@ -595,6 +694,9 @@
       "google",
       "browse"
     ],
-    "param.limit.description": "Gestionați secretele locale folosind cheia simetrică în directorul de stare uagent."
+    "param.limit.description": "Gestionați secretele locale folosind cheia simetrică în directorul de stare uagent.",
+    "error.brave_failed_after_retries": "Solicitarea Brave Search a eșuat după reîncercări: {error}",
+    "error.brave_429_with_api_hint": "Brave Search limitare de rată (429). Setați variabila de mediu UAGENT_BRAVE_API_KEY cu o cheie Brave Search API (nivel gratuit disponibil la https://brave.com/search/api/) pentru a utiliza API-ul în loc de scraping HTML.",
+    "param.engine.description": "Motor de căutare: 'duckduckgo' (implicit) sau 'brave'."
   }
 }
