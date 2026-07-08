@@ -6,7 +6,7 @@
 
   let { messages = [] } = $props();
   let chatBox = $state(null);
-  let streamState = $state({ id: null, active: false, text: '' });
+  let streamState = $state({ id: null, active: false, text: '', reasoning: '' });
 
   function scrollToBottom() {
     if (chatBox) requestAnimationFrame(() => { chatBox.scrollTop = chatBox.scrollHeight; });
@@ -23,7 +23,7 @@
   });
 
   $effect(() => {
-    const unsubStart = onMessage('streamStart', (id) => { streamState = { id, active: true, text: '' }; });
+    const unsubStart = onMessage('streamStart', (id) => { streamState = { id, active: true, text: '', reasoning: '' }; });
     const unsubDelta = onMessage('streamDelta', (id, delta) => {
       if (streamState.active && streamState.id === id) {
         const newText = streamState.text + delta;
@@ -31,6 +31,11 @@
         // Auto-update preview panel during streaming
         const html = extractHtmlFromText(newText);
         if (html) setArtifactHtml(html);
+      }
+    });
+    const unsubReasoning = onMessage('reasoning', (content) => {
+      if (streamState.active) {
+        streamState = { ...streamState, reasoning: streamState.reasoning + content };
       }
     });
     const unsubEnd = onMessage('streamEnd', (id) => {
@@ -41,7 +46,7 @@
         streamState = { id: null, active: false, text: '' };
       }
     });
-    return () => { unsubStart(); unsubDelta(); unsubEnd(); };
+    return () => { unsubStart(); unsubDelta(); unsubReasoning(); unsubEnd(); };
   });
 </script>
 
@@ -52,10 +57,15 @@
   {#each messages as msg, i (i)}
     <Message {msg} />
   {/each}
-  {#if streamState.active && streamState.text}
+  {#if streamState.active && (streamState.text || streamState.reasoning)}
     <div class="p-3 rounded-lg max-w-[85%] role-assistant shadow-sm msg-anim">
       <strong>ASSISTANT:</strong>
-      <pre class="mt-1 whitespace-pre-wrap font-mono text-sm">{streamState.text}</pre>
+      {#if streamState.reasoning}
+        <pre class="mt-1 whitespace-pre-wrap font-mono text-xs" style="color:var(--text-tertiary);">{streamState.reasoning}</pre>
+      {/if}
+      {#if streamState.text}
+        <pre class="mt-1 whitespace-pre-wrap font-mono text-sm">{streamState.text}</pre>
+      {/if}
     </div>
   {/if}
 </div>

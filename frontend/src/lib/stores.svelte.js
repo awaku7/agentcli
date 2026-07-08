@@ -122,6 +122,9 @@ function handleWsMessage(data) {
         _state.messages = [..._state.messages, { role: 'tool', content: data.content_html || data.content, _rawHtml: !!data.content_html }];
       }
       break;
+    case 'reasoning':
+      if (messageHandlers.reasoning) messageHandlers.reasoning(data.content || '');
+      break;
     case 'assistant_stream_start':
       if (messageHandlers.streamStart) messageHandlers.streamStart(data.id);
       break;

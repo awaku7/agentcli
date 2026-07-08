@@ -9,6 +9,7 @@
   let content = $derived(String(msg.content || ''));
   let name = $derived(String(msg.name || ''));
 
+  let reasoningContent = $derived(msg.reasoning_content ? String(msg.reasoning_content) : '');
   let displayContent = $derived(role === 'tool' ? normalizeToolMessage(msg) : content);
   let formattedHtml = $derived(role === 'assistant' ? formatMessageBody(displayContent) : escapeHtml(displayContent));
   let artifactHtml = $derived(role === 'assistant' ? extractHtmlFromText(displayContent) : '');
@@ -31,6 +32,9 @@
         <span style="width:6px;height:6px;border-radius:50%;background:var(--accent);display:inline-block;"></span>
         {t('uagent')}
       </div>
+      {#if reasoningContent}
+        <pre class="whitespace-pre-wrap font-mono text-xs mb-2" style="color:var(--text-tertiary);">{reasoningContent}</pre>
+      {/if}
       <div class="text-sm leading-relaxed whitespace-pre-wrap font-mono">{@html formattedHtml}</div>
       {#if artifactHtml}
         <button
