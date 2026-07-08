@@ -830,8 +830,8 @@ def build_responses_request(
 
 def parse_responses_response(
     resp: Any, *, core: Any = None
-) -> tuple[str, list[dict[str, Any]], Optional[str]]:
-    """Parse Responses API response into (assistant_text, tool_calls_list, response_id)."""
+) -> tuple[str, str, list[dict[str, Any]], Optional[str]]:
+    """Parse Responses API response into (assistant_text, reasoning_content, tool_calls_list, response_id)."""
 
     response_id: Optional[str] = None
     try:
@@ -842,6 +842,7 @@ def parse_responses_response(
         response_id = None
 
     assistant_text = ""
+    reasoning_content = ""
     tool_calls_list: list[dict[str, Any]] = []
     seen_web_search_ids: set[str] = set()
 
@@ -853,6 +854,10 @@ def parse_responses_response(
                     ct = getattr(c, "type", None)
                     if ct in ("output_text", "text"):
                         assistant_text += _as_str(getattr(c, "text", ""))
+                    elif ct == "reasoning":
+                        rc = _as_str(getattr(c, "text", ""))
+                        if rc:
+                            reasoning_content += rc
                 citations = _extract_url_citations(getattr(item, "content", []) or [])
                 if citations:
                     _debug_emit(
@@ -904,7 +909,7 @@ def parse_responses_response(
                     + _("Server-side compaction triggered (context compressed).")
                 )
 
-    return assistant_text, tool_calls_list, response_id
+    return assistant_text, reasoning_content, tool_calls_list, response_id
 
 
 def parse_responses_stream(
@@ -978,6 +983,7 @@ def parse_responses_stream(
                 pass
 
     assistant_text_parts: list[str] = []
+    reasoning_parts: list[str] = []
     fallback_full_text = ""
 
     # key -> buffer (key is call_id OR item_id OR synthetic)
@@ -1132,6 +1138,7 @@ def parse_responses_stream(
             if ev_type == "response.reasoning_text.delta":
                 reasoning_delta = getattr(ev, "delta", None)
                 if isinstance(reasoning_delta, str) and reasoning_delta:
+                    reasoning_parts.append(reasoning_delta)
                     try:
                         if core is not None and bool(getattr(core, "_is_web", False)):
                             lm = getattr(core, "log_message", None)
@@ -1345,4 +1352,5 @@ def parse_responses_stream(
             }
         )
 
-    return assistant_text, tool_calls_list, _stream_response_id
+    reasoning_content = "".join(reasoning_parts)
+    return assistant_text, reasoning_content, tool_calls_list, _stream_response_id

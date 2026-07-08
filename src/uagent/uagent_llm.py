@@ -750,7 +750,7 @@ def _run_one_round(
         empty_no_tool_rounds = 0
 
     else:  # OpenAI / Azure
-        ok, client, assistant_text, tool_calls_list = _call_openai_azure_round(
+        ok, client, assistant_text, reasoning_content, tool_calls_list = _call_openai_azure_round(
             provider=provider,
             client=client,
             depname=depname,
@@ -791,12 +791,22 @@ def _run_one_round(
                     assistant_text,
                 )
 
-        _append_assistant_message(
-            messages=messages,
-            core=core,
-            assistant_text=assistant_text,
-            tool_calls_list=tool_calls_list,
-        )
+        if reasoning_content:
+            deepseek_msg = build_assistant_message_with_reasoning(
+                assistant_text=assistant_text,
+                tool_calls_list=tool_calls_list,
+                reasoning_content=reasoning_content,
+            )
+            messages.append(deepseek_msg)
+            if not judgment_mode:
+                core.log_message(deepseek_msg)
+        else:
+            _append_assistant_message(
+                messages=messages,
+                core=core,
+                assistant_text=assistant_text,
+                tool_calls_list=tool_calls_list,
+            )
 
         action, empty_no_tool_rounds = _handle_openai_empty_no_tool(
             assistant_text=assistant_text,

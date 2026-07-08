@@ -354,6 +354,7 @@ def _call_openai_azure_round(
 ) -> Any:
     attempt_429 = 0
     assistant_text: str = ""
+    reasoning_content: str = ""
     tool_calls_list: list[dict[str, Any]] = []
     resp = None
     resp_kwargs: dict[str, Any] = {}
@@ -527,7 +528,7 @@ def _call_openai_azure_round(
                             core=core,
                         )
                     )
-                    assistant_text, tool_calls_list, _stream_rid = _stream_result
+                    assistant_text, reasoning_content, tool_calls_list, _stream_rid = _stream_result
                     if _stream_rid and isinstance(responses_state, dict):
                         responses_state["previous_response_id"] = _stream_rid
                         from .core import _save_responses_state
@@ -574,7 +575,7 @@ def _call_openai_azure_round(
                             core=core,
                         )
                     )
-                    assistant_text, tool_calls_list, _resp_rid = _resp_result
+                    assistant_text, reasoning_content, tool_calls_list, _resp_rid = _resp_result
                     if _resp_rid and isinstance(responses_state, dict):
                         responses_state["previous_response_id"] = _resp_rid
                         from .core import _save_responses_state
@@ -712,7 +713,7 @@ def _call_openai_azure_round(
                 print("[Azure/OpenAI Error] " + _t("Input exceeds the context window."))
                 _maybe_print_certifi_where(e)
                 print(repr(e))
-                return False, client, "", []
+                return False, client, "", "", []
 
             if BadRequestError is not None and isinstance(e, BadRequestError):
                 err_text = str(e).lower()
@@ -750,17 +751,17 @@ def _call_openai_azure_round(
                     "[Azure/OpenAI Error] "
                     + _("Error code: %(code)d - %(err)s") % {"code": 400, "err": e}
                 )
-                return False, client, "", []
+                return False, client, "", "", []
             if APIConnectionError is not None and isinstance(e, APIConnectionError):
                 print("[Azure/OpenAI Error] " + _t("Connection error"))
                 _maybe_print_certifi_where(e)
                 print(repr(e))
-                return False, client, "", []
+                return False, client, "", "", []
             if isinstance(e, URLError):
                 print(_("[Network Error]"))
                 _maybe_print_certifi_where(e)
                 print(repr(e))
-                return False, client, "", []
+                return False, client, "", "", []
             attempt_429, new_client, action = _rate_limit_retry_step(
                 exception=e,
                 provider=provider,
@@ -777,17 +778,17 @@ def _call_openai_azure_round(
                 continue
             if action == "give_up":
                 print(
-                    "[Claude Error] "
+                    "[Azure/OpenAI Error] "
                     + _("429 retry limit (%(max_retries)s) reached.")
                     % {"max_retries": max_retries_429}
                 )
                 _maybe_print_certifi_where(e)
                 print(repr(e))
-                return False, client, "", []
+                return False, client, "", "", []
             print("[LLM Error] " + _t("Unexpected exception."))
             _maybe_print_certifi_where(e)
             print(repr(e))
-            return False, client, "", []
+            return False, client, "", "", []
 
     try:
         if use_responses_api:
@@ -798,10 +799,10 @@ def _call_openai_azure_round(
         else:
             if resp is None:
                 print("[ERROR] " + _("Response error: resp is None."))
-                return False, client, "", []
+                return False, client, "", "", []
             if resp.choices is None or len(resp.choices) == 0:
                 print("[ERROR] " + _("Response error: resp.choices is None or empty."))
-                return False, client, "", []
+                return False, client, "", "", []
             choice = resp.choices[0]
             msg = choice.message
 
@@ -870,9 +871,9 @@ def _call_openai_azure_round(
     except Exception as e:
         print("[ERROR] " + _("Error while parsing response: %(err)s") % {"err": e})
         traceback.print_exc()
-        return False, client, "", []
+        return False, client, "", "", []
 
-    return True, client, assistant_text, tool_calls_list
+    return True, client, assistant_text, reasoning_content, tool_calls_list
 
 
 def _call_deepseek_round(

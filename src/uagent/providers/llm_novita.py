@@ -212,8 +212,8 @@ def _parse_novita_stream(
     except Exception:
         pass
 
-    if text_parts and not is_web:
-        last = text_parts[-1] if text_parts else ""
+    if (text_parts or reasoning_parts) and not is_web:
+        last = text_parts[-1] if text_parts else (reasoning_parts[-1] if reasoning_parts else "")
         if last and not last.endswith("\n"):
             if print_delta_fn:
                 print_delta_fn("\n")
