@@ -29,6 +29,9 @@ a2a_servers.json
 *.mmdb
 env.bat
 
+# Node
+node_modules/
+
 # Temp clones
 tmp_ucp_samples/
 tmp_ucp_sdk/

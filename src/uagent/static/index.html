@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>UAGENT</title>
+  <link rel="icon" href="/static/favicon.ico" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    // --- System theme detection (runs before Svelte mounts) ---
+    (function() {
+      function applyTheme(theme) {
+        document.documentElement.classList.toggle('dark', theme === 'dark');
+        try { localStorage.setItem('uag-theme', theme); } catch(_) {}
+      }
+      var saved = (function() {
+        try { return localStorage.getItem('uag-theme'); } catch(_) { return null; }
+      })();
+      if (saved === 'dark' || saved === 'light') {
+        applyTheme(saved);
+      } else {
+        var prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+        applyTheme(prefersDark ? 'dark' : 'light');
+      }
+      // Listen for system theme changes
+      if (window.matchMedia) {
+        window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', function(e) {
+          var saved = (function() {
+            try { return localStorage.getItem('uag-theme'); } catch(_) { return null; }
+          })();
+          if (!saved) applyTheme(e.matches ? 'dark' : 'light');
+        });
+      }
+    })();
+
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Inter', 'system-ui', '-apple-system', 'sans-serif'],
+            mono: ['JetBrains Mono', 'Fira Code', 'monospace'],
+          },
+        },
+      },
+    };
+  </script>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap');
+
+    /* === Theme (Light) === */
+
+    :root {
+      --bg-primary: #f0f2f5;
+      --bg-surface: #ffffff;
+      --bg-surface-alt: #f8fafc;
+      --bg-surface-hover: #f1f5f9;
+      --text-primary: #0f172a;
+      --text-secondary: #475569;
+      --text-tertiary: #94a3b8;
+      --border-color: #e2e8f0;
+      --accent: #3b82f6;
+      --accent-hover: #2563eb;
+      --accent-subtle: #dbeafe;
+      --user-bubble: linear-gradient(135deg, #6366f1 0%, #4f46e5 100%);
+      --user-text: #ffffff;
+      --assistant-bubble: #ffffff;
+      --assistant-text: #1e293b;
+      --tool-bg: #fef3c7;
+      --tool-border: #f59e0b;
+      --status-idle: #10b981;
+      --status-busy: #ef4444;
+      --shadow-sm: 0 1px 3px rgba(0,0,0,0.06), 0 1px 2px rgba(0,0,0,0.04);
+      --shadow-md: 0 4px 12px rgba(0,0,0,0.08), 0 2px 4px rgba(0,0,0,0.04);
+      --shadow-lg: 0 12px 36px rgba(0,0,0,0.1), 0 4px 12px rgba(0,0,0,0.06);
+      --radius-sm: 8px;
+      --radius-md: 12px;
+      --radius-lg: 16px;
+      --transition: 200ms cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    /* === Theme (Dark) === */
+
+    .dark {
+      --bg-primary: #0b1120;
+      --bg-surface: #131c31;
+      --bg-surface-alt: #0f1729;
+      --bg-surface-hover: #1a2744;
+      --text-primary: #e2e8f0;
+      --text-secondary: #94a3b8;
+      --text-tertiary: #64748b;
+      --border-color: #1e293b;
+      --accent: #60a5fa;
+      --accent-hover: #3b82f6;
+      --accent-subtle: #1e3a5f;
+      --user-bubble: linear-gradient(135deg, #4f46e5 0%, #4338ca 100%);
+      --user-text: #ffffff;
+      --assistant-bubble: #1a2744;
+      --assistant-text: #e2e8f0;
+      --tool-bg: #422006;
+      --tool-border: #f59e0b;
+      --shadow-sm: 0 1px 3px rgba(0,0,0,0.3), 0 1px 2px rgba(0,0,0,0.2);
+      --shadow-md: 0 4px 12px rgba(0,0,0,0.4), 0 2px 4px rgba(0,0,0,0.2);
+      --shadow-lg: 0 12px 36px rgba(0,0,0,0.5), 0 4px 12px rgba(0,0,0,0.3);
+    }
+
+    /* === High Contrast Mode === */
+
+    @media (prefers-contrast: high) {
+      :root {
+        --border-color: #64748b;
+        --text-muted: #475569;
+      }
+      .dark {
+        --border-color: #94a3b8;
+        --text-muted: #94a3b8;
+        --bg-surface: #0b1120;
+        --assistant-bubble: #0b1120;
+        --tool-bg: #422006;
+      }
+    }
+
+    /* === Reduced Motion === */
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        transition-duration: 0.01ms !important;
+      }
+    }
+
+    /* === Base === */
+
+    html, body { margin: 0; padding: 0; height: 100%; overflow: hidden; }
+
+    body {
+      background: var(--bg-primary);
+      color: var(--text-primary);
+      font-family: 'Inter', system-ui, -apple-system, sans-serif;
+      font-size: 14px;
+      line-height: 1.5;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      transition: background var(--transition), color var(--transition);
+    }
+
+    * { box-sizing: border-box; }
+
+    /* === Scrollbar === */
+
+    ::-webkit-scrollbar { width: 6px; height: 6px; }
+
+    ::-webkit-scrollbar-track { background: transparent; }
+
+    ::-webkit-scrollbar-thumb {
+      background: var(--text-tertiary);
+      border-radius: 3px;
+    }
+
+    ::-webkit-scrollbar-thumb:hover { background: var(--text-secondary); }
+
+    /* === Global Animations === */
+
+    @keyframes uag-blink { to { visibility: hidden; } }
+
+    @keyframes uag-msgIn {
+      from { opacity: 0; transform: translateY(8px) scale(0.98); }
+      to { opacity: 1; transform: translateY(0) scale(1); }
+    }
+
+    @keyframes uag-fadeIn {
+      from { opacity: 0; transform: translateY(-4px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes uag-slideIn {
+      from { opacity: 0; transform: translateX(12px); }
+      to { opacity: 1; transform: translateX(0); }
+    }
+
+    @keyframes uag-pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.5; }
+    }
+  </style>
+  <script type="module" crossorigin src="/static/assets/index-Um3zwcqV.js"></script>
+  <link rel="stylesheet" crossorigin href="/static/assets/index-DjBsDPcA.css">
+</head>
+<body>
+  <div id="app"></div>
+</body>
+</html>

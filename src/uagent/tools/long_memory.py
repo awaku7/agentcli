@@ -95,14 +95,31 @@ def load_long_memory_records() -> list[dict[str, Any]]:
     return records
 
 
+def update_long_memory_entry(index: int, note: str) -> bool:
+    """Update one record by index in-place. Preserves order. Returns True on success."""
+    records = load_long_memory_records()
+    if index < 0 or index >= len(records):
+        return False
+    memory_file = get_memory_file_path()
+    try:
+        records[index] = {"ts": time.time(), "note": note}
+        dirpath = os.path.dirname(memory_file)
+        if dirpath:
+            os.makedirs(dirpath, exist_ok=True)
+        with open(memory_file, "w", encoding="utf-8") as f:
+            for rec in records:
+                f.write(json.dumps(rec, ensure_ascii=False) + "\n")
+    except Exception:
+        return False
+    return True
+
+
 def delete_long_memory_entry(index: int) -> bool:
     """Delete one record by index. Returns True on success."""
     records = load_long_memory_records()
     if index < 0 or index >= len(records):
         return False
-
     memory_file = get_memory_file_path()
-
     try:
         records.pop(index)
         dirpath = os.path.dirname(memory_file)
@@ -113,5 +130,4 @@ def delete_long_memory_entry(index: int) -> bool:
                 f.write(json.dumps(rec, ensure_ascii=False) + "\n")
     except Exception:
         return False
-
     return True

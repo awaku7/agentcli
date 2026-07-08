@@ -151,6 +151,7 @@ def _enrich_message_attachments(msg: dict[str, Any]) -> dict[str, Any]:
 class WebRoom:
     def __init__(self, room_id: str):
         self.room_id = room_id
+        self.base_dir: str = os.getcwd()
         self.lang: str = "en"
 
         self.active_connections: list[WebSocket] = []
@@ -172,6 +173,35 @@ class WebRoom:
 
         # event loop for run_coroutine_threadsafe
         self.loop: Optional[asyncio.AbstractEventLoop] = None
+
+    def set_base_dir(self, path: str) -> None:
+        """Change this room's base directory. Does NOT call os.chdir()."""
+        expanded = os.path.expandvars(os.path.expanduser(path))
+        resolved = os.path.abspath(expanded)
+        if not os.path.isdir(resolved):
+            raise NotADirectoryError(f"Not a directory: {resolved}")
+        old = self.base_dir
+        self.base_dir = resolved
+        # Notify connected clients
+        try:
+            if self.loop:
+                asyncio.run_coroutine_threadsafe(
+                    self.broadcast({
+                        "type": "status",
+                        "status": {
+                            "busy": self.status.get("busy", False),
+                            "label": self.status.get("label", "IDLE"),
+                            "workdir": resolved,
+                        }
+                    }),
+                    self.loop,
+                )
+        except Exception:
+            pass
+        print(
+            _("[cd] workdir changed: %(old)s -> %(new)s")
+            % {"old": old, "new": resolved}
+        )
 
     async def connect(self, websocket: WebSocket):
         set_thread_lang(getattr(self, "lang", "en"))
@@ -210,8 +240,8 @@ class WebRoom:
                 try:
                     banner = _runtime_init.build_startup_banner(
                         core=core,
-                        workdir=os.getcwd(),
-                        workdir_source="(server)",
+                        workdir=self.base_dir,
+                        workdir_source=_("(room: %(id)s)") % {"id": self.room_id[:8]},
                     )
                 except Exception:
                     banner = ""
@@ -271,10 +301,7 @@ class WebRoom:
                 pass
 
     def set_status(self, busy: bool, label: str = ""):
-        try:
-            workdir = os.getcwd()
-        except Exception:
-            workdir = ""
+        workdir = self.base_dir
 
         self.status = {
             "busy": busy,
@@ -305,6 +332,7 @@ class WebRoom:
 class WebManager:
     def __init__(self):
         self.rooms: dict[str, WebRoom] = {}
+        self.global_worker_lock = threading.Lock()
         self.rooms_lock = threading.Lock()
 
         self.original_log_message = None
@@ -600,6 +628,14 @@ def run_agent_worker(
 
     room.set_status(True, "BUSY")
 
+    # Switch to this room's base_dir for the duration of the worker
+    _orig_cwd = os.getcwd()
+    try:
+        os.chdir(room.base_dir)
+    except Exception:
+        pass
+    web_manager.global_worker_lock.acquire()
+
     try:
         setattr(core, "_is_web", True)
     except Exception:
@@ -667,18 +703,12 @@ def run_agent_worker(
         except Exception:
             pass
         if callable(_orig_log_message):
-            _orig_log_message(msg)
+            try:
+                _orig_log_message(msg)
+            except Exception:
+                pass
         try:
-            if isinstance(msg, dict) and msg.get("role") in (
-                "user",
-                "assistant",
-                "tool",
-            ):
-                if msg.get("role") == "assistant" and stream_state.get("active"):
-                    return
-                if msg.get("role") == "assistant" and stream_state.get("suppress_next_assistant_message"):
-                    stream_state["suppress_next_assistant_message"] = False
-                    return
+            if isinstance(msg, dict) and msg.get("role") in ("user", "tool"):
                 room.add_message(dict(msg))
         except Exception:
             pass
@@ -871,6 +901,12 @@ When the user asks for a UI, dashboard, interactive tool, or visualization:
 
         room.set_status(False, "IDLE")
         room.worker_lock.release()
+        # Restore original process cwd
+        try:
+            os.chdir(_orig_cwd)
+        except Exception:
+            pass
+        web_manager.global_worker_lock.release()
         try:
             set_thread_lang(None)
         except Exception:
@@ -881,59 +917,22 @@ When the user asks for a UI, dashboard, interactive tool, or visualization:
 
 @app.get("/")
 async def get_root():
+    index_path = os.path.join(STATIC_DIR, "index.html")
+    if os.path.exists(index_path):
+        return FileResponse(index_path)
+    # Fallback: create room and redirect (legacy template)
     room_id = uuid4().hex
     return RedirectResponse(url=f"/room/{room_id}")
 
 
 @app.get("/room/{room_id}")
-async def get_room(request: Request, room_id: str):
-    try:
-        # ensure room exists
-        web_manager.get_room(room_id)
-        # Single unified template; client-side handles i18n via ?lang=ja|en|ar (or browser language fallback)
-        page_lang = "en"
-        try:
-            q_lang = (request.query_params.get("lang") or "").strip().lower()
-            accept_lang = (request.headers.get("accept-language") or "").strip().lower()
-            raw_lang = q_lang or accept_lang
-            if raw_lang.startswith("ar"):
-                page_lang = "ar"
-            elif raw_lang.startswith("ja"):
-                page_lang = "ja"
-        except Exception:
-            pass
-        page_dir = "rtl" if page_lang == "ar" else "ltr"
-        return templates.TemplateResponse(
-            request,
-            "index.html",
-            {"page_lang": page_lang, "page_dir": page_dir},
-        )
-    except Exception:
-        err = traceback.format_exc()
-        return HTMLResponse(
-            f"""<!DOCTYPE html>
-<html lang=\"en\">
-<head>
-  <meta charset=\"UTF-8\">
-  <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">
-  <title>UAGENT WEB - Error</title>
-  <style>
-    body {{ font-family: sans-serif; background: #f3f4f6; margin: 0; padding: 24px; }}
-    .box {{ background: white; border: 1px solid #d1d5db; border-radius: 8px; padding: 16px; }}
-    pre {{ white-space: pre-wrap; word-break: break-word; background: #111827; color: #f9fafb; padding: 12px; border-radius: 6px; overflow: auto; }}
-    h1 {{ margin-top: 0; color: #b91c1c; }}
-  </style>
-</head>
-<body>
-  <div class=\"box\">
-    <h1>Internal Error</h1>
-    <p>room_id: {room_id}</p>
-    <pre>{err}</pre>
-  </div>
-</body>
-</html>""",
-            status_code=500,
-        )
+async def get_room(room_id: str):
+    # Ensure room exists
+    web_manager.get_room(room_id)
+    index_path = os.path.join(STATIC_DIR, "index.html")
+    if os.path.exists(index_path):
+        return FileResponse(index_path)
+    return HTMLResponse("Room created. SPA not built.", status_code=200)
 
 
 @app.post("/upload")
@@ -942,9 +941,10 @@ async def upload_files(
     files: list[UploadFile] = File(...),
 ):
     try:
-        cwd = os.path.abspath(os.getcwd())
-        room_id = re.sub(r"[^A-Za-z0-9._-]+", "_", str(room or "").strip()) or "default"
-        upload_root = os.path.join(cwd, ".uagent_web_uploads", room_id)
+        raw_room_id = re.sub(r"[^A-Za-z0-9._-]+", "_", str(room or "").strip()) or "default"
+        room_obj = web_manager.get_room(raw_room_id)
+        base = os.path.abspath(room_obj.base_dir)
+        upload_root = os.path.join(base, ".uagent_web_uploads", raw_room_id)
         os.makedirs(upload_root, exist_ok=True)
 
         saved: list[dict[str, Any]] = []
@@ -984,18 +984,23 @@ async def upload_files(
 
 
 @app.get("/local-file")
-async def get_local_file(path: str):
+async def get_local_file(path: str, room_id: str = ""):
     try:
-        cwd = os.path.abspath(os.getcwd())
+        raw_room_id = re.sub(r"[^A-Za-z0-9._-]+", "_", str(room_id or "").strip())
+        if raw_room_id:
+            room_obj = web_manager.get_room(raw_room_id)
+            base_dir = os.path.abspath(room_obj.base_dir)
+        else:
+            base_dir = os.path.abspath(os.getcwd())
         raw = str(path or "").strip()
         if not raw:
             raise ValueError(_("missing path"))
         full = os.path.abspath(raw)
         if not os.path.isabs(raw):
-            full = os.path.abspath(os.path.join(cwd, raw))
+            full = os.path.abspath(os.path.join(base_dir, raw))
         full_norm = os.path.normpath(full)
-        cwd_norm = os.path.normpath(cwd)
-        if not (full_norm == cwd_norm or full_norm.startswith(cwd_norm + os.sep)):
+        base_norm = os.path.normpath(base_dir)
+        if not (full_norm == base_norm or full_norm.startswith(base_norm + os.sep)):
             raise ValueError(_("path outside workdir"))
         if not os.path.isfile(full_norm):
             raise FileNotFoundError(full_norm)
@@ -1157,6 +1162,197 @@ async def set_tools_enabled(req: Request):
     }
 
 
+# ---- Memories API ----
+from .tools import long_memory as _long_memory_mod
+
+
+@app.get("/api/memories")
+async def get_memories():
+    """Return all long-term memory entries as structured JSON."""
+    records = _long_memory_mod.load_long_memory_records()
+    result = []
+    for idx, rec in enumerate(records):
+        ts = rec.get("ts")
+        if isinstance(ts, (int, float)):
+            import time as _t
+            dt = _t.strftime("%Y-%m-%d %H:%M:%S", _t.localtime(ts))
+        else:
+            dt = None
+        result.append({
+            "idx": idx,
+            "ts": ts,
+            "datetime": dt,
+            "note": str(rec.get("note", "")),
+        })
+    return {"ok": True, "memories": result}
+
+
+@app.post("/api/memories")
+async def add_memory(req: Request):
+    """Append a long-term memory entry."""
+    body = await req.json()
+    note = str(body.get("note", "")).strip()
+    if not note:
+        return JSONResponse(status_code=400, content={"error": "note is required"})
+    _long_memory_mod.append_long_memory(note)
+    return {"ok": True}
+
+
+@app.put("/api/memories/{index}")
+async def update_memory(index: int, req: Request):
+    """Update a long-term memory entry in-place (preserves order)."""
+    body = await req.json()
+    new_note = str(body.get("note", "")).strip()
+    if not new_note:
+        return JSONResponse(status_code=400, content={"error": "note is required"})
+    ok = _long_memory_mod.update_long_memory_entry(index, new_note)
+    if not ok:
+        return JSONResponse(status_code=404, content={"error": f"index {index} out of range"})
+    return {"ok": True}
+
+
+@app.delete("/api/memories/{index}")
+async def delete_memory(index: int):
+    """Delete a long-term memory entry."""
+    ok = _long_memory_mod.delete_long_memory_entry(index)
+    if not ok:
+        return JSONResponse(status_code=404, content={"error": f"index {index} out of range"})
+    return {"ok": True}
+
+
+# ---- Profile API ----
+from . import profile_manager as _profile_mod
+
+
+@app.get("/api/profile")
+async def get_profile():
+    """Return current profile data."""
+    profile = _profile_mod.load_profile()
+    return {"ok": True, "profile": profile}
+
+
+@app.post("/api/profile/clear")
+async def clear_profile():
+    """Clear profile file."""
+    try:
+        path = _profile_mod.get_profile_file_path()
+        if os.path.exists(path):
+            os.remove(path)
+        return {"ok": True}
+    except Exception as e:
+        return JSONResponse(status_code=500, content={"error": str(e)})
+
+
+@app.post("/api/profile/fromlog")
+async def profile_from_logs():
+    """Rebuild profile from past logs."""
+    from . import core as _core_mod
+
+    result = _profile_mod.profile_from_logs(_core_mod, max_log_files=100)
+    if result:
+        return {"ok": True, "profile": result}
+    return {"ok": False, "error": "Failed to build profile from logs"}
+
+
+@app.put("/api/profile")
+async def update_profile(req: Request):
+    """Update profile in-place. Body: {"environment": {...}, "preferences": [...], "constraints": [...]}"""
+    body = await req.json()
+    current = _profile_mod.load_profile()
+    # Merge: only update provided keys
+    for key in ("environment", "preferences", "constraints"):
+        if key in body:
+            current[key] = body[key]
+    _profile_mod.save_profile(current)
+    return {"ok": True, "profile": current}
+
+
+# ---- Logs API ----
+@app.get("/api/logs")
+async def get_logs(page: int = 1, per_page: int = 15):
+    """Return paginated list of log files (excluding current session log)."""
+    files = core.find_log_files(exclude_current=True)
+    items = []
+    for f in files:
+        try:
+            st = os.stat(f)
+            items.append({
+                "path": f,
+                "name": os.path.basename(f),
+                "size": st.st_size,
+                "mtime": st.st_mtime,
+            })
+        except Exception:
+            pass
+    # Sort by mtime descending
+    items.sort(key=lambda x: x.get("mtime", 0), reverse=True)
+    total = len(items)
+    total_pages = max(1, (total + per_page - 1) // per_page)
+    page = max(1, min(page, total_pages))
+    start = (page - 1) * per_page
+    end = start + per_page
+    return {
+        "ok": True,
+        "logs": items[start:end],
+        "total": total,
+        "page": page,
+        "per_page": per_page,
+        "total_pages": total_pages,
+    }
+
+
+@app.post("/api/command")
+async def api_command(req: Request):
+    """Execute a :command via REST API. Body: {"room_id": "...", "command": ":cd /path"}"""
+    try:
+        body = await req.json()
+    except Exception:
+        return JSONResponse(status_code=400, content={"error": _("Invalid JSON body")})
+    room_id = str(body.get("room_id", "")).strip()
+    cmd_line = str(body.get("command", "")).strip()
+    if not room_id or not cmd_line:
+        return JSONResponse(
+            status_code=400,
+            content={"error": _("room_id and command are required")},
+        )
+    room = web_manager.get_room(room_id)
+    if not cmd_line.startswith(":"):
+        cmd_line = f":{cmd_line}"
+    if _handle_mode_command(cmd_line):
+        return {"ok": True, "command": cmd_line, "result": "mode_changed"}
+    # :cd -> room.set_base_dir() (room-scoped, no os.chdir())
+    if cmd_line.lstrip(":").strip().startswith("cd"):
+        _cd_arg = cmd_line.lstrip(":").strip()[3:].strip()
+        try:
+            room.set_base_dir(_cd_arg or ".")
+            return {"ok": True, "command": "cd", "workdir": room.base_dir}
+        except Exception as _cd_e:
+            return JSONResponse(status_code=400, content={"error": str(_cd_e)})
+    try:
+        _client, _depname = None, ""
+        try:
+            _pname, _client, _depname = providers.make_client(core)
+        except Exception:
+            pass
+        _result = tools_util.handle_command(
+            cmd_line, room.history, _client, _depname, core=core
+        )
+        if isinstance(_result, tools_util.CommandResult) and _result.run_llm:
+            threading.Thread(
+                target=run_agent_worker,
+                args=(room, _result.prompt, None),
+                daemon=True,
+            ).start()
+            return {
+                "ok": True,
+                "command": cmd_line,
+                "run_llm": True,
+                "prompt": _result.prompt,
+            }
+        return {"ok": True, "command": cmd_line, "run_llm": False}
+    except Exception as e:
+        return JSONResponse(status_code=500, content={"error": str(e)})
+
 @app.websocket("/ws")
 async def websocket_endpoint(websocket: WebSocket):
     room_id = websocket.query_params.get("room")
@@ -1191,8 +1387,42 @@ async def websocket_endpoint(websocket: WebSocket):
                 ).start()
 
             elif payload.get("type") == "command":
-                cmd_text = payload.get("text")
-                _handle_mode_command(str(cmd_text or ""))
+                cmd_text = str(payload.get("text") or "").strip()
+                if _handle_mode_command(cmd_text):
+                    continue
+                # Route all other :commands through handle_command()
+                try:
+                    _cmd_line = cmd_text if cmd_text.startswith(":") else f":{cmd_text}"
+                    # :cd -> room.set_base_dir() (room-scoped, no os.chdir())
+                    if _cmd_line.lstrip(":").strip().startswith("cd"):
+                        _cd_arg = _cmd_line.lstrip(":").strip()[3:].strip()
+                        try:
+                            room.set_base_dir(_cd_arg or ".")
+                        except Exception as _cd_e:
+                            room.add_message({
+                                "role": "assistant",
+                                "content": _("[Error] :cd failed: %(err)s") % {"err": _cd_e},
+                            })
+                        continue
+                    _wc_client, _wc_depname = None, ""
+                    try:
+                        _wc_pname, _wc_client, _wc_depname = providers.make_client(core)
+                    except Exception:
+                        pass
+                    _result = tools_util.handle_command(
+                        _cmd_line, room.history, _wc_client, _wc_depname, core=core
+                    )
+                    if isinstance(_result, tools_util.CommandResult) and _result.run_llm:
+                        threading.Thread(
+                            target=run_agent_worker,
+                            args=(room, _result.prompt, None),
+                            daemon=True,
+                        ).start()
+                except Exception as _e:
+                    room.add_message({
+                        "role": "assistant",
+                        "content": _("[Command Error] %(err)s") % {"err": _e},
+                    })
 
             elif payload.get("type") == "set_modes":
                 r = payload.get("reasoning")
@@ -1323,6 +1553,12 @@ def main():
         default=None,
         help=_("Bind address (default: 127.0.0.1). Overrides UAGENT_WEB_HOST env var."),
     )
+    parser.add_argument(
+        "--no-frontend",
+        action="store_true",
+        default=False,
+        help=_("Run in API-only mode without frontend (no HTML templates or static files)."),
+    )
     web_args, _web_unknown = parser.parse_known_args()
 
     # readme/quickstart first-run display removed (files no longer bundled)
@@ -1364,6 +1600,19 @@ def main():
         core.tools_enabled = _use_tool_env not in ("0", "false", "no", "off")
 
     init_web()
+
+    if web_args.no_frontend:
+        # Remove frontend routes (/, /room/{room_id}, /static) for API-only mode
+        _routes_to_remove = []
+        for _route in list(app.router.routes):
+            _path = getattr(_route, "path", "")
+            if _path in ("/", "/room/{room_id}"):
+                _routes_to_remove.append(_route)
+            if type(_route).__name__ == "Mount" and _path == "/static":
+                _routes_to_remove.append(_route)
+        for _route in _routes_to_remove:
+            app.router.routes.remove(_route)
+        print(_("Starting in API-only mode (no frontend)."))
     import socket
 
     # Resolve bind host: --host arg > UAGENT_WEB_HOST env > default 127.0.0.1
