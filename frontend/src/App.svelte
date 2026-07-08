@@ -9,7 +9,7 @@
   import PreviewPanel from './lib/components/PreviewPanel.svelte';
   import UnifiedPanel from './lib/components/UnifiedPanel.svelte';
   import {
-    connect, getMessages, getHumanAskState, getPendingAttachments,
+    connect, getHumanAskState, getPendingAttachments,
     sendUserInput, sendCommand, sendInterrupt, sendHumanAskResponse,
     uploadFiles, fetchGenres,
     addAttachments, clearAttachments, removeAttachment,
@@ -18,7 +18,6 @@
 
   let panelOpen = $state(false);
 
-  let messages = $derived(getMessages());
   let humanAskState = $derived(getHumanAskState());
   let pendingAttachments = $derived(getPendingAttachments());
 
@@ -51,7 +50,7 @@
   <div id="chat-pane" class="flex-grow flex flex-col h-full p-4 gap-3 min-w-0" style="gap:0.75rem;">
     <Header onTogglePanel={() => panelOpen = !panelOpen} {panelOpen} />
 
-    <Chat {messages} />
+    <Chat />
 
     <StatusBar />
 

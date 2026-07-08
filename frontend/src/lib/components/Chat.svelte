@@ -1,26 +1,16 @@
 <script>
   import Message from './Message.svelte';
-  import { onMessage } from '../../lib/stores.svelte.js';
+  import { onMessage, getMessages } from '../../lib/stores.svelte.js';
   import { extractHtmlFromText } from '../../lib/utils.js';
   import { setArtifactHtml } from '../../lib/stores.svelte.js';
 
-  let { messages = [] } = $props();
+  let messages = $derived(getMessages());
   let chatBox = $state(null);
   let streamState = $state({ id: null, active: false, text: '', reasoning: '' });
 
   function scrollToBottom() {
     if (chatBox) requestAnimationFrame(() => { chatBox.scrollTop = chatBox.scrollHeight; });
   }
-
-  // Debug: log last message
-  $effect(() => {
-    if (messages.length > 1) {
-      const last = messages[messages.length - 1];
-      if (last?.role === 'assistant') {
-        console.log('[CHAT] assistant msg rc:', last.reasoning_content ? 'present(' + last.reasoning_content.length + 'chars)' : 'ABSENT');
-      }
-    }
-  });
 
   // Scroll on new messages
   $effect(() => {
@@ -64,11 +54,9 @@
   bind:this={chatBox}
   class="chat-container overflow-y-auto surface-card rounded-xl p-4 flex-grow flex flex-col gap-3"
 >
-  {#key messages}
-    {#each messages as msg, i (i)}
-      <Message {msg} />
-    {/each}
-  {/key}
+  {#each messages as msg, i (i)}
+    <Message {msg} />
+  {/each}
   {#if streamState.active && (streamState.text || streamState.reasoning)}
     <div class="p-3 rounded-lg max-w-[85%] role-assistant shadow-sm msg-anim">
       <strong>ASSISTANT:</strong>
