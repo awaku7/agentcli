@@ -1,6 +1,6 @@
 <script>
   import Message from './Message.svelte';
-  import { onMessage, getMessages, getCurrentToolHtml } from '../../lib/stores.svelte.js';
+  import { onMessage, getMessages } from '../../lib/stores.svelte.js';
   import { extractHtmlFromText } from '../../lib/utils.js';
   import { setArtifactHtml } from '../../lib/stores.svelte.js';
 
@@ -25,10 +25,7 @@
     if (streamState.text || streamState.reasoning) scrollToBottom();
   });
 
-  // Scroll on tool update
-  $effect(() => {
-    if (getCurrentToolHtml()) scrollToBottom();
-  });
+
 
   // When new messages arrive from history (sync), clear completed bubble
   $effect(() => {
@@ -80,9 +77,6 @@
   {#each messages as msg, i (i)}
     <Message {msg} />
   {/each}
-  {#if getCurrentToolHtml()}
-    <div class="p-2 rounded-lg text-xs font-mono" style="background:var(--bg-surface-alt);color:var(--text-tertiary);white-space:pre-wrap;max-height:80px;overflow-y:auto;">{getCurrentToolHtml()}</div>
-  {/if}
   {#if (streamState.active || streamState.done) && (streamState.text || streamState.reasoning)}
     <div class="p-3 rounded-lg max-w-[85%] role-assistant shadow-sm msg-anim" class:opacity-60={streamState.done}>
       <strong>ASSISTANT:</strong>
