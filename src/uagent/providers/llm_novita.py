@@ -177,7 +177,7 @@ def _parse_novita_stream(
                     try:
                         lm = getattr(core, "log_message", None)
                         if callable(lm):
-                            lm({"type": "assistant_stream_delta", "delta": rc_delta})
+                            lm({"type": "assistant_reasoning_delta", "delta": rc_delta})
                     except Exception:
                         pass
 

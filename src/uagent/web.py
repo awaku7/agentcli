@@ -663,18 +663,23 @@ def run_agent_worker(
         _web_stream_send({"type": "assistant_stream_start", "id": sid})
         return sid
 
-    def _stream_delta(delta: str) -> None:
+    def _stream_delta(delta: str, *, reasoning: bool = False) -> None:
         if not delta:
             return
         if not stream_state.get("active"):
             _stream_start()
-        _web_stream_send(
-            {
-                "type": "assistant_stream_delta",
-                "id": stream_state.get("id"),
-                "delta": delta,
-            }
-        )
+        if reasoning:
+            _web_stream_send(
+                {"type": "reasoning", "content": delta}
+            )
+        else:
+            _web_stream_send(
+                {
+                    "type": "assistant_stream_delta",
+                    "id": stream_state.get("id"),
+                    "delta": delta,
+                }
+            )
 
     def _stream_end() -> None:
         if stream_state.get("active"):
@@ -688,6 +693,9 @@ def run_agent_worker(
 
     def _patched_log_message(msg: dict[str, Any]) -> None:
         try:
+            if isinstance(msg, dict) and msg.get("type") == "assistant_reasoning_delta":
+                _stream_delta(str(msg.get("delta") or ""), reasoning=True)
+                return
             if isinstance(msg, dict) and msg.get("type") == "assistant_stream_delta":
                 _stream_delta(str(msg.get("delta") or ""))
                 return
