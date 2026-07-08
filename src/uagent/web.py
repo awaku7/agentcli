@@ -321,6 +321,8 @@ class WebRoom:
         display_msg["tool_calls"] = msg.get("tool_calls")
         display_msg["saved_path"] = msg.get("saved_path")
         display_msg["saved_files"] = msg.get("saved_files")
+        if msg.get("reasoning_content"):
+            display_msg["reasoning_content"] = msg.get("reasoning_content")
         display_msg["timestamp"] = datetime.now().isoformat()
         self.messages.append(display_msg)
         if self.loop:
