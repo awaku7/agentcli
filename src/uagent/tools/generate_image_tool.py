@@ -411,7 +411,7 @@ def _run_openai_images(
     if moderation:
         gen_kwargs["moderation"] = moderation
     if _is_gpt_image_model(image_model):
-        gen_kwargs["fmt"] = "png"
+        gen_kwargs["response_format"] = "png"
         gen_kwargs["quality"] = quality or "auto"
         gen_kwargs["background"] = background or "auto"
     else:

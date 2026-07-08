@@ -539,7 +539,7 @@ def run_tool(args: dict[str, Any]) -> str:
             }
 
             if _is_gpt_image_model(image_model):
-                gen_kwargs["fmt"] = "png"
+                gen_kwargs["response_format"] = "png"
                 gen_kwargs["quality"] = quality or "auto"
                 gen_kwargs["background"] = background or "auto"
             else:
