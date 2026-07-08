@@ -64,9 +64,11 @@
   bind:this={chatBox}
   class="chat-container overflow-y-auto surface-card rounded-xl p-4 flex-grow flex flex-col gap-3"
 >
-  {#each messages as msg, i (i)}
-    <Message {msg} />
-  {/each}
+  {#key messages}
+    {#each messages as msg, i (i)}
+      <Message {msg} />
+    {/each}
+  {/key}
   {#if streamState.active && (streamState.text || streamState.reasoning)}
     <div class="p-3 rounded-lg max-w-[85%] role-assistant shadow-sm msg-anim">
       <strong>ASSISTANT:</strong>
