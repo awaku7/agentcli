@@ -1301,6 +1301,71 @@ async def get_logs(page: int = 1, per_page: int = 15):
     }
 
 
+@app.get("/api/logs/preview-by-path")
+async def get_log_preview_by_path(path: str = ""):
+    """Return first/last messages of a log file by path."""
+    if not path:
+        return JSONResponse(status_code=400, content={"error": _("path is required")})
+    files = core.find_log_files(exclude_current=True)
+    norm = os.path.normpath(path)
+    matches = [i for i, f in enumerate(files) if os.path.normpath(f) == norm]
+    if not matches:
+        return JSONResponse(status_code=404, content={"error": _("File not found")})
+    idx = matches[0]
+    return await get_log_preview(idx)
+
+
+@app.get("/api/logs/{index}/preview")
+async def get_log_preview(index: int):
+    """Return first/last messages of a log file (like CLI :logs)."""
+    files = core.find_log_files(exclude_current=True)
+    if index < 0 or index >= len(files):
+        return JSONResponse(status_code=404, content={"error": _("Index out of range")})
+    path = files[index]
+    try:
+        mtime = os.path.getmtime(path)
+    except Exception:
+        mtime = None
+    first_user = ""
+    last_user = ""
+    total_user = 0
+    total_assistant = 0
+    try:
+        with open(path, encoding="utf-8") as f:
+            for ln in f:
+                ln = ln.strip()
+                if not ln:
+                    continue
+                try:
+                    obj = json.loads(ln)
+                except Exception:
+                    continue
+                role = obj.get("role")
+                if role == "user":
+                    total_user += 1
+                    content = str(obj.get("content") or "").strip()
+                    if content:
+                        if not first_user:
+                            first_user = content[:200]
+                        last_user = content[:200]
+                elif role == "assistant":
+                    total_assistant += 1
+    except Exception:
+        pass
+    return {
+        "ok": True,
+        "index": index,
+        "path": path,
+        "name": os.path.basename(path),
+        "mtime": mtime,
+        "total_user": total_user,
+        "total_assistant": total_assistant,
+        "total_messages": total_user + total_assistant,
+        "first_user": first_user,
+        "last_user": last_user,
+    }
+
+
 @app.post("/api/command")
 async def api_command(req: Request):
     """Execute a :command via REST API. Body: {"room_id": "...", "command": ":cd /path"}"""
