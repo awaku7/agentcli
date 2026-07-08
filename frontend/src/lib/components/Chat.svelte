@@ -54,8 +54,8 @@
     const unsubEnd = onMessage('streamEnd', (id) => {
       if (streamState.id === id) {
         // Push complete message to history before clearing stream state
-        if (streamState.text) {
-          pushAssistantMessage(streamState.text, streamState.reasoning);
+        if (streamState.text || streamState.reasoning) {
+          pushAssistantMessage(streamState.text || '', streamState.reasoning);
         }
         const html = extractHtmlFromText(streamState.text);
         if (html) setArtifactHtml(html);
