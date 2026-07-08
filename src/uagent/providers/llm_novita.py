@@ -1,12 +1,11 @@
 """Novita AI chat completion helper.
 
-Compared to the DeepSeek path (llm_deepseek.py):
+OpenAI-compatible Chat Completions API. Reasoning models return
+``reasoning_content`` alongside ``content`` in the same format as DeepSeek's
+API, so the parsing logic mirrors that of ``llm_deepseek`` but is fully
+independent (no imports from DeepSeek modules).
 
-- Novita's reasoning models use a standard OpenAI-compatible Chat Completions
-  API with no extra_body / thinking.type / reasoning_effort parameters.
-- ``reasoning_content`` is returned in the same format as DeepSeek's API,
-  so we reuse ``parse_deepseek_response`` and ``parse_deepseek_stream``.
-- ``build_assistant_message_with_reasoning`` is also reused.
+- No extra_body / thinking.type / reasoning_effort parameters needed.
 - No temperature suppression in thinking mode (Novita handles it server-side).
 - No tool repair complexity (Novita uses standard OpenAI tool format).
 """
@@ -14,7 +13,6 @@ Compared to the DeepSeek path (llm_deepseek.py):
 from __future__ import annotations
 
 import json
-import sys
 from typing import Any
 from urllib.error import URLError
 
@@ -30,15 +28,203 @@ from ..i18n import _
 from ..llm_errors import _rate_limit_retry_step
 from ..llm_helpers import _maybe_print_certifi_where
 
-# Reuse DeepSeek response parsers (same OpenAI SDK response format)
-from .llm_deepseek import (
-    parse_deepseek_response,
-    parse_deepseek_stream,
-    _strip_reasoning_content_no_tool,
-)
-
 _LABEL = "Novita"
 _ENV_PREFIX = "UAGENT_NOVITA"
+
+
+# ---------------------------------------------------------------------------
+# reasoning_content helpers
+# ---------------------------------------------------------------------------
+
+
+def _extract_reasoning_content(msg: Any) -> str:
+    """Pull reasoning_content out of an OpenAI SDK message object or dict."""
+    rc = getattr(msg, "reasoning_content", None)
+    if isinstance(rc, str):
+        return rc
+    if isinstance(msg, dict):
+        rc = msg.get("reasoning_content")
+        if isinstance(rc, str):
+            return rc
+    return ""
+
+
+def _strip_reasoning_content(
+    messages: list[dict[str, Any]],
+) -> list[dict[str, Any]]:
+    """Return a copy of messages with reasoning_content removed from assistant
+    messages that have NO tool_calls.
+
+    Assistant messages WITH tool_calls must retain reasoning_content.
+    Assistant messages WITHOUT tool_calls must NOT include reasoning_content.
+    """
+    out: list[dict[str, Any]] = []
+    for m in messages:
+        if m.get("role") == "assistant" and "reasoning_content" in m:
+            has_tool_calls = bool(m.get("tool_calls"))
+            if not has_tool_calls:
+                m = {k: v for k, v in m.items() if k != "reasoning_content"}
+        out.append(m)
+    return out
+
+
+# ---------------------------------------------------------------------------
+# Response parser (non-streaming)
+# ---------------------------------------------------------------------------
+
+
+def _parse_novita_response(resp: Any) -> tuple[str, str, list[dict[str, Any]]]:
+    """Parse a non-streaming chat completion response from Novita.
+
+    Returns ``(assistant_text, reasoning_content, tool_calls_list)``.
+    """
+    choice = resp.choices[0]
+    msg = choice.message
+
+    reasoning_content = _extract_reasoning_content(msg)
+
+    tool_calls_list: list[dict[str, Any]] = []
+    raw_tool_calls = getattr(msg, "tool_calls", None) or []
+    for tc in raw_tool_calls:
+        tc_id = getattr(tc, "id", None)
+        fn_obj = getattr(tc, "function", None)
+        if fn_obj is None and isinstance(tc, dict):
+            tc_id = tc.get("id")
+            fn_obj = tc.get("function") or {}
+        fn_name = getattr(fn_obj, "name", None)
+        fn_args = getattr(fn_obj, "arguments", None)
+        if isinstance(fn_obj, dict):
+            fn_name = fn_obj.get("name")
+            fn_args = fn_obj.get("arguments")
+        if not isinstance(fn_name, str) or not fn_name:
+            continue
+        if isinstance(fn_args, dict):
+            fn_args = json.dumps(fn_args, ensure_ascii=False)
+        elif fn_args is None:
+            fn_args = "{}"
+        elif not isinstance(fn_args, str):
+            fn_args = str(fn_args)
+        tool_calls_list.append(
+            {
+                "id": tc_id or "",
+                "type": "function",
+                "function": {"name": fn_name, "arguments": fn_args},
+            }
+        )
+
+    raw_content = getattr(msg, "content", "")
+    if isinstance(raw_content, str):
+        assistant_text = raw_content
+    elif raw_content is None:
+        assistant_text = ""
+    elif isinstance(raw_content, list):
+        parts: list[str] = []
+        for item in raw_content:
+            if isinstance(item, str):
+                parts.append(item)
+            elif isinstance(item, dict):
+                for key in ("text", "content", "value"):
+                    if isinstance(item.get(key), str):
+                        parts.append(item[key])
+                        break
+            else:
+                txt = getattr(item, "text", None)
+                if isinstance(txt, str):
+                    parts.append(txt)
+        assistant_text = "".join(parts)
+    else:
+        assistant_text = str(raw_content)
+
+    return assistant_text, reasoning_content, tool_calls_list
+
+
+# ---------------------------------------------------------------------------
+# Streaming parser
+# ---------------------------------------------------------------------------
+
+
+def _parse_novita_stream(
+    stream: Any,
+    *,
+    print_delta_fn: Any = None,
+    core: Any = None,
+) -> tuple[str, str, list[dict[str, Any]]]:
+    """Consume a streaming response from Novita.
+
+    Returns ``(assistant_text, reasoning_content, tool_calls_list)``.
+    ``reasoning_content`` deltas are accumulated but NOT printed to stdout.
+    """
+    text_parts: list[str] = []
+    reasoning_parts: list[str] = []
+    tool_calls_acc: dict[int, dict[str, Any]] = {}
+    is_web = bool(getattr(core, "_is_web", False)) if core else False
+
+    try:
+        for chunk in stream:
+            if not chunk.choices:
+                continue
+            delta = chunk.choices[0].delta
+
+            rc_delta = getattr(delta, "reasoning_content", None)
+            if isinstance(rc_delta, str) and rc_delta:
+                reasoning_parts.append(rc_delta)
+                # Print reasoning as gray text in CLI streaming
+                if print_delta_fn and not is_web:
+                    print_delta_fn(f"\033[90m{rc_delta}\033[0m")
+                elif is_web and core is not None:
+                    try:
+                        core.log_stream_delta(rc_delta)
+                    except Exception:
+                        pass
+
+            content_delta = getattr(delta, "content", None)
+            if isinstance(content_delta, str) and content_delta:
+                text_parts.append(content_delta)
+                if print_delta_fn and not is_web:
+                    print_delta_fn(content_delta)
+                elif is_web and core is not None:
+                    try:
+                        core.log_stream_delta(content_delta)
+                    except Exception:
+                        pass
+
+            tc_deltas = getattr(delta, "tool_calls", None) or []
+            for tc_delta in tc_deltas:
+                idx = getattr(tc_delta, "index", 0) or 0
+                if idx not in tool_calls_acc:
+                    tool_calls_acc[idx] = {
+                        "id": "",
+                        "type": "function",
+                        "function": {"name": "", "arguments": ""},
+                    }
+                acc = tool_calls_acc[idx]
+                tc_id = getattr(tc_delta, "id", None)
+                if isinstance(tc_id, str) and tc_id:
+                    acc["id"] = tc_id
+                fn_delta = getattr(tc_delta, "function", None)
+                if fn_delta is not None:
+                    fn_name = getattr(fn_delta, "name", None)
+                    fn_args = getattr(fn_delta, "arguments", None)
+                    if isinstance(fn_name, str) and fn_name:
+                        acc["function"]["name"] += fn_name
+                    if isinstance(fn_args, str):
+                        acc["function"]["arguments"] += fn_args
+    except Exception:
+        pass
+
+    if text_parts and not is_web:
+        last = text_parts[-1] if text_parts else ""
+        if last and not last.endswith("\n"):
+            if print_delta_fn:
+                print_delta_fn("\n")
+            else:
+                print("")
+
+    tool_calls_list = [
+        v for _, v in sorted(tool_calls_acc.items()) if v["function"]["name"]
+    ]
+
+    return "".join(text_parts), "".join(reasoning_parts), tool_calls_list
 
 
 # ---------------------------------------------------------------------------
@@ -58,8 +244,7 @@ def build_novita_chat_kwargs(
     Novita uses a standard OpenAI-compatible API. No special parameters
     like extra_body, reasoning_effort, or thinking.type are needed.
     """
-    # Strip reasoning_content from incoming messages to avoid issues.
-    clean_messages = _strip_reasoning_content_no_tool(call_messages)
+    clean_messages = _strip_reasoning_content(call_messages)
 
     chat_kwargs: dict[str, Any] = {
         "model": depname,
@@ -70,7 +255,6 @@ def build_novita_chat_kwargs(
         chat_kwargs["tools"] = req_tools
         chat_kwargs["tool_choice"] = "auto"
 
-    # temperature
     temp_env = (
         env_get(f"{_ENV_PREFIX}_TEMPERATURE") or env_get("UAGENT_TEMPERATURE") or ""
     ).strip()
@@ -122,7 +306,7 @@ def novita_chat_with_tools(
             if stream:
                 assistant_text, reasoning_content, tool_calls_list = (
                     call_maybe_thread_fn(
-                        lambda: parse_deepseek_stream(
+                        lambda: _parse_novita_stream(
                             client.chat.completions.create(**chat_kwargs, stream=True),
                             print_delta_fn=(
                                 None
@@ -142,7 +326,7 @@ def novita_chat_with_tools(
                     lambda: client.chat.completions.create(**chat_kwargs)
                 )
                 assistant_text, reasoning_content, tool_calls_list = (
-                    parse_deepseek_response(resp)
+                    _parse_novita_response(resp)
                 )
 
             return True, client, assistant_text, reasoning_content, tool_calls_list
@@ -173,13 +357,12 @@ def novita_chat_with_tools(
                 return False, client, "", "", []
 
             err = str(e)
-            # Context window
             if "context window" in err.lower() or "exceeds the context" in err.lower():
                 print(f"[{_LABEL} Error] " + _("Input exceeds the context window."))
                 _maybe_print_certifi_where(e)
                 print(repr(e))
                 return False, client, "", "", []
-            # 400 BadRequest
+
             if BadRequestError is not None and isinstance(e, BadRequestError):
                 err_text_lower = err.lower()
                 if "does not support tools" in err_text_lower:
@@ -198,11 +381,13 @@ def novita_chat_with_tools(
                     + _("Error code: %(code)d - %(err)s") % {"code": 400, "err": e}
                 )
                 return False, client, "", "", []
+
             if APIConnectionError is not None and isinstance(e, APIConnectionError):
                 print(f"[{_LABEL} Error] " + _("Connection error"))
                 _maybe_print_certifi_where(e)
                 print(repr(e))
                 return False, client, "", "", []
+
             if isinstance(e, URLError):
                 print(_("[Network Error]"))
                 _maybe_print_certifi_where(e)

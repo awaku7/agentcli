@@ -470,11 +470,18 @@ def parse_deepseek_stream(
                 continue
             delta = chunk.choices[0].delta
 
-            # reasoning_content delta (DeepSeek-specific field)
+            # reasoning_content delta (CoT text)
             rc_delta = getattr(delta, "reasoning_content", None)
             if isinstance(rc_delta, str) and rc_delta:
                 reasoning_parts.append(rc_delta)
-                # Do NOT print CoT to stdout / web
+                # Print reasoning as gray text in CLI streaming
+                if print_delta_fn and not is_web:
+                    print_delta_fn(f"\033[90m{rc_delta}\033[0m")
+                elif is_web and core is not None:
+                    try:
+                        core.log_stream_delta(rc_delta)
+                    except Exception:
+                        pass
 
             # content delta
             content_delta = getattr(delta, "content", None)
