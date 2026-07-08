@@ -30,7 +30,17 @@
     if (getCurrentToolHtml()) scrollToBottom();
   });
 
-  // Scroll when stream ends (bubble removed, new message may appear)
+  // When new messages arrive from history (sync), clear completed bubble
+  $effect(() => {
+    if (messages.length > 0) {
+      const last = messages[messages.length - 1];
+      if (last?.role === 'assistant' && streamState.done) {
+        streamState = { ...streamState, done: false };
+      }
+    }
+  });
+
+  // Scroll when stream ends
   $effect(() => {
     if (!streamState.active) scrollToBottom();
   });
