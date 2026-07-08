@@ -10,7 +10,9 @@
   let streamState = $state({ id: null, active: false, text: '', reasoning: '' });
 
   function scrollToBottom() {
-    if (chatBox) requestAnimationFrame(() => { chatBox.scrollTop = chatBox.scrollHeight; });
+    if (chatBox) requestAnimationFrame(() => {
+      requestAnimationFrame(() => { chatBox.scrollTop = chatBox.scrollHeight; });
+    });
   }
 
   // Scroll on new messages
@@ -26,6 +28,11 @@
   // Scroll on tool update
   $effect(() => {
     if (getCurrentToolHtml()) scrollToBottom();
+  });
+
+  // Scroll when stream ends (bubble removed, new message may appear)
+  $effect(() => {
+    if (!streamState.active) scrollToBottom();
   });
 
   $effect(() => {
