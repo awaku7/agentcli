@@ -475,9 +475,8 @@ def _run_one_round(
             reasoning_content=reasoning_content,
         )
         messages.append(deepseek_msg)
-        if not (bool(getattr(core, "_is_web", False)) and _ds_streaming):
-            if not judgment_mode:
-                core.log_message(deepseek_msg)
+        if not judgment_mode:
+            core.log_message(deepseek_msg)
 
         action, empty_no_tool_rounds = _handle_openai_empty_no_tool(
             assistant_text=assistant_text,
@@ -585,9 +584,8 @@ def _run_one_round(
             reasoning_content=reasoning_content,
         )
         messages.append(deepseek_msg)
-        if not (bool(getattr(core, "_is_web", False)) and _ds_streaming):
-            if not judgment_mode:
-                core.log_message(deepseek_msg)
+        if not judgment_mode:
+            core.log_message(deepseek_msg)
 
         action, empty_no_tool_rounds = _handle_openai_empty_no_tool(
             assistant_text=assistant_text,
@@ -695,9 +693,8 @@ def _run_one_round(
             reasoning_content=reasoning_content,
         )
         messages.append(deepseek_msg)
-        if not (bool(getattr(core, "_is_web", False)) and _ds_streaming):
-            if not judgment_mode:
-                core.log_message(deepseek_msg)
+        if not judgment_mode:
+            core.log_message(deepseek_msg)
 
         action, empty_no_tool_rounds = _handle_openai_empty_no_tool(
             assistant_text=assistant_text,
