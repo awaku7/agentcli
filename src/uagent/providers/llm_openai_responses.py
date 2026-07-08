@@ -1136,6 +1136,9 @@ def parse_responses_stream(
 
             # 1.5) Reasoning text deltas (o1/o3-mini reasoning_content)
             if ev_type == "response.reasoning_text.delta":
+                import sys as _sys
+                _sys.__stderr__.write(f"[REASONING_DEBUG] delta received, len={len(str(getattr(ev, 'delta', '')))}\n")
+                _sys.__stderr__.flush()
                 reasoning_delta = getattr(ev, "delta", None)
                 if isinstance(reasoning_delta, str) and reasoning_delta:
                     reasoning_parts.append(reasoning_delta)
