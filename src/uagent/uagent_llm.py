@@ -402,7 +402,7 @@ def _run_one_round(
             if not judgment_mode:
                 _emit_final_answer_if_any(
                     assistant_text=assistant_text,
-                    reasoning_content=reasoning_content if 'reasoning_content' in dir() else '',
+                    reasoning_content=locals().get('reasoning_content', ''),
                     use_responses_api=use_responses_api,
                     stream_responses=stream_responses,
                     append_result_to_outfile_fn=append_result_to_outfile_fn,
@@ -842,7 +842,7 @@ def _run_one_round(
             if not judgment_mode:
                 _emit_final_answer_if_any(
                     assistant_text=assistant_text,
-                    reasoning_content=reasoning_content if 'reasoning_content' in dir() else '',
+                    reasoning_content=locals().get('reasoning_content', ''),
                     use_responses_api=use_responses_api,
                     stream_responses=stream_responses,
                     append_result_to_outfile_fn=append_result_to_outfile_fn,
