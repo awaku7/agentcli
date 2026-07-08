@@ -1134,13 +1134,10 @@ def parse_responses_stream(
                 except Exception:
                     _print_delta(delta_text)
 
-            # DEBUG: dump all event types
-            import sys as _debug_sys
-            if 'reasoning' in str(ev_type).lower() or 'reasoning' in str(dir(ev)).lower() or hasattr(ev, 'reasoning'):
-                _debug_sys.__stderr__.write(f"[EVT_DEBUG] ev_type={ev_type}, reasoning attr={hasattr(ev, 'reasoning')}\n")
-                _debug_sys.__stderr__.flush()
-            if ev_type in ("response.output_text.delta", "response.output_text.done", "response.reasoning_text.delta", "response.reasoning_text.done"):
-                _debug_sys.__stderr__.write(f"[EVT_DEBUG] {ev_type}\n")
+            # DEBUG: dump output_text.delta attributes
+            if ev_type in ("response.output_text.delta",):
+                import sys as _debug_sys
+                _debug_sys.__stderr__.write(f"[EVT_ATTR] type={ev_type} attrs={[a for a in dir(ev) if not a.startswith('_')]}\n")
                 _debug_sys.__stderr__.flush()
 
             # 1.5) Reasoning text deltas (o1/o3-mini reasoning_content)
