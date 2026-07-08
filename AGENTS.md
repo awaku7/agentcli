@@ -168,7 +168,7 @@ python scripts/po_qc_summary.py
 ## PR instructions
 
 - Run all checks above before submitting.
-- If adding a new LLM provider, update: `setup_cli.py`, `util_providers.py`, `env_validate.py`, `llm_round_helpers.py`, `runtime_banner.py`, and `provider_caps.py`.
+- If adding a new LLM provider, update: `provider_caps.py` (add to `ALL_PROVIDERS`), `setup_cli.py`, `util_providers.py`, `llm_round_helpers.py`, `runtime_banner.py`. `detect_provider()` and `env_validate.py` validation are centralised via `provider_caps.ALL_PROVIDERS`.
 - If adding a CLI option, ensure it works across all entry points (CLI/GUI/Web/A2A).
 - Update `DEVELOP.md` and any relevant docs under `src/uagent/docs/`.
 - For i18n changes, run `python scripts/compile_locales.py` and `python scripts/po_qc_summary.py`.
