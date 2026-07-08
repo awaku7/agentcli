@@ -462,6 +462,7 @@ def parse_deepseek_stream(
     reasoning_parts: list[str] = []
     tool_calls_acc: dict[int, dict[str, Any]] = {}
     is_web = bool(getattr(core, "_is_web", False)) if core else False
+    _reasoning_printed = False
 
     try:
         for chunk in stream:
@@ -476,6 +477,7 @@ def parse_deepseek_stream(
                 # Print reasoning as gray text in CLI streaming
                 if print_delta_fn and not is_web:
                     print_delta_fn(f"\033[90m{rc_delta}\033[0m")
+                    _reasoning_printed = True
                 elif is_web and core is not None:
                     try:
                         core.log_stream_delta(rc_delta)
@@ -487,7 +489,12 @@ def parse_deepseek_stream(
             if isinstance(content_delta, str) and content_delta:
                 text_parts.append(content_delta)
                 if print_delta_fn and not is_web:
-                    print_delta_fn(content_delta)
+                    # Prepend newline when transitioning from reasoning to content
+                    if _reasoning_printed:
+                        _reasoning_printed = False
+                        print_delta_fn("\n" + content_delta)
+                    else:
+                        print_delta_fn(content_delta)
                 elif is_web and core is not None:
                     try:
                         core.log_stream_delta(content_delta)
