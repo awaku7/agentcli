@@ -33,7 +33,7 @@
         {t('uagent')}
       </div>
       {#if reasoningContent}
-        <pre class="whitespace-pre-wrap font-mono text-xs mb-2" style="color:var(--text-tertiary);">{reasoningContent}</pre>
+        <pre class="whitespace-pre-wrap font-mono text-xs mb-2" style="opacity:0.55;">{reasoningContent}</pre>
       {/if}
       <div class="text-sm leading-relaxed whitespace-pre-wrap font-mono">{@html formattedHtml}</div>
       {#if artifactHtml}

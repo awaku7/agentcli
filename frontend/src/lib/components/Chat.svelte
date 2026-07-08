@@ -61,7 +61,7 @@
     <div class="p-3 rounded-lg max-w-[85%] role-assistant shadow-sm msg-anim">
       <strong>ASSISTANT:</strong>
       {#if streamState.reasoning}
-        <pre class="mt-1 whitespace-pre-wrap font-mono text-xs" style="color:var(--text-tertiary);">{streamState.reasoning}</pre>
+        <pre class="mt-1 whitespace-pre-wrap font-mono text-xs" style="opacity:0.55;">{streamState.reasoning}</pre>
       {/if}
       {#if streamState.text}
         <pre class="mt-1 whitespace-pre-wrap font-mono text-sm">{streamState.text}</pre>
