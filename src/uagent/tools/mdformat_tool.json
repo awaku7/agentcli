@@ -1,0 +1,58 @@
+{
+  "en": {
+    "tool.description": "Check Markdown file formatting with mdformat. Reports files that need formatting fixes. Optionally auto-fix.",
+    "x_search_terms": [
+      "markdown",
+      "format",
+      "lint",
+      "mdformat",
+      "md",
+      "style"
+    ],
+    "param.path.description": "Glob pattern or file path to check (e.g. 'docs/**/*.md' or 'README.md').",
+    "param.fix.description": "If true, auto-fix formatting issues instead of just checking.",
+    "pkg.mdformat": "mdformat (Markdown formatter)",
+    "pkg.mdformat_frontmatter": "mdformat YAML front matter plugin",
+    "result.no_match": "No Markdown files matched pattern: {pattern}",
+    "result.summary": "mdformat_check: {total} files, {ok} ok, {failed} failed",
+    "result.ok": "[{label}] {path}",
+    "result.ok_formatted": "[{label}] formatted: {path}",
+    "result.fail": "[{label}] {path}: {detail}",
+    "result.timeout": "[{label}] {path}",
+    "result.error": "[{label}] {path}: {e}",
+    "result.fallback_detail": "formatting issue",
+    "result.more": "... and {count} more",
+    "label.ok": "OK",
+    "label.fail": "FAIL",
+    "label.timeout": "TIMEOUT",
+    "label.error": "ERROR"
+  },
+  "ja": {
+    "tool.description": "mdformat で Markdown ファイルのフォーマットをチェックします。フォーマット修正が必要なファイルを報告します。自動修正も可能です。",
+    "x_search_terms": [
+      "markdown",
+      "format",
+      "lint",
+      "mdformat",
+      "md",
+      "style"
+    ],
+    "param.path.description": "チェック対象のグロブパターンまたはファイルパス（例: 'docs/**/*.md' または 'README.md'）。",
+    "param.fix.description": "true の場合、チェックのみでなく自動修正も実行します。",
+    "pkg.mdformat": "mdformat（Markdown フォーマッター）",
+    "pkg.mdformat_frontmatter": "mdformat YAML front matter プラグイン",
+    "result.no_match": "パターン {pattern} に一致する Markdown ファイルはありませんでした",
+    "result.summary": "mdformat_check: {total} ファイル中 {ok} 成功、{failed} 失敗",
+    "result.ok": "[{label}] {path}",
+    "result.ok_formatted": "[{label}] フォーマット完了: {path}",
+    "result.fail": "[{label}] {path}: {detail}",
+    "result.timeout": "[{label}] {path}",
+    "result.error": "[{label}] {path}: {e}",
+    "result.fallback_detail": "フォーマット問題",
+    "result.more": "... 他 {count} 件",
+    "label.ok": "OK",
+    "label.fail": "FAIL",
+    "label.timeout": "TIMEOUT",
+    "label.error": "ERROR"
+  }
+}
