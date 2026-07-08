@@ -74,8 +74,18 @@ TOOL_SPEC: dict[str, Any] = {
 }
 
 
+def _ensure_mdformat_frontmatter() -> None:
+    """Auto-install mdformat-frontmatter plugin if missing."""
+    try:
+        import mdformat_frontmatter  # noqa: F401
+    except ImportError:
+        from .._pip_auto import install_with_status as _install_plugin
+        _install_plugin("mdformat-frontmatter", display_name="mdformat YAML front matter plugin")
+
+
 def run(args: dict[str, Any]) -> str:
     """Run mdformat on Markdown files matching the given path pattern."""
+    _ensure_mdformat_frontmatter()
     path_pattern: str = str(args.get("path") or "**/*.md")
     fix_mode: bool = bool(args.get("fix", False))
 
