@@ -689,6 +689,7 @@ def run_agent_worker(
                 {"type": "assistant_stream_end", "id": stream_state.get("id")}
             )
         stream_state["active"] = False
+        stream_state["suppress_next_assistant_message"] = False
 
     # Patch core.log_message during this worker run so streaming deltas can go to WebSocket.
     _orig_log_message = getattr(core, "log_message", None)
@@ -725,6 +726,8 @@ def run_agent_worker(
                 if stream_state.get("suppress_next_assistant_message"):
                     stream_state["suppress_next_assistant_message"] = False
                 else:
+                    rc = msg.get("reasoning_content", "")
+                    print(f"[WS_DEBUG] assistant msg broadcast, rc_len={len(rc) if rc else 0}, rc_exists={'reasoning_content' in msg}")
                     room.add_message(dict(msg))
         except Exception:
             pass
