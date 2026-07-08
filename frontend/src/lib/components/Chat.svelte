@@ -12,6 +12,8 @@
     if (chatBox) requestAnimationFrame(() => { chatBox.scrollTop = chatBox.scrollHeight; });
   }
 
+  $effect(() => { console.log('[CHAT_DEBUG] messages.length=', messages.length); });
+
   // Scroll on new messages
   $effect(() => {
     if (messages.length) scrollToBottom();
