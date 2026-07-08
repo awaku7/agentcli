@@ -12,6 +12,16 @@
     if (chatBox) requestAnimationFrame(() => { chatBox.scrollTop = chatBox.scrollHeight; });
   }
 
+  // Debug: log last message
+  $effect(() => {
+    if (messages.length > 1) {
+      const last = messages[messages.length - 1];
+      if (last?.role === 'assistant') {
+        console.log('[CHAT] assistant msg rc:', last.reasoning_content ? 'present(' + last.reasoning_content.length + 'chars)' : 'ABSENT');
+      }
+    }
+  });
+
   // Scroll on new messages
   $effect(() => {
     if (messages.length) scrollToBottom();
