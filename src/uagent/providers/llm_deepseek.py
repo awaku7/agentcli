@@ -117,11 +117,11 @@ def build_assistant_message_with_reasoning(
     tool_calls_list: list[dict[str, Any]],
     reasoning_content: str,
 ) -> dict[str, Any]:
-    """Build an assistant message dict, injecting reasoning_content when tool
-    calls were present (DeepSeek API requirement).
+    """Build an assistant message dict with reasoning_content.
 
-    When there are NO tool calls, reasoning_content is intentionally omitted:
-    the API ignores it and sending it wastes context tokens.
+    reasoning_content is always included when present — it is stripped
+    from API-bound messages by ``_strip_reasoning_content`` before
+    being sent to the LLM, so storing it does not cause issues.
     """
     msg: dict[str, Any] = {
         "role": "assistant",
@@ -129,9 +129,8 @@ def build_assistant_message_with_reasoning(
     }
     if tool_calls_list:
         msg["tool_calls"] = tool_calls_list
-        # With tool calls, reasoning_content MUST be forwarded or API returns 400.
-        if reasoning_content:
-            msg["reasoning_content"] = reasoning_content
+    if reasoning_content:
+        msg["reasoning_content"] = reasoning_content
     return msg
 
 
