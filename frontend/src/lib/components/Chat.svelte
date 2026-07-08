@@ -4,7 +4,8 @@
   import { extractHtmlFromText } from '../../lib/utils.js';
   import { setArtifactHtml } from '../../lib/stores.svelte.js';
 
-  let messages = $derived(getMessages());
+  let messages = $state([]);
+  $effect(() => { messages = getMessages(); });
   let chatBox = $state(null);
   let streamState = $state({ id: null, active: false, text: '', reasoning: '' });
 
