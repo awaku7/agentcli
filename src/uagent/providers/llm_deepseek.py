@@ -480,7 +480,9 @@ def parse_deepseek_stream(
                     _reasoning_printed = True
                 elif is_web and core is not None:
                     try:
-                        core.log_stream_delta(rc_delta)
+                        lm = getattr(core, "log_message", None)
+                        if callable(lm):
+                            lm({"type": "assistant_stream_delta", "delta": rc_delta})
                     except Exception:
                         pass
 
@@ -497,7 +499,9 @@ def parse_deepseek_stream(
                         print_delta_fn(content_delta)
                 elif is_web and core is not None:
                     try:
-                        core.log_stream_delta(content_delta)
+                        lm = getattr(core, "log_message", None)
+                        if callable(lm):
+                            lm({"type": "assistant_stream_delta", "delta": content_delta})
                     except Exception:
                         pass
 
@@ -525,6 +529,15 @@ def parse_deepseek_stream(
                         acc["function"]["arguments"] += fn_args
     except Exception:
         pass
+
+    # Web UI: signal stream end
+    if is_web and core is not None:
+        try:
+            lm = getattr(core, "log_message", None)
+            if callable(lm):
+                lm({"type": "assistant_stream_end"})
+        except Exception:
+            pass
 
     # Ensure newline after streaming content
     if (text_parts or reasoning_parts) and not is_web:
