@@ -86,6 +86,7 @@ PROVIDERS: list[tuple[str, str]] = [
     ("hf", "HuggingFace"),
     ("sakana", "Sakana AI (Fugu)"),
     ("sakura", "SAKURA AI Engine"),
+    ("novita", "Novita AI"),
 ]
 
 # key, required, label
@@ -351,6 +352,24 @@ PROVIDER_FIELDS: dict[str, list[tuple[str, bool, str]]] = {
             "UAGENT_SAKURA_TEMPERATURE",
             False,
             _("SAKURA AI Engine temperature (optional)"),
+        ),
+    ],
+    "novita": [
+        ("UAGENT_NOVITA_API_KEY", True, _("Novita AI API key")),
+        (
+            "UAGENT_NOVITA_BASE_URL",
+            False,
+            _("Novita AI base URL (optional, default: https://api.novita.ai/v3/openai)"),
+        ),
+        (
+            "UAGENT_NOVITA_DEPNAME",
+            False,
+            _("Novita AI model name (optional, default: sao-10b-fp8)"),
+        ),
+        (
+            "UAGENT_NOVITA_TEMPERATURE",
+            False,
+            _("Novita AI temperature (optional)"),
         ),
     ],
 }

@@ -243,6 +243,7 @@ def detect_provider() -> str:
         "hf",
         "sakana",
         "sakura",
+        "novita",
     ):
         print(_("Unknown provider: %(provider)s") % {"provider": p}, file=sys.stderr)
         sys.exit(1)
@@ -307,6 +308,11 @@ def get_model_name() -> str:
         )
     if provider == "sakana":
         return env_get("UAGENT_SAKANA_DEPNAME", "fugu") or "fugu"
+    if provider == "novita":
+        return (
+            env_get("UAGENT_NOVITA_DEPNAME", "sao-10b-fp8")
+            or "sao-10b-fp8"
+        )
     if provider == "sakura":
         return env_get("UAGENT_SAKURA_DEPNAME", "llm") or "llm"
     return env_get("UAGENT_OPENAI_DEPNAME", "gpt-5.2") or "gpt-5.2"
@@ -707,6 +713,24 @@ def make_client(core: Any) -> tuple[str, Any, str]:
         base_url = core.get_env_url(
             "UAGENT_HF_BASE_URL",
             "https://router.huggingface.co/v1",
+        )
+
+        http_client = make_httpx_client()
+
+        try:
+            client = OpenAI(api_key=api_key, base_url=base_url, http_client=http_client)
+        except TypeError:
+            client = OpenAI(api_key=api_key, base_url=base_url)
+
+        return provider, client, model_name
+
+    if provider == "novita":
+        from openai import OpenAI  # lazy
+
+        api_key = core.get_env("UAGENT_NOVITA_API_KEY")
+        base_url = core.get_env_url(
+            "UAGENT_NOVITA_BASE_URL",
+            "https://api.novita.ai/v3/openai",
         )
 
         http_client = make_httpx_client()

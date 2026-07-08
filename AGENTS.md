@@ -79,6 +79,7 @@ Gemini, DeepSeek, Ollama, OpenRouter, etc.).
 | `hf` | HuggingFace |
 | `sakana` | Sakana AI (Fugu) |
 | `sakura` | SAKURA AI Engine |
+| `novita` | Novita AI |
 
 ## Commands to run before committing
 

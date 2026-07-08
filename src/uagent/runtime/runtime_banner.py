@@ -424,6 +424,19 @@ def build_startup_banner(*, core: Any, workdir: str, workdir_source: str) -> str
                 )
             }
         )
+    elif provider == "novita":
+        lines.append(
+            _("[INFO] base_url = %(base_url)s")
+            % {
+                "base_url": _normalize_url(
+                    core,
+                    env_get(
+                        "UAGENT_NOVITA_BASE_URL",
+                        "https://api.novita.ai/v3/openai",
+                    ),
+                )
+            }
+        )
 
     for label, opt_provider, model in _startup_optional_model_infos():
         lines.append(
