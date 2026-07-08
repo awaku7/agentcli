@@ -66,6 +66,7 @@ export function connect() {
   const protocol = window.location.protocol === 'https:' ? 'wss:' : 'ws:';
   const room = getRoomIdFromUrl();
   _state.roomId = room || crypto.randomUUID().slice(0, 8);
+  history.replaceState(null, '', '/room/' + _state.roomId);
   const lang = document.documentElement.lang || 'en';
   const qs = `?room=${encodeURIComponent(_state.roomId)}&lang=${encodeURIComponent(lang)}`;
   const newWs = new WebSocket(protocol + '//' + window.location.host + '/ws' + qs);

@@ -1,6 +1,6 @@
 <script>
   import { t } from '../../lib/i18n.svelte.js';
-  import { getStatus } from '../../lib/stores.svelte.js';
+  import { getStatus, getRoomId } from '../../lib/stores.svelte.js';
 
   let { panelOpen = false, onTogglePanel } = $props();
   let status = $derived(getStatus());
@@ -39,6 +39,9 @@
       {t('title')}
     </h1>
     <span class="text-xs font-mono hidden sm:inline truncate" style="color:var(--text-tertiary);">
+      {getRoomId()}
+    </span>
+    <span class="text-xs font-mono ml-2 px-1.5 py-0.5 rounded" style="color:var(--accent);background:var(--accent-subtle);">
       {status.workdir ? `workdir: ${status.workdir}` : ''}
     </span>
   </div>
