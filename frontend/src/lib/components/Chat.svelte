@@ -1,13 +1,13 @@
 <script>
   import Message from './Message.svelte';
-  import { onMessage, getMessages, getCurrentToolHtml, pushAssistantMessage } from '../../lib/stores.svelte.js';
+  import { onMessage, getMessages, getCurrentToolHtml } from '../../lib/stores.svelte.js';
   import { extractHtmlFromText } from '../../lib/utils.js';
   import { setArtifactHtml } from '../../lib/stores.svelte.js';
 
   let messages = $state([]);
   $effect(() => { messages = getMessages(); });
   let chatBox = $state(null);
-  let streamState = $state({ id: null, active: false, text: '', reasoning: '' });
+  let streamState = $state({ id: null, active: false, done: false, text: '', reasoning: '' });
 
   function scrollToBottom() {
     if (chatBox) requestAnimationFrame(() => {
@@ -36,7 +36,7 @@
   });
 
   $effect(() => {
-    const unsubStart = onMessage('streamStart', (id) => { streamState = { id, active: true, text: '', reasoning: '' }; });
+    const unsubStart = onMessage('streamStart', (id) => { streamState = { id, active: true, done: false, text: '', reasoning: '' }; });
     const unsubDelta = onMessage('streamDelta', (id, delta) => {
       if (streamState.active && streamState.id === id) {
         const newText = streamState.text + delta;
@@ -53,13 +53,10 @@
     });
     const unsubEnd = onMessage('streamEnd', (id) => {
       if (streamState.id === id) {
-        // Push complete message to history before clearing stream state
-        if (streamState.text || streamState.reasoning) {
-          pushAssistantMessage(streamState.text || '', streamState.reasoning);
-        }
         const html = extractHtmlFromText(streamState.text);
         if (html) setArtifactHtml(html);
-        streamState = { id: null, active: false, text: '' };
+        // Keep bubble visible as completed message
+        streamState = { ...streamState, active: false, done: true };
       }
     });
     return () => { unsubStart(); unsubDelta(); unsubReasoning(); unsubEnd(); };
@@ -76,8 +73,8 @@
   {#if getCurrentToolHtml()}
     <div class="p-2 rounded-lg text-xs font-mono" style="background:var(--bg-surface-alt);color:var(--text-tertiary);white-space:pre-wrap;max-height:80px;overflow-y:auto;">{getCurrentToolHtml()}</div>
   {/if}
-  {#if streamState.active && (streamState.text || streamState.reasoning)}
-    <div class="p-3 rounded-lg max-w-[85%] role-assistant shadow-sm msg-anim">
+  {#if (streamState.active || streamState.done) && (streamState.text || streamState.reasoning)}
+    <div class="p-3 rounded-lg max-w-[85%] role-assistant shadow-sm msg-anim" class:opacity-60={streamState.done}>
       <strong>ASSISTANT:</strong>
       {#if streamState.reasoning}
         <pre class="mt-1 whitespace-pre-wrap font-mono text-xs" style="opacity:0.55;">{streamState.reasoning}</pre>
@@ -94,4 +91,5 @@
   .chat-container::-webkit-scrollbar { width: 6px; }
   .chat-container::-webkit-scrollbar-track { background: transparent; }
   .chat-container::-webkit-scrollbar-thumb { background: var(--text-muted); border-radius: 3px; }
+  .opacity-60 { opacity: 0.6; }
 </style>
