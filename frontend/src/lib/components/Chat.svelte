@@ -37,11 +37,6 @@
     }
   });
 
-  // Debug: track reasoning state changes
-  $effect(() => {
-    if (streamState.reasoning) console.log('[REASONING] active=', streamState.active, 'len=', streamState.reasoning.length);
-  });
-
   // Scroll when stream ends
   $effect(() => {
     if (!streamState.active) scrollToBottom();

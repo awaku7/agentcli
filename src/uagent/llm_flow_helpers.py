@@ -46,6 +46,7 @@ def _append_assistant_message(
 def _emit_final_answer_if_any(
     *,
     assistant_text: str,
+    reasoning_content: str = "",
     use_responses_api: bool,
     stream_responses: bool,
     append_result_to_outfile_fn: Any,
@@ -55,6 +56,8 @@ def _emit_final_answer_if_any(
     if not _effectively_empty_text(assistant_text):
         # Responses+Streaming already printed deltas in parse_responses_stream(); avoid double-print.
         if not skip_print and not (use_responses_api and stream_responses):
+            if reasoning_content:
+                print(f"\033[90m{reasoning_content}\033[0m")
             print(assistant_text)
         append_result_to_outfile_fn(assistant_text)
         try_open_images_from_text_fn(assistant_text)
