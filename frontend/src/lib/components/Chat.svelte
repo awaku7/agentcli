@@ -18,9 +18,9 @@
     if (messages.length) scrollToBottom();
   });
 
-  // Scroll during streaming
+  // Scroll during streaming (text or reasoning)
   $effect(() => {
-    if (streamState.text) scrollToBottom();
+    if (streamState.text || streamState.reasoning) scrollToBottom();
   });
 
   // Scroll on tool update
