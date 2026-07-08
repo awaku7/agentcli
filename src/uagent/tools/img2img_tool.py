@@ -540,8 +540,13 @@ def run_tool(args: dict[str, Any]) -> str:
 
             if _is_gpt_image_model(image_model):
                 gen_kwargs["response_format"] = "png"
-                gen_kwargs["quality"] = quality or "auto"
-                gen_kwargs["background"] = background or "auto"
+                # quality: valid values are "low"/"medium"/"high"; omit if "auto"
+                if quality and quality != "auto":
+                    gen_kwargs["quality"] = quality
+                # background: valid values are "transparent"/"opaque"; omit if "auto"
+                bg = background or "auto"
+                if bg != "auto":
+                    gen_kwargs["background"] = bg
             else:
                 gen_kwargs["response_format"] = "b64_json"
 
