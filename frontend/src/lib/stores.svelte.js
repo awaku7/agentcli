@@ -11,6 +11,7 @@ const _state = $state({
   pendingAttachments: [],
   currentArtifactHtml: '',
   currentToolHtml: '',
+  _pendingStreamMsg: false,
   humanAskState: { visible: false, message: '', isPassword: false, resolve: null },
   genresEnabled: {},
 });
@@ -46,6 +47,10 @@ export function setHumanAskState(v) { _state.humanAskState = v; }
 
 // Convenience functions
 export function setArtifactHtml(html) { _state.currentArtifactHtml = html; }
+export function pushAssistantMessage(text, reasoning) {
+  _state._pendingStreamMsg = true;
+  _state.messages = [..._state.messages, { role: 'assistant', content: text, reasoning_content: reasoning || '' }];
+}
 export function addAttachments(files) { _state.pendingAttachments = [..._state.pendingAttachments, ...files]; }
 export function removeAttachment(index) { _state.pendingAttachments = _state.pendingAttachments.filter((_, i) => i !== index); }
 export function clearAttachments() { _state.pendingAttachments = []; }
@@ -109,7 +114,11 @@ function handleWsMessage(data) {
       if (data.message?.role === 'tool') {
         _state.currentToolHtml = data.message.content || '';
       } else {
-        _state.messages = [..._state.messages, data.message];
+        if (_state._pendingStreamMsg && data.message?.role === 'assistant') {
+          _state._pendingStreamMsg = false;
+        } else {
+          _state.messages = [..._state.messages, data.message];
+        }
         _state.currentToolHtml = '';
       }
       break;

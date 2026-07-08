@@ -1,6 +1,6 @@
 <script>
   import Message from './Message.svelte';
-  import { onMessage, getMessages, getCurrentToolHtml } from '../../lib/stores.svelte.js';
+  import { onMessage, getMessages, getCurrentToolHtml, pushAssistantMessage } from '../../lib/stores.svelte.js';
   import { extractHtmlFromText } from '../../lib/utils.js';
   import { setArtifactHtml } from '../../lib/stores.svelte.js';
 
@@ -53,7 +53,10 @@
     });
     const unsubEnd = onMessage('streamEnd', (id) => {
       if (streamState.id === id) {
-        // Final auto-update with complete text
+        // Push complete message to history before clearing stream state
+        if (streamState.text) {
+          pushAssistantMessage(streamState.text, streamState.reasoning);
+        }
         const html = extractHtmlFromText(streamState.text);
         if (html) setArtifactHtml(html);
         streamState = { id: null, active: false, text: '' };
