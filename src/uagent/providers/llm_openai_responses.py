@@ -1134,13 +1134,9 @@ def parse_responses_stream(
                 except Exception:
                     _print_delta(delta_text)
 
-            # DEBUG: dump output_text.delta attributes
-            if ev_type in ("response.output_text.delta",):
-                import sys as _debug_sys
-                _debug_sys.__stderr__.write(f"[EVT_ATTR] type={ev_type} attrs={[a for a in dir(ev) if not a.startswith('_')]}\n")
-                _debug_sys.__stderr__.flush()
-
-            # 1.5) Reasoning text deltas (o1/o3-mini reasoning_content)
+            # 1.5) Reasoning text deltas (reasoning_content for o1/o3-mini)
+            # NOTE: gpt-5.x models do NOT send reasoning_text.delta events during streaming.
+            # Reasoning content is only available via non-streaming Responses API.
             if ev_type == "response.reasoning_text.delta":
                 reasoning_delta = getattr(ev, "delta", None)
                 if isinstance(reasoning_delta, str) and reasoning_delta:
