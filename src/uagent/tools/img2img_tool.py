@@ -540,7 +540,11 @@ def run_tool(args: dict[str, Any]) -> str:
 
             if _is_gpt_image_model(image_model):
                 gen_kwargs["output_format"] = "png"
+                # GPT image models accept: auto, low, medium, high
+                # Reject DALL-E-only values (standard, hd) to avoid API error
                 if quality:
+                    if quality in ("standard", "hd"):
+                        quality = "auto"
                     gen_kwargs["quality"] = quality
                 bg = background or "auto"
                 if bg != "auto":
