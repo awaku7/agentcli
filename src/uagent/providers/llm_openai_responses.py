@@ -917,8 +917,8 @@ def parse_responses_stream(
     *,
     print_delta_fn: Any = None,
     core: Any = None,
-) -> tuple[str, list[dict[str, Any]], Optional[str]]:
-    """Parse Responses API streaming iterator into (assistant_text, tool_calls_list, response_id).
+) -> tuple[str, str, list[dict[str, Any]], Optional[str]]:
+    """Parse Responses API streaming iterator into (assistant_text, reasoning_content, tool_calls_list, response_id).
 
     Debugging:
       - If UAGENT_STREAMING_DEBUG is enabled, dumps each event as JSON to:

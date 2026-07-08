@@ -347,7 +347,7 @@ def _resolve_target_eoj(
 
 def _resolve_device_kind(
     target_eoj_text: str,
-) -> tuple[str, str | None]:
+) -> tuple[str, set[str] | None]:
     eoj_upper = target_eoj_text.upper()
     class_code = eoj_upper[2:4]
     DEVICE_KINDS: dict[str, tuple[str, set[str]]] = {

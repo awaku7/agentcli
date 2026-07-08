@@ -1296,7 +1296,7 @@ async def get_logs(page: int = 1, per_page: int = 15):
         except Exception:
             pass
     # Sort by mtime descending
-    items.sort(key=lambda x: x.get("mtime", 0), reverse=True)
+    items.sort(key=lambda x: x.get("mtime", 0) or 0, reverse=True)  # type: ignore[return-value]
     total = len(items)
     total_pages = max(1, (total + per_page - 1) // per_page)
     page = max(1, min(page, total_pages))
