@@ -124,16 +124,18 @@ TOOL_SPEC: dict[str, Any] = {
                 },
                 "quality": {
                     "type": "string",
+                    "enum": ["auto", "low", "medium", "high", "standard", "hd"],
                     "description": _(
                         "param.quality.description",
-                        default="Image quality.",
+                        default="Image quality. GPT: auto/low/medium/high, DALL-E: standard/hd.",
                     ),
                 },
                 "background": {
                     "type": "string",
+                    "enum": ["auto", "transparent", "opaque"],
                     "description": _(
                         "param.background.description",
-                        default="Image background.",
+                        default="Image background: auto/transparent/opaque.",
                     ),
                 },
             },
