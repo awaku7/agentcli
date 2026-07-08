@@ -1,8 +1,6 @@
 ---
 name: vup-build-release-whl
-description: pyproject.toml の [project].version を patch +1 し、commit + push（origin/main）、wheel
-  build を実行した上で、dist の最新 .whl を GitHub Releases または GitLab（Generic Package + Release
-  asset link）へアップロードし、tag/release を作成して紐付ける。
+description: pyproject.toml の [project].version を patch +1 し、commit + push（origin/main）、wheel build を実行した上で、dist の最新 .whl を GitHub Releases または GitLab（Generic Package + Release asset link）へアップロードし、tag/release を作成して紐付ける。
 license: Apache-2.0
 ---
 
@@ -82,8 +80,8 @@ git remote origin の URL から配布先を自動判定する（「入力」欄
 判定ルール:
 
 1. `git remote get-url origin` の出力に `github.com` が含まれる → **GitHub**
-2. 上記以外で `gitlab` が含まれる → **GitLab**
-3. どちらでもない → エラー（スキル中断）
+1. 上記以外で `gitlab` が含まれる → **GitLab**
+1. どちらでもない → エラー（スキル中断）
 
 必要に応じて、判定後に該当する環境変数がすべて設定されているか確認する（設定漏れはこの時点でエラー）。
 

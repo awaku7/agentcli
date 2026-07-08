@@ -14,10 +14,10 @@ agentcli に新規ツールを追加する一連の工程を自動実行する�
 ユーザーに以下を質問し、全て揃ったら実行を開始する。
 
 1. **ツール名**: 英小文字+アンダースコア（例: `pdf_ocr`）
-2. **英語説明**: `tool.description` に使う1行（簡潔に）
-3. **引数定義**: 各引数の name / type / required / description（英、簡潔に）
-4. **実装概要**: `run_tool()` の処理内容
-5. **x_search_terms（英）**: 検索ワード配列（省略可）
+1. **英語説明**: `tool.description` に使う1行（簡潔に）
+1. **引数定義**: 各引数の name / type / required / description（英、簡潔に）
+1. **実装概要**: `run_tool()` の処理内容
+1. **x_search_terms（英）**: 検索ワード配列（省略可）
 
 ## 質問テンプレート
 
@@ -131,8 +131,8 @@ def run_tool(args: dict[str, Any]) -> str:
 ### 処理内容
 
 1. `en` セクションをユーザー入力から作成
-2. `ja` を含む残り33ロケールについて、`translate_text` を呼び出して翻訳
-3. 全34ロケールをまとめて `json.dumps(indent=2, ensure_ascii=False)` で書き出し
+1. `ja` を含む残り33ロケールについて、`translate_text` を呼び出して翻訳
+1. 全34ロケールをまとめて `json.dumps(indent=2, ensure_ascii=False)` で書き出し
 
 ### 翻訳対象キー（各ロケール）
 
@@ -218,7 +218,7 @@ def restore(text: str, mapping: dict[str, str]) -> str:
 
 `lint_format(tools=["ruff", "black"], mode="fix", targets=["src/uagent/tools/<name>_tool.py"])`
 
-- ユーザーに確認を求める: 「<name>_tool.py に ruff/black を適用しますか？（y/n）」
+- ユーザーに確認を求める: 「<name>\_tool.py に ruff/black を適用しますか？（y/n）」
 - 承諾されたら実行。拒否されたらスキップ。
 
 ## Step 4: 構文チェック
