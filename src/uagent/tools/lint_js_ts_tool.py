@@ -121,7 +121,7 @@ def _ensure_biome_cli() -> bool:
         return False
 
 
-def run(args: dict[str, Any]) -> str:
+def run_tool(args: dict[str, Any]) -> str:
     """Run Biome lint on JS/TS files matching the given path pattern."""
     # Check npx availability
     npx_path = _ensure_npx()

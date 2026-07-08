@@ -100,7 +100,7 @@ def _ensure_mdformat() -> None:
         )
 
 
-def run(args: dict[str, Any]) -> str:
+def run_tool(args: dict[str, Any]) -> str:
     """Run mdformat on Markdown files matching the given path pattern."""
     _ensure_mdformat()
     path_pattern: str = str(args.get("path") or "**/*.md")
