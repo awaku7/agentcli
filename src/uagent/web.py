@@ -891,6 +891,8 @@ When the user asks for a UI, dashboard, interactive tool, or visualization:
         # Sync new assistant messages missed due to skip_log_when_web in _append_assistant_message.
         for m in room.history[_before_hist_len:]:
             if isinstance(m, dict) and m.get("role") == "assistant":
+                rc = m.get("reasoning_content", "")
+                print(f"[WS_DEBUG] sync loop broadcast, rc_exists={'reasoning_content' in m}, rc_len={len(rc) if rc else 0}")
                 room.add_message(dict(m))
 
     except BaseException as e:
