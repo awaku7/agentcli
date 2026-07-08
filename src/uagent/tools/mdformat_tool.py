@@ -82,13 +82,22 @@ def _ensure_mdformat() -> None:
     try:
         import mdformat  # noqa: F401
     except ImportError:
-        _install("mdformat", display_name="mdformat (Markdown formatter)")
+        _install(
+            "mdformat",
+            display_name=_("pkg.mdformat", default="mdformat (Markdown formatter)"),
+        )
 
     # Ensure YAML front matter plugin
     try:
         import mdformat_frontmatter  # noqa: F401
     except ImportError:
-        _install("mdformat-frontmatter", display_name="mdformat YAML front matter plugin")
+        _install(
+            "mdformat-frontmatter",
+            display_name=_(
+                "pkg.mdformat_frontmatter",
+                default="mdformat YAML front matter plugin",
+            ),
+        )
 
 
 def run(args: dict[str, Any]) -> str:
@@ -127,6 +136,10 @@ def run(args: dict[str, Any]) -> str:
     results: list[str] = []
     failed_count = 0
     ok_count = 0
+    _ok_label = _("label.ok", default="OK")
+    _fail_label = _("label.fail", default="FAIL")
+    _timeout_label = _("label.timeout", default="TIMEOUT")
+    _error_label = _("label.error", default="ERROR")
 
     for filepath in sorted(matched_files):
         try:
@@ -139,22 +152,63 @@ def run(args: dict[str, Any]) -> str:
             if proc.returncode == 0:
                 ok_count += 1
                 if fix_mode:
-                    results.append(f"[OK] formatted: {filepath}")
+                    results.append(
+                        _msg(
+                            "result.ok_formatted",
+                            "[{label}] formatted: {path}",
+                            label=_ok_label,
+                            path=filepath,
+                        )
+                    )
                 else:
-                    results.append(f"[OK] {filepath}")
+                    results.append(
+                        _msg(
+                            "result.ok",
+                            "[{label}] {path}",
+                            label=_ok_label,
+                            path=filepath,
+                        )
+                    )
             else:
                 failed_count += 1
                 stderr_lines = [
                     l for l in proc.stderr.splitlines() if l.strip()
                 ] or proc.stdout.splitlines()
-                detail = stderr_lines[0] if stderr_lines else "formatting issue"
-                results.append(f"[FAIL] {filepath}: {detail.strip()}")
+                detail = (
+                    stderr_lines[0].strip()
+                    if stderr_lines
+                    else _msg("result.fallback_detail", "formatting issue")
+                )
+                results.append(
+                    _msg(
+                        "result.fail",
+                        "[{label}] {path}: {detail}",
+                        label=_fail_label,
+                        path=filepath,
+                        detail=detail,
+                    )
+                )
         except subprocess.TimeoutExpired:
             failed_count += 1
-            results.append(f"[TIMEOUT] {filepath}")
+            results.append(
+                _msg(
+                    "result.timeout",
+                    "[{label}] {path}",
+                    label=_timeout_label,
+                    path=filepath,
+                )
+            )
         except Exception as e:
             failed_count += 1
-            results.append(f"[ERROR] {filepath}: {e}")
+            results.append(
+                _msg(
+                    "result.error",
+                    "[{label}] {path}: {e}",
+                    label=_error_label,
+                    path=filepath,
+                    e=e,
+                )
+            )
 
     summary = _msg(
         "result.summary",
@@ -170,7 +224,13 @@ def run(args: dict[str, Any]) -> str:
     # Show details on failure
     detail_lines = results[:50]
     if len(results) > 50:
-        detail_lines.append(f"... and {len(results) - 50} more")
+        detail_lines.append(
+            _msg(
+                "result.more",
+                "... and {count} more",
+                count=len(results) - 50,
+            )
+        )
     detail = "\n".join(detail_lines)
 
     return make_response(
