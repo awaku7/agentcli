@@ -1139,20 +1139,20 @@ def parse_responses_stream(
                 reasoning_delta = getattr(ev, "delta", None)
                 if isinstance(reasoning_delta, str) and reasoning_delta:
                     reasoning_parts.append(reasoning_delta)
-                    try:
-                        if core is not None and bool(getattr(core, "_is_web", False)):
+                    # Web UI: use assistant_reasoning_delta (gray in frontend)
+                    if core is not None and bool(getattr(core, "_is_web", False)):
+                        try:
                             lm = getattr(core, "log_message", None)
                             if callable(lm):
-                                lm(
-                                    {
-                                        "type": "assistant_stream_delta",
-                                        "delta": f"\033[90m{reasoning_delta}\033[0m",
-                                    }
-                                )
-                        else:
+                                lm({"type": "assistant_reasoning_delta", "delta": reasoning_delta})
+                        except Exception:
+                            pass
+                    else:
+                        # CLI: print in gray
+                        try:
                             _print_delta(f"\033[90m{reasoning_delta}\033[0m")
-                    except Exception:
-                        _print_delta(f"\033[90m{reasoning_delta}\033[0m")
+                        except Exception:
+                            pass
 
             if ev_type == "response.output_text.done":
                 t = getattr(ev, "text", None)
