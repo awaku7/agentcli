@@ -10,7 +10,7 @@
 
 <p align="center">
   ファイル操作 / Web検索 / 画像生成・分析 / PDF・Excel抽出 / IoT制御 / MCP統合<br>
-  15以上のプロバイダ / 3つのUI / ツール並列実行 / エージェントスキルマーケットプレイス
+  20+ プロバイダ / 3つのUI / ツール並列実行 / エージェントスキルマーケットプレイス
 </p>
 
 <p align="center">
@@ -28,9 +28,10 @@
 **ベンダーロックインからの解放。** ほとんどのAIアシスタントは特定のプロバイダやクラウドサービスに縛られます。uagは違います。
 
 - **あなたのマシンでローカルに動作**。データはあなたの手元に残ります（API呼び出しは除く）。
-- **プロバイダの自由**: OpenAI、Claude、Gemini、DeepSeek、Ollama、Azure、Bedrock、HuggingFace…15以上のプロバイダを1つのインターフェースから利用可能。環境変数を変えるだけで切り替えられます。再インストールや移行は不要です。
-- **170以上のツール**: ファイルI/O、Web検索、画像生成、Gmail、BLEデバイススキャン、MCPサーバ統合 — **87のツールは並行実行に対応**（スレッドプールで最大8つ同時実行、`UAGENT_PARALLEL_WORKERS`で変更可能）。LLMが複数のツール呼び出しを同時に要求すると、uagは自動的に発音化します。
+- **プロバイダの自由**: OpenAI、Claude、Gemini、DeepSeek、Ollama、Azure、Bedrock、Novita、HuggingFace…15以上のプロバイダを1つのインターフェースから利用可能。環境変数を変えるだけで切り替えられます。再インストールや移行は不要です。
+- **171ツール**: ファイルI/O、Web検索、画像生成、Gmail、BLEデバイススキャン、MCPサーバ統合 — **87のツールは並行実行に対応**（スレッドプールで最大8つ同時実行、`UAGENT_PARALLEL_WORKERS`で変更可能）。LLMが複数のツール呼び出しを同時に要求すると、uagは自動的に並列化します。
 - **3つのUI + A2A**: CLI、GUI、Web、そしてエージェント間プロトコル。同じエンジンをどのインターフェースでも使えます。
+- **IoT対応**: SwitchBot、ECHONET Lite、Matter、UPnP — AIを通じて家電を制御。
 - **エージェントスキル**: マーケットプレイスからコミュニティ製スキルをインストール。uagを無限に拡張できます。
 
 uagは **あなたの思い通りに動くAIアシスタント**です。プロバイダに縛られず、インターフェースに縛られず、プラットフォームに縛られません。
@@ -43,20 +44,20 @@ uag
 ```
 
 初回起動時にセットアップウィザードがプロバイダ設定を案内します。
-環境変数の一覧は [docs/ENVIRONMENT.md](../docs/ENVIRONMENT.md) を参照してください。
+環境変数の一覧は [docs/ENVIRONMENT.md](https://github.com/awaku7/agentcli/blob/main/docs/ENVIRONMENT.md) を参照してください。
 
 ## 特徴
 
 ### 🧠 マルチプロバイダ構成
 
-OpenAI / Azure / Bedrock / OpenRouter / Ollama / Gemini / Vertex AI / Claude / Grok / NVIDIA / DeepSeek / Z.AI (Zhipu AI) / HuggingFace / Alibaba Cloud (Qwen) / KIMI (Moonshot AI) / Xiaomi MiMo / LM Studio / MiniMax / **Sakana AI (Fugu)**
+OpenAI / Azure / Bedrock / OpenRouter / Ollama / Gemini / Vertex AI / Claude / Grok / NVIDIA / Novita / DeepSeek / Z.AI (Zhipu AI) / HuggingFace / Alibaba Cloud (Qwen) / KIMI (Moonshot AI) / Xiaomi MiMo / LM Studio / MiniMax / **Sakana AI (Fugu)** / **SAKURA AI Engine**
 
 すべてのプロバイダは同じツールセットとインターフェースを共有します。`UAGENT_PROVIDER` を切り替えるだけで変更でき、コード修正や個別インストールは不要です。
 
 ### ⚡ ツールの並列実行
 
 LLMが複数のツールを同時に要求すると、uagは **自動的に並列実行** します。
-78のツールが `x_parallel_safe` に指定されており、`ThreadPoolExecutor` で同時実行されます（デフォルト8スレッド、`UAGENT_PARALLEL_WORKERS` で変更可能）。
+106のツールが `x_parallel_safe` に指定されており、`ThreadPoolExecutor` で同時実行されます（デフォルト8スレッド、`UAGENT_PARALLEL_WORKERS` で変更可能）。
 
 **例**: 「北欧の首都の天気を調べて」と質問 → LLMが `search_web` を5ヶ国分同時に要求 → 5つの検索が並行実行 → 結果が1つのバッチにまとまる。
 
@@ -68,16 +69,16 @@ LLMが複数のツールを同時に要求すると、uagは **自動的に並�
 - **過去セッションの再読み込み**: `:load <番号>` で中断したところから再開。
 - **ツール結果のキャッシュ**: 同じツール呼び出しが繰り返された場合、再実行を防ぎます。
 
-### 🛠 136ツール
+### 🛠 164ツール
 
 | カテゴリ | ツール |
 |---|---|
-| **ファイル操作** | read/write/create/delete/search/grep/hash/zip、parse_eml（.emlファイル） |
+| **ファイル操作** | read/write/create/delete/search/grep/hash/zip、file_type、parse_eml（.emlファイル） |
 | **Web** | fetch_url、search_web、screenshot、browser_playwright |
 | **メディア** | generate_image、analyze_image、img2img、audio_speech、audio_transcribe |
 | **ドキュメント** | PDF/PPTX/DOCX/RTF/ODT抽出、Excel構造化抽出 |
-| **コミュニケーション** | gmail_send、gmail_read、bluesky、discord_channel、teams_webhook — [COMMUNICATION.md](COMMUNICATION.md) 参照 |
-| **IoT** | BACnet、Modbus TCP、OPC UA、SwitchBot（Cloud + BLE）、ECHONET Lite、Matter、UPnP、reverse_geocode |
+| **コミュニケーション** | gmail_send、gmail_read、bluesky、discord_channel、teams_webhook — [COMMUNICATION.md](https://github.com/awaku7/agentcli/blob/main/docs/COMMUNICATION.md) 参照 |
+| **IoT** | SwitchBot（Cloud + BLE）、ECHONET Lite、Matter、UPnP、reverse_geocode |
 | **開発ツール** | git_ops、python_compile、lint_format、run_tests、db_query、**13のソースコードナビゲーター（idxファミリ）** |
 | **MCP** | 外部MCPサーバへの接続、ツール一覧、実行 |
 | **A2A** | エージェント間通信（他のuagインスタンスやA2A対応サーバと） |
@@ -92,21 +93,21 @@ LLMが複数のツールを同時に要求すると、uagは **自動的に並�
 | **GUI** | `uagg` | tkinterによるデスクトップUI |
 | **Web** | `uagw` | ブラウザベースのアクセス |
 | **A2Aサーバ** | `uaga` | マルチエージェント通信用のAgent2Agentプロトコル |
-| **VS Code** | — | チャットパネル、説明、リファクタリング、エラー修正、ツールツリービュー — [VSCODE.md](VSCODE.md) 参照 |
+| **VS Code** | — | [拡張機能](https://github.com/awaku7/agentcli/blob/main/docs/VSCODE.md) — チャットパネル、説明、リファクタリング、エラー修正、ツールツリービュー |
+
+VS Code拡張機能の詳細（インストール、コマンド、キーバインド、設定）は [VSCODE.md](https://github.com/awaku7/agentcli/blob/main/docs/VSCODE.md) を参照してください。
 
 ### 🏠 IoTデバイス制御
 
-### 🏠 IoT デバイス制御
-
-- **BACnet**: BACnet/IP デバイス (HVAC、照明、電力メーター) の読み取り/書き込み。プッシュ通知の COV サブスクリプション
+- **BACnet**: BACnet/IP デバイス（HVAC、照明、電力メーター）の読み取り/書き込み。プッシュ通知のCOVサブスクリプション
 - **Modbus TCP**: 保持/入力レジスタおよびコイルの読み取り/書き込み。ポーリングベースの変更監視
 - **OPC UA**: アドレス空間の参照、変数の読み取り/書き込み、データ変更のサブスクライブ
-- **SwitchBot**: クラウドのバッチ制御と BLE スキャン/制御。ポーリングベースのサブスクリプション
-- **ECHONET Lite**: 家電製品 (AC、照明、給湯器など) からの INF 通知を検出、制御、サブスクライブ
-- **重要**: 状態変化監視のための読み取り/書き込み制御 + 属性サブスクリプション
-- **UPnP**: デバイスの検出と IGD ポート転送
+- **SwitchBot**: クラウドのバッチ制御とBLEスキャン/制御。ポーリングベースのサブスクリプション
+- **ECHONET Lite**: 家電製品（AC、照明、給湯器など）の検出、制御、INF通知のサブスクライブ
+- **Matter**: 読み取り/書き込み制御 + 状態変化監視のための属性サブスクリプション
+- **UPnP**: デバイスの検出とIGDポート転送
 
-を参照[IOT_USECASE.md](IOT_USECASE.md)
+詳細は [IOT_USECASE.md](https://github.com/awaku7/agentcli/blob/main/docs/IOT_USECASE.md) を参照。
 
 ### 🎯 エージェントスキルマーケットプレイス
 
@@ -122,7 +123,7 @@ uagは複数のLLMラウンドにわたって **自律的に目標を達成** �
 - **いつでも停止**: 応答中でも `x` キーで即座に中断可能。レビューアの自動判定も利用できます。
 - **設定可能**: `--max-rounds N` で最大ラウンド数を指定。
 
-詳細は [README_AUTO.ja.md](README_AUTO.ja.md) を参照。
+詳細は [README_AUTO.ja.md](https://github.com/awaku7/agentcli/blob/main/docs/README_AUTO.ja.md) を参照。
 
 ### 🧩 バッチ状態管理
 
@@ -144,7 +145,7 @@ LLMの応答生成中にいつでも停止し、LLMに停止コマンドを送�
 
 この割り込みは「プロンプト注入」として機能します。単に中断するだけでなく、`"Stop"` をLLMに送り返すことで、LLMが適切に応答を締めくくれるようになります。
 
-オートパイロットモード（`:auto`）を終了するには `x` キーを押します。
+オートパイロットモード（`:auto`）を終了するには `x` キーを押します（[README_AUTO.ja.md](https://github.com/awaku7/agentcli/blob/main/docs/README_AUTO.ja.md) 参照）。
 
 ### 🕵️ ブラウザ自動化とWebインスペクタ
 
@@ -160,9 +161,9 @@ LLMの応答生成中にいつでも停止し、LLMに停止コマンドを送�
 ### 🌐 i18n / L10n
 
 日本語 / English / 简体中文 / 繁體中文 / 한국어 / Español / Français / Русский / など。
-`UAGENT_LANG` で切り替えられます。新しいロケールの追加方法は [ADD_LOCALE.md](../src/uagent/docs/ADD_LOCALE.md) を参照。
+`UAGENT_LANG` で切り替えられます。新しいロケールの追加方法は [ADD_LOCALE.md](https://github.com/awaku7/agentcli/blob/main/src/uagent/docs/ADD_LOCALE.md) を参照。
 
-Translations of this README are available in [docs/README.translations.md](README.translations.md).
+このREADMEの翻訳版は [docs/README.translations.md](README.translations.md) で参照できます。
 
 ### 🔒 暗号化された環境変数
 
@@ -170,13 +171,13 @@ APIキーやシークレットは `.env.sec`（暗号化された `.env` ファ�
 
 ## 構成と詳細
 
-- **環境変数**: [docs/ENVIRONMENT.md](../docs/ENVIRONMENT.md)
+- **環境変数**: [docs/ENVIRONMENT.md](https://github.com/awaku7/agentcli/blob/main/docs/ENVIRONMENT.md)
 - **セットアップウィザード**: `python -m uagent.setup_cli`
 - **暗号化環境**: `uag_envsec` — `.env` を `.env.sec` として暗号化
 - **Responses API**: `UAGENT_RESPONSES=1` でResponses APIモードに（OpenAI/Azure/Bedrock/OpenRouter/Ollama/Alibaba/LM Studio/Sakana AI）。Sakana AI（Fugu）では自動的に有効になります。
-- **開発者向けドキュメント**: [DEVELOP.md](../src/uagent/docs/DEVELOP.md)
-- **ツールフロー**: [TOOL_FLOW.md](../src/uagent/docs/TOOL_FLOW.md) — ツール送信方式の詳細（genre mask, tool_catalog, GPT-5.4+ native tool_search）
-- **軽量LLM向けヒント**: [SLM_TIPS.md](SLM_TIPS.md)
+- **開発者向けドキュメント**: [DEVELOP.md](https://github.com/awaku7/agentcli/blob/main/src/uagent/docs/DEVELOP.md)
+- **ツールフロー**: [TOOL_FLOW.md](https://github.com/awaku7/agentcli/blob/main/src/uagent/docs/TOOL_FLOW.md) — ツール送信方式の詳細（genre mask, tool_catalog, GPT-5.4+ native tool_search）
+- **軽量LLM向けヒント**: [SLM_TIPS.md](https://github.com/awaku7/agentcli/blob/main/docs/SLM_TIPS.md)
 
 ## プロジェクトの理念
 
@@ -194,7 +195,6 @@ uagは **あなたのマシンで、あなたの思い通りに動く、あな�
 Contributions are welcome! Bug reports, feature suggestions, documentation improvements, translations, and pull requests — all appreciated.
 
 - **Issues**: Open a GitHub issue for bugs or feature requests.
-- **Pull requests**: Fork the repo, make your changes, and submit a PR. See [DEVELOP.md](../src/uagent/docs/DEVELOP.md) for development setup and guidelines.
-- **Translations**: README translations and locale additions are welcome. See [ADD_LOCALE.md](../src/uagent/docs/ADD_LOCALE.md).
+- **Pull requests**: Fork the repo, make your changes, and submit a PR. See [DEVELOP.md](https://github.com/awaku7/agentcli/blob/main/src/uagent/docs/DEVELOP.md) for development setup and guidelines.
+- **Translations**: README translations and locale additions are welcome. See [ADD_LOCALE.md](https://github.com/awaku7/agentcli/blob/main/src/uagent/docs/ADD_LOCALE.md).
 - **Tools & Skills**: New tool plugins and Agent Skills can be contributed via the marketplace.
-

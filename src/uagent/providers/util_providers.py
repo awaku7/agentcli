@@ -289,8 +289,8 @@ def get_model_name() -> str:
         return env_get("UAGENT_SAKANA_DEPNAME", "fugu") or "fugu"
     if provider == "novita":
         return (
-            env_get("UAGENT_NOVITA_DEPNAME", "sao-10b-fp8")
-            or "sao-10b-fp8"
+            env_get("UAGENT_NOVITA_DEPNAME", "tensent/hy3")
+            or "tensent/hy3"
         )
     if provider == "sakura":
         return env_get("UAGENT_SAKURA_DEPNAME", "llm") or "llm"

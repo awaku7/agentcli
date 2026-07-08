@@ -366,7 +366,7 @@ PROVIDER_FIELDS: dict[str, list[tuple[str, bool, str]]] = {
         (
             "UAGENT_NOVITA_DEPNAME",
             False,
-            _("Novita AI model name (optional, default: sao-10b-fp8)"),
+            _("Novita AI model name (optional, default: tensent/hy3)"),
         ),
         (
             "UAGENT_NOVITA_TEMPERATURE",
