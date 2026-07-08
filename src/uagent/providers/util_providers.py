@@ -730,7 +730,7 @@ def make_client(core: Any) -> tuple[str, Any, str]:
         api_key = core.get_env("UAGENT_NOVITA_API_KEY")
         base_url = core.get_env_url(
             "UAGENT_NOVITA_BASE_URL",
-            "https://api.novita.ai/v3/openai",
+            "https://api.novita.ai/openai",
         )
 
         http_client = make_httpx_client()

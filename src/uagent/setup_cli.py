@@ -359,7 +359,7 @@ PROVIDER_FIELDS: dict[str, list[tuple[str, bool, str]]] = {
         (
             "UAGENT_NOVITA_BASE_URL",
             False,
-            _("Novita AI base URL (optional, default: https://api.novita.ai/v3/openai)"),
+            _("Novita AI base URL (optional, default: https://api.novita.ai/openai)"),
         ),
         (
             "UAGENT_NOVITA_DEPNAME",

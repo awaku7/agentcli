@@ -432,7 +432,7 @@ def build_startup_banner(*, core: Any, workdir: str, workdir_source: str) -> str
                     core,
                     env_get(
                         "UAGENT_NOVITA_BASE_URL",
-                        "https://api.novita.ai/v3/openai",
+                        "https://api.novita.ai/openai",
                     ),
                 )
             }
