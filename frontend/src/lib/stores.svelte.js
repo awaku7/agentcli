@@ -106,7 +106,12 @@ function handleWsMessage(data) {
       if (data.modes) _state.modes = { reasoning: data.modes.reasoning || 'off', verbosity: data.modes.verbosity || 'off' };
       break;
     case 'message':
-      _state.messages = [..._state.messages, data.message];
+      if (data.message?.role === 'tool') {
+        _state.currentToolHtml = data.message.content || '';
+      } else {
+        _state.messages = [..._state.messages, data.message];
+        _state.currentToolHtml = '';
+      }
       break;
     case 'status':
       _state.status = { busy: data.status.busy, label: data.status.label || (data.status.busy ? 'BUSY' : 'IDLE'), workdir: data.status.workdir || '' };
