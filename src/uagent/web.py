@@ -325,9 +325,6 @@ class WebRoom:
             display_msg["reasoning_content"] = msg.get("reasoning_content")
         display_msg["timestamp"] = datetime.now().isoformat()
         self.messages.append(display_msg)
-        import sys as _sys
-        _sys.__stderr__.write(f"[ADD_DEBUG] add_message broadcast, rc={'reasoning_content' in display_msg}, loop={'yes' if self.loop else 'no'}\n")
-        _sys.__stderr__.flush()
         if self.loop:
             asyncio.run_coroutine_threadsafe(
                 self.broadcast({"type": "message", "message": display_msg}), self.loop
@@ -886,9 +883,6 @@ When the user asks for a UI, dashboard, interactive tool, or visualization:
         # Sync new assistant messages missed due to skip_log_when_web in _append_assistant_message.
         for m in room.history[_before_hist_len:]:
             if isinstance(m, dict) and m.get("role") == "assistant":
-                import sys as _sys
-                _sys.__stderr__.write(f"[SYNC_DEBUG] broadcasting assistant msg, rc={'reasoning_content' in m}\n")
-                _sys.__stderr__.flush()
                 room.add_message(dict(m))
 
     except BaseException as e:

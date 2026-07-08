@@ -1,6 +1,6 @@
 <script>
   import Message from './Message.svelte';
-  import { onMessage, getCurrentToolHtml } from '../../lib/stores.svelte.js';
+  import { onMessage } from '../../lib/stores.svelte.js';
   import { extractHtmlFromText } from '../../lib/utils.js';
   import { setArtifactHtml } from '../../lib/stores.svelte.js';
 
@@ -11,8 +11,6 @@
   function scrollToBottom() {
     if (chatBox) requestAnimationFrame(() => { chatBox.scrollTop = chatBox.scrollHeight; });
   }
-
-  $effect(() => { console.log('[CHAT_DEBUG] messages.length=', messages.length); });
 
   // Scroll on new messages
   $effect(() => {
@@ -59,9 +57,6 @@
   {#each messages as msg, i (i)}
     <Message {msg} />
   {/each}
-  {#if getCurrentToolHtml()}
-    <div class="p-2 rounded-lg text-xs font-mono" style="background:var(--bg-surface-alt);color:var(--text-tertiary);white-space:pre-wrap;">{getCurrentToolHtml()}</div>
-  {/if}
   {#if streamState.active && (streamState.text || streamState.reasoning)}
     <div class="p-3 rounded-lg max-w-[85%] role-assistant shadow-sm msg-anim">
       <strong>ASSISTANT:</strong>
