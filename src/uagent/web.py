@@ -719,16 +719,8 @@ def run_agent_worker(
             except Exception:
                 pass
         try:
-            role = msg.get("role", "") if isinstance(msg, dict) else ""
-            if role in ("user", "tool"):
+            if isinstance(msg, dict) and msg.get("role") in ("user", "tool"):
                 room.add_message(dict(msg))
-            elif role == "assistant":
-                if stream_state.get("suppress_next_assistant_message"):
-                    stream_state["suppress_next_assistant_message"] = False
-                else:
-                    rc = msg.get("reasoning_content", "")
-                    sys.__stdout__.write(f"[WS_DEBUG] assistant msg broadcast, rc_len={len(rc) if rc else 0}, rc_exists={'reasoning_content' in msg}\n")
-                    room.add_message(dict(msg))
         except Exception:
             pass
 
@@ -891,8 +883,6 @@ When the user asks for a UI, dashboard, interactive tool, or visualization:
         # Sync new assistant messages missed due to skip_log_when_web in _append_assistant_message.
         for m in room.history[_before_hist_len:]:
             if isinstance(m, dict) and m.get("role") == "assistant":
-                rc = m.get("reasoning_content", "")
-                sys.__stdout__.write(f"[WS_DEBUG] sync loop broadcast, rc_exists={'reasoning_content' in m}, rc_len={len(rc) if rc else 0}\n")
                 room.add_message(dict(m))
 
     except BaseException as e:
