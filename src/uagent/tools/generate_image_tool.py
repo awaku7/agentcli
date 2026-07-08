@@ -411,13 +411,14 @@ def _run_openai_images(
     if moderation:
         gen_kwargs["moderation"] = moderation
     if _is_gpt_image_model(image_model):
-        gen_kwargs["response_format"] = "png"
-        # quality: valid values are "low"/"medium"/"high"; omit if "auto"
-        if quality and quality != "auto":
+        gen_kwargs["output_format"] = "png"
+        if quality:
             gen_kwargs["quality"] = quality
-        # background: valid values are "transparent"/"opaque"; omit if "auto"
         bg = background or "auto"
         if bg != "auto":
+            # Only valid values: "transparent", "opaque". Map "white"/other to "opaque"
+            if bg not in ("transparent", "opaque"):
+                bg = "opaque"
             gen_kwargs["background"] = bg
     else:
         gen_kwargs["response_format"] = "b64_json"
