@@ -10,6 +10,7 @@ const _state = $state({
   historyIndex: 0,
   pendingAttachments: [],
   currentArtifactHtml: '',
+  currentToolHtml: '',
   humanAskState: { visible: false, message: '', isPassword: false, resolve: null },
   genresEnabled: {},
 });
@@ -25,6 +26,7 @@ export function getWebVerbose() { return _state.webVerbose; }
 export function getInputHistory() { return _state.inputHistory; }
 export function getPendingAttachments() { return _state.pendingAttachments; }
 export function getCurrentArtifactHtml() { return _state.currentArtifactHtml; }
+export function getCurrentToolHtml() { return _state.currentToolHtml; }
 export function getHumanAskState() { return _state.humanAskState; }
 export function getGenresEnabled() { return _state.genresEnabled; }
 
@@ -105,6 +107,9 @@ function handleWsMessage(data) {
       break;
     case 'message':
       _state.messages = [..._state.messages, data.message];
+      if (data.message?.role && data.message.role !== 'tool') {
+        _state.currentToolHtml = '';
+      }
       break;
     case 'status':
       _state.status = { busy: data.status.busy, label: data.status.label || (data.status.busy ? 'BUSY' : 'IDLE'), workdir: data.status.workdir || '' };
@@ -119,13 +124,14 @@ function handleWsMessage(data) {
       break;
     case 'log':
       if (_state.webVerbose) {
-        _state.messages = [..._state.messages, { role: 'tool', content: data.content_html || data.content, _rawHtml: !!data.content_html }];
+        _state.currentToolHtml = data.content_html || data.content || '';
       }
       break;
     case 'reasoning':
       if (messageHandlers.reasoning) messageHandlers.reasoning(data.content || '');
       break;
     case 'assistant_stream_start':
+      _state.currentToolHtml = '';
       if (messageHandlers.streamStart) messageHandlers.streamStart(data.id);
       break;
     case 'assistant_stream_delta':

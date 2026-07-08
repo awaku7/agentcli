@@ -1,6 +1,6 @@
 <script>
   import Message from './Message.svelte';
-  import { onMessage } from '../../lib/stores.svelte.js';
+  import { onMessage, getCurrentToolHtml } from '../../lib/stores.svelte.js';
   import { extractHtmlFromText } from '../../lib/utils.js';
   import { setArtifactHtml } from '../../lib/stores.svelte.js';
 
@@ -57,6 +57,9 @@
   {#each messages as msg, i (i)}
     <Message {msg} />
   {/each}
+  {#if getCurrentToolHtml()}
+    <div class="p-2 rounded-lg text-xs font-mono" style="background:var(--bg-surface-alt);color:var(--text-tertiary);white-space:pre-wrap;">{getCurrentToolHtml()}</div>
+  {/if}
   {#if streamState.active && (streamState.text || streamState.reasoning)}
     <div class="p-3 rounded-lg max-w-[85%] role-assistant shadow-sm msg-anim">
       <strong>ASSISTANT:</strong>
