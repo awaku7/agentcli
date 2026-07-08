@@ -89,6 +89,8 @@ PROVIDERS: list[tuple[str, str]] = [
     ("novita", "Novita AI"),
 ]
 
+# NOTE: When adding/removing a provider here, also update
+# ALL_PROVIDERS in src/uagent/providers/provider_caps.py
 # key, required, label
 PROVIDER_FIELDS: dict[str, list[tuple[str, bool, str]]] = {
     "openai": [

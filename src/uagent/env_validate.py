@@ -6,6 +6,7 @@ from typing import Sequence
 
 from .env_utils import env_get
 from .i18n import _
+from .providers.provider_caps import ALL_PROVIDERS
 
 
 @dataclass(frozen=True)
@@ -45,29 +46,7 @@ def validate_startup_env() -> tuple[str, list[MissingEnv], list[str]]:
         )
         return provider, missing, warnings
 
-    allowed = (
-        "azure",
-        "openai",
-        "bedrock",
-        "openrouter",
-        "ollama",
-        "gemini",
-        "vertexai",
-        "grok",
-        "claude",
-        "nvidia",
-        "deepseek",
-        "zai",
-        "alibaba",
-        "moonshot",
-        "mimo",
-        "lmstudio",
-        "minimax",
-        "hf",
-        "sakana",
-        "sakura",
-        "novita",
-    )
+    allowed = ALL_PROVIDERS
     if provider not in allowed:
         warnings.append(
             _(

@@ -7,6 +7,7 @@ from typing import Any
 
 from ..i18n import _
 from ..env_utils import env_get
+from .provider_caps import ALL_PROVIDERS
 
 from threading import Lock
 
@@ -222,29 +223,7 @@ def detect_provider() -> str:
         sys.exit(1)
 
     p = p.lower()
-    if p not in (
-        "azure",
-        "openai",
-        "bedrock",
-        "openrouter",
-        "ollama",
-        "gemini",
-        "vertexai",
-        "grok",
-        "claude",
-        "nvidia",
-        "deepseek",
-        "zai",
-        "alibaba",
-        "moonshot",
-        "mimo",
-        "lmstudio",
-        "minimax",
-        "hf",
-        "sakana",
-        "sakura",
-        "novita",
-    ):
+    if p not in ALL_PROVIDERS:
         print(_("Unknown provider: %(provider)s") % {"provider": p}, file=sys.stderr)
         sys.exit(1)
     return p
