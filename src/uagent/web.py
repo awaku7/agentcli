@@ -822,37 +822,28 @@ def run_agent_worker(
             clean_attachments.append(item)
 
         # Build multimodal content if there are image attachments
-        if clean_attachments:
-            # Check if any attachment has a data_url (image)
-            image_parts = []
-            for att in clean_attachments:
+        has_image = any(
+            att.get("data_url") and att.get("type") == "image"
+            for att in (clean_attachments or [])
+        )
+        if has_image:
+            # Use multimodal format (Chat Completions standard image_url)
+            parts = [{"type": "text", "text": user_input}] if user_input.strip() else []
+            for att in clean_attachments or []:
                 data_url = att.get("data_url")
                 if data_url and att.get("type") == "image":
-                    image_parts.append({
-                        "type": "input_image",
-                        "image_url": data_url,
+                    parts.append({
+                        "type": "image_url",
+                        "image_url": {"url": data_url},
                     })
-            if image_parts:
-                # Use multimodal format (Chat Completions standard image_url)
-                parts = [{"type": "text", "text": user_input}] if user_input.strip() else []
-                for att in clean_attachments:
-                    data_url = att.get("data_url")
-                    if data_url and att.get("type") == "image":
-                        parts.append({
-                            "type": "image_url",
-                            "image_url": {"url": data_url},
-                        })
-                user_msg = {"role": "user", "content": parts}
-            else:
-                # Fallback: text-only with attachment lines
-                prompt_text = user_input
-                if attachment_lines:
-                    prompt_text = (
-                        (prompt_text.rstrip() + "\n\n") if prompt_text.strip() else ""
-                    ) + "\n".join(attachment_lines)
-                user_msg = {"role": "user", "content": prompt_text}
+            user_msg = {"role": "user", "content": parts}
         else:
+            # Fallback: text-only with attachment lines
             prompt_text = user_input
+            if attachment_lines:
+                prompt_text = (
+                    (prompt_text.rstrip() + "\n\n") if prompt_text.strip() else ""
+                ) + "\n".join(attachment_lines)
             user_msg = {"role": "user", "content": prompt_text}
 
         if clean_attachments:
