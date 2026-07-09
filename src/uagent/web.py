@@ -776,6 +776,9 @@ def run_agent_worker(
                 pass
         try:
             if isinstance(msg, dict) and msg.get("role") in ("user", "tool"):
+                import sys as _sys
+                _sys.__stderr__.write(f"[DBG] log_message role={msg.get('role')}, content_type={type(msg.get('content')).__name__}, has_attachments={'attachments' in msg}\n")
+                _sys.__stderr__.flush()
                 room.add_message(dict(msg))
         except Exception:
             pass
@@ -962,6 +965,23 @@ When the user asks for a UI, dashboard, interactive tool, or visualization:
         for m in room.history[_before_hist_len:]:
             if isinstance(m, dict) and m.get("role") == "assistant":
                 room.add_message(dict(m))
+            elif isinstance(m, dict) and m.get("role") == "tool":
+                # Debug: check tool messages (image generation results)
+                import sys as _sys
+                _sys.__stderr__.write(f"[DBG] tool msg: name={m.get('name')}, content_type={type(m.get('content')).__name__}, has_attachments={'attachments' in m}\n")
+                _sys.__stderr__.flush()
+                # Check if _enrich_message_attachments parsed it
+                c = m.get("content", "")
+                if isinstance(c, str) and c.strip().startswith("{"):
+                    try:
+                        parsed = json.loads(c)
+                        data = parsed.get("data", {})
+                        atts = data.get("attachments", [])
+                        _sys.__stderr__.write(f"[DBG]   parsed data.attachments count={len(atts)}\n")
+                        _sys.__stderr__.flush()
+                    except Exception as e:
+                        _sys.__stderr__.write(f"[DBG]   parse error: {e}\n")
+                        _sys.__stderr__.flush()
 
     except BaseException as e:
         err = repr(e)
