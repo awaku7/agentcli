@@ -97,7 +97,7 @@ def build_xai_messages(
                     for img_url in image_urls:
                         chat_content.append(
                             chat_pb2.Content(
-                                image_url=chat_pb2.ImageUrlContent(image_url=img_url)
+                                image_url={"image_url": img_url}
                             )
                         )
                     msg = chat_pb2.Message(
