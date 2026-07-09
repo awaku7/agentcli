@@ -171,6 +171,10 @@ export class WsClient {
         await this.call('workdir/set', { path });
     }
 
+    async applyEnv(key: string, value: string): Promise<void> {
+        await this.call('config/apply_env', { key, value });
+    }
+
     async getSystemSpecs(): Promise<any> {
         return await this.call('system/specs');
     }

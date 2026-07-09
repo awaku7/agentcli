@@ -49,6 +49,16 @@ class WsConfigManager:
         else:
             self._overrides.pop(key, None)
 
+    def apply_env(self, key: str, value: str) -> None:
+        """Set an actual environment variable (os.environ)."""
+        env_key = self._to_env_key(key)
+        if value:
+            os.environ[env_key] = value
+        else:
+            os.environ.pop(env_key, None)
+        # Also update VSCode-scoped override for consistency
+        self.set(key, value)
+
     @staticmethod
     def _to_env_key(key: str) -> str:
         """Convert config key to environment variable name.

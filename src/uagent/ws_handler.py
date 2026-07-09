@@ -67,6 +67,7 @@ class WsHandler:
             "tool/execute": self.handle_tool_execute,
             "config/get": self.handle_config_get,
             "config/set": self.handle_config_set,
+            "config/apply_env": self.handle_config_apply_env,
             "session/list": self.handle_session_list,
             "fim": self.handle_fim,
             "session/load": self.handle_session_load,
@@ -442,6 +443,15 @@ class WsHandler:
             raise ValueError("'key' is required")
         self.config_mgr.set(key, value)
         return {"ok": True}
+
+    async def handle_config_apply_env(self, params: dict) -> dict:
+        """Set an environment variable on the server."""
+        key = params.get("key")
+        value = params.get("value", "")
+        if not key:
+            raise ValueError("'key' is required")
+        self.config_mgr.apply_env(key, value)
+        return {"ok": True, "env_key": f"UAGENT_{key.upper()}", "value": value}
 
     async def handle_session_list(self, params: dict) -> dict:
         """List all saved sessions."""

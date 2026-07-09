@@ -55,6 +55,9 @@ export class ChatPanel {
                     case 'newSession':
                         await this.handleNewSession();
                         break;
+                    case 'applyEnv':
+                        await this.handleApplyEnv(msg.key, msg.value);
+                        break;
                 }
             },
             null,
@@ -114,6 +117,15 @@ export class ChatPanel {
             this.postMessage({ type: 'system', data: `New session created: ${id}` });
         } catch (e: any) {
             this.postMessage({ type: 'error', data: e.message });
+        }
+    }
+
+    private async handleApplyEnv(key: string, value: string) {
+        try {
+            await this.ws.applyEnv(key, value);
+            this.postMessage({ type: 'system', data: `${key} = ${value || '(unset)'}` });
+        } catch (e: any) {
+            this.postMessage({ type: 'error', data: `Failed: ${e.message}` });
         }
     }
 
@@ -243,6 +255,17 @@ export class ChatPanel {
             font-size: 12px;
         }
         #toolbar button:hover { background: var(--border); }
+        #toolbar select {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border);
+            color: var(--text-secondary);
+            cursor: pointer;
+            padding: 2px 8px;
+            border-radius: 3px;
+            font-size: 12px;
+            font-family: var(--font-mono);
+        }
+        #toolbar select:hover { background: var(--border); }
         #input-row {
             display: flex;
             gap: 4px;
@@ -282,6 +305,13 @@ export class ChatPanel {
     <div id="input-area">
         <div id="toolbar">
             <button id="btn-new-session" title="New session">+ New Session</button>
+            <select id="sel-reasoning" title="Reasoning level">
+                <option value="">reasoning: off</option>
+                <option value="low">reasoning: low</option>
+                <option value="medium" selected>reasoning: medium</option>
+                <option value="high">reasoning: high</option>
+                <option value="xhigh">reasoning: xhigh</option>
+            </select>
         </div>
         <div id="input-row">
             <textarea id="input" placeholder="Ask anything..." rows="2"></textarea>
@@ -327,6 +357,11 @@ export class ChatPanel {
             sendBtn.addEventListener('click', send);
             document.getElementById('btn-new-session').addEventListener('click', () => {
                 vscode.postMessage({ type: 'newSession' });
+            });
+
+            document.getElementById('sel-reasoning').addEventListener('change', (e) => {
+                const value = e.target.value;
+                vscode.postMessage({ type: 'applyEnv', key: 'reasoning', value: value });
             });
 
             function send() {
