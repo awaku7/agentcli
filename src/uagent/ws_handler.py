@@ -241,23 +241,28 @@ class WsHandler:
                                 )
                         elif role == "tool":
                             tname = msg.get("name", "")
-                            raw = (msg.get("content", "") or "")
-                            # Decode Unicode escapes in JSON content
-                            try:
-                                decoded = json.loads(raw)
-                                if isinstance(decoded, dict):
-                                    raw = json.dumps(
-                                        decoded, ensure_ascii=False, indent=2
-                                    )
-                            except Exception:
-                                pass
-                            tcontent = raw[:300]
-                            asyncio.run_coroutine_threadsafe(
-                                _send_intermediate(
-                                    "tool_result", name=tname, content=tcontent
-                                ),
-                                _loop,
-                            )
+                            _tool_display = (
+                                os.environ.get("UAGENT_VSCODE_SHOW_TOOL_RESULT") or ""
+                            ).lower() in ("1", "true", "yes")
+                            if _tool_display:
+                                raw = (msg.get("content", "") or "")
+                                try:
+                                    decoded = json.loads(raw)
+                                    if isinstance(decoded, dict):
+                                        raw = json.dumps(
+                                            decoded, ensure_ascii=False, indent=2
+                                        )
+                                except Exception:
+                                    pass
+                                tcontent = raw[:300]
+                                asyncio.run_coroutine_threadsafe(
+                                    _send_intermediate(
+                                        "tool_result",
+                                        name=tname,
+                                        content=tcontent,
+                                    ),
+                                    _loop,
+                                )
                 except Exception:
                     pass
                 if callable(_orig_log_message):
