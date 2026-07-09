@@ -833,9 +833,15 @@ def run_agent_worker(
                         "image_url": data_url,
                     })
             if image_parts:
-                # Use multimodal format
+                # Use multimodal format (Chat Completions standard image_url)
                 parts = [{"type": "text", "text": user_input}] if user_input.strip() else []
-                parts.extend(image_parts)
+                for att in clean_attachments:
+                    data_url = att.get("data_url")
+                    if data_url and att.get("type") == "image":
+                        parts.append({
+                            "type": "image_url",
+                            "image_url": {"url": data_url},
+                        })
                 user_msg = {"role": "user", "content": parts}
             else:
                 # Fallback: text-only with attachment lines

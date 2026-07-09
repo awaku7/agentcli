@@ -76,8 +76,14 @@ def build_xai_messages(
                     ptype = part.get("type", "")
                     if ptype == "text":
                         text_parts.append(_as_str(part.get("text", "")))
-                    elif ptype == "input_image":
-                        img_url = part.get("image_url", "")
+                    elif ptype in ("input_image", "image_url"):
+                        img_url = ""
+                        if ptype == "image_url":
+                            img_data = part.get("image_url", {})
+                            if isinstance(img_data, dict):
+                                img_url = img_data.get("url", "")
+                        else:
+                            img_url = part.get("image_url", "")
                         if img_url:
                             image_urls.append(img_url)
                 combined_text = " ".join(text_parts)
