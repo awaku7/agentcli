@@ -44,7 +44,7 @@
             style="background:rgba(0,0,0,0.5);color:white;"
           >×</button>
           {#if img}
-            <img src={att.data_url || `/local-file?path=${encodeURIComponent(att.saved_path || att.path)}`} alt={att.name || 'image'} class="max-w-[200px] max-h-[140px]" />
+            <img src={att.data_url || att.url || `/local-file?path=${encodeURIComponent(att.saved_path || att.path)}`} alt={att.name || 'image'} class="max-w-[200px] max-h-[140px]" onerror={e => console.log('[UAG] img error', e.message)} />
           {:else if audio}
             <audio controls preload="none" class="w-[200px]" src={`/local-file?path=${encodeURIComponent(att.saved_path || att.path)}`}></audio>
           {:else}
