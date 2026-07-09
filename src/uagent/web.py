@@ -674,20 +674,6 @@ def run_agent_worker(
     _thread_ctx.room = room
     set_thread_lang(getattr(room, "lang", "en"))
 
-    # Hook print to capture error messages to sys.__stdout__
-    import builtins as _builtins
-    _orig_print = _builtins.print
-    def _capture_print(*args, **kwargs):
-        _orig_print(*args, **kwargs)
-        try:
-            f = kwargs.get('file', sys.stdout)
-            if f is sys.stdout or 'file' not in kwargs:
-                _sys.__stdout__.write(' '.join(str(a) for a in args) + '\n')
-                _sys.__stdout__.flush()
-        except Exception:
-            pass
-    _builtins.print = _capture_print
-
     # Serialize per-room runs to avoid history/tool collisions
     if not room.worker_lock.acquire(blocking=False):
         import sys as _sys
@@ -960,7 +946,8 @@ When the user asks for a UI, dashboard, interactive tool, or visualization:
 
         # Track history length before LLM round to sync new messages to room after
         _before_hist_len = len(room.history)
-        _before = len(room.history)
+        _sys.__stderr__.write(f"[DBG] run_llm_rounds: before={len(room.history)}\n")
+        _sys.__stderr__.flush()
         llm_util.run_llm_rounds(
             provider_name,
             client,
@@ -971,12 +958,8 @@ When the user asks for a UI, dashboard, interactive tool, or visualization:
             append_result_to_outfile_fn=tools_util.append_result_to_outfile,
             try_open_images_from_text_fn=tools_util.try_open_images_from_text,
         )
-        _after = len(room.history)
-        if _after == _before:
-            _sys.__stderr__.write("[DBG] run_llm_rounds: no new messages\n")
-            _sys.__stderr__.flush()
-            # Force an error message so user knows something went wrong
-            room.add_message({"role": "assistant", "content": _("[Error] LLM returned empty response. Please check server console for details.")})
+        _sys.__stderr__.write(f"[DBG] run_llm_rounds: after={len(room.history)}\n")
+        _sys.__stderr__.flush()
         # Auto-pilot loop
         if core.auto_pilot_active:
             tools_util._run_auto_pilot_loop(
@@ -1016,10 +999,6 @@ When the user asks for a UI, dashboard, interactive tool, or visualization:
         try:
             if callable(_orig_log_message):
                 setattr(core, "log_message", _orig_log_message)
-        except Exception:
-            pass
-        try:
-            _builtins.print = _orig_print
         except Exception:
             pass
 

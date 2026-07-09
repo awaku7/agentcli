@@ -1,5 +1,4 @@
 ﻿from __future__ import annotations
-import sys
 
 import json
 import traceback
@@ -757,16 +756,9 @@ def _call_openai_azure_round(
                 "context window" in str(e).lower()
                 or "exceeds the context" in str(e).lower()
             ):
-                import sys as _sys2
-                _msg = "[Azure/OpenAI Error] " + _t("Input exceeds the context window.")
-                print(_msg)
-                _sys2.__stdout__.write(_msg + "\n")
-                _sys2.__stdout__.flush()
+                print("[Azure/OpenAI Error] " + _t("Input exceeds the context window."))
                 _maybe_print_certifi_where(e)
-                _repr = repr(e)
-                print(_repr)
-                _sys2.__stdout__.write(_repr + "\n")
-                _sys2.__stdout__.flush()
+                print(repr(e))
                 return False, client, "", "", []
 
             if BadRequestError is not None and isinstance(e, BadRequestError):
@@ -845,16 +837,9 @@ def _call_openai_azure_round(
                 _maybe_print_certifi_where(e)
                 print(repr(e))
                 return False, client, "", "", []
-            import sys as _sys2
-            _msg = "[LLM Error] " + _t("Unexpected exception.")
-            print(_msg)
-            _sys2.__stdout__.write(_msg + "\n")
-            _sys2.__stdout__.flush()
+            print("[LLM Error] " + _t("Unexpected exception."))
             _maybe_print_certifi_where(e)
-            _repr = repr(e)
-            print(_repr)
-            _sys2.__stdout__.write(_repr + "\n")
-            _sys2.__stdout__.flush()
+            print(repr(e))
             return False, client, "", "", []
 
     try:
