@@ -851,7 +851,7 @@ def run_agent_worker(
 
         # Build multimodal content if there are image attachments
         has_image = any(
-            att.get("data_url") and att.get("type") == "image"
+            att.get("type") == "image"
             for att in (clean_attachments or [])
         )
         if has_image:
