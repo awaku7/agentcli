@@ -686,6 +686,15 @@ def run_agent_worker(
         )
         return
 
+    import sys as _sys
+    _sys.__stderr__.write(f"[DBG] run_agent_worker: attachments={attachments!r}\n")
+    _sys.__stderr__.flush()
+    if attachments:
+        for i, att in enumerate(attachments):
+            _sys.__stderr__.write(f"[DBG]   att[{i}]: type={att.get('type')}, mime={att.get('mime')}, has_data_url={bool(att.get('data_url'))}, has_path={bool(att.get('path'))}\n")
+            _sys.__stderr__.flush()
+    _sys.__stderr__.write(f"[DBG] has_image_start={any(att.get('type') == 'image' for att in (attachments or []))}\n")
+    _sys.__stderr__.flush()
     room.set_status(True, "BUSY")
 
     # Switch to this room's base_dir for the duration of the worker
