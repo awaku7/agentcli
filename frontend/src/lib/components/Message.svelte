@@ -51,30 +51,29 @@
       {/if}
     {:else if role === 'tool'}
       <pre class="whitespace-pre-wrap font-mono" style="font-size:11.5px;">{displayContent}</pre>
-    {/if}
-
-    {#if msg.attachments?.length}
-      <div class="mt-2 flex flex-wrap gap-2">
-        {#each msg.attachments as att}
-          {@const path = att.saved_path || att.path || ''}
-          {@const src = att.data_url || att.url || (path ? `/local-file?path=${encodeURIComponent(path)}` : '')}
-          {#if src && (att.type?.startsWith('image/') || /\.(png|jpe?g|gif|webp)$/i.test(path))}
-            <img
-              src={src}
-              alt={att.name || 'image'}
-              class="max-w-[200px] max-h-[140px] rounded-lg border cursor-pointer transition hover:opacity-90"
-              style="border-color:var(--border-color);"
-              onclick={() => window.open(src, '_blank')}
-            />
-          {:else if src && (att.type?.startsWith('audio/') || /\.(mp3|wav|ogg)$/i.test(path))}
-            <audio controls preload="none" class="w-[200px]" src={src}></audio>
-          {:else}
-            <span class="text-xs px-2 py-1 rounded" style="color:var(--text-tertiary);background:var(--bg-surface-alt);">
-              {att.name || path.split('/').pop() || 'file'}
-            </span>
-          {/if}
-        {/each}
-      </div>
+      {#if msg.attachments?.length}
+        <div class="mt-2 flex flex-wrap gap-2">
+          {#each msg.attachments as att}
+            {@const path = att.saved_path || att.path || ''}
+            {@const src = att.data_url || att.url || (path ? `/local-file?path=${encodeURIComponent(path)}` : '')}
+            {#if src && (att.type?.startsWith('image/') || /\.(png|jpe?g|gif|webp)$/i.test(path))}
+              <img
+                src={src}
+                alt={att.name || 'image'}
+                class="max-w-[200px] max-h-[140px] rounded-lg border cursor-pointer transition hover:opacity-90"
+                style="border-color:var(--border-color);"
+                onclick={() => window.open(src, '_blank')}
+              />
+            {:else if src && (att.type?.startsWith('audio/') || /\.(mp3|wav|ogg)$/i.test(path))}
+              <audio controls preload="none" class="w-[200px]" src={src}></audio>
+            {:else}
+              <span class="text-xs px-2 py-1 rounded" style="color:var(--text-tertiary);background:var(--bg-surface-alt);">
+                {att.name || path.split('/').pop() || 'file'}
+              </span>
+            {/if}
+          {/each}
+        </div>
+      {/if}
     {/if}
   </div>
 {/if}
