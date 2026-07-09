@@ -65,6 +65,7 @@
       onSend={handleSend}
       onInterrupt={handleInterrupt}
       onCommand={handleCommand}
+      {pendingAttachments}
     />
   </div>
 

@@ -2,7 +2,7 @@
   import { t } from '../../lib/i18n.svelte.js';
   import { getStatus, getInputHistory } from '../../lib/stores.svelte.js';
 
-  let { onSend, onInterrupt, onCommand } = $props();
+  let { onSend, onInterrupt, onCommand, pendingAttachments = [] } = $props();
 
   let text = $state('');
   let histIdx = $state(-1);
@@ -31,7 +31,7 @@
     const t = text.trim();
     if (!t) return;
     if (t.startsWith(':')) { onCommand(t); text = ''; histIdx = inputHistory.length; return; }
-    onSend(t, null);
+    onSend(t, pendingAttachments);
     text = '';
     histIdx = inputHistory.length;
   }

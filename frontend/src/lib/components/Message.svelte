@@ -4,6 +4,12 @@
   import { t } from '../../lib/i18n.svelte.js';
 
   let { msg } = $props();
+  
+  $effect(() => {
+    if (msg.attachments?.length) {
+      console.log('[UAG] msg', {role:msg.role, atts:msg.attachments.map(a => ({type:a.type, du:!!a.data_url, url:a.url, name:a.name}))});
+    }
+  });
 
   let role = $derived(String(msg.role || '').toLowerCase());
   let content = $derived(String(msg.content || ''));
