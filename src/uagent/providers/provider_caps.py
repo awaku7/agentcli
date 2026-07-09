@@ -46,3 +46,10 @@ RESPONSES_PROVIDERS: frozenset[str] = frozenset(
         "sakana",
     }
 )
+
+
+# Providers that support Fill-in-the-Middle (FIM) code completion.
+FIM_SUPPORTED_PROVIDERS: frozenset[str] = frozenset({
+    "ollama",
+    "deepseek",
+})

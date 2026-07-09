@@ -1958,3 +1958,107 @@ def build_tools_system_prompt(tool_specs: list[dict[str, Any]]) -> str:
         sp = func.get("system_prompt") or func.get("description") or ""
         lines.append(f"- {name}: {sp}")
     return "\n".join(lines)
+
+
+
+def _normalize_fim_base_url(provider: str, base_url: str) -> str:
+    """Normalize FIM base URL for the given provider.
+
+    Strips trailing slashes and provider-specific path suffixes
+    (e.g. ``/v1`` for Ollama) so the FIM implementation can safely
+    append its own endpoint path.
+
+    Returns the normalized URL (may be empty).
+    """
+    raw = base_url.rstrip("/")
+    if not raw:
+        return ""
+
+    provider_lower = provider.lower()
+
+    if provider_lower == "ollama" and raw.endswith("/v1"):
+        raw = raw[:-3]
+
+    return raw
+
+
+def fim(
+    prefix: str,
+    suffix: str,
+    language: str = "",
+    max_tokens: int = 512,
+) -> str:
+    """Fill-in-the-Middle code completion.
+
+    Uses ``UAGENT_FIM_PROVIDER`` / ``UAGENT_FIM_DEPNAME`` / ``UAGENT_FIM_API_KEY``
+    if set, otherwise falls back to the main provider/depname/api-key.
+
+    Returns the completed text (the ``middle`` part).
+    """
+    from .env_utils import env_get as _env_get
+
+    provider = _env_get("UAGENT_FIM_PROVIDER") or _env_get("UAGENT_PROVIDER") or ""
+    depname = (
+        _env_get("UAGENT_FIM_DEPNAME")
+        or _env_get(f"UAGENT_{provider.upper()}_DEPNAME")
+        or ""
+    )
+    api_key = _env_get("UAGENT_FIM_API_KEY") or _env_get(
+        f"UAGENT_{provider.upper()}_API_KEY"
+    )
+
+    if not provider or not depname:
+        raise ValueError(
+            "FIM requires a provider and model. Set UAGENT_FIM_PROVIDER "
+            "and UAGENT_FIM_DEPNAME, or set the main UAGENT_PROVIDER and "
+            "UAGENT_{PROVIDER}_DEPNAME."
+        )
+
+    provider_lower = provider.strip().lower()
+
+    # ---- Resolve base URL (common for all providers) ----
+    fim_base_url = (
+        _env_get("UAGENT_FIM_BASE_URL")
+        or _env_get(f"UAGENT_{provider.upper()}_BASE_URL")
+        or ""
+    )
+
+    # ---- Dispatch to provider-specific FIM implementation ----
+    if provider_lower == "ollama":
+        from .providers.llm_ollama import ollama_fim_generate
+
+        return ollama_fim_generate(
+            base_url=_normalize_fim_base_url(provider_lower, fim_base_url),
+            model=depname,
+            prefix=prefix,
+            suffix=suffix,
+            language=language,
+            max_tokens=max_tokens,
+        )
+
+    if provider_lower == "deepseek":
+        from .providers.llm_deepseek import deepseek_fim_generate
+
+        return deepseek_fim_generate(
+            base_url=_normalize_fim_base_url(provider_lower, fim_base_url)
+                or "https://api.deepseek.com",
+            model=depname,
+            prefix=prefix,
+            suffix=suffix,
+            language=language,
+            max_tokens=max_tokens,
+            api_key=api_key,
+        )
+
+    # Check if the provider is in known FIM-capable list
+    from .providers.provider_caps import FIM_SUPPORTED_PROVIDERS
+
+    if provider_lower not in FIM_SUPPORTED_PROVIDERS:
+        raise ValueError(
+            f"FIM is not supported for provider '{provider}'. "
+            f"Supported providers: {', '.join(sorted(FIM_SUPPORTED_PROVIDERS))}"
+        )
+
+    raise ValueError(
+        f"FIM provider '{provider}' is known but not yet implemented."
+    )

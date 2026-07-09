@@ -157,6 +157,34 @@ export class EditorIntegration {
         }
     }
 
+
+    async codeCompleteAtCursor(): Promise<void> {
+        const editor = vscode.window.activeTextEditor;
+        if (!editor) {
+            vscode.window.showInformationMessage('No active editor');
+            return;
+        }
+        const doc = editor.document;
+        const pos = editor.selection.active;
+        const prefix = doc.getText(new vscode.Range(0, 0, pos.line, pos.character));
+        const suffix = doc.getText(new vscode.Range(pos.line, pos.character, doc.lineCount, 0));
+
+        try {
+            const result = await this.ws.call('fim', {
+                prefix: prefix,
+                suffix: suffix,
+                language: doc.languageId,
+                max_tokens: 512,
+            }, 60000);
+            const completion = (result.completion || '') as string;
+            if (completion) {
+                await editor.edit(edit => edit.insert(pos, completion));
+            }
+        } catch (e: any) {
+            vscode.window.showErrorMessage('FIM completion failed: ' + e.message);
+        }
+    }
+
     async sendToChat(text: string): Promise<void> {
         const { ChatPanel } = require('./panel');
         const ctx = this.getExtensionContext();

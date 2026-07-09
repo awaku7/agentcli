@@ -32,6 +32,13 @@ env.bat
 # Node
 node_modules/
 
+# VSCode extension build output
+vscode-extension/out/
+*.vsix
+
+# Logs
+*.log
+
 # Temp clones
 tmp_ucp_samples/
 tmp_ucp_sdk/

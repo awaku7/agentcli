@@ -68,6 +68,7 @@ class WsHandler:
             "config/get": self.handle_config_get,
             "config/set": self.handle_config_set,
             "session/list": self.handle_session_list,
+            "fim": self.handle_fim,
             "session/load": self.handle_session_load,
             "session/new": self.handle_session_new,
             "session/delete": self.handle_session_delete,
@@ -345,6 +346,26 @@ class WsHandler:
             import traceback
 
             return {"reply": f"[uag] LLM error: {e}\n{traceback.format_exc()[:500]}"}
+
+    async def handle_fim(self, params: dict) -> dict:
+        """Fill-in-the-Middle code completion."""
+        prefix = params.get("prefix", "")
+        suffix = params.get("suffix", "")
+        language = params.get("language", "")
+        max_tokens = int(params.get("max_tokens", 512))
+
+        if not prefix:
+            raise ValueError("'prefix' is required")
+
+        from uagent import core as _core
+
+        result = _core.fim(
+            prefix=prefix,
+            suffix=suffix,
+            language=language,
+            max_tokens=max_tokens,
+        )
+        return {"completion": result}
 
     async def handle_tools_list(self, params: dict) -> dict:
         """Return a simplified list of all available tools."""

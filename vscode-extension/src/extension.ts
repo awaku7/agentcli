@@ -157,6 +157,9 @@ export async function activate(context: vscode.ExtensionContext) {
         vscode.commands.registerCommand('uag.refreshTools', () => {
             treeProvider.refresh();
         }),
+        vscode.commands.registerCommand('uag.fim', async () => {
+            await editorIntegration.codeCompleteAtCursor();
+        }),
         vscode.window.registerTreeDataProvider('uag.tools', treeProvider)
     );
 

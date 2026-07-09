@@ -71,6 +71,10 @@
       {
         "command": "uag.refreshTools",
         "title": "uag: Refresh Tools"
+      },
+      {
+        "command": "uag.fim",
+        "title": "uag: Code Complete (FIM)"
       }
     ],
     "menus": {
@@ -116,6 +120,12 @@
             "key": "ctrl+shift+.",
             "mac": "cmd+shift+.",
             "when": "editorHasDiagnostics"
+        },
+        {
+            "command": "uag.fim",
+            "key": "ctrl+shift+i",
+            "mac": "cmd+shift+i",
+            "when": "editorTextFocus"
         }
     ],
     "configuration": {

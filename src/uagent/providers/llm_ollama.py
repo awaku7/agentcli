@@ -62,3 +62,56 @@ def apply_ollama_extra_body(chat_kwargs: dict[str, Any], *, provider: str) -> No
         chat_kwargs["extra_body"] = extra_body
     except Exception:
         pass
+
+
+
+def ollama_fim_generate(
+    *,
+    base_url: str,
+    model: str,
+    prefix: str,
+    suffix: str,
+    language: str = "",
+    max_tokens: int = 512,
+) -> str:
+    """Fill-in-the-Middle (FIM) completion via Ollama /api/generate.
+
+    Uses the ``suffix`` parameter supported by Ollama for FIM-capable
+    models (CodeGemma, StarCoder2, DeepSeek-Coder, Qwen2.5-Coder, etc.).
+
+    Args:
+        base_url: Ollama server base URL (e.g. ``http://localhost:11434``).
+        model: Model name (e.g. ``codegemma:2b``).
+        prefix: Code before the cursor.
+        suffix: Code after the cursor.
+        language: Programming language hint (unused by Ollama, reserved).
+        max_tokens: Maximum tokens in the completion.
+
+    Returns:
+        The generated completion text (the ``middle`` part).
+    """
+    import requests
+
+    payload = {
+        "model": model,
+        "prompt": prefix,
+        "suffix": suffix,
+        "stream": False,
+        "options": {
+            "num_predict": max_tokens,
+        },
+    }
+
+    try:
+        resp = requests.post(
+            f"{base_url}/api/generate",
+            json=payload,
+            timeout=60,
+        )
+        resp.raise_for_status()
+        data = resp.json()
+        return data.get("response", "")
+    except requests.RequestException as exc:
+        raise RuntimeError(
+            f"Ollama FIM request failed: {exc}"
+        ) from exc

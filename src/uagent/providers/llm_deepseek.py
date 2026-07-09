@@ -740,3 +740,55 @@ def deepseek_chat_with_tools(
             _maybe_print_certifi_where(e)
             print(repr(e))
             return False, client, "", "", []
+
+
+
+def deepseek_fim_generate(
+    *,
+    base_url: str,
+    model: str,
+    prefix: str,
+    suffix: str,
+    language: str = "",
+    max_tokens: int = 512,
+    api_key: str | None = None,
+) -> str:
+    """Fill-in-the-Middle (FIM) completion via DeepSeek API.
+
+    DeepSeek FIM uses the OpenAI-compatible ``/v1/completions`` endpoint
+    at ``https://api.deepseek.com/beta``. The SDK client is configured
+    with ``base_url`` + ``/beta`` suffix automatically.
+
+    Args:
+        base_url: DeepSeek API base URL (default ``https://api.deepseek.com``).
+        model: Model name (e.g. ``deepseek-v4-pro``).
+        prefix: Code before the cursor.
+        suffix: Code after the cursor.
+        language: Programming language hint (unused by DeepSeek, reserved).
+        max_tokens: Maximum tokens in the completion.
+        api_key: DeepSeek API key.
+
+    Returns:
+        The generated completion text (the ``middle`` part).
+    """
+    from openai import OpenAI
+
+    # DeepSeek FIM endpoint requires /beta suffix on the base URL
+    url = base_url.rstrip("/")
+    if not url.endswith("/beta"):
+        url = url + "/beta"
+
+    client = OpenAI(base_url=url, api_key=api_key or "dummy")
+
+    try:
+        resp = client.completions.create(
+            model=model,
+            prompt=prefix,
+            suffix=suffix,
+            max_tokens=max_tokens,
+        )
+        return resp.choices[0].text if resp.choices else ""
+    except Exception as exc:
+        raise RuntimeError(
+            f"DeepSeek FIM request failed: {exc}"
+        ) from exc
