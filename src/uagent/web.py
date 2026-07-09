@@ -1,4 +1,5 @@
 from __future__ import annotations
+import urllib.parse
 
 import asyncio
 import json
@@ -174,7 +175,9 @@ def _enrich_message_attachments(msg: dict[str, Any]) -> dict[str, Any]:
                 and (mime.startswith("image/") or mime in ("image", ""))
             ):
                 try:
-                    item["data_url"] = tools_util.image_file_to_data_url(str(path))
+                    # Use /local-file URL with room_id for proper path resolution
+                    room_id = display_msg.get("_room_id", "")
+                    item["url"] = f"/local-file?path={urllib.parse.quote(str(path))}&room_id={urllib.parse.quote(room_id)}"
                 except Exception:
                     pass
             enriched.append(item)
@@ -363,6 +366,8 @@ class WebRoom:
             )
 
     def add_message(self, msg: dict[str, Any]):
+        # Pass room_id for /local-file URL generation
+        msg["_room_id"] = self.room_id
         display_msg = _enrich_message_attachments(msg)
         display_msg["role"] = msg.get("role")
         # Normalize content: list -> plain text for frontend
@@ -383,12 +388,7 @@ class WebRoom:
             display_msg["reasoning_content"] = msg.get("reasoning_content")
         display_msg["timestamp"] = datetime.now().isoformat()
         self.messages.append(display_msg)
-        # Debug: log attachment info
-        if display_msg.get("attachments"):
-            for i, a in enumerate(display_msg["attachments"]):
-                import sys as _sys
-                _sys.__stderr__.write(f"[DBG] add_msg att[{i}]: type={a.get('type')}, data_url_len={len(a.get('data_url',''))}, has_url={bool(a.get('url'))}\n")
-                _sys.__stderr__.flush()
+
         if self.loop:
             asyncio.run_coroutine_threadsafe(
                 self.broadcast({"type": "message", "message": display_msg}), self.loop
