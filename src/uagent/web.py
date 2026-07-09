@@ -383,6 +383,12 @@ class WebRoom:
             display_msg["reasoning_content"] = msg.get("reasoning_content")
         display_msg["timestamp"] = datetime.now().isoformat()
         self.messages.append(display_msg)
+        # Debug: log attachment info
+        if display_msg.get("attachments"):
+            for i, a in enumerate(display_msg["attachments"]):
+                import sys as _sys
+                _sys.__stderr__.write(f"[DBG] add_msg att[{i}]: type={a.get('type')}, data_url_len={len(a.get('data_url',''))}, has_url={bool(a.get('url'))}\n")
+                _sys.__stderr__.flush()
         if self.loop:
             asyncio.run_coroutine_threadsafe(
                 self.broadcast({"type": "message", "message": display_msg}), self.loop
