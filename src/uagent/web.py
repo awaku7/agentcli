@@ -1,5 +1,4 @@
 from __future__ import annotations
-import urllib.parse
 
 import asyncio
 import json
@@ -174,9 +173,8 @@ def _enrich_message_attachments(msg: dict[str, Any]) -> dict[str, Any]:
                 and not item.get("data_url")
                 and (mime.startswith("image/") or mime in ("image", ""))
             ):
-                # Use /local-file URL instead of data_url to keep WebSocket messages small
                 try:
-                    item["url"] = f"/local-file?path={urllib.parse.quote(str(path))}"
+                    item["data_url"] = tools_util.image_file_to_data_url(str(path))
                 except Exception:
                     pass
             enriched.append(item)
@@ -1817,7 +1815,7 @@ def main():
     if bind_host == "0.0.0.0" and local_ip and local_ip != "127.0.0.1":
         sys.__stdout__.write(_("External URL:") + f" http://{local_ip}:{port}\n")
     sys.__stdout__.flush()
-    uvicorn.run(app, host=bind_host, port=port)
+    uvicorn.run(app, host=bind_host, port=port, ws_max_size=10_000_000)
 
 
 if __name__ == "__main__":
