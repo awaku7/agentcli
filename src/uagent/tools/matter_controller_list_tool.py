@@ -34,6 +34,7 @@ TOOL_SPEC: dict[str, Any] = {
                 "List Matter controller-managed devices and return a JSON or text summary."
             ),
         ),
+            "x_search_terms": _(            "x_search_terms",            default=["matter controller list", "matter_controller_list", "matter", "MATTER", "controller-managed", "devices", "return"],        ),        "x_search_terms_en": ["matter controller list", "matter_controller_list", "matter", "MATTER", "controller-managed", "devices", "return"],
         "parameters": {
             "type": "object",
             "properties": {

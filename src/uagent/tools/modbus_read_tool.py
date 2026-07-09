@@ -36,6 +36,7 @@ TOOL_SPEC: dict[str, Any] = {
                 "Supports holding registers, input registers, coils, and discrete inputs."
             ),
         ),
+            "x_search_terms": _(            "x_search_terms",            default=["modbus read", "modbus_read", "modbus", "MODBUS", "registers", "supports"],        ),        "x_search_terms_en": ["modbus read", "modbus_read", "modbus", "MODBUS", "registers", "supports"],
         "parameters": {
             "type": "object",
             "properties": {

@@ -6,7 +6,15 @@
     "param.value.description": "Value to write. Use type hint for non-string types.",
     "param.type.description": "Data type hint for the value: string, int, float, bool.",
     "param.fmt.description": "Format: json or text.",
-    "msg.summary": "OPC UA write: {node} = {val}"
+    "msg.summary": "OPC UA write: {node} = {val}",
+    "x_search_terms": [
+      "opcua write",
+      "opcua_write",
+      "opcua",
+      "OPCUA",
+      "value",
+      "server"
+    ]
   },
   "ar": {
     "tool.description": "اكتب قيمة إلى عقدة خادم OPC UA.",
@@ -60,7 +68,15 @@
     "param.value.description": "Valor para escribir. Utilice sugerencias de tipo para tipos que no sean cadenas.",
     "param.type.description": "Sugerencia de tipo de datos para el valor: cadena, int, flotante, bool.",
     "param.fmt.description": "Formato: json o texto.",
-    "msg.summary": "Escritura OPC UA: {node} = {val}"
+    "msg.summary": "Escritura OPC UA: {node} = {val}",
+    "x_search_terms": [
+      "opcua escribir",
+      "opcua_write",
+      "opcua",
+      "OPCUA",
+      "valor",
+      "servidor"
+    ]
   },
   "fa": {
     "tool.description": "یک مقدار برای یک گره سرور OPC UA بنویسید.",
@@ -87,7 +103,15 @@
     "param.value.description": "Valeur à écrire. Utilisez l'indice de type pour les types autres que des chaînes.",
     "param.type.description": "Indice de type de données pour la valeur : string, int, float, bool.",
     "param.fmt.description": "Format : json ou texte.",
-    "msg.summary": "Ecriture OPC UA : {node} = {val}"
+    "msg.summary": "Ecriture OPC UA : {node} = {val}",
+    "x_search_terms": [
+      "opcua écrire",
+      "opcua_write",
+      "opcua",
+      "OPCUA",
+      "valeur",
+      "serveur"
+    ]
   },
   "he": {
     "tool.description": "כתוב ערך לצומת שרת OPC UA.",
@@ -123,7 +147,15 @@
     "param.value.description": "Nilai untuk ditulis. Gunakan petunjuk tipe untuk tipe non-string.",
     "param.type.description": "Petunjuk tipe data untuk nilai: string, int, float, bool.",
     "param.fmt.description": "Format: json atau teks.",
-    "msg.summary": "OPC UA tulis: {node} = {val}"
+    "msg.summary": "OPC UA tulis: {node} = {val}",
+    "x_search_terms": [
+      "opcua tulis",
+      "opcua_write",
+      "opcua",
+      "OPCUA",
+      "nilai",
+      "server"
+    ]
   },
   "it": {
     "tool.description": "Scrivere un valore su un nodo del server OPC UA.",
@@ -132,7 +164,15 @@
     "param.value.description": "Valore da scrivere. Utilizza il suggerimento sul tipo per i tipi non stringa.",
     "param.type.description": "Suggerimento sul tipo di dati per il valore: string, int, float, bool.",
     "param.fmt.description": "Formato: json o testo.",
-    "msg.summary": "OPC UA scrive: {node} = {val}"
+    "msg.summary": "OPC UA scrive: {node} = {val}",
+    "x_search_terms": [
+      "opcua scrivi",
+      "opcua_write",
+      "opcua",
+      "OPCUA",
+      "valore",
+      "servitore"
+    ]
   },
   "ja": {
     "tool.description": "OPC UA サーバー ノードに値を書き込みます。",
@@ -141,7 +181,15 @@
     "param.value.description": "書き込む値。非文字列型には型ヒントを使用します。",
     "param.type.description": "値のデータ型ヒント: string、int、float、bool。",
     "param.fmt.description": "形式: json またはテキスト。",
-    "msg.summary": "OPC UA 書き込み: {node} = {val}"
+    "msg.summary": "OPC UA 書き込み: {node} = {val}",
+    "x_search_terms": [
+      "オプクア書き込み",
+      "opcua_write",
+      "オプクア",
+      "オプクア",
+      "値",
+      "サーバー"
+    ]
   },
   "ko": {
     "tool.description": "OPC UA 서버 노드에 값을 씁니다.",
@@ -150,7 +198,15 @@
     "param.value.description": "쓸 값입니다. 문자열이 아닌 유형에는 유형 힌트를 사용하십시오.",
     "param.type.description": "값에 대한 데이터 유형 힌트: string, int, float, bool.",
     "param.fmt.description": "형식: json 또는 텍스트.",
-    "msg.summary": "OPC UA 쓰기: {node} = {val}"
+    "msg.summary": "OPC UA 쓰기: {node} = {val}",
+    "x_search_terms": [
+      "오쿠아 쓰기",
+      "opcua_write",
+      "오쿠아",
+      "OPCUA",
+      "가치",
+      "서버"
+    ]
   },
   "mn": {
     "tool.description": "OPC UA серверийн зангилаа руу утгыг бичнэ үү.",
@@ -195,7 +251,15 @@
     "param.value.description": "Wartość do napisania. Użyj wskazówki dotyczącej typu dla typów innych niż ciąg.",
     "param.type.description": "Wskazówka dotycząca typu danych dla wartości: string, int, float, bool.",
     "param.fmt.description": "Format: json lub tekst.",
-    "msg.summary": "Zapis OPC UA: {node} = {val}"
+    "msg.summary": "Zapis OPC UA: {node} = {val}",
+    "x_search_terms": [
+      "opcua napisz",
+      "opcua_write",
+      "wzrok",
+      "OPCUA",
+      "wartość",
+      "serwer"
+    ]
   },
   "pt": {
     "tool.description": "Escreva um valor em um nó do servidor OPC UA.",
@@ -213,7 +277,15 @@
     "param.value.description": "Valor para escrever. Use dica de tipo para tipos que não sejam string.",
     "param.type.description": "Dica de tipo de dados para o valor: string, int, float, bool.",
     "param.fmt.description": "Formato: json ou texto.",
-    "msg.summary": "Gravação OPC UA: {node} = {val}"
+    "msg.summary": "Gravação OPC UA: {node} = {val}",
+    "x_search_terms": [
+      "opcua escrever",
+      "opcua_write",
+      "opcua",
+      "OPCUA",
+      "valor",
+      "servidor"
+    ]
   },
   "ro": {
     "tool.description": "Scrieți o valoare într-un nod de server OPC UA.",
@@ -285,7 +357,15 @@
     "param.value.description": "Giá trị để viết. Sử dụng gợi ý loại cho các loại không phải chuỗi.",
     "param.type.description": "Gợi ý kiểu dữ liệu cho giá trị: string, int, float, bool.",
     "param.fmt.description": "Định dạng: json hoặc văn bản.",
-    "msg.summary": "OPC UA ghi: {node} = {val}"
+    "msg.summary": "OPC UA ghi: {node} = {val}",
+    "x_search_terms": [
+      "opcua viết",
+      "opcua_write",
+      "opcua",
+      "OPCUA",
+      "giá trị",
+      "máy chủ"
+    ]
   },
   "zh_CN": {
     "tool.description": "将值写入 OPC UA 服务器节点。",

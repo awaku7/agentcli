@@ -7,7 +7,16 @@
     "msg.no_subscriptions": "No active MQTT subscriptions.",
     "msg.header": "Active MQTT subscriptions ({count}):",
     "msg.unsubscribed": "MQTT subscription {id} cancelled.",
-    "err.id_required": "subscription_id is required."
+    "err.id_required": "subscription_id is required.",
+    "x_search_terms": [
+      "mqtt unsubscribe",
+      "mqtt_unsubscribe",
+      "mqtt",
+      "MQTT",
+      "cancel",
+      "subscription",
+      "subscription_id"
+    ]
   },
   "ar": {
     "tool.description": "قم بإلغاء اشتراك MQTT بواسطة Subscription_id، أو قم بإدراج الاشتراكات النشطة.",
@@ -67,7 +76,14 @@
     "msg.no_subscriptions": "No hay suscripciones MQTT activas.",
     "msg.header": "Suscripciones MQTT activas ({count}):",
     "msg.unsubscribed": "Suscripción MQTT {id} cancelada.",
-    "err.id_required": "Se requiere id_suscripción."
+    "err.id_required": "Se requiere id_suscripción.",
+    "x_search_terms": [
+      "mqtt darse de baja",
+      "mqtt_unsubscribe",
+      "mqt",
+      "MQTT",
+      "cancelar"
+    ]
   },
   "fa": {
     "tool.description": "اشتراک MQTT را با subscription_id لغو کنید یا اشتراک‌های فعال را فهرست کنید.",
@@ -97,7 +113,14 @@
     "msg.no_subscriptions": "Aucun abonnement MQTT actif.",
     "msg.header": "Abonnements MQTT actifs ({count}) :",
     "msg.unsubscribed": "Abonnement MQTT {id} annulé.",
-    "err.id_required": "abonnement_id est requis."
+    "err.id_required": "abonnement_id est requis.",
+    "x_search_terms": [
+      "mqtt se désabonner",
+      "mqtt_unsubscribe",
+      "mqt",
+      "MQTT",
+      "annuler"
+    ]
   },
   "he": {
     "tool.description": "בטל מנוי MQTT לפי subscription_id, או רשום מנויים פעילים.",
@@ -137,7 +160,14 @@
     "msg.no_subscriptions": "Tidak ada langganan MQTT yang aktif.",
     "msg.header": "Langganan MQTT aktif ({count}):",
     "msg.unsubscribed": "Langganan MQTT {id} dibatalkan.",
-    "err.id_required": "langganan_id diperlukan."
+    "err.id_required": "langganan_id diperlukan.",
+    "x_search_terms": [
+      "mqtt berhenti berlangganan",
+      "mqtt_berhenti berlangganan",
+      "mqtt",
+      "MQTT",
+      "batalkan"
+    ]
   },
   "it": {
     "tool.description": "Annulla un abbonamento MQTT tramite membership_id o elenca gli abbonamenti attivi.",
@@ -147,7 +177,14 @@
     "msg.no_subscriptions": "Nessun abbonamento MQTT attivo.",
     "msg.header": "Abbonamenti MQTT attivi ({count}):",
     "msg.unsubscribed": "Abbonamento MQTT {id} annullato.",
-    "err.id_required": "l'id_abbonamento è obbligatorio."
+    "err.id_required": "l'id_abbonamento è obbligatorio.",
+    "x_search_terms": [
+      "mqtt cancella l'iscrizione",
+      "mqtt_unsubscribe",
+      "mqtt",
+      "MQTT",
+      "annullare"
+    ]
   },
   "ja": {
     "tool.description": "subscription_id で MQTT サブスクリプションをキャンセルするか、アクティブなサブスクリプションを一覧表示します。",
@@ -157,7 +194,14 @@
     "msg.no_subscriptions": "アクティブな MQTT サブスクリプションがありません。",
     "msg.header": "アクティブな MQTT サブスクリプション ({count}):",
     "msg.unsubscribed": "MQTT サブスクリプション {id} がキャンセルされました。",
-    "err.id_required": "subscription_id は必須です。"
+    "err.id_required": "subscription_id は必須です。",
+    "x_search_terms": [
+      "mqtt 購読解除",
+      "mqtt_unsubscribe",
+      "mqtt",
+      "MQTT",
+      "キャンセル"
+    ]
   },
   "ko": {
     "tool.description": "subscribe_id로 MQTT 구독을 취소하거나 활성 구독을 나열하세요.",
@@ -167,7 +211,14 @@
     "msg.no_subscriptions": "활성 MQTT 구독이 없습니다.",
     "msg.header": "활성 MQTT 구독({count}):",
     "msg.unsubscribed": "MQTT 구독 {id}이 취소되었습니다.",
-    "err.id_required": "구독_ID가 필요합니다."
+    "err.id_required": "구독_ID가 필요합니다.",
+    "x_search_terms": [
+      "mqtt 구독 취소",
+      "mqtt_구독 취소",
+      "mqtt",
+      "MQTT",
+      "취소하다"
+    ]
   },
   "mn": {
     "tool.description": "MQTT захиалгыг subscription_id-ээр цуцлах эсвэл идэвхтэй захиалгыг жагсаана уу.",
@@ -217,7 +268,14 @@
     "msg.no_subscriptions": "Brak aktywnych subskrypcji MQTT.",
     "msg.header": "Aktywne subskrypcje MQTT ({count}):",
     "msg.unsubscribed": "Subskrypcja MQTT {id} anulowana.",
-    "err.id_required": "identyfikator_subskrypcji jest wymagany."
+    "err.id_required": "identyfikator_subskrypcji jest wymagany.",
+    "x_search_terms": [
+      "mqtt wypisz się",
+      "mqtt_unsubscribe",
+      "mqtt",
+      "MQTT",
+      "anulować"
+    ]
   },
   "pt": {
     "tool.description": "Cancele uma assinatura MQTT por subscription_id ou liste assinaturas ativas.",
@@ -237,7 +295,14 @@
     "msg.no_subscriptions": "Nenhuma assinatura MQTT ativa.",
     "msg.header": "Assinaturas MQTT ativas ({count}):",
     "msg.unsubscribed": "Assinatura MQTT {id} cancelada.",
-    "err.id_required": "subscription_id é obrigatório."
+    "err.id_required": "subscription_id é obrigatório.",
+    "x_search_terms": [
+      "mqtt cancelar inscrição",
+      "mqtt_unsubscribe",
+      "mqtt",
+      "MQTT",
+      "cancelar"
+    ]
   },
   "ro": {
     "tool.description": "Anulați un abonament MQTT prin subscription_id sau enumerați abonamentele active.",
@@ -317,7 +382,14 @@
     "msg.no_subscriptions": "Không có đăng ký MQTT hoạt động.",
     "msg.header": "Đăng ký MQTT đang hoạt động ({count}):",
     "msg.unsubscribed": "Đăng ký MQTT {id} đã bị hủy.",
-    "err.id_required": "đăng ký_id là bắt buộc."
+    "err.id_required": "đăng ký_id là bắt buộc.",
+    "x_search_terms": [
+      "mqtt hủy đăng ký",
+      "mqtt_unsubscribe",
+      "mqtt",
+      "MQTT",
+      "hủy bỏ"
+    ]
   },
   "zh_CN": {
     "tool.description": "通过 subscription_id 取消 MQTT 订阅，或列出活动订阅。",

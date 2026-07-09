@@ -12,10 +12,26 @@
     "tool.description": "Dummy-Tool für die Genresteuerungsregistrierung."
   },
   "en": {
-    "tool.description": "Dummy tool for genre control registration."
+    "tool.description": "Dummy tool for genre control registration.",
+    "x_search_terms": [
+      "genre control",
+      "genre_control",
+      "genre",
+      "GENRE",
+      "dummy",
+      "registration"
+    ]
   },
   "es": {
-    "tool.description": "Herramienta ficticia para el registro de control de género."
+    "tool.description": "Herramienta ficticia para el registro de control de género.",
+    "x_search_terms": [
+      "control de género",
+      "control_género",
+      "género",
+      "GÉNERO",
+      "muñeco",
+      "registro"
+    ]
   },
   "fa": {
     "tool.description": "ابزار ساختگی برای ثبت کنترل ژانر."
@@ -24,22 +40,62 @@
     "tool.description": "Vale-työkalu genreohjauksen rekisteröintiin."
   },
   "fr": {
-    "tool.description": "Outil factice pour l'enregistrement du contrôle de genre."
+    "tool.description": "Outil factice pour l'enregistrement du contrôle de genre.",
+    "x_search_terms": [
+      "contrôle des genres",
+      "genre_control",
+      "genre",
+      "Genre",
+      "mannequin",
+      "inscription"
+    ]
   },
   "hi": {
     "tool.description": "शैली नियंत्रण पंजीकरण के लिए डमी टूल।"
   },
   "id": {
-    "tool.description": "Alat dummy untuk pendaftaran kontrol genre."
+    "tool.description": "Alat dummy untuk pendaftaran kontrol genre.",
+    "x_search_terms": [
+      "kontrol genre",
+      "genre_kontrol",
+      "genre",
+      "GENRE",
+      "boneka",
+      "pendaftaran"
+    ]
   },
   "it": {
-    "tool.description": "Strumento fittizio per la registrazione del controllo del genere."
+    "tool.description": "Strumento fittizio per la registrazione del controllo del genere.",
+    "x_search_terms": [
+      "controllo del genere",
+      "genere_controllo",
+      "genere",
+      "GENERE",
+      "manichino",
+      "registrazione"
+    ]
   },
   "ja": {
-    "tool.description": "ジャンル制御登録用のダミーツール。"
+    "tool.description": "ジャンル制御登録用のダミーツール。",
+    "x_search_terms": [
+      "ジャンルコントロール",
+      "ジャンルコントロール",
+      "ジャンル",
+      "ジャンル",
+      "ダミー",
+      "登録"
+    ]
   },
   "ko": {
-    "tool.description": "장르 제어 등록용 더미 도구."
+    "tool.description": "장르 제어 등록용 더미 도구.",
+    "x_search_terms": [
+      "장르 제어",
+      "장르 제어",
+      "장르",
+      "장르",
+      "더미",
+      "등록"
+    ]
   },
   "mn": {
     "tool.description": "Жанрын хяналтын бүртгэлд зориулсан хуурам хэрэгсэл."
@@ -66,13 +122,29 @@
     "tool.description": "Dummy-tool voor registratie van genrecontrole."
   },
   "pl": {
-    "tool.description": "Atrapa narzędzia do rejestracji kontroli gatunku."
+    "tool.description": "Atrapa narzędzia do rejestracji kontroli gatunku.",
+    "x_search_terms": [
+      "kontrola gatunku",
+      "kontrola_gatunku",
+      "gatunek",
+      "GATUNEK",
+      "manekin",
+      "rejestracja"
+    ]
   },
   "pt": {
     "tool.description": "Ferramenta fictícia para registro de controle de gênero."
   },
   "pt_BR": {
-    "tool.description": "Ferramenta fictícia para registro de controle de gênero."
+    "tool.description": "Ferramenta fictícia para registro de controle de gênero.",
+    "x_search_terms": [
+      "controle de gênero",
+      "gênero_control",
+      "gênero",
+      "GÊNERO",
+      "manequim",
+      "registro"
+    ]
   },
   "ru": {
     "tool.description": "Фиктивный инструмент для регистрации управления жанром."
@@ -93,7 +165,15 @@
     "tool.description": "Фіктивний інструмент для реєстрації керування жанром."
   },
   "vi": {
-    "tool.description": "Công cụ giả lập để đăng ký kiểm soát thể loại."
+    "tool.description": "Công cụ giả lập để đăng ký kiểm soát thể loại.",
+    "x_search_terms": [
+      "kiểm soát thể loại",
+      "thể loại_control",
+      "thể loại",
+      "THỂ LOẠI",
+      "giả",
+      "đăng ký"
+    ]
   },
   "zh_CN": {
     "tool.description": "用于类型控制注册的虚拟工具。"

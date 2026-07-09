@@ -7,7 +7,19 @@
     "param.fmt.description": "Format: json or text.",
     "msg.summary": "BACnet/IP discovery completed: {count} device(s) found in {ms} ms.",
     "msg.no_devices": "No BACnet/IP devices were found.",
-    "err.bac0_install": "BAC0 library could not be installed."
+    "err.bac0_install": "BAC0 library could not be installed.",
+    "x_search_terms": [
+      "bacnet scan",
+      "bacnet_scan",
+      "bacnet",
+      "BACNET",
+      "discover",
+      "bacnet/ip",
+      "devices",
+      "local",
+      "network",
+      "sends"
+    ]
   },
   "ar": {
     "tool.description": "اكتشف أجهزة BACnet/IP على الشبكة المحلية. يرسل بث Who-Is ويعيد استجابات I-Am كقائمة JSON أو قائمة نصية.",
@@ -67,7 +79,19 @@
     "param.fmt.description": "Formato: json o texto.",
     "msg.summary": "Descubrimiento de BACnet/IP completado: {count} dispositivos encontrados en {ms} ms.",
     "msg.no_devices": "No se encontraron dispositivos BACnet/IP.",
-    "err.bac0_install": "No se pudo instalar la biblioteca BAC0."
+    "err.bac0_install": "No se pudo instalar la biblioteca BAC0.",
+    "x_search_terms": [
+      "exploración bacnet",
+      "bacnet_scan",
+      "bacnet",
+      "BACNET",
+      "descubrir",
+      "bacnet/ip",
+      "dispositivos",
+      "locales",
+      "red",
+      "envía"
+    ]
   },
   "fa": {
     "tool.description": "دستگاه های BACnet/IP را در شبکه محلی کشف کنید. پخش Who-Is ارسال می کند و پاسخ های I-Am را به صورت JSON یا لیست متنی برمی گرداند.",
@@ -97,7 +121,19 @@
     "param.fmt.description": "Format : json ou texte.",
     "msg.summary": "Découverte BACnet/IP terminée : {count} appareil(s) trouvé(s) en {ms} ms.",
     "msg.no_devices": "Aucun appareil BACnet/IP n'a été trouvé.",
-    "err.bac0_install": "La bibliothèque BAC0 n'a pas pu être installée."
+    "err.bac0_install": "La bibliothèque BAC0 n'a pas pu être installée.",
+    "x_search_terms": [
+      "analyse bacnet",
+      "bacnet_scan",
+      "bacnet",
+      "BACNET",
+      "découvrir",
+      "bacnet/ip",
+      "appareils",
+      "locale",
+      "réseau",
+      "envoie"
+    ]
   },
   "he": {
     "tool.description": "גלה התקני BACnet/IP ברשת המקומית. שולח שידור Who-Is ומחזיר תגובות I-Am כרשימת JSON או טקסט.",
@@ -137,7 +173,19 @@
     "param.fmt.description": "Format: json atau teks.",
     "msg.summary": "Penemuan BACnet/IP selesai: {count} perangkat ditemukan dalam {ms} ms.",
     "msg.no_devices": "Tidak ada perangkat BACnet/IP yang ditemukan.",
-    "err.bac0_install": "Pustaka BAC0 tidak dapat diinstal."
+    "err.bac0_install": "Pustaka BAC0 tidak dapat diinstal.",
+    "x_search_terms": [
+      "pemindaian bacnet",
+      "bacnet_scan",
+      "bacnet",
+      "BACNET",
+      "temukan",
+      "bacnet/ip",
+      "perangkat",
+      "lokal",
+      "jaringan",
+      "mengirimkan"
+    ]
   },
   "it": {
     "tool.description": "Rileva i dispositivi BACnet/IP sulla rete locale. Invia una trasmissione Who-Is e restituisce le risposte I-Am come JSON o elenco di testo.",
@@ -147,7 +195,19 @@
     "param.fmt.description": "Formato: json o testo.",
     "msg.summary": "Rilevamento BACnet/IP completato: {count} dispositivi trovati in {ms} ms.",
     "msg.no_devices": "Nessun dispositivo BACnet/IP trovato.",
-    "err.bac0_install": "Impossibile installare la libreria BAC0."
+    "err.bac0_install": "Impossibile installare la libreria BAC0.",
+    "x_search_terms": [
+      "scansione bacnet",
+      "bacnet_scan",
+      "bacnet",
+      "BACNET",
+      "scopri",
+      "bacnet/ip",
+      "dispositivi",
+      "locale",
+      "rete",
+      "invia"
+    ]
   },
   "ja": {
     "tool.description": "ローカル ネットワーク上の BACnet/IP デバイスを検出します。 Who-Is ブロードキャストを送信し、I-Am 応答を JSON またはテキスト リストとして返します。",
@@ -157,7 +217,19 @@
     "param.fmt.description": "形式: json またはテキスト。",
     "msg.summary": "BACnet/IP 検出が完了しました: {count} 個のデバイスが {ms} ミリ秒以内に見つかりました。",
     "msg.no_devices": "BACnet/IP デバイスが見つかりませんでした。",
-    "err.bac0_install": "BAC0 ライブラリをインストールできませんでした。"
+    "err.bac0_install": "BAC0 ライブラリをインストールできませんでした。",
+    "x_search_terms": [
+      "バックアップスキャン",
+      "バクネットスキャン",
+      "バックネット",
+      "バクネット",
+      "発見",
+      "バックアップ/IP",
+      "デバイス",
+      "ローカル",
+      "ネットワーク",
+      "送信します"
+    ]
   },
   "ko": {
     "tool.description": "로컬 네트워크에서 BACnet/IP 장치를 검색합니다. Who-Is 브로드캐스트를 보내고 I-Am 응답을 JSON 또는 텍스트 목록으로 반환합니다.",
@@ -167,7 +239,19 @@
     "param.fmt.description": "형식: json 또는 텍스트.",
     "msg.summary": "BACnet/IP 검색 완료: {ms} ms 동안 {count} 장치를 찾았습니다.",
     "msg.no_devices": "BACnet/IP 장치를 찾을 수 없습니다.",
-    "err.bac0_install": "BAC0 라이브러리를 설치할 수 없습니다."
+    "err.bac0_install": "BAC0 라이브러리를 설치할 수 없습니다.",
+    "x_search_terms": [
+      "백넷 스캔",
+      "bacnet_scan",
+      "백넷",
+      "백넷",
+      "발견",
+      "백넷/IP",
+      "장치",
+      "지역",
+      "네트워크",
+      "보낸다"
+    ]
   },
   "mn": {
     "tool.description": "Дотоод сүлжээн дэх BACnet/IP төхөөрөмжүүдтэй танилцаарай. Who-Is нэвтрүүлгийг илгээж, I-Am хариултыг JSON эсвэл текстийн жагсаалт хэлбэрээр буцаана.",
@@ -217,7 +301,19 @@
     "param.fmt.description": "Format: json lub tekst.",
     "msg.summary": "Zakończono wykrywanie BACnet/IP: znaleziono {count} urządzeń w ciągu {ms} ms.",
     "msg.no_devices": "Nie znaleziono urządzeń BACnet/IP.",
-    "err.bac0_install": "Nie można zainstalować biblioteki BAC0."
+    "err.bac0_install": "Nie można zainstalować biblioteki BAC0.",
+    "x_search_terms": [
+      "skanowanie sieci",
+      "skanowanie_bacnet",
+      "bacnet",
+      "BACNET",
+      "odkryj",
+      "bacnet/ip",
+      "urządzenia",
+      "lokalny",
+      "sieć",
+      "wysyła"
+    ]
   },
   "pt": {
     "tool.description": "Descubra dispositivos BACnet/IP na rede local. Envia uma transmissão Who-Is e retorna respostas I-Am como JSON ou lista de texto.",
@@ -237,7 +333,19 @@
     "param.fmt.description": "Formato: json ou texto.",
     "msg.summary": "Descoberta BACnet/IP concluída: {count} dispositivos encontrados em {ms} ms.",
     "msg.no_devices": "Nenhum dispositivo BACnet/IP foi encontrado.",
-    "err.bac0_install": "A biblioteca BAC0 não pôde ser instalada."
+    "err.bac0_install": "A biblioteca BAC0 não pôde ser instalada.",
+    "x_search_terms": [
+      "verificação bacnet",
+      "bacnet_scan",
+      "bacnet",
+      "BACNET",
+      "descobrir",
+      "bacnet/ip",
+      "dispositivos",
+      "locais",
+      "rede",
+      "envia"
+    ]
   },
   "ro": {
     "tool.description": "Descoperiți dispozitivele BACnet/IP în rețeaua locală. Trimite o difuzare Who-Is și returnează răspunsurile I-Am ca JSON sau listă text.",
@@ -317,7 +425,19 @@
     "param.fmt.description": "Định dạng: json hoặc văn bản.",
     "msg.summary": "Quá trình khám phá BACnet/IP đã hoàn tất: Đã tìm thấy {count} thiết bị sau {ms} mili giây.",
     "msg.no_devices": "Không tìm thấy thiết bị BACnet/IP nào.",
-    "err.bac0_install": "Không thể cài đặt thư viện BAC0."
+    "err.bac0_install": "Không thể cài đặt thư viện BAC0.",
+    "x_search_terms": [
+      "quét bacnet",
+      "bacnet_scan",
+      "bacnet",
+      "BACNET",
+      "khám phá",
+      "bacnet/ip",
+      "thiết bị",
+      "địa phương",
+      "mạng",
+      "gửi"
+    ]
   },
   "zh_CN": {
     "tool.description": "发现本地网络上的 BACnet/IP 设备。发送 Who-Is 广播并以 JSON 或文本列表形式返回 I-Am 响应。",

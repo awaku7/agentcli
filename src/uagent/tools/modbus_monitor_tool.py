@@ -35,6 +35,7 @@ TOOL_SPEC: dict[str, Any] = {
                 "Returns a summary of all detected changes."
             ),
         ),
+            "x_search_terms": _(            "x_search_terms",            default=["modbus monitor", "modbus_monitor", "modbus", "MODBUS", "registers", "repeatedly", "detect", "changes", "returns"],        ),        "x_search_terms_en": ["modbus monitor", "modbus_monitor", "modbus", "MODBUS", "registers", "repeatedly", "detect", "changes", "returns"],
         "parameters": {
             "type": "object",
             "properties": {

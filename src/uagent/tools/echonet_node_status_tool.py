@@ -51,6 +51,7 @@ TOOL_SPEC: dict[str, Any] = {
                 "Read the status of an ECHONET Lite node on the local network and return a JSON or text summary."
             ),
         ),
+            "x_search_terms": _(            "x_search_terms",            default=["echonet node status", "echonet_node_status", "echonet", "ECHONET"],        ),        "x_search_terms_en": ["echonet node status", "echonet_node_status", "echonet", "ECHONET"],
         "parameters": {
             "type": "object",
             "properties": {

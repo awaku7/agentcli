@@ -7,7 +7,17 @@
     "msg.summary": "OPC UA scan: {count} server(s) found in {ms} ms.",
     "msg.no_servers": "No OPC UA servers were found.",
     "err.ip_range_required": "ip_range is required.",
-    "err.invalid_ip_range": "Could not parse ip_range: {text}"
+    "err.invalid_ip_range": "Could not parse ip_range: {text}",
+    "x_search_terms": [
+      "opcua scan",
+      "opcua_scan",
+      "opcua",
+      "OPCUA",
+      "discover",
+      "servers",
+      "local",
+      "network"
+    ]
   },
   "ar": {
     "tool.description": "اكتشف خوادم OPC UA على الشبكة المحلية. يستكشف عناوين IP على منفذ OPC UA الافتراضي (4840) ويحاول الاتصال وقراءة معلومات نقطة النهاية الخاصة بالخادم.",
@@ -67,7 +77,16 @@
     "msg.summary": "Escaneo OPC UA: {count} servidores encontrados en {ms} ms.",
     "msg.no_servers": "No se encontraron servidores OPC UA.",
     "err.ip_range_required": "ip_range es obligatorio.",
-    "err.invalid_ip_range": "No se pudo analizar ip_range: {text}"
+    "err.invalid_ip_range": "No se pudo analizar ip_range: {text}",
+    "x_search_terms": [
+      "escaneo opcua",
+      "opcua_scan",
+      "opcua",
+      "OPCUA",
+      "descubrir",
+      "servidores",
+      "locales"
+    ]
   },
   "fa": {
     "tool.description": "سرورهای OPC UA را در شبکه محلی کشف کنید. آدرس‌های IP را در درگاه پیش‌فرض OPC UA (4840) بررسی می‌کند و تلاش می‌کند تا اطلاعات نقطه پایانی سرور را متصل کرده و بخواند.",
@@ -97,7 +116,16 @@
     "msg.summary": "Scan OPC UA : {count} serveur(s) trouvé(s) en {ms} ms.",
     "msg.no_servers": "Aucun serveur OPC UA n'a été trouvé.",
     "err.ip_range_required": "ip_range est requis.",
-    "err.invalid_ip_range": "Impossible d'analyser ip_range : {text}"
+    "err.invalid_ip_range": "Impossible d'analyser ip_range : {text}",
+    "x_search_terms": [
+      "scan opcua",
+      "opcua_scan",
+      "opcua",
+      "OPCUA",
+      "découvrir",
+      "serveurs",
+      "locale"
+    ]
   },
   "he": {
     "tool.description": "גלה שרתי OPC UA ברשת המקומית. בודק כתובות IP ביציאת ברירת המחדל של OPC UA (4840) ומנסה להתחבר ולקרוא את פרטי נקודת הקצה של השרת.",
@@ -137,7 +165,16 @@
     "msg.summary": "Pemindaian OPC UA: {count} server ditemukan dalam {ms} ms.",
     "msg.no_servers": "Tidak ada server OPC UA yang ditemukan.",
     "err.ip_range_required": "ip_range diperlukan.",
-    "err.invalid_ip_range": "Tidak dapat menguraikan ip_range: {text}"
+    "err.invalid_ip_range": "Tidak dapat menguraikan ip_range: {text}",
+    "x_search_terms": [
+      "pemindaian opcua",
+      "opcua_scan",
+      "opcua",
+      "OPCUA",
+      "temukan",
+      "server",
+      "lokal"
+    ]
   },
   "it": {
     "tool.description": "Scopri i server OPC UA sulla rete locale. Esamina gli indirizzi IP sulla porta OPC UA predefinita (4840) e tenta di connettersi e leggere le informazioni sull'endpoint del server.",
@@ -147,7 +184,16 @@
     "msg.summary": "Scansione OPC UA: {count} server trovati in {ms} ms.",
     "msg.no_servers": "Nessun server OPC UA trovato.",
     "err.ip_range_required": "intervallo_ip è obbligatorio.",
-    "err.invalid_ip_range": "Impossibile analizzare l'intervallo_ip: {text}"
+    "err.invalid_ip_range": "Impossibile analizzare l'intervallo_ip: {text}",
+    "x_search_terms": [
+      "scansione opcua",
+      "opcua_scan",
+      "opcua",
+      "OPCUA",
+      "scopri",
+      "server",
+      "locale"
+    ]
   },
   "ja": {
     "tool.description": "ローカル ネットワーク上の OPC UA サーバーを検出します。デフォルトの OPC UA ポート (4840) で IP アドレスを調査し、接続してサーバーのエンドポイント情報を読み取ろうとします。",
@@ -157,7 +203,16 @@
     "msg.summary": "OPC UA スキャン: {count} サーバーが {ms} ミリ秒で見つかりました。",
     "msg.no_servers": "OPC UA サーバーが見つかりませんでした。",
     "err.ip_range_required": "ip_range は必須です。",
-    "err.invalid_ip_range": "ip_range を解析できませんでした: {text}"
+    "err.invalid_ip_range": "ip_range を解析できませんでした: {text}",
+    "x_search_terms": [
+      "オプクアスキャン",
+      "オプキュアスキャン",
+      "オプクア",
+      "オプクア",
+      "発見",
+      "サーバー",
+      "地元の"
+    ]
   },
   "ko": {
     "tool.description": "로컬 네트워크에서 OPC UA 서버를 검색합니다. 기본 OPC UA 포트(4840)에서 IP 주소를 프로브하고 서버의 엔드포인트 정보를 연결하고 읽으려고 시도합니다.",
@@ -167,7 +222,16 @@
     "msg.summary": "OPC UA 스캔: {ms}ms 동안 {count}개 서버를 찾았습니다.",
     "msg.no_servers": "OPC UA 서버를 찾을 수 없습니다.",
     "err.ip_range_required": "IP_범위가 필요합니다.",
-    "err.invalid_ip_range": "IP_range를 구문 분석할 수 없습니다: {text}"
+    "err.invalid_ip_range": "IP_range를 구문 분석할 수 없습니다: {text}",
+    "x_search_terms": [
+      "오쿠아 스캔",
+      "opcua_scan",
+      "오쿠아",
+      "OPCUA",
+      "발견",
+      "서버",
+      "지역"
+    ]
   },
   "mn": {
     "tool.description": "Дотоод сүлжээн дэх OPC UA серверүүдийг олж мэдээрэй. Өгөгдмөл OPC UA порт (4840) дээрх IP хаягуудыг шалгаж, серверийн эцсийн цэгийн мэдээллийг холбож, уншихыг оролддог.",
@@ -217,7 +281,16 @@
     "msg.summary": "Skanowanie OPC UA: {count} serwerów znaleziono w {ms} ms.",
     "msg.no_servers": "Nie znaleziono serwerów OPC UA.",
     "err.ip_range_required": "ip_range jest wymagane.",
-    "err.invalid_ip_range": "Nie można przeanalizować zakresu ip: {text}"
+    "err.invalid_ip_range": "Nie można przeanalizować zakresu ip: {text}",
+    "x_search_terms": [
+      "skanowanie opcu",
+      "opcua_scan",
+      "wzrok",
+      "OPCUA",
+      "odkryj",
+      "serwery",
+      "lokalny"
+    ]
   },
   "pt": {
     "tool.description": "Descubra servidores OPC UA na rede local. Investiga endereços IP na porta OPC UA padrão (4840) e tenta conectar e ler as informações do endpoint do servidor.",
@@ -237,7 +310,16 @@
     "msg.summary": "Varredura OPC UA: {count} servidores encontrados em {ms} ms.",
     "msg.no_servers": "Nenhum servidor OPC UA foi encontrado.",
     "err.ip_range_required": "intervalo_ip é obrigatório.",
-    "err.invalid_ip_range": "Não foi possível analisar ip_range: {text}"
+    "err.invalid_ip_range": "Não foi possível analisar ip_range: {text}",
+    "x_search_terms": [
+      "varredura opcua",
+      "opcua_scan",
+      "opcua",
+      "OPCUA",
+      "descobrir",
+      "servidores",
+      "locais"
+    ]
   },
   "ro": {
     "tool.description": "Descoperiți serverele OPC UA în rețeaua locală. Sondează adresele IP pe portul implicit OPC UA (4840) și încearcă să se conecteze și să citească informațiile despre punctul final al serverului.",
@@ -317,7 +399,16 @@
     "msg.summary": "Quét OPC UA: Đã tìm thấy {count} máy chủ sau {ms} mili giây.",
     "msg.no_servers": "Không tìm thấy máy chủ OPC UA nào.",
     "err.ip_range_required": "ip_range là bắt buộc.",
-    "err.invalid_ip_range": "Không thể phân tích cú pháp ip_range: {text}"
+    "err.invalid_ip_range": "Không thể phân tích cú pháp ip_range: {text}",
+    "x_search_terms": [
+      "quét opcua",
+      "opcua_scan",
+      "opcua",
+      "OPCUA",
+      "khám phá",
+      "máy chủ",
+      "địa phương"
+    ]
   },
   "zh_CN": {
     "tool.description": "发现本地网络上的 OPC UA 服务器。探测默认 OPC UA 端口 (4840) 上的 IP 地址并尝试连接和读取服务器的端点信息。",

@@ -40,7 +40,14 @@
     "err.ambiguous_target": "Matter device target is ambiguous: {device_id}",
     "err.config_missing": "Matter device data is missing. Set {env_json} or {env_file} for devices, controllers, or bridges.",
     "param.bridge.description": "Bridge ID (optional).",
-    "param.ctrl.description": "Controller ID (optional)."
+    "param.ctrl.description": "Controller ID (optional).",
+    "x_search_terms": [
+      "matter endpoint list",
+      "matter_endpoint_list",
+      "matter",
+      "MATTER",
+      "endpoints"
+    ]
   },
   "es": {
     "tool.description": "List Matter device endpoints.",
@@ -48,7 +55,14 @@
     "param.fmt.description": "Format: json or text.",
     "err.device_id_required": "Matter device ID is required.",
     "err.not_found": "Matter device not found: {device_id}",
-    "err.ambiguous_target": "Matter device target is ambiguous: {device_id}"
+    "err.ambiguous_target": "Matter device target is ambiguous: {device_id}",
+    "x_search_terms": [
+      "lista de puntos finales de la materia",
+      "lista_punto_final_de_materia",
+      "materia",
+      "ASUNTO",
+      "punto final"
+    ]
   },
   "fa": {
     "tool.description": "List Matter device endpoints.",
@@ -72,7 +86,14 @@
     "param.fmt.description": "Format: json or text.",
     "err.device_id_required": "Matter device ID is required.",
     "err.not_found": "Matter device not found: {device_id}",
-    "err.ambiguous_target": "Matter device target is ambiguous: {device_id}"
+    "err.ambiguous_target": "Matter device target is ambiguous: {device_id}",
+    "x_search_terms": [
+      "liste des points de terminaison",
+      "matière_endpoint_list",
+      "matière",
+      "MATIÈRE",
+      "point final"
+    ]
   },
   "hi": {
     "tool.description": "List Matter device endpoints.",
@@ -88,7 +109,14 @@
     "param.fmt.description": "Format: json or text.",
     "err.device_id_required": "Matter device ID is required.",
     "err.not_found": "Matter device not found: {device_id}",
-    "err.ambiguous_target": "Matter device target is ambiguous: {device_id}"
+    "err.ambiguous_target": "Matter device target is ambiguous: {device_id}",
+    "x_search_terms": [
+      "daftar titik akhir masalah",
+      "daftar_titik_masalah_",
+      "penting",
+      "MASALAH",
+      "titik akhir"
+    ]
   },
   "it": {
     "tool.description": "List Matter device endpoints.",
@@ -96,7 +124,14 @@
     "param.fmt.description": "Format: json or text.",
     "err.device_id_required": "Matter device ID is required.",
     "err.not_found": "Matter device not found: {device_id}",
-    "err.ambiguous_target": "Matter device target is ambiguous: {device_id}"
+    "err.ambiguous_target": "Matter device target is ambiguous: {device_id}",
+    "x_search_terms": [
+      "elenco degli endpoint dell'argomento",
+      "materia_endpoint_list",
+      "materia",
+      "MATERIA",
+      "punto finale"
+    ]
   },
   "ja": {
     "tool.description": "List Matter device endpoints.",
@@ -107,7 +142,14 @@
     "err.ambiguous_target": "Matter device target is ambiguous: {device_id}",
     "err.config_missing": "問題のデバイスデータが欠落しています。デバイス、コントローラー、またはブリッジに {env_json} または {env_file} を設定します。",
     "param.bridge.description": "ブリッジ ID (オプション)。",
-    "param.ctrl.description": "コントローラ ID (オプション)。"
+    "param.ctrl.description": "コントローラ ID (オプション)。",
+    "x_search_terms": [
+      "案件エンドポイントリスト",
+      "マター_エンドポイント_リスト",
+      "問題",
+      "問題",
+      "エンドポイント"
+    ]
   },
   "ko": {
     "tool.description": "List Matter device endpoints.",
@@ -115,7 +157,14 @@
     "param.fmt.description": "Format: json or text.",
     "err.device_id_required": "Matter device ID is required.",
     "err.not_found": "Matter device not found: {device_id}",
-    "err.ambiguous_target": "Matter device target is ambiguous: {device_id}"
+    "err.ambiguous_target": "Matter device target is ambiguous: {device_id}",
+    "x_search_terms": [
+      "문제 끝점 목록",
+      "물질_종료점_목록",
+      "문제",
+      "물질",
+      "끝점"
+    ]
   },
   "mn": {
     "tool.description": "List Matter device endpoints.",
@@ -187,7 +236,14 @@
     "param.fmt.description": "Format: json or text.",
     "err.device_id_required": "Matter device ID is required.",
     "err.not_found": "Matter device not found: {device_id}",
-    "err.ambiguous_target": "Matter device target is ambiguous: {device_id}"
+    "err.ambiguous_target": "Matter device target is ambiguous: {device_id}",
+    "x_search_terms": [
+      "lista punktów końcowych sprawy",
+      "lista_punktów końcowych sprawy",
+      "sprawa",
+      "MATERIA",
+      "punkt końcowy"
+    ]
   },
   "pt": {
     "tool.description": "List Matter device endpoints.",
@@ -203,7 +259,14 @@
     "param.fmt.description": "Format: json or text.",
     "err.device_id_required": "Matter device ID is required.",
     "err.not_found": "Matter device not found: {device_id}",
-    "err.ambiguous_target": "Matter device target is ambiguous: {device_id}"
+    "err.ambiguous_target": "Matter device target is ambiguous: {device_id}",
+    "x_search_terms": [
+      "lista de endpoints de assuntos",
+      "matéria_endpoint_list",
+      "assunto",
+      "MATÉRIA",
+      "ponto final"
+    ]
   },
   "ru": {
     "tool.description": "List Matter device endpoints.",
@@ -259,7 +322,14 @@
     "param.fmt.description": "Format: json or text.",
     "err.device_id_required": "Matter device ID is required.",
     "err.not_found": "Matter device not found: {device_id}",
-    "err.ambiguous_target": "Matter device target is ambiguous: {device_id}"
+    "err.ambiguous_target": "Matter device target is ambiguous: {device_id}",
+    "x_search_terms": [
+      "danh sách điểm cuối vấn đề",
+      "vấn đề_endpoint_list",
+      "vấn đề",
+      "VẤN ĐỀ",
+      "điểm cuối"
+    ]
   },
   "zh_CN": {
     "tool.description": "List Matter device endpoints.",

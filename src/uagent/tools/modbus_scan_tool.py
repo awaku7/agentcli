@@ -54,6 +54,7 @@ TOOL_SPEC: dict[str, Any] = {
                 "Probes IP addresses and unit IDs to discover Modbus devices."
             ),
         ),
+            "x_search_terms": _(            "x_search_terms",            default=["modbus scan", "modbus_scan", "modbus", "MODBUS", "devices", "local", "network"],        ),        "x_search_terms_en": ["modbus scan", "modbus_scan", "modbus", "MODBUS", "devices", "local", "network"],
         "parameters": {
             "type": "object",
             "properties": {

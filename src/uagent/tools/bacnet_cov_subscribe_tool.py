@@ -26,6 +26,7 @@ TOOL_SPEC: dict[str, Any] = {
                 "Returns a task_id for later unsubscription."
             ),
         ),
+            "x_search_terms": _(            "x_search_terms",            default=["bacnet cov subscribe", "bacnet_cov_subscribe", "bacnet", "BACNET", "cov", "change", "value", "notifications"],        ),        "x_search_terms_en": ["bacnet cov subscribe", "bacnet_cov_subscribe", "bacnet", "BACNET", "cov", "change", "value", "notifications"],
         "parameters": {
             "type": "object",
             "properties": {

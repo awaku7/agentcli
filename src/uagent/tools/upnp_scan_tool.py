@@ -40,6 +40,7 @@ TOOL_SPEC: dict[str, Any] = {
                 "Supports filtering by name, manufacturer, model, or device type."
             ),
         ),
+            "x_search_terms": _(            "x_search_terms",            default=["upnp scan", "upnp_scan", "upnp", "UPNP", "discover", "upnp/ssdp", "devices", "local", "network"],        ),        "x_search_terms_en": ["upnp scan", "upnp_scan", "upnp", "UPNP", "discover", "upnp/ssdp", "devices", "local", "network"],
         "parameters": {
             "type": "object",
             "properties": {

@@ -25,6 +25,7 @@ TOOL_SPEC: dict[str, Any] = {
             "tool.description",
             default="Query Matter device state change history.",
         ),
+            "x_search_terms": _(            "x_search_terms",            default=["matter state history", "matter_state_history", "matter", "MATTER", "query", "change"],        ),        "x_search_terms_en": ["matter state history", "matter_state_history", "matter", "MATTER", "query", "change"],
         "parameters": {
             "type": "object",
             "properties": {

@@ -7,7 +7,15 @@
     "param.until.description": "End time ISO8601 (optional).",
     "param.limit.description": "Max entries (default 100, max 10000).",
     "param.clear.description": "If true, clear all history.",
-    "param.fmt.description": "Format: json or text."
+    "param.fmt.description": "Format: json or text.",
+    "x_search_terms": [
+      "matter state history",
+      "matter_state_history",
+      "matter",
+      "MATTER",
+      "query",
+      "change"
+    ]
   },
   "ar": {
     "tool.description": "الاستعلام عن تاريخ تغيير حالة الجهاز.",
@@ -67,7 +75,14 @@
     "param.until.description": "Hora de finalización ISO8601 (opcional).",
     "param.limit.description": "Entradas máximas (predeterminado 100, máximo 10000).",
     "param.clear.description": "Si es cierto, borre todo el historial.",
-    "param.fmt.description": "Formato: json o texto."
+    "param.fmt.description": "Formato: json o texto.",
+    "x_search_terms": [
+      "materia historia del estado",
+      "materia_estado_historia",
+      "materia",
+      "ASUNTO",
+      "consulta"
+    ]
   },
   "fa": {
     "tool.description": "سابقه تغییر وضعیت دستگاه Query Matter.",
@@ -97,7 +112,14 @@
     "param.until.description": "Heure de fin ISO8601 (facultatif).",
     "param.limit.description": "Nombre maximum d'entrées (100 par défaut, 10 000 maximum).",
     "param.clear.description": "Si c'est vrai, effacez tout l'historique.",
-    "param.fmt.description": "Format : json ou texte."
+    "param.fmt.description": "Format : json ou texte.",
+    "x_search_terms": [
+      "histoire de l'état de la matière",
+      "matière_état_histoire",
+      "matière",
+      "MATIÈRE",
+      "requête"
+    ]
   },
   "he": {
     "tool.description": "היסטוריית שינויים במצב מכשיר Query Matter.",
@@ -137,7 +159,14 @@
     "param.until.description": "Waktu berakhir ISO8601 (opsional).",
     "param.limit.description": "Entri maks (default 100, maks 10.000).",
     "param.clear.description": "Jika benar, hapus semua riwayat.",
-    "param.fmt.description": "Format: json atau teks."
+    "param.fmt.description": "Format: json atau teks.",
+    "x_search_terms": [
+      "masalah sejarah negara",
+      "masalah_status_sejarah",
+      "penting",
+      "MASALAH",
+      "permintaan"
+    ]
   },
   "it": {
     "tool.description": "Interroga la cronologia delle modifiche allo stato del dispositivo.",
@@ -147,7 +176,14 @@
     "param.until.description": "Ora di fine ISO8601 (opzionale).",
     "param.limit.description": "Voci massime (predefinito 100, massimo 10000).",
     "param.clear.description": "Se è vero, cancella tutta la cronologia.",
-    "param.fmt.description": "Formato: json o testo."
+    "param.fmt.description": "Formato: json o testo.",
+    "x_search_terms": [
+      "storia dello stato della materia",
+      "materia_stato_storia",
+      "materia",
+      "MATERIA",
+      "domanda"
+    ]
   },
   "ja": {
     "tool.description": "デバイス状態の変更履歴を照会します。",
@@ -157,7 +193,14 @@
     "param.until.description": "終了時刻 ISO8601 (オプション)。",
     "param.limit.description": "最大エントリ数 (デフォルトは 100、最大 10000)。",
     "param.clear.description": "true の場合、すべての履歴をクリアします。",
-    "param.fmt.description": "形式: json またはテキスト。"
+    "param.fmt.description": "形式: json またはテキスト。",
+    "x_search_terms": [
+      "物質の状態履歴",
+      "問題の状態履歴",
+      "問題",
+      "問題",
+      "クエリ"
+    ]
   },
   "ko": {
     "tool.description": "Matter 장치 상태 변경 내역을 쿼리합니다.",
@@ -167,7 +210,14 @@
     "param.until.description": "종료 시간 ISO8601(선택 사항).",
     "param.limit.description": "최대 항목(기본값 100, 최대 10000).",
     "param.clear.description": "사실이라면 모든 기록을 지웁니다.",
-    "param.fmt.description": "형식: json 또는 텍스트."
+    "param.fmt.description": "형식: json 또는 텍스트.",
+    "x_search_terms": [
+      "물질 상태 이력",
+      "문제_상태_역사",
+      "문제",
+      "물질",
+      "쿼리"
+    ]
   },
   "mn": {
     "tool.description": "Асуулт төхөөрөмжийн төлөвийн өөрчлөлтийн түүх.",
@@ -217,7 +267,14 @@
     "param.until.description": "Czas zakończenia ISO8601 (opcjonalnie).",
     "param.limit.description": "Maksymalna liczba wpisów (domyślnie 100, maks. 10000).",
     "param.clear.description": "Jeśli to prawda, wyczyść całą historię.",
-    "param.fmt.description": "Format: json lub tekst."
+    "param.fmt.description": "Format: json lub tekst.",
+    "x_search_terms": [
+      "historia stanu materii",
+      "historia_stanu materii",
+      "sprawa",
+      "MATERIA",
+      "zapytanie"
+    ]
   },
   "pt": {
     "tool.description": "Histórico de alterações de estado do dispositivo Query Matter.",
@@ -237,7 +294,14 @@
     "param.until.description": "Hora de término ISO8601 (opcional).",
     "param.limit.description": "Máximo de entradas (padrão 100, máximo 10.000).",
     "param.clear.description": "Se for verdade, limpe todo o histórico.",
-    "param.fmt.description": "Formato: json ou texto."
+    "param.fmt.description": "Formato: json ou texto.",
+    "x_search_terms": [
+      "matéria história do estado",
+      "matéria_estado_história",
+      "assunto",
+      "MATÉRIA",
+      "consulta"
+    ]
   },
   "ro": {
     "tool.description": "Istoricul modificărilor stării dispozitivului Query Matter.",
@@ -317,7 +381,14 @@
     "param.until.description": "Thời gian kết thúc ISO8601 (tùy chọn).",
     "param.limit.description": "Mục nhập tối đa (mặc định 100, tối đa 10000).",
     "param.clear.description": "Nếu đúng, hãy xóa tất cả lịch sử.",
-    "param.fmt.description": "Định dạng: json hoặc văn bản."
+    "param.fmt.description": "Định dạng: json hoặc văn bản.",
+    "x_search_terms": [
+      "lịch sử trạng thái vật chất",
+      "vấn đề_state_history",
+      "vấn đề",
+      "VẤN ĐỀ",
+      "truy vấn"
+    ]
   },
   "zh_CN": {
     "tool.description": "查询Material设备状态变化历史记录。",

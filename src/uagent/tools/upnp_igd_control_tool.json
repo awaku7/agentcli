@@ -22,7 +22,18 @@
     "param.internal_ip.description": "Internal LAN IP address that should receive the forwarded traffic.",
     "param.remote_host.description": "Optional remote host filter for specific port mapping operations. Leave empty for all hosts.",
     "param.search_target.description": "SSDP search target (ST) for discovery. Defaults to InternetGatewayDevice and falls back to ssdp:all if needed.",
-    "tool.description": "Perform UPnP IGD router operations: inspect WAN status, list port mappings, add a port mapping, or delete a port mapping."
+    "tool.description": "Perform UPnP IGD router operations: inspect WAN status, list port mappings, add a port mapping, or delete a port mapping.",
+    "x_search_terms": [
+      "upnp igd control",
+      "upnp_igd_control",
+      "upnp",
+      "UPNP",
+      "igd",
+      "perform",
+      "router",
+      "operations",
+      "inspect"
+    ]
   },
   "ja": {
     "param.timeout.description": "タイムアウト（秒）。",
@@ -47,7 +58,15 @@
     "param.remote_host.description": "特定のポート マッピング操作用のオプションのリモート ホスト フィルター。すべてのホストの場合は空のままにします。",
     "param.search_target.description": "検出用の SSDP 検索ターゲット (ST)。デフォルトは InternetGatewayDevice で、必要に応じて ssdp:all に戻ります。",
     "tool.description": "UPnP IGD ルーター操作を実行します。WAN ステータスの検査、ポート マッピングの一覧表示、ポート マッピングの追加、またはポート マッピングの削除を行います。",
-    "param.interface.description": "バインド先のオプションのローカル インターフェイスの IPv4 アドレスまたはインターフェイス名。"
+    "param.interface.description": "バインド先のオプションのローカル インターフェイスの IPv4 アドレスまたはインターフェイス名。",
+    "x_search_terms": [
+      "upnp igd コントロール",
+      "upnp_igd_control",
+      "アップナップ",
+      "アップNP",
+      "イグド",
+      "実行する"
+    ]
   },
   "ar": {
     "param.timeout.description": "المهلة (بالثواني).",
@@ -142,7 +161,15 @@
     "msg.portmap_add.summary": "La adición de asignación de puertos se completó en {elapsed_ms} ms.",
     "msg.portmap_delete.summary": "La eliminación de la asignación de puertos se completó en {elapsed_ms} ms.",
     "err.unknown_action": "Error: Acción desconocida '{action}'.",
-    "param.fmt.description": "Formato: json o texto."
+    "param.fmt.description": "Formato: json o texto.",
+    "x_search_terms": [
+      "control upnp igd",
+      "upnp_igd_control",
+      "upnp",
+      "UPNP",
+      "igd",
+      "realizar"
+    ]
   },
   "fa": {
     "param.timeout.description": "تایم اوت (ثانیه).",
@@ -199,7 +226,15 @@
     "msg.portmap_add.summary": "Ajout du mappage des ports terminé en {elapsed_ms} ms.",
     "msg.portmap_delete.summary": "Suppression du mappage de port terminée en {elapsed_ms} ms.",
     "err.unknown_action": "Erreur : action inconnue '{action}'.",
-    "param.fmt.description": "Format : json ou texte."
+    "param.fmt.description": "Format : json ou texte.",
+    "x_search_terms": [
+      "contrôle upnp igd",
+      "upnp_igd_control",
+      "upnp",
+      "UPNP",
+      "igd",
+      "effectuer"
+    ]
   },
   "hi": {
     "param.timeout.description": "टाइमआउट (सेकंड)।",
@@ -237,7 +272,15 @@
     "msg.portmap_add.summary": "Penambahan pemetaan port selesai dalam {elapsed_ms} ms.",
     "msg.portmap_delete.summary": "Penghapusan pemetaan port selesai dalam {elapsed_ms} ms.",
     "err.unknown_action": "Kesalahan: Tindakan tidak diketahui '{action}'.",
-    "param.fmt.description": "Format: json atau teks."
+    "param.fmt.description": "Format: json atau teks.",
+    "x_search_terms": [
+      "kontrol upnp igd",
+      "upnp_igd_control",
+      "upnp",
+      "UPNP",
+      "igd",
+      "melakukan"
+    ]
   },
   "it": {
     "param.timeout.description": "Timeout (secondi).",
@@ -256,7 +299,15 @@
     "msg.portmap_add.summary": "Aggiunta mappatura porta completata in {elapsed_ms} ms.",
     "msg.portmap_delete.summary": "Eliminazione mappatura porta completata in {elapsed_ms} ms.",
     "err.unknown_action": "Errore: azione sconosciuta '{action}'.",
-    "param.fmt.description": "Formato: json o testo."
+    "param.fmt.description": "Formato: json o testo.",
+    "x_search_terms": [
+      "controllo igd upnp",
+      "upnp_igd_control",
+      "upnp",
+      "UPNP",
+      "igd",
+      "eseguire"
+    ]
   },
   "ko": {
     "param.timeout.description": "타임아웃(초).",
@@ -275,7 +326,15 @@
     "msg.portmap_add.summary": "포트 매핑 추가가 {elapsed_ms} ms에 완료되었습니다.",
     "msg.portmap_delete.summary": "포트 매핑 삭제가 {elapsed_ms} ms에 완료되었습니다.",
     "err.unknown_action": "오류: 알 수 없는 작업 '{action}'.",
-    "param.fmt.description": "형식: json 또는 text."
+    "param.fmt.description": "형식: json 또는 text.",
+    "x_search_terms": [
+      "upnp igd 제어",
+      "upnp_igd_control",
+      "업앤피",
+      "UPNP",
+      "igd",
+      "수행하다"
+    ]
   },
   "mn": {
     "param.timeout.description": "Хугацаа дууссан (секунд).",
@@ -446,7 +505,15 @@
     "msg.portmap_add.summary": "Dodawanie mapowania portów zostało zakończone w ciągu {elapsed_ms} ms.",
     "msg.portmap_delete.summary": "Usuwanie mapowania portów zostało zakończone w ciągu {elapsed_ms} ms.",
     "err.unknown_action": "Błąd: Nieznana akcja '{action}'.",
-    "param.fmt.description": "Format: json lub tekst."
+    "param.fmt.description": "Format: json lub tekst.",
+    "x_search_terms": [
+      "kontrola upnp igd",
+      "upnp_igd_control",
+      "upnp",
+      "UPNP",
+      "igd",
+      "wykonać"
+    ]
   },
   "pt": {
     "param.timeout.description": "Tempo limite (segundos).",
@@ -484,7 +551,15 @@
     "msg.portmap_add.summary": "Adição de mapeamento de porta concluída em {elapsed_ms} ms.",
     "msg.portmap_delete.summary": "Exclusão de mapeamento de porta concluída em {elapsed_ms} ms.",
     "err.unknown_action": "Erro: ação desconhecida '{action}'.",
-    "param.fmt.description": "Formato: json ou texto."
+    "param.fmt.description": "Formato: json ou texto.",
+    "x_search_terms": [
+      "controle upnp igd",
+      "upnp_igd_control",
+      "upnp",
+      "UPNP",
+      "igd",
+      "executar"
+    ]
   },
   "ru": {
     "param.timeout.description": "Тайм-аут (секунды).",
@@ -581,7 +656,15 @@
     "err.invalid_interface": "Lỗi: Không thể phân giải giao diện '{interface}' thành địa chỉ IPv4 cục bộ.",
     "msg.summary": "Đã hoàn tất phát hiện UPnP: tìm thấy {count} thiết bị trong {elapsed_ms} ms.",
     "msg.no_devices": "Không tìm thấy thiết bị UPnP nào.",
-    "param.fmt.description": "Định dạng: json hoặc văn bản."
+    "param.fmt.description": "Định dạng: json hoặc văn bản.",
+    "x_search_terms": [
+      "kiểm soát igd upnp",
+      "upnp_igd_control",
+      "upnp",
+      "UPNP",
+      "igd",
+      "thực hiện"
+    ]
   },
   "zh_CN": {
     "param.timeout.description": "超时（秒）。",

@@ -31,6 +31,7 @@ TOOL_SPEC: dict[str, Any] = {
                 "and attempts to connect and read the server's endpoint info."
             ),
         ),
+            "x_search_terms": _(            "x_search_terms",            default=["opcua scan", "opcua_scan", "opcua", "OPCUA", "discover", "servers", "local", "network"],        ),        "x_search_terms_en": ["opcua scan", "opcua_scan", "opcua", "OPCUA", "discover", "servers", "local", "network"],
         "parameters": {
             "type": "object",
             "properties": {

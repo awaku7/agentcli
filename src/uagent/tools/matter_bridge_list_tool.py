@@ -34,6 +34,7 @@ TOOL_SPEC: dict[str, Any] = {
                 "List Matter bridge-managed devices and return a JSON or text summary."
             ),
         ),
+            "x_search_terms": _(            "x_search_terms",            default=["matter bridge list", "matter_bridge_list", "matter", "MATTER", "bridge-managed", "devices", "return"],        ),        "x_search_terms_en": ["matter bridge list", "matter_bridge_list", "matter", "MATTER", "bridge-managed", "devices", "return"],
         "parameters": {
             "type": "object",
             "properties": {

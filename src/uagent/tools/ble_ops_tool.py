@@ -24,6 +24,7 @@ TOOL_SPEC: dict[str, Any] = {
             "tool.description",
             default="Perform Bluetooth Low Energy (BLE) operations: scan for devices, read, or write GATT characteristics. Use MAC addresses on Windows/Linux, and UUIDs on macOS.",
         ),
+            "x_search_terms": _(            "x_search_terms",            default=["ble ops", "ble_ops", "ble", "BLE", "perform", "bluetooth", "energy", "operations"],        ),        "x_search_terms_en": ["ble ops", "ble_ops", "ble", "BLE", "perform", "bluetooth", "energy", "operations"],
         "parameters": {
             "type": "object",
             "properties": {

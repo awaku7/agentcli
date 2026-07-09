@@ -218,6 +218,7 @@ TOOL_SPEC: dict[str, Any] = {
                 "Discover ECHONET Lite nodes on the local network and return a JSON or text list."
             ),
         ),
+            "x_search_terms": _(            "x_search_terms",            default=["echonet scan", "echonet_scan", "echonet", "ECHONET", "discover", "nodes", "local", "network"],        ),        "x_search_terms_en": ["echonet scan", "echonet_scan", "echonet", "ECHONET", "discover", "nodes", "local", "network"],
         "parameters": {
             "type": "object",
             "properties": {

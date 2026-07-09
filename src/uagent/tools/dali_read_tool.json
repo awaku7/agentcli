@@ -6,7 +6,15 @@
     "param.host.description": "daliserver host.",
     "param.port.description": "daliserver port.",
     "param.fmt.description": "Format: json or text.",
-    "msg.summary": "DALI read: addr={addr} level={level} status={status}"
+    "msg.summary": "DALI read: addr={addr} level={level} status={status}",
+    "x_search_terms": [
+      "dali read",
+      "dali_read",
+      "dali",
+      "DALI",
+      "level",
+      "lighting"
+    ]
   },
   "ar": {
     "tool.description": "قراءة الحالة والمستوى من جهاز الإضاءة DALI. يستعلم عن العنوان المحدد للحالة الحالية.",
@@ -60,7 +68,15 @@
     "param.host.description": "host del servidor dal.",
     "param.port.description": "puerto del servidor dali.",
     "param.fmt.description": "Formato: json o texto.",
-    "msg.summary": "Lectura DALI: dirección={addr} nivel={level} estado={status}"
+    "msg.summary": "Lectura DALI: dirección={addr} nivel={level} estado={status}",
+    "x_search_terms": [
+      "dalí leyó",
+      "dali_read",
+      "dalí",
+      "DALÍ",
+      "nivel",
+      "iluminación"
+    ]
   },
   "fa": {
     "tool.description": "وضعیت و سطح را از دستگاه روشنایی DALI بخوانید. آدرس مشخص شده را برای وضعیت فعلی جستجو می کند.",
@@ -87,7 +103,15 @@
     "param.host.description": "hôte du serveur dali.",
     "param.port.description": "port du serveur dali.",
     "param.fmt.description": "Format : json ou texte.",
-    "msg.summary": "Lecture DALI : addr={addr} level={level} status={status}"
+    "msg.summary": "Lecture DALI : addr={addr} level={level} status={status}",
+    "x_search_terms": [
+      "Dali lit",
+      "dali_lire",
+      "Dalí",
+      "DALI",
+      "niveau",
+      "éclairage"
+    ]
   },
   "he": {
     "tool.description": "קרא מצב ורמה מהתקן תאורה DALI. שואל את הכתובת שצוינה עבור המצב הנוכחי.",
@@ -123,7 +147,15 @@
     "param.host.description": "host daserver.",
     "param.port.description": "port daserver.",
     "param.fmt.description": "Format: json atau teks.",
-    "msg.summary": "DALI dibaca: addr={addr} level={level} status={status}"
+    "msg.summary": "DALI dibaca: addr={addr} level={level} status={status}",
+    "x_search_terms": [
+      "dali baca",
+      "dali_baca",
+      "dali",
+      "DALI",
+      "tingkat",
+      "pencahayaan"
+    ]
   },
   "it": {
     "tool.description": "Leggere lo stato e il livello da un dispositivo di illuminazione DALI. Interroga l'indirizzo specificato per lo stato corrente.",
@@ -132,7 +164,15 @@
     "param.host.description": "host daliserver.",
     "param.port.description": "porta daliserver.",
     "param.fmt.description": "Formato: json o testo.",
-    "msg.summary": "Lettura DALI: addr={addr} livello={level} stato={status}"
+    "msg.summary": "Lettura DALI: addr={addr} livello={level} stato={status}",
+    "x_search_terms": [
+      "dalì leggi",
+      "dali_leggi",
+      "dalì",
+      "DALÌ",
+      "livello",
+      "illuminazione"
+    ]
   },
   "ja": {
     "tool.description": "DALI照明デバイスからステータスとレベルを読み取ります。指定されたアドレスの現在の状態を問い合わせます。",
@@ -141,7 +181,15 @@
     "param.host.description": "daliserver host.",
     "param.port.description": "daliserver port.",
     "param.fmt.description": "形式: json またはテキスト。",
-    "msg.summary": "DALI 読み取り: addr={addr} level={level} status={status}"
+    "msg.summary": "DALI 読み取り: addr={addr} level={level} status={status}",
+    "x_search_terms": [
+      "ダリを読む",
+      "ダリリード",
+      "ダリ",
+      "ダリ",
+      "レベル",
+      "照明"
+    ]
   },
   "ko": {
     "tool.description": "DALI 조명 장치에서 상태 및 레벨을 읽습니다. 현재 상태에 대해 지정된 주소를 쿼리합니다.",
@@ -150,7 +198,15 @@
     "param.host.description": "달리서버 호스트.",
     "param.port.description": "달리서버 포트.",
     "param.fmt.description": "형식: json 또는 텍스트.",
-    "msg.summary": "DALI 읽기: 주소={addr} 레벨={level} 상태={status}"
+    "msg.summary": "DALI 읽기: 주소={addr} 레벨={level} 상태={status}",
+    "x_search_terms": [
+      "달리 읽기",
+      "달리_읽기",
+      "달리",
+      "달리",
+      "수준",
+      "조명"
+    ]
   },
   "mn": {
     "tool.description": "DALI гэрэлтүүлгийн төхөөрөмжөөс статус болон түвшинг уншина уу. Одоогийн төлөвийн хувьд заасан хаягийг асууна.",
@@ -195,7 +251,15 @@
     "param.host.description": "host serwera daliserver.",
     "param.port.description": "port daliservera.",
     "param.fmt.description": "Format: json lub tekst.",
-    "msg.summary": "Odczyt DALI: adres={addr} poziom={level} status={status}"
+    "msg.summary": "Odczyt DALI: adres={addr} poziom={level} status={status}",
+    "x_search_terms": [
+      "Dal czytaj",
+      "dali_czytaj",
+      "dali",
+      "DALI",
+      "poziom",
+      "oświetlenie"
+    ]
   },
   "pt": {
     "tool.description": "Leia o status e o nível de um dispositivo de iluminação DALI. Consulta o endereço especificado para obter o estado atual.",
@@ -213,7 +277,15 @@
     "param.host.description": "host daliserver.",
     "param.port.description": "porta daliserver.",
     "param.fmt.description": "Formato: json ou texto.",
-    "msg.summary": "Leitura DALI: endereço={addr} nível={level} status={status}"
+    "msg.summary": "Leitura DALI: endereço={addr} nível={level} status={status}",
+    "x_search_terms": [
+      "dali leu",
+      "dali_read",
+      "dali",
+      "DALI",
+      "nível",
+      "iluminação"
+    ]
   },
   "ro": {
     "tool.description": "Citiți starea și nivelul de la un dispozitiv de iluminat DALI. Interogează adresa specificată pentru starea curentă.",
@@ -285,7 +357,15 @@
     "param.host.description": "máy chủ daliserver.",
     "param.port.description": "cổng daliserver.",
     "param.fmt.description": "Định dạng: json hoặc văn bản.",
-    "msg.summary": "DALI đã đọc: addr={addr} cấp={level} trạng thái={status}"
+    "msg.summary": "DALI đã đọc: addr={addr} cấp={level} trạng thái={status}",
+    "x_search_terms": [
+      "dali đọc",
+      "dali_read",
+      "đại lý",
+      "ĐẠI LÝ",
+      "cấp độ",
+      "thắp sáng"
+    ]
   },
   "zh_CN": {
     "tool.description": "从 DALI 照明设备读取状态和级别。查询指定地址的当前状态。",

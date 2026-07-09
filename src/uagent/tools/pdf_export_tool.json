@@ -2,7 +2,17 @@
   "en": {
     "tool.description": "Convert a conversation log file (JSONL) to PDF using Playwright.",
     "param.log_path.description": "Path to the JSONL log file to convert.",
-    "param.output_path.description": "Output path for the PDF file. Defaults to log_path with .pdf extension."
+    "param.output_path.description": "Output path for the PDF file. Defaults to log_path with .pdf extension.",
+    "x_search_terms": [
+      "pdf export",
+      "pdf_export",
+      "pdf",
+      "PDF",
+      "export",
+      "convert",
+      "conversation",
+      "jsonl"
+    ]
   },
   "ar": {
     "tool.description": "قم بتحويل ملف سجل المحادثة (JSONL) إلى PDF باستخدام Playwright.",
@@ -32,7 +42,16 @@
   "es": {
     "tool.description": "Convierta un archivo de registro de conversación (JSONL) a PDF usando Playwright.",
     "param.log_path.description": "Ruta al archivo de registro JSONL para convertir.",
-    "param.output_path.description": "Ruta de salida del archivo PDF. El valor predeterminado es log_path con extensión .pdf."
+    "param.output_path.description": "Ruta de salida del archivo PDF. El valor predeterminado es log_path con extensión .pdf.",
+    "x_search_terms": [
+      "exportación de pdf",
+      "pdf_exportación",
+      "pdf",
+      "PDF",
+      "exportar",
+      "convertir",
+      "conversación"
+    ]
   },
   "fa": {
     "tool.description": "با استفاده از Playwright یک فایل گزارش مکالمه (JSONL) را به PDF تبدیل کنید.",
@@ -47,7 +66,16 @@
   "fr": {
     "tool.description": "Convertissez un fichier journal de conversation (JSONL) en PDF à l'aide de Playwright.",
     "param.log_path.description": "Chemin d'accès au fichier journal JSONL à convertir.",
-    "param.output_path.description": "Chemin de sortie du fichier PDF. La valeur par défaut est log_path avec l'extension .pdf."
+    "param.output_path.description": "Chemin de sortie du fichier PDF. La valeur par défaut est log_path avec l'extension .pdf.",
+    "x_search_terms": [
+      "exportation pdf",
+      "pdf_export",
+      "pdf",
+      "PDF",
+      "exporter",
+      "convertir",
+      "conversation"
+    ]
   },
   "he": {
     "tool.description": "המר קובץ יומן שיחות (JSONL) ל-PDF באמצעות Playwright.",
@@ -67,22 +95,58 @@
   "id": {
     "tool.description": "Konversikan file log percakapan (JSONL) ke PDF menggunakan Playwright.",
     "param.log_path.description": "Jalur ke file log JSONL yang akan dikonversi.",
-    "param.output_path.description": "Jalur keluaran untuk file PDF. Defaultnya adalah log_path dengan ekstensi .pdf."
+    "param.output_path.description": "Jalur keluaran untuk file PDF. Defaultnya adalah log_path dengan ekstensi .pdf.",
+    "x_search_terms": [
+      "ekspor pdf",
+      "pdf_ekspor",
+      "pdf",
+      "PDF",
+      "ekspor",
+      "mengkonversi",
+      "percakapan"
+    ]
   },
   "it": {
     "tool.description": "Converti un file di registro delle conversazioni (JSONL) in PDF utilizzando Playwright.",
     "param.log_path.description": "Percorso del file di log JSONL da convertire.",
-    "param.output_path.description": "Percorso di output per il file PDF. Il valore predefinito è log_path con estensione .pdf."
+    "param.output_path.description": "Percorso di output per il file PDF. Il valore predefinito è log_path con estensione .pdf.",
+    "x_search_terms": [
+      "esportazione in formato pdf",
+      "pdf_esporta",
+      "pdf",
+      "PDF",
+      "esportazione",
+      "convertire",
+      "conversazione"
+    ]
   },
   "ja": {
     "tool.description": "Playwright を使用して、会話ログ ファイル (JSONL) を PDF に変換します。",
     "param.log_path.description": "変換する JSONL ログ ファイルへのパス。",
-    "param.output_path.description": "PDF ファイルの出力パス。デフォルトは、.pdf 拡張子が付いた log_path です。"
+    "param.output_path.description": "PDF ファイルの出力パス。デフォルトは、.pdf 拡張子が付いた log_path です。",
+    "x_search_terms": [
+      "PDF エクスポート",
+      "pdf_エクスポート",
+      "PDF",
+      "PDF",
+      "エクスポート",
+      "変換",
+      "会話"
+    ]
   },
   "ko": {
     "tool.description": "Playwright를 사용하여 대화 로그 파일(JSONL)을 PDF로 변환합니다.",
     "param.log_path.description": "변환할 JSONL 로그 파일의 경로입니다.",
-    "param.output_path.description": "PDF 파일의 출력 경로입니다. 기본값은 .pdf 확장자를 가진 log_path입니다."
+    "param.output_path.description": "PDF 파일의 출력 경로입니다. 기본값은 .pdf 확장자를 가진 log_path입니다.",
+    "x_search_terms": [
+      "PDF 내보내기",
+      "pdf_수출",
+      "PDF",
+      "PDF",
+      "수출",
+      "변환",
+      "대화"
+    ]
   },
   "mn": {
     "tool.description": "Playwright ашиглан харилцан ярианы бүртгэлийн файлыг (JSONL) PDF болгон хөрвүүлэх.",
@@ -107,7 +171,16 @@
   "pl": {
     "tool.description": "Konwertuj plik dziennika konwersacji (JSONL) na format PDF za pomocą programu Playwright.",
     "param.log_path.description": "Ścieżka do pliku dziennika JSONL do konwersji.",
-    "param.output_path.description": "Ścieżka wyjściowa pliku PDF. Domyślnie jest to ścieżka_logowania z rozszerzeniem .pdf."
+    "param.output_path.description": "Ścieżka wyjściowa pliku PDF. Domyślnie jest to ścieżka_logowania z rozszerzeniem .pdf.",
+    "x_search_terms": [
+      "eksport pdf",
+      "pdf_eksport",
+      "PDF",
+      "PDF",
+      "eksport",
+      "konwertować",
+      "rozmowa"
+    ]
   },
   "pt": {
     "tool.description": "Converta um arquivo de registro de conversa (JSONL) em PDF usando o Playwright.",
@@ -117,7 +190,16 @@
   "pt_BR": {
     "tool.description": "Converta um arquivo de registro de conversa (JSONL) em PDF usando o Playwright.",
     "param.log_path.description": "Caminho para o arquivo de log JSONL a ser convertido.",
-    "param.output_path.description": "Caminho de saída para o arquivo PDF. O padrão é log_path com extensão .pdf."
+    "param.output_path.description": "Caminho de saída para o arquivo PDF. O padrão é log_path com extensão .pdf.",
+    "x_search_terms": [
+      "exportação de pdf",
+      "pdf_exportar",
+      "pdf",
+      "PDF",
+      "exportação",
+      "converter",
+      "conversa"
+    ]
   },
   "ro": {
     "tool.description": "Convertiți un fișier jurnal de conversație (JSONL) în PDF folosind Playwright.",
@@ -157,7 +239,16 @@
   "vi": {
     "tool.description": "Chuyển đổi tệp nhật ký hội thoại (JSONL) sang PDF bằng Playwright.",
     "param.log_path.description": "Đường dẫn đến tệp nhật ký JSONL để chuyển đổi.",
-    "param.output_path.description": "Đường dẫn đầu ra cho tệp PDF. Mặc định là log_path với phần mở rộng .pdf."
+    "param.output_path.description": "Đường dẫn đầu ra cho tệp PDF. Mặc định là log_path với phần mở rộng .pdf.",
+    "x_search_terms": [
+      "xuất pdf",
+      "pdf_export",
+      "pdf",
+      "PDF",
+      "xuất khẩu",
+      "chuyển đổi",
+      "cuộc trò chuyện"
+    ]
   },
   "zh_CN": {
     "tool.description": "使用 Playwright 将对话日志文件 (JSONL) 转换为 PDF。",

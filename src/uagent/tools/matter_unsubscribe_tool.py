@@ -23,6 +23,7 @@ TOOL_SPEC: dict[str, Any] = {
             "tool.description",
             default="Remove a Matter device subscription.",
         ),
+            "x_search_terms": _(            "x_search_terms",            default=["matter unsubscribe", "matter_unsubscribe", "matter", "MATTER", "remove", "subscription"],        ),        "x_search_terms_en": ["matter unsubscribe", "matter_unsubscribe", "matter", "MATTER", "remove", "subscription"],
         "parameters": {
             "type": "object",
             "properties": {

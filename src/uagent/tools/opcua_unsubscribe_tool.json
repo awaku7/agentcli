@@ -7,7 +7,16 @@
     "msg.no_subscriptions": "No active OPC UA subscriptions.",
     "msg.header": "Active OPC UA subscriptions ({count}):",
     "msg.unsubscribed": "OPC UA subscription {id} cancelled.",
-    "err.id_required": "subscription_id is required for action=unsubscribe."
+    "err.id_required": "subscription_id is required for action=unsubscribe.",
+    "x_search_terms": [
+      "opcua unsubscribe",
+      "opcua_unsubscribe",
+      "opcua",
+      "OPCUA",
+      "cancel",
+      "subscription",
+      "subscription_id"
+    ]
   },
   "ar": {
     "tool.description": "قم بإلغاء اشتراك OPC UA بواسطة Subscription_id، أو قم بإدراج الاشتراكات النشطة.",
@@ -67,7 +76,14 @@
     "msg.no_subscriptions": "No hay suscripciones activas a OPC UA.",
     "msg.header": "Suscripciones activas de OPC UA ({count}):",
     "msg.unsubscribed": "Suscripción OPC UA {id} cancelada.",
-    "err.id_required": "Se requiere id_suscripción para acción=cancelar suscripción."
+    "err.id_required": "Se requiere id_suscripción para acción=cancelar suscripción.",
+    "x_search_terms": [
+      "opcua darse de baja",
+      "opcua_cancelar suscripción",
+      "opcua",
+      "OPCUA",
+      "cancelar"
+    ]
   },
   "fa": {
     "tool.description": "اشتراک OPC UA را با subscription_id لغو کنید یا اشتراک‌های فعال را فهرست کنید.",
@@ -97,7 +113,14 @@
     "msg.no_subscriptions": "Aucun abonnement OPC UA actif.",
     "msg.header": "Abonnements OPC UA actifs ({count}) :",
     "msg.unsubscribed": "Abonnement OPC UA {id} annulé.",
-    "err.id_required": "Subscribe_id est requis pour action=unsubscribe."
+    "err.id_required": "Subscribe_id est requis pour action=unsubscribe.",
+    "x_search_terms": [
+      "opcua désabonnement",
+      "opcua_unsubscribe",
+      "opcua",
+      "OPCUA",
+      "annuler"
+    ]
   },
   "he": {
     "tool.description": "בטל מנוי OPC UA לפי subscription_id, או רשום מנויים פעילים.",
@@ -137,7 +160,14 @@
     "msg.no_subscriptions": "Tidak ada langganan OPC UA yang aktif.",
     "msg.header": "Langganan OPC UA aktif ({count}):",
     "msg.unsubscribed": "Langganan OPC UA {id} dibatalkan.",
-    "err.id_required": "ID_langganan diperlukan untuk tindakan=berhenti berlangganan."
+    "err.id_required": "ID_langganan diperlukan untuk tindakan=berhenti berlangganan.",
+    "x_search_terms": [
+      "opcua berhenti berlangganan",
+      "opcua_berhenti berlangganan",
+      "opcua",
+      "OPCUA",
+      "batalkan"
+    ]
   },
   "it": {
     "tool.description": "Annulla un abbonamento OPC UA tramite membership_id o elenca gli abbonamenti attivi.",
@@ -147,7 +177,14 @@
     "msg.no_subscriptions": "Nessun abbonamento OPC UA attivo.",
     "msg.header": "Abbonamenti OPC UA attivi ({count}):",
     "msg.unsubscribed": "Abbonamento OPC UA {id} annullato.",
-    "err.id_required": "membership_id è obbligatorio per action=unsubscribe."
+    "err.id_required": "membership_id è obbligatorio per action=unsubscribe.",
+    "x_search_terms": [
+      "opcua cancella l'iscrizione",
+      "opcua_unsubscribe",
+      "opcua",
+      "OPCUA",
+      "annullare"
+    ]
   },
   "ja": {
     "tool.description": "subscription_id で OPC UA サブスクリプションをキャンセルするか、アクティブなサブスクリプションを一覧表示します。",
@@ -157,7 +194,14 @@
     "msg.no_subscriptions": "アクティブな OPC UA サブスクリプションがありません。",
     "msg.header": "アクティブな OPC UA サブスクリプション ({count}):",
     "msg.unsubscribed": "OPC UA サブスクリプション {id} がキャンセルされました。",
-    "err.id_required": "action=unsubscribe には subscription_id が必要です。"
+    "err.id_required": "action=unsubscribe には subscription_id が必要です。",
+    "x_search_terms": [
+      "opcua 購読解除",
+      "opcua_unsubscribe",
+      "オプクア",
+      "オプクア",
+      "キャンセル"
+    ]
   },
   "ko": {
     "tool.description": "Subscription_id로 OPC UA 구독을 취소하거나 활성 구독을 나열합니다.",
@@ -167,7 +211,14 @@
     "msg.no_subscriptions": "활성 OPC UA 구독이 없습니다.",
     "msg.header": "활성 OPC UA 구독({count}):",
     "msg.unsubscribed": "OPC UA 구독 {id}이 취소되었습니다.",
-    "err.id_required": "action=unsubscribe에는 subscribe_id가 필요합니다."
+    "err.id_required": "action=unsubscribe에는 subscribe_id가 필요합니다.",
+    "x_search_terms": [
+      "구독 취소",
+      "opcua_unsubscribe",
+      "오쿠아",
+      "OPCUA",
+      "취소하다"
+    ]
   },
   "mn": {
     "tool.description": "OPC UA захиалгыг subscription_id-ээр цуцлах эсвэл идэвхтэй захиалгыг жагсаана уу.",
@@ -217,7 +268,14 @@
     "msg.no_subscriptions": "Brak aktywnych subskrypcji OPC UA.",
     "msg.header": "Aktywne subskrypcje OPC UA ({count}):",
     "msg.unsubscribed": "Subskrypcja OPC UA {id} anulowana.",
-    "err.id_required": "identyfikator_subskrypcji jest wymagany dla akcji=unsubscribe."
+    "err.id_required": "identyfikator_subskrypcji jest wymagany dla akcji=unsubscribe.",
+    "x_search_terms": [
+      "opcua wypisz się",
+      "opcua_unsubscription",
+      "wzrok",
+      "OPCUA",
+      "anulować"
+    ]
   },
   "pt": {
     "tool.description": "Cancele uma assinatura OPC UA por subscription_id ou liste assinaturas ativas.",
@@ -237,7 +295,14 @@
     "msg.no_subscriptions": "Nenhuma assinatura ativa do OPC UA.",
     "msg.header": "Assinaturas OPC UA ativas ({count}):",
     "msg.unsubscribed": "Assinatura OPC UA {id} cancelada.",
-    "err.id_required": "subscription_id é necessário para action=unsubscribe."
+    "err.id_required": "subscription_id é necessário para action=unsubscribe.",
+    "x_search_terms": [
+      "opcua cancelar inscrição",
+      "opcua_unsubscribe",
+      "opcua",
+      "OPCUA",
+      "cancelar"
+    ]
   },
   "ro": {
     "tool.description": "Anulați un abonament OPC UA prin subscription_id sau enumerați abonamentele active.",
@@ -317,7 +382,14 @@
     "msg.no_subscriptions": "Không có đăng ký OPC UA đang hoạt động.",
     "msg.header": "Đăng ký OPC UA đang hoạt động ({count}):",
     "msg.unsubscribed": "Đăng ký OPC UA {id} đã bị hủy.",
-    "err.id_required": "subscribe_id là bắt buộc đối với action=unsubscribe."
+    "err.id_required": "subscribe_id là bắt buộc đối với action=unsubscribe.",
+    "x_search_terms": [
+      "opcua hủy đăng ký",
+      "opcua_unsubscribe",
+      "opcua",
+      "OPCUA",
+      "hủy bỏ"
+    ]
   },
   "zh_CN": {
     "tool.description": "通过 subscription_id 取消 OPC UA 订阅，或列出活动订阅。",

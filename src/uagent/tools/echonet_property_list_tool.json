@@ -46,7 +46,15 @@
     "msg.summary": "ECHONET Lite property list fetched: {count} property(ies) in {elapsed_ms} ms.",
     "param.eoj.description": "Target EOJ (default: node profile).",
     "param.obj.description": "Object code filter (e.g. '0130').",
-    "tool.description": "Discover ECHONET Lite properties on a node and return a JSON or text list."
+    "tool.description": "Discover ECHONET Lite properties on a node and return a JSON or text list.",
+    "x_search_terms": [
+      "echonet property list",
+      "echonet_property_list",
+      "echonet",
+      "ECHONET",
+      "discover",
+      "properties"
+    ]
   },
   "es": {
     "param.ip.description": "Target node IPv4 address.",
@@ -55,7 +63,15 @@
     "param.fmt.description": "Format: json or text.",
     "err.invalid_eoj": "Error: Could not parse EOJ '{eoj}'.",
     "err.invalid_object_code": "Error: Could not parse object_code '{object_code}'.",
-    "err.invalid_ip_address": "Error: ip_address must be a valid IPv4 address."
+    "err.invalid_ip_address": "Error: ip_address must be a valid IPv4 address.",
+    "x_search_terms": [
+      "lista de propiedades de echonet",
+      "lista_propiedad_echonet",
+      "econet",
+      "ECHONET",
+      "descubrir",
+      "propiedades"
+    ]
   },
   "fa": {
     "param.ip.description": "Target node IPv4 address.",
@@ -82,7 +98,15 @@
     "param.fmt.description": "Format: json or text.",
     "err.invalid_eoj": "Error: Could not parse EOJ '{eoj}'.",
     "err.invalid_object_code": "Error: Could not parse object_code '{object_code}'.",
-    "err.invalid_ip_address": "Error: ip_address must be a valid IPv4 address."
+    "err.invalid_ip_address": "Error: ip_address must be a valid IPv4 address.",
+    "x_search_terms": [
+      "liste des propriétés echonet",
+      "echonet_property_list",
+      "échonet",
+      "ÉCHONET",
+      "découvrir",
+      "propriétés"
+    ]
   },
   "hi": {
     "param.ip.description": "Target node IPv4 address.",
@@ -100,7 +124,15 @@
     "param.fmt.description": "Format: json or text.",
     "err.invalid_eoj": "Error: Could not parse EOJ '{eoj}'.",
     "err.invalid_object_code": "Error: Could not parse object_code '{object_code}'.",
-    "err.invalid_ip_address": "Error: ip_address must be a valid IPv4 address."
+    "err.invalid_ip_address": "Error: ip_address must be a valid IPv4 address.",
+    "x_search_terms": [
+      "daftar properti echonet",
+      "echonet_property_list",
+      "gema",
+      "ECHONET",
+      "temukan",
+      "properti"
+    ]
   },
   "it": {
     "param.ip.description": "Target node IPv4 address.",
@@ -109,7 +141,15 @@
     "param.fmt.description": "Format: json or text.",
     "err.invalid_eoj": "Error: Could not parse EOJ '{eoj}'.",
     "err.invalid_object_code": "Error: Could not parse object_code '{object_code}'.",
-    "err.invalid_ip_address": "Error: ip_address must be a valid IPv4 address."
+    "err.invalid_ip_address": "Error: ip_address must be a valid IPv4 address.",
+    "x_search_terms": [
+      "elenco delle proprietà echonet",
+      "echonet_property_list",
+      "ecorete",
+      "ECHONET",
+      "scopri",
+      "proprietà"
+    ]
   },
   "ja": {
     "param.ip.description": "Target node IPv4 address.",
@@ -122,7 +162,15 @@
     "msg.summary": "ECHONET Lite プロパティ リストを取得しました: {count} 個のプロパティ (数件)、{elapsed_ms} ミリ秒。",
     "param.eoj.description": "ターゲット EOJ (デフォルト: ノード プロファイル)。",
     "param.obj.description": "オブジェクト コード フィルター (例: '0130')。",
-    "tool.description": "ノード上の ECHONET Lite プロパティを検出し、JSON またはテキスト リストを返します。"
+    "tool.description": "ノード上の ECHONET Lite プロパティを検出し、JSON またはテキスト リストを返します。",
+    "x_search_terms": [
+      "エコーネットのプロパティリスト",
+      "echonet_property_list",
+      "エコーネット",
+      "エコーネット",
+      "発見",
+      "プロパティ"
+    ]
   },
   "ko": {
     "param.ip.description": "Target node IPv4 address.",
@@ -131,7 +179,15 @@
     "param.fmt.description": "Format: json or text.",
     "err.invalid_eoj": "Error: Could not parse EOJ '{eoj}'.",
     "err.invalid_object_code": "Error: Could not parse object_code '{object_code}'.",
-    "err.invalid_ip_address": "Error: ip_address must be a valid IPv4 address."
+    "err.invalid_ip_address": "Error: ip_address must be a valid IPv4 address.",
+    "x_search_terms": [
+      "에코넷 속성 목록",
+      "echonet_property_list",
+      "에코넷",
+      "에코넷",
+      "발견",
+      "속성"
+    ]
   },
   "mn": {
     "param.ip.description": "Target node IPv4 address.",
@@ -212,7 +268,15 @@
     "param.fmt.description": "Format: json or text.",
     "err.invalid_eoj": "Error: Could not parse EOJ '{eoj}'.",
     "err.invalid_object_code": "Error: Could not parse object_code '{object_code}'.",
-    "err.invalid_ip_address": "Error: ip_address must be a valid IPv4 address."
+    "err.invalid_ip_address": "Error: ip_address must be a valid IPv4 address.",
+    "x_search_terms": [
+      "lista właściwości echonetu",
+      "lista_właściwości echonet",
+      "echonet",
+      "ECHONET",
+      "odkryj",
+      "właściwości"
+    ]
   },
   "pt": {
     "param.ip.description": "Target node IPv4 address.",
@@ -230,7 +294,15 @@
     "param.fmt.description": "Format: json or text.",
     "err.invalid_eoj": "Error: Could not parse EOJ '{eoj}'.",
     "err.invalid_object_code": "Error: Could not parse object_code '{object_code}'.",
-    "err.invalid_ip_address": "Error: ip_address must be a valid IPv4 address."
+    "err.invalid_ip_address": "Error: ip_address must be a valid IPv4 address.",
+    "x_search_terms": [
+      "lista de propriedades echonet",
+      "echonet_property_list",
+      "econet",
+      "ECONET",
+      "descobrir",
+      "propriedades"
+    ]
   },
   "ru": {
     "param.ip.description": "Target node IPv4 address.",
@@ -293,7 +365,15 @@
     "param.fmt.description": "Format: json or text.",
     "err.invalid_eoj": "Error: Could not parse EOJ '{eoj}'.",
     "err.invalid_object_code": "Error: Could not parse object_code '{object_code}'.",
-    "err.invalid_ip_address": "Error: ip_address must be a valid IPv4 address."
+    "err.invalid_ip_address": "Error: ip_address must be a valid IPv4 address.",
+    "x_search_terms": [
+      "danh sách tài sản echonet",
+      "echonet_property_list",
+      "tiếng vang",
+      "ECHONET",
+      "khám phá",
+      "thuộc tính"
+    ]
   },
   "zh_CN": {
     "param.ip.description": "Target node IPv4 address.",

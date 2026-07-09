@@ -1,7 +1,16 @@
 {
   "en": {
     "tool.description": "List active Matter device subscriptions.",
-    "param.fmt.description": "Format: json or text."
+    "param.fmt.description": "Format: json or text.",
+    "x_search_terms": [
+      "matter subscription list",
+      "matter_subscription_list",
+      "matter",
+      "MATTER",
+      "subscription",
+      "active",
+      "subscriptions"
+    ]
   },
   "ar": {
     "tool.description": "قائمة اشتراكات جهاز Matter النشطة.",
@@ -25,7 +34,13 @@
   },
   "es": {
     "tool.description": "Enumere las suscripciones activas de dispositivos Matter.",
-    "param.fmt.description": "Formato: json o texto."
+    "param.fmt.description": "Formato: json o texto.",
+    "x_search_terms": [
+      "lista de suscripción de materia",
+      "lista_suscripciones_materia",
+      "importa",
+      "IMPORTA"
+    ]
   },
   "fa": {
     "tool.description": "اشتراک‌های فعال دستگاه Matter را فهرست کنید.",
@@ -37,7 +52,13 @@
   },
   "fr": {
     "tool.description": "Répertoriez les abonnements actifs aux appareils Matter.",
-    "param.fmt.description": "Format : json ou texte."
+    "param.fmt.description": "Format : json ou texte.",
+    "x_search_terms": [
+      "liste d'abonnement aux questions",
+      "liste_d'abonnement_matière",
+      "matière",
+      "MATIÈRE"
+    ]
   },
   "he": {
     "tool.description": "רשום מנויי מכשירי Matter פעילים.",
@@ -53,19 +74,43 @@
   },
   "id": {
     "tool.description": "Cantumkan langganan perangkat Matter yang aktif.",
-    "param.fmt.description": "Format: json atau teks."
+    "param.fmt.description": "Format: json atau teks.",
+    "x_search_terms": [
+      "daftar langganan masalah",
+      "daftar_materi_langganan",
+      "penting",
+      "MASALAH"
+    ]
   },
   "it": {
     "tool.description": "Elenca gli abbonamenti attivi dei dispositivi Matter.",
-    "param.fmt.description": "Formato: json o testo."
+    "param.fmt.description": "Formato: json o testo.",
+    "x_search_terms": [
+      "elenco di iscrizione alla materia",
+      "materia_subscription_list",
+      "materia",
+      "MATERIA"
+    ]
   },
   "ja": {
     "tool.description": "アクティブな Matter デバイスのサブスクリプションを一覧表示します。",
-    "param.fmt.description": "形式: json またはテキスト。"
+    "param.fmt.description": "形式: json またはテキスト。",
+    "x_search_terms": [
+      "案件購読リスト",
+      "マターサブスクリプションリスト",
+      "問題",
+      "問題"
+    ]
   },
   "ko": {
     "tool.description": "활성 Matter 장치 구독을 나열합니다.",
-    "param.fmt.description": "형식: json 또는 텍스트."
+    "param.fmt.description": "형식: json 또는 텍스트.",
+    "x_search_terms": [
+      "물질 구독 목록",
+      "문제_구독_목록",
+      "문제",
+      "물질"
+    ]
   },
   "mn": {
     "tool.description": "Идэвхтэй Matter төхөөрөмжийн захиалгыг жагсаах.",
@@ -85,7 +130,13 @@
   },
   "pl": {
     "tool.description": "Lista aktywnych subskrypcji urządzeń Matter.",
-    "param.fmt.description": "Format: json lub tekst."
+    "param.fmt.description": "Format: json lub tekst.",
+    "x_search_terms": [
+      "lista subskrypcji spraw",
+      "lista_subskrypcji spraw",
+      "sprawa",
+      "MATERIA"
+    ]
   },
   "pt": {
     "tool.description": "Listar assinaturas ativas de dispositivos Matter.",
@@ -93,7 +144,13 @@
   },
   "pt_BR": {
     "tool.description": "Listar assinaturas ativas de dispositivos Matter.",
-    "param.fmt.description": "Formato: json ou texto."
+    "param.fmt.description": "Formato: json ou texto.",
+    "x_search_terms": [
+      "lista de assinaturas de assuntos",
+      "lista_de_subscrição_matéria",
+      "assunto",
+      "MATÉRIA"
+    ]
   },
   "ro": {
     "tool.description": "Listați abonamentele active la dispozitive Matter.",
@@ -125,7 +182,13 @@
   },
   "vi": {
     "tool.description": "Liệt kê các đăng ký thiết bị Matter đang hoạt động.",
-    "param.fmt.description": "Định dạng: json hoặc văn bản."
+    "param.fmt.description": "Định dạng: json hoặc văn bản.",
+    "x_search_terms": [
+      "danh sách đăng ký vấn đề",
+      "vấn đề_subscription_list",
+      "vấn đề",
+      "VẤN ĐỀ"
+    ]
   },
   "zh_CN": {
     "tool.description": "列出活跃的 Matter 设备订阅。",

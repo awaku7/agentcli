@@ -11,7 +11,15 @@
     "msg.summary": "Modbus write: {ip} type={t} addr={addr} = {vals}",
     "err.ip_required": "ip is required.",
     "err.values_required": "values is required.",
-    "err.invalid_type": "Invalid type. Valid: {types}."
+    "err.invalid_type": "Invalid type. Valid: {types}.",
+    "x_search_terms": [
+      "modbus write",
+      "modbus_write",
+      "modbus",
+      "MODBUS",
+      "values",
+      "supports"
+    ]
   },
   "ar": {
     "tool.description": "اكتب القيم على جهاز Modbus TCP. يدعم الاحتفاظ بالسجلات (مفردة/متعددة) والملفات.",
@@ -95,7 +103,15 @@
     "msg.summary": "Escritura Modbus: {ip} tipo={t} dirección={addr} = {vals}",
     "err.ip_required": "Se requiere IP.",
     "err.values_required": "Se requieren valores.",
-    "err.invalid_type": "Tipo no válido. Válido: {types}."
+    "err.invalid_type": "Tipo no válido. Válido: {types}.",
+    "x_search_terms": [
+      "escritura modbus",
+      "modbus_escritura",
+      "modbus",
+      "MODBUS",
+      "valores",
+      "apoya"
+    ]
   },
   "fa": {
     "tool.description": "مقادیر را در یک دستگاه Modbus TCP بنویسید. پشتیبانی از رجیسترهای نگهدارنده (تک / چندگانه) و سیم پیچ.",
@@ -137,7 +153,15 @@
     "msg.summary": "Écriture Modbus : {ip} type={t} addr={addr} = {vals}",
     "err.ip_required": "l'adresse IP est requise.",
     "err.values_required": "valeurs est requise.",
-    "err.invalid_type": "Type invalide. Valide : {types}."
+    "err.invalid_type": "Type invalide. Valide : {types}.",
+    "x_search_terms": [
+      "modbus écrire",
+      "modbus_write",
+      "modbus",
+      "MODBUS",
+      "valeurs",
+      "prend en charge"
+    ]
   },
   "he": {
     "tool.description": "כתוב ערכים להתקן Modbus TCP. תומך בהחזקת אוגרים (יחיד/מרוב) וסלילים.",
@@ -193,7 +217,15 @@
     "msg.summary": "Modbus tulis: {ip} type={t} addr={addr} = {vals}",
     "err.ip_required": "diperlukan.",
     "err.values_required": "nilai-nilai diperlukan.",
-    "err.invalid_type": "Jenis tidak valid. Sah: {types}."
+    "err.invalid_type": "Jenis tidak valid. Sah: {types}.",
+    "x_search_terms": [
+      "modbus tulis",
+      "modbus_write",
+      "modbus",
+      "MODBUS",
+      "nilai",
+      "mendukung"
+    ]
   },
   "it": {
     "tool.description": "Scrivere valori su un dispositivo Modbus TCP. Supporta registri di mantenimento (singoli/multipli) e bobine.",
@@ -207,7 +239,15 @@
     "msg.summary": "Scrittura Modbus: {ip} tipo={t} indirizzo={addr} = {vals}",
     "err.ip_required": "l'IP è obbligatorio.",
     "err.values_required": "i valori sono obbligatori.",
-    "err.invalid_type": "Tipo non valido. Valido: {types}."
+    "err.invalid_type": "Tipo non valido. Valido: {types}.",
+    "x_search_terms": [
+      "modbus scrivere",
+      "modbus_scrivi",
+      "modbus",
+      "MODBUS",
+      "valori",
+      "supporta"
+    ]
   },
   "ja": {
     "tool.description": "Modbus TCP デバイスに値を書き込みます。保持レジスタ（単一/複数）とコイルをサポートします。",
@@ -221,7 +261,15 @@
     "msg.summary": "Modbus 書き込み: {ip} タイプ={t} アドレス={addr} = {vals}",
     "err.ip_required": "IPは必須です。",
     "err.values_required": "値は必須です。",
-    "err.invalid_type": "無効なタイプです。有効: {types}。"
+    "err.invalid_type": "無効なタイプです。有効: {types}。",
+    "x_search_terms": [
+      "modbus書き込み",
+      "modbus_write",
+      "モドバス",
+      "モドバス",
+      "値",
+      "サポートします"
+    ]
   },
   "ko": {
     "tool.description": "Modbus TCP 장치에 값을 씁니다. 홀딩 레지스터(단일/다중) 및 코일을 지원합니다.",
@@ -235,7 +283,15 @@
     "msg.summary": "Modbus 쓰기: {ip} 유형={t} 주소={addr} = {vals}",
     "err.ip_required": "ip가 필요합니다.",
     "err.values_required": "값이 필요합니다.",
-    "err.invalid_type": "유형이 잘못되었습니다. 유효한 날짜: {types}."
+    "err.invalid_type": "유형이 잘못되었습니다. 유효한 날짜: {types}.",
+    "x_search_terms": [
+      "모드버스 쓰기",
+      "모드버스_쓰기",
+      "모드버스",
+      "모드버스",
+      "가치",
+      "지원하다"
+    ]
   },
   "mn": {
     "tool.description": "Modbus TCP төхөөрөмжид утгыг бичих. Бүртгэлийн бүртгэл (ганц / олон) болон ороомогуудыг дэмждэг.",
@@ -305,7 +361,15 @@
     "msg.summary": "Zapis Modbus: {ip} typ={t} adres={addr} = {vals}",
     "err.ip_required": "wymagane jest IP.",
     "err.values_required": "wymagane są wartości.",
-    "err.invalid_type": "Nieprawidłowy typ. Ważne: {types}."
+    "err.invalid_type": "Nieprawidłowy typ. Ważne: {types}.",
+    "x_search_terms": [
+      "zapis modbus",
+      "modbus_write",
+      "modbus",
+      "MODBUS",
+      "wartości",
+      "obsługuje"
+    ]
   },
   "pt": {
     "tool.description": "Escreva valores em um dispositivo Modbus TCP. Suporta registros de retenção (simples/múltiplos) e bobinas.",
@@ -333,7 +397,15 @@
     "msg.summary": "Escrita Modbus: {ip} tipo={t} endereço={addr} = {vals}",
     "err.ip_required": "ip é obrigatório.",
     "err.values_required": "valores são obrigatórios.",
-    "err.invalid_type": "Tipo inválido. Válido: {types}."
+    "err.invalid_type": "Tipo inválido. Válido: {types}.",
+    "x_search_terms": [
+      "gravação modbus",
+      "modbus_write",
+      "mod bus",
+      "MODBUS",
+      "valores",
+      "suporta"
+    ]
   },
   "ro": {
     "tool.description": "Scrieți valori pe un dispozitiv Modbus TCP. Suportă registre de păstrare (single/multiple) și bobine.",
@@ -445,7 +517,15 @@
     "msg.summary": "Ghi Modbus: {ip} type={t} addr={addr} = {vals}",
     "err.ip_required": "ip là bắt buộc.",
     "err.values_required": "các giá trị là bắt buộc.",
-    "err.invalid_type": "Loại không hợp lệ. Hợp lệ: {types}."
+    "err.invalid_type": "Loại không hợp lệ. Hợp lệ: {types}.",
+    "x_search_terms": [
+      "modbus viết",
+      "modbus_write",
+      "modbus",
+      "MODBUS",
+      "giá trị",
+      "hỗ trợ"
+    ]
   },
   "zh_CN": {
     "tool.description": "将值写入 Modbus TCP 设备。支持保持寄存器（单个/多个）和线圈。",

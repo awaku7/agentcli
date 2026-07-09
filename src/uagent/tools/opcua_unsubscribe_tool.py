@@ -33,6 +33,7 @@ TOOL_SPEC: dict[str, Any] = {
                 "or list active subscriptions."
             ),
         ),
+            "x_search_terms": _(            "x_search_terms",            default=["opcua unsubscribe", "opcua_unsubscribe", "opcua", "OPCUA", "cancel", "subscription", "subscription_id"],        ),        "x_search_terms_en": ["opcua unsubscribe", "opcua_unsubscribe", "opcua", "OPCUA", "cancel", "subscription", "subscription_id"],
         "parameters": {
             "type": "object",
             "properties": {

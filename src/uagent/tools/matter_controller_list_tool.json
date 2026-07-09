@@ -17,10 +17,26 @@
     "err.invalid_config": "Matter controller configuration could not be parsed: {err}",
     "err.not_found": "Matter controller not found: {controller_id}",
     "param.ctrl.description": "Controller ID (omit for all).",
-    "tool.description": "List Matter controller-managed devices and return a JSON or text summary."
+    "tool.description": "List Matter controller-managed devices and return a JSON or text summary.",
+    "x_search_terms": [
+      "matter controller list",
+      "matter_controller_list",
+      "matter",
+      "MATTER",
+      "controller-managed",
+      "devices",
+      "return"
+    ]
   },
   "es": {
-    "param.fmt.description": "Format: json or text."
+    "param.fmt.description": "Format: json or text.",
+    "x_search_terms": [
+      "lista de controladores de materia",
+      "lista_controlador_de_materia",
+      "materia",
+      "ASUNTO",
+      "controlador"
+    ]
   },
   "fa": {
     "param.fmt.description": "Format: json or text."
@@ -29,16 +45,37 @@
     "param.fmt.description": "Format: json or text."
   },
   "fr": {
-    "param.fmt.description": "Format: json or text."
+    "param.fmt.description": "Format: json or text.",
+    "x_search_terms": [
+      "liste des contrôleurs de matière",
+      "matière_controller_list",
+      "matière",
+      "MATIÈRE",
+      "contrôleur"
+    ]
   },
   "hi": {
     "param.fmt.description": "Format: json or text."
   },
   "id": {
-    "param.fmt.description": "Format: json or text."
+    "param.fmt.description": "Format: json or text.",
+    "x_search_terms": [
+      "daftar pengontrol materi",
+      "daftar_masalah_kontroler",
+      "penting",
+      "MASALAH",
+      "pengontrol"
+    ]
   },
   "it": {
-    "param.fmt.description": "Format: json or text."
+    "param.fmt.description": "Format: json or text.",
+    "x_search_terms": [
+      "elenco dei controller dell'argomento",
+      "materia_controller_list",
+      "materia",
+      "MATERIA",
+      "controllore"
+    ]
   },
   "ja": {
     "param.fmt.description": "Format: json or text.",
@@ -46,10 +83,24 @@
     "err.invalid_config": "問題のコントローラー構成を解析できませんでした: {err}",
     "err.not_found": "問題のコントローラーが見つかりません: {controller_id}",
     "param.ctrl.description": "コントローラ ID (すべて省略)。",
-    "tool.description": "Matter コントローラーで管理されているデバイスをリストし、JSON またはテキストの概要を返します。"
+    "tool.description": "Matter コントローラーで管理されているデバイスをリストし、JSON またはテキストの概要を返します。",
+    "x_search_terms": [
+      "マターコントローラーリスト",
+      "マター_コントローラー_リスト",
+      "問題",
+      "問題",
+      "コントローラー"
+    ]
   },
   "ko": {
-    "param.fmt.description": "Format: json or text."
+    "param.fmt.description": "Format: json or text.",
+    "x_search_terms": [
+      "물질 컨트롤러 목록",
+      "문제_컨트롤러_목록",
+      "문제",
+      "물질",
+      "컨트롤러"
+    ]
   },
   "mn": {
     "param.fmt.description": "Format: json or text."
@@ -76,13 +127,27 @@
     "param.fmt.description": "Format: json or text."
   },
   "pl": {
-    "param.fmt.description": "Format: json or text."
+    "param.fmt.description": "Format: json or text.",
+    "x_search_terms": [
+      "lista kontrolerów spraw",
+      "lista_kontrolerów materii",
+      "sprawa",
+      "MATERIA",
+      "kontroler"
+    ]
   },
   "pt": {
     "param.fmt.description": "Format: json or text."
   },
   "pt_BR": {
-    "param.fmt.description": "Format: json or text."
+    "param.fmt.description": "Format: json or text.",
+    "x_search_terms": [
+      "lista de controladores de assuntos",
+      "lista_controlador_matéria",
+      "assunto",
+      "MATÉRIA",
+      "controlador"
+    ]
   },
   "ru": {
     "param.fmt.description": "Format: json or text."
@@ -103,7 +168,14 @@
     "param.fmt.description": "Format: json or text."
   },
   "vi": {
-    "param.fmt.description": "Format: json or text."
+    "param.fmt.description": "Format: json or text.",
+    "x_search_terms": [
+      "danh sách người kiểm soát vấn đề",
+      "vấn đề_controller_list",
+      "vấn đề",
+      "VẤN ĐỀ",
+      "bộ điều khiển"
+    ]
   },
   "zh_CN": {
     "param.fmt.description": "Format: json or text."

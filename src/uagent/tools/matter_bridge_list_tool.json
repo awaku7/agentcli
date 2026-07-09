@@ -17,10 +17,26 @@
     "err.invalid_config": "Matter bridge configuration could not be parsed: {err}",
     "err.not_found": "Matter bridge not found: {bridge_id}",
     "param.bridge.description": "Bridge ID (omit for all).",
-    "tool.description": "List Matter bridge-managed devices and return a JSON or text summary."
+    "tool.description": "List Matter bridge-managed devices and return a JSON or text summary.",
+    "x_search_terms": [
+      "matter bridge list",
+      "matter_bridge_list",
+      "matter",
+      "MATTER",
+      "bridge-managed",
+      "devices",
+      "return"
+    ]
   },
   "es": {
-    "param.fmt.description": "Format: json or text."
+    "param.fmt.description": "Format: json or text.",
+    "x_search_terms": [
+      "lista de puentes de materia",
+      "lista_puente_materia",
+      "materia",
+      "ASUNTO",
+      "gestionado por puente"
+    ]
   },
   "fa": {
     "param.fmt.description": "Format: json or text."
@@ -29,16 +45,37 @@
     "param.fmt.description": "Format: json or text."
   },
   "fr": {
-    "param.fmt.description": "Format: json or text."
+    "param.fmt.description": "Format: json or text.",
+    "x_search_terms": [
+      "liste de ponts de matière",
+      "matière_bridge_list",
+      "matière",
+      "MATIÈRE",
+      "géré par pont"
+    ]
   },
   "hi": {
     "param.fmt.description": "Format: json or text."
   },
   "id": {
-    "param.fmt.description": "Format: json or text."
+    "param.fmt.description": "Format: json or text.",
+    "x_search_terms": [
+      "daftar jembatan masalah",
+      "daftar_masalah_jembatan",
+      "penting",
+      "MASALAH",
+      "dikelola jembatan"
+    ]
   },
   "it": {
-    "param.fmt.description": "Format: json or text."
+    "param.fmt.description": "Format: json or text.",
+    "x_search_terms": [
+      "elenco dei ponti di materia",
+      "materia_bridge_list",
+      "materia",
+      "MATERIA",
+      "gestito dal ponte"
+    ]
   },
   "ja": {
     "param.fmt.description": "Format: json or text.",
@@ -46,10 +83,24 @@
     "err.invalid_config": "マターブリッジ構成を解析できませんでした: {err}",
     "err.not_found": "マターブリッジが見つかりません: {bridge_id}",
     "param.bridge.description": "ブリッジ ID (すべて省略)。",
-    "tool.description": "Matter ブリッジ管理デバイスをリストし、JSON またはテキストの概要を返します。"
+    "tool.description": "Matter ブリッジ管理デバイスをリストし、JSON またはテキストの概要を返します。",
+    "x_search_terms": [
+      "マターブリッジリスト",
+      "マターブリッジリスト",
+      "問題",
+      "問題",
+      "ブリッジ管理"
+    ]
   },
   "ko": {
-    "param.fmt.description": "Format: json or text."
+    "param.fmt.description": "Format: json or text.",
+    "x_search_terms": [
+      "물질 브리지 목록",
+      "문제_브리지_목록",
+      "문제",
+      "물질",
+      "브리지 관리"
+    ]
   },
   "mn": {
     "param.fmt.description": "Format: json or text."
@@ -76,13 +127,27 @@
     "param.fmt.description": "Format: json or text."
   },
   "pl": {
-    "param.fmt.description": "Format: json or text."
+    "param.fmt.description": "Format: json or text.",
+    "x_search_terms": [
+      "lista mostów materii",
+      "lista_pomostów spraw",
+      "sprawa",
+      "MATERIA",
+      "zarządzane przez most"
+    ]
   },
   "pt": {
     "param.fmt.description": "Format: json or text."
   },
   "pt_BR": {
-    "param.fmt.description": "Format: json or text."
+    "param.fmt.description": "Format: json or text.",
+    "x_search_terms": [
+      "lista de pontes de matéria",
+      "matéria_bridge_list",
+      "assunto",
+      "MATÉRIA",
+      "gerenciado por ponte"
+    ]
   },
   "ru": {
     "param.fmt.description": "Format: json or text."
@@ -103,7 +168,14 @@
     "param.fmt.description": "Format: json or text."
   },
   "vi": {
-    "param.fmt.description": "Format: json or text."
+    "param.fmt.description": "Format: json or text.",
+    "x_search_terms": [
+      "danh sách cầu vật chất",
+      "vấn đề_bridge_list",
+      "vấn đề",
+      "VẤN ĐỀ",
+      "quản lý cầu"
+    ]
   },
   "zh_CN": {
     "param.fmt.description": "Format: json or text."

@@ -157,6 +157,7 @@ TOOL_SPEC: dict[str, Any] = {
                 "Requires BAC0 library (auto-installed if missing)."
             ),
         ),
+            "x_search_terms": _(            "x_search_terms",            default=["bacnet scan", "bacnet_scan", "bacnet", "BACNET", "discover", "bacnet/ip", "devices", "local", "network", "sends"],        ),        "x_search_terms_en": ["bacnet scan", "bacnet_scan", "bacnet", "BACNET", "discover", "bacnet/ip", "devices", "local", "network", "sends"],
         "parameters": {
             "type": "object",
             "properties": {

@@ -104,7 +104,14 @@
     "err.no_writable_characteristic": "The device did not expose a writable GATT characteristic suitable for control.",
     "param.devname.description": "Optional device name filter. Matches by exact name or substring.",
     "param.value.description": "Optional numeric value for set_value actions. Range: 0-100.",
-    "tool.description": "Control a nearby SwitchBot BLE device and return a JSON or text result."
+    "tool.description": "Control a nearby SwitchBot BLE device and return a JSON or text result.",
+    "x_search_terms": [
+      "switchbot ble control",
+      "switchbot_ble_control",
+      "switchbot",
+      "nearby",
+      "return"
+    ]
   },
   "es": {
     "param.mac.description": "Filtro de dirección MAC.",
@@ -124,7 +131,14 @@
     "err.unsupported_device": "El dispositivo coincidente no parece ser un dispositivo BLE SwitchBot.",
     "err.operation_failed": "Error durante la operación BLE: {err_msg}",
     "msg.error_fmt": "エラー: {msg}",
-    "msg.unknown_error": "error desconocido"
+    "msg.unknown_error": "error desconocido",
+    "x_search_terms": [
+      "control switchbot ble",
+      "switchbot_ble_control",
+      "robot conmutador",
+      "cerca",
+      "remoto"
+    ]
   },
   "fa": {
     "param.mac.description": "خطا: {err}",
@@ -184,7 +198,14 @@
     "err.unsupported_device": "L'appareil correspondant ne ressemble pas à un appareil SwitchBot BLE.",
     "err.operation_failed": "Erreur lors de l'opération BLE : {err_msg}",
     "msg.error_fmt": "Erreur : {msg}",
-    "msg.unknown_error": "erreur inconnue"
+    "msg.unknown_error": "erreur inconnue",
+    "x_search_terms": [
+      "contrôle du robot",
+      "switchbot_ble_control",
+      "robot de commutation",
+      "à proximité",
+      "à distance"
+    ]
   },
   "hi": {
     "param.mac.description": "MAC पता फ़िल्टर।",
@@ -224,7 +245,14 @@
     "err.unsupported_device": "Perangkat yang cocok tidak terlihat seperti perangkat BLE SwitchBot.",
     "err.operation_failed": "Kesalahan selama operasi BLE: {err_msg}",
     "msg.error_fmt": "Kesalahan: {msg}",
-    "msg.unknown_error": "kesalahan tidak dikenal"
+    "msg.unknown_error": "kesalahan tidak dikenal",
+    "x_search_terms": [
+      "kontrol switchbot",
+      "switchbot_ble_control",
+      "saklarbot",
+      "terdekat",
+      "terpencil"
+    ]
   },
   "it": {
     "param.mac.description": "Filtro indirizzo MAC.",
@@ -244,7 +272,14 @@
     "err.unsupported_device": "Il dispositivo corrispondente non sembra un dispositivo SwitchBot BLE.",
     "err.operation_failed": "Errore durante l'operazione BLE: {err_msg}",
     "msg.error_fmt": "Errore: {msg}",
-    "msg.unknown_error": "errore sconosciuto"
+    "msg.unknown_error": "errore sconosciuto",
+    "x_search_terms": [
+      "controllo commutabile",
+      "switchbot_ble_control",
+      "commutatore",
+      "nelle vicinanze",
+      "remoto"
+    ]
   },
   "ja": {
     "param.mac.description": "MACアドレスフィルター。",
@@ -271,7 +306,14 @@
     "err.no_writable_characteristic": "デバイスは、制御に適した書き込み可能な GATT 特性を公開していませんでした。",
     "param.devname.description": "オプションのデバイス名フィルター。正確な名前または部分文字列で一致します。",
     "param.value.description": "set_value アクションのオプションの数値。範囲: 0 ～ 100。",
-    "tool.description": "近くの SwitchBot BLE デバイスを制御し、JSON またはテキストの結果を返します。"
+    "tool.description": "近くの SwitchBot BLE デバイスを制御し、JSON またはテキストの結果を返します。",
+    "x_search_terms": [
+      "スイッチボット ble コントロール",
+      "スイッチボット_ble_control",
+      "スイッチボット",
+      "近くの",
+      "リモート"
+    ]
   },
   "ko": {
     "param.mac.description": "MAC 주소 필터.",
@@ -291,7 +333,14 @@
     "err.unsupported_device": "일치하는 장치가 SwitchBot BLE 장치처럼 보이지 않습니다.",
     "err.operation_failed": "BLE 작업 중 오류 발생: {err_msg}",
     "msg.error_fmt": "오류: {msg}",
-    "msg.unknown_error": "알 수 없는 오류"
+    "msg.unknown_error": "알 수 없는 오류",
+    "x_search_terms": [
+      "스위치봇 블 제어",
+      "스위치봇_블_컨트롤",
+      "스위치봇",
+      "인근",
+      "원격"
+    ]
   },
   "mn": {
     "param.mac.description": "Алдаа: {err}",
@@ -471,7 +520,14 @@
     "err.unsupported_device": "Dopasowane urządzenie nie wygląda jak urządzenie SwitchBot BLE.",
     "err.operation_failed": "Błąd podczas operacji BLE: {err_msg}",
     "msg.error_fmt": "Błąd: {msg}",
-    "msg.unknown_error": "nieznany błąd"
+    "msg.unknown_error": "nieznany błąd",
+    "x_search_terms": [
+      "sterowanie botem przełącznikowym",
+      "switchbot_ble_control",
+      "przełącznik",
+      "w pobliżu",
+      "zdalny"
+    ]
   },
   "pt": {
     "param.mac.description": "Filtro de endereço MAC.",
@@ -511,7 +567,14 @@
     "err.unsupported_device": "O dispositivo correspondente não parece ser um dispositivo SwitchBot BLE.",
     "err.operation_failed": "Erro durante a operação BLE: {err_msg}",
     "msg.error_fmt": "Erro: {msg}",
-    "msg.unknown_error": "erro desconhecido"
+    "msg.unknown_error": "erro desconhecido",
+    "x_search_terms": [
+      "controle switchbot ble",
+      "switchbot_ble_control",
+      "robô de comutação",
+      "nas proximidades",
+      "remoto"
+    ]
   },
   "ru": {
     "param.mac.description": "Фильтр по MAC-адресу.",
@@ -651,7 +714,14 @@
     "err.unsupported_device": "Thiết bị khớp trông không giống thiết bị SwitchBot BLE.",
     "err.operation_failed": "Lỗi trong quá trình thao tác BLE: {err_msg}",
     "msg.error_fmt": "Lỗi: {msg}",
-    "msg.unknown_error": "lỗi không xác định"
+    "msg.unknown_error": "lỗi không xác định",
+    "x_search_terms": [
+      "điều khiển switchbot",
+      "switchbot_ble_control",
+      "switchbot",
+      "lân cận",
+      "từ xa"
+    ]
   },
   "zh_CN": {
     "param.mac.description": "MAC地址过滤器。",

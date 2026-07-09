@@ -38,6 +38,7 @@ TOOL_SPEC: dict[str, Any] = {
                 "Perform UPnP IGD router operations: inspect WAN status, list port mappings, add a port mapping, or delete a port mapping."
             ),
         ),
+            "x_search_terms": _(            "x_search_terms",            default=["upnp igd control", "upnp_igd_control", "upnp", "UPNP", "igd", "perform", "router", "operations", "inspect"],        ),        "x_search_terms_en": ["upnp igd control", "upnp_igd_control", "upnp", "UPNP", "igd", "perform", "router", "operations", "inspect"],
         "parameters": {
             "type": "object",
             "properties": {

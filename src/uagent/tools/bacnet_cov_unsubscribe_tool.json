@@ -7,7 +7,17 @@
     "msg.no_subscriptions": "No active COV subscriptions.",
     "msg.subscriptions_header": "Active COV subscriptions ({count}):",
     "msg.unsubscribed": "COV subscription task_id={task_id} cancelled.",
-    "err.task_id_required": "task_id is required for action=unsubscribe."
+    "err.task_id_required": "task_id is required for action=unsubscribe.",
+    "x_search_terms": [
+      "bacnet cov unsubscribe",
+      "bacnet_cov_unsubscribe",
+      "bacnet",
+      "BACNET",
+      "cov",
+      "cancel",
+      "subscription",
+      "task_id"
+    ]
   },
   "ar": {
     "tool.description": "قم بإلغاء اشتراك BACnet COV بواسطة Task_id، أو قم بإدراج الاشتراكات النشطة.",
@@ -67,7 +77,17 @@
     "msg.no_subscriptions": "No hay suscripciones COV activas.",
     "msg.subscriptions_header": "Suscripciones COV activas ({count}):",
     "msg.unsubscribed": "Suscripción COV task_id={task_id} cancelada.",
-    "err.task_id_required": "task_id es necesario para action=cancelar suscripción."
+    "err.task_id_required": "task_id es necesario para action=cancelar suscripción.",
+    "x_search_terms": [
+      "bacnet cov darse de baja",
+      "bacnet_cov_unsubscribe",
+      "bacnet",
+      "BACNET",
+      "cov",
+      "cancelar",
+      "suscripción",
+      "id_tarea"
+    ]
   },
   "fa": {
     "tool.description": "اشتراک BACnet COV را با task_id لغو کنید یا اشتراک‌های فعال را فهرست کنید.",
@@ -97,7 +117,17 @@
     "msg.no_subscriptions": "Aucun abonnement COV actif.",
     "msg.subscriptions_header": "Abonnements COV actifs ({count}) :",
     "msg.unsubscribed": "Abonnement COV task_id={task_id} annulé.",
-    "err.task_id_required": "task_id est requis pour action=unsubscribe."
+    "err.task_id_required": "task_id est requis pour action=unsubscribe.",
+    "x_search_terms": [
+      "bacnet cov désabonnement",
+      "bacnet_cov_unsubscribe",
+      "bacnet",
+      "BACNET",
+      "cov",
+      "annuler",
+      "abonnement",
+      "tâche_id"
+    ]
   },
   "he": {
     "tool.description": "בטל מנוי BACnet COV לפי task_id, או רשום מנויים פעילים.",
@@ -137,7 +167,17 @@
     "msg.no_subscriptions": "Tidak ada langganan COV yang aktif.",
     "msg.subscriptions_header": "Langganan COV aktif ({count}):",
     "msg.unsubscribed": "Langganan COV task_id={task_id} dibatalkan.",
-    "err.task_id_required": "task_id diperlukan untuk tindakan=berhenti berlangganan."
+    "err.task_id_required": "task_id diperlukan untuk tindakan=berhenti berlangganan.",
+    "x_search_terms": [
+      "bacnet cov berhenti berlangganan",
+      "bacnet_cov_berhenti berlangganan",
+      "bacnet",
+      "BACNET",
+      "cov",
+      "batalkan",
+      "berlangganan",
+      "tugas_id"
+    ]
   },
   "it": {
     "tool.description": "Annulla un abbonamento BACnet COV tramite task_id o elenca gli abbonamenti attivi.",
@@ -147,7 +187,17 @@
     "msg.no_subscriptions": "Nessun abbonamento COV attivo.",
     "msg.subscriptions_header": "Abbonamenti COV attivi ({count}):",
     "msg.unsubscribed": "Sottoscrizione COV task_id={task_id} annullata.",
-    "err.task_id_required": "task_id è obbligatorio per action=unsubscribe."
+    "err.task_id_required": "task_id è obbligatorio per action=unsubscribe.",
+    "x_search_terms": [
+      "bacnet cov cancella l'iscrizione",
+      "bacnet_cov_unsubscribe",
+      "bacnet",
+      "BACNET",
+      "cov",
+      "annulla",
+      "abbonamento",
+      "task_id"
+    ]
   },
   "ja": {
     "tool.description": "task_id で BACnet COV サブスクリプションをキャンセルするか、アクティブなサブスクリプションを一覧表示します。",
@@ -157,7 +207,17 @@
     "msg.no_subscriptions": "アクティブな COV サブスクリプションはありません。",
     "msg.subscriptions_header": "アクティブな COV サブスクリプション ({count}):",
     "msg.unsubscribed": "COV サブスクリプション task_id={task_id} がキャンセルされました。",
-    "err.task_id_required": "action=unsubscribe には task_id が必要です。"
+    "err.task_id_required": "action=unsubscribe には task_id が必要です。",
+    "x_search_terms": [
+      "bacnet cov 購読解除",
+      "bacnet_cov_unsubscribe",
+      "バックネット",
+      "バクネット",
+      "ＣＯＶ",
+      "キャンセル",
+      "購読",
+      "タスクID"
+    ]
   },
   "ko": {
     "tool.description": "task_id로 BACnet COV 구독을 취소하거나 활성 구독을 나열합니다.",
@@ -167,7 +227,17 @@
     "msg.no_subscriptions": "활성 COV 구독이 없습니다.",
     "msg.subscriptions_header": "활성 COV 구독({count}):",
     "msg.unsubscribed": "COV 구독 task_id={task_id}이 취소되었습니다.",
-    "err.task_id_required": "작업=구독 취소에는 task_id가 필요합니다."
+    "err.task_id_required": "작업=구독 취소에는 task_id가 필요합니다.",
+    "x_search_terms": [
+      "bacnet cov 구독 취소",
+      "bacnet_cov_구독 취소",
+      "백넷",
+      "백넷",
+      "코브",
+      "취소",
+      "구독",
+      "task_id"
+    ]
   },
   "mn": {
     "tool.description": "task_id-р BACnet COV захиалгыг цуцлах эсвэл идэвхтэй захиалгыг жагсаана уу.",
@@ -217,7 +287,17 @@
     "msg.no_subscriptions": "Brak aktywnych subskrypcji COV.",
     "msg.subscriptions_header": "Aktywne subskrypcje COV ({count}):",
     "msg.unsubscribed": "Subskrypcja COV task_id={task_id} anulowana.",
-    "err.task_id_required": "id_zadania jest wymagany dla akcji=unsubscribe."
+    "err.task_id_required": "id_zadania jest wymagany dla akcji=unsubscribe.",
+    "x_search_terms": [
+      "bacnet cov wypisz się",
+      "bacnet_cov_unsubscribe",
+      "bacnet",
+      "BACNET",
+      "cov",
+      "anulować",
+      "subskrypcja",
+      "id_zadania"
+    ]
   },
   "pt": {
     "tool.description": "Cancele uma assinatura BACnet COV por task_id ou liste assinaturas ativas.",
@@ -237,7 +317,17 @@
     "msg.no_subscriptions": "Nenhuma assinatura COV ativa.",
     "msg.subscriptions_header": "Assinaturas COV ativas ({count}):",
     "msg.unsubscribed": "Assinatura COV task_id={task_id} cancelada.",
-    "err.task_id_required": "task_id é necessário para action=unsubscribe."
+    "err.task_id_required": "task_id é necessário para action=unsubscribe.",
+    "x_search_terms": [
+      "bacnet cov cancelar inscrição",
+      "bacnet_cov_unsubscribe",
+      "bacnet",
+      "BACNET",
+      "cobre",
+      "cancelar",
+      "assinatura",
+      "id_da_tarefa"
+    ]
   },
   "ro": {
     "tool.description": "Anulați un abonament BACnet COV după task_id sau enumerați abonamentele active.",
@@ -317,7 +407,17 @@
     "msg.no_subscriptions": "Không có đăng ký COV đang hoạt động.",
     "msg.subscriptions_header": "Đăng ký COV đang hoạt động ({count}):",
     "msg.unsubscribed": "Đăng ký COV task_id={task_id} đã bị hủy.",
-    "err.task_id_required": "task_id là bắt buộc đối với action=unsubscribe."
+    "err.task_id_required": "task_id là bắt buộc đối với action=unsubscribe.",
+    "x_search_terms": [
+      "bacnet cov hủy đăng ký",
+      "bacnet_cov_unsubscribe",
+      "bacnet",
+      "BACNET",
+      "cov",
+      "hủy bỏ",
+      "đăng ký",
+      "nhiệm vụ_id"
+    ]
   },
   "zh_CN": {
     "tool.description": "按 task_id 取消 BACnet COV 订阅，或列出活动订阅。",

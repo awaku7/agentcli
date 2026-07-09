@@ -14,7 +14,18 @@
     "param.filter_manufacturer.description": "Optional case-insensitive substring filter for manufacturer.",
     "param.filter_model.description": "Optional case-insensitive substring filter for model_name.",
     "param.filter_type.description": "Optional case-insensitive substring filter for device_type.",
-    "tool.description": "Discover UPnP/SSDP devices on the local network and return a JSON or text list. Supports filtering by name, manufacturer, model, or device type."
+    "tool.description": "Discover UPnP/SSDP devices on the local network and return a JSON or text list. Supports filtering by name, manufacturer, model, or device type.",
+    "x_search_terms": [
+      "upnp scan",
+      "upnp_scan",
+      "upnp",
+      "UPNP",
+      "discover",
+      "upnp/ssdp",
+      "devices",
+      "local",
+      "network"
+    ]
   },
   "ja": {
     "param.mx.description": "M-SEARCH で使用する SSDP の MX ヘッダー値（1〜5秒）。",
@@ -31,7 +42,16 @@
     "param.filter_model.description": "model_name の大文字と小文字を区別しないオプションの部分文字列フィルター。",
     "param.filter_name.description": "Friendly_name の大文字と小文字を区別しないオプションの部分文字列フィルター。",
     "param.filter_type.description": "device_type の大文字と小文字を区別しないオプションの部分文字列フィルター。",
-    "tool.description": "ローカル ネットワーク上の UPnP/SSDP デバイスを検出し、JSON またはテキスト リストを返します。名前、メーカー、モデル、またはデバイスの種類によるフィルタリングをサポートします。"
+    "tool.description": "ローカル ネットワーク上の UPnP/SSDP デバイスを検出し、JSON またはテキスト リストを返します。名前、メーカー、モデル、またはデバイスの種類によるフィルタリングをサポートします。",
+    "x_search_terms": [
+      "UPNPスキャン",
+      "アップnpスキャン",
+      "アップナップ",
+      "アップNP",
+      "発見",
+      "upnp/ssdp",
+      "デバイス"
+    ]
   },
   "ar": {
     "param.mx.description": "قيمة رأس SSDP MX (1-5 ثوانٍ) المستخدمة بواسطة M-SEARCH.",
@@ -91,7 +111,16 @@
     "err.invalid_interface": "Error: No se pudo resolver la interfaz '{interface}' a una dirección IPv4 local.",
     "msg.summary": "Descubrimiento UPnP completado: {count} dispositivo(s) encontrado(s) en {elapsed_ms} ms.",
     "msg.no_devices": "No se encontraron dispositivos UPnP.",
-    "param.fmt.description": "Formato: json o texto."
+    "param.fmt.description": "Formato: json o texto.",
+    "x_search_terms": [
+      "escaneo upnp",
+      "upnp_scan",
+      "upnp",
+      "UPNP",
+      "descubrir",
+      "upnp/ssdp",
+      "dispositivos"
+    ]
   },
   "fa": {
     "param.mx.description": "مقدار سرصفحه SSDP MX (1-5 ثانیه) توسط M-SEARCH استفاده شده است.",
@@ -127,7 +156,16 @@
     "err.invalid_interface": "Erreur : impossible de résoudre l'interface '{interface}' en une adresse IPv4 locale.",
     "msg.summary": "Découverte UPnP terminée : appareil(s) {count} trouvé(s) en {elapsed_ms} ms.",
     "msg.no_devices": "Aucun périphérique UPnP n'a été trouvé.",
-    "param.fmt.description": "Format : json ou texte."
+    "param.fmt.description": "Format : json ou texte.",
+    "x_search_terms": [
+      "analyse upnp",
+      "upnp_scan",
+      "upnp",
+      "UPNP",
+      "découvrir",
+      "upnp/ssdp",
+      "appareils"
+    ]
   },
   "hi": {
     "param.mx.description": "M-SEARCH द्वारा उपयोग किया जाने वाला SSDP MX हेडर मान।",
@@ -151,7 +189,16 @@
     "err.invalid_interface": "Kesalahan: Tidak dapat menyelesaikan antarmuka '{interface}' ke alamat IPv4 lokal.",
     "msg.summary": "Penemuan UPnP selesai: {count} perangkat ditemukan dalam {elapsed_ms} ms.",
     "msg.no_devices": "Tidak ada perangkat UPnP yang ditemukan.",
-    "param.fmt.description": "Format: json atau teks."
+    "param.fmt.description": "Format: json atau teks.",
+    "x_search_terms": [
+      "pemindaian upnp",
+      "upnp_scan",
+      "upnp",
+      "UPNP",
+      "temukan",
+      "upnp/ssdp",
+      "perangkat"
+    ]
   },
   "it": {
     "param.mx.description": "Valore dell'intestazione SSDP MX (1-5 secondi) utilizzato da M-SEARCH.",
@@ -163,7 +210,16 @@
     "err.invalid_interface": "Errore: impossibile risolvere l'interfaccia '{interface}' in un indirizzo IPv4 locale.",
     "msg.summary": "Scoperta UPnP completata: trovati {count} dispositivo/i in {elapsed_ms} ms.",
     "msg.no_devices": "Nessun dispositivo UPnP trovato.",
-    "param.fmt.description": "Formato: json o testo."
+    "param.fmt.description": "Formato: json o testo.",
+    "x_search_terms": [
+      "scansione upnp",
+      "upnp_scan",
+      "upnp",
+      "UPNP",
+      "scopri",
+      "upnp/ssdp",
+      "dispositivi"
+    ]
   },
   "ko": {
     "param.mx.description": "M-SEARCH에서 사용하는 SSDP MX 헤더 값(1~5초).",
@@ -175,7 +231,16 @@
     "err.invalid_interface": "오류: 인터페이스 '{interface}'를 로컬 IPv4 주소로 확인할 수 없습니다.",
     "msg.summary": "UPnP 검색 완료: {elapsed_ms} ms에 {count}개의 장치를 찾았습니다.",
     "msg.no_devices": "UPnP 장치를 찾지 못했습니다.",
-    "param.fmt.description": "형식: json 또는 text."
+    "param.fmt.description": "형식: json 또는 text.",
+    "x_search_terms": [
+      "upnp 스캔",
+      "upnp_scan",
+      "업앤피",
+      "UPNP",
+      "발견",
+      "upnp/ssdp",
+      "장치"
+    ]
   },
   "mn": {
     "param.mx.description": "M-SEARCH-д ашиглагдах SSDP MX толгойн утга (1-5 секунд).",
@@ -299,7 +364,16 @@
     "err.invalid_interface": "Błąd: nie można przypisać interfejsu „{interface}” do lokalnego adresu IPv4.",
     "msg.summary": "Wykrywanie UPnP zakończone: {count} urządzeń znalezionych w {elapsed_ms} ms.",
     "msg.no_devices": "Nie znaleziono urządzeń UPnP.",
-    "param.fmt.description": "Format: json lub tekst."
+    "param.fmt.description": "Format: json lub tekst.",
+    "x_search_terms": [
+      "skanowanie upnp",
+      "upnp_scan",
+      "upnp",
+      "UPNP",
+      "odkryj",
+      "upnp/ssd",
+      "urządzenia"
+    ]
   },
   "pt": {
     "param.mx.description": "Valor do cabeçalho SSDP MX (1-5 segundos) usado pelo M-SEARCH.",
@@ -323,7 +397,16 @@
     "err.invalid_interface": "Erro: não foi possível resolver a interface '{interface}' para um endereço IPv4 local.",
     "msg.summary": "Descoberta UPnP concluída: {count} dispositivos encontrados em {elapsed_ms} ms.",
     "msg.no_devices": "Nenhum dispositivo UPnP foi encontrado.",
-    "param.fmt.description": "Formato: json ou texto."
+    "param.fmt.description": "Formato: json ou texto.",
+    "x_search_terms": [
+      "verificação upnp",
+      "upnp_scan",
+      "upnp",
+      "UPNP",
+      "descobrir",
+      "upnp/ssdp",
+      "dispositivos"
+    ]
   },
   "ru": {
     "param.mx.description": "Значение заголовка SSDP MX (1–5 секунд), используемое M-SEARCH.",
@@ -407,7 +490,16 @@
     "err.invalid_interface": "Lỗi: Không thể phân giải giao diện '{interface}' thành địa chỉ IPv4 cục bộ.",
     "msg.summary": "Quá trình khám phá UPnP đã hoàn tất: {count} thiết bị được tìm thấy sau {elapsed_ms} mili giây.",
     "msg.no_devices": "Không tìm thấy thiết bị UPnP nào.",
-    "param.fmt.description": "Định dạng: json hoặc văn bản."
+    "param.fmt.description": "Định dạng: json hoặc văn bản.",
+    "x_search_terms": [
+      "quét upnp",
+      "upnp_scan",
+      "upnp",
+      "UPNP",
+      "khám phá",
+      "upnp/ssdp",
+      "thiết bị"
+    ]
   },
   "zh_CN": {
     "param.mx.description": "M-SEARCH 使用的 SSDP MX 头部值（1-5 秒）。",

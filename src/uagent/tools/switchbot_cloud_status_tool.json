@@ -109,7 +109,13 @@
     "msg.type": "Type: {dtype}",
     "msg.unknown": "(unknown)",
     "err.config_missing": "SwitchBot Cloud credentials are missing. Set UAGENT_SWITCHBOT_TOKEN and UAGENT_SWITCHBOT_SECRET.",
-    "tool.description": "Get the status of one SwitchBot Cloud device from the configured account."
+    "tool.description": "Get the status of one SwitchBot Cloud device from the configured account.",
+    "x_search_terms": [
+      "switchbot cloud status",
+      "switchbot_cloud_status",
+      "switchbot",
+      "cloud"
+    ]
   },
   "es": {
     "param.dev.description": "ID del dispositivo (preferido).",
@@ -131,7 +137,13 @@
     "msg.power": "Encendido: {val}",
     "msg.temperature": "Temperatura: {val}",
     "msg.type": "Tipo: {dtype}",
-    "msg.unknown": "(desconocido)"
+    "msg.unknown": "(desconocido)",
+    "x_search_terms": [
+      "estado de la nube del switchbot",
+      "switchbot_cloud_status",
+      "robot conmutador",
+      "nube"
+    ]
   },
   "fa": {
     "param.dev.description": "دریافت‌شده در: {ts}",
@@ -197,7 +209,13 @@
     "msg.power": "Alimentation : {val}",
     "msg.temperature": "Température : {val}",
     "msg.type": "Type : {dtype}",
-    "msg.unknown": "(inconnu)"
+    "msg.unknown": "(inconnu)",
+    "x_search_terms": [
+      "statut du cloud switchbot",
+      "switchbot_cloud_status",
+      "robot de commutation",
+      "nuage"
+    ]
   },
   "hi": {
     "param.dev.description": "डिवाइस आईडी (पसंदीदा)।",
@@ -241,7 +259,13 @@
     "msg.power": "Daya: {val}",
     "msg.temperature": "Suhu: {val}",
     "msg.type": "Tipe: {dtype}",
-    "msg.unknown": "(tidak dikenal)"
+    "msg.unknown": "(tidak dikenal)",
+    "x_search_terms": [
+      "status awan switchbot",
+      "switchbot_cloud_status",
+      "saklarbot",
+      "awan"
+    ]
   },
   "it": {
     "param.dev.description": "ID dispositivo (preferito).",
@@ -263,7 +287,13 @@
     "msg.power": "Alimentazione: {val}",
     "msg.temperature": "Temperatura: {val}",
     "msg.type": "Tipo: {dtype}",
-    "msg.unknown": "(sconosciuto)"
+    "msg.unknown": "(sconosciuto)",
+    "x_search_terms": [
+      "stato del cloud switchbot",
+      "switchbot_cloud_status",
+      "commutatore",
+      "nuvola"
+    ]
   },
   "ja": {
     "param.dev.description": "デバイスID（推奨）。",
@@ -287,7 +317,13 @@
     "msg.type": "種類: {dtype}",
     "msg.unknown": "(不明)",
     "err.config_missing": "SwitchBot クラウドの認証情報がありません。UAGENT_SWITCHBOT_TOKEN と UAGENT_SWITCHBOT_SECRET を設定します。",
-    "tool.description": "構成されたアカウントから 1 台の SwitchBot Cloud デバイスのステータスを取得します。"
+    "tool.description": "構成されたアカウントから 1 台の SwitchBot Cloud デバイスのステータスを取得します。",
+    "x_search_terms": [
+      "スイッチボットクラウドのステータス",
+      "スイッチボット_クラウド_ステータス",
+      "スイッチボット",
+      "雲"
+    ]
   },
   "ko": {
     "param.dev.description": "장치 ID (기본).",
@@ -309,7 +345,13 @@
     "msg.power": "전원: {val}",
     "msg.temperature": "온도: {val}",
     "msg.type": "유형: {dtype}",
-    "msg.unknown": "(알 수 없음)"
+    "msg.unknown": "(알 수 없음)",
+    "x_search_terms": [
+      "스위치봇 클라우드 상태",
+      "스위치봇_클라우드_상태",
+      "스위치봇",
+      "구름"
+    ]
   },
   "mn": {
     "param.dev.description": "Татагдсан: {ts}",
@@ -507,7 +549,13 @@
     "msg.power": "Zasilanie: {val}",
     "msg.temperature": "Temperatura: {val}",
     "msg.type": "Typ: {dtype}",
-    "msg.unknown": "(nieznane)"
+    "msg.unknown": "(nieznane)",
+    "x_search_terms": [
+      "status chmury switchbota",
+      "switchbot_cloud_status",
+      "przełącznik",
+      "chmura"
+    ]
   },
   "pt": {
     "param.dev.description": "ID do dispositivo (preferido).",
@@ -551,7 +599,13 @@
     "msg.power": "Ligado: {val}",
     "msg.temperature": "Temperatura: {val}",
     "msg.type": "Tipo: {dtype}",
-    "msg.unknown": "(desconhecido)"
+    "msg.unknown": "(desconhecido)",
+    "x_search_terms": [
+      "status da nuvem do switchbot",
+      "switchbot_cloud_status",
+      "robô de comutação",
+      "nuvem"
+    ]
   },
   "ru": {
     "param.dev.description": "ID устройства (предпочтительно).",
@@ -705,7 +759,13 @@
     "msg.power": "Nguồn: {val}",
     "msg.temperature": "Nhiệt độ: {val}",
     "msg.type": "Loại: {dtype}",
-    "msg.unknown": "(không xác định)"
+    "msg.unknown": "(không xác định)",
+    "x_search_terms": [
+      "trạng thái đám mây switchbot",
+      "switchbot_cloud_status",
+      "switchbot",
+      "đám mây"
+    ]
   },
   "zh_CN": {
     "param.dev.description": "设备ID（首选）。",

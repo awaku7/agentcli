@@ -12,7 +12,16 @@
     "param.fmt.description": "Format: json or text.",
     "msg.subscribed": "MQTT subscribed: {label} [{topic}] @ {host}",
     "param.use_tls.description": "Enable TLS/SSL (MQTTS). Default port becomes 8883.",
-    "param.insecure.description": "Skip TLS certificate verification (insecure)."
+    "param.insecure.description": "Skip TLS certificate verification (insecure).",
+    "x_search_terms": [
+      "mqtt subscribe",
+      "mqtt_subscribe",
+      "mqtt",
+      "MQTT",
+      "topic",
+      "messages",
+      "automatically"
+    ]
   },
   "ar": {
     "tool.description": "اشترك في موضوع MQTT. تتم إعادة توجيه الرسائل تلقائيًا إلى LLM عبر جدولة Storer.",
@@ -102,7 +111,15 @@
     "param.fmt.description": "Formato: json o texto.",
     "msg.subscribed": "MQTT suscrito: {label} [{topic}] @ {host}",
     "param.use_tls.description": "Habilite TLS/SSL (MQTTS). El puerto predeterminado es 8883.",
-    "param.insecure.description": "Omitir la verificación del certificado TLS (inseguro)."
+    "param.insecure.description": "Omitir la verificación del certificado TLS (inseguro).",
+    "x_search_terms": [
+      "mqtt suscribirse",
+      "mqtt_subscribe",
+      "mqt",
+      "MQTT",
+      "tema",
+      "mensajes"
+    ]
   },
   "fa": {
     "tool.description": "در یک موضوع MQTT مشترک شوید. پیام ها به طور خودکار از طریق SchedulerStore به LLM ارسال می شوند.",
@@ -147,7 +164,15 @@
     "param.fmt.description": "Format : json ou texte.",
     "msg.subscribed": "Abonné MQTT : {label} [{topic}] @ {host}",
     "param.use_tls.description": "Activez TLS/SSL (MQTTS). Le port par défaut devient 8883.",
-    "param.insecure.description": "Ignorer la vérification du certificat TLS (non sécurisé)."
+    "param.insecure.description": "Ignorer la vérification du certificat TLS (non sécurisé).",
+    "x_search_terms": [
+      "mqtt abonnez-vous",
+      "mqtt_subscribe",
+      "mqt",
+      "MQTT",
+      "sujet",
+      "messages"
+    ]
   },
   "he": {
     "tool.description": "הירשם לנושא MQTT. הודעות מועברות אוטומטית ל-LLM דרך SchedulerStore.",
@@ -207,7 +232,15 @@
     "param.fmt.description": "Format: json atau teks.",
     "msg.subscribed": "Berlangganan MQTT: {label} [{topic}] @ {host}",
     "param.use_tls.description": "Aktifkan TLS/SSL (MQTTS). Port defaultnya menjadi 8883.",
-    "param.insecure.description": "Lewati verifikasi sertifikat TLS (tidak aman)."
+    "param.insecure.description": "Lewati verifikasi sertifikat TLS (tidak aman).",
+    "x_search_terms": [
+      "mqtt berlangganan",
+      "mqtt_berlangganan",
+      "mqtt",
+      "MQTT",
+      "topik",
+      "pesan"
+    ]
   },
   "it": {
     "tool.description": "Iscriviti a un argomento MQTT. I messaggi vengono automaticamente inoltrati a LLM tramite SchedulerStore.",
@@ -222,7 +255,15 @@
     "param.fmt.description": "Formato: json o testo.",
     "msg.subscribed": "MQTT iscritto: {label} [{topic}] @ {host}",
     "param.use_tls.description": "Abilita TLS/SSL (MQTTS). La porta predefinita diventa 8883.",
-    "param.insecure.description": "Salta la verifica del certificato TLS (non sicuro)."
+    "param.insecure.description": "Salta la verifica del certificato TLS (non sicuro).",
+    "x_search_terms": [
+      "mqtt iscriviti",
+      "mqtt_subscribe",
+      "mqtt",
+      "MQTT",
+      "argomento",
+      "messaggi"
+    ]
   },
   "ja": {
     "tool.description": "MQTT トピックをサブスクライブします。メッセージは、SchedulerStore 経由で LLM に自動的に転送されます。",
@@ -237,7 +278,15 @@
     "param.fmt.description": "形式: json またはテキスト。",
     "msg.subscribed": "MQTT がサブスクライブされました: {label} [{topic}] @ {host}",
     "param.use_tls.description": "TLS/SSL (MQTTS) を有効にします。デフォルトのポートは8883になります。",
-    "param.insecure.description": "TLS 証明書の検証をスキップします (安全ではありません)。"
+    "param.insecure.description": "TLS 証明書の検証をスキップします (安全ではありません)。",
+    "x_search_terms": [
+      "mqtt サブスクライブ",
+      "mqtt_subscribe",
+      "mqtt",
+      "MQTT",
+      "トピック",
+      "メッセージ"
+    ]
   },
   "ko": {
     "tool.description": "MQTT 주제를 구독합니다. 메시지는 SchedulerStore를 통해 자동으로 LLM으로 전달됩니다.",
@@ -252,7 +301,15 @@
     "param.fmt.description": "형식: json 또는 텍스트.",
     "msg.subscribed": "MQTT 구독: {label} [{topic}] @ {host}",
     "param.use_tls.description": "TLS/SSL(MQTTS)을 활성화합니다. 기본 포트는 8883이 됩니다.",
-    "param.insecure.description": "TLS 인증서 확인을 건너뜁니다(안전하지 않음)."
+    "param.insecure.description": "TLS 인증서 확인을 건너뜁니다(안전하지 않음).",
+    "x_search_terms": [
+      "mqtt 구독",
+      "mqtt_구독",
+      "mqtt",
+      "MQTT",
+      "주제",
+      "메시지"
+    ]
   },
   "mn": {
     "tool.description": "MQTT сэдэвт бүртгүүлнэ үү. Зурвасуудыг SchedulerStore-ээр дамжуулан LLM руу автоматаар дамжуулдаг.",
@@ -327,7 +384,15 @@
     "param.fmt.description": "Format: json lub tekst.",
     "msg.subscribed": "Subskrybowano MQTT: {label} [{topic}] @ {host}",
     "param.use_tls.description": "Włącz TLS/SSL (MQTTS). Domyślny port to 8883.",
-    "param.insecure.description": "Pomiń weryfikację certyfikatu TLS (niebezpieczna)."
+    "param.insecure.description": "Pomiń weryfikację certyfikatu TLS (niebezpieczna).",
+    "x_search_terms": [
+      "mqtt subskrybuj",
+      "mqtt_subskrybuj",
+      "mqtt",
+      "MQTT",
+      "temat",
+      "wiadomości"
+    ]
   },
   "pt": {
     "tool.description": "Assine um tópico MQTT. As mensagens são encaminhadas automaticamente para o LLM via SchedulerStore.",
@@ -357,7 +422,15 @@
     "param.fmt.description": "Formato: json ou texto.",
     "msg.subscribed": "MQTT inscrito: {label} [{topic}] @ {host}",
     "param.use_tls.description": "Habilite TLS/SSL (MQTTS). A porta padrão passa a ser 8883.",
-    "param.insecure.description": "Ignore a verificação do certificado TLS (inseguro)."
+    "param.insecure.description": "Ignore a verificação do certificado TLS (inseguro).",
+    "x_search_terms": [
+      "assinar mqtt",
+      "mqtt_subscribe",
+      "mqtt",
+      "MQTT",
+      "tópico",
+      "mensagens"
+    ]
   },
   "ro": {
     "tool.description": "Abonați-vă la un subiect MQTT. Mesajele sunt redirecționate automat către LLM prin SchedulerStore.",
@@ -477,7 +550,15 @@
     "param.fmt.description": "Định dạng: json hoặc văn bản.",
     "msg.subscribed": "MQTT đã đăng ký: {label} [{topic}] @ {host}",
     "param.use_tls.description": "Kích hoạt TLS/SSL (MQTTS). Cổng mặc định trở thành 8883.",
-    "param.insecure.description": "Bỏ qua xác minh chứng chỉ TLS (không an toàn)."
+    "param.insecure.description": "Bỏ qua xác minh chứng chỉ TLS (không an toàn).",
+    "x_search_terms": [
+      "đăng ký mqtt",
+      "mqtt_subscribe",
+      "mqtt",
+      "MQTT",
+      "chủ đề",
+      "tin nhắn"
+    ]
   },
   "zh_CN": {
     "tool.description": "订阅 MQTT 主题。消息通过 SchedulerStore 自动转发到 LLM。",

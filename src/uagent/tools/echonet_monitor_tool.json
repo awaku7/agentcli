@@ -55,7 +55,15 @@
     "msg.no_response": "No ECHONET Lite response was received during monitoring.",
     "param.eoj.description": "Target EOJ (default: node profile).",
     "param.obj.description": "Object code filter (e.g. '0130').",
-    "tool.description": "Poll an ECHONET Lite node repeatedly, detect property changes, and return a JSON or text summary."
+    "tool.description": "Poll an ECHONET Lite node repeatedly, detect property changes, and return a JSON or text summary.",
+    "x_search_terms": [
+      "echonet monitor",
+      "echonet_monitor",
+      "echonet",
+      "ECHONET",
+      "repeatedly",
+      "detect"
+    ]
   },
   "es": {
     "param.ip.description": "Target node IPv4 address.",
@@ -66,7 +74,16 @@
     "msg.summary": "ECHONET Lite monitoring completed: {count} change(s) in {elapsed_ms} ms.",
     "msg.no_changes": "No property changes were detected.",
     "err.invalid_argument": "Error: ip_address is required.",
-    "msg.no_response": "No ECHONET Lite response was received during monitoring."
+    "msg.no_response": "No ECHONET Lite response was received during monitoring.",
+    "x_search_terms": [
+      "monitor de econet",
+      "monitor_echonet",
+      "econet",
+      "ECHONET",
+      "repetidamente",
+      "datos",
+      "notificaciones"
+    ]
   },
   "fa": {
     "param.ip.description": "Target node IPv4 address.",
@@ -99,7 +116,16 @@
     "msg.summary": "ECHONET Lite monitoring completed: {count} change(s) in {elapsed_ms} ms.",
     "msg.no_changes": "No property changes were detected.",
     "err.invalid_argument": "Error: ip_address is required.",
-    "msg.no_response": "No ECHONET Lite response was received during monitoring."
+    "msg.no_response": "No ECHONET Lite response was received during monitoring.",
+    "x_search_terms": [
+      "moniteur échonet",
+      "echonet_monitor",
+      "échonet",
+      "ÉCHONET",
+      "à plusieurs reprises",
+      "données",
+      "avis"
+    ]
   },
   "hi": {
     "param.ip.description": "Target node IPv4 address.",
@@ -121,7 +147,16 @@
     "msg.summary": "ECHONET Lite monitoring completed: {count} change(s) in {elapsed_ms} ms.",
     "msg.no_changes": "No property changes were detected.",
     "err.invalid_argument": "Error: ip_address is required.",
-    "msg.no_response": "No ECHONET Lite response was received during monitoring."
+    "msg.no_response": "No ECHONET Lite response was received during monitoring.",
+    "x_search_terms": [
+      "monitor gema",
+      "echonet_monitor",
+      "gema",
+      "ECHONET",
+      "berulang kali",
+      "data",
+      "pemberitahuan"
+    ]
   },
   "it": {
     "param.ip.description": "Target node IPv4 address.",
@@ -132,7 +167,16 @@
     "msg.summary": "ECHONET Lite monitoring completed: {count} change(s) in {elapsed_ms} ms.",
     "msg.no_changes": "No property changes were detected.",
     "err.invalid_argument": "Error: ip_address is required.",
-    "msg.no_response": "No ECHONET Lite response was received during monitoring."
+    "msg.no_response": "No ECHONET Lite response was received during monitoring.",
+    "x_search_terms": [
+      "monitor econet",
+      "echonet_monitor",
+      "econet",
+      "ECHONET",
+      "ripetutamente",
+      "dati",
+      "notifiche"
+    ]
   },
   "ja": {
     "param.ip.description": "Target node IPv4 address.",
@@ -146,7 +190,16 @@
     "msg.no_response": "No ECHONET Lite response was received during monitoring.",
     "param.eoj.description": "ターゲット EOJ (デフォルト: ノード プロファイル)。",
     "param.obj.description": "オブジェクト コード フィルター (例: '0130')。",
-    "tool.description": "ECHONET Lite ノードを繰り返しポーリングし、プロパティの変更を検出し、JSON またはテキストの概要を返します。"
+    "tool.description": "ECHONET Lite ノードを繰り返しポーリングし、プロパティの変更を検出し、JSON またはテキストの概要を返します。",
+    "x_search_terms": [
+      "エコーネットモニター",
+      "エコーネットモニター",
+      "エコーネット",
+      "エコーネット",
+      "繰り返し",
+      "データ",
+      "通知"
+    ]
   },
   "ko": {
     "param.ip.description": "Target node IPv4 address.",
@@ -157,7 +210,16 @@
     "msg.summary": "ECHONET Lite monitoring completed: {count} change(s) in {elapsed_ms} ms.",
     "msg.no_changes": "No property changes were detected.",
     "err.invalid_argument": "Error: ip_address is required.",
-    "msg.no_response": "No ECHONET Lite response was received during monitoring."
+    "msg.no_response": "No ECHONET Lite response was received during monitoring.",
+    "x_search_terms": [
+      "에코넷 모니터",
+      "에코넷_모니터",
+      "에코넷",
+      "에코넷",
+      "반복적으로",
+      "데이터",
+      "알림"
+    ]
   },
   "mn": {
     "param.ip.description": "Target node IPv4 address.",
@@ -256,7 +318,16 @@
     "msg.summary": "ECHONET Lite monitoring completed: {count} change(s) in {elapsed_ms} ms.",
     "msg.no_changes": "No property changes were detected.",
     "err.invalid_argument": "Error: ip_address is required.",
-    "msg.no_response": "No ECHONET Lite response was received during monitoring."
+    "msg.no_response": "No ECHONET Lite response was received during monitoring.",
+    "x_search_terms": [
+      "monitor echonetu",
+      "echonet_monitor",
+      "echonet",
+      "ECHONET",
+      "wielokrotnie",
+      "dane",
+      "powiadomienia"
+    ]
   },
   "pt": {
     "param.ip.description": "Target node IPv4 address.",
@@ -278,7 +349,16 @@
     "msg.summary": "ECHONET Lite monitoring completed: {count} change(s) in {elapsed_ms} ms.",
     "msg.no_changes": "No property changes were detected.",
     "err.invalid_argument": "Error: ip_address is required.",
-    "msg.no_response": "No ECHONET Lite response was received during monitoring."
+    "msg.no_response": "No ECHONET Lite response was received during monitoring.",
+    "x_search_terms": [
+      "monitor echonet",
+      "echonet_monitor",
+      "econet",
+      "ECONET",
+      "repetidamente",
+      "dados",
+      "notificações"
+    ]
   },
   "ru": {
     "param.ip.description": "Target node IPv4 address.",
@@ -355,7 +435,16 @@
     "msg.summary": "ECHONET Lite monitoring completed: {count} change(s) in {elapsed_ms} ms.",
     "msg.no_changes": "No property changes were detected.",
     "err.invalid_argument": "Error: ip_address is required.",
-    "msg.no_response": "No ECHONET Lite response was received during monitoring."
+    "msg.no_response": "No ECHONET Lite response was received during monitoring.",
+    "x_search_terms": [
+      "màn hình tiếng vang",
+      "echonet_monitor",
+      "tiếng vang",
+      "ECHONET",
+      "nhiều lần",
+      "dữ liệu",
+      "thông báo"
+    ]
   },
   "zh_CN": {
     "param.ip.description": "Target node IPv4 address.",

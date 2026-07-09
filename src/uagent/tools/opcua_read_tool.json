@@ -4,7 +4,15 @@
     "param.url.description": "OPC UA server URL.",
     "param.node_ids.description": "Node ID(s) to read. Single: 'i=85' or 'ns=2;s=Temp'. Multiple: comma-separated.",
     "param.fmt.description": "Format: json or text.",
-    "msg.summary": "OPC UA read: {count} value(s) in {ms} ms."
+    "msg.summary": "OPC UA read: {count} value(s) in {ms} ms.",
+    "x_search_terms": [
+      "opcua read",
+      "opcua_read",
+      "opcua",
+      "OPCUA",
+      "value(s",
+      "server"
+    ]
   },
   "ar": {
     "tool.description": "قراءة قيمة (قيم) العقدة من خادم OPC UA. إرجاع القيمة الحالية وبيانات التعريف.",
@@ -46,7 +54,15 @@
     "param.url.description": "URL del servidor OPC UA.",
     "param.node_ids.description": "ID de nodo para leer. Sencillo: 'i=85' o 'ns=2;s=Temp'. Múltiple: separados por comas.",
     "param.fmt.description": "Formato: json o texto.",
-    "msg.summary": "OPC UA lee: {count} valor(es) en {ms} ms."
+    "msg.summary": "OPC UA lee: {count} valor(es) en {ms} ms.",
+    "x_search_terms": [
+      "opcua leer",
+      "opcua_read",
+      "opcua",
+      "OPCUA",
+      "valor(es",
+      "servidor"
+    ]
   },
   "fa": {
     "tool.description": "مقدار(های) گره را از سرور OPC UA بخوانید. مقدار فعلی و ابرداده را برمی‌گرداند.",
@@ -67,7 +83,15 @@
     "param.url.description": "URL du serveur OPC UA.",
     "param.node_ids.description": "ID(s) de nœud à lire. Unique : 'i=85' ou 'ns=2;s=Temp'. Multiple : séparés par des virgules.",
     "param.fmt.description": "Format : json ou texte.",
-    "msg.summary": "Lecture OPC UA : valeur(s) {count} en {ms} ms."
+    "msg.summary": "Lecture OPC UA : valeur(s) {count} en {ms} ms.",
+    "x_search_terms": [
+      "opcua lire",
+      "opcua_read",
+      "opcua",
+      "OPCUA",
+      "valeur(s",
+      "serveur"
+    ]
   },
   "he": {
     "tool.description": "קרא את ערכי הצומת משרת OPC UA. מחזירה את הערך והמטא נתונים הנוכחיים.",
@@ -95,28 +119,60 @@
     "param.url.description": "URL server OPC UA.",
     "param.node_ids.description": "ID Node untuk dibaca. Tunggal: 'i=85' atau 'ns=2;s=Temp'. Banyak: dipisahkan koma.",
     "param.fmt.description": "Format: json atau teks.",
-    "msg.summary": "OPC UA membaca: {count} nilai dalam {ms} ms."
+    "msg.summary": "OPC UA membaca: {count} nilai dalam {ms} ms.",
+    "x_search_terms": [
+      "opcua baca",
+      "opcua_read",
+      "opcua",
+      "OPCUA",
+      "nilai",
+      "server"
+    ]
   },
   "it": {
     "tool.description": "Leggere i valori del nodo da un server OPC UA. Restituisce il valore corrente e i metadati.",
     "param.url.description": "URL del server OPC UA.",
     "param.node_ids.description": "ID nodo da leggere. Singolo: 'i=85' o 'ns=2;s=Temp'. Multiplo: separati da virgole.",
     "param.fmt.description": "Formato: json o testo.",
-    "msg.summary": "OPC UA legge: {count} valore/i in {ms} ms."
+    "msg.summary": "OPC UA legge: {count} valore/i in {ms} ms.",
+    "x_search_terms": [
+      "opcua leggi",
+      "opcua_read",
+      "opcua",
+      "OPCUA",
+      "valore(i",
+      "server"
+    ]
   },
   "ja": {
     "tool.description": "OPC UA サーバーからノード値を読み取ります。現在の値とメタデータを返します。",
     "param.url.description": "OPC UA サーバーの URL。",
     "param.node_ids.description": "読み取るノード ID。単一: 'i=85' または 'ns=2;s=Temp'。複数: カンマ区切り。",
     "param.fmt.description": "形式: json またはテキスト。",
-    "msg.summary": "OPC UA 読み取り: {count} 値 ({ms} ミリ秒)。"
+    "msg.summary": "OPC UA 読み取り: {count} 値 ({ms} ミリ秒)。",
+    "x_search_terms": [
+      "オプキュア読み取り",
+      "opcua_read",
+      "オプクア",
+      "オプクア",
+      "値",
+      "サーバー"
+    ]
   },
   "ko": {
     "tool.description": "OPC UA 서버에서 노드 값을 읽습니다. 현재 값과 메타데이터를 반환합니다.",
     "param.url.description": "OPC UA 서버 URL.",
     "param.node_ids.description": "읽을 노드 ID입니다. 단일: 'i=85' 또는 'ns=2;s=Temp'. 다중: 쉼표로 구분됩니다.",
     "param.fmt.description": "형식: json 또는 텍스트.",
-    "msg.summary": "OPC UA 읽기: {ms}ms 동안 {count} 값."
+    "msg.summary": "OPC UA 읽기: {ms}ms 동안 {count} 값.",
+    "x_search_terms": [
+      "오쿠아 읽기",
+      "opcua_read",
+      "오쿠아",
+      "OPCUA",
+      "값(들",
+      "서버"
+    ]
   },
   "mn": {
     "tool.description": "OPC UA серверээс зангилааны утгыг уншина уу. Одоогийн утга болон мета өгөгдлийг буцаана.",
@@ -151,7 +207,15 @@
     "param.url.description": "Adres URL serwera OPC UA.",
     "param.node_ids.description": "Identyfikatory węzłów do odczytania. Pojedynczy: „i=85” lub „ns=2;s=Temp”. Wiele: oddzielone przecinkami.",
     "param.fmt.description": "Format: json lub tekst.",
-    "msg.summary": "Odczyt OPC UA: {count} wartości w {ms} ms."
+    "msg.summary": "Odczyt OPC UA: {count} wartości w {ms} ms.",
+    "x_search_terms": [
+      "wzrok czyta",
+      "opcua_read",
+      "wzrok",
+      "OPCUA",
+      "wartości",
+      "serwer"
+    ]
   },
   "pt": {
     "tool.description": "Leia o(s) valor(es) do nó de um servidor OPC UA. Retorna o valor atual e os metadados.",
@@ -165,7 +229,15 @@
     "param.url.description": "URL do servidor OPC UA.",
     "param.node_ids.description": "ID(s) de nó a serem lidos. Único: 'i=85' ou 'ns=2;s=Temp'. Múltiplo: separados por vírgula.",
     "param.fmt.description": "Formato: json ou texto.",
-    "msg.summary": "Leitura do OPC UA: {count} valor(es) em {ms} ms."
+    "msg.summary": "Leitura do OPC UA: {count} valor(es) em {ms} ms.",
+    "x_search_terms": [
+      "opcua ler",
+      "opcua_read",
+      "opcua",
+      "OPCUA",
+      "valor(es",
+      "servidor"
+    ]
   },
   "ro": {
     "tool.description": "Citiți valorile nodurilor de pe un server OPC UA. Returnează valoarea curentă și metadatele.",
@@ -221,7 +293,15 @@
     "param.url.description": "URL máy chủ OPC UA.",
     "param.node_ids.description": "(Các) ID nút để đọc. Đơn: 'i=85' hoặc 'ns=2;s=Temp'. Nhiều: được phân tách bằng dấu phẩy.",
     "param.fmt.description": "Định dạng: json hoặc văn bản.",
-    "msg.summary": "OPC UA đã đọc: {count} giá trị trong {ms} mili giây."
+    "msg.summary": "OPC UA đã đọc: {count} giá trị trong {ms} mili giây.",
+    "x_search_terms": [
+      "opcua đọc",
+      "opcua_read",
+      "opcua",
+      "OPCUA",
+      "(các) giá trị",
+      "máy chủ"
+    ]
   },
   "zh_CN": {
     "tool.description": "从 OPC UA 服务器读取节点值。返回当前值和元数据。",

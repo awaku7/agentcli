@@ -33,6 +33,7 @@ TOOL_SPEC: dict[str, Any] = {
                 "forwarded to the LLM via SchedulerStore."
             ),
         ),
+            "x_search_terms": _(            "x_search_terms",            default=["mqtt subscribe", "mqtt_subscribe", "mqtt", "MQTT", "topic", "messages", "automatically"],        ),        "x_search_terms_en": ["mqtt subscribe", "mqtt_subscribe", "mqtt", "MQTT", "topic", "messages", "automatically"],
         "parameters": {
             "type": "object",
             "properties": {

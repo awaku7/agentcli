@@ -41,7 +41,15 @@
     "err.config_missing": "Matter device data is missing. Set {env_json} or {env_file} for devices, controllers, or bridges.",
     "param.bridge.description": "Bridge ID (optional).",
     "param.ctrl.description": "Controller ID (optional).",
-    "param.endpoint.description": "Endpoint filter (optional)."
+    "param.endpoint.description": "Endpoint filter (optional).",
+    "x_search_terms": [
+      "matter cluster list",
+      "matter_cluster_list",
+      "matter",
+      "MATTER",
+      "cluster",
+      "clusters"
+    ]
   },
   "es": {
     "tool.description": "List Matter clusters for a device.",
@@ -49,7 +57,14 @@
     "param.fmt.description": "Format: json or text.",
     "err.device_id_required": "Matter device ID is required.",
     "err.not_found": "Matter device not found: {device_id}",
-    "err.ambiguous_target": "Matter device target is ambiguous: {device_id}"
+    "err.ambiguous_target": "Matter device target is ambiguous: {device_id}",
+    "x_search_terms": [
+      "lista de grupos de materia",
+      "lista_cluster_materia",
+      "materia",
+      "ASUNTO",
+      "grupo"
+    ]
   },
   "fa": {
     "tool.description": "List Matter clusters for a device.",
@@ -73,7 +88,14 @@
     "param.fmt.description": "Format: json or text.",
     "err.device_id_required": "Matter device ID is required.",
     "err.not_found": "Matter device not found: {device_id}",
-    "err.ambiguous_target": "Matter device target is ambiguous: {device_id}"
+    "err.ambiguous_target": "Matter device target is ambiguous: {device_id}",
+    "x_search_terms": [
+      "liste des clusters de matières",
+      "liste_cluster_matière",
+      "matière",
+      "MATIÈRE",
+      "grappe"
+    ]
   },
   "hi": {
     "tool.description": "List Matter clusters for a device.",
@@ -89,7 +111,14 @@
     "param.fmt.description": "Format: json or text.",
     "err.device_id_required": "Matter device ID is required.",
     "err.not_found": "Matter device not found: {device_id}",
-    "err.ambiguous_target": "Matter device target is ambiguous: {device_id}"
+    "err.ambiguous_target": "Matter device target is ambiguous: {device_id}",
+    "x_search_terms": [
+      "daftar klaster materi",
+      "daftar_materi_daftar",
+      "penting",
+      "MASALAH",
+      "gugus"
+    ]
   },
   "it": {
     "tool.description": "List Matter clusters for a device.",
@@ -97,7 +126,14 @@
     "param.fmt.description": "Format: json or text.",
     "err.device_id_required": "Matter device ID is required.",
     "err.not_found": "Matter device not found: {device_id}",
-    "err.ambiguous_target": "Matter device target is ambiguous: {device_id}"
+    "err.ambiguous_target": "Matter device target is ambiguous: {device_id}",
+    "x_search_terms": [
+      "elenco dei cluster di argomenti",
+      "materia_cluster_list",
+      "materia",
+      "MATERIA",
+      "grappolo"
+    ]
   },
   "ja": {
     "tool.description": "List Matter clusters for a device.",
@@ -109,7 +145,14 @@
     "err.config_missing": "問題のデバイスデータが欠落しています。デバイス、コントローラー、またはブリッジに {env_json} または {env_file} を設定します。",
     "param.bridge.description": "ブリッジ ID (オプション)。",
     "param.ctrl.description": "コントローラ ID (オプション)。",
-    "param.endpoint.description": "エンドポイントフィルター (オプション)。"
+    "param.endpoint.description": "エンドポイントフィルター (オプション)。",
+    "x_search_terms": [
+      "物質クラスターリスト",
+      "問題クラスタリスト",
+      "問題",
+      "問題",
+      "クラスター"
+    ]
   },
   "ko": {
     "tool.description": "List Matter clusters for a device.",
@@ -117,7 +160,14 @@
     "param.fmt.description": "Format: json or text.",
     "err.device_id_required": "Matter device ID is required.",
     "err.not_found": "Matter device not found: {device_id}",
-    "err.ambiguous_target": "Matter device target is ambiguous: {device_id}"
+    "err.ambiguous_target": "Matter device target is ambiguous: {device_id}",
+    "x_search_terms": [
+      "물질 클러스터 목록",
+      "물질_클러스터_목록",
+      "문제",
+      "물질",
+      "클러스터"
+    ]
   },
   "mn": {
     "tool.description": "List Matter clusters for a device.",
@@ -189,7 +239,14 @@
     "param.fmt.description": "Format: json or text.",
     "err.device_id_required": "Matter device ID is required.",
     "err.not_found": "Matter device not found: {device_id}",
-    "err.ambiguous_target": "Matter device target is ambiguous: {device_id}"
+    "err.ambiguous_target": "Matter device target is ambiguous: {device_id}",
+    "x_search_terms": [
+      "lista skupień materii",
+      "lista_klastrów materii",
+      "sprawa",
+      "MATERIA",
+      "klaster"
+    ]
   },
   "pt": {
     "tool.description": "List Matter clusters for a device.",
@@ -205,7 +262,14 @@
     "param.fmt.description": "Format: json or text.",
     "err.device_id_required": "Matter device ID is required.",
     "err.not_found": "Matter device not found: {device_id}",
-    "err.ambiguous_target": "Matter device target is ambiguous: {device_id}"
+    "err.ambiguous_target": "Matter device target is ambiguous: {device_id}",
+    "x_search_terms": [
+      "lista de clusters de matéria",
+      "lista_cluster_matéria",
+      "assunto",
+      "MATÉRIA",
+      "aglomerado"
+    ]
   },
   "ru": {
     "tool.description": "List Matter clusters for a device.",
@@ -261,7 +325,14 @@
     "param.fmt.description": "Format: json or text.",
     "err.device_id_required": "Matter device ID is required.",
     "err.not_found": "Matter device not found: {device_id}",
-    "err.ambiguous_target": "Matter device target is ambiguous: {device_id}"
+    "err.ambiguous_target": "Matter device target is ambiguous: {device_id}",
+    "x_search_terms": [
+      "danh sách cụm vật chất",
+      "vấn đề_cluster_list",
+      "vấn đề",
+      "VẤN ĐỀ",
+      "cụm"
+    ]
   },
   "zh_CN": {
     "tool.description": "List Matter clusters for a device.",

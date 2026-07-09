@@ -9,7 +9,16 @@
     "param.host.description": "daliserver host.",
     "param.port.description": "daliserver port.",
     "param.fmt.description": "Format: json or text.",
-    "msg.summary": "DALI {action}: addr={addr} level={level}"
+    "msg.summary": "DALI {action}: addr={addr} level={level}",
+    "x_search_terms": [
+      "dali write",
+      "dali_write",
+      "dali",
+      "DALI",
+      "lighting",
+      "supports",
+      "on/off"
+    ]
   },
   "ar": {
     "tool.description": "التحكم بجهاز الإضاءة DALI. يدعم التشغيل/الإيقاف والتعتيم (0-254).",
@@ -81,7 +90,16 @@
     "param.host.description": "host del servidor dal.",
     "param.port.description": "puerto del servidor dali.",
     "param.fmt.description": "Formato: json o texto.",
-    "msg.summary": "DALI {action}: dirección={addr} nivel={level}"
+    "msg.summary": "DALI {action}: dirección={addr} nivel={level}",
+    "x_search_terms": [
+      "dalí escribe",
+      "dali_write",
+      "dalí",
+      "DALÍ",
+      "iluminación",
+      "soportes",
+      "encendido/apagado"
+    ]
   },
   "fa": {
     "tool.description": "یک دستگاه روشنایی DALI را کنترل کنید. پشتیبانی از روشن/خاموش و کاهش نور (0-254).",
@@ -117,7 +135,16 @@
     "param.host.description": "hôte du serveur dali.",
     "param.port.description": "port du serveur dali.",
     "param.fmt.description": "Format : json ou texte.",
-    "msg.summary": "DALI {action} : adresse={addr} niveau={level}"
+    "msg.summary": "DALI {action} : adresse={addr} niveau={level}",
+    "x_search_terms": [
+      "Dali écrire",
+      "dali_write",
+      "Dalí",
+      "DALI",
+      "éclairage",
+      "prend en charge",
+      "marche/arrêt"
+    ]
   },
   "he": {
     "tool.description": "שליטה במכשיר תאורה DALI. תומך בהפעלה/כיבוי ובעמעום (0-254).",
@@ -165,7 +192,16 @@
     "param.host.description": "host daserver.",
     "param.port.description": "port daserver.",
     "param.fmt.description": "Format: json atau teks.",
-    "msg.summary": "DALI {action}: alamat={addr} tingkat={level}"
+    "msg.summary": "DALI {action}: alamat={addr} tingkat={level}",
+    "x_search_terms": [
+      "dali menulis",
+      "dali_write",
+      "dali",
+      "DALI",
+      "pencahayaan",
+      "mendukung",
+      "hidup/mati"
+    ]
   },
   "it": {
     "tool.description": "Controlla un dispositivo di illuminazione DALI. Supporta accensione/spegnimento e attenuazione (0-254).",
@@ -177,7 +213,16 @@
     "param.host.description": "host daliserver.",
     "param.port.description": "porta daliserver.",
     "param.fmt.description": "Formato: json o testo.",
-    "msg.summary": "DALI {action}: indirizzo={addr} livello={level}"
+    "msg.summary": "DALI {action}: indirizzo={addr} livello={level}",
+    "x_search_terms": [
+      "dalì scrivi",
+      "dali_scrivi",
+      "dalì",
+      "DALÌ",
+      "illuminazione",
+      "supporta",
+      "acceso/spento"
+    ]
   },
   "ja": {
     "tool.description": "DALI 照明デバイスを制御します。オン/オフと調光 (0-254) をサポートします。",
@@ -189,7 +234,16 @@
     "param.host.description": "ダリサーバーホスト。",
     "param.port.description": "ダリサーバーポート。",
     "param.fmt.description": "形式: json またはテキスト。",
-    "msg.summary": "DALI {action}: アドレス={addr} レベル={level}"
+    "msg.summary": "DALI {action}: アドレス={addr} レベル={level}",
+    "x_search_terms": [
+      "ダリを書く",
+      "ダリ_書き込み",
+      "ダリ",
+      "ダリ",
+      "照明",
+      "サポート",
+      "オン/オフ"
+    ]
   },
   "ko": {
     "tool.description": "DALI 조명 장치를 제어합니다. 켜짐/꺼짐 및 밝기 조절(0-254)을 지원합니다.",
@@ -201,7 +255,16 @@
     "param.host.description": "달리서버 호스트.",
     "param.port.description": "달리서버 포트.",
     "param.fmt.description": "형식: json 또는 텍스트.",
-    "msg.summary": "DALI {action}: 주소={addr} 레벨={level}"
+    "msg.summary": "DALI {action}: 주소={addr} 레벨={level}",
+    "x_search_terms": [
+      "달리 쓰기",
+      "달리_쓰기",
+      "달리",
+      "달리",
+      "조명",
+      "지원",
+      "온/오프"
+    ]
   },
   "mn": {
     "tool.description": "DALI гэрэлтүүлгийн төхөөрөмжийг удирдах. Асаах/унтраах, бүдгэрүүлэхийг дэмждэг (0-254).",
@@ -261,7 +324,16 @@
     "param.host.description": "host serwera daliserver.",
     "param.port.description": "port daliservera.",
     "param.fmt.description": "Format: json lub tekst.",
-    "msg.summary": "DALI {action}: adres={addr} poziom={level}"
+    "msg.summary": "DALI {action}: adres={addr} poziom={level}",
+    "x_search_terms": [
+      "dali napisz",
+      "dali_zapis",
+      "dali",
+      "DALI",
+      "oświetlenie",
+      "obsługuje",
+      "wł./wył"
+    ]
   },
   "pt": {
     "tool.description": "Controle um dispositivo de iluminação DALI. Suporta ligar/desligar e escurecimento (0-254).",
@@ -285,7 +357,16 @@
     "param.host.description": "host daliserver.",
     "param.port.description": "porta daliserver.",
     "param.fmt.description": "Formato: json ou texto.",
-    "msg.summary": "DALI {action}: endereço={addr} nível={level}"
+    "msg.summary": "DALI {action}: endereço={addr} nível={level}",
+    "x_search_terms": [
+      "dali escreve",
+      "dali_write",
+      "dali",
+      "DALI",
+      "iluminação",
+      "suportes",
+      "ligar/desligar"
+    ]
   },
   "ro": {
     "tool.description": "Controlați un dispozitiv de iluminat DALI. Suportă pornire/oprire și reglare (0-254).",
@@ -381,7 +462,16 @@
     "param.host.description": "máy chủ daliserver.",
     "param.port.description": "cổng daliserver.",
     "param.fmt.description": "Định dạng: json hoặc văn bản.",
-    "msg.summary": "DALI {action}: addr={addr} cấp={level}"
+    "msg.summary": "DALI {action}: addr={addr} cấp={level}",
+    "x_search_terms": [
+      "dali viết",
+      "dali_write",
+      "đại lý",
+      "ĐẠI LÝ",
+      "chiếu sáng",
+      "hỗ trợ",
+      "bật/tắt"
+    ]
   },
   "zh_CN": {
     "tool.description": "控制 DALI 照明设备。支持开/关和调光（0-254）。",

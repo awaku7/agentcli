@@ -67,7 +67,13 @@
     "param.eoj.description": "Optional target EOJ (e.g. '013001'). If omitted, the node profile object is used.",
     "param.epc.description": "ECHONET Lite property code (EPC), for example '80' or 'D5'.",
     "param.obj.description": "Optional object code to narrow the queried object (e.g. '0130').",
-    "tool.description": "Set one ECHONET Lite property on a node and return a JSON or text result."
+    "tool.description": "Set one ECHONET Lite property on a node and return a JSON or text result.",
+    "x_search_terms": [
+      "echonet property set",
+      "echonet_property_set",
+      "echonet",
+      "ECHONET"
+    ]
   },
   "es": {
     "param.ip.description": "Target node IPv4 address.",
@@ -80,7 +86,13 @@
     "err.invalid_ip_address": "Error: ip_address must be a valid IPv4 address.",
     "err.invalid_epc": "Error: epc must be a valid 1-byte hex code.",
     "err.invalid_edt": "Error: edt must be a valid hex string.",
-    "err.value_required": "Error: either value or edt is required."
+    "err.value_required": "Error: either value or edt is required.",
+    "x_search_terms": [
+      "conjunto de propiedades de echonet",
+      "echonet_property_set",
+      "econet",
+      "ECHONET"
+    ]
   },
   "fa": {
     "param.ip.description": "Target node IPv4 address.",
@@ -119,7 +131,13 @@
     "err.invalid_ip_address": "Error: ip_address must be a valid IPv4 address.",
     "err.invalid_epc": "Error: epc must be a valid 1-byte hex code.",
     "err.invalid_edt": "Error: edt must be a valid hex string.",
-    "err.value_required": "Error: either value or edt is required."
+    "err.value_required": "Error: either value or edt is required.",
+    "x_search_terms": [
+      "ensemble de propriétés echonet",
+      "echonet_property_set",
+      "échonet",
+      "ÉCHONET"
+    ]
   },
   "hi": {
     "param.ip.description": "Target node IPv4 address.",
@@ -145,7 +163,13 @@
     "err.invalid_ip_address": "Error: ip_address must be a valid IPv4 address.",
     "err.invalid_epc": "Error: epc must be a valid 1-byte hex code.",
     "err.invalid_edt": "Error: edt must be a valid hex string.",
-    "err.value_required": "Error: either value or edt is required."
+    "err.value_required": "Error: either value or edt is required.",
+    "x_search_terms": [
+      "kumpulan properti echonet",
+      "echonet_property_set",
+      "gema",
+      "ECHONET"
+    ]
   },
   "it": {
     "param.ip.description": "Target node IPv4 address.",
@@ -158,7 +182,13 @@
     "err.invalid_ip_address": "Error: ip_address must be a valid IPv4 address.",
     "err.invalid_epc": "Error: epc must be a valid 1-byte hex code.",
     "err.invalid_edt": "Error: edt must be a valid hex string.",
-    "err.value_required": "Error: either value or edt is required."
+    "err.value_required": "Error: either value or edt is required.",
+    "x_search_terms": [
+      "insieme di proprietà echonet",
+      "echonet_property_set",
+      "ecorete",
+      "ECONET"
+    ]
   },
   "ja": {
     "param.ip.description": "Target node IPv4 address.",
@@ -176,7 +206,13 @@
     "param.eoj.description": "オプションのターゲット EOJ (例: '013001')。省略した場合は、ノード プロファイル オブジェクトが使用されます。",
     "param.epc.description": "ECHONET Lite プロパティ コード (EPC)、たとえば「80」または「D5」。",
     "param.obj.description": "クエリ対象のオブジェクトを絞り込むためのオプションのオブジェクト コード (例: '0130')。",
-    "tool.description": "ノードに 1 つの ECHONET Lite プロパティを設定し、JSON またはテキストの結果を返します。"
+    "tool.description": "ノードに 1 つの ECHONET Lite プロパティを設定し、JSON またはテキストの結果を返します。",
+    "x_search_terms": [
+      "エコーネット プロパティ セット",
+      "エコーネット_プロパティ_セット",
+      "エコーネット",
+      "エコーネット"
+    ]
   },
   "ko": {
     "param.ip.description": "Target node IPv4 address.",
@@ -189,7 +225,13 @@
     "err.invalid_ip_address": "Error: ip_address must be a valid IPv4 address.",
     "err.invalid_epc": "Error: epc must be a valid 1-byte hex code.",
     "err.invalid_edt": "Error: edt must be a valid hex string.",
-    "err.value_required": "Error: either value or edt is required."
+    "err.value_required": "Error: either value or edt is required.",
+    "x_search_terms": [
+      "에코넷 속성 집합",
+      "echonet_property_set",
+      "에코넷",
+      "에코넷"
+    ]
   },
   "mn": {
     "param.ip.description": "Target node IPv4 address.",
@@ -306,7 +348,13 @@
     "err.invalid_ip_address": "Error: ip_address must be a valid IPv4 address.",
     "err.invalid_epc": "Error: epc must be a valid 1-byte hex code.",
     "err.invalid_edt": "Error: edt must be a valid hex string.",
-    "err.value_required": "Error: either value or edt is required."
+    "err.value_required": "Error: either value or edt is required.",
+    "x_search_terms": [
+      "zestaw właściwości echonetu",
+      "echonet_property_set",
+      "echonet",
+      "ECHONET"
+    ]
   },
   "pt": {
     "param.ip.description": "Target node IPv4 address.",
@@ -332,7 +380,13 @@
     "err.invalid_ip_address": "Error: ip_address must be a valid IPv4 address.",
     "err.invalid_epc": "Error: epc must be a valid 1-byte hex code.",
     "err.invalid_edt": "Error: edt must be a valid hex string.",
-    "err.value_required": "Error: either value or edt is required."
+    "err.value_required": "Error: either value or edt is required.",
+    "x_search_terms": [
+      "conjunto de propriedades echonet",
+      "echonet_property_set",
+      "econet",
+      "ECHONET"
+    ]
   },
   "ru": {
     "param.ip.description": "Target node IPv4 address.",
@@ -423,7 +477,13 @@
     "err.invalid_ip_address": "Error: ip_address must be a valid IPv4 address.",
     "err.invalid_epc": "Error: epc must be a valid 1-byte hex code.",
     "err.invalid_edt": "Error: edt must be a valid hex string.",
-    "err.value_required": "Error: either value or edt is required."
+    "err.value_required": "Error: either value or edt is required.",
+    "x_search_terms": [
+      "tập thuộc tính echonet",
+      "echonet_property_set",
+      "tiếng vang",
+      "ECHONET"
+    ]
   },
   "zh_CN": {
     "param.ip.description": "Target node IPv4 address.",

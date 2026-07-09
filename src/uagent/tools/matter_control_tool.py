@@ -65,6 +65,7 @@ TOOL_SPEC: dict[str, Any] = {
             "tool.description",
             default="Control a Matter device (on/off/open/close/lock/unlock/set_value).",
         ),
+            "x_search_terms": _(            "x_search_terms",            default=["matter control", "matter_control", "matter", "MATTER", "on/off/open/close/lock/unlock/set_value"],        ),        "x_search_terms_en": ["matter control", "matter_control", "matter", "MATTER", "on/off/open/close/lock/unlock/set_value"],
         "parameters": {
             "type": "object",
             "properties": {

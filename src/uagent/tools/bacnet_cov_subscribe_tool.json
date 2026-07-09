@@ -11,7 +11,17 @@
     "param.fmt.description": "Format: json or text.",
     "msg.subscribed": "COV subscription active: task_id={task_id}, {label}",
     "err.ip_required": "ip is required.",
-    "err.object_type_required": "object_type is required."
+    "err.object_type_required": "object_type is required.",
+    "x_search_terms": [
+      "bacnet cov subscribe",
+      "bacnet_cov_subscribe",
+      "bacnet",
+      "BACNET",
+      "cov",
+      "change",
+      "value",
+      "notifications"
+    ]
   },
   "ar": {
     "tool.description": "اشترك في إشعارات BACnet COV (تغيير القيمة) لكائن ما. عندما تتغير القيمة، يتم إخطار LLM تلقائيًا.",
@@ -95,7 +105,17 @@
     "param.fmt.description": "Formato: json o texto.",
     "msg.subscribed": "Suscripción COV activa: task_id={task_id}, {label}",
     "err.ip_required": "Se requiere IP.",
-    "err.object_type_required": "tipo_objeto es obligatorio."
+    "err.object_type_required": "tipo_objeto es obligatorio.",
+    "x_search_terms": [
+      "bacnet cov suscríbete",
+      "bacnet_cov_subscribe",
+      "bacnet",
+      "BACNET",
+      "cov",
+      "cambiar",
+      "valor",
+      "notificaciones"
+    ]
   },
   "fa": {
     "tool.description": "در اعلان‌های BACnet COV (تغییر ارزش) برای یک شی مشترک شوید. هنگامی که مقدار تغییر می کند، LLM به طور خودکار مطلع می شود.",
@@ -137,7 +157,17 @@
     "param.fmt.description": "Format : json ou texte.",
     "msg.subscribed": "Abonnement COV actif : task_id={task_id}, {label}",
     "err.ip_required": "l'adresse IP est requise.",
-    "err.object_type_required": "object_type est requis."
+    "err.object_type_required": "object_type est requis.",
+    "x_search_terms": [
+      "bacnet cov abonnez-vous",
+      "bacnet_cov_subscribe",
+      "bacnet",
+      "BACNET",
+      "cov",
+      "changement",
+      "valeur",
+      "avis"
+    ]
   },
   "he": {
     "tool.description": "הירשם לקבלת התראות BACnet COV (שינוי ערך) עבור אובייקט. כאשר הערך משתנה, ה-LLM מקבל הודעה אוטומטית.",
@@ -193,7 +223,17 @@
     "param.fmt.description": "Format: json atau teks.",
     "msg.subscribed": "Langganan COV aktif: task_id={task_id}, {label}",
     "err.ip_required": "diperlukan.",
-    "err.object_type_required": "tipe_objek diperlukan."
+    "err.object_type_required": "tipe_objek diperlukan.",
+    "x_search_terms": [
+      "bacnet cov berlangganan",
+      "bacnet_cov_subscribe",
+      "bacnet",
+      "BACNET",
+      "cov",
+      "ubah",
+      "nilai",
+      "pemberitahuan"
+    ]
   },
   "it": {
     "tool.description": "Iscriviti alle notifiche BACnet COV (Cambio di valore) per un oggetto. Quando il valore cambia, l'LLM viene automaticamente avvisato.",
@@ -207,7 +247,17 @@
     "param.fmt.description": "Formato: json o testo.",
     "msg.subscribed": "Abbonamento COV attivo: task_id={task_id}, {label}",
     "err.ip_required": "l'IP è obbligatorio.",
-    "err.object_type_required": "tipo_oggetto è obbligatorio."
+    "err.object_type_required": "tipo_oggetto è obbligatorio.",
+    "x_search_terms": [
+      "bacnet cov iscriviti",
+      "bacnet_cov_subscribe",
+      "bacnet",
+      "BACNET",
+      "cov",
+      "cambiare",
+      "valore",
+      "notifiche"
+    ]
   },
   "ja": {
     "tool.description": "オブジェクトの BACnet COV (値の変更) 通知をサブスクライブします。値が変更されると、LLM に自動的に通知されます。",
@@ -221,7 +271,17 @@
     "param.fmt.description": "形式: json またはテキスト。",
     "msg.subscribed": "COV サブスクリプションがアクティブです: task_id={task_id}、{label}",
     "err.ip_required": "IPは必須です。",
-    "err.object_type_required": "object_type は必須です。"
+    "err.object_type_required": "object_type は必須です。",
+    "x_search_terms": [
+      "bacnet cov 購読する",
+      "bacnet_cov_subscribe",
+      "バックネット",
+      "バクネット",
+      "ＣＯＶ",
+      "変更",
+      "値",
+      "通知"
+    ]
   },
   "ko": {
     "tool.description": "객체에 대한 BACnet COV(가치 변경) 알림을 구독하세요. 값이 변경되면 LLM에 자동으로 통보됩니다.",
@@ -235,7 +295,17 @@
     "param.fmt.description": "형식: json 또는 텍스트.",
     "msg.subscribed": "COV 구독 활성: task_id={task_id}, {label}",
     "err.ip_required": "ip가 필요합니다.",
-    "err.object_type_required": "object_type이 필요합니다."
+    "err.object_type_required": "object_type이 필요합니다.",
+    "x_search_terms": [
+      "Bacnet Cov 구독",
+      "bacnet_cov_subscribe",
+      "백넷",
+      "백넷",
+      "코브",
+      "변경",
+      "가치",
+      "알림"
+    ]
   },
   "mn": {
     "tool.description": "Объектийн BACnet COV (Үнэтийн өөрчлөлт) мэдэгдэлд бүртгүүлнэ үү. Утга өөрчлөгдөхөд LLM-д автоматаар мэдэгдэнэ.",
@@ -305,7 +375,17 @@
     "param.fmt.description": "Format: json lub tekst.",
     "msg.subscribed": "Aktywna subskrypcja COV: task_id={task_id}, {label}",
     "err.ip_required": "wymagane jest IP.",
-    "err.object_type_required": "typ_obiektu jest wymagany."
+    "err.object_type_required": "typ_obiektu jest wymagany.",
+    "x_search_terms": [
+      "bacnet cov subskrybuj",
+      "bacnet_cov_subskrybuj",
+      "bacnet",
+      "BACNET",
+      "cov",
+      "zmienić",
+      "wartość",
+      "powiadomienia"
+    ]
   },
   "pt": {
     "tool.description": "Assine as notificações BACnet COV (mudança de valor) para um objeto. Quando o valor muda, o LLM é notificado automaticamente.",
@@ -333,7 +413,17 @@
     "param.fmt.description": "Formato: json ou texto.",
     "msg.subscribed": "Assinatura COV ativa: task_id={task_id}, {label}",
     "err.ip_required": "ip é obrigatório.",
-    "err.object_type_required": "object_type é obrigatório."
+    "err.object_type_required": "object_type é obrigatório.",
+    "x_search_terms": [
+      "bacnet cov assinar",
+      "bacnet_cov_subscribe",
+      "bacnet",
+      "BACNET",
+      "cobre",
+      "mudar",
+      "valor",
+      "notificações"
+    ]
   },
   "ro": {
     "tool.description": "Abonați-vă la notificările BACnet COV (Change of Value) pentru un obiect. Când valoarea se schimbă, LLM este notificat automat.",
@@ -445,7 +535,17 @@
     "param.fmt.description": "Định dạng: json hoặc văn bản.",
     "msg.subscribed": "Đăng ký COV đang hoạt động: task_id={task_id}, {label}",
     "err.ip_required": "ip là bắt buộc.",
-    "err.object_type_required": "object_type là bắt buộc."
+    "err.object_type_required": "object_type là bắt buộc.",
+    "x_search_terms": [
+      "đăng ký bacnet cov",
+      "bacnet_cov_subscribe",
+      "bacnet",
+      "BACNET",
+      "cov",
+      "thay đổi",
+      "giá trị",
+      "thông báo"
+    ]
   },
   "zh_CN": {
     "tool.description": "订阅对象的 BACnet COV（值更改）通知。当值发生变化时，LLM 会自动收到通知。",

@@ -27,6 +27,7 @@ TOOL_SPEC: dict[str, Any] = {
                 "the LLM is automatically notified."
             ),
         ),
+            "x_search_terms": _(            "x_search_terms",            default=["switchbot subscribe", "switchbot_subscribe", "switchbot", "changes", "polling"],        ),        "x_search_terms_en": ["switchbot subscribe", "switchbot_subscribe", "switchbot", "changes", "polling"],
         "parameters": {
             "type": "object",
             "properties": {

@@ -65,6 +65,7 @@ TOOL_SPEC: dict[str, Any] = {
                 "Returns the current value and metadata as JSON or text."
             ),
         ),
+            "x_search_terms": _(            "x_search_terms",            default=["bacnet read", "bacnet_read", "bacnet", "BACNET", "returns"],        ),        "x_search_terms_en": ["bacnet read", "bacnet_read", "bacnet", "BACNET", "returns"],
         "parameters": {
             "type": "object",
             "properties": {

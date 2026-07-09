@@ -7,7 +7,14 @@
     "param.on_change_prompt.description": "Optional prompt for LLM when state changes.",
     "param.fmt.description": "Format: json or text.",
     "msg.subscribed": "SwitchBot subscription active: id={id}, {label}",
-    "err.dev_required": "device_id (dev) is required."
+    "err.dev_required": "device_id (dev) is required.",
+    "x_search_terms": [
+      "switchbot subscribe",
+      "switchbot_subscribe",
+      "switchbot",
+      "changes",
+      "polling"
+    ]
   },
   "ar": {
     "tool.description": "اشترك في تغييرات حالة جهاز SwitchBot عبر الاقتراع. نظرًا لعدم احتواء SwitchBot Cloud على خطاف ويب، يتم استقصاء الجهاز عند الفاصل الزمني المحدد. عند اكتشاف تغيير، يتم إخطار LLM تلقائيًا.",
@@ -67,7 +74,14 @@
     "param.on_change_prompt.description": "Aviso opcional para LLM cuando cambia el estado.",
     "param.fmt.description": "Formato: json o texto.",
     "msg.subscribed": "Suscripción SwitchBot activa: id={id}, {label}",
-    "err.dev_required": "Se requiere device_id (dev)."
+    "err.dev_required": "Se requiere device_id (dev).",
+    "x_search_terms": [
+      "switchbot suscribirse",
+      "switchbot_subscribe",
+      "robot conmutador",
+      "cambios",
+      "sondeo"
+    ]
   },
   "fa": {
     "tool.description": "از طریق نظرسنجی در تغییرات وضعیت دستگاه SwitchBot مشترک شوید. از آنجایی که SwitchBot Cloud فاقد وب هوک است، دستگاه در بازه زمانی مشخص شده نظرسنجی می شود. هنگامی که تغییری شناسایی می شود، LLM به طور خودکار مطلع می شود.",
@@ -97,7 +111,14 @@
     "param.on_change_prompt.description": "Invite facultative pour LLM lorsque l’état change.",
     "param.fmt.description": "Format : json ou texte.",
     "msg.subscribed": "Abonnement SwitchBot actif : id={id}, {label}",
-    "err.dev_required": "device_id (dev) est requis."
+    "err.dev_required": "device_id (dev) est requis.",
+    "x_search_terms": [
+      "switchbot s'abonner",
+      "switchbot_subscribe",
+      "robot de commutation",
+      "changements",
+      "sondage"
+    ]
   },
   "he": {
     "tool.description": "הירשם לשינויי סטטוס מכשיר SwitchBot באמצעות סקר. מכיוון של-SwitchBot Cloud אין webhook, המכשיר נשאל במרווח שצוין. כאשר מזוהה שינוי, ה-LLM מקבל הודעה אוטומטית.",
@@ -137,7 +158,14 @@
     "param.on_change_prompt.description": "Prompt opsional untuk LLM ketika status berubah.",
     "param.fmt.description": "Format: json atau teks.",
     "msg.subscribed": "Langganan SwitchBot aktif: id={id}, {label}",
-    "err.dev_required": "device_id (dev) diperlukan."
+    "err.dev_required": "device_id (dev) diperlukan.",
+    "x_search_terms": [
+      "switchbot berlangganan",
+      "switchbot_berlangganan",
+      "saklarbot",
+      "perubahan",
+      "pemungutan suara"
+    ]
   },
   "it": {
     "tool.description": "Iscriviti alle modifiche dello stato del dispositivo SwitchBot tramite polling. Poiché SwitchBot Cloud non dispone di webhook, il dispositivo viene interrogato all'intervallo specificato. Quando viene rilevata una modifica, l'LLM viene automaticamente avvisato.",
@@ -147,7 +175,14 @@
     "param.on_change_prompt.description": "Richiesta facoltativa per LLM quando lo stato cambia.",
     "param.fmt.description": "Formato: json o testo.",
     "msg.subscribed": "Abbonamento SwitchBot attivo: id={id}, {label}",
-    "err.dev_required": "dispositivo_id (dev) è obbligatorio."
+    "err.dev_required": "dispositivo_id (dev) è obbligatorio.",
+    "x_search_terms": [
+      "switchbot iscriviti",
+      "switchbot_subscribe",
+      "commutatore",
+      "cambiamenti",
+      "sondaggio"
+    ]
   },
   "ja": {
     "tool.description": "ポーリングを通じて SwitchBot デバイスのステータス変更をサブスクライブします。 SwitchBot Cloud には Webhook がないため、デバイスは指定された間隔でポーリングされます。変更が検出されると、LLM に自動的に通知されます。",
@@ -157,7 +192,14 @@
     "param.on_change_prompt.description": "状態が変化したときの LLM のオプションのプロンプト。",
     "param.fmt.description": "形式: json またはテキスト。",
     "msg.subscribed": "SwitchBot サブスクリプションが有効です: id={id}、{label}",
-    "err.dev_required": "device_id (dev) は必須です。"
+    "err.dev_required": "device_id (dev) は必須です。",
+    "x_search_terms": [
+      "スイッチボット購読",
+      "スイッチボット_サブスクライブ",
+      "スイッチボット",
+      "変更点",
+      "投票"
+    ]
   },
   "ko": {
     "tool.description": "폴링을 통해 SwitchBot 장치 상태 변경 사항을 구독하세요. SwitchBot Cloud에는 웹훅이 없으므로 장치는 지정된 간격으로 폴링됩니다. 변경 사항이 감지되면 LLM에 자동으로 통보됩니다.",
@@ -167,7 +209,14 @@
     "param.on_change_prompt.description": "상태가 변경될 때 LLM에 대한 선택적 프롬프트입니다.",
     "param.fmt.description": "형식: json 또는 텍스트.",
     "msg.subscribed": "SwitchBot 구독 활성: id={id}, {label}",
-    "err.dev_required": "device_id(dev)가 필요합니다."
+    "err.dev_required": "device_id(dev)가 필요합니다.",
+    "x_search_terms": [
+      "스위치봇 구독",
+      "스위치봇_구독",
+      "스위치봇",
+      "변경",
+      "폴링"
+    ]
   },
   "mn": {
     "tool.description": "Санал асуулгаар дамжуулан SwitchBot төхөөрөмжийн статусын өөрчлөлтийг бүртгүүлнэ үү. SwitchBot Cloud нь вэб дэгээгүй тул төхөөрөмжийг заасан интервалаар санал асуулга явуулдаг. Өөрчлөлт илэрсэн тохиолдолд LLM-д автоматаар мэдэгдэнэ.",
@@ -217,7 +266,14 @@
     "param.on_change_prompt.description": "Opcjonalny monit o LLM w przypadku zmiany stanu.",
     "param.fmt.description": "Format: json lub tekst.",
     "msg.subscribed": "Aktywna subskrypcja SwitchBota: id={id}, {label}",
-    "err.dev_required": "id_urządzenia (dev) jest wymagany."
+    "err.dev_required": "id_urządzenia (dev) jest wymagany.",
+    "x_search_terms": [
+      "Switchbot subskrybuj",
+      "switchbot_subskrybuj",
+      "przełącznik",
+      "zmiany",
+      "ankieta"
+    ]
   },
   "pt": {
     "tool.description": "Assine as alterações de status do dispositivo SwitchBot por meio de votação. Como o SwitchBot Cloud não possui webhook, o dispositivo é pesquisado no intervalo especificado. Quando uma alteração é detectada, o LLM é notificado automaticamente.",
@@ -237,7 +293,14 @@
     "param.on_change_prompt.description": "Solicitação opcional para LLM quando o estado muda.",
     "param.fmt.description": "Formato: json ou texto.",
     "msg.subscribed": "Assinatura SwitchBot ativa: id={id}, {label}",
-    "err.dev_required": "device_id (dev) é obrigatório."
+    "err.dev_required": "device_id (dev) é obrigatório.",
+    "x_search_terms": [
+      "switchbot assinar",
+      "switchbot_subscribe",
+      "robô de comutação",
+      "mudanças",
+      "votação"
+    ]
   },
   "ro": {
     "tool.description": "Abonați-vă la modificările stării dispozitivului SwitchBot prin sondaj. Deoarece SwitchBot Cloud nu are webhook, dispozitivul este interogat la intervalul specificat. Când este detectată o modificare, LLM este notificat automat.",
@@ -317,7 +380,14 @@
     "param.on_change_prompt.description": "Lời nhắc tùy chọn cho LLM khi trạng thái thay đổi.",
     "param.fmt.description": "Định dạng: json hoặc văn bản.",
     "msg.subscribed": "Đăng ký SwitchBot đang hoạt động: id={id}, {label}",
-    "err.dev_required": "device_id (dev) là bắt buộc."
+    "err.dev_required": "device_id (dev) là bắt buộc.",
+    "x_search_terms": [
+      "đăng ký switchbot",
+      "switchbot_subscribe",
+      "switchbot",
+      "thay đổi",
+      "bỏ phiếu"
+    ]
   },
   "zh_CN": {
     "tool.description": "通过轮询订阅 SwitchBot 设备状态变化。由于 SwitchBot Cloud 没有 Webhook，因此设备会按照指定的时间间隔进行轮询。当检测到变化时，法学硕士会自动收到通知。",

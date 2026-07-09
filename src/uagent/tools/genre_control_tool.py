@@ -120,6 +120,7 @@ TOOL_SPEC: dict[str, Any] = {
             "tool.description",
             default="Dummy tool for genre control registration.",
         ),
+            "x_search_terms": _(            "x_search_terms",            default=["genre control", "genre_control", "genre", "GENRE", "dummy", "registration"],        ),        "x_search_terms_en": ["genre control", "genre_control", "genre", "GENRE", "dummy", "registration"],
         "parameters": {
             "type": "object",
             "properties": {},

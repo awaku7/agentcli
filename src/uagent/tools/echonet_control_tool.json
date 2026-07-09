@@ -76,7 +76,15 @@
     "param.eoj.description": "Optional target EOJ (e.g. '013001'). If omitted, the node profile object is used.",
     "param.obj.description": "Optional object code to narrow the queried object (e.g. '0130').",
     "param.value.description": "Optional numeric value for set_value/open/close actions. Range: 0-100.",
-    "tool.description": "Execute basic ECHONET Lite control on a node and return a JSON or text result."
+    "tool.description": "Execute basic ECHONET Lite control on a node and return a JSON or text result.",
+    "x_search_terms": [
+      "echonet control",
+      "echonet_control",
+      "echonet",
+      "ECHONET",
+      "execute",
+      "basic"
+    ]
   },
   "es": {
     "param.ip.description": "Target node IPv4 address.",
@@ -91,7 +99,16 @@
     "err.value_required": "The value field is required for set_value.",
     "err.unknown_action": "Error: Unknown action '{action}'.",
     "msg.summary": "ECHONET Lite control completed: {action} on {ip_address} in {elapsed_ms} ms.",
-    "err.invalid_ip_address": "Error: ip_address must be a valid IPv4 address."
+    "err.invalid_ip_address": "Error: ip_address must be a valid IPv4 address.",
+    "x_search_terms": [
+      "control de econet",
+      "control_echonet",
+      "econet",
+      "ECHONET",
+      "ejecutar",
+      "básico",
+      "comandos"
+    ]
   },
   "fa": {
     "param.ip.description": "Target node IPv4 address.",
@@ -136,7 +153,16 @@
     "err.value_required": "The value field is required for set_value.",
     "err.unknown_action": "Error: Unknown action '{action}'.",
     "msg.summary": "ECHONET Lite control completed: {action} on {ip_address} in {elapsed_ms} ms.",
-    "err.invalid_ip_address": "Error: ip_address must be a valid IPv4 address."
+    "err.invalid_ip_address": "Error: ip_address must be a valid IPv4 address.",
+    "x_search_terms": [
+      "contrôle échonet",
+      "echonet_control",
+      "échonet",
+      "ÉCHONET",
+      "exécuter",
+      "de base",
+      "commandes"
+    ]
   },
   "hi": {
     "param.ip.description": "Target node IPv4 address.",
@@ -166,7 +192,16 @@
     "err.value_required": "The value field is required for set_value.",
     "err.unknown_action": "Error: Unknown action '{action}'.",
     "msg.summary": "ECHONET Lite control completed: {action} on {ip_address} in {elapsed_ms} ms.",
-    "err.invalid_ip_address": "Error: ip_address must be a valid IPv4 address."
+    "err.invalid_ip_address": "Error: ip_address must be a valid IPv4 address.",
+    "x_search_terms": [
+      "kontrol gema",
+      "echonet_kontrol",
+      "gema",
+      "ECHONET",
+      "mengeksekusi",
+      "dasar",
+      "perintah"
+    ]
   },
   "it": {
     "param.ip.description": "Target node IPv4 address.",
@@ -181,7 +216,16 @@
     "err.value_required": "The value field is required for set_value.",
     "err.unknown_action": "Error: Unknown action '{action}'.",
     "msg.summary": "ECHONET Lite control completed: {action} on {ip_address} in {elapsed_ms} ms.",
-    "err.invalid_ip_address": "Error: ip_address must be a valid IPv4 address."
+    "err.invalid_ip_address": "Error: ip_address must be a valid IPv4 address.",
+    "x_search_terms": [
+      "controllo econet",
+      "echonet_controllo",
+      "econet",
+      "ECHONET",
+      "eseguire",
+      "fondamentale",
+      "comandi"
+    ]
   },
   "ja": {
     "param.ip.description": "Target node IPv4 address.",
@@ -200,7 +244,16 @@
     "param.eoj.description": "オプションのターゲット EOJ (例: '013001')。省略した場合は、ノード プロファイル オブジェクトが使用されます。",
     "param.obj.description": "クエリ対象のオブジェクトを絞り込むためのオプションのオブジェクト コード (例: '0130')。",
     "param.value.description": "set_value/open/close アクションのオプションの数値。範囲: 0 ～ 100。",
-    "tool.description": "ノード上で基本的な ECHONET Lite コントロールを実行し、JSON またはテキストの結果を返します。"
+    "tool.description": "ノード上で基本的な ECHONET Lite コントロールを実行し、JSON またはテキストの結果を返します。",
+    "x_search_terms": [
+      "エコーネット制御",
+      "エコーネットコントロール",
+      "エコーネット",
+      "エコーネット",
+      "実行",
+      "基本",
+      "コマンド"
+    ]
   },
   "ko": {
     "param.ip.description": "Target node IPv4 address.",
@@ -215,7 +268,16 @@
     "err.value_required": "The value field is required for set_value.",
     "err.unknown_action": "Error: Unknown action '{action}'.",
     "msg.summary": "ECHONET Lite control completed: {action} on {ip_address} in {elapsed_ms} ms.",
-    "err.invalid_ip_address": "Error: ip_address must be a valid IPv4 address."
+    "err.invalid_ip_address": "Error: ip_address must be a valid IPv4 address.",
+    "x_search_terms": [
+      "에코넷 제어",
+      "에코넷_제어",
+      "에코넷",
+      "에코넷",
+      "실행",
+      "기본",
+      "명령"
+    ]
   },
   "mn": {
     "param.ip.description": "Target node IPv4 address.",
@@ -350,7 +412,16 @@
     "err.value_required": "The value field is required for set_value.",
     "err.unknown_action": "Error: Unknown action '{action}'.",
     "msg.summary": "ECHONET Lite control completed: {action} on {ip_address} in {elapsed_ms} ms.",
-    "err.invalid_ip_address": "Error: ip_address must be a valid IPv4 address."
+    "err.invalid_ip_address": "Error: ip_address must be a valid IPv4 address.",
+    "x_search_terms": [
+      "kontrola echonetu",
+      "kontrola_echa",
+      "echonet",
+      "ECHONET",
+      "wykonać",
+      "podstawowe",
+      "polecenia"
+    ]
   },
   "pt": {
     "param.ip.description": "Target node IPv4 address.",
@@ -380,7 +451,16 @@
     "err.value_required": "The value field is required for set_value.",
     "err.unknown_action": "Error: Unknown action '{action}'.",
     "msg.summary": "ECHONET Lite control completed: {action} on {ip_address} in {elapsed_ms} ms.",
-    "err.invalid_ip_address": "Error: ip_address must be a valid IPv4 address."
+    "err.invalid_ip_address": "Error: ip_address must be a valid IPv4 address.",
+    "x_search_terms": [
+      "controle de econet",
+      "echonet_control",
+      "econet",
+      "ECONET",
+      "executar",
+      "básico",
+      "comandos"
+    ]
   },
   "ru": {
     "param.ip.description": "Target node IPv4 address.",
@@ -485,7 +565,16 @@
     "err.value_required": "The value field is required for set_value.",
     "err.unknown_action": "Error: Unknown action '{action}'.",
     "msg.summary": "ECHONET Lite control completed: {action} on {ip_address} in {elapsed_ms} ms.",
-    "err.invalid_ip_address": "Error: ip_address must be a valid IPv4 address."
+    "err.invalid_ip_address": "Error: ip_address must be a valid IPv4 address.",
+    "x_search_terms": [
+      "kiểm soát tiếng vang",
+      "echonet_control",
+      "tiếng vang",
+      "ECHONET",
+      "thực thi",
+      "cơ bản",
+      "lệnh"
+    ]
   },
   "zh_CN": {
     "param.ip.description": "Target node IPv4 address.",

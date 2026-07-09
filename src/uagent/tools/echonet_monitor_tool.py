@@ -36,6 +36,7 @@ TOOL_SPEC: dict[str, Any] = {
                 "Poll an ECHONET Lite node repeatedly, detect property changes, and return a JSON or text summary."
             ),
         ),
+            "x_search_terms": _(            "x_search_terms",            default=["echonet monitor", "echonet_monitor", "echonet", "ECHONET", "repeatedly", "detect"],        ),        "x_search_terms_en": ["echonet monitor", "echonet_monitor", "echonet", "ECHONET", "repeatedly", "detect"],
         "parameters": {
             "type": "object",
             "properties": {

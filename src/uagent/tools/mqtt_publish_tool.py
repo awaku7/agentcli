@@ -23,6 +23,7 @@ TOOL_SPEC: dict[str, Any] = {
             "tool.description",
             default="Publish a message to an MQTT topic. Connects, publishes, and disconnects.",
         ),
+            "x_search_terms": _(            "x_search_terms",            default=["mqtt publish", "mqtt_publish", "mqtt", "MQTT", "message", "topic", "connects"],        ),        "x_search_terms_en": ["mqtt publish", "mqtt_publish", "mqtt", "MQTT", "message", "topic", "connects"],
         "parameters": {
             "type": "object",
             "properties": {

@@ -10,7 +10,14 @@
     "msg.summary": "BACnet read: {ip_or_dev}/{obj_type}:{obj_inst}.{prop} = {value}",
     "err.bac0_install": "BAC0 library could not be installed.",
     "err.invalid_object_type": "Invalid object_type. Valid: {types}.",
-    "err.ip_or_device_required": "Either ip or device_instance is required."
+    "err.ip_or_device_required": "Either ip or device_instance is required.",
+    "x_search_terms": [
+      "bacnet read",
+      "bacnet_read",
+      "bacnet",
+      "BACNET",
+      "returns"
+    ]
   },
   "ar": {
     "tool.description": "قراءة خاصية BACnet من الجهاز. تقوم بإرجاع القيمة الحالية والبيانات التعريفية بتنسيق JSON أو نص.",
@@ -88,7 +95,14 @@
     "msg.summary": "BACnet lee: {ip_or_dev}/{obj_type}:{obj_inst}.{prop} = {value}",
     "err.bac0_install": "No se pudo instalar la biblioteca BAC0.",
     "err.invalid_object_type": "Tipo de objeto no válido. Válido: {types}.",
-    "err.ip_or_device_required": "Se requiere ip o instancia_dispositivo."
+    "err.ip_or_device_required": "Se requiere ip o instancia_dispositivo.",
+    "x_search_terms": [
+      "lectura bacnet",
+      "bacnet_read",
+      "bacnet",
+      "BACNET",
+      "regresa"
+    ]
   },
   "fa": {
     "tool.description": "یک ویژگی BACnet را از یک دستگاه بخوانید. مقدار و ابرداده فعلی را به صورت JSON یا متن برمی‌گرداند.",
@@ -127,7 +141,14 @@
     "msg.summary": "Lecture BACnet : {ip_or_dev}/{obj_type} :{obj_inst}.{prop} = {value}",
     "err.bac0_install": "La bibliothèque BAC0 n'a pas pu être installée.",
     "err.invalid_object_type": "Type d'objet non valide. Valide : {types}.",
-    "err.ip_or_device_required": "Soit ip, soit device_instance est requis."
+    "err.ip_or_device_required": "Soit ip, soit device_instance est requis.",
+    "x_search_terms": [
+      "bacnet lire",
+      "bacnet_lire",
+      "bacnet",
+      "BACNET",
+      "retours"
+    ]
   },
   "he": {
     "tool.description": "קרא מאפיין BACnet ממכשיר. מחזירה את הערך והמטא נתונים הנוכחיים כ-JSON או כטקסט.",
@@ -179,7 +200,14 @@
     "msg.summary": "Bacaan BACnet: {ip_or_dev}/{obj_type}:{obj_inst}.{prop} = {value}",
     "err.bac0_install": "Pustaka BAC0 tidak dapat diinstal.",
     "err.invalid_object_type": "Tipe_objek tidak valid. Sah: {types}.",
-    "err.ip_or_device_required": "Diperlukan ip atau device_instance."
+    "err.ip_or_device_required": "Diperlukan ip atau device_instance.",
+    "x_search_terms": [
+      "bacnet baca",
+      "bacnet_read",
+      "bacnet",
+      "BACNET",
+      "kembali"
+    ]
   },
   "it": {
     "tool.description": "Leggere una proprietà BACnet da un dispositivo. Restituisce il valore corrente e i metadati come JSON o testo.",
@@ -192,7 +220,14 @@
     "msg.summary": "Lettura BACnet: {ip_or_dev}/{obj_type}:{obj_inst}.{prop} = {value}",
     "err.bac0_install": "Impossibile installare la libreria BAC0.",
     "err.invalid_object_type": "tipo_oggetto non valido. Valido: {types}.",
-    "err.ip_or_device_required": "È richiesto ip o device_instance."
+    "err.ip_or_device_required": "È richiesto ip o device_instance.",
+    "x_search_terms": [
+      "bacnet leggi",
+      "bacnet_leggi",
+      "bacnet",
+      "BACNET",
+      "ritorna"
+    ]
   },
   "ja": {
     "tool.description": "デバイスから BACnet プロパティを読み取ります。現在の値とメタデータを JSON またはテキストとして返します。",
@@ -205,7 +240,14 @@
     "msg.summary": "BACnet 読み取り: {ip_or_dev}/{obj_type}:{obj_inst}.{prop} = {value}",
     "err.bac0_install": "BAC0 ライブラリをインストールできませんでした。",
     "err.invalid_object_type": "無効な object_type。有効: {types}。",
-    "err.ip_or_device_required": "ip または device_instance のいずれかが必要です。"
+    "err.ip_or_device_required": "ip または device_instance のいずれかが必要です。",
+    "x_search_terms": [
+      "データベースを読む",
+      "バックネット_読み取り",
+      "バックネット",
+      "バクネット",
+      "返品"
+    ]
   },
   "ko": {
     "tool.description": "장치에서 BACnet 속성을 읽습니다. 현재 값과 메타데이터를 JSON 또는 텍스트로 반환합니다.",
@@ -218,7 +260,14 @@
     "msg.summary": "BACnet 읽기: {ip_or_dev}/{obj_type}:{obj_inst}.{prop} = {value}",
     "err.bac0_install": "BAC0 라이브러리를 설치할 수 없습니다.",
     "err.invalid_object_type": "잘못된 object_type입니다. 유효한 날짜: {types}.",
-    "err.ip_or_device_required": "ip 또는 device_instance가 필요합니다."
+    "err.ip_or_device_required": "ip 또는 device_instance가 필요합니다.",
+    "x_search_terms": [
+      "백넷 읽기",
+      "bacnet_read",
+      "백넷",
+      "백넷",
+      "반품"
+    ]
   },
   "mn": {
     "tool.description": "Төхөөрөмжөөс BACnet шинж чанарыг унших. Одоогийн утга болон мета өгөгдлийг JSON эсвэл текст хэлбэрээр буцаана.",
@@ -283,7 +332,14 @@
     "msg.summary": "Odczyt BACnet: {ip_or_dev}/{obj_type}:{obj_inst}.{prop} = {value}",
     "err.bac0_install": "Nie można zainstalować biblioteki BAC0.",
     "err.invalid_object_type": "Nieprawidłowy typ_obiektu. Ważne: {types}.",
-    "err.ip_or_device_required": "Wymagany jest adres IP lub urządzenie_instancja."
+    "err.ip_or_device_required": "Wymagany jest adres IP lub urządzenie_instancja.",
+    "x_search_terms": [
+      "czytaj w sieci",
+      "bacnet_read",
+      "bacnet",
+      "BACNET",
+      "powraca"
+    ]
   },
   "pt": {
     "tool.description": "Leia uma propriedade BACnet de um dispositivo. Retorna o valor atual e os metadados como JSON ou texto.",
@@ -309,7 +365,14 @@
     "msg.summary": "Leitura BACnet: {ip_or_dev}/{obj_type}:{obj_inst}.{prop} = {value}",
     "err.bac0_install": "A biblioteca BAC0 não pôde ser instalada.",
     "err.invalid_object_type": "tipo_de_objeto inválido. Válido: {types}.",
-    "err.ip_or_device_required": "É necessário ip ou device_instance."
+    "err.ip_or_device_required": "É necessário ip ou device_instance.",
+    "x_search_terms": [
+      "leitura de bacnet",
+      "bacnet_read",
+      "bacnet",
+      "BACNET",
+      "retorna"
+    ]
   },
   "ro": {
     "tool.description": "Citiți o proprietate BACnet de pe un dispozitiv. Returnează valoarea curentă și metadatele ca JSON sau text.",
@@ -413,7 +476,14 @@
     "msg.summary": "BACnet đã đọc: {ip_or_dev}/{obj_type}:{obj_inst}.{prop} = {value}",
     "err.bac0_install": "Không thể cài đặt thư viện BAC0.",
     "err.invalid_object_type": "object_type không hợp lệ. Hợp lệ: {types}.",
-    "err.ip_or_device_required": "Cần có ip hoặc device_instance."
+    "err.ip_or_device_required": "Cần có ip hoặc device_instance.",
+    "x_search_terms": [
+      "bacnet đọc",
+      "bacnet_read",
+      "bacnet",
+      "BACNET",
+      "trả lại"
+    ]
   },
   "zh_CN": {
     "tool.description": "从设备读取 BACnet 属性。以 JSON 或文本形式返回当前值和元数据。",

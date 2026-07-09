@@ -4,7 +4,15 @@
     "err.subscription_id_required": "Subscription ID is required.",
     "param.subscription_id.description": "Subscription ID to remove.",
     "param.fmt.description": "Format: json or text.",
-    "err.subscription_not_found": "Subscription not found: {id}"
+    "err.subscription_not_found": "Subscription not found: {id}",
+    "x_search_terms": [
+      "matter unsubscribe",
+      "matter_unsubscribe",
+      "matter",
+      "MATTER",
+      "remove",
+      "subscription"
+    ]
   },
   "ar": {
     "tool.description": "قم بإزالة اشتراك جهاز Matter.",
@@ -46,7 +54,14 @@
     "err.subscription_id_required": "Se requiere identificación de suscripción.",
     "param.subscription_id.description": "ID de suscripción para eliminar.",
     "param.fmt.description": "Formato: json o texto.",
-    "err.subscription_not_found": "Suscripción no encontrada: {id}"
+    "err.subscription_not_found": "Suscripción no encontrada: {id}",
+    "x_search_terms": [
+      "asunto darse de baja",
+      "materia_cancelar suscripción",
+      "materia",
+      "ASUNTO",
+      "eliminar"
+    ]
   },
   "fa": {
     "tool.description": "اشتراک دستگاه Matter را حذف کنید.",
@@ -67,7 +82,14 @@
     "err.subscription_id_required": "L’identifiant d’abonnement est requis.",
     "param.subscription_id.description": "ID d'abonnement à supprimer.",
     "param.fmt.description": "Format : json ou texte.",
-    "err.subscription_not_found": "Abonnement introuvable : {id}"
+    "err.subscription_not_found": "Abonnement introuvable : {id}",
+    "x_search_terms": [
+      "question désabonnement",
+      "Matter_unsubscribe",
+      "matière",
+      "MATIÈRE",
+      "supprimer"
+    ]
   },
   "he": {
     "tool.description": "הסר מנוי למכשיר Matter.",
@@ -95,28 +117,56 @@
     "err.subscription_id_required": "ID langganan diperlukan.",
     "param.subscription_id.description": "ID Langganan yang akan dihapus.",
     "param.fmt.description": "Format: json atau teks.",
-    "err.subscription_not_found": "Langganan tidak ditemukan: {id}"
+    "err.subscription_not_found": "Langganan tidak ditemukan: {id}",
+    "x_search_terms": [
+      "masalah berhenti berlangganan",
+      "masalah_berhenti berlangganan",
+      "penting",
+      "MASALAH",
+      "menghapus"
+    ]
   },
   "it": {
     "tool.description": "Rimuovi un abbonamento al dispositivo Matter.",
     "err.subscription_id_required": "L'ID dell'abbonamento è obbligatorio.",
     "param.subscription_id.description": "ID di abbonamento da rimuovere.",
     "param.fmt.description": "Formato: json o testo.",
-    "err.subscription_not_found": "Iscrizione non trovata: {id}"
+    "err.subscription_not_found": "Iscrizione non trovata: {id}",
+    "x_search_terms": [
+      "questione annullare l'iscrizione",
+      "materia_cancella l'iscrizione",
+      "materia",
+      "MATERIA",
+      "rimuovere"
+    ]
   },
   "ja": {
     "tool.description": "Matter デバイスのサブスクリプションを削除します。",
     "err.subscription_id_required": "サブスクリプション ID が必要です。",
     "param.subscription_id.description": "削除するサブスクリプション ID。",
     "param.fmt.description": "形式: json またはテキスト。",
-    "err.subscription_not_found": "サブスクリプションが見つかりません: {id}"
+    "err.subscription_not_found": "サブスクリプションが見つかりません: {id}",
+    "x_search_terms": [
+      "購読を解除する問題",
+      "問題_購読解除",
+      "問題",
+      "問題",
+      "削除する"
+    ]
   },
   "ko": {
     "tool.description": "Matter 장치 구독을 제거합니다.",
     "err.subscription_id_required": "구독 ID가 필요합니다.",
     "param.subscription_id.description": "제거할 구독 ID입니다.",
     "param.fmt.description": "형식: json 또는 텍스트.",
-    "err.subscription_not_found": "구독을 찾을 수 없음: {id}"
+    "err.subscription_not_found": "구독을 찾을 수 없음: {id}",
+    "x_search_terms": [
+      "구독 취소",
+      "문제_구독 취소",
+      "문제",
+      "물질",
+      "제거하다"
+    ]
   },
   "mn": {
     "tool.description": "Matter төхөөрөмжийн захиалгыг устгана уу.",
@@ -151,7 +201,14 @@
     "err.subscription_id_required": "Wymagany jest identyfikator subskrypcji.",
     "param.subscription_id.description": "Identyfikator subskrypcji do usunięcia.",
     "param.fmt.description": "Format: json lub tekst.",
-    "err.subscription_not_found": "Nie znaleziono subskrypcji: {id}"
+    "err.subscription_not_found": "Nie znaleziono subskrypcji: {id}",
+    "x_search_terms": [
+      "sprawa wypisz się",
+      "sprawa_anuluj subskrypcję",
+      "sprawa",
+      "MATERIA",
+      "usuń"
+    ]
   },
   "pt": {
     "tool.description": "Remova uma assinatura do dispositivo Matter.",
@@ -165,7 +222,14 @@
     "err.subscription_id_required": "O ID da assinatura é obrigatório.",
     "param.subscription_id.description": "ID de assinatura a ser removido.",
     "param.fmt.description": "Formato: json ou texto.",
-    "err.subscription_not_found": "Assinatura não encontrada: {id}"
+    "err.subscription_not_found": "Assinatura não encontrada: {id}",
+    "x_search_terms": [
+      "assunto cancelar inscrição",
+      "assunto_unsubscribe",
+      "assunto",
+      "MATÉRIA",
+      "remover"
+    ]
   },
   "ro": {
     "tool.description": "Eliminați un abonament pentru dispozitive Matter.",
@@ -221,7 +285,14 @@
     "err.subscription_id_required": "ID đăng ký là bắt buộc.",
     "param.subscription_id.description": "ID đăng ký để loại bỏ.",
     "param.fmt.description": "Định dạng: json hoặc văn bản.",
-    "err.subscription_not_found": "Không tìm thấy đăng ký: {id}"
+    "err.subscription_not_found": "Không tìm thấy đăng ký: {id}",
+    "x_search_terms": [
+      "vấn đề hủy đăng ký",
+      "vấn đề_hủy đăng ký",
+      "vấn đề",
+      "VẤN ĐỀ",
+      "loại bỏ"
+    ]
   },
   "zh_CN": {
     "tool.description": "删除 Matter 设备订阅。",

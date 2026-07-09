@@ -29,6 +29,7 @@ TOOL_SPEC: dict[str, Any] = {
                 "Queries each address for status and actual level."
             ),
         ),
+            "x_search_terms": _(            "x_search_terms",            default=["dali scan", "dali_scan", "dali", "DALI", "connected", "lighting", "devices", "addresses"],        ),        "x_search_terms_en": ["dali scan", "dali_scan", "dali", "DALI", "connected", "lighting", "devices", "addresses"],
         "parameters": {
             "type": "object",
             "properties": {

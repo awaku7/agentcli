@@ -48,6 +48,7 @@ TOOL_SPEC: dict[str, Any] = {
                 "Execute basic ECHONET Lite control on a node and return a JSON or text result."
             ),
         ),
+            "x_search_terms": _(            "x_search_terms",            default=["echonet control", "echonet_control", "echonet", "ECHONET", "execute", "basic"],        ),        "x_search_terms_en": ["echonet control", "echonet_control", "echonet", "ECHONET", "execute", "basic"],
         "parameters": {
             "type": "object",
             "properties": {

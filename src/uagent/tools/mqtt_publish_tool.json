@@ -12,7 +12,16 @@
     "param.fmt.description": "Format: json or text.",
     "msg.sent": "MQTT published: {topic} = {payload} [{qos}]",
     "param.use_tls.description": "Enable TLS/SSL (MQTTS). Default port becomes 8883.",
-    "param.insecure.description": "Skip TLS certificate verification (insecure)."
+    "param.insecure.description": "Skip TLS certificate verification (insecure).",
+    "x_search_terms": [
+      "mqtt publish",
+      "mqtt_publish",
+      "mqtt",
+      "MQTT",
+      "message",
+      "topic",
+      "connects"
+    ]
   },
   "ar": {
     "tool.description": "نشر رسالة إلى موضوع MQTT. يتصل وينشر ويقطع الاتصال.",
@@ -102,7 +111,16 @@
     "param.fmt.description": "Formato: json o texto.",
     "msg.sent": "MQTT publicado: {topic} = {payload} [{qos}]",
     "param.use_tls.description": "Habilite TLS/SSL (MQTTS). El puerto predeterminado es 8883.",
-    "param.insecure.description": "Omitir la verificación del certificado TLS (inseguro)."
+    "param.insecure.description": "Omitir la verificación del certificado TLS (inseguro).",
+    "x_search_terms": [
+      "mqtt publicar",
+      "mqtt_publish",
+      "mqt",
+      "MQTT",
+      "mensaje",
+      "tema",
+      "conecta"
+    ]
   },
   "fa": {
     "tool.description": "یک پیام به موضوع MQTT منتشر کنید. وصل می کند، منتشر می کند و قطع می کند.",
@@ -147,7 +165,16 @@
     "param.fmt.description": "Format : json ou texte.",
     "msg.sent": "MQTT publié : {topic} = {payload} [{qos}]",
     "param.use_tls.description": "Activez TLS/SSL (MQTTS). Le port par défaut devient 8883.",
-    "param.insecure.description": "Ignorer la vérification du certificat TLS (non sécurisé)."
+    "param.insecure.description": "Ignorer la vérification du certificat TLS (non sécurisé).",
+    "x_search_terms": [
+      "mqtt publier",
+      "mqtt_publish",
+      "mqt",
+      "MQTT",
+      "messages",
+      "sujet",
+      "se connecte"
+    ]
   },
   "he": {
     "tool.description": "פרסם הודעה לנושא MQTT. מתחבר, מפרסם ומתנתק.",
@@ -207,7 +234,16 @@
     "param.fmt.description": "Format: json atau teks.",
     "msg.sent": "MQTT diterbitkan: {topic} = {payload} [{qos}]",
     "param.use_tls.description": "Aktifkan TLS/SSL (MQTTS). Port defaultnya menjadi 8883.",
-    "param.insecure.description": "Lewati verifikasi sertifikat TLS (tidak aman)."
+    "param.insecure.description": "Lewati verifikasi sertifikat TLS (tidak aman).",
+    "x_search_terms": [
+      "mqtt terbitkan",
+      "mqtt_publish",
+      "mqtt",
+      "MQTT",
+      "pesan",
+      "topik",
+      "menghubungkan"
+    ]
   },
   "it": {
     "tool.description": "Pubblica un messaggio su un argomento MQTT. Connette, pubblica e disconnette.",
@@ -222,7 +258,16 @@
     "param.fmt.description": "Formato: json o testo.",
     "msg.sent": "MQTT pubblicato: {topic} = {payload} [{qos}]",
     "param.use_tls.description": "Abilita TLS/SSL (MQTTS). La porta predefinita diventa 8883.",
-    "param.insecure.description": "Salta la verifica del certificato TLS (non sicuro)."
+    "param.insecure.description": "Salta la verifica del certificato TLS (non sicuro).",
+    "x_search_terms": [
+      "mqtt pubblicare",
+      "mqtt_pubblica",
+      "mqtt",
+      "MQTT",
+      "messaggio",
+      "argomento",
+      "si collega"
+    ]
   },
   "ja": {
     "tool.description": "MQTT トピックにメッセージをパブリッシュします。接続、公開、切断します。",
@@ -237,7 +282,16 @@
     "param.fmt.description": "形式: json またはテキスト。",
     "msg.sent": "MQTT が公開されました: {topic} = {payload} [{qos}]",
     "param.use_tls.description": "TLS/SSL (MQTTS) を有効にします。デフォルトのポートは8883になります。",
-    "param.insecure.description": "TLS 証明書の検証をスキップします (安全ではありません)。"
+    "param.insecure.description": "TLS 証明書の検証をスキップします (安全ではありません)。",
+    "x_search_terms": [
+      "mqtt公開",
+      "mqtt_publish",
+      "mqtt",
+      "MQTT",
+      "メッセージ",
+      "トピック",
+      "接続します"
+    ]
   },
   "ko": {
     "tool.description": "MQTT 주제에 메시지를 게시합니다. 연결하고, 게시하고, 연결을 끊습니다.",
@@ -252,7 +306,16 @@
     "param.fmt.description": "형식: json 또는 텍스트.",
     "msg.sent": "게시된 MQTT: {topic} = {payload} [{qos}]",
     "param.use_tls.description": "TLS/SSL(MQTTS)을 활성화합니다. 기본 포트는 8883이 됩니다.",
-    "param.insecure.description": "TLS 인증서 확인을 건너뜁니다(안전하지 않음)."
+    "param.insecure.description": "TLS 인증서 확인을 건너뜁니다(안전하지 않음).",
+    "x_search_terms": [
+      "mqtt 게시",
+      "mqtt_publish",
+      "mqtt",
+      "MQTT",
+      "메시지",
+      "주제",
+      "연결하다"
+    ]
   },
   "mn": {
     "tool.description": "MQTT сэдэвт мессеж нийтлэх. Холбох, нийтлэх, салгах.",
@@ -327,7 +390,16 @@
     "param.fmt.description": "Format: json lub tekst.",
     "msg.sent": "Opublikowano MQTT: {topic} = {payload} [{qos}]",
     "param.use_tls.description": "Włącz TLS/SSL (MQTTS). Domyślny port to 8883.",
-    "param.insecure.description": "Pomiń weryfikację certyfikatu TLS (niebezpieczna)."
+    "param.insecure.description": "Pomiń weryfikację certyfikatu TLS (niebezpieczna).",
+    "x_search_terms": [
+      "mqtt publikuj",
+      "mqtt_publish",
+      "mqtt",
+      "MQTT",
+      "wiadomość",
+      "temat",
+      "łączy"
+    ]
   },
   "pt": {
     "tool.description": "Publique uma mensagem em um tópico MQTT. Conecta, publica e desconecta.",
@@ -357,7 +429,16 @@
     "param.fmt.description": "Formato: json ou texto.",
     "msg.sent": "MQTT publicado: {topic} = {payload} [{qos}]",
     "param.use_tls.description": "Habilite TLS/SSL (MQTTS). A porta padrão passa a ser 8883.",
-    "param.insecure.description": "Ignore a verificação do certificado TLS (inseguro)."
+    "param.insecure.description": "Ignore a verificação do certificado TLS (inseguro).",
+    "x_search_terms": [
+      "mqtt publicar",
+      "mqtt_publicar",
+      "mqtt",
+      "MQTT",
+      "mensagem",
+      "tópico",
+      "conecta"
+    ]
   },
   "ro": {
     "tool.description": "Publicați un mesaj la un subiect MQTT. Conectează, publică și deconectează.",
@@ -477,7 +558,16 @@
     "param.fmt.description": "Định dạng: json hoặc văn bản.",
     "msg.sent": "MQTT đã xuất bản: {topic} = {payload} [{qos}]",
     "param.use_tls.description": "Kích hoạt TLS/SSL (MQTTS). Cổng mặc định trở thành 8883.",
-    "param.insecure.description": "Bỏ qua xác minh chứng chỉ TLS (không an toàn)."
+    "param.insecure.description": "Bỏ qua xác minh chứng chỉ TLS (không an toàn).",
+    "x_search_terms": [
+      "xuất bản mqtt",
+      "mqtt_publish",
+      "mqtt",
+      "MQTT",
+      "tin nhắn",
+      "chủ đề",
+      "kết nối"
+    ]
   },
   "zh_CN": {
     "tool.description": "向 MQTT 主题发布消息。连接、发布和断开连接。",

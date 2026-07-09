@@ -29,6 +29,7 @@ TOOL_SPEC: dict[str, Any] = {
                 "Returns child nodes of the specified starting node."
             ),
         ),
+            "x_search_terms": _(            "x_search_terms",            default=["opcua browse", "opcua_browse", "opcua", "OPCUA", "server", "address", "space", "returns"],        ),        "x_search_terms_en": ["opcua browse", "opcua_browse", "opcua", "OPCUA", "server", "address", "space", "returns"],
         "parameters": {
             "type": "object",
             "properties": {

@@ -7,7 +7,16 @@
     "param.fmt.description": "Format: json or text.",
     "err.no_target": "Either 'location' or 'ip' must be provided.",
     "msg.device_info": "Device info for {location}",
-    "tool.description": "Get detailed info about a specific UPnP device by its description URL (location) or IP address. Returns device metadata, service list, and device tree (sub-devices)."
+    "tool.description": "Get detailed info about a specific UPnP device by its description URL (location) or IP address. Returns device metadata, service list, and device tree (sub-devices).",
+    "x_search_terms": [
+      "upnp device info",
+      "upnp_device_info",
+      "upnp",
+      "UPNP",
+      "detailed",
+      "about",
+      "specific"
+    ]
   },
   "ar": {
     "param.location.description": "UPnP device description URL (e.g. http://192.168.1.100:5000/description.xml).",
@@ -52,7 +61,15 @@
     "param.timeout.description": "HTTP fetch timeout in seconds.",
     "param.fmt.description": "Format: json or text.",
     "err.no_target": "Either 'location' or 'ip' must be provided.",
-    "msg.device_info": "Device info for {location}"
+    "msg.device_info": "Device info for {location}",
+    "x_search_terms": [
+      "información del dispositivo upnp",
+      "upnp_device_info",
+      "upnp",
+      "UPNP",
+      "detallado",
+      "acerca de"
+    ]
   },
   "fa": {
     "param.location.description": "UPnP device description URL (e.g. http://192.168.1.100:5000/description.xml).",
@@ -79,7 +96,15 @@
     "param.timeout.description": "HTTP fetch timeout in seconds.",
     "param.fmt.description": "Format: json or text.",
     "err.no_target": "Either 'location' or 'ip' must be provided.",
-    "msg.device_info": "Device info for {location}"
+    "msg.device_info": "Device info for {location}",
+    "x_search_terms": [
+      "informations sur le périphérique upnp",
+      "upnp_device_info",
+      "upnp",
+      "UPNP",
+      "détaillé",
+      "à propos"
+    ]
   },
   "hi": {
     "param.location.description": "UPnP device description URL (e.g. http://192.168.1.100:5000/description.xml).",
@@ -97,7 +122,15 @@
     "param.timeout.description": "HTTP fetch timeout in seconds.",
     "param.fmt.description": "Format: json or text.",
     "err.no_target": "Either 'location' or 'ip' must be provided.",
-    "msg.device_info": "Device info for {location}"
+    "msg.device_info": "Device info for {location}",
+    "x_search_terms": [
+      "info perangkat upnp",
+      "upnp_device_info",
+      "upnp",
+      "UPNP",
+      "rinci",
+      "tentang"
+    ]
   },
   "it": {
     "param.location.description": "UPnP device description URL (e.g. http://192.168.1.100:5000/description.xml).",
@@ -106,7 +139,15 @@
     "param.timeout.description": "HTTP fetch timeout in seconds.",
     "param.fmt.description": "Format: json or text.",
     "err.no_target": "Either 'location' or 'ip' must be provided.",
-    "msg.device_info": "Device info for {location}"
+    "msg.device_info": "Device info for {location}",
+    "x_search_terms": [
+      "informazioni sul dispositivo upnp",
+      "upnp_device_info",
+      "upnp",
+      "UPNP",
+      "dettagliato",
+      "circa"
+    ]
   },
   "ko": {
     "param.location.description": "UPnP device description URL (e.g. http://192.168.1.100:5000/description.xml).",
@@ -115,7 +156,15 @@
     "param.timeout.description": "HTTP fetch timeout in seconds.",
     "param.fmt.description": "Format: json or text.",
     "err.no_target": "Either 'location' or 'ip' must be provided.",
-    "msg.device_info": "Device info for {location}"
+    "msg.device_info": "Device info for {location}",
+    "x_search_terms": [
+      "upnp 장치 정보",
+      "upnp_device_info",
+      "업앤피",
+      "UPNP",
+      "상세한",
+      "약"
+    ]
   },
   "mn": {
     "param.location.description": "UPnP device description URL (e.g. http://192.168.1.100:5000/description.xml).",
@@ -196,7 +245,15 @@
     "param.timeout.description": "HTTP fetch timeout in seconds.",
     "param.fmt.description": "Format: json or text.",
     "err.no_target": "Either 'location' or 'ip' must be provided.",
-    "msg.device_info": "Device info for {location}"
+    "msg.device_info": "Device info for {location}",
+    "x_search_terms": [
+      "informacje o urządzeniu upnp",
+      "upnp_device_info",
+      "upnp",
+      "UPNP",
+      "szczegółowe",
+      "o"
+    ]
   },
   "pt": {
     "param.location.description": "UPnP device description URL (e.g. http://192.168.1.100:5000/description.xml).",
@@ -214,7 +271,15 @@
     "param.timeout.description": "HTTP fetch timeout in seconds.",
     "param.fmt.description": "Format: json or text.",
     "err.no_target": "Either 'location' or 'ip' must be provided.",
-    "msg.device_info": "Device info for {location}"
+    "msg.device_info": "Device info for {location}",
+    "x_search_terms": [
+      "informações do dispositivo upnp",
+      "upnp_device_info",
+      "upnp",
+      "UPNP",
+      "detalhado",
+      "sobre"
+    ]
   },
   "ru": {
     "param.location.description": "UPnP device description URL (e.g. http://192.168.1.100:5000/description.xml).",
@@ -277,7 +342,15 @@
     "param.timeout.description": "HTTP fetch timeout in seconds.",
     "param.fmt.description": "Format: json or text.",
     "err.no_target": "Either 'location' or 'ip' must be provided.",
-    "msg.device_info": "Device info for {location}"
+    "msg.device_info": "Device info for {location}",
+    "x_search_terms": [
+      "upnp thông tin thiết bị",
+      "upnp_device_info",
+      "upnp",
+      "UPNP",
+      "chi tiết",
+      "về"
+    ]
   },
   "zh_CN": {
     "param.location.description": "UPnP device description URL (e.g. http://192.168.1.100:5000/description.xml).",
@@ -305,6 +378,14 @@
     "param.fmt.description": "Format: json or text.",
     "err.no_target": "Either 'location' or 'ip' must be provided.",
     "msg.device_info": "Device info for {location}",
-    "tool.description": "特定の UPnP デバイスに関する詳細情報を、その説明 URL (場所) または IP アドレスによって取得します。デバイスのメタデータ、サービス リスト、およびデバイス ツリー (サブデバイス) を返します。"
+    "tool.description": "特定の UPnP デバイスに関する詳細情報を、その説明 URL (場所) または IP アドレスによって取得します。デバイスのメタデータ、サービス リスト、およびデバイス ツリー (サブデバイス) を返します。",
+    "x_search_terms": [
+      "upnp デバイス情報",
+      "upnp_デバイス情報",
+      "アップナップ",
+      "アップNP",
+      "詳細",
+      "について"
+    ]
   }
 }

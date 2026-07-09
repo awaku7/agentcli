@@ -7,7 +7,15 @@
     "msg.no_subscriptions": "No active SwitchBot subscriptions.",
     "msg.header": "Active SwitchBot subscriptions ({count}):",
     "msg.unsubscribed": "SwitchBot subscription {id} cancelled.",
-    "err.id_required": "subscription_id is required for action=unsubscribe."
+    "err.id_required": "subscription_id is required for action=unsubscribe.",
+    "x_search_terms": [
+      "switchbot unsubscribe",
+      "switchbot_unsubscribe",
+      "switchbot",
+      "cancel",
+      "subscription",
+      "subscription_id"
+    ]
   },
   "ar": {
     "tool.description": "قم بإلغاء اشتراك SwitchBot من خلال معرف الاشتراك، أو قم بإدراج الاشتراكات النشطة.",
@@ -67,7 +75,13 @@
     "msg.no_subscriptions": "No hay suscripciones activas a SwitchBot.",
     "msg.header": "Suscripciones activas a SwitchBot ({count}):",
     "msg.unsubscribed": "Suscripción a SwitchBot {id} cancelada.",
-    "err.id_required": "Se requiere id_suscripción para acción=cancelar suscripción."
+    "err.id_required": "Se requiere id_suscripción para acción=cancelar suscripción.",
+    "x_search_terms": [
+      "darse de baja de switchbot",
+      "switchbot_unsubscribe",
+      "robot conmutador",
+      "cancelar"
+    ]
   },
   "fa": {
     "tool.description": "اشتراک SwitchBot را با subscription_id لغو کنید یا اشتراک‌های فعال را فهرست کنید.",
@@ -97,7 +111,13 @@
     "msg.no_subscriptions": "Aucun abonnement SwitchBot actif.",
     "msg.header": "Abonnements SwitchBot actifs ({count}) :",
     "msg.unsubscribed": "Abonnement SwitchBot {id} annulé.",
-    "err.id_required": "Subscribe_id est requis pour action=unsubscribe."
+    "err.id_required": "Subscribe_id est requis pour action=unsubscribe.",
+    "x_search_terms": [
+      "désabonnement switchbot",
+      "switchbot_unsubscribe",
+      "robot de commutation",
+      "annuler"
+    ]
   },
   "he": {
     "tool.description": "בטל מנוי של SwitchBot לפי subscription_id, או רשום מינויים פעילים.",
@@ -137,7 +157,13 @@
     "msg.no_subscriptions": "Tidak ada langganan SwitchBot yang aktif.",
     "msg.header": "Langganan SwitchBot aktif ({count}):",
     "msg.unsubscribed": "Langganan SwitchBot {id} dibatalkan.",
-    "err.id_required": "ID_langganan diperlukan untuk tindakan=berhenti berlangganan."
+    "err.id_required": "ID_langganan diperlukan untuk tindakan=berhenti berlangganan.",
+    "x_search_terms": [
+      "switchbot berhenti berlangganan",
+      "switchbot_berhenti berlangganan",
+      "saklarbot",
+      "batalkan"
+    ]
   },
   "it": {
     "tool.description": "Annulla un abbonamento SwitchBot tramite membership_id o elenca gli abbonamenti attivi.",
@@ -147,7 +173,13 @@
     "msg.no_subscriptions": "Nessun abbonamento SwitchBot attivo.",
     "msg.header": "Abbonamenti SwitchBot attivi ({count}):",
     "msg.unsubscribed": "Abbonamento SwitchBot {id} annullato.",
-    "err.id_required": "membership_id è obbligatorio per action=unsubscribe."
+    "err.id_required": "membership_id è obbligatorio per action=unsubscribe.",
+    "x_search_terms": [
+      "switchbot annulla l'iscrizione",
+      "switchbot_unsubscribe",
+      "commutatore",
+      "annullare"
+    ]
   },
   "ja": {
     "tool.description": "subscription_id で SwitchBot サブスクリプションをキャンセルするか、アクティブなサブスクリプションを一覧表示します。",
@@ -157,7 +189,13 @@
     "msg.no_subscriptions": "アクティブな SwitchBot サブスクリプションはありません。",
     "msg.header": "アクティブな SwitchBot サブスクリプション ({count}):",
     "msg.unsubscribed": "SwitchBot サブスクリプション {id} がキャンセルされました。",
-    "err.id_required": "action=unsubscribe には subscription_id が必要です。"
+    "err.id_required": "action=unsubscribe には subscription_id が必要です。",
+    "x_search_terms": [
+      "スイッチボットの購読を解除",
+      "スイッチボット_購読解除",
+      "スイッチボット",
+      "キャンセル"
+    ]
   },
   "ko": {
     "tool.description": "Subscription_id로 SwitchBot 구독을 취소하거나 활성 구독을 나열하세요.",
@@ -167,7 +205,13 @@
     "msg.no_subscriptions": "활성 SwitchBot 구독이 없습니다.",
     "msg.header": "활성 SwitchBot 구독({count}):",
     "msg.unsubscribed": "SwitchBot 구독 {id}이 취소되었습니다.",
-    "err.id_required": "action=unsubscribe에는 subscribe_id가 필요합니다."
+    "err.id_required": "action=unsubscribe에는 subscribe_id가 필요합니다.",
+    "x_search_terms": [
+      "스위치봇 구독 취소",
+      "스위치봇_구독 취소",
+      "스위치봇",
+      "취소하다"
+    ]
   },
   "mn": {
     "tool.description": "Subscription_id-ээр SwitchBot-ын захиалгыг цуцлах эсвэл идэвхтэй захиалгыг жагсаана уу.",
@@ -217,7 +261,13 @@
     "msg.no_subscriptions": "Brak aktywnych subskrypcji SwitchBota.",
     "msg.header": "Aktywne subskrypcje SwitchBota ({count}):",
     "msg.unsubscribed": "Subskrypcja SwitchBota {id} została anulowana.",
-    "err.id_required": "identyfikator_subskrypcji jest wymagany dla akcji=unsubscribe."
+    "err.id_required": "identyfikator_subskrypcji jest wymagany dla akcji=unsubscribe.",
+    "x_search_terms": [
+      "switchbot wypisz się",
+      "switchbot_unsubscribe",
+      "przełącznik",
+      "anulować"
+    ]
   },
   "pt": {
     "tool.description": "Cancele uma assinatura do SwitchBot por subscription_id ou liste as assinaturas ativas.",
@@ -237,7 +287,13 @@
     "msg.no_subscriptions": "Nenhuma assinatura ativa do SwitchBot.",
     "msg.header": "Assinaturas SwitchBot ativas ({count}):",
     "msg.unsubscribed": "Assinatura do SwitchBot {id} cancelada.",
-    "err.id_required": "subscription_id é necessário para action=unsubscribe."
+    "err.id_required": "subscription_id é necessário para action=unsubscribe.",
+    "x_search_terms": [
+      "switchbot cancelar inscrição",
+      "switchbot_unsubscribe",
+      "robô de comutação",
+      "cancelar"
+    ]
   },
   "ro": {
     "tool.description": "Anulați un abonament SwitchBot prin subscription_id sau enumerați abonamentele active.",
@@ -317,7 +373,13 @@
     "msg.no_subscriptions": "Không có đăng ký SwitchBot đang hoạt động.",
     "msg.header": "Đăng ký SwitchBot đang hoạt động ({count}):",
     "msg.unsubscribed": "Đăng ký SwitchBot {id} đã bị hủy.",
-    "err.id_required": "subscribe_id là bắt buộc đối với action=unsubscribe."
+    "err.id_required": "subscribe_id là bắt buộc đối với action=unsubscribe.",
+    "x_search_terms": [
+      "switchbot hủy đăng ký",
+      "switchbot_unsubscribe",
+      "switchbot",
+      "hủy bỏ"
+    ]
   },
   "zh_CN": {
     "tool.description": "通过 subscription_id 取消 SwitchBot 订阅，或列出活动订阅。",

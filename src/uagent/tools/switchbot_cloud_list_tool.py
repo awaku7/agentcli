@@ -32,6 +32,7 @@ TOOL_SPEC: dict[str, Any] = {
             "tool.description",
             default=("List SwitchBot Cloud devices for the configured account."),
         ),
+            "x_search_terms": _(            "x_search_terms",            default=["switchbot cloud list", "switchbot_cloud_list", "switchbot", "cloud", "devices", "configured", "account"],        ),        "x_search_terms_en": ["switchbot cloud list", "switchbot_cloud_list", "switchbot", "cloud", "devices", "configured", "account"],
         "parameters": {
             "type": "object",
             "properties": {

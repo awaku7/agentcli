@@ -17,6 +17,7 @@ TOOL_SPEC: dict[str, Any] = {
     "function": {
         "name": "tools_control_dummy",
         "description": "Dummy tool for tools control registration.",
+            "x_search_terms": _(            "x_search_terms",            default=["tools control", "tools_control", "tools", "TOOLS"],        ),        "x_search_terms_en": ["tools control", "tools_control", "tools", "TOOLS"],
         "parameters": {
             "type": "object",
             "properties": {},

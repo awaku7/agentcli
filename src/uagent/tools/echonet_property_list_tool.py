@@ -49,6 +49,7 @@ TOOL_SPEC: dict[str, Any] = {
                 "Discover ECHONET Lite properties on a node and return a JSON or text list."
             ),
         ),
+            "x_search_terms": _(            "x_search_terms",            default=["echonet property list", "echonet_property_list", "echonet", "ECHONET", "discover", "properties"],        ),        "x_search_terms_en": ["echonet property list", "echonet_property_list", "echonet", "ECHONET", "discover", "properties"],
         "parameters": {
             "type": "object",
             "properties": {

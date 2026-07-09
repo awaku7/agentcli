@@ -33,14 +33,30 @@
     "msg.error_fmt": "Error: {msg}",
     "msg.fetched_at": "Fetched at: {ts}",
     "msg.unknown_error": "unknown error",
-    "tool.description": "List SwitchBot Cloud devices for the configured account."
+    "tool.description": "List SwitchBot Cloud devices for the configured account.",
+    "x_search_terms": [
+      "switchbot cloud list",
+      "switchbot_cloud_list",
+      "switchbot",
+      "cloud",
+      "devices",
+      "configured",
+      "account"
+    ]
   },
   "es": {
     "param.fmt.description": "Formato: json o texto.",
     "msg.device_count": "Dispositivos SwitchBot Cloud: {count}",
     "msg.error_fmt": "エラー: {msg}",
     "msg.fetched_at": "Obtenido en: {ts}",
-    "msg.unknown_error": "error desconocido"
+    "msg.unknown_error": "error desconocido",
+    "x_search_terms": [
+      "lista de nubes de switchbot",
+      "switchbot_cloud_list",
+      "robot conmutador",
+      "nube",
+      "dispositivos"
+    ]
   },
   "fa": {
     "param.fmt.description": "دستورات برای اجرا.",
@@ -61,7 +77,14 @@
     "msg.device_count": "Appareils SwitchBot Cloud : {count}",
     "msg.error_fmt": "Erreur : {msg}",
     "msg.fetched_at": "Récupéré à : {ts}",
-    "msg.unknown_error": "erreur inconnue"
+    "msg.unknown_error": "erreur inconnue",
+    "x_search_terms": [
+      "liste des nuages de switchbots",
+      "switchbot_cloud_list",
+      "robot de commutation",
+      "nuage",
+      "appareils"
+    ]
   },
   "hi": {
     "param.fmt.description": "प्रारूप: json या text।",
@@ -75,14 +98,28 @@
     "msg.device_count": "Perangkat Cloud SwitchBot: {count}",
     "msg.error_fmt": "Kesalahan: {msg}",
     "msg.fetched_at": "Diambil pada: {ts}",
-    "msg.unknown_error": "kesalahan tidak dikenal"
+    "msg.unknown_error": "kesalahan tidak dikenal",
+    "x_search_terms": [
+      "daftar cloud switchbot",
+      "switchbot_cloud_list",
+      "saklarbot",
+      "awan",
+      "perangkat"
+    ]
   },
   "it": {
     "param.fmt.description": "Formato: json o text.",
     "msg.device_count": "Dispositivi SwitchBot Cloud: {count}",
     "msg.error_fmt": "Errore: {msg}",
     "msg.fetched_at": "Recuperato il: {ts}",
-    "msg.unknown_error": "errore sconosciuto"
+    "msg.unknown_error": "errore sconosciuto",
+    "x_search_terms": [
+      "Elenco cloud switchbot",
+      "switchbot_cloud_list",
+      "commutatore",
+      "nuvola",
+      "dispositivi"
+    ]
   },
   "ja": {
     "param.fmt.description": "形式: json または text。",
@@ -90,14 +127,28 @@
     "msg.error_fmt": "エラー: {msg}",
     "msg.fetched_at": "取得日時: {ts}",
     "msg.unknown_error": "不明なエラー",
-    "tool.description": "構成されたアカウントの SwitchBot Cloud デバイスを一覧表示します。"
+    "tool.description": "構成されたアカウントの SwitchBot Cloud デバイスを一覧表示します。",
+    "x_search_terms": [
+      "スイッチボットクラウドリスト",
+      "スイッチボットクラウドリスト",
+      "スイッチボット",
+      "雲",
+      "デバイス"
+    ]
   },
   "ko": {
     "param.fmt.description": "형식: json 또는 text.",
     "msg.device_count": "SwitchBot Cloud 장치: {count}",
     "msg.error_fmt": "오류: {msg}",
     "msg.fetched_at": "가져온 시간: {ts}",
-    "msg.unknown_error": "알 수 없는 오류"
+    "msg.unknown_error": "알 수 없는 오류",
+    "x_search_terms": [
+      "스위치봇 클라우드 목록",
+      "스위치봇_클라우드_목록",
+      "스위치봇",
+      "구름",
+      "장치"
+    ]
   },
   "mn": {
     "param.fmt.description": "Гүйцэтгэх командууд.",
@@ -160,7 +211,14 @@
     "msg.device_count": "Urządzenia SwitchBot Cloud: {count}",
     "msg.error_fmt": "Błąd: {msg}",
     "msg.fetched_at": "Pobrano o: {ts}",
-    "msg.unknown_error": "nieznany błąd"
+    "msg.unknown_error": "nieznany błąd",
+    "x_search_terms": [
+      "lista chmur switchbota",
+      "switchbot_cloud_list",
+      "przełącznik",
+      "chmura",
+      "urządzenia"
+    ]
   },
   "pt": {
     "param.fmt.description": "Formato: json ou texto.",
@@ -174,7 +232,14 @@
     "msg.device_count": "Dispositivos SwitchBot Cloud: {count}",
     "msg.error_fmt": "Erro: {msg}",
     "msg.fetched_at": "Obtido em: {ts}",
-    "msg.unknown_error": "erro desconhecido"
+    "msg.unknown_error": "erro desconhecido",
+    "x_search_terms": [
+      "lista de nuvens switchbot",
+      "switchbot_cloud_list",
+      "robô de comutação",
+      "nuvem",
+      "dispositivos"
+    ]
   },
   "ru": {
     "param.fmt.description": "Формат: json или text.",
@@ -223,7 +288,14 @@
     "msg.device_count": "Thiết bị SwitchBot Cloud: {count}",
     "msg.error_fmt": "Lỗi: {msg}",
     "msg.fetched_at": "Đã lấy lúc: {ts}",
-    "msg.unknown_error": "lỗi không xác định"
+    "msg.unknown_error": "lỗi không xác định",
+    "x_search_terms": [
+      "danh sách đám mây switchbot",
+      "switchbot_cloud_list",
+      "switchbot",
+      "đám mây",
+      "thiết bị"
+    ]
   },
   "zh_CN": {
     "param.fmt.description": "格式：json或text。",

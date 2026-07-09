@@ -33,13 +33,25 @@
     "param.ctrl.description": "Controller ID (optional).",
     "param.dev.description": "Matter device ID to look up. Required identifier.",
     "param.endpoint.description": "Endpoint filter (optional).",
-    "tool.description": "Get the status of one Matter device and return a JSON or text summary."
+    "tool.description": "Get the status of one Matter device and return a JSON or text summary.",
+    "x_search_terms": [
+      "matter device status",
+      "matter_device_status",
+      "matter",
+      "MATTER"
+    ]
   },
   "es": {
     "param.fmt.description": "Format: json or text.",
     "err.device_id_required": "Matter device ID is required.",
     "err.not_found": "Matter device not found: {device_id}",
-    "err.ambiguous_target": "Matter device target is ambiguous: {device_id}"
+    "err.ambiguous_target": "Matter device target is ambiguous: {device_id}",
+    "x_search_terms": [
+      "importa el estado del dispositivo",
+      "materia_estado_dispositivo",
+      "importa",
+      "IMPORTA"
+    ]
   },
   "fa": {
     "param.fmt.description": "Format: json or text.",
@@ -57,7 +69,13 @@
     "param.fmt.description": "Format: json or text.",
     "err.device_id_required": "Matter device ID is required.",
     "err.not_found": "Matter device not found: {device_id}",
-    "err.ambiguous_target": "Matter device target is ambiguous: {device_id}"
+    "err.ambiguous_target": "Matter device target is ambiguous: {device_id}",
+    "x_search_terms": [
+      "état de l'appareil importe",
+      "matière_device_status",
+      "matière",
+      "MATIÈRE"
+    ]
   },
   "hi": {
     "param.fmt.description": "Format: json or text.",
@@ -69,13 +87,25 @@
     "param.fmt.description": "Format: json or text.",
     "err.device_id_required": "Matter device ID is required.",
     "err.not_found": "Matter device not found: {device_id}",
-    "err.ambiguous_target": "Matter device target is ambiguous: {device_id}"
+    "err.ambiguous_target": "Matter device target is ambiguous: {device_id}",
+    "x_search_terms": [
+      "penting status perangkat",
+      "status_perangkat_masalah",
+      "penting",
+      "MASALAH"
+    ]
   },
   "it": {
     "param.fmt.description": "Format: json or text.",
     "err.device_id_required": "Matter device ID is required.",
     "err.not_found": "Matter device not found: {device_id}",
-    "err.ambiguous_target": "Matter device target is ambiguous: {device_id}"
+    "err.ambiguous_target": "Matter device target is ambiguous: {device_id}",
+    "x_search_terms": [
+      "importa lo stato del dispositivo",
+      "materia_dispositivo_status",
+      "materia",
+      "MATERIA"
+    ]
   },
   "ja": {
     "param.fmt.description": "Format: json or text.",
@@ -87,13 +117,25 @@
     "param.ctrl.description": "コントローラ ID (オプション)。",
     "param.dev.description": "調べる対象のデバイス ID。必須の識別子。",
     "param.endpoint.description": "エンドポイントフィルター (オプション)。",
-    "tool.description": "1 つの Matter デバイスのステータスを取得し、JSON またはテキストの概要を返します。"
+    "tool.description": "1 つの Matter デバイスのステータスを取得し、JSON またはテキストの概要を返します。",
+    "x_search_terms": [
+      "重要なデバイスのステータス",
+      "マター_デバイス_ステータス",
+      "問題",
+      "問題"
+    ]
   },
   "ko": {
     "param.fmt.description": "Format: json or text.",
     "err.device_id_required": "Matter device ID is required.",
     "err.not_found": "Matter device not found: {device_id}",
-    "err.ambiguous_target": "Matter device target is ambiguous: {device_id}"
+    "err.ambiguous_target": "Matter device target is ambiguous: {device_id}",
+    "x_search_terms": [
+      "물질 장치 상태",
+      "물질_장치_상태",
+      "문제",
+      "물질"
+    ]
   },
   "mn": {
     "param.fmt.description": "Format: json or text.",
@@ -147,7 +189,13 @@
     "param.fmt.description": "Format: json or text.",
     "err.device_id_required": "Matter device ID is required.",
     "err.not_found": "Matter device not found: {device_id}",
-    "err.ambiguous_target": "Matter device target is ambiguous: {device_id}"
+    "err.ambiguous_target": "Matter device target is ambiguous: {device_id}",
+    "x_search_terms": [
+      "ma znaczenie stan urządzenia",
+      "stan_urządzenia_materiału",
+      "sprawa",
+      "MATERIA"
+    ]
   },
   "pt": {
     "param.fmt.description": "Format: json or text.",
@@ -159,7 +207,13 @@
     "param.fmt.description": "Format: json or text.",
     "err.device_id_required": "Matter device ID is required.",
     "err.not_found": "Matter device not found: {device_id}",
-    "err.ambiguous_target": "Matter device target is ambiguous: {device_id}"
+    "err.ambiguous_target": "Matter device target is ambiguous: {device_id}",
+    "x_search_terms": [
+      "importa o status do dispositivo",
+      "matéria_dispositivo_status",
+      "assunto",
+      "MATÉRIA"
+    ]
   },
   "ru": {
     "param.fmt.description": "Format: json or text.",
@@ -201,7 +255,13 @@
     "param.fmt.description": "Format: json or text.",
     "err.device_id_required": "Matter device ID is required.",
     "err.not_found": "Matter device not found: {device_id}",
-    "err.ambiguous_target": "Matter device target is ambiguous: {device_id}"
+    "err.ambiguous_target": "Matter device target is ambiguous: {device_id}",
+    "x_search_terms": [
+      "vấn đề trạng thái thiết bị",
+      "vấn đề_thiết bị_status",
+      "vấn đề",
+      "VẤN ĐỀ"
+    ]
   },
   "zh_CN": {
     "param.fmt.description": "Format: json or text.",

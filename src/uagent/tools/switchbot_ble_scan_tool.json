@@ -59,7 +59,16 @@
     "param.retry.description": "How many BLE scan rounds to run before returning.",
     "param.service_uuid.description": "Optional GATT service UUID filter.",
     "param.timeout.description": "Scan timeout in seconds.",
-    "tool.description": "Discover nearby SwitchBot BLE devices and return a JSON or text list."
+    "tool.description": "Discover nearby SwitchBot BLE devices and return a JSON or text list.",
+    "x_search_terms": [
+      "switchbot ble scan",
+      "switchbot_ble_scan",
+      "switchbot",
+      "discover",
+      "nearby",
+      "devices",
+      "return"
+    ]
   },
   "es": {
     "param.mac.description": "Filtro de dirección MAC.",
@@ -69,7 +78,15 @@
     "err.operation_failed": "Error durante la operación BLE: {err_msg}",
     "msg.error_fmt": "エラー: {msg}",
     "msg.interface_used": "Interfaz utilizada: {iface}",
-    "msg.unknown_error": "error desconocido"
+    "msg.unknown_error": "error desconocido",
+    "x_search_terms": [
+      "escaneo ble switchbot",
+      "switchbot_ble_scan",
+      "robot conmutador",
+      "descubrir",
+      "cerca",
+      "dispositivos"
+    ]
   },
   "fa": {
     "param.mac.description": "خطا: {err}",
@@ -99,7 +116,15 @@
     "err.operation_failed": "Erreur lors de l'opération BLE : {err_msg}",
     "msg.error_fmt": "Erreur : {msg}",
     "msg.interface_used": "Interface utilisée : {iface}",
-    "msg.unknown_error": "erreur inconnue"
+    "msg.unknown_error": "erreur inconnue",
+    "x_search_terms": [
+      "analyse du switchbot",
+      "switchbot_ble_scan",
+      "robot de commutation",
+      "découvrir",
+      "à proximité",
+      "appareils"
+    ]
   },
   "hi": {
     "param.mac.description": "MAC पता फ़िल्टर।",
@@ -119,7 +144,15 @@
     "err.operation_failed": "Kesalahan selama operasi BLE: {err_msg}",
     "msg.error_fmt": "Kesalahan: {msg}",
     "msg.interface_used": "Antarmuka yang digunakan: {iface}",
-    "msg.unknown_error": "kesalahan tidak dikenal"
+    "msg.unknown_error": "kesalahan tidak dikenal",
+    "x_search_terms": [
+      "pemindaian switchbot ble",
+      "switchbot_ble_scan",
+      "saklarbot",
+      "temukan",
+      "terdekat",
+      "perangkat"
+    ]
   },
   "it": {
     "param.mac.description": "Filtro indirizzo MAC.",
@@ -129,7 +162,15 @@
     "err.operation_failed": "Errore durante l'operazione BLE: {err_msg}",
     "msg.error_fmt": "Errore: {msg}",
     "msg.interface_used": "Interfaccia utilizzata: {iface}",
-    "msg.unknown_error": "errore sconosciuto"
+    "msg.unknown_error": "errore sconosciuto",
+    "x_search_terms": [
+      "scansione switchbot",
+      "switchbot_ble_scan",
+      "commutatore",
+      "scopri",
+      "nelle vicinanze",
+      "dispositivi"
+    ]
   },
   "ja": {
     "param.mac.description": "MACアドレスフィルター。",
@@ -151,7 +192,15 @@
     "param.retry.description": "戻る前に実行する BLE スキャン ラウンドの数。",
     "param.service_uuid.description": "オプションの GATT サービス UUID フィルター。",
     "param.timeout.description": "スキャンのタイムアウト (秒単位)。",
-    "tool.description": "近くの SwitchBot BLE デバイスを検出し、JSON またはテキスト リストを返します。"
+    "tool.description": "近くの SwitchBot BLE デバイスを検出し、JSON またはテキスト リストを返します。",
+    "x_search_terms": [
+      "スイッチボット ble スキャン",
+      "スイッチボット_ble_scan",
+      "スイッチボット",
+      "発見",
+      "近くの",
+      "デバイス"
+    ]
   },
   "ko": {
     "param.mac.description": "MAC 주소 필터.",
@@ -161,7 +210,15 @@
     "err.operation_failed": "BLE 작업 중 오류 발생: {err_msg}",
     "msg.error_fmt": "오류: {msg}",
     "msg.interface_used": "사용된 인터페이스: {iface}",
-    "msg.unknown_error": "알 수 없는 오류"
+    "msg.unknown_error": "알 수 없는 오류",
+    "x_search_terms": [
+      "스위치봇 블 스캔",
+      "스위치봇_ble_scan",
+      "스위치봇",
+      "발견",
+      "인근",
+      "장치"
+    ]
   },
   "mn": {
     "param.mac.description": "Алдаа: {err}",
@@ -251,7 +308,15 @@
     "err.operation_failed": "Błąd podczas operacji BLE: {err_msg}",
     "msg.error_fmt": "Błąd: {msg}",
     "msg.interface_used": "Użyty interfejs: {iface}",
-    "msg.unknown_error": "nieznany błąd"
+    "msg.unknown_error": "nieznany błąd",
+    "x_search_terms": [
+      "skanowanie bota przełączającego",
+      "switchbot_ble_scan",
+      "przełącznik",
+      "odkryj",
+      "w pobliżu",
+      "urządzenia"
+    ]
   },
   "pt": {
     "param.mac.description": "Filtro de endereço MAC.",
@@ -271,7 +336,15 @@
     "err.operation_failed": "Erro durante a operação BLE: {err_msg}",
     "msg.error_fmt": "Erro: {msg}",
     "msg.interface_used": "Interface usada: {iface}",
-    "msg.unknown_error": "erro desconhecido"
+    "msg.unknown_error": "erro desconhecido",
+    "x_search_terms": [
+      "varredura de switchbot",
+      "switchbot_ble_scan",
+      "robô de comutação",
+      "descobrir",
+      "nas proximidades",
+      "dispositivos"
+    ]
   },
   "ru": {
     "param.mac.description": "Фильтр по MAC-адресу.",
@@ -341,7 +414,15 @@
     "err.operation_failed": "Lỗi trong quá trình thao tác BLE: {err_msg}",
     "msg.error_fmt": "Lỗi: {msg}",
     "msg.interface_used": "Giao diện đã sử dụng: {iface}",
-    "msg.unknown_error": "lỗi không xác định"
+    "msg.unknown_error": "lỗi không xác định",
+    "x_search_terms": [
+      "switchbot ble scan",
+      "switchbot_ble_scan",
+      "switchbot",
+      "khám phá",
+      "lân cận",
+      "thiết bị"
+    ]
   },
   "zh_CN": {
     "param.mac.description": "MAC地址过滤器。",

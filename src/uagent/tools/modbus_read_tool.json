@@ -10,7 +10,15 @@
     "param.fmt.description": "Format: json or text.",
     "msg.summary": "Modbus read: {ip} type={t} addr={addr} count={count}",
     "err.ip_required": "ip is required.",
-    "err.invalid_type": "Invalid type. Valid: {types}."
+    "err.invalid_type": "Invalid type. Valid: {types}.",
+    "x_search_terms": [
+      "modbus read",
+      "modbus_read",
+      "modbus",
+      "MODBUS",
+      "registers",
+      "supports"
+    ]
   },
   "ar": {
     "tool.description": "قراءة سجلات Modbus TCP من الجهاز. يدعم الاحتفاظ بالسجلات، وسجلات الإدخال، والملفات، والمدخلات المنفصلة.",
@@ -88,7 +96,15 @@
     "param.fmt.description": "Formato: json o texto.",
     "msg.summary": "Lectura Modbus: {ip} tipo={t} dirección={addr} recuento={count}",
     "err.ip_required": "Se requiere IP.",
-    "err.invalid_type": "Tipo no válido. Válido: {types}."
+    "err.invalid_type": "Tipo no válido. Válido: {types}.",
+    "x_search_terms": [
+      "lectura modbus",
+      "modbus_read",
+      "modbus",
+      "MODBUS",
+      "registros",
+      "apoya"
+    ]
   },
   "fa": {
     "tool.description": "رجیسترهای Modbus TCP را از یک دستگاه بخوانید. پشتیبانی از رجیسترهای نگهداری، رجیسترهای ورودی، سیم پیچ‌ها و ورودی‌های گسسته.",
@@ -127,7 +143,15 @@
     "param.fmt.description": "Format : json ou texte.",
     "msg.summary": "Lecture Modbus : {ip} type={t} addr={addr} count={count}",
     "err.ip_required": "l'adresse IP est requise.",
-    "err.invalid_type": "Type invalide. Valide : {types}."
+    "err.invalid_type": "Type invalide. Valide : {types}.",
+    "x_search_terms": [
+      "modbus lire",
+      "modbus_read",
+      "modbus",
+      "MODBUS",
+      "registres",
+      "prend en charge"
+    ]
   },
   "he": {
     "tool.description": "קרא רישומי Modbus TCP מהתקן. תומך באוגרי החזקות, אוגרי קלט, סלילים וכניסות בדידות.",
@@ -179,7 +203,15 @@
     "param.fmt.description": "Format: json atau teks.",
     "msg.summary": "Modbus dibaca: {ip} tipe={t} addr={addr} hitungan={count}",
     "err.ip_required": "diperlukan.",
-    "err.invalid_type": "Jenis tidak valid. Sah: {types}."
+    "err.invalid_type": "Jenis tidak valid. Sah: {types}.",
+    "x_search_terms": [
+      "modbus baca",
+      "modbus_baca",
+      "modbus",
+      "MODBUS",
+      "register",
+      "mendukung"
+    ]
   },
   "it": {
     "tool.description": "Leggere i registri Modbus TCP da un dispositivo. Supporta registri di mantenimento, registri di ingresso, bobine e ingressi discreti.",
@@ -192,7 +224,15 @@
     "param.fmt.description": "Formato: json o testo.",
     "msg.summary": "Lettura Modbus: {ip} tipo={t} indirizzo={addr} conteggio={count}",
     "err.ip_required": "l'IP è obbligatorio.",
-    "err.invalid_type": "Tipo non valido. Valido: {types}."
+    "err.invalid_type": "Tipo non valido. Valido: {types}.",
+    "x_search_terms": [
+      "modbus leggere",
+      "modbus_leggi",
+      "modbus",
+      "MODBUS",
+      "registri",
+      "supporta"
+    ]
   },
   "ja": {
     "tool.description": "デバイスから Modbus TCP レジスタを読み取ります。保持レジスタ、入力レジスタ、コイル、ディスクリート入力をサポートします。",
@@ -205,7 +245,15 @@
     "param.fmt.description": "形式: json またはテキスト。",
     "msg.summary": "Modbus 読み取り: {ip} タイプ={t} アドレス={addr} カウント={count}",
     "err.ip_required": "IPは必須です。",
-    "err.invalid_type": "無効なタイプです。有効: {types}。"
+    "err.invalid_type": "無効なタイプです。有効: {types}。",
+    "x_search_terms": [
+      "modbus 読み取り",
+      "modbus_read",
+      "モドバス",
+      "モドバス",
+      "レジスタ",
+      "サポートします"
+    ]
   },
   "ko": {
     "tool.description": "장치에서 Modbus TCP 레지스터를 읽습니다. 고정 레지스터, 입력 레지스터, 코일 및 개별 입력을 지원합니다.",
@@ -218,7 +266,15 @@
     "param.fmt.description": "형식: json 또는 텍스트.",
     "msg.summary": "Modbus 읽기: {ip} 유형={t} 주소={addr} 개수={count}",
     "err.ip_required": "ip가 필요합니다.",
-    "err.invalid_type": "유형이 잘못되었습니다. 유효한 날짜: {types}."
+    "err.invalid_type": "유형이 잘못되었습니다. 유효한 날짜: {types}.",
+    "x_search_terms": [
+      "모드버스 읽기",
+      "모드버스_읽기",
+      "모드버스",
+      "모드버스",
+      "레지스터",
+      "지원하다"
+    ]
   },
   "mn": {
     "tool.description": "Төхөөрөмжөөс Modbus TCP бүртгэлийг уншина уу. Регистр, оролтын регистр, ороомог, дискрет оролтыг хадгалахыг дэмждэг.",
@@ -283,7 +339,15 @@
     "param.fmt.description": "Format: json lub tekst.",
     "msg.summary": "Odczyt Modbus: {ip} typ={t} adres={addr} liczba={count}",
     "err.ip_required": "wymagane jest IP.",
-    "err.invalid_type": "Nieprawidłowy typ. Ważne: {types}."
+    "err.invalid_type": "Nieprawidłowy typ. Ważne: {types}.",
+    "x_search_terms": [
+      "odczyt modbusa",
+      "modbus_czytaj",
+      "modbus",
+      "MODBUS",
+      "rejestruje",
+      "obsługuje"
+    ]
   },
   "pt": {
     "tool.description": "Leia os registros Modbus TCP de um dispositivo. Suporta registros de retenção, registros de entrada, bobinas e entradas discretas.",
@@ -309,7 +373,15 @@
     "param.fmt.description": "Formato: json ou texto.",
     "msg.summary": "Leitura Modbus: {ip} tipo = {t} endereço = {addr} contagem = {count}",
     "err.ip_required": "ip é obrigatório.",
-    "err.invalid_type": "Tipo inválido. Válido: {types}."
+    "err.invalid_type": "Tipo inválido. Válido: {types}.",
+    "x_search_terms": [
+      "leitura modbus",
+      "modbus_ler",
+      "mod bus",
+      "MODBUS",
+      "registos",
+      "suporta"
+    ]
   },
   "ro": {
     "tool.description": "Citiți registrele Modbus TCP de pe un dispozitiv. Suporta registre de reținere, registre de intrare, bobine și intrări discrete.",
@@ -413,7 +485,15 @@
     "param.fmt.description": "Định dạng: json hoặc văn bản.",
     "msg.summary": "Đọc Modbus: {ip} type={t} addr={addr} count={count}",
     "err.ip_required": "ip là bắt buộc.",
-    "err.invalid_type": "Loại không hợp lệ. Hợp lệ: {types}."
+    "err.invalid_type": "Loại không hợp lệ. Hợp lệ: {types}.",
+    "x_search_terms": [
+      "đọc modbus",
+      "modbus_read",
+      "modbus",
+      "MODBUS",
+      "đăng ký",
+      "hỗ trợ"
+    ]
   },
   "zh_CN": {
     "tool.description": "从设备读取 Modbus TCP 寄存器。支持保持寄存器、输入寄存器、线圈和离散输入。",
