@@ -676,9 +676,6 @@ def run_agent_worker(
 
     # Serialize per-room runs to avoid history/tool collisions
     if not room.worker_lock.acquire(blocking=False):
-        import sys as _sys
-        _sys.__stderr__.write("[DBG] run_agent_worker: lock busy, returning\n")
-        _sys.__stderr__.flush()
         room.add_message(
             {
                 "role": "assistant",
@@ -803,9 +800,6 @@ def run_agent_worker(
 
         provider_name, client, depname = providers.make_client(core)
 
-        import sys as _sys
-        _sys.__stderr__.write(f"[DBG] run_agent_worker: has_attachments={bool(attachments)}, count={len(attachments or [])}, hist_len={len(room.history)}\n")
-        _sys.__stderr__.flush()
         user_input = str(user_input or "")
         attachment_lines: list[str] = []
         clean_attachments: list[dict[str, Any]] = []
@@ -946,8 +940,6 @@ When the user asks for a UI, dashboard, interactive tool, or visualization:
 
         # Track history length before LLM round to sync new messages to room after
         _before_hist_len = len(room.history)
-        _sys.__stderr__.write(f"[DBG] run_llm_rounds: before={len(room.history)}\n")
-        _sys.__stderr__.flush()
         llm_util.run_llm_rounds(
             provider_name,
             client,
@@ -958,8 +950,6 @@ When the user asks for a UI, dashboard, interactive tool, or visualization:
             append_result_to_outfile_fn=tools_util.append_result_to_outfile,
             try_open_images_from_text_fn=tools_util.try_open_images_from_text,
         )
-        _sys.__stderr__.write(f"[DBG] run_llm_rounds: after={len(room.history)}\n")
-        _sys.__stderr__.flush()
         # Auto-pilot loop
         if core.auto_pilot_active:
             tools_util._run_auto_pilot_loop(

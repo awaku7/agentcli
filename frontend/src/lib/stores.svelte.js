@@ -153,7 +153,6 @@ export function onMessage(type, handler) {
 }
 
 export function sendUserInput(text, attachments) {
-  console.log('[UAG] sendUserInput', {text, attCount: attachments?.length, atts: attachments?.map(a => ({type:a.type, du:!!a.data_url, name:a.name}))});
   const ws = _state.ws;
   if (!ws || ws.readyState !== WebSocket.OPEN) return;
   ws.send(JSON.stringify({ type: 'user_input', text, attachments: attachments || [] }));
