@@ -125,6 +125,7 @@ def _save_input_history(text: str) -> None:
 
 
 app = FastAPI(title="uag Web")
+app.websocket_max_size = 10_000_000  # 10MB for large image data_urls
 
 BASE_DIR = os.path.dirname(__file__)
 TEMPLATE_DIR = os.path.join(BASE_DIR, "templates")
@@ -174,11 +175,10 @@ def _enrich_message_attachments(msg: dict[str, Any]) -> dict[str, Any]:
                 and not item.get("data_url")
                 and (mime.startswith("image/") or mime in ("image", ""))
             ):
-                # Use /local-file instead of generating huge data_url for WebSocket
-                pass
-            # Set url to /local-file for images without data_url
-            if not item.get("data_url") and not item.get("url") and item.get("type") == "image" and path:
-                item["url"] = f"/local-file?path={urllib.parse.quote(str(path))}"
+                try:
+                    item["data_url"] = tools_util.image_file_to_data_url(str(path))
+                except Exception:
+                    pass
             enriched.append(item)
         display_msg["attachments"] = enriched
         # Simplify content for tool messages with image attachments
@@ -382,7 +382,7 @@ class WebRoom:
         _sys.__stderr__.write(f"[DBG] add_message: role={display_msg.get('role')}, attachments_count={len(display_msg.get('attachments') or [])}\n")
         if display_msg.get("attachments"):
             for i, a in enumerate(display_msg["attachments"]):
-                _sys.__stderr__.write(f"[DBG]   att[{i}]: type={a.get('type')}, has_data_url={bool(a.get('data_url'))}, data_url_len={len(a.get('data_url',''))}\n")
+                _sys.__stderr__.write(f"[DBG]   att[{i}]: type={a.get('type')}, has_data_url={bool(a.get('data_url'))}, data_url_len={len(a.get('data_url',''))}, url={a.get('url','')[:100]}\n")
             _sys.__stderr__.flush()
         display_msg["name"] = msg.get("name")
         display_msg["tool_calls"] = msg.get("tool_calls")
