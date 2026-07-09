@@ -223,7 +223,7 @@ def _run_tool_catalog(args: dict[str, Any]) -> str:
             try:
                 from ._genre_control_util import enable_single_tool
 
-                ok = enable_single_tool(name)
+                ok = enable_single_tool(name, initial_threshold=5)
                 if ok:
                     result["auto_loaded"] = name
                     # Reflect the loaded state in the catalog entry

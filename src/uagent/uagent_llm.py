@@ -56,6 +56,8 @@ from . import core as _core_module
 from .tools._genre_control_util import (
     _LOADED_SINGLE_TOOLS as _LOADED_SINGLE_TOOLS,
     disable_single_tool as _disable_single_tool,
+    get_threshold as _get_threshold,
+    bump_threshold as _bump_threshold,
 )
 from .tools import TOOL_SPECS as _TOOL_SPECS
 from .tools import _should_preload_lazy_specs
@@ -1080,6 +1082,7 @@ def run_llm_rounds(
                 break  # only the last assistant message matters
             for _tname in _found_tool_names:
                 _TOOL_LAST_ROUND[_tname] = _TOTAL_ROUNDS
+                _bump_threshold(_tname)
 
             # Skip auto-unload when server manages tool selection
             # (native GPT-5.4 tool_search mode only)
@@ -1099,12 +1102,15 @@ def run_llm_rounds(
                     # Only auto-unload tools explicitly loaded by user (:tools load or tool_load)
                     if tname not in _LOADED_SINGLE_TOOLS:
                         continue
+                    threshold = _get_threshold(tname)
+                    if threshold <= 0:
+                        continue
                     last = _TOOL_LAST_ROUND.get(tname)
                     if last is None:
-                        # Never used: unload after 5 rounds (or _TOOL_AUTO_UNLOAD_ROUNDS, whichever is smaller)
-                        if _TOTAL_ROUNDS >= _TOOL_AUTO_UNLOAD_ROUNDS and _TOOL_AUTO_UNLOAD_ROUNDS > 0:
+                        # Never used: unload after threshold rounds
+                        if _TOTAL_ROUNDS >= threshold:
                             _disable_single_tool(tname)
-                    elif (_TOTAL_ROUNDS - last) >= _TOOL_AUTO_UNLOAD_ROUNDS:
+                    elif (_TOTAL_ROUNDS - last) >= threshold:
                         _TOOL_LAST_ROUND.pop(tname, None)
                         _disable_single_tool(tname)
             # --- end auto-unload ---

@@ -43,6 +43,11 @@ def get_enabled_genre_mask() -> int:
 # value: remaining uses (-1 = unlimited, 0 = expired, >0 = countdown)
 _LOADED_SINGLE_TOOLS: dict[str, int] = {}
 
+# Per-tool dynamic auto-unload thresholds and Fibonacci state.
+# value: (current_threshold, fib_prev, fib_current)
+# bump_threshold() adds fib_current and advances the Fibonacci pair.
+_TOOL_DYNAMIC_THRESHOLDS: dict[str, tuple[int, int, int]] = {}
+
 
 def get_enabled_tool_names() -> list[str]:
     """Return a sorted list of all currently enabled tool names."""
@@ -173,11 +178,13 @@ def disable_genre_tools(genre: str) -> list[str]:
     return removed_names
 
 
-def enable_single_tool(tool_name: str) -> bool:
+def enable_single_tool(tool_name: str, initial_threshold: int = 5) -> bool:
     """Enable a single tool by name (regardless of genre).
 
     Args:
         tool_name: Name of the tool to load.
+        initial_threshold: Initial auto-unload threshold in rounds.
+                           Default is 5.
 
     Returns True if found and loaded.
     """
@@ -196,15 +203,43 @@ def enable_single_tool(tool_name: str) -> bool:
         # Force tool_level to 0 and register
         spec["tool_level"] = 0
         _LOADED_SINGLE_TOOLS[tool_name] = -1
+        _TOOL_DYNAMIC_THRESHOLDS[tool_name] = (initial_threshold, 0, 1)
         mod_name = f"uagent.tools.{mname}"
         return _register_tool_module(mod, mod_name)
 
     return False
 
 
+def get_threshold(tool_name: str) -> int:
+    """Return the current auto-unload threshold for a tool (in rounds).
+
+    Returns 0 if the tool is not tracked (no auto-unload).
+    """
+    data = _TOOL_DYNAMIC_THRESHOLDS.get(tool_name)
+    if data is None:
+        return 0
+    return data[0]
+
+
+def bump_threshold(tool_name: str, max_threshold: int = 20) -> None:
+    """Increase the auto-unload threshold using Fibonacci increments.
+
+    Adds fib_current to the threshold, then advances the Fibonacci pair.
+    Caps at max_threshold (default 20).
+    """
+    data = _TOOL_DYNAMIC_THRESHOLDS.get(tool_name)
+    if data is None:
+        return
+    current, fib_prev, fib_cur = data
+    increment = fib_cur
+    new_threshold = min(current + increment, max_threshold)
+    _TOOL_DYNAMIC_THRESHOLDS[tool_name] = (new_threshold, fib_cur, fib_prev + fib_cur)
+
+
 def disable_single_tool(tool_name: str) -> bool:
     """Unload a single tool by name. Returns True if found and removed."""
     _LOADED_SINGLE_TOOLS.pop(tool_name, None)
+    _TOOL_DYNAMIC_THRESHOLDS.pop(tool_name, None)
     from . import TOOL_SPECS, _RUNNERS, _sort_registered_tools
 
     found = False
