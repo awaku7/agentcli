@@ -100,17 +100,21 @@ x_search_terms_en = [
 ]
 ```
 
-### 3. Translation Pipeline
+## 3. Translation Pipeline
 
-#### 3a. Delimiter Strategy (二重区切り方式)
+### 3a. Delimiter Strategy (二重区切り方式)
 
-The pipeline must translate 59 tools × 33 languages without losing the
+The pipeline must translate N tools × 33 languages without losing the
 mapping between translated terms and their source tool files. A **two‑level
-delimiter scheme** solves this:
+delimiter scheme** solves this. Two variants exist.
+
+#### Variant A: Implicit outer delimiter (list indexing) — preferred
+
+Used for the second batch (59 tools).
 
 ```
-Level 1 (inner):  |  (pipe)     — separates terms within a single tool
-Level 2 (outer):  list index     — separates the 59 tools (implicit via API)
+Level 1 (inner):  |  (pipe)       — separates terms within a single tool
+Level 2 (outer):  list index      — separates N tools (implicit via API)
 ```
 
 **Level 1 — Inner delimiter `|`**
@@ -131,16 +135,69 @@ bacnet scan | bacnet_scan | bacnet | BACNET | discover | bacnet/ip | devices
 
 **Level 2 — Outer delimiter (implicit list indexing)**
 
-The 59 source lines are NOT concatenated into a single string. Instead,
-`translate_text` is called with a **Python list** of 59 strings, where each
+The N source lines are NOT concatenated into a single string. Instead,
+`translate_text` is called with a **Python list** of N strings, where each
 element is one tool's pipe‑joined line. The API sends them to the LLM as a
 JSON array.
 
 This avoids the need for any outer separator character — the list position
-itself is the mapping key: output[0] → first tool file, output[1] → second
+itself is the mapping key: `output[0]` → first tool file, `output[1]` → second
 tool file, and so on.
 
-#### 3b. Prompt Design
+#### Variant B: Explicit outer delimiter (`===---FFF---===`)
+
+Used for the first batch (73 tools). The translate_text API at that time
+accepted `texts` as a list of strings, but the pipeline used a single
+concatenated string with an explicit file‑level delimiter as a belt‑and‑
+suspenders approach.
+
+```
+Level 1 (inner):  |  (pipe)                        — separates terms within a tool
+Level 2 (outer):  ===---FFF---===  (file separator) — separates N tools in a single string
+```
+
+The delimiter `===---FFF---===` was chosen because:
+
+- It is extremely unlikely to appear in any natural language text or code
+- The `===` bookends and `FFF` (mnemonic: File‑File‑File) make it visually
+  distinct
+- The LLM treats it as an opaque boundary marker and leaves it intact
+
+Example of the concatenated input:
+
+```
+bacnet scan | bacnet_scan | bacnet | BACNET
+===---FFF---===
+bacnet read | bacnet_read | bacnet | BACNET | returns
+===---FFF---===
+ble ops | ble_ops | ble | BLE | perform | bluetooth
+```
+
+Post‑processing splits on `===---FFF---===` first, then splits each chunk
+on `|`:
+
+```python
+chunks = llm_output.split("===---FFF---===")
+for i, chunk in enumerate(chunks):
+    terms = [s.strip() for s in chunk.split("|") if s.strip()]
+    tool_json[lang]["x_search_terms"] = terms
+```
+
+#### Comparison
+
+| Aspect               | Variant A (list index)     | Variant B (`===---FFF---===`) |
+|----------------------|---------------------------|-------------------------------|
+| Outer delimiter      | Implicit (array position) | Explicit marker string        |
+| Input to API         | Python list of N strings  | Single concatenated string    |
+| Reliability          | Depends on API preserving array order | Depends on LLM not mangling the marker |
+| Pros                 | Simpler, no marker to maintain | Visible in raw output, works with any transport |
+| Cons                 | Array order must be guaranteed | Marker consumes tokens, could theoretically collide |
+
+Variant A is preferred for new translations. Variant B is documented for
+historical reference and for cases where the transport cannot preserve array
+order.
+
+### 3b. Prompt Design
 
 The prompt instructs the LLM to preserve the pipe delimiter and proper nouns:
 
@@ -156,31 +213,38 @@ Key design points:
 - "Preserve proper nouns" stops the LLM from translating protocol names like
   BACNET → "Bâtiment Automatisation et de Contrôle" (French expansion)
 - "Maintain the same separator" ensures the `|` count stays consistent
-- The LLM returns exactly 59 output strings, one per input line
+- The LLM returns exactly N output strings, one per input line/item
 
-#### 3c. Post‑processing
+### 3c. Post‑processing
 
 ```python
-# For one language's output (list of 59 strings):
+# Variant A (list indexing):
 for i, line in enumerate(llm_output):
     terms = [s.strip() for s in line.split("|") if s.strip()]
     tool_json[lang]["x_search_terms"] = terms
+
+# Variant B (explicit marker):
+chunks = llm_output.split("===---FFF---===")
+for i, chunk in enumerate(chunks):
+    terms = [s.strip() for s in chunk.split("|") if s.strip()]
+    tool_json[lang]["x_search_terms"] = terms
 ```
 
-The strip() call handles any whitespace the LLM may add around `|`.
+The `strip()` call handles any whitespace the LLM may add around `|`.
+The `if s.strip()` filter discards empty segments caused by leading/trailing
+delimiters.
 
-#### 3d. Translation Granularity
+### 3d. Translation Granularity
 
-For 59 tools, a **single API call per language** (sending all 59 lines at
-once) is optimal:
+Sending all N tools in a **single API call per language** is optimal:
 
-- Context window is large enough (Gemini 2.5 Pro handles 59 lines easily)
+- Context window is large enough (Gemini 2.5 Pro handles 73+ lines easily)
 - Single call ensures consistent style across all tools in one language
-- Total: 33 API calls (one per language) + 1 English baseline = 34 calls
+- Total: 33 API calls (one per language) = 33 calls
 
-### 4. Positional File Mapping
+## 4. Positional File Mapping
 
-The 59 tool files are processed in **alphabetical order** of their filename.
+The tool files are processed in **alphabetical order** of their filename.
 The sorted list is:
 
 ```python
@@ -189,7 +253,7 @@ FILES = [
     "bacnet_cov_unsubscribe_tool.json", # → translated line [1]
     "bacnet_read_tool.json",            # → translated line [2]
     ...
-    "upnp_scan_tool.json",              # → translated line [58]
+    "upnp_scan_tool.json",              # → translated line [N-1]
 ]
 ```
 
@@ -208,9 +272,9 @@ otherwise terms would map to the wrong tool.
 
 ## Adding a New Language
 
-1. Collect the 59 `x_search_terms_en` from each tool file
+1. Collect the N `x_search_terms_en` from each tool file
 2. Join each into a pipe‑delimited string
-3. Call `translate_text` with the list of 59 strings
+3. Call `translate_text` with the list of N strings (Variant A)
 4. Parse the output: split each string on `|`, strip, store in JSON
 5. Update the support matrix in this document
 
@@ -219,7 +283,7 @@ otherwise terms would map to the wrong tool.
 1. Add `en.x_search_terms` to the tool JSON
 2. Add `x_search_terms_en` to the Python file
 3. Insert the corresponding pipe‑delimited line at the correct position
-   in the 59‑entry array (or regenerate all translations)
+   in the N‑entry array (or regenerate all translations)
 
 ## Verification
 
