@@ -1,5 +1,29 @@
 # 変更履歴
 
+## [0.5.42] - 2026-07-10
+
+### 追加
+- i18n: 33言語の x_search_terms 翻訳を全ツールJSONファイル（59以上）に適用。
+- VSCode: human_ask 統合、推論レベルドロップダウン、FIMコード補完。
+- VSCode: ツール結果表示の設定切替（UAGENT_VSCODE_SHOW_TOOL_RESULT）。
+- Web UI: マルチモーダル画像入力および表示対応。
+- Web UI: data_url 最適化と WebSocket max_size 設定による添付ファイル処理改善。
+- Grok/xAI: xai_sdk 統合（全パラメータ＋ツール使用対応）。
+- ツール管理: 動的パーツール自動アンロード（Fibonacci バンプ閾値）。
+- tool_catalog: クエリ時に最適なツールを自動読み込み。
+- ドキュメント: TOOL_TRANSLATION_METHODOLOGY.md 追加（デリミタ戦略セクション含む）。
+
+### 修正
+- OpenAI Responses API: 2ラウンド目以降の content 正規化、previous_response_id 対応。
+- OpenAI Responses API: previous_response_id の stale エラー処理。
+- Web UI: 画像添付の描画とツールメッセージ表示の修正。
+- デバッグ出力: sys.__stdout__/sys.__stderr__ へのリダイレクトで診断改善。
+- 各種: デバッグログ、一時ファイル、CONFIG デバッグログの削除。
+
+### 変更
+- プロバイダ機能を provider_caps に集約。
+- デバッグ用一時ファイル削除、.gitignore 更新。
+
 ## [0.5.41] - 2026-07-08
 
 ### 追加

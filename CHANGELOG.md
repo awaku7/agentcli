@@ -1,5 +1,29 @@
 # Changelog
 
+## [0.5.42] - 2026-07-10
+
+### Added
+- i18n: applied x_search_terms translations for 33 languages across all tool JSON files (59+ files).
+- VSCode: human_ask integration with chat panel, reasoning level dropdown, FIM code completion.
+- VSCode: configurable tool result display (UAGENT_VSCODE_SHOW_TOOL_RESULT).
+- Web UI: multimodal image input and display support.
+- Web UI: attachment handling with data_url optimization and WebSocket max_size config.
+- Grok/xAI: full xai_sdk integration with comprehensive parameter and tool use support.
+- Tool management: dynamic per-tool auto-unload with Fibonacci bump threshold.
+- tool_catalog: auto-load top result on query.
+- Documentation: TOOL_TRANSLATION_METHODOLOGY.md with delimiter strategy sections.
+
+### Fixed
+- OpenAI Responses API: content normalization for 2nd+ rounds and previous_response_id.
+- OpenAI Responses API: stale previous_response_id error handling.
+- Web UI: image attachment rendering and tool message display.
+- Debug output: redirect to sys.__stdout__/sys.__stderr__ for proper diagnosis.
+- Various: cleanup of debug logs, temp files, and CONFIG debug log.
+
+### Changed
+- Provider capabilities centralized in provider_caps.
+- Removed debug temp files; updated .gitignore.
+
 ## [0.5.41] - 2026-07-08
 
 ### Added
