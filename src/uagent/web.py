@@ -1819,10 +1819,7 @@ def main():
     if bind_host == "0.0.0.0" and local_ip and local_ip != "127.0.0.1":
         sys.__stdout__.write(_("External URL:") + f" http://{local_ip}:{port}\n")
     sys.__stdout__.flush()
-    import sys as _sys
     config = uvicorn.Config(app, host=bind_host, port=port, ws_max_size=10_000_000)
-    _sys.__stdout__.write(f"[CONFIG] ws_max_size={config.ws_max_size}\n")
-    _sys.__stdout__.flush()
     server = uvicorn.Server(config)
     server.run()
 
