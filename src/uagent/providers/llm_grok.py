@@ -30,6 +30,7 @@ def _debug_log(prefix: str, **kwargs: Any) -> None:
     """Print debug log when UAGENT_DEBUG_GROK=1."""
     if (env_get("UAGENT_DEBUG_GROK") or "").strip() not in ("1", "true", "yes"):
         return
+    import sys as _sys
     parts = [f"[GROK_DEBUG] {prefix}"]
     for k, v in kwargs.items():
         try:
@@ -37,7 +38,7 @@ def _debug_log(prefix: str, **kwargs: Any) -> None:
         except Exception:
             vs = str(v)[:2000]
         parts.append(f"  {k}={vs}")
-    print("\n".join(parts), file=sys.stderr, flush=True)
+    print("\n".join(parts), file=_sys.__stderr__, flush=True)
 
 
 # ── Message conversion ──────────────────────────────────────────

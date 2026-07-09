@@ -23,7 +23,7 @@ def _debug_log(prefix: str, **kwargs: Any) -> None:
         except Exception:
             vs = str(v)[:3000]
         parts.append(f"  {k}={vs}")
-    print("\n".join(parts), file=sys.stderr, flush=True)
+    print("\n".join(parts), file=sys.__stderr__, flush=True)
 
 
 def _call_grok_round(
