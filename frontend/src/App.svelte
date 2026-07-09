@@ -34,6 +34,7 @@
 
   function handleSend(text, attachments) {
     sendUserInput(text, attachments || []);
+    clearAttachments();
   }
   function handleInterrupt() { sendInterrupt(); }
   function handleCommand(cmd) { sendCommand(cmd); }
