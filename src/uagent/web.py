@@ -1,5 +1,4 @@
 from __future__ import annotations
-import urllib.parse
 
 import asyncio
 import json
@@ -175,9 +174,7 @@ def _enrich_message_attachments(msg: dict[str, Any]) -> dict[str, Any]:
                 and (mime.startswith("image/") or mime in ("image", ""))
             ):
                 try:
-                    # Use /local-file URL with room_id for proper path resolution
-                    room_id = display_msg.get("_room_id", "")
-                    item["url"] = f"/local-file?path={urllib.parse.quote(str(path))}&room_id={urllib.parse.quote(room_id)}"
+                    item["data_url"] = tools_util.image_file_to_data_url(str(path))
                 except Exception:
                     pass
             enriched.append(item)
@@ -366,8 +363,6 @@ class WebRoom:
             )
 
     def add_message(self, msg: dict[str, Any]):
-        # Pass room_id for /local-file URL generation
-        msg["_room_id"] = self.room_id
         display_msg = _enrich_message_attachments(msg)
         display_msg["role"] = msg.get("role")
         # Normalize content: list -> plain text for frontend
@@ -388,7 +383,6 @@ class WebRoom:
             display_msg["reasoning_content"] = msg.get("reasoning_content")
         display_msg["timestamp"] = datetime.now().isoformat()
         self.messages.append(display_msg)
-
         if self.loop:
             asyncio.run_coroutine_threadsafe(
                 self.broadcast({"type": "message", "message": display_msg}), self.loop
