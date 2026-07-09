@@ -126,7 +126,7 @@ export class ChatPanel {
     private async handleApplyEnv(key: string, value: string) {
         try {
             await this.ws.applyEnv(key, value);
-            this.postMessage({ type: 'system', data: `${key} = ${value || '(unset)'}` });
+            this.postMessage({ type: 'system', data: `${key} = ${value || 'off'}` });
         } catch (e: any) {
             this.postMessage({ type: 'error', data: `Failed: ${e.message}` });
         }
