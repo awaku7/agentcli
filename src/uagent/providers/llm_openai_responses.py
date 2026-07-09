@@ -760,6 +760,11 @@ def build_responses_request(
 
     # previous_response_id mode: append the latest user message (if any)
     if previous_response_id is not None and _latest_user is not None:
+        # Normalize content to Responses API format (input_text/input_image)
+        _latest_user["content"] = _normalize_content_items(_latest_user.get("content"), role="user")
+        # Remove metadata fields that might cause schema errors
+        for _k in ("attachments", "saved_path", "saved_files"):
+            _latest_user.pop(_k, None)
         input_msgs.append(_latest_user)
 
     # Build instructions (omit if empty)
