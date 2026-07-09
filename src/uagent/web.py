@@ -676,6 +676,9 @@ def run_agent_worker(
 
     # Serialize per-room runs to avoid history/tool collisions
     if not room.worker_lock.acquire(blocking=False):
+        import sys as _sys
+        _sys.__stderr__.write("[DBG] run_agent_worker: lock busy, returning\n")
+        _sys.__stderr__.flush()
         room.add_message(
             {
                 "role": "assistant",
@@ -800,6 +803,9 @@ def run_agent_worker(
 
         provider_name, client, depname = providers.make_client(core)
 
+        import sys as _sys
+        _sys.__stderr__.write(f"[DBG] run_agent_worker: has_attachments={bool(attachments)}, count={len(attachments or [])}\n")
+        _sys.__stderr__.flush()
         user_input = str(user_input or "")
         attachment_lines: list[str] = []
         clean_attachments: list[dict[str, Any]] = []
