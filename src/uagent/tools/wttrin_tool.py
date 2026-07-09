@@ -37,24 +37,25 @@ TOOL_SPEC = {
                     "type": "string",
                     "description": _(
                         "param.city.description",
-                        default="City name (e.g. 'Tokyo', 'Osaka'). Ignored if lat/lon are provided.",
+                        default="City name (e.g. 'Tokyo', 'Osaka'). REQUIRED unless lat+lon are provided.",
                     ),
                 },
                 "lat": {
                     "type": "number",
                     "description": _(
                         "param.lat.description",
-                        default="Latitude (GPS). Must be used together with lon. More accurate than city name.",
+                        default="Latitude (GPS). REQUIRED together with lon unless city is provided. More accurate than city name.",
                     ),
                 },
                 "lon": {
                     "type": "number",
                     "description": _(
                         "param.lon.description",
-                        default="Longitude (GPS). Must be used together with lat.",
+                        default="Longitude (GPS). REQUIRED together with lat unless city is provided.",
                     ),
                 },
             },
+            "required": [],
         }
     }
 }
