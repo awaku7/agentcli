@@ -9,7 +9,6 @@ import subprocess
 import sys
 
 
-
 def auto_install(package_name: str, module_name: str | None = None) -> bool:
     """Try to install a Python package via pip, then verify it's importable.
 
@@ -76,7 +75,9 @@ def install_with_status(
         try:
             result = subprocess.run(
                 [sys.executable, "-m", "pip", "install", *args, package_name],
-                stdout=sys.stderr, stderr=sys.stderr, timeout=120,
+                stdout=sys.stderr,
+                stderr=sys.stderr,
+                timeout=120,
             )
             return result.returncode == 0
         except Exception:
@@ -95,7 +96,7 @@ def install_with_status(
             return False
         if verify_submodule:
             try:
-                __import__(verify_submodule, fromlist=[''])
+                __import__(verify_submodule, fromlist=[""])
             except Exception:
                 return False
         return True
@@ -108,20 +109,22 @@ def install_with_status(
     print(_("Installing %(label)s...") % {"label": label}, file=sys.stderr)
     _run_pip()
     if _verify(fresh=True):
-        print(_("%(label)s installed successfully.") % {"label": label}, file=sys.stderr)
+        print(
+            _("%(label)s installed successfully.") % {"label": label}, file=sys.stderr
+        )
         return True
 
     # One more try with --force-reinstall (e.g. stale/corrupted installation)
     print(_("Retrying with --force-reinstall..."), file=sys.stderr)
     _run_pip("--force-reinstall")
     if _verify(fresh=True):
-        print(_("%(label)s installed successfully.") % {"label": label}, file=sys.stderr)
+        print(
+            _("%(label)s installed successfully.") % {"label": label}, file=sys.stderr
+        )
         return True
 
     print(_("Failed to install %(label)s.") % {"label": label}, file=sys.stderr)
     return False
-
-
 
 
 def install_playwright_with_chromium() -> bool:
@@ -147,6 +150,7 @@ def install_playwright_with_chromium() -> bool:
     # Ensure Chromium browser binary is installed
     import subprocess
     import sys
+
     try:
         subprocess.run(
             [sys.executable, "-m", "playwright", "install", "chromium"],

@@ -74,7 +74,7 @@ def _is_gpt54_tool_search_target(
 
     # Exclude nano variant that doesn't support native tool_search
     # (server-side narrowing with full tool set).
-    suffix = tail[len("".join(digits)):]
+    suffix = tail[len("".join(digits)) :]
     if suffix and suffix.startswith("-nano"):
         return False
 

@@ -5,7 +5,7 @@ import warnings
 from urllib3.exceptions import InsecureRequestWarning
 
 # SSL 検証オフに伴う警告を抑制
-warnings.simplefilter('ignore', InsecureRequestWarning)
+warnings.simplefilter("ignore", InsecureRequestWarning)
 
 from .i18n_helper import make_tool_translator
 
@@ -26,10 +26,10 @@ TOOL_SPEC = {
             default=["weather", "forecast", "temperature", "天気", "気温", "天気予報"],
         ),
         "x_search_terms_en": [
-        "weather",
-        "forecast",
-        "temperature",
-    ],
+            "weather",
+            "forecast",
+            "temperature",
+        ],
         "parameters": {
             "type": "object",
             "properties": {
@@ -56,8 +56,8 @@ TOOL_SPEC = {
                 },
             },
             "required": [],
-        }
-    }
+        },
+    },
 }
 
 
@@ -125,7 +125,9 @@ def _geocode_openmeteo(city: str) -> tuple[float, float, str] | str:
     data = resp.json()
     results = data.get("results")
     if not results:
-        return _("err.geocoding_failed", default="Error: Could not locate city '{city}'.").format(city=city)
+        return _(
+            "err.geocoding_failed", default="Error: Could not locate city '{city}'."
+        ).format(city=city)
     r = results[0]
     lat = r["latitude"]
     lon = r["longitude"]
@@ -149,19 +151,27 @@ def _format_openmeteo(data: dict, display_city: str) -> str:
     desc = _wmo_desc(wmo_code)
 
     output = []
-    output.append(_("output.header", default="### Weather for {city}").format(city=display_city))
-    output.append(_(
-        "output.temp",
-        default="- **Temp**: {temp}°C (feels like {feels}°C)",
-    ).format(temp=temp, feels=feels))
-    output.append(_(
-        "output.condition",
-        default="- **Condition**: {desc}",
-    ).format(desc=desc))
-    output.append(_(
-        "output.humidity",
-        default="- **Humidity**: {humidity}%",
-    ).format(humidity=humidity))
+    output.append(
+        _("output.header", default="### Weather for {city}").format(city=display_city)
+    )
+    output.append(
+        _(
+            "output.temp",
+            default="- **Temp**: {temp}°C (feels like {feels}°C)",
+        ).format(temp=temp, feels=feels)
+    )
+    output.append(
+        _(
+            "output.condition",
+            default="- **Condition**: {desc}",
+        ).format(desc=desc)
+    )
+    output.append(
+        _(
+            "output.humidity",
+            default="- **Humidity**: {humidity}%",
+        ).format(humidity=humidity)
+    )
 
     times = daily.get("time", [])
     max_temps = daily.get("temperature_2m_max", [])
@@ -176,10 +186,12 @@ def _format_openmeteo(data: dict, display_city: str) -> str:
             min_t = min_temps[i] if i < len(min_temps) else "?"
             wc = codes[i] if i < len(codes) else -1
             f_desc = _wmo_desc(wc)
-            output.append(_(
-                "output.forecast_row",
-                default="- **{date}**: {min}°C / {max}°C ({desc})",
-            ).format(date=date, min=min_t, max=max_t, desc=f_desc))
+            output.append(
+                _(
+                    "output.forecast_row",
+                    default="- **{date}**: {min}°C / {max}°C ({desc})",
+                ).format(date=date, min=min_t, max=max_t, desc=f_desc)
+            )
 
     return "\n".join(output)
 
@@ -222,28 +234,42 @@ def run_tool(args):
         # Weather condition (prefer Japanese)
         desc = _("weather.unknown", default="Unknown")
         if "lang_ja" in current_cond:
-            desc = current_cond["lang_ja"][0].get("value", _("weather.unknown", default="Unknown"))
+            desc = current_cond["lang_ja"][0].get(
+                "value", _("weather.unknown", default="Unknown")
+            )
         elif "weatherDesc" in current_cond:
-            desc = current_cond["weatherDesc"][0].get("value", _("weather.unknown", default="Unknown"))
+            desc = current_cond["weatherDesc"][0].get(
+                "value", _("weather.unknown", default="Unknown")
+            )
 
         temp_c = current_cond.get("temp_C", "?")
         feels_like = current_cond.get("FeelsLikeC", "?")
         humidity = current_cond.get("humidity", "?")
 
         output = []
-        output.append(_("output.header", default="### Weather for {city}").format(city=display_city))
-        output.append(_(
-            "output.temp",
-            default="- **Temp**: {temp}°C (feels like {feels}°C)",
-        ).format(temp=temp_c, feels=feels_like))
-        output.append(_(
-            "output.condition",
-            default="- **Condition**: {desc}",
-        ).format(desc=desc))
-        output.append(_(
-            "output.humidity",
-            default="- **Humidity**: {humidity}%",
-        ).format(humidity=humidity))
+        output.append(
+            _("output.header", default="### Weather for {city}").format(
+                city=display_city
+            )
+        )
+        output.append(
+            _(
+                "output.temp",
+                default="- **Temp**: {temp}°C (feels like {feels}°C)",
+            ).format(temp=temp_c, feels=feels_like)
+        )
+        output.append(
+            _(
+                "output.condition",
+                default="- **Condition**: {desc}",
+            ).format(desc=desc)
+        )
+        output.append(
+            _(
+                "output.humidity",
+                default="- **Humidity**: {humidity}%",
+            ).format(humidity=humidity)
+        )
 
         # Forecast
         if "weather" in data:
@@ -262,10 +288,12 @@ def run_tool(args):
                     elif "weatherDesc" in morn:
                         f_desc = morn["weatherDesc"][0].get("value", "")
 
-                output.append(_(
-                    "output.forecast_row",
-                    default="- **{date}**: {min}°C / {max}°C ({desc})",
-                ).format(date=date, min=min_t, max=max_t, desc=f_desc))
+                output.append(
+                    _(
+                        "output.forecast_row",
+                        default="- **{date}**: {min}°C / {max}°C ({desc})",
+                    ).format(date=date, min=min_t, max=max_t, desc=f_desc)
+                )
 
         return "\n".join(output)
 

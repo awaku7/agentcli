@@ -54,7 +54,17 @@ TOOL_SPEC: dict[str, Any] = {
                 "Returns a subscription_id for later unsubscription."
             ),
         ),
-            "x_search_terms": _(            "x_search_terms",            default=["opcua subscribe", "opcua_subscribe", "opcua", "OPCUA", "changes"],        ),        "x_search_terms_en": ["opcua subscribe", "opcua_subscribe", "opcua", "OPCUA", "changes"],
+        "x_search_terms": _(
+            "x_search_terms",
+            default=["opcua subscribe", "opcua_subscribe", "opcua", "OPCUA", "changes"],
+        ),
+        "x_search_terms_en": [
+            "opcua subscribe",
+            "opcua_subscribe",
+            "opcua",
+            "OPCUA",
+            "changes",
+        ],
         "parameters": {
             "type": "object",
             "properties": {

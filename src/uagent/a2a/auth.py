@@ -6,6 +6,7 @@ try:
     from fastapi import Header
 except ImportError:
     from .._pip_auto import install_with_status as _install_fa
+
     _install_fa("fastapi")
     from fastapi import Header
 

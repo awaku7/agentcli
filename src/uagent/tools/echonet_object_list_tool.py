@@ -49,7 +49,25 @@ TOOL_SPEC: dict[str, Any] = {
                 "Discover ECHONET Lite objects on a node and return a JSON or text list."
             ),
         ),
-            "x_search_terms": _(            "x_search_terms",            default=["echonet object list", "echonet_object_list", "echonet", "ECHONET", "discover", "objects"],        ),        "x_search_terms_en": ["echonet object list", "echonet_object_list", "echonet", "ECHONET", "discover", "objects"],
+        "x_search_terms": _(
+            "x_search_terms",
+            default=[
+                "echonet object list",
+                "echonet_object_list",
+                "echonet",
+                "ECHONET",
+                "discover",
+                "objects",
+            ],
+        ),
+        "x_search_terms_en": [
+            "echonet object list",
+            "echonet_object_list",
+            "echonet",
+            "ECHONET",
+            "discover",
+            "objects",
+        ],
         "parameters": {
             "type": "object",
             "properties": {
@@ -194,8 +212,14 @@ def _property_value(epc: int, edt: bytes) -> tuple[Any, str]:
     return edt.hex().upper(), "hex"
 
 
-def _build_get_request(target_eoj: bytes, epcs: list[int], tid: int | None = None) -> bytes:
-    tid_bytes = struct.pack(">H", tid & 0xFFFF) if tid is not None else struct.pack(">H", random.randint(1, 0xFFFF))
+def _build_get_request(
+    target_eoj: bytes, epcs: list[int], tid: int | None = None
+) -> bytes:
+    tid_bytes = (
+        struct.pack(">H", tid & 0xFFFF)
+        if tid is not None
+        else struct.pack(">H", random.randint(1, 0xFFFF))
+    )
     props: list[bytes] = []
     for epc in epcs:
         props.append(bytes([epc & 0xFF, 0x00]))

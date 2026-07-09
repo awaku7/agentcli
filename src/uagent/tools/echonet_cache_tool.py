@@ -21,7 +21,27 @@ TOOL_SPEC: dict[str, Any] = {
             "tool.description",
             default="Inspect or clear the shared ECHONET Lite cache.",
         ),
-            "x_search_terms": _(            "x_search_terms",            default=["echonet cache", "echonet_cache", "echonet", "ECHONET", "inspect", "clear", "shared"],        ),        "x_search_terms_en": ["echonet cache", "echonet_cache", "echonet", "ECHONET", "inspect", "clear", "shared"],
+        "x_search_terms": _(
+            "x_search_terms",
+            default=[
+                "echonet cache",
+                "echonet_cache",
+                "echonet",
+                "ECHONET",
+                "inspect",
+                "clear",
+                "shared",
+            ],
+        ),
+        "x_search_terms_en": [
+            "echonet cache",
+            "echonet_cache",
+            "echonet",
+            "ECHONET",
+            "inspect",
+            "clear",
+            "shared",
+        ],
         "parameters": {
             "type": "object",
             "properties": {

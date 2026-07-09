@@ -28,6 +28,7 @@ os.environ["QT_AUTO_SCREEN_SCALE_FACTOR"] = "1"
 
 # Auto-install / reinstall PySide6 if missing or broken
 from ._pip_auto import install_with_status as _install_pyside
+
 if not _install_pyside("PySide6", "PySide6", verify_submodule="PySide6.QtCore"):
     print("PySide6 is required for GUI mode.", file=sys.stderr)
     sys.exit(1)
@@ -2318,13 +2319,13 @@ class MainWindow(QtWidgets.QMainWindow):
         print("\n[INTERRUPT] " + _("Stop requested by user."))
         self._stop_btn.hide()
 
-
     def _on_auto_stop(self) -> None:
         """Stop auto-pilot mode (x key equivalent)."""
         with core.auto_pilot_exit_lock:
             core.auto_pilot_exit_requested = True
         print("\n[AUTO] " + _("Stop requested by user (x key)."))
         self._auto_stop_btn.hide()
+
     def _on_send(self):
         with core.human_ask_lock:
             active, q, is_password = (

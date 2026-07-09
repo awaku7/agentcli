@@ -13,6 +13,7 @@ try:
     from docx import Document
 except ImportError:
     from .._pip_auto import install_with_status as _install_docx
+
     if not _install_docx("python-docx", "docx"):
         Document = None
     else:
@@ -25,6 +26,7 @@ try:
     from odf.text import H, P
 except ImportError:
     from .._pip_auto import install_with_status as _install_odf
+
     if not _install_odf("odfpy", "odf"):
         teletype = None
         odf_load = None
@@ -39,6 +41,7 @@ try:
     from striprtf.striprtf import rtf_to_text
 except ImportError:
     from .._pip_auto import install_with_status as _install_rtf
+
     if not _install_rtf("striprtf"):
         rtf_to_text = None
     else:
@@ -48,6 +51,7 @@ try:
     import msoffcrypto
 except ImportError:
     from .._pip_auto import install_with_status as _install_mso
+
     if not _install_mso("msoffcrypto-tool", "msoffcrypto"):
         msoffcrypto = None  # type: ignore[assignment]
     else:

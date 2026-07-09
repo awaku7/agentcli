@@ -71,18 +71,27 @@ def _restrict_windows_permissions(path: Path) -> None:
     domain = os.environ.get("USERDOMAIN", "")
     if not username:
         return
-    user = f"{domain}\\{username}" if domain and domain.lower() != username.lower() else username
+    user = (
+        f"{domain}\\{username}"
+        if domain and domain.lower() != username.lower()
+        else username
+    )
     try:
         import subprocess
+
         # Remove inherited permissions
         subprocess.run(
             ["icacls", str(path), "/inheritance:r"],
-            capture_output=True, text=True, timeout=10,
+            capture_output=True,
+            text=True,
+            timeout=10,
         )
         # Grant full control only to the current user
         subprocess.run(
             ["icacls", str(path), "/grant", f"{user}:(F)"],
-            capture_output=True, text=True, timeout=10,
+            capture_output=True,
+            text=True,
+            timeout=10,
         )
     except Exception:
         pass  # Best-effort: file is still protected by POSIX mode 0o600

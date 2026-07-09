@@ -92,30 +92,51 @@ def run_tool(args: dict[str, Any]) -> str:
     currency = str(args.get("currency") or "").strip() or None
 
     if not business_url:
-        return json.dumps({
-            "ok": False,
-            "error": {"code": "invalid_argument", "message": "business_url is required."},
-        }, ensure_ascii=False)
+        return json.dumps(
+            {
+                "ok": False,
+                "error": {
+                    "code": "invalid_argument",
+                    "message": "business_url is required.",
+                },
+            },
+            ensure_ascii=False,
+        )
 
     if mode == "search" and not query:
-        return json.dumps({
-            "ok": False,
-            "error": {"code": "invalid_argument", "message": "query is required for mode='search'."},
-        }, ensure_ascii=False)
+        return json.dumps(
+            {
+                "ok": False,
+                "error": {
+                    "code": "invalid_argument",
+                    "message": "query is required for mode='search'.",
+                },
+            },
+            ensure_ascii=False,
+        )
 
     if mode == "lookup" and not item_ids:
-        return json.dumps({
-            "ok": False,
-            "error": {"code": "invalid_argument", "message": "item_ids is required for mode='lookup'."},
-        }, ensure_ascii=False)
+        return json.dumps(
+            {
+                "ok": False,
+                "error": {
+                    "code": "invalid_argument",
+                    "message": "item_ids is required for mode='lookup'.",
+                },
+            },
+            ensure_ascii=False,
+        )
 
     try:
         profile = discover_business(business_url)
     except Exception as exc:
-        return json.dumps({
-            "ok": False,
-            "error": {"code": "discovery_failed", "message": str(exc)},
-        }, ensure_ascii=False)
+        return json.dumps(
+            {
+                "ok": False,
+                "error": {"code": "discovery_failed", "message": str(exc)},
+            },
+            ensure_ascii=False,
+        )
 
     try:
         if mode == "search":
@@ -126,24 +147,35 @@ def run_tool(args: dict[str, Any]) -> str:
         else:
             ids = item_ids if isinstance(item_ids, list) else [str(item_ids)]
             resp = ucp_request(
-                business_url, "lookup-catalog",
+                business_url,
+                "lookup-catalog",
                 body={"item_ids": ids},
                 profile=profile,
             )
     except UCPError as exc:
-        return json.dumps({
-            "ok": False,
-            "error": {"code": "ucp_error", "message": str(exc)},
-        }, ensure_ascii=False)
+        return json.dumps(
+            {
+                "ok": False,
+                "error": {"code": "ucp_error", "message": str(exc)},
+            },
+            ensure_ascii=False,
+        )
     except Exception as exc:
-        return json.dumps({
-            "ok": False,
-            "error": {"code": "request_failed", "message": str(exc)},
-        }, ensure_ascii=False)
+        return json.dumps(
+            {
+                "ok": False,
+                "error": {"code": "request_failed", "message": str(exc)},
+            },
+            ensure_ascii=False,
+        )
 
-    return json.dumps({
-        "ok": True,
-        "mode": mode,
-        "business_url": business_url,
-        "results": resp,
-    }, ensure_ascii=False, indent=2)
+    return json.dumps(
+        {
+            "ok": True,
+            "mode": mode,
+            "business_url": business_url,
+            "results": resp,
+        },
+        ensure_ascii=False,
+        indent=2,
+    )

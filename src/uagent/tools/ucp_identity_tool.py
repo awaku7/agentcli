@@ -83,53 +83,85 @@ def run_tool(args: dict[str, Any]) -> str:
     link_id = str(args.get("link_id") or "").strip()
 
     if not business_url:
-        return json.dumps({
-            "ok": False,
-            "error": {"code": "invalid_argument", "message": "business_url is required."},
-        }, ensure_ascii=False)
+        return json.dumps(
+            {
+                "ok": False,
+                "error": {
+                    "code": "invalid_argument",
+                    "message": "business_url is required.",
+                },
+            },
+            ensure_ascii=False,
+        )
 
     if mode == "link" and not redirect_uri:
-        return json.dumps({
-            "ok": False,
-            "error": {"code": "invalid_argument", "message": "redirect_uri is required for mode='link'."},
-        }, ensure_ascii=False)
+        return json.dumps(
+            {
+                "ok": False,
+                "error": {
+                    "code": "invalid_argument",
+                    "message": "redirect_uri is required for mode='link'.",
+                },
+            },
+            ensure_ascii=False,
+        )
 
     if mode == "status" and not link_id:
-        return json.dumps({
-            "ok": False,
-            "error": {"code": "invalid_argument", "message": "link_id is required for mode='status'."},
-        }, ensure_ascii=False)
+        return json.dumps(
+            {
+                "ok": False,
+                "error": {
+                    "code": "invalid_argument",
+                    "message": "link_id is required for mode='status'.",
+                },
+            },
+            ensure_ascii=False,
+        )
 
     try:
         profile = discover_business(business_url)
     except Exception as exc:
-        return json.dumps({
-            "ok": False, "error": {"code": "discovery_failed", "message": str(exc)},
-        }, ensure_ascii=False)
+        return json.dumps(
+            {
+                "ok": False,
+                "error": {"code": "discovery_failed", "message": str(exc)},
+            },
+            ensure_ascii=False,
+        )
 
     try:
         if mode == "link":
             resp = ucp_request(
-                business_url, "identity-link",
+                business_url,
+                "identity-link",
                 method="POST",
                 body={"redirect_uri": redirect_uri},
                 profile=profile,
             )
         else:
             resp = ucp_request(
-                business_url, "identity-link-status",
+                business_url,
+                "identity-link-status",
                 method="POST",
                 body={"link_id": link_id},
                 profile=profile,
             )
     except UCPError as exc:
-        return json.dumps({
-            "ok": False, "error": {"code": "ucp_error", "message": str(exc)},
-        }, ensure_ascii=False)
+        return json.dumps(
+            {
+                "ok": False,
+                "error": {"code": "ucp_error", "message": str(exc)},
+            },
+            ensure_ascii=False,
+        )
     except Exception as exc:
-        return json.dumps({
-            "ok": False, "error": {"code": "request_failed", "message": str(exc)},
-        }, ensure_ascii=False)
+        return json.dumps(
+            {
+                "ok": False,
+                "error": {"code": "request_failed", "message": str(exc)},
+            },
+            ensure_ascii=False,
+        )
 
     result: dict[str, Any] = {
         "ok": True,
@@ -140,7 +172,9 @@ def run_tool(args: dict[str, Any]) -> str:
 
     # Surface authorization_url if present
     if mode == "link" and isinstance(resp, dict):
-        auth_url = resp.get("authorization_url") or resp.get("auth_url") or resp.get("url")
+        auth_url = (
+            resp.get("authorization_url") or resp.get("auth_url") or resp.get("url")
+        )
         if auth_url:
             result["authorization_url"] = auth_url
             result["user_action_required"] = True

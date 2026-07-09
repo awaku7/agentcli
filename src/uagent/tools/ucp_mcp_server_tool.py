@@ -88,7 +88,14 @@ def _get_server_script_path() -> str:
     """Return the path to the UCP MCP server script (mcps/ucp_mcp_server_main.py)."""
     # Tools dir: src/uagent/tools/ → project root → mcps/
     return os.path.normpath(
-        os.path.join(os.path.dirname(__file__), "..", "..", "..", "mcps", "ucp_mcp_server_main.py")
+        os.path.join(
+            os.path.dirname(__file__),
+            "..",
+            "..",
+            "..",
+            "mcps",
+            "ucp_mcp_server_main.py",
+        )
     )
 
 
@@ -109,40 +116,64 @@ def run_tool(args: dict[str, Any]) -> str:
         with _PROCESS_LOCK:
             running = _PROCESS is not None and _PROCESS.poll() is None
         if running:
-            return json.dumps({
-                "ok": True,
-                "mode": mode,
-                "status": "running",
-                "port": port,
-                "transport": transport,
-            }, ensure_ascii=False, indent=2)
+            return json.dumps(
+                {
+                    "ok": True,
+                    "mode": mode,
+                    "status": "running",
+                    "port": port,
+                    "transport": transport,
+                },
+                ensure_ascii=False,
+                indent=2,
+            )
         else:
-            return json.dumps({
-                "ok": True,
-                "mode": mode,
-                "status": "stopped",
-            }, ensure_ascii=False, indent=2)
+            return json.dumps(
+                {
+                    "ok": True,
+                    "mode": mode,
+                    "status": "stopped",
+                },
+                ensure_ascii=False,
+                indent=2,
+            )
 
     if mode == "start":
         with _PROCESS_LOCK:
             if _PROCESS is not None and _PROCESS.poll() is None:
-                return json.dumps({
-                    "ok": False,
-                    "error": {"code": "already_running", "message": "Server is already running. Stop it first."},
-                }, ensure_ascii=False)
+                return json.dumps(
+                    {
+                        "ok": False,
+                        "error": {
+                            "code": "already_running",
+                            "message": "Server is already running. Stop it first.",
+                        },
+                    },
+                    ensure_ascii=False,
+                )
 
             if not business_url:
-                return json.dumps({
-                    "ok": False,
-                    "error": {"code": "invalid_argument", "message": "business_url is required."},
-                }, ensure_ascii=False)
+                return json.dumps(
+                    {
+                        "ok": False,
+                        "error": {
+                            "code": "invalid_argument",
+                            "message": "business_url is required.",
+                        },
+                    },
+                    ensure_ascii=False,
+                )
 
             script_path = _get_server_script_path()
             cmd = [
-                sys.executable, script_path,
-                "--business-url", business_url,
-                "--port", str(port),
-                "--transport", transport,
+                sys.executable,
+                script_path,
+                "--business-url",
+                business_url,
+                "--port",
+                str(port),
+                "--transport",
+                transport,
             ]
 
             _PROCESS = subprocess.Popen(
@@ -154,32 +185,47 @@ def run_tool(args: dict[str, Any]) -> str:
             time.sleep(2)
 
             if _PROCESS.poll() is not None:
-                stderr = _PROCESS.stderr.read(500).decode("utf-8") if _PROCESS.stderr else ""
+                stderr = (
+                    _PROCESS.stderr.read(500).decode("utf-8") if _PROCESS.stderr else ""
+                )
                 _PROCESS = None
-                return json.dumps({
-                    "ok": False,
-                    "error": {"code": "start_failed", "message": f"Server failed to start: {stderr}"},
-                }, ensure_ascii=False)
+                return json.dumps(
+                    {
+                        "ok": False,
+                        "error": {
+                            "code": "start_failed",
+                            "message": f"Server failed to start: {stderr}",
+                        },
+                    },
+                    ensure_ascii=False,
+                )
 
-        return json.dumps({
-            "ok": True,
-            "mode": mode,
-            "status": "running",
-            "business_url": business_url,
-            "mcp_endpoint": f"http://localhost:{port}",
-            "transport": transport,
-            "usage_tip": "Add this endpoint to your MCP config or use ucp_discover to see MCP capabilities.",
-        }, ensure_ascii=False, indent=2)
+        return json.dumps(
+            {
+                "ok": True,
+                "mode": mode,
+                "status": "running",
+                "business_url": business_url,
+                "mcp_endpoint": f"http://localhost:{port}",
+                "transport": transport,
+                "usage_tip": "Add this endpoint to your MCP config or use ucp_discover to see MCP capabilities.",
+            },
+            ensure_ascii=False,
+            indent=2,
+        )
 
     if mode == "stop":
         with _PROCESS_LOCK:
             if _PROCESS is None or _PROCESS.poll() is not None:
                 _PROCESS = None
-                return json.dumps({
-                    "ok": True,
-                    "mode": mode,
-                    "status": "already_stopped",
-                }, ensure_ascii=False)
+                return json.dumps(
+                    {
+                        "ok": True,
+                        "mode": mode,
+                        "status": "already_stopped",
+                    },
+                    ensure_ascii=False,
+                )
 
             _PROCESS.terminate()
             try:
@@ -189,13 +235,20 @@ def run_tool(args: dict[str, Any]) -> str:
                 _PROCESS.wait()
             _PROCESS = None
 
-        return json.dumps({
-            "ok": True,
-            "mode": mode,
-            "status": "stopped",
-        }, ensure_ascii=False, indent=2)
+        return json.dumps(
+            {
+                "ok": True,
+                "mode": mode,
+                "status": "stopped",
+            },
+            ensure_ascii=False,
+            indent=2,
+        )
 
-    return json.dumps({
-        "ok": False,
-        "error": {"code": "invalid_mode", "message": f"Unknown mode: {mode}"},
-    }, ensure_ascii=False)
+    return json.dumps(
+        {
+            "ok": False,
+            "error": {"code": "invalid_mode", "message": f"Unknown mode: {mode}"},
+        },
+        ensure_ascii=False,
+    )

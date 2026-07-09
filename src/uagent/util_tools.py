@@ -626,7 +626,7 @@ def _handle_cmd_logs(arg: str, *, core: Any, tr: Any) -> bool:
             # Strip "scheck_log_" prefix from filename for the default PDF name
             basename = os.path.basename(log_path)
             if basename.startswith("scheck_log_"):
-                basename = basename[len("scheck_log_"):]
+                basename = basename[len("scheck_log_") :]
             output_path = os.path.join(os.getcwd(), basename + ".pdf")
 
         # Call the pdf_export tool
@@ -2338,7 +2338,6 @@ def _ask_reviewer_judgment(
     if feedback:
         print(_("  feedback: %(feedback)s") % {"feedback": feedback})
     return judgment, feedback
-
 
 
 def _run_auto_pilot_loop(

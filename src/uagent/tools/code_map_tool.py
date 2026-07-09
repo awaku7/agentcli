@@ -530,20 +530,24 @@ def _extract_imports_python(filepath: str) -> list[dict[str, Any]]:
     for node in ast.walk(tree):
         if isinstance(node, ast.Import):
             for alias in node.names:
-                imports.append({
-                    "type": "import",
-                    "module": alias.name,
-                    "line": node.lineno,
-                })
+                imports.append(
+                    {
+                        "type": "import",
+                        "module": alias.name,
+                        "line": node.lineno,
+                    }
+                )
         elif isinstance(node, ast.ImportFrom):
             module = node.module or ""
             names = [alias.name for alias in node.names]
-            imports.append({
-                "type": "import_from",
-                "module": module,
-                "names": names,
-                "line": node.lineno,
-            })
+            imports.append(
+                {
+                    "type": "import_from",
+                    "module": module,
+                    "names": names,
+                    "line": node.lineno,
+                }
+            )
     return imports
 
 
@@ -564,24 +568,26 @@ def _extract_imports_typescript(filepath: str) -> list[dict[str, Any]]:
     ):
         module = m.group(1) or m.group(2)
         if module.startswith("."):
-            imports.append({
-                "type": "import",
-                "module": module,
-                "names": [],
-                "line": source[: m.start()].count("\n") + 1,
-            })
+            imports.append(
+                {
+                    "type": "import",
+                    "module": module,
+                    "names": [],
+                    "line": source[: m.start()].count("\n") + 1,
+                }
+            )
 
     # const x = require('...')
-    for m in re.finditer(
-        r"(?:require|import)\s*\([\'\"]([^\'\"]+)[\'\"]\)", source
-    ):
+    for m in re.finditer(r"(?:require|import)\s*\([\'\"]([^\'\"]+)[\'\"]\)", source):
         module = m.group(1)
         if module.startswith("."):
-            imports.append({
-                "type": "require",
-                "module": module,
-                "line": source[: m.start()].count("\n") + 1,
-            })
+            imports.append(
+                {
+                    "type": "require",
+                    "module": module,
+                    "line": source[: m.start()].count("\n") + 1,
+                }
+            )
 
     return imports
 
@@ -604,10 +610,12 @@ def _extract_imports_go(filepath: str) -> list[dict[str, Any]]:
             in_import_block = True
             # Single-line import
             for m in re.finditer(r'"([^"]+)"', stripped):
-                imports.append({
-                    "type": "import",
-                    "module": m.group(1),
-                })
+                imports.append(
+                    {
+                        "type": "import",
+                        "module": m.group(1),
+                    }
+                )
             if "(" not in stripped:
                 in_import_block = False
         elif in_import_block:
@@ -615,10 +623,12 @@ def _extract_imports_go(filepath: str) -> list[dict[str, Any]]:
                 in_import_block = False
             else:
                 for m in re.finditer(r'"([^"]+)"', stripped):
-                    imports.append({
-                        "type": "import",
-                        "module": m.group(1),
-                    })
+                    imports.append(
+                        {
+                            "type": "import",
+                            "module": m.group(1),
+                        }
+                    )
     return imports
 
 
@@ -634,18 +644,22 @@ def _extract_imports_rust(filepath: str) -> list[dict[str, Any]]:
     # use crate::...  or  use ...::...
     for m in re.finditer(r"^\s*use\s+([^;]+);", source, re.MULTILINE):
         module_path = m.group(1).strip()
-        imports.append({
-            "type": "use",
-            "module": module_path,
-            "line": source[: m.start()].count("\n") + 1,
-        })
+        imports.append(
+            {
+                "type": "use",
+                "module": module_path,
+                "line": source[: m.start()].count("\n") + 1,
+            }
+        )
 
     # extern crate ...
     for m in re.finditer(r"^\s*extern\s+crate\s+(\w+);", source, re.MULTILINE):
-        imports.append({
-            "type": "extern_crate",
-            "module": m.group(1),
-        })
+        imports.append(
+            {
+                "type": "extern_crate",
+                "module": m.group(1),
+            }
+        )
 
     return imports
 
@@ -657,8 +671,10 @@ def _extract_imports(filepath: str) -> list[dict[str, Any]]:
     if lang == "Python":
         return _extract_imports_python(filepath)
     elif lang in (
-        "TypeScript", "JavaScript",
-        "TypeScript (React)", "JavaScript (React)",
+        "TypeScript",
+        "JavaScript",
+        "TypeScript (React)",
+        "JavaScript (React)",
     ):
         return _extract_imports_typescript(filepath)
     elif lang == "Go":
@@ -688,16 +704,16 @@ def _resolve_module_to_file(
     if language == "Python":
         return _resolve_python_module(module, importing_file, root)
     elif language in (
-        "TypeScript", "JavaScript",
-        "TypeScript (React)", "JavaScript (React)",
+        "TypeScript",
+        "JavaScript",
+        "TypeScript (React)",
+        "JavaScript (React)",
     ):
         return _resolve_ts_module(module, importing_file, root)
     return []
 
 
-def _resolve_python_module(
-    module: str, importing_file: str, root: str
-) -> list[str]:
+def _resolve_python_module(module: str, importing_file: str, root: str) -> list[str]:
     """Resolve a Python module path to file path(s)."""
     imp_dir = Path(importing_file).parent
 
@@ -745,9 +761,7 @@ def _find_python_file_for_module_path(base: Path) -> list[str]:
     return results
 
 
-def _resolve_ts_module(
-    module: str, importing_file: str, root: str
-) -> list[str]:
+def _resolve_ts_module(module: str, importing_file: str, root: str) -> list[str]:
     """Resolve a TypeScript/JavaScript module path to file path(s)."""
     imp_dir = Path(importing_file).parent
 
@@ -821,34 +835,36 @@ def _build_relations(
             if lang == "Rust":
                 # For Rust, check crate:: or self:: references
                 if "crate::" in module or "self::" in module:
-                    resolved = _resolve_rs_internal(
-                        module, fpath, root, file_paths
-                    )
+                    resolved = _resolve_rs_internal(module, fpath, root, file_paths)
                 else:
                     # External crate reference - skip unless it's a relative path
                     continue
             elif lang == "Go":
                 # For Go, check if the import path contains our root path
                 root_path = Path(root).resolve()
-                if str(root_path) in module or module.startswith("./") or module.startswith("../"):
+                if (
+                    str(root_path) in module
+                    or module.startswith("./")
+                    or module.startswith("../")
+                ):
                     resolved = _resolve_go_module(module, fpath, root, file_paths)
                 else:
                     # External dependency - skip
                     continue
             else:
-                resolved = _resolve_module_to_file(
-                    module, fpath, root, lang
-                )
+                resolved = _resolve_module_to_file(module, fpath, root, lang)
 
             for target_path in resolved:
                 if target_path in file_paths:
-                    relations.append({
-                        "type": "import",
-                        "source": fpath,
-                        "target": target_path,
-                        "source_line": imp.get("line", 0),
-                        "module": module,
-                    })
+                    relations.append(
+                        {
+                            "type": "import",
+                            "source": fpath,
+                            "target": target_path,
+                            "source_line": imp.get("line", 0),
+                            "module": module,
+                        }
+                    )
 
     return relations
 
@@ -976,22 +992,26 @@ def _build_ontology(
     # Project metadata node
     project_info = core_result.get("project")
     if project_info:
-        graph.append({
-            "@id": "uag:project",
-            "@type": "uag:Project",
-            "uag:project_type": project_info.get("type"),
-            "uag:root": root,
-            "uag:total_files": core_result.get("total_files", 0),
-        })
+        graph.append(
+            {
+                "@id": "uag:project",
+                "@type": "uag:Project",
+                "uag:project_type": project_info.get("type"),
+                "uag:root": root,
+                "uag:total_files": core_result.get("total_files", 0),
+            }
+        )
 
     # Stats node
-    graph.append({
-        "@id": "uag:stats",
-        "@type": "uag:ScanStats",
-        "uag:total_files": core_result.get("total_files", 0),
-        "uag:total_relations": len(relations),
-        "uag:root": root,
-    })
+    graph.append(
+        {
+            "@id": "uag:stats",
+            "@type": "uag:ScanStats",
+            "uag:total_files": core_result.get("total_files", 0),
+            "uag:total_relations": len(relations),
+            "uag:root": root,
+        }
+    )
 
     return {
         "@context": {

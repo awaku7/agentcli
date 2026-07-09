@@ -45,6 +45,7 @@ _ = make_tool_translator(__file__)
 
 # ── GPT-5.4 native tool_search helpers ──────────────────────────
 
+
 def _should_preload_lazy_specs() -> bool:
     """Check if lazy tool specs should be pre-registered for server-side narrowing.
 
@@ -60,6 +61,7 @@ def _should_preload_lazy_specs() -> bool:
     if raw in ("native", "1", "true", "yes"):
         return True
     return False
+
 
 # ─────────────────────────────────────────────────────────────────
 

@@ -62,7 +62,17 @@ TOOL_SPEC: dict[str, Any] = {
                 "Returns the result as JSON or text."
             ),
         ),
-            "x_search_terms": _(            "x_search_terms",            default=["bacnet write", "bacnet_write", "bacnet", "BACNET", "value"],        ),        "x_search_terms_en": ["bacnet write", "bacnet_write", "bacnet", "BACNET", "value"],
+        "x_search_terms": _(
+            "x_search_terms",
+            default=["bacnet write", "bacnet_write", "bacnet", "BACNET", "value"],
+        ),
+        "x_search_terms_en": [
+            "bacnet write",
+            "bacnet_write",
+            "bacnet",
+            "BACNET",
+            "value",
+        ],
         "parameters": {
             "type": "object",
             "properties": {

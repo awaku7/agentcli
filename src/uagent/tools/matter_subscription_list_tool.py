@@ -23,7 +23,27 @@ TOOL_SPEC: dict[str, Any] = {
             "tool.description",
             default="List active Matter device subscriptions.",
         ),
-            "x_search_terms": _(            "x_search_terms",            default=["matter subscription list", "matter_subscription_list", "matter", "MATTER", "subscription", "active", "subscriptions"],        ),        "x_search_terms_en": ["matter subscription list", "matter_subscription_list", "matter", "MATTER", "subscription", "active", "subscriptions"],
+        "x_search_terms": _(
+            "x_search_terms",
+            default=[
+                "matter subscription list",
+                "matter_subscription_list",
+                "matter",
+                "MATTER",
+                "subscription",
+                "active",
+                "subscriptions",
+            ],
+        ),
+        "x_search_terms_en": [
+            "matter subscription list",
+            "matter_subscription_list",
+            "matter",
+            "MATTER",
+            "subscription",
+            "active",
+            "subscriptions",
+        ],
         "parameters": {
             "type": "object",
             "properties": {

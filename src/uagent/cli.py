@@ -132,19 +132,13 @@ def _persist_prompt_history_entry(text: str) -> None:
         history_path = get_history_file_path()
         os.makedirs(history_path.parent, exist_ok=True)
         with open(history_path, "ab") as f:
-            f.write(
-                f"\
+            f.write(f"\
 # {datetime.now()}\
-".encode("utf-8")
-            )
-            for line in normalized.split(
-                "\
-"
-            ):
-                f.write(
-                    f"+{line}\
-".encode("utf-8")
-                )
+".encode("utf-8"))
+            for line in normalized.split("\
+"):
+                f.write(f"+{line}\
+".encode("utf-8"))
     except Exception:
         pass
 

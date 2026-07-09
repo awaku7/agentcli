@@ -830,7 +830,11 @@ def profile_from_logs(
             if isinstance(new_prof, dict):
                 return new_prof
         except Exception as e:
-            print("  " + _("[Warning] Failed to process chunk (%(step)s): %(err)s") % {"step": step_info, "err": e})
+            print(
+                "  "
+                + _("[Warning] Failed to process chunk (%(step)s): %(err)s")
+                % {"step": step_info, "err": e}
+            )
         return None
 
     # Iterate through all files in chronological order

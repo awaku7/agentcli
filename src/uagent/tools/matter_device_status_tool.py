@@ -38,7 +38,21 @@ TOOL_SPEC: dict[str, Any] = {
                 "Get the status of one Matter device and return a JSON or text summary."
             ),
         ),
-            "x_search_terms": _(            "x_search_terms",            default=["matter device status", "matter_device_status", "matter", "MATTER"],        ),        "x_search_terms_en": ["matter device status", "matter_device_status", "matter", "MATTER"],
+        "x_search_terms": _(
+            "x_search_terms",
+            default=[
+                "matter device status",
+                "matter_device_status",
+                "matter",
+                "MATTER",
+            ],
+        ),
+        "x_search_terms_en": [
+            "matter device status",
+            "matter_device_status",
+            "matter",
+            "MATTER",
+        ],
         "parameters": {
             "type": "object",
             "properties": {

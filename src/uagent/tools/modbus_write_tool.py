@@ -34,7 +34,25 @@ TOOL_SPEC: dict[str, Any] = {
                 "Supports holding registers (single/multiple) and coils."
             ),
         ),
-            "x_search_terms": _(            "x_search_terms",            default=["modbus write", "modbus_write", "modbus", "MODBUS", "values", "supports"],        ),        "x_search_terms_en": ["modbus write", "modbus_write", "modbus", "MODBUS", "values", "supports"],
+        "x_search_terms": _(
+            "x_search_terms",
+            default=[
+                "modbus write",
+                "modbus_write",
+                "modbus",
+                "MODBUS",
+                "values",
+                "supports",
+            ],
+        ),
+        "x_search_terms_en": [
+            "modbus write",
+            "modbus_write",
+            "modbus",
+            "MODBUS",
+            "values",
+            "supports",
+        ],
         "parameters": {
             "type": "object",
             "properties": {

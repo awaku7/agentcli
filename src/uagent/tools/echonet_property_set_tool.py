@@ -48,7 +48,21 @@ TOOL_SPEC: dict[str, Any] = {
                 "Set one ECHONET Lite property on a node and return a JSON or text result."
             ),
         ),
-            "x_search_terms": _(            "x_search_terms",            default=["echonet property set", "echonet_property_set", "echonet", "ECHONET"],        ),        "x_search_terms_en": ["echonet property set", "echonet_property_set", "echonet", "ECHONET"],
+        "x_search_terms": _(
+            "x_search_terms",
+            default=[
+                "echonet property set",
+                "echonet_property_set",
+                "echonet",
+                "ECHONET",
+            ],
+        ),
+        "x_search_terms_en": [
+            "echonet property set",
+            "echonet_property_set",
+            "echonet",
+            "ECHONET",
+        ],
         "parameters": {
             "type": "object",
             "properties": {
@@ -248,8 +262,14 @@ def _decode_eoj_list(data: bytes) -> list[str]:
     return items
 
 
-def _build_set_request(target_eoj: bytes, epc: int, edt: bytes, tid: int | None = None) -> bytes:
-    tid_bytes = struct.pack(">H", tid & 0xFFFF) if tid is not None else struct.pack(">H", random.randint(1, 0xFFFF))
+def _build_set_request(
+    target_eoj: bytes, epc: int, edt: bytes, tid: int | None = None
+) -> bytes:
+    tid_bytes = (
+        struct.pack(">H", tid & 0xFFFF)
+        if tid is not None
+        else struct.pack(">H", random.randint(1, 0xFFFF))
+    )
     return b"".join(
         [
             b"\x10\x81",

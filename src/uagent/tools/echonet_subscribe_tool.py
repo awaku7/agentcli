@@ -26,7 +26,25 @@ TOOL_SPEC: dict[str, Any] = {
                 "the LLM is automatically informed."
             ),
         ),
-            "x_search_terms": _(            "x_search_terms",            default=["echonet subscribe", "echonet_subscribe", "echonet", "ECHONET", "notification", "messages"],        ),        "x_search_terms_en": ["echonet subscribe", "echonet_subscribe", "echonet", "ECHONET", "notification", "messages"],
+        "x_search_terms": _(
+            "x_search_terms",
+            default=[
+                "echonet subscribe",
+                "echonet_subscribe",
+                "echonet",
+                "ECHONET",
+                "notification",
+                "messages",
+            ],
+        ),
+        "x_search_terms_en": [
+            "echonet subscribe",
+            "echonet_subscribe",
+            "echonet",
+            "ECHONET",
+            "notification",
+            "messages",
+        ],
         "parameters": {
             "type": "object",
             "properties": {

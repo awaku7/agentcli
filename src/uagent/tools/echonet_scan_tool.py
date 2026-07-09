@@ -218,7 +218,29 @@ TOOL_SPEC: dict[str, Any] = {
                 "Discover ECHONET Lite nodes on the local network and return a JSON or text list."
             ),
         ),
-            "x_search_terms": _(            "x_search_terms",            default=["echonet scan", "echonet_scan", "echonet", "ECHONET", "discover", "nodes", "local", "network"],        ),        "x_search_terms_en": ["echonet scan", "echonet_scan", "echonet", "ECHONET", "discover", "nodes", "local", "network"],
+        "x_search_terms": _(
+            "x_search_terms",
+            default=[
+                "echonet scan",
+                "echonet_scan",
+                "echonet",
+                "ECHONET",
+                "discover",
+                "nodes",
+                "local",
+                "network",
+            ],
+        ),
+        "x_search_terms_en": [
+            "echonet scan",
+            "echonet_scan",
+            "echonet",
+            "ECHONET",
+            "discover",
+            "nodes",
+            "local",
+            "network",
+        ],
         "parameters": {
             "type": "object",
             "properties": {
@@ -370,6 +392,7 @@ def _resolve_interface(interface: str | None) -> tuple[str | None, str | None]:
             import psutil  # type: ignore
         except ImportError:
             from .._pip_auto import install_with_status as _install_ps
+
             if not _install_ps("psutil"):
                 raise
             import psutil
@@ -418,6 +441,7 @@ def _resolve_interface(interface: str | None) -> tuple[str | None, str | None]:
         import psutil  # type: ignore
     except ImportError:
         from .._pip_auto import install_with_status as _install_ps
+
         if not _install_ps("psutil"):
             raise
         import psutil
@@ -480,8 +504,14 @@ def _eoj_bytes(text: str | None) -> bytes | None:
     return bytes.fromhex(normalized)
 
 
-def _build_get_request(target_eoj: bytes, epcs: list[int], tid: int | None = None) -> bytes:
-    tid_bytes = struct.pack(">H", tid & 0xFFFF) if tid is not None else struct.pack(">H", random.randint(1, 0xFFFF))
+def _build_get_request(
+    target_eoj: bytes, epcs: list[int], tid: int | None = None
+) -> bytes:
+    tid_bytes = (
+        struct.pack(">H", tid & 0xFFFF)
+        if tid is not None
+        else struct.pack(">H", random.randint(1, 0xFFFF))
+    )
     props: list[bytes] = []
     for epc in epcs:
         props.append(bytes([epc & 0xFF, 0x00]))
@@ -595,7 +625,9 @@ def _query_frames(
         mcast_addr = destination[0] if destination else "224.0.23.0"
         iface_ip = bind_ip if bind_ip else "0.0.0.0"
         try:
-            mreq = struct.pack("4s4s", socket.inet_aton(mcast_addr), socket.inet_aton(iface_ip))
+            mreq = struct.pack(
+                "4s4s", socket.inet_aton(mcast_addr), socket.inet_aton(iface_ip)
+            )
             sock.setsockopt(socket.IPPROTO_IP, socket.IP_ADD_MEMBERSHIP, mreq)
         except Exception:
             pass
@@ -697,9 +729,9 @@ def _summarize_node_item(
     manufacturer = None
     manufacturer_name = None
     if node_profile_props.get("8A"):
-        raw = node_profile_props["8A"].get("raw_hex") or node_profile_props[
-            "8A"
-        ].get("value")
+        raw = node_profile_props["8A"].get("raw_hex") or node_profile_props["8A"].get(
+            "value"
+        )
         manufacturer = str(raw) if raw is not None else None
         if manufacturer is not None:
             manufacturer_name = _MANUFACTURER_NAMES.get(manufacturer)
@@ -752,8 +784,8 @@ def _format_text(payload: dict[str, Any]) -> str:
         return "\n".join(lines).strip()
 
     for idx, item in enumerate(items, 1):
-        ip_label = item.get('ip') or item.get('ip_address') or '(unknown)'
-        eoj_items = item.get('eoj_list') or []
+        ip_label = item.get("ip") or item.get("ip_address") or "(unknown)"
+        eoj_items = item.get("eoj_list") or []
         dev_name = ""
         for eoj_code in eoj_items:
             dev_name = _eoj_class_name(eoj_code)
@@ -766,8 +798,8 @@ def _format_text(payload: dict[str, Any]) -> str:
         if item.get("node_id"):
             lines.append(f"  node_id: {item.get('node_id')}")
         if item.get("manufacturer"):
-            mfr_code = item.get('manufacturer')
-            mfr_name = item.get('manufacturer_name')
+            mfr_code = item.get("manufacturer")
+            mfr_name = item.get("manufacturer_name")
             if mfr_name:
                 lines.append(f"  manufacturer: {mfr_name} ({mfr_code})")
             else:
@@ -802,6 +834,7 @@ def _get_eoj_localized_name(en_name: str, lang: str) -> str:
     """
     import json
     from pathlib import Path
+
     _json_path = Path(__file__).with_name("echonet_scan_tool.json")
     if not _json_path.is_file():
         return ""
@@ -885,7 +918,11 @@ def run_tool(args: dict[str, Any]) -> str:
         "retry": retry,
         "limit": limit,
     }
-    cached = None if refresh else cache_get("scan", cache_key, ttl_seconds=_CACHE_TTL_SECONDS)
+    cached = (
+        None
+        if refresh
+        else cache_get("scan", cache_key, ttl_seconds=_CACHE_TTL_SECONDS)
+    )
     if cached is not None:
         payload = dict(cached.get("value") or {})
         payload["cache"] = {

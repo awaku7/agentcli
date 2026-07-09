@@ -35,14 +35,14 @@ TOOL_SPEC: dict[str, Any] = {
             ],
         ),
         "x_search_terms_en": [
-        "zipcode",
-        "postal code",
-        "Japan address",
-        "address lookup",
-        "Japanese zipcode",
-        "zip code",
-        "postal",
-    ],
+            "zipcode",
+            "postal code",
+            "Japan address",
+            "address lookup",
+            "Japanese zipcode",
+            "zip code",
+            "postal",
+        ],
         "parameters": {
             "type": "object",
             "properties": {

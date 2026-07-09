@@ -29,7 +29,18 @@ TOOL_SPEC: dict[str, Any] = {
                 "Returns the current value and metadata."
             ),
         ),
-            "x_search_terms": _(            "x_search_terms",            default=["opcua read", "opcua_read", "opcua", "OPCUA", "value(s", "server"],        ),        "x_search_terms_en": ["opcua read", "opcua_read", "opcua", "OPCUA", "value(s", "server"],
+        "x_search_terms": _(
+            "x_search_terms",
+            default=["opcua read", "opcua_read", "opcua", "OPCUA", "value(s", "server"],
+        ),
+        "x_search_terms_en": [
+            "opcua read",
+            "opcua_read",
+            "opcua",
+            "OPCUA",
+            "value(s",
+            "server",
+        ],
         "parameters": {
             "type": "object",
             "properties": {

@@ -35,7 +35,21 @@ TOOL_SPEC: dict[str, Any] = {
                 "Get the status of one SwitchBot Cloud device from the configured account."
             ),
         ),
-            "x_search_terms": _(            "x_search_terms",            default=["switchbot cloud status", "switchbot_cloud_status", "switchbot", "cloud"],        ),        "x_search_terms_en": ["switchbot cloud status", "switchbot_cloud_status", "switchbot", "cloud"],
+        "x_search_terms": _(
+            "x_search_terms",
+            default=[
+                "switchbot cloud status",
+                "switchbot_cloud_status",
+                "switchbot",
+                "cloud",
+            ],
+        ),
+        "x_search_terms_en": [
+            "switchbot cloud status",
+            "switchbot_cloud_status",
+            "switchbot",
+            "cloud",
+        ],
         "parameters": {
             "type": "object",
             "properties": {

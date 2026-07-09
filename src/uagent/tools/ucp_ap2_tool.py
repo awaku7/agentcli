@@ -78,7 +78,7 @@ TOOL_SPEC: dict[str, Any] = {
                     "description": _(
                         "param.max_amount.description",
                         default="Maximum payment amount in minor units (cents). "
-                                "e.g. 50000 = $500.00 (mode='mandate_create').",
+                        "e.g. 50000 = $500.00 (mode='mandate_create').",
                     ),
                 },
                 "currency": {
@@ -161,7 +161,9 @@ def _save_mandates(mandates: dict[str, dict[str, Any]]) -> None:
     tmp.replace(path)
 
 
-def _delete_expired_mandates(mandates: dict[str, dict[str, Any]]) -> dict[str, dict[str, Any]]:
+def _delete_expired_mandates(
+    mandates: dict[str, dict[str, Any]],
+) -> dict[str, dict[str, Any]]:
     """Remove expired mandates."""
     now = time.time()
     return {k: v for k, v in mandates.items() if v.get("expires_at", now) > now}
@@ -193,32 +195,50 @@ def run_tool(args: dict[str, Any]) -> str:
     if mode == "mandate_list":
         result_list = []
         for mid, m in mandates.items():
-            result_list.append({
-                "id": mid,
-                "status": m.get("status"),
-                "merchant": m.get("merchant", {}).get("name"),
-                "max_amount": m.get("max_amount"),
-                "currency": m.get("currency"),
-                "created_at": m.get("created_at"),
-                "expires_at": m.get("expires_at"),
-            })
-        return json.dumps({
-            "ok": True,
-            "mode": mode,
-            "mandates": result_list,
-        }, ensure_ascii=False, indent=2)
+            result_list.append(
+                {
+                    "id": mid,
+                    "status": m.get("status"),
+                    "merchant": m.get("merchant", {}).get("name"),
+                    "max_amount": m.get("max_amount"),
+                    "currency": m.get("currency"),
+                    "created_at": m.get("created_at"),
+                    "expires_at": m.get("expires_at"),
+                }
+            )
+        return json.dumps(
+            {
+                "ok": True,
+                "mode": mode,
+                "mandates": result_list,
+            },
+            ensure_ascii=False,
+            indent=2,
+        )
 
     if mode == "mandate_create":
         if not merchant_name:
-            return json.dumps({
-                "ok": False,
-                "error": {"code": "invalid_argument", "message": "merchant_name is required for mandate_create."},
-            }, ensure_ascii=False)
+            return json.dumps(
+                {
+                    "ok": False,
+                    "error": {
+                        "code": "invalid_argument",
+                        "message": "merchant_name is required for mandate_create.",
+                    },
+                },
+                ensure_ascii=False,
+            )
         if max_amount is None:
-            return json.dumps({
-                "ok": False,
-                "error": {"code": "invalid_argument", "message": "max_amount is required for mandate_create."},
-            }, ensure_ascii=False)
+            return json.dumps(
+                {
+                    "ok": False,
+                    "error": {
+                        "code": "invalid_argument",
+                        "message": "max_amount is required for mandate_create.",
+                    },
+                },
+                ensure_ascii=False,
+            )
 
         mandate = ap2_create_payment_mandate(
             merchant_name=merchant_name,
@@ -256,32 +276,54 @@ def run_tool(args: dict[str, Any]) -> str:
 
     if mode == "execute":
         if not mandate_id or not checkout_id or amount is None:
-            return json.dumps({
-                "ok": False,
-                "error": {"code": "invalid_argument",
-                          "message": "mandate_id, checkout_id, and amount are required for execute."},
-            }, ensure_ascii=False)
+            return json.dumps(
+                {
+                    "ok": False,
+                    "error": {
+                        "code": "invalid_argument",
+                        "message": "mandate_id, checkout_id, and amount are required for execute.",
+                    },
+                },
+                ensure_ascii=False,
+            )
 
         mandate = mandates.get(mandate_id)
         if not mandate:
-            return json.dumps({
-                "ok": False,
-                "error": {"code": "mandate_not_found", "message": f"Mandate {mandate_id} not found."},
-            }, ensure_ascii=False)
+            return json.dumps(
+                {
+                    "ok": False,
+                    "error": {
+                        "code": "mandate_not_found",
+                        "message": f"Mandate {mandate_id} not found.",
+                    },
+                },
+                ensure_ascii=False,
+            )
 
         if mandate.get("status") != "active":
-            return json.dumps({
-                "ok": False,
-                "error": {"code": "mandate_not_active",
-                          "message": f"Mandate {mandate_id} status is '{mandate.get('status')}', expected 'active'."},
-            }, ensure_ascii=False)
+            return json.dumps(
+                {
+                    "ok": False,
+                    "error": {
+                        "code": "mandate_not_active",
+                        "message": f"Mandate {mandate_id} status is '{mandate.get('status')}', expected 'active'.",
+                    },
+                },
+                ensure_ascii=False,
+            )
 
         signed_jwt = mandate.get("signed_jwt", "")
         if not signed_jwt:
-            return json.dumps({
-                "ok": False,
-                "error": {"code": "mandate_no_jwt", "message": "Mandate has no signed JWT."},
-            }, ensure_ascii=False)
+            return json.dumps(
+                {
+                    "ok": False,
+                    "error": {
+                        "code": "mandate_no_jwt",
+                        "message": "Mandate has no signed JWT.",
+                    },
+                },
+                ensure_ascii=False,
+            )
 
         token_result = ap2_execute_token(
             mandate_signed_jwt=signed_jwt,
@@ -291,10 +333,16 @@ def run_tool(args: dict[str, Any]) -> str:
         )
 
         if token_result.get("status") == "error":
-            return json.dumps({
-                "ok": False,
-                "error": {"code": "token_execution_failed", "message": token_result.get("message")},
-            }, ensure_ascii=False)
+            return json.dumps(
+                {
+                    "ok": False,
+                    "error": {
+                        "code": "token_execution_failed",
+                        "message": token_result.get("message"),
+                    },
+                },
+                ensure_ascii=False,
+            )
 
         result = {
             "ok": True,
@@ -315,34 +363,53 @@ def run_tool(args: dict[str, Any]) -> str:
 
     if mode == "verify":
         if not ap2_token:
-            return json.dumps({
-                "ok": False,
-                "error": {"code": "invalid_argument", "message": "ap2_token is required for verify."},
-            }, ensure_ascii=False)
+            return json.dumps(
+                {
+                    "ok": False,
+                    "error": {
+                        "code": "invalid_argument",
+                        "message": "ap2_token is required for verify.",
+                    },
+                },
+                ensure_ascii=False,
+            )
 
         payload = ap2_verify_payment_token(ap2_token)
         if not payload:
-            return json.dumps({
-                "ok": False,
-                "error": {"code": "invalid_token", "message": "AP2 token verification failed."},
-            }, ensure_ascii=False)
+            return json.dumps(
+                {
+                    "ok": False,
+                    "error": {
+                        "code": "invalid_token",
+                        "message": "AP2 token verification failed.",
+                    },
+                },
+                ensure_ascii=False,
+            )
 
-        return json.dumps({
-            "ok": True,
-            "mode": mode,
-            "payload": {
-                "vct": payload.get("vct"),
-                "token_id": payload.get("token_id"),
-                "checkout_id": payload.get("checkout_id"),
-                "mandate_id": payload.get("mandate_id"),
-                "amount": payload.get("amount"),
-                "currency": payload.get("currency"),
-                "iat": payload.get("iat"),
-                "exp": payload.get("exp"),
+        return json.dumps(
+            {
+                "ok": True,
+                "mode": mode,
+                "payload": {
+                    "vct": payload.get("vct"),
+                    "token_id": payload.get("token_id"),
+                    "checkout_id": payload.get("checkout_id"),
+                    "mandate_id": payload.get("mandate_id"),
+                    "amount": payload.get("amount"),
+                    "currency": payload.get("currency"),
+                    "iat": payload.get("iat"),
+                    "exp": payload.get("exp"),
+                },
             },
-        }, ensure_ascii=False, indent=2)
+            ensure_ascii=False,
+            indent=2,
+        )
 
-    return json.dumps({
-        "ok": False,
-        "error": {"code": "invalid_mode", "message": f"Unknown mode: {mode}"},
-    }, ensure_ascii=False)
+    return json.dumps(
+        {
+            "ok": False,
+            "error": {"code": "invalid_mode", "message": f"Unknown mode: {mode}"},
+        },
+        ensure_ascii=False,
+    )

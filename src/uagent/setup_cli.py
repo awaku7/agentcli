@@ -343,7 +343,9 @@ PROVIDER_FIELDS: dict[str, list[tuple[str, bool, str]]] = {
         (
             "UAGENT_SAKURA_BASE_URL",
             False,
-            _("SAKURA AI Engine base URL (optional, default: https://api.ai.sakura.ad.jp/v1)"),
+            _(
+                "SAKURA AI Engine base URL (optional, default: https://api.ai.sakura.ad.jp/v1)"
+            ),
         ),
         (
             "UAGENT_SAKURA_DEPNAME",

@@ -17,7 +17,11 @@ TOOL_SPEC: dict[str, Any] = {
     "function": {
         "name": "tools_control_dummy",
         "description": "Dummy tool for tools control registration.",
-            "x_search_terms": _(            "x_search_terms",            default=["tools control", "tools_control", "tools", "TOOLS"],        ),        "x_search_terms_en": ["tools control", "tools_control", "tools", "TOOLS"],
+        "x_search_terms": _(
+            "x_search_terms",
+            default=["tools control", "tools_control", "tools", "TOOLS"],
+        ),
+        "x_search_terms_en": ["tools control", "tools_control", "tools", "TOOLS"],
         "parameters": {
             "type": "object",
             "properties": {},
@@ -238,19 +242,22 @@ def _register_tools_subcommands() -> None:
     ]
 
 
-
 def handle_cmd_tools_reload(arg: str, **kw: Any) -> Any:
     """Handle :tools reload - reload all tool code from disk."""
     from ..util_tools import CommandResult
+
     try:
         import importlib
         import sys
+
         mod = sys.modules.get("uagent.tools") or __import__("uagent.tools")
         importlib.reload(mod)
-        print(_(
+        print(
+            _(
                 "msg.tools.reloaded",
                 default="[tools] System reloaded successfully. All tools updated with latest code.",
-            ))
+            )
+        )
     except Exception as e:
         print(f"[tools error] Reload failed: {type(e).__name__}: {e}")
     return CommandResult()

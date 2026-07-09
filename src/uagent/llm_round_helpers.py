@@ -558,8 +558,14 @@ def _call_openai_azure_round(
                             core=core,
                         )
                     )
-                    assistant_text, reasoning_content, tool_calls_list, _stream_rid = _stream_result
-                    if _should_track_rid and _stream_rid and isinstance(responses_state, dict):
+                    assistant_text, reasoning_content, tool_calls_list, _stream_rid = (
+                        _stream_result
+                    )
+                    if (
+                        _should_track_rid
+                        and _stream_rid
+                        and isinstance(responses_state, dict)
+                    ):
                         responses_state["previous_response_id"] = _stream_rid
                         from .core import _save_responses_state
 
@@ -605,8 +611,14 @@ def _call_openai_azure_round(
                             core=core,
                         )
                     )
-                    assistant_text, reasoning_content, tool_calls_list, _resp_rid = _resp_result
-                    if _should_track_rid and _resp_rid and isinstance(responses_state, dict):
+                    assistant_text, reasoning_content, tool_calls_list, _resp_rid = (
+                        _resp_result
+                    )
+                    if (
+                        _should_track_rid
+                        and _resp_rid
+                        and isinstance(responses_state, dict)
+                    ):
                         responses_state["previous_response_id"] = _resp_rid
                         from .core import _save_responses_state
 
@@ -642,7 +654,11 @@ def _call_openai_azure_round(
                                     core=core,
                                 )
                             )
-                            if _should_track_rid and _retry_rid and isinstance(responses_state, dict):
+                            if (
+                                _should_track_rid
+                                and _retry_rid
+                                and isinstance(responses_state, dict)
+                            ):
                                 responses_state["previous_response_id"] = _retry_rid
                                 from .core import _save_responses_state
 

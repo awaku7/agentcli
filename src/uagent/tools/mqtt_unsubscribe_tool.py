@@ -13,7 +13,6 @@ STATUS_LABEL = "tool:mqtt_unsubscribe"
 
 from .mqtt_subscribe_tool import _SUBSCRIPTIONS, _SUBS_LOCK
 
-
 TOOL_SPEC: dict[str, Any] = {
     "tool_genre": "iot",
     "tool_level": 1,
@@ -28,7 +27,27 @@ TOOL_SPEC: dict[str, Any] = {
                 "or list active subscriptions."
             ),
         ),
-            "x_search_terms": _(            "x_search_terms",            default=["mqtt unsubscribe", "mqtt_unsubscribe", "mqtt", "MQTT", "cancel", "subscription", "subscription_id"],        ),        "x_search_terms_en": ["mqtt unsubscribe", "mqtt_unsubscribe", "mqtt", "MQTT", "cancel", "subscription", "subscription_id"],
+        "x_search_terms": _(
+            "x_search_terms",
+            default=[
+                "mqtt unsubscribe",
+                "mqtt_unsubscribe",
+                "mqtt",
+                "MQTT",
+                "cancel",
+                "subscription",
+                "subscription_id",
+            ],
+        ),
+        "x_search_terms_en": [
+            "mqtt unsubscribe",
+            "mqtt_unsubscribe",
+            "mqtt",
+            "MQTT",
+            "cancel",
+            "subscription",
+            "subscription_id",
+        ],
         "parameters": {
             "type": "object",
             "properties": {

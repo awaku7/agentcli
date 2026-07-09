@@ -6,6 +6,7 @@ try:
     import httpx
 except ImportError:
     from .._pip_auto import install_with_status as _install_httpx
+
     _install_httpx("httpx")
     import httpx
 

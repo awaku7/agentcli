@@ -54,7 +54,27 @@ TOOL_SPEC: dict[str, Any] = {
                 "Probes IP addresses and unit IDs to discover Modbus devices."
             ),
         ),
-            "x_search_terms": _(            "x_search_terms",            default=["modbus scan", "modbus_scan", "modbus", "MODBUS", "devices", "local", "network"],        ),        "x_search_terms_en": ["modbus scan", "modbus_scan", "modbus", "MODBUS", "devices", "local", "network"],
+        "x_search_terms": _(
+            "x_search_terms",
+            default=[
+                "modbus scan",
+                "modbus_scan",
+                "modbus",
+                "MODBUS",
+                "devices",
+                "local",
+                "network",
+            ],
+        ),
+        "x_search_terms_en": [
+            "modbus scan",
+            "modbus_scan",
+            "modbus",
+            "MODBUS",
+            "devices",
+            "local",
+            "network",
+        ],
         "parameters": {
             "type": "object",
             "properties": {
@@ -264,17 +284,21 @@ def run_tool(args: dict[str, Any]) -> str:
                 try:
                     rr = client.read_holding_registers(0, 1, unit=unit_id)
                     if rr is not None and not (hasattr(rr, "isError") and rr.isError()):
-                        found.append({
-                            "ip": ip,
-                            "port": port,
-                            "unit_id": unit_id,
-                            "vendor": None,
-                            "model": None,
-                            "first_register": rr.registers[0]
-                            if hasattr(rr, "registers") and rr.registers
-                            else None,
-                            "last_seen": _now_iso(),
-                        })
+                        found.append(
+                            {
+                                "ip": ip,
+                                "port": port,
+                                "unit_id": unit_id,
+                                "vendor": None,
+                                "model": None,
+                                "first_register": (
+                                    rr.registers[0]
+                                    if hasattr(rr, "registers") and rr.registers
+                                    else None
+                                ),
+                                "last_seen": _now_iso(),
+                            }
+                        )
                 except Exception:
                     continue
         except Exception:

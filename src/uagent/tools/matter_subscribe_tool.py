@@ -23,7 +23,23 @@ TOOL_SPEC: dict[str, Any] = {
             "tool.description",
             default="Subscribe to state changes of a Matter device.",
         ),
-            "x_search_terms": _(            "x_search_terms",            default=["matter subscribe", "matter_subscribe", "matter", "MATTER", "changes"],        ),        "x_search_terms_en": ["matter subscribe", "matter_subscribe", "matter", "MATTER", "changes"],
+        "x_search_terms": _(
+            "x_search_terms",
+            default=[
+                "matter subscribe",
+                "matter_subscribe",
+                "matter",
+                "MATTER",
+                "changes",
+            ],
+        ),
+        "x_search_terms_en": [
+            "matter subscribe",
+            "matter_subscribe",
+            "matter",
+            "MATTER",
+            "changes",
+        ],
         "parameters": {
             "type": "object",
             "properties": {

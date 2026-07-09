@@ -64,7 +64,6 @@ def apply_ollama_extra_body(chat_kwargs: dict[str, Any], *, provider: str) -> No
         pass
 
 
-
 def ollama_fim_generate(
     *,
     base_url: str,
@@ -112,6 +111,4 @@ def ollama_fim_generate(
         data = resp.json()
         return data.get("response", "")
     except requests.RequestException as exc:
-        raise RuntimeError(
-            f"Ollama FIM request failed: {exc}"
-        ) from exc
+        raise RuntimeError(f"Ollama FIM request failed: {exc}") from exc

@@ -205,16 +205,28 @@ def run_tool(args: dict[str, Any]) -> str:
         save_dir = Path.home() / ".uag"
         save_dir.mkdir(parents=True, exist_ok=True)
         save_path = save_dir / "nominatim_reverse.json"
-        save_path.write_text(json.dumps(data, ensure_ascii=False, indent=2), encoding="utf-8")
+        save_path.write_text(
+            json.dumps(data, ensure_ascii=False, indent=2), encoding="utf-8"
+        )
     except Exception:
         pass
 
     # Use address components for a nicely formatted output
     address = result["address"]
     addr_parts: list[str] = []
-    for key in ("country", "state", "city", "town", "village",
-                 "suburb", "quarter", "neighbourhood", "road",
-                 "house_number", "postcode"):
+    for key in (
+        "country",
+        "state",
+        "city",
+        "town",
+        "village",
+        "suburb",
+        "quarter",
+        "neighbourhood",
+        "road",
+        "house_number",
+        "postcode",
+    ):
         val = address.get(key)
         if val:
             addr_parts.append(f"{key}: {val}")

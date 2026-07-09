@@ -30,7 +30,21 @@ TOOL_SPEC: dict[str, Any] = {
                 "Read the status of a nearby SwitchBot BLE device and return a JSON or text summary."
             ),
         ),
-            "x_search_terms": _(            "x_search_terms",            default=["switchbot ble status", "switchbot_ble_status", "switchbot", "nearby"],        ),        "x_search_terms_en": ["switchbot ble status", "switchbot_ble_status", "switchbot", "nearby"],
+        "x_search_terms": _(
+            "x_search_terms",
+            default=[
+                "switchbot ble status",
+                "switchbot_ble_status",
+                "switchbot",
+                "nearby",
+            ],
+        ),
+        "x_search_terms_en": [
+            "switchbot ble status",
+            "switchbot_ble_status",
+            "switchbot",
+            "nearby",
+        ],
         "parameters": {
             "type": "object",
             "properties": {

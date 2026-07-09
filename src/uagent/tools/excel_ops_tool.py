@@ -12,6 +12,7 @@ try:
     import msoffcrypto
 except ImportError:
     from .._pip_auto import install_with_status as _install_mso
+
     if not _install_mso("msoffcrypto-tool", "msoffcrypto"):
         msoffcrypto = None  # type: ignore[assignment]
 
@@ -159,6 +160,7 @@ def _load_workbook_with_password(
         import openpyxl
     except ImportError:
         from .._pip_auto import install_with_status as _install_xl
+
         _install_xl("openpyxl")
         import openpyxl
 
@@ -206,6 +208,7 @@ def run_tool(args: dict[str, Any]) -> str:
         import openpyxl
     except ImportError:
         from .._pip_auto import install_with_status as _install_xl
+
         _install_xl("openpyxl")
         import openpyxl
 

@@ -26,11 +26,17 @@ try:
         WebSocket,
         WebSocketDisconnect,
     )
-    from fastapi.responses import FileResponse, HTMLResponse, JSONResponse, RedirectResponse
+    from fastapi.responses import (
+        FileResponse,
+        HTMLResponse,
+        JSONResponse,
+        RedirectResponse,
+    )
     from fastapi.staticfiles import StaticFiles
     from fastapi.templating import Jinja2Templates
 except ImportError:
     from ._pip_auto import install_with_status as _install
+
     _install("uvicorn")
     _install("fastapi")
     import uvicorn
@@ -43,7 +49,12 @@ except ImportError:
         WebSocket,
         WebSocketDisconnect,
     )
-    from fastapi.responses import FileResponse, HTMLResponse, JSONResponse, RedirectResponse
+    from fastapi.responses import (
+        FileResponse,
+        HTMLResponse,
+        JSONResponse,
+        RedirectResponse,
+    )
     from fastapi.staticfiles import StaticFiles
     from fastapi.templating import Jinja2Templates
 
@@ -186,14 +197,16 @@ class WebRoom:
         try:
             if self.loop:
                 asyncio.run_coroutine_threadsafe(
-                    self.broadcast({
-                        "type": "status",
-                        "status": {
-                            "busy": self.status.get("busy", False),
-                            "label": self.status.get("label", "IDLE"),
-                            "workdir": resolved,
+                    self.broadcast(
+                        {
+                            "type": "status",
+                            "status": {
+                                "busy": self.status.get("busy", False),
+                                "label": self.status.get("label", "IDLE"),
+                                "workdir": resolved,
+                            },
                         }
-                    }),
+                    ),
                     self.loop,
                 )
         except Exception:
@@ -671,9 +684,7 @@ def run_agent_worker(
         if not stream_state.get("active"):
             _stream_start()
         if reasoning:
-            _web_stream_send(
-                {"type": "reasoning", "content": delta}
-            )
+            _web_stream_send({"type": "reasoning", "content": delta})
         else:
             _web_stream_send(
                 {
@@ -952,7 +963,9 @@ async def upload_files(
     files: list[UploadFile] = File(...),
 ):
     try:
-        raw_room_id = re.sub(r"[^A-Za-z0-9._-]+", "_", str(room or "").strip()) or "default"
+        raw_room_id = (
+            re.sub(r"[^A-Za-z0-9._-]+", "_", str(room or "").strip()) or "default"
+        )
         room_obj = web_manager.get_room(raw_room_id)
         base = os.path.abspath(room_obj.base_dir)
         upload_root = os.path.join(base, ".uagent_web_uploads", raw_room_id)
@@ -1186,15 +1199,18 @@ async def get_memories():
         ts = rec.get("ts")
         if isinstance(ts, (int, float)):
             import time as _t
+
             dt = _t.strftime("%Y-%m-%d %H:%M:%S", _t.localtime(ts))
         else:
             dt = None
-        result.append({
-            "idx": idx,
-            "ts": ts,
-            "datetime": dt,
-            "note": str(rec.get("note", "")),
-        })
+        result.append(
+            {
+                "idx": idx,
+                "ts": ts,
+                "datetime": dt,
+                "note": str(rec.get("note", "")),
+            }
+        )
     return {"ok": True, "memories": result}
 
 
@@ -1218,7 +1234,9 @@ async def update_memory(index: int, req: Request):
         return JSONResponse(status_code=400, content={"error": "note is required"})
     ok = _long_memory_mod.update_long_memory_entry(index, new_note)
     if not ok:
-        return JSONResponse(status_code=404, content={"error": f"index {index} out of range"})
+        return JSONResponse(
+            status_code=404, content={"error": f"index {index} out of range"}
+        )
     return {"ok": True}
 
 
@@ -1227,7 +1245,9 @@ async def delete_memory(index: int):
     """Delete a long-term memory entry."""
     ok = _long_memory_mod.delete_long_memory_entry(index)
     if not ok:
-        return JSONResponse(status_code=404, content={"error": f"index {index} out of range"})
+        return JSONResponse(
+            status_code=404, content={"error": f"index {index} out of range"}
+        )
     return {"ok": True}
 
 
@@ -1287,12 +1307,14 @@ async def get_logs(page: int = 1, per_page: int = 15):
     for f in files:
         try:
             st = os.stat(f)
-            items.append({
-                "path": f,
-                "name": os.path.basename(f),
-                "size": st.st_size,
-                "mtime": st.st_mtime,
-            })
+            items.append(
+                {
+                    "path": f,
+                    "name": os.path.basename(f),
+                    "size": st.st_size,
+                    "mtime": st.st_mtime,
+                }
+            )
         except Exception:
             pass
     # Sort by mtime descending
@@ -1429,6 +1451,7 @@ async def api_command(req: Request):
     except Exception as e:
         return JSONResponse(status_code=500, content={"error": str(e)})
 
+
 @app.websocket("/ws")
 async def websocket_endpoint(websocket: WebSocket):
     room_id = websocket.query_params.get("room")
@@ -1475,10 +1498,13 @@ async def websocket_endpoint(websocket: WebSocket):
                         try:
                             room.set_base_dir(_cd_arg or ".")
                         except Exception as _cd_e:
-                            room.add_message({
-                                "role": "assistant",
-                                "content": _("[Error] :cd failed: %(err)s") % {"err": _cd_e},
-                            })
+                            room.add_message(
+                                {
+                                    "role": "assistant",
+                                    "content": _("[Error] :cd failed: %(err)s")
+                                    % {"err": _cd_e},
+                                }
+                            )
                         continue
                     _wc_client, _wc_depname = None, ""
                     try:
@@ -1488,17 +1514,22 @@ async def websocket_endpoint(websocket: WebSocket):
                     _result = tools_util.handle_command(
                         _cmd_line, room.history, _wc_client, _wc_depname, core=core
                     )
-                    if isinstance(_result, tools_util.CommandResult) and _result.run_llm:
+                    if (
+                        isinstance(_result, tools_util.CommandResult)
+                        and _result.run_llm
+                    ):
                         threading.Thread(
                             target=run_agent_worker,
                             args=(room, _result.prompt, None),
                             daemon=True,
                         ).start()
                 except Exception as _e:
-                    room.add_message({
-                        "role": "assistant",
-                        "content": _("[Command Error] %(err)s") % {"err": _e},
-                    })
+                    room.add_message(
+                        {
+                            "role": "assistant",
+                            "content": _("[Command Error] %(err)s") % {"err": _e},
+                        }
+                    )
 
             elif payload.get("type") == "set_modes":
                 r = payload.get("reasoning")
@@ -1633,7 +1664,9 @@ def main():
         "--no-frontend",
         action="store_true",
         default=False,
-        help=_("Run in API-only mode without frontend (no HTML templates or static files)."),
+        help=_(
+            "Run in API-only mode without frontend (no HTML templates or static files)."
+        ),
     )
     web_args, _web_unknown = parser.parse_known_args()
 

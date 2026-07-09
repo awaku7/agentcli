@@ -26,7 +26,18 @@ TOOL_SPEC: dict[str, Any] = {
             "tool.description",
             default=("Write a value to an OPC UA server node."),
         ),
-            "x_search_terms": _(            "x_search_terms",            default=["opcua write", "opcua_write", "opcua", "OPCUA", "value", "server"],        ),        "x_search_terms_en": ["opcua write", "opcua_write", "opcua", "OPCUA", "value", "server"],
+        "x_search_terms": _(
+            "x_search_terms",
+            default=["opcua write", "opcua_write", "opcua", "OPCUA", "value", "server"],
+        ),
+        "x_search_terms_en": [
+            "opcua write",
+            "opcua_write",
+            "opcua",
+            "OPCUA",
+            "value",
+            "server",
+        ],
         "parameters": {
             "type": "object",
             "properties": {

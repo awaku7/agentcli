@@ -10,6 +10,7 @@ from .env_utils import env_get
 from .i18n import _
 from .llm_helpers import _effectively_empty_text
 
+
 def _is_external_data_tool(name: str) -> bool:
     """Check if a tool fetches external/third-party content.
 

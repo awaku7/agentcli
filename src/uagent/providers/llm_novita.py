@@ -200,7 +200,12 @@ def _parse_novita_stream(
                     try:
                         lm = getattr(core, "log_message", None)
                         if callable(lm):
-                            lm({"type": "assistant_stream_delta", "delta": content_delta})
+                            lm(
+                                {
+                                    "type": "assistant_stream_delta",
+                                    "delta": content_delta,
+                                }
+                            )
                     except Exception:
                         pass
 
@@ -238,7 +243,11 @@ def _parse_novita_stream(
             pass
 
     if (text_parts or reasoning_parts) and not is_web:
-        last = text_parts[-1] if text_parts else (reasoning_parts[-1] if reasoning_parts else "")
+        last = (
+            text_parts[-1]
+            if text_parts
+            else (reasoning_parts[-1] if reasoning_parts else "")
+        )
         if last and not last.endswith("\n"):
             if print_delta_fn:
                 print_delta_fn("\n")
@@ -396,6 +405,7 @@ def novita_chat_with_tools(
                         "Auto-disabling tools and retrying..."
                     )
                     from .. import core as _core_module
+
                     _core_module.tools_enabled = False
                     send_tools_this_round = False
                     req_tools = None

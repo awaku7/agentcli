@@ -74,45 +74,77 @@ def run_tool(args: dict[str, Any]) -> str:
     order_id = str(args.get("order_id") or "").strip()
 
     if not business_url:
-        return json.dumps({
-            "ok": False,
-            "error": {"code": "invalid_argument", "message": "business_url is required."},
-        }, ensure_ascii=False)
+        return json.dumps(
+            {
+                "ok": False,
+                "error": {
+                    "code": "invalid_argument",
+                    "message": "business_url is required.",
+                },
+            },
+            ensure_ascii=False,
+        )
 
     if mode == "get" and not order_id:
-        return json.dumps({
-            "ok": False,
-            "error": {"code": "invalid_argument", "message": "order_id is required for mode='get'."},
-        }, ensure_ascii=False)
+        return json.dumps(
+            {
+                "ok": False,
+                "error": {
+                    "code": "invalid_argument",
+                    "message": "order_id is required for mode='get'.",
+                },
+            },
+            ensure_ascii=False,
+        )
 
     try:
         profile = discover_business(business_url)
     except Exception as exc:
-        return json.dumps({
-            "ok": False, "error": {"code": "discovery_failed", "message": str(exc)},
-        }, ensure_ascii=False)
+        return json.dumps(
+            {
+                "ok": False,
+                "error": {"code": "discovery_failed", "message": str(exc)},
+            },
+            ensure_ascii=False,
+        )
 
     try:
         if mode == "list":
-            resp = ucp_request(business_url, "list-orders", method="POST", profile=profile)
+            resp = ucp_request(
+                business_url, "list-orders", method="POST", profile=profile
+            )
         else:
             resp = ucp_request(
-                business_url, "get-order",
-                method="POST", body={"order_id": order_id},
+                business_url,
+                "get-order",
+                method="POST",
+                body={"order_id": order_id},
                 profile=profile,
             )
     except UCPError as exc:
-        return json.dumps({
-            "ok": False, "error": {"code": "ucp_error", "message": str(exc)},
-        }, ensure_ascii=False)
+        return json.dumps(
+            {
+                "ok": False,
+                "error": {"code": "ucp_error", "message": str(exc)},
+            },
+            ensure_ascii=False,
+        )
     except Exception as exc:
-        return json.dumps({
-            "ok": False, "error": {"code": "request_failed", "message": str(exc)},
-        }, ensure_ascii=False)
+        return json.dumps(
+            {
+                "ok": False,
+                "error": {"code": "request_failed", "message": str(exc)},
+            },
+            ensure_ascii=False,
+        )
 
-    return json.dumps({
-        "ok": True,
-        "mode": mode,
-        "business_url": business_url,
-        "result": resp,
-    }, ensure_ascii=False, indent=2)
+    return json.dumps(
+        {
+            "ok": True,
+            "mode": mode,
+            "business_url": business_url,
+            "result": resp,
+        },
+        ensure_ascii=False,
+        indent=2,
+    )

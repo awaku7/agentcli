@@ -18,6 +18,7 @@ from .._pip_auto import install_with_status as _install_exstruct
 
 if _install_exstruct("exstruct"):
     import exstruct  # noqa: F401
+
     _HAS_EXSTRUCT = True
 else:
     _HAS_EXSTRUCT = False
@@ -34,6 +35,7 @@ def _import_msoffcrypto():
         import msoffcrypto  # type: ignore
     except ImportError:
         from .._pip_auto import install_with_status as _install_mso
+
         if not _install_mso("msoffcrypto-tool", "msoffcrypto"):
             return None
         import msoffcrypto

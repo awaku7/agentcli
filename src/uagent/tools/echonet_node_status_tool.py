@@ -51,7 +51,21 @@ TOOL_SPEC: dict[str, Any] = {
                 "Read the status of an ECHONET Lite node on the local network and return a JSON or text summary."
             ),
         ),
-            "x_search_terms": _(            "x_search_terms",            default=["echonet node status", "echonet_node_status", "echonet", "ECHONET"],        ),        "x_search_terms_en": ["echonet node status", "echonet_node_status", "echonet", "ECHONET"],
+        "x_search_terms": _(
+            "x_search_terms",
+            default=[
+                "echonet node status",
+                "echonet_node_status",
+                "echonet",
+                "ECHONET",
+            ],
+        ),
+        "x_search_terms_en": [
+            "echonet node status",
+            "echonet_node_status",
+            "echonet",
+            "ECHONET",
+        ],
         "parameters": {
             "type": "object",
             "properties": {
@@ -196,8 +210,14 @@ def _decode_eoj_list(data: bytes) -> list[str]:
     return items
 
 
-def _build_get_request(target_eoj: bytes, epcs: list[int], tid: int | None = None) -> bytes:
-    tid_bytes = struct.pack(">H", tid & 0xFFFF) if tid is not None else struct.pack(">H", random.randint(1, 0xFFFF))
+def _build_get_request(
+    target_eoj: bytes, epcs: list[int], tid: int | None = None
+) -> bytes:
+    tid_bytes = (
+        struct.pack(">H", tid & 0xFFFF)
+        if tid is not None
+        else struct.pack(">H", random.randint(1, 0xFFFF))
+    )
     props: list[bytes] = []
     for epc in epcs:
         props.append(bytes([epc & 0xFF, 0x00]))

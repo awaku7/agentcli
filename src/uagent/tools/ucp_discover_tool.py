@@ -108,9 +108,12 @@ def run_tool(args: dict[str, Any]) -> str:
         cap_list.append(
             {
                 "name": cap_name,
-                "version": capabilities[cap_name][0].get("version", "unknown")
-                if isinstance(capabilities[cap_name], list) and capabilities[cap_name]
-                else "unknown",
+                "version": (
+                    capabilities[cap_name][0].get("version", "unknown")
+                    if isinstance(capabilities[cap_name], list)
+                    and capabilities[cap_name]
+                    else "unknown"
+                ),
                 "negotiated": cap_name in negotiated,
             }
         )

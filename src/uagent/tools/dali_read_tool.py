@@ -29,7 +29,18 @@ TOOL_SPEC: dict[str, Any] = {
                 "Queries the specified address for current state."
             ),
         ),
-            "x_search_terms": _(            "x_search_terms",            default=["dali read", "dali_read", "dali", "DALI", "level", "lighting"],        ),        "x_search_terms_en": ["dali read", "dali_read", "dali", "DALI", "level", "lighting"],
+        "x_search_terms": _(
+            "x_search_terms",
+            default=["dali read", "dali_read", "dali", "DALI", "level", "lighting"],
+        ),
+        "x_search_terms_en": [
+            "dali read",
+            "dali_read",
+            "dali",
+            "DALI",
+            "level",
+            "lighting",
+        ],
         "parameters": {
             "type": "object",
             "properties": {

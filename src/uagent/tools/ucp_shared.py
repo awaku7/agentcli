@@ -36,13 +36,19 @@ def _load_ap2_keys():
     key_file = os.getenv("UCP_AP2_KEY_FILE") or os.getenv("UCP_DEFAULT_KEY_FILE")
     if key_file and os.path.isfile(key_file):
         from cryptography.hazmat.primitives import serialization
+
         with open(key_file, "rb") as f:
-            _AP2_PRIVATE_KEY = serialization.load_pem_private_key(f.read(), password=None)
+            _AP2_PRIVATE_KEY = serialization.load_pem_private_key(
+                f.read(), password=None
+            )
         _AP2_PUBLIC_KEY = _AP2_PRIVATE_KEY.public_key()
     else:
         # Generate ephemeral key pair for testing
         from cryptography.hazmat.primitives.asymmetric import rsa
-        _AP2_PRIVATE_KEY = rsa.generate_private_key(public_exponent=65537, key_size=2048)
+
+        _AP2_PRIVATE_KEY = rsa.generate_private_key(
+            public_exponent=65537, key_size=2048
+        )
         _AP2_PUBLIC_KEY = _AP2_PRIVATE_KEY.public_key()
 
 
@@ -59,6 +65,7 @@ def _ap2_sign_jwt(payload: dict[str, Any], expires_in: int = 3600) -> str:
     _load_ap2_keys()
     import jwt as pyjwt
     from cryptography.hazmat.primitives import serialization
+
     now = int(time.time())
     payload.setdefault("iat", now)
     payload.setdefault("exp", now + expires_in)
@@ -84,6 +91,7 @@ def _ap2_verify_jwt(token: str) -> dict[str, Any] | None:
         _load_ap2_keys()
         import jwt as pyjwt
         from cryptography.hazmat.primitives import serialization
+
         public_pem = _AP2_PUBLIC_KEY.public_bytes(
             encoding=serialization.Encoding.PEM,
             format=serialization.PublicFormat.SubjectPublicKeyInfo,
@@ -98,9 +106,11 @@ def _ap2_get_public_jwk() -> dict[str, Any]:
     _load_ap2_keys()
     nums = _AP2_PUBLIC_KEY.public_numbers()
     import base64
+
     def _b64(n: int) -> str:
         length = (n.bit_length() + 7) // 8
         return base64.urlsafe_b64encode(n.to_bytes(length, "big")).rstrip(b"=").decode()
+
     return {
         "kty": "RSA",
         "n": _b64(nums.n),
@@ -146,7 +156,8 @@ def ap2_create_payment_mandate(
     mandate_payload = {
         "vct": "mandate.payment.open.1",
         "mandate_id": mandate_id,
-        "constraints": constraints or [
+        "constraints": constraints
+        or [
             {
                 "type": "payment.allowed_merchants",
                 "allowed": [{"name": merchant_name, "website": merchant_url}],
@@ -198,10 +209,18 @@ def ap2_execute_token(
     open_mandate = _ap2_verify_jwt(mandate_signed_jwt)
 
     if not open_mandate:
-        return {"status": "error", "code": "invalid_mandate", "message": "Mandate JWT verification failed"}
+        return {
+            "status": "error",
+            "code": "invalid_mandate",
+            "message": "Mandate JWT verification failed",
+        }
 
     if open_mandate.get("exp", 0) < time.time():
-        return {"status": "error", "code": "mandate_expired", "message": "Mandate has expired"}
+        return {
+            "status": "error",
+            "code": "mandate_expired",
+            "message": "Mandate has expired",
+        }
 
     token_id = "tok_" + str(uuid.uuid4())[:8]
     now = int(time.time())
@@ -352,9 +371,7 @@ def _request(
         return status, parsed, resp_headers  # unreachable
 
 
-def _raise_for_error(
-    status: int, body: Any, headers: dict[str, str]
-) -> None:
+def _raise_for_error(status: int, body: Any, headers: dict[str, str]) -> None:
     """Raise typed UCPError based on status code and UCP error structure."""
     if status < 400:
         return
@@ -381,7 +398,10 @@ def _raise_for_error(
             raise UCPUnrecoverableError(
                 _format_messages(messages), status_code=status, body=body
             )
-        if "requires_buyer_input" in severities or "requires_buyer_review" in severities:
+        if (
+            "requires_buyer_input" in severities
+            or "requires_buyer_review" in severities
+        ):
             raise UCPBuyerInputError(
                 _format_messages(messages), status_code=status, body=body
             )
@@ -485,8 +505,7 @@ def discover_business(business_url: str) -> dict[str, Any]:
 
     if status != 200 or body is None:
         raise UCPUnrecoverableError(
-            f"Business at {business_url} does not support UCP "
-            f"(HTTP {status})"
+            f"Business at {business_url} does not support UCP " f"(HTTP {status})"
         )
 
     _cache_set(cache_key, body)
@@ -513,14 +532,8 @@ def negotiate_capabilities(
     if platform_profile is None:
         platform_profile = _DEFAULT_PLATFORM_PROFILE
 
-    business_caps = (
-        business_profile.get("ucp", {})
-        .get("capabilities", {})
-    )
-    platform_caps = (
-        platform_profile.get("ucp", {})
-        .get("capabilities", {})
-    )
+    business_caps = business_profile.get("ucp", {}).get("capabilities", {})
+    platform_caps = platform_profile.get("ucp", {}).get("capabilities", {})
 
     negotiated = {}
     for cap_name, cap_def in business_caps.items():
@@ -698,9 +711,7 @@ def ucp_request(
 _OAUTH_TOKEN_CACHE: dict[str, tuple[str, float]] = {}
 
 
-def _get_oauth_token(
-    token_url: str, client_id: str, client_secret: str
-) -> str | None:
+def _get_oauth_token(token_url: str, client_id: str, client_secret: str) -> str | None:
     """Obtain an OAuth 2.0 Client Credentials token.
 
     Uses the business's token endpoint discovered from
@@ -784,7 +795,7 @@ def build_platform_profile(
     }
     for cap in capabilities:
         if cap in _DEFAULT_PLATFORM_PROFILE.get("ucp", {}).get("capabilities", {}):
-            profile["ucp"]["capabilities"][cap] = (
-                _DEFAULT_PLATFORM_PROFILE["ucp"]["capabilities"][cap]
-            )
+            profile["ucp"]["capabilities"][cap] = _DEFAULT_PLATFORM_PROFILE["ucp"][
+                "capabilities"
+            ][cap]
     return profile

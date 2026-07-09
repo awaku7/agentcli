@@ -608,11 +608,13 @@ def build_responses_request(
                     tm.pop(_k, None)
                 call_id = tm.pop("tool_call_id", None) or tm.get("id", "")
                 output = _as_str(tm.get("content", ""))
-                input_msgs.append({
-                    "type": "function_call_output",
-                    "call_id": call_id,
-                    "output": output,
-                })
+                input_msgs.append(
+                    {
+                        "type": "function_call_output",
+                        "call_id": call_id,
+                        "output": output,
+                    }
+                )
             elif role == "user":
                 _latest_user = dict(m)
                 for _k in ("attachments", "saved_path", "saved_files"):
@@ -1146,7 +1148,12 @@ def parse_responses_stream(
                         try:
                             lm = getattr(core, "log_message", None)
                             if callable(lm):
-                                lm({"type": "assistant_reasoning_delta", "delta": reasoning_delta})
+                                lm(
+                                    {
+                                        "type": "assistant_reasoning_delta",
+                                        "delta": reasoning_delta,
+                                    }
+                                )
                         except Exception:
                             pass
                     else:

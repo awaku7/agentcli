@@ -39,7 +39,27 @@ TOOL_SPEC: dict[str, Any] = {
                 "or IP address. Returns device metadata, service list, and device tree (sub-devices)."
             ),
         ),
-            "x_search_terms": _(            "x_search_terms",            default=["upnp device info", "upnp_device_info", "upnp", "UPNP", "detailed", "about", "specific"],        ),        "x_search_terms_en": ["upnp device info", "upnp_device_info", "upnp", "UPNP", "detailed", "about", "specific"],
+        "x_search_terms": _(
+            "x_search_terms",
+            default=[
+                "upnp device info",
+                "upnp_device_info",
+                "upnp",
+                "UPNP",
+                "detailed",
+                "about",
+                "specific",
+            ],
+        ),
+        "x_search_terms_en": [
+            "upnp device info",
+            "upnp_device_info",
+            "upnp",
+            "UPNP",
+            "detailed",
+            "about",
+            "specific",
+        ],
         "parameters": {
             "type": "object",
             "properties": {

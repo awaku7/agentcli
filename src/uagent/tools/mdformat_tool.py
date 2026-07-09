@@ -172,7 +172,7 @@ def run_tool(args: dict[str, Any]) -> str:
             else:
                 failed_count += 1
                 stderr_lines = [
-                    l for l in proc.stderr.splitlines() if l.strip()
+                    line for line in proc.stderr.splitlines() if line.strip()
                 ] or proc.stdout.splitlines()
                 detail = (
                     stderr_lines[0].strip()

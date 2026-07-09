@@ -71,7 +71,6 @@ class WsHandler:
             "session/list": self.handle_session_list,
             "fim": self.handle_fim,
             "human_ask/respond": self.handle_human_ask_respond,
-            "human_ask/respond": self.handle_human_ask_respond,
             "session/load": self.handle_session_load,
             "session/new": self.handle_session_new,
             "session/delete": self.handle_session_delete,
@@ -265,7 +264,7 @@ class WsHandler:
                                 os.environ.get("UAGENT_VSCODE_SHOW_TOOL_RESULT") or ""
                             ).lower() in ("1", "true", "yes")
                             if _tool_display:
-                                raw = (msg.get("content", "") or "")
+                                raw = msg.get("content", "") or ""
                                 try:
                                     decoded = json.loads(raw)
                                     if isinstance(decoded, dict):

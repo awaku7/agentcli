@@ -17,6 +17,7 @@ try:
     from mcp.client.stdio import stdio_client, StdioServerParameters
 except ImportError:
     from .._pip_auto import install_with_status as _install_mcp
+
     if not _install_mcp("mcp"):
         raise
     from mcp import ClientSession

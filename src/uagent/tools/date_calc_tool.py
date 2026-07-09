@@ -9,6 +9,7 @@ try:
     import holidays
 except ImportError:
     from .._pip_auto import install_with_status as _install_hd
+
     _install_hd("holidays")
     import holidays
 
@@ -16,6 +17,7 @@ try:
     from dateutil.relativedelta import relativedelta
 except ImportError:
     from .._pip_auto import install_with_status as _install_dutil
+
     _install_dutil("python-dateutil", "dateutil")
     from dateutil.relativedelta import relativedelta
 
@@ -57,19 +59,19 @@ TOOL_SPEC: dict[str, Any] = {
             ],
         ),
         "x_search_terms_en": [
-        "date_calc",
-        "date calc",
-        "date math",
-        "add days",
-        "subtract days",
-        "relative date",
-        "calendar date",
-        "weeks months",
-        "days from date",
-        "holiday check",
-        "date",
-        "calculate",
-    ],
+            "date_calc",
+            "date calc",
+            "date math",
+            "add days",
+            "subtract days",
+            "relative date",
+            "calendar date",
+            "weeks months",
+            "days from date",
+            "holiday check",
+            "date",
+            "calculate",
+        ],
         "parameters": {
             "type": "object",
             "properties": {

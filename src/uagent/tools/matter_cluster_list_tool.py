@@ -36,7 +36,25 @@ TOOL_SPEC: dict[str, Any] = {
             "tool.description",
             default="List Matter clusters for a device.",
         ),
-            "x_search_terms": _(            "x_search_terms",            default=["matter cluster list", "matter_cluster_list", "matter", "MATTER", "cluster", "clusters"],        ),        "x_search_terms_en": ["matter cluster list", "matter_cluster_list", "matter", "MATTER", "cluster", "clusters"],
+        "x_search_terms": _(
+            "x_search_terms",
+            default=[
+                "matter cluster list",
+                "matter_cluster_list",
+                "matter",
+                "MATTER",
+                "cluster",
+                "clusters",
+            ],
+        ),
+        "x_search_terms_en": [
+            "matter cluster list",
+            "matter_cluster_list",
+            "matter",
+            "MATTER",
+            "cluster",
+            "clusters",
+        ],
         "parameters": {
             "type": "object",
             "properties": {

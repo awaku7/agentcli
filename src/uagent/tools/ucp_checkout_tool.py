@@ -123,7 +123,7 @@ TOOL_SPEC: dict[str, Any] = {
                     "description": _(
                         "param.shipping_address.description",
                         default="Shipping address for fulfillment (optional). "
-                                "Fields: street_address, address_locality, address_region, postal_code, address_country.",
+                        "Fields: street_address, address_locality, address_region, postal_code, address_country.",
                     ),
                 },
                 "buyer": {
@@ -138,7 +138,7 @@ TOOL_SPEC: dict[str, Any] = {
                     "description": _(
                         "param.extensions.description",
                         default="Vendor-specific extensions (optional). "
-                                "Key-value pairs for com.vendor.* capabilities.",
+                        "Key-value pairs for com.vendor.* capabilities.",
                     ),
                 },
             },
@@ -164,25 +164,41 @@ def run_tool(args: dict[str, Any]) -> str:
     extensions = args.get("extensions")
 
     if not business_url:
-        return json.dumps({
-            "ok": False,
-            "error": {"code": "invalid_argument", "message": "business_url is required."},
-        }, ensure_ascii=False)
+        return json.dumps(
+            {
+                "ok": False,
+                "error": {
+                    "code": "invalid_argument",
+                    "message": "business_url is required.",
+                },
+            },
+            ensure_ascii=False,
+        )
 
     if mode in ("get", "update", "complete", "poll") and not checkout_id:
-        return json.dumps({
-            "ok": False,
-            "error": {"code": "invalid_argument",
-                       "message": "checkout_id is required for mode='{mode}'.".format(mode=mode)},
-        }, ensure_ascii=False)
+        return json.dumps(
+            {
+                "ok": False,
+                "error": {
+                    "code": "invalid_argument",
+                    "message": "checkout_id is required for mode='{mode}'.".format(
+                        mode=mode
+                    ),
+                },
+            },
+            ensure_ascii=False,
+        )
 
     try:
         profile = discover_business(business_url)
     except Exception as exc:
-        return json.dumps({
-            "ok": False,
-            "error": {"code": "discovery_failed", "message": str(exc)},
-        }, ensure_ascii=False)
+        return json.dumps(
+            {
+                "ok": False,
+                "error": {"code": "discovery_failed", "message": str(exc)},
+            },
+            ensure_ascii=False,
+        )
 
     try:
         if mode == "create":
@@ -200,16 +216,20 @@ def run_tool(args: dict[str, Any]) -> str:
             if extensions:
                 body["extensions"] = extensions
             resp = ucp_request(
-                business_url, "checkout-sessions",
-                method="POST", body=body if body else None,
-                profile=profile, idempotent=True,
+                business_url,
+                "checkout-sessions",
+                method="POST",
+                body=body if body else None,
+                profile=profile,
+                idempotent=True,
             )
 
         elif mode == "get":
             resp = ucp_request(
                 business_url,
                 "checkout-sessions/{id}".format(id=checkout_id),
-                method="GET", profile=profile,
+                method="GET",
+                profile=profile,
             )
 
         elif mode == "update":
@@ -219,7 +239,8 @@ def run_tool(args: dict[str, Any]) -> str:
             resp = ucp_request(
                 business_url,
                 "checkout-sessions/{id}".format(id=checkout_id),
-                method="PATCH", body=body if body else None,
+                method="PATCH",
+                body=body if body else None,
                 profile=profile,
             )
 
@@ -230,31 +251,47 @@ def run_tool(args: dict[str, Any]) -> str:
             resp = ucp_request(
                 business_url,
                 "checkout-sessions/{id}/complete".format(id=checkout_id),
-                method="POST", body=body if body else None,
-                profile=profile, idempotent=True,
+                method="POST",
+                body=body if body else None,
+                profile=profile,
+                idempotent=True,
             )
 
         elif mode == "poll":
-            return _poll_checkout(business_url, checkout_id, profile, poll_timeout, poll_interval)
+            return _poll_checkout(
+                business_url, checkout_id, profile, poll_timeout, poll_interval
+            )
 
         else:
-            return json.dumps({
-                "ok": False,
-                "error": {"code": "invalid_mode", "message": "Unknown mode: {mode}".format(mode=mode)},
-            }, ensure_ascii=False)
+            return json.dumps(
+                {
+                    "ok": False,
+                    "error": {
+                        "code": "invalid_mode",
+                        "message": "Unknown mode: {mode}".format(mode=mode),
+                    },
+                },
+                ensure_ascii=False,
+            )
 
     except UCPBuyerInputError as exc:
         return _build_escalation_response(checkout_id, exc)
     except UCPError as exc:
-        return json.dumps({
-            "ok": False,
-            "error": {"code": "ucp_error", "message": str(exc)},
-        }, ensure_ascii=False)
+        return json.dumps(
+            {
+                "ok": False,
+                "error": {"code": "ucp_error", "message": str(exc)},
+            },
+            ensure_ascii=False,
+        )
     except Exception as exc:
-        return json.dumps({
-            "ok": False,
-            "error": {"code": "request_failed", "message": str(exc)},
-        }, ensure_ascii=False)
+        return json.dumps(
+            {
+                "ok": False,
+                "error": {"code": "request_failed", "message": str(exc)},
+            },
+            ensure_ascii=False,
+        )
 
     # Extract status info for the response summary
     status = None
@@ -269,13 +306,14 @@ def run_tool(args: dict[str, Any]) -> str:
         "ok": True,
         "mode": mode,
         "business_url": business_url,
-        "checkout_id": checkout_id or (resp.get("id") if isinstance(resp, dict) else None),
+        "checkout_id": checkout_id
+        or (resp.get("id") if isinstance(resp, dict) else None),
         "status": status,
         "result": resp,
     }
     if continue_url:
         result["continue_url"] = continue_url
-        result["requires_escalation"] = (status == "requires_escalation")
+        result["requires_escalation"] = status == "requires_escalation"
         result["user_action_required"] = True
         result["user_action_message"] = (
             "Open the continue_url in your browser to complete payment. "
@@ -303,7 +341,8 @@ def _poll_checkout(
             resp = ucp_request(
                 business_url,
                 "checkout-sessions/{id}".format(id=checkout_id),
-                method="GET", profile=profile,
+                method="GET",
+                profile=profile,
             )
         except Exception:
             resp = None
@@ -318,40 +357,53 @@ def _poll_checkout(
                 elif "order_id" in resp:
                     order_id = resp["order_id"]
 
-                return json.dumps({
-                    "ok": True,
-                    "mode": "poll",
-                    "business_url": business_url,
-                    "checkout_id": checkout_id,
-                    "status": "completed",
-                    "order_id": order_id,
-                    "attempts": attempts,
-                    "elapsed_seconds": int(time.monotonic() + timeout - deadline),
-                    "result": resp,
-                }, ensure_ascii=False, indent=2)
+                return json.dumps(
+                    {
+                        "ok": True,
+                        "mode": "poll",
+                        "business_url": business_url,
+                        "checkout_id": checkout_id,
+                        "status": "completed",
+                        "order_id": order_id,
+                        "attempts": attempts,
+                        "elapsed_seconds": int(time.monotonic() + timeout - deadline),
+                        "result": resp,
+                    },
+                    ensure_ascii=False,
+                    indent=2,
+                )
 
             if status == "canceled":
-                return json.dumps({
-                    "ok": False,
-                    "error": {"code": "checkout_canceled", "message": "Checkout session was canceled."},
-                    "checkout_id": checkout_id,
-                    "attempts": attempts,
-                }, ensure_ascii=False)
+                return json.dumps(
+                    {
+                        "ok": False,
+                        "error": {
+                            "code": "checkout_canceled",
+                            "message": "Checkout session was canceled.",
+                        },
+                        "checkout_id": checkout_id,
+                        "attempts": attempts,
+                    },
+                    ensure_ascii=False,
+                )
 
         time.sleep(interval)
 
-    return json.dumps({
-        "ok": False,
-        "error": {
-            "code": "poll_timeout",
-            "message": "Checkout did not complete within {timeout} seconds. "
-                       "The user may not have completed payment in the browser yet. "
-                       "Try mode='poll' again with a longer timeout.".format(timeout=timeout),
+    return json.dumps(
+        {
+            "ok": False,
+            "error": {
+                "code": "poll_timeout",
+                "message": "Checkout did not complete within {timeout} seconds. "
+                "The user may not have completed payment in the browser yet. "
+                "Try mode='poll' again with a longer timeout.".format(timeout=timeout),
+            },
+            "checkout_id": checkout_id,
+            "attempts": attempts,
+            "poll_timeout_seconds": timeout,
         },
-        "checkout_id": checkout_id,
-        "attempts": attempts,
-        "poll_timeout_seconds": timeout,
-    }, ensure_ascii=False)
+        ensure_ascii=False,
+    )
 
 
 def _extract_continue_url(exc: UCPBuyerInputError) -> str | None:

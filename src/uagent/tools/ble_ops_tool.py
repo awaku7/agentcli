@@ -24,7 +24,29 @@ TOOL_SPEC: dict[str, Any] = {
             "tool.description",
             default="Perform Bluetooth Low Energy (BLE) operations: scan for devices, read, or write GATT characteristics. Use MAC addresses on Windows/Linux, and UUIDs on macOS.",
         ),
-            "x_search_terms": _(            "x_search_terms",            default=["ble ops", "ble_ops", "ble", "BLE", "perform", "bluetooth", "energy", "operations"],        ),        "x_search_terms_en": ["ble ops", "ble_ops", "ble", "BLE", "perform", "bluetooth", "energy", "operations"],
+        "x_search_terms": _(
+            "x_search_terms",
+            default=[
+                "ble ops",
+                "ble_ops",
+                "ble",
+                "BLE",
+                "perform",
+                "bluetooth",
+                "energy",
+                "operations",
+            ],
+        ),
+        "x_search_terms_en": [
+            "ble ops",
+            "ble_ops",
+            "ble",
+            "BLE",
+            "perform",
+            "bluetooth",
+            "energy",
+            "operations",
+        ],
         "parameters": {
             "type": "object",
             "properties": {
@@ -97,9 +119,14 @@ def _scan_all_pyside6(timeout: int) -> list[dict[str, Any]]:
     # Ensure Qt DLLs are findable on Windows
     import os as _os
     import site as _site
-    if hasattr(_os, 'add_dll_directory'):
+
+    if hasattr(_os, "add_dll_directory"):
         for _pkg_dir in ("PySide6", "shiboken6"):
-            _dll_dir = _os.path.join(_site.getsitepackages()[0], _pkg_dir) if hasattr(_site, 'getsitepackages') else None
+            _dll_dir = (
+                _os.path.join(_site.getsitepackages()[0], _pkg_dir)
+                if hasattr(_site, "getsitepackages")
+                else None
+            )
             if _dll_dir and _os.path.isdir(_dll_dir):
                 try:
                     _os.add_dll_directory(_dll_dir)
@@ -187,15 +214,22 @@ def run_tool(args: dict[str, Any]) -> str:
         # Ensure Qt DLLs are findable on Windows
         import os as _os
         import site as _site
-        if hasattr(_os, 'add_dll_directory'):
+
+        if hasattr(_os, "add_dll_directory"):
             for _pkg_dir in ("PySide6", "shiboken6"):
-                _dll_dir = _os.path.join(_site.getsitepackages()[0], _pkg_dir) if hasattr(_site, 'getsitepackages') else None
+                _dll_dir = (
+                    _os.path.join(_site.getsitepackages()[0], _pkg_dir)
+                    if hasattr(_site, "getsitepackages")
+                    else None
+                )
                 if _dll_dir and _os.path.isdir(_dll_dir):
                     try:
                         _os.add_dll_directory(_dll_dir)
                     except Exception:
                         pass
-        if not _install_ble_pyside("PySide6", "PySide6", verify_submodule="PySide6.QtCore"):
+        if not _install_ble_pyside(
+            "PySide6", "PySide6", verify_submodule="PySide6.QtCore"
+        ):
             return _(
                 "err.pyside6_missing",
                 default="Error: 'PySide6' library is required.",

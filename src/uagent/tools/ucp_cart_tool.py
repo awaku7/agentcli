@@ -100,71 +100,119 @@ def run_tool(args: dict[str, Any]) -> str:
     currency = str(args.get("currency") or "").strip() or None
 
     if not business_url:
-        return json.dumps({
-            "ok": False,
-            "error": {"code": "invalid_argument", "message": "business_url is required."},
-        }, ensure_ascii=False)
+        return json.dumps(
+            {
+                "ok": False,
+                "error": {
+                    "code": "invalid_argument",
+                    "message": "business_url is required.",
+                },
+            },
+            ensure_ascii=False,
+        )
 
     if mode in ("get", "update") and not cart_id:
-        return json.dumps({
-            "ok": False,
-            "error": {"code": "invalid_argument", "message": "cart_id is required for mode='{mode}'.".format(mode=mode)},
-        }, ensure_ascii=False)
+        return json.dumps(
+            {
+                "ok": False,
+                "error": {
+                    "code": "invalid_argument",
+                    "message": "cart_id is required for mode='{mode}'.".format(
+                        mode=mode
+                    ),
+                },
+            },
+            ensure_ascii=False,
+        )
 
     if mode in ("create", "update") and not line_items:
-        return json.dumps({
-            "ok": False,
-            "error": {"code": "invalid_argument", "message": "line_items is required for mode='{mode}'.".format(mode=mode)},
-        }, ensure_ascii=False)
+        return json.dumps(
+            {
+                "ok": False,
+                "error": {
+                    "code": "invalid_argument",
+                    "message": "line_items is required for mode='{mode}'.".format(
+                        mode=mode
+                    ),
+                },
+            },
+            ensure_ascii=False,
+        )
 
     try:
         profile = discover_business(business_url)
     except Exception as exc:
-        return json.dumps({
-            "ok": False,
-            "error": {"code": "discovery_failed", "message": str(exc)},
-        }, ensure_ascii=False)
+        return json.dumps(
+            {
+                "ok": False,
+                "error": {"code": "discovery_failed", "message": str(exc)},
+            },
+            ensure_ascii=False,
+        )
 
     try:
         if mode == "create":
             body = {"line_items": line_items}
             if currency:
                 body["currency"] = currency
-            resp = ucp_request(business_url, "carts", method="POST", body=body, profile=profile)
+            resp = ucp_request(
+                business_url, "carts", method="POST", body=body, profile=profile
+            )
 
         elif mode == "get":
             resp = ucp_request(
-                business_url, "carts/{id}".format(id=cart_id),
-                method="GET", profile=profile,
+                business_url,
+                "carts/{id}".format(id=cart_id),
+                method="GET",
+                profile=profile,
             )
 
         elif mode == "update":
             body = {"line_items": line_items}
             resp = ucp_request(
-                business_url, "carts/{id}".format(id=cart_id),
-                method="PATCH", body=body, profile=profile,
+                business_url,
+                "carts/{id}".format(id=cart_id),
+                method="PATCH",
+                body=body,
+                profile=profile,
             )
         else:
-            return json.dumps({
-                "ok": False,
-                "error": {"code": "invalid_mode", "message": "Unknown mode: {mode}".format(mode=mode)},
-            }, ensure_ascii=False)
+            return json.dumps(
+                {
+                    "ok": False,
+                    "error": {
+                        "code": "invalid_mode",
+                        "message": "Unknown mode: {mode}".format(mode=mode),
+                    },
+                },
+                ensure_ascii=False,
+            )
 
     except UCPError as exc:
-        return json.dumps({
-            "ok": False,
-            "error": {"code": "ucp_error", "message": str(exc)},
-        }, ensure_ascii=False)
+        return json.dumps(
+            {
+                "ok": False,
+                "error": {"code": "ucp_error", "message": str(exc)},
+            },
+            ensure_ascii=False,
+        )
     except Exception as exc:
-        return json.dumps({
-            "ok": False,
-            "error": {"code": "request_failed", "message": str(exc)},
-        }, ensure_ascii=False)
+        return json.dumps(
+            {
+                "ok": False,
+                "error": {"code": "request_failed", "message": str(exc)},
+            },
+            ensure_ascii=False,
+        )
 
-    return json.dumps({
-        "ok": True,
-        "mode": mode,
-        "business_url": business_url,
-        "cart_id": cart_id or (resp.get("id") if isinstance(resp, dict) else None),
-        "result": resp,
-    }, ensure_ascii=False, indent=2)
+    return json.dumps(
+        {
+            "ok": True,
+            "mode": mode,
+            "business_url": business_url,
+            "cart_id": cart_id or (resp.get("id") if isinstance(resp, dict) else None),
+            "result": resp,
+        },
+        ensure_ascii=False,
+        indent=2,
+    )

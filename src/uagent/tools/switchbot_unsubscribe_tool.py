@@ -25,7 +25,25 @@ TOOL_SPEC: dict[str, Any] = {
                 "or list active subscriptions."
             ),
         ),
-            "x_search_terms": _(            "x_search_terms",            default=["switchbot unsubscribe", "switchbot_unsubscribe", "switchbot", "cancel", "subscription", "subscription_id"],        ),        "x_search_terms_en": ["switchbot unsubscribe", "switchbot_unsubscribe", "switchbot", "cancel", "subscription", "subscription_id"],
+        "x_search_terms": _(
+            "x_search_terms",
+            default=[
+                "switchbot unsubscribe",
+                "switchbot_unsubscribe",
+                "switchbot",
+                "cancel",
+                "subscription",
+                "subscription_id",
+            ],
+        ),
+        "x_search_terms_en": [
+            "switchbot unsubscribe",
+            "switchbot_unsubscribe",
+            "switchbot",
+            "cancel",
+            "subscription",
+            "subscription_id",
+        ],
         "parameters": {
             "type": "object",
             "properties": {

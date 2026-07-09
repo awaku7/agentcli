@@ -19,6 +19,7 @@ try:
     from bs4 import BeautifulSoup, XMLParsedAsHTMLWarning
 except ImportError:
     from .._pip_auto import install_with_status as _install_bs4
+
     _install_bs4("beautifulsoup4", "bs4")
     from bs4 import BeautifulSoup, XMLParsedAsHTMLWarning
 
@@ -151,30 +152,30 @@ TOOL_SPEC: dict[str, Any] = {
             ],
         ),
         "x_search_terms_en": [
-        "fetch url",
-        "http get",
-        "download page",
-        "URL取得",
-        "obtener url",
-        "récupérer url",
-        "URL 가져오기",
-        "получить url",
-        "web api",
-        "web scraping",
-        "web request",
-        "json api",
-        "rest api",
-        "data fetch",
-        "http request",
-        "web access",
-        "api call",
-        "save file",
-        "download file",
-        "save response",
-        "raw download",
-        "html",
-        "scrape",
-    ],
+            "fetch url",
+            "http get",
+            "download page",
+            "URL取得",
+            "obtener url",
+            "récupérer url",
+            "URL 가져오기",
+            "получить url",
+            "web api",
+            "web scraping",
+            "web request",
+            "json api",
+            "rest api",
+            "data fetch",
+            "http request",
+            "web access",
+            "api call",
+            "save file",
+            "download file",
+            "save response",
+            "raw download",
+            "html",
+            "scrape",
+        ],
         "parameters": {
             "type": "object",
             "properties": {
@@ -350,6 +351,7 @@ def _html_to_markdown(soup_or_el) -> str:
         import bs4
     except ImportError:
         from .._pip_auto import install_with_status as _install_bs4
+
         _install_bs4("beautifulsoup4", "bs4")
         import bs4
 

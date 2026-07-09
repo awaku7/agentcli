@@ -45,10 +45,14 @@ else:
 
 def run_tool(args: dict) -> str:
     if os.name != "nt":
-        return _("err.not_windows", default="Error: Windows Location API is only available on Windows.")
+        return _(
+            "err.not_windows",
+            default="Error: Windows Location API is only available on Windows.",
+        )
 
     try:
         import importlib.util as _iu
+
         if _iu.find_spec("winrt.windows.devices.geolocation") is None:
             raise ImportError
     except ImportError:
@@ -66,7 +70,9 @@ def run_tool(args: dict) -> str:
                 "err.location_denied",
                 default="Error: Location access denied. Enable location services in Windows Settings > Privacy & security > Location, and allow desktop apps to access location.",
             )
-        return _("err.generic", default="Error: Location query failed: {err}").format(err=msg)
+        return _("err.generic", default="Error: Location query failed: {err}").format(
+            err=msg
+        )
 
     # Build readable output with accuracy description
     accuracy_desc = ""
@@ -99,13 +105,23 @@ def run_tool(args: dict) -> str:
 
     output = [
         _("output.header", default="## Windows GPS Location"),
-        _("output.coords", default="- **Latitude**: {lat}\n- **Longitude**: {lon}").format(lat=lat, lon=lon),
+        _(
+            "output.coords", default="- **Latitude**: {lat}\n- **Longitude**: {lon}"
+        ).format(lat=lat, lon=lon),
     ]
     if accuracy_desc:
-        output.append(_("output.accuracy", default="- **Accuracy**: {acc}").format(acc=accuracy_desc))
-    output.append(_("output.source", default="- **Source**: {src}").format(src=source_label))
+        output.append(
+            _("output.accuracy", default="- **Accuracy**: {acc}").format(
+                acc=accuracy_desc
+            )
+        )
+    output.append(
+        _("output.source", default="- **Source**: {src}").format(src=source_label)
+    )
     if ts:
-        output.append(_("output.timestamp", default="- **Timestamp**: {ts}").format(ts=ts))
+        output.append(
+            _("output.timestamp", default="- **Timestamp**: {ts}").format(ts=ts)
+        )
 
     return "\n".join(output)
 

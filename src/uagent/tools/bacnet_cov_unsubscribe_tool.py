@@ -25,7 +25,29 @@ TOOL_SPEC: dict[str, Any] = {
                 "Use 'list' action to see all active subscriptions and their task_ids."
             ),
         ),
-            "x_search_terms": _(            "x_search_terms",            default=["bacnet cov unsubscribe", "bacnet_cov_unsubscribe", "bacnet", "BACNET", "cov", "cancel", "subscription", "task_id"],        ),        "x_search_terms_en": ["bacnet cov unsubscribe", "bacnet_cov_unsubscribe", "bacnet", "BACNET", "cov", "cancel", "subscription", "task_id"],
+        "x_search_terms": _(
+            "x_search_terms",
+            default=[
+                "bacnet cov unsubscribe",
+                "bacnet_cov_unsubscribe",
+                "bacnet",
+                "BACNET",
+                "cov",
+                "cancel",
+                "subscription",
+                "task_id",
+            ],
+        ),
+        "x_search_terms_en": [
+            "bacnet cov unsubscribe",
+            "bacnet_cov_unsubscribe",
+            "bacnet",
+            "BACNET",
+            "cov",
+            "cancel",
+            "subscription",
+            "task_id",
+        ],
         "parameters": {
             "type": "object",
             "properties": {

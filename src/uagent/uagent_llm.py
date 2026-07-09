@@ -47,6 +47,7 @@ from .llm_round_helpers import (
     _call_zai_round,
     _call_novita_round,
 )
+from .llm_grok_round import _call_grok_round
 from .providers.llm_deepseek import build_assistant_message_with_reasoning
 from .llm_flow_helpers import (
     _append_assistant_message,
@@ -81,7 +82,9 @@ def _inject_stop_prompt(
 
 # --- Tool usage tracking for auto-unload ---
 _TOOL_LAST_ROUND: dict[str, int] = {}  # tool_name -> last round used
-_TOOL_AUTO_UNLOAD_ROUNDS = int(env_get('UAGENT_AUTO_UNLOAD_ROUNDS', '10'))  # unload after this many rounds without use
+_TOOL_AUTO_UNLOAD_ROUNDS = int(
+    env_get("UAGENT_AUTO_UNLOAD_ROUNDS", "10")
+)  # unload after this many rounds without use
 _TOTAL_ROUNDS: int = 0  # total rounds across all LLM calls, monotonically increasing
 
 # Track repeated tool call fingerprints (name + sorted args) to detect loops.
@@ -171,9 +174,7 @@ def _run_one_round(
         return _call_maybe_thread(fn, use_llm_thread=use_llm_thread)
 
     # Skip auto-shrink when using previous_response_id (server manages context)
-    _using_prev_rid = bool(
-        core.responses_state.get("previous_response_id")
-    )
+    _using_prev_rid = bool(core.responses_state.get("previous_response_id"))
     if not judgment_mode and not _using_prev_rid:
         gemini_cache_name = _maybe_auto_shrink_messages(
             provider=provider,
@@ -410,7 +411,7 @@ def _run_one_round(
             if not judgment_mode:
                 _emit_final_answer_if_any(
                     assistant_text=assistant_text,
-                    reasoning_content=locals().get('reasoning_content', ''),
+                    reasoning_content=locals().get("reasoning_content", ""),
                     use_responses_api=use_responses_api,
                     stream_responses=stream_responses,
                     append_result_to_outfile_fn=append_result_to_outfile_fn,
@@ -758,24 +759,77 @@ def _run_one_round(
 
         empty_no_tool_rounds = 0
 
-    else:  # OpenAI / Azure
-        ok, client, assistant_text, reasoning_content, tool_calls_list = _call_openai_azure_round(
-            provider=provider,
-            client=client,
-            depname=depname,
-            call_messages=call_messages,
-            core=core,
-            make_client_fn=make_client_fn,
-            call_maybe_thread_fn=_call_maybe_thread_fn,
-            use_responses_api=use_responses_api,
-            stream_responses=stream_responses,
-            send_tools_this_round=send_tools_this_round,
-            max_retries_429=max_retries_429,
-            retry_base=retry_base,
-            retry_cap=retry_cap,
-            messages=messages,
-            responses_state=core.responses_state,
-        )
+    else:  # OpenAI / Azure / Grok
+        if provider == "grok":
+            # Use xai_sdk (gRPC) only when client is XAIClient; otherwise OpenAI SDK
+            try:
+                from xai_sdk import Client as _XAIClient
+
+                _is_xai_grpc = isinstance(client, _XAIClient)
+            except Exception:
+                _is_xai_grpc = False
+
+            if _is_xai_grpc:
+                ok, client, assistant_text, tool_calls_list = _call_grok_round(
+                    provider=provider,
+                    client=client,
+                    depname=depname,
+                    call_messages=call_messages,
+                    core=core,
+                    make_client_fn=make_client_fn,
+                    call_maybe_thread_fn=_call_maybe_thread_fn,
+                    use_responses_api=use_responses_api,
+                    stream_responses=stream_responses,
+                    send_tools_this_round=send_tools_this_round,
+                    max_retries_429=max_retries_429,
+                    retry_base=retry_base,
+                    retry_cap=retry_cap,
+                    messages=messages,
+                    responses_state=core.responses_state,
+                )
+                reasoning_content = (
+                    ""  # Grok does not return reasoning_content separately
+                )
+            else:
+                ok, client, assistant_text, reasoning_content, tool_calls_list = (
+                    _call_openai_azure_round(
+                        provider=provider,
+                        client=client,
+                        depname=depname,
+                        call_messages=call_messages,
+                        core=core,
+                        make_client_fn=make_client_fn,
+                        call_maybe_thread_fn=_call_maybe_thread_fn,
+                        use_responses_api=use_responses_api,
+                        stream_responses=stream_responses,
+                        send_tools_this_round=send_tools_this_round,
+                        max_retries_429=max_retries_429,
+                        retry_base=retry_base,
+                        retry_cap=retry_cap,
+                        messages=messages,
+                        responses_state=core.responses_state,
+                    )
+                )
+        else:
+            ok, client, assistant_text, reasoning_content, tool_calls_list = (
+                _call_openai_azure_round(
+                    provider=provider,
+                    client=client,
+                    depname=depname,
+                    call_messages=call_messages,
+                    core=core,
+                    make_client_fn=make_client_fn,
+                    call_maybe_thread_fn=_call_maybe_thread_fn,
+                    use_responses_api=use_responses_api,
+                    stream_responses=stream_responses,
+                    send_tools_this_round=send_tools_this_round,
+                    max_retries_429=max_retries_429,
+                    retry_base=retry_base,
+                    retry_cap=retry_cap,
+                    messages=messages,
+                    responses_state=core.responses_state,
+                )
+            )
         if not ok:
             return (
                 _RS_RETURN,
@@ -850,7 +904,7 @@ def _run_one_round(
             if not judgment_mode:
                 _emit_final_answer_if_any(
                     assistant_text=assistant_text,
-                    reasoning_content=locals().get('reasoning_content', ''),
+                    reasoning_content=locals().get("reasoning_content", ""),
                     use_responses_api=use_responses_api,
                     stream_responses=stream_responses,
                     append_result_to_outfile_fn=append_result_to_outfile_fn,
@@ -904,9 +958,7 @@ def _run_one_round(
 
     # Re-check before the next LLM call.
     # Skip auto-shrink when using previous_response_id (server manages context)
-    _using_prev_rid = bool(
-        core.responses_state.get("previous_response_id")
-    )
+    _using_prev_rid = bool(core.responses_state.get("previous_response_id"))
     if not judgment_mode and not _using_prev_rid:
         gemini_cache_name = _maybe_auto_shrink_messages(
             provider=provider,
@@ -951,7 +1003,9 @@ def _run_one_round(
                 continue
             _args_raw = _fn.get("arguments", "{}")
             try:
-                _args_parsed = json.loads(_args_raw) if isinstance(_args_raw, str) else _args_raw
+                _args_parsed = (
+                    json.loads(_args_raw) if isinstance(_args_raw, str) else _args_raw
+                )
             except Exception:
                 _args_parsed = _args_raw
             _fp = json.dumps(
@@ -1129,11 +1183,14 @@ def run_llm_rounds(
 
             # Skip auto-unload when server manages tool selection
             # (native GPT-5.4 tool_search mode only)
-            if not (_should_preload_lazy_specs() or _is_gpt54_tool_search_target(
-                provider=provider,
-                depname=depname,
-                use_responses_api=True,
-            )):
+            if not (
+                _should_preload_lazy_specs()
+                or _is_gpt54_tool_search_target(
+                    provider=provider,
+                    depname=depname,
+                    use_responses_api=True,
+                )
+            ):
                 for spec in list(_TOOL_SPECS):
                     func_info = spec.get("function", {})
                     tname = func_info.get("name", "")

@@ -36,7 +36,23 @@ TOOL_SPEC: dict[str, Any] = {
             "tool.description",
             default="List Matter device endpoints.",
         ),
-            "x_search_terms": _(            "x_search_terms",            default=["matter endpoint list", "matter_endpoint_list", "matter", "MATTER", "endpoints"],        ),        "x_search_terms_en": ["matter endpoint list", "matter_endpoint_list", "matter", "MATTER", "endpoints"],
+        "x_search_terms": _(
+            "x_search_terms",
+            default=[
+                "matter endpoint list",
+                "matter_endpoint_list",
+                "matter",
+                "MATTER",
+                "endpoints",
+            ],
+        ),
+        "x_search_terms_en": [
+            "matter endpoint list",
+            "matter_endpoint_list",
+            "matter",
+            "MATTER",
+            "endpoints",
+        ],
         "parameters": {
             "type": "object",
             "properties": {

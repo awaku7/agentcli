@@ -288,10 +288,7 @@ def get_model_name() -> str:
     if provider == "sakana":
         return env_get("UAGENT_SAKANA_DEPNAME", "fugu") or "fugu"
     if provider == "novita":
-        return (
-            env_get("UAGENT_NOVITA_DEPNAME", "tensent/hy3")
-            or "tensent/hy3"
-        )
+        return env_get("UAGENT_NOVITA_DEPNAME", "tensent/hy3") or "tensent/hy3"
     if provider == "sakura":
         return env_get("UAGENT_SAKURA_DEPNAME", "llm") or "llm"
     return env_get("UAGENT_OPENAI_DEPNAME", "gpt-5.2") or "gpt-5.2"
@@ -536,16 +533,24 @@ def make_client(core: Any) -> tuple[str, Any, str]:
         return provider, client, model_name
 
     if provider == "grok":
-        from openai import OpenAI  # lazy
+        api_key = (core.get_env("UAGENT_GROK_API_KEY") or "").strip()
 
-        api_key = core.get_env("UAGENT_GROK_API_KEY")
-        base_url = core.get_env_url("UAGENT_GROK_BASE_URL", "https://api.x.ai/v1")
-
-        http_client = make_httpx_client()
-
+        # Auto-install xai-sdk if missing; fallback to OpenAI SDK
+        XAIClient = None
         try:
-            client = OpenAI(api_key=api_key, base_url=base_url, http_client=http_client)
-        except TypeError:
+            from .._pip_auto import install_with_status as _install_xai_sdk
+
+            if _install_xai_sdk("xai-sdk", "xai_sdk", display_name="xai-sdk"):
+                from xai_sdk import Client as XAIClient
+        except Exception:
+            pass
+
+        if XAIClient is not None:
+            client = XAIClient(api_key=api_key)
+        else:
+            from openai import OpenAI
+
+            base_url = core.get_env_url("UAGENT_GROK_BASE_URL", "https://api.x.ai/v1")
             client = OpenAI(api_key=api_key, base_url=base_url)
 
         return provider, client, model_name

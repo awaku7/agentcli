@@ -48,7 +48,21 @@ TOOL_SPEC: dict[str, Any] = {
                 "Read one ECHONET Lite property from a node and return a JSON or text result."
             ),
         ),
-            "x_search_terms": _(            "x_search_terms",            default=["echonet property get", "echonet_property_get", "echonet", "ECHONET"],        ),        "x_search_terms_en": ["echonet property get", "echonet_property_get", "echonet", "ECHONET"],
+        "x_search_terms": _(
+            "x_search_terms",
+            default=[
+                "echonet property get",
+                "echonet_property_get",
+                "echonet",
+                "ECHONET",
+            ],
+        ),
+        "x_search_terms_en": [
+            "echonet property get",
+            "echonet_property_get",
+            "echonet",
+            "ECHONET",
+        ],
         "parameters": {
             "type": "object",
             "properties": {
@@ -222,7 +236,11 @@ def _property_value(epc: int, edt: bytes) -> tuple[Any, str]:
 
 
 def _build_get_request(target_eoj: bytes, epc: int, tid: int | None = None) -> bytes:
-    tid_bytes = struct.pack(">H", tid & 0xFFFF) if tid is not None else struct.pack(">H", random.randint(1, 0xFFFF))
+    tid_bytes = (
+        struct.pack(">H", tid & 0xFFFF)
+        if tid is not None
+        else struct.pack(">H", random.randint(1, 0xFFFF))
+    )
     return b"".join(
         [
             b"\x10\x81",

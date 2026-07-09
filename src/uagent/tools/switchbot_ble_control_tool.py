@@ -29,7 +29,23 @@ TOOL_SPEC: dict[str, Any] = {
                 "Control a nearby SwitchBot BLE device and return a JSON or text result."
             ),
         ),
-            "x_search_terms": _(            "x_search_terms",            default=["switchbot ble control", "switchbot_ble_control", "switchbot", "nearby", "return"],        ),        "x_search_terms_en": ["switchbot ble control", "switchbot_ble_control", "switchbot", "nearby", "return"],
+        "x_search_terms": _(
+            "x_search_terms",
+            default=[
+                "switchbot ble control",
+                "switchbot_ble_control",
+                "switchbot",
+                "nearby",
+                "return",
+            ],
+        ),
+        "x_search_terms_en": [
+            "switchbot ble control",
+            "switchbot_ble_control",
+            "switchbot",
+            "nearby",
+            "return",
+        ],
         "parameters": {
             "type": "object",
             "properties": {

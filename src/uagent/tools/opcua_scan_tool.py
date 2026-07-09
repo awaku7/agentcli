@@ -31,7 +31,29 @@ TOOL_SPEC: dict[str, Any] = {
                 "and attempts to connect and read the server's endpoint info."
             ),
         ),
-            "x_search_terms": _(            "x_search_terms",            default=["opcua scan", "opcua_scan", "opcua", "OPCUA", "discover", "servers", "local", "network"],        ),        "x_search_terms_en": ["opcua scan", "opcua_scan", "opcua", "OPCUA", "discover", "servers", "local", "network"],
+        "x_search_terms": _(
+            "x_search_terms",
+            default=[
+                "opcua scan",
+                "opcua_scan",
+                "opcua",
+                "OPCUA",
+                "discover",
+                "servers",
+                "local",
+                "network",
+            ],
+        ),
+        "x_search_terms_en": [
+            "opcua scan",
+            "opcua_scan",
+            "opcua",
+            "OPCUA",
+            "discover",
+            "servers",
+            "local",
+            "network",
+        ],
         "parameters": {
             "type": "object",
             "properties": {
@@ -123,6 +145,7 @@ def _probe_ip(ip: str, port: int, timeout: int) -> dict[str, Any] | None:
             await c.connect()
             try:
                 from asyncua import ua
+
                 node_id = ua.NodeId(ua.ObjectIds.Server_ServerStatus_BuildInfo)
                 bi = await c.read_node(node_id)
                 return {"build_info": str(bi)}

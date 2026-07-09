@@ -28,7 +28,27 @@ TOOL_SPEC: dict[str, Any] = {
                 "Control a DALI lighting device. Supports on/off and dimming (0-254)."
             ),
         ),
-            "x_search_terms": _(            "x_search_terms",            default=["dali write", "dali_write", "dali", "DALI", "lighting", "supports", "on/off"],        ),        "x_search_terms_en": ["dali write", "dali_write", "dali", "DALI", "lighting", "supports", "on/off"],
+        "x_search_terms": _(
+            "x_search_terms",
+            default=[
+                "dali write",
+                "dali_write",
+                "dali",
+                "DALI",
+                "lighting",
+                "supports",
+                "on/off",
+            ],
+        ),
+        "x_search_terms_en": [
+            "dali write",
+            "dali_write",
+            "dali",
+            "DALI",
+            "lighting",
+            "supports",
+            "on/off",
+        ],
         "parameters": {
             "type": "object",
             "properties": {

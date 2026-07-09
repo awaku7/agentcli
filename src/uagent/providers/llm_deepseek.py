@@ -506,7 +506,12 @@ def parse_deepseek_stream(
                     try:
                         lm = getattr(core, "log_message", None)
                         if callable(lm):
-                            lm({"type": "assistant_stream_delta", "delta": content_delta})
+                            lm(
+                                {
+                                    "type": "assistant_stream_delta",
+                                    "delta": content_delta,
+                                }
+                            )
                     except Exception:
                         pass
 
@@ -546,7 +551,11 @@ def parse_deepseek_stream(
 
     # Ensure newline after streaming content
     if (text_parts or reasoning_parts) and not is_web:
-        last = text_parts[-1] if text_parts else (reasoning_parts[-1] if reasoning_parts else "")
+        last = (
+            text_parts[-1]
+            if text_parts
+            else (reasoning_parts[-1] if reasoning_parts else "")
+        )
         if last and not last.endswith("\n"):
             if print_delta_fn:
                 print_delta_fn("\n")
@@ -690,6 +699,7 @@ def deepseek_chat_with_tools(
                         "Auto-disabling tools and retrying..."
                     )
                     from .. import core as _core_module
+
                     _core_module.tools_enabled = False
                     send_tools_this_round = False
                     req_tools = None
@@ -700,6 +710,7 @@ def deepseek_chat_with_tools(
                         "Disabling thinking via UAGENT_REASONING=off and retrying..."
                     )
                     import os
+
                     os.environ["UAGENT_REASONING"] = "off"
                     continue
                 if (
@@ -721,11 +732,15 @@ def deepseek_chat_with_tools(
                         continue  # Retry with repaired messages
                     # Repair didn't change anything; fall through to normal error
                     print(
-                        f"[{_label}] " + _("Repair did not change messages, giving up."),
+                        f"[{_label}] "
+                        + _("Repair did not change messages, giving up."),
                         file=sys.stderr,
                     )
                 print(f"[{_label} Error] " + _("400 BadRequest"))
-                print(f"[{_label} Error] " + _("Error code: %(code)d - %(err)s") % {"code": 400, "err": e})
+                print(
+                    f"[{_label} Error] "
+                    + _("Error code: %(code)d - %(err)s") % {"code": 400, "err": e}
+                )
                 return False, client, "", "", []
             if APIConnectionError is not None and isinstance(e, APIConnectionError):
                 print(f"[{_label} Error] " + _("Connection error"))
@@ -745,7 +760,6 @@ def deepseek_chat_with_tools(
             _maybe_print_certifi_where(e)
             print(repr(e))
             return False, client, "", "", []
-
 
 
 def deepseek_fim_generate(
@@ -794,6 +808,4 @@ def deepseek_fim_generate(
         )
         return resp.choices[0].text if resp.choices else ""
     except Exception as exc:
-        raise RuntimeError(
-            f"DeepSeek FIM request failed: {exc}"
-        ) from exc
+        raise RuntimeError(f"DeepSeek FIM request failed: {exc}") from exc

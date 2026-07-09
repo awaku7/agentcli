@@ -117,6 +117,7 @@ def _parse_ddg_results(html: str, max_results: int) -> list[dict[str, str]]:
         from bs4 import BeautifulSoup
     except ImportError:
         from .._pip_auto import install_with_status as _install_bs4
+
         _install_bs4("beautifulsoup4", "bs4")
         from bs4 import BeautifulSoup
 
@@ -151,6 +152,7 @@ def _parse_brave_results(html: str, max_results: int) -> list[dict[str, str]]:
         from bs4 import BeautifulSoup
     except ImportError:
         from .._pip_auto import install_with_status as _install_bs4
+
         _install_bs4("beautifulsoup4", "bs4")
         from bs4 import BeautifulSoup
 
@@ -181,20 +183,20 @@ def _parse_brave_results(html: str, max_results: int) -> list[dict[str, str]]:
 # ------------------------------
 
 
-
 def _parse_yahoo_results(html: str, max_results: int) -> list[dict[str, str]]:
     """Parse Yahoo Japan search results."""
     try:
         from bs4 import BeautifulSoup
     except ImportError:
         from .._pip_auto import install_with_status as _install_bs4
+
         _install_bs4("beautifulsoup4", "bs4")
         from bs4 import BeautifulSoup
 
     soup = BeautifulSoup(html, "html.parser")
     results: list[dict[str, str]] = []
     for algo in soup.select(".Algo"):
-        a = algo.select_one("a[href^=\"http\"]")
+        a = algo.select_one('a[href^="http"]')
         if not a:
             continue
         href = str(a.get("href", ""))
@@ -245,7 +247,9 @@ def _duckduckgo_search(
             return results
         except requests.RequestException as exc:
             last_exc = exc
-            _emit_debug(f"DDG request failed (attempt {attempt + 1}/{retries + 1}): {exc}")
+            _emit_debug(
+                f"DDG request failed (attempt {attempt + 1}/{retries + 1}): {exc}"
+            )
             if attempt < retries:
                 _sleep_backoff(attempt)
                 continue
@@ -294,11 +298,13 @@ def _brave_api_search(
         web_results = data.get("web", {}).get("results", [])
         results = []
         for r in web_results[:max_results]:
-            results.append({
-                "title": r.get("title", ""),
-                "href": r.get("url", ""),
-                "text": r.get("description", ""),
-            })
+            results.append(
+                {
+                    "title": r.get("title", ""),
+                    "href": r.get("url", ""),
+                    "text": r.get("description", ""),
+                }
+            )
         _emit_debug(f"Found {len(results)} Brave API results")
         return results
     except Exception as exc:
@@ -344,14 +350,18 @@ def _brave_search(
             if results:
                 _emit_debug(f"Found {len(results)} Brave HTML results")
                 return results
-            _emit_debug(f"Parsed 0 Brave HTML results (attempt {attempt + 1}/{retries + 1}).")
+            _emit_debug(
+                f"Parsed 0 Brave HTML results (attempt {attempt + 1}/{retries + 1})."
+            )
             if attempt < retries:
                 _sleep_backoff(attempt)
                 continue
             return results
         except requests.RequestException as exc:
             last_exc = exc
-            _emit_debug(f"Brave HTML request failed (attempt {attempt + 1}/{retries + 1}): {exc}")
+            _emit_debug(
+                f"Brave HTML request failed (attempt {attempt + 1}/{retries + 1}): {exc}"
+            )
             if attempt < retries:
                 _sleep_backoff(attempt)
                 continue
@@ -373,7 +383,6 @@ def _brave_search(
     )
 
 
-
 # ------------------------------
 # Yahoo Japan Search
 # ------------------------------
@@ -385,13 +394,14 @@ def _parse_startpage_results(html: str, max_results: int) -> list[dict[str, str]
         from bs4 import BeautifulSoup
     except ImportError:
         from .._pip_auto import install_with_status as _install_bs4
+
         _install_bs4("beautifulsoup4", "bs4")
         from bs4 import BeautifulSoup
 
     soup = BeautifulSoup(html, "html.parser")
     results: list[dict[str, str]] = []
     for result in soup.select(".result"):
-        a = result.select_one("a.result-link, a[href^=\"http\"]")
+        a = result.select_one('a.result-link, a[href^="http"]')
         if not a:
             continue
         href = str(a.get("href", ""))
@@ -438,7 +448,10 @@ def _startpage_search(
             # CAPTCHA判定
             if "captcha" in resp.url.lower():
                 raise RuntimeError(
-                    _("error.startpage_captcha", default="StartPage CAPTCHA triggered. Try again later or use a different engine.")
+                    _(
+                        "error.startpage_captcha",
+                        default="StartPage CAPTCHA triggered. Try again later or use a different engine.",
+                    )
                 )
         except requests.RequestException as exc:
             last_exc = exc
@@ -449,7 +462,9 @@ def _startpage_search(
             break
 
     raise RuntimeError(
-        _("error.startpage_failed", default="StartPage search request failed: {error}").format(error=last_exc or "no results")
+        _(
+            "error.startpage_failed", default="StartPage search request failed: {error}"
+        ).format(error=last_exc or "no results")
     )
 
 
@@ -491,7 +506,9 @@ def _yahoo_jp_search(
             break
 
     raise RuntimeError(
-        _("error.yahoo_failed", default="Yahoo Japan search request failed: {error}").format(error=last_exc)
+        _(
+            "error.yahoo_failed", default="Yahoo Japan search request failed: {error}"
+        ).format(error=last_exc)
     )
 
 
@@ -599,7 +616,12 @@ def run_tool(args: dict[str, Any]) -> str:
         q = args.get("query") or args.get("q")
         if not q:
             return json.dumps(
-                {"error": _("error.missing_query_parameter", default="missing 'query' parameter")},
+                {
+                    "error": _(
+                        "error.missing_query_parameter",
+                        default="missing 'query' parameter",
+                    )
+                },
                 ensure_ascii=False,
             )
 
@@ -634,12 +656,18 @@ def run_tool(args: dict[str, Any]) -> str:
 
     except Exception as e:
         _emit_exception(
-            _("error.run_tool_error", default="run_tool error: {error}").format(error="")
+            _("error.run_tool_error", default="run_tool error: {error}").format(
+                error=""
+            )
             + "\n"
             + traceback.format_exc().rstrip()
         )
         return json.dumps(
-            {"error": _("error.run_tool_error", default="run_tool error: {error}").format(error=str(e))},
+            {
+                "error": _(
+                    "error.run_tool_error", default="run_tool error: {error}"
+                ).format(error=str(e))
+            },
             ensure_ascii=False,
         )
 
@@ -647,10 +675,23 @@ def run_tool(args: dict[str, Any]) -> str:
 def main() -> None:
     import argparse
 
-    parser = argparse.ArgumentParser(description="Web search wrapper (DuckDuckGo / Brave)")
+    parser = argparse.ArgumentParser(
+        description="Web search wrapper (DuckDuckGo / Brave)"
+    )
     parser.add_argument("query", help="Search query string")
-    parser.add_argument("-n", "--number", type=int, default=DEFAULT_MAX_RESULTS, help="Max results (default: 5)")
-    parser.add_argument("--engine", choices=["duckduckgo", "brave", "yahoo", "yahoo_jp", "startpage"], default="duckduckgo", help="Search engine (default: duckduckgo)")
+    parser.add_argument(
+        "-n",
+        "--number",
+        type=int,
+        default=DEFAULT_MAX_RESULTS,
+        help="Max results (default: 5)",
+    )
+    parser.add_argument(
+        "--engine",
+        choices=["duckduckgo", "brave", "yahoo", "yahoo_jp", "startpage"],
+        default="duckduckgo",
+        help="Search engine (default: duckduckgo)",
+    )
     args = parser.parse_args()
 
     try:
@@ -664,5 +705,6 @@ def main() -> None:
 if __name__ == "__main__":
     if not _ssl_verify_setting():
         import urllib3
+
         urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
     main()

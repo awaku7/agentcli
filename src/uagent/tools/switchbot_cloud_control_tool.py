@@ -34,7 +34,23 @@ TOOL_SPEC: dict[str, Any] = {
                 "Control a SwitchBot Cloud device from the configured account and return a JSON or text result."
             ),
         ),
-            "x_search_terms": _(            "x_search_terms",            default=["switchbot cloud control", "switchbot_cloud_control", "switchbot", "cloud", "configured"],        ),        "x_search_terms_en": ["switchbot cloud control", "switchbot_cloud_control", "switchbot", "cloud", "configured"],
+        "x_search_terms": _(
+            "x_search_terms",
+            default=[
+                "switchbot cloud control",
+                "switchbot_cloud_control",
+                "switchbot",
+                "cloud",
+                "configured",
+            ],
+        ),
+        "x_search_terms_en": [
+            "switchbot cloud control",
+            "switchbot_cloud_control",
+            "switchbot",
+            "cloud",
+            "configured",
+        ],
         "parameters": {
             "type": "object",
             "properties": {

@@ -542,6 +542,7 @@ def _collect_with_psutil(
         import psutil  # type: ignore
     except ImportError:
         from .._pip_auto import install_with_status as _install_ps
+
         if not _install_ps("psutil"):
             return False
         import psutil

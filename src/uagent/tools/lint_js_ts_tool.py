@@ -13,7 +13,6 @@ import glob as glob_mod
 import json as json_mod
 import os
 import subprocess
-import sys
 from typing import Any
 
 from .i18n_helper import make_tool_translator
@@ -43,8 +42,16 @@ TOOL_SPEC: dict[str, Any] = {
         "x_search_terms": _(
             "x_search_terms",
             default=[
-                "javascript", "typescript", "lint", "biome", "eslint",
-                "code style", "static analysis", "js lint", "ts lint", "format",
+                "javascript",
+                "typescript",
+                "lint",
+                "biome",
+                "eslint",
+                "code style",
+                "static analysis",
+                "js lint",
+                "ts lint",
+                "format",
             ],
         ),
         "parameters": {
@@ -82,12 +89,17 @@ def run_tool(args: dict[str, Any]) -> str:
         if is_win:
             subprocess.run(
                 ["npx.cmd", "--version"],
-                capture_output=True, text=True, timeout=10, shell=True,
+                capture_output=True,
+                text=True,
+                timeout=10,
+                shell=True,
             )
         else:
             subprocess.run(
                 ["npx", "--version"],
-                capture_output=True, text=True, timeout=10,
+                capture_output=True,
+                text=True,
+                timeout=10,
             )
     except Exception:
         return make_response(
@@ -109,7 +121,9 @@ def run_tool(args: dict[str, Any]) -> str:
             os.path.join(path_pattern, "**", "*.*"), recursive=True
         )
         exts = {".js", ".ts", ".jsx", ".tsx", ".mjs", ".cjs", ".mts", ".cts"}
-        matched_files = [f for f in matched_files if os.path.splitext(f)[1].lower() in exts]
+        matched_files = [
+            f for f in matched_files if os.path.splitext(f)[1].lower() in exts
+        ]
     else:
         matched_files = glob_mod.glob(path_pattern, recursive=True)
 
@@ -141,47 +155,77 @@ def run_tool(args: dict[str, Any]) -> str:
             if is_win:
                 full_cmd = "npx.cmd " + " ".join(cmd_args) + " " + filepath
                 proc = subprocess.run(
-                    full_cmd, capture_output=True, text=True, timeout=60, shell=True,
+                    full_cmd,
+                    capture_output=True,
+                    text=True,
+                    timeout=60,
+                    shell=True,
                 )
             else:
                 proc = subprocess.run(
                     ["npx"] + cmd_args + [filepath],
-                    capture_output=True, text=True, timeout=60,
+                    capture_output=True,
+                    text=True,
+                    timeout=60,
                 )
 
             if proc.returncode == 0:
                 ok_count += 1
                 results.append(
-                    _msg("result.ok", "[{label}] {path}", label=_ok_label, path=filepath)
+                    _msg(
+                        "result.ok", "[{label}] {path}", label=_ok_label, path=filepath
+                    )
                 )
             else:
                 failed_count += 1
                 diag = _parse_biome_output(proc.stdout)
                 if diag:
                     results.append(
-                        _msg("result.fail_with_count", "[{label}] {path}: {count} issue(s)",
-                             label=_fail_label, path=filepath, count=diag)
+                        _msg(
+                            "result.fail_with_count",
+                            "[{label}] {path}: {count} issue(s)",
+                            label=_fail_label,
+                            path=filepath,
+                            count=diag,
+                        )
                     )
                 else:
                     results.append(
-                        _msg("result.fail", "[{label}] {path}", label=_fail_label, path=filepath)
+                        _msg(
+                            "result.fail",
+                            "[{label}] {path}",
+                            label=_fail_label,
+                            path=filepath,
+                        )
                     )
         except subprocess.TimeoutExpired:
             failed_count += 1
             results.append(
-                _msg("result.timeout", "[{label}] {path}: timeout",
-                     label=_error_label, path=filepath)
+                _msg(
+                    "result.timeout",
+                    "[{label}] {path}: timeout",
+                    label=_error_label,
+                    path=filepath,
+                )
             )
         except Exception as e:
             failed_count += 1
             results.append(
-                _msg("result.error", "[{label}] {path}: {e}",
-                     label=_error_label, path=filepath, e=e)
+                _msg(
+                    "result.error",
+                    "[{label}] {path}: {e}",
+                    label=_error_label,
+                    path=filepath,
+                    e=e,
+                )
             )
 
     summary = _msg(
-        "result.summary", "lint_js_ts: {total} files, {ok} ok, {failed} failed",
-        total=len(matched_files), ok=ok_count, failed=failed_count,
+        "result.summary",
+        "lint_js_ts: {total} files, {ok} ok, {failed} failed",
+        total=len(matched_files),
+        ok=ok_count,
+        failed=failed_count,
     )
 
     if failed_count == 0:
@@ -189,8 +233,12 @@ def run_tool(args: dict[str, Any]) -> str:
 
     detail_lines = results[:50]
     if len(results) > 50:
-        detail_lines.append(_msg("result.more", "... and {count} more", count=len(results) - 50))
-    return make_response(ok=True, message=summary, data={"detail": "\n".join(detail_lines)})
+        detail_lines.append(
+            _msg("result.more", "... and {count} more", count=len(results) - 50)
+        )
+    return make_response(
+        ok=True, message=summary, data={"detail": "\n".join(detail_lines)}
+    )
 
 
 def _parse_biome_output(output: str) -> int:

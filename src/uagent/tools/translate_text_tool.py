@@ -17,16 +17,48 @@ from .i18n_helper import make_tool_translator
 _ = make_tool_translator(__file__)
 
 _LOCALE_TO_GOOGLE: dict[str, str] = {
-    "ja": "ja", "en": "en", "es": "es", "fr": "fr", "ko": "ko",
-    "de": "de", "it": "it", "ru": "ru", "pt_br": "pt", "pt": "pt",
-    "id": "id", "vi": "vi", "pl": "pl", "hi": "hi", "ar": "ar",
-    "sv": "sv", "sw": "sw", "nb": "no", "nl": "nl", "fi": "fi",
-    "cs": "cs", "uk": "uk", "tr": "tr", "th": "th",
-    "zh_cn": "zh-CN", "zh_tw": "zh-TW",
-    "da": "da", "bg": "bg", "sr": "sr", "hr": "hr",
-    "ms": "ms", "ta": "ta", "ur": "ur", "ne": "ne",
-    "bn": "bn", "fa": "fa", "mn": "mn", "mr": "mr",
-    "el": "el", "he": "iw", "hu": "hu", "ro": "ro",
+    "ja": "ja",
+    "en": "en",
+    "es": "es",
+    "fr": "fr",
+    "ko": "ko",
+    "de": "de",
+    "it": "it",
+    "ru": "ru",
+    "pt_br": "pt",
+    "pt": "pt",
+    "id": "id",
+    "vi": "vi",
+    "pl": "pl",
+    "hi": "hi",
+    "ar": "ar",
+    "sv": "sv",
+    "sw": "sw",
+    "nb": "no",
+    "nl": "nl",
+    "fi": "fi",
+    "cs": "cs",
+    "uk": "uk",
+    "tr": "tr",
+    "th": "th",
+    "zh_cn": "zh-CN",
+    "zh_tw": "zh-TW",
+    "da": "da",
+    "bg": "bg",
+    "sr": "sr",
+    "hr": "hr",
+    "ms": "ms",
+    "ta": "ta",
+    "ur": "ur",
+    "ne": "ne",
+    "bn": "bn",
+    "fa": "fa",
+    "mn": "mn",
+    "mr": "mr",
+    "el": "el",
+    "he": "iw",
+    "hu": "hu",
+    "ro": "ro",
 }
 
 _GOOGLE_TO_LOCALE: dict[str, str] = {v: k for k, v in _LOCALE_TO_GOOGLE.items()}
@@ -68,13 +100,21 @@ _EXT_PATTERNS: dict[str, list[tuple[str, str]]] = {
 }
 
 _EXT_ALIASES: dict[str, str] = {
-    ".ts": ".js", ".jsx": ".js", ".tsx": ".js",
-    ".bash": ".sh", ".zsh": ".sh",
-    ".cpp": ".c", ".h": ".c", ".hpp": ".c", ".cxx": ".c", ".hxx": ".c",
+    ".ts": ".js",
+    ".jsx": ".js",
+    ".tsx": ".js",
+    ".bash": ".sh",
+    ".zsh": ".sh",
+    ".cpp": ".c",
+    ".h": ".c",
+    ".hpp": ".c",
+    ".cxx": ".c",
+    ".hxx": ".c",
     ".pot": ".po",
 }
 
 _EXT_PATTERNS_CACHE: dict[str, list[tuple[re.Pattern, str]]] = {}
+
 
 def _get_patterns(ext: str) -> list[tuple[re.Pattern, str]]:
     if ext in _EXT_PATTERNS_CACHE:
@@ -87,27 +127,50 @@ def _get_patterns(ext: str) -> list[tuple[re.Pattern, str]]:
     _EXT_PATTERNS_CACHE[ext] = compiled
     return compiled
 
+
 def _detect_extension(text: str) -> str:
     lines = text.split("\n")
-    if any(re.search(r'\bdef \w+\s*\(', ln) for ln in lines[:30]): return ".py"
-    if any(re.search(r'\bimport \w+', ln) for ln in lines[:10]): return ".py"
-    if any(re.search(r'\bclass \w+\s*[:\(]', ln) for ln in lines[:20]): return ".py"
-    if any(re.search(r'^\s*#!.*(?:bash|sh|zsh)', ln) for ln in lines[:5]): return ".sh"
-    if any(re.search(r'^\s*(?:if|then|else|fi|case|esac|while|do|done)\s', ln) for ln in lines[:30]): return ".sh"
-    if any(re.search(r'<\?php', ln) for ln in lines[:5]): return ".php"
-    if any(re.search(r'#include\s*[<"]', ln) for ln in lines[:20]): return ".c"
-    if any(re.search(r'\bpackage\s+[\w.]+;', ln) for ln in lines[:10]): return ".java"
-    if any(re.search(r'\bpublic\s+(static\s+)?void\s+main\b', ln) for ln in lines[:30]): return ".java"
-    if any(re.search(r'\bpackage\s+\w+\b', ln) for ln in lines[:5]): return ".go"
-    if any(re.search(r'\bfn\s+\w+\s*\(', ln) for ln in lines[:20]): return ".rs"
-    if any(re.search(r'\bdef\s+\w+\s*', ln) for ln in lines[:20]): return ".rb"
-    if any(re.search(r'\bfun\s+\w+\s*\(', ln) for ln in lines[:20]): return ".kt"
-    if any(re.search(r'\bfunction\s+\w*\s*\(', ln) for ln in lines[:20]): return ".js"
-    if any(re.search(r'\b(?:const|let|var)\s+\w+\s*=', ln) for ln in lines[:10]): return ".js"
-    if any(re.search(r'\bfunc\s+\w+\s*\(', ln) for ln in lines[:20]): return ".swift"
-    if any(re.search(r'^msgid\s+"', ln) for ln in lines[:30]): return ".po"
-    if any(re.search(r'^msgstr\s+"', ln) for ln in lines[:30]): return ".po"
+    if any(re.search(r"\bdef \w+\s*\(", ln) for ln in lines[:30]):
+        return ".py"
+    if any(re.search(r"\bimport \w+", ln) for ln in lines[:10]):
+        return ".py"
+    if any(re.search(r"\bclass \w+\s*[:\(]", ln) for ln in lines[:20]):
+        return ".py"
+    if any(re.search(r"^\s*#!.*(?:bash|sh|zsh)", ln) for ln in lines[:5]):
+        return ".sh"
+    if any(
+        re.search(r"^\s*(?:if|then|else|fi|case|esac|while|do|done)\s", ln)
+        for ln in lines[:30]
+    ):
+        return ".sh"
+    if any(re.search(r"<\?php", ln) for ln in lines[:5]):
+        return ".php"
+    if any(re.search(r'#include\s*[<"]', ln) for ln in lines[:20]):
+        return ".c"
+    if any(re.search(r"\bpackage\s+[\w.]+;", ln) for ln in lines[:10]):
+        return ".java"
+    if any(re.search(r"\bpublic\s+(static\s+)?void\s+main\b", ln) for ln in lines[:30]):
+        return ".java"
+    if any(re.search(r"\bpackage\s+\w+\b", ln) for ln in lines[:5]):
+        return ".go"
+    if any(re.search(r"\bfn\s+\w+\s*\(", ln) for ln in lines[:20]):
+        return ".rs"
+    if any(re.search(r"\bdef\s+\w+\s*", ln) for ln in lines[:20]):
+        return ".rb"
+    if any(re.search(r"\bfun\s+\w+\s*\(", ln) for ln in lines[:20]):
+        return ".kt"
+    if any(re.search(r"\bfunction\s+\w*\s*\(", ln) for ln in lines[:20]):
+        return ".js"
+    if any(re.search(r"\b(?:const|let|var)\s+\w+\s*=", ln) for ln in lines[:10]):
+        return ".js"
+    if any(re.search(r"\bfunc\s+\w+\s*\(", ln) for ln in lines[:20]):
+        return ".swift"
+    if any(re.search(r'^msgid\s+"', ln) for ln in lines[:30]):
+        return ".po"
+    if any(re.search(r'^msgstr\s+"', ln) for ln in lines[:30]):
+        return ".po"
     return ""
+
 
 def _po_placeholder_patterns(text: str) -> list[re.Pattern]:
     """Dynamically detect placeholder patterns from msgid lines in .po text."""
@@ -148,7 +211,7 @@ def protect_placeholders(text: str) -> tuple[str, dict[str, str]]:
         # Google Translate tends to translate {xxx} placeholder names (e.g. {path} -> {パス})
         # so we must protect them proactively.
         patterns = _po_placeholder_patterns(text)
-    
+
     def _replacer(m: re.Match) -> str:
         nonlocal idx
         orig = m.group(0)
@@ -159,17 +222,21 @@ def protect_placeholders(text: str) -> tuple[str, dict[str, str]]:
         mapping[token] = orig
         seen[orig] = token
         return token
-    
+
     for pat in patterns:
         text = pat.sub(_replacer, text)
     return text, mapping
+
 
 def restore_placeholders(text: str, mapping: dict[str, str]) -> str:
     for token, original in mapping.items():
         text = text.replace(token, original)
     return text
 
-def _translate(text: str, target_lang: str, source_lang: str | None = None) -> tuple[str, str | None]:
+
+def _translate(
+    text: str, target_lang: str, source_lang: str | None = None
+) -> tuple[str, str | None]:
     global _LAST_REQUEST_TIME
     now = time.time()
     since_last = now - _LAST_REQUEST_TIME
@@ -182,10 +249,15 @@ def _translate(text: str, target_lang: str, source_lang: str | None = None) -> t
         "dt": "t",
         "q": text,
     }
-    url = "https://translate.googleapis.com/translate_a/single?" + urllib.parse.urlencode(params)
+    url = (
+        "https://translate.googleapis.com/translate_a/single?"
+        + urllib.parse.urlencode(params)
+    )
     req = urllib.request.Request(
         url,
-        headers={"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36"},
+        headers={
+            "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36"
+        },
     )
     try:
         with urllib.request.urlopen(req, timeout=15, context=_SSL_CTX) as resp:
@@ -195,8 +267,14 @@ def _translate(text: str, target_lang: str, source_lang: str | None = None) -> t
                 if segment[0]:
                     parts.append(segment[0])
             translated = "".join(parts)
-            detected_raw = data[2] if len(data) > 2 and isinstance(data[2], str) else None
-            detected = _GOOGLE_TO_LOCALE.get(detected_raw, detected_raw) if detected_raw else None
+            detected_raw = (
+                data[2] if len(data) > 2 and isinstance(data[2], str) else None
+            )
+            detected = (
+                _GOOGLE_TO_LOCALE.get(detected_raw, detected_raw)
+                if detected_raw
+                else None
+            )
             _LAST_REQUEST_TIME = time.time()
             return translated, detected
     except Exception as e:
@@ -219,13 +297,13 @@ TOOL_SPEC: dict[str, Any] = {
             default=["translate", "translation", "google translate", "language"],
         ),
         "x_search_terms_en": [
-        "translate",
-        "translation",
-        "google translate",
-        "language",
-        "i18n",
-        "localization",
-    ],
+            "translate",
+            "translation",
+            "google translate",
+            "language",
+            "i18n",
+            "localization",
+        ],
         "parameters": {
             "type": "object",
             "properties": {
@@ -268,7 +346,9 @@ TOOL_SPEC: dict[str, Any] = {
 def run_tool(args: dict[str, Any]) -> str:
     raw_texts = args.get("texts")
     if raw_texts is None or not isinstance(raw_texts, list) or len(raw_texts) == 0:
-        return json.dumps({"error": "texts is required (non-empty array)"}, ensure_ascii=False)
+        return json.dumps(
+            {"error": "texts is required (non-empty array)"}, ensure_ascii=False
+        )
 
     target_lang = str(args.get("target_lang") or "").strip()
     source_lang = str(args.get("source_lang") or "").strip() or None
@@ -304,7 +384,12 @@ def run_tool(args: dict[str, Any]) -> str:
             mappings.append({})
             continue
         if len(text) > MAX_TEXT_LENGTH:
-            return json.dumps({"error": f"Element {i} too long: {len(text)} characters (max {MAX_TEXT_LENGTH})"}, ensure_ascii=False)
+            return json.dumps(
+                {
+                    "error": f"Element {i} too long: {len(text)} characters (max {MAX_TEXT_LENGTH})"
+                },
+                ensure_ascii=False,
+            )
 
         # Protect placeholders per element
         if protect is None or protect is True:
@@ -328,9 +413,12 @@ def run_tool(args: dict[str, Any]) -> str:
     # Split back
     translated_lines = translated.split("\n")
     if len(translated_lines) != len(raw_texts):
-        return json.dumps({
-            "error": f"Line count mismatch after translation: got {len(translated_lines)}, expected {len(raw_texts)}"
-        }, ensure_ascii=False)
+        return json.dumps(
+            {
+                "error": f"Line count mismatch after translation: got {len(translated_lines)}, expected {len(raw_texts)}"
+            },
+            ensure_ascii=False,
+        )
 
     # Restore placeholders & internal newlines
     results: list[str] = []

@@ -54,14 +54,14 @@ TOOL_SPEC: dict[str, Any] = {
             ],
         ),
         "x_search_terms_en": [
-        "usb camera",
-        "webcam",
-        "capture photo",
-        "take picture",
-        "video device",
-        "camera",
-        "capture",
-    ],
+            "usb camera",
+            "webcam",
+            "capture photo",
+            "take picture",
+            "video device",
+            "camera",
+            "capture",
+        ],
         "parameters": {
             "type": "object",
             "properties": {

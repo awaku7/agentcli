@@ -3,7 +3,7 @@
 JP Postage Lookup - 郵便料金検索ツール
 日本郵便の料金データ（2025年11月改訂版）を組み込みで保持
 """
-import json
+
 import sys
 
 POSTAGE_DATA = {
@@ -13,7 +13,7 @@ POSTAGE_DATA = {
         "first_class": {
             "name": "第一種郵便物（定形）",
             "description": "定形郵便物（長辺34cm以内、短辺25cm以内、厚さ1cm以内）",
-            "rates": [{"weight": "50g以内", "price": 110}]
+            "rates": [{"weight": "50g以内", "price": 110}],
         },
         "first_class_nonstandard": {
             "name": "第一種郵便物（定形外）",
@@ -26,19 +26,19 @@ POSTAGE_DATA = {
                 {"weight": "500g以内", "standard": 510, "nonstandard": 660},
                 {"weight": "1kg以内", "standard": 750, "nonstandard": 920},
                 {"weight": "2kg以内", "standard": None, "nonstandard": 1350},
-                {"weight": "4kg以内", "standard": None, "nonstandard": 1750}
-            ]
+                {"weight": "4kg以内", "standard": None, "nonstandard": 1750},
+            ],
         },
         "postcard": {
             "name": "第二種郵便物（はがき）",
             "rates": [
                 {"type": "通常はがき", "price": 85},
-                {"type": "往復はがき", "price": 170}
-            ]
+                {"type": "往復はがき", "price": 170},
+            ],
         },
         "fourth_class": {
             "name": "第四種郵便物（通信教育用）",
-            "rates": [{"weight": "100gまで", "price": 15}]
+            "rates": [{"weight": "100gまで", "price": 15}],
         },
         "yuu_mail": {
             "name": "ゆうメール",
@@ -46,8 +46,8 @@ POSTAGE_DATA = {
                 {"weight": "150g以内", "price": 190},
                 {"weight": "250g以内", "price": 230},
                 {"weight": "500g以内", "price": 320},
-                {"weight": "1kg以内", "price": 380}
-            ]
+                {"weight": "1kg以内", "price": 380},
+            ],
         },
         "option": {
             "express": {
@@ -55,16 +55,16 @@ POSTAGE_DATA = {
                 "rates": [
                     {"weight": "250gまで", "price": 300},
                     {"weight": "1kgまで", "price": 400},
-                    {"weight": "4kgまで", "price": 690}
-                ]
+                    {"weight": "4kgまで", "price": 690},
+                ],
             },
             "time_designated": {
                 "name": "配達時間帯指定郵便",
                 "rates": [
                     {"weight": "250gまで", "price": 440},
                     {"weight": "1kgまで", "price": 570},
-                    {"weight": "4kgまで", "price": 920}
-                ]
+                    {"weight": "4kgまで", "price": 920},
+                ],
             },
             "registered": {
                 "name": "書留",
@@ -73,11 +73,11 @@ POSTAGE_DATA = {
                     {"type": "一般書留（現金書留1万円まで）", "price": 480},
                     {"type": "引受時刻証明", "price": 350},
                     {"type": "配達証明（差出時）", "price": 350},
-                    {"type": "配達証明（差出後）", "price": 480}
-                ]
-            }
-        }
-    }
+                    {"type": "配達証明（差出後）", "price": 480},
+                ],
+            },
+        },
+    },
 }
 
 

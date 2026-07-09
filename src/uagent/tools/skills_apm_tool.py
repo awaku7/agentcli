@@ -61,15 +61,17 @@ def _scan_apm_skills(apm_root: str) -> list[dict[str, Any]]:
                 fm = load_skill_frontmatter_only(skill_path)
             except Exception:
                 pass
-            results.append({
-                "name": fm.get("name") or skill_name,
-                "package": pkg_name,
-                "path": skill_path,
-                "skill_md": skill_md,
-                "description": fm.get("description") or "",
-                "metadata": fm.get("metadata"),
-                "allowed_tools": fm.get("allowed-tools"),
-            })
+            results.append(
+                {
+                    "name": fm.get("name") or skill_name,
+                    "package": pkg_name,
+                    "path": skill_path,
+                    "skill_md": skill_md,
+                    "description": fm.get("description") or "",
+                    "metadata": fm.get("metadata"),
+                    "allowed_tools": fm.get("allowed-tools"),
+                }
+            )
 
     return results
 
@@ -83,14 +85,16 @@ def handle_cmd_apm(arg: str, **kwargs: Any) -> Any:
     subarg = parts[1].strip() if len(parts) > 1 else ""
 
     if not subcmd or subcmd in ("help", "--help"):
-        print(_(
-            "help_text",
-            default=(
-                "  :skills apm list                    List skills from APM apm_modules/\n"
-                "  :skills apm use <name|#>            Load and activate an APM skill\n"
-                "  :skills apm dir [path]              Show or set APM project root"
-            ),
-        ))
+        print(
+            _(
+                "help_text",
+                default=(
+                    "  :skills apm list                    List skills from APM apm_modules/\n"
+                    "  :skills apm use <name|#>            Load and activate an APM skill\n"
+                    "  :skills apm dir [path]              Show or set APM project root"
+                ),
+            )
+        )
         return CommandResult()
 
     if subcmd == "list":
@@ -100,10 +104,12 @@ def handle_cmd_apm(arg: str, **kwargs: Any) -> Any:
     elif subcmd in ("dir", "path"):
         return _handle_apm_dir(subarg, **kwargs)
     else:
-        print(_(
-            "err.unknown_subcommand",
-            default="[apm] Unknown subcommand: {cmd}",
-        ).format(cmd=subcmd))
+        print(
+            _(
+                "err.unknown_subcommand",
+                default="[apm] Unknown subcommand: {cmd}",
+            ).format(cmd=subcmd)
+        )
         return CommandResult()
 
 
@@ -114,16 +120,20 @@ def _handle_apm_list(arg: str, **kwargs: Any) -> Any:
     skills = _scan_apm_skills(apm_root)
 
     if not skills:
-        print(_(
-            "msg.no_skills",
-            default="[apm] No skills found in {path}/apm_modules/",
-        ).format(path=apm_root))
+        print(
+            _(
+                "msg.no_skills",
+                default="[apm] No skills found in {path}/apm_modules/",
+            ).format(path=apm_root)
+        )
         return CommandResult()
 
-    print(_(
-        "msg.found_skills",
-        default="[apm] Found {n} skill(s) in {path}/apm_modules/:",
-    ).format(n=len(skills), path=apm_root))
+    print(
+        _(
+            "msg.found_skills",
+            default="[apm] Found {n} skill(s) in {path}/apm_modules/:",
+        ).format(n=len(skills), path=apm_root)
+    )
     print("")
 
     for i, s in enumerate(skills, start=1):
@@ -136,10 +146,12 @@ def _handle_apm_list(arg: str, **kwargs: Any) -> Any:
             print(f"       {desc_display}")
         print()
 
-    print(_(
-        "msg.use_hint",
-        default="[apm] Use ':skills apm use <number>' to activate a skill.",
-    ))
+    print(
+        _(
+            "msg.use_hint",
+            default="[apm] Use ':skills apm use <number>' to activate a skill.",
+        )
+    )
     return CommandResult()
 
 
@@ -154,10 +166,12 @@ def _handle_apm_use(arg: str, **kwargs: Any) -> Any:
     skills = _scan_apm_skills(apm_root)
 
     if not skills:
-        print(_(
-            "msg.no_skills",
-            default="[apm] No skills found in {path}/apm_modules/",
-        ).format(path=apm_root))
+        print(
+            _(
+                "msg.no_skills",
+                default="[apm] No skills found in {path}/apm_modules/",
+            ).format(path=apm_root)
+        )
         return CommandResult()
 
     selected = None
@@ -166,17 +180,20 @@ def _handle_apm_use(arg: str, **kwargs: Any) -> Any:
         if 1 <= n <= len(skills):
             selected = skills[n - 1]
         else:
-            print(_(
-                "err.out_of_range",
-                default="[apm] Number out of range (1-{max}).",
-            ).format(max=len(skills)))
+            print(
+                _(
+                    "err.out_of_range",
+                    default="[apm] Number out of range (1-{max}).",
+                ).format(max=len(skills))
+            )
             return CommandResult()
     else:
         arg_lower = arg.strip().lower()
         matches = [s for s in skills if s.get("name", "").lower() == arg_lower]
         if not matches:
-            matches = [s for s in skills
-                       if s.get("name", "").lower().startswith(arg_lower)]
+            matches = [
+                s for s in skills if s.get("name", "").lower().startswith(arg_lower)
+            ]
         if not matches:
             for s in skills:
                 full = f"{s.get('package', '')}/{s.get('name', '')}".lower()
@@ -185,28 +202,34 @@ def _handle_apm_use(arg: str, **kwargs: Any) -> Any:
         if len(matches) == 1:
             selected = matches[0]
         elif len(matches) > 1:
-            print(_(
-                "msg.multiple_matches",
-                default="[apm] Multiple matches. Please use a number:\n",
-            ))
+            print(
+                _(
+                    "msg.multiple_matches",
+                    default="[apm] Multiple matches. Please use a number:\n",
+                )
+            )
             for i, m in enumerate(matches, start=1):
                 print(f"  [{i}] {m.get('name')} (package: {m.get('package')})")
             return CommandResult()
         else:
-            print(_(
-                "err.not_found",
-                default="[apm] No skill matching '{name}' found.",
-            ).format(name=arg))
+            print(
+                _(
+                    "err.not_found",
+                    default="[apm] No skill matching '{name}' found.",
+                ).format(name=arg)
+            )
             return CommandResult()
 
     skill_dir = selected["path"]
     try:
         doc = load_skill_doc(skill_dir)
     except Exception as e:
-        print(_(
-            "err.load_failed",
-            default="[apm] Failed to load skill: {err}",
-        ).format(err=repr(e)))
+        print(
+            _(
+                "err.load_failed",
+                default="[apm] Failed to load skill: {err}",
+            ).format(err=repr(e))
+        )
         return CommandResult()
 
     name = selected["name"]
@@ -257,10 +280,12 @@ def _handle_apm_use(arg: str, **kwargs: Any) -> Any:
         except Exception:
             pass
 
-        print(_(
-            "msg.applied",
-            default="[apm] Applied APM skill: {name}",
-        ).format(name=name))
+        print(
+            _(
+                "msg.applied",
+                default="[apm] Applied APM skill: {name}",
+            ).format(name=name)
+        )
         return CommandResult(run_llm=True)
     else:
         print("[apm] Skill content (messages_ref not available):")
@@ -276,22 +301,28 @@ def _handle_apm_dir(arg: str, **kwargs: Any) -> Any:
     if arg.strip():
         new_dir = os.path.abspath(arg.strip())
         if not os.path.isdir(new_dir):
-            print(_(
-                "err.dir_not_found",
-                default="[apm] Directory not found: {path}",
-            ).format(path=new_dir))
+            print(
+                _(
+                    "err.dir_not_found",
+                    default="[apm] Directory not found: {path}",
+                ).format(path=new_dir)
+            )
             return CommandResult()
         _apm_dir = new_dir
-        print(_(
-            "msg.dir_set",
-            default="[apm] APM project root set to: {path}",
-        ).format(path=new_dir))
+        print(
+            _(
+                "msg.dir_set",
+                default="[apm] APM project root set to: {path}",
+            ).format(path=new_dir)
+        )
     else:
         current = _get_apm_dir()
-        print(_(
-            "msg.dir_current",
-            default="[apm] APM project root: {path}",
-        ).format(path=current))
+        print(
+            _(
+                "msg.dir_current",
+                default="[apm] APM project root: {path}",
+            ).format(path=current)
+        )
 
     return CommandResult()
 

@@ -25,7 +25,27 @@ TOOL_SPEC: dict[str, Any] = {
                 "or list active subscriptions."
             ),
         ),
-            "x_search_terms": _(            "x_search_terms",            default=["echonet unsubscribe", "echonet_unsubscribe", "echonet", "ECHONET", "cancel", "subscription", "listener_id"],        ),        "x_search_terms_en": ["echonet unsubscribe", "echonet_unsubscribe", "echonet", "ECHONET", "cancel", "subscription", "listener_id"],
+        "x_search_terms": _(
+            "x_search_terms",
+            default=[
+                "echonet unsubscribe",
+                "echonet_unsubscribe",
+                "echonet",
+                "ECHONET",
+                "cancel",
+                "subscription",
+                "listener_id",
+            ],
+        ),
+        "x_search_terms_en": [
+            "echonet unsubscribe",
+            "echonet_unsubscribe",
+            "echonet",
+            "ECHONET",
+            "cancel",
+            "subscription",
+            "listener_id",
+        ],
         "parameters": {
             "type": "object",
             "properties": {
