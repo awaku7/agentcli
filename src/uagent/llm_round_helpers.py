@@ -2,6 +2,7 @@
 
 import json
 import traceback
+import uuid
 from urllib.error import URLError
 from typing import Any, Optional
 
@@ -376,6 +377,10 @@ def _call_openai_azure_round(
                 # Extract previous_response_id from shared state (if any)
                 _prev_rid: Optional[str] = None
                 if isinstance(responses_state, dict):
+                    # xAI (Grok) Responses API does not reliably support
+                    # previous_response_id with tools; disable it.
+                    if provider == "grok":
+                        responses_state.pop("previous_response_id", None)
                     _prev_rid = responses_state.get("previous_response_id")
                     # Once a stale error occurred, stop using previous_response_id.
                     if responses_state.get("_stale_rid_occurred"):
@@ -526,6 +531,12 @@ def _call_openai_azure_round(
                     provider=provider,
                     depname=depname,
                 )
+
+                # When using previous_response_id, the instructions from the
+                # first turn are already retained by the server. Sending them
+                # again is redundant and some providers (e.g. xAI) reject it.
+                if _prev_rid is not None:
+                    resp_kwargs.pop("instructions", None)
 
                 if stream_responses:
                     _stream_result = call_maybe_thread_fn(
@@ -857,9 +868,13 @@ def _call_openai_azure_round(
                 elif not isinstance(fn_args, str):
                     fn_args = str(fn_args)
 
+                # Generate synthetic ID when the API returns empty/missing tool_call_id.
+                # This prevents sanitize_messages_for_tools from dropping tool results
+                # as orphans, which would cause the model to repeat the same tool call.
+                _tid = tc_id if tc_id else uuid.uuid4().hex[:12]
                 tool_calls_list.append(
                     {
-                        "id": tc_id or "",
+                        "id": _tid,
                         "type": "function",
                         "function": {
                             "name": fn_name,

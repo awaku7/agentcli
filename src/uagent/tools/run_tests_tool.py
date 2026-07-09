@@ -74,7 +74,7 @@ TOOL_SPEC: dict[str, Any] = {
                     ),
                 },
                 "target": {
-                    "type": ["string", "null"],
+                    "type": "string",
                     "default": None,
                     "description": _(
                         "param.target.description",
@@ -91,7 +91,7 @@ TOOL_SPEC: dict[str, Any] = {
                     ),
                 },
                 "cwd": {
-                    "type": ["string", "null"],
+                    "type": "string",
                     "default": None,
                     "description": _(
                         "param.cwd.description",
@@ -99,7 +99,7 @@ TOOL_SPEC: dict[str, Any] = {
                     ),
                 },
                 "pythonpath": {
-                    "type": ["string", "null"],
+                    "type": "string",
                     "default": None,
                     "description": _(
                         "param.pythonpath.description",

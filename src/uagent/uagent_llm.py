@@ -1,5 +1,7 @@
 from __future__ import annotations
 
+import json
+
 from .env_utils import env_get
 from .i18n import _, detect_lang, set_thread_lang
 from .providers.provider_caps import RESPONSES_PROVIDERS
@@ -81,6 +83,10 @@ def _inject_stop_prompt(
 _TOOL_LAST_ROUND: dict[str, int] = {}  # tool_name -> last round used
 _TOOL_AUTO_UNLOAD_ROUNDS = int(env_get('UAGENT_AUTO_UNLOAD_ROUNDS', '10'))  # unload after this many rounds without use
 _TOTAL_ROUNDS: int = 0  # total rounds across all LLM calls, monotonically increasing
+
+# Track repeated tool call fingerprints (name + sorted args) to detect loops.
+# Some models (e.g. Grok) may call the same management tool repeatedly.
+_TOOL_CALL_FINGERPRINTS: dict[str, int] = {}
 
 # --- Round status constants (internal) ---
 _RS_RETURN = "return"  # fatal error, caller must return
@@ -934,6 +940,40 @@ def _run_one_round(
                 assistant_text,
             )
 
+    # Detect repeated management tool calls (same name + same args).
+    # Some models (e.g. Grok) may call tool_load/tool_catalog repeatedly in a loop.
+    if tool_calls_list and not judgment_mode:
+        _LOOP_THRESHOLD = 4
+        for _tc in tool_calls_list:
+            _fn = _tc.get("function", {})
+            _name = _fn.get("name", "")
+            if _name not in ("tool_catalog", "tool_load", "unload_tool"):
+                continue
+            _args_raw = _fn.get("arguments", "{}")
+            try:
+                _args_parsed = json.loads(_args_raw) if isinstance(_args_raw, str) else _args_raw
+            except Exception:
+                _args_parsed = _args_raw
+            _fp = json.dumps(
+                {"name": _name, "args": _args_parsed},
+                sort_keys=True,
+                ensure_ascii=False,
+            )
+            _TOOL_CALL_FINGERPRINTS[_fp] = _TOOL_CALL_FINGERPRINTS.get(_fp, 0) + 1
+            if _TOOL_CALL_FINGERPRINTS[_fp] >= _LOOP_THRESHOLD:
+                print(
+                    "[WARN] Management tool call '%(name)s' repeated %(n)d times; aborting to prevent loop."
+                    % {"name": _name, "n": _TOOL_CALL_FINGERPRINTS[_fp]}
+                )
+                return (
+                    _RS_BREAK,
+                    client,
+                    gemini_cache_name,
+                    empty_no_tool_rounds,
+                    reuse_only_rounds,
+                    assistant_text,
+                )
+
     return (
         _RS_OK,
         client,
@@ -1002,6 +1042,9 @@ def run_llm_rounds(
         "off",
     )
     reuse_only_rounds = 0
+
+    # Reset management tool call loop detection for this session
+    _TOOL_CALL_FINGERPRINTS.clear()
 
     if judgment_mode:
         cache_mgr, gemini_cache_name = None, None

@@ -178,7 +178,7 @@ TOOL_SPEC: dict[str, Any] = {
                     ),
                 },
                 "payload_json": {
-                    "type": ["string", "object"],
+                    "type": "string",
                     "description": _(
                         "param.payload_json.description",
                         default="Raw webhook payload as JSON string or object. If provided, it is sent as-is.",

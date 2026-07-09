@@ -236,6 +236,22 @@ def _run_tool_catalog(args: dict[str, Any]) -> str:
     return json.dumps(result, ensure_ascii=False)
 
 
+def _lookup_tool_spec(tool_name: str) -> dict[str, Any] | None:
+    """Find the TOOL_SPEC.function dict for a tool by name."""
+    from ._genre_control_util import _find_tool_modules
+
+    for mname, mod in _find_tool_modules():
+        spec = getattr(mod, "TOOL_SPEC", None)
+        if not isinstance(spec, dict):
+            continue
+        func_info = spec.get("function", {})
+        if not isinstance(func_info, dict):
+            continue
+        if func_info.get("name") == tool_name:
+            return func_info
+    return None
+
+
 def _run_tool_load(args: dict[str, Any]) -> str:
     name = str(args.get("name") or "").strip()
     if not name:
@@ -260,7 +276,7 @@ def _run_tool_load(args: dict[str, Any]) -> str:
                     "loaded": True,
                     "message": _(
                         "msg.load.ok",
-                        default="Tool '{name}' has been loaded and is now available.",
+                        default="Tool '{name}' is now loaded and available for use.",
                         name=name,
                     ),
                 }

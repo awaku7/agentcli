@@ -110,7 +110,7 @@ TOOL_SPEC: dict[str, Any] = {
                     "type": ["integer", "null"],
                     "description": _(
                         "param.maxl.description",
-                        default="Maximum number of lines to read. If null, read to EOF.",
+                        default="Maximum number of lines to read. If omitted (null), read to EOF.",
                     ),
                     "default": None,
                 },
@@ -126,7 +126,7 @@ TOOL_SPEC: dict[str, Any] = {
                     "type": ["integer", "null"],
                     "description": _(
                         "param.head.description",
-                        default="Number of lines to read from the beginning. Cannot be used with tail_lines.",
+                        default="Number of lines to read from the beginning. Cannot be used with tail.",
                     ),
                     "default": None,
                 },
@@ -134,7 +134,7 @@ TOOL_SPEC: dict[str, Any] = {
                     "type": ["integer", "null"],
                     "description": _(
                         "param.tail.description",
-                        default="Number of lines to read from the end. Cannot be used with head_lines.",
+                        default="Number of lines to read from the end. Cannot be used with head.",
                     ),
                     "default": None,
                 },

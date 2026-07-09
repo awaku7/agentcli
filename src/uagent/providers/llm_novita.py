@@ -13,6 +13,7 @@ independent (no imports from DeepSeek modules).
 from __future__ import annotations
 
 import json
+import uuid
 from typing import Any
 from urllib.error import URLError
 
@@ -104,9 +105,13 @@ def _parse_novita_response(resp: Any) -> tuple[str, str, list[dict[str, Any]]]:
             fn_args = "{}"
         elif not isinstance(fn_args, str):
             fn_args = str(fn_args)
+        # Generate synthetic ID when the API returns empty/missing tool_call_id.
+        # This prevents sanitize_messages_for_tools from dropping tool results
+        # as orphans, which would cause the model to repeat the same tool call.
+        _tid = tc_id if tc_id else uuid.uuid4().hex[:12]
         tool_calls_list.append(
             {
-                "id": tc_id or "",
+                "id": _tid,
                 "type": "function",
                 "function": {"name": fn_name, "arguments": fn_args},
             }

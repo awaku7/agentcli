@@ -52,7 +52,7 @@ TOOL_SPEC: dict[str, Any] = {
                     ),
                 },
                 "cwd": {
-                    "type": ["string", "null"],
+                    "type": "string",
                     "description": _(
                         "param.cwd.description",
                         default=(
