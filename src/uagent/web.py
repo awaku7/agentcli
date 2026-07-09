@@ -946,8 +946,7 @@ When the user asks for a UI, dashboard, interactive tool, or visualization:
 
         # Track history length before LLM round to sync new messages to room after
         _before_hist_len = len(room.history)
-        _sys.__stderr__.write(f"[DBG] run_llm_rounds: before={len(room.history)}\n")
-        _sys.__stderr__.flush()
+        _before = len(room.history)
         llm_util.run_llm_rounds(
             provider_name,
             client,
@@ -958,8 +957,12 @@ When the user asks for a UI, dashboard, interactive tool, or visualization:
             append_result_to_outfile_fn=tools_util.append_result_to_outfile,
             try_open_images_from_text_fn=tools_util.try_open_images_from_text,
         )
-        _sys.__stderr__.write(f"[DBG] run_llm_rounds: after={len(room.history)}\n")
-        _sys.__stderr__.flush()
+        _after = len(room.history)
+        if _after == _before:
+            _sys.__stderr__.write("[DBG] run_llm_rounds: no new messages\n")
+            _sys.__stderr__.flush()
+            # Force an error message so user knows something went wrong
+            room.add_message({"role": "assistant", "content": _("[Error] LLM returned empty response. Please check server console for details.")})
         # Auto-pilot loop
         if core.auto_pilot_active:
             tools_util._run_auto_pilot_loop(
