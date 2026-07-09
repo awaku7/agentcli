@@ -1,4 +1,5 @@
 from __future__ import annotations
+import urllib.parse
 
 import asyncio
 import json
@@ -173,8 +174,9 @@ def _enrich_message_attachments(msg: dict[str, Any]) -> dict[str, Any]:
                 and not item.get("data_url")
                 and (mime.startswith("image/") or mime in ("image", ""))
             ):
+                # Use /local-file URL instead of data_url to keep WebSocket messages small
                 try:
-                    item["data_url"] = tools_util.image_file_to_data_url(str(path))
+                    item["url"] = f"/local-file?path={urllib.parse.quote(str(path))}"
                 except Exception:
                     pass
             enriched.append(item)
@@ -255,7 +257,7 @@ class WebRoom:
     async def connect(self, websocket: WebSocket):
         set_thread_lang(getattr(self, "lang", "en"))
         try:
-            await websocket.accept(max_size=10_000_000)  # 10MB for large image data_urls
+            await websocket.accept()
             self.active_connections.append(websocket)
 
             msgs = self.messages
