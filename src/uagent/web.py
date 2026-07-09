@@ -135,7 +135,30 @@ app.mount("/static", StaticFiles(directory=STATIC_DIR), name="static")
 
 def _enrich_message_attachments(msg: dict[str, Any]) -> dict[str, Any]:
     display_msg = dict(msg or {})
+
+    # Try to extract attachments from tool result JSON content
     attachments = display_msg.get("attachments")
+    if not isinstance(attachments, list) or not attachments:
+        content = display_msg.get("content", "")
+        if isinstance(content, str) and content.strip().startswith("{"):
+            try:
+                parsed = json.loads(content)
+                if isinstance(parsed, dict):
+                    # make_response format: {"ok": ..., "data": {"attachments": [...]}}
+                    data = parsed.get("data")
+                    if isinstance(data, dict):
+                        data_attachments = data.get("attachments")
+                        if isinstance(data_attachments, list) and data_attachments:
+                            attachments = data_attachments
+                            display_msg["attachments"] = attachments
+                    # Also check top-level attachments in parsed
+                    top_att = parsed.get("attachments")
+                    if isinstance(top_att, list) and top_att:
+                        attachments = top_att
+                        display_msg["attachments"] = attachments
+            except (json.JSONDecodeError, TypeError):
+                pass
+
     if isinstance(attachments, list) and attachments:
         enriched = []
         for att in attachments:
@@ -798,15 +821,34 @@ def run_agent_worker(
                 item["mime"] = mime
             clean_attachments.append(item)
 
-        prompt_text = user_input
-        if attachment_lines:
-            prompt_text = (
-                (prompt_text.rstrip() + "\n\n") if prompt_text.strip() else ""
-            ) + "\n".join(attachment_lines)
+        # Build multimodal content if there are image attachments
+        if clean_attachments:
+            # Check if any attachment has a data_url (image)
+            image_parts = []
+            for att in clean_attachments:
+                data_url = att.get("data_url")
+                if data_url and att.get("type") == "image":
+                    image_parts.append({
+                        "type": "input_image",
+                        "image_url": data_url,
+                    })
+            if image_parts:
+                # Use multimodal format
+                parts = [{"type": "text", "text": user_input}] if user_input.strip() else []
+                parts.extend(image_parts)
+                user_msg = {"role": "user", "content": parts}
+            else:
+                # Fallback: text-only with attachment lines
+                prompt_text = user_input
+                if attachment_lines:
+                    prompt_text = (
+                        (prompt_text.rstrip() + "\n\n") if prompt_text.strip() else ""
+                    ) + "\n".join(attachment_lines)
+                user_msg = {"role": "user", "content": prompt_text}
+        else:
+            prompt_text = user_input
+            user_msg = {"role": "user", "content": prompt_text}
 
-        user_msg = {"role": "user", "content": prompt_text}
-
-        user_msg = {"role": "user", "content": prompt_text}
         if clean_attachments:
             user_msg["attachments"] = clean_attachments
         core.log_message(user_msg)

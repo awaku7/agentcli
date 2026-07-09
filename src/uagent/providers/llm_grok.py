@@ -65,7 +65,44 @@ def build_xai_messages(
             xai_msgs.append(system(content))
 
         elif role == "user":
-            xai_msgs.append(user(content))
+            raw_content = m.get("content", "")
+            if isinstance(raw_content, list):
+                # Multimodal content: build xai_sdk message with text + images
+                text_parts = []
+                image_urls = []
+                for part in raw_content:
+                    if not isinstance(part, dict):
+                        continue
+                    ptype = part.get("type", "")
+                    if ptype == "text":
+                        text_parts.append(_as_str(part.get("text", "")))
+                    elif ptype == "input_image":
+                        img_url = part.get("image_url", "")
+                        if img_url:
+                            image_urls.append(img_url)
+                combined_text = " ".join(text_parts)
+                if image_urls:
+                    # xai_sdk supports image_url in content via proto
+                    from xai_sdk.proto import chat_pb2
+                    from xai_sdk.chat import text as xchat_text
+                    chat_content = []
+                    if combined_text:
+                        chat_content.append(xchat_text(combined_text))
+                    for img_url in image_urls:
+                        chat_content.append(
+                            chat_pb2.Content(
+                                image_url=chat_pb2.ImageUrlContent(image_url=img_url)
+                            )
+                        )
+                    msg = chat_pb2.Message(
+                        role=chat_pb2.MessageRole.ROLE_USER,
+                        content=chat_content,
+                    )
+                    xai_msgs.append(msg)
+                else:
+                    xai_msgs.append(user(combined_text))
+            else:
+                xai_msgs.append(user(_as_str(raw_content)))
 
         elif role == "assistant":
             # xai_sdk assistant() does not accept tool_calls; build raw proto
