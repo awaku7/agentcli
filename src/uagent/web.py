@@ -365,7 +365,16 @@ class WebRoom:
     def add_message(self, msg: dict[str, Any]):
         display_msg = _enrich_message_attachments(msg)
         display_msg["role"] = msg.get("role")
-        display_msg["content"] = msg.get("content", "")
+        # Normalize content: list -> plain text for frontend
+        raw_content = msg.get("content", "")
+        if isinstance(raw_content, list):
+            text_parts = []
+            for part in raw_content:
+                if isinstance(part, dict) and part.get("type") == "text":
+                    text_parts.append(str(part.get("text", "")))
+            display_msg["content"] = " ".join(text_parts)
+        else:
+            display_msg["content"] = raw_content
         display_msg["name"] = msg.get("name")
         display_msg["tool_calls"] = msg.get("tool_calls")
         display_msg["saved_path"] = msg.get("saved_path")
