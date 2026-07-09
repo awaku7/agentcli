@@ -674,6 +674,20 @@ def run_agent_worker(
     _thread_ctx.room = room
     set_thread_lang(getattr(room, "lang", "en"))
 
+    # Hook print to capture error messages to sys.__stdout__
+    import builtins as _builtins
+    _orig_print = _builtins.print
+    def _capture_print(*args, **kwargs):
+        _orig_print(*args, **kwargs)
+        try:
+            f = kwargs.get('file', sys.stdout)
+            if f is sys.stdout or 'file' not in kwargs:
+                _sys.__stdout__.write(' '.join(str(a) for a in args) + '\n')
+                _sys.__stdout__.flush()
+        except Exception:
+            pass
+    _builtins.print = _capture_print
+
     # Serialize per-room runs to avoid history/tool collisions
     if not room.worker_lock.acquire(blocking=False):
         import sys as _sys
@@ -1002,6 +1016,10 @@ When the user asks for a UI, dashboard, interactive tool, or visualization:
         try:
             if callable(_orig_log_message):
                 setattr(core, "log_message", _orig_log_message)
+        except Exception:
+            pass
+        try:
+            _builtins.print = _orig_print
         except Exception:
             pass
 
