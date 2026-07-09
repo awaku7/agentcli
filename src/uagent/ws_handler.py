@@ -241,7 +241,17 @@ class WsHandler:
                                 )
                         elif role == "tool":
                             tname = msg.get("name", "")
-                            tcontent = (msg.get("content", "") or "")[:300]
+                            raw = (msg.get("content", "") or "")
+                            # Decode Unicode escapes in JSON content
+                            try:
+                                decoded = json.loads(raw)
+                                if isinstance(decoded, dict):
+                                    raw = json.dumps(
+                                        decoded, ensure_ascii=False, indent=2
+                                    )
+                            except Exception:
+                                pass
+                            tcontent = raw[:300]
                             asyncio.run_coroutine_threadsafe(
                                 _send_intermediate(
                                     "tool_result", name=tname, content=tcontent
