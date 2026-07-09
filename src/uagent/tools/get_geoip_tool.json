@@ -24,15 +24,14 @@
     "tool.description": "パブリック IP アドレスからユーザーの大まかな都市レベルの位置を推定します。低精度 (都市のみ。実際の座標ではありません)。 VPN/プロキシ/モバイルでは不正確です。正確な GPS 座標を得るには get_windows_gps を優先します。",
     "x_search_terms": [
       "geoip",
-      "geolocation",
-      "ip location",
-      "ip geo",
-      "ip address location",
-      "geo location",
-      "ip lookup",
-      "location from ip",
-      "ip geolocation",
-      "ip info"
+      "IP の場所",
+      "地理的位置",
+      "IP地理位置情報",
+      "場所の検索",
+      "IPアドレス検索",
+      "地理位置情報",
+      "IP情報",
+      "地域 IP"
     ],
     "err.format_invalid": "[get_geoip error] format must be 'text' or 'json'",
     "err.local_db_unavailable": "[get_geoip エラー] ローカル DB が設定されていません。UAGENT_GEOIP_DB_PATH を .mmdb ファイルに設定し、maxminddb をインストールして任意の IP アドレスをオフラインで検索します。"
@@ -43,15 +42,14 @@
     "tool.description": "Calcule la ubicación aproximada a nivel de ciudad del usuario a partir de su dirección IP pública. Baja precisión (solo ciudad, no coordenadas reales). Inexacto con VPN/proxy/móvil. Prefiera get_windows_gps para obtener coordenadas GPS precisas.",
     "x_search_terms": [
       "geoip",
-      "geolocation",
-      "ip location",
-      "ip geo",
-      "ip address location",
-      "geo location",
-      "ip lookup",
-      "location from ip",
-      "ip geolocation",
-      "ip info"
+      "ubicación IP",
+      "ubicación geográfica",
+      "geolocalización ip",
+      "búsqueda de ubicación",
+      "búsqueda de dirección IP",
+      "geolocalización",
+      "información IP",
+      "IP geográfica"
     ],
     "err.format_invalid": "[get_geoip error] format must be 'text' or 'json'"
   },
@@ -61,15 +59,14 @@
     "tool.description": "Estimez l'emplacement approximatif de l'utilisateur au niveau de la ville à partir de son adresse IP publique. Faible précision (ville uniquement, pas les coordonnées réelles). Inexact avec VPN/proxy/mobile. Préférez get_windows_gps pour des coordonnées GPS précises.",
     "x_search_terms": [
       "geoip",
-      "geolocation",
-      "ip location",
-      "ip geo",
-      "ip address location",
-      "geo location",
-      "ip lookup",
-      "location from ip",
-      "ip geolocation",
-      "ip info"
+      "emplacement IP",
+      "géolocalisation",
+      "géolocalisation IP",
+      "recherche demplacement",
+      "recherche dadresse IP",
+      "géolocalisation",
+      "informations IP",
+      "géo ip"
     ],
     "err.format_invalid": "[get_geoip error] format must be 'text' or 'json'"
   },
@@ -79,15 +76,14 @@
     "tool.description": "공용 IP 주소에서 사용자의 대략적인 도시 수준 위치를 추정합니다. 정밀도가 낮습니다(실제 좌표가 아닌 도시만 해당). VPN/프록시/모바일에서는 부정확합니다. 정확한 GPS 좌표를 얻으려면 get_windows_gps를 선호하세요.",
     "x_search_terms": [
       "geoip",
-      "geolocation",
-      "ip location",
-      "ip geo",
-      "ip address location",
-      "geo location",
-      "ip lookup",
-      "location from ip",
-      "ip geolocation",
-      "ip info"
+      "IP 위치",
+      "지리적 위치",
+      "IP 위치정보",
+      "위치 조회",
+      "IP 주소 조회",
+      "위치정보",
+      "IP 정보",
+      "지역 IP"
     ],
     "err.format_invalid": "[get_geoip error] format must be 'text' or 'json'"
   },
@@ -97,15 +93,14 @@
     "tool.description": "Schätzen Sie den ungefähren Standort des Benutzers auf Stadtebene anhand seiner öffentlichen IP-Adresse. Geringe Präzision (nur Stadt, keine tatsächlichen Koordinaten). Ungenau mit VPN/Proxy/Mobilfunk. Bevorzugen Sie get_windows_gps für genaue GPS-Koordinaten.",
     "x_search_terms": [
       "geoip",
-      "geolocation",
-      "ip location",
-      "ip geo",
-      "ip address location",
-      "geo location",
-      "ip lookup",
-      "location from ip",
-      "ip geolocation",
-      "ip info"
+      "IP-Standort",
+      "geografischer Standort",
+      "IP-Geolokalisierung",
+      "Standortsuche",
+      "IP-Adresssuche",
+      "Geolokalisierung",
+      "IP-Info",
+      "Geo-IP"
     ],
     "err.format_invalid": "[get_geoip error] format must be 'text' or 'json'"
   },
@@ -115,15 +110,14 @@
     "tool.description": "Stimare la posizione approssimativa dell'utente a livello di città in base al suo indirizzo IP pubblico. Bassa precisione (solo città, non coordinate effettive). Impreciso con VPN/proxy/mobile. Preferisci get_windows_gps per coordinate GPS precise.",
     "x_search_terms": [
       "geoip",
-      "geolocation",
-      "ip location",
-      "ip geo",
-      "ip address location",
-      "geo location",
-      "ip lookup",
-      "location from ip",
-      "ip geolocation",
-      "ip info"
+      "posizione ip",
+      "posizione geografica",
+      "geolocalizzazione ip",
+      "ricerca della posizione",
+      "ricerca indirizzo IP",
+      "geolocalizzazione",
+      "informazioni ip",
+      "ip geografico"
     ],
     "err.format_invalid": "[get_geoip error] format must be 'text' or 'json'"
   },
@@ -133,15 +127,14 @@
     "tool.description": "Оцените приблизительное местоположение пользователя на уровне города по его общедоступному IP-адресу. Низкая точность (только город, а не фактические координаты). Неточно при использовании VPN/прокси/мобильного устройства. Предпочитайте get_windows_gps для получения точных координат GPS.",
     "x_search_terms": [
       "geoip",
-      "geolocation",
-      "ip location",
-      "ip geo",
-      "ip address location",
-      "geo location",
-      "ip lookup",
-      "location from ip",
-      "ip geolocation",
-      "ip info"
+      "IP-адрес",
+      "географическое местоположение",
+      "IP-геолокация",
+      "поиск местоположения",
+      "поиск IP-адреса",
+      "геолокация",
+      "IP-информация",
+      "гео ip"
     ],
     "err.format_invalid": "[get_geoip error] format must be 'text' or 'json'"
   },
@@ -151,15 +144,14 @@
     "tool.description": "Estime a localização aproximada do usuário no nível da cidade a partir de seu endereço IP público. Baixa precisão (apenas cidade, não coordenadas reais). Impreciso com VPN/proxy/móvel. Prefira get_windows_gps para coordenadas GPS precisas.",
     "x_search_terms": [
       "geoip",
-      "geolocation",
-      "ip location",
-      "ip geo",
-      "ip address location",
-      "geo location",
-      "ip lookup",
-      "location from ip",
-      "ip geolocation",
-      "ip info"
+      "localização do IP",
+      "localização geográfica",
+      "geolocalização ip",
+      "pesquisa de localização",
+      "pesquisa de endereço IP",
+      "geolocalização",
+      "informações de IP",
+      "geo ip"
     ],
     "err.format_invalid": "[get_geoip error] format must be 'text' or 'json'"
   },
@@ -169,15 +161,14 @@
     "tool.description": "Estime a localização aproximada do usuário no nível da cidade a partir de seu endereço IP público. Baixa precisão (apenas cidade, não coordenadas reais). Impreciso com VPN/proxy/móvel. Prefira get_windows_gps para coordenadas GPS precisas.",
     "x_search_terms": [
       "geoip",
-      "geolocation",
-      "ip location",
-      "ip geo",
-      "ip address location",
-      "geo location",
-      "ip lookup",
-      "location from ip",
-      "ip geolocation",
-      "ip info"
+      "localizao do IP",
+      "localizao geogrfica",
+      "geolocalizao ip",
+      "pesquisa de localizao",
+      "pesquisa de endereo IP",
+      "geolocalizao",
+      "informaes de IP",
+      "geo ip"
     ],
     "err.format_invalid": "[get_geoip error] format must be 'text' or 'json'"
   },
@@ -187,15 +178,14 @@
     "tool.description": "Perkirakan lokasi kasar tingkat kota pengguna dari alamat IP publik mereka. Presisi rendah (hanya kota, bukan koordinat sebenarnya). Tidak akurat dengan VPN/proxy/ponsel. Lebih suka get_windows_gps untuk koordinat GPS yang akurat.",
     "x_search_terms": [
       "geoip",
-      "geolocation",
-      "ip location",
-      "ip geo",
-      "ip address location",
-      "geo location",
-      "ip lookup",
-      "location from ip",
-      "ip geolocation",
-      "ip info"
+      "lokasi ip",
+      "lokasi geografis",
+      "geolokasi ip",
+      "pencarian lokasi",
+      "pencarian alamat ip",
+      "geolokasi",
+      "info ip",
+      "geo ip"
     ],
     "err.format_invalid": "[get_geoip error] format must be 'text' or 'json'"
   },
@@ -205,15 +195,14 @@
     "tool.description": "Ước tính vị trí cấp thành phố thô của người dùng từ địa chỉ IP công cộng của họ. Độ chính xác thấp (chỉ thành phố, không có tọa độ thực tế). Không chính xác với VPN/proxy/di động. Ưu tiên get_windows_gps để có tọa độ GPS chính xác.",
     "x_search_terms": [
       "geoip",
-      "geolocation",
-      "ip location",
-      "ip geo",
-      "ip address location",
-      "geo location",
-      "ip lookup",
-      "location from ip",
-      "ip geolocation",
-      "ip info"
+      "vị trí ip",
+      "vị trí địa lý",
+      "định vị địa lý ip",
+      "tra cứu vị trí",
+      "tra cứu địa chỉ ip",
+      "định vị địa lý",
+      "thông tin ip",
+      "địa lý ip"
     ],
     "err.format_invalid": "[get_geoip error] format must be 'text' or 'json'"
   },
@@ -223,15 +212,14 @@
     "tool.description": "Oszacuj przybliżoną lokalizację użytkownika na poziomie miasta na podstawie jego publicznego adresu IP. Niska precyzja (tylko miasto, a nie rzeczywiste współrzędne). Niedokładne w przypadku VPN/proxy/urządzenia mobilnego. Preferuj get_windows_gps, aby uzyskać dokładne współrzędne GPS.",
     "x_search_terms": [
       "geoip",
-      "geolocation",
-      "ip location",
-      "ip geo",
-      "ip address location",
-      "geo location",
-      "ip lookup",
-      "location from ip",
-      "ip geolocation",
-      "ip info"
+      "lokalizacja ip",
+      "lokalizacja geograficzna",
+      "geolokalizacja ip",
+      "wyszukiwanie lokalizacji",
+      "wyszukiwanie adresu IP",
+      "geolokalizacja",
+      "informacje o ip",
+      "geo ip"
     ],
     "err.format_invalid": "[get_geoip error] format must be 'text' or 'json'"
   },
@@ -240,16 +228,15 @@
     "param.ip.description": "खोजने के लिए वैकल्पिक आईपी पता। यदि छोड़ा गया है, तो वर्तमान सार्वजनिक आईपी का उपयोग किया जाता है (केवल API मोड)।",
     "tool.description": "उपयोगकर्ता के सार्वजनिक आईपी पते से उसके शहर-स्तरीय स्थान का अनुमान लगाएं। कम परिशुद्धता (केवल शहर, वास्तविक निर्देशांक नहीं)। वीपीएन/प्रॉक्सी/मोबाइल के साथ ग़लत। सटीक जीपीएस निर्देशांक के लिए get_windows_gps को प्राथमिकता दें।",
     "x_search_terms": [
-      "geoip",
-      "geolocation",
-      "ip location",
-      "ip geo",
-      "ip address location",
-      "geo location",
-      "ip lookup",
-      "location from ip",
-      "ip geolocation",
-      "ip info"
+      "जियोइप",
+      "आईपी ​​स्थान",
+      "भू स्थान",
+      "आईपी ​​जियोलोकेशन",
+      "स्थान खोज",
+      "आईपी ​​एड्रेस लुकअप",
+      "जियोलोकेशन",
+      "आईपी ​​जानकारी",
+      "जियो आईपी"
     ],
     "err.format_invalid": "[get_geoip error] format must be 'text' or 'json'"
   },
@@ -259,15 +246,14 @@
     "tool.description": "يمكنك تقدير الموقع التقريبي للمستخدم على مستوى المدينة من عنوان IP العام الخاص به. دقة منخفضة (المدينة فقط، وليس الإحداثيات الفعلية). غير دقيق مع VPN/الوكيل/الجوال. تفضل get_windows_gps للحصول على إحداثيات GPS دقيقة.",
     "x_search_terms": [
       "geoip",
-      "geolocation",
-      "ip location",
-      "ip geo",
-      "ip address location",
-      "geo location",
-      "ip lookup",
-      "location from ip",
-      "ip geolocation",
-      "ip info"
+      "موقع الملكية الفكرية",
+      "الموقع الجغرافي",
+      "تحديد الموقع الجغرافي الملكية الفكرية",
+      "البحث عن الموقع",
+      "البحث عن عنوان IP",
+      "تحديد الموقع الجغرافي",
+      "معلومات الملكية الفكرية",
+      "Geo ip"
     ],
     "err.format_invalid": "[get_geoip error] format must be 'text' or 'json'"
   },
@@ -277,15 +263,14 @@
     "tool.description": "Uppskatta användarens grova plats på stadsnivå från deras offentliga IP-adress. Låg precision (endast stad, inte faktiska koordinater). Felaktig med VPN/proxy/mobil. Föredrar get_windows_gps för korrekta GPS-koordinater.",
     "x_search_terms": [
       "geoip",
-      "geolocation",
-      "ip location",
-      "ip geo",
-      "ip address location",
-      "geo location",
-      "ip lookup",
-      "location from ip",
-      "ip geolocation",
-      "ip info"
+      "ip plats",
+      "geo plats",
+      "ip geolokalisering",
+      "platssökning",
+      "ip-adresssökning",
+      "geolokalisering",
+      "ip info",
+      "geo ip"
     ],
     "err.format_invalid": "[get_geoip error] format must be 'text' or 'json'"
   },
@@ -294,16 +279,15 @@
     "param.ip.description": "Anwani ya IP ya hiari ya kutafuta. Ikiwa haijatajwa, IP ya umma ya sasa inatumika (hali ya API tu).",
     "tool.description": "Kadiria eneo mbaya la kiwango cha jiji la mtumiaji kutoka kwa anwani yake ya IP ya umma. Usahihi wa chini (jiji pekee, sio kuratibu halisi). Inaccurate with VPN/proxy/mobile. Pendelea get_windows_gps kwa viwianishi sahihi vya GPS.",
     "x_search_terms": [
-      "geoip",
-      "geolocation",
-      "ip location",
-      "ip geo",
-      "ip address location",
-      "geo location",
-      "ip lookup",
-      "location from ip",
-      "ip geolocation",
-      "ip info"
+      "kijiografia",
+      "ip eneo",
+      "eneo la kijiografia",
+      "eneo la ip",
+      "tafuta eneo",
+      "tafuta anwani ya ip",
+      "eneo la kijiografia",
+      "habari ya ip",
+      "geo ip"
     ],
     "err.format_invalid": "[get_geoip error] format must be 'text' or 'json'"
   },
@@ -313,15 +297,14 @@
     "tool.description": "Estimer brukerens grove plassering på bynivå fra deres offentlige IP-adresse. Lav presisjon (kun by, ikke faktiske koordinater). Unøyaktig med VPN/proxy/mobil. Foretrekk get_windows_gps for nøyaktige GPS-koordinater.",
     "x_search_terms": [
       "geoip",
-      "geolocation",
-      "ip location",
-      "ip geo",
-      "ip address location",
-      "geo location",
-      "ip lookup",
-      "location from ip",
-      "ip geolocation",
-      "ip info"
+      "ip plassering",
+      "geo plassering",
+      "ip geolokalisering",
+      "stedsoppslag",
+      "ip-adresseoppslag",
+      "geolokalisering",
+      "ip info",
+      "geo ip"
     ],
     "err.format_invalid": "[get_geoip error] format must be 'text' or 'json'"
   },
@@ -331,15 +314,14 @@
     "tool.description": "Schat de ruwe locatie op stadsniveau van de gebruiker op basis van zijn openbare IP-adres. Lage precisie (alleen stad, geen werkelijke coördinaten). Onnauwkeurig met VPN/proxy/mobiel. Geef de voorkeur aan get_windows_gps voor nauwkeurige GPS-coördinaten.",
     "x_search_terms": [
       "geoip",
-      "geolocation",
-      "ip location",
-      "ip geo",
-      "ip address location",
-      "geo location",
-      "ip lookup",
-      "location from ip",
-      "ip geolocation",
-      "ip info"
+      "ip-locatie",
+      "geolocatie",
+      "ip-geolocatie",
+      "locatie opzoeken",
+      "IP-adres opzoeken",
+      "geolocatie",
+      "ip-info",
+      "geo ip"
     ],
     "err.format_invalid": "[get_geoip error] format must be 'text' or 'json'"
   },
@@ -349,15 +331,14 @@
     "tool.description": "Arvioi käyttäjän karkea kaupunkitason sijainti hänen julkisen IP-osoitteensa perusteella. Matala tarkkuus (vain kaupunki, ei todellisia koordinaatteja). Epätarkka VPN:n/välityspalvelimen/mobiililaitteen kanssa. Valitse get_windows_gps saadaksesi tarkat GPS-koordinaatit.",
     "x_search_terms": [
       "geoip",
-      "geolocation",
-      "ip location",
-      "ip geo",
-      "ip address location",
-      "geo location",
-      "ip lookup",
-      "location from ip",
-      "ip geolocation",
-      "ip info"
+      "ip-sijainti",
+      "maantieteellinen sijainti",
+      "IP-paikannus",
+      "sijainnin haku",
+      "IP-osoitteen haku",
+      "maantieteellinen sijainti",
+      "ip tiedot",
+      "geo ip"
     ],
     "err.format_invalid": "[get_geoip error] format must be 'text' or 'json'"
   },
@@ -367,15 +348,14 @@
     "tool.description": "Odhadněte přibližnou polohu uživatele na úrovni města z jeho veřejné IP adresy. Nízká přesnost (pouze město, nikoli skutečné souřadnice). Nepřesné s VPN/proxy/mobilem. Pro přesné GPS souřadnice preferujte get_windows_gps.",
     "x_search_terms": [
       "geoip",
-      "geolocation",
-      "ip location",
-      "ip geo",
-      "ip address location",
-      "geo location",
-      "ip lookup",
-      "location from ip",
-      "ip geolocation",
-      "ip info"
+      "IP umístění",
+      "geografická poloha",
+      "ip geolokace",
+      "vyhledávání polohy",
+      "vyhledávání ip adresy",
+      "geolokace",
+      "ip info",
+      "geo ip"
     ],
     "err.format_invalid": "[get_geoip error] format must be 'text' or 'json'"
   },
@@ -385,15 +365,14 @@
     "tool.description": "Оцініть приблизне місцезнаходження користувача на рівні міста за його публічною IP-адресою. Низька точність (лише місто, не фактичні координати). Неточно з VPN/проксі/мобільним. Надайте перевагу get_windows_gps для точних GPS-координат.",
     "x_search_terms": [
       "geoip",
-      "geolocation",
-      "ip location",
-      "ip geo",
-      "ip address location",
-      "geo location",
-      "ip lookup",
-      "location from ip",
-      "ip geolocation",
-      "ip info"
+      "ip розташування",
+      "геолокація",
+      "ip геолокація",
+      "пошук розташування",
+      "пошук ip-адреси",
+      "геолокація",
+      "ip інформація",
+      "geo ip"
     ],
     "err.format_invalid": "[get_geoip error] format must be 'text' or 'json'"
   },
@@ -403,15 +382,14 @@
     "tool.description": "Kullanıcının genel IP adresinden şehir düzeyindeki kaba konumunu tahmin edin. Düşük hassasiyet (yalnızca şehir, gerçek koordinatlar değil). VPN/proxy/mobil ile hatalı. Doğru GPS koordinatları için get_windows_gps'i tercih edin.",
     "x_search_terms": [
       "geoip",
-      "geolocation",
-      "ip location",
-      "ip geo",
-      "ip address location",
-      "geo location",
-      "ip lookup",
-      "location from ip",
-      "ip geolocation",
-      "ip info"
+      "ip konumu",
+      "coğrafi konum",
+      "IP coğrafi konumu",
+      "konum arama",
+      "ip adresi arama",
+      "coğrafi konum",
+      "ip bilgisi",
+      "coğrafi ip"
     ],
     "err.format_invalid": "[get_geoip error] format must be 'text' or 'json'"
   },
@@ -421,15 +399,14 @@
     "tool.description": "ประมาณตำแหน่งระดับเมืองของผู้ใช้โดยคร่าวๆ จากที่อยู่ IP สาธารณะ ความแม่นยำต่ำ (เมืองเท่านั้น ไม่ใช่พิกัดจริง) ไม่ถูกต้องกับ VPN/พร็อกซี/มือถือ ต้องการ get_windows_gps สำหรับพิกัด GPS ที่แม่นยำ",
     "x_search_terms": [
       "geoip",
-      "geolocation",
-      "ip location",
-      "ip geo",
-      "ip address location",
-      "geo location",
-      "ip lookup",
-      "location from ip",
-      "ip geolocation",
-      "ip info"
+      "ที่ตั้งไอพี",
+      "ตำแหน่งทางภูมิศาสตร์",
+      "ตำแหน่งทางภูมิศาสตร์ IP",
+      "ค้นหาสถานที่",
+      "ค้นหาที่อยู่ IP",
+      "ตำแหน่งทางภูมิศาสตร์",
+      "ข้อมูลไอพี",
+      "ภูมิศาสตร์ IP"
     ],
     "err.format_invalid": "[get_geoip error] format must be 'text' or 'json'"
   },
@@ -439,15 +416,14 @@
     "tool.description": "根据用户的公共 IP 地址估计用户的粗略城市级位置。精度低（仅城市，而不是实际坐标）。 VPN/代理/移动不准确。首选 get_windows_gps 以获得准确的 GPS 坐标。",
     "x_search_terms": [
       "geoip",
-      "geolocation",
-      "ip location",
-      "ip geo",
-      "ip address location",
-      "geo location",
-      "ip lookup",
-      "location from ip",
-      "ip geolocation",
-      "ip info"
+      "IP 位置",
+      "地理位置",
+      "ip 地理定位",
+      "位置查询",
+      "ip地址查询",
+      "地理定位",
+      "ip 信息",
+      "geo ip"
     ],
     "err.format_invalid": "[get_geoip error] format must be 'text' or 'json'"
   },
@@ -456,16 +432,15 @@
     "param.ip.description": "可選的要查詢的IP位址。如果省略，則使用目前公網IP（僅API模式）。",
     "tool.description": "根據使用者的公共 IP 位址估計使用者的粗略城市級位置。精度低（僅城市，而不是實際座標）。 VPN/代理/移動不準確。首選 get_windows_gps 以獲得準確的 GPS 座標。",
     "x_search_terms": [
-      "geoip",
-      "geolocation",
-      "ip location",
-      "ip geo",
-      "ip address location",
-      "geo location",
-      "ip lookup",
-      "location from ip",
-      "ip geolocation",
-      "ip info"
+      "地理IP",
+      "IP 位置",
+      "地理位置",
+      "ip 地理定位",
+      "位置查詢",
+      "ip位址查詢",
+      "地理定位",
+      "ip 資訊",
+      "地理IP"
     ],
     "err.format_invalid": "[get_geoip error] format must be 'text' or 'json'"
   },
@@ -475,15 +450,14 @@
     "tool.description": "Estimate the user's rough city-level location from their public IP address. Low precision (city only, not actual coordinates). ভিপিএন/প্রক্সি/মোবাইলের সাথে ভুল। Prefer get_windows_gps for accurate GPS coordinates.",
     "x_search_terms": [
       "geoip",
-      "geolocation",
-      "ip location",
-      "ip geo",
-      "ip address location",
-      "geo location",
-      "ip lookup",
-      "location from ip",
-      "ip geolocation",
-      "ip info"
+      "আইপি অবস্থান",
+      "জিও অবস্থান",
+      "আইপি ভূ-অবস্থান",
+      "অবস্থান সন্ধান",
+      "আইপি ঠিকানা খোঁজা",
+      "ভূ-অবস্থান",
+      "আইপি তথ্য",
+      "জিও আইপি"
     ],
     "err.format_invalid": "[get_geoip error] format must be 'text' or 'json'"
   },
@@ -493,15 +467,14 @@
     "tool.description": "مکان تقریبی کاربر در سطح شهر را از آدرس IP عمومی آنها تخمین بزنید. دقت پایین (فقط شهر، نه مختصات واقعی). نادرست با VPN/پراکسی/موبایل. برای مختصات GPS دقیق، get_windows_gps را ترجیح دهید.",
     "x_search_terms": [
       "geoip",
-      "geolocation",
-      "ip location",
-      "ip geo",
-      "ip address location",
-      "geo location",
-      "ip lookup",
-      "location from ip",
-      "ip geolocation",
-      "ip info"
+      "مکان آی پی",
+      "موقعیت جغرافیایی",
+      "موقعیت جغرافیایی آی پی",
+      "جستجوی مکان",
+      "جستجوی آدرس IP",
+      "موقعیت جغرافیایی",
+      "اطلاعات ip",
+      "geo ip"
     ],
     "err.format_invalid": "[get_geoip error] format must be 'text' or 'json'"
   },
@@ -511,15 +484,14 @@
     "tool.description": "Хэрэглэгчийн нийтийн IP хаягаас хотын түвшний ойролцоо байршлыг тооцоол. Бага нарийвчлал (зөвхөн хотод, бодит координат биш). VPN/proxy/mobile-д буруу байна. GPS-ийн координатыг үнэн зөв авахын тулд get_windows_gps-г илүүд үзээрэй.",
     "x_search_terms": [
       "geoip",
-      "geolocation",
-      "ip location",
-      "ip geo",
-      "ip address location",
-      "geo location",
-      "ip lookup",
-      "location from ip",
+      "ip байршил",
+      "газарзүйн байршил",
       "ip geolocation",
-      "ip info"
+      "байршил хайх",
+      "ip хаяг хайх",
+      "газарзүйн байршил",
+      "ip мэдээлэл",
+      "geo ip"
     ],
     "err.format_invalid": "[get_geoip error] format must be 'text' or 'json'"
   },
@@ -529,15 +501,14 @@
     "tool.description": "Estimate the user's rough city-level location from their public IP address. Low precision (city only, not actual coordinates). VPN/प्रॉक्सी/मोबाइल सह चुकीचे. अचूक GPS निर्देशांकांसाठी get_windows_gps ला प्राधान्य द्या.",
     "x_search_terms": [
       "geoip",
-      "geolocation",
-      "ip location",
-      "ip geo",
-      "ip address location",
-      "geo location",
-      "ip lookup",
-      "location from ip",
-      "ip geolocation",
-      "ip info"
+      "ip स्थान",
+      "भौगोलिक स्थान",
+      "ip भौगोलिक स्थान",
+      "स्थान शोध",
+      "ip पत्ता शोध",
+      "भौगोलिक स्थान",
+      "ip माहिती",
+      "geo ip"
     ],
     "err.format_invalid": "[get_geoip error] format must be 'text' or 'json'"
   },
@@ -547,15 +518,14 @@
     "tool.description": "Υπολογίστε την κατά προσέγγιση τοποθεσία του χρήστη σε επίπεδο πόλης από τη δημόσια διεύθυνση IP του. Χαμηλή ακρίβεια (μόνο πόλη, όχι πραγματικές συντεταγμένες). Ανακριβές με VPN/μεσολάβηση/κινητό. Προτιμήστε get_windows_gps για ακριβείς συντεταγμένες GPS.",
     "x_search_terms": [
       "geoip",
-      "geolocation",
-      "ip location",
-      "ip geo",
-      "ip address location",
-      "geo location",
-      "ip lookup",
-      "location from ip",
+      "τοποθεσία ip",
+      "γεωγραφική τοποθεσία",
       "ip geolocation",
-      "ip info"
+      "αναζήτηση τοποθεσίας",
+      "αναζήτηση διεύθυνσης ip",
+      "γεωγραφική θέση",
+      "ip πληροφορίες",
+      "geo ip"
     ],
     "err.format_invalid": "[get_geoip error] η μορφή \"text\" ή \"json get Local."
   },
@@ -565,15 +535,14 @@
     "tool.description": "הערך את המיקום הגס של המשתמש ברמת העיר מכתובת ה-IP הציבורית שלו. דיוק נמוך (עיר בלבד, לא קואורדינטות בפועל). לא מדויק עם VPN/פרוקסי/נייד. העדיפו get_windows_gps עבור קואורדינטות GPS מדויקות.",
     "x_search_terms": [
       "geoip",
-      "geolocation",
-      "ip location",
-      "ip geo",
-      "ip address location",
-      "geo location",
-      "ip lookup",
-      "location from ip",
-      "ip geolocation",
-      "ip info"
+      "מיקום ip",
+      "מיקום גיאוגרפי",
+      "מיקום גיאוגרפי של ip",
+      "חיפוש מיקום",
+      "חיפוש כתובת ip",
+      "מיקום גיאוגרפי",
+      "מידע ip",
+      "geo ip"
     ],
     "err.format_invalid": "פורמט [get_geoip error] חייב להיות 'טקסט' או 'json'"
   },
@@ -583,15 +552,14 @@
     "tool.description": "Becsülje meg a felhasználó hozzávetőleges városszintű helyét a nyilvános IP-címe alapján. Alacsony pontosság (csak város, nem tényleges koordináták). Pontatlan VPN/proxy/mobil esetén. A pontos GPS-koordináták érdekében előnyben részesítse a get_windows_gps-t.",
     "x_search_terms": [
       "geoip",
-      "geolocation",
-      "ip location",
-      "ip geo",
-      "ip address location",
-      "geo location",
-      "ip lookup",
-      "location from ip",
-      "ip geolocation",
-      "ip info"
+      "ip hely",
+      "földrajzi hely",
+      "ip földrajzi helymeghatározás",
+      "helykeresés",
+      "ip cím keresése",
+      "földrajzi helymeghatározás",
+      "ip info",
+      "geo ip"
     ],
     "err.format_invalid": "[get_geoip error] formátumnak \"text\" vagy \"json\" formátumúnak kell lennie"
   },
@@ -601,15 +569,14 @@
     "tool.description": "Estimați locația aproximativă la nivel de oraș a utilizatorului din adresa IP publică. Precizie scăzută (numai orașul, nu coordonatele reale). Inexacte cu VPN/proxy/mobil. Preferă get_windows_gps pentru coordonate GPS precise.",
     "x_search_terms": [
       "geoip",
-      "geolocation",
-      "ip location",
-      "ip geo",
-      "ip address location",
-      "geo location",
-      "ip lookup",
-      "location from ip",
-      "ip geolocation",
-      "ip info"
+      "locație ip",
+      "locație geografică",
+      "geolocalizare ip",
+      "căutarea locației",
+      "căutarea adresei ip",
+      "geolocalizare",
+      "info ip",
+      "geo ip"
     ],
     "err.format_invalid": "[get_geoip error] formatul trebuie să fie „text” sau „json”"
   }

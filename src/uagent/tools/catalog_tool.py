@@ -20,7 +20,7 @@ def _build_tool_catalog_spec() -> dict[str, Any]:
             "description": _(
                 "tool.description",
                 default=(
-                    "Return a JSON catalog of available tools with ok, query, count, and tools fields so the model can discover relevant tools before requesting full tool definitions. Results include a 'loaded' field indicating if the tool is currently enabled."
+                    "Return a JSON catalog of available tools with ok, query, count, and tools fields so the model can discover relevant tools before requesting full tool definitions. Results include a 'loaded' field indicating if the tool is currently enabled. When a 'query' is provided, the top-ranked unloaded tool is automatically loaded (indicated by 'auto_loaded' in the response)."
                 ),
             ),
             "x_search_terms": _(
@@ -39,6 +39,8 @@ def _build_tool_catalog_spec() -> dict[str, Any]:
                 "discover tools",
                 "tool discovery",
                 "list all tools",
+                "auto load",
+                "auto-load tool",
             ],
             "parameters": {
                 "type": "object",

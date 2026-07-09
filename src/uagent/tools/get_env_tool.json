@@ -25,16 +25,8 @@
     "param.unmasked_chars.description": "マスキング時に先頭と末尾に残す文字数。デフォルトは 2 です。",
     "tool.description": "指定した環境変数の値を取得して返します。必要に応じて値をマスクできます。",
     "x_search_terms": [
-      "get env",
-      "environment variable",
-      "env var",
-      "environment",
-      "get environment",
-      "read env",
-      "env value",
-      "system env",
-      "environment value",
-      "env get"
+      "環境を取得 |環境変数 |環境変数 |環境を取得する |環境を表示 |印刷環境",
+      "env"
     ],
     "param.skip.description": "true の場合、見つからないときにエラーではなく「(not set)」を返します。既定は false。",
     "err.name_required": "[get_env error] 'name' is required"
@@ -45,16 +37,13 @@
     "param.unmasked_chars.description": "Número de caracteres que se dejan al principio y al final al enmascarar.",
     "tool.description": "Obtiene el valor de una variable de entorno especificada y lo devuelve.",
     "x_search_terms": [
-      "get env",
-      "environment variable",
-      "env var",
-      "environment",
-      "get environment",
-      "read env",
-      "env value",
-      "system env",
-      "environment value",
-      "env get"
+      "obtener entorno",
+      "var env",
+      "variable de entorno",
+      "conseguir medio ambiente",
+      "mostrar entorno",
+      "entorno de impresión",
+      "env"
     ],
     "param.skip.description": "Si es true, devuelve '(no establecido)' en lugar de un error cuando falta.",
     "err.name_required": "[get_env error] 'name' is required"
@@ -66,15 +55,12 @@
     "tool.description": "Obtient la valeur d'une variable d'environnement spécifiée et la renvoie.",
     "x_search_terms": [
       "get env",
-      "environment variable",
-      "env var",
-      "environment",
-      "get environment",
-      "read env",
-      "env value",
-      "system env",
-      "environment value",
-      "env get"
+      "variable env",
+      "variable d'environnement",
+      "obtenir l'environnement",
+      "afficher l'environnement",
+      "imprimer l'environnement",
+      "env"
     ],
     "param.skip.description": "Si true, renvoie '(non défini)' au lieu d'une erreur lorsque la valeur est absente.",
     "err.name_required": "[get_env error] 'name' is required"
@@ -85,16 +71,13 @@
     "param.unmasked_chars.description": "마스킹할 때 앞뒤에 남길 문자 수입니다. 기본값은 2입니다.",
     "tool.description": "지정한 환경 변수의 값을 가져와 반환합니다. 필요에 따라 값을 마스킹할 수 있습니다.",
     "x_search_terms": [
-      "get env",
-      "environment variable",
-      "env var",
-      "environment",
-      "get environment",
-      "read env",
-      "env value",
-      "system env",
-      "environment value",
-      "env get"
+      "환경 가져오기",
+      "환경 변수",
+      "환경 변수",
+      "환경 확보",
+      "환경 표시",
+      "환경 인쇄",
+      "env"
     ],
     "param.skip.description": "true인 경우 누락 시 오류 대신 '(not set)'을 반환합니다. 기본값은 false입니다.",
     "err.name_required": "[get_env error] 'name' is required"
@@ -106,15 +89,12 @@
     "tool.description": "Ruft den Wert einer angegebenen Umgebungsvariable ab und gibt ihn zurück.",
     "x_search_terms": [
       "get env",
-      "environment variable",
       "env var",
-      "environment",
-      "get environment",
-      "read env",
-      "env value",
-      "system env",
-      "environment value",
-      "env get"
+      "Umgebungsvariable",
+      "Umgebung abrufen",
+      "env anzeigen",
+      "Druckumgebung",
+      "env"
     ],
     "param.skip.description": "Wenn true, wird bei fehlendem Wert statt eines Fehlers '(not set)' zurückgegeben. Standard ist false.",
     "err.name_required": "[get_env error] 'name' is required"
@@ -126,15 +106,12 @@
     "tool.description": "Recupera il valore di una variabile d'ambiente specificata e lo restituisce.",
     "x_search_terms": [
       "get env",
-      "environment variable",
-      "env var",
-      "environment",
-      "get environment",
-      "read env",
-      "env value",
-      "system env",
-      "environment value",
-      "env get"
+      "invvar",
+      "variabile d'ambiente",
+      "ottenere l'ambiente",
+      "mostra inv",
+      "stampa inv",
+      "env"
     ],
     "param.skip.description": "Se true, restituisce '(non impostato)' invece di un errore quando manca. Il valore predefinito è false.",
     "err.name_required": "[get_env error] 'name' is required"
@@ -145,16 +122,7 @@
     "param.unmasked_chars.description": "Количество символов, которые нужно оставить в начале и в конце при маскировании.",
     "tool.description": "Получает значение указанной переменной среды и возвращает его.",
     "x_search_terms": [
-      "get env",
-      "environment variable",
-      "env var",
-      "environment",
-      "get environment",
-      "read env",
-      "env value",
-      "system env",
-      "environment value",
-      "env get"
+      "получить окружение, окружение var, переменная среды, получить окружение, показать окружение, распечатать конверт, env"
     ],
     "param.skip.description": "Если true, при отсутствии значения возвращает '(not set)' вместо ошибки. Значение по умолчанию: false.",
     "err.name_required": "[get_env error] 'name' is required"
@@ -185,15 +153,15 @@
     "param.unmasked_chars.description": "Número de caracteres a deixar no início e no final ao mascarar. O padrão é 2.",
     "tool.description": "Obtém o valor de uma variável de ambiente especificada e o retorna. Opcionalmente, mascara o valor.",
     "x_search_terms": [
-      "get env",
-      "environment variable",
+      "obter env",
+      "variável de ambiente",
       "env var",
-      "environment",
-      "get environment",
-      "read env",
-      "env value",
-      "system env",
-      "environment value",
+      "meio ambiente",
+      "obter ambiente",
+      "leia ambiente",
+      "valor ambiente",
+      "ambiente do sistema",
+      "valor ambiental",
       "env get"
     ],
     "param.skip.description": "Se for verdade, retorne '(not set)' em vez de um erro quando ausente. O padrão é falso.",
@@ -205,16 +173,16 @@
     "param.unmasked_chars.description": "Jumlah karakter yang dibiarkan di awal dan akhir saat masking. Default 2.",
     "tool.description": "Mengambil nilai variabel lingkungan tertentu dan mengembalikannya. Bisa juga menyamarkan nilainya.",
     "x_search_terms": [
-      "get env",
-      "environment variable",
+      "dapatkan env",
+      "variabel lingkungan",
       "env var",
-      "environment",
-      "get environment",
-      "read env",
-      "env value",
-      "system env",
-      "environment value",
-      "env get"
+      "lingkungan",
+      "dapatkan lingkungan",
+      "baca env",
+      "nilai env",
+      "lingkungan sistem",
+      "nilai lingkungan",
+      "env dapatkan"
     ],
     "param.skip.description": "Jika true, kembalikan '(not set)' alih-alih error saat tidak ada. Default false.",
     "err.name_required": "[get_env error] 'name' is required"
@@ -226,14 +194,14 @@
     "tool.description": "Nhận giá trị của một biến môi trường được chỉ định và trả về giá trị đó. Tùy chọn che giấu giá trị.",
     "x_search_terms": [
       "get env",
-      "environment variable",
+      "biến môi trường",
       "env var",
-      "environment",
-      "get environment",
-      "read env",
-      "env value",
-      "system env",
-      "environment value",
+      "môi trường",
+      "lấy môi trường",
+      "đọc env",
+      "giá trị env",
+      "môi trường hệ thống",
+      "giá trị môi trường",
       "env get"
     ],
     "param.skip.description": "Nếu đúng, hãy trả về '(not set)' thay vì báo lỗi khi thiếu. Mặc định là sai.",

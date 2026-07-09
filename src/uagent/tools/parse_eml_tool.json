@@ -1,7 +1,18 @@
 {
   "ar": {
     "tool.description": "تحليل ملف البريد الإلكتروني .eml واستخراج الرؤوس (من/إلى/الموضوع/التاريخ) والنص الأساسي.",
-    "x_search_terms": "[\"eml\", \"email\", \"mail\", \"outlook\", \"メールファイル\", \"parse email\", \"eml parser\", \"archivo eml\", \"fichier eml\"]",
+    "x_search_terms": [
+      "eml",
+      "محلل eml",
+      "تحليل البريد الإلكتروني",
+      "ملف eml",
+      "ملف البريد الإلكتروني",
+      "تحليل eml",
+      "عارض قواعد البيانات",
+      "محلل البريد الإلكتروني",
+      "قراءة أمل",
+      "eml extract"
+    ],
     "param.path.description": "المسار إلى ملف .eml.",
     "param.max_body_length.description": "الحد الأقصى لعدد الأحرف لاستخراج النص (الافتراضي: 5000، 0 = غير محدود).",
     "err.path_missing": "المسار مطلوب.",
@@ -10,7 +21,18 @@
   },
   "bn": {
     "tool.description": "একটি .eml ইমেল ফাইল পার্স করুন এবং শিরোনাম (থেকে/প্রতি/বিষয়/তারিখ) এবং বডি টেক্সট বের করুন।",
-    "x_search_terms": "[\"eml\", \"email\", \"mail\", \"outlook\", \"メールファイル\", \"parse email\", \"eml parser\", \"archivo eml\", \"fichier eml\"]",
+    "x_search_terms": [
+      "eml",
+      "eml পার্সার",
+      "ইমেইল পার্স",
+      "eml ফাইল",
+      "ইমেইল ফাইল",
+      "পার্স eml",
+      "eml দর্শক",
+      "ইমেইল পার্সার",
+      "eml পড়ুন",
+      "eml নির্যাস"
+    ],
     "param.path.description": ".eml ফাইলের পাথ।",
     "param.max_body_length.description": "শরীর নিষ্কাশনের জন্য সর্বাধিক অক্ষর (ডিফল্ট: 5000, 0 = সীমাহীন)।",
     "err.path_missing": "পথ প্রয়োজন।",
@@ -19,7 +41,18 @@
   },
   "cs": {
     "tool.description": "Analyzujte e-mailový soubor .eml a extrahujte záhlaví (Od/Do/Předmět/Datum) a hlavní text.",
-    "x_search_terms": "[\"eml\", \"email\", \"mail\", \"outlook\", \"メールファイル\", \"parse email\", \"eml parser\", \"archivo eml\", \"fichier eml\"]",
+    "x_search_terms": [
+      "eml",
+      "eml parser",
+      "rozebrat email",
+      "eml soubor",
+      "e-mailový soubor",
+      "rozebrat eml",
+      "prohlížeč eml",
+      "analyzátor emailů",
+      "číst eml",
+      "eml extrakt"
+    ],
     "param.path.description": "Cesta k souboru .eml.",
     "param.max_body_length.description": "Maximální počet znaků pro extrakci těla (výchozí: 5000, 0 = neomezeně).",
     "err.path_missing": "cesta je vyžadována.",
@@ -28,7 +61,18 @@
   },
   "de": {
     "tool.description": "Analysieren Sie eine .eml-E-Mail-Datei und extrahieren Sie Kopfzeilen (Von/An/Betreff/Datum) und Textkörper.",
-    "x_search_terms": "[\"eml\", \"email\", \"mail\", \"outlook\", \"メールファイル\", \"parse email\", \"eml parser\", \"archivo eml\", \"fichier eml\"]",
+    "x_search_terms": [
+      "eml",
+      "EML-Parser",
+      "E-Mail-Analyse",
+      "eml-Datei",
+      "E-Mail-Datei",
+      "EML analysieren",
+      "EML-Viewer",
+      "E-Mail-Parser",
+      "eml lesen",
+      "eml extract"
+    ],
     "param.path.description": "Pfad zur .eml-Datei.",
     "param.max_body_length.description": "Maximale Anzahl an Zeichen für die Körperextraktion (Standard: 5000, 0 = unbegrenzt).",
     "err.path_missing": "Pfad ist erforderlich.",
@@ -37,7 +81,18 @@
   },
   "el": {
     "tool.description": "Αναλύστε ένα αρχείο email .eml και εξαγάγετε τις κεφαλίδες (Από/Προς/Θέμα/Ημερομηνία) και το κύριο κείμενο.",
-    "x_search_terms": "[\"eml\", \"email\", \"mail\", \"outlook\", \"メールファイル\", \"parse email\", \"eml parser\", \"archivo eml\", \"fichier eml\"]",
+    "x_search_terms": [
+      "eml",
+      "eml αναλυτής",
+      "ανάλυση email",
+      "αρχείο eml",
+      "αρχείο email",
+      "αναλύω eml",
+      "eml viewer",
+      "αναλυτής email",
+      "διαβάστε eml",
+      "eml απόσπασμα"
+    ],
     "param.path.description": "Διαδρομή προς το αρχείο .eml.",
     "param.max_body_length.description": "Μέγιστος αριθμός χαρακτήρων για εξαγωγή σώματος (προεπιλογή: 5000, 0 = απεριόριστο).",
     "err.path_missing": "απαιτείται διαδρομή.",
@@ -55,7 +110,18 @@
   },
   "es": {
     "tool.description": "Analice un archivo de correo electrónico .eml y extraiga los encabezados (De/A/Asunto/Fecha) y el texto del cuerpo.",
-    "x_search_terms": "[\"eml\", \"email\", \"mail\", \"outlook\", \"メールファイル\", \"parse email\", \"eml parser\", \"archivo eml\", \"fichier eml\"]",
+    "x_search_terms": [
+      "eml",
+      "analizador eml",
+      "análisis de correo electrónico",
+      "archivo eml",
+      "archivo de correo electrónico",
+      "analizar eml",
+      "visor eml",
+      "analizador de correo electrónico",
+      "leer eml",
+      "extracto eml"
+    ],
     "param.path.description": "Ruta al archivo .eml.",
     "param.max_body_length.description": "Máximo de caracteres para extracción de cuerpos (predeterminado: 5000, 0 = ilimitado).",
     "err.path_missing": "Se requiere camino.",
@@ -64,7 +130,18 @@
   },
   "fa": {
     "tool.description": "یک فایل ایمیل .eml را تجزیه کنید و سرصفحه ها (از/به/موضوع/تاریخ) و متن اصلی را استخراج کنید.",
-    "x_search_terms": "[\"eml\", \"email\", \"mail\", \"outlook\", \"メールファイル\", \"parse email\", \"eml parser\", \"archivo eml\", \"fichier eml\"]",
+    "x_search_terms": [
+      "eml",
+      "تجزیه کننده eml",
+      "تجزیه ایمیل",
+      "فایل eml",
+      "فایل ایمیل",
+      "تجزیه eml",
+      "eml viewer",
+      "تجزیه کننده ایمیل",
+      "eml را بخوانید",
+      "استخراج eml"
+    ],
     "param.path.description": "مسیر فایل eml.",
     "param.max_body_length.description": "حداکثر کاراکتر برای استخراج بدن (پیش‌فرض: 5000، 0 = نامحدود).",
     "err.path_missing": "مسیر مورد نیاز است.",
@@ -73,7 +150,18 @@
   },
   "fi": {
     "tool.description": "Jäsennä .eml-sähköpostitiedosto ja pura otsikot (From/To/Aihe/Date) ja leipäteksti.",
-    "x_search_terms": "[\"eml\", \"email\", \"mail\", \"outlook\", \"メールファイル\", \"parse email\", \"eml parser\", \"archivo eml\", \"fichier eml\"]",
+    "x_search_terms": [
+      "eml",
+      "eml parser",
+      "sähköpostin jäsennys",
+      "eml-tiedosto",
+      "sähköpostitiedosto",
+      "jäsentää eml",
+      "eml-katseluohjelma",
+      "sähköpostin jäsentäjä",
+      "lue eml",
+      "eml-uute"
+    ],
     "param.path.description": "Polku .eml-tiedostoon.",
     "param.max_body_length.description": "Merkkien enimmäismäärä ruumiinpoistoon (oletus: 5000, 0 = rajoittamaton).",
     "err.path_missing": "polku vaaditaan.",
@@ -82,7 +170,18 @@
   },
   "fr": {
     "tool.description": "Analysez un fichier de courrier électronique .eml et extrayez les en-têtes (De/À/Sujet/Date) et le corps du texte.",
-    "x_search_terms": "[\"eml\", \"email\", \"mail\", \"outlook\", \"メールファイル\", \"parse email\", \"eml parser\", \"archivo eml\", \"fichier eml\"]",
+    "x_search_terms": [
+      "eml",
+      "analyseur eml",
+      "analyse d'e-mails",
+      "fichier eml",
+      "fichier de courrier électronique",
+      "analyser eml",
+      "visionneuse eml",
+      "analyseur d'e-mails",
+      "lire eml",
+      "eml extrait"
+    ],
     "param.path.description": "Chemin d'accès au fichier .eml.",
     "param.max_body_length.description": "Nombre maximum de caractères pour l'extraction du corps (par défaut : 5 000, 0 = illimité).",
     "err.path_missing": "un chemin est requis.",
@@ -91,7 +190,18 @@
   },
   "he": {
     "tool.description": "נתח קובץ דוא\"ל .eml וחלץ כותרות (מ/אל/נושא/תאריך) וגוף הטקסט.",
-    "x_search_terms": "[\"eml\", \"email\", \"mail\", \"outlook\", \"メールファイル\", \"parse email\", \"eml parser\", \"archivo eml\", \"fichier eml\"]",
+    "x_search_terms": [
+      "eml",
+      "eml parser",
+      "ניתוח דוא\\\"ל",
+      "קובץ eml",
+      "קובץ דוא\\\"ל",
+      "לנתח eml",
+      "eml viewer",
+      "מנתח דוא\\\"ל",
+      "קרא eml",
+      "תמצית eml"
+    ],
     "param.path.description": "נתיב לקובץ ה-.eml.",
     "param.max_body_length.description": "מקסימום תווים לחילוץ גוף (ברירת מחדל: 5000, 0 = בלתי מוגבל).",
     "err.path_missing": "נדרש נתיב.",
@@ -100,7 +210,18 @@
   },
   "hi": {
     "tool.description": "एक .eml ईमेल फ़ाइल को पार्स करें और हेडर (से/से/विषय/दिनांक) और मुख्य पाठ निकालें।",
-    "x_search_terms": "[\"eml\", \"email\", \"mail\", \"outlook\", \"メールファイル\", \"parse email\", \"eml parser\", \"archivo eml\", \"fichier eml\"]",
+    "x_search_terms": [
+      "ईएमएल",
+      "ईएमएल पार्सर",
+      "ईमेल पार्स",
+      "ईएमएल फ़ाइल",
+      "ईमेल फ़ाइल",
+      "पार्स ईएमएल",
+      "ईएमएल दर्शक",
+      "ईमेल पार्सर",
+      "ईएमएल पढ़ें",
+      "ईएमएल अर्क"
+    ],
     "param.path.description": ".eml फ़ाइल का पथ.",
     "param.max_body_length.description": "शरीर निष्कर्षण के लिए अधिकतम वर्ण (डिफ़ॉल्ट: 5000, 0 = असीमित)।",
     "err.path_missing": "पथ आवश्यक है.",
@@ -109,7 +230,18 @@
   },
   "hu": {
     "tool.description": "Elemezze az .eml e-mail fájlt, és bontsa ki a fejléceket (From/Címzett/Tárgy/Dátum) és törzsszöveget.",
-    "x_search_terms": "[\"eml\", \"email\", \"mail\", \"outlook\", \"メールファイル\", \"parse email\", \"eml parser\", \"archivo eml\", \"fichier eml\"]",
+    "x_search_terms": [
+      "eml",
+      "eml parser",
+      "e-mail elemzés",
+      "eml fájl",
+      "e-mail fájl",
+      "elemezni eml",
+      "eml néző",
+      "e-mail elemző",
+      "olvass eml",
+      "eml kivonat"
+    ],
     "param.path.description": "Az .eml fájl elérési útja.",
     "param.max_body_length.description": "Maximális karakterszám a test kiemeléséhez (alapértelmezett: 5000, 0 = korlátlan).",
     "err.path_missing": "elérési út szükséges.",
@@ -118,7 +250,18 @@
   },
   "id": {
     "tool.description": "Parsing file email .eml dan ekstrak header (Dari/Ke/Subjek/Tanggal) dan teks isi.",
-    "x_search_terms": "[\"eml\", \"email\", \"mail\", \"outlook\", \"メールファイル\", \"parse email\", \"eml parser\", \"archivo eml\", \"fichier eml\"]",
+    "x_search_terms": [
+      "eml",
+      "pengurai eml",
+      "penguraian email",
+      "berkas eml",
+      "berkas email",
+      "parsing eml",
+      "penampil eml",
+      "pengurai email",
+      "baca eml",
+      "ekstrak eml"
+    ],
     "param.path.description": "Jalur ke file .eml.",
     "param.max_body_length.description": "Karakter maksimal untuk ekstraksi tubuh (default: 5000, 0 = tidak terbatas).",
     "err.path_missing": "jalur diperlukan.",
@@ -127,7 +270,18 @@
   },
   "it": {
     "tool.description": "Analizza un file di posta elettronica .eml ed estrai le intestazioni (Da/A/Oggetto/Data) e il corpo del testo.",
-    "x_search_terms": "[\"eml\", \"email\", \"mail\", \"outlook\", \"メールファイル\", \"parse email\", \"eml parser\", \"archivo eml\", \"fichier eml\"]",
+    "x_search_terms": [
+      "eml",
+      "analizzatore eml",
+      "analisi email",
+      "file eml",
+      "file di posta elettronica",
+      "analizzare eml",
+      "visualizzatore eml",
+      "analizzatore di posta elettronica",
+      "leggere eml",
+      "eml estratto"
+    ],
     "param.path.description": "Percorso del file .eml.",
     "param.max_body_length.description": "Caratteri massimi per l'estrazione del corpo (default: 5000, 0 = illimitato).",
     "err.path_missing": "il percorso è obbligatorio.",
@@ -136,7 +290,18 @@
   },
   "ja": {
     "tool.description": ".eml 電子メール ファイルを解析し、ヘッダー (From/To/Subject/Date) と本文テキストを抽出します。",
-    "x_search_terms": "[\"eml\", \"email\", \"mail\", \"outlook\", \"メールファイル\", \"parse email\", \"eml parser\", \"archivo eml\", \"fichier eml\"]",
+    "x_search_terms": [
+      "eml",
+      "EMLパーサー",
+      "メール解析",
+      "eml ファイル",
+      "電子メールファイル",
+      "emlを解析する",
+      "EML ビューア",
+      "電子メールパーサー",
+      "emlを読む",
+      "eml 抽出"
+    ],
     "param.path.description": ".eml ファイルへのパス。",
     "param.max_body_length.description": "本文抽出の最大文字数 (デフォルト: 5000、0 = 無制限)。",
     "err.path_missing": "パスが必要です。",
@@ -145,7 +310,18 @@
   },
   "ko": {
     "tool.description": ".eml 이메일 파일을 구문 분석하고 헤더(보낸 사람/받는 사람/제목/날짜)와 본문 텍스트를 추출합니다.",
-    "x_search_terms": "[\"eml\", \"email\", \"mail\", \"outlook\", \"メールファイル\", \"parse email\", \"eml parser\", \"archivo eml\", \"fichier eml\"]",
+    "x_search_terms": [
+      "eml",
+      "EML 파서",
+      "이메일 분석",
+      "EML 파일",
+      "이메일 파일",
+      "EML을 구문 분석",
+      "EML 뷰어",
+      "이메일 파서",
+      "EML 읽기",
+      "eml 추출"
+    ],
     "param.path.description": ".eml 파일의 경로입니다.",
     "param.max_body_length.description": "본문 추출을 위한 최대 문자(기본값: 5000, 0 = 무제한).",
     "err.path_missing": "경로가 필요합니다.",
@@ -154,7 +330,18 @@
   },
   "mn": {
     "tool.description": ".eml цахим шуудангийн файлыг задлан гарчиг (From/To/Subject/Date) болон үндсэн текстийг задлана.",
-    "x_search_terms": "[\"eml\", \"email\", \"mail\", \"outlook\", \"メールファイル\", \"parse email\", \"eml parser\", \"archivo eml\", \"fichier eml\"]",
+    "x_search_terms": [
+      "eml",
+      "eml задлагч",
+      "имэйл задлан шинжлэх",
+      "eml файл",
+      "имэйл файл",
+      "parse eml",
+      "eml үзэгч",
+      "имэйл задлан шинжлэгч",
+      "уншина уу eml",
+      "eml ханд"
+    ],
     "param.path.description": ".eml файлд хүрэх зам.",
     "param.max_body_length.description": "Биеийг задлахад зориулсан хамгийн их тэмдэгт (өгөгдмөл: 5000, 0 = хязгааргүй).",
     "err.path_missing": "зам шаардлагатай.",
@@ -163,7 +350,18 @@
   },
   "mr": {
     "tool.description": ".eml ईमेल फाइलचे विश्लेषण करा आणि शीर्षलेख (पासून/ते/विषय/तारीख) आणि मुख्य मजकूर काढा.",
-    "x_search_terms": "[\"eml\", \"email\", \"mail\", \"outlook\", \"メールファイル\", \"parse email\", \"eml parser\", \"archivo eml\", \"fichier eml\"]",
+    "x_search_terms": [
+      "eml",
+      "eml पार्सर",
+      "ईमेल पार्स",
+      "eml फाइल",
+      "ईमेल फाइल",
+      "पार्स eml",
+      "eml दर्शक",
+      "ईमेल पार्सर",
+      "eml वाचा",
+      "eml अर्क"
+    ],
     "param.path.description": ".eml फाइलचा मार्ग.",
     "param.max_body_length.description": "शरीर काढण्यासाठी कमाल वर्ण (डीफॉल्ट: 5000, 0 = अमर्यादित).",
     "err.path_missing": "मार्ग आवश्यक आहे.",
@@ -172,7 +370,18 @@
   },
   "nb": {
     "tool.description": "Parse en .eml-e-postfil og trekk ut overskrifter (Fra/Til/Emne/Dato) og brødtekst.",
-    "x_search_terms": "[\"eml\", \"email\", \"mail\", \"outlook\", \"メールファイル\", \"parse email\", \"eml parser\", \"archivo eml\", \"fichier eml\"]",
+    "x_search_terms": [
+      "eml",
+      "eml parser",
+      "e-postanalyse",
+      "eml fil",
+      "e-postfil",
+      "analyser eml",
+      "eml viewer",
+      "e-postparser",
+      "les eml",
+      "eml-utdrag"
+    ],
     "param.path.description": "Banen til .eml-filen.",
     "param.max_body_length.description": "Maks tegn for kroppsutvinning (standard: 5000, 0 = ubegrenset).",
     "err.path_missing": "bane er nødvendig.",
@@ -181,7 +390,18 @@
   },
   "nl": {
     "tool.description": "Parseer een .eml-e-mailbestand en extraheer headers (Van/Tot/Onderwerp/Datum) en hoofdtekst.",
-    "x_search_terms": "[\"eml\", \"email\", \"mail\", \"outlook\", \"メールファイル\", \"parse email\", \"eml parser\", \"archivo eml\", \"fichier eml\"]",
+    "x_search_terms": [
+      "eml",
+      "eml-parser",
+      "e-mail parseren",
+      "eml-bestand",
+      "e-mailbestand",
+      "eml",
+      "eml-viewer",
+      "e-mailparser",
+      "lees em",
+      "eml-extract"
+    ],
     "param.path.description": "Pad naar het .eml-bestand.",
     "param.max_body_length.description": "Max. aantal tekens voor lichaamsextractie (standaard: 5000, 0 = onbeperkt).",
     "err.path_missing": "pad is vereist.",
@@ -190,7 +410,18 @@
   },
   "pl": {
     "tool.description": "Przeanalizuj plik e-mail .eml i wyodrębnij nagłówki (Od/Do/Temat/Data) oraz treść.",
-    "x_search_terms": "[\"eml\", \"email\", \"mail\", \"outlook\", \"メールファイル\", \"parse email\", \"eml parser\", \"archivo eml\", \"fichier eml\"]",
+    "x_search_terms": [
+      "eml",
+      "parser eml",
+      "analiza wiadomości e-mail",
+      "plik eml",
+      "plik e-mail",
+      "przeanalizuj eml",
+      "przeglądarka eml",
+      "parser poczty elektronicznej",
+      "przeczytaj eml",
+      "ekstrakt eml"
+    ],
     "param.path.description": "Ścieżka do pliku .eml.",
     "param.max_body_length.description": "Maksymalna liczba znaków do wyodrębnienia ciała (domyślnie: 5000, 0 = nieograniczona).",
     "err.path_missing": "wymagana jest ścieżka.",
@@ -199,7 +430,18 @@
   },
   "pt": {
     "tool.description": "Analise um arquivo de e-mail .eml e extraia os cabeçalhos (De/Para/Assunto/Data) e o corpo do texto.",
-    "x_search_terms": "[\"eml\", \"email\", \"mail\", \"outlook\", \"メールファイル\", \"parse email\", \"eml parser\", \"archivo eml\", \"fichier eml\"]",
+    "x_search_terms": [
+      "eml",
+      "analisador eml",
+      "anlise de e-mail",
+      "arquivo eml",
+      "arquivo de e-mail",
+      "analisar eml",
+      "visualizador eml",
+      "analisador de e-mail",
+      "leia eml",
+      "extrato eml"
+    ],
     "param.path.description": "Caminho para o arquivo .eml.",
     "param.max_body_length.description": "Máximo de caracteres para extração de corpo (padrão: 5000, 0 = ilimitado).",
     "err.path_missing": "o caminho é obrigatório.",
@@ -208,7 +450,18 @@
   },
   "pt_BR": {
     "tool.description": "Analise um arquivo de e-mail .eml e extraia os cabeçalhos (De/Para/Assunto/Data) e o corpo do texto.",
-    "x_search_terms": "[\"eml\", \"email\", \"mail\", \"outlook\", \"メールファイル\", \"parse email\", \"eml parser\", \"archivo eml\", \"fichier eml\"]",
+    "x_search_terms": [
+      "eml",
+      "analisador eml",
+      "análise de e-mail",
+      "arquivo eml",
+      "arquivo de e-mail",
+      "analisar eml",
+      "visualizador eml",
+      "analisador de e-mail",
+      "leia eml",
+      "extrato eml"
+    ],
     "param.path.description": "Caminho para o arquivo .eml.",
     "param.max_body_length.description": "Máximo de caracteres para extração de corpo (padrão: 5000, 0 = ilimitado).",
     "err.path_missing": "o caminho é obrigatório.",
@@ -217,7 +470,18 @@
   },
   "ro": {
     "tool.description": "Analizați un fișier de e-mail .eml și extrageți antetele (De la/Către/Subiect/Data) și textul corpului.",
-    "x_search_terms": "[\"eml\", \"email\", \"mail\", \"outlook\", \"メールファイル\", \"parse email\", \"eml parser\", \"archivo eml\", \"fichier eml\"]",
+    "x_search_terms": [
+      "eml",
+      "parser eml",
+      "analiza e-mailului",
+      "fișier eml",
+      "fișier e-mail",
+      "parse eml",
+      "eml viewer",
+      "parser de e-mail",
+      "citeste eml",
+      "eml extract"
+    ],
     "param.path.description": "Calea către fișierul .eml.",
     "param.max_body_length.description": "Maximum de caractere pentru extragerea corpului (implicit: 5000, 0 = nelimitat).",
     "err.path_missing": "este necesară calea.",
@@ -226,7 +490,18 @@
   },
   "ru": {
     "tool.description": "Проанализируйте файл электронной почты .eml и извлеките заголовки (От/Кому/Тема/Дата) и основной текст.",
-    "x_search_terms": "[\"eml\", \"email\", \"mail\", \"outlook\", \"メールファイル\", \"parse email\", \"eml parser\", \"archivo eml\", \"fichier eml\"]",
+    "x_search_terms": [
+      "eml",
+      "eml-парсер",
+      "анализ электронной почты",
+      "eml-файл",
+      "файл электронной почты",
+      "разобрать EML",
+      "программа просмотра eml",
+      "анализатор электронной почты",
+      "прочитать эмл",
+      "eml-выдержка"
+    ],
     "param.path.description": "Путь к файлу .eml.",
     "param.max_body_length.description": "Максимальное количество символов для извлечения тела (по умолчанию: 5000, 0 = неограниченно).",
     "err.path_missing": "путь обязателен.",
@@ -235,7 +510,18 @@
   },
   "sv": {
     "tool.description": "Analysera en .eml-e-postfil och extrahera rubriker (Från/Till/Ämne/Datum) och brödtext.",
-    "x_search_terms": "[\"eml\", \"email\", \"mail\", \"outlook\", \"メールファイル\", \"parse email\", \"eml parser\", \"archivo eml\", \"fichier eml\"]",
+    "x_search_terms": [
+      "eml",
+      "eml parser",
+      "e-postanalys",
+      "eml fil",
+      "e-postfil",
+      "analysera eml",
+      "eml viewer",
+      "e-posttolkare",
+      "läs eml",
+      "eml-extrakt"
+    ],
     "param.path.description": "Sökväg till .eml-filen.",
     "param.max_body_length.description": "Max tecken för kroppsextraktion (standard: 5000, 0 = obegränsat).",
     "err.path_missing": "sökväg krävs.",
@@ -244,7 +530,18 @@
   },
   "sw": {
     "tool.description": "Changanua faili ya barua pepe ya .eml na utoe vichwa (Kutoka/Hadi/Mada/Tarehe) na maandishi ya mwili.",
-    "x_search_terms": "[\"eml\", \"email\", \"mail\", \"outlook\", \"メールファイル\", \"parse email\", \"eml parser\", \"archivo eml\", \"fichier eml\"]",
+    "x_search_terms": [
+      "eml",
+      "mchanganuzi wa eml",
+      "uchambuzi wa barua pepe",
+      "eml faili",
+      "faili ya barua pepe",
+      "fafanua eml",
+      "mtazamaji wa eml",
+      "kichanganuzi barua pepe",
+      "soma eml",
+      "eml dondoo"
+    ],
     "param.path.description": "Njia ya faili ya .eml.",
     "param.max_body_length.description": "Upeo wa herufi kwa ajili ya uchimbaji wa mwili (chaguo-msingi: 5000, 0 = bila kikomo).",
     "err.path_missing": "njia inahitajika.",
@@ -253,7 +550,18 @@
   },
   "th": {
     "tool.description": "แยกวิเคราะห์ไฟล์อีเมล .eml และแยกส่วนหัว (จาก/ถึง/หัวเรื่อง/วันที่) และข้อความเนื้อหา",
-    "x_search_terms": "[\"eml\", \"email\", \"mail\", \"outlook\", \"メールファイル\", \"parse email\", \"eml parser\", \"archivo eml\", \"fichier eml\"]",
+    "x_search_terms": [
+      "eml",
+      "ตัวแยกวิเคราะห์ eml",
+      "แยกอีเมล",
+      "ไฟล์ eml",
+      "ไฟล์อีเมล์",
+      "แยกวิเคราะห์ eml",
+      "โปรแกรมดู eml",
+      "ตัวแยกวิเคราะห์อีเมล",
+      "อ่าน eml",
+      "eml แยก"
+    ],
     "param.path.description": "พาธไปยังไฟล์ .eml",
     "param.max_body_length.description": "จำนวนอักขระสูงสุดสำหรับการแยกเนื้อหา (ค่าเริ่มต้น: 5,000, 0 = ไม่จำกัด)",
     "err.path_missing": "จำเป็นต้องมีเส้นทาง",
@@ -262,7 +570,18 @@
   },
   "tr": {
     "tool.description": "Bir .eml e-posta dosyasını ayrıştırın ve üstbilgileri (Kimden/Kime/Konu/Tarih) ve gövde metnini çıkarın.",
-    "x_search_terms": "[\"eml\", \"email\", \"mail\", \"outlook\", \"メールファイル\", \"parse email\", \"eml parser\", \"archivo eml\", \"fichier eml\"]",
+    "x_search_terms": [
+      "eml",
+      "eml ayrıştırıcı",
+      "e-posta ayrıştırma",
+      "eml dosyası",
+      "e-posta dosyası",
+      "eml'yi ayrıştır",
+      "eml görüntüleyici",
+      "e-posta ayrıştırıcı",
+      "eml'yi oku",
+      "eml özü"
+    ],
     "param.path.description": ".eml dosyasının yolu.",
     "param.max_body_length.description": "Gövde çıkarma için maksimum karakter (varsayılan: 5000, 0 = sınırsız).",
     "err.path_missing": "yol gereklidir.",
@@ -271,7 +590,18 @@
   },
   "uk": {
     "tool.description": "Проаналізуйте файл електронної пошти .eml і витягніть заголовки (Від/Кому/Тема/Дата) і основний текст.",
-    "x_search_terms": "[\"eml\", \"email\", \"mail\", \"outlook\", \"メールファイル\", \"parse email\", \"eml parser\", \"archivo eml\", \"fichier eml\"]",
+    "x_search_terms": [
+      "eml",
+      "аналізатор eml",
+      "аналіз електронної пошти",
+      "файл eml",
+      "файл електронної пошти",
+      "розібрати eml",
+      "Переглядач eml",
+      "аналізатор електронної пошти",
+      "читати eml",
+      "витяг eml"
+    ],
     "param.path.description": "Шлях до файлу .eml.",
     "param.max_body_length.description": "Максимальна кількість символів для вилучення тіла (за замовчуванням: 5000, 0 = необмежено).",
     "err.path_missing": "потрібен шлях.",
@@ -280,7 +610,18 @@
   },
   "vi": {
     "tool.description": "Phân tích tệp email .eml và trích xuất các tiêu đề (Từ/Đến/Chủ đề/Ngày) và nội dung.",
-    "x_search_terms": "[\"eml\", \"email\", \"mail\", \"outlook\", \"メールファイル\", \"parse email\", \"eml parser\", \"archivo eml\", \"fichier eml\"]",
+    "x_search_terms": [
+      "eml",
+      "trình phân tích cú pháp eml",
+      "phân tích email",
+      "tập tin eml",
+      "tập tin email",
+      "phân tích eml",
+      "trình xem eml",
+      "trình phân tích cú pháp email",
+      "đọc eml",
+      "trích xuất eml"
+    ],
     "param.path.description": "Đường dẫn đến tệp .eml.",
     "param.max_body_length.description": "Ký tự tối đa để trích xuất nội dung (mặc định: 5000, 0 = không giới hạn).",
     "err.path_missing": "đường dẫn là cần thiết.",
@@ -289,7 +630,18 @@
   },
   "zh_CN": {
     "tool.description": "解析 .eml 电子邮件文件并提取标题（发件人/收件人/主题/日期）和正文。",
-    "x_search_terms": "[\"eml\", \"email\", \"mail\", \"outlook\", \"メールファイル\", \"parse email\", \"eml parser\", \"archivo eml\", \"fichier eml\"]",
+    "x_search_terms": [
+      "eml",
+      "eml 解析器",
+      "电子邮件解析",
+      "eml 文件",
+      "电子邮件文件",
+      "解析 eml",
+      "eml 查看器",
+      "电子邮件解析器",
+      "阅读 eml",
+      "eml 提取"
+    ],
     "param.path.description": ".eml 文件的路径。",
     "param.max_body_length.description": "正文提取的最大字符数（默认值：5000，0 = 无限制）。",
     "err.path_missing": "路径为必填项。",
@@ -298,7 +650,18 @@
   },
   "zh_TW": {
     "tool.description": "解析 .eml 電子郵件檔案並提取標題（寄件者/收件者/主題/日期）和正文。",
-    "x_search_terms": "[\"eml\", \"email\", \"mail\", \"outlook\", \"メールファイル\", \"parse email\", \"eml parser\", \"archivo eml\", \"fichier eml\"]",
+    "x_search_terms": [
+      "電子郵件",
+      "eml 解析器",
+      "電子郵件解析",
+      "eml 檔案",
+      "電子郵件檔案",
+      "解析 eml",
+      "eml 檢視器",
+      "電子郵件解析器",
+      "閱讀 eml",
+      "EML提取物"
+    ],
     "param.path.description": ".eml 檔案的路徑。",
     "param.max_body_length.description": "正文擷取的最大字元數（預設值：5000，0 = 無限制）。",
     "err.path_missing": "路徑為必填項。",

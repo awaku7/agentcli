@@ -58,15 +58,15 @@
     "output.timestamp": "- **タイムスタンプ**: {ts}",
     "x_search_terms": [
       "gps",
-      "location",
-      "windows gps",
-      "geolocation",
-      "position",
-      "current location",
-      "gps coordinates",
-      "latitude longitude",
-      "windows location",
-      "gps sensor"
+      "ウィンドウズGPS",
+      "場所",
+      "GPS位置情報",
+      "GPS座標",
+      "GPSデータ",
+      "位置情報サービス",
+      "GPS位置",
+      "座標",
+      "緯度経度"
     ]
   },
   "es": {
@@ -93,15 +93,15 @@
     "output.timestamp": "- **Marca de tiempo**: {ts}",
     "x_search_terms": [
       "gps",
-      "location",
-      "windows gps",
-      "geolocation",
-      "position",
-      "current location",
-      "gps coordinates",
-      "latitude longitude",
-      "windows location",
-      "gps sensor"
+      "ventanas gps",
+      "ubicación",
+      "ubicación gps",
+      "coordenadas gps",
+      "datos gps",
+      "servicio de localización",
+      "posición gps",
+      "coordinar",
+      "latitud longitud"
     ]
   },
   "fr": {
@@ -128,15 +128,15 @@
     "output.timestamp": "- **Horodatage** : {ts}",
     "x_search_terms": [
       "gps",
-      "location",
-      "windows gps",
-      "geolocation",
-      "position",
-      "current location",
-      "gps coordinates",
-      "latitude longitude",
-      "windows location",
-      "gps sensor"
+      "Windows GPS",
+      "emplacement",
+      "localisation GPS",
+      "coordonnées GPS",
+      "données GPS",
+      "service de localisation",
+      "position GPS",
+      "coordonner",
+      "latitude longitude"
     ]
   },
   "ko": {
@@ -163,15 +163,15 @@
     "output.timestamp": "- **타임스탬프**: {ts}",
     "x_search_terms": [
       "gps",
-      "location",
-      "windows gps",
-      "geolocation",
-      "position",
-      "current location",
-      "gps coordinates",
-      "latitude longitude",
-      "windows location",
-      "gps sensor"
+      "윈도우 GPS",
+      "위치",
+      "GPS 위치",
+      "GPS 좌표",
+      "GPS 데이터",
+      "위치 서비스",
+      "GPS 위치",
+      "좌표",
+      "위도 경도"
     ]
   },
   "de": {
@@ -198,15 +198,15 @@
     "output.timestamp": "- **Zeitstempel**: {ts}",
     "x_search_terms": [
       "gps",
-      "location",
-      "windows gps",
-      "geolocation",
-      "position",
-      "current location",
-      "gps coordinates",
-      "latitude longitude",
-      "windows location",
-      "gps sensor"
+      "Windows-GPS",
+      "Standort",
+      "GPS-Standort",
+      "GPS-Koordinaten",
+      "GPS-Daten",
+      "Ortungsdienst",
+      "GPS-Position",
+      "Koordinate",
+      "Breitengrad und Lngengrad"
     ]
   },
   "it": {
@@ -233,15 +233,15 @@
     "output.timestamp": "- **Data e ora**: {ts}",
     "x_search_terms": [
       "gps",
-      "location",
-      "windows gps",
-      "geolocation",
-      "position",
-      "current location",
-      "gps coordinates",
-      "latitude longitude",
-      "windows location",
-      "gps sensor"
+      "gps windows",
+      "posizione",
+      "posizione gps",
+      "coordinate gps",
+      "dati gps",
+      "servizio di localizzazione",
+      "posizione gps",
+      "coordinare",
+      "latitudine longitudine"
     ]
   },
   "ru": {
@@ -268,15 +268,15 @@
     "output.timestamp": "- **Временная метка**: {ts}",
     "x_search_terms": [
       "gps",
-      "location",
-      "windows gps",
-      "geolocation",
-      "position",
-      "current location",
-      "gps coordinates",
-      "latitude longitude",
-      "windows location",
-      "gps sensor"
+      "Windows GPS",
+      "расположение",
+      "местоположение GPS",
+      "GPS-координата",
+      "данные GPS",
+      "служба определения местоположения",
+      "позиция GPS",
+      "координата",
+      "широта долгота"
     ]
   },
   "pt": {
@@ -303,15 +303,15 @@
     "output.timestamp": "- **Carimbo de data/hora**: {ts}",
     "x_search_terms": [
       "gps",
-      "location",
-      "windows gps",
-      "geolocation",
-      "position",
-      "current location",
-      "gps coordinates",
-      "latitude longitude",
-      "windows location",
-      "gps sensor"
+      "janelas gps",
+      "localizao",
+      "localizao GPS",
+      "coordenadas GPS",
+      "dados GPS",
+      "servio de localizao",
+      "posio GPS",
+      "coordenar",
+      "latitude longitude"
     ]
   },
   "pt_BR": {
@@ -338,15 +338,15 @@
     "output.timestamp": "- **Carimbo de data/hora**: {ts}",
     "x_search_terms": [
       "gps",
-      "location",
-      "windows gps",
-      "geolocation",
-      "position",
-      "current location",
-      "gps coordinates",
-      "latitude longitude",
-      "windows location",
-      "gps sensor"
+      "janelas gps",
+      "localização",
+      "localização GPS",
+      "coordenadas GPS",
+      "dados GPS",
+      "serviço de localização",
+      "posição GPS",
+      "coordenar",
+      "latitude longitude"
     ]
   },
   "id": {
@@ -373,15 +373,15 @@
     "output.timestamp": "- **Stempel Waktu**: {ts}",
     "x_search_terms": [
       "gps",
-      "location",
-      "windows gps",
-      "geolocation",
-      "position",
-      "current location",
-      "gps coordinates",
-      "latitude longitude",
-      "windows location",
-      "gps sensor"
+      "jendela gps",
+      "lokasi",
+      "lokasi gps",
+      "koordinat gps",
+      "data gps",
+      "layanan lokasi",
+      "posisi gps",
+      "koordinat",
+      "garis lintang bujur"
     ]
   },
   "vi": {
@@ -408,15 +408,15 @@
     "output.timestamp": "- **Dấu thời gian**: {ts}",
     "x_search_terms": [
       "gps",
-      "location",
-      "windows gps",
-      "geolocation",
-      "position",
-      "current location",
-      "gps coordinates",
-      "latitude longitude",
-      "windows location",
-      "gps sensor"
+      "cửa sổ gps",
+      "vị trí",
+      "vị trí gps",
+      "tọa độ gps",
+      "dữ liệu gps",
+      "dịch vụ định vị",
+      "vị trí gps",
+      "phối hợp",
+      "vĩ độ kinh độ"
     ]
   },
   "pl": {
@@ -443,15 +443,15 @@
     "output.timestamp": "- **Znacznik czasu**: {ts}",
     "x_search_terms": [
       "gps",
-      "location",
-      "windows gps",
-      "geolocation",
-      "position",
-      "current location",
-      "gps coordinates",
-      "latitude longitude",
-      "windows location",
-      "gps sensor"
+      "GPS w systemie Windows",
+      "lokalizacja",
+      "lokalizacja GPS",
+      "współrzędne GPS",
+      "dane GPS",
+      "usługa lokalizacyjna",
+      "pozycja GPS",
+      "współrzędna",
+      "szerokość geograficzna"
     ]
   },
   "hi": {
@@ -477,16 +477,16 @@
     "output.source": "- **स्रोत**: {src}",
     "output.timestamp": "- **टाइमस्टैम्प**: {ts}",
     "x_search_terms": [
-      "gps",
-      "location",
-      "windows gps",
-      "geolocation",
-      "position",
-      "current location",
-      "gps coordinates",
-      "latitude longitude",
-      "windows location",
-      "gps sensor"
+      "जीपीएस",
+      "विंडोज़ जीपीएस",
+      "स्थान",
+      "जीपीएस स्थान",
+      "जीपीएस समन्वय",
+      "जीपीएस डेटा",
+      "स्थान सेवा",
+      "जीपीएस स्थिति",
+      "समन्वय",
+      "अक्षांश देशांतर"
     ]
   },
   "ar": {
@@ -512,16 +512,16 @@
     "output.source": "- **المصدر**: {src}",
     "output.timestamp": "- **الطابع الزمني**: {ts}",
     "x_search_terms": [
-      "gps",
-      "location",
-      "windows gps",
-      "geolocation",
-      "position",
-      "current location",
-      "gps coordinates",
-      "latitude longitude",
-      "windows location",
-      "gps sensor"
+      "نظام تحديد المواقع",
+      "نظام تحديد المواقع ويندوز",
+      "الموقع",
+      "موقع جي بي اس",
+      "إحداثيات نظام تحديد المواقع",
+      "بيانات نظام تحديد المواقع",
+      "خدمة الموقع",
+      "موقف نظام تحديد المواقع",
+      "تنسيق",
+      "خط الطول"
     ]
   },
   "sv": {
@@ -548,15 +548,15 @@
     "output.timestamp": "- **Tidsstämpel**: {ts}",
     "x_search_terms": [
       "gps",
-      "location",
       "windows gps",
-      "geolocation",
-      "position",
-      "current location",
-      "gps coordinates",
-      "latitude longitude",
-      "windows location",
-      "gps sensor"
+      "plats",
+      "gps plats",
+      "gps koordinat",
+      "gps data",
+      "platstjänst",
+      "gps position",
+      "koordinera",
+      "latitud longitud"
     ]
   },
   "sw": {
@@ -583,15 +583,15 @@
     "output.timestamp": "- **Muhuri wa saa**: {ts}",
     "x_search_terms": [
       "gps",
-      "location",
       "windows gps",
-      "geolocation",
-      "position",
-      "current location",
-      "gps coordinates",
-      "latitude longitude",
-      "windows location",
-      "gps sensor"
+      "eneo",
+      "eneo la gps",
+      "gps kuratibu",
+      "data ya gps",
+      "huduma ya eneo",
+      "nafasi ya gps",
+      "kuratibu",
+      "longitudo ya latitudo"
     ]
   },
   "nb": {
@@ -618,15 +618,15 @@
     "output.timestamp": "- **Tidsstempel**: {ts}",
     "x_search_terms": [
       "gps",
-      "location",
       "windows gps",
-      "geolocation",
-      "position",
-      "current location",
-      "gps coordinates",
-      "latitude longitude",
-      "windows location",
-      "gps sensor"
+      "plassering",
+      "gps plassering",
+      "gps koordinat",
+      "gps data",
+      "plasseringstjeneste",
+      "gps-posisjon",
+      "koordinere",
+      "breddegrad lengdegrad"
     ]
   },
   "nl": {
@@ -653,15 +653,15 @@
     "output.timestamp": "- **Tijdstempel**: {ts}",
     "x_search_terms": [
       "gps",
-      "location",
-      "windows gps",
-      "geolocation",
-      "position",
-      "current location",
-      "gps coordinates",
-      "latitude longitude",
-      "windows location",
-      "gps sensor"
+      "Windows-gps",
+      "locatie",
+      "gps-locatie",
+      "gps-coördinaat",
+      "gps-gegevens",
+      "locatieservice",
+      "GPS-positie",
+      "coördineren",
+      "breedtegraad lengtegraad"
     ]
   },
   "fi": {
@@ -688,15 +688,15 @@
     "output.timestamp": "- **Aikaleima**: {ts}",
     "x_search_terms": [
       "gps",
-      "location",
       "windows gps",
-      "geolocation",
-      "position",
-      "current location",
-      "gps coordinates",
-      "latitude longitude",
-      "windows location",
-      "gps sensor"
+      "sijainti",
+      "gps-sijainti",
+      "gps-koordinaatti",
+      "gps tiedot",
+      "paikannuspalvelu",
+      "gps-sijainti",
+      "koordinaatit",
+      "leveysaste pituusaste"
     ]
   },
   "cs": {
@@ -723,15 +723,15 @@
     "output.timestamp": "- **Časové razítko**: {ts}",
     "x_search_terms": [
       "gps",
-      "location",
-      "windows gps",
-      "geolocation",
-      "position",
-      "current location",
-      "gps coordinates",
-      "latitude longitude",
-      "windows location",
-      "gps sensor"
+      "Windows gps",
+      "umístění",
+      "GPS umístění",
+      "GPS souřadnice",
+      "gps data",
+      "lokalizační služba",
+      "pozice GPS",
+      "souřadnice",
+      "zeměpisná šířka zeměpisná délka"
     ]
   },
   "uk": {
@@ -758,15 +758,15 @@
     "output.timestamp": "- **Мітка часу**: {ts}",
     "x_search_terms": [
       "gps",
-      "location",
       "windows gps",
-      "geolocation",
-      "position",
-      "current location",
-      "gps coordinates",
-      "latitude longitude",
-      "windows location",
-      "gps sensor"
+      "розташування",
+      "розташування GPS",
+      "gps координати",
+      "дані gps",
+      "служба локації",
+      "GPS положення",
+      "координувати",
+      "широта довгота"
     ]
   },
   "tr": {
@@ -793,15 +793,15 @@
     "output.timestamp": "- **Zaman damgası**: {ts}",
     "x_search_terms": [
       "gps",
-      "location",
-      "windows gps",
-      "geolocation",
-      "position",
-      "current location",
-      "gps coordinates",
-      "latitude longitude",
-      "windows location",
-      "gps sensor"
+      "Windows GPS",
+      "konum",
+      "gps konumu",
+      "gps koordinatı",
+      "gps verileri",
+      "konum hizmeti",
+      "gps konumu",
+      "koordinat",
+      "enlem boylam"
     ]
   },
   "th": {
@@ -828,15 +828,15 @@
     "output.timestamp": "- **ประทับเวลา**: {ts}",
     "x_search_terms": [
       "gps",
-      "location",
-      "windows gps",
-      "geolocation",
-      "position",
-      "current location",
-      "gps coordinates",
-      "latitude longitude",
-      "windows location",
-      "gps sensor"
+      "วินโดวส์ จีพีเอส",
+      "ที่ตั้ง",
+      "ตำแหน่ง GPS",
+      "พิกัด GPS",
+      "ข้อมูลจีพีเอส",
+      "บริการระบุตำแหน่ง",
+      "ตำแหน่ง GPS",
+      "ประสานงาน",
+      "ละติจูด ลองจิจูด"
     ]
   },
   "zh_CN": {
@@ -863,15 +863,15 @@
     "output.timestamp": "- **时间戳**：{ts}",
     "x_search_terms": [
       "gps",
-      "location",
-      "windows gps",
-      "geolocation",
-      "position",
-      "current location",
-      "gps coordinates",
-      "latitude longitude",
-      "windows location",
-      "gps sensor"
+      "视窗全球定位系统",
+      "地点",
+      "GPS定位",
+      "GPS坐标",
+      "GPS 数据",
+      "定位服务",
+      "GPS 位置",
+      "坐标",
+      "纬度 经度"
     ]
   },
   "zh_TW": {
@@ -897,16 +897,16 @@
     "output.source": "- **來源**：{src}",
     "output.timestamp": "- **時間戳**：{ts}",
     "x_search_terms": [
-      "gps",
-      "location",
-      "windows gps",
-      "geolocation",
-      "position",
-      "current location",
-      "gps coordinates",
-      "latitude longitude",
-      "windows location",
-      "gps sensor"
+      "全球定位系統",
+      "視窗全球定位系統",
+      "地點",
+      "GPS定位",
+      "GPS座標",
+      "GPS 資料",
+      "定位服務",
+      "GPS 位置",
+      "座標",
+      "緯度 經度"
     ]
   },
   "bn": {
@@ -933,15 +933,15 @@
     "output.timestamp": "- **টাইমস্ট্যাম্প**: {ts}",
     "x_search_terms": [
       "gps",
-      "location",
-      "windows gps",
-      "geolocation",
-      "position",
-      "current location",
-      "gps coordinates",
-      "latitude longitude",
-      "windows location",
-      "gps sensor"
+      "উইন্ডোজ জিপিএস",
+      "অবস্থান",
+      "জিপিএস অবস্থান",
+      "জিপিএস স্থানাঙ্ক",
+      "জিপিএস ডেটা",
+      "অবস্থান পরিষেবা",
+      "জিপিএস অবস্থান",
+      "সমন্বয়",
+      "অক্ষাংশ দ্রাঘিমাংশ"
     ]
   },
   "fa": {
@@ -968,15 +968,15 @@
     "output.timestamp": "- **مهر زمان**: {ts}",
     "x_search_terms": [
       "gps",
-      "location",
-      "windows gps",
-      "geolocation",
-      "position",
-      "current location",
-      "gps coordinates",
-      "latitude longitude",
-      "windows location",
-      "gps sensor"
+      "ویندوز جی پی اس",
+      "مکان",
+      "مکان GPS",
+      "مختصات gps",
+      "داده های جی پی اس",
+      "سرویس مکان",
+      "موقعیت GPS",
+      "مختصات",
+      "طول جغرافیایی"
     ]
   },
   "mn": {
@@ -1003,15 +1003,15 @@
     "output.timestamp": "- **Цагийн тэмдэг**: {ts}",
     "x_search_terms": [
       "gps",
-      "location",
       "windows gps",
-      "geolocation",
-      "position",
-      "current location",
-      "gps coordinates",
-      "latitude longitude",
-      "windows location",
-      "gps sensor"
+      "байршил",
+      "gps байршил",
+      "gps координат",
+      "gps өгөгдөл",
+      "байршлын үйлчилгээ",
+      "gps байрлал",
+      "координат",
+      "өргөргийн уртраг"
     ]
   },
   "mr": {
@@ -1038,15 +1038,15 @@
     "output.timestamp": "- **टाइमस्टॅम्प**: {ts}",
     "x_search_terms": [
       "gps",
-      "location",
       "windows gps",
-      "geolocation",
-      "position",
-      "current location",
-      "gps coordinates",
-      "latitude longitude",
-      "windows location",
-      "gps sensor"
+      "स्थान",
+      "gps स्थान",
+      "gps समन्वय",
+      "gps डेटा",
+      "स्थान सेवा",
+      "जीपीएस स्थिती",
+      "समन्वय",
+      "अक्षांश रेखांश"
     ]
   },
   "el": {
@@ -1073,15 +1073,15 @@
     "output.timestamp": "- **Χρονική σήμανση**: {ts}",
     "x_search_terms": [
       "gps",
-      "location",
       "windows gps",
-      "geolocation",
-      "position",
-      "current location",
-      "gps coordinates",
-      "latitude longitude",
-      "windows location",
-      "gps sensor"
+      "τοποθεσία",
+      "τοποθεσία gps",
+      "συντεταγμένη gps",
+      "δεδομένα gps",
+      "υπηρεσία τοποθεσίας",
+      "θέση gps",
+      "συντεταγμένη",
+      "γεωγραφικό πλάτος γεωγραφικό μήκος"
     ]
   },
   "he": {
@@ -1108,15 +1108,15 @@
     "output.timestamp": "- **חותמת זמן**: {ts}",
     "x_search_terms": [
       "gps",
-      "location",
       "windows gps",
-      "geolocation",
-      "position",
-      "current location",
-      "gps coordinates",
-      "latitude longitude",
-      "windows location",
-      "gps sensor"
+      "מיקום",
+      "מיקום gps",
+      "קואורדינטת gps",
+      "נתוני gps",
+      "שירות מיקום",
+      "עמדת gps",
+      "לתאם",
+      "קו אורך"
     ]
   },
   "hu": {
@@ -1143,15 +1143,15 @@
     "output.timestamp": "- **Időbélyeg**: {ts}",
     "x_search_terms": [
       "gps",
-      "location",
       "windows gps",
-      "geolocation",
-      "position",
-      "current location",
-      "gps coordinates",
-      "latitude longitude",
-      "windows location",
-      "gps sensor"
+      "hely",
+      "gps hely",
+      "gps koordináta",
+      "gps adatok",
+      "helymeghatározási szolgáltatás",
+      "gps pozíció",
+      "koordináta",
+      "szélességi hosszúság"
     ]
   },
   "ro": {
@@ -1178,15 +1178,15 @@
     "output.timestamp": "- **Marca temporală**: {ts}",
     "x_search_terms": [
       "gps",
-      "location",
       "windows gps",
-      "geolocation",
-      "position",
-      "current location",
-      "gps coordinates",
-      "latitude longitude",
-      "windows location",
-      "gps sensor"
+      "locație",
+      "locatie GPS",
+      "coordonata GPS",
+      "date GPS",
+      "serviciu de localizare",
+      "pozitia GPS",
+      "coordonate",
+      "latitudine longitudine"
     ]
   }
 }

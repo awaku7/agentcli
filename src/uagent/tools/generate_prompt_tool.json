@@ -28,16 +28,7 @@
     "param.path.description": "入力ファイルのパス（workdir 配下である必要があります）。",
     "tool.description": "ファイルからPythonテンプレートでプロンプト文字列を生成。",
     "x_search_terms": [
-      "generate prompt",
-      "prompt generation",
-      "prompt create",
-      "ai prompt",
-      "prompt engineering",
-      "prompt maker",
-      "prompt builder",
-      "create prompt",
-      "prompt generator",
-      "text prompt"
+      "プロンプトを生成 |プロンプト生成 |プロンプトを作成する |プロンプトビルダー |プロンプトテンプレート |プロンプトを作成"
     ],
     "param.template.description": "Python 形式のテンプレート。例: '{lines} 行\n\n{content}」。"
   },
@@ -49,16 +40,12 @@
     "param.path.description": "Ruta del archivo de entrada (debe estar en workdir",
     "tool.description": "Genere una cadena de solicitud a partir de un archivo usando una plantilla de formato Python.",
     "x_search_terms": [
-      "generate prompt",
-      "prompt generation",
-      "prompt create",
-      "ai prompt",
-      "prompt engineering",
-      "prompt maker",
-      "prompt builder",
-      "create prompt",
-      "prompt generator",
-      "text prompt"
+      "generar mensaje",
+      "generación rápida",
+      "crear mensaje",
+      "constructor de avisos",
+      "plantilla de aviso",
+      "generar mensaje"
     ]
   },
   "fr": {
@@ -69,16 +56,12 @@
     "param.path.description": "Préfixe du nom de fichier enregistré (facultatif). (doit être sous workdir).",
     "tool.description": "Générez une chaîne d'invite à partir d'un fichier à l'aide d'un modèle au format Python. Le nom de fichier",
     "x_search_terms": [
-      "generate prompt",
-      "prompt generation",
-      "prompt create",
-      "ai prompt",
-      "prompt engineering",
-      "prompt maker",
-      "prompt builder",
-      "create prompt",
-      "prompt generator",
-      "text prompt"
+      "générer une invite",
+      "génération rapide",
+      "créer une invite",
+      "constructeur d'invites",
+      "modèle d'invite",
+      "make prompt"
     ]
   },
   "ko": {
@@ -89,16 +72,12 @@
     "param.path.description": "입력 파일의 경로(workdir 아래에 있어야 함).",
     "tool.description": "파일에서 Python 형식 템플릿으로 프롬프트 문자열 생성.",
     "x_search_terms": [
-      "generate prompt",
-      "prompt generation",
-      "prompt create",
-      "ai prompt",
-      "prompt engineering",
-      "prompt maker",
-      "prompt builder",
-      "create prompt",
-      "prompt generator",
-      "text prompt"
+      "프롬프트 생성",
+      "프롬프트 생성",
+      "프롬프트 생성",
+      "프롬프트 빌더",
+      "프롬프트 템플릿",
+      "프롬프트 만들기"
     ]
   },
   "de": {
@@ -109,16 +88,12 @@
     "param.path.description": "Pfad der Eingabedatei (muss unter workdir liegen).",
     "tool.description": "Erzeugt eine Eingabeaufforderungszeichenfolge aus einer Datei mit einer Python-Formatvorlage.",
     "x_search_terms": [
-      "generate prompt",
-      "prompt generation",
-      "prompt create",
-      "ai prompt",
-      "prompt engineering",
-      "prompt maker",
-      "prompt builder",
-      "create prompt",
-      "prompt generator",
-      "text prompt"
+      "Eingabeaufforderung generieren",
+      "prompt gen",
+      "Eingabeaufforderung erstellen",
+      "prompter Builder",
+      "Eingabeaufforderungsvorlage",
+      "make prompt"
     ]
   },
   "it": {
@@ -129,16 +104,12 @@
     "param.path.description": "Percorso del file di input (deve essere nella directory di lavoro).",
     "tool.description": "Genera una stringa di prompt da un file utilizzando un modello di formato Python",
     "x_search_terms": [
-      "generate prompt",
-      "prompt generation",
-      "prompt create",
-      "ai prompt",
-      "prompt engineering",
-      "prompt maker",
-      "prompt builder",
-      "create prompt",
-      "prompt generator",
-      "text prompt"
+      "genera prompt",
+      "generazione rapida",
+      "crea richiesta",
+      "costruttore rapido",
+      "modello di richiesta",
+      "make prompt"
     ]
   },
   "ru": {
@@ -149,16 +120,7 @@
     "param.path.description": "Путь к входному файлу (должен находиться в рабочем каталоге).",
     "tool.description": "Создайте строку подсказки из файла с помощью шаблона формата Python.",
     "x_search_terms": [
-      "generate prompt",
-      "prompt generation",
-      "prompt create",
-      "ai prompt",
-      "prompt engineering",
-      "prompt maker",
-      "prompt builder",
-      "create prompt",
-      "prompt generator",
-      "text prompt"
+      "создать подсказку, подсказка, создать подсказку, быстрый строитель, шаблон подсказки, сделать подсказку"
     ]
   },
   "pt_BR": {
@@ -189,16 +151,16 @@
     "param.path.description": "Prefixo para o nome do arquivo salvo (opcional).",
     "tool.description": "Gere uma string de prompt de um arquivo usando um modelo de formato Python",
     "x_search_terms": [
-      "generate prompt",
-      "prompt generation",
-      "prompt create",
-      "ai prompt",
-      "prompt engineering",
-      "prompt maker",
-      "prompt builder",
-      "create prompt",
-      "prompt generator",
-      "text prompt"
+      "gerar prompt",
+      "geração imediata",
+      "prompt criar",
+      "ai alerta",
+      "engenharia imediata",
+      "criador de prompt",
+      "construtor de prompt",
+      "criar prompt",
+      "gerador de prompt",
+      "prompt de texto"
     ]
   },
   "id": {
@@ -209,16 +171,16 @@
     "param.path.description": "Path file input (harus di bawah workdir).",
     "tool.description": "Buat string prompt dari file menggunakan template format Python.",
     "x_search_terms": [
-      "generate prompt",
-      "prompt generation",
-      "prompt create",
-      "ai prompt",
-      "prompt engineering",
-      "prompt maker",
-      "prompt builder",
-      "create prompt",
-      "prompt generator",
-      "text prompt"
+      "hasilkan perintah",
+      "generasi cepat",
+      "segera buat",
+      "ai cepat",
+      "rekayasa cepat",
+      "pembuat cepat",
+      "pembuat cepat",
+      "buat perintah",
+      "generator cepat",
+      "teks prompt"
     ]
   },
   "vi": {
@@ -229,16 +191,16 @@
     "param.path.description": "Đường dẫn của tệp đầu vào (phải ở dưới workdir).",
     "tool.description": "Tạo chuỗi prompt từ một tệp bằng mẫu định dạng Python.",
     "x_search_terms": [
-      "generate prompt",
-      "prompt generation",
-      "prompt create",
-      "ai prompt",
-      "prompt engineering",
-      "prompt maker",
-      "prompt builder",
-      "create prompt",
-      "prompt generator",
-      "text prompt"
+      "tạo lời nhắc",
+      "thế hệ nhanh chóng",
+      "nhắc tạo",
+      "ai nhắc",
+      "kỹ thuật nhanh chóng",
+      "người tạo lời nhắc",
+      "người xây dựng nhắc nhở",
+      "tạo lời nhắc",
+      "trình tạo lời nhắc",
+      "lời nhắc văn bản"
     ]
   },
   "pl": {

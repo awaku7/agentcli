@@ -17,106 +17,68 @@
   "ja": {
     "tool.description": "保存されている長期記憶メモ（JSONL）をすべて取得します。",
     "x_search_terms": [
-      "get memory",
-      "long memory",
-      "read memory",
-      "retrieve memory",
-      "memory recall",
-      "agent memory",
-      "get remembered",
-      "memory get",
-      "recall info",
-      "load memory"
+      "メモリを取得 |メモリを読み取る |長い記憶 |メモリ取得 |メモリを取得する |メモリをロード"
     ]
   },
   "es": {
     "tool.description": "Obtenga todas las notas guardadas de la memoria a largo plazo (JSONL).",
     "x_search_terms": [
-      "get memory",
-      "long memory",
-      "read memory",
-      "retrieve memory",
-      "memory recall",
-      "agent memory",
-      "get remembered",
-      "memory get",
-      "recall info",
-      "load memory"
+      "obtener memoria",
+      "leer la memoria",
+      "larga memoria",
+      "obtener memoria",
+      "recuperar la memoria",
+      "cargar memoria"
     ]
   },
   "fr": {
     "tool.description": "Obtenez toutes les notes de mémoire à long terme enregistrées (JSONL).",
     "x_search_terms": [
-      "get memory",
-      "long memory",
-      "read memory",
-      "retrieve memory",
-      "memory recall",
-      "agent memory",
-      "get remembered",
-      "memory get",
-      "recall info",
-      "load memory"
+      "obtenir de la mémoire",
+      "lire la mémoire",
+      "longue mémoire",
+      "mémoire obtenir",
+      "récupérer la mémoire",
+      "charger la mémoire"
     ]
   },
   "ko": {
     "tool.description": "저장된 모든 장기 기억 메모(JSONL)를 가져옵니다.",
     "x_search_terms": [
-      "get memory",
-      "long memory",
-      "read memory",
-      "retrieve memory",
-      "memory recall",
-      "agent memory",
-      "get remembered",
-      "memory get",
-      "recall info",
-      "load memory"
+      "메모리 가져오기",
+      "메모리 읽기",
+      "긴 기억",
+      "메모리 획득",
+      "메모리 검색",
+      "메모리 로드"
     ]
   },
   "de": {
     "tool.description": "Alle gespeicherten Langzeitgedächtnisnotizen (JSONL) abrufen.",
     "x_search_terms": [
-      "get memory",
-      "long memory",
-      "read memory",
-      "retrieve memory",
-      "memory recall",
-      "agent memory",
-      "get remembered",
-      "memory get",
-      "recall info",
-      "load memory"
+      "Speicher abrufen",
+      "Speicher lesen",
+      "langes Gedächtnis",
+      "Speicher erhalten",
+      "Erinnerung abrufen",
+      "Speicher laden"
     ]
   },
   "it": {
     "tool.description": "Ottieni tutte le note della memoria a lungo termine salvate (JSONL).",
     "x_search_terms": [
-      "get memory",
-      "long memory",
-      "read memory",
-      "retrieve memory",
-      "memory recall",
-      "agent memory",
-      "get remembered",
-      "memory get",
-      "recall info",
-      "load memory"
+      "ottieni memoria",
+      "leggere la memoria",
+      "lunga memoria",
+      "la memoria ottiene",
+      "recuperare la memoria",
+      "carica memoria"
     ]
   },
   "ru": {
     "tool.description": "Получить все сохраненные заметки в долговременной памяти (JSONL).",
     "x_search_terms": [
-      "get memory",
-      "long memory",
-      "read memory",
-      "retrieve memory",
-      "memory recall",
-      "agent memory",
-      "get remembered",
-      "memory get",
-      "recall info",
-      "load memory"
+      "получить память, прочитать память, долгая память, память получить, восстановить память, загрузить память"
     ]
   },
   "pt_BR": {
@@ -137,46 +99,46 @@
   "pt": {
     "tool.description": "Obtenha todas as notas de memória de longo prazo salvas (JSONL).",
     "x_search_terms": [
-      "get memory",
-      "long memory",
-      "read memory",
-      "retrieve memory",
-      "memory recall",
-      "agent memory",
-      "get remembered",
-      "memory get",
-      "recall info",
-      "load memory"
+      "obter memória",
+      "memória longa",
+      "ler memória",
+      "recuperar memória",
+      "recuperação de memória",
+      "memória do agente",
+      "ser lembrado",
+      "memória obter",
+      "recuperar informações",
+      "carregar memória"
     ]
   },
   "id": {
     "tool.description": "Dapatkan semua catatan memori jangka panjang yang disimpan (JSONL).",
     "x_search_terms": [
-      "get memory",
-      "long memory",
-      "read memory",
-      "retrieve memory",
-      "memory recall",
-      "agent memory",
-      "get remembered",
-      "memory get",
-      "recall info",
-      "load memory"
+      "dapatkan memori",
+      "memori panjang",
+      "baca memori",
+      "mengambil memori",
+      "ingatan ingatan",
+      "memori agen",
+      "diingat",
+      "dapatkan memori",
+      "ingat info",
+      "memuat memori"
     ]
   },
   "vi": {
     "tool.description": "Nhận tất cả các ghi chú bộ nhớ dài hạn đã lưu (JSONL).",
     "x_search_terms": [
-      "get memory",
-      "long memory",
-      "read memory",
-      "retrieve memory",
-      "memory recall",
-      "agent memory",
-      "get remembered",
-      "memory get",
-      "recall info",
-      "load memory"
+      "lấy bộ nhớ",
+      "trí nhớ lâu dài",
+      "đọc bộ nhớ",
+      "lấy lại bộ nhớ",
+      "thu hồi trí nhớ",
+      "bộ nhớ tác nhân",
+      "được ghi nhớ",
+      "bộ nhớ nhận được",
+      "thu hồi thông tin",
+      "tải bộ nhớ"
     ]
   },
   "pl": {

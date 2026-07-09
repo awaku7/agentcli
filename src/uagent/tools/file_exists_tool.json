@@ -21,16 +21,7 @@
     "param.path.description": "存在確認したいファイルまたはディレクトリのパス（~ も使用可）。",
     "tool.description": "指定したパスにファイルまたはディレクトリが存在するかどうかを確認し、あれば種別・サイズ・更新日時を返します。",
     "x_search_terms": [
-      "file exists",
-      "check file",
-      "file check",
-      "file exist",
-      "file present",
-      "exists check",
-      "file available",
-      "file found",
-      "check path",
-      "path exists"
+      "ファイルが存在します |ファイルチェック |ファイルをチェック |存在します |ファイルが存在します |パスを確認する |パスチェック"
     ]
   },
   "es": {
@@ -38,16 +29,13 @@
     "param.path.description": "Ruta del archivo o directorio para verificar su existencia (admite ~).",
     "tool.description": "Comprueba si existe un archivo o directorio en la ruta especificada y, si existe, devuelve su tipo, tamaño y hora de modificación.",
     "x_search_terms": [
-      "file exists",
-      "check file",
-      "file check",
-      "file exist",
-      "file present",
-      "exists check",
-      "file available",
-      "file found",
-      "check path",
-      "path exists"
+      "el archivo existe",
+      "verificación de archivos",
+      "comprobar archivo",
+      "existe",
+      "el archivo existe",
+      "comprobar ruta",
+      "comprobación de ruta"
     ]
   },
   "fr": {
@@ -55,16 +43,13 @@
     "param.path.description": "Chemin du fichier ou du répertoire dont l'existence est vérifiée (prend en charge ~).",
     "tool.description": "Vérifie si un fichier ou un répertoire existe au chemin spécifié et, le cas échéant, renvoie son type, sa taille et son heure de modification.",
     "x_search_terms": [
-      "file exists",
-      "check file",
-      "file check",
-      "file exist",
-      "file present",
-      "exists check",
-      "file available",
-      "file found",
-      "check path",
-      "path exists"
+      "le fichier existe",
+      "vérification du fichier",
+      "vérifier le fichier",
+      "existe",
+      "le fichier existe",
+      "vérifier le chemin",
+      "vérification du chemin"
     ]
   },
   "ko": {
@@ -72,16 +57,13 @@
     "param.path.description": "존재 여부를 확인할 파일 또는 디렉토리의 경로(~도 사용 가능).",
     "tool.description": "지정된 경로에 파일이나 디렉터리가 있는지 확인하고, 존재하면 유형, 크기, 수정 시간을 반환합니다.",
     "x_search_terms": [
-      "file exists",
-      "check file",
-      "file check",
-      "file exist",
-      "file present",
-      "exists check",
-      "file available",
-      "file found",
-      "check path",
-      "path exists"
+      "파일 존재",
+      "파일 확인",
+      "파일 확인",
+      "존재합니다",
+      "파일이 존재합니다",
+      "경로 확인",
+      "경로 확인"
     ]
   },
   "de": {
@@ -89,16 +71,13 @@
     "param.path.description": "[file_exists] Pfad ist leer.",
     "tool.description": "Prüft, ob eine Datei oder ein Verzeichnis am angegebenen Pfad vorhanden ist, und gibt, falls ja, Typ, Größe und Änderungszeit zurück.",
     "x_search_terms": [
-      "file exists",
-      "check file",
-      "file check",
-      "file exist",
-      "file present",
-      "exists check",
-      "file available",
-      "file found",
-      "check path",
-      "path exists"
+      "Datei existiert",
+      "Dateiprüfung",
+      "Datei prüfen",
+      "existiert",
+      "Datei existiert",
+      "Pfad prüfen",
+      "Pfadprüfung"
     ]
   },
   "it": {
@@ -106,16 +85,13 @@
     "param.path.description": "Il percorso massimo da restituire (applicato dopo la decodifica/estrazione). file o directory di cui verificare l'esistenza (supporta ~).",
     "tool.description": "Controlla se esiste un file o una directory nel percorso specificato e, in caso affermativo, restituisce tipo, dimensione e ora di modifica.",
     "x_search_terms": [
-      "file exists",
-      "check file",
-      "file check",
-      "file exist",
-      "file present",
-      "exists check",
-      "file available",
-      "file found",
-      "check path",
-      "path exists"
+      "il file esiste",
+      "controllo file",
+      "controlla il file",
+      "esiste",
+      "il file esiste",
+      "controlla il percorso",
+      "controllo del percorso"
     ]
   },
   "ru": {
@@ -123,16 +99,7 @@
     "param.path.description": "Путь к файлу или каталогу, существование которого необходимо проверить (поддерживает ~).",
     "tool.description": "Проверяет, существует ли файл или каталог по указанному пути, и, если да, возвращает его тип, размер и время изменения.",
     "x_search_terms": [
-      "file exists",
-      "check file",
-      "file check",
-      "file exist",
-      "file present",
-      "exists check",
-      "file available",
-      "file found",
-      "check path",
-      "path exists"
+      "файл существует, проверка файла, проверить файл, существует, файл существует, проверить путь, проверка пути"
     ]
   },
   "pt_BR": {
@@ -157,16 +124,16 @@
     "param.path.description": "Caminho do arquivo ou diretório a ser verificado (suporta ~).",
     "tool.description": "Verifica se um arquivo ou diretório existe no caminho especificado e, se existir, retorna seu tipo, tamanho e hora de modificação.",
     "x_search_terms": [
-      "file exists",
-      "check file",
-      "file check",
-      "file exist",
-      "file present",
-      "exists check",
-      "file available",
-      "file found",
-      "check path",
-      "path exists"
+      "arquivo existe",
+      "verificar arquivo",
+      "verificação de arquivo",
+      "arquivo existe",
+      "arquivo presente",
+      "existe verificar",
+      "arquivo disponível",
+      "arquivo encontrado",
+      "verificar caminho",
+      "caminho existe"
     ]
   },
   "id": {
@@ -174,16 +141,16 @@
     "param.path.description": "Jalur file atau direktori untuk diperiksa keberadaannya (mendukung ~).",
     "tool.description": "Periksa apakah file atau direktori ada di jalur yang ditentukan dan, jika ada, kembalikan jenis, ukuran, serta waktu modifikasinya.",
     "x_search_terms": [
-      "file exists",
-      "check file",
-      "file check",
-      "file exist",
-      "file present",
-      "exists check",
-      "file available",
-      "file found",
-      "check path",
-      "path exists"
+      "file ada",
+      "periksa berkas",
+      "pemeriksaan berkas",
+      "file ada",
+      "file hadir",
+      "ada centang",
+      "file tersedia",
+      "berkas ditemukan",
+      "periksa jalur",
+      "jalur ada"
     ]
   },
   "vi": {
@@ -191,16 +158,16 @@
     "param.path.description": "Con trỏ JSON RFC 6901 tùy chọn (ví dụ: /items/0/title) được sử dụng khi trích xuất=json.",
     "tool.description": "Kiểm tra xem tệp hoặc thư mục có tồn tại ở đường dẫn đã chỉ định hay không và, nếu có, trả về loại, kích thước và thời gian sửa đổi.",
     "x_search_terms": [
-      "file exists",
-      "check file",
-      "file check",
-      "file exist",
-      "file present",
-      "exists check",
-      "file available",
-      "file found",
-      "check path",
-      "path exists"
+      "tệp tồn tại",
+      "kiểm tra tập tin",
+      "kiểm tra hồ sơ",
+      "tập tin tồn tại",
+      "tập tin hiện tại",
+      "kiểm tra tồn tại",
+      "tập tin có sẵn",
+      "tìm thấy tập tin",
+      "kiểm tra đường dẫn",
+      "đường dẫn tồn tại"
     ]
   },
   "pl": {

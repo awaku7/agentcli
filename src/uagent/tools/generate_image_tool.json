@@ -30,16 +30,8 @@
   "ja": {
     "tool.description": "テキストプロンプトから画像を生成し、PNGとして保存してファイルパスを返します。開く処理は呼び出し元が行います。",
     "x_search_terms": [
-      "generate image",
-      "image creation",
-      "image gen",
-      "text to image",
-      "ai image",
-      "image generate",
-      "create image",
-      "image generator",
-      "image ai",
-      "text2image"
+      "画像を生成 |イメージを作成する |画像生成 |描く |画像生成 |テキストから画像へ",
+      "ai 画像"
     ],
     "param.prompt.description": "生成したい画像の指示（プロンプト）です。",
     "param.size.description": "画像サイズ。",
@@ -58,16 +50,13 @@
   "es": {
     "tool.description": "Genera una imagen a partir de un prompt de texto, la guarda como PNG y devuelve la ruta del archivo.",
     "x_search_terms": [
-      "generate image",
-      "image creation",
-      "image gen",
-      "text to image",
-      "ai image",
-      "image generate",
-      "create image",
-      "image generator",
-      "image ai",
-      "text2image"
+      "generar imagen",
+      "crear imagen",
+      "generación de imágenes",
+      "dibujar",
+      "generación de imágenes",
+      "texto a imagen",
+      "imagen ai"
     ],
     "param.prompt.description": "Instrucciones (prompt) para la imagen que quieres generar.",
     "param.size.description": "Tamaño de imagen.",
@@ -85,16 +74,13 @@
   "fr": {
     "tool.description": "Génère une image à partir d’un prompt texte, l’enregistre en PNG et renvoie le chemin du fichier.",
     "x_search_terms": [
-      "generate image",
-      "image creation",
-      "image gen",
-      "text to image",
-      "ai image",
-      "image generate",
-      "create image",
-      "image generator",
-      "image ai",
-      "text2image"
+      "générer une image",
+      "créer une image",
+      "génération d'images",
+      "dessiner",
+      "génération d'images",
+      "texte en image",
+      "ai image"
     ],
     "param.prompt.description": "Instructions (prompt) pour l’image que vous souhaitez générer.",
     "param.size.description": "Taille de l'image.",
@@ -112,16 +98,13 @@
   "ko": {
     "tool.description": "텍스트 프롬프트로 이미지를 생성해 PNG로 저장하고 파일 경로를 반환합니다. 열기는 호출자(CLI/GUI/Web)가 처리합니다.",
     "x_search_terms": [
-      "generate image",
-      "image creation",
-      "image gen",
-      "text to image",
-      "ai image",
-      "image generate",
-      "create image",
-      "image generator",
-      "image ai",
-      "text2image"
+      "이미지 생성",
+      "이미지 생성",
+      "이미지 생성",
+      "그리기",
+      "이미지 생성",
+      "텍스트를 이미지로",
+      "ai 이미지"
     ],
     "param.prompt.description": "생성할 이미지에 대한 지시사항(프롬프트)입니다.",
     "param.size.description": "이미지 크기.",
@@ -139,16 +122,13 @@
   "de": {
     "tool.description": "Erzeugt ein Bild aus einem Textprompt, speichert es als PNG und gibt den Dateipfad zurück. Das Öffnen übernimmt der Aufrufer (CLI/GUI/Web).",
     "x_search_terms": [
-      "generate image",
-      "image creation",
-      "image gen",
-      "text to image",
-      "ai image",
-      "image generate",
-      "create image",
-      "image generator",
-      "image ai",
-      "text2image"
+      "Bild generieren",
+      "Bild erstellen",
+      "Bildgen",
+      "zeichnen",
+      "Bilderzeugung",
+      "Text zum Bild",
+      "ai image"
     ],
     "param.prompt.description": "Anweisungen (Prompt) für das gewünschte Bild.",
     "param.size.description": "Bildgröße.",
@@ -166,16 +146,13 @@
   "it": {
     "tool.description": "Genera un’immagine da un prompt di testo, la salva come PNG e restituisce il percorso del file. L’apertura è gestita dal chiamante (CLI/GUI/Web).",
     "x_search_terms": [
-      "generate image",
-      "image creation",
-      "image gen",
-      "text to image",
-      "ai image",
-      "image generate",
-      "create image",
-      "image generator",
-      "image ai",
-      "text2image"
+      "genera immagine",
+      "crea immagine",
+      "generazione di immagini",
+      "disegnare",
+      "generazione di immagini",
+      "testo in immagine",
+      "ai image"
     ],
     "param.prompt.description": "Istruzioni (prompt) per l’immagine che vuoi generare.",
     "param.size.description": "Dimensioni immagine.",
@@ -193,16 +170,7 @@
   "ru": {
     "tool.description": "Создаёт изображение по текстовому запросу, сохраняет его как PNG и возвращает путь к файлу. Открытие выполняет вызывающая сторона (CLI/GUI/Web).",
     "x_search_terms": [
-      "generate image",
-      "image creation",
-      "image gen",
-      "text to image",
-      "ai image",
-      "image generate",
-      "create image",
-      "image generator",
-      "image ai",
-      "text2image"
+      "создать изображение, создать изображение, создание изображений, рисовать, создание изображений, текст в изображение, ai image"
     ],
     "param.prompt.description": "Необязательное последнее сообщение для пользователя. для изображения, которое вы хотите создать.",
     "param.size.description": "Размер изображения.",
@@ -247,15 +215,15 @@
   "pt": {
     "tool.description": "Gera uma imagem a partir de um prompt de texto, salva como PNG e retorna o caminho do arquivo. A abertura é feita pelo chamador (CLI/GUI/Web).",
     "x_search_terms": [
-      "generate image",
-      "image creation",
-      "image gen",
-      "text to image",
-      "ai image",
-      "image generate",
-      "create image",
-      "image generator",
-      "image ai",
+      "gerar imagem",
+      "criação de imagem",
+      "geração de imagem",
+      "texto para imagem",
+      "imagem ai",
+      "geração de imagem",
+      "criar imagem",
+      "gerador de imagens",
+      "imagem ai",
       "text2image"
     ],
     "param.prompt.description": "Instruções (prompt) para a imagem que você quer gerar.",
@@ -274,15 +242,15 @@
   "id": {
     "tool.description": "Menghasilkan gambar dari prompt teks, menyimpannya sebagai PNG, dan mengembalikan path file. Pembukaan ditangani oleh pemanggil (CLI/GUI/Web).",
     "x_search_terms": [
-      "generate image",
-      "image creation",
-      "image gen",
-      "text to image",
-      "ai image",
-      "image generate",
-      "create image",
-      "image generator",
-      "image ai",
+      "menghasilkan gambar",
+      "pembuatan gambar",
+      "gen gambar",
+      "teks ke gambar",
+      "gambar ai",
+      "menghasilkan gambar",
+      "membuat gambar",
+      "pembuat gambar",
+      "gambar ai",
       "text2image"
     ],
     "param.prompt.description": "Instruksi (prompt) untuk gambar yang ingin Anda buat.",
@@ -301,15 +269,15 @@
   "vi": {
     "tool.description": "Tạo ảnh từ prompt văn bản, lưu dưới dạng PNG và trả về đường dẫn tệp. Việc mở ảnh do bên gọi xử lý (CLI/GUI/Web).",
     "x_search_terms": [
-      "generate image",
-      "image creation",
-      "image gen",
-      "text to image",
-      "ai image",
-      "image generate",
-      "create image",
-      "image generator",
-      "image ai",
+      "tạo hình ảnh",
+      "tạo hình ảnh",
+      "gen hình ảnh",
+      "văn bản thành hình ảnh",
+      "hình ảnh ai",
+      "tạo hình ảnh",
+      "tạo hình ảnh",
+      "trình tạo hình ảnh",
+      "hình ảnh ai",
       "text2image"
     ],
     "param.prompt.description": "Hướng dẫn (prompt) cho ảnh bạn muốn tạo.",

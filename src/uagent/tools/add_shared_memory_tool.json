@@ -17,107 +17,89 @@
   },
   "ja": {
     "x_search_terms": [
-      "shared memory",
-      "add shared",
-      "share memory",
-      "memory share",
-      "collaborative memory",
-      "team memory",
-      "shared storage",
-      "memory add",
-      "group memory",
-      "shared info"
+      "共有メモリ |共有を追加 |メモリを共有する |メモリシェア |共同記憶 |チームの思い出 |共有ストレージ |メモリの追加 |グループメモリ |共有"
     ],
     "tool.description": "共有の長期記憶ストア（ユーザー/セッション間で共有）に1件のメモを追加します。共有メモリが設定されていない場合、ツールは利用不可と報告します。",
     "param.note.description": "共有するメモのテキスト。これは、セッション間で再利用する必要があるプロジェクト全体の前提/ポリシーに使用します。"
   },
   "es": {
     "x_search_terms": [
-      "shared memory",
-      "add shared",
-      "share memory",
-      "memory share",
-      "collaborative memory",
-      "team memory",
-      "shared storage",
-      "memory add",
-      "group memory",
-      "shared info"
+      "memoria compartida",
+      "agregar compartido",
+      "compartir memoria",
+      "compartir memoria",
+      "memoria colaborativa",
+      "memoria del equipo",
+      "almacenamiento compartido",
+      "añadir memoria",
+      "memoria de grupo",
+      "compartido"
     ],
     "tool.description": "Agrega una sola nota al almacén de memoria a largo plazo compartido (compartido entre usuarios/sesiones). Si la memoria compartida no está configurada, la herramienta informa que no está disponible."
   },
   "fr": {
     "x_search_terms": [
-      "shared memory",
-      "add shared",
-      "share memory",
-      "memory share",
-      "collaborative memory",
-      "team memory",
-      "shared storage",
-      "memory add",
-      "group memory",
-      "shared info"
+      "mémoire partagée",
+      "ajouter partagé",
+      "partager la mémoire",
+      "partage de mémoire",
+      "mémoire collaborative",
+      "mémoire d'équipe",
+      "stockage partagé",
+      "ajout de mémoire",
+      "mémoire de groupe",
+      "shared"
     ],
     "tool.description": "Ajouter une seule note au stockage de mémoire à long terme partagé (partagé entre utilisateurs/sessions). Si la mémoire partagée n'est pas configurée, l'outil signale qu'elle est indisponible."
   },
   "ko": {
     "x_search_terms": [
-      "shared memory",
-      "add shared",
-      "share memory",
-      "memory share",
-      "collaborative memory",
-      "team memory",
-      "shared storage",
-      "memory add",
-      "group memory",
-      "shared info"
+      "공유 메모리",
+      "공유 추가",
+      "메모리 공유",
+      "메모리 공유",
+      "협업 메모리",
+      "팀 메모리",
+      "공유 스토리지",
+      "메모리 추가",
+      "그룹 메모리",
+      "공유"
     ],
     "tool.description": "공유 장기 메모리 저장소(사용자/세션 간 공유)에 단일 노트를 추가합니다. 공유 메모리가 구성되지 않은 경우 도구는 사용 불가능하다고 보고합니다."
   },
   "de": {
     "x_search_terms": [
-      "shared memory",
-      "add shared",
-      "share memory",
-      "memory share",
-      "collaborative memory",
-      "team memory",
-      "shared storage",
-      "memory add",
-      "group memory",
-      "shared info"
+      "gemeinsamer Speicher",
+      "Geteilt hinzufügen",
+      "Speicher teilen",
+      "Speicherfreigabe",
+      "kollaboratives Gedächtnis",
+      "Teamgedächtnis",
+      "gemeinsamer Speicher",
+      "Speicher hinzufügen",
+      "Gruppenspeicher",
+      "shared"
     ],
     "tool.description": "Fügen Sie eine einzelne Notiz zum gemeinsamen Langzeitspeicher hinzu (gemeinsam über Benutzer/Sitzungen hinweg). Wenn der gemeinsame Speicher nicht konfiguriert ist, meldet das Werkzeug, dass er nicht verfügbar ist."
   },
   "it": {
     "x_search_terms": [
-      "shared memory",
-      "add shared",
-      "share memory",
-      "memory share",
-      "collaborative memory",
-      "team memory",
-      "shared storage",
-      "memory add",
-      "group memory",
-      "shared info"
+      "aggiungi memoria",
+      "memoria a lungo termine",
+      "risparmiare memoria",
+      "memorizzare la memoria",
+      "aggiunta di memoria",
+      "memoria dell'agente",
+      "ricorda",
+      "memoria persistente",
+      "salva informazioni",
+      "archivio memoria"
     ],
     "tool.description": "Aggiungi una singola nota all'archivio di memoria a lungo termine condiviso (condiviso tra utenti/sessioni). Se la memoria condivisa non è configurata, lo strumento segnala che non è disponibile."
   },
   "ru": {
     "x_search_terms": [
-      "shared memory",
-      "add shared",
-      "share memory",
-      "memory share",
-      "collaborative memory",
-      "team memory",
-      "shared storage",
-      "memory add",
-      "group memory",
-      "shared info"
+      "добавить память, долговременная память, сохранить память, хранить память, добавить память, память агента, помнить, сохранить память, сохранить информацию, хранилище памяти"
     ],
     "tool.description": "Добавить одну заметку в общее долговременное хранилище (доступное для всех пользователей/сессий). Если общая память не настроена, инструмент сообщает о её недоступности."
   },
@@ -138,46 +120,46 @@
   },
   "pt": {
     "x_search_terms": [
-      "shared memory",
-      "add shared",
-      "share memory",
-      "memory share",
-      "collaborative memory",
-      "team memory",
-      "shared storage",
-      "memory add",
-      "group memory",
-      "shared info"
+      "memória compartilhada",
+      "adicionar compartilhado",
+      "compartilhar memória",
+      "compartilhamento de memória",
+      "memória colaborativa",
+      "memória da equipe",
+      "armazenamento compartilhado",
+      "adicionar memória",
+      "memória de grupo",
+      "informações compartilhadas"
     ],
     "tool.description": "Anexe uma única nota ao armazenamento de memória de longo prazo partilhado (partilhado entre utilizadores/sessões). Se a memória partilhada não estiver configurada, a ferramenta reporta que está indisponível."
   },
   "id": {
     "x_search_terms": [
-      "shared memory",
-      "add shared",
-      "share memory",
-      "memory share",
-      "collaborative memory",
-      "team memory",
-      "shared storage",
-      "memory add",
-      "group memory",
-      "shared info"
+      "memori bersama",
+      "tambahkan bersama",
+      "berbagi memori",
+      "berbagi memori",
+      "memori kolaboratif",
+      "memori tim",
+      "penyimpanan bersama",
+      "menambah memori",
+      "memori kelompok",
+      "info bersama"
     ],
     "tool.description": "Tambahkan satu catatan ke penyimpanan memori jangka panjang bersama (dibagikan antar pengguna/sesi). Jika memori bersama tidak dikonfigurasi, alat melaporkan bahwa memori tidak tersedia."
   },
   "vi": {
     "x_search_terms": [
-      "shared memory",
-      "add shared",
-      "share memory",
-      "memory share",
-      "collaborative memory",
-      "team memory",
-      "shared storage",
-      "memory add",
-      "group memory",
-      "shared info"
+      "bộ nhớ dùng chung",
+      "thêm chia sẻ",
+      "chia sẻ bộ nhớ",
+      "chia sẻ bộ nhớ",
+      "bộ nhớ hợp tác",
+      "ký ức đồng đội",
+      "lưu trữ chia sẻ",
+      "thêm bộ nhớ",
+      "bộ nhớ nhóm",
+      "thông tin được chia sẻ"
     ],
     "tool.description": "Thêm một ghi chú duy nhất vào kho lưu trữ bộ nhớ dài hạn dùng chung (chia sẻ giữa các người dùng/phiên). Nếu bộ nhớ dùng chung chưa được cấu hình, công cụ sẽ báo cáo rằng nó không khả dụng."
   },

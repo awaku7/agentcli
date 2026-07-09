@@ -27,16 +27,9 @@
     "param.tools.description": "実行するツール名の配列。空なら自動選択（ruff/black/mypyの順で存在確認）。",
     "tool.description": "静的解析・フォーマッタ（ruff/black/mypy など）を実行します。mode=fix はファイルを変更するため、確認が必要です。",
     "x_search_terms": [
-      "lint",
-      "format",
-      "code lint",
-      "code format",
-      "linter",
-      "formatter",
-      "code style",
-      "static analysis",
-      "linting",
-      "formatting"
+      "lint |フォーマット",
+      "lint フォーマット |フォーマットをチェックする",
+      "lint コード |フォーマットコード |自動修正 |自動修正"
     ],
     "param.xargs.description": "追加引数（配列）。危険なメタ文字は拒否します。",
     "confirm.msg": "lint_format(mode=fix) はファイルを上書きする可能性があります。\nツール: {tools}\nターゲット: {targets}\ncwd: {cwd}\n\n続行するには y を入力し、キャンセルするには c を入力します。"
@@ -49,15 +42,13 @@
     "tool.description": "Ejecute análisis/formateadores estáticos (por ejemplo, ruff/black/mypy).",
     "x_search_terms": [
       "lint",
-      "format",
-      "code lint",
-      "code format",
-      "linter",
-      "formatter",
-      "code style",
-      "static analysis",
-      "linting",
-      "formatting"
+      "formato",
+      "formato de pelusa",
+      "formato de verificación",
+      "código de pelusa",
+      "código de formato",
+      "reparación automática",
+      "reparación automática"
     ],
     "param.xargs.description": "Argumentos adicionales (matriz). Rechaza metacaracteres peligrosos."
   },
@@ -69,15 +60,13 @@
     "tool.description": "Exécutez des analyses/formateurs statiques (par exemple, ruff/black/mypy).",
     "x_search_terms": [
       "lint",
-      "format",
-      "code lint",
-      "code format",
-      "linter",
-      "formatter",
-      "code style",
-      "static analysis",
-      "linting",
-      "formatting"
+      "formats",
+      "format peluche",
+      "format de chèque",
+      "code de charpie",
+      "formater le code",
+      "correction automatique",
+      "correction automatique"
     ],
     "param.xargs.description": "Arguments supplémentaires (tableau). Rejetez les métacaractères dangereux."
   },
@@ -89,15 +78,13 @@
     "tool.description": "정적 분석/포매터(예: ruff/black/mypy)를 실행합니다. mode=fix는 파일을 수정하며 확인이 필요합니다.",
     "x_search_terms": [
       "lint",
-      "format",
-      "code lint",
-      "code format",
-      "linter",
-      "formatter",
-      "code style",
-      "static analysis",
-      "linting",
-      "formatting"
+      "형식",
+      "lint 형식",
+      "형식 확인",
+      "lint 코드",
+      "형식 코드",
+      "자동 수정",
+      "자동 수정"
     ],
     "param.xargs.description": "추가 인수(배열). 위험한 메타문자를 거부하세요."
   },
@@ -109,15 +96,13 @@
     "tool.description": "Statische Analyse-/Formatierungswerkzeuge ausführen (z.B.ruff/black/mypy).",
     "x_search_terms": [
       "lint",
-      "format",
-      "code lint",
-      "code format",
-      "linter",
-      "formatter",
-      "code style",
-      "static analysis",
-      "linting",
-      "formatting"
+      "Format",
+      "Flusenformat",
+      "Format prüfen",
+      "Flusencode",
+      "Formatcode",
+      "Autofix",
+      "Autofix"
     ],
     "param.xargs.description": "Zusätzliche Argumente (Array). Gefährliche Metazeichen ablehnen."
   },
@@ -129,15 +114,13 @@
     "tool.description": "Esegui analisi/formattatori statici (ad esempio, ruff/black/mypy).",
     "x_search_terms": [
       "lint",
-      "format",
-      "code lint",
-      "code format",
-      "linter",
-      "formatter",
-      "code style",
-      "static analysis",
-      "linting",
-      "formatting"
+      "formato",
+      "formato lanugine",
+      "controlla il formato",
+      "codice lanugine",
+      "codice formato",
+      "correzione automatica",
+      "correzione automatica"
     ],
     "param.xargs.description": "Argomenti aggiuntivi (array). Rifiuta i metacaratteri pericolosi."
   },
@@ -148,16 +131,7 @@
     "param.tools.description": "Массив имен инструментов для запуска. Если он пуст, он будет выбран автоматически.",
     "tool.description": "Запустите статический анализ/форматирование (например, ruff/black/mypy).",
     "x_search_terms": [
-      "lint",
-      "format",
-      "code lint",
-      "code format",
-      "linter",
-      "formatter",
-      "code style",
-      "static analysis",
-      "linting",
-      "formatting"
+      "lint, формат, формат ворса, формат проверки, код ворса, код формата, автоисправление, автоисправление"
     ],
     "param.xargs.description": "Дополнительные аргументы (массив). Отклоняйте опасные метасимволы."
   },
@@ -189,15 +163,15 @@
     "tool.description": "Execute análises/formatadores estáticos (por exemplo, ruff/black/mypy).",
     "x_search_terms": [
       "lint",
-      "format",
-      "code lint",
-      "code format",
+      "formato",
+      "código fiapos",
+      "formato de código",
       "linter",
-      "formatter",
-      "code style",
-      "static analysis",
+      "formatador",
+      "estilo de código",
+      "análise estática",
       "linting",
-      "formatting"
+      "formatação"
     ],
     "param.xargs.description": "Argumentos adicionais (matriz). Rejeite metacaracteres perigosos."
   },
@@ -210,14 +184,14 @@
     "x_search_terms": [
       "lint",
       "format",
-      "code lint",
-      "code format",
+      "serat kode",
+      "format kode",
       "linter",
-      "formatter",
-      "code style",
-      "static analysis",
+      "pemformat",
+      "gaya kode",
+      "analisis statis",
       "linting",
-      "formatting"
+      "pemformatan"
     ],
     "param.xargs.description": "Argumen tambahan (array). Tolak jika ada metakarakter shell berbahaya."
   },
@@ -229,15 +203,15 @@
     "tool.description": "Chạy phân tích/định dạng tĩnh (ví dụ: ruff/black/mypy). mode=fix sửa đổi tập tin và yêu cầu xác nhận.",
     "x_search_terms": [
       "lint",
-      "format",
-      "code lint",
-      "code format",
-      "linter",
-      "formatter",
-      "code style",
-      "static analysis",
-      "linting",
-      "formatting"
+      "định dạng",
+      "mã lint",
+      "định dạng mã",
+      "nói dối",
+      "trình định dạng",
+      "phong cách mã",
+      "phân tích tĩnh",
+      "xơ vải",
+      "định dạng"
     ],
     "param.xargs.description": "Đối số bổ sung (mảng). Từ chối các siêu ký tự nguy hiểm."
   },

@@ -20,16 +20,7 @@
     "param.prompt.description": "画像について知りたい内容。",
     "tool.description": "画像を読み込み、AI（Vision）で内容を説明します。スクリーンショットやグラフ、表の解析に便利です。",
     "x_search_terms": [
-      "analyze image",
-      "image analysis",
-      "image recognition",
-      "vision",
-      "image understanding",
-      "image describe",
-      "image content",
-      "image ai",
-      "visual analysis",
-      "image detection"
+      "画像を分析 |画像ai |画像解析 |画像コンテンツ |画像説明 |画像検出 |画像認識 |イメージ理解 |コンピュータビジョン |画像説明"
     ],
     "param.img.description": "解析する画像ファイルのパス。"
   },
@@ -37,16 +28,16 @@
     "param.prompt.description": "Lo que quieres saber sobre la imagen.",
     "tool.description": "Cargue una imagen y haga que AI (Vision) la describa. Útil para capturas de pantalla, gráficos y tablas.",
     "x_search_terms": [
-      "analyze image",
-      "image analysis",
-      "image recognition",
-      "vision",
-      "image understanding",
-      "image describe",
-      "image content",
-      "image ai",
-      "visual analysis",
-      "image detection"
+      "analizar imagen",
+      "imagen ai",
+      "análisis de imágenes",
+      "contenido de la imagen",
+      "imagen describir",
+      "detección de imágenes",
+      "reconocimiento de imágenes",
+      "comprensión de la imagen",
+      "visión por computadora",
+      "título de imagen"
     ],
     "param.img.description": "Ruta al archivo de imagen a analizar."
   },
@@ -54,16 +45,16 @@
     "param.prompt.description": "Ce que vous voulez savoir sur l'image.",
     "tool.description": "Chargez une image et demandez à AI (Vision) d’en décrire le contenu. Utile pour les captures d’écran, les graphiques et les tableaux.",
     "x_search_terms": [
-      "analyze image",
-      "image analysis",
-      "image recognition",
-      "vision",
-      "image understanding",
-      "image describe",
-      "image content",
+      "analyser l'image",
       "image ai",
-      "visual analysis",
-      "image detection"
+      "analyse d'images",
+      "contenu des images",
+      "image décrire",
+      "détection d'images",
+      "reconnaissance d'images",
+      "compréhension des images",
+      "vision par ordinateur",
+      "légende de l'image"
     ],
     "param.img.description": "Chemin d'accès au fichier image à analyser."
   },
@@ -71,16 +62,16 @@
     "param.prompt.description": "이미지에 대해 알고 싶은 것.",
     "tool.description": "이미지를 불러와 AI(Vision)가 내용을 설명하게 합니다. 스크린샷, 차트, 표를 분석할 때 유용합니다.",
     "x_search_terms": [
-      "analyze image",
-      "image analysis",
-      "image recognition",
-      "vision",
-      "image understanding",
-      "image describe",
-      "image content",
-      "image ai",
-      "visual analysis",
-      "image detection"
+      "이미지 분석",
+      "이미지 AI",
+      "이미지 분석",
+      "이미지 콘텐츠",
+      "이미지 설명",
+      "이미지 감지",
+      "이미지 인식",
+      "이미지 이해",
+      "컴퓨터 비전",
+      "이미지 캡션"
     ],
     "param.img.description": "분석할 이미지 파일의 경로입니다."
   },
@@ -88,16 +79,16 @@
     "param.prompt.description": "Was Sie über das Bild wissen möchten.",
     "tool.description": "Laden Sie ein Bild und lassen Sie AI (Vision) es beschreiben. Nützlich für Screenshots, Diagramme und Tabellen.",
     "x_search_terms": [
-      "analyze image",
-      "image analysis",
-      "image recognition",
-      "vision",
-      "image understanding",
-      "image describe",
-      "image content",
-      "image ai",
-      "visual analysis",
-      "image detection"
+      "Bild analysieren",
+      "Bild ai",
+      "Bildanalyse",
+      "Bildinhalt",
+      "Bild beschreiben",
+      "Bilderkennung",
+      "Bilderkennung",
+      "Bildverständnis",
+      "Computer Vision",
+      "Bildunterschrift"
     ],
     "param.img.description": "Pfad zur zu analysierenden Bilddatei."
   },
@@ -105,16 +96,16 @@
     "param.prompt.description": "Cosa vuoi sapere sull'immagine.",
     "tool.description": "Carica un file immagine e chiedi ad AI (Vision) di descriverne il contenuto.",
     "x_search_terms": [
-      "analyze image",
-      "image analysis",
-      "image recognition",
-      "vision",
-      "image understanding",
-      "image describe",
-      "image content",
-      "image ai",
-      "visual analysis",
-      "image detection"
+      "analizza immagine",
+      "immagine ai",
+      "analisi delle immagini",
+      "contenuto dell'immagine",
+      "immagine descrivere",
+      "rilevamento immagini",
+      "riconoscimento delle immagini",
+      "comprensione dell'immagine",
+      "visione artificiale",
+      "didascalia immagine"
     ],
     "param.img.description": "Percorso del file immagine da analizzare."
   },
@@ -122,16 +113,7 @@
     "param.prompt.description": "Что вы хотите знать об изображении.",
     "tool.description": "Загрузите файл изображения и попросите AI (Vision) описать его содержимое.",
     "x_search_terms": [
-      "analyze image",
-      "image analysis",
-      "image recognition",
-      "vision",
-      "image understanding",
-      "image describe",
-      "image content",
-      "image ai",
-      "visual analysis",
-      "image detection"
+      "проанализировать изображение, изображение ИИ, анализ изображений, содержание изображения, описание изображения, обнаружение изображений, распознавание изображений, понимание изображения, компьютерное зрение, подпись к изображению"
     ],
     "param.img.description": "Путь к файлу изображения для анализа."
   },
@@ -156,16 +138,16 @@
     "param.prompt.description": "O que você quer saber sobre a imagem.",
     "tool.description": "Carregue um arquivo de imagem e faça com que a IA (Visão) descreva seu conteúdo.",
     "x_search_terms": [
-      "analyze image",
-      "image analysis",
-      "image recognition",
-      "vision",
-      "image understanding",
-      "image describe",
-      "image content",
-      "image ai",
-      "visual analysis",
-      "image detection"
+      "analisar imagem",
+      "análise de imagens",
+      "reconhecimento de imagem",
+      "visão",
+      "compreensão da imagem",
+      "descrição da imagem",
+      "conteúdo da imagem",
+      "imagem ai",
+      "análise visual",
+      "detecção de imagem"
     ],
     "param.img.description": "Caminho para o arquivo de imagem a ser analisado."
   },
@@ -173,16 +155,16 @@
     "param.prompt.description": "Apa yang ingin Anda ketahui tentang gambar.",
     "tool.description": "Muat file gambar dan minta AI (Vision) mendeskripsikan isinya. Berguna untuk menganalisis tangkapan layar atau membaca grafik/tabel.",
     "x_search_terms": [
-      "analyze image",
-      "image analysis",
-      "image recognition",
-      "vision",
-      "image understanding",
-      "image describe",
-      "image content",
-      "image ai",
-      "visual analysis",
-      "image detection"
+      "analisis gambar",
+      "analisis gambar",
+      "pengenalan gambar",
+      "visi",
+      "pemahaman gambar",
+      "deskripsikan gambar",
+      "konten gambar",
+      "gambar ai",
+      "analisis visual",
+      "deteksi gambar"
     ],
     "param.img.description": "Jalur ke file gambar yang akan dianalisis."
   },
@@ -190,16 +172,16 @@
     "param.prompt.description": "Những gì bạn muốn biết về hình ảnh.",
     "tool.description": "Tải một tệp hình ảnh và để AI (Vision) mô tả nội dung của nó. Hữu ích cho việc phân tích ảnh chụp màn hình hoặc đọc biểu đồ/bảng.",
     "x_search_terms": [
-      "analyze image",
-      "image analysis",
-      "image recognition",
-      "vision",
-      "image understanding",
-      "image describe",
-      "image content",
-      "image ai",
-      "visual analysis",
-      "image detection"
+      "phân tích hình ảnh",
+      "phân tích hình ảnh",
+      "nhận dạng hình ảnh",
+      "tầm nhìn",
+      "hiểu biết hình ảnh",
+      "hình ảnh mô tả",
+      "nội dung hình ảnh",
+      "hình ảnh ai",
+      "phân tích trực quan",
+      "phát hiện hình ảnh"
     ],
     "param.img.description": "Đường dẫn tới file ảnh cần phân tích."
   },

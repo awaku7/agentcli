@@ -22,16 +22,8 @@
     "param.server_name.description": "設定ファイル内のサーバー名。",
     "tool.description": "MCPサーバーに接続して利用可能なツール一覧を取得。HTTP/stdio両対応。",
     "x_search_terms": [
-      "mcp",
-      "mcp tools",
-      "tool list",
-      "mcp server",
-      "available tools",
-      "mcp capabilities",
-      "server tools",
-      "tool catalog",
-      "mcp functions",
-      "mcp endpoints"
+      "mcp ツール |リストツール |ツールリスト |利用可能なツール |ツールリスト",
+      "mcp ツール リスト"
     ],
     "param.url.description": "MCP サーバーのエンドポイント URL。省略した場合、構成されたサーバーが使用される可能性があります。"
   },
@@ -40,16 +32,12 @@
     "param.server_name.description": "Nombre del servidor del archivo de configuración.",
     "tool.description": "Conéctese a un servidor MCP y enumere las herramientas disponibles. Admite transportes HTTP y stdio.",
     "x_search_terms": [
-      "mcp",
       "mcp tools",
-      "tool list",
-      "mcp server",
-      "available tools",
-      "mcp capabilities",
-      "server tools",
-      "tool catalog",
-      "mcp functions",
-      "mcp endpoints"
+      "herramientas de lista",
+      "lista de herramientas",
+      "herramientas disponibles",
+      "listado de herramientas",
+      "lista de herramientas mcp"
     ]
   },
   "fr": {
@@ -57,16 +45,12 @@
     "param.server_name.description": "Nom du serveur figurant dans le fichier de configuration.",
     "tool.description": "Connectez-vous à un serveur MCP et répertoriez les outils disponibles. Prend en charge les transports HTTP et stdio.",
     "x_search_terms": [
-      "mcp",
-      "mcp tools",
-      "tool list",
-      "mcp server",
-      "available tools",
-      "mcp capabilities",
-      "server tools",
-      "tool catalog",
-      "mcp functions",
-      "mcp endpoints"
+      "outils mcp",
+      "outils de liste",
+      "liste d'outils",
+      "outils disponibles",
+      "liste d'outils",
+      "liste des outils mcp"
     ]
   },
   "ko": {
@@ -74,16 +58,12 @@
     "param.server_name.description": "구성 파일의 서버 이름입니다.",
     "tool.description": "MCP 서버에 연결하여 사용 가능한 도구 목록 조회. HTTP/stdio 지원.",
     "x_search_terms": [
-      "mcp",
-      "mcp tools",
-      "tool list",
-      "mcp server",
-      "available tools",
-      "mcp capabilities",
-      "server tools",
-      "tool catalog",
-      "mcp functions",
-      "mcp endpoints"
+      "mcp 도구",
+      "목록 도구",
+      "도구 목록",
+      "사용 가능한 도구",
+      "도구 목록",
+      "mcp 도구 목록"
     ]
   },
   "de": {
@@ -91,16 +71,12 @@
     "param.server_name.description": "Servername aus der Konfigurationsdatei.",
     "tool.description": "Stellen Sie eine Verbindung zu einem MCP-Server her und listen Sie die verfügbaren Tools auf. Unterstützt HTTP- und Standardtransporte.",
     "x_search_terms": [
-      "mcp",
       "mcp tools",
-      "tool list",
-      "mcp server",
-      "available tools",
-      "mcp capabilities",
-      "server tools",
-      "tool catalog",
-      "mcp functions",
-      "mcp endpoints"
+      "Tools auflisten",
+      "Werkzeugliste",
+      "verfügbare Werkzeuge",
+      "Werkzeugliste",
+      "mcp tools list"
     ]
   },
   "it": {
@@ -108,16 +84,12 @@
     "param.server_name.description": "Nome del server nel file di configurazione.",
     "tool.description": "Connettersi a un server MCP ed elencare gli strumenti disponibili. Supporta i trasporti HTTP e stdio.",
     "x_search_terms": [
-      "mcp",
       "mcp tools",
-      "tool list",
-      "mcp server",
-      "available tools",
-      "mcp capabilities",
-      "server tools",
-      "tool catalog",
-      "mcp functions",
-      "mcp endpoints"
+      "elenco strumenti",
+      "elenco strumenti",
+      "strumenti disponibili",
+      "elenco degli strumenti",
+      "Elenco strumenti mcp"
     ]
   },
   "ru": {
@@ -125,16 +97,7 @@
     "param.server_name.description": "Имя сервера из файла конфигурации.",
     "tool.description": "Подключитесь к серверу MCP и перечислите доступные инструменты. Поддерживает транспорт HTTP и stdio.",
     "x_search_terms": [
-      "mcp",
-      "mcp tools",
-      "tool list",
-      "mcp server",
-      "available tools",
-      "mcp capabilities",
-      "server tools",
-      "tool catalog",
-      "mcp functions",
-      "mcp endpoints"
+      "mcp инструменты, список инструментов, список инструментов, доступные инструменты, список инструментов, список инструментов mcp"
     ]
   },
   "pt_BR": {
@@ -160,15 +123,15 @@
     "tool.description": "Conecte-se a um servidor MCP e liste as ferramentas disponíveis. Suporta transportes HTTP e stdio.",
     "x_search_terms": [
       "mcp",
-      "mcp tools",
-      "tool list",
-      "mcp server",
-      "available tools",
-      "mcp capabilities",
-      "server tools",
-      "tool catalog",
-      "mcp functions",
-      "mcp endpoints"
+      "ferramentas mcp",
+      "lista de ferramentas",
+      "servidor mcp",
+      "ferramentas disponíveis",
+      "capacidades mcp",
+      "ferramentas de servidor",
+      "catálogo de ferramentas",
+      "funções mcp",
+      "pontos de extremidade mcp"
     ]
   },
   "id": {
@@ -177,15 +140,15 @@
     "tool.description": "Hubungkan ke server MCP dan daftar alat yang tersedia. Mendukung transportasi HTTP dan stdio.",
     "x_search_terms": [
       "mcp",
-      "mcp tools",
-      "tool list",
-      "mcp server",
-      "available tools",
-      "mcp capabilities",
-      "server tools",
-      "tool catalog",
-      "mcp functions",
-      "mcp endpoints"
+      "alat mcp",
+      "daftar alat",
+      "server mcp",
+      "alat yang tersedia",
+      "kemampuan mcp",
+      "alat server",
+      "katalog alat",
+      "fungsi mcp",
+      "titik akhir mcp"
     ]
   },
   "vi": {
@@ -194,15 +157,15 @@
     "tool.description": "Kết nối với máy chủ MCP và liệt kê các công cụ có sẵn. Hỗ trợ vận chuyển HTTP và stdio.",
     "x_search_terms": [
       "mcp",
-      "mcp tools",
-      "tool list",
-      "mcp server",
-      "available tools",
-      "mcp capabilities",
-      "server tools",
-      "tool catalog",
-      "mcp functions",
-      "mcp endpoints"
+      "công cụ mcp",
+      "danh sách công cụ",
+      "máy chủ mcp",
+      "công cụ có sẵn",
+      "khả năng mcp",
+      "công cụ máy chủ",
+      "danh mục công cụ",
+      "chức năng mcp",
+      "điểm cuối mcp"
     ]
   },
   "pl": {

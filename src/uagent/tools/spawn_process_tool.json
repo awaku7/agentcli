@@ -20,16 +20,7 @@
   "ja": {
     "param.command.description": "実行するコマンドライン。",
     "x_search_terms": [
-      "spawn process",
-      "launch process",
-      "start process",
-      "run process",
-      "execute process",
-      "process launch",
-      "process start",
-      "run external",
-      "external process",
-      "process exec"
+      "スポーン |プロセスを開始します |打ち上げ |開く |走る |実行 |開始"
     ],
     "err.command_empty": "[spawn_process error] command is empty",
     "err.windows_start_missing_target": "[spawn_process error] Windows 'start' command has no URL or executable path.\\\nExample: start \\\"\\\" https://www.google.com",
@@ -38,104 +29,86 @@
   "es": {
     "param.command.description": "Línea de comando para ejecutar.",
     "x_search_terms": [
-      "spawn process",
-      "launch process",
-      "start process",
-      "run process",
-      "execute process",
-      "process launch",
-      "process start",
-      "run external",
-      "external process",
-      "process exec"
+      "spawn",
+      "iniciar proceso",
+      "lanzamiento",
+      "abierto",
+      "correr",
+      "ejecutar",
+      "inicio"
     ],
     "err.command_empty": "[spawn_process error] command is empty",
-    "err.windows_start_missing_target": "[spawn_process error] Windows 'start' command has no URL or executable path.\\\nExample: start \\\"\\\" https://www.google.com"
+    "err.windows_start_missing_target": "[spawn_process error] Windows 'start' command has no URL or executable path.\\\nExample: start \\\"\\\" https://www.google.com",
+    "tool.description": "Inicie de forma asincrónica una GUI externa o un proceso de navegador. Evite apariciones repetidas para la misma solicitud."
   },
   "fr": {
     "param.command.description": "Ligne de commande à exécuter.",
     "x_search_terms": [
-      "spawn process",
-      "launch process",
-      "start process",
-      "run process",
-      "execute process",
-      "process launch",
-      "process start",
-      "run external",
-      "external process",
-      "process exec"
+      "spawn",
+      "démarrer le processus",
+      "lancement",
+      "ouvert",
+      "courir",
+      "exécuter",
+      "start"
     ],
     "err.command_empty": "[spawn_process error] command is empty",
-    "err.windows_start_missing_target": "[spawn_process error] Windows 'start' command has no URL or executable path.\\\nExample: start \\\"\\\" https://www.google.com"
+    "err.windows_start_missing_target": "[spawn_process error] Windows 'start' command has no URL or executable path.\\\nExample: start \\\"\\\" https://www.google.com",
+    "tool.description": "Démarrez de manière asynchrone une interface graphique ou un processus de navigateur externe. Évitez les apparitions répétées pour la même demande."
   },
   "ko": {
     "param.command.description": "실행할 명령줄입니다.",
     "x_search_terms": [
-      "spawn process",
-      "launch process",
-      "start process",
-      "run process",
-      "execute process",
-      "process launch",
-      "process start",
-      "run external",
-      "external process",
-      "process exec"
+      "생성",
+      "프로세스 시작",
+      "실행",
+      "열기",
+      "실행",
+      "실행",
+      "시작"
     ],
     "err.command_empty": "[spawn_process error] command is empty",
-    "err.windows_start_missing_target": "[spawn_process error] Windows 'start' command has no URL or executable path.\\\nExample: start \\\"\\\" https://www.google.com"
+    "err.windows_start_missing_target": "[spawn_process error] Windows 'start' command has no URL or executable path.\\\nExample: start \\\"\\\" https://www.google.com",
+    "tool.description": "외부 GUI 또는 브라우저 프로세스를 비동기적으로 시작합니다. 동일한 요청에 대해 반복적으로 생성되지 않도록 하세요."
   },
   "de": {
     "param.command.description": "Befehlszeile zur Ausführung.",
     "x_search_terms": [
-      "spawn process",
-      "launch process",
-      "start process",
-      "run process",
-      "execute process",
-      "process launch",
-      "process start",
-      "run external",
-      "external process",
-      "process exec"
+      "spawn",
+      "Prozess starten",
+      "starten",
+      "öffnen",
+      "laufen",
+      "ausführen",
+      "start"
     ],
     "err.command_empty": "[spawn_process error] command is empty",
-    "err.windows_start_missing_target": "[spawn_process error] Windows 'start' command has no URL or executable path.\\\nExample: start \\\"\\\" https://www.google.com"
+    "err.windows_start_missing_target": "[spawn_process error] Windows 'start' command has no URL or executable path.\\\nExample: start \\\"\\\" https://www.google.com",
+    "tool.description": "Starten Sie asynchron einen externen GUI- oder Browserprozess. Vermeiden Sie wiederholte Spawns für dieselbe Anfrage."
   },
   "it": {
     "param.command.description": "Riga di comando da eseguire.",
     "x_search_terms": [
-      "spawn process",
-      "launch process",
-      "start process",
-      "run process",
-      "execute process",
-      "process launch",
-      "process start",
-      "run external",
-      "external process",
-      "process exec"
+      "spawn",
+      "avviare il processo",
+      "lancio",
+      "aperto",
+      "correre",
+      "eseguire",
+      "start"
     ],
     "err.command_empty": "[spawn_process error] command is empty",
-    "err.windows_start_missing_target": "[spawn_process error] Windows 'start' command has no URL or executable path.\\\nExample: start \\\"\\\" https://www.google.com"
+    "err.windows_start_missing_target": "[spawn_process error] Windows 'start' command has no URL or executable path.\\\nExample: start \\\"\\\" https://www.google.com",
+    "tool.description": "Avvia in modo asincrono una GUI esterna o un processo del browser. Evita spawn ripetuti per la stessa richiesta."
   },
   "ru": {
     "param.command.description": "Командная строка для выполнения.",
     "x_search_terms": [
-      "spawn process",
-      "launch process",
-      "start process",
-      "run process",
-      "execute process",
-      "process launch",
-      "process start",
-      "run external",
-      "external process",
-      "process exec"
+      "порождение, начать процесс, запуск, открыть, бежать, выполнить, start"
     ],
     "err.command_empty": "[spawn_process error] command is empty",
-    "err.windows_start_missing_target": "[spawn_process error] Windows 'start' command has no URL or executable path.\\\nExample: start \\\"\\\" https://www.google.com"
+    "err.windows_start_missing_target": "[spawn_process error] Windows 'start' command has no URL or executable path.\\\nExample: start \\\"\\\" https://www.google.com",
+    "tool.description": "Асинхронно запускайте внешний графический интерфейс или процесс браузера. Избегайте повторного появления одного и того же запроса."
   },
   "pt_BR": {
     "param.command.description": "Linha de comando para executar.",
@@ -152,58 +125,62 @@
       "process exec"
     ],
     "err.command_empty": "[spawn_process error] command is empty",
-    "err.windows_start_missing_target": "[spawn_process error] Windows 'start' command has no URL or executable path.\\\nExample: start \\\"\\\" https://www.google.com"
+    "err.windows_start_missing_target": "[spawn_process error] Windows 'start' command has no URL or executable path.\\\nExample: start \\\"\\\" https://www.google.com",
+    "tool.description": "Inicie de forma assíncrona uma GUI externa ou processo de navegador. Evite spawns repetidos para a mesma solicitação."
   },
   "pt": {
     "param.command.description": "Linha de comando a ser executada.",
     "x_search_terms": [
-      "spawn process",
-      "launch process",
-      "start process",
-      "run process",
-      "execute process",
-      "process launch",
-      "process start",
-      "run external",
-      "external process",
-      "process exec"
+      "processo de geração",
+      "processo de lançamento",
+      "iniciar processo",
+      "executar processo",
+      "executar processo",
+      "lançamento de processo",
+      "início do processo",
+      "executar externo",
+      "processo externo",
+      "processo exec"
     ],
     "err.command_empty": "[spawn_process error] command is empty",
-    "err.windows_start_missing_target": "[spawn_process error] Windows 'start' command has no URL or executable path.\\\nExample: start \\\"\\\" https://www.google.com"
+    "err.windows_start_missing_target": "[spawn_process error] Windows 'start' command has no URL or executable path.\\\nExample: start \\\"\\\" https://www.google.com",
+    "tool.description": "Inicie de forma assíncrona uma GUI externa ou processo de navegador. Evite spawns repetidos para a mesma solicitação."
   },
   "id": {
     "param.command.description": "Baris perintah untuk dijalankan.",
     "x_search_terms": [
-      "spawn process",
-      "launch process",
-      "start process",
-      "run process",
-      "execute process",
-      "process launch",
-      "process start",
-      "run external",
-      "external process",
-      "process exec"
+      "proses spawn",
+      "proses peluncuran",
+      "memulai proses",
+      "menjalankan proses",
+      "jalankan proses",
+      "peluncuran proses",
+      "proses dimulai",
+      "jalankan eksternal",
+      "proses eksternal",
+      "proses exec"
     ],
     "err.command_empty": "[spawn_process error] command is empty",
-    "err.windows_start_missing_target": "[spawn_process error] Windows 'start' command has no URL or executable path.\\\nExample: start \\\"\\\" https://www.google.com"
+    "err.windows_start_missing_target": "[spawn_process error] Windows 'start' command has no URL or executable path.\\\nExample: start \\\"\\\" https://www.google.com",
+    "tool.description": "Mulai proses GUI atau browser eksternal secara asinkron. Hindari kemunculan berulang kali untuk permintaan yang sama."
   },
   "vi": {
     "param.command.description": "Dòng lệnh để thực thi.",
     "x_search_terms": [
-      "spawn process",
-      "launch process",
-      "start process",
-      "run process",
-      "execute process",
-      "process launch",
-      "process start",
-      "run external",
-      "external process",
-      "process exec"
+      "quá trình sinh sản",
+      "quá trình ra mắt",
+      "bắt đầu quá trình",
+      "quá trình chạy",
+      "quá trình thực hiện",
+      "quá trình khởi động",
+      "quá trình bắt đầu",
+      "chạy bên ngoài",
+      "quá trình bên ngoài",
+      "quá trình thực thi"
     ],
     "err.command_empty": "[spawn_process error] command is empty",
-    "err.windows_start_missing_target": "[spawn_process error] Windows 'start' command has no URL or executable path.\\\nExample: start \\\"\\\" https://www.google.com"
+    "err.windows_start_missing_target": "[spawn_process error] Windows 'start' command has no URL or executable path.\\\nExample: start \\\"\\\" https://www.google.com",
+    "tool.description": "Khởi động không đồng bộ một quy trình trình duyệt hoặc GUI bên ngoài. Tránh sinh sản lặp đi lặp lại cho cùng một yêu cầu."
   },
   "pl": {
     "param.command.description": "Wiersz poleceń do wykonania.",
@@ -220,7 +197,8 @@
       "process exec"
     ],
     "err.command_empty": "[spawn_process error] command is empty",
-    "err.windows_start_missing_target": "[spawn_process error] Windows 'start' command has no URL or executable path.\\\nExample: start \\\"\\\" https://www.google.com"
+    "err.windows_start_missing_target": "[spawn_process error] Windows 'start' command has no URL or executable path.\\\nExample: start \\\"\\\" https://www.google.com",
+    "tool.description": "Asynchronicznie uruchamiaj zewnętrzny interfejs GUI lub proces przeglądarki. Unikaj powtarzających się spawnów dla tego samego żądania."
   },
   "hi": {
     "param.command.description": "कमांड लाइन निष्पादित करें।",
@@ -237,7 +215,8 @@
       "process exec"
     ],
     "err.command_empty": "[spawn_process error] command is empty",
-    "err.windows_start_missing_target": "[spawn_process error] Windows 'start' command has no URL or executable path.\\\nExample: start \\\"\\\" https://www.google.com"
+    "err.windows_start_missing_target": "[spawn_process error] Windows 'start' command has no URL or executable path.\\\nExample: start \\\"\\\" https://www.google.com",
+    "tool.description": "बाहरी GUI या ब्राउज़र प्रक्रिया को एसिंक्रोनस रूप से प्रारंभ करें। एक ही अनुप्रयोग के लिए बार-बार स्पॉन से बचें।"
   },
   "ar": {
     "param.command.description": "سطر الأوامر للتنفيذ.",
@@ -254,7 +233,8 @@
       "process exec"
     ],
     "err.command_empty": "[spawn_process error] command is empty",
-    "err.windows_start_missing_target": "[spawn_process error] Windows 'start' command has no URL or executable path.\\\nExample: start \\\"\\\" https://www.google.com"
+    "err.windows_start_missing_target": "[spawn_process error] Windows 'start' command has no URL or executable path.\\\nExample: start \\\"\\\" https://www.google.com",
+    "tool.description": "بدء عملية واجهة المستخدم الرسومية أو المتصفح بشكل غير متزامن. تجنب الظهور المتكرر لنفس الطلب."
   },
   "sv": {
     "param.command.description": "Kommandorad som ska köras.",
@@ -271,7 +251,8 @@
       "process exec"
     ],
     "err.command_empty": "[spawn_process error] command is empty",
-    "err.windows_start_missing_target": "[spawn_process error] Windows 'start' command has no URL or executable path.\\\nExample: start \\\"\\\" https://www.google.com"
+    "err.windows_start_missing_target": "[spawn_process error] Windows 'start' command has no URL or executable path.\\\nExample: start \\\"\\\" https://www.google.com",
+    "tool.description": "Starta en extern GUI- eller webbläsarprocess asynkront. Undvik upprepade spawns för samma begäran."
   },
   "sw": {
     "param.command.description": "Amri ya kutekeleza.",
@@ -288,7 +269,8 @@
       "process exec"
     ],
     "err.command_empty": "[spawn_process error] command is empty",
-    "err.windows_start_missing_target": "[spawn_process error] Windows 'start' command has no URL or executable path.\\\nExample: start \\\"\\\" https://www.google.com"
+    "err.windows_start_missing_target": "[spawn_process error] Windows 'start' command has no URL or executable path.\\\nExample: start \\\"\\\" https://www.google.com",
+    "tool.description": "Anzisha mchakato wa GUI wa nje au kivinjari kwa usawa. Epuka kuzaa mara kwa mara kwa ombi sawa."
   },
   "nb": {
     "param.command.description": "Kommandolinje som skal utføres.",
@@ -305,7 +287,8 @@
       "process exec"
     ],
     "err.command_empty": "[spawn_process error] command is empty",
-    "err.windows_start_missing_target": "[spawn_process error] Windows 'start' command has no URL or executable path.\\\nExample: start \\\"\\\" https://www.google.com"
+    "err.windows_start_missing_target": "[spawn_process error] Windows 'start' command has no URL or executable path.\\\nExample: start \\\"\\\" https://www.google.com",
+    "tool.description": "Start en ekstern GUI- eller nettleserprosess asynkront. Unngå gjentatte spawns for samme forespørsel."
   },
   "nl": {
     "param.command.description": "Uit te voeren opdrachtregel.",
@@ -322,7 +305,8 @@
       "process exec"
     ],
     "err.command_empty": "[spawn_process error] command is empty",
-    "err.windows_start_missing_target": "[spawn_process error] Windows 'start' command has no URL or executable path.\\\nExample: start \\\"\\\" https://www.google.com"
+    "err.windows_start_missing_target": "[spawn_process error] Windows 'start' command has no URL or executable path.\\\nExample: start \\\"\\\" https://www.google.com",
+    "tool.description": "Start asynchroon een extern GUI- of browserproces. Vermijd herhaalde spawns voor hetzelfde verzoek."
   },
   "fi": {
     "param.command.description": "Suoritettava komentorivi.",
@@ -339,7 +323,8 @@
       "process exec"
     ],
     "err.command_empty": "[spawn_process error] command is empty",
-    "err.windows_start_missing_target": "[spawn_process error] Windows 'start' command has no URL or executable path.\\\nExample: start \\\"\\\" https://www.google.com"
+    "err.windows_start_missing_target": "[spawn_process error] Windows 'start' command has no URL or executable path.\\\nExample: start \\\"\\\" https://www.google.com",
+    "tool.description": "Käynnistä asynkronisesti ulkoinen käyttöliittymä tai selainprosessi. Vältä toistuvia kutuja samaan pyyntöön."
   },
   "cs": {
     "param.command.description": "Příkazový řádek ke spuštění.",
@@ -356,7 +341,8 @@
       "process exec"
     ],
     "err.command_empty": "[spawn_process error] command is empty",
-    "err.windows_start_missing_target": "[spawn_process error] Windows 'start' command has no URL or executable path.\\\nExample: start \\\"\\\" https://www.google.com"
+    "err.windows_start_missing_target": "[spawn_process error] Windows 'start' command has no URL or executable path.\\\nExample: start \\\"\\\" https://www.google.com",
+    "tool.description": "Asynchronně spusťte proces externího grafického rozhraní nebo prohlížeče. Vyhněte se opakovaným spawnům pro stejný požadavek."
   },
   "uk": {
     "param.command.description": "Командний рядок для виконання.",
@@ -373,7 +359,8 @@
       "process exec"
     ],
     "err.command_empty": "[spawn_process error] command is empty",
-    "err.windows_start_missing_target": "[spawn_process error] Windows 'start' command has no URL or executable path.\\\nExample: start \\\"\\\" https://www.google.com"
+    "err.windows_start_missing_target": "[spawn_process error] Windows 'start' command has no URL or executable path.\\\nExample: start \\\"\\\" https://www.google.com",
+    "tool.description": "Асинхронно запустіть зовнішній графічний інтерфейс або процес браузера. Уникайте повторних спавнів для того самого запиту."
   },
   "tr": {
     "param.command.description": "Yürütülecek komut satırı.",
@@ -390,7 +377,8 @@
       "process exec"
     ],
     "err.command_empty": "[spawn_process error] command is empty",
-    "err.windows_start_missing_target": "[spawn_process error] Windows 'start' command has no URL or executable path.\\\nExample: start \\\"\\\" https://www.google.com"
+    "err.windows_start_missing_target": "[spawn_process error] Windows 'start' command has no URL or executable path.\\\nExample: start \\\"\\\" https://www.google.com",
+    "tool.description": "Harici bir GUI veya tarayıcı işlemini eşzamansız olarak başlatın. Aynı istek için tekrar tekrar ortaya çıkmaktan kaçının."
   },
   "th": {
     "param.command.description": "บรรทัดคำสั่งที่จะดำเนินการ",
@@ -407,7 +395,8 @@
       "process exec"
     ],
     "err.command_empty": "[spawn_process error] command is empty",
-    "err.windows_start_missing_target": "[spawn_process error] Windows 'start' command has no URL or executable path.\\\nExample: start \\\"\\\" https://www.google.com"
+    "err.windows_start_missing_target": "[spawn_process error] Windows 'start' command has no URL or executable path.\\\nExample: start \\\"\\\" https://www.google.com",
+    "tool.description": "เริ่ม GUI ภายนอกหรือกระบวนการเบราว์เซอร์แบบอะซิงโครนัส หลีกเลี่ยงการวางไข่ซ้ำสำหรับคำขอเดียวกัน"
   },
   "zh_CN": {
     "param.command.description": "要执行的命令行。",
@@ -424,7 +413,8 @@
       "process exec"
     ],
     "err.command_empty": "[spawn_process error] command is empty",
-    "err.windows_start_missing_target": "[spawn_process error] Windows 'start' command has no URL or executable path.\\\nExample: start \\\"\\\" https://www.google.com"
+    "err.windows_start_missing_target": "[spawn_process error] Windows 'start' command has no URL or executable path.\\\nExample: start \\\"\\\" https://www.google.com",
+    "tool.description": "异步启动外部 GUI 或浏览器进程。避免同一请求重复生成。"
   },
   "zh_TW": {
     "param.command.description": "要執行的命令列。",
@@ -441,7 +431,8 @@
       "process exec"
     ],
     "err.command_empty": "[spawn_process error] command is empty",
-    "err.windows_start_missing_target": "[spawn_process error] Windows 'start' command has no URL or executable path.\\\nExample: start \\\"\\\" https://www.google.com"
+    "err.windows_start_missing_target": "[spawn_process error] Windows 'start' command has no URL or executable path.\\\nExample: start \\\"\\\" https://www.google.com",
+    "tool.description": "非同步啟動外部 GUI 或瀏覽器程序。避免同一請求重複產生。"
   },
   "bn": {
     "param.command.description": "চালানোর জন্য কমান্ড লাইন।",
@@ -458,7 +449,8 @@
       "process exec"
     ],
     "err.command_empty": "[spawn_process error] command is empty",
-    "err.windows_start_missing_target": "[spawn_process error] Windows 'start' command has no URL or executable path.\\\nExample: start \\\"\\\" https://www.google.com"
+    "err.windows_start_missing_target": "[spawn_process error] Windows 'start' command has no URL or executable path.\\\nExample: start \\\"\\\" https://www.google.com",
+    "tool.description": "অসিঙ্ক্রোনাসভাবে একটি বাহ্যিক GUI বা ব্রাউজার প্রক্রিয়া শুরু করুন। একই অনুরোধের জন্য বারবার স্পন এড়িয়ে চলুন।"
   },
   "fa": {
     "param.command.description": "خط فرمانی برای اجرا.",
@@ -475,7 +467,8 @@
       "process exec"
     ],
     "err.command_empty": "[spawn_process error] command is empty",
-    "err.windows_start_missing_target": "[spawn_process error] Windows 'start' command has no URL or executable path.\\\nExample: start \\\"\\\" https://www.google.com"
+    "err.windows_start_missing_target": "[spawn_process error] Windows 'start' command has no URL or executable path.\\\nExample: start \\\"\\\" https://www.google.com",
+    "tool.description": "به طور ناهمزمان یک مرورگر GUI خارجی را شروع کنید. از تخم ریزی های مکرر برای همان درخواست خودداری کنید."
   },
   "mn": {
     "param.command.description": "Ажиллуулах командын мөр.",
@@ -492,7 +485,8 @@
       "process exec"
     ],
     "err.command_empty": "[spawn_process error] command is empty",
-    "err.windows_start_missing_target": "[spawn_process error] Windows 'start' command has no URL or executable path.\\\nExample: start \\\"\\\" https://www.google.com"
+    "err.windows_start_missing_target": "[spawn_process error] Windows 'start' command has no URL or executable path.\\\nExample: start \\\"\\\" https://www.google.com",
+    "tool.description": "Гадны GUI эсвэл хөтчийг асинхроноор эхлүүлнэ үү. Ижил хүсэлтийн төлөө давтагдахаас зайлсхий."
   },
   "mr": {
     "param.command.description": "चालवायची कमांड लाइन.",
@@ -509,7 +503,8 @@
       "process exec"
     ],
     "err.command_empty": "[spawn_process error] command is empty",
-    "err.windows_start_missing_target": "[spawn_process error] Windows 'start' command has no URL or executable path.\\\nExample: start \\\"\\\" https://www.google.com"
+    "err.windows_start_missing_target": "[spawn_process error] Windows 'start' command has no URL or executable path.\\\nExample: start \\\"\\\" https://www.google.com",
+    "tool.description": "असमकालिकपणे बाह्य GUI किंवा ब्राउझर प्रक्रिया सुरू करा. त्याच विनंतीसाठी वारंवार स्पॉन्स टाळा."
   },
   "el": {
     "param.command.description": "Γραμμή εντολών προς εκτέλεση.",
@@ -526,7 +521,8 @@
       "process exec"
     ],
     "err.command_empty": "[spawn_process error] Η εντολή [spawn_process error] είναι κενή",
-    "err.windows_start_missing_target": "[spawn_process error] Η εντολή 'start' των Windows δεν έχει URL ή εκτελέσιμη διαδρομή\\.\nΠαράδειγμα: έναρξη \\\"\\\" https://www.google.com"
+    "err.windows_start_missing_target": "[spawn_process error] Η εντολή 'start' των Windows δεν έχει URL ή εκτελέσιμη διαδρομή\\.\nΠαράδειγμα: έναρξη \\\"\\\" https://www.google.com",
+    "tool.description": "Ασύγχρονη έναρξη επεξεργασίας ενός εξωτερικού GUI ή προγράμματος περιήγησης. Αποφύγετε επαναλαμβανόμενες ωοτοκίες για το ίδιο αίτημα."
   },
   "he": {
     "param.command.description": "התחל באופן אסינכרוני תהליך GUI או דפדפן חיצוני. הימנע שרצים חוזרים ונשנים עבור אותה בקשה.",
@@ -543,7 +539,8 @@
       "process exec"
     ],
     "err.command_empty": "[שגיאת spawn_process] לפקודת 'התחל' של Windows אין כתובת URL או נתיב הפעלה.\\\nדוגמה: התחל \\\"\\\" https://www.google.com",
-    "err.windows_start_missing_target": "השם של סוכן המשנה המיוחד שיש להפעיל."
+    "err.windows_start_missing_target": "השם של סוכן המשנה המיוחד שיש להפעיל.",
+    "tool.description": "התחל באופן אסינכרוני תהליך GUI או דפדפן חיצוני. הימנע מהשרצות חוזרות ונשנות עבור אותה בקשה."
   },
   "hu": {
     "param.command.description": "Külső grafikus felhasználói felület vagy böngészőfolyamat aszinkron indítása. Kerülje el az ismételt spawn-okat ugyanarra a kérésre.",
@@ -560,7 +557,8 @@
       "process exec"
     ],
     "err.command_empty": "[spawn_process error] A Windows 'start' parancsnak nincs URL-je vagy végrehajtható elérési útja\nPélda: start \\\"\\\" https://www.google.com",
-    "err.windows_start_missing_target": "A futtatandó speciális alügynök neve."
+    "err.windows_start_missing_target": "A futtatandó speciális alügynök neve.",
+    "tool.description": "Külső grafikus felhasználói felület vagy böngészőfolyamat aszinkron indítása. Kerülje el az ismételt spawn-okat ugyanarra a kérésre."
   },
   "ro": {
     "param.command.description": "Linie de comandă de executat.",
@@ -577,6 +575,7 @@
       "process exec"
     ],
     "err.command_empty": "[spawn_process error] comanda este goală",
-    "err.windows_start_missing_target": "[spawn_process error] Comanda „start” Windows nu are nici o adresă URL sau o cale executabilă.\nExemplu: start \\\"\\\" https://www.google.com"
+    "err.windows_start_missing_target": "[spawn_process error] Comanda „start” Windows nu are nici o adresă URL sau o cale executabilă.\nExemplu: start \\\"\\\" https://www.google.com",
+    "tool.description": "Porniți asincron o interfață grafică sau un proces extern. Evitați spawn-urile repetate pentru aceeași solicitare."
   }
 }

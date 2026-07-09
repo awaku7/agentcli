@@ -17,106 +17,68 @@
   "ja": {
     "tool.description": "ユーザー間で共有される生の長期メモリ (共有メモリ) データを取得します。- 通常、テキストを JSONL 形式で返します (1 行に 1 レコード)。",
     "x_search_terms": [
-      "get shared",
-      "shared memory get",
-      "read shared",
-      "retrieve shared",
-      "shared recall",
-      "team memory get",
-      "shared info get",
-      "collaborative get",
-      "group memory get",
-      "shared retrieve"
+      "共有される |共有を読む |共有メモリの取得 |共有を取得 |負荷の共有 |共有 get"
     ]
   },
   "es": {
     "tool.description": "Recupera datos sin procesar de la memoria a largo plazo (memoria compartida) compartidos entre usuarios.",
     "x_search_terms": [
-      "get shared",
-      "shared memory get",
-      "read shared",
-      "retrieve shared",
-      "shared recall",
-      "team memory get",
-      "shared info get",
-      "collaborative get",
-      "group memory get",
-      "shared retrieve"
+      "compartir",
+      "leer compartido",
+      "obtener memoria compartida",
+      "recuperar compartido",
+      "carga compartida",
+      "get compartido"
     ]
   },
   "fr": {
     "tool.description": "Récupère les données brutes de mémoire à long terme (mémoire partagée) partagées entre les utilisateurs.",
     "x_search_terms": [
-      "get shared",
-      "shared memory get",
-      "read shared",
-      "retrieve shared",
-      "shared recall",
-      "team memory get",
-      "shared info get",
-      "collaborative get",
-      "group memory get",
-      "shared retrieve"
+      "être partagé",
+      "lire partagé",
+      "mémoire partagée obtenir",
+      "récupérer partagé",
+      "charge partagée",
+      "partagé get"
     ]
   },
   "ko": {
     "tool.description": "공유 메모리의 원시 데이터 조회. 보통 JSONL 형식(줄당 1레코드)으로 반환.",
     "x_search_terms": [
-      "get shared",
-      "shared memory get",
-      "read shared",
-      "retrieve shared",
-      "shared recall",
-      "team memory get",
-      "shared info get",
-      "collaborative get",
-      "group memory get",
-      "shared retrieve"
+      "공유 받기",
+      "공유 읽기",
+      "공유 메모리 가져오기",
+      "공유 검색",
+      "메모리 로드",
+      "공유 받기"
     ]
   },
   "de": {
     "tool.description": "Ruft Rohdaten des gemeinsam genutzten Langzeitspeichers ab, die von Benutzern gemeinsam verwendet werden.",
     "x_search_terms": [
-      "get shared",
-      "shared memory get",
-      "read shared",
-      "retrieve shared",
-      "shared recall",
-      "team memory get",
-      "shared info get",
-      "collaborative get",
-      "group memory get",
-      "shared retrieve"
+      "freigegeben werden",
+      "gelesen geteilt",
+      "Shared Memory get",
+      "freigegebene",
+      "abrufen Last geteilt",
+      "shared get"
     ]
   },
   "it": {
     "tool.description": "Recupera i dati grezzi della memoria a lungo termine (memoria condivisa) condivisi tra gli utenti.",
     "x_search_terms": [
-      "get shared",
-      "shared memory get",
-      "read shared",
-      "retrieve shared",
-      "shared recall",
-      "team memory get",
-      "shared info get",
-      "collaborative get",
-      "group memory get",
-      "shared retrieve"
+      "ottieni condivisione",
+      "leggi condiviso",
+      "la memoria condivisa ottiene",
+      "recuperare condiviso",
+      "carico condiviso",
+      "condiviso get"
     ]
   },
   "ru": {
     "tool.description": "Извлекает необработанные данные долговременной памяти (общей памяти), совместно используемые пользователями.",
     "x_search_terms": [
-      "get shared",
-      "shared memory get",
-      "read shared",
-      "retrieve shared",
-      "shared recall",
-      "team memory get",
-      "shared info get",
-      "collaborative get",
-      "group memory get",
-      "shared retrieve"
+      "получить общий доступ, читать общий, общая память получить, получить общий, нагрузка разделена, общий доступ get"
     ]
   },
   "pt_BR": {
@@ -137,46 +99,46 @@
   "pt": {
     "tool.description": "Recupera dados brutos de memória de longo prazo (memória compartilhada) compartilhados entre usuários.",
     "x_search_terms": [
-      "get shared",
-      "shared memory get",
-      "read shared",
-      "retrieve shared",
-      "shared recall",
-      "team memory get",
-      "shared info get",
-      "collaborative get",
-      "group memory get",
-      "shared retrieve"
+      "compartilhar",
+      "memória compartilhada obter",
+      "leia compartilhado",
+      "recuperar compartilhado",
+      "lembrança compartilhada",
+      "memória da equipe obter",
+      "informações compartilhadas obter",
+      "obter colaborativo",
+      "memória de grupo obter",
+      "recuperação compartilhada"
     ]
   },
   "id": {
     "tool.description": "Mengambil data memori jangka panjang mentah (shared memory) yang dibagikan lintas pengguna.",
     "x_search_terms": [
-      "get shared",
-      "shared memory get",
-      "read shared",
-      "retrieve shared",
-      "shared recall",
-      "team memory get",
-      "shared info get",
-      "collaborative get",
-      "group memory get",
-      "shared retrieve"
+      "dibagikan",
+      "memori bersama dapatkan",
+      "baca bersama",
+      "ambil bersama",
+      "ingatan bersama",
+      "memori tim dapatkan",
+      "info bersama dapatkan",
+      "dapatkan kolaboratif",
+      "memori grup dapatkan",
+      "pengambilan bersama"
     ]
   },
   "vi": {
     "tool.description": "Truy xuất dữ liệu bộ nhớ dài hạn (bộ nhớ dùng chung) thô được chia sẻ giữa những người dùng.",
     "x_search_terms": [
-      "get shared",
-      "shared memory get",
-      "read shared",
-      "retrieve shared",
-      "shared recall",
-      "team memory get",
-      "shared info get",
-      "collaborative get",
-      "group memory get",
-      "shared retrieve"
+      "được chia sẻ",
+      "bộ nhớ chia sẻ nhận",
+      "đọc chia sẻ",
+      "lấy chia sẻ",
+      "nhớ lại được chia sẻ",
+      "bộ nhớ đội nhận được",
+      "thông tin chia sẻ nhận",
+      "hợp tác nhận",
+      "bộ nhớ nhóm nhận được",
+      "truy xuất được chia sẻ"
     ]
   },
   "pl": {

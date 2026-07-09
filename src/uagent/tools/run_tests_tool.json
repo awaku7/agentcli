@@ -42,16 +42,8 @@
     "param.target.description": "対象（pytest のパス、unittest の開始ディレクトリ、npm script など）。null の場合は既定値を使います。",
     "tool.description": "テストを実行します（pytest/unittest/npm を自動判定）。extra_args にシェルのメタ文字が含まれる場合は拒否します。",
     "x_search_terms": [
-      "run tests",
-      "test",
-      "pytest",
-      "unittest",
-      "test runner",
-      "execute tests",
-      "test execution",
-      "run unittest",
-      "test suite",
-      "testing"
+      "テストを実行",
+      "pytest |単体テスト |テストを実行する |テストランナー |テストを実行する |テスト実行"
     ],
     "param.xargs.description": "追加引数の配列。シェルのメタ文字が含まれる場合は拒否します。"
   },
@@ -70,16 +62,13 @@
     "param.target.description": "Destino (ruta de pytest, directorio inicial de unittest, script npm, etc.).",
     "tool.description": "Ejecuta pruebas (detección automática de pytest/unittest/npm).",
     "x_search_terms": [
-      "run tests",
-      "test",
+      "ejecutar pruebas",
       "pytest",
-      "unittest",
-      "test runner",
-      "execute tests",
-      "test execution",
-      "run unittest",
-      "test suite",
-      "testing"
+      "prueba unitaria",
+      "ejecutar prueba",
+      "corredor de prueba",
+      "ejecutar pruebas",
+      "ejecución de prueba"
     ],
     "param.xargs.description": "Matriz de argumentos adicionales. Rechazar si hay metacaracteres del shell."
   },
@@ -98,16 +87,13 @@
     "param.target.description": "Cible (chemin pytest, répertoire de départ unittest, script npm, etc.).",
     "tool.description": "Exécute les tests (détection automatique de pytest/unittest/npm).",
     "x_search_terms": [
-      "run tests",
-      "test",
+      "exécuter des tests",
       "pytest",
-      "unittest",
-      "test runner",
-      "execute tests",
-      "test execution",
-      "run unittest",
-      "test suite",
-      "testing"
+      "test unitaire",
+      "exécuter un test",
+      "coureur de test",
+      "exécuter des tests",
+      "exécution des tests"
     ],
     "param.xargs.description": "Tableau d'arguments supplémentaires."
   },
@@ -126,16 +112,13 @@
     "param.target.description": "대상(pytest 경로, unittest 시작 디렉터리, npm 스크립트 등). null이면 기본값을 사용합니다.",
     "tool.description": "테스트를 실행합니다(pytest/unittest/npm 자동 감지). extra_args의 셸 메타문자를 거부합니다.",
     "x_search_terms": [
-      "run tests",
-      "test",
+      "테스트 실행",
       "pytest",
-      "unittest",
-      "test runner",
-      "execute tests",
-      "test execution",
-      "run unittest",
-      "test suite",
-      "testing"
+      "단위 테스트",
+      "테스트 실행",
+      "테스트 러너",
+      "테스트 실행",
+      "테스트 실행"
     ],
     "param.xargs.description": "추가 인수 배열. 셸 메타문자가 있으면 거부합니다."
   },
@@ -154,16 +137,13 @@
     "param.target.description": "Ziel (pytest-Pfad, unittest-Startverzeichnis, npm-Skript usw.).",
     "tool.description": "Tests ausführen (pytest/unittest/npm automatisch erkennen).",
     "x_search_terms": [
-      "run tests",
-      "test",
+      "Tests ausführen",
       "pytest",
-      "unittest",
-      "test runner",
-      "execute tests",
-      "test execution",
-      "run unittest",
-      "test suite",
-      "testing"
+      "Unittest",
+      "Test ausführen",
+      "Testläufer",
+      "Tests durchführen",
+      "Testausführung"
     ],
     "param.xargs.description": "Zusätzliches Argumentarray. Ablehnen, wenn Shell-Metazeichen vorhanden sind."
   },
@@ -182,16 +162,13 @@
     "param.target.description": "Destinazione (percorso pytest, directory iniziale di unittest, script npm, ecc.).",
     "tool.description": "Esegue i test (rilevamento automatico di pytest/unittest/npm).",
     "x_search_terms": [
-      "run tests",
-      "test",
+      "esegui test",
       "pytest",
       "unittest",
-      "test runner",
-      "execute tests",
-      "test execution",
-      "run unittest",
-      "test suite",
-      "testing"
+      "esegui prova",
+      "corridore di prova",
+      "eseguire test",
+      "esecuzione del test"
     ],
     "param.xargs.description": "Array di argomenti aggiuntivi. Rifiuta se sono presenti metacaratteri della shell."
   },
@@ -210,16 +187,7 @@
     "param.target.description": "Цель (путь pytest, каталог запуска unittest, npm-скрипт и т.д.).",
     "tool.description": "Запускает тесты (автоопределение pytest/unittest/npm).",
     "x_search_terms": [
-      "run tests",
-      "test",
-      "pytest",
-      "unittest",
-      "test runner",
-      "execute tests",
-      "test execution",
-      "run unittest",
-      "test suite",
-      "testing"
+      "запустить тесты, pytest, юниттест, запустить тест, тест-бегун, выполнять тесты, выполнение теста"
     ],
     "param.xargs.description": "Массив дополнительных аргументов. Отклонять, если присутствуют метасимволы shell."
   },
@@ -266,16 +234,16 @@
     "param.target.description": "Destino (caminho pytest, diretório inicial unittest, script npm, etc.).",
     "tool.description": "Execute testes (detecção automática de pytest/unittest/npm).",
     "x_search_terms": [
-      "run tests",
-      "test",
+      "executar testes",
+      "teste",
       "pytest",
-      "unittest",
-      "test runner",
-      "execute tests",
-      "test execution",
-      "run unittest",
-      "test suite",
-      "testing"
+      "teste unitário",
+      "corredor de teste",
+      "executar testes",
+      "execução de testes",
+      "execute o teste unitário",
+      "conjunto de testes",
+      "testando"
     ],
     "param.xargs.description": "Matriz de argumentos adicionais."
   },
@@ -294,16 +262,16 @@
     "param.target.description": "Target (path pytest, direktori awal unittest, script npm, dll.). Jika null, gunakan default.",
     "tool.description": "Jalankan tes (auto-detect pytest/unittest/npm). Tolak metakarakter shell di extra_args.",
     "x_search_terms": [
-      "run tests",
-      "test",
-      "pytest",
-      "unittest",
-      "test runner",
-      "execute tests",
-      "test execution",
-      "run unittest",
-      "test suite",
-      "testing"
+      "jalankan pengujian",
+      "tes",
+      "uji coba",
+      "paling unit",
+      "pelari tes",
+      "jalankan tes",
+      "pelaksanaan tes",
+      "jalankan unittest",
+      "rangkaian pengujian",
+      "pengujian"
     ],
     "param.xargs.description": "Array argumen tambahan. Tolak jika ada metakarakter shell."
   },
@@ -322,16 +290,16 @@
     "param.target.description": "Mục tiêu (đường dẫn pytest, thư mục bắt đầu nhỏ nhất, tập lệnh npm, v.v.).",
     "tool.description": "Chạy thử nghiệm (tự động phát hiện pytest/unittest/npm).",
     "x_search_terms": [
-      "run tests",
-      "test",
+      "chạy thử nghiệm",
+      "kiểm tra",
       "pytest",
-      "unittest",
-      "test runner",
-      "execute tests",
-      "test execution",
-      "run unittest",
-      "test suite",
-      "testing"
+      "đơn vị nhất",
+      "người chạy thử",
+      "thực hiện kiểm tra",
+      "thực hiện kiểm tra",
+      "chạy nhỏ nhất",
+      "bộ thử nghiệm",
+      "kiểm tra"
     ],
     "param.xargs.description": "Mảng đối số bổ sung. Từ chối nếu có siêu ký tự shell."
   },

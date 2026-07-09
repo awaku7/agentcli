@@ -25,16 +25,7 @@
     "param.src.description": "元のパス（ファイル/ディレクトリ）。相対パス推奨。",
     "tool.description": "ファイルまたはディレクトリの名前を変更（移動）します。",
     "x_search_terms": [
-      "rename",
-      "move file",
-      "rename file",
-      "rename folder",
-      "file rename",
-      "move path",
-      "rename directory",
-      "file move",
-      "path rename",
-      "mv"
+      "名前の変更 |移動 |パスの名前を変更 |ファイル名の変更 |ファイルの名前を変更 |ファイルを移動 |再配置"
     ]
   },
   "es": {
@@ -44,16 +35,13 @@
     "param.src.description": "Ruta original (archivo/directorio). Se recomienda una ruta relativa.",
     "tool.description": "Cambiar el nombre (mover) un archivo o directorio.",
     "x_search_terms": [
-      "rename",
-      "move file",
-      "rename file",
-      "rename folder",
-      "file rename",
-      "move path",
-      "rename directory",
-      "file move",
-      "path rename",
-      "mv"
+      "renombrar",
+      "moverse",
+      "cambiar el nombre de la ruta",
+      "cambiar el nombre del archivo",
+      "cambiar el nombre del archivo",
+      "mover archivo",
+      "reubicar"
     ]
   },
   "fr": {
@@ -64,15 +52,12 @@
     "tool.description": "Renommer (déplacer) un fichier ou un répertoire.",
     "x_search_terms": [
       "rename",
-      "move file",
-      "rename file",
-      "rename folder",
-      "file rename",
-      "move path",
-      "rename directory",
-      "file move",
-      "path rename",
-      "mv"
+      "déménager",
+      "renommer le chemin",
+      "renommer le fichier",
+      "renommer le fichier",
+      "déplacer le fichier",
+      "relocaliser"
     ]
   },
   "ko": {
@@ -82,16 +67,13 @@
     "param.src.description": "원본 경로(파일/디렉터리). 상대 경로를 권장합니다.",
     "tool.description": "파일 또는 디렉터리의 이름을 변경(이동)합니다.",
     "x_search_terms": [
-      "rename",
-      "move file",
-      "rename file",
-      "rename folder",
-      "file rename",
-      "move path",
-      "rename directory",
-      "file move",
-      "path rename",
-      "mv"
+      "이름 변경",
+      "이동",
+      "경로 이름 변경",
+      "파일 이름 변경",
+      "파일 이름 변경",
+      "파일 이동",
+      "재배치"
     ]
   },
   "de": {
@@ -102,15 +84,12 @@
     "tool.description": "Eine Datei oder ein Verzeichnis umbenennen (verschieben).",
     "x_search_terms": [
       "rename",
-      "move file",
-      "rename file",
-      "rename folder",
-      "file rename",
-      "move path",
-      "rename directory",
-      "file move",
-      "path rename",
-      "mv"
+      "bewegen",
+      "Pfad umbenennen",
+      "Datei umbenennen",
+      "Datei umbenennen",
+      "Datei verschieben",
+      "relocate"
     ]
   },
   "it": {
@@ -120,16 +99,13 @@
     "param.src.description": "Percorso originale (file/directory). Percorso relativo consigliato.",
     "tool.description": "Rinomina (sposta) un file o una directory.",
     "x_search_terms": [
-      "rename",
-      "move file",
-      "rename file",
-      "rename folder",
-      "file rename",
-      "move path",
-      "rename directory",
-      "file move",
-      "path rename",
-      "mv"
+      "rinomina",
+      "spostare",
+      "rinominare percorso",
+      "rinominare il file",
+      "rinominare il file",
+      "sposta file",
+      "riposiziona"
     ]
   },
   "ru": {
@@ -139,16 +115,7 @@
     "param.src.description": "Исходный путь (файл/каталог). Рекомендуется относительный путь.",
     "tool.description": "Переименуйте (переместите) файл или каталог.",
     "x_search_terms": [
-      "rename",
-      "move file",
-      "rename file",
-      "rename folder",
-      "file rename",
-      "move path",
-      "rename directory",
-      "file move",
-      "path rename",
-      "mv"
+      "переименовать, переехать, переименовать путь, переименование файла, переименовать файл, переместить файл, переместить"
     ]
   },
   "pt_BR": {
@@ -177,15 +144,15 @@
     "param.src.description": "Caminho original (arquivo/diretório). Caminho relativo recomendado.",
     "tool.description": "Renomear (mover) um arquivo ou diretório.",
     "x_search_terms": [
-      "rename",
-      "move file",
-      "rename file",
-      "rename folder",
-      "file rename",
-      "move path",
-      "rename directory",
-      "file move",
-      "path rename",
+      "renomear",
+      "mover arquivo",
+      "renomear arquivo",
+      "renomear pasta",
+      "renomear arquivo",
+      "mover caminho",
+      "renomear diretório",
+      "movimentação de arquivo",
+      "renomear caminho",
       "mv"
     ]
   },
@@ -196,15 +163,15 @@
     "param.src.description": "Path asal (file/direktori). Disarankan path relatif.",
     "tool.description": "Ganti nama (pindahkan) file atau direktori.",
     "x_search_terms": [
-      "rename",
-      "move file",
-      "rename file",
-      "rename folder",
-      "file rename",
-      "move path",
-      "rename directory",
-      "file move",
-      "path rename",
+      "ganti nama",
+      "pindahkan berkas",
+      "ganti nama berkas",
+      "ganti nama folder",
+      "ganti nama file",
+      "pindah jalur",
+      "ganti nama direktori",
+      "pemindahan file",
+      "ganti nama jalur",
       "mv"
     ]
   },
@@ -215,15 +182,15 @@
     "param.src.description": "Đường dẫn gốc (file/thư mục). Đường dẫn tương đối được đề xuất.",
     "tool.description": "Đổi tên (di chuyển) một tập tin hoặc thư mục. Đường dẫn",
     "x_search_terms": [
-      "rename",
-      "move file",
-      "rename file",
-      "rename folder",
-      "file rename",
-      "move path",
-      "rename directory",
-      "file move",
-      "path rename",
+      "đổi tên",
+      "di chuyển tập tin",
+      "đổi tên tập tin",
+      "đổi tên thư mục",
+      "đổi tên tập tin",
+      "đường di chuyển",
+      "đổi tên thư mục",
+      "di chuyển tập tin",
+      "đổi tên đường dẫn",
       "mv"
     ]
   },

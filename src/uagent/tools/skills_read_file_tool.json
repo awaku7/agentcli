@@ -30,16 +30,13 @@
     "param.skill_dir.description": "スキルディレクトリ",
     "tool.description": "Agent Skills のスキル配下ファイルを相対パスで安全に読み込みます（references/assets/scripts 等）。ディレクトリトラバーサルは拒否します。",
     "x_search_terms": [
-      "skill read",
-      "read skill file",
-      "skill file",
-      "skill content",
-      "skill source",
-      "view skill",
-      "open skill",
-      "skill script",
-      "skill code",
-      "read reference"
+      "スキルの読み取り",
+      "スキルを読む",
+      "スキル内容",
+      "スキルビュー",
+      "スキル詳細",
+      "オープンスキル",
+      "スキル ファイル"
     ],
     "param.maxb.description": "読み込み上限バイト数（既定: 5000000）"
   },
@@ -52,16 +49,13 @@
     "param.skill_dir.description": "directorio del skill",
     "tool.description": "Lee de forma segura un archivo dentro de un directorio de skill usando una ruta relativa.",
     "x_search_terms": [
-      "skill read",
-      "read skill file",
-      "skill file",
-      "skill content",
-      "skill source",
-      "view skill",
-      "open skill",
-      "skill script",
-      "skill code",
-      "read reference"
+      "habilidades leídas",
+      "leer habilidad",
+      "contenido de habilidades",
+      "vista de habilidades",
+      "detalles de habilidades",
+      "habilidad abierta",
+      "archivo de habilidades"
     ],
     "param.maxb.description": "Número máximo de bytes para leer (predeterminado: 5000000)"
   },
@@ -74,16 +68,13 @@
     "param.skill_dir.description": "répertoire du skill",
     "tool.description": "Lit en toute sécurité un fichier sous un répertoire de skill à l’aide d’un chemin relatif.",
     "x_search_terms": [
-      "skill read",
-      "read skill file",
-      "skill file",
-      "skill content",
-      "skill source",
-      "view skill",
-      "open skill",
-      "skill script",
-      "skill code",
-      "read reference"
+      "skills lire",
+      "lire la compétence",
+      "contenu des compétences",
+      "vue des compétences",
+      "détails des compétences",
+      "compétence ouverte",
+      "fichier de compétences"
     ],
     "param.maxb.description": "Nombre maximum d'octets à lire (par défaut : 5 000 000)"
   },
@@ -96,16 +87,13 @@
     "param.skill_dir.description": "스킬 디렉터리",
     "tool.description": "상대 경로를 사용해 스킬 디렉터리 아래의 파일을 안전하게 읽습니다. 경로 탐색은 차단됩니다.",
     "x_search_terms": [
-      "skill read",
-      "read skill file",
-      "skill file",
-      "skill content",
-      "skill source",
-      "view skill",
-      "open skill",
-      "skill script",
-      "skill code",
-      "read reference"
+      "읽은 기술",
+      "읽기 스킬",
+      "스킬 내용",
+      "스킬뷰",
+      "스킬 상세",
+      "오픈 스킬",
+      "스킬 파일"
     ],
     "param.maxb.description": "읽을 최대 바이트 수(기본값: 5000000)"
   },
@@ -118,16 +106,13 @@
     "param.skill_dir.description": "Skill-Verzeichnis",
     "tool.description": "Liest eine Datei unter einem Skill-Verzeichnis sicher über einen relativen Pfad.",
     "x_search_terms": [
-      "skill read",
-      "read skill file",
-      "skill file",
-      "skill content",
-      "skill source",
-      "view skill",
-      "open skill",
-      "skill script",
-      "skill code",
-      "read reference"
+      "Fhigkeiten lesen",
+      "Lesefhigkeit",
+      "Fertigkeitsinhalt",
+      "Fertigkeitsansicht",
+      "Fertigkeitsdetails",
+      "offene Fertigkeit",
+      "Skill-Datei"
     ],
     "param.maxb.description": "Maximale Anzahl der zu lesenden Bytes (Standard: 5000000)"
   },
@@ -140,16 +125,13 @@
     "param.skill_dir.description": "directory dello skill",
     "tool.description": "Legge in modo sicuro un file sotto una directory dello skill usando un percorso relativo.",
     "x_search_terms": [
-      "skill read",
-      "read skill file",
-      "skill file",
-      "skill content",
-      "skill source",
-      "view skill",
-      "open skill",
-      "skill script",
-      "skill code",
-      "read reference"
+      "competenze leggi",
+      "leggere abilit",
+      "contenuto di competenze",
+      "vista abilit",
+      "dettagli abilit",
+      "abilit aperta",
+      "file delle competenze"
     ],
     "param.maxb.description": "Numero massimo di byte da leggere (predefinito: 5000000)"
   },
@@ -162,16 +144,13 @@
     "param.skill_dir.description": "каталог навыка",
     "tool.description": "Безопасно читает файл в каталоге навыка по относительному пути. Обход пути блокируется.",
     "x_search_terms": [
-      "skill read",
-      "read skill file",
-      "skill file",
-      "skill content",
-      "skill source",
-      "view skill",
-      "open skill",
-      "skill script",
-      "skill code",
-      "read reference"
+      "навыки прочитать",
+      "умение читать",
+      "содержание навыков",
+      "просмотр навыков",
+      "подробности навыков",
+      "открытый навык",
+      "файл навыков"
     ],
     "param.maxb.description": "Максимальное число байт для чтения (по умолчанию: 5000000)"
   },
@@ -184,16 +163,13 @@
     "param.skill_dir.description": "diretório do skill",
     "tool.description": "Lê com segurança um arquivo dentro de um diretório de skill usando um caminho relativo.",
     "x_search_terms": [
-      "skill read",
-      "read skill file",
-      "skill file",
-      "skill content",
-      "skill source",
-      "view skill",
-      "open skill",
-      "skill script",
-      "skill code",
-      "read reference"
+      "habilidades lidas",
+      "habilidade de leitura",
+      "conteúdo de habilidade",
+      "visão de habilidade",
+      "detalhes de habilidade",
+      "habilidade aberta",
+      "arquivo de habilidades"
     ],
     "param.maxb.description": "Número máximo de bytes para ler (padrão: 5000000)"
   },
@@ -206,16 +182,13 @@
     "param.skill_dir.description": "স্কিল ডিরেক্টরি",
     "tool.description": "Lê com segurança um arquivo em um diretório de habilidade usando um caminho relativo.",
     "x_search_terms": [
-      "skill read",
-      "read skill file",
-      "skill file",
-      "skill content",
-      "skill source",
-      "view skill",
-      "open skill",
-      "skill script",
-      "skill code",
-      "read reference"
+      "habilidades lidas",
+      "habilidade de leitura",
+      "contedo de habilidade",
+      "viso de habilidade",
+      "detalhes de habilidade",
+      "habilidade aberta",
+      "arquivo de habilidades"
     ],
     "param.maxb.description": "Número máximo de bytes a serem lidos (padrão: 5000000)"
   },
@@ -228,16 +201,13 @@
     "param.skill_dir.description": "direktori skill",
     "tool.description": "Membaca file di bawah direktori skill secara aman menggunakan path relatif. Path traversal diblokir.",
     "x_search_terms": [
-      "skill read",
-      "read skill file",
-      "skill file",
-      "skill content",
-      "skill source",
-      "view skill",
-      "open skill",
-      "skill script",
-      "skill code",
-      "read reference"
+      "keterampilan membaca",
+      "keterampilan membaca",
+      "konten keterampilan",
+      "tampilan keterampilan",
+      "detail keterampilan",
+      "keterampilan terbuka",
+      "file keterampilan"
     ],
     "param.maxb.description": "Jumlah maksimum byte yang dibaca (default: 5000000)"
   },
@@ -250,16 +220,13 @@
     "param.skill_dir.description": "thư mục kỹ năng",
     "tool.description": "Đọc an toàn một tệp trong thư mục kỹ năng bằng đường dẫn tương đối. Đường dẫn bị chặn.",
     "x_search_terms": [
-      "skill read",
-      "read skill file",
-      "skill file",
-      "skill content",
-      "skill source",
-      "view skill",
-      "open skill",
-      "skill script",
-      "skill code",
-      "read reference"
+      "các kỹ năng đã đọc",
+      "kỹ năng đọc",
+      "nội dung kỹ năng",
+      "xem kỹ năng",
+      "chi tiết kỹ năng",
+      "kỹ năng mở",
+      "tệp kỹ năng"
     ],
     "param.maxb.description": "Số byte tối đa cần đọc (mặc định: 5000000)"
   },
@@ -272,16 +239,13 @@
     "param.skill_dir.description": "katalog umiejętności",
     "tool.description": "Bezpiecznie odczytuje plik w katalogu umiejętności, używając ścieżki względnej.",
     "x_search_terms": [
-      "skill read",
-      "read skill file",
-      "skill file",
-      "skill content",
-      "skill source",
-      "view skill",
-      "open skill",
-      "skill script",
-      "skill code",
-      "read reference"
+      "umiejętności przeczytaj",
+      "umiejętność czytania",
+      "treść umiejętności",
+      "widok umiejętności",
+      "szczegóły umiejętności",
+      "otwarta umiejętność",
+      "plik umiejętności"
     ],
     "param.maxb.description": "Maksymalna liczba bajtów do odczytania (domyślnie: 5000000)"
   },
@@ -294,16 +258,13 @@
     "param.skill_dir.description": "कौशल निर्देशिका",
     "tool.description": "किसी सापेक्ष पथ का उपयोग करके किसी फ़ाइल को सुरक्षित रूप से पढ़ता है।",
     "x_search_terms": [
-      "skill read",
-      "read skill file",
-      "skill file",
-      "skill content",
-      "skill source",
-      "view skill",
-      "open skill",
-      "skill script",
-      "skill code",
-      "read reference"
+      "कौशल पढ़ें",
+      "पढ़ने का कौशल",
+      "कौशल सामग्री",
+      "कौशल दृश्य",
+      "कौशल विवरण",
+      "खुला कौशल",
+      "कौशल फ़ाइल"
     ],
     "param.maxb.description": "पढ़ने के लिए बाइट्स की अधिकतम संख्या (डिफ़ॉल्ट: 5000000)"
   },
@@ -316,16 +277,13 @@
     "param.skill_dir.description": "دليل المهارة",
     "tool.description": "يقرأ ملفًا بأمان ضمن دليل المهارة باستخدام مسار نسبي. يتم حظر اجتياز المسار.",
     "x_search_terms": [
-      "skill read",
-      "read skill file",
-      "skill file",
-      "skill content",
-      "skill source",
-      "view skill",
-      "open skill",
-      "skill script",
-      "skill code",
-      "read reference"
+      "قراءة المهارات",
+      "مهارة القراءة",
+      "محتوى المهارات",
+      "عرض المهارة",
+      "تفاصيل المهارة",
+      "مهارة مفتوحة",
+      "ملف المهارات"
     ],
     "param.maxb.description": "الحد الأقصى لعدد البايتات المراد قراءتها (الافتراضي: 5000000)"
   },
@@ -338,16 +296,13 @@
     "param.skill_dir.description": "skill-katalog",
     "tool.description": "Läser en fil säkert under en skill-katalog med en relativ sökväg. Sökvägstraversering blockeras.",
     "x_search_terms": [
-      "skill read",
-      "read skill file",
-      "skill file",
-      "skill content",
-      "skill source",
-      "view skill",
-      "open skill",
-      "skill script",
-      "skill code",
-      "read reference"
+      "färdigheter läs",
+      "läsa skicklighet",
+      "skicklighetsinnehåll",
+      "skicklighet visa",
+      "skicklighet detaljer",
+      "öppen färdighet",
+      "färdighetsfil"
     ],
     "param.maxb.description": "Maximalt antal bytes att läsa (standard: 5000000)"
   },
@@ -360,16 +315,13 @@
     "param.skill_dir.description": "saraka ya skill",
     "tool.description": "Husoma kwa usalama faili ndani ya saraka ya skill kwa kutumia njia ya jamaa. Path traversal imezuiwa.",
     "x_search_terms": [
-      "skill read",
-      "read skill file",
-      "skill file",
-      "skill content",
-      "skill source",
-      "view skill",
-      "open skill",
-      "skill script",
-      "skill code",
-      "read reference"
+      "ujuzi uliosomwa",
+      "kusoma ujuzi",
+      "maudhui ya ujuzi",
+      "mtazamo wa ujuzi",
+      "maelezo ya ujuzi",
+      "ujuzi wazi",
+      "faili ya ujuzi"
     ],
     "param.maxb.description": "Idadi ya juu ya baiti za kusoma (chaguomsingi: 5000000)"
   },
@@ -382,16 +334,13 @@
     "param.skill_dir.description": "skill-katalog",
     "tool.description": "Leser en fil sikkert under en skill-katalog ved hjelp av en relativ sti. Stitraversering blokkeres.",
     "x_search_terms": [
-      "skill read",
-      "read skill file",
-      "skill file",
-      "skill content",
-      "skill source",
-      "view skill",
-      "open skill",
-      "skill script",
-      "skill code",
-      "read reference"
+      "ferdigheter lest",
+      "leseferdighet",
+      "ferdighetsinnhold",
+      "ferdighetsvisning",
+      "ferdighetsdetaljer",
+      "åpen ferdighet",
+      "ferdighetsfil"
     ],
     "param.maxb.description": "Maksimalt antall byte som skal leses (standard: 5000000)"
   },
@@ -404,16 +353,13 @@
     "param.skill_dir.description": "skills-map",
     "tool.description": "Leest veilig een bestand onder een skills-map met een relatief pad. Pad-traversal wordt geblokkeerd.",
     "x_search_terms": [
-      "skill read",
-      "read skill file",
-      "skill file",
-      "skill content",
-      "skill source",
-      "view skill",
-      "open skill",
-      "skill script",
-      "skill code",
-      "read reference"
+      "vaardigheden lezen",
+      "leesvaardigheid",
+      "vaardigheidsinhoud",
+      "vaardigheidsweergave",
+      "vaardigheidsdetails",
+      "open vaardigheid",
+      "vaardigheidsbestand"
     ],
     "param.maxb.description": "Maximaal aantal bytes om te lezen (standaard: 5000000)"
   },
@@ -426,16 +372,13 @@
     "param.skill_dir.description": "skill-hakemisto",
     "tool.description": "Lukee tiedoston turvallisesti skill-hakemiston alta suhteellisella polulla. Polun läpikäynti estetään.",
     "x_search_terms": [
-      "skill read",
-      "read skill file",
-      "skill file",
-      "skill content",
-      "skill source",
-      "view skill",
-      "open skill",
-      "skill script",
-      "skill code",
-      "read reference"
+      "taidot lukea",
+      "lukutaito",
+      "taitosisältö",
+      "taitonäkymä",
+      "taidon tiedot",
+      "avoin taito",
+      "taitotiedosto"
     ],
     "param.maxb.description": "Luettavien tavujen enimmäismäärä (oletus: 5000000)"
   },
@@ -448,16 +391,13 @@
     "param.skill_dir.description": "adresář skillu",
     "tool.description": "Bezpečně čte soubor v adresáři skillu pomocí relativní cesty. Traversal cesty je blokován.",
     "x_search_terms": [
-      "skill read",
-      "read skill file",
-      "skill file",
-      "skill content",
-      "skill source",
-      "view skill",
-      "open skill",
-      "skill script",
-      "skill code",
-      "read reference"
+      "dovednosti číst",
+      "dovednost čtení",
+      "dovednostní obsah",
+      "dovednostní pohled",
+      "podrobnosti o dovednostech",
+      "otevřená dovednost",
+      "soubor dovedností"
     ],
     "param.maxb.description": "Maximální počet bajtů k přečtení (výchozí: 5000000)"
   },
@@ -470,16 +410,13 @@
     "param.skill_dir.description": "каталог skill",
     "tool.description": "Безпечно читає файл у каталозі skill за відносним шляхом. Обхід шляху заблоковано.",
     "x_search_terms": [
-      "skill read",
-      "read skill file",
-      "skill file",
-      "skill content",
-      "skill source",
-      "view skill",
-      "open skill",
-      "skill script",
-      "skill code",
-      "read reference"
+      "прочитати навички",
+      "навик читання",
+      "уміння змісту",
+      "вміння переглядати",
+      "деталі навичок",
+      "відкритий навик",
+      "файл навичок"
     ],
     "param.maxb.description": "Максимальна кількість байтів для читання (типово: 5000000)"
   },
@@ -492,16 +429,13 @@
     "param.skill_dir.description": "beceri dizini",
     "tool.description": "Göreli bir yol kullanarak bir beceri dizini altındaki dosyayı güvenli biçimde okur.",
     "x_search_terms": [
-      "skill read",
-      "read skill file",
-      "skill file",
-      "skill content",
-      "skill source",
-      "view skill",
-      "open skill",
-      "skill script",
-      "skill code",
-      "read reference"
+      "becerileri okuyun",
+      "okuma becerisi",
+      "beceri içeriği",
+      "beceri görünümü",
+      "beceri ayrıntıları",
+      "açık beceri",
+      "beceri dosyası"
     ],
     "param.maxb.description": "Okunacak azami bayt sayısı (varsayılan: 5000000)"
   },
@@ -514,16 +448,13 @@
     "param.skill_dir.description": "ไดเรกทอรีสกิล",
     "tool.description": "อ่านไฟล์ในไดเรกทอรีสกิลอย่างปลอดภัยโดยใช้พาธสัมพัทธ์ โดยบล็อกการไต่ระดับพาธ",
     "x_search_terms": [
-      "skill read",
-      "read skill file",
-      "skill file",
-      "skill content",
-      "skill source",
-      "view skill",
-      "open skill",
-      "skill script",
-      "skill code",
-      "read reference"
+      "ทักษะการอ่าน",
+      "ทักษะการอ่าน",
+      "เนื้อหาทักษะ",
+      "มุมมองทักษะ",
+      "รายละเอียดทักษะ",
+      "เปิดทักษะ",
+      "ไฟล์ทักษะ"
     ],
     "param.maxb.description": "จำนวนไบต์สูงสุดที่จะอ่าน (ค่าเริ่มต้น: 5000000)"
   },
@@ -536,16 +467,13 @@
     "param.skill_dir.description": "技能目录",
     "tool.description": "使用相对路径安全读取技能目录下的文件。会阻止路径穿越。",
     "x_search_terms": [
-      "skill read",
-      "read skill file",
-      "skill file",
-      "skill content",
-      "skill source",
-      "view skill",
-      "open skill",
-      "skill script",
-      "skill code",
-      "read reference"
+      "技能阅读",
+      "阅读技巧",
+      "技能内容",
+      "技能视图",
+      "技能详情",
+      "开放技能",
+      "技能文件"
     ],
     "param.maxb.description": "读取的最大字节数（默认值：5000000）"
   },
@@ -558,16 +486,13 @@
     "param.skill_dir.description": "技能目錄",
     "tool.description": "使用相對路徑安全讀取技能目錄下的檔案。會阻止路徑穿越。",
     "x_search_terms": [
-      "skill read",
-      "read skill file",
-      "skill file",
-      "skill content",
-      "skill source",
-      "view skill",
-      "open skill",
-      "skill script",
-      "skill code",
-      "read reference"
+      "技能閱讀",
+      "閱讀技巧",
+      "技能內容",
+      "技能視圖",
+      "技能詳情",
+      "開放技能",
+      "技能檔案"
     ],
     "param.maxb.description": "讀取的最大位元組數（預設值：5000000）"
   },
@@ -580,16 +505,13 @@
     "param.skill_dir.description": "skills directory",
     "tool.description": "relative path ব্যবহার করে skill directory-এর ভেতরের ফাইল নিরাপদে পড়ে। path traversal আটকানো হয়।",
     "x_search_terms": [
-      "skill read",
-      "read skill file",
-      "skill file",
-      "skill content",
-      "skill source",
-      "view skill",
-      "open skill",
-      "skill script",
-      "skill code",
-      "read reference"
+      "পড়ার দক্ষতা",
+      "পড়ার দক্ষতা",
+      "দক্ষতা বিষয়বস্তু",
+      "দক্ষতা ভিউ",
+      "দক্ষতার বিবরণ",
+      "খোলা দক্ষতা",
+      "দক্ষতা ফাইল"
     ],
     "param.maxb.description": "পড়ার সর্বোচ্চ বাইট সংখ্যা (ডিফল্ট: 5000000)"
   },
@@ -602,16 +524,13 @@
     "param.skill_dir.description": "پوشهٔ skillها",
     "tool.description": "فایلی را درون یک پوشهٔ skill با استفاده از مسیر نسبی، به‌صورت امن می‌خواند. عبور از مسیر مسدود می‌شود.",
     "x_search_terms": [
-      "skill read",
-      "read skill file",
-      "skill file",
-      "skill content",
-      "skill source",
-      "view skill",
-      "open skill",
-      "skill script",
-      "skill code",
-      "read reference"
+      "مهارت های خوانده شده",
+      "مهارت خواندن",
+      "محتوای مهارتی",
+      "نمای مهارتی",
+      "جزئیات مهارت",
+      "مهارت باز",
+      "فایل مهارت"
     ],
     "param.maxb.description": "حداکثر تعداد بایت برای خواندن (پیش‌فرض: 5000000)"
   },
@@ -624,16 +543,13 @@
     "param.skill_dir.description": "skill-ийн лавлах",
     "tool.description": "Харьцангуй зам ашиглан skill directory доторх файлыг аюулгүй уншина. Path traversal-ийг хориглоно.",
     "x_search_terms": [
-      "skill read",
-      "read skill file",
-      "skill file",
-      "skill content",
-      "skill source",
-      "view skill",
-      "open skill",
-      "skill script",
-      "skill code",
-      "read reference"
+      "унших ур чадвар",
+      "унших чадвар",
+      "ур чадварын агуулга",
+      "ур чадвар харах",
+      "ур чадварын дэлгэрэнгүй",
+      "нээлттэй ур чадвар",
+      "ур чадварын файл"
     ],
     "param.maxb.description": "Унших дээд хэмжээний байт (анхдагч: 5000000)"
   },
@@ -646,16 +562,13 @@
     "param.skill_dir.description": "skills directory",
     "tool.description": "relative path वापरून skill directory मधील फाइल सुरक्षितपणे वाचते. path traversal रोखले जाते.",
     "x_search_terms": [
-      "skill read",
-      "read skill file",
-      "skill file",
-      "skill content",
-      "skill source",
-      "view skill",
-      "open skill",
-      "skill script",
-      "skill code",
-      "read reference"
+      "कौशल्य वाचन",
+      "वाचा कौशल्य",
+      "कौशल्य सामग्री",
+      "कौशल्य दृश्य",
+      "कौशल्य तपशील",
+      "खुले कौशल्य",
+      "कौशल्य फाइल"
     ],
     "param.maxb.description": "वाचायच्या बाइट्सची कमाल संख्या (डीफॉल्ट: 5000000)"
   },
@@ -668,16 +581,13 @@
     "param.skill_dir.description": "স্কিল ডিরেক্টরি",
     "tool.description": "Διαβάζει με ασφάλεια ένα αρχείο κάτω από έναν κατάλογο δεξιοτήτων χρησιμοποιώντας μια σχετική διαδρομή. Η διέλευση της διαδρομής είναι αποκλεισμένη.",
     "x_search_terms": [
-      "skill read",
-      "read skill file",
-      "skill file",
-      "skill content",
-      "skill source",
-      "view skill",
-      "open skill",
-      "skill script",
-      "skill code",
-      "read reference"
+      "δεξιότητες ανάγνωσης",
+      "ικανότητα ανάγνωσης",
+      "περιεχόμενο δεξιοτήτων",
+      "άποψη δεξιοτήτων",
+      "λεπτομέρειες δεξιοτήτων",
+      "ανοιχτή δεξιότητα",
+      "αρχείο δεξιοτήτων"
     ],
     "param.maxb.description": "Μέγιστος αριθμός byte προς ανάγνωση (προεπιλογή: 5000000)"
   },
@@ -690,16 +600,13 @@
     "param.skill_dir.description": "קורא בבטחה קובץ תחת ספריית מיומנות באמצעות נתיב יחסי. מעבר נתיב חסום.",
     "tool.description": "קורא בבטחה קובץ תחת ספריית מיומנות באמצעות נתיב יחסי. מעבר נתיב חסום.",
     "x_search_terms": [
-      "skill read",
-      "read skill file",
-      "skill file",
-      "skill content",
-      "skill source",
-      "view skill",
-      "open skill",
-      "skill script",
-      "skill code",
-      "read reference"
+      "כישורים לקרוא",
+      "מיומנות קריאה",
+      "תוכן מיומנות",
+      "תצוגת מיומנות",
+      "פרטי מיומנות",
+      "מיומנות פתוחה",
+      "קובץ מיומנויות"
     ],
     "param.maxb.description": "שם התיקיה של המיומנות להסרה."
   },
@@ -712,16 +619,13 @@
     "param.skill_dir.description": "Biztonságosan beolvas egy fájlt egy készségkönyvtárban egy relatív elérési út használatával. Az útvonal bejárása blokkolva van.",
     "tool.description": "Biztonságosan beolvas egy fájlt egy készségkönyvtárban egy relatív elérési út használatával. Az útvonal bejárása blokkolva van.",
     "x_search_terms": [
-      "skill read",
-      "read skill file",
-      "skill file",
-      "skill content",
-      "skill source",
-      "view skill",
-      "open skill",
-      "skill script",
-      "skill code",
-      "read reference"
+      "olvasási készségek",
+      "olvasni készség",
+      "készségtartalom",
+      "készség nézet",
+      "készség részletei",
+      "nyitott készség",
+      "készségfájl"
     ],
     "param.maxb.description": "Az eltávolítandó készség mappájának neve."
   },
@@ -734,16 +638,13 @@
     "param.skill_dir.description": "d/REFERENCE স্কিল ডিরেক্টরি",
     "tool.description": "Citește în siguranță un fișier dintr-un director de abilități folosind o cale relativă. Traversarea căii este blocată.",
     "x_search_terms": [
-      "skill read",
-      "read skill file",
-      "skill file",
-      "skill content",
-      "skill source",
-      "view skill",
-      "open skill",
-      "skill script",
-      "skill code",
-      "read reference"
+      "skills read",
+      "abilitate de citire",
+      "conținut de aptitudini",
+      "vedere abilități",
+      "detalii de calificare",
+      "abilitate deschisă",
+      "fișier abilități"
     ],
     "param.maxb.description": "Număr maxim de octeți de citit (implicit: 5000000)"
   }

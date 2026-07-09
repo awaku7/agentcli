@@ -29,16 +29,7 @@
     "param.overwrite.description": "既存ファイルがある場合に上書きするか（既定: false）。",
     "tool.description": "テキストファイルを作成。上書き時はバックアップ(.org)を作成。Excel用はutf-8-sig、プログラム用はutf-8。",
     "x_search_terms": [
-      "create file",
-      "make file",
-      "new file",
-      "write file",
-      "file create",
-      "generate file",
-      "create document",
-      "new document",
-      "file write",
-      "save file"
+      "ファイルを作成 |ファイルを書き込む |新しいファイル |ファイルを作成する |タッチ |ドキュメントを作成する |ドキュメントの書き込み"
     ],
     "err.file_exists": "ファイルはすでに存在します: {path}",
     "err.path_missing": "ファイル名/パスは必須です",
@@ -52,16 +43,13 @@
     "param.overwrite.description": "Sobrescribir si existe (predeterminado: falso).",
     "tool.description": "Cree un archivo de texto.De forma predeterminada, no se sobrescriben archivos existentes.",
     "x_search_terms": [
-      "create file",
-      "make file",
-      "new file",
-      "write file",
-      "file create",
-      "generate file",
-      "create document",
-      "new document",
-      "file write",
-      "save file"
+      "crear archivo",
+      "escribir archivo",
+      "nuevo archivo",
+      "crear archivo",
+      "toque",
+      "crear documento",
+      "escribir documento"
     ]
   },
   "fr": {
@@ -71,16 +59,13 @@
     "param.overwrite.description": "Écraser s'il existe (par défaut : faux).",
     "tool.description": "Créez un fichier texte.Par défaut, les fichiers existants ne sont pas écrasés.",
     "x_search_terms": [
-      "create file",
-      "make file",
-      "new file",
-      "write file",
-      "file create",
-      "generate file",
-      "create document",
-      "new document",
-      "file write",
-      "save file"
+      "créer un fichier",
+      "écrire un fichier",
+      "nouveau fichier",
+      "créer un fichier",
+      "toucher",
+      "créer un document",
+      "écrire un document"
     ]
   },
   "ko": {
@@ -90,16 +75,13 @@
     "param.overwrite.description": "파일이 이미 존재할 경우 덮어쓸지 여부 (기본값: false).",
     "tool.description": "텍스트 파일 생성. 덮어쓰기 시 백업(.org) 생성. Excel용 utf-8-sig, 프로그램용 utf-8.",
     "x_search_terms": [
-      "create file",
-      "make file",
-      "new file",
-      "write file",
-      "file create",
-      "generate file",
-      "create document",
-      "new document",
-      "file write",
-      "save file"
+      "파일 생성",
+      "파일 쓰기",
+      "새 파일",
+      "파일 만들기",
+      "터치",
+      "문서 작성",
+      "문서 쓰기"
     ]
   },
   "de": {
@@ -109,16 +91,13 @@
     "param.overwrite.description": "Überschreiben, falls vorhanden (Standard: false).",
     "tool.description": "Erstellen Sie eine Textdatei.Standardmäßig werden vorhandene Dateien nicht überschrieben.",
     "x_search_terms": [
-      "create file",
-      "make file",
-      "new file",
-      "write file",
-      "file create",
-      "generate file",
-      "create document",
-      "new document",
-      "file write",
-      "save file"
+      "Datei erstellen",
+      "Datei schreiben",
+      "neue Datei",
+      "Datei erstellen",
+      "berühren",
+      "Dokument erstellen",
+      "Dokument schreiben"
     ]
   },
   "it": {
@@ -128,16 +107,13 @@
     "param.overwrite.description": "Sovrascrivi se esiste (impostazione predefinita: false).",
     "tool.description": "Crea un file di testo.Per impostazione predefinita, i file esistenti non vengono sovrascritti.",
     "x_search_terms": [
-      "create file",
-      "make file",
-      "new file",
-      "write file",
-      "file create",
-      "generate file",
-      "create document",
-      "new document",
-      "file write",
-      "save file"
+      "crea file",
+      "scrivere il file",
+      "nuovo file",
+      "crea file",
+      "toccare",
+      "crea documento",
+      "scrivi documento"
     ]
   },
   "ru": {
@@ -147,16 +123,7 @@
     "param.overwrite.description": "Перезаписать, если существует (по умолчанию: false).",
     "tool.description": "Создает текстовый файл.По умолчанию не перезаписывает файлы.",
     "x_search_terms": [
-      "create file",
-      "make file",
-      "new file",
-      "write file",
-      "file create",
-      "generate file",
-      "create document",
-      "new document",
-      "file write",
-      "save file"
+      "создать файл, записать файл, новый файл, сделать файл, прикосновение, создать документ, записать документ"
     ]
   },
   "pt_BR": {
@@ -185,16 +152,16 @@
     "param.overwrite.description": "Substituir se existir (padrão: falso).",
     "tool.description": "Crie um arquivo de texto.Por padrão, arquivos existentes não são sobrescritos.",
     "x_search_terms": [
-      "create file",
-      "make file",
-      "new file",
-      "write file",
-      "file create",
-      "generate file",
-      "create document",
-      "new document",
-      "file write",
-      "save file"
+      "criar arquivo",
+      "criar arquivo",
+      "novo arquivo",
+      "escrever arquivo",
+      "criar arquivo",
+      "gerar arquivo",
+      "criar documento",
+      "novo documento",
+      "gravação de arquivo",
+      "salvar arquivo"
     ]
   },
   "id": {
@@ -204,16 +171,16 @@
     "param.overwrite.description": "Timpa jika ada (default: false).",
     "tool.description": "Buat file teks.Secara default, alat tidak akan menimpa file yang sudah ada.",
     "x_search_terms": [
-      "create file",
-      "make file",
-      "new file",
-      "write file",
-      "file create",
-      "generate file",
-      "create document",
-      "new document",
-      "file write",
-      "save file"
+      "buat file",
+      "membuat berkas",
+      "berkas baru",
+      "tulis berkas",
+      "pembuatan file",
+      "menghasilkan file",
+      "membuat dokumen",
+      "dokumen baru",
+      "tulis file",
+      "simpan file"
     ]
   },
   "vi": {
@@ -223,16 +190,16 @@
     "param.overwrite.description": "Ghi đè nếu tồn tại (mặc định: sai).",
     "tool.description": "Tạo một tập tin văn bản.Theo mặc định, công cụ sẽ không ghi đè lên tệp hiện có.",
     "x_search_terms": [
-      "create file",
-      "make file",
-      "new file",
-      "write file",
-      "file create",
-      "generate file",
-      "create document",
-      "new document",
-      "file write",
-      "save file"
+      "tạo tập tin",
+      "tạo tập tin",
+      "tập tin mới",
+      "ghi tập tin",
+      "tạo tập tin",
+      "tạo tập tin",
+      "tạo tài liệu",
+      "tài liệu mới",
+      "ghi tập tin",
+      "lưu tệp"
     ]
   },
   "pl": {

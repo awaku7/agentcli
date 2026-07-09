@@ -19,16 +19,10 @@
   "ja": {
     "tool.description": "py_compile を使って Python ファイルを検証します。Python ファイル、ディレクトリ、または glob パターンの構文チェックに使います。ディレクトリは *.py を再帰的に走査します。",
     "x_search_terms": [
-      "python compile",
-      "py compile",
-      "syntax check",
-      "python validation",
-      "compile check",
-      "python syntax",
-      "code check",
-      "validation",
-      "python checker",
-      "compile python"
+      "python コンパイル",
+      "Pythonをコンパイルする",
+      "pyコンパイル |構文チェック",
+      "Pythonの構文 |構文をチェック"
     ],
     "param.path.description": "py_compile で検証する Python ファイル、ディレクトリ、または glob パターンです。ディレクトリは *.py を再帰的に走査します。",
     "param.paths.description": "py_compileで検証する複数のPythonファイル、ディレクトリ、またはglobパターン。ディレクトリは再帰的に.pyファイルがスキャンされます。"
@@ -36,16 +30,12 @@
   "es": {
     "tool.description": "Valida archivos Python con py_compile.",
     "x_search_terms": [
-      "python compile",
-      "py compile",
-      "syntax check",
-      "python validation",
-      "compile check",
-      "python syntax",
-      "code check",
-      "validation",
-      "python checker",
-      "compile python"
+      "compilación de Python",
+      "compilar Python",
+      "compilar py",
+      "verificación de sintaxis",
+      "sintaxis de Python",
+      "comprobar la sintaxis"
     ],
     "param.path.description": "Un archivo Python, un directorio o un patrón glob para validar con py_compile.",
     "param.paths.description": "Múltiples archivos Python, directorios o patrones glob para validar con py_compile. Los directorios se escanean recursivamente en busca de archivos .py."
@@ -54,15 +44,11 @@
     "tool.description": "Validez des fichiers Python avec py_compile.",
     "x_search_terms": [
       "python compile",
-      "py compile",
-      "syntax check",
-      "python validation",
-      "compile check",
-      "python syntax",
-      "code check",
-      "validation",
-      "python checker",
-      "compile python"
+      "compiler python",
+      "py compiler",
+      "vérification de la syntaxe",
+      "syntaxe python",
+      "vérifier la syntaxe"
     ],
     "param.path.description": "Un fichier Python, un répertoire ou un motif glob à valider avec py_compile.",
     "param.paths.description": "Plusieurs fichiers Python, répertoires ou motifs glob à valider avec py_compile. Les répertoires sont scannés récursivement pour les fichiers .py."
@@ -70,16 +56,12 @@
   "ko": {
     "tool.description": "py_compile로 Python 파일을 검사합니다. Python 파일, 디렉터리 또는 glob 패턴의 문법 검사용으로 사용하세요. 디렉터리는 *.py 파일을 재귀적으로 검사합니다.",
     "x_search_terms": [
-      "python compile",
-      "py compile",
-      "syntax check",
-      "python validation",
-      "compile check",
-      "python syntax",
-      "code check",
-      "validation",
-      "python checker",
-      "compile python"
+      "python 컴파일",
+      "python 컴파일",
+      "py 컴파일",
+      "구문 검사",
+      "python 구문",
+      "구문 확인"
     ],
     "param.path.description": "py_compile로 검사할 Python 파일, 디렉터리 또는 glob 패턴입니다. 디렉터리는 *.py 파일을 재귀적으로 검사합니다.",
     "param.paths.description": "py_compile로 검증할 여러 Python 파일, 디렉터리 또는 glob 패턴입니다. 디렉터리는 .py 파일에 대해 재귀적으로 검색됩니다."
@@ -87,16 +69,12 @@
   "de": {
     "tool.description": "Prüfen Sie Python-Dateien mit py_compile.",
     "x_search_terms": [
-      "python compile",
-      "py compile",
-      "syntax check",
-      "python validation",
-      "compile check",
-      "python syntax",
-      "code check",
-      "validation",
-      "python checker",
-      "compile python"
+      "python kompilieren",
+      "Python kompilieren",
+      "py kompilieren",
+      "Syntaxprüfung",
+      "Python-Syntax",
+      "Syntax prüfen"
     ],
     "param.path.description": "Eine Python-Datei, ein Verzeichnis oder ein Glob-Muster, das mit py_compile geprüft werden soll.",
     "param.paths.description": "Mehrere Python-Dateien, Verzeichnisse oder Glob-Muster zur Validierung mit py_compile. Verzeichnisse werden rekursiv nach .py-Dateien durchsucht."
@@ -104,16 +82,12 @@
   "it": {
     "tool.description": "Convalida i file Python con py_compile.",
     "x_search_terms": [
-      "python compile",
-      "py compile",
-      "syntax check",
-      "python validation",
-      "compile check",
-      "python syntax",
-      "code check",
-      "validation",
-      "python checker",
-      "compile python"
+      "compilazione python",
+      "compilare Python",
+      "py compila",
+      "controllo della sintassi",
+      "sintassi python",
+      "controlla la sintassi"
     ],
     "param.path.description": "Un file Python, una directory o un pattern glob da validare con py_compile.",
     "param.paths.description": "Più file Python, directory o pattern glob da validare con py_compile. Le directory vengono scansionate ricorsivamente per file .py."
@@ -121,16 +95,7 @@
   "ru": {
     "tool.description": "Проверяйте файлы Python с помощью py_compile.",
     "x_search_terms": [
-      "python compile",
-      "py compile",
-      "syntax check",
-      "python validation",
-      "compile check",
-      "python syntax",
-      "code check",
-      "validation",
-      "python checker",
-      "compile python"
+      "компиляция Python, скомпилировать питон, py компилировать, проверка синтаксиса, синтаксис Python, проверить синтаксис"
     ],
     "param.path.description": "Файл Python, каталог или шаблон glob для проверки с помощью py_compile.",
     "param.paths.description": "Несколько файлов Python, каталогов или шаблонов glob для проверки с помощью py_compile. Каталоги сканируются рекурсивно на наличие файлов .py."
@@ -155,16 +120,16 @@
   "pt": {
     "tool.description": "Valide arquivos Python com py_compile.",
     "x_search_terms": [
-      "python compile",
-      "py compile",
-      "syntax check",
-      "python validation",
-      "compile check",
-      "python syntax",
-      "code check",
-      "validation",
-      "python checker",
-      "compile python"
+      "compilação python",
+      "compilação py",
+      "verificação de sintaxe",
+      "validação python",
+      "verificação de compilação",
+      "sintaxe python",
+      "verificação de código",
+      "validação",
+      "verificador python",
+      "compilar python"
     ],
     "param.path.description": "Um arquivo Python, diretório ou padrão glob para validar com py_compile.",
     "param.paths.description": "Múltiplos ficheiros Python, diretórios ou padrões glob para validar com py_compile. Os diretórios são digitalizados recursivamente para ficheiros .py."
@@ -172,16 +137,16 @@
   "id": {
     "tool.description": "Validasi file Python dengan py_compile.",
     "x_search_terms": [
-      "python compile",
-      "py compile",
-      "syntax check",
-      "python validation",
-      "compile check",
-      "python syntax",
-      "code check",
-      "validation",
-      "python checker",
-      "compile python"
+      "kompilasi python",
+      "py kompilasi",
+      "pemeriksaan sintaksis",
+      "validasi python",
+      "kompilasi periksa",
+      "sintaksis python",
+      "pemeriksaan kode",
+      "validasi",
+      "pemeriksa python",
+      "kompilasi python"
     ],
     "param.path.description": "Satu file Python, direktori, atau pola glob untuk divalidasi dengan py_compile.",
     "param.paths.description": "Beberapa file Python, direktori, atau pola glob untuk divalidasi dengan py_compile. Direktori dipindai secara rekursif untuk file .py."
@@ -189,16 +154,16 @@
   "vi": {
     "tool.description": "Kiểm tra tệp Python bằng py_compile.Hãy dùng công cụ này để kiểm tra cú pháp của tệp Python, thư mục hoặc mẫu glob.",
     "x_search_terms": [
-      "python compile",
-      "py compile",
-      "syntax check",
-      "python validation",
-      "compile check",
-      "python syntax",
-      "code check",
-      "validation",
-      "python checker",
-      "compile python"
+      "python biên dịch",
+      "biên dịch py",
+      "kiểm tra cú pháp",
+      "xác thực python",
+      "kiểm tra biên dịch",
+      "cú pháp trăn",
+      "kiểm tra mã",
+      "xác nhận",
+      "kiểm tra python",
+      "biên dịch python"
     ],
     "param.path.description": "Một tệp Python, thư mục hoặc mẫu glob để xác thực bằng py_compile. Thư mục sẽ được quét đệ quy để tìm các tệp *.py.",
     "param.paths.description": "Nhiều tệp Python, thư mục hoặc mẫu glob để xác thực bằng py_compile. Các thư mục được quét đệ quy để tìm tệp .py."

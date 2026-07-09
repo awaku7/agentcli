@@ -23,16 +23,16 @@
     "param.sql.description": "実行する SQL。",
     "tool.description": "SQLite データベースに対して SQL クエリを実行し、結果を返します。読み取り専用の操作（SELECT）とスキーマ確認（PRAGMA）のみ対応します。",
     "x_search_terms": [
-      "database",
-      "db query",
-      "sql",
-      "query database",
-      "database query",
-      "sql query",
-      "db select",
-      "run query",
-      "data query",
-      "database search"
+      "db クエリ",
+      "データベース",
+      "SQL",
+      "クエリデータベース",
+      "データベースクエリ",
+      "SQLを実行する",
+      "データベースクエリ",
+      "クエリを実行する",
+      "SQLクエリ",
+      "select"
     ],
     "err.readonly": "[db_query エラー] SELECT ステートメントと PRAGMA ステートメントのみが許可されます。",
     "msg.result": "[データベースクエリ]\n行={rows}\n列={cols}"
@@ -42,16 +42,16 @@
     "param.sql.description": "SQL a ejecutar.",
     "tool.description": "Ejecuta una consulta SQL en una base de datos SQLite y devuelve el resultado. Solo se admiten operaciones de solo lectura (SELECT) e inspección del esquema (PRAGMA).",
     "x_search_terms": [
-      "database",
-      "db query",
-      "sql",
-      "query database",
-      "database query",
-      "sql query",
-      "db select",
-      "run query",
-      "data query",
-      "database search"
+      "consulta db",
+      "base de datos",
+      "SQL",
+      "consultar base de datos",
+      "consulta de base de datos",
+      "ejecutar sql",
+      "consulta de base de datos",
+      "ejecutar consulta",
+      "consulta sql",
+      "seleccione"
     ]
   },
   "fr": {
@@ -59,16 +59,16 @@
     "param.sql.description": "SQL à exécuter.",
     "tool.description": "Exécute une requête SQL sur une base de données SQLite et renvoie le résultat.",
     "x_search_terms": [
-      "database",
-      "db query",
+      "requête db",
+      "base de données",
       "sql",
-      "query database",
-      "database query",
-      "sql query",
-      "db select",
-      "run query",
-      "data query",
-      "database search"
+      "base de données de requête",
+      "requête de base de données",
+      "exécuter SQL",
+      "requête de base de données",
+      "exécuter une requête",
+      "requête SQL",
+      "select"
     ]
   },
   "ko": {
@@ -76,16 +76,16 @@
     "param.sql.description": "실행할 SQL입니다.",
     "tool.description": "SQLite 데이터베이스에 SQL 쿼리를 실행하고 결과를 반환합니다. 읽기 전용 작업(SELECT)과 스키마 검사(PRAGMA)만 지원합니다.",
     "x_search_terms": [
-      "database",
-      "db query",
-      "sql",
-      "query database",
-      "database query",
-      "sql query",
-      "db select",
-      "run query",
-      "data query",
-      "database search"
+      "db 쿼리",
+      "데이터베이스",
+      "SQL",
+      "데이터베이스 쿼리",
+      "데이터베이스 쿼리",
+      "SQL 실행",
+      "DB 쿼리",
+      "쿼리 실행",
+      "SQL 쿼리",
+      "선택"
     ]
   },
   "de": {
@@ -93,16 +93,16 @@
     "param.sql.description": "Auszuführendes SQL.",
     "tool.description": "Führt eine SQL-Abfrage für eine SQLite-Datenbank aus und gibt das Ergebnis zurück.",
     "x_search_terms": [
-      "database",
       "db query",
+      "Datenbank",
       "sql",
-      "query database",
-      "database query",
-      "sql query",
-      "db select",
-      "run query",
-      "data query",
-      "database search"
+      "Datenbank abfragen",
+      "Datenbankabfrage",
+      "SQL ausführen",
+      "Datenbankabfrage",
+      "Abfrage ausführen",
+      "SQL-Abfrage",
+      "select"
     ]
   },
   "it": {
@@ -110,16 +110,16 @@
     "param.sql.description": "SQL da eseguire.",
     "tool.description": "Esegue una query SQL su un database SQLite e restituisce il risultato.",
     "x_search_terms": [
-      "database",
-      "db query",
+      "interrogazione db",
+      "banca dati",
       "sql",
-      "query database",
-      "database query",
-      "sql query",
-      "db select",
-      "run query",
-      "data query",
-      "database search"
+      "interrogare il database",
+      "interrogazione del database",
+      "eseguire sql",
+      "interrogazione db",
+      "esegui query",
+      "query sql",
+      "select"
     ]
   },
   "ru": {
@@ -127,16 +127,16 @@
     "param.sql.description": "SQL-запрос для выполнения.",
     "tool.description": "Выполняет SQL-запрос к базе данных SQLite и возвращает результат. Поддерживаются только операции только для чтения (SELECT) и проверка схемы (PRAGMA).",
     "x_search_terms": [
-      "database",
-      "db query",
+      "запрос к базе данных",
+      "база данных",
       "sql",
-      "query database",
-      "database query",
-      "sql query",
-      "db select",
-      "run query",
-      "data query",
-      "database search"
+      "база данных запросов",
+      "запрос к базе данных",
+      "выполнить sql",
+      "запрос к базе данных",
+      "запустить запрос",
+      "SQL-запрос",
+      "выберите"
     ]
   },
   "pt_BR": {
@@ -144,16 +144,16 @@
     "param.sql.description": "SQL a ser executado.",
     "tool.description": "Executa uma consulta SQL em um banco de dados SQLite e retorna o resultado. Somente operações de leitura (SELECT) e inspeção do esquema (PRAGMA) são suportadas.",
     "x_search_terms": [
-      "database",
-      "db query",
-      "sql",
-      "query database",
-      "database query",
-      "sql query",
-      "db select",
-      "run query",
-      "data query",
-      "database search"
+      "consulta db",
+      "banco de dados",
+      "SQL",
+      "consultar banco de dados",
+      "consulta de banco de dados",
+      "executar SQL",
+      "consulta de banco de dados",
+      "executar consulta",
+      "consulta SQL",
+      "selecione"
     ]
   },
   "pt": {
@@ -161,16 +161,16 @@
     "param.sql.description": "SQL para executar.",
     "tool.description": "Execute uma consulta SQL em um banco de dados SQLite e retorne o resultado. Somente operações somente leitura (SELECT) e inspeção de esquema (PRAGMA) são suportadas.",
     "x_search_terms": [
-      "database",
-      "db query",
-      "sql",
-      "query database",
-      "database query",
-      "sql query",
-      "db select",
-      "run query",
-      "data query",
-      "database search"
+      "consulta db",
+      "banco de dados",
+      "SQL",
+      "consultar banco de dados",
+      "consulta de banco de dados",
+      "executar SQL",
+      "consulta de banco de dados",
+      "executar consulta",
+      "consulta SQL",
+      "selecione"
     ]
   },
   "id": {
@@ -178,16 +178,16 @@
     "param.sql.description": "SQL yang akan dieksekusi.",
     "tool.description": "Jalankan kueri SQL terhadap database SQLite dan kembalikan hasilnya. Hanya operasi baca-saja (SELECT) dan pemeriksaan skema (PRAGMA) yang didukung.",
     "x_search_terms": [
-      "database",
-      "db query",
+      "permintaan db",
+      "basis data",
       "sql",
-      "query database",
-      "database query",
-      "sql query",
-      "db select",
-      "run query",
-      "data query",
-      "database search"
+      "basis data permintaan",
+      "permintaan basis data",
+      "jalankan sql",
+      "permintaan db",
+      "jalankan kueri",
+      "permintaan sql",
+      "pilih"
     ]
   },
   "vi": {
@@ -195,16 +195,16 @@
     "param.sql.description": "SQL để thực thi.",
     "tool.description": "Thực hiện truy vấn SQL đối với cơ sở dữ liệu SQLite và trả về kết quả. Chỉ hỗ trợ các hoạt động chỉ đọc (SELECT) và kiểm tra lược đồ (PRAGMA).",
     "x_search_terms": [
-      "database",
-      "db query",
+      "db truy vấn",
+      "cơ sở dữ liệu",
       "sql",
-      "query database",
-      "database query",
-      "sql query",
-      "db select",
-      "run query",
-      "data query",
-      "database search"
+      "cơ sở dữ liệu truy vấn",
+      "truy vấn cơ sở dữ liệu",
+      "thực thi sql",
+      "truy vấn db",
+      "chạy truy vấn",
+      "truy vấn sql",
+      "chọn"
     ]
   },
   "pl": {
@@ -212,16 +212,16 @@
     "param.sql.description": "SQL do wykonania.",
     "tool.description": "Wykonaj zapytanie SQL względem bazy danych SQLite i zwróć wynik. Obsługiwane są tylko operacje tylko do odczytu (SELECT) i inspekcja schematu (PRAGMA).",
     "x_search_terms": [
-      "database",
-      "db query",
+      "zapytanie db",
+      "baza danych",
       "sql",
-      "query database",
-      "database query",
-      "sql query",
-      "db select",
-      "run query",
-      "data query",
-      "database search"
+      "baza zapytań",
+      "zapytanie do bazy danych",
+      "wykonaj sql",
+      "zapytanie db",
+      "uruchom zapytanie",
+      "zapytanie sql",
+      "wybierz"
     ]
   },
   "hi": {
@@ -229,16 +229,16 @@
     "param.sql.description": "निष्पादित करने के लिए SQL.",
     "tool.description": "SQLite डेटाबेस के विरुद्ध SQL क्वेरी निष्पादित करें और परिणाम लौटाएँ। केवल रीड-ओनली ऑपरेशंस (SELECT) और स्कीमा इंस्पेक्शन (PRAGMA) समर्थित हैं।",
     "x_search_terms": [
-      "database",
-      "db query",
-      "sql",
-      "query database",
-      "database query",
-      "sql query",
-      "db select",
-      "run query",
-      "data query",
-      "database search"
+      "डीबी क्वेरी",
+      "डेटाबेस",
+      "एसक्यूएल",
+      "क्वेरी डेटाबेस",
+      "डेटाबेस क्वेरी",
+      "एसक्यूएल निष्पादित करें",
+      "डीबी क्वेरी",
+      "क्वेरी चलाएँ",
+      "एसक्यूएल क्वेरी",
+      "चयन करें"
     ]
   },
   "ar": {
@@ -246,16 +246,16 @@
     "param.sql.description": "SQL للتنفيذ.",
     "tool.description": "قم بتنفيذ استعلام SQL على قاعدة بيانات SQLite وإرجاع النتيجة. يتم دعم عمليات القراءة فقط (SELECT) وفحص المخطط (PRAGMA) فقط.",
     "x_search_terms": [
-      "database",
-      "db query",
-      "sql",
-      "query database",
-      "database query",
-      "sql query",
-      "db select",
-      "run query",
-      "data query",
-      "database search"
+      "استعلام db",
+      "قاعدة بيانات",
+      "مزود",
+      "قاعدة بيانات الاستعلام",
+      "استعلام قاعدة البيانات",
+      "تنفيذ SQL",
+      "استعلام ديسيبل",
+      "تشغيل الاستعلام",
+      "استعلام SQL",
+      "حدد"
     ]
   },
   "sv": {
@@ -263,16 +263,16 @@
     "param.sql.description": "SQL som ska köras.",
     "tool.description": "Kör en SQL-fråga mot en SQLite-databas och returnerar resultatet. Endast skrivskyddade operationer (SELECT) och schemainspektion (PRAGMA) stöds.",
     "x_search_terms": [
-      "database",
-      "db query",
+      "db-fråga",
+      "databas",
       "sql",
-      "query database",
-      "database query",
-      "sql query",
-      "db select",
-      "run query",
-      "data query",
-      "database search"
+      "frågedatabas",
+      "databasfråga",
+      "kör sql",
+      "db fråga",
+      "kör fråga",
+      "sql-fråga",
+      "välj"
     ]
   },
   "sw": {
@@ -280,16 +280,16 @@
     "param.sql.description": "SQL ya kutekeleza.",
     "tool.description": "Tekeleza hoja za SQL dhidi ya hifadhidata ya SQLite na urudishe matokeo. Inaauni tu shughuli za kusoma pekee (SELECT) na ukaguzi wa schema (PRAGMA).",
     "x_search_terms": [
-      "database",
-      "db query",
+      "hoja ya db",
+      "hifadhidata",
       "sql",
-      "query database",
-      "database query",
-      "sql query",
-      "db select",
-      "run query",
-      "data query",
-      "database search"
+      "uliza hifadhidata",
+      "swali la hifadhidata",
+      "kutekeleza sql",
+      "swali la db",
+      "endesha swali",
+      "sql swali",
+      "chagua"
     ]
   },
   "nb": {
@@ -297,16 +297,16 @@
     "param.sql.description": "SQL som skal kjøres.",
     "tool.description": "Kjør en SQL-spørring mot en SQLite-database og returner resultatet. Bare skrivebeskyttede operasjoner (SELECT) og skjemaoppslag (PRAGMA) støttes.",
     "x_search_terms": [
+      "db-spørring",
       "database",
-      "db query",
       "sql",
-      "query database",
-      "database query",
-      "sql query",
-      "db select",
-      "run query",
-      "data query",
-      "database search"
+      "spørringsdatabase",
+      "databasespørring",
+      "kjør sql",
+      "db spørring",
+      "kjør spørring",
+      "sql-spørring",
+      "velg"
     ]
   },
   "nl": {
@@ -314,16 +314,16 @@
     "param.sql.description": "De uit te voeren SQL.",
     "tool.description": "Voer SQL-query's uit op een SQLite-database en geef het resultaat terug. Alleen leesbewerkingen (SELECT) en schema-inspectie (PRAGMA) worden ondersteund.",
     "x_search_terms": [
-      "database",
-      "db query",
+      "db-query",
+      "databank",
       "sql",
-      "query database",
-      "database query",
-      "sql query",
-      "db select",
-      "run query",
-      "data query",
-      "database search"
+      "querydatabase",
+      "databasequery",
+      "voer sql",
+      "db-query",
+      "query uitvoeren",
+      "SQL-query",
+      "selecteer"
     ]
   },
   "fi": {
@@ -331,16 +331,16 @@
     "param.sql.description": "Suoritettava SQL.",
     "tool.description": "Suorita SQL-kyselyitä SQLite-tietokantaan ja palauta tulos. Tukee vain lukuoperaatioita (SELECT) ja skeeman tarkistusta (PRAGMA).",
     "x_search_terms": [
-      "database",
-      "db query",
+      "db-kysely",
+      "tietokanta",
       "sql",
-      "query database",
-      "database query",
-      "sql query",
-      "db select",
-      "run query",
-      "data query",
-      "database search"
+      "kyselytietokanta",
+      "tietokantakysely",
+      "suorita sql",
+      "db-kysely",
+      "suorita kysely",
+      "sql-kysely",
+      "valitse"
     ]
   },
   "cs": {
@@ -348,16 +348,16 @@
     "param.sql.description": "SQL dotaz k provedení.",
     "tool.description": "Provede SQL dotaz nad databází SQLite a vrátí výsledek. Podporovány jsou pouze operace jen pro čtení (SELECT) a kontrola schématu (PRAGMA).",
     "x_search_terms": [
-      "database",
-      "db query",
+      "dotaz db",
+      "databáze",
       "sql",
-      "query database",
-      "database query",
-      "sql query",
-      "db select",
-      "run query",
-      "data query",
-      "database search"
+      "databáze dotazů",
+      "databázový dotaz",
+      "spustit sql",
+      "db dotaz",
+      "spustit dotaz",
+      "sql dotaz",
+      "vybrat"
     ]
   },
   "uk": {
@@ -365,16 +365,16 @@
     "param.sql.description": "SQL-запит для виконання.",
     "tool.description": "Виконує SQL-запит до бази даних SQLite та повертає результат. Підтримуються лише операції лише для читання (SELECT) та перевірка схеми (PRAGMA).",
     "x_search_terms": [
-      "database",
-      "db query",
+      "запит db",
+      "база даних",
       "sql",
-      "query database",
-      "database query",
-      "sql query",
-      "db select",
-      "run query",
-      "data query",
-      "database search"
+      "база даних запитів",
+      "запит до бази даних",
+      "виконати sql",
+      "запит db",
+      "виконати запит",
+      "sql запит",
+      "вибрати"
     ]
   },
   "tr": {
@@ -382,16 +382,16 @@
     "param.sql.description": "SQL yürütülecek.",
     "tool.description": "Bir SQLite veritabanında SQL sorgularını yürütün ve sonucu döndürün. Yalnızca salt okunur işlemler (SELECT) ve şema incelemesi (PRAGMA) desteklenir.",
     "x_search_terms": [
-      "database",
-      "db query",
-      "sql",
-      "query database",
-      "database query",
-      "sql query",
-      "db select",
-      "run query",
-      "data query",
-      "database search"
+      "db sorgusu",
+      "veritabanı",
+      "SQL",
+      "sorgu veritabanı",
+      "veritabanı sorgusu",
+      "sql'yi yürüt",
+      "veritabanı sorgusu",
+      "sorguyu çalıştır",
+      "sql sorgusu",
+      "seç"
     ]
   },
   "th": {
@@ -399,16 +399,16 @@
     "param.sql.description": "SQL ที่จะดำเนินการ",
     "tool.description": "ดำเนินการคิวรี SQL กับฐานข้อมูล SQLite และส่งกลับผลลัพธ์ รองรับเฉพาะการดำเนินการแบบอ่านอย่างเดียว (SELECT) และการตรวจสอบสคีมา (PRAGMA) เท่านั้น",
     "x_search_terms": [
-      "database",
-      "db query",
-      "sql",
-      "query database",
-      "database query",
-      "sql query",
-      "db select",
-      "run query",
-      "data query",
-      "database search"
+      "db แบบสอบถาม",
+      "ฐานข้อมูล",
+      "ฐานข้อมูล SQL",
+      "ฐานข้อมูลแบบสอบถาม",
+      "แบบสอบถามฐานข้อมูล",
+      "ดำเนินการ sql",
+      "แบบสอบถาม db",
+      "เรียกใช้แบบสอบถาม",
+      "แบบสอบถาม sql",
+      "เลือก"
     ]
   },
   "zh_CN": {
@@ -416,16 +416,16 @@
     "param.sql.description": "要执行的 SQL。",
     "tool.description": "对 SQLite 数据库执行 SQL 查询并返回结果。仅支持只读操作（SELECT）和架构检查（PRAGMA）。",
     "x_search_terms": [
-      "database",
-      "db query",
+      "数据库查询",
+      "数据库",
       "sql",
-      "query database",
-      "database query",
-      "sql query",
-      "db select",
-      "run query",
-      "data query",
-      "database search"
+      "查询数据库",
+      "数据库查询",
+      "执行sql",
+      "数据库查询",
+      "运行查询",
+      "sql查询",
+      "选择"
     ]
   },
   "zh_TW": {
@@ -433,16 +433,16 @@
     "param.sql.description": "要執行的 SQL。",
     "tool.description": "對 SQLite 資料庫執行 SQL 查詢並傳回結果。僅支援唯讀操作（SELECT）和結構檢查（PRAGMA）。",
     "x_search_terms": [
-      "database",
-      "db query",
+      "資料庫查詢",
+      "資料庫",
       "sql",
-      "query database",
-      "database query",
-      "sql query",
-      "db select",
-      "run query",
-      "data query",
-      "database search"
+      "查詢資料庫",
+      "資料庫查詢",
+      "執行sql",
+      "資料庫查詢",
+      "執行查詢",
+      "sql查詢",
+      "選擇"
     ]
   },
   "bn": {
@@ -450,16 +450,16 @@
     "param.sql.description": "চালানোর জন্য SQL।",
     "tool.description": "SQLite ডেটাবেসে SQL কোয়েরি চালিয়ে ফলাফল ফেরত দেয়। কেবল read-only অপারেশন (SELECT) এবং schema inspection (PRAGMA) সমর্থিত।",
     "x_search_terms": [
-      "database",
-      "db query",
+      "db ক্যোয়ারী",
+      "ডাটাবেস",
       "sql",
-      "query database",
-      "database query",
-      "sql query",
-      "db select",
-      "run query",
-      "data query",
-      "database search"
+      "ক্যোয়ারী ডাটাবেস",
+      "ডাটাবেস প্রশ্ন",
+      "এসকিউএল চালান",
+      "db প্রশ্ন",
+      "প্রশ্ন চালান",
+      "sql প্রশ্ন",
+      "নির্বাচন করুন"
     ]
   },
   "fa": {
@@ -467,16 +467,16 @@
     "param.sql.description": "SQL برای اجرا.",
     "tool.description": "پرس‌وجوهای SQL را روی پایگاه‌دادهٔ SQLite اجرا می‌کند و نتیجه را برمی‌گرداند. فقط عملیات فقط‌خواندنی (SELECT) و بررسی شِما (PRAGMA) پشتیبانی می‌شوند.",
     "x_search_terms": [
-      "database",
-      "db query",
+      "پرسمان db",
+      "پایگاه داده",
       "sql",
-      "query database",
-      "database query",
-      "sql query",
-      "db select",
-      "run query",
-      "data query",
-      "database search"
+      "پایگاه پرس و جو",
+      "پرس و جو پایگاه داده",
+      "اجرای sql",
+      "پرس و جو db",
+      "اجرای پرس و جو",
+      "پرس و جو sql",
+      "انتخاب کنید"
     ]
   },
   "mn": {
@@ -484,16 +484,16 @@
     "param.sql.description": "Ажиллуулах SQL.",
     "tool.description": "SQLite өгөгдлийн санд SQL асуулга ажиллуулж үр дүнг буцаана. Зөвхөн унших ажиллагаа (SELECT) болон схем шалгалт (PRAGMA) дэмжинэ.",
     "x_search_terms": [
-      "database",
-      "db query",
+      "db асуулга",
+      "мэдээллийн сан",
       "sql",
-      "query database",
-      "database query",
+      "асуулга мэдээллийн сан",
+      "мэдээллийн сангийн асуулга",
+      "sql",
+      "ажиллуулах db асуулга",
+      "асуулга ажиллуулах",
       "sql query",
-      "db select",
-      "run query",
-      "data query",
-      "database search"
+      "сонгох"
     ]
   },
   "mr": {
@@ -501,16 +501,16 @@
     "param.sql.description": "चालवायचा SQL.",
     "tool.description": "SQLite डेटाबेसवर SQL क्वेरीज चालवते आणि निकाल परत करते. फक्त read-only ऑपरेशन्स (SELECT) आणि schema inspection (PRAGMA) समर्थित आहेत.",
     "x_search_terms": [
-      "database",
-      "db query",
+      "db क्वेरी",
+      "डेटाबेस",
       "sql",
-      "query database",
-      "database query",
-      "sql query",
-      "db select",
-      "run query",
-      "data query",
-      "database search"
+      "क्वेरी डेटाबेस",
+      "डेटाबेस क्वेरी",
+      "sql चालवा",
+      "db क्वेरी",
+      "क्वेरी चालवा",
+      "sql क्वेरी",
+      "निवडा"
     ]
   },
   "el": {
@@ -518,16 +518,16 @@
     "param.sql.description": "SQL για εκτέλεση.",
     "tool.description": "Εκτελέστε ερωτήματα SQL σε μια βάση δεδομένων SQLite και επιστρέψτε το αποτέλεσμα. Υποστηρίζονται μόνο οι λειτουργίες μόνο για ανάγνωση (SELECT) και η επιθεώρηση σχήματος (PRAGMA).",
     "x_search_terms": [
-      "database",
-      "db query",
+      "ερώτημα db",
+      "βάση δεδομένων",
       "sql",
-      "query database",
-      "database query",
-      "sql query",
-      "db select",
-      "run query",
-      "data query",
-      "database search"
+      "βάση δεδομένων ερωτημάτων",
+      "ερώτημα βάσης δεδομένων",
+      "εκτέλεση sql",
+      "db ερώτημα",
+      "εκτέλεση ερωτήματος",
+      "sql ερώτημα",
+      "επιλέξτε"
     ]
   },
   "he": {
@@ -535,16 +535,16 @@
     "param.sql.description": "SQL לביצוע.",
     "tool.description": "בצע שאילתות SQL מול מסד נתונים של SQLite והחזר את התוצאה. רק פעולות לקריאה בלבד (SELECT) ובדיקת סכימה (PRAGMA) נתמכות.",
     "x_search_terms": [
-      "database",
-      "db query",
+      "שאילתת db",
+      "מסד נתונים",
       "sql",
-      "query database",
-      "database query",
-      "sql query",
-      "db select",
-      "run query",
-      "data query",
-      "database search"
+      "מסד נתונים של שאילתות",
+      "שאילתת מסד נתונים",
+      "בצע sql",
+      "שאילתת db",
+      "הרץ שאילתה",
+      "שאילתת sql",
+      "בחר"
     ]
   },
   "hu": {
@@ -552,16 +552,16 @@
     "param.sql.description": "SQL végrehajtása.",
     "tool.description": "Végezzen SQL lekérdezéseket egy SQLite adatbázison, és adja vissza az eredményt. Csak olvasható műveletek (SELECT) és sémavizsgálat (PRAGMA) támogatottak.",
     "x_search_terms": [
-      "database",
-      "db query",
+      "db lekérdezés",
+      "adatbázis",
       "sql",
-      "query database",
-      "database query",
-      "sql query",
-      "db select",
-      "run query",
-      "data query",
-      "database search"
+      "lekérdezési adatbázis",
+      "adatbázis lekérdezés",
+      "sql",
+      "db lekérdezés",
+      "lekérdezés futtatása",
+      "sql lekérdezés",
+      "kiválaszt"
     ]
   },
   "ro": {
@@ -569,16 +569,16 @@
     "param.sql.description": "SQL de executat.",
     "tool.description": "Executați interogări SQL pe o bază de date SQLite și returnați rezultatul. Sunt acceptate doar operațiunile de numai citire (SELECT) și inspecția schemei (PRAGMA).",
     "x_search_terms": [
-      "database",
-      "db query",
+      "interogare db",
+      "baza de date",
       "sql",
-      "query database",
-      "database query",
-      "sql query",
-      "db select",
-      "run query",
-      "data query",
-      "database search"
+      "bază de date interogări",
+      "interogare baza de date",
+      "executa sql",
+      "interogare db",
+      "rulați interogarea",
+      "interogare sql",
+      "selectați"
     ]
   }
 }

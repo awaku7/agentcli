@@ -24,16 +24,8 @@
   "ja": {
     "tool.description": "ディレクトリの内容を一覧表示（ページネーション対応）。",
     "x_search_terms": [
-      "list dir",
-      "directory",
-      "list directory",
-      "dir listing",
-      "folder",
-      "list files",
-      "directory listing",
-      "file list",
-      "show dir",
-      "folder contents"
+      "リスト ディレクトリ |リストディレクトリ",
+      "ls |ディレクトリ |ディレクトリリスト |ファイルをリストする |フォルダリスト |ファイルリスト"
     ],
     "param.path.description": "一覧表示するディレクトリ（既定: 現在のディレクトリ）。root_path の別名です。",
     "param.show_hidden.description": "非表示項目も一覧に含めます。",
@@ -46,16 +38,14 @@
   "es": {
     "tool.description": "Listar entradas en un directorio con paginación, similar a ls.",
     "x_search_terms": [
-      "list dir",
-      "directory",
-      "list directory",
-      "dir listing",
-      "folder",
-      "list files",
-      "directory listing",
-      "file list",
-      "show dir",
-      "folder contents"
+      "lista de directorios",
+      "directorio de lista",
+      "ls",
+      "directorio",
+      "listado de directorio",
+      "listar archivos",
+      "lista de carpetas",
+      "lista de archivos"
     ],
     "param.path.description": "Directorio a listar (predeterminado: directorio actual). Alias ​​de root_path.",
     "param.show_hidden.description": "Incluir elementos ocultos en la lista.",
@@ -66,15 +56,13 @@
     "tool.description": "Liste les entrées dans un répertoire avec une pagination, similaire à ls.",
     "x_search_terms": [
       "list dir",
-      "directory",
-      "list directory",
-      "dir listing",
-      "folder",
-      "list files",
-      "directory listing",
-      "file list",
-      "show dir",
-      "folder contents"
+      "liste répertoire",
+      "ls",
+      "rép",
+      "inscription dans l'annuaire",
+      "lister les fichiers",
+      "liste des dossiers",
+      "liste de fichiers"
     ],
     "param.path.description": "Répertoire à lister (par défaut : répertoire courant). Alias ​​de root_path.",
     "param.show_hidden.description": "Inclure les entrées masquées dans la liste.",
@@ -84,16 +72,14 @@
   "ko": {
     "tool.description": "디렉토리 내용 목록 표시(페이지네이션 지원).",
     "x_search_terms": [
-      "list dir",
-      "directory",
-      "list directory",
-      "dir listing",
-      "folder",
-      "list files",
-      "directory listing",
-      "file list",
-      "show dir",
-      "folder contents"
+      "디렉토리 목록",
+      "목록 디렉토리",
+      "ls",
+      "dir",
+      "디렉토리 목록",
+      "파일 목록",
+      "폴더 목록",
+      "파일 목록"
     ],
     "param.path.description": "나열할 디렉터리(기본값: 현재 디렉터리). root_path의 별칭입니다.",
     "param.show_hidden.description": "숨김 항목도 목록에 포함합니다.",
@@ -104,15 +90,13 @@
     "tool.description": "Einträge in einem Verzeichnis mit Paginierung auflisten, ähnlich wie bei ls.",
     "x_search_terms": [
       "list dir",
-      "directory",
-      "list directory",
-      "dir listing",
-      "folder",
-      "list files",
-      "directory listing",
-      "file list",
-      "show dir",
-      "folder contents"
+      "Listenverzeichnis",
+      "ls",
+      "dir",
+      "Verzeichnisliste",
+      "Dateien auflisten",
+      "Ordnerliste",
+      "Dateiliste"
     ],
     "param.path.description": "Verzeichnis zum Auflisten (Standard: aktuelles Verzeichnis). Alias von root_path.",
     "param.show_hidden.description": "Ausgeblendete Einträge in die Liste einbeziehen.",
@@ -123,15 +107,13 @@
     "tool.description": "Elenca le voci in una directory con impaginazione, simile a ls.",
     "x_search_terms": [
       "list dir",
-      "directory",
-      "list directory",
-      "dir listing",
-      "folder",
-      "list files",
-      "directory listing",
-      "file list",
-      "show dir",
-      "folder contents"
+      "elenco directory",
+      "ls",
+      "dir",
+      "elenco delle directory",
+      "elenca i file",
+      "elenco cartelle",
+      "elenco file"
     ],
     "param.path.description": "Directory da elencare (predefinita: directory corrente). Alias di percorso_root.",
     "param.show_hidden.description": "Includi voci nascoste nell'elenco.",
@@ -141,16 +123,7 @@
   "ru": {
     "tool.description": "Список записей в каталоге с нумерацией страниц, аналогично ls.",
     "x_search_terms": [
-      "list dir",
-      "directory",
-      "list directory",
-      "dir listing",
-      "folder",
-      "list files",
-      "directory listing",
-      "file list",
-      "show dir",
-      "folder contents"
+      "каталог списка, список каталогов, лс, режиссёр, список каталогов, список файлов, список папок, список файлов"
     ],
     "param.path.description": "Каталог для отображения (по умолчанию: текущий каталог). Псевдоним root_path.",
     "param.show_hidden.description": "Включать скрытые элементы в список.",
@@ -179,16 +152,16 @@
   "pt": {
     "tool.description": "Liste os itens de um diretório e devolva JSON estruturado.",
     "x_search_terms": [
-      "list dir",
-      "directory",
-      "list directory",
-      "dir listing",
-      "folder",
-      "list files",
-      "directory listing",
-      "file list",
-      "show dir",
-      "folder contents"
+      "diretório da lista",
+      "diretório",
+      "diretório de lista",
+      "listagem de diretório",
+      "pasta",
+      "listar arquivos",
+      "listagem de diretórios",
+      "lista de arquivos",
+      "mostrar diretório",
+      "conteúdo da pasta"
     ],
     "param.path.description": "Diretório a ser listado (padrão: diretório atual). Alias de root_path.",
     "param.show_hidden.description": "Incluir itens ocultos na lista.",
@@ -198,16 +171,16 @@
   "id": {
     "tool.description": "Daftar entri dalam direktori dengan pagination, mirip dengan ls.",
     "x_search_terms": [
-      "list dir",
-      "directory",
-      "list directory",
-      "dir listing",
-      "folder",
-      "list files",
-      "directory listing",
-      "file list",
-      "show dir",
-      "folder contents"
+      "daftar dir",
+      "direktori",
+      "daftar direktori",
+      "daftar direktori",
+      "map",
+      "daftar file",
+      "daftar direktori",
+      "daftar file",
+      "tampilkan direktori",
+      "isi folder"
     ],
     "param.path.description": "Direktori yang akan dicantumkan (default: direktori saat ini). Alias ​​​​dari root_path.",
     "param.show_hidden.description": "Sertakan item tersembunyi dalam daftar.",
@@ -217,16 +190,16 @@
   "vi": {
     "tool.description": "Liệt kê các mục trong một thư mục có phân trang, tương tự như ls.",
     "x_search_terms": [
-      "list dir",
-      "directory",
-      "list directory",
-      "dir listing",
-      "folder",
-      "list files",
-      "directory listing",
-      "file list",
-      "show dir",
-      "folder contents"
+      "danh sách thư mục",
+      "thư mục",
+      "danh sách thư mục",
+      "danh sách thư mục",
+      "thư mục",
+      "liệt kê tập tin",
+      "danh sách thư mục",
+      "danh sách tập tin",
+      "hiển thị thư mục",
+      "nội dung thư mục"
     ],
     "param.path.description": "Thư mục vào danh sách (mặc định: thư mục hiện tại). Bí danh của root_path.",
     "param.show_hidden.description": "Bao gồm cả các mục ẩn trong danh sách.",

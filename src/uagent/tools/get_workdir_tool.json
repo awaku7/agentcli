@@ -17,106 +17,68 @@
   "ja": {
     "tool.description": "現在の作業ディレクトリを取得します。",
     "x_search_terms": [
-      "get workdir",
-      "working directory",
-      "current directory",
-      "work dir",
-      "pwd",
-      "current folder",
-      "get folder",
-      "show directory",
-      "work path",
-      "get path"
+      "get workdir |パスワード |現在のディレクトリ |現在の作業ディレクトリ |現在のパス |作業ディレクトリ"
     ]
   },
   "es": {
     "tool.description": "Obtenga el directorio de trabajo actual. Se agotó el tiempo de espera del comando",
     "x_search_terms": [
       "get workdir",
-      "working directory",
-      "current directory",
-      "work dir",
       "pwd",
-      "current folder",
-      "get folder",
-      "show directory",
-      "work path",
-      "get path"
+      "directorio actual",
+      "actual director de trabajo",
+      "camino actual",
+      "directorio de trabajo"
     ]
   },
   "fr": {
     "tool.description": "Récupère le répertoire de travail actuel. La commande",
     "x_search_terms": [
       "get workdir",
-      "working directory",
-      "current directory",
-      "work dir",
-      "pwd",
-      "current folder",
-      "get folder",
-      "show directory",
-      "work path",
-      "get path"
+      "mot de passe",
+      "répertoire actuel",
+      "répertoire de travail actuel",
+      "chemin actuel",
+      "répertoire de travail"
     ]
   },
   "ko": {
     "tool.description": "현재 작업 디렉터리를 가져옵니다.",
     "x_search_terms": [
-      "get workdir",
-      "working directory",
-      "current directory",
-      "work dir",
+      "workdir 가져오기",
       "pwd",
-      "current folder",
-      "get folder",
-      "show directory",
-      "work path",
-      "get path"
+      "현재 디렉토리",
+      "현재 작업 디렉토리",
+      "현재 경로",
+      "작업 디렉토리"
     ]
   },
   "de": {
     "tool.description": "Alle gespeicherten Langzeitspeichernotizen abrufen (JSONL).",
     "x_search_terms": [
       "get workdir",
-      "working directory",
-      "current directory",
-      "work dir",
       "pwd",
-      "current folder",
-      "get folder",
-      "show directory",
-      "work path",
-      "get path"
+      "aktuelles Verzeichnis",
+      "aktuelles Arbeitsverzeichnis",
+      "aktueller Pfad",
+      "Arbeitsverzeichnis"
     ]
   },
   "it": {
     "tool.description": "Ottieni la directory di lavoro corrente.",
     "x_search_terms": [
       "get workdir",
-      "working directory",
-      "current directory",
-      "work dir",
       "pwd",
-      "current folder",
-      "get folder",
-      "show directory",
-      "work path",
-      "get path"
+      "directory corrente",
+      "presente dir funzionante",
+      "percorso attuale",
+      "dir funzionante"
     ]
   },
   "ru": {
     "tool.description": "Получает текущий рабочий каталог.",
     "x_search_terms": [
-      "get workdir",
-      "working directory",
-      "current directory",
-      "work dir",
-      "pwd",
-      "current folder",
-      "get folder",
-      "show directory",
-      "work path",
-      "get path"
+      "get workdir, pwd, текущий каталог, настоящий рабочий реж., текущий путь, рабочий каталог"
     ]
   },
   "pt_BR": {
@@ -137,46 +99,46 @@
   "pt": {
     "tool.description": "Obtenha o diretório de trabalho atual",
     "x_search_terms": [
-      "get workdir",
-      "working directory",
-      "current directory",
-      "work dir",
-      "pwd",
-      "current folder",
-      "get folder",
-      "show directory",
-      "work path",
-      "get path"
+      "obter diretório de trabalho",
+      "diretório de trabalho",
+      "diretório atual",
+      "diretório de trabalho",
+      "senha",
+      "pasta atual",
+      "obter pasta",
+      "mostrar diretório",
+      "caminho de trabalho",
+      "obter caminho"
     ]
   },
   "id": {
     "tool.description": "Dapatkan direktori kerja saat ini.",
     "x_search_terms": [
-      "get workdir",
-      "working directory",
-      "current directory",
-      "work dir",
+      "dapatkan workdir",
+      "direktori kerja",
+      "direktori saat ini",
+      "direktori kerja",
       "pwd",
-      "current folder",
-      "get folder",
-      "show directory",
-      "work path",
-      "get path"
+      "folder saat ini",
+      "dapatkan folder",
+      "tampilkan direktori",
+      "jalur kerja",
+      "dapatkan jalur"
     ]
   },
   "vi": {
     "tool.description": "Lấy thư mục làm việc hiện tại.",
     "x_search_terms": [
-      "get workdir",
-      "working directory",
-      "current directory",
-      "work dir",
+      "lấy công việc",
+      "thư mục làm việc",
+      "thư mục hiện tại",
+      "thư mục làm việc",
       "pwd",
-      "current folder",
-      "get folder",
-      "show directory",
-      "work path",
-      "get path"
+      "thư mục hiện tại",
+      "lấy thư mục",
+      "hiển thị thư mục",
+      "con đường làm việc",
+      "lấy đường dẫn"
     ]
   },
   "pl": {

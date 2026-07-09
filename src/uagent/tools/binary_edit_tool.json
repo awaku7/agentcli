@@ -40,16 +40,8 @@
     "param.splice_op.description": "splice 操作（splice モード）。",
     "tool.description": "ファイルを生バイトで編集（オフセット書換、検索/置換、挿入/削除、JSONパッチ）。",
     "x_search_terms": [
-      "binary edit",
-      "hex edit",
-      "binary file",
-      "edit binary",
-      "hex editor",
-      "binary modify",
-      "binary patch",
-      "binary data",
-      "file hex",
-      "binary editor"
+      "バイナリ編集",
+      "16進数編集 |バイナリパッチ |ファイルパッチ |バイト編集 |バイナリ変更 |パッチファイル |バイナリを編集する |六角パッチ |データ パッチ"
     ],
     "param.maxb.description": "このサイズ（バイト）を超えるファイルは拒否します。"
   },
@@ -67,16 +59,16 @@
     "param.splice_op.description": "Operación de splice (modo splice).",
     "tool.description": "Edita un archivo local como bytes sin procesar (binario).",
     "x_search_terms": [
-      "binary edit",
-      "hex edit",
-      "binary file",
-      "edit binary",
-      "hex editor",
-      "binary modify",
-      "binary patch",
-      "binary data",
-      "file hex",
-      "binary editor"
+      "edición binaria",
+      "edición hexadecimal",
+      "parche binario",
+      "parche de archivo",
+      "edición de bytes",
+      "modificación binaria",
+      "archivo de parche",
+      "editar binario",
+      "parche hexagonal",
+      "parche de datos"
     ],
     "param.maxb.description": "Rechazar archivos mayores a este tamaño (bytes)."
   },
@@ -94,16 +86,16 @@
     "param.splice_op.description": "Opération de splice (mode splice).",
     "tool.description": "Modifiez un fichier local sous forme d'octets bruts (binaire).",
     "x_search_terms": [
-      "binary edit",
-      "hex edit",
-      "binary file",
-      "edit binary",
-      "hex editor",
-      "binary modify",
-      "binary patch",
-      "binary data",
-      "file hex",
-      "binary editor"
+      "édition binaire",
+      "édition hexadécimale",
+      "patch binaire",
+      "correctif de fichier",
+      "modification d'octet",
+      "modification binaire",
+      "fichier de correctif",
+      "modifier le binaire",
+      "patch hexadécimal",
+      "patch de données"
     ],
     "param.maxb.description": "Rejetez les fichiers plus grands que cette taille (octets)."
   },
@@ -121,16 +113,16 @@
     "param.splice_op.description": "splice 작업(splice 모드)입니다.",
     "tool.description": "파일을 원시 바이트로 편집(오프셋 쓰기, 검색/치환, 삽입/삭제, JSON 패치).",
     "x_search_terms": [
-      "binary edit",
-      "hex edit",
-      "binary file",
-      "edit binary",
-      "hex editor",
-      "binary modify",
-      "binary patch",
-      "binary data",
-      "file hex",
-      "binary editor"
+      "바이너리 편집",
+      "16진수 편집",
+      "바이너리 패치",
+      "파일 패치",
+      "바이트 편집",
+      "바이너리 수정",
+      "패치 파일",
+      "바이너리 편집",
+      "육각 패치",
+      "데이터 패치"
     ],
     "param.maxb.description": "이 크기(바이트)보다 큰 파일은 거부합니다."
   },
@@ -148,16 +140,16 @@
     "param.splice_op.description": "Splice-Vorgang (Modus splice).",
     "tool.description": "Bearbeitet eine lokale Datei als Rohbytes (binär).",
     "x_search_terms": [
-      "binary edit",
-      "hex edit",
-      "binary file",
-      "edit binary",
-      "hex editor",
-      "binary modify",
-      "binary patch",
-      "binary data",
-      "file hex",
-      "binary editor"
+      "Binärbearbeitung",
+      "hex bearbeiten",
+      "Binär-Patch",
+      "Datei-Patch",
+      "Byte bearbeiten",
+      "binär ändern",
+      "Patch-Datei",
+      "Binärdatei bearbeiten",
+      "Hex-Patch",
+      "Datenpatch"
     ],
     "param.maxb.description": "Lehnt Dateien ab, die größer als diese Größe (Bytes) sind."
   },
@@ -175,16 +167,16 @@
     "param.splice_op.description": "Operazione di giunzione (modalità di giunzione).",
     "tool.description": "Modifica un file locale come byte grezzi (binario).",
     "x_search_terms": [
-      "binary edit",
-      "hex edit",
-      "binary file",
-      "edit binary",
-      "hex editor",
-      "binary modify",
-      "binary patch",
-      "binary data",
-      "file hex",
-      "binary editor"
+      "modifica binaria",
+      "modifica esadecimale",
+      "patch binaria",
+      "patch del file",
+      "modifica byte",
+      "modifica binaria",
+      "file di patch",
+      "modifica binario",
+      "patch esadecimale",
+      "patch dati"
     ],
     "param.maxb.description": "Rifiuta file più grandi di questa dimensione (byte)."
   },
@@ -202,16 +194,7 @@
     "param.splice_op.description": "Операция splice (режим splice).",
     "tool.description": "Редактирует локальный файл как необработанные байты (двоичные данные).",
     "x_search_terms": [
-      "binary edit",
-      "hex edit",
-      "binary file",
-      "edit binary",
-      "hex editor",
-      "binary modify",
-      "binary patch",
-      "binary data",
-      "file hex",
-      "binary editor"
+      "двоичное редактирование, шестнадцатеричное редактирование, бинарный патч, патч файла, редактирование байта, бинарное изменение, файл патча, редактировать двоичный, шестигранный патч, патч данных"
     ],
     "param.maxb.description": "Отклонять файлы, размер которых превышает этот размер (в байтах)."
   },
@@ -256,16 +239,16 @@
     "param.splice_op.description": "Operação de emenda (modo de emenda).",
     "tool.description": "Edite um arquivo local como bytes brutos (binários).",
     "x_search_terms": [
-      "binary edit",
-      "hex edit",
-      "binary file",
-      "edit binary",
-      "hex editor",
-      "binary modify",
-      "binary patch",
-      "binary data",
-      "file hex",
-      "binary editor"
+      "edição binária",
+      "edição hexadecimal",
+      "arquivo binário",
+      "editar binário",
+      "editor hexadecimal",
+      "modificação binária",
+      "patch binário",
+      "dados binários",
+      "arquivo hexadecimal",
+      "editor binário"
     ],
     "param.maxb.description": "Rejeite arquivos maiores que esse tamanho (bytes)."
   },
@@ -283,16 +266,16 @@
     "param.splice_op.description": "Operasi splice (mode splice).",
     "tool.description": "Edit file lokal sebagai byte mentah (binary).",
     "x_search_terms": [
-      "binary edit",
-      "hex edit",
-      "binary file",
-      "edit binary",
-      "hex editor",
-      "binary modify",
-      "binary patch",
-      "binary data",
-      "file hex",
-      "binary editor"
+      "edit biner",
+      "hex sunting",
+      "file biner",
+      "edit biner",
+      "editor hex",
+      "modifikasi biner",
+      "tambalan biner",
+      "data biner",
+      "berkas heksa",
+      "editor biner"
     ],
     "param.maxb.description": "Tolak file yang lebih besar dari ukuran ini (byte)."
   },
@@ -310,16 +293,16 @@
     "param.splice_op.description": "Thao tác ghép nối (chế độ ghép nối).",
     "tool.description": "Chỉnh sửa tệp cục bộ dưới dạng byte thô (nhị phân).",
     "x_search_terms": [
-      "binary edit",
-      "hex edit",
-      "binary file",
-      "edit binary",
-      "hex editor",
-      "binary modify",
-      "binary patch",
-      "binary data",
-      "file hex",
-      "binary editor"
+      "chỉnh sửa nhị phân",
+      "chỉnh sửa hex",
+      "tệp nhị phân",
+      "chỉnh sửa nhị phân",
+      "trình soạn thảo hex",
+      "sửa đổi nhị phân",
+      "bản vá nhị phân",
+      "dữ liệu nhị phân",
+      "tập tin hex",
+      "trình soạn thảo nhị phân"
     ],
     "param.maxb.description": "Từ chối các tệp lớn hơn kích thước này (byte)."
   },

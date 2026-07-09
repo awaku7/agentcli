@@ -25,16 +25,8 @@
     "param.return.description": "出力形式。",
     "tool.description": "ファイルのハッシュ（sha256/sha1/md5）を計算します。",
     "x_search_terms": [
-      "file hash",
-      "hash",
-      "checksum",
-      "md5",
-      "sha",
-      "file checksum",
-      "hash file",
-      "file integrity",
-      "hash value",
-      "file digest"
+      "ファイル ハッシュ |ハッシュファイル |チェックサム",
+      "MD5 |しゃ256 |しゃ1 |ハッシュサム |ファイル チェックサム"
     ]
   },
   "es": {
@@ -44,16 +36,14 @@
     "param.return.description": "Formato de salida.",
     "tool.description": "Calcula el hash (sha256/sha1/md5) de los archivos.",
     "x_search_terms": [
-      "file hash",
-      "hash",
-      "checksum",
+      "hash de archivo",
+      "archivo hash",
+      "suma de comprobación",
       "md5",
-      "sha",
-      "file checksum",
-      "hash file",
-      "file integrity",
-      "hash value",
-      "file digest"
+      "sha256",
+      "sha1",
+      "suma hash",
+      "suma de comprobación del archivo"
     ]
   },
   "fr": {
@@ -63,16 +53,14 @@
     "param.return.description": "Format de sortie.",
     "tool.description": "Calcule le hachage (sha256/sha1/md5) des fichiers.",
     "x_search_terms": [
-      "file hash",
-      "hash",
-      "checksum",
+      "hachage de fichier",
+      "fichier de hachage",
+      "somme de contrôle",
       "md5",
-      "sha",
-      "file checksum",
-      "hash file",
-      "file integrity",
-      "hash value",
-      "file digest"
+      "sha256",
+      "sha1",
+      "somme de hachage",
+      "somme de contrôle du fichier"
     ]
   },
   "ko": {
@@ -82,16 +70,14 @@
     "param.return.description": "출력 형식입니다.",
     "tool.description": "파일의 해시(sha256/sha1/md5)를 계산합니다.",
     "x_search_terms": [
-      "file hash",
-      "hash",
-      "checksum",
-      "md5",
-      "sha",
-      "file checksum",
-      "hash file",
-      "file integrity",
-      "hash value",
-      "file digest"
+      "파일 해시",
+      "해시 파일",
+      "체크섬",
+      "MD5",
+      "sha256",
+      "sha1",
+      "해시 합계",
+      "파일 체크섬"
     ]
   },
   "de": {
@@ -101,16 +87,14 @@
     "param.return.description": "Ausgabeformat.",
     "tool.description": "Berechnet den Hash (sha256/sha1/md5) von Dateien.",
     "x_search_terms": [
-      "file hash",
-      "hash",
-      "checksum",
+      "Datei-Hash",
+      "Hash-Datei",
+      "Prüfsumme",
       "md5",
-      "sha",
-      "file checksum",
-      "hash file",
-      "file integrity",
-      "hash value",
-      "file digest"
+      "sha256",
+      "sha1",
+      "Hash-Summe",
+      "Dateiprüfsumme"
     ]
   },
   "it": {
@@ -120,16 +104,14 @@
     "param.return.description": "Formato di output",
     "tool.description": "Calcola l'hash (sha256/sha1/md5) dei file.",
     "x_search_terms": [
-      "file hash",
-      "hash",
-      "checksum",
-      "md5",
-      "sha",
-      "file checksum",
       "hash file",
-      "file integrity",
-      "hash value",
-      "file digest"
+      "file hash",
+      "somma di controllo",
+      "md5",
+      "sha256",
+      "sha1",
+      "somma hash",
+      "checksum file"
     ]
   },
   "ru": {
@@ -139,16 +121,7 @@
     "param.return.description": "Формат вывода.",
     "tool.description": "Вычисляет хэш (sha256/sha1/md5) файлов.",
     "x_search_terms": [
-      "file hash",
-      "hash",
-      "checksum",
-      "md5",
-      "sha",
-      "file checksum",
-      "hash file",
-      "file integrity",
-      "hash value",
-      "file digest"
+      "хеш файла, хэш-файл, контрольная сумма, мд5, ша256, ша1, хеш-сумма, контрольная сумма файла"
     ]
   },
   "pt_BR": {
@@ -177,16 +150,16 @@
     "param.return.description": "Formato de saída.",
     "tool.description": "Calcula o hash (sha256/sha1/md5) dos arquivos.",
     "x_search_terms": [
-      "file hash",
+      "hash do arquivo",
       "hash",
-      "checksum",
+      "soma de verificação",
       "md5",
-      "sha",
-      "file checksum",
-      "hash file",
-      "file integrity",
-      "hash value",
-      "file digest"
+      "sim",
+      "soma de verificação do arquivo",
+      "arquivo hash",
+      "integridade de arquivos",
+      "valor hash",
+      "resumo do arquivo"
     ]
   },
   "id": {
@@ -196,16 +169,16 @@
     "param.return.description": "Format keluaran.",
     "tool.description": "Hitung hash (sha256/sha1/md5) dari file.",
     "x_search_terms": [
-      "file hash",
+      "hash file",
       "hash",
       "checksum",
       "md5",
       "sha",
-      "file checksum",
-      "hash file",
-      "file integrity",
-      "hash value",
-      "file digest"
+      "pemeriksaan berkas",
+      "berkas hash",
+      "integritas file",
+      "nilai hash",
+      "intisari file"
     ]
   },
   "vi": {
@@ -215,16 +188,16 @@
     "param.return.description": "Định dạng đầu ra.",
     "tool.description": "Tính mã băm (sha256/sha1/md5) của tệp.",
     "x_search_terms": [
-      "file hash",
-      "hash",
-      "checksum",
+      "băm tệp",
+      "băm",
+      "tổng kiểm tra",
       "md5",
       "sha",
-      "file checksum",
-      "hash file",
-      "file integrity",
-      "hash value",
-      "file digest"
+      "tổng kiểm tra tập tin",
+      "tập tin băm",
+      "tính toàn vẹn của tập tin",
+      "giá trị băm",
+      "thông báo tệp"
     ]
   },
   "pl": {

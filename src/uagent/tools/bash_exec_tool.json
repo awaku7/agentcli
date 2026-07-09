@@ -20,16 +20,12 @@
     "err.unavailable": "このツールは bash がインストールされた Unix 系でのみ利用できます。",
     "param.command.description": "bash -lc に渡すコマンド文字列。",
     "x_search_terms": [
-      "bash",
-      "shell",
-      "bash command",
-      "shell exec",
-      "command line",
-      "linux shell",
-      "run command",
-      "execute bash",
-      "bash script",
-      "terminal"
+      "bash exec",
+      "bashを実行する",
+      "bashを実行する",
+      "bash コマンド",
+      "bash スクリプト |シェルスクリプト",
+      "bash run"
     ],
     "tool.description": "最後の手段として、bash コマンドを実行します。他に適切なツールが利用できない場合にのみ使用してください。"
   },
@@ -37,97 +33,79 @@
     "err.unavailable": "Esta herramienta está disponible en sistemas tipo Unix con bash instalado.",
     "param.command.description": "Cadena de comando pasada a bash -lc.",
     "x_search_terms": [
-      "bash",
-      "shell",
-      "bash command",
-      "shell exec",
-      "command line",
-      "linux shell",
-      "run command",
-      "execute bash",
-      "bash script",
-      "terminal"
-    ]
+      "bash exec",
+      "ejecutar bash",
+      "ejecutar bash",
+      "comando bash",
+      "script de bash",
+      "script de shell",
+      "bash ejecutar"
+    ],
+    "tool.description": "Como último recurso, ejecute un comando bash. Úselo solo cuando no haya otra herramienta adecuada disponible."
   },
   "fr": {
     "err.unavailable": "Cet outil est disponible sur les systèmes de type Unix avec bash installé.",
     "param.command.description": "Chaîne de commande transmise à bash -lc.",
     "x_search_terms": [
-      "bash",
-      "shell",
-      "bash command",
-      "shell exec",
-      "command line",
-      "linux shell",
-      "run command",
-      "execute bash",
-      "bash script",
-      "terminal"
-    ]
+      "bash exec",
+      "exécuter bash",
+      "exécuter bash",
+      "commande bash",
+      "script bash",
+      "script shell",
+      "bash run"
+    ],
+    "tool.description": "En dernier recours, exécutez une commande bash. À utiliser uniquement lorsqu'aucun autre outil approprié n'est disponible."
   },
   "ko": {
     "err.unavailable": "이 도구는 bash가 설치된 Unix 계열에서만 사용할 수 있습니다.",
     "param.command.description": "bash -lc에 전달할 명령 문자열입니다.",
     "x_search_terms": [
-      "bash",
-      "shell",
-      "bash command",
-      "shell exec",
-      "command line",
-      "linux shell",
-      "run command",
-      "execute bash",
-      "bash script",
-      "terminal"
-    ]
+      "bash exec",
+      "bash 실행",
+      "bash 실행",
+      "bash 명령",
+      "bash 스크립트",
+      "셸 스크립트",
+      "bash 실행"
+    ],
+    "tool.description": "최후의 수단으로 bash 명령을 실행하세요. 다른 적절한 도구를 사용할 수 없는 경우에만 사용하세요."
   },
   "de": {
     "err.unavailable": "Dieses Tool ist auf Unix-ähnlichen Systemen mit installierter Bash verfügbar.",
     "param.command.description": "Befehlszeichenfolge, die an bash -lc übergeben wird.",
     "x_search_terms": [
-      "bash",
-      "shell",
-      "bash command",
-      "shell exec",
-      "command line",
-      "linux shell",
-      "run command",
-      "execute bash",
-      "bash script",
-      "terminal"
-    ]
+      "bash exec",
+      "Bash ausführen",
+      "Bash ausführen",
+      "Bash-Befehl",
+      "Bash-Skript",
+      "Shell-Skript",
+      "bash run"
+    ],
+    "tool.description": "Führen Sie als letzten Ausweg einen Bash-Befehl aus. Nur verwenden, wenn kein anderes geeignetes Tool verfügbar ist."
   },
   "it": {
     "err.unavailable": "Questo strumento è disponibile su sistemi simili a Unix con bash installato.",
     "param.command.description": "Stringa di comando passata a bash -lc.",
     "x_search_terms": [
-      "bash",
-      "shell",
-      "bash command",
-      "shell exec",
-      "command line",
-      "linux shell",
-      "run command",
-      "execute bash",
-      "bash script",
-      "terminal"
-    ]
+      "bash exec",
+      "esegui bash",
+      "esegui bash",
+      "comando bash",
+      "script bash",
+      "script di shell",
+      "bash run"
+    ],
+    "tool.description": "Come ultima risorsa, esegui un comando bash. Da utilizzare solo quando non sono disponibili altri strumenti appropriati."
   },
   "ru": {
     "err.unavailable": "Этот инструмент доступен в Unix-подобных системах с установленным bash.",
     "param.command.description": "Командная строка, передаваемая в bash -lc.",
     "x_search_terms": [
-      "bash",
-      "shell",
-      "bash command",
-      "shell exec",
-      "command line",
-      "linux shell",
-      "run command",
-      "execute bash",
-      "bash script",
-      "terminal"
-    ]
+      "bash exec, запустить Баш, выполнить Баш, команда bash, bash-скрипт, сценарий оболочки, bash run"
+    ],
+    "tool.description": "В крайнем случае, выполните команду bash. Используйте только в том случае, если нет другого подходящего инструмента."
   },
   "pt_BR": {
     "err.unavailable": "Esta ferramenta está disponível em sistemas do tipo Unix com bash instalado.",
@@ -143,55 +121,59 @@
       "execute bash",
       "bash script",
       "terminal"
-    ]
+    ],
+    "tool.description": "Como último recurso, execute um comando bash. Use somente quando nenhuma outra ferramenta apropriada estiver disponível."
   },
   "pt": {
     "err.unavailable": "Esta ferramenta está disponível em sistemas do tipo Unix com bash instalado.",
     "param.command.description": "Sequência de comando passada para bash -lc.",
     "x_search_terms": [
       "bash",
-      "shell",
-      "bash command",
-      "shell exec",
-      "command line",
-      "linux shell",
-      "run command",
-      "execute bash",
-      "bash script",
+      "concha",
+      "comando bash",
+      "shell executivo",
+      "linha de comando",
+      "shell Linux",
+      "executar comando",
+      "executar bash",
+      "script bash",
       "terminal"
-    ]
+    ],
+    "tool.description": "Como último recurso, execute um comando bash. Use somente quando nenhuma outra ferramenta apropriada estiver disponível."
   },
   "id": {
     "err.unavailable": "Alat ini tersedia pada sistem mirip Unix dengan bash terpasang.",
     "param.command.description": "String perintah diteruskan ke bash -lc.",
     "x_search_terms": [
       "bash",
-      "shell",
-      "bash command",
-      "shell exec",
-      "command line",
-      "linux shell",
-      "run command",
-      "execute bash",
-      "bash script",
+      "cangkang",
+      "perintah pesta",
+      "eksekutif shell",
+      "baris perintah",
+      "cangkang linux",
+      "jalankan perintah",
+      "jalankan pesta",
+      "skrip pesta",
       "terminal"
-    ]
+    ],
+    "tool.description": "Sebagai upaya terakhir, jalankan perintah bash. Gunakan hanya ketika tidak ada alat lain yang sesuai tersedia."
   },
   "vi": {
     "err.unavailable": "Công cụ này có sẵn trên các hệ thống giống Unix có cài đặt bash.",
     "param.command.description": "Chuỗi lệnh được truyền cho bash -lc.",
     "x_search_terms": [
       "bash",
-      "shell",
-      "bash command",
-      "shell exec",
-      "command line",
-      "linux shell",
-      "run command",
-      "execute bash",
-      "bash script",
+      "vỏ",
+      "lệnh bash",
+      "vỏ thực thi",
+      "dòng lệnh",
+      "vỏ linux",
+      "lệnh chạy",
+      "thực thi bash",
+      "kịch bản bash",
       "terminal"
-    ]
+    ],
+    "tool.description": "Phương án cuối cùng là thực thi lệnh bash. Chỉ sử dụng khi không có sẵn công cụ thích hợp nào khác."
   },
   "pl": {
     "err.unavailable": "To narzędzie jest dostępne w systemach typu Unix z zainstalowanym bashem.",
@@ -207,7 +189,8 @@
       "execute bash",
       "bash script",
       "terminal"
-    ]
+    ],
+    "tool.description": "W ostateczności wykonaj polecenie bash. Używaj tylko wtedy, gdy nie jest dostępne żadne inne odpowiednie narzędzie."
   },
   "hi": {
     "err.unavailable": "यह उपकरण bash स्थापित Unix-जैसे सिस्टम पर उपलब्ध है।",
@@ -223,7 +206,8 @@
       "execute bash",
       "bash script",
       "terminal"
-    ]
+    ],
+    "tool.description": "अंतिम उपाय के रूप में, बैश कमांड निष्पादित करें। केवल तभी उपयोग करें जब कोई अन्य उपयुक्त उपकरण मौजूद न हो। उपयोगकर्ता को हमेशा कमांड दिखाएं और चलाने से पहले स्पष्ट अनुमोदन प्राप्त करें।"
   },
   "ar": {
     "err.unavailable": "هذه الأداة متاحة على أنظمة شبيهة بـ Unix التي يحتوي عليها bash.",
@@ -239,7 +223,8 @@
       "execute bash",
       "bash script",
       "terminal"
-    ]
+    ],
+    "tool.description": "كملاذ أخير، قم بتنفيذ أمر bash. استخدم فقط في حالة عدم توفر أي أداة أخرى مناسبة."
   },
   "sv": {
     "err.unavailable": "Det här verktyget är tillgängligt på Unix-liknande system med bash installerat.",
@@ -255,7 +240,8 @@
       "execute bash",
       "bash script",
       "terminal"
-    ]
+    ],
+    "tool.description": "Som en sista utväg, kör ett bash-kommando. Använd endast när inget annat lämpligt verktyg är tillgängligt."
   },
   "sw": {
     "err.unavailable": "Zana hii inapatikana kwenye mifumo inayofanana na Unix iliyosakinishwa bash.",
@@ -271,7 +257,8 @@
       "execute bash",
       "bash script",
       "terminal"
-    ]
+    ],
+    "tool.description": "Kama uamuzi wa mwisho, tekeleza amri ya bash. Tumia tu wakati hakuna zana nyingine inayofaa inapatikana."
   },
   "nb": {
     "err.unavailable": "Dette verktøyet er tilgjengelig på Unix-lignende systemer med bash installert.",
@@ -287,7 +274,8 @@
       "execute bash",
       "bash script",
       "terminal"
-    ]
+    ],
+    "tool.description": "Som en siste utvei, utfør en bash-kommando. Bruk bare når det ikke er noe annet passende verktøy tilgjengelig."
   },
   "nl": {
     "err.unavailable": "Deze tool is beschikbaar op Unix-achtige systemen waarop bash is geïnstalleerd.",
@@ -303,7 +291,8 @@
       "execute bash",
       "bash script",
       "terminal"
-    ]
+    ],
+    "tool.description": "Voer als laatste redmiddel een bash-commando uit. Alleen gebruiken als er geen ander geschikt hulpmiddel beschikbaar is."
   },
   "fi": {
     "err.unavailable": "Tämä työkalu on saatavilla Unix-tyyppisissä järjestelmissä, joihin on asennettu bash.",
@@ -319,7 +308,8 @@
       "execute bash",
       "bash script",
       "terminal"
-    ]
+    ],
+    "tool.description": "Suorita viimeisenä keinona bash-komento. Käytä vain, kun muuta sopivaa työkalua ei ole saatavilla."
   },
   "cs": {
     "err.unavailable": "Tento nástroj je dostupný v unixových systémech s nainstalovaným bash.",
@@ -335,7 +325,8 @@
       "execute bash",
       "bash script",
       "terminal"
-    ]
+    ],
+    "tool.description": "Jako poslední možnost spusťte příkaz bash. Používejte pouze tehdy, když není k dispozici žádný jiný vhodný nástroj."
   },
   "uk": {
     "err.unavailable": "Цей інструмент доступний у Unix-подібних системах із встановленим bash.",
@@ -351,7 +342,8 @@
       "execute bash",
       "bash script",
       "terminal"
-    ]
+    ],
+    "tool.description": "Як крайній засіб, виконайте команду bash. Використовуйте лише тоді, коли немає іншого відповідного інструменту."
   },
   "tr": {
     "err.unavailable": "Bu araç, bash yüklü Unix benzeri sistemlerde kullanılabilir.",
@@ -367,7 +359,8 @@
       "execute bash",
       "bash script",
       "terminal"
-    ]
+    ],
+    "tool.description": "Son çare olarak bir bash komutu yürütün. Yalnızca başka uygun araç bulunmadığında kullanın."
   },
   "th": {
     "err.unavailable": "เครื่องมือนี้ใช้ได้บนระบบ Unix ที่ติดตั้ง bash",
@@ -383,7 +376,8 @@
       "execute bash",
       "bash script",
       "terminal"
-    ]
+    ],
+    "tool.description": "วิธีสุดท้าย ให้ใช้คำสั่ง bash ใช้เมื่อไม่มีเครื่องมืออื่นที่เหมาะสมเท่านั้น"
   },
   "zh_CN": {
     "err.unavailable": "该工具可在已安装 bash 的类 Unix 系统上使用。",
@@ -399,7 +393,8 @@
       "execute bash",
       "bash script",
       "terminal"
-    ]
+    ],
+    "tool.description": "作为最后的手段，请执行 bash 命令。仅当没有其他合适的工具可用时才使用。"
   },
   "zh_TW": {
     "err.unavailable": "此工具可在已安裝 bash 的類 Unix 系統上使用。",
@@ -415,7 +410,8 @@
       "execute bash",
       "bash script",
       "terminal"
-    ]
+    ],
+    "tool.description": "作為最後的手段，請執行 bash 指令。僅當沒有其他合適的工具可用時才使用。 "
   },
   "bn": {
     "err.unavailable": "এই টুলটি bash ইনস্টল করা Unix-ধরনের সিস্টেমে ব্যবহার করা যায়।",
@@ -431,7 +427,8 @@
       "execute bash",
       "bash script",
       "terminal"
-    ]
+    ],
+    "tool.description": "শেষ অবলম্বন হিসাবে, একটি ব্যাশ কমান্ড চালান। অন্য কোন উপযুক্ত টুল উপলব্ধ না থাকলেই ব্যবহার করুন।"
   },
   "fa": {
     "err.unavailable": "این ابزار روی سیستم‌های شبه‌Unix که bash نصب دارند در دسترس است.",
@@ -447,7 +444,8 @@
       "execute bash",
       "bash script",
       "terminal"
-    ]
+    ],
+    "tool.description": "به عنوان آخرین چاره، دستور bash را اجرا کنید. فقط زمانی استفاده کنید که ابزار مناسب دیگری در دسترس نباشد."
   },
   "mn": {
     "err.unavailable": "Энэ хэрэгсэл нь bash суулгасан Unix-тэй төстэй системүүдэд боломжтой.",
@@ -463,7 +461,8 @@
       "execute bash",
       "bash script",
       "terminal"
-    ]
+    ],
+    "tool.description": "Сүүлийн арга болгон bash командыг гүйцэтгэнэ үү. Зөвхөн өөр тохирох хэрэгсэл байхгүй үед л ашиглаарай."
   },
   "mr": {
     "err.unavailable": "हे साधन bash स्थापित असलेल्या Unix-सदृश प्रणालींवर उपलब्ध आहे.",
@@ -479,7 +478,8 @@
       "execute bash",
       "bash script",
       "terminal"
-    ]
+    ],
+    "tool.description": "शेवटचा उपाय म्हणून, bash कमांड कार्यान्वित करा. इतर कोणतेही योग्य साधन उपलब्ध नसतानाच वापरा."
   },
   "el": {
     "err.unavailable": "Αυτό το εργαλείο είναι διαθέσιμο σε συστήματα τύπου Unix με εγκατεστημένο το bash.",
@@ -495,7 +495,8 @@
       "execute bash",
       "bash script",
       "terminal"
-    ]
+    ],
+    "tool.description": "Σαν έσχατη λύση, εκτελέστε μια εντολή bash. Χρησιμοποιήστε το μόνο όταν δεν υπάρχει διαθέσιμο άλλο κατάλληλο εργαλείο."
   },
   "he": {
     "err.unavailable": "כלי זה זמין במערכות דמויות Unix עם bash מותקן.",
@@ -511,7 +512,8 @@
       "execute bash",
       "bash script",
       "terminal"
-    ]
+    ],
+    "tool.description": "כמוצא אחרון, בצע פקודת bash. השתמש רק כאשר אין כלי מתאים אחר זמין."
   },
   "hu": {
     "err.unavailable": "Ez az eszköz Unix-szerű rendszereken érhető el, amelyekre telepítve van a bash.",
@@ -527,7 +529,8 @@
       "execute bash",
       "bash script",
       "terminal"
-    ]
+    ],
+    "tool.description": "Utolsó lehetőségként futtasson egy bash parancsot. Csak akkor használja, ha nem áll rendelkezésre más megfelelő eszköz."
   },
   "ro": {
     "err.unavailable": "Acest instrument este disponibil pe sisteme asemănătoare Unix cu bash instalat.",
@@ -543,6 +546,7 @@
       "execute bash",
       "bash script",
       "terminal"
-    ]
+    ],
+    "tool.description": "Ca ultimă soluție, executați o comandă bash. Utilizați numai atunci când nu este disponibil niciun alt instrument adecvat."
   }
 }

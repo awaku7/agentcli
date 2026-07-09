@@ -17,106 +17,73 @@
   "ja": {
     "tool.description": "システムをリロードし、tools/ 配下の全ツール（Python .py）の最新コードをメモリへ反映します。コード変更後に実行します。",
     "x_search_terms": [
-      "system reload",
-      "reload tools",
-      "reload config",
-      "refresh tools",
-      "restart tools",
-      "reload system",
-      "tool reload",
-      "reload agent",
-      "system refresh",
-      "hot reload"
+      "システムリロード |リロードツール |リロード |更新ツール |再スキャン |再初期化 |ツールを再起動"
     ]
   },
   "es": {
     "tool.description": "Vuelva a cargar el sistema y refleje el código más reciente para todas las herramientas en herramientas/ (archivos Python .",
     "x_search_terms": [
-      "system reload",
-      "reload tools",
-      "reload config",
-      "refresh tools",
-      "restart tools",
-      "reload system",
-      "tool reload",
-      "reload agent",
-      "system refresh",
-      "hot reload"
+      "recarga del sistema",
+      "recargar herramientas",
+      "recargar",
+      "actualizar herramientas",
+      "volver a escanear",
+      "reinicializar",
+      "reiniciar herramientas"
     ]
   },
   "fr": {
     "tool.description": "Rechargez le système et reflétez le dernier code de tous les outils sous tools/ (fichiers Python .py) en mémoire.",
     "x_search_terms": [
-      "system reload",
-      "reload tools",
-      "reload config",
-      "refresh tools",
-      "restart tools",
-      "reload system",
-      "tool reload",
-      "reload agent",
-      "system refresh",
-      "hot reload"
+      "rechargement du système",
+      "outils de rechargement",
+      "recharger",
+      "actualiser les outils",
+      "nouvelle analyse",
+      "réinitialiser",
+      "outils de redémarrage"
     ]
   },
   "ko": {
     "tool.description": "시스템을 다시 로드하고 tools/ 아래의 모든 도구(Python .py 파일)의 최신 코드를 메모리에 반영합니다. 코드 수정 후 실행합니다.",
     "x_search_terms": [
-      "system reload",
-      "reload tools",
-      "reload config",
-      "refresh tools",
-      "restart tools",
-      "reload system",
-      "tool reload",
-      "reload agent",
-      "system refresh",
-      "hot reload"
+      "시스템 리로드",
+      "도구 리로드",
+      "리로드",
+      "새로고침 도구",
+      "재스캔",
+      "재초기화",
+      "도구 재시작"
     ]
   },
   "de": {
     "tool.description": "Lädt das System neu und übernimmt den neuesten Code aller Werkzeuge unter tools/ (Python-.py-Dateien) in den Speicher.",
     "x_search_terms": [
-      "system reload",
-      "reload tools",
-      "reload config",
-      "refresh tools",
-      "restart tools",
-      "reload system",
-      "tool reload",
-      "reload agent",
-      "system refresh",
-      "hot reload"
+      "System neu laden",
+      "Werkzeuge neu laden",
+      "neu laden",
+      "Aktualisierungstools",
+      "erneut scannen",
+      "neu initialisieren",
+      "Neustart-Tools"
     ]
   },
   "it": {
     "tool.description": "Ricarica il sistema e riflette in memoria il codice più recente di tutti gli strumenti sotto tools/ (file Python .py).",
     "x_search_terms": [
-      "system reload",
-      "reload tools",
-      "reload config",
-      "refresh tools",
-      "restart tools",
-      "reload system",
-      "tool reload",
-      "reload agent",
-      "system refresh",
-      "hot reload"
+      "ricarica sistema",
+      "ricaricare gli strumenti",
+      "ricaricare",
+      "strumenti di aggiornamento",
+      "ripetere la scansione",
+      "reinizializzare",
+      "riavviare gli strumenti"
     ]
   },
   "ru": {
     "tool.description": "Перезагружает систему и отражает в памяти последний код всех инструментов в tools/ (файлы Python .py). Запускайте после изменения кода.",
     "x_search_terms": [
-      "system reload",
-      "reload tools",
-      "reload config",
-      "refresh tools",
-      "restart tools",
-      "reload system",
-      "tool reload",
-      "reload agent",
-      "system refresh",
-      "hot reload"
+      "перезагрузка системы, инструменты для перезагрузки, перезагрузить, обновить инструменты, повторное сканирование, повторно инициализировать, инструменты перезапуска"
     ]
   },
   "pt_BR": {
@@ -137,46 +104,46 @@
   "pt": {
     "tool.description": "Recarregue o sistema e reflita o código mais recente de todas as ferramentas em tools/ (arquivos .py do Python) na memória.",
     "x_search_terms": [
-      "system reload",
-      "reload tools",
-      "reload config",
-      "refresh tools",
-      "restart tools",
-      "reload system",
-      "tool reload",
-      "reload agent",
-      "system refresh",
-      "hot reload"
+      "recarregamento do sistema",
+      "recarregar ferramentas",
+      "recarregar configuração",
+      "ferramentas de atualização",
+      "reiniciar ferramentas",
+      "sistema de recarga",
+      "recarga de ferramenta",
+      "agente de recarga",
+      "atualização do sistema",
+      "recarga a quente"
     ]
   },
   "id": {
     "tool.description": "Muat ulang sistem dan terapkan kode terbaru untuk semua alat di bawah tools/ (file Python .py) ke memori. Jalankan ini setelah memodifikasi kode.",
     "x_search_terms": [
-      "system reload",
-      "reload tools",
-      "reload config",
-      "refresh tools",
-      "restart tools",
-      "reload system",
-      "tool reload",
-      "reload agent",
-      "system refresh",
+      "muat ulang sistem",
+      "memuat ulang alat",
+      "muat ulang konfigurasi",
+      "alat penyegaran",
+      "mulai ulang alat",
+      "memuat ulang sistem",
+      "isi ulang alat",
+      "isi ulang agen",
+      "penyegaran sistem",
       "hot reload"
     ]
   },
   "vi": {
     "tool.description": "Tải lại hệ thống và phản ánh mã mới nhất cho tất cả các công cụ trong tools/ (tệp Python .py) vào bộ nhớ. Chạy cái này sau khi sửa đổi mã.",
     "x_search_terms": [
-      "system reload",
-      "reload tools",
-      "reload config",
-      "refresh tools",
-      "restart tools",
-      "reload system",
-      "tool reload",
-      "reload agent",
-      "system refresh",
-      "hot reload"
+      "tải lại hệ thống",
+      "tải lại công cụ",
+      "tải lại cấu hình",
+      "công cụ làm mới",
+      "khởi động lại công cụ",
+      "tải lại hệ thống",
+      "tải lại công cụ",
+      "tải lại đại lý",
+      "làm mới hệ thống",
+      "tải lại nóng"
     ]
   },
   "pl": {

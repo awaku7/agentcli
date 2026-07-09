@@ -20,16 +20,8 @@
   "ja": {
     "tool.description": "システム情報（OS/CPU/RAM/ディスク/ボリューム）を、取得できる範囲でクロスプラットフォームに取得します。",
     "x_search_terms": [
-      "system specs",
-      "system info",
-      "hardware",
-      "cpu",
-      "memory",
-      "computer info",
-      "system information",
-      "pc specs",
-      "device info",
-      "os info"
+      "システム仕様 |システム情報 |ハードウェア情報",
+      "OS情報 |システム情報 |マシン情報 |システム情報"
     ],
     "param.include_volumes.description": "マウントされているボリュームの使用量情報を含めます。",
     "param.include_disks.description": "可能な場合、物理ディスク情報を含めます（取得できる範囲で）。",
@@ -38,16 +30,13 @@
   "es": {
     "tool.description": "Obtenga especificaciones del sistema (SO/CPU/RAM/discos/volúmenes) de forma multiplataforma (mejor esfuerzo).",
     "x_search_terms": [
-      "system specs",
-      "system info",
-      "hardware",
-      "cpu",
-      "memory",
-      "computer info",
-      "system information",
-      "pc specs",
-      "device info",
-      "os info"
+      "especificaciones del sistema",
+      "información del sistema",
+      "información de hardware",
+      "información del sistema operativo",
+      "información del sistema",
+      "información de la máquina",
+      "información del sistema"
     ],
     "param.include_volumes.description": "Incluir información de uso de volúmenes montados.",
     "param.include_disks.description": "Incluir información de discos físicos cuando esté disponible (mejor esfuerzo)."
@@ -55,16 +44,13 @@
   "fr": {
     "tool.description": "Obtenez les spécifications du système (OS/CPU/RAM/disques/volumes) de manière multiplateforme (best-effort).",
     "x_search_terms": [
-      "system specs",
-      "system info",
-      "hardware",
-      "cpu",
-      "memory",
-      "computer info",
-      "system information",
-      "pc specs",
-      "device info",
-      "os info"
+      "spécifications du système",
+      "informations système",
+      "informations sur le matériel",
+      "informations sur le système d'exploitation",
+      "info système",
+      "informations sur les machines",
+      "informations système"
     ],
     "param.include_volumes.description": "Inclure les informations d’utilisation des volumes montés.",
     "param.include_disks.description": "Inclure les informations sur les disques physiques lorsqu’elles sont disponibles (best-effort)."
@@ -72,16 +58,13 @@
   "ko": {
     "tool.description": "시스템 사양(OS/CPU/RAM/디스크/볼륨)을 가능한 범위에서 크로스플랫폼으로 가져옵니다.",
     "x_search_terms": [
-      "system specs",
-      "system info",
-      "hardware",
-      "cpu",
-      "memory",
-      "computer info",
-      "system information",
-      "pc specs",
-      "device info",
-      "os info"
+      "시스템 사양",
+      "시스템 정보",
+      "하드웨어 정보",
+      "OS 정보",
+      "sysinfo",
+      "기계 정보",
+      "시스템 정보"
     ],
     "param.include_volumes.description": "마운트된 볼륨 사용량 정보를 포함합니다.",
     "param.include_disks.description": "가능한 경우 물리 디스크 정보를 포함합니다(최선의 노력)."
@@ -89,16 +72,13 @@
   "de": {
     "tool.description": "Systemspezifikationen (OS/CPU/RAM/Datenträger/Volumes) möglichst plattformübergreifend abrufen.",
     "x_search_terms": [
-      "system specs",
-      "system info",
-      "hardware",
-      "cpu",
-      "memory",
-      "computer info",
-      "system information",
-      "pc specs",
-      "device info",
-      "os info"
+      "Systemspezifikationen",
+      "Systeminfo",
+      "Hardware-Info",
+      "Betriebssystem-Info",
+      "sysinfo",
+      "Maschineninfo",
+      "Systeminformationen"
     ],
     "param.include_volumes.description": "Informationen zur Nutzung eingehängter Volumes einbeziehen.",
     "param.include_disks.description": "Wenn verfügbar, Informationen zu physischen Datenträgern einbeziehen (best effort)."
@@ -106,16 +86,13 @@
   "it": {
     "tool.description": "Ottiene le specifiche di sistema (OS/CPU/RAM/dischi/volumi) nel miglior modo possibile su più piattaforme.",
     "x_search_terms": [
-      "system specs",
-      "system info",
-      "hardware",
-      "cpu",
-      "memory",
-      "computer info",
-      "system information",
-      "pc specs",
-      "device info",
-      "os info"
+      "specifiche di sistema",
+      "informazioni di sistema",
+      "informazioni sull'hardware",
+      "informazioni sul sistema operativo",
+      "infosistema",
+      "informazioni sulla macchina",
+      "informazioni di sistema"
     ],
     "param.include_volumes.description": "Includi le informazioni sull'utilizzo dei volumi montati.",
     "param.include_disks.description": "Includi le informazioni sui dischi fisici quando disponibili (best effort)."
@@ -123,16 +100,7 @@
   "ru": {
     "tool.description": "Получает системные характеристики (ОС/CPU/RAM/диски/тома) максимально кроссплатформенно.",
     "x_search_terms": [
-      "system specs",
-      "system info",
-      "hardware",
-      "cpu",
-      "memory",
-      "computer info",
-      "system information",
-      "pc specs",
-      "device info",
-      "os info"
+      "системные характеристики, информация о системе, информация об аппаратном обеспечении, информация об ОС, системная информация, информация о машине, системная информация"
     ],
     "param.include_volumes.description": "Включать сведения об использовании подключённых томов.",
     "param.include_disks.description": "Включать сведения о физических дисках, если доступны (по возможности)."
@@ -157,16 +125,16 @@
   "pt": {
     "tool.description": "Obtenha especificações do sistema (SO/CPU/RAM/discos/volumes) da melhor forma possível e de maneira multiplataforma.",
     "x_search_terms": [
-      "system specs",
-      "system info",
-      "hardware",
-      "cpu",
-      "memory",
-      "computer info",
-      "system information",
-      "pc specs",
-      "device info",
-      "os info"
+      "especificações do sistema",
+      "informações do sistema",
+      "ferragens",
+      "CPU",
+      "memória",
+      "informações de computador",
+      "informações do sistema",
+      "especificações do PC",
+      "informações do dispositivo",
+      "informações do sistema operacional"
     ],
     "param.include_volumes.description": "Incluir informações de uso dos volumes montados.",
     "param.include_disks.description": "Incluir informações de discos físicos quando disponíveis (melhor esforço)."
@@ -174,15 +142,15 @@
   "id": {
     "tool.description": "Dapatkan spesifikasi sistem (CPU/RAM/disk/volume) dengan pendekatan terbaik lintas platform.",
     "x_search_terms": [
-      "system specs",
-      "system info",
-      "hardware",
-      "cpu",
-      "memory",
-      "computer info",
-      "system information",
-      "pc specs",
-      "device info",
+      "spesifikasi sistem",
+      "info sistem",
+      "perangkat keras",
+      "CPU",
+      "memori",
+      "info komputer",
+      "informasi sistem",
+      "spesifikasi komputer",
+      "info perangkat",
       "os info"
     ],
     "param.include_volumes.description": "Sertakan informasi penggunaan volume yang terpasang.",
@@ -191,16 +159,16 @@
   "vi": {
     "tool.description": "Nhận thông số kỹ thuật hệ thống (CPU/RAM/ổ đĩa/ổ đĩa) theo cách đa nền tảng với nỗ lực tốt nhất.",
     "x_search_terms": [
-      "system specs",
-      "system info",
-      "hardware",
-      "cpu",
-      "memory",
-      "computer info",
-      "system information",
-      "pc specs",
-      "device info",
-      "os info"
+      "thông số hệ thống",
+      "thông tin hệ thống",
+      "phần cứng",
+      "CPU",
+      "trí nhớ",
+      "thông tin máy tính",
+      "thông tin hệ thống",
+      "thông số kỹ thuật máy tính",
+      "thông tin thiết bị",
+      "thông tin hệ điều hành"
     ],
     "param.include_volumes.description": "Bao gồm thông tin sử dụng ổ đĩa được gắn kết.",
     "param.include_disks.description": "Bao gồm thông tin đĩa vật lý khi có sẵn (nỗ lực tốt nhất)."

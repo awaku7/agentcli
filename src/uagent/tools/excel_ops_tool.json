@@ -31,15 +31,15 @@
     "tool.description": "Excel(.xlsx)の読み書きとシート名取得。",
     "x_search_terms": [
       "excel",
-      "spreadsheet",
+      "エクセル操作",
+      "スプレッドシート",
       "xlsx",
-      "excel operations",
-      "excel file",
-      "excel sheet",
-      "excel cell",
-      "excel read",
-      "excel write",
-      "spreadsheet ops"
+      "エクセルファイル",
+      "エクセルの数式",
+      "エクセルマクロ",
+      "ワークシート",
+      "エクセル操作",
+      "Excel シート"
     ],
     "param.password.description": "パスワード（必要な場合はプロンプト表示）。",
     "prompt.password": "このファイルのパスワードを入力してください:\n{path}",
@@ -54,15 +54,15 @@
     "tool.description": "Lea y escriba archivos de Excel (.",
     "x_search_terms": [
       "excel",
-      "spreadsheet",
+      "operaciones de excel",
+      "hoja de cálculo",
       "xlsx",
-      "excel operations",
-      "excel file",
-      "excel sheet",
-      "excel cell",
-      "excel read",
-      "excel write",
-      "spreadsheet ops"
+      "archivo excel",
+      "fórmula de excel",
+      "macros de excel",
+      "hoja de trabajo",
+      "operación excel",
+      "hoja de excel"
     ],
     "param.password.description": "Contraseña (solicitudes si es necesario).",
     "prompt.password": "Ingrese la contraseña para este archivo:\n{path}"
@@ -76,15 +76,15 @@
     "tool.description": "Lisez et écrivez des fichiers Excel (.",
     "x_search_terms": [
       "excel",
-      "spreadsheet",
+      "opérations Excel",
+      "feuille de calcul",
       "xlsx",
-      "excel operations",
-      "excel file",
-      "excel sheet",
-      "excel cell",
-      "excel read",
-      "excel write",
-      "spreadsheet ops"
+      "fichier Excel",
+      "formule Excel",
+      "macro excel",
+      "feuille de travail",
+      "opération Excel",
+      "feuille Excel"
     ],
     "param.password.description": "Mot de passe (invite si nécessaire).",
     "prompt.password": "Entrez le mot de passe de ce fichier :\n{path}"
@@ -98,15 +98,15 @@
     "tool.description": "Excel(.xlsx) 읽기/쓰기 및 시트 이름 조회.",
     "x_search_terms": [
       "excel",
-      "spreadsheet",
+      "엑셀 작전",
+      "스프레드시트",
       "xlsx",
-      "excel operations",
-      "excel file",
-      "excel sheet",
-      "excel cell",
-      "excel read",
-      "excel write",
-      "spreadsheet ops"
+      "엑셀 파일",
+      "엑셀 수식",
+      "엑셀 매크로",
+      "워크시트",
+      "엑셀 작업",
+      "엑셀 시트"
     ],
     "param.password.description": "비밀번호(필요시 프롬프트 표시).",
     "prompt.password": "이 파일의 비밀번호를 입력하세요:\n{path}"
@@ -119,16 +119,16 @@
     "param.output_path.description": "Ausgabepfad.",
     "tool.description": "Liest und schreibt Excel-Dateien (.",
     "x_search_terms": [
-      "excel",
-      "spreadsheet",
+      "Excel",
+      "Excel-Operationen",
+      "Tabellenkalkulation",
       "xlsx",
-      "excel operations",
-      "excel file",
-      "excel sheet",
-      "excel cell",
-      "excel read",
-      "excel write",
-      "spreadsheet ops"
+      "Excel-Datei",
+      "Excel-Formel",
+      "Excel-Makro",
+      "Arbeitsblatt",
+      "Excel-Operation",
+      "Excel-Tabelle"
     ],
     "param.password.description": "Passwort (fragt bei Bedarf nach).",
     "prompt.password": "Geben Sie das Passwort für diese Datei ein:\n{path}"
@@ -142,15 +142,15 @@
     "tool.description": "Legge e scrive file Excel (.",
     "x_search_terms": [
       "excel",
-      "spreadsheet",
+      "eccelli ops",
+      "foglio di calcolo",
       "xlsx",
-      "excel operations",
-      "excel file",
-      "excel sheet",
-      "excel cell",
-      "excel read",
-      "excel write",
-      "spreadsheet ops"
+      "file excel",
+      "formula eccellente",
+      "macro excel",
+      "foglio di lavoro",
+      "operazione Excel",
+      "foglio Excel"
     ],
     "param.password.description": "Password (richiesta se necessario).",
     "prompt.password": "Inserisci la password di questo file:\n{path}"
@@ -164,15 +164,15 @@
     "tool.description": "Чтение и запись файлов Excel (.",
     "x_search_terms": [
       "excel",
-      "spreadsheet",
+      "операции Excel",
+      "электронная таблица",
       "xlsx",
-      "excel operations",
-      "excel file",
-      "excel sheet",
-      "excel cell",
-      "excel read",
-      "excel write",
-      "spreadsheet ops"
+      "файл Excel",
+      "формула Excel",
+      "макрос Excel",
+      "рабочий лист",
+      "операция Excel",
+      "лист Excel"
     ],
     "param.password.description": "Взаимодействие с определенным каналом Discord с помощью токена бота: отправка сообщений, чтение последних сообщений и, при необходимости, ожидание ответов после отправки.",
     "prompt.password": "Введите пароль для этого файла:\n{path}"
@@ -186,15 +186,15 @@
     "tool.description": "Leia e grave arquivos Excel (.",
     "x_search_terms": [
       "excel",
-      "spreadsheet",
+      "operações excel",
+      "planilha",
       "xlsx",
-      "excel operations",
-      "excel file",
-      "excel sheet",
-      "excel cell",
-      "excel read",
-      "excel write",
-      "spreadsheet ops"
+      "arquivo excel",
+      "fórmula excel",
+      "macro excel",
+      "planilha",
+      "operação excel",
+      "planilha excel"
     ],
     "param.password.description": "Senha (solicita se necessário).",
     "prompt.password": "Digite a senha deste arquivo:\n{path}"
@@ -208,15 +208,15 @@
     "tool.description": "Leia e grave arquivos Excel (.",
     "x_search_terms": [
       "excel",
-      "spreadsheet",
+      "operaes excel",
+      "planilha",
       "xlsx",
-      "excel operations",
-      "excel file",
-      "excel sheet",
-      "excel cell",
-      "excel read",
-      "excel write",
-      "spreadsheet ops"
+      "arquivo excel",
+      "frmula excel",
+      "macro excel",
+      "planilha",
+      "operao excel",
+      "planilha excel"
     ],
     "param.password.description": "Senha (solicita se necessário).",
     "prompt.password": "Digite a senha deste arquivo:\n{path}"
@@ -230,15 +230,15 @@
     "tool.description": "Baca dan tulis file Excel (.",
     "x_search_terms": [
       "excel",
-      "spreadsheet",
+      "operasi excel",
+      "lembar kerja",
       "xlsx",
-      "excel operations",
-      "excel file",
-      "excel sheet",
-      "excel cell",
-      "excel read",
-      "excel write",
-      "spreadsheet ops"
+      "berkas excel",
+      "rumus excel",
+      "makro excel",
+      "lembar kerja",
+      "operasi excel",
+      "lembar excel"
     ],
     "param.password.description": "Kata sandi (diminta jika diperlukan).",
     "prompt.password": "Masukkan kata sandi untuk file ini:\n{path}"
@@ -252,15 +252,15 @@
     "tool.description": "Đọc và ghi tệp Excel (.xlsx) và lấy tên trang tính.",
     "x_search_terms": [
       "excel",
-      "spreadsheet",
+      "hoạt động excel",
+      "bảng tính",
       "xlsx",
-      "excel operations",
-      "excel file",
-      "excel sheet",
-      "excel cell",
-      "excel read",
-      "excel write",
-      "spreadsheet ops"
+      "tập tin excel",
+      "công thức excel",
+      "macro excel",
+      "bảng tính",
+      "hoạt động excel",
+      "bảng excel"
     ],
     "param.password.description": "Mật khẩu tùy chọn cho tệp .",
     "prompt.password": "Nhập mật khẩu của tệp này:\n{path}"
@@ -273,16 +273,16 @@
     "param.output_path.description": "Ścieżka wyjściowa",
     "tool.description": "Odczytuj i zapisuj pliki Excel (.",
     "x_search_terms": [
-      "excel",
-      "spreadsheet",
-      "xlsx",
-      "excel operations",
-      "excel file",
-      "excel sheet",
-      "excel cell",
-      "excel read",
-      "excel write",
-      "spreadsheet ops"
+      "Excel",
+      "operacje w Excelu",
+      "arkusz kalkulacyjny",
+      "xls",
+      "plik Excela",
+      "formuła Excela",
+      "makro Excela",
+      "arkusz",
+      "operacja w Excelu",
+      "arkusz Excela"
     ],
     "param.password.description": "Hasło (w razie potrzeby wyświetli monit).",
     "prompt.password": "Wprowadź hasło do tego pliku:\n{path}"
@@ -295,16 +295,16 @@
     "param.output_path.description": "JSON डेटा रखना होगा।",
     "tool.description": "Excel (.",
     "x_search_terms": [
-      "excel",
-      "spreadsheet",
+      "एक्सेल",
+      "एक्सेल ऑप्स",
+      "स्प्रेडशीट",
       "xlsx",
-      "excel operations",
-      "excel file",
-      "excel sheet",
-      "excel cell",
-      "excel read",
-      "excel write",
-      "spreadsheet ops"
+      "एक्सेल फ़ाइल",
+      "एक्सेल फॉर्मूला",
+      "एक्सेल मैक्रो",
+      "वर्कशीट",
+      "एक्सेल ऑपरेशन",
+      "एक्सेल शीट"
     ],
     "param.password.description": "एन्क्रिप्टेड .",
     "prompt.password": "इस फ़ाइल के लिए पासवर्ड दर्ज करें:\n{path}"
@@ -318,15 +318,15 @@
     "tool.description": "اقرأ ملفات Excel (.",
     "x_search_terms": [
       "excel",
-      "spreadsheet",
-      "xlsx",
-      "excel operations",
-      "excel file",
-      "excel sheet",
-      "excel cell",
-      "excel read",
-      "excel write",
-      "spreadsheet ops"
+      "عمليات التفوق",
+      "جدول بيانات",
+      "XLSX",
+      "ملف اكسل",
+      "صيغة التفوق",
+      "اكسل ماكرو",
+      "ورقة عمل",
+      "عملية التفوق",
+      "ورقة Excel"
     ],
     "param.password.description": "كلمة مرور اختيارية لملفات .",
     "prompt.password": "أدخل كلمة المرور لهذا الملف:\n{path}"
@@ -340,15 +340,15 @@
     "tool.description": "Läser och skriver Excel-filer (.",
     "x_search_terms": [
       "excel",
-      "spreadsheet",
+      "excel ops",
+      "kalkylblad",
       "xlsx",
-      "excel operations",
-      "excel file",
-      "excel sheet",
-      "excel cell",
-      "excel read",
-      "excel write",
-      "spreadsheet ops"
+      "excel-fil",
+      "excel formel",
+      "excel makro",
+      "arbetsblad",
+      "excel operation",
+      "excelark"
     ],
     "param.password.description": "Lösenord (meddelanden om det behövs).",
     "prompt.password": "Ange lösenordet för den här filen:\n{path}"
@@ -362,15 +362,15 @@
     "tool.description": "Soma na andika faili za Excel (.",
     "x_search_terms": [
       "excel",
-      "spreadsheet",
+      "bora ops",
+      "lahajedwali",
       "xlsx",
-      "excel operations",
-      "excel file",
-      "excel sheet",
-      "excel cell",
-      "excel read",
-      "excel write",
-      "spreadsheet ops"
+      "bora faili",
+      "bora formula",
+      "bora zaidi",
+      "karatasi",
+      "operesheni bora",
+      "laha bora zaidi"
     ],
     "param.password.description": "Nenosiri (vidokezo ikihitajika",
     "prompt.password": "Ingiza nenosiri la faili hili:\n{path}"
@@ -384,15 +384,15 @@
     "tool.description": "Leser og skriver Excel-filer (.",
     "x_search_terms": [
       "excel",
-      "spreadsheet",
+      "excel ops",
+      "regneark",
       "xlsx",
-      "excel operations",
-      "excel file",
-      "excel sheet",
-      "excel cell",
-      "excel read",
-      "excel write",
-      "spreadsheet ops"
+      "excel-fil",
+      "excel formel",
+      "excel makro",
+      "arbeidsark",
+      "excel-operasjon",
+      "excel-ark"
     ],
     "param.password.description": "Passord (spør om nødvendig).",
     "prompt.password": "Skriv inn passordet for denne filen:\n{path}"
@@ -406,15 +406,15 @@
     "tool.description": "Lees en schrijf Excel-bestanden (.",
     "x_search_terms": [
       "excel",
+      "excel ops",
       "spreadsheet",
       "xlsx",
-      "excel operations",
-      "excel file",
-      "excel sheet",
-      "excel cell",
-      "excel read",
-      "excel write",
-      "spreadsheet ops"
+      "Excel-bestand",
+      "Excel-formule",
+      "Excel-macro",
+      "werkblad",
+      "Excel-bewerking",
+      "Excel-blad"
     ],
     "param.password.description": "Wachtwoord (vraagt ​​indien nodig).",
     "prompt.password": "Voer het wachtwoord voor dit bestand in:\n{path}"
@@ -428,15 +428,15 @@
     "tool.description": "Lue ja kirjoita Excel (.",
     "x_search_terms": [
       "excel",
-      "spreadsheet",
+      "excel ops",
+      "laskentataulukko",
       "xlsx",
-      "excel operations",
-      "excel file",
-      "excel sheet",
-      "excel cell",
-      "excel read",
-      "excel write",
-      "spreadsheet ops"
+      "excel-tiedosto",
+      "excel-kaava",
+      "excel-makro",
+      "laskentataulukko",
+      "excel-toiminta",
+      "excel-arkki"
     ],
     "param.password.description": "Salasana salatuille .",
     "prompt.password": "Anna tämän tiedoston salasana:\n{path}"
@@ -450,15 +450,15 @@
     "tool.description": "Čte a zapisuje soubory Excel (.",
     "x_search_terms": [
       "excel",
-      "spreadsheet",
+      "excel ops",
+      "tabulka",
       "xlsx",
-      "excel operations",
-      "excel file",
-      "excel sheet",
-      "excel cell",
-      "excel read",
-      "excel write",
-      "spreadsheet ops"
+      "soubor excel",
+      "vzorec excel",
+      "Excel makro",
+      "pracovní list",
+      "operace excel",
+      "excelový list"
     ],
     "param.password.description": "Heslo (v případě potřeby se zobrazí výzva).",
     "prompt.password": "Zadejte heslo pro tento soubor:\n{path}"
@@ -472,15 +472,15 @@
     "tool.description": "Читає та записує файли Excel (.",
     "x_search_terms": [
       "excel",
-      "spreadsheet",
+      "excel ops",
+      "електронна таблиця",
       "xlsx",
-      "excel operations",
-      "excel file",
-      "excel sheet",
-      "excel cell",
-      "excel read",
-      "excel write",
-      "spreadsheet ops"
+      "файл excel",
+      "формула Excel",
+      "макрос Excel",
+      "робочий лист",
+      "операція Excel",
+      "аркуш Excel"
     ],
     "param.password.description": "Інтервал опитування під час очікування відповідей (у секундах).",
     "prompt.password": "Введіть пароль для цього файла:\n{path}"
@@ -494,15 +494,15 @@
     "tool.description": "Excel (.",
     "x_search_terms": [
       "excel",
-      "spreadsheet",
+      "excel işlemleri",
+      "elektronik tablo",
       "xlsx",
-      "excel operations",
-      "excel file",
-      "excel sheet",
-      "excel cell",
-      "excel read",
-      "excel write",
-      "spreadsheet ops"
+      "excel dosyası",
+      "excel formülü",
+      "excel makrosu",
+      "çalışma sayfası",
+      "excel işlemi",
+      "excel sayfası"
     ],
     "param.password.description": "Şifrelenmiş .",
     "prompt.password": "Bu dosyanın şifresini girin:\n{path}"
@@ -516,15 +516,15 @@
     "tool.description": "อ่านและเขียนไฟล์ Excel (.",
     "x_search_terms": [
       "excel",
-      "spreadsheet",
+      "excel ops",
+      "สเปรดชีต",
       "xlsx",
-      "excel operations",
-      "excel file",
-      "excel sheet",
-      "excel cell",
-      "excel read",
-      "excel write",
-      "spreadsheet ops"
+      "ไฟล์ excel",
+      "สูตร Excel",
+      "แมโคร Excel",
+      "ใบงาน",
+      "การทำงานของ Excel",
+      "แผ่นงาน Excel"
     ],
     "param.password.description": "รหัสผ่านสำหรับไฟล์ .",
     "prompt.password": "กรุณาใส่รหัสผ่านของไฟล์นี้:\n{path}"
@@ -538,15 +538,15 @@
     "tool.description": "读写Excel(.xlsx)文件并获取工作表名称。",
     "x_search_terms": [
       "excel",
-      "spreadsheet",
+      "卓越运营",
+      "电子表格",
       "xlsx",
-      "excel operations",
-      "excel file",
-      "excel sheet",
-      "excel cell",
-      "excel read",
-      "excel write",
-      "spreadsheet ops"
+      "excel 文件",
+      "excel公式",
+      "excel宏",
+      "工作表",
+      "excel操作",
+      "Excel 工作表"
     ],
     "param.password.description": "密码（需要时提示输入）。",
     "prompt.password": "请输入此文件的密码：\n{path}"
@@ -559,16 +559,16 @@
     "param.output_path.description": "输出路径。",
     "tool.description": "读写Excel(.xlsx)文件并获取工作表名称。",
     "x_search_terms": [
-      "excel",
-      "spreadsheet",
+      "卓越",
+      "卓越營運",
+      "電子表格",
       "xlsx",
-      "excel operations",
-      "excel file",
-      "excel sheet",
-      "excel cell",
-      "excel read",
-      "excel write",
-      "spreadsheet ops"
+      "excel 文件",
+      "excel公式",
+      "excel巨集",
+      "工作表",
+      "excel操作",
+      "excel表"
     ],
     "param.password.description": "密码（需要时提示输入）。",
     "prompt.password": "請輸入此文件的密碼：\n{path}"
@@ -581,16 +581,16 @@
     "param.output_path.description": "আউটপুট পথ।",
     "tool.description": "Excel (.",
     "x_search_terms": [
-      "excel",
-      "spreadsheet",
+      "এক্সেল",
+      "এক্সেল অপস",
+      "স্প্রেডশীট",
       "xlsx",
-      "excel operations",
-      "excel file",
-      "excel sheet",
-      "excel cell",
-      "excel read",
-      "excel write",
-      "spreadsheet ops"
+      "এক্সেল ফাইল",
+      "এক্সেল সূত্র",
+      "এক্সেল ম্যাক্রো",
+      "ওয়ার্কশীট",
+      "এক্সেল অপারেশন",
+      "এক্সেল শীট"
     ],
     "param.password.description": "এনক্রিপ্ট করা .",
     "prompt.password": "এই ফাইলের পাসওয়ার্ড লিখুন:\n{path}"
@@ -603,16 +603,16 @@
     "param.output_path.description": "مسیر خروجی.",
     "tool.description": "فایل‌های Excel (.",
     "x_search_terms": [
-      "excel",
-      "spreadsheet",
+      "اکسل",
+      "excel ops",
+      "صفحه گسترده",
       "xlsx",
-      "excel operations",
-      "excel file",
-      "excel sheet",
-      "excel cell",
-      "excel read",
-      "excel write",
-      "spreadsheet ops"
+      "فایل اکسل",
+      "فرمول اکسل",
+      "ماکرو اکسل",
+      "کاربرگ",
+      "عملیات اکسل",
+      "صفحه اکسل"
     ],
     "param.password.description": "رمز عبور (در صورت نیاز درخواست می کند).",
     "prompt.password": "گذرواژهٔ این فایل را وارد کنید:\n{path}"
@@ -626,15 +626,15 @@
     "tool.description": "Excel (.",
     "x_search_terms": [
       "excel",
-      "spreadsheet",
+      "excel ops",
+      "хүснэгт",
       "xlsx",
-      "excel operations",
-      "excel file",
-      "excel sheet",
-      "excel cell",
-      "excel read",
-      "excel write",
-      "spreadsheet ops"
+      "excel файл",
+      "excel томъёо",
+      "excel макро",
+      "ажлын хуудас",
+      "excel үйл ажиллагаа",
+      "excel хуудас"
     ],
     "param.password.description": "Шифрлэгдсэн .",
     "prompt.password": "Энэ файлын нууц үгийг оруулна уу:\n{path}"
@@ -647,16 +647,16 @@
     "param.output_path.description": "आउटपुट पथ.",
     "tool.description": "Excel (.",
     "x_search_terms": [
-      "excel",
-      "spreadsheet",
+      "एक्सेल",
+      "excel ops",
+      "स्प्रेडशीट",
       "xlsx",
-      "excel operations",
-      "excel file",
-      "excel sheet",
-      "excel cell",
-      "excel read",
-      "excel write",
-      "spreadsheet ops"
+      "एक्सेल फाइल",
+      "एक्सेल सूत्र",
+      "एक्सेल मॅक्रो",
+      "कार्यपत्रक",
+      "एक्सेल ऑपरेशन",
+      "एक्सेल शीट"
     ],
     "param.password.description": "एनक्रिप्टेड .",
     "prompt.password": "या फाइलचा पासवर्ड टाका:\n{path}"
@@ -670,15 +670,15 @@
     "tool.description": "Διαβάστε/γράψτε ένα αρχείο Excel (. xlsx) και λάβετε ονόματα φύλλων.",
     "x_search_terms": [
       "excel",
-      "spreadsheet",
+      "excel ops",
+      "υπολογιστικό φύλλο",
       "xlsx",
-      "excel operations",
-      "excel file",
-      "excel sheet",
-      "excel cell",
-      "excel read",
-      "excel write",
-      "spreadsheet ops"
+      "αρχείο excel",
+      "τύπος excel",
+      "μακροεντολή excel",
+      "φύλλο εργασίας",
+      "λειτουργία excel",
+      "φύλλο excel"
     ],
     "param.password.description": "Κωδικός πρόσβασης (ζητείται εάν χρειάζεται).",
     "prompt.password": "Εισαγάγετε τον κωδικό πρόσβασης για αυτό το αρχείο:\n{path}"
@@ -692,15 +692,15 @@
     "tool.description": "קרא/כתוב קובץ Excel (. xlsx) וקבל שמות גיליונות.",
     "x_search_terms": [
       "excel",
-      "spreadsheet",
+      "excel ops",
+      "גיליון אלקטרוני",
       "xlsx",
-      "excel operations",
-      "excel file",
-      "excel sheet",
-      "excel cell",
-      "excel read",
-      "excel write",
-      "spreadsheet ops"
+      "קובץ אקסל",
+      "נוסחת אקסל",
+      "אקסל מאקרו",
+      "דף עבודה",
+      "מבצע אקסל",
+      "גיליון אקסל"
     ],
     "param.password.description": "סיסמה (מבקש במידת הצורך).",
     "prompt.password": "הזן את הסיסמה עבור הקובץ הזה:\n{path}"
@@ -714,15 +714,15 @@
     "tool.description": "Excel (. xlsx) fájl olvasása/írása, és lapnevek lekérése.",
     "x_search_terms": [
       "excel",
-      "spreadsheet",
+      "excel műveletek",
+      "táblázat",
       "xlsx",
-      "excel operations",
-      "excel file",
-      "excel sheet",
-      "excel cell",
-      "excel read",
-      "excel write",
-      "spreadsheet ops"
+      "excel fájl",
+      "excel képlet",
+      "excel makró",
+      "munkalap",
+      "excel művelet",
+      "excel munkalap"
     ],
     "param.password.description": "Jelszó (szükség esetén kéri).",
     "prompt.password": "Adja meg a fájl jelszavát:\n{path}"
@@ -736,15 +736,15 @@
     "tool.description": "Citiți/scrieți un fișier Excel (. xlsx) și obțineți numele foilor.",
     "x_search_terms": [
       "excel",
-      "spreadsheet",
+      "excel ops",
+      "foaie de calcul",
       "xlsx",
-      "excel operations",
-      "excel file",
-      "excel sheet",
-      "excel cell",
-      "excel read",
-      "excel write",
-      "spreadsheet ops"
+      "fișier excel",
+      "formula excel",
+      "excel macro",
+      "fisa de lucru",
+      "operațiune excel",
+      "foaie excel"
     ],
     "param.password.description": "Parola (se solicită dacă este necesar).",
     "prompt.password": "Introduceți parola pentru acest fișier:\n{path}"

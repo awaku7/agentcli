@@ -21,16 +21,8 @@
   "ja": {
     "tool.description": "拡張子・マジックバイト・ヒューリスティックを用いてファイルのMIMEタイプと形式を判定します。",
     "x_search_terms": [
-      "file type",
-      "detect type",
-      "mime type",
-      "file extension",
-      "file kind",
-      "type detect",
-      "magic bytes",
-      "file format",
-      "file category",
-      "identify file"
+      "ファイル タイプ |検出タイプ",
+      "MIME タイプ |ファイル拡張子 |型チェック |タイプを取得する |ファイルの種類"
     ],
     "param.paths.description": "識別するファイルパス（1つ以上）。",
     "err.no_paths": "パスが指定されていません。",
@@ -40,16 +32,13 @@
   "es": {
     "tool.description": "Determina el tipo MIME y el formato de los archivos mediante extensión, bytes mágicos y heurística.",
     "x_search_terms": [
-      "file type",
-      "detect type",
-      "mime type",
-      "file extension",
-      "file kind",
-      "type detect",
-      "magic bytes",
-      "file format",
-      "file category",
-      "identify file"
+      "tipo de archivo",
+      "detectar tipo",
+      "tipo mimo",
+      "extensión de archivo",
+      "verificación de tipo",
+      "obtener tipo",
+      "tipo de archivo"
     ],
     "param.paths.description": "Una o más rutas de archivo para identificar.",
     "err.no_paths": "No se proporcionaron rutas.",
@@ -59,16 +48,13 @@
   "fr": {
     "tool.description": "Détermine le type MIME et le format des fichiers à l'aide de l'extension, des octets magiques et de l'heuristique.",
     "x_search_terms": [
-      "file type",
-      "detect type",
-      "mime type",
-      "file extension",
-      "file kind",
-      "type detect",
-      "magic bytes",
-      "file format",
-      "file category",
-      "identify file"
+      "type de fichier",
+      "détecter le type",
+      "type mime",
+      "extension de fichier",
+      "vérification de type",
+      "obtenir le type",
+      "type de fichier"
     ],
     "param.paths.description": "Un ou plusieurs chemins de fichiers à identifier.",
     "err.no_paths": "Aucun chemin fourni.",
@@ -78,16 +64,13 @@
   "ko": {
     "tool.description": "확장자, 매직 바이트 및 휴리스틱을 사용하여 파일의 MIME 유형과 형식을 결정합니다.",
     "x_search_terms": [
-      "file type",
-      "detect type",
-      "mime type",
-      "file extension",
-      "file kind",
-      "type detect",
-      "magic bytes",
-      "file format",
-      "file category",
-      "identify file"
+      "파일 유형",
+      "유형 감지",
+      "MIME 유형",
+      "파일 확장자",
+      "유형 확인",
+      "유형 얻기",
+      "파일 종류"
     ],
     "param.paths.description": "식별할 하나 이상의 파일 경로.",
     "err.no_paths": "경로가 제공되지 않았습니다.",
@@ -97,16 +80,13 @@
   "de": {
     "tool.description": "Bestimmt den MIME-Typ und das Format von Dateien anhand von Erweiterung, magischen Bytes und Heuristiken.",
     "x_search_terms": [
-      "file type",
-      "detect type",
-      "mime type",
-      "file extension",
-      "file kind",
-      "type detect",
-      "magic bytes",
-      "file format",
-      "file category",
-      "identify file"
+      "Dateityp",
+      "Typ erkennen",
+      "MIME-Typ",
+      "Dateierweiterung",
+      "Typprüfung",
+      "Typ abrufen",
+      "Dateityp"
     ],
     "param.paths.description": "Ein oder mehrere zu identifizierende Dateipfade.",
     "err.no_paths": "Keine Pfade angegeben.",
@@ -116,16 +96,13 @@
   "it": {
     "tool.description": "Determina il tipo MIME e il formato dei file utilizzando estensione, byte magici e euristiche.",
     "x_search_terms": [
-      "file type",
-      "detect type",
-      "mime type",
-      "file extension",
-      "file kind",
-      "type detect",
-      "magic bytes",
-      "file format",
-      "file category",
-      "identify file"
+      "tipo file",
+      "rileva tipo",
+      "tipo mimo",
+      "estensione del file",
+      "controllo del tipo",
+      "ottieni tipo",
+      "tipo file"
     ],
     "param.paths.description": "Uno o più percorsi di file da identificare.",
     "err.no_paths": "Nessun percorso fornito.",
@@ -135,16 +112,7 @@
   "ru": {
     "tool.description": "Определяет MIME-тип и формат файлов по расширению, магическим байтам и эвристике.",
     "x_search_terms": [
-      "file type",
-      "detect type",
-      "mime type",
-      "file extension",
-      "file kind",
-      "type detect",
-      "magic bytes",
-      "file format",
-      "file category",
-      "identify file"
+      "тип файла, определить тип, тип миа, расширение файла, проверка типа, получить тип, тип файла"
     ],
     "param.paths.description": "Один или несколько путей к файлам для определения.",
     "err.no_paths": "Пути не указаны.",
@@ -173,16 +141,16 @@
   "pt": {
     "tool.description": "Determina o tipo MIME e o formato de ficheiros usando extensão, bytes mágicos e heurística.",
     "x_search_terms": [
-      "file type",
-      "detect type",
-      "mime type",
-      "file extension",
-      "file kind",
-      "type detect",
-      "magic bytes",
-      "file format",
-      "file category",
-      "identify file"
+      "tipo de arquivo",
+      "detectar tipo",
+      "tipo mime",
+      "extensão de arquivo",
+      "tipo de arquivo",
+      "detecção de tipo",
+      "bytes mágicos",
+      "formato de arquivo",
+      "categoria de arquivo",
+      "identificar arquivo"
     ],
     "param.paths.description": "Um ou mais caminhos de ficheiro para identificar.",
     "err.no_paths": "Nenhum caminho fornecido.",
@@ -192,16 +160,16 @@
   "id": {
     "tool.description": "Menentukan tipe MIME dan format file menggunakan ekstensi, byte ajaib, dan heuristik.",
     "x_search_terms": [
-      "file type",
-      "detect type",
-      "mime type",
-      "file extension",
-      "file kind",
-      "type detect",
-      "magic bytes",
-      "file format",
-      "file category",
-      "identify file"
+      "jenis file",
+      "mendeteksi tipe",
+      "tipe pantomim",
+      "ekstensi file",
+      "jenis file",
+      "ketik deteksi",
+      "byte ajaib",
+      "format berkas",
+      "kategori file",
+      "mengidentifikasi file"
     ],
     "param.paths.description": "Satu atau lebih jalur file untuk diidentifikasi.",
     "err.no_paths": "Tidak ada jalur yang diberikan.",
@@ -211,16 +179,16 @@
   "vi": {
     "tool.description": "Xác định loại MIME và định dạng của tệp bằng phần mở rộng, byte ma thuật và heuristic.",
     "x_search_terms": [
-      "file type",
-      "detect type",
-      "mime type",
-      "file extension",
-      "file kind",
-      "type detect",
-      "magic bytes",
-      "file format",
-      "file category",
-      "identify file"
+      "loại tệp",
+      "phát hiện loại",
+      "loại kịch câm",
+      "phần mở rộng tập tin",
+      "loại tập tin",
+      "phát hiện kiểu",
+      "byte ma thuật",
+      "định dạng tập tin",
+      "danh mục tập tin",
+      "xác định tập tin"
     ],
     "param.paths.description": "Một hoặc nhiều đường dẫn tệp để xác định.",
     "err.no_paths": "Không có đường dẫn nào được cung cấp.",

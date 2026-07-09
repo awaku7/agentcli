@@ -20,16 +20,10 @@
     "param.command.description": "OS シェルに渡すコマンド文字列。Windows では cmd.exe /c を使います。",
     "tool.description": "最終手段としてシェルコマンドを実行し、JSON 結果を返します。より安全または適切なツールがない場合にのみ使用してください。",
     "x_search_terms": [
-      "cmd json",
-      "command json",
-      "structured output",
-      "json result",
-      "cmd structured",
-      "command output",
-      "command result",
-      "execute json",
-      "json command",
-      "cmd result"
+      "cmd exec json |コマンド json を実行",
+      "jsonを実行する",
+      "cmdjson |コマンド json |シェルjson",
+      "json 出力"
     ],
     "param.cwd.description": "作業ディレクトリ。workdir の下の相対パスのみが許可されます。null の場合、現在のディレクトリが使用されます。"
   },
@@ -37,96 +31,72 @@
     "param.command.description": "Cadena de comando que se pasa al shell del sistema.",
     "tool.description": "Como último recurso, ejecuta un comando de shell y devuelve un resultado JSON.",
     "x_search_terms": [
+      "cmd exec json",
+      "ejecutar comando json",
+      "ejecutar json",
       "cmd json",
-      "command json",
-      "structured output",
-      "json result",
-      "cmd structured",
-      "command output",
-      "command result",
-      "execute json",
-      "json command",
-      "cmd result"
+      "comando json",
+      "json de shell",
+      "salida json"
     ]
   },
   "fr": {
     "param.command.description": "Chaîne de commande transmise au shell du système.Sous Windows, cmd.",
     "tool.description": "En dernier recours, exécute une commande shell et renvoie un résultat JSON.",
     "x_search_terms": [
-      "cmd json",
-      "command json",
-      "structured output",
-      "json result",
-      "cmd structured",
-      "command output",
-      "command result",
-      "execute json",
-      "json command",
-      "cmd result"
+      "cmd exec json",
+      "exécuter la commande json",
+      "exécuter json",
+      "cmdjson",
+      "commande json",
+      "coquille json",
+      "sortie json"
     ]
   },
   "ko": {
     "param.command.description": "시스템 셸에 전달되는 명령 문자열입니다. Windows에서는 cmd.exe /c를 사용합니다.",
     "tool.description": "최후의 수단으로 쉘 명령을 실행하고 JSON 결과를 반환합니다. 더 안전하거나 더 구체적인 도구를 사용할 수 없는 경우에만 사용하세요(예: MCP 통합).",
     "x_search_terms": [
+      "cmd exec json",
+      "json 명령 실행",
+      "json 실행",
       "cmd json",
-      "command json",
-      "structured output",
-      "json result",
-      "cmd structured",
-      "command output",
-      "command result",
-      "execute json",
-      "json command",
-      "cmd result"
+      "명령 json",
+      "셸 json",
+      "json 출력"
     ]
   },
   "de": {
     "param.command.description": "Befehlszeichenfolge, die an die System-Shell übergeben wird.",
     "tool.description": "Führt als letzter Ausweg einen Shell-Befehl aus und gibt ein JSON-Ergebnis zurück.",
     "x_search_terms": [
+      "cmd exec json",
+      "Führen Sie den Befehl json",
+      "aus json ausführen",
       "cmd json",
-      "command json",
-      "structured output",
-      "json result",
-      "cmd structured",
-      "command output",
-      "command result",
-      "execute json",
-      "json command",
-      "cmd result"
+      "Befehl json",
+      "Shell-JSON",
+      "json-Ausgabe"
     ]
   },
   "it": {
     "param.command.description": "Stringa di comando passata alla shell di sistema.",
     "tool.description": "Come ultima risorsa, esegue un comando di shell e restituisce un risultato JSON.",
     "x_search_terms": [
+      "cmd exec json",
+      "esegui il comando json",
+      "esegui json",
       "cmd json",
-      "command json",
-      "structured output",
-      "json result",
-      "cmd structured",
-      "command output",
-      "command result",
-      "execute json",
-      "json command",
-      "cmd result"
+      "comando json",
+      "shell json",
+      "json output"
     ]
   },
   "ru": {
     "param.command.description": "Строка команды, передаваемая системной оболочке.",
     "tool.description": "В крайнем случае выполняет команду оболочки и возвращает результат в формате JSON.",
     "x_search_terms": [
-      "cmd json",
-      "command json",
-      "structured output",
-      "json result",
-      "cmd structured",
-      "command output",
-      "command result",
-      "execute json",
-      "json command",
-      "cmd result"
+      "cmd exec json, запустить команду json, выполнить json, cmd json, команда json, оболочка JSON, вывод json"
     ]
   },
   "pt_BR": {
@@ -150,15 +120,15 @@
     "tool.description": "Como último recurso, execute um comando shell e retorne um resultado JSON.",
     "x_search_terms": [
       "cmd json",
-      "command json",
-      "structured output",
-      "json result",
-      "cmd structured",
-      "command output",
-      "command result",
-      "execute json",
-      "json command",
-      "cmd result"
+      "comando json",
+      "produção estruturada",
+      "resultado json",
+      "cmd estruturado",
+      "saída de comando",
+      "resultado do comando",
+      "executar json",
+      "comando json",
+      "resultado cmd"
     ]
   },
   "id": {
@@ -166,15 +136,15 @@
     "tool.description": "Sebagai upaya terakhir, jalankan perintah shell dan kembalikan hasil JSON.",
     "x_search_terms": [
       "cmd json",
-      "command json",
-      "structured output",
-      "json result",
-      "cmd structured",
-      "command output",
-      "command result",
-      "execute json",
-      "json command",
-      "cmd result"
+      "perintah json",
+      "keluaran terstruktur",
+      "hasil json",
+      "cmd terstruktur",
+      "keluaran perintah",
+      "hasil perintah",
+      "jalankan json",
+      "perintah json",
+      "cmd hasil"
     ]
   },
   "vi": {
@@ -182,15 +152,15 @@
     "tool.description": "Phương án cuối cùng là thực thi lệnh shell và trả về kết quả JSON.",
     "x_search_terms": [
       "cmd json",
-      "command json",
-      "structured output",
-      "json result",
-      "cmd structured",
-      "command output",
-      "command result",
-      "execute json",
-      "json command",
-      "cmd result"
+      "lệnh json",
+      "đầu ra có cấu trúc",
+      "kết quả json",
+      "cấu trúc cmd",
+      "đầu ra lệnh",
+      "kết quả lệnh",
+      "thực thi json",
+      "lệnh json",
+      "kết quả cmd"
     ]
   },
   "pl": {

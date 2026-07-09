@@ -37,16 +37,11 @@
     "param.args.description": "Git コマンドに渡す引数のリスト。",
     "param.command.description": "実行する Git サブコマンド（安全のため制限あり）。",
     "x_search_terms": [
-      "git",
-      "git operations",
-      "git command",
-      "version control",
-      "git repo",
-      "source control",
-      "git commit",
-      "git push",
-      "git pull",
-      "vcs"
+      "git ops",
+      "gitコマンド |ギット |バージョン管理",
+      "VC |ソース管理",
+      "git 操作",
+      "git"
     ],
     "param.allow_danger.description": "危険な操作を許可するかどうか (デフォルトは false)。例: プッシュ --force、リセット --ハード。",
     "tool.description": "安全第一の制限を設けて Git コマンドを実行します。一部の操作や引数内の特殊文字は、セキュリティのために制限される場合があります。"
@@ -63,17 +58,16 @@
     "param.args.description": "Lista de argumentos que se pasan al comando Git.",
     "param.command.description": "Subcomando Git (restringido).",
     "x_search_terms": [
+      "git ops",
+      "comando git",
       "git",
-      "git operations",
-      "git command",
-      "version control",
-      "git repo",
-      "source control",
-      "git commit",
-      "git push",
-      "git pull",
-      "vcs"
-    ]
+      "control de versiones",
+      "vcs",
+      "control de fuente",
+      "operación git",
+      "ejecute git"
+    ],
+    "tool.description": "Ejecute comandos Git con restricciones de seguridad. Algunas operaciones o caracteres especiales en los argumentos pueden estar restringidos por motivos de seguridad."
   },
   "fr": {
     "error.git_not_found": "[erreur git_ops] commande git introuvable.",
@@ -87,17 +81,16 @@
     "param.args.description": "Liste des arguments passés à la commande Git.",
     "param.command.description": "Sous-commande Git (restreinte).",
     "x_search_terms": [
+      "git ops",
+      "commande git",
       "git",
-      "git operations",
-      "git command",
-      "version control",
-      "git repo",
-      "source control",
-      "git commit",
-      "git push",
-      "git pull",
-      "vcs"
-    ]
+      "contrôle de version",
+      "vcs",
+      "contrôle des sources",
+      "opération git",
+      "exécuter git"
+    ],
+    "tool.description": "Exécutez les commandes Git avec des restrictions axées sur la sécurité. Certaines opérations ou caractères spéciaux dans les arguments peuvent être restreints pour des raisons de sécurité."
   },
   "ko": {
     "error.git_not_found": "[git_ops 오류] git 명령을 찾을 수 없습니다. Git이 설치되어 있는지 확인하세요.",
@@ -111,17 +104,16 @@
     "param.args.description": "Git 명령에 전달할 인수 목록.",
     "param.command.description": "실행할 Git 하위 명령(보안 제한이 적용됩니다).",
     "x_search_terms": [
+      "git ops",
+      "git 명령",
       "git",
-      "git operations",
-      "git command",
-      "version control",
-      "git repo",
-      "source control",
-      "git commit",
-      "git push",
-      "git pull",
-      "vcs"
-    ]
+      "버전 관리",
+      "VCS",
+      "소스 컨트롤",
+      "git 작업",
+      "git 실행"
+    ],
+    "tool.description": "안전 우선 제한 사항을 적용하여 Git 명령을 실행하세요. 인수의 일부 작업이나 특수 문자는 보안을 위해 제한될 수 있습니다."
   },
   "de": {
     "error.git_not_found": "[git_ops-Fehler] git-Befehl nicht gefunden.",
@@ -135,17 +127,16 @@
     "param.args.description": "Liste der Argumente, die an den Git-Befehl übergeben werden.",
     "param.command.description": "Git-Unterbefehl (eingeschränkt).",
     "x_search_terms": [
-      "git",
-      "git operations",
-      "git command",
-      "version control",
-      "git repo",
-      "source control",
-      "git commit",
-      "git push",
-      "git pull",
-      "vcs"
-    ]
+      "git ops",
+      "Git-Befehl",
+      "Idiot",
+      "Versionskontrolle",
+      "vcs",
+      "Quellcodeverwaltung",
+      "Git-Operation",
+      "Führen Sie git"
+    ],
+    "tool.description": "Führen Sie Git-Befehle mit Sicherheitseinschränkungen aus. Einige Vorgänge oder Sonderzeichen in Argumenten können aus Sicherheitsgründen eingeschränkt sein."
   },
   "it": {
     "error.git_not_found": "[errore git_ops] comando git non trovato. Verifica che Git sia installato.",
@@ -159,17 +150,16 @@
     "param.args.description": "Elenco degli argomenti passati al comando Git.",
     "param.command.description": "Sottocomando Git (limitato).",
     "x_search_terms": [
+      "git ops",
+      "comando git",
       "git",
-      "git operations",
-      "git command",
-      "version control",
-      "git repo",
-      "source control",
-      "git commit",
-      "git push",
-      "git pull",
-      "vcs"
-    ]
+      "controllo della versione",
+      "vcs",
+      "controllo del codice sorgente",
+      "operazione git",
+      "esegui git"
+    ],
+    "tool.description": "Esegui comandi Git con restrizioni che mettono la sicurezza al primo posto. Alcune operazioni o caratteri speciali negli argomenti potrebbero essere limitati per motivi di sicurezza."
   },
   "ru": {
     "error.git_not_found": "[ошибка git_ops] команда git не найдена. Убедитесь, что Git установлен.",
@@ -183,17 +173,9 @@
     "param.args.description": "Список аргументов, передаваемых команде Git.",
     "param.command.description": "Подкоманда Git (ограничено)",
     "x_search_terms": [
-      "git",
-      "git operations",
-      "git command",
-      "version control",
-      "git repo",
-      "source control",
-      "git commit",
-      "git push",
-      "git pull",
-      "vcs"
-    ]
+      "git ops, команда git, git, контроль версий, виртуальные машины, контроль версий, операция git, запустить git"
+    ],
+    "tool.description": "Выполняйте команды Git с ограничениями безопасности. Некоторые операции или специальные символы в аргументах могут быть ограничены в целях безопасности."
   },
   "pt_BR": {
     "error.git_not_found": "[erro git_ops] comando git não encontrado. Verifique se o Git está instalado.",
@@ -217,7 +199,8 @@
       "git push",
       "git pull",
       "vcs"
-    ]
+    ],
+    "tool.description": "Execute comandos do Git com restrições de segurança. Algumas operações ou caracteres especiais em argumentos podem ser restritos por questões de segurança."
   },
   "pt": {
     "error.git_not_found": "[erro git_ops] comando git não encontrado.",
@@ -232,16 +215,17 @@
     "param.command.description": "Subcomando Git (restrito).",
     "x_search_terms": [
       "git",
-      "git operations",
-      "git command",
-      "version control",
-      "git repo",
-      "source control",
-      "git commit",
+      "operações git",
+      "comando git",
+      "controle de versão",
+      "repositório git",
+      "controle de origem",
+      "git confirmar",
       "git push",
-      "git pull",
+      "puxar",
       "vcs"
-    ]
+    ],
+    "tool.description": "Execute comandos do Git com restrições de segurança. Algumas operações ou caracteres especiais em argumentos podem ser restritos por questões de segurança."
   },
   "id": {
     "error.git_not_found": "[git_ops error] perintah git tidak ditemukan. Pastikan Git terpasang.",
@@ -256,16 +240,17 @@
     "param.command.description": "Subperintah Git (dibatasi).",
     "x_search_terms": [
       "git",
-      "git operations",
-      "git command",
-      "version control",
+      "operasi git",
+      "perintah git",
+      "kontrol versi",
       "git repo",
-      "source control",
-      "git commit",
-      "git push",
-      "git pull",
+      "kontrol sumber",
+      "git komit",
+      "git mendorong",
+      "git tarik",
       "vcs"
-    ]
+    ],
+    "tool.description": "Jalankan perintah Git dengan batasan yang mengutamakan keselamatan. Beberapa operasi atau karakter khusus dalam argumen mungkin dibatasi demi keamanan."
   },
   "vi": {
     "error.git_not_found": "[lỗi git_ops] không tìm thấy lệnh git. Hãy đảm bảo Git đã được cài đặt.",
@@ -280,16 +265,17 @@
     "param.command.description": "Lệnh con Git (bị hạn chế).",
     "x_search_terms": [
       "git",
-      "git operations",
-      "git command",
-      "version control",
-      "git repo",
-      "source control",
-      "git commit",
-      "git push",
-      "git pull",
+      "hoạt động git",
+      "lệnh git",
+      "kiểm soát phiên bản",
+      "kho lưu trữ git",
+      "kiểm soát nguồn",
+      "cam kết git",
+      "đẩy git",
+      "kéo git",
       "vcs"
-    ]
+    ],
+    "tool.description": "Chạy các lệnh Git với các hạn chế ưu tiên an toàn. Một số thao tác hoặc ký tự đặc biệt trong các đối số có thể bị hạn chế vì lý do bảo mật."
   },
   "pl": {
     "error.git_not_found": "[błąd git_ops] Nie znaleziono polecenia git.",
@@ -313,7 +299,8 @@
       "git push",
       "git pull",
       "vcs"
-    ]
+    ],
+    "tool.description": "Uruchamiaj polecenia Git z ograniczeniami związanymi przede wszystkim z bezpieczeństwem. Niektóre operacje lub znaki specjalne w argumentach mogą być ograniczone ze względów bezpieczeństwa."
   },
   "hi": {
     "error.git_not_found": "[git_ops त्रुटि] git कमांड नहीं मिला। कृपया सुनिश्चित करें कि Git स्थापित है।",
@@ -337,7 +324,8 @@
       "git push",
       "git pull",
       "vcs"
-    ]
+    ],
+    "tool.description": "सुरक्षा-प्रथम प्रतिबंधों के साथ Git कमांड चलाएँ। कुछ ऑपरेशन या विशेष वर्ण अवरुद्ध हो सकते हैं. यदि कोई आदेश अस्वीकार कर दिया जाता है तो उपयोगकर्ता से परामर्श लें।"
   },
   "ar": {
     "error.git_not_found": "[خطأ git_ops] لم يتم العثور على أمر git. يرجى التأكد من تثبيت Git.",
@@ -361,7 +349,8 @@
       "git push",
       "git pull",
       "vcs"
-    ]
+    ],
+    "tool.description": "قم بتشغيل أوامر Git مع قيود السلامة أولاً. قد يتم تقييد بعض العمليات أو الأحرف الخاصة في الوسائط لأسباب تتعلق بالأمان."
   },
   "sv": {
     "error.git_not_found": "[git_ops fel] git-kommandot hittades inte.",
@@ -385,7 +374,8 @@
       "git push",
       "git pull",
       "vcs"
-    ]
+    ],
+    "tool.description": "Kör Git-kommandon med säkerhetsbegränsningar. Vissa operationer eller specialtecken i argument kan vara begränsade av säkerhetsskäl."
   },
   "sw": {
     "error.git_not_found": "[git_ops error] git command not found. Please ensure Git is installed.",
@@ -409,7 +399,8 @@
       "git push",
       "git pull",
       "vcs"
-    ]
+    ],
+    "tool.description": "Endesha amri za Git kwa vizuizi vya usalama kwanza. Baadhi ya shughuli au vibambo maalum katika mabishano vinaweza kuzuiwa kwa usalama."
   },
   "nb": {
     "error.git_not_found": "[git_ops-feil] git-kommandoen ble ikke funnet.",
@@ -433,7 +424,8 @@
       "git push",
       "git pull",
       "vcs"
-    ]
+    ],
+    "tool.description": "Kjør Git-kommandoer med sikkerhetsbegrensninger. Noen operasjoner eller spesialtegn i argumenter kan være begrenset for sikkerheten."
   },
   "nl": {
     "error.git_not_found": "[git_ops fout] git-opdracht niet gevonden.",
@@ -457,7 +449,8 @@
       "git push",
       "git pull",
       "vcs"
-    ]
+    ],
+    "tool.description": "Voer Git-opdrachten uit met beperkingen waarbij de veiligheid voorop staat. Sommige bewerkingen of speciale tekens in argumenten kunnen om veiligheidsredenen beperkt zijn."
   },
   "fi": {
     "error.git_not_found": "[git_ops-virhe] git-komentoa ei löytynyt. Varmista, että Git on asennettu.",
@@ -481,7 +474,8 @@
       "git push",
       "git pull",
       "vcs"
-    ]
+    ],
+    "tool.description": "Suorita Git-komentoja turvallisuuden ensisijaisina rajoituksin. Joitakin argumenttien toimintoja tai erikoismerkkejä voidaan rajoittaa turvallisuuden vuoksi."
   },
   "cs": {
     "error.git_not_found": "[chyba git_ops] příkaz git nebyl nalezen.",
@@ -505,7 +499,8 @@
       "git push",
       "git pull",
       "vcs"
-    ]
+    ],
+    "tool.description": "Spouštějte příkazy Git s omezeními na prvním místě. Některé operace nebo speciální znaky v argumentech mohou být z bezpečnostních důvodů omezeny."
   },
   "uk": {
     "error.git_not_found": "[помилка git_ops] команду git не знайдено. Переконайтеся, що Git встановлено.",
@@ -529,7 +524,8 @@
       "git push",
       "git pull",
       "vcs"
-    ]
+    ],
+    "tool.description": "Виконуйте команди Git з обмеженнями безпеки. Деякі операції або спеціальні символи в аргументах можуть бути обмежені з міркувань безпеки."
   },
   "tr": {
     "error.git_not_found": "[git_ops hatası] git komutu bulunamadı.",
@@ -553,7 +549,8 @@
       "git push",
       "git pull",
       "vcs"
-    ]
+    ],
+    "tool.description": "Git komutlarını önce güvenlik kısıtlamalarıyla çalıştırın. Bağımsız değişkenlerdeki bazı işlemler veya özel karakterler güvenlik nedeniyle kısıtlanabilir."
   },
   "th": {
     "error.git_not_found": "[ข้อผิดพลาด git_ops] ไม่พบคำสั่ง git โปรดตรวจสอบว่าติดตั้ง Git แล้ว",
@@ -577,7 +574,8 @@
       "git push",
       "git pull",
       "vcs"
-    ]
+    ],
+    "tool.description": "เรียกใช้คำสั่ง Git โดยมีข้อจำกัดด้านความปลอดภัยเป็นอันดับแรก การดำเนินการบางอย่างหรืออักขระพิเศษในอาร์กิวเมนต์อาจถูกจำกัดเพื่อความปลอดภัย"
   },
   "zh_CN": {
     "error.git_not_found": "[git_ops 错误] 未找到 git 命令。请确保已安装 Git。",
@@ -601,7 +599,8 @@
       "git push",
       "git pull",
       "vcs"
-    ]
+    ],
+    "tool.description": "在安全第一的限制下运行 Git 命令。为了安全起见，参数中的某些操作或特殊字符可能受到限制。"
   },
   "zh_TW": {
     "error.git_not_found": "[git_ops 錯誤] 未找到 git 指令。請確保已安裝 Git。",
@@ -625,7 +624,8 @@
       "git push",
       "git pull",
       "vcs"
-    ]
+    ],
+    "tool.description": "在安全第一的限制下執行 Git 指令。為了安全起見，參數中的某些操作或特殊字元可能受到限制。 "
   },
   "bn": {
     "error.git_not_found": "[git_ops error] git command পাওয়া যায়নি। Git ইনস্টল আছে কিনা নিশ্চিত করুন।",
@@ -649,7 +649,8 @@
       "git push",
       "git pull",
       "vcs"
-    ]
+    ],
+    "tool.description": "নিরাপত্তা-প্রথম বিধিনিষেধ সহ গিট কমান্ড চালান। আর্গুমেন্টে কিছু অপারেশন বা বিশেষ অক্ষর নিরাপত্তার জন্য সীমাবদ্ধ হতে পারে।"
   },
   "fa": {
     "error.git_not_found": "[خطای git_ops] فرمان git پیدا نشد. مطمئن شوید Git نصب شده است.",
@@ -673,7 +674,8 @@
       "git push",
       "git pull",
       "vcs"
-    ]
+    ],
+    "tool.description": "فرمان‌های Git را با محدودیت‌های ایمنی اجرا کنید. برخی از عملیات یا نویسه‌های خاص در آرگومان‌ها ممکن است برای امنیت محدود شده باشند."
   },
   "mn": {
     "error.git_not_found": "[git_ops error] git command олдсонгүй. Git суусан эсэхийг шалгана уу.",
@@ -697,7 +699,8 @@
       "git push",
       "git pull",
       "vcs"
-    ]
+    ],
+    "tool.description": "Git командуудыг аюулгүй байдлын нэгдүгээрт хязгаарлалттайгаар ажиллуул. Аюулгүй байдлын үүднээс зарим үйлдэл эсвэл аргумент дахь тусгай тэмдэгтүүдийг хязгаарласан байж магадгүй."
   },
   "mr": {
     "error.git_not_found": "[git_ops error] git command सापडले नाही. Git स्थापित आहे याची खात्री करा.",
@@ -721,7 +724,8 @@
       "git push",
       "git pull",
       "vcs"
-    ]
+    ],
+    "tool.description": "सुरक्षा-प्रथम निर्बंधांसह Git कमांड चालवा. सुरक्षेसाठी आर्ग्युमेंटमधील काही ऑपरेशन्स किंवा विशेष वर्ण प्रतिबंधित केले जाऊ शकतात."
   },
   "el": {
     "error.git_not_found": "[git_ops error] μη υποστηριζόμενη ή μη έγκυρη εντολή: {command}",
@@ -745,7 +749,8 @@
       "git push",
       "git pull",
       "vcs"
-    ]
+    ],
+    "tool.description": "Εκτέλεση εντολών Git με περιορισμούς πρώτα από την ασφάλεια. Ορισμένες λειτουργίες ή ειδικοί χαρακτήρες σε ορίσματα ενδέχεται να περιορίζονται για λόγους ασφάλειας."
   },
   "he": {
     "error.git_not_found": "[שגיאת git_ops] שגיאה פנימית לא ידועה",
@@ -769,7 +774,8 @@
       "git push",
       "git pull",
       "vcs"
-    ]
+    ],
+    "tool.description": "הפעל פקודות Git עם הגבלות של Safety-first. פעולות מסוימות או תווים מיוחדים בארגומנטים עשויים להיות מוגבלים מטעמי אבטחה."
   },
   "hu": {
     "error.git_not_found": "[git_ops hiba] A git parancs nem található. Győződjön meg róla, hogy a Git telepítve van.",
@@ -793,7 +799,8 @@
       "git push",
       "git pull",
       "vcs"
-    ]
+    ],
+    "tool.description": "Futtassa a Git-parancsokat a biztonság előtti korlátozásokkal. Egyes műveletek vagy speciális karakterek az argumentumokban a biztonság kedvéért korlátozva lehetnek."
   },
   "ro": {
     "error.git_not_found": "[git_ops error] necunoscută eroare internă",
@@ -817,6 +824,7 @@
       "git push",
       "git pull",
       "vcs"
-    ]
+    ],
+    "tool.description": "Rulați comenzile Git cu restricții de siguranță. Unele operațiuni sau caractere speciale din argumente pot fi restricționate din motive de securitate."
   }
 }
