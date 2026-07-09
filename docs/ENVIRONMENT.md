@@ -196,10 +196,23 @@ Required if `UAGENT_PROVIDER=sakura`:
 - `UAGENT_PARALLEL_WORKERS`: Number of threads for parallel tool execution (default: `8`). Increase for more concurrency on I/O-bound tasks.
 - `UAGENT_AUTO_UNLOAD_ROUNDS`: Automatically unload tools that haven't been used for this many LLM rounds (default: `10`). Set to `0` to disable auto-unload.
 
+#### LLM Parameters (OpenAI-compatible)
+
+Optional parameters passed directly to the LLM API.
+
+- `UAGENT_MAX_TOKENS`: Maximum number of tokens in the response.
+- `UAGENT_TOP_P`: Nucleus sampling parameter (e.g. `0.9`).
+- `UAGENT_STOP`: Comma-separated stop sequences (e.g. `stop,because`).
+- `UAGENT_SEED`: Random seed for reproducible generation.
+- `UAGENT_FREQUENCY_PENALTY`: Frequency penalty (e.g. `0.5`).
+- `UAGENT_PRESENCE_PENALTY`: Presence penalty (e.g. `0.5`).
+- `UAGENT_RESPONSE_FORMAT`: Response format (`json` for JSON mode).
+
 ### 4. Advanced Features (Responses API, Reasoning, etc.)
 
 - `UAGENT_RESPONSES`: Set to `1` to enable the "Responses API" for supported providers (Azure/OpenAI/Bedrock/OpenRouter/Ollama).
 - `UAGENT_REASONING`: Reasoning effort level for reasoning models (`off`, `auto`, `minimal`, `low`, `medium`, `high`, `xhigh`).
+- `UAGENT_REASONING_EFFORT`: Reasoning effort level for Grok / xAI models (`none`, `low`, `medium`, `high`).
 - `UAGENT_STREAMING_DEBUG`: Set to `1` to dump each streaming event (JSON) to `outputs/streaming_debug/`.
 - `UAGENT_RESPONSES_STATE_FILE`: absolute path to a specific Responses API state file (overrides auto path).
 - `UAGENT_RESPONSES_STATE_DIR`: directory for Responses API state files (optional; default: `~/.uag/`).

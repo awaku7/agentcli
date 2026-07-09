@@ -1581,6 +1581,16 @@ def compress_history_with_llm(
                         messages=summary_messages,
                     )
                     summary_content = resp.choices[0].message.content or ""
+                elif hasattr(client, "chat"):
+                    # xai_sdk: chat.create returns a Chat object with sample()
+                    chat_obj = client.chat.create(
+                        model=depname,
+                        messages=summary_messages,
+                        max_tokens=128,
+                        temperature=0.0,
+                    )
+                    resp = chat_obj.sample()
+                    summary_content = resp.content or ""
                 else:
                     raise AttributeError(
                         f"Client {type(client)} has no attribute 'chat' and is not recognized as Gemini."

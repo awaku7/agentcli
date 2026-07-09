@@ -98,6 +98,74 @@ def _call_grok_round(
                 create_kwargs["tool_choice"] = "auto"
             create_kwargs["temperature"] = resolved_temp
 
+            # --- Optional parameters (environment-driven) ---
+            max_tokens_env = (env_get("UAGENT_MAX_TOKENS") or "").strip()
+            if max_tokens_env:
+                try:
+                    create_kwargs["max_tokens"] = int(max_tokens_env)
+                except ValueError:
+                    pass
+
+            top_p_env = (env_get("UAGENT_TOP_P") or "").strip()
+            if top_p_env:
+                try:
+                    create_kwargs["top_p"] = float(top_p_env)
+                except ValueError:
+                    pass
+
+            reasoning_effort_env = (env_get("UAGENT_REASONING_EFFORT") or "").strip().lower()
+            if reasoning_effort_env:
+                effort_map = {
+                    "none": 4,
+                    "low": 1,
+                    "medium": 2,
+                    "high": 3,
+                }
+                effort_val = effort_map.get(reasoning_effort_env)
+                if effort_val is not None:
+                    try:
+                        from xai_sdk.proto import chat_pb2
+                        create_kwargs["reasoning_effort"] = chat_pb2.ReasoningEffort.Name(effort_val)
+                    except Exception:
+                        create_kwargs["reasoning_effort"] = reasoning_effort_env
+
+            stop_env = (env_get("UAGENT_STOP") or "").strip()
+            if stop_env:
+                create_kwargs["stop"] = [s.strip() for s in stop_env.split(",") if s.strip()]
+
+            seed_env = (env_get("UAGENT_SEED") or "").strip()
+            if seed_env:
+                try:
+                    create_kwargs["seed"] = int(seed_env)
+                except ValueError:
+                    pass
+
+            frequency_penalty_env = (env_get("UAGENT_FREQUENCY_PENALTY") or "").strip()
+            if frequency_penalty_env:
+                try:
+                    create_kwargs["frequency_penalty"] = float(frequency_penalty_env)
+                except ValueError:
+                    pass
+
+            presence_penalty_env = (env_get("UAGENT_PRESENCE_PENALTY") or "").strip()
+            if presence_penalty_env:
+                try:
+                    create_kwargs["presence_penalty"] = float(presence_penalty_env)
+                except ValueError:
+                    pass
+
+            response_format_env = (env_get("UAGENT_RESPONSE_FORMAT") or "").strip().lower()
+            if response_format_env:
+                if response_format_env == "json":
+                    try:
+                        from xai_sdk.proto import chat_pb2
+                        create_kwargs["response_format"] = chat_pb2.ResponseFormat(
+                            format_type=chat_pb2.FormatType.FORMAT_TYPE_JSON_SCHEMA,
+                            json_schema={"type": "object"},
+                        )
+                    except Exception:
+                        create_kwargs["response_format"] = {"type": "json_object"}
+
             # Add instructions as system message already included in xai_msgs
 
             _debug_log(
@@ -260,4 +328,7 @@ def _call_grok_round(
             print(repr(e))
             return False, client, "", []
 
+    # Ensure assistant_text ends with newline for clean display
+    if assistant_text and not assistant_text.endswith("\n"):
+        assistant_text += "\n"
     return True, client, assistant_text, tool_calls_list

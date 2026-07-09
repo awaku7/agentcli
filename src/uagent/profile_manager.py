@@ -283,7 +283,7 @@ def _summarize_profile_text(
                 temperature=0.0,
             )
             raw = response.content[0].text or ""
-        else:
+        elif hasattr(client, "chat") and hasattr(client.chat, "completions"):
             response = client.chat.completions.create(
                 model=model_name,
                 messages=[
@@ -294,6 +294,21 @@ def _summarize_profile_text(
                 max_tokens=128,
             )
             raw = response.choices[0].message.content or ""
+        elif hasattr(client, "chat"):
+            # xai_sdk: chat.create returns a Chat object with sample()
+            chat_obj = client.chat.create(
+                model=model_name,
+                messages=[
+                    {"role": "system", "content": "Return only the summary text."},
+                    {"role": "user", "content": prompt},
+                ],
+                temperature=0.0,
+                max_tokens=128,
+            )
+            resp = chat_obj.sample()
+            raw = resp.content or ""
+        else:
+            raw = ""
     except Exception:
         return compact[:PROFILE_MAX_TEXT_CHARS]
 

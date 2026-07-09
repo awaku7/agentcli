@@ -140,7 +140,8 @@ def build_xai_tools(
                     if not isinstance(tc, dict):
                         continue
                     fn = tc.get("function", {})
-                    if fn.get("name") == "tool_load":
+                    _fn_name = fn.get("name", "")
+                    if _fn_name == "tool_load":
                         try:
                             args = (
                                 json.loads(fn.get("arguments", "{}"))
@@ -159,10 +160,17 @@ def build_xai_tools(
                     content = _as_str(m.get("content", ""))
                     if content:
                         result = json.loads(content)
-                        if isinstance(result, dict) and result.get("name"):
-                            loaded_names.add(result["name"])
+                        if isinstance(result, dict):
+                            # tool_load result: {"name": "tool_name", "loaded": true, ...}
+                            if result.get("name"):
+                                loaded_names.add(result["name"])
+                            # tool_catalog auto_loaded: {"auto_loaded": "tool_name", ...}
+                            auto_loaded = result.get("auto_loaded")
+                            if auto_loaded and isinstance(auto_loaded, str):
+                                loaded_names.add(auto_loaded)
                 except Exception:
                     pass
+
 
     # Build the tool list: start with management tools
     xai_tool_list: list[Any] = []
@@ -254,7 +262,6 @@ def build_xai_tools(
     _debug_log(
         "xai_tools_sent",
         tools=[t.function.name for t in xai_tool_list],
-        loaded_names=sorted(loaded_names),
     )
     return xai_tool_list if xai_tool_list else None
 
@@ -276,6 +283,11 @@ def parse_xai_response(
     if response is None:
         return assistant_text, tool_calls_list
 
+    # Extract reasoning content (print to console, not added to assistant_text)
+    if hasattr(response, "reasoning_content"):
+        rc = response.reasoning_content
+        if rc:
+            print(f"\n[Grok Reasoning]\n{_as_str(rc)}\n")
     # Extract text content
     if hasattr(response, "content"):
         assistant_text = _as_str(response.content)
@@ -342,12 +354,11 @@ def parse_xai_stream(
                 if text:
                     print(text, end="", flush=True)
                     assistant_text += text
-            # Also accumulate reasoning content
+            # Print reasoning content (not added to assistant_text)
             if hasattr(chunk, "reasoning_content"):
                 rc = chunk.reasoning_content or ""
                 if rc:
                     print(rc, end="", flush=True)
-                    assistant_text += rc
 
             # Tool calls from chunk
             if hasattr(chunk, "tool_calls"):
@@ -380,4 +391,6 @@ def parse_xai_stream(
     except Exception as e:
         _debug_log("stream_error", error=str(e))
 
+    # Print final newline after streaming to avoid state messages on same line
+    print()
     return assistant_text, tool_calls_list

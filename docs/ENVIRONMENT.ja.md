@@ -65,10 +65,23 @@ ______________________________________________________________________
 - `UAGENT_PARALLEL_WORKERS`: 並列ツール実行のスレッド数（既定: `8`）。I/O バウンドなタスクが多い場合は増やしてください。
 - `UAGENT_AUTO_UNLOAD_ROUNDS`: 指定されたラウンド数だけ使用されなかったツールを自動的にアンロードします（既定: `10`）。`0` に設定すると自動アンロードが無効になります。
 
+#### LLM パラメータ（OpenAI 互換）
+
+LLM API に直接渡されるオプションパラメータです。
+
+- `UAGENT_MAX_TOKENS`: 応答の最大トークン数。
+- `UAGENT_TOP_P`: Nucleus サンプリングパラメータ（例: `0.9`）。
+- `UAGENT_STOP`: カンマ区切りの停止シーケンス（例: `stop,because`）。
+- `UAGENT_SEED`: 再現性のある生成のための乱数シード。
+- `UAGENT_FREQUENCY_PENALTY`: 頻度ペナルティ（例: `0.5`）。
+- `UAGENT_PRESENCE_PENALTY`: 存在ペナルティ（例: `0.5`）。
+- `UAGENT_RESPONSE_FORMAT`: 応答形式（JSON モードの場合は `json`）。
+
 ### 4. 高度な機能 (Responses API, 推論等)
 
 - `UAGENT_RESPONSES`: `1` に設定すると、対応プロバイダ（Azure/OpenAI/Bedrock/Ollama）で "Responses API" を有効にします。
 - `UAGENT_REASONING`: 推論モデル（o1等）の推論の試行レベル (`off`, `auto`, `minimal`, `low`, `medium`, `high`, `xhigh`)。
+- `UAGENT_REASONING_EFFORT`: Grok / xAI モデルの推論努力レベル (`none`, `low`, `medium`, `high`)。
 - `UAGENT_STREAMING_DEBUG`: `1` に設定すると、ストリーミング中の各イベント（JSON）を `outputs/streaming_debug/` に保存します。
 
 ### 5. 組み込み Web 検索機能 (Built-in Web Search)
