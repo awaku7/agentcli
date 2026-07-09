@@ -202,11 +202,6 @@ def enable_single_tool(tool_name: str) -> bool:
     return False
 
 
-def consume_tool_use(tool_name: str) -> None:
-    """No-op: persist/use-counting has been removed."""
-    pass
-
-
 def disable_single_tool(tool_name: str) -> bool:
     """Unload a single tool by name. Returns True if found and removed."""
     _LOADED_SINGLE_TOOLS.pop(tool_name, None)

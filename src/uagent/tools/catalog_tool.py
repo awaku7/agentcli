@@ -205,16 +205,33 @@ def _run_tool_catalog(args: dict[str, Any]) -> str:
     all_flag = bool(args.get("all", False))
 
     catalog = get_tool_catalog(query=query, max_results=12, all_items=all_flag)
-    return json.dumps(
-        {
-            "ok": True,
-            "query": query,
-            "all": all_flag,
-            "count": len(catalog),
-            "tools": catalog,
-        },
-        ensure_ascii=False,
-    )
+
+    result = {
+        "ok": True,
+        "query": query,
+        "all": all_flag,
+        "count": len(catalog),
+        "tools": catalog,
+    }
+
+    # Auto-load the top-ranked tool when a query is provided
+    # and the top result is not already loaded.
+    if query and catalog:
+        top = catalog[0]
+        if not top.get("loaded"):
+            name = top["name"]
+            try:
+                from ._genre_control_util import enable_single_tool
+
+                ok = enable_single_tool(name)
+                if ok:
+                    result["auto_loaded"] = name
+                    # Reflect the loaded state in the catalog entry
+                    result["tools"][0]["loaded"] = True
+            except Exception:
+                pass
+
+    return json.dumps(result, ensure_ascii=False)
 
 
 def _run_tool_load(args: dict[str, Any]) -> str:

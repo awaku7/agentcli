@@ -73,11 +73,14 @@ LLM に最初から全ツールを送るのではなく、必要に応じてツ�
 ### 動作の流れ
 
 1. 初期状態では `tool_catalog` / `tool_load` / `unload_tool` / `human_ask` のみが LLM に送られる
-2. LLM が `tool_catalog` を呼び出すと、利用可能な全ツールの一覧が返る
-3. LLM は必要なツールを `tool_load(tool_name)` で動的ロードする
+2. LLM が `tool_catalog` を呼び出すと、利用可能な全ツールの一覧が返る  
+   → クエリ（`query`）指定時は、先頭（最高スコア）の未ロードツールが自動的にロードされる  
+   → レスポンスの `auto_loaded` フィールドに自動ロードされたツール名が格納され、該当ツールの `loaded` が `true` に更新される
+3. 上記以外で必要なツールは `tool_load(tool_name)` で動的ロードする
 4. ロードされたツールは次ラウンド以降のツールリストに追加される
 5. `unload_tool(tool_name)` で明示的にアンロードできる
-6. 一定ラウンド使われなかったツールは auto-unload される（`UAGENT_AUTO_UNLOAD_ROUNDS`）
+6. 一定ラウンド使われなかったツールは auto-unload される（`UAGENT_AUTO_UNLOAD_ROUNDS`、デフォルト `10`）  
+   → 自動ロードされたツールもこの対象となる（`_LOADED_SINGLE_TOOLS` に登録されるため）
 
 ### 適用されるケース
 
