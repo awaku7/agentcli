@@ -1,5 +1,4 @@
 from __future__ import annotations
-import urllib.parse
 
 import asyncio
 import json
@@ -376,13 +375,6 @@ class WebRoom:
             display_msg["content"] = " ".join(text_parts)
         else:
             display_msg["content"] = raw_content
-        # Debug: log what we're sending to frontend
-        import sys as _sys
-        _sys.__stderr__.write(f"[DBG] add_message: role={display_msg.get('role')}, attachments_count={len(display_msg.get('attachments') or [])}\n")
-        if display_msg.get("attachments"):
-            for i, a in enumerate(display_msg["attachments"]):
-                _sys.__stderr__.write(f"[DBG]   att[{i}]: type={a.get('type')}, has_data_url={bool(a.get('data_url'))}, data_url_len={len(a.get('data_url',''))}, url={a.get('url','')[:100]}\n")
-            _sys.__stderr__.flush()
         display_msg["name"] = msg.get("name")
         display_msg["tool_calls"] = msg.get("tool_calls")
         display_msg["saved_path"] = msg.get("saved_path")
@@ -694,15 +686,6 @@ def run_agent_worker(
         )
         return
 
-    import sys as _sys
-    _sys.__stderr__.write(f"[DBG] run_agent_worker: attachments={attachments!r}\n")
-    _sys.__stderr__.flush()
-    if attachments:
-        for i, att in enumerate(attachments):
-            _sys.__stderr__.write(f"[DBG]   att[{i}]: type={att.get('type')}, mime={att.get('mime')}, has_data_url={bool(att.get('data_url'))}, has_path={bool(att.get('path'))}\n")
-            _sys.__stderr__.flush()
-    _sys.__stderr__.write(f"[DBG] has_image_start={any(att.get('type') == 'image' for att in (attachments or []))}\n")
-    _sys.__stderr__.flush()
     room.set_status(True, "BUSY")
 
     # Switch to this room's base_dir for the duration of the worker
@@ -793,9 +776,6 @@ def run_agent_worker(
                 pass
         try:
             if isinstance(msg, dict) and msg.get("role") in ("user", "tool"):
-                import sys as _sys
-                _sys.__stderr__.write(f"[DBG] log_message role={msg.get('role')}, content_type={type(msg.get('content')).__name__}, has_attachments={'attachments' in msg}\n")
-                _sys.__stderr__.flush()
                 room.add_message(dict(msg))
         except Exception:
             pass
@@ -982,23 +962,6 @@ When the user asks for a UI, dashboard, interactive tool, or visualization:
         for m in room.history[_before_hist_len:]:
             if isinstance(m, dict) and m.get("role") == "assistant":
                 room.add_message(dict(m))
-            elif isinstance(m, dict) and m.get("role") == "tool":
-                # Debug: check tool messages (image generation results)
-                import sys as _sys
-                _sys.__stderr__.write(f"[DBG] tool msg: name={m.get('name')}, content_type={type(m.get('content')).__name__}, has_attachments={'attachments' in m}\n")
-                _sys.__stderr__.flush()
-                # Check if _enrich_message_attachments parsed it
-                c = m.get("content", "")
-                if isinstance(c, str) and c.strip().startswith("{"):
-                    try:
-                        parsed = json.loads(c)
-                        data = parsed.get("data", {})
-                        atts = data.get("attachments", [])
-                        _sys.__stderr__.write(f"[DBG]   parsed data.attachments count={len(atts)}\n")
-                        _sys.__stderr__.flush()
-                    except Exception as e:
-                        _sys.__stderr__.write(f"[DBG]   parse error: {e}\n")
-                        _sys.__stderr__.flush()
 
     except BaseException as e:
         err = repr(e)
