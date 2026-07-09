@@ -221,7 +221,7 @@ def get_threshold(tool_name: str) -> int:
     return data[0]
 
 
-def bump_threshold(tool_name: str, max_threshold: int = 20) -> None:
+def bump_threshold(tool_name: str, max_threshold: int = 30) -> None:
     """Increase the auto-unload threshold using Fibonacci increments.
 
     Adds fib_current to the threshold, then advances the Fibonacci pair.
