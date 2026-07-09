@@ -1,4 +1,5 @@
 from __future__ import annotations
+import urllib.parse
 
 import asyncio
 import json
@@ -173,10 +174,11 @@ def _enrich_message_attachments(msg: dict[str, Any]) -> dict[str, Any]:
                 and not item.get("data_url")
                 and (mime.startswith("image/") or mime in ("image", ""))
             ):
-                try:
-                    item["data_url"] = tools_util.image_file_to_data_url(str(path))
-                except Exception:
-                    pass
+                # Use /local-file instead of generating huge data_url for WebSocket
+                pass
+            # Set url to /local-file for images without data_url
+            if not item.get("data_url") and not item.get("url") and item.get("type") == "image" and path:
+                item["url"] = f"/local-file?path={urllib.parse.quote(str(path))}"
             enriched.append(item)
         display_msg["attachments"] = enriched
         # Simplify content for tool messages with image attachments
@@ -375,6 +377,13 @@ class WebRoom:
             display_msg["content"] = " ".join(text_parts)
         else:
             display_msg["content"] = raw_content
+        # Debug: log what we're sending to frontend
+        import sys as _sys
+        _sys.__stderr__.write(f"[DBG] add_message: role={display_msg.get('role')}, attachments_count={len(display_msg.get('attachments') or [])}\n")
+        if display_msg.get("attachments"):
+            for i, a in enumerate(display_msg["attachments"]):
+                _sys.__stderr__.write(f"[DBG]   att[{i}]: type={a.get('type')}, has_data_url={bool(a.get('data_url'))}, data_url_len={len(a.get('data_url',''))}\n")
+            _sys.__stderr__.flush()
         display_msg["name"] = msg.get("name")
         display_msg["tool_calls"] = msg.get("tool_calls")
         display_msg["saved_path"] = msg.get("saved_path")
