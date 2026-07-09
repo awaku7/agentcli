@@ -1742,6 +1742,15 @@ def _handle_cmd_load(
     print("Loaded log: %(path)s" % {"path": target_path})
     print("Conversation message count: %(n)d" % {"n": len(messages_ref)})
 
+    # Clear responses_state to avoid stale previous_response_id after :load.
+    try:
+        if hasattr(core, "responses_state"):
+            core.responses_state.clear()
+        if hasattr(core, "_save_responses_state"):
+            core._save_responses_state()
+    except Exception:
+        pass
+
     _prepend_loaded_log_to_current(core=core, source_log_path=target_path, tr=tr)
     return True
 

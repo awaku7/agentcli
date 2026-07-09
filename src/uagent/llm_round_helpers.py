@@ -377,6 +377,25 @@ def _call_openai_azure_round(
                 _prev_rid: Optional[str] = None
                 if isinstance(responses_state, dict):
                     _prev_rid = responses_state.get("previous_response_id")
+                    # Once a stale error occurred, stop using previous_response_id.
+                    if responses_state.get("_stale_rid_occurred"):
+                        _prev_rid = None
+
+                # Skip previous_response_id during tool loops (no new user input)
+                # to avoid "no tool call found" stale errors with Responses API.
+                # Also avoid saving response_id during tool loops so the next turn
+                # starts with a clean (non-stale) previous_response_id.
+                _should_track_rid = True
+                if _prev_rid is not None:
+                    _latest_role: Optional[str] = None
+                    for m in reversed(call_messages):
+                        r = m.get("role") if isinstance(m, dict) else None
+                        if r in ("user", "tool", "assistant"):
+                            _latest_role = r
+                            break
+                    if _latest_role != "user":
+                        _prev_rid = None
+                        _should_track_rid = False
 
                 use_gpt54_tool_search = _is_gpt54_tool_search_target(
                     provider=provider,
@@ -529,7 +548,7 @@ def _call_openai_azure_round(
                         )
                     )
                     assistant_text, reasoning_content, tool_calls_list, _stream_rid = _stream_result
-                    if _stream_rid and isinstance(responses_state, dict):
+                    if _should_track_rid and _stream_rid and isinstance(responses_state, dict):
                         responses_state["previous_response_id"] = _stream_rid
                         from .core import _save_responses_state
 
@@ -576,7 +595,7 @@ def _call_openai_azure_round(
                         )
                     )
                     assistant_text, reasoning_content, tool_calls_list, _resp_rid = _resp_result
-                    if _resp_rid and isinstance(responses_state, dict):
+                    if _should_track_rid and _resp_rid and isinstance(responses_state, dict):
                         responses_state["previous_response_id"] = _resp_rid
                         from .core import _save_responses_state
 
@@ -612,7 +631,7 @@ def _call_openai_azure_round(
                                     core=core,
                                 )
                             )
-                            if _retry_rid and isinstance(responses_state, dict):
+                            if _should_track_rid and _retry_rid and isinstance(responses_state, dict):
                                 responses_state["previous_response_id"] = _retry_rid
                                 from .core import _save_responses_state
 
@@ -741,6 +760,12 @@ def _call_openai_azure_round(
                 # No tool call found: previous_response_id is stale, retry without it
                 if "no tool call found" in err_text:
                     _stale_rid_retried = True
+                    # Set persistent flag so subsequent calls also skip previous_response_id.
+                    if isinstance(responses_state, dict):
+                        responses_state["_stale_rid_occurred"] = True
+                        from .core import _save_responses_state
+
+                        _save_responses_state()
                     print(
                         "[Azure/OpenAI Error] "
                         + _("Stale previous_response_id. Retrying with full history...")
