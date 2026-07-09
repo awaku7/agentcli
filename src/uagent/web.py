@@ -179,6 +179,19 @@ def _enrich_message_attachments(msg: dict[str, Any]) -> dict[str, Any]:
                     pass
             enriched.append(item)
         display_msg["attachments"] = enriched
+        # Simplify content for tool messages with image attachments
+        role = display_msg.get("role")
+        if role == "tool":
+            c = display_msg.get("content", "")
+            if isinstance(c, str) and c.strip().startswith("{"):
+                try:
+                    parsed = json.loads(c)
+                    if isinstance(parsed, dict):
+                        msg_text = parsed.get("message", "")
+                        if msg_text:
+                            display_msg["content"] = msg_text
+                except (json.JSONDecodeError, TypeError):
+                    pass
     return display_msg
 
 
@@ -819,6 +832,12 @@ def run_agent_worker(
             item["saved_path"] = path
             if mime:
                 item["mime"] = mime
+            # Ensure data_url is set for images if missing
+            if is_image and not item.get("data_url"):
+                try:
+                    item["data_url"] = tools_util.image_file_to_data_url(path)
+                except Exception:
+                    pass
             clean_attachments.append(item)
 
         # Build multimodal content if there are image attachments
