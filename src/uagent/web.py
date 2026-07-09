@@ -125,7 +125,6 @@ def _save_input_history(text: str) -> None:
 
 
 app = FastAPI(title="uag Web")
-app.websocket_max_size = 10_000_000  # 10MB for large image data_urls
 
 BASE_DIR = os.path.dirname(__file__)
 TEMPLATE_DIR = os.path.join(BASE_DIR, "templates")
@@ -257,7 +256,7 @@ class WebRoom:
     async def connect(self, websocket: WebSocket):
         set_thread_lang(getattr(self, "lang", "en"))
         try:
-            await websocket.accept()
+            await websocket.accept(max_size=10_000_000)  # 10MB for large image data_urls
             self.active_connections.append(websocket)
 
             msgs = self.messages
