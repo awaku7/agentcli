@@ -917,7 +917,11 @@ def run_agent_worker(
                     % {"err": e}
                 )
 
-        room.history.append(user_msg)
+        # Strip attachments from user_msg before saving to history to avoid
+        # accumulating large data_urls that cause API context overflow on subsequent turns.
+        history_msg = dict(user_msg)
+        history_msg.pop("attachments", None)
+        room.history.append(history_msg)
         _save_input_history(user_input)
         room.image_session = build_image_session_message(room.history, depname)
 
