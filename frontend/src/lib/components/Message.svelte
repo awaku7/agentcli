@@ -23,7 +23,7 @@
   function openPreview() { if (artifactHtml) setArtifactHtml(artifactHtml); }
 </script>
 
-{#if role !== 'system' && role !== 'tool' && (role !== 'assistant' || displayContent.trim())}
+{#if role !== 'system' && (role !== 'assistant' || displayContent.trim())}
   <div
     class="p-3 rounded-xl shadow-sm msg-anim"
     class:role-user={role === 'user'}
