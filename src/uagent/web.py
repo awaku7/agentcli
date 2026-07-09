@@ -1,5 +1,4 @@
 from __future__ import annotations
-import urllib.parse
 
 import asyncio
 import json
@@ -175,8 +174,7 @@ def _enrich_message_attachments(msg: dict[str, Any]) -> dict[str, Any]:
                 and (mime.startswith("image/") or mime in ("image", ""))
             ):
                 try:
-                    room_id = display_msg.get("_room_id", "")
-                    item["url"] = f"/local-file?path={urllib.parse.quote(str(path))}&room_id={urllib.parse.quote(room_id)}"
+                    item["data_url"] = tools_util.image_file_to_data_url(str(path))
                 except Exception:
                     pass
             enriched.append(item)
