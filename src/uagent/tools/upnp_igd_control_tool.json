@@ -85,7 +85,15 @@
     "msg.portmap_add.summary": "اكتملت إضافة تعيين المنفذ خلال {elapsed_ms} مللي ثانية.",
     "msg.portmap_delete.summary": "اكتمل حذف تعيين المنفذ خلال {elapsed_ms} مللي ثانية.",
     "err.unknown_action": "خطأ: إجراء غير معروف '{action}'.",
-    "param.fmt.description": "التنسيق: json أو نص."
+    "param.fmt.description": "التنسيق: json أو نص.",
+    "x_search_terms": [
+      "تحكم upnp igd",
+      "upnp_igd_control",
+      "أب إن بي",
+      "أب إن بي",
+      "إي جي دي",
+      "تنفيذ"
+    ]
   },
   "bn": {
     "param.timeout.description": "সময়সীমা (সেকেন্ড)।",
@@ -104,7 +112,15 @@
     "msg.portmap_add.summary": "পোর্ট ম্যাপিং যোগ {elapsed_ms} ms এ সম্পন্ন হয়েছে।",
     "msg.portmap_delete.summary": "পোর্ট ম্যাপিং মুছা {elapsed_ms} ms-এ সম্পন্ন হয়েছে।",
     "err.unknown_action": "ত্রুটি: অজানা অপারেশন '{action}'।",
-    "param.fmt.description": "বিন্যাস: json বা পাঠ্য।"
+    "param.fmt.description": "বিন্যাস: json বা পাঠ্য।",
+    "x_search_terms": [
+      "upnp igd নিয়ন্ত্রণ",
+      "upnp_igd_control",
+      "ইউপিএনপি",
+      "ইউপিএনপি",
+      "আইজিডি",
+      "সম্পাদন"
+    ]
   },
   "cs": {
     "param.timeout.description": "Časový limit (v sekundách).",
@@ -123,7 +139,15 @@
     "msg.portmap_add.summary": "Přidání mapování portů dokončeno za {elapsed_ms} ms.",
     "msg.portmap_delete.summary": "Smazání mapování portu dokončeno za {elapsed_ms} ms.",
     "err.unknown_action": "Chyba: Neznámá akce '{action}'.",
-    "param.fmt.description": "Formát: json nebo text."
+    "param.fmt.description": "Formát: json nebo text.",
+    "x_search_terms": [
+      "ovládání upnp igd",
+      "upnp_igd_control",
+      "upnp",
+      "UPNP",
+      "igd",
+      "provést"
+    ]
   },
   "de": {
     "param.timeout.description": "Timeout (Sekunden).",
@@ -142,7 +166,15 @@
     "msg.portmap_add.summary": "Das Hinzufügen der Portzuordnung wurde in {elapsed_ms} ms abgeschlossen.",
     "msg.portmap_delete.summary": "Das Löschen der Portzuordnung wurde in {elapsed_ms} ms abgeschlossen.",
     "err.unknown_action": "Fehler: Unbekannte Aktion „{action}“.",
-    "param.fmt.description": "Format: JSON oder Text."
+    "param.fmt.description": "Format: JSON oder Text.",
+    "x_search_terms": [
+      "UPNP-IGD-Steuerung",
+      "upnp_igd_control",
+      "upnp",
+      "UPNP",
+      "igd",
+      "durchführen"
+    ]
   },
   "es": {
     "param.timeout.description": "Tiempo de espera (segundos).",
@@ -188,7 +220,15 @@
     "msg.portmap_add.summary": "افزودن نگاشت پورت در {elapsed_ms} ms تکمیل شد.",
     "msg.portmap_delete.summary": "حذف نگاشت پورت در {elapsed_ms} ms تکمیل شد.",
     "err.unknown_action": "خطا: عملیات ناشناخته '{action}'.",
-    "param.fmt.description": "فرمت: json یا متن."
+    "param.fmt.description": "فرمت: json یا متن.",
+    "x_search_terms": [
+      "کنترل upnp igd",
+      "upnp_igd_control",
+      "آپ‌ان‌پی",
+      "آپ‌ان‌پی",
+      "ای‌جی‌دی",
+      "انجام"
+    ]
   },
   "fi": {
     "param.timeout.description": "Aikakatkaisu (sekunteina).",
@@ -207,7 +247,15 @@
     "msg.portmap_add.summary": "Porttikartoituksen lisäys valmis {elapsed_ms} ms:ssa.",
     "msg.portmap_delete.summary": "Porttikartoituksen poisto valmis {elapsed_ms} ms:ssa.",
     "err.unknown_action": "Virhe: Tuntematon toiminto '{action}'.",
-    "param.fmt.description": "Muoto: json tai teksti."
+    "param.fmt.description": "Muoto: json tai teksti.",
+    "x_search_terms": [
+      "upnp igd -ohjaus",
+      "upnp_igd_control",
+      "upnp",
+      "UPNP",
+      "igd",
+      "suorita"
+    ]
   },
   "fr": {
     "param.timeout.description": "Délai d'expiration (secondes).",
@@ -253,7 +301,15 @@
     "msg.portmap_add.summary": "पोर्ट मैपिंग जोड़ना {elapsed_ms} ms में पूरा हुआ।",
     "msg.portmap_delete.summary": "पोर्ट मैपिंग हटाना {elapsed_ms} ms में पूरा हुआ।",
     "err.unknown_action": "त्रुटि: अज्ञात क्रिया '{action}'.",
-    "param.fmt.description": "प्रारूप:"
+    "param.fmt.description": "प्रारूप:",
+    "x_search_terms": [
+      "upnp igd नियंत्रण",
+      "upnp_igd_control",
+      "यूपीएनपी",
+      "यूपीएनपी",
+      "आईजीडी",
+      "निष्पादित करें"
+    ]
   },
   "id": {
     "param.timeout.description": "Batas waktu (detik).",
@@ -353,7 +409,15 @@
     "msg.portmap_add.summary": "Портын зураглалыг нэмэх {elapsed_ms} мс-д дууссан.",
     "msg.portmap_delete.summary": "Портын зураглалыг устгаж {elapsed_ms} мс дараа дуусгасан.",
     "err.unknown_action": "Алдаа: Үл мэдэгдэх үйлдэл '{action}'.",
-    "param.fmt.description": "Формат: json эсвэл текст."
+    "param.fmt.description": "Формат: json эсвэл текст.",
+    "x_search_terms": [
+      "upnp igd хяналт",
+      "upnp_igd_control",
+      "упнп",
+      "упнп",
+      "игд",
+      "гүйцэтгэх"
+    ]
   },
   "mr": {
     "param.timeout.description": "कालबाह्य (सेकंद).",
@@ -372,7 +436,15 @@
     "msg.portmap_add.summary": "पोर्ट मॅपिंग ॲड {elapsed_ms} ms मध्ये पूर्ण झाले.",
     "msg.portmap_delete.summary": "पोर्ट मॅपिंग हटवणे {elapsed_ms} ms मध्ये पूर्ण झाले.",
     "err.unknown_action": "त्रुटी: अज्ञात क्रिया '{action}'.",
-    "param.fmt.description": "स्वरूप: json किंवा मजकूर."
+    "param.fmt.description": "स्वरूप: json किंवा मजकूर.",
+    "x_search_terms": [
+      "upnp igd नियंत्रण",
+      "upnp_igd_control",
+      "यूपीएनपी",
+      "यूपीएनपी",
+      "आयजीडी",
+      "कार्यान्वित करा"
+    ]
   },
   "el": {
     "param.timeout.description": "Λήξη χρονικού ορίου (δευτερόλεπτα).",
@@ -391,7 +463,15 @@
     "msg.portmap_add.summary": "Η διαγραφή χαρτογράφησης θύρας ολοκληρώθηκε σε {elapsed_ms} ms.",
     "msg.portmap_delete.summary": "Ανακαλύψτε συσκευές UPnP/SSDP στο τοπικό δίκτυο και επιστρέψτε μια λίστα JSON ή κειμένου. Υποστηρίζει φιλτράρισμα κατά όνομα, κατασκευαστή, μοντέλο ή τύπο συσκευής.",
     "err.unknown_action": "Σφάλμα: Άγνωστη ενέργεια \"{action}\".",
-    "param.fmt.description": "Στιγμιότυπο προσωρινής μνήμης ECHONET: {count} στοιχεία."
+    "param.fmt.description": "Στιγμιότυπο προσωρινής μνήμης ECHONET: {count} στοιχεία.",
+    "x_search_terms": [
+      "έλεγχος upnp igd",
+      "upnp_igd_control",
+      "upnp",
+      "UPNP",
+      "igd",
+      "εκτέλεση"
+    ]
   },
   "he": {
     "param.timeout.description": "פסק זמן (שניות).",
@@ -410,7 +490,15 @@
     "msg.portmap_add.summary": "מחיקת מיפוי הפורטים הושלמה תוך {elapsed_ms} אלפיות השנייה.",
     "msg.portmap_delete.summary": "גלה התקני UPnP/SSDP ברשת המקומית והחזר JSON או רשימת טקסט. תומך בסינון לפי שם, יצרן, דגם או סוג מכשיר.",
     "err.unknown_action": "שגיאה: פעולה לא ידועה '{action}'.",
-    "param.fmt.description": "אין ערכים במטמון."
+    "param.fmt.description": "אין ערכים במטמון.",
+    "x_search_terms": [
+      "שליטת upnp igd",
+      "upnp_igd_control",
+      "upnp",
+      "UPNP",
+      "igd",
+      "בצע"
+    ]
   },
   "hu": {
     "param.timeout.description": "Időtúllépés (másodpercben).",
@@ -429,7 +517,15 @@
     "msg.portmap_add.summary": "A portleképezés törlése {elapsed_ms} ms alatt befejeződött.",
     "msg.portmap_delete.summary": "Fedezze fel az UPnP/SSDP-eszközöket a helyi hálózaton, és küldjön vissza egy JSON-t vagy szöveges listát. Támogatja a név, gyártó, modell vagy eszköztípus szerinti szűrést.",
     "err.unknown_action": "Hiba: Ismeretlen művelet „{action}”.",
-    "param.fmt.description": "Gyorsítótár művelet: pillanatfelvétel vagy törlés."
+    "param.fmt.description": "Gyorsítótár művelet: pillanatfelvétel vagy törlés.",
+    "x_search_terms": [
+      "upnp igd vezérlés",
+      "upnp_igd_control",
+      "upnp",
+      "UPNP",
+      "igd",
+      "végrehajt"
+    ]
   },
   "ro": {
     "param.timeout.description": "Timeout (secunde).",
@@ -448,7 +544,15 @@
     "msg.portmap_add.summary": "Ștergerea maparii portului a fost finalizată în {elapsed_ms} ms.",
     "msg.portmap_delete.summary": "Descoperiți dispozitivele UPnP/SSDP din rețeaua locală și returnați o listă JSON sau text. Acceptă filtrarea după nume, producător, model sau tip de dispozitiv.",
     "err.unknown_action": "Eroare: Acțiune necunoscută „{action}”.",
-    "param.fmt.description": "Inspectați sau ștergeți memoria cache ECHONET Lite partajată."
+    "param.fmt.description": "Inspectați sau ștergeți memoria cache ECHONET Lite partajată.",
+    "x_search_terms": [
+      "control upnp igd",
+      "upnp_igd_control",
+      "upnp",
+      "UPNP",
+      "igd",
+      "execută"
+    ]
   },
   "nb": {
     "param.timeout.description": "Tidsavbrudd (sekunder).",
@@ -467,7 +571,15 @@
     "msg.portmap_add.summary": "Legg til portkartlegging fullført om {elapsed_ms} ms.",
     "msg.portmap_delete.summary": "Sletting av portmapping fullført på {elapsed_ms} ms.",
     "err.unknown_action": "Feil: Ukjent handling '{action}'.",
-    "param.fmt.description": "Format: json eller tekst."
+    "param.fmt.description": "Format: json eller tekst.",
+    "x_search_terms": [
+      "upnp igd-kontroll",
+      "upnp_igd_control",
+      "upnp",
+      "UPNP",
+      "igd",
+      "utføre"
+    ]
   },
   "nl": {
     "param.timeout.description": "Time-out (seconden).",
@@ -486,7 +598,15 @@
     "msg.portmap_add.summary": "Toevoeging van poorttoewijzing voltooid in {elapsed_ms} ms.",
     "msg.portmap_delete.summary": "Verwijderen van poorttoewijzing voltooid in {elapsed_ms} ms.",
     "err.unknown_action": "Fout: onbekende actie '{action}'.",
-    "param.fmt.description": "Formaat: json of tekst."
+    "param.fmt.description": "Formaat: json of tekst.",
+    "x_search_terms": [
+      "upnp igd-controle",
+      "upnp_igd_control",
+      "upnp",
+      "UPNP",
+      "igd",
+      "uitvoeren"
+    ]
   },
   "pl": {
     "param.timeout.description": "Limit czasu (sekundy).",
@@ -532,7 +652,15 @@
     "msg.portmap_add.summary": "Adição de mapeamento de porta concluída em {elapsed_ms} ms.",
     "msg.portmap_delete.summary": "Exclusão de mapeamento de porta concluída em {elapsed_ms} ms.",
     "err.unknown_action": "Erro: ação desconhecida '{action}'.",
-    "param.fmt.description": "Formato: json ou texto."
+    "param.fmt.description": "Formato: json ou texto.",
+    "x_search_terms": [
+      "controlo upnp igd",
+      "upnp_igd_control",
+      "upnp",
+      "UPNP",
+      "igd",
+      "executar"
+    ]
   },
   "pt_BR": {
     "param.timeout.description": "Tempo limite (segundos).",
@@ -578,7 +706,15 @@
     "msg.portmap_add.summary": "Добавление сопоставления портов завершено за {elapsed_ms} мс.",
     "msg.portmap_delete.summary": "Удаление сопоставления портов завершено через {elapsed_ms} мс.",
     "err.unknown_action": "Ошибка: неизвестное действие «{action}».",
-    "param.fmt.description": "Формат: json или текстовый."
+    "param.fmt.description": "Формат: json или текстовый.",
+    "x_search_terms": [
+      "управление upnp igd",
+      "upnp_igd_control",
+      "upnp",
+      "UPNP",
+      "igd",
+      "выполнять"
+    ]
   },
   "sv": {
     "param.timeout.description": "Timeout (sekunder).",
@@ -597,7 +733,15 @@
     "msg.portmap_add.summary": "Lägg till portmappning klar på {elapsed_ms} ms.",
     "msg.portmap_delete.summary": "Borttagning av portmappning slutförd på {elapsed_ms} ms.",
     "err.unknown_action": "Fel: Okänd åtgärd '{action}'.",
-    "param.fmt.description": "Format: json eller text."
+    "param.fmt.description": "Format: json eller text.",
+    "x_search_terms": [
+      "upnp igd-kontroll",
+      "upnp_igd_control",
+      "upnp",
+      "UPNP",
+      "igd",
+      "utföra"
+    ]
   },
   "sw": {
     "param.mx.description": "Thamani ya kichwa cha SSDP MX (sekunde 1-5) inayotumiwa na M-SEARCH.",
@@ -607,7 +751,15 @@
     "err.invalid_interface": "Hitilafu: Haikuweza kutafsiri kiolesura '{interface}' kuwa anwani ya IPv4 ya ndani.",
     "msg.summary": "Ugunduzi wa UPnP umekamilika: vifaa {count} vimepatikana ndani ya {elapsed_ms} ms.",
     "msg.no_devices": "Hakuna vifaa vya UPnP vilivyopatikana.",
-    "param.fmt.description": "Umbizo: json au maandishi."
+    "param.fmt.description": "Umbizo: json au maandishi.",
+    "x_search_terms": [
+      "udhibiti wa upnp igd",
+      "upnp_igd_control",
+      "upnp",
+      "UPNP",
+      "igd",
+      "fanya"
+    ]
   },
   "th": {
     "param.timeout.description": "หมดเวลา (วินาที)",
@@ -626,7 +778,15 @@
     "msg.portmap_add.summary": "การเพิ่มการแมปพอร์ตเสร็จสิ้นใน {elapsed_ms} ms",
     "msg.portmap_delete.summary": "การลบการแมปพอร์ตเสร็จสิ้นใน {elapsed_ms} ms",
     "err.unknown_action": "ข้อผิดพลาด: การกระทำที่ไม่รู้จัก '{action}'",
-    "param.fmt.description": "คำอธิบาย"
+    "param.fmt.description": "คำอธิบาย",
+    "x_search_terms": [
+      "ควบคุม upnp igd",
+      "upnp_igd_control",
+      "อัปเอ็นพี",
+      "อัปเอ็นพี",
+      "ไอจีดี",
+      "ดำเนินการ"
+    ]
   },
   "tr": {
     "param.mx.description": "M-SEARCH tarafından kullanılan SSDP MX başlık değeri (1-5 saniye).",
@@ -636,7 +796,15 @@
     "err.invalid_interface": "Hata: '{interface}' arayüzü yerel bir IPv4 adresine çözümlenemedi.",
     "msg.summary": "UPnP keşfi tamamlandı: {elapsed_ms} ms içinde {count} aygıt bulundu.",
     "msg.no_devices": "Hiç UPnP aygıtı bulunamadı.",
-    "param.fmt.description": "Biçim: json veya metin."
+    "param.fmt.description": "Biçim: json veya metin.",
+    "x_search_terms": [
+      "upnp igd kontrolü",
+      "upnp_igd_control",
+      "upnp",
+      "UPNP",
+      "igd",
+      "gerçekleştirmek"
+    ]
   },
   "uk": {
     "param.mx.description": "Значення заголовка SSDP MX (1–5 секунд), яке використовується M-SEARCH.",
@@ -646,7 +814,15 @@
     "err.invalid_interface": "Помилка: не вдалося визначити інтерфейс '{interface}' як локальну IPv4-адресу.",
     "msg.summary": "Виявлення UPnP завершено: знайдено {count} пристрій(їв) за {elapsed_ms} мс.",
     "msg.no_devices": "Пристроїв UPnP не знайдено.",
-    "param.fmt.description": "Формат: json або текстовий."
+    "param.fmt.description": "Формат: json або текстовий.",
+    "x_search_terms": [
+      "керування upnp igd",
+      "upnp_igd_control",
+      "upnp",
+      "UPNP",
+      "igd",
+      "виконувати"
+    ]
   },
   "vi": {
     "param.mx.description": "Giá trị tiêu đề SSDP MX (1-5 giây) được dùng bởi M-SEARCH.",
@@ -683,7 +859,15 @@
     "msg.portmap_add.summary": "端口映射添加已在 {elapsed_ms} ms 内完成。",
     "msg.portmap_delete.summary": "端口映射删除已在 {elapsed_ms} ms 内完成。",
     "err.unknown_action": "错误：未知操作 '{action}'。",
-    "param.fmt.description": "输出格式：JSON 或人类可读文本。"
+    "param.fmt.description": "输出格式：JSON 或人类可读文本。",
+    "x_search_terms": [
+      "upnp igd 控制",
+      "upnp_igd_control",
+      "upnp",
+      "UPNP",
+      "igd",
+      "执行"
+    ]
   },
   "zh_TW": {
     "param.timeout.description": "超时（秒）。",
@@ -702,6 +886,14 @@
     "msg.portmap_add.summary": "連接埠對應新增已於 {elapsed_ms} ms 內完成。",
     "msg.portmap_delete.summary": "連接埠對應刪除已於 {elapsed_ms} ms 內完成。",
     "err.unknown_action": "錯誤：未知的操作 '{action}'。",
-    "param.fmt.description": "輸出格式：JSON 或人類可讀文字。"
+    "param.fmt.description": "輸出格式：JSON 或人類可讀文字。",
+    "x_search_terms": [
+      "upnp igd 控制",
+      "upnp_igd_control",
+      "upnp",
+      "UPNP",
+      "igd",
+      "執行"
+    ]
   }
 }

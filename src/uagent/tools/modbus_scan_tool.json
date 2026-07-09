@@ -32,7 +32,16 @@
     "msg.no_devices": "لم يتم العثور على أجهزة Modbus.",
     "err.ip_range_required": "مطلوب ip_range.",
     "err.invalid_ip_range": "تعذر تحليل نطاق ip_range: {text}",
-    "err.too_many_ips": "هناك عدد كبير جدًا من عناوين IP ({count}). الحد إلى 255"
+    "err.too_many_ips": "هناك عدد كبير جدًا من عناوين IP ({count}). الحد إلى 255",
+    "x_search_terms": [
+      "فحص modbus",
+      "modbus_scan",
+      "مودبوس",
+      "مودبوس",
+      "أجهزة",
+      "محلي",
+      "شبكة"
+    ]
   },
   "bn": {
     "tool.description": "স্থানীয় নেটওয়ার্কে Modbus TCP ডিভাইস স্ক্যান করুন। Modbus ডিভাইস আবিষ্কার করতে IP ঠিকানা এবং ইউনিট আইডি অনুসন্ধান করে।",
@@ -45,7 +54,16 @@
     "msg.no_devices": "কোন Modbus ডিভাইস পাওয়া যায়নি.",
     "err.ip_range_required": "ip_range প্রয়োজন।",
     "err.invalid_ip_range": "ip_range পার্স করা যায়নি: {text}",
-    "err.too_many_ips": "অনেক বেশি আইপি ({count})। সীমা 255।"
+    "err.too_many_ips": "অনেক বেশি আইপি ({count})। সীমা 255।",
+    "x_search_terms": [
+      "modbus স্ক্যান",
+      "modbus_scan",
+      "মডবাস",
+      "মডবাস",
+      "ডিভাইস",
+      "স্থানীয়",
+      "নেটওয়ার্ক"
+    ]
   },
   "cs": {
     "tool.description": "Skenujte zařízení Modbus TCP v místní síti. Zkoumá IP adresy a ID jednotek a zjišťuje Modbus zařízení.",
@@ -58,7 +76,16 @@
     "msg.no_devices": "Nebyla nalezena žádná zařízení Modbus.",
     "err.ip_range_required": "ip_range je vyžadováno.",
     "err.invalid_ip_range": "Nelze analyzovat rozsah ip_range: {text}",
-    "err.too_many_ips": "Příliš mnoho IP adres ({count}). Limit na 255."
+    "err.too_many_ips": "Příliš mnoho IP adres ({count}). Limit na 255.",
+    "x_search_terms": [
+      "skenování modbus",
+      "modbus_scan",
+      "modbus",
+      "MODBUS",
+      "zařízení",
+      "místní",
+      "síť"
+    ]
   },
   "de": {
     "tool.description": "Scannen Sie Modbus TCP-Geräte im lokalen Netzwerk. Prüft IP-Adressen und Geräte-IDs, um Modbus-Geräte zu erkennen.",
@@ -71,7 +98,16 @@
     "msg.no_devices": "Es wurden keine Modbus-Geräte gefunden.",
     "err.ip_range_required": "ip_range ist erforderlich.",
     "err.invalid_ip_range": "IP_Bereich konnte nicht analysiert werden: {text}",
-    "err.too_many_ips": "Zu viele IPs ({count}). Beschränken Sie sich auf 255."
+    "err.too_many_ips": "Zu viele IPs ({count}). Beschränken Sie sich auf 255.",
+    "x_search_terms": [
+      "Modbus-Scan",
+      "modbus_scan",
+      "Modbus",
+      "MODBUS",
+      "Geräte",
+      "lokal",
+      "Netzwerk"
+    ]
   },
   "el": {
     "tool.description": "Σάρωση συσκευών TCP Modbus στο τοπικό δίκτυο. Ανιχνεύει τις διευθύνσεις IP και τα αναγνωριστικά μονάδων για να ανακαλύψει συσκευές Modbus.",
@@ -84,7 +120,16 @@
     "msg.no_devices": "Δεν βρέθηκαν συσκευές Modbus.",
     "err.ip_range_required": "ip_range απαιτείται.",
     "err.invalid_ip_range": "Δεν ήταν δυνατή η ανάλυση ip_range: {text}",
-    "err.too_many_ips": "Πάρα πολλές IP ({count}). Όριο στα 255."
+    "err.too_many_ips": "Πάρα πολλές IP ({count}). Όριο στα 255.",
+    "x_search_terms": [
+      "σάρωση modbus",
+      "modbus_scan",
+      "modbus",
+      "MODBUS",
+      "συσκευές",
+      "τοπικό",
+      "δίκτυο"
+    ]
   },
   "es": {
     "tool.description": "Escanee dispositivos Modbus TCP en la red local. Sondea direcciones IP e ID de unidades para descubrir dispositivos Modbus.",
@@ -119,7 +164,16 @@
     "msg.no_devices": "هیچ دستگاه Modbus پیدا نشد.",
     "err.ip_range_required": "ip_range مورد نیاز است.",
     "err.invalid_ip_range": "ip_range: {text} تجزیه نشد",
-    "err.too_many_ips": "IP های بسیار زیاد ({count}). محدود به 255."
+    "err.too_many_ips": "IP های بسیار زیاد ({count}). محدود به 255.",
+    "x_search_terms": [
+      "اسکن modbus",
+      "modbus_scan",
+      "مادباس",
+      "مادباس",
+      "دستگاه‌ها",
+      "محلی",
+      "شبکه"
+    ]
   },
   "fi": {
     "tool.description": "Tarkista Modbus TCP -laitteet paikallisessa verkossa. Tutkii IP-osoitteita ja yksikkötunnuksia Modbus-laitteiden löytämiseksi.",
@@ -132,7 +186,16 @@
     "msg.no_devices": "Modbus-laitteita ei löytynyt.",
     "err.ip_range_required": "ip_range vaaditaan.",
     "err.invalid_ip_range": "Ei voitu jäsentää ip_range: {text}",
-    "err.too_many_ips": "Liian monta IP-osoitetta ({count}). Rajoita 255."
+    "err.too_many_ips": "Liian monta IP-osoitetta ({count}). Rajoita 255.",
+    "x_search_terms": [
+      "modbus-skannaus",
+      "modbus_scan",
+      "modbus",
+      "MODBUS",
+      "laitteet",
+      "paikallinen",
+      "verkko"
+    ]
   },
   "fr": {
     "tool.description": "Scannez les appareils Modbus TCP sur le réseau local. Sonde les adresses IP et les ID d’unité pour découvrir les appareils Modbus.",
@@ -167,7 +230,16 @@
     "msg.no_devices": "לא נמצאו התקני Modbus.",
     "err.ip_range_required": "ip_range נדרש.",
     "err.invalid_ip_range": "לא ניתן לנתח ip_range: {text}",
-    "err.too_many_ips": "יותר מדי כתובות IP ({count}). הגבל ל-255."
+    "err.too_many_ips": "יותר מדי כתובות IP ({count}). הגבל ל-255.",
+    "x_search_terms": [
+      "סריקת modbus",
+      "modbus_scan",
+      "מודבוס",
+      "מודבוס",
+      "מכשירים",
+      "מקומי",
+      "רשת"
+    ]
   },
   "hi": {
     "tool.description": "स्थानीय नेटवर्क पर मोडबस टीसीपी उपकरणों को स्कैन करें। मॉडबस उपकरणों की खोज के लिए आईपी पते और यूनिट आईडी की जांच करता है।",
@@ -180,7 +252,16 @@
     "msg.no_devices": "कोई मॉडबस उपकरण नहीं मिला.",
     "err.ip_range_required": "ip_range आवश्यक है.",
     "err.invalid_ip_range": "ip_range को पार्स नहीं किया जा सका: {text}",
-    "err.too_many_ips": "बहुत सारे आईपी ({count}). 255 तक सीमित करें."
+    "err.too_many_ips": "बहुत सारे आईपी ({count}). 255 तक सीमित करें.",
+    "x_search_terms": [
+      "modbus स्कैन",
+      "modbus_scan",
+      "मॉडबस",
+      "मॉडबस",
+      "डिवाइस",
+      "स्थानीय",
+      "नेटवर्क"
+    ]
   },
   "hu": {
     "tool.description": "Modbus TCP-eszközök vizsgálata a helyi hálózaton. Megvizsgálja az IP-címeket és az egységazonosítókat a Modbus-eszközök felfedezéséhez.",
@@ -193,7 +274,16 @@
     "msg.no_devices": "Nem található Modbus eszköz.",
     "err.ip_range_required": "ip_range szükséges.",
     "err.invalid_ip_range": "Nem sikerült elemezni az ip_range: {text}",
-    "err.too_many_ips": "Túl sok IP ({count}). Korlátozás 255-re."
+    "err.too_many_ips": "Túl sok IP ({count}). Korlátozás 255-re.",
+    "x_search_terms": [
+      "modbus szkennelés",
+      "modbus_scan",
+      "modbus",
+      "MODBUS",
+      "eszközök",
+      "helyi",
+      "hálózat"
+    ]
   },
   "id": {
     "tool.description": "Pindai perangkat Modbus TCP di jaringan lokal. Menyelidiki alamat IP dan ID unit untuk menemukan perangkat Modbus.",
@@ -294,7 +384,16 @@
     "msg.no_devices": "Modbus төхөөрөмж олдсонгүй.",
     "err.ip_range_required": "ip_range шаардлагатай.",
     "err.invalid_ip_range": "ip_range-г задлан шинжилж чадсангүй: {text}",
-    "err.too_many_ips": "Хэт олон IP ({count}). 255 хүртэл хязгаарлах."
+    "err.too_many_ips": "Хэт олон IP ({count}). 255 хүртэл хязгаарлах.",
+    "x_search_terms": [
+      "modbus скан",
+      "modbus_scan",
+      "модбус",
+      "модбус",
+      "төхөөрөмж",
+      "орон нутгийн",
+      "сүлжээ"
+    ]
   },
   "mr": {
     "tool.description": "स्थानिक नेटवर्कवर Modbus TCP डिव्हाइसेस स्कॅन करा. Modbus साधने शोधण्यासाठी IP पत्ते आणि युनिट आयडी तपासते.",
@@ -307,7 +406,16 @@
     "msg.no_devices": "कोणतीही मोडबस साधने आढळली नाहीत.",
     "err.ip_range_required": "ip_range आवश्यक आहे.",
     "err.invalid_ip_range": "ip_range पार्स करू शकलो नाही: {text}",
-    "err.too_many_ips": "खूप जास्त IP ({count}). 255 पर्यंत मर्यादा."
+    "err.too_many_ips": "खूप जास्त IP ({count}). 255 पर्यंत मर्यादा.",
+    "x_search_terms": [
+      "modbus स्कॅन",
+      "modbus_scan",
+      "मॉडबस",
+      "मॉडबस",
+      "उपकरणे",
+      "स्थानिक",
+      "नेटवर्क"
+    ]
   },
   "nb": {
     "tool.description": "Skann Modbus TCP-enheter på det lokale nettverket. Undersøker IP-adresser og enhets-IDer for å oppdage Modbus-enheter.",
@@ -320,7 +428,16 @@
     "msg.no_devices": "Ingen Modbus-enheter ble funnet.",
     "err.ip_range_required": "ip_range kreves.",
     "err.invalid_ip_range": "Kunne ikke analysere ip_range: {text}",
-    "err.too_many_ips": "For mange IP-er ({count}). Begrens til 255."
+    "err.too_many_ips": "For mange IP-er ({count}). Begrens til 255.",
+    "x_search_terms": [
+      "modbus-skanning",
+      "modbus_scan",
+      "modbus",
+      "MODBUS",
+      "enheter",
+      "lokal",
+      "nettverk"
+    ]
   },
   "nl": {
     "tool.description": "Scan Modbus TCP-apparaten op het lokale netwerk. Onderzoekt IP-adressen en unit-ID's om Modbus-apparaten te ontdekken.",
@@ -333,7 +450,16 @@
     "msg.no_devices": "Er zijn geen Modbus-apparaten gevonden.",
     "err.ip_range_required": "ip_range is vereist.",
     "err.invalid_ip_range": "Kan ip_range: {text} niet parseren",
-    "err.too_many_ips": "Te veel IP's ({count}). Beperk tot 255."
+    "err.too_many_ips": "Te veel IP's ({count}). Beperk tot 255.",
+    "x_search_terms": [
+      "modbus-scan",
+      "modbus_scan",
+      "modbus",
+      "MODBUS",
+      "apparaten",
+      "lokaal",
+      "netwerk"
+    ]
   },
   "pl": {
     "tool.description": "Skanuj urządzenia Modbus TCP w sieci lokalnej. Sonduje adresy IP i identyfikatory jednostek w celu wykrycia urządzeń Modbus.",
@@ -368,7 +494,16 @@
     "msg.no_devices": "Nenhum dispositivo Modbus foi encontrado.",
     "err.ip_range_required": "intervalo_ip é obrigatório.",
     "err.invalid_ip_range": "Não foi possível analisar ip_range: {text}",
-    "err.too_many_ips": "Muitos IPs ({count}). Limite a 255."
+    "err.too_many_ips": "Muitos IPs ({count}). Limite a 255.",
+    "x_search_terms": [
+      "digitalização modbus",
+      "modbus_scan",
+      "modbus",
+      "MODBUS",
+      "dispositivos",
+      "local",
+      "rede"
+    ]
   },
   "pt_BR": {
     "tool.description": "Digitalize dispositivos Modbus TCP na rede local. Sonda endereços IP e IDs de unidades para descobrir dispositivos Modbus.",
@@ -403,7 +538,16 @@
     "msg.no_devices": "Nu au fost găsite dispozitive Modbus.",
     "err.ip_range_required": "ip_range este necesar.",
     "err.invalid_ip_range": "Nu s-a putut analiza ip_range: {text}",
-    "err.too_many_ips": "Prea multe adrese IP ({count}). Limită la 255."
+    "err.too_many_ips": "Prea multe adrese IP ({count}). Limită la 255.",
+    "x_search_terms": [
+      "scanare modbus",
+      "modbus_scan",
+      "modbus",
+      "MODBUS",
+      "dispozitive",
+      "local",
+      "rețea"
+    ]
   },
   "ru": {
     "tool.description": "Сканировать устройства Modbus TCP в локальной сети. Проверяет IP-адреса и идентификаторы устройств для обнаружения устройств Modbus.",
@@ -416,7 +560,16 @@
     "msg.no_devices": "Устройства Modbus не обнаружены.",
     "err.ip_range_required": "ip_range является обязательным.",
     "err.invalid_ip_range": "Не удалось разобрать ip_range: {text}.",
-    "err.too_many_ips": "Слишком много IP-адресов ({count}). Ограничьтесь 255."
+    "err.too_many_ips": "Слишком много IP-адресов ({count}). Ограничьтесь 255.",
+    "x_search_terms": [
+      "сканирование modbus",
+      "modbus_scan",
+      "modbus",
+      "MODBUS",
+      "устройства",
+      "локальный",
+      "сеть"
+    ]
   },
   "sv": {
     "tool.description": "Skanna Modbus TCP-enheter på det lokala nätverket. Söker efter IP-adresser och enhets-ID för att upptäcka Modbus-enheter.",
@@ -429,7 +582,16 @@
     "msg.no_devices": "Inga Modbus-enheter hittades.",
     "err.ip_range_required": "ip_range krävs.",
     "err.invalid_ip_range": "Kunde inte analysera ip_range: {text}",
-    "err.too_many_ips": "För många IP-adresser ({count}). Begränsa till 255."
+    "err.too_many_ips": "För många IP-adresser ({count}). Begränsa till 255.",
+    "x_search_terms": [
+      "modbus-skanning",
+      "modbus_scan",
+      "modbus",
+      "MODBUS",
+      "enheter",
+      "lokal",
+      "nätverk"
+    ]
   },
   "sw": {
     "tool.description": "Changanua vifaa vya Modbus TCP kwenye mtandao wa ndani. Huchunguza anwani za IP na vitambulisho vya vitengo ili kugundua vifaa vya Modbus.",
@@ -442,7 +604,16 @@
     "msg.no_devices": "Hakuna vifaa vya Modbus vilivyopatikana.",
     "err.ip_range_required": "ip_range inahitajika.",
     "err.invalid_ip_range": "Haikuweza kuchanganua ip_range: {text}",
-    "err.too_many_ips": "IP nyingi mno ({count}). Kikomo hadi 255."
+    "err.too_many_ips": "IP nyingi mno ({count}). Kikomo hadi 255.",
+    "x_search_terms": [
+      "skana ya modbus",
+      "modbus_scan",
+      "modbus",
+      "MODBUS",
+      "vifaa",
+      "ndani",
+      "mtandao"
+    ]
   },
   "th": {
     "tool.description": "สแกนอุปกรณ์ Modbus TCP บนเครือข่ายท้องถิ่น ตรวจสอบที่อยู่ IP และ ID หน่วยเพื่อค้นหาอุปกรณ์ Modbus",
@@ -455,7 +626,16 @@
     "msg.no_devices": "ไม่พบอุปกรณ์ Modbus",
     "err.ip_range_required": "จำเป็นต้องมี ip_range",
     "err.invalid_ip_range": "ไม่สามารถแยกวิเคราะห์ ip_range: {text}",
-    "err.too_many_ips": "มี IP มากเกินไป ({count}) จำกัดที่ 255"
+    "err.too_many_ips": "มี IP มากเกินไป ({count}) จำกัดที่ 255",
+    "x_search_terms": [
+      "สแกน modbus",
+      "modbus_scan",
+      "มอดบัส",
+      "มอดบัส",
+      "อุปกรณ์",
+      "ท้องถิ่น",
+      "เครือข่าย"
+    ]
   },
   "tr": {
     "tool.description": "Yerel ağdaki Modbus TCP cihazlarını tarayın. Modbus cihazlarını keşfetmek için IP adreslerini ve ünite kimliklerini araştırır.",
@@ -468,7 +648,16 @@
     "msg.no_devices": "Hiçbir Modbus cihazı bulunamadı.",
     "err.ip_range_required": "ip_range gereklidir.",
     "err.invalid_ip_range": "İp_range ayrıştırılamadı: {text}",
-    "err.too_many_ips": "Çok fazla IP ({count}). 255 ile sınırlıdır."
+    "err.too_many_ips": "Çok fazla IP ({count}). 255 ile sınırlıdır.",
+    "x_search_terms": [
+      "modbus taraması",
+      "modbus_scan",
+      "modbus",
+      "MODBUS",
+      "cihazlar",
+      "yerel",
+      "ağ"
+    ]
   },
   "uk": {
     "tool.description": "Сканувати пристрої Modbus TCP у локальній мережі. Вивчає IP-адреси та ідентифікатори пристроїв для виявлення пристроїв Modbus.",
@@ -481,7 +670,16 @@
     "msg.no_devices": "Пристроїв Modbus не знайдено.",
     "err.ip_range_required": "ip_range необхідний.",
     "err.invalid_ip_range": "Не вдалося проаналізувати ip_range: {text}",
-    "err.too_many_ips": "Забагато IP-адрес ({count}). Обмеження до 255."
+    "err.too_many_ips": "Забагато IP-адрес ({count}). Обмеження до 255.",
+    "x_search_terms": [
+      "сканування modbus",
+      "modbus_scan",
+      "modbus",
+      "MODBUS",
+      "пристрої",
+      "локальний",
+      "мережа"
+    ]
   },
   "vi": {
     "tool.description": "Quét các thiết bị Modbus TCP trên mạng cục bộ. Thăm dò địa chỉ IP và ID đơn vị để khám phá các thiết bị Modbus.",
@@ -516,7 +714,16 @@
     "msg.no_devices": "未找到 Modbus 设备。",
     "err.ip_range_required": "ip_range 是必需的。",
     "err.invalid_ip_range": "无法解析 ip_range：{text}",
-    "err.too_many_ips": "IP 太多 ({count})。限制为 255。"
+    "err.too_many_ips": "IP 太多 ({count})。限制为 255。",
+    "x_search_terms": [
+      "modbus 扫描",
+      "modbus_scan",
+      "modbus",
+      "MODBUS",
+      "设备",
+      "本地",
+      "网络"
+    ]
   },
   "zh_TW": {
     "tool.description": "掃描本機網路上的 Modbus TCP 設備。偵測 IP 位址和設備 ID 以發現 Modbus 設備。",
@@ -529,6 +736,15 @@
     "msg.no_devices": "未找到 Modbus 設備。",
     "err.ip_range_required": "ip_range 是必需的。",
     "err.invalid_ip_range": "無法解析 ip_range：{text}",
-    "err.too_many_ips": "IP 太多 ({count})。限制為 255。"
+    "err.too_many_ips": "IP 太多 ({count})。限制為 255。",
+    "x_search_terms": [
+      "modbus 掃描",
+      "modbus_scan",
+      "modbus",
+      "MODBUS",
+      "裝置",
+      "本機",
+      "網路"
+    ]
   }
 }

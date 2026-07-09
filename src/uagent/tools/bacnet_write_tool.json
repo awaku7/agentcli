@@ -36,7 +36,14 @@
     "err.bac0_install": "تعذر تثبيت مكتبة BAC0.",
     "err.invalid_object_type": "نوع_الكائن غير صالح. صالح: {types}.",
     "err.value_required": "القيمة مطلوبة لعملية الكتابة.",
-    "err.ip_or_device_required": "مطلوب إما IP أو Device_instance."
+    "err.ip_or_device_required": "مطلوب إما IP أو Device_instance.",
+    "x_search_terms": [
+      "كتابة bacnet",
+      "bacnet_write",
+      "باكنت",
+      "باكنت",
+      "قيمة"
+    ]
   },
   "bn": {
     "tool.description": "একটি ডিভাইসে একটি BACnet সম্পত্তির একটি মান লিখুন। JSON বা পাঠ্য হিসাবে ফলাফল প্রদান করে।",
@@ -52,7 +59,14 @@
     "err.bac0_install": "BAC0 লাইব্রেরি ইনস্টল করা যায়নি।",
     "err.invalid_object_type": "অবৈধ অবজেক্ট_টাইপ। বৈধ: {types}।",
     "err.value_required": "লেখার জন্য একটি মান প্রয়োজন।",
-    "err.ip_or_device_required": "হয় ip অথবা device_instance প্রয়োজন।"
+    "err.ip_or_device_required": "হয় ip অথবা device_instance প্রয়োজন।",
+    "x_search_terms": [
+      "bacnet লেখা",
+      "bacnet_write",
+      "ব্যাকনেট",
+      "ব্যাকনেট",
+      "মান"
+    ]
   },
   "cs": {
     "tool.description": "Zapište hodnotu do vlastnosti BACnet na zařízení. Vrátí výsledek jako JSON nebo text.",
@@ -68,7 +82,14 @@
     "err.bac0_install": "Knihovnu BAC0 nelze nainstalovat.",
     "err.invalid_object_type": "Neplatný typ_objektu. Platné: {types}.",
     "err.value_required": "Pro operaci zápisu je vyžadována hodnota.",
-    "err.ip_or_device_required": "Vyžaduje se buď ip nebo device_instance."
+    "err.ip_or_device_required": "Vyžaduje se buď ip nebo device_instance.",
+    "x_search_terms": [
+      "bacnet psát",
+      "bacnet_write",
+      "bacnet",
+      "BACNET",
+      "hodnota"
+    ]
   },
   "de": {
     "tool.description": "Schreiben Sie einen Wert in eine BACnet-Eigenschaft auf einem Gerät. Gibt das Ergebnis als JSON oder Text zurück.",
@@ -84,7 +105,14 @@
     "err.bac0_install": "Die BAC0-Bibliothek konnte nicht installiert werden.",
     "err.invalid_object_type": "Ungültiger Objekttyp. Gültig: {types}.",
     "err.value_required": "Für den Schreibvorgang ist ein Wert erforderlich.",
-    "err.ip_or_device_required": "Entweder ip oder device_instance ist erforderlich."
+    "err.ip_or_device_required": "Entweder ip oder device_instance ist erforderlich.",
+    "x_search_terms": [
+      "bacnet schreiben",
+      "bacnet_write",
+      "bacnet",
+      "BACNET",
+      "Wert"
+    ]
   },
   "el": {
     "tool.description": "Γράψτε μια τιμή σε μια ιδιότητα BACnet σε μια συσκευή. Επιστρέφει το αποτέλεσμα ως JSON ή κείμενο.",
@@ -100,7 +128,14 @@
     "err.bac0_install": "Δεν ήταν δυνατή η εγκατάσταση της βιβλιοθήκης BAC0.",
     "err.invalid_object_type": "Μη έγκυρος τύπος_αντικειμένου. Ισχύει: {types}.",
     "err.value_required": "Απαιτείται μια τιμή για τη λειτουργία εγγραφής.",
-    "err.ip_or_device_required": "Απαιτείται είτε ip είτε συσκευή_instance."
+    "err.ip_or_device_required": "Απαιτείται είτε ip είτε συσκευή_instance.",
+    "x_search_terms": [
+      "bacnet εγγραφή",
+      "bacnet_write",
+      "bacnet",
+      "BACNET",
+      "τιμή"
+    ]
   },
   "es": {
     "tool.description": "Escriba un valor en una propiedad BACnet en un dispositivo. Devuelve el resultado como JSON o texto.",
@@ -139,7 +174,14 @@
     "err.bac0_install": "کتابخانه BAC0 نصب نشد.",
     "err.invalid_object_type": "object_type نامعتبر است. معتبر: {types}.",
     "err.value_required": "یک مقدار برای عملیات نوشتن مورد نیاز است.",
-    "err.ip_or_device_required": "ip یا device_instance مورد نیاز است."
+    "err.ip_or_device_required": "ip یا device_instance مورد نیاز است.",
+    "x_search_terms": [
+      "نوشتن bacnet",
+      "bacnet_write",
+      "بکنت",
+      "بکنت",
+      "مقدار"
+    ]
   },
   "fi": {
     "tool.description": "Kirjoita arvo laitteen BACnet-ominaisuuteen. Palauttaa tuloksen JSON-muodossa tai tekstinä.",
@@ -155,7 +197,14 @@
     "err.bac0_install": "BAC0-kirjastoa ei voitu asentaa.",
     "err.invalid_object_type": "Virheellinen objektin_tyyppi. Voimassa: {types}.",
     "err.value_required": "Kirjoitustoimintoa varten tarvitaan arvo.",
-    "err.ip_or_device_required": "Joko ip tai laite_instance vaaditaan."
+    "err.ip_or_device_required": "Joko ip tai laite_instance vaaditaan.",
+    "x_search_terms": [
+      "bacnet kirjoita",
+      "bacnet_write",
+      "bacnet",
+      "BACNET",
+      "arvo"
+    ]
   },
   "fr": {
     "tool.description": "Écrivez une valeur dans une propriété BACnet sur un appareil. Renvoie le résultat au format JSON ou texte.",
@@ -194,7 +243,14 @@
     "err.bac0_install": "לא ניתן היה להתקין את ספריית BAC0.",
     "err.invalid_object_type": "סוג_אובייקט לא חוקי. תקף: {types}.",
     "err.value_required": "נדרש ערך עבור פעולת הכתיבה.",
-    "err.ip_or_device_required": "יש צורך ב-ip או device_instance."
+    "err.ip_or_device_required": "יש צורך ב-ip או device_instance.",
+    "x_search_terms": [
+      "bacnet כתוב",
+      "bacnet_write",
+      "בק-נט",
+      "בק-נט",
+      "ערך"
+    ]
   },
   "hi": {
     "tool.description": "किसी डिवाइस पर BACnet प्रॉपर्टी का मान लिखें। परिणाम JSON या टेक्स्ट के रूप में लौटाता है।",
@@ -210,7 +266,14 @@
     "err.bac0_install": "BAC0 लाइब्रेरी स्थापित नहीं की जा सकी.",
     "err.invalid_object_type": "अमान्य ऑब्जेक्ट_प्रकार. मान्य: {types}.",
     "err.value_required": "लिखने की कार्रवाई के लिए एक मान आवश्यक है.",
-    "err.ip_or_device_required": "या तो आईपी या डिवाइस_इंस्टेंस आवश्यक है।"
+    "err.ip_or_device_required": "या तो आईपी या डिवाइस_इंस्टेंस आवश्यक है।",
+    "x_search_terms": [
+      "bacnet लिखें",
+      "bacnet_write",
+      "बैकनेट",
+      "बैकनेट",
+      "मान"
+    ]
   },
   "hu": {
     "tool.description": "Írjon egy értéket egy BACnet tulajdonsághoz egy eszközön. Az eredményt JSON-ként vagy szövegként adja vissza.",
@@ -226,7 +289,14 @@
     "err.bac0_install": "A BAC0 könyvtárat nem sikerült telepíteni.",
     "err.invalid_object_type": "Érvénytelen objektum_típus. Érvényes: {types}.",
     "err.value_required": "Az írási művelethez érték szükséges.",
-    "err.ip_or_device_required": "Vagy ip vagy device_instance szükséges."
+    "err.ip_or_device_required": "Vagy ip vagy device_instance szükséges.",
+    "x_search_terms": [
+      "bacnet írás",
+      "bacnet_write",
+      "bacnet",
+      "BACNET",
+      "érték"
+    ]
   },
   "id": {
     "tool.description": "Tulis nilai ke properti BACnet di perangkat. Mengembalikan hasilnya sebagai JSON atau teks.",
@@ -334,7 +404,14 @@
     "err.bac0_install": "BAC0 номын санг суулгаж чадсангүй.",
     "err.invalid_object_type": "Буруу объектын төрөл. Хүчинтэй: {types}.",
     "err.value_required": "Бичих үйлдэлд утга шаардлагатай.",
-    "err.ip_or_device_required": "IP эсвэл device_instance шаардлагатай."
+    "err.ip_or_device_required": "IP эсвэл device_instance шаардлагатай.",
+    "x_search_terms": [
+      "bacnet бичих",
+      "bacnet_write",
+      "бакнет",
+      "бакнет",
+      "утга"
+    ]
   },
   "mr": {
     "tool.description": "डिव्हाइसवर BACnet मालमत्तेचे मूल्य लिहा. JSON किंवा मजकूर म्हणून परिणाम मिळवते.",
@@ -350,7 +427,14 @@
     "err.bac0_install": "BAC0 लायब्ररी स्थापित करणे शक्य नाही.",
     "err.invalid_object_type": "अवैध ऑब्जेक्ट_प्रकार. वैध: {types}.",
     "err.value_required": "लेखन ऑपरेशनसाठी मूल्य आवश्यक आहे.",
-    "err.ip_or_device_required": "एकतर ip किंवा device_instance आवश्यक आहे."
+    "err.ip_or_device_required": "एकतर ip किंवा device_instance आवश्यक आहे.",
+    "x_search_terms": [
+      "bacnet लिहा",
+      "bacnet_write",
+      "बॅकनेट",
+      "बॅकनेट",
+      "मूल्य"
+    ]
   },
   "nb": {
     "tool.description": "Skriv en verdi til en BACnet-egenskap på en enhet. Returnerer resultatet som JSON eller tekst.",
@@ -366,7 +450,14 @@
     "err.bac0_install": "BAC0-biblioteket kunne ikke installeres.",
     "err.invalid_object_type": "Ugyldig objekttype. Gyldig: {types}.",
     "err.value_required": "En verdi kreves for skriveoperasjon.",
-    "err.ip_or_device_required": "Enten ip eller device_instance kreves."
+    "err.ip_or_device_required": "Enten ip eller device_instance kreves.",
+    "x_search_terms": [
+      "bacnet skriv",
+      "bacnet_write",
+      "bacnet",
+      "BACNET",
+      "verdi"
+    ]
   },
   "nl": {
     "tool.description": "Schrijf een waarde naar een BACnet-eigenschap op een apparaat. Retourneert het resultaat als JSON of tekst.",
@@ -382,7 +473,14 @@
     "err.bac0_install": "BAC0-bibliotheek kan niet worden geïnstalleerd.",
     "err.invalid_object_type": "Ongeldig objecttype. Geldig: {types}.",
     "err.value_required": "Voor de schrijfbewerking is een waarde vereist.",
-    "err.ip_or_device_required": "IP of device_instance is vereist."
+    "err.ip_or_device_required": "IP of device_instance is vereist.",
+    "x_search_terms": [
+      "bacnet schrijven",
+      "bacnet_write",
+      "bacnet",
+      "BACNET",
+      "waarde"
+    ]
   },
   "pl": {
     "tool.description": "Zapisz wartość właściwości BACnet na urządzeniu. Zwraca wynik w formacie JSON lub tekst.",
@@ -421,7 +519,14 @@
     "err.bac0_install": "A biblioteca BAC0 não pôde ser instalada.",
     "err.invalid_object_type": "tipo_de_objeto inválido. Válido: {types}.",
     "err.value_required": "Um valor é necessário para a operação de gravação.",
-    "err.ip_or_device_required": "É necessário ip ou device_instance."
+    "err.ip_or_device_required": "É necessário ip ou device_instance.",
+    "x_search_terms": [
+      "bacnet escrever",
+      "bacnet_write",
+      "bacnet",
+      "BACNET",
+      "valor"
+    ]
   },
   "pt_BR": {
     "tool.description": "Escreva um valor em uma propriedade BACnet em um dispositivo. Retorna o resultado como JSON ou texto.",
@@ -460,7 +565,14 @@
     "err.bac0_install": "Biblioteca BAC0 nu a putut fi instalată.",
     "err.invalid_object_type": "tip_obiect nevalid. Valabil: {types}.",
     "err.value_required": "Este necesară o valoare pentru operația de scriere.",
-    "err.ip_or_device_required": "Este necesar fie ip, fie device_instance."
+    "err.ip_or_device_required": "Este necesar fie ip, fie device_instance.",
+    "x_search_terms": [
+      "bacnet scriere",
+      "bacnet_write",
+      "bacnet",
+      "BACNET",
+      "valoare"
+    ]
   },
   "ru": {
     "tool.description": "Запишите значение свойства BACnet на устройстве. Возвращает результат в виде JSON или текста.",
@@ -476,7 +588,14 @@
     "err.bac0_install": "Не удалось установить библиотеку BAC0.",
     "err.invalid_object_type": "Неверный тип_объекта. Действительно: {types}.",
     "err.value_required": "Для операции записи требуется значение.",
-    "err.ip_or_device_required": "Требуется либо ip, либо device_instance."
+    "err.ip_or_device_required": "Требуется либо ip, либо device_instance.",
+    "x_search_terms": [
+      "bacnet запись",
+      "bacnet_write",
+      "bacnet",
+      "BACNET",
+      "значение"
+    ]
   },
   "sv": {
     "tool.description": "Skriv ett värde till en BACnet-egenskap på en enhet. Returnerar resultatet som JSON eller text.",
@@ -492,7 +611,14 @@
     "err.bac0_install": "BAC0-biblioteket kunde inte installeras.",
     "err.invalid_object_type": "Ogiltig objekttyp. Giltigt: {types}.",
     "err.value_required": "Ett värde krävs för skrivoperation.",
-    "err.ip_or_device_required": "Antingen ip eller device_instance krävs."
+    "err.ip_or_device_required": "Antingen ip eller device_instance krävs.",
+    "x_search_terms": [
+      "bacnet skriv",
+      "bacnet_write",
+      "bacnet",
+      "BACNET",
+      "värde"
+    ]
   },
   "sw": {
     "tool.description": "Andika thamani kwa kipengele cha BACnet kwenye kifaa. Hurejesha matokeo kama JSON au maandishi.",
@@ -508,7 +634,14 @@
     "err.bac0_install": "Maktaba ya BAC0 haikuweza kusakinishwa.",
     "err.invalid_object_type": "object_type batili. Inatumika: {types}.",
     "err.value_required": "Thamani inahitajika kwa operesheni ya uandishi.",
-    "err.ip_or_device_required": "Aidha ip au device_instance inahitajika."
+    "err.ip_or_device_required": "Aidha ip au device_instance inahitajika.",
+    "x_search_terms": [
+      "andika bacnet",
+      "bacnet_write",
+      "bacnet",
+      "BACNET",
+      "thamani"
+    ]
   },
   "th": {
     "tool.description": "เขียนค่าให้กับคุณสมบัติ BACnet บนอุปกรณ์ ส่งกลับผลลัพธ์เป็น JSON หรือข้อความ",
@@ -524,7 +657,14 @@
     "err.bac0_install": "ไม่สามารถติดตั้งไลบรารี BAC0",
     "err.invalid_object_type": "object_type ไม่ถูกต้อง ถูกต้อง: {types}",
     "err.value_required": "จำเป็นต้องมีค่าสำหรับการดำเนินการเขียน",
-    "err.ip_or_device_required": "จำเป็นต้องมี ip หรือ device_instance"
+    "err.ip_or_device_required": "จำเป็นต้องมี ip หรือ device_instance",
+    "x_search_terms": [
+      "bacnet เขียน",
+      "bacnet_write",
+      "แบคเน็ท",
+      "แบคเน็ท",
+      "ค่า"
+    ]
   },
   "tr": {
     "tool.description": "Bir cihazdaki BACnet özelliğine bir değer yazın. Sonucu JSON veya metin olarak döndürür.",
@@ -540,7 +680,14 @@
     "err.bac0_install": "BAC0 kitaplığı yüklenemedi.",
     "err.invalid_object_type": "Geçersiz nesne_türü. Geçerli: {types}.",
     "err.value_required": "Yazma işlemi için bir değer gereklidir.",
-    "err.ip_or_device_required": "IP veya Device_instance gereklidir."
+    "err.ip_or_device_required": "IP veya Device_instance gereklidir.",
+    "x_search_terms": [
+      "bacnet yaz",
+      "bacnet_write",
+      "bacnet",
+      "BACNET",
+      "değer"
+    ]
   },
   "uk": {
     "tool.description": "Записати значення у властивість BACnet на пристрої. Повертає результат як JSON або текст.",
@@ -556,7 +703,14 @@
     "err.bac0_install": "Не вдалося встановити бібліотеку BAC0.",
     "err.invalid_object_type": "Недійсний object_type. Дійсний: {types}.",
     "err.value_required": "Для операції запису потрібне значення.",
-    "err.ip_or_device_required": "Потрібен ip або device_instance."
+    "err.ip_or_device_required": "Потрібен ip або device_instance.",
+    "x_search_terms": [
+      "bacnet запис",
+      "bacnet_write",
+      "bacnet",
+      "BACNET",
+      "значення"
+    ]
   },
   "vi": {
     "tool.description": "Viết giá trị vào thuộc tính BACnet trên thiết bị. Trả về kết quả dưới dạng JSON hoặc văn bản.",
@@ -595,7 +749,14 @@
     "err.bac0_install": "无法安装 BAC0 库。",
     "err.invalid_object_type": "无效的 object_type。有效：{types}。",
     "err.value_required": "写操作需要一个值。",
-    "err.ip_or_device_required": "ip 或 device_instance 是必需的。"
+    "err.ip_or_device_required": "ip 或 device_instance 是必需的。",
+    "x_search_terms": [
+      "bacnet 写入",
+      "bacnet_write",
+      "bacnet",
+      "BACNET",
+      "值"
+    ]
   },
   "zh_TW": {
     "tool.description": "將值寫入裝置上的 BACnet 屬性。以 JSON 或文字形式傳回結果。",
@@ -611,6 +772,13 @@
     "err.bac0_install": "無法安裝 BAC0 庫。",
     "err.invalid_object_type": "無效的 object_type。有效：{types}。",
     "err.value_required": "寫入操作需要一個值。",
-    "err.ip_or_device_required": "ip 或 device_instance 是必要的。"
+    "err.ip_or_device_required": "ip 或 device_instance 是必要的。",
+    "x_search_terms": [
+      "bacnet 寫入",
+      "bacnet_write",
+      "bacnet",
+      "BACNET",
+      "值"
+    ]
   }
 }

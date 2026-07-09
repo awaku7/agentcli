@@ -10,7 +10,13 @@
     "err.invalid_ip_address": "Error: ip_address must be a valid IPv4 address.",
     "err.invalid_epc": "Error: epc must be a valid 1-byte hex code.",
     "err.invalid_edt": "Error: edt must be a valid hex string.",
-    "err.value_required": "Error: either value or edt is required."
+    "err.value_required": "Error: either value or edt is required.",
+    "x_search_terms": [
+      "مجموعة خصائص echonet",
+      "echonet_property_set",
+      "إيكونت",
+      "إيكونت"
+    ]
   },
   "bn": {
     "param.ip.description": "Target node IPv4 address.",
@@ -23,7 +29,13 @@
     "err.invalid_ip_address": "Error: ip_address must be a valid IPv4 address.",
     "err.invalid_epc": "Error: epc must be a valid 1-byte hex code.",
     "err.invalid_edt": "Error: edt must be a valid hex string.",
-    "err.value_required": "Error: either value or edt is required."
+    "err.value_required": "Error: either value or edt is required.",
+    "x_search_terms": [
+      "echonet সম্পত্তি সেট",
+      "echonet_property_set",
+      "ইকোনেট",
+      "ইকোনেট"
+    ]
   },
   "cs": {
     "param.ip.description": "Target node IPv4 address.",
@@ -36,7 +48,13 @@
     "err.invalid_ip_address": "Error: ip_address must be a valid IPv4 address.",
     "err.invalid_epc": "Error: epc must be a valid 1-byte hex code.",
     "err.invalid_edt": "Error: edt must be a valid hex string.",
-    "err.value_required": "Error: either value or edt is required."
+    "err.value_required": "Error: either value or edt is required.",
+    "x_search_terms": [
+      "sada vlastností echonet",
+      "echonet_property_set",
+      "echosíť",
+      "ECHONET"
+    ]
   },
   "de": {
     "param.ip.description": "Target node IPv4 address.",
@@ -49,7 +67,13 @@
     "err.invalid_ip_address": "Error: ip_address must be a valid IPv4 address.",
     "err.invalid_epc": "Error: epc must be a valid 1-byte hex code.",
     "err.invalid_edt": "Error: edt must be a valid hex string.",
-    "err.value_required": "Error: either value or edt is required."
+    "err.value_required": "Error: either value or edt is required.",
+    "x_search_terms": [
+      "echonet-Eigenschaftssatz",
+      "echonet_property_set",
+      "echonet",
+      "ECHONET"
+    ]
   },
   "en": {
     "param.ip.description": "Target node IPv4 address.",
@@ -105,7 +129,13 @@
     "err.invalid_ip_address": "Error: ip_address must be a valid IPv4 address.",
     "err.invalid_epc": "Error: epc must be a valid 1-byte hex code.",
     "err.invalid_edt": "Error: edt must be a valid hex string.",
-    "err.value_required": "Error: either value or edt is required."
+    "err.value_required": "Error: either value or edt is required.",
+    "x_search_terms": [
+      "مجموعه ویژگی‌های echonet",
+      "echonet_property_set",
+      "اکونت",
+      "اکونت"
+    ]
   },
   "fi": {
     "param.ip.description": "Target node IPv4 address.",
@@ -118,7 +148,13 @@
     "err.invalid_ip_address": "Error: ip_address must be a valid IPv4 address.",
     "err.invalid_epc": "Error: epc must be a valid 1-byte hex code.",
     "err.invalid_edt": "Error: edt must be a valid hex string.",
-    "err.value_required": "Error: either value or edt is required."
+    "err.value_required": "Error: either value or edt is required.",
+    "x_search_terms": [
+      "echonet-ominaisuusjoukko",
+      "echonet_property_set",
+      "ekoverkko",
+      "ECHONET"
+    ]
   },
   "fr": {
     "param.ip.description": "Target node IPv4 address.",
@@ -150,7 +186,13 @@
     "err.invalid_ip_address": "Error: ip_address must be a valid IPv4 address.",
     "err.invalid_epc": "Error: epc must be a valid 1-byte hex code.",
     "err.invalid_edt": "Error: edt must be a valid hex string.",
-    "err.value_required": "Error: either value or edt is required."
+    "err.value_required": "Error: either value or edt is required.",
+    "x_search_terms": [
+      "echonet गुण सेट",
+      "echonet_property_set",
+      "इकोनेट",
+      "इकोनेट"
+    ]
   },
   "id": {
     "param.ip.description": "Target node IPv4 address.",
@@ -244,7 +286,13 @@
     "err.invalid_ip_address": "Error: ip_address must be a valid IPv4 address.",
     "err.invalid_epc": "Error: epc must be a valid 1-byte hex code.",
     "err.invalid_edt": "Error: edt must be a valid hex string.",
-    "err.value_required": "Error: either value or edt is required."
+    "err.value_required": "Error: either value or edt is required.",
+    "x_search_terms": [
+      "echonet өмчийн багц",
+      "echonet_property_set",
+      "эхонет",
+      "эхонет"
+    ]
   },
   "mr": {
     "param.ip.description": "Target node IPv4 address.",
@@ -257,7 +305,13 @@
     "err.invalid_ip_address": "Error: ip_address must be a valid IPv4 address.",
     "err.invalid_epc": "Error: epc must be a valid 1-byte hex code.",
     "err.invalid_edt": "Error: edt must be a valid hex string.",
-    "err.value_required": "Error: either value or edt is required."
+    "err.value_required": "Error: either value or edt is required.",
+    "x_search_terms": [
+      "echonet गुणधर्म संच",
+      "echonet_property_set",
+      "इकोनेट",
+      "इकोनेट"
+    ]
   },
   "el": {
     "param.ip.description": "Διεύθυνση IPv4 κόμβου στόχου.",
@@ -270,7 +324,13 @@
     "err.invalid_ip_address": "Σφάλμα: Η διεύθυνση ip_address πρέπει να είναι έγκυρη διεύθυνση IPv4.",
     "err.invalid_epc": "Σφάλμα: Το epc πρέπει να είναι έγκυρος δεκαεξαδικός κώδικας 1 byte.",
     "err.invalid_edt": "Σφάλμα: το edt πρέπει να είναι έγκυρη δεκαεξαδική συμβολοσειρά.",
-    "err.value_required": "Σφάλμα: απαιτείται τιμή ή edt."
+    "err.value_required": "Σφάλμα: απαιτείται τιμή ή edt.",
+    "x_search_terms": [
+      "σύνολο ιδιοτήτων echonet",
+      "echonet_property_set",
+      "echonet",
+      "ECHONET"
+    ]
   },
   "he": {
     "param.ip.description": "כתובת IPv4 של צומת יעד.",
@@ -283,7 +343,13 @@
     "err.invalid_ip_address": "שגיאה: כתובת ה-ip_address חייבת להיות כתובת IPv4 חוקית.",
     "err.invalid_epc": "שגיאה: epc חייב להיות קוד hex חוקי של 1 בתים.",
     "err.invalid_edt": "שגיאה: edt חייב להיות מחרוזת hex חוקית.",
-    "err.value_required": "שגיאה: נדרש ערך או edt."
+    "err.value_required": "שגיאה: נדרש ערך או edt.",
+    "x_search_terms": [
+      "קבוצת מאפיינים של echonet",
+      "echonet_property_set",
+      "אקו-נט",
+      "אקו-נט"
+    ]
   },
   "hu": {
     "param.ip.description": "Célcsomópont IPv4-címe.",
@@ -296,7 +362,13 @@
     "err.invalid_ip_address": "Hiba: az ip_address érvényes IPv4-címnek kell lennie.",
     "err.invalid_epc": "Hiba: az epc-nek érvényes 1 bájtos hexadecimális kódnak kell lennie.",
     "err.invalid_edt": "Hiba: az edt-nek érvényes hexadecimális karakterláncnak kell lennie.",
-    "err.value_required": "Hiba: az érték vagy az edt megadása kötelező."
+    "err.value_required": "Hiba: az érték vagy az edt megadása kötelező.",
+    "x_search_terms": [
+      "echonet tulajdonságkészlet",
+      "echonet_property_set",
+      "echonet",
+      "ECHONET"
+    ]
   },
   "ro": {
     "param.ip.description": "Adresa IPv4 a nodului țintă.",
@@ -309,7 +381,13 @@
     "err.invalid_ip_address": "Eroare: ip_address trebuie să fie o adresă IPv4 validă.",
     "err.invalid_epc": "Eroare: epc trebuie să fie un cod hex valid de 1 octet.",
     "err.invalid_edt": "Eroare: edt trebuie să fie un șir hexadecimal valid.",
-    "err.value_required": "Eroare: este necesară fie value, fie edt."
+    "err.value_required": "Eroare: este necesară fie value, fie edt.",
+    "x_search_terms": [
+      "set proprietăți echonet",
+      "echonet_property_set",
+      "econet",
+      "ECHONET"
+    ]
   },
   "nb": {
     "param.ip.description": "Target node IPv4 address.",
@@ -322,7 +400,13 @@
     "err.invalid_ip_address": "Error: ip_address must be a valid IPv4 address.",
     "err.invalid_epc": "Error: epc must be a valid 1-byte hex code.",
     "err.invalid_edt": "Error: edt must be a valid hex string.",
-    "err.value_required": "Error: either value or edt is required."
+    "err.value_required": "Error: either value or edt is required.",
+    "x_search_terms": [
+      "echonet-egenskapssett",
+      "echonet_property_set",
+      "ekonett",
+      "ECHONET"
+    ]
   },
   "nl": {
     "param.ip.description": "Target node IPv4 address.",
@@ -335,7 +419,13 @@
     "err.invalid_ip_address": "Error: ip_address must be a valid IPv4 address.",
     "err.invalid_epc": "Error: epc must be a valid 1-byte hex code.",
     "err.invalid_edt": "Error: edt must be a valid hex string.",
-    "err.value_required": "Error: either value or edt is required."
+    "err.value_required": "Error: either value or edt is required.",
+    "x_search_terms": [
+      "echonet-eigenschapsset",
+      "echonet_property_set",
+      "echonet",
+      "ECHONET"
+    ]
   },
   "pl": {
     "param.ip.description": "Target node IPv4 address.",
@@ -367,7 +457,13 @@
     "err.invalid_ip_address": "Error: ip_address must be a valid IPv4 address.",
     "err.invalid_epc": "Error: epc must be a valid 1-byte hex code.",
     "err.invalid_edt": "Error: edt must be a valid hex string.",
-    "err.value_required": "Error: either value or edt is required."
+    "err.value_required": "Error: either value or edt is required.",
+    "x_search_terms": [
+      "conjunto de propriedades echonet",
+      "echonet_property_set",
+      "econet",
+      "ECHONET"
+    ]
   },
   "pt_BR": {
     "param.ip.description": "Target node IPv4 address.",
@@ -399,7 +495,13 @@
     "err.invalid_ip_address": "Error: ip_address must be a valid IPv4 address.",
     "err.invalid_epc": "Error: epc must be a valid 1-byte hex code.",
     "err.invalid_edt": "Error: edt must be a valid hex string.",
-    "err.value_required": "Error: either value or edt is required."
+    "err.value_required": "Error: either value or edt is required.",
+    "x_search_terms": [
+      "набор свойств echonet",
+      "echonet_property_set",
+      "эхосеть",
+      "ECHONET"
+    ]
   },
   "sv": {
     "param.ip.description": "Target node IPv4 address.",
@@ -412,7 +514,13 @@
     "err.invalid_ip_address": "Error: ip_address must be a valid IPv4 address.",
     "err.invalid_epc": "Error: epc must be a valid 1-byte hex code.",
     "err.invalid_edt": "Error: edt must be a valid hex string.",
-    "err.value_required": "Error: either value or edt is required."
+    "err.value_required": "Error: either value or edt is required.",
+    "x_search_terms": [
+      "echonet egenskapsuppsättning",
+      "echonet_property_set",
+      "ekonät",
+      "ECHONET"
+    ]
   },
   "sw": {
     "param.ip.description": "Target node IPv4 address.",
@@ -425,7 +533,13 @@
     "err.invalid_ip_address": "Error: ip_address must be a valid IPv4 address.",
     "err.invalid_epc": "Error: epc must be a valid 1-byte hex code.",
     "err.invalid_edt": "Error: edt must be a valid hex string.",
-    "err.value_required": "Error: either value or edt is required."
+    "err.value_required": "Error: either value or edt is required.",
+    "x_search_terms": [
+      "seti ya mali ya echonet",
+      "echonet_property_set",
+      "echonet",
+      "ECHONET"
+    ]
   },
   "th": {
     "param.ip.description": "Target node IPv4 address.",
@@ -438,7 +552,13 @@
     "err.invalid_ip_address": "Error: ip_address must be a valid IPv4 address.",
     "err.invalid_epc": "Error: epc must be a valid 1-byte hex code.",
     "err.invalid_edt": "Error: edt must be a valid hex string.",
-    "err.value_required": "Error: either value or edt is required."
+    "err.value_required": "Error: either value or edt is required.",
+    "x_search_terms": [
+      "ชุดคุณสมบัติ echonet",
+      "echonet_property_set",
+      "อีโค่เน็ต",
+      "อีโค่เน็ต"
+    ]
   },
   "tr": {
     "param.ip.description": "Target node IPv4 address.",
@@ -451,7 +571,13 @@
     "err.invalid_ip_address": "Error: ip_address must be a valid IPv4 address.",
     "err.invalid_epc": "Error: epc must be a valid 1-byte hex code.",
     "err.invalid_edt": "Error: edt must be a valid hex string.",
-    "err.value_required": "Error: either value or edt is required."
+    "err.value_required": "Error: either value or edt is required.",
+    "x_search_terms": [
+      "echonet özellik seti",
+      "echonet_property_set",
+      "eko ağ",
+      "ECONET"
+    ]
   },
   "uk": {
     "param.ip.description": "Target node IPv4 address.",
@@ -464,7 +590,13 @@
     "err.invalid_ip_address": "Error: ip_address must be a valid IPv4 address.",
     "err.invalid_epc": "Error: epc must be a valid 1-byte hex code.",
     "err.invalid_edt": "Error: edt must be a valid hex string.",
-    "err.value_required": "Error: either value or edt is required."
+    "err.value_required": "Error: either value or edt is required.",
+    "x_search_terms": [
+      "набір властивостей echonet",
+      "echonet_property_set",
+      "ехомережа",
+      "ECHONET"
+    ]
   },
   "vi": {
     "param.ip.description": "Target node IPv4 address.",
@@ -496,7 +628,13 @@
     "err.invalid_ip_address": "Error: ip_address must be a valid IPv4 address.",
     "err.invalid_epc": "Error: epc must be a valid 1-byte hex code.",
     "err.invalid_edt": "Error: edt must be a valid hex string.",
-    "err.value_required": "Error: either value or edt is required."
+    "err.value_required": "Error: either value or edt is required.",
+    "x_search_terms": [
+      "echonet 属性设置",
+      "echonet_property_set",
+      "echonet",
+      "ECHONET"
+    ]
   },
   "zh_TW": {
     "param.ip.description": "Target node IPv4 address.",
@@ -509,6 +647,12 @@
     "err.invalid_ip_address": "Error: ip_address must be a valid IPv4 address.",
     "err.invalid_epc": "Error: epc must be a valid 1-byte hex code.",
     "err.invalid_edt": "Error: edt must be a valid hex string.",
-    "err.value_required": "Error: either value or edt is required."
+    "err.value_required": "Error: either value or edt is required.",
+    "x_search_terms": [
+      "echonet 屬性設定",
+      "echonet_property_set",
+      "echonet",
+      "ECHONET"
+    ]
   }
 }

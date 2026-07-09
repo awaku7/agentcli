@@ -95,7 +95,17 @@
     "param.uuid.description": "شار UUID.",
     "param.scan_mode.description": "Scan mode: ble (BLE only) or all (BLE + Classic).",
     "err.pyside6_missing": "Error: 'PySide6' library is not installed. Please install it using:\npip install PySide6",
-    "tool.description": "تنفيذ عمليات البلوتوث منخفض الطاقة (BLE): مسح الأجهزة، قراءة أو كتابة خصائص GATT. استخدم عناوين MAC على ويندوز/لينكس، و UUIDs على ماك."
+    "tool.description": "تنفيذ عمليات البلوتوث منخفض الطاقة (BLE): مسح الأجهزة، قراءة أو كتابة خصائص GATT. استخدم عناوين MAC على ويندوز/لينكس، و UUIDs على ماك.",
+    "x_search_terms": [
+      "عمليات ble",
+      "ble_ops",
+      "بل",
+      "بل",
+      "تنفيذ",
+      "بلوتوث",
+      "طاقة",
+      "عمليات"
+    ]
   },
   "bn": {
     "param.action.description": "সম্পাদন করার অপারেশন। scan: কাছাকাছি ডিভাইস আবিষ্কার করা, read: বৈশিষ্ট্য পড়া, write: বৈশিষ্ট্য লেখা",
@@ -112,7 +122,17 @@
     "param.uuid.description": "Char UUID।",
     "param.scan_mode.description": "Scan mode: ble (BLE only) or all (BLE + Classic).",
     "err.pyside6_missing": "Error: 'PySide6' library is not installed. Please install it using:\npip install PySide6",
-    "tool.description": "ব্লুটুথ লো এনার্জি (BLE) অপারেশন সম্পাদন করুন: ডিভাইস স্ক্যান করুন, GATT বৈশিষ্ট্য পড়ুন বা লিখুন। Windows/Linux-এ MAC ঠিকানা এবং macOS-এ UUID ব্যবহার করুন।"
+    "tool.description": "ব্লুটুথ লো এনার্জি (BLE) অপারেশন সম্পাদন করুন: ডিভাইস স্ক্যান করুন, GATT বৈশিষ্ট্য পড়ুন বা লিখুন। Windows/Linux-এ MAC ঠিকানা এবং macOS-এ UUID ব্যবহার করুন।",
+    "x_search_terms": [
+      "ble অপারেশন",
+      "ble_ops",
+      "ব্লি",
+      "ব্লি",
+      "সম্পাদন",
+      "ব্লুটুথ",
+      "শক্তি",
+      "অপারেশন"
+    ]
   },
   "cs": {
     "param.action.description": "Operace, která se má provést. scan: vyhledat blízká zařízení, read: číst charakteristiku, write: zapsat charakteristiku",
@@ -129,7 +149,17 @@
     "param.uuid.description": "Char UUID.",
     "param.scan_mode.description": "Scan mode: ble (BLE only) or all (BLE + Classic).",
     "err.pyside6_missing": "Error: 'PySide6' library is not installed. Please install it using:\npip install PySide6",
-    "tool.description": "Provádějte operace Bluetooth Low Energy (BLE): skenování zařízení, čtení nebo zápis GATT charakteristik. Použijte MAC adresy v systémech Windows/Linux a UUID v systému macOS."
+    "tool.description": "Provádějte operace Bluetooth Low Energy (BLE): skenování zařízení, čtení nebo zápis GATT charakteristik. Použijte MAC adresy v systémech Windows/Linux a UUID v systému macOS.",
+    "x_search_terms": [
+      "ble operace",
+      "ble_ops",
+      "ble",
+      "BLE",
+      "provést",
+      "bluetooth",
+      "energie",
+      "operace"
+    ]
   },
   "de": {
     "param.action.description": "Die auszuführende Operation. scan: Geräte in der Nähe suchen, read: Charakteristik lesen, write: Charakteristik schreiben",
@@ -146,7 +176,17 @@
     "param.uuid.description": "Char UUID.",
     "param.scan_mode.description": "Scan mode: ble (BLE only) or all (BLE + Classic).",
     "err.pyside6_missing": "Error: 'PySide6' library is not installed. Please install it using:\npip install PySide6",
-    "tool.description": "Führen Sie Bluetooth Low Energy (BLE)-Operationen durch: Scannen nach Geräten, Lesen oder Schreiben von GATT-Charakteristiken. Verwenden Sie MAC-Adressen unter Windows/Linux und UUIDs unter macOS."
+    "tool.description": "Führen Sie Bluetooth Low Energy (BLE)-Operationen durch: Scannen nach Geräten, Lesen oder Schreiben von GATT-Charakteristiken. Verwenden Sie MAC-Adressen unter Windows/Linux und UUIDs unter macOS.",
+    "x_search_terms": [
+      "ble ops",
+      "ble_ops",
+      "ble",
+      "BLE",
+      "durchführen",
+      "Bluetooth",
+      "Energie",
+      "Operationen"
+    ]
   },
   "es": {
     "param.action.description": "La operación a realizar. scan: descubrir dispositivos cercanos, read: leer característica, write: escribir característica",
@@ -190,7 +230,17 @@
     "param.uuid.description": "Char UUID.",
     "param.scan_mode.description": "Scan mode: ble (BLE only) or all (BLE + Classic).",
     "err.pyside6_missing": "Error: 'PySide6' library is not installed. Please install it using:\npip install PySide6",
-    "tool.description": "عملیات بلوتوث کم‌مصرف (BLE) را انجام دهید: اسکن دستگاه‌ها، خواندن یا نوشتن ویژگی‌های GATT. از آدرس‌های MAC در ویندوز/لینوکس و UUIDها در macOS استفاده کنید."
+    "tool.description": "عملیات بلوتوث کم‌مصرف (BLE) را انجام دهید: اسکن دستگاه‌ها، خواندن یا نوشتن ویژگی‌های GATT. از آدرس‌های MAC در ویندوز/لینوکس و UUIDها در macOS استفاده کنید.",
+    "x_search_terms": [
+      "عملیات ble",
+      "ble_ops",
+      "بل",
+      "بل",
+      "انجام",
+      "بلوتوث",
+      "انرژی",
+      "عملیات"
+    ]
   },
   "fi": {
     "param.action.description": "Suoritettava toiminto. scan: etsi lähellä olevia laitteita, read: lue ominaisuus, write: kirjoita ominaisuus",
@@ -207,7 +257,17 @@
     "param.uuid.description": "Merkin UUID.",
     "param.scan_mode.description": "Scan mode: ble (BLE only) or all (BLE + Classic).",
     "err.pyside6_missing": "Error: 'PySide6' library is not installed. Please install it using:\npip install PySide6",
-    "tool.description": "Suorita Bluetooth Low Energy (BLE) -toimintoja: etsi laitteita, lue tai kirjoita GATT-ominaisuuksia. Käytä MAC-osoitteita Windowsissa/Linuxissa ja UUID:itä macOS:ssä."
+    "tool.description": "Suorita Bluetooth Low Energy (BLE) -toimintoja: etsi laitteita, lue tai kirjoita GATT-ominaisuuksia. Käytä MAC-osoitteita Windowsissa/Linuxissa ja UUID:itä macOS:ssä.",
+    "x_search_terms": [
+      "ble-operaatiot",
+      "ble_ops",
+      "ble",
+      "BLE",
+      "suorita",
+      "bluetooth",
+      "energia",
+      "toiminnot"
+    ]
   },
   "fr": {
     "param.action.description": "L'opération à effectuer.",
@@ -251,7 +311,17 @@
     "param.uuid.description": "चार यूयूआईडी।",
     "param.scan_mode.description": "Scan mode: ble (BLE only) or all (BLE + Classic).",
     "err.pyside6_missing": "Error: 'PySide6' library is not installed. Please install it using:\npip install PySide6",
-    "tool.description": "ब्लूटूथ लो एनर्जी (BLE) संचालन करें: उपकरणों को स्कैन करें, GATT विशेषताओं को पढ़ें या लिखें। Windows/Linux पर MAC पते और macOS पर UUID का उपयोग करें।"
+    "tool.description": "ब्लूटूथ लो एनर्जी (BLE) संचालन करें: उपकरणों को स्कैन करें, GATT विशेषताओं को पढ़ें या लिखें। Windows/Linux पर MAC पते और macOS पर UUID का उपयोग करें।",
+    "x_search_terms": [
+      "ble संचालन",
+      "ble_ops",
+      "बीएलई",
+      "बीएलई",
+      "निष्पादित करें",
+      "ब्लूटूथ",
+      "ऊर्जा",
+      "संचालन"
+    ]
   },
   "it": {
     "param.action.description": "L'operazione da eseguire. scan: scopri dispositivi vicini, read: leggi caratteristica, write: scrivi caratteristica",
@@ -322,7 +392,17 @@
     "param.uuid.description": "Char UUID.",
     "param.scan_mode.description": "Scan mode: ble (BLE only) or all (BLE + Classic).",
     "err.pyside6_missing": "Error: 'PySide6' library is not installed. Please install it using:\npip install PySide6",
-    "tool.description": "Utfør Bluetooth Low Energy (BLE)-operasjoner: skann etter enheter, les eller skriv GATT-karakteristikker. Bruk MAC-adresser på Windows/Linux, og UUID-er på macOS."
+    "tool.description": "Utfør Bluetooth Low Energy (BLE)-operasjoner: skann etter enheter, les eller skriv GATT-karakteristikker. Bruk MAC-adresser på Windows/Linux, og UUID-er på macOS.",
+    "x_search_terms": [
+      "ble-ops",
+      "ble_ops",
+      "ble",
+      "BLE",
+      "utføre",
+      "bluetooth",
+      "energi",
+      "operasjoner"
+    ]
   },
   "nl": {
     "param.action.description": "De uit te voeren bewerking. scan: ontdek apparaten in de buurt, read: karakteristiek lezen, write: karakteristiek schrijven",
@@ -339,7 +419,17 @@
     "param.uuid.description": "Teken-UUID.",
     "param.scan_mode.description": "Scan mode: ble (BLE only) or all (BLE + Classic).",
     "err.pyside6_missing": "Error: 'PySide6' library is not installed. Please install it using:\npip install PySide6",
-    "tool.description": "Voer Bluetooth Low Energy (BLE)-bewerkingen uit: scan naar apparaten, lees of schrijf GATT-kenmerken. Gebruik MAC-adressen op Windows/Linux en UUID's op macOS."
+    "tool.description": "Voer Bluetooth Low Energy (BLE)-bewerkingen uit: scan naar apparaten, lees of schrijf GATT-kenmerken. Gebruik MAC-adressen op Windows/Linux en UUID's op macOS.",
+    "x_search_terms": [
+      "ble-operaties",
+      "ble_ops",
+      "ble",
+      "BLE",
+      "uitvoeren",
+      "bluetooth",
+      "energie",
+      "operaties"
+    ]
   },
   "pl": {
     "param.action.description": "Operacja do wykonania. scan: wykryj pobliskie urządzenia, read: odczytaj charakterystykę, write: zapisz charakterystykę",
@@ -383,7 +473,17 @@
     "param.uuid.description": "Char UUID.",
     "param.scan_mode.description": "Scan mode: ble (BLE only) or all (BLE + Classic).",
     "err.pyside6_missing": "Error: 'PySide6' library is not installed. Please install it using:\npip install PySide6",
-    "tool.description": "Realize operações Bluetooth Low Energy (BLE): digitalizar dispositivos, ler ou escrever características GATT. Use endereços MAC no Windows/Linux e UUIDs no macOS."
+    "tool.description": "Realize operações Bluetooth Low Energy (BLE): digitalizar dispositivos, ler ou escrever características GATT. Use endereços MAC no Windows/Linux e UUIDs no macOS.",
+    "x_search_terms": [
+      "operações ble",
+      "ble_ops",
+      "ble",
+      "BLE",
+      "executar",
+      "bluetooth",
+      "energia",
+      "operações"
+    ]
   },
   "pt_BR": {
     "param.action.description": "A operação a ser realizada. scan: descobrir dispositivos próximos, read: ler característica, write: escrever característica",
@@ -427,7 +527,17 @@
     "param.uuid.description": "UUID символа.",
     "param.scan_mode.description": "Scan mode: ble (BLE only) or all (BLE + Classic).",
     "err.pyside6_missing": "Error: 'PySide6' library is not installed. Please install it using:\npip install PySide6",
-    "tool.description": "Выполнять операции Bluetooth Low Energy (BLE): сканирование устройств, чтение или запись характеристик GATT. Используйте MAC-адреса в Windows/Linux и UUID в macOS."
+    "tool.description": "Выполнять операции Bluetooth Low Energy (BLE): сканирование устройств, чтение или запись характеристик GATT. Используйте MAC-адреса в Windows/Linux и UUID в macOS.",
+    "x_search_terms": [
+      "операции ble",
+      "ble_ops",
+      "ble",
+      "BLE",
+      "выполнять",
+      "bluetooth",
+      "энергия",
+      "операции"
+    ]
   },
   "sv": {
     "param.action.description": "Åtgärden som ska utföras. scan: upptäck enheter i närheten, read: läs karaktär, write: skriv karaktär",
@@ -444,7 +554,17 @@
     "param.uuid.description": "Char UUID.",
     "param.scan_mode.description": "Scan mode: ble (BLE only) or all (BLE + Classic).",
     "err.pyside6_missing": "Error: 'PySide6' library is not installed. Please install it using:\npip install PySide6",
-    "tool.description": "Utför Bluetooth Low Energy (BLE)-operationer: skanna efter enheter, läs eller skriv GATT-egenskaper. Använd MAC-adresser på Windows/Linux och UUID på macOS."
+    "tool.description": "Utför Bluetooth Low Energy (BLE)-operationer: skanna efter enheter, läs eller skriv GATT-egenskaper. Använd MAC-adresser på Windows/Linux och UUID på macOS.",
+    "x_search_terms": [
+      "ble-operationer",
+      "ble_ops",
+      "ble",
+      "BLE",
+      "utföra",
+      "bluetooth",
+      "energi",
+      "operationer"
+    ]
   },
   "th": {
     "param.action.description": "การดำเนินการที่จะทำ scan: ค้นหาอุปกรณ์ใกล้เคียง, read: อ่านลักษณะเฉพาะ, write: เขียนลักษณะเฉพาะ",
@@ -461,7 +581,17 @@
     "param.uuid.description": "ถ่าน UUID",
     "param.scan_mode.description": "Scan mode: ble (BLE only) or all (BLE + Classic).",
     "err.pyside6_missing": "Error: 'PySide6' library is not installed. Please install it using:\npip install PySide6",
-    "tool.description": "ดำเนินการ Bluetooth Low Energy (BLE): สแกนหาอุปกรณ์ อ่าน หรือเขียนคุณลักษณะ GATT ใช้ที่อยู่ MAC บน Windows/Linux และ UUID บน macOS"
+    "tool.description": "ดำเนินการ Bluetooth Low Energy (BLE): สแกนหาอุปกรณ์ อ่าน หรือเขียนคุณลักษณะ GATT ใช้ที่อยู่ MAC บน Windows/Linux และ UUID บน macOS",
+    "x_search_terms": [
+      "การดำเนินการ ble",
+      "ble_ops",
+      "เบล",
+      "เบล",
+      "ดำเนินการ",
+      "บลูทูธ",
+      "พลังงาน",
+      "การดำเนินงาน"
+    ]
   },
   "uk": {
     "param.action.description": "Операція, яку необхідно виконати.",
@@ -478,7 +608,17 @@
     "param.uuid.description": "Char UUID.",
     "param.scan_mode.description": "Scan mode: ble (BLE only) or all (BLE + Classic).",
     "err.pyside6_missing": "Error: 'PySide6' library is not installed. Please install it using:\npip install PySide6",
-    "tool.description": "Виконати операції Bluetooth Low Energy (BLE): сканування пристроїв, читання або запис характеристик GATT. Використовуйте MAC-адреси на Windows/Linux та UUID на macOS."
+    "tool.description": "Виконати операції Bluetooth Low Energy (BLE): сканування пристроїв, читання або запис характеристик GATT. Використовуйте MAC-адреси на Windows/Linux та UUID на macOS.",
+    "x_search_terms": [
+      "операції ble",
+      "ble_ops",
+      "ble",
+      "BLE",
+      "виконувати",
+      "bluetooth",
+      "енергія",
+      "операції"
+    ]
   },
   "vi": {
     "param.action.description": "Thao tác cần thực hiện. scan: phát hiện các thiết bị lân cận, read: đọc đặc tính, write: ghi đặc tính",
@@ -522,7 +662,17 @@
     "param.uuid.description": "特征UUID。",
     "param.scan_mode.description": "Scan mode: ble (BLE only) or all (BLE + Classic).",
     "err.pyside6_missing": "Error: 'PySide6' library is not installed. Please install it using:\npip install PySide6",
-    "tool.description": "执行蓝牙低功耗（BLE）操作：扫描设备、读取或写入GATT特征。在Windows/Linux上使用MAC地址，在macOS上使用UUID。"
+    "tool.description": "执行蓝牙低功耗（BLE）操作：扫描设备、读取或写入GATT特征。在Windows/Linux上使用MAC地址，在macOS上使用UUID。",
+    "x_search_terms": [
+      "ble 操作",
+      "ble_ops",
+      "ble",
+      "BLE",
+      "执行",
+      "蓝牙",
+      "能源",
+      "操作"
+    ]
   },
   "zh_TW": {
     "param.action.description": "要執行的操作。scan: 發現附近設備, read: 讀取特徵, write: 寫入特徵",
@@ -539,7 +689,17 @@
     "param.uuid.description": "特征UUID。",
     "param.scan_mode.description": "Scan mode: ble (BLE only) or all (BLE + Classic).",
     "err.pyside6_missing": "Error: 'PySide6' library is not installed. Please install it using:\npip install PySide6",
-    "tool.description": "執行藍牙低功耗（BLE）操作：掃描裝置、讀取或寫入 GATT 特性。在 Windows/Linux 上使用 MAC 位址，在 macOS 上使用 UUID。"
+    "tool.description": "執行藍牙低功耗（BLE）操作：掃描裝置、讀取或寫入 GATT 特性。在 Windows/Linux 上使用 MAC 位址，在 macOS 上使用 UUID。",
+    "x_search_terms": [
+      "ble 操作",
+      "ble_ops",
+      "ble",
+      "BLE",
+      "執行",
+      "藍牙",
+      "能源",
+      "操作"
+    ]
   },
   "mn": {
     "param.action.description": "Гүйцэтгэх үйлдэл. scan: ойролцоох төхөөрөмжүүдийг илрүүлэх, read: шинж чанарыг унших, write: шинж чанарыг бичих",
@@ -556,7 +716,17 @@
     "param.uuid.description": "Char UUID.",
     "param.scan_mode.description": "Scan mode: ble (BLE only) or all (BLE + Classic).",
     "err.pyside6_missing": "Error: 'PySide6' library is not installed. Please install it using:\npip install PySide6",
-    "tool.description": "Bluetooth Low Energy (BLE) үйлдлүүдийг гүйцэтгэх: төхөөрөмж хайх, GATT шинж чанаруудыг унших эсвэл бичих. Windows/Linux дээр MAC хаяг, macOS дээр UUID ашиглана."
+    "tool.description": "Bluetooth Low Energy (BLE) үйлдлүүдийг гүйцэтгэх: төхөөрөмж хайх, GATT шинж чанаруудыг унших эсвэл бичих. Windows/Linux дээр MAC хаяг, macOS дээр UUID ашиглана.",
+    "x_search_terms": [
+      "ble үйлдлүүд",
+      "ble_ops",
+      "блэ",
+      "блэ",
+      "гүйцэтгэх",
+      "блютүүт",
+      "энерги",
+      "үйлдлүүд"
+    ]
   },
   "mr": {
     "param.action.description": "करायची क्रिया. scan: जवळील डिव्हाइसेस शोधा, read: वैशिष्ट्य वाचा, write: वैशिष्ट्य लिहा",
@@ -573,7 +743,17 @@
     "param.uuid.description": "चार UUID.",
     "param.scan_mode.description": "Scan mode: ble (BLE only) or all (BLE + Classic).",
     "err.pyside6_missing": "Error: 'PySide6' library is not installed. Please install it using:\npip install PySide6",
-    "tool.description": "ब्लूटूथ लो एनर्जी (BLE) ऑपरेशन्स करा: उपकरणे स्कॅन करा, GATT वैशिष्ट्ये वाचा किंवा लिहा. Windows/Linux वर MAC पत्ते आणि macOS वर UUID वापरा."
+    "tool.description": "ब्लूटूथ लो एनर्जी (BLE) ऑपरेशन्स करा: उपकरणे स्कॅन करा, GATT वैशिष्ट्ये वाचा किंवा लिहा. Windows/Linux वर MAC पत्ते आणि macOS वर UUID वापरा.",
+    "x_search_terms": [
+      "ble ऑपरेशन्स",
+      "ble_ops",
+      "बीएलई",
+      "बीएलई",
+      "कार्यान्वित करा",
+      "ब्लूटूथ",
+      "ऊर्जा",
+      "ऑपरेशन्स"
+    ]
   },
   "el": {
     "param.action.description": "Η επέμβαση προς εκτέλεση. σάρωση: ανακάλυψη κοντινών συσκευών, ανάγνωση: ανάγνωση χαρακτηριστικών, εγγραφή: εγγραφή χαρακτηριστικών",
@@ -590,7 +770,17 @@
     "param.uuid.description": "Char UUID.",
     "param.scan_mode.description": "Λειτουργία σάρωσης: ble (μόνο BLE) ή όλα (BLE + Classic).",
     "err.pyside6_missing": "Σφάλμα: Η βιβλιοθήκη \"PySide6\" δεν είναι εγκατεστημένη. Εγκαταστήστε το χρησιμοποιώντας:\npip εγκατάσταση PySide6",
-    "tool.description": "Εκτέλεση λειτουργιών Bluetooth Χαμηλής Ενέργειας (BLE): σάρωση για συσκευές, ανάγνωση ή εγγραφή χαρακτηριστικών GATT. Χρήση διευθύνσεων MAC σε Windows/Linux και UUID σε macOS."
+    "tool.description": "Εκτέλεση λειτουργιών Bluetooth Χαμηλής Ενέργειας (BLE): σάρωση για συσκευές, ανάγνωση ή εγγραφή χαρακτηριστικών GATT. Χρήση διευθύνσεων MAC σε Windows/Linux και UUID σε macOS.",
+    "x_search_terms": [
+      "λειτουργίες ble",
+      "ble_ops",
+      "ble",
+      "BLE",
+      "εκτέλεση",
+      "bluetooth",
+      "ενέργεια",
+      "λειτουργίες"
+    ]
   },
   "he": {
     "param.action.description": "הפעולה שיש לבצע. סריקה: גלה מכשירים קרובים, קרא: מאפיין קריאה, כתוב: מאפיין כתיבה",
@@ -607,7 +797,17 @@
     "param.uuid.description": "Char UUID.",
     "param.scan_mode.description": "מצב סריקה: ble (BLE בלבד) או הכל (BLE + Classic).",
     "err.pyside6_missing": "שגיאה: ספריית 'PySide6' אינה מותקנת. נא להתקין אותו באמצעות:\nהתקנת pip PySide6",
-    "tool.description": "בצע פעולות Bluetooth Low Energy (BLE): סרוק אחר התקנים, קרא או כתוב מאפייני GATT. השתמש בכתובות MAC ב-Windows/Linux, וב-UUIDs ב-macOS."
+    "tool.description": "בצע פעולות Bluetooth Low Energy (BLE): סרוק אחר התקנים, קרא או כתוב מאפייני GATT. השתמש בכתובות MAC ב-Windows/Linux, וב-UUIDs ב-macOS.",
+    "x_search_terms": [
+      "פעולות ble",
+      "ble_ops",
+      "ble",
+      "BLE",
+      "בצע",
+      "bluetooth",
+      "אנרגיה",
+      "פעולות"
+    ]
   },
   "hu": {
     "param.action.description": "Az elvégzendő művelet. szkennelés: közeli eszközök felfedezése, olvasás: jellemző olvasása, írás: karakterisztika írása",
@@ -624,7 +824,17 @@
     "param.uuid.description": "Char UUID.",
     "param.scan_mode.description": "Szkennelési mód: ble (csak BLE) vagy minden (BLE + Classic).",
     "err.pyside6_missing": "Hiba: A 'PySide6' könyvtár nincs telepítve. Kérjük, telepítse a következő használatával:\npip telepítése PySide6",
-    "tool.description": "Végezz Bluetooth Low Energy (BLE) műveleteket: eszközök keresése, GATT jellemzők olvasása vagy írása. Windows/Linux rendszeren MAC-címeket, macOS-en UUID-ket használj."
+    "tool.description": "Végezz Bluetooth Low Energy (BLE) műveleteket: eszközök keresése, GATT jellemzők olvasása vagy írása. Windows/Linux rendszeren MAC-címeket, macOS-en UUID-ket használj.",
+    "x_search_terms": [
+      "ble műveletek",
+      "ble_ops",
+      "ble",
+      "BLE",
+      "végrehajt",
+      "bluetooth",
+      "energia",
+      "műveletek"
+    ]
   },
   "ro": {
     "param.action.description": "Operația de efectuat. scanare: descoperiți dispozitive din apropiere, citiți: citiți caracteristica, scrieți: scrieți caracteristica",
@@ -641,7 +851,17 @@
     "param.uuid.description": "Char UUID.",
     "param.scan_mode.description": "Modul de scanare: ble (doar BLE) sau all (BLE + Classic).",
     "err.pyside6_missing": "Eroare: biblioteca „PySide6” nu este instalată. Instalați-l folosind:\npip instalează PySide6",
-    "tool.description": "Efectuează operațiuni Bluetooth Low Energy (BLE): scanare pentru dispozitive, citire sau scriere a caracteristicilor GATT. Folosește adrese MAC pe Windows/Linux și UUID-uri pe macOS."
+    "tool.description": "Efectuează operațiuni Bluetooth Low Energy (BLE): scanare pentru dispozitive, citire sau scriere a caracteristicilor GATT. Folosește adrese MAC pe Windows/Linux și UUID-uri pe macOS.",
+    "x_search_terms": [
+      "operațiuni ble",
+      "ble_ops",
+      "ble",
+      "BLE",
+      "execută",
+      "bluetooth",
+      "energie",
+      "operațiuni"
+    ]
   },
   "tr": {
     "param.action.description": "Gerçekleştirilecek işlem. scan: yakındaki cihazları keşfet, read: özelliği oku, write: özelliğe yaz",
@@ -658,7 +878,17 @@
     "param.uuid.description": "Karakter UUID.",
     "param.scan_mode.description": "Scan mode: ble (BLE only) or all (BLE + Classic).",
     "err.pyside6_missing": "Error: 'PySide6' library is not installed. Please install it using:\npip install PySide6",
-    "tool.description": "Bluetooth Düşük Enerji (BLE) işlemleri gerçekleştir: cihazları tara, GATT özelliklerini oku veya yaz. Windows/Linux'ta MAC adreslerini, macOS'ta UUID'leri kullan."
+    "tool.description": "Bluetooth Düşük Enerji (BLE) işlemleri gerçekleştir: cihazları tara, GATT özelliklerini oku veya yaz. Windows/Linux'ta MAC adreslerini, macOS'ta UUID'leri kullan.",
+    "x_search_terms": [
+      "ble işlemleri",
+      "ble_ops",
+      "ble",
+      "BLE",
+      "gerçekleştirmek",
+      "bluetooth",
+      "enerji",
+      "operasyonlar"
+    ]
   },
   "sw": {
     "param.action.description": "Η λειτουργία προς εκτέλεση. scan: ανακάλυψη κοντινών συσκευών, read: ανάγνωση χαρακτηριστικού, write: εγγραφή χαρακτηριστικού",
@@ -675,6 +905,16 @@
     "param.uuid.description": "UUID χαρακτηριστικού GATT για ανάγνωση ή εγγραφή",
     "param.scan_mode.description": "Scan mode: ble (BLE only) or all (BLE + Classic).",
     "err.pyside6_missing": "Error: 'PySide6' library is not installed. Please install it using:\npip install PySide6",
-    "tool.description": "Fanya shughuli za Bluetooth Low Energy (BLE): skana vifaa, soma, au andika sifa za GATT. Tumia anwani za MAC kwenye Windows/Linux, na UUID kwenye macOS."
+    "tool.description": "Fanya shughuli za Bluetooth Low Energy (BLE): skana vifaa, soma, au andika sifa za GATT. Tumia anwani za MAC kwenye Windows/Linux, na UUID kwenye macOS.",
+    "x_search_terms": [
+      "shughuli za ble",
+      "ble_ops",
+      "ble",
+      "BLE",
+      "fanya",
+      "bluetooth",
+      "nishati",
+      "shughuli"
+    ]
   }
 }

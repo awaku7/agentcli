@@ -4,28 +4,64 @@
     "param.fmt.description": "Format: json or text.",
     "err.invalid_eoj": "Error: Could not parse EOJ '{eoj}'.",
     "err.invalid_object_code": "Error: Could not parse object_code '{object_code}'.",
-    "err.invalid_ip_address": "Error: ip_address must be a valid IPv4 address."
+    "err.invalid_ip_address": "Error: ip_address must be a valid IPv4 address.",
+    "x_search_terms": [
+      "قائمة كائنات echonet",
+      "echonet_object_list",
+      "إيكونت",
+      "إيكونت",
+      "اكتشاف",
+      "كائنات",
+      "عقدة"
+    ]
   },
   "bn": {
     "param.ip.description": "Target node IPv4 address.",
     "param.fmt.description": "Format: json or text.",
     "err.invalid_eoj": "Error: Could not parse EOJ '{eoj}'.",
     "err.invalid_object_code": "Error: Could not parse object_code '{object_code}'.",
-    "err.invalid_ip_address": "Error: ip_address must be a valid IPv4 address."
+    "err.invalid_ip_address": "Error: ip_address must be a valid IPv4 address.",
+    "x_search_terms": [
+      "echonet বস্তু তালিকা",
+      "echonet_object_list",
+      "ইকোনেট",
+      "ইকোনেট",
+      "আবিষ্কার",
+      "বস্তু",
+      "নোড"
+    ]
   },
   "cs": {
     "param.ip.description": "Target node IPv4 address.",
     "param.fmt.description": "Format: json or text.",
     "err.invalid_eoj": "Error: Could not parse EOJ '{eoj}'.",
     "err.invalid_object_code": "Error: Could not parse object_code '{object_code}'.",
-    "err.invalid_ip_address": "Error: ip_address must be a valid IPv4 address."
+    "err.invalid_ip_address": "Error: ip_address must be a valid IPv4 address.",
+    "x_search_terms": [
+      "seznam objektů echonet",
+      "echonet_object_list",
+      "echosíť",
+      "ECHONET",
+      "objevit",
+      "objekty",
+      "uzel"
+    ]
   },
   "de": {
     "param.ip.description": "Target node IPv4 address.",
     "param.fmt.description": "Format: json or text.",
     "err.invalid_eoj": "Error: Could not parse EOJ '{eoj}'.",
     "err.invalid_object_code": "Error: Could not parse object_code '{object_code}'.",
-    "err.invalid_ip_address": "Error: ip_address must be a valid IPv4 address."
+    "err.invalid_ip_address": "Error: ip_address must be a valid IPv4 address.",
+    "x_search_terms": [
+      "Echonet-Objektliste",
+      "echonet_object_list",
+      "echonet",
+      "ECHONET",
+      "entdecken",
+      "Objekte",
+      "Knoten"
+    ]
   },
   "en": {
     "param.ip.description": "Target node IPv4 address.",
@@ -68,14 +104,32 @@
     "param.fmt.description": "Format: json or text.",
     "err.invalid_eoj": "Error: Could not parse EOJ '{eoj}'.",
     "err.invalid_object_code": "Error: Could not parse object_code '{object_code}'.",
-    "err.invalid_ip_address": "Error: ip_address must be a valid IPv4 address."
+    "err.invalid_ip_address": "Error: ip_address must be a valid IPv4 address.",
+    "x_search_terms": [
+      "لیست اشیاء echonet",
+      "echonet_object_list",
+      "اکونت",
+      "اکونت",
+      "کشف",
+      "اشیاء",
+      "گره"
+    ]
   },
   "fi": {
     "param.ip.description": "Target node IPv4 address.",
     "param.fmt.description": "Format: json or text.",
     "err.invalid_eoj": "Error: Could not parse EOJ '{eoj}'.",
     "err.invalid_object_code": "Error: Could not parse object_code '{object_code}'.",
-    "err.invalid_ip_address": "Error: ip_address must be a valid IPv4 address."
+    "err.invalid_ip_address": "Error: ip_address must be a valid IPv4 address.",
+    "x_search_terms": [
+      "echonet-objektiluettelo",
+      "echonet_object_list",
+      "ekoverkko",
+      "ECHONET",
+      "löydä",
+      "objektit",
+      "solmu"
+    ]
   },
   "fr": {
     "param.ip.description": "Target node IPv4 address.",
@@ -98,7 +152,16 @@
     "param.fmt.description": "Format: json or text.",
     "err.invalid_eoj": "Error: Could not parse EOJ '{eoj}'.",
     "err.invalid_object_code": "Error: Could not parse object_code '{object_code}'.",
-    "err.invalid_ip_address": "Error: ip_address must be a valid IPv4 address."
+    "err.invalid_ip_address": "Error: ip_address must be a valid IPv4 address.",
+    "x_search_terms": [
+      "echonet ऑब्जेक्ट सूची",
+      "echonet_object_list",
+      "इकोनेट",
+      "इकोनेट",
+      "खोजें",
+      "ऑब्जेक्ट",
+      "नोड"
+    ]
   },
   "id": {
     "param.ip.description": "Target node IPv4 address.",
@@ -174,56 +237,128 @@
     "param.fmt.description": "Format: json or text.",
     "err.invalid_eoj": "Error: Could not parse EOJ '{eoj}'.",
     "err.invalid_object_code": "Error: Could not parse object_code '{object_code}'.",
-    "err.invalid_ip_address": "Error: ip_address must be a valid IPv4 address."
+    "err.invalid_ip_address": "Error: ip_address must be a valid IPv4 address.",
+    "x_search_terms": [
+      "echonet объектын жагсаалт",
+      "echonet_object_list",
+      "эхонет",
+      "эхонет",
+      "нээх",
+      "объектууд",
+      "зангилаа"
+    ]
   },
   "mr": {
     "param.ip.description": "Target node IPv4 address.",
     "param.fmt.description": "Format: json or text.",
     "err.invalid_eoj": "Error: Could not parse EOJ '{eoj}'.",
     "err.invalid_object_code": "Error: Could not parse object_code '{object_code}'.",
-    "err.invalid_ip_address": "Error: ip_address must be a valid IPv4 address."
+    "err.invalid_ip_address": "Error: ip_address must be a valid IPv4 address.",
+    "x_search_terms": [
+      "echonet ऑब्जेक्ट यादी",
+      "echonet_object_list",
+      "इकोनेट",
+      "इकोनेट",
+      "शोधा",
+      "वस्तू",
+      "नोड"
+    ]
   },
   "el": {
     "param.ip.description": "Διεύθυνση IPv4 κόμβου στόχου.",
     "param.fmt.description": "Μορφή: json ή κείμενο.",
     "err.invalid_eoj": "Σφάλμα: Δεν ήταν δυνατή η ανάλυση του EOJ '{eoj}'.",
     "err.invalid_object_code": "Σφάλμα: Δεν ήταν δυνατή η ανάλυση του object_code '{object_code}'.",
-    "err.invalid_ip_address": "Σφάλμα: Η διεύθυνση ip_address πρέπει να είναι έγκυρη διεύθυνση IPv4."
+    "err.invalid_ip_address": "Σφάλμα: Η διεύθυνση ip_address πρέπει να είναι έγκυρη διεύθυνση IPv4.",
+    "x_search_terms": [
+      "λίστα αντικειμένων echonet",
+      "echonet_object_list",
+      "echonet",
+      "ECHONET",
+      "ανακάλυψη",
+      "αντικείμενα",
+      "κόμβος"
+    ]
   },
   "he": {
     "param.ip.description": "כתובת IPv4 של צומת יעד.",
     "param.fmt.description": "פורמט: json או טקסט.",
     "err.invalid_eoj": "שגיאה: לא ניתן לנתח את EOJ '{eoj}'.",
     "err.invalid_object_code": "שגיאה: לא ניתן לנתח את object_code '{object_code}'.",
-    "err.invalid_ip_address": "שגיאה: כתובת ה-ip_address חייבת להיות כתובת IPv4 חוקית."
+    "err.invalid_ip_address": "שגיאה: כתובת ה-ip_address חייבת להיות כתובת IPv4 חוקית.",
+    "x_search_terms": [
+      "רשימת אובייקטים של echonet",
+      "echonet_object_list",
+      "אקו-נט",
+      "אקו-נט",
+      "גלה",
+      "אובייקטים",
+      "צומת"
+    ]
   },
   "hu": {
     "param.ip.description": "Célcsomópont IPv4-címe.",
     "param.fmt.description": "Formátum: json vagy szöveg.",
     "err.invalid_eoj": "Hiba: A(z) „{eoj}” EOJ nem értelmezhető.",
     "err.invalid_object_code": "Hiba: A(z) '{object_code}' objektumkód nem értelmezhető.",
-    "err.invalid_ip_address": "Hiba: az ip_address érvényes IPv4-címnek kell lennie."
+    "err.invalid_ip_address": "Hiba: az ip_address érvényes IPv4-címnek kell lennie.",
+    "x_search_terms": [
+      "echonet objektumlista",
+      "echonet_object_list",
+      "echonet",
+      "ECHONET",
+      "felfedez",
+      "objektumok",
+      "csomópont"
+    ]
   },
   "ro": {
     "param.ip.description": "Adresa IPv4 a nodului țintă.",
     "param.fmt.description": "Format: json sau text.",
     "err.invalid_eoj": "Eroare: nu s-a putut analiza EOJ „{eoj}”.",
     "err.invalid_object_code": "Eroare: nu s-a putut analiza object_code „{object_code}”.",
-    "err.invalid_ip_address": "Eroare: ip_address trebuie să fie o adresă IPv4 validă."
+    "err.invalid_ip_address": "Eroare: ip_address trebuie să fie o adresă IPv4 validă.",
+    "x_search_terms": [
+      "listă obiecte echonet",
+      "echonet_object_list",
+      "econet",
+      "ECHONET",
+      "descoperă",
+      "obiecte",
+      "nod"
+    ]
   },
   "nb": {
     "param.ip.description": "Target node IPv4 address.",
     "param.fmt.description": "Format: json or text.",
     "err.invalid_eoj": "Error: Could not parse EOJ '{eoj}'.",
     "err.invalid_object_code": "Error: Could not parse object_code '{object_code}'.",
-    "err.invalid_ip_address": "Error: ip_address must be a valid IPv4 address."
+    "err.invalid_ip_address": "Error: ip_address must be a valid IPv4 address.",
+    "x_search_terms": [
+      "echonet objektliste",
+      "echonet_object_list",
+      "ekonett",
+      "ECHONET",
+      "oppdage",
+      "objekter",
+      "node"
+    ]
   },
   "nl": {
     "param.ip.description": "Target node IPv4 address.",
     "param.fmt.description": "Format: json or text.",
     "err.invalid_eoj": "Error: Could not parse EOJ '{eoj}'.",
     "err.invalid_object_code": "Error: Could not parse object_code '{object_code}'.",
-    "err.invalid_ip_address": "Error: ip_address must be a valid IPv4 address."
+    "err.invalid_ip_address": "Error: ip_address must be a valid IPv4 address.",
+    "x_search_terms": [
+      "echonet-objectlijst",
+      "echonet_object_list",
+      "echonet",
+      "ECHONET",
+      "ontdekken",
+      "objecten",
+      "knooppunt"
+    ]
   },
   "pl": {
     "param.ip.description": "Target node IPv4 address.",
@@ -246,7 +381,16 @@
     "param.fmt.description": "Format: json or text.",
     "err.invalid_eoj": "Error: Could not parse EOJ '{eoj}'.",
     "err.invalid_object_code": "Error: Could not parse object_code '{object_code}'.",
-    "err.invalid_ip_address": "Error: ip_address must be a valid IPv4 address."
+    "err.invalid_ip_address": "Error: ip_address must be a valid IPv4 address.",
+    "x_search_terms": [
+      "lista de objetos echonet",
+      "echonet_object_list",
+      "econet",
+      "ECHONET",
+      "descobrir",
+      "objetos",
+      "nó"
+    ]
   },
   "pt_BR": {
     "param.ip.description": "Target node IPv4 address.",
@@ -269,42 +413,96 @@
     "param.fmt.description": "Format: json or text.",
     "err.invalid_eoj": "Error: Could not parse EOJ '{eoj}'.",
     "err.invalid_object_code": "Error: Could not parse object_code '{object_code}'.",
-    "err.invalid_ip_address": "Error: ip_address must be a valid IPv4 address."
+    "err.invalid_ip_address": "Error: ip_address must be a valid IPv4 address.",
+    "x_search_terms": [
+      "список объектов echonet",
+      "echonet_object_list",
+      "эхосеть",
+      "ECHONET",
+      "обнаружить",
+      "объекты",
+      "узел"
+    ]
   },
   "sv": {
     "param.ip.description": "Target node IPv4 address.",
     "param.fmt.description": "Format: json or text.",
     "err.invalid_eoj": "Error: Could not parse EOJ '{eoj}'.",
     "err.invalid_object_code": "Error: Could not parse object_code '{object_code}'.",
-    "err.invalid_ip_address": "Error: ip_address must be a valid IPv4 address."
+    "err.invalid_ip_address": "Error: ip_address must be a valid IPv4 address.",
+    "x_search_terms": [
+      "echonet objektlista",
+      "echonet_object_list",
+      "ekonät",
+      "ECHONET",
+      "upptäcka",
+      "objekt",
+      "nod"
+    ]
   },
   "sw": {
     "param.ip.description": "Target node IPv4 address.",
     "param.fmt.description": "Format: json or text.",
     "err.invalid_eoj": "Error: Could not parse EOJ '{eoj}'.",
     "err.invalid_object_code": "Error: Could not parse object_code '{object_code}'.",
-    "err.invalid_ip_address": "Error: ip_address must be a valid IPv4 address."
+    "err.invalid_ip_address": "Error: ip_address must be a valid IPv4 address.",
+    "x_search_terms": [
+      "orodha ya vitu vya echonet",
+      "echonet_object_list",
+      "echonet",
+      "ECHONET",
+      "gundua",
+      "vitu",
+      "nodi"
+    ]
   },
   "th": {
     "param.ip.description": "Target node IPv4 address.",
     "param.fmt.description": "Format: json or text.",
     "err.invalid_eoj": "Error: Could not parse EOJ '{eoj}'.",
     "err.invalid_object_code": "Error: Could not parse object_code '{object_code}'.",
-    "err.invalid_ip_address": "Error: ip_address must be a valid IPv4 address."
+    "err.invalid_ip_address": "Error: ip_address must be a valid IPv4 address.",
+    "x_search_terms": [
+      "รายการวัตถุ echonet",
+      "echonet_object_list",
+      "อีโค่เน็ต",
+      "อีโค่เน็ต",
+      "ค้นพบ",
+      "วัตถุ",
+      "โหนด"
+    ]
   },
   "tr": {
     "param.ip.description": "Target node IPv4 address.",
     "param.fmt.description": "Format: json or text.",
     "err.invalid_eoj": "Error: Could not parse EOJ '{eoj}'.",
     "err.invalid_object_code": "Error: Could not parse object_code '{object_code}'.",
-    "err.invalid_ip_address": "Error: ip_address must be a valid IPv4 address."
+    "err.invalid_ip_address": "Error: ip_address must be a valid IPv4 address.",
+    "x_search_terms": [
+      "echonet nesne listesi",
+      "echonet_object_list",
+      "eko ağ",
+      "ECONET",
+      "keşfetmek",
+      "nesneler",
+      "düğüm"
+    ]
   },
   "uk": {
     "param.ip.description": "Target node IPv4 address.",
     "param.fmt.description": "Format: json or text.",
     "err.invalid_eoj": "Error: Could not parse EOJ '{eoj}'.",
     "err.invalid_object_code": "Error: Could not parse object_code '{object_code}'.",
-    "err.invalid_ip_address": "Error: ip_address must be a valid IPv4 address."
+    "err.invalid_ip_address": "Error: ip_address must be a valid IPv4 address.",
+    "x_search_terms": [
+      "список об'єктів echonet",
+      "echonet_object_list",
+      "ехомережа",
+      "ECHONET",
+      "виявити",
+      "об'єкти",
+      "вузол"
+    ]
   },
   "vi": {
     "param.ip.description": "Target node IPv4 address.",
@@ -327,13 +525,31 @@
     "param.fmt.description": "Format: json or text.",
     "err.invalid_eoj": "Error: Could not parse EOJ '{eoj}'.",
     "err.invalid_object_code": "Error: Could not parse object_code '{object_code}'.",
-    "err.invalid_ip_address": "Error: ip_address must be a valid IPv4 address."
+    "err.invalid_ip_address": "Error: ip_address must be a valid IPv4 address.",
+    "x_search_terms": [
+      "echonet 对象列表",
+      "echonet_object_list",
+      "echonet",
+      "ECHONET",
+      "发现",
+      "对象",
+      "节点"
+    ]
   },
   "zh_TW": {
     "param.ip.description": "Target node IPv4 address.",
     "param.fmt.description": "Format: json or text.",
     "err.invalid_eoj": "Error: Could not parse EOJ '{eoj}'.",
     "err.invalid_object_code": "Error: Could not parse object_code '{object_code}'.",
-    "err.invalid_ip_address": "Error: ip_address must be a valid IPv4 address."
+    "err.invalid_ip_address": "Error: ip_address must be a valid IPv4 address.",
+    "x_search_terms": [
+      "echonet 物件清單",
+      "echonet_object_list",
+      "echonet",
+      "ECHONET",
+      "發現",
+      "物件",
+      "節點"
+    ]
   }
 }

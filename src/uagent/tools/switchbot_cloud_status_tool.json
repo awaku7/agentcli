@@ -19,7 +19,13 @@
     "msg.power": "الطاقة: {val}",
     "msg.temperature": "درجة الحرارة: {val}",
     "msg.type": "النوع: {dtype}",
-    "msg.unknown": "(غير معروف)"
+    "msg.unknown": "(غير معروف)",
+    "x_search_terms": [
+      "حالة سحابة switchbot",
+      "switchbot_cloud_status",
+      "سويتش بوت",
+      "سحابة"
+    ]
   },
   "bn": {
     "param.dev.description": "ডিভাইস আইডি (পছন্দের)।",
@@ -41,7 +47,13 @@
     "msg.power": "পাওয়ার: {val}",
     "msg.temperature": "তাপমাত্রা: {val}",
     "msg.type": "ধরন: {dtype}",
-    "msg.unknown": "(অজানা)"
+    "msg.unknown": "(অজানা)",
+    "x_search_terms": [
+      "switchbot ক্লাউড স্থিতি",
+      "switchbot_cloud_status",
+      "সুইচবট",
+      "মেঘ"
+    ]
   },
   "cs": {
     "param.dev.description": "ID zařízení (preferované).",
@@ -63,7 +75,13 @@
     "msg.power": "Napájení: {val}",
     "msg.temperature": "Teplota: {val}",
     "msg.type": "Typ: {dtype}",
-    "msg.unknown": "(neznámý)"
+    "msg.unknown": "(neznámý)",
+    "x_search_terms": [
+      "stav cloudu switchbot",
+      "switchbot_cloud_status",
+      "přepínač",
+      "mrak"
+    ]
   },
   "de": {
     "param.dev.description": "Geräte-ID (bevorzugt).",
@@ -85,7 +103,13 @@
     "msg.power": "Strom: {val}",
     "msg.temperature": "Temperatur: {val}",
     "msg.type": "Typ: {dtype}",
-    "msg.unknown": "(unbekannt)"
+    "msg.unknown": "(unbekannt)",
+    "x_search_terms": [
+      "Switchbot-Cloud-Status",
+      "switchbot_cloud_status",
+      "Switchbot",
+      "Wolke"
+    ]
   },
   "en": {
     "param.dev.description": "Device ID (preferred).",
@@ -165,7 +189,13 @@
     "msg.power": "موقعیت: {val}",
     "msg.temperature": "برق: {val}",
     "msg.type": "دما: {val}",
-    "msg.unknown": "نوع: {dtype}"
+    "msg.unknown": "نوع: {dtype}",
+    "x_search_terms": [
+      "وضعیت ابری switchbot",
+      "switchbot_cloud_status",
+      "سوییچ‌بات",
+      "ابر"
+    ]
   },
   "fi": {
     "param.dev.description": "Laitteen tunnus (ensisijainen).",
@@ -187,7 +217,13 @@
     "msg.power": "Virta: {val}",
     "msg.temperature": "Lämpötila: {val}",
     "msg.type": "Tyyppi: {dtype}",
-    "msg.unknown": "(tuntematon)"
+    "msg.unknown": "(tuntematon)",
+    "x_search_terms": [
+      "switchbot-pilvitila",
+      "switchbot_cloud_status",
+      "kytkinrobotti",
+      "pilvi"
+    ]
   },
   "fr": {
     "param.dev.description": "ID de l'appareil (préféré).",
@@ -237,7 +273,13 @@
     "msg.power": "पावर: {val}",
     "msg.temperature": "तापमान: {val}",
     "msg.type": "प्रकार: {dtype}",
-    "msg.unknown": "(अज्ञात)"
+    "msg.unknown": "(अज्ञात)",
+    "x_search_terms": [
+      "switchbot क्लाउड स्थिति",
+      "switchbot_cloud_status",
+      "स्विचबॉट",
+      "बादल"
+    ]
   },
   "id": {
     "param.dev.description": "ID Perangkat (disukai).",
@@ -373,7 +415,13 @@
     "msg.power": "Байрлал: {val}",
     "msg.temperature": "Цахилгаан: {val}",
     "msg.type": "Температур: {val}",
-    "msg.unknown": "Төрөл: {dtype}"
+    "msg.unknown": "Төрөл: {dtype}",
+    "x_search_terms": [
+      "switchbot үүлэн төлөв",
+      "switchbot_cloud_status",
+      "свичбот",
+      "үүл"
+    ]
   },
   "mr": {
     "param.dev.description": "येथे आणले: {ts}",
@@ -395,7 +443,13 @@
     "msg.power": "स्थिती: {val}",
     "msg.temperature": "पॉवर: {val}",
     "msg.type": "तापमान: {val}",
-    "msg.unknown": "प्रकार: {dtype}"
+    "msg.unknown": "प्रकार: {dtype}",
+    "x_search_terms": [
+      "switchbot क्लाउड स्थिती",
+      "switchbot_cloud_status",
+      "स्विचबॉट",
+      "ढग"
+    ]
   },
   "el": {
     "param.dev.description": "Αναγνωριστικό συσκευής (προτιμώμενο).",
@@ -417,7 +471,13 @@
     "msg.power": "Ισχύς: {val}",
     "msg.temperature": "Θερμοκρασία: {val}",
     "msg.type": "Τύπος: {dtype}",
-    "msg.unknown": "(άγνωστο)"
+    "msg.unknown": "(άγνωστο)",
+    "x_search_terms": [
+      "κατάσταση cloud switchbot",
+      "switchbot_cloud_status",
+      "διακόπτης",
+      "σύννεφο"
+    ]
   },
   "he": {
     "param.dev.description": "מזהה התקן (מועדף).",
@@ -439,7 +499,13 @@
     "msg.power": "הספק: {val}",
     "msg.temperature": "טמפרטורה: {val}",
     "msg.type": "סוג: {dtype}",
-    "msg.unknown": "(לא ידוע)"
+    "msg.unknown": "(לא ידוע)",
+    "x_search_terms": [
+      "סטטוס ענן switchbot",
+      "switchbot_cloud_status",
+      "מתג-בוט",
+      "ענן"
+    ]
   },
   "hu": {
     "param.dev.description": "Eszköz azonosító (előnyben részesített).",
@@ -461,7 +527,13 @@
     "msg.power": "Tápellátás: {val}",
     "msg.temperature": "Hőmérséklet: {val}",
     "msg.type": "Típus: {dtype}",
-    "msg.unknown": "(ismeretlen)"
+    "msg.unknown": "(ismeretlen)",
+    "x_search_terms": [
+      "switchbot felhő állapot",
+      "switchbot_cloud_status",
+      "kapcsolóbot",
+      "felhő"
+    ]
   },
   "ro": {
     "param.dev.description": "ID dispozitiv (preferat).",
@@ -483,7 +555,13 @@
     "msg.power": "Alimentare: {val}",
     "msg.temperature": "Temperatură: {val}",
     "msg.type": "Tip: {dtype}",
-    "msg.unknown": "(necunoscut)"
+    "msg.unknown": "(necunoscut)",
+    "x_search_terms": [
+      "stare cloud switchbot",
+      "switchbot_cloud_status",
+      "comutator robot",
+      "nor"
+    ]
   },
   "nb": {
     "param.dev.description": "Enhets-ID (foretrukket).",
@@ -505,7 +583,13 @@
     "msg.power": "Strøm: {val}",
     "msg.temperature": "Temperatur: {val}",
     "msg.type": "種類: {dtype}",
-    "msg.unknown": "(ukjent)"
+    "msg.unknown": "(ukjent)",
+    "x_search_terms": [
+      "switchbot sky-status",
+      "switchbot_cloud_status",
+      "switchbot",
+      "sky"
+    ]
   },
   "nl": {
     "param.dev.description": "Apparaat-ID (voorkeur).",
@@ -527,7 +611,13 @@
     "msg.power": "Voeding: {val}",
     "msg.temperature": "Temperatuur: {val}",
     "msg.type": "種類: {dtype}",
-    "msg.unknown": "(onbekend)"
+    "msg.unknown": "(onbekend)",
+    "x_search_terms": [
+      "switchbot cloud-status",
+      "switchbot_cloud_status",
+      "schakelbot",
+      "wolk"
+    ]
   },
   "pl": {
     "param.dev.description": "Identyfikator urządzenia (preferowany).",
@@ -577,7 +667,13 @@
     "msg.power": "Energia: {val}",
     "msg.temperature": "Temperatura: {val}",
     "msg.type": "Tipo: {dtype}",
-    "msg.unknown": "(desconhecido)"
+    "msg.unknown": "(desconhecido)",
+    "x_search_terms": [
+      "estado cloud switchbot",
+      "switchbot_cloud_status",
+      "robô de comutação",
+      "nuvem"
+    ]
   },
   "pt_BR": {
     "param.dev.description": "ID do dispositivo (preferido).",
@@ -627,7 +723,13 @@
     "msg.power": "Питание: {val}",
     "msg.temperature": "Температура: {val}",
     "msg.type": "Тип: {dtype}",
-    "msg.unknown": "(неизвестно)"
+    "msg.unknown": "(неизвестно)",
+    "x_search_terms": [
+      "состояние облака switchbot",
+      "switchbot_cloud_status",
+      "switchbot",
+      "облако"
+    ]
   },
   "sv": {
     "param.dev.description": "Enhets-ID (föredraget).",
@@ -649,7 +751,13 @@
     "msg.power": "Ström: {val}",
     "msg.temperature": "Temperatur: {val}",
     "msg.type": "Typ: {dtype}",
-    "msg.unknown": "(okänd)"
+    "msg.unknown": "(okänd)",
+    "x_search_terms": [
+      "switchbot molnstatus",
+      "switchbot_cloud_status",
+      "switchbot",
+      "moln"
+    ]
   },
   "sw": {
     "param.dev.description": "Kitambulisho cha Kifaa (kinachopendekezwa).",
@@ -671,7 +779,13 @@
     "msg.power": "Nguvu: {val}",
     "msg.temperature": "Joto: {val}",
     "msg.type": "Aina: {dtype}",
-    "msg.unknown": "(haijulikani)"
+    "msg.unknown": "(haijulikani)",
+    "x_search_terms": [
+      "hali ya wingu la switchbot",
+      "switchbot_cloud_status",
+      "kubadili bot",
+      "wingu"
+    ]
   },
   "th": {
     "param.dev.description": "デバイスID（推奨）。",
@@ -693,7 +807,13 @@
     "msg.power": "電源: {val}",
     "msg.temperature": "温度: {val}",
     "msg.type": "種類: {dtype}",
-    "msg.unknown": "(不明)"
+    "msg.unknown": "(不明)",
+    "x_search_terms": [
+      "สถานะคลาวด์ switchbot",
+      "switchbot_cloud_status",
+      "สวิตช์บอท",
+      "คลาวด์"
+    ]
   },
   "tr": {
     "param.dev.description": "Cihaz kimliği (tercih edilen).",
@@ -715,7 +835,13 @@
     "msg.power": "Güç: {val}",
     "msg.temperature": "Sıcaklık: {val}",
     "msg.type": "Tür: {dtype}",
-    "msg.unknown": "(bilinmiyor)"
+    "msg.unknown": "(bilinmiyor)",
+    "x_search_terms": [
+      "switchbot bulut durumu",
+      "switchbot_cloud_status",
+      "anahtar bot",
+      "bulut"
+    ]
   },
   "uk": {
     "param.dev.description": "ID пристрою (пріоритетний).",
@@ -737,7 +863,13 @@
     "msg.power": "Живлення: {val}",
     "msg.temperature": "Температура: {val}",
     "msg.type": "Тип: {dtype}",
-    "msg.unknown": "(невідомо)"
+    "msg.unknown": "(невідомо)",
+    "x_search_terms": [
+      "стан хмари switchbot",
+      "switchbot_cloud_status",
+      "перемикач",
+      "хмара"
+    ]
   },
   "vi": {
     "param.dev.description": "ID thiết bị (ưu tiên).",
@@ -787,7 +919,13 @@
     "msg.power": "电源：{val}",
     "msg.temperature": "温度：{val}",
     "msg.type": "类型：{dtype}",
-    "msg.unknown": "（未知）"
+    "msg.unknown": "（未知）",
+    "x_search_terms": [
+      "switchbot 云状态",
+      "switchbot_cloud_status",
+      "开关机器人",
+      "云"
+    ]
   },
   "zh_TW": {
     "param.dev.description": "裝置 ID（優先）。",
@@ -809,6 +947,12 @@
     "msg.power": "電源：{val}",
     "msg.temperature": "溫度：{val}",
     "msg.type": "類型：{dtype}",
-    "msg.unknown": "（未知）"
+    "msg.unknown": "（未知）",
+    "x_search_terms": [
+      "switchbot 雲端狀態",
+      "switchbot_cloud_status",
+      "開關機器人",
+      "雲端"
+    ]
   }
 }

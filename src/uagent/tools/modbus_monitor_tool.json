@@ -38,7 +38,15 @@
     "param.fmt.description": "التنسيق: json أو نص.",
     "msg.summary": "شاشة Modbus: {count} التغيير (التغييرات) في {ms} مللي ثانية.",
     "msg.no_changes": "لم يتم اكتشاف أي تغييرات.",
-    "err.ip_required": "مطلوب الملكية الفكرية."
+    "err.ip_required": "مطلوب الملكية الفكرية.",
+    "x_search_terms": [
+      "مراقب modbus",
+      "modbus_monitor",
+      "مودبوس",
+      "مودبوس",
+      "سجلات",
+      "بشكل متكرر"
+    ]
   },
   "bn": {
     "tool.description": "পোল Modbus বারবার নিবন্ধন করে এবং পরিবর্তন সনাক্ত করে। সমস্ত শনাক্ত পরিবর্তনের একটি সারাংশ প্রদান করে।",
@@ -53,7 +61,15 @@
     "param.fmt.description": "বিন্যাস: json বা পাঠ্য।",
     "msg.summary": "মডবাস মনিটর: {ms} ms এ {count} পরিবর্তন(গুলি)",
     "msg.no_changes": "কোন পরিবর্তন সনাক্ত করা হয়নি.",
-    "err.ip_required": "আইপি প্রয়োজন।"
+    "err.ip_required": "আইপি প্রয়োজন।",
+    "x_search_terms": [
+      "modbus মনিটর",
+      "modbus_monitor",
+      "মডবাস",
+      "মডবাস",
+      "রেজিস্টার",
+      "বারবার"
+    ]
   },
   "cs": {
     "tool.description": "Poll Modbus se opakovaně registruje a detekuje změny. Vrátí souhrn všech zjištěných změn.",
@@ -68,7 +84,15 @@
     "param.fmt.description": "Formát: json nebo text.",
     "msg.summary": "Monitor Modbus: {count} změn za {ms} ms.",
     "msg.no_changes": "Nebyly zjištěny žádné změny.",
-    "err.ip_required": "IP je vyžadováno."
+    "err.ip_required": "IP je vyžadováno.",
+    "x_search_terms": [
+      "monitor modbus",
+      "modbus_monitor",
+      "modbus",
+      "MODBUS",
+      "registry",
+      "opakovaně"
+    ]
   },
   "de": {
     "tool.description": "Modbus-Register wiederholt abfragen und Änderungen erkennen. Gibt eine Zusammenfassung aller erkannten Änderungen zurück.",
@@ -83,7 +107,15 @@
     "param.fmt.description": "Format: JSON oder Text.",
     "msg.summary": "Modbus-Monitor: {count} Änderung(en) in {ms} ms.",
     "msg.no_changes": "Keine Änderungen festgestellt.",
-    "err.ip_required": "IP ist erforderlich."
+    "err.ip_required": "IP ist erforderlich.",
+    "x_search_terms": [
+      "Modbus-Monitor",
+      "modbus_monitor",
+      "Modbus",
+      "MODBUS",
+      "registriert",
+      "wiederholt"
+    ]
   },
   "el": {
     "tool.description": "Το Poll Modbus εγγράφεται επανειλημμένα και εντοπίζει αλλαγές. Επιστρέφει μια σύνοψη όλων των αλλαγών που εντοπίστηκαν.",
@@ -98,7 +130,15 @@
     "param.fmt.description": "Μορφή: json ή κείμενο.",
     "msg.summary": "Οθόνη Modbus: {count} αλλαγές σε {ms} ms.",
     "msg.no_changes": "Δεν εντοπίστηκαν αλλαγές.",
-    "err.ip_required": "απαιτείται ip."
+    "err.ip_required": "απαιτείται ip.",
+    "x_search_terms": [
+      "οθόνη modbus",
+      "modbus_monitor",
+      "modbus",
+      "MODBUS",
+      "καταχωρητές",
+      "επανειλημμένα"
+    ]
   },
   "es": {
     "tool.description": "Sondear los registros Modbus repetidamente y detectar cambios. Devuelve un resumen de todos los cambios detectados.",
@@ -136,7 +176,15 @@
     "param.fmt.description": "فرمت: json یا متن.",
     "msg.summary": "مانیتور مدباس: {count} تغییر در {ms} میلی ثانیه.",
     "msg.no_changes": "هیچ تغییری شناسایی نشد.",
-    "err.ip_required": "ip مورد نیاز است."
+    "err.ip_required": "ip مورد نیاز است.",
+    "x_search_terms": [
+      "نمایشگر modbus",
+      "modbus_monitor",
+      "مادباس",
+      "مادباس",
+      "رجیسترها",
+      "مکرراً"
+    ]
   },
   "fi": {
     "tool.description": "Poll Modbus rekisteröi toistuvasti ja havaitsee muutokset. Palauttaa yhteenvedon kaikista havaituista muutoksista.",
@@ -151,7 +199,15 @@
     "param.fmt.description": "Muoto: json tai teksti.",
     "msg.summary": "Modbus-monitori: {count} muutosta {ms} ms:ssa.",
     "msg.no_changes": "Muutoksia ei havaittu.",
-    "err.ip_required": "ip vaaditaan."
+    "err.ip_required": "ip vaaditaan.",
+    "x_search_terms": [
+      "modbus-näyttö",
+      "modbus_monitor",
+      "modbus",
+      "MODBUS",
+      "rekisterit",
+      "toistuvasti"
+    ]
   },
   "fr": {
     "tool.description": "Interrogez les enregistrements Modbus à plusieurs reprises et détectez les changements. Renvoie un résumé de toutes les modifications détectées.",
@@ -189,7 +245,15 @@
     "param.fmt.description": "פורמט: json או טקסט.",
     "msg.summary": "צג Modbus: {count} שינויים ב-{ms} אלפיות השנייה.",
     "msg.no_changes": "לא זוהו שינויים.",
-    "err.ip_required": "נדרש ip."
+    "err.ip_required": "נדרש ip.",
+    "x_search_terms": [
+      "צג modbus",
+      "modbus_monitor",
+      "מודבוס",
+      "מודבוס",
+      "רגיסטרים",
+      "שוב ושוב"
+    ]
   },
   "hi": {
     "tool.description": "पोल मोडबस बार-बार रजिस्टर करता है और परिवर्तनों का पता लगाता है। सभी ज्ञात परिवर्तनों का सारांश लौटाता है।",
@@ -204,7 +268,15 @@
     "param.fmt.description": "प्रारूप: json या text.",
     "msg.summary": "मोडबस मॉनिटर: {count} परिवर्तन {ms} एमएस में।",
     "msg.no_changes": "कोई परिवर्तन नहीं पाया गया.",
-    "err.ip_required": "आईपी ​​आवश्यक है."
+    "err.ip_required": "आईपी ​​आवश्यक है.",
+    "x_search_terms": [
+      "modbus मॉनिटर",
+      "modbus_monitor",
+      "मॉडबस",
+      "मॉडबस",
+      "रजिस्टर",
+      "बार-बार"
+    ]
   },
   "hu": {
     "tool.description": "A Modbus lekérdezése ismételten regisztrál, és észleli a változásokat. Az összes észlelt változás összegzését adja vissza.",
@@ -219,7 +291,15 @@
     "param.fmt.description": "Formátum: json vagy szöveg.",
     "msg.summary": "Modbus monitor: {count} változás {ms} ms alatt.",
     "msg.no_changes": "Nem észleltünk változást.",
-    "err.ip_required": "ip szükséges."
+    "err.ip_required": "ip szükséges.",
+    "x_search_terms": [
+      "modbus monitor",
+      "modbus_monitor",
+      "modbus",
+      "MODBUS",
+      "regiszterek",
+      "ismételten"
+    ]
   },
   "id": {
     "tool.description": "Poll Modbus mendaftar berulang kali dan mendeteksi perubahan. Mengembalikan ringkasan semua perubahan yang terdeteksi.",
@@ -326,7 +406,15 @@
     "param.fmt.description": "Формат: json эсвэл текст.",
     "msg.summary": "Modbus монитор: {ms} мс-д {count} өөрчлөлт.",
     "msg.no_changes": "Өөрчлөлт илрээгүй.",
-    "err.ip_required": "ip шаардлагатай."
+    "err.ip_required": "ip шаардлагатай.",
+    "x_search_terms": [
+      "modbus хяналтын самбар",
+      "modbus_monitor",
+      "модбус",
+      "модбус",
+      "регистрүүд",
+      "дахин дахин"
+    ]
   },
   "mr": {
     "tool.description": "पोल मॉडबस वारंवार नोंदणी करतो आणि बदल ओळखतो. सर्व आढळलेल्या बदलांचा सारांश देतो.",
@@ -341,7 +429,15 @@
     "param.fmt.description": "स्वरूप: json किंवा मजकूर.",
     "msg.summary": "मोडबस मॉनिटर: {count} {ms} ms मध्ये बदल",
     "msg.no_changes": "कोणतेही बदल आढळले नाहीत.",
-    "err.ip_required": "ip आवश्यक आहे."
+    "err.ip_required": "ip आवश्यक आहे.",
+    "x_search_terms": [
+      "modbus मॉनिटर",
+      "modbus_monitor",
+      "मॉडबस",
+      "मॉडबस",
+      "रजिस्टर",
+      "वारंवार"
+    ]
   },
   "nb": {
     "tool.description": "Poll Modbus registrerer gjentatte ganger og oppdager endringer. Returnerer et sammendrag av alle oppdagede endringer.",
@@ -356,7 +452,15 @@
     "param.fmt.description": "Format: json eller tekst.",
     "msg.summary": "Modbus-monitor: {count} endring(er) på {ms} ms.",
     "msg.no_changes": "Ingen endringer oppdaget.",
-    "err.ip_required": "ip kreves."
+    "err.ip_required": "ip kreves.",
+    "x_search_terms": [
+      "modbus overvåking",
+      "modbus_monitor",
+      "modbus",
+      "MODBUS",
+      "registre",
+      "gjentatte ganger"
+    ]
   },
   "nl": {
     "tool.description": "Poll Modbus registreert herhaaldelijk en detecteert veranderingen. Retourneert een samenvatting van alle gedetecteerde wijzigingen.",
@@ -371,7 +475,15 @@
     "param.fmt.description": "Formaat: json of tekst.",
     "msg.summary": "Modbus-monitor: {count} wijziging(en) in {ms} ms.",
     "msg.no_changes": "Geen wijzigingen gedetecteerd.",
-    "err.ip_required": "ip is vereist."
+    "err.ip_required": "ip is vereist.",
+    "x_search_terms": [
+      "modbus-monitor",
+      "modbus_monitor",
+      "modbus",
+      "MODBUS",
+      "registers",
+      "herhaaldelijk"
+    ]
   },
   "pl": {
     "tool.description": "Odpytywanie Modbus rejestruje się wielokrotnie i wykrywa zmiany. Zwraca podsumowanie wszystkich wykrytych zmian.",
@@ -409,7 +521,15 @@
     "param.fmt.description": "Formato: json ou texto.",
     "msg.summary": "Monitor Modbus: {count} alterações em {ms} ms.",
     "msg.no_changes": "Nenhuma alteração detectada.",
-    "err.ip_required": "ip é obrigatório."
+    "err.ip_required": "ip é obrigatório.",
+    "x_search_terms": [
+      "monitor modbus",
+      "modbus_monitor",
+      "modbus",
+      "MODBUS",
+      "registos",
+      "repetidamente"
+    ]
   },
   "pt_BR": {
     "tool.description": "Pesquise registros Modbus repetidamente e detecte alterações. Retorna um resumo de todas as alterações detectadas.",
@@ -447,7 +567,15 @@
     "param.fmt.description": "Format: json sau text.",
     "msg.summary": "Monitor Modbus: {count} modificare(i) în {ms} ms.",
     "msg.no_changes": "Nu au fost detectate modificări.",
-    "err.ip_required": "ip este necesar."
+    "err.ip_required": "ip este necesar.",
+    "x_search_terms": [
+      "monitor modbus",
+      "modbus_monitor",
+      "modbus",
+      "MODBUS",
+      "registre",
+      "repetat"
+    ]
   },
   "ru": {
     "tool.description": "Повторно опрашивайте регистры Modbus и обнаруживайте изменения. Возвращает сводку всех обнаруженных изменений.",
@@ -462,7 +590,15 @@
     "param.fmt.description": "Формат: json или текст.",
     "msg.summary": "Монитор Modbus: {count} изменений за {ms} мс.",
     "msg.no_changes": "Никаких изменений не обнаружено.",
-    "err.ip_required": "айпи обязателен."
+    "err.ip_required": "айпи обязателен.",
+    "x_search_terms": [
+      "монитор modbus",
+      "modbus_monitor",
+      "modbus",
+      "MODBUS",
+      "регистры",
+      "многократно"
+    ]
   },
   "sv": {
     "tool.description": "Poll Modbus registrerar upprepade gånger och upptäcker ändringar. Returnerar en sammanfattning av alla upptäckta ändringar.",
@@ -477,7 +613,15 @@
     "param.fmt.description": "Format: json eller text.",
     "msg.summary": "Modbus-monitor: {count} förändring(ar) på {ms} ms.",
     "msg.no_changes": "Inga ändringar upptäcktes.",
-    "err.ip_required": "ip krävs."
+    "err.ip_required": "ip krävs.",
+    "x_search_terms": [
+      "modbus monitor",
+      "modbus_monitor",
+      "modbus",
+      "MODBUS",
+      "register",
+      "upprepade gånger"
+    ]
   },
   "sw": {
     "tool.description": "Kura ya maoni ya Modbus husajili mara kwa mara na kugundua mabadiliko. Hurejesha muhtasari wa mabadiliko yote yaliyotambuliwa.",
@@ -492,7 +636,15 @@
     "param.fmt.description": "Umbizo: json au maandishi.",
     "msg.summary": "Kifuatiliaji cha Modbus: {count} mabadiliko katika ms {ms}.",
     "msg.no_changes": "Hakuna mabadiliko yaliyogunduliwa.",
-    "err.ip_required": "ip inahitajika."
+    "err.ip_required": "ip inahitajika.",
+    "x_search_terms": [
+      "kifuatiliaji cha modbus",
+      "modbus_monitor",
+      "modbus",
+      "MODBUS",
+      "rejesta",
+      "mara kwa mara"
+    ]
   },
   "th": {
     "tool.description": "Poll Modbus ลงทะเบียนซ้ำๆ และตรวจพบการเปลี่ยนแปลง ส่งคืนข้อมูลสรุปการเปลี่ยนแปลงที่ตรวจพบทั้งหมด",
@@ -507,7 +659,15 @@
     "param.fmt.description": "รูปแบบ: json หรือข้อความ",
     "msg.summary": "การตรวจสอบ Modbus: {count} การเปลี่ยนแปลงใน {ms} ms",
     "msg.no_changes": "ไม่พบการเปลี่ยนแปลง",
-    "err.ip_required": "จำเป็นต้องมีไอพี"
+    "err.ip_required": "จำเป็นต้องมีไอพี",
+    "x_search_terms": [
+      "มอนิเตอร์ modbus",
+      "modbus_monitor",
+      "มอดบัส",
+      "มอดบัส",
+      "รีจิสเตอร์",
+      "ซ้ำๆ"
+    ]
   },
   "tr": {
     "tool.description": "Modbus kayıtlarını tekrar tekrar sorgulayın ve değişiklikleri tespit edin. Algılanan tüm değişikliklerin bir özetini döndürür.",
@@ -522,7 +682,15 @@
     "param.fmt.description": "Biçim: json veya metin.",
     "msg.summary": "Modbus monitörü: {ms} ms'de {count} değişiklik.",
     "msg.no_changes": "Hiçbir değişiklik algılanmadı.",
-    "err.ip_required": "ip gereklidir."
+    "err.ip_required": "ip gereklidir.",
+    "x_search_terms": [
+      "modbus monitörü",
+      "modbus_monitor",
+      "modbus",
+      "MODBUS",
+      "kayıtlar",
+      "tekrar tekrar"
+    ]
   },
   "uk": {
     "tool.description": "Опитування Modbus реєструє багаторазово та виявляє зміни. Повертає зведення всіх виявлених змін.",
@@ -537,7 +705,15 @@
     "param.fmt.description": "Формат: json або текстовий.",
     "msg.summary": "Монітор Modbus: {count} змін за {ms} мс.",
     "msg.no_changes": "Змін не виявлено.",
-    "err.ip_required": "потрібен ip."
+    "err.ip_required": "потрібен ip.",
+    "x_search_terms": [
+      "монітор modbus",
+      "modbus_monitor",
+      "modbus",
+      "MODBUS",
+      "регістри",
+      "багаторазово"
+    ]
   },
   "vi": {
     "tool.description": "Thăm dò Modbus đăng ký nhiều lần và phát hiện các thay đổi. Trả về một bản tóm tắt của tất cả các thay đổi được phát hiện.",
@@ -575,7 +751,15 @@
     "param.fmt.description": "格式：json 或文本。",
     "msg.summary": "Modbus 监视器：{ms} 毫秒内 {count} 发生变化。",
     "msg.no_changes": "未检测到任何变化。",
-    "err.ip_required": "ip 是必需的。"
+    "err.ip_required": "ip 是必需的。",
+    "x_search_terms": [
+      "modbus 监视器",
+      "modbus_monitor",
+      "modbus",
+      "MODBUS",
+      "寄存器",
+      "重复"
+    ]
   },
   "zh_TW": {
     "tool.description": "重複輪詢 Modbus 寄存器並偵測變化。傳回所有偵測到的變更的摘要。",
@@ -590,6 +774,14 @@
     "param.fmt.description": "格式：json 或文字。",
     "msg.summary": "Modbus 監視器：{ms} 毫秒內 {count} 變化。",
     "msg.no_changes": "未偵測到任何變化。",
-    "err.ip_required": "ip 是必需的。"
+    "err.ip_required": "ip 是必需的。",
+    "x_search_terms": [
+      "modbus 監視器",
+      "modbus_monitor",
+      "modbus",
+      "MODBUS",
+      "暫存器",
+      "重複"
+    ]
   }
 }

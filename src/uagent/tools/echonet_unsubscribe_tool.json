@@ -26,7 +26,14 @@
     "msg.no_subscriptions": "لا توجد اشتراكات نشطة في ECHONET Lite.",
     "msg.header": "اشتراكات ECHONET Lite النشطة ({count}):",
     "msg.unsubscribed": "تم إلغاء اشتراك ECHONET Lite {id}.",
-    "err.id_required": "معرف المستمع مطلوب للإجراء = إلغاء الاشتراك."
+    "err.id_required": "معرف المستمع مطلوب للإجراء = إلغاء الاشتراك.",
+    "x_search_terms": [
+      "إلغاء اشتراك echonet",
+      "echonet_unsubscribe",
+      "إيكونت",
+      "إيكونت",
+      "إلغاء"
+    ]
   },
   "bn": {
     "tool.description": "listener_id দ্বারা একটি ECHONET Lite INF সাবস্ক্রিপশন বাতিল করুন বা সক্রিয় সদস্যতা তালিকাভুক্ত করুন।",
@@ -36,7 +43,14 @@
     "msg.no_subscriptions": "কোনো সক্রিয় ECHONET Lite সদস্যতা নেই৷",
     "msg.header": "সক্রিয় ECHONET Lite সদস্যতা ({count}):",
     "msg.unsubscribed": "ECHONET Lite সদস্যতা {id} বাতিল করা হয়েছে৷",
-    "err.id_required": "action=unsubscribe এর জন্য listener_id আবশ্যক।"
+    "err.id_required": "action=unsubscribe এর জন্য listener_id আবশ্যক।",
+    "x_search_terms": [
+      "echonet আনসাবস্ক্রাইব",
+      "echonet_unsubscribe",
+      "ইকোনেট",
+      "ইকোনেট",
+      "বাতিল"
+    ]
   },
   "cs": {
     "tool.description": "Zrušte předplatné ECHONET Lite INF pomocí listener_id nebo vypište aktivní předplatné.",
@@ -46,7 +60,14 @@
     "msg.no_subscriptions": "Žádné aktivní předplatné ECHONET Lite.",
     "msg.header": "Aktivní předplatná ECHONET Lite ({count}):",
     "msg.unsubscribed": "Předplatné ECHONET Lite {id} bylo zrušeno.",
-    "err.id_required": "Pro action=unsubscribe je vyžadováno listener_id."
+    "err.id_required": "Pro action=unsubscribe je vyžadováno listener_id.",
+    "x_search_terms": [
+      "echonet zrušit odběr",
+      "echonet_unsubscribe",
+      "echosíť",
+      "ECHONET",
+      "zrušit"
+    ]
   },
   "de": {
     "tool.description": "Kündigen Sie ein ECHONET Lite INF-Abonnement über listener_id oder listen Sie aktive Abonnements auf.",
@@ -56,7 +77,14 @@
     "msg.no_subscriptions": "Keine aktiven ECHONET Lite-Abonnements.",
     "msg.header": "Aktive ECHONET Lite-Abonnements ({count}):",
     "msg.unsubscribed": "ECHONET Lite-Abonnement {id} gekündigt.",
-    "err.id_required": "listener_id ist für action=unsubscribe erforderlich."
+    "err.id_required": "listener_id ist für action=unsubscribe erforderlich.",
+    "x_search_terms": [
+      "echonet abbestellen",
+      "echonet_unsubscribe",
+      "echonet",
+      "ECHONET",
+      "abbrechen"
+    ]
   },
   "el": {
     "tool.description": "Ακυρώστε μια συνδρομή ECHONET Lite INF από listener_id ή καταχωρίστε τις ενεργές συνδρομές.",
@@ -66,7 +94,14 @@
     "msg.no_subscriptions": "Δεν υπάρχουν ενεργές συνδρομές ECHONET Lite.",
     "msg.header": "Ενεργές συνδρομές ECHONET Lite ({count}):",
     "msg.unsubscribed": "Η συνδρομή ECHONET Lite {id} ακυρώθηκε.",
-    "err.id_required": "Το listener_id απαιτείται για action=unsubscribe."
+    "err.id_required": "Το listener_id απαιτείται για action=unsubscribe.",
+    "x_search_terms": [
+      "ακύρωση εγγραφής echonet",
+      "echonet_unsubscribe",
+      "echonet",
+      "ECHONET",
+      "ακύρωση"
+    ]
   },
   "es": {
     "tool.description": "Cancele una suscripción a ECHONET Lite INF mediante listener_id o enumere las suscripciones activas.",
@@ -93,7 +128,14 @@
     "msg.no_subscriptions": "اشتراک فعال ECHONET Lite وجود ندارد.",
     "msg.header": "اشتراک‌های فعال ECHONET Lite ({count}):",
     "msg.unsubscribed": "اشتراک ECHONET Lite {id} لغو شد.",
-    "err.id_required": "listener_id برای action=unsubscribe مورد نیاز است."
+    "err.id_required": "listener_id برای action=unsubscribe مورد نیاز است.",
+    "x_search_terms": [
+      "لغو اشتراک echonet",
+      "echonet_unsubscribe",
+      "اکونت",
+      "اکونت",
+      "لغو"
+    ]
   },
   "fi": {
     "tool.description": "Peruuta ECHONET Lite INF -tilaus kuuntelijan_tunnuksella tai luettele aktiiviset tilaukset.",
@@ -103,7 +145,14 @@
     "msg.no_subscriptions": "Ei aktiivisia ECHONET Lite -tilauksia.",
     "msg.header": "Aktiiviset ECHONET Lite -tilaukset ({count}):",
     "msg.unsubscribed": "ECHONET Lite -tilaus {id} peruutettu.",
-    "err.id_required": "listener_id vaaditaan action=unsubscribe."
+    "err.id_required": "listener_id vaaditaan action=unsubscribe.",
+    "x_search_terms": [
+      "echonet peruuta tilaus",
+      "echonet_unsubscribe",
+      "ekoverkko",
+      "ECHONET",
+      "peruuta"
+    ]
   },
   "fr": {
     "tool.description": "Annulez un abonnement ECHONET Lite INF par listening_id ou répertoriez les abonnements actifs.",
@@ -130,7 +179,14 @@
     "msg.no_subscriptions": "אין מנויים פעילים של ECHONET Lite.",
     "msg.header": "מנויי ECHONET Lite פעילים ({count}):",
     "msg.unsubscribed": "מנוי ECHONET Lite {id} בוטל.",
-    "err.id_required": "דרוש listener_id עבור action=unsubscribe."
+    "err.id_required": "דרוש listener_id עבור action=unsubscribe.",
+    "x_search_terms": [
+      "בטל הרשמה ל-echonet",
+      "echonet_unsubscribe",
+      "אקו-נט",
+      "אקו-נט",
+      "ביטול"
+    ]
   },
   "hi": {
     "tool.description": "श्रोता_आईडी द्वारा ECHONET Lite INF सदस्यता रद्द करें, या सक्रिय सदस्यताएँ सूचीबद्ध करें।",
@@ -140,7 +196,14 @@
     "msg.no_subscriptions": "कोई सक्रिय ECHONET लाइट सदस्यता नहीं।",
     "msg.header": "सक्रिय ECHONET लाइट सदस्यताएँ ({count}):",
     "msg.unsubscribed": "ECHONET लाइट सदस्यता {id} रद्द कर दी गई।",
-    "err.id_required": "कार्रवाई = सदस्यता समाप्त करने के लिए श्रोता_आईडी आवश्यक है।"
+    "err.id_required": "कार्रवाई = सदस्यता समाप्त करने के लिए श्रोता_आईडी आवश्यक है।",
+    "x_search_terms": [
+      "echonet अनसब्सक्राइब करें",
+      "echonet_unsubscribe",
+      "इकोनेट",
+      "इकोनेट",
+      "रद्द करें"
+    ]
   },
   "hu": {
     "tool.description": "Töröljön egy ECHONET Lite INF előfizetést a listener_id alapján, vagy sorolja fel az aktív előfizetéseket.",
@@ -150,7 +213,14 @@
     "msg.no_subscriptions": "Nincsenek aktív ECHONET Lite-előfizetések.",
     "msg.header": "Aktív ECHONET Lite előfizetések ({count}):",
     "msg.unsubscribed": "Az ECHONET Lite {id} előfizetése törölve.",
-    "err.id_required": "Az action=unsubscribe paraméterhez a listener_id megadása szükséges."
+    "err.id_required": "Az action=unsubscribe paraméterhez a listener_id megadása szükséges.",
+    "x_search_terms": [
+      "echonet leiratkozás",
+      "echonet_unsubscribe",
+      "echonet",
+      "ECHONET",
+      "visszavonás"
+    ]
   },
   "id": {
     "tool.description": "Batalkan langganan INF ECHONET Lite berdasarkan pendengar_id, atau daftarkan langganan aktif.",
@@ -228,7 +298,14 @@
     "msg.no_subscriptions": "Идэвхтэй ECHONET Lite захиалга алга.",
     "msg.header": "Идэвхтэй ECHONET Lite захиалга ({count}):",
     "msg.unsubscribed": "ECHONET Lite {id} захиалга цуцлагдсан.",
-    "err.id_required": "Үйлдэл=бүртгэлээ цуцлахад сонсогч_id шаардлагатай."
+    "err.id_required": "Үйлдэл=бүртгэлээ цуцлахад сонсогч_id шаардлагатай.",
+    "x_search_terms": [
+      "echonet бүртгэлээ цуцлах",
+      "echonet_unsubscribe",
+      "эхонет",
+      "эхонет",
+      "цуцлах"
+    ]
   },
   "mr": {
     "tool.description": "listener_id द्वारे ECHONET Lite INF सबस्क्रिप्शन रद्द करा किंवा सक्रिय सदस्यत्वांची यादी करा.",
@@ -238,7 +315,14 @@
     "msg.no_subscriptions": "कोणतीही सक्रिय ECHONET Lite सदस्यता नाहीत.",
     "msg.header": "सक्रिय ECHONET Lite सदस्यता ({count}):",
     "msg.unsubscribed": "ECHONET Lite सदस्यता {id} रद्द केली.",
-    "err.id_required": "action=unsubscribe साठी listener_id आवश्यक आहे."
+    "err.id_required": "action=unsubscribe साठी listener_id आवश्यक आहे.",
+    "x_search_terms": [
+      "echonet अनसबस्क्राइब",
+      "echonet_unsubscribe",
+      "इकोनेट",
+      "इकोनेट",
+      "रद्द करा"
+    ]
   },
   "nb": {
     "tool.description": "Avbryt et ECHONET Lite INF-abonnement med listener_id, eller oppgi aktive abonnementer.",
@@ -248,7 +332,14 @@
     "msg.no_subscriptions": "Ingen aktive ECHONET Lite-abonnementer.",
     "msg.header": "Aktive ECHONET Lite-abonnementer ({count}):",
     "msg.unsubscribed": "ECHONET Lite-abonnement {id} kansellert.",
-    "err.id_required": "listener_id kreves for action=unsubscribe."
+    "err.id_required": "listener_id kreves for action=unsubscribe.",
+    "x_search_terms": [
+      "echonet avslutt abonnement",
+      "echonet_unsubscribe",
+      "ekonett",
+      "ECHONET",
+      "avbryt"
+    ]
   },
   "nl": {
     "tool.description": "Annuleer een ECHONET Lite INF-abonnement via luisteraar_id of vermeld actieve abonnementen.",
@@ -258,7 +349,14 @@
     "msg.no_subscriptions": "Geen actieve ECHONET Lite-abonnementen.",
     "msg.header": "Actieve ECHONET Lite-abonnementen ({count}):",
     "msg.unsubscribed": "ECHONET Lite-abonnement {id} geannuleerd.",
-    "err.id_required": "luisteraar_id is vereist voor actie=afmelden."
+    "err.id_required": "luisteraar_id is vereist voor actie=afmelden.",
+    "x_search_terms": [
+      "echonet opzeggen",
+      "echonet_unsubscribe",
+      "echonet",
+      "ECHONET",
+      "annuleren"
+    ]
   },
   "pl": {
     "tool.description": "Anuluj subskrypcję ECHONET Lite INF za pomocą identyfikatora słuchacza lub wyświetl listę aktywnych subskrypcji.",
@@ -285,7 +383,14 @@
     "msg.no_subscriptions": "Nenhuma assinatura ativa do ECHONET Lite.",
     "msg.header": "Assinaturas ECHONET Lite ativas ({count}):",
     "msg.unsubscribed": "Assinatura do ECHONET Lite {id} cancelada.",
-    "err.id_required": "listener_id é necessário para action=unsubscribe."
+    "err.id_required": "listener_id é necessário para action=unsubscribe.",
+    "x_search_terms": [
+      "cancelar subscrição echonet",
+      "echonet_unsubscribe",
+      "econet",
+      "ECHONET",
+      "cancelar"
+    ]
   },
   "pt_BR": {
     "tool.description": "Cancele uma assinatura do ECHONET Lite INF por listener_id ou liste as assinaturas ativas.",
@@ -312,7 +417,14 @@
     "msg.no_subscriptions": "Nu există abonamente active ECHONET Lite.",
     "msg.header": "Abonamente ECHONET Lite active ({count}):",
     "msg.unsubscribed": "Abonamentul ECHONET Lite {id} a fost anulat.",
-    "err.id_required": "listener_id este necesar pentru action=unsubscribe."
+    "err.id_required": "listener_id este necesar pentru action=unsubscribe.",
+    "x_search_terms": [
+      "echonet dezabonare",
+      "echonet_unsubscribe",
+      "econet",
+      "ECHONET",
+      "anulare"
+    ]
   },
   "ru": {
     "tool.description": "Отмените подписку ECHONET Lite INF по Listener_id или перечислите активные подписки.",
@@ -322,7 +434,14 @@
     "msg.no_subscriptions": "Нет активных подписок ECHONET Lite.",
     "msg.header": "Активные подписки ECHONET Lite ({count}):",
     "msg.unsubscribed": "Подписка ECHONET Lite {id} отменена.",
-    "err.id_required": "Listener_id необходим для действия = отписаться."
+    "err.id_required": "Listener_id необходим для действия = отписаться.",
+    "x_search_terms": [
+      "отписаться от echonet",
+      "echonet_unsubscribe",
+      "эхосеть",
+      "ECHONET",
+      "отменить"
+    ]
   },
   "sv": {
     "tool.description": "Avsluta en ECHONET Lite INF-prenumeration med listener_id, eller lista aktiva prenumerationer.",
@@ -332,7 +451,14 @@
     "msg.no_subscriptions": "Inga aktiva ECHONET Lite-prenumerationer.",
     "msg.header": "Aktiva ECHONET Lite-prenumerationer ({count}):",
     "msg.unsubscribed": "ECHONET Lite-prenumeration {id} avbröts.",
-    "err.id_required": "listener_id krävs för action=unsubscribe."
+    "err.id_required": "listener_id krävs för action=unsubscribe.",
+    "x_search_terms": [
+      "echonet avsluta prenumeration",
+      "echonet_unsubscribe",
+      "ekonät",
+      "ECHONET",
+      "avbryt"
+    ]
   },
   "sw": {
     "tool.description": "Ghairi usajili wa ECHONET Lite INF kwa msikilizaji_id, au orodhesha usajili unaotumika.",
@@ -342,7 +468,14 @@
     "msg.no_subscriptions": "Hakuna usajili unaotumika wa ECHONET Lite.",
     "msg.header": "Usajili unaotumika wa ECHONET Lite ({count}):",
     "msg.unsubscribed": "Usajili wa ECHONET Lite {id} umeghairiwa.",
-    "err.id_required": "msikilizaji_id inahitajika kwa action=kujiondoa."
+    "err.id_required": "msikilizaji_id inahitajika kwa action=kujiondoa.",
+    "x_search_terms": [
+      "echonet jiondoe",
+      "echonet_unsubscribe",
+      "echonet",
+      "ECHONET",
+      "ghairi"
+    ]
   },
   "th": {
     "tool.description": "ยกเลิกการสมัครสมาชิก ECHONET Lite INF โดย Listener_id หรือแสดงรายการการสมัครสมาชิกที่ใช้งานอยู่",
@@ -352,7 +485,14 @@
     "msg.no_subscriptions": "ไม่มีการสมัครสมาชิก ECHONET Lite ที่ใช้งานอยู่",
     "msg.header": "การสมัครสมาชิก ECHONET Lite ที่ใช้งานอยู่ ({count}):",
     "msg.unsubscribed": "การสมัคร ECHONET Lite {id} ถูกยกเลิก",
-    "err.id_required": "Listener_id จำเป็นสำหรับ action=unsubscribe"
+    "err.id_required": "Listener_id จำเป็นสำหรับ action=unsubscribe",
+    "x_search_terms": [
+      "ยกเลิกการสมัคร echonet",
+      "echonet_unsubscribe",
+      "อีโค่เน็ต",
+      "อีโค่เน็ต",
+      "ยกเลิก"
+    ]
   },
   "tr": {
     "tool.description": "ECHONET Lite INF aboneliğini listener_id ile iptal edin veya aktif abonelikleri listeleyin.",
@@ -362,7 +502,14 @@
     "msg.no_subscriptions": "Aktif ECHONET Lite aboneliği yok.",
     "msg.header": "Aktif ECHONET Lite abonelikleri ({count}):",
     "msg.unsubscribed": "ECHONET Lite aboneliği {id} iptal edildi.",
-    "err.id_required": "action=aboneliği iptal etmek için listener_id gereklidir."
+    "err.id_required": "action=aboneliği iptal etmek için listener_id gereklidir.",
+    "x_search_terms": [
+      "echonet aboneliği iptal et",
+      "echonet_unsubscribe",
+      "eko ağ",
+      "ECONET",
+      "iptal"
+    ]
   },
   "uk": {
     "tool.description": "Скасуйте підписку на ECHONET Lite INF за ідентифікатором_слухача або перелікуйте активні підписки.",
@@ -372,7 +519,14 @@
     "msg.no_subscriptions": "Немає активних підписок на ECHONET Lite.",
     "msg.header": "Активні підписки на ECHONET Lite ({count}):",
     "msg.unsubscribed": "Підписку на ECHONET Lite {id} скасовано.",
-    "err.id_required": "listener_id необхідний для action=unsubscribe."
+    "err.id_required": "listener_id необхідний для action=unsubscribe.",
+    "x_search_terms": [
+      "відписатися від echonet",
+      "echonet_unsubscribe",
+      "ехомережа",
+      "ECHONET",
+      "скасувати"
+    ]
   },
   "vi": {
     "tool.description": "Hủy đăng ký ECHONET Lite INF theo listen_id hoặc liệt kê các đăng ký đang hoạt động.",
@@ -399,7 +553,14 @@
     "msg.no_subscriptions": "没有有效的 ECHONET Lite 订阅。",
     "msg.header": "有效的 ECHONET Lite 订阅 ({count})：",
     "msg.unsubscribed": "ECHONET Lite 订阅 {id} 已取消。",
-    "err.id_required": "action=unsubscribe 需要listener_id。"
+    "err.id_required": "action=unsubscribe 需要listener_id。",
+    "x_search_terms": [
+      "取消 echonet 订阅",
+      "echonet_unsubscribe",
+      "echonet",
+      "ECHONET",
+      "取消"
+    ]
   },
   "zh_TW": {
     "tool.description": "透過listener_id取消ECHONET Lite INF訂閱，或列出活動訂閱。",
@@ -409,6 +570,13 @@
     "msg.no_subscriptions": "沒有有效的 ECHONET Lite 訂閱。",
     "msg.header": "有效的 ECHONET Lite 訂閱 ({count})：",
     "msg.unsubscribed": "ECHONET Lite 訂閱 {id} 已取消。",
-    "err.id_required": "action=unsubscribe 需要listener_id。"
+    "err.id_required": "action=unsubscribe 需要listener_id。",
+    "x_search_terms": [
+      "取消 echonet 訂閱",
+      "echonet_unsubscribe",
+      "echonet",
+      "ECHONET",
+      "取消"
+    ]
   }
 }

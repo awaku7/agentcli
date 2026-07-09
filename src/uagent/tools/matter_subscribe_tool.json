@@ -24,7 +24,14 @@
     "param.cluster.description": "مرشح الكتلة (اختياري).",
     "param.attribute.description": "مرشح السمات (اختياري).",
     "param.duration.description": "مدة الاشتراك بالثواني (الافتراضي 3600).",
-    "param.fmt.description": "التنسيق: json أو نص."
+    "param.fmt.description": "التنسيق: json أو نص.",
+    "x_search_terms": [
+      "اشتراك المادة",
+      "matter_subscribe",
+      "مادة",
+      "مادة",
+      "تغييرات"
+    ]
   },
   "bn": {
     "tool.description": "একটি ম্যাটার ডিভাইসের অবস্থা পরিবর্তন সাবস্ক্রাইব করুন.",
@@ -34,7 +41,14 @@
     "param.cluster.description": "ক্লাস্টার ফিল্টার (ঐচ্ছিক)।",
     "param.attribute.description": "অ্যাট্রিবিউট ফিল্টার (ঐচ্ছিক)।",
     "param.duration.description": "সাবস্ক্রিপশনের সময়কাল সেকেন্ডে (ডিফল্ট 3600)।",
-    "param.fmt.description": "বিন্যাস: json বা পাঠ্য।"
+    "param.fmt.description": "বিন্যাস: json বা পাঠ্য।",
+    "x_search_terms": [
+      "বিষয় সাবস্ক্রাইব",
+      "matter_subscribe",
+      "বিষয়",
+      "বিষয়",
+      "পরিবর্তন"
+    ]
   },
   "cs": {
     "tool.description": "Přihlaste se k odběru změn stavu zařízení Matter.",
@@ -44,7 +58,14 @@
     "param.cluster.description": "Clusterový filtr (volitelné).",
     "param.attribute.description": "Filtr atributů (volitelné).",
     "param.duration.description": "Trvání předplatného v sekundách (výchozí 3600).",
-    "param.fmt.description": "Formát: json nebo text."
+    "param.fmt.description": "Formát: json nebo text.",
+    "x_search_terms": [
+      "hmota přihlásit se k odběru",
+      "matter_subscribe",
+      "hmota",
+      "HMOTA",
+      "změny"
+    ]
   },
   "de": {
     "tool.description": "Abonnieren Sie Statusänderungen eines Matter-Geräts.",
@@ -54,7 +75,14 @@
     "param.cluster.description": "Clusterfilter (optional).",
     "param.attribute.description": "Attributfilter (optional).",
     "param.duration.description": "Abonnementdauer in Sekunden (Standard 3600).",
-    "param.fmt.description": "Format: JSON oder Text."
+    "param.fmt.description": "Format: JSON oder Text.",
+    "x_search_terms": [
+      "Angelegenheit abonnieren",
+      "matter_subscribe",
+      "Angelegenheit",
+      "MATTER",
+      "Änderungen"
+    ]
   },
   "el": {
     "tool.description": "Εγγραφείτε στις αλλαγές κατάστασης μιας συσκευής Matter.",
@@ -64,7 +92,14 @@
     "param.cluster.description": "Φίλτρο συμπλέγματος (προαιρετικό).",
     "param.attribute.description": "Φίλτρο χαρακτηριστικών (προαιρετικό).",
     "param.duration.description": "Διάρκεια συνδρομής σε δευτερόλεπτα (προεπιλογή 3600).",
-    "param.fmt.description": "Μορφή: json ή κείμενο."
+    "param.fmt.description": "Μορφή: json ή κείμενο.",
+    "x_search_terms": [
+      "ύλη εγγραφή",
+      "matter_subscribe",
+      "ύλη",
+      "ΥΛΗ",
+      "αλλαγές"
+    ]
   },
   "es": {
     "tool.description": "Suscríbete a los cambios de estado de un dispositivo Matter.",
@@ -91,7 +126,14 @@
     "param.cluster.description": "فیلتر خوشه ای (اختیاری).",
     "param.attribute.description": "فیلتر ویژگی (اختیاری).",
     "param.duration.description": "مدت زمان اشتراک بر حسب ثانیه (پیش‌فرض 3600).",
-    "param.fmt.description": "فرمت: json یا متن."
+    "param.fmt.description": "فرمت: json یا متن.",
+    "x_search_terms": [
+      "اشتراک ماده",
+      "matter_subscribe",
+      "ماده",
+      "ماده",
+      "تغییرات"
+    ]
   },
   "fi": {
     "tool.description": "Tilaa Matter-laitteen tilan muutokset.",
@@ -101,7 +143,14 @@
     "param.cluster.description": "Klusterisuodatin (valinnainen).",
     "param.attribute.description": "Attribuuttisuodatin (valinnainen).",
     "param.duration.description": "Tilauksen kesto sekunneissa (oletus 3600).",
-    "param.fmt.description": "Muoto: json tai teksti."
+    "param.fmt.description": "Muoto: json tai teksti.",
+    "x_search_terms": [
+      "asia tilaa",
+      "matter_subscribe",
+      "asia",
+      "ASIA",
+      "muutokset"
+    ]
   },
   "fr": {
     "tool.description": "Abonnez-vous aux changements d'état d'un appareil Matter.",
@@ -128,7 +177,14 @@
     "param.cluster.description": "מסנן אשכול (אופציונלי).",
     "param.attribute.description": "מסנן תכונות (אופציונלי).",
     "param.duration.description": "משך המנוי בשניות (ברירת מחדל 3600).",
-    "param.fmt.description": "פורמט: json או טקסט."
+    "param.fmt.description": "פורמט: json או טקסט.",
+    "x_search_terms": [
+      "חומר הירשם",
+      "matter_subscribe",
+      "חומר",
+      "חומר",
+      "שינויים"
+    ]
   },
   "hi": {
     "tool.description": "किसी मैटर डिवाइस के राज्य परिवर्तनों की सदस्यता लें।",
@@ -138,7 +194,14 @@
     "param.cluster.description": "क्लस्टर फ़िल्टर (वैकल्पिक)।",
     "param.attribute.description": "विशेषता फ़िल्टर (वैकल्पिक).",
     "param.duration.description": "सदस्यता अवधि सेकंड में (डिफ़ॉल्ट 3600)।",
-    "param.fmt.description": "प्रारूप: json या text."
+    "param.fmt.description": "प्रारूप: json या text.",
+    "x_search_terms": [
+      "विषय सब्सक्राइब करें",
+      "matter_subscribe",
+      "विषय",
+      "विषय",
+      "परिवर्तन"
+    ]
   },
   "hu": {
     "tool.description": "Iratkozzon fel egy Matter eszköz állapotváltozásaira.",
@@ -148,7 +211,14 @@
     "param.cluster.description": "Fürtszűrő (opcionális).",
     "param.attribute.description": "Attribútumszűrő (opcionális).",
     "param.duration.description": "Az előfizetés időtartama másodpercben (alapértelmezett 3600).",
-    "param.fmt.description": "Formátum: json vagy szöveg."
+    "param.fmt.description": "Formátum: json vagy szöveg.",
+    "x_search_terms": [
+      "anyag feliratkozás",
+      "matter_subscribe",
+      "anyag",
+      "ANYAG",
+      "változások"
+    ]
   },
   "id": {
     "tool.description": "Berlangganan perubahan status perangkat Matter.",
@@ -226,7 +296,14 @@
     "param.cluster.description": "Кластер шүүлтүүр (заавал биш).",
     "param.attribute.description": "Аттрибут шүүлтүүр (заавал биш).",
     "param.duration.description": "Захиалгын үргэлжлэх хугацаа секундээр (өгөгдмөл 3600).",
-    "param.fmt.description": "Формат: json эсвэл текст."
+    "param.fmt.description": "Формат: json эсвэл текст.",
+    "x_search_terms": [
+      "асуудал бүртгүүлэх",
+      "matter_subscribe",
+      "асуудал",
+      "асуудал",
+      "өөрчлөлтүүд"
+    ]
   },
   "mr": {
     "tool.description": "मॅटर डिव्हाइसच्या स्थितीतील बदलांची सदस्यता घ्या.",
@@ -236,7 +313,14 @@
     "param.cluster.description": "क्लस्टर फिल्टर (पर्यायी).",
     "param.attribute.description": "विशेषता फिल्टर (पर्यायी).",
     "param.duration.description": "सदस्यता कालावधी सेकंदांमध्ये (डिफॉल्ट 3600).",
-    "param.fmt.description": "स्वरूप: json किंवा मजकूर."
+    "param.fmt.description": "स्वरूप: json किंवा मजकूर.",
+    "x_search_terms": [
+      "विषय सबस्क्राइब",
+      "matter_subscribe",
+      "विषय",
+      "विषय",
+      "बदल"
+    ]
   },
   "nb": {
     "tool.description": "Abonner på tilstandsendringer for en Matter-enhet.",
@@ -246,7 +330,14 @@
     "param.cluster.description": "Klyngefilter (valgfritt).",
     "param.attribute.description": "Attributtfilter (valgfritt).",
     "param.duration.description": "Abonnementsvarighet i sekunder (standard 3600).",
-    "param.fmt.description": "Format: json eller tekst."
+    "param.fmt.description": "Format: json eller tekst.",
+    "x_search_terms": [
+      "materie abonner",
+      "matter_subscribe",
+      "saken",
+      "MATTER",
+      "endringer"
+    ]
   },
   "nl": {
     "tool.description": "Abonneer u op statuswijzigingen van een Matter-apparaat.",
@@ -256,7 +347,14 @@
     "param.cluster.description": "Clusterfilter (optioneel).",
     "param.attribute.description": "Kenmerkfilter (optioneel).",
     "param.duration.description": "Abonnementsduur in seconden (standaard 3600).",
-    "param.fmt.description": "Formaat: json of tekst."
+    "param.fmt.description": "Formaat: json of tekst.",
+    "x_search_terms": [
+      "materie abonneren",
+      "matter_subscribe",
+      "materie",
+      "MATTER",
+      "wijzigingen"
+    ]
   },
   "pl": {
     "tool.description": "Subskrybuj zmiany stanu urządzenia Matter.",
@@ -283,7 +381,14 @@
     "param.cluster.description": "Filtro de cluster (opcional).",
     "param.attribute.description": "Filtro de atributos (opcional).",
     "param.duration.description": "Duração da assinatura em segundos (padrão 3600).",
-    "param.fmt.description": "Formato: json ou texto."
+    "param.fmt.description": "Formato: json ou texto.",
+    "x_search_terms": [
+      "assunto subscrever",
+      "assunto_subscribe",
+      "assunto",
+      "MATÉRIA",
+      "alterações"
+    ]
   },
   "pt_BR": {
     "tool.description": "Assine as mudanças de estado de um dispositivo Matter.",
@@ -310,7 +415,14 @@
     "param.cluster.description": "Filtru cluster (opțional).",
     "param.attribute.description": "Filtru de atribute (opțional).",
     "param.duration.description": "Durata abonamentului în secunde (implicit 3600).",
-    "param.fmt.description": "Format: json sau text."
+    "param.fmt.description": "Format: json sau text.",
+    "x_search_terms": [
+      "materie abonare",
+      "matter_subscribe",
+      "materie",
+      "MATERIE",
+      "modificări"
+    ]
   },
   "ru": {
     "tool.description": "Подпишитесь на изменения состояния устройства Материи.",
@@ -320,7 +432,14 @@
     "param.cluster.description": "Кластерный фильтр (опционально).",
     "param.attribute.description": "Фильтр атрибутов (необязательно).",
     "param.duration.description": "Продолжительность подписки в секундах (по умолчанию 3600).",
-    "param.fmt.description": "Формат: json или текст."
+    "param.fmt.description": "Формат: json или текст.",
+    "x_search_terms": [
+      "материя подписаться",
+      "matter_subscribe",
+      "материя",
+      "МАТЕРИЯ",
+      "изменения"
+    ]
   },
   "sv": {
     "tool.description": "Prenumerera på tillståndsändringar för en Matter-enhet.",
@@ -330,7 +449,14 @@
     "param.cluster.description": "Klusterfilter (tillval).",
     "param.attribute.description": "Attributfilter (valfritt).",
     "param.duration.description": "Abonnemangets varaktighet i sekunder (standard 3600).",
-    "param.fmt.description": "Format: json eller text."
+    "param.fmt.description": "Format: json eller text.",
+    "x_search_terms": [
+      "materia prenumerera",
+      "matter_subscribe",
+      "materia",
+      "MATTER",
+      "ändringar"
+    ]
   },
   "sw": {
     "tool.description": "Jisajili ili kubadilisha hali ya kifaa cha Matter.",
@@ -340,7 +466,14 @@
     "param.cluster.description": "Kichujio cha nguzo (hiari).",
     "param.attribute.description": "Kichujio cha sifa (si lazima).",
     "param.duration.description": "Muda wa usajili kwa sekunde (chaguo-msingi 3600).",
-    "param.fmt.description": "Umbizo: json au maandishi."
+    "param.fmt.description": "Umbizo: json au maandishi.",
+    "x_search_terms": [
+      "maada jiandikisha",
+      "matter_subscribe",
+      "maada",
+      "MAADA",
+      "mabadiliko"
+    ]
   },
   "th": {
     "tool.description": "สมัครรับการเปลี่ยนแปลงสถานะของอุปกรณ์ Matter",
@@ -350,7 +483,14 @@
     "param.cluster.description": "ตัวกรองคลัสเตอร์ (ไม่จำเป็น)",
     "param.attribute.description": "ตัวกรองแอตทริบิวต์ (ไม่บังคับ)",
     "param.duration.description": "ระยะเวลาการสมัครสมาชิกเป็นวินาที (ค่าเริ่มต้น 3600)",
-    "param.fmt.description": "รูปแบบ: json หรือข้อความ"
+    "param.fmt.description": "รูปแบบ: json หรือข้อความ",
+    "x_search_terms": [
+      "สสารสมัครสมาชิก",
+      "matter_subscribe",
+      "สสาร",
+      "สสาร",
+      "การเปลี่ยนแปลง"
+    ]
   },
   "tr": {
     "tool.description": "Bir Matter cihazının durum değişikliklerine abone olun.",
@@ -360,7 +500,14 @@
     "param.cluster.description": "Küme filtresi (isteğe bağlı).",
     "param.attribute.description": "Özellik filtresi (isteğe bağlı).",
     "param.duration.description": "Saniye cinsinden abonelik süresi (varsayılan 3600).",
-    "param.fmt.description": "Biçim: json veya metin."
+    "param.fmt.description": "Biçim: json veya metin.",
+    "x_search_terms": [
+      "madde abone ol",
+      "matter_subscribe",
+      "madde",
+      "MADDE",
+      "değişiklikler"
+    ]
   },
   "uk": {
     "tool.description": "Підпишіться на зміни стану пристрою Matter.",
@@ -370,7 +517,14 @@
     "param.cluster.description": "Кластерний фільтр (опціонально).",
     "param.attribute.description": "Фільтр атрибутів (необов'язково).",
     "param.duration.description": "Тривалість підписки в секундах (за замовчуванням 3600).",
-    "param.fmt.description": "Формат: json або текстовий."
+    "param.fmt.description": "Формат: json або текстовий.",
+    "x_search_terms": [
+      "матерія підписатися",
+      "matter_subscribe",
+      "матерія",
+      "МАТЕРІЯ",
+      "зміни"
+    ]
   },
   "vi": {
     "tool.description": "Đăng ký các thay đổi trạng thái của thiết bị Matter.",
@@ -397,7 +551,14 @@
     "param.cluster.description": "集群过滤器（可选）。",
     "param.attribute.description": "属性过滤器（可选）。",
     "param.duration.description": "订阅持续时间（以秒为单位）（默认 3600）。",
-    "param.fmt.description": "格式：json 或文本。"
+    "param.fmt.description": "格式：json 或文本。",
+    "x_search_terms": [
+      "物质订阅",
+      "matter_subscribe",
+      "物质",
+      "物质",
+      "变化"
+    ]
   },
   "zh_TW": {
     "tool.description": "訂閱 Matter 設備的狀態變化。",
@@ -407,6 +568,13 @@
     "param.cluster.description": "集群過濾器（可選）。",
     "param.attribute.description": "屬性過濾器（可選）。",
     "param.duration.description": "訂閱持續時間（以秒為單位）（預設 3600）。",
-    "param.fmt.description": "格式：json 或文字。"
+    "param.fmt.description": "格式：json 或文字。",
+    "x_search_terms": [
+      "物質訂閱",
+      "matter_subscribe",
+      "物質",
+      "物質",
+      "變更"
+    ]
   }
 }

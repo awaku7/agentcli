@@ -18,7 +18,14 @@
     "err.invalid_value_type": "حقل القيمة يجب أن يكون عددًا صحيحًا.",
     "err.operation_failed": "خطأ أثناء التحكم في SwitchBot Cloud: {err_msg}",
     "msg.error_fmt": "خطأ: {msg}",
-    "msg.unknown_error": "خطأ غير معروف"
+    "msg.unknown_error": "خطأ غير معروف",
+    "x_search_terms": [
+      "تحكم سحابة switchbot",
+      "switchbot_cloud_control",
+      "سويتش بوت",
+      "سحابة",
+      "عن بعد"
+    ]
   },
   "bn": {
     "param.action.description": "ক্রিয়া: on/off/open/close/set_value/lock/unlock।",
@@ -39,7 +46,14 @@
     "err.invalid_value_type": "value ফিল্ডটি একটি পূর্ণসংখ্যা হতে হবে।",
     "err.operation_failed": "SwitchBot Cloud নিয়ন্ত্রণের সময় ত্রুটি: {err_msg}",
     "msg.error_fmt": "ত্রুটি: {msg}",
-    "msg.unknown_error": "অজানা ত্রুটি"
+    "msg.unknown_error": "অজানা ত্রুটি",
+    "x_search_terms": [
+      "switchbot ক্লাউড নিয়ন্ত্রণ",
+      "switchbot_cloud_control",
+      "সুইচবট",
+      "মেঘ",
+      "দূরবর্তী"
+    ]
   },
   "cs": {
     "param.action.description": "Akce: on/off/open/close/set_value/lock/unlock.",
@@ -60,7 +74,14 @@
     "err.invalid_value_type": "Pole value musí být celé číslo.",
     "err.operation_failed": "Chyba během ovládání SwitchBot Cloud: {err_msg}",
     "msg.error_fmt": "Chyba: {msg}",
-    "msg.unknown_error": "neznámá chyba"
+    "msg.unknown_error": "neznámá chyba",
+    "x_search_terms": [
+      "ovládání cloudu switchbot",
+      "switchbot_cloud_control",
+      "přepínač",
+      "mrak",
+      "vzdálený"
+    ]
   },
   "de": {
     "param.action.description": "Aktion: on/off/open/close/set_value/lock/unlock.",
@@ -81,7 +102,14 @@
     "err.invalid_value_type": "Das Wertfeld muss eine ganze Zahl sein.",
     "err.operation_failed": "Fehler während der SwitchBot-Cloud-Steuerung: {err_msg}",
     "msg.error_fmt": "Fehler: {msg}",
-    "msg.unknown_error": "unbekannter Fehler"
+    "msg.unknown_error": "unbekannter Fehler",
+    "x_search_terms": [
+      "Switchbot-Cloud-Steuerung",
+      "switchbot_cloud_control",
+      "Switchbot",
+      "Wolke",
+      "entfernt"
+    ]
   },
   "en": {
     "param.action.description": "Action: on/off/open/close/set_value/lock/unlock.",
@@ -163,7 +191,14 @@
     "err.invalid_value_type": "مهلت باید بزرگتر از ۰ باشد.",
     "err.operation_failed": "کنترل SwitchBot Cloud تکمیل شد: {action} روی {device_name} ({device_id}).",
     "msg.error_fmt": "خطا در حین عملیات BLE: {err_msg}\n\n[راهنمای مجوزهای macOS]\nدسترسی بلوتوث ممکن است توسط محدودیت‌های امنیتی macOS رد شده باشد.\nلطفاً به 'تنظیمات سیستم > حریم خصوصی و امنیت > بلوتوث' بروید و اجازه دهید ترمینال، VS Code یا فرآیند پایتون شما به بلوتوث دسترسی داشته باشد.",
-    "msg.unknown_error": "خطا: {msg}"
+    "msg.unknown_error": "خطا: {msg}",
+    "x_search_terms": [
+      "کنترل ابری switchbot",
+      "switchbot_cloud_control",
+      "سوییچ‌بات",
+      "ابر",
+      "راه دور"
+    ]
   },
   "fi": {
     "param.action.description": "Toiminto: on/off/open/close/set_value/lock/unlock.",
@@ -184,7 +219,14 @@
     "err.invalid_value_type": "Arvokentän on oltava kokonaisluku.",
     "err.operation_failed": "Virhe SwitchBot Cloud -ohjauksen aikana: {err_msg}",
     "msg.error_fmt": "Virhe: {msg}",
-    "msg.unknown_error": "tuntematon virhe"
+    "msg.unknown_error": "tuntematon virhe",
+    "x_search_terms": [
+      "switchbot-pilviohjaus",
+      "switchbot_cloud_control",
+      "kytkinrobotti",
+      "pilvi",
+      "etä"
+    ]
   },
   "fr": {
     "param.action.description": "Action : on/off/open/close/set_value/lock/unlock.",
@@ -233,7 +275,14 @@
     "err.invalid_value_type": "value फ़ील्ड एक पूर्णांक होना चाहिए।",
     "err.operation_failed": "SwitchBot Cloud नियंत्रण के दौरान त्रुटि: {err_msg}",
     "msg.error_fmt": "त्रुटि: {msg}",
-    "msg.unknown_error": "अज्ञात त्रुटि"
+    "msg.unknown_error": "अज्ञात त्रुटि",
+    "x_search_terms": [
+      "switchbot क्लाउड नियंत्रण",
+      "switchbot_cloud_control",
+      "स्विचबॉट",
+      "बादल",
+      "दूरस्थ"
+    ]
   },
   "id": {
     "param.action.description": "Tindakan: on/off/open/close/set_value/lock/unlock.",
@@ -371,7 +420,14 @@
     "err.invalid_value_type": "Хугацаа 0-ээс их байх ёстой.",
     "err.operation_failed": "SwitchBot Cloud хяналт дуусгавар боллоо: {action} on {device_name} ({device_id}).",
     "msg.error_fmt": "BLE үйл ажиллагааны үед алдаа гарлаа: {err_msg}\n\n[macOS Зөвшөөрлийн Гарын Авлага]\nmacOS аюулгүй байдлын хязгаарлалтаар Bluetooth хандалтыг зөвшөөрөхгүй байж болно.\n'Системийн Тохиргоо > Нууцлал & Аюулгүй Байдал > Bluetooth' хэсгийг нээж, терминал, VS Code, эсвэл Python процесс тань Bluetooth-д хандахыг зөвшөөрсөн эсэхийг шалгана уу.",
-    "msg.unknown_error": "Алдаа: {msg}"
+    "msg.unknown_error": "Алдаа: {msg}",
+    "x_search_terms": [
+      "switchbot үүлэн хяналт",
+      "switchbot_cloud_control",
+      "свичбот",
+      "үүл",
+      "алсын"
+    ]
   },
   "mr": {
     "param.action.description": "कमाल वैशिष्ट्ये (० = अमर्यादित).",
@@ -392,7 +448,14 @@
     "err.invalid_value_type": "टाइमआउट ० पेक्षा मोठा असणे आवश्यक आहे.",
     "err.operation_failed": "SwitchBot Cloud नियंत्रण पूर्ण: {action} on {device_name} ({device_id}).",
     "msg.error_fmt": "BLE ऑपरेशन दरम्यान त्रुटी: {err_msg}\n\n[macOS परवानगी मार्गदर्शक]\nmacOS सुरक्षा निर्बंधांद्वारे ब्लूटूथ प्रवेश नाकारला गेला असावा.\nकृपया 'सिस्टम सेटिंग्ज > प्रायव्हसी आणि सिक्युरिटी > ब्लूटूथ' उघडा आणि तुमच्या टर्मिनल, VS Code, किंवा Python प्रक्रियेला ब्लूटूथमध्ये प्रवेश करण्याची परवानगी आहे याची खात्री करा.",
-    "msg.unknown_error": "त्रुटी: {msg}"
+    "msg.unknown_error": "त्रुटी: {msg}",
+    "x_search_terms": [
+      "switchbot क्लाउड नियंत्रण",
+      "switchbot_cloud_control",
+      "स्विचबॉट",
+      "ढग",
+      "दूरस्थ"
+    ]
   },
   "el": {
     "param.action.description": "Ενέργεια: on/off/open/close/set_value/lock/unlock.",
@@ -413,7 +476,14 @@
     "err.invalid_value_type": "Το πεδίο value πρέπει να είναι ακέραιος αριθμός.",
     "err.operation_failed": "Σφάλμα κατά τον έλεγχο SwitchBot Cloud: {err_msg}",
     "msg.error_fmt": "Σφάλμα: {msg}",
-    "msg.unknown_error": "άγνωστο σφάλμα"
+    "msg.unknown_error": "άγνωστο σφάλμα",
+    "x_search_terms": [
+      "έλεγχος cloud switchbot",
+      "switchbot_cloud_control",
+      "διακόπτης",
+      "σύννεφο",
+      "απομακρυσμένο"
+    ]
   },
   "he": {
     "param.action.description": "פעולה: on/off/open/close/set_value/lock/unlock.",
@@ -434,7 +504,14 @@
     "err.invalid_value_type": "שדה הערך חייב להיות מספר שלם.",
     "err.operation_failed": "שגיאה במהלך בקרת SwitchBot Cloud: {err_msg}",
     "msg.error_fmt": "שגיאה: {msg}",
-    "msg.unknown_error": "שגיאה לא ידועה"
+    "msg.unknown_error": "שגיאה לא ידועה",
+    "x_search_terms": [
+      "שליטת ענן switchbot",
+      "switchbot_cloud_control",
+      "מתג-בוט",
+      "ענן",
+      "מרחוק"
+    ]
   },
   "hu": {
     "param.action.description": "Művelet: on/off/open/close/set_value/lock/unlock.",
@@ -455,7 +532,14 @@
     "err.invalid_value_type": "A value mezőnek egész számnak kell lennie.",
     "err.operation_failed": "Hiba a SwitchBot Cloud vezérlés során: {err_msg}",
     "msg.error_fmt": "Hiba: {msg}",
-    "msg.unknown_error": "ismeretlen hiba"
+    "msg.unknown_error": "ismeretlen hiba",
+    "x_search_terms": [
+      "switchbot felhő vezérlés",
+      "switchbot_cloud_control",
+      "kapcsolóbot",
+      "felhő",
+      "távoli"
+    ]
   },
   "ro": {
     "param.action.description": "Acțiune: on/off/open/close/set_value/lock/unlock.",
@@ -476,7 +560,14 @@
     "err.invalid_value_type": "Câmpul value trebuie să fie un număr întreg.",
     "err.operation_failed": "Eroare în timpul controlului SwitchBot Cloud: {err_msg}",
     "msg.error_fmt": "Eroare: {msg}",
-    "msg.unknown_error": "eroare necunoscută"
+    "msg.unknown_error": "eroare necunoscută",
+    "x_search_terms": [
+      "control cloud switchbot",
+      "switchbot_cloud_control",
+      "comutator robot",
+      "nor",
+      "de la distanță"
+    ]
   },
   "nb": {
     "param.action.description": "Handling: på/av/åpen/lukk/sett_verdi/lås/opplås.",
@@ -497,7 +588,14 @@
     "err.invalid_value_type": "Feltet value må være et heltall.",
     "err.operation_failed": "Feil under SwitchBot Cloud-kontroll: {err_msg}",
     "msg.error_fmt": "Feil: {msg}",
-    "msg.unknown_error": "ukjent feil"
+    "msg.unknown_error": "ukjent feil",
+    "x_search_terms": [
+      "switchbot sky-kontroll",
+      "switchbot_cloud_control",
+      "switchbot",
+      "sky",
+      "ekstern"
+    ]
   },
   "nl": {
     "param.action.description": "Actie: on/off/open/close/set_value/lock/unlock.",
@@ -518,7 +616,14 @@
     "err.invalid_value_type": "Het veld 'value' moet een geheel getal zijn.",
     "err.operation_failed": "Fout tijdens SwitchBot Cloud-besturing: {err_msg}",
     "msg.error_fmt": "Fout: {msg}",
-    "msg.unknown_error": "onbekende fout"
+    "msg.unknown_error": "onbekende fout",
+    "x_search_terms": [
+      "switchbot cloud-controle",
+      "switchbot_cloud_control",
+      "schakelbot",
+      "wolk",
+      "extern"
+    ]
   },
   "pl": {
     "param.action.description": "Akcja: on/off/open/close/set_value/lock/unlock.",
@@ -567,7 +672,14 @@
     "err.invalid_value_type": "O campo value deve ser um número inteiro.",
     "err.operation_failed": "Erro durante o controlo SwitchBot Cloud: {err_msg}",
     "msg.error_fmt": "Erro: {msg}",
-    "msg.unknown_error": "erro desconhecido"
+    "msg.unknown_error": "erro desconhecido",
+    "x_search_terms": [
+      "controlo cloud switchbot",
+      "switchbot_cloud_control",
+      "robô de comutação",
+      "nuvem",
+      "remoto"
+    ]
   },
   "pt_BR": {
     "param.action.description": "Ação: on/off/open/close/set_value/lock/unlock.",
@@ -616,7 +728,14 @@
     "err.invalid_value_type": "Поле value должно быть целым числом.",
     "err.operation_failed": "Ошибка при управлении SwitchBot Cloud: {err_msg}",
     "msg.error_fmt": "Ошибка: {msg}",
-    "msg.unknown_error": "неизвестная ошибка"
+    "msg.unknown_error": "неизвестная ошибка",
+    "x_search_terms": [
+      "управление облаком switchbot",
+      "switchbot_cloud_control",
+      "switchbot",
+      "облако",
+      "удаленный"
+    ]
   },
   "sv": {
     "param.action.description": "Åtgärd: on/off/open/close/set_value/lock/unlock.",
@@ -637,7 +756,14 @@
     "err.invalid_value_type": "Fältet value måste vara ett heltal.",
     "err.operation_failed": "Fel under SwitchBot Cloud-kontroll: {err_msg}",
     "msg.error_fmt": "Fel: {msg}",
-    "msg.unknown_error": "okänt fel"
+    "msg.unknown_error": "okänt fel",
+    "x_search_terms": [
+      "switchbot molnstyrning",
+      "switchbot_cloud_control",
+      "switchbot",
+      "moln",
+      "fjärr"
+    ]
   },
   "sw": {
     "param.action.description": "Kitendo: on/off/open/close/set_value/lock/unlock.",
@@ -658,7 +784,14 @@
     "err.invalid_value_type": "Sehemu ya thamani lazima iwe nambari kamili.",
     "err.operation_failed": "Hitilafu wakati wa udhibiti wa SwitchBot Cloud: {err_msg}",
     "msg.error_fmt": "Hitilafu: {msg}",
-    "msg.unknown_error": "hitilafu isiyojulikana"
+    "msg.unknown_error": "hitilafu isiyojulikana",
+    "x_search_terms": [
+      "udhibiti wa wingu la switchbot",
+      "switchbot_cloud_control",
+      "kubadili bot",
+      "wingu",
+      "kijijini"
+    ]
   },
   "th": {
     "param.action.description": "アクション: on/off/open/close/set_value/lock/unlock。",
@@ -679,7 +812,14 @@
     "err.invalid_value_type": "The value field must be an integer.",
     "err.operation_failed": "Error during SwitchBot Cloud control: {err_msg}",
     "msg.error_fmt": "エラー: {msg}",
-    "msg.unknown_error": "不明なエラー"
+    "msg.unknown_error": "不明なエラー",
+    "x_search_terms": [
+      "ควบคุมคลาวด์ switchbot",
+      "switchbot_cloud_control",
+      "สวิตช์บอท",
+      "คลาวด์",
+      "ระยะไกล"
+    ]
   },
   "tr": {
     "param.action.description": "Eylem: on/off/open/close/set_value/lock/unlock.",
@@ -700,7 +840,14 @@
     "err.invalid_value_type": "Değer alanı bir tam sayı olmalıdır.",
     "err.operation_failed": "SwitchBot Cloud kontrolü sırasında hata: {err_msg}",
     "msg.error_fmt": "Hata: {msg}",
-    "msg.unknown_error": "bilinmeyen hata"
+    "msg.unknown_error": "bilinmeyen hata",
+    "x_search_terms": [
+      "switchbot bulut kontrolü",
+      "switchbot_cloud_control",
+      "anahtar bot",
+      "bulut",
+      "uzak"
+    ]
   },
   "uk": {
     "param.action.description": "Дія: on/off/open/close/set_value/lock/unlock.",
@@ -721,7 +868,14 @@
     "err.invalid_value_type": "Поле value має бути цілим числом.",
     "err.operation_failed": "Помилка під час керування SwitchBot Cloud: {err_msg}",
     "msg.error_fmt": "Помилка: {msg}",
-    "msg.unknown_error": "невідома помилка"
+    "msg.unknown_error": "невідома помилка",
+    "x_search_terms": [
+      "керування хмарою switchbot",
+      "switchbot_cloud_control",
+      "перемикач",
+      "хмара",
+      "віддалений"
+    ]
   },
   "vi": {
     "param.action.description": "Hành động: on/off/open/close/set_value/lock/unlock.",
@@ -770,7 +924,14 @@
     "err.invalid_value_type": "value字段必须是整数。",
     "err.operation_failed": "SwitchBot云控制期间出错：{err_msg}",
     "msg.error_fmt": "错误：{msg}",
-    "msg.unknown_error": "未知错误"
+    "msg.unknown_error": "未知错误",
+    "x_search_terms": [
+      "switchbot 云控制",
+      "switchbot_cloud_control",
+      "开关机器人",
+      "云",
+      "远程"
+    ]
   },
   "zh_TW": {
     "param.action.description": "動作：on/off/open/close/set_value/lock/unlock。",
@@ -791,6 +952,13 @@
     "err.invalid_value_type": "value 欄位必須為整數。",
     "err.operation_failed": "SwitchBot 雲端控制期間發生錯誤：{err_msg}",
     "msg.error_fmt": "錯誤：{msg}",
-    "msg.unknown_error": "未知錯誤"
+    "msg.unknown_error": "未知錯誤",
+    "x_search_terms": [
+      "switchbot 雲端控制",
+      "switchbot_cloud_control",
+      "開關機器人",
+      "雲端",
+      "遠端"
+    ]
   }
 }

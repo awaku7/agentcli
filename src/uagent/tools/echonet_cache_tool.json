@@ -62,7 +62,16 @@
     "msg.snapshot": "ECHONET cache snapshot: {count} item(s).",
     "msg.no_items": "No cached entries are present.",
     "msg.cleared": "Cleared {removed} cached entries from {scope}.",
-    "err.invalid_action": "Error: action must be 'snapshot' or 'clear'."
+    "err.invalid_action": "Error: action must be 'snapshot' or 'clear'.",
+    "x_search_terms": [
+      "ذاكرة تخزين مؤقت echonet",
+      "echonet_cache",
+      "إيكونت",
+      "إيكونت",
+      "تفتيش",
+      "مسح",
+      "مخبأ"
+    ]
   },
   "bn": {
     "tool.description": "Inspect or clear the shared ECHONET Lite cache.",
@@ -71,7 +80,16 @@
     "msg.snapshot": "ECHONET cache snapshot: {count} item(s).",
     "msg.no_items": "No cached entries are present.",
     "msg.cleared": "Cleared {removed} cached entries from {scope}.",
-    "err.invalid_action": "Error: action must be 'snapshot' or 'clear'."
+    "err.invalid_action": "Error: action must be 'snapshot' or 'clear'.",
+    "x_search_terms": [
+      "echonet ক্যাশে",
+      "echonet_cache",
+      "ইকোনেট",
+      "ইকোনেট",
+      "পরিদর্শন",
+      "পরিষ্কার",
+      "ক্যাশে করা"
+    ]
   },
   "cs": {
     "parameters": {
@@ -111,7 +129,16 @@
     "msg.snapshot": "ECHONET cache snapshot: {count} item(s).",
     "msg.no_items": "No cached entries are present.",
     "msg.cleared": "Cleared {removed} cached entries from {scope}.",
-    "err.invalid_action": "Error: action must be 'snapshot' or 'clear'."
+    "err.invalid_action": "Error: action must be 'snapshot' or 'clear'.",
+    "x_search_terms": [
+      "mezipaměť echonet",
+      "echonet_cache",
+      "echosíť",
+      "ECHONET",
+      "prozkoumat",
+      "jasný",
+      "uloženo do mezipaměti"
+    ]
   },
   "de": {
     "tool.description": "Inspect or clear the shared ECHONET Lite cache.",
@@ -120,7 +147,16 @@
     "msg.snapshot": "ECHONET cache snapshot: {count} item(s).",
     "msg.no_items": "No cached entries are present.",
     "msg.cleared": "Cleared {removed} cached entries from {scope}.",
-    "err.invalid_action": "Error: action must be 'snapshot' or 'clear'."
+    "err.invalid_action": "Error: action must be 'snapshot' or 'clear'.",
+    "x_search_terms": [
+      "Echonet-Cache",
+      "echonet_cache",
+      "echonet",
+      "ECHONET",
+      "inspizieren",
+      "klar",
+      "zwischengespeichert"
+    ]
   },
   "es": {
     "tool.description": "Inspect or clear the shared ECHONET Lite cache.",
@@ -147,7 +183,16 @@
     "msg.snapshot": "ECHONET cache snapshot: {count} item(s).",
     "msg.no_items": "No cached entries are present.",
     "msg.cleared": "Cleared {removed} cached entries from {scope}.",
-    "err.invalid_action": "Error: action must be 'snapshot' or 'clear'."
+    "err.invalid_action": "Error: action must be 'snapshot' or 'clear'.",
+    "x_search_terms": [
+      "کش echonet",
+      "echonet_cache",
+      "اکونت",
+      "اکونت",
+      "بازرسی",
+      "پاک",
+      "ذخیره شده در کش"
+    ]
   },
   "fi": {
     "tool.description": "Inspect or clear the shared ECHONET Lite cache.",
@@ -156,7 +201,16 @@
     "msg.snapshot": "ECHONET cache snapshot: {count} item(s).",
     "msg.no_items": "No cached entries are present.",
     "msg.cleared": "Cleared {removed} cached entries from {scope}.",
-    "err.invalid_action": "Error: action must be 'snapshot' or 'clear'."
+    "err.invalid_action": "Error: action must be 'snapshot' or 'clear'.",
+    "x_search_terms": [
+      "echonet-välimuisti",
+      "echonet_cache",
+      "ekoverkko",
+      "ECHONET",
+      "tarkasta",
+      "tyhjennä",
+      "välimuistitettu"
+    ]
   },
   "fr": {
     "tool.description": "Inspect or clear the shared ECHONET Lite cache.",
@@ -183,7 +237,16 @@
     "msg.snapshot": "ECHONET cache snapshot: {count} item(s).",
     "msg.no_items": "No cached entries are present.",
     "msg.cleared": "Cleared {removed} cached entries from {scope}.",
-    "err.invalid_action": "Error: action must be 'snapshot' or 'clear'."
+    "err.invalid_action": "Error: action must be 'snapshot' or 'clear'.",
+    "x_search_terms": [
+      "echonet कैश",
+      "echonet_cache",
+      "इकोनेट",
+      "इकोनेट",
+      "निरीक्षण करें",
+      "साफ़ करें",
+      "कैश किया गया"
+    ]
   },
   "it": {
     "tool.description": "Inspect or clear the shared ECHONET Lite cache.",
@@ -228,7 +291,16 @@
     "msg.snapshot": "ECHONET cache snapshot: {count} item(s).",
     "msg.no_items": "No cached entries are present.",
     "msg.cleared": "Cleared {removed} cached entries from {scope}.",
-    "err.invalid_action": "Error: action must be 'snapshot' or 'clear'."
+    "err.invalid_action": "Error: action must be 'snapshot' or 'clear'.",
+    "x_search_terms": [
+      "echonet кэш",
+      "echonet_cache",
+      "эхонет",
+      "эхонет",
+      "шалгах",
+      "цэвэрлэх",
+      "кэшлэгдсэн"
+    ]
   },
   "mr": {
     "tool.description": "Inspect or clear the shared ECHONET Lite cache.",
@@ -237,7 +309,16 @@
     "msg.snapshot": "ECHONET cache snapshot: {count} item(s).",
     "msg.no_items": "No cached entries are present.",
     "msg.cleared": "Cleared {removed} cached entries from {scope}.",
-    "err.invalid_action": "Error: action must be 'snapshot' or 'clear'."
+    "err.invalid_action": "Error: action must be 'snapshot' or 'clear'.",
+    "x_search_terms": [
+      "echonet कॅश",
+      "echonet_cache",
+      "इकोनेट",
+      "इकोनेट",
+      "तपासणी",
+      "साफ",
+      "कॅश केलेले"
+    ]
   },
   "el": {
     "tool.description": "Επιθεωρήστε ή εκκαθαρίστε την κοινόχρηστη προσωρινή μνήμη ECHONET Lite.",
@@ -246,7 +327,16 @@
     "msg.snapshot": "Στιγμιότυπο προσωρινής μνήμης ECHONET: {count} στοιχεία.",
     "msg.no_items": "Δεν υπάρχουν καταχωρήσεις προσωρινής αποθήκευσης.",
     "msg.cleared": "Διαγράφηκαν {removed} αποθηκευμένες καταχωρήσεις από το {scope}.",
-    "err.invalid_action": "Σφάλμα: η ενέργεια πρέπει να είναι \"στιγμιότυπο\" ή \"καθαρή\"."
+    "err.invalid_action": "Σφάλμα: η ενέργεια πρέπει να είναι \"στιγμιότυπο\" ή \"καθαρή\".",
+    "x_search_terms": [
+      "προσωρινή μνήμη echonet",
+      "echonet_cache",
+      "echonet",
+      "ECHONET",
+      "επιθεώρηση",
+      "καθαρό",
+      "αποθηκευμένο στην κρυφή μνήμη"
+    ]
   },
   "he": {
     "tool.description": "בדוק או נקה את המטמון המשותף של ECHONET Lite.",
@@ -255,7 +345,16 @@
     "msg.snapshot": "תמונת מצב של מטמון ECHONET: {count} פריטים.",
     "msg.no_items": "אין ערכים בקובץ שמור.",
     "msg.cleared": "ניקה {removed} ערכים במטמון מ-{scope}.",
-    "err.invalid_action": "שגיאה: הפעולה חייבת להיות 'תמונת מצב' או 'נקה'."
+    "err.invalid_action": "שגיאה: הפעולה חייבת להיות 'תמונת מצב' או 'נקה'.",
+    "x_search_terms": [
+      "מטמון echonet",
+      "echonet_cache",
+      "אקו-נט",
+      "אקו-נט",
+      "בדוק",
+      "נקה",
+      "נשמר במטמון"
+    ]
   },
   "hu": {
     "tool.description": "Vizsgálja meg vagy törölje a megosztott ECHONET Lite gyorsítótárat.",
@@ -264,7 +363,16 @@
     "msg.snapshot": "ECHONET gyorsítótár pillanatképe: {count} elem.",
     "msg.no_items": "Nincsenek gyorsítótárazott bejegyzések.",
     "msg.cleared": "{removed} gyorsítótárazott bejegyzés törlése a következőről: {scope}.",
-    "err.invalid_action": "Hiba: a műveletnek „pillanatfelvételnek” vagy „tisztának” kell lennie."
+    "err.invalid_action": "Hiba: a műveletnek „pillanatfelvételnek” vagy „tisztának” kell lennie.",
+    "x_search_terms": [
+      "echonet gyorsítótár",
+      "echonet_cache",
+      "echonet",
+      "ECHONET",
+      "ellenőriz",
+      "tiszta",
+      "gyorsítótárazott"
+    ]
   },
   "ro": {
     "tool.description": "Inspectați sau ștergeți memoria cache ECHONET Lite partajată.",
@@ -273,7 +381,16 @@
     "msg.snapshot": "Instantaneu cache ECHONET: {count} element(e).",
     "msg.no_items": "Nu sunt prezente intrări în cache.",
     "msg.cleared": "S-au șters {removed} intrări din cache din {scope}.",
-    "err.invalid_action": "Eroare: acțiunea trebuie să fie „instantaneu” sau „clear”."
+    "err.invalid_action": "Eroare: acțiunea trebuie să fie „instantaneu” sau „clear”.",
+    "x_search_terms": [
+      "cache echonet",
+      "echonet_cache",
+      "econet",
+      "ECHONET",
+      "inspectează",
+      "clar",
+      "stocat în cache"
+    ]
   },
   "nb": {
     "tool.description": "Inspect or clear the shared ECHONET Lite cache.",
@@ -282,7 +399,16 @@
     "msg.snapshot": "ECHONET cache snapshot: {count} item(s).",
     "msg.no_items": "No cached entries are present.",
     "msg.cleared": "Cleared {removed} cached entries from {scope}.",
-    "err.invalid_action": "Error: action must be 'snapshot' or 'clear'."
+    "err.invalid_action": "Error: action must be 'snapshot' or 'clear'.",
+    "x_search_terms": [
+      "echonet-cache",
+      "echonet_cache",
+      "ekonett",
+      "ECHONET",
+      "inspisere",
+      "klar",
+      "bufret"
+    ]
   },
   "nl": {
     "tool.description": "Inspect or clear the shared ECHONET Lite cache.",
@@ -291,7 +417,16 @@
     "msg.snapshot": "ECHONET cache snapshot: {count} item(s).",
     "msg.no_items": "No cached entries are present.",
     "msg.cleared": "Cleared {removed} cached entries from {scope}.",
-    "err.invalid_action": "Error: action must be 'snapshot' or 'clear'."
+    "err.invalid_action": "Error: action must be 'snapshot' or 'clear'.",
+    "x_search_terms": [
+      "echonet-cache",
+      "echonet_cache",
+      "echonet",
+      "ECHONET",
+      "inspecteren",
+      "duidelijk",
+      "in cache"
+    ]
   },
   "pl": {
     "tool.description": "Inspect or clear the shared ECHONET Lite cache.",
@@ -318,7 +453,16 @@
     "msg.snapshot": "ECHONET cache snapshot: {count} item(s).",
     "msg.no_items": "No cached entries are present.",
     "msg.cleared": "Cleared {removed} cached entries from {scope}.",
-    "err.invalid_action": "Error: action must be 'snapshot' or 'clear'."
+    "err.invalid_action": "Error: action must be 'snapshot' or 'clear'.",
+    "x_search_terms": [
+      "cache echonet",
+      "echonet_cache",
+      "econet",
+      "ECHONET",
+      "inspecionar",
+      "limpar",
+      "cache"
+    ]
   },
   "pt_BR": {
     "tool.description": "Inspect or clear the shared ECHONET Lite cache.",
@@ -345,7 +489,16 @@
     "msg.snapshot": "ECHONET cache snapshot: {count} item(s).",
     "msg.no_items": "No cached entries are present.",
     "msg.cleared": "Cleared {removed} cached entries from {scope}.",
-    "err.invalid_action": "Error: action must be 'snapshot' or 'clear'."
+    "err.invalid_action": "Error: action must be 'snapshot' or 'clear'.",
+    "x_search_terms": [
+      "кэш echonet",
+      "echonet_cache",
+      "эхосеть",
+      "ECHONET",
+      "осмотреть",
+      "очистить",
+      "кэшировано"
+    ]
   },
   "sv": {
     "tool.description": "Inspect or clear the shared ECHONET Lite cache.",
@@ -354,7 +507,16 @@
     "msg.snapshot": "ECHONET cache snapshot: {count} item(s).",
     "msg.no_items": "No cached entries are present.",
     "msg.cleared": "Cleared {removed} cached entries from {scope}.",
-    "err.invalid_action": "Error: action must be 'snapshot' or 'clear'."
+    "err.invalid_action": "Error: action must be 'snapshot' or 'clear'.",
+    "x_search_terms": [
+      "echonet cache",
+      "echonet_cache",
+      "ekonät",
+      "ECHONET",
+      "inspektera",
+      "rensa",
+      "cachade"
+    ]
   },
   "sw": {
     "tool.description": "Inspect or clear the shared ECHONET Lite cache.",
@@ -363,7 +525,16 @@
     "msg.snapshot": "ECHONET cache snapshot: {count} item(s).",
     "msg.no_items": "No cached entries are present.",
     "msg.cleared": "Cleared {removed} cached entries from {scope}.",
-    "err.invalid_action": "Error: action must be 'snapshot' or 'clear'."
+    "err.invalid_action": "Error: action must be 'snapshot' or 'clear'.",
+    "x_search_terms": [
+      "akiba ya echonet",
+      "echonet_cache",
+      "echonet",
+      "ECHONET",
+      "kagua",
+      "wazi",
+      "kwenye akiba"
+    ]
   },
   "th": {
     "tool.description": "Inspect or clear the shared ECHONET Lite cache.",
@@ -372,7 +543,16 @@
     "msg.snapshot": "ECHONET cache snapshot: {count} item(s).",
     "msg.no_items": "No cached entries are present.",
     "msg.cleared": "Cleared {removed} cached entries from {scope}.",
-    "err.invalid_action": "Error: action must be 'snapshot' or 'clear'."
+    "err.invalid_action": "Error: action must be 'snapshot' or 'clear'.",
+    "x_search_terms": [
+      "แคช echonet",
+      "echonet_cache",
+      "อีโค่เน็ต",
+      "อีโค่เน็ต",
+      "ตรวจสอบ",
+      "ล้าง",
+      "ถูกแคช"
+    ]
   },
   "tr": {
     "tool.description": "Inspect or clear the shared ECHONET Lite cache.",
@@ -381,7 +561,16 @@
     "msg.snapshot": "ECHONET cache snapshot: {count} item(s).",
     "msg.no_items": "No cached entries are present.",
     "msg.cleared": "Cleared {removed} cached entries from {scope}.",
-    "err.invalid_action": "Error: action must be 'snapshot' or 'clear'."
+    "err.invalid_action": "Error: action must be 'snapshot' or 'clear'.",
+    "x_search_terms": [
+      "echonet önbelleği",
+      "echonet_cache",
+      "eko ağ",
+      "ECONET",
+      "denetlemek",
+      "temiz",
+      "önbelleğe alındı"
+    ]
   },
   "uk": {
     "tool.description": "Inspect or clear the shared ECHONET Lite cache.",
@@ -390,7 +579,16 @@
     "msg.snapshot": "ECHONET cache snapshot: {count} item(s).",
     "msg.no_items": "No cached entries are present.",
     "msg.cleared": "Cleared {removed} cached entries from {scope}.",
-    "err.invalid_action": "Error: action must be 'snapshot' or 'clear'."
+    "err.invalid_action": "Error: action must be 'snapshot' or 'clear'.",
+    "x_search_terms": [
+      "кеш echonet",
+      "echonet_cache",
+      "ехомережа",
+      "ECHONET",
+      "оглянути",
+      "очистити",
+      "кешовано"
+    ]
   },
   "vi": {
     "tool.description": "Inspect or clear the shared ECHONET Lite cache.",
@@ -417,7 +615,16 @@
     "msg.snapshot": "ECHONET cache snapshot: {count} item(s).",
     "msg.no_items": "No cached entries are present.",
     "msg.cleared": "Cleared {removed} cached entries from {scope}.",
-    "err.invalid_action": "Error: action must be 'snapshot' or 'clear'."
+    "err.invalid_action": "Error: action must be 'snapshot' or 'clear'.",
+    "x_search_terms": [
+      "echonet 缓存",
+      "echonet_cache",
+      "echonet",
+      "ECHONET",
+      "检查",
+      "清除",
+      "已缓存"
+    ]
   },
   "zh_TW": {
     "tool.description": "Inspect or clear the shared ECHONET Lite cache.",
@@ -426,6 +633,15 @@
     "msg.snapshot": "ECHONET cache snapshot: {count} item(s).",
     "msg.no_items": "No cached entries are present.",
     "msg.cleared": "Cleared {removed} cached entries from {scope}.",
-    "err.invalid_action": "Error: action must be 'snapshot' or 'clear'."
+    "err.invalid_action": "Error: action must be 'snapshot' or 'clear'.",
+    "x_search_terms": [
+      "echonet 快取",
+      "echonet_cache",
+      "echonet",
+      "ECHONET",
+      "檢查",
+      "清除",
+      "已快取"
+    ]
   }
 }

@@ -26,7 +26,14 @@
     "param.fmt.description": "التنسيق: json أو نص.",
     "msg.subscribed": "اشتراك OPC UA نشط: المعرف={id}، {label}",
     "err.url_required": "مطلوب عنوان URL.",
-    "err.node_id_required": "مطلوب معرف العقدة."
+    "err.node_id_required": "مطلوب معرف العقدة.",
+    "x_search_terms": [
+      "اشتراك opcua",
+      "opcua_subscribe",
+      "أوبكوا",
+      "أوبكوا",
+      "تغييرات"
+    ]
   },
   "bn": {
     "tool.description": "একটি OPC UA সার্ভার নোডে ডেটা পরিবর্তনের জন্য সদস্যতা নিন। যখন মান পরিবর্তন হয়, এলএলএম স্বয়ংক্রিয়ভাবে অবহিত হয়।",
@@ -37,7 +44,14 @@
     "param.fmt.description": "বিন্যাস: json বা পাঠ্য।",
     "msg.subscribed": "OPC UA সদস্যতা সক্রিয়: id={id}, {label}",
     "err.url_required": "url আবশ্যক।",
-    "err.node_id_required": "node_id প্রয়োজন।"
+    "err.node_id_required": "node_id প্রয়োজন।",
+    "x_search_terms": [
+      "opcua সাবস্ক্রাইব",
+      "opcua_subscribe",
+      "ওপিসিউএ",
+      "ওপিসিউএ",
+      "পরিবর্তন"
+    ]
   },
   "cs": {
     "tool.description": "Přihlaste se k odběru změn dat na uzlu serveru OPC UA. Když se hodnota změní, LLM je automaticky informován.",
@@ -48,7 +62,14 @@
     "param.fmt.description": "Formát: json nebo text.",
     "msg.subscribed": "Aktivní předplatné OPC UA: id={id}, {label}",
     "err.url_required": "adresa URL je povinná.",
-    "err.node_id_required": "node_id je povinné."
+    "err.node_id_required": "node_id je povinné.",
+    "x_search_terms": [
+      "opcua přihlásit se k odběru",
+      "opcua_subscribe",
+      "opcua",
+      "OPCUA",
+      "změny"
+    ]
   },
   "de": {
     "tool.description": "Abonnieren Sie Datenänderungen auf einem OPC UA-Serverknoten. Wenn sich der Wert ändert, wird das LLM automatisch benachrichtigt.",
@@ -59,7 +80,14 @@
     "param.fmt.description": "Format: JSON oder Text.",
     "msg.subscribed": "OPC UA-Abonnement aktiv: id={id}, {label}",
     "err.url_required": "URL ist erforderlich.",
-    "err.node_id_required": "node_id ist erforderlich."
+    "err.node_id_required": "node_id ist erforderlich.",
+    "x_search_terms": [
+      "opcua abonnieren",
+      "opcua_subscribe",
+      "opcua",
+      "OPCUA",
+      "Änderungen"
+    ]
   },
   "el": {
     "tool.description": "Εγγραφείτε σε αλλαγές δεδομένων σε έναν κόμβο διακομιστή OPC UA. Όταν αλλάξει η τιμή, το LLM ειδοποιείται αυτόματα.",
@@ -70,7 +98,14 @@
     "param.fmt.description": "Μορφή: json ή κείμενο.",
     "msg.subscribed": "Ενεργή συνδρομή OPC UA: id={id}, {label}",
     "err.url_required": "url απαιτείται.",
-    "err.node_id_required": "node_id απαιτείται."
+    "err.node_id_required": "node_id απαιτείται.",
+    "x_search_terms": [
+      "opcua εγγραφή",
+      "opcua_subscribe",
+      "opcua",
+      "OPCUA",
+      "αλλαγές"
+    ]
   },
   "es": {
     "tool.description": "Suscríbase a los cambios de datos en un nodo del servidor OPC UA. Cuando el valor cambia, se notifica automáticamente al LLM.",
@@ -99,7 +134,14 @@
     "param.fmt.description": "فرمت: json یا متن.",
     "msg.subscribed": "اشتراک OPC UA فعال: id={id}، {label}",
     "err.url_required": "آدرس اینترنتی مورد نیاز است.",
-    "err.node_id_required": "node_id مورد نیاز است."
+    "err.node_id_required": "node_id مورد نیاز است.",
+    "x_search_terms": [
+      "اشتراک opcua",
+      "opcua_subscribe",
+      "اوپسیوآ",
+      "اوپسیوآ",
+      "تغییرات"
+    ]
   },
   "fi": {
     "tool.description": "Tilaa tietojen muutokset OPC UA -palvelinsolmussa. Kun arvo muuttuu, LLM:lle ilmoitetaan automaattisesti.",
@@ -110,7 +152,14 @@
     "param.fmt.description": "Muoto: json tai teksti.",
     "msg.subscribed": "OPC UA -tilaus aktiivinen: id={id}, {label}",
     "err.url_required": "url vaaditaan.",
-    "err.node_id_required": "solmutunnus vaaditaan."
+    "err.node_id_required": "solmutunnus vaaditaan.",
+    "x_search_terms": [
+      "opcua tilaa",
+      "opcua_subscribe",
+      "opcua",
+      "OPCUA",
+      "muutokset"
+    ]
   },
   "fr": {
     "tool.description": "Abonnez-vous aux modifications de données sur un nœud de serveur OPC UA. Lorsque la valeur change, le LLM est automatiquement averti.",
@@ -139,7 +188,14 @@
     "param.fmt.description": "פורמט: json או טקסט.",
     "msg.subscribed": "מנוי OPC UA פעיל: id={id}, {label}",
     "err.url_required": "נדרשת כתובת URL.",
-    "err.node_id_required": "נדרש node_id."
+    "err.node_id_required": "נדרש node_id.",
+    "x_search_terms": [
+      "opcua הירשם",
+      "opcua_subscribe",
+      "opcua",
+      "OPCUA",
+      "שינויים"
+    ]
   },
   "hi": {
     "tool.description": "ओपीसी यूए सर्वर नोड पर डेटा परिवर्तन की सदस्यता लें। जब मान बदलता है, तो एलएलएम स्वचालित रूप से सूचित हो जाता है।",
@@ -150,7 +206,14 @@
     "param.fmt.description": "प्रारूप: json या text.",
     "msg.subscribed": "OPC UA सदस्यता सक्रिय: id={id}, {label}",
     "err.url_required": "यूआरएल आवश्यक है.",
-    "err.node_id_required": "नोड_आईडी आवश्यक है."
+    "err.node_id_required": "नोड_आईडी आवश्यक है.",
+    "x_search_terms": [
+      "opcua सब्सक्राइब करें",
+      "opcua_subscribe",
+      "ओपीसीयूए",
+      "ओपीसीयूए",
+      "परिवर्तन"
+    ]
   },
   "hu": {
     "tool.description": "Iratkozzon fel az OPC UA kiszolgáló csomópontjának adatváltozásaira. Ha az érték megváltozik, az LLM automatikusan értesítést kap.",
@@ -161,7 +224,14 @@
     "param.fmt.description": "Formátum: json vagy szöveg.",
     "msg.subscribed": "Aktív OPC UA-előfizetés: id={id}, {label}",
     "err.url_required": "url megadása kötelező.",
-    "err.node_id_required": "node_id szükséges."
+    "err.node_id_required": "node_id szükséges.",
+    "x_search_terms": [
+      "opcua feliratkozás",
+      "opcua_subscribe",
+      "opcua",
+      "OPCUA",
+      "változások"
+    ]
   },
   "id": {
     "tool.description": "Berlangganan perubahan data pada node server OPC UA. Ketika nilainya berubah, LLM secara otomatis diberitahu.",
@@ -244,7 +314,14 @@
     "param.fmt.description": "Формат: json эсвэл текст.",
     "msg.subscribed": "OPC UA захиалга идэвхтэй: id={id}, {label}",
     "err.url_required": "url шаардлагатай.",
-    "err.node_id_required": "node_id шаардлагатай."
+    "err.node_id_required": "node_id шаардлагатай.",
+    "x_search_terms": [
+      "opcua бүртгүүлэх",
+      "opcua_subscribe",
+      "опкюа",
+      "опкюа",
+      "өөрчлөлтүүд"
+    ]
   },
   "mr": {
     "tool.description": "OPC UA सर्व्हर नोडवर डेटा बदलांची सदस्यता घ्या. जेव्हा मूल्य बदलते, तेव्हा LLM स्वयंचलितपणे सूचित केले जाते.",
@@ -255,7 +332,14 @@
     "param.fmt.description": "स्वरूप: json किंवा मजकूर.",
     "msg.subscribed": "OPC UA सदस्यता सक्रिय: id={id}, {label}",
     "err.url_required": "url आवश्यक आहे.",
-    "err.node_id_required": "node_id आवश्यक आहे."
+    "err.node_id_required": "node_id आवश्यक आहे.",
+    "x_search_terms": [
+      "opcua सबस्क्राइब",
+      "opcua_subscribe",
+      "ओपीसीयूए",
+      "ओपीसीयूए",
+      "बदल"
+    ]
   },
   "nb": {
     "tool.description": "Abonner på dataendringer på en OPC UA-servernode. Når verdien endres, blir LLM automatisk varslet.",
@@ -266,7 +350,14 @@
     "param.fmt.description": "Format: json eller tekst.",
     "msg.subscribed": "OPC UA-abonnement aktivt: id={id}, {label}",
     "err.url_required": "url er påkrevd.",
-    "err.node_id_required": "node_id kreves."
+    "err.node_id_required": "node_id kreves.",
+    "x_search_terms": [
+      "opcua abonner",
+      "opcua_subscribe",
+      "opcua",
+      "OPCUA",
+      "endringer"
+    ]
   },
   "nl": {
     "tool.description": "Abonneer u op gegevenswijzigingen op een OPC UA-serverknooppunt. Wanneer de waarde verandert, wordt de LLM automatisch op de hoogte gebracht.",
@@ -277,7 +368,14 @@
     "param.fmt.description": "Formaat: json of tekst.",
     "msg.subscribed": "OPC UA-abonnement actief: id={id}, {label}",
     "err.url_required": "URL is vereist.",
-    "err.node_id_required": "node_id is vereist."
+    "err.node_id_required": "node_id is vereist.",
+    "x_search_terms": [
+      "opcua abonneren",
+      "opcua_subscribe",
+      "opcua",
+      "OPCUA",
+      "wijzigingen"
+    ]
   },
   "pl": {
     "tool.description": "Subscribe to data changes on an OPC UA server node. Gdy wartość się zmieni, LLM zostanie automatycznie powiadomiony.",
@@ -306,7 +404,14 @@
     "param.fmt.description": "Formato: json ou texto.",
     "msg.subscribed": "Assinatura OPC UA ativa: id={id}, {label}",
     "err.url_required": "url é obrigatório.",
-    "err.node_id_required": "node_id é obrigatório."
+    "err.node_id_required": "node_id é obrigatório.",
+    "x_search_terms": [
+      "opcua subscrever",
+      "opcua_subscribe",
+      "opcua",
+      "OPCUA",
+      "alterações"
+    ]
   },
   "pt_BR": {
     "tool.description": "Assine as alterações de dados em um nó do servidor OPC UA. Quando o valor muda, o LLM é notificado automaticamente.",
@@ -335,7 +440,14 @@
     "param.fmt.description": "Format: json sau text.",
     "msg.subscribed": "Abonament OPC UA activ: id={id}, {label}",
     "err.url_required": "URL-ul este necesar.",
-    "err.node_id_required": "node_id este necesar."
+    "err.node_id_required": "node_id este necesar.",
+    "x_search_terms": [
+      "opcua abonare",
+      "opcua_subscribe",
+      "opcua",
+      "OPCUA",
+      "modificări"
+    ]
   },
   "ru": {
     "tool.description": "Подпишитесь на изменения данных на узле сервера OPC UA. При изменении значения LLM автоматически уведомляется.",
@@ -346,7 +458,14 @@
     "param.fmt.description": "Формат: json или текст.",
     "msg.subscribed": "Подписка OPC UA активна: id={id}, {label}",
     "err.url_required": "URL-адрес обязателен.",
-    "err.node_id_required": "node_id является обязательным."
+    "err.node_id_required": "node_id является обязательным.",
+    "x_search_terms": [
+      "opcua подписаться",
+      "opcua_subscribe",
+      "opcua",
+      "OPCUA",
+      "изменения"
+    ]
   },
   "sv": {
     "tool.description": "Prenumerera på dataändringar på en OPC UA-servernod. När värdet ändras meddelas LLM automatiskt.",
@@ -357,7 +476,14 @@
     "param.fmt.description": "Format: json eller text.",
     "msg.subscribed": "OPC UA-prenumeration aktiv: id={id}, {label}",
     "err.url_required": "URL krävs.",
-    "err.node_id_required": "node_id krävs."
+    "err.node_id_required": "node_id krävs.",
+    "x_search_terms": [
+      "opcua prenumerera",
+      "opcua_subscribe",
+      "opcua",
+      "OPCUA",
+      "ändringar"
+    ]
   },
   "sw": {
     "tool.description": "Jisajili kwa mabadiliko ya data kwenye nodi ya seva ya OPC UA. Thamani inapobadilika, LLM inaarifiwa kiotomatiki.",
@@ -368,7 +494,14 @@
     "param.fmt.description": "Umbizo: json au maandishi.",
     "msg.subscribed": "Usajili wa OPC UA unatumika: id={id}, {label}",
     "err.url_required": "url inahitajika.",
-    "err.node_id_required": "nodi_id inahitajika."
+    "err.node_id_required": "nodi_id inahitajika.",
+    "x_search_terms": [
+      "jiandikisha opcua",
+      "opcua_subscribe",
+      "opcua",
+      "OPCUA",
+      "mabadiliko"
+    ]
   },
   "th": {
     "tool.description": "สมัครรับการเปลี่ยนแปลงข้อมูลบนโหนดเซิร์ฟเวอร์ OPC UA เมื่อค่าเปลี่ยนแปลง LLM จะได้รับแจ้งโดยอัตโนมัติ",
@@ -379,7 +512,14 @@
     "param.fmt.description": "รูปแบบ: json หรือข้อความ",
     "msg.subscribed": "การสมัคร OPC UA ใช้งานอยู่: id={id}, {label}",
     "err.url_required": "จำเป็นต้องมี URL",
-    "err.node_id_required": "จำเป็นต้องมี node_id"
+    "err.node_id_required": "จำเป็นต้องมี node_id",
+    "x_search_terms": [
+      "opcua สมัครสมาชิก",
+      "opcua_subscribe",
+      "โอพีซียูเอ",
+      "โอพีซียูเอ",
+      "การเปลี่ยนแปลง"
+    ]
   },
   "tr": {
     "tool.description": "Bir OPC UA sunucu düğümündeki veri değişikliklerine abone olun. Değer değiştiğinde LLM otomatik olarak bilgilendirilir.",
@@ -390,7 +530,14 @@
     "param.fmt.description": "Biçim: json veya metin.",
     "msg.subscribed": "OPC UA aboneliği etkin: kimlik={id}, {label}",
     "err.url_required": "URL'si gerekli.",
-    "err.node_id_required": "node_id gerekli."
+    "err.node_id_required": "node_id gerekli.",
+    "x_search_terms": [
+      "opcua abone ol",
+      "opcua_subscribe",
+      "opcua",
+      "OPCUA",
+      "değişiklikler"
+    ]
   },
   "uk": {
     "tool.description": "Підпишіться на зміни даних на вузлі сервера OPC UA. Коли значення змінюється, LLM автоматично повідомляється.",
@@ -401,7 +548,14 @@
     "param.fmt.description": "Формат: json або текстовий.",
     "msg.subscribed": "Підписка на OPC UA активна: id={id}, {label}",
     "err.url_required": "необхідна URL-адреса.",
-    "err.node_id_required": "node_id необхідний."
+    "err.node_id_required": "node_id необхідний.",
+    "x_search_terms": [
+      "opcua підписатися",
+      "opcua_subscribe",
+      "opcua",
+      "OPCUA",
+      "зміни"
+    ]
   },
   "vi": {
     "tool.description": "Đăng ký các thay đổi dữ liệu trên nút máy chủ OPC UA. Khi giá trị thay đổi, LLM sẽ tự động được thông báo.",
@@ -430,7 +584,14 @@
     "param.fmt.description": "格式：json 或文本。",
     "msg.subscribed": "OPC UA 订阅处于活动状态：id={id}、{label}",
     "err.url_required": "网址为必填项。",
-    "err.node_id_required": "node_id 是必需的。"
+    "err.node_id_required": "node_id 是必需的。",
+    "x_search_terms": [
+      "opcua 订阅",
+      "opcua_subscribe",
+      "opcua",
+      "OPCUA",
+      "变化"
+    ]
   },
   "zh_TW": {
     "tool.description": "訂閱 OPC UA 伺服器節點上的資料變更。當值發生變化時，LLM 會自動收到通知。",
@@ -441,6 +602,13 @@
     "param.fmt.description": "格式：json 或文字。",
     "msg.subscribed": "OPC UA 訂閱處於活動狀態：id={id}、{label}",
     "err.url_required": "網址為必填項。",
-    "err.node_id_required": "node_id 是必需的。"
+    "err.node_id_required": "node_id 是必需的。",
+    "x_search_terms": [
+      "opcua 訂閱",
+      "opcua_subscribe",
+      "opcua",
+      "OPCUA",
+      "變更"
+    ]
   }
 }

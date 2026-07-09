@@ -6,7 +6,13 @@
     "err.invalid_eoj": "Error: Could not parse EOJ '{eoj}'.",
     "err.invalid_object_code": "Error: Could not parse object_code '{object_code}'.",
     "msg.summary": "ECHONET Lite node status fetched: {ip_address} in {elapsed_ms} ms.",
-    "err.invalid_ip_address": "Error: ip_address must be a valid IPv4 address."
+    "err.invalid_ip_address": "Error: ip_address must be a valid IPv4 address.",
+    "x_search_terms": [
+      "حالة عقدة echonet",
+      "echonet_node_status",
+      "إيكونت",
+      "إيكونت"
+    ]
   },
   "bn": {
     "param.ip.description": "Target node IPv4 address.",
@@ -15,7 +21,13 @@
     "err.invalid_eoj": "Error: Could not parse EOJ '{eoj}'.",
     "err.invalid_object_code": "Error: Could not parse object_code '{object_code}'.",
     "msg.summary": "ECHONET Lite node status fetched: {ip_address} in {elapsed_ms} ms.",
-    "err.invalid_ip_address": "Error: ip_address must be a valid IPv4 address."
+    "err.invalid_ip_address": "Error: ip_address must be a valid IPv4 address.",
+    "x_search_terms": [
+      "echonet নোড স্থিতি",
+      "echonet_node_status",
+      "ইকোনেট",
+      "ইকোনেট"
+    ]
   },
   "cs": {
     "param.ip.description": "Target node IPv4 address.",
@@ -24,7 +36,13 @@
     "err.invalid_eoj": "Error: Could not parse EOJ '{eoj}'.",
     "err.invalid_object_code": "Error: Could not parse object_code '{object_code}'.",
     "msg.summary": "ECHONET Lite node status fetched: {ip_address} in {elapsed_ms} ms.",
-    "err.invalid_ip_address": "Error: ip_address must be a valid IPv4 address."
+    "err.invalid_ip_address": "Error: ip_address must be a valid IPv4 address.",
+    "x_search_terms": [
+      "stav uzlu echonet",
+      "echonet_node_status",
+      "echosíť",
+      "ECHONET"
+    ]
   },
   "de": {
     "param.ip.description": "Target node IPv4 address.",
@@ -33,7 +51,13 @@
     "err.invalid_eoj": "Error: Could not parse EOJ '{eoj}'.",
     "err.invalid_object_code": "Error: Could not parse object_code '{object_code}'.",
     "msg.summary": "ECHONET Lite node status fetched: {ip_address} in {elapsed_ms} ms.",
-    "err.invalid_ip_address": "Error: ip_address must be a valid IPv4 address."
+    "err.invalid_ip_address": "Error: ip_address must be a valid IPv4 address.",
+    "x_search_terms": [
+      "Echonet-Knotenstatus",
+      "echonet_node_status",
+      "echonet",
+      "ECHONET"
+    ]
   },
   "en": {
     "param.ip.description": "Target node IPv4 address.",
@@ -75,7 +99,13 @@
     "err.invalid_eoj": "Error: Could not parse EOJ '{eoj}'.",
     "err.invalid_object_code": "Error: Could not parse object_code '{object_code}'.",
     "msg.summary": "ECHONET Lite node status fetched: {ip_address} in {elapsed_ms} ms.",
-    "err.invalid_ip_address": "Error: ip_address must be a valid IPv4 address."
+    "err.invalid_ip_address": "Error: ip_address must be a valid IPv4 address.",
+    "x_search_terms": [
+      "وضعیت گره echonet",
+      "echonet_node_status",
+      "اکونت",
+      "اکونت"
+    ]
   },
   "fi": {
     "param.ip.description": "Target node IPv4 address.",
@@ -84,7 +114,13 @@
     "err.invalid_eoj": "Error: Could not parse EOJ '{eoj}'.",
     "err.invalid_object_code": "Error: Could not parse object_code '{object_code}'.",
     "msg.summary": "ECHONET Lite node status fetched: {ip_address} in {elapsed_ms} ms.",
-    "err.invalid_ip_address": "Error: ip_address must be a valid IPv4 address."
+    "err.invalid_ip_address": "Error: ip_address must be a valid IPv4 address.",
+    "x_search_terms": [
+      "echonet-solmutila",
+      "echonet_node_status",
+      "ekoverkko",
+      "ECHONET"
+    ]
   },
   "fr": {
     "param.ip.description": "Target node IPv4 address.",
@@ -108,7 +144,13 @@
     "err.invalid_eoj": "Error: Could not parse EOJ '{eoj}'.",
     "err.invalid_object_code": "Error: Could not parse object_code '{object_code}'.",
     "msg.summary": "ECHONET Lite node status fetched: {ip_address} in {elapsed_ms} ms.",
-    "err.invalid_ip_address": "Error: ip_address must be a valid IPv4 address."
+    "err.invalid_ip_address": "Error: ip_address must be a valid IPv4 address.",
+    "x_search_terms": [
+      "echonet नोड स्थिति",
+      "echonet_node_status",
+      "इकोनेट",
+      "इकोनेट"
+    ]
   },
   "id": {
     "param.ip.description": "Target node IPv4 address.",
@@ -180,7 +222,13 @@
     "err.invalid_eoj": "Error: Could not parse EOJ '{eoj}'.",
     "err.invalid_object_code": "Error: Could not parse object_code '{object_code}'.",
     "msg.summary": "ECHONET Lite node status fetched: {ip_address} in {elapsed_ms} ms.",
-    "err.invalid_ip_address": "Error: ip_address must be a valid IPv4 address."
+    "err.invalid_ip_address": "Error: ip_address must be a valid IPv4 address.",
+    "x_search_terms": [
+      "echonet зангилааны төлөв",
+      "echonet_node_status",
+      "эхонет",
+      "эхонет"
+    ]
   },
   "mr": {
     "param.ip.description": "Target node IPv4 address.",
@@ -189,7 +237,13 @@
     "err.invalid_eoj": "Error: Could not parse EOJ '{eoj}'.",
     "err.invalid_object_code": "Error: Could not parse object_code '{object_code}'.",
     "msg.summary": "ECHONET Lite node status fetched: {ip_address} in {elapsed_ms} ms.",
-    "err.invalid_ip_address": "Error: ip_address must be a valid IPv4 address."
+    "err.invalid_ip_address": "Error: ip_address must be a valid IPv4 address.",
+    "x_search_terms": [
+      "echonet नोड स्थिती",
+      "echonet_node_status",
+      "इकोनेट",
+      "इकोनेट"
+    ]
   },
   "el": {
     "param.ip.description": "Διεύθυνση IPv4 κόμβου στόχου.",
@@ -198,7 +252,13 @@
     "err.invalid_eoj": "Σφάλμα: Δεν ήταν δυνατή η ανάλυση του EOJ '{eoj}'.",
     "err.invalid_object_code": "Σφάλμα: Δεν ήταν δυνατή η ανάλυση του object_code '{object_code}'.",
     "msg.summary": "Λήψη κατάστασης κόμβου ECHONET Lite: {ip_address} σε {elapsed_ms} ms.",
-    "err.invalid_ip_address": "Σφάλμα: Η διεύθυνση ip_address πρέπει να είναι έγκυρη διεύθυνση IPv4."
+    "err.invalid_ip_address": "Σφάλμα: Η διεύθυνση ip_address πρέπει να είναι έγκυρη διεύθυνση IPv4.",
+    "x_search_terms": [
+      "κατάσταση κόμβου echonet",
+      "echonet_node_status",
+      "echonet",
+      "ECHONET"
+    ]
   },
   "he": {
     "param.ip.description": "כתובת IPv4 של צומת יעד.",
@@ -207,7 +267,13 @@
     "err.invalid_eoj": "שגיאה: לא ניתן לנתח את EOJ '{eoj}'.",
     "err.invalid_object_code": "שגיאה: לא ניתן לנתח את object_code '{object_code}'.",
     "msg.summary": "מצב הצומת של ECHONET Lite הוחזר: {ip_address} בעוד {elapsed_ms} אלפיות השנייה.",
-    "err.invalid_ip_address": "שגיאה: כתובת ה-ip_address חייבת להיות כתובת IPv4 חוקית."
+    "err.invalid_ip_address": "שגיאה: כתובת ה-ip_address חייבת להיות כתובת IPv4 חוקית.",
+    "x_search_terms": [
+      "סטטוס צומת echonet",
+      "echonet_node_status",
+      "אקו-נט",
+      "אקו-נט"
+    ]
   },
   "hu": {
     "param.ip.description": "Célcsomópont IPv4-címe.",
@@ -216,7 +282,13 @@
     "err.invalid_eoj": "Hiba: A(z) „{eoj}” EOJ nem értelmezhető.",
     "err.invalid_object_code": "Hiba: A(z) '{object_code}' objektumkód nem értelmezhető.",
     "msg.summary": "Az ECHONET Lite csomópont állapota lekérve: {ip_address} {elapsed_ms} ms alatt.",
-    "err.invalid_ip_address": "Hiba: az ip_address érvényes IPv4-címnek kell lennie."
+    "err.invalid_ip_address": "Hiba: az ip_address érvényes IPv4-címnek kell lennie.",
+    "x_search_terms": [
+      "echonet csomópont állapot",
+      "echonet_node_status",
+      "echonet",
+      "ECHONET"
+    ]
   },
   "ro": {
     "param.ip.description": "Adresa IPv4 a nodului țintă.",
@@ -225,7 +297,13 @@
     "err.invalid_eoj": "Eroare: nu s-a putut analiza EOJ „{eoj}”.",
     "err.invalid_object_code": "Eroare: nu s-a putut analiza object_code „{object_code}”.",
     "msg.summary": "Starea nodului ECHONET Lite a fost preluată: {ip_address} în {elapsed_ms} ms.",
-    "err.invalid_ip_address": "Eroare: ip_address trebuie să fie o adresă IPv4 validă."
+    "err.invalid_ip_address": "Eroare: ip_address trebuie să fie o adresă IPv4 validă.",
+    "x_search_terms": [
+      "stare nod echonet",
+      "echonet_node_status",
+      "econet",
+      "ECHONET"
+    ]
   },
   "nb": {
     "param.ip.description": "Target node IPv4 address.",
@@ -234,7 +312,13 @@
     "err.invalid_eoj": "Error: Could not parse EOJ '{eoj}'.",
     "err.invalid_object_code": "Error: Could not parse object_code '{object_code}'.",
     "msg.summary": "ECHONET Lite node status fetched: {ip_address} in {elapsed_ms} ms.",
-    "err.invalid_ip_address": "Error: ip_address must be a valid IPv4 address."
+    "err.invalid_ip_address": "Error: ip_address must be a valid IPv4 address.",
+    "x_search_terms": [
+      "echonet node-status",
+      "echonet_node_status",
+      "ekonett",
+      "ECHONET"
+    ]
   },
   "nl": {
     "param.ip.description": "Target node IPv4 address.",
@@ -243,7 +327,13 @@
     "err.invalid_eoj": "Error: Could not parse EOJ '{eoj}'.",
     "err.invalid_object_code": "Error: Could not parse object_code '{object_code}'.",
     "msg.summary": "ECHONET Lite node status fetched: {ip_address} in {elapsed_ms} ms.",
-    "err.invalid_ip_address": "Error: ip_address must be a valid IPv4 address."
+    "err.invalid_ip_address": "Error: ip_address must be a valid IPv4 address.",
+    "x_search_terms": [
+      "echonet-knooppuntstatus",
+      "echonet_node_status",
+      "echonet",
+      "ECHONET"
+    ]
   },
   "pl": {
     "param.ip.description": "Target node IPv4 address.",
@@ -267,7 +357,13 @@
     "err.invalid_eoj": "Error: Could not parse EOJ '{eoj}'.",
     "err.invalid_object_code": "Error: Could not parse object_code '{object_code}'.",
     "msg.summary": "ECHONET Lite node status fetched: {ip_address} in {elapsed_ms} ms.",
-    "err.invalid_ip_address": "Error: ip_address must be a valid IPv4 address."
+    "err.invalid_ip_address": "Error: ip_address must be a valid IPv4 address.",
+    "x_search_terms": [
+      "estado do nó echonet",
+      "echonet_node_status",
+      "econet",
+      "ECHONET"
+    ]
   },
   "pt_BR": {
     "param.ip.description": "Target node IPv4 address.",
@@ -291,7 +387,13 @@
     "err.invalid_eoj": "Error: Could not parse EOJ '{eoj}'.",
     "err.invalid_object_code": "Error: Could not parse object_code '{object_code}'.",
     "msg.summary": "ECHONET Lite node status fetched: {ip_address} in {elapsed_ms} ms.",
-    "err.invalid_ip_address": "Error: ip_address must be a valid IPv4 address."
+    "err.invalid_ip_address": "Error: ip_address must be a valid IPv4 address.",
+    "x_search_terms": [
+      "состояние узла echonet",
+      "echonet_node_status",
+      "эхосеть",
+      "ECHONET"
+    ]
   },
   "sv": {
     "param.ip.description": "Target node IPv4 address.",
@@ -300,7 +402,13 @@
     "err.invalid_eoj": "Error: Could not parse EOJ '{eoj}'.",
     "err.invalid_object_code": "Error: Could not parse object_code '{object_code}'.",
     "msg.summary": "ECHONET Lite node status fetched: {ip_address} in {elapsed_ms} ms.",
-    "err.invalid_ip_address": "Error: ip_address must be a valid IPv4 address."
+    "err.invalid_ip_address": "Error: ip_address must be a valid IPv4 address.",
+    "x_search_terms": [
+      "echonet nodstatus",
+      "echonet_node_status",
+      "ekonät",
+      "ECHONET"
+    ]
   },
   "sw": {
     "param.ip.description": "Target node IPv4 address.",
@@ -309,7 +417,13 @@
     "err.invalid_eoj": "Error: Could not parse EOJ '{eoj}'.",
     "err.invalid_object_code": "Error: Could not parse object_code '{object_code}'.",
     "msg.summary": "ECHONET Lite node status fetched: {ip_address} in {elapsed_ms} ms.",
-    "err.invalid_ip_address": "Error: ip_address must be a valid IPv4 address."
+    "err.invalid_ip_address": "Error: ip_address must be a valid IPv4 address.",
+    "x_search_terms": [
+      "hali ya nodi ya echonet",
+      "echonet_node_status",
+      "echonet",
+      "ECHONET"
+    ]
   },
   "th": {
     "param.ip.description": "Target node IPv4 address.",
@@ -318,7 +432,13 @@
     "err.invalid_eoj": "Error: Could not parse EOJ '{eoj}'.",
     "err.invalid_object_code": "Error: Could not parse object_code '{object_code}'.",
     "msg.summary": "ECHONET Lite node status fetched: {ip_address} in {elapsed_ms} ms.",
-    "err.invalid_ip_address": "Error: ip_address must be a valid IPv4 address."
+    "err.invalid_ip_address": "Error: ip_address must be a valid IPv4 address.",
+    "x_search_terms": [
+      "สถานะโหนด echonet",
+      "echonet_node_status",
+      "อีโค่เน็ต",
+      "อีโค่เน็ต"
+    ]
   },
   "tr": {
     "param.ip.description": "Target node IPv4 address.",
@@ -327,7 +447,13 @@
     "err.invalid_eoj": "Error: Could not parse EOJ '{eoj}'.",
     "err.invalid_object_code": "Error: Could not parse object_code '{object_code}'.",
     "msg.summary": "ECHONET Lite node status fetched: {ip_address} in {elapsed_ms} ms.",
-    "err.invalid_ip_address": "Error: ip_address must be a valid IPv4 address."
+    "err.invalid_ip_address": "Error: ip_address must be a valid IPv4 address.",
+    "x_search_terms": [
+      "echonet düğüm durumu",
+      "echonet_node_status",
+      "eko ağ",
+      "ECONET"
+    ]
   },
   "uk": {
     "param.ip.description": "Target node IPv4 address.",
@@ -336,7 +462,13 @@
     "err.invalid_eoj": "Error: Could not parse EOJ '{eoj}'.",
     "err.invalid_object_code": "Error: Could not parse object_code '{object_code}'.",
     "msg.summary": "ECHONET Lite node status fetched: {ip_address} in {elapsed_ms} ms.",
-    "err.invalid_ip_address": "Error: ip_address must be a valid IPv4 address."
+    "err.invalid_ip_address": "Error: ip_address must be a valid IPv4 address.",
+    "x_search_terms": [
+      "стан вузла echonet",
+      "echonet_node_status",
+      "ехомережа",
+      "ECHONET"
+    ]
   },
   "vi": {
     "param.ip.description": "Target node IPv4 address.",
@@ -360,7 +492,13 @@
     "err.invalid_eoj": "Error: Could not parse EOJ '{eoj}'.",
     "err.invalid_object_code": "Error: Could not parse object_code '{object_code}'.",
     "msg.summary": "ECHONET Lite node status fetched: {ip_address} in {elapsed_ms} ms.",
-    "err.invalid_ip_address": "Error: ip_address must be a valid IPv4 address."
+    "err.invalid_ip_address": "Error: ip_address must be a valid IPv4 address.",
+    "x_search_terms": [
+      "echonet 节点状态",
+      "echonet_node_status",
+      "echonet",
+      "ECHONET"
+    ]
   },
   "zh_TW": {
     "param.ip.description": "Target node IPv4 address.",
@@ -369,6 +507,12 @@
     "err.invalid_eoj": "Error: Could not parse EOJ '{eoj}'.",
     "err.invalid_object_code": "Error: Could not parse object_code '{object_code}'.",
     "msg.summary": "ECHONET Lite node status fetched: {ip_address} in {elapsed_ms} ms.",
-    "err.invalid_ip_address": "Error: ip_address must be a valid IPv4 address."
+    "err.invalid_ip_address": "Error: ip_address must be a valid IPv4 address.",
+    "x_search_terms": [
+      "echonet 節點狀態",
+      "echonet_node_status",
+      "echonet",
+      "ECHONET"
+    ]
   }
 }

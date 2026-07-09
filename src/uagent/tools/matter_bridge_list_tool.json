@@ -1,15 +1,43 @@
 {
   "ar": {
-    "param.fmt.description": "Format: json or text."
+    "param.fmt.description": "Format: json or text.",
+    "x_search_terms": [
+      "قائمة جسور المادة",
+      "matter_bridge_list",
+      "مادة",
+      "مادة",
+      "يديرها جسر"
+    ]
   },
   "bn": {
-    "param.fmt.description": "Format: json or text."
+    "param.fmt.description": "Format: json or text.",
+    "x_search_terms": [
+      "বিষয় ব্রিজ তালিকা",
+      "matter_bridge_list",
+      "বিষয়",
+      "বিষয়",
+      "ব্রিজ পরিচালিত"
+    ]
   },
   "cs": {
-    "param.fmt.description": "Format: json or text."
+    "param.fmt.description": "Format: json or text.",
+    "x_search_terms": [
+      "seznam můstků hmoty",
+      "matter_bridge_list",
+      "hmota",
+      "HMOTA",
+      "spravováno mostem"
+    ]
   },
   "de": {
-    "param.fmt.description": "Format: json or text."
+    "param.fmt.description": "Format: json or text.",
+    "x_search_terms": [
+      "Liste der Materiebrücken",
+      "matter_bridge_list",
+      "Angelegenheit",
+      "MATTER",
+      "Brücke verwaltet"
+    ]
   },
   "en": {
     "param.fmt.description": "Format: json or text.",
@@ -39,10 +67,24 @@
     ]
   },
   "fa": {
-    "param.fmt.description": "Format: json or text."
+    "param.fmt.description": "Format: json or text.",
+    "x_search_terms": [
+      "لیست پل‌های ماده",
+      "matter_bridge_list",
+      "ماده",
+      "ماده",
+      "مدیریت شده توسط پل"
+    ]
   },
   "fi": {
-    "param.fmt.description": "Format: json or text."
+    "param.fmt.description": "Format: json or text.",
+    "x_search_terms": [
+      "asian siltaluettelo",
+      "matter_bridge_list",
+      "asia",
+      "ASIA",
+      "sillan hallinnoima"
+    ]
   },
   "fr": {
     "param.fmt.description": "Format: json or text.",
@@ -55,7 +97,14 @@
     ]
   },
   "hi": {
-    "param.fmt.description": "Format: json or text."
+    "param.fmt.description": "Format: json or text.",
+    "x_search_terms": [
+      "विषय ब्रिज सूची",
+      "matter_bridge_list",
+      "विषय",
+      "विषय",
+      "ब्रिज प्रबंधित"
+    ]
   },
   "id": {
     "param.fmt.description": "Format: json or text.",
@@ -103,28 +152,84 @@
     ]
   },
   "mn": {
-    "param.fmt.description": "Format: json or text."
+    "param.fmt.description": "Format: json or text.",
+    "x_search_terms": [
+      "материйн гүүрний жагсаалт",
+      "matter_bridge_list",
+      "асуудал",
+      "асуудал",
+      "гүүрээр удирддаг"
+    ]
   },
   "mr": {
-    "param.fmt.description": "Format: json or text."
+    "param.fmt.description": "Format: json or text.",
+    "x_search_terms": [
+      "विषय ब्रिज यादी",
+      "matter_bridge_list",
+      "विषय",
+      "विषय",
+      "ब्रिज व्यवस्थापित"
+    ]
   },
   "el": {
-    "param.fmt.description": "Στιγμιότυπο προσωρινής μνήμης ECHONET: {count} στοιχεία."
+    "param.fmt.description": "Στιγμιότυπο προσωρινής μνήμης ECHONET: {count} στοιχεία.",
+    "x_search_terms": [
+      "λίστα γεφυρών ύλης",
+      "matter_bridge_list",
+      "ύλη",
+      "ΥΛΗ",
+      "γέφυρα διαχειρίζεται"
+    ]
   },
   "he": {
-    "param.fmt.description": "אין ערכים במטמון."
+    "param.fmt.description": "אין ערכים במטמון.",
+    "x_search_terms": [
+      "רשימת גשרי חומר",
+      "matter_bridge_list",
+      "חומר",
+      "חומר",
+      "מנוהל על ידי גשר"
+    ]
   },
   "hu": {
-    "param.fmt.description": "Gyorsítótár művelet: pillanatfelvétel vagy törlés."
+    "param.fmt.description": "Gyorsítótár művelet: pillanatfelvétel vagy törlés.",
+    "x_search_terms": [
+      "anyag híd lista",
+      "matter_bridge_list",
+      "anyag",
+      "ANYAG",
+      "híd által kezelt"
+    ]
   },
   "ro": {
-    "param.fmt.description": "Inspectați sau ștergeți memoria cache ECHONET Lite partajată."
+    "param.fmt.description": "Inspectați sau ștergeți memoria cache ECHONET Lite partajată.",
+    "x_search_terms": [
+      "listă poduri materie",
+      "matter_bridge_list",
+      "materie",
+      "MATERIE",
+      "gestionat de pod"
+    ]
   },
   "nb": {
-    "param.fmt.description": "Format: json or text."
+    "param.fmt.description": "Format: json or text.",
+    "x_search_terms": [
+      "liste over broer for materie",
+      "matter_bridge_list",
+      "saken",
+      "MATTER",
+      "bro administrert"
+    ]
   },
   "nl": {
-    "param.fmt.description": "Format: json or text."
+    "param.fmt.description": "Format: json or text.",
+    "x_search_terms": [
+      "materie-bruggenlijst",
+      "matter_bridge_list",
+      "materie",
+      "MATTER",
+      "brug beheerd"
+    ]
   },
   "pl": {
     "param.fmt.description": "Format: json or text.",
@@ -137,7 +242,14 @@
     ]
   },
   "pt": {
-    "param.fmt.description": "Format: json or text."
+    "param.fmt.description": "Format: json or text.",
+    "x_search_terms": [
+      "lista de pontes de matéria",
+      "lista_pontes_matéria",
+      "assunto",
+      "MATÉRIA",
+      "gerido por ponte"
+    ]
   },
   "pt_BR": {
     "param.fmt.description": "Format: json or text.",
@@ -150,22 +262,64 @@
     ]
   },
   "ru": {
-    "param.fmt.description": "Format: json or text."
+    "param.fmt.description": "Format: json or text.",
+    "x_search_terms": [
+      "список мостов материи",
+      "matter_bridge_list",
+      "материя",
+      "МАТЕРИЯ",
+      "управляется мостом"
+    ]
   },
   "sv": {
-    "param.fmt.description": "Format: json or text."
+    "param.fmt.description": "Format: json or text.",
+    "x_search_terms": [
+      "lista över materia-bryggor",
+      "matter_bridge_list",
+      "materia",
+      "MATTER",
+      "brygga hanteras"
+    ]
   },
   "sw": {
-    "param.fmt.description": "Format: json or text."
+    "param.fmt.description": "Format: json or text.",
+    "x_search_terms": [
+      "orodha ya madaraja ya maada",
+      "matter_bridge_list",
+      "maada",
+      "MAADA",
+      "daraja linalosimamiwa"
+    ]
   },
   "th": {
-    "param.fmt.description": "Format: json or text."
+    "param.fmt.description": "Format: json or text.",
+    "x_search_terms": [
+      "รายการสะพานสสาร",
+      "matter_bridge_list",
+      "สสาร",
+      "สสาร",
+      "จัดการโดยสะพาน"
+    ]
   },
   "tr": {
-    "param.fmt.description": "Format: json or text."
+    "param.fmt.description": "Format: json or text.",
+    "x_search_terms": [
+      "madde köprüleri listesi",
+      "matter_bridge_list",
+      "madde",
+      "MADDE",
+      "köprü yönetiliyor"
+    ]
   },
   "uk": {
-    "param.fmt.description": "Format: json or text."
+    "param.fmt.description": "Format: json or text.",
+    "x_search_terms": [
+      "список мостів матерії",
+      "matter_bridge_list",
+      "матерія",
+      "МАТЕРІЯ",
+      "керується мостом"
+    ]
   },
   "vi": {
     "param.fmt.description": "Format: json or text.",
@@ -178,9 +332,23 @@
     ]
   },
   "zh_CN": {
-    "param.fmt.description": "Format: json or text."
+    "param.fmt.description": "Format: json or text.",
+    "x_search_terms": [
+      "物质桥列表",
+      "matter_bridge_list",
+      "物质",
+      "物质",
+      "桥接管理"
+    ]
   },
   "zh_TW": {
-    "param.fmt.description": "Format: json or text."
+    "param.fmt.description": "Format: json or text.",
+    "x_search_terms": [
+      "物質橋接清單",
+      "matter_bridge_list",
+      "物質",
+      "物質",
+      "橋接管理"
+    ]
   }
 }

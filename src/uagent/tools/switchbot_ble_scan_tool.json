@@ -7,7 +7,15 @@
     "err.operation_failed": "خطأ أثناء عملية BLE: {err_msg}",
     "msg.error_fmt": "خطأ: {msg}",
     "msg.interface_used": "الواجهة المستخدمة: {iface}",
-    "msg.unknown_error": "خطأ غير معروف"
+    "msg.unknown_error": "خطأ غير معروف",
+    "x_search_terms": [
+      "فحص switchbot ble",
+      "switchbot_ble_scan",
+      "سويتش بوت",
+      "اكتشاف",
+      "قريب",
+      "أجهزة"
+    ]
   },
   "bn": {
     "param.mac.description": "MAC ঠিকানা ফিল্টার।",
@@ -17,7 +25,15 @@
     "err.operation_failed": "BLE অপারেশনের সময় ত্রুটি: {err_msg}",
     "msg.error_fmt": "ত্রুটি: {msg}",
     "msg.interface_used": "ব্যবহৃত ইন্টারফেস: {iface}",
-    "msg.unknown_error": "অজানা ত্রুটি"
+    "msg.unknown_error": "অজানা ত্রুটি",
+    "x_search_terms": [
+      "switchbot ble স্ক্যান",
+      "switchbot_ble_scan",
+      "সুইচবট",
+      "আবিষ্কার",
+      "কাছাকাছি",
+      "ডিভাইস"
+    ]
   },
   "cs": {
     "param.mac.description": "Filtr MAC adresy.",
@@ -27,7 +43,15 @@
     "err.operation_failed": "Chyba během BLE operace: {err_msg}",
     "msg.error_fmt": "Chyba: {msg}",
     "msg.interface_used": "Použité rozhraní: {iface}",
-    "msg.unknown_error": "neznámá chyba"
+    "msg.unknown_error": "neznámá chyba",
+    "x_search_terms": [
+      "skenování switchbot ble",
+      "switchbot_ble_scan",
+      "přepínač",
+      "objevit",
+      "poblíž",
+      "zařízení"
+    ]
   },
   "de": {
     "param.mac.description": "MAC-Adressfilter.",
@@ -37,7 +61,15 @@
     "err.operation_failed": "Fehler während des BLE-Vorgangs: {err_msg}",
     "msg.error_fmt": "Fehler: {msg}",
     "msg.interface_used": "Verwendete Schnittstelle: {iface}",
-    "msg.unknown_error": "unbekannter Fehler"
+    "msg.unknown_error": "unbekannter Fehler",
+    "x_search_terms": [
+      "Switchbot-fähiger Scan",
+      "switchbot_ble_scan",
+      "Switchbot",
+      "entdecken",
+      "in der Nähe",
+      "Geräte"
+    ]
   },
   "en": {
     "param.mac.description": "MAC address filter.",
@@ -96,7 +128,15 @@
     "err.operation_failed": "دستگاه مطابقت‌یافته شبیه یک دستگاه SwitchBot BLE نیست.",
     "msg.error_fmt": "خطا در حین عملیات BLE: {err_msg}\n\n[راهنمای مجوزهای macOS]\nدسترسی بلوتوث ممکن است توسط محدودیت‌های امنیتی macOS رد شده باشد.\nلطفاً به 'تنظیمات سیستم > حریم خصوصی و امنیت > بلوتوث' بروید و اجازه دهید ترمینال، VS Code یا فرآیند پایتون شما به بلوتوث دسترسی داشته باشد.",
     "msg.interface_used": "مهلت و تلاش مجدد باید بزرگتر از ۰ باشند؛ محدودیت باید ۰ یا بیشتر باشد.",
-    "msg.unknown_error": "خطا: {msg}"
+    "msg.unknown_error": "خطا: {msg}",
+    "x_search_terms": [
+      "اسکن switchbot ble",
+      "switchbot_ble_scan",
+      "سوییچ‌بات",
+      "کشف",
+      "نزدیک",
+      "دستگاه‌ها"
+    ]
   },
   "fi": {
     "param.mac.description": "MAC-osoitesuodatin.",
@@ -106,7 +146,15 @@
     "err.operation_failed": "Virhe BLE-toiminnon aikana: {err_msg}",
     "msg.error_fmt": "Virhe: {msg}",
     "msg.interface_used": "Käytetty liitäntä: {iface}",
-    "msg.unknown_error": "tuntematon virhe"
+    "msg.unknown_error": "tuntematon virhe",
+    "x_search_terms": [
+      "switchbot ble -skannaus",
+      "switchbot_ble_scan",
+      "kytkinrobotti",
+      "löydä",
+      "lähellä",
+      "laitteet"
+    ]
   },
   "fr": {
     "param.mac.description": "Filtre d'adresse MAC.",
@@ -134,7 +182,15 @@
     "err.operation_failed": "BLE ऑपरेशन के दौरान त्रुटि: {err_msg}",
     "msg.error_fmt": "त्रुटि: {msg}",
     "msg.interface_used": "उपयोग किया गया इंटरफ़ेस: {iface}",
-    "msg.unknown_error": "अज्ञात त्रुटि"
+    "msg.unknown_error": "अज्ञात त्रुटि",
+    "x_search_terms": [
+      "switchbot ble स्कैन",
+      "switchbot_ble_scan",
+      "स्विचबॉट",
+      "खोजें",
+      "निकट",
+      "डिवाइस"
+    ]
   },
   "id": {
     "param.mac.description": "Filter alamat MAC.",
@@ -228,7 +284,15 @@
     "err.operation_failed": "Тохирсон төхөөрөмж нь SwitchBot BLE төхөөрөмж шиг харагдахгүй байна.",
     "msg.error_fmt": "BLE үйл ажиллагааны үед алдаа гарлаа: {err_msg}\n\n[macOS Зөвшөөрлийн Гарын Авлага]\nmacOS аюулгүй байдлын хязгаарлалтаар Bluetooth хандалтыг зөвшөөрөхгүй байж болно.\n'Системийн Тохиргоо > Нууцлал & Аюулгүй Байдал > Bluetooth' хэсгийг нээж, терминал, VS Code, эсвэл Python процесс тань Bluetooth-д хандахыг зөвшөөрсөн эсэхийг шалгана уу.",
     "msg.interface_used": "Хугацаа болон дахин оролдлого 0-ээс их байх ёстой; хязгаар 0 эсвэл түүнээс их байх ёстой.",
-    "msg.unknown_error": "Алдаа: {msg}"
+    "msg.unknown_error": "Алдаа: {msg}",
+    "x_search_terms": [
+      "switchbot ble скан",
+      "switchbot_ble_scan",
+      "свичбот",
+      "нээх",
+      "ойролцоо",
+      "төхөөрөмж"
+    ]
   },
   "mr": {
     "param.mac.description": "त्रुटी: {err}",
@@ -238,7 +302,15 @@
     "err.operation_failed": "जुळणारे डिव्हाइस SwitchBot BLE डिव्हाइससारखे दिसत नाही.",
     "msg.error_fmt": "BLE ऑपरेशन दरम्यान त्रुटी: {err_msg}\n\n[macOS परवानगी मार्गदर्शक]\nmacOS सुरक्षा निर्बंधांद्वारे ब्लूटूथ प्रवेश नाकारला गेला असावा.\nकृपया 'सिस्टम सेटिंग्ज > प्रायव्हसी आणि सिक्युरिटी > ब्लूटूथ' उघडा आणि तुमच्या टर्मिनल, VS Code, किंवा Python प्रक्रियेला ब्लूटूथमध्ये प्रवेश करण्याची परवानगी आहे याची खात्री करा.",
     "msg.interface_used": "टाइमआउट आणि रीट्राय ० पेक्षा मोठे असणे आवश्यक आहे; मर्यादा ० किंवा त्यापेक्षा मोठी असणे आवश्यक आहे.",
-    "msg.unknown_error": "त्रुटी: {msg}"
+    "msg.unknown_error": "त्रुटी: {msg}",
+    "x_search_terms": [
+      "switchbot ble स्कॅन",
+      "switchbot_ble_scan",
+      "स्विचबॉट",
+      "शोधा",
+      "जवळ",
+      "उपकरणे"
+    ]
   },
   "el": {
     "param.mac.description": "Φίλτρο διεύθυνσης MAC.",
@@ -248,7 +320,15 @@
     "err.operation_failed": "Σφάλμα κατά τη λειτουργία BLE: {err_msg}",
     "msg.error_fmt": "Σφάλμα: {msg}",
     "msg.interface_used": "Διεπαφή που χρησιμοποιήθηκε: {iface}",
-    "msg.unknown_error": "άγνωστο σφάλμα"
+    "msg.unknown_error": "άγνωστο σφάλμα",
+    "x_search_terms": [
+      "σάρωση switchbot ble",
+      "switchbot_ble_scan",
+      "διακόπτης",
+      "ανακάλυψη",
+      "κοντά",
+      "συσκευές"
+    ]
   },
   "he": {
     "param.mac.description": "מסנן כתובת MAC.",
@@ -258,7 +338,15 @@
     "err.operation_failed": "שגיאה במהלך פעולת BLE: {err_msg}",
     "msg.error_fmt": "שגיאה: {msg}",
     "msg.interface_used": "ממשק בשימוש: {iface}",
-    "msg.unknown_error": "שגיאה לא ידועה"
+    "msg.unknown_error": "שגיאה לא ידועה",
+    "x_search_terms": [
+      "סריקת switchbot ble",
+      "switchbot_ble_scan",
+      "מתג-בוט",
+      "גלה",
+      "בקרבת מקום",
+      "מכשירים"
+    ]
   },
   "hu": {
     "param.mac.description": "MAC-cím szűrő.",
@@ -268,7 +356,15 @@
     "err.operation_failed": "Hiba a BLE művelet során: {err_msg}",
     "msg.error_fmt": "Hiba: {msg}",
     "msg.interface_used": "Használt interfész: {iface}",
-    "msg.unknown_error": "ismeretlen hiba"
+    "msg.unknown_error": "ismeretlen hiba",
+    "x_search_terms": [
+      "switchbot ble szkennelés",
+      "switchbot_ble_scan",
+      "kapcsolóbot",
+      "felfedez",
+      "közel",
+      "eszközök"
+    ]
   },
   "ro": {
     "param.mac.description": "Filtru adresă MAC.",
@@ -278,7 +374,15 @@
     "err.operation_failed": "Eroare în timpul operațiunii BLE: {err_msg}",
     "msg.error_fmt": "Eroare: {msg}",
     "msg.interface_used": "Interfață utilizată: {iface}",
-    "msg.unknown_error": "eroare necunoscută"
+    "msg.unknown_error": "eroare necunoscută",
+    "x_search_terms": [
+      "scanare switchbot ble",
+      "switchbot_ble_scan",
+      "comutator robot",
+      "descoperă",
+      "aproape",
+      "dispozitive"
+    ]
   },
   "nb": {
     "param.mac.description": "MAC-adressefilter.",
@@ -288,7 +392,15 @@
     "err.operation_failed": "Feil under BLE-operasjon: {err_msg}",
     "msg.error_fmt": "Feil: {msg}",
     "msg.interface_used": "Grensesnitt brukt: {iface}",
-    "msg.unknown_error": "ukjent feil"
+    "msg.unknown_error": "ukjent feil",
+    "x_search_terms": [
+      "switchbot ble-skanning",
+      "switchbot_ble_scan",
+      "switchbot",
+      "oppdage",
+      "i nærheten",
+      "enheter"
+    ]
   },
   "nl": {
     "param.mac.description": "MAC-adresfilter.",
@@ -298,7 +410,15 @@
     "err.operation_failed": "Fout tijdens BLE-bewerking: {err_msg}",
     "msg.error_fmt": "Fout: {msg}",
     "msg.interface_used": "Gebruikte interface: {iface}",
-    "msg.unknown_error": "onbekende fout"
+    "msg.unknown_error": "onbekende fout",
+    "x_search_terms": [
+      "switchbot ble-scan",
+      "switchbot_ble_scan",
+      "schakelbot",
+      "ontdekken",
+      "nabij",
+      "apparaten"
+    ]
   },
   "pl": {
     "param.mac.description": "Filtr adresu MAC.",
@@ -326,7 +446,15 @@
     "err.operation_failed": "Erro durante a operação BLE: {err_msg}",
     "msg.error_fmt": "Erro: {msg}",
     "msg.interface_used": "Interface usada: {iface}",
-    "msg.unknown_error": "erro desconhecido"
+    "msg.unknown_error": "erro desconhecido",
+    "x_search_terms": [
+      "digitalização switchbot ble",
+      "switchbot_ble_scan",
+      "robô de comutação",
+      "descobrir",
+      "próximo",
+      "dispositivos"
+    ]
   },
   "pt_BR": {
     "param.mac.description": "Filtro de endereço MAC.",
@@ -354,7 +482,15 @@
     "err.operation_failed": "Ошибка при операции BLE: {err_msg}",
     "msg.error_fmt": "Ошибка: {msg}",
     "msg.interface_used": "Используемый интерфейс: {iface}",
-    "msg.unknown_error": "неизвестная ошибка"
+    "msg.unknown_error": "неизвестная ошибка",
+    "x_search_terms": [
+      "сканирование switchbot ble",
+      "switchbot_ble_scan",
+      "switchbot",
+      "обнаружить",
+      "рядом",
+      "устройства"
+    ]
   },
   "sv": {
     "param.mac.description": "MAC-adressfilter.",
@@ -364,7 +500,15 @@
     "err.operation_failed": "Fel under BLE-operation: {err_msg}",
     "msg.error_fmt": "Fel: {msg}",
     "msg.interface_used": "Gränssnitt som används: {iface}",
-    "msg.unknown_error": "okänt fel"
+    "msg.unknown_error": "okänt fel",
+    "x_search_terms": [
+      "switchbot ble-skanning",
+      "switchbot_ble_scan",
+      "switchbot",
+      "upptäcka",
+      "nära",
+      "enheter"
+    ]
   },
   "sw": {
     "param.mac.description": "Kichujio cha anwani ya MAC.",
@@ -374,7 +518,15 @@
     "err.operation_failed": "Hitilafu wakati wa operesheni ya BLE: {err_msg}",
     "msg.error_fmt": "Hitilafu: {msg}",
     "msg.interface_used": "Kiolesura kilichotumiwa: {iface}",
-    "msg.unknown_error": "hitilafu isiyojulikana"
+    "msg.unknown_error": "hitilafu isiyojulikana",
+    "x_search_terms": [
+      "skana ya switchbot ble",
+      "switchbot_ble_scan",
+      "kubadili bot",
+      "gundua",
+      "karibu",
+      "vifaa"
+    ]
   },
   "th": {
     "param.mac.description": "MACアドレスフィルター。",
@@ -384,7 +536,15 @@
     "err.operation_failed": "Error during BLE operation: {err_msg}",
     "msg.error_fmt": "エラー: {msg}",
     "msg.interface_used": "使用インターフェース: {iface}",
-    "msg.unknown_error": "不明なエラー"
+    "msg.unknown_error": "不明なエラー",
+    "x_search_terms": [
+      "สแกน switchbot ble",
+      "switchbot_ble_scan",
+      "สวิตช์บอท",
+      "ค้นพบ",
+      "ใกล้เคียง",
+      "อุปกรณ์"
+    ]
   },
   "tr": {
     "param.mac.description": "MAC adresi filtresi.",
@@ -394,7 +554,15 @@
     "err.operation_failed": "BLE işlemi sırasında hata: {err_msg}",
     "msg.error_fmt": "Hata: {msg}",
     "msg.interface_used": "Kullanılan arayüz: {iface}",
-    "msg.unknown_error": "bilinmeyen hata"
+    "msg.unknown_error": "bilinmeyen hata",
+    "x_search_terms": [
+      "switchbot ble taraması",
+      "switchbot_ble_scan",
+      "anahtar bot",
+      "keşfetmek",
+      "yakın",
+      "cihazlar"
+    ]
   },
   "uk": {
     "param.mac.description": "Фільтр MAC-адреси.",
@@ -404,7 +572,15 @@
     "err.operation_failed": "Помилка під час операції BLE: {err_msg}",
     "msg.error_fmt": "Помилка: {msg}",
     "msg.interface_used": "Використано інтерфейс: {iface}",
-    "msg.unknown_error": "невідома помилка"
+    "msg.unknown_error": "невідома помилка",
+    "x_search_terms": [
+      "сканування switchbot ble",
+      "switchbot_ble_scan",
+      "перемикач",
+      "виявити",
+      "поруч",
+      "пристрої"
+    ]
   },
   "vi": {
     "param.mac.description": "Bộ lọc địa chỉ MAC.",
@@ -432,7 +608,15 @@
     "err.operation_failed": "BLE操作期间出错：{err_msg}",
     "msg.error_fmt": "错误：{msg}",
     "msg.interface_used": "使用的接口：{iface}",
-    "msg.unknown_error": "未知错误"
+    "msg.unknown_error": "未知错误",
+    "x_search_terms": [
+      "switchbot ble 扫描",
+      "switchbot_ble_scan",
+      "开关机器人",
+      "发现",
+      "附近",
+      "设备"
+    ]
   },
   "zh_TW": {
     "param.mac.description": "MAC 位址篩選。",
@@ -442,6 +626,14 @@
     "err.operation_failed": "BLE 操作期間發生錯誤：{err_msg}",
     "msg.error_fmt": "錯誤：{msg}",
     "msg.interface_used": "使用的介面：{iface}",
-    "msg.unknown_error": "未知錯誤"
+    "msg.unknown_error": "未知錯誤",
+    "x_search_terms": [
+      "switchbot ble 掃描",
+      "switchbot_ble_scan",
+      "開關機器人",
+      "發現",
+      "附近",
+      "裝置"
+    ]
   }
 }

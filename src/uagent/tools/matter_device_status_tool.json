@@ -3,25 +3,49 @@
     "param.fmt.description": "Format: json or text.",
     "err.device_id_required": "Matter device ID is required.",
     "err.not_found": "Matter device not found: {device_id}",
-    "err.ambiguous_target": "Matter device target is ambiguous: {device_id}"
+    "err.ambiguous_target": "Matter device target is ambiguous: {device_id}",
+    "x_search_terms": [
+      "حالة جهاز المادة",
+      "matter_device_status",
+      "مادة",
+      "مادة"
+    ]
   },
   "bn": {
     "param.fmt.description": "Format: json or text.",
     "err.device_id_required": "Matter device ID is required.",
     "err.not_found": "Matter device not found: {device_id}",
-    "err.ambiguous_target": "Matter device target is ambiguous: {device_id}"
+    "err.ambiguous_target": "Matter device target is ambiguous: {device_id}",
+    "x_search_terms": [
+      "বিষয় ডিভাইস স্থিতি",
+      "matter_device_status",
+      "বিষয়",
+      "বিষয়"
+    ]
   },
   "cs": {
     "param.fmt.description": "Format: json or text.",
     "err.device_id_required": "Matter device ID is required.",
     "err.not_found": "Matter device not found: {device_id}",
-    "err.ambiguous_target": "Matter device target is ambiguous: {device_id}"
+    "err.ambiguous_target": "Matter device target is ambiguous: {device_id}",
+    "x_search_terms": [
+      "stav zařízení hmoty",
+      "matter_device_status",
+      "hmota",
+      "HMOTA"
+    ]
   },
   "de": {
     "param.fmt.description": "Format: json or text.",
     "err.device_id_required": "Matter device ID is required.",
     "err.not_found": "Matter device not found: {device_id}",
-    "err.ambiguous_target": "Matter device target is ambiguous: {device_id}"
+    "err.ambiguous_target": "Matter device target is ambiguous: {device_id}",
+    "x_search_terms": [
+      "Angelegenheit Gerätestatus",
+      "matter_device_status",
+      "Angelegenheit",
+      "MATTER"
+    ]
   },
   "en": {
     "param.fmt.description": "Format: json or text.",
@@ -57,13 +81,25 @@
     "param.fmt.description": "Format: json or text.",
     "err.device_id_required": "Matter device ID is required.",
     "err.not_found": "Matter device not found: {device_id}",
-    "err.ambiguous_target": "Matter device target is ambiguous: {device_id}"
+    "err.ambiguous_target": "Matter device target is ambiguous: {device_id}",
+    "x_search_terms": [
+      "وضعیت دستگاه ماده",
+      "matter_device_status",
+      "ماده",
+      "ماده"
+    ]
   },
   "fi": {
     "param.fmt.description": "Format: json or text.",
     "err.device_id_required": "Matter device ID is required.",
     "err.not_found": "Matter device not found: {device_id}",
-    "err.ambiguous_target": "Matter device target is ambiguous: {device_id}"
+    "err.ambiguous_target": "Matter device target is ambiguous: {device_id}",
+    "x_search_terms": [
+      "asian laitteen tila",
+      "matter_device_status",
+      "asia",
+      "ASIA"
+    ]
   },
   "fr": {
     "param.fmt.description": "Format: json or text.",
@@ -81,7 +117,13 @@
     "param.fmt.description": "Format: json or text.",
     "err.device_id_required": "Matter device ID is required.",
     "err.not_found": "Matter device not found: {device_id}",
-    "err.ambiguous_target": "Matter device target is ambiguous: {device_id}"
+    "err.ambiguous_target": "Matter device target is ambiguous: {device_id}",
+    "x_search_terms": [
+      "विषय डिवाइस स्थिति",
+      "matter_device_status",
+      "विषय",
+      "विषय"
+    ]
   },
   "id": {
     "param.fmt.description": "Format: json or text.",
@@ -141,49 +183,97 @@
     "param.fmt.description": "Format: json or text.",
     "err.device_id_required": "Matter device ID is required.",
     "err.not_found": "Matter device not found: {device_id}",
-    "err.ambiguous_target": "Matter device target is ambiguous: {device_id}"
+    "err.ambiguous_target": "Matter device target is ambiguous: {device_id}",
+    "x_search_terms": [
+      "материйн төхөөрөмжийн төлөв",
+      "matter_device_status",
+      "асуудал",
+      "асуудал"
+    ]
   },
   "mr": {
     "param.fmt.description": "Format: json or text.",
     "err.device_id_required": "Matter device ID is required.",
     "err.not_found": "Matter device not found: {device_id}",
-    "err.ambiguous_target": "Matter device target is ambiguous: {device_id}"
+    "err.ambiguous_target": "Matter device target is ambiguous: {device_id}",
+    "x_search_terms": [
+      "विषय उपकरण स्थिती",
+      "matter_device_status",
+      "विषय",
+      "विषय"
+    ]
   },
   "el": {
     "param.fmt.description": "Στιγμιότυπο προσωρινής μνήμης ECHONET: {count} στοιχεία.",
     "err.device_id_required": "Ο στόχος της συσκευής είναι διφορούμενος: {device_id}",
     "err.not_found": "Αναγνωριστικό ελεγκτή (προαιρετικό).",
-    "err.ambiguous_target": "Αναγνωριστικό γέφυρας (προαιρετικό)."
+    "err.ambiguous_target": "Αναγνωριστικό γέφυρας (προαιρετικό).",
+    "x_search_terms": [
+      "κατάσταση συσκευής ύλης",
+      "matter_device_status",
+      "ύλη",
+      "ΥΛΗ"
+    ]
   },
   "he": {
     "param.fmt.description": "אין ערכים במטמון.",
     "err.device_id_required": "יעד מכשיר עניין אינו ברור: {device_id}",
     "err.not_found": "מזהה בקר (אופציונלי).",
-    "err.ambiguous_target": "מזהה גשר (אופציונלי)."
+    "err.ambiguous_target": "מזהה גשר (אופציונלי).",
+    "x_search_terms": [
+      "סטטוס מכשיר חומר",
+      "matter_device_status",
+      "חומר",
+      "חומר"
+    ]
   },
   "hu": {
     "param.fmt.description": "Gyorsítótár művelet: pillanatfelvétel vagy törlés.",
     "err.device_id_required": "Az eszköz célpontja nem egyértelmű: {device_id}",
     "err.not_found": "Vezérlőazonosító (nem kötelező).",
-    "err.ambiguous_target": "Hídazonosító (nem kötelező)."
+    "err.ambiguous_target": "Hídazonosító (nem kötelező).",
+    "x_search_terms": [
+      "anyag eszköz állapot",
+      "matter_device_status",
+      "anyag",
+      "ANYAG"
+    ]
   },
   "ro": {
     "param.fmt.description": "Inspectați sau ștergeți memoria cache ECHONET Lite partajată.",
     "err.device_id_required": "ID dispozitiv (obligatoriu).",
     "err.not_found": "ID-ul dispozitivului este necesar.",
-    "err.ambiguous_target": "Dispozitivul nu a fost găsit: {device_id}"
+    "err.ambiguous_target": "Dispozitivul nu a fost găsit: {device_id}",
+    "x_search_terms": [
+      "stare dispozitiv materie",
+      "matter_device_status",
+      "materie",
+      "MATERIE"
+    ]
   },
   "nb": {
     "param.fmt.description": "Format: json or text.",
     "err.device_id_required": "Matter device ID is required.",
     "err.not_found": "Matter device not found: {device_id}",
-    "err.ambiguous_target": "Matter device target is ambiguous: {device_id}"
+    "err.ambiguous_target": "Matter device target is ambiguous: {device_id}",
+    "x_search_terms": [
+      "materie enhetsstatus",
+      "matter_device_status",
+      "saken",
+      "MATTER"
+    ]
   },
   "nl": {
     "param.fmt.description": "Format: json or text.",
     "err.device_id_required": "Matter device ID is required.",
     "err.not_found": "Matter device not found: {device_id}",
-    "err.ambiguous_target": "Matter device target is ambiguous: {device_id}"
+    "err.ambiguous_target": "Matter device target is ambiguous: {device_id}",
+    "x_search_terms": [
+      "materie-apparaatstatus",
+      "matter_device_status",
+      "materie",
+      "MATTER"
+    ]
   },
   "pl": {
     "param.fmt.description": "Format: json or text.",
@@ -201,7 +291,13 @@
     "param.fmt.description": "Format: json or text.",
     "err.device_id_required": "Matter device ID is required.",
     "err.not_found": "Matter device not found: {device_id}",
-    "err.ambiguous_target": "Matter device target is ambiguous: {device_id}"
+    "err.ambiguous_target": "Matter device target is ambiguous: {device_id}",
+    "x_search_terms": [
+      "estado do dispositivo de matéria",
+      "estado_dispositivo_matéria",
+      "assunto",
+      "MATÉRIA"
+    ]
   },
   "pt_BR": {
     "param.fmt.description": "Format: json or text.",
@@ -219,37 +315,73 @@
     "param.fmt.description": "Format: json or text.",
     "err.device_id_required": "Matter device ID is required.",
     "err.not_found": "Matter device not found: {device_id}",
-    "err.ambiguous_target": "Matter device target is ambiguous: {device_id}"
+    "err.ambiguous_target": "Matter device target is ambiguous: {device_id}",
+    "x_search_terms": [
+      "состояние устройства материи",
+      "matter_device_status",
+      "материя",
+      "МАТЕРИЯ"
+    ]
   },
   "sv": {
     "param.fmt.description": "Format: json or text.",
     "err.device_id_required": "Matter device ID is required.",
     "err.not_found": "Matter device not found: {device_id}",
-    "err.ambiguous_target": "Matter device target is ambiguous: {device_id}"
+    "err.ambiguous_target": "Matter device target is ambiguous: {device_id}",
+    "x_search_terms": [
+      "materia enhetsstatus",
+      "matter_device_status",
+      "materia",
+      "MATTER"
+    ]
   },
   "sw": {
     "param.fmt.description": "Format: json or text.",
     "err.device_id_required": "Matter device ID is required.",
     "err.not_found": "Matter device not found: {device_id}",
-    "err.ambiguous_target": "Matter device target is ambiguous: {device_id}"
+    "err.ambiguous_target": "Matter device target is ambiguous: {device_id}",
+    "x_search_terms": [
+      "hali ya kifaa cha maada",
+      "matter_device_status",
+      "maada",
+      "MAADA"
+    ]
   },
   "th": {
     "param.fmt.description": "Format: json or text.",
     "err.device_id_required": "Matter device ID is required.",
     "err.not_found": "Matter device not found: {device_id}",
-    "err.ambiguous_target": "Matter device target is ambiguous: {device_id}"
+    "err.ambiguous_target": "Matter device target is ambiguous: {device_id}",
+    "x_search_terms": [
+      "สถานะอุปกรณ์สสาร",
+      "matter_device_status",
+      "สสาร",
+      "สสาร"
+    ]
   },
   "tr": {
     "param.fmt.description": "Format: json or text.",
     "err.device_id_required": "Matter device ID is required.",
     "err.not_found": "Matter device not found: {device_id}",
-    "err.ambiguous_target": "Matter device target is ambiguous: {device_id}"
+    "err.ambiguous_target": "Matter device target is ambiguous: {device_id}",
+    "x_search_terms": [
+      "madde cihaz durumu",
+      "matter_device_status",
+      "madde",
+      "MADDE"
+    ]
   },
   "uk": {
     "param.fmt.description": "Format: json or text.",
     "err.device_id_required": "Matter device ID is required.",
     "err.not_found": "Matter device not found: {device_id}",
-    "err.ambiguous_target": "Matter device target is ambiguous: {device_id}"
+    "err.ambiguous_target": "Matter device target is ambiguous: {device_id}",
+    "x_search_terms": [
+      "стан пристрою матерії",
+      "matter_device_status",
+      "матерія",
+      "МАТЕРІЯ"
+    ]
   },
   "vi": {
     "param.fmt.description": "Format: json or text.",
@@ -267,12 +399,24 @@
     "param.fmt.description": "Format: json or text.",
     "err.device_id_required": "Matter device ID is required.",
     "err.not_found": "Matter device not found: {device_id}",
-    "err.ambiguous_target": "Matter device target is ambiguous: {device_id}"
+    "err.ambiguous_target": "Matter device target is ambiguous: {device_id}",
+    "x_search_terms": [
+      "物质设备状态",
+      "matter_device_status",
+      "物质",
+      "物质"
+    ]
   },
   "zh_TW": {
     "param.fmt.description": "Format: json or text.",
     "err.device_id_required": "Matter device ID is required.",
     "err.not_found": "Matter device not found: {device_id}",
-    "err.ambiguous_target": "Matter device target is ambiguous: {device_id}"
+    "err.ambiguous_target": "Matter device target is ambiguous: {device_id}",
+    "x_search_terms": [
+      "物質裝置狀態",
+      "matter_device_status",
+      "物質",
+      "物質"
+    ]
   }
 }

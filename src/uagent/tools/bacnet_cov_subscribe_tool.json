@@ -35,7 +35,17 @@
     "param.fmt.description": "التنسيق: json أو نص.",
     "msg.subscribed": "اشتراك COV نشط: Task_id={task_id}, {label}",
     "err.ip_required": "مطلوب الملكية الفكرية.",
-    "err.object_type_required": "مطلوب نوع_الكائن."
+    "err.object_type_required": "مطلوب نوع_الكائن.",
+    "x_search_terms": [
+      "اشتراك bacnet cov",
+      "bacnet_cov_subscribe",
+      "باكنت",
+      "باكنت",
+      "كوف",
+      "تغيير",
+      "قيمة",
+      "إشعارات"
+    ]
   },
   "bn": {
     "tool.description": "একটি বস্তুর জন্য BACnet COV (মান পরিবর্তন) বিজ্ঞপ্তিতে সদস্যতা নিন। যখন মান পরিবর্তন হয়, এলএলএম স্বয়ংক্রিয়ভাবে অবহিত হয়।",
@@ -49,7 +59,17 @@
     "param.fmt.description": "বিন্যাস: json বা পাঠ্য।",
     "msg.subscribed": "COV সদস্যতা সক্রিয়: task_id={task_id}, {label}",
     "err.ip_required": "আইপি প্রয়োজন।",
-    "err.object_type_required": "অবজেক্ট_টাইপ প্রয়োজন।"
+    "err.object_type_required": "অবজেক্ট_টাইপ প্রয়োজন।",
+    "x_search_terms": [
+      "bacnet cov সাবস্ক্রাইব",
+      "bacnet_cov_subscribe",
+      "ব্যাকনেট",
+      "ব্যাকনেট",
+      "কোভ",
+      "পরিবর্তন",
+      "মান",
+      "বিজ্ঞপ্তি"
+    ]
   },
   "cs": {
     "tool.description": "Přihlaste se k odběru oznámení BACnet COV (Change of Value) pro objekt. Když se hodnota změní, LLM je automaticky informován.",
@@ -63,7 +83,17 @@
     "param.fmt.description": "Formát: json nebo text.",
     "msg.subscribed": "Aktivní předplatné COV: task_id={task_id}, {label}",
     "err.ip_required": "IP je vyžadováno.",
-    "err.object_type_required": "je vyžadován typ_objektu."
+    "err.object_type_required": "je vyžadován typ_objektu.",
+    "x_search_terms": [
+      "bacnet cov přihlásit se k odběru",
+      "bacnet_cov_subscribe",
+      "bacnet",
+      "BACNET",
+      "cov",
+      "změnit",
+      "hodnota",
+      "oznámení"
+    ]
   },
   "de": {
     "tool.description": "Abonnieren Sie BACnet COV-Benachrichtigungen (Change of Value) für ein Objekt. Wenn sich der Wert ändert, wird das LLM automatisch benachrichtigt.",
@@ -77,7 +107,17 @@
     "param.fmt.description": "Format: JSON oder Text.",
     "msg.subscribed": "COV-Abonnement aktiv: task_id={task_id}, {label}",
     "err.ip_required": "IP ist erforderlich.",
-    "err.object_type_required": "object_type ist erforderlich."
+    "err.object_type_required": "object_type ist erforderlich.",
+    "x_search_terms": [
+      "bacnet cov abonnieren",
+      "bacnet_cov_subscribe",
+      "bacnet",
+      "BACNET",
+      "cov",
+      "ändern",
+      "Wert",
+      "Benachrichtigungen"
+    ]
   },
   "el": {
     "tool.description": "Εγγραφείτε στις ειδοποιήσεις BACnet COV (Change of Value) για ένα αντικείμενο. Όταν αλλάξει η τιμή, το LLM ειδοποιείται αυτόματα.",
@@ -91,7 +131,17 @@
     "param.fmt.description": "Μορφή: json ή κείμενο.",
     "msg.subscribed": "Ενεργή συνδρομή COV: task_id={task_id}, {label}",
     "err.ip_required": "απαιτείται ip.",
-    "err.object_type_required": "Απαιτείται ο τύπος_αντικειμένου."
+    "err.object_type_required": "Απαιτείται ο τύπος_αντικειμένου.",
+    "x_search_terms": [
+      "bacnet cov εγγραφή",
+      "bacnet_cov_subscribe",
+      "bacnet",
+      "BACNET",
+      "cov",
+      "αλλαγή",
+      "τιμή",
+      "ειδοποιήσεις"
+    ]
   },
   "es": {
     "tool.description": "Suscríbase a notificaciones BACnet COV (cambio de valor) para un objeto. Cuando el valor cambia, se notifica automáticamente al LLM.",
@@ -129,7 +179,17 @@
     "param.fmt.description": "فرمت: json یا متن.",
     "msg.subscribed": "اشتراک COV فعال: task_id={task_id}، {label}",
     "err.ip_required": "ip مورد نیاز است.",
-    "err.object_type_required": "object_type مورد نیاز است."
+    "err.object_type_required": "object_type مورد نیاز است.",
+    "x_search_terms": [
+      "اشتراک bacnet cov",
+      "bacnet_cov_subscribe",
+      "بکنت",
+      "بکنت",
+      "کوو",
+      "تغییر",
+      "مقدار",
+      "اعلان‌ها"
+    ]
   },
   "fi": {
     "tool.description": "Tilaa kohteen BACnet COV (Change of Value) -ilmoitukset. Kun arvo muuttuu, LLM:lle ilmoitetaan automaattisesti.",
@@ -143,7 +203,17 @@
     "param.fmt.description": "Muoto: json tai teksti.",
     "msg.subscribed": "COV-tilaus aktiivinen: task_id={task_id}, {label}",
     "err.ip_required": "ip vaaditaan.",
-    "err.object_type_required": "objektin_tyyppi vaaditaan."
+    "err.object_type_required": "objektin_tyyppi vaaditaan.",
+    "x_search_terms": [
+      "bacnet cov tilaa",
+      "bacnet_cov_subscribe",
+      "bacnet",
+      "BACNET",
+      "cov",
+      "muuttaa",
+      "arvo",
+      "ilmoitukset"
+    ]
   },
   "fr": {
     "tool.description": "Abonnez-vous aux notifications BACnet COV (Change of Value) pour un objet. Lorsque la valeur change, le LLM est automatiquement averti.",
@@ -181,7 +251,17 @@
     "param.fmt.description": "פורמט: json או טקסט.",
     "msg.subscribed": "מנוי COV פעיל: task_id={task_id}, {label}",
     "err.ip_required": "נדרש ip.",
-    "err.object_type_required": "דרוש object_type."
+    "err.object_type_required": "דרוש object_type.",
+    "x_search_terms": [
+      "bacnet cov הירשם",
+      "bacnet_cov_subscribe",
+      "בק-נט",
+      "בק-נט",
+      "cov",
+      "שינוי",
+      "ערך",
+      "הודעות"
+    ]
   },
   "hi": {
     "tool.description": "किसी वस्तु के लिए BACnet COV (मूल्य में परिवर्तन) सूचनाओं की सदस्यता लें। जब मान बदलता है, तो एलएलएम स्वचालित रूप से सूचित हो जाता है।",
@@ -195,7 +275,17 @@
     "param.fmt.description": "प्रारूप: json या text.",
     "msg.subscribed": "COV सदस्यता सक्रिय: Task_id={task_id}, {label}",
     "err.ip_required": "आईपी आवश्यक है.",
-    "err.object_type_required": "object_type आवश्यक है."
+    "err.object_type_required": "object_type आवश्यक है.",
+    "x_search_terms": [
+      "bacnet cov सब्सक्राइब करें",
+      "bacnet_cov_subscribe",
+      "बैकनेट",
+      "बैकनेट",
+      "कोव",
+      "बदलें",
+      "मान",
+      "सूचनाएं"
+    ]
   },
   "hu": {
     "tool.description": "Iratkozzon fel a BACnet COV (Értékváltozás) értesítésekre egy objektumhoz. Ha az érték megváltozik, az LLM automatikusan értesítést kap.",
@@ -209,7 +299,17 @@
     "param.fmt.description": "Formátum: json vagy szöveg.",
     "msg.subscribed": "COV-előfizetés aktív: task_id={task_id}, {label}",
     "err.ip_required": "ip szükséges.",
-    "err.object_type_required": "az objektum_típus megadása kötelező."
+    "err.object_type_required": "az objektum_típus megadása kötelező.",
+    "x_search_terms": [
+      "bacnet cov feliratkozás",
+      "bacnet_cov_subscribe",
+      "bacnet",
+      "BACNET",
+      "cov",
+      "változtatás",
+      "érték",
+      "értesítések"
+    ]
   },
   "id": {
     "tool.description": "Berlangganan notifikasi BACnet COV (Perubahan Nilai) untuk suatu objek. Ketika nilainya berubah, LLM secara otomatis diberitahu.",
@@ -319,7 +419,17 @@
     "param.fmt.description": "Формат: json эсвэл текст.",
     "msg.subscribed": "COV захиалга идэвхтэй: task_id={task_id}, {label}",
     "err.ip_required": "ip шаардлагатай.",
-    "err.object_type_required": "объектын төрөл шаардлагатай."
+    "err.object_type_required": "объектын төрөл шаардлагатай.",
+    "x_search_terms": [
+      "bacnet cov бүртгүүлэх",
+      "bacnet_cov_subscribe",
+      "бакнет",
+      "бакнет",
+      "ков",
+      "өөрчлөх",
+      "утга",
+      "мэдэгдэл"
+    ]
   },
   "mr": {
     "tool.description": "ऑब्जेक्टसाठी BACnet COV (चेंज ऑफ व्हॅल्यू) सूचनांचे सदस्यत्व घ्या. जेव्हा मूल्य बदलते, तेव्हा LLM स्वयंचलितपणे सूचित केले जाते.",
@@ -333,7 +443,17 @@
     "param.fmt.description": "स्वरूप: json किंवा मजकूर.",
     "msg.subscribed": "COV सदस्यता सक्रिय: task_id={task_id}, {label}",
     "err.ip_required": "ip आवश्यक आहे.",
-    "err.object_type_required": "object_type आवश्यक आहे."
+    "err.object_type_required": "object_type आवश्यक आहे.",
+    "x_search_terms": [
+      "bacnet cov सबस्क्राइब",
+      "bacnet_cov_subscribe",
+      "बॅकनेट",
+      "बॅकनेट",
+      "कॉव",
+      "बदल",
+      "मूल्य",
+      "सूचना"
+    ]
   },
   "nb": {
     "tool.description": "Abonner på BACnet COV-varsler (Change of Value) for et objekt. Når verdien endres, blir LLM automatisk varslet.",
@@ -347,7 +467,17 @@
     "param.fmt.description": "Format: json eller tekst.",
     "msg.subscribed": "COV-abonnement aktivt: task_id={task_id}, {label}",
     "err.ip_required": "ip kreves.",
-    "err.object_type_required": "objekttype er påkrevd."
+    "err.object_type_required": "objekttype er påkrevd.",
+    "x_search_terms": [
+      "bacnet cov abonner",
+      "bacnet_cov_subscribe",
+      "bacnet",
+      "BACNET",
+      "cov",
+      "endre",
+      "verdi",
+      "varsler"
+    ]
   },
   "nl": {
     "tool.description": "Abonneer u op BACnet COV-meldingen (Change of Value) voor een object. Wanneer de waarde verandert, wordt de LLM automatisch op de hoogte gebracht.",
@@ -361,7 +491,17 @@
     "param.fmt.description": "Formaat: json of tekst.",
     "msg.subscribed": "COV-abonnement actief: task_id={task_id}, {label}",
     "err.ip_required": "ip is vereist.",
-    "err.object_type_required": "object_type is vereist."
+    "err.object_type_required": "object_type is vereist.",
+    "x_search_terms": [
+      "bacnet cov abonneren",
+      "bacnet_cov_subscribe",
+      "bacnet",
+      "BACNET",
+      "cov",
+      "veranderen",
+      "waarde",
+      "meldingen"
+    ]
   },
   "pl": {
     "tool.description": "Subskrybuj powiadomienia BACnet COV (Change of Value) dla obiektu. Gdy wartość się zmieni, LLM zostanie automatycznie powiadomiony.",
@@ -399,7 +539,17 @@
     "param.fmt.description": "Formato: json ou texto.",
     "msg.subscribed": "Assinatura COV ativa: task_id={task_id}, {label}",
     "err.ip_required": "ip é obrigatório.",
-    "err.object_type_required": "object_type é obrigatório."
+    "err.object_type_required": "object_type é obrigatório.",
+    "x_search_terms": [
+      "bacnet cov subscrever",
+      "bacnet_cov_subscribe",
+      "bacnet",
+      "BACNET",
+      "cob",
+      "mudar",
+      "valor",
+      "notificações"
+    ]
   },
   "pt_BR": {
     "tool.description": "Assine as notificações BACnet COV (mudança de valor) para um objeto. Quando o valor muda, o LLM é notificado automaticamente.",
@@ -437,7 +587,17 @@
     "param.fmt.description": "Format: json sau text.",
     "msg.subscribed": "Abonament COV activ: task_id={task_id}, {label}",
     "err.ip_required": "ip este necesar.",
-    "err.object_type_required": "object_type este necesar."
+    "err.object_type_required": "object_type este necesar.",
+    "x_search_terms": [
+      "bacnet cov abonare",
+      "bacnet_cov_subscribe",
+      "bacnet",
+      "BACNET",
+      "cov",
+      "schimbare",
+      "valoare",
+      "notificări"
+    ]
   },
   "ru": {
     "tool.description": "Подпишитесь на уведомления BACnet COV (изменение значения) для объекта. При изменении значения LLM автоматически уведомляется.",
@@ -451,7 +611,17 @@
     "param.fmt.description": "Формат: json или текст.",
     "msg.subscribed": "Подписка COV активна: Task_id={task_id}, {label}",
     "err.ip_required": "айпи обязателен.",
-    "err.object_type_required": "требуется тип_объекта."
+    "err.object_type_required": "требуется тип_объекта.",
+    "x_search_terms": [
+      "подписаться на bacnet cov",
+      "bacnet_cov_subscribe",
+      "bacnet",
+      "BACNET",
+      "cov",
+      "изменить",
+      "значение",
+      "уведомления"
+    ]
   },
   "sv": {
     "tool.description": "Prenumerera på BACnet COV-meddelanden (Change of Value) för ett objekt. När värdet ändras meddelas LLM automatiskt.",
@@ -465,7 +635,17 @@
     "param.fmt.description": "Format: json eller text.",
     "msg.subscribed": "COV-prenumeration aktiv: task_id={task_id}, {label}",
     "err.ip_required": "ip krävs.",
-    "err.object_type_required": "objekttyp krävs."
+    "err.object_type_required": "objekttyp krävs.",
+    "x_search_terms": [
+      "bacnet cov prenumerera",
+      "bacnet_cov_subscribe",
+      "bacnet",
+      "BACNET",
+      "cov",
+      "ändra",
+      "värde",
+      "meddelanden"
+    ]
   },
   "sw": {
     "tool.description": "Jisajili kwa arifa za BACnet COV (Mabadiliko ya Thamani) kwa kitu. Thamani inapobadilika, LLM inaarifiwa kiotomatiki.",
@@ -479,7 +659,17 @@
     "param.fmt.description": "Umbizo: json au maandishi.",
     "msg.subscribed": "Usajili wa COV unaendelea: task_id={task_id}, {label}",
     "err.ip_required": "ip inahitajika.",
-    "err.object_type_required": "object_type inahitajika."
+    "err.object_type_required": "object_type inahitajika.",
+    "x_search_terms": [
+      "bacnet cov jiandikisha",
+      "bacnet_cov_subscribe",
+      "bacnet",
+      "BACNET",
+      "cov",
+      "badilisha",
+      "thamani",
+      "arifa"
+    ]
   },
   "th": {
     "tool.description": "สมัครรับการแจ้งเตือน BACnet COV (การเปลี่ยนแปลงมูลค่า) สำหรับออบเจ็กต์ เมื่อค่าเปลี่ยนแปลง LLM จะได้รับแจ้งโดยอัตโนมัติ",
@@ -493,7 +683,17 @@
     "param.fmt.description": "รูปแบบ: json หรือข้อความ",
     "msg.subscribed": "การสมัคร COV ใช้งานอยู่: task_id={task_id}, {label}",
     "err.ip_required": "จำเป็นต้องมีไอพี",
-    "err.object_type_required": "จำเป็นต้องมี object_type"
+    "err.object_type_required": "จำเป็นต้องมี object_type",
+    "x_search_terms": [
+      "สมัครสมาชิก bacnet cov",
+      "bacnet_cov_subscribe",
+      "แบคเน็ท",
+      "แบคเน็ท",
+      "คอฟ",
+      "เปลี่ยน",
+      "ค่า",
+      "การแจ้งเตือน"
+    ]
   },
   "tr": {
     "tool.description": "Bir nesne için BACnet COV (Değer Değişikliği) bildirimlerine abone olun. Değer değiştiğinde LLM otomatik olarak bilgilendirilir.",
@@ -507,7 +707,17 @@
     "param.fmt.description": "Biçim: json veya metin.",
     "msg.subscribed": "COV aboneliği etkin: görev_id={task_id}, {label}",
     "err.ip_required": "ip gereklidir.",
-    "err.object_type_required": "nesne_türü gerekli."
+    "err.object_type_required": "nesne_türü gerekli.",
+    "x_search_terms": [
+      "bacnet cov abone ol",
+      "bacnet_cov_subscribe",
+      "bacnet",
+      "BACNET",
+      "cov",
+      "değiştirmek",
+      "değer",
+      "bildirimler"
+    ]
   },
   "uk": {
     "tool.description": "Підпишіться на сповіщення BACnet COV (Change of Value) для об’єкта. Коли значення змінюється, LLM автоматично повідомляється.",
@@ -521,7 +731,17 @@
     "param.fmt.description": "Формат: json або текстовий.",
     "msg.subscribed": "Підписка на COV активна: task_id={task_id}, {label}",
     "err.ip_required": "потрібен ip.",
-    "err.object_type_required": "object_type є обов’язковим."
+    "err.object_type_required": "object_type є обов’язковим.",
+    "x_search_terms": [
+      "підписатися на bacnet cov",
+      "bacnet_cov_subscribe",
+      "bacnet",
+      "BACNET",
+      "cov",
+      "змінити",
+      "значення",
+      "сповіщення"
+    ]
   },
   "vi": {
     "tool.description": "Đăng ký thông báo BACnet COV (Thay đổi giá trị) cho một đối tượng. Khi giá trị thay đổi, LLM sẽ tự động được thông báo.",
@@ -559,7 +779,17 @@
     "param.fmt.description": "格式：json 或文本。",
     "msg.subscribed": "COV 订阅处于活动状态：task_id={task_id}、{label}",
     "err.ip_required": "ip 是必需的。",
-    "err.object_type_required": "object_type 是必需的。"
+    "err.object_type_required": "object_type 是必需的。",
+    "x_search_terms": [
+      "bacnet cov 订阅",
+      "bacnet_cov_subscribe",
+      "bacnet",
+      "BACNET",
+      "cov",
+      "改变",
+      "值",
+      "通知"
+    ]
   },
   "zh_TW": {
     "tool.description": "訂閱對象的 BACnet COV（值變更）通知。當值發生變化時，LLM 會自動收到通知。",
@@ -573,6 +803,16 @@
     "param.fmt.description": "格式：json 或文字。",
     "msg.subscribed": "COV 訂閱處於活動狀態：task_id={task_id}、{label}",
     "err.ip_required": "ip 是必需的。",
-    "err.object_type_required": "object_type 是必需的。"
+    "err.object_type_required": "object_type 是必需的。",
+    "x_search_terms": [
+      "bacnet cov 訂閱",
+      "bacnet_cov_subscribe",
+      "bacnet",
+      "BACNET",
+      "cov",
+      "變更",
+      "值",
+      "通知"
+    ]
   }
 }

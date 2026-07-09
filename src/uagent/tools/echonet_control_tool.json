@@ -12,7 +12,16 @@
     "err.value_required": "The value field is required for set_value.",
     "err.unknown_action": "Error: Unknown action '{action}'.",
     "msg.summary": "ECHONET Lite control completed: {action} on {ip_address} in {elapsed_ms} ms.",
-    "err.invalid_ip_address": "Error: ip_address must be a valid IPv4 address."
+    "err.invalid_ip_address": "Error: ip_address must be a valid IPv4 address.",
+    "x_search_terms": [
+      "تحكم echonet",
+      "echonet_control",
+      "إيكونت",
+      "إيكونت",
+      "تنفيذ",
+      "أساسي",
+      "أوامر"
+    ]
   },
   "bn": {
     "param.ip.description": "Target node IPv4 address.",
@@ -27,7 +36,16 @@
     "err.value_required": "The value field is required for set_value.",
     "err.unknown_action": "Error: Unknown action '{action}'.",
     "msg.summary": "ECHONET Lite control completed: {action} on {ip_address} in {elapsed_ms} ms.",
-    "err.invalid_ip_address": "Error: ip_address must be a valid IPv4 address."
+    "err.invalid_ip_address": "Error: ip_address must be a valid IPv4 address.",
+    "x_search_terms": [
+      "echonet নিয়ন্ত্রণ",
+      "echonet_control",
+      "ইকোনেট",
+      "ইকোনেট",
+      "সম্পাদন",
+      "মৌলিক",
+      "কমান্ড"
+    ]
   },
   "cs": {
     "param.ip.description": "Target node IPv4 address.",
@@ -42,7 +60,16 @@
     "err.value_required": "The value field is required for set_value.",
     "err.unknown_action": "Error: Unknown action '{action}'.",
     "msg.summary": "ECHONET Lite control completed: {action} on {ip_address} in {elapsed_ms} ms.",
-    "err.invalid_ip_address": "Error: ip_address must be a valid IPv4 address."
+    "err.invalid_ip_address": "Error: ip_address must be a valid IPv4 address.",
+    "x_search_terms": [
+      "ovládání echonet",
+      "echonet_control",
+      "echosíť",
+      "ECHONET",
+      "provést",
+      "základní",
+      "příkazy"
+    ]
   },
   "de": {
     "param.ip.description": "Target node IPv4 address.",
@@ -57,7 +84,16 @@
     "err.value_required": "The value field is required for set_value.",
     "err.unknown_action": "Error: Unknown action '{action}'.",
     "msg.summary": "ECHONET Lite control completed: {action} on {ip_address} in {elapsed_ms} ms.",
-    "err.invalid_ip_address": "Error: ip_address must be a valid IPv4 address."
+    "err.invalid_ip_address": "Error: ip_address must be a valid IPv4 address.",
+    "x_search_terms": [
+      "Echonet-Steuerung",
+      "echonet_control",
+      "echonet",
+      "ECHONET",
+      "ausführen",
+      "einfach",
+      "Befehle"
+    ]
   },
   "en": {
     "param.ip.description": "Target node IPv4 address.",
@@ -123,7 +159,16 @@
     "err.value_required": "The value field is required for set_value.",
     "err.unknown_action": "Error: Unknown action '{action}'.",
     "msg.summary": "ECHONET Lite control completed: {action} on {ip_address} in {elapsed_ms} ms.",
-    "err.invalid_ip_address": "Error: ip_address must be a valid IPv4 address."
+    "err.invalid_ip_address": "Error: ip_address must be a valid IPv4 address.",
+    "x_search_terms": [
+      "کنترل echonet",
+      "echonet_control",
+      "اکونت",
+      "اکونت",
+      "اجرا",
+      "پایه",
+      "دستورات"
+    ]
   },
   "fi": {
     "param.ip.description": "Target node IPv4 address.",
@@ -138,7 +183,16 @@
     "err.value_required": "The value field is required for set_value.",
     "err.unknown_action": "Error: Unknown action '{action}'.",
     "msg.summary": "ECHONET Lite control completed: {action} on {ip_address} in {elapsed_ms} ms.",
-    "err.invalid_ip_address": "Error: ip_address must be a valid IPv4 address."
+    "err.invalid_ip_address": "Error: ip_address must be a valid IPv4 address.",
+    "x_search_terms": [
+      "echonet-ohjaus",
+      "echonet_control",
+      "ekoverkko",
+      "ECHONET",
+      "suorita",
+      "perus",
+      "komennot"
+    ]
   },
   "fr": {
     "param.ip.description": "Target node IPv4 address.",
@@ -177,7 +231,16 @@
     "err.value_required": "The value field is required for set_value.",
     "err.unknown_action": "Error: Unknown action '{action}'.",
     "msg.summary": "ECHONET Lite control completed: {action} on {ip_address} in {elapsed_ms} ms.",
-    "err.invalid_ip_address": "Error: ip_address must be a valid IPv4 address."
+    "err.invalid_ip_address": "Error: ip_address must be a valid IPv4 address.",
+    "x_search_terms": [
+      "echonet नियंत्रण",
+      "echonet_control",
+      "इकोनेट",
+      "इकोनेट",
+      "निष्पादित करें",
+      "बुनियादी",
+      "आदेश"
+    ]
   },
   "id": {
     "param.ip.description": "Target node IPv4 address.",
@@ -292,7 +355,16 @@
     "err.value_required": "The value field is required for set_value.",
     "err.unknown_action": "Error: Unknown action '{action}'.",
     "msg.summary": "ECHONET Lite control completed: {action} on {ip_address} in {elapsed_ms} ms.",
-    "err.invalid_ip_address": "Error: ip_address must be a valid IPv4 address."
+    "err.invalid_ip_address": "Error: ip_address must be a valid IPv4 address.",
+    "x_search_terms": [
+      "echonet хяналт",
+      "echonet_control",
+      "эхонет",
+      "эхонет",
+      "гүйцэтгэх",
+      "үндсэн",
+      "командууд"
+    ]
   },
   "mr": {
     "param.ip.description": "Target node IPv4 address.",
@@ -307,7 +379,16 @@
     "err.value_required": "The value field is required for set_value.",
     "err.unknown_action": "Error: Unknown action '{action}'.",
     "msg.summary": "ECHONET Lite control completed: {action} on {ip_address} in {elapsed_ms} ms.",
-    "err.invalid_ip_address": "Error: ip_address must be a valid IPv4 address."
+    "err.invalid_ip_address": "Error: ip_address must be a valid IPv4 address.",
+    "x_search_terms": [
+      "echonet नियंत्रण",
+      "echonet_control",
+      "इकोनेट",
+      "इकोनेट",
+      "कार्यान्वित करा",
+      "मूलभूत",
+      "आदेश"
+    ]
   },
   "el": {
     "param.ip.description": "Διεύθυνση IPv4 κόμβου στόχου.",
@@ -322,7 +403,16 @@
     "err.value_required": "Το πεδίο τιμής απαιτείται για το set_value.",
     "err.unknown_action": "Σφάλμα: Άγνωστη ενέργεια \"{action}\".",
     "msg.summary": "Ο έλεγχος ECHONET Lite ολοκληρώθηκε: {action} στο {ip_address} σε {elapsed_ms} ms.",
-    "err.invalid_ip_address": "Σφάλμα: Η διεύθυνση ip_address πρέπει να είναι έγκυρη διεύθυνση IPv4."
+    "err.invalid_ip_address": "Σφάλμα: Η διεύθυνση ip_address πρέπει να είναι έγκυρη διεύθυνση IPv4.",
+    "x_search_terms": [
+      "έλεγχος echonet",
+      "echonet_control",
+      "echonet",
+      "ECHONET",
+      "εκτέλεση",
+      "βασικές",
+      "εντολές"
+    ]
   },
   "he": {
     "param.ip.description": "כתובת IPv4 של צומת יעד.",
@@ -337,7 +427,16 @@
     "err.value_required": "שדה הערך נדרש עבור set_value.",
     "err.unknown_action": "שגיאה: פעולה לא ידועה '{action}'.",
     "msg.summary": "בקרת ECHONET Lite הושלמה: {action} ב-{ip_address} בעוד {elapsed_ms} אלפיות השנייה.",
-    "err.invalid_ip_address": "שגיאה: כתובת ה-ip_address חייבת להיות כתובת IPv4 חוקית."
+    "err.invalid_ip_address": "שגיאה: כתובת ה-ip_address חייבת להיות כתובת IPv4 חוקית.",
+    "x_search_terms": [
+      "שליטת echonet",
+      "echonet_control",
+      "אקו-נט",
+      "אקו-נט",
+      "בצע",
+      "בסיסי",
+      "פקודות"
+    ]
   },
   "hu": {
     "param.ip.description": "Célcsomópont IPv4-címe.",
@@ -352,7 +451,16 @@
     "err.value_required": "Az érték mező kitöltése kötelező a set_value esetén.",
     "err.unknown_action": "Hiba: Ismeretlen művelet „{action}”.",
     "msg.summary": "Az ECHONET Lite vezérlése befejeződött: {action} itt: {ip_address} {elapsed_ms} ms alatt.",
-    "err.invalid_ip_address": "Hiba: az ip_address érvényes IPv4-címnek kell lennie."
+    "err.invalid_ip_address": "Hiba: az ip_address érvényes IPv4-címnek kell lennie.",
+    "x_search_terms": [
+      "echonet vezérlés",
+      "echonet_control",
+      "echonet",
+      "ECHONET",
+      "végrehajt",
+      "alap",
+      "parancsok"
+    ]
   },
   "ro": {
     "param.ip.description": "Adresa IPv4 a nodului țintă.",
@@ -367,7 +475,16 @@
     "err.value_required": "Câmpul valoare este obligatoriu pentru set_value.",
     "err.unknown_action": "Eroare: acțiune necunoscută „{action}”.",
     "msg.summary": "Controlul ECHONET Lite finalizat: {action} pe {ip_address} în {elapsed_ms} ms.",
-    "err.invalid_ip_address": "Eroare: ip_address trebuie să fie o adresă IPv4 validă."
+    "err.invalid_ip_address": "Eroare: ip_address trebuie să fie o adresă IPv4 validă.",
+    "x_search_terms": [
+      "control echonet",
+      "echonet_control",
+      "econet",
+      "ECHONET",
+      "execută",
+      "de bază",
+      "comenzi"
+    ]
   },
   "nb": {
     "param.ip.description": "Target node IPv4 address.",
@@ -382,7 +499,16 @@
     "err.value_required": "The value field is required for set_value.",
     "err.unknown_action": "Error: Unknown action '{action}'.",
     "msg.summary": "ECHONET Lite control completed: {action} on {ip_address} in {elapsed_ms} ms.",
-    "err.invalid_ip_address": "Error: ip_address must be a valid IPv4 address."
+    "err.invalid_ip_address": "Error: ip_address must be a valid IPv4 address.",
+    "x_search_terms": [
+      "echonet-kontroll",
+      "echonet_control",
+      "ekonett",
+      "ECHONET",
+      "utføre",
+      "grunnleggende",
+      "kommandoer"
+    ]
   },
   "nl": {
     "param.ip.description": "Target node IPv4 address.",
@@ -397,7 +523,16 @@
     "err.value_required": "The value field is required for set_value.",
     "err.unknown_action": "Error: Unknown action '{action}'.",
     "msg.summary": "ECHONET Lite control completed: {action} on {ip_address} in {elapsed_ms} ms.",
-    "err.invalid_ip_address": "Error: ip_address must be a valid IPv4 address."
+    "err.invalid_ip_address": "Error: ip_address must be a valid IPv4 address.",
+    "x_search_terms": [
+      "echonet-controle",
+      "echonet_control",
+      "echonet",
+      "ECHONET",
+      "uitvoeren",
+      "basis",
+      "opdrachten"
+    ]
   },
   "pl": {
     "param.ip.description": "Target node IPv4 address.",
@@ -436,7 +571,16 @@
     "err.value_required": "The value field is required for set_value.",
     "err.unknown_action": "Error: Unknown action '{action}'.",
     "msg.summary": "ECHONET Lite control completed: {action} on {ip_address} in {elapsed_ms} ms.",
-    "err.invalid_ip_address": "Error: ip_address must be a valid IPv4 address."
+    "err.invalid_ip_address": "Error: ip_address must be a valid IPv4 address.",
+    "x_search_terms": [
+      "controlo econet",
+      "echonet_control",
+      "econet",
+      "ECHONET",
+      "executar",
+      "básico",
+      "comandos"
+    ]
   },
   "pt_BR": {
     "param.ip.description": "Target node IPv4 address.",
@@ -475,7 +619,16 @@
     "err.value_required": "The value field is required for set_value.",
     "err.unknown_action": "Error: Unknown action '{action}'.",
     "msg.summary": "ECHONET Lite control completed: {action} on {ip_address} in {elapsed_ms} ms.",
-    "err.invalid_ip_address": "Error: ip_address must be a valid IPv4 address."
+    "err.invalid_ip_address": "Error: ip_address must be a valid IPv4 address.",
+    "x_search_terms": [
+      "управление эхосетью",
+      "echonet_control",
+      "эхосеть",
+      "ECHONET",
+      "выполнять",
+      "базовый",
+      "команды"
+    ]
   },
   "sv": {
     "param.ip.description": "Target node IPv4 address.",
@@ -490,7 +643,16 @@
     "err.value_required": "The value field is required for set_value.",
     "err.unknown_action": "Error: Unknown action '{action}'.",
     "msg.summary": "ECHONET Lite control completed: {action} on {ip_address} in {elapsed_ms} ms.",
-    "err.invalid_ip_address": "Error: ip_address must be a valid IPv4 address."
+    "err.invalid_ip_address": "Error: ip_address must be a valid IPv4 address.",
+    "x_search_terms": [
+      "echonet kontroll",
+      "echonet_control",
+      "ekonät",
+      "ECHONET",
+      "utföra",
+      "grundläggande",
+      "kommandon"
+    ]
   },
   "sw": {
     "param.ip.description": "Target node IPv4 address.",
@@ -505,7 +667,16 @@
     "err.value_required": "The value field is required for set_value.",
     "err.unknown_action": "Error: Unknown action '{action}'.",
     "msg.summary": "ECHONET Lite control completed: {action} on {ip_address} in {elapsed_ms} ms.",
-    "err.invalid_ip_address": "Error: ip_address must be a valid IPv4 address."
+    "err.invalid_ip_address": "Error: ip_address must be a valid IPv4 address.",
+    "x_search_terms": [
+      "udhibiti wa echonet",
+      "echonet_control",
+      "echonet",
+      "ECHONET",
+      "kutekeleza",
+      "msingi",
+      "amri"
+    ]
   },
   "th": {
     "param.ip.description": "Target node IPv4 address.",
@@ -520,7 +691,16 @@
     "err.value_required": "The value field is required for set_value.",
     "err.unknown_action": "Error: Unknown action '{action}'.",
     "msg.summary": "ECHONET Lite control completed: {action} on {ip_address} in {elapsed_ms} ms.",
-    "err.invalid_ip_address": "Error: ip_address must be a valid IPv4 address."
+    "err.invalid_ip_address": "Error: ip_address must be a valid IPv4 address.",
+    "x_search_terms": [
+      "ควบคุม echonet",
+      "echonet_control",
+      "อีโค่เน็ต",
+      "อีโค่เน็ต",
+      "ดำเนินการ",
+      "พื้นฐาน",
+      "คำสั่ง"
+    ]
   },
   "tr": {
     "param.ip.description": "Target node IPv4 address.",
@@ -535,7 +715,16 @@
     "err.value_required": "The value field is required for set_value.",
     "err.unknown_action": "Error: Unknown action '{action}'.",
     "msg.summary": "ECHONET Lite control completed: {action} on {ip_address} in {elapsed_ms} ms.",
-    "err.invalid_ip_address": "Error: ip_address must be a valid IPv4 address."
+    "err.invalid_ip_address": "Error: ip_address must be a valid IPv4 address.",
+    "x_search_terms": [
+      "echonet kontrolü",
+      "echonet_control",
+      "eko ağ",
+      "ECONET",
+      "yürütmek",
+      "temel",
+      "komutlar"
+    ]
   },
   "uk": {
     "param.ip.description": "Target node IPv4 address.",
@@ -550,7 +739,16 @@
     "err.value_required": "The value field is required for set_value.",
     "err.unknown_action": "Error: Unknown action '{action}'.",
     "msg.summary": "ECHONET Lite control completed: {action} on {ip_address} in {elapsed_ms} ms.",
-    "err.invalid_ip_address": "Error: ip_address must be a valid IPv4 address."
+    "err.invalid_ip_address": "Error: ip_address must be a valid IPv4 address.",
+    "x_search_terms": [
+      "керування ехомережею",
+      "echonet_control",
+      "ехомережа",
+      "ECHONET",
+      "виконати",
+      "базовий",
+      "команди"
+    ]
   },
   "vi": {
     "param.ip.description": "Target node IPv4 address.",
@@ -589,7 +787,16 @@
     "err.value_required": "The value field is required for set_value.",
     "err.unknown_action": "Error: Unknown action '{action}'.",
     "msg.summary": "ECHONET Lite control completed: {action} on {ip_address} in {elapsed_ms} ms.",
-    "err.invalid_ip_address": "Error: ip_address must be a valid IPv4 address."
+    "err.invalid_ip_address": "Error: ip_address must be a valid IPv4 address.",
+    "x_search_terms": [
+      "echonet 控制",
+      "echonet_control",
+      "echonet",
+      "ECHONET",
+      "执行",
+      "基本",
+      "命令"
+    ]
   },
   "zh_TW": {
     "param.ip.description": "Target node IPv4 address.",
@@ -604,6 +811,15 @@
     "err.value_required": "The value field is required for set_value.",
     "err.unknown_action": "Error: Unknown action '{action}'.",
     "msg.summary": "ECHONET Lite control completed: {action} on {ip_address} in {elapsed_ms} ms.",
-    "err.invalid_ip_address": "Error: ip_address must be a valid IPv4 address."
+    "err.invalid_ip_address": "Error: ip_address must be a valid IPv4 address.",
+    "x_search_terms": [
+      "echonet 控制",
+      "echonet_control",
+      "echonet",
+      "ECHONET",
+      "執行",
+      "基本",
+      "指令"
+    ]
   }
 }

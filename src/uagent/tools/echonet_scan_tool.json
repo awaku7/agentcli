@@ -60,7 +60,17 @@
     "Commercial showcase outdoor unit": "وحدة عرض تجارية خارجية",
     "Switch (JEM-A/HA)": "التبديل (JEM-A/HA)",
     "Controller": "المراقب المالي",
-    "Television": "التلفاز"
+    "Television": "التلفاز",
+    "x_search_terms": [
+      "فحص echonet",
+      "echonet_scan",
+      "إيكونت",
+      "إيكونت",
+      "اكتشاف",
+      "عقد",
+      "محلي",
+      "شبكة"
+    ]
   },
   "bn": {
     "param.timeout.description": "Receive wait time in seconds for ECHONET Lite discovery.",
@@ -123,7 +133,17 @@
     "Commercial showcase outdoor unit": "বাণিজ্যিক প্রদর্শন বহিরঙ্গন ইউনিট",
     "Switch (JEM-A/HA)": "সুইচ (JEM-A/HA)",
     "Controller": "নিয়ন্ত্রক",
-    "Television": "টেলিভিশন"
+    "Television": "টেলিভিশন",
+    "x_search_terms": [
+      "echonet স্ক্যান",
+      "echonet_scan",
+      "ইকোনেট",
+      "ইকোনেট",
+      "আবিষ্কার",
+      "নোড",
+      "স্থানীয়",
+      "নেটওয়ার্ক"
+    ]
   },
   "cs": {
     "param.timeout.description": "Receive wait time in seconds for ECHONET Lite discovery.",
@@ -186,7 +206,17 @@
     "Commercial showcase outdoor unit": "Obchodní vitrína venkovní jednotka",
     "Switch (JEM-A/HA)": "Přepínač (JEM-A/HA)",
     "Controller": "Ovladač",
-    "Television": "televize"
+    "Television": "televize",
+    "x_search_terms": [
+      "skenování echonet",
+      "echonet_scan",
+      "echosíť",
+      "ECHONET",
+      "objevit",
+      "uzly",
+      "místní",
+      "síť"
+    ]
   },
   "de": {
     "param.timeout.description": "Receive wait time in seconds for ECHONET Lite discovery.",
@@ -249,7 +279,17 @@
     "Commercial showcase outdoor unit": "Kommerzielles Schaufenster-Außengerät",
     "Switch (JEM-A/HA)": "Schalter (JEM-A/HA)",
     "Controller": "Controller",
-    "Television": "Fernsehen"
+    "Television": "Fernsehen",
+    "x_search_terms": [
+      "Echonet-Scan",
+      "echonet_scan",
+      "echonet",
+      "ECHONET",
+      "entdecken",
+      "Knoten",
+      "lokal",
+      "Netzwerk"
+    ]
   },
   "en": {
     "param.timeout.description": "Receive wait time in seconds for ECHONET Lite discovery.",
@@ -461,7 +501,17 @@
     "Commercial showcase outdoor unit": "یونیت خارجی ویترین تجاری",
     "Switch (JEM-A/HA)": "سوئیچ (JEM-A/HA)",
     "Controller": "کنترل کننده",
-    "Television": "تلویزیون"
+    "Television": "تلویزیون",
+    "x_search_terms": [
+      "اسکن echonet",
+      "echonet_scan",
+      "اکونت",
+      "اکونت",
+      "کشف",
+      "گره‌ها",
+      "محلی",
+      "شبکه"
+    ]
   },
   "fi": {
     "param.timeout.description": "Receive wait time in seconds for ECHONET Lite discovery.",
@@ -524,7 +574,17 @@
     "Commercial showcase outdoor unit": "Kaupallinen vitriinin ulkoyksikkö",
     "Switch (JEM-A/HA)": "Kytkin (JEM-A/HA)",
     "Controller": "Ohjain",
-    "Television": "Televisio"
+    "Television": "Televisio",
+    "x_search_terms": [
+      "echonet-skannaus",
+      "echonet_scan",
+      "ekoverkko",
+      "ECHONET",
+      "löydä",
+      "solmut",
+      "paikallinen",
+      "verkko"
+    ]
   },
   "fr": {
     "param.timeout.description": "Receive wait time in seconds for ECHONET Lite discovery.",
@@ -660,7 +720,17 @@
     "Commercial showcase outdoor unit": "वाणिज्यिक शोकेस आउटडोर इकाई",
     "Switch (JEM-A/HA)": "स्विच (जेईएम-ए/एचए)",
     "Controller": "नियंत्रक",
-    "Television": "टेलीविजन"
+    "Television": "टेलीविजन",
+    "x_search_terms": [
+      "echonet स्कैन",
+      "echonet_scan",
+      "इकोनेट",
+      "इकोनेट",
+      "खोजें",
+      "नोड",
+      "स्थानीय",
+      "नेटवर्क"
+    ]
   },
   "id": {
     "param.timeout.description": "Receive wait time in seconds for ECHONET Lite discovery.",
@@ -1018,7 +1088,17 @@
     "Commercial showcase outdoor unit": "Худалдааны үзэсгэлэнгийн гаднах хэсэг",
     "Switch (JEM-A/HA)": "Шилжүүлэгч (JEM-A/HA)",
     "Controller": "Хянагч",
-    "Television": "Телевиз"
+    "Television": "Телевиз",
+    "x_search_terms": [
+      "echonet скан",
+      "echonet_scan",
+      "эхонет",
+      "эхонет",
+      "нээх",
+      "зангилаа",
+      "орон нутгийн",
+      "сүлжээ"
+    ]
   },
   "mr": {
     "param.timeout.description": "Receive wait time in seconds for ECHONET Lite discovery.",
@@ -1081,7 +1161,17 @@
     "Commercial showcase outdoor unit": "व्यावसायिक शोकेस बाह्य युनिट",
     "Switch (JEM-A/HA)": "स्विच (JEM-A/HA)",
     "Controller": "नियंत्रक",
-    "Television": "दूरदर्शन"
+    "Television": "दूरदर्शन",
+    "x_search_terms": [
+      "echonet स्कॅन",
+      "echonet_scan",
+      "इकोनेट",
+      "इकोनेट",
+      "शोधा",
+      "नोड",
+      "स्थानिक",
+      "नेटवर्क"
+    ]
   },
   "el": {
     "param.timeout.description": "Λάβετε χρόνο αναμονής σε δευτερόλεπτα για την ανακάλυψη ECHONET Lite.",
@@ -1144,7 +1234,17 @@
     "Commercial showcase outdoor unit": "Εμπορική βιτρίνα εξωτερική μονάδα",
     "Switch (JEM-A/HA)": "Διακόπτης (JEM-A/HA)",
     "Controller": "Ελεγκτής",
-    "Television": "Τηλεόραση"
+    "Television": "Τηλεόραση",
+    "x_search_terms": [
+      "σάρωση echonet",
+      "echonet_scan",
+      "echonet",
+      "ECHONET",
+      "ανακάλυψη",
+      "κόμβοι",
+      "τοπικό",
+      "δίκτυο"
+    ]
   },
   "he": {
     "param.timeout.description": "קבל זמן המתנה בשניות לגילוי ECHONET Lite.",
@@ -1207,7 +1307,17 @@
     "Commercial showcase outdoor unit": "יחידת ראווה מסחרית חיצונית",
     "Switch (JEM-A/HA)": "מתג (JEM-A/HA)",
     "Controller": "בקר",
-    "Television": "טלוויזיה"
+    "Television": "טלוויזיה",
+    "x_search_terms": [
+      "סריקת echonet",
+      "echonet_scan",
+      "אקו-נט",
+      "אקו-נט",
+      "גלה",
+      "צמתים",
+      "מקומי",
+      "רשת"
+    ]
   },
   "hu": {
     "param.timeout.description": "Várakozási idő másodpercekben az ECHONET Lite felfedezéséhez.",
@@ -1270,7 +1380,17 @@
     "Commercial showcase outdoor unit": "Kereskedelmi kirakat kültéri egység",
     "Switch (JEM-A/HA)": "Kapcsoló (JEM-A/HA)",
     "Controller": "Vezérlő",
-    "Television": "Televízió"
+    "Television": "Televízió",
+    "x_search_terms": [
+      "echonet szkennelés",
+      "echonet_scan",
+      "echonet",
+      "ECHONET",
+      "felfedez",
+      "csomópontok",
+      "helyi",
+      "hálózat"
+    ]
   },
   "ro": {
     "param.timeout.description": "Primiți timpul de așteptare în secunde pentru descoperirea ECHONET Lite.",
@@ -1333,7 +1453,17 @@
     "Commercial showcase outdoor unit": "Unitate exterioară de vitrină comercială",
     "Switch (JEM-A/HA)": "Comutator (JEM-A/HA)",
     "Controller": "Controler",
-    "Television": "Televiziunea"
+    "Television": "Televiziunea",
+    "x_search_terms": [
+      "scanare echonet",
+      "echonet_scan",
+      "econet",
+      "ECHONET",
+      "descoperă",
+      "noduri",
+      "local",
+      "rețea"
+    ]
   },
   "nb": {
     "param.timeout.description": "Receive wait time in seconds for ECHONET Lite discovery.",
@@ -1396,7 +1526,17 @@
     "Commercial showcase outdoor unit": "Kommersiell utstillingsvindu utendørs enhet",
     "Switch (JEM-A/HA)": "Bryter (JEM-A/HA)",
     "Controller": "Kontroller",
-    "Television": "TV"
+    "Television": "TV",
+    "x_search_terms": [
+      "echonet-skanning",
+      "echonet_scan",
+      "ekonett",
+      "ECHONET",
+      "oppdage",
+      "noder",
+      "lokal",
+      "nettverk"
+    ]
   },
   "nl": {
     "param.timeout.description": "Receive wait time in seconds for ECHONET Lite discovery.",
@@ -1459,7 +1599,17 @@
     "Commercial showcase outdoor unit": "Commerciële vitrine buitenunit",
     "Switch (JEM-A/HA)": "Schakelaar (JEM-A/HA)",
     "Controller": "Controleur",
-    "Television": "Televisie"
+    "Television": "Televisie",
+    "x_search_terms": [
+      "echonet-scan",
+      "echonet_scan",
+      "echonet",
+      "ECHONET",
+      "ontdekken",
+      "knooppunten",
+      "lokaal",
+      "netwerk"
+    ]
   },
   "pl": {
     "param.timeout.description": "Receive wait time in seconds for ECHONET Lite discovery.",
@@ -1595,7 +1745,17 @@
     "Commercial showcase outdoor unit": "Unidade externa de vitrine comercial",
     "Switch (JEM-A/HA)": "Interruptor (JEM-A/HA)",
     "Controller": "Controlador",
-    "Television": "Televisão"
+    "Television": "Televisão",
+    "x_search_terms": [
+      "varredura echonet",
+      "echonet_scan",
+      "econet",
+      "ECHONET",
+      "descobrir",
+      "nós",
+      "local",
+      "rede"
+    ]
   },
   "pt_BR": {
     "param.timeout.description": "Receive wait time in seconds for ECHONET Lite discovery.",
@@ -1731,7 +1891,17 @@
     "Commercial showcase outdoor unit": "Наружный блок коммерческой витрины",
     "Switch (JEM-A/HA)": "Переключатель (JEM-A/HA)",
     "Controller": "Контроллер",
-    "Television": "Телевидение"
+    "Television": "Телевидение",
+    "x_search_terms": [
+      "сканирование echonet",
+      "echonet_scan",
+      "эхосеть",
+      "ECHONET",
+      "обнаружить",
+      "узлы",
+      "локальный",
+      "сеть"
+    ]
   },
   "sv": {
     "param.timeout.description": "Receive wait time in seconds for ECHONET Lite discovery.",
@@ -1794,7 +1964,17 @@
     "Commercial showcase outdoor unit": "Kommersiell utställningsmonter utomhusenhet",
     "Switch (JEM-A/HA)": "Switch (JEM-A/HA)",
     "Controller": "Styrenhet",
-    "Television": "TV"
+    "Television": "TV",
+    "x_search_terms": [
+      "echonet-skanning",
+      "echonet_scan",
+      "ekonät",
+      "ECHONET",
+      "upptäcka",
+      "noder",
+      "lokal",
+      "nätverk"
+    ]
   },
   "sw": {
     "param.timeout.description": "Receive wait time in seconds for ECHONET Lite discovery.",
@@ -1857,7 +2037,17 @@
     "Commercial showcase outdoor unit": "Maonyesho ya biashara ya kitengo cha nje",
     "Switch (JEM-A/HA)": "Badili (JEM-A/HA)",
     "Controller": "Kidhibiti",
-    "Television": "Televisheni"
+    "Television": "Televisheni",
+    "x_search_terms": [
+      "skana ya echonet",
+      "echonet_scan",
+      "echonet",
+      "ECHONET",
+      "gundua",
+      "nodi",
+      "ndani",
+      "mtandao"
+    ]
   },
   "th": {
     "param.timeout.description": "Receive wait time in seconds for ECHONET Lite discovery.",
@@ -1920,7 +2110,17 @@
     "Commercial showcase outdoor unit": "ตู้โชว์เชิงพาณิชย์หน่วยกลางแจ้ง",
     "Switch (JEM-A/HA)": "สวิตช์ (JEM-A/HA)",
     "Controller": "คอนโทรลเลอร์",
-    "Television": "โทรทัศน์"
+    "Television": "โทรทัศน์",
+    "x_search_terms": [
+      "สแกน echonet",
+      "echonet_scan",
+      "อีโค่เน็ต",
+      "อีโค่เน็ต",
+      "ค้นพบ",
+      "โหนด",
+      "ท้องถิ่น",
+      "เครือข่าย"
+    ]
   },
   "tr": {
     "param.timeout.description": "Receive wait time in seconds for ECHONET Lite discovery.",
@@ -1983,7 +2183,17 @@
     "Commercial showcase outdoor unit": "Ticari vitrin dış ünitesi",
     "Switch (JEM-A/HA)": "Anahtar (JEM-A/HA)",
     "Controller": "Denetleyici",
-    "Television": "Televizyon"
+    "Television": "Televizyon",
+    "x_search_terms": [
+      "echonet taraması",
+      "echonet_scan",
+      "eko ağ",
+      "ECONET",
+      "keşfetmek",
+      "düğümler",
+      "yerel",
+      "ağ"
+    ]
   },
   "uk": {
     "param.timeout.description": "Receive wait time in seconds for ECHONET Lite discovery.",
@@ -2046,7 +2256,17 @@
     "Commercial showcase outdoor unit": "Зовнішній блок комерційної вітрини",
     "Switch (JEM-A/HA)": "Перемикач (JEM-A/HA)",
     "Controller": "Контролер",
-    "Television": "телебачення"
+    "Television": "телебачення",
+    "x_search_terms": [
+      "сканування echonet",
+      "echonet_scan",
+      "ехомережа",
+      "ECHONET",
+      "виявити",
+      "вузли",
+      "локальний",
+      "мережа"
+    ]
   },
   "vi": {
     "param.timeout.description": "Receive wait time in seconds for ECHONET Lite discovery.",
@@ -2182,7 +2402,17 @@
     "Commercial showcase outdoor unit": "商业展示室外机",
     "Switch (JEM-A/HA)": "开关（JEM-A/HA）",
     "Controller": "控制器",
-    "Television": "电视"
+    "Television": "电视",
+    "x_search_terms": [
+      "echonet 扫描",
+      "echonet_scan",
+      "echonet",
+      "ECHONET",
+      "发现",
+      "节点",
+      "本地",
+      "网络"
+    ]
   },
   "zh_TW": {
     "param.timeout.description": "Receive wait time in seconds for ECHONET Lite discovery.",
@@ -2245,6 +2475,16 @@
     "Commercial showcase outdoor unit": "商用展示室外機",
     "Switch (JEM-A/HA)": "開關（JEM-A/HA）",
     "Controller": "控制器",
-    "Television": "電視"
+    "Television": "電視",
+    "x_search_terms": [
+      "echonet 掃描",
+      "echonet_scan",
+      "echonet",
+      "ECHONET",
+      "發現",
+      "節點",
+      "本機",
+      "網路"
+    ]
   }
 }

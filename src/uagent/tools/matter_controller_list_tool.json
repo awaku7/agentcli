@@ -1,15 +1,43 @@
 {
   "ar": {
-    "param.fmt.description": "Format: json or text."
+    "param.fmt.description": "Format: json or text.",
+    "x_search_terms": [
+      "قائمة وحدات التحكم بالمادة",
+      "matter_controller_list",
+      "مادة",
+      "مادة",
+      "وحدة تحكم"
+    ]
   },
   "bn": {
-    "param.fmt.description": "Format: json or text."
+    "param.fmt.description": "Format: json or text.",
+    "x_search_terms": [
+      "বিষয় নিয়ন্ত্রক তালিকা",
+      "matter_controller_list",
+      "বিষয়",
+      "বিষয়",
+      "নিয়ন্ত্রক"
+    ]
   },
   "cs": {
-    "param.fmt.description": "Format: json or text."
+    "param.fmt.description": "Format: json or text.",
+    "x_search_terms": [
+      "seznam řadičů hmoty",
+      "matter_controller_list",
+      "hmota",
+      "HMOTA",
+      "řadič"
+    ]
   },
   "de": {
-    "param.fmt.description": "Format: json or text."
+    "param.fmt.description": "Format: json or text.",
+    "x_search_terms": [
+      "Materie-Controller-Liste",
+      "matter_controller_list",
+      "Angelegenheit",
+      "MATTER",
+      "Controller"
+    ]
   },
   "en": {
     "param.fmt.description": "Format: json or text.",
@@ -39,10 +67,24 @@
     ]
   },
   "fa": {
-    "param.fmt.description": "Format: json or text."
+    "param.fmt.description": "Format: json or text.",
+    "x_search_terms": [
+      "لیست کنترل‌کننده‌های ماده",
+      "matter_controller_list",
+      "ماده",
+      "ماده",
+      "کنترل‌کننده"
+    ]
   },
   "fi": {
-    "param.fmt.description": "Format: json or text."
+    "param.fmt.description": "Format: json or text.",
+    "x_search_terms": [
+      "asian ohjainluettelo",
+      "matter_controller_list",
+      "asia",
+      "ASIA",
+      "ohjain"
+    ]
   },
   "fr": {
     "param.fmt.description": "Format: json or text.",
@@ -55,7 +97,14 @@
     ]
   },
   "hi": {
-    "param.fmt.description": "Format: json or text."
+    "param.fmt.description": "Format: json or text.",
+    "x_search_terms": [
+      "विषय नियंत्रक सूची",
+      "matter_controller_list",
+      "विषय",
+      "विषय",
+      "नियंत्रक"
+    ]
   },
   "id": {
     "param.fmt.description": "Format: json or text.",
@@ -103,28 +152,84 @@
     ]
   },
   "mn": {
-    "param.fmt.description": "Format: json or text."
+    "param.fmt.description": "Format: json or text.",
+    "x_search_terms": [
+      "материйн хянагчийн жагсаалт",
+      "matter_controller_list",
+      "асуудал",
+      "асуудал",
+      "хянагч"
+    ]
   },
   "mr": {
-    "param.fmt.description": "Format: json or text."
+    "param.fmt.description": "Format: json or text.",
+    "x_search_terms": [
+      "विषय नियंत्रक यादी",
+      "matter_controller_list",
+      "विषय",
+      "विषय",
+      "नियंत्रक"
+    ]
   },
   "el": {
-    "param.fmt.description": "Στιγμιότυπο προσωρινής μνήμης ECHONET: {count} στοιχεία."
+    "param.fmt.description": "Στιγμιότυπο προσωρινής μνήμης ECHONET: {count} στοιχεία.",
+    "x_search_terms": [
+      "λίστα ελεγκτών ύλης",
+      "matter_controller_list",
+      "ύλη",
+      "ΥΛΗ",
+      "ελεγκτής"
+    ]
   },
   "he": {
-    "param.fmt.description": "אין ערכים במטמון."
+    "param.fmt.description": "אין ערכים במטמון.",
+    "x_search_terms": [
+      "רשימת בקרי חומר",
+      "matter_controller_list",
+      "חומר",
+      "חומר",
+      "בקר"
+    ]
   },
   "hu": {
-    "param.fmt.description": "Gyorsítótár művelet: pillanatfelvétel vagy törlés."
+    "param.fmt.description": "Gyorsítótár művelet: pillanatfelvétel vagy törlés.",
+    "x_search_terms": [
+      "anyag vezérlő lista",
+      "matter_controller_list",
+      "anyag",
+      "ANYAG",
+      "vezérlő"
+    ]
   },
   "ro": {
-    "param.fmt.description": "Inspectați sau ștergeți memoria cache ECHONET Lite partajată."
+    "param.fmt.description": "Inspectați sau ștergeți memoria cache ECHONET Lite partajată.",
+    "x_search_terms": [
+      "listă controlere materie",
+      "matter_controller_list",
+      "materie",
+      "MATERIE",
+      "controler"
+    ]
   },
   "nb": {
-    "param.fmt.description": "Format: json or text."
+    "param.fmt.description": "Format: json or text.",
+    "x_search_terms": [
+      "liste over kontrollere for materie",
+      "matter_controller_list",
+      "saken",
+      "MATTER",
+      "kontroller"
+    ]
   },
   "nl": {
-    "param.fmt.description": "Format: json or text."
+    "param.fmt.description": "Format: json or text.",
+    "x_search_terms": [
+      "materie-controllerlijst",
+      "matter_controller_list",
+      "materie",
+      "MATTER",
+      "controller"
+    ]
   },
   "pl": {
     "param.fmt.description": "Format: json or text.",
@@ -137,7 +242,14 @@
     ]
   },
   "pt": {
-    "param.fmt.description": "Format: json or text."
+    "param.fmt.description": "Format: json or text.",
+    "x_search_terms": [
+      "lista de controladores de matéria",
+      "lista_controladores_matéria",
+      "assunto",
+      "MATÉRIA",
+      "controlador"
+    ]
   },
   "pt_BR": {
     "param.fmt.description": "Format: json or text.",
@@ -150,22 +262,64 @@
     ]
   },
   "ru": {
-    "param.fmt.description": "Format: json or text."
+    "param.fmt.description": "Format: json or text.",
+    "x_search_terms": [
+      "список контроллеров материи",
+      "matter_controller_list",
+      "материя",
+      "МАТЕРИЯ",
+      "контроллер"
+    ]
   },
   "sv": {
-    "param.fmt.description": "Format: json or text."
+    "param.fmt.description": "Format: json or text.",
+    "x_search_terms": [
+      "materia styrenhetslista",
+      "matter_controller_list",
+      "materia",
+      "MATTER",
+      "styrenhet"
+    ]
   },
   "sw": {
-    "param.fmt.description": "Format: json or text."
+    "param.fmt.description": "Format: json or text.",
+    "x_search_terms": [
+      "orodha ya vidhibiti vya maada",
+      "matter_controller_list",
+      "maada",
+      "MAADA",
+      "kidhibiti"
+    ]
   },
   "th": {
-    "param.fmt.description": "Format: json or text."
+    "param.fmt.description": "Format: json or text.",
+    "x_search_terms": [
+      "รายการตัวควบคุมสสาร",
+      "matter_controller_list",
+      "สสาร",
+      "สสาร",
+      "ตัวควบคุม"
+    ]
   },
   "tr": {
-    "param.fmt.description": "Format: json or text."
+    "param.fmt.description": "Format: json or text.",
+    "x_search_terms": [
+      "madde denetleyici listesi",
+      "matter_controller_list",
+      "madde",
+      "MADDE",
+      "denetleyici"
+    ]
   },
   "uk": {
-    "param.fmt.description": "Format: json or text."
+    "param.fmt.description": "Format: json or text.",
+    "x_search_terms": [
+      "список контролерів матерії",
+      "matter_controller_list",
+      "матерія",
+      "МАТЕРІЯ",
+      "контролер"
+    ]
   },
   "vi": {
     "param.fmt.description": "Format: json or text.",
@@ -178,9 +332,23 @@
     ]
   },
   "zh_CN": {
-    "param.fmt.description": "Format: json or text."
+    "param.fmt.description": "Format: json or text.",
+    "x_search_terms": [
+      "物质控制器列表",
+      "matter_controller_list",
+      "物质",
+      "物质",
+      "控制器"
+    ]
   },
   "zh_TW": {
-    "param.fmt.description": "Format: json or text."
+    "param.fmt.description": "Format: json or text.",
+    "x_search_terms": [
+      "物質控制器清單",
+      "matter_controller_list",
+      "物質",
+      "物質",
+      "控制器"
+    ]
   }
 }

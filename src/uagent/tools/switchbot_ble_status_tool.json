@@ -10,7 +10,13 @@
     "err.invalid_range": "المهلة وعدد المحاولات يجب أن يكونا أكبر من 0؛ الحد يجب أن يكون 0 أو أكبر.",
     "err.operation_failed": "خطأ أثناء عملية BLE: {err_msg}",
     "msg.error_fmt": "خطأ: {msg}",
-    "msg.unknown_error": "خطأ غير معروف"
+    "msg.unknown_error": "خطأ غير معروف",
+    "x_search_terms": [
+      "حالة switchbot ble",
+      "switchbot_ble_status",
+      "سويتش بوت",
+      "قريب"
+    ]
   },
   "bn": {
     "param.mac.description": "MAC ঠিকানা ফিল্টার।",
@@ -23,7 +29,13 @@
     "err.invalid_range": "টাইমআউট এবং পুনরায় চেষ্টা 0 এর চেয়ে বড় হতে হবে; সীমা 0 বা তার বেশি হতে হবে।",
     "err.operation_failed": "BLE অপারেশনের সময় ত্রুটি: {err_msg}",
     "msg.error_fmt": "ত্রুটি: {msg}",
-    "msg.unknown_error": "অজানা ত্রুটি"
+    "msg.unknown_error": "অজানা ত্রুটি",
+    "x_search_terms": [
+      "switchbot ble স্থিতি",
+      "switchbot_ble_status",
+      "সুইচবট",
+      "কাছাকাছি"
+    ]
   },
   "cs": {
     "param.mac.description": "Filtr MAC adresy.",
@@ -36,7 +48,13 @@
     "err.invalid_range": "Časový limit a opakování musí být větší než 0; limit musí být 0 nebo větší.",
     "err.operation_failed": "Chyba během BLE operace: {err_msg}",
     "msg.error_fmt": "Chyba: {msg}",
-    "msg.unknown_error": "neznámá chyba"
+    "msg.unknown_error": "neznámá chyba",
+    "x_search_terms": [
+      "stav switchbot ble",
+      "switchbot_ble_status",
+      "přepínač",
+      "poblíž"
+    ]
   },
   "de": {
     "param.mac.description": "MAC-Adressfilter.",
@@ -49,7 +67,13 @@
     "err.invalid_range": "Timeout und Wiederholungen müssen größer als 0 sein; Limit muss 0 oder größer sein.",
     "err.operation_failed": "Fehler während des BLE-Vorgangs: {err_msg}",
     "msg.error_fmt": "Fehler: {msg}",
-    "msg.unknown_error": "unbekannter Fehler"
+    "msg.unknown_error": "unbekannter Fehler",
+    "x_search_terms": [
+      "Switchbot-ble-Status",
+      "switchbot_ble_status",
+      "Switchbot",
+      "in der Nähe"
+    ]
   },
   "en": {
     "param.mac.description": "MAC address filter.",
@@ -110,7 +134,13 @@
     "err.invalid_range": "مهلت، تلاش مجدد و محدودیت باید اعداد صحیح باشند.",
     "err.operation_failed": "دستگاه مطابقت‌یافته شبیه یک دستگاه SwitchBot BLE نیست.",
     "msg.error_fmt": "خطا در حین عملیات BLE: {err_msg}\n\n[راهنمای مجوزهای macOS]\nدسترسی بلوتوث ممکن است توسط محدودیت‌های امنیتی macOS رد شده باشد.\nلطفاً به 'تنظیمات سیستم > حریم خصوصی و امنیت > بلوتوث' بروید و اجازه دهید ترمینال، VS Code یا فرآیند پایتون شما به بلوتوث دسترسی داشته باشد.",
-    "msg.unknown_error": "خطا: {msg}"
+    "msg.unknown_error": "خطا: {msg}",
+    "x_search_terms": [
+      "وضعیت switchbot ble",
+      "switchbot_ble_status",
+      "سوییچ‌بات",
+      "نزدیک"
+    ]
   },
   "fi": {
     "param.mac.description": "MAC-osoitesuodatin.",
@@ -123,7 +153,13 @@
     "err.invalid_range": "Aikakatkaisun ja uudelleenyrityksen on oltava suurempia kuin 0; rajan on oltava 0 tai suurempi.",
     "err.operation_failed": "Virhe BLE-toiminnon aikana: {err_msg}",
     "msg.error_fmt": "Virhe: {msg}",
-    "msg.unknown_error": "tuntematon virhe"
+    "msg.unknown_error": "tuntematon virhe",
+    "x_search_terms": [
+      "switchbot ble -tila",
+      "switchbot_ble_status",
+      "kytkinrobotti",
+      "lähellä"
+    ]
   },
   "fr": {
     "param.mac.description": "Filtre d'adresse MAC.",
@@ -155,7 +191,13 @@
     "err.invalid_range": "टाइमआउट और पुनर्प्रयास 0 से अधिक होने चाहिए; सीमा 0 या अधिक होनी चाहिए।",
     "err.operation_failed": "BLE ऑपरेशन के दौरान त्रुटि: {err_msg}",
     "msg.error_fmt": "त्रुटि: {msg}",
-    "msg.unknown_error": "अज्ञात त्रुटि"
+    "msg.unknown_error": "अज्ञात त्रुटि",
+    "x_search_terms": [
+      "switchbot ble स्थिति",
+      "switchbot_ble_status",
+      "स्विचबॉट",
+      "निकट"
+    ]
   },
   "id": {
     "param.mac.description": "Filter alamat MAC.",
@@ -254,7 +296,13 @@
     "err.invalid_range": "Хугацаа, дахин оролдлого, хязгаар нь бүхэл тоо байх ёстой.",
     "err.operation_failed": "Тохирсон төхөөрөмж нь SwitchBot BLE төхөөрөмж шиг харагдахгүй байна.",
     "msg.error_fmt": "BLE үйл ажиллагааны үед алдаа гарлаа: {err_msg}\n\n[macOS Зөвшөөрлийн Гарын Авлага]\nmacOS аюулгүй байдлын хязгаарлалтаар Bluetooth хандалтыг зөвшөөрөхгүй байж болно.\n'Системийн Тохиргоо > Нууцлал & Аюулгүй Байдал > Bluetooth' хэсгийг нээж, терминал, VS Code, эсвэл Python процесс тань Bluetooth-д хандахыг зөвшөөрсөн эсэхийг шалгана уу.",
-    "msg.unknown_error": "Алдаа: {msg}"
+    "msg.unknown_error": "Алдаа: {msg}",
+    "x_search_terms": [
+      "switchbot ble төлөв",
+      "switchbot_ble_status",
+      "свичбот",
+      "ойролцоо"
+    ]
   },
   "mr": {
     "param.mac.description": "त्रुटी: {err}",
@@ -267,7 +315,13 @@
     "err.invalid_range": "टाइमआउट, रीट्राय आणि मर्यादा पूर्णांक असणे आवश्यक आहे.",
     "err.operation_failed": "जुळणारे डिव्हाइस SwitchBot BLE डिव्हाइससारखे दिसत नाही.",
     "msg.error_fmt": "BLE ऑपरेशन दरम्यान त्रुटी: {err_msg}\n\n[macOS परवानगी मार्गदर्शक]\nmacOS सुरक्षा निर्बंधांद्वारे ब्लूटूथ प्रवेश नाकारला गेला असावा.\nकृपया 'सिस्टम सेटिंग्ज > प्रायव्हसी आणि सिक्युरिटी > ब्लूटूथ' उघडा आणि तुमच्या टर्मिनल, VS Code, किंवा Python प्रक्रियेला ब्लूटूथमध्ये प्रवेश करण्याची परवानगी आहे याची खात्री करा.",
-    "msg.unknown_error": "त्रुटी: {msg}"
+    "msg.unknown_error": "त्रुटी: {msg}",
+    "x_search_terms": [
+      "switchbot ble स्थिती",
+      "switchbot_ble_status",
+      "स्विचबॉट",
+      "जवळ"
+    ]
   },
   "el": {
     "param.mac.description": "Φίλτρο διεύθυνσης MAC.",
@@ -280,7 +334,13 @@
     "err.invalid_range": "Το χρονικό όριο και η επανάληψη πρέπει να είναι μεγαλύτερα από 0· το όριο πρέπει να είναι 0 ή μεγαλύτερο.",
     "err.operation_failed": "Σφάλμα κατά τη λειτουργία BLE: {err_msg}",
     "msg.error_fmt": "Σφάλμα: {msg}",
-    "msg.unknown_error": "άγνωστο σφάλμα"
+    "msg.unknown_error": "άγνωστο σφάλμα",
+    "x_search_terms": [
+      "κατάσταση switchbot ble",
+      "switchbot_ble_status",
+      "διακόπτης",
+      "κοντά"
+    ]
   },
   "he": {
     "param.mac.description": "מסנן כתובת MAC.",
@@ -293,7 +353,13 @@
     "err.invalid_range": "זמן קצוב וניסיונות חוזרים חייבים להיות גדולים מ-0; מגבלה חייבת להיות 0 או יותר.",
     "err.operation_failed": "שגיאה במהלך פעולת BLE: {err_msg}",
     "msg.error_fmt": "שגיאה: {msg}",
-    "msg.unknown_error": "שגיאה לא ידועה"
+    "msg.unknown_error": "שגיאה לא ידועה",
+    "x_search_terms": [
+      "סטטוס switchbot ble",
+      "switchbot_ble_status",
+      "מתג-בוט",
+      "בקרבת מקום"
+    ]
   },
   "hu": {
     "param.mac.description": "MAC-cím szűrő.",
@@ -306,7 +372,13 @@
     "err.invalid_range": "Az időtúllépésnek és az újrapróbálkozásnak nagyobbnak kell lennie 0-nál; a korlátnak 0-nak vagy nagyobbnak kell lennie.",
     "err.operation_failed": "Hiba a BLE művelet során: {err_msg}",
     "msg.error_fmt": "Hiba: {msg}",
-    "msg.unknown_error": "ismeretlen hiba"
+    "msg.unknown_error": "ismeretlen hiba",
+    "x_search_terms": [
+      "switchbot ble állapot",
+      "switchbot_ble_status",
+      "kapcsolóbot",
+      "közel"
+    ]
   },
   "ro": {
     "param.mac.description": "Filtru adresă MAC.",
@@ -319,7 +391,13 @@
     "err.invalid_range": "Timeout și retry trebuie să fie mai mari decât 0; limit trebuie să fie 0 sau mai mare.",
     "err.operation_failed": "Eroare în timpul operațiunii BLE: {err_msg}",
     "msg.error_fmt": "Eroare: {msg}",
-    "msg.unknown_error": "eroare necunoscută"
+    "msg.unknown_error": "eroare necunoscută",
+    "x_search_terms": [
+      "stare switchbot ble",
+      "switchbot_ble_status",
+      "comutator robot",
+      "aproape"
+    ]
   },
   "nb": {
     "param.mac.description": "MAC-adressefilter.",
@@ -332,7 +410,13 @@
     "err.invalid_range": "Tidsavbrudd og forsøk må være større enn 0; grense må være 0 eller større.",
     "err.operation_failed": "Feil under BLE-operasjon: {err_msg}",
     "msg.error_fmt": "Feil: {msg}",
-    "msg.unknown_error": "ukjent feil"
+    "msg.unknown_error": "ukjent feil",
+    "x_search_terms": [
+      "switchbot ble-status",
+      "switchbot_ble_status",
+      "switchbot",
+      "i nærheten"
+    ]
   },
   "nl": {
     "param.mac.description": "MAC-adresfilter.",
@@ -345,7 +429,13 @@
     "err.invalid_range": "Time-out en herhaling moeten groter zijn dan 0; limiet moet 0 of groter zijn.",
     "err.operation_failed": "Fout tijdens BLE-bewerking: {err_msg}",
     "msg.error_fmt": "Fout: {msg}",
-    "msg.unknown_error": "onbekende fout"
+    "msg.unknown_error": "onbekende fout",
+    "x_search_terms": [
+      "switchbot ble-status",
+      "switchbot_ble_status",
+      "schakelbot",
+      "nabij"
+    ]
   },
   "pl": {
     "param.mac.description": "Filtr adresu MAC.",
@@ -377,7 +467,13 @@
     "err.invalid_range": "Tempo limite e tentativas devem ser maiores que 0; limite deve ser 0 ou maior.",
     "err.operation_failed": "Erro durante a operação BLE: {err_msg}",
     "msg.error_fmt": "Erro: {msg}",
-    "msg.unknown_error": "erro desconhecido"
+    "msg.unknown_error": "erro desconhecido",
+    "x_search_terms": [
+      "estado do switchbot ble",
+      "switchbot_ble_status",
+      "robô de comutação",
+      "próximo"
+    ]
   },
   "pt_BR": {
     "param.mac.description": "Filtro de endereço MAC.",
@@ -409,7 +505,13 @@
     "err.invalid_range": "Тайм-аут и количество повторов должны быть больше 0; лимит должен быть 0 или больше.",
     "err.operation_failed": "Ошибка при операции BLE: {err_msg}",
     "msg.error_fmt": "Ошибка: {msg}",
-    "msg.unknown_error": "неизвестная ошибка"
+    "msg.unknown_error": "неизвестная ошибка",
+    "x_search_terms": [
+      "состояние switchbot ble",
+      "switchbot_ble_status",
+      "switchbot",
+      "рядом"
+    ]
   },
   "sv": {
     "param.mac.description": "MAC-adressfilter.",
@@ -422,7 +524,13 @@
     "err.invalid_range": "Timeout och retry måste vara större än 0; limit måste vara 0 eller större.",
     "err.operation_failed": "Fel under BLE-operation: {err_msg}",
     "msg.error_fmt": "Fel: {msg}",
-    "msg.unknown_error": "okänt fel"
+    "msg.unknown_error": "okänt fel",
+    "x_search_terms": [
+      "switchbot ble-status",
+      "switchbot_ble_status",
+      "switchbot",
+      "nära"
+    ]
   },
   "sw": {
     "param.mac.description": "Kichujio cha anwani ya MAC.",
@@ -435,7 +543,13 @@
     "err.invalid_range": "Muda wa kuisha na jaribio tena lazima viwe zaidi ya 0; kikomo lazima kiwe 0 au zaidi.",
     "err.operation_failed": "Hitilafu wakati wa operesheni ya BLE: {err_msg}",
     "msg.error_fmt": "Hitilafu: {msg}",
-    "msg.unknown_error": "hitilafu isiyojulikana"
+    "msg.unknown_error": "hitilafu isiyojulikana",
+    "x_search_terms": [
+      "hali ya switchbot ble",
+      "switchbot_ble_status",
+      "kubadili bot",
+      "karibu"
+    ]
   },
   "th": {
     "param.mac.description": "MACアドレスフィルター。",
@@ -448,7 +562,13 @@
     "err.invalid_range": "Timeout and retry must be greater than 0; limit must be 0 or greater.",
     "err.operation_failed": "Error during BLE operation: {err_msg}",
     "msg.error_fmt": "エラー: {msg}",
-    "msg.unknown_error": "不明なエラー"
+    "msg.unknown_error": "不明なエラー",
+    "x_search_terms": [
+      "สถานะ switchbot ble",
+      "switchbot_ble_status",
+      "สวิตช์บอท",
+      "ใกล้เคียง"
+    ]
   },
   "tr": {
     "param.mac.description": "MAC adresi filtresi.",
@@ -461,7 +581,13 @@
     "err.invalid_range": "Zaman aşımı ve yeniden deneme 0'dan büyük olmalıdır; sınır 0 veya daha büyük olmalıdır.",
     "err.operation_failed": "BLE işlemi sırasında hata: {err_msg}",
     "msg.error_fmt": "Hata: {msg}",
-    "msg.unknown_error": "bilinmeyen hata"
+    "msg.unknown_error": "bilinmeyen hata",
+    "x_search_terms": [
+      "switchbot ble durumu",
+      "switchbot_ble_status",
+      "anahtar bot",
+      "yakın"
+    ]
   },
   "uk": {
     "param.mac.description": "Фільтр MAC-адреси.",
@@ -474,7 +600,13 @@
     "err.invalid_range": "Час очікування та кількість повторів мають бути більше 0; ліміт має бути 0 або більше.",
     "err.operation_failed": "Помилка під час операції BLE: {err_msg}",
     "msg.error_fmt": "Помилка: {msg}",
-    "msg.unknown_error": "невідома помилка"
+    "msg.unknown_error": "невідома помилка",
+    "x_search_terms": [
+      "стан switchbot ble",
+      "switchbot_ble_status",
+      "перемикач",
+      "поруч"
+    ]
   },
   "vi": {
     "param.mac.description": "Bộ lọc địa chỉ MAC.",
@@ -506,7 +638,13 @@
     "err.invalid_range": "超时时间和重试次数必须大于0；限制必须为0或更大。",
     "err.operation_failed": "BLE操作期间出错：{err_msg}",
     "msg.error_fmt": "错误：{msg}",
-    "msg.unknown_error": "未知错误"
+    "msg.unknown_error": "未知错误",
+    "x_search_terms": [
+      "switchbot ble 状态",
+      "switchbot_ble_status",
+      "开关机器人",
+      "附近"
+    ]
   },
   "zh_TW": {
     "param.mac.description": "MAC 位址篩選。",
@@ -519,6 +657,12 @@
     "err.invalid_range": "逾時時間和重試次數必須大於 0；限制必須為 0 或更大。",
     "err.operation_failed": "BLE 操作期間發生錯誤：{err_msg}",
     "msg.error_fmt": "錯誤：{msg}",
-    "msg.unknown_error": "未知錯誤"
+    "msg.unknown_error": "未知錯誤",
+    "x_search_terms": [
+      "switchbot ble 狀態",
+      "switchbot_ble_status",
+      "開關機器人",
+      "附近"
+    ]
   }
 }

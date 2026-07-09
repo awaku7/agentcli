@@ -4,28 +4,56 @@
     "msg.device_count": "أجهزة SwitchBot Cloud: {count}",
     "msg.error_fmt": "خطأ: {msg}",
     "msg.fetched_at": "تم الجلب في: {ts}",
-    "msg.unknown_error": "خطأ غير معروف"
+    "msg.unknown_error": "خطأ غير معروف",
+    "x_search_terms": [
+      "قائمة سحابة switchbot",
+      "switchbot_cloud_list",
+      "سويتش بوت",
+      "سحابة",
+      "أجهزة"
+    ]
   },
   "bn": {
     "param.fmt.description": "ফরম্যাট: json বা text।",
     "msg.device_count": "SwitchBot Cloud ডিভাইস: {count}",
     "msg.error_fmt": "ত্রুটি: {msg}",
     "msg.fetched_at": "আনা হয়েছে: {ts}",
-    "msg.unknown_error": "অজানা ত্রুটি"
+    "msg.unknown_error": "অজানা ত্রুটি",
+    "x_search_terms": [
+      "switchbot ক্লাউড তালিকা",
+      "switchbot_cloud_list",
+      "সুইচবট",
+      "মেঘ",
+      "ডিভাইস"
+    ]
   },
   "cs": {
     "param.fmt.description": "Formát: json nebo text.",
     "msg.device_count": "Zařízení SwitchBot Cloud: {count}",
     "msg.error_fmt": "Chyba: {msg}",
     "msg.fetched_at": "Načteno v: {ts}",
-    "msg.unknown_error": "neznámá chyba"
+    "msg.unknown_error": "neznámá chyba",
+    "x_search_terms": [
+      "seznam cloudů switchbot",
+      "switchbot_cloud_list",
+      "přepínač",
+      "mrak",
+      "zařízení"
+    ]
   },
   "de": {
     "param.fmt.description": "Format: json oder text.",
     "msg.device_count": "SwitchBot-Cloud-Geräte: {count}",
     "msg.error_fmt": "Fehler: {msg}",
     "msg.fetched_at": "Abgerufen am: {ts}",
-    "msg.unknown_error": "unbekannter Fehler"
+    "msg.unknown_error": "unbekannter Fehler",
+    "x_search_terms": [
+      "Switchbot-Cloud-Liste",
+      "switchbot_cloud_list",
+      "Switchbot",
+      "Wolke",
+      "Geräte"
+    ]
   },
   "en": {
     "param.fmt.description": "Format: json or text.",
@@ -63,14 +91,28 @@
     "msg.device_count": "فهرست دستگاه‌های SwitchBot Cloud برای حساب پیکربندی‌شده.",
     "msg.error_fmt": "خطا در حین عملیات BLE: {err_msg}\n\n[راهنمای مجوزهای macOS]\nدسترسی بلوتوث ممکن است توسط محدودیت‌های امنیتی macOS رد شده باشد.\nلطفاً به 'تنظیمات سیستم > حریم خصوصی و امنیت > بلوتوث' بروید و اجازه دهید ترمینال، VS Code یا فرآیند پایتون شما به بلوتوث دسترسی داشته باشد.",
     "msg.fetched_at": "دستگاه‌های SwitchBot Cloud: {count}",
-    "msg.unknown_error": "خطا: {msg}"
+    "msg.unknown_error": "خطا: {msg}",
+    "x_search_terms": [
+      "لیست ابری switchbot",
+      "switchbot_cloud_list",
+      "سوییچ‌بات",
+      "ابر",
+      "دستگاه‌ها"
+    ]
   },
   "fi": {
     "param.fmt.description": "Muoto: json tai text.",
     "msg.device_count": "SwitchBot Cloud -laitteet: {count}",
     "msg.error_fmt": "Virhe: {msg}",
     "msg.fetched_at": "Haettu: {ts}",
-    "msg.unknown_error": "tuntematon virhe"
+    "msg.unknown_error": "tuntematon virhe",
+    "x_search_terms": [
+      "switchbot-pilviluettelo",
+      "switchbot_cloud_list",
+      "kytkinrobotti",
+      "pilvi",
+      "laitteet"
+    ]
   },
   "fr": {
     "param.fmt.description": "Format : json ou text.",
@@ -91,7 +133,14 @@
     "msg.device_count": "SwitchBot Cloud डिवाइस: {count}",
     "msg.error_fmt": "त्रुटि: {msg}",
     "msg.fetched_at": "प्राप्त किया गया: {ts}",
-    "msg.unknown_error": "अज्ञात त्रुटि"
+    "msg.unknown_error": "अज्ञात त्रुटि",
+    "x_search_terms": [
+      "switchbot क्लाउड सूची",
+      "switchbot_cloud_list",
+      "स्विचबॉट",
+      "बादल",
+      "डिवाइस"
+    ]
   },
   "id": {
     "param.fmt.description": "Format: json atau teks.",
@@ -155,56 +204,112 @@
     "msg.device_count": "Тохируулсан бүртгэлийн SwitchBot Cloud төхөөрөмжүүдийг жагсаах.",
     "msg.error_fmt": "BLE үйл ажиллагааны үед алдаа гарлаа: {err_msg}\n\n[macOS Зөвшөөрлийн Гарын Авлага]\nmacOS аюулгүй байдлын хязгаарлалтаар Bluetooth хандалтыг зөвшөөрөхгүй байж болно.\n'Системийн Тохиргоо > Нууцлал & Аюулгүй Байдал > Bluetooth' хэсгийг нээж, терминал, VS Code, эсвэл Python процесс тань Bluetooth-д хандахыг зөвшөөрсөн эсэхийг шалгана уу.",
     "msg.fetched_at": "SwitchBot Cloud төхөөрөмжүүд: {count}",
-    "msg.unknown_error": "Алдаа: {msg}"
+    "msg.unknown_error": "Алдаа: {msg}",
+    "x_search_terms": [
+      "switchbot үүлэн жагсаалт",
+      "switchbot_cloud_list",
+      "свичбот",
+      "үүл",
+      "төхөөрөмж"
+    ]
   },
   "mr": {
     "param.fmt.description": "कार्यान्वित करण्यासाठी कमांड्स.",
     "msg.device_count": "कॉन्फिगर केलेल्या खात्यासाठी SwitchBot Cloud डिव्हाइसेसची यादी करा.",
     "msg.error_fmt": "BLE ऑपरेशन दरम्यान त्रुटी: {err_msg}\n\n[macOS परवानगी मार्गदर्शक]\nmacOS सुरक्षा निर्बंधांद्वारे ब्लूटूथ प्रवेश नाकारला गेला असावा.\nकृपया 'सिस्टम सेटिंग्ज > प्रायव्हसी आणि सिक्युरिटी > ब्लूटूथ' उघडा आणि तुमच्या टर्मिनल, VS Code, किंवा Python प्रक्रियेला ब्लूटूथमध्ये प्रवेश करण्याची परवानगी आहे याची खात्री करा.",
     "msg.fetched_at": "SwitchBot Cloud डिव्हाइसेस: {count}",
-    "msg.unknown_error": "त्रुटी: {msg}"
+    "msg.unknown_error": "त्रुटी: {msg}",
+    "x_search_terms": [
+      "switchbot क्लाउड यादी",
+      "switchbot_cloud_list",
+      "स्विचबॉट",
+      "ढग",
+      "उपकरणे"
+    ]
   },
   "el": {
     "param.fmt.description": "Μορφή: json ή text.",
     "msg.device_count": "Συσκευές SwitchBot Cloud: {count}",
     "msg.error_fmt": "Σφάλμα: {msg}",
     "msg.fetched_at": "Λήφθηκε στις: {ts}",
-    "msg.unknown_error": "άγνωστο σφάλμα"
+    "msg.unknown_error": "άγνωστο σφάλμα",
+    "x_search_terms": [
+      "λίστα cloud switchbot",
+      "switchbot_cloud_list",
+      "διακόπτης",
+      "σύννεφο",
+      "συσκευές"
+    ]
   },
   "he": {
     "param.fmt.description": "פורמט: json או text.",
     "msg.device_count": "התקני SwitchBot Cloud: {count}",
     "msg.error_fmt": "שגיאה: {msg}",
     "msg.fetched_at": "נשלף ב: {ts}",
-    "msg.unknown_error": "שגיאה לא ידועה"
+    "msg.unknown_error": "שגיאה לא ידועה",
+    "x_search_terms": [
+      "רשימת ענן switchbot",
+      "switchbot_cloud_list",
+      "מתג-בוט",
+      "ענן",
+      "מכשירים"
+    ]
   },
   "hu": {
     "param.fmt.description": "Formátum: json vagy text.",
     "msg.device_count": "SwitchBot Cloud eszközök: {count}",
     "msg.error_fmt": "Hiba: {msg}",
     "msg.fetched_at": "Lekérve: {ts}",
-    "msg.unknown_error": "ismeretlen hiba"
+    "msg.unknown_error": "ismeretlen hiba",
+    "x_search_terms": [
+      "switchbot felhő lista",
+      "switchbot_cloud_list",
+      "kapcsolóbot",
+      "felhő",
+      "eszközök"
+    ]
   },
   "ro": {
     "param.fmt.description": "Format: json sau text.",
     "msg.device_count": "Dispozitive SwitchBot Cloud: {count}",
     "msg.error_fmt": "Eroare: {msg}",
     "msg.fetched_at": "Preluat la: {ts}",
-    "msg.unknown_error": "eroare necunoscută"
+    "msg.unknown_error": "eroare necunoscută",
+    "x_search_terms": [
+      "listă cloud switchbot",
+      "switchbot_cloud_list",
+      "comutator robot",
+      "nor",
+      "dispozitive"
+    ]
   },
   "nb": {
     "param.fmt.description": "Format: json eller tekst.",
     "msg.device_count": "SwitchBot Cloud-enheter: {count}",
     "msg.error_fmt": "Feil: {msg}",
     "msg.fetched_at": "Hentet kl: {ts}",
-    "msg.unknown_error": "ukjent feil"
+    "msg.unknown_error": "ukjent feil",
+    "x_search_terms": [
+      "switchbot skyliste",
+      "switchbot_cloud_list",
+      "switchbot",
+      "sky",
+      "enheter"
+    ]
   },
   "nl": {
     "param.fmt.description": "Formaat: json of text.",
     "msg.device_count": "SwitchBot Cloud-apparaten: {count}",
     "msg.error_fmt": "Fout: {msg}",
     "msg.fetched_at": "Opgehaald op: {ts}",
-    "msg.unknown_error": "onbekende fout"
+    "msg.unknown_error": "onbekende fout",
+    "x_search_terms": [
+      "switchbot cloud-lijst",
+      "switchbot_cloud_list",
+      "schakelbot",
+      "wolk",
+      "apparaten"
+    ]
   },
   "pl": {
     "param.fmt.description": "Format: json lub text.",
@@ -225,7 +330,14 @@
     "msg.device_count": "Dispositivos SwitchBot Cloud: {count}",
     "msg.error_fmt": "Erro: {msg}",
     "msg.fetched_at": "Obtido em: {ts}",
-    "msg.unknown_error": "erro desconhecido"
+    "msg.unknown_error": "erro desconhecido",
+    "x_search_terms": [
+      "lista cloud switchbot",
+      "switchbot_cloud_list",
+      "robô de comutação",
+      "nuvem",
+      "dispositivos"
+    ]
   },
   "pt_BR": {
     "param.fmt.description": "Formato: json ou texto.",
@@ -246,42 +358,84 @@
     "msg.device_count": "Устройства SwitchBot Cloud: {count}",
     "msg.error_fmt": "Ошибка: {msg}",
     "msg.fetched_at": "Получено: {ts}",
-    "msg.unknown_error": "неизвестная ошибка"
+    "msg.unknown_error": "неизвестная ошибка",
+    "x_search_terms": [
+      "список облаков switchbot",
+      "switchbot_cloud_list",
+      "switchbot",
+      "облако",
+      "устройства"
+    ]
   },
   "sv": {
     "param.fmt.description": "Format: json eller text.",
     "msg.device_count": "SwitchBot Cloud-enheter: {count}",
     "msg.error_fmt": "Fel: {msg}",
     "msg.fetched_at": "Hämtad vid: {ts}",
-    "msg.unknown_error": "okänt fel"
+    "msg.unknown_error": "okänt fel",
+    "x_search_terms": [
+      "switchbot molnlista",
+      "switchbot_cloud_list",
+      "switchbot",
+      "moln",
+      "enheter"
+    ]
   },
   "sw": {
     "param.fmt.description": "Muundo: json au text.",
     "msg.device_count": "Vifaa vya SwitchBot Cloud: {count}",
     "msg.error_fmt": "Hitilafu: {msg}",
     "msg.fetched_at": "Imepatikana saa: {ts}",
-    "msg.unknown_error": "hitilafu isiyojulikana"
+    "msg.unknown_error": "hitilafu isiyojulikana",
+    "x_search_terms": [
+      "orodha ya wingu la switchbot",
+      "switchbot_cloud_list",
+      "kubadili bot",
+      "wingu",
+      "vifaa"
+    ]
   },
   "th": {
     "param.fmt.description": "形式: json または text。",
     "msg.device_count": "SwitchBot Cloud デバイス: {count}",
     "msg.error_fmt": "エラー: {msg}",
     "msg.fetched_at": "取得日時: {ts}",
-    "msg.unknown_error": "不明なエラー"
+    "msg.unknown_error": "不明なエラー",
+    "x_search_terms": [
+      "รายการคลาวด์ switchbot",
+      "switchbot_cloud_list",
+      "สวิตช์บอท",
+      "คลาวด์",
+      "อุปกรณ์"
+    ]
   },
   "tr": {
     "param.fmt.description": "Biçim: json veya text.",
     "msg.device_count": "SwitchBot Cloud cihazları: {count}",
     "msg.error_fmt": "Hata: {msg}",
     "msg.fetched_at": "Getirilme zamanı: {ts}",
-    "msg.unknown_error": "bilinmeyen hata"
+    "msg.unknown_error": "bilinmeyen hata",
+    "x_search_terms": [
+      "switchbot bulut listesi",
+      "switchbot_cloud_list",
+      "anahtar bot",
+      "bulut",
+      "cihazlar"
+    ]
   },
   "uk": {
     "param.fmt.description": "Формат: json або text.",
     "msg.device_count": "Пристрої SwitchBot Cloud: {count}",
     "msg.error_fmt": "Помилка: {msg}",
     "msg.fetched_at": "Отримано о: {ts}",
-    "msg.unknown_error": "невідома помилка"
+    "msg.unknown_error": "невідома помилка",
+    "x_search_terms": [
+      "список хмар switchbot",
+      "switchbot_cloud_list",
+      "перемикач",
+      "хмара",
+      "пристрої"
+    ]
   },
   "vi": {
     "param.fmt.description": "Định dạng: json hoặc text.",
@@ -302,13 +456,27 @@
     "msg.device_count": "SwitchBot云设备：{count}",
     "msg.error_fmt": "错误：{msg}",
     "msg.fetched_at": "获取时间：{ts}",
-    "msg.unknown_error": "未知错误"
+    "msg.unknown_error": "未知错误",
+    "x_search_terms": [
+      "switchbot 云列表",
+      "switchbot_cloud_list",
+      "开关机器人",
+      "云",
+      "设备"
+    ]
   },
   "zh_TW": {
     "param.fmt.description": "格式：json 或 text。",
     "msg.device_count": "SwitchBot 雲端裝置數量：{count}",
     "msg.error_fmt": "錯誤：{msg}",
     "msg.fetched_at": "取得時間：{ts}",
-    "msg.unknown_error": "未知錯誤"
+    "msg.unknown_error": "未知錯誤",
+    "x_search_terms": [
+      "switchbot 雲端清單",
+      "switchbot_cloud_list",
+      "開關機器人",
+      "雲端",
+      "裝置"
+    ]
   }
 }

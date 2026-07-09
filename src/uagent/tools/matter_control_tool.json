@@ -11,7 +11,14 @@
     "err.not_found": "Matter device not found: {device_id}",
     "err.ambiguous_target": "Matter device target is ambiguous: {device_id}",
     "msg.dry_run": "Dry run: command validated but not queued.",
-    "err.queue_failed": "Failed to queue control command: {reason}"
+    "err.queue_failed": "Failed to queue control command: {reason}",
+    "x_search_terms": [
+      "التحكم بالمادة",
+      "matter_control",
+      "مادة",
+      "مادة",
+      "تشغيل/إيقاف/فتح/إغلاق/مستوى"
+    ]
   },
   "bn": {
     "tool.description": "Control a Matter device (on/off/open/close/lock/unlock/set_value).",
@@ -25,7 +32,14 @@
     "err.not_found": "Matter device not found: {device_id}",
     "err.ambiguous_target": "Matter device target is ambiguous: {device_id}",
     "msg.dry_run": "Dry run: command validated but not queued.",
-    "err.queue_failed": "Failed to queue control command: {reason}"
+    "err.queue_failed": "Failed to queue control command: {reason}",
+    "x_search_terms": [
+      "বিষয় নিয়ন্ত্রণ",
+      "matter_control",
+      "বিষয়",
+      "বিষয়",
+      "চালু/বন্ধ/খোলা/বন্ধ/স্তর"
+    ]
   },
   "cs": {
     "tool.description": "Control a Matter device (on/off/open/close/lock/unlock/set_value).",
@@ -39,7 +53,14 @@
     "err.not_found": "Matter device not found: {device_id}",
     "err.ambiguous_target": "Matter device target is ambiguous: {device_id}",
     "msg.dry_run": "Dry run: command validated but not queued.",
-    "err.queue_failed": "Failed to queue control command: {reason}"
+    "err.queue_failed": "Failed to queue control command: {reason}",
+    "x_search_terms": [
+      "ovládání hmoty",
+      "matter_control",
+      "hmota",
+      "HMOTA",
+      "zap/vyp/otevřít/zavřít/úroveň"
+    ]
   },
   "de": {
     "tool.description": "Control a Matter device (on/off/open/close/lock/unlock/set_value).",
@@ -53,7 +74,14 @@
     "err.not_found": "Matter device not found: {device_id}",
     "err.ambiguous_target": "Matter device target is ambiguous: {device_id}",
     "msg.dry_run": "Dry run: command validated but not queued.",
-    "err.queue_failed": "Failed to queue control command: {reason}"
+    "err.queue_failed": "Failed to queue control command: {reason}",
+    "x_search_terms": [
+      "Materiekontrolle",
+      "matter_control",
+      "Angelegenheit",
+      "MATTER",
+      "Ein/Aus/Öffnen/Schließen/Niveau"
+    ]
   },
   "en": {
     "tool.description": "Control a Matter device (on/off/open/close/lock/unlock/set_value).",
@@ -117,7 +145,14 @@
     "err.not_found": "Matter device not found: {device_id}",
     "err.ambiguous_target": "Matter device target is ambiguous: {device_id}",
     "msg.dry_run": "Dry run: command validated but not queued.",
-    "err.queue_failed": "Failed to queue control command: {reason}"
+    "err.queue_failed": "Failed to queue control command: {reason}",
+    "x_search_terms": [
+      "کنترل ماده",
+      "matter_control",
+      "ماده",
+      "ماده",
+      "روشن/خاموش/باز/بسته/سطح"
+    ]
   },
   "fi": {
     "tool.description": "Control a Matter device (on/off/open/close/lock/unlock/set_value).",
@@ -131,7 +166,14 @@
     "err.not_found": "Matter device not found: {device_id}",
     "err.ambiguous_target": "Matter device target is ambiguous: {device_id}",
     "msg.dry_run": "Dry run: command validated but not queued.",
-    "err.queue_failed": "Failed to queue control command: {reason}"
+    "err.queue_failed": "Failed to queue control command: {reason}",
+    "x_search_terms": [
+      "asian hallinta",
+      "matter_control",
+      "asia",
+      "ASIA",
+      "päällä/pois/auki/kiinni/taso"
+    ]
   },
   "fr": {
     "tool.description": "Control a Matter device (on/off/open/close/lock/unlock/set_value).",
@@ -166,7 +208,14 @@
     "err.not_found": "Matter device not found: {device_id}",
     "err.ambiguous_target": "Matter device target is ambiguous: {device_id}",
     "msg.dry_run": "Dry run: command validated but not queued.",
-    "err.queue_failed": "Failed to queue control command: {reason}"
+    "err.queue_failed": "Failed to queue control command: {reason}",
+    "x_search_terms": [
+      "विषय नियंत्रण",
+      "matter_control",
+      "विषय",
+      "विषय",
+      "चालू/बंद/खोलें/बंद करें/स्तर"
+    ]
   },
   "id": {
     "tool.description": "Control a Matter device (on/off/open/close/lock/unlock/set_value).",
@@ -272,7 +321,14 @@
     "err.not_found": "Matter device not found: {device_id}",
     "err.ambiguous_target": "Matter device target is ambiguous: {device_id}",
     "msg.dry_run": "Dry run: command validated but not queued.",
-    "err.queue_failed": "Failed to queue control command: {reason}"
+    "err.queue_failed": "Failed to queue control command: {reason}",
+    "x_search_terms": [
+      "материйн хяналт",
+      "matter_control",
+      "асуудал",
+      "асуудал",
+      "асаах/унтраах/нээх/хаах/түвшин"
+    ]
   },
   "mr": {
     "tool.description": "Control a Matter device (on/off/open/close/lock/unlock/set_value).",
@@ -286,7 +342,14 @@
     "err.not_found": "Matter device not found: {device_id}",
     "err.ambiguous_target": "Matter device target is ambiguous: {device_id}",
     "msg.dry_run": "Dry run: command validated but not queued.",
-    "err.queue_failed": "Failed to queue control command: {reason}"
+    "err.queue_failed": "Failed to queue control command: {reason}",
+    "x_search_terms": [
+      "विषय नियंत्रण",
+      "matter_control",
+      "विषय",
+      "विषय",
+      "चालू/बंद/उघडा/बंद/पातळी"
+    ]
   },
   "el": {
     "tool.description": "Μη έγκυρη ενέργεια: {action}. Επιτρέπεται: {allowed}",
@@ -300,7 +363,14 @@
     "err.not_found": "Αναγνωριστικό ελεγκτή (προαιρετικό).",
     "err.ambiguous_target": "Αναγνωριστικό γέφυρας (προαιρετικό).",
     "msg.dry_run": "Εάν ισχύει, επικυρώστε την εντολή χωρίς να την βάλετε στην ουρά.",
-    "err.queue_failed": "Ο τύπος συσκευής \"{device_type}\" δεν υποστηρίζει ενέργειες ελέγχου."
+    "err.queue_failed": "Ο τύπος συσκευής \"{device_type}\" δεν υποστηρίζει ενέργειες ελέγχου.",
+    "x_search_terms": [
+      "έλεγχος ύλης",
+      "matter_control",
+      "ύλη",
+      "ΥΛΗ",
+      "on/off/άνοιγμα/κλείσιμο/επίπεδο"
+    ]
   },
   "he": {
     "tool.description": "פעולה לא חוקית: {action}. מותר: {allowed}",
@@ -314,7 +384,14 @@
     "err.not_found": "מזהה בקר (אופציונלי).",
     "err.ambiguous_target": "מזהה גשר (אופציונלי).",
     "msg.dry_run": "אם נכון, אמת את הפקודה מבלי להעמיד אותה בתור.",
-    "err.queue_failed": "סוג מכשיר '{device_type}' אינו תומך בפעולות בקרה כלשהן."
+    "err.queue_failed": "סוג מכשיר '{device_type}' אינו תומך בפעולות בקרה כלשהן.",
+    "x_search_terms": [
+      "שליטת חומר",
+      "matter_control",
+      "חומר",
+      "חומר",
+      "הפעלה/כיבוי/פתיחה/סגירה/רמה"
+    ]
   },
   "hu": {
     "tool.description": "Érvénytelen művelet: {action}. Engedélyezett: {allowed}",
@@ -328,7 +405,14 @@
     "err.not_found": "Vezérlőazonosító (nem kötelező).",
     "err.ambiguous_target": "Hídazonosító (nem kötelező).",
     "msg.dry_run": "Ha igaz, érvényesítse a parancsot sorba helyezés nélkül.",
-    "err.queue_failed": "A „{device_type}” eszköztípus nem támogat semmilyen vezérlési műveletet."
+    "err.queue_failed": "A „{device_type}” eszköztípus nem támogat semmilyen vezérlési műveletet.",
+    "x_search_terms": [
+      "anyag vezérlés",
+      "matter_control",
+      "anyag",
+      "ANYAG",
+      "be/ki/nyit/zár/szint"
+    ]
   },
   "ro": {
     "tool.description": "Lipsesc datele dispozitivului Matter. Setați {env_json} sau {env_file} pentru dispozitive, controlere sau poduri.",
@@ -342,7 +426,14 @@
     "err.not_found": "ID-ul dispozitivului este necesar.",
     "err.ambiguous_target": "Dispozitivul nu a fost găsit: {device_id}",
     "msg.dry_run": "Valoarea trebuie să fie un număr întreg între 0 și 100.",
-    "err.queue_failed": "Rulare uscată: comandă validată, dar nu este pusă în coadă."
+    "err.queue_failed": "Rulare uscată: comandă validată, dar nu este pusă în coadă.",
+    "x_search_terms": [
+      "control materie",
+      "matter_control",
+      "materie",
+      "MATERIE",
+      "pornit/oprit/deschis/închis/nivel"
+    ]
   },
   "nb": {
     "tool.description": "Control a Matter device (on/off/open/close/lock/unlock/set_value).",
@@ -356,7 +447,14 @@
     "err.not_found": "Matter device not found: {device_id}",
     "err.ambiguous_target": "Matter device target is ambiguous: {device_id}",
     "msg.dry_run": "Dry run: command validated but not queued.",
-    "err.queue_failed": "Failed to queue control command: {reason}"
+    "err.queue_failed": "Failed to queue control command: {reason}",
+    "x_search_terms": [
+      "materiekontroll",
+      "matter_control",
+      "saken",
+      "MATTER",
+      "på/av/åpen/lukket/nivå"
+    ]
   },
   "nl": {
     "tool.description": "Control a Matter device (on/off/open/close/lock/unlock/set_value).",
@@ -370,7 +468,14 @@
     "err.not_found": "Matter device not found: {device_id}",
     "err.ambiguous_target": "Matter device target is ambiguous: {device_id}",
     "msg.dry_run": "Dry run: command validated but not queued.",
-    "err.queue_failed": "Failed to queue control command: {reason}"
+    "err.queue_failed": "Failed to queue control command: {reason}",
+    "x_search_terms": [
+      "materie-controle",
+      "matter_control",
+      "materie",
+      "MATTER",
+      "aan/uit/open/dicht/niveau"
+    ]
   },
   "pl": {
     "tool.description": "Control a Matter device (on/off/open/close/lock/unlock/set_value).",
@@ -405,7 +510,14 @@
     "err.not_found": "Matter device not found: {device_id}",
     "err.ambiguous_target": "Matter device target is ambiguous: {device_id}",
     "msg.dry_run": "Dry run: command validated but not queued.",
-    "err.queue_failed": "Failed to queue control command: {reason}"
+    "err.queue_failed": "Failed to queue control command: {reason}",
+    "x_search_terms": [
+      "controlo de matérias",
+      "controlo_matéria",
+      "assunto",
+      "MATÉRIA",
+      "ligar/desligar/abrir/fechar/nível"
+    ]
   },
   "pt_BR": {
     "tool.description": "Control a Matter device (on/off/open/close/lock/unlock/set_value).",
@@ -440,7 +552,14 @@
     "err.not_found": "Matter device not found: {device_id}",
     "err.ambiguous_target": "Matter device target is ambiguous: {device_id}",
     "msg.dry_run": "Dry run: command validated but not queued.",
-    "err.queue_failed": "Failed to queue control command: {reason}"
+    "err.queue_failed": "Failed to queue control command: {reason}",
+    "x_search_terms": [
+      "управление материей",
+      "matter_control",
+      "материя",
+      "МАТЕРИЯ",
+      "вкл/выкл/открыть/закрыть/уровень"
+    ]
   },
   "sv": {
     "tool.description": "Control a Matter device (on/off/open/close/lock/unlock/set_value).",
@@ -454,7 +573,14 @@
     "err.not_found": "Matter device not found: {device_id}",
     "err.ambiguous_target": "Matter device target is ambiguous: {device_id}",
     "msg.dry_run": "Dry run: command validated but not queued.",
-    "err.queue_failed": "Failed to queue control command: {reason}"
+    "err.queue_failed": "Failed to queue control command: {reason}",
+    "x_search_terms": [
+      "materiakontroll",
+      "matter_control",
+      "materia",
+      "MATTER",
+      "på/av/öppen/stängd/nivå"
+    ]
   },
   "sw": {
     "tool.description": "Control a Matter device (on/off/open/close/lock/unlock/set_value).",
@@ -468,7 +594,14 @@
     "err.not_found": "Matter device not found: {device_id}",
     "err.ambiguous_target": "Matter device target is ambiguous: {device_id}",
     "msg.dry_run": "Dry run: command validated but not queued.",
-    "err.queue_failed": "Failed to queue control command: {reason}"
+    "err.queue_failed": "Failed to queue control command: {reason}",
+    "x_search_terms": [
+      "udhibiti wa maada",
+      "matter_control",
+      "maada",
+      "MAADA",
+      "washa/zima/fungua/funga/kiwango"
+    ]
   },
   "th": {
     "tool.description": "Control a Matter device (on/off/open/close/lock/unlock/set_value).",
@@ -482,7 +615,14 @@
     "err.not_found": "Matter device not found: {device_id}",
     "err.ambiguous_target": "Matter device target is ambiguous: {device_id}",
     "msg.dry_run": "Dry run: command validated but not queued.",
-    "err.queue_failed": "Failed to queue control command: {reason}"
+    "err.queue_failed": "Failed to queue control command: {reason}",
+    "x_search_terms": [
+      "ควบคุมสสาร",
+      "matter_control",
+      "สสาร",
+      "สสาร",
+      "เปิด/ปิด/เปิด/ปิด/ระดับ"
+    ]
   },
   "tr": {
     "tool.description": "Control a Matter device (on/off/open/close/lock/unlock/set_value).",
@@ -496,7 +636,14 @@
     "err.not_found": "Matter device not found: {device_id}",
     "err.ambiguous_target": "Matter device target is ambiguous: {device_id}",
     "msg.dry_run": "Dry run: command validated but not queued.",
-    "err.queue_failed": "Failed to queue control command: {reason}"
+    "err.queue_failed": "Failed to queue control command: {reason}",
+    "x_search_terms": [
+      "madde kontrolü",
+      "matter_control",
+      "madde",
+      "MADDE",
+      "açık/kapalı/açık/kapalı/seviye"
+    ]
   },
   "uk": {
     "tool.description": "Control a Matter device (on/off/open/close/lock/unlock/set_value).",
@@ -510,7 +657,14 @@
     "err.not_found": "Matter device not found: {device_id}",
     "err.ambiguous_target": "Matter device target is ambiguous: {device_id}",
     "msg.dry_run": "Dry run: command validated but not queued.",
-    "err.queue_failed": "Failed to queue control command: {reason}"
+    "err.queue_failed": "Failed to queue control command: {reason}",
+    "x_search_terms": [
+      "керування матерією",
+      "matter_control",
+      "матерія",
+      "МАТЕРІЯ",
+      "вкл/викл/відкрити/закрити/рівень"
+    ]
   },
   "vi": {
     "tool.description": "Control a Matter device (on/off/open/close/lock/unlock/set_value).",
@@ -545,7 +699,14 @@
     "err.not_found": "Matter device not found: {device_id}",
     "err.ambiguous_target": "Matter device target is ambiguous: {device_id}",
     "msg.dry_run": "Dry run: command validated but not queued.",
-    "err.queue_failed": "Failed to queue control command: {reason}"
+    "err.queue_failed": "Failed to queue control command: {reason}",
+    "x_search_terms": [
+      "物质控制",
+      "matter_control",
+      "物质",
+      "物质",
+      "开/关/打开/关闭/级别"
+    ]
   },
   "zh_TW": {
     "tool.description": "Control a Matter device (on/off/open/close/lock/unlock/set_value).",
@@ -559,6 +720,13 @@
     "err.not_found": "Matter device not found: {device_id}",
     "err.ambiguous_target": "Matter device target is ambiguous: {device_id}",
     "msg.dry_run": "Dry run: command validated but not queued.",
-    "err.queue_failed": "Failed to queue control command: {reason}"
+    "err.queue_failed": "Failed to queue control command: {reason}",
+    "x_search_terms": [
+      "物質控制",
+      "matter_control",
+      "物質",
+      "物質",
+      "開/關/開啟/關閉/層級"
+    ]
   }
 }

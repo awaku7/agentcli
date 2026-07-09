@@ -63,7 +63,16 @@
     "err.invalid_interface": "خطأ: تعذّر حل الواجهة '{interface}' إلى عنوان IPv4 محلي.",
     "msg.summary": "اكتمل اكتشاف UPnP: تم العثور على {count} جهاز (أجهزة) في {elapsed_ms} مللي ثانية.",
     "msg.no_devices": "لم يتم العثور على أجهزة UPnP.",
-    "param.fmt.description": "التنسيق: json أو نص."
+    "param.fmt.description": "التنسيق: json أو نص.",
+    "x_search_terms": [
+      "فحص upnp",
+      "upnp_scan",
+      "أب إن بي",
+      "أب إن بي",
+      "اكتشاف",
+      "أب إن بي/إس إس دي بي",
+      "أجهزة"
+    ]
   },
   "bn": {
     "param.mx.description": "M-SEARCH-এ ব্যবহৃত SSDP MX হেডারের মান (১-৫ সেকেন্ড)।",
@@ -75,7 +84,16 @@
     "err.invalid_interface": "ত্রুটি: '{interface}' ইন্টারফেসটিকে স্থানীয় IPv4 ঠিকানায় রূপান্তর করা যায়নি।",
     "msg.summary": "UPnP ডিসকভারি সম্পন্ন: {elapsed_ms} ms-এ {count}টি ডিভাইস পাওয়া গেছে।",
     "msg.no_devices": "কোনো UPnP ডিভাইস পাওয়া যায়নি।",
-    "param.fmt.description": "বিন্যাস: json বা পাঠ্য।"
+    "param.fmt.description": "বিন্যাস: json বা পাঠ্য।",
+    "x_search_terms": [
+      "upnp স্ক্যান",
+      "upnp_scan",
+      "ইউপিএনপি",
+      "ইউপিএনপি",
+      "আবিষ্কার",
+      "ইউপিএনপি/এসএসডিপি",
+      "ডিভাইস"
+    ]
   },
   "cs": {
     "param.mx.description": "Hodnota záhlaví SSDP MX (1-5 sekund) používaná M-SEARCH.",
@@ -87,7 +105,16 @@
     "err.invalid_interface": "Chyba: Nepodařilo se přeložit rozhraní '{interface}' na místní adresu IPv4.",
     "msg.summary": "Zjišťování UPnP dokončeno: nalezeno {count} zařízení za {elapsed_ms} ms.",
     "msg.no_devices": "Nebyla nalezena žádná zařízení UPnP.",
-    "param.fmt.description": "Formát: json nebo text."
+    "param.fmt.description": "Formát: json nebo text.",
+    "x_search_terms": [
+      "skenování upnp",
+      "upnp_scan",
+      "upnp",
+      "UPNP",
+      "objevit",
+      "upnp/ssdp",
+      "zařízení"
+    ]
   },
   "de": {
     "param.mx.description": "SSDP MX-Header-Wert (1–5 Sekunden), der von M-SEARCH verwendet wird.",
@@ -99,7 +126,16 @@
     "err.invalid_interface": "Fehler: Schnittstelle „{interface}“ konnte nicht in eine lokale IPv4-Adresse aufgelöst werden.",
     "msg.summary": "UPnP-Erkennung abgeschlossen: {count} Gerät(e) in {elapsed_ms} ms gefunden.",
     "msg.no_devices": "Es wurden keine UPnP-Geräte gefunden.",
-    "param.fmt.description": "Format: JSON oder Text."
+    "param.fmt.description": "Format: JSON oder Text.",
+    "x_search_terms": [
+      "UPNP-Scan",
+      "upnp_scan",
+      "upnp",
+      "UPNP",
+      "entdecken",
+      "upnp/ssdp",
+      "Geräte"
+    ]
   },
   "es": {
     "param.mx.description": "Valor del encabezado SSDP MX (1-5 segundos) utilizado por M-SEARCH.",
@@ -132,7 +168,16 @@
     "err.invalid_interface": "خطا: امکان تبدیل رابط '{interface}' به یک نشانی IPv4 محلی وجود نداشت.",
     "msg.summary": "کشف UPnP کامل شد: {count} دستگاه در {elapsed_ms} میلی‌ثانیه پیدا شد.",
     "msg.no_devices": "هیچ دستگاه UPnP پیدا نشد.",
-    "param.fmt.description": "فرمت: json یا متن."
+    "param.fmt.description": "فرمت: json یا متن.",
+    "x_search_terms": [
+      "اسکن upnp",
+      "upnp_scan",
+      "آپ‌ان‌پی",
+      "آپ‌ان‌پی",
+      "کشف",
+      "آپ‌ان‌پی/اس‌اس‌دی‌پی",
+      "دستگاه‌ها"
+    ]
   },
   "fi": {
     "param.mx.description": "SSDP MX -otsikon arvo (1-5 sekuntia), jota M-SEARCH käyttää.",
@@ -144,7 +189,16 @@
     "err.invalid_interface": "Virhe: Liittymää '{interface}' ei voitu ratkaista paikalliseen IPv4-osoitteeseen.",
     "msg.summary": "UPnP-haku valmis: {count} laitetta löytyi ajassa {elapsed_ms} ms.",
     "msg.no_devices": "UPnP-laitteita ei löytynyt.",
-    "param.fmt.description": "Muoto: json tai teksti."
+    "param.fmt.description": "Muoto: json tai teksti.",
+    "x_search_terms": [
+      "upnp-skannaus",
+      "upnp_scan",
+      "upnp",
+      "UPNP",
+      "löydä",
+      "upnp/ssdp",
+      "laitteet"
+    ]
   },
   "fr": {
     "param.mx.description": "Valeur d'en-tête SSDP MX (1 à 5 secondes) utilisée par M-SEARCH.",
@@ -177,7 +231,16 @@
     "err.invalid_interface": "त्रुटि: इंटरफ़ेस '{interface}' को स्थानीय IPv4 पते में हल नहीं किया जा सका।",
     "msg.summary": "UPnP खोज पूरी हुई: {elapsed_ms} ms में {count} डिवाइस मिले।",
     "msg.no_devices": "कोई UPnP डिवाइस नहीं मिला।",
-    "param.fmt.description": "प्रारूप:"
+    "param.fmt.description": "प्रारूप:",
+    "x_search_terms": [
+      "upnp स्कैन",
+      "upnp_scan",
+      "यूपीएनपी",
+      "यूपीएनपी",
+      "खोजें",
+      "upnp/ssdp",
+      "डिवाइस"
+    ]
   },
   "id": {
     "param.mx.description": "Nilai header SSDP MX (1-5 detik) digunakan oleh M-SEARCH.",
@@ -252,7 +315,16 @@
     "err.invalid_interface": "Алдаа: '{interface}' интерфэйсийг дотоод IPv4 хаяг болгон шийдэж чадсангүй.",
     "msg.summary": "UPnP илрүүлэлт дууслаа: {elapsed_ms} мс-д {count} төхөөрөмж олдлоо.",
     "msg.no_devices": "UPnP төхөөрөмж олдсонгүй.",
-    "param.fmt.description": "Формат: json эсвэл текст."
+    "param.fmt.description": "Формат: json эсвэл текст.",
+    "x_search_terms": [
+      "upnp скан",
+      "upnp_scan",
+      "упнп",
+      "упнп",
+      "нээх",
+      "упнп/ссдп",
+      "төхөөрөмж"
+    ]
   },
   "mr": {
     "param.mx.description": "SSDP MX शीर्षलेख मूल्य (1-5 सेकंद) M-SEARCH द्वारे वापरले.",
@@ -264,7 +336,16 @@
     "err.invalid_interface": "त्रुटी: '{interface}' इंटरफेसला स्थानिक IPv4 पत्त्यात रूपांतरित करता आले नाही.",
     "msg.summary": "UPnP शोध पूर्ण: {elapsed_ms} ms मध्ये {count} उपकरण(े) सापडली.",
     "msg.no_devices": "कोणतेही UPnP डिव्हाइस आढळले नाहीत.",
-    "param.fmt.description": "स्वरूप: json किंवा मजकूर."
+    "param.fmt.description": "स्वरूप: json किंवा मजकूर.",
+    "x_search_terms": [
+      "upnp स्कॅन",
+      "upnp_scan",
+      "यूपीएनपी",
+      "यूपीएनपी",
+      "शोधा",
+      "upnp/ssdp",
+      "उपकरणे"
+    ]
   },
   "el": {
     "param.mx.description": "Χρόνος αναμονής από την πλευρά του πελάτη σε δευτερόλεπτα για απαντήσεις SSDP.",
@@ -280,7 +361,16 @@
     "param.filter_name.description": "Προαιρετικό φίλτρο υποσυμβολοσειράς χωρίς διάκριση πεζών-κεφαλαίων για τον κατασκευαστή.",
     "param.filter_manufacturer.description": "Προαιρετικό φίλτρο υποσυμβολοσειράς χωρίς διάκριση πεζών-κεφαλαίων για το όνομα_μοντέλου.",
     "param.filter_model.description": "Προαιρετικό φίλτρο υποσυμβολοσειράς χωρίς διάκριση πεζών-κεφαλαίων για τον τύπο συσκευής.",
-    "param.filter_type.description": "Τραβήξτε μια φωτογραφία από μια κάμερα USB μέσω ffmpeg ή καταχωρίστε τις διαθέσιμες συσκευές βίντεο. Υποστηρίζει Windows (dshow), Linux (v4l2), macOS (avfoundation)."
+    "param.filter_type.description": "Τραβήξτε μια φωτογραφία από μια κάμερα USB μέσω ffmpeg ή καταχωρίστε τις διαθέσιμες συσκευές βίντεο. Υποστηρίζει Windows (dshow), Linux (v4l2), macOS (avfoundation).",
+    "x_search_terms": [
+      "σάρωση upnp",
+      "upnp_scan",
+      "upnp",
+      "UPNP",
+      "ανακάλυψη",
+      "upnp/ssdp",
+      "συσκευές"
+    ]
   },
   "he": {
     "param.mx.description": "זמן המתנה בצד הלקוח בשניות לתגובות SSDP.",
@@ -296,7 +386,16 @@
     "param.filter_name.description": "מסנן משנה אופציונלי לא תלוי-רישיות עבור היצרן.",
     "param.filter_manufacturer.description": "מסנן משנה אופציונלי לא תלוי-רישיות עבור model_name.",
     "param.filter_model.description": "מסנן משנה אופציונלי לא תלוי-רישיות עבור device_type.",
-    "param.filter_type.description": "צלם תמונה ממצלמת USB באמצעות ffmpeg, או רשום התקני וידאו זמינים. תומך ב-Windows (dshow), Linux (v4l2), macOS (avfoundation)."
+    "param.filter_type.description": "צלם תמונה ממצלמת USB באמצעות ffmpeg, או רשום התקני וידאו זמינים. תומך ב-Windows (dshow), Linux (v4l2), macOS (avfoundation).",
+    "x_search_terms": [
+      "סריקת upnp",
+      "upnp_scan",
+      "upnp",
+      "UPNP",
+      "גלה",
+      "upnp/ssdp",
+      "מכשירים"
+    ]
   },
   "hu": {
     "param.mx.description": "Az ügyféloldali várakozási idő másodpercben az SSDP-válaszokra.",
@@ -312,7 +411,16 @@
     "param.filter_name.description": "Opcionális kis- és nagybetűk közötti részkarakterlánc-szűrő a gyártó számára.",
     "param.filter_manufacturer.description": "Opcionális kis- és nagybetűk közötti részkarakterlánc-szűrő a modell_neve esetén.",
     "param.filter_model.description": "Opcionális, kis- és nagybetűk közötti részkarakterlánc-szűrő eszköz_típushoz.",
-    "param.filter_type.description": "Készítsen fényképet USB-kameráról ffmpeg segítségével, vagy sorolja fel az elérhető videoeszközöket. Támogatja a Windows (dshow), Linux (v4l2), macOS (avfoundation) rendszert."
+    "param.filter_type.description": "Készítsen fényképet USB-kameráról ffmpeg segítségével, vagy sorolja fel az elérhető videoeszközöket. Támogatja a Windows (dshow), Linux (v4l2), macOS (avfoundation) rendszert.",
+    "x_search_terms": [
+      "upnp szkennelés",
+      "upnp_scan",
+      "upnp",
+      "UPNP",
+      "felfedez",
+      "upnp/ssdp",
+      "eszközök"
+    ]
   },
   "ro": {
     "param.mx.description": "Timp de așteptare la nivelul clientului în secunde pentru răspunsurile SSDP.",
@@ -328,7 +436,16 @@
     "param.filter_name.description": "Opțional, filtru de subșiruri care nu ține seama de majuscule și minuscule pentru producător.",
     "param.filter_manufacturer.description": "Filtru opțional de subșiruri care nu ține seama de majuscule și minuscule pentru model_name.",
     "param.filter_model.description": "Filtru opțional de subșiruri care nu ține seama de majuscule și minuscule pentru device_type.",
-    "param.filter_type.description": "Faceți o fotografie de pe o cameră USB prin ffmpeg sau enumerați dispozitivele video disponibile. Suporta Windows (dshow), Linux (v4l2), macOS (avfoundation)."
+    "param.filter_type.description": "Faceți o fotografie de pe o cameră USB prin ffmpeg sau enumerați dispozitivele video disponibile. Suporta Windows (dshow), Linux (v4l2), macOS (avfoundation).",
+    "x_search_terms": [
+      "scanare upnp",
+      "upnp_scan",
+      "upnp",
+      "UPNP",
+      "descoperă",
+      "upnp/ssdp",
+      "dispozitive"
+    ]
   },
   "nb": {
     "param.mx.description": "SSDP MX topptekstverdi (1-5 sekunder) brukt av M-SEARCH.",
@@ -340,7 +457,16 @@
     "err.invalid_interface": "Feil: Kunne ikke slå opp grensesnittet '{interface}' til en lokal IPv4-adresse.",
     "msg.summary": "UPnP-oppdagelse fullført: {count} enhet(er) funnet på {elapsed_ms} ms.",
     "msg.no_devices": "Ingen UPnP-enheter ble funnet.",
-    "param.fmt.description": "Format: json eller tekst."
+    "param.fmt.description": "Format: json eller tekst.",
+    "x_search_terms": [
+      "upnp-skanning",
+      "upnp_scan",
+      "upnp",
+      "UPNP",
+      "oppdage",
+      "upnp/ssdp",
+      "enheter"
+    ]
   },
   "nl": {
     "param.mx.description": "SSDP MX-headerwaarde (1-5 seconden) gebruikt door M-SEARCH.",
@@ -352,7 +478,16 @@
     "err.invalid_interface": "Fout: kon interface '{interface}' niet omzetten naar een lokaal IPv4-adres.",
     "msg.summary": "UPnP-detectie voltooid: {count} apparaat(en) gevonden in {elapsed_ms} ms.",
     "msg.no_devices": "Er zijn geen UPnP-apparaten gevonden.",
-    "param.fmt.description": "Formaat: json of tekst."
+    "param.fmt.description": "Formaat: json of tekst.",
+    "x_search_terms": [
+      "upnp-scan",
+      "upnp_scan",
+      "upnp",
+      "UPNP",
+      "ontdekken",
+      "upnp/ssdp",
+      "apparaten"
+    ]
   },
   "pl": {
     "param.mx.description": "Wartość nagłówka MX SSDP (1-5 sekund) używana przez M-SEARCH.",
@@ -385,7 +520,16 @@
     "err.invalid_interface": "Erro: não foi possível resolver a interface '{interface}' para um endereço IPv4 local.",
     "msg.summary": "Descoberta UPnP concluída: {count} dispositivos encontrados em {elapsed_ms} ms.",
     "msg.no_devices": "Nenhum dispositivo UPnP foi encontrado.",
-    "param.fmt.description": "Formato: json ou texto."
+    "param.fmt.description": "Formato: json ou texto.",
+    "x_search_terms": [
+      "digitalização upnp",
+      "upnp_scan",
+      "upnp",
+      "UPNP",
+      "descobrir",
+      "upnp/ssdp",
+      "dispositivos"
+    ]
   },
   "pt_BR": {
     "param.mx.description": "Valor do cabeçalho SSDP MX (1-5 segundos) usado pelo M-SEARCH.",
@@ -418,7 +562,16 @@
     "err.invalid_interface": "Ошибка: не удалось сопоставить интерфейс '{interface}' с локальным IPv4-адресом.",
     "msg.summary": "Обнаружение UPnP завершено: {count} устройств обнаружено за {elapsed_ms} мс.",
     "msg.no_devices": "Устройства UPnP не найдены.",
-    "param.fmt.description": "Формат: json или текстовый."
+    "param.fmt.description": "Формат: json или текстовый.",
+    "x_search_terms": [
+      "сканирование upnp",
+      "upnp_scan",
+      "upnp",
+      "UPNP",
+      "обнаружить",
+      "upnp/ssdp",
+      "устройства"
+    ]
   },
   "sv": {
     "param.mx.description": "SSDP MX-huvudvärde (1-5 sekunder) som används av M-SEARCH.",
@@ -430,7 +583,16 @@
     "err.invalid_interface": "Fel: Kunde inte slå upp gränssnittet '{interface}' till en lokal IPv4-adress.",
     "msg.summary": "UPnP-upptäckt slutförd: {count} enhet(er) hittades på {elapsed_ms} ms.",
     "msg.no_devices": "Inga UPnP-enheter hittades.",
-    "param.fmt.description": "Format: json eller text."
+    "param.fmt.description": "Format: json eller text.",
+    "x_search_terms": [
+      "upnp-skanning",
+      "upnp_scan",
+      "upnp",
+      "UPNP",
+      "upptäcka",
+      "upnp/ssdp",
+      "enheter"
+    ]
   },
   "sw": {
     "param.mx.description": "thamani ya kichwa cha SSDP MX (sekunde 1-5) inayotumiwa na M-SEARCH.",
@@ -442,7 +604,16 @@
     "err.invalid_interface": "Hitilafu: Haikuweza kutatua kiolesura '{interface}' kwa anwani ya ndani ya IPv4.",
     "msg.summary": "Ugunduzi wa UPnP umekamilika: {count} vifaa vilivyopatikana katika {elapsed_ms} ms.",
     "msg.no_devices": "Hakuna vifaa vya UPnP vilivyopatikana.",
-    "param.fmt.description": "Umbizo: json au maandishi."
+    "param.fmt.description": "Umbizo: json au maandishi.",
+    "x_search_terms": [
+      "skana ya upnp",
+      "upnp_scan",
+      "upnp",
+      "UPNP",
+      "gundua",
+      "upnp/ssdp",
+      "vifaa"
+    ]
   },
   "th": {
     "param.mx.description": "ค่าหัวข้อ SSDP MX (1-5 วินาที) ที่ใช้โดย M-SEARCH",
@@ -454,7 +625,16 @@
     "err.invalid_interface": "คำอธิบาย",
     "msg.summary": "ค้นหา UPnP เสร็จสิ้น: พบอุปกรณ์ {count} เครื่องใน {elapsed_ms} มิลลิวินาที",
     "msg.no_devices": "ไม่พบอุปกรณ์ UPnP",
-    "param.fmt.description": "คำอธิบาย"
+    "param.fmt.description": "คำอธิบาย",
+    "x_search_terms": [
+      "สแกน upnp",
+      "upnp_scan",
+      "อัปเอ็นพี",
+      "อัปเอ็นพี",
+      "ค้นพบ",
+      "อัปเอ็นพี/เอสเอสดีพี",
+      "อุปกรณ์"
+    ]
   },
   "tr": {
     "param.mx.description": "M-SEARCH tarafından kullanılan SSDP MX başlık değeri (1-5 saniye).",
@@ -466,7 +646,16 @@
     "err.invalid_interface": "Hata: '{interface}' arayüzü yerel bir IPv4 adresine çözümlenemedi.",
     "msg.summary": "UPnP keşfi tamamlandı: {elapsed_ms} ms içinde {count} aygıt bulundu.",
     "msg.no_devices": "Hiç UPnP aygıtı bulunamadı.",
-    "param.fmt.description": "Biçim: json veya metin."
+    "param.fmt.description": "Biçim: json veya metin.",
+    "x_search_terms": [
+      "upnp taraması",
+      "upnp_scan",
+      "upnp",
+      "UPNP",
+      "keşfetmek",
+      "upnp/ssdp",
+      "cihazlar"
+    ]
   },
   "uk": {
     "param.mx.description": "Значення заголовка MX SSDP (1-5 секунд), що використовується M-SEARCH.",
@@ -478,7 +667,16 @@
     "err.invalid_interface": "Помилка: не вдалося визначити інтерфейс '{interface}' як локальну IPv4-адресу.",
     "msg.summary": "Виявлення UPnP завершено: знайдено {count} пристрій(їв) за {elapsed_ms} мс.",
     "msg.no_devices": "Пристроїв UPnP не знайдено.",
-    "param.fmt.description": "Формат: json або текстовий."
+    "param.fmt.description": "Формат: json або текстовий.",
+    "x_search_terms": [
+      "сканування upnp",
+      "upnp_scan",
+      "upnp",
+      "UPNP",
+      "виявити",
+      "upnp/ssdp",
+      "пристрої"
+    ]
   },
   "vi": {
     "param.mx.description": "Giá trị tiêu đề SSDP MX (1-5 giây) được M-SEARCH sử dụng.",
@@ -511,7 +709,16 @@
     "err.invalid_interface": "错误：无法将接口 '{interface}' 解析为本地 IPv4 地址。",
     "msg.summary": "UPnP 发现完成：在 {elapsed_ms} 毫秒内找到 {count} 个设备。",
     "msg.no_devices": "未找到 UPnP 设备。",
-    "param.fmt.description": "输出格式：JSON 或人类可读文本。"
+    "param.fmt.description": "输出格式：JSON 或人类可读文本。",
+    "x_search_terms": [
+      "upnp 扫描",
+      "upnp_scan",
+      "upnp",
+      "UPNP",
+      "发现",
+      "upnp/ssdp",
+      "设备"
+    ]
   },
   "zh_TW": {
     "param.mx.description": "M-SEARCH 使用的 SSDP MX 標頭值（1-5 秒）。",
@@ -523,6 +730,15 @@
     "err.invalid_interface": "錯誤：無法將介面 '{interface}' 解析為本機 IPv4 位址。",
     "msg.summary": "UPnP 探索完成：在 {elapsed_ms} 毫秒內找到 {count} 個裝置。",
     "msg.no_devices": "未找到 UPnP 裝置。",
-    "param.fmt.description": "輸出格式：JSON 或人類可讀文字。"
+    "param.fmt.description": "輸出格式：JSON 或人類可讀文字。",
+    "x_search_terms": [
+      "upnp 掃描",
+      "upnp_scan",
+      "upnp",
+      "UPNP",
+      "發現",
+      "upnp/ssdp",
+      "裝置"
+    ]
   }
 }

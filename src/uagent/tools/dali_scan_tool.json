@@ -25,7 +25,17 @@
     "param.port.description": "منفذ TCP dalserver (الافتراضي: 55825).",
     "param.fmt.description": "التنسيق: json أو نص.",
     "msg.summary": "فحص DALI: تم العثور على {count} جهاز (أجهزة) خلال {ms} مللي ثانية.",
-    "msg.no_devices": "لم يتم العثور على أجهزة DALI."
+    "msg.no_devices": "لم يتم العثور على أجهزة DALI.",
+    "x_search_terms": [
+      "فحص dali",
+      "dali_scan",
+      "دالي",
+      "دالي",
+      "متصل",
+      "إضاءة",
+      "أجهزة",
+      "حافلة"
+    ]
   },
   "bn": {
     "tool.description": "সংযুক্ত আলো ডিভাইসের জন্য DALI বাস স্ক্যান করুন (ঠিকানা 0-63)। স্থিতি এবং প্রকৃত স্তরের জন্য প্রতিটি ঠিকানা জিজ্ঞাসা করুন.",
@@ -34,7 +44,17 @@
     "param.port.description": "ডালিসার্ভার TCP পোর্ট (ডিফল্ট: 55825)।",
     "param.fmt.description": "বিন্যাস: json বা পাঠ্য।",
     "msg.summary": "DALI স্ক্যান: {count} ডিভাইস(গুলি) {ms} ms এ পাওয়া গেছে।",
-    "msg.no_devices": "কোন DALI ডিভাইস পাওয়া যায়নি."
+    "msg.no_devices": "কোন DALI ডিভাইস পাওয়া যায়নি.",
+    "x_search_terms": [
+      "dali স্ক্যান",
+      "dali_scan",
+      "ডালি",
+      "ডালি",
+      "সংযুক্ত",
+      "আলো",
+      "ডিভাইস",
+      "বাস"
+    ]
   },
   "cs": {
     "tool.description": "Prohledejte sběrnici DALI pro připojená osvětlovací zařízení (adresy 0-63). Dotazuje každou adresu na stav a aktuální úroveň.",
@@ -43,7 +63,17 @@
     "param.port.description": "daliserver TCP port (výchozí: 55825).",
     "param.fmt.description": "Formát: json nebo text.",
     "msg.summary": "Kontrola DALI: {count} zařízení nalezeno za {ms} ms.",
-    "msg.no_devices": "Nebyla nalezena žádná zařízení DALI."
+    "msg.no_devices": "Nebyla nalezena žádná zařízení DALI.",
+    "x_search_terms": [
+      "skenování dali",
+      "dali_scan",
+      "dali",
+      "DALI",
+      "připojen",
+      "osvětlení",
+      "zařízení",
+      "autobus"
+    ]
   },
   "de": {
     "tool.description": "DALI-Bus nach angeschlossenen Beleuchtungsgeräten durchsuchen (Adressen 0-63). Fragt jede Adresse nach Status und tatsächlichem Füllstand ab.",
@@ -52,7 +82,17 @@
     "param.port.description": "daliserver TCP-Port (Standard: 55825).",
     "param.fmt.description": "Format: JSON oder Text.",
     "msg.summary": "DALI-Scan: {count} Gerät(e) in {ms} ms gefunden.",
-    "msg.no_devices": "Es wurden keine DALI-Geräte gefunden."
+    "msg.no_devices": "Es wurden keine DALI-Geräte gefunden.",
+    "x_search_terms": [
+      "Dali-Scan",
+      "dali_scan",
+      "dali",
+      "DALI",
+      "verbunden",
+      "Beleuchtung",
+      "Geräte",
+      "Bus"
+    ]
   },
   "el": {
     "tool.description": "Σάρωση του διαύλου DALI για συνδεδεμένες συσκευές φωτισμού (διευθύνσεις 0-63). Υποβάλλει ερωτήματα σε κάθε διεύθυνση για την κατάσταση και το πραγματικό επίπεδο.",
@@ -61,7 +101,17 @@
     "param.port.description": "Θύρα TCP daliserver (προεπιλογή: 55825).",
     "param.fmt.description": "Μορφή: json ή κείμενο.",
     "msg.summary": "Σάρωση DALI: {count} συσκευές βρέθηκαν σε {ms} ms.",
-    "msg.no_devices": "Δεν βρέθηκαν συσκευές DALI."
+    "msg.no_devices": "Δεν βρέθηκαν συσκευές DALI.",
+    "x_search_terms": [
+      "σάρωση dali",
+      "dali_scan",
+      "ντάλι",
+      "DALI",
+      "συνδεδεμένο",
+      "φωτισμός",
+      "συσκευές",
+      "λεωφορείο"
+    ]
   },
   "es": {
     "tool.description": "Escanee el bus DALI en busca de dispositivos de iluminación conectados (direcciones 0-63). Consulta cada dirección para conocer el estado y el nivel real.",
@@ -89,7 +139,17 @@
     "param.port.description": "پورت TCP daliserver (پیش‌فرض: 55825).",
     "param.fmt.description": "فرمت: json یا متن.",
     "msg.summary": "اسکن DALI: {count} دستگاه در {ms} میلی‌ثانیه یافت شد.",
-    "msg.no_devices": "هیچ دستگاه DALI پیدا نشد."
+    "msg.no_devices": "هیچ دستگاه DALI پیدا نشد.",
+    "x_search_terms": [
+      "اسکن dali",
+      "dali_scan",
+      "دالی",
+      "دالی",
+      "متصل",
+      "روشنایی",
+      "دستگاه‌ها",
+      "اتوبوس"
+    ]
   },
   "fi": {
     "tool.description": "Etsi DALI-väylä liitettyjen valaistuslaitteiden varalta (osoitteet 0-63). Kyselee kustakin osoitteesta tilaa ja todellista tasoa.",
@@ -98,7 +158,17 @@
     "param.port.description": "daliserverin TCP-portti (oletus: 55825).",
     "param.fmt.description": "Muoto: json tai teksti.",
     "msg.summary": "DALI-skannaus: {count} laitetta löydetty {ms} ms:ssa.",
-    "msg.no_devices": "DALI-laitteita ei löytynyt."
+    "msg.no_devices": "DALI-laitteita ei löytynyt.",
+    "x_search_terms": [
+      "dali-skannaus",
+      "dali_scan",
+      "dali",
+      "DALI",
+      "kytketty",
+      "valaistus",
+      "laitteet",
+      "bussi"
+    ]
   },
   "fr": {
     "tool.description": "Scannez le bus DALI pour les appareils d'éclairage connectés (adresses 0-63). Interroge chaque adresse pour connaître son statut et son niveau réel.",
@@ -126,7 +196,17 @@
     "param.port.description": "יציאת TCP של daliserver (ברירת מחדל: 55825).",
     "param.fmt.description": "פורמט: json או טקסט.",
     "msg.summary": "סריקת DALI: נמצאו {count} מכשירים תוך {ms} אלפיות השנייה.",
-    "msg.no_devices": "לא נמצאו התקני DALI."
+    "msg.no_devices": "לא נמצאו התקני DALI.",
+    "x_search_terms": [
+      "סריקת dali",
+      "dali_scan",
+      "דאלי",
+      "דאלי",
+      "מחובר",
+      "תאורה",
+      "מכשירים",
+      "אוטובוס"
+    ]
   },
   "hi": {
     "tool.description": "कनेक्टेड प्रकाश उपकरणों के लिए DALI बस को स्कैन करें (पते 0-63)। स्थिति और वास्तविक स्तर के लिए प्रत्येक पते पर प्रश्न पूछें।",
@@ -135,7 +215,17 @@
     "param.port.description": "डेलिसेर्वर टीसीपी पोर्ट (डिफ़ॉल्ट: 55825)।",
     "param.fmt.description": "प्रारूप: json या text.",
     "msg.summary": "DALI स्कैन: {count} डिवाइस {ms} एमएस में मिला।",
-    "msg.no_devices": "कोई DALI उपकरण नहीं मिला."
+    "msg.no_devices": "कोई DALI उपकरण नहीं मिला.",
+    "x_search_terms": [
+      "dali स्कैन",
+      "dali_scan",
+      "डाली",
+      "डाली",
+      "जुड़ा हुआ",
+      "प्रकाश",
+      "डिवाइस",
+      "बस"
+    ]
   },
   "hu": {
     "tool.description": "Pásztázza a DALI buszt a csatlakoztatott világítóeszközökhöz (0-63 címek). Minden címet lekérdez az állapotról és a tényleges szintről.",
@@ -144,7 +234,17 @@
     "param.port.description": "daliserver TCP port (alapértelmezett: 55825).",
     "param.fmt.description": "Formátum: json vagy szöveg.",
     "msg.summary": "DALI-keresés: {count} eszköz található {ms} ms alatt.",
-    "msg.no_devices": "Nem található DALI eszköz."
+    "msg.no_devices": "Nem található DALI eszköz.",
+    "x_search_terms": [
+      "dali szkennelés",
+      "dali_scan",
+      "dali",
+      "DALI",
+      "csatlakoztatva",
+      "világítás",
+      "eszközök",
+      "busz"
+    ]
   },
   "id": {
     "tool.description": "Pindai bus DALI untuk perangkat penerangan yang terhubung (alamat 0-63). Menanyakan setiap alamat untuk status dan level sebenarnya.",
@@ -229,7 +329,17 @@
     "param.port.description": "daliserver TCP порт (анхдагч: 55825).",
     "param.fmt.description": "Формат: json эсвэл текст.",
     "msg.summary": "DALI скан: {ms} мс-д {count} төхөөрөмж олдсон.",
-    "msg.no_devices": "DALI төхөөрөмж олдсонгүй."
+    "msg.no_devices": "DALI төхөөрөмж олдсонгүй.",
+    "x_search_terms": [
+      "дали скан",
+      "dali_scan",
+      "дали",
+      "дали",
+      "холбогдсон",
+      "гэрэлтүүлэг",
+      "төхөөрөмж",
+      "автобус"
+    ]
   },
   "mr": {
     "tool.description": "कनेक्ट केलेल्या प्रकाश उपकरणांसाठी (0-63 पत्ते) DALI बस स्कॅन करा. स्थिती आणि वास्तविक स्तरासाठी प्रत्येक पत्त्यावर क्वेरी करा.",
@@ -238,7 +348,17 @@
     "param.port.description": "daliserver TCP पोर्ट (डिफॉल्ट: 55825).",
     "param.fmt.description": "स्वरूप: json किंवा मजकूर.",
     "msg.summary": "DALI स्कॅन: {ms} ms मध्ये {count} डिव्हाइस आढळले.",
-    "msg.no_devices": "कोणतीही DALI साधने आढळली नाहीत."
+    "msg.no_devices": "कोणतीही DALI साधने आढळली नाहीत.",
+    "x_search_terms": [
+      "dali स्कॅन",
+      "dali_scan",
+      "डाली",
+      "डाली",
+      "कनेक्ट केलेले",
+      "प्रकाश",
+      "उपकरणे",
+      "बस"
+    ]
   },
   "nb": {
     "tool.description": "Skann DALI-buss for tilkoblede lysenheter (adresser 0-63). Spørrer hver adresse for status og faktisk nivå.",
@@ -247,7 +367,17 @@
     "param.port.description": "daliserver TCP-port (standard: 55825).",
     "param.fmt.description": "Format: json eller tekst.",
     "msg.summary": "DALI-skanning: {count} enhet(er) funnet på {ms} ms.",
-    "msg.no_devices": "Ingen DALI-enheter ble funnet."
+    "msg.no_devices": "Ingen DALI-enheter ble funnet.",
+    "x_search_terms": [
+      "dali-skanning",
+      "dali_scan",
+      "dali",
+      "DALI",
+      "tilkoblet",
+      "belysning",
+      "enheter",
+      "buss"
+    ]
   },
   "nl": {
     "tool.description": "Scan de DALI-bus op aangesloten verlichtingsapparaten (adressen 0-63). Vraagt ​​bij elk adres de status en het actuele niveau op.",
@@ -256,7 +386,17 @@
     "param.port.description": "daliserver TCP-poort (standaard: 55825).",
     "param.fmt.description": "Formaat: json of tekst.",
     "msg.summary": "DALI-scan: {count} apparaat(en) gevonden in {ms} ms.",
-    "msg.no_devices": "Er zijn geen DALI-apparaten gevonden."
+    "msg.no_devices": "Er zijn geen DALI-apparaten gevonden.",
+    "x_search_terms": [
+      "dali-scan",
+      "dali_scan",
+      "dali",
+      "DALI",
+      "aangesloten",
+      "verlichting",
+      "apparaten",
+      "bus"
+    ]
   },
   "pl": {
     "tool.description": "Skanuj magistralę DALI w poszukiwaniu podłączonych urządzeń oświetleniowych (adresy 0-63). Wysyła zapytanie do każdego adresu o status i aktualny poziom.",
@@ -284,7 +424,17 @@
     "param.port.description": "Porta TCP daliserver (padrão: 55825).",
     "param.fmt.description": "Formato: json ou texto.",
     "msg.summary": "Varredura DALI: {count} dispositivo(s) encontrado(s) em {ms} ms.",
-    "msg.no_devices": "Nenhum dispositivo DALI foi encontrado."
+    "msg.no_devices": "Nenhum dispositivo DALI foi encontrado.",
+    "x_search_terms": [
+      "digitalização dali",
+      "dali_scan",
+      "dali",
+      "DALI",
+      "ligado",
+      "iluminação",
+      "dispositivos",
+      "autocarro"
+    ]
   },
   "pt_BR": {
     "tool.description": "Faça a varredura do barramento DALI para dispositivos de iluminação conectados (endereços 0-63). Consulta cada endereço quanto ao status e nível real.",
@@ -312,7 +462,17 @@
     "param.port.description": "Port TCP dalserver (implicit: 55825).",
     "param.fmt.description": "Format: json sau text.",
     "msg.summary": "Scanare DALI: {count} dispozitiv(e) găsit(e) în {ms} ms.",
-    "msg.no_devices": "Nu au fost găsite dispozitive DALI."
+    "msg.no_devices": "Nu au fost găsite dispozitive DALI.",
+    "x_search_terms": [
+      "scanare dali",
+      "dali_scan",
+      "dali",
+      "DALI",
+      "conectat",
+      "iluminat",
+      "dispozitive",
+      "autobuz"
+    ]
   },
   "ru": {
     "tool.description": "Сканировать шину DALI на предмет подключенных осветительных приборов (адреса 0-63). Запрашивает каждый адрес о статусе и фактическом уровне.",
@@ -321,7 +481,17 @@
     "param.port.description": "TCP-порт далсервера (по умолчанию: 55825).",
     "param.fmt.description": "Формат: json или текст.",
     "msg.summary": "Сканирование DALI: {count} устройств обнаружено за {ms} мс.",
-    "msg.no_devices": "Устройства DALI не обнаружены."
+    "msg.no_devices": "Устройства DALI не обнаружены.",
+    "x_search_terms": [
+      "сканирование дали",
+      "dali_scan",
+      "дали",
+      "DALI",
+      "подключен",
+      "освещение",
+      "устройства",
+      "автобус"
+    ]
   },
   "sv": {
     "tool.description": "Scan DALI-buss för anslutna belysningsenheter (adresser 0-63). Frågar varje adress för status och faktisk nivå.",
@@ -330,7 +500,17 @@
     "param.port.description": "daliserver TCP-port (standard: 55825).",
     "param.fmt.description": "Format: json eller text.",
     "msg.summary": "DALI-skanning: {count} enhet(er) hittades på {ms} ms.",
-    "msg.no_devices": "Inga DALI-enheter hittades."
+    "msg.no_devices": "Inga DALI-enheter hittades.",
+    "x_search_terms": [
+      "dali-skanning",
+      "dali_scan",
+      "dali",
+      "DALI",
+      "ansluten",
+      "belysning",
+      "enheter",
+      "buss"
+    ]
   },
   "sw": {
     "tool.description": "Changanua basi la DALI kwa vifaa vya taa vilivyounganishwa (anwani 0-63). Huuliza kila anwani kwa hali na kiwango halisi.",
@@ -339,7 +519,17 @@
     "param.port.description": "bandari ya TCP ya daliserver (chaguo-msingi: 55825).",
     "param.fmt.description": "Umbizo: json au maandishi.",
     "msg.summary": "Changanua DALI: {count} kifaa/vifaa vimepatikana katika ms {ms}.",
-    "msg.no_devices": "Hakuna vifaa vya DALI vilivyopatikana."
+    "msg.no_devices": "Hakuna vifaa vya DALI vilivyopatikana.",
+    "x_search_terms": [
+      "skana ya dali",
+      "dali_scan",
+      "dali",
+      "DALI",
+      "imeunganishwa",
+      "taa",
+      "vifaa",
+      "basi"
+    ]
   },
   "th": {
     "tool.description": "สแกนบัส DALI สำหรับอุปกรณ์ส่องสว่างที่เชื่อมต่อ (ที่อยู่ 0-63) ค้นหาที่อยู่แต่ละแห่งเพื่อดูสถานะและระดับจริง",
@@ -348,7 +538,17 @@
     "param.port.description": "พอร์ต TCP ของ daliserver (ค่าเริ่มต้น: 55825)",
     "param.fmt.description": "รูปแบบ: json หรือข้อความ",
     "msg.summary": "การสแกน DALI: พบอุปกรณ์ {count} เครื่องใน {ms} ms",
-    "msg.no_devices": "ไม่พบอุปกรณ์ DALI"
+    "msg.no_devices": "ไม่พบอุปกรณ์ DALI",
+    "x_search_terms": [
+      "สแกน dali",
+      "dali_scan",
+      "ดาลี",
+      "ดาลี",
+      "เชื่อมต่อ",
+      "แสงสว่าง",
+      "อุปกรณ์",
+      "รถบัส"
+    ]
   },
   "tr": {
     "tool.description": "Bağlı aydınlatma cihazları için DALI veriyolunu tarayın (0-63 arası adresler). Her adresi durum ve gerçek düzey açısından sorgular.",
@@ -357,7 +557,17 @@
     "param.port.description": "daliserver TCP bağlantı noktası (varsayılan: 55825).",
     "param.fmt.description": "Biçim: json veya metin.",
     "msg.summary": "DALI taraması: {ms} ms'de {count} cihaz bulundu.",
-    "msg.no_devices": "Hiçbir DALI cihazı bulunamadı."
+    "msg.no_devices": "Hiçbir DALI cihazı bulunamadı.",
+    "x_search_terms": [
+      "dali taraması",
+      "dali_scan",
+      "dali",
+      "DALI",
+      "bağlı",
+      "aydınlatma",
+      "cihazlar",
+      "veri yolu"
+    ]
   },
   "uk": {
     "tool.description": "Сканування шини DALI для підключених освітлювальних пристроїв (адреси 0-63). Запитує кожну адресу щодо статусу та фактичного рівня.",
@@ -366,7 +576,17 @@
     "param.port.description": "TCP-порт daliserver (за замовчуванням: 55825).",
     "param.fmt.description": "Формат: json або текстовий.",
     "msg.summary": "Сканування DALI: {count} пристроїв знайдено за {ms} мс.",
-    "msg.no_devices": "Пристроїв DALI не знайдено."
+    "msg.no_devices": "Пристроїв DALI не знайдено.",
+    "x_search_terms": [
+      "сканування дали",
+      "dali_scan",
+      "дали",
+      "DALI",
+      "підключено",
+      "освітлення",
+      "пристрої",
+      "автобус"
+    ]
   },
   "vi": {
     "tool.description": "Quét bus DALI để tìm các thiết bị chiếu sáng được kết nối (địa chỉ 0-63). Truy vấn từng địa chỉ để biết trạng thái và mức độ thực tế.",
@@ -394,7 +614,17 @@
     "param.port.description": "daliserver TCP 端口（默认：55825）。",
     "param.fmt.description": "格式：json 或文本。",
     "msg.summary": "DALI 扫描：在 {ms} 毫秒内找到 {count} 个设备。",
-    "msg.no_devices": "未找到 DALI 设备。"
+    "msg.no_devices": "未找到 DALI 设备。",
+    "x_search_terms": [
+      "dali 扫描",
+      "dali_scan",
+      "dali",
+      "DALI",
+      "连接",
+      "照明",
+      "设备",
+      "总线"
+    ]
   },
   "zh_TW": {
     "tool.description": "掃描 DALI 匯流排以尋找連接的照明設備（位址 0-63）。查詢每個位址的狀態和實際層級。",
@@ -403,6 +633,16 @@
     "param.port.description": "daliserver TCP 連接埠（預設：55825）。",
     "param.fmt.description": "格式：json 或文字。",
     "msg.summary": "DALI 掃描：在 {ms} 毫秒內找到 {count} 個裝置。",
-    "msg.no_devices": "未找到 DALI 設備。"
+    "msg.no_devices": "未找到 DALI 設備。",
+    "x_search_terms": [
+      "dali 掃描",
+      "dali_scan",
+      "dali",
+      "DALI",
+      "已連線",
+      "照明",
+      "裝置",
+      "匯流排"
+    ]
   }
 }

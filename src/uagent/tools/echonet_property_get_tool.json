@@ -7,7 +7,13 @@
     "err.invalid_object_code": "Error: Could not parse object_code '{object_code}'.",
     "msg.summary": "ECHONET Lite property fetched: {ip_address} / {epc} in {elapsed_ms} ms.",
     "err.invalid_ip_address": "Error: ip_address must be a valid IPv4 address.",
-    "err.invalid_epc": "Error: epc must be a valid 1-byte hex code."
+    "err.invalid_epc": "Error: epc must be a valid 1-byte hex code.",
+    "x_search_terms": [
+      "الحصول على خاصية echonet",
+      "echonet_property_get",
+      "إيكونت",
+      "إيكونت"
+    ]
   },
   "bn": {
     "param.ip.description": "Target node IPv4 address.",
@@ -17,7 +23,13 @@
     "err.invalid_object_code": "Error: Could not parse object_code '{object_code}'.",
     "msg.summary": "ECHONET Lite property fetched: {ip_address} / {epc} in {elapsed_ms} ms.",
     "err.invalid_ip_address": "Error: ip_address must be a valid IPv4 address.",
-    "err.invalid_epc": "Error: epc must be a valid 1-byte hex code."
+    "err.invalid_epc": "Error: epc must be a valid 1-byte hex code.",
+    "x_search_terms": [
+      "echonet সম্পত্তি পাওয়া",
+      "echonet_property_get",
+      "ইকোনেট",
+      "ইকোনেট"
+    ]
   },
   "cs": {
     "param.ip.description": "Target node IPv4 address.",
@@ -27,7 +39,13 @@
     "err.invalid_object_code": "Error: Could not parse object_code '{object_code}'.",
     "msg.summary": "ECHONET Lite property fetched: {ip_address} / {epc} in {elapsed_ms} ms.",
     "err.invalid_ip_address": "Error: ip_address must be a valid IPv4 address.",
-    "err.invalid_epc": "Error: epc must be a valid 1-byte hex code."
+    "err.invalid_epc": "Error: epc must be a valid 1-byte hex code.",
+    "x_search_terms": [
+      "získání vlastnosti echonet",
+      "echonet_property_get",
+      "echosíť",
+      "ECHONET"
+    ]
   },
   "de": {
     "param.ip.description": "Target node IPv4 address.",
@@ -37,7 +55,13 @@
     "err.invalid_object_code": "Error: Could not parse object_code '{object_code}'.",
     "msg.summary": "ECHONET Lite property fetched: {ip_address} / {epc} in {elapsed_ms} ms.",
     "err.invalid_ip_address": "Error: ip_address must be a valid IPv4 address.",
-    "err.invalid_epc": "Error: epc must be a valid 1-byte hex code."
+    "err.invalid_epc": "Error: epc must be a valid 1-byte hex code.",
+    "x_search_terms": [
+      "echonet-Eigenschaft get",
+      "echonet_property_get",
+      "echonet",
+      "ECHONET"
+    ]
   },
   "en": {
     "param.ip.description": "Target node IPv4 address.",
@@ -83,7 +107,13 @@
     "err.invalid_object_code": "Error: Could not parse object_code '{object_code}'.",
     "msg.summary": "ECHONET Lite property fetched: {ip_address} / {epc} in {elapsed_ms} ms.",
     "err.invalid_ip_address": "Error: ip_address must be a valid IPv4 address.",
-    "err.invalid_epc": "Error: epc must be a valid 1-byte hex code."
+    "err.invalid_epc": "Error: epc must be a valid 1-byte hex code.",
+    "x_search_terms": [
+      "دریافت ویژگی echonet",
+      "echonet_property_get",
+      "اکونت",
+      "اکونت"
+    ]
   },
   "fi": {
     "param.ip.description": "Target node IPv4 address.",
@@ -93,7 +123,13 @@
     "err.invalid_object_code": "Error: Could not parse object_code '{object_code}'.",
     "msg.summary": "ECHONET Lite property fetched: {ip_address} / {epc} in {elapsed_ms} ms.",
     "err.invalid_ip_address": "Error: ip_address must be a valid IPv4 address.",
-    "err.invalid_epc": "Error: epc must be a valid 1-byte hex code."
+    "err.invalid_epc": "Error: epc must be a valid 1-byte hex code.",
+    "x_search_terms": [
+      "echonet-ominaisuuden haku",
+      "echonet_property_get",
+      "ekoverkko",
+      "ECHONET"
+    ]
   },
   "fr": {
     "param.ip.description": "Target node IPv4 address.",
@@ -119,7 +155,13 @@
     "err.invalid_object_code": "Error: Could not parse object_code '{object_code}'.",
     "msg.summary": "ECHONET Lite property fetched: {ip_address} / {epc} in {elapsed_ms} ms.",
     "err.invalid_ip_address": "Error: ip_address must be a valid IPv4 address.",
-    "err.invalid_epc": "Error: epc must be a valid 1-byte hex code."
+    "err.invalid_epc": "Error: epc must be a valid 1-byte hex code.",
+    "x_search_terms": [
+      "echonet गुण प्राप्त करें",
+      "echonet_property_get",
+      "इकोनेट",
+      "इकोनेट"
+    ]
   },
   "id": {
     "param.ip.description": "Target node IPv4 address.",
@@ -197,7 +239,13 @@
     "err.invalid_object_code": "Error: Could not parse object_code '{object_code}'.",
     "msg.summary": "ECHONET Lite property fetched: {ip_address} / {epc} in {elapsed_ms} ms.",
     "err.invalid_ip_address": "Error: ip_address must be a valid IPv4 address.",
-    "err.invalid_epc": "Error: epc must be a valid 1-byte hex code."
+    "err.invalid_epc": "Error: epc must be a valid 1-byte hex code.",
+    "x_search_terms": [
+      "echonet өмч авах",
+      "echonet_property_get",
+      "эхонет",
+      "эхонет"
+    ]
   },
   "mr": {
     "param.ip.description": "Target node IPv4 address.",
@@ -207,7 +255,13 @@
     "err.invalid_object_code": "Error: Could not parse object_code '{object_code}'.",
     "msg.summary": "ECHONET Lite property fetched: {ip_address} / {epc} in {elapsed_ms} ms.",
     "err.invalid_ip_address": "Error: ip_address must be a valid IPv4 address.",
-    "err.invalid_epc": "Error: epc must be a valid 1-byte hex code."
+    "err.invalid_epc": "Error: epc must be a valid 1-byte hex code.",
+    "x_search_terms": [
+      "echonet गुणधर्म मिळवा",
+      "echonet_property_get",
+      "इकोनेट",
+      "इकोनेट"
+    ]
   },
   "el": {
     "param.ip.description": "Διεύθυνση IPv4 κόμβου στόχου.",
@@ -217,7 +271,13 @@
     "err.invalid_object_code": "Σφάλμα: Δεν ήταν δυνατή η ανάλυση του object_code '{object_code}'.",
     "msg.summary": "Η ιδιότητα ECHONET Lite λήφθηκε: {ip_address} / {epc} σε {elapsed_ms} ms.",
     "err.invalid_ip_address": "Σφάλμα: Η διεύθυνση ip_address πρέπει να είναι έγκυρη διεύθυνση IPv4.",
-    "err.invalid_epc": "Σφάλμα: Το epc πρέπει να είναι έγκυρος δεκαεξαδικός κώδικας 1 byte."
+    "err.invalid_epc": "Σφάλμα: Το epc πρέπει να είναι έγκυρος δεκαεξαδικός κώδικας 1 byte.",
+    "x_search_terms": [
+      "λήψη ιδιότητας echonet",
+      "echonet_property_get",
+      "echonet",
+      "ECHONET"
+    ]
   },
   "he": {
     "param.ip.description": "כתובת IPv4 של צומת יעד.",
@@ -227,7 +287,13 @@
     "err.invalid_object_code": "שגיאה: לא ניתן לנתח את object_code '{object_code}'.",
     "msg.summary": "מאפיין ECHONET Lite הוחזר: {ip_address} / {epc} ב-{elapsed_ms} אלפיות השנייה.",
     "err.invalid_ip_address": "שגיאה: כתובת ה-ip_address חייבת להיות כתובת IPv4 חוקית.",
-    "err.invalid_epc": "שגיאה: epc חייב להיות קוד hex חוקי של 1 בתים."
+    "err.invalid_epc": "שגיאה: epc חייב להיות קוד hex חוקי של 1 בתים.",
+    "x_search_terms": [
+      "קבלת מאפיין echonet",
+      "echonet_property_get",
+      "אקו-נט",
+      "אקו-נט"
+    ]
   },
   "hu": {
     "param.ip.description": "Célcsomópont IPv4-címe.",
@@ -237,7 +303,13 @@
     "err.invalid_object_code": "Hiba: A(z) '{object_code}' objektumkód nem értelmezhető.",
     "msg.summary": "Az ECHONET Lite tulajdonság lekérve: {ip_address} / {epc} {elapsed_ms} ms alatt.",
     "err.invalid_ip_address": "Hiba: az ip_address érvényes IPv4-címnek kell lennie.",
-    "err.invalid_epc": "Hiba: az epc-nek érvényes 1 bájtos hexadecimális kódnak kell lennie."
+    "err.invalid_epc": "Hiba: az epc-nek érvényes 1 bájtos hexadecimális kódnak kell lennie.",
+    "x_search_terms": [
+      "echonet tulajdonság lekérése",
+      "echonet_property_get",
+      "echonet",
+      "ECHONET"
+    ]
   },
   "ro": {
     "param.ip.description": "Adresa IPv4 a nodului țintă.",
@@ -247,7 +319,13 @@
     "err.invalid_object_code": "Eroare: nu s-a putut analiza object_code „{object_code}”.",
     "msg.summary": "Proprietatea ECHONET Lite a fost preluată: {ip_address} / {epc} în {elapsed_ms} ms.",
     "err.invalid_ip_address": "Eroare: ip_address trebuie să fie o adresă IPv4 validă.",
-    "err.invalid_epc": "Eroare: epc trebuie să fie un cod hex valid de 1 octet."
+    "err.invalid_epc": "Eroare: epc trebuie să fie un cod hex valid de 1 octet.",
+    "x_search_terms": [
+      "proprietate echonet obține",
+      "echonet_property_get",
+      "econet",
+      "ECHONET"
+    ]
   },
   "nb": {
     "param.ip.description": "Target node IPv4 address.",
@@ -257,7 +335,13 @@
     "err.invalid_object_code": "Error: Could not parse object_code '{object_code}'.",
     "msg.summary": "ECHONET Lite property fetched: {ip_address} / {epc} in {elapsed_ms} ms.",
     "err.invalid_ip_address": "Error: ip_address must be a valid IPv4 address.",
-    "err.invalid_epc": "Error: epc must be a valid 1-byte hex code."
+    "err.invalid_epc": "Error: epc must be a valid 1-byte hex code.",
+    "x_search_terms": [
+      "echonet-egenskap get",
+      "echonet_property_get",
+      "ekonett",
+      "ECHONET"
+    ]
   },
   "nl": {
     "param.ip.description": "Target node IPv4 address.",
@@ -267,7 +351,13 @@
     "err.invalid_object_code": "Error: Could not parse object_code '{object_code}'.",
     "msg.summary": "ECHONET Lite property fetched: {ip_address} / {epc} in {elapsed_ms} ms.",
     "err.invalid_ip_address": "Error: ip_address must be a valid IPv4 address.",
-    "err.invalid_epc": "Error: epc must be a valid 1-byte hex code."
+    "err.invalid_epc": "Error: epc must be a valid 1-byte hex code.",
+    "x_search_terms": [
+      "echonet-eigenschap get",
+      "echonet_property_get",
+      "echonet",
+      "ECHONET"
+    ]
   },
   "pl": {
     "param.ip.description": "Target node IPv4 address.",
@@ -293,7 +383,13 @@
     "err.invalid_object_code": "Error: Could not parse object_code '{object_code}'.",
     "msg.summary": "ECHONET Lite property fetched: {ip_address} / {epc} in {elapsed_ms} ms.",
     "err.invalid_ip_address": "Error: ip_address must be a valid IPv4 address.",
-    "err.invalid_epc": "Error: epc must be a valid 1-byte hex code."
+    "err.invalid_epc": "Error: epc must be a valid 1-byte hex code.",
+    "x_search_terms": [
+      "propriedade echonet obter",
+      "echonet_property_get",
+      "econet",
+      "ECHONET"
+    ]
   },
   "pt_BR": {
     "param.ip.description": "Target node IPv4 address.",
@@ -319,7 +415,13 @@
     "err.invalid_object_code": "Error: Could not parse object_code '{object_code}'.",
     "msg.summary": "ECHONET Lite property fetched: {ip_address} / {epc} in {elapsed_ms} ms.",
     "err.invalid_ip_address": "Error: ip_address must be a valid IPv4 address.",
-    "err.invalid_epc": "Error: epc must be a valid 1-byte hex code."
+    "err.invalid_epc": "Error: epc must be a valid 1-byte hex code.",
+    "x_search_terms": [
+      "получение свойства echonet",
+      "echonet_property_get",
+      "эхосеть",
+      "ECHONET"
+    ]
   },
   "sv": {
     "param.ip.description": "Target node IPv4 address.",
@@ -329,7 +431,13 @@
     "err.invalid_object_code": "Error: Could not parse object_code '{object_code}'.",
     "msg.summary": "ECHONET Lite property fetched: {ip_address} / {epc} in {elapsed_ms} ms.",
     "err.invalid_ip_address": "Error: ip_address must be a valid IPv4 address.",
-    "err.invalid_epc": "Error: epc must be a valid 1-byte hex code."
+    "err.invalid_epc": "Error: epc must be a valid 1-byte hex code.",
+    "x_search_terms": [
+      "echonet egenskap get",
+      "echonet_property_get",
+      "ekonät",
+      "ECHONET"
+    ]
   },
   "sw": {
     "param.ip.description": "Target node IPv4 address.",
@@ -339,7 +447,13 @@
     "err.invalid_object_code": "Error: Could not parse object_code '{object_code}'.",
     "msg.summary": "ECHONET Lite property fetched: {ip_address} / {epc} in {elapsed_ms} ms.",
     "err.invalid_ip_address": "Error: ip_address must be a valid IPv4 address.",
-    "err.invalid_epc": "Error: epc must be a valid 1-byte hex code."
+    "err.invalid_epc": "Error: epc must be a valid 1-byte hex code.",
+    "x_search_terms": [
+      "mali ya echonet pata",
+      "echonet_property_get",
+      "echonet",
+      "ECHONET"
+    ]
   },
   "th": {
     "param.ip.description": "Target node IPv4 address.",
@@ -349,7 +463,13 @@
     "err.invalid_object_code": "Error: Could not parse object_code '{object_code}'.",
     "msg.summary": "ECHONET Lite property fetched: {ip_address} / {epc} in {elapsed_ms} ms.",
     "err.invalid_ip_address": "Error: ip_address must be a valid IPv4 address.",
-    "err.invalid_epc": "Error: epc must be a valid 1-byte hex code."
+    "err.invalid_epc": "Error: epc must be a valid 1-byte hex code.",
+    "x_search_terms": [
+      "รับคุณสมบัติ echonet",
+      "echonet_property_get",
+      "อีโค่เน็ต",
+      "อีโค่เน็ต"
+    ]
   },
   "tr": {
     "param.ip.description": "Target node IPv4 address.",
@@ -359,7 +479,13 @@
     "err.invalid_object_code": "Error: Could not parse object_code '{object_code}'.",
     "msg.summary": "ECHONET Lite property fetched: {ip_address} / {epc} in {elapsed_ms} ms.",
     "err.invalid_ip_address": "Error: ip_address must be a valid IPv4 address.",
-    "err.invalid_epc": "Error: epc must be a valid 1-byte hex code."
+    "err.invalid_epc": "Error: epc must be a valid 1-byte hex code.",
+    "x_search_terms": [
+      "echonet özellik al",
+      "echonet_property_get",
+      "eko ağ",
+      "ECONET"
+    ]
   },
   "uk": {
     "param.ip.description": "Target node IPv4 address.",
@@ -369,7 +495,13 @@
     "err.invalid_object_code": "Error: Could not parse object_code '{object_code}'.",
     "msg.summary": "ECHONET Lite property fetched: {ip_address} / {epc} in {elapsed_ms} ms.",
     "err.invalid_ip_address": "Error: ip_address must be a valid IPv4 address.",
-    "err.invalid_epc": "Error: epc must be a valid 1-byte hex code."
+    "err.invalid_epc": "Error: epc must be a valid 1-byte hex code.",
+    "x_search_terms": [
+      "отримання властивості echonet",
+      "echonet_property_get",
+      "ехомережа",
+      "ECHONET"
+    ]
   },
   "vi": {
     "param.ip.description": "Target node IPv4 address.",
@@ -395,7 +527,13 @@
     "err.invalid_object_code": "Error: Could not parse object_code '{object_code}'.",
     "msg.summary": "ECHONET Lite property fetched: {ip_address} / {epc} in {elapsed_ms} ms.",
     "err.invalid_ip_address": "Error: ip_address must be a valid IPv4 address.",
-    "err.invalid_epc": "Error: epc must be a valid 1-byte hex code."
+    "err.invalid_epc": "Error: epc must be a valid 1-byte hex code.",
+    "x_search_terms": [
+      "echonet 属性获取",
+      "echonet_property_get",
+      "echonet",
+      "ECHONET"
+    ]
   },
   "zh_TW": {
     "param.ip.description": "Target node IPv4 address.",
@@ -405,6 +543,12 @@
     "err.invalid_object_code": "Error: Could not parse object_code '{object_code}'.",
     "msg.summary": "ECHONET Lite property fetched: {ip_address} / {epc} in {elapsed_ms} ms.",
     "err.invalid_ip_address": "Error: ip_address must be a valid IPv4 address.",
-    "err.invalid_epc": "Error: epc must be a valid 1-byte hex code."
+    "err.invalid_epc": "Error: epc must be a valid 1-byte hex code.",
+    "x_search_terms": [
+      "echonet 屬性取得",
+      "echonet_property_get",
+      "echonet",
+      "ECHONET"
+    ]
   }
 }

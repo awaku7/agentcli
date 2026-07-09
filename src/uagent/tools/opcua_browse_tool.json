@@ -25,7 +25,16 @@
     "param.depth.description": "تصفح العمق (1= الأطفال فقط، 2= الأحفاد، وما إلى ذلك). ماكس 5.",
     "param.fmt.description": "التنسيق: json أو نص.",
     "msg.summary": "تصفح OPC UA: {count} عقدة (عقدة) من {node} في {ms} مللي ثانية.",
-    "err.url_required": "مطلوب عنوان URL."
+    "err.url_required": "مطلوب عنوان URL.",
+    "x_search_terms": [
+      "تصفح opcua",
+      "opcua_browse",
+      "أوبكوا",
+      "أوبكوا",
+      "خادم",
+      "عنوان",
+      "مساحة"
+    ]
   },
   "bn": {
     "tool.description": "OPC UA সার্ভার ঠিকানা স্থান ব্রাউজ করুন. নির্দিষ্ট প্রারম্ভিক নোডের চাইল্ড নোড প্রদান করে।",
@@ -34,7 +43,16 @@
     "param.depth.description": "গভীরতা ব্রাউজ করুন (1=শুধুমাত্র শিশু, 2=নাতি-নাতনি ইত্যাদি)। সর্বোচ্চ ৫।",
     "param.fmt.description": "বিন্যাস: json বা পাঠ্য।",
     "msg.summary": "OPC UA ব্রাউজ করুন: {ms} ms এ {node} থেকে {count} নোড(গুলি)।",
-    "err.url_required": "url আবশ্যক।"
+    "err.url_required": "url আবশ্যক।",
+    "x_search_terms": [
+      "opcua ব্রাউজ",
+      "opcua_browse",
+      "ওপিসিউএ",
+      "ওপিসিউএ",
+      "সার্ভার",
+      "ঠিকানা",
+      "স্থান"
+    ]
   },
   "cs": {
     "tool.description": "Procházejte adresní prostor serveru OPC UA. Vrátí podřízené uzly zadaného počátečního uzlu.",
@@ -43,7 +61,16 @@
     "param.depth.description": "Hloubka procházení (1=pouze děti, 2=vnoučata atd.). Max 5.",
     "param.fmt.description": "Formát: json nebo text.",
     "msg.summary": "Procházení OPC UA: {count} uzlů z {node} za {ms} ms.",
-    "err.url_required": "adresa URL je povinná."
+    "err.url_required": "adresa URL je povinná.",
+    "x_search_terms": [
+      "opcua procházet",
+      "opcua_browse",
+      "opcua",
+      "OPCUA",
+      "server",
+      "adresa",
+      "prostor"
+    ]
   },
   "de": {
     "tool.description": "Durchsuchen Sie den Adressraum des OPC UA-Servers. Gibt untergeordnete Knoten des angegebenen Startknotens zurück.",
@@ -52,7 +79,16 @@
     "param.depth.description": "Suchtiefe (1=nur Kinder, 2=Enkelkinder usw.). Maximal 5.",
     "param.fmt.description": "Format: JSON oder Text.",
     "msg.summary": "OPC UA-Durchsuchen: {count} Knoten von {node} in {ms} ms.",
-    "err.url_required": "URL ist erforderlich."
+    "err.url_required": "URL ist erforderlich.",
+    "x_search_terms": [
+      "opcua durchsuchen",
+      "opcua_browse",
+      "opcua",
+      "OPCUA",
+      "Server",
+      "Adresse",
+      "Raum"
+    ]
   },
   "el": {
     "tool.description": "Περιηγηθείτε στον χώρο διευθύνσεων διακομιστή OPC UA. Επιστρέφει θυγατρικούς κόμβους του καθορισμένου αρχικού κόμβου.",
@@ -61,7 +97,16 @@
     "param.depth.description": "Βάθος περιήγησης (1=μόνο για παιδιά, 2=εγγόνια κ.λπ.). Μέγιστο 5.",
     "param.fmt.description": "Μορφή: json ή κείμενο.",
     "msg.summary": "Περιήγηση OPC UA: {count} κόμβοι από {node} σε {ms} ms.",
-    "err.url_required": "url απαιτείται."
+    "err.url_required": "url απαιτείται.",
+    "x_search_terms": [
+      "opcua περιήγηση",
+      "opcua_browse",
+      "opcua",
+      "OPCUA",
+      "διακομιστής",
+      "διεύθυνση",
+      "χώρος"
+    ]
   },
   "es": {
     "tool.description": "Explore el espacio de direcciones del servidor OPC UA. Devuelve nodos secundarios del nodo inicial especificado.",
@@ -88,7 +133,16 @@
     "param.depth.description": "عمق مرور (1 = فقط فرزندان، 2 = نوه ها و غیره). حداکثر 5.",
     "param.fmt.description": "فرمت: json یا متن.",
     "msg.summary": "مرور OPC UA: {count} گره از {node} در {ms} میلی‌ثانیه.",
-    "err.url_required": "آدرس اینترنتی مورد نیاز است."
+    "err.url_required": "آدرس اینترنتی مورد نیاز است.",
+    "x_search_terms": [
+      "مرور opcua",
+      "opcua_browse",
+      "اوپسیوآ",
+      "اوپسیوآ",
+      "سرور",
+      "آدرس",
+      "فضا"
+    ]
   },
   "fi": {
     "tool.description": "Selaa OPC UA -palvelimen osoiteavaruutta. Palauttaa määritetyn aloitussolmun lapsisolmut.",
@@ -97,7 +151,16 @@
     "param.depth.description": "Selaussyvyys (1 = vain lapset, 2 = lastenlapset jne.). Max 5.",
     "param.fmt.description": "Muoto: json tai teksti.",
     "msg.summary": "OPC UA:n selaus: {count} solmua kohteesta {node} {ms} ms:ssa.",
-    "err.url_required": "url vaaditaan."
+    "err.url_required": "url vaaditaan.",
+    "x_search_terms": [
+      "opcua selaa",
+      "opcua_browse",
+      "opcua",
+      "OPCUA",
+      "palvelin",
+      "osoite",
+      "tila"
+    ]
   },
   "fr": {
     "tool.description": "Parcourez l'espace d'adressage du serveur OPC UA. Renvoie les nœuds enfants du nœud de départ spécifié.",
@@ -124,7 +187,16 @@
     "param.depth.description": "עומק עיון (1=ילדים בלבד, 2=נכדים וכו'). מקסימום 5.",
     "param.fmt.description": "פורמט: json או טקסט.",
     "msg.summary": "דפדוף ב-OPC UA: {count} צמתים מ-{node} ב-{ms} אלפיות השנייה.",
-    "err.url_required": "נדרשת כתובת URL."
+    "err.url_required": "נדרשת כתובת URL.",
+    "x_search_terms": [
+      "opcua עיין",
+      "opcua_browse",
+      "opcua",
+      "OPCUA",
+      "שרת",
+      "כתובת",
+      "מרחב"
+    ]
   },
   "hi": {
     "tool.description": "ओपीसी यूए सर्वर एड्रेस स्पेस ब्राउज़ करें। निर्दिष्ट प्रारंभिक नोड के चाइल्ड नोड्स लौटाता है।",
@@ -133,7 +205,16 @@
     "param.depth.description": "गहराई ब्राउज़ करें (1=केवल बच्चे, 2=पोते-पोते, आदि)। अधिकतम 5.",
     "param.fmt.description": "प्रारूप: json या text.",
     "msg.summary": "ओपीसी यूए ब्राउज़ करें: {count} नोड(ओं) को {node} से {ms} एमएस में।",
-    "err.url_required": "यूआरएल आवश्यक है."
+    "err.url_required": "यूआरएल आवश्यक है.",
+    "x_search_terms": [
+      "opcua ब्राउज़ करें",
+      "opcua_browse",
+      "ओपीसीयूए",
+      "ओपीसीयूए",
+      "सर्वर",
+      "पता",
+      "स्थान"
+    ]
   },
   "hu": {
     "tool.description": "Böngésszen az OPC UA szerver címterében. A megadott kezdőcsomópont gyermekcsomópontjait adja vissza.",
@@ -142,7 +223,16 @@
     "param.depth.description": "Böngészési mélység (1 = csak gyerekek, 2 = unokák stb.). Max 5.",
     "param.fmt.description": "Formátum: json vagy szöveg.",
     "msg.summary": "OPC UA tallózás: {count} csomópont {node}-től {ms} ms alatt.",
-    "err.url_required": "url megadása kötelező."
+    "err.url_required": "url megadása kötelező.",
+    "x_search_terms": [
+      "opcua böngészés",
+      "opcua_browse",
+      "opcua",
+      "OPCUA",
+      "szerver",
+      "cím",
+      "tér"
+    ]
   },
   "id": {
     "tool.description": "Telusuri ruang alamat server OPC UA. Mengembalikan node anak dari node awal yang ditentukan.",
@@ -223,7 +313,16 @@
     "param.depth.description": "Гүн харах (1=зөвхөн хүүхдүүд, 2=ач, зээ нар гэх мэт). Хамгийн ихдээ 5.",
     "param.fmt.description": "Формат: json эсвэл текст.",
     "msg.summary": "OPC UA үзэх: {count} зангилаа(ууд) {node}-ээс {ms} мс-д.",
-    "err.url_required": "url шаардлагатай."
+    "err.url_required": "url шаардлагатай.",
+    "x_search_terms": [
+      "opcua үзэх",
+      "opcua_browse",
+      "опкюа",
+      "опкюа",
+      "сервер",
+      "хаяг",
+      "орон зай"
+    ]
   },
   "mr": {
     "tool.description": "OPC UA सर्व्हर ॲड्रेस स्पेस ब्राउझ करा. नमूद केलेल्या सुरुवातीच्या नोडचे चाइल्ड नोड मिळवते.",
@@ -232,7 +331,16 @@
     "param.depth.description": "खोली ब्राउझ करा (1=फक्त मुले, 2=नातवंडे इ.). कमाल ५.",
     "param.fmt.description": "स्वरूप: json किंवा मजकूर.",
     "msg.summary": "OPC UA ब्राउझ करा: {ms} ms मध्ये {node} वरून {count} नोड.",
-    "err.url_required": "url आवश्यक आहे."
+    "err.url_required": "url आवश्यक आहे.",
+    "x_search_terms": [
+      "opcua ब्राउझ",
+      "opcua_browse",
+      "ओपीसीयूए",
+      "ओपीसीयूए",
+      "सर्व्हर",
+      "पत्ता",
+      "जागा"
+    ]
   },
   "nb": {
     "tool.description": "Bla gjennom OPC UA-serverens adresserom. Returnerer underordnede noder til den angitte startnoden.",
@@ -241,7 +349,16 @@
     "param.depth.description": "Bla gjennom dybde (1=kun barn, 2=barnebarn osv.). Maks 5.",
     "param.fmt.description": "Format: json eller tekst.",
     "msg.summary": "OPC UA-søk: {count} node(r) fra {node} om {ms} ms.",
-    "err.url_required": "url er påkrevd."
+    "err.url_required": "url er påkrevd.",
+    "x_search_terms": [
+      "opcua bla gjennom",
+      "opcua_browse",
+      "opcua",
+      "OPCUA",
+      "server",
+      "adresse",
+      "plass"
+    ]
   },
   "nl": {
     "tool.description": "Blader door de adresruimte van de OPC UA-server. Retourneert onderliggende knooppunten van het opgegeven startknooppunt.",
@@ -250,7 +367,16 @@
     "param.depth.description": "Bladerdiepte (1=alleen kinderen, 2=kleinkinderen, etc.). Maximaal 5.",
     "param.fmt.description": "Formaat: json of tekst.",
     "msg.summary": "OPC UA-bladeren: {count} knooppunt(en) van {node} in {ms} ms.",
-    "err.url_required": "URL is vereist."
+    "err.url_required": "URL is vereist.",
+    "x_search_terms": [
+      "opcua bladeren",
+      "opcua_browse",
+      "opcua",
+      "OPCUA",
+      "server",
+      "adres",
+      "ruimte"
+    ]
   },
   "pl": {
     "tool.description": "Przeglądaj przestrzeń adresową serwera OPC UA. Zwraca węzły podrzędne określonego węzła początkowego.",
@@ -277,7 +403,16 @@
     "param.depth.description": "Profundidade de navegação (1=apenas filhos, 2=netos, etc.). Máximo 5.",
     "param.fmt.description": "Formato: json ou texto.",
     "msg.summary": "Navegação OPC UA: {count} nó(s) de {node} em {ms} ms.",
-    "err.url_required": "url é obrigatório."
+    "err.url_required": "url é obrigatório.",
+    "x_search_terms": [
+      "opcua navegar",
+      "opcua_browse",
+      "opcua",
+      "OPCUA",
+      "servidor",
+      "endereço",
+      "espaço"
+    ]
   },
   "pt_BR": {
     "tool.description": "Navegue no espaço de endereço do servidor OPC UA. Retorna nós filhos do nó inicial especificado.",
@@ -304,7 +439,16 @@
     "param.depth.description": "Profunzime de navigare (1=doar copii, 2=nepoți etc.). Max 5.",
     "param.fmt.description": "Format: json sau text.",
     "msg.summary": "Răsfoiți OPC UA: {count} nod(e) de la {node} în {ms} ms.",
-    "err.url_required": "URL-ul este necesar."
+    "err.url_required": "URL-ul este necesar.",
+    "x_search_terms": [
+      "opcua navigare",
+      "opcua_browse",
+      "opcua",
+      "OPCUA",
+      "server",
+      "adresă",
+      "spațiu"
+    ]
   },
   "ru": {
     "tool.description": "Просмотрите адресное пространство сервера OPC UA. Возвращает дочерние узлы указанного начального узла.",
@@ -313,7 +457,16 @@
     "param.depth.description": "Глубина просмотра (1=только дети, 2=внуки и т. д.). Макс 5.",
     "param.fmt.description": "Формат: json или текст.",
     "msg.summary": "Обзор OPC UA: {count} узлов из {node} за {ms} мс.",
-    "err.url_required": "URL-адрес обязателен."
+    "err.url_required": "URL-адрес обязателен.",
+    "x_search_terms": [
+      "opcua просмотр",
+      "opcua_browse",
+      "opcua",
+      "OPCUA",
+      "сервер",
+      "адрес",
+      "пространство"
+    ]
   },
   "sv": {
     "tool.description": "Bläddra i OPC UA-serverns adressutrymme. Returnerar underordnade noder för den angivna startnoden.",
@@ -322,7 +475,16 @@
     "param.depth.description": "Bläddringsdjup (1=endast barn, 2=barnbarn, etc.). Max 5.",
     "param.fmt.description": "Format: json eller text.",
     "msg.summary": "OPC UA-bläddring: {count} nod(er) från {node} om {ms} ms.",
-    "err.url_required": "URL krävs."
+    "err.url_required": "URL krävs.",
+    "x_search_terms": [
+      "opcua bläddra",
+      "opcua_browse",
+      "opcua",
+      "OPCUA",
+      "server",
+      "adress",
+      "utrymme"
+    ]
   },
   "sw": {
     "tool.description": "Vinjari nafasi ya anwani ya seva ya OPC UA. Hurejesha nodi za watoto za nodi maalum ya kuanzia.",
@@ -331,7 +493,16 @@
     "param.depth.description": "Vinjari kina (1=watoto pekee, 2=wajukuu, n.k.). Upeo 5.",
     "param.fmt.description": "Umbizo: json au maandishi.",
     "msg.summary": "Vinjari vya OPC UA: {count} nodi kutoka {node} katika ms {ms}.",
-    "err.url_required": "url inahitajika."
+    "err.url_required": "url inahitajika.",
+    "x_search_terms": [
+      "vinjari opcua",
+      "opcua_browse",
+      "opcua",
+      "OPCUA",
+      "seva",
+      "anwani",
+      "nafasi"
+    ]
   },
   "th": {
     "tool.description": "เรียกดูพื้นที่ที่อยู่เซิร์ฟเวอร์ OPC UA ส่งกลับโหนดลูกของโหนดเริ่มต้นที่ระบุ",
@@ -340,7 +511,16 @@
     "param.depth.description": "ความลึกของการเรียกดู (1=ลูกเท่านั้น 2=หลาน ฯลฯ) สูงสุด 5",
     "param.fmt.description": "รูปแบบ: json หรือข้อความ",
     "msg.summary": "การเรียกดู OPC UA: {count} โหนดจาก {node} ใน {ms} ms",
-    "err.url_required": "จำเป็นต้องมี URL"
+    "err.url_required": "จำเป็นต้องมี URL",
+    "x_search_terms": [
+      "opcua เรียกดู",
+      "opcua_browse",
+      "โอพีซียูเอ",
+      "โอพีซียูเอ",
+      "เซิร์ฟเวอร์",
+      "ที่อยู่",
+      "พื้นที่"
+    ]
   },
   "tr": {
     "tool.description": "OPC UA sunucu adres alanına göz atın. Belirtilen başlangıç ​​düğümünün alt düğümlerini döndürür.",
@@ -349,7 +529,16 @@
     "param.depth.description": "Göz atma derinliği (1=yalnızca çocuklar, 2=torunlar vb.). Maksimum 5.",
     "param.fmt.description": "Biçim: json veya metin.",
     "msg.summary": "OPC UA göz atma: {ms} ms içinde {node}'den {count} düğüm.",
-    "err.url_required": "URL'si gerekli."
+    "err.url_required": "URL'si gerekli.",
+    "x_search_terms": [
+      "opcua göz at",
+      "opcua_browse",
+      "opcua",
+      "OPCUA",
+      "sunucu",
+      "adres",
+      "uzay"
+    ]
   },
   "uk": {
     "tool.description": "Перегляньте адресний простір сервера OPC UA. Повертає дочірні вузли вказаного початкового вузла.",
@@ -358,7 +547,16 @@
     "param.depth.description": "Глибина перегляду (1=лише діти, 2=онуки тощо). Макс 5.",
     "param.fmt.description": "Формат: json або текстовий.",
     "msg.summary": "Перегляд OPC UA: {count} вузлів із {node} за {ms} мс.",
-    "err.url_required": "необхідна URL-адреса."
+    "err.url_required": "необхідна URL-адреса.",
+    "x_search_terms": [
+      "opcua перегляд",
+      "opcua_browse",
+      "opcua",
+      "OPCUA",
+      "сервер",
+      "адреса",
+      "простір"
+    ]
   },
   "vi": {
     "tool.description": "Duyệt không gian địa chỉ máy chủ OPC UA. Trả về các nút con của nút bắt đầu được chỉ định.",
@@ -385,7 +583,16 @@
     "param.depth.description": "浏览深度（1=仅限儿童，2=孙子等）。最多 5 个。",
     "param.fmt.description": "格式：json 或文本。",
     "msg.summary": "OPC UA 浏览：在 {ms} 毫秒内从 {node} 浏览 {count} 个节点。",
-    "err.url_required": "网址为必填项。"
+    "err.url_required": "网址为必填项。",
+    "x_search_terms": [
+      "opcua 浏览",
+      "opcua_browse",
+      "opcua",
+      "OPCUA",
+      "服务器",
+      "地址",
+      "空间"
+    ]
   },
   "zh_TW": {
     "tool.description": "瀏覽 OPC UA 伺服器位址空間。傳回指定起始節點的子節點。",
@@ -394,6 +601,15 @@
     "param.depth.description": "瀏覽深度（1=僅限兒童，2=孫子等）。最多 5 個。",
     "param.fmt.description": "格式：json 或文字。",
     "msg.summary": "OPC UA 瀏覽：在 {ms} 毫秒內從 {node} 瀏覽 {count} 個節點。",
-    "err.url_required": "網址為必填項。"
+    "err.url_required": "網址為必填項。",
+    "x_search_terms": [
+      "opcua 瀏覽",
+      "opcua_browse",
+      "opcua",
+      "OPCUA",
+      "伺服器",
+      "位址",
+      "空間"
+    ]
   }
 }

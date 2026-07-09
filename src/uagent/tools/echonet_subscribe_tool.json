@@ -25,7 +25,14 @@
     "param.on_change_prompt.description": "يتم إدخال مطالبة اختيارية في LLM عند وصول إشعار.",
     "param.fmt.description": "التنسيق: json أو نص.",
     "msg.subscribed": "اشتراك ECHONET Lite نشط: المعرف={id}، {label}",
-    "err.ip_required": "مطلوب الملكية الفكرية."
+    "err.ip_required": "مطلوب الملكية الفكرية.",
+    "x_search_terms": [
+      "اشتراك echonet",
+      "echonet_subscribe",
+      "إيكونت",
+      "إيكونت",
+      "إشعارات"
+    ]
   },
   "bn": {
     "tool.description": "একটি ডিভাইস থেকে ECHONET Lite INF (বিজ্ঞপ্তি) বার্তাগুলিতে সদস্যতা নিন৷ যখন ডিভাইসটি একটি অযাচিত সম্পত্তি পরিবর্তনের বিজ্ঞপ্তি পাঠায়, LLM স্বয়ংক্রিয়ভাবে অবহিত হয়।",
@@ -35,7 +42,14 @@
     "param.on_change_prompt.description": "একটি বিজ্ঞপ্তি এলে এলএলএম-এ ঐচ্ছিক প্রম্পট ইনজেক্ট করা হয়।",
     "param.fmt.description": "বিন্যাস: json বা পাঠ্য।",
     "msg.subscribed": "ECHONET Lite সদস্যতা সক্রিয়: id={id}, {label}",
-    "err.ip_required": "আইপি প্রয়োজন।"
+    "err.ip_required": "আইপি প্রয়োজন।",
+    "x_search_terms": [
+      "echonet সাবস্ক্রাইব",
+      "echonet_subscribe",
+      "ইকোনেট",
+      "ইকোনেট",
+      "বিজ্ঞপ্তি"
+    ]
   },
   "cs": {
     "tool.description": "Přihlaste se k odběru zpráv ECHONET Lite INF (oznámení) ze zařízení. Když zařízení odešle oznámení o nevyžádané změně vlastnosti, LLM je automaticky informován.",
@@ -45,7 +59,14 @@
     "param.on_change_prompt.description": "Volitelná výzva vložená do LLM, když přijde oznámení.",
     "param.fmt.description": "Formát: json nebo text.",
     "msg.subscribed": "Aktivní předplatné ECHONET Lite: id={id}, {label}",
-    "err.ip_required": "IP je vyžadováno."
+    "err.ip_required": "IP je vyžadováno.",
+    "x_search_terms": [
+      "echonet přihlásit se k odběru",
+      "echonet_subscribe",
+      "echosíť",
+      "ECHONET",
+      "oznámení"
+    ]
   },
   "de": {
     "tool.description": "Abonnieren Sie ECHONET Lite INF-Nachrichten (Benachrichtigungen) von einem Gerät. Wenn das Gerät unaufgefordert eine Eigenschaftsänderungsbenachrichtigung sendet, wird das LLM automatisch informiert.",
@@ -55,7 +76,14 @@
     "param.on_change_prompt.description": "Optionale Eingabeaufforderung, die in das LLM eingefügt wird, wenn eine Benachrichtigung eintrifft.",
     "param.fmt.description": "Format: JSON oder Text.",
     "msg.subscribed": "ECHONET Lite-Abonnement aktiv: id={id}, {label}",
-    "err.ip_required": "IP ist erforderlich."
+    "err.ip_required": "IP ist erforderlich.",
+    "x_search_terms": [
+      "echonet abonnieren",
+      "echonet_subscribe",
+      "echonet",
+      "ECHONET",
+      "Benachrichtigungen"
+    ]
   },
   "el": {
     "tool.description": "Εγγραφείτε σε μηνύματα ECHONET Lite INF (ειδοποίηση) από μια συσκευή. Όταν η συσκευή στέλνει μια αυτόκλητη ειδοποίηση αλλαγής ιδιότητας, το LLM ενημερώνεται αυτόματα.",
@@ -65,7 +93,14 @@
     "param.on_change_prompt.description": "Προαιρετικό μήνυμα προτροπής που εισάγεται στο LLM όταν φτάσει μια ειδοποίηση.",
     "param.fmt.description": "Μορφή: json ή κείμενο.",
     "msg.subscribed": "Ενεργή συνδρομή ECHONET Lite: id={id}, {label}",
-    "err.ip_required": "απαιτείται ip."
+    "err.ip_required": "απαιτείται ip.",
+    "x_search_terms": [
+      "εγγραφή στο echonet",
+      "echonet_subscribe",
+      "echonet",
+      "ECHONET",
+      "ειδοποιήσεις"
+    ]
   },
   "es": {
     "tool.description": "Suscríbase a mensajes INF (notificación) de ECHONET Lite desde un dispositivo. Cuando el dispositivo envía una notificación de cambio de propiedad no solicitada, se informa automáticamente al LLM.",
@@ -92,7 +127,14 @@
     "param.on_change_prompt.description": "هنگامی که اعلان می رسد، درخواست اختیاری به LLM تزریق می شود.",
     "param.fmt.description": "فرمت: json یا متن.",
     "msg.subscribed": "اشتراک ECHONET Lite فعال است: id={id}، {label}",
-    "err.ip_required": "ip مورد نیاز است."
+    "err.ip_required": "ip مورد نیاز است.",
+    "x_search_terms": [
+      "اشتراک echonet",
+      "echonet_subscribe",
+      "اکونت",
+      "اکونت",
+      "اعلان‌ها"
+    ]
   },
   "fi": {
     "tool.description": "Tilaa ECHONET Lite INF (ilmoitus) -viestit laitteesta. Kun laite lähettää ei-toivotun omaisuuden muutosilmoituksen, LLM saa siitä automaattisesti tiedon.",
@@ -102,7 +144,14 @@
     "param.on_change_prompt.description": "Valinnainen kehote ruiskutetaan LLM:ään, kun ilmoitus saapuu.",
     "param.fmt.description": "Muoto: json tai teksti.",
     "msg.subscribed": "ECHONET Lite -tilaus aktiivinen: id={id}, {label}",
-    "err.ip_required": "ip vaaditaan."
+    "err.ip_required": "ip vaaditaan.",
+    "x_search_terms": [
+      "echonet tilaa",
+      "echonet_subscribe",
+      "ekoverkko",
+      "ECHONET",
+      "ilmoitukset"
+    ]
   },
   "fr": {
     "tool.description": "Abonnez-vous aux messages ECHONET Lite INF (notification) à partir d'un appareil. Lorsque l'appareil envoie une notification de changement de propriété non sollicitée, le LLM en est automatiquement informé.",
@@ -129,7 +178,14 @@
     "param.on_change_prompt.description": "הנחיה אופציונלית מוזרקת ל-LLM כאשר מגיעה הודעה.",
     "param.fmt.description": "פורמט: json או טקסט.",
     "msg.subscribed": "מנוי ECHONET Lite פעיל: id={id}, {label}",
-    "err.ip_required": "נדרש ip."
+    "err.ip_required": "נדרש ip.",
+    "x_search_terms": [
+      "הירשם ל-echonet",
+      "echonet_subscribe",
+      "אקו-נט",
+      "אקו-נט",
+      "הודעות"
+    ]
   },
   "hi": {
     "tool.description": "किसी डिवाइस से ECHONET Lite INF (अधिसूचना) संदेशों की सदस्यता लें। जब डिवाइस एक अवांछित संपत्ति परिवर्तन अधिसूचना भेजता है, तो एलएलएम को स्वचालित रूप से सूचित किया जाता है।",
@@ -139,7 +195,14 @@
     "param.on_change_prompt.description": "अधिसूचना आने पर एलएलएम में वैकल्पिक संकेत डाला जाता है।",
     "param.fmt.description": "प्रारूप: json या text.",
     "msg.subscribed": "ECHONET लाइट सदस्यता सक्रिय: id={id}, {label}",
-    "err.ip_required": "आईपी आवश्यक है."
+    "err.ip_required": "आईपी आवश्यक है.",
+    "x_search_terms": [
+      "echonet सब्सक्राइब करें",
+      "echonet_subscribe",
+      "इकोनेट",
+      "इकोनेट",
+      "सूचनाएं"
+    ]
   },
   "hu": {
     "tool.description": "Feliratkozás az ECHONET Lite INF (értesítés) üzenetekre egy eszközről. Amikor az eszköz kéretlen tulajdonmódosítási értesítést küld, az LLM automatikusan értesítést kap.",
@@ -149,7 +212,14 @@
     "param.on_change_prompt.description": "Opcionális felszólítás beadva az LLM-be, amikor értesítés érkezik.",
     "param.fmt.description": "Formátum: json vagy szöveg.",
     "msg.subscribed": "ECHONET Lite előfizetés aktív: id={id}, {label}",
-    "err.ip_required": "ip szükséges."
+    "err.ip_required": "ip szükséges.",
+    "x_search_terms": [
+      "echonet feliratkozás",
+      "echonet_subscribe",
+      "echonet",
+      "ECHONET",
+      "értesítések"
+    ]
   },
   "id": {
     "tool.description": "Berlangganan pesan ECHONET Lite INF (pemberitahuan) dari perangkat. Ketika perangkat mengirimkan pemberitahuan perubahan properti yang tidak diminta, LLM secara otomatis diberitahu.",
@@ -227,7 +297,14 @@
     "param.on_change_prompt.description": "Мэдэгдэл ирэх үед LLM-д нэмэлт сануулга оруулна.",
     "param.fmt.description": "Формат: json эсвэл текст.",
     "msg.subscribed": "ECHONET Lite-н захиалга идэвхтэй: id={id}, {label}",
-    "err.ip_required": "ip шаардлагатай."
+    "err.ip_required": "ip шаардлагатай.",
+    "x_search_terms": [
+      "echonet бүртгүүлэх",
+      "echonet_subscribe",
+      "эхонет",
+      "эхонет",
+      "мэдэгдэл"
+    ]
   },
   "mr": {
     "tool.description": "डिव्हाइसवरून ECHONET Lite INF (सूचना) संदेशांची सदस्यता घ्या. जेव्हा डिव्हाइस अवांछित मालमत्ता बदल सूचना पाठवते, तेव्हा LLM ला स्वयंचलितपणे सूचित केले जाते.",
@@ -237,7 +314,14 @@
     "param.on_change_prompt.description": "सूचना आल्यावर LLM मध्ये पर्यायी प्रॉम्प्ट इंजेक्ट केले जाते.",
     "param.fmt.description": "स्वरूप: json किंवा मजकूर.",
     "msg.subscribed": "ECHONET Lite सदस्यता सक्रिय: id={id}, {label}",
-    "err.ip_required": "ip आवश्यक आहे."
+    "err.ip_required": "ip आवश्यक आहे.",
+    "x_search_terms": [
+      "echonet सबस्क्राइब",
+      "echonet_subscribe",
+      "इकोनेट",
+      "इकोनेट",
+      "सूचना"
+    ]
   },
   "nb": {
     "tool.description": "Abonner på ECHONET Lite INF-meldinger (varsling) fra en enhet. Når enheten sender en uoppfordret melding om endring av eiendom, blir LLM automatisk informert.",
@@ -247,7 +331,14 @@
     "param.on_change_prompt.description": "Valgfri melding injisert i LLM når et varsel kommer.",
     "param.fmt.description": "Format: json eller tekst.",
     "msg.subscribed": "ECHONET Lite-abonnement aktivt: id={id}, {label}",
-    "err.ip_required": "ip kreves."
+    "err.ip_required": "ip kreves.",
+    "x_search_terms": [
+      "echonet abonner",
+      "echonet_subscribe",
+      "ekonett",
+      "ECHONET",
+      "varsler"
+    ]
   },
   "nl": {
     "tool.description": "Abonneer u op ECHONET Lite INF-berichten (meldingen) vanaf een apparaat. Wanneer het apparaat een ongevraagde melding van een eigendomswijziging verzendt, wordt de LLM automatisch op de hoogte gebracht.",
@@ -257,7 +348,14 @@
     "param.on_change_prompt.description": "Optionele prompt geïnjecteerd in de LLM wanneer er een melding binnenkomt.",
     "param.fmt.description": "Formaat: json of tekst.",
     "msg.subscribed": "ECHONET Lite-abonnement actief: id={id}, {label}",
-    "err.ip_required": "ip is vereist."
+    "err.ip_required": "ip is vereist.",
+    "x_search_terms": [
+      "echonet abonneren",
+      "echonet_subscribe",
+      "echonet",
+      "ECHONET",
+      "meldingen"
+    ]
   },
   "pl": {
     "tool.description": "Subskrybuj wiadomości ECHONET Lite INF (powiadomienia) z urządzenia. Gdy urządzenie wyśle ​​​​niezamówione powiadomienie o zmianie właściwości, LLM zostanie automatycznie o tym poinformowany.",
@@ -284,7 +382,14 @@
     "param.on_change_prompt.description": "Prompt opcional injetado no LLM quando uma notificação chega.",
     "param.fmt.description": "Formato: json ou texto.",
     "msg.subscribed": "Assinatura ECHONET Lite ativa: id={id}, {label}",
-    "err.ip_required": "ip é obrigatório."
+    "err.ip_required": "ip é obrigatório.",
+    "x_search_terms": [
+      "assinar echonet",
+      "echonet_subscribe",
+      "econet",
+      "ECHONET",
+      "notificações"
+    ]
   },
   "pt_BR": {
     "tool.description": "Assine mensagens ECHONET Lite INF (notificação) de um dispositivo. Quando o dispositivo envia uma notificação de alteração de propriedade não solicitada, o LLM é informado automaticamente.",
@@ -311,7 +416,14 @@
     "param.on_change_prompt.description": "Prompt opțional injectat în LLM când sosește o notificare.",
     "param.fmt.description": "Format: json sau text.",
     "msg.subscribed": "Abonament ECHONET Lite activ: id={id}, {label}",
-    "err.ip_required": "ip este necesar."
+    "err.ip_required": "ip este necesar.",
+    "x_search_terms": [
+      "echonet abonare",
+      "echonet_subscribe",
+      "econet",
+      "ECHONET",
+      "notificări"
+    ]
   },
   "ru": {
     "tool.description": "Подпишитесь на INF-сообщения (уведомления) ECHONET Lite с устройства. Когда устройство отправляет незапрошенное уведомление об изменении свойств, LLM автоматически уведомляется об этом.",
@@ -321,7 +433,14 @@
     "param.on_change_prompt.description": "Дополнительный запрос, добавляемый в LLM при поступлении уведомления.",
     "param.fmt.description": "Формат: json или текст.",
     "msg.subscribed": "Подписка ECHONET Lite активна: id={id}, {label}",
-    "err.ip_required": "айпи обязателен."
+    "err.ip_required": "айпи обязателен.",
+    "x_search_terms": [
+      "подписаться на echonet",
+      "echonet_subscribe",
+      "эхосеть",
+      "ECHONET",
+      "уведомления"
+    ]
   },
   "sv": {
     "tool.description": "Prenumerera på ECHONET Lite INF-meddelanden (aviseringar) från en enhet. När enheten skickar ett oönskat meddelande om fastighetsändring, informeras LLM automatiskt.",
@@ -331,7 +450,14 @@
     "param.on_change_prompt.description": "Valfri uppmaning injiceras i LLM när ett meddelande kommer.",
     "param.fmt.description": "Format: json eller text.",
     "msg.subscribed": "ECHONET Lite-prenumeration aktiv: id={id}, {label}",
-    "err.ip_required": "ip krävs."
+    "err.ip_required": "ip krävs.",
+    "x_search_terms": [
+      "echonet prenumerera",
+      "echonet_subscribe",
+      "ekonät",
+      "ECHONET",
+      "meddelanden"
+    ]
   },
   "sw": {
     "tool.description": "Jisajili kwa jumbe za ECHONET Lite INF (arifa) kutoka kwa kifaa. Wakati kifaa kinatuma arifa ya mabadiliko ya mali ambayo haijaombwa, LLM inaarifiwa kiotomatiki.",
@@ -341,7 +467,14 @@
     "param.on_change_prompt.description": "Kidokezo cha hiari hudungwa kwenye LLM arifa inapofika.",
     "param.fmt.description": "Umbizo: json au maandishi.",
     "msg.subscribed": "Usajili wa ECHONET Lite unaendelea: id={id}, {label}",
-    "err.ip_required": "ip inahitajika."
+    "err.ip_required": "ip inahitajika.",
+    "x_search_terms": [
+      "jiandikisha echonet",
+      "echonet_subscribe",
+      "echonet",
+      "ECHONET",
+      "arifa"
+    ]
   },
   "th": {
     "tool.description": "สมัครรับข้อความ ECHONET Lite INF (การแจ้งเตือน) จากอุปกรณ์ เมื่ออุปกรณ์ส่งการแจ้งเตือนการเปลี่ยนแปลงทรัพย์สินที่ไม่พึงประสงค์ LLM จะได้รับแจ้งโดยอัตโนมัติ",
@@ -351,7 +484,14 @@
     "param.on_change_prompt.description": "ตัวเลือกเสริมจะถูกแทรกเข้าไปใน LLM เมื่อมีการแจ้งเตือนมาถึง",
     "param.fmt.description": "รูปแบบ: json หรือข้อความ",
     "msg.subscribed": "การสมัคร ECHONET Lite ใช้งานอยู่: id={id}, {label}",
-    "err.ip_required": "จำเป็นต้องมีไอพี"
+    "err.ip_required": "จำเป็นต้องมีไอพี",
+    "x_search_terms": [
+      "สมัครสมาชิก echonet",
+      "echonet_subscribe",
+      "อีโค่เน็ต",
+      "อีโค่เน็ต",
+      "การแจ้งเตือน"
+    ]
   },
   "tr": {
     "tool.description": "Bir cihazdan ECHONET Lite INF (bildirim) mesajlarına abone olun. Cihaz istenmeyen bir özellik değişikliği bildirimi gönderdiğinde LLM otomatik olarak bilgilendirilir.",
@@ -361,7 +501,14 @@
     "param.on_change_prompt.description": "Bir bildirim geldiğinde LLM'ye isteğe bağlı bilgi istemi enjekte edilir.",
     "param.fmt.description": "Biçim: json veya metin.",
     "msg.subscribed": "ECHONET Lite aboneliği etkin: kimlik={id}, {label}",
-    "err.ip_required": "ip gereklidir."
+    "err.ip_required": "ip gereklidir.",
+    "x_search_terms": [
+      "echonet abone ol",
+      "echonet_subscribe",
+      "eko ağ",
+      "ECONET",
+      "bildirimler"
+    ]
   },
   "uk": {
     "tool.description": "Підпишіться на повідомлення ECHONET Lite INF (сповіщення) з пристрою. Коли пристрій надсилає небажане сповіщення про зміну властивостей, LLM автоматично інформується про це.",
@@ -371,7 +518,14 @@
     "param.on_change_prompt.description": "Додаткова підказка, введена в LLM, коли надходить сповіщення.",
     "param.fmt.description": "Формат: json або текстовий.",
     "msg.subscribed": "Підписка на ECHONET Lite активна: id={id}, {label}",
-    "err.ip_required": "потрібен ip."
+    "err.ip_required": "потрібен ip.",
+    "x_search_terms": [
+      "підписатися на echonet",
+      "echonet_subscribe",
+      "ехомережа",
+      "ECHONET",
+      "сповіщення"
+    ]
   },
   "vi": {
     "tool.description": "Đăng ký tin nhắn ECHONET Lite INF (thông báo) từ một thiết bị. Khi thiết bị gửi thông báo thay đổi thuộc tính không được yêu cầu, LLM sẽ tự động được thông báo.",
@@ -398,7 +552,14 @@
     "param.on_change_prompt.description": "当通知到达时，可选提示会注入 LLM。",
     "param.fmt.description": "格式：json 或文本。",
     "msg.subscribed": "ECHONET Lite 订阅有效：id={id}、{label}",
-    "err.ip_required": "ip 是必需的。"
+    "err.ip_required": "ip 是必需的。",
+    "x_search_terms": [
+      "echonet 订阅",
+      "echonet_subscribe",
+      "echonet",
+      "ECHONET",
+      "通知"
+    ]
   },
   "zh_TW": {
     "tool.description": "訂閱來自裝置的 ECHONET Lite INF（通知）訊息。當裝置發送未經請求的屬性變更通知時，LLM 會自動收到通知。",
@@ -408,6 +569,13 @@
     "param.on_change_prompt.description": "當通知到達時，可選提示會注入 LLM。",
     "param.fmt.description": "格式：json 或文字。",
     "msg.subscribed": "ECHONET Lite 訂閱有效：id={id}、{label}",
-    "err.ip_required": "ip 是必需的。"
+    "err.ip_required": "ip 是必需的。",
+    "x_search_terms": [
+      "echonet 訂閱",
+      "echonet_subscribe",
+      "echonet",
+      "ECHONET",
+      "通知"
+    ]
   }
 }
