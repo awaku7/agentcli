@@ -58,6 +58,9 @@ export class ChatPanel {
                     case 'applyEnv':
                         await this.handleApplyEnv(msg.key, msg.value);
                         break;
+                    case 'humanAskRespond':
+                        await this.ws.humanAskRespond(msg.text);
+                        break;
                 }
             },
             null,
@@ -367,12 +370,23 @@ export class ChatPanel {
             function send() {
                 const text = input.value.trim();
                 if (!text) return;
-                input.value = '';
-                sendBtn.disabled = true;
-                input.style.height = 'auto';
-                addMessage(text, 'msg-user');
-                addMessage('', 'streaming');
-                vscode.postMessage({ type: 'chat', text });
+                if (input.dataset.humanAsk === '1') {
+                    // Send as human_ask response
+                    input.value = '';
+                    sendBtn.disabled = true;
+                    addMessage(text, 'msg-user');
+                    addMessage('', 'streaming');
+                    delete input.dataset.humanAsk;
+                    input.placeholder = 'Ask anything...';
+                    vscode.postMessage({ type: 'humanAskRespond', text: text });
+                } else {
+                    input.value = '';
+                    sendBtn.disabled = true;
+                    input.style.height = 'auto';
+                    addMessage(text, 'msg-user');
+                    addMessage('', 'streaming');
+                    vscode.postMessage({ type: 'chat', text });
+                }
             }
 
             window.addEventListener('message', event => {
@@ -406,6 +420,14 @@ export class ChatPanel {
                         } else if (msg.role === 'reasoning') {
                             text = '[Reasoning] ' + msg.content;
                             cls = 'msg-reasoning';
+                        } else if (msg.role === 'human_ask_prompt') {
+                            text = '[Human Request]\
+' + msg.content;
+                            cls = 'msg-user';
+                            // Switch to human_ask input mode
+                            document.getElementById('input').placeholder =
+                                'Type your answer and press Ctrl+Enter to submit to human_ask...';
+                            document.getElementById('input').dataset.humanAsk = '1';
                         }
                         if (text) {
                             addMessage(text, cls);

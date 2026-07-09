@@ -70,6 +70,8 @@ class WsHandler:
             "config/apply_env": self.handle_config_apply_env,
             "session/list": self.handle_session_list,
             "fim": self.handle_fim,
+            "human_ask/respond": self.handle_human_ask_respond,
+            "human_ask/respond": self.handle_human_ask_respond,
             "session/load": self.handle_session_load,
             "session/new": self.handle_session_new,
             "session/delete": self.handle_session_delete,
@@ -234,6 +236,23 @@ class WsHandler:
                                         ),
                                         _loop,
                                     )
+                                    # Notify webview for human_ask input
+                                    if tname == "human_ask":
+                                        try:
+                                            ha_args = json.loads(targs)
+                                            ha_msg = ha_args.get(
+                                                "message",
+                                                "(no message)",
+                                            )
+                                        except Exception:
+                                            ha_msg = targs[:300]
+                                        asyncio.run_coroutine_threadsafe(
+                                            _send_intermediate(
+                                                "human_ask_prompt",
+                                                content=ha_msg,
+                                            ),
+                                            _loop,
+                                        )
                             rc = (msg.get("reasoning_content", "") or "").strip()
                             if rc:
                                 asyncio.run_coroutine_threadsafe(
@@ -434,6 +453,17 @@ class WsHandler:
         if key:
             return {"config": {key: self.config_mgr.get(key)}}
         return {"config": self.config_mgr.get_all()}
+
+    async def handle_human_ask_respond(self, params: dict) -> dict:
+        """Receive user response to human_ask from VSCode webview."""
+        response = params.get("response", "")
+        import uagent.core as _core
+
+        with _core.human_ask_lock:
+            if _core.human_ask_active and _core.human_ask_queue is not None:
+                _core.human_ask_queue.put(response)
+                return {"ok": True, "handled": True}
+            return {"ok": True, "handled": False, "reason": "No active human_ask"}
 
     async def handle_config_set(self, params: dict) -> dict:
         """Set a config value (session-scoped, does not modify env)."""

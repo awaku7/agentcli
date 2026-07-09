@@ -175,6 +175,11 @@ export class WsClient {
         await this.call('config/apply_env', { key, value });
     }
 
+    async humanAskRespond(response: string): Promise<boolean> {
+        const result = await this.call('human_ask/respond', { response });
+        return result.handled || false;
+    }
+
     async getSystemSpecs(): Promise<any> {
         return await this.call('system/specs');
     }
