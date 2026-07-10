@@ -130,7 +130,41 @@ class _JvIndexBuilder:
         self.filepath = filepath
         self.lines = source.split("\n")
         self.entries: list[dict[str, Any]] = []
+        self.diag: list[str] = []
         self._parse()
+
+    def _preprocess(self):
+        result = []
+        i = 0
+        while i < len(self.lines):
+            raw = self.lines[i]
+            stripped = raw.strip()
+            if stripped.startswith("@"):
+                i += 1
+                continue
+            ends = stripped.rstrip()
+            if (ends.endswith(",") or ends.endswith("(")) and i + 1 < len(self.lines):
+                joined = raw.rstrip(chr(10)).rstrip()
+                orig = i
+                i += 1
+                while i < len(self.lines):
+                    ns = self.lines[i].strip()
+                    if not ns or self.lines[i].startswith((" ", chr(9))):
+                        if ns.startswith("@"):
+                            i += 1
+                            continue
+                        joined += " " + ns
+                        if not ns.endswith(","):
+                            i += 1
+                            break
+                    else:
+                        break
+                    i += 1
+                result.append((orig, joined))
+            else:
+                result.append((i, raw))
+                i += 1
+        return result
 
     def _clean_line(self, line: str) -> str:
         """Remove // and /* */ comments from a line (keeps strings intact)."""
@@ -206,27 +240,28 @@ class _JvIndexBuilder:
         stack_start_depth: list[int] = []
         brace_depth = 0
 
-        for i, raw in enumerate(self.lines):
-            stripped = raw.strip()
+        preprocessed = self._preprocess()
+        for orig_idx, joined_line in preprocessed:
+            stripped = joined_line.strip()
             if not stripped:
-                bd = self._guess_brace_depth(raw)
+                bd = self._guess_brace_depth(joined_line)
                 brace_depth += bd
                 continue
 
-            # Track brace depth for scope closing
-            bd = self._guess_brace_depth(raw)
+            # Track brace depth
+            bd = self._guess_brace_depth(joined_line)
             old_depth = brace_depth
             brace_depth += bd
 
             # Detect definitions
-            defs = self._detect_definitions(raw)
+            defs = self._detect_definitions(joined_line)
             for kind, name in defs:
                 if kind in ("package", "type"):
                     entry = {
                         "kind": kind,
                         "name": name,
-                        "line": i + 1,
-                        "end_line": i + 1,
+                        "line": orig_idx + 1,
+                        "end_line": orig_idx + 1,
                         "level": len(stack),
                         "label": f"{kind} {name}",
                         "members": [],
@@ -243,18 +278,18 @@ class _JvIndexBuilder:
                         member = {
                             "kind": kind,
                             "name": name,
-                            "line": i + 1,
-                            "end_line": i + 1,
+                            "line": orig_idx + 1,
+                            "end_line": orig_idx + 1,
                             "level": len(stack),
                             "label": label,
                         }
                         container.setdefault("members", []).append(member)
 
             # Pop stack when scope ends
-            while stack_start_depth and brace_depth <= stack_start_depth[-1] and bd < 0:
+            while stack_start_depth and brace_depth <= stack_start_depth[-1]:
                 if stack:
                     popped = stack.pop()
-                    popped["end_line"] = i
+                    popped["end_line"] = orig_idx
                 stack_start_depth.pop()
 
         self._assign_end_lines(entries)
@@ -274,9 +309,28 @@ class _JvIndexBuilder:
                     m_end = e["end_line"]
                 m["end_line"] = m_end
 
+    def _count_braces(self):
+        opens = closes = 0
+        raw = chr(10).join(self.lines)
+        cleaned = self._clean_line(raw)
+        for ch in cleaned:
+            if ch == "{": opens += 1
+            elif ch == "}": closes += 1
+        return opens, closes
+
+    def _diag_hint(self):
+        parts = []
+        opens, closes = self._count_braces()
+        if opens != closes:
+            parts.append(f"brace imbalance: {opens} open vs {closes} close")
+        if parts:
+            return " (" + "; ".join(parts) + ")"
+        return ""
+
     def build_index(self) -> str:
         if not self.entries:
-            return _("msg.no_entries", default="(no definitions found)")
+            hint = self._diag_hint()
+            return _("msg.no_entries", default="(no definitions found)") + hint
         lines_out: list[str] = []
         idx = 0
         for entry in self.entries:

@@ -135,6 +135,7 @@ class _PhpIndexBuilder:
         self.filepath = filepath
         self.lines = source.split("\n")
         self.entries: list[dict[str, Any]] = []
+        self.diag: list[str] = []
         self._parse()
 
     def _clean_line(self, line: str) -> str:
@@ -289,7 +290,7 @@ class _PhpIndexBuilder:
                     )
 
             # Pop stack when brace depth returns to enclosing level
-            while stack_dep and depth <= stack_dep[-1] and bd < 0:
+            while stack_dep and depth <= stack_dep[-1]:
                 if stack:
                     stack.pop()["end_line"] = i
                 stack_dep.pop()
@@ -311,9 +312,30 @@ class _PhpIndexBuilder:
                 else:
                     m["end_line"] = e["end_line"]
 
+
+    def _count_braces(self):
+        opens = closes = 0
+        raw = chr(10).join(self.lines)
+        cleaned = self._clean_line(raw)
+        for ch in cleaned:
+            if ch == "{": opens += 1
+            elif ch == "}": closes += 1
+        return opens, closes
+
+    def _diag_hint(self):
+        parts = []
+        opens, closes = self._count_braces()
+        if opens != closes:
+            parts.append(f"brace imbalance: {opens} open vs {closes} close")
+        if parts:
+            return " (" + "; ".join(parts) + ")"
+        return ""
+
     def build_index(self) -> str:
         if not self.entries:
-            return _("msg.no_entries", default="(no definitions found)")
+            hint = self._diag_hint()
+            return _("msg.no_entries", default="(no definitions found)") + hint
+
         lines_out: list[str] = []
         idx = 0
         for e in self.entries:

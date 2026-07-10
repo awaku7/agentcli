@@ -146,6 +146,7 @@ class _TsIndexBuilder:
         self.filepath = filepath
         self.lines = source.split("\n")
         self.entries: list[dict[str, Any]] = []
+        self.diag: list[str] = []
         self._parse()
 
     def _clean_comment(self, line: str) -> str:
@@ -330,9 +331,30 @@ class _TsIndexBuilder:
             for method in entry.get("methods", []):
                 method["end_line"] = entry["end_line"]
 
+
+    def _count_braces(self):
+        opens = closes = 0
+        raw = chr(10).join(self.lines)
+        cleaned = self._clean_line(raw)
+        for ch in cleaned:
+            if ch == "{": opens += 1
+            elif ch == "}": closes += 1
+        return opens, closes
+
+    def _diag_hint(self):
+        parts = []
+        opens, closes = self._count_braces()
+        if opens != closes:
+            parts.append(f"brace imbalance: {opens} open vs {closes} close")
+        if parts:
+            return " (" + "; ".join(parts) + ")"
+        return ""
+
     def build_index(self) -> str:
         if not self.entries:
-            return _("msg.no_entries", default="(no definitions found)")
+            hint = self._diag_hint()
+            return _("msg.no_entries", default="(no definitions found)") + hint
+
 
         lines_out: list[str] = []
         idx = 0

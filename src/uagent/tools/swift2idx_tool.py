@@ -84,6 +84,7 @@ class _SwiftIndexBuilder:
         self.filepath = filepath
         self.lines = source.split("\n")
         self.entries = []
+        self.diag: list[str] = []
         self._parse()
 
     def _clean_line(self, line):
@@ -233,7 +234,7 @@ class _SwiftIndexBuilder:
                                 "label": n,
                             }
                         )
-            while stack_d and depth <= stack_d[-1] and bd < 0:
+            while stack_d and depth <= stack_d[-1]:
                 if stack:
                     stack.pop()["end_line"] = i
                 stack_d.pop()
@@ -251,9 +252,30 @@ class _SwiftIndexBuilder:
                 )
         self.entries = entries
 
-    def build_index(self):
+
+    def _count_braces(self):
+        opens = closes = 0
+        raw = chr(10).join(self.lines)
+        cleaned = self._clean_line(raw)
+        for ch in cleaned:
+            if ch == "{": opens += 1
+            elif ch == "}": closes += 1
+        return opens, closes
+
+    def _diag_hint(self):
+        parts = []
+        opens, closes = self._count_braces()
+        if opens != closes:
+            parts.append(f"brace imbalance: {opens} open vs {closes} close")
+        if parts:
+            return " (" + "; ".join(parts) + ")"
+        return ""
+
+    def build_index(self) -> str:
         if not self.entries:
-            return _("msg.no_entries", default="(no definitions found)")
+            hint = self._diag_hint()
+            return _("msg.no_entries", default="(no definitions found)") + hint
+
         lines = []
         idx = 0
         for e in self.entries:
