@@ -61,7 +61,7 @@ TOOL_SPEC: dict[str, Any] = {
                     ),
                 },
             },
-            "required": ["image_path"],
+            "required": ["img"],
         },
     },
 }

@@ -115,10 +115,9 @@ def init_tools_callbacks(core: Any) -> None:
 
 
 _IMAGE_PATH_RE = re.compile(
-    r"(?P<path>(?:[A-Za-z]:\\\\|\\\\\\\\|\./|\.\\\\)?[^\s\"']+\.(?:png|jpg|jpeg|gif|webp))",
+    r"(?P<path>(?:[A-Za-z]:\\|\\\\|\.\/|\.\\)?(?:\"[^\"]+\"|'[^']+'|[^\s\"']+\.(?:png|jpg|jpeg|gif|webp)))",
     re.IGNORECASE,
 )
-
 
 def extract_image_paths(text: str) -> list[str]:
     """テキストから画像ファイルっぽいパスを抽出（ゆるめ）。"""

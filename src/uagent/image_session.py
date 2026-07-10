@@ -13,6 +13,7 @@ from typing import Any, Optional
 from .i18n import _
 
 _GENERATE_IMAGE_TOOL_NAME = "generate_image"
+_IMG2IMG_TOOL_NAME = "img2img"
 _SCREENSHOT_TOOL_NAME = "screenshot"
 
 
@@ -92,11 +93,15 @@ def _extract_image_turns(messages: list[dict[str, Any]]) -> list[dict[str, Any]]
                 tool_name = _tool_call_name(tc)
                 if tool_name not in (
                     _GENERATE_IMAGE_TOOL_NAME,
+                    _IMG2IMG_TOOL_NAME,
                     _SCREENSHOT_TOOL_NAME,
                 ):
                     continue
                 args = _tool_call_args(tc)
                 if tool_name == _GENERATE_IMAGE_TOOL_NAME:
+                    prompt = str(args.get("prompt") or "").strip()
+                    pending_prompt = prompt or _("(prompt unavailable)")
+                elif tool_name == _IMG2IMG_TOOL_NAME:
                     prompt = str(args.get("prompt") or "").strip()
                     pending_prompt = prompt or _("(prompt unavailable)")
                 else:

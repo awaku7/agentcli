@@ -109,6 +109,16 @@ TOOL_SPEC: dict[str, Any] = {
                         default="Working dir (under workdir).",
                     ),
                 },
+                "auto_install": {
+                    "type": "boolean",
+                    "default": True,
+                    "description": _(
+                        "param.auto_install.description",
+                        default=(
+                            "Automatically install missing formatter/linter tools with pip before running."
+                        ),
+                    ),
+                },
             },
         },
     },
@@ -180,6 +190,29 @@ def _tool_exists_mdformat() -> bool:
     return code == 0
 
 
+def _pip_install(package: str) -> bool:
+    so, se, code, _ = _cmd_exec_json(
+        f"python -m pip install --disable-pip-version-check {package}", cwd=None
+    )
+    return code == 0
+
+
+def _ensure_py_tool(module: str, auto_install: bool) -> bool:
+    if _tool_exists_py(module):
+        return True
+    if not auto_install:
+        return False
+    return _pip_install(module) and _tool_exists_py(module)
+
+
+def _ensure_mdformat_tool(auto_install: bool) -> bool:
+    if _tool_exists_mdformat():
+        return True
+    if not auto_install:
+        return False
+    return _pip_install("mdformat") and _tool_exists_mdformat()
+
+
 _TOOL_SUFFIXES: dict[str, set[str]] = {
     "ruff": {".py"},
     "black": {".py"},
@@ -244,6 +277,8 @@ def run_tool(args: dict[str, Any]) -> str:
     targets = args.get("targets", ["."]) or ["."]
     extra_args = args.get("xargs", []) or []
     cwd = args.get("cwd", None)
+    auto_install_arg = args.get("auto_install")
+    auto_install = True if auto_install_arg is None else bool(auto_install_arg)
 
     if mode not in ("check", "fix"):
         return json.dumps(
