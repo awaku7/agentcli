@@ -1,14 +1,17 @@
-  1. L7 class Person
-  2. L11 constructor Person
-  3. L16 method getName
-  4. L17 method getAge
-  5. L19 method processAsync
-  6. L24 method toString
-  7. L30 interface Repository
-  8. L31 method getById
-  9. L32 method save
-  10. L35 enum Status
-  11. L39 record PersonDto
-  12. L42 class PersonFactory
-  13. L43 constructor PersonFactory
-  14. L44 method create
+  1. L1 package com.myapp.core
+  2. L8 type Person
+      3. L9 name
+      4. L10 age
+      5. L12 Person()
+      6. L17 getName()
+      7. L18 getAge()
+      8. L20 processAsync()
+      9. L25 toString()
+  10. L33 type Repository
+      11. L34 getById()
+      12. L35 save()
+  13. L38 type Status
+  14. L44 type PersonDto
+  15. L46 type PersonFactory
+      16. L47 PersonFactory()
+      17. L48 create()

@@ -108,7 +108,7 @@ _PATTERNS = [
     (
         r"^\s+"
         + _MOD
-        + r"(\w+(?:<[^>]*>)?)\s+(?!for\b|if\b|while\b|switch\b|catch\b|return\b|throw\b|else\b|do\b|try\b|finally\b|assert\b|synchronized\b)(\w+)\s*\([^)]*\)\s*(?:throws\s+\w+(?:\s*,\s*\w+)*\s*)?(?:\{|;|$)",
+        + r"(?!return\b|throw\b|new\b)(\w+(?:<[^>]*>)?)\s+(?!for\b|if\b|while\b|switch\b|catch\b|return\b|throw\b|else\b|do\b|try\b|finally\b|assert\b|synchronized\b)(\w+)\s*\([^)]*\)\s*(?:throws\s+\w+(?:\s*,\s*\w+)*\s*)?(?:\{|;|$)",
         lambda m: ("method", m.group(2)),
     ),
     # field: Type name [= ...];  (at class level, requires a modifier keyword to avoid local vars)
