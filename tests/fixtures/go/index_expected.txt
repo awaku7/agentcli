@@ -1,0 +1,8 @@
+  1. L6 type Person struct
+  2. L11 func NewPerson
+  3. L16 func Greet
+  4. L20 type Repository interface
+  5. L21 func GetByID
+  6. L22 func Save
+  7. L26 type Status int
+  8. L33 type Point struct

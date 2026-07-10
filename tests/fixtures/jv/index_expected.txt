@@ -1,0 +1,14 @@
+  1. L7 class Person
+  2. L11 constructor Person
+  3. L16 method getName
+  4. L17 method getAge
+  5. L19 method processAsync
+  6. L24 method toString
+  7. L30 interface Repository
+  8. L31 method getById
+  9. L32 method save
+  10. L35 enum Status
+  11. L39 record PersonDto
+  12. L42 class PersonFactory
+  13. L43 constructor PersonFactory
+  14. L44 method create

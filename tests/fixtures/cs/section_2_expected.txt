@@ -1,0 +1,21 @@
+    [Serializable]
+    public class Person {
+        public string Name { get; set; }
+        public int Age { get; set; }
+
+        public Person(string name, int age) {
+            Name = name;
+            Age = age;
+        }
+
+        public async System.Threading.Tasks.Task<Result> ProcessAsync(
+            int id,
+            string data,
+            System.Threading.CancellationToken ct) {
+            return await DoWork(id, data, ct);
+        }
+
+        public override string ToString() {
+            return Name + " (" + Age + ")";
+        }
+    }

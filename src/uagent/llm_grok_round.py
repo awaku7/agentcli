@@ -181,7 +181,7 @@ def _call_grok_round(
 
             if stream_responses:
                 stream_iter = chat.stream()
-                assistant_text, tool_calls_list = parse_xai_stream(stream_iter)
+                assistant_text, tool_calls_list = parse_xai_stream(stream_iter, core=core)
                 _debug_log(
                     "stream_xai_done",
                     assistant_text_len=len(assistant_text),
@@ -189,7 +189,7 @@ def _call_grok_round(
                 )
             else:
                 resp = chat.sample()
-                assistant_text, tool_calls_list = parse_xai_response(resp)
+                assistant_text, tool_calls_list = parse_xai_response(resp, core=core)
                 _debug_log(
                     "nonstream_xai_done",
                     assistant_text_len=len(assistant_text),

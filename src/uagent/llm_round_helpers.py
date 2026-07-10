@@ -14,6 +14,7 @@ except Exception:
 
 from . import tools
 from .llm_errors import _rate_limit_retry_step
+from .reasoning_display import show_reasoning
 from .llm_message_helpers import _get_shrink_max_tokens
 from .providers.llm_gemini import gemini_chat_with_tools
 from .providers.llm_claude import (
@@ -300,6 +301,7 @@ def _call_claude_round(
                     on_output_config_info=_on_output_config_info,
                     on_output_config_fallback=lambda m: print(m),
                     send_tools=send_tools,
+                    core=core,
                 )
             )
             break
@@ -923,6 +925,12 @@ def _call_openai_azure_round(
                 assistant_text = "".join(parts)
             else:
                 assistant_text = str(raw_content)
+
+            # Extract reasoning_content if present (e.g. o1/o3, OpenRouter reasoning models)
+            _rc = getattr(msg, "reasoning_content", None)
+            if isinstance(_rc, str) and _rc:
+                reasoning_content = _rc
+                show_reasoning(_rc, provider=provider.capitalize(), is_first=True, print_fn=lambda s: print(s, end="", flush=True))
 
     except Exception as e:
         print("[ERROR] " + _("Error while parsing response: %(err)s") % {"err": e})

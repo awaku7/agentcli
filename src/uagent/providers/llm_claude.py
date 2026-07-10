@@ -7,6 +7,7 @@ from typing import Any, Optional
 from ..env_utils import env_get
 from ..i18n import _
 from .. import tools
+from ..reasoning_display import show_reasoning
 
 
 def _parse_claude_model(
@@ -201,6 +202,7 @@ def claude_chat_with_tools(
     on_output_config_info: Optional[Any] = None,
     on_output_config_fallback: Optional[Any] = None,
     send_tools: bool = True,
+    core: Any = None,
 ) -> tuple[str, list[dict[str, Any]]]:
     """Anthropic Claude API を使って tool_calls 付き応答を生成する。
 
@@ -584,6 +586,7 @@ def claude_chat_with_tools(
     assistant_text = ""
     tool_calls_list: list[dict[str, Any]] = []
     thinking_text = ""
+    _thinking_blocks = 0
 
     for block in response.content:
         if block.type == "text":
@@ -593,7 +596,8 @@ def claude_chat_with_tools(
             thinking_text += _t
             # 思考プロセスをコンソールに表示する（空ブロックは見出しを出さない）
             if _t.strip():
-                print(f"\n[Claude Thinking]\n{_t}\n")
+                show_reasoning(_t, provider="Claude", is_first=(_thinking_blocks == 0))
+                _thinking_blocks += 1
             elif (env_get("UAGENT_DEBUG") or "").strip():
                 try:
                     print(f"\n[Claude Thinking] (empty thinking block) raw={block!r}\n")

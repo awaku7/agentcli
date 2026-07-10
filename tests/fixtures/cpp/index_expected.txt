@@ -1,0 +1,15 @@
+  1. L1 #include <iostream>
+  2. L5 namespace myapp
+  3. L7 namespace core
+  4. L10 class Person
+  5. L15 constructor Person
+  6. L18 method GetName
+  7. L19 method GetAge
+  8. L21 method ToString
+  9. L26 class Repository
+  10. L29 method GetById
+  11. L30 method Save
+  12. L31 destructor ~Repository
+  13. L34 enum class Status
+  14. L40 struct Point
+  15. L45 function CreatePerson

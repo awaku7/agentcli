@@ -1,0 +1,8 @@
+  1. L10 class Person
+  2. L14 method greet
+  3. L18 method create
+  4. L22 class Repository
+  5. L25 method get_by_id
+  6. L28 method save
+  7. L31 class Status
+  8. L36 function process_data

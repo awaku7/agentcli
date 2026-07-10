@@ -33,6 +33,7 @@ from .. import tools as _tools
 from ..env_utils import env_get
 from ..i18n import _
 from ..llm_errors import _rate_limit_retry_step
+from ..reasoning_display import show_reasoning
 from ..llm_helpers import (
     _choose_auto_effort,
     _extract_latest_user_text,
@@ -480,16 +481,14 @@ def parse_deepseek_stream(
             if isinstance(rc_delta, str) and rc_delta:
                 reasoning_parts.append(rc_delta)
                 # Print reasoning as gray text in CLI streaming
-                if print_delta_fn and not is_web:
-                    print_delta_fn(f"\033[90m{rc_delta}\033[0m")
-                    _reasoning_printed = True
-                elif is_web and core is not None:
-                    try:
-                        lm = getattr(core, "log_message", None)
-                        if callable(lm):
-                            lm({"type": "assistant_reasoning_delta", "delta": rc_delta})
-                    except Exception:
-                        pass
+                show_reasoning(
+                    rc_delta,
+                    provider="DeepSeek",
+                    is_first=(not _reasoning_printed),
+                    print_fn=print_delta_fn,
+                    core=core,
+                )
+                _reasoning_printed = True
 
             # content delta
             content_delta = getattr(delta, "content", None)

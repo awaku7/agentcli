@@ -18,6 +18,7 @@ from xai_sdk.chat import (
 )
 
 from ..env_utils import env_get
+from ..reasoning_display import show_reasoning
 
 
 def _as_str(x: Any) -> str:
@@ -315,6 +316,8 @@ def build_xai_tools(
 
 def parse_xai_response(
     response: Any,
+    *,
+    core: Any = None,
 ) -> tuple[str, list[dict[str, Any]]]:
     """Parse an xai_sdk Response object.
 
@@ -331,7 +334,7 @@ def parse_xai_response(
     if hasattr(response, "reasoning_content"):
         rc = response.reasoning_content
         if rc:
-            print(f"\n[Grok Reasoning]\n{_as_str(rc)}\n")
+            show_reasoning(_as_str(rc), provider="Grok", is_first=True, core=core)
     # Extract text content
     if hasattr(response, "content"):
         assistant_text = _as_str(response.content)
@@ -381,6 +384,8 @@ def parse_xai_response(
 
 def parse_xai_stream(
     stream_iter: Any,
+    *,
+    core: Any = None,
 ) -> tuple[str, list[dict[str, Any]]]:
     """Parse an xai_sdk stream iterator.
 
@@ -389,6 +394,7 @@ def parse_xai_stream(
     """
     assistant_text = ""
     tool_calls_list: list[dict[str, Any]] = []
+    _reasoning_printed = False
 
     try:
         for response, chunk in stream_iter:
@@ -402,7 +408,8 @@ def parse_xai_stream(
             if hasattr(chunk, "reasoning_content"):
                 rc = chunk.reasoning_content or ""
                 if rc:
-                    print(rc, end="", flush=True)
+                    show_reasoning(rc, provider="Grok", is_first=(not _reasoning_printed), core=core)
+                    _reasoning_printed = True
 
             # Tool calls from chunk
             if hasattr(chunk, "tool_calls"):

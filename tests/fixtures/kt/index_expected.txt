@@ -1,0 +1,14 @@
+  1. L6 class Person
+  2. L7 getter greeting
+  3. L9 method processAsync
+  4. L13 method toString
+  5. L17 interface Repository
+  6. L18 method getById
+  7. L19 method save
+  8. L22 enum class Status
+  9. L25 sealed class NetworkResult
+  10. L26 class Success
+  11. L27 class Error
+  12. L30 object PersonFactory
+  13. L31 method create
+  14. L34 function greet

@@ -1,0 +1,11 @@
+  1. L3 mod person
+  2. L5 struct Person
+  3. L10 impl Person
+  4. L11 fn new
+  5. L16 fn greet
+  6. L22 trait Repository
+  7. L23 fn get_by_id
+  8. L24 fn save
+  9. L27 enum Status
+  10. L33 fn create_person
+  11. L37 struct Container

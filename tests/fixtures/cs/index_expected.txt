@@ -1,0 +1,12 @@
+  1. L4 namespace MyApp.Core
+  2. L9 type Person
+      3. L10 Name
+      4. L11 Age
+      5. L13 Person()
+      6. L18 ProcessAsync()
+      7. L25 ToString()
+  8. L30 type IRepository
+  9. L35 type Status
+  10. L41 type PersonDto
+  11. L43 type PersonFactory
+      12. L44 Create()

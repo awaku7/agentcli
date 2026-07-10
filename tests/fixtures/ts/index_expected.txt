@@ -1,0 +1,12 @@
+  1. L4 namespace MyApp.Core
+  2. L6 class Person
+  3. L7 constructor constructor
+  4. L12 method greet
+  5. L16 method processAsync
+  6. L21 method toString
+  7. L26 interface Repository
+  8. L27 method getById
+  9. L28 method save
+  10. L31 enum Status
+  11. L35 type PersonDto
+  12. L39 function createPerson

@@ -85,15 +85,20 @@ TOOL_SPEC = {
 }
 
 # Modifier prefix pattern (optional)
-_MOD = r"(?:(?:public|private|protected|internal|static|virtual|override|abstract|sealed|partial|readonly|unsafe|new)\s+)*"
+_MOD = r"(?:(?:public|private|protected|internal|static|virtual|override|abstract|sealed|partial|readonly|unsafe|new|async)\s+)*"
 
 # C# definition patterns
 _PATTERNS = [
     # namespace
     (r"^\s*namespace\s+(\w+(?:\.\w+)*)", lambda m: ("namespace", m.group(1))),
-    # class / struct / record / interface / enum
+    # enum (separate kind for enum_member detection)
     (
-        r"^\s*" + _MOD + r"(?:class|struct|record|interface|enum)\s+(\w+)",
+        r"^\s*" + _MOD + r"enum\s+(\w+)",
+        lambda m: ("enum_type", m.group(1)),
+    ),
+    # class / struct / record / interface
+    (
+        r"^\s*" + _MOD + r"(?:class|struct|record|interface)\s+(\w+)",
         lambda m: ("type", m.group(1)),
     ),
     # constructor: ClassName(...) or ClassName(...) : this(...) / base(...)
@@ -117,19 +122,19 @@ _PATTERNS = [
     ),
     # property: Type Name { get; set; } or Type Name => ...
     (
-        r"^\s+" + _MOD + r"(\w+(?:<[^>]*>)?)\s+(\w+)\s*\{\s*(?:get|set|init)",
+        r"^\s+" + _MOD + r"(\w+(?:\.\w+)*(?:<[^>]*>)?)\s+(\w+)\s*\{\s*(?:get|set|init)",
         lambda m: ("property", m.group(2)),
     ),
     # property with expression body: Type Name => ...
     (
-        r"^\s+" + _MOD + r"(\w+(?:<[^>]*>)?)\s+(\w+)\s*=>",
+        r"^\s+" + _MOD + r"(\w+(?:\.\w+)*(?:<[^>]*>)?)\s+(\w+)\s*=>",
         lambda m: ("property", m.group(2)),
     ),
     # method: ReturnType MethodName(...) {  or  ReturnType MethodName(...) =>
     (
         r"^\s+"
         + _MOD
-        + r"(\w+(?:<[^>]*>)?)\s+(\w+)\s*\([^)]*\)\s*(?::\s*\w+(?:<[^>]*>)?(?:\s*,\s*\w+(?:<[^>]*>)?)*\s*)?(?:where\s+\w+\s*:.*?)?(?:\{|=>|$)",
+        + r"(\w+(?:\.\w+)*(?:<[^>]*>)?)\s+(\w+)\s*\([^)]*\)\s*(?::\s*\w+(?:\.\w+)*(?:<[^>]*>)?(?:\s*,\s*\w+(?:\.\w+)*(?:<[^>]*>)?)*\s*)?(?:where\s+\w+\s*:.*?)?(?:\{|=>|$)",
         lambda m: ("method", m.group(2)),
     ),
     # delegate
@@ -160,8 +165,49 @@ class _CsIndexBuilder:
         self.filepath = filepath
         self.lines = source.split("\n")
         self.entries: list[dict[str, Any]] = []
+        self.diag: list[str] = []
         self._parse()
 
+
+    def _preprocess(self) -> list[tuple[int, str]]:
+        """Preprocess lines: skip attribute lines, join continuation lines.
+
+        Returns list of (original_0based_line_index, processed_line).
+
+        - Skips lines starting with [ (C# attributes).
+        - Joins continuation: a line ending with "," followed by indented lines.
+        """
+        result: list[tuple[int, str]] = []
+        i = 0
+        while i < len(self.lines):
+            raw = self.lines[i]
+            stripped = raw.strip()
+            if stripped.startswith("["):
+                i += 1
+                continue
+            ends = stripped.rstrip()
+            if (ends.endswith(",") or ends.endswith("(")) and i + 1 < len(self.lines):
+                joined = raw.rstrip(chr(10)).rstrip()
+                orig = i
+                i += 1
+                while i < len(self.lines):
+                    ns = self.lines[i].strip()
+                    if not ns or self.lines[i].startswith((" ", chr(9))):
+                        if ns.startswith("["):
+                            i += 1
+                            continue
+                        joined += " " + ns
+                        if not ns.endswith(","):
+                            i += 1
+                            break
+                    else:
+                        break
+                    i += 1
+                result.append((orig, joined))
+            else:
+                result.append((i, raw))
+                i += 1
+        return result
     def _clean_line(self, line: str) -> str:
         """Remove // and /* */ comments from a line (keeps strings intact)."""
         in_str = False
@@ -239,25 +285,26 @@ class _CsIndexBuilder:
         # Track brace depth per stack entry
         stack_start_depth: list[int] = []
 
-        for i, raw in enumerate(self.lines):
-            stripped = raw.strip()
+        preprocessed = self._preprocess()
+        for orig_idx, joined_line in preprocessed:
+            stripped = joined_line.strip()
 
-            # Track XML doc comments
+            # Skip XML doc / comment lines
             if stripped.startswith(("///", "//", "/*", "*")):
                 continue
 
-            # Detect definitions on this line
-            defs = self._detect_definitions(raw)
+            # Detect definitions on the joined line
+            defs = self._detect_definitions(joined_line)
             for kind, name in defs:
-                if kind in ("namespace", "type"):
+                if kind in ("namespace", "type", "enum_type"):
                     parent = stack[-1] if stack else None
                     entry = {
                         "kind": kind,
                         "name": name,
-                        "line": i + 1,
-                        "end_line": i + 1,
+                        "line": orig_idx + 1,
+                        "end_line": orig_idx + 1,
                         "level": len(stack),
-                        "label": f"{kind} {name}",
+                        "label": f"type {name}" if kind == "enum_type" else f"{kind} {name}",
                         "members": [],
                         "parent": parent,
                     }
@@ -275,14 +322,16 @@ class _CsIndexBuilder:
                     "indexer",
                     "enum_member",
                 ):
-                    # Attach to innermost type/namespace if inside one
                     if stack:
                         container = stack[-1]
+                        # enum_member is only valid inside an enum_type
+                        if kind == "enum_member" and container["kind"] != "enum_type":
+                            continue
                         member = {
                             "kind": kind,
                             "name": name,
-                            "line": i + 1,
-                            "end_line": i + 1,
+                            "line": orig_idx + 1,
+                            "end_line": orig_idx + 1,
                             "level": len(stack),
                             "label": (
                                 f"{name}()"
@@ -303,22 +352,22 @@ class _CsIndexBuilder:
                         member = {
                             "kind": kind,
                             "name": name,
-                            "line": i + 1,
-                            "end_line": i + 1,
+                            "line": orig_idx + 1,
+                            "end_line": orig_idx + 1,
                             "level": len(stack),
                             "label": name,
                         }
                         container.setdefault("members", []).append(member)
 
-            # Track brace depth for scope closing
-            bd = self._guess_brace_depth(raw)
+            # Track brace depth
+            bd = self._guess_brace_depth(joined_line)
             brace_depth += bd
 
-            # Pop stack when scope ends (depth returns to or below the level where the entry started)
-            while stack_start_depth and brace_depth <= stack_start_depth[-1] and bd < 0:
+            # Pop stack when scope ends (strict tracking: no bd < 0 guard)
+            while stack_start_depth and brace_depth <= stack_start_depth[-1]:
                 if stack:
                     popped = stack.pop()
-                    popped["end_line"] = i
+                    popped["end_line"] = orig_idx
                 stack_start_depth.pop()
 
         # Assign end_line approximations
@@ -342,9 +391,32 @@ class _CsIndexBuilder:
                     m_end = e["end_line"]
                 m["end_line"] = m_end
 
+    def _count_braces(self) -> tuple[int, int]:
+        """Count total { and } in source, ignoring strings/comments."""
+        opens = closes = 0
+        raw = chr(10).join(self.lines)
+        cleaned = self._clean_line(raw)
+        for ch in cleaned:
+            if ch == "{":
+                opens += 1
+            elif ch == "}":
+                closes += 1
+        return opens, closes
+
+    def _diag_hint(self) -> str:
+        """Build diagnostic hint when no entries found."""
+        parts = []
+        opens, closes = self._count_braces()
+        if opens != closes:
+            parts.append(f"brace imbalance: {opens} open vs {closes} close")
+        if parts:
+            return " (" + "; ".join(parts) + ")"
+        return ""
+
     def build_index(self) -> str:
         if not self.entries:
-            return _("msg.no_entries", default="(no definitions found)")
+            hint = self._diag_hint()
+            return _("msg.no_entries", default="(no definitions found)") + hint
         lines_out: list[str] = []
         idx = 0
         for entry in self.entries:

@@ -10,6 +10,7 @@ from typing import Any, Optional
 
 from .. import tools
 from ..util_tools import image_file_to_data_url
+from ..reasoning_display import show_reasoning
 from ..llm_image_helpers import build_image_default_prompt
 
 # -----------------------------------------------------------------------------
@@ -991,6 +992,7 @@ def parse_responses_stream(
 
     assistant_text_parts: list[str] = []
     reasoning_parts: list[str] = []
+    _reasoning_printed = False
     fallback_full_text = ""
 
     # key -> buffer (key is call_id OR item_id OR synthetic)
@@ -1149,24 +1151,14 @@ def parse_responses_stream(
                 if isinstance(reasoning_delta, str) and reasoning_delta:
                     reasoning_parts.append(reasoning_delta)
                     # Web UI: use assistant_reasoning_delta (gray in frontend)
-                    if core is not None and bool(getattr(core, "_is_web", False)):
-                        try:
-                            lm = getattr(core, "log_message", None)
-                            if callable(lm):
-                                lm(
-                                    {
-                                        "type": "assistant_reasoning_delta",
-                                        "delta": reasoning_delta,
-                                    }
-                                )
-                        except Exception:
-                            pass
-                    else:
-                        # CLI: print in gray
-                        try:
-                            _print_delta(f"\033[90m{reasoning_delta}\033[0m")
-                        except Exception:
-                            pass
+                    show_reasoning(
+                        reasoning_delta,
+                        provider="OpenAI",
+                        is_first=(not _reasoning_printed),
+                        print_fn=_print_delta,
+                        core=core,
+                    )
+                    _reasoning_printed = True
 
             if ev_type == "response.output_text.done":
                 t = getattr(ev, "text", None)

@@ -1,0 +1,10 @@
+  1. L6 class Person
+  2. L7 constructor __construct
+  3. L12 method greet
+  4. L16 method create
+  5. L22 interface Repository
+  6. L23 method findById
+  7. L24 method save
+  8. L27 trait Loggable
+  9. L28 method log
+  10. L32 enum Status

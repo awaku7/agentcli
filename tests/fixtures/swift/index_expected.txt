@@ -1,0 +1,11 @@
+  1. L4 class Person
+  2. L7 constructor init
+  3. L12 method greet
+  4. L16 method processAsync
+  5. L21 protocol Repository
+  6. L23 func getById
+  7. L24 func save
+  8. L27 enum Status
+  9. L33 struct PersonDto
+  10. L40 extension Person
+  11. L41 func create

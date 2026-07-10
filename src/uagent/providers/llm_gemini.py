@@ -8,6 +8,7 @@ from ..llm_image_helpers import build_image_default_prompt
 from ..i18n import _
 
 from .. import tools
+from ..reasoning_display import show_reasoning
 
 
 # -----------------------------
@@ -1037,6 +1038,7 @@ def gemini_chat_with_tools(
             # We reconstruct text only from content.parts below.
             pass
 
+        _thought_printed = False
         if parts:
             for part in parts:
                 fc = getattr(part, "function_call", None)
@@ -1078,11 +1080,9 @@ def gemini_chat_with_tools(
                     t = getattr(part, "text", None)
                     if isinstance(t, str) and t:
                         if is_thought:
-                            # Non-streaming mode: print thought in gray but do not append to final answer
-                            try:
-                                print(f"\033[90m{t}\033[0m", end="", flush=True)
-                            except Exception:
-                                pass
+                            # Non-streaming: show reasoning via unified display
+                            show_reasoning(t, provider="Gemini", is_first=(not _thought_printed), print_fn=lambda s: print(s, end="", flush=True))
+                            _thought_printed = True
                         else:
                             chunk_texts.append(t)
                 else:
@@ -1090,7 +1090,8 @@ def gemini_chat_with_tools(
                     if isinstance(t, str) and t:
                         if is_thought:
                             # Streaming mode: print thought in gray but do not append to final answer
-                            _emit_stream_delta(f"\033[90m{t}\033[0m")
+                            show_reasoning(t, provider="Gemini", is_first=(not _thought_printed), core=core)
+                            _thought_printed = True
                         else:
                             delta_text = t
                             if text_so_far and t.startswith(text_so_far):

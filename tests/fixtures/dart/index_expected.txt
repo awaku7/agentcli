@@ -1,0 +1,15 @@
+  1. L1 import
+  2. L5 class Person
+  3. L7 constructor Person
+  4. L9 getter greeting
+  5. L11 method processAsync
+  6. L16 method toString
+  7. L20 class Repository
+  8. L21 method getById
+  9. L22 method save
+  10. L25 enum Status
+  11. L28 class PersonDto
+  12. L35 mixin PersonFactory
+  13. L36 method create
+  14. L40 extension StringGreeting
+  15. L42 getter greet
