@@ -270,7 +270,6 @@ class _CppIndexBuilder:
 
         for i, raw in enumerate(self.lines):
             cleaned = self._clean_line(raw)
-            stripped = cleaned.strip()
             bd = self._guess_brace_depth(raw)
             old_depth = brace_depth
             brace_depth += bd

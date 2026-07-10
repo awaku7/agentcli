@@ -1546,7 +1546,7 @@ def compress_history_with_llm(
                         client=client,
                         model_name=depname,
                         messages=summary_messages,
-                        core=self,
+                        core=sys.modules[__name__],
                     )
                     if isinstance(claude_result, tuple):
                         summary_content = (
@@ -1580,7 +1580,7 @@ def compress_history_with_llm(
                     resp = client.chat.completions.create(
                         model=depname,
                         messages=summary_messages,
-                        core=self,
+                        core=sys.modules[__name__],
                     )
                     summary_content = resp.choices[0].message.content or ""
                 elif hasattr(client, "chat"):

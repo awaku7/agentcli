@@ -277,8 +277,6 @@ def run_tool(args: dict[str, Any]) -> str:
     targets = args.get("targets", ["."]) or ["."]
     extra_args = args.get("xargs", []) or []
     cwd = args.get("cwd", None)
-    auto_install_arg = args.get("auto_install")
-    auto_install = True if auto_install_arg is None else bool(auto_install_arg)
 
     if mode not in ("check", "fix"):
         return json.dumps(

@@ -1,6 +1,5 @@
 from __future__ import annotations
 
-import json
 from pathlib import Path
 
 from uagent.tools.cobol2idx_tool import run_tool

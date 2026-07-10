@@ -6,7 +6,6 @@ Only management tools (tool_catalog, tool_load, unload_tool) are sent to the mod
 from __future__ import annotations
 
 import json
-import sys
 import uuid
 from typing import Any, Optional
 

@@ -289,7 +289,7 @@ def run_tool(args: dict[str, Any]) -> str:
 
     try:
         safe_path = resolve_index_path(str(path))
-    except Exception as e:
+    except Exception:
         return _("err.file_not_found", default="Error: File not found: {path}", path=path)
 
     if not os.path.isfile(safe_path):

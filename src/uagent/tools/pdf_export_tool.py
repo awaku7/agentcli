@@ -285,7 +285,7 @@ def run_tool(args: dict[str, Any]) -> str:
 
     output_path = args.get("output_path", "")
     if not output_path:
-        base, _ = os.path.splitext(log_path)
+        base, _ext = os.path.splitext(log_path)
         output_path = base + ".pdf"
 
     try:
