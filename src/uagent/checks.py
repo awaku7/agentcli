@@ -11,7 +11,7 @@ def check_git_installation():
     """Check if git is installed, and exit with installation instructions if not."""
     try:
         subprocess.run(["git", "--version"], check=True, capture_output=True)
-    except subprocess.CalledProcessError, FileNotFoundError:
+    except (subprocess.CalledProcessError, FileNotFoundError):
         os_type = platform.system().lower()
         install_msg = {
             "windows": _("Please install Git. See: %(url)s")

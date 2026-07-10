@@ -524,7 +524,7 @@ def _extract_imports_python(filepath: str) -> list[dict[str, Any]]:
         with open(filepath, "r", encoding="utf-8", errors="replace") as f:
             source = f.read()
         tree = ast.parse(source, filename=filepath)
-    except SyntaxError, Exception:
+    except (SyntaxError, Exception):
         return imports
 
     for node in ast.walk(tree):

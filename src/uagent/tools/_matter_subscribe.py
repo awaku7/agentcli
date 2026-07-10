@@ -24,7 +24,7 @@ def _max_subs() -> int:
             1,
             int(os.getenv("UAGENT_MATTER_MAX_SUBSCRIPTIONS", str(_MAX_SUBSCRIPTIONS))),
         )
-    except ValueError, TypeError:
+    except (ValueError, TypeError):
         return _MAX_SUBSCRIPTIONS
 
 

@@ -191,7 +191,7 @@ def run_tool(args: dict[str, Any]) -> str:
                         default="[read_file error] {option} cannot be negative",
                     ).format(option=option_name)
                     return _json_err(msg, option=option_name)
-            except TypeError, ValueError:
+            except (TypeError, ValueError):
                 msg = _(
                     "err.invalid_lines",
                     default="[read_file error] {option} must be an integer",
@@ -245,7 +245,7 @@ def run_tool(args: dict[str, Any]) -> str:
             raw_page = args.get("page", 1)
             try:
                 page = int(raw_page)
-            except TypeError, ValueError:
+            except (TypeError, ValueError):
                 msg = _(
                     "err.invalid_page",
                     default="[read_file error] page must be an integer",

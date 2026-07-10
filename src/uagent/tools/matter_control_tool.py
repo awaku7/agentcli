@@ -426,7 +426,7 @@ def run_tool(args: dict[str, Any]) -> str:
             if int_val < 0 or int_val > 100:
                 raise ValueError
             value = int_val
-        except ValueError, TypeError:
+        except (ValueError, TypeError):
             payload = error_payload(
                 "invalid_argument",
                 _(

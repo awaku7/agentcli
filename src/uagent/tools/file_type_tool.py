@@ -214,7 +214,7 @@ def run_tool(args: dict[str, Any]) -> str:
         entry: dict[str, Any] = {"path": p}
         try:
             resolved = ensure_within_workdir(p)
-        except ValueError, PermissionError:
+        except (ValueError, PermissionError):
             results.append(
                 {
                     "path": p,

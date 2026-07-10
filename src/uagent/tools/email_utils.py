@@ -16,7 +16,7 @@ def decode_email_header_value(val: bytes | str | None) -> str:
         if isinstance(data, bytes):
             try:
                 out.append(data.decode(charset or "utf-8", errors="replace"))
-            except LookupError, UnicodeDecodeError:
+            except (LookupError, UnicodeDecodeError):
                 out.append(data.decode("utf-8", errors="replace"))
         else:
             out.append(data)
@@ -31,7 +31,7 @@ def decode_email_payload(part: Any) -> str:
     charset = part.get_content_charset() or "utf-8"
     try:
         return payload.decode(charset, errors="replace")
-    except LookupError, UnicodeDecodeError:
+    except (LookupError, UnicodeDecodeError):
         return payload.decode("utf-8", errors="replace")
 
 

@@ -20,7 +20,7 @@ def _max_entries() -> int:
         return max(
             100, int(os.getenv("UAGENT_MATTER_STATE_HISTORY_MAX", str(_MAX_ENTRIES)))
         )
-    except ValueError, TypeError:
+    except (ValueError, TypeError):
         return _MAX_ENTRIES
 
 

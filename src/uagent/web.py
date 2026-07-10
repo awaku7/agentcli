@@ -156,7 +156,7 @@ def _enrich_message_attachments(msg: dict[str, Any]) -> dict[str, Any]:
                     if isinstance(top_att, list) and top_att:
                         attachments = top_att
                         display_msg["attachments"] = attachments
-            except json.JSONDecodeError, TypeError:
+            except (json.JSONDecodeError, TypeError):
                 pass
 
     if isinstance(attachments, list) and attachments:
@@ -190,7 +190,7 @@ def _enrich_message_attachments(msg: dict[str, Any]) -> dict[str, Any]:
                         msg_text = parsed.get("message", "")
                         if msg_text:
                             display_msg["content"] = msg_text
-                except json.JSONDecodeError, TypeError:
+                except (json.JSONDecodeError, TypeError):
                     pass
     return display_msg
 

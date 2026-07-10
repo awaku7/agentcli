@@ -62,7 +62,7 @@ class WsSessionManager:
                         "preview": (last_msg.get("content") or "")[:120],
                     }
                 )
-            except json.JSONDecodeError, KeyError:
+            except (json.JSONDecodeError, KeyError):
                 continue
         return sessions
 

@@ -262,7 +262,7 @@ def run_tool(args: dict[str, Any]) -> str:
         value_type = type(raw_value).__name__ if raw_value is not None else "NoneType"
         try:
             value_num = float(raw_value) if raw_value is not None else None
-        except ValueError, TypeError:
+        except (ValueError, TypeError):
             value_num = None
 
         result: dict[str, Any] = {

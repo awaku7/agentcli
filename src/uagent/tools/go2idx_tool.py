@@ -424,7 +424,7 @@ def run_tool(args):
             )
         try:
             c = builder.get_section(int(sn))
-        except TypeError, ValueError:
+        except (TypeError, ValueError):
             return _(
                 "err.section_invalid",
                 default="Error: 'section' must be an integer.",

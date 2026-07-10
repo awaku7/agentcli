@@ -735,7 +735,7 @@ def run_tool(args: dict[str, Any]) -> str:
     if raw_value is not None:
         try:
             value_arg = int(raw_value)
-        except ValueError, TypeError:
+        except (ValueError, TypeError):
             pass
 
     epc, edt, value_ref, err = _build_control_payload(action, value_arg)

@@ -337,7 +337,7 @@ def run_tool(args: dict[str, Any]) -> str:
 
         try:
             section_num = int(section_num)
-        except TypeError, ValueError:
+        except (TypeError, ValueError):
             return _(
                 "err.section_invalid",
                 default="Error: 'section' must be an integer.",
