@@ -149,6 +149,39 @@ class _TsIndexBuilder:
         self.diag: list[str] = []
         self._parse()
 
+    def _preprocess(self):
+        result = []
+        i = 0
+        while i < len(self.lines):
+            raw = self.lines[i]
+            stripped = raw.strip()
+            if stripped.startswith("@"):
+                i += 1
+                continue
+            ends = stripped.rstrip()
+            if (ends.endswith(",") or ends.endswith("(")) and i + 1 < len(self.lines):
+                joined = raw.rstrip(chr(10)).rstrip()
+                orig = i
+                i += 1
+                while i < len(self.lines):
+                    ns = self.lines[i].strip()
+                    if not ns or self.lines[i].startswith((" ", chr(9))):
+                        if ns.startswith("@"):
+                            i += 1
+                            continue
+                        joined += " " + ns
+                        if not ns.endswith(","):
+                            i += 1
+                            break
+                    else:
+                        break
+                    i += 1
+                result.append((orig, joined))
+            else:
+                result.append((i, raw))
+                i += 1
+        return result
+
     def _clean_comment(self, line: str) -> str:
         """Remove single-line comments and trailing comments conservatively."""
         # Remove string contents first to avoid false matches
@@ -213,13 +246,14 @@ class _TsIndexBuilder:
         entries: list[dict] = []
         # (end line tracking removed - unused)
 
-        i = 0
-        while i < len(self.lines):
-            raw = self.lines[i]
+        pi = 0
+        preprocessed = self._preprocess()
+        while pi < len(preprocessed):
+            orig_idx, raw = preprocessed[pi]
             cleaned = self._clean_comment(raw)
             if not cleaned.strip():
                 brace_depth += self._estimate_brace_change(raw)
-                i += 1
+                pi += 1
                 continue
 
             # Try matching patterns
@@ -234,8 +268,8 @@ class _TsIndexBuilder:
                     entry: dict = {
                         "kind": kind,
                         "name": name,
-                        "line": i + 1,
-                        "end_line": i + 1,
+                        "line": orig_idx + 1,
+                        "end_line": orig_idx + 1,
                         "level": 0,
                         "label": f"{kind} {name}",
                         "methods": [],
@@ -249,8 +283,8 @@ class _TsIndexBuilder:
                     entry = {
                         "kind": "type",
                         "name": name,
-                        "line": i + 1,
-                        "end_line": i + 1,
+                        "line": orig_idx + 1,
+                        "end_line": orig_idx + 1,
                         "level": 0,
                         "label": f"type {name}",
                     }
@@ -263,8 +297,8 @@ class _TsIndexBuilder:
                         method = {
                             "kind": "method",
                             "name": name,
-                            "line": i + 1,
-                            "end_line": i + 1,
+                            "line": orig_idx + 1,
+                            "end_line": orig_idx + 1,
                             "level": 1,
                             "label": f"{name}()",
                             "is_arrow": "=>" not in raw and True,
@@ -274,8 +308,8 @@ class _TsIndexBuilder:
                         entry = {
                             "kind": "function",
                             "name": name,
-                            "line": i + 1,
-                            "end_line": i + 1,
+                            "line": orig_idx + 1,
+                            "end_line": orig_idx + 1,
                             "level": 0,
                             "label": f"function {name}",
                         }
@@ -289,8 +323,8 @@ class _TsIndexBuilder:
                         method = {
                             "kind": "method",
                             "name": name,
-                            "line": i + 1,
-                            "end_line": i + 1,
+                            "line": orig_idx + 1,
+                            "end_line": orig_idx + 1,
                             "level": 1,
                             "label": f"{name}()",
                         }
@@ -305,7 +339,7 @@ class _TsIndexBuilder:
             if brace_change < 0 and class_stack:
                 pass
             brace_depth += brace_change
-            i += 1
+            pi += 1
 
         # Estimate end lines using brace depth tracking
         self._resolve_end_lines(entries)
