@@ -58,13 +58,17 @@ TOOL_SPEC = {
 
 _PATTERNS = [
     (r"^\s*package\s+(\w+)", lambda m: ("package", m.group(1))),
-    (r"^\s*type\s+(\w+)\s+(?:struct|interface)\b", lambda m: ("type", m.group(1))),
-    (r"^\s*type\s+(\w+)\s*=", lambda m: ("type_alias", m.group(1))),
+    (r"^\s*type\s+(\w+)(?:\[[^]]*\])?\s+(?:struct|interface)\b", lambda m: ("type", m.group(1))),
+    (r"^\s*type\s+(\w+)(?:\[[^]]*\])?\s*=", lambda m: ("type_alias", m.group(1))),
     (r"^\s*const\s+(\w+)", lambda m: ("const", m.group(1))),
     (r"^\s*var\s+(\w+)", lambda m: ("var", m.group(1))),
     (
-        r"^\s*func\s+(?:\([^)]*\)\s+)?(\w+)\s*\([^)]*\)\s*(?:\(?[^)]*\)?\s*\{)?",
-        lambda m: ("func", m.group(1)),
+        r"^\s*func\s+(?:\(([^)]*)\)\s+)?(\w+)\s*\([^)]*\)\s*(?:\(?[^)]*\)?\s*\{)?",
+        lambda m: (
+            "method" if m.group(1) else "func",
+            m.group(2),
+            m.group(1).strip().split()[-1].lstrip("*").strip() if m.group(1) else "",
+        ),
     ),
     (
         r"^\s+(\w+)\s+(?:int|string|float|bool|byte|rune|\w+(?:\.\w+)*|\[\]|map|chan|func|interface|struct)\b",
@@ -190,7 +194,9 @@ class _GoIndexBuilder:
             od = depth
             depth += bd
             defs = self._detect(joined_line)
-            for k, n in defs:
+            for d in defs:
+                k, n = d[0], d[1]
+                rtype = d[2] if len(d) > 2 else ""
                 if k in ("package",):
                     e = {
                         "kind": k,
@@ -216,11 +222,42 @@ class _GoIndexBuilder:
                     stack.append(e)
                     stack_dep.append(od)
                 elif k in ("func",):
+                    entries.append(
+                        {
+                            "kind": "func",
+                            "name": n,
+                            "line": orig_idx + 1,
+                            "end_line": orig_idx + 1,
+                            "label": f"{n}()",
+                        }
+                    )
+                elif k in ("method",):
+                    if rtype:
+                        target = None
+                        for s in reversed(stack):
+                            if s.get("name") == rtype:
+                                target = s
+                                break
+                        if not target:
+                            for e in entries:
+                                if e.get("name") == rtype and e.get("kind") == "type":
+                                    target = e
+                                    break
+                        if target:
+                            target.setdefault("members", []).append(
+                                {
+                                    "kind": "method",
+                                    "name": n,
+                                    "line": orig_idx + 1,
+                                    "end_line": orig_idx + 1,
+                                    "label": f"{n}()",
+                                }
+                            )
+                            continue
                     if stack:
-                        c = stack[-1]
-                        c.setdefault("members", []).append(
+                        stack[-1].setdefault("members", []).append(
                             {
-                                "kind": "func",
+                                "kind": "method",
                                 "name": n,
                                 "line": orig_idx + 1,
                                 "end_line": orig_idx + 1,
@@ -230,7 +267,7 @@ class _GoIndexBuilder:
                     else:
                         entries.append(
                             {
-                                "kind": "func",
+                                "kind": "method",
                                 "name": n,
                                 "line": orig_idx + 1,
                                 "end_line": orig_idx + 1,

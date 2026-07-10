@@ -2,6 +2,7 @@
   2. L9 type Person
       3. L10 Name
       4. L11 Age
-  5. L15 NewPerson()
-  6. L20 Greet()
-  7. L40 type Point
+      5. L20 Greet()
+  6. L15 NewPerson()
+  7. L25 type Repository
+  8. L40 type Point
