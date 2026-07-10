@@ -184,6 +184,7 @@ class _GoIndexBuilder:
         entries = []
         stack = []
         stack_dep = []
+        func_depths: list[int] = []
         depth = 0
         preprocessed = self._preprocess()
         for orig_idx, joined_line in preprocessed:
@@ -222,6 +223,7 @@ class _GoIndexBuilder:
                     stack.append(e)
                     stack_dep.append(od)
                 elif k in ("func",):
+                    func_depths.append(od)
                     entries.append(
                         {
                             "kind": "func",
@@ -232,6 +234,7 @@ class _GoIndexBuilder:
                         }
                     )
                 elif k in ("method",):
+                    func_depths.append(od)
                     if rtype:
                         target = None
                         for s in reversed(stack):
@@ -284,7 +287,7 @@ class _GoIndexBuilder:
                             "label": n,
                         }
                     )
-                elif k == "field" and stack:
+                elif k == "field" and stack and not func_depths:
                     c = stack[-1]
                     c.setdefault("members", []).append(
                         {
@@ -295,6 +298,8 @@ class _GoIndexBuilder:
                             "label": n,
                         }
                     )
+            while func_depths and depth <= func_depths[-1]:
+                func_depths.pop()
             while stack_dep and depth <= stack_dep[-1]:
                 if stack:
                     stack.pop()["end_line"] = orig_idx
@@ -310,11 +315,14 @@ class _GoIndexBuilder:
                 else len(self.lines) - 1
             )
             for j, m in enumerate(e.get("members", [])):
-                m["end_line"] = (
-                    e["members"][j + 1]["line"] - 1
-                    if j + 1 < len(e["members"])
-                    else e["end_line"]
-                )
+                m_end = e["end_line"]
+                if j + 1 < len(e["members"]):
+                    m_end = e["members"][j + 1]["line"] - 1
+                if m["line"] > e["end_line"]:
+                    e["end_line"] = m["line"]
+                if m["line"] > m_end:
+                    m_end = m["line"]
+                m["end_line"] = m_end
 
     def _count_braces(self):
         opens = closes = 0
