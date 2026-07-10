@@ -79,7 +79,35 @@ class _GoIndexBuilder:
         self.filepath = filepath
         self.lines = source.split("\n")
         self.entries = []
+        self.diag: list[str] = []
         self._parse()
+
+    def _preprocess(self):
+        result = []
+        i = 0
+        while i < len(self.lines):
+            raw = self.lines[i]
+            stripped = raw.strip()
+            ends = stripped.rstrip()
+            if (ends.endswith(",") or ends.endswith("(")) and i + 1 < len(self.lines):
+                joined = raw.rstrip(chr(10)).rstrip()
+                orig = i
+                i += 1
+                while i < len(self.lines):
+                    ns = self.lines[i].strip()
+                    if not ns or self.lines[i].startswith((" ", chr(9))):
+                        joined += " " + ns
+                        if not ns.endswith(","):
+                            i += 1
+                            break
+                    else:
+                        break
+                    i += 1
+                result.append((orig, joined))
+            else:
+                result.append((i, raw))
+                i += 1
+        return result
 
     def _clean_line(self, line: str) -> str:
         in_str = False
@@ -153,21 +181,22 @@ class _GoIndexBuilder:
         stack = []
         stack_dep = []
         depth = 0
-        for i, raw in enumerate(self.lines):
-            if not raw.strip():
-                depth += self._guess_brace_depth(raw)
+        preprocessed = self._preprocess()
+        for orig_idx, joined_line in preprocessed:
+            if not joined_line.strip():
+                depth += self._guess_brace_depth(joined_line)
                 continue
-            bd = self._guess_brace_depth(raw)
+            bd = self._guess_brace_depth(joined_line)
             od = depth
             depth += bd
-            defs = self._detect(raw)
+            defs = self._detect(joined_line)
             for k, n in defs:
                 if k in ("package",):
                     e = {
                         "kind": k,
                         "name": n,
-                        "line": i + 1,
-                        "end_line": i + 1,
+                        "line": orig_idx + 1,
+                        "end_line": orig_idx + 1,
                         "label": n,
                         "members": [],
                     }
@@ -178,8 +207,8 @@ class _GoIndexBuilder:
                     e = {
                         "kind": "type",
                         "name": n,
-                        "line": i + 1,
-                        "end_line": i + 1,
+                        "line": orig_idx + 1,
+                        "end_line": orig_idx + 1,
                         "label": f"type {n}",
                         "members": [],
                     }
@@ -193,8 +222,8 @@ class _GoIndexBuilder:
                             {
                                 "kind": "func",
                                 "name": n,
-                                "line": i + 1,
-                                "end_line": i + 1,
+                                "line": orig_idx + 1,
+                                "end_line": orig_idx + 1,
                                 "label": f"{n}()",
                             }
                         )
@@ -203,8 +232,8 @@ class _GoIndexBuilder:
                             {
                                 "kind": "func",
                                 "name": n,
-                                "line": i + 1,
-                                "end_line": i + 1,
+                                "line": orig_idx + 1,
+                                "end_line": orig_idx + 1,
                                 "label": f"{n}()",
                             }
                         )
@@ -213,8 +242,8 @@ class _GoIndexBuilder:
                         {
                             "kind": k,
                             "name": n,
-                            "line": i + 1,
-                            "end_line": i + 1,
+                            "line": orig_idx + 1,
+                            "end_line": orig_idx + 1,
                             "label": n,
                         }
                     )
@@ -224,14 +253,14 @@ class _GoIndexBuilder:
                         {
                             "kind": "field",
                             "name": n,
-                            "line": i + 1,
-                            "end_line": i + 1,
+                            "line": orig_idx + 1,
+                            "end_line": orig_idx + 1,
                             "label": n,
                         }
                     )
-            while stack_dep and depth <= stack_dep[-1] and bd < 0:
+            while stack_dep and depth <= stack_dep[-1]:
                 if stack:
-                    stack.pop()["end_line"] = i
+                    stack.pop()["end_line"] = orig_idx
                 stack_dep.pop()
         self._assign_end_lines(entries)
         self.entries = entries
@@ -250,9 +279,28 @@ class _GoIndexBuilder:
                     else e["end_line"]
                 )
 
+    def _count_braces(self):
+        opens = closes = 0
+        raw = chr(10).join(self.lines)
+        cleaned = self._clean_line(raw)
+        for ch in cleaned:
+            if ch == "{": opens += 1
+            elif ch == "}": closes += 1
+        return opens, closes
+
+    def _diag_hint(self):
+        parts = []
+        opens, closes = self._count_braces()
+        if opens != closes:
+            parts.append(f"brace imbalance: {opens} open vs {closes} close")
+        if parts:
+            return " (" + "; ".join(parts) + ")"
+        return ""
+
     def build_index(self):
         if not self.entries:
-            return _("msg.no_entries", default="(no definitions found)")
+            hint = self._diag_hint()
+            return _("msg.no_entries", default="(no definitions found)") + hint
         lines = []
         idx = 0
         for e in self.entries:
