@@ -16,7 +16,7 @@ certifi>=2026.2.25
 # Documents & Data
 pdfplumber>=0.11.9
 python-pptx>=1.0.2
-llmcapa>=0.2.8
+llmcapa>=0.2.11
 pyyaml>=6.0.3
 numpy>=2.4.4
 

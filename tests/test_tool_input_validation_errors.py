@@ -77,11 +77,11 @@ def test_search_files_errors_on_invalid_regex(repo_tmp_path: Path) -> None:
     d.mkdir(parents=True)
     out = search_files(
         {
-            "root_path": str(d),
-            "name_pattern": "*.txt",
-            "content_pattern": "[",
-            "case_sensitive": False,
-            "max_results": 10,
+            "path": str(d),
+            "glob": "*.txt",
+            "re_content": "[",
+            "cs": False,
+            "limit": 10,
             "fast_read_threshold_bytes": 8000000,
         }
     )
