@@ -87,6 +87,39 @@ class _SwiftIndexBuilder:
         self.diag: list[str] = []
         self._parse()
 
+    def _preprocess(self):
+        result = []
+        i = 0
+        while i < len(self.lines):
+            raw = self.lines[i]
+            stripped = raw.strip()
+            if stripped.startswith('@'):
+                i += 1
+                continue
+            ends = stripped.rstrip()
+            if (ends.endswith(',') or ends.endswith('(')) and i + 1 < len(self.lines):
+                joined = raw.rstrip(chr(10)).rstrip()
+                orig = i
+                i += 1
+                while i < len(self.lines):
+                    ns = self.lines[i].strip()
+                    if not ns or self.lines[i].startswith((' ', chr(9))):
+                        if ns.startswith('@'):
+                            i += 1
+                            continue
+                        joined += ' ' + ns
+                        if not ns.endswith(','):
+                            i += 1
+                            break
+                    else:
+                        break
+                    i += 1
+                result.append((orig, joined))
+            else:
+                result.append((i, raw))
+                i += 1
+        return result
+
     def _clean_line(self, line):
         in_str = False
         sc = None
@@ -160,19 +193,21 @@ class _SwiftIndexBuilder:
         entries = []
         stack = []
         stack_d = []
+        func_depths: list[int] = []
         depth = 0
-        for i, raw in enumerate(self.lines):
-            bd = self._brace_depth(raw)
+        preprocessed = self._preprocess()
+        for orig_idx, joined_line in preprocessed:
+            bd = self._brace_depth(joined_line)
             od = depth
             depth += bd
-            defs = self._detect(raw)
+            defs = self._detect(joined_line)
             for k, n in defs:
                 if k == "type":
                     e = {
                         "kind": k,
                         "name": n,
-                        "line": i + 1,
-                        "end_line": i + 1,
+                        "line": orig_idx + 1,
+                        "end_line": orig_idx + 1,
                         "label": n,
                         "members": [],
                     }
@@ -187,8 +222,8 @@ class _SwiftIndexBuilder:
                             {
                                 "kind": k,
                                 "name": n,
-                                "line": i + 1,
-                                "end_line": i + 1,
+                                "line": orig_idx + 1,
+                                "end_line": orig_idx + 1,
                                 "label": lbl,
                             }
                         )
@@ -197,8 +232,8 @@ class _SwiftIndexBuilder:
                             {
                                 "kind": k,
                                 "name": n,
-                                "line": i + 1,
-                                "end_line": i + 1,
+                                "line": orig_idx + 1,
+                                "end_line": orig_idx + 1,
                                 "label": f"{n}()" if k == "func" else n,
                             }
                         )
@@ -208,8 +243,8 @@ class _SwiftIndexBuilder:
                             {
                                 "kind": "property",
                                 "name": n,
-                                "line": i + 1,
-                                "end_line": i + 1,
+                                "line": orig_idx + 1,
+                                "end_line": orig_idx + 1,
                                 "label": n,
                             }
                         )
@@ -218,8 +253,8 @@ class _SwiftIndexBuilder:
                             {
                                 "kind": "property",
                                 "name": n,
-                                "line": i + 1,
-                                "end_line": i + 1,
+                                "line": orig_idx + 1,
+                                "end_line": orig_idx + 1,
                                 "label": n,
                             }
                         )
@@ -229,14 +264,16 @@ class _SwiftIndexBuilder:
                             {
                                 "kind": "case",
                                 "name": n,
-                                "line": i + 1,
-                                "end_line": i + 1,
+                                "line": orig_idx + 1,
+                                "end_line": orig_idx + 1,
                                 "label": n,
                             }
                         )
+            while func_depths and depth <= func_depths[-1]:
+                func_depths.pop()
             while stack_d and depth <= stack_d[-1]:
                 if stack:
-                    stack.pop()["end_line"] = i
+                    stack.pop()["end_line"] = orig_idx
                 stack_d.pop()
         for i, e in enumerate(entries):
             e["end_line"] = (
@@ -245,11 +282,14 @@ class _SwiftIndexBuilder:
                 else len(self.lines) - 1
             )
             for j, m in enumerate(e.get("members", [])):
-                m["end_line"] = (
-                    e["members"][j + 1]["line"] - 1
-                    if j + 1 < len(e["members"])
-                    else e["end_line"]
-                )
+                m_end = e["end_line"]
+                if j + 1 < len(e["members"]):
+                    m_end = e["members"][j + 1]["line"] - 1
+                if m["line"] > e["end_line"]:
+                    e["end_line"] = m["line"]
+                if m["line"] > m_end:
+                    m_end = m["line"]
+                m["end_line"] = m_end
         self.entries = entries
 
 

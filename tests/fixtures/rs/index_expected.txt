@@ -1,11 +1,12 @@
-  1. L3 mod person
-  2. L5 struct Person
-  3. L10 impl Person
-  4. L11 fn new
-  5. L16 fn greet
-  6. L22 trait Repository
-  7. L23 fn get_by_id
-  8. L24 fn save
-  9. L27 enum Status
-  10. L33 fn create_person
-  11. L37 struct Container
+  1. L2 module person
+  2. L4 type Person
+  3. L9 impl Person
+      4. L10 new()
+      5. L11 Self
+      6. L14 greet()
+  7. L21 type Repository<T>
+      8. L22 get_by_id()
+      9. L23 save()
+  10. L27 type Status
+      11. L28 Active
+  12. L39 type Container<T>

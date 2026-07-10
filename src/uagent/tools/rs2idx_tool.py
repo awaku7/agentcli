@@ -146,6 +146,39 @@ class _RsIndexBuilder:
         self.diag: list[str] = []
         self._parse()
 
+    def _preprocess(self):
+        result = []
+        i = 0
+        while i < len(self.lines):
+            raw = self.lines[i]
+            stripped = raw.strip()
+            if stripped.startswith("#["):
+                i += 1
+                continue
+            ends = stripped.rstrip()
+            if (ends.endswith(",") or ends.endswith("(")) and i + 1 < len(self.lines):
+                joined = raw.rstrip(chr(10)).rstrip()
+                orig = i
+                i += 1
+                while i < len(self.lines):
+                    ns = self.lines[i].strip()
+                    if not ns or self.lines[i].startswith((" ", chr(9))):
+                        if ns.startswith("#["):
+                            i += 1
+                            continue
+                        joined += " " + ns
+                        if not ns.endswith(","):
+                            i += 1
+                            break
+                    else:
+                        break
+                    i += 1
+                result.append((orig, joined))
+            else:
+                result.append((i, raw))
+                i += 1
+        return result
+
     def _clean_line(self, line: str) -> str:
         in_str = False
         sc = None
@@ -223,20 +256,22 @@ class _RsIndexBuilder:
         entries: list[dict] = []
         stack: list[dict] = []
         stack_start_depth: list[int] = []
+        func_depths: list[int] = []
         brace_depth = 0
 
-        for i, raw in enumerate(self.lines):
-            stripped = raw.strip()
+        preprocessed = self._preprocess()
+        for orig_idx, joined_line in preprocessed:
+            stripped = joined_line.strip()
             if not stripped:
-                bd = self._guess_brace_depth(raw)
+                bd = self._guess_brace_depth(joined_line)
                 brace_depth += bd
                 continue
 
-            bd = self._guess_brace_depth(raw)
+            bd = self._guess_brace_depth(joined_line)
             old_depth = brace_depth
             brace_depth += bd
 
-            defs = self._detect_definitions(raw)
+            defs = self._detect_definitions(joined_line)
             for kind_name in defs:
                 if kind_name is None:
                     continue
@@ -245,8 +280,8 @@ class _RsIndexBuilder:
                     entry = {
                         "kind": kind,
                         "name": name,
-                        "line": i + 1,
-                        "end_line": i + 1,
+                        "line": orig_idx + 1,
+                        "end_line": orig_idx + 1,
                         "level": len(stack),
                         "label": f"{kind} {name}",
                         "members": [],
@@ -258,20 +293,21 @@ class _RsIndexBuilder:
                     entry = {
                         "kind": kind,
                         "name": name,
-                        "line": i + 1,
-                        "end_line": i + 1,
+                        "line": orig_idx + 1,
+                        "end_line": orig_idx + 1,
                         "level": 0,
                         "label": name,
                     }
                     entries.append(entry)
                 elif kind == "fn":
+                    func_depths.append(old_depth)
                     if stack:
                         container = stack[-1]
                         member = {
                             "kind": "fn",
                             "name": name,
-                            "line": i + 1,
-                            "end_line": i + 1,
+                            "line": orig_idx + 1,
+                            "end_line": orig_idx + 1,
                             "level": len(stack),
                             "label": f"{name}()",
                         }
@@ -280,8 +316,8 @@ class _RsIndexBuilder:
                         entry = {
                             "kind": "fn",
                             "name": name,
-                            "line": i + 1,
-                            "end_line": i + 1,
+                            "line": orig_idx + 1,
+                            "end_line": orig_idx + 1,
                             "level": 0,
                             "label": f"{name}()",
                             "members": [],
@@ -293,17 +329,19 @@ class _RsIndexBuilder:
                         member = {
                             "kind": kind,
                             "name": name,
-                            "line": i + 1,
-                            "end_line": i + 1,
+                            "line": orig_idx + 1,
+                            "end_line": orig_idx + 1,
                             "level": len(stack),
                             "label": name,
                         }
                         container.setdefault("members", []).append(member)
 
+            while func_depths and brace_depth <= func_depths[-1]:
+                func_depths.pop()
             while stack_start_depth and brace_depth <= stack_start_depth[-1]:
                 if stack:
                     popped = stack.pop()
-                    popped["end_line"] = i
+                    popped["end_line"] = orig_idx
                 stack_start_depth.pop()
 
         self._assign_end_lines(entries)
