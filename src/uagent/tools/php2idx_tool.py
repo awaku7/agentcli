@@ -138,6 +138,39 @@ class _PhpIndexBuilder:
         self.diag: list[str] = []
         self._parse()
 
+    def _preprocess(self):
+        result = []
+        i = 0
+        while i < len(self.lines):
+            raw = self.lines[i]
+            stripped = raw.strip()
+            if stripped.startswith("#["):
+                i += 1
+                continue
+            ends = stripped.rstrip()
+            if (ends.endswith(",") or ends.endswith("(")) and i + 1 < len(self.lines):
+                joined = raw.rstrip(chr(10)).rstrip()
+                orig = i
+                i += 1
+                while i < len(self.lines):
+                    ns = self.lines[i].strip()
+                    if not ns or self.lines[i].startswith((" ", chr(9))):
+                        if ns.startswith("#["):
+                            i += 1
+                            continue
+                        joined += " " + ns
+                        if not ns.endswith(","):
+                            i += 1
+                            break
+                    else:
+                        break
+                    i += 1
+                result.append((orig, joined))
+            else:
+                result.append((i, raw))
+                i += 1
+        return result
+
     def _clean_line(self, line: str) -> str:
         """Remove comments (//, #, /* */) from a line, keeping strings intact."""
         in_str = False
