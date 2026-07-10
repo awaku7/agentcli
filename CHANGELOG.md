@@ -1,5 +1,20 @@
 # Changelog
 
+## [0.5.43] - 2026-07-10
+
+### Added
+- 2idx tools: preprocess, decorator/annotation skip, function depth detection, multi-line join for jv2idx, kt2idx, php2idx, rs2idx, ts2idx.
+
+### Fixed
+- Fixed 44 ruff invalid-syntax errors (`except X,Y` → `except (X,Y)`).
+- Fixed 8 ruff warnings across the codebase.
+- Removed unnecessary `core=` parameter from `compress_history_with_llm`.
+
+### Changed
+- Removed `cmd_exec_tool` (superseded by `cmd_exec_json_tool`).
+- Applied Black formatting to 49 files.
+- Updated 2idx tool JSON schemas to match new capabilities.
+
 ## [0.5.42] - 2026-07-10
 
 ### Added
