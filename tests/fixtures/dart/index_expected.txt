@@ -1,15 +1,18 @@
-  1. L1 import
-  2. L5 class Person
-  3. L7 constructor Person
-  4. L9 getter greeting
-  5. L11 method processAsync
-  6. L16 method toString
-  7. L20 class Repository
-  8. L21 method getById
-  9. L22 method save
-  10. L25 enum Status
-  11. L28 class PersonDto
-  12. L35 mixin PersonFactory
-  13. L36 method create
-  14. L40 extension StringGreeting
-  15. L42 getter greet
+  1. L4 lib myapp.core
+  2. L7 type Person
+      3. L8 name
+      4. L9 age
+      5. L11 Person()
+      6. L13 get greeting
+      7. L15 processAsync()
+      8. L20 toString()
+  9. L24 type Repository
+  10. L30 type Status
+  11. L33 type PersonDto
+      12. L34 name
+      13. L35 age
+      14. L37 PersonDto()
+  15. L41 type PersonFactory
+      16. L42 create()
+  17. L46 type StringGreeting
+      18. L47 get greet

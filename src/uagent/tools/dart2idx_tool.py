@@ -83,16 +83,18 @@ TOOL_SPEC = {
     },
 }
 
-# Dart modifiers
-_MOD = r"(?:(?:abstract|base|sealed|final|interface|mixin class|covariant|const|factory|external|late)\s+)*"
+# Class/type level modifiers
+_TYPE_MOD = r"(?:(?:abstract|base|sealed|interface|final|mixin class)\s+)*"
+# Member level modifiers (factory not included - handled separately)
+_MEMBER_MOD = r"(?:(?:abstract|base|sealed|final|interface|covariant|const|external|late|static|override)\s+)*"
 
 # Dart definition patterns
 _PATTERNS = [
     # library / part
     (r"^\s*(?:library|part\s+of)\s+(\w+(?:\.\w+)*)", lambda m: ("lib", m.group(1))),
-    # class / mixin / enum / extension on / typedef
+    # class / mixin / enum / extension (not on Type) / typedef
     (
-        r"^\s*(?:(?:abstract|base|sealed|interface)\s+)?(?:class|mixin|enum|extension(?!\s+on\b)|typedef)\s+(\w+)",
+        r"^\s*" + _TYPE_MOD + r"(?:class|mixin|enum|extension(?!\s+on\b)|typedef)\s+(\w+)",
         lambda m: ("type", m.group(1)),
     ),
     # extension on Type
@@ -102,15 +104,15 @@ _PATTERNS = [
     ),
     # top-level function: ReturnType name(...) { or =>
     (
-        r"^\s*(?:"
-        + _MOD
-        + r")?(\w+(?:<[^>]*>)?)\s+(\w+)\s*\([^)]*\)\s*(?:\{|async\s*\{|=>)",
+        r"^(?:"
+        + _MEMBER_MOD
+        + r")?(\w+(?:\.\w+)*(?:<[^>]*>)?)\s+(\w+)\s*\([^)]*\)\s*(?:\{|async\s*\{|=>)",
         lambda m: ("function", m.group(2)),
     ),
     # constructor: ClassName(...) or ClassName.named(...)  (must NOT be a keyword)
     (
         r"^\s+"
-        + _MOD
+        + _MEMBER_MOD
         + r"(?!for\b|if\b|while\b|switch\b|catch\b|return\b|throw\b|else\b|do\b|try\b|finally\b|assert\b|print\b)(\w+)(?:\.(\w+))?\s*\([^)]*\)\s*(?::\s*(?:this\.|super\.|super\b)[^;{]*)?(?:\{|;|$)",
         lambda m: (
             "constructor",
@@ -127,7 +129,7 @@ _PATTERNS = [
     ),
     # getter: ReturnType get name => ... or ReturnType get name { ... }
     (
-        r"^\s+" + _MOD + r"(\w+(?:<[^>]*>)?)\s+get\s+(\w+)\s*(?:\{|=>|;)",
+        r"^\s+" + _MEMBER_MOD + r"(\w+(?:\.\w+)*(?:<[^>]*>)?)\s+get\s+(\w+)\s*(?:\{|=>|;)",
         lambda m: ("getter", m.group(2)),
     ),
     # setter: set name(value) => ... or set name(value) { ... }
@@ -135,13 +137,13 @@ _PATTERNS = [
     # method: ReturnType name(...) { or =>
     (
         r"^\s+"
-        + _MOD
-        + r"(\w+(?:<[^>]*>)?)\s+(\w+)\s*\([^)]*\)\s*(?:\{|async\s*\{|sync\s*\*\{|=>)",
+        + _MEMBER_MOD
+        + r"(\w+(?:\.\w+)*(?:<[^>]*>)?)\s+(\w+)\s*\([^)]*\)\s*(?:\{|async\s*\{|sync\s*\*\{|=>)",
         lambda m: ("method", m.group(2)),
     ),
     # field with type annotation: Type name; or Type name = ...;
     (
-        r"^\s+(?:" + _MOD + r")?(\w+(?:<[^>]*>)?)\s+(\w+)\s*(?:=|;|,|$)",
+        r"^\s+(?:" + _MEMBER_MOD + r")?(\w+(?:\.\w+)*(?:<[^>]*>)?)\s+(\w+)\s*(?:=|;|,|$)",
         lambda m: ("field", m.group(2)),
     ),
     # field without type: var/final/const name = ...;
@@ -160,7 +162,42 @@ class _DartIndexBuilder:
         self.filepath = filepath
         self.lines = source.split("\n")
         self.entries: list[dict[str, Any]] = []
+        self.diag: list[str] = []
         self._parse()
+
+    def _preprocess(self) -> list[tuple[int, str]]:
+        """Preprocess lines: skip annotations, join continuation lines."""
+        result: list[tuple[int, str]] = []
+        i = 0
+        while i < len(self.lines):
+            raw = self.lines[i]
+            stripped = raw.strip()
+            if stripped.startswith("@"):
+                i += 1
+                continue
+            ends = stripped.rstrip()
+            if (ends.endswith(",") or ends.endswith("(")) and i + 1 < len(self.lines):
+                joined = raw.rstrip(chr(10)).rstrip()
+                orig = i
+                i += 1
+                while i < len(self.lines):
+                    ns = self.lines[i].strip()
+                    if not ns or self.lines[i].startswith((" ", chr(9))):
+                        if ns.startswith("@"):
+                            i += 1
+                            continue
+                        joined += " " + ns
+                        if not ns.endswith(","):
+                            i += 1
+                            break
+                    else:
+                        break
+                    i += 1
+                result.append((orig, joined))
+            else:
+                result.append((i, raw))
+                i += 1
+        return result
 
     def _clean_line(self, line: str) -> str:
         in_str = False
@@ -239,25 +276,26 @@ class _DartIndexBuilder:
         stack_start_depth: list[int] = []
         brace_depth = 0
 
-        for i, raw in enumerate(self.lines):
-            stripped = raw.strip()
+        preprocessed = self._preprocess()
+        for orig_idx, joined_line in preprocessed:
+            stripped = joined_line.strip()
             if not stripped:
-                bd = self._guess_brace_depth(raw)
+                bd = self._guess_brace_depth(joined_line)
                 brace_depth += bd
                 continue
 
-            bd = self._guess_brace_depth(raw)
+            bd = self._guess_brace_depth(joined_line)
             old_depth = brace_depth
             brace_depth += bd
 
-            defs = self._detect_definitions(raw)
+            defs = self._detect_definitions(joined_line)
             for kind, name in defs:
                 if kind in ("type", "extension", "lib"):
                     entry = {
                         "kind": kind,
                         "name": name,
-                        "line": i + 1,
-                        "end_line": i + 1,
+                        "line": orig_idx + 1,
+                        "end_line": orig_idx + 1,
                         "level": len(stack),
                         "label": f"{kind} {name}",
                         "members": [],
@@ -270,8 +308,8 @@ class _DartIndexBuilder:
                     entry = {
                         "kind": kind,
                         "name": name,
-                        "line": i + 1,
-                        "end_line": i + 1,
+                        "line": orig_idx + 1,
+                        "end_line": orig_idx + 1,
                         "level": 0,
                         "label": f"{name}()",
                         "members": [],
@@ -290,18 +328,18 @@ class _DartIndexBuilder:
                         member = {
                             "kind": kind,
                             "name": name,
-                            "line": i + 1,
-                            "end_line": i + 1,
+                            "line": orig_idx + 1,
+                            "end_line": orig_idx + 1,
                             "level": len(stack),
                             "label": label_map.get(kind, name),
                         }
                         container.setdefault("members", []).append(member)
 
-            # Pop stack when scope ends
-            while stack_start_depth and brace_depth <= stack_start_depth[-1] and bd < 0:
+            # Pop stack when scope ends (strict tracking)
+            while stack_start_depth and brace_depth <= stack_start_depth[-1]:
                 if stack:
                     popped = stack.pop()
-                    popped["end_line"] = i
+                    popped["end_line"] = orig_idx
                 stack_start_depth.pop()
 
         self._assign_end_lines(entries)
@@ -321,9 +359,30 @@ class _DartIndexBuilder:
                     m_end = e["end_line"]
                 m["end_line"] = m_end
 
+    def _count_braces(self) -> tuple[int, int]:
+        opens = closes = 0
+        raw = chr(10).join(self.lines)
+        cleaned = self._clean_line(raw)
+        for ch in cleaned:
+            if ch == "{":
+                opens += 1
+            elif ch == "}":
+                closes += 1
+        return opens, closes
+
+    def _diag_hint(self) -> str:
+        parts = []
+        opens, closes = self._count_braces()
+        if opens != closes:
+            parts.append(f"brace imbalance: {opens} open vs {closes} close")
+        if parts:
+            return " (" + "; ".join(parts) + ")"
+        return ""
+
     def build_index(self) -> str:
         if not self.entries:
-            return _("msg.no_entries", default="(no definitions found)")
+            hint = self._diag_hint()
+            return _("msg.no_entries", default="(no definitions found)") + hint
         lines_out: list[str] = []
         idx = 0
         for entry in self.entries:
