@@ -109,7 +109,7 @@ def test_cobol2idx_fixed_format_continuation_and_comments(
         "000300 ENVIRONMENT DIVISION.\n"
         "000400 INPUT-OUTPUT SECTION.\n"
         "000500 FILE-CONTROL. *> inline comment\n"
-        "000600     SELECT INPUT-FILE ASSIGN TO \"input.dat\"\n"
+        '000600     SELECT INPUT-FILE ASSIGN TO "input.dat"\n'
         "000700         ORGANIZATION IS LINE SEQUENTIAL.\n"
         "000800 DATA DIVISION.\n"
         "000900 FILE SECTION.\n"
@@ -117,7 +117,7 @@ def test_cobol2idx_fixed_format_continuation_and_comments(
         "001100 01 INPUT-RECORD PIC X(80).\n"
         "001200 PROCEDURE DIVISION.\n"
         "001300 MAIN-PARA.\n"
-        "001400     DISPLAY \"PERFORM.\".\n"
+        '001400     DISPLAY "PERFORM.".\n'
         "001500     COPY COMMON-CPY.\n",
     )
 
@@ -128,7 +128,7 @@ def test_cobol2idx_fixed_format_continuation_and_comments(
     assert "INPUT-FILE" in out
     assert "MAIN-PARA." in out
     assert "COPY COMMON-CPY" in out
-    assert 'PERFORM.' not in out
+    assert "PERFORM." not in out
 
 
 def test_cobol2idx_declaratives_and_multiple_sections(

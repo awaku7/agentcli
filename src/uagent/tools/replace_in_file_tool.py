@@ -361,11 +361,7 @@ def _is_probably_binary(path: str) -> bool:
         return True
     if not head:
         return False
-    control_count = sum(
-        1
-        for byte in head
-        if byte < 32 and byte not in (9, 10, 13)
-    )
+    control_count = sum(1 for byte in head if byte < 32 and byte not in (9, 10, 13))
     return control_count / len(head) > 0.10
 
 
@@ -923,9 +919,7 @@ def _replace_po_entry_text(
         parsed = _po_parse_entry_block(block)
         if parsed and parsed["msgid"] == target_msgid:
             match_total += 1
-            msgstr_is_empty_any = (
-                msgstr_is_empty_any or bool(parsed["msgstr_is_empty"])
-            )
+            msgstr_is_empty_any = msgstr_is_empty_any or bool(parsed["msgstr_is_empty"])
             msgstr_kinds_seen.add(str(parsed["msgstr_kind"]))
             msgstr_line_counts_seen.add(int(parsed["msgstr_line_count"]))
             if len(match_hits) < MAX_MATCH_HITS_DETAIL:
@@ -1144,6 +1138,7 @@ def _replace_between_text(
             "match_hits_omitted": len(pairs) - MAX_MATCH_HITS_DETAIL,
         }
     return replaced_text, len(pairs), len(pairs), match_hits, diagnostics
+
 
 def _pick_newline_style(newline: Any) -> str:
     if isinstance(newline, tuple):

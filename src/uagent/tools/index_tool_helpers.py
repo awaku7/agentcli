@@ -42,4 +42,6 @@ def read_index_source(path: str, max_bytes: int = DEFAULT_INDEX_MAX_BYTES) -> st
             return text.replace("\r\n", "\n").replace("\r", "\n")
         except UnicodeDecodeError:
             continue
-    return data.decode("utf-8", errors="replace").replace("\r\n", "\n").replace("\r", "\n")
+    return (
+        data.decode("utf-8", errors="replace").replace("\r\n", "\n").replace("\r", "\n")
+    )

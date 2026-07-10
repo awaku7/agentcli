@@ -93,17 +93,20 @@ _DECORATORS = r"(?:(?:@[A-Za-z_$][\w$]*(?:\([^)]*\))?)\s+)*"
 _PATTERNS = [
     # export default class / export default function / export default async function
     (
-        _DECORATORS + r"^export\s+default\s+(?:abstract\s+|async\s+)?(class|function|interface)\s+(\w+)",
+        _DECORATORS
+        + r"^export\s+default\s+(?:abstract\s+|async\s+)?(class|function|interface)\s+(\w+)",
         lambda m, kw: ("class" if m.group(1) in ("class",) else m.group(1), m.group(2)),
     ),
     # export abstract class / export class / export interface / export enum / export type / export function / export namespace
     (
-        _DECORATORS + r"^export\s+(?:abstract\s+|async\s+)?(class|interface|enum|type|function|namespace)\s+(\w+)",
+        _DECORATORS
+        + r"^export\s+(?:abstract\s+|async\s+)?(class|interface|enum|type|function|namespace)\s+(\w+)",
         lambda m, kw: (m.group(1), m.group(2)),
     ),
     # standalone: abstract class / class / interface / enum / type / function / async function / namespace
     (
-        _DECORATORS + r"^(?:abstract\s+|async\s+)?(class|interface|enum|type|function|namespace)\s+(\w+)",
+        _DECORATORS
+        + r"^(?:abstract\s+|async\s+)?(class|interface|enum|type|function|namespace)\s+(\w+)",
         lambda m, kw: (m.group(1), m.group(2)),
     ),
     # const/let/var foo = (...) =>  (arrow function / function expression)
@@ -365,14 +368,15 @@ class _TsIndexBuilder:
             for method in entry.get("methods", []):
                 method["end_line"] = entry["end_line"]
 
-
     def _count_braces(self):
         opens = closes = 0
         raw = chr(10).join(self.lines)
         cleaned = self._clean_line(raw)
         for ch in cleaned:
-            if ch == "{": opens += 1
-            elif ch == "}": closes += 1
+            if ch == "{":
+                opens += 1
+            elif ch == "}":
+                closes += 1
         return opens, closes
 
     def _diag_hint(self):
@@ -388,7 +392,6 @@ class _TsIndexBuilder:
         if not self.entries:
             hint = self._diag_hint()
             return _("msg.no_entries", default="(no definitions found)") + hint
-
 
         lines_out: list[str] = []
         idx = 0
@@ -441,10 +444,14 @@ def run_tool(args: dict[str, Any]) -> str:
     try:
         safe_path = resolve_index_path(str(path))
     except Exception:
-        return _("err.file_not_found", default="Error: File not found: {path}", path=path)
+        return _(
+            "err.file_not_found", default="Error: File not found: {path}", path=path
+        )
 
     if not os.path.isfile(safe_path):
-        return _("err.file_not_found", default="Error: File not found: {path}", path=path)
+        return _(
+            "err.file_not_found", default="Error: File not found: {path}", path=path
+        )
 
     try:
         source = read_index_source(safe_path)
@@ -482,7 +489,7 @@ def run_tool(args: dict[str, Any]) -> str:
             )
         try:
             section_num = int(section_num)
-        except (TypeError, ValueError):
+        except TypeError, ValueError:
             return _(
                 "err.section_invalid",
                 default="Error: 'section' must be an integer.",

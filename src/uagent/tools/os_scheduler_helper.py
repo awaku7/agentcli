@@ -127,7 +127,7 @@ def _decode_schtasks_output(data: bytes) -> str:
     for encoding in ["utf-8", "cp932", "shift_jis", "latin-1"]:
         try:
             return data.decode(encoding)
-        except (UnicodeDecodeError, LookupError):
+        except UnicodeDecodeError, LookupError:
             continue
     return data.decode("utf-8", errors="replace")
 

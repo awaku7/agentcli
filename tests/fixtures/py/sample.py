@@ -26,11 +26,9 @@ class Person:
 class Repository(Generic[T]):
     """Generic repository."""
 
-    async def get_by_id(self, id: int) -> Optional[T]:
-        ...
+    async def get_by_id(self, id: int) -> Optional[T]: ...
 
-    async def save(self, entity: T) -> None:
-        ...
+    async def save(self, entity: T) -> None: ...
 
 
 class Status:

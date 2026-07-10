@@ -58,7 +58,10 @@ TOOL_SPEC = {
 
 _PATTERNS = [
     (r"^\s*package\s+(\w+)", lambda m: ("package", m.group(1))),
-    (r"^\s*type\s+(\w+)(?:\[[^]]*\])?\s+(?:struct|interface)\b", lambda m: ("type", m.group(1))),
+    (
+        r"^\s*type\s+(\w+)(?:\[[^]]*\])?\s+(?:struct|interface)\b",
+        lambda m: ("type", m.group(1)),
+    ),
     (r"^\s*type\s+(\w+)(?:\[[^]]*\])?\s*=", lambda m: ("type_alias", m.group(1))),
     (r"^\s*const\s+(\w+)", lambda m: ("const", m.group(1))),
     (r"^\s*var\s+(\w+)", lambda m: ("var", m.group(1))),
@@ -329,8 +332,10 @@ class _GoIndexBuilder:
         raw = chr(10).join(self.lines)
         cleaned = self._clean_line(raw)
         for ch in cleaned:
-            if ch == "{": opens += 1
-            elif ch == "}": closes += 1
+            if ch == "{":
+                opens += 1
+            elif ch == "}":
+                closes += 1
         return opens, closes
 
     def _diag_hint(self):
@@ -379,10 +384,14 @@ def run_tool(args):
     try:
         safe_path = resolve_index_path(str(path))
     except Exception:
-        return _("err.file_not_found", default="Error: File not found: {path}", path=path)
+        return _(
+            "err.file_not_found", default="Error: File not found: {path}", path=path
+        )
 
     if not os.path.isfile(safe_path):
-        return _("err.file_not_found", default="Error: File not found: {path}", path=path)
+        return _(
+            "err.file_not_found", default="Error: File not found: {path}", path=path
+        )
 
     try:
         _source = read_index_source(safe_path)
@@ -415,7 +424,7 @@ def run_tool(args):
             )
         try:
             c = builder.get_section(int(sn))
-        except (TypeError, ValueError):
+        except TypeError, ValueError:
             return _(
                 "err.section_invalid",
                 default="Error: 'section' must be an integer.",

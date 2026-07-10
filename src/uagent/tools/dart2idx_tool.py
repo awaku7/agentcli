@@ -94,7 +94,9 @@ _PATTERNS = [
     (r"^\s*(?:library|part\s+of)\s+(\w+(?:\.\w+)*)", lambda m: ("lib", m.group(1))),
     # class / mixin / enum / extension (not on Type) / typedef
     (
-        r"^\s*" + _TYPE_MOD + r"(?:class|mixin|enum|extension(?!\s+on\b)|typedef)\s+(\w+)",
+        r"^\s*"
+        + _TYPE_MOD
+        + r"(?:class|mixin|enum|extension(?!\s+on\b)|typedef)\s+(\w+)",
         lambda m: ("type", m.group(1)),
     ),
     # extension on Type
@@ -129,7 +131,9 @@ _PATTERNS = [
     ),
     # getter: ReturnType get name => ... or ReturnType get name { ... }
     (
-        r"^\s+" + _MEMBER_MOD + r"(\w+(?:\.\w+)*(?:<[^>]*>)?)\s+get\s+(\w+)\s*(?:\{|=>|;)",
+        r"^\s+"
+        + _MEMBER_MOD
+        + r"(\w+(?:\.\w+)*(?:<[^>]*>)?)\s+get\s+(\w+)\s*(?:\{|=>|;)",
         lambda m: ("getter", m.group(2)),
     ),
     # setter: set name(value) => ... or set name(value) { ... }
@@ -143,7 +147,9 @@ _PATTERNS = [
     ),
     # field with type annotation: Type name; or Type name = ...;
     (
-        r"^\s+(?:" + _MEMBER_MOD + r")?(\w+(?:\.\w+)*(?:<[^>]*>)?)\s+(\w+)\s*(?:=|;|,|$)",
+        r"^\s+(?:"
+        + _MEMBER_MOD
+        + r")?(\w+(?:\.\w+)*(?:<[^>]*>)?)\s+(\w+)\s*(?:=|;|,|$)",
         lambda m: ("field", m.group(2)),
     ),
     # field without type: var/final/const name = ...;
@@ -431,10 +437,14 @@ def run_tool(args: dict[str, Any]) -> str:
     try:
         safe_path = resolve_index_path(str(path))
     except Exception:
-        return _("err.file_not_found", default="Error: File not found: {path}", path=path)
+        return _(
+            "err.file_not_found", default="Error: File not found: {path}", path=path
+        )
 
     if not os.path.isfile(safe_path):
-        return _("err.file_not_found", default="Error: File not found: {path}", path=path)
+        return _(
+            "err.file_not_found", default="Error: File not found: {path}", path=path
+        )
 
     try:
         source = read_index_source(safe_path)
@@ -472,7 +482,7 @@ def run_tool(args: dict[str, Any]) -> str:
             )
         try:
             section_num = int(section_num)
-        except (TypeError, ValueError):
+        except TypeError, ValueError:
             return _(
                 "err.section_invalid",
                 default="Error: 'section' must be an integer.",

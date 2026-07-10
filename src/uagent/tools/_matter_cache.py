@@ -36,7 +36,7 @@ def _ttl_from_env() -> int:
     """Get TTL from UAGENT_MATTER_CACHE_TTL env var, or default."""
     try:
         return max(0, int(os.getenv("UAGENT_MATTER_CACHE_TTL", str(_DEFAULT_TTL))))
-    except (ValueError, TypeError):
+    except ValueError, TypeError:
         return _DEFAULT_TTL
 
 

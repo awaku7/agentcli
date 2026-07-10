@@ -930,7 +930,12 @@ def _call_openai_azure_round(
             _rc = getattr(msg, "reasoning_content", None)
             if isinstance(_rc, str) and _rc:
                 reasoning_content = _rc
-                show_reasoning(_rc, provider=provider.capitalize(), is_first=True, print_fn=lambda s: print(s, end="", flush=True))
+                show_reasoning(
+                    _rc,
+                    provider=provider.capitalize(),
+                    is_first=True,
+                    print_fn=lambda s: print(s, end="", flush=True),
+                )
 
     except Exception as e:
         print("[ERROR] " + _("Error while parsing response: %(err)s") % {"err": e})

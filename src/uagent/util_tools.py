@@ -119,6 +119,7 @@ _IMAGE_PATH_RE = re.compile(
     re.IGNORECASE,
 )
 
+
 def extract_image_paths(text: str) -> list[str]:
     """テキストから画像ファイルっぽいパスを抽出（ゆるめ）。"""
     if not text:
@@ -1941,7 +1942,7 @@ def _handle_cmd_profile_show(arg: str = "", *, core: Any, tr: Any) -> bool:
         if len(parts) > 1:
             try:
                 max_log_files = max(1, int(parts[1]))
-            except (ValueError, TypeError):
+            except ValueError, TypeError:
                 pass
         if max_log_files is not None:
             print(
@@ -2635,7 +2636,7 @@ def handle_command(
             try:
                 n = int(arg.strip())
                 profile_arg = f"fromlog {n}"
-            except (ValueError, TypeError):
+            except ValueError, TypeError:
                 pass
         return _handle_cmd_profile_show(profile_arg, core=core, tr=tr)
 

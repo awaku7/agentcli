@@ -285,14 +285,16 @@ class _CppIndexBuilder:
                     continue
 
                 if kind == "preproc":
-                    entries.append({
-                        "kind": kind,
-                        "name": name,
-                        "line": i + 1,
-                        "end_line": i + 1,
-                        "level": 0,
-                        "label": name,
-                    })
+                    entries.append(
+                        {
+                            "kind": kind,
+                            "name": name,
+                            "line": i + 1,
+                            "end_line": i + 1,
+                            "level": 0,
+                            "label": name,
+                        }
+                    )
                     continue
 
                 if kind in ("namespace", "type", "enum", "extern_c"):
@@ -312,18 +314,26 @@ class _CppIndexBuilder:
                     continue
 
                 if kind in ("typedef", "using"):
-                    entries.append({
-                        "kind": kind,
-                        "name": name,
-                        "line": i + 1,
-                        "end_line": i,
-                        "level": len(stack),
-                        "label": name,
-                    })
+                    entries.append(
+                        {
+                            "kind": kind,
+                            "name": name,
+                            "line": i + 1,
+                            "end_line": i,
+                            "level": len(stack),
+                            "label": name,
+                        }
+                    )
                     pending_template = False
                     continue
 
-                if kind in ("function", "constructor", "method", "destructor", "operator"):
+                if kind in (
+                    "function",
+                    "constructor",
+                    "method",
+                    "destructor",
+                    "operator",
+                ):
                     member_kind = "operator" if kind == "operator" else kind
                     label = f"{name}()" if kind != "operator" else name
                     member = {
@@ -337,15 +347,19 @@ class _CppIndexBuilder:
                     if stack and stack[-1].get("kind") in ("type", "enum"):
                         stack[-1].setdefault("members", []).append(member)
                     else:
-                        entries.append({
-                            "kind": member_kind if kind != "method" else "function",
-                            "name": name,
-                            "line": i + 1,
-                            "end_line": i,
-                            "level": 0,
-                            "label": (f"template {label}" if pending_template else label),
-                            "members": [],
-                        })
+                        entries.append(
+                            {
+                                "kind": member_kind if kind != "method" else "function",
+                                "name": name,
+                                "line": i + 1,
+                                "end_line": i,
+                                "level": 0,
+                                "label": (
+                                    f"template {label}" if pending_template else label
+                                ),
+                                "members": [],
+                            }
+                        )
                     pending_template = False
                     if "{" in cleaned and "}" not in cleaned:
                         function_scopes.append(brace_depth)
@@ -357,14 +371,16 @@ class _CppIndexBuilder:
                     and not function_scopes
                     and stack[-1].get("kind") in ("type", "enum")
                 ):
-                    stack[-1].setdefault("members", []).append({
-                        "kind": "field",
-                        "name": name,
-                        "line": i + 1,
-                        "end_line": i + 1,
-                        "level": len(stack),
-                        "label": name,
-                    })
+                    stack[-1].setdefault("members", []).append(
+                        {
+                            "kind": "field",
+                            "name": name,
+                            "line": i + 1,
+                            "end_line": i + 1,
+                            "level": len(stack),
+                            "label": name,
+                        }
+                    )
 
             while stack_start_depth and brace_depth <= stack_start_depth[-1] and bd < 0:
                 popped = stack.pop()
@@ -445,10 +461,14 @@ def run_tool(args: dict[str, Any]) -> str:
     try:
         safe_path = resolve_index_path(str(path))
     except Exception:
-        return _("err.file_not_found", default="Error: File not found: {path}", path=path)
+        return _(
+            "err.file_not_found", default="Error: File not found: {path}", path=path
+        )
 
     if not os.path.isfile(safe_path):
-        return _("err.file_not_found", default="Error: File not found: {path}", path=path)
+        return _(
+            "err.file_not_found", default="Error: File not found: {path}", path=path
+        )
 
     try:
         source = read_index_source(safe_path)
@@ -486,7 +506,7 @@ def run_tool(args: dict[str, Any]) -> str:
             )
         try:
             section_num = int(section_num)
-        except (TypeError, ValueError):
+        except TypeError, ValueError:
             return _(
                 "err.section_invalid",
                 default="Error: 'section' must be an integer.",

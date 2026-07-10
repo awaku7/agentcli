@@ -734,10 +734,14 @@ def run_tool(args: dict[str, Any]) -> str:
     try:
         safe_path = resolve_index_path(str(path))
     except Exception:
-        return _("err.file_not_found", default="Error: File not found: {path}", path=path)
+        return _(
+            "err.file_not_found", default="Error: File not found: {path}", path=path
+        )
 
     if not os.path.isfile(safe_path):
-        return _("err.file_not_found", default="Error: File not found: {path}", path=path)
+        return _(
+            "err.file_not_found", default="Error: File not found: {path}", path=path
+        )
 
     try:
         source = read_index_source(safe_path)
@@ -775,7 +779,7 @@ def run_tool(args: dict[str, Any]) -> str:
             )
         try:
             section_num = int(section_num)
-        except (TypeError, ValueError):
+        except TypeError, ValueError:
             return _(
                 "err.section_invalid",
                 default="Error: 'section' must be an integer.",

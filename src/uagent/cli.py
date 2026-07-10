@@ -576,7 +576,7 @@ def _multiline_editor(initial_text: str = "") -> str | None:
 
     try:
         return app.run()
-    except (EOFError, KeyboardInterrupt):
+    except EOFError, KeyboardInterrupt:
         return None
     except Exception:
         return None

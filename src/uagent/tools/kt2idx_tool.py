@@ -244,7 +244,7 @@ class _KtIndexBuilder:
                             "label": n,
                         }
                     )
-            while stack_d and depth <= stack_d[-1] :
+            while stack_d and depth <= stack_d[-1]:
                 if stack:
                     stack.pop()["end_line"] = i
                 stack_d.pop()
@@ -262,14 +262,15 @@ class _KtIndexBuilder:
                 )
         self.entries = entries
 
-
     def _count_braces(self):
         opens = closes = 0
         raw = chr(10).join(self.lines)
         cleaned = self._clean_line(raw)
         for ch in cleaned:
-            if ch == "{": opens += 1
-            elif ch == "}": closes += 1
+            if ch == "{":
+                opens += 1
+            elif ch == "}":
+                closes += 1
         return opens, closes
 
     def _diag_hint(self):
@@ -319,10 +320,14 @@ def run_tool(args):
     try:
         safe_path = resolve_index_path(str(path))
     except Exception:
-        return _("err.file_not_found", default="Error: File not found: {path}", path=path)
+        return _(
+            "err.file_not_found", default="Error: File not found: {path}", path=path
+        )
 
     if not os.path.isfile(safe_path):
-        return _("err.file_not_found", default="Error: File not found: {path}", path=path)
+        return _(
+            "err.file_not_found", default="Error: File not found: {path}", path=path
+        )
 
     try:
         _source = read_index_source(safe_path)
@@ -355,7 +360,7 @@ def run_tool(args):
             )
         try:
             c = builder.get_section(int(sn))
-        except (TypeError, ValueError):
+        except TypeError, ValueError:
             return _(
                 "err.section_invalid",
                 default="Error: 'section' must be an integer.",

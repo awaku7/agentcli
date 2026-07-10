@@ -156,7 +156,7 @@ def _enrich_message_attachments(msg: dict[str, Any]) -> dict[str, Any]:
                     if isinstance(top_att, list) and top_att:
                         attachments = top_att
                         display_msg["attachments"] = attachments
-            except (json.JSONDecodeError, TypeError):
+            except json.JSONDecodeError, TypeError:
                 pass
 
     if isinstance(attachments, list) and attachments:
@@ -190,7 +190,7 @@ def _enrich_message_attachments(msg: dict[str, Any]) -> dict[str, Any]:
                         msg_text = parsed.get("message", "")
                         if msg_text:
                             display_msg["content"] = msg_text
-                except (json.JSONDecodeError, TypeError):
+                except json.JSONDecodeError, TypeError:
                     pass
     return display_msg
 
@@ -850,20 +850,21 @@ def run_agent_worker(
             clean_attachments.append(item)
 
         # Build multimodal content if there are image attachments
-        has_image = any(
-            att.get("type") == "image"
-            for att in (clean_attachments or [])
-        )
+        has_image = any(att.get("type") == "image" for att in (clean_attachments or []))
         if has_image:
             # Use multimodal format (Chat Completions standard image_url)
-            parts = [{"type": "text", "text": user_input}] if user_input.strip() else []
+            parts: list[dict[str, Any]] = (
+                [{"type": "text", "text": user_input}] if user_input.strip() else []
+            )
             for att in clean_attachments or []:
                 data_url = att.get("data_url")
                 if data_url and att.get("type") == "image":
-                    parts.append({
-                        "type": "image_url",
-                        "image_url": {"url": data_url},
-                    })
+                    parts.append(
+                        {
+                            "type": "image_url",
+                            "image_url": {"url": data_url},
+                        }
+                    )
             user_msg = {"role": "user", "content": parts}
         else:
             # Fallback: text-only with attachment lines

@@ -113,7 +113,9 @@ def _call_grok_round(
                 except ValueError:
                     pass
 
-            reasoning_effort_env = (env_get("UAGENT_REASONING_EFFORT") or "").strip().lower()
+            reasoning_effort_env = (
+                (env_get("UAGENT_REASONING_EFFORT") or "").strip().lower()
+            )
             if reasoning_effort_env:
                 effort_map = {
                     "none": 4,
@@ -125,13 +127,18 @@ def _call_grok_round(
                 if effort_val is not None:
                     try:
                         from xai_sdk.proto import chat_pb2
-                        create_kwargs["reasoning_effort"] = chat_pb2.ReasoningEffort.Name(effort_val)
+
+                        create_kwargs["reasoning_effort"] = (
+                            chat_pb2.ReasoningEffort.Name(effort_val)
+                        )
                     except Exception:
                         create_kwargs["reasoning_effort"] = reasoning_effort_env
 
             stop_env = (env_get("UAGENT_STOP") or "").strip()
             if stop_env:
-                create_kwargs["stop"] = [s.strip() for s in stop_env.split(",") if s.strip()]
+                create_kwargs["stop"] = [
+                    s.strip() for s in stop_env.split(",") if s.strip()
+                ]
 
             seed_env = (env_get("UAGENT_SEED") or "").strip()
             if seed_env:
@@ -154,11 +161,14 @@ def _call_grok_round(
                 except ValueError:
                     pass
 
-            response_format_env = (env_get("UAGENT_RESPONSE_FORMAT") or "").strip().lower()
+            response_format_env = (
+                (env_get("UAGENT_RESPONSE_FORMAT") or "").strip().lower()
+            )
             if response_format_env:
                 if response_format_env == "json":
                     try:
                         from xai_sdk.proto import chat_pb2
+
                         create_kwargs["response_format"] = chat_pb2.ResponseFormat(
                             format_type=chat_pb2.FormatType.FORMAT_TYPE_JSON_SCHEMA,
                             json_schema={"type": "object"},
@@ -181,7 +191,9 @@ def _call_grok_round(
 
             if stream_responses:
                 stream_iter = chat.stream()
-                assistant_text, tool_calls_list = parse_xai_stream(stream_iter, core=core)
+                assistant_text, tool_calls_list = parse_xai_stream(
+                    stream_iter, core=core
+                )
                 _debug_log(
                     "stream_xai_done",
                     assistant_text_len=len(assistant_text),

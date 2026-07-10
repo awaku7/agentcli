@@ -131,7 +131,7 @@ def _extract_location(item: dict[str, Any]) -> dict[str, Any]:
     if floor is not None:
         try:
             result["floor"] = int(floor)
-        except (ValueError, TypeError):
+        except ValueError, TypeError:
             result["floor"] = str(floor)
     return result
 

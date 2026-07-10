@@ -31,6 +31,7 @@ def _debug_log(prefix: str, **kwargs: Any) -> None:
     if (env_get("UAGENT_DEBUG_GROK") or "").strip() not in ("1", "true", "yes"):
         return
     import sys as _sys
+
     parts = [f"[GROK_DEBUG] {prefix}"]
     for k, v in kwargs.items():
         try:
@@ -92,14 +93,13 @@ def build_xai_messages(
                     # xai_sdk supports image_url in content via proto
                     from xai_sdk.proto import chat_pb2
                     from xai_sdk.chat import text as xchat_text
+
                     chat_content = []
                     if combined_text:
                         chat_content.append(xchat_text(combined_text))
                     for img_url in image_urls:
                         chat_content.append(
-                            chat_pb2.Content(
-                                image_url={"image_url": img_url}
-                            )
+                            chat_pb2.Content(image_url={"image_url": img_url})
                         )
                     msg = chat_pb2.Message(
                         role=chat_pb2.MessageRole.ROLE_USER,
@@ -214,7 +214,6 @@ def build_xai_tools(
                                 loaded_names.add(auto_loaded)
                 except Exception:
                     pass
-
 
     # Build the tool list: start with management tools
     xai_tool_list: list[Any] = []
@@ -407,7 +406,12 @@ def parse_xai_stream(
             if hasattr(chunk, "reasoning_content"):
                 rc = chunk.reasoning_content or ""
                 if rc:
-                    show_reasoning(rc, provider="Grok", is_first=(not _reasoning_printed), core=core)
+                    show_reasoning(
+                        rc,
+                        provider="Grok",
+                        is_first=(not _reasoning_printed),
+                        core=core,
+                    )
                     _reasoning_printed = True
 
             # Tool calls from chunk

@@ -168,7 +168,6 @@ class _CsIndexBuilder:
         self.diag: list[str] = []
         self._parse()
 
-
     def _preprocess(self) -> list[tuple[int, str]]:
         """Preprocess lines: skip attribute lines, join continuation lines.
 
@@ -208,6 +207,7 @@ class _CsIndexBuilder:
                 result.append((i, raw))
                 i += 1
         return result
+
     def _clean_line(self, line: str) -> str:
         """Remove // and /* */ comments from a line (keeps strings intact)."""
         in_str = False
@@ -304,7 +304,9 @@ class _CsIndexBuilder:
                         "line": orig_idx + 1,
                         "end_line": orig_idx + 1,
                         "level": len(stack),
-                        "label": f"type {name}" if kind == "enum_type" else f"{kind} {name}",
+                        "label": (
+                            f"type {name}" if kind == "enum_type" else f"{kind} {name}"
+                        ),
                         "members": [],
                         "parent": parent,
                     }
@@ -465,10 +467,14 @@ def run_tool(args: dict[str, Any]) -> str:
     try:
         safe_path = resolve_index_path(str(path))
     except Exception:
-        return _("err.file_not_found", default="Error: File not found: {path}", path=path)
+        return _(
+            "err.file_not_found", default="Error: File not found: {path}", path=path
+        )
 
     if not os.path.isfile(safe_path):
-        return _("err.file_not_found", default="Error: File not found: {path}", path=path)
+        return _(
+            "err.file_not_found", default="Error: File not found: {path}", path=path
+        )
 
     try:
         source = read_index_source(safe_path)
@@ -506,7 +512,7 @@ def run_tool(args: dict[str, Any]) -> str:
             )
         try:
             section_num = int(section_num)
-        except (TypeError, ValueError):
+        except TypeError, ValueError:
             return _(
                 "err.section_invalid",
                 default="Error: 'section' must be an integer.",

@@ -442,7 +442,7 @@ class WsHandler:
         raw_result = run_tool(name, args)
         try:
             parsed = json.loads(raw_result)
-        except (json.JSONDecodeError, TypeError):
+        except json.JSONDecodeError, TypeError:
             parsed = {"raw": str(raw_result)}
         return {"result": parsed}
 

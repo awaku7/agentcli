@@ -1081,7 +1081,12 @@ def gemini_chat_with_tools(
                     if isinstance(t, str) and t:
                         if is_thought:
                             # Non-streaming: show reasoning via unified display
-                            show_reasoning(t, provider="Gemini", is_first=(not _thought_printed), print_fn=lambda s: print(s, end="", flush=True))
+                            show_reasoning(
+                                t,
+                                provider="Gemini",
+                                is_first=(not _thought_printed),
+                                print_fn=lambda s: print(s, end="", flush=True),
+                            )
                             _thought_printed = True
                         else:
                             chunk_texts.append(t)
@@ -1090,7 +1095,12 @@ def gemini_chat_with_tools(
                     if isinstance(t, str) and t:
                         if is_thought:
                             # Streaming mode: print thought in gray but do not append to final answer
-                            show_reasoning(t, provider="Gemini", is_first=(not _thought_printed), core=core)
+                            show_reasoning(
+                                t,
+                                provider="Gemini",
+                                is_first=(not _thought_printed),
+                                core=core,
+                            )
                             _thought_printed = True
                         else:
                             delta_text = t
