@@ -25,7 +25,8 @@
     "msg.index_output": "Index for: {path}\n---\n{toc}\n---\nTotal definitions: {total}\nTo retrieve a definition, call php2idx with mode='section' and the section number.",
     "param.mode.description": "\"index\" returns a numbered table of contents with line numbers. \"section\" returns a specific definition by number.",
     "param.section.description": "Section number to retrieve (used only when mode='section'). Get the number from the index output.",
-    "tool.description": "Parse a PHP (.php) file into namespaces, classes, interfaces, traits, enums, functions, methods, constants, and properties and return a numbered index or a specific definition section. Use this when you need to read a large .php file: first call with mode='index' to get the table of contents, then call with mode='section' and the section number to retrieve only the definition you need."
+    "tool.description": "Parse a PHP (.php) file into namespaces, classes, interfaces, traits, enums, functions, methods, constants, and properties and return a numbered index or a specific definition section. Use this when you need to read a large .php file: first call with mode='index' to get the table of contents, then call with mode='section' and the section number to retrieve only the definition you need.",
+    "msg.brace_imbalance": "brace imbalance: {open} open vs {close} close"
   },
   "ja": {
     "x_search_terms": [
@@ -53,7 +54,8 @@
     "msg.index_output": "インデックス: {path}\n---\n{toc}\n---\n定義の合計: {total}\n定義を取得するには、mode='section' とセクション番号を指定して php2idx を呼び出します。",
     "param.mode.description": "「index」は、行番号を含む番号付きの目次を返します。「セクション」は、特定の定義を番号で返します。",
     "param.section.description": "取得するセクション番号 (mode='section' の場合にのみ使用)。インデックス出力から数値を取得します。",
-    "tool.description": "PHP (.php) ファイルを名前空間、クラス、インターフェイス、特性、列挙型、関数、メソッド、定数、プロパティに解析し、番号付きインデックスまたは特定の定義セクションを返します。大きな .php ファイルを読み取る必要がある場合は、これを使用します。まず、mode='index' を指定して呼び出して目次を取得し、次に mode='section' とセクション番号を指定して呼び出して、必要な定義のみを取得します。"
+    "tool.description": "PHP (.php) ファイルを名前空間、クラス、インターフェイス、特性、列挙型、関数、メソッド、定数、プロパティに解析し、番号付きインデックスまたは特定の定義セクションを返します。大きな .php ファイルを読み取る必要がある場合は、これを使用します。まず、mode='index' を指定して呼び出して目次を取得し、次に mode='section' とセクション番号を指定して呼び出して、必要な定義のみを取得します。",
+    "msg.brace_imbalance": "波括弧の不均衡: 開き {open} vs 閉じ {close}"
   },
   "zh_CN": {
     "x_search_terms": [
@@ -77,7 +79,8 @@
     "err.section_invalid": "错误：'section' 必须是整数。",
     "err.section_not_found": "错误：章节 {section_num} 未找到。有效范围：1..{last}。",
     "err.invalid_mode": "错误：无效模式 '{mode}'。请使用 'index' 或 'section'。",
-    "msg.no_entries": "（未找到定义）"
+    "msg.no_entries": "（未找到定义）",
+    "msg.brace_imbalance": "花括号不平衡: 打开 {open} 个 vs 关闭 {close} 个"
   },
   "zh_TW": {
     "x_search_terms": [
@@ -101,7 +104,8 @@
     "err.section_invalid": "錯誤：'section' 必須是整數。",
     "err.section_not_found": "錯誤：章節 {section_num} 找不到。有效範圍：1..{last}。",
     "err.invalid_mode": "錯誤：無效模式 '{mode}'。請使用 'index' 或 'section'。",
-    "msg.no_entries": "（未找到定義）"
+    "msg.no_entries": "（未找到定義）",
+    "msg.brace_imbalance": "花括號不平衡: 開啟 {open} 個 vs 關閉 {close} 個"
   },
   "ko": {
     "x_search_terms": [
@@ -125,7 +129,8 @@
     "err.section_invalid": "오류: 'section'은 정수여야 합니다.",
     "err.section_not_found": "오류: 섹션 {section_num}을(를) 찾을 수 없습니다. 유효 범위: 1..{last}.",
     "err.invalid_mode": "오류: 잘못된 모드 '{mode}'입니다. 'index' 또는 'section'을 사용하세요.",
-    "msg.no_entries": "(정의를 찾을 수 없음)"
+    "msg.no_entries": "(정의를 찾을 수 없음)",
+    "msg.brace_imbalance": "중괄호 불균형: 열림 {open} 개 vs 닫힘 {close} 개"
   },
   "fr": {
     "x_search_terms": [
@@ -149,7 +154,8 @@
     "err.section_invalid": "Erreur : 'section' doit être un entier.",
     "err.section_not_found": "Erreur : Section {section_num} introuvable. Plage valide : 1..{last}.",
     "err.invalid_mode": "Erreur : Mode '{mode}' invalide. Utilisez 'index' ou 'section'.",
-    "msg.no_entries": "(aucune définition trouvée)"
+    "msg.no_entries": "(aucune définition trouvée)",
+    "msg.brace_imbalance": "déséquilibre d'accolades: {open} ouvertes vs {close} fermées"
   },
   "de": {
     "x_search_terms": [
@@ -173,7 +179,8 @@
     "err.section_invalid": "Fehler: 'section' muss eine Ganzzahl sein.",
     "err.section_not_found": "Fehler: Abschnitt {section_num} nicht gefunden. Gültiger Bereich: 1..{last}.",
     "err.invalid_mode": "Fehler: Ungültiger Modus '{mode}'. Verwenden Sie 'index' oder 'section'.",
-    "msg.no_entries": "(keine Definitionen gefunden)"
+    "msg.no_entries": "(keine Definitionen gefunden)",
+    "msg.brace_imbalance": "Klammerungleichgewicht: {open} offen vs {close} geschlossen"
   },
   "es": {
     "x_search_terms": [
@@ -197,7 +204,8 @@
     "err.section_invalid": "Error: 'section' debe ser un entero.",
     "err.section_not_found": "Error: Sección {section_num} no encontrada. Rango válido: 1..{last}.",
     "err.invalid_mode": "Error: Modo '{mode}' inválido. Use 'index' o 'section'.",
-    "msg.no_entries": "(no se encontraron definiciones)"
+    "msg.no_entries": "(no se encontraron definiciones)",
+    "msg.brace_imbalance": "desequilibrio de llaves: {open} abiertas vs {close} cerradas"
   },
   "it": {
     "x_search_terms": [
@@ -221,7 +229,8 @@
     "err.section_invalid": "Errore: 'section' deve essere un intero.",
     "err.section_not_found": "Errore: Sezione {section_num} non trovata. Intervallo valido: 1..{last}.",
     "err.invalid_mode": "Errore: Modalità '{mode}' non valida. Usa 'index' o 'section'.",
-    "msg.no_entries": "(nessuna definizione trovata)"
+    "msg.no_entries": "(nessuna definizione trovata)",
+    "msg.brace_imbalance": "sbilanciamento di parentesi graffe: {open} aperte vs {close} chiuse"
   },
   "pt_BR": {
     "x_search_terms": [
@@ -245,7 +254,8 @@
     "err.section_invalid": "Erro: 'section' deve ser um inteiro.",
     "err.section_not_found": "Erro: Seção {section_num} não encontrada. Intervalo válido: 1..{last}.",
     "err.invalid_mode": "Erro: Modo '{mode}' inválido. Use 'index' ou 'section'.",
-    "msg.no_entries": "(nenhuma definição encontrada)"
+    "msg.no_entries": "(nenhuma definição encontrada)",
+    "msg.brace_imbalance": "desequilíbrio de chaves: {open} abertas vs {close} fechadas"
   },
   "pt": {
     "x_search_terms": [
@@ -269,7 +279,8 @@
     "err.section_invalid": "Erro: 'section' deve ser um inteiro.",
     "err.section_not_found": "Erro: Secção {section_num} não encontrada. Intervalo válido: 1..{last}.",
     "err.invalid_mode": "Erro: Modo '{mode}' inválido. Use 'index' ou 'section'.",
-    "msg.no_entries": "(nenhuma definição encontrada)"
+    "msg.no_entries": "(nenhuma definição encontrada)",
+    "msg.brace_imbalance": "desequilíbrio de chavetas: {open} abertas vs {close} fechadas"
   },
   "ru": {
     "x_search_terms": [
@@ -293,7 +304,8 @@
     "err.section_invalid": "Ошибка: 'section' должно быть целым числом.",
     "err.section_not_found": "Ошибка: Раздел {section_num} не найден. Допустимый диапазон: 1..{last}.",
     "err.invalid_mode": "Ошибка: Недопустимый режим '{mode}'. Используйте 'index' или 'section'.",
-    "msg.no_entries": "(определений не найдено)"
+    "msg.no_entries": "(определений не найдено)",
+    "msg.brace_imbalance": "дисбаланс скобок: {open} открыто vs {close} закрыто"
   },
   "id": {
     "x_search_terms": [
@@ -317,7 +329,8 @@
     "err.section_invalid": "Error: 'section' harus berupa bilangan bulat.",
     "err.section_not_found": "Error: Bagian {section_num} tidak ditemukan. Rentang valid: 1..{last}.",
     "err.invalid_mode": "Error: Mode '{mode}' tidak valid. Gunakan 'index' atau 'section'.",
-    "msg.no_entries": "(tidak ada definisi yang ditemukan)"
+    "msg.no_entries": "(tidak ada definisi yang ditemukan)",
+    "msg.brace_imbalance": "ketidakseimbangan kurung kurawal: {open} buka vs {close} tutup"
   },
   "vi": {
     "x_search_terms": [
@@ -341,7 +354,8 @@
     "err.section_invalid": "Lỗi: 'section' phải là số nguyên.",
     "err.section_not_found": "Lỗi: Phần {section_num} không tìm thấy. Phạm vi hợp lệ: 1..{last}.",
     "err.invalid_mode": "Lỗi: Chế độ '{mode}' không hợp lệ. Sử dụng 'index' hoặc 'section'.",
-    "msg.no_entries": "(không tìm thấy định nghĩa)"
+    "msg.no_entries": "(không tìm thấy định nghĩa)",
+    "msg.brace_imbalance": "mất cân bằng dấu ngoặc nhọn: {open} mở vs {close} đóng"
   },
   "pl": {
     "x_search_terms": [
@@ -365,7 +379,8 @@
     "err.section_invalid": "Błąd: 'section' musi być liczbą całkowitą.",
     "err.section_not_found": "Błąd: Sekcja {section_num} nie znaleziona. Prawidłowy zakres: 1..{last}.",
     "err.invalid_mode": "Błąd: Nieprawidłowy tryb '{mode}'. Użyj 'index' lub 'section'.",
-    "msg.no_entries": "(nie znaleziono definicji)"
+    "msg.no_entries": "(nie znaleziono definicji)",
+    "msg.brace_imbalance": "nierównowaga nawiasów klamrowych: {open} otwartych vs {close} zamkniętych"
   },
   "hi": {
     "x_search_terms": [
@@ -389,7 +404,8 @@
     "err.section_invalid": "त्रुटि: 'section' एक पूर्णांक होना चाहिए।",
     "err.section_not_found": "त्रुटि: अनुभाग {section_num} नहीं मिला। मान्य सीमा: 1..{last}।",
     "err.invalid_mode": "त्रुटि: अमान्य मोड '{mode}'। 'index' या 'section' का उपयोग करें।",
-    "msg.no_entries": "(कोई परिभाषा नहीं मिली)"
+    "msg.no_entries": "(कोई परिभाषा नहीं मिली)",
+    "msg.brace_imbalance": "ब्रैकेट असंतुलन: {open} खुले vs {close} बंद"
   },
   "ar": {
     "x_search_terms": [
@@ -413,7 +429,8 @@
     "err.section_invalid": "خطأ: 'section' يجب أن يكون عددًا صحيحًا.",
     "err.section_not_found": "خطأ: القسم {section_num} غير موجود. النطاق الصالح: 1..{last}.",
     "err.invalid_mode": "خطأ: الوضع '{mode}' غير صالح. استخدم 'index' أو 'section'.",
-    "msg.no_entries": "(لم يتم العثور على تعريفات)"
+    "msg.no_entries": "(لم يتم العثور على تعريفات)",
+    "msg.brace_imbalance": "عدم توازن الأقواس: {open} مفتوحة vs {close} مغلقة"
   },
   "sv": {
     "x_search_terms": [
@@ -437,7 +454,8 @@
     "err.section_invalid": "Fel: 'section' måste vara ett heltal.",
     "err.section_not_found": "Fel: Avsnitt {section_num} hittades inte. Giltigt intervall: 1..{last}.",
     "err.invalid_mode": "Fel: Ogiltigt läge '{mode}'. Använd 'index' eller 'section'.",
-    "msg.no_entries": "(inga definitioner hittades)"
+    "msg.no_entries": "(inga definitioner hittades)",
+    "msg.brace_imbalance": "balansfel i klamrar: {open} öppna vs {close} stängda"
   },
   "sw": {
     "x_search_terms": [
@@ -461,7 +479,8 @@
     "err.section_invalid": "Hitilafu: 'sehemu' lazima iwe nambari kamili.",
     "err.section_not_found": "Hitilafu: Sehemu ya {section_num} haijapatikana. Masafa halali: 1..{last}.",
     "err.invalid_mode": "Hitilafu: Hali batili '{mode}'. Tumia 'index' au 'section'.",
-    "msg.no_entries": "(hakuna ufafanuzi uliopatikana)"
+    "msg.no_entries": "(hakuna ufafanuzi uliopatikana)",
+    "msg.brace_imbalance": "kutokuwa na usawa wa mabano: {open} wazi vs {close} funga"
   },
   "nb": {
     "x_search_terms": [
@@ -485,7 +504,8 @@
     "err.section_invalid": "Feil: 'section' må være et heltall.",
     "err.section_not_found": "Feil: Seksjon {section_num} ble ikke funnet. Gyldig område: 1..{last}.",
     "err.invalid_mode": "Feil: Ugyldig modus '{mode}'. Bruk 'index' eller 'section'.",
-    "msg.no_entries": "(ingen definisjoner funnet)"
+    "msg.no_entries": "(ingen definisjoner funnet)",
+    "msg.brace_imbalance": "ubalanse i klammeparenteser: {open} åpne vs {close} lukkede"
   },
   "nl": {
     "x_search_terms": [
@@ -509,7 +529,8 @@
     "err.section_invalid": "Fout: 'section' moet een geheel getal zijn.",
     "err.section_not_found": "Fout: Sectie {section_num} niet gevonden. Geldig bereik: 1..{last}.",
     "err.invalid_mode": "Fout: Ongeldige modus '{mode}'. Gebruik 'index' of 'section'.",
-    "msg.no_entries": "(geen definities gevonden)"
+    "msg.no_entries": "(geen definities gevonden)",
+    "msg.brace_imbalance": "onevenwicht in accolades: {open} open vs {close} gesloten"
   },
   "fi": {
     "x_search_terms": [
@@ -533,7 +554,8 @@
     "err.section_invalid": "Virhe: 'section' on oltava kokonaisluku.",
     "err.section_not_found": "Virhe: Osiota {section_num} ei löydy. Kelvollinen alue: 1..{last}.",
     "err.invalid_mode": "Virhe: Virheellinen tila '{mode}'. Käytä 'index' tai 'section'.",
-    "msg.no_entries": "(määritelmiä ei löytynyt)"
+    "msg.no_entries": "(määritelmiä ei löytynyt)",
+    "msg.brace_imbalance": "aaltosulkeiden epätasapaino: {open} auki vs {close} kiinni"
   },
   "cs": {
     "x_search_terms": [
@@ -557,7 +579,8 @@
     "err.section_invalid": "Chyba: 'section' musí být celé číslo.",
     "err.section_not_found": "Chyba: Sekce {section_num} nenalezena. Platný rozsah: 1..{last}.",
     "err.invalid_mode": "Chyba: Neplatný režim '{mode}'. Použijte 'index' nebo 'section'.",
-    "msg.no_entries": "(nenalezeny žádné definice)"
+    "msg.no_entries": "(nenalezeny žádné definice)",
+    "msg.brace_imbalance": "nevyváženost složených závorek: {open} otevřených vs {close} uzavřených"
   },
   "uk": {
     "x_search_terms": [
@@ -581,7 +604,8 @@
     "err.section_invalid": "Помилка: 'section' має бути цілим числом.",
     "err.section_not_found": "Помилка: Розділ {section_num} не знайдено. Діапазон: 1..{last}.",
     "err.invalid_mode": "Помилка: Недійсний режим '{mode}'. Використовуйте 'index' або 'section'.",
-    "msg.no_entries": "(визначення не знайдено)"
+    "msg.no_entries": "(визначення не знайдено)",
+    "msg.brace_imbalance": "дисбаланс фігурних дужок: {open} відкрито vs {close} закрито"
   },
   "tr": {
     "x_search_terms": [
@@ -605,7 +629,8 @@
     "err.section_invalid": "Hata: 'section' bir tamsayı olmalıdır.",
     "err.section_not_found": "Hata: {section_num} bölümü bulunamadı. Geçerli aralık: 1..{last}.",
     "err.invalid_mode": "Hata: Geçersiz mod '{mode}'. 'index' veya 'section' kullanın.",
-    "msg.no_entries": "(tanım bulunamadı)"
+    "msg.no_entries": "(tanım bulunamadı)",
+    "msg.brace_imbalance": "süslü parantez dengesizliği: {open} açık vs {close} kapalı"
   },
   "th": {
     "x_search_terms": [
@@ -629,7 +654,8 @@
     "err.section_invalid": "ข้อผิดพลาด: 'section' ต้องเป็นจำนวนเต็ม",
     "err.section_not_found": "ข้อผิดพลาด: ไม่พบส่วน {section_num} ช่วงที่ถูกต้อง: 1..{last}",
     "err.invalid_mode": "ข้อผิดพลาด: โหมด '{mode}' ไม่ถูกต้อง ใช้ 'index' หรือ 'section'",
-    "msg.no_entries": "(ไม่พบคำจำกัดความ)"
+    "msg.no_entries": "(ไม่พบคำจำกัดความ)",
+    "msg.brace_imbalance": "ความไม่สมดุลของวงเล็บปีกกา: เปิด {open} vs ปิด {close}"
   },
   "bn": {
     "x_search_terms": [
@@ -653,7 +679,8 @@
     "err.section_invalid": "ত্রুটি: 'section' একটি পূর্ণসংখ্যা হতে হবে।",
     "err.section_not_found": "ত্রুটি: বিভাগ {section_num} পাওয়া যায়নি। বৈধ সীমা: 1..{last}।",
     "err.invalid_mode": "ত্রুটি: অবৈধ মোড '{mode}'। 'index' বা 'section' ব্যবহার করুন।",
-    "msg.no_entries": "(কোন সংজ্ঞা পাওয়া যায়নি)"
+    "msg.no_entries": "(কোন সংজ্ঞা পাওয়া যায়নি)",
+    "msg.brace_imbalance": "বন্ধনীর অসমতা: {open} খোলা vs {close} বন্ধ"
   },
   "fa": {
     "x_search_terms": [
@@ -677,7 +704,8 @@
     "err.section_invalid": "خطا: 'section' باید یک عدد صحیح باشد.",
     "err.section_not_found": "خطا: بخش {section_num} یافت نشد. محدوده معتبر: 1..{last}.",
     "err.invalid_mode": "خطا: حالت '{mode}' نامعتبر است. از 'index' یا 'section' استفاده کنید.",
-    "msg.no_entries": "(هیچ تعریفی یافت نشد)"
+    "msg.no_entries": "(هیچ تعریفی یافت نشد)",
+    "msg.brace_imbalance": "عدم تعادل براکت: {open} باز vs {close} بسته"
   },
   "mn": {
     "x_search_terms": [
@@ -701,7 +729,8 @@
     "err.section_invalid": "Алдаа: \"хэсэг\" нь бүхэл тоо байх ёстой.",
     "err.section_not_found": "Алдаа: {section_num} хэсэг олдсонгүй. Хүчинтэй муж: 1..{last}.",
     "err.invalid_mode": "Алдаа: '{mode}' горим буруу байна. \"индекс\" эсвэл \"хэсэг\"-ийг ашиглана уу.",
-    "msg.no_entries": "(тодорхойлолт олдсонгүй)"
+    "msg.no_entries": "(тодорхойлолт олдсонгүй)",
+    "msg.brace_imbalance": "буржгар хаалтны тэнцвэргүй байдал: {open} нээлттэй vs {close} хаалттай"
   },
   "mr": {
     "x_search_terms": [
@@ -725,7 +754,8 @@
     "err.section_invalid": "त्रुटी: 'विभाग' पूर्णांक असणे आवश्यक आहे.",
     "err.section_not_found": "त्रुटी: विभाग {section_num} आढळला नाही. वैध श्रेणी: 1..{last}.",
     "err.invalid_mode": "त्रुटी: अवैध मोड '{mode}'. 'इंडेक्स' किंवा 'सेक्शन' वापरा.",
-    "msg.no_entries": "(कोणतीही व्याख्या सापडली नाही)"
+    "msg.no_entries": "(कोणतीही व्याख्या सापडली नाही)",
+    "msg.brace_imbalance": "ब्रॅकेट असंतुलन: {open} उघडा vs {close} बंद"
   },
   "el": {
     "x_search_terms": [
@@ -749,7 +779,8 @@
     "err.section_invalid": "Σφάλμα: το 'τμήμα' πρέπει να είναι ακέραιος.",
     "err.section_not_found": "Σφάλμα: Η ενότητα {section_num} δεν βρέθηκε. Έγκυρο εύρος: 0..{last}.",
     "err.invalid_mode": "Σφάλμα: Μη έγκυρη λειτουργία '{mode}'. Χρησιμοποιήστε «ευρετήριο» ή «τμήμα».",
-    "msg.no_entries": "(δεν βρέθηκαν ορισμοί)"
+    "msg.no_entries": "(δεν βρέθηκαν ορισμοί)",
+    "msg.brace_imbalance": "ανισορροπία αγκυλών: {open} ανοιχτές vs {close} κλειστές"
   },
   "he": {
     "x_search_terms": [
@@ -773,7 +804,8 @@
     "err.section_invalid": "שגיאה: 'קטע' חייב להיות מספר שלם.",
     "err.section_not_found": "שגיאה: הקטע {section_num} לא נמצא. טווח חוקי: 0..{last}.",
     "err.invalid_mode": "שגיאה: מצב לא חוקי '{mode}'. השתמש ב'אינדקס' או 'קטע'.",
-    "msg.no_entries": "(לא נמצאו הגדרות)"
+    "msg.no_entries": "(לא נמצאו הגדרות)",
+    "msg.brace_imbalance": "חוסר איזון בסוגריים מסולסלים: {open} פתוחים vs {close} סגורים"
   },
   "hu": {
     "x_search_terms": [
@@ -797,7 +829,8 @@
     "err.section_invalid": "Hiba: a „szakasznak” egész számnak kell lennie.",
     "err.section_not_found": "Hiba: A(z) {section_num} szakasz nem található. Érvényes tartomány: 1..{last}.",
     "err.invalid_mode": "Hiba: Érvénytelen mód: '{mode}'. Használja az „index” vagy a „szakasz” kifejezést.",
-    "msg.no_entries": "(nem található definíció)"
+    "msg.no_entries": "(nem található definíció)",
+    "msg.brace_imbalance": "kapcsos zárójelek egyensúlyhiánya: {open} nyitott vs {close} zárt"
   },
   "ro": {
     "x_search_terms": [
@@ -821,6 +854,7 @@
     "err.section_invalid": "Eroare: „secțiunea” trebuie să fie un număr întreg.",
     "err.section_not_found": "Eroare: secțiunea {section_num} nu a fost găsită. Interval valid: 1..{last}.",
     "err.invalid_mode": "Eroare: modul „{mode}” nevalid. Folosiți „index” sau „secțiune”.",
-    "msg.no_entries": "(nu au fost găsite definiții)"
+    "msg.no_entries": "(nu au fost găsite definiții)",
+    "msg.brace_imbalance": "dezechilibru de acolade: {open} deschise vs {close} închise"
   }
 }

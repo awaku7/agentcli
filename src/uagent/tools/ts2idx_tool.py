@@ -383,7 +383,7 @@ class _TsIndexBuilder:
         parts = []
         opens, closes = self._count_braces()
         if opens != closes:
-            parts.append(f"brace imbalance: {opens} open vs {closes} close")
+            parts.append(_("msg.brace_imbalance", default="brace imbalance: {open} open vs {close} close").format(open=opens, close=closes))
         if parts:
             return " (" + "; ".join(parts) + ")"
         return ""
