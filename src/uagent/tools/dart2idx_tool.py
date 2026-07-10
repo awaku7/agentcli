@@ -5,6 +5,7 @@ import re
 from typing import Any
 
 from .i18n_helper import make_tool_translator
+from .index_tool_helpers import read_index_source, resolve_index_path
 
 _ = make_tool_translator(__file__)
 
@@ -368,19 +369,21 @@ def run_tool(args: dict[str, Any]) -> str:
 
     if not path:
         return _("err.path_required", default="Error: 'path' is required.")
-    if not os.path.isfile(path):
-        return _(
-            "err.file_not_found", default="Error: File not found: {path}", path=path
-        )
+    try:
+        safe_path = resolve_index_path(str(path))
+    except Exception:
+        return _("err.file_not_found", default="Error: File not found: {path}", path=path)
+
+    if not os.path.isfile(safe_path):
+        return _("err.file_not_found", default="Error: File not found: {path}", path=path)
 
     try:
-        with open(path, "r", encoding="utf-8") as f:
-            source = f.read()
+        source = read_index_source(safe_path)
     except Exception as e:
         return _("err.read_error", default="Error reading file: {e}", e=str(e))
 
     try:
-        builder = _DartIndexBuilder(source, filepath=path)
+        builder = _DartIndexBuilder(source, filepath=safe_path)
     except Exception as e:
         return _("err.parse_error", default="Error parsing file: {e}", e=str(e))
 

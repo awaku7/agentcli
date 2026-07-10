@@ -5,6 +5,7 @@ import re
 from typing import Any
 
 from .i18n_helper import make_tool_translator
+from .index_tool_helpers import read_index_source, resolve_index_path
 
 _ = make_tool_translator(__file__)
 
@@ -87,25 +88,27 @@ TOOL_SPEC = {
 
 
 # Regex patterns for TypeScript/JavaScript definitions
+# A decorator may appear immediately before a declaration on the same line.
+_DECORATORS = r"(?:(?:@[A-Za-z_$][\w$]*(?:\([^)]*\))?)\s+)*"
 _PATTERNS = [
     # export default class / export default function / export default async function
     (
-        r"^export\s+default\s+(?:abstract\s+|async\s+)?(class|function|interface)\s+(\w+)",
+        _DECORATORS + r"^export\s+default\s+(?:abstract\s+|async\s+)?(class|function|interface)\s+(\w+)",
         lambda m, kw: ("class" if m.group(1) in ("class",) else m.group(1), m.group(2)),
     ),
     # export abstract class / export class / export interface / export enum / export type / export function / export namespace
     (
-        r"^export\s+(?:abstract\s+|async\s+)?(class|interface|enum|type|function|namespace)\s+(\w+)",
+        _DECORATORS + r"^export\s+(?:abstract\s+|async\s+)?(class|interface|enum|type|function|namespace)\s+(\w+)",
         lambda m, kw: (m.group(1), m.group(2)),
     ),
     # standalone: abstract class / class / interface / enum / type / function / async function / namespace
     (
-        r"^(?:abstract\s+|async\s+)?(class|interface|enum|type|function|namespace)\s+(\w+)",
+        _DECORATORS + r"^(?:abstract\s+|async\s+)?(class|interface|enum|type|function|namespace)\s+(\w+)",
         lambda m, kw: (m.group(1), m.group(2)),
     ),
     # const/let/var foo = (...) =>  (arrow function / function expression)
     (
-        r"^(?:export\s+)?(?:const|let|var)\s+(\w+)\s*(?::\s*[^=]+)?\s*=\s*(?:async\s*)?\(",
+        r"^(?:export\s+)?(?:const|let|var)\s+(\w+)\s*(?::\s*[^=]+)?\s*=\s*(?:async\s*)?(?:<[^>]*>\s*)?\(",
         lambda m, kw: ("function", m.group(1)),
     ),
     # const/let/var foo = function
@@ -120,7 +123,7 @@ _PATTERNS = [
     ),
     # method declaration: name(...) {  (indented, inside a class-like block)
     (
-        r"^\s+(?:public|private|protected|\s)*(?:static\s+)?(?:async\s+)?(\w+)\s*\([^)]*\)\s*(?::\s*\w+(?:<[^>]*>)?)?\s*\{",
+        r"^\s+(?:public|private|protected|\s)*(?:static\s+)?(?:async\s+)?(\w+)(?:<[^>]*>)?\s*\([^)]*\)\s*(?::\s*\w+(?:<[^>]*>)?)?\s*\{",
         lambda m, kw: ("method", m.group(1)),
     ),
     # constructor
@@ -379,19 +382,21 @@ def run_tool(args: dict[str, Any]) -> str:
     if not path:
         return _("err.path_required", default="Error: 'path' is required.")
 
-    if not os.path.isfile(path):
-        return _(
-            "err.file_not_found", default="Error: File not found: {path}", path=path
-        )
+    try:
+        safe_path = resolve_index_path(str(path))
+    except Exception:
+        return _("err.file_not_found", default="Error: File not found: {path}", path=path)
+
+    if not os.path.isfile(safe_path):
+        return _("err.file_not_found", default="Error: File not found: {path}", path=path)
 
     try:
-        with open(path, "r", encoding="utf-8") as f:
-            source = f.read()
+        source = read_index_source(safe_path)
     except Exception as e:
         return _("err.read_error", default="Error reading file: {e}", e=str(e))
 
     try:
-        builder = _TsIndexBuilder(source, filepath=path)
+        builder = _TsIndexBuilder(source, filepath=safe_path)
     except Exception as e:
         return _("err.parse_error", default="Error parsing file: {e}", e=str(e))
 

@@ -1,4 +1,4 @@
-﻿# tools/generate_image_tool.py
+# tools/generate_image_tool.py
 # -*- coding: utf-8 -*-
 """generate_image tool
 

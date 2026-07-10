@@ -5,6 +5,7 @@ import re
 from typing import Any
 
 from .i18n_helper import make_tool_translator
+from .index_tool_helpers import read_index_source, resolve_index_path
 
 _ = make_tool_translator(__file__)
 
@@ -121,11 +122,22 @@ _PATTERNS = [
     (r"^\s*typedef\s+.+?\s+(\w+)\s*;", lambda m: ("typedef", m.group(1))),
     # using alias (C++11): using Name = Type;
     (r"^\s*using\s+(\w+)\s*=", lambda m: ("using", m.group(1))),
+    # C++ operator declarations/definitions (including return types and templates).
+    (
+        r"^\s*(?:[\w:<>,*&]+\s+)+(?:[\w:]+(?:<[^>]*>)?::)*operator\s*([^\s(]+)\s*\([^)]*\)\s*(?:const\s*)?(?::\s*[^{]*)?(?:\{|;|$)",
+        lambda m: ("operator", f"operator{m.group(1)}"),
+    ),
+    # C++ out-of-class method definitions such as T Box<T>::get().
+    (
+        r"^\s*[\w:<>,*&]+\s+([\w:]+(?:<[^>]*>)?::)(\w+)\s*\([^)]*\)\s*(?:const\s*)?(?::\s*[^{]*)?(?:\{|;|$)",
+        lambda m: ("method", f"{m.group(1)}{m.group(2)}"),
+    ),
     # C-style function: ReturnType functionName(...) { or ;
     (
         r"^\s*(?:"
         + _MOD
-        + r")?(\w+(?:\s*\*)*(?:\s+\w+)*?)\s+(\w+)\s*\([^)]*\)\s*(?:const\s*)?(?:\{|;|$)",
+        + r")?(?!.*\boperator\s*)"
+        + r"(\w+(?:\s*\*)*(?:\s+\w+)*?)\s+(\w+)\s*\([^)]*\)\s*(?:const\s*)?(?:\{|;|$)",
         lambda m: ("function", m.group(2)),
     ),
     # C++ destructor: ~ClassName()
@@ -133,13 +145,20 @@ _PATTERNS = [
         r"^\s+" + _MOD + r"~(\w+)\s*\([^)]*\)\s*(?:\{|;|$)",
         lambda m: ("destructor", f"~{m.group(1)}"),
     ),
-    # C++ constructor/method (must match a word followed by ( possibly with ::)
+    # C++ operator definitions/declarations (return type may precede operator).
+    (
+        r"^\s*"
+        + _MOD
+        + r"(?:[\w:<>,*&]+\s+)+(?:[\w:]+(?:<[^>]*>)?::)*operator\s*([^\s(]+)\s*\([^)]*\)\s*(?::\s*[^{]*)?(?:\{|;|$)",
+        lambda m: ("operator", f"operator{m.group(1)}"),
+    ),
+    # C++ constructor/method definitions and declarations.
     (
         r"^\s+"
         + _MOD
         + r"(?:(\w+(?:::\w+)*)::)?(\w+)\s*\([^)]*\)\s*(?::\s*[^{]*)?(?:\{|;|$)",
         lambda m: (
-            "method" if (m.group(1) or False) else "constructor",
+            "method" if m.group(1) else "constructor",
             f"{m.group(1) + '::' if m.group(1) else ''}{m.group(2)}",
         ),
     ),
@@ -245,32 +264,43 @@ class _CppIndexBuilder:
         entries: list[dict] = []
         stack: list[dict] = []
         stack_start_depth: list[int] = []
+        function_scopes: list[int] = []
         brace_depth = 0
         pending_template = False
 
         for i, raw in enumerate(self.lines):
-            stripped = raw.strip()
-            if not stripped:
-                bd = self._guess_brace_depth(raw)
-                brace_depth += bd
-                continue
-
+            cleaned = self._clean_line(raw)
+            stripped = cleaned.strip()
             bd = self._guess_brace_depth(raw)
             old_depth = brace_depth
             brace_depth += bd
 
-            defs = self._detect_definitions(raw)
+            # A function body is not a declaration scope.  Suppress field and
+            # nested-definition heuristics while inside one.
+            inside_function = bool(function_scopes and old_depth >= function_scopes[-1])
+            defs = [] if inside_function else self._detect_definitions(raw)
+
             for kind, name in defs:
                 if kind == "template":
                     pending_template = True
                     continue
-                if kind in ("preproc",):
+
+                if kind == "preproc":
+                    entries.append({
+                        "kind": kind,
+                        "name": name,
+                        "line": i + 1,
+                        "end_line": i + 1,
+                        "level": 0,
+                        "label": name,
+                    })
                     continue
+
                 if kind in ("namespace", "type", "enum", "extern_c"):
                     entry = {
                         "kind": kind,
                         "name": name,
-                        "line": i,
+                        "line": i + 1,
                         "end_line": i,
                         "level": len(stack),
                         "label": f"{kind} {name}",
@@ -280,81 +310,72 @@ class _CppIndexBuilder:
                     stack.append(entry)
                     stack_start_depth.append(old_depth)
                     pending_template = False
-                elif kind in ("typedef", "using"):
-                    entry = {
+                    continue
+
+                if kind in ("typedef", "using"):
+                    entries.append({
                         "kind": kind,
                         "name": name,
-                        "line": i,
+                        "line": i + 1,
                         "end_line": i,
-                        "level": 0,
+                        "level": len(stack),
                         "label": name,
-                    }
-                    entries.append(entry)
+                    })
                     pending_template = False
-                elif kind in ("function",):
-                    if stack:
-                        # Inside a type/namespace → treat as method/constructor member
-                        container = stack[-1]
-                        member = {
-                            "kind": "method" if pending_template else "method",
-                            "name": name,
-                            "line": i,
-                            "end_line": i,
-                            "level": len(stack),
-                            "label": f"{name}()",
-                        }
-                        container.setdefault("members", []).append(member)
-                        pending_template = False
+                    continue
+
+                if kind in ("function", "constructor", "method", "destructor", "operator"):
+                    member_kind = "operator" if kind == "operator" else kind
+                    label = f"{name}()" if kind != "operator" else name
+                    member = {
+                        "kind": member_kind,
+                        "name": name,
+                        "line": i + 1,
+                        "end_line": i,
+                        "level": len(stack),
+                        "label": label,
+                    }
+                    if stack and stack[-1].get("kind") in ("type", "enum"):
+                        stack[-1].setdefault("members", []).append(member)
                     else:
-                        # Top-level function
-                        label = (
-                            f"template {name}()" if pending_template else f"{name}()"
-                        )
-                        entry = {
-                            "kind": "function",
+                        entries.append({
+                            "kind": member_kind if kind != "method" else "function",
                             "name": name,
-                            "line": i,
+                            "line": i + 1,
                             "end_line": i,
                             "level": 0,
-                            "label": label,
+                            "label": (f"template {label}" if pending_template else label),
                             "members": [],
-                        }
-                        entries.append(entry)
-                        pending_template = False
-                elif kind in ("constructor", "method", "destructor"):
-                    if stack:
-                        container = stack[-1]
-                        member = {
-                            "kind": kind,
-                            "name": name,
-                            "line": i,
-                            "end_line": i,
-                            "level": len(stack),
-                            "label": f"{name}()" if kind == "method" else f"{name}()",
-                        }
-                        container.setdefault("members", []).append(member)
-                elif kind == "field":
-                    if stack:
-                        container = stack[-1]
-                        member = {
-                            "kind": "field",
-                            "name": name,
-                            "line": i,
-                            "end_line": i,
-                            "level": len(stack),
-                            "label": name,
-                        }
-                        container.setdefault("members", []).append(member)
+                        })
+                    pending_template = False
+                    if "{" in cleaned and "}" not in cleaned:
+                        function_scopes.append(brace_depth)
+                    continue
 
-            # Pop stack when scope ends
+                if (
+                    kind == "field"
+                    and stack
+                    and not function_scopes
+                    and stack[-1].get("kind") in ("type", "enum")
+                ):
+                    stack[-1].setdefault("members", []).append({
+                        "kind": "field",
+                        "name": name,
+                        "line": i + 1,
+                        "end_line": i + 1,
+                        "level": len(stack),
+                        "label": name,
+                    })
+
             while stack_start_depth and brace_depth <= stack_start_depth[-1] and bd < 0:
-                if stack:
-                    popped = stack.pop()
-                    popped["end_line"] = i
+                popped = stack.pop()
+                popped["end_line"] = i
                 stack_start_depth.pop()
 
-            # If no def matched and no brace change, reset pending_template
-            if not defs and bd == 0:
+            while function_scopes and brace_depth < function_scopes[-1]:
+                function_scopes.pop()
+
+            if not defs and bd == 0 and not pending_template:
                 pending_template = False
 
         self._assign_end_lines(entries)
@@ -422,19 +443,21 @@ def run_tool(args: dict[str, Any]) -> str:
 
     if not path:
         return _("err.path_required", default="Error: 'path' is required.")
-    if not os.path.isfile(path):
-        return _(
-            "err.file_not_found", default="Error: File not found: {path}", path=path
-        )
+    try:
+        safe_path = resolve_index_path(str(path))
+    except Exception:
+        return _("err.file_not_found", default="Error: File not found: {path}", path=path)
+
+    if not os.path.isfile(safe_path):
+        return _("err.file_not_found", default="Error: File not found: {path}", path=path)
 
     try:
-        with open(path, "r", encoding="utf-8") as f:
-            source = f.read()
+        source = read_index_source(safe_path)
     except Exception as e:
         return _("err.read_error", default="Error reading file: {e}", e=str(e))
 
     try:
-        builder = _CppIndexBuilder(source, filepath=path)
+        builder = _CppIndexBuilder(source, filepath=safe_path)
     except Exception as e:
         return _("err.parse_error", default="Error parsing file: {e}", e=str(e))
 

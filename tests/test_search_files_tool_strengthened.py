@@ -389,3 +389,32 @@ def test_file_grep_handles_common_text_encodings(
     filenames = obj.get("filenames")
     assert isinstance(filenames, list)
     assert any(Path(p).name == target.name for p in filenames)
+
+
+def test_file_grep_recursive_relative_glob(
+    repo_tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    monkeypatch.setattr(fgt, "_", _no_i18n)
+
+    sub = repo_tmp_path / "sub"
+    sub.mkdir()
+    target = sub / "match.txt"
+    target.write_text("needle\n", encoding="utf-8")
+    (sub / "skip.py").write_text("needle\n", encoding="utf-8")
+
+    out = fgt.run_tool(
+        {
+            "pattern": "needle",
+            "path": str(repo_tmp_path),
+            "glob": "sub/*.txt",
+            "recur": True,
+            "literal": True,
+            "filenames_only": True,
+        }
+    )
+
+    obj = json.loads(out)
+    assert obj.get("ok") is True
+    filenames = obj.get("filenames")
+    assert isinstance(filenames, list)
+    assert [Path(p).name for p in filenames] == [target.name]

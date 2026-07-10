@@ -24,7 +24,11 @@
     ],
     "param.head.description": "Number of lines to read from the beginning. Cannot be used with tail_lines.",
     "param.maxl.description": "Maximum number of lines to read. If null, read to EOF.",
-    "param.tail.description": "Number of lines to read from the end. Cannot be used with head_lines."
+    "param.tail.description": "Number of lines to read from the end. Cannot be used with head_lines.",
+    "err.negative_lines": "[read_file error] {option} cannot be negative",
+    "err.invalid_lines": "[read_file error] {option} must be an integer",
+    "err.invalid_page": "[read_file error] page must be an integer and at least 1",
+    "err.page_requires_maxl": "[read_file error] page requires maxl"
   },
   "ja": {
     "err.dual_lines": "[read_file error] head_lines と tail_lines は同時に指定できません",
@@ -51,7 +55,11 @@
     ],
     "param.head.description": "先頭から読み取る行数。tail_lines と同時に指定することはできません。",
     "param.maxl.description": "読み取る最大行数。null の場合はファイル末尾まで読み取ります。",
-    "param.tail.description": "末尾から読み取る行数。head_lines と同時に指定することはできません。"
+    "param.tail.description": "末尾から読み取る行数。head_lines と同時に指定することはできません。",
+    "err.negative_lines": "[read_file error] {option} は負の値にできません",
+    "err.invalid_lines": "[read_file error] {option} は整数で指定してください",
+    "err.invalid_page": "[read_file error] page は1以上の整数で指定してください",
+    "err.page_requires_maxl": "[read_file error] page を指定する場合は maxl も必要です"
   },
   "es": {
     "err.dual_lines": "[error de lectura de archivo] las líneas de encabezado y cola no se pueden especificar juntas",
@@ -78,7 +86,11 @@
     "param.page.description": "Page number to read (1-based). Used in conjunction with max_lines.",
     "param.head.description": "Número de líneas a leer desde el principio. No se puede usar con tail_lines.",
     "param.maxl.description": "Número máximo de líneas a leer.",
-    "param.tail.description": "Número de líneas a leer desde el final. No se puede usar con head_lines."
+    "param.tail.description": "Número de líneas a leer desde el final. No se puede usar con head_lines.",
+    "err.negative_lines": "[error de lectura de archivo] {option} no puede ser negativo",
+    "err.invalid_lines": "[error de lectura de archivo] {option} debe ser un entero",
+    "err.invalid_page": "[error de lectura de archivo] page debe ser un entero de al menos 1",
+    "err.page_requires_maxl": "[error de lectura de archivo] page requiere maxl"
   },
   "fr": {
     "err.dual_lines": "[erreur read_file] les lignes de début et de fin ne peuvent pas être spécifiées ensemble",
@@ -105,7 +117,11 @@
     "param.page.description": "Page number to read (1-based). Used in conjunction with max_lines.",
     "param.head.description": "Nombre de lignes à lire depuis le début. Ne peut pas être utilisé avec tail_lines.",
     "param.maxl.description": "Nombre maximum de lignes à lire.",
-    "param.tail.description": "Nombre de lignes à lire depuis la fin."
+    "param.tail.description": "Nombre de lignes à lire depuis la fin.",
+    "err.negative_lines": "[erreur read_file] {option} ne peut pas être négatif",
+    "err.invalid_lines": "[erreur read_file] {option} doit être un entier",
+    "err.invalid_page": "[erreur read_file] page doit être un entier supérieur ou égal à 1",
+    "err.page_requires_maxl": "[erreur read_file] page nécessite maxl"
   },
   "ko": {
     "err.dual_lines": "[read_file 에러] head_lines와 tail_lines는 동시에 지정할 수 없습니다.",
@@ -132,7 +148,11 @@
     "param.page.description": "Page number to read (1-based). Used in conjunction with max_lines.",
     "param.head.description": "처음부터 읽을 행 수. tail_lines와 함께 사용할 수 없습니다.",
     "param.maxl.description": "읽을 최대 행 수. null인 경우 끝까지 읽습니다.",
-    "param.tail.description": "끝에서부터 읽을 행 수. head_lines와 함께 사용할 수 없습니다."
+    "param.tail.description": "끝에서부터 읽을 행 수. head_lines와 함께 사용할 수 없습니다.",
+    "err.negative_lines": "[read_file 오류] {option}은(는) 음수일 수 없습니다.",
+    "err.invalid_lines": "[read_file 오류] {option}은(는) 정수여야 합니다.",
+    "err.invalid_page": "[read_file 오류] page는 1 이상의 정수여야 합니다.",
+    "err.page_requires_maxl": "[read_file 오류] page를 사용하려면 maxl이 필요합니다."
   },
   "de": {
     "err.dual_lines": "[read_file error] head_lines und tail_lines können nicht zusammen angegeben werden",
@@ -159,7 +179,11 @@
     "param.page.description": "Page number to read (1-based). Used in conjunction with max_lines.",
     "param.head.description": "Anzahl der Zeilen, die vom Anfang an gelesen werden sollen.",
     "param.maxl.description": "Maximale Anzahl der zu lesenden Zeilen.",
-    "param.tail.description": "Anzahl der Zeilen, die vom Ende an gelesen werden sollen."
+    "param.tail.description": "Anzahl der Zeilen, die vom Ende an gelesen werden sollen.",
+    "err.negative_lines": "[Fehler beim Lesen der Datei] {option} darf nicht negativ sein",
+    "err.invalid_lines": "[Fehler beim Lesen der Datei] {option} muss eine Ganzzahl sein",
+    "err.invalid_page": "[Fehler beim Lesen der Datei] page muss eine Ganzzahl von mindestens 1 sein",
+    "err.page_requires_maxl": "[Fehler beim Lesen der Datei] page erfordert maxl"
   },
   "it": {
     "err.dual_lines": "[errore read_file] head_lines e tail_lines non possono essere specificati insieme",
@@ -186,7 +210,11 @@
     "param.page.description": "Page number to read (1-based). Used in conjunction with max_lines.",
     "param.head.description": "Numero di righe da leggere dall'inizio. Non cumulabile con tail_lines.",
     "param.maxl.description": "Numero massimo di righe da leggere.",
-    "param.tail.description": "Numero di righe da leggere dalla fine. Non cumulabile con head_lines."
+    "param.tail.description": "Numero di righe da leggere dalla fine. Non cumulabile con head_lines.",
+    "err.negative_lines": "[errore read_file] {option} non può essere negativo",
+    "err.invalid_lines": "[errore read_file] {option} deve essere un numero intero",
+    "err.invalid_page": "[errore read_file] page deve essere un numero intero almeno pari a 1",
+    "err.page_requires_maxl": "[errore read_file] page richiede maxl"
   },
   "ru": {
     "err.dual_lines": "[ошибка read_file] head_lines и tail_lines нельзя указывать одновременно.",
@@ -213,7 +241,11 @@
     "param.page.description": "Page number to read (1-based). Used in conjunction with max_lines.",
     "param.head.description": "Количество строк для чтения с начала. Нельзя использовать вместе с tail_lines.",
     "param.maxl.description": "Максимальное число строк для чтения.",
-    "param.tail.description": "Количество строк для чтения с конца."
+    "param.tail.description": "Количество строк для чтения с конца.",
+    "err.negative_lines": "[ошибка чтения файла] {option} не может быть отрицательным",
+    "err.invalid_lines": "[ошибка чтения файла] {option} должно быть целым числом",
+    "err.invalid_page": "[ошибка чтения файла] page должно быть целым числом не меньше 1",
+    "err.page_requires_maxl": "[ошибка чтения файла] для page требуется maxl"
   },
   "pt_BR": {
     "err.dual_lines": "[erro de arquivo de leitura] head_lines e tail_lines não podem ser especificados juntos",
@@ -240,7 +272,11 @@
     "param.page.description": "Page number to read (1-based). Used in conjunction with max_lines.",
     "param.head.description": "Número de linhas para ler do início. Não pode ser usado com tail_lines.",
     "param.maxl.description": "Número máximo de linhas a ler. Se nulo, lê até o fim.",
-    "param.tail.description": "Número de linhas para ler do fim. Não pode ser usado com head_lines."
+    "param.tail.description": "Número de linhas para ler do fim. Não pode ser usado com head_lines.",
+    "err.negative_lines": "[erro de leitura de arquivo] {option} não pode ser negativo",
+    "err.invalid_lines": "[erro de leitura de arquivo] {option} deve ser um número inteiro",
+    "err.invalid_page": "[erro de leitura de arquivo] page deve ser um número inteiro de pelo menos 1",
+    "err.page_requires_maxl": "[erro de leitura de arquivo] page requer maxl"
   },
   "pt": {
     "err.dual_lines": "[erro de arquivo de leitura] head_lines e tail_lines não podem ser especificados juntos",
@@ -267,7 +303,11 @@
     "param.page.description": "Page number to read (1-based). Used in conjunction with max_lines.",
     "param.head.description": "Número de linhas a serem lidas desde o início.",
     "param.maxl.description": "Número máximo de linhas a serem lidas.",
-    "param.tail.description": "Número de linhas a serem lidas a partir do final."
+    "param.tail.description": "Número de linhas a serem lidas a partir do final.",
+    "err.negative_lines": "[erro de leitura de ficheiro] {option} não pode ser negativo",
+    "err.invalid_lines": "[erro de leitura de ficheiro] {option} tem de ser um número inteiro",
+    "err.invalid_page": "[erro de leitura de ficheiro] page tem de ser um número inteiro de pelo menos 1",
+    "err.page_requires_maxl": "[erro de leitura de ficheiro] page requer maxl"
   },
   "id": {
     "err.dual_lines": "[read_file error] head_lines dan tail_lines tidak dapat ditentukan bersamaan.",
@@ -294,7 +334,11 @@
     "param.page.description": "Page number to read (1-based). Used in conjunction with max_lines.",
     "param.head.description": "Jumlah baris yang dibaca dari awal.",
     "param.maxl.description": "Jumlah maksimum baris yang dibaca.",
-    "param.tail.description": "Jumlah baris yang dibaca dari akhir."
+    "param.tail.description": "Jumlah baris yang dibaca dari akhir.",
+    "err.negative_lines": "[kesalahan read_file] {option} tidak boleh negatif",
+    "err.invalid_lines": "[kesalahan read_file] {option} harus berupa bilangan bulat",
+    "err.invalid_page": "[kesalahan read_file] page harus berupa bilangan bulat minimal 1",
+    "err.page_requires_maxl": "[kesalahan read_file] page memerlukan maxl"
   },
   "vi": {
     "err.dual_lines": "[lỗi read_file] head_lines và tail_lines không thể được chỉ định cùng một lúc",
@@ -321,7 +365,11 @@
     "param.page.description": "Page number to read (1-based). Used in conjunction with max_lines.",
     "param.head.description": "Số dòng cần đọc từ đầu. Không thể chỉ định cùng lúc với tail_lines.",
     "param.maxl.description": "Số hàng tối đa để đọc. Nếu null thì đọc đến cuối file.",
-    "param.tail.description": "Số dòng đọc từ cuối. Không thể chỉ định cùng lúc với head_lines."
+    "param.tail.description": "Số dòng đọc từ cuối. Không thể chỉ định cùng lúc với head_lines.",
+    "err.negative_lines": "[lỗi read_file] {option} không được âm",
+    "err.invalid_lines": "[lỗi read_file] {option} phải là số nguyên",
+    "err.invalid_page": "[lỗi read_file] page phải là số nguyên từ 1 trở lên",
+    "err.page_requires_maxl": "[lỗi read_file] page yêu cầu maxl"
   },
   "pl": {
     "err.dual_lines": "[błąd read_file] head_lines i tail_lines nie mogą być określone jednocześnie.",
@@ -348,7 +396,11 @@
     "param.page.description": "Page number to read (1-based). Used in conjunction with max_lines.",
     "param.head.description": "Liczba linii do przeczytania od początku.",
     "param.maxl.description": "Maksymalna liczba wierszy do odczytania.",
-    "param.tail.description": "Liczba linii do odczytania od końca."
+    "param.tail.description": "Liczba linii do odczytania od końca.",
+    "err.negative_lines": "[błąd read_file] {option} nie może być ujemny",
+    "err.invalid_lines": "[błąd read_file] {option} musi być liczbą całkowitą",
+    "err.invalid_page": "[błąd read_file] page musi być liczbą całkowitą nie mniejszą niż 1",
+    "err.page_requires_maxl": "[błąd read_file] page wymaga parametru maxl"
   },
   "hi": {
     "err.dual_lines": "[read_file त्रुटि] हेड_लाइन्स और टेल_लाइन्स को एक साथ निर्दिष्ट नहीं किया जा सकता",
@@ -375,7 +427,11 @@
     "param.page.description": "Page number to read (1-based). Used in conjunction with max_lines.",
     "param.head.description": "आरंभ से पढ़ने योग्य पंक्तियों की संख्या.",
     "param.maxl.description": "पढ़ने के लिए पंक्तियों की अधिकतम संख्या.",
-    "param.tail.description": "अंत से पढ़ने के लिए पंक्तियों की संख्या."
+    "param.tail.description": "अंत से पढ़ने के लिए पंक्तियों की संख्या.",
+    "err.negative_lines": "[read_file त्रुटि] {option} ऋणात्मक नहीं हो सकता",
+    "err.invalid_lines": "[read_file त्रुटि] {option} पूर्णांक होना चाहिए",
+    "err.invalid_page": "[read_file त्रुटि] page कम से कम 1 का पूर्णांक होना चाहिए",
+    "err.page_requires_maxl": "[read_file त्रुटि] page के लिए maxl आवश्यक है"
   },
   "ar": {
     "err.dual_lines": "[read_file خطأ] لا يمكن تحديد head_lines وtail_lines في الوقت نفسه.",
@@ -402,7 +458,11 @@
     "param.page.description": "Page number to read (1-based). Used in conjunction with max_lines.",
     "param.head.description": "عدد الأسطر التي يجب قراءتها من البداية.",
     "param.maxl.description": "الحد الأقصى لعدد الأسطر المراد قراءتها.",
-    "param.tail.description": "عدد الأسطر التي يجب قراءتها من النهاية."
+    "param.tail.description": "عدد الأسطر التي يجب قراءتها من النهاية.",
+    "err.negative_lines": "[خطأ في read_file] لا يمكن أن تكون قيمة {option} سالبة",
+    "err.invalid_lines": "[خطأ في read_file] يجب أن تكون قيمة {option} عددًا صحيحًا",
+    "err.invalid_page": "[خطأ في read_file] يجب أن تكون page عددًا صحيحًا لا يقل عن 1",
+    "err.page_requires_maxl": "[خطأ في read_file] تتطلب page وجود maxl"
   },
   "sv": {
     "err.dual_lines": "[read_file-fel] head_lines och tail_lines kan inte anges samtidigt.",
@@ -429,7 +489,11 @@
     "param.page.description": "Page number to read (1-based). Used in conjunction with max_lines.",
     "param.head.description": "Antal rader som ska läsas från början. Kan inte anges samtidigt med tail_lines.",
     "param.maxl.description": "Maximalt antal rader att läsa. Om null läses till slutet.",
-    "param.tail.description": "Antal rader som ska läsas från slutet."
+    "param.tail.description": "Antal rader som ska läsas från slutet.",
+    "err.negative_lines": "[read_file-fel] {option} kan inte vara negativt",
+    "err.invalid_lines": "[read_file-fel] {option} måste vara ett heltal",
+    "err.invalid_page": "[read_file-fel] page måste vara ett heltal på minst 1",
+    "err.page_requires_maxl": "[read_file-fel] page kräver maxl"
   },
   "sw": {
     "err.dual_lines": "[soma_kosa la faili] vichwa_vya_vichwa na_mistari_mkia haziwezi kubainishwa pamoja",
@@ -456,7 +520,11 @@
     "param.page.description": "Page number to read (1-based). Used in conjunction with max_lines.",
     "param.head.description": "Idadi ya mistari ya kusoma kuanzia mwanzo. Haiwezi kutolewa pamoja na tail_lines.",
     "param.maxl.description": "Idadi ya juu ya mistari ya kusoma.",
-    "param.tail.description": "Idadi ya mistari ya kusoma kuanzia mwisho."
+    "param.tail.description": "Idadi ya mistari ya kusoma kuanzia mwisho.",
+    "err.negative_lines": "[hitilafu ya read_file] {option} haiwezi kuwa hasi",
+    "err.invalid_lines": "[hitilafu ya read_file] {option} lazima iwe nambari kamili",
+    "err.invalid_page": "[hitilafu ya read_file] page lazima iwe nambari kamili ya angalau 1",
+    "err.page_requires_maxl": "[hitilafu ya read_file] page inahitaji maxl"
   },
   "nb": {
     "err.dual_lines": "[read_file-feil] head_lines og tail_lines kan ikke angis samtidig.",
@@ -483,7 +551,11 @@
     "param.page.description": "Page number to read (1-based). Used in conjunction with max_lines.",
     "param.head.description": "Antall linjer som skal leses fra starten. Kan ikke angis samtidig med tail_lines.",
     "param.maxl.description": "Maksimalt antall linjer som skal leses.",
-    "param.tail.description": "Antall linjer som skal leses fra slutten."
+    "param.tail.description": "Antall linjer som skal leses fra slutten.",
+    "err.negative_lines": "[read_file-feil] {option} kan ikke være negativ",
+    "err.invalid_lines": "[read_file-feil] {option} må være et heltall",
+    "err.invalid_page": "[read_file-feil] page må være et heltall på minst 1",
+    "err.page_requires_maxl": "[read_file-feil] page krever maxl"
   },
   "nl": {
     "err.dual_lines": "[read_file fout] head_lines en tail_lines kunnen niet tegelijk worden opgegeven",
@@ -510,7 +582,11 @@
     "param.page.description": "Page number to read (1-based). Used in conjunction with max_lines.",
     "param.head.description": "Aantal regels dat vanaf het begin gelezen wordt.",
     "param.maxl.description": "Maximaal aantal regels om te lezen.",
-    "param.tail.description": "Aantal regels dat vanaf het einde gelezen wordt."
+    "param.tail.description": "Aantal regels dat vanaf het einde gelezen wordt.",
+    "err.negative_lines": "[leesbestandsfout] {option} mag niet negatief zijn",
+    "err.invalid_lines": "[leesbestandsfout] {option} moet een geheel getal zijn",
+    "err.invalid_page": "[leesbestandsfout] page moet een geheel getal van minimaal 1 zijn",
+    "err.page_requires_maxl": "[leesbestandsfout] page vereist maxl"
   },
   "fi": {
     "err.dual_lines": "[read_file-virhe] head_lines ja tail_lines eivät voi olla käytössä yhtä aikaa",
@@ -537,7 +613,11 @@
     "param.page.description": "Page number to read (1-based). Used in conjunction with max_lines.",
     "param.head.description": "Alusta luettavien rivien määrä. Ei voi olla yhtä aikaa tail_linesin kanssa.",
     "param.maxl.description": "Luettavien rivien enimmäismäärä.",
-    "param.tail.description": "Lopusta luettavien rivien määrä."
+    "param.tail.description": "Lopusta luettavien rivien määrä.",
+    "err.negative_lines": "[read_file-virhe] {option} ei voi olla negatiivinen",
+    "err.invalid_lines": "[read_file-virhe] {option} on oltava kokonaisluku",
+    "err.invalid_page": "[read_file-virhe] pagen on oltava vähintään 1 oleva kokonaisluku",
+    "err.page_requires_maxl": "[read_file-virhe] page vaatii maxl-parametrin"
   },
   "cs": {
     "err.dual_lines": "[read_file chyba] head_lines a tail_lines nelze zadat současně.",
@@ -564,7 +644,11 @@
     "param.page.description": "Page number to read (1-based). Used in conjunction with max_lines.",
     "param.head.description": "Počet řádků ke čtení od začátku. Nelze zadat současně s tail_lines.",
     "param.maxl.description": "Maximální počet řádků ke čtení.",
-    "param.tail.description": "Počet řádků ke čtení od konce. Nelze zadat současně s head_lines."
+    "param.tail.description": "Počet řádků ke čtení od konce. Nelze zadat současně s head_lines.",
+    "err.negative_lines": "[chyba čtení souboru] {option} nemůže být záporné",
+    "err.invalid_lines": "[chyba čtení souboru] {option} musí být celé číslo",
+    "err.invalid_page": "[chyba čtení souboru] page musí být celé číslo nejméně 1",
+    "err.page_requires_maxl": "[chyba čtení souboru] page vyžaduje maxl"
   },
   "uk": {
     "err.dual_lines": "[read_file помилка] head_lines і tail_lines не можна вказувати одночасно.",
@@ -591,7 +675,11 @@
     "param.page.description": "Page number to read (1-based). Used in conjunction with max_lines.",
     "param.head.description": "Кількість рядків для читання з початку. Не можна вказувати одночасно з tail_lines.",
     "param.maxl.description": "Максимальна кількість рядків для читання.",
-    "param.tail.description": "Кількість рядків для читання з кінця."
+    "param.tail.description": "Кількість рядків для читання з кінця.",
+    "err.negative_lines": "[помилка читання файлу] {option} не може бути від’ємним",
+    "err.invalid_lines": "[помилка читання файлу] {option} має бути цілим числом",
+    "err.invalid_page": "[помилка читання файлу] page має бути цілим числом не менше 1",
+    "err.page_requires_maxl": "[помилка читання файлу] для page потрібен maxl"
   },
   "tr": {
     "err.dual_lines": "[okuma_dosyası hatası] başlık satırları ve kuyruk_satırları birlikte belirtilemez",
@@ -618,7 +706,11 @@
     "param.page.description": "Page number to read (1-based). Used in conjunction with max_lines.",
     "param.head.description": "Baştan itibaren okunacak satır sayısı. tail_lines ile aynı anda belirtilemez.",
     "param.maxl.description": "Okunacak maksimum satır sayısı.",
-    "param.tail.description": "Sondan itibaren okunacak satır sayısı."
+    "param.tail.description": "Sondan itibaren okunacak satır sayısı.",
+    "err.negative_lines": "[read_file hatası] {option} negatif olamaz",
+    "err.invalid_lines": "[read_file hatası] {option} bir tam sayı olmalıdır",
+    "err.invalid_page": "[read_file hatası] page en az 1 olan bir tam sayı olmalıdır",
+    "err.page_requires_maxl": "[read_file hatası] page için maxl gerekir"
   },
   "th": {
     "err.dual_lines": "[ข้อผิดพลาด read_file] ไม่สามารถระบุ head_lines และ tail_lines พร้อมกันได้",
@@ -645,7 +737,11 @@
     "param.page.description": "Page number to read (1-based). Used in conjunction with max_lines.",
     "param.head.description": "จำนวนบรรทัดที่อ่านจากตอนต้น ไม่สามารถใช้ร่วมกับ tail_lines ได้",
     "param.maxl.description": "จำนวนบรรทัดสูงสุดที่จะอ่าน หากเป็น null จะอ่านจนจบไฟล์",
-    "param.tail.description": "จำนวนบรรทัดที่อ่านจากตอนท้าย ไม่สามารถใช้ร่วมกับ head_lines ได้"
+    "param.tail.description": "จำนวนบรรทัดที่อ่านจากตอนท้าย ไม่สามารถใช้ร่วมกับ head_lines ได้",
+    "err.negative_lines": "[ข้อผิดพลาด read_file] {option} ต้องไม่เป็นค่าลบ",
+    "err.invalid_lines": "[ข้อผิดพลาด read_file] {option} ต้องเป็นจำนวนเต็ม",
+    "err.invalid_page": "[ข้อผิดพลาด read_file] page ต้องเป็นจำนวนเต็มอย่างน้อย 1",
+    "err.page_requires_maxl": "[ข้อผิดพลาด read_file] page ต้องใช้ maxl"
   },
   "zh_CN": {
     "err.dual_lines": "[read_file 错误] head_lines 和 tail_lines 不能同时指定。",
@@ -672,7 +768,11 @@
     "param.page.description": "Page number to read (1-based). Used in conjunction with max_lines.",
     "param.head.description": "从头读取的行数。不能与 tail_lines 同时指定。",
     "param.maxl.description": "读取的最大行数。为 null 时读取到末尾。",
-    "param.tail.description": "从末尾读取的行数。不能与 head_lines 同时指定。"
+    "param.tail.description": "从末尾读取的行数。不能与 head_lines 同时指定。",
+    "err.negative_lines": "[读取文件错误] {option} 不能为负数",
+    "err.invalid_lines": "[读取文件错误] {option} 必须是整数",
+    "err.invalid_page": "[读取文件错误] page 必须是至少为 1 的整数",
+    "err.page_requires_maxl": "[读取文件错误] page 需要 maxl"
   },
   "zh_TW": {
     "err.dual_lines": "[read_file 錯誤] head_lines 和 tail_lines 不能同時指定。",
@@ -699,7 +799,11 @@
     "param.page.description": "Page number to read (1-based). Used in conjunction with max_lines.",
     "param.head.description": "從頭讀取的行數。不能與 tail_lines 同時指定。",
     "param.maxl.description": "讀取的最大行數。為 null 時讀取到末尾。",
-    "param.tail.description": "從末尾讀取的行數。不能與 head_lines 同時指定。"
+    "param.tail.description": "從末尾讀取的行數。不能與 head_lines 同時指定。",
+    "err.negative_lines": "[讀取檔案錯誤] {option} 不能為負數",
+    "err.invalid_lines": "[讀取檔案錯誤] {option} 必須是整數",
+    "err.invalid_page": "[讀取檔案錯誤] page 必須是至少為 1 的整數",
+    "err.page_requires_maxl": "[讀取檔案錯誤] page 需要 maxl"
   },
   "bn": {
     "err.dual_lines": "[read_file ত্রুটি] head_lines এবং tail_lines একসাথে নির্দিষ্ট করা যাবে না",
@@ -726,7 +830,11 @@
     "param.page.description": "Page number to read (1-based). Used in conjunction with max_lines.",
     "param.head.description": "শুরুর দিক থেকে যত লাইন পড়বে। tail_lines-এর সাথে একসাথে দেওয়া যাবে না।",
     "param.maxl.description": "পড়ার জন্য সর্বাধিক সংখ্যা",
-    "param.tail.description": "শেষ দিক থেকে যত লাইন পড়বে। head_lines-এর সাথে একসাথে দেওয়া যাবে না।"
+    "param.tail.description": "শেষ দিক থেকে যত লাইন পড়বে। head_lines-এর সাথে একসাথে দেওয়া যাবে না।",
+    "err.negative_lines": "[read_file ত্রুটি] {option} ঋণাত্মক হতে পারে না",
+    "err.invalid_lines": "[read_file ত্রুটি] {option} অবশ্যই পূর্ণসংখ্যা হতে হবে",
+    "err.invalid_page": "[read_file ত্রুটি] page কমপক্ষে 1-এর পূর্ণসংখ্যা হতে হবে",
+    "err.page_requires_maxl": "[read_file ত্রুটি] page-এর জন্য maxl প্রয়োজন"
   },
   "fa": {
     "err.dual_lines": "[خطای read_file] head_lines و tail_lines را نمی‌توان هم‌زمان مشخص کرد",
@@ -753,7 +861,11 @@
     "param.page.description": "Page number to read (1-based). Used in conjunction with max_lines.",
     "param.head.description": "تعداد خطوطی که از ابتدا خوانده می‌شوند. نمی‌توان هم‌زمان با tail_lines مشخص کرد.",
     "param.maxl.description": "حداکثر تعداد خطوط برای خواندن.",
-    "param.tail.description": "تعداد خطوطی که از انتها خوانده می‌شوند."
+    "param.tail.description": "تعداد خطوطی که از انتها خوانده می‌شوند.",
+    "err.negative_lines": "[خطای read_file] {option} نمی‌تواند منفی باشد",
+    "err.invalid_lines": "[خطای read_file] {option} باید یک عدد صحیح باشد",
+    "err.invalid_page": "[خطای read_file] page باید یک عدد صحیح حداقل ۱ باشد",
+    "err.page_requires_maxl": "[خطای read_file] page به maxl نیاز دارد"
   },
   "mn": {
     "err.dual_lines": "[read_file алдаа] head_lines ба tail_lines-ийг зэрэг зааж болохгүй",
@@ -780,7 +892,11 @@
     "param.page.description": "Page number to read (1-based). Used in conjunction with max_lines.",
     "param.head.description": "Эхнээс унших мөрийн тоо. tail_lines-тай зэрэг зааж болохгүй.",
     "param.maxl.description": "Унших хамгийн их мөрийн тоо.",
-    "param.tail.description": "Төгсгөлөөс унших мөрийн тоо. head_lines-тай зэрэг зааж болохгүй."
+    "param.tail.description": "Төгсгөлөөс унших мөрийн тоо. head_lines-тай зэрэг зааж болохгүй.",
+    "err.negative_lines": "[унших файлын алдаа] {option} сөрөг байж болохгүй",
+    "err.invalid_lines": "[унших файлын алдаа] {option} бүхэл тоо байх ёстой",
+    "err.invalid_page": "[унших файлын алдаа] page нь 1-ээс багагүй бүхэл тоо байх ёстой",
+    "err.page_requires_maxl": "[унших файлын алдаа] page-д maxl шаардлагатай"
   },
   "mr": {
     "err.dual_lines": "[read_file त्रुटी] head_lines आणि tail_lines एकाच वेळी देता येत नाहीत",
@@ -807,7 +923,11 @@
     "param.page.description": "Page number to read (1-based). Used in conjunction with max_lines.",
     "param.head.description": "सुरुवातीपासून वाचायच्या ओळींची संख्या. tail_lines सोबत एकाच वेळी देता येत नाही.",
     "param.maxl.description": "वाचायच्या जास्तीत जास्त ओळी.",
-    "param.tail.description": "शेवटापासून वाचायच्या ओळींची संख्या."
+    "param.tail.description": "शेवटापासून वाचायच्या ओळींची संख्या.",
+    "err.negative_lines": "[read_file त्रुटी] {option} ऋणात्मक असू शकत नाही",
+    "err.invalid_lines": "[read_file त्रुटी] {option} पूर्णांक असणे आवश्यक आहे",
+    "err.invalid_page": "[read_file त्रुटी] page किमान 1 असलेला पूर्णांक असणे आवश्यक आहे",
+    "err.page_requires_maxl": "[read_file त्रुटी] page साठी maxl आवश्यक आहे"
   },
   "el": {
     "err.dual_lines": "(το αρχείο έχει μόνο {count} γραμμές, η αρχική_γραμμή {start_line} είναι εκτός εμβέλειας)",
@@ -834,7 +954,11 @@
     ],
     "param.head.description": "Αριθμός γραμμών προς ανάγνωση από την αρχή. Δεν μπορεί να χρησιμοποιηθεί με tail_lines.",
     "param.maxl.description": "Μέγιστος αριθμός γραμμών για ανάγνωση. Εάν είναι μηδενικό, διαβάστε στον ΕΟΦ.",
-    "param.tail.description": "Αριθμός γραμμών προς ανάγνωση από το τέλος. Δεν μπορεί να χρησιμοποιηθεί με head_lines."
+    "param.tail.description": "Αριθμός γραμμών προς ανάγνωση από το τέλος. Δεν μπορεί να χρησιμοποιηθεί με head_lines.",
+    "err.negative_lines": "[σφάλμα read_file] το {option} δεν μπορεί να είναι αρνητικό",
+    "err.invalid_lines": "[σφάλμα read_file] το {option} πρέπει να είναι ακέραιος",
+    "err.invalid_page": "[σφάλμα read_file] το page πρέπει να είναι ακέραιος τουλάχιστον 1",
+    "err.page_requires_maxl": "[σφάλμα read_file] το page απαιτεί maxl"
   },
   "he": {
     "err.dual_lines": "[read_file error] שם קובץ/נתיב לא צוין",
@@ -861,7 +985,11 @@
     ],
     "param.head.description": "מספר שורות לקריאה מההתחלה. לא ניתן להשתמש עם tail_lines.",
     "param.maxl.description": "מספר שורות מקסימלי לקריאה. אם ריק, קרא ל-EOF.",
-    "param.tail.description": "מספר השורות לקריאה מהסוף. לא ניתן להשתמש עם head_lines."
+    "param.tail.description": "מספר השורות לקריאה מהסוף. לא ניתן להשתמש עם head_lines.",
+    "err.negative_lines": "[שגיאת read_file] {option} לא יכול להיות שלילי",
+    "err.invalid_lines": "[שגיאת read_file] {option} חייב להיות מספר שלם",
+    "err.invalid_page": "[שגיאת read_file] page חייב להיות מספר שלם של לפחות 1",
+    "err.page_requires_maxl": "[שגיאת read_file] page דורש maxl"
   },
   "hu": {
     "err.dual_lines": "(a fájlnak csak {count} sora van, start_line {start_line} a tartományon kívül esik)",
@@ -888,7 +1016,11 @@
     ],
     "param.head.description": "Az elejétől olvasandó sorok száma. Nem használható a tail_lines-szel.",
     "param.maxl.description": "Az elolvasható sorok maximális száma. Ha nulla, olvassa el az EOF-t.",
-    "param.tail.description": "A végétől felolvasandó sorok száma. Nem használható head_lines."
+    "param.tail.description": "A végétől felolvasandó sorok száma. Nem használható head_lines.",
+    "err.negative_lines": "[read_file hiba] A(z) {option} nem lehet negatív",
+    "err.invalid_lines": "[read_file hiba] A(z) {option} egész szám kell legyen",
+    "err.invalid_page": "[read_file hiba] A page legalább 1-es egész szám kell legyen",
+    "err.page_requires_maxl": "[read_file hiba] A page használatához maxl szükséges"
   },
   "ro": {
     "err.dual_lines": "[read_file error] head_lines și tail_lines nu pot fi specificate împreună",
@@ -915,6 +1047,10 @@
     ],
     "param.head.description": "Numărul de linii de citit de la început. Nu poate fi folosit cu tail_lines.",
     "param.maxl.description": "Numărul maxim de rânduri de citit. Dacă nul, citiți la EOF.",
-    "param.tail.description": "Numărul de rânduri de citit de la sfârșit. Nu poate fi folosit cu head_lines."
+    "param.tail.description": "Numărul de rânduri de citit de la sfârșit. Nu poate fi folosit cu head_lines.",
+    "err.negative_lines": "[eroare read_file] {option} nu poate fi negativ",
+    "err.invalid_lines": "[eroare read_file] {option} trebuie să fie un număr întreg",
+    "err.invalid_page": "[eroare read_file] page trebuie să fie un număr întreg de cel puțin 1",
+    "err.page_requires_maxl": "[eroare read_file] page necesită maxl"
   }
 }

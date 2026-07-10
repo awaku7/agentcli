@@ -5,6 +5,7 @@ import re
 from typing import Any
 
 from .i18n_helper import make_tool_translator
+from .index_tool_helpers import read_index_source, resolve_index_path
 
 _ = make_tool_translator(__file__)
 
@@ -88,7 +89,7 @@ TOOL_SPEC = {
 # Patterns detect key structural elements.
 _PATTERNS = [
     # PROGRAM-ID. name  or  PROGRAM-ID name
-    (r"PROGRAM-ID\.?\s+(\w+)", lambda m: ("program", m.group(1))),
+    (r"PROGRAM-ID\.?\s+([\w-]+)", lambda m: ("program", m.group(1))),
     # IDENTIFICATION DIVISION
     (r"IDENTIFICATION\s+DIVISION", lambda m: ("division", "IDENTIFICATION DIVISION")),
     # DATA DIVISION
@@ -114,10 +115,12 @@ _PATTERNS = [
     (r"SCREEN\s+SECTION\.?\s*$", lambda m: ("section", "SCREEN SECTION")),
     # REPORT SECTION
     (r"REPORT\s+SECTION\.?\s*$", lambda m: ("section", "REPORT SECTION")),
+    # Named user-defined SECTION (standard sections above take precedence)
+    (r"^([\w-]+)\s+SECTION\.?\s*$", lambda m: ("section", m.group(1))),
     # FD file-name
-    (r"^FD\s+(\w+)", lambda m: ("fd", m.group(1))),
+    (r"^FD\s+([\w-]+)", lambda m: ("fd", m.group(1))),
     # SELECT file-name ASSIGN ...
-    (r"^SELECT\s+(\w+)", lambda m: ("select", m.group(1))),
+    (r"^SELECT\s+([\w-]+)", lambda m: ("select", m.group(1))),
     # Level 01 / 77 data definitions: 01 data-name, 77 data-name
     (r"^(?:01|77)\s+([\w-]+)", lambda m: ("data", m.group(1))),
     # Level 02-66, 78 data definitions
@@ -133,7 +136,7 @@ _PATTERNS = [
     # Must not be a known keyword, and the line should end with just a period
     (r"^(\w[\w-]*)\s*\.\s*$", lambda m: ("paragraph", m.group(1))),
     # COPY text-name
-    (r"^COPY\s+(\w+)", lambda m: ("copy", m.group(1))),
+    (r"^COPY\s+([\w-]+)", lambda m: ("copy", m.group(1))),
 ]
 
 # Keywords that should NOT be treated as paragraph names
@@ -238,6 +241,7 @@ _PARAGRAPH_EXCLUDE = {
     "END-MULTIPLY",
     "END-OF-PAGE",
     "END-PERFORM",
+    "END-PROGRAM",
     "END-READ",
     "END-RECEIVE",
     "END-RETURN",
@@ -517,15 +521,28 @@ class _CobolIndexBuilder:
         self._parse()
 
     def _prepare_line(self, line: str) -> str:
-        """Clean a line for analysis: remove comments (*> and * in col 7)."""
-        # Remove inline comment *>
+        """Clean fixed- or free-format COBOL source for structural matching."""
+        # In fixed-format COBOL, columns 1-6 are sequence area and column 7
+        # is the indicator area.  Recognize the format only when the prefix
+        # looks like a sequence area so ordinary indented free-format code is
+        # not truncated accidentally.
+        if len(line) >= 7:
+            prefix = line[:6]
+            indicator = line[6]
+            if all(ch.isdigit() or ch.isspace() for ch in prefix):
+                if indicator in ("*", "/"):
+                    return ""
+                # Debugging lines are ignored by default; they should not be
+                # mistaken for divisions or paragraphs.
+                if indicator.upper() == "D":
+                    return ""
+                line = line[6:]
+
+        # Remove inline comment *> in both fixed and free format.
         idx = line.find("*>")
         if idx >= 0:
             line = line[:idx]
-        # For fixed format, * in column 7 (index 6) is a comment line
-        if len(line) > 6 and line[6] == "*":
-            return ""
-        # Remove string literals for matching purposes (keep structure)
+
         return line
 
     def _normalize(self, line: str) -> str:
@@ -640,7 +657,7 @@ class _CobolIndexBuilder:
                             "name": name,
                             "line": i + 1,
                             "end_line": i + 1,
-                            "label": name,
+                            "label": f"COPY {name}" if kind == "copy" else name,
                         }
                     )
 
@@ -714,19 +731,21 @@ def run_tool(args: dict[str, Any]) -> str:
 
     if not path:
         return _("err.path_required", default="Error: 'path' is required.")
-    if not os.path.isfile(path):
-        return _(
-            "err.file_not_found", default="Error: File not found: {path}", path=path
-        )
+    try:
+        safe_path = resolve_index_path(str(path))
+    except Exception:
+        return _("err.file_not_found", default="Error: File not found: {path}", path=path)
+
+    if not os.path.isfile(safe_path):
+        return _("err.file_not_found", default="Error: File not found: {path}", path=path)
 
     try:
-        with open(path, "r", encoding="utf-8") as f:
-            source = f.read()
+        source = read_index_source(safe_path)
     except Exception as e:
         return _("err.read_error", default="Error reading file: {e}", e=str(e))
 
     try:
-        builder = _CobolIndexBuilder(source, filepath=path)
+        builder = _CobolIndexBuilder(source, filepath=safe_path)
     except Exception as e:
         return _("err.parse_error", default="Error parsing file: {e}", e=str(e))
 

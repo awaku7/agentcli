@@ -99,3 +99,59 @@ def test_replace_in_file_replace_po_entry_match_hits_are_capped(
     assert obj["diagnostics"]["po_msgid_match_count"] == 101
     assert obj["diagnostics"]["po_msgid_replaced_count"] == 101
     assert len(obj["match_hits"]) == 100
+
+
+def test_replace_all_in_files_excludes_binary_and_globs(repo_tmp_path: Path) -> None:
+    included = repo_tmp_path / "included.txt"
+    excluded = repo_tmp_path / "excluded.pyc"
+    binary = repo_tmp_path / "binary.bin"
+    nested = repo_tmp_path / "nested"
+    nested.mkdir()
+    nested_file = nested / "nested.txt"
+
+    included.write_text("needle\n", encoding="utf-8")
+    excluded.write_bytes(b"needle\x00\n")
+    binary.write_bytes(b"needle\x00binary\n")
+    nested_file.write_text("needle\n", encoding="utf-8")
+
+    out = replace_in_file(
+        {
+            "path": str(repo_tmp_path),
+            "action": "replace_all_in_files",
+            "mode": "literal",
+            "pattern": "needle",
+            "replacement": "changed",
+            "preview": False,
+            "confirm_over": 999,
+            "glob": "*",
+            "recur": True,
+        }
+    )
+    obj = _load(out)
+    assert obj["written_files"] == 2
+    assert included.read_text(encoding="utf-8") == "changed\n"
+    assert nested_file.read_text(encoding="utf-8") == "changed\n"
+    assert excluded.read_bytes() == b"needle\x00\n"
+    assert binary.read_bytes() == b"needle\x00binary\n"
+
+
+def test_replace_all_in_files_honors_custom_exclude_glob(repo_tmp_path: Path) -> None:
+    keep = repo_tmp_path / "keep.txt"
+    skip = repo_tmp_path / "skip.txt"
+    keep.write_text("needle\n", encoding="utf-8")
+    skip.write_text("needle\n", encoding="utf-8")
+
+    out = replace_in_file(
+        {
+            "path": str(repo_tmp_path),
+            "action": "replace_all_in_files",
+            "pattern": "needle",
+            "replacement": "changed",
+            "preview": False,
+            "confirm_over": 999,
+            "exclude_globs": ["skip.txt"],
+        }
+    )
+    _load(out)
+    assert keep.read_text(encoding="utf-8") == "changed\n"
+    assert skip.read_text(encoding="utf-8") == "needle\n"

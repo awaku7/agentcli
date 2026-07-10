@@ -58,7 +58,11 @@
     "err.unknown_encoding": "Unknown encoding: {encoding}",
     "err.po_msgid_required": "po_msgid is required for replace_po_entry",
     "err.anchors_required": "anchor_before and anchor_after are required for replace_between",
-    "err.line_no_out_of_range": "line_no {line_no} out of range for file with {line_count} line(s) (valid: 1..{max_line})"
+    "err.line_no_out_of_range": "line_no {line_no} out of range for file with {line_count} line(s) (valid: 1..{max_line})",
+    "err.replacement_required": "replacement is required",
+    "err.invalid_mode": "invalid mode: {mode}",
+    "err.invalid_mode_after": "invalid mode_after: {mode}",
+    "err.invalid_action": "invalid action: {action}"
   },
   "ja": {
     "err.path_missing": "パスが指定されていません",
@@ -119,7 +123,11 @@
     "err.unknown_encoding": "不明なエンコーディングです: {encoding}",
     "err.po_msgid_required": "replace_po_entry では po_msgid が必要です",
     "err.anchors_required": "replace_between では anchor_before と anchor_after が必要です",
-    "err.line_no_out_of_range": "line_no {line_no} は範囲外です。ファイルは {line_count} 行です（有効範囲: 1..{max_line}）"
+    "err.line_no_out_of_range": "line_no {line_no} は範囲外です。ファイルは {line_count} 行です（有効範囲: 1..{max_line}）",
+    "err.replacement_required": "replacement は必須です",
+    "err.invalid_mode": "無効な mode です: {mode}",
+    "err.invalid_mode_after": "無効な mode_after です: {mode}",
+    "err.invalid_action": "無効な action です: {action}"
   },
   "es": {
     "err.path_missing": "la ruta no está especificada",
@@ -180,7 +188,11 @@
     "err.unknown_encoding": "Codificación desconocida: {encoding}",
     "err.po_msgid_required": "po_msgid es necesario para replace_po_entry",
     "err.anchors_required": "Anchor_before y Anchor_after son necesarios para reemplazar_entre.",
-    "err.line_no_out_of_range": "line_no {line_no} fuera de rango para el archivo con {line_count} línea(s) (válido: 1..{max_line})"
+    "err.line_no_out_of_range": "line_no {line_no} fuera de rango para el archivo con {line_count} línea(s) (válido: 1..{max_line})",
+    "err.replacement_required": "replacement es obligatorio",
+    "err.invalid_mode": "modo no válido: {mode}",
+    "err.invalid_mode_after": "mode_after no válido: {mode}",
+    "err.invalid_action": "acción no válida: {action}"
   },
   "fr": {
     "err.path_missing": "le chemin n'est pas spécifié",
@@ -241,7 +253,11 @@
     "err.unknown_encoding": "Codage inconnu : {encoding}",
     "err.po_msgid_required": "po_msgid est requis pour replace_po_entry",
     "err.anchors_required": "Anchor_before et Anchor_after sont requis pour replace_between",
-    "err.line_no_out_of_range": "line_no {line_no} hors plage pour le fichier avec {line_count} ligne(s) (valide : 1..{max_line})"
+    "err.line_no_out_of_range": "line_no {line_no} hors plage pour le fichier avec {line_count} ligne(s) (valide : 1..{max_line})",
+    "err.replacement_required": "replacement est obligatoire",
+    "err.invalid_mode": "mode invalide : {mode}",
+    "err.invalid_mode_after": "mode_after invalide : {mode}",
+    "err.invalid_action": "action invalide : {action}"
   },
   "ko": {
     "err.path_missing": "경로가 지정되지 않음",
@@ -302,7 +318,11 @@
     "err.unknown_encoding": "알 수 없는 인코딩: {encoding}",
     "err.po_msgid_required": "교체_po_entry에는 po_msgid가 필요합니다.",
     "err.anchors_required": "교체_사이에는 앵커_전과 앵커_이후가 필요합니다.",
-    "err.line_no_out_of_range": "line_no {line_no}이 {line_count}줄이 있는 파일의 범위를 벗어났습니다(유효: 1..{max_line})."
+    "err.line_no_out_of_range": "line_no {line_no}이 {line_count}줄이 있는 파일의 범위를 벗어났습니다(유효: 1..{max_line}).",
+    "err.replacement_required": "replacement가 필요합니다",
+    "err.invalid_mode": "잘못된 mode: {mode}",
+    "err.invalid_mode_after": "잘못된 mode_after: {mode}",
+    "err.invalid_action": "잘못된 action: {action}"
   },
   "de": {
     "err.path_missing": "Pfad nicht angegeben",
@@ -363,7 +383,11 @@
     "err.unknown_encoding": "Unbekannte Kodierung: {encoding}",
     "err.po_msgid_required": "po_msgid ist für replace_po_entry erforderlich",
     "err.anchors_required": "Für „replace_between“ sind „anchor_before“ und „anchor_after“ erforderlich",
-    "err.line_no_out_of_range": "line_no {line_no} außerhalb des Bereichs für Datei mit {line_count} Zeile(n) (gültig: 1..{max_line})"
+    "err.line_no_out_of_range": "line_no {line_no} außerhalb des Bereichs für Datei mit {line_count} Zeile(n) (gültig: 1..{max_line})",
+    "err.replacement_required": "replacement ist erforderlich",
+    "err.invalid_mode": "Ungültiger Modus: {mode}",
+    "err.invalid_mode_after": "Ungültiger mode_after: {mode}",
+    "err.invalid_action": "Ungültige Aktion: {action}"
   },
   "it": {
     "err.path_missing": "il percorso non è specificato",
@@ -424,7 +448,11 @@
     "err.unknown_encoding": "Codifica sconosciuta: {encoding}",
     "err.po_msgid_required": "po_msgid è richiesto per replace_po_entry",
     "err.anchors_required": "Anchor_before e Anchor_after sono obbligatori per replace_between",
-    "err.line_no_out_of_range": "line_no {line_no} fuori intervallo per il file con {line_count} riga/i (valido: 1..{max_line})"
+    "err.line_no_out_of_range": "line_no {line_no} fuori intervallo per il file con {line_count} riga/i (valido: 1..{max_line})",
+    "err.replacement_required": "replacement è obbligatorio",
+    "err.invalid_mode": "modalità non valida: {mode}",
+    "err.invalid_mode_after": "mode_after non valido: {mode}",
+    "err.invalid_action": "azione non valida: {action}"
   },
   "ru": {
     "err.path_missing": "путь не указан",
@@ -485,7 +513,11 @@
     "err.unknown_encoding": "Неизвестная кодировка: {encoding}",
     "err.po_msgid_required": "po_msgid необходим для replace_po_entry",
     "err.anchors_required": "якорь_перед и якорь_после необходимы для replace_between",
-    "err.line_no_out_of_range": "line_no {line_no} выходит за пределы диапазона для файла, содержащего {line_count} строк (действительно: 1..{max_line})"
+    "err.line_no_out_of_range": "line_no {line_no} выходит за пределы диапазона для файла, содержащего {line_count} строк (действительно: 1..{max_line})",
+    "err.replacement_required": "требуется replacement",
+    "err.invalid_mode": "недопустимый режим: {mode}",
+    "err.invalid_mode_after": "недопустимый mode_after: {mode}",
+    "err.invalid_action": "недопустимое действие: {action}"
   },
   "pt_BR": {
     "err.path_missing": "caminho não especificado",
@@ -546,7 +578,11 @@
     "err.unknown_encoding": "Codificação desconhecida: {encoding}",
     "err.po_msgid_required": "po_msgid é necessário para replace_po_entry",
     "err.anchors_required": "Anchor_before e Anchor_after são necessários para replace_between",
-    "err.line_no_out_of_range": "line_no {line_no} fora do intervalo para arquivo com {line_count} linha(s) (válido: 1..{max_line})"
+    "err.line_no_out_of_range": "line_no {line_no} fora do intervalo para arquivo com {line_count} linha(s) (válido: 1..{max_line})",
+    "err.replacement_required": "replacement é obrigatório",
+    "err.invalid_mode": "modo inválido: {mode}",
+    "err.invalid_mode_after": "mode_after inválido: {mode}",
+    "err.invalid_action": "ação inválida: {action}"
   },
   "pt": {
     "err.path_missing": "caminho não especificado",
@@ -607,7 +643,11 @@
     "err.unknown_encoding": "Codificação desconhecida: {encoding}",
     "err.po_msgid_required": "po_msgid é necessário para replace_po_entry",
     "err.anchors_required": "Anchor_before e Anchor_after são necessários para replace_between",
-    "err.line_no_out_of_range": "line_no {line_no} fora do intervalo para arquivo com {line_count} linha(s) (válido: 1..{max_line})"
+    "err.line_no_out_of_range": "line_no {line_no} fora do intervalo para arquivo com {line_count} linha(s) (válido: 1..{max_line})",
+    "err.replacement_required": "replacement é obrigatório",
+    "err.invalid_mode": "modo inválido: {mode}",
+    "err.invalid_mode_after": "mode_after inválido: {mode}",
+    "err.invalid_action": "ação inválida: {action}"
   },
   "id": {
     "err.path_missing": "jalur tidak ditentukan",
@@ -668,7 +708,11 @@
     "err.unknown_encoding": "Pengkodean tidak dikenal: {encoding}",
     "err.po_msgid_required": "po_msgid diperlukan untuk replace_po_entry",
     "err.anchors_required": "jangkar_sebelum dan jangkar_setelah diperlukan untuk ganti_antara",
-    "err.line_no_out_of_range": "line_no {line_no} di luar jangkauan untuk file dengan {line_count} baris (valid: 1..{max_line})"
+    "err.line_no_out_of_range": "line_no {line_no} di luar jangkauan untuk file dengan {line_count} baris (valid: 1..{max_line})",
+    "err.replacement_required": "replacement is required",
+    "err.invalid_mode": "invalid mode: {mode}",
+    "err.invalid_mode_after": "invalid mode_after: {mode}",
+    "err.invalid_action": "invalid action: {action}"
   },
   "vi": {
     "err.path_missing": "không được chỉ định",
@@ -729,7 +773,11 @@
     "err.unknown_encoding": "Mã hóa không xác định: {encoding}",
     "err.po_msgid_required": "po_msgid là cần thiết cho thay thế_po_entry",
     "err.anchors_required": "cần có neo_trước và neo_sau cho thay thế giữa",
-    "err.line_no_out_of_range": "dòng_no {line_no} nằm ngoài phạm vi của tệp có {line_count} dòng (hợp lệ: 1..{max_line})"
+    "err.line_no_out_of_range": "dòng_no {line_no} nằm ngoài phạm vi của tệp có {line_count} dòng (hợp lệ: 1..{max_line})",
+    "err.replacement_required": "replacement is required",
+    "err.invalid_mode": "invalid mode: {mode}",
+    "err.invalid_mode_after": "invalid mode_after: {mode}",
+    "err.invalid_action": "invalid action: {action}"
   },
   "pl": {
     "err.path_missing": "nie określono ścieżki",
@@ -790,7 +838,11 @@
     "err.unknown_encoding": "Nieznane kodowanie: {encoding}",
     "err.po_msgid_required": "po_msgid jest wymagany do zamiany_po_entry",
     "err.anchors_required": "kotwica_before i kotwica_po są wymagane dla zamiany_pomiędzy",
-    "err.line_no_out_of_range": "nr linii {line_no} poza zakresem dla pliku z {line_count} liniami (ważne: 1..{max_line})"
+    "err.line_no_out_of_range": "nr linii {line_no} poza zakresem dla pliku z {line_count} liniami (ważne: 1..{max_line})",
+    "err.replacement_required": "replacement is required",
+    "err.invalid_mode": "invalid mode: {mode}",
+    "err.invalid_mode_after": "invalid mode_after: {mode}",
+    "err.invalid_action": "invalid action: {action}"
   },
   "hi": {
     "err.path_missing": "पथ निर्दिष्ट नहीं है",
@@ -851,7 +903,11 @@
     "err.unknown_encoding": "अज्ञात एन्कोडिंग: {encoding}",
     "err.po_msgid_required": "Replace_po_entry के लिए po_msgid आवश्यक है",
     "err.anchors_required": "रिप्लेस_बिटवीन के लिए एंकर_बिफोर और एंकर_आफ्टर आवश्यक हैं",
-    "err.line_no_out_of_range": "लाइन संख्या {line_no} {line_count} लाइन वाली फ़ाइल के लिए सीमा से बाहर है (मान्य: 1..{max_line})"
+    "err.line_no_out_of_range": "लाइन संख्या {line_no} {line_count} लाइन वाली फ़ाइल के लिए सीमा से बाहर है (मान्य: 1..{max_line})",
+    "err.replacement_required": "replacement is required",
+    "err.invalid_mode": "invalid mode: {mode}",
+    "err.invalid_mode_after": "invalid mode_after: {mode}",
+    "err.invalid_action": "invalid action: {action}"
   },
   "ar": {
     "err.path_missing": "لم يتم تحديد المسار",
@@ -912,7 +968,11 @@
     "err.unknown_encoding": "ترميز غير معروف: {encoding}",
     "err.po_msgid_required": "مطلوب po_msgid لreplace_po_entry",
     "err.anchors_required": "مرساة_قبل و مرساة_بعد مطلوبة لاستبدال_بين",
-    "err.line_no_out_of_range": "line_no {line_no} خارج النطاق للملف الذي يحتوي على {line_count} سطر (أسطر) (صالح: 1..{max_line})"
+    "err.line_no_out_of_range": "line_no {line_no} خارج النطاق للملف الذي يحتوي على {line_count} سطر (أسطر) (صالح: 1..{max_line})",
+    "err.replacement_required": "replacement is required",
+    "err.invalid_mode": "invalid mode: {mode}",
+    "err.invalid_mode_after": "invalid mode_after: {mode}",
+    "err.invalid_action": "invalid action: {action}"
   },
   "sv": {
     "err.path_missing": "path är inte angiven",
@@ -973,7 +1033,11 @@
     "err.unknown_encoding": "Okänd kodning: {encoding}",
     "err.po_msgid_required": "po_msgid krävs för replace_po_entry",
     "err.anchors_required": "anchor_before och anchor_after krävs för replace_between",
-    "err.line_no_out_of_range": "line_no {line_no} utanför intervallet för fil med {line_count} rad(er) (giltigt: 1..{max_line})"
+    "err.line_no_out_of_range": "line_no {line_no} utanför intervallet för fil med {line_count} rad(er) (giltigt: 1..{max_line})",
+    "err.replacement_required": "replacement is required",
+    "err.invalid_mode": "invalid mode: {mode}",
+    "err.invalid_mode_after": "invalid mode_after: {mode}",
+    "err.invalid_action": "invalid action: {action}"
   },
   "sw": {
     "err.path_missing": "path haijabainishwa",
@@ -1034,7 +1098,11 @@
     "err.unknown_encoding": "Usimbaji usiojulikana: {encoding}",
     "err.po_msgid_required": "po_msgid inahitajika kwa replace_po_entry",
     "err.anchors_required": "anchor_before na anchor_after zinahitajika kwa replace_between",
-    "err.line_no_out_of_range": "mstari_hapana {line_no} nje ya safu ya faili iliyo na {line_count} laini (sahihi: 1..{max_line})"
+    "err.line_no_out_of_range": "mstari_hapana {line_no} nje ya safu ya faili iliyo na {line_count} laini (sahihi: 1..{max_line})",
+    "err.replacement_required": "replacement is required",
+    "err.invalid_mode": "invalid mode: {mode}",
+    "err.invalid_mode_after": "invalid mode_after: {mode}",
+    "err.invalid_action": "invalid action: {action}"
   },
   "nb": {
     "err.path_missing": "path er ikke angitt",
@@ -1095,7 +1163,11 @@
     "err.unknown_encoding": "Ukjent koding: {encoding}",
     "err.po_msgid_required": "po_msgid kreves for replace_po_entry",
     "err.anchors_required": "anchor_before og anchor_after kreves for replace_between",
-    "err.line_no_out_of_range": "line_no {line_no} utenfor rekkevidde for fil med {line_count} linje(r) (gyldig: 1..{max_line})"
+    "err.line_no_out_of_range": "line_no {line_no} utenfor rekkevidde for fil med {line_count} linje(r) (gyldig: 1..{max_line})",
+    "err.replacement_required": "replacement is required",
+    "err.invalid_mode": "invalid mode: {mode}",
+    "err.invalid_mode_after": "invalid mode_after: {mode}",
+    "err.invalid_action": "invalid action: {action}"
   },
   "nl": {
     "err.path_missing": "pad is niet opgegeven",
@@ -1156,7 +1228,11 @@
     "err.unknown_encoding": "Onbekende codering: {encoding}",
     "err.po_msgid_required": "po_msgid is vereist voor Replace_po_entry",
     "err.anchors_required": "anchor_before en anchor_after zijn vereist voor vervangen_tussen",
-    "err.line_no_out_of_range": "line_no {line_no} buiten bereik voor bestand met {line_count} regel(s) (geldig: 1..{max_line})"
+    "err.line_no_out_of_range": "line_no {line_no} buiten bereik voor bestand met {line_count} regel(s) (geldig: 1..{max_line})",
+    "err.replacement_required": "replacement is required",
+    "err.invalid_mode": "invalid mode: {mode}",
+    "err.invalid_mode_after": "invalid mode_after: {mode}",
+    "err.invalid_action": "invalid action: {action}"
   },
   "fi": {
     "err.path_missing": "polkua ei ole annettu",
@@ -1217,7 +1293,11 @@
     "err.unknown_encoding": "Tuntematon koodaus: {encoding}",
     "err.po_msgid_required": "po_msgid vaaditaan replace_po_entrylle",
     "err.anchors_required": "anchor_before ja anchor_after vaaditaan korvaa_välille",
-    "err.line_no_out_of_range": "line_no {line_no} alueen ulkopuolella tiedostolle, jossa on {line_count} riviä (kelvollinen: 1..{max_line})"
+    "err.line_no_out_of_range": "line_no {line_no} alueen ulkopuolella tiedostolle, jossa on {line_count} riviä (kelvollinen: 1..{max_line})",
+    "err.replacement_required": "replacement is required",
+    "err.invalid_mode": "invalid mode: {mode}",
+    "err.invalid_mode_after": "invalid mode_after: {mode}",
+    "err.invalid_action": "invalid action: {action}"
   },
   "cs": {
     "err.path_missing": "cesta není zadána",
@@ -1278,7 +1358,11 @@
     "err.unknown_encoding": "Neznámé kódování: {encoding}",
     "err.po_msgid_required": "po_msgid je vyžadováno pro replace_po_entry",
     "err.anchors_required": "anchor_before a anchor_after jsou vyžadovány pro nahrazení_mezi",
-    "err.line_no_out_of_range": "line_no {line_no} mimo rozsah pro soubor s {line_count} řádky (platný: 1..{max_line})"
+    "err.line_no_out_of_range": "line_no {line_no} mimo rozsah pro soubor s {line_count} řádky (platný: 1..{max_line})",
+    "err.replacement_required": "replacement is required",
+    "err.invalid_mode": "invalid mode: {mode}",
+    "err.invalid_mode_after": "invalid mode_after: {mode}",
+    "err.invalid_action": "invalid action: {action}"
   },
   "uk": {
     "err.path_missing": "шлях не вказано",
@@ -1339,7 +1423,11 @@
     "err.unknown_encoding": "Невідоме кодування: {encoding}",
     "err.po_msgid_required": "po_msgid необхідний для replace_po_entry",
     "err.anchors_required": "anchor_before і anchor_after необхідні для replace_between",
-    "err.line_no_out_of_range": "line_no {line_no} поза діапазоном для файлу з {line_count} рядками (дійсний: 1..{max_line})"
+    "err.line_no_out_of_range": "line_no {line_no} поза діапазоном для файлу з {line_count} рядками (дійсний: 1..{max_line})",
+    "err.replacement_required": "replacement is required",
+    "err.invalid_mode": "invalid mode: {mode}",
+    "err.invalid_mode_after": "invalid mode_after: {mode}",
+    "err.invalid_action": "invalid action: {action}"
   },
   "tr": {
     "err.path_missing": "yol belirtilmedi",
@@ -1400,7 +1488,11 @@
     "err.unknown_encoding": "Bilinmeyen kodlama: {encoding}",
     "err.po_msgid_required": "replacement_po_entry için po_msgid gereklidir",
     "err.anchors_required": "replacement_between için çapa_before ve çapa_sonra gereklidir",
-    "err.line_no_out_of_range": "line_no {line_no}, {line_count} satırlı dosya için aralık dışında (geçerli: 1..{max_line})"
+    "err.line_no_out_of_range": "line_no {line_no}, {line_count} satırlı dosya için aralık dışında (geçerli: 1..{max_line})",
+    "err.replacement_required": "replacement is required",
+    "err.invalid_mode": "invalid mode: {mode}",
+    "err.invalid_mode_after": "invalid mode_after: {mode}",
+    "err.invalid_action": "invalid action: {action}"
   },
   "th": {
     "err.path_missing": "ไม่ได้ระบุเส้นทาง",
@@ -1461,7 +1553,11 @@
     "err.unknown_encoding": "การเข้ารหัสที่ไม่รู้จัก: {encoding}",
     "err.po_msgid_required": "po_msgid จำเป็นสำหรับ replacement_po_entry",
     "err.anchors_required": "ต้องใช้ Anchor_before และ Anchor_after เพื่อแทนที่ระหว่าง",
-    "err.line_no_out_of_range": "line_no {line_no} อยู่นอกช่วงสำหรับไฟล์ที่มี {line_count} บรรทัด (ที่ถูกต้อง: 1..{max_line})"
+    "err.line_no_out_of_range": "line_no {line_no} อยู่นอกช่วงสำหรับไฟล์ที่มี {line_count} บรรทัด (ที่ถูกต้อง: 1..{max_line})",
+    "err.replacement_required": "replacement is required",
+    "err.invalid_mode": "invalid mode: {mode}",
+    "err.invalid_mode_after": "invalid mode_after: {mode}",
+    "err.invalid_action": "invalid action: {action}"
   },
   "zh_CN": {
     "err.path_missing": "未指定路径",
@@ -1522,7 +1618,11 @@
     "err.unknown_encoding": "未知编码：{encoding}",
     "err.po_msgid_required": "Replace_po_entry 需要 po_msgid",
     "err.anchors_required": "update_ Between 需要anchor_before 和anchor_after",
-    "err.line_no_out_of_range": "对于具有 {line_count} 行的文件，line_no {line_no} 超出范围（有效：1..{max_line}）"
+    "err.line_no_out_of_range": "对于具有 {line_count} 行的文件，line_no {line_no} 超出范围（有效：1..{max_line}）",
+    "err.replacement_required": "必须指定 replacement",
+    "err.invalid_mode": "无效的模式：{mode}",
+    "err.invalid_mode_after": "无效的 mode_after：{mode}",
+    "err.invalid_action": "无效的操作：{action}"
   },
   "zh_TW": {
     "err.path_missing": "未指定路徑",
@@ -1583,7 +1683,11 @@
     "err.unknown_encoding": "未知编码：{encoding}",
     "err.po_msgid_required": "Replace_po_entry 需要 po_msgid",
     "err.anchors_required": "update_ Between 需要anchor_before 和anchor_after",
-    "err.line_no_out_of_range": "对于具有 {line_count} 行的文件，line_no {line_no} 超出范围（有效：1..{max_line}）"
+    "err.line_no_out_of_range": "对于具有 {line_count} 行的文件，line_no {line_no} 超出范围（有效：1..{max_line}）",
+    "err.replacement_required": "必須指定 replacement",
+    "err.invalid_mode": "無效的模式：{mode}",
+    "err.invalid_mode_after": "無效的 mode_after：{mode}",
+    "err.invalid_action": "無效的操作：{action}"
   },
   "bn": {
     "err.path_missing": "পাথ নির্দিষ্ট করা হয়নি",
@@ -1644,7 +1748,11 @@
     "err.unknown_encoding": "未知编码：{encoding}",
     "err.po_msgid_required": "Replace_po_entry 需要 po_msgid",
     "err.anchors_required": "update_ Between 需要anchor_before 和anchor_after",
-    "err.line_no_out_of_range": "对于具有 {line_count} 行的文件，line_no {line_no} 超出范围（有效：1..{max_line}）"
+    "err.line_no_out_of_range": "对于具有 {line_count} 行的文件，line_no {line_no} 超出范围（有效：1..{max_line}）",
+    "err.replacement_required": "replacement is required",
+    "err.invalid_mode": "invalid mode: {mode}",
+    "err.invalid_mode_after": "invalid mode_after: {mode}",
+    "err.invalid_action": "invalid action: {action}"
   },
   "fa": {
     "err.path_missing": "مسیر مشخص نشده است",
@@ -1705,7 +1813,11 @@
     "err.unknown_encoding": "رمزگذاری ناشناخته: {encoding}",
     "err.po_msgid_required": "po_msgid برای replace_po_entry مورد نیاز است",
     "err.anchors_required": "anchor_before و anchor_after برای replace_between مورد نیاز هستند",
-    "err.line_no_out_of_range": "line_no {line_no} خارج از محدوده برای فایل با {line_count} خط(های) (معتبر: 1..{max_line})"
+    "err.line_no_out_of_range": "line_no {line_no} خارج از محدوده برای فایل با {line_count} خط(های) (معتبر: 1..{max_line})",
+    "err.replacement_required": "replacement is required",
+    "err.invalid_mode": "invalid mode: {mode}",
+    "err.invalid_mode_after": "invalid mode_after: {mode}",
+    "err.invalid_action": "invalid action: {action}"
   },
   "mn": {
     "err.path_missing": "замыг заагаагүй байна",
@@ -1766,7 +1878,11 @@
     "err.unknown_encoding": "Тодорхойгүй кодчилол: {encoding}",
     "err.po_msgid_required": "replace_po_entry-д po_msgid шаардлагатай",
     "err.anchors_required": "хооронд_орлуулахын тулд anchor_befor and anchor_after шаардлагатай",
-    "err.line_no_out_of_range": "мөр_no {line_no} {line_count} мөртэй файлын хүрээнээс гарсан (хүчинтэй: 1..{max_line})"
+    "err.line_no_out_of_range": "мөр_no {line_no} {line_count} мөртэй файлын хүрээнээс гарсан (хүчинтэй: 1..{max_line})",
+    "err.replacement_required": "replacement is required",
+    "err.invalid_mode": "invalid mode: {mode}",
+    "err.invalid_mode_after": "invalid mode_after: {mode}",
+    "err.invalid_action": "invalid action: {action}"
   },
   "mr": {
     "err.path_missing": "पथ निर्दिष्ट नाही",
@@ -1827,7 +1943,11 @@
     "err.unknown_encoding": "अज्ञात एन्कोडिंग: {encoding}",
     "err.po_msgid_required": "po_msgid पुनर्स्थित_po_entry साठी आवश्यक आहे",
     "err.anchors_required": "दरम्यान बदलण्यासाठी anchor_before आणि anchor_after आवश्यक आहे",
-    "err.line_no_out_of_range": "{line_count} ओळ (वैध: 1..{max_line}) असलेल्या फाईलसाठी line_no {line_no} श्रेणीबाहेर आहे"
+    "err.line_no_out_of_range": "{line_count} ओळ (वैध: 1..{max_line}) असलेल्या फाईलसाठी line_no {line_no} श्रेणीबाहेर आहे",
+    "err.replacement_required": "replacement is required",
+    "err.invalid_mode": "invalid mode: {mode}",
+    "err.invalid_mode_after": "invalid mode_after: {mode}",
+    "err.invalid_action": "invalid action: {action}"
   },
   "el": {
     "err.path_missing": "η διαδρομή δεν έχει καθοριστεί",
@@ -1888,7 +2008,11 @@
     "err.unknown_encoding": "Άγνωστη κωδικοποίηση: {encoding}",
     "err.po_msgid_required": "Το po_msgid απαιτείται για το replace_po_entry",
     "err.anchors_required": "Τα anchor_before και anchor_after απαιτούνται για το replace_between",
-    "err.line_no_out_of_range": "line_no {line_no} εκτός εμβέλειας για αρχείο με {line_count} γραμμή(εις) (έγκυρο: 1..{max_line})"
+    "err.line_no_out_of_range": "line_no {line_no} εκτός εμβέλειας για αρχείο με {line_count} γραμμή(εις) (έγκυρο: 1..{max_line})",
+    "err.replacement_required": "replacement is required",
+    "err.invalid_mode": "invalid mode: {mode}",
+    "err.invalid_mode_after": "invalid mode_after: {mode}",
+    "err.invalid_action": "invalid action: {action}"
   },
   "he": {
     "err.path_missing": "נתיב לא צוין",
@@ -1949,7 +2073,11 @@
     "err.unknown_encoding": "קידוד לא ידוע: {encoding}",
     "err.po_msgid_required": "po_msgid נדרש עבור replace_po_entry",
     "err.anchors_required": "anchor_before ו-anchor_after נדרשים עבור replace_between",
-    "err.line_no_out_of_range": "line_no {line_no} מחוץ לטווח עבור קובץ עם {line_count} שורות (תקף: 1..{max_line})"
+    "err.line_no_out_of_range": "line_no {line_no} מחוץ לטווח עבור קובץ עם {line_count} שורות (תקף: 1..{max_line})",
+    "err.replacement_required": "replacement is required",
+    "err.invalid_mode": "invalid mode: {mode}",
+    "err.invalid_mode_after": "invalid mode_after: {mode}",
+    "err.invalid_action": "invalid action: {action}"
   },
   "hu": {
     "err.path_missing": "útvonal nincs megadva",
@@ -2010,7 +2138,11 @@
     "err.unknown_encoding": "Ismeretlen kódolás: {encoding}",
     "err.po_msgid_required": "po_msgid szükséges a change_po_entry-hez",
     "err.anchors_required": "anchor_before és anchor_after szükséges a helyettesítő_között",
-    "err.line_no_out_of_range": "line_no {line_no} a tartományon kívül esik a {line_count} sorral rendelkező fájlnál (érvényes: 1..{max_line})"
+    "err.line_no_out_of_range": "line_no {line_no} a tartományon kívül esik a {line_count} sorral rendelkező fájlnál (érvényes: 1..{max_line})",
+    "err.replacement_required": "replacement is required",
+    "err.invalid_mode": "invalid mode: {mode}",
+    "err.invalid_mode_after": "invalid mode_after: {mode}",
+    "err.invalid_action": "invalid action: {action}"
   },
   "ro": {
     "err.path_missing": "calea nu este specificată",
@@ -2071,6 +2203,10 @@
     "err.unknown_encoding": "Codare necunoscută: {encoding}",
     "err.po_msgid_required": "po_msgid este necesar pentru replace_po_entry",
     "err.anchors_required": "anchor_before și anchor_after sunt necesare pentru replace_between",
-    "err.line_no_out_of_range": "line_no {line_no} în afara intervalului pentru fișierul cu {line_count} rând(i) (valid: 1..{max_line})"
+    "err.line_no_out_of_range": "line_no {line_no} în afara intervalului pentru fișierul cu {line_count} rând(i) (valid: 1..{max_line})",
+    "err.replacement_required": "replacement is required",
+    "err.invalid_mode": "invalid mode: {mode}",
+    "err.invalid_mode_after": "invalid mode_after: {mode}",
+    "err.invalid_action": "invalid action: {action}"
   }
 }

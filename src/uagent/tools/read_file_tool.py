@@ -157,8 +157,15 @@ def run_tool(args: dict[str, Any]) -> str:
         )
         return _json_err(msg)
 
+    # ``head``/``tail`` are the public tool arguments.  Keep the legacy
+    # ``head_lines``/``tail_lines`` aliases for internal callers such as
+    # :head and :tail commands.
     head_lines = args.get("head")
+    if head_lines is None:
+        head_lines = args.get("head_lines")
     tail_lines = args.get("tail")
+    if tail_lines is None:
+        tail_lines = args.get("tail_lines")
 
     max_lines: int | None
 
@@ -168,6 +175,35 @@ def run_tool(args: dict[str, Any]) -> str:
             default="[read_file error] head_lines and tail_lines cannot be specified together",
         )
         return _json_err(msg)
+
+    # Reject negative line counts instead of allowing them to trigger
+    # accidental one-line reads or other surprising behavior.
+    for option_name, option_value in (
+        ("head", head_lines),
+        ("tail", tail_lines),
+        ("maxl", args.get("maxl")),
+    ):
+        if option_value is not None:
+            try:
+                if int(option_value) < 0:
+                    msg = _(
+                        "err.negative_lines",
+                        default="[read_file error] {option} cannot be negative",
+                    ).format(option=option_name)
+                    return _json_err(msg, option=option_name)
+            except (TypeError, ValueError):
+                msg = _(
+                    "err.invalid_lines",
+                    default="[read_file error] {option} must be an integer",
+                ).format(option=option_name)
+                return _json_err(msg, option=option_name)
+
+    # A zero line count is a valid empty result, not a request for one line.
+    if any(
+        option_value is not None and int(option_value) == 0
+        for option_value in (head_lines, tail_lines, args.get("maxl"))
+    ):
+        return ""
 
     try:
         if head_lines is not None:
@@ -206,8 +242,28 @@ def run_tool(args: dict[str, Any]) -> str:
             else:
                 max_lines = int(raw_max_lines)
 
-            page = get_int(args, "page", 1)
-            if page > 1 and max_lines is not None:
+            raw_page = args.get("page", 1)
+            try:
+                page = int(raw_page)
+            except (TypeError, ValueError):
+                msg = _(
+                    "err.invalid_page",
+                    default="[read_file error] page must be an integer",
+                )
+                return _json_err(msg, option="page")
+            if page < 1:
+                msg = _(
+                    "err.invalid_page",
+                    default="[read_file error] page must be at least 1",
+                )
+                return _json_err(msg, option="page")
+            if page > 1 and max_lines is None:
+                msg = _(
+                    "err.page_requires_maxl",
+                    default="[read_file error] page requires maxl",
+                )
+                return _json_err(msg, option="page")
+            if page > 1:
                 start_line = (page - 1) * max_lines + 1
             else:
                 start_line = max(1, get_int(args, "start_line", 1))
@@ -225,24 +281,70 @@ def run_tool(args: dict[str, Any]) -> str:
 
         lines: list[str] = []
         total_bytes = 0
-        with open(
-            filename, "r", encoding=encoding, errors="replace", newline=None
-        ) as f:
+        # Process physical lines in bounded binary chunks.  Long lines are
+        # consumed without being accumulated and count as one physical line.
+        chunk_size = max(1, min(max_bytes + 1, 65536))
+        with open(filename, "rb") as f:
             i = 0
-            for i, line in enumerate(f, 1):
-                if i < start_line:
-                    continue
-                lines.append(line)
-                total_bytes += len(line.encode(encoding, errors="replace"))
-                if max_lines is not None and len(lines) >= max_lines:
+            while True:
+                raw_line = f.readline(chunk_size)
+                if not raw_line:
                     break
-                if total_bytes > max_bytes:
+
+                i += 1
+                has_newline = raw_line.endswith(b"\n")
+
+                if i < start_line:
+                    if not has_newline:
+                        # Consume the rest of a skipped physical line without
+                        # retaining it, so line numbering remains correct.
+                        while True:
+                            discarded = f.readline(chunk_size)
+                            if not discarded or discarded.endswith(b"\n"):
+                                break
+                    continue
+
+                # Preserve a selected long physical line only up to the
+                # remaining byte budget, while consuming its remainder so it
+                # is still counted as one physical line.
+                if not has_newline:
+                    while True:
+                        discarded = f.readline(chunk_size)
+                        if not discarded:
+                            break
+                        raw_line += discarded[: max(0, max_bytes - len(raw_line))]
+                        if discarded.endswith(b"\n"):
+                            has_newline = True
+                            break
+
+                remaining_bytes = max_bytes - total_bytes
+                if remaining_bytes <= 0:
                     lines.append(
                         _(
                             "msg.truncated",
                             default="\n[read_file truncated: byte limit {max_bytes} reached]",
                         ).format(max_bytes=max_bytes)
                     )
+                    break
+
+                if len(raw_line) > remaining_bytes or not has_newline:
+                    prefix = raw_line[:remaining_bytes]
+                    if prefix:
+                        lines.append(
+                            prefix.decode(encoding, errors="replace")
+                        )
+                    lines.append(
+                        _(
+                            "msg.truncated",
+                            default="\n[read_file truncated: byte limit {max_bytes} reached]",
+                        ).format(max_bytes=max_bytes)
+                    )
+                    break
+
+                text_line = raw_line.decode(encoding, errors="replace")
+                lines.append(text_line.replace("\r\n", "\n").replace("\r", "\n"))
+                total_bytes += len(raw_line)
+                if max_lines is not None and len(lines) >= max_lines:
                     break
 
         if not lines and start_line > 1:

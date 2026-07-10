@@ -4,6 +4,7 @@ import os
 import re
 
 from .i18n_helper import make_tool_translator
+from .index_tool_helpers import read_index_source, resolve_index_path
 
 _ = make_tool_translator(__file__)
 
@@ -54,7 +55,7 @@ _MOD = r"(?:(?:public|private|fileprivate|internal|open|static|class|override|mu
 _PATTERNS = [
     (r"^\s*(?:import|@)\S+", lambda m: None),
     (
-        r"^\s*(?:public|open|internal|private|fileprivate)?\s*(?:class|struct|enum|protocol|extension)\s+(\w+)",
+        r"^\s*(?:public|open|internal|private|fileprivate)?\s*(?:class|struct|enum|protocol|extension|actor)\s+(\w+)",
         lambda m: ("type", m.group(1)),
     ),
     (
@@ -283,14 +284,17 @@ def run_tool(args):
     path, mode = args.get("path", ""), args.get("mode", "index")
     if not path:
         return _("err.path_required", default="Error: 'path' is required.")
-    if not os.path.isfile(path):
-        return _(
-            "err.file_not_found", default="Error: File not found: {path}", path=path
-        )
     try:
-        with open(path, "r", encoding="utf-8") as _f:
-            _source = _f.read()
-        builder = _SwiftIndexBuilder(_source, filepath=path)
+        safe_path = resolve_index_path(str(path))
+    except Exception:
+        return _("err.file_not_found", default="Error: File not found: {path}", path=path)
+
+    if not os.path.isfile(safe_path):
+        return _("err.file_not_found", default="Error: File not found: {path}", path=path)
+
+    try:
+        _source = read_index_source(safe_path)
+        builder = _SwiftIndexBuilder(_source, filepath=safe_path)
     except Exception as e:
         return _("err.parse_error", default="Error parsing file: {e}", e=str(e))
     if mode == "index":

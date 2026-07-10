@@ -7,6 +7,7 @@ from __future__ import annotations
 
 import codecs
 import difflib
+import fnmatch
 import hashlib
 import json
 import os
@@ -347,6 +348,25 @@ def _unified_diff(path: str, original: str, replaced: str) -> str:
 def _write_text_robust(path: str, text: str, encoding: str) -> None:
     with open(path, "w", encoding=encoding, newline="") as f:
         f.write(text)
+
+
+def _is_probably_binary(path: str) -> bool:
+    """Return True for files that should not be edited as text."""
+    try:
+        with open(path, "rb") as f:
+            head = f.read(4096)
+    except OSError:
+        return True
+    if b"\x00" in head:
+        return True
+    if not head:
+        return False
+    control_count = sum(
+        1
+        for byte in head
+        if byte < 32 and byte not in (9, 10, 13)
+    )
+    return control_count / len(head) > 0.10
 
 
 def _expand_newline_tokens_to_lf(s: str) -> str:
@@ -1495,9 +1515,21 @@ def run_tool(args: dict[str, Any]) -> str:
         path = str(args.get("path", ""))
         action = str(args.get("action", "replace"))
         mode = str(args.get("mode", "literal"))
+        mode_after = str(args.get("mode_after", "")) or None
         if action == "append":
             action = "insert_at_end"
         pattern = str(args.get("pattern", ""))
+        if "replacement" not in args:
+            return json.dumps(
+                {
+                    "ok": False,
+                    "error": _(
+                        "err.replacement_required",
+                        default="replacement is required",
+                    ),
+                },
+                ensure_ascii=False,
+            )
         replacement = str(args.get("replacement", ""))
         preview = bool(args.get("preview", True))
         occurrence = int(args.get("occurrence", 0))
@@ -1506,6 +1538,53 @@ def run_tool(args: dict[str, Any]) -> str:
         po_msgid = str(args.get("po_msgid", args.get("msgid", "")))
         anchor_before = str(args.get("anchor_before", ""))
         anchor_after = str(args.get("anchor_after", ""))
+
+        valid_modes = {"literal", "regex"}
+        if mode not in valid_modes:
+            return json.dumps(
+                {
+                    "ok": False,
+                    "error": _(
+                        "err.invalid_mode",
+                        default="invalid mode: {mode}",
+                    ).format(mode=mode),
+                },
+                ensure_ascii=False,
+            )
+        if mode_after and mode_after not in valid_modes:
+            return json.dumps(
+                {
+                    "ok": False,
+                    "error": _(
+                        "err.invalid_mode_after",
+                        default="invalid mode_after: {mode}",
+                    ).format(mode=mode_after),
+                },
+                ensure_ascii=False,
+            )
+
+        valid_actions = {
+            "replace",
+            "append",
+            "insert_at_end",
+            "insert_before",
+            "insert_after",
+            "insert_at_line",
+            "replace_between",
+            "replace_po_entry",
+            "replace_all_in_files",
+        }
+        if action not in valid_actions:
+            return json.dumps(
+                {
+                    "ok": False,
+                    "error": _(
+                        "err.invalid_action",
+                        default="invalid action: {action}",
+                    ).format(action=action),
+                },
+                ensure_ascii=False,
+            )
 
         if not path:
             return json.dumps(
@@ -1536,33 +1615,69 @@ def run_tool(args: dict[str, Any]) -> str:
 
         if action == "replace_all_in_files":
             root = Path(ensure_within_workdir(path))
+            exclude_dirs = {
+                ".git",
+                "node_modules",
+                "__pycache__",
+                ".venv",
+                "venv",
+                ".uag",
+                ".pytest_cache",
+                ".mypy_cache",
+                ".idea",
+                ".vscode",
+            }
+            exclude_globs = {
+                "*.pyc",
+                "*.pyd",
+                "*.so",
+                "*.dll",
+                "*.exe",
+                "*.bin",
+                "*.zip",
+                "*.tar",
+                "*.gz",
+                "*.7z",
+                "*.png",
+                "*.jpg",
+                "*.jpeg",
+                "*.gif",
+                "*.ico",
+            }
+            raw_exclude_globs = args.get("exclude_globs", []) or []
+            if isinstance(raw_exclude_globs, str):
+                exclude_globs.add(raw_exclude_globs)
+            else:
+                exclude_globs.update(str(g) for g in raw_exclude_globs if str(g))
+
+            def _eligible_target(candidate: Path) -> bool:
+                if not candidate.is_file() or _is_probably_binary(str(candidate)):
+                    return False
+                try:
+                    rel = candidate.relative_to(root)
+                    rel_name = "/".join(rel.parts)
+                    rel_parts = rel.parts
+                except ValueError:
+                    rel_name = candidate.name
+                    rel_parts = candidate.parts
+                if any(part in exclude_dirs for part in rel_parts[:-1]):
+                    return False
+                return not any(
+                    fnmatch.fnmatch(candidate.name, glob)
+                    or fnmatch.fnmatch(rel_name, glob)
+                    for glob in exclude_globs
+                )
+
             if root.is_file():
-                targets = [root]
+                targets = [root] if _eligible_target(root) else []
             else:
                 globber = root.rglob if bool(args.get("recur", True)) else root.glob
-                name_pattern = args.get("glob", "*")
-                exclude_dirs = {
-                    ".git",
-                    "node_modules",
-                    "__pycache__",
-                    ".venv",
-                    "venv",
-                    ".uag",
-                    ".pytest_cache",
-                    ".mypy_cache",
-                    ".idea",
-                    ".vscode",
-                }
-                targets = []
-                for p in globber(name_pattern):
-                    if p.is_file():
-                        try:
-                            rel_parts = p.relative_to(root).parts
-                        except ValueError:
-                            rel_parts = p.parts
-                        if any(part in exclude_dirs for part in rel_parts[:-1]):
-                            continue
-                        targets.append(p)
+                name_pattern = str(args.get("glob", "*"))
+                targets = [
+                    candidate
+                    for candidate in globber(name_pattern)
+                    if _eligible_target(candidate)
+                ]
             results = []
             for fp in targets:
                 try:

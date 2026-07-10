@@ -6,6 +6,7 @@ import fnmatch
 import json
 import os
 import re
+from collections import deque
 from typing import Any, Sequence
 
 from .arg_util import get_bool, get_int, get_str
@@ -286,10 +287,19 @@ def _resolve_files(
         if recursive:
             for root, dirs, files_in_dir in os.walk(safe_item):
                 dirs[:] = [d for d in dirs if d not in exclude_dirs]
-                for fname in sorted(fnmatch.filter(files_in_dir, name_pattern)):
+                normalized_pattern = name_pattern.replace("\\", "/")
+                for fname in sorted(files_in_dir):
+                    full_p = os.path.abspath(os.path.join(root, fname))
+                    relative_name = os.path.relpath(full_p, safe_item).replace(
+                        os.sep, "/"
+                    )
+                    if not (
+                        fnmatch.fnmatch(fname, name_pattern)
+                        or fnmatch.fnmatch(relative_name, normalized_pattern)
+                    ):
+                        continue
                     if any(fnmatch.fnmatch(fname, g) for g in exclude_globs):
                         continue
-                    full_p = os.path.abspath(os.path.join(root, fname))
                     if full_p not in seen:
                         seen.add(full_p)
                         all_files.append(full_p)
@@ -360,11 +370,13 @@ def _decode_text_bytes(data: bytes) -> tuple[str, str]:
     )
 
 
-def _read_lines(path: str) -> list[str]:
+def _iter_lines(path: str):
+    """Yield normalized text lines without loading the whole file."""
     with open(path, "rb") as f:
-        data = f.read()
-    text, _encoding = _decode_text_bytes(data)
-    return text.splitlines(keepends=True)
+        head = f.read(8192)
+    encoding = _detect_text_encoding(head)
+    with open(path, "r", encoding=encoding, errors="replace", newline=None) as f:
+        yield from f
 
 
 def run_tool(args: dict[str, Any]) -> str:
@@ -382,13 +394,29 @@ def run_tool(args: dict[str, Any]) -> str:
         if raw_path in (None, ""):
             raw_path = args.get("root_path", ".")
 
-        name_pattern = get_str(args, "glob", "*")
-        recursive = get_bool(args, "recur", False)
+        # Accept both the public file_grep names and legacy search_files
+        # aliases used by CLI/internal callers.
+        name_pattern = get_str(
+            args,
+            "glob",
+            get_str(args, "name_pattern", "*"),
+        )
+        recursive = get_bool(
+            args,
+            "recur",
+            get_bool(args, "recursive", False),
+        )
         ignore_case = get_bool(args, "ignore_case", True)
         literal = get_bool(args, "literal", False)
-        max_results = max(0, get_int(args, "limit", 100))
+        max_results = max(
+            0,
+            get_int(args, "limit", get_int(args, "max_results", 100)),
+        )
         page = max(1, get_int(args, "page", 1))
-        max_hits_per_file = max(0, get_int(args, "maxhits", 100))
+        max_hits_per_file = max(
+            0,
+            get_int(args, "maxhits", get_int(args, "max_hits_per_file", 100)),
+        )
         context_lines = max(0, get_int(args, "context_lines", 0))
         filenames_only = get_bool(args, "filenames_only", False)
         binary_skip = get_bool(args, "binary_skip", True)
@@ -434,38 +462,56 @@ def run_tool(args: dict[str, Any]) -> str:
                 continue
 
             try:
-                lines = _read_lines(path)
+                line_iter = _iter_lines(path)
+                recent: deque[str] = deque(maxlen=context_lines)
+                pending: list[tuple[dict[str, Any], int]] = []
+                file_hit_count = 0
+                file_matched = False
+                stop_matching = False
+
+                for idx, line in enumerate(line_iter):
+                    if pending:
+                        next_pending: list[tuple[dict[str, Any], int]] = []
+                        for result, remaining in pending:
+                            result["context_after"].append(line.rstrip("\r\n"))
+                            remaining -= 1
+                            if remaining > 0:
+                                next_pending.append((result, remaining))
+                            else:
+                                matches.append(result)
+                        pending = next_pending
+
+                    if not stop_matching and regex.search(line):
+                        file_matched = True
+                        file_hit_count += 1
+
+                        if filenames_only:
+                            break
+
+                        result = {
+                            "file": path,
+                            "line": idx + 1,
+                            "text": line.rstrip("\r\n"),
+                            "context_before": list(recent),
+                            "context_after": [],
+                        }
+                        if context_lines:
+                            pending.append((result, context_lines))
+                        else:
+                            matches.append(result)
+
+                        if max_hits_per_file and file_hit_count >= max_hits_per_file:
+                            stop_matching = True
+
+                    recent.append(line.rstrip("\r\n"))
+
+                    if stop_matching and not pending:
+                        break
+
+                for result, _remaining in pending:
+                    matches.append(result)
             except Exception:
                 continue
-
-            file_hit_count = 0
-            file_matched = False
-            for idx, line in enumerate(lines):
-                if not regex.search(line):
-                    continue
-
-                file_matched = True
-                file_hit_count += 1
-
-                if filenames_only:
-                    break
-
-                start_idx = max(0, idx - context_lines)
-                end_idx = min(len(lines), idx + context_lines + 1)
-                before = [ln.rstrip("\r\n") for ln in lines[start_idx:idx]]
-                after = [ln.rstrip("\r\n") for ln in lines[idx + 1 : end_idx]]
-                text = line.rstrip("\r\n")
-                matches.append(
-                    {
-                        "file": path,
-                        "line": idx + 1,
-                        "text": text,
-                        "context_before": before,
-                        "context_after": after,
-                    }
-                )
-                if max_hits_per_file and file_hit_count >= max_hits_per_file:
-                    break
 
             if file_matched:
                 matched_files.add(path)

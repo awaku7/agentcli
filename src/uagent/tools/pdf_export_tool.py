@@ -242,7 +242,10 @@ def _generate_pdf_from_html(html: str, output_path: str) -> None:
 def run_tool(args: dict[str, Any]) -> str:
     log_path = args.get("log_path", "")
     if not log_path:
-        return "Error: log_path is required."
+        return _(
+            "err.log_path_required",
+            default="Error: log_path is required.",
+        )
 
     if not os.path.exists(log_path):
         return f"Error: Log file '{log_path}' does not exist."
