@@ -92,7 +92,11 @@ python scripts/po_rebuild_en.py
 # 3. Update non-English PO (e.g. Japanese)
 python scripts/po_rebuild_non_en.py src/uagent/locales/ja/LC_MESSAGES/uag.po
 
-# 4. Edit the .po file — translate new entries, remove fuzzy markers
+# 4. Translate new entries in the .po file
+#    Use the `translate_text` tool (or any PO editor) to fill in msgstr.
+#    The tool preserves %(name)s placeholders automatically when
+#    protect_placeholders=True (default).
+#    After translating, remove `#, fuzzy` markers.
 #    vim src/uagent/locales/ja/LC_MESSAGES/uag.po
 
 # 5. Compile .mo
@@ -199,13 +203,20 @@ TOOL_SPEC = {
 ```bash
 # 1. Add/edit _() calls in the .py file
 # 2. Add/edit keys in the corresponding .json file
-# 3. Validate syntax
+# 3. Translate new values using translate_text tool:
+#    translate_text(
+#      texts=["new key text"],
+#      target_lang="ja",
+#      source_lang="en",
+#      protect_placeholders=True   # preserves %(name)s automatically
+#    )
+# 4. Validate syntax
 python -m py_compile src/uagent/tools/<name>_tool.py
 
-# 4. (Optional) Run i18n consistency check
+# 5. (Optional) Run i18n consistency check
 python scripts/i18n_tools_check.py
 
-# 5. Test by loading the tool (uag CLI) or system_reload
+# 6. Test by loading the tool (uag CLI) or system_reload
 ```
 
 **Script reference:**
@@ -231,7 +242,8 @@ ______________________________________________________________________
 1. Create directory: `mkdir -p src/uagent/locales/<lang>/LC_MESSAGES/`
 2. Copy English template: `cp src/uagent/locales/en/LC_MESSAGES/uag.po src/uagent/locales/<lang>/LC_MESSAGES/uag.po`
 3. Edit metadata: Change `"Language: en\n"` to `"Language: <lang>\n"`
-4. Translate `msgstr` entries
+4. Translate `msgstr` entries using `translate_text` tool (or any PO editor).
+   The tool preserves `%(name)s` placeholders when `protect_placeholders=True`.
 5. Compile: `python scripts/compile_locales.py`
 6. Commit both `.po` and `.mo`
 
@@ -239,9 +251,18 @@ ______________________________________________________________________
 
 1. Open the tool's `*_tool.json`
 2. Add a new top-level key for the language (e.g. `"fr": { ... }`)
-3. Copy the `"en"` keys and translate values
-4. Keep all placeholders `%(...)s` unchanged
-5. Optionally verify with `python scripts/i18n_tools_check.py`
+3. Use `translate_text` to translate values:
+   ```
+   translate_text(
+     texts=["English value 1", "English value 2"],
+     target_lang="fr",
+     source_lang="en",
+     protect_placeholders=True   # preserves %(name)s automatically
+   )
+   ```
+4. Copy the translated strings into the JSON under the new language key
+5. Keep all placeholders `%(...)s` unchanged
+6. Optionally verify with `python scripts/i18n_tools_check.py`
 
 ______________________________________________________________________
 
