@@ -14,7 +14,10 @@
       "bash script",
       "terminal"
     ],
-    "tool.description": "As a last resort, execute a bash command. Use only when no other appropriate tool is available."
+    "tool.description": "As a last resort, execute a bash command. Use only when no other appropriate tool is available.",
+    "err.blocked": "[bash_exec blocked] %(reason)s",
+    "err.exception": "[bash_exec error] %(type)s: %(message)s",
+    "err.returncode": "[bash_exec]\n(returncode=%(code)s)\nSTDOUT:\n%(stdout)s\nSTDERR:\n%(stderr)s"
   },
   "ja": {
     "err.unavailable": "このツールは bash がインストールされた Unix 系でのみ利用できます。",
@@ -27,7 +30,10 @@
       "bash スクリプト |シェルスクリプト",
       "bash run"
     ],
-    "tool.description": "最後の手段として、bash コマンドを実行します。他に適切なツールが利用できない場合にのみ使用してください。"
+    "tool.description": "最後の手段として、bash コマンドを実行します。他に適切なツールが利用できない場合にのみ使用してください。",
+    "err.blocked": "[bash_exec がブロックされました] %(reason)s",
+    "err.exception": "[bash_exec エラー] %(type)s: %(message)s",
+    "err.returncode": "[bash_exec]\n(returncode=%(code)s)\nSTDOUT:\n%(stdout)s\nSTDERR:\n%(stderr)s"
   },
   "es": {
     "err.unavailable": "Esta herramienta está disponible en sistemas tipo Unix con bash instalado.",
@@ -41,7 +47,10 @@
       "script de shell",
       "bash ejecutar"
     ],
-    "tool.description": "Como último recurso, ejecute un comando bash. Úselo solo cuando no haya otra herramienta adecuada disponible."
+    "tool.description": "Como último recurso, ejecute un comando bash. Úselo solo cuando no haya otra herramienta adecuada disponible.",
+    "err.blocked": "[bash_exec bloqueado] %(reason)s",
+    "err.exception": "[error de bash_exec] %(type)s: %(message)s",
+    "err.returncode": "[bash_exec]\n(código de retorno=%(code)s)\nSTDOUT:\n%(stdout)s\nSTDERR:\n%(stderr)s"
   },
   "fr": {
     "err.unavailable": "Cet outil est disponible sur les systèmes de type Unix avec bash installé.",
@@ -55,7 +64,10 @@
       "script shell",
       "bash run"
     ],
-    "tool.description": "En dernier recours, exécutez une commande bash. À utiliser uniquement lorsqu'aucun autre outil approprié n'est disponible."
+    "tool.description": "En dernier recours, exécutez une commande bash. À utiliser uniquement lorsqu'aucun autre outil approprié n'est disponible.",
+    "err.blocked": "[bash_exec bloqué] %(reason)s",
+    "err.exception": "[Erreur bash_exec] %(type)s : %(message)s",
+    "err.returncode": "[bash_exec]\n(code retour=%(code)s)\nSTDOUT :\n%(stdout)s\nSTDERR :\n%(stderr)s"
   },
   "ko": {
     "err.unavailable": "이 도구는 bash가 설치된 Unix 계열에서만 사용할 수 있습니다.",
@@ -69,7 +81,10 @@
       "셸 스크립트",
       "bash 실행"
     ],
-    "tool.description": "최후의 수단으로 bash 명령을 실행하세요. 다른 적절한 도구를 사용할 수 없는 경우에만 사용하세요."
+    "tool.description": "최후의 수단으로 bash 명령을 실행하세요. 다른 적절한 도구를 사용할 수 없는 경우에만 사용하세요.",
+    "err.blocked": "[bash_exec가 차단됨] %(reason)s",
+    "err.exception": "[bash_exec 오류] %(type)s: %(message)s",
+    "err.returncode": "[bash_exec]\n(반환 코드=%(code)s)\nSTDOUT:\n%(stdout)s\nSTDERR:\n%(stderr)s"
   },
   "de": {
     "err.unavailable": "Dieses Tool ist auf Unix-ähnlichen Systemen mit installierter Bash verfügbar.",
@@ -83,7 +98,10 @@
       "Shell-Skript",
       "bash run"
     ],
-    "tool.description": "Führen Sie als letzten Ausweg einen Bash-Befehl aus. Nur verwenden, wenn kein anderes geeignetes Tool verfügbar ist."
+    "tool.description": "Führen Sie als letzten Ausweg einen Bash-Befehl aus. Nur verwenden, wenn kein anderes geeignetes Tool verfügbar ist.",
+    "err.blocked": "[bash_exec blockiert] %(reason)s",
+    "err.exception": "[bash_exec-Fehler] %(type)s: %(message)s",
+    "err.returncode": "[bash_exec]\n(returncode=%(code)s)\nSTDOUT:\n%(stdout)s\nSTDERR:\n%(stderr)s"
   },
   "it": {
     "err.unavailable": "Questo strumento è disponibile su sistemi simili a Unix con bash installato.",
@@ -97,7 +115,10 @@
       "script di shell",
       "bash run"
     ],
-    "tool.description": "Come ultima risorsa, esegui un comando bash. Da utilizzare solo quando non sono disponibili altri strumenti appropriati."
+    "tool.description": "Come ultima risorsa, esegui un comando bash. Da utilizzare solo quando non sono disponibili altri strumenti appropriati.",
+    "err.blocked": "[bash_exec bloccato] %(reason)s",
+    "err.exception": "[errore bash_exec] %(type)s: %(message)s",
+    "err.returncode": "[bash_exec]\n(returncode=%(code)s)\nSTDOUT:\n%(stdout)s\nSTDERR:\n%(stderr)s"
   },
   "ru": {
     "err.unavailable": "Этот инструмент доступен в Unix-подобных системах с установленным bash.",
@@ -105,7 +126,10 @@
     "x_search_terms": [
       "bash exec, запустить Баш, выполнить Баш, команда bash, bash-скрипт, сценарий оболочки, bash run"
     ],
-    "tool.description": "В крайнем случае, выполните команду bash. Используйте только в том случае, если нет другого подходящего инструмента."
+    "tool.description": "В крайнем случае, выполните команду bash. Используйте только в том случае, если нет другого подходящего инструмента.",
+    "err.blocked": "[bash_exec заблокирован] %(reason)s",
+    "err.exception": "[ошибка bash_exec] %(type)s: %(message)s",
+    "err.returncode": "[bash_exec]\n(returncode=%(code)s)\nSTDOUT:\n%(stdout)s\nSTDERR:\n%(stderr)s"
   },
   "pt_BR": {
     "err.unavailable": "Esta ferramenta está disponível em sistemas do tipo Unix com bash instalado.",
@@ -122,7 +146,10 @@
       "bash script",
       "terminal"
     ],
-    "tool.description": "Como último recurso, execute um comando bash. Use somente quando nenhuma outra ferramenta apropriada estiver disponível."
+    "tool.description": "Como último recurso, execute um comando bash. Use somente quando nenhuma outra ferramenta apropriada estiver disponível.",
+    "err.blocked": "[bash_exec bloqueado] %(reason)s",
+    "err.exception": "[erro bash_exec] %(type)s: %(message)s",
+    "err.returncode": "[bash_exec]\n(returncode=%(code)s)\nSTDOUT:\n%(stdout)s\nSTDERR:\n%(stderr)s"
   },
   "pt": {
     "err.unavailable": "Esta ferramenta está disponível em sistemas do tipo Unix com bash instalado.",
@@ -139,7 +166,10 @@
       "script bash",
       "terminal"
     ],
-    "tool.description": "Como último recurso, execute um comando bash. Use somente quando nenhuma outra ferramenta apropriada estiver disponível."
+    "tool.description": "Como último recurso, execute um comando bash. Use somente quando nenhuma outra ferramenta apropriada estiver disponível.",
+    "err.blocked": "[bash_exec bloqueado] %(reason)s",
+    "err.exception": "[erro bash_exec] %(type)s: %(message)s",
+    "err.returncode": "[bash_exec]\n(returncode=%(code)s)\nSTDOUT:\n%(stdout)s\nSTDERR:\n%(stderr)s"
   },
   "id": {
     "err.unavailable": "Alat ini tersedia pada sistem mirip Unix dengan bash terpasang.",
@@ -156,7 +186,10 @@
       "skrip pesta",
       "terminal"
     ],
-    "tool.description": "Sebagai upaya terakhir, jalankan perintah bash. Gunakan hanya ketika tidak ada alat lain yang sesuai tersedia."
+    "tool.description": "Sebagai upaya terakhir, jalankan perintah bash. Gunakan hanya ketika tidak ada alat lain yang sesuai tersedia.",
+    "err.blocked": "[bash_exec diblokir] %(reason)s",
+    "err.exception": "[kesalahan bash_exec] %(type)s: %(message)s",
+    "err.returncode": "[bash_exec]\n(kode pengembalian=%(code)s)\nSTDOUT:\n%(stdout)s\nSTDERR:\n%(stderr)s"
   },
   "vi": {
     "err.unavailable": "Công cụ này có sẵn trên các hệ thống giống Unix có cài đặt bash.",
@@ -173,7 +206,10 @@
       "kịch bản bash",
       "terminal"
     ],
-    "tool.description": "Phương án cuối cùng là thực thi lệnh bash. Chỉ sử dụng khi không có sẵn công cụ thích hợp nào khác."
+    "tool.description": "Phương án cuối cùng là thực thi lệnh bash. Chỉ sử dụng khi không có sẵn công cụ thích hợp nào khác.",
+    "err.blocked": "[bash_exec bị chặn] %(reason)s",
+    "err.exception": "[lỗi bash_exec] %(type)s: %(message)s",
+    "err.returncode": "[bash_exec]\n(returncode=%(code)s)\nSTDOUT:\n%(stdout)s\nSTDERR:\n%(stderr)s"
   },
   "pl": {
     "err.unavailable": "To narzędzie jest dostępne w systemach typu Unix z zainstalowanym bashem.",
@@ -190,7 +226,10 @@
       "bash script",
       "terminal"
     ],
-    "tool.description": "W ostateczności wykonaj polecenie bash. Używaj tylko wtedy, gdy nie jest dostępne żadne inne odpowiednie narzędzie."
+    "tool.description": "W ostateczności wykonaj polecenie bash. Używaj tylko wtedy, gdy nie jest dostępne żadne inne odpowiednie narzędzie.",
+    "err.blocked": "[bash_exec zablokowany] %(reason)s",
+    "err.exception": "[błąd bash_exec] %(type)s: %(message)s",
+    "err.returncode": "[bash_exec]\n(kod powrotu=%(code)s)\nSTDOUT:\n%(stdout)s\nSTDERR:\n%(stderr)s"
   },
   "hi": {
     "err.unavailable": "यह उपकरण bash स्थापित Unix-जैसे सिस्टम पर उपलब्ध है।",
@@ -207,7 +246,10 @@
       "bash script",
       "terminal"
     ],
-    "tool.description": "अंतिम उपाय के रूप में, बैश कमांड निष्पादित करें। केवल तभी उपयोग करें जब कोई अन्य उपयुक्त उपकरण मौजूद न हो। उपयोगकर्ता को हमेशा कमांड दिखाएं और चलाने से पहले स्पष्ट अनुमोदन प्राप्त करें।"
+    "tool.description": "अंतिम उपाय के रूप में, बैश कमांड निष्पादित करें। केवल तभी उपयोग करें जब कोई अन्य उपयुक्त उपकरण मौजूद न हो। उपयोगकर्ता को हमेशा कमांड दिखाएं और चलाने से पहले स्पष्ट अनुमोदन प्राप्त करें।",
+    "err.blocked": "[bash_exec अवरुद्ध] %(reason)s",
+    "err.exception": "[bash_exec त्रुटि] %(type)s: %(message)s",
+    "err.returncode": "[bash_exec]\n(रिटर्नकोड=%(code)s)\nSTDOUT:\n%(stdout)s\nSTDERR:\n%(stderr)s"
   },
   "ar": {
     "err.unavailable": "هذه الأداة متاحة على أنظمة شبيهة بـ Unix التي يحتوي عليها bash.",
@@ -224,7 +266,10 @@
       "bash script",
       "terminal"
     ],
-    "tool.description": "كملاذ أخير، قم بتنفيذ أمر bash. استخدم فقط في حالة عدم توفر أي أداة أخرى مناسبة."
+    "tool.description": "كملاذ أخير، قم بتنفيذ أمر bash. استخدم فقط في حالة عدم توفر أي أداة أخرى مناسبة.",
+    "err.blocked": "[تم حظر bash_exec] %(reason)s",
+    "err.exception": "[خطأ bash_exec] %(type)s: %(message)s",
+    "err.returncode": "[bash_exec]\n(returncode=%(code)s)\nSTDOUT:\n%(stdout)s\nSTDERR:\n%(stderr)s"
   },
   "sv": {
     "err.unavailable": "Det här verktyget är tillgängligt på Unix-liknande system med bash installerat.",
@@ -241,7 +286,10 @@
       "bash script",
       "terminal"
     ],
-    "tool.description": "Som en sista utväg, kör ett bash-kommando. Använd endast när inget annat lämpligt verktyg är tillgängligt."
+    "tool.description": "Som en sista utväg, kör ett bash-kommando. Använd endast när inget annat lämpligt verktyg är tillgängligt.",
+    "err.blocked": "[bash_exec blockerad] %(reason)s",
+    "err.exception": "[bash_exec-fel] %(type)s: %(message)s",
+    "err.returncode": "[bash_exec]\n(returkod=%(code)s)\nSTDOUT:\n%(stdout)s\nSTDERR:\n%(stderr)s"
   },
   "sw": {
     "err.unavailable": "Zana hii inapatikana kwenye mifumo inayofanana na Unix iliyosakinishwa bash.",
@@ -258,7 +306,10 @@
       "bash script",
       "terminal"
     ],
-    "tool.description": "Kama uamuzi wa mwisho, tekeleza amri ya bash. Tumia tu wakati hakuna zana nyingine inayofaa inapatikana."
+    "tool.description": "Kama uamuzi wa mwisho, tekeleza amri ya bash. Tumia tu wakati hakuna zana nyingine inayofaa inapatikana.",
+    "err.blocked": "[bash_exec imezuiwa] %(reason)s",
+    "err.exception": "[bash_exec error] %(type)s: %(message)s",
+    "err.returncode": "[bash_exec]\n(returncode=%(code)s)\nSTDOUT:\n%(stdout)s\nSTDERR:\n%(stderr)s"
   },
   "nb": {
     "err.unavailable": "Dette verktøyet er tilgjengelig på Unix-lignende systemer med bash installert.",
@@ -275,7 +326,10 @@
       "bash script",
       "terminal"
     ],
-    "tool.description": "Som en siste utvei, utfør en bash-kommando. Bruk bare når det ikke er noe annet passende verktøy tilgjengelig."
+    "tool.description": "Som en siste utvei, utfør en bash-kommando. Bruk bare når det ikke er noe annet passende verktøy tilgjengelig.",
+    "err.blocked": "[bash_exec blokkert] %(reason)s",
+    "err.exception": "[bash_exec-feil] %(type)s: %(message)s",
+    "err.returncode": "[bash_exec]\n(returkode=%(code)s)\nSTDOUT:\n%(stdout)s\nSTDERR:\n%(stderr)s"
   },
   "nl": {
     "err.unavailable": "Deze tool is beschikbaar op Unix-achtige systemen waarop bash is geïnstalleerd.",
@@ -292,7 +346,10 @@
       "bash script",
       "terminal"
     ],
-    "tool.description": "Voer als laatste redmiddel een bash-commando uit. Alleen gebruiken als er geen ander geschikt hulpmiddel beschikbaar is."
+    "tool.description": "Voer als laatste redmiddel een bash-commando uit. Alleen gebruiken als er geen ander geschikt hulpmiddel beschikbaar is.",
+    "err.blocked": "[bash_exec geblokkeerd] %(reason)s",
+    "err.exception": "[bash_exec-fout] %(type)s: %(message)s",
+    "err.returncode": "[bash_exec]\n(returncode=%(code)s)\nSTDOUT:\n%(stdout)s\nSTDERR:\n%(stderr)s"
   },
   "fi": {
     "err.unavailable": "Tämä työkalu on saatavilla Unix-tyyppisissä järjestelmissä, joihin on asennettu bash.",
@@ -309,7 +366,10 @@
       "bash script",
       "terminal"
     ],
-    "tool.description": "Suorita viimeisenä keinona bash-komento. Käytä vain, kun muuta sopivaa työkalua ei ole saatavilla."
+    "tool.description": "Suorita viimeisenä keinona bash-komento. Käytä vain, kun muuta sopivaa työkalua ei ole saatavilla.",
+    "err.blocked": "[bash_exec estetty] %(reason)s",
+    "err.exception": "[bash_exec-virhe] %(type)s: %(message)s",
+    "err.returncode": "[bash_exec]\n(returncode=%(code)s)\nSTDOUT:\n%(stdout)s\nSTDERR:\n%(stderr)s"
   },
   "cs": {
     "err.unavailable": "Tento nástroj je dostupný v unixových systémech s nainstalovaným bash.",
@@ -326,7 +386,10 @@
       "bash script",
       "terminal"
     ],
-    "tool.description": "Jako poslední možnost spusťte příkaz bash. Používejte pouze tehdy, když není k dispozici žádný jiný vhodný nástroj."
+    "tool.description": "Jako poslední možnost spusťte příkaz bash. Používejte pouze tehdy, když není k dispozici žádný jiný vhodný nástroj.",
+    "err.blocked": "[bash_exec blokován] %(reason)s",
+    "err.exception": "[chyba bash_exec] %(type)s: %(message)s",
+    "err.returncode": "[bash_exec]\n(návratový kód=%(code)s)\nSTDOUT:\n%(stdout)s\nSTDERR:\n%(stderr)s"
   },
   "uk": {
     "err.unavailable": "Цей інструмент доступний у Unix-подібних системах із встановленим bash.",
@@ -343,7 +406,10 @@
       "bash script",
       "terminal"
     ],
-    "tool.description": "Як крайній засіб, виконайте команду bash. Використовуйте лише тоді, коли немає іншого відповідного інструменту."
+    "tool.description": "Як крайній засіб, виконайте команду bash. Використовуйте лише тоді, коли немає іншого відповідного інструменту.",
+    "err.blocked": "[bash_exec заблоковано] %(reason)s",
+    "err.exception": "[помилка bash_exec] %(type)s: %(message)s",
+    "err.returncode": "[bash_exec]\n(код повернення=%(code)s)\nSTDOUT:\n%(stdout)s\nSTDERR:\n%(stderr)s"
   },
   "tr": {
     "err.unavailable": "Bu araç, bash yüklü Unix benzeri sistemlerde kullanılabilir.",
@@ -360,7 +426,10 @@
       "bash script",
       "terminal"
     ],
-    "tool.description": "Son çare olarak bir bash komutu yürütün. Yalnızca başka uygun araç bulunmadığında kullanın."
+    "tool.description": "Son çare olarak bir bash komutu yürütün. Yalnızca başka uygun araç bulunmadığında kullanın.",
+    "err.blocked": "[bash_exec engellendi] %(reason)s",
+    "err.exception": "[bash_exec hatası] %(type)s: %(message)s",
+    "err.returncode": "[bash_exec]\n(dönüş kodu=%(code)s)\nSTDOUT:\n%(stdout)s\nSTDERR:\n%(stderr)s"
   },
   "th": {
     "err.unavailable": "เครื่องมือนี้ใช้ได้บนระบบ Unix ที่ติดตั้ง bash",
@@ -377,7 +446,10 @@
       "bash script",
       "terminal"
     ],
-    "tool.description": "วิธีสุดท้าย ให้ใช้คำสั่ง bash ใช้เมื่อไม่มีเครื่องมืออื่นที่เหมาะสมเท่านั้น"
+    "tool.description": "วิธีสุดท้าย ให้ใช้คำสั่ง bash ใช้เมื่อไม่มีเครื่องมืออื่นที่เหมาะสมเท่านั้น",
+    "err.blocked": "[bash_exec ถูกบล็อก] %(reason)s",
+    "err.exception": "[ข้อผิดพลาด bash_exec] %(type)s: %(message)s",
+    "err.returncode": "[bash_exec]\n(รหัสส่งคืน=%(code)s)\nSTDOUT:\n%(stdout)s\nSTDERR:\n%(stderr)s"
   },
   "zh_CN": {
     "err.unavailable": "该工具可在已安装 bash 的类 Unix 系统上使用。",
@@ -394,7 +466,10 @@
       "bash script",
       "terminal"
     ],
-    "tool.description": "作为最后的手段，请执行 bash 命令。仅当没有其他合适的工具可用时才使用。"
+    "tool.description": "作为最后的手段，请执行 bash 命令。仅当没有其他合适的工具可用时才使用。",
+    "err.blocked": "[bash_exec 被阻止] %(reason)s",
+    "err.exception": "[bash_exec 错误] %(type)s: %(message)s",
+    "err.returncode": "[bash_exec]\n(返回码=%(code)s)\nSTDOUT:\n%(stdout)s\nSTDERR:\n%(stderr)s"
   },
   "zh_TW": {
     "err.unavailable": "此工具可在已安裝 bash 的類 Unix 系統上使用。",
@@ -411,7 +486,10 @@
       "bash script",
       "terminal"
     ],
-    "tool.description": "作為最後的手段，請執行 bash 指令。僅當沒有其他合適的工具可用時才使用。 "
+    "tool.description": "作為最後的手段，請執行 bash 指令。僅當沒有其他合適的工具可用時才使用。 ",
+    "err.blocked": "[bash_exec 被阻止] %(reason)s",
+    "err.exception": "[bash_exec 錯誤] %(type)s: %(message)s",
+    "err.returncode": "[bash_exec]\n(返回碼=%(code)s)\nSTDOUT:\n%(stdout)s\nSTDERR:\n%(stderr)s"
   },
   "bn": {
     "err.unavailable": "এই টুলটি bash ইনস্টল করা Unix-ধরনের সিস্টেমে ব্যবহার করা যায়।",
@@ -428,7 +506,10 @@
       "bash script",
       "terminal"
     ],
-    "tool.description": "শেষ অবলম্বন হিসাবে, একটি ব্যাশ কমান্ড চালান। অন্য কোন উপযুক্ত টুল উপলব্ধ না থাকলেই ব্যবহার করুন।"
+    "tool.description": "শেষ অবলম্বন হিসাবে, একটি ব্যাশ কমান্ড চালান। অন্য কোন উপযুক্ত টুল উপলব্ধ না থাকলেই ব্যবহার করুন।",
+    "err.blocked": "[bash_exec অবরুদ্ধ] %(reason)s",
+    "err.exception": "[bash_exec ত্রুটি] %(type)s: %(message)s",
+    "err.returncode": "[bash_exec]\n(রিটার্নকোড=%(code)s)\nSTDOUT:\n%(stdout)s\nSTDERR:\n%(stderr)s"
   },
   "fa": {
     "err.unavailable": "این ابزار روی سیستم‌های شبه‌Unix که bash نصب دارند در دسترس است.",
@@ -445,7 +526,10 @@
       "bash script",
       "terminal"
     ],
-    "tool.description": "به عنوان آخرین چاره، دستور bash را اجرا کنید. فقط زمانی استفاده کنید که ابزار مناسب دیگری در دسترس نباشد."
+    "tool.description": "به عنوان آخرین چاره، دستور bash را اجرا کنید. فقط زمانی استفاده کنید که ابزار مناسب دیگری در دسترس نباشد.",
+    "err.blocked": "[bash_exec مسدود شد] %(reason)s",
+    "err.exception": "[خطای bash_exec] %(type)s: %(message)s",
+    "err.returncode": "[bash_exec]\n(کد بازگشتی=%(code)s)\nSTDOUT:\n%(stdout)s\nSTDERR:\n%(stderr)s"
   },
   "mn": {
     "err.unavailable": "Энэ хэрэгсэл нь bash суулгасан Unix-тэй төстэй системүүдэд боломжтой.",
@@ -462,7 +546,10 @@
       "bash script",
       "terminal"
     ],
-    "tool.description": "Сүүлийн арга болгон bash командыг гүйцэтгэнэ үү. Зөвхөн өөр тохирох хэрэгсэл байхгүй үед л ашиглаарай."
+    "tool.description": "Сүүлийн арга болгон bash командыг гүйцэтгэнэ үү. Зөвхөн өөр тохирох хэрэгсэл байхгүй үед л ашиглаарай.",
+    "err.blocked": "[bash_exec блоклогдсон] %(reason)s",
+    "err.exception": "[bash_exec алдаа] %(type)s: %(message)s",
+    "err.returncode": "[bash_exec]\n(буцах код=%(code)s)\nSTDOUT:\n%(stdout)s\nSTDERR:\n%(stderr)s"
   },
   "mr": {
     "err.unavailable": "हे साधन bash स्थापित असलेल्या Unix-सदृश प्रणालींवर उपलब्ध आहे.",
@@ -479,7 +566,10 @@
       "bash script",
       "terminal"
     ],
-    "tool.description": "शेवटचा उपाय म्हणून, bash कमांड कार्यान्वित करा. इतर कोणतेही योग्य साधन उपलब्ध नसतानाच वापरा."
+    "tool.description": "शेवटचा उपाय म्हणून, bash कमांड कार्यान्वित करा. इतर कोणतेही योग्य साधन उपलब्ध नसतानाच वापरा.",
+    "err.blocked": "[bash_exec अवरोधित] %(reason)s",
+    "err.exception": "[bash_exec त्रुटी] %(type)s: %(message)s",
+    "err.returncode": "[bash_exec]\n(returncode=%(code)s)\nSTDOUT:\n%(stdout)s\nSTDERR:\n%(stderr)s"
   },
   "el": {
     "err.unavailable": "Αυτό το εργαλείο είναι διαθέσιμο σε συστήματα τύπου Unix με εγκατεστημένο το bash.",
@@ -496,7 +586,10 @@
       "bash script",
       "terminal"
     ],
-    "tool.description": "Σαν έσχατη λύση, εκτελέστε μια εντολή bash. Χρησιμοποιήστε το μόνο όταν δεν υπάρχει διαθέσιμο άλλο κατάλληλο εργαλείο."
+    "tool.description": "Σαν έσχατη λύση, εκτελέστε μια εντολή bash. Χρησιμοποιήστε το μόνο όταν δεν υπάρχει διαθέσιμο άλλο κατάλληλο εργαλείο.",
+    "err.blocked": "[bash_exec αποκλεισμένο] %(reason)s",
+    "err.exception": "[σφάλμα bash_exec] %(type)s: %(message)s",
+    "err.returncode": "[bash_exec]\n(κωδικός επιστροφής=%(code)s)\nSTDOUT:\n%(stdout)s\nSTDERR:\n%(stderr)s"
   },
   "he": {
     "err.unavailable": "כלי זה זמין במערכות דמויות Unix עם bash מותקן.",
@@ -513,7 +606,10 @@
       "bash script",
       "terminal"
     ],
-    "tool.description": "כמוצא אחרון, בצע פקודת bash. השתמש רק כאשר אין כלי מתאים אחר זמין."
+    "tool.description": "כמוצא אחרון, בצע פקודת bash. השתמש רק כאשר אין כלי מתאים אחר זמין.",
+    "err.blocked": "[bash_exec חסום] %(reason)s",
+    "err.exception": "[שגיאת bash_exec] %(type)s: %(message)s",
+    "err.returncode": "[bash_exec]\n(קוד החזרה=%(code)s)\nSTDOUT:\n%(stdout)s\nSTDERR:\n%(stderr)s"
   },
   "hu": {
     "err.unavailable": "Ez az eszköz Unix-szerű rendszereken érhető el, amelyekre telepítve van a bash.",
@@ -530,7 +626,10 @@
       "bash script",
       "terminal"
     ],
-    "tool.description": "Utolsó lehetőségként futtasson egy bash parancsot. Csak akkor használja, ha nem áll rendelkezésre más megfelelő eszköz."
+    "tool.description": "Utolsó lehetőségként futtasson egy bash parancsot. Csak akkor használja, ha nem áll rendelkezésre más megfelelő eszköz.",
+    "err.blocked": "[bash_exec blokkolva] %(reason)s",
+    "err.exception": "[bash_exec hiba] %(type)s: %(message)s",
+    "err.returncode": "[bash_exec]\n(returncode=%(code)s)\nSTDOUT:\n%(stdout)s\nSTDERR:\n%(stderr)s"
   },
   "ro": {
     "err.unavailable": "Acest instrument este disponibil pe sisteme asemănătoare Unix cu bash instalat.",
@@ -547,6 +646,9 @@
       "bash script",
       "terminal"
     ],
-    "tool.description": "Ca ultimă soluție, executați o comandă bash. Utilizați numai atunci când nu este disponibil niciun alt instrument adecvat."
+    "tool.description": "Ca ultimă soluție, executați o comandă bash. Utilizați numai atunci când nu este disponibil niciun alt instrument adecvat.",
+    "err.blocked": "[bash_exec blocat] %(reason)s",
+    "err.exception": "[eroare bash_exec] %(type)s: %(message)s",
+    "err.returncode": "[bash_exec]\n(returncode=%(code)s)\nSTDOUT:\n%(stdout)s\nSTDERR:\n%(stderr)s"
   }
 }

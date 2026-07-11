@@ -71,28 +71,45 @@ def run_tool(args: dict[str, Any]) -> str:
         raise ValueError("command is required")
 
     if not _TOOL_AVAILABLE:
-        return f"[bash_exec blocked] {LOAD_DISABLED_REASON}"
+        return _(
+            "err.unavailable",
+            default="This tool is available on Unix-like systems with bash installed.",
+        )
 
     decision = decide_cmd_exec(command, require_confirm_for_shell_metachar=True)
     if not decision.allowed:
-        return f"[bash_exec blocked] {decision.reason}"
+        return _(
+            "err.blocked",
+            default="[bash_exec blocked] %(reason)s",
+        ) % {"reason": decision.reason}
 
     confirm_err = confirm_if_needed(decision)
     if confirm_err is not None:
-        return f"[bash_exec blocked] {confirm_err}"
+        return confirm_err
 
-    p = subprocess.run(
-        ["bash", "-lc", command],
-        capture_output=True,
-        text=True,
-    )
+    try:
+        p = subprocess.run(
+            ["bash", "-lc", command],
+            capture_output=True,
+            text=True,
+        )
+    except Exception as e:
+        return _(
+            "err.exception",
+            default="[bash_exec error] %(type)s: %(message)s",
+        ) % {"type": type(e).__name__, "message": str(e)}
 
     out = p.stdout or ""
     err = p.stderr or ""
 
     if p.returncode != 0:
-        return (
-            f"[bash_exec]\n(returncode={p.returncode})\nSTDOUT:\n{out}\nSTDERR:\n{err}"
-        )
+        return _(
+            "err.returncode",
+            default="[bash_exec]\n(returncode=%(code)s)\nSTDOUT:\n%(stdout)s\nSTDERR:\n%(stderr)s",
+        ) % {
+            "code": p.returncode,
+            "stdout": out,
+            "stderr": err,
+        }
 
-    return f"[bash_exec]\n{out}"
+    return "[bash_exec]\n" + out

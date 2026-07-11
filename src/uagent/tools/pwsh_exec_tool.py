@@ -154,7 +154,10 @@ def run_tool(args: dict[str, Any]) -> str:
         )
 
     if not shutil.which(shell):
-        return f"[pwsh_exec error] PowerShell executable not found: {shell}"
+        return _(
+            "err.shell_not_found",
+            default="[pwsh_exec error] PowerShell executable not found: %(shell)s",
+        ) % {"shell": shell}
 
     ps_prefix = (
         "[Console]::OutputEncoding=[System.Text.Encoding]::UTF8; "
@@ -165,11 +168,14 @@ def run_tool(args: dict[str, Any]) -> str:
     if decide_cmd_exec is not None:
         decision = decide_cmd_exec(command, require_confirm_for_shell_metachar=False)
         if not decision.allowed:
-            return f"[pwsh_exec blocked] {decision.reason}"
+            return _(
+                "err.blocked",
+                default="[pwsh_exec blocked] %(reason)s",
+            ) % {"reason": decision.reason}
         if decision.require_confirm and confirm_if_needed is not None:
             err = confirm_if_needed(decision)
             if err is not None:
-                return err.replace("cmd_exec", "pwsh_exec")
+                return err
 
     try:
         proc = subprocess.run(
@@ -184,20 +190,26 @@ def run_tool(args: dict[str, Any]) -> str:
     except subprocess.TimeoutExpired:
         return _(
             "err.timeout",
-            default="[pwsh_exec timeout] did not finish within {seconds} seconds",
-        ).format(seconds=cb.cmd_exec_timeout_ms / 1000.0)
+            default="[pwsh_exec timeout] did not finish within %(seconds)s seconds",
+        ) % {"seconds": cb.cmd_exec_timeout_ms / 1000.0}
     except Exception as e:
-        return f"[pwsh_exec error] {type(e).__name__}: {e}"
+        return _(
+            "err.exception",
+            default="[pwsh_exec error] %(type)s: %(message)s",
+        ) % {"type": type(e).__name__, "message": str(e)}
 
     out_str = proc.stdout or ""
     err_str = proc.stderr or ""
 
     if proc.returncode != 0:
-        msg = (
-            f"[pwsh_exec error] returncode={proc.returncode}\n"
-            f"STDOUT:\n{out_str}\n"
-            f"STDERR:\n{err_str}"
-        )
+        msg = _(
+            "err.returncode",
+            default="[pwsh_exec error] returncode=%(code)s\nSTDOUT:\n%(stdout)s\nSTDERR:\n%(stderr)s",
+        ) % {
+            "code": proc.returncode,
+            "stdout": out_str,
+            "stderr": err_str,
+        }
         if cb.truncate_output is not None:
             return cb.truncate_output("pwsh_exec", msg, 400_000)
         return msg

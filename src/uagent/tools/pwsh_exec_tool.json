@@ -1,6 +1,6 @@
 {
   "en": {
-    "err.timeout": "[pwsh_exec timeout] did not finish within {seconds} seconds",
+    "err.timeout": "[pwsh_exec timeout] did not finish within %(seconds)s seconds",
     "param.command.description": "PowerShell command string passed to -Command.",
     "param.shell.description": "PowerShell executable to use: 'pwsh' (PowerShell 7+) or 'powershell' (Windows PowerShell). If omitted, auto-select.",
     "tool.description": "Connect to an MCP server and list available tools. Supports HTTP and stdio transports.",
@@ -16,10 +16,14 @@
       "run script",
       "ps command"
     ],
-    "err.command_required": "[pwsh_exec error] 'command' is required"
+    "err.command_required": "[pwsh_exec error] 'command' is required",
+    "err.blocked": "[pwsh_exec blocked] %(reason)s",
+    "err.exception": "[pwsh_exec error] %(type)s: %(message)s",
+    "err.returncode": "[pwsh_exec error] returncode=%(code)s\nSTDOUT:\n%(stdout)s\nSTDERR:\n%(stderr)s",
+    "err.shell_not_found": "[pwsh_exec error] PowerShell executable not found: %(shell)s"
   },
   "ja": {
-    "err.timeout": "[pwsh_exec timeout] {seconds}秒以内に終了しませんでした",
+    "err.timeout": "[pwsh_exec timeout] %(seconds)s秒以内に終了しませんでした",
     "param.command.description": "-Command に渡す PowerShell コマンド文字列。",
     "param.shell.description": "使用する PowerShell 実行ファイル。'pwsh'（PowerShell 7+）または 'powershell'（Windows PowerShell）。省略時は自動選択。",
     "tool.description": "【最終手段】PowerShell を実行します。他の適切なツール（MCP など）が使えない場合にのみ使用してください。",
@@ -28,10 +32,14 @@
       "pwsh実行",
       "powershell スクリプト"
     ],
-    "err.command_required": "[pwsh_exec error] 'command' is required"
+    "err.command_required": "[pwsh_exec error] 'command' is required",
+    "err.blocked": "[pwsh_exec がブロックされました] %(reason)s",
+    "err.exception": "[pwsh_exec エラー] %(type)s: %(message)s",
+    "err.returncode": "[pwsh_exec エラー] returncode=%(code)s\nSTDOUT:\n%(stdout)s\nSTDERR:\n%(stderr)s",
+    "err.shell_not_found": "[pwsh_exec エラー] PowerShell 実行可能ファイルが見つかりません: %(shell)s"
   },
   "es": {
-    "err.timeout": "[tiempo de espera de pwsh_exec] no finalizó en {seconds} segundos",
+    "err.timeout": "[tiempo de espera de pwsh_exec] no finalizó en %(seconds)s segundos",
     "param.command.description": "La cadena de comando de PowerShell se pasó a -Command.",
     "param.shell.description": "Ejecutable de PowerShell a utilizar: 'pwsh' (PowerShell 7+) o 'powershell' (Windows PowerShell).",
     "tool.description": "Como último recurso, ejecute PowerShell.",
@@ -43,10 +51,14 @@
       "ejecutar pwsh",
       "script de powershell"
     ],
-    "err.command_required": "[pwsh_exec error] 'command' is required"
+    "err.command_required": "[pwsh_exec error] 'command' is required",
+    "err.blocked": "[pwsh_exec bloqueado] %(reason)s",
+    "err.exception": "[error pwsh_exec] %(type)s: %(message)s",
+    "err.returncode": "[error pwsh_exec] código de retorno=%(code)s\nSTDOUT:\n%(stdout)s\nSTDERR:\n%(stderr)s",
+    "err.shell_not_found": "[error pwsh_exec] No se encontró el ejecutable de PowerShell: %(shell)s"
   },
   "fr": {
-    "err.timeout": "[délai d'attente pwsh_exec] ne s'est pas terminé dans les {seconds} secondes",
+    "err.timeout": "[délai d'attente pwsh_exec] ne s'est pas terminé dans les %(seconds)s secondes",
     "param.command.description": "Chaîne de commande PowerShell transmise à -Command.",
     "param.shell.description": "Exécutable PowerShell à utiliser : 'pwsh' (PowerShell 7+) ou 'powershell' (Windows PowerShell).",
     "tool.description": "En dernier recours, exécutez PowerShell.",
@@ -58,10 +70,14 @@
       "pwsh exécuter",
       "script PowerShell"
     ],
-    "err.command_required": "[pwsh_exec error] 'command' is required"
+    "err.command_required": "[pwsh_exec error] 'command' is required",
+    "err.blocked": "[pwsh_exec bloqué] %(reason)s",
+    "err.exception": "[Erreur pwsh_exec] %(type)s : %(message)s",
+    "err.returncode": "[Erreur pwsh_exec] code retour=%(code)s\nSTDOUT :\n%(stdout)s\nSTDERR :\n%(stderr)s",
+    "err.shell_not_found": "[Erreur pwsh_exec] Exécutable PowerShell introuvable : %(shell)s"
   },
   "ko": {
-    "err.timeout": "[pwsh_exec timeout]이 {seconds}초 안에 완료되지 않았습니다.",
+    "err.timeout": "[pwsh_exec timeout]이 %(seconds)s초 안에 완료되지 않았습니다.",
     "param.command.description": "-Command에 전달할 PowerShell 명령 문자열입니다.",
     "param.shell.description": "사용할 PowerShell 실행 파일입니다. 'pwsh'(PowerShell 7+) 또는 'powershell'(Windows PowerShell) 중 하나를 사용합니다. 생략하면 자동으로 선택합니다.",
     "tool.description": "최후의 수단으로 PowerShell을 실행합니다. 다른 적절한 도구(예: MCP)를 사용할 수 없는 경우에만 사용하세요.",
@@ -73,10 +89,14 @@
       "pwsh 실행",
       "powershell 스크립트"
     ],
-    "err.command_required": "[pwsh_exec error] 'command' is required"
+    "err.command_required": "[pwsh_exec error] 'command' is required",
+    "err.blocked": "[pwsh_exec가 차단됨] %(reason)s",
+    "err.exception": "[pwsh_exec 오류] %(type)s: %(message)s",
+    "err.returncode": "[pwsh_exec 오류] 반환 코드=%(code)s\nSTDOUT:\n%(stdout)s\nSTDERR:\n%(stderr)s",
+    "err.shell_not_found": "[pwsh_exec 오류] PowerShell 실행 파일을 찾을 수 없습니다: %(shell)s"
   },
   "de": {
-    "err.timeout": "[pwsh_exec-Timeout] wurde nicht innerhalb von {seconds} Sekunden beendet.",
+    "err.timeout": "[pwsh_exec-Timeout] wurde nicht innerhalb von %(seconds)s Sekunden beendet.",
     "param.command.description": "PowerShell-Befehlszeichenfolge wurde an -Command übergeben.",
     "param.shell.description": "Zu verwendende PowerShell-Exe: 'pwsh' (PowerShell 7+) oder 'powershell' (Windows PowerShell).",
     "tool.description": "Als letzten Ausweg führen Sie PowerShell aus.",
@@ -88,10 +108,14 @@
       "pwsh ausführen",
       "Powershell-Skript"
     ],
-    "err.command_required": "[pwsh_exec error] 'command' is required"
+    "err.command_required": "[pwsh_exec error] 'command' is required",
+    "err.blocked": "[pwsh_exec blockiert] %(reason)s",
+    "err.exception": "[pwsh_exec-Fehler] %(type)s: %(message)s",
+    "err.returncode": "[pwsh_exec-Fehler] Returncode=%(code)s\nSTDOUT:\n%(stdout)s\nSTDERR:\n%(stderr)s",
+    "err.shell_not_found": "[pwsh_exec-Fehler] Ausführbare PowerShell-Datei nicht gefunden: %(shell)s"
   },
   "it": {
-    "err.timeout": "[timeout pwsh_exec] non è terminato entro {seconds} secondi",
+    "err.timeout": "[timeout pwsh_exec] non è terminato entro %(seconds)s secondi",
     "param.command.description": "Stringa di comando di PowerShell passata a -Command.",
     "param.shell.description": "Eseguibile di PowerShell da usare: 'pwsh' (PowerShell 7+) o 'powershell' (Windows PowerShell).",
     "tool.description": "Come ultima risorsa, esegui PowerShell.",
@@ -103,20 +127,28 @@
       "pwsh esegui",
       "script powershell"
     ],
-    "err.command_required": "[pwsh_exec error] 'command' is required"
+    "err.command_required": "[pwsh_exec error] 'command' is required",
+    "err.blocked": "[pwsh_exec bloccato] %(reason)s",
+    "err.exception": "[errore pwsh_exec] %(type)s: %(message)s",
+    "err.returncode": "[errore pwsh_exec] returncode=%(code)s\nSTDOUT:\n%(stdout)s\nSTDERR:\n%(stderr)s",
+    "err.shell_not_found": "[errore pwsh_exec] Eseguibile di PowerShell non trovato: %(shell)s"
   },
   "ru": {
-    "err.timeout": "[таймаут pwsh_exec] не завершился в течение {seconds} секунд",
+    "err.timeout": "[таймаут pwsh_exec] не завершился в течение %(seconds)s секунд",
     "param.command.description": "Командная строка PowerShell, переданная в -Command.",
     "param.shell.description": "Исполняемый файл PowerShell для использования: 'pwsh' (PowerShell 7+) или 'powershell' (Windows PowerShell).",
     "tool.description": "В крайнем случае выполните PowerShell.",
     "x_search_terms": [
       "pwsh exec, силовая оболочка, запустить PowerShell, выполнить powershell, пвш бежать, сценарий powershell"
     ],
-    "err.command_required": "[pwsh_exec error] 'command' is required"
+    "err.command_required": "[pwsh_exec error] 'command' is required",
+    "err.blocked": "[pwsh_exec заблокирован] %(reason)s",
+    "err.exception": "[ошибка pwsh_exec] %(type)s: %(message)s",
+    "err.returncode": "[ошибка pwsh_exec] returncode=%(code)s\nSTDOUT:\n%(stdout)s\nSTDERR:\n%(stderr)s",
+    "err.shell_not_found": "[ошибка pwsh_exec] Исполняемый файл PowerShell не найден: %(shell)s"
   },
   "pt_BR": {
-    "err.timeout": "[pwsh_exec timeout] não terminou em {seconds} segundos",
+    "err.timeout": "[pwsh_exec timeout] não terminou em %(seconds)s segundos",
     "param.command.description": "Cadeia de comandos do PowerShell passada para -Command.",
     "param.shell.description": "Executável do PowerShell a usar: 'pwsh' (PowerShell 7+) ou 'powershell' (Windows PowerShell).",
     "tool.description": "Como último recurso, execute o PowerShell.",
@@ -132,10 +164,14 @@
       "run script",
       "ps command"
     ],
-    "err.command_required": "[pwsh_exec error] 'command' is required"
+    "err.command_required": "[pwsh_exec error] 'command' is required",
+    "err.blocked": "[pwsh_exec bloqueado] %(reason)s",
+    "err.exception": "[erro pwsh_exec] %(type)s: %(message)s",
+    "err.returncode": "[erro pwsh_exec] código de retorno=%(code)s\nSTDOUT:\n%(stdout)s\nSTDERR:\n%(stderr)s",
+    "err.shell_not_found": "[erro pwsh_exec] Executável do PowerShell não encontrado: %(shell)s"
   },
   "pt": {
-    "err.timeout": "[pwsh_exec timeout] não terminou em {seconds} segundos",
+    "err.timeout": "[pwsh_exec timeout] não terminou em %(seconds)s segundos",
     "param.command.description": "Cadeia de comandos do PowerShell passada para -Command.",
     "param.shell.description": "Executável do PowerShell para usar: 'pwsh' (PowerShell 7+) ou 'powershell' (Windows PowerShell).",
     "tool.description": "Como último recurso, execute o PowerShell.",
@@ -151,10 +187,14 @@
       "executar script",
       "comando ps"
     ],
-    "err.command_required": "[pwsh_exec error] 'command' is required"
+    "err.command_required": "[pwsh_exec error] 'command' is required",
+    "err.blocked": "[pwsh_exec bloqueado] %(reason)s",
+    "err.exception": "[erro pwsh_exec] %(type)s: %(message)s",
+    "err.returncode": "[erro pwsh_exec] código de retorno=%(code)s\nSTDOUT:\n%(stdout)s\nSTDERR:\n%(stderr)s",
+    "err.shell_not_found": "[erro pwsh_exec] Executável do PowerShell não encontrado: %(shell)s"
   },
   "id": {
-    "err.timeout": "[pwsh_exec timeout] tidak selesai dalam {seconds} detik",
+    "err.timeout": "[pwsh_exec timeout] tidak selesai dalam %(seconds)s detik",
     "param.command.description": "String perintah PowerShell diteruskan ke -Command.",
     "param.shell.description": "Executable PowerShell yang digunakan: 'pwsh' (PowerShell 7+) atau 'powershell' (Windows PowerShell).",
     "tool.description": "Sebagai upaya terakhir, jalankan PowerShell.",
@@ -170,10 +210,14 @@
       "jalankan skrip",
       "perintah ps"
     ],
-    "err.command_required": "[pwsh_exec error] 'command' is required"
+    "err.command_required": "[pwsh_exec error] 'command' is required",
+    "err.blocked": "[pwsh_exec diblokir] %(reason)s",
+    "err.exception": "[kesalahan pwsh_exec] %(type)s: %(message)s",
+    "err.returncode": "[kesalahan pwsh_exec] kode pengembalian=%(code)s\nSTDOUT:\n%(stdout)s\nSTDERR:\n%(stderr)s",
+    "err.shell_not_found": "[kesalahan pwsh_exec] PowerShell yang dapat dieksekusi tidak ditemukan: %(shell)s"
   },
   "vi": {
-    "err.timeout": "[thời gian chờ pwsh_exec] không hoàn thành trong vòng {seconds} giây",
+    "err.timeout": "[thời gian chờ pwsh_exec] không hoàn thành trong vòng %(seconds)s giây",
     "param.command.description": "Chuỗi lệnh PowerShell được chuyển tới -Command.",
     "param.shell.description": "PowerShell có thể thực thi để sử dụng: 'pwsh' (PowerShell 7+) hoặc 'powershell' (Windows PowerShell).",
     "tool.description": "Phương án cuối cùng là thực thi PowerShell.",
@@ -189,10 +233,14 @@
       "chạy tập lệnh",
       "lệnh ps"
     ],
-    "err.command_required": "[pwsh_exec error] 'command' is required"
+    "err.command_required": "[pwsh_exec error] 'command' is required",
+    "err.blocked": "[pwsh_exec bị chặn] %(reason)s",
+    "err.exception": "[lỗi pwsh_exec] %(type)s: %(message)s",
+    "err.returncode": "[lỗi pwsh_exec] returncode=%(code)s\nSTDOUT:\n%(stdout)s\nSTDERR:\n%(stderr)s",
+    "err.shell_not_found": "[lỗi pwsh_exec] Không tìm thấy tệp thực thi PowerShell: %(shell)s"
   },
   "pl": {
-    "err.timeout": "[pwsh_exec timeout] nie zakończono w ciągu {seconds} sekund",
+    "err.timeout": "[pwsh_exec timeout] nie zakończono w ciągu %(seconds)s sekund",
     "param.command.description": "Ciąg poleceń PowerShell przekazany do -Command.",
     "param.shell.description": "Plik wykonywalny PowerShell do użycia: „pwsh” (PowerShell 7+) lub „powershell” (Windows PowerShell).",
     "tool.description": "W ostateczności uruchom PowerShell.",
@@ -208,10 +256,14 @@
       "run script",
       "ps command"
     ],
-    "err.command_required": "[pwsh_exec error] 'command' is required"
+    "err.command_required": "[pwsh_exec error] 'command' is required",
+    "err.blocked": "[pwsh_exec zablokowany] %(reason)s",
+    "err.exception": "[błąd pwsh_exec] %(type)s: %(message)s",
+    "err.returncode": "[błąd pwsh_exec] kod powrotu=%(code)s\nSTDOUT:\n%(stdout)s\nSTDERR:\n%(stderr)s",
+    "err.shell_not_found": "[błąd pwsh_exec] Nie znaleziono pliku wykonywalnego PowerShell: %(shell)s"
   },
   "hi": {
-    "err.timeout": "[pwsh_exec टाइमआउट] {seconds} सेकंड के भीतर समाप्त नहीं हुआ",
+    "err.timeout": "[pwsh_exec टाइमआउट] %(seconds)s सेकंड के भीतर समाप्त नहीं हुआ",
     "param.command.description": "पावरशेल कमांड स्ट्रिंग को पास किया गया -कमांड।",
     "param.shell.description": "उपयोग करने के लिए पावरशेल निष्पादन योग्य: 'pwsh' (पॉवरशेल 7+) या 'पॉवरशेल' (विंडोज पॉवरशेल)। यदि छोड़ा गया है, तो",
     "tool.description": "MCP सर्वर से कनेक्ट करें। उपलब्ध टूल की सूची।",
@@ -227,10 +279,14 @@
       "run script",
       "ps command"
     ],
-    "err.command_required": "[pwsh_exec error] 'command' is required"
+    "err.command_required": "[pwsh_exec error] 'command' is required",
+    "err.blocked": "[pwsh_exec अवरुद्ध] %(reason)s",
+    "err.exception": "[pwsh_exec त्रुटि] %(type)s: %(message)s",
+    "err.returncode": "[pwsh_exec त्रुटि] रिटर्नकोड=%(code)s\nSTDOUT:\n%(stdout)s\nSTDERR:\n%(stderr)s",
+    "err.shell_not_found": "[pwsh_exec त्रुटि] PowerShell निष्पादन योग्य नहीं मिला: %(shell)s"
   },
   "ar": {
-    "err.timeout": "[مهلة pwsh_exec] لم تنته خلال {seconds} ثانية",
+    "err.timeout": "[مهلة pwsh_exec] لم تنته خلال %(seconds)s ثانية",
     "param.command.description": "تم تمرير سلسلة أوامر PowerShell إلى -Command.",
     "param.shell.description": "ملف PowerShell التنفيذي المستخدم: 'pwsh' (PowerShell 7+) أو 'powershell' (Windows PowerShell).",
     "tool.description": "كحل أخير، قم بتنفيذ PowerShell.",
@@ -246,10 +302,14 @@
       "run script",
       "ps command"
     ],
-    "err.command_required": "[pwsh_exec error] 'command' is required"
+    "err.command_required": "[pwsh_exec error] 'command' is required",
+    "err.blocked": "[تم حظر pwsh_exec] %(reason)s",
+    "err.exception": "[خطأ pwsh_exec] %(type)s: %(message)s",
+    "err.returncode": "[خطأ pwsh_exec] رمز الإرجاع=%(code)s\nSTDOUT:\n%(stdout)s\nSTDERR:\n%(stderr)s",
+    "err.shell_not_found": "[خطأ pwsh_exec] لم يتم العثور على ملف PowerShell القابل للتنفيذ: %(shell)s"
   },
   "sv": {
-    "err.timeout": "[pwsh_exec timeout] blev inte klar inom {seconds} sekunder",
+    "err.timeout": "[pwsh_exec timeout] blev inte klar inom %(seconds)s sekunder",
     "param.command.description": "PowerShell kommandosträng skickas till -Command.",
     "param.shell.description": "PowerShell-exekveringsfil att använda: 'pwsh' (PowerShell 7+) eller 'powershell' (Windows PowerShell).",
     "tool.description": "Som sista utväg, kör PowerShell.",
@@ -265,10 +325,14 @@
       "run script",
       "ps command"
     ],
-    "err.command_required": "[pwsh_exec error] 'command' is required"
+    "err.command_required": "[pwsh_exec error] 'command' is required",
+    "err.blocked": "[pwsh_exec blockerad] %(reason)s",
+    "err.exception": "[pwsh_exec-fel] %(type)s: %(message)s",
+    "err.returncode": "[pwsh_exec error] returncode=%(code)s\nSTDOUT:\n%(stdout)s\nSTDERR:\n%(stderr)s",
+    "err.shell_not_found": "[pwsh_exec-fel] PowerShell-körbar fil hittades inte: %(shell)s"
   },
   "sw": {
-    "err.timeout": "[pwsh_exec timeout] did not finish within {seconds} seconds",
+    "err.timeout": "[pwsh_exec timeout] did not finish within %(seconds)s seconds",
     "param.command.description": "PowerShell command string passed to -Command.",
     "param.shell.description": "PowerShell executable to use: 'pwsh' (PowerShell 7+) or 'powershell' (Windows PowerShell). If omitted, auto-select.",
     "tool.description": "As a last resort, execute PowerShell.Use only when no other appropriate tool (e.g.",
@@ -284,10 +348,14 @@
       "run script",
       "ps command"
     ],
-    "err.command_required": "[pwsh_exec error] 'command' is required"
+    "err.command_required": "[pwsh_exec error] 'command' is required",
+    "err.blocked": "[pwsh_exec imezuiwa] %(reason)s",
+    "err.exception": "[pwsh_exec error] %(type)s: %(message)s",
+    "err.returncode": "[pwsh_exec error] returncode=%(code)s\nSTDOUT:\n%(stdout)s\nSTDERR:\n%(stderr)s",
+    "err.shell_not_found": "[pwsh_exec error] PowerShell inayoweza kutekelezeka haijapatikana: %(shell)s"
   },
   "nb": {
-    "err.timeout": "[pwsh_exec timeout] ble ikke fullført innen {seconds} sekunder",
+    "err.timeout": "[pwsh_exec timeout] ble ikke fullført innen %(seconds)s sekunder",
     "param.command.description": "PowerShell kommandostreng sendt til -Command.",
     "param.shell.description": "PowerShell-kjørbar fil som skal brukes: 'pwsh' (PowerShell 7+) eller 'powershell' (Windows PowerShell).",
     "tool.description": "Som siste utvei, kjør PowerShell.",
@@ -303,10 +371,14 @@
       "run script",
       "ps command"
     ],
-    "err.command_required": "[pwsh_exec error] 'command' is required"
+    "err.command_required": "[pwsh_exec error] 'command' is required",
+    "err.blocked": "[pwsh_exec blokkert] %(reason)s",
+    "err.exception": "[pwsh_exec-feil] %(type)s: %(message)s",
+    "err.returncode": "[pwsh_exec error] returkode=%(code)s\nSTDOUT:\n%(stdout)s\nSTDERR:\n%(stderr)s",
+    "err.shell_not_found": "[pwsh_exec-feil] PowerShell-kjørbar fil ble ikke funnet: %(shell)s"
   },
   "nl": {
-    "err.timeout": "[pwsh_exec timeout] niet voltooid binnen {seconds} seconden",
+    "err.timeout": "[pwsh_exec timeout] niet voltooid binnen %(seconds)s seconden",
     "param.command.description": "PowerShell-opdrachtreeks doorgegeven aan -Command.",
     "param.shell.description": "PowerShell-uitvoerbaar bestand om te gebruiken: 'pwsh' (PowerShell 7+) of 'powershell' (Windows PowerShell).",
     "tool.description": "Voer als laatste redmiddel PowerShell uit.",
@@ -322,10 +394,14 @@
       "run script",
       "ps command"
     ],
-    "err.command_required": "[pwsh_exec error] 'command' is required"
+    "err.command_required": "[pwsh_exec error] 'command' is required",
+    "err.blocked": "[pwsh_exec geblokkeerd] %(reason)s",
+    "err.exception": "[pwsh_exec-fout] %(type)s: %(message)s",
+    "err.returncode": "[pwsh_exec-fout] retourcode=%(code)s\nSTDOUT:\n%(stdout)s\nSTDERR:\n%(stderr)s",
+    "err.shell_not_found": "[pwsh_exec error] PowerShell-uitvoerbaar bestand niet gevonden: %(shell)s"
   },
   "fi": {
-    "err.timeout": "[pwsh_exec aikakatkaisu] ei valmistunut {seconds} sekunnissa",
+    "err.timeout": "[pwsh_exec aikakatkaisu] ei valmistunut %(seconds)s sekunnissa",
     "param.command.description": "PowerShell-komentomerkkijono välitetty -Commandille.",
     "param.shell.description": "Käytettävä PowerShell-suoritettava: 'pwsh' (PowerShell 7+) tai 'powershell' (Windows PowerShell).",
     "tool.description": "Suorita PowerShell vain viimeisenä keinona.",
@@ -341,10 +417,14 @@
       "run script",
       "ps command"
     ],
-    "err.command_required": "[pwsh_exec error] 'command' is required"
+    "err.command_required": "[pwsh_exec error] 'command' is required",
+    "err.blocked": "[pwsh_exec estetty] %(reason)s",
+    "err.exception": "[pwsh_exec-virhe] %(type)s: %(message)s",
+    "err.returncode": "[pwsh_exec error] returncode=%(code)s\nSTDOUT:\n%(stdout)s\nSTDERR:\n%(stderr)s",
+    "err.shell_not_found": "[pwsh_exec-virhe] PowerShell-suoritettavaa tiedostoa ei löydy: %(shell)s"
   },
   "cs": {
-    "err.timeout": "[pwsh_exec timeout] nebylo dokončeno během {seconds} sekund",
+    "err.timeout": "[pwsh_exec timeout] nebylo dokončeno během %(seconds)s sekund",
     "param.command.description": "Řetězec příkazu PowerShell předaný do -Command.",
     "param.shell.description": "Spustitelný soubor PowerShellu, který se použije: 'pwsh' (PowerShell 7+) nebo 'powershell' (Windows PowerShell).",
     "tool.description": "Jako poslední možnost spusťte PowerShell.",
@@ -360,10 +440,14 @@
       "run script",
       "ps command"
     ],
-    "err.command_required": "[pwsh_exec error] 'command' is required"
+    "err.command_required": "[pwsh_exec error] 'command' is required",
+    "err.blocked": "[pwsh_exec blokováno] %(reason)s",
+    "err.exception": "[chyba pwsh_exec] %(type)s: %(message)s",
+    "err.returncode": "[chyba pwsh_exec] návratový kód=%(code)s\nSTDOUT:\n%(stdout)s\nSTDERR:\n%(stderr)s",
+    "err.shell_not_found": "[chyba pwsh_exec] Spustitelný soubor PowerShellu nebyl nalezen: %(shell)s"
   },
   "uk": {
-    "err.timeout": "[тайм-аут pwsh_exec] не завершився протягом {seconds} секунд",
+    "err.timeout": "[тайм-аут pwsh_exec] не завершився протягом %(seconds)s секунд",
     "param.command.description": "Командний рядок PowerShell передано в -Command.",
     "param.shell.description": "Виконуваний файл PowerShell для використання: 'pwsh' (PowerShell 7+) або 'powershell' (Windows PowerShell).",
     "tool.description": "Як крайній захід, виконайте PowerShell.",
@@ -379,10 +463,14 @@
       "run script",
       "ps command"
     ],
-    "err.command_required": "[pwsh_exec error] 'command' is required"
+    "err.command_required": "[pwsh_exec error] 'command' is required",
+    "err.blocked": "[pwsh_exec заблоковано] %(reason)s",
+    "err.exception": "[помилка pwsh_exec] %(type)s: %(message)s",
+    "err.returncode": "[помилка pwsh_exec] код повернення=%(code)s\nSTDOUT:\n%(stdout)s\nSTDERR:\n%(stderr)s",
+    "err.shell_not_found": "[помилка pwsh_exec] Виконуваний файл PowerShell не знайдено: %(shell)s"
   },
   "tr": {
-    "err.timeout": "[pwsh_exec timeout] {seconds} saniye içinde tamamlanmadı",
+    "err.timeout": "[pwsh_exec timeout] %(seconds)s saniye içinde tamamlanmadı",
     "param.command.description": "PowerShell komut dizesi -Command'a aktarıldı.",
     "param.shell.description": "Kullanılacak PowerShell yürütülebilir dosyası: 'pwsh' (PowerShell 7+) veya 'powershell' (Windows PowerShell).",
     "tool.description": "Son çare olarak PowerShell'i çalıştırın.Yalnızca başka uygun bir araç (örn.",
@@ -398,10 +486,14 @@
       "run script",
       "ps command"
     ],
-    "err.command_required": "[pwsh_exec error] 'command' is required"
+    "err.command_required": "[pwsh_exec error] 'command' is required",
+    "err.blocked": "[pwsh_exec engellendi] %(reason)s",
+    "err.exception": "[pwsh_exec hatası] %(type)s: %(message)s",
+    "err.returncode": "[pwsh_exec hatası] dönüş kodu=%(code)s\nSTDOUT:\n%(stdout)s\nSTDERR:\n%(stderr)s",
+    "err.shell_not_found": "[pwsh_exec hatası] PowerShell yürütülebilir dosyası bulunamadı: %(shell)s"
   },
   "th": {
-    "err.timeout": "[pwsh_exec หมดเวลา] ไม่เสร็จสิ้นภายใน {seconds} วินาที",
+    "err.timeout": "[pwsh_exec หมดเวลา] ไม่เสร็จสิ้นภายใน %(seconds)s วินาที",
     "param.command.description": "สตริงคำสั่ง PowerShell ที่ส่งผ่านไปยัง -Command",
     "param.shell.description": "ไฟล์ปฏิบัติการ PowerShell ที่จะใช้: 'pwsh' (PowerShell 7+) หรือ 'powershell' (Windows PowerShell) หากละเว้น ให้เลือกอัตโนมัติ",
     "tool.description": "เป็นทางเลือกสุดท้าย ให้รัน PowerShell ใช้เมื่อไม่มีเครื่องมืออื่นที่เหมาะสม เช่น MCP เท่านั้น",
@@ -417,10 +509,14 @@
       "run script",
       "ps command"
     ],
-    "err.command_required": "[pwsh_exec error] 'command' is required"
+    "err.command_required": "[pwsh_exec error] 'command' is required",
+    "err.blocked": "[pwsh_exec ถูกบล็อก] %(reason)s",
+    "err.exception": "[ข้อผิดพลาด pwsh_exec] %(type)s: %(message)s",
+    "err.returncode": "[ข้อผิดพลาด pwsh_exec] returncode=%(code)s\nSTDOUT:\n%(stdout)s\nSTDERR:\n%(stderr)s",
+    "err.shell_not_found": "[ข้อผิดพลาด pwsh_exec] ไม่พบไฟล์ปฏิบัติการ PowerShell: %(shell)s"
   },
   "zh_CN": {
-    "err.timeout": "[pwsh_exec 超时] 未在 {seconds} 秒内完成",
+    "err.timeout": "[pwsh_exec 超时] 未在 %(seconds)s 秒内完成",
     "param.command.description": "传递给 -Command 的 PowerShell 命令字符串。",
     "param.shell.description": "要使用的 PowerShell 可执行文件：'pwsh'（PowerShell 7+）或 'powershell'（Windows PowerShell）。如果省略，则自动选择。",
     "tool.description": "作为最后手段执行 PowerShell。仅在没有其他合适工具（例如 MCP）可用时使用。",
@@ -436,10 +532,14 @@
       "run script",
       "ps command"
     ],
-    "err.command_required": "[pwsh_exec error] 'command' is required"
+    "err.command_required": "[pwsh_exec error] 'command' is required",
+    "err.blocked": "[pwsh_exec 被阻止] %(reason)s",
+    "err.exception": "[pwsh_exec 错误] %(type)s: %(message)s",
+    "err.returncode": "[pwsh_exec 错误] 返回码=%(code)s\nSTDOUT:\n%(stdout)s\nSTDERR:\n%(stderr)s",
+    "err.shell_not_found": "[pwsh_exec 错误] 未找到 PowerShell 可执行文件：%(shell)s"
   },
   "zh_TW": {
-    "err.timeout": "[pwsh_exec 逾時] 未在 {seconds} 秒內完成",
+    "err.timeout": "[pwsh_exec 逾時] 未在 %(seconds)s 秒內完成",
     "param.command.description": "傳遞給 -Command 的 PowerShell 命令字串。",
     "param.shell.description": "要使用的 PowerShell 執行檔：'pwsh'（PowerShell 7+）或 'powershell'（Windows PowerShell）。如果省略，則自動選擇。",
     "tool.description": "作為最後手段執行 PowerShell。僅在沒有其他合適的工具（例如 MCP）可用時才使用。",
@@ -455,10 +555,14 @@
       "run script",
       "ps command"
     ],
-    "err.command_required": "[pwsh_exec error] 'command' is required"
+    "err.command_required": "[pwsh_exec error] 'command' is required",
+    "err.blocked": "[pwsh_exec 被阻止] %(reason)s",
+    "err.exception": "[pwsh_exec 錯誤] %(type)s: %(message)s",
+    "err.returncode": "[pwsh_exec 錯誤] 回傳碼=%(code)s\nSTDOUT:\n%(stdout)s\nSTDERR:\n%(stderr)s",
+    "err.shell_not_found": "[pwsh_exec 錯誤] 找不到 PowerShell 執行檔：%(shell)s"
   },
   "bn": {
-    "err.timeout": "[pwsh_exec timeout] {seconds} সেকেন্ডের মধ্যে শেষ হয়নি",
+    "err.timeout": "[pwsh_exec timeout] %(seconds)s সেকেন্ডের মধ্যে শেষ হয়নি",
     "param.command.description": "-Command-এ পাঠানো PowerShell কমান্ড স্ট্রিং।",
     "param.shell.description": "পাওয়ারশেল এক্সিকিউটেবল: 'pwsh' (PowerShell 7+) (Windows PowerShell)",
     "tool.description": "যদি সত্য হয়, JSON আউটপুট (ডিফল্ট: সত্য) প্রিন্ট-প্রিন্ট করুন। এবং উপলভ্য সরঞ্জামগুলিকে সমর্থন করে",
@@ -474,10 +578,14 @@
       "run script",
       "ps command"
     ],
-    "err.command_required": "[pwsh_exec error] 'command' is required"
+    "err.command_required": "[pwsh_exec error] 'command' is required",
+    "err.blocked": "[pwsh_exec অবরুদ্ধ] %(reason)s",
+    "err.exception": "[pwsh_exec ত্রুটি] %(type)s: %(message)s",
+    "err.returncode": "[pwsh_exec ত্রুটি] returncode=%(code)s\nSTDOUT:\n%(stdout)s\nSTDERR:\n%(stderr)s",
+    "err.shell_not_found": "[pwsh_exec ত্রুটি] পাওয়ারশেল এক্সিকিউটেবল পাওয়া যায়নি: %(shell)s"
   },
   "fa": {
-    "err.timeout": "[مهلت pwsh_exec] در مدت {seconds} ثانیه تمام نشد",
+    "err.timeout": "[مهلت pwsh_exec] در مدت %(seconds)s ثانیه تمام نشد",
     "param.command.description": "رشته فرمان PowerShell به -Command منتقل شد.",
     "param.shell.description": "اجرای PowerShell مورد استفاده: 'pwsh' (PowerShell 7+) یا 'powershell' (Windows PowerShell).",
     "tool.description": "در آخرین چاره، PowerShell را اجرا کنید.",
@@ -493,10 +601,14 @@
       "run script",
       "ps command"
     ],
-    "err.command_required": "[pwsh_exec error] 'command' is required"
+    "err.command_required": "[pwsh_exec error] 'command' is required",
+    "err.blocked": "[pwsh_exec مسدود شد] %(reason)s",
+    "err.exception": "[خطای pwsh_exec] %(type)s: %(message)s",
+    "err.returncode": "[خطای pwsh_exec] کد بازگشتی=%(code)s\nSTDOUT:\n%(stdout)s\nSTDERR:\n%(stderr)s",
+    "err.shell_not_found": "[خطای pwsh_exec] فایل اجرایی PowerShell یافت نشد: %(shell)s"
   },
   "mn": {
-    "err.timeout": "[pwsh_exec timeout] {seconds} секундийн дотор дууссангүй",
+    "err.timeout": "[pwsh_exec timeout] %(seconds)s секундийн дотор дууссангүй",
     "param.command.description": "-Command руу дамжуулах PowerShell command string.",
     "param.shell.description": "Ашиглах PowerShell executable: 'pwsh' (PowerShell 7+) эсвэл 'powershell' (Windows PowerShell).",
     "tool.description": "Сүүлчийн арга болгон PowerShell ажиллуулна.Өөр тохирох хэрэгсэл (жиш.",
@@ -512,10 +624,14 @@
       "run script",
       "ps command"
     ],
-    "err.command_required": "[pwsh_exec error] 'command' is required"
+    "err.command_required": "[pwsh_exec error] 'command' is required",
+    "err.blocked": "[pwsh_exec блоклогдсон] %(reason)s",
+    "err.exception": "[pwsh_exec алдаа] %(type)s: %(message)s",
+    "err.returncode": "[pwsh_exec алдаа] буцах код=%(code)s\nSTDOUT:\n%(stdout)s\nSTDERR:\n%(stderr)s",
+    "err.shell_not_found": "[pwsh_exec алдаа] PowerShell-н ажиллах боломжтой файл олдсонгүй: %(shell)s"
   },
   "mr": {
-    "err.timeout": "[pwsh_exec timeout] {seconds} सेकंदांत पूर्ण झाले नाही",
+    "err.timeout": "[pwsh_exec timeout] %(seconds)s सेकंदांत पूर्ण झाले नाही",
     "param.command.description": "-Command ला दिलेली PowerShell command string.",
     "param.shell.description": "वापरण्यासाठी PowerShell executable: 'pwsh' (PowerShell 7+) किंवा 'powershell' (Windows PowerShell).",
     "tool.description": "शेवटचा उपाय म्हणून PowerShell चालवा. इतर कोणतेही योग्य tool (उदा. MCP) उपलब्ध नसल्यासच वापरा.",
@@ -531,10 +647,14 @@
       "run script",
       "ps command"
     ],
-    "err.command_required": "[pwsh_exec error] 'command' is required"
+    "err.command_required": "[pwsh_exec error] 'command' is required",
+    "err.blocked": "[pwsh_exec अवरोधित] %(reason)s",
+    "err.exception": "[pwsh_exec त्रुटी] %(type)s: %(message)s",
+    "err.returncode": "[pwsh_exec त्रुटी] returncode=%(code)s\nSTDOUT:\n%(stdout)s\nSTDERR:\n%(stderr)s",
+    "err.shell_not_found": "[pwsh_exec त्रुटी] PowerShell एक्झिक्युटेबल आढळले नाही: %(shell)s"
   },
   "el": {
-    "err.timeout": "Το [pwsh_exec timeout] δεν ολοκληρώθηκε μέσα σε {seconds} δευτερόλεπτα",
+    "err.timeout": "Το [pwsh_exec timeout] δεν ολοκληρώθηκε μέσα σε %(seconds)s δευτερόλεπτα",
     "param.command.description": "Η συμβολοσειρά εντολών PowerShell μεταβιβάστηκε στο -Command.",
     "param.shell.description": "PowerShell εκτελέσιμο για χρήση: 'pwsh' (PowerShell 7+) ή 'powershell' (Windows PowerShell). Εάν παραλειφθεί, επιλέξτε αυτόματα.",
     "tool.description": "Συνδεθείτε σε διακομιστή MCP και παραθέστε τα διαθέσιμα εργαλεία. Υποστηρίζει μεταφορές HTTP και stdio.",
@@ -550,10 +670,14 @@
       "run script",
       "ps command"
     ],
-    "err.command_required": "[σφάλμα pwsh_exec] Απαιτείται «εντολή»"
+    "err.command_required": "[σφάλμα pwsh_exec] Απαιτείται «εντολή»",
+    "err.blocked": "[pwsh_exec αποκλεισμένο] %(reason)s",
+    "err.exception": "[σφάλμα pwsh_exec] %(type)s: %(message)s",
+    "err.returncode": "[σφάλμα pwsh_exec] κωδικός επιστροφής=%(code)s\nSTDOUT:\n%(stdout)s\nSTDERR:\n%(stderr)s",
+    "err.shell_not_found": "[σφάλμα pwsh_exec] Δεν βρέθηκε το εκτελέσιμο PowerShell: %(shell)s"
   },
   "he": {
-    "err.timeout": "[פסק הזמן של pwsh_exec] לא הסתיים תוך {seconds} שניות",
+    "err.timeout": "[פסק הזמן של pwsh_exec] לא הסתיים תוך %(seconds)s שניות",
     "param.command.description": "מחרוזת הפקודות של PowerShell הועברה ל-Command.",
     "param.shell.description": "קובץ הפעלה של PowerShell לשימוש: 'pwsh' (PowerShell 7+) או 'powershell' (Windows PowerShell). אם הושמט, בחירה אוטומטית.",
     "tool.description": "התחבר לשרת MCP ורשום כלים זמינים. תומך בהעברות HTTP ו-stdio.",
@@ -569,10 +693,14 @@
       "run script",
       "ps command"
     ],
-    "err.command_required": "[שגיאת pwsh_exec] נדרשת 'פקודה'"
+    "err.command_required": "[שגיאת pwsh_exec] נדרשת 'פקודה'",
+    "err.blocked": "[pwsh_exec חסום] %(reason)s",
+    "err.exception": "[שגיאת pwsh_exec] %(type)s: %(message)s",
+    "err.returncode": "[pwsh_exec error] returncode=%(code)s\nSTDOUT:\n%(stdout)s\nSTDERR:\n%(stderr)s",
+    "err.shell_not_found": "[pwsh_exec error] קובץ ההפעלה של PowerShell לא נמצא: %(shell)s"
   },
   "hu": {
-    "err.timeout": "A [pwsh_exec időtúllépés] nem fejeződött be {seconds} másodpercen belül",
+    "err.timeout": "A [pwsh_exec időtúllépés] nem fejeződött be %(seconds)s másodpercen belül",
     "param.command.description": "A PowerShell-parancs karakterláncát átadta a -Commandnak.",
     "param.shell.description": "Használható PowerShell futtatható fájl: „pwsh” (PowerShell 7+) vagy „powershell” (Windows PowerShell). Ha kimarad, automatikus kiválasztás.",
     "tool.description": "Csatlakozzon egy MCP-kiszolgálóhoz, és sorolja fel az elérhető eszközöket. Támogatja a HTTP és az stdio átvitelt.",
@@ -588,10 +716,14 @@
       "run script",
       "ps command"
     ],
-    "err.command_required": "[pwsh_exec hiba] \"parancs\" szükséges"
+    "err.command_required": "[pwsh_exec hiba] \"parancs\" szükséges",
+    "err.blocked": "[pwsh_exec blokkolva] %(reason)s",
+    "err.exception": "[pwsh_exec hiba] %(type)s: %(message)s",
+    "err.returncode": "[pwsh_exec hiba] returncode=%(code)s\nSTDOUT:\n%(stdout)s\nSTDERR:\n%(stderr)s",
+    "err.shell_not_found": "[pwsh_exec hiba] A PowerShell végrehajtható fájl nem található: %(shell)s"
   },
   "ro": {
-    "err.timeout": "[pwsh_exec timeout] nu s-a încheiat în {seconds} secunde",
+    "err.timeout": "[pwsh_exec timeout] nu s-a încheiat în %(seconds)s secunde",
     "param.command.description": "Șirul de comandă PowerShell a fost transmis către -Command.",
     "param.shell.description": "PowerShell executabil de utilizat: „pwsh” (PowerShell 7+) sau „powershell” (Windows PowerShell). Dacă este omisă, selectați automat.",
     "tool.description": "Conectați-vă la un server MCP și enumerați instrumentele disponibile. Suportă transporturi HTTP și stdio.",
@@ -607,6 +739,10 @@
       "run script",
       "ps command"
     ],
-    "err.command_required": "[pwsh_exec error] „comanda” este necesară"
+    "err.command_required": "[pwsh_exec error] „comanda” este necesară",
+    "err.blocked": "[pwsh_exec blocat] %(reason)s",
+    "err.exception": "[eroare pwsh_exec] %(type)s: %(message)s",
+    "err.returncode": "[eroare pwsh_exec] returncode=%(code)s\nSTDOUT:\n%(stdout)s\nSTDERR:\n%(stderr)s",
+    "err.shell_not_found": "[eroare pwsh_exec] executabilul PowerShell nu a fost găsit: %(shell)s"
   }
 }

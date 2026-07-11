@@ -80,31 +80,58 @@ def _blocked_result(reason: str) -> dict[str, Any]:
 
 
 def _run(command: str, cwd: Optional[str]) -> dict[str, Any]:
-    if os.name == "nt":
-        # Force UTF-8 on cmd.exe.
-        # Use a shell command string instead of ["cmd.exe", "/c", command].
-        # Passing /c as a list argument makes Python quote the whole command
-        # line for CreateProcess; embedded quotes then get misparsed by cmd.exe
-        # (for example: python -c "..." or pytest -k "a or b").
-        p = subprocess.run(
-            f"chcp 65001 >nul & {command}",
-            shell=True,
-            capture_output=True,
-            text=True,
-            encoding="utf-8",
-            errors="replace",
-            cwd=cwd,
-        )
-    else:
-        cmd = ["sh", "-lc", command]
-        p = subprocess.run(cmd, capture_output=True, text=True, cwd=cwd)
+    try:
+        if os.name == "nt":
+            p = subprocess.run(
+                f"chcp 65001 >nul & {command}",
+                shell=True,
+                capture_output=True,
+                text=True,
+                encoding="utf-8",
+                errors="replace",
+                cwd=cwd,
+            )
+        else:
+            cmd = ["sh", "-lc", command]
+            p = subprocess.run(cmd, capture_output=True, text=True, cwd=cwd)
 
-    return {
-        "ok": p.returncode == 0,
-        "returncode": p.returncode,
-        "stdout": p.stdout,
-        "stderr": p.stderr,
-    }
+        result: dict[str, Any] = {
+            "ok": p.returncode == 0,
+            "returncode": p.returncode,
+            "stdout": p.stdout,
+            "stderr": p.stderr,
+        }
+        if not result["ok"]:
+            result["error"] = (
+                (p.stderr or "").strip()
+                or _("error.exit_code", default="command exited with code %(returncode)s")
+                % {"returncode": p.returncode}
+            )
+        return result
+    except OSError as e:
+        return {
+            "ok": False,
+            "returncode": -1,
+            "stdout": "",
+            "stderr": str(e),
+            "error": _(
+                "error.os_error",
+                default="command execution failed (OS error): %(error)s",
+            )
+            % {"error": str(e)},
+        }
+    except Exception as e:
+        return {
+            "ok": False,
+            "returncode": -1,
+            "stdout": "",
+            "stderr": str(e),
+            "error": _(
+                "error.exec_failed",
+                default="command execution failed: %(error)s",
+            )
+            % {"error": str(e)},
+        }
 
 
 def run_tool(args: dict[str, Any]) -> str:
@@ -125,6 +152,8 @@ def run_tool(args: dict[str, Any]) -> str:
         cwd = None
     elif not isinstance(cwd_raw, str):
         raise ValueError("cwd must be a string or null")
+    elif cwd_raw.strip() == "":
+        cwd = None
     else:
         cwd = ensure_within_workdir(cwd_raw)
 

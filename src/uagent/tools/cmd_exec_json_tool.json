@@ -14,7 +14,10 @@
       "json command",
       "cmd result"
     ],
-    "param.cwd.description": "Working directory. Only relative paths under workdir are allowed. If null, uses the current directory."
+    "param.cwd.description": "Working directory. Only relative paths under workdir are allowed. If null, uses the current directory.",
+    "error.exit_code": "command exited with code %(returncode)s",
+    "error.os_error": "command execution failed (OS error): %(error)s",
+    "error.exec_failed": "command execution failed: %(error)s"
   },
   "ja": {
     "param.command.description": "OS シェルに渡すコマンド文字列。Windows では cmd.exe /c を使います。",
@@ -25,7 +28,10 @@
       "cmdjson |コマンド json |シェルjson",
       "json 出力"
     ],
-    "param.cwd.description": "作業ディレクトリ。workdir の下の相対パスのみが許可されます。null の場合、現在のディレクトリが使用されます。"
+    "param.cwd.description": "作業ディレクトリ。workdir の下の相対パスのみが許可されます。null の場合、現在のディレクトリが使用されます。",
+    "error.exit_code": "コマンドはコード %(returncode)s で終了しました",
+    "error.os_error": "コマンドの実行に失敗しました (OS エラー): %(error)s",
+    "error.exec_failed": "コマンドの実行に失敗しました: %(error)s"
   },
   "es": {
     "param.command.description": "Cadena de comando que se pasa al shell del sistema.",
@@ -38,7 +44,10 @@
       "comando json",
       "json de shell",
       "salida json"
-    ]
+    ],
+    "error.exit_code": "comando salió con el código %(returncode)s",
+    "error.os_error": "Error en la ejecución del comando (error del sistema operativo): %(error)s",
+    "error.exec_failed": "Error en la ejecución del comando: %(error)s"
   },
   "fr": {
     "param.command.description": "Chaîne de commande transmise au shell du système.Sous Windows, cmd.",
@@ -51,7 +60,10 @@
       "commande json",
       "coquille json",
       "sortie json"
-    ]
+    ],
+    "error.exit_code": "commande terminée avec le code %(returncode)s",
+    "error.os_error": "échec de l'exécution de la commande (erreur du système d'exploitation) : %(error)s",
+    "error.exec_failed": "échec de l'exécution de la commande : %(error)s"
   },
   "ko": {
     "param.command.description": "시스템 셸에 전달되는 명령 문자열입니다. Windows에서는 cmd.exe /c를 사용합니다.",
@@ -64,7 +76,10 @@
       "명령 json",
       "셸 json",
       "json 출력"
-    ]
+    ],
+    "error.exit_code": "명령이 코드 %(returncode)s으로 종료되었습니다.",
+    "error.os_error": "명령 실행 실패(OS 오류): %(error)s",
+    "error.exec_failed": "명령 실행 실패: %(error)s"
   },
   "de": {
     "param.command.description": "Befehlszeichenfolge, die an die System-Shell übergeben wird.",
@@ -77,7 +92,10 @@
       "Befehl json",
       "Shell-JSON",
       "json-Ausgabe"
-    ]
+    ],
+    "error.exit_code": "Befehl wurde mit Code %(returncode)s beendet",
+    "error.os_error": "Befehlsausführung fehlgeschlagen (Betriebssystemfehler): %(error)s",
+    "error.exec_failed": "Befehlsausführung fehlgeschlagen: %(error)s"
   },
   "it": {
     "param.command.description": "Stringa di comando passata alla shell di sistema.",
@@ -90,14 +108,20 @@
       "comando json",
       "shell json",
       "json output"
-    ]
+    ],
+    "error.exit_code": "comando terminato con il codice %(returncode)s",
+    "error.os_error": "esecuzione del comando non riuscita (errore del sistema operativo): %(error)s",
+    "error.exec_failed": "esecuzione del comando non riuscita: %(error)s"
   },
   "ru": {
     "param.command.description": "Строка команды, передаваемая системной оболочке.",
     "tool.description": "В крайнем случае выполняет команду оболочки и возвращает результат в формате JSON.",
     "x_search_terms": [
       "cmd exec json, запустить команду json, выполнить json, cmd json, команда json, оболочка JSON, вывод json"
-    ]
+    ],
+    "error.exit_code": "команда завершилась с кодом %(returncode)s",
+    "error.os_error": "не удалось выполнить команду (ошибка ОС): %(error)s",
+    "error.exec_failed": "не удалось выполнить команду: %(error)s"
   },
   "pt_BR": {
     "param.command.description": "Cadeia de comandos passada para o shell do sistema.",
@@ -113,7 +137,10 @@
       "execute json",
       "json command",
       "cmd result"
-    ]
+    ],
+    "error.exit_code": "comando encerrado com código %(returncode)s",
+    "error.os_error": "falha na execução do comando (erro do sistema operacional): %(error)s",
+    "error.exec_failed": "falha na execução do comando: %(error)s"
   },
   "pt": {
     "param.command.description": "Cadeia de comandos passada para o shell do sistema.",
@@ -129,7 +156,10 @@
       "executar json",
       "comando json",
       "resultado cmd"
-    ]
+    ],
+    "error.exit_code": "comando terminado com o código %(returncode)s",
+    "error.os_error": "falha na execução do comando (erro do sistema operativo): %(error)s",
+    "error.exec_failed": "falha na execução do comando: %(error)s"
   },
   "id": {
     "param.command.description": "String perintah yang diteruskan ke shell sistem.",
@@ -145,7 +175,10 @@
       "jalankan json",
       "perintah json",
       "cmd hasil"
-    ]
+    ],
+    "error.exit_code": "perintah keluar dengan kode %(returncode)s",
+    "error.os_error": "eksekusi perintah gagal (kesalahan OS): %(error)s",
+    "error.exec_failed": "eksekusi perintah gagal: %(error)s"
   },
   "vi": {
     "param.command.description": "Chuỗi lệnh được truyền đến shell hệ thống. Trên Windows, dùng cmd.exe /c.",
@@ -161,7 +194,10 @@
       "thực thi json",
       "lệnh json",
       "kết quả cmd"
-    ]
+    ],
+    "error.exit_code": "lệnh đã thoát với mã %(returncode)s",
+    "error.os_error": "thực thi lệnh không thành công (lỗi hệ điều hành): %(error)s",
+    "error.exec_failed": "thực thi lệnh không thành công: %(error)s"
   },
   "pl": {
     "param.command.description": "Ciąg polecenia przekazywany do powłoki systemowej.",
@@ -177,7 +213,10 @@
       "execute json",
       "json command",
       "cmd result"
-    ]
+    ],
+    "error.exit_code": "polecenie zostało zakończone z kodem %(returncode)s",
+    "error.os_error": "wykonanie polecenia nie powiodło się (błąd systemu operacyjnego): %(error)s",
+    "error.exec_failed": "Wykonanie polecenia nie powiodło się: %(error)s"
   },
   "hi": {
     "param.command.description": "सिस्टम शेल को दी जाने वाली कमांड स्ट्रिंग। Windows पर cmd.",
@@ -193,7 +232,10 @@
       "execute json",
       "json command",
       "cmd result"
-    ]
+    ],
+    "error.exit_code": "कमांड कोड %(returncode)s के साथ बाहर निकला",
+    "error.os_error": "आदेश निष्पादन विफल (OS त्रुटि): %(error)s",
+    "error.exec_failed": "आदेश निष्पादन विफल: %(error)s"
   },
   "ar": {
     "param.command.description": "سلسلة الأوامر التي تُمرَّر إلى غلاف النظام. في Windows يُستخدم cmd.exe /c.",
@@ -209,7 +251,10 @@
       "execute json",
       "json command",
       "cmd result"
-    ]
+    ],
+    "error.exit_code": "تم الخروج من الأمر بالرمز %(returncode)s",
+    "error.os_error": "فشل تنفيذ الأمر (خطأ في نظام التشغيل): %(error)s",
+    "error.exec_failed": "فشل تنفيذ الأمر: %(error)s"
   },
   "sv": {
     "param.command.description": "Kommandosträng som skickas till systemets skal. I Windows används cmd.exe /c.",
@@ -225,7 +270,10 @@
       "execute json",
       "json command",
       "cmd result"
-    ]
+    ],
+    "error.exit_code": "kommandot avslutades med koden %(returncode)s",
+    "error.os_error": "kommandokörning misslyckades (OS-fel): %(error)s",
+    "error.exec_failed": "kommandokörning misslyckades: %(error)s"
   },
   "sw": {
     "param.command.description": "Mfuatano wa amri unaopitishwa kwa ganda la mfumo.",
@@ -241,7 +289,10 @@
       "execute json",
       "json command",
       "cmd result"
-    ]
+    ],
+    "error.exit_code": "amri imetoka kwa msimbo %(returncode)s",
+    "error.os_error": "utekelezaji wa amri haukufaulu (hitilafu ya Mfumo wa Uendeshaji): %(error)s",
+    "error.exec_failed": "utekelezaji wa amri haukufaulu: %(error)s"
   },
   "nb": {
     "param.command.description": "Kommandostreng som sendes til systemskallet. På Windows brukes cmd.exe /c.",
@@ -257,7 +308,10 @@
       "execute json",
       "json command",
       "cmd result"
-    ]
+    ],
+    "error.exit_code": "kommandoen ble avsluttet med koden %(returncode)s",
+    "error.os_error": "kommandoutførelse mislyktes (OS-feil): %(error)s",
+    "error.exec_failed": "kommandoutførelse mislyktes: %(error)s"
   },
   "nl": {
     "param.command.description": "Opdrachtregel die naar de systeem-shell wordt doorgegeven.",
@@ -273,7 +327,10 @@
       "execute json",
       "json command",
       "cmd result"
-    ]
+    ],
+    "error.exit_code": "opdracht afgesloten met code %(returncode)s",
+    "error.os_error": "uitvoering van opdracht mislukt (OS-fout): %(error)s",
+    "error.exec_failed": "uitvoering van opdracht mislukt: %(error)s"
   },
   "fi": {
     "param.command.description": "Komentorivi, joka välitetään järjestelmän komentotulkille.",
@@ -289,7 +346,10 @@
       "execute json",
       "json command",
       "cmd result"
-    ]
+    ],
+    "error.exit_code": "komento lopetettiin koodilla %(returncode)s",
+    "error.os_error": "komennon suoritus epäonnistui (käyttöjärjestelmävirhe): %(error)s",
+    "error.exec_failed": "komennon suoritus epäonnistui: %(error)s"
   },
   "cs": {
     "param.command.description": "Řetězec příkazu předávaný systémovému shellu.",
@@ -305,7 +365,10 @@
       "execute json",
       "json command",
       "cmd result"
-    ]
+    ],
+    "error.exit_code": "příkaz byl ukončen s kódem %(returncode)s",
+    "error.os_error": "spuštění příkazu se nezdařilo (chyba OS): %(error)s",
+    "error.exec_failed": "spuštění příkazu se nezdařilo: %(error)s"
   },
   "uk": {
     "param.command.description": "Рядок команди, що передається системній оболонці.",
@@ -321,7 +384,10 @@
       "execute json",
       "json command",
       "cmd result"
-    ]
+    ],
+    "error.exit_code": "команда завершилася з кодом %(returncode)s",
+    "error.os_error": "не вдалося виконати команду (помилка ОС): %(error)s",
+    "error.exec_failed": "не вдалося виконати команду: %(error)s"
   },
   "tr": {
     "param.command.description": "Sistem kabuğuna iletilen komut dizisi. Windows’ta cmd.exe /c kullanılır.",
@@ -337,7 +403,10 @@
       "execute json",
       "json command",
       "cmd result"
-    ]
+    ],
+    "error.exit_code": "komuttan %(returncode)s koduyla çıkıldı",
+    "error.os_error": "komut yürütme başarısız oldu (İşletim Sistemi hatası): %(error)s",
+    "error.exec_failed": "komut yürütme başarısız oldu: %(error)s"
   },
   "th": {
     "param.command.description": "สตริงคำสั่งที่ส่งไปยังเชลล์ของระบบ บน Windows ใช้ cmd.exe /c",
@@ -353,7 +422,10 @@
       "execute json",
       "json command",
       "cmd result"
-    ]
+    ],
+    "error.exit_code": "ออกจากคำสั่งด้วยรหัส %(returncode)s",
+    "error.os_error": "การดำเนินการคำสั่งล้มเหลว (ข้อผิดพลาดระบบปฏิบัติการ): %(error)s",
+    "error.exec_failed": "การดำเนินการคำสั่งล้มเหลว: %(error)s"
   },
   "zh_CN": {
     "param.command.description": "传递给系统 shell 的命令字符串。Windows 上使用 cmd.exe /c。",
@@ -369,7 +441,10 @@
       "execute json",
       "json command",
       "cmd result"
-    ]
+    ],
+    "error.exit_code": "命令退出，代码为 %(returncode)s",
+    "error.os_error": "命令执行失败（操作系统错误）：%(error)s",
+    "error.exec_failed": "命令执行失败：%(error)s"
   },
   "zh_TW": {
     "param.command.description": "傳遞給系統 shell 的命令字串。Windows 會使用 cmd.exe /c。",
@@ -385,7 +460,10 @@
       "execute json",
       "json command",
       "cmd result"
-    ]
+    ],
+    "error.exit_code": "指令退出，代碼為 %(returncode)s",
+    "error.os_error": "指令執行失敗（作業系統錯誤）：%(error)s",
+    "error.exec_failed": "指令執行失敗：%(error)s"
   },
   "bn": {
     "param.command.description": "OS shell-এ পাঠানোর কমান্ড স্ট্রিং। Windows-এ cmd.exe /c ব্যবহার করা হয়।",
@@ -401,7 +479,10 @@
       "execute json",
       "json command",
       "cmd result"
-    ]
+    ],
+    "error.exit_code": "কমান্ড %(returncode)s কোড সহ প্রস্থান হয়েছে",
+    "error.os_error": "কমান্ড কার্যকর করা ব্যর্থ হয়েছে (OS ত্রুটি): %(error)s",
+    "error.exec_failed": "কমান্ড কার্যকর করা ব্যর্থ হয়েছে: %(error)s"
   },
   "fa": {
     "param.command.description": "رشتهٔ فرمانی که به پوستهٔ سیستم داده می‌شود.در ویندوز از cmd.",
@@ -417,7 +498,10 @@
       "execute json",
       "json command",
       "cmd result"
-    ]
+    ],
+    "error.exit_code": "فرمان با کد %(returncode)s خارج شد",
+    "error.os_error": "اجرای دستور انجام نشد (خطای سیستم عامل): %(error)s",
+    "error.exec_failed": "اجرای دستور انجام نشد: %(error)s"
   },
   "mn": {
     "param.command.description": "Системийн shell-д дамжуулах командын мөр. Windows дээр cmd.exe /c ашиглана.",
@@ -433,7 +517,10 @@
       "execute json",
       "json command",
       "cmd result"
-    ]
+    ],
+    "error.exit_code": "тушаал %(returncode)s кодоор гарсан",
+    "error.os_error": "тушаалын гүйцэтгэл амжилтгүй болсон (OS-ийн алдаа): %(error)s",
+    "error.exec_failed": "тушаалын гүйцэтгэл амжилтгүй болсон: %(error)s"
   },
   "mr": {
     "param.command.description": "OS shell ला दिलेली कमांड स्ट्रिंग. Windows वर cmd.exe /c वापरले जाते.",
@@ -449,7 +536,10 @@
       "execute json",
       "json command",
       "cmd result"
-    ]
+    ],
+    "error.exit_code": "आदेश %(returncode)s कोडसह बाहेर पडला",
+    "error.os_error": "आदेशाची अंमलबजावणी अयशस्वी झाली (OS त्रुटी): %(error)s",
+    "error.exec_failed": "आदेशाची अंमलबजावणी अयशस्वी झाली: %(error)s"
   },
   "el": {
     "param.command.description": "Η συμβολοσειρά εντολών πέρασε στο κέλυφος του λειτουργικού συστήματος. Στα Windows χρησιμοποιείται το cmd.exe /c.",
@@ -465,7 +555,10 @@
       "execute json",
       "json command",
       "cmd result"
-    ]
+    ],
+    "error.exit_code": "Έγινε έξοδος της εντολής με κωδικό %(returncode)s",
+    "error.os_error": "η εκτέλεση εντολής απέτυχε (σφάλμα λειτουργικού συστήματος): %(error)s",
+    "error.exec_failed": "η εκτέλεση της εντολής απέτυχε: %(error)s"
   },
   "he": {
     "param.command.description": "מחרוזת הפקודה הועברה למעטפת מערכת ההפעלה. ב-Windows, נעשה שימוש ב-cmd.exe /c.",
@@ -481,7 +574,10 @@
       "execute json",
       "json command",
       "cmd result"
-    ]
+    ],
+    "error.exit_code": "הפקודה יצאה עם הקוד %(returncode)s",
+    "error.os_error": "ביצוע הפקודה נכשל (שגיאת מערכת ההפעלה): %(error)s",
+    "error.exec_failed": "ביצוע הפקודה נכשל: %(error)s"
   },
   "hu": {
     "param.command.description": "A parancssor átkerült az operációs rendszer parancsértelmezőjébe. Windows rendszeren a cmd.exe /c fájl használatos.",
@@ -497,7 +593,10 @@
       "execute json",
       "json command",
       "cmd result"
-    ]
+    ],
+    "error.exit_code": "parancs a %(returncode)s kóddal fejeződött be",
+    "error.os_error": "a parancs végrehajtása sikertelen (OS hiba): %(error)s",
+    "error.exec_failed": "a parancs végrehajtása sikertelen: %(error)s"
   },
   "ro": {
     "param.command.description": "Șirul de comandă a fost transmis shell-ului sistemului de operare. Pe Windows, se folosește cmd.exe /c.",
@@ -513,6 +612,9 @@
       "execute json",
       "json command",
       "cmd result"
-    ]
+    ],
+    "error.exit_code": "comanda ieșită cu codul %(returncode)s",
+    "error.os_error": "Execuția comenzii a eșuat (eroare OS): %(error)s",
+    "error.exec_failed": "executarea comenzii a eșuat: %(error)s"
   }
 }
