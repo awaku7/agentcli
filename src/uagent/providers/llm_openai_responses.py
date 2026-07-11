@@ -29,6 +29,20 @@ from .responses_web_search_openai import (
     openai_web_search_tool_from_env,
 )
 
+# Module-level constants (reused across calls, avoids re-allocation).
+_TOOL_CALLING_RULES: str = _("""[Tool calling rules]
+        - When calling a tool/function, you MUST provide function_call.arguments as a JSON object.
+        - The JSON object MUST include all required parameters defined by the tool schema.
+        - Never call a tool with an empty object {} unless the tool has no required parameters.
+        - If you do not have a required parameter, ask the user for it using human_ask instead of guessing.
+        """)
+
+_WEB_SEARCH_RULES: str = _("""[Web search rules]
+        - Use web search only when fresh or external information is necessary.
+        - Do not use web search for local or stable information.
+        - Prefer answering without web search when the answer is already sufficient.
+        """)
+
 # ---------------------------------------------------------------------------
 # Request builder
 # ---------------------------------------------------------------------------
@@ -78,18 +92,8 @@ def build_responses_request(
         and _latest_user_index < _last_tool_call_assistant_index
     )
 
-    TOOL_CALLING_RULES = _("""[Tool calling rules]
-        - When calling a tool/function, you MUST provide function_call.arguments as a JSON object.
-        - The JSON object MUST include all required parameters defined by the tool schema.
-        - Never call a tool with an empty object {} unless the tool has no required parameters.
-        - If you do not have a required parameter, ask the user for it using human_ask instead of guessing.
-        """)
-    instructions_list.append(TOOL_CALLING_RULES)
-    instructions_list.append(_("""[Web search rules]
-        - Use web search only when fresh or external information is necessary.
-        - Do not use web search for local or stable information.
-        - Prefer answering without web search when the answer is already sufficient.
-        """))
+    instructions_list.append(_TOOL_CALLING_RULES)
+    instructions_list.append(_WEB_SEARCH_RULES)
 
     for _idx, m in enumerate(call_messages):
         role = m.get("role")
@@ -409,6 +413,65 @@ def parse_responses_response(
 
 
 # ---------------------------------------------------------------------------
+def _ensure_tool_buf(
+    tool_calls_buf: dict[str, dict[str, Any]],
+    key: str,
+) -> dict[str, Any]:
+    """Get or create a tool-call buffer entry."""
+    buf = tool_calls_buf.get(key)
+    if buf is None:
+        buf = {
+            "name": "unknown",
+            "arguments_parts": [],
+            "call_id": None,
+            "item_id": None,
+        }
+        tool_calls_buf[key] = buf
+    return buf
+
+
+def _merge_tool_buf(
+    tool_calls_buf: dict[str, dict[str, Any]],
+    dst_key: str,
+    src_key: str,
+) -> None:
+    """Merge src buffer into dst and delete src."""
+    if dst_key == src_key:
+        return
+    src = tool_calls_buf.get(src_key)
+    if src is None:
+        return
+    dst = tool_calls_buf.get(dst_key)
+    if dst is None:
+        tool_calls_buf[dst_key] = src
+        try:
+            del tool_calls_buf[src_key]
+        except Exception:
+            pass
+        return
+
+    src_name = as_str(src.get("name") or "")
+    dst_name = as_str(dst.get("name") or "")
+    if (not dst_name or dst_name == "unknown") and src_name and src_name != "unknown":
+        dst["name"] = src_name
+
+    dst_parts = dst.get("arguments_parts") or []
+    src_parts = src.get("arguments_parts") or []
+    if isinstance(dst_parts, list) and isinstance(src_parts, list):
+        dst_parts.extend(src_parts)
+        dst["arguments_parts"] = dst_parts
+
+    if not dst.get("call_id") and src.get("call_id"):
+        dst["call_id"] = src.get("call_id")
+    if not dst.get("item_id") and src.get("item_id"):
+        dst["item_id"] = src.get("item_id")
+
+    try:
+        del tool_calls_buf[src_key]
+    except Exception:
+        pass
+
+
 # Stream parser
 # ---------------------------------------------------------------------------
 
@@ -461,57 +524,7 @@ def parse_responses_stream(
             except Exception:
                 pass
 
-    def _ensure_buf(key: str) -> dict[str, Any]:
-        buf = tool_calls_buf.get(key)
-        if buf is None:
-            buf = {
-                "name": "unknown",
-                "arguments_parts": [],
-                "call_id": None,
-                "item_id": None,
-            }
-            tool_calls_buf[key] = buf
-        return buf
-
-    def _merge_buf(dst_key: str, src_key: str) -> None:
-        if dst_key == src_key:
-            return
-        src = tool_calls_buf.get(src_key)
-        if src is None:
-            return
-        dst = tool_calls_buf.get(dst_key)
-        if dst is None:
-            tool_calls_buf[dst_key] = src
-            try:
-                del tool_calls_buf[src_key]
-            except Exception:
-                pass
-            return
-
-        src_name = as_str(src.get("name") or "")
-        dst_name = as_str(dst.get("name") or "")
-        if (
-            (not dst_name or dst_name == "unknown")
-            and src_name
-            and src_name != "unknown"
-        ):
-            dst["name"] = src_name
-
-        dst_parts = dst.get("arguments_parts") or []
-        src_parts = src.get("arguments_parts") or []
-        if isinstance(dst_parts, list) and isinstance(src_parts, list):
-            dst_parts.extend(src_parts)
-            dst["arguments_parts"] = dst_parts
-
-        if not dst.get("call_id") and src.get("call_id"):
-            dst["call_id"] = src.get("call_id")
-        if not dst.get("item_id") and src.get("item_id"):
-            dst["item_id"] = src.get("item_id")
-
-        try:
-            del tool_calls_buf[src_key]
-        except Exception:
-            pass
+    # Module-level _ensure_tool_buf / _merge_tool_buf used instead of closures.
 
     try:
         try:
@@ -654,7 +667,7 @@ def parse_responses_stream(
             if cid_candidate and iid_candidate:
                 item_id_map[iid_candidate] = cid_candidate
                 if iid_candidate in tool_calls_buf:
-                    _merge_buf(cid_candidate, iid_candidate)
+                    _merge_tool_buf(tool_calls_buf, cid_candidate, iid_candidate)
 
             if iid_candidate and not cid_candidate:
                 cid_candidate = item_id_map.get(iid_candidate)
@@ -734,7 +747,7 @@ def parse_responses_stream(
                 if not key:
                     key = f"call_{int(time.time() * 1000)}_{len(tool_calls_buf)}"
 
-                buf = _ensure_buf(key)
+                buf = _ensure_tool_buf(tool_calls_buf, key)
 
                 if cid_candidate:
                     buf["call_id"] = cid_candidate
@@ -760,7 +773,7 @@ def parse_responses_stream(
                         buf["arguments_parts"].append(fn_args_delta)
 
                 if cid_candidate and iid_candidate and key == iid_candidate:
-                    _merge_buf(cid_candidate, iid_candidate)
+                    _merge_tool_buf(tool_calls_buf, cid_candidate, iid_candidate)
 
     finally:
         try:
