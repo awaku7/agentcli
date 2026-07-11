@@ -853,6 +853,10 @@ def _run_one_round(
                 assistant_text,
             )
 
+        # Preserve native Responses output items (including reasoning items)
+        # for full-history fallback and tool-call continuation.
+        responses_output_items = getattr(core, "_last_responses_output_items", None)
+
         # --- Interrupt check (OpenAI/Azure) ---
         with _core_module.interrupt_lock:
             if _core_module.interrupt_requested:
@@ -873,6 +877,8 @@ def _run_one_round(
                 tool_calls_list=tool_calls_list,
                 reasoning_content=reasoning_content,
             )
+            if isinstance(responses_output_items, list) and responses_output_items:
+                deepseek_msg["_responses_output_items"] = responses_output_items
             messages.append(deepseek_msg)
             if not judgment_mode:
                 core.log_message(deepseek_msg)
@@ -882,6 +888,7 @@ def _run_one_round(
                 core=core,
                 assistant_text=assistant_text,
                 tool_calls_list=tool_calls_list,
+                responses_output_items=responses_output_items,
             )
 
         action, empty_no_tool_rounds = _handle_openai_empty_no_tool(

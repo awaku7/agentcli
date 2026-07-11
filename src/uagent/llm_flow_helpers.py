@@ -28,6 +28,7 @@ def _append_assistant_message(
     assistant_text: str,
     tool_calls_list: list[dict[str, Any]],
     gemini_content_dump: Any = None,
+    responses_output_items: list[dict[str, Any]] | None = None,
     skip_log_when_web: bool = False,
 ) -> None:
     assistant_msg: dict[str, Any] = {
@@ -36,6 +37,8 @@ def _append_assistant_message(
     }
     if tool_calls_list:
         assistant_msg["tool_calls"] = tool_calls_list
+    if isinstance(responses_output_items, list) and responses_output_items:
+        assistant_msg["_responses_output_items"] = responses_output_items
     if isinstance(gemini_content_dump, dict) and gemini_content_dump:
         assistant_msg["_gemini_content"] = gemini_content_dump
 
@@ -274,9 +277,9 @@ def _execute_tool_calls(
     # ---- Phase 1: pre-execute parallel-safe tools ----
     # Collect parallel-safe tool calls, run them concurrently, and store results.
     _prefetched: dict[str, str] = {}  # tc_id -> tool_result
-    _parallel_batch: list[tuple[int, str, dict[str, Any]]] = (
-        []
-    )  # (idx_in_list, name, parsed_args)
+    _parallel_batch: list[
+        tuple[int, str, dict[str, Any]]
+    ] = []  # (idx_in_list, name, parsed_args)
     _parallel_tc_ids: list[str] = []
 
     for tc in tool_calls_list:

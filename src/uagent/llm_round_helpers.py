@@ -1,4 +1,4 @@
-﻿from __future__ import annotations
+from __future__ import annotations
 
 import json
 import traceback
@@ -200,7 +200,7 @@ def _call_gemini_round(
                 max_retries=max_retries_429,
                 base=retry_base,
                 cap=retry_cap,
-                recreate_client_fn=(lambda: (make_client_fn(core)[1])),
+                recreate_client_fn=(lambda: make_client_fn(core)[1]),
             )
             if action == "retry":
                 if new_client is not None:
@@ -314,7 +314,7 @@ def _call_claude_round(
                 max_retries=max_retries_429,
                 base=retry_base,
                 cap=retry_cap,
-                recreate_client_fn=(lambda: (make_client_fn(core)[1])),
+                recreate_client_fn=(lambda: make_client_fn(core)[1]),
             )
             if action == "retry":
                 if new_client is not None:
@@ -359,6 +359,11 @@ def _call_openai_azure_round(
     assistant_text: str = ""
     reasoning_content: str = ""
     tool_calls_list: list[dict[str, Any]] = []
+    if core is not None:
+        try:
+            setattr(core, "_last_responses_output_items", None)
+        except Exception:
+            pass
     resp = None
     resp_kwargs: dict[str, Any] = {}
     chat_kwargs: dict[str, Any] = {}
@@ -372,6 +377,15 @@ def _call_openai_azure_round(
     _thinking_disabled = False
     # Track whether previous_response_id caused a stale error; if so, stop using it
     _stale_rid_retried = False
+
+    def _clear_stale_rid_after_success() -> None:
+        """Allow Responses API continuation again after a successful retry."""
+        if not isinstance(responses_state, dict):
+            return
+        if responses_state.pop("_stale_rid_occurred", None) is not None:
+            from .core import _save_responses_state
+
+            _save_responses_state()
 
     while True:
         try:
@@ -388,21 +402,10 @@ def _call_openai_azure_round(
                     if responses_state.get("_stale_rid_occurred"):
                         _prev_rid = None
 
-                # Skip previous_response_id during tool loops (no new user input)
-                # to avoid "no tool call found" stale errors with Responses API.
-                # Also avoid saving response_id during tool loops so the next turn
-                # starts with a clean (non-stale) previous_response_id.
+                # Keep previous_response_id during tool loops. The Responses
+                # API expects the matching function_call_output items to be
+                # submitted as the continuation of the assistant response.
                 _should_track_rid = True
-                if _prev_rid is not None:
-                    _latest_role: Optional[str] = None
-                    for m in reversed(call_messages):
-                        r = m.get("role") if isinstance(m, dict) else None
-                        if r in ("user", "tool", "assistant"):
-                            _latest_role = r
-                            break
-                    if _latest_role != "user":
-                        _prev_rid = None
-                        _should_track_rid = False
 
                 use_gpt54_tool_search = _is_gpt54_tool_search_target(
                     provider=provider,
@@ -547,6 +550,7 @@ def _call_openai_azure_round(
                                 **resp_kwargs,
                                 stream=True,
                             ),
+                            provider=provider,
                             # In Web mode, parse_responses_stream streams deltas via core.log_message.
                             print_delta_fn=(
                                 None
@@ -560,9 +564,22 @@ def _call_openai_azure_round(
                             core=core,
                         )
                     )
-                    assistant_text, reasoning_content, tool_calls_list, _stream_rid = (
-                        _stream_result
-                    )
+                    (
+                        assistant_text,
+                        reasoning_content,
+                        tool_calls_list,
+                        _stream_rid,
+                        _stream_output_items,
+                    ) = _stream_result
+                    if core is not None:
+                        try:
+                            setattr(
+                                core,
+                                "_last_responses_output_items",
+                                _stream_output_items,
+                            )
+                        except Exception:
+                            pass
                     if (
                         _should_track_rid
                         and _stream_rid
@@ -572,6 +589,9 @@ def _call_openai_azure_round(
                         from .core import _save_responses_state
 
                         _save_responses_state()
+                    # A successful streaming Responses API request also clears
+                    # the stale marker set by an earlier fallback.
+                    _clear_stale_rid_after_success()
                     # ensure newline after streaming output
                     if (
                         assistant_text
@@ -613,9 +633,20 @@ def _call_openai_azure_round(
                             core=core,
                         )
                     )
-                    assistant_text, reasoning_content, tool_calls_list, _resp_rid = (
-                        _resp_result
-                    )
+                    (
+                        assistant_text,
+                        reasoning_content,
+                        tool_calls_list,
+                        _resp_rid,
+                        _resp_output_items,
+                    ) = _resp_result
+                    if core is not None:
+                        try:
+                            setattr(
+                                core, "_last_responses_output_items", _resp_output_items
+                            )
+                        except Exception:
+                            pass
                     if (
                         _should_track_rid
                         and _resp_rid
@@ -655,10 +686,20 @@ def _call_openai_azure_round(
                                 _retry_reasoning,
                                 tool_calls_list,
                                 _retry_rid,
+                                _retry_output_items,
                             ) = parse_responses_response(
                                 resp,
                                 core=core,
                             )
+                            if core is not None:
+                                try:
+                                    setattr(
+                                        core,
+                                        "_last_responses_output_items",
+                                        _retry_output_items,
+                                    )
+                                except Exception:
+                                    pass
                             if (
                                 _should_track_rid
                                 and _retry_rid
@@ -668,6 +709,10 @@ def _call_openai_azure_round(
                                 from .core import _save_responses_state
 
                                 _save_responses_state()
+
+                    # A successful Responses API request (including a retry)
+                    # means the stale marker is no longer needed.
+                    _clear_stale_rid_after_success()
             else:
                 req_tools = tools.get_tool_specs() if send_tools_this_round else None
 
@@ -827,7 +872,7 @@ def _call_openai_azure_round(
                 max_retries=max_retries_429,
                 base=retry_base,
                 cap=retry_cap,
-                recreate_client_fn=(lambda: (make_client_fn(core)[1])),
+                recreate_client_fn=(lambda: make_client_fn(core)[1]),
             )
             if action == "retry":
                 if new_client is not None:

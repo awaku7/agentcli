@@ -579,6 +579,37 @@ def build_responses_request(
     instructions_list: list[str] = []
     input_msgs: list[dict[str, Any]] = []
     _latest_user: Optional[dict[str, Any]] = None
+    _latest_user_index: int = -1
+    _last_tool_call_assistant_index: int = -1
+    _pending_call_ids: set[str] = set()
+
+    # In previous_response_id mode, only the current continuation is sent.
+    # The server already owns all earlier messages.  The continuation after an
+    # assistant tool call consists solely of matching tool outputs.
+    for _idx, _msg in enumerate(call_messages):
+        if not isinstance(_msg, dict):
+            continue
+        _role = _msg.get("role")
+        if _role == "user":
+            _latest_user_index = _idx
+        elif _role == "assistant":
+            _tcs = _msg.get("tool_calls")
+            if isinstance(_tcs, list) and _tcs:
+                _last_tool_call_assistant_index = _idx
+                _pending_call_ids.clear()
+                for _tc in _tcs:
+                    if not isinstance(_tc, dict):
+                        continue
+                    _tcid = _tc.get("id") or _tc.get("call_id")
+                    if isinstance(_tcid, str) and _tcid:
+                        _pending_call_ids.add(_tcid)
+
+    # A tool continuation has tool results after the latest assistant
+    # function-call message and no newer user turn after that message.
+    _tool_continuation = (
+        _last_tool_call_assistant_index >= 0
+        and _latest_user_index < _last_tool_call_assistant_index
+    )
 
     # Force the model to produce usable tool arguments.
     # Without this, some Azure/Responses combinations repeatedly emit
@@ -590,12 +621,14 @@ def build_responses_request(
         - If you do not have a required parameter, ask the user for it using human_ask instead of guessing.
         """)
     instructions_list.append(TOOL_CALLING_RULES)
-    instructions_list.append(_("""[Web search rules]
+    instructions_list.append(
+        _("""[Web search rules]
         - Use web search only when fresh or external information is necessary.
         - Do not use web search for local or stable information.
         - Prefer answering without web search when the answer is already sufficient.
-        """))
-    for m in call_messages:
+        """)
+    )
+    for _idx, m in enumerate(call_messages):
         role = m.get("role")
 
         # ── previous_response_id mode: minimal input, server has history ──
@@ -603,27 +636,35 @@ def build_responses_request(
             if role == "system":
                 instructions_list.append(_as_str(m.get("content", "")))
             elif role == "tool":
-                # Responses API expects function_call_output for tool results
-                tm = dict(m)
-                for _k in ("attachments", "saved_path", "saved_files"):
-                    tm.pop(_k, None)
-                call_id = tm.pop("tool_call_id", None) or tm.get("id", "")
-                output = _as_str(tm.get("content", ""))
-                input_msgs.append(
-                    {
-                        "type": "function_call_output",
-                        "call_id": call_id,
-                        "output": output,
-                    }
-                )
+                # Only send outputs for the latest assistant function call.
+                # Older outputs are already part of the server-side chain.
+                if _tool_continuation and _idx > _last_tool_call_assistant_index:
+                    tm = dict(m)
+                    for _k in ("attachments", "saved_path", "saved_files"):
+                        tm.pop(_k, None)
+                    call_id = tm.pop("tool_call_id", None) or tm.get("id", "")
+                    if isinstance(call_id, str) and call_id in _pending_call_ids:
+                        output = _as_str(tm.get("content", ""))
+                        input_msgs.append(
+                            {
+                                "type": "function_call_output",
+                                "call_id": call_id,
+                                "output": output,
+                            }
+                        )
             elif role == "user":
-                _latest_user = dict(m)
-                for _k in ("attachments", "saved_path", "saved_files"):
-                    if _k in _latest_user:
-                        try:
-                            del _latest_user[_k]
-                        except Exception:
-                            pass
+                # For a new user turn, use the latest user message after the
+                # previous assistant tool-call. During a tool continuation,
+                # no user message is appended.
+                if not _tool_continuation:
+                    _latest_user = dict(m)
+                    _latest_user_index = _idx
+                    for _k in ("attachments", "saved_path", "saved_files"):
+                        if _k in _latest_user:
+                            try:
+                                del _latest_user[_k]
+                            except Exception:
+                                pass
             # assistant messages: skip (server has them from previous_response_id)
             continue
 
@@ -688,6 +729,16 @@ def build_responses_request(
                     del m_clean[_k]
                 except Exception:
                     pass
+
+        # If a Responses API assistant output was preserved, replay the native
+        # output items in full-history fallback. This keeps reasoning items and
+        # function_call items in the exact order returned by the API.
+        _responses_items = m_clean.pop("_responses_output_items", None)
+        if isinstance(_responses_items, list) and _responses_items:
+            for _item in _responses_items:
+                if isinstance(_item, dict) and _item.get("type"):
+                    input_msgs.append(dict(_item))
+            continue
 
         # If assistant had tool_calls, remove them and write a trace into instructions
         if "tool_calls" in m_clean:
@@ -838,10 +889,26 @@ def build_responses_request(
     return instructions_str, input_msgs, req_tools
 
 
+def _responses_item_to_dict(item: Any) -> dict[str, Any] | None:
+    """Convert an SDK Responses output item to a JSON-compatible dict."""
+    try:
+        if hasattr(item, "model_dump"):
+            value = item.model_dump(exclude_none=True)
+        elif hasattr(item, "to_dict"):
+            value = item.to_dict()
+        elif isinstance(item, dict):
+            value = dict(item)
+        else:
+            value = dict(getattr(item, "__dict__", {}) or {})
+        return value if isinstance(value, dict) else None
+    except Exception:
+        return None
+
+
 def parse_responses_response(
     resp: Any, *, core: Any = None
-) -> tuple[str, str, list[dict[str, Any]], Optional[str]]:
-    """Parse Responses API response into (assistant_text, reasoning_content, tool_calls_list, response_id)."""
+) -> tuple[str, str, list[dict[str, Any]], Optional[str], list[dict[str, Any]]]:
+    """Parse a Responses API response and preserve output items for replay."""
 
     response_id: Optional[str] = None
     try:
@@ -854,10 +921,14 @@ def parse_responses_response(
     assistant_text = ""
     reasoning_content = ""
     tool_calls_list: list[dict[str, Any]] = []
+    output_items: list[dict[str, Any]] = []
     seen_web_search_ids: set[str] = set()
 
     if hasattr(resp, "output") and resp.output:
         for item in resp.output:
+            item_dict = _responses_item_to_dict(item)
+            if item_dict is not None:
+                output_items.append(item_dict)
             item_type = _as_str(getattr(item, "type", "")).strip().lower()
             if item_type == "message":
                 for c in getattr(item, "content", []) or []:
@@ -919,7 +990,12 @@ def parse_responses_response(
                     + _("Server-side compaction triggered (context compressed).")
                 )
 
-    return assistant_text, reasoning_content, tool_calls_list, response_id
+    if core is not None:
+        try:
+            setattr(core, "_last_responses_output_items", output_items)
+        except Exception:
+            pass
+    return assistant_text, reasoning_content, tool_calls_list, response_id, output_items
 
 
 def parse_responses_stream(
@@ -927,8 +1003,9 @@ def parse_responses_stream(
     *,
     print_delta_fn: Any = None,
     core: Any = None,
-) -> tuple[str, str, list[dict[str, Any]], Optional[str]]:
-    """Parse Responses API streaming iterator into (assistant_text, reasoning_content, tool_calls_list, response_id).
+    provider: str = "OpenAI",
+) -> tuple[str, str, list[dict[str, Any]], Optional[str], list[dict[str, Any]]]:
+    """Parse streaming Responses output and preserve completed output items.
 
     Debugging:
       - If UAGENT_STREAMING_DEBUG is enabled, dumps each event as JSON to:
@@ -994,6 +1071,8 @@ def parse_responses_stream(
 
     assistant_text_parts: list[str] = []
     reasoning_parts: list[str] = []
+    output_items: list[dict[str, Any]] = []
+    _seen_output_item_keys: set[str] = set()
     _reasoning_printed = False
     fallback_full_text = ""
 
@@ -1155,7 +1234,7 @@ def parse_responses_stream(
                     # Web UI: use assistant_reasoning_delta (gray in frontend)
                     show_reasoning(
                         reasoning_delta,
-                        provider="OpenAI",
+                        provider=provider,
                         is_first=(not _reasoning_printed),
                         print_fn=_print_delta,
                         core=core,
@@ -1265,6 +1344,16 @@ def parse_responses_stream(
 
             elif ev_type == "response.output_item.done":
                 item = getattr(ev, "item", None) or getattr(ev, "output_item", None)
+                item_dict = _responses_item_to_dict(item) if item is not None else None
+                if isinstance(item_dict, dict) and item_dict.get("type"):
+                    _item_key = _as_str(
+                        item_dict.get("id")
+                        or item_dict.get("call_id")
+                        or f"{item_dict.get('type')}:{len(output_items)}"
+                    )
+                    if _item_key not in _seen_output_item_keys:
+                        output_items.append(item_dict)
+                        _seen_output_item_keys.add(_item_key)
                 if item is not None and getattr(item, "type", None) == "compaction":
                     print(
                         "[Responses API] "
@@ -1361,4 +1450,15 @@ def parse_responses_stream(
         )
 
     reasoning_content = "".join(reasoning_parts)
-    return assistant_text, reasoning_content, tool_calls_list, _stream_response_id
+    if core is not None:
+        try:
+            setattr(core, "_last_responses_output_items", output_items)
+        except Exception:
+            pass
+    return (
+        assistant_text,
+        reasoning_content,
+        tool_calls_list,
+        _stream_response_id,
+        output_items,
+    )
