@@ -596,7 +596,9 @@ def claude_chat_with_tools(
             thinking_text += _t
             # 思考プロセスをコンソールに表示する（空ブロックは見出しを出さない）
             if _t.strip():
-                show_reasoning(_t, provider="Claude", is_first=(_thinking_blocks == 0))
+                show_reasoning(
+                    _t, provider="Claude", is_first=(_thinking_blocks == 0), core=core
+                )
                 _thinking_blocks += 1
             elif (env_get("UAGENT_DEBUG") or "").strip():
                 try:

@@ -1086,6 +1086,7 @@ def gemini_chat_with_tools(
                                 provider="Gemini",
                                 is_first=(not _thought_printed),
                                 print_fn=lambda s: print(s, end="", flush=True),
+                                core=core,
                             )
                             _thought_printed = True
                         else:

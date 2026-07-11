@@ -307,7 +307,12 @@ class _SwiftIndexBuilder:
         parts = []
         opens, closes = self._count_braces()
         if opens != closes:
-            parts.append(_("msg.brace_imbalance", default="brace imbalance: {open} open vs {close} close").format(open=opens, close=closes))
+            parts.append(
+                _(
+                    "msg.brace_imbalance",
+                    default="brace imbalance: {open} open vs {close} close",
+                ).format(open=opens, close=closes)
+            )
         if parts:
             return " (" + "; ".join(parts) + ")"
         return ""

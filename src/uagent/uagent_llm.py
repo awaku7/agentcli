@@ -314,6 +314,8 @@ def _run_one_round(
                         stream_responses=stream_responses,
                         append_result_to_outfile_fn=append_result_to_outfile_fn,
                         try_open_images_from_text_fn=try_open_images_from_text_fn,
+                        core=core,
+                        provider=provider,
                     )
             return (
                 _RS_BREAK,
@@ -416,6 +418,8 @@ def _run_one_round(
                     stream_responses=stream_responses,
                     append_result_to_outfile_fn=append_result_to_outfile_fn,
                     try_open_images_from_text_fn=try_open_images_from_text_fn,
+                    core=core,
+                    provider=provider,
                 )
             return (
                 _RS_BREAK,
@@ -526,7 +530,10 @@ def _run_one_round(
                     stream_responses=False,
                     append_result_to_outfile_fn=append_result_to_outfile_fn,
                     try_open_images_from_text_fn=try_open_images_from_text_fn,
+                    reasoning_content=reasoning_content,
                     skip_print=_ds_streaming,
+                    core=core,
+                    provider=provider,
                 )
             return (
                 _RS_BREAK,
@@ -636,7 +643,10 @@ def _run_one_round(
                     stream_responses=False,
                     append_result_to_outfile_fn=append_result_to_outfile_fn,
                     try_open_images_from_text_fn=try_open_images_from_text_fn,
+                    reasoning_content=reasoning_content,
                     skip_print=_ds_streaming,
+                    core=core,
+                    provider=provider,
                 )
             return (
                 _RS_BREAK,
@@ -746,7 +756,10 @@ def _run_one_round(
                     stream_responses=False,
                     append_result_to_outfile_fn=append_result_to_outfile_fn,
                     try_open_images_from_text_fn=try_open_images_from_text_fn,
+                    reasoning_content=reasoning_content,
                     skip_print=_ds_streaming,
+                    core=core,
+                    provider=provider,
                 )
             return (
                 _RS_BREAK,
@@ -909,6 +922,8 @@ def _run_one_round(
                     stream_responses=stream_responses,
                     append_result_to_outfile_fn=append_result_to_outfile_fn,
                     try_open_images_from_text_fn=try_open_images_from_text_fn,
+                    core=core,
+                    provider=provider,
                 )
             return (
                 _RS_BREAK,

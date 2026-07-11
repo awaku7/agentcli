@@ -9,6 +9,7 @@ from . import tools
 from .env_utils import env_get
 from .i18n import _
 from .llm_helpers import _effectively_empty_text
+from .reasoning_display import show_reasoning
 
 
 def _is_external_data_tool(name: str) -> bool:
@@ -53,12 +54,19 @@ def _emit_final_answer_if_any(
     append_result_to_outfile_fn: Any,
     try_open_images_from_text_fn: Any,
     skip_print: bool = False,
+    core: Any = None,
+    provider: str = "LLM",
 ) -> None:
     if not _effectively_empty_text(assistant_text):
         # Responses+Streaming already printed deltas in parse_responses_stream(); avoid double-print.
         if not skip_print and not (use_responses_api and stream_responses):
             if reasoning_content:
-                print(f"\033[90m{reasoning_content}\033[0m")
+                show_reasoning(
+                    reasoning_content,
+                    provider=provider,
+                    is_first=True,
+                    core=core,
+                )
             print(assistant_text)
         append_result_to_outfile_fn(assistant_text)
         try_open_images_from_text_fn(assistant_text)

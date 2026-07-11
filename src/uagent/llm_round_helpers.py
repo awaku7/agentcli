@@ -650,11 +650,14 @@ def _call_openai_azure_round(
                             resp = call_maybe_thread_fn(
                                 lambda: client.responses.create(**resp_kwargs)
                             )
-                            assistant_text, tool_calls_list, _retry_rid = (
-                                parse_responses_response(
-                                    resp,
-                                    core=core,
-                                )
+                            (
+                                assistant_text,
+                                _retry_reasoning,
+                                tool_calls_list,
+                                _retry_rid,
+                            ) = parse_responses_response(
+                                resp,
+                                core=core,
                             )
                             if (
                                 _should_track_rid
@@ -935,6 +938,7 @@ def _call_openai_azure_round(
                     provider=provider.capitalize(),
                     is_first=True,
                     print_fn=lambda s: print(s, end="", flush=True),
+                    core=core,
                 )
 
     except Exception as e:
