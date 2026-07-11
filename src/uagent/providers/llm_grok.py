@@ -393,6 +393,7 @@ def parse_xai_stream(
     assistant_text = ""
     tool_calls_list: list[dict[str, Any]] = []
     _reasoning_printed = False
+    _reasoning_buf: list[str] = []
 
     try:
         for response, chunk in stream_iter:
@@ -406,13 +407,18 @@ def parse_xai_stream(
             if hasattr(chunk, "reasoning_content"):
                 rc = chunk.reasoning_content or ""
                 if rc:
-                    show_reasoning(
-                        rc,
-                        provider="Grok",
-                        is_first=(not _reasoning_printed),
-                        core=core,
-                    )
-                    _reasoning_printed = True
+                    _reasoning_buf.append(rc)
+                    buf_text = "".join(_reasoning_buf)
+                    # Flush on natural boundaries
+                    if rc.endswith((".", "!", "?", "\\n")) or len(buf_text) >= 60:
+                        show_reasoning(
+                            buf_text,
+                            provider="Grok",
+                            is_first=(not _reasoning_printed),
+                            core=core,
+                        )
+                        _reasoning_printed = True
+                        _reasoning_buf.clear()
 
             # Tool calls from chunk
             if hasattr(chunk, "tool_calls"):
