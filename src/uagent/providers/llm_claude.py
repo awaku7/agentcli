@@ -124,7 +124,8 @@ def _claude_supports_effort(model_name: str) -> bool:
     try:
         import llmcapa
 
-        cap = llmcapa.get(model_name)
+        _provider = (env_get("UAGENT_PROVIDER") or "").lower().strip() or None
+        cap = llmcapa.get(model_name, provider=_provider)
         if cap is not None and cap.supports_reasoning_effort:
             return True
     except Exception:

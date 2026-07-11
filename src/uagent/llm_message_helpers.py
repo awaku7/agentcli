@@ -177,7 +177,8 @@ def _get_default_shrink_max_tokens(depname: str) -> int:
     try:
         import llmcapa
 
-        cap = llmcapa.get(depname)
+        _provider = (env_get("UAGENT_PROVIDER") or "").lower().strip() or None
+        cap = llmcapa.get(depname, provider=_provider)
         if cap and cap.context_window > 0:
             return int(cap.context_window * ratio)
     except Exception:
@@ -192,7 +193,7 @@ def _get_default_shrink_max_tokens(depname: str) -> int:
             model_env_key = f"UAGENT_{provider.upper()}_DEPNAME"
             actual_model = env_get(model_env_key)
             if actual_model and actual_model.strip() != depname:
-                cap = llmcapa.get(actual_model.strip())
+                cap = llmcapa.get(actual_model.strip(), provider=provider)
                 if cap and cap.context_window > 0:
                     return int(cap.context_window * ratio)
     except Exception:

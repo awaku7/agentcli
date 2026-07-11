@@ -430,7 +430,8 @@ def _model_uses_thinking_budget(model_name: str) -> bool:
     try:
         import llmcapa
 
-        cap = llmcapa.get(model_name)
+        _provider = (env_get("UAGENT_PROVIDER") or "").lower().strip() or None
+        cap = llmcapa.get(model_name, provider=_provider)
         if cap is not None:
             return cap.supports_thinking_budget
     except Exception:
