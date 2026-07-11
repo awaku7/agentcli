@@ -7,21 +7,13 @@
 
 ## 優先度 大 (高頻度パスで改善効果大)
 
-### 1. `tools/__init__.py` - `get_tool_specs()` (L630)
+### 1. `tools/__init__.py` - `get_tool_specs()` ✅ 実装済み
 
-**問題点**: 毎LLMラウンドごとに呼ばれ、全 TOOL_SPECS (~100個以上) を深いディクショナリコピーしている。各 spec に対し:
-- `spec.copy()` → 浅いコピー
-- `disabled/tool_level/load_order/tool_genre` を pop
-- `x_*` キーをループで pop
-- `function` 内の `parameters.additionalProperties = False` を書き換え
-- `x_*` キーを function dict からも pop
-- 各ツールの `function` も `func_copy.copy()`
-
-これらが毎LLMラウンドで全件走査される。`get_tool_specs()` 自体が `_ensure_loaded()` を呼ぶため、最初の呼び出し時にはプラグインロードも走る。
-
-**改善案**:
-- 各 spec の「LLM送信用」キャッシュを保持し、ツール変更があった時だけ再構築する。
-- `additionalProperties: False` の付与は事前に済ませておく。
+**変更内容**:
+- キャッシュ変数 `_TOOL_SPECS_CACHE` + ダーティフラグ `_TOOL_SPECS_DIRTY` を追加
+- `TOOL_SPECS` が変更される4箇所 (`_load_plugins`, `_register_tool_module`, `_register_extra_spec`, lazy spec append) でフラグを立てる
+- `get_tool_specs()` は2回目以降、キャッシュを返す（ツール変更がない限り再構築しない）
+- 同じコミットで `run_tool()` の `next()` 線形走査を `_TOOL_TRACE_FLAGS` 辞書ルックアップに置き換え
 
 ---
 
