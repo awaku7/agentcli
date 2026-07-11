@@ -856,9 +856,11 @@ def guess_topics_from_content(content: str) -> set[str]:
         ],
     }
 
-    for topic, keywords in mapping.items():
-        if any(kw in lower for kw in keywords):
-            topics.add(topic)
+    topics = {
+        topic
+        for topic, keywords in mapping.items()
+        if any(kw in lower for kw in keywords)
+    }
 
     return topics
 
@@ -1234,11 +1236,11 @@ def load_conversation_from_log(
             raw_messages.append(obj)
 
     # First, normalize
-    messages: list[dict[str, Any]] = []
-    for obj in raw_messages:
-        nm = normalize_message_from_log(obj)
-        if nm is not None:
-            messages.append(nm)
+    messages: list[dict[str, Any]] = [
+        nm
+        for obj in raw_messages
+        if (nm := normalize_message_from_log(obj)) is not None
+    ]
 
     # Keep skill-injected system messages and discard other system messages
     skill_prefix = "[SKILL] "
@@ -1653,12 +1655,11 @@ def compress_history_with_llm(
         chunk_index = 0
         rolling_summary = ""
         for chunk in chunks:
-            lines: list[str] = []
-            for m in chunk:
-                rendered, _role = _message_to_text(m)
-                if rendered is None:
-                    continue
-                lines.append(rendered)
+            lines = [
+                rendered
+                for m in chunk
+                if (rendered := _message_to_text(m)[0]) is not None
+            ]
 
             if not lines:
                 continue
