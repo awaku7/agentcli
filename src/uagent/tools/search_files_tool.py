@@ -147,6 +147,11 @@ IGNORE_EXTS = {
 
 _TEXT_ENCODING_CANDIDATES = ("utf-8-sig", "utf-8", "cp932", "shift_jis", "euc_jp")
 
+# Precomputed translation table for _looks_binary: 1 = control char (excluding \t,\n,\r)
+_CONTROL_CHAR_TABLE = bytes(
+    1 if (0 <= b < 32 and b not in (9, 10, 13)) else 0 for b in range(256)
+)
+
 
 def _looks_binary(head: bytes) -> bool:
     """Heuristically determine whether a file is likely binary."""
@@ -158,13 +163,8 @@ def _looks_binary(head: bytes) -> bool:
     if b"\x00" in head:
         return True
 
-    # Allow a small set of common control characters: \t, \n, \r
-    bad = 0
-    for b in head:
-        if b in (9, 10, 13):
-            continue
-        if 0 <= b < 32:
-            bad += 1
+    # Use precomputed translation table for fast control character counting
+    bad = sum(head.translate(_CONTROL_CHAR_TABLE))
 
     # If 10%+ of the sample are control chars, treat as binary-ish.
     return (bad / len(head)) > 0.10

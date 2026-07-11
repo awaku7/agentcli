@@ -3,6 +3,7 @@ from __future__ import annotations
 import json
 import sys
 import traceback
+from functools import lru_cache
 from typing import Any
 
 from . import tools
@@ -12,6 +13,7 @@ from .llm_helpers import _effectively_empty_text
 from .reasoning_display import show_reasoning
 
 
+@lru_cache(maxsize=None)
 def _is_external_data_tool(name: str) -> bool:
     """Check if a tool fetches external/third-party content.
 

@@ -5,6 +5,7 @@ from __future__ import annotations
 import json
 import os
 import threading
+from functools import lru_cache
 from typing import Any
 
 from .env_utils import env_get
@@ -125,6 +126,7 @@ def _normalize_for_similarity(text: str) -> str:
     return s
 
 
+@lru_cache(maxsize=None)
 def _char_bigram_jaccard(a: str, b: str) -> float:
     """Compute character bigram Jaccard similarity between two strings."""
 

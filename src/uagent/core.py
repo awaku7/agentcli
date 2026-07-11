@@ -600,12 +600,13 @@ def _mask_message(obj: Any) -> Any:
     if isinstance(obj, dict):
         new_dict = {}
         for k, v in obj.items():
-            # Decode and check the return value of human_ask (JSON string)
+            # Fast human_ask detection: sub-string check before costly json.loads
             if (
                 k == "content"
                 and isinstance(v, str)
-                and v.startswith("{")
-                and v.endswith("}")
+                and v[:1] == "{"
+                and v[-1:] == "}"
+                and "human_ask" in v
             ):
                 try:
                     parsed = json.loads(v)
@@ -889,7 +890,7 @@ def list_logs(*, limit: int = 10, show_all: bool = False) -> list[str]:
 
     def _shorten(s: str, n: int) -> str:
         s = " ".join((s or "").strip().splitlines())
-        return s if len(s) <= n else s[: max(0, n - 1)] + "…"
+        return s if len(s) <= n else s[: max(0, n - 1)] + "\u2026"
 
     def _fmt_ts(ts: float) -> str:
         try:
