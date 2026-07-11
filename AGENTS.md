@@ -123,47 +123,14 @@ Tools are delivered to the LLM differently depending on the provider and mode:
 
 ## i18n (internationalization)
 
-### Two approaches
+See the unified guide at [`src/uagent/docs/DEVELOP_I18N.md`](./src/uagent/docs/DEVELOP_I18N.md) for complete documentation covering both host-side (gettext `.po`/`.mo`) and tool-side (JSON key-based) i18n.
 
-**1. Host side** (`core.py`, `cli.py`, `gui.py`, `web.py`, `runtime/`, `providers/`, etc.)
+**Key points:**
 
-- Uses gettext. Import with `from .i18n import _`.
-- Config file: `babel.cfg` (project root).
-
-```python
-print(_("Loaded long-term memory."))
-print(_("Failed: %(err)s") % {"err": e})
-print("[WARN] " + _("Failed to read: %(path)s") % {"path": p})
-```
-
-Use `%(name)s` placeholders instead of f-strings.
-
-**Workflow:**
-
-```bash
-# 1. Extract POT from source code
-pybabel extract -F babel.cfg -o src/uagent/locales/uagent.pot .
-
-# 2. Rebuild English PO from POT
-python scripts/po_rebuild_en.py
-
-# 3. Update non-English PO (e.g. Japanese)
-python scripts/po_rebuild_non_en.py src/uagent/locales/ja/LC_MESSAGES/uag.po
-
-# 4. Compile .mo
-python scripts/compile_locales.py
-
-# 5. QC check
-python scripts/po_qc_summary.py
-```
-
-- `.po` files are at `src/uagent/locales/<lang>/LC_MESSAGES/uag.po`.
-- Keep `%(name)s` placeholders unchanged in translations.
-- When adding a new host-side package, add its entry to `babel.cfg`.
-
-**2. Tool side** (`tools/*_tool.py`)
-
-- Uses `make_tool_translator(__file__)` + JSON key approach. Different mechanism; not covered in this AGENTS.md.
+- **Host side**: `from .i18n import _` — gettext with `.po`/`.mo` files in `src/uagent/locales/`
+- **Tool side**: `_ = make_tool_translator(__file__)` — JSON key-value in `src/uagent/tools/*_tool.json`
+- **Placeholders**: Use `%(name)s` format in both systems
+- **Workflow scripts**: `scripts/compile_locales.py`, `scripts/po_rebuild_en.py`, `scripts/po_rebuild_non_en.py`, `scripts/po_qc_summary.py`, `scripts/i18n_tools_check.py`
 
 ## PR instructions
 
