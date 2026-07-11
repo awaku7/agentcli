@@ -17,38 +17,29 @@ classifiers = [
     "Operating System :: OS Independent",
 ]
 dependencies = [
-    "openai>=2.30.0",
-    "tiktoken>=0.9.0",
-    "openrouter>=0.9.1",
-    "anthropic>=0.86.0",
-    "google-genai>=1.69.0",
-    "google-cloud-texttospeech>=2.36.0",
-    "pdfplumber>=0.11.9",
-    "python-pptx>=1.0.2",
+    "openai>=2.45.0",
+    "tiktoken>=0.13.0",
+    "anthropic>=0.116.0",
+    "google-genai>=2.11.0",
     "requests>=2.33.1",
+    "httpx>=0.28.1",
     "urllib3>=2.6.3",
     "python-dotenv>=1.2.2",
     "tqdm>=4.67.3",
     "prompt-toolkit>=3.0.52",
-    "llmcapa>=0.2.11",
+    "llmcapa>=0.2.12",
     "pyyaml>=6.0.3",
     "certifi>=2026.2.25",
     "numpy>=2.4.4",
-    "pyOpenSSL>=26.0.0",
     "pyreadline3>=3.5.4; sys_platform == 'win32'",
     "pywin32>=311; sys_platform == 'win32'",
-    "pyautogui>=0.9.54",
-    "pygetwindow>=0.0.9; sys_platform == 'win32'",
     "jinja2>=3.1.6",
-    "janome>=0.5.0",
-    "jieba>=0.42.1",
-    "pythainlp>=5.3.4",
     "python-multipart>=0.0.22",
     "websockets>=16.0",
 ]
 
 [project.optional-dependencies]
-zai = ["zhipuai>=2.1.5"]
+zai = ["zai-sdk"]
 
 [project.scripts]
 

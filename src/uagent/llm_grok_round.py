@@ -292,6 +292,19 @@ def _call_grok_round(
                     print(repr(e))
                     return False, client, "", []
                 elif status_code == grpc.StatusCode.UNAVAILABLE:
+                    from .providers.util_providers import is_ssl_cert_error, set_ssl_verify_disabled
+
+                    if is_ssl_cert_error(e):
+                        print(
+                            "[GROK Error] "
+                            + "SSL certificate verification failed. Auto-disabling SSL verify and retrying..."
+                        )
+                        _maybe_print_certifi_where(e)
+                        set_ssl_verify_disabled(True)
+                        new_client = make_client_fn(core)[1]
+                        if new_client is not None:
+                            client = new_client
+                        continue
                     print("[GROK Error] Unavailable")
                     _maybe_print_certifi_where(e)
                     print(repr(e))

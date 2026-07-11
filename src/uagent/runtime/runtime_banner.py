@@ -453,36 +453,24 @@ def build_startup_banner(*, core: Any, workdir: str, workdir_source: str) -> str
         "true",
     )
     _responses_supported = provider in RESPONSES_PROVIDERS
-    if (
-        _use_responses_flag
-        and not _responses_supported
-        and provider not in ("gemini", "claude", "vertexai")
-    ):
-        lines.append(
-            "[WARN] "
-            + _(
-                "UAGENT_RESPONSES=1 is set, but provider '%(provider)s' does not support Responses API. Falling back to ChatCompletions."
-            )
-            % {"provider": provider}
-        )
 
-    lines.append(
-        "[INFO] "
-        + _("LLM API mode = %(mode)s")
-        % {
-            "mode": (
-                _("Responses (UAGENT_RESPONSES is enabled)")
-                if _use_responses_flag and _responses_supported
-                else (
-                    _(
-                        "Native Gemini/Vertex AI/Claude API (UAGENT_RESPONSES is ignored)"
-                    )
-                    if provider in ("gemini", "claude", "vertexai")
-                    else _("ChatCompletions (UAGENT_RESPONSES is disabled)")
-                )
-            )
-        }
-    )
+    if _use_responses_flag and _responses_supported:
+        _mode_msg = _("Responses (UAGENT_RESPONSES is enabled)")
+        lines.append(
+            "[INFO] " + _("LLM API mode = %(mode)s") % {"mode": _mode_msg}
+        )
+    elif _use_responses_flag and provider not in ("grok", "gemini", "claude", "vertexai"):
+        _mode_msg = _(
+            "ChatCompletions (provider '%(provider)s' does not support Responses API)"
+        ) % {"provider": provider}
+        lines.append(
+            "[INFO] " + _("LLM API mode = %(mode)s") % {"mode": _mode_msg}
+        )
+    elif provider not in ("grok", "gemini", "claude", "vertexai"):
+        _mode_msg = _("ChatCompletions (UAGENT_RESPONSES is disabled)")
+        lines.append(
+            "[INFO] " + _("LLM API mode = %(mode)s") % {"mode": _mode_msg}
+        )
 
     lines.append(
         "[INFO] "

@@ -15,28 +15,40 @@ from typing import Any, Callable, Optional
 import concurrent.futures
 from threading import Lock, RLock
 
-try:
-    from janome.tokenizer import Tokenizer as JanomeTokenizer
-except Exception:  # pragma: no cover
+from .._pip_auto import install_with_status as _auto_install
+
+if not _auto_install("janome", version_spec=">=0.5.0"):
     JanomeTokenizer = None
+else:
+    try:
+        from janome.tokenizer import Tokenizer as JanomeTokenizer
+    except Exception:
+        JanomeTokenizer = None
 
-try:
-    with warnings.catch_warnings():
-        warnings.filterwarnings(
-            "ignore",
-            message=r"pkg_resources is deprecated as an API.*",
-            category=UserWarning,
-        )
-        import jieba
-except Exception:  # pragma: no cover
+if not _auto_install("jieba", version_spec=">=0.42.1"):
     jieba = None
+else:
+    try:
+        with warnings.catch_warnings():
+            warnings.filterwarnings(
+                "ignore",
+                message=r"pkg_resources is deprecated as an API.*",
+                category=UserWarning,
+            )
+            import jieba
+    except Exception:
+        jieba = None
 
-try:
-    from pythainlp.tokenize import word_tokenize as thai_word_tokenize
-    from pythainlp.tag import pos_tag as thai_pos_tag
-except Exception:  # pragma: no cover
+if not _auto_install("pythainlp", version_spec=">=5.3.4"):
     thai_word_tokenize = None
     thai_pos_tag = None
+else:
+    try:
+        from pythainlp.tokenize import word_tokenize as thai_word_tokenize
+        from pythainlp.tag import pos_tag as thai_pos_tag
+    except Exception:
+        thai_word_tokenize = None
+        thai_pos_tag = None
 
 from .context import ToolCallbacks, get_callbacks, init_callbacks as _init_callbacks
 from .i18n_helper import clear_tool_i18n_cache, get_locale, make_tool_translator

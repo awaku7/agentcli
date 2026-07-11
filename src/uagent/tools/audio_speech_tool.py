@@ -3,6 +3,7 @@ from __future__ import annotations
 from pathlib import Path
 from typing import Any
 
+from .._pip_auto import install_with_status as _auto_install
 from ..env_utils import env_get
 from .openers import open_image_with_default_app
 from .arg_util import get_float, get_str
@@ -212,12 +213,11 @@ def run_tool(args: dict[str, Any]) -> str:
     Path(safe_out).parent.mkdir(parents=True, exist_ok=True)
 
     if provider in ("gemini", "vertexai"):
-        try:
-            from google.cloud import texttospeech
-        except ImportError:
+        if not _auto_install("google-cloud-texttospeech", "google.cloud.texttospeech", version_spec=">=2.36.0"):
             return make_response(
                 False, "google-cloud-texttospeech or certifi package is not installed."
             )
+        from google.cloud import texttospeech
 
         try:
             # Use REST transport to avoid gRPC/ALPN issues with Python 3.14 on Windows

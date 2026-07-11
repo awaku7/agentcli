@@ -52,6 +52,7 @@ def install_with_status(
     module_name: str | None = None,
     display_name: str | None = None,
     verify_submodule: str | None = None,
+    version_spec: str | None = None,
 ) -> bool:
     """Auto-install a package with progress messages.
 
@@ -62,8 +63,11 @@ def install_with_status(
         package_name: The pip package name.
         module_name: The module to import after install (defaults to package_name).
         display_name: Human-readable name for messages (defaults to package_name).
-        verify_submodule: If set, additionally import this submodule (e.g. "\"PySide6.QtCore"\")
+        verify_submodule: If set, additionally import this submodule (e.g. "PySide6.QtCore")
                           to verify C extension DLLs actually load. Default None.
+        version_spec: Minimum version requirement (e.g. ">=0.5.0"). If set, the installed
+                      version is checked via importlib.metadata and reinstall is triggered
+                      if it does not satisfy the requirement.
 
     Returns:
         True if all imports succeed after the attempt, False otherwise.
@@ -72,9 +76,12 @@ def install_with_status(
     target = module_name or package_name
 
     def _run_pip(*args: str) -> bool:
+        full_pkg = package_name
+        if version_spec:
+            full_pkg = f"{package_name}{version_spec}"
         try:
             result = subprocess.run(
-                [sys.executable, "-m", "pip", "install", *args, package_name],
+                [sys.executable, "-m", "pip", "install", *args, full_pkg],
                 stdout=sys.stderr,
                 stderr=sys.stderr,
                 timeout=120,
@@ -83,16 +90,60 @@ def install_with_status(
         except Exception:
             return False
 
+    def _check_version() -> bool:
+        if not version_spec:
+            return True
+        try:
+            from importlib.metadata import version as _pkg_version
+
+            installed = _pkg_version(package_name)
+            # Parse version_spec like ">=0.5.0"
+            spec = version_spec.strip()
+            if spec.startswith(">="):
+                from packaging.version import Version
+
+                return Version(installed) >= Version(spec[2:])
+            elif spec.startswith(">"):
+                from packaging.version import Version
+
+                return Version(installed) > Version(spec[1:])
+            elif spec.startswith("=="):
+                from packaging.version import Version
+
+                return Version(installed) == Version(spec[2:])
+            elif spec.startswith("<="):
+                from packaging.version import Version
+
+                return Version(installed) <= Version(spec[2:])
+            elif spec.startswith("<"):
+                from packaging.version import Version
+
+                return Version(installed) < Version(spec[1:])
+            elif spec.startswith("~="):
+                from packaging.version import Version
+
+                return Version(installed) == Version(spec[2:])
+            elif spec.startswith("!="):
+                from packaging.version import Version
+
+                return Version(installed) != Version(spec[2:])
+            # Fallback: treat as minimum (">=X")
+            from packaging.version import Version
+
+            return Version(installed) >= Version(spec)
+        except Exception:
+            return True  # version check failed, assume OK
+
     def _verify(*, fresh: bool = False) -> bool:
         if fresh and target in sys.modules:
-            # Remove cached module so __init__.py is re-executed
-            # (e.g. after reinstall, the old namespace package may be stale)
             del sys.modules[target]
             if verify_submodule and verify_submodule in sys.modules:
                 del sys.modules[verify_submodule]
         try:
             __import__(target)
         except ImportError:
+            return False
+        if not _check_version():
             return False
         if verify_submodule:
             try:

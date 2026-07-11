@@ -21,11 +21,8 @@ from .providers.llm_claude import (
     claude_chat_with_tools,
     build_claude_output_config_for_effort,
 )
-from .providers.llm_openai_responses import (
-    build_responses_request,
-    parse_responses_response,
-    parse_responses_stream,
-)
+from .providers.llm_openai_responses import build_responses_request
+from .providers.responses_common import parse_responses_response, parse_responses_stream
 from .providers.llm_bedrock_responses import build_bedrock_responses_request
 from .tools.llm_tool_narrowing import (
     _is_gpt54_tool_search_target,
@@ -855,6 +852,19 @@ def _call_openai_azure_round(
                 )
                 return False, client, "", "", []
             if APIConnectionError is not None and isinstance(e, APIConnectionError):
+                from .providers.util_providers import is_ssl_cert_error, set_ssl_verify_disabled
+
+                if is_ssl_cert_error(e):
+                    print(
+                        "[Azure/OpenAI Error] "
+                        + _t("SSL certificate verification failed. Auto-disabling SSL verify and retrying...")
+                    )
+                    _maybe_print_certifi_where(e)
+                    set_ssl_verify_disabled(True)
+                    new_client = make_client_fn(core)[1]
+                    if new_client is not None:
+                        client = new_client
+                    continue
                 print("[Azure/OpenAI Error] " + _t("Connection error"))
                 _maybe_print_certifi_where(e)
                 print(repr(e))

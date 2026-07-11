@@ -15,6 +15,70 @@ _HTTPX_CLIENTS: list[Any] = []
 _HTTPX_CLIENTS_LOCK = Lock()
 _HTTPX_CLIENTS_REGISTERED = False
 
+# ---------------------------------------------------------------------------
+# SSL certificate verification auto-fallback
+# ---------------------------------------------------------------------------
+
+_ssl_verify_disabled: bool = False
+_ssl_verify_lock = Lock()
+
+
+def is_ssl_verify_disabled() -> bool:
+    """Return True if SSL verification has been globally disabled."""
+    with _ssl_verify_lock:
+        return _ssl_verify_disabled
+
+
+def set_ssl_verify_disabled(val: bool = True) -> None:
+    """Globally disable SSL certificate verification."""
+    with _ssl_verify_lock:
+        global _ssl_verify_disabled
+        _ssl_verify_disabled = val
+
+
+def is_ssl_cert_error(e: BaseException) -> bool:
+    """Detect whether *e* (or its chain) is an SSL certificate verification error."""
+    err_text = ""
+    try:
+        err_text = f"{type(e).__name__}: {e}".lower()
+    except Exception:
+        pass
+    # Common SSL cert error signatures
+    ssl_keywords = (
+        "certificate verify failed",
+        "ssl: certificate_verify_failed",
+        "self-signed certificate",
+        "certificate has expired",
+        "unable to get local issuer certificate",
+        "ssl error",
+        "tls error",
+        "certificate verify",
+        "ssl_certificate",
+    )
+    if any(kw in err_text for kw in ssl_keywords):
+        return True
+    # Walk the exception chain
+    cause = e
+    seen: set[int] = set()
+    while True:
+        try:
+            cause = cause.__cause__ or cause.__context__
+        except Exception:
+            break
+        if cause is None:
+            break
+        try:
+            cid = id(cause)
+            if cid in seen:
+                break
+            seen.add(cid)
+            cause_text = f"{type(cause).__name__}: {cause}".lower()
+            if any(kw in cause_text for kw in ssl_keywords):
+                return True
+        except Exception:
+            break
+    return False
+
 
 def _close_httpx_clients() -> None:
     # Best-effort cleanup for custom httpx clients (OpenAI SDK http_client=...)
@@ -92,7 +156,13 @@ def make_httpx_timeout() -> Any:
 def make_httpx_client(
     *, verify: Any = None, event_hooks: Any = None, timeout: Any = None
 ) -> Any:
-    """Create an httpx.Client with timeout from env (best-effort)."""
+    """Create an httpx.Client with timeout from env (best-effort).
+
+    If ``is_ssl_verify_disabled()`` returns True, ``verify`` is forced to False
+    regardless of the caller's value.
+    """
+    if is_ssl_verify_disabled():
+        verify = False
     try:
         import httpx
     except Exception:
@@ -546,7 +616,10 @@ def make_client(core: Any) -> tuple[str, Any, str]:
             pass
 
         if XAIClient is not None:
-            client = XAIClient(api_key=api_key)
+            client = XAIClient(
+                api_key=api_key,
+                use_insecure_channel=is_ssl_verify_disabled(),
+            )
         else:
             from openai import OpenAI
 
