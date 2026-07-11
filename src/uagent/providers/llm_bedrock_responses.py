@@ -3,12 +3,7 @@ from __future__ import annotations
 from typing import Any, Optional
 
 from .. import tools
-
-
-def _as_str(x: Any) -> str:
-    if x is None:
-        return ""
-    return str(x)
+from .responses_common import as_str
 
 
 def _extract_text_content(content: Any) -> str:
@@ -22,26 +17,26 @@ def _extract_text_content(content: Any) -> str:
             if isinstance(item, dict):
                 t = item.get("type")
                 if t in ("text", "input_text", "output_text"):
-                    parts.append(_as_str(item.get("text", "")))
+                    parts.append(as_str(item.get("text", "")))
                 elif t in ("image_url", "input_image"):
                     iu = item.get("image_url")
                     if isinstance(iu, dict):
-                        parts.append("[image] " + _as_str(iu.get("url", "")))
+                        parts.append("[image] " + as_str(iu.get("url", "")))
                     else:
-                        parts.append("[image] " + _as_str(iu))
+                        parts.append("[image] " + as_str(iu))
                 else:
-                    parts.append(_as_str(item))
+                    parts.append(as_str(item))
             else:
-                parts.append(_as_str(item))
+                parts.append(as_str(item))
         return "\n".join([p for p in parts if p is not None])
-    return _as_str(content)
+    return as_str(content)
 
 
 def _messages_to_bedrock_input(call_messages: list[dict[str, Any]]) -> str:
     lines: list[str] = []
 
     for m in call_messages:
-        role = _as_str(m.get("role", "user")).lower()
+        role = as_str(m.get("role", "user")).lower()
 
         # tool_calls trace from assistant messages
         tcs = m.get("tool_calls")
@@ -50,8 +45,8 @@ def _messages_to_bedrock_input(call_messages: list[dict[str, Any]]) -> str:
                 if not isinstance(tc, dict):
                     continue
                 fn = tc.get("function") if isinstance(tc.get("function"), dict) else {}
-                name = _as_str(fn.get("name", "unknown"))
-                args = _as_str(fn.get("arguments", "{}"))
+                name = as_str(fn.get("name", "unknown"))
+                args = as_str(fn.get("arguments", "{}"))
                 lines.append(f"[assistant.tool_call] {name}({args})")
 
         content_text = _extract_text_content(m.get("content"))
@@ -63,7 +58,7 @@ def _messages_to_bedrock_input(call_messages: list[dict[str, Any]]) -> str:
             continue
 
         if role == "tool":
-            tool_name = _as_str(m.get("name", "unknown"))
+            tool_name = as_str(m.get("name", "unknown"))
             lines.append(f"[tool:{tool_name}]")
             if content_text:
                 lines.append(content_text)
