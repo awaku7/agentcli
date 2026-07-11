@@ -75,6 +75,24 @@ _LAZY_TOOL_NAME_TO_MODULE: dict[str, str] = {"exstruct": "exstruct_tool"}
 # Raw tool specs passed to the LLM
 TOOL_SPECS: list[dict[str, Any]] = []
 
+# Cache for get_tool_specs(); rebuilt on demand when TOOL_SPECS changes.
+_TOOL_SPECS_CACHE: list[dict[str, Any]] | None = None
+_TOOL_SPECS_DIRTY: bool = True
+
+# Pre-built dict: tool_name -> emit_trace flag (avoids linear scan in run_tool).
+_TOOL_TRACE_FLAGS: dict[str, bool] = {}
+
+
+def _get_tool_emit_trace(spec: dict[str, Any]) -> bool:
+    """Return emit_trace flag for a tool spec (default: True)."""
+    fn = spec.get("function", {})
+    if isinstance(fn, dict):
+        x_scheck = fn.get("x_scheck", {})
+        if isinstance(x_scheck, dict) and x_scheck.get("emit_tool_trace") is False:
+            return False
+    return True
+
+
 # Runners
 _RUNNERS: dict[str, Callable[[dict[str, Any]], str]] = {}
 
@@ -346,6 +364,8 @@ def _register_tool_module(mod: Any, mod_name: str) -> bool:
                     break
 
             TOOL_SPECS.append(spec)
+            _TOOL_SPECS_DIRTY = True
+            _TOOL_TRACE_FLAGS[tool_name] = _get_tool_emit_trace(spec)
             _RUNNERS[tool_name] = runner
             _sort_registered_tools()
 
@@ -442,6 +462,8 @@ def _register_extra_spec(
                 TOOL_SPECS.pop(i)
                 break
         TOOL_SPECS.append(spec)
+        _TOOL_SPECS_DIRTY = True
+        _TOOL_TRACE_FLAGS[tool_name] = _get_tool_emit_trace(spec)
         _RUNNERS[tool_name] = runner
         _sort_registered_tools()
 
@@ -505,6 +527,9 @@ def _load_plugins() -> None:
         TOOL_SPECS.clear()
         _RUNNERS.clear()
         _BUSY_LABEL_TOOLS.clear()
+        global _TOOL_SPECS_DIRTY
+        _TOOL_SPECS_DIRTY = True
+        _TOOL_TRACE_FLAGS.clear()
 
     # 1. Load internal tools
     pkg_dir = os.path.dirname(__file__)
@@ -521,6 +546,13 @@ def _load_plugins() -> None:
             if lazy_spec and _should_preload_lazy_specs():
                 with _TOOLS_LOCK:
                     TOOL_SPECS.append(lazy_spec)
+                    _lazy_fn = lazy_spec.get("function", {})
+                    if isinstance(_lazy_fn, dict):
+                        _lazy_name = _lazy_fn.get("name")
+                        if _lazy_name:
+                            _TOOL_TRACE_FLAGS[_lazy_name] = _get_tool_emit_trace(
+                                lazy_spec
+                            )
             continue
 
         mod_name = f"{__name__}.{m.name}"
@@ -630,6 +662,9 @@ def get_dynamic_commands_help() -> list[str]:
 def get_tool_specs() -> list[dict[str, Any]]:
     """Return tool specs for the LLM."""
     _ensure_loaded()
+    global _TOOL_SPECS_CACHE, _TOOL_SPECS_DIRTY
+    if not _TOOL_SPECS_DIRTY and _TOOL_SPECS_CACHE is not None:
+        return _TOOL_SPECS_CACHE
 
     # Native GPT-5.4 tool_search: exclude management tools (server handles all)
     # and hidden tools (disabled/private) that shouldn't reach the LLM.
@@ -690,6 +725,8 @@ def get_tool_specs() -> list[dict[str, Any]]:
         spec_copy.pop("name", None)
 
         clean_specs.append(spec_copy)
+    _TOOL_SPECS_CACHE = clean_specs
+    _TOOL_SPECS_DIRTY = False
     return clean_specs
 
 
@@ -1253,22 +1290,9 @@ def run_tool(name: str, args: dict[str, Any]) -> str:
             return f"[tool error] unknown tool: {name}"
 
     # ---- trace (pre) ----
-    # Allow suppressing [TOOL] trace via TOOL_SPEC's extended flags.
-    # Default: emit.
-    try:
-        spec = next(
-            (s for s in TOOL_SPECS if s.get("function", {}).get("name") == name),
-            None,
-        )
-        x_scheck = (spec or {}).get("function", {}).get("x_scheck", {})
-        emit_trace = True
-        if isinstance(x_scheck, dict):
-            if x_scheck.get("emit_tool_trace") is False:
-                emit_trace = False
-        if emit_trace:
-            _emit_tool_trace(name, args)
-    except Exception:
-        # Exceptions here must not prevent tool execution.
+    # Use pre-built flag to avoid linear scan of TOOL_SPECS.
+    emit_trace = _TOOL_TRACE_FLAGS.get(name, True)
+    if emit_trace:
         _emit_tool_trace(name, args)
 
     # During human_ask, Busy should be turned off (it will wait for input).
