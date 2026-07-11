@@ -10,7 +10,7 @@
 
 <p align="center">
   File ops / Web search / Image generation &amp; analysis / PDF &amp; Excel extraction / IoT control / MCP integration<br>
-  15+ providers / 3 UIs / Parallel tool execution / Agent Skills marketplace
+  20+ providers / 3 UIs / Parallel tool execution / Agent Skills marketplace
 </p>
 
 <p align="center">
@@ -28,8 +28,8 @@
 **Bli fria från leverantörslåsning.** De flesta AI-assistenter knyter dig till en specifik leverantör eller molntjänst. uag är annorlunda.
 
 - **Körs lokalt** på din maskin. Din data stannar hos dig (förutom API-anrop du gör).
-- **Leverantörsfrihet**: OpenAI, Claude, Gemini, DeepSeek, Ollama, Azure, Bedrock, HuggingFace... 15+ leverantörer, alla tillgängliga från ett enda gränssnitt. Byt mellan dem genom att konfigurera om miljövariabler – ingen ominstallation, ingen migrering.
-- **171 verktyg**: Fil-I/O, webbsökning, bildgenerering, Gmail, BLE-enhetsskanning, MCP-serverintegrering — **87 är parallellsäkra** (upp till 8 exekveras samtidigt via trådpool, konfigurerbara via `UAGENT_PARALLEL_WORKERS`). När LLM avfyrar flera verktygsanrop samtidigt, parallelliserar uag dem automatiskt.
+- **Leverantörsfrihet**: OpenAI, Claude, Gemini, DeepSeek, Ollama, Azure, Bedrock, HuggingFace... 21+ leverantörer, alla tillgängliga från ett enda gränssnitt. Byt mellan dem genom att konfigurera om miljövariabler – ingen ominstallation, ingen migrering.
+- **171 verktyg**: Fil-I/O, webbsökning, bildgenerering, Gmail, BLE-enhetsskanning, MCP-serverintegrering — **89 är parallellsäkra** (upp till 8 exekveras samtidigt via trådpool, konfigurerbara via `UAGENT_PARALLEL_WORKERS`). När LLM avfyrar flera verktygsanrop samtidigt, parallelliserar uag dem automatiskt.
 - **3 användargränssnitt + A2A**: CLI, GUI, webb och Agent-to-Agent-protokoll. Samma motor, vilket gränssnitt som helst.
 - **Agent Skills**: Installera community-byggda färdigheter från marknadsplatsen. Förläng uag oändligt.
 
@@ -56,7 +56,7 @@ Alla leverantörer delar samma verktygsuppsättning och gränssnitt. Byt genom a
 ### ⚡ Parallell verktygsexekvering
 
 När LLM begär flera verktyg samtidigt, uag **parallellerar automatiskt** dem.
-87 verktyg är märkta med `x_parallel_safe` och körs samtidigt via en `ThreadPoolExecutor` (8 trådar som standard; ställ in `UAGENT_PARALLEL_WORKERS` för att ändra).
+89 verktyg är märkta med `x_parallel_safe` och körs samtidigt via en `ThreadPoolExecutor` (8 trådar som standard; ställ in `UAGENT_PARALLEL_WORKERS` för att ändra).
 
 **Exempel**: Fråga "Kontrollera vädret i nordiska huvudstäder" → LLM avfyrar `search_web` × 5 länder → alla 5 sökningar körs parallellt → resultat samlade i en batch.
 

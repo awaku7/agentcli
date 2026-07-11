@@ -10,7 +10,7 @@
 
 <p align="center">
   File ops / Web search / Image generation &amp; analysis / PDF &amp; Excel extraction / IoT control / MCP integration<br>
-  15+ providers / 3 UIs / Parallel tool execution / Agent Skills marketplace
+  20+ providers / 3 UIs / Parallel tool execution / Agent Skills marketplace
 </p>
 
 <p align="center">
@@ -29,7 +29,7 @@
 
 - **Se ejecuta localmente** en su máquina. Sus datos permanecen con usted (excepto las llamadas API que realice).
 - **Libertad de proveedores**: OpenAI, Claude, Gemini, DeepSeek, Ollama, Azure, Bedrock, HuggingFace... Más de 15 proveedores, todos accesibles desde una única interfaz. Cambie entre ellos reconfigurando las variables de entorno: sin reinstalación ni migración.
-- **171 herramientas**: E/S de archivos, búsqueda web, generación de imágenes, Gmail, escaneo de dispositivos BLE, integración de servidor MCP. **87 son seguras en paralelo** (hasta 8 se ejecutan simultáneamente a través del grupo de subprocesos, configurables a través de `UAGENT_PARALLEL_WORKERS`). Cuando el LLM activa varias llamadas a herramientas a la vez, uag las paraleliza automáticamente.
+- **171 herramientas**: E/S de archivos, búsqueda web, generación de imágenes, Gmail, escaneo de dispositivos BLE, integración de servidor MCP. **89 son seguras en paralelo** (hasta 8 se ejecutan simultáneamente a través del grupo de subprocesos, configurables a través de `UAGENT_PARALLEL_WORKERS`). Cuando el LLM activa varias llamadas a herramientas a la vez, uag las paraleliza automáticamente.
 - **3 UI + A2A**: CLI, GUI, web y protocolo de agente a agente. Mismo motor, cualquier interfaz.
 - **Habilidades del agente**: instale habilidades creadas por la comunidad desde el mercado. Extiende uag sin cesar.
 

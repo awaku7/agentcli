@@ -10,7 +10,7 @@
 
 <p align="center">
   File ops / Web search / Image generation &amp; analysis / PDF &amp; Excel extraction / IoT control / MCP integration<br>
-  15+ providers / 3 UIs / Parallel tool execution / Agent Skills marketplace
+  20+ providers / 3 UIs / Parallel tool execution / Agent Skills marketplace
 </p>
 
 <p align="center">
@@ -28,8 +28,8 @@
 **Vapauta toimittajan lukituksesta.** Useimmat tekoälyavustajat sitovat sinut tiettyyn palveluntarjoajaan tai pilvipalveluun. uag on erilainen.
 
 - **Runs locally** on your machine. Tietosi pysyvät mukanasi (paitsi tekemäsi API-kutsut).
-- **Tarjoajan vapaus**: OpenAI, Claude, Gemini, DeepSeek, Ollama, Azure, Bedrock, HuggingFace... Yli 15 palveluntarjoajaa, kaikki käytettävissä yhdestä käyttöliittymästä. Vaihda niiden välillä määrittämällä ympäristömuuttujat uudelleen – ei uudelleenasennusta, ei siirtoa.
-- **171 työkalua**: tiedostojen I/O, verkkohaku, kuvien luominen, Gmail, BLE-laitteiden skannaus, MCP-palvelinintegrointi — **87 ovat rinnakkain turvallisia** (jopa 8 suoritetaan samanaikaisesti säikeen varaan kautta, konfiguroitavissa `UAGENT_PARALLEL_WORKERS'-toiminnolla). Kun LLM käynnistää useita työkalukutsuja kerralla, uag rinnastaa ne automaattisesti.
+- **Tarjoajan vapaus**: OpenAI, Claude, Gemini, DeepSeek, Ollama, Azure, Bedrock, HuggingFace... 21 palveluntarjoajaa, kaikki käytettävissä yhdestä käyttöliittymästä. Vaihda niiden välillä määrittämällä ympäristömuuttujat uudelleen – ei uudelleenasennusta, ei siirtoa.
+- **171 työkalua**: tiedostojen I/O, verkkohaku, kuvien luominen, Gmail, BLE-laitteiden skannaus, MCP-palvelinintegrointi — **89 ovat rinnakkain turvallisia** (jopa 8 suoritetaan samanaikaisesti säikeen varaan kautta, konfiguroitavissa `UAGENT_PARALLEL_WORKERS'-toiminnolla). Kun LLM käynnistää useita työkalukutsuja kerralla, uag rinnastaa ne automaattisesti.
 - **3 käyttöliittymää + A2A**: CLI, GUI, Web ja Agent-to-Agent-protokolla. Same engine, any interface.
 - **Agenttitaidot**: Asenna yhteisön rakentamia taitoja markkinoilta. Laajenna uag loputtomasti.
 

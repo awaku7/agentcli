@@ -10,7 +10,7 @@
 
 <p align="center">
   File ops / Web search / Image generation &amp; analysis / PDF &amp; Excel extraction / IoT control / MCP integration<br>
-  15+ providers / 3 UIs / Parallel tool execution / Agent Skills marketplace
+  20+ providers / 3 UIs / Parallel tool execution / Agent Skills marketplace
 </p>
 
 <p align="center">
@@ -28,8 +28,8 @@
 **摆脱供应商锁定。**大多数人工智能助手会将您与特定的提供商或云服务联系起来。 uag 是不同的。
 
 - **在您的计算机上本地运行**。您的数据保留在您身边（您进行的 API 调用除外）。
-- **提供商自由**：OpenAI、Claude、Gemini、DeepSeek、Ollama、Azure、Bedrock、HuggingFace...超过 15 个提供商，均可通过单一界面访问。通过重新配置环境变量在它们之间进行交换——无需重新安装，无需迁移。
-- **171 个工具**：文件 I/O、网络搜索、图像生成、Gmail、BLE 设备扫描、MCP 服务器集成 — **87 个工具是并行安全的**（最多 8 个通过线程池并发执行，可通过“UAGENT_PARALLEL_WORKERS”进行配置）。当 LLM 一次触发多个工具调用时，uag 会自动并行化它们。
+- **提供商自由**：OpenAI、Claude、Gemini、DeepSeek、Ollama、Azure、Bedrock、HuggingFace...超过 21 个提供商，均可通过单一界面访问。通过重新配置环境变量在它们之间进行交换——无需重新安装，无需迁移。
+- **171 个工具**：文件 I/O、网络搜索、图像生成、Gmail、BLE 设备扫描、MCP 服务器集成 — **89 个工具是并行安全的**（最多 8 个通过线程池并发执行，可通过“UAGENT_PARALLEL_WORKERS”进行配置）。当 LLM 一次触发多个工具调用时，uag 会自动并行化它们。
 - **3 UI + A2A**：CLI、GUI、Web 和代理到代理协议。相同的引擎，任何接口。
 - **代理技能**：从市场安装社区构建的技能。无限延伸uag。
 
@@ -56,7 +56,7 @@ OpenAI / Azure / Bedrock / OpenRouter / Ollama / Gemini / Vertex AI / Claude / G
 ### ⚡ 并行工具执行
 
 当 LLM 同时请求多个工具时，uag **自动并行化**它们。
-87 个工具被标记为“x_parallel_safe”，并通过“ThreadPoolExecutor”并发执行（默认为 8 个线程；设置“UAGENT_PARALLEL_WORKERS”进行更改）。
+89 个工具被标记为“x_parallel_safe”，并通过“ThreadPoolExecutor”并发执行（默认为 8 个线程；设置“UAGENT_PARALLEL_WORKERS”进行更改）。
 
 **示例**：询问“检查北欧首都的天气” → LLM 触发 `search_web` × 5 个国家 → 所有 5 个搜索并行运行 → 一批收集结果。
 

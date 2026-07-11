@@ -10,7 +10,7 @@
 
 <p align="center">
   File ops / Web search / Image generation &amp; analysis / PDF &amp; Excel extraction / IoT control / MCP integration<br>
-  15+ providers / 3 UIs / Parallel tool execution / Agent Skills marketplace
+  20+ providers / 3 UIs / Parallel tool execution / Agent Skills marketplace
 </p>
 
 <p align="center">
@@ -28,8 +28,8 @@
 **Befreien Sie sich von der Anbieterbindung.** Die meisten KI-Assistenten binden Sie an einen bestimmten Anbieter oder Cloud-Dienst. uag ist anders.
 
 - **Läuft lokal** auf Ihrem Computer. Ihre Daten bleiben bei Ihnen (mit Ausnahme von API-Aufrufen, die Sie tätigen).
-- **Anbieterfreiheit**: OpenAI, Claude, Gemini, DeepSeek, Ollama, Azure, Bedrock, HuggingFace... 15+ Anbieter, alle über eine einzige Schnittstelle zugänglich. Wechseln Sie zwischen ihnen, indem Sie Umgebungsvariablen neu konfigurieren – keine Neuinstallation, keine Migration.
-- **171 Tools**: Datei-E/A, Websuche, Bildgenerierung, Gmail, BLE-Gerätescan, MCP-Serverintegration – **87 sind parallelsicher** (bis zu 8 werden gleichzeitig über Thread-Pool ausgeführt, konfigurierbar über „UAGENT_PARALLEL_WORKERS“). Wenn das LLM mehrere Tool-Aufrufe gleichzeitig auslöst, parallelisiert uag diese automatisch.
+- **Anbieterfreiheit**: OpenAI, Claude, Gemini, DeepSeek, Ollama, Azure, Bedrock, HuggingFace... 21+ Anbieter, alle über eine einzige Schnittstelle zugänglich. Wechseln Sie zwischen ihnen, indem Sie Umgebungsvariablen neu konfigurieren – keine Neuinstallation, keine Migration.
+- **171 Tools**: Datei-E/A, Websuche, Bildgenerierung, Gmail, BLE-Gerätescan, MCP-Serverintegration – **89 sind parallelsicher** (bis zu 8 werden gleichzeitig über Thread-Pool ausgeführt, konfigurierbar über „UAGENT_PARALLEL_WORKERS“). Wenn das LLM mehrere Tool-Aufrufe gleichzeitig auslöst, parallelisiert uag diese automatisch.
 - **3 UIs + A2A**: CLI, GUI, Web und Agent-to-Agent-Protokoll. Gleiche Engine, beliebige Schnittstelle.
 - **Agentenfähigkeiten**: Installieren Sie von der Community entwickelte Fähigkeiten vom Marktplatz. Verlängern Sie uag endlos.
 

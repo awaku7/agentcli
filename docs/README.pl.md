@@ -10,7 +10,7 @@
 
 <p align="center">
   File ops / Web search / Image generation &amp; analysis / PDF &amp; Excel extraction / IoT control / MCP integration<br>
-  15+ providers / 3 UIs / Parallel tool execution / Agent Skills marketplace
+  20+ providers / 3 UIs / Parallel tool execution / Agent Skills marketplace
 </p>
 
 <p align="center">
@@ -28,8 +28,8 @@
 **Uwolnij się od uzależnienia od dostawcy.** Większość asystentów AI wiąże Cię z konkretnym dostawcą lub usługą w chmurze. uag jest inny.
 
 - **Runs locally** on your machine. Twoje dane pozostają przy Tobie (z wyjątkiem wywołań API, które wykonujesz).
-- **Wolność dostawcy**: OpenAI, Claude, Gemini, DeepSeek, Ollama, Azure, Bedrock, HuggingFace... Ponad 15 dostawców, wszyscy dostępni z jednego interfejsu. Przełączaj się między nimi, rekonfigurując zmienne środowiskowe — bez ponownej instalacji i bez migracji.
-- **171 narzędzi**: operacje we/wy plików, wyszukiwanie w Internecie, generowanie obrazów, Gmail, skanowanie urządzeń BLE, integracja z serwerem MCP — **87 jest bezpiecznych w trybie równoległym** (do 8 jest wykonywanych jednocześnie za pośrednictwem puli wątków, konfigurowalne za pomocą `UAGENT_PARALLEL_WORKERS`). Kiedy LLM uruchamia wiele wywołań narzędzi jednocześnie, uag automatycznie łączy je równolegle.
+- **Wolność dostawcy**: OpenAI, Claude, Gemini, DeepSeek, Ollama, Azure, Bedrock, HuggingFace... 21 dostawców, wszyscy dostępni z jednego interfejsu. Przełączaj się między nimi, rekonfigurując zmienne środowiskowe — bez ponownej instalacji i bez migracji.
+- **171 narzędzi**: operacje we/wy plików, wyszukiwanie w Internecie, generowanie obrazów, Gmail, skanowanie urządzeń BLE, integracja z serwerem MCP — **89 jest bezpiecznych w trybie równoległym** (do 8 jest wykonywanych jednocześnie za pośrednictwem puli wątków, konfigurowalne za pomocą `UAGENT_PARALLEL_WORKERS`). Kiedy LLM uruchamia wiele wywołań narzędzi jednocześnie, uag automatycznie łączy je równolegle.
 - **3 interfejsy użytkownika + A2A**: CLI, GUI, Internet i protokół Agent-Agent. Same engine, any interface.
 - **Umiejętności agenta**: Zainstaluj umiejętności opracowane przez społeczność z rynku. Rozszerzaj uag w nieskończoność.
 

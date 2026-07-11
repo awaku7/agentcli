@@ -10,7 +10,7 @@
 
 <p align="center">
   File ops / Web search / Image generation &amp; analysis / PDF &amp; Excel extraction / IoT control / MCP integration<br>
-  15+ providers / 3 UIs / Parallel tool execution / Agent Skills marketplace
+  20+ providers / 3 UIs / Parallel tool execution / Agent Skills marketplace
 </p>
 
 <p align="center">
@@ -28,8 +28,8 @@
 **Jiepushe na kufuli kwa muuzaji.** Wasaidizi wengi wa AI hukufungamanisha na mtoa huduma mahususi au huduma ya wingu. uag ni tofauti.
 
 - ** Huendesha ndani ** kwenye mashine yako. Data yako itasalia nawe (isipokuwa simu za API unazopiga).
-- **Uhuru wa mtoa huduma**: OpenAI, Claude, Gemini, DeepSeek, Ollama, Azure, Bedrock, HuggingFace... 15+ watoa huduma, wote wanaweza kufikiwa kutoka kwa kiolesura kimoja. Badilisha kati yao kwa kusanidi upya anuwai za mazingira - hakuna kusakinisha tena, hakuna uhamiaji.
-- **Zana 171**: Faili ya I/O, utafutaji wa wavuti, kutengeneza picha, Gmail, kuchanganua kifaa cha BLE, muunganisho wa seva ya MCP — **87 ni salama sambamba** (hadi 8 hutekelezwa kwa wakati mmoja kupitia mkusanyiko wa mazungumzo, inaweza kusanidiwa kupitia `UAGENT_PARALLEL_WORKERS`). Wakati LLM inapiga simu za zana nyingi mara moja, uag huzilinganisha kiotomatiki.
+- **Uhuru wa mtoa huduma**: OpenAI, Claude, Gemini, DeepSeek, Ollama, Azure, Bedrock, HuggingFace... 21+ watoa huduma, wote wanaweza kufikiwa kutoka kwa kiolesura kimoja. Badilisha kati yao kwa kusanidi upya anuwai za mazingira - hakuna kusakinisha tena, hakuna uhamiaji.
+- **Zana 171**: Faili ya I/O, utafutaji wa wavuti, kutengeneza picha, Gmail, kuchanganua kifaa cha BLE, muunganisho wa seva ya MCP — **89 ni salama sambamba** (hadi 8 hutekelezwa kwa wakati mmoja kupitia mkusanyiko wa mazungumzo, inaweza kusanidiwa kupitia `UAGENT_PARALLEL_WORKERS`). Wakati LLM inapiga simu za zana nyingi mara moja, uag huzilinganisha kiotomatiki.
 - **UI 3 + A2A**: CLI, GUI, Wavuti, na itifaki ya Wakala kwa Wakala. Injini sawa, interface yoyote.
 - **Ujuzi wa Wakala**: Sakinisha ujuzi uliojengwa na jamii kutoka sokoni. Panua uag bila mwisho.
 
@@ -56,7 +56,7 @@ Watoa huduma wote wanashiriki zana sawa na kiolesura. Badili kwa kuweka `UAGENT_
 ### ⚡ Utekelezaji wa Zana Sambamba
 
 Wakati LLM inaomba zana nyingi kwa wakati mmoja, uag **inazilinganisha kiotomatiki**.
-Zana 87 zimewekwa alama `x_parallel_safe` na hutekelezwa kwa wakati mmoja kupitia `ThreadPoolExecutor` (nyuzi 8 kwa chaguomsingi; weka `UAGENT_PARALLEL_WORKERS` ili kubadilisha).
+Zana 89 zimewekwa alama `x_parallel_safe` na hutekelezwa kwa wakati mmoja kupitia `ThreadPoolExecutor` (nyuzi 8 kwa chaguomsingi; weka `UAGENT_PARALLEL_WORKERS` ili kubadilisha).
 
 **Mfano**: Uliza "Angalia hali ya hewa katika herufi kubwa za Nordic" → Mioto ya LLM `search_web` × nchi 5 → utafutaji wote 5 unakwenda sambamba → matokeo yaliyokusanywa katika kundi moja.
 

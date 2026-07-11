@@ -10,7 +10,7 @@
 
 <p align="center">
   File ops / Web search / Image generation &amp; analysis / PDF &amp; Excel extraction / IoT control / MCP integration<br>
-  15+ providers / 3 UIs / Parallel tool execution / Agent Skills marketplace
+  20+ providers / 3 UIs / Parallel tool execution / Agent Skills marketplace
 </p>
 
 <p align="center">
@@ -28,8 +28,8 @@
 **השתחרר מהנעילת הספק.** רוב עוזרי הבינה המלאכותית קושרים אותך לספק או לשירות ענן ספציפי. uag שונה.
 
 - **פועל באופן מקומי** במחשב שלך. הנתונים שלך נשארים איתך (למעט קריאות API שאתה מבצע).
-- **חופש הספק**: OpenAI, Claude, Gemini, DeepSeek, Ollama, Azure, Bedrock, HuggingFace... 15+ ספקים, כולם נגישים מממשק אחד. החלף ביניהם על ידי הגדרה מחדש של משתני סביבה - ללא התקנה מחדש, ללא העברה.
-- **171 כלים**: קלט/פלט של קבצים, חיפוש באינטרנט, יצירת תמונות, Gmail, סריקת מכשירי BLE, שילוב שרת MCP - **87 בטוחים במקביל** (עד 8 מופעלים במקביל דרך מאגר שרשורים, ניתנים להגדרה באמצעות `UAGENT_PARALLEL_WORKERS`). כאשר ה-LLM יורה שיחות כלים מרובות בו-זמנית, uag מקביל אותן באופן אוטומטי.
+- **חופש הספק**: OpenAI, Claude, Gemini, DeepSeek, Ollama, Azure, Bedrock, HuggingFace... 21+ ספקים, כולם נגישים מממשק אחד. החלף ביניהם על ידי הגדרה מחדש של משתני סביבה - ללא התקנה מחדש, ללא העברה.
+- **171 כלים**: קלט/פלט של קבצים, חיפוש באינטרנט, יצירת תמונות, Gmail, סריקת מכשירי BLE, שילוב שרת MCP - **89 בטוחים במקביל** (עד 8 מופעלים במקביל דרך מאגר שרשורים, ניתנים להגדרה באמצעות `UAGENT_PARALLEL_WORKERS`). כאשר ה-LLM יורה שיחות כלים מרובות בו-זמנית, uag מקביל אותן באופן אוטומטי.
 - **3 ממשקי משתמש + A2A**: CLI, GUI, אינטרנט ופרוטוקול סוכן לסוכן. אותו מנוע, כל ממשק.
 - **מיומנויות סוכן**: התקן מיומנויות שנבנו בקהילה מהשוק. להאריך את uag בלי סוף.
 
@@ -56,7 +56,7 @@ OpenAI / Azure / Bedrock / OpenRouter / Ollama / Gemini / Vertex AI / Claude / G
 ### ⚡ ביצוע כלי מקביל
 
 כאשר ה-LLM מבקש מספר כלים בו-זמנית, uag **מקביל** אותם באופן אוטומטי.
-87 כלים מסומנים 'x_parallel_safe' ומופעלים במקביל דרך 'ThreadPoolExecutor' (8 שרשורים כברירת מחדל; הגדר את 'UAGENT_PARALLEL_WORKERS' לשינוי).
+89 כלים מסומנים 'x_parallel_safe' ומופעלים במקביל דרך 'ThreadPoolExecutor' (8 שרשורים כברירת מחדל; הגדר את 'UAGENT_PARALLEL_WORKERS' לשינוי).
 
 **דוגמה**: שאל "בדוק את מזג האוויר בבירות נורדיות" → LLM מפעיל `search_web` × 5 מדינות → כל 5 החיפושים פועלים במקביל → התוצאות נאספו באצווה אחת.
 

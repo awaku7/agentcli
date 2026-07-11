@@ -10,7 +10,7 @@
 
 <p align="center">
   File ops / Web search / Image generation &amp; analysis / PDF &amp; Excel extraction / IoT control / MCP integration<br>
-  15+ providers / 3 UIs / Parallel tool execution / Agent Skills marketplace
+  20+ providers / 3 UIs / Parallel tool execution / Agent Skills marketplace
 </p>
 
 <p align="center">
@@ -28,8 +28,8 @@
 **Satıcıya bağlı kalmaktan kurtulun.** Çoğu AI asistanı sizi belirli bir sağlayıcıya veya bulut hizmetine bağlar. uag farklıdır.
 
 - **Makinenizde yerel olarak çalışır**. Verileriniz sizinle kalır (yaptığınız API çağrıları hariç).
-- **Sağlayıcı özgürlüğü**: OpenAI, Claude, Gemini, DeepSeek, Ollama, Azure, Bedrock, HuggingFace... 15'ten fazla sağlayıcı, hepsine tek bir arayüzden erişilebilir. Ortam değişkenlerini yeniden yapılandırarak bunlar arasında geçiş yapın; yeniden yükleme yok, geçiş yok.
-- **171 araç**: Dosya G/Ç, web araması, görüntü oluşturma, Gmail, BLE cihaz tarama, MCP sunucu entegrasyonu — **87 araç paralel güvenlidir** (iş parçacığı havuzu aracılığıyla en fazla 8 eşzamanlı yürütme, "UAGENT_PARALLEL_WORKERS" aracılığıyla yapılandırılabilir). LLM aynı anda birden fazla araç çağrısı başlattığında, uag bunları otomatik olarak paralelleştirir.
+- **Sağlayıcı özgürlüğü**: OpenAI, Claude, Gemini, DeepSeek, Ollama, Azure, Bedrock, HuggingFace... 21 sağlayıcı, hepsine tek bir arayüzden erişilebilir. Ortam değişkenlerini yeniden yapılandırarak bunlar arasında geçiş yapın; yeniden yükleme yok, geçiş yok.
+- **171 araç**: Dosya G/Ç, web araması, görüntü oluşturma, Gmail, BLE cihaz tarama, MCP sunucu entegrasyonu — **89 araç paralel güvenlidir** (iş parçacığı havuzu aracılığıyla en fazla 8 eşzamanlı yürütme, "UAGENT_PARALLEL_WORKERS" aracılığıyla yapılandırılabilir). LLM aynı anda birden fazla araç çağrısı başlattığında, uag bunları otomatik olarak paralelleştirir.
 - **3 kullanıcı arayüzü + A2A**: CLI, GUI, Web ve Aracıdan Aracıya protokolü. Aynı motor, herhangi bir arayüz.
 - **Ajan Becerileri**: Piyasadan topluluk tarafından oluşturulan becerileri yükleyin. Uag'ı sonsuza kadar uzatın.
 
@@ -56,7 +56,7 @@ Tüm sağlayıcılar aynı araç setini ve arayüzü paylaşır. 'UAGENT_PROVIDE
 ### ⚡ Paralel Takım Yürütme
 
 LLM aynı anda birden fazla araç talep ettiğinde bunları **otomatik olarak paralelleştirir**.
-87 araç 'x_parallel_safe' olarak işaretlenmiştir ve bir 'ThreadPoolExecutor' aracılığıyla eşzamanlı olarak çalıştırılır (varsayılan olarak 8 iş parçacığı; değiştirmek için 'UAGENT_PARALLEL_WORKERS' ayarlayın).
+89 araç 'x_parallel_safe' olarak işaretlenmiştir ve bir 'ThreadPoolExecutor' aracılığıyla eşzamanlı olarak çalıştırılır (varsayılan olarak 8 iş parçacığı; değiştirmek için 'UAGENT_PARALLEL_WORKERS' ayarlayın).
 
 **Örnek**: "İskandinav başkentlerindeki hava durumunu kontrol edin" sorusunu sorun → Yüksek Lisans `search_web'i çalıştırıyor × 5 ülke → 5 aramanın tümü paralel olarak yürütülüyor → sonuçlar tek bir grupta toplanıyor.
 

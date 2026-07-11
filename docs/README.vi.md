@@ -10,7 +10,7 @@
 
 <p align="center">
   File ops / Web search / Image generation &amp; analysis / PDF &amp; Excel extraction / IoT control / MCP integration<br>
-  15+ providers / 3 UIs / Parallel tool execution / Agent Skills marketplace
+  20+ providers / 3 UIs / Parallel tool execution / Agent Skills marketplace
 </p>
 
 <p align="center">
@@ -28,8 +28,8 @@
 ** Thoát khỏi sự ràng buộc của nhà cung cấp.** Hầu hết trợ lý AI đều ràng buộc bạn với một nhà cung cấp hoặc dịch vụ đám mây cụ thể. uag thì khác.
 
 - **Chạy cục bộ** trên máy của bạn. Dữ liệu của bạn vẫn ở bên bạn (ngoại trừ các lệnh gọi API bạn thực hiện).
-- **Quyền tự do của nhà cung cấp**: OpenAI, Claude, Gemini, DeepSeek, Ollama, Azure, Bedrock, HuggingFace... Hơn 15 nhà cung cấp, tất cả đều có thể truy cập từ một giao diện duy nhất. Hoán đổi giữa chúng bằng cách cấu hình lại các biến môi trường — không cần cài đặt lại, không di chuyển.
-- **171 công cụ**: I/O tệp, tìm kiếm trên web, tạo hình ảnh, Gmail, quét thiết bị BLE, tích hợp máy chủ MCP — **87 công cụ an toàn song song** (tối đa 8 công cụ thực thi đồng thời qua nhóm luồng, có thể định cấu hình qua `UAGENT_PARALLEL_WORKERS`). Khi LLM thực hiện nhiều lệnh gọi công cụ cùng một lúc, uag sẽ tự động song song chúng.
+- **Quyền tự do của nhà cung cấp**: OpenAI, Claude, Gemini, DeepSeek, Ollama, Azure, Bedrock, HuggingFace... 21 nhà cung cấp, tất cả đều có thể truy cập từ một giao diện duy nhất. Hoán đổi giữa chúng bằng cách cấu hình lại các biến môi trường — không cần cài đặt lại, không di chuyển.
+- **171 công cụ**: I/O tệp, tìm kiếm trên web, tạo hình ảnh, Gmail, quét thiết bị BLE, tích hợp máy chủ MCP — **89 công cụ an toàn song song** (tối đa 8 công cụ thực thi đồng thời qua nhóm luồng, có thể định cấu hình qua `UAGENT_PARALLEL_WORKERS`). Khi LLM thực hiện nhiều lệnh gọi công cụ cùng một lúc, uag sẽ tự động song song chúng.
 - **3 UI + A2A**: CLI, GUI, Web và giao thức Agent-to-Agent. Cùng một động cơ, bất kỳ giao diện nào.
 - **Kỹ năng đại lý**: Cài đặt các kỹ năng do cộng đồng xây dựng từ thị trường. Mở rộng uag vô tận.
 

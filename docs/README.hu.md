@@ -10,7 +10,7 @@
 
 <p align="center">
   File ops / Web search / Image generation &amp; analysis / PDF &amp; Excel extraction / IoT control / MCP integration<br>
-  15+ providers / 3 UIs / Parallel tool execution / Agent Skills marketplace
+  20+ providers / 3 UIs / Parallel tool execution / Agent Skills marketplace
 </p>
 
 <p align="center">
@@ -28,8 +28,8 @@
 **Szabadjon ki a szállítói bezárás alól.** A legtöbb AI-asszisztens egy adott szolgáltatóhoz vagy felhőszolgáltatáshoz köti Önt. uag más.
 
 - **Lokálisan fut** a gépén. Adatai Önnél maradnak (kivéve az Ön által kezdeményezett API-hívásokat).
-- **Szolgáltatói szabadság**: OpenAI, Claude, Gemini, DeepSeek, Ollama, Azure, Bedrock, HuggingFace... 15+ szolgáltató, mindegyik egyetlen felületről elérhető. Váltson közöttük a környezeti változók újrakonfigurálásával – nincs újratelepítés, nincs migráció.
-- **171 eszköz**: Fájl I/O, webes keresés, képgenerálás, Gmail, BLE-eszközök szkennelése, MCP-szerver integráció – **87 párhuzamosan biztonságos** (akár 8 végrehajtása párhuzamosan a szálkészleten keresztül, az `UAGENT_PARALLEL_WORKERS`-en keresztül konfigurálható). Amikor az LLM egyszerre több eszközhívást indít el, az uag automatikusan párhuzamosítja azokat.
+- **Szolgáltatói szabadság**: OpenAI, Claude, Gemini, DeepSeek, Ollama, Azure, Bedrock, HuggingFace... 21+ szolgáltató, mindegyik egyetlen felületről elérhető. Váltson közöttük a környezeti változók újrakonfigurálásával – nincs újratelepítés, nincs migráció.
+- **171 eszköz**: Fájl I/O, webes keresés, képgenerálás, Gmail, BLE-eszközök szkennelése, MCP-szerver integráció – **89 párhuzamosan biztonságos** (akár 8 végrehajtása párhuzamosan a szálkészleten keresztül, az `UAGENT_PARALLEL_WORKERS`-en keresztül konfigurálható). Amikor az LLM egyszerre több eszközhívást indít el, az uag automatikusan párhuzamosítja azokat.
 - **3 felhasználói felület + A2A**: CLI, GUI, web és Agent-to-Agent protokoll. Ugyanaz a motor, bármilyen interfész.
 - **Agent Skills**: Telepítse a közösség által épített készségeket a piactérről. Hosszabbítsa meg az uag-ot végtelenül.
 
@@ -56,7 +56,7 @@ Minden szolgáltató ugyanazt az eszközkészletet és felületet használja. V�
 ### ⚡ Párhuzamos szerszámvégrehajtás
 
 Amikor az LLM egyszerre több eszközt kér, az uag **automatikusan párhuzamosítja** azokat.
-87 eszköz `x_parallel_safe` megjelöléssel rendelkezik, és egyidejűleg fut a `ThreadPoolExecutor'-on keresztül (alapértelmezés szerint 8 szál; állítsa be az `UAGENT_PARALLEL_WORKERS` paramétert a módosításhoz).
+89 eszköz `x_parallel_safe` megjelöléssel rendelkezik, és egyidejűleg fut a `ThreadPoolExecutor'-on keresztül (alapértelmezés szerint 8 szál; állítsa be az `UAGENT_PARALLEL_WORKERS` paramétert a módosításhoz).
 
 **Példa**: Kérdezze meg: "Ellenőrizze az időjárást északi fővárosokban" → Az LLM a `search_web` × 5 országot indítja el → mind az 5 keresés párhuzamosan fut → az eredmények egy kötegben gyűjtve.
 

@@ -10,7 +10,7 @@
 
 <p align="center">
   File ops / Web search / Image generation &amp; analysis / PDF &amp; Excel extraction / IoT control / MCP integration<br>
-  15+ providers / 3 UIs / Parallel tool execution / Agent Skills marketplace
+  20+ providers / 3 UIs / Parallel tool execution / Agent Skills marketplace
 </p>
 
 <p align="center">
@@ -28,8 +28,8 @@
 **Zbavte se uzamčení dodavatele.** Většina asistentů umělé inteligence vás spojí s konkrétním poskytovatelem nebo cloudovou službou. uag je jiný.
 
 - **Běží lokálně** na vašem počítači. Vaše data zůstanou s vámi (s výjimkou volání API, která provedete).
-- **Svoboda poskytovatelů**: OpenAI, Claude, Gemini, DeepSeek, Ollama, Azure, Bedrock, HuggingFace... 15+ poskytovatelů, vše přístupné z jediného rozhraní. Přepínejte mezi nimi překonfigurováním proměnných prostředí – žádná přeinstalace, žádná migrace.
-- **171 nástrojů**: I/O souborů, vyhledávání na webu, generování obrázků, Gmail, skenování zařízení BLE, integrace serveru MCP — **87 je paralelně bezpečných** (až 8 spouští souběžně prostřednictvím fondu vláken, konfigurovatelné pomocí `UAGENT_PARALLEL_WORKERS`). Když LLM spustí více volání nástrojů najednou, uag je automaticky paralelizuje.
+- **Svoboda poskytovatelů**: OpenAI, Claude, Gemini, DeepSeek, Ollama, Azure, Bedrock, HuggingFace... 21+ poskytovatelů, vše přístupné z jediného rozhraní. Přepínejte mezi nimi překonfigurováním proměnných prostředí – žádná přeinstalace, žádná migrace.
+- **171 nástrojů**: I/O souborů, vyhledávání na webu, generování obrázků, Gmail, skenování zařízení BLE, integrace serveru MCP — **89 je paralelně bezpečných** (až 8 spouští souběžně prostřednictvím fondu vláken, konfigurovatelné pomocí `UAGENT_PARALLEL_WORKERS`). Když LLM spustí více volání nástrojů najednou, uag je automaticky paralelizuje.
 - **3 UI + A2A**: CLI, GUI, Web a Agent-to-Agent protokol. Stejný engine, jakékoli rozhraní.
 - **Schopnosti agentů**: Nainstalujte si dovednosti vytvořené komunitou z trhu. Prodlužujte uag donekonečna.
 
@@ -56,7 +56,7 @@ Všichni poskytovatelé sdílejí stejnou sadu nástrojů a rozhraní. Přepnět
 ### ⚡ Paralelní provádění nástroje
 
 Když LLM požaduje více nástrojů současně, uag je **automaticky paralelizuje**.
-87 nástrojů je označeno `x_parallel_safe` a spouští se souběžně prostřednictvím `ThreadPoolExecutor` (ve výchozím nastavení 8 vláken; pro změnu nastavte `UAGENT_PARALLEL_WORKERS`).
+89 nástrojů je označeno `x_parallel_safe` a spouští se souběžně prostřednictvím `ThreadPoolExecutor` (ve výchozím nastavení 8 vláken; pro změnu nastavte `UAGENT_PARALLEL_WORKERS`).
 
 **Příklad**: Zeptejte se „Zkontrolujte počasí v severských metropolích“ → LLM spustí `search_web` × 5 zemí → všech 5 vyhledávání běží paralelně → výsledky shromážděné v jedné dávce.
 
