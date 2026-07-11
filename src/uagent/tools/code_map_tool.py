@@ -3,6 +3,7 @@ from __future__ import annotations
 
 import ast
 import datetime
+import errno
 import json
 import urllib.request
 import os
@@ -159,6 +160,7 @@ EXTENSION_MAP: dict[str, str] = {
 }
 
 # Languages supporting import/relation extraction
+SKIP_DIRS = {".git", ".svn", "__pycache__", "node_modules", "bin", "obj", "build", "dist", ".gradle", "target", ".next", ".nuxt", ".output", "venv", ".venv", ".tox"}
 RELATION_LANGUAGES: set[str] = {
     "Python",
     "TypeScript",
@@ -275,171 +277,135 @@ SYMBOL_PATTERNS: dict[str, list[str]] = {
 # ---------------------------------------------------------------------------
 
 
+def _deduplicate_paths(paths: list[str]) -> list[str]:
+    result: list[str] = []
+    seen: set[str] = set()
+    for value in paths:
+        path = Path(value).resolve()
+        key = os.path.normcase(str(path))
+        if path.is_file() and key not in seen:
+            seen.add(key)
+            result.append(str(path))
+    return result
+
+
+def _collect_source_files(root: Path) -> list[str]:
+    files: list[str] = []
+    for dirpath, dirnames, filenames in os.walk(str(root)):
+        dirnames[:] = [d for d in dirnames if d not in SKIP_DIRS and not d.startswith(".")]
+        for filename in filenames:
+            if Path(filename).suffix.lower() in EXTENSION_MAP:
+                files.append(str(Path(dirpath) / filename))
+    return _deduplicate_paths(files)
+
+
 def _find_project_files(root: str) -> dict[str, Any]:
-    """Detect project files and extract source references."""
-    result: dict[str, Any] = {
-        "projects": [],
-        "sources": [],
-        "project_type": None,
-    }
-    root_path = Path(root)
+    """Detect all supported project files and merge their source references."""
+    root_path = Path(root).resolve()
+    projects: list[str] = []
+    sources: list[str] = []
+    types: list[str] = []
 
-    # .sln (Visual Studio)
     sln_files = list(root_path.rglob("*.sln"))
-    if sln_files:
-        csproj_files: list[Path] = []
-        for sln in sln_files:
+    csproj_files: list[Path] = []
+    for sln in sln_files:
+        try:
             content = sln.read_text(encoding="utf-8", errors="replace")
-            for m in re.finditer(r'"([^"]+\.csproj)"', content):
-                csproj_path = sln.parent / m.group(1)
-                if csproj_path.exists():
-                    csproj_files.append(csproj_path)
-        if csproj_files:
-            result["project_type"] = "dotnet"
-            result["projects"] = [str(sln) for sln in sln_files]
-            for csproj in csproj_files:
-                try:
-                    tree = ET.parse(str(csproj))
-                    root_xml = tree.getroot()
-                    # SDK-style projects auto-include all .cs
-                    for item in root_xml.iter(
-                        "{http://schemas.microsoft.com/developer/msbuild/2003}Compile"
-                    ):
-                        include = item.get("Include", "")
-                        if include:
-                            full_path = csproj.parent / include.replace("\\", "/")
-                            if full_path.exists():
-                                result["sources"].append(str(full_path))
-                    # If no explicit Compile items, scan project dir for .cs
-                    if not result["sources"]:
-                        proj_dir = csproj.parent
-                        for cs_file in proj_dir.rglob("*.cs"):
-                            result["sources"].append(str(cs_file))
-                except Exception:
-                    # Fallback: scan project dir
-                    proj_dir = csproj.parent
-                    for cs_file in proj_dir.rglob("*.cs"):
-                        result["sources"].append(str(cs_file))
-            return result
+        except OSError:
+            content = ""
+        for match in re.finditer(r'"([^"\r\n]+\.csproj)"', content):
+            candidate = (sln.parent / match.group(1)).resolve()
+            if candidate.is_file():
+                csproj_files.append(candidate)
+    if sln_files or csproj_files:
+        types.append("dotnet")
+        projects.extend(str(f.resolve()) for f in sln_files)
+        for csproj in csproj_files:
+            projects.append(str(csproj))
+            try:
+                xml_root = ET.parse(csproj).getroot()
+                explicit = []
+                for item in xml_root.iter():
+                    if item.tag.rsplit("}", 1)[-1] == "Compile" and item.get("Include"):
+                        explicit.append(str(csproj.parent / item.get("Include").replace("\\", "/")))
+                sources.extend(explicit or [str(f) for f in csproj.parent.rglob("*.cs")])
+            except (OSError, ET.ParseError):
+                sources.extend(str(f) for f in csproj.parent.rglob("*.cs"))
 
-    # build.gradle.kts (Android / Kotlin/Java)
-    gradle_files = list(root_path.rglob("build.gradle.kts"))
-    gradle_files += list(root_path.rglob("build.gradle"))
+    gradle_files = list(root_path.rglob("build.gradle.kts")) + list(root_path.rglob("build.gradle"))
     if gradle_files:
-        result["project_type"] = "gradle"
-        result["projects"] = [str(f) for f in gradle_files]
-        # Scan for .java and .kt in src/
-        for gf in gradle_files:
-            proj_dir = gf.parent
-            for src_dir in ["src/main/java", "src/main/kotlin", "src"]:
-                src_path = proj_dir / src_dir
-                if src_path.exists():
-                    for ext in [".java", ".kt"]:
-                        for f in src_path.rglob(f"*{ext}"):
-                            result["sources"].append(str(f))
-        return result
+        types.append("gradle")
+        projects.extend(str(f.resolve()) for f in gradle_files)
+        for project in gradle_files:
+            for dirname in ("src/main/java", "src/main/kotlin", "src"):
+                base = project.parent / dirname
+                for ext in (".java", ".kt"):
+                    sources.extend(str(f) for f in base.rglob(f"*{ext}") if base.is_dir())
 
-    # Cargo.toml (Rust)
     cargo_files = list(root_path.rglob("Cargo.toml"))
     if cargo_files:
-        result["project_type"] = "rust"
-        result["projects"] = [str(f) for f in cargo_files]
-        for cf in cargo_files:
-            proj_dir = cf.parent
-            src_path = proj_dir / "src"
-            if src_path.exists():
-                for f in src_path.rglob("*.rs"):
-                    result["sources"].append(str(f))
-        return result
+        types.append("rust")
+        projects.extend(str(f.resolve()) for f in cargo_files)
+        for cargo in cargo_files:
+            base = cargo.parent / "src"
+            sources.extend(str(f) for f in base.rglob("*.rs") if base.is_dir())
 
-    # go.mod (Go)
     go_mod_files = list(root_path.rglob("go.mod"))
     if go_mod_files:
-        result["project_type"] = "go"
-        result["projects"] = [str(f) for f in go_mod_files]
-        for gm in go_mod_files:
-            proj_dir = gm.parent
-            for f in proj_dir.rglob("*.go"):
-                result["sources"].append(str(f))
-        return result
+        types.append("go")
+        projects.extend(str(f.resolve()) for f in go_mod_files)
+        for go_mod in go_mod_files:
+            sources.extend(str(f) for f in go_mod.parent.rglob("*.go"))
 
-    # CMakeLists.txt (C/C++)
     cmake_files = list(root_path.rglob("CMakeLists.txt"))
     if cmake_files:
-        result["project_type"] = "cmake"
-        result["projects"] = [str(f) for f in cmake_files]
-        for cm in cmake_files:
+        types.append("cmake")
+        projects.extend(str(f.resolve()) for f in cmake_files)
+        for cmake in cmake_files:
             try:
-                content = cm.read_text(encoding="utf-8", errors="replace")
-                # Extract source files from add_executable / add_library / file(GLOB ...)
-                for m in re.finditer(
-                    r"(?:add_executable|add_library|target_sources)\s*\(\s*\w+\s+([^)]+)\)",
-                    content,
-                ):
-                    parts = re.findall(r"[\w./]+\.\w+", m.group(1))
-                    for p in parts:
-                        full = cm.parent / p.replace("/", "\\")
-                        if full.exists():
-                            result["sources"].append(str(full))
-            except Exception:
-                pass
-        return result
+                content = cmake.read_text(encoding="utf-8", errors="replace")
+            except OSError:
+                continue
+            for match in re.finditer(r"(?:add_executable|add_library|target_sources)\s*\(\s*\w+\s+([^)]+)\)", content):
+                for filename in re.findall(r"[\w./]+\.\w+", match.group(1)):
+                    sources.append(str(cmake.parent / filename))
 
-    # Makefile
-    makefiles = list(root_path.rglob("Makefile"))
-    makefiles += list(root_path.rglob("makefile"))
+    makefiles = list(root_path.rglob("Makefile")) + list(root_path.rglob("makefile"))
     if makefiles:
-        result["project_type"] = "make"
-        result["projects"] = [str(f) for f in makefiles]
-        for mf in makefiles:
+        types.append("make")
+        projects.extend(str(f.resolve()) for f in makefiles)
+        for makefile in makefiles:
             try:
-                content = mf.read_text(encoding="utf-8", errors="replace")
-                for m in re.finditer(
-                    r"^(?:SRCS?|SOURCES?|C_SOURCES|CPP_SOURCES)\s*[+:?]?=\s*(.+)$",
-                    content,
-                    re.MULTILINE,
-                ):
-                    parts = re.findall(r"[\w./]+\.\w+", m.group(1))
-                    for p in parts:
-                        full = mf.parent / p.replace("/", "\\")
-                        if full.exists():
-                            result["sources"].append(str(full))
-            except Exception:
-                pass
-        return result
+                content = makefile.read_text(encoding="utf-8", errors="replace")
+            except OSError:
+                continue
+            for match in re.finditer(r"^(?:SRCS?|SOURCES?|C_SOURCES|CPP_SOURCES)\s*[+:?]?=\s*(.+)$", content, re.MULTILINE):
+                for filename in re.findall(r"[\w./]+\.\w+", match.group(1)):
+                    sources.append(str(makefile.parent / filename))
 
-    # package.json (Node/TypeScript)
-    pkg_files = list(root_path.rglob("package.json"))
-    if pkg_files:
-        result["project_type"] = "node"
-        result["projects"] = [str(f) for f in pkg_files]
-        for pf in pkg_files:
-            proj_dir = pf.parent
-            for src_dir in ["src", "lib", "app"]:
-                src_path = proj_dir / src_dir
-                if src_path.exists():
-                    for ext in [".ts", ".tsx", ".js", ".jsx", ".mjs", ".cjs"]:
-                        for f in src_path.rglob(f"*{ext}"):
-                            result["sources"].append(str(f))
-        return result
+    package_files = list(root_path.rglob("package.json"))
+    if package_files:
+        types.append("node")
+        projects.extend(str(f.resolve()) for f in package_files)
+        for package in package_files:
+            for dirname in ("src", "lib", "app"):
+                base = package.parent / dirname
+                for ext in (".ts", ".tsx", ".js", ".jsx", ".mjs", ".cjs"):
+                    sources.extend(str(f) for f in base.rglob(f"*{ext}") if base.is_dir())
 
-    # pyproject.toml (Python)
-    pyproj_files = list(root_path.rglob("pyproject.toml"))
-    if pyproj_files:
-        result["project_type"] = "python"
-        result["projects"] = [str(f) for f in pyproj_files]
-        for pf in pyproj_files:
-            proj_dir = pf.parent
-            src_dirs = ["src", ".", proj_dir.name]
-            for src_dir in src_dirs:
-                src_path = proj_dir / src_dir
-                if src_path.exists():
-                    for f in src_path.rglob("*.py"):
-                        result["sources"].append(str(f))
-        return result
+    pyproject_files = list(root_path.rglob("pyproject.toml"))
+    if pyproject_files:
+        types.append("python")
+        projects.extend(str(f.resolve()) for f in pyproject_files)
+        for pyproject in pyproject_files:
+            dirs = ["src", pyproject.parent.name]
+            if pyproject.parent != root_path:
+                dirs.append(".")
+            for dirname in dirs:
+                base = pyproject.parent / dirname
+                sources.extend(str(f) for f in base.rglob("*.py") if base.is_dir())
 
-    # Fallback: no project files found
-    return result
+    return {"projects": _deduplicate_paths(projects), "sources": _deduplicate_paths(sources), "project_type": types[0] if types else None, "project_types": types}
 
 
 # ---------------------------------------------------------------------------
@@ -545,6 +511,7 @@ def _extract_imports_python(filepath: str) -> list[dict[str, Any]]:
                     "type": "import_from",
                     "module": module,
                     "names": names,
+                    "level": node.level,
                     "line": node.lineno,
                 }
             )
@@ -604,7 +571,7 @@ def _extract_imports_go(filepath: str) -> list[dict[str, Any]]:
     # import ( "..." )  or  import "..."
     # Extract quoted paths
     in_import_block = False
-    for line in source.split("\n"):
+    for line_number, line in enumerate(source.split("\n"), 1):
         stripped = line.strip()
         if stripped.startswith("import"):
             in_import_block = True
@@ -614,6 +581,7 @@ def _extract_imports_go(filepath: str) -> list[dict[str, Any]]:
                     {
                         "type": "import",
                         "module": m.group(1),
+                        "line": line_number,
                     }
                 )
             if "(" not in stripped:
@@ -713,39 +681,28 @@ def _resolve_module_to_file(
     return []
 
 
-def _resolve_python_module(module: str, importing_file: str, root: str) -> list[str]:
-    """Resolve a Python module path to file path(s)."""
-    imp_dir = Path(importing_file).parent
-
-    if module.startswith("."):
-        # Relative import
-        depth = len(_RELATIVE_IMPORT_RE.match(module).group())
-        rel_module = module[depth:]
-        # Go up `depth - 1` directories
-        rel_dir = imp_dir
-        for _ in range(depth - 1):
-            rel_dir = rel_dir.parent
-        if rel_module:
-            parts = rel_module.split(".")
-            candidate = rel_dir.joinpath(*parts)
-        else:
-            candidate = rel_dir
-        return _find_python_file_for_module_path(candidate)
-
-    # Absolute import: try relative to root
-    parts = module.split(".")
-    # Try module as file: src/uagent/core.py → src/uagent/core.py
-    # Try module as package: src/uagent/__init__.py
-    root_path = Path(root)
-
-    # Try relative to root for each package part
-    for i in range(len(parts), 0, -1):
-        prefix = parts[:i]
-        prefix_path = root_path.joinpath(*prefix)
-        candidates = _find_python_file_for_module_path(prefix_path)
+def _resolve_python_module(module: str, importing_file: str, root: str, *, level: int = 0, names: list[str] | None = None) -> list[str]:
+    imp_dir = Path(importing_file).resolve().parent
+    root_path = Path(root).resolve()
+    if level > 0 or module.startswith("."):
+        if level <= 0:
+            match = _RELATIVE_IMPORT_RE.match(module)
+            level = len(match.group()) if match else 0
+            module = module[level:]
+        base_dir = imp_dir
+        for _ in range(max(level - 1, 0)):
+            base_dir = base_dir.parent
+        modules = ([module] if module else []) + [n for n in (names or []) if n and n != module]
+        results = []
+        for item in modules:
+            candidate = base_dir.joinpath(*item.split(".")) if item else base_dir
+            results.extend(_find_python_file_for_module_path(candidate))
+        return list(dict.fromkeys(results))
+    parts = module.split(".") if module else []
+    for base in (root_path, root_path / "src"):
+        candidates = _find_python_file_for_module_path(base.joinpath(*parts))
         if candidates:
             return candidates
-
     return []
 
 
@@ -829,7 +786,7 @@ def _build_relations(
         imports = _extract_imports(fpath)
         for imp in imports:
             module = imp.get("module", "")
-            if not module:
+            if not module and not (lang == "Python" and imp.get("names")):
                 continue
 
             if lang == "Rust":
@@ -840,17 +797,9 @@ def _build_relations(
                     # External crate reference - skip unless it's a relative path
                     continue
             elif lang == "Go":
-                # For Go, check if the import path contains our root path
-                root_path = Path(root).resolve()
-                if (
-                    str(root_path) in module
-                    or module.startswith("./")
-                    or module.startswith("../")
-                ):
-                    resolved = _resolve_go_module(module, fpath, root, file_paths)
-                else:
-                    # External dependency - skip
-                    continue
+                resolved = _resolve_go_module(module, fpath, root, file_paths)
+            elif lang == "Python":
+                resolved = _resolve_python_module(module, fpath, root, level=int(imp.get("level", 0)), names=imp.get("names", []))
             else:
                 resolved = _resolve_module_to_file(module, fpath, root, lang)
 
@@ -897,23 +846,33 @@ def _resolve_rs_internal(
             mod_file = candidate / "mod.rs"
             if mod_file.exists() and str(mod_file.resolve()) in file_paths:
                 results.append(str(mod_file.resolve()))
-    return results
+    return list(dict.fromkeys(results))
 
 
-def _resolve_go_module(
-    module: str, importing_file: str, root: str, file_paths: set[str]
-) -> list[str]:
-    """Resolve a Go import (relative) to actual file path."""
-    imp_dir = Path(importing_file).parent
-    try:
-        candidate = (imp_dir / module).resolve()
-    except ValueError:
+def _read_go_module(root: str) -> str | None:
+    for go_mod in [Path(root).resolve() / "go.mod", *Path(root).resolve().rglob("go.mod")]:
+        try:
+            for line in go_mod.read_text(encoding="utf-8", errors="replace").splitlines():
+                match = re.match(r"\s*module\s+(\S+)", line)
+                if match:
+                    return match.group(1)
+        except OSError:
+            continue
+    return None
+
+
+def _resolve_go_module(module: str, importing_file: str, root: str, file_paths: set[str]) -> list[str]:
+    root_path = Path(root).resolve()
+    module_name = _read_go_module(str(root_path))
+    if module_name and (module == module_name or module.startswith(module_name + "/")):
+        candidate = root_path / module[len(module_name):].lstrip("/")
+    elif module.startswith(("./", "../")):
+        candidate = (Path(importing_file).parent / module).resolve()
+    else:
         return []
-    if candidate.is_dir():
-        # Importing a package directory - check for .go files
-        go_files = list(candidate.rglob("*.go"))
-        return [str(f.resolve()) for f in go_files if str(f.resolve()) in file_paths]
-    return []
+    if not candidate.is_dir():
+        return []
+    return [str(f.resolve()) for f in candidate.glob("*.go") if str(f.resolve()) in file_paths]
 
 
 # ---------------------------------------------------------------------------
@@ -1085,6 +1044,12 @@ def _build_tree(
     return tree
 
 
+def _escape_mermaid_label(value: str) -> str:
+    return (value.replace("&", "&amp;").replace('"', "&quot;")
+            .replace("<", "&lt;").replace(">", "&gt;")
+            .replace("|", "&#124;").replace("\r", " ").replace("\n", " "))
+
+
 def _tree_to_mermaid(tree: list[dict[str, Any]], root_name: str = "root") -> str:
     """Convert a nested tree structure to Mermaid graph TD format."""
     lines = ["graph TD"]
@@ -1094,13 +1059,7 @@ def _tree_to_mermaid(tree: list[dict[str, Any]], root_name: str = "root") -> str
         node_id[0] += 1
         nid = f"n{node_id[0]}"
         name = node.get("name", "")
-        safe_name = name.replace('"', "'").replace("(", "").replace(")", "")
-        safe_name = (
-            safe_name.replace("[", "")
-            .replace("]", "")
-            .replace("{", "")
-            .replace("}", "")
-        )
+        safe_name = _escape_mermaid_label(name)
 
         if node.get("type") == "dir":
             label = f"{safe_name}/"
@@ -1188,6 +1147,10 @@ def run_tool(args: dict[str, Any]) -> str:
     output_format = args.get("format", "json")
     output_dir = args.get("output_dir", "").strip() or None
     render_image = bool(args.get("render_image", False))
+    if output_format not in {"json", "mermaid", "ontology"}:
+        return json.dumps({"ok": False, "error": "Unsupported format"}, ensure_ascii=False)
+    if max_depth < 0:
+        return json.dumps({"ok": False, "error": "depth must be >= 0"}, ensure_ascii=False)
 
     # include_relations: default True when format=ontology
     include_relations_raw = args.get("include_relations")
@@ -1220,46 +1183,7 @@ def run_tool(args: dict[str, Any]) -> str:
         }
 
     # Gather file list
-    if project_only and project_info["sources"]:
-        file_list = project_info["sources"]
-    else:
-        # Walk filesystem from root
-        file_list = []
-        for dirpath, _dirnames, filenames in os.walk(str(root)):
-            # Skip hidden dirs and common generated dirs
-            skip_dirs = {
-                ".git",
-                ".svn",
-                "__pycache__",
-                "node_modules",
-                "bin",
-                "obj",
-                "build",
-                "dist",
-                ".gradle",
-                "target",
-                ".next",
-                ".nuxt",
-                ".output",
-                "venv",
-                ".venv",
-                ".tox",
-            }
-            _dirnames[:] = [
-                d for d in _dirnames if d not in skip_dirs and not d.startswith(".")
-            ]
-            for fname in filenames:
-                fpath = os.path.join(dirpath, fname)
-                ext = os.path.splitext(fname)[1].lower()
-                if ext in EXTENSION_MAP:
-                    file_list.append(fpath)
-        # Deduplicate
-        file_list = list(dict.fromkeys(file_list))
-
-    if project_info["sources"] and not project_only:
-        # Merge: project sources take priority, but also include other detected files
-        extra = [f for f in file_list if f not in set(project_info["sources"])]
-        file_list = list(dict.fromkeys(project_info["sources"] + extra))
+    file_list = list(project_info["sources"]) if project_only else _collect_source_files(root)
 
     # Extract symbols
     files_with_symbols: list[dict[str, Any]] = []
@@ -1293,20 +1217,23 @@ def run_tool(args: dict[str, Any]) -> str:
     tree_root = _build_tree(file_list, str(root), max_depth)
 
     def _timestamp() -> str:
-        return datetime.datetime.now().strftime("%Y%m%d_%H%M%S")
+        return datetime.datetime.now().strftime("%Y%m%d_%H%M%S_%f")
 
     def _save_file(content_str: str, ext: str) -> str:
-        ts = _timestamp()
-        fname = f"code_map_{ts}.{ext}"
-        if output_dir:
-            d = Path(output_dir)
-            d.mkdir(parents=True, exist_ok=True)
-            fpath = str(d / fname)
-        else:
-            fpath = fname
-        with open(fpath, "w", encoding="utf-8") as f:
-            f.write(content_str)
-        return fpath
+        directory = Path(output_dir) if output_dir else Path.cwd()
+        directory.mkdir(parents=True, exist_ok=True)
+        stem = f"code_map_{_timestamp()}"
+        for index in range(1000):
+            suffix = f"_{index}" if index else ""
+            candidate = directory / f"{stem}{suffix}.{ext}"
+            try:
+                fd = os.open(str(candidate), os.O_WRONLY | os.O_CREAT | os.O_EXCL)
+            except FileExistsError:
+                continue
+            with os.fdopen(fd, "w", encoding="utf-8") as handle:
+                handle.write(content_str)
+            return str(candidate)
+        raise OSError(errno.EEXIST, "Unable to create a unique output file")
 
     # Mermaid output
     if output_format == "mermaid" and tree_root:
