@@ -1,5 +1,27 @@
 # Changelog
 
+## [0.5.44] - 2026-07-11
+
+### Added
+- llmcapa v0.3.0 support: pass `provider` argument to `llmcapa.get()` for accurate model lookup.
+- Test suite `test_llmcapa.py` (37 tests): verify provider model specs across all 70 llmcapa providers.
+- Documentation: `docs/llmcapa_improvements.md` with improvement requests for llmcapa.
+- Documentation: `translate_text` tool usage documented in i18n workflow sections.
+
+### Fixed
+- `cmd_exec_json_tool`: exception handling for subprocess.run, unified `error` key in return value, empty string cwd guard.
+- `pwsh_exec_tool`: all error messages now i18n'd, fragile `confirm_if_needed` replace removed, timeout placeholder fixed.
+- `bash_exec_tool`: exception handling for subprocess.run, all error messages now i18n'd.
+
+### Changed
+- i18n documentation consolidated: `DEVELOP_I18N.md` now covers both host-side (gettext) and tool-side (JSON) i18n in one file.
+- README and 33 translations: tool count updated to 171, parallel-safe to 89, provider count to 21.
+- Removed all `.org` backup files (73 files total).
+- Removed stub docs `DEVELOP_TOOL_I18N.md` and `ADD_LOCALE.md` (merged into unified guide).
+- llmcapa dependency bumped to >=0.3.0.
+
+# Changelog
+
 ## [0.5.43] - 2026-07-10
 
 ### Added

@@ -1,5 +1,27 @@
 # 変更履歴
 
+## [0.5.44] - 2026-07-11
+
+### 追加
+- llmcapa v0.3.0 対応: `llmcapa.get()` に `provider` 引数を渡して正確なモデル検索を実現。
+- テスト `test_llmcapa.py`（37テスト）: 全70プロバイダのモデル諸元を検証。
+- ドキュメント: `docs/llmcapa_improvements.md`（llmcapa への改善要望）。
+- ドキュメント: i18n ワークフローに `translate_text` ツールの使用方法を追記。
+
+### 修正
+- `cmd_exec_json_tool`: subprocess.run の例外捕捉、戻り値 error キーの統一、cwd 空文字列ガード。
+- `pwsh_exec_tool`: 全エラーメッセージを i18n 対応、脆弱な confirm 置換削除、タイムアウトプレースホルダ修正。
+- `bash_exec_tool`: subprocess.run の例外捕捉、全エラーメッセージを i18n 対応。
+
+### 変更
+- i18n ドキュメント統合: `DEVELOP_I18N.md` がホスト側(gettext)・ツール側(JSON)の両方式を1ファイルでカバー。
+- README と33言語翻訳: ツール数171、並列セーフ89、プロバイダ数21に更新。
+- 全 `.org` バックアップファイルを削除（計73ファイル）。
+- スタブ文書 `DEVELOP_TOOL_I18N.md` と `ADD_LOCALE.md` を削除（統合ガイドにマージ）。
+- llmcapa 依存を >=0.3.0 に更新。
+
+# 変更履歴
+
 ## [0.5.43] - 2026-07-10
 
 ### 追加
