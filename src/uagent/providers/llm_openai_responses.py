@@ -4,7 +4,6 @@ from __future__ import annotations
 
 import json
 import os
-import sys
 import time
 from typing import Any, Optional
 
@@ -29,7 +28,6 @@ from .responses_web_search_openai import (
     normalize_openai_builtin_tool,
     openai_web_search_tool_from_env,
 )
-
 
 # ---------------------------------------------------------------------------
 # Request builder
@@ -87,13 +85,11 @@ def build_responses_request(
         - If you do not have a required parameter, ask the user for it using human_ask instead of guessing.
         """)
     instructions_list.append(TOOL_CALLING_RULES)
-    instructions_list.append(
-        _("""[Web search rules]
+    instructions_list.append(_("""[Web search rules]
         - Use web search only when fresh or external information is necessary.
         - Do not use web search for local or stable information.
         - Prefer answering without web search when the answer is already sufficient.
-        """)
-    )
+        """))
 
     for _idx, m in enumerate(call_messages):
         role = m.get("role")
@@ -354,9 +350,7 @@ def parse_responses_response(
                         rc = as_str(getattr(c, "text", ""))
                         if rc:
                             reasoning_content += rc
-                citations = extract_url_citations(
-                    getattr(item, "content", []) or []
-                )
+                citations = extract_url_citations(getattr(item, "content", []) or [])
                 if citations:
                     debug_emit(
                         None,
@@ -520,252 +514,253 @@ def parse_responses_stream(
             pass
 
     try:
-        if core is not None and bool(getattr(core, "_is_web", False)):
-            lm = getattr(core, "log_message", None)
-            if callable(lm):
-                lm({"type": "assistant_stream_start"})
-    except Exception:
-        pass
+        try:
+            if core is not None and bool(getattr(core, "_is_web", False)):
+                lm = getattr(core, "log_message", None)
+                if callable(lm):
+                    lm({"type": "assistant_stream_start"})
+        except Exception:
+            pass
 
-    it = stream
-    if hasattr(stream, "iter_events") and callable(getattr(stream, "iter_events")):
-        it = stream.iter_events()
+        it = stream
+        if hasattr(stream, "iter_events") and callable(getattr(stream, "iter_events")):
+            it = stream.iter_events()
 
-    for ev in it:
-        # --- Interrupt check ---
-        if core is not None:
-            from uagent import core as _core_module
+        for ev in it:
+            # --- Interrupt check ---
+            if core is not None:
+                from uagent import core as _core_module
 
-            with _core_module.interrupt_lock:
-                if _core_module.interrupt_requested:
-                    _core_module.interrupt_requested = False
-                    try:
-                        if bool(getattr(core, "_is_web", False)):
-                            lm = getattr(core, "log_message", None)
-                            if callable(lm):
-                                lm({"type": "assistant_stream_interrupted"})
-                    except Exception:
-                        pass
-                    break
+                with _core_module.interrupt_lock:
+                    if _core_module.interrupt_requested:
+                        _core_module.interrupt_requested = False
+                        try:
+                            if bool(getattr(core, "_is_web", False)):
+                                lm = getattr(core, "log_message", None)
+                                if callable(lm):
+                                    lm({"type": "assistant_stream_interrupted"})
+                        except Exception:
+                            pass
+                        break
 
-        if debug_stream_enabled():
-            dump_event_to_fp(ev, debug_fp)
+            if debug_stream_enabled():
+                dump_event_to_fp(ev, debug_fp)
 
-        ev_type = getattr(ev, "type", None) or getattr(ev, "event", None) or ""
+            ev_type = getattr(ev, "type", None) or getattr(ev, "event", None) or ""
 
-        if not _stream_response_id:
-            if ev_type == "response.created":
-                ev_resp = getattr(ev, "response", None)
-                if ev_resp is not None:
-                    rid = as_str(getattr(ev_resp, "id", None) or "")
-                    if rid:
-                        _stream_response_id = rid
-            elif ev_type == "response.completed":
-                ev_resp = getattr(ev, "response", None)
-                if ev_resp is not None:
-                    rid = as_str(getattr(ev_resp, "id", None) or "")
-                    if rid:
-                        _stream_response_id = rid
+            if not _stream_response_id:
+                if ev_type == "response.created":
+                    ev_resp = getattr(ev, "response", None)
+                    if ev_resp is not None:
+                        rid = as_str(getattr(ev_resp, "id", None) or "")
+                        if rid:
+                            _stream_response_id = rid
+                elif ev_type == "response.completed":
+                    ev_resp = getattr(ev, "response", None)
+                    if ev_resp is not None:
+                        rid = as_str(getattr(ev_resp, "id", None) or "")
+                        if rid:
+                            _stream_response_id = rid
 
-        if "web_search_call" in as_str(ev_type).lower():
-            info = extract_web_search_call_info(ev)
-            if info:
-                emit_web_search_event(core, "update", **info)
-
-        # Output text deltas
-        delta_text = None
-        if ev_type == "response.output_text.delta":
-            d = getattr(ev, "delta", None)
-            if isinstance(d, str) and d:
-                delta_text = d
-
-        if isinstance(delta_text, str) and delta_text:
-            assistant_text_parts.append(delta_text)
-            try:
-                if core is not None and bool(getattr(core, "_is_web", False)):
-                    lm = getattr(core, "log_message", None)
-                    if callable(lm):
-                        lm({"type": "assistant_stream_delta", "delta": delta_text})
-                else:
-                    _print_delta(delta_text)
-            except Exception:
-                _print_delta(delta_text)
-
-        # Reasoning text deltas
-        if ev_type == "response.reasoning_text.delta":
-            reasoning_delta = getattr(ev, "delta", None)
-            if isinstance(reasoning_delta, str) and reasoning_delta:
-                reasoning_parts.append(reasoning_delta)
-                show_reasoning(
-                    reasoning_delta,
-                    provider=provider,
-                    is_first=(not _reasoning_printed),
-                    print_fn=_print_delta,
-                    core=core,
-                )
-                _reasoning_printed = True
-
-        if ev_type == "response.output_text.done":
-            t = getattr(ev, "text", None)
-            if isinstance(t, str) and t:
-                fallback_full_text = t
-
-        # Tool call accumulation
-        fn_name = None
-        fn_args_delta = None
-
-        cid_candidate = (
-            getattr(ev, "call_id", None)
-            or getattr(ev, "id", None)
-            or (
-                getattr(getattr(ev, "delta", None), "call_id", None)
-                if hasattr(ev, "delta")
-                else None
-            )
-        )
-        iid_candidate = getattr(ev, "item_id", None)
-
-        if ev_type == "response.compaction.done":
-            print(
-                "[Responses API] "
-                + _("Server-side compaction triggered (context compressed).")
-            )
-
-        if ev_type in ("response.output_item.added", "response.output_item.delta"):
-            item = getattr(ev, "item", None) or getattr(ev, "output_item", None)
-            if (
-                item is not None
-                and "web_search_call" in as_str(getattr(item, "type", "")).lower()
-            ):
-                info = extract_web_search_call_info(item)
+            if "web_search_call" in as_str(ev_type).lower():
+                info = extract_web_search_call_info(ev)
                 if info:
                     emit_web_search_event(core, "update", **info)
-            if item is not None and getattr(item, "type", None) == "function_call":
-                cid = getattr(item, "call_id", None) or getattr(item, "id", None)
-                if cid:
-                    cid_candidate = cid
-                iid = getattr(item, "id", None)
-                if iid:
-                    iid_candidate = iid
-                fn_name = fn_name or getattr(item, "name", None)
-                item_args = getattr(item, "arguments", None)
-                if isinstance(item_args, dict):
-                    fn_args_delta = fn_args_delta or json.dumps(
-                        item_args, ensure_ascii=False
+
+            # Output text deltas
+            delta_text = None
+            if ev_type == "response.output_text.delta":
+                d = getattr(ev, "delta", None)
+                if isinstance(d, str) and d:
+                    delta_text = d
+
+            if isinstance(delta_text, str) and delta_text:
+                assistant_text_parts.append(delta_text)
+                try:
+                    if core is not None and bool(getattr(core, "_is_web", False)):
+                        lm = getattr(core, "log_message", None)
+                        if callable(lm):
+                            lm({"type": "assistant_stream_delta", "delta": delta_text})
+                    else:
+                        _print_delta(delta_text)
+                except Exception:
+                    _print_delta(delta_text)
+
+            # Reasoning text deltas
+            if ev_type == "response.reasoning_text.delta":
+                reasoning_delta = getattr(ev, "delta", None)
+                if isinstance(reasoning_delta, str) and reasoning_delta:
+                    reasoning_parts.append(reasoning_delta)
+                    show_reasoning(
+                        reasoning_delta,
+                        provider=provider,
+                        is_first=(not _reasoning_printed),
+                        print_fn=_print_delta,
+                        core=core,
                     )
-                elif isinstance(item_args, str) and item_args:
-                    fn_args_delta = fn_args_delta or item_args
+                    _reasoning_printed = True
 
-        if cid_candidate and iid_candidate:
-            item_id_map[iid_candidate] = cid_candidate
-            if iid_candidate in tool_calls_buf:
-                _merge_buf(cid_candidate, iid_candidate)
+            if ev_type == "response.output_text.done":
+                t = getattr(ev, "text", None)
+                if isinstance(t, str) and t:
+                    fallback_full_text = t
 
-        if iid_candidate and not cid_candidate:
-            cid_candidate = item_id_map.get(iid_candidate)
+            # Tool call accumulation
+            fn_name = None
+            fn_args_delta = None
 
-        if not fn_name:
-            if hasattr(ev, "name"):
-                fn_name = getattr(ev, "name")
-            elif hasattr(ev, "function") and hasattr(
-                getattr(ev, "function"), "name"
-            ):
-                fn_name = getattr(getattr(ev, "function"), "name")
-            elif hasattr(ev, "delta") and hasattr(getattr(ev, "delta"), "name"):
-                fn_name = getattr(getattr(ev, "delta"), "name")
-
-        if not fn_args_delta:
-            if hasattr(ev, "arguments"):
-                fn_args_delta = getattr(ev, "arguments")
-            elif hasattr(ev, "delta"):
-                d = getattr(ev, "delta")
-                if hasattr(d, "arguments"):
-                    fn_args_delta = getattr(d, "arguments")
-                elif isinstance(d, str) and ev_type in (
-                    "response.function_call_arguments.delta",
-                    "response.tool_call_arguments.delta",
-                    "response.function_call.delta",
-                ):
-                    fn_args_delta = d
-
-        looks_like_tool = (
-            "function_call" in str(ev_type)
-            or "tool_call" in str(ev_type)
-            or fn_name is not None
-            or fn_args_delta is not None
-        )
-
-        final_args = None
-        if ev_type == "response.function_call_arguments.done":
-            final_args = getattr(ev, "arguments", None)
-
-        elif ev_type == "response.output_item.done":
-            item = getattr(ev, "item", None) or getattr(ev, "output_item", None)
-            item_dict = responses_item_to_dict(item) if item is not None else None
-            if isinstance(item_dict, dict) and item_dict.get("type"):
-                _item_key = as_str(
-                    item_dict.get("id")
-                    or item_dict.get("call_id")
-                    or f"{item_dict.get('type')}:{len(output_items)}"
+            cid_candidate = (
+                getattr(ev, "call_id", None)
+                or getattr(ev, "id", None)
+                or (
+                    getattr(getattr(ev, "delta", None), "call_id", None)
+                    if hasattr(ev, "delta")
+                    else None
                 )
-                if _item_key not in _seen_output_item_keys:
-                    output_items.append(item_dict)
-                    _seen_output_item_keys.add(_item_key)
-            if item is not None and getattr(item, "type", None) == "compaction":
+            )
+            iid_candidate = getattr(ev, "item_id", None)
+
+            if ev_type == "response.compaction.done":
                 print(
                     "[Responses API] "
                     + _("Server-side compaction triggered (context compressed).")
                 )
-            if (
-                item is not None
-                and "web_search_call" in as_str(getattr(item, "type", "")).lower()
-            ):
-                info = extract_web_search_call_info(item)
-                if info:
-                    emit_web_search_event(core, "update", **info)
-            if item and getattr(item, "type", None) == "function_call":
-                cid = getattr(item, "call_id", None) or getattr(item, "id", None)
-                if cid:
-                    cid_candidate = cid
-                final_args = getattr(item, "arguments", None)
-                if getattr(item, "name", None):
-                    fn_name = getattr(item, "name")
 
-        if final_args is not None:
-            looks_like_tool = True
+            if ev_type in ("response.output_item.added", "response.output_item.delta"):
+                item = getattr(ev, "item", None) or getattr(ev, "output_item", None)
+                if (
+                    item is not None
+                    and "web_search_call" in as_str(getattr(item, "type", "")).lower()
+                ):
+                    info = extract_web_search_call_info(item)
+                    if info:
+                        emit_web_search_event(core, "update", **info)
+                if item is not None and getattr(item, "type", None) == "function_call":
+                    cid = getattr(item, "call_id", None) or getattr(item, "id", None)
+                    if cid:
+                        cid_candidate = cid
+                    iid = getattr(item, "id", None)
+                    if iid:
+                        iid_candidate = iid
+                    fn_name = fn_name or getattr(item, "name", None)
+                    item_args = getattr(item, "arguments", None)
+                    if isinstance(item_args, dict):
+                        fn_args_delta = fn_args_delta or json.dumps(
+                            item_args, ensure_ascii=False
+                        )
+                    elif isinstance(item_args, str) and item_args:
+                        fn_args_delta = fn_args_delta or item_args
 
-        if looks_like_tool:
-            key = cid_candidate or iid_candidate
-            if not key:
-                key = f"call_{int(time.time() * 1000)}_{len(tool_calls_buf)}"
+            if cid_candidate and iid_candidate:
+                item_id_map[iid_candidate] = cid_candidate
+                if iid_candidate in tool_calls_buf:
+                    _merge_buf(cid_candidate, iid_candidate)
 
-            buf = _ensure_buf(key)
+            if iid_candidate and not cid_candidate:
+                cid_candidate = item_id_map.get(iid_candidate)
 
-            if cid_candidate:
-                buf["call_id"] = cid_candidate
-            if iid_candidate:
-                buf["item_id"] = iid_candidate
+            if not fn_name:
+                if hasattr(ev, "name"):
+                    fn_name = getattr(ev, "name")
+                elif hasattr(ev, "function") and hasattr(
+                    getattr(ev, "function"), "name"
+                ):
+                    fn_name = getattr(getattr(ev, "function"), "name")
+                elif hasattr(ev, "delta") and hasattr(getattr(ev, "delta"), "name"):
+                    fn_name = getattr(getattr(ev, "delta"), "name")
 
-            if isinstance(fn_name, str) and fn_name:
-                buf["name"] = fn_name
+            if not fn_args_delta:
+                if hasattr(ev, "arguments"):
+                    fn_args_delta = getattr(ev, "arguments")
+                elif hasattr(ev, "delta"):
+                    d = getattr(ev, "delta")
+                    if hasattr(d, "arguments"):
+                        fn_args_delta = getattr(d, "arguments")
+                    elif isinstance(d, str) and ev_type in (
+                        "response.function_call_arguments.delta",
+                        "response.tool_call_arguments.delta",
+                        "response.function_call.delta",
+                    ):
+                        fn_args_delta = d
+
+            looks_like_tool = (
+                "function_call" in str(ev_type)
+                or "tool_call" in str(ev_type)
+                or fn_name is not None
+                or fn_args_delta is not None
+            )
+
+            final_args = None
+            if ev_type == "response.function_call_arguments.done":
+                final_args = getattr(ev, "arguments", None)
+
+            elif ev_type == "response.output_item.done":
+                item = getattr(ev, "item", None) or getattr(ev, "output_item", None)
+                item_dict = responses_item_to_dict(item) if item is not None else None
+                if isinstance(item_dict, dict) and item_dict.get("type"):
+                    _item_key = as_str(
+                        item_dict.get("id")
+                        or item_dict.get("call_id")
+                        or f"{item_dict.get('type')}:{len(output_items)}"
+                    )
+                    if _item_key not in _seen_output_item_keys:
+                        output_items.append(item_dict)
+                        _seen_output_item_keys.add(_item_key)
+                if item is not None and getattr(item, "type", None) == "compaction":
+                    print(
+                        "[Responses API] "
+                        + _("Server-side compaction triggered (context compressed).")
+                    )
+                if (
+                    item is not None
+                    and "web_search_call" in as_str(getattr(item, "type", "")).lower()
+                ):
+                    info = extract_web_search_call_info(item)
+                    if info:
+                        emit_web_search_event(core, "update", **info)
+                if item and getattr(item, "type", None) == "function_call":
+                    cid = getattr(item, "call_id", None) or getattr(item, "id", None)
+                    if cid:
+                        cid_candidate = cid
+                    final_args = getattr(item, "arguments", None)
+                    if getattr(item, "name", None):
+                        fn_name = getattr(item, "name")
 
             if final_args is not None:
-                if isinstance(final_args, dict):
-                    buf["arguments_parts"] = [
-                        json.dumps(final_args, ensure_ascii=False)
-                    ]
-                else:
-                    buf["arguments_parts"] = [as_str(final_args)]
-            else:
-                if isinstance(fn_args_delta, dict):
-                    buf["arguments_parts"].append(
-                        json.dumps(fn_args_delta, ensure_ascii=False)
-                    )
-                elif isinstance(fn_args_delta, str) and fn_args_delta:
-                    buf["arguments_parts"].append(fn_args_delta)
+                looks_like_tool = True
 
-            if cid_candidate and iid_candidate and key == iid_candidate:
-                _merge_buf(cid_candidate, iid_candidate)
+            if looks_like_tool:
+                key = cid_candidate or iid_candidate
+                if not key:
+                    key = f"call_{int(time.time() * 1000)}_{len(tool_calls_buf)}"
+
+                buf = _ensure_buf(key)
+
+                if cid_candidate:
+                    buf["call_id"] = cid_candidate
+                if iid_candidate:
+                    buf["item_id"] = iid_candidate
+
+                if isinstance(fn_name, str) and fn_name:
+                    buf["name"] = fn_name
+
+                if final_args is not None:
+                    if isinstance(final_args, dict):
+                        buf["arguments_parts"] = [
+                            json.dumps(final_args, ensure_ascii=False)
+                        ]
+                    else:
+                        buf["arguments_parts"] = [as_str(final_args)]
+                else:
+                    if isinstance(fn_args_delta, dict):
+                        buf["arguments_parts"].append(
+                            json.dumps(fn_args_delta, ensure_ascii=False)
+                        )
+                    elif isinstance(fn_args_delta, str) and fn_args_delta:
+                        buf["arguments_parts"].append(fn_args_delta)
+
+                if cid_candidate and iid_candidate and key == iid_candidate:
+                    _merge_buf(cid_candidate, iid_candidate)
 
     finally:
         try:

@@ -7,7 +7,6 @@ from typing import Any, Optional
 from ..env_utils import env_get
 from .responses_common import as_str, env_json_obj
 
-
 _OPENAI_WEB_SEARCH_TYPE_ALIASES = {
     "web_search": "web_search",
     "web_search_preview": "web_search_preview",
@@ -39,9 +38,7 @@ def normalize_openai_builtin_tool(t: dict[str, Any]) -> Optional[dict[str, Any]]
     if mapped is None:
         fn = t.get("function") if isinstance(t.get("function"), dict) else None
         if isinstance(fn, dict):
-            mapped = _OPENAI_WEB_SEARCH_TYPE_ALIASES.get(
-                as_str(fn.get("name")).strip()
-            )
+            mapped = _OPENAI_WEB_SEARCH_TYPE_ALIASES.get(as_str(fn.get("name")).strip())
 
     if mapped is None:
         return None

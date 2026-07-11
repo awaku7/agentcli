@@ -279,9 +279,9 @@ def _execute_tool_calls(
     # ---- Phase 1: pre-execute parallel-safe tools ----
     # Collect parallel-safe tool calls, run them concurrently, and store results.
     _prefetched: dict[str, str] = {}  # tc_id -> tool_result
-    _parallel_batch: list[
-        tuple[int, str, dict[str, Any]]
-    ] = []  # (idx_in_list, name, parsed_args)
+    _parallel_batch: list[tuple[int, str, dict[str, Any]]] = (
+        []
+    )  # (idx_in_list, name, parsed_args)
     _parallel_tc_ids: list[str] = []
 
     for tc in tool_calls_list:

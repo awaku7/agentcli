@@ -10,7 +10,6 @@ from ..env_utils import env_get
 from ..i18n import _
 from ..util_tools import image_file_to_data_url
 
-
 # ---------------------------------------------------------------------------
 # String helpers
 # ---------------------------------------------------------------------------
