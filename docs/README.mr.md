@@ -29,7 +29,7 @@
 
 - **Runs locally** on your machine. Your data stays with you (except API calls you make).
 - **Provider freedom**: OpenAI, Claude, Gemini, DeepSeek, Ollama, Azure, Bedrock, HuggingFace... 21 providers, all accessible from a single interface. Swap between them by reconfiguring environment variables — no reinstall, no migration.
-- **171 tools**: File I/O, web search, image generation, Gmail, BLE device scanning, MCP server integration — **89 are parallel-safe** (up to 8 execute concurrently via thread pool, configurable via `UAGENT_PARALLEL_WORKERS`). When the LLM fires multiple tool calls at once, uag automatically parallelizes them.
+- **170 tools**: File I/O, web search, image generation, Gmail, BLE device scanning, MCP server integration — **111 are parallel-safe** (up to 8 execute concurrently via thread pool, configurable via `UAGENT_PARALLEL_WORKERS`). When the LLM fires multiple tool calls at once, uag automatically parallelizes them.
 - **3 UIs + A2A**: CLI, GUI, Web, and Agent-to-Agent protocol. Same engine, any interface.
 - **Agent Skills**: Install community-built skills from the marketplace. Extend uag endlessly.
 
@@ -56,7 +56,7 @@ OpenAI / Azure / Bedrock / OpenRouter / Ollama / Gemini / Vertex AI / Claude / G
 ### ⚡ समांतर टूल एक्झिक्यूशन
 
 जेव्हा LLM एकाच वेळी अनेक साधनांची विनंती करते, तेव्हा uag **आपोआप त्यांना समांतर करते**.
-89 साधने `x_parallel_safe` म्हणून चिन्हांकित केली आहेत आणि `ThreadPoolExecutor` द्वारे एकाच वेळी कार्यान्वित करा (8 थ्रेड बाय डीफॉल्ट; बदलण्यासाठी `UAGENT_PARALLEL_WORKERS` सेट करा).
+111 साधने `x_parallel_safe` म्हणून चिन्हांकित केली आहेत आणि `ThreadPoolExecutor` द्वारे एकाच वेळी कार्यान्वित करा (8 थ्रेड बाय डीफॉल्ट; बदलण्यासाठी `UAGENT_PARALLEL_WORKERS` सेट करा).
 
 **उदाहरण**: "नॉर्डिक कॅपिटलमधील हवामान तपासा" विचारा → LLM फायर्स `search_web` × 5 देश → सर्व 5 शोध समांतर चालतात → एका बॅचमध्ये एकत्रित केलेले परिणाम.
 

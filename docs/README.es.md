@@ -29,7 +29,7 @@
 
 - **Se ejecuta localmente** en su máquina. Sus datos permanecen con usted (excepto las llamadas API que realice).
 - **Libertad de proveedores**: OpenAI, Claude, Gemini, DeepSeek, Ollama, Azure, Bedrock, HuggingFace... Más de 15 proveedores, todos accesibles desde una única interfaz. Cambie entre ellos reconfigurando las variables de entorno: sin reinstalación ni migración.
-- **171 herramientas**: E/S de archivos, búsqueda web, generación de imágenes, Gmail, escaneo de dispositivos BLE, integración de servidor MCP. **89 son seguras en paralelo** (hasta 8 se ejecutan simultáneamente a través del grupo de subprocesos, configurables a través de `UAGENT_PARALLEL_WORKERS`). Cuando el LLM activa varias llamadas a herramientas a la vez, uag las paraleliza automáticamente.
+- **170 herramientas**: E/S de archivos, búsqueda web, generación de imágenes, Gmail, escaneo de dispositivos BLE, integración de servidor MCP. **111 son seguras en paralelo** (hasta 8 se ejecutan simultáneamente a través del grupo de subprocesos, configurables a través de `UAGENT_PARALLEL_WORKERS`). Cuando el LLM activa varias llamadas a herramientas a la vez, uag las paraleliza automáticamente.
 - **3 UI + A2A**: CLI, GUI, web y protocolo de agente a agente. Mismo motor, cualquier interfaz.
 - **Habilidades del agente**: instale habilidades creadas por la comunidad desde el mercado. Extiende uag sin cesar.
 
@@ -68,7 +68,7 @@ Las herramientas de solo lectura (búsqueda de archivos, cálculo hash, listado 
 - **Reload past sessions** with `:load <index>` — pick up where you left off.
 - **Tool result caching** avoids redundant re-execution when the same tool call repeats.
 
-### 🛠 171 herramientas
+### 🛠 170 herramientas
 
 | Categoría | Herramientas |
 |---|---|

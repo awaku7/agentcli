@@ -1,0 +1,412 @@
+# Snapshot viewport(s): 0
+# This file contains the accessibility tree for the requested viewport(s) only.
+# Use `browser4-cli snapshot grep <pattern>` to search the full in-memory tree.
+# Use `browser4-cli snapshot -v all` to capture all viewports.
+
+# Viewport State
+# - processingViewport: 0
+# - viewportHeight: 985px
+# - viewportsTotal: 3
+# - hiddenTopHeight: 0px
+# - hiddenBottomHeight: 1423px
+#
+- generic [ref=e37] [box=0,0,1124,2408]:
+  - generic [ref=e40] [box=0,0,0,88]:
+    - link "メイン コンテンツにスキップ" [ref=e42] [cursor=pointer] [box=11,58,110,44]
+    - link "ユーザー補助ヘルプ" [ref=e43] [cursor=pointer] [box=11,58,110,44]:
+      - /url: https://support.google.com/websearch/answer/181196?hl=ja
+  - generic [ref=e46] [box=0,16,1124,70]:
+    - generic [ref=e47] [cursor=pointer] [box=0,16,1124,72]:
+      - search [ref=e49] [box=124,26,747,52]:
+        - generic [ref=e51] [box=260,26,611,52]:
+          - generic [ref=e52] [box=100,32,160,40]:
+            - link "Google ホームへ" [ref=e53] [box=124,36,92,33]:
+              - /url: https://www.google.com/webhp?hl=ja&sa=X&ved=0ahUKEwjgzOqI_cuVAxWnsFYBHejwNBMQPAgI
+              - generic [ref=e54] [box=124,36,92,30]:
+                - generic [ref=e55] [box=123,38,90,27]
+          - generic [ref=e56] [box=260,26,611,52]:
+            - generic [ref=e59] [box=261,27,20,50]
+            - generic [ref=e65] [box=281,27,0,22]
+            - generic [ref=e66] [box=281,27,0,3]
+            - combobox "検索" [ref=e74] [box=281,27,408,50]
+            - button "消去" [ref=e79] [box=689,27,48,50]:
+              - generic [ref=e81] [box=701,27,24,50]:
+                - generic [ref=e82] [box=706,45,14,14]
+            - button "音声で検索" [ref=e85] [box=742,40,40,24]:
+              - generic [ref=e86] [box=750,40,24,24]:
+                - generic [ref=e87] [box=755,42,14,19]
+            - button "画像で検索" [ref=e88] [box=782,40,40,24]:
+              - generic [ref=e89] [box=790,40,24,24]:
+                - generic [ref=e90] [box=793,43,18,18]
+            - button "検索" [ref=e91] [box=826,27,44,50]:
+              - generic [ref=e92] [box=829,40,24,24]:
+                - generic [ref=e93] [box=829,40,24,24]:
+                  - generic [ref=e94] [box=829,40,24,24]:
+                    - generic [ref=e95] [box=832,43,17,17]
+            - generic [ref=e96] [box=261,27,609,0]
+          - generic [ref=e97] [box=260,78,611,0]:
+            - generic [ref=e1337]:
+              - dialog "フィードバックをお送りいただけるものを選択してください" [ref=e1341]:
+                - generic [ref=e1342]:
+                  - button "フィードバックをお送りいただけるものを選択してください を閉じる" [ref=e1483]
+              - generic [ref=e1344]:
+                - generic [ref=e1353]:
+                  - button [ref=e1366]
+                - generic [ref=e1371]:
+                  - generic [ref=e1373]:
+                    - button "単語の発音" [ref=e1379]
+                    - button "もっと見る" [ref=e1386]
+                - generic [ref=e1402]:
+                  - button [ref=e1410]
+                - generic [ref=e1413]:
+                  - button "単語の発音" [ref=e1419]
+                  - button "もっと見る" [ref=e1426]
+                - generic [ref=e1442]:
+                  - generic [ref=e1443]:
+                    - button "単語の発音" [ref=e1449]
+                  - generic [ref=e1454]:
+                    - button "単語の発音" [ref=e1460]
+              - generic [ref=e1479]:
+                - button [ref=e1480]
+        - generic [ref=e99] [box=124,78,747,0]
+      - generic [ref=e103] [box=887,28,40,50]:
+        - button "設定" [ref=e104] [box=887,32,40,40]:
+          - generic [ref=e105] [box=895,40,24,27]:
+            - generic [ref=e1487] [box=895,40,24,24]:
+              - generic [ref=e1488] [box=895,40,24,24]:
+                - generic [ref=e1489] [box=897,41,20,20]
+                - generic [ref=e1490] [box=903,48,7,7]
+            - generic "クイック設定" [ref=e1491] [box=862,78,90,27]
+      - button "共有" [ref=e106] [box=927,32,40,40]:
+        - generic [ref=e107] [box=927,32,40,40]:
+          - generic [ref=e108] [box=927,32,40,40]:
+            - generic [ref=e110] [box=936,39,22,22]:
+              - generic [ref=e111] [box=938,41,16,18]
+        - generic [ref=e112] [box=927,72,40,0]
+      - generic [ref=e116] [box=967,28,48,0]:
+        - generic [ref=e117] [box=967,28,48,48]:
+          - button "Google アプリ" [ref=e118] [box=971,32,40,40]:
+            - generic [ref=e119] [box=979,40,24,24]:
+              - generic [ref=e120] [box=983,44,16,16]
+              - generic [ref=e121] [box=979,40,24,24]
+      - generic [ref=e122] [box=1015,28,93,48]:
+        - link "ログイン" [ref=e123] [box=1019,32,85,40]:
+          - /url: https://accounts.google.com/ServiceLogin?hl=ja&passive=true&continue=https://www.google.com/search%3Fq%3D%25E9%25B5%259C%25E5%25B7%259D%2B%25E8%258B%2597%25E5%25AD%2597%2B%25E7%2594%25B1%25E6%259D%25A5%26sei%3DfuxSatmbCvDh2roP9ZO0sAI&ec=futura_srp_og_si_72236_p
+          - generic "ログイン" [ref=e124] [box=1033,42,56,19]
+        - generic [ref=e1990] [box=727,68,370,0]
+        - generic [ref=e1993] [box=661,68,436,0]
+        - generic [ref=e1994] [box=679,98,420,280]
+  - generic [ref=e131] [box=0,86,1124,2322]:
+    - generic [ref=e132] [box=0,86,1124,2322]:
+      - generic [ref=e133] [box=0,94,1124,0]
+      - generic [ref=e134] [box=0,136,1124,0]:
+        - generic [ref=e135] [box=0,136,1124,1]
+      - generic [ref=e137] [box=0,94,1124,0]
+      - generic [ref=e143] [box=0,82,1124,54]:
+        - generic [ref=e144] [box=0,82,1124,54]:
+          - navigation [ref=e146] [cursor=pointer] [box=124,82,861,54]:
+            - generic [ref=e197] [box=124,88,861,48]:
+              - generic [ref=e1514] [box=124,88,861,48]:
+                - generic [ref=e1515] [box=124,88,861,48]:
+                  - generic [ref=e1516] [box=124,88,741,48]:
+                    - generic [ref=e148] [box=128,88,733,48]:
+                      - list [ref=e149] [box=112,88,657,48]:
+                        - listitem [level=1] [ref=e150] [box=112,88,82,48]:
+                          - link "AI モード" [ref=e153] [box=112,88,82,48]:
+                            - /url: /search?q=%E9%B5%9C%E5%B7%9D+%E8%8B%97%E5%AD%97+%E7%94%B1%E6%9D%A5&sca_esv=b640ccf014533559&udm=50&fbs=ABfTbFXwfYg-AsVmc75aAkBispm66twpKlwwlu59hHi77IL_vH1T8zvZgzz2HFpUH7wmH5f_yotzsux6tl7kJ6sm9S3DA0GhtrVejXSOfuSp2RA8oXRwinPDBHnN0snlJBJZlETGHyTVs8PG-bSJ2uxVQFQ1LkefuNhV4dt14uA95gF5efCQE78aEIEBfj8CpdGPimDF9V23XszZ5KcVfwUmnU6Nl5WPb5uSo6cTcnz40xJxDeLnOgo&aep=1&ntc=1&sa=X&ved=2ahUKEwjgzOqI_cuVAxWnsFYBHejwNBMQ2J8OegQIEhAD
+                            - generic "AI モード" [ref=e157] [box=124,107,58,16]
+                        - listitem [level=1] [ref=e158] [box=194,88,64,48]:
+                          - link "すべて" [disabled] [ref=e159] [box=194,88,64,48]:
+                            - generic [ref=e160] [box=194,88,64,48]
+                        - listitem [level=1] [ref=e162] [box=258,88,52,48]:
+                          - link "画像" [ref=e163] [box=258,88,52,48]:
+                            - /url: /search?sca_esv=b640ccf014533559&udm=2&fbs=ABfTbFXwfYg-AsVmc75aAkBispm66twpKlwwlu59hHi77IL_vH1T8zvZgzz2HFpUH7wmH5f_yotzsux6tl7kJ6sm9S3DA0GhtrVejXSOfuSp2RA8oXRwinPDBHnN0snlJBJZlETGHyTVs8PG-bSJ2uxVQFQ1LkefuNhV4dt14uA95gF5efCQE78aEIEBfj8CpdGPimDF9V23XszZ5KcVfwUmnU6Nl5WPb5uSo6cTcnz40xJxDeLnOgo&q=%E9%B5%9C%E5%B7%9D+%E8%8B%97%E5%AD%97+%E7%94%B1%E6%9D%A5&sa=X&ved=2ahUKEwjgzOqI_cuVAxWnsFYBHejwNBMQtKgLegQIGBAB
+                        - listitem [level=1] [ref=e166] [box=310,88,108,48]:
+                          - link "ショッピング" [ref=e167] [box=310,88,108,48]:
+                            - /url: /search?sca_esv=b640ccf014533559&udm=28&fbs=ABfTbFXwfYg-AsVmc75aAkBispm66twpKlwwlu59hHi77IL_vH1T8zvZgzz2HFpUH7wmH5f_yotzsux6tl7kJ6sm9S3DA0GhtrVejXSOfuSp2RA8oXRwinPDBHnN0snlJBJZlETGHyTVs8PG-bSJ2uxVQFQ1LkefuNhV4dt14uA95gF5efCQE78aEIEBfj8CpdGPimDF9V23XszZ5KcVfwUmnU6Nl5WPb5uSo6cTcnz40xJxDeLnOgo&q=%E9%B5%9C%E5%B7%9D+%E8%8B%97%E5%AD%97+%E7%94%B1%E6%9D%A5&ved=1t:220175&ictx=111
+                        - listitem [level=1] [ref=e170] [box=418,88,52,48]:
+                          - link "動画" [ref=e171] [box=418,88,52,48]:
+                            - /url: /search?sca_esv=b640ccf014533559&udm=7&fbs=ABfTbFXwfYg-AsVmc75aAkBispm66twpKlwwlu59hHi77IL_vH1T8zvZgzz2HFpUH7wmH5f_yotzsux6tl7kJ6sm9S3DA0GhtrVejXSOfuSp2RA8oXRwinPDBHnN0snlJBJZlETGHyTVs8PG-bSJ2uxVQFQ1LkefuNhV4dt14uA95gF5efCQE78aEIEBfj8CpdGPimDF9V23XszZ5KcVfwUmnU6Nl5WPb5uSo6cTcnz40xJxDeLnOgo&q=%E9%B5%9C%E5%B7%9D+%E8%8B%97%E5%AD%97+%E7%94%B1%E6%9D%A5&sa=X&ved=2ahUKEwjgzOqI_cuVAxWnsFYBHejwNBMQtKgLegQIFhAB
+                        - listitem [level=1] [ref=e174] [box=470,88,108,48]:
+                          - link "ショート動画" [ref=e175] [box=470,88,108,48]:
+                            - /url: /search?sca_esv=b640ccf014533559&udm=39&fbs=ABfTbFXwfYg-AsVmc75aAkBispm66twpKlwwlu59hHi77IL_vH1T8zvZgzz2HFpUH7wmH5f_yotzsux6tl7kJ6sm9S3DA0GhtrVejXSOfuSp2RA8oXRwinPDBHnN0snlJBJZlETGHyTVs8PG-bSJ2uxVQFQ1LkefuNhV4dt14uA95gF5efCQE78aEIEBfj8CpdGPimDF9V23XszZ5KcVfwUmnU6Nl5WPb5uSo6cTcnz40xJxDeLnOgo&q=%E9%B5%9C%E5%B7%9D+%E8%8B%97%E5%AD%97+%E7%94%B1%E6%9D%A5&sa=X&ved=2ahUKEwjgzOqI_cuVAxWnsFYBHejwNBMQs6gLegQIFBAB
+                        - listitem [level=1] [ref=e178] [box=578,88,79,48]:
+                          - link "ニュース" [ref=e179] [box=578,88,79,48]:
+                            - /url: /search?sca_esv=b640ccf014533559&q=%E9%B5%9C%E5%B7%9D+%E8%8B%97%E5%AD%97+%E7%94%B1%E6%9D%A5&tbm=nws&source=lnms&fbs=ABfTbFXwfYg-AsVmc75aAkBispm66twpKlwwlu59hHi77IL_vH1T8zvZgzz2HFpUH7wmH5f_yotzsux6tl7kJ6sm9S3DA0GhtrVejXSOfuSp2RA8oXRwinPDBHnN0snlJBJZlETGHyTVs8PG-bSJ2uxVQFQ1LkefuNhV4dt14uA95gF5efCQE78aEIEBfj8CpdGPimDF9V23XszZ5KcVfwUmnU6Nl5WPb5uSo6cTcnz40xJxDeLnOgo&sa=X&ved=2ahUKEwjgzOqI_cuVAxWnsFYBHejwNBMQ0pQJegQIFRAB
+                        - listitem [level=1] [ref=e182] [box=657,88,112,48]:
+                          - button "その他のフィルタ" [ref=e183] [box=657,88,112,48]:
+                            - generic "その他のフィルタ" [ref=e184] [box=657,88,112,48]:
+                              - generic [ref=e188] [box=741,107,16,16]:
+                                - generic [ref=e189] [box=745,113,6,3]
+                      - generic [ref=e196] [box=769,88,84,48]:
+                        - button "ツール" [ref=e1507] [box=769,88,84,48]:
+                          - generic [ref=e1512] [box=825,107,16,16]:
+                            - generic [ref=e1513] [box=829,113,6,3]
+                - generic [ref=e1518]:
+                  - button "前へ" [ref=e1519]
+                - generic [ref=e1524]:
+                  - button "次へ" [ref=e1525]
+      - generic [ref=e200] [box=0,136,1124,0]
+      - heading "検索結果" [level=1] [ref=e202] [box=0,136,1,1]
+      - generic [ref=e205] [box=0,136,1124,0]:
+        - generic [ref=e206] [box=0,136,1124,0]:
+          - button [ref=e1533]
+          - generic [ref=e1534]:
+            - generic [ref=e1535]:
+              - generic [ref=e1536]:
+                - generic [ref=e1537]:
+                  - generic [ref=e1538]:
+                    - button [ref=e1539]
+              - generic [ref=e1549]:
+                - generic [ref=e1550]:
+                  - generic [ref=e1551]:
+                    - button [ref=e1552]
+                  - generic [ref=e1554]:
+                    - generic [ref=e1555]:
+                      - button [ref=e1574]:
+                        - generic [ref=e1575]:
+                          - generic [ref=e1576]:
+                            - generic [ref=e1578]:
+                              - generic [ref=e1579]:
+                                - generic [ref=e1581]:
+                                  - button [ref=e1582]
+                                  - generic [ref=e1583]:
+                                    - dialog [ref=e1584]:
+                                      - button "閉じる" [ref=e1588]
+                                      - generic [ref=e1589]:
+                                        - generic [ref=e1591]:
+                                          - textbox [ref=e1597]
+                                          - textbox [ref=e1598]
+                                          - button [ref=e1599]
+                                          - button [ref=e1601]
+                                  - button [ref=e1602]
+              - generic [ref=e1603]:
+                - generic [ref=e1604]:
+                  - generic [ref=e1605]:
+                    - button [ref=e1606]
+      - generic [ref=e207] [box=0,136,1124,0]:
+        - generic [ref=e208] [box=0,136,1124,0]
+      - generic [ref=e210] [box=0,148,1124,12]:
+        - generic [ref=e214] [box=0,148,1124,12]:
+          - generic [ref=e215] [box=0,148,1124,12]
+      - generic [ref=e1634] [cursor=pointer] [box=0,160,1124,0]
+      - generic [ref=e219] [box=124,160,876,0]
+      - generic [ref=e220] [box=0,160,1124,2143]:
+        - main [ref=e221] [box=124,160,652,2143]:
+          - generic [ref=e232] [box=124,160,652,0]:
+            - generic [ref=e233] [box=124,160,652,0]
+            - generic [ref=e234] [box=124,160,652,0]:
+              - generic [ref=e235] [box=124,160,652,0]
+          - generic [ref=e240] [box=124,166,652,1699]:
+            - generic [ref=e241] [box=124,166,652,0]
+            - generic [ref=e242] [cursor=pointer] [box=124,166,652,1699]:
+              - generic [ref=e243] [box=124,166,652,1699]:
+                - generic [ref=e244] [box=124,166,652,1699]:
+                  - generic [ref=e247] [box=124,166,652,116]:
+                    - heading "ウェブ検索結果" [level=2] [ref=e248] [box=124,183,1,1]
+                    - generic [ref=e249] [box=124,166,652,116]:
+                      - link "鵜川さんの名字の由来 名字由来net https://myoji-yurai.net › searchResult › myojiKanji=鵜川" [ref=e254] [box=124,178,337,44]:
+                        - /url: https://myoji-yurai.net/searchResult.htm?myojiKanji=%E9%B5%9C%E5%B7%9D
+                        - heading "鵜川さんの名字の由来" [level=3] [ref=e255] [box=124,204,200,31]
+                        - LineBreak [ref=e256] [box=324,207,0,16]
+                        - generic [ref=e257] [box=124,166,337,38]:
+                          - generic [ref=e259] [box=124,171,40,28]:
+                            - generic [ref=e260] [box=124,175,28,16]:
+                              - generic [ref=e261] [box=124,171,28,28]:
+                                - img [ref=e262] [box=124,171,28,28]
+                          - generic "https://myoji-yurai.net" [ref=e267] [box=164,186,297,18]:
+                            - text: https://myoji-yurai.net
+                            - text "› searchResult › myojiKanji=鵜川" [ref=e268] [box=279,187,182,15]
+                      - generic [ref=e269] [box=124,185,652,0]:
+                        - generic [ref=e270] [box=124,166,337,38]:
+                          - generic [ref=e271] [box=124,166,337,38]:
+                            - generic [ref=e272] [box=124,168,40,33]:
+                              - generic [ref=e273] [box=124,183,28,16]:
+                                - generic [ref=e274] [box=124,168,28,28]
+                            - generic [ref=e275] [box=164,166,297,38]:
+                              - generic [ref=e276] [box=164,166,297,20]:
+                                - generic "名字由来net" [ref=e277] [box=164,166,297,20]
+                              - generic [ref=e278] [box=164,186,297,18]:
+                                - text "https://myoji-yurai.net" [ref=e279] [box=164,186,297,18]:
+                                  - text: https://myoji-yurai.net
+                                  - text "› searchResult › myojiKanji=鵜川" [ref=e280] [box=279,187,182,15]
+                        - generic [ref=e281] [box=469,184,28,18]:
+                          - generic [ref=e282] [box=469,184,28,20]:
+                            - button "この結果について" [ref=e283] [box=469,184,28,20]:
+                              - generic [ref=e286] [box=474,186,18,18]:
+                                - generic [ref=e287] [box=481,189,3,12]
+                      - generic [ref=e289] [box=124,238,652,44]:
+                        - generic [ref=e290] [box=124,241,94,16]:
+                          - generic "2024/12/03" [ref=e291] [box=124,241,72,16]
+                        - generic "解説. ①中臣鎌足が天智天皇より賜ったことに始まる氏（藤原氏）秀郷流波多野氏族。 ②現滋賀県である近江国蒲生郡 村が起源（ルーツ）。 ③現大阪府北部 ..." [ref=e292] [box=124,241,634,38]:
+                          - emphasis "由来" [ref=e293] [box=218,241,28,16]
+                          - text: 解説. ①中臣鎌足が天智天皇より賜ったことに始まる氏（藤原氏）秀郷流波多野氏族。 ②現滋賀県である近江国蒲生郡
+                          - emphasis "鵜川" [ref=e294] [box=352,263,28,16]
+                          - text: 村が起源（ルーツ）。 ③現大阪府北部 ...
+                  - generic [ref=e295] [box=124,312,0,0]
+                  - generic [ref=e318] [box=124,312,652,247]:
+                    - generic [ref=e319] [box=124,312,0,0]
+                    - generic [ref=e321] [box=124,312,652,36]:
+                      - heading "関連する質問" [level=2] [ref=e322] [box=124,312,132,28]:
+                        - generic "関連する質問" [ref=e323] [box=124,313,132,25]
+                    - generic [ref=e325] [box=124,348,652,211]:
+                      - generic [ref=e327] [box=124,348,652,52]:
+                        - generic [ref=e329] [box=124,348,652,52]:
+                          - generic [ref=e331] [box=124,348,652,52]:
+                            - button "鵜飼が多い地域はどこですか？" [ref=e332] [box=124,348,652,52]:
+                              - generic "鵜飼が多い地域はどこですか？" [ref=e335] [box=124,365,224,18]
+                              - generic [ref=e337] [box=746,362,24,24]:
+                                - generic [ref=e338] [box=746,362,24,24]:
+                                  - generic [ref=e339] [box=752,370,12,7]
+                              - generic [ref=e340] [box=124,348,652,52]
+                      - generic [ref=e344] [box=124,400,652,53]:
+                        - generic [ref=e346] [box=124,400,652,53]:
+                          - generic [ref=e348] [box=124,401,652,52]:
+                            - button "日本で1番レアな苗字は何ですか？" [ref=e349] [box=124,401,652,52]:
+                              - generic "日本で1番レアな苗字は何ですか？" [ref=e352] [box=124,418,249,18]
+                              - generic [ref=e354] [box=746,415,24,24]:
+                                - generic [ref=e355] [box=746,415,24,24]:
+                                  - generic [ref=e356] [box=752,423,12,7]
+                              - generic [ref=e357] [box=124,401,652,52]
+                      - generic [ref=e361] [box=124,453,652,53]:
+                        - generic [ref=e363] [box=124,453,652,53]:
+                          - generic [ref=e365] [box=124,454,652,52]:
+                            - button "ヒカキンの苗字は？" [ref=e366] [box=124,454,652,52]:
+                              - generic "ヒカキンの苗字は？" [ref=e369] [box=124,471,144,18]
+                              - generic [ref=e371] [box=746,468,24,24]:
+                                - generic [ref=e372] [box=746,468,24,24]:
+                                  - generic [ref=e373] [box=752,476,12,7]
+                              - generic [ref=e374] [box=124,454,652,52]
+                      - generic [ref=e378] [box=124,506,652,53]:
+                        - generic [ref=e380] [box=124,506,652,53]:
+                          - generic [ref=e382] [box=124,507,652,52]:
+                            - button "鵜澤 何県？" [ref=e383] [box=124,507,652,52]:
+                              - generic "鵜澤 何県？" [ref=e386] [box=124,524,84,18]
+                              - generic [ref=e388] [box=746,521,24,24]:
+                                - generic [ref=e389] [box=746,521,24,24]:
+                                  - generic [ref=e390] [box=752,529,12,7]
+                              - generic [ref=e391] [box=124,507,652,52]
+                      - generic [ref=e394] [box=124,559,652,0]
+                  - generic [ref=e399] [box=124,603,652,116]:
+                    - heading "ウェブ検索結果" [level=2] [ref=e400] [box=124,620,1,1]
+                    - generic [ref=e401] [box=124,603,652,116]:
+                      - link "「鵜川」(うかわ / うがわ)さんの名字の由来、語源、分布。 日本姓氏語源辞典 https://name-power.net › 鵜川" [ref=e406] [box=124,615,532,44]:
+                        - /url: https://name-power.net/fn/%E9%B5%9C%E5%B7%9D.html
+                        - heading "「鵜川」(うかわ / うがわ)さんの名字の由来、語源、分布。" [level=3] [ref=e407] [box=124,641,532,31]
+                        - LineBreak [ref=e408] [box=656,644,0,16]
+                        - generic [ref=e409] [box=124,603,199,38]:
+                          - generic [ref=e411] [box=124,608,40,28]:
+                            - generic [ref=e412] [box=124,608,28,28]:
+                              - generic [ref=e413] [box=129,613,18,18]:
+                                - img [ref=e414] [box=129,613,18,18]
+                          - generic "https://name-power.net" [ref=e419] [box=164,623,159,18]:
+                            - text: https://name-power.net
+                            - text "› 鵜川" [ref=e420] [box=289,624,34,15]
+                      - generic [ref=e421] [box=124,622,652,0]:
+                        - generic [ref=e422] [box=124,603,199,38]:
+                          - generic [ref=e423] [box=124,603,199,38]:
+                            - generic [ref=e424] [box=124,608,40,28]:
+                              - generic [ref=e425] [box=124,608,28,28]:
+                                - generic [ref=e426] [box=128,612,20,20]
+                            - generic [ref=e427] [box=164,603,159,38]:
+                              - generic [ref=e428] [box=164,603,159,20]:
+                                - generic "日本姓氏語源辞典" [ref=e429] [box=164,603,159,20]
+                              - generic [ref=e430] [box=164,623,159,18]:
+                                - text "https://name-power.net" [ref=e431] [box=164,623,159,18]:
+                                  - text: https://name-power.net
+                                  - text "› 鵜川" [ref=e432] [box=289,624,34,15]
+                        - generic [ref=e433] [box=331,621,28,18]:
+                          - generic [ref=e434] [box=331,621,28,20]:
+                            - button "この結果について" [ref=e435] [box=331,621,28,20]:
+                              - generic [ref=e438] [box=336,623,18,18]:
+                                - generic [ref=e439] [box=343,626,3,12]
+                      - generic [ref=e441] [box=124,675,652,44]:
+                        - generic "①滋賀県蒲生郡竜王町 発祥。江戸時代に記録のある地名。同地では平安時代・鎌倉時代の武将である佐々木高綱の後裔と伝える。 佐々木 ササキ 参照。" [ref=e442] [box=124,678,644,38]:
+                          - text: ①滋賀県蒲生郡竜王町
+                          - emphasis "鵜川" [ref=e443] [box=264,678,28,16]
+                          - text: 発祥。江戸時代に記録のある地名。同地では平安時代・鎌倉時代の武将である佐々木高綱の後裔と伝える。 佐々木 ササキ 参照。
+                  - generic [ref=e447] [box=124,749,652,116]:
+                    - generic [ref=e448] [box=124,749,652,116]:
+                      - link "鵜川さん都道府県別ランキング 名字由来net https://myoji-yurai.net › ... › 都道府県別ランキング" [ref=e453] [box=124,761,304,44]:
+                        - /url: https://myoji-yurai.net/myojiPrefectureRanking.htm?myojiKanji=%E9%B5%9C%E5%B7%9D
+                        - heading "鵜川さん都道府県別ランキング" [level=3] [ref=e454] [box=124,787,279,31]
+                        - LineBreak [ref=e455] [box=403,790,0,16]
+                        - generic [ref=e456] [box=124,749,304,38]:
+                          - generic [ref=e458] [box=124,754,40,28]:
+                            - generic [ref=e459] [box=124,758,28,16]:
+                              - generic [ref=e460] [box=124,754,28,28]:
+                                - img [ref=e461] [box=124,754,28,28]
+                          - generic "https://myoji-yurai.net" [ref=e466] [box=164,769,264,18]:
+                            - text: https://myoji-yurai.net
+                            - text "› ... › 都道府県別ランキング" [ref=e467] [box=279,770,149,15]
+                      - generic [ref=e468] [box=124,768,652,0]:
+                        - generic [ref=e469] [box=124,749,304,38]:
+                          - generic [ref=e470] [box=124,749,304,38]:
+                            - generic [ref=e471] [box=124,751,40,33]:
+                              - generic [ref=e472] [box=124,766,28,16]:
+                                - generic [ref=e473] [box=124,751,28,28]
+                            - generic [ref=e474] [box=164,749,264,38]:
+                              - generic [ref=e475] [box=164,749,264,20]:
+                                - generic "名字由来net" [ref=e476] [box=164,749,264,20]
+                              - generic [ref=e477] [box=164,769,264,18]:
+                                - text "https://myoji-yurai.net" [ref=e478] [box=164,769,264,18]:
+                                  - text: https://myoji-yurai.net
+                                  - text "› ... › 都道府県別ランキング" [ref=e479] [box=279,770,149,15]
+                        - generic [ref=e480] [box=436,767,28,18]:
+                          - generic [ref=e481] [box=436,767,28,20]:
+                            - button "この結果について" [ref=e482] [box=436,767,28,20]:
+                              - generic [ref=e485] [box=441,769,18,18]:
+                                - generic [ref=e486] [box=448,772,3,12]
+                      - generic [ref=e488] [box=124,821,652,44]:
+                        - generic "鵜川さん都道府県別ランキング · · 鵜川さん有名人一覧 · いろいろな名字・珍しい名字ランキング · 鵜川さん(男性)の運勢 · 鵜川さん(女性)の運勢." [ref=e489] [box=124,824,641,38]:
+                          - text: 鵜川さん都道府県別ランキング ·
+                          - emphasis "鵜川さんの名字の由来" [ref=e490] [box=333,824,140,16]
+                          - text: · 鵜川さん有名人一覧 · いろいろな名字・珍しい名字ランキング · 鵜川さん(男性)の運勢 · 鵜川さん(女性)の運勢.
+                  - generic [ref=e494] [box=124,895,652,94]:
+                    - generic [ref=e495] [box=124,895,652,94]:
+                      - link "鵜川姓の由来 起源 ルーツ - なまえさあち なまえさあち https://name.sijisuru.com › 名字検索 › 鵜川姓" [ref=e500] [box=124,907,371,44]:
+                        - /url: https://name.sijisuru.com/roots/fname?fname=%E9%B5%9C%E5%B7%9D
+                        - heading "鵜川姓の由来 起源 ルーツ - なまえさあち" [level=3] [ref=e501] [box=124,933,371,31]
+                        - LineBreak [ref=e502] [box=495,936,0,16]
+                        - generic [ref=e503] [box=124,895,283,38]:
+                          - generic [ref=e505] [box=124,900,40,28]:
+                            - generic [ref=e506] [box=124,904,28,16]:
+                              - generic [ref=e507] [box=124,900,28,28]:
+                                - img [ref=e508] [box=124,900,28,28]
+                          - generic "https://name.sijisuru.com" [ref=e513] [box=164,915,243,18]:
+                            - text: https://name.sijisuru.com
+                            - text "› 名字検索 › 鵜川姓" [ref=e514] [box=303,916,104,15]
+                      - generic [ref=e515] [box=124,914,652,0]:
+                        - generic [ref=e516] [box=124,895,283,38]:
+                          - generic [ref=e517] [box=124,895,283,38]:
+                            - generic [ref=e518] [box=124,897,40,33]:
+                              - generic [ref=e519] [box=124,912,28,16]:
+                                - generic [ref=e520] [box=124,897,28,28]
+                            - generic [ref=e521] [box=164,895,243,38]:
+                              - generic [ref=e522] [box=164,895,243,20]:
+                                - generic "なまえさあち" [ref=e523] [box=164,895,243,20]
+                              - generic [ref=e524] [box=164,915,243,18]:
+                                - text "https://name.sijisuru.com" [ref=e525] [box=164,915,243,18]:
+                                  - text: https://name.sijisuru.com
+                                  - text "› 名字検索 › 鵜川姓" [ref=e526] [box=303,916,104,15]
+                        - generic [ref=e527] [box=415,913,28,18]:
+                          - generic [ref=e528] [box=415,913,28,20]:
+                            - button "この結果について" [ref=e529] [box=415,913,28,20]:
+                              - generic [ref=e532] [box=420,915,18,18]:
+                                - generic [ref=e533] [box=427,918,3,12]
+                      - generic [ref=e535] [box=124,967,652,22]:
+                        - generic [ref=e536] [box=124,970,94,16]:
+                          - generic "2015/08/24" [ref=e537] [box=124,970,72,16]
+                        - generic "ペリカン。う。水鳥のう。 ：, 「鳥＋音符弟（＝低。背がひくい）」。足が短くて背 ..." [ref=e538] [box=218,970,557,16]:
+                          - text: ペリカン。う。水鳥のう。
+                          - emphasis "由来" [ref=e539] [box=387,970,28,16]
+                          - text: ：, 「鳥＋音符弟（＝低。背がひくい）」。足が短くて背 ...
+      - generic [ref=e1066] [box=0,985,1124,0]
+      - generic [ref=e1084]:
+        - button "閉じる" [ref=e1882]# ---
+# This page has 3 viewports (page chunks split by viewport height). You are currently viewing viewport 0.
+# To read the page viewport by viewport (like a human scrolling):
+#   snapshot -v 1          # scroll down to viewport 1
+#   snapshot -v 0-2    # capture all viewports at once
+#   snapshot -v all       # capture all viewports (same as above)
+#

@@ -1,0 +1,140 @@
+# Auto-snapshot after command — full viewport (viewport 0).
+# Use `browser4-cli snapshot grep <pattern>` to search the tree.
+
+# Viewport State
+# - processingViewport: 0
+# - viewportHeight: 985px
+# - viewportsTotal: 1
+# - hiddenTopHeight: 0px
+# - hiddenBottomHeight: 0px
+#
+- generic [ref=e64] [box=0,0,1904,985]:
+  - generic "ZnpjSd" [ref=e91] [box=0,0,1904,0]
+  - generic [ref=e92] [box=0,0,1904,985]:
+    - generic "ZnpjSd" [ref=e93] [box=0,0,1904,0]
+    - navigation [ref=e94] [box=0,0,1904,60]:
+      - link "Googleについて" [ref=e95] [cursor=pointer] [box=21,15,112,30]:
+        - /url: https://about.google/?fg=1&utm_source=google-JP&utm_medium=referral&utm_campaign=hp-header
+      - link "ストア" [ref=e96] [cursor=pointer] [box=143,15,52,30]:
+        - /url: https://store.google.com/JP?utm_source=hp_header&utm_medium=google_ooo&utm_campaign=GS100042&hl=ja-JP
+      - generic "Gmail Gmail https://mail.google.com/mail/&ogbl _top Gmail 画像を検索する 画像を検索する https://www.google.com/imghp?hl=ja&ogbl _top 画像" [ref=e100] [box=1656,4,101,51]:
+        - generic "Gmail Gmail https://mail.google.com/mail/&ogbl _top Gmail" [ref=e101] [box=1656,16,49,24]:
+          - link "Gmail" [ref=e102] [cursor=pointer] [box=1671,16,34,24]:
+            - /url: https://mail.google.com/mail/&ogbl
+        - generic "画像を検索する 画像を検索する https://www.google.com/imghp?hl=ja&ogbl _top 画像" [ref=e103] [box=1705,16,41,24]:
+          - link "画像を検索する" [ref=e104] [cursor=pointer] [box=1720,16,26,24]:
+            - /url: https://www.google.com/imghp?hl=ja&ogbl
+            - text: 画像
+      - generic "gbwa Google アプリ button Google アプリ https://www.google.co.jp/intl/ja/about/products false https://ssl.gstatic.com/gb/images/bar/al-icon.png" [ref=e105] [box=1757,4,48,51]:
+        - generic "Google アプリ button Google アプリ https://www.google.co.jp/intl/ja/about/products false https://ssl.gstatic.com/gb/images/bar/al-icon.png" [ref=e106] [box=1757,4,48,48]:
+          - button "Google アプリ" [ref=e107] [cursor=pointer] [box=1761,8,40,40]:
+            - generic "https://ssl.gstatic.com/gb/images/bar/al-icon.png" [ref=e108] [box=1769,16,24,24]:
+              - generic "https://ssl.gstatic.com/gb/images/bar/al-icon.png" [ref=e110] [box=1769,16,24,24]
+      - generic "ログイン ログイン https://accounts.google.com/ServiceLogin?hl=ja&passive=true&continue=https://www.google.com/&ec=futura_exp_og_so_72776762_e _top ログイン" [ref=e111] [box=1805,4,93,48]:
+        - link "ログイン" [ref=e112] [cursor=pointer] [box=1809,8,85,40]:
+          - /url: https://accounts.google.com/ServiceLogin?hl=ja&passive=true&continue=https://www.google.com/&ec=futura_exp_og_so_72776762_e
+          - generic "ログイン" [ref=e113] [box=1823,18,56,19]
+    - generic ".RHL8Vb{height:88px}.RHL8Vb[data-elvt]{}.RHL8Vb[data-cobsp]{display:none}@media (max-width:479.98px){.RHL8Vb{height:116px}} .VHYc8b{position:fixed;z-index:928;pointer-events:auto;transition:transform 250ms cubic-bezier(0.38,.72,0,1)}.RHL8Vb[data-elvt] .VHYc8b{z-index:12002}.RHL8Vb[data-scootr] .VHYc8b{transform:translateX(190px);transition:transform 500ms cubic-bezier(0.38,.72,0,1);}.RHL8Vb[data-hide-logo] .VHYc8b{opacity:0;pointer-events:none}.RHL8Vb[data-startr] .VHYc8b{}@media (max-width:1420px){.RHL8Vb[data-startr] .VHYc8b{}} .iZUKEe svg,.iZUKEe div{forced-color-adjust:none;-webkit-forced-color-adjust:none} .iZUKEe{top:33px;left:19px;}@media (max-width:479.98px){.iZUKEe{top:22px}} Google ホームへ https://www.google.com/webhp?hl=ja&ictx=0&sa=X&ved=0ahUKEwjak8_9-8uVAxUthlYBHSyCBeUQPAgE _WutSatr-Fq2M2roPrISWqA4_1 _WutSatr-Fq2M2roPrISWqA4_2 j6sJ2c" [ref=e117] [box=0,60,1904,0]
+    - generic [ref=e133] [box=0,60,1904,290]:
+      - generic ".rSk4se{max-height:92px;position:relative}.lnXdpd{max-height:100%;max-width:100%;object-fit:contain;object-position:center bottom;width:auto} Google img Google" [ref=e134] [box=816,258,272,92]:
+        - image "Google" [ref=e135] [box=816,258,272,92]
+      - heading "heading .DYz2A{display:flex;flex-direction:column;justify-content:flex-end;align-items:center}.HeJfy{font-family:Arial,sans-serif;font-size:32px;line-height:40px;font-weight:500;margin-bottom:24px;color:var(--YLNNHc);text-align:center}.dPg0Ze{color:transparent;background-image:linear-gradient(to bottom,var(--YLNNHc) 0%,var(--YLNNHc) 20%,#408bf2 30%,#a9a8ff 50%,#a9a8ff 60%,var(--YLNNHc) 80%,var(--YLNNHc) 100%);-webkit-background-clip:text;background-clip:text;background-size:auto 700%;will-change:background-position}.wf0Hmb .dPg0Ze{animation:usernameShimmer 967ms cubic-bezier(0.2,0,0.6,1) both;animation-delay:333ms}@keyframes usernameShimmer {0%{background-position:50% 0%}100%{background-position:50% 100%}}.W4kjB{display:none} 何かお手伝いできることはありますか？" [level=1] [ref=e137] [box=665,126,574,290]:
+        - generic "何かお手伝いできることはありますか？" [ref=e138] [box=665,352,574,40]
+    - generic [ref=e140]:
+      - generic [ref=e141]:
+        - button "閉じる" [ref=e142]
+    - search [ref=e48] [cursor=pointer] [box=96,376,1712,140]:
+      - generic [ref=e165] [box=608,376,688,140]:
+        - generic [ref=e166] [box=608,376,688,52]:
+          - generic [ref=e167] [box=609,377,0,50]:
+            - button "添付ファイルを削除" [ref=e168]
+          - generic ".y1yadf{position:relative;display:inline-block} ファイルとツールを追加 button ファイルとツールを追加 menu presentation button menuitem 画像をアップロード presentation button menuitem ファイルをアップロード ツール group ツール presentation button menuitemradio .aAXUB{display:flex;align-items:center;justify-content:center} 🍌 画像を作成 file file" [ref=e183] [box=608,378,48,48]:
+            - generic ".y1yadf{position:relative;display:inline-block} ファイルとツールを追加 button ファイルとツールを追加" [ref=e184] [box=614,384,36,36]:
+              - generic "ファイルとツールを追加 button ファイルとツールを追加" [ref=e185] [box=614,384,36,36]:
+                - button "ファイルとツールを追加" [ref=e186] [box=614,384,36,36]:
+                  - /has_popup: menu
+            - generic "menu presentation button menuitem 画像をアップロード presentation button menuitem ファイルをアップロード ツール group ツール presentation button menuitemradio .aAXUB{display:flex;align-items:center;justify-content:center} 🍌 画像を作成 file file" [ref=e190]:
+              - menuitem "button menuitem 画像をアップロード" [ref=e193]
+              - menuitem "button menuitem ファイルをアップロード" [ref=e202]
+              - generic "group ツール presentation button menuitemradio .aAXUB{display:flex;align-items:center;justify-content:center} 🍌 画像を作成" [ref=e212]:
+                - group "ツール" [ref=e213]:
+                  - menuitemradio "button menuitemradio .aAXUB{display:flex;align-items:center;justify-content:center} 🍌 画像を作成" [ref=e215]
+              - generic "file" [ref=e221]:
+                - generic "button file-upload-button ファイルを選択 -webkit-file-upload-button 選択されていません" [ref=e613]:
+                  - button "button file-upload-button ファイルを選択 -webkit-file-upload-button" [ref=e222]
+              - generic "file" [ref=e224]:
+                - generic "button file-upload-button ファイルを選択 -webkit-file-upload-button 選択されていません" [ref=e617]:
+                  - button "button file-upload-button ファイルを選択 -webkit-file-upload-button" [ref=e225]
+          - generic [ref=e227] [box=656,377,439,50]:
+            - combobox "検索" [ref=e47] [box=656,377,439,50]:
+              - /autocomplete: both
+              - /has_popup: listbox
+          - generic "音声で検索 button 音声で検索" [ref=e233] [box=1095,390,40,24]:
+            - generic "音声で検索 button 音声で検索" [ref=e234] [box=1095,390,40,24]:
+              - button "音声で検索" [ref=e235] [box=1095,390,40,24]
+          - generic ".etxtjc{flex:1 0 auto;display:flex;cursor:pointer;align-items:center;border:0;background:transparent;padding:0 8px;width:24px;line-height:44px;position:relative;z-index:2}.hWdRGb{height:24px;width:24px;vertical-align:middle} 画像で検索 button 画像で検索" [ref=e238] [box=1135,390,40,24]:
+            - generic ".etxtjc{flex:1 0 auto;display:flex;cursor:pointer;align-items:center;border:0;background:transparent;padding:0 8px;width:24px;line-height:44px;position:relative;z-index:2}.hWdRGb{height:24px;width:24px;vertical-align:middle} 画像で検索 button 画像で検索" [ref=e239] [box=1135,390,40,24]:
+              - button "画像で検索" [ref=e240] [box=1135,390,40,24]
+          - link "AI モード" [ref=e243] [box=1183,384,104,36]:
+            - generic "AI モード" [ref=e252] [box=1192,392,86,20]
+          - button "送信" [ref=e265]
+          - generic [ref=e269]:
+            - generic "button .DBqRk{display:flex;align-self:center;cursor:pointer;flex-shrink:0;font-family:var(--qR8X0);font-size:var(--hbmnje);font-weight:var(--Oycjt);line-height:var(--CbdmE);position:relative;height:36px;align-items:center;justify-content:center;border-radius:9999px;padding:6px 8px;gap:4px;}.DBqRk,.DBqRk:disabled:hover{background-color:#4d5156;}.DBqRk:disabled{cursor:default}.eL7oAc,.DBqRk:disabled:hover .eL7oAc{display:inline-block}.RMHDZd,.DBqRk:disabled:hover .RMHDZd{display:inline-block}.DBqRk:hover,.DBqRk:focus-visible{background-color:var(--Lm570b)} 🍌 sb-tool-label-4 作成 sb-accessible-label-4 画像作成を削除" [ref=e270]:
+              - button "button .DBqRk{display:flex;align-self:center;cursor:pointer;flex-shrink:0;font-family:var(--qR8X0);font-size:var(--hbmnje);font-weight:var(--Oycjt);line-height:var(--CbdmE);position:relative;height:36px;align-items:center;justify-content:center;border-radius:9999px;padding:6px 8px;gap:4px;}.DBqRk,.DBqRk:disabled:hover{background-color:#4d5156;}.DBqRk:disabled{cursor:default}.eL7oAc,.DBqRk:disabled:hover .eL7oAc{display:inline-block}.RMHDZd,.DBqRk:disabled:hover .RMHDZd{display:inline-block}.DBqRk:hover,.DBqRk:focus-visible{background-color:var(--Lm570b)} 🍌 sb-tool-label-4 作成 sb-accessible-label-4 画像作成を削除" [ref=e272]
+        - generic [ref=e288]:
+          - dialog "フィードバックをお送りいただけるものを選択してください" [ref=e292]:
+            - generic [ref=e293]:
+              - button "フィードバックをお送りいただけるものを選択してください を閉じる" [ref=e295]
+          - generic [ref=e300]:
+            - generic [ref=e309]:
+              - generic [ref=e318]:
+                - button "もっと見る" [ref=e327]
+              - button "button .JCHpcb:hover,.LvqzR .JCHpcb{color:#8ab4f8;text-decoration:underline}.JCHpcb{color:#aaadb2;font:13px Arial,sans-serif;cursor:pointer;align-self:center}@media (hover:hover){.sbai{visibility:hidden}.sbhl .sbai{visibility:inherit}} presentation 削除" [ref=e334]
+            - generic [ref=e337]:
+              - generic [ref=e339]:
+                - button "単語の発音" [ref=e345]
+            - generic "option button presentation 削除" [ref=e358]:
+              - button "button presentation 削除" [ref=e366]
+            - generic "option button 単語の発音" [ref=e369]:
+              - button "単語の発音" [ref=e375]
+            - generic ".T14B5e{height:70px}.T14B5e input[type=\"submit\"],.gbqfba{background-color:#303134;border:1px solid #303134;border-radius:8px;color:#e8eaed;font-family:var(--qR8X0);font-optical-sizing:none;font-size:var(--hbmnje);font-weight:var(--Oycjt);margin:11px 4px;padding:0 16px;height:36px;min-width:54px;text-align:center;cursor:pointer;user-select:none}.T14B5e input[type=\"submit\"]:hover{box-shadow:0 1px 3px rgba(23,23,23,0.24);background-color:#303134;border:1px solid #5f6368;color:#e8eaed}.T14B5e input[type=\"submit\"]:focus{border:1px solid #5f6368;outline:none}.aajZCb .T14B5e input,.aajZCb .T14B5e input:hover{background:#3c4043} submit btnK button Google 検索 Google 検索 submit btnI I'm Feeling Lucky I'm Feeling Lucky" [ref=e397]:
+              - generic "submit btnK button Google 検索 Google 検索 submit btnI I'm Feeling Lucky I'm Feeling Lucky" [ref=e398]:
+                - button "Google 検索" [ref=e399]
+                - button "I'm Feeling Lucky" [ref=e400]
+          - generic ".WzNHm{font-size:11px;margin-top:-16px;position:absolute;right:20px;color:var(--IXoxUe)} button 不適切な検索候補の報告" [ref=e401]:
+            - button "button 不適切な検索候補の報告" [ref=e402]
+        - generic "Google 検索 submit btnK button Google 検索 Google 検索 I'm Feeling Lucky submit gbqfbb btnI button I'm Feeling Lucky I'm Feeling Lucky button presentation お腹がすいた presentation 冒険したい presentation 遊びたい気分 presentation 星になった気分 presentation Doodle を探そう presentation トレンディーな気分 presentation 芸術家気分 presentation 笑いたい気分" [ref=e405] [box=608,446,688,59]:
+          - button "Google 検索" [ref=e406] [box=818,457,112,36]
+          - button "I'm Feeling Lucky" [ref=e66] [box=942,458,143,36]
+          - button "button presentation お腹がすいた presentation 冒険したい presentation 遊びたい気分 presentation 星になった気分 presentation Doodle を探そう presentation トレンディーな気分 presentation 芸術家気分 presentation 笑いたい気分" [ref=e407]
+        - generic "ow14 .tzTHEb{display:flex;flex-direction:row;gap:16px}.MEjb7{flex:1}.NnfpFe{background:transparent;width:38px;height:34px;color:#fff} button 閉じる" [ref=e426]:
+          - generic ".tzTHEb{display:flex;flex-direction:row;gap:16px}.MEjb7{flex:1}.NnfpFe{background:transparent;width:38px;height:34px;color:#fff} button 閉じる" [ref=e427]:
+            - generic ".tzTHEb{display:flex;flex-direction:row;gap:16px}.MEjb7{flex:1}.NnfpFe{background:transparent;width:38px;height:34px;color:#fff} button 閉じる" [ref=e428]:
+              - generic ".tzTHEb{display:flex;flex-direction:row;gap:16px}.MEjb7{flex:1}.NnfpFe{background:transparent;width:38px;height:34px;color:#fff} button 閉じる" [ref=e429]:
+                - generic ".tzTHEb{display:flex;flex-direction:row;gap:16px}.MEjb7{flex:1}.NnfpFe{background:transparent;width:38px;height:34px;color:#fff} button 閉じる" [ref=e430]:
+                  - generic ".tzTHEb{display:flex;flex-direction:row;gap:16px}.MEjb7{flex:1}.NnfpFe{background:transparent;width:38px;height:34px;color:#fff} button 閉じる" [ref=e431]:
+                    - generic "button 閉じる" [ref=e432]:
+                      - button "閉じる" [ref=e434]
+      - generic "tophf hidden sca_esv b640ccf014533559 hidden source hp hidden ei WutSatr-Fq2M2roPrISWqA4 hidden iflsig ABILxe8AAAAAalL5akFarDy-B9OicdF0dQJgfJGCJ5gy" [ref=e440] [box=96,516,1712,0]
+    - generic "_WutSatr-Fq2M2roPrISWqA4_9" [ref=e447] [box=0,536,1904,0]
+    - generic "_WutSatr-Fq2M2roPrISWqA4_10" [ref=e451] [box=0,536,1904,0]
+    - contentinfo [ref=e455] [box=0,883,1904,102]:
+      - link "広告" [ref=e458] [cursor=pointer] [box=20,935,58,50]:
+        - /url: https://www.google.com/intl/ja_jp/ads/?subid=ww-ww-et-g-awa-a-g_hpafoot1_1!o2&utm_source=google.com&utm_medium=referral&utm_campaign=google_hpafooter&fg=1
+      - link "ビジネス" [ref=e459] [cursor=pointer] [box=78,935,86,50]:
+        - /url: https://www.google.com/services/?subid=ww-ww-et-g-awa-a-g_hpbfoot1_1!o2&utm_source=google.com&utm_medium=referral&utm_campaign=google_hpbfooter&fg=1
+      - link "検索の仕組み" [ref=e460] [cursor=pointer] [box=164,935,114,50]:
+        - /url: https://google.com/search/howsearchworks/?fg=1
+      - link "プライバシー" [ref=e462] [cursor=pointer] [box=1654,935,114,50]:
+        - /url: https://policies.google.com/privacy?hl=ja&fg=1
+      - link "規約" [ref=e463] [cursor=pointer] [box=1768,935,58,50]:
+        - /url: https://policies.google.com/terms?hl=ja&fg=1
+      - generic [ref=e465] [box=1826,953,58,16]:
+        - "generic \"設定 button false 設定 menu none none menuitem https://www.google.com/preferences?hl=ja&fg=1 検索設定 none none menuitem /advanced_search?hl=ja&fg=1 検索オプション none none menuitem /history/privacyadvisor/search/unauth?utm_source=googlemenu&fg=1&cctld=com 検索におけるデータ none none menuitem /history/optout?hl=ja&fg=1 検索履歴 none none menuitem https://support.google.com/websearch/?p=ws_results_help&hl=ja&fg=1 ヘルプを検索 none none menuitem フィードバックを送信 separator none none YUIDDb menuitem .tFYjZe{align-items:center;display:flex;justify-content:space-between;padding-bottom:4px;padding-top:4px}.tFYjZe:hover .iOHNLb,.tFYjZe:focus .iOHNLb{opacity:1}.iOHNLb{color:var(--amnPwe);height:20px;margin-top:-2px;opacity:0;width:20px} link ダークモード: オン\" [ref=e466] [box=1826,953,58,16]":
+          - button "設定" [ref=e467] [cursor=pointer] [box=1826,935,58,50]:
+            - /has_popup: menu
+            - generic "設定" [ref=e468] [box=1826,935,58,50]:
+              - /has_popup: menu
+  - textbox "csi" [ref=e65]
+  - generic "sZmt3b i58Mw" [ref=e517] [box=0,985,1904,0]:
+    - generic "i58Mw" [ref=e518] [box=0,0,1904,985]

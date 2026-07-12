@@ -1,0 +1,61 @@
+# Snapshot viewport(s): 0
+# This file contains the accessibility tree for the requested viewport(s) only.
+# Use `browser4-cli snapshot grep <pattern>` to search the full in-memory tree.
+# Use `browser4-cli snapshot -v all` to capture all viewports.
+
+# Viewport State
+# - processingViewport: 0
+# - viewportHeight: 985px
+# - viewportsTotal: 7
+# - hiddenTopHeight: 325px
+# - hiddenBottomHeight: 5156px
+#
+- generic [ref=e383] [box=29,0,1080,6466]:
+  - link "検索へ移動" [ref=e384] [cursor=pointer] [box=8,252,105,44]:
+    - /url: "#search"
+  - navigation "表示言語" [ref=e385] [box=29,325,1080,33]:
+    - link "日本語" [ref=e386] [cursor=pointer] [box=875,331,42,20]:
+      - /url: https://name-power.net/fn/%E9%B5%9C%E5%B7%9D.html
+    - link "简体中文" [ref=e387] [cursor=pointer] [box=925,331,56,20]:
+      - /url: https://name-power.net/zh-hans/fn/%E9%B5%9C%E5%B7%9D.html
+    - link "繁體中文" [ref=e388] [cursor=pointer] [box=988,331,56,20]:
+      - /url: https://name-power.net/zh-hant/fn/%E9%B5%9C%E5%B7%9D.html
+    - link "한국어" [ref=e389] [cursor=pointer] [box=1051,331,42,20]:
+      - /url: https://name-power.net/ko/fn/%E9%B5%9C%E5%B7%9D.html
+  - heading "鵜川の由来、語源、分布" [level=1] [ref=e392] [box=153,369,832,22]
+  - link "日本姓氏語源辞典" [ref=e393] [cursor=pointer] [box=264,421,610,23]:
+    - /url: /
+    - image [ref=e323] [box=264,396,610,78]
+  - search [ref=e395] [cursor=pointer] [box=153,483,832,49]:
+    - LabelText "名字を検索" [ref=e396] [box=569,507,1,1]
+    - combobox "名字を検索" [ref=e397] [box=153,483,749,48]
+    - button "検索" [ref=e403] [box=911,485,70,43]
+  - generic [ref=e405] [box=84,550,970,0]
+  - generic [ref=e406] [box=84,550,970,90]:
+    - generic [ref=e407] [box=84,550,970,90]:
+      - generic [ref=e831] [box=205,550,728,90]:
+        - generic "広告" [ref=e938] [cursor=pointer] [box=205,550,728,90]
+  - generic [ref=e410] [box=45,657,1048,218]:
+    - image "鵜川" [ref=e324] [box=434,665,270,200]
+  - insertion [ref=e785] [box=45,892,1048,280]:
+    - generic [ref=e792] [box=45,892,1048,280]:
+      - generic "Advertisement" [ref=e837] [cursor=pointer] [box=45,892,1048,280]
+  - insertion [ref=e916] [box=67,325,1005,300]:
+    - generic [ref=e917] [box=67,325,1005,295]:
+      - generic "Advertisement" [ref=e949] [cursor=pointer] [box=67,325,1005,295]
+    - generic [ref=e971] [box=67,620,1005,5]:
+      - generic [ref=e1032]:
+        - insertion [ref=e952] [box=67,620,1005,5]:
+          - generic [ref=e970] [box=529,620,80,45]:
+            - image [ref=e969] [box=529,620,80,30]:
+              - generic [ref=e964] [box=537,622,60,28]
+              - generic [ref=e965] [box=529,620,80,5]
+              - generic [ref=e968] [box=560,630,14,8]:
+                - generic [ref=e993] [box=560,630,8,8]
+                - generic [ref=e994] [box=566,630,8,8]# ---
+# This page has 7 viewports (page chunks split by viewport height). You are currently viewing viewport 0.
+# To read the page viewport by viewport (like a human scrolling):
+#   snapshot -v 1          # scroll down to viewport 1
+#   snapshot -v 0-6    # capture all viewports at once
+#   snapshot -v all       # capture all viewports (same as above)
+#

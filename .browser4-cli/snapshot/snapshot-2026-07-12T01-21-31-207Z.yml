@@ -1,0 +1,461 @@
+# Snapshot viewport(s): 0
+# This file contains the accessibility tree for the requested viewport(s) only.
+# Use `browser4-cli snapshot grep <pattern>` to search the full in-memory tree.
+# Use `browser4-cli snapshot -v all` to capture all viewports.
+
+# Viewport State
+# - processingViewport: 1
+# - viewportHeight: 985px
+# - viewportsTotal: 3
+# - hiddenTopHeight: 1719px
+# - hiddenBottomHeight: 0px
+#
+- generic [ref=e1432] [box=0,0,1124,2704]:
+  - generic [ref=e1526] [box=0,86,1124,2618]:
+    - generic [ref=e1527] [box=0,86,1124,2618]:
+      - generic [ref=e1538] [box=0,82,1124,54]:
+        - generic [ref=e1539] [box=0,82,1124,54]:
+          - navigation [ref=e1541] [cursor=pointer] [box=124,82,861,54]:
+            - generic [ref=e1592] [box=124,88,861,48]:
+              - generic [ref=e2998] [box=124,88,861,48]:
+                - generic [ref=e2999] [box=124,88,861,48]:
+                  - generic [ref=e3000] [box=124,88,685,48]:
+                    - generic [ref=e1543] [box=128,88,677,48]:
+                      - list [ref=e1544] [box=112,88,601,48]:
+                        - listitem [level=1] [ref=e1577] [box=601,88,112,48]:
+                          - button "その他のフィルタ" [ref=e1578] [box=601,88,112,48]
+                      - generic [ref=e1591] [box=713,88,84,48]:
+                        - button "ツール" [ref=e2991] [box=713,88,84,48]
+                - generic [ref=e3002]:
+                  - button "前へ" [ref=e3003]
+                - generic [ref=e3008]:
+                  - button "次へ" [ref=e3009]
+      - generic [ref=e1600] [box=0,136,1124,0]:
+        - generic [ref=e1601] [box=0,136,1124,0]:
+          - button [ref=e3017]
+          - generic [ref=e3018]:
+            - generic [ref=e3019]:
+              - generic [ref=e3020]:
+                - generic [ref=e3021]:
+                  - generic [ref=e3022]:
+                    - button [ref=e3023]
+              - generic [ref=e3033]:
+                - generic [ref=e3034]:
+                  - generic [ref=e3035]:
+                    - button [ref=e3036]
+                  - generic [ref=e3038]:
+                    - generic [ref=e3039]:
+                      - button [ref=e3058]:
+                        - generic [ref=e3059]:
+                          - generic [ref=e3060]:
+                            - generic [ref=e3062]:
+                              - generic [ref=e3063]:
+                                - generic [ref=e3065]:
+                                  - button [ref=e3066]
+                                  - generic [ref=e3067]:
+                                    - dialog [ref=e3068]:
+                                      - button "閉じる" [ref=e3072]
+                                      - generic [ref=e3073]:
+                                        - generic [ref=e3075]:
+                                          - textbox [ref=e3081]
+                                          - textbox [ref=e3082]
+                                          - button [ref=e3083]
+                                          - button [ref=e3085]
+                                  - button [ref=e3086]
+              - generic [ref=e3087]:
+                - generic [ref=e3088]:
+                  - generic [ref=e3089]:
+                    - button [ref=e3090]
+      - generic [ref=e1615] [box=0,160,1124,2439]:
+        - main [ref=e1616] [box=124,160,652,2439]:
+          - generic [ref=e1635] [box=124,166,652,1995]:
+            - generic [ref=e1637] [cursor=pointer] [box=124,166,652,1995]:
+              - generic [ref=e1638] [box=124,166,652,1995]:
+                - generic [ref=e1639] [box=124,166,652,1995]:
+                  - generic [ref=e1643] [box=124,166,652,360]:
+                    - generic [ref=e1649] [box=124,218,652,262]:
+                      - generic [ref=e1653] [box=124,218,204,242]:
+                        - generic [ref=e1654] [box=124,218,204,242]:
+                          - generic [ref=e1656] [box=124,218,204,242]:
+                            - button "鵜川和久 - 無所属連合オフィシャルサイト" [ref=e1659] [box=124,218,204,192]
+                            - generic [ref=e1666] [box=126,440,200,16]:
+                              - generic [ref=e1675] [box=302,437,36,20]:
+                                - generic [ref=e1676] [box=310,437,28,20]:
+                                  - button "この結果について" [ref=e1677] [box=310,437,28,20]
+                      - generic [ref=e1682] [box=348,218,204,242]:
+                        - generic [ref=e1683] [box=348,218,204,242]:
+                          - generic [ref=e1685] [box=348,218,204,242]:
+                            - button "株式会社デジタル・ヒュージ・テクノロジー代表取締役 鵜川徹氏 ..." [ref=e1688] [box=348,218,204,192]
+                            - generic [ref=e1695] [box=350,440,200,16]:
+                              - generic [ref=e1704] [box=526,437,36,20]:
+                                - generic [ref=e1705] [box=534,437,28,20]:
+                                  - button "この結果について" [ref=e1706] [box=534,437,28,20]
+                      - generic [ref=e1711] [box=572,218,204,242]:
+                        - generic [ref=e1712] [box=572,218,204,242]:
+                          - generic [ref=e1714] [box=572,218,204,242]:
+                            - button "鵜川もえか (@moeka__ukawa) • Instagram photos and videos" [ref=e1717] [box=572,218,204,192]
+                            - generic [ref=e1724] [box=574,440,200,16]:
+                              - generic [ref=e1733] [box=750,437,36,20]:
+                                - generic [ref=e1734] [box=758,437,28,20]:
+                                  - button "この結果について" [ref=e1735] [box=758,437,28,20]
+                      - generic [ref=e1740]:
+                        - generic [ref=e3499]:
+                          - generic [ref=e3500]:
+                            - generic [ref=e3501]:
+                              - generic [ref=e3502]:
+                                - generic [ref=e3504]:
+                                  - button [ref=e3505]
+                                - generic [ref=e3508]:
+                                  - generic [ref=e3509]:
+                                    - generic [ref=e3512]:
+                                      - generic [ref=e3521]:
+                                        - generic [ref=e3522]:
+                                          - button "この結果について" [ref=e3523]
+                      - generic [ref=e1742]:
+                        - generic [ref=e3528]:
+                          - generic [ref=e3529]:
+                            - generic [ref=e3530]:
+                              - generic [ref=e3531]:
+                                - generic [ref=e3533]:
+                                  - button [ref=e3534]
+                                - generic [ref=e3537]:
+                                  - generic [ref=e3538]:
+                                    - generic [ref=e3541]:
+                                      - generic [ref=e3550]:
+                                        - generic [ref=e3551]:
+                                          - button "この結果について" [ref=e3552]
+                      - generic [ref=e1744]:
+                        - generic [ref=e3557]:
+                          - generic [ref=e3558]:
+                            - generic [ref=e3559]:
+                              - generic [ref=e3560]:
+                                - generic [ref=e3562]:
+                                  - button [ref=e3563]
+                                - generic [ref=e3566]:
+                                  - generic [ref=e3567]:
+                                    - generic [ref=e3570]:
+                                      - generic [ref=e3579]:
+                                        - generic [ref=e3580]:
+                                          - button "この結果について" [ref=e3581]
+                      - generic [ref=e1746]:
+                        - generic [ref=e3586]:
+                          - generic [ref=e3587]:
+                            - generic [ref=e3588]:
+                              - generic [ref=e3589]:
+                                - generic [ref=e3591]:
+                                  - button [ref=e3592]
+                                - generic [ref=e3595]:
+                                  - generic [ref=e3596]:
+                                    - generic [ref=e3599]:
+                                      - generic [ref=e3608]:
+                                        - generic [ref=e3609]:
+                                          - button "この結果について" [ref=e3610]
+                      - generic [ref=e1748]:
+                        - generic [ref=e3615]:
+                          - generic [ref=e3616]:
+                            - generic [ref=e3617]:
+                              - generic [ref=e3618]:
+                                - generic [ref=e3620]:
+                                  - button [ref=e3621]
+                                - generic [ref=e3624]:
+                                  - generic [ref=e3625]:
+                                    - generic [ref=e3628]:
+                                      - generic [ref=e3637]:
+                                        - generic [ref=e3638]:
+                                          - button "この結果について" [ref=e3639]
+                      - generic [ref=e1750]:
+                        - generic [ref=e3644]:
+                          - generic [ref=e3645]:
+                            - generic [ref=e3646]:
+                              - generic [ref=e3647]:
+                                - generic [ref=e3649]:
+                                  - button [ref=e3650]
+                                - generic [ref=e3653]:
+                                  - generic [ref=e3654]:
+                                    - generic [ref=e3657]:
+                                      - generic [ref=e3666]:
+                                        - generic [ref=e3667]:
+                                          - button "この結果について" [ref=e3668]
+                    - button "その他の画像を表示" [ref=e1761] [box=124,484,652,42]
+                  - generic [ref=e1799] [box=124,570,652,247]:
+                    - generic [ref=e1806] [box=124,606,652,211]:
+                      - generic [ref=e1808] [box=124,606,652,52]:
+                        - generic [ref=e1810] [box=124,606,652,52]:
+                          - generic [ref=e1812] [box=124,606,652,52]:
+                            - button "「鵜川」の読み方は？" [ref=e1813] [box=124,606,652,52]
+                          - generic [ref=e1823]:
+                            - generic [ref=e3140]:
+                              - generic [ref=e3141]:
+                                - generic [ref=e3142]:
+                                  - generic [ref=e3144]:
+                                    - generic [ref=e3145]:
+                                      - generic [ref=e3770]:
+                                        - generic [ref=e3771]:
+                                          - generic [ref=e3775]:
+                                            - generic [ref=e3776]:
+                                              - generic [ref=e3777]:
+                                                - generic [ref=e3778]:
+                                                  - generic [ref=e3779]:
+                                                    - generic [ref=e3780]:
+                                                      - generic [ref=e3781]:
+                                                        - generic [ref=e3782]:
+                                                          - generic [ref=e3784]:
+                                                            - generic [ref=e3794]:
+                                                              - generic [ref=e3795]:
+                                                                - generic [ref=e3797]:
+                                                                  - generic [ref=e3799]:
+                                                                    - generic [ref=e3801]:
+                                                                      - generic [ref=e3809]:
+                                                                        - generic [ref=e3810]:
+                                                                          - button "関連リンクを表示" [ref=e3812]
+                                                                    - generic [ref=e3818]:
+                                                                      - generic [ref=e3819]:
+                                                                        - generic [ref=e3820]:
+                                                                          - button "関連リンクを表示" [ref=e3822]
+                                                                    - generic [ref=e3831]:
+                                                                      - generic [ref=e3832]:
+                                                                        - generic [ref=e3833]:
+                                                                          - generic [ref=e3834]:
+                                                                            - button "関連リンクを表示" [ref=e3836]
+                                                                    - generic [ref=e3845]:
+                                                                      - generic [ref=e3846]:
+                                                                        - generic [ref=e3847]:
+                                                                          - generic [ref=e3850]:
+                                                                            - generic [ref=e3855]:
+                                                                              - generic [ref=e3859]:
+                                                                                - generic [ref=e3860]:
+                                                                                  - button "関連リンクを表示" [ref=e3862]
+                                                                        - generic [ref=e3868]:
+                                                                          - generic [ref=e3871]:
+                                                                            - generic [ref=e4154]:
+                                                                              - generic [ref=e4158]:
+                                                                                - generic [ref=e4160]:
+                                                                                  - generic [ref=e4161]:
+                                                                                    - button "関連リンクを表示" [ref=e4163]
+                                                                    - generic [ref=e3872]:
+                                                                      - generic [ref=e3946]:
+                                                                        - generic [ref=e3947]:
+                                                                          - generic [ref=e3950]:
+                                                                            - generic [ref=e3951]:
+                                                                              - button "夏井いつきのおウチde俳句くらぶ (+3) - 関連リンクを表示" [ref=e3954]
+                                                                      - generic [ref=e3965]:
+                                                                        - generic [ref=e3966]:
+                                                                          - generic [ref=e3971]:
+                                                                            - generic [ref=e3972]:
+                                                                              - button "関連リンクを表示" [ref=e3974]
+                                                                      - generic [ref=e3993]:
+                                                                        - generic [ref=e3994]:
+                                                                          - list [ref=e3995]:
+                                                                            - listitem [ref=e3997]:
+                                                                              - generic [ref=e3998]:
+                                                                                - generic [ref=e4000]:
+                                                                                  - generic [ref=e4007]:
+                                                                                    - generic [ref=e4013]:
+                                                                                      - generic [ref=e4014]:
+                                                                                        - generic [ref=e4015]:
+                                                                                          - button "この結果の詳細" [ref=e4016]
+                                                                            - listitem [ref=e4023]:
+                                                                              - generic [ref=e4024]:
+                                                                                - generic [ref=e4026]:
+                                                                                  - generic [ref=e4033]:
+                                                                                    - generic [ref=e4039]:
+                                                                                      - generic [ref=e4040]:
+                                                                                        - generic [ref=e4041]:
+                                                                                          - button "この結果の詳細" [ref=e4042]
+                                                                            - listitem [ref=e4049]:
+                                                                              - generic [ref=e4050]:
+                                                                                - generic [ref=e4052]:
+                                                                                  - generic [ref=e4059]:
+                                                                                    - generic [ref=e4065]:
+                                                                                      - generic [ref=e4066]:
+                                                                                        - generic [ref=e4067]:
+                                                                                          - button "この結果の詳細" [ref=e4068]
+                                                                            - listitem [ref=e4075]:
+                                                                              - generic [ref=e4076]:
+                                                                                - generic [ref=e4078]:
+                                                                                  - generic [ref=e4085]:
+                                                                                    - generic [ref=e4091]:
+                                                                                      - generic [ref=e4092]:
+                                                                                        - generic [ref=e4093]:
+                                                                                          - button "この結果の詳細" [ref=e4094]
+                                                                            - listitem [ref=e4101]:
+                                                                              - generic [ref=e4102]:
+                                                                                - generic [ref=e4104]:
+                                                                                  - generic [ref=e4111]:
+                                                                                    - generic [ref=e4117]:
+                                                                                      - generic [ref=e4118]:
+                                                                                        - generic [ref=e4119]:
+                                                                                          - button "この結果の詳細" [ref=e4120]
+                                                                            - listitem [ref=e4127]:
+                                                                              - generic [ref=e4128]:
+                                                                                - generic [ref=e4130]:
+                                                                                  - generic [ref=e4137]:
+                                                                                    - generic [ref=e4143]:
+                                                                                      - generic [ref=e4144]:
+                                                                                        - generic [ref=e4145]:
+                                                                                          - button "この結果の詳細" [ref=e4146]
+                                                                            - generic [ref=e4544]:
+                                                                              - generic [ref=e4569]:
+                                                                                - generic [ref=e4568]:
+                                                                                  - generic [ref=e4567]:
+                                                                                    - generic [ref=e4566]:
+                                                                                      - generic [ref=e4565]:
+                                                                                        - generic [ref=e4564]:
+                                                                                          - button "この結果の詳細" [ref=e4563]
+                                                                - generic [ref=e3877]:
+                                                                  - generic [ref=e3878]:
+                                                                    - generic [ref=e3879]:
+                                                                      - dialog [ref=e4170]:
+                                                                        - generic [ref=e4171]:
+                                                                          - generic [ref=e4172]:
+                                                                            - button "6 件のサイト" [ref=e4173]
+                                                                            - button "閉じる" [ref=e4186]
+                                                                          - generic [ref=e4191]:
+                                                                            - generic [ref=e4192]:
+                                                                              - generic [ref=e4193]:
+                                                                                - generic [ref=e4195]:
+                                                                                  - generic [ref=e4202]:
+                                                                                    - generic [ref=e4210]:
+                                                                                      - generic [ref=e4211]:
+                                                                                        - generic [ref=e4212]:
+                                                                                          - button "この結果の詳細" [ref=e4213]
+                                                                            - generic [ref=e4221]:
+                                                                              - generic [ref=e4222]:
+                                                                                - generic [ref=e4224]:
+                                                                                  - generic [ref=e4231]:
+                                                                                    - generic [ref=e4239]:
+                                                                                      - generic [ref=e4240]:
+                                                                                        - generic [ref=e4241]:
+                                                                                          - button "この結果の詳細" [ref=e4242]
+                                                                            - generic [ref=e4250]:
+                                                                              - generic [ref=e4251]:
+                                                                                - generic [ref=e4253]:
+                                                                                  - generic [ref=e4260]:
+                                                                                    - generic [ref=e4268]:
+                                                                                      - generic [ref=e4269]:
+                                                                                        - generic [ref=e4270]:
+                                                                                          - button "この結果の詳細" [ref=e4271]
+                                                                            - generic [ref=e4279]:
+                                                                              - generic [ref=e4280]:
+                                                                                - generic [ref=e4282]:
+                                                                                  - generic [ref=e4289]:
+                                                                                    - generic [ref=e4297]:
+                                                                                      - generic [ref=e4298]:
+                                                                                        - generic [ref=e4299]:
+                                                                                          - button "この結果の詳細" [ref=e4300]
+                                                                            - generic [ref=e4308]:
+                                                                              - generic [ref=e4309]:
+                                                                                - generic [ref=e4311]:
+                                                                                  - generic [ref=e4318]:
+                                                                                    - generic [ref=e4326]:
+                                                                                      - generic [ref=e4327]:
+                                                                                        - generic [ref=e4328]:
+                                                                                          - button "この結果の詳細" [ref=e4329]
+                                                                            - generic [ref=e4337]:
+                                                                              - generic [ref=e4338]:
+                                                                                - generic [ref=e4340]:
+                                                                                  - generic [ref=e4347]:
+                                                                                    - generic [ref=e4355]:
+                                                                                      - generic [ref=e4356]:
+                                                                                        - generic [ref=e4357]:
+                                                                                          - button "この結果の詳細" [ref=e4358]
+                                                                            - generic [ref=e4470]:
+                                                                              - generic [ref=e4497]:
+                                                                                - generic [ref=e4496]:
+                                                                                  - generic [ref=e4495]:
+                                                                                    - generic [ref=e4494]:
+                                                                                      - generic [ref=e4493]:
+                                                                                        - generic [ref=e4492]:
+                                                                                          - button "この結果の詳細" [ref=e4491]
+                                                                - generic [ref=e3885]:
+                                                                  - alert [ref=e3886]:
+                                                                    - button [ref=e3893]
+                                                                    - button "閉じる" [ref=e3894]
+                                              - generic [ref=e3905]:
+                                                - generic [ref=e3906]:
+                                                  - generic [ref=e3907]:
+                                                    - generic [ref=e3908]:
+                                                      - generic [ref=e3909]:
+                                                        - generic [ref=e3910]:
+                                                          - generic [ref=e3913]:
+                                                            - generic [ref=e3914]:
+                                                              - generic [ref=e3915]:
+                                                                - generic [ref=e3917]:
+                                                                  - generic [ref=e3918]:
+                                                                    - generic [ref=e3919]:
+                                                                      - generic [ref=e3920]:
+                                                                        - button "閉じる" [ref=e3922]
+                                          - generic [ref=e3929]:
+                                            - button [ref=e3930]
+                                            - generic [ref=e3931]:
+                                              - button [ref=e3932]
+                      - generic [ref=e1825] [box=124,658,652,53]:
+                        - generic [ref=e1827] [box=124,658,652,53]:
+                          - generic [ref=e1829] [box=124,659,652,52]:
+                            - button "「鵜川」とはどういう意味ですか？" [ref=e1830] [box=124,659,652,52]
+                      - generic [ref=e1842] [box=124,711,652,53]:
+                        - generic [ref=e1844] [box=124,711,652,53]:
+                          - generic [ref=e1846] [box=124,712,652,52]:
+                            - button "うがわとは？" [ref=e1847] [box=124,712,652,52]:
+                              - generic "うがわとは？" [ref=e1850] [box=124,729,96,18]
+                              - generic [ref=e1852] [box=746,726,24,24]:
+                                - generic [ref=e1853] [box=746,726,24,24]:
+                                  - generic [ref=e1854] [box=752,734,12,7]
+                              - generic [ref=e1855] [box=124,712,652,52]
+                      - generic [ref=e1859] [box=124,764,652,53]:
+                        - generic [ref=e1861] [box=124,764,652,53]:
+                          - generic [ref=e1863] [box=124,765,652,52]:
+                            - button "鵜川もえかは引退するのでしょうか？" [ref=e1864] [box=124,765,652,52]:
+                              - generic "鵜川もえかは引退するのでしょうか？" [ref=e1867] [box=124,782,271,18]
+                              - generic [ref=e1869] [box=746,779,24,24]:
+                                - generic [ref=e1870] [box=746,779,24,24]:
+                                  - generic [ref=e1871] [box=752,787,12,7]
+                              - generic [ref=e1872] [box=124,765,652,52]
+                      - generic [ref=e1875] [box=124,817,652,0]
+                  - generic [ref=e1880] [box=124,861,652,116]:
+                    - heading "ウェブ検索結果" [level=2] [ref=e1881] [box=124,878,1,1]
+                    - generic [ref=e1882] [box=124,861,652,116]:
+                      - link "鵜川 Wikipedia https://ja.wikipedia.org › wiki › 鵜川" [ref=e1887] [box=124,873,227,44]:
+                        - /url: https://ja.wikipedia.org/wiki/%E9%B5%9C%E5%B7%9D
+                        - heading "鵜川" [level=3] [ref=e1888] [box=124,899,40,31]
+                        - LineBreak [ref=e1889] [box=164,902,0,16]
+                        - generic [ref=e1890] [box=124,861,227,38]:
+                          - generic [ref=e1892] [box=124,866,40,28]:
+                            - generic [ref=e1893] [box=124,870,28,16]:
+                              - generic [ref=e1894] [box=124,866,28,28]:
+                                - img [ref=e1895] [box=124,866,28,28]
+                          - generic "https://ja.wikipedia.org" [ref=e1900] [box=164,881,187,18]:
+                            - text: https://ja.wikipedia.org
+                            - text "› wiki › 鵜川" [ref=e1901] [box=286,882,65,15]
+                      - generic [ref=e1902] [box=124,880,652,0]:
+                        - generic [ref=e1903] [box=124,861,227,38]:
+                          - generic [ref=e1904] [box=124,861,227,38]:
+                            - generic [ref=e1905] [box=124,863,40,33]:
+                              - generic [ref=e1906] [box=124,878,28,16]:
+                                - generic [ref=e1907] [box=124,863,28,28]
+                            - generic [ref=e1908] [box=164,861,187,38]:
+                              - generic [ref=e1909] [box=164,861,187,20]:
+                                - generic "Wikipedia" [ref=e1910] [box=164,861,187,20]
+                              - generic [ref=e1911] [box=164,881,187,18]:
+                                - text "https://ja.wikipedia.org" [ref=e1912] [box=164,881,187,18]:
+                                  - text: https://ja.wikipedia.org
+                                  - text "› wiki › 鵜川" [ref=e1913] [box=286,882,65,15]
+                        - generic [ref=e1914] [box=359,879,28,18]:
+                          - generic [ref=e1915] [box=359,879,28,20]:
+                            - button "この結果について" [ref=e1916] [box=359,879,28,20]:
+                              - generic [ref=e1919] [box=364,881,18,18]:
+                                - generic [ref=e1920] [box=371,884,3,12]
+                      - generic [ref=e1922] [box=124,933,652,44]:
+                        - generic "鵜川 · 。 · 河川名称. 鵜川 (新潟県) - 新潟県柏崎市を流れる本流の二級河川。 鵜川 (滋賀県) - 主に滋賀県大津市と高島市の境界を琵琶湖まで ..." [ref=e1923] [box=124,936,635,38]:
+                          - text: 鵜川 ·
+                          - emphasis "夏の季語。鵜飼をする川" [ref=e1924] [box=165,936,154,16]
+                          - text: 。 · 河川名称. 鵜川 (新潟県) - 新潟県柏崎市を流れる本流の二級河川。 鵜川 (滋賀県) - 主に滋賀県大津市と高島市の境界を琵琶湖まで ...
+      - generic [ref=e2557]:
+        - button "閉じる" [ref=e3355]# ---
+# This page has 3 viewports (page chunks split by viewport height). You are currently viewing viewport 1.
+# To read the page viewport by viewport (like a human scrolling):
+#   snapshot -v 0          # view the top of the page
+#   snapshot -v 2          # scroll down to viewport 2
+#   snapshot -v 0-2    # capture all viewports at once
+#   snapshot -v all       # capture all viewports (same as above)
+#

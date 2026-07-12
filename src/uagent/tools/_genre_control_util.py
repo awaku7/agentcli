@@ -27,6 +27,9 @@ _GENRE_BITMAP: dict[str, int] = {
     "media": 128,
     "file": 256,
     "index": 512,
+    "dev": 1024,
+    "web": 2048,
+    "utility": 4096,
 }
 
 

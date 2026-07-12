@@ -1,0 +1,50 @@
+# Auto-snapshot after command — full viewport (viewport 0).
+# Use `browser4-cli snapshot grep <pattern>` to search the tree.
+
+# Viewport State
+# - processingViewport: 0
+# - viewportHeight: 985px
+# - viewportsTotal: 1
+# - hiddenTopHeight: 0px
+# - hiddenBottomHeight: 0px
+#
+- separator [ref=e1207] [box=28,37,400,1]:
+  - /orientation: horizontal
+- LineBreak [ref=e1170] [box=28,47,0,21]
+- form [ref=e1169] [box=28,69,400,78]:
+  - generic "recaptcha reCAPTCHA reCAPTCHA a-rye53bimbl3k presentation https://www.google.com/recaptcha/enterprise/anchor?ar=1&k=6LdLLIMbAAAAAIl-KLj9p1ePhM-4LCCDbjtJLqRO&co=aHR0cHM6Ly93d3cuZ29vZ2xlLmNvbTo0NDM.&hl=ja&v=TnA7HacJFoDyljdc3L82L3Rh&size=normal&s=kvHKADJRlNNSiCVpA8Jrq9PspeTc7LNjeblzaNV8dMjSDuq4xP78WYE4pIo83t0_KM1nW_yqik7pAgAfoxSpkdIpr00fKrKqIqfVwveMEDpkMXsAD7dsQ08bUbZXHpoKzFvxpIPzI1E1AXtgIQbHM_SWprIz2LIYN6TsiUyJZ8pZj766sotl97JmMdJtNG1HaySPwZla511qEoELMzn-ua7KwNvt1vTvc3dgPzQYGqxB5OSVYXdmiXkJVYD6faWxblHBUuAYIBTl5qY1yqqi8UBuFI4y8L0&anchor-ms=20000&execute-ms=30000&cb=qqcx6ixfrqdv g-recaptcha-response g-recaptcha-response" [ref=e1212] [box=28,69,400,78]:
+    - generic "reCAPTCHA reCAPTCHA a-rye53bimbl3k presentation https://www.google.com/recaptcha/enterprise/anchor?ar=1&k=6LdLLIMbAAAAAIl-KLj9p1ePhM-4LCCDbjtJLqRO&co=aHR0cHM6Ly93d3cuZ29vZ2xlLmNvbTo0NDM.&hl=ja&v=TnA7HacJFoDyljdc3L82L3Rh&size=normal&s=kvHKADJRlNNSiCVpA8Jrq9PspeTc7LNjeblzaNV8dMjSDuq4xP78WYE4pIo83t0_KM1nW_yqik7pAgAfoxSpkdIpr00fKrKqIqfVwveMEDpkMXsAD7dsQ08bUbZXHpoKzFvxpIPzI1E1AXtgIQbHM_SWprIz2LIYN6TsiUyJZ8pZj766sotl97JmMdJtNG1HaySPwZla511qEoELMzn-ua7KwNvt1vTvc3dgPzQYGqxB5OSVYXdmiXkJVYD6faWxblHBUuAYIBTl5qY1yqqi8UBuFI4y8L0&anchor-ms=20000&execute-ms=30000&cb=qqcx6ixfrqdv" [ref=e1186] [box=28,69,304,78]:
+      - IframePresentational "reCAPTCHA" [ref=e1213] [box=28,69,304,78]:
+        - generic [ref=e1248] [box=0,0,304,76]:
+          - generic [ref=e1258] [box=0,0,304,76]:
+            - generic "rc-anchor-alert" [ref=e1259] [box=2,2,0,0]
+            - generic "rc-anchor-container recaptcha-accessible-status reCAPTCHA による確認が必要です. recaptcha-anchor checkbox false presentation presentation presentation presentation recaptcha-anchor-label presentation 私はロボットではありません presentation reCAPTCHA" [ref=e1263] [box=0,0,302,76]:
+              - generic "recaptcha-anchor checkbox false presentation presentation presentation presentation recaptcha-anchor-label presentation 私はロボットではありません" [ref=e1268] [box=1,1,206,74]:
+                - generic "recaptcha-anchor checkbox false presentation presentation presentation presentation" [ref=e1269] [box=1,1,52,74]:
+                  - generic "recaptcha-anchor checkbox false presentation presentation presentation presentation" [ref=e1270] [box=1,1,52,74]:
+                    - generic "recaptcha-anchor checkbox false presentation presentation presentation presentation" [ref=e1271] [box=1,1,52,74]:
+                      - checkbox "recaptcha-anchor checkbox false presentation presentation presentation presentation" [ref=e1272] [cursor=pointer] [box=13,23,28,28]
+                - generic "recaptcha-anchor-label presentation 私はロボットではありません" [ref=e1276] [box=53,1,152,74]:
+                  - generic "recaptcha-anchor-label presentation 私はロボットではありません" [ref=e1277] [box=53,1,152,74]: 私はロボットではありません
+              - generic "presentation reCAPTCHA" [ref=e1281] [box=207,1,70,74]:
+                - generic "reCAPTCHA" [ref=e1283] [box=233,48,58,10]
+    - textbox "g-recaptcha-response g-recaptcha-response" [ref=e1187]
+- separator [ref=e1191] [box=28,165,400,1]:
+  - /orientation: horizontal
+- generic "このページについて" [ref=e1217] [box=28,177,117,16]
+- LineBreak [ref=e1172] [box=145,190,0,0]
+- LineBreak [ref=e1173] [box=28,194,0,16]
+- text: お使いのコンピュータ ネットワークから通常と異なるトラフィックが検出されました。このページは、リクエストがロボットではなく実際のユーザーによって送信されたことを確かめるものです。
+- link "このページが表示された理由" [ref=e1218] [cursor=pointer] [box=28,250,388,35]:
+  - /url: "#"
+- LineBreak [ref=e1176] [box=171,282,0,0]
+- LineBreak [ref=e1177] [box=28,286,0,16]
+- LineBreak [ref=e1178] [box=28,302,0,16]
+- "generic \"IP アドレス: 139.101.147.206 時間: 2026-07-12T01:18:49Z URL: https://www.google.com/search?q=%E9%B5%9C%E5%B7%9D&sca_esv=b640ccf014533559&source=hp&ei=WutSatr-Fq2M2roPrISWqA4&iflsig=ABILxe8AAAAAalL5akFarDy-B9OicdF0dQJgfJGCJ5gy&ved=0ahUKEwjak8_9-8uVAxUthlYBHSyCBeUQ4dUDCB4&uact=5&oq=%E9%B5%9C%E5%B7%9D&gs_lp=Egdnd3Mtd2l6IgbptZzlt50yBRAAGIAEMgUQABiABDIFEAAYgAQyBRAAGIAEMgUQABiABDIFEAAYgAQyBRAAGIAEMgUQABiABDIFEAAYgAQyBRAAGIAESIMlUOgRWJMTcAF4AJABAJgBSKABggGqAQEyuAEDyAEA-AEBmAIDoAKOAagCCsICChAAGAMYjwEY6gLCAgsQABiABBixAxiDAcICCBAAGIAEGLEDmAMG8QWmZWalFkygNZIHATOgB6AEsgcBMrgHhwHCBwUwLjIuMcgHCIAIAQ&sclient=gws-wiz&sei=eOtSavGWI9e32roP2f3OgQE\" [ref=e1226] [box=28,318,400,230]":
+  - text: "IP アドレス: 139.101.147.206"
+  - LineBreak [ref=e1180] [box=200,320,0,16]
+  - text: "時間: 2026-07-12T01:18:49Z"
+  - LineBreak [ref=e1182] [box=190,339,0,16]
+  - text: "URL: https://www.google.com/search?q=%E9%B5%9C%E5%B7%9D&sca_esv=b640ccf014533559&source=hp&ei=WutSatr-Fq2M2roPrISWqA4&iflsig=ABILxe8AAAAAalL5akFarDy-B9OicdF0dQJgfJGCJ5gy&ved=0ahUKEwjak8_9-8uVAxUthlYBHSyCBeUQ4dUDCB4&uact=5&oq=%E9%B5%9C%E5%B7%9D&gs_lp=Egdnd3Mtd2l6IgbptZzlt50yBRAAGIAEMgUQABiABDIFEAAYgAQyBRAAGIAEMgUQABiABDIFEAAYgAQyBRAAGIAEMgUQABiABDIFEAAYgAQyBRAAGIAESIMlUOgRWJMTcAF4AJABAJgBSKABggGqAQEyuAEDyAEA-AEBmAIDoAKOAagCCsICChAAGAMYjwEY6gLCAgsQABiABBixAxiDAcICCBAAGIAEGLEDmAMG8QWmZWalFkygNZIHATOgB6AEsgcBMrgHhwHCBwUwLjIuMcgHCIAIAQ&sclient=gws-wiz&sei=eOtSavGWI9e32roP2f3OgQE"
+  - LineBreak [ref=e1184] [box=90,532,0,16]
+- generic "reCAPTCHA による確認は 2 分間有効です c-rye53bimbl3k https://www.google.com/recaptcha/enterprise/bframe?hl=ja&v=TnA7HacJFoDyljdc3L82L3Rh&k=6LdLLIMbAAAAAIl-KLj9p1ePhM-4LCCDbjtJLqRO&bft=0dAFcWeA6scMyV6WAMKjp4StXS3SiyO1BjY9Crc8hzHS9CuDp1fnPiZww54f45ZT2bP8-VS4EHzSHb3Mc1iCjRm0BxA8-dTfHX0A" [ref=e1240] [box=0,-10000,302,152]

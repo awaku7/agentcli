@@ -29,6 +29,9 @@ _GENRE_LABELS: dict[str, str] = {
     "media": "Media",
     "file": "File",
     "index": "Index",
+    "dev": "Dev",
+    "web": "Web",
+    "utility": "Utility",
 }
 
 

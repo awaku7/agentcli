@@ -1,0 +1,230 @@
+# Snapshot viewport(s): 0
+# This file contains the accessibility tree for the requested viewport(s) only.
+# Use `browser4-cli snapshot grep <pattern>` to search the full in-memory tree.
+# Use `browser4-cli snapshot -v all` to capture all viewports.
+
+# Viewport State
+# - processingViewport: 1
+# - viewportHeight: 985px
+# - viewportsTotal: 10
+# - hiddenTopHeight: 1400px
+# - hiddenBottomHeight: 6737px
+#
+- generic [ref=e48] [box=0,0,1139,9121]:
+  - insertion [ref=e1377] [box=0,160,1139,280]:
+    - generic [ref=e1378] [box=0,160,1139,280]:
+      - generic "Advertisement" [ref=e984] [cursor=pointer] [box=0,160,1139,280]
+  - generic [ref=e726] [box=87,450,964,28]:
+    - generic [ref=e1417] [box=89,453,960,24]:
+      - link "【みんなの家系図】日本唯一のつながる家系図作成サイト！" [ref=e1418] [cursor=pointer] [box=353,453,432,24]:
+        - /url: https://minnano-kakeizu.net/
+  - generic [ref=e727] [box=87,482,964,28]:
+    - generic [ref=e1419] [box=89,485,960,24]:
+      - link "【戦国村を作ろう3】稲を刈って戦国時代に自分だけの村を作り天下統一を目指そう！" [ref=e1420] [cursor=pointer] [box=260,485,618,24]:
+        - /url: https://www.recstu.co.jp/landingpage/Sengoku3/index.html
+  - generic [ref=e728] [box=87,514,964,28]:
+    - generic [ref=e1421] [box=89,517,960,24]:
+      - link "今なら家系図作成が56％OFF！ご先祖様と家族の家系図を子孫に残そう！" [ref=e1422] [cursor=pointer] [box=304,517,530,24]:
+        - /url: https://myoji-yurai.net/familyTree/applicationManage/
+  - generic [ref=e729] [box=87,546,964,28]:
+    - generic [ref=e1423] [box=89,549,960,24]:
+      - link "２０２６年上半期有名人トレンドアクセスランキングベスト１００を発表！" [ref=e1424] [cursor=pointer] [box=297,549,544,24]:
+        - /url: https://myoji-yurai.net/myojiCelebrityAccessRanking.htm
+  - generic [ref=e730] [box=89,578,960,7979]:
+    - generic [ref=e1425] [box=89,578,960,7979]:
+      - generic [ref=e1426] [box=94,603,194,4120]:
+        - list [ref=e1427] [box=94,603,194,4115]:
+          - generic [ref=e1428] [box=94,603,194,26]:
+            - rowgroup [ref=e1429] [box=95,603,193,25]:
+              - row [ref=e1430] [box=95,603,193,25]:
+                - columnheader "■みんなの名字の由来" [ref=e1431] [box=95,603,193,25]:
+                  - text: ■みんなの名字の由来
+                  - image [ref=e284] [box=239,611,31,10]
+          - generic [ref=e1433] [box=94,629,97,146]:
+            - rowgroup [ref=e1434] [box=95,629,96,0]:
+              - row [ref=e1435] [box=95,629,96,0]
+            - row [ref=e1439] [box=95,629,96,29]:
+              - cell "1" [ref=e1440] [box=95,629,25,29]
+              - cell "赤羽" [ref=e1441] [box=120,629,71,29]:
+                - link "赤羽" [ref=e1442] [cursor=pointer] [box=124,632,32,24]:
+                  - /url: /searchResult.htm?myojiKanji=%E8%B5%A4%E7%BE%BD&from=rank
+            - row [ref=e1443] [box=95,658,96,29]:
+              - cell "2" [ref=e1444] [box=95,658,25,29]
+              - cell "巣瀨" [ref=e1445] [box=120,658,71,29]:
+                - link "巣瀨" [ref=e1446] [cursor=pointer] [box=124,661,32,24]:
+                  - /url: /searchResult.htm?myojiKanji=%E5%B7%A3%E7%80%A8&from=rank
+            - row [ref=e1447] [box=95,687,96,29]:
+              - cell "3" [ref=e1448] [box=95,687,25,29]
+              - cell "持増" [ref=e1449] [box=120,687,71,29]:
+                - link "持増" [ref=e1450] [cursor=pointer] [box=124,690,32,24]:
+                  - /url: /searchResult.htm?myojiKanji=%E6%8C%81%E5%A2%97&from=rank
+            - row [ref=e1451] [box=95,716,96,29]:
+              - cell "4" [ref=e1452] [box=95,716,25,29]
+              - cell "野嶽" [ref=e1453] [box=120,716,71,29]:
+                - link "野嶽" [ref=e1454] [cursor=pointer] [box=124,719,32,24]:
+                  - /url: /searchResult.htm?myojiKanji=%E9%87%8E%E5%B6%BD&from=rank
+            - row [ref=e1455] [box=95,745,96,29]:
+              - cell "5" [ref=e1456] [box=95,745,25,29]
+              - cell "宇宿" [ref=e1457] [box=120,745,71,29]:
+                - link "宇宿" [ref=e1458] [cursor=pointer] [box=124,748,32,24]:
+                  - /url: /searchResult.htm?myojiKanji=%E5%AE%87%E5%AE%BF&from=rank
+          - generic [ref=e1459] [box=191,629,97,146]:
+            - rowgroup [ref=e1460] [box=192,629,96,0]:
+              - row [ref=e1461] [box=192,629,96,0]
+            - row [ref=e1465] [box=192,629,96,29]:
+              - cell "6" [ref=e1466] [box=192,629,29,29]
+              - cell "金気" [ref=e1467] [box=221,629,67,29]:
+                - link "金気" [ref=e1468] [cursor=pointer] [box=225,632,32,24]:
+                  - /url: /searchResult.htm?myojiKanji=%E9%87%91%E6%B0%97&from=rank
+            - row [ref=e1469] [box=192,658,96,29]:
+              - cell "7" [ref=e1470] [box=192,658,29,29]
+              - cell "蔵坪" [ref=e1471] [box=221,658,67,29]:
+                - link "蔵坪" [ref=e1472] [cursor=pointer] [box=225,661,32,24]:
+                  - /url: /searchResult.htm?myojiKanji=%E8%94%B5%E5%9D%AA&from=rank
+            - row [ref=e1473] [box=192,687,96,29]:
+              - cell "8" [ref=e1474] [box=192,687,29,29]
+              - cell "松相" [ref=e1475] [box=221,687,67,29]:
+                - link "松相" [ref=e1476] [cursor=pointer] [box=225,690,32,24]:
+                  - /url: /searchResult.htm?myojiKanji=%E6%9D%BE%E7%9B%B8&from=rank
+            - row [ref=e1477] [box=192,716,96,29]:
+              - cell "9" [ref=e1478] [box=192,716,29,29]
+              - cell "江内谷" [ref=e1479] [box=221,716,67,29]:
+                - link "江内谷" [ref=e1480] [cursor=pointer] [box=225,719,48,24]:
+                  - /url: /searchResult.htm?myojiKanji=%E6%B1%9F%E5%86%85%E8%B0%B7&from=rank
+            - row [ref=e1481] [box=192,745,96,29]:
+              - cell "10" [ref=e1482] [box=192,745,29,29]
+              - cell "茭口" [ref=e1483] [box=221,745,67,29]:
+                - link "茭口" [ref=e1484] [cursor=pointer] [box=225,748,32,24]:
+                  - /url: /searchResult.htm?myojiKanji=%E8%8C%AD%E5%8F%A3&from=rank
+          - text: 続きは
+          - link "こちら" [ref=e1486] [cursor=pointer] [box=142,775,48,24]:
+            - /url: yuraiList.htm
+          - generic [ref=e1488] [box=94,819,194,222]:
+            - rowgroup [ref=e1489] [box=95,819,193,24]:
+              - row [ref=e1490] [box=95,819,193,24]:
+                - columnheader "■みんなの家紋のはなし" [ref=e1491] [box=95,819,193,24]:
+                  - text: ■みんなの家紋のはなし
+                  - image [ref=e285] [box=242,826,31,10]
+            - row [ref=e1493] [box=95,844,193,52]:
+              - cell "1" [ref=e1494] [box=95,844,19,52]
+              - cell "檜扇に菊水  檜扇に菊水" [ref=e1495] [box=114,844,109,52]:
+                - generic [ref=e731] [box=118,846,24,24]:
+                  - image "檜扇に菊水" [ref=e740] [box=118,846,24,24]
+                - link "檜扇に菊水" [ref=e1496] [cursor=pointer] [box=118,846,93,48]:
+                  - /url: https://myoji-kamon.net/kamonYuraiList.htm?keyword=%E6%AA%9C%E6%89%87%E3%81%AB%E8%8F%8A%E6%B0%B4
+              - cell "吉田" [ref=e1498] [box=223,844,65,52]:
+                - link "吉田" [ref=e1499] [cursor=pointer] [box=227,846,32,24]:
+                  - /url: searchResult.htm?from=rank&myojiKanji=%E5%90%89%E7%94%B0
+            - row [ref=e1500] [box=95,896,193,36]:
+              - cell "2" [ref=e1501] [box=95,896,19,36]
+              - cell "花菱 花菱" [ref=e1502] [box=114,896,109,36]:
+                - link "花菱 花菱" [ref=e1503] [cursor=pointer] [box=118,906,61,24]:
+                  - /url: https://myoji-kamon.net/kamonDetail.htm?from=rank&kamonName=%E8%8A%B1%E8%8F%B1
+                  - image "花菱" [ref=e732] [box=118,899,24,24]
+                  - text: 花菱
+              - cell "小早川" [ref=e1504] [box=223,896,65,36]:
+                - link "小早川" [ref=e1505] [cursor=pointer] [box=227,906,48,24]:
+                  - /url: searchResult.htm?from=rank&myojiKanji=%E5%B0%8F%E6%97%A9%E5%B7%9D
+            - row [ref=e1506] [box=95,932,193,36]:
+              - cell "3" [ref=e1507] [box=95,932,19,36]
+              - cell "花菱 花菱" [ref=e1508] [box=114,932,109,36]:
+                - link "花菱 花菱" [ref=e1509] [cursor=pointer] [box=118,942,61,24]:
+                  - /url: https://myoji-kamon.net/kamonDetail.htm?from=rank&kamonName=%E8%8A%B1%E8%8F%B1
+                  - image "花菱" [ref=e733] [box=118,935,24,24]
+                  - text: 花菱
+              - cell "窪島" [ref=e1510] [box=223,932,65,36]:
+                - link "窪島" [ref=e1511] [cursor=pointer] [box=227,942,32,24]:
+                  - /url: searchResult.htm?from=rank&myojiKanji=%E7%AA%AA%E5%B3%B6
+            - row [ref=e1512] [box=95,968,193,36]:
+              - cell "4" [ref=e1513] [box=95,968,19,36]
+              - cell "花菱 花菱" [ref=e1514] [box=114,968,109,36]:
+                - link "花菱 花菱" [ref=e1515] [cursor=pointer] [box=118,978,61,24]:
+                  - /url: https://myoji-kamon.net/kamonDetail.htm?from=rank&kamonName=%E8%8A%B1%E8%8F%B1
+                  - image "花菱" [ref=e734] [box=118,971,24,24]
+                  - text: 花菱
+              - cell "市野瀬" [ref=e1516] [box=223,968,65,36]:
+                - link "市野瀬" [ref=e1517] [cursor=pointer] [box=227,978,48,24]:
+                  - /url: searchResult.htm?from=rank&myojiKanji=%E5%B8%82%E9%87%8E%E7%80%AC
+      - generic [ref=e1697] [box=293,603,410,7934]:
+        - generic [ref=e742] [box=311,621,374,200]:
+          - heading "鵜川" [level=1] [ref=e1703] [box=313,623,370,36]
+          - paragraph "【読み】うかわ,うがわ,ていかわ,かもがわ,かもかわ,うねかわ 【ローマ字】 【全国順位】 3,201位 【全国人数】 およそ3,900人" [ref=e1704] [box=313,659,370,144]:
+            - text: 【読み】うかわ,うがわ,ていかわ,かもがわ,かもかわ,うねかわ
+            - LineBreak [ref=e276] [box=399,683,0,24]
+            - text: 【ローマ字】
+            - generic "Ukawa,Ugawa,Teikawa,Kamogawa,Kamokawa,Unekawa" [ref=e1705] [box=313,707,357,48]
+            - LineBreak [ref=e278] [box=490,731,0,24]
+            - text: 【全国順位】 3,201位
+            - LineBreak [ref=e280] [box=476,755,0,24]
+            - text: 【全国人数】 およそ3,900人
+        - generic [ref=e1708] [box=303,829,390,300]:
+          - insertion [ref=e2941] [cursor=pointer] [box=303,829,390,280]:
+            - generic [ref=e2945] [box=303,829,390,280]:
+              - generic "Advertisement" [ref=e2947] [box=303,829,390,280]
+      - generic [ref=e2269] [box=708,603,336,6329]:
+        - list [ref=e2270] [box=708,603,336,6309]:
+          - listitem [level=1] [ref=e2272] [box=708,603,336,280]:
+            - generic [ref=e2274] [box=708,603,336,280]:
+              - generic [ref=e2276] [box=708,603,336,280]:
+                - generic "広告" [ref=e2929] [cursor=pointer] [box=708,603,336,280]:
+                  - generic [ref=e3763] [box=0,0,336,280]:
+                    - generic [ref=e3783] [box=0,0,336,280]:
+                      - generic [ref=e3788] [box=0,0,336,280]:
+                        - generic [ref=e3789] [box=0,0,336,280]:
+                          - generic [ref=e3790] [box=1,1,334,278]:
+                            - generic [ref=e3791] [box=1,1,334,278]:
+                              - generic "Amazon.co.jp" [ref=e3792] [box=22,41,290,48]:
+                                - generic [ref=e3793] [box=22,53,290,36]:
+                                  - link "Amazon プライムデー" [ref=e3794] [box=22,50,279,40]:
+                                    - /url: https://www.googleadservices.com/pagead/aclk?sa=L&ai=CjY_zr-xSatPxEbqhjeYP4pqR-Aeh2eSKiAG0pK2K1BWQiYDskAIQASDljvomYImj14S0FKABkKrL-D7IAQGpAuutCOlUkDo-4AIAqAMByAMKqgSrAk_QAinNo0Nb41DxUQE4CH-5YK2Yvz_vAHwOkTWlan5UZvJ013TreJaXaZKGt6XjJVrWZEVFcwU9g3aaHRRo9TYySi4a1SxPmDlYgVMGYAP5Oh-eVuPuzvRWfS53vkBt5G41ziJ-4a0wSwOPbGkTYiQsToLFLfK91e4eEXuD4Gj-DKMUBMCXSQ3BakN-g1rw6TxwrkBBRv14-Pn6ciOHT0a7gG_TGF3cs6Qj5Hnf_drVD8OysIed2d16pvJPUHLlCKD_lZCRWWEA40whmxLZSXON58wFuc_pr5C5AjSMAAroJe6QpM9G-QsY9ctCrncRagGJIvv5z2cNWRU1QDuH5uhtjda1nxo0zliUxTLq4X0wGX9sesj75ZyOVWuq9PGdEg-zThULcJk492egwAS49-HR4wXgBAGIBdvl9KtZgAeQ4pvYGagHp8yxAqgH4tixAqgHpr4bqAfMzrECqAfz0RuoB5bYG6gHqpuxAqgH_uixAqgHjs4bqAeT2BuoB_DgG6gH7paxAqgH_p6xAqgHr76xAqgH1ckbqAfZtrECqAeaBqgH_56xAqgH35-xAqgH-MKxAqgH-8KxAtgHAdIIMwiAYRABGJ0DMgiKgoCAgICACDoPgECAwICAgICogAKog4AQSL39wTpYk4-WoP3LlQNgAbEJd4qynMErRrKACgGYCwHICwGiDAOQAQGqDQJKUMgNAeINEwiMt5ag_cuVAxW6UMMGHWJNBH_qDRMIw-mWoP3LlQMVulDDBh1iTQR_8A0CiA7___________8B2BMD0BUBmBYByhYCCgD4FgGAFwGyFxoYASoULzIwNzAwMDM3L3NpZGVUb3AzMzZQBroXAjgBqhghCQAAAAAA7PNAEhQvMjA3MDAwMzcvc2lkZVRvcDMzNhgBshgJEgKBTxgBIgEA0BgBwhkCCAE&ae=1&gclid=EAIaIQobChMIk4WXoP3LlQMVulDDBh1iTQR_EAEYASAAEgIF1_D_BwE&num=1&cid=CAQS8wEAEQoqgevKpyAdBpRUcwYe8t-Vl79cSjyPviEdXqWUdSoe--miQB14p4-M-v0RdCRYRd9WqIkkWUpJ4vjFxc8QYyd-MPD-N4CPd-qOlJYgvW6_8O9bisXXFPkzjN3cx9XQa9ZMAROkEArP-7AZAux51eIr36k6y5NbmcyUUF-nnWbYBY4IFhVrzLeqzufMSe7yc38a9TPc-ULMfMYtibgcnjUSU8Yqc22IVc693nsrwPQA7w3VeNiXZjJkl7AjMqEwJA5hw7OCdVfQZa4VBHJKUbPNkzBIgH898MEUjkHIoWl0_nx2WTeoYLfBeq181jE2mwcYAQ&sig=AOD64_3VC213CJFYKqUI1WIGz8Bet_36kw&client=ca-pub-6661333100183848&rf=4&nb=0&adurl=https://www.amazon.co.jp/primeday%3Ftag%3Dxcmadnw10505924-22%26ref_%3DXCJP26JP003_63-20102565_dig_jp_primedayq3-26_dtsu_q3-26_daysof_reac_prog_googleads_bannr_x_x_role2_x_x%26gad_source%3D5%26gad_campaignid%3D23982846683%26gclid%3DEAIaIQobChMIk4WXoP3LlQMVulDDBh1iTQR_EAEYASAAEgIF1_D_BwE
+                              - generic [ref=e3796] [box=22,89,290,55]:
+                                - link "この夏ほしいものをお得に手に入れ よう。" [ref=e3797] [box=22,99,261,45]:
+                                  - /url: https://www.googleadservices.com/pagead/aclk?sa=L&ai=CjY_zr-xSatPxEbqhjeYP4pqR-Aeh2eSKiAG0pK2K1BWQiYDskAIQASDljvomYImj14S0FKABkKrL-D7IAQGpAuutCOlUkDo-4AIAqAMByAMKqgSrAk_QAinNo0Nb41DxUQE4CH-5YK2Yvz_vAHwOkTWlan5UZvJ013TreJaXaZKGt6XjJVrWZEVFcwU9g3aaHRRo9TYySi4a1SxPmDlYgVMGYAP5Oh-eVuPuzvRWfS53vkBt5G41ziJ-4a0wSwOPbGkTYiQsToLFLfK91e4eEXuD4Gj-DKMUBMCXSQ3BakN-g1rw6TxwrkBBRv14-Pn6ciOHT0a7gG_TGF3cs6Qj5Hnf_drVD8OysIed2d16pvJPUHLlCKD_lZCRWWEA40whmxLZSXON58wFuc_pr5C5AjSMAAroJe6QpM9G-QsY9ctCrncRagGJIvv5z2cNWRU1QDuH5uhtjda1nxo0zliUxTLq4X0wGX9sesj75ZyOVWuq9PGdEg-zThULcJk492egwAS49-HR4wXgBAGIBdvl9KtZgAeQ4pvYGagHp8yxAqgH4tixAqgHpr4bqAfMzrECqAfz0RuoB5bYG6gHqpuxAqgH_uixAqgHjs4bqAeT2BuoB_DgG6gH7paxAqgH_p6xAqgHr76xAqgH1ckbqAfZtrECqAeaBqgH_56xAqgH35-xAqgH-MKxAqgH-8KxAtgHAdIIMwiAYRABGJ0DMgiKgoCAgICACDoPgECAwICAgICogAKog4AQSL39wTpYk4-WoP3LlQNgAbEJd4qynMErRrKACgGYCwHICwGiDAOQAQGqDQJKUMgNAeINEwiMt5ag_cuVAxW6UMMGHWJNBH_qDRMIw-mWoP3LlQMVulDDBh1iTQR_8A0CiA7___________8B2BMD0BUBmBYByhYCCgD4FgGAFwGyFxoYASoULzIwNzAwMDM3L3NpZGVUb3AzMzZQBroXAjgBqhghCQAAAAAA7PNAEhQvMjA3MDAwMzcvc2lkZVRvcDMzNhgBshgJEgKBTxgBIgEA0BgBwhkCCAE&ae=1&gclid=EAIaIQobChMIk4WXoP3LlQMVulDDBh1iTQR_EAEYASAAEgIF1_D_BwE&num=1&cid=CAQS8wEAEQoqgevKpyAdBpRUcwYe8t-Vl79cSjyPviEdXqWUdSoe--miQB14p4-M-v0RdCRYRd9WqIkkWUpJ4vjFxc8QYyd-MPD-N4CPd-qOlJYgvW6_8O9bisXXFPkzjN3cx9XQa9ZMAROkEArP-7AZAux51eIr36k6y5NbmcyUUF-nnWbYBY4IFhVrzLeqzufMSe7yc38a9TPc-ULMfMYtibgcnjUSU8Yqc22IVc693nsrwPQA7w3VeNiXZjJkl7AjMqEwJA5hw7OCdVfQZa4VBHJKUbPNkzBIgH898MEUjkHIoWl0_nx2WTeoYLfBeq181jE2mwcYAQ&sig=AOD64_3VC213CJFYKqUI1WIGz8Bet_36kw&client=ca-pub-6661333100183848&rf=4&nb=7&adurl=https://www.amazon.co.jp/primeday%3Ftag%3Dxcmadnw10505924-22%26ref_%3DXCJP26JP003_63-20102565_dig_jp_primedayq3-26_dtsu_q3-26_daysof_reac_prog_googleads_bannr_x_x_role2_x_x%26gad_source%3D5%26gad_campaignid%3D23982846683%26gclid%3DEAIaIQobChMIk4WXoP3LlQMVulDDBh1iTQR_EAEYASAAEgIF1_D_BwE
+                                  - text: この夏ほしいものをお得に手に入れ
+                                  - generic [ref=e3799] [box=283,99,0,24]
+                                  - text: よう。
+                              - generic "Amazon.co.jp" [ref=e3801] [box=22,145,290,54]:
+                                - link "Amazon.co.jp" [ref=e3802] [box=22,158,93,20]:
+                                  - /url: https://www.googleadservices.com/pagead/aclk?sa=L&ai=CjY_zr-xSatPxEbqhjeYP4pqR-Aeh2eSKiAG0pK2K1BWQiYDskAIQASDljvomYImj14S0FKABkKrL-D7IAQGpAuutCOlUkDo-4AIAqAMByAMKqgSrAk_QAinNo0Nb41DxUQE4CH-5YK2Yvz_vAHwOkTWlan5UZvJ013TreJaXaZKGt6XjJVrWZEVFcwU9g3aaHRRo9TYySi4a1SxPmDlYgVMGYAP5Oh-eVuPuzvRWfS53vkBt5G41ziJ-4a0wSwOPbGkTYiQsToLFLfK91e4eEXuD4Gj-DKMUBMCXSQ3BakN-g1rw6TxwrkBBRv14-Pn6ciOHT0a7gG_TGF3cs6Qj5Hnf_drVD8OysIed2d16pvJPUHLlCKD_lZCRWWEA40whmxLZSXON58wFuc_pr5C5AjSMAAroJe6QpM9G-QsY9ctCrncRagGJIvv5z2cNWRU1QDuH5uhtjda1nxo0zliUxTLq4X0wGX9sesj75ZyOVWuq9PGdEg-zThULcJk492egwAS49-HR4wXgBAGIBdvl9KtZgAeQ4pvYGagHp8yxAqgH4tixAqgHpr4bqAfMzrECqAfz0RuoB5bYG6gHqpuxAqgH_uixAqgHjs4bqAeT2BuoB_DgG6gH7paxAqgH_p6xAqgHr76xAqgH1ckbqAfZtrECqAeaBqgH_56xAqgH35-xAqgH-MKxAqgH-8KxAtgHAdIIMwiAYRABGJ0DMgiKgoCAgICACDoPgECAwICAgICogAKog4AQSL39wTpYk4-WoP3LlQNgAbEJd4qynMErRrKACgGYCwHICwGiDAOQAQGqDQJKUMgNAeINEwiMt5ag_cuVAxW6UMMGHWJNBH_qDRMIw-mWoP3LlQMVulDDBh1iTQR_8A0CiA7___________8B2BMD0BUBmBYByhYCCgD4FgGAFwGyFxoYASoULzIwNzAwMDM3L3NpZGVUb3AzMzZQBroXAjgBqhghCQAAAAAA7PNAEhQvMjA3MDAwMzcvc2lkZVRvcDMzNhgBshgJEgKBTxgBIgEA0BgBwhkCCAE&ae=1&gclid=EAIaIQobChMIk4WXoP3LlQMVulDDBh1iTQR_EAEYASAAEgIF1_D_BwE&num=1&cid=CAQS8wEAEQoqgevKpyAdBpRUcwYe8t-Vl79cSjyPviEdXqWUdSoe--miQB14p4-M-v0RdCRYRd9WqIkkWUpJ4vjFxc8QYyd-MPD-N4CPd-qOlJYgvW6_8O9bisXXFPkzjN3cx9XQa9ZMAROkEArP-7AZAux51eIr36k6y5NbmcyUUF-nnWbYBY4IFhVrzLeqzufMSe7yc38a9TPc-ULMfMYtibgcnjUSU8Yqc22IVc693nsrwPQA7w3VeNiXZjJkl7AjMqEwJA5hw7OCdVfQZa4VBHJKUbPNkzBIgH898MEUjkHIoWl0_nx2WTeoYLfBeq181jE2mwcYAQ&sig=AOD64_3VC213CJFYKqUI1WIGz8Bet_36kw&client=ca-pub-6661333100183848&rf=4&nb=1&adurl=https://www.amazon.co.jp/primeday%3Ftag%3Dxcmadnw10505924-22%26ref_%3DXCJP26JP003_63-20102565_dig_jp_primedayq3-26_dtsu_q3-26_daysof_reac_prog_googleads_bannr_x_x_role2_x_x%26gad_source%3D5%26gad_campaignid%3D23982846683%26gclid%3DEAIaIQobChMIk4WXoP3LlQMVulDDBh1iTQR_EAEYASAAEgIF1_D_BwE
+                              - generic [ref=e3804] [box=22,199,290,39]:
+                                - link "Amazon.co.jp" [ref=e3805] [box=22,199,290,39]:
+                                  - /url: https://www.googleadservices.com/pagead/aclk?sa=L&ai=CjY_zr-xSatPxEbqhjeYP4pqR-Aeh2eSKiAG0pK2K1BWQiYDskAIQASDljvomYImj14S0FKABkKrL-D7IAQGpAuutCOlUkDo-4AIAqAMByAMKqgSrAk_QAinNo0Nb41DxUQE4CH-5YK2Yvz_vAHwOkTWlan5UZvJ013TreJaXaZKGt6XjJVrWZEVFcwU9g3aaHRRo9TYySi4a1SxPmDlYgVMGYAP5Oh-eVuPuzvRWfS53vkBt5G41ziJ-4a0wSwOPbGkTYiQsToLFLfK91e4eEXuD4Gj-DKMUBMCXSQ3BakN-g1rw6TxwrkBBRv14-Pn6ciOHT0a7gG_TGF3cs6Qj5Hnf_drVD8OysIed2d16pvJPUHLlCKD_lZCRWWEA40whmxLZSXON58wFuc_pr5C5AjSMAAroJe6QpM9G-QsY9ctCrncRagGJIvv5z2cNWRU1QDuH5uhtjda1nxo0zliUxTLq4X0wGX9sesj75ZyOVWuq9PGdEg-zThULcJk492egwAS49-HR4wXgBAGIBdvl9KtZgAeQ4pvYGagHp8yxAqgH4tixAqgHpr4bqAfMzrECqAfz0RuoB5bYG6gHqpuxAqgH_uixAqgHjs4bqAeT2BuoB_DgG6gH7paxAqgH_p6xAqgHr76xAqgH1ckbqAfZtrECqAeaBqgH_56xAqgH35-xAqgH-MKxAqgH-8KxAtgHAdIIMwiAYRABGJ0DMgiKgoCAgICACDoPgECAwICAgICogAKog4AQSL39wTpYk4-WoP3LlQNgAbEJd4qynMErRrKACgGYCwHICwGiDAOQAQGqDQJKUMgNAeINEwiMt5ag_cuVAxW6UMMGHWJNBH_qDRMIw-mWoP3LlQMVulDDBh1iTQR_8A0CiA7___________8B2BMD0BUBmBYByhYCCgD4FgGAFwGyFxoYASoULzIwNzAwMDM3L3NpZGVUb3AzMzZQBroXAjgBqhghCQAAAAAA7PNAEhQvMjA3MDAwMzcvc2lkZVRvcDMzNhgBshgJEgKBTxgBIgEA0BgBwhkCCAE&ae=1&gclid=EAIaIQobChMIk4WXoP3LlQMVulDDBh1iTQR_EAEYASAAEgIF1_D_BwE&num=1&cid=CAQS8wEAEQoqgevKpyAdBpRUcwYe8t-Vl79cSjyPviEdXqWUdSoe--miQB14p4-M-v0RdCRYRd9WqIkkWUpJ4vjFxc8QYyd-MPD-N4CPd-qOlJYgvW6_8O9bisXXFPkzjN3cx9XQa9ZMAROkEArP-7AZAux51eIr36k6y5NbmcyUUF-nnWbYBY4IFhVrzLeqzufMSe7yc38a9TPc-ULMfMYtibgcnjUSU8Yqc22IVc693nsrwPQA7w3VeNiXZjJkl7AjMqEwJA5hw7OCdVfQZa4VBHJKUbPNkzBIgH898MEUjkHIoWl0_nx2WTeoYLfBeq181jE2mwcYAQ&sig=AOD64_3VC213CJFYKqUI1WIGz8Bet_36kw&client=ca-pub-6661333100183848&rf=4&nb=8&adurl=https://www.amazon.co.jp/primeday%3Ftag%3Dxcmadnw10505924-22%26ref_%3DXCJP26JP003_63-20102565_dig_jp_primedayq3-26_dtsu_q3-26_daysof_reac_prog_googleads_bannr_x_x_role2_x_x%26gad_source%3D5%26gad_campaignid%3D23982846683%26gclid%3DEAIaIQobChMIk4WXoP3LlQMVulDDBh1iTQR_EAEYASAAEgIF1_D_BwE
+                                  - generic [ref=e3806] [box=120,209,75,19]:
+                                    - generic "もっと見る" [ref=e3807] [box=120,208,75,21]
+                                  - generic [ref=e3809] [box=207,213,7,12]:
+                                    - generic [ref=e3810] [box=207,213,7,12]
+                      - generic [ref=e2933] [box=0,0,336,280]
+          - listitem [level=1] [ref=e2277] [box=708,903,336,57]:
+            - generic [ref=e2278] [box=716,903,320,57]:
+              - link [ref=e2279] [cursor=pointer] [box=716,936,320,24]:
+                - /url: https://myoji-yurai.net/familyTree/applicationManage/
+                - image [ref=e986] [box=716,903,320,50]
+          - listitem [level=1] [ref=e2280] [box=708,980,336,430]:
+            - heading "アクセスランキング" [level=2] [ref=e2281] [box=708,980,336,38]
+  - dialog [ref=e1049]:
+    - generic [ref=e1046]:
+      - generic [ref=e1044]:
+        - generic [ref=e1038]:
+          - button [ref=e1022]
+          - button [ref=e1024]
+          - button [ref=e1026]
+  - generic [ref=e1151]:
+    - generic [ref=e1152]:
+      - generic [ref=e1158]:
+        - generic [ref=e1162]:
+          - button "良い翻訳" [ref=e1163]
+          - button "悪い翻訳" [ref=e1170]
+      - generic [ref=e1177]:
+        - generic [ref=e1178]:
+          - textbox [ref=e1179]
+          - textbox [ref=e1180]
+          - textbox [ref=e1181]
+          - textbox [ref=e1182]
+          - textbox [ref=e1183]# ---
+# This page has 10 viewports (page chunks split by viewport height). You are currently viewing viewport 1.
+# To read the page viewport by viewport (like a human scrolling):
+#   snapshot -v 0          # view the top of the page
+#   snapshot -v 2          # scroll down to viewport 2
+#   snapshot -v 0-9    # capture all viewports at once
+#   snapshot -v all       # capture all viewports (same as above)
+#

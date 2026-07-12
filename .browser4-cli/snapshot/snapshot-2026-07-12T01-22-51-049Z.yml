@@ -1,0 +1,19 @@
+# Snapshot viewport(s): 1
+# This file contains the accessibility tree for the requested viewport(s) only.
+# Use `browser4-cli snapshot grep <pattern>` to search the full in-memory tree.
+# Use `browser4-cli snapshot -v all` to capture all viewports.
+
+# Viewport State
+# - processingViewport: 0
+# - viewportHeight: 985px
+# - viewportsTotal: 3
+# - hiddenTopHeight: 0px
+# - hiddenBottomHeight: 1337px
+#
+# ---
+# This page has 3 viewports (page chunks split by viewport height). You are currently viewing viewport 0.
+# To read the page viewport by viewport (like a human scrolling):
+#   snapshot -v 1          # scroll down to viewport 1
+#   snapshot -v 0-2    # capture all viewports at once
+#   snapshot -v all       # capture all viewports (same as above)
+#

@@ -29,7 +29,7 @@
 
 - **Körs lokalt** på din maskin. Din data stannar hos dig (förutom API-anrop du gör).
 - **Leverantörsfrihet**: OpenAI, Claude, Gemini, DeepSeek, Ollama, Azure, Bedrock, HuggingFace... 21+ leverantörer, alla tillgängliga från ett enda gränssnitt. Byt mellan dem genom att konfigurera om miljövariabler – ingen ominstallation, ingen migrering.
-- **171 verktyg**: Fil-I/O, webbsökning, bildgenerering, Gmail, BLE-enhetsskanning, MCP-serverintegrering — **89 är parallellsäkra** (upp till 8 exekveras samtidigt via trådpool, konfigurerbara via `UAGENT_PARALLEL_WORKERS`). När LLM avfyrar flera verktygsanrop samtidigt, parallelliserar uag dem automatiskt.
+- **170 verktyg**: Fil-I/O, webbsökning, bildgenerering, Gmail, BLE-enhetsskanning, MCP-serverintegrering — **111 är parallellsäkra** (upp till 8 exekveras samtidigt via trådpool, konfigurerbara via `UAGENT_PARALLEL_WORKERS`). När LLM avfyrar flera verktygsanrop samtidigt, parallelliserar uag dem automatiskt.
 - **3 användargränssnitt + A2A**: CLI, GUI, webb och Agent-to-Agent-protokoll. Samma motor, vilket gränssnitt som helst.
 - **Agent Skills**: Installera community-byggda färdigheter från marknadsplatsen. Förläng uag oändligt.
 
@@ -56,7 +56,7 @@ Alla leverantörer delar samma verktygsuppsättning och gränssnitt. Byt genom a
 ### ⚡ Parallell verktygsexekvering
 
 När LLM begär flera verktyg samtidigt, uag **parallellerar automatiskt** dem.
-89 verktyg är märkta med `x_parallel_safe` och körs samtidigt via en `ThreadPoolExecutor` (8 trådar som standard; ställ in `UAGENT_PARALLEL_WORKERS` för att ändra).
+111 verktyg är märkta med `x_parallel_safe` och körs samtidigt via en `ThreadPoolExecutor` (8 trådar som standard; ställ in `UAGENT_PARALLEL_WORKERS` för att ändra).
 
 **Exempel**: Fråga "Kontrollera vädret i nordiska huvudstäder" → LLM avfyrar `search_web` × 5 länder → alla 5 sökningar körs parallellt → resultat samlade i en batch.
 
@@ -68,7 +68,7 @@ Läsbara verktyg (filsökning, hashberäkning, kataloglistning, översättning, 
 - **Reload past sessions** with `:load <index>` — pick up where you left off.
 - **Tool result caching** avoids redundant re-execution when the same tool call repeats.
 
-### 🛠 171 Verktyg
+### 🛠 170 Verktyg
 
 | Kategori | Verktyg |
 |---|---|

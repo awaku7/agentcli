@@ -1,0 +1,176 @@
+# Snapshot viewport(s): 0
+# This file contains the accessibility tree for the requested viewport(s) only.
+# Use `browser4-cli snapshot grep <pattern>` to search the full in-memory tree.
+# Use `browser4-cli snapshot -v all` to capture all viewports.
+
+# Viewport State
+# - processingViewport: 0
+# - viewportHeight: 985px
+# - viewportsTotal: 1
+# - hiddenTopHeight: 0px
+# - hiddenBottomHeight: 0px
+#
+- generic [ref=e65] [box=0,0,1904,985]:
+  - generic [ref=e92] [box=0,0,1904,985]:
+    - navigation [ref=e94] [box=0,0,1904,60]:
+      - link "Googleについて" [ref=e95] [cursor=pointer] [box=21,15,112,30]:
+        - /url: https://about.google/?fg=1&utm_source=google-JP&utm_medium=referral&utm_campaign=hp-header
+      - link "ストア" [ref=e96] [cursor=pointer] [box=143,15,52,30]:
+        - /url: https://store.google.com/JP?utm_source=hp_header&utm_medium=google_ooo&utm_campaign=GS100042&hl=ja-JP
+      - generic [ref=e100] [box=1656,4,101,51]:
+        - generic [ref=e101] [box=1656,16,49,24]:
+          - link "Gmail" [ref=e102] [cursor=pointer] [box=1671,16,34,24]:
+            - /url: https://mail.google.com/mail/&ogbl
+        - generic [ref=e103] [box=1705,16,41,24]:
+          - link "画像を検索する" [ref=e104] [cursor=pointer] [box=1720,16,26,24]:
+            - /url: https://www.google.com/imghp?hl=ja&ogbl
+            - text: 画像
+      - generic [ref=e105] [box=1757,4,48,51]:
+        - generic [ref=e106] [box=1757,4,48,48]:
+          - button "Google アプリ" [ref=e107] [cursor=pointer] [box=1761,8,40,40]:
+            - generic [ref=e108] [box=1769,16,24,24]:
+              - generic [ref=e109] [box=1773,20,16,16]
+              - generic [ref=e110] [box=1769,16,24,24]
+      - generic [ref=e111] [box=1805,4,93,48]:
+        - link "ログイン" [ref=e112] [cursor=pointer] [box=1809,8,85,40]:
+          - /url: https://accounts.google.com/ServiceLogin?hl=ja&passive=true&continue=https://www.google.com/&ec=futura_exp_og_so_72776762_e
+          - generic "ログイン" [ref=e113] [box=1823,18,56,19]
+        - generic [ref=e114] [box=1507,54,370,0]
+        - generic [ref=e115] [box=1459,70,420,280]
+    - generic [ref=e117] [box=0,60,1904,0]
+    - generic [ref=e133] [box=0,60,1904,290]:
+      - generic [ref=e134] [box=816,258,272,92]:
+        - image "Google" [ref=e135] [box=816,258,272,92]:
+          - generic [ref=e136] [box=816,265,269,81]
+      - heading [ref=e137] [box=665,126,574,290]:
+        - generic "何かお手伝いできることはありますか？" [ref=e138] [box=665,352,574,40]
+    - generic [ref=e140]:
+      - generic [ref=e141]:
+        - button "閉じる" [ref=e142]
+    - search [ref=e48] [cursor=pointer] [box=96,376,1712,140]:
+      - generic [ref=e165] [box=608,376,688,140]:
+        - generic [ref=e166] [box=608,376,688,52]:
+          - generic [ref=e167] [box=609,377,0,50]:
+            - button "添付ファイルを削除" [ref=e168]
+          - generic [ref=e183] [box=608,378,48,48]:
+            - generic [ref=e184] [box=614,384,36,36]:
+              - generic [ref=e185] [box=614,384,36,36]:
+                - button "ファイルとツールを追加" [ref=e186] [box=614,384,36,36]:
+                  - generic [ref=e188] [box=620,390,24,24]:
+                    - generic [ref=e189] [box=624,394,14,14]
+            - generic [ref=e190]:
+              - menuitem [ref=e193]
+              - menuitem [ref=e202]
+              - generic [ref=e212]:
+                - group "ツール" [ref=e213]:
+                  - menuitemradio [ref=e215]
+              - generic [ref=e221]:
+                - generic [ref=e613]:
+                  - button [ref=e222]
+              - generic [ref=e224]:
+                - generic [ref=e617]:
+                  - button [ref=e225]
+          - generic [ref=e227] [box=656,377,439,50]:
+            - generic [ref=e228] [box=656,377,0,22]
+            - combobox "検索" [ref=e47] [box=656,377,439,50]
+          - generic [ref=e233] [box=1095,390,40,24]:
+            - generic [ref=e234] [box=1095,390,40,24]:
+              - button "音声で検索" [ref=e235] [box=1095,390,40,24]:
+                - generic [ref=e236] [box=1103,390,24,24]:
+                  - generic [ref=e237] [box=1108,392,14,19]
+          - generic [ref=e238] [box=1135,390,40,24]:
+            - generic [ref=e239] [box=1135,390,40,24]:
+              - button "画像で検索" [ref=e240] [box=1135,390,40,24]:
+                - generic [ref=e241] [box=1143,390,24,24]:
+                  - generic [ref=e242] [box=1146,393,18,18]
+          - link "AI モード" [ref=e243] [box=1183,384,104,36]:
+            - generic [ref=e244] [box=1184,385,102,34]:
+              - generic [ref=e245] [box=1184,385,102,34]:
+                - generic [ref=e246] [box=1184,385,102,34]:
+                  - generic [ref=e247] [box=1183,384,104,36]:
+                    - generic [ref=e51] [box=1027,375,416,54]:
+                      - generic [ref=e248] [box=1027,324,416,156]
+                  - generic [ref=e249] [box=1183,384,104,36]:
+                    - generic [ref=e52] [box=1027,375,416,54]:
+                      - generic [ref=e250] [box=1027,324,416,156]
+            - generic [ref=e251] [box=1185,386,100,32]
+            - generic [ref=e252] [box=1192,392,86,20]:
+              - generic [ref=e254] [box=1192,392,20,20]:
+                - generic [ref=e255] [box=1192,392,20,20]:
+                  - generic [ref=e256] [box=1192,392,20,20]
+                - generic [ref=e257] [box=1194,392,16,16]:
+                  - generic [ref=e258] [box=1194,392,16,16]:
+                    - generic [ref=e259] [box=1202,392,9,9]
+                    - generic [ref=e260] [box=1194,394,15,15]
+              - generic [ref=e262] [box=1258,392,20,20]:
+                - generic [ref=e263] [box=1258,392,20,20]:
+                  - generic [ref=e264] [box=1261,395,13,13]
+          - button "送信" [ref=e265]
+          - generic [ref=e269]:
+            - generic [ref=e270]:
+              - button [ref=e272]
+          - generic [ref=e280] [box=609,377,686,0]
+        - generic [ref=e281] [box=608,376,688,140]:
+          - generic [ref=e282] [box=608,376,688,140]:
+            - generic [ref=e283] [box=608,376,688,140]:
+              - generic [ref=e284] [box=608,376,688,140]:
+                - generic [ref=e49] [box=-1456,341,4816,210]:
+                  - generic [ref=e285] [box=-1456,-70,4816,1032]
+              - generic [ref=e286] [box=608,376,688,140]:
+                - generic [ref=e50] [box=-1456,341,4816,210]:
+                  - generic [ref=e287] [box=-1456,-70,4816,1032]
+        - generic [ref=e288]:
+          - dialog "フィードバックをお送りいただけるものを選択してください" [ref=e292]:
+            - generic [ref=e293]:
+              - button "フィードバックをお送りいただけるものを選択してください を閉じる" [ref=e295]
+          - generic [ref=e300]:
+            - generic [ref=e309]:
+              - generic [ref=e318]:
+                - button "もっと見る" [ref=e327]
+              - button [ref=e334]
+            - generic [ref=e337]:
+              - generic [ref=e339]:
+                - button "単語の発音" [ref=e345]
+            - generic [ref=e358]:
+              - button [ref=e366]
+            - generic [ref=e369]:
+              - button "単語の発音" [ref=e375]
+            - generic [ref=e397]:
+              - generic [ref=e398]:
+                - button [ref=e399]
+                - button [ref=e400]
+          - generic [ref=e401]:
+            - button [ref=e402]
+        - generic [ref=e405] [box=608,446,688,59]:
+          - button [ref=e406] [box=818,457,112,36]
+          - button [ref=e66] [box=942,458,143,36]
+          - button [ref=e407]
+        - generic [ref=e426]:
+          - generic [ref=e427]:
+            - generic [ref=e428]:
+              - generic [ref=e429]:
+                - generic [ref=e430]:
+                  - generic [ref=e431]:
+                    - generic [ref=e432]:
+                      - button "閉じる" [ref=e434]
+      - generic [ref=e440] [box=96,516,1712,0]
+    - generic [ref=e447] [box=0,536,1904,0]
+    - generic [ref=e451] [box=0,536,1904,0]
+    - contentinfo [ref=e455] [box=0,883,1904,102]:
+      - link "広告" [ref=e458] [cursor=pointer] [box=20,935,58,50]:
+        - /url: https://www.google.com/intl/ja_jp/ads/?subid=ww-ww-et-g-awa-a-g_hpafoot1_1!o2&utm_source=google.com&utm_medium=referral&utm_campaign=google_hpafooter&fg=1
+      - link "ビジネス" [ref=e459] [cursor=pointer] [box=78,935,86,50]:
+        - /url: https://www.google.com/services/?subid=ww-ww-et-g-awa-a-g_hpbfoot1_1!o2&utm_source=google.com&utm_medium=referral&utm_campaign=google_hpbfooter&fg=1
+      - link "検索の仕組み" [ref=e460] [cursor=pointer] [box=164,935,114,50]:
+        - /url: https://google.com/search/howsearchworks/?fg=1
+      - link "プライバシー" [ref=e462] [cursor=pointer] [box=1654,935,114,50]:
+        - /url: https://policies.google.com/privacy?hl=ja&fg=1
+      - link "規約" [ref=e463] [cursor=pointer] [box=1768,935,58,50]:
+        - /url: https://policies.google.com/terms?hl=ja&fg=1
+      - generic [ref=e465] [box=1826,953,58,16]:
+        - generic [ref=e466] [box=1826,953,58,16]:
+          - button "設定" [ref=e467] [cursor=pointer] [box=1826,935,58,50]:
+            - generic "設定" [ref=e468] [box=1826,935,58,50]
+  - textbox [ref=e53]
+  - generic [ref=e517] [box=0,985,1904,0]:
+    - generic [ref=e518] [box=0,0,1904,985]

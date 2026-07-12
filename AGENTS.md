@@ -115,7 +115,7 @@ Tools are delivered to the LLM differently depending on the provider and mode:
 
 - Tools are plugin modules under `src/uagent/tools/`.
 - Each tool exports `TOOL_SPEC` (OpenAI function schema compatible) and `run_tool(args) -> str`.
-- Tool genres: `basic`, `comm`, `office`, `devel`, `iot`, `exec`, `external`, `media`, `file`, `index`.
+- Tool genres: `basic`, `comm`, `office`, `devel`, `dev`, `iot`, `exec`, `external`, `media`, `file`, `index`, `web`, `utility`.
 - Startup selects genres via bitmask (`--tool-genre-mask <int>`).
 - Tool-less mode: `--no-use-tool` or `UAGENT_USE_TOOL=0` or `:tools off`.
 - Skills: installed via `:skills install` or APM (`:skills apm use`).
