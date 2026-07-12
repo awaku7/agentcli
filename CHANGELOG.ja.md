@@ -1,5 +1,19 @@
 # 変更履歴
 
+## [0.5.45] - 2026-07-12
+
+### 追加
+- 新ツール: `diff_files`（2ファイルの行比較）と `apply_patch`（unified diff パッチ適用）、全34言語 i18n 対応。
+- ツールジャンル: `dev`、`web`、`utility` をジャンルビットマップとジャンル制御システムに追加。
+
+### 修正
+- `tests/test_llmcapa.py`: `Llama-3.2-90B-Vision-Instruct` と `Llama-4-Scout-17B-16E` の `expect_vision` フラグを修正（両モデルは vision 対応）。
+
+### 変更
+- llmcapa 依存を >=0.3.1 に更新。
+- README と33言語翻訳: ツール数170、並列セーフ111に更新。
+- AGENTS.md: ツールジャンル一覧に `dev`、`web`、`utility` を追加。
+
 ## [0.5.44] - 2026-07-11
 
 ### 追加

@@ -1,5 +1,19 @@
 # Changelog
 
+## [0.5.45] - 2026-07-12
+
+### Added
+- New tools: `diff_files` (compare two files line by line) and `apply_patch` (apply unified diff patches) with full 34-language i18n.
+- Tool genres: `dev`, `web`, `utility` added to genre bitmap and genre control system.
+
+### Fixed
+- `tests/test_llmcapa.py`: corrected `expect_vision` flags for `Llama-3.2-90B-Vision-Instruct` and `Llama-4-Scout-17B-16E` (both support vision).
+
+### Changed
+- llmcapa dependency bumped to >=0.3.1.
+- README and 33 translations: tool count updated to 170, parallel-safe to 111.
+- AGENTS.md: tool genre list updated to include `dev`, `web`, `utility`.
+
 ## [0.5.44] - 2026-07-11
 
 ### Added
