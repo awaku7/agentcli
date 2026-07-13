@@ -1214,7 +1214,7 @@ def run_tool(args: dict[str, Any]) -> str:
             else anchor_after
         )
 
-        regex_pattern = re.compile(p2) if mode == "regex" else None
+        regex_pattern = re.compile(p2, re.MULTILINE) if mode == "regex" else None
         hits: list[_Hit] = []
         target_hit: _Hit | None = None
         match_count = 0
@@ -1375,7 +1375,9 @@ def run_tool(args: dict[str, Any]) -> str:
         elif action == "insert_at_line":
             lines = orig_norm.splitlines(True)
             max_line = len(lines) + 1
-            if line_no < 1 or line_no > max_line:
+            if line_no <= 0:
+                line_no = 1  # 0 は先頭行として扱う
+            if line_no > max_line:
                 raise ValueError(
                     _(
                         "err.line_no_out_of_range",

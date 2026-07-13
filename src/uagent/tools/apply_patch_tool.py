@@ -216,13 +216,24 @@ def _detect_newline(text: str) -> str:
     cr_only = text.count("\r") - crlf
     if crlf > lf_only and crlf > cr_only:
         return "\r\n"
+    if cr_only > lf_only and cr_only > crlf:
+        return "\r"
     return "\n"
 
 
 def _convert_newlines(lines: list[str], target_nl: str) -> list[str]:
     if target_nl == "\n":
         return [l.replace("\r\n", "\n").replace("\r", "\n") for l in lines]
-    result: list[str] = []
+    if target_nl == "\r":
+        result: list[str] = []
+        for l in lines:
+            s = l.replace("\r\n", "\n").replace("\r", "\n")
+            if s.endswith("\n"):
+                s = s[:-1] + "\r"
+            result.append(s)
+        return result
+    # target_nl == "\r\n"
+    result = []
     for l in lines:
         s = l.replace("\r\n", "\n").replace("\r", "\n")
         if s.endswith("\n"):
@@ -311,6 +322,9 @@ def _find_hunk_position(
     if not before_text or not text_block:
         return None
 
+    # 位置の許容オフセット: start_line から max_offset 以上離れた位置は棄却
+    max_offset = max(10, len(before_lines) * 2)
+
     threshold = _compute_fuzzy_threshold(before_lines)
     matcher = difflib.SequenceMatcher(None, before_text, text_block)
     best_pos = None
@@ -319,8 +333,10 @@ def _find_hunk_position(
         if m.size > best_size and m.size >= threshold:
             line_pos = text_block[:m.b].count("\n")
             if 0 <= line_pos <= n_text - n_before:
-                best_pos = line_pos
-                best_size = m.size
+                # 位置が start_line から離れすぎていないか確認
+                if abs(line_pos - start_line) <= max_offset:
+                    best_pos = line_pos
+                    best_size = m.size
     return best_pos
 
 
@@ -342,11 +358,19 @@ def _apply_hunk_to_text(
         target_nl = _detect_newline(text)
         after = _convert_newlines(after, target_nl)
 
+    # old_start がファイル行数より大きい場合はマッチさせない（空ファイル追加は除く）
+    if hunk.old_start > len(text_lines) and hunk.old_start > 0:
+        return text, False, ""
+
     hint_line = max(0, min(hunk.old_start - 1, len(text_lines) - 1))
     pos = _find_hunk_position(text_lines, before, hint_line, ignore_whitespace)
 
     if pos is None:
         return text, False, ""
+
+    # before と after が同一なら実質変更なし（呼び出し元で diff 空を検出）
+    if before == after:
+        return text, True, ""
 
     new_lines = text_lines[:pos] + after + text_lines[pos + len(before):]
     new_text = "".join(new_lines)
@@ -452,14 +476,16 @@ def run_tool(args: dict[str, Any]) -> str:
                 )
                 if applied:
                     current = new_text
-                    applied_hunks += 1
-                    total_applied += 1
-                    for hl in hunk.lines:
-                        p = hl[0] if hl else " "
-                        if p == "+":
-                            total_added += 1
-                        elif p == "-":
-                            total_removed += 1
+                    # diff_preview が空の場合は実質変更なし (before==after)
+                    if diff:
+                        applied_hunks += 1
+                        total_applied += 1
+                        for hl in hunk.lines:
+                            p = hl[0] if hl else " "
+                            if p == "+":
+                                total_added += 1
+                            elif p == "-":
+                                total_removed += 1
                     hunk_details.append({"applied": True, "old_start": hunk.old_start, "diff_preview": diff[:500]})
                 else:
                     failed_hunks += 1

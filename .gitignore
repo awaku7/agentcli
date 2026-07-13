@@ -42,3 +42,6 @@ vscode-extension/out/
 # Temp clones
 tmp_ucp_samples/
 tmp_ucp_sdk/
+
+# Browser4 snapshot caches
+.browser4-cli/

@@ -159,8 +159,8 @@ def test_replace_in_file_preview_does_not_write(mode: str, repo_tmp_path: Path) 
 
 @pytest.mark.parametrize(
     "pattern,replacement,expected_count",
-    [(r"name=(.+)", r"NAME=\\1", 2), (r"^name=(.+)$", r"NAME=\\1", 0)],
-    ids=["no_anchors", "anchors_no_multiline"],
+    [(r"name=(.+)", r"NAME=\\1", 2), (r"^name=(.+)$", r"NAME=\\1", 2)],
+    ids=["no_anchors", "anchors_multiline"],
 )
 def test_replace_in_file_regex_anchor_behavior(
     pattern: str, replacement: str, expected_count: int, repo_tmp_path: Path

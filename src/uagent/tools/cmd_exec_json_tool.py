@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import json
 import os
+import shlex
 import subprocess
 from typing import Any, Optional
 
@@ -82,15 +83,24 @@ def _blocked_result(reason: str) -> dict[str, Any]:
 def _run(command: str, cwd: Optional[str]) -> dict[str, Any]:
     try:
         if os.name == "nt":
-            p = subprocess.run(
-                f"chcp 65001 >nul & {command}",
-                shell=True,
-                capture_output=True,
-                text=True,
-                encoding="utf-8",
-                errors="replace",
-                cwd=cwd,
-            )
+            if command.startswith(("python -c ", "python3 -c ")):
+                parts = shlex.split(command)
+                p = subprocess.run(
+                    parts, shell=False,
+                    capture_output=True,
+                    text=True, encoding="utf-8", errors="replace",
+                    cwd=cwd,
+                )
+            else:
+                p = subprocess.run(
+                    f"chcp 65001 >nul & {command}",
+                    shell=True,
+                    capture_output=True,
+                    text=True,
+                    encoding="utf-8",
+                    errors="replace",
+                    cwd=cwd,
+                )
         else:
             cmd = ["sh", "-lc", command]
             p = subprocess.run(cmd, capture_output=True, text=True, cwd=cwd)
