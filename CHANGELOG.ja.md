@@ -1,5 +1,23 @@
 # 変更履歴
 
+## [0.5.46] - 2026-07-13
+
+### 追加
+- sub-agent Phase 1-3 完了: マルチターン会話、全ツール対応、チェインツール、コスト追跡、動的ロール割り当て、構造化ログ。
+- reasoning: `:r` コマンドの引数なしトグル動作（ON/OFF切替）、`max` レベル（`:r max` / `:r m`）、数値エイリアス（4=xhigh, 5=max）、表示オフ制御。
+- llmcapa 統合: Claude/DeepSeek/ZAI/OpenRouter プロバイダ向け `reasoning_effort_values` 検証。
+- i18n: 8個の新規パラメータの翻訳を34言語に追加、`sub_agent_chain_tool.json` を34言語で作成。
+
+### 修正
+- `apply_patch`、`cmd_exec_json`、`replace_in_file`、`list_windows_titles` のクロスプラットフォーム対応とバグ修正。
+
+### 変更
+- llmcapa 依存を >=0.3.3 に更新。
+- reasoning: `ultra` レベルを削除（`xhigh` と `max` のみ維持）。OpenRouter の effort 値を正しく渡すよう修正。
+- リポジトリから未使用ファイルを削除。
+
+# 変更履歴
+
 ## [0.5.45] - 2026-07-12
 
 ### 追加

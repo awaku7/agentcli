@@ -1,5 +1,23 @@
 # Changelog
 
+## [0.5.46] - 2026-07-13
+
+### Added
+- sub-agent Phase 1-3 complete: multi-turn conversations, all-tools support, chain tool, cost tracking, dynamic role assignment, structured logging.
+- reasoning: `:r` command toggle behavior (no argument toggles ON/OFF), `max` level (`:r max` / `:r m`), numeric aliases (4=xhigh, 5=max), display off control.
+- llmcapa integration: `reasoning_effort_values` validation for Claude/DeepSeek/ZAI/OpenRouter providers.
+- i18n: translations for 8 new parameters across 34 languages, `sub_agent_chain_tool.json` created for 34 languages.
+
+### Fixed
+- Cross-platform fixes for `apply_patch`, `cmd_exec_json`, `replace_in_file`, `list_windows_titles` (bug fixes and platform compatibility).
+
+### Changed
+- llmcapa dependency bumped to >=0.3.3.
+- reasoning: removed `ultra` level (kept `xhigh` and `max` only). OpenRouter effort values now properly passed.
+- Cleaned up unused files from repository.
+
+# Changelog
+
 ## [0.5.45] - 2026-07-12
 
 ### Added
