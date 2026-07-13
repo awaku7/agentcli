@@ -392,16 +392,25 @@ def set_verbosity_mode(level: str) -> str:
     return get_verbosity_mode()
 
 
+_REASONING_HISTORY: list[str] = ["medium"]
+
+
 def apply_reasoning_arg(arg: str) -> str:
+    global _REASONING_HISTORY
     cur = get_reasoning_mode()
     lv = _normalize_reasoning_level_arg(arg)
     if lv is None and (arg or "").strip():
         # invalid (non-empty)
         raise ValueError(tr("invalid reasoning"))
 
-    # If no arg is given, keep current mode (do not cycle).
+    # No arg given: toggle on/off
     if lv is None:
-        return cur
+        if cur == "off":
+            prev = _REASONING_HISTORY[-1] if _REASONING_HISTORY else "medium"
+            return set_reasoning_mode(prev)
+        else:
+            _REASONING_HISTORY.append(cur)
+            return set_reasoning_mode("off")
 
     return set_reasoning_mode(lv)
 

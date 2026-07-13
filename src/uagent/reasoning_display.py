@@ -1,4 +1,5 @@
 from __future__ import annotations
+import os
 from typing import Any, Callable, Optional
 
 
@@ -11,6 +12,9 @@ def show_reasoning(
     core: Any = None,
 ) -> None:
     if not text:
+        return
+    # UAGENT_REASONING=off なら表示しない
+    if os.environ.get("UAGENT_REASONING", "") == "off":
         return
     is_web = bool(getattr(core, "_is_web", False)) if core is not None else False
     if is_web:
