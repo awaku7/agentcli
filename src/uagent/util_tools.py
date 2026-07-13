@@ -337,9 +337,9 @@ def _normalize_reasoning_level_arg(arg: str) -> str | None:
         return "medium"
     if a in ("3", "high"):
         return "high"
-    if a in ("xhigh", "xh", "x-high"):
+    if a in ("4", "xhigh", "xh", "x-high"):
         return "xhigh"
-    if a in ("max", "m"):
+    if a in ("5", "max", "m"):
         return "max"
 
     return None
