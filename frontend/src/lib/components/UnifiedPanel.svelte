@@ -260,7 +260,7 @@
           <span class="text-sm font-medium" style="color:var(--text-secondary);">{t('displayReasoning')}</span>
           <button onclick={sendDisplayReasoningToggle} class="relative w-12 h-6 rounded-full transition cursor-pointer"
             style="background:{modes.displayReasoning ? 'var(--accent)' : 'var(--border-color)'};border:1px solid {modes.displayReasoning ? 'var(--accent)' : 'var(--text-tertiary)'};"
-          ><span class="absolute top-0.5 w-5 h-5 rounded-full shadow transition" style="background:{modes.displayReasoning ? '#fff' : 'var(--text-primary)'};left:{modes.displayReasoning ? 'calc(100% - 22px)' : '2px'};\"></span></button>
+          ><span class="absolute top-0.5 w-5 h-5 rounded-full shadow transition" style="background:{modes.displayReasoning ? '#fff' : 'var(--text-primary)'};left:{modes.displayReasoning ? 'calc(100% - 22px)' : '2px'};outline:1px solid var(--border-color);outline-offset:-1px;\"></span></button>
         </div>
         <div>
           <div class="text-sm font-medium mb-2" style="color:var(--text-secondary);">{t('tools')}:</div>
@@ -279,7 +279,7 @@
           <span class="text-sm font-medium" style="color:var(--text-secondary);">{t('toolSending')}</span>
           <button onclick={doToolsToggle} class="relative w-12 h-6 rounded-full transition cursor-pointer"
             style="background:{toolsEnabled ? 'var(--accent)' : 'var(--border-color)'};border:1px solid {toolsEnabled ? 'var(--accent)' : 'var(--text-tertiary)'};"
-          ><span class="absolute top-0.5 w-5 h-5 rounded-full shadow transition" style="background:{toolsEnabled ? '#fff' : 'var(--text-primary)'};left:{toolsEnabled ? 'calc(100% - 22px)' : '2px'};"></span></button>
+          ><span class="absolute top-0.5 w-5 h-5 rounded-full shadow transition" style="background:{toolsEnabled ? '#fff' : 'var(--text-primary)'};left:{toolsEnabled ? 'calc(100% - 22px)' : '2px'};outline:1px solid var(--border-color);outline-offset:-1px;"></span></button>
         </div>
       </div>
 
