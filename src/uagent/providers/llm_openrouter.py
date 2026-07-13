@@ -6,15 +6,14 @@ from ..env_utils import env_get
 
 
 def apply_openrouter_extra_body(chat_kwargs: dict[str, Any], *, provider: str) -> None:
-    """Apply OpenRouter-only ChatCompletions extensions via extra_body."""
+    """Apply OpenRouter-only ChatCompletions extensions via extra_body.
+
+    Validates reasoning_effort against llmcapa model data when available.
+    """
 
     if provider != "openrouter":
         return
 
-    # Enable OpenRouter reasoning_details (Chat Completions extension)
-    # Control via the common env var UAGENT_REASONING.
-    # - off/0/false/no => disabled
-    # - anything else (including auto/low/medium/high/...) => enabled
     try:
         _raw_reason = (env_get("UAGENT_REASONING", "medium") or "").strip().lower()
         _reasoning_enabled = _raw_reason not in ("", "0", "false", "no", "off")
@@ -22,10 +21,30 @@ def apply_openrouter_extra_body(chat_kwargs: dict[str, Any], *, provider: str) -
         if not isinstance(_eb, dict):
             _eb = {}
         _reasoning_obj: dict[str, Any] = {"enabled": bool(_reasoning_enabled)}
-        if _reasoning_enabled and _raw_reason not in ("auto", "minimal"):
-            _reasoning_obj["effort"] = _raw_reason
+
+        if _reasoning_enabled and _raw_reason not in ("auto",):
+            # Validate effort against model capabilities via llmcapa
+            _effort = _raw_reason
+            _depname = chat_kwargs.get("model", "")
+            if _depname:
+                try:
+                    import llmcapa
+                    _provider = (env_get("UAGENT_PROVIDER") or "").lower().strip() or None
+                    _cap = llmcapa.get(_depname, provider=_provider)
+                    if _cap is not None and _cap.supports_reasoning_effort:
+                        _valid = _cap.get_reasoning_effort_values()
+                        if _valid and _effort not in _valid:
+                            # Fall back to a safe default
+                            _effort = "medium" if "medium" in _valid else _valid[0]
+                except Exception:
+                    pass
+            _reasoning_obj["effort"] = _effort
+
         _eb["reasoning"] = _reasoning_obj
         chat_kwargs["extra_body"] = _eb
+        # Also set top-level reasoning_effort for OpenAI-compatible clients
+        if _reasoning_enabled and "effort" in _reasoning_obj:
+            chat_kwargs["reasoning_effort"] = _reasoning_obj["effort"]
     except Exception:
         pass
 

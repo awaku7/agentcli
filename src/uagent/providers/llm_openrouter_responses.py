@@ -27,6 +27,34 @@ def apply_openrouter_responses_compat(
     if provider != "openrouter":
         return
 
+    # --- OpenRouter Responses API: reasoning parameter ---
+    # OpenRouter supports reasoning in Responses API via a top-level "reasoning" object.
+    # Format: {"reasoning": {"effort": "high"}} or {"reasoning": {"enabled": true}}
+    try:
+        _raw_reason = (env_get("UAGENT_REASONING", "medium") or "").strip().lower()
+        _reasoning_enabled = _raw_reason not in ("", "0", "false", "no", "off")
+
+        if _reasoning_enabled:
+            _reasoning_obj: dict[str, Any] = {}
+            if _raw_reason not in ("auto",):
+                # Validate effort against model capabilities via llmcapa
+                _effort = _raw_reason
+                if depname:
+                    try:
+                        import llmcapa
+                        _provider = (env_get("UAGENT_PROVIDER") or "").lower().strip() or None
+                        _cap = llmcapa.get(depname, provider=_provider)
+                        if _cap is not None and _cap.supports_reasoning_effort:
+                            _valid = _cap.get_reasoning_effort_values()
+                            if _valid and _effort not in _valid:
+                                _effort = "medium" if "medium" in _valid else _valid[0]
+                    except Exception:
+                        pass
+                _reasoning_obj["effort"] = _effort
+            resp_kwargs["reasoning"] = _reasoning_obj
+    except Exception:
+        pass
+
     debug_env = (env_get("UAGENT_OPENROUTER_RESPONSES_DEBUG", "") or "").strip().lower()
     debug_enabled = debug_env in ("1", "true", "yes", "on")
 

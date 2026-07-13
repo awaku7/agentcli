@@ -96,16 +96,24 @@ def _claude_requires_adaptive_thinking(model_name: str) -> bool:
 
 
 def _claude_supports_max_effort(model_name: str) -> bool:
-    """Per docs, max effort is supported only on Claude Opus 4.6.
+    """Check if model supports "max" effort using llmcapa data."""
 
-    We treat "Opus 4.6 and above" as supported to be forward-compatible.
-    """
+    try:
+        import llmcapa
+        from uagent.env_utils import env_get
 
+        _provider = (env_get("UAGENT_PROVIDER") or "").lower().strip() or None
+        cap = llmcapa.get(model_name, provider=_provider)
+        if cap is not None and cap.supports_reasoning_effort:
+            return "max" in cap.get_reasoning_effort_values()
+    except Exception:
+        pass
+
+    # Fallback: hardcoded check
     fam, major, minor = _parse_claude_model(model_name)
     if fam != "opus":
         return False
     if major is None or minor is None:
-        # Unknown version: be conservative.
         return False
     return (major, minor) >= (4, 6)
 
@@ -179,6 +187,28 @@ def build_claude_output_config_for_effort(
     if not _claude_supports_effort(model_name):
         return None
 
+    try:
+        import llmcapa
+        from uagent.env_utils import env_get
+
+        _provider = (env_get("UAGENT_PROVIDER") or "").lower().strip() or None
+        cap = llmcapa.get(model_name, provider=_provider)
+        if cap is not None and cap.supports_reasoning_effort:
+            valid = cap.get_reasoning_effort_values()
+            if e in valid:
+                # Map xhigh/max based on model support
+                if e in ("xhigh", "max"):
+                    if _claude_supports_max_effort(model_name):
+                        return {"effort": "max"}
+                    return {"effort": "high"}
+                # For other values, map minimal->low, otherwise pass through
+                if e == "minimal":
+                    return {"effort": "low"}
+                return {"effort": e}
+    except Exception:
+        pass
+
+    # Fallback: hardcoded mapping
     if e in ("minimal", "low"):
         return {"effort": "low"}
     if e == "medium":
@@ -188,9 +218,7 @@ def build_claude_output_config_for_effort(
     if e == "xhigh":
         if _claude_supports_max_effort(model_name):
             return {"effort": "max"}
-        # "max" would error on non-Opus-4.6; fall back.
         return {"effort": "high"}
-
     return None
 
 

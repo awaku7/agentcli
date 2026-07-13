@@ -54,6 +54,24 @@ _EFFORT_MAP: dict[str, str] = {
     "max": "max",
 }
 
+def _get_valid_zai_efforts(model_name: str = "") -> frozenset:
+    """Return valid reasoning_effort values for a Z.AI model.
+
+    Uses llmcapa data when available, falls back to safe defaults.
+    """
+    if model_name:
+        try:
+            import llmcapa
+            from uagent.env_utils import env_get
+            _provider = (env_get("UAGENT_PROVIDER") or "").lower().strip() or None
+            cap = llmcapa.get(model_name, provider=_provider)
+            if cap is not None and cap.supports_reasoning_effort:
+                return frozenset(cap.get_reasoning_effort_values())
+        except Exception:
+            pass
+    return frozenset({"max", "xhigh", "high", "medium", "low", "minimal"})
+
+
 _VALID_EFFORTS = frozenset({"max", "xhigh", "high", "medium", "low", "minimal"})
 
 _ENV_PREFIX = "UAGENT_ZAI"
@@ -102,7 +120,8 @@ def build_zai_chat_kwargs(
         if mapped:
             effort_used = mapped
 
-    if effort_used in _VALID_EFFORTS:
+    valid_efforts = _get_valid_zai_efforts(depname)
+    if effort_used in valid_efforts:
         # zai-sdk's create() has a direct `thinking` parameter
         chat_kwargs["thinking"] = {"type": "enabled"}
         # reasoning_effort is NOT a parameter of zai-sdk, but the Z.AI REST
@@ -116,7 +135,7 @@ def build_zai_chat_kwargs(
     # Non-thinking-mode parameters: temperature, top_p, presence_penalty,
     # frequency_penalty.  In thinking mode these are silently ignored or
     # rejected by the API, so we only send them when thinking is disabled.
-    if effort_used not in _VALID_EFFORTS:
+    if effort_used not in valid_efforts:
         # temperature
         temp_env = (
             env_get(f"{_ENV_PREFIX}_TEMPERATURE") or env_get("UAGENT_TEMPERATURE") or ""
