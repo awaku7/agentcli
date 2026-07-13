@@ -298,7 +298,7 @@ def iter_backup_files(root_dir: str) -> list[str]:
 # Reasoning / Verbosity modes
 # ==============================
 
-_REASONING_LEVELS = ["off", "auto", "minimal", "low", "medium", "high", "xhigh"]
+_REASONING_LEVELS = ["off", "auto", "minimal", "low", "medium", "high", "xhigh", "ultra"]
 _VERBOSITY_LEVELS = ["off", "low", "medium", "high"]
 
 
@@ -339,6 +339,8 @@ def _normalize_reasoning_level_arg(arg: str) -> str | None:
         return "high"
     if a in ("xhigh", "xh", "x-high"):
         return "xhigh"
+    if a in ("ultra", "u"):
+        return "ultra"
 
     return None
 

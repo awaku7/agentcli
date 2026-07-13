@@ -21,7 +21,10 @@ def apply_openrouter_extra_body(chat_kwargs: dict[str, Any], *, provider: str) -
         _eb = chat_kwargs.get("extra_body")
         if not isinstance(_eb, dict):
             _eb = {}
-        _eb["reasoning"] = {"enabled": bool(_reasoning_enabled)}
+        _reasoning_obj: dict[str, Any] = {"enabled": bool(_reasoning_enabled)}
+        if _reasoning_enabled and _raw_reason not in ("auto", "minimal"):
+            _reasoning_obj["effort"] = _raw_reason
+        _eb["reasoning"] = _reasoning_obj
         chat_kwargs["extra_body"] = _eb
     except Exception:
         pass
