@@ -44,7 +44,7 @@ Required if `UAGENT_PROVIDER=openai`:
 
 Required if `UAGENT_PROVIDER=bedrock`:
 
-- `UAGENT_BEDROCK_MODEL` (required, e.g. `us.anthropic.claude-sonnet-4-20250514`)
+- `UAGENT_BEDROCK_DEPNAME` (required, e.g. `us.anthropic.claude-sonnet-4-20250514`)
 - `UAGENT_BEDROCK_ACCESS_KEY` (required)
 - `UAGENT_BEDROCK_SECRET_KEY` (required)
 - `UAGENT_BEDROCK_REGION` (optional, default: `us-west-2`)
@@ -59,7 +59,7 @@ Required if `UAGENT_PROVIDER=openrouter`:
 
 Required if `UAGENT_PROVIDER=ollama`:
 
-- `UAGENT_OLLAMA_MODEL` (required)
+- `UAGENT_OLLAMA_DEPNAME` (required)
 - `UAGENT_OLLAMA_BASE_URL` (optional, default: `http://localhost:11434/v1`)
 
 #### Google Gemini
@@ -67,7 +67,7 @@ Required if `UAGENT_PROVIDER=ollama`:
 Required if `UAGENT_PROVIDER=gemini`:
 
 - `UAGENT_GEMINI_API_KEY` (required)
-- `UAGENT_GEMINI_MODEL` (optional, default: `gemini-2.5-pro-exp-03-25`)
+- `UAGENT_GEMINI_DEPNAME` (optional, default: `gemini-2.5-pro-exp-03-25`)
 
 #### Google Vertex AI
 
@@ -75,7 +75,7 @@ Required if `UAGENT_PROVIDER=vertexai`:
 
 - `UAGENT_VERTEXAI_PROJECT` (required)
 - `UAGENT_VERTEXAI_LOCATION` (required, e.g. `us-central1`)
-- `UAGENT_VERTEXAI_MODEL` (required)
+- `UAGENT_VERTEXAI_DEPNAME` (required)
 - `UAGENT_VERTEXAI_CREDENTIALS` (required): Path to Google Cloud service account JSON.
 
 #### Claude (Anthropic)
@@ -83,21 +83,21 @@ Required if `UAGENT_PROVIDER=vertexai`:
 Required if `UAGENT_PROVIDER=claude`:
 
 - `UAGENT_CLAUDE_API_KEY` (required)
-- `UAGENT_CLAUDE_MODEL` (optional, default: `claude-sonnet-4-20250514`)
+- `UAGENT_CLAUDE_DEPNAME` (optional, default: `claude-sonnet-4-20250514`)
 
 #### Grok
 
 Required if `UAGENT_PROVIDER=grok`:
 
 - `UAGENT_GROK_API_KEY` (required)
-- `UAGENT_GROK_MODEL` (optional)
+- `UAGENT_GROK_DEPNAME` (optional)
 
 #### NVIDIA
 
 Required if `UAGENT_PROVIDER=nvidia`:
 
 - `UAGENT_NVIDIA_API_KEY` (required)
-- `UAGENT_NVIDIA_MODEL` (optional)
+- `UAGENT_NVIDIA_DEPNAME` (optional)
 
 #### DeepSeek
 
