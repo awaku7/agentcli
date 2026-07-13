@@ -52,6 +52,7 @@ from .util_tools import (
     handle_command,
     build_initial_messages,
     get_reasoning_mode,
+    get_display_reasoning,
     get_verbosity_mode,
     apply_reasoning_arg,
     apply_verbosity_arg,
@@ -1375,6 +1376,15 @@ class MainWindow(QtWidgets.QMainWindow):
         self.statusBar().addPermanentWidget(self._mode_label)
         self._mode_text = ""
 
+        # Reasoning display toggle button
+        self._display_reasoning_btn = QtWidgets.QPushButton()
+        self._display_reasoning_btn.setFixedWidth(28)
+        self._display_reasoning_btn.setFixedHeight(22)
+        self._display_reasoning_btn.setToolTip(_("Toggle reasoning display"))
+        self._display_reasoning_btn.clicked.connect(self._toggle_display_reasoning)
+        self.statusBar().addPermanentWidget(self._display_reasoning_btn)
+        self._update_display_reasoning_btn()
+
         # Auto-pilot stop button (x key)
         self._auto_stop_btn = QtWidgets.QPushButton("✕")
         self._auto_stop_btn.setFixedWidth(28)
@@ -1602,6 +1612,34 @@ class MainWindow(QtWidgets.QMainWindow):
                 self._mode_label.setText(" " + txt)
             except Exception:
                 pass
+        self._update_display_reasoning_btn()
+
+    def _toggle_display_reasoning(self) -> None:
+        """Toggle the display-reasoning flag."""
+        try:
+            apply_reasoning_arg("")
+            self._update_display_reasoning_btn()
+            print(
+                _("[display_reasoning] %(state)s")
+                % {"state": "ON" if get_display_reasoning() else "OFF"}
+            )
+        except Exception as e:
+            print(_("[display_reasoning] error: %(err)s") % {"err": e})
+
+    def _update_display_reasoning_btn(self) -> None:
+        enabled = get_display_reasoning()
+        if enabled:
+            self._display_reasoning_btn.setText("🧠")
+            self._display_reasoning_btn.setStyleSheet(
+                "QPushButton { color: white; background-color: #2563eb; border-radius: 4px; font-weight: bold; font-size: 11px; }"
+                "QPushButton:hover { background-color: #1d4ed8; }"
+            )
+        else:
+            self._display_reasoning_btn.setText("🧠")
+            self._display_reasoning_btn.setStyleSheet(
+                "QPushButton { color: #9ca3af; background-color: #374151; border-radius: 4px; font-weight: bold; font-size: 11px; }"
+                "QPushButton:hover { background-color: #4b5563; }"
+            )
 
     def _set_reasoning(self, arg: str) -> None:
         try:
