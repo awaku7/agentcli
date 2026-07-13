@@ -308,14 +308,18 @@ def run_tool(args: dict[str, Any]) -> str:
                 # remaining byte budget, while consuming its remainder so it
                 # is still counted as one physical line.
                 if not has_newline:
+                    reached_eof = False
                     while True:
                         discarded = f.readline(chunk_size)
                         if not discarded:
+                            reached_eof = True
                             break
                         raw_line += discarded[: max(0, max_bytes - len(raw_line))]
                         if discarded.endswith(b"\n"):
                             has_newline = True
                             break
+                    if reached_eof:
+                        has_newline = True
 
                 remaining_bytes = max_bytes - total_bytes
                 if remaining_bytes <= 0:
