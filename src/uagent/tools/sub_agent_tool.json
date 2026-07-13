@@ -28,7 +28,15 @@
     "param.response_mode.description": "وضع الإخراج للوكيل الفرعي.",
     "param.response_schema.description": "كائن JSON Schema اختياري للاستجابة المتوقعة.",
     "param.strict_output.description": "معاملة الحقول المطلوبة المفقودة أو عدم تطابق المخطط كأخطاء.",
-    "tool.description": "تنفيذ وكيل فرعي متخصص وآمن (مخطط، مراجع، ملخص، مصمم تصحيحات، محلل أخطاء، أو مترجم) تحت سيطرة المنسق الرئيسي."
+    "tool.description": "تنفيذ وكيل فرعي متخصص وآمن (مخطط، مراجع، ملخص، مصمم تصحيحات، محلل أخطاء، أو مترجم) تحت سيطرة المنسق الرئيسي.",
+    "param.permission_level.description": "مستوى إذن التنفيذ للوكيل الفرعي. 'read_only' يسمح بقراءة الملفات، 'propose_only' يسمح بالقراءة + إنشاء ملف جديد.",
+    "param.cache_ttl.description": "ذاكرة التخزين المؤقت TTL في ثوان. 0 = لا يوجد ذاكرة تخزين مؤقت. الافتراضي 0.",
+    "param.store_key.description": "مفتاح لتخزين نتيجة هذا الوكيل الفرعي في مخزن السياق المشترك ليستخدمها الوكلاء الفرعيون اللاحقون.",
+    "param.load_keys.description": "قائمة المفاتيح المراد تحميلها من مخزن السياق المشترك. يتم إدخال القيم المقابلة في حزمة contextPack الخاصة بالوكيل الفرعي.",
+    "param.parent_goal.description": "تجاوز هدف الوكيل الأصلي لاستدعاء الوكيل الفرعي هذا.",
+    "param.timeout.description": "مهلة استدعاء LLM بالثواني. 0 = لا يوجد مهلة. الافتراضي 120.",
+    "param.max_retries.description": "الحد الأقصى لعدد مرات إعادة المحاولة في تحليل JSON أو أخطاء الموفر. الافتراضي 2.",
+    "param.max_turns.description": "الحد الأقصى لعدد التفاعلات متعددة المنعطفات لاستخدام الأداة. 3 = موصى به. يمكن للوكيل الفرعي استخدام الأدوات عبر جولات متعددة قبل تقديم الإجابة النهائية."
   },
   "bn": {
     "param.agent_name.description": "চালানোর জন্য বিশেষায়িত সাব-এজেন্টের নাম।",
@@ -59,7 +67,15 @@
     "param.response_mode.description": "সাব-এজেন্টের জন্য আউটপুট মোড।",
     "param.response_schema.description": "প্রত্যাশিত প্রতিক্রিয়ার জন্য ঐচ্ছিক JSON Schema অবজেক্ট।",
     "param.strict_output.description": "JSON প্রতিক্রিয়াতে প্রয়োজনীয় ক্ষেত্রগুলির তালিকা",
-    "tool.description": "প্যারেন্ট অর্কেস্ট্রেটরের নিয়ন্ত্রণে একটি বিশেষায়িত, নিরাপদ সাব-এজেন্ট (প্ল্যানার, রিভিউয়ার, সামারাইজার, প্যাচ_ডিজাইনার, এরর_অ্যানালিস্ট, বা ট্রান্সলেটর) কার্যকর করুন।"
+    "tool.description": "প্যারেন্ট অর্কেস্ট্রেটরের নিয়ন্ত্রণে একটি বিশেষায়িত, নিরাপদ সাব-এজেন্ট (প্ল্যানার, রিভিউয়ার, সামারাইজার, প্যাচ_ডিজাইনার, এরর_অ্যানালিস্ট, বা ট্রান্সলেটর) কার্যকর করুন।",
+    "param.permission_level.description": "সাব-এজেন্টের জন্য এক্সিকিউশন পারমিশন লেভেল। 'অনলি-পড়া' ফাইল পড়ার অনুমতি দেয়, 'অনলি_প্রস্তাব' রিড + নতুন ফাইল তৈরি করতে দেয়।",
+    "param.cache_ttl.description": "সেকেন্ডের মধ্যে ক্যাশে TTL. 0 = কোন ক্যাশে নেই। ডিফল্ট 0",
+    "param.store_key.description": "পরবর্তী সাব-এজেন্টদের দ্বারা ব্যবহারের জন্য শেয়ার্ড কনটেক্সট স্টোরে এই সাব-এজেন্টের ফলাফল সংরক্ষণ করার কী।",
+    "param.load_keys.description": "ভাগ করা প্রসঙ্গ স্টোর থেকে লোড করার জন্য কীগুলির তালিকা৷ সংশ্লিষ্ট মানগুলি সাব-এজেন্টের কনটেক্সটপ্যাকে ইনজেকশন দেওয়া হয়।",
+    "param.parent_goal.description": "এই সাব-এজেন্ট আহ্বানের জন্য অভিভাবক এজেন্টের লক্ষ্য ওভাররাইড করুন।",
+    "param.timeout.description": "সেকেন্ডে এলএলএম কল টাইমআউট। 0 = কোন সময়সীমা নেই। ডিফল্ট 120।",
+    "param.max_retries.description": "JSON পার্স বা প্রদানকারী ত্রুটির উপর সর্বোচ্চ সংখ্যক পুনঃপ্রচার। ডিফল্ট 2.",
+    "param.max_turns.description": "টুল ব্যবহারের জন্য মাল্টি-টার্ন ইন্টারঅ্যাকশনের সর্বাধিক সংখ্যা। 3 = প্রস্তাবিত। সাব-এজেন্ট চূড়ান্ত উত্তর তৈরি করার আগে একাধিক রাউন্ড জুড়ে টুল ব্যবহার করতে পারে।"
   },
   "cs": {
     "param.agent_name.description": "Název specializovaného podřízeného agenta, který se má spustit.",
@@ -90,7 +106,15 @@
     "param.response_mode.description": "Výstupní režim pro podřízeného agenta.",
     "param.response_schema.description": "Volitelný objekt JSON Schema pro očekávanou odpověď.",
     "param.strict_output.description": "Chybějící povinná pole nebo nesoulad schématu považovat za chyby.",
-    "tool.description": "Spusťte specializovaného, bezpečného sub-agenta (plánovač, recenzent, sumarizátor, návrhář záplat, analytik chyb nebo překladač) pod kontrolou nadřazeného orchestrátoru."
+    "tool.description": "Spusťte specializovaného, bezpečného sub-agenta (plánovač, recenzent, sumarizátor, návrhář záplat, analytik chyb nebo překladač) pod kontrolou nadřazeného orchestrátoru.",
+    "param.permission_level.description": "Úroveň oprávnění k provedení pro podřízeného agenta. 'read_only' umožňuje čtení souborů, 'propose_only' umožňuje čtení + vytváření nových souborů.",
+    "param.cache_ttl.description": "Uložte TTL do mezipaměti během několika sekund. 0 = žádná mezipaměť. Výchozí 0.",
+    "param.store_key.description": "Klíč k uložení výsledku tohoto dílčího agenta ve sdíleném úložišti kontextu pro použití následujícími dílčími agenty.",
+    "param.load_keys.description": "Seznam klíčů, které se mají načíst ze sdíleného kontextového úložiště. Odpovídající hodnoty jsou vloženy do ContextPack sub-agenta.",
+    "param.parent_goal.description": "Přepište cíl nadřazeného agenta pro toto vyvolání podřízeného agenta.",
+    "param.timeout.description": "Časový limit LLM hovoru v sekundách. 0 = žádný časový limit. Výchozí 120.",
+    "param.max_retries.description": "Maximální počet opakování při analýze JSON nebo chybách poskytovatele. Výchozí 2.",
+    "param.max_turns.description": "Maximální počet víceotáčkových interakcí pro použití nástroje. 3 = doporučeno. Sub-agent může používat nástroje ve více kolech, než vytvoří konečnou odpověď."
   },
   "de": {
     "param.agent_name.description": "Der Name des auszuführenden spezialisierten Subagenten.",
@@ -121,7 +145,15 @@
     "param.response_mode.description": "Ausgabemodus für den Sub-Agenten.",
     "param.response_schema.description": "Optionales JSON-Schema-Objekt für die erwartete Antwort.",
     "param.strict_output.description": "Behandeln Sie fehlende Pflichtfelder oder Schemakonflikte als Fehler.",
-    "tool.description": "Führen Sie einen spezialisierten, sicheren Unter-Agenten (Planer, Prüfer, Zusammenfasser, Patch-Designer, Fehleranalyst oder Übersetzer) unter der Kontrolle des übergeordneten Orchestrators aus."
+    "tool.description": "Führen Sie einen spezialisierten, sicheren Unter-Agenten (Planer, Prüfer, Zusammenfasser, Patch-Designer, Fehleranalyst oder Übersetzer) unter der Kontrolle des übergeordneten Orchestrators aus.",
+    "param.permission_level.description": "Ausführungsberechtigungsstufe für den Subagenten. „read_only“ ermöglicht das Lesen von Dateien, „propose_only“ ermöglicht das Lesen + Erstellen neuer Dateien.",
+    "param.cache_ttl.description": "Cache-TTL in Sekunden. 0 = kein Cache. Standard 0.",
+    "param.store_key.description": "Schlüssel zum Speichern des Ergebnisses dieses Subagenten im gemeinsamen Kontextspeicher zur Verwendung durch nachfolgende Subagenten.",
+    "param.load_keys.description": "Liste der Schlüssel, die aus dem gemeinsam genutzten Kontextspeicher geladen werden sollen. Die entsprechenden Werte werden in das ContextPack des Subagenten eingefügt.",
+    "param.parent_goal.description": "Überschreiben Sie das Ziel des übergeordneten Agenten für diesen Unteragentenaufruf.",
+    "param.timeout.description": "LLM-Aufruf-Timeout in Sekunden. 0 = kein Timeout. Standard 120.",
+    "param.max_retries.description": "Maximale Anzahl von Wiederholungen bei JSON-Analyse- oder Anbieterfehlern. Standard 2.",
+    "param.max_turns.description": "Maximale Anzahl von Multiturn-Interaktionen für den Werkzeugeinsatz. 3 = empfohlen. Der Subagent kann Tools über mehrere Runden hinweg nutzen, bevor er die endgültige Antwort erstellt."
   },
   "en": {
     "param.agent_name.description": "The name of the specialized sub-agent to run.",
@@ -150,7 +182,15 @@
       "translator",
       "translation",
       "localization"
-    ]
+    ],
+    "param.permission_level.description": "Execution permission level for the sub-agent. 'read_only' allows file reads, 'propose_only' allows reads + new file creation.",
+    "param.cache_ttl.description": "Cache TTL in seconds. 0 = no cache. Default 0.",
+    "param.store_key.description": "Key to store this sub-agent's result in the shared context store for use by subsequent sub-agents.",
+    "param.load_keys.description": "List of keys to load from the shared context store. The corresponding values are injected into the sub-agent's ContextPack.",
+    "param.parent_goal.description": "Override the parent agent's goal for this sub-agent invocation.",
+    "param.timeout.description": "LLM call timeout in seconds. 0 = no timeout. Default 120.",
+    "param.max_retries.description": "Maximum number of retries on JSON parse or provider errors. Default 2.",
+    "param.max_turns.description": "Maximum number of multi-turn interactions for tool use. 3 = recommended. The sub-agent can use tools across multiple rounds before producing the final answer."
   },
   "es": {
     "param.agent_name.description": "El nombre del subagente especializado a ejecutar.",
@@ -181,7 +221,15 @@
     "param.response_mode.description": "Modo de salida para el subagente.",
     "param.response_schema.description": "Objeto JSON Schema opcional para la respuesta esperada.",
     "param.strict_output.description": "Trate los campos obligatorios que faltan o la discrepancia de esquema como errores.",
-    "tool.description": "Ejecuta un subagente especializado y seguro (planificador, revisor, resumidor, diseñador de parches, analista de errores o traductor) bajo el control del orquestador principal."
+    "tool.description": "Ejecuta un subagente especializado y seguro (planificador, revisor, resumidor, diseñador de parches, analista de errores o traductor) bajo el control del orquestador principal.",
+    "param.permission_level.description": "Nivel de permiso de ejecución para el subagente. 'read_only' permite lecturas de archivos, 'propose_only' permite lecturas + creación de nuevos archivos.",
+    "param.cache_ttl.description": "Caché TTL en segundos. 0 = sin caché. Predeterminado 0.",
+    "param.store_key.description": "Clave para almacenar el resultado de este subagente en el almacén de contexto compartido para que lo utilicen los subagentes posteriores.",
+    "param.load_keys.description": "Lista de claves para cargar desde el almacén de contexto compartido. Los valores correspondientes se inyectan en el ContextPack del subagente.",
+    "param.parent_goal.description": "Anule el objetivo del agente principal para esta invocación de subagente.",
+    "param.timeout.description": "Tiempo de espera de llamada de LLM en segundos. 0 = sin tiempo de espera. Por defecto 120.",
+    "param.max_retries.description": "Número máximo de reintentos en análisis JSON o errores de proveedor. Predeterminado 2.",
+    "param.max_turns.description": "Número máximo de interacciones de múltiples vueltas para el uso de herramientas. 3 = recomendado. El subagente puede utilizar herramientas en varias rondas antes de producir la respuesta final."
   },
   "fa": {
     "param.agent_name.description": "نام عامل فرعی تخصصی برای اجرا.",
@@ -212,7 +260,15 @@
     "param.response_mode.description": "حالت خروجی برای زیر-عامل.",
     "param.response_schema.description": "شیء اختیاری JSON Schema برای پاسخ مورد انتظار.",
     "param.strict_output.description": "فیلدهای الزامی از دست رفته یا عدم تطابق طرحواره را به عنوان خطا در نظر بگیرید.",
-    "tool.description": "یک زیرعامل تخصصی و ایمن (برنامه‌ریز، بازبین، خلاصه‌کننده، طراح وصله، تحلیل‌گر خطا، یا مترجم) را تحت کنترل هماهنگ‌کننده اصلی اجرا کنید."
+    "tool.description": "یک زیرعامل تخصصی و ایمن (برنامه‌ریز، بازبین، خلاصه‌کننده، طراح وصله، تحلیل‌گر خطا، یا مترجم) را تحت کنترل هماهنگ‌کننده اصلی اجرا کنید.",
+    "param.permission_level.description": "سطح مجوز اجرا برای عامل فرعی. 'read_only' اجازه خواندن فایل را می دهد، 'propose_only' اجازه خواندن + ایجاد فایل جدید را می دهد.",
+    "param.cache_ttl.description": "کش TTL در چند ثانیه 0 = بدون کش پیش فرض 0.",
+    "param.store_key.description": "کلید ذخیره نتیجه این عامل فرعی در ذخیره سازی زمینه مشترک برای استفاده توسط عوامل فرعی بعدی.",
+    "param.load_keys.description": "فهرست کلیدها برای بارگیری از فروشگاه زمینه مشترک. مقادیر مربوطه به ContextPack عامل فرعی تزریق می شود.",
+    "param.parent_goal.description": "هدف نماینده والد را برای این فراخوانی عامل فرعی نادیده بگیرید.",
+    "param.timeout.description": "مهلت تماس LLM در چند ثانیه. 0 = بدون تایم اوت پیش فرض 120.",
+    "param.max_retries.description": "حداکثر تعداد دفعات تکرار در تجزیه JSON یا خطاهای ارائه دهنده. پیش فرض 2.",
+    "param.max_turns.description": "حداکثر تعداد فعل و انفعالات چند چرخشی برای استفاده از ابزار. 3 = توصیه می شود. عامل فرعی می تواند از ابزارها در چندین دور قبل از تولید پاسخ نهایی استفاده کند."
   },
   "fi": {
     "param.agent_name.description": "Suoritettavan erikoisagentin nimi.",
@@ -243,7 +299,15 @@
     "param.response_mode.description": "Alijäsenen tulostustila.",
     "param.response_schema.description": "Valinnainen JSON-skeemaobjekti odotetulle vastaukselle.",
     "param.strict_output.description": "Käsittele puuttuvia pakollisia kenttiä tai skeeman yhteensopimattomuutta virheinä.",
-    "tool.description": "Suorita erikoistunut, turvallinen ala-agentti (suunnittelija, arvioija, tiivistäjä, korjaussuunnittelija, virheanalyytikko tai kääntäjä) yläohjaimen hallinnassa."
+    "tool.description": "Suorita erikoistunut, turvallinen ala-agentti (suunnittelija, arvioija, tiivistäjä, korjaussuunnittelija, virheanalyytikko tai kääntäjä) yläohjaimen hallinnassa.",
+    "param.permission_level.description": "Suoritusoikeustaso aliagentille. 'read_only' sallii tiedostojen lukemisen, 'propose_only' sallii lukemisen + uuden tiedoston luomisen.",
+    "param.cache_ttl.description": "Tallenna TTL välimuistiin sekunneissa. 0 = ei välimuistia. Oletusarvo 0.",
+    "param.store_key.description": "Avain tämän aliagentin tuloksen tallentamiseen jaettuun kontekstivarastoon myöhempien aliagenttien käyttöön.",
+    "param.load_keys.description": "Luettelo avaimista, jotka ladataan jaetusta kontekstivarastosta. Vastaavat arvot lisätään aliagentin ContextPackiin.",
+    "param.parent_goal.description": "Ohita pääagentin tavoite tälle aliagentin kutsulle.",
+    "param.timeout.description": "LLM-puhelun aikakatkaisu sekunneissa. 0 = ei aikakatkaisua. Oletusarvo 120.",
+    "param.max_retries.description": "JSON-jäsennys- tai toimittajavirheiden uudelleenyritysten enimmäismäärä. Oletus 2.",
+    "param.max_turns.description": "Maksimimäärä usean kierroksen vuorovaikutuksia työkalun käyttöön. 3 = suositeltava. Aliagentti voi käyttää työkaluja useilla kierroksilla ennen lopullisen vastauksen antamista."
   },
   "fr": {
     "param.agent_name.description": "Le nom du sous-agent spécialisé à exécuter.",
@@ -274,7 +338,15 @@
     "param.response_mode.description": "Mode de sortie du sous-agent.",
     "param.response_schema.description": "Objet JSON Schema facultatif pour la réponse attendue.",
     "param.strict_output.description": "Traitez les champs obligatoires manquants ou les incohérences de schéma comme des erreurs.",
-    "tool.description": "Exécute un sous-agent spécialisé et sécurisé (planificateur, réviseur, résumeur, concepteur de correctifs, analyste d'erreurs ou traducteur) sous le contrôle de l'orchestrateur parent."
+    "tool.description": "Exécute un sous-agent spécialisé et sécurisé (planificateur, réviseur, résumeur, concepteur de correctifs, analyste d'erreurs ou traducteur) sous le contrôle de l'orchestrateur parent.",
+    "param.permission_level.description": "Niveau d'autorisation d'exécution pour le sous-agent. 'read_only' autorise les lectures de fichiers, 'propose_only' autorise les lectures + la création d'un nouveau fichier.",
+    "param.cache_ttl.description": "Cachez le TTL en quelques secondes. 0 = pas de cache. Par défaut 0.",
+    "param.store_key.description": "Clé pour stocker le résultat de ce sous-agent dans le magasin de contexte partagé pour une utilisation par les sous-agents suivants.",
+    "param.load_keys.description": "Liste des clés à charger depuis le magasin de contexte partagé. Les valeurs correspondantes sont injectées dans le ContextPack du sous-agent.",
+    "param.parent_goal.description": "Remplacez l'objectif de l'agent parent pour cet appel de sous-agent.",
+    "param.timeout.description": "Délai d'expiration de l'appel LLM en secondes. 0 = pas de délai d'attente. Par défaut 120.",
+    "param.max_retries.description": "Nombre maximum de tentatives sur les erreurs d'analyse JSON ou de fournisseur. Par défaut 2.",
+    "param.max_turns.description": "Nombre maximum d'interactions multi-tours pour l'utilisation de l'outil. 3 = recommandé. Le sous-agent peut utiliser des outils sur plusieurs tours avant de produire la réponse finale."
   },
   "hi": {
     "param.agent_name.description": "चलाने के लिए विशेष उप-एजेंट (sub-agent) का नाम।",
@@ -305,7 +377,15 @@
     "param.response_mode.description": "उप-एजेंट के लिए आउटपुट मोड।",
     "param.response_schema.description": "अपेक्षित प्रतिक्रिया के लिए वैकल्पिक JSON Schema ऑब्जेक्ट।",
     "param.strict_output.description": "लापता आवश्यक फ़ील्ड या स्कीमा बेमेल को त्रुटियों के रूप में मानें।",
-    "tool.description": "मूल ऑर्केस्ट्रेटर के नियंत्रण में एक विशेष, सुरक्षित उप-एजेंट (योजनाकार, समीक्षक, सारांशकर्ता, पैच_डिज़ाइनर, त्रुटि_विश्लेषक, या अनुवादक) निष्पादित करें।"
+    "tool.description": "मूल ऑर्केस्ट्रेटर के नियंत्रण में एक विशेष, सुरक्षित उप-एजेंट (योजनाकार, समीक्षक, सारांशकर्ता, पैच_डिज़ाइनर, त्रुटि_विश्लेषक, या अनुवादक) निष्पादित करें।",
+    "param.permission_level.description": "उप-एजेंट के लिए निष्पादन अनुमति स्तर. 'read_only' फ़ाइल को पढ़ने की अनुमति देता है, 'propose_only' रीड्स + नई फ़ाइल निर्माण की अनुमति देता है।",
+    "param.cache_ttl.description": "सेकंड में टीटीएल कैश करें। 0 = कोई कैश नहीं. डिफ़ॉल्ट 0.",
+    "param.store_key.description": "इस उप-एजेंट के परिणाम को बाद के उप-एजेंटों द्वारा उपयोग के लिए साझा संदर्भ स्टोर में संग्रहीत करने की कुंजी।",
+    "param.load_keys.description": "साझा संदर्भ स्टोर से लोड करने के लिए कुंजियों की सूची। संबंधित मानों को उप-एजेंट के कॉन्टेक्स्टपैक में इंजेक्ट किया जाता है।",
+    "param.parent_goal.description": "इस उप-एजेंट आमंत्रण के लिए मूल एजेंट के लक्ष्य को ओवरराइड करें।",
+    "param.timeout.description": "एलएलएम कॉल टाइमआउट सेकंड में। 0 = कोई टाइमआउट नहीं. डिफ़ॉल्ट 120.",
+    "param.max_retries.description": "JSON पार्स या प्रदाता त्रुटियों पर पुनर्प्रयास की अधिकतम संख्या। डिफ़ॉल्ट 2.",
+    "param.max_turns.description": "टूल उपयोग के लिए मल्टी-टर्न इंटरैक्शन की अधिकतम संख्या। 3 = अनुशंसित. अंतिम उत्तर देने से पहले उप-एजेंट कई राउंड में टूल का उपयोग कर सकता है।"
   },
   "id": {
     "param.agent_name.description": "Nama sub-agen khusus yang akan dijalankan.",
@@ -336,7 +416,15 @@
     "param.response_mode.description": "Mode output untuk sub-agen.",
     "param.response_schema.description": "Objek JSON Schema opsional untuk respons yang diharapkan.",
     "param.strict_output.description": "Perlakukan bidang wajib yang hilang atau ketidakcocokan skema sebagai kesalahan.",
-    "tool.description": "Jalankan sub-agen khusus yang aman (perencana, peninjau, perangkum, perancang tambalan, analis kesalahan, atau penerjemah) di bawah kendali orkestrator induk."
+    "tool.description": "Jalankan sub-agen khusus yang aman (perencana, peninjau, perangkum, perancang tambalan, analis kesalahan, atau penerjemah) di bawah kendali orkestrator induk.",
+    "param.permission_level.description": "Tingkat izin eksekusi untuk sub-agen. 'read_only' memungkinkan pembacaan file, 'propose_only' memungkinkan pembacaan + pembuatan file baru.",
+    "param.cache_ttl.description": "Tembolok TTL dalam hitungan detik. 0 = tidak ada cache. Bawaan 0.",
+    "param.store_key.description": "Kunci untuk menyimpan hasil sub-agen ini di penyimpanan konteks bersama untuk digunakan oleh sub-agen berikutnya.",
+    "param.load_keys.description": "Daftar kunci untuk dimuat dari penyimpanan konteks bersama. Nilai yang sesuai dimasukkan ke dalam ContextPack sub-agen.",
+    "param.parent_goal.description": "Ganti tujuan agen induk untuk pemanggilan sub-agen ini.",
+    "param.timeout.description": "Batas waktu panggilan LLM dalam hitungan detik. 0 = tidak ada batas waktu. Bawaan 120.",
+    "param.max_retries.description": "Jumlah maksimum percobaan ulang pada parse JSON atau kesalahan penyedia. Bawaan 2.",
+    "param.max_turns.description": "Jumlah maksimum interaksi multi-putaran untuk penggunaan alat. 3 = direkomendasikan. Sub-agen dapat menggunakan alat dalam beberapa putaran sebelum menghasilkan jawaban akhir."
   },
   "it": {
     "param.agent_name.description": "Il nome dell'agente secondario specializzato da eseguire.",
@@ -367,7 +455,15 @@
     "param.response_mode.description": "Modalità di output per il sub-agente.",
     "param.response_schema.description": "Oggetto JSON Schema opzionale per la risposta attesa.",
     "param.strict_output.description": "Tratta i campi obbligatori mancanti o la mancata corrispondenza dello schema come errori.",
-    "tool.description": "Esegui un sotto-agente specializzato e sicuro (pianificatore, revisore, riassuntore, progettista di patch, analista di errori o traduttore) sotto il controllo dell'orchestratore principale."
+    "tool.description": "Esegui un sotto-agente specializzato e sicuro (pianificatore, revisore, riassuntore, progettista di patch, analista di errori o traduttore) sotto il controllo dell'orchestratore principale.",
+    "param.permission_level.description": "Livello di autorizzazione di esecuzione per l'agente secondario. 'read_only' consente la lettura dei file, 'propose_only' consente la lettura + la creazione di nuovi file.",
+    "param.cache_ttl.description": "Memorizza nella cache TTL in pochi secondi. 0 = nessuna cache. Predefinito 0.",
+    "param.store_key.description": "Chiave per archiviare il risultato di questo agente secondario nell'archivio del contesto condiviso per l'utilizzo da parte degli agenti secondari successivi.",
+    "param.load_keys.description": "Elenco di chiavi da caricare dall'archivio contesto condiviso. I valori corrispondenti vengono inseriti nel ContextPack dell'agente secondario.",
+    "param.parent_goal.description": "Sostituisci l'obiettivo dell'agente principale per questa chiamata dell'agente secondario.",
+    "param.timeout.description": "Timeout chiamata LLM in secondi. 0 = nessun timeout. Predefinito 120.",
+    "param.max_retries.description": "Numero massimo di tentativi sull'analisi JSON o sugli errori del provider. Predefinito 2.",
+    "param.max_turns.description": "Numero massimo di interazioni multigiro per l'utilizzo dello strumento. 3 = consigliato. Il sub-agente può utilizzare gli strumenti in più round prima di produrre la risposta finale."
   },
   "ja": {
     "param.agent_name.description": "実行する専門サブエージェントの名前。",
@@ -401,7 +497,15 @@
       "エラー",
       "不具合解析"
     ],
-    "tool.description": "親オーケストレーターの制御下で、専門的で安全なサブエージェント（プランナー、レビュアー、要約者、パッチデザイナー、エラー分析者、または翻訳者）を実行します。"
+    "tool.description": "親オーケストレーターの制御下で、専門的で安全なサブエージェント（プランナー、レビュアー、要約者、パッチデザイナー、エラー分析者、または翻訳者）を実行します。",
+    "param.permission_level.description": "サブエージェントの実行権限レベル。 「read_only」はファイルの読み取りを許可し、「propose_only」は読み取りと新しいファイルの作成を許可します。",
+    "param.cache_ttl.description": "TTLを数秒でキャッシュします。 0 = キャッシュなし。デフォルトは 0。",
+    "param.store_key.description": "後続のサブエージェントが使用できるように、このサブエージェントの結果を共有コンテキスト ストアに保存するためのキー。",
+    "param.load_keys.description": "共有コンテキスト ストアからロードするキーのリスト。対応する値がサブエージェントの ContextPack に挿入されます。",
+    "param.parent_goal.description": "このサブエージェント呼び出しの親エージェントの目標をオーバーライドします。",
+    "param.timeout.description": "LLM 呼び出しのタイムアウト (秒単位)。 0 = タイムアウトなし。デフォルトは 120。",
+    "param.max_retries.description": "JSON 解析エラーまたはプロバイダー エラーの最大再試行回数。デフォルト 2。",
+    "param.max_turns.description": "ツール使用時のマルチターン インタラクションの最大数。 3 = 推奨。サブエージェントは、最終的な回答を生成する前に、複数のラウンドにわたってツールを使用できます。"
   },
   "ko": {
     "param.agent_name.description": "실행할 전문 서브 에이전트의 이름.",
@@ -433,7 +537,15 @@
     "param.response_mode.description": "하위 에이전트의 출력 모드.",
     "param.response_schema.description": "예상 응답에 대한 선택적 JSON Schema 객체.",
     "param.strict_output.description": "필수 필드 누락 또는 스키마 불일치를 오류로 처리.",
-    "tool.description": "상위 오케스트레이터의 제어 하에 특화된 안전한 하위 에이전트(planner, reviewer, summarizer, patch_designer, error_analyst 또는 translator)를 실행합니다."
+    "tool.description": "상위 오케스트레이터의 제어 하에 특화된 안전한 하위 에이전트(planner, reviewer, summarizer, patch_designer, error_analyst 또는 translator)를 실행합니다.",
+    "param.permission_level.description": "하위 에이전트에 대한 실행 권한 수준입니다. 'read_only'는 파일 읽기를 허용하고, 'propose_only'는 읽기 + 새 파일 생성을 허용합니다.",
+    "param.cache_ttl.description": "초 단위의 캐시 TTL입니다. 0 = 캐시가 없습니다. 기본값은 0입니다.",
+    "param.store_key.description": "후속 하위 에이전트에서 사용할 수 있도록 공유 컨텍스트 저장소에 이 하위 에이전트의 결과를 저장하기 위한 키입니다.",
+    "param.load_keys.description": "공유 컨텍스트 저장소에서 로드할 키 목록입니다. 해당 값은 하위 에이전트의 ContextPack에 주입됩니다.",
+    "param.parent_goal.description": "이 하위 에이전트 호출에 대한 상위 에이전트의 목표를 재정의합니다.",
+    "param.timeout.description": "LLM 호출 시간 초과(초)입니다. 0 = 시간 초과가 없습니다. 기본값은 120입니다.",
+    "param.max_retries.description": "JSON 구문 분석 또는 공급자 오류에 대한 최대 재시도 횟수입니다. 기본값 2.",
+    "param.max_turns.description": "도구 사용을 위한 다중 회전 상호 작용의 최대 수입니다. 3 = 권장됩니다. 하위 에이전트는 최종 답변을 생성하기 전에 여러 라운드에 걸쳐 도구를 사용할 수 있습니다."
   },
   "mn": {
     "param.agent_name.description": "Ажиллуулах тусгай дэд агентийн нэр.",
@@ -464,7 +576,15 @@
     "param.response_mode.description": "Дэд агентын гаралтын горим.",
     "param.response_schema.description": "Хүлээгдэж буй хариунд зориулсан нэмэлт JSON Schema объект.",
     "param.strict_output.description": "Шаардлагатай талбар дутуу эсвэл схемийн зөрүүг алдаа гэж үзэх.",
-    "tool.description": "Эх зохицуулагчийн хяналтан дор тусгай, аюулгүй дэд-агент (төлөвлөгч, шүүмжлэгч, хураангуйлагч, нөхөөс зохион бүтээгч, алдаа шинжээч, эсвэл орчуулагч) гүйцэтгэх."
+    "tool.description": "Эх зохицуулагчийн хяналтан дор тусгай, аюулгүй дэд-агент (төлөвлөгч, шүүмжлэгч, хураангуйлагч, нөхөөс зохион бүтээгч, алдаа шинжээч, эсвэл орчуулагч) гүйцэтгэх.",
+    "param.permission_level.description": "Дэд агентын гүйцэтгэх зөвшөөрлийн түвшин. \"зөвхөн_унших\" нь файлыг уншихыг, \"зөвхөн_санал\" нь уншихыг + шинэ файл үүсгэхийг зөвшөөрдөг.",
+    "param.cache_ttl.description": "TTL-г секундын дотор кэш. 0 = кэш байхгүй. Өгөгдмөл 0.",
+    "param.store_key.description": "Энэ дэд агентын үр дүнг дараагийн дэд агентуудад ашиглахын тулд хуваалцсан контекст хадгалах түлхүүр.",
+    "param.load_keys.description": "Хуваалцсан контекст дэлгүүрээс ачаалах түлхүүрүүдийн жагсаалт. Харгалзах утгуудыг дэд агентын ContextPack-д оруулна.",
+    "param.parent_goal.description": "Энэ дэд агентын дуудлагын эх төлөөлөгчийн зорилгыг дарж бичнэ үү.",
+    "param.timeout.description": "LLM дуудлагын хугацаа хэдхэн секундын дотор. 0 = завсарлага байхгүй. Өгөгдмөл 120.",
+    "param.max_retries.description": "JSON задлан шинжилгээ эсвэл үйлчилгээ үзүүлэгчийн алдааг дахин оролдох хамгийн их тоо. Өгөгдмөл 2.",
+    "param.max_turns.description": "Багаж ашиглах олон эргэлтийн харилцан үйлчлэлийн хамгийн их тоо. 3 = санал болгож байна. Дэд агент нь эцсийн хариултыг гаргахаасаа өмнө хэд хэдэн шатанд хэрэглүүр ашиглаж болно."
   },
   "mr": {
     "param.agent_name.description": "चालवण्यासाठी विशेष उप-एजंटचे (sub-agent) नाव.",
@@ -495,7 +615,15 @@
     "param.response_mode.description": "सब-एजंटसाठी आउटपुट मोड.",
     "param.response_schema.description": "अपेक्षित प्रतिसादासाठी पर्यायी JSON Schema ऑब्जेक्ट.",
     "param.strict_output.description": "गहाळ आवश्यक फील्ड किंवा स्कीमा विसंगती त्रुटी म्हणून समजा.",
-    "tool.description": "पालक ऑर्केस्ट्रेटरच्या नियंत्रणाखाली एक विशेष, सुरक्षित उप-एजंट (प्लॅनर, पुनरावलोकनकर्ता, सारांशकर्ता, पॅच_डिझायनर, त्रुटी_विश्लेषक किंवा अनुवादक) कार्यान्वित करा."
+    "tool.description": "पालक ऑर्केस्ट्रेटरच्या नियंत्रणाखाली एक विशेष, सुरक्षित उप-एजंट (प्लॅनर, पुनरावलोकनकर्ता, सारांशकर्ता, पॅच_डिझायनर, त्रुटी_विश्लेषक किंवा अनुवादक) कार्यान्वित करा.",
+    "param.permission_level.description": "सब-एजंटसाठी अंमलबजावणी परवानगी पातळी. 'ओन्ली_रीड' फाइल वाचण्यास परवानगी देते, 'प्रपोज_ओन्ली' रीड्स + नवीन फाइल तयार करण्यास अनुमती देते.",
+    "param.cache_ttl.description": "सेकंदात टीटीएल कॅशे करा. 0 = कॅशे नाही. डीफॉल्ट 0.",
+    "param.store_key.description": "या सब-एजंटचा परिणाम नंतरच्या सब-एजंटद्वारे वापरण्यासाठी सामायिक संदर्भ स्टोअरमध्ये संग्रहित करण्यासाठी की.",
+    "param.load_keys.description": "सामायिक केलेल्या संदर्भ स्टोअरमधून लोड करण्यासाठी कीची सूची. संबंधित मूल्ये सब-एजंटच्या कॉन्टेक्स्टपॅकमध्ये इंजेक्ट केली जातात.",
+    "param.parent_goal.description": "या सब-एजंट आवाहनासाठी पालक एजंटचे ध्येय ओव्हरराइड करा.",
+    "param.timeout.description": "LLM कॉल टाइमआउट सेकंदात. 0 = कालबाह्य नाही. डीफॉल्ट 120.",
+    "param.max_retries.description": "JSON पार्स किंवा प्रदाता त्रुटींवर जास्तीत जास्त प्रयत्न करा. डीफॉल्ट 2.",
+    "param.max_turns.description": "साधन वापरासाठी बहु-वळण परस्परसंवादांची कमाल संख्या. 3 = शिफारस केलेले. उप-एजंट अंतिम उत्तर तयार करण्यापूर्वी अनेक फेऱ्यांमध्ये साधने वापरू शकतो."
   },
   "el": {
     "param.agent_name.description": "Το όνομα του εξειδικευμένου δευτερεύοντος αντιπροσώπου που θα εκτελεστεί.",
@@ -524,7 +652,15 @@
       "μετάφραση",
       "τοπική προσαρμογή"
     ],
-    "tool.description": "Εκτέλεση ενός εξειδικευμένου, ασφαλούς υπο-πράκτορα (προγραμματιστής, αναθεωρητής, συνοψιστής, σχεδιαστής ενημερώσεων, αναλυτής σφαλμάτων ή μεταφραστής) υπό τον έλεγχο του γονικού ενορχηστρωτή."
+    "tool.description": "Εκτέλεση ενός εξειδικευμένου, ασφαλούς υπο-πράκτορα (προγραμματιστής, αναθεωρητής, συνοψιστής, σχεδιαστής ενημερώσεων, αναλυτής σφαλμάτων ή μεταφραστής) υπό τον έλεγχο του γονικού ενορχηστρωτή.",
+    "param.permission_level.description": "Επίπεδο άδειας εκτέλεσης για τον δευτερεύοντα πράκτορα. Το 'read_only' επιτρέπει την ανάγνωση αρχείων, το 'propose_only' επιτρέπει τις αναγνώσεις + τη δημιουργία νέου αρχείου.",
+    "param.cache_ttl.description": "Προσωρινή αποθήκευση TTL σε δευτερόλεπτα. 0 = χωρίς κρυφή μνήμη. Προεπιλογή 0.",
+    "param.store_key.description": "Κλειδί για την αποθήκευση του αποτελέσματος αυτού του δευτερεύοντος πράκτορα στον κοινόχρηστο χώρο αποθήκευσης περιβάλλοντος για χρήση από τους επόμενους δευτερεύοντες πράκτορες.",
+    "param.load_keys.description": "Λίστα κλειδιών για φόρτωση από τον κοινόχρηστο χώρο αποθήκευσης περιβάλλοντος. Οι αντίστοιχες τιμές εισάγονται στο ContextPack του δευτερεύοντος πράκτορα.",
+    "param.parent_goal.description": "Παράκαμψη του στόχου του γονικού πράκτορα για αυτήν την επίκληση δευτερεύοντος πράκτορα.",
+    "param.timeout.description": "Λήξη χρονικού ορίου κλήσης LLM σε δευτερόλεπτα. 0 = χωρίς τάιμ άουτ. Προεπιλογή 120.",
+    "param.max_retries.description": "Μέγιστος αριθμός επαναλήψεων σε σφάλματα ανάλυσης JSON ή σφαλμάτων παρόχου. Προεπιλογή 2.",
+    "param.max_turns.description": "Μέγιστος αριθμός αλληλεπιδράσεων πολλαπλών στροφών για χρήση εργαλείου. 3 = συνιστάται. Ο δευτερεύων πράκτορας μπορεί να χρησιμοποιήσει εργαλεία σε πολλούς γύρους πριν δώσει την τελική απάντηση."
   },
   "he": {
     "param.agent_name.description": "(אופציונלי) הגבל את היקף ההנמקה של סוכן המשנה לקובץ הספציפי הזה.",
@@ -553,7 +689,15 @@
       "תרגום",
       "לוקליזציה"
     ],
-    "tool.description": "בצע תת-סוכן מיוחד ובטוח (מתכנן, סוקר, מסכם, מעצב תיקונים, מנתח שגיאות, או מתרגם) תחת שליטתו של המתזמן הראשי."
+    "tool.description": "בצע תת-סוכן מיוחד ובטוח (מתכנן, סוקר, מסכם, מעצב תיקונים, מנתח שגיאות, או מתרגם) תחת שליטתו של המתזמן הראשי.",
+    "param.permission_level.description": "רמת הרשאת ביצוע עבור סוכן המשנה. 'read_only' מאפשר קריאת קובץ, 'propose_only' מאפשר קריאה + יצירת קובץ חדש.",
+    "param.cache_ttl.description": "שמור TTL בשניות. 0 = אין מטמון. ברירת מחדל 0.",
+    "param.store_key.description": "מפתח לאחסון התוצאה של סוכן משנה זה במאגר ההקשר המשותף לשימוש על ידי סוכני משנה הבאים.",
+    "param.load_keys.description": "רשימת המפתחות לטעינה ממאגר ההקשרים המשותף. הערכים המתאימים מוזרקים ל-ContextPack של סוכן המשנה.",
+    "param.parent_goal.description": "לעקוף את המטרה של סוכן האב עבור הפקת סוכן משנה זו.",
+    "param.timeout.description": "פסק זמן לשיחות LLM בשניות. 0 = אין פסק זמן. ברירת מחדל 120.",
+    "param.max_retries.description": "מספר מקסימלי של ניסיונות חוזרים בניתוח JSON או שגיאות ספק. ברירת מחדל 2.",
+    "param.max_turns.description": "מספר מרבי של אינטראקציות מרובה פניות לשימוש בכלי. 3 = מומלץ. סוכן המשנה יכול להשתמש בכלים על פני מספר סבבים לפני הפקת התשובה הסופית."
   },
   "hu": {
     "param.agent_name.description": "(Opcionális) Korlátozza az alügynök érvelési hatókörét erre a fájlra.",
@@ -582,7 +726,15 @@
       "fordítás",
       "lokalizáció"
     ],
-    "tool.description": "Hajtson végre egy speciális, biztonságos al-ágens (tervező, felülvizsgáló, összefoglaló, javítástervező, hibaelemző vagy fordító) irányítását a szülő orchestrator felügyelete alatt."
+    "tool.description": "Hajtson végre egy speciális, biztonságos al-ágens (tervező, felülvizsgáló, összefoglaló, javítástervező, hibaelemző vagy fordító) irányítását a szülő orchestrator felügyelete alatt.",
+    "param.permission_level.description": "Végrehajtási engedély szintje az alügynök számára. A 'read_only' lehetővé teszi a fájl olvasását, a 'propose_only' lehetővé teszi az olvasást + új fájl létrehozását.",
+    "param.cache_ttl.description": "Gyorsítótár TTL másodpercek alatt. 0 = nincs gyorsítótár. Alapértelmezett 0.",
+    "param.store_key.description": "Kulcs az alügynök eredményének a megosztott környezettárolóban való tárolására, amelyet a következő alügynökök használhatnak.",
+    "param.load_keys.description": "A megosztott környezettárolóból betöltendő kulcsok listája. A megfelelő értékeket a rendszer beadja az alügynök ContextPack csomagjába.",
+    "param.parent_goal.description": "A szülőügynök céljának felülbírálása ehhez az alügynök-híváshoz.",
+    "param.timeout.description": "LLM hívás időtúllépés másodpercben. 0 = nincs időkorlát. Alapértelmezett 120.",
+    "param.max_retries.description": "JSON-elemzési vagy szolgáltatói hibákkal kapcsolatos újrapróbálkozások maximális száma. Alapértelmezett 2.",
+    "param.max_turns.description": "A többfordulatú interakciók maximális száma szerszámhasználathoz. 3 = ajánlott. Az alügynök több körön keresztül is használhat eszközöket, mielőtt megadná a végső választ."
   },
   "ro": {
     "param.agent_name.description": "Numele agentului secundar specializat de rulat.",
@@ -611,7 +763,15 @@
       "traducere",
       "localizare"
     ],
-    "tool.description": "Execută un sub-agent specializat și sigur (planificator, recenzor, sumarizator, proiectant de patch-uri, analist de erori sau traducător) sub controlul orchestratorului părinte."
+    "tool.description": "Execută un sub-agent specializat și sigur (planificator, recenzor, sumarizator, proiectant de patch-uri, analist de erori sau traducător) sub controlul orchestratorului părinte.",
+    "param.permission_level.description": "Nivelul permisiunii de execuție pentru sub-agent. „read_only” permite citirea fișierelor, „propose_only” permite citirea + crearea de fișiere noi.",
+    "param.cache_ttl.description": "Cache TTL în câteva secunde. 0 = fără cache. Implicit 0.",
+    "param.store_key.description": "Cheie pentru a stoca rezultatul acestui sub-agent în stocul de context partajat pentru a fi utilizat de sub-agenții următori.",
+    "param.load_keys.description": "Lista cheilor de încărcat din magazinul de context partajat. Valorile corespunzătoare sunt injectate în ContextPack-ul sub-agentului.",
+    "param.parent_goal.description": "Ignorați obiectivul agentului părinte pentru această invocare a sub-agentului.",
+    "param.timeout.description": "Timeout apel LLM în secunde. 0 = fără timeout. Implicit 120.",
+    "param.max_retries.description": "Numărul maxim de încercări ale erorilor de analiză JSON sau ale furnizorului. Implicit 2.",
+    "param.max_turns.description": "Număr maxim de interacțiuni cu mai multe ture pentru utilizarea sculei. 3 = recomandat. Agentul secundar poate folosi instrumente în mai multe runde înainte de a produce răspunsul final."
   },
   "nb": {
     "param.agent_name.description": "Navnet på den spesialiserte underagenten som skal kjøres.",
@@ -642,7 +802,15 @@
     "param.response_mode.description": "Utdatamodus for underagenten.",
     "param.response_schema.description": "Valgfritt JSON-skjemaobjekt for det forventede svaret.",
     "param.strict_output.description": "Behandle manglende obligatoriske felt eller skjemamismatch som feil.",
-    "tool.description": "Utfør en spesialisert, sikker underagent (planlegger, anmelder, oppsummerer, patch-designer, feilanalytiker eller oversetter) under kontroll av den overordnede orkestratoren."
+    "tool.description": "Utfør en spesialisert, sikker underagent (planlegger, anmelder, oppsummerer, patch-designer, feilanalytiker eller oversetter) under kontroll av den overordnede orkestratoren.",
+    "param.permission_level.description": "Utførelsestillatelsesnivå for underagenten. 'read_only' tillater fillesing, 'propose_only' tillater lesing + ny filoppretting.",
+    "param.cache_ttl.description": "Buffer TTL på sekunder. 0 = ingen cache. Standard 0.",
+    "param.store_key.description": "Nøkkel for å lagre denne underagentens resultat i det delte kontekstlageret for bruk av påfølgende underagenter.",
+    "param.load_keys.description": "Liste over nøkler som skal lastes fra det delte kontekstlageret. De tilsvarende verdiene injiseres i underagentens ContextPack.",
+    "param.parent_goal.description": "Overstyr den overordnede agentens mål for denne subagent-påkallelsen.",
+    "param.timeout.description": "Tidsavbrudd for LLM-anrop på sekunder. 0 = ingen timeout. Standard 120.",
+    "param.max_retries.description": "Maksimalt antall forsøk på JSON-parse eller leverandørfeil. Standard 2.",
+    "param.max_turns.description": "Maksimalt antall interaksjoner med flere svinger for bruk av verktøy. 3 = anbefalt. Underagenten kan bruke verktøy på tvers av flere runder før den produserer det endelige svaret."
   },
   "nl": {
     "param.agent_name.description": "De naam van de gespecialiseerde subagent die moet worden uitgevoerd.",
@@ -673,7 +841,15 @@
     "param.response_mode.description": "Uitvoermodus voor de subagent.",
     "param.response_schema.description": "Optioneel JSON-schema-object voor het verwachte antwoord.",
     "param.strict_output.description": "Behandel ontbrekende verplichte velden of schema-mismatches als fouten.",
-    "tool.description": "Voer een gespecialiseerde, veilige sub-agent uit (planner, reviewer, summarizer, patch_designer, error_analyst of translator) onder controle van de bovenliggende orchestrator."
+    "tool.description": "Voer een gespecialiseerde, veilige sub-agent uit (planner, reviewer, summarizer, patch_designer, error_analyst of translator) onder controle van de bovenliggende orchestrator.",
+    "param.permission_level.description": "Uitvoeringsmachtigingsniveau voor de subagent. 'read_only' staat het lezen van bestanden toe, 'propose_only' staat lezen + aanmaken van nieuwe bestanden toe.",
+    "param.cache_ttl.description": "Cache TTL in seconden. 0 = geen cache. Standaard 0.",
+    "param.store_key.description": "Sleutel om het resultaat van deze subagent op te slaan in het gedeelde contextarchief voor gebruik door volgende subagenten.",
+    "param.load_keys.description": "Lijst met sleutels die moeten worden geladen vanuit het gedeelde contextarchief. De overeenkomstige waarden worden in het ContextPack van de subagent geïnjecteerd.",
+    "param.parent_goal.description": "Overschrijf het doel van de bovenliggende agent voor deze subagentaanroep.",
+    "param.timeout.description": "LLM-oproeptime-out in seconden. 0 = geen time-out. Standaard 120.",
+    "param.max_retries.description": "Maximaal aantal nieuwe pogingen bij JSON-parsering of providerfouten. Standaard 2.",
+    "param.max_turns.description": "Maximaal aantal multi-turn-interacties voor gereedschapsgebruik. 3 = aanbevolen. De subagent kan tools in meerdere rondes gebruiken voordat hij het definitieve antwoord geeft."
   },
   "pl": {
     "param.agent_name.description": "Nazwa wyspecjalizowanego podagenta, którego należy uruchomić.",
@@ -704,7 +880,15 @@
     "param.response_mode.description": "Tryb wyjściowy dla podagenta.",
     "param.response_schema.description": "Opcjonalny obiekt JSON Schema dla oczekiwanej odpowiedzi.",
     "param.strict_output.description": "Brakujące wymagane pola lub niezgodność schematu traktuj jako błędy.",
-    "tool.description": "Wykonaj wyspecjalizowany, bezpieczny pod-agent (planista, recenzent, podsumowujący, projektant łatek, analityk błędów lub tłumacz) pod kontrolą nadrzędnego orkiestratora."
+    "tool.description": "Wykonaj wyspecjalizowany, bezpieczny pod-agent (planista, recenzent, podsumowujący, projektant łatek, analityk błędów lub tłumacz) pod kontrolą nadrzędnego orkiestratora.",
+    "param.permission_level.description": "Poziom uprawnień do wykonywania dla podagenta. „read_only” pozwala na odczyt plików, „propose_only” pozwala na odczyty i utworzenie nowego pliku.",
+    "param.cache_ttl.description": "Cache TTL w kilka sekund. 0 = brak pamięci podręcznej. Domyślnie 0.",
+    "param.store_key.description": "Klucz do przechowywania wyniku tego podagenta we wspólnym magazynie kontekstu do wykorzystania przez kolejnych podagentów.",
+    "param.load_keys.description": "Lista kluczy do załadowania ze wspólnego magazynu kontekstu. Odpowiednie wartości są wstrzykiwane do pakietu kontekstowego podagenta.",
+    "param.parent_goal.description": "Zastąp cel agenta nadrzędnego dla tego wywołania agenta podrzędnego.",
+    "param.timeout.description": "Limit czasu połączenia LLM w sekundach. 0 = brak limitu czasu. Domyślnie 120.",
+    "param.max_retries.description": "Maksymalna liczba ponownych prób analizy JSON lub błędów dostawcy. Domyślny 2.",
+    "param.max_turns.description": "Maksymalna liczba interakcji wieloobrotowych przy użyciu narzędzia. 3 = zalecane. Podagent może korzystać z narzędzi w wielu rundach, zanim udzieli ostatecznej odpowiedzi."
   },
   "pt": {
     "param.agent_name.description": "O nome do subagente especializado a ser executado.",
@@ -735,7 +919,15 @@
     "param.response_mode.description": "Modo de saída para o subagente.",
     "param.response_schema.description": "Objeto JSON Schema opcional para a resposta esperada.",
     "param.strict_output.description": "Trate campos obrigatórios ausentes ou incompatibilidade de esquema como erros.",
-    "tool.description": "Execute um subagente especializado e seguro (planeador, revisor, sumarizador, designer de patches, analista de erros ou tradutor) sob o controlo do orquestrador principal."
+    "tool.description": "Execute um subagente especializado e seguro (planeador, revisor, sumarizador, designer de patches, analista de erros ou tradutor) sob o controlo do orquestrador principal.",
+    "param.permission_level.description": "Nível de permissão de execução para o subagente. 'read_only' permite leituras de arquivos, 'propose_only' permite leituras + criação de novo arquivo.",
+    "param.cache_ttl.description": "Cache TTL em segundos. 0 = sem cache. Padrão 0.",
+    "param.store_key.description": "Chave para armazenar o resultado deste subagente no armazenamento de contexto compartilhado para uso pelos subagentes subsequentes.",
+    "param.load_keys.description": "Lista de chaves para carregar do armazenamento de contexto compartilhado. Os valores correspondentes são injetados no ContextPack do subagente.",
+    "param.parent_goal.description": "Substitua a meta do agente pai para esta invocação de subagente.",
+    "param.timeout.description": "Tempo limite da chamada LLM em segundos. 0 = sem tempo limite. Padrão 120.",
+    "param.max_retries.description": "Número máximo de novas tentativas em erros de análise JSON ou de provedor. Padrão 2.",
+    "param.max_turns.description": "Número máximo de interações multivoltas para uso da ferramenta. 3 = recomendado. O subagente pode usar ferramentas em diversas rodadas antes de produzir a resposta final."
   },
   "pt_BR": {
     "param.agent_name.description": "O nome do subagente especializado a ser executado.",
@@ -766,7 +958,15 @@
     "param.response_mode.description": "Modo de saída para o subagente.",
     "param.response_schema.description": "Objeto JSON Schema opcional para a resposta esperada.",
     "param.strict_output.description": "Trate campos obrigatórios ausentes ou incompatibilidade de esquema como erros.",
-    "tool.description": "Execute um subagente especializado e seguro (planejador, revisor, resumidor, designer de patch, analista de erros ou tradutor) sob o controle do orquestrador pai."
+    "tool.description": "Execute um subagente especializado e seguro (planejador, revisor, resumidor, designer de patch, analista de erros ou tradutor) sob o controle do orquestrador pai.",
+    "param.permission_level.description": "Nível de permissão de execução para o subagente. 'read_only' permite leituras de arquivos, 'propose_only' permite leituras + criação de novo arquivo.",
+    "param.cache_ttl.description": "Cache TTL em segundos. 0 = sem cache. Padrão 0.",
+    "param.store_key.description": "Chave para armazenar o resultado deste subagente no armazenamento de contexto compartilhado para uso pelos subagentes subsequentes.",
+    "param.load_keys.description": "Lista de chaves para carregar do armazenamento de contexto compartilhado. Os valores correspondentes são injetados no ContextPack do subagente.",
+    "param.parent_goal.description": "Substitua a meta do agente pai para esta invocação de subagente.",
+    "param.timeout.description": "Tempo limite da chamada LLM em segundos. 0 = sem tempo limite. Padrão 120.",
+    "param.max_retries.description": "Número máximo de novas tentativas em erros de análise JSON ou de provedor. Padrão 2.",
+    "param.max_turns.description": "Número máximo de interações multivoltas para uso da ferramenta. 3 = recomendado. O subagente pode usar ferramentas em diversas rodadas antes de produzir a resposta final."
   },
   "ru": {
     "param.agent_name.description": "Имя специализированного суб-агента для запуска.",
@@ -798,7 +998,15 @@
     "param.response_mode.description": "Режим вывода для субагента.",
     "param.response_schema.description": "Необязательный объект JSON Schema для ожидаемого ответа.",
     "param.strict_output.description": "Отсутствующие обязательные поля или несоответствие схемы считаются ошибками.",
-    "tool.description": "Запустить специализированного безопасного саб-агента (планировщик, рецензент, суммаризатор, разработчик патчей, аналитик ошибок или переводчик) под управлением родительского оркестратора."
+    "tool.description": "Запустить специализированного безопасного саб-агента (планировщик, рецензент, суммаризатор, разработчик патчей, аналитик ошибок или переводчик) под управлением родительского оркестратора.",
+    "param.permission_level.description": "Уровень разрешений на выполнение для субагента. «read_only» разрешает чтение файлов, «propose_only» разрешает чтение + создание нового файла.",
+    "param.cache_ttl.description": "Срок жизни кэша за считанные секунды. 0 = нет кэша. По умолчанию 0.",
+    "param.store_key.description": "Ключ для сохранения результата этого субагента в хранилище общего контекста для использования последующими субагентами.",
+    "param.load_keys.description": "Список ключей для загрузки из хранилища общего контекста. Соответствующие значения вводятся в ContextPack субагента.",
+    "param.parent_goal.description": "Переопределить цель родительского агента для этого вызова субагента.",
+    "param.timeout.description": "Тайм-аут вызова LLM в секундах. 0 = нет тайм-аута. По умолчанию 120.",
+    "param.max_retries.description": "Максимальное количество повторных попыток анализа JSON или ошибок поставщика. По умолчанию 2.",
+    "param.max_turns.description": "Максимальное количество многооборотных взаимодействий при использовании инструмента. 3 = рекомендуется. Субагент может использовать инструменты в течение нескольких раундов, прежде чем дать окончательный ответ."
   },
   "sv": {
     "param.agent_name.description": "Namnet på den specialiserade underagenten som ska köras.",
@@ -829,7 +1037,15 @@
     "param.response_mode.description": "Utdataläge för underagenten.",
     "param.response_schema.description": "Valfritt JSON-schemaobjekt för det förväntade svaret.",
     "param.strict_output.description": "Behandla saknade obligatoriska fält eller schemafel som fel.",
-    "tool.description": "Kör en specialiserad, säker underagent (planerare, granskare, sammanfattare, patchdesigner, felanalytiker eller översättare) under kontroll av den överordnade orkestratorn."
+    "tool.description": "Kör en specialiserad, säker underagent (planerare, granskare, sammanfattare, patchdesigner, felanalytiker eller översättare) under kontroll av den överordnade orkestratorn.",
+    "param.permission_level.description": "Exekveringsbehörighetsnivå för underagenten. 'read_only' tillåter filläsning, 'propose_only' tillåter läsning + ny filskapande.",
+    "param.cache_ttl.description": "Cache TTL på några sekunder. 0 = ingen cache. Standard 0.",
+    "param.store_key.description": "Nyckel för att lagra denna underagents resultat i den delade kontextlagringen för användning av efterföljande underagenter.",
+    "param.load_keys.description": "Lista över nycklar som ska laddas från det delade sammanhangsarkivet. Motsvarande värden injiceras i underagentens ContextPack.",
+    "param.parent_goal.description": "Åsidosätt den överordnade agentens mål för denna underagentanrop.",
+    "param.timeout.description": "LLM-samtal timeout på sekunder. 0 = ingen timeout. Standard 120.",
+    "param.max_retries.description": "Maximalt antal försök på JSON-tolkning eller leverantörsfel. Standard 2.",
+    "param.max_turns.description": "Maximalt antal flervarvsinteraktioner för verktygsanvändning. 3 = rekommenderas. Underagenten kan använda verktyg i flera omgångar innan det slutliga svaret produceras."
   },
   "sw": {
     "param.agent_name.description": "Jina la ejenti msaidizi maalum wa kumendesha.",
@@ -860,7 +1076,15 @@
     "param.response_mode.description": "Hali ya pato kwa wakala mdogo.",
     "param.response_schema.description": "Kitu cha hiari cha JSON Schema kwa jibu linalotarajiwa.",
     "param.strict_output.description": "Chukua uga zinazokosekana au ulinganifu wa taratibu kama hitilafu.",
-    "tool.description": "Tekeleza wakala mdogo maalum, salama (mpangaji, mkaguzi, muhtasari, mbuni wa kiraka, mchambuzi wa makosa, au mtafsiri) chini ya udhibiti wa mratibu mzazi."
+    "tool.description": "Tekeleza wakala mdogo maalum, salama (mpangaji, mkaguzi, muhtasari, mbuni wa kiraka, mchambuzi wa makosa, au mtafsiri) chini ya udhibiti wa mratibu mzazi.",
+    "param.permission_level.description": "Kiwango cha ruhusa ya utekelezaji kwa wakala mdogo. 'soma_pekee' inaruhusu faili kusomeka, 'pendekeza_pekee' inaruhusu kusomeka + kuunda faili mpya.",
+    "param.cache_ttl.description": "Cache TTL kwa sekunde. 0 = hakuna kashe. Chaguomsingi 0.",
+    "param.store_key.description": "Ufunguo wa kuhifadhi matokeo ya wakala huyu mdogo katika hifadhi ya muktadha iliyoshirikiwa ili kutumiwa na mawakala wadogo wanaofuata.",
+    "param.load_keys.description": "Orodha ya vitufe vya kupakia kutoka kwa hifadhi ya muktadha iliyoshirikiwa. Thamani zinazolingana huingizwa kwenye ContextPack ya wakala mdogo.",
+    "param.parent_goal.description": "Batilisha lengo la wakala mzazi la ombi hili la wakala mdogo.",
+    "param.timeout.description": "Simu ya LLM imeisha kwa sekunde. 0 = hakuna muda kuisha. Chaguomsingi 120.",
+    "param.max_retries.description": "Idadi ya juu zaidi ya majaribio tena kwenye uchanganuzi wa JSON au hitilafu za mtoaji. Chaguomsingi 2.",
+    "param.max_turns.description": "Idadi ya juu zaidi ya mwingiliano wa zamu nyingi kwa matumizi ya zana. 3 = inapendekezwa. Wakala mdogo anaweza kutumia zana katika raundi nyingi kabla ya kutoa jibu la mwisho."
   },
   "th": {
     "param.agent_name.description": "ชื่อของซับเอเจนต์ (sub-agent) เฉพาะทางที่จะรัน",
@@ -891,7 +1115,15 @@
     "param.response_mode.description": "โหมดเอาต์พุตสำหรับซับเอเจนต์",
     "param.response_schema.description": "อ็อบเจกต์ JSON Schema ทางเลือกสำหรับการตอบกลับที่คาดหวัง",
     "param.strict_output.description": "ถือว่าฟิลด์ที่จำเป็นหรือสคีมาไม่ตรงกันเป็นข้อผิดพลาด",
-    "tool.description": "ดำเนินการตัวแทนย่อยเฉพาะทางที่ปลอดภัย (ผู้วางแผน ผู้ตรวจสอบ ผู้สรุป ผู้ออกแบบแพตช์ นักวิเคราะห์ข้อผิดพลาด หรือนักแปล) ภายใต้การควบคุมของตัวประสานงานหลัก"
+    "tool.description": "ดำเนินการตัวแทนย่อยเฉพาะทางที่ปลอดภัย (ผู้วางแผน ผู้ตรวจสอบ ผู้สรุป ผู้ออกแบบแพตช์ นักวิเคราะห์ข้อผิดพลาด หรือนักแปล) ภายใต้การควบคุมของตัวประสานงานหลัก",
+    "param.permission_level.description": "ระดับสิทธิ์ในการดำเนินการสำหรับตัวแทนย่อย 'read_only' อนุญาตให้อ่านไฟล์ 'propose_only' อนุญาตให้อ่าน + สร้างไฟล์ใหม่",
+    "param.cache_ttl.description": "แคช TTL ในไม่กี่วินาที 0 = ไม่มีแคช ค่าเริ่มต้น 0",
+    "param.store_key.description": "คีย์เพื่อจัดเก็บผลลัพธ์ของตัวแทนย่อยนี้ในที่เก็บบริบทที่ใช้ร่วมกันเพื่อใช้โดยตัวแทนย่อยที่ตามมา",
+    "param.load_keys.description": "รายการคีย์ที่จะโหลดจากที่เก็บบริบทที่แบ่งใช้ ค่าที่เกี่ยวข้องจะถูกฉีดเข้าไปใน ContextPack ของตัวแทนย่อย",
+    "param.parent_goal.description": "แทนที่เป้าหมายของตัวแทนหลักสำหรับการเรียกใช้ตัวแทนย่อยนี้",
+    "param.timeout.description": "การหมดเวลาการโทร LLM ในไม่กี่วินาที 0 = ไม่มีการหมดเวลา ค่าเริ่มต้น 120",
+    "param.max_retries.description": "จำนวนครั้งสูงสุดในการลองใหม่ในการแยกวิเคราะห์ JSON หรือข้อผิดพลาดของผู้ให้บริการ ค่าเริ่มต้น 2",
+    "param.max_turns.description": "จำนวนการโต้ตอบหลายรอบสูงสุดสำหรับการใช้เครื่องมือ 3 = แนะนำ ตัวแทนย่อยสามารถใช้เครื่องมือได้หลายรอบก่อนที่จะสร้างคำตอบสุดท้าย"
   },
   "tr": {
     "param.agent_name.description": "Çalıştırılacak özel alt aracının adı.",
@@ -922,7 +1154,15 @@
     "param.response_mode.description": "Alt aracı için çıktı modu.",
     "param.response_schema.description": "Beklenen yanıt için isteğe bağlı JSON Şeması nesnesi.",
     "param.strict_output.description": "Gerekli alanların eksik olmasını veya şema uyumsuzluğunu hata olarak değerlendirin.",
-    "tool.description": "Ana orkestratörün kontrolü altında özelleştirilmiş, güvenli bir alt ajan (planlayıcı, inceleyici, özetleyici, yama tasarımcısı, hata analisti veya çevirmen) yürütür."
+    "tool.description": "Ana orkestratörün kontrolü altında özelleştirilmiş, güvenli bir alt ajan (planlayıcı, inceleyici, özetleyici, yama tasarımcısı, hata analisti veya çevirmen) yürütür.",
+    "param.permission_level.description": "Alt aracı için yürütme izni düzeyi. 'read_only' dosya okumalarına izin verir, 'propose_only' okumalara + yeni dosya oluşturmaya izin verir.",
+    "param.cache_ttl.description": "TTL'yi saniyeler içinde önbelleğe alın. 0 = önbellek yok. Varsayılan 0.",
+    "param.store_key.description": "Bu alt aracının sonucunu, sonraki alt aracıların kullanması için paylaşılan bağlam deposunda saklamanın anahtarı.",
+    "param.load_keys.description": "Paylaşılan içerik deposundan yüklenecek anahtarların listesi. Karşılık gelen değerler alt aracının ContextPack'ine enjekte edilir.",
+    "param.parent_goal.description": "Bu alt aracı çağrısı için ana aracının hedefini geçersiz kılın.",
+    "param.timeout.description": "LLM çağrısı zaman aşımı saniyeler içinde. 0 = zaman aşımı yok. Varsayılan 120.",
+    "param.max_retries.description": "JSON ayrıştırma veya sağlayıcı hatalarında maksimum yeniden deneme sayısı. Varsayılan 2.",
+    "param.max_turns.description": "Takım kullanımı için maksimum çok turlu etkileşim sayısı. 3 = önerilir. Alt temsilci, nihai cevabı üretmeden önce araçları birden fazla turda kullanabilir."
   },
   "uk": {
     "param.agent_name.description": "Ім'я спеціалізованого суб-агента для запуску.",
@@ -953,7 +1193,15 @@
     "param.response_mode.description": "Режим виведення для субагента.",
     "param.response_schema.description": "Необязательный объект JSON Schema для ожидаемого ответа.",
     "param.strict_output.description": "Вважайте відсутність обов’язкових полів або невідповідність схеми помилками.",
-    "tool.description": "Виконати спеціалізований, безпечний підагент (планувальник, рецензент, підсумовувач, дизайнер патчів, аналітик помилок або перекладач) під контролем батьківського оркестратора."
+    "tool.description": "Виконати спеціалізований, безпечний підагент (планувальник, рецензент, підсумовувач, дизайнер патчів, аналітик помилок або перекладач) під контролем батьківського оркестратора.",
+    "param.permission_level.description": "Рівень дозволу на виконання для субагента. 'read_only' дозволяє читати файли, 'propose_only' дозволяє читати + створення нового файлу.",
+    "param.cache_ttl.description": "Кеш TTL за секунди. 0 = немає кешу. За замовчуванням 0.",
+    "param.store_key.description": "Ключ для збереження результату цього підагента в спільному контекстному сховищі для використання наступними підагентами.",
+    "param.load_keys.description": "Список ключів для завантаження зі спільного контекстного сховища. Відповідні значення вводяться в ContextPack субагента.",
+    "param.parent_goal.description": "Замінити ціль батьківського агента для цього виклику підагента.",
+    "param.timeout.description": "Час очікування LLM виклику в секундах. 0 = немає тайм-ауту. За замовчуванням 120.",
+    "param.max_retries.description": "Максимальна кількість повторних спроб аналізу JSON або помилок постачальника. За замовчуванням 2.",
+    "param.max_turns.description": "Максимальна кількість багатооборотних взаємодій для використання інструменту. 3 = рекомендовано. Субагент може використовувати інструменти в кількох раундах, перш ніж дати остаточну відповідь."
   },
   "vi": {
     "param.agent_name.description": "Tên của sub-agent chuyên biệt cần chạy.",
@@ -984,7 +1232,15 @@
     "param.response_mode.description": "Chế độ đầu ra cho tác nhân phụ.",
     "param.response_schema.description": "Đối tượng JSON Schema tùy chọn cho phản hồi mong đợi.",
     "param.strict_output.description": "Coi các trường bắt buộc bị thiếu hoặc không khớp lược đồ là lỗi.",
-    "tool.description": "Thực thi một tác nhân phụ chuyên biệt, an toàn (lập kế hoạch, người đánh giá, người tóm tắt, người thiết kế bản vá, nhà phân tích lỗi hoặc người dịch) dưới sự kiểm soát của bộ điều phối chính."
+    "tool.description": "Thực thi một tác nhân phụ chuyên biệt, an toàn (lập kế hoạch, người đánh giá, người tóm tắt, người thiết kế bản vá, nhà phân tích lỗi hoặc người dịch) dưới sự kiểm soát của bộ điều phối chính.",
+    "param.permission_level.description": "Cấp độ quyền thực thi cho tác nhân phụ. 'read_only' cho phép đọc tệp, 'propose_only' cho phép đọc + tạo tệp mới.",
+    "param.cache_ttl.description": "Bộ nhớ đệm TTL trong vài giây. 0 = không có bộ đệm. Mặc định 0.",
+    "param.store_key.description": "Khóa để lưu trữ kết quả của tác nhân phụ này trong kho ngữ cảnh dùng chung để các tác nhân phụ tiếp theo sử dụng.",
+    "param.load_keys.description": "Danh sách các khóa cần tải từ kho ngữ cảnh dùng chung. Các giá trị tương ứng được đưa vào ContextPack của tác nhân phụ.",
+    "param.parent_goal.description": "Ghi đè mục tiêu của tác nhân mẹ cho lệnh gọi tác nhân phụ này.",
+    "param.timeout.description": "Thời gian chờ cuộc gọi LLM tính bằng giây. 0 = không có thời gian chờ. Mặc định 120.",
+    "param.max_retries.description": "Số lần thử lại tối đa đối với lỗi phân tích cú pháp JSON hoặc lỗi của nhà cung cấp. Mặc định 2.",
+    "param.max_turns.description": "Số lượng tương tác nhiều lượt tối đa để sử dụng công cụ. 3 = được khuyến nghị. Tác nhân phụ có thể sử dụng các công cụ qua nhiều vòng trước khi đưa ra câu trả lời cuối cùng."
   },
   "zh_CN": {
     "param.agent_name.description": "要运行的专业子智能体（sub-agent）的名称。",
@@ -1016,7 +1272,15 @@
     "param.response_mode.description": "子代理的输出模式。",
     "param.response_schema.description": "预期响应的可选 JSON Schema 对象。",
     "param.strict_output.description": "将缺失必填字段或架构不匹配视为错误。",
-    "tool.description": "在父编排器控制下执行专门的、安全的子代理（规划器、审查器、摘要器、补丁设计器、错误分析器或翻译器）。"
+    "tool.description": "在父编排器控制下执行专门的、安全的子代理（规划器、审查器、摘要器、补丁设计器、错误分析器或翻译器）。",
+    "param.permission_level.description": "子代理的执行权限级别。 “read_only”允许文件读取，“propose_only”允许读取+创建新文件。",
+    "param.cache_ttl.description": "以秒为单位缓存 TTL。 0 = 无缓存。默认 0。",
+    "param.store_key.description": "将该子代理的结果存储在共享上下文存储中以供后续子代理使用的密钥。",
+    "param.load_keys.description": "要从共享上下文存储加载的键列表。相应的值被注入到子代理的ContextPack中。",
+    "param.parent_goal.description": "覆盖此子代理调用的父代理的目标。",
+    "param.timeout.description": "LLM 调用超时（以秒为单位）。 0 = 无超时。默认 120。",
+    "param.max_retries.description": "JSON 解析或提供程序错误的最大重试次数。默认 2。",
+    "param.max_turns.description": "工具使用的多轮交互的最大数量。 3 = 推荐。在产生最终答案之前，子代理可以在多轮中使用工具。"
   },
   "zh_TW": {
     "param.agent_name.description": "要執行的專業子代理（sub-agent）名稱。",
@@ -1048,6 +1312,14 @@
     "param.response_mode.description": "子代理的輸出模式。",
     "param.response_schema.description": "預期回應的可選 JSON Schema 物件。",
     "param.strict_output.description": "將遺失必填欄位或結構描述不符視為錯誤。",
-    "tool.description": "在父協調器的控制下，執行一個專門、安全的子代理（規劃者、審閱者、摘要者、修補設計者、錯誤分析者或翻譯者）。"
+    "tool.description": "在父協調器的控制下，執行一個專門、安全的子代理（規劃者、審閱者、摘要者、修補設計者、錯誤分析者或翻譯者）。",
+    "param.permission_level.description": "子代理的执行权限级别。 “read_only”允許檔案讀取，“propose_only”允許讀取+建立新檔案。",
+    "param.cache_ttl.description": "以秒为单位缓存 TTL。 0 = 無緩存。預設 0。",
+    "param.store_key.description": "將該子代理程式的結果儲存在共用上下文儲存中以供後續子代理程式使用的金鑰。",
+    "param.load_keys.description": "要从共享上下文存储加载的键列表。對應的值被注入到子代理程式的ContextPack。",
+    "param.parent_goal.description": "覆盖此子代理调用的父代理的目标。",
+    "param.timeout.description": "LLM 调用超时（以秒为单位）。 0 = 無超時。預設 120。",
+    "param.max_retries.description": "JSON 解析或提供者錯誤的最大重試次數。預設 2。",
+    "param.max_turns.description": "工具使用的多轮交互的最大数量。 3 = 推薦。在產生最終答案之前，子代理程式可以在多輪中使用工具。"
   }
 }
