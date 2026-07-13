@@ -303,13 +303,13 @@ def get_model_name() -> str:
     """利用プロバイダに応じてモデル名を取得する（scheck.py の main ロジックに準拠）"""
     provider = detect_provider()
     if provider == "azure":
-        return env_get("UAGENT_AZURE_DEPNAME", "gpt-5.2") or "gpt-5.2"
+        return env_get("UAGENT_AZURE_DEPNAME", "gpt-5.4-nano") or "gpt-5.4-nano"
     if provider == "openai":
-        return env_get("UAGENT_OPENAI_DEPNAME", "gpt-5.2") or "gpt-5.2"
+        return env_get("UAGENT_OPENAI_DEPNAME", "gpt-5.4-nano") or "gpt-5.4-nano"
     if provider == "bedrock":
-        return env_get("UAGENT_BEDROCK_DEPNAME", "gpt-5.2") or "gpt-5.2"
+        return env_get("UAGENT_BEDROCK_DEPNAME", "gpt-5.4-nano") or "gpt-5.4-nano"
     if provider == "openrouter":
-        return env_get("UAGENT_OPENROUTER_DEPNAME", "gpt-5.2") or "gpt-5.2"
+        return env_get("UAGENT_OPENROUTER_DEPNAME", "gpt-5.4-nano") or "gpt-5.4-nano"
     if provider == "grok":
         return (
             env_get("UAGENT_GROK_DEPNAME", "grok-4-1-fast-reasoning")
@@ -361,7 +361,7 @@ def get_model_name() -> str:
         return env_get("UAGENT_NOVITA_DEPNAME", "tensent/hy3") or "tensent/hy3"
     if provider == "sakura":
         return env_get("UAGENT_SAKURA_DEPNAME", "llm") or "llm"
-    return env_get("UAGENT_OPENAI_DEPNAME", "gpt-5.2") or "gpt-5.2"
+    return env_get("UAGENT_OPENAI_DEPNAME", "gpt-5.4-nano") or "gpt-5.4-nano"
 
 
 def _parse_wait_seconds_from_headers(headers: Any, cap: float = 65.0) -> float | None:

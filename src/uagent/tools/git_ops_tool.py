@@ -106,6 +106,7 @@ TOOL_SPEC: dict[str, Any] = {
                         "ls-files",
                         "ls-tree",
                         "cat-file",
+                        "rm",
                     ],
                     "description": _(
                         "param.command.description",
@@ -384,6 +385,7 @@ def run_tool(args: dict[str, Any]) -> str:
         "ls-files",
         "ls-tree",
         "cat-file",
+        "rm",
     ):
         payload = _as_error_payload(
             _(

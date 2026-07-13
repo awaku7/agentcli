@@ -21,7 +21,7 @@ ______________________________________________________________________
 ### 1. プロバイダの選択
 
 - `UAGENT_PROVIDER`（必須）: LLMプロバイダ名。
-  サポート値: `azure`, `openai`, `bedrock`, `openrouter`, `ollama`, `gemini`, `vertexai`, `claude`, `grok`, `nvidia`, `deepseek`, `zai`, `alibaba`, `moonshot`, `mimo`, `lmstudio`, `minimax`, `hf`, `sakana`, `sakura`。
+  サポート値: `azure`, `openai`, `bedrock`, `openrouter`, `ollama`, `gemini`, `vertexai`, `claude`, `grok`, `nvidia`, `deepseek`, `zai`, `alibaba`, `moonshot`, `mimo`, `lmstudio`, `minimax`, `hf`, `novita`, `sakana`, `sakura`。
 - `UAGENT_USE_TOOL`: `0`, `false`, `no`, `off` に設定すると、LLMへのツール送信を無効化します。
 
 #### Azure OpenAI
@@ -39,6 +39,7 @@ ______________________________________________________________________
 
 - `UAGENT_OPENAI_API_KEY`（必須）
 - `UAGENT_OPENAI_BASE_URL`（省略可、既定: `https://api.openai.com/v1`）
+- `UAGENT_OPENAI_DEPNAME`（省略可、既定: `gpt-5.4-nano`）
 
 #### Bedrock
 
@@ -54,6 +55,7 @@ ______________________________________________________________________
 `UAGENT_PROVIDER=openrouter` の場合に必要：
 
 - `UAGENT_OPENROUTER_API_KEY`（必須）
+- `UAGENT_OPENROUTER_DEPNAME`（省略可、既定: `gpt-5.4-nano`）
 
 #### Ollama
 
@@ -105,6 +107,7 @@ ______________________________________________________________________
 
 - `UAGENT_DEEPSEEK_API_KEY`（必須）
 - `UAGENT_DEEPSEEK_BASE_URL`（省略可、既定: `https://api.deepseek.com`）
+- `UAGENT_DEEPSEEK_DEPNAME`（省略可、既定: `deepseek-v4-flash`）
 
 #### Z.AI (Zhipu AI)
 
@@ -120,12 +123,14 @@ ______________________________________________________________________
 
 - `UAGENT_ALIBABA_API_KEY`（必須）
 - `UAGENT_ALIBABA_BASE_URL`（省略可）
+- `UAGENT_ALIBABA_DEPNAME`（省略可、既定: `qwen3.5-plus`）
 
 #### Moonshot (KIMI)
 
 `UAGENT_PROVIDER=moonshot` の場合に必要：
 
 - `UAGENT_MOONSHOT_API_KEY`（必須）
+- `UAGENT_MOONSHOT_DEPNAME`（省略可、既定: `kimi-k2`）
 
 #### Xiaomi MiMo
 
@@ -133,12 +138,14 @@ ______________________________________________________________________
 
 - `UAGENT_MIMO_API_KEY`（必須）
 - `UAGENT_MIMO_BASE_URL`（省略可）
+- `UAGENT_MIMO_DEPNAME`（省略可、既定: `mimo-v2.5-pro`）
 
 #### LM Studio
 
 `UAGENT_PROVIDER=lmstudio` の場合に必要：
 
 - `UAGENT_LMSTUDIO_BASE_URL`（省略可、既定: `http://localhost:1234/v1`）
+- `UAGENT_LMSTUDIO_DEPNAME`（省略可、既定: `local-model`）
 
 > \* **AWS Bedrock について**: 現在の `uag` 実装では、Bedrock の OpenAI 互換エンドポイントを使用することを想定しています。
 
@@ -166,6 +173,14 @@ Gemini / Vertex AI で Google Cloud アクセスが必要な機能で使用し�
 - `UAGENT_HF_DEPNAME`（省略可、既定: `openai/gpt-oss-120b`）。
 
 > **注**: HuggingFace は OpenAI 互換の Inference API エンドポイントを提供します。ツール呼び出しは使用するモデルに依存します。
+
+#### Novita AI
+
+`UAGENT_PROVIDER=novita` の場合に必要：
+
+- `UAGENT_NOVITA_API_KEY`（必須）: Novita AI API キー。
+- `UAGENT_NOVITA_BASE_URL`（省略可、既定: `https://api.novita.ai/openai`）。
+- `UAGENT_NOVITA_DEPNAME`（省略可、既定: `tensent/hy3`）。
 
 #### Sakana AI (Fugu)
 

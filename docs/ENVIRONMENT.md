@@ -21,7 +21,7 @@ ______________________________________________________________________
 ### 1. Provider selection
 
 - `UAGENT_PROVIDER` (required): LLM provider name.
-  Supported values: `azure`, `openai`, `bedrock`, `openrouter`, `ollama`, `gemini`, `vertexai`, `claude`, `grok`, `nvidia`, `deepseek`, `zai`, `alibaba`, `moonshot`, `mimo`, `lmstudio`, `minimax`, `hf`, `sakana`, `sakura`.
+  Supported values: `azure`, `openai`, `bedrock`, `openrouter`, `ollama`, `gemini`, `vertexai`, `claude`, `grok`, `nvidia`, `deepseek`, `zai`, `alibaba`, `moonshot`, `mimo`, `lmstudio`, `minimax`, `hf`, `novita`, `sakana`, `sakura`.
 - `UAGENT_USE_TOOL`: Set to `0`, `false`, `no`, or `off` to disable tool sending to LLM.
 
 #### Azure OpenAI
@@ -39,6 +39,7 @@ Required if `UAGENT_PROVIDER=openai`:
 
 - `UAGENT_OPENAI_API_KEY` (required)
 - `UAGENT_OPENAI_BASE_URL` (optional, default: `https://api.openai.com/v1`)
+- `UAGENT_OPENAI_DEPNAME` (optional, default: `gpt-5.4-nano`)
 
 #### Bedrock
 
@@ -54,6 +55,7 @@ Required if `UAGENT_PROVIDER=bedrock`:
 Required if `UAGENT_PROVIDER=openrouter`:
 
 - `UAGENT_OPENROUTER_API_KEY` (required)
+- `UAGENT_OPENROUTER_DEPNAME` (optional, default: `gpt-5.4-nano`)
 
 #### Ollama
 
@@ -105,6 +107,7 @@ Required if `UAGENT_PROVIDER=deepseek`:
 
 - `UAGENT_DEEPSEEK_API_KEY` (required)
 - `UAGENT_DEEPSEEK_BASE_URL` (optional, default: `https://api.deepseek.com`)
+- `UAGENT_DEEPSEEK_DEPNAME` (optional, default: `deepseek-v4-flash`)
 
 #### Z.AI (Zhipu AI)
 
@@ -113,18 +116,21 @@ Required if `UAGENT_PROVIDER=zai`:
 - `UAGENT_ZAI_API_KEY` (required): Zhipu AI API key.
 - `UAGENT_ZAI_BASE_URL` (optional, default: `https://api.z.ai/api/paas/v4/`).
 - `UAGENT_ZAI_DEPNAME` (optional, default: `glm-5.2`).
+
 #### Alibaba Cloud (Qwen)
 
 Required if `UAGENT_PROVIDER=alibaba`:
 
 - `UAGENT_ALIBABA_API_KEY` (required)
 - `UAGENT_ALIBABA_BASE_URL` (optional)
+- `UAGENT_ALIBABA_DEPNAME` (optional, default: `qwen3.5-plus`)
 
 #### Moonshot (KIMI)
 
 Required if `UAGENT_PROVIDER=moonshot`:
 
 - `UAGENT_MOONSHOT_API_KEY` (required)
+- `UAGENT_MOONSHOT_DEPNAME` (optional, default: `kimi-k2`)
 
 #### Xiaomi MiMo
 
@@ -132,12 +138,14 @@ Required if `UAGENT_PROVIDER=mimo`:
 
 - `UAGENT_MIMO_API_KEY` (required)
 - `UAGENT_MIMO_BASE_URL` (optional)
+- `UAGENT_MIMO_DEPNAME` (optional, default: `mimo-v2.5-pro`)
 
 #### LM Studio
 
 Required if `UAGENT_PROVIDER=lmstudio`:
 
 - `UAGENT_LMSTUDIO_BASE_URL` (optional, default: `http://localhost:1234/v1`)
+- `UAGENT_LMSTUDIO_DEPNAME` (optional, default: `local-model`)
 
 > \* **Note on AWS Bedrock**: The current `uag` implementation expects an OpenAI-compatible endpoint for Bedrock.
 
@@ -147,8 +155,6 @@ Used by Gemini / Vertex AI features that need Google Cloud access.
 
 - `UAGENT_GOOGLE_CREDENTIALS`: Path to Google Cloud service account JSON or JSON string (optional).
 - `UAGENT_GOOGLE_LOCATION`: Google Cloud location/region (e.g., `asia-northeast1`).
-
-
 
 #### MiniMax
 
@@ -167,6 +173,14 @@ Required if `UAGENT_PROVIDER=hf`:
 - `UAGENT_HF_DEPNAME` (optional, default: `openai/gpt-oss-120b`).
 
 > **Note**: HuggingFace provides an OpenAI-compatible Inference API endpoint. Tool calling may have limitations depending on the model used.
+
+#### Novita AI
+
+Required if `UAGENT_PROVIDER=novita`:
+
+- `UAGENT_NOVITA_API_KEY` (required): Novita AI API key.
+- `UAGENT_NOVITA_BASE_URL` (optional, default: `https://api.novita.ai/openai`).
+- `UAGENT_NOVITA_DEPNAME` (optional, default: `tensent/hy3`).
 
 #### Sakana AI (Fugu)
 
