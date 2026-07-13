@@ -29,7 +29,10 @@ def apply_openrouter_extra_body(chat_kwargs: dict[str, Any], *, provider: str) -
             if _depname:
                 try:
                     import llmcapa
-                    _provider = (env_get("UAGENT_PROVIDER") or "").lower().strip() or None
+
+                    _provider = (
+                        env_get("UAGENT_PROVIDER") or ""
+                    ).lower().strip() or None
                     _cap = llmcapa.get(_depname, provider=_provider)
                     if _cap is not None and _cap.supports_reasoning_effort:
                         _valid = _cap.get_reasoning_effort_values()

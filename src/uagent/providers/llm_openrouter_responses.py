@@ -42,7 +42,10 @@ def apply_openrouter_responses_compat(
                 if depname:
                     try:
                         import llmcapa
-                        _provider = (env_get("UAGENT_PROVIDER") or "").lower().strip() or None
+
+                        _provider = (
+                            env_get("UAGENT_PROVIDER") or ""
+                        ).lower().strip() or None
                         _cap = llmcapa.get(depname, provider=_provider)
                         if _cap is not None and _cap.supports_reasoning_effort:
                             _valid = _cap.get_reasoning_effort_values()

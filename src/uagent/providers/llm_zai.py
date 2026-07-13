@@ -54,6 +54,7 @@ _EFFORT_MAP: dict[str, str] = {
     "max": "max",
 }
 
+
 def _get_valid_zai_efforts(model_name: str = "") -> frozenset:
     """Return valid reasoning_effort values for a Z.AI model.
 
@@ -63,6 +64,7 @@ def _get_valid_zai_efforts(model_name: str = "") -> frozenset:
         try:
             import llmcapa
             from uagent.env_utils import env_get
+
             _provider = (env_get("UAGENT_PROVIDER") or "").lower().strip() or None
             cap = llmcapa.get(model_name, provider=_provider)
             if cap is not None and cap.supports_reasoning_effort:

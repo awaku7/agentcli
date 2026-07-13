@@ -11,7 +11,7 @@ ______________________________________________________________________
 A tool is a Python module that exports:
 
 - `TOOL_SPEC: dict`
-  - OpenAI/Azure “function tool” schema compatible metadata.
+  - OpenAI/Azure "function tool" schema compatible metadata.
 - `run_tool(args: dict) -> str`
   - Executes the tool and returns a **string**.
 
@@ -101,7 +101,7 @@ You can categorize tools by specifying `tool_genre` at the top-level of `TOOL_SP
 - `"office"`: Office tools (e.g., Excel, Word, Document extraction)
 - `"devel"`: Development tools (e.g., lint, py_compile, run_tests)
 - `"iot"`: IoT tools (e.g., Bluetooth/BLE, ECHONET, Matter, SwitchBot)
-- `"exec"`: Execution tools (e.g., cmd, python, pwsh, bash, sub-agent)
+- `"exec"`: Execution tools (e.g., cmd, python, pwsh, bash)
 - `"external"`: External tools (e.g., A2A, MCP, fetch, search web)
 - `"media"`: Media tools (e.g., image gen/edit/analyze, audio, QR code)
 - `"file"`: File tools (e.g., create, delete, read, write, search, zip)

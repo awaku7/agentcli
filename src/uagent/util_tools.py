@@ -2122,6 +2122,10 @@ def format_help(*, core: Any) -> str:
         + tr("Set reasoning mode (0=off, 1=low, 2=medium, 3=high; auto/minimal/xhigh)"),
         "  :v [0|1|2|3]          "
         + tr("Set verbosity mode (0=off, 1=low, 2=medium, 3=high; no arg=keep)"),
+        "  :model               "
+        + tr(
+            "Show detailed model configuration (chat, image, audio, translation, embedding)"
+        ),
         "  :exit / :quit         " + tr("Exit"),
         "",
         "Hints:",
@@ -2535,6 +2539,229 @@ def _handle_cmd_auto(
     return CommandResult(run_llm=True, prompt=goal)
 
 
+def _get_env(key: str, default: str = "") -> str:
+    v = env_get(key)
+    if v is None:
+        return default
+    return v.strip()
+
+
+def _format_capa(cap) -> list[str]:
+    """Format a llmcapa Capability object into detail lines."""
+    lines: list[str] = []
+    lines.append(f"    Display Name:  {cap.display_name}")
+    lines.append(f"    Context Window: {cap.context_window:,} tokens")
+    lines.append(f"    Max Output:    {cap.max_output_tokens:,} tokens")
+    lines.append(f"    Tokenizer:     {cap.tokenizer_name or '?'}")
+    lines.append(f"    License:       {cap.license_type or '?'}")
+    lines.append(f"    Knowledge Cutoff: {cap.knowledge_cutoff or '?'}")
+    lines.append(f"    Deprecated:    {cap.deprecated}")
+    if cap.input_modalities:
+        lines.append(f"    Input:         {', '.join(cap.input_modalities)}")
+    if cap.output_modalities:
+        lines.append(f"    Output:        {', '.join(cap.output_modalities)}")
+    feats = []
+    if cap.supports_function_calling:
+        feats.append("function_calling")
+    if cap.supports_json_mode:
+        feats.append("json_mode")
+    if cap.supports_streaming:
+        feats.append("streaming")
+    if cap.supports_vision:
+        feats.append("vision")
+    if cap.supports_reasoning:
+        feats.append("reasoning")
+    if cap.supports_chat_completion:
+        feats.append("chat_completion")
+    if cap.supports_responses_api:
+        feats.append("responses_api")
+    if cap.supports_reasoning_effort:
+        feats.append("reasoning_effort")
+    if cap.supports_thinking_budget:
+        feats.append("thinking_budget")
+    if cap.supports_anthropic_api:
+        feats.append("anthropic_api")
+    if cap.supports_google_api:
+        feats.append("google_api")
+    if cap.supports_fim:
+        feats.append("fim")
+    if feats:
+        lines.append(f"    Features:      {', '.join(feats)}")
+    if cap.pricing:
+        price = cap.pricing
+        inp = price.get("input_per_1m")
+        out = price.get("output_per_1m")
+        cur = price.get("currency", "USD")
+        if inp is not None and out is not None:
+            lines.append(
+                f"    Pricing:       ${inp:.2f}/{cur}M in, ${out:.2f}/{cur}M out"
+            )
+    if cap.reasoning_effort_values:
+        lines.append(f"    Reasoning Efforts: {', '.join(cap.reasoning_effort_values)}")
+    if cap.thinking_budget_values:
+        lines.append(
+            f"    Thinking Budgets: {', '.join(str(v) for v in cap.thinking_budget_values)}"
+        )
+    return lines
+
+
+def _fetch_model_capa(provider: str, model: str) -> list[str]:
+    """Fetch llmcapa info for a model. Returns detail lines, or empty if unavailable."""
+    try:
+        import llmcapa
+
+        cap = llmcapa.get(
+            model, provider=provider if provider not in ("(none)", "") else None
+        )
+        if cap:
+            return [f"    model_id: {cap.model_id}"] + _format_capa(cap)
+    except ImportError:
+        pass
+    except Exception:
+        pass
+    return []
+
+
+def _handle_cmd_model(
+    arg: str,
+    *,
+    core: Any,
+    tr: Any,
+) -> CommandResult:
+    """Show detailed model configuration for all capabilities.
+
+    :model         - show basic configuration
+    :model v       - verbose: also show llmcapa details for all configured models
+    """
+    verbose = arg.strip().lower() in ("v", "ver", "verbose")
+    provider = _get_env("UAGENT_PROVIDER", "(none)")
+    model = _get_env(f"UAGENT_{provider.upper()}_DEPNAME")
+    if not model:
+        model = _get_env("UAGENT_DEPNAME", "(not set)")
+
+    lines: list[str] = []
+    lines.append("=== Model Configuration ===")
+    lines.append("  Chat (main):")
+    lines.append(f"    Provider: {provider}")
+    lines.append(f"    Model:    {model}")
+    if verbose and provider not in ("(none)", ""):
+        capa_lines = _fetch_model_capa(provider, model)
+        if capa_lines:
+            lines.extend(capa_lines)
+
+    # Image analysis
+    ia_provider = _get_env("UAGENT_IMG_ANALYSIS_PROVIDER")
+    if ia_provider:
+        ia_model = _get_env(f"UAGENT_{ia_provider.upper()}_IMG_ANALYSIS_DEPNAME")
+        if not ia_model and ia_provider in ("openai", "azure"):
+            ia_model = _get_env(f"UAGENT_{ia_provider.upper()}_DEPNAME")
+        if not ia_model and ia_provider == "ollama":
+            ia_model = _get_env("UAGENT_OLLAMA_DEPNAME", "llama3.1")
+        if not ia_model and ia_provider in ("gemini", "vertexai"):
+            ia_model = "gemini-1.5-flash"
+        if ia_model:
+            lines.append("  Image Analysis:")
+            lines.append(f"    Provider: {ia_provider}")
+            lines.append(f"    Model:    {ia_model}")
+            if verbose:
+                capa_lines = _fetch_model_capa(ia_provider, ia_model)
+                if capa_lines:
+                    lines.extend(capa_lines)
+    else:
+        lines.append("  Image Analysis: (not configured)")
+
+    # Image generation
+    ig_provider = _get_env("UAGENT_IMG_GENERATE_PROVIDER")
+    if ig_provider:
+        ig_model = _get_env(f"UAGENT_{ig_provider.upper()}_IMG_GENERATE_DEPNAME")
+        if not ig_model and ig_provider == "openai":
+            ig_model = "gpt-image-1"
+        if ig_model:
+            lines.append("  Image Generation:")
+            lines.append(f"    Provider: {ig_provider}")
+            lines.append(f"    Model:    {ig_model}")
+            if verbose:
+                capa_lines = _fetch_model_capa(ig_provider, ig_model)
+                if capa_lines:
+                    lines.extend(capa_lines)
+    else:
+        lines.append("  Image Generation: (not configured)")
+
+    # Audio speech
+    speech_provider = _get_env("UAGENT_AUDIO_SPEECH_PROVIDER")
+    if speech_provider:
+        speech_model = _get_env(f"UAGENT_{speech_provider.upper()}_SPEECH_DEPNAME")
+        if not speech_model:
+            speech_model = "gpt-4o-mini-tts"
+        if speech_model:
+            lines.append("  Audio Speech:")
+            lines.append(f"    Provider: {speech_provider}")
+            lines.append(f"    Model:    {speech_model}")
+            if verbose:
+                capa_lines = _fetch_model_capa(speech_provider, speech_model)
+                if capa_lines:
+                    lines.extend(capa_lines)
+    else:
+        lines.append("  Audio Speech: (not configured)")
+
+    # Audio transcribe
+    transcribe_provider = _get_env("UAGENT_AUDIO_TRANSCRIBE_PROVIDER")
+    if transcribe_provider:
+        transcribe_model = _get_env(
+            f"UAGENT_{transcribe_provider.upper()}_TRANSCRIBE_DEPNAME"
+        )
+        if not transcribe_model:
+            transcribe_model = "gpt-4o-mini-transcribe"
+        if transcribe_model:
+            lines.append("  Audio Transcribe:")
+            lines.append(f"    Provider: {transcribe_provider}")
+            lines.append(f"    Model:    {transcribe_model}")
+            if verbose:
+                capa_lines = _fetch_model_capa(transcribe_provider, transcribe_model)
+                if capa_lines:
+                    lines.extend(capa_lines)
+    else:
+        lines.append("  Audio Transcribe: (not configured)")
+
+    # Translation
+    translate_provider = _get_env("UAGENT_TRANSLATE_PROVIDER")
+    if translate_provider:
+        translate_model = _get_env("UAGENT_TRANSLATE_DEPNAME")
+        if not translate_model:
+            translate_model = _get_env(f"UAGENT_{translate_provider.upper()}_DEPNAME")
+        if translate_model:
+            translate_to = _get_env("UAGENT_TRANSLATE_TO_LLM", "?")
+            translate_from = _get_env("UAGENT_TRANSLATE_FROM_LLM", "?")
+            lines.append("  Translation:")
+            lines.append(f"    Provider: {translate_provider}")
+            lines.append(f"    Model:    {translate_model}")
+            lines.append(f"    From→To:  {translate_from} → {translate_to}")
+            if verbose:
+                capa_lines = _fetch_model_capa(translate_provider, translate_model)
+                if capa_lines:
+                    lines.extend(capa_lines)
+    else:
+        lines.append("  Translation: (not configured)")
+
+    # Embedding
+    emb_provider = _get_env("UAGENT_EMBEDDING_PROVIDER")
+    if emb_provider:
+        emb_model = _get_env(f"UAGENT_{emb_provider.upper()}_EMBEDDING_DEPNAME")
+        if emb_model:
+            lines.append("  Embedding:")
+            lines.append(f"    Provider: {emb_provider}")
+            lines.append(f"    Model:    {emb_model}")
+            if verbose:
+                capa_lines = _fetch_model_capa(emb_provider, emb_model)
+                if capa_lines:
+                    lines.extend(capa_lines)
+    else:
+        lines.append("  Embedding: (not configured)")
+
+    print("\n".join(lines))
+    return CommandResult()
+
+
 def handle_command(
     line: str,
     messages_ref: list[dict[str, Any]],
@@ -2678,6 +2905,9 @@ def handle_command(
             core=core,
             tr=tr,
         )
+
+    if cmd == "model":
+        return _handle_cmd_model(arg, core=core, tr=tr)
 
     # Try dynamic commands registered by tool modules
     res = tools.handle_dynamic_command(

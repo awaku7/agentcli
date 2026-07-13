@@ -86,9 +86,12 @@ def _run(command: str, cwd: Optional[str]) -> dict[str, Any]:
             if command.startswith(("python -c ", "python3 -c ")):
                 parts = shlex.split(command)
                 p = subprocess.run(
-                    parts, shell=False,
+                    parts,
+                    shell=False,
                     capture_output=True,
-                    text=True, encoding="utf-8", errors="replace",
+                    text=True,
+                    encoding="utf-8",
+                    errors="replace",
                     cwd=cwd,
                 )
             else:
@@ -112,11 +115,9 @@ def _run(command: str, cwd: Optional[str]) -> dict[str, Any]:
             "stderr": p.stderr,
         }
         if not result["ok"]:
-            result["error"] = (
-                (p.stderr or "").strip()
-                or _("error.exit_code", default="command exited with code %(returncode)s")
-                % {"returncode": p.returncode}
-            )
+            result["error"] = (p.stderr or "").strip() or _(
+                "error.exit_code", default="command exited with code %(returncode)s"
+            ) % {"returncode": p.returncode}
         return result
     except OSError as e:
         return {

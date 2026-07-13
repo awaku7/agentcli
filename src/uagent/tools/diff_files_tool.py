@@ -163,7 +163,9 @@ TOOL_SPEC: dict[str, Any] = {
 # ---------------------------------------------------------------------------
 # Helpers
 # ---------------------------------------------------------------------------
-def _read_file_content(path: str, encoding: str, preserve_line_endings: bool = False) -> str:
+def _read_file_content(
+    path: str, encoding: str, preserve_line_endings: bool = False
+) -> str:
     """Read a text file safely, respecting workdir boundaries."""
     abspath = ensure_within_workdir(path)
     size = os.path.getsize(abspath)
@@ -184,7 +186,9 @@ def _read_file_content(path: str, encoding: str, preserve_line_endings: bool = F
     return content
 
 
-def _normalise_text(text: str, ignore_whitespace: bool, preserve_line_endings: bool = False) -> str:
+def _normalise_text(
+    text: str, ignore_whitespace: bool, preserve_line_endings: bool = False
+) -> str:
     """Normalise line endings and optionally strip whitespace."""
     if not preserve_line_endings and "\r" in text:
         text = text.replace("\r\n", "\n").replace("\r", "\n")
@@ -226,14 +230,9 @@ def _compute_unified_diff(
     out_lines = 0
     truncated = False
 
-    for line in difflib.unified_diff(
-        a, b, fromfile=label1, tofile=label2, n=ctx_lines
-    ):
+    for line in difflib.unified_diff(a, b, fromfile=label1, tofile=label2, n=ctx_lines):
         line_len = len(line)
-        if (
-            out_lines >= effective_max
-            or out_chars + line_len > MAX_DIFF_OUTPUT_CHARS
-        ):
+        if out_lines >= effective_max or out_chars + line_len > MAX_DIFF_OUTPUT_CHARS:
             truncated = True
             break
         out.append(line)
@@ -286,30 +285,48 @@ def _compute_json_diff(
         # Leading context (from equal block before this change)
         if ctx_start_a < i1:
             for k in range(ctx_start_a, i1):
-                hunk_lines.append({"type": "equal", "content": a_lines[k].rstrip("\n").rstrip("\r")})
+                hunk_lines.append(
+                    {"type": "equal", "content": a_lines[k].rstrip("\n").rstrip("\r")}
+                )
 
         # Removed lines
         for k in range(i1, i2):
-            hunk_lines.append({"type": "removed", "content": a_lines[k].rstrip("\n").rstrip("\r"), "line_a": k + 1})
+            hunk_lines.append(
+                {
+                    "type": "removed",
+                    "content": a_lines[k].rstrip("\n").rstrip("\r"),
+                    "line_a": k + 1,
+                }
+            )
 
         # Added lines
         for k in range(j1, j2):
-            hunk_lines.append({"type": "added", "content": b_lines[k].rstrip("\n").rstrip("\r"), "line_b": k + 1})
+            hunk_lines.append(
+                {
+                    "type": "added",
+                    "content": b_lines[k].rstrip("\n").rstrip("\r"),
+                    "line_b": k + 1,
+                }
+            )
 
         # Trailing context (from equal block after this change)
         end_equal_start = i2
         end_equal_end = min(ctx_end_a, len(a_lines))
         if end_equal_start < end_equal_end:
             for k in range(end_equal_start, end_equal_end):
-                hunk_lines.append({"type": "equal", "content": a_lines[k].rstrip("\n").rstrip("\r")})
+                hunk_lines.append(
+                    {"type": "equal", "content": a_lines[k].rstrip("\n").rstrip("\r")}
+                )
 
-        hunks.append({
-            "start_a": i1 + 1,
-            "count_a": i2 - i1,
-            "start_b": j1 + 1,
-            "count_b": j2 - j1,
-            "lines": hunk_lines,
-        })
+        hunks.append(
+            {
+                "start_a": i1 + 1,
+                "count_a": i2 - i1,
+                "start_b": j1 + 1,
+                "count_b": j2 - j1,
+                "lines": hunk_lines,
+            }
+        )
 
         total_lines_out += len(hunk_lines)
         if total_lines_out > effective_max * 3:
@@ -480,7 +497,9 @@ def run_tool(args: dict[str, Any]) -> str:
                     "hunks": stats["hunks"],
                 }
             else:
-                result["summary"] = _("summary.identical", default="Files are identical.")
+                result["summary"] = _(
+                    "summary.identical", default="Files are identical."
+                )
             return json.dumps(result, ensure_ascii=False)
 
         # mode == "unified"

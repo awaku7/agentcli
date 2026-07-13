@@ -5,22 +5,13 @@ from __future__ import annotations
 from typing import Any, Optional
 
 from .. import tools
-from ..env_utils import env_get
 from ..i18n import _
 from ..llm_image_helpers import build_image_default_prompt
 
 from .responses_common import (
     as_str,
     attachment_to_content_item,
-    debug_emit,
-    debug_stream_enabled,
-    emit_web_search_event,
-    extract_url_citations,
-    extract_web_search_call_info,
     normalize_content_items,
-    parse_responses_response,
-    parse_responses_stream,
-    responses_item_to_dict,
 )
 from .responses_web_search_openai import (
     normalize_openai_builtin_tool,
@@ -311,4 +302,3 @@ def build_responses_request(
         req_tools = flat_tools
 
     return instructions_str, input_msgs, req_tools
-

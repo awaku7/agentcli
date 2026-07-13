@@ -125,9 +125,7 @@ TOOL_SPEC: dict[str, Any] = {
 # ---------------------------------------------------------------------------
 # Patch parsing
 # ---------------------------------------------------------------------------
-_HUNK_HEADER_RE = re.compile(
-    r"^@@\s+-(\d+)(?:,(\d+))?\s+\+(\d+)(?:,(\d+))?\s+@@"
-)
+_HUNK_HEADER_RE = re.compile(r"^@@\s+-(\d+)(?:,(\d+))?\s+\+(\d+)(?:,(\d+))?\s+@@")
 _PATH_HEADER_RE = re.compile(r"^(?:---|\+\+\+)\s+(?:\S/)?(?P<path>.+)$")
 
 
@@ -195,11 +193,15 @@ def _parse_patch(patch_text: str) -> list[_PatchFile]:
                     break
                 hunk_lines.append(nl)
                 i += 1
-            current_hunks.append(_Hunk(
-                old_start=old_start, old_count=old_count,
-                new_start=new_start, new_count=new_count,
-                lines=hunk_lines,
-            ))
+            current_hunks.append(
+                _Hunk(
+                    old_start=old_start,
+                    old_count=old_count,
+                    new_start=new_start,
+                    new_count=new_count,
+                    lines=hunk_lines,
+                )
+            )
             continue
         i += 1
 
@@ -223,19 +225,19 @@ def _detect_newline(text: str) -> str:
 
 def _convert_newlines(lines: list[str], target_nl: str) -> list[str]:
     if target_nl == "\n":
-        return [l.replace("\r\n", "\n").replace("\r", "\n") for l in lines]
+        return [line.replace("\r\n", "\n").replace("\r", "\n") for line in lines]
     if target_nl == "\r":
         result: list[str] = []
-        for l in lines:
-            s = l.replace("\r\n", "\n").replace("\r", "\n")
+        for line in lines:
+            s = line.replace("\r\n", "\n").replace("\r", "\n")
             if s.endswith("\n"):
                 s = s[:-1] + "\r"
             result.append(s)
         return result
     # target_nl == "\r\n"
     result = []
-    for l in lines:
-        s = l.replace("\r\n", "\n").replace("\r", "\n")
+    for line in lines:
+        s = line.replace("\r\n", "\n").replace("\r", "\n")
         if s.endswith("\n"):
             s = s[:-1] + "\r\n"
         result.append(s)
@@ -281,7 +283,7 @@ def _normalize_compare(s: str, ignore_whitespace: bool) -> str:
 
 def _compute_fuzzy_threshold(before_lines: list[str]) -> int:
     """Minimum matching character count for fuzzy match (60% or 8 chars min)."""
-    total_chars = sum(len(l.rstrip("\n").rstrip("\r")) for l in before_lines)
+    total_chars = sum(len(line.rstrip("\n").rstrip("\r")) for line in before_lines)
     return max(8, int(total_chars * 0.6))
 
 
@@ -299,7 +301,7 @@ def _find_hunk_position(
     if n_before > n_text:
         return None
 
-    norm_before = [_normalize_compare(l, ignore_whitespace) for l in before_lines]
+    norm_before = [_normalize_compare(line, ignore_whitespace) for line in before_lines]
 
     # Exact match: search outward from hint
     search_start = min(start_line, n_text - n_before)
@@ -310,7 +312,10 @@ def _find_hunk_position(
                 seen.add(pos)
                 ok = True
                 for j in range(n_before):
-                    if _normalize_compare(text_lines[pos + j], ignore_whitespace) != norm_before[j]:
+                    if (
+                        _normalize_compare(text_lines[pos + j], ignore_whitespace)
+                        != norm_before[j]
+                    ):
                         ok = False
                         break
                 if ok:
@@ -318,7 +323,9 @@ def _find_hunk_position(
 
     # Fuzzy match: SequenceMatcher, require 60% chars or 8 chars minimum
     before_text = "\n".join(norm_before)
-    text_block = "\n".join(_normalize_compare(l, ignore_whitespace) for l in text_lines)
+    text_block = "\n".join(
+        _normalize_compare(line, ignore_whitespace) for line in text_lines
+    )
     if not before_text or not text_block:
         return None
 
@@ -331,7 +338,7 @@ def _find_hunk_position(
     best_size = 0
     for m in matcher.get_matching_blocks():
         if m.size > best_size and m.size >= threshold:
-            line_pos = text_block[:m.b].count("\n")
+            line_pos = text_block[: m.b].count("\n")
             if 0 <= line_pos <= n_text - n_before:
                 # 位置が start_line から離れすぎていないか確認
                 if abs(line_pos - start_line) <= max_offset:
@@ -372,13 +379,18 @@ def _apply_hunk_to_text(
     if before == after:
         return text, True, ""
 
-    new_lines = text_lines[:pos] + after + text_lines[pos + len(before):]
+    new_lines = text_lines[:pos] + after + text_lines[pos + len(before) :]
     new_text = "".join(new_lines)
 
-    diff_preview = "".join(difflib.unified_diff(
-        text_lines[pos:pos + len(before)], after,
-        fromfile="a/original", tofile="b/modified", n=2
-    ))[:2000]
+    diff_preview = "".join(
+        difflib.unified_diff(
+            text_lines[pos : pos + len(before)],
+            after,
+            fromfile="a/original",
+            tofile="b/modified",
+            n=2,
+        )
+    )[:2000]
 
     return new_text, True, diff_preview
 
@@ -395,7 +407,10 @@ def _read_file(path: str, encoding: str, preserve: bool) -> str:
     size = os.path.getsize(abspath)
     if size > MAX_READ_BYTES:
         raise ValueError(
-            _("err.file_too_large", default="File too large: %(size)s bytes (max %(max_bytes)s)")
+            _(
+                "err.file_too_large",
+                default="File too large: %(size)s bytes (max %(max_bytes)s)",
+            )
             % {"size": size, "max_bytes": MAX_READ_BYTES}
         )
     nl = "" if preserve else None
@@ -428,14 +443,22 @@ def run_tool(args: dict[str, Any]) -> str:
 
         if not patch_text.strip():
             return json.dumps(
-                {"ok": False, "error": _("err.patch_empty", default="patch_text is empty.")},
+                {
+                    "ok": False,
+                    "error": _("err.patch_empty", default="patch_text is empty."),
+                },
                 ensure_ascii=False,
             )
 
         patch_files = _parse_patch(patch_text)
         if not patch_files:
             return json.dumps(
-                {"ok": False, "error": _("err.no_hunks", default="No valid hunks found in patch text.")},
+                {
+                    "ok": False,
+                    "error": _(
+                        "err.no_hunks", default="No valid hunks found in patch text."
+                    ),
+                },
                 ensure_ascii=False,
             )
 
@@ -486,13 +509,25 @@ def run_tool(args: dict[str, Any]) -> str:
                                 total_added += 1
                             elif p == "-":
                                 total_removed += 1
-                    hunk_details.append({"applied": True, "old_start": hunk.old_start, "diff_preview": diff[:500]})
+                    hunk_details.append(
+                        {
+                            "applied": True,
+                            "old_start": hunk.old_start,
+                            "diff_preview": diff[:500],
+                        }
+                    )
                 else:
                     failed_hunks += 1
-                    hunk_details.append({
-                        "applied": False, "old_start": hunk.old_start,
-                        "error": _("err.hunk_not_found", default="Context not found in file."),
-                    })
+                    hunk_details.append(
+                        {
+                            "applied": False,
+                            "old_start": hunk.old_start,
+                            "error": _(
+                                "err.hunk_not_found",
+                                default="Context not found in file.",
+                            ),
+                        }
+                    )
 
             file_result["hunks_applied"] = applied_hunks
             file_result["hunks_failed"] = failed_hunks
@@ -521,18 +556,30 @@ def run_tool(args: dict[str, Any]) -> str:
         summary = _(
             "summary.applied",
             default="%(applied)s of %(total)s hunk(s) applied to %(files)s file(s). "
-                    "%(added)s line(s) added, %(removed)s line(s) removed.",
+            "%(added)s line(s) added, %(removed)s line(s) removed.",
         ) % {
-            "applied": total_applied, "total": total_hunks,
-            "files": len(patch_files), "added": total_added, "removed": total_removed,
+            "applied": total_applied,
+            "total": total_hunks,
+            "files": len(patch_files),
+            "added": total_added,
+            "removed": total_removed,
         }
 
-        return json.dumps({
-            "ok": all_ok, "dry_run": dry_run, "summary": summary,
-            "files": results, "total_hunks": total_hunks,
-            "total_applied": total_applied, "total_added": total_added,
-            "total_removed": total_removed,
-        }, ensure_ascii=False)
+        return json.dumps(
+            {
+                "ok": all_ok,
+                "dry_run": dry_run,
+                "summary": summary,
+                "files": results,
+                "total_hunks": total_hunks,
+                "total_applied": total_applied,
+                "total_added": total_added,
+                "total_removed": total_removed,
+            },
+            ensure_ascii=False,
+        )
 
     except Exception as e:
-        return json.dumps({"ok": False, "error": f"{type(e).__name__}: {e}"}, ensure_ascii=False)
+        return json.dumps(
+            {"ok": False, "error": f"{type(e).__name__}: {e}"}, ensure_ascii=False
+        )

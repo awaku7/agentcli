@@ -852,12 +852,17 @@ def _call_openai_azure_round(
                 )
                 return False, client, "", "", []
             if APIConnectionError is not None and isinstance(e, APIConnectionError):
-                from .providers.util_providers import is_ssl_cert_error, set_ssl_verify_disabled
+                from .providers.util_providers import (
+                    is_ssl_cert_error,
+                    set_ssl_verify_disabled,
+                )
 
                 if is_ssl_cert_error(e):
                     print(
                         "[Azure/OpenAI Error] "
-                        + _t("SSL certificate verification failed. Auto-disabling SSL verify and retrying...")
+                        + _t(
+                            "SSL certificate verification failed. Auto-disabling SSL verify and retrying..."
+                        )
                     )
                     _maybe_print_certifi_where(e)
                     set_ssl_verify_disabled(True)

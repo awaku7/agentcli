@@ -213,7 +213,11 @@ def run_tool(args: dict[str, Any]) -> str:
     Path(safe_out).parent.mkdir(parents=True, exist_ok=True)
 
     if provider in ("gemini", "vertexai"):
-        if not _auto_install("google-cloud-texttospeech", "google.cloud.texttospeech", version_spec=">=2.36.0"):
+        if not _auto_install(
+            "google-cloud-texttospeech",
+            "google.cloud.texttospeech",
+            version_spec=">=2.36.0",
+        ):
             return make_response(
                 False, "google-cloud-texttospeech or certifi package is not installed."
             )

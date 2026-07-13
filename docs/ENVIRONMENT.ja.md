@@ -108,7 +108,7 @@ LLM API に直接渡されるオプションパラメータです。
 
 ### 6. 音声の生成と文字起こし
 
-- `UAGENT_AUDIO_PROVIDER`: 音声生成/文字起こしに使用するプロバイダ (既定: `UAGENT_PROVIDER`; 対応: `openai`, `azure`)。- `UAGENT_AUDIO_PROVIDER`: 音声生成/文字起こしに使用するプロバイダ (既定: `UAGENT_PROVIDER`; 対応: `openai`, `azure`, `gemini`, `vertexai`)。
+- `UAGENT_AUDIO_PROVIDER`: 音声生成/文字起こしに使用するプロバイダ (既定: `UAGENT_PROVIDER`; 対応: `openai`, `azure`, `gemini`, `vertexai`)。
 - `UAGENT_AZURE_SPEECH_DEPNAME`: Azure 音声生成のデプロイ名。
 - `UAGENT_OPENAI_SPEECH_DEPNAME`: OpenAI 音声生成のモデル/デプロイ名。
 - `UAGENT_GEMINI_SPEECH_DEPNAME`: Gemini/VertexAI 音声生成のモデル名 (既定: `ja-JP-Neural2-B`)。
@@ -152,7 +152,7 @@ LLM API に直接渡されるオプションパラメータです。
 
 ### 10. 専門サブエージェントの個別設定 (オーバーライド)
 
-`run_sub_agent` ツールで実行される専門サブエージェント（`planner`, `reviewer`, `summarizer`, `patch_designer`, `error_analyst`）のプロバイダやモデル、APIキーを個別に上書きできます。未指定時はメインエージェントの設定が引き継がれます。
+`run_sub_agent` ツールで実行される専門サブエージェント（`planner`, `reviewer`, `summarizer`, `patch_designer`, `error_analyst`, `translator`）のプロバイダやモデル、APIキーを個別に上書きできます。未指定時はメインエージェントの設定が引き継がれます。
 
 - **サブエージェント全体の上書き**:
   - `UAGENT_SUB_AGENT_PROVIDER`: サブエージェント全体で使用するプロバイダ。
@@ -163,7 +163,7 @@ LLM API に直接渡されるオプションパラメータです。
   - `UAGENT_SUB_AGENT_<AGENT_NAME>_PROVIDER`: 特定のサブエージェント専用のプロバイダ。
   - `UAGENT_SUB_AGENT_<AGENT_NAME>_DEPNAME`: 特定のサブエージェント専用のモデル名。
   - `UAGENT_SUB_AGENT_<AGENT_NAME>_API_KEY`: 特定のサブエージェント専用のAPIキー。
-  *(※ `<AGENT_NAME>` は `PLANNER`, `REVIEWER`, `SUMMARIZER`, `PATCH_DESIGNER`, `ERROR_ANALYST` のいずれか)*
+  *(※ `<AGENT_NAME>` は `PLANNER`, `REVIEWER`, `SUMMARIZER`, `PATCH_DESIGNER`, `ERROR_ANALYST`, `TRANSLATOR` のいずれか)*
 
   *(例: `UAGENT_SUB_AGENT_SUMMARIZER_PROVIDER=gemini` および `UAGENT_SUB_AGENT_SUMMARIZER_DEPNAME=gemini-2.5-flash` と指定することで、要約タスクのみ高速・安価な Gemini 2.5 Flash に処理させることができます)*
 

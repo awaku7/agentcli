@@ -13,7 +13,6 @@ from ..i18n import _
 from ..reasoning_display import show_reasoning
 from ..util_tools import image_file_to_data_url
 
-
 # ---------------------------------------------------------------------------
 # String helpers
 # ---------------------------------------------------------------------------
@@ -624,9 +623,7 @@ def parse_responses_response(
                         rc = as_str(getattr(c, "text", ""))
                         if rc:
                             reasoning_content += rc
-                citations = extract_url_citations(
-                    getattr(item, "content", []) or []
-                )
+                citations = extract_url_citations(getattr(item, "content", []) or [])
                 if citations:
                     debug_emit(
                         None,

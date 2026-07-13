@@ -403,6 +403,7 @@ def _get_prompt_session(*, reply: bool = False) -> Any:
                             "profile",
                             "profile-fromlog",
                             "profile-clear",
+                            "model",
                         ]
                         for c in cmds:
                             if c.startswith(word):

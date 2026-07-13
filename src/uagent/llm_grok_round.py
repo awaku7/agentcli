@@ -292,7 +292,10 @@ def _call_grok_round(
                     print(repr(e))
                     return False, client, "", []
                 elif status_code == grpc.StatusCode.UNAVAILABLE:
-                    from .providers.util_providers import is_ssl_cert_error, set_ssl_verify_disabled
+                    from .providers.util_providers import (
+                        is_ssl_cert_error,
+                        set_ssl_verify_disabled,
+                    )
 
                     if is_ssl_cert_error(e):
                         print(

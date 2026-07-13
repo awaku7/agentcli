@@ -456,21 +456,20 @@ def build_startup_banner(*, core: Any, workdir: str, workdir_source: str) -> str
 
     if _use_responses_flag and _responses_supported:
         _mode_msg = _("Responses (UAGENT_RESPONSES is enabled)")
-        lines.append(
-            "[INFO] " + _("LLM API mode = %(mode)s") % {"mode": _mode_msg}
-        )
-    elif _use_responses_flag and provider not in ("grok", "gemini", "claude", "vertexai"):
+        lines.append("[INFO] " + _("LLM API mode = %(mode)s") % {"mode": _mode_msg})
+    elif _use_responses_flag and provider not in (
+        "grok",
+        "gemini",
+        "claude",
+        "vertexai",
+    ):
         _mode_msg = _(
             "ChatCompletions (provider '%(provider)s' does not support Responses API)"
         ) % {"provider": provider}
-        lines.append(
-            "[INFO] " + _("LLM API mode = %(mode)s") % {"mode": _mode_msg}
-        )
+        lines.append("[INFO] " + _("LLM API mode = %(mode)s") % {"mode": _mode_msg})
     elif provider not in ("grok", "gemini", "claude", "vertexai"):
         _mode_msg = _("ChatCompletions (UAGENT_RESPONSES is disabled)")
-        lines.append(
-            "[INFO] " + _("LLM API mode = %(mode)s") % {"mode": _mode_msg}
-        )
+        lines.append("[INFO] " + _("LLM API mode = %(mode)s") % {"mode": _mode_msg})
 
     lines.append(
         "[INFO] "

@@ -81,6 +81,7 @@ BUSY_LABEL = False
 # Windows
 # ---------------------------------------------------------------------------
 
+
 def _list_windows_win32(
     include_all: bool, include_pid: bool, include_class: bool
 ) -> list[dict]:
@@ -146,6 +147,7 @@ def _list_windows_win32(
 # Linux compositor helpers
 # ---------------------------------------------------------------------------
 
+
 def _try_ewmh(
     include_all: bool, include_pid: bool, include_class: bool
 ) -> list[dict] | None:
@@ -201,7 +203,9 @@ def _try_hyprctl(
     try:
         r = subprocess.run(
             ["hyprctl", "clients", "-j"],
-            capture_output=True, text=True, timeout=5,
+            capture_output=True,
+            text=True,
+            timeout=5,
         )
         if r.returncode != 0:
             return None
@@ -242,7 +246,9 @@ def _try_swaymsg(
     try:
         r = subprocess.run(
             ["swaymsg", "-t", "get_tree"],
-            capture_output=True, text=True, timeout=5,
+            capture_output=True,
+            text=True,
+            timeout=5,
         )
         if r.returncode != 0:
             return None
@@ -273,9 +279,9 @@ def _try_swaymsg(
                 if include_pid:
                     info["pid"] = int(node.get("pid", 0))
                 if include_class:
-                    info["class"] = node.get("window_properties", {}).get(
-                        "class", ""
-                    ) or ""
+                    info["class"] = (
+                        node.get("window_properties", {}).get("class", "") or ""
+                    )
                 windows.append(info)
             except Exception:
                 continue
@@ -297,7 +303,9 @@ def _try_kde_qdbus(
     try:
         r = subprocess.run(
             ["qdbus", "org.kde.KWin", "/KWin", "org.kde.KWin.windowList"],
-            capture_output=True, text=True, timeout=5,
+            capture_output=True,
+            text=True,
+            timeout=5,
         )
         if r.returncode != 0 or not r.stdout.strip():
             return None
@@ -306,8 +314,11 @@ def _try_kde_qdbus(
         # 典型的には各行が1ウィンドウのデータ (title, pid, ...)
         # 簡易パース: 空行/コメント行をスキップ
         windows = []
-        lines = [l.strip() for l in r.stdout.splitlines()
-                 if l.strip() and not l.startswith("Argument")]
+        lines = [
+            line.strip()
+            for line in r.stdout.splitlines()
+            if line.strip() and not line.startswith("Argument")
+        ]
         # windowList は QVariantList で返り、qdbus は1行1ウィンドウで表示
         for line in lines:
             try:
@@ -317,7 +328,11 @@ def _try_kde_qdbus(
                 visible = True  # KDE windowList は可視ウィンドウのみ
                 if (not include_all) and (not visible):
                     continue
-                info = {"hwnd": hash(title + pid_str), "title": title, "visible": visible}
+                info = {
+                    "hwnd": hash(title + pid_str),
+                    "title": title,
+                    "visible": visible,
+                }
                 if include_pid and pid_str.isdigit():
                     info["pid"] = int(pid_str)
                 if include_class:
@@ -351,18 +366,27 @@ def _try_gnome_gdbus(
         )
         r = subprocess.run(
             [
-                "gdbus", "call", "--session",
-                "--dest", "org.gnome.Shell",
-                "--object-path", "/org/gnome/Shell",
-                "--method", "org.gnome.Shell.Eval", js_code,
+                "gdbus",
+                "call",
+                "--session",
+                "--dest",
+                "org.gnome.Shell",
+                "--object-path",
+                "/org/gnome/Shell",
+                "--method",
+                "org.gnome.Shell.Eval",
+                js_code,
             ],
-            capture_output=True, text=True, timeout=5,
+            capture_output=True,
+            text=True,
+            timeout=5,
         )
         if r.returncode != 0:
             return None
 
         # 戻り値: (true, 'JSON文字列', '')
         import ast
+
         parsed = ast.literal_eval(r.stdout.strip())
         if not isinstance(parsed, tuple) or len(parsed) < 2:
             return None
@@ -397,11 +421,11 @@ def _list_windows_linux(
     include_all: bool, include_pid: bool, include_class: bool
 ) -> list[dict]:
     for attempt in (
-        _try_ewmh,      # 1) X11
-        _try_hyprctl,   # 2) Hyprland (Wayland)
-        _try_swaymsg,   # 3) Sway (Wayland)
-        _try_kde_qdbus, # 4) KDE (Wayland/X11)
-        _try_gnome_gdbus, # 5) GNOME (Wayland/X11)
+        _try_ewmh,  # 1) X11
+        _try_hyprctl,  # 2) Hyprland (Wayland)
+        _try_swaymsg,  # 3) Sway (Wayland)
+        _try_kde_qdbus,  # 4) KDE (Wayland/X11)
+        _try_gnome_gdbus,  # 5) GNOME (Wayland/X11)
     ):
         result = attempt(include_all, include_pid, include_class)
         if result is not None:
@@ -412,6 +436,7 @@ def _list_windows_linux(
 # ---------------------------------------------------------------------------
 # macOS
 # ---------------------------------------------------------------------------
+
 
 def _list_windows_macos(
     include_all: bool, include_pid: bool, include_class: bool
@@ -463,6 +488,7 @@ def _list_windows_macos(
 # Entry point
 # ---------------------------------------------------------------------------
 
+
 def run_tool(args: dict[str, Any]) -> str:
     include_all = bool(args.get("all", False))
     include_pid = bool(args.get("pid", False))
@@ -484,6 +510,4 @@ def run_tool(args: dict[str, Any]) -> str:
             {"windows": windows, "count": len(windows)}, ensure_ascii=False
         )
     except Exception as e:
-        return json.dumps(
-            {"error": f"{type(e).__name__}: {e}"}, ensure_ascii=False
-        )
+        return json.dumps({"error": f"{type(e).__name__}: {e}"}, ensure_ascii=False)
