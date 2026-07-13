@@ -175,6 +175,11 @@ export class WsClient {
         await this.call('config/apply_env', { key, value });
     }
 
+    async toggleDisplayReasoning(): Promise<boolean> {
+        const result = await this.call('config/display_reasoning_toggle');
+        return result.display_reasoning || false;
+    }
+
     async humanAskRespond(response: string): Promise<boolean> {
         const result = await this.call('human_ask/respond', { response });
         return result.handled || false;

@@ -395,25 +395,34 @@ def set_verbosity_mode(level: str) -> str:
 
 
 _REASONING_HISTORY: list[str] = ["medium"]
+# 表示専用 on/off フラグ。
+# `:r` (引数なしトグル) はこのフラグだけを切り替え、API への reasoning 要求には影響しない。
+# `:r off` / `:r medium` など値指定は set_reasoning_mode() 経由でこのフラグも同時更新する。
+_DISPLAY_REASONING: bool = True
+
+
+def get_display_reasoning() -> bool:
+    """Return whether reasoning content should be displayed to the user."""
+    return _DISPLAY_REASONING
 
 
 def apply_reasoning_arg(arg: str) -> str:
-    global _REASONING_HISTORY
+    global _REASONING_HISTORY, _DISPLAY_REASONING
     cur = get_reasoning_mode()
     lv = _normalize_reasoning_level_arg(arg)
     if lv is None and (arg or "").strip():
         # invalid (non-empty)
         raise ValueError(tr("invalid reasoning"))
 
-    # No arg given: toggle on/off
+    # No arg given: toggle display only (do not touch env var / API reasoning)
     if lv is None:
-        if cur == "off":
-            prev = _REASONING_HISTORY[-1] if _REASONING_HISTORY else "medium"
-            return set_reasoning_mode(prev)
-        else:
-            _REASONING_HISTORY.append(cur)
-            return set_reasoning_mode("off")
+        _DISPLAY_REASONING = not _DISPLAY_REASONING
+        status = "on" if _DISPLAY_REASONING else "off"
+        print(_("[display] reasoning display=%(mode)s") % {"mode": status})
+        return get_reasoning_mode()
 
+    # Value given: set both env var and display flag
+    _DISPLAY_REASONING = lv != "off"
     return set_reasoning_mode(lv)
 
 

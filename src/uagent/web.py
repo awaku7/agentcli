@@ -330,6 +330,7 @@ class WebRoom:
                     "modes": {
                         "reasoning": tools_util.get_reasoning_mode(),
                         "verbosity": tools_util.get_verbosity_mode(),
+                        "display_reasoning": tools_util.get_display_reasoning(),
                     },
                     "web_verbose": web_verbose,
                     "room_id": self.room_id,
@@ -431,6 +432,7 @@ def _broadcast_modes_all() -> None:
                 "modes": {
                     "reasoning": tools_util.get_reasoning_mode(),
                     "verbosity": tools_util.get_verbosity_mode(),
+                    "display_reasoning": tools_util.get_display_reasoning(),
                 },
             }
         )
@@ -1504,9 +1506,17 @@ async def api_command(req: Request):
             _pname, _client, _depname = providers.make_client(core)
         except Exception:
             pass
-        _result = tools_util.handle_command(
-            cmd_line, room.history, _client, _depname, core=core
-        )
+        import io as _io, sys as _sys
+        _capture = _io.StringIO()
+        _old_stdout = _sys.stdout
+        try:
+            _sys.stdout = _capture
+            _result = tools_util.handle_command(
+                cmd_line, room.history, _client, _depname, core=core
+            )
+        finally:
+            _sys.stdout = _old_stdout
+        _output = _capture.getvalue().strip()
         if isinstance(_result, tools_util.CommandResult) and _result.run_llm:
             threading.Thread(
                 target=run_agent_worker,
@@ -1519,6 +1529,13 @@ async def api_command(req: Request):
                 "run_llm": True,
                 "prompt": _result.prompt,
             }
+        if _output:
+            room.add_message(
+                {
+                    "role": "assistant",
+                    "content": _output,
+                }
+            )
         return {"ok": True, "command": cmd_line, "run_llm": False}
     except Exception as e:
         return JSONResponse(status_code=500, content={"error": str(e)})
@@ -1583,9 +1600,17 @@ async def websocket_endpoint(websocket: WebSocket):
                         _wc_pname, _wc_client, _wc_depname = providers.make_client(core)
                     except Exception:
                         pass
-                    _result = tools_util.handle_command(
-                        _cmd_line, room.history, _wc_client, _wc_depname, core=core
-                    )
+                    import io as _io, sys as _sys
+                    _capture = _io.StringIO()
+                    _old_stdout = _sys.stdout
+                    try:
+                        _sys.stdout = _capture
+                        _result = tools_util.handle_command(
+                            _cmd_line, room.history, _wc_client, _wc_depname, core=core
+                        )
+                    finally:
+                        _sys.stdout = _old_stdout
+                    _output = _capture.getvalue().strip()
                     if (
                         isinstance(_result, tools_util.CommandResult)
                         and _result.run_llm
@@ -1595,6 +1620,13 @@ async def websocket_endpoint(websocket: WebSocket):
                             args=(room, _result.prompt, None),
                             daemon=True,
                         ).start()
+                    elif _output:
+                        room.add_message(
+                            {
+                                "role": "assistant",
+                                "content": _output,
+                            }
+                        )
                 except Exception as _e:
                     room.add_message(
                         {

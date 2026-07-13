@@ -4,7 +4,7 @@ const _state = $state({
   roomId: '',
   messages: [],
   status: { busy: false, label: 'IDLE', workdir: '' },
-  modes: { reasoning: 'off', verbosity: 'off' },
+  modes: { reasoning: 'off', verbosity: 'off', displayReasoning: true },
   webVerbose: false,
   inputHistory: [],
   historyIndex: 0,
@@ -108,7 +108,11 @@ function handleWsMessage(data) {
       _state.historyIndex = _state.inputHistory.length;
       _state.webVerbose = !!data.web_verbose;
       if (data.status) _state.status = { busy: data.status.busy, label: data.status.label || (data.status.busy ? 'BUSY' : 'IDLE'), workdir: data.status.workdir || '' };
-      if (data.modes) _state.modes = { reasoning: data.modes.reasoning || 'off', verbosity: data.modes.verbosity || 'off' };
+      if (data.modes) _state.modes = {
+        reasoning: data.modes.reasoning || 'off',
+        verbosity: data.modes.verbosity || 'off',
+        displayReasoning: data.modes.display_reasoning !== undefined ? !!data.modes.display_reasoning : true,
+      };
       break;
     case 'message':
       _state.messages = [..._state.messages, data.message];
@@ -118,7 +122,11 @@ function handleWsMessage(data) {
       _state.status = { busy: data.status.busy, label: data.status.label || (data.status.busy ? 'BUSY' : 'IDLE'), workdir: data.status.workdir || '' };
       break;
     case 'modes':
-      if (data.modes) _state.modes = { reasoning: data.modes.reasoning || 'off', verbosity: data.modes.verbosity || 'off' };
+      if (data.modes) _state.modes = {
+        reasoning: data.modes.reasoning || 'off',
+        verbosity: data.modes.verbosity || 'off',
+        displayReasoning: data.modes.display_reasoning !== undefined ? !!data.modes.display_reasoning : true,
+      };
       break;
     case 'human_ask':
       if (data.message) {
@@ -166,6 +174,10 @@ export function sendCommand(text) {
   const ws = _state.ws;
   if (!ws || ws.readyState !== WebSocket.OPEN) return;
   ws.send(JSON.stringify({ type: 'command', text }));
+}
+
+export function sendDisplayReasoningToggle() {
+  sendCommand(':r');
 }
 
 export function sendInterrupt() {

@@ -58,6 +58,9 @@ export class ChatPanel {
                     case 'applyEnv':
                         await this.handleApplyEnv(msg.key, msg.value);
                         break;
+                    case 'toggleDisplayReasoning':
+                        await this.handleToggleDisplayReasoning();
+                        break;
                     case 'humanAskRespond':
                         await this.ws.humanAskRespond(msg.text);
                         break;
@@ -127,6 +130,15 @@ export class ChatPanel {
         try {
             await this.ws.applyEnv(key, value);
             this.postMessage({ type: 'system', data: `${key} = ${value || 'off'}` });
+        } catch (e: any) {
+            this.postMessage({ type: 'error', data: `Failed: ${e.message}` });
+        }
+    }
+
+    private async handleToggleDisplayReasoning() {
+        try {
+            const enabled = await this.ws.toggleDisplayReasoning();
+            this.postMessage({ type: 'system', data: `Display reasoning: ${enabled ? 'ON' : 'OFF'}` });
         } catch (e: any) {
             this.postMessage({ type: 'error', data: `Failed: ${e.message}` });
         }
@@ -308,6 +320,7 @@ export class ChatPanel {
     <div id="input-area">
         <div id="toolbar">
             <button id="btn-new-session" title="New session">+ New Session</button>
+            <button id="btn-display-reasoning" title="Toggle reasoning display">🧠</button>
             <select id="sel-reasoning" title="Reasoning level">
                 <option value="">reasoning: off</option>
                 <option value="low">reasoning: low</option>
@@ -360,6 +373,9 @@ export class ChatPanel {
             sendBtn.addEventListener('click', send);
             document.getElementById('btn-new-session').addEventListener('click', () => {
                 vscode.postMessage({ type: 'newSession' });
+            });
+            document.getElementById('btn-display-reasoning').addEventListener('click', () => {
+                vscode.postMessage({ type: 'toggleDisplayReasoning' });
             });
 
             document.getElementById('sel-reasoning').addEventListener('change', (e) => {

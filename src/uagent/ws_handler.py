@@ -68,6 +68,7 @@ class WsHandler:
             "config/get": self.handle_config_get,
             "config/set": self.handle_config_set,
             "config/apply_env": self.handle_config_apply_env,
+            "config/display_reasoning_toggle": self.handle_display_reasoning_toggle,
             "session/list": self.handle_session_list,
             "fim": self.handle_fim,
             "human_ask/respond": self.handle_human_ask_respond,
@@ -481,6 +482,16 @@ class WsHandler:
             raise ValueError("'key' is required")
         self.config_mgr.apply_env(key, value)
         return {"ok": True, "env_key": f"UAGENT_{key.upper()}", "value": value}
+
+    async def handle_display_reasoning_toggle(self, params: dict) -> dict:
+        """Toggle reasoning display on/off. Calls apply_reasoning_arg('')."""
+        from uagent.util_tools import apply_reasoning_arg, get_display_reasoning
+
+        apply_reasoning_arg("")
+        return {
+            "ok": True,
+            "display_reasoning": get_display_reasoning(),
+        }
 
     async def handle_session_list(self, params: dict) -> dict:
         """List all saved sessions."""
