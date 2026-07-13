@@ -1,5 +1,24 @@
 # Changelog
 
+## [0.5.47] - 2026-07-13
+
+### Added
+- WEB UI: Reasoning display ON/OFF toggle button in Settings panel.
+- Desktop GUI: Reasoning display 🧠 toggle button in status bar.
+- WEB UI: Command results (`:tools list`, `:help`, etc.) now displayed in chat.
+- `git_ops`: `rm` command support.
+
+### Fixed
+- High-contrast mode: toggle knob now has outline for visibility.
+- `catalog_tool.py`: restored missing `run_tool()` function (caused all management tools to fail loading in dev mode).
+- Desktop GUI: font size menu check marks now correctly reflect current size.
+- `read_file_tool.py`: fixed truncation without trailing newline.
+
+### Changed
+- Unified `scheck.py` launcher: merged all mode entry points (cli, gui, web, a2a, ws, setup) into single script.
+- UnifiedPanel.svelte: cleaner styling with consistent border-radius, spacing, and button styles.
+- Renamed `create-tool` skill directory to match frontmatter name.
+
 ## [0.5.46] - 2026-07-13
 
 ### Added
@@ -16,9 +35,17 @@
 - reasoning: removed `ultra` level (kept `xhigh` and `max` only). OpenRouter effort values now properly passed.
 - Cleaned up unused files from repository.
 
-# Changelog
-
 ## [0.5.45] - 2026-07-12
+
+### Added
+- New tools: `diff_files` (compare two files line by line) and `apply_patch` (apply unified diff patches) with full 34-language i18n.
+- Tool genres: `dev`, `web`, `utility` added to genre bitmap and genre control system.
+
+### Fixed
+- `tests/test_llmcapa.py`: corrected `expect_vision` flags for `Llama-3.2-90B-Vision-Instruct` and `Llama-4-Scout-17B-16E` (both support vision).
+
+### Changed
+ - 2026-07-12
 
 ### Added
 - New tools: `diff_files` (compare two files line by line) and `apply_patch` (apply unified diff patches) with full 34-language i18n.
