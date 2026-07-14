@@ -1,35 +1,34 @@
-# Tool Creator Guide
+# מדריך ליוצר הכלים
 
-This guide explains how to add your own tools to uag **without modifying uag itself**.
-If you want to add a tool directly to the uag source tree, see
+מדריך זה מסביר כיצד להוסיף כלים משלך ל-uag **מבלי לשנות את uag עצמו**.
+אם ברצונך להוסיף כלי ישירות לעץ המקור של uag, ראה
 [DEVELOP_TOOL.md](https://github.com/awaku7/agentcli/blob/main/src/uagent/docs/DEVELOP_TOOL.md).
 
 ---
 
-## Table of Contents
+## תוכן העניינים
 
-1. [Basic Tool Structure](#1-basic-tool-structure)
-2. [Creating a Python Tool](#2-creating-a-python-tool)
+1. [מבנה הכלי הבסיסי](#1-בסיס-כלי-מבנה)
+2. [יצירת כלי Python](#2-creating-a-python-tool)
 3. [Creating a Rust + Python Tool](#3-creating-a-rust--python-tool)
 4. [TOOL_SPEC Reference](#4-tool_spec-reference)
 5. [Internationalization (i18n)](#5-internationalization-i18n)
-6. [Testing and Debugging](#6-testing-and-debugging)
-7. [Reference Examples](#7-reference-examples)
+6. [בדיקה וניפוי באגים](#6-testing-and-debugging)
+7. [דוגמאות עזר](#7-reference-examples)
 
 ---
 
-## 1. Basic Tool Structure
+## 1. מבנה הכלי הבסיסי
 
-A tool consists of the following elements:
+כלי מורכב מהאלמנטים הבאים:
 
-| Element | Required | Description |
-|---------|----------|-------------|
-| `TOOL_SPEC` | Yes | Dictionary defining the tool's name, description, and parameters |
-| `run_tool(args)` | Yes | Function executed when the tool is called. Args is a dict, return is a string. |
-| i18n JSON | Recommended | Translation JSON file (same basename, `<name>_tool.json`) |
+| אלמנט | חובה | תיאור |
+|--------|--------|------------------|
+| `TOOL_SPEC` | כן | מילון המגדיר את השם, התיאור והפרמטרים של הכלי |
+| `run_tool(args)` | כן | פונקציה מבוצעת כאשר הכלי נקרא. ארגוס הוא dict, החזר הוא מיתר. |
+| i18n JSON | מומלץ | תרגום קובץ JSON (שם בסיס, `<name>_tool.json`) |
 
-### Minimal Python Tool
-
+### כלי Python מינימלי
 ```python
 # my_tool.py
 from typing import Any
@@ -58,37 +57,38 @@ TOOL_SPEC: dict[str, Any] = {
 
 ---
 
-## 2. Creating a Python Tool
+## 2. יצירת כלי Python
 
-### Steps
+### שלבים
 
-1. **Set the `UAGENT_EXTERNAL_TOOLS_DIRS` environment variable** (if not already set)
 
-   Example:
-   ```bash
+
+ **הגדר את משתנה הסביבה `UAGENT_EXTERNAL_TOOLS_DIRS`** (אם עדיין לא מוגדר)
+
+ דוגמה:
+ ```bash
    # Linux/macOS
    export UAGENT_EXTERNAL_TOOLS_DIRS=~/.uag/my_tools
    # Windows (cmd)
    set UAGENT_EXTERNAL_TOOLS_DIRS=%USERPROFILE%\.uag\my_tools
    ```
 
-   Multiple directories can be separated by `:` (Linux/macOS) or `;` (Windows).
-   `UAGENT_EXTERNAL_TOOLS_DIR` (singular) is also supported for backward compatibility.
+ ניתן להפריד בין ספריות מרובות על ידי `:` (Linux/macOS) או `;` (Windows).
+ `UAGENT_EXTERNAL_TOOLS_DIR` (יחיד) נתמך גם עבור תאימות לאחור.
 
-2. **Create a Python file**
+2. **צור קובץ Python**
 
-   File name is free, but `<name>_tool.py` naming is recommended (e.g. `my_tool.py`).
+ שם הקובץ הוא בחינם, אך מומלץ לתת שם של `<name>_tool.py` (למשל `my_tool.py`).
 
-3. **Implement the required elements**
+3. **הטמיע את האלמנטים הנדרשים**
 
-   - `TOOL_SPEC` dictionary
-   - `run_tool(args)` function
-   - Optionally, an i18n JSON file
+ - `TOOL_SPEC` dictionary
+ - `run_tool(args)` function
+ - לחלופין, קובץ i18n JSON
 
-4. **Restart the agent** (or run the `system_reload` tool)
+4. **הפעל מחדש את הסוכן** (או הפעל את הכלי `system_reload`)
 
-### Full Template
-
+### תבנית מלאה
 ```python
 from __future__ import annotations
 
@@ -132,7 +132,7 @@ TOOL_SPEC: dict[str, Any] = {
 }
 ```
 
-See [Section 5](#5-internationalization-i18n) for i18n details.
+ראה [סעיף 5](#5-internationalization-i18n) לפרטי i18n.
 
 ---
 
@@ -447,3 +447,7 @@ $env:UAGENT_EXTERNAL_TOOLS_DIRS = "C:\path\to\my\tools;C:\path\to\other\tools"
 
 Multiple directories can be separated by `:` (Linux/macOS) or `;` (Windows).
 `UAGENT_EXTERNAL_TOOLS_DIR` (singular) is also supported for backward compatibility.
+
+---
+
+*תרגום זה נוצר באופן אוטומטי. לתוכן המדויק והעדכני ביותר, אנא עיין בגרסה האנגלית.*
