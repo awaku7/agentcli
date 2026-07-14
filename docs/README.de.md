@@ -81,7 +81,7 @@ Schreibgeschützte Tools (Dateisuche, Hash-Berechnung, Verzeichnisliste, Überse
 | **Entwicklungstools** | git_ops, python_compile, lint_format, run_tests, db_query, **13 Quellcode-Navigatoren (IDX-Familie)** |
 | **MCP** | Mit externen MCP-Servern verbinden, Tools auflisten, ausführen |
 | **A2A** | Agent-zu-Agent-Kommunikation (mit anderen UAG-Instanzen oder A2A-kompatiblen Servern) |
-| **System** | Umgebungsvariablen, Systemspezifikationen, Uhrzeit, Datumsberechnung |
+| **System** | Umgebungsvariablen, Systemspezifikationen, Uhrzeit, Datumsberechnung, uuid_gen, slugify ||
 | **Quellennavigation** | **13 idx-Tools** für Python, PHP, TypeScript, Java, C#, Dart, C/C++, Rust, Go, Swift, Kotlin, COBOL – erhalten Sie einen Funktions-/Klassenindex oder eine spezifische Definition, ohne die gesamte Datei zu lesen |
 
 ### 🖥 4 Schnittstellen + VS-Code-Erweiterung
@@ -163,6 +163,17 @@ Zwei komplementäre Playwright-basierte Tools:
 Mit „tool_catalog“ und „tool_load“ können Sie Tools zur Laufzeit erkennen und aktivieren.
 Sie müssen beim Start nicht alles laden – aktivieren Sie nur das, was Sie brauchen, und zwar dann, wenn Sie es brauchen.
 
+
+### 🦀 Rust Native Tools
+
+`uuid_gen` and `slugify` are implemented in Rust (via PyO3) for performance.
+They load directly from a pre-built `.pyd` — **no `pip install` required**.
+
+External developers can also ship Rust-based tools: place a `.pyd` next to the
+wrapper `.py`, use ``load_rust_pyd()`` from ``uagent.tools.rust_helper``, and
+users get the tool without any extra dependencies. See
+[DEVELOP_TOOL.md](https://github.com/awaku7/agentcli/blob/main/src/uagent/docs/DEVELOP_TOOL.md#8-rust-native-tools).
+
 ### 🌐 i18n / L10n
 
 日本語 / Englisch / 简体中文 / 繁體中文 / 한국어 / Spanisch / Französisch / Russisch / und mehr.
@@ -195,6 +206,16 @@ uag möchte **Ihre KI sein, auf Ihrer Maschine, zu Ihren Bedingungen.**
 - Keine Bindung an bestimmte Funktionen – erweitern Sie Ihre Möglichkeiten mit Tools und Fertigkeiten
 
 Ein kostenloses KI-Agenten-Erlebnis, frei von Anbieterbindung.
+
+### ✨ Create Your Own Tools
+
+Writing a new tool for uag is straightforward — create a single `.py` file with
+`TOOL_SPEC` and `run_tool()`, place it in ``UAGENT_EXTERNAL_TOOLS_DIR``, and
+it's immediately available. For Rust developers, ship a pre-built `.pyd` with
+zero extra dependencies for users.
+
+See [DEVELOP_TOOL.md](https://github.com/awaku7/agentcli/blob/main/src/uagent/docs/DEVELOP_TOOL.md)
+for the step-by-step guide.
 
 ## Contributing
 

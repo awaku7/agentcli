@@ -82,7 +82,7 @@ uag
 | **डेव टूल्स** | git_ops, Python_compile, lint_format, run_tests, db_query, **13 स्रोत कोड नेविगेटर (idx परिवार)** |
 | **एमसीपी** | बाहरी एमसीपी सर्वर से कनेक्ट करें, टूल सूचीबद्ध करें, निष्पादित करें |
 | **A2A** | एजेंट-टू-एजेंट संचार (अन्य यूएजी इंस्टेंसेस या ए2ए-संगत सर्वर के साथ) |
-| **सिस्टम** | env vars, सिस्टम विशिष्टताएँ, समय, दिनांक गणना |
+| **सिस्टम** | env vars, सिस्टम विशिष्टताएँ, समय, दिनांक गणना, uuid_gen, slugify ||
 | **स्रोत नव** | **पाइथॉन, पीएचपी, टाइपस्क्रिप्ट, जावा, सी#, डार्ट, सी/सी++, रस्ट, गो, स्विफ्ट, कोटलिन, कोबोल के लिए 13 आईडीएक्स टूल** - पूरी फ़ाइल को पढ़े बिना फ़ंक्शन/क्लास इंडेक्स या विशिष्ट परिभाषा प्राप्त करें |
 
 ### 🖥 4 इंटरफेस + वीएस कोड एक्सटेंशन
@@ -162,6 +162,17 @@ uag
 `टूल_कैटलॉग` और `टूल_लोड` आपको रनटाइम पर टूल खोजने और सक्षम करने देते हैं।
 स्टार्टअप पर सब कुछ लोड करने की आवश्यकता नहीं है - केवल वही सक्रिय करें जिसकी आपको आवश्यकता है, जब आपको इसकी आवश्यकता हो।
 
+
+### 🦀 Rust Native Tools
+
+`uuid_gen` and `slugify` are implemented in Rust (via PyO3) for performance.
+They load directly from a pre-built `.pyd` — **no `pip install` required**.
+
+External developers can also ship Rust-based tools: place a `.pyd` next to the
+wrapper `.py`, use ``load_rust_pyd()`` from ``uagent.tools.rust_helper``, and
+users get the tool without any extra dependencies. See
+[DEVELOP_TOOL.md](https://github.com/awaku7/agentcli/blob/main/src/uagent/docs/DEVELOP_TOOL.md#8-rust-native-tools).
+
 ### 🌐 i18n / L10n
 
 日本語 / अंग्रेजी / 简体中文 / 繁體中文 / 한국어 / Español / Français / Русский / और अधिक।
@@ -194,6 +205,16 @@ uag
 - कोई फीचर लॉक-इन नहीं - उपकरण और कौशल के साथ विस्तार करें
 
 एक निःशुल्क एआई एजेंट अनुभव, वेंडर लॉक-इन से मुक्त।
+
+### ✨ Create Your Own Tools
+
+Writing a new tool for uag is straightforward — create a single `.py` file with
+`TOOL_SPEC` and `run_tool()`, place it in ``UAGENT_EXTERNAL_TOOLS_DIR``, and
+it's immediately available. For Rust developers, ship a pre-built `.pyd` with
+zero extra dependencies for users.
+
+See [DEVELOP_TOOL.md](https://github.com/awaku7/agentcli/blob/main/src/uagent/docs/DEVELOP_TOOL.md)
+for the step-by-step guide.
 
 ## Contributing
 

@@ -230,7 +230,89 @@ if __name__ == "__main__":
 
 ______________________________________________________________________
 
-## 8. Common pitfalls
+## 8. Rust (native) tools
+
+Tools implemented in Rust (via PyO3) are treated as ordinary tool plugins.
+The only difference is how the native `.pyd` is loaded.
+
+### 8.1 Standard pattern (recommended for external tools)
+
+Place a pre-built `.pyd` file next to the wrapper `.py` file, then use the
+shared helper from ``uagent.tools.rust_helper``:
+
+```python
+from __future__ import annotations
+
+import os
+from typing import Any
+
+from uagent.tools.i18n_helper import make_tool_translator
+from uagent.tools.rust_helper import load_rust_pyd
+
+_ = make_tool_translator(__file__)
+
+_rust_mod = load_rust_pyd("my_rust_tools")
+run_tool = _rust_mod.run_my_operation
+
+TOOL_SPEC: dict[str, Any] = {
+    "type": "function",
+    "x_build": "rust",
+    "tool_genre": "utility",
+    "tool_level": 0,
+    "function": {
+        "name": "my_operation",
+        "description": _("tool.description", default="..."),
+        "parameters": {
+            "type": "object",
+            "properties": { ... },
+            "additionalProperties": False,
+        },
+    },
+}
+```
+
+``load_rust_pyd`` resolves the ``.pyd`` in this order:
+
+1. Look for ``<module_name>.pyd`` next to the wrapper file (auto-detected).
+2. Fall back to a pip-installed module (``import <module_name>``).
+
+### 8.2 Custom .pyd path (internal build output)
+
+For tools built from source (e.g. inside the project's ``tools_rust/``
+directory), pass ``pyd_path`` explicitly:
+
+```python
+_rust_mod = load_rust_pyd(
+    "uag_tools_rust",
+    pyd_path=os.path.join(os.path.dirname(__file__), "target", "release", "uag_tools_rust.pyd"),
+)
+```
+
+### 8.3 Rust project structure (PyO3 + maturin)
+
+A minimal Rust tool project:
+
+```
+my_rust_tool/
+├── Cargo.toml
+├── pyproject.toml         # [build-system] requires = ["maturin>=1.0"]
+├── src/
+│   └── lib.rs             # #[pymodule] with pyfunctions
+└── my_rust_tool.pyd       # pre-built binary (ship this)
+```
+
+- The Rust module name (``#[pymodule]``) must match the ``module_name``
+  passed to ``load_rust_pyd()``.
+- Build locally with ``maturin build --release`` or ``cargo build --release``
+  then copy the resulting ``.dll`` / ``.so`` / ``.dylib`` as ``.pyd``
+  (Windows) next to the wrapper file.
+- **maturin (and Rust toolchain) are build-time dependencies only.**
+  End-users do **not** need to install maturin, Rust, or any extra pip
+  packages. The ``.pyd`` + ``.py`` pair is fully self-contained.
+
+______________________________________________________________________
+
+## 9. Common pitfalls
 
 - Missing `TOOL_SPEC` or `run_tool` → tool is not registered.
 - Invalid JSON schema under `parameters` → LLM tool call args may break.
@@ -238,7 +320,7 @@ ______________________________________________________________________
 
 ______________________________________________________________________
 
-## 9. Technical requirements for tool plugins
+## 10. Technical requirements for tool plugins
 
 When implementing or updating a tool, keep the following runtime requirements in mind:
 

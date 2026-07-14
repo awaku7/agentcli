@@ -1,0 +1,254 @@
+{
+    "en": {
+        "tool.description": "Convert text to a URL-friendly slug (e.g. 'Hello World' -> 'hello-world').",
+        "x_search_terms": ["slugify", "slug", "url slug", "text to slug"],
+        "tool.text": "Text to convert to a slug",
+        "tool.separator": "Word separator (default: '-')"
+    },
+    "ar": {
+        "tool.description": "تحويل النص إلى رابط ثابت متوافق مع عنوان URL (على سبيل المثال، \"Hello World\" -> \"hello-world\").",
+        "x_search_terms": ["slugify", "slug", "slug url", "text to slug"],
+        "tool.text": "نص لتحويله إلى سبيكة",
+        "tool.separator": "فاصل الكلمات (الافتراضي: '-')"
+    },
+    "bg": {
+        "tool.description": "Преобразувайте текст в удобен за URL охлюв (напр. „Hello World“ -> „hello-world“).",
+        "x_search_terms": ["slugify", "slug", "url slug", "text to slug"],
+        "tool.text": "Текст за преобразуване в охлюв",
+        "tool.separator": "Разделител на думи (по подразбиране: '-')"
+    },
+    "bn": {
+        "tool.description": "পাঠ্যকে একটি URL-বান্ধব স্লাগে রূপান্তর করুন (যেমন 'হ্যালো ওয়ার্ল্ড' -> 'হ্যালো-ওয়ার্ল্ড')।",
+        "x_search_terms": ["slugify", "slug", "url slug", "টেক্সট to slug"],
+        "tool.text": "একটি স্লাগে রূপান্তর করার জন্য পাঠ্য",
+        "tool.separator": "শব্দ বিভাজক (ডিফল্ট: '-')"
+    },
+    "cs": {
+        "tool.description": "Převeďte text na slimák vhodný pro adresy URL (např. 'Hello World' -> 'hello-world').",
+        "x_search_terms": ["slugify", "slug", "url slug", "text to slim"],
+        "tool.text": "Text, který se má převést na slimáka",
+        "tool.separator": "Oddělovač slov (výchozí: '-')"
+    },
+    "da": {
+        "tool.description": "Konverter tekst til en URL-venlig slug (f.eks. 'Hello World' -> 'hello-world').",
+        "x_search_terms": ["slugify", "slug", "url slug", "tekst til slug"],
+        "tool.text": "Tekst, der skal konverteres til en snegl",
+        "tool.separator": "Ordseparator (standard: '-')"
+    },
+    "de": {
+        "tool.description": "Konvertieren Sie Text in einen URL-freundlichen Slug (z. B. „Hello World” -> „hello-world“).",
+        "x_search_terms": ["slugify", "slug", "URL slug", "Text an slug"],
+        "tool.text": "Text, der in einen Slug umgewandelt werden soll",
+        "tool.separator": "Worttrennzeichen (Standard: '-')"
+    },
+    "el": {
+        "tool.description": "Μετατρέψτε το κείμενο σε ένα slug φιλικό προς τη διεύθυνση URL (π.χ. \"Hello World\" -> \"hello-world\").",
+        "x_search_terms": ["slugify", "slug", "url slug", "text to slug"],
+        "tool.text": "Κείμενο για μετατροπή σε γυμνοσάλιαγκα",
+        "tool.separator": "Διαχωριστικό λέξεων (προεπιλογή: '-')"
+    },
+    "es": {
+        "tool.description": "Convierta texto en un slug compatible con URL (por ejemplo, 'Hola mundo' -> 'hola-mundo').",
+        "x_search_terms": ["slugify", "slug", "URL slug", "texto a slug"],
+        "tool.text": "Texto para convertir en slug",
+        "tool.separator": "Separador de palabras (predeterminado: '-')"
+    },
+    "fa": {
+        "tool.description": "متن را به یک اسلاگ مناسب URL (به عنوان مثال \"Hello World\" -> \"Hello-World\") تبدیل کنید.",
+        "x_search_terms": ["slugify", "slug", "url slug", "text to slug"],
+        "tool.text": "متنی برای تبدیل به اسلگ",
+        "tool.separator": "جداکننده کلمات (پیش فرض: '-')"
+    },
+    "fi": {
+        "tool.description": "Muunna teksti URL-osoitteeseen sopivaksi sluugiksi (esim. 'Hello World' -> 'hello-world').",
+        "x_search_terms": ["slugify", "slug", "url slug", "text to slug"],
+        "tool.text": "Teksti muuntaa etana",
+        "tool.separator": "Sanaerotin (oletus: '-')"
+    },
+    "fr": {
+        "tool.description": "Convertissez le texte en un slug convivial pour les URL (par exemple « Hello World » -> « hello-world »).",
+        "x_search_terms": ["slugify", "slug", "url slug", "texte à slug"],
+        "tool.text": "Texte à convertir en slug",
+        "tool.separator": "Séparateur de mots (par défaut : '-')"
+    },
+    "he": {
+        "tool.description": "המר טקסט לשלולית ידידותית לכתובת URL (למשל 'Hello World' -> 'Hello-world').",
+        "x_search_terms": ["slugify", "slug", "url slug", "text to slug"],
+        "tool.text": "טקסט להמרה לשבלול",
+        "tool.separator": "מפריד מילים (ברירת מחדל: '-')"
+    },
+    "hi": {
+        "tool.description": "टेक्स्ट को यूआरएल-अनुकूल स्लग में कनवर्ट करें (उदाहरण के लिए 'हैलो वर्ल्ड' -> 'हैलो-वर्ल्ड')।",
+        "x_search_terms": ["स्लगिफ़ाई", "स्लग", "यूआरएल स्लग", "टेक्स्ट टू स्लग"],
+        "tool.text": "स्लग में बदलने के लिए टेक्स्ट",
+        "tool.separator": "शब्द विभाजक (डिफ़ॉल्ट: '-')"
+    },
+    "hr": {
+        "tool.description": "Pretvorite tekst u URL-prijatan puž (npr. 'Hello World' -> 'hello-world').",
+        "x_search_terms": ["slugify", "slug", "url slug", "text to slug"],
+        "tool.text": "Tekst za pretvaranje u puž",
+        "tool.separator": "Razdjelnik riječi (zadano: '-')"
+    },
+    "hu": {
+        "tool.description": "Konvertálja a szöveget URL-barát slugmá (pl. \"Hello World\" -> \"hello-world\").",
+        "x_search_terms": ["slugify", "slug", "url slug", "text to slug"],
+        "tool.text": "Szöveg slug-vá alakítani",
+        "tool.separator": "Szóelválasztó (alapértelmezett: '-')"
+    },
+    "id": {
+        "tool.description": "Konversikan teks menjadi slug yang ramah URL (misalnya 'Halo Dunia' -> 'halo-dunia').",
+        "x_search_terms": ["slugify", "slug", "url slug", "teks ke slug"],
+        "tool.text": "Teks untuk diubah menjadi siput",
+        "tool.separator": "Pemisah kata (default: '-')"
+    },
+    "it": {
+        "tool.description": "Converti il testo in uno slug compatibile con URL (ad esempio \"Hello World\" -> \"hello-world\").",
+        "x_search_terms": ["slugify", "slug", "slug url", "testo da slug"],
+        "tool.text": "Testo da convertire in uno slug",
+        "tool.separator": "Separatore di parole (predefinito: '-')"
+    },
+    "ja": {
+        "tool.description": "テキストをURL用スラグに変換します（例: 'Hello World' -> 'hello-world'）。",
+        "x_search_terms": ["スラグ", "スラグ化", "URLスラグ", "テキスト変換"],
+        "tool.text": "スラグに変換するテキスト",
+        "tool.separator": "単語の区切り文字（デフォルト: '-'）"
+    },
+    "ko": {
+        "tool.description": "텍스트를 URL 친화적인 슬러그로 변환합니다(예: 'Hello World' -> 'hello-world').",
+        "x_search_terms": ["슬러그파이", "슬러그", "URL 슬러그", "텍스트를 슬러그로"],
+        "tool.text": "슬러그로 변환할 텍스트",
+        "tool.separator": "단어 구분 기호(기본값: '-')"
+    },
+    "mn": {
+        "tool.description": "Текстийг URL-д ээлтэй slug болгон хөрвүүлэх (жишээ нь 'Hello World' -> 'Hello-world').",
+        "x_search_terms": ["slugify", "slug", "url slug", "текст рүү slug"],
+        "tool.text": "Слаг болгон хувиргах текст",
+        "tool.separator": "Үг тусгаарлагч (өгөгдмөл: '-')"
+    },
+    "mr": {
+        "tool.description": "मजकूर URL-अनुकूल स्लगमध्ये रूपांतरित करा (उदा. 'Hello World' -> 'hello-world').",
+        "x_search_terms": ["slugify", "slug", "url slug", "text to slug"],
+        "tool.text": "स्लगमध्ये रूपांतरित करण्यासाठी मजकूर",
+        "tool.separator": "शब्द विभाजक (डीफॉल्ट: '-')"
+    },
+    "ms": {
+        "tool.description": "Tukar teks kepada slug mesra URL (cth. 'Hello World' -> 'hello-world').",
+        "x_search_terms": ["slugify", "slug", "url slug", "text to slug"],
+        "tool.text": "Teks untuk ditukar kepada slug",
+        "tool.separator": "Pemisah perkataan (lalai: '-')"
+    },
+    "nb": {
+        "tool.description": "Konverter tekst til en URL-vennlig slug (f.eks. \"Hello World\" -> \"hello-world\").",
+        "x_search_terms": ["slugify", "slug", "url slug", "tekst til slug"],
+        "tool.text": "Tekst som skal konverteres til en snegle",
+        "tool.separator": "Ordskilletegn (standard: '-')"
+    },
+    "ne": {
+        "tool.description": "पाठलाई URL-मैत्री स्लगमा रूपान्तरण गर्नुहोस् (जस्तै 'Hello World' -> 'hello-world')।",
+        "x_search_terms": ["slugify", "slug", "url slug", "text to slug"],
+        "tool.text": "स्लगमा रूपान्तरण गर्न पाठ",
+        "tool.separator": "शब्द विभाजक (पूर्वनिर्धारित: '-')"
+    },
+    "nl": {
+        "tool.description": "Converteer tekst naar een URL-vriendelijke slug (bijvoorbeeld 'Hallo wereld' -> 'Hallo wereld').",
+        "x_search_terms": ["slugify", "slug", "url slug", "tekst naar slug"],
+        "tool.text": "Tekst die naar een slak moet worden omgezet",
+        "tool.separator": "Woordscheidingsteken (standaard: '-')"
+    },
+    "pl": {
+        "tool.description": "Konwertuj tekst na informację przyjazną dla adresów URL (np. „Hello World\" -> „hello-world\").",
+        "x_search_terms": ["slugify", "ślimak", "ślimak url", "tekst do ślimaka"],
+        "tool.text": "Tekst do konwersji na ślimak",
+        "tool.separator": "Separator słów (domyślnie: „-\")"
+    },
+    "pt": {
+        "tool.description": "Converta o texto em um slug compatível com URL (por exemplo, 'Hello World' -> 'hello-world').",
+        "x_search_terms": ["slugify", "slug", "slug de url", "texto para slug"],
+        "tool.text": "Texto para converter em um slug",
+        "tool.separator": "Separador de palavras (padrão: '-')"
+    },
+    "pt_BR": {
+        "tool.description": "Converta o texto em um slug compatível com URL (por exemplo, 'Hello World' -> 'hello-world').",
+        "x_search_terms": ["slugify", "slug", "slug de url", "texto para slug"],
+        "tool.text": "Texto para converter em um slug",
+        "tool.separator": "Separador de palavras (padrão: '-')"
+    },
+    "ro": {
+        "tool.description": "Convertiți textul într-un slug prietenos cu adresa URL (de exemplu, „Hello World\" -> „hello-world\").",
+        "x_search_terms": ["slugify", "slug", "url slug", "text to slug"],
+        "tool.text": "Text de convertit într-un slug",
+        "tool.separator": "Separator de cuvinte (implicit: „-\")"
+    },
+    "ru": {
+        "tool.description": "Преобразуйте текст в URL-адресный фрагмент (например, «Hello World» -> «Hello-World»).",
+        "x_search_terms": ["slugify", "пуля", "URL-адрес", "текст в пул"],
+        "tool.text": "Текст для преобразования в слизень",
+        "tool.separator": "Разделитель слов (по умолчанию: '-')"
+    },
+    "sr": {
+        "tool.description": "Претворите текст у УРЛ-прилагођену ознаку (нпр. 'Хелло Ворлд' -> 'хелло-ворлд').",
+        "x_search_terms": ["слугифи", "слуг", "урл полуг", "текст у пуж"],
+        "tool.text": "Текст за претварање у пуж",
+        "tool.separator": "Разделник речи (подразумевано: '-')"
+    },
+    "sv": {
+        "tool.description": "Konvertera text till en URL-vänlig snigel (t.ex. \"Hello World\" -> \"hello-world\").",
+        "x_search_terms": ["slugify", "slug", "url slug", "text till slug"],
+        "tool.text": "Text att konvertera till en snigel",
+        "tool.separator": "Ordavgränsare (standard: '-')"
+    },
+    "sw": {
+        "tool.description": "Badilisha maandishi kuwa koleo linalofaa URL (k.m. 'Hello World' -> 'hello-world').",
+        "x_search_terms": ["slugify", "slug", "url slug", "maandishi kwa slug"],
+        "tool.text": "Maandishi ya kubadilisha kuwa slug",
+        "tool.separator": "Kitenganishi cha maneno (chaguo-msingi: '-')"
+    },
+    "ta": {
+        "tool.description": "உரையை URL-க்கு ஏற்ற ஸ்லக்காக மாற்றவும் (எ.கா. 'ஹலோ வேர்ல்ட்' -> 'ஹலோ-வேர்ல்ட்').",
+        "x_search_terms": ["slugify", "slug", "url slug", "text to slug"],
+        "tool.text": "ஸ்லக்காக மாற்ற உரை",
+        "tool.separator": "சொல் பிரிப்பான் (இயல்பு: '-')"
+    },
+    "th": {
+        "tool.description": "แปลงข้อความเป็นกระสุนที่เป็นมิตรต่อ URL (เช่น 'Hello World' -> 'hello-world')",
+        "x_search_terms": ["slugify", "slug", "url slug", "ข้อความถึง slug"],
+        "tool.text": "ข้อความที่จะแปลงเป็นทาก",
+        "tool.separator": "ตัวแยกคำ (ค่าเริ่มต้น: '-')"
+    },
+    "tr": {
+        "tool.description": "Metni URL dostu bir bilgiye dönüştürün (örneğin, 'Merhaba Dünya' -> 'merhaba dünya').",
+        "x_search_terms": ["slugify", "slug", "url slug", "slug'a metin"],
+        "tool.text": "Sümüklüböceğe dönüştürülecek metin",
+        "tool.separator": "Kelime ayırıcı (varsayılan: '-')"
+    },
+    "uk": {
+        "tool.description": "Перетворіть текст на зручну URL-адресу (наприклад, «Hello World\" -> «hello-world\").",
+        "x_search_terms": ["slugify", "slug", "url slug", "text to slug"],
+        "tool.text": "Текст для перетворення на слаг",
+        "tool.separator": "Роздільник слів (за замовчуванням: '-')"
+    },
+    "ur": {
+        "tool.description": "متن کو یو آر ایل کے موافق سلگ میں تبدیل کریں (جیسے 'ہیلو ورلڈ' -> 'ہیلو ورلڈ')۔",
+        "x_search_terms": ["سلگفائی", "سلگ", "یو آر ایل سلگ", "ٹیکسٹ ٹو سلگ"],
+        "tool.text": "سلگ میں تبدیل کرنے کے لیے متن",
+        "tool.separator": "لفظ الگ کرنے والا (پہلے سے طے شدہ: '-')"
+    },
+    "vi": {
+        "tool.description": "Chuyển đổi văn bản thành slug thân thiện với URL (ví dụ: 'Xin chào thế giới' -> 'xin chào thế giới').",
+        "x_search_terms": ["slugify", "slug", "slug url", "chuyển văn bản thành slug"],
+        "tool.text": "Văn bản để chuyển đổi thành một con sên",
+        "tool.separator": "Dấu phân cách từ (mặc định: '-')"
+    },
+    "zh_CN": {
+        "tool.description": "将文本转换为 URL 友好的 slug（例如“Hello World”->“hello-world”）。",
+        "x_search_terms": ["slugify", "slug", "url slug", "文本转 slug"],
+        "tool.text": "要转换为 slug 的文本",
+        "tool.separator": "单词分隔符（默认：“-”）"
+    },
+    "zh_TW": {
+        "tool.description": "將文字轉換為 URL 友善的 slug（例如“Hello World”->“hello-world”）。",
+        "x_search_terms": ["slugify", "slug", "url slug", "文本轉 slug"],
+        "tool.text": "要轉換為 slug 的文本",
+        "tool.separator": "單字分隔符號（預設：“-”）"
+    }
+}

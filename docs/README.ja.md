@@ -82,7 +82,7 @@ LLMが複数のツールを同時に要求すると、uagは **自動的に並�
 | **開発ツール** | git_ops、python_compile、lint_format、run_tests、db_query、**13のソースコードナビゲーター（idxファミリ）** |
 | **MCP** | 外部MCPサーバへの接続、ツール一覧、実行 |
 | **A2A** | エージェント間通信（他のuagインスタンスやA2A対応サーバと） |
-| **システム** | 環境変数、システム情報、時刻、日付計算 |
+| **システム** | 環境変数、システム情報、時刻、日付計算、uuid_gen、slugify |
 | **ソースナビ** | **13のidxツール**（Python、PHP、TypeScript、Java、C#、Dart、C/C++、Rust、Go、Swift、Kotlin、COBOL）— ファイル全体を読まずに関数やクラスのインデックスを取得 |
 
 ### 🖥 4つのインターフェース + VS Code拡張
@@ -158,6 +158,27 @@ LLMの応答生成中にいつでも停止し、LLMに停止コマンドを送�
 
 `tool_catalog` と `tool_load` を使うと、実行時にツールを発見・有効化できます。起動時にすべてを読み込む必要はなく、必要なときに必要なものだけを有効にできます。
 
+### 🦀 Rustネイティブツール
+
+`uuid_gen` と `slugify` は Rust（PyO3）で実装されており、高速に動作します。
+ビルド済みの `.pyd` から直接読み込まれるため、**`pip install` は不要**です。
+
+外部の開発者も Rust ベースのツールを配布できます。`.pyd` をラッパー `.py` と同じ
+ディレクトリに配置し、``uagent.tools.rust_helper`` の ``load_rust_pyd()`` を使用する
+だけで、ユーザーは追加の依存関係なしでツールを利用できます。詳細は
+[DEVELOP_TOOL.md](https://github.com/awaku7/agentcli/blob/main/src/uagent/docs/DEVELOP_TOOL.md#8-rust-native-tools) を参照してください。
+
+
+### 🦀 Rust Native Tools
+
+`uuid_gen` and `slugify` are implemented in Rust (via PyO3) for performance.
+They load directly from a pre-built `.pyd` — **no `pip install` required**.
+
+External developers can also ship Rust-based tools: place a `.pyd` next to the
+wrapper `.py`, use ``load_rust_pyd()`` from ``uagent.tools.rust_helper``, and
+users get the tool without any extra dependencies. See
+[DEVELOP_TOOL.md](https://github.com/awaku7/agentcli/blob/main/src/uagent/docs/DEVELOP_TOOL.md#8-rust-native-tools).
+
 ### 🌐 i18n / L10n
 
 日本語 / English / 简体中文 / 繁體中文 / 한국어 / Español / Français / Русский / など。
@@ -189,6 +210,16 @@ uagは **あなたのマシンで、あなたの思い通りに動く、あな�
 - 機能のロックインなし — ツールとスキルで拡張可能
 
 ベンダーロックインのない、自由なAIエージェント体験。
+
+### ✨ Create Your Own Tools
+
+Writing a new tool for uag is straightforward — create a single `.py` file with
+`TOOL_SPEC` and `run_tool()`, place it in ``UAGENT_EXTERNAL_TOOLS_DIR``, and
+it's immediately available. For Rust developers, ship a pre-built `.pyd` with
+zero extra dependencies for users.
+
+See [DEVELOP_TOOL.md](https://github.com/awaku7/agentcli/blob/main/src/uagent/docs/DEVELOP_TOOL.md)
+for the step-by-step guide.
 
 ## Contributing
 

@@ -81,7 +81,7 @@ OpenAI / Azure / Bedrock / OpenRouter / Ollama / Gemini / Vertex AI / Claude / G
 | **ابزارهای توسعه** | git_ops، python_compile، lint_format، run_tests، db_query، **13 پیمایش کد منبع (خانواده idx)** |
 | **MCP** | اتصال به سرورهای MCP خارجی، فهرست ابزارها، اجرا |
 | **A2A** | ارتباط عامل به عامل (با سایر نمونه های uag یا سرورهای سازگار با A2A) |
-| **سیستم** | env vars، مشخصات سیستم، زمان، محاسبه تاریخ |
+| **سیستم** | env vars، مشخصات سیستم، زمان، محاسبه تاریخ, uuid_gen, slugify ||
 | **منبع Nav** | **13 ابزار idx** برای Python، PHP، TypeScript، Java، C#، Dart، C/C++، Rust، Go، Swift، Kotlin، COBOL — دریافت یک شاخص تابع/کلاس یا تعریف خاص بدون خواندن کل فایل |
 
 ### 🖥 4 رابط + پسوند کد VS
@@ -165,6 +165,17 @@ uag می تواند پیشرفت را در وظایف طولانی مدت چند
 «کاتالوگ_ابزار» و «بار_ابزار» به شما امکان می دهند ابزارها را در زمان اجرا کشف و فعال کنید.
 بدون نیاز به بارگیری همه چیز در هنگام راه‌اندازی - فقط آنچه را که نیاز دارید فعال کنید، زمانی که به آن نیاز دارید.
 
+
+### 🦀 Rust Native Tools
+
+`uuid_gen` and `slugify` are implemented in Rust (via PyO3) for performance.
+They load directly from a pre-built `.pyd` — **no `pip install` required**.
+
+External developers can also ship Rust-based tools: place a `.pyd` next to the
+wrapper `.py`, use ``load_rust_pyd()`` from ``uagent.tools.rust_helper``, and
+users get the tool without any extra dependencies. See
+[DEVELOP_TOOL.md](https://github.com/awaku7/agentcli/blob/main/src/uagent/docs/DEVELOP_TOOL.md#8-rust-native-tools).
+
 ### 🌐 i18n / L10n
 
 日本語 / انگلیسی / 简体中文 / 繁體中文 / 한국어 / Español / Français / Русский / و بیشتر.
@@ -197,6 +208,16 @@ uag آرزو دارد **هوش مصنوعی شما باشد، بر روی دست
 - بدون قفل ویژگی - با ابزارها و مهارت ها گسترش دهید
 
 تجربه عامل هوش مصنوعی رایگان، بدون قفل شدن فروشنده.
+
+### ✨ Create Your Own Tools
+
+Writing a new tool for uag is straightforward — create a single `.py` file with
+`TOOL_SPEC` and `run_tool()`, place it in ``UAGENT_EXTERNAL_TOOLS_DIR``, and
+it's immediately available. For Rust developers, ship a pre-built `.pyd` with
+zero extra dependencies for users.
+
+See [DEVELOP_TOOL.md](https://github.com/awaku7/agentcli/blob/main/src/uagent/docs/DEVELOP_TOOL.md)
+for the step-by-step guide.
 
 ## Contributing
 

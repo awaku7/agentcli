@@ -1,12 +1,18 @@
 from __future__ import annotations
 
+import os
 from typing import Any
 
 from uagent.tools.i18n_helper import make_tool_translator
+from uagent.tools.rust_helper import load_rust_pyd
 
 _ = make_tool_translator(__file__)
 
-from uag_tools_rust import run_uuid_gen as run_tool  # noqa: E402
+_rust_mod = load_rust_pyd(
+    "uag_tools_rust",
+    pyd_path=os.path.join(os.path.dirname(__file__), "target", "release", "uag_tools_rust.pyd"),
+)
+run_tool = _rust_mod.run_uuid_gen
 
 TOOL_SPEC: dict[str, Any] = {
     "type": "function",

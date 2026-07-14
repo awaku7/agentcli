@@ -20,22 +20,26 @@ pub fn run(args: HashMap<String, Py<PyAny>>) -> PyResult<String> {
         return Ok(String::new());
     }
 
-    let slug: String = text
-        .to_lowercase()
-        .chars()
-        .map(|c: char| {
-            if c.is_ascii_alphanumeric() {
-                c
-            } else if c.is_whitespace() || c == '-' || c == '_' {
-                '-'
-            } else {
-                ' '
-            }
-        })
-        .collect::<String>()
-        .split_whitespace()
-        .collect::<Vec<&str>>()
-        .join(&separator);
+    // Split into words: alphanumeric (ASCII) and non-ASCII (e.g. Japanese)
+    // characters are kept; everything else (punctuation, whitespace) acts as
+    // a word boundary.
+    let mut words: Vec<String> = Vec::new();
+    let mut current = String::new();
 
-    Ok(slug)
+    for c in text.to_lowercase().chars() {
+        if c.is_ascii_alphanumeric() || !c.is_ascii() {
+            current.push(c);
+        } else {
+            // Punctuation / whitespace → word boundary
+            if !current.is_empty() {
+                words.push(current.clone());
+                current.clear();
+            }
+        }
+    }
+    if !current.is_empty() {
+        words.push(current);
+    }
+
+    Ok(words.join(&separator))
 }

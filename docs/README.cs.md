@@ -81,7 +81,7 @@ Nástroje pouze pro čtení (prohledávání souborů, výpočet hashů, výpis 
 | **Nástroje pro vývojáře** | git_ops, python_compile, lint_format, run_tests, db_query, **13 navigátorů zdrojového kódu (rodina idx)** |
 | **MCP** | Připojte se k externím serverům MCP, vypište nástroje, spusťte |
 | **A2A** | Komunikace agent-agent (s jinými instancemi uag nebo servery kompatibilními s A2A) |
-| **Systém** | env vars, systémové specifikace, čas, výpočet data |
+| **Systém** | env vars, systémové specifikace, čas, výpočet data, uuid_gen, slugify ||
 | **Zdroj Nav** | **13 nástrojů idx** pro Python, PHP, TypeScript, Java, C#, Dart, C/C++, Rust, Go, Swift, Kotlin, COBOL — získat index funkce/třídy nebo konkrétní definici bez čtení celého souboru |
 
 ### 🖥 4 rozhraní + rozšíření VS kódu
@@ -164,6 +164,17 @@ Dva doplňkové nástroje založené na Playwrightovi:
 `tool_catalog` a `tool_load` umožňují objevovat a povolit nástroje za běhu.
 Není třeba načítat vše při spuštění – aktivujte pouze to, co potřebujete, když to potřebujete.
 
+
+### 🦀 Rust Native Tools
+
+`uuid_gen` and `slugify` are implemented in Rust (via PyO3) for performance.
+They load directly from a pre-built `.pyd` — **no `pip install` required**.
+
+External developers can also ship Rust-based tools: place a `.pyd` next to the
+wrapper `.py`, use ``load_rust_pyd()`` from ``uagent.tools.rust_helper``, and
+users get the tool without any extra dependencies. See
+[DEVELOP_TOOL.md](https://github.com/awaku7/agentcli/blob/main/src/uagent/docs/DEVELOP_TOOL.md#8-rust-native-tools).
+
 ### 🌐 i18n / L10n
 
 日本語 / anglicky / 简体中文 / 繁體中文 / 한국어 / Español / Français / Русский / a další.
@@ -196,6 +207,16 @@ uag chce být **vaší AI, na vašem počítači, za vašich podmínek.**
 - Žádné uzamčení funkcí – rozšíření o nástroje a dovednosti
 
 Bezplatná zkušenost s AI agentem, bez uzamčení dodavatele.
+
+### ✨ Create Your Own Tools
+
+Writing a new tool for uag is straightforward — create a single `.py` file with
+`TOOL_SPEC` and `run_tool()`, place it in ``UAGENT_EXTERNAL_TOOLS_DIR``, and
+it's immediately available. For Rust developers, ship a pre-built `.pyd` with
+zero extra dependencies for users.
+
+See [DEVELOP_TOOL.md](https://github.com/awaku7/agentcli/blob/main/src/uagent/docs/DEVELOP_TOOL.md)
+for the step-by-step guide.
 
 ## Contributing
 

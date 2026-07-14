@@ -81,7 +81,7 @@ OpenAI / Azure / Bedrock / OpenRouter / Ollama / Gemini / Vertex AI / Claude / G
 | **开发工具** | git_ops、python_compile、lint_format、run_tests、db_query、**13 个源代码导航器（idx 系列）** |
 | **MCP** |连接到外部 MCP 服务器、列出工具、执行 |
 | **A2A** |代理间通信（与其他 uag 实例或 A2A 兼容服务器）|
-| **系统** |环境变量、系统规格、时间、日期计算 |
+| **系统** | 环境变量、系统规格、时间、日期计算, uuid_gen, slugify ||
 | **来源导航** | **13 个 idx 工具**，适用于 Python、PHP、TypeScript、Java、C#、Dart、C/C++、Rust、Go、Swift、Kotlin、COBOL — 无需读取整个文件即可获取函数/类索引或特定定义 |
 
 ### 🖥 4 个接口 + VS 代码扩展
@@ -165,6 +165,16 @@ uag 可以跟踪长时间运行的多文件任务的进度。当 LLM 处理数�
 `tool_catalog` 和 `tool_load` 可让您在运行时发现并启用工具。
 无需在启动时加载所有内容 - 仅在需要时激活您需要的内容。
 
+### 🦀 Rust Native Tools
+
+`uuid_gen` and `slugify` are implemented in Rust (via PyO3) for performance.
+They load directly from a pre-built `.pyd` — **no `pip install` required**.
+
+External developers can also ship Rust-based tools: place a `.pyd` next to the
+wrapper `.py`, use ``load_rust_pyd()`` from ``uagent.tools.rust_helper``, and
+users get the tool without any extra dependencies. See
+[DEVELOP_TOOL.md](https://github.com/awaku7/agentcli/blob/main/src/uagent/docs/DEVELOP_TOOL.md#8-rust-native-tools).
+
 ### 🌐 国际化 / 本土化
 
 日本语 / English / 简体中文 / 繁体中文 / 한국어 / Español / Français / Русский / 等。
@@ -197,6 +207,16 @@ uag 渴望成为 **您的人工智能，在您的机器上，按照您的条件�
 - 无功能锁定——通过工具和技能进行扩展
 
 免费的人工智能代理体验，不受供应商锁定。
+
+### ✨ Create Your Own Tools
+
+Writing a new tool for uag is straightforward — create a single `.py` file with
+`TOOL_SPEC` and `run_tool()`, place it in ``UAGENT_EXTERNAL_TOOLS_DIR``, and
+it's immediately available. For Rust developers, ship a pre-built `.pyd` with
+zero extra dependencies for users.
+
+See [DEVELOP_TOOL.md](https://github.com/awaku7/agentcli/blob/main/src/uagent/docs/DEVELOP_TOOL.md)
+for the step-by-step guide.
 
 ## Contributing
 

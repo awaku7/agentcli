@@ -82,7 +82,7 @@ Read-only tools (file search, hash calculation, directory listing, translation, 
 | **Dev Tools** | git_ops, python_compile, lint_format, run_tests, db_query, **13 source code navigators (idx family)** |
 | **MCP** | Connect to external MCP servers, list tools, execute |
 | **A2A** | Agent-to-agent communication (with other uag instances or A2A-compatible servers) |
-| **System** | env vars, system specs, time, date calculation |
+| **System** | env vars, system specs, time, date calculation, uuid_gen, slugify |
 | **Source Nav** | **13 idx tools** for Python, PHP, TypeScript, Java, C#, Dart, C/C++, Rust, Go, Swift, Kotlin, COBOL — get a function/class index or specific definition without reading the whole file |
 
 ### 🖥 4 Interfaces + VS Code Extension
@@ -160,6 +160,16 @@ Two complementary Playwright-based tools:
 `tool_catalog` and `tool_load` let you discover and enable tools at runtime.
 No need to load everything at startup — activate only what you need, when you need it.
 
+### 🦀 Rust Native Tools
+
+`uuid_gen` and `slugify` are implemented in Rust (via PyO3) for performance.
+They load directly from a pre-built `.pyd` — **no `pip install` required**.
+
+External developers can also ship Rust-based tools: place a `.pyd` next to the
+wrapper `.py`, use ``load_rust_pyd()`` from ``uagent.tools.rust_helper``, and
+users get the tool without any extra dependencies. See
+[DEVELOP_TOOL.md](https://github.com/awaku7/agentcli/blob/main/src/uagent/docs/DEVELOP_TOOL.md#8-rust-native-tools).
+
 ### 🌐 i18n / L10n
 
 日本語 / English / 简体中文 / 繁體中文 / 한국어 / Español / Français / Русский / and more.
@@ -192,6 +202,16 @@ uag aspires to be **your AI, on your machine, on your terms.**
 - No feature lock-in — extend with tools and skills
 
 A free AI agent experience, free from vendor lock-in.
+
+### ✨ Create Your Own Tools
+
+Writing a new tool for uag is straightforward — create a single `.py` file with
+`TOOL_SPEC` and `run_tool()`, place it in ``UAGENT_EXTERNAL_TOOLS_DIR``, and
+it's immediately available. For Rust developers, ship a pre-built `.pyd` with
+zero extra dependencies for users.
+
+See [DEVELOP_TOOL.md](https://github.com/awaku7/agentcli/blob/main/src/uagent/docs/DEVELOP_TOOL.md)
+for the step-by-step guide.
 
 ## Contributing
 

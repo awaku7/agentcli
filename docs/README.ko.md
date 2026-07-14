@@ -81,7 +81,7 @@ LLM이 여러 도구를 동시에 요청하면 uag가 해당 도구를 **자동�
 | **개발 도구** | git_ops, python_compile, lint_format, run_tests, db_query, **13개의 소스 코드 탐색기(idx 제품군)** |
 | **MCP** | 외부 MCP 서버에 연결하고, 도구를 나열하고, 실행 |
 | **A2A** | 에이전트 간 통신(다른 uag 인스턴스 또는 A2A 호환 서버 사용) |
-| **시스템** | 환경 변수, 시스템 사양, 시간, 날짜 계산 |
+| **시스템** | 환경 변수, 시스템 사양, 시간, 날짜 계산, uuid_gen, slugify ||
 | **소스 탐색** | Python, PHP, TypeScript, Java, C#, Dart, C/C++, Rust, Go, Swift, Kotlin, COBOL용 **13가지 idx 도구** — 전체 파일을 읽지 않고도 함수/클래스 색인 또는 특정 정의 가져오기 |
 
 ### 🖥 4가지 인터페이스 + VS 코드 확장
@@ -165,6 +165,17 @@ uag는 장기 실행 다중 파일 작업의 진행 상황을 추적할 수 있�
 `tool_catalog` 및 `tool_load`를 사용하면 런타임에 도구를 검색하고 활성화할 수 있습니다.
 시작할 때 모든 것을 로드할 필요가 없습니다. 필요할 때 필요한 것만 활성화하세요.
 
+
+### 🦀 Rust Native Tools
+
+`uuid_gen` and `slugify` are implemented in Rust (via PyO3) for performance.
+They load directly from a pre-built `.pyd` — **no `pip install` required**.
+
+External developers can also ship Rust-based tools: place a `.pyd` next to the
+wrapper `.py`, use ``load_rust_pyd()`` from ``uagent.tools.rust_helper``, and
+users get the tool without any extra dependencies. See
+[DEVELOP_TOOL.md](https://github.com/awaku7/agentcli/blob/main/src/uagent/docs/DEVELOP_TOOL.md#8-rust-native-tools).
+
 ### 🌐 i18n / L10n
 
 日本語 / English / 简体中文 / 繁體中文 / 한국어 / Español / Français / Русский / and more.
@@ -197,6 +208,16 @@ uag는 **귀하의 머신에서, 귀하의 조건에 따라 귀하의 AI가 되�
 - 기능 고정 없음 - 도구 및 기술로 확장
 
 벤더 종속이 없는 무료 AI 에이전트 환경입니다.
+
+### ✨ Create Your Own Tools
+
+Writing a new tool for uag is straightforward — create a single `.py` file with
+`TOOL_SPEC` and `run_tool()`, place it in ``UAGENT_EXTERNAL_TOOLS_DIR``, and
+it's immediately available. For Rust developers, ship a pre-built `.pyd` with
+zero extra dependencies for users.
+
+See [DEVELOP_TOOL.md](https://github.com/awaku7/agentcli/blob/main/src/uagent/docs/DEVELOP_TOOL.md)
+for the step-by-step guide.
 
 ## Contributing
 
