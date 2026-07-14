@@ -1,35 +1,34 @@
-# Tool Creator Guide
+# Ghid pentru creatorul de instrumente
 
-This guide explains how to add your own tools to uag **without modifying uag itself**.
-If you want to add a tool directly to the uag source tree, see
+Acest ghid explică cum să adăugați propriile instrumente la uag **fără a modifica uag în sine**.
+Dacă doriți să adăugați un instrument direct în arborele sursă uag, vezi
 [DEVELOP_TOOL.md](https://github.com/awaku7/agentcli/blob/main/src/uagent/docs/DEVELOP_TOOL.md).
 
 ---
 
-## Table of Contents
+## Cuprins
 
-1. [Basic Tool Structure](#1-basic-tool-structure)
-2. [Creating a Python Tool](#2-creating-a-python-tool)
-3. [Creating a Rust + Python Tool](#3-creating-a-rust--python-tool)
+1. [Structură de bază a instrumentului](#1-structură-de-bază-instrument)
+2. [Crearea unui instrument Python](#2-crearea-un-instrument-python)
+3. [Crearea unui instrument Rust + Python](#3-crearea-o-rugină--python-tool)
 4. [TOOL_SPEC Reference](#4-tool_spec-reference)
-5. [Internationalization (i18n)](#5-internationalization-i18n)
-6. [Testing and Debugging](#6-testing-and-debugging)
-7. [Reference Examples](#7-reference-examples)
+5. [Internaționalizare (i18n)](#5-internaționalizare-i18n)
+6. [Testare și depanare](#6-testare-și-depanare)
+7. [Exemple de referință](#7-exemple-de-referință)
 
 ---
 
-## 1. Basic Tool Structure
+## 1. Structura de bază a instrumentului
 
-A tool consists of the following elements:
+Un instrument este format din următoarele elemente:
 
-| Element | Required | Description |
-|---------|----------|-------------|
-| `TOOL_SPEC` | Yes | Dictionary defining the tool's name, description, and parameters |
-| `run_tool(args)` | Yes | Function executed when the tool is called. Args is a dict, return is a string. |
-| i18n JSON | Recommended | Translation JSON file (same basename, `<name>_tool.json`) |
+| Element | Necesar | Descriere |
+|----------|----------|--------------|
+| `TOOL_SPEC` | Da | Dicționar care definește numele instrumentului, descrierea și parametrii |
+| `run_tool(args)` | Da | Funcție executată atunci când instrumentul este apelat. Args este un dict, return este un șir. |
+| i18n JSON | Recomandat | Traducere fișier JSON (același nume de bază, `<name>_tool.json`) |
 
 ### Minimal Python Tool
-
 ```python
 # my_tool.py
 from typing import Any
@@ -58,13 +57,13 @@ TOOL_SPEC: dict[str, Any] = {
 
 ---
 
-## 2. Creating a Python Tool
+## 2. Crearea unui instrument Python
 
-### Steps
+### Pași
 
-1. **Set the `UAGENT_EXTERNAL_TOOLS_DIRS` environment variable** (if not already set)
+1. **Setați variabila de mediu `UAGENT_EXTERNAL_TOOLS_DIRS`** (dacă nu este deja setată)
 
-   Example:
+   Exemplu:
    ```bash
    # Linux/macOS
    export UAGENT_EXTERNAL_TOOLS_DIRS=~/.uag/my_tools
@@ -72,23 +71,22 @@ TOOL_SPEC: dict[str, Any] = {
    set UAGENT_EXTERNAL_TOOLS_DIRS=%USERPROFILE%\.uag\my_tools
    ```
 
-   Multiple directories can be separated by `:` (Linux/macOS) or `;` (Windows).
-   `UAGENT_EXTERNAL_TOOLS_DIR` (singular) is also supported for backward compatibility.
+   Mai multe directoare pot fi separate prin `:` (Linux/macOS) sau `;` (Windows).
+   `UAGENT_EXTERNAL_TOOLS_DIR` (singular) este de asemenea acceptat pentru compatibilitate cu versiunea anterioară.
 
-2. **Create a Python file**
+2. **Creați un fișier Python**
 
-   File name is free, but `<name>_tool.py` naming is recommended (e.g. `my_tool.py`).
+   Numele fișierului este gratuit, dar se recomandă denumirea `<name>_tool.py` (de exemplu, `my_tool.py`).
 
-3. **Implement the required elements**
+3. **Implementați elementele necesare**
 
-   - `TOOL_SPEC` dictionary
-   - `run_tool(args)` function
-   - Optionally, an i18n JSON file
+   - Dicționar `TOOL_SPEC`
+   - Funcția `run_tool(args)`
+   - Opțional, un fișier JSON i18n
 
-4. **Restart the agent** (or run the `system_reload` tool)
+4. **Reporniți agentul** (sau rulați instrumentul `system_reload`)
 
-### Full Template
-
+### Șablon complet
 ```python
 from __future__ import annotations
 
@@ -132,18 +130,18 @@ TOOL_SPEC: dict[str, Any] = {
 }
 ```
 
-See [Section 5](#5-internationalization-i18n) for i18n details.
+Consultați [Secțiunea 5](#5-internationalization-i18n) pentru detalii i18n.
 
 ---
 
-## 3. Creating a Rust + Python Tool
+## 3. Crearea unui instrument Rust + Python
 
-Rust implementation is ideal for performance-critical tasks (heavy data processing, cryptography, file processing, etc.).
-uag can load pre-built `.pyd` files directly, so **end-users don't need `pip install`**.
+Implementarea Rust este ideală pentru sarcini critice pentru performanță (procesare grea de date, criptare, procesare fișiere etc.).
+uag poate încărca fișiere `.pyd` pre-construite direct, astfel încât **utilizatorii finali nu au nevoie de `pip install`**.
 
-### Tool Structure
+### Structura instrumentului
 
-A Rust tool consists of the following files:
+Un instrument Rust constă din următoarele fișiere:
 
 ```
 my_rust_tool/
@@ -154,12 +152,12 @@ my_rust_tool/
 └── my_rust_tool.pyd    # Build artifact (ship with distribution)
 ```
 
-For distribution, place the `_tool.py` + `_tool.json` + `.pyd` files in
+Pentru distribuire, plasați fișierele `_tool.py` + `_tool.json` + `.pyd` în 
 `UAGENT_EXTERNAL_TOOLS_DIRS`.
 
-### Steps
+### Pași
 
-#### Step 1: Create the Rust project
+#### Pasul 1: Creați proiectul Rust
 
 **Cargo.toml**
 ```toml
@@ -188,7 +186,7 @@ version = "0.1.0"
 requires-python = ">=3.11"
 ```
 
-#### Step 2: Rust implementation (src/lib.rs)
+#### Pasul 2: Implementarea Rust (src/lib.rs)
 
 ```rust
 use pyo3::prelude::*;
@@ -214,32 +212,32 @@ fn my_rust_tools(m: &Bound<'_, PyModule>) -> PyResult<()> {
 }
 ```
 
-**Key points:**
-- Expose functions with `#[pyfunction(name = "run_<name>")]`
-- Return type is `PyResult<String>`
-- The `#[pymodule]` function name must match the crate name (`my_rust_tools`)
+**Puncte cheie:**
+- Expune funcțiile cu `#[pyfunction(name = "run_<name>")]`
+- Tipul de returnare este `PyResult<String>`
+- Numele funcției `#[pymodule]` trebuie să se potrivească cu numele cutiei (`my_rust_tools`)
 
-#### Step 3: Build
+#### Pasul 3: Build
 
 ```bash
 cd my_rust_tool
 cargo build --release
 ```
 
-Windows: rename `target/release/my_rust_tools.dll` to `my_rust_tools.pyd`
-Linux: rename `target/release/libmy_rust_tools.so` to `my_rust_tools.so`
-macOS: rename `target/release/libmy_rust_tools.dylib` to `my_rust_tools.so`
+Windows: redenumiți `target/release/my_rust_tools.dll` în `my_rust_tools.pyd`
+Linux: redenumiți `target/release/libmy_rust_tools.so` în `my_rust_tools.so`
+macOS: redenumiți `target/release/libmy_rust_tools.dylib` în `my_rust_tools.so`
 
-Or using maturin:
+Sau utilizând maturin:
 ```bash
 pip install maturin     # build-time only
 maturin build --release
 # Extract .pyd/.so from target/wheels/*.whl
 ```
 
-#### Step 4: Create the Python wrapper
+#### Pasul 4: Creați wrapper-ul Python
 
-Create `my_rust_tool.py` in your `UAGENT_EXTERNAL_TOOLS_DIRS` directory:
+Creați `my_rust_tool.py` în directorul `UAGENT_EXTERNAL_TOOLS_DIRS`:
 
 ```python
 from __future__ import annotations
@@ -276,14 +274,14 @@ TOOL_SPEC: dict[str, Any] = {
 }
 ```
 
-**``load_rust_pyd()`` resolution order:**
+**``load_rust_pyd()`` ordine de rezoluție:**
 
-1. Look for `<module_name>.pyd` (or `.so`) in the same directory as the wrapper `.py`
-2. Fall back to a pip-installed module
+1. Căutați `<module_name>.pyd` (sau `.so`) în același director cu wrapper-ul `.py`
+2. Reveniți la un modul instalat prin pip
 
-#### Step 5: Distribution
+#### Pasul 5: Distribuție
 
-Only these 3 files are needed. End-users do **not** need any `pip install`.
+Sunt necesare doar aceste 3 fișiere. Utilizatorii finali **nu** au nevoie de nicio `pip install`.
 
 ```
 my_rust_tool.py         # Python wrapper (TOOL_SPEC + run_tool)
@@ -291,20 +289,20 @@ my_rust_tool.json       # i18n translations (optional)
 my_rust_tools.pyd       # Pre-built native binary
 ```
 
-### Notes
+### Note
 
-- **Build-time only:** Rust toolchain and `maturin` are required
+- **Numai în timpul construirii:** Rust toolchain și `maturin` sunt necesare
   ```bash
   pip install maturin
   ```
-- The Rust crate name (`[lib] name` in `Cargo.toml`) must match the first argument of `load_rust_pyd()`
-- The wrapper file name and `.pyd` location are independent as long as they are in the same directory
+- Numele cutiei Rust (`[lib] name` în `Cargo.toml`) trebuie să se potrivească cu primul argument al lui `load_rust_pyd()`
+- Numele fișierului wrapper și locația `.pyd` sunt independente atâta timp cât se află în același director
 
 ---
 
 ## 4. TOOL_SPEC Reference
 
-### Basic Structure
+### Structura de bază
 
 ```python
 TOOL_SPEC: dict[str, Any] = {
@@ -336,35 +334,35 @@ TOOL_SPEC: dict[str, Any] = {
 }
 ```
 
-### Properties
+### Proprietăți
 
-| Field | Type | Description |
-|-------|------|-------------|
-| `type` | str | Always `"function"` |
-| `x_build` | str | `"rust"` for Rust implementation (omit for Python) |
-| `tool_genre` | str | Genre name (optional). Enables genre-based control |
-| `tool_level` | int | 0=enabled, 1=conditional (default), -1=disabled |
-| `function.name` | str | **Required**. Tool name (lowercase + digits + underscore) |
-| `function.description` | str | **Required**. Description |
-| `function.x_search_terms` | list[str] | i18n-aware search keywords (wrap with `_(...)`) |
-| `function.x_search_terms_en` | list[str] | Fixed English search keywords |
-| `function.parameters` | dict | Parameter definition (OpenAI function calling format) |
+| Câmp | Tip | Descriere |
+|--------|------|--------------|
+| `type` | str | Întotdeauna `"function"` |
+| `x_build` | str | `"rust"` pentru implementarea Rust (omiteți pentru Python) |
+| `tool_genre` | str | Numele genului (opțional). Activează controlul bazat pe gen |
+| `tool_level` | int | 0=activat, 1=condițional (implicit), -1=dezactivat |
+| `function.name` | str | **Necesar**. Numele instrumentului (minuscule + cifre + literă de subliniere) |
+| `function.description` | str | **Necesar**. Descriere |
+| `function.x_search_terms` | list[str] | Cuvinte cheie de căutare i18n-aware (înfășurați cu `_(...)`) |
+| `function.x_search_terms_en` | list[str] | Cuvinte cheie de căutare în engleză fixate |
+| `function.parameters` | dict | Definiție parametru (format de apelare a funcției OpenAI) |
 
 ---
 
-## 5. Internationalization (i18n)
+## 5. Internaționalizare (i18n)
 
-### Translation Mechanism
+### Mecanism de traducere
 
-Calling `make_tool_translator(__file__)` loads translations from a `.json` file
-with the same basename in the same directory.
+Apelarea `make_tool_translator(__file__)` încarcă traduceri dintr-un fișier `.json`
+cu același nume de bază în același director.
 
 ```python
 from uagent.tools.i18n_helper import make_tool_translator
 _ = make_tool_translator(__file__)
 ```
 
-### Using Translation Keys
+### Utilizarea tastelor de traducere
 
 ```python
 description = _(
@@ -373,7 +371,7 @@ description = _(
 )
 ```
 
-### JSON File Format
+### Format fișier JSON
 
 ```json
 {
@@ -388,19 +386,19 @@ description = _(
 }
 ```
 
-See existing `_tool.json` files for supported language codes.
+Consultați fișierele `_tool.json` existente pentru codurile de limbă acceptate.
 
 ---
 
-## 6. Testing and Debugging
+## 6. Testare și depanare
 
-### Syntax Check
+### Verificare sintaxă
 
 ```bash
 python -m py_compile my_tool.py
 ```
 
-### Verify Tool Loading
+### Verificați încărcarea instrumentului
 
 ```python
 from uagent.tools import _RUNNERS, reload_plugins
@@ -411,28 +409,28 @@ if "my_tool" in _RUNNERS:
     print(result)
 ```
 
-### Error Logs
+### Jurnale de erori
 
-Errors during tool loading are printed to stderr. If your tool isn't loaded,
-check the uag startup logs.
+Erorile în timpul încărcării instrumentului sunt tipărite în stderr. Dacă instrumentul dvs. nu este încărcat,
+verificați jurnalele de pornire uag.
 
 ---
 
-## 7. Reference Examples
+## 7. Exemple de referință
 
-### Python Tool Examples
+### Exemple de instrumente Python
 
-- `date_calc_tool.py` (in `src/uagent/tools/`) — Date calculation. Copy externally and customize.
-- `calculator_tool.py` (in `src/uagent/tools/`) — Calculator.
+- `date_calc_tool.py` (în `src/uagent/tools/`) — Calcul date. Copiați extern și personalizați.
+- `calculator_tool.py` (în `src/uagent/tools/`) — Calculator.
 
-### Rust Tool Examples
+### Exemple de instrumente Rust
 
-- `rust_uuid_gen_tool.py` + `uag_tools_rust.pyd` (in `src/uagent/tools_rust/`) — UUID generation
-- `rust_slugify_tool.py` + `uag_tools_rust.pyd` (in `src/uagent/tools_rust/`) — Slug conversion
+- `rust_uuid_gen_tool.py` + `uag_tools_rust.pyd` (în `src/uagent/tools_rust/`) — Generare UUID
+- `rust_slugify_tool.py` + `uag_tools_rust.pyd` (în `src/uagent/tools_rust/`) — Conversie slug
 
-Copy the `_tool.py` and `.pyd` files into `UAGENT_EXTERNAL_TOOLS_DIRS` to use them as external tools.
+Copiați fișierele `_tool.py` și `.pyd` în `UAGENT_EXTERNAL_TOOLS_DIRS` pentru a le utiliza ca instrumente externe.
 
-### Setting Up External Tool Directories
+### Configurarea directoarelor de instrumente externe
 
 ```bash
 # Linux/macOS
@@ -445,5 +443,9 @@ set UAGENT_EXTERNAL_TOOLS_DIRS=C:\path\to\my\tools;C:\path\to\other\tools
 $env:UAGENT_EXTERNAL_TOOLS_DIRS = "C:\path\to\my\tools;C:\path\to\other\tools"
 ```
 
-Multiple directories can be separated by `:` (Linux/macOS) or `;` (Windows).
-`UAGENT_EXTERNAL_TOOLS_DIR` (singular) is also supported for backward compatibility.
+Mai multe directoare pot fi separate prin `:` (Linux/macOS) sau `;` (Windows).
+`UAGENT_EXTERNAL_TOOLS_DIR` (singular) este de asemenea acceptat pentru compatibilitate cu versiunea anterioară.
+
+---
+
+*Această traducere a fost generată automat. Pentru conținutul cel mai exact și actualizat, vă rugăm să consultați versiunea în limba engleză.*

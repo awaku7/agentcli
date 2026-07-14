@@ -1,35 +1,34 @@
-# Tool Creator Guide
+# Mwongozo wa Waundaji Zana
 
-This guide explains how to add your own tools to uag **without modifying uag itself**.
-If you want to add a tool directly to the uag source tree, see
+Mwongozo huu unaelezea jinsi ya kuongeza zana zako mwenyewe kwenye uag **bila kurekebisha uag yenyewe**.
+Kama ungependa kuongeza zana moja kwa moja kwenye mti chanzo cha uag, ona
 [DEVELOP_TOOL.md](https://github.com/awaku7/agentcli/blob/main/src/uagent/docs/DEVELOP_TOOL.md).
 
 ---
 
-## Table of Contents
+## Yaliyomo
 
-1. [Basic Tool Structure](#1-basic-tool-structure)
-2. [Creating a Python Tool](#2-creating-a-python-tool)
-3. [Creating a Rust + Python Tool](#3-creating-a-rust--python-tool)
-4. [TOOL_SPEC Reference](#4-tool_spec-reference)
-5. [Internationalization (i18n)](#5-internationalization-i18n)
-6. [Testing and Debugging](#6-testing-and-debugging)
-7. [Reference Examples](#7-reference-examples)
+1. [Muundo wa Zana Msingi](#1-muundo-wa-zana-msingi)
+2. [Kuunda Zana ya Python](#2-kuunda-zana-ya-python)
+3. [Kuunda Zana ya Rust + Python](#3-kuunda-zana-ya-rust-python)
+4. [Marejeleo ya TOOL_SPEC](#4-marejeleo-ya-tool_spec)
+5. [Utandawazi (i18n)](#5-utandawazi-i18n)
+6. [Kujaribu na Utatuzi](#6-kujaribu-na-utatuzi)
+7. [Mifano ya Marejeleo](#7-mifano-ya-marejeleo)
 
 ---
 
-## 1. Basic Tool Structure
+## 1. Muundo wa Zana Msingi
 
-A tool consists of the following elements:
+Zana ina vipengele vifuatavyo:
 
-| Element | Required | Description |
+| Kipengele | Inahitajika | Maelezo |
 |---------|----------|-------------|
-| `TOOL_SPEC` | Yes | Dictionary defining the tool's name, description, and parameters |
-| `run_tool(args)` | Yes | Function executed when the tool is called. Args is a dict, return is a string. |
-| i18n JSON | Recommended | Translation JSON file (same basename, `<name>_tool.json`) |
+| `TOOL_SPEC` | Ndiyo | Kamusi inayofafanua jina la zana, maelezo na vigezo |
+| `run_tool(args)` | Ndiyo | Kazi inayotekelezwa wakati zinaitwa. Args ni dict, kurudi ni kamba. |
+| i18n JSON | Imependekezwa | Faili ya tafsiri ya JSON (jina la msingi sawa, `<jina>_tool.json`) |
 
-### Minimal Python Tool
-
+### Zana Ndogo ya Python
 ```python
 # my_tool.py
 from typing import Any
@@ -58,13 +57,13 @@ TOOL_SPEC: dict[str, Any] = {
 
 ---
 
-## 2. Creating a Python Tool
+## 2. Kuunda Zana ya Python
 
-### Steps
+### Hatua
 
-1. **Set the `UAGENT_EXTERNAL_TOOLS_DIRS` environment variable** (if not already set)
+1. **Weka kigezo cha mazingira `UAGENT_EXTERNAL_TOOLS_DIRS`** (kama hakijawekwa tayari)
 
-   Example:
+   Mfano:
    ```bash
    # Linux/macOS
    export UAGENT_EXTERNAL_TOOLS_DIRS=~/.uag/my_tools
@@ -72,23 +71,22 @@ TOOL_SPEC: dict[str, Any] = {
    set UAGENT_EXTERNAL_TOOLS_DIRS=%USERPROFILE%\.uag\my_tools
    ```
 
-   Multiple directories can be separated by `:` (Linux/macOS) or `;` (Windows).
-   `UAGENT_EXTERNAL_TOOLS_DIR` (singular) is also supported for backward compatibility.
+   Saraka nyingi zinaweza kutengwa kwa `:` (Linux/macOS) au `;` (Windows).
+   `UAGENT_EXTERNAL_TOOLS_DIR` (umoja) pia inatumika kwa upatanifu wa nyuma.
 
-2. **Create a Python file**
+2. **Unda faili ya Python**
 
-   File name is free, but `<name>_tool.py` naming is recommended (e.g. `my_tool.py`).
+   Jina la faili halilipishwi, lakini kupendekezwa `<jina>_tool.py` (k.m. `my_tool.py`).
 
-3. **Implement the required elements**
+3. **Tekeleza vipengele vinavyohitajika**
 
-   - `TOOL_SPEC` dictionary
-   - `run_tool(args)` function
-   - Optionally, an i18n JSON file
+   - Kamusi ya `TOOL_SPEC`
+   - Kazi ya `run_tool(args)`
+   - Kwa hiari, faili ya i18n JSON
 
-4. **Restart the agent** (or run the `system_reload` tool)
+4. **Anzisha upya wakala** (au endesha zana ya `system_reload`)
 
-### Full Template
-
+### Kiolezo Kamili
 ```python
 from __future__ import annotations
 
@@ -132,18 +130,18 @@ TOOL_SPEC: dict[str, Any] = {
 }
 ```
 
-See [Section 5](#5-internationalization-i18n) for i18n details.
+Angalia [Sehemu ya 5](#5-utandawazi-i18n) kwa maelezo ya i18n.
 
 ---
 
-## 3. Creating a Rust + Python Tool
+## 3. Kuunda Zana ya Rust + Python
 
-Rust implementation is ideal for performance-critical tasks (heavy data processing, cryptography, file processing, etc.).
-uag can load pre-built `.pyd` files directly, so **end-users don't need `pip install`**.
+Utekelezaji wa Rust ni bora kwa kazi muhimu za utendakazi (uchakataji mzito wa data, usimbaji fiche, uchakataji wa faili, n.k.).
+uag inaweza kupakia faili za `.pyd` zilizojengwa awali moja kwa moja, kwa hivyo **watumiaji wa mwisho hawahitaji `pip install`**.
 
-### Tool Structure
+### Muundo wa Zana
 
-A Rust tool consists of the following files:
+Zana ya Rust ina faili zifuatazo:
 
 ```
 my_rust_tool/
@@ -154,12 +152,12 @@ my_rust_tool/
 └── my_rust_tool.pyd    # Build artifact (ship with distribution)
 ```
 
-For distribution, place the `_tool.py` + `_tool.json` + `.pyd` files in
+Kwa usambazaji, weka faili za `_tool.py` + `_tool.json` + `.pyd` katika
 `UAGENT_EXTERNAL_TOOLS_DIRS`.
 
-### Steps
+### Hatua
 
-#### Step 1: Create the Rust project
+#### Hatua ya 1: Unda mradi wa Rust
 
 **Cargo.toml**
 ```toml
@@ -188,7 +186,7 @@ version = "0.1.0"
 requires-python = ">=3.11"
 ```
 
-#### Step 2: Rust implementation (src/lib.rs)
+#### Hatua ya 2: Utekelezaji wa Rust (src/lib.rs)
 
 ```rust
 use pyo3::prelude::*;
@@ -214,32 +212,32 @@ fn my_rust_tools(m: &Bound<'_, PyModule>) -> PyResult<()> {
 }
 ```
 
-**Key points:**
-- Expose functions with `#[pyfunction(name = "run_<name>")]`
-- Return type is `PyResult<String>`
-- The `#[pymodule]` function name must match the crate name (`my_rust_tools`)
+**Mambo muhimu:**
+- Onyesha vitendaji kwa `#[pyfunction(name = "run_<name>")]`
+- Aina ya kurejesha ni `PyResult<String>`
+- Jina la kazi ya `#[pymodule]` lazima lil ingane na jina la crate (`my_rust_tools`)
 
-#### Step 3: Build
+#### Hatua ya 3: Jenga
 
 ```bash
 cd my_rust_tool
 cargo build --release
 ```
 
-Windows: rename `target/release/my_rust_tools.dll` to `my_rust_tools.pyd`
-Linux: rename `target/release/libmy_rust_tools.so` to `my_rust_tools.so`
-macOS: rename `target/release/libmy_rust_tools.dylib` to `my_rust_tools.so`
+Windows: badilisha jina la `target/release/my_rust_tools.dll` hadi `my_rust_tools.pyd`
+Linux: badilisha jina la `target/release/libmy_rust_tools.so` hadi `my_rust_tools.so`
+macOS: badilisha jina la `target/release/libmy_rust_tools.dylib` hadi `my_rust_tools.so`
 
-Or using maturin:
+Au kwa kutumia maturin:
 ```bash
 pip install maturin     # build-time only
 maturin build --release
 # Extract .pyd/.so from target/wheels/*.whl
 ```
 
-#### Step 4: Create the Python wrapper
+#### Hatua ya 4: Unda kanga ya Python
 
-Create `my_rust_tool.py` in your `UAGENT_EXTERNAL_TOOLS_DIRS` directory:
+Unda `my_rust_tool.py` katika saraka yako ya `UAGENT_EXTERNAL_TOOLS_DIRS`:
 
 ```python
 from __future__ import annotations
@@ -276,14 +274,14 @@ TOOL_SPEC: dict[str, Any] = {
 }
 ```
 
-**``load_rust_pyd()`` resolution order:**
+**``load_rust_pyd()`` mpangilio wa utatuzi:**
 
-1. Look for `<module_name>.pyd` (or `.so`) in the same directory as the wrapper `.py`
-2. Fall back to a pip-installed module
+1. Tafuta `<module_name>.pyd` (au `.so`) katika saraka sawa na kanga ya `.py`
+2. Rudi kwenye moduli iliyosakinishwa kwa pip
 
-#### Step 5: Distribution
+#### Hatua ya 5: Usambazaji
 
-Only these 3 files are needed. End-users do **not** need any `pip install`.
+Faili hizi 3 pekee ndizo zinahitajika. Watumiaji wa mwisho **hawahitaji** `pip install`.
 
 ```
 my_rust_tool.py         # Python wrapper (TOOL_SPEC + run_tool)
@@ -291,20 +289,20 @@ my_rust_tool.json       # i18n translations (optional)
 my_rust_tools.pyd       # Pre-built native binary
 ```
 
-### Notes
+### Vidokezo
 
-- **Build-time only:** Rust toolchain and `maturin` are required
+- **Muda wa kujenga pekee:** Msururu wa zana za Rust na `maturin` zinahitajika
   ```bash
   pip install maturin
   ```
-- The Rust crate name (`[lib] name` in `Cargo.toml`) must match the first argument of `load_rust_pyd()`
-- The wrapper file name and `.pyd` location are independent as long as they are in the same directory
+- Jina la crate ya Rust (`[lib] name` katika `Cargo.toml`) lazima lil ingane na hoja ya kwanza ya `load_rust_pyd()`
+- Jina la faili ya kanga na eneo la `.pyd` ni huru mradi ziko katika saraka sawa
 
 ---
 
-## 4. TOOL_SPEC Reference
+## 4. Marejeleo ya TOOL_SPEC
 
-### Basic Structure
+### Muundo Msingi
 
 ```python
 TOOL_SPEC: dict[str, Any] = {
@@ -336,35 +334,35 @@ TOOL_SPEC: dict[str, Any] = {
 }
 ```
 
-### Properties
+### Sifa
 
-| Field | Type | Description |
+| Uga | Aina | Maelezo |
 |-------|------|-------------|
-| `type` | str | Always `"function"` |
-| `x_build` | str | `"rust"` for Rust implementation (omit for Python) |
-| `tool_genre` | str | Genre name (optional). Enables genre-based control |
-| `tool_level` | int | 0=enabled, 1=conditional (default), -1=disabled |
-| `function.name` | str | **Required**. Tool name (lowercase + digits + underscore) |
-| `function.description` | str | **Required**. Description |
-| `function.x_search_terms` | list[str] | i18n-aware search keywords (wrap with `_(...)`) |
-| `function.x_search_terms_en` | list[str] | Fixed English search keywords |
-| `function.parameters` | dict | Parameter definition (OpenAI function calling format) |
+| `type` | str | Daima `"function"` |
+| `x_build` | str | `"rust"` kwa utekelezaji wa Rust (acha kwa Python) |
+| `tool_genre` | str | Jina la aina (si lazima). Huwezesha udhibiti wa aina |
+| `tool_level` | int | 0=imewezeshwa, 1=ya masharti (chaguomsingi), -1=imezimwa |
+| `function.name` | str | **Inahitajika**. Jina la zana (herufi ndogo + tarakimu + chini) |
+| `function.description` | str | **Inahitajika**. Maelezo |
+| `function.x_search_terms` | list[str] | Maneno muhimu ya utafutaji yanayotambua i18n (funga kwa `_(...)`) |
+| `function.x_search_terms_en` | list[str] | Maneno muhimu ya utafutaji ya Kiingereza yaliyowekwa |
+| `function.parameters` | dict | Ufafanuzi wa kigezo (umbo la kupiga kazi la OpenAI) |
 
 ---
 
-## 5. Internationalization (i18n)
+## 5. Utandawazi (i18n)
 
-### Translation Mechanism
+### Utaratibu wa Tafsiri
 
-Calling `make_tool_translator(__file__)` loads translations from a `.json` file
-with the same basename in the same directory.
+Kuita `make_tool_translator(__file__)` hupakia tafsiri kutoka kwa faili ya `.json`
+yenye jina la msingi sawa katika saraka hiyo hiyo.
 
 ```python
 from uagent.tools.i18n_helper import make_tool_translator
 _ = make_tool_translator(__file__)
 ```
 
-### Using Translation Keys
+### Kutumia Funguo za Tafsiri
 
 ```python
 description = _(
@@ -373,7 +371,7 @@ description = _(
 )
 ```
 
-### JSON File Format
+### Umbizo la Faili la JSON
 
 ```json
 {
@@ -388,19 +386,19 @@ description = _(
 }
 ```
 
-See existing `_tool.json` files for supported language codes.
+Tazama faili zilizopo za `_tool.json` kwa misimbo ya lugha inayotumika.
 
 ---
 
-## 6. Testing and Debugging
+## 6. Kujaribu na Utatuzi
 
-### Syntax Check
+### Ukaguzi wa Sintaksia
 
 ```bash
 python -m py_compile my_tool.py
 ```
 
-### Verify Tool Loading
+### Thibitisha Kupakia Zana
 
 ```python
 from uagent.tools import _RUNNERS, reload_plugins
@@ -411,28 +409,28 @@ if "my_tool" in _RUNNERS:
     print(result)
 ```
 
-### Error Logs
+### Kumbukumbu za Makosa
 
-Errors during tool loading are printed to stderr. If your tool isn't loaded,
-check the uag startup logs.
+Makosa wakati wa upakiaji wa zana yanachapishwa kwa stderr. Ikiwa zana yako haijapakiwa,
+angalia kumbukumbu za uag.
 
 ---
 
-## 7. Reference Examples
+## 7. Mifano ya Marejeleo
 
-### Python Tool Examples
+### Mifano ya Zana ya Python
 
-- `date_calc_tool.py` (in `src/uagent/tools/`) — Date calculation. Copy externally and customize.
-- `calculator_tool.py` (in `src/uagent/tools/`) — Calculator.
+- `date_calc_tool.py` (katika `src/uagent/tools/`) — Hesabu ya tarehe. Nakili nje na ubinafsishe.
+- `calculator_tool.py` (katika `src/uagent/tools/`) — Kikokotoo.
 
-### Rust Tool Examples
+### Mifano ya Zana ya Rust
 
-- `rust_uuid_gen_tool.py` + `uag_tools_rust.pyd` (in `src/uagent/tools_rust/`) — UUID generation
-- `rust_slugify_tool.py` + `uag_tools_rust.pyd` (in `src/uagent/tools_rust/`) — Slug conversion
+- `rust_uuid_gen_tool.py` + `uag_tools_rust.pyd` (katika `src/uagent/tools_rust/`) — Uzalishaji UUID
+- `rust_slugify_tool.py` + `uag_tools_rust.pyd` (katika `src/uagent/tools_rust/`) — Ubadilishaji slug
 
-Copy the `_tool.py` and `.pyd` files into `UAGENT_EXTERNAL_TOOLS_DIRS` to use them as external tools.
+Nakili faili za `_tool.py` na `.pyd` kwenye `UAGENT_EXTERNAL_TOOLS_DIRS` ili kuzitumia kama zana za nje.
 
-### Setting Up External Tool Directories
+### Kusanidi Saraka za Zana za Nje
 
 ```bash
 # Linux/macOS
@@ -445,5 +443,9 @@ set UAGENT_EXTERNAL_TOOLS_DIRS=C:\path\to\my\tools;C:\path\to\other\tools
 $env:UAGENT_EXTERNAL_TOOLS_DIRS = "C:\path\to\my\tools;C:\path\to\other\tools"
 ```
 
-Multiple directories can be separated by `:` (Linux/macOS) or `;` (Windows).
-`UAGENT_EXTERNAL_TOOLS_DIR` (singular) is also supported for backward compatibility.
+Saraka nyingi zinaweza kutengwa kwa `:` (Linux/macOS) au `;` (Windows).
+`UAGENT_EXTERNAL_TOOLS_DIR` (umoja) pia inatumika kwa upatanifu wa nyuma.
+
+---
+
+*Tafsiri hii imetolewa kiotomatiki. Kwa maudhui sahihi na ya kisasa zaidi, tafadhali rejelea toleo la Kiingereza.*

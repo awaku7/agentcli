@@ -1,35 +1,34 @@
 # Tool Creator Guide
 
-This guide explains how to add your own tools to uag **without modifying uag itself**.
-If you want to add a tool directly to the uag source tree, see
+Ez az útmutató elmagyarázza, hogyan adhat hozzá saját eszközöket az uag-hoz **magának az uagnak a módosítása nélkül**.
+Ha egy eszközt közvetlenül az uag forrásfához szeretne hozzáadni, lásd:
 [DEVELOP_TOOL.md](https://github.com/awaku7/agentcli/blob/main/src/uagent/docs/DEVELOP_TOOL.md).
 
 ---
 
-## Table of Contents
+## Tartalomjegyzék
 
 1. [Basic Tool Structure](#1-basic-tool-structure)
-2. [Creating a Python Tool](#2-creating-a-python-tool)
+2. [Python-eszköz létrehozása](#2-creating-a-python-tool)
 3. [Creating a Rust + Python Tool](#3-creating-a-rust--python-tool)
 4. [TOOL_SPEC Reference](#4-tool_spec-reference)
 5. [Internationalization (i18n)](#5-internationalization-i18n)
-6. [Testing and Debugging](#6-testing-and-debugging)
-7. [Reference Examples](#7-reference-examples)
+6. [Tesztelés és hibakeresés](#6-testing-and-debugging)
+7. [Referencia példák](#7-reference-examples)
 
 ---
 
-## 1. Basic Tool Structure
+## 1. Alapvető eszközstruktúra
 
-A tool consists of the following elements:
+Egy eszköz a következő elemekből áll:
 
-| Element | Required | Description |
-|---------|----------|-------------|
-| `TOOL_SPEC` | Yes | Dictionary defining the tool's name, description, and parameters |
-| `run_tool(args)` | Yes | Function executed when the tool is called. Args is a dict, return is a string. |
-| i18n JSON | Recommended | Translation JSON file (same basename, `<name>_tool.json`) |
+| Elem | Kötelező | Leírás |
+|---------|-----------|-------------|
+| `TOOL_SPEC` | Igen | Az eszköz nevét, leírását és paramétereit meghatározó szótár |
+| `run_tool(args)` | Igen | A funkció a szerszám meghívásakor kerül végrehajtásra. Az Args egy diktatúra, a return egy szál. |
+| i18n JSON | Ajánlott | JSON-fájl fordítása (ugyanaz az alapnév, `<név>_tool.json`) |
 
-### Minimal Python Tool
-
+### Minimális Python-eszköz
 ```python
 # my_tool.py
 from typing import Any
@@ -58,13 +57,13 @@ TOOL_SPEC: dict[str, Any] = {
 
 ---
 
-## 2. Creating a Python Tool
+## 2. Python-eszköz létrehozása
 
-### Steps
+### Lépések
 
-1. **Set the `UAGENT_EXTERNAL_TOOLS_DIRS` environment variable** (if not already set)
+1. **Állítsa be az `UAGENT_EXTERNAL_TOOLS_DIRS` környezeti változót** (ha még nincs beállítva)
 
-   Example:
+   Példa:
    ```bash
    # Linux/macOS
    export UAGENT_EXTERNAL_TOOLS_DIRS=~/.uag/my_tools
@@ -72,23 +71,22 @@ TOOL_SPEC: dict[str, Any] = {
    set UAGENT_EXTERNAL_TOOLS_DIRS=%USERPROFILE%\.uag\my_tools
    ```
 
-   Multiple directories can be separated by `:` (Linux/macOS) or `;` (Windows).
-   `UAGENT_EXTERNAL_TOOLS_DIR` (singular) is also supported for backward compatibility.
+   Több könyvtár is elválasztható a `:` (Linux/macOS) vagy `;` (Windows) karakterekkel.
+   `UAGENT_EXTERNAL_TOOLS_DIR` (egyes szám) is támogatott a visszafelé kompatibilitás érdekében.
 
-2. **Create a Python file**
+2. **Hozzon létre Python-fájlt**
 
-   File name is free, but `<name>_tool.py` naming is recommended (e.g. `my_tool.py`).
+   A fájlnév ingyenes, de a `<név>_tool.py` elnevezés javasolt (pl. `my_tool.py`).
 
-3. **Implement the required elements**
+3. **Végezze be a szükséges elemeket**
 
-   - `TOOL_SPEC` dictionary
-   - `run_tool(args)` function
-   - Optionally, an i18n JSON file
+   - `TOOL_SPEC` szótár
+   - `run_tool(args)` függvény
+   - Opcionálisan i18n JSON fájl
 
-4. **Restart the agent** (or run the `system_reload` tool)
+4. **Indítsa újra az ügynököt** (vagy futtassa a `system_reload` eszközt)
 
-### Full Template
-
+### Teljes sablon
 ```python
 from __future__ import annotations
 
@@ -132,18 +130,18 @@ TOOL_SPEC: dict[str, Any] = {
 }
 ```
 
-See [Section 5](#5-internationalization-i18n) for i18n details.
+Az i18n részleteiért lásd az [5. szakaszt](#5-internationalization-i18n).
 
 ---
 
 ## 3. Creating a Rust + Python Tool
 
-Rust implementation is ideal for performance-critical tasks (heavy data processing, cryptography, file processing, etc.).
-uag can load pre-built `.pyd` files directly, so **end-users don't need `pip install`**.
+Rust implementáció ideális a teljesítménykritikus feladatokhoz (nehéz adatfeldolgozás, kriptográfia, fájlfeldolgozás stb.).
+Az uag közvetlenül képes betölteni előre elkészített `.pyd` fájlokat, így a **végfelhasználóknak nincs szükségük `pip install`**-ra.
 
-### Tool Structure
+### Eszközstruktúra
 
-A Rust tool consists of the following files:
+A Rust eszköz a következő fájlokból áll:
 
 ```
 my_rust_tool/
@@ -154,12 +152,12 @@ my_rust_tool/
 └── my_rust_tool.pyd    # Build artifact (ship with distribution)
 ```
 
-For distribution, place the `_tool.py` + `_tool.json` + `.pyd` files in
-`UAGENT_EXTERNAL_TOOLS_DIRS`.
+A terjesztéshez helyezze el a `_tool.py` + `_tool.json` + `.pyd` fájlokat a 
+`UAGENT_EXTERNAL_TOOLS_DIRS` mappába.
 
-### Steps
+### Lépések
 
-#### Step 1: Create the Rust project
+#### 1. lépés: A Rust projekt létrehozása
 
 **Cargo.toml**
 ```toml
@@ -188,7 +186,7 @@ version = "0.1.0"
 requires-python = ">=3.11"
 ```
 
-#### Step 2: Rust implementation (src/lib.rs)
+#### 2. lépés: Rust implementáció (src/lib.rs)
 
 ```rust
 use pyo3::prelude::*;
@@ -214,32 +212,32 @@ fn my_rust_tools(m: &Bound<'_, PyModule>) -> PyResult<()> {
 }
 ```
 
-**Key points:**
-- Expose functions with `#[pyfunction(name = "run_<name>")]`
-- Return type is `PyResult<String>`
-- The `#[pymodule]` function name must match the crate name (`my_rust_tools`)
+**Fontos pontok:**
+- Tegye közzé a függvényeket a következővel: `#[pyfunction(name = "run_<name>")]`
+- A visszatérési típus: `PyResult<String>`
+- A `#[pymodule]` függvény nevének meg kell egyeznie a láda nevével (`my_rust_tools`)
 
-#### Step 3: Build
+#### 3. lépés: Build
 
 ```bash
 cd my_rust_tool
 cargo build --release
 ```
 
-Windows: rename `target/release/my_rust_tools.dll` to `my_rust_tools.pyd`
-Linux: rename `target/release/libmy_rust_tools.so` to `my_rust_tools.so`
-macOS: rename `target/release/libmy_rust_tools.dylib` to `my_rust_tools.so`
+Windows: nevezze át a `target/release/my_rust_tools.dll` fájlt `my_rust_tools.pyd`-re.
+Linux: nevezze át a `target/release/libmy_rust_tools.so` fájlt `my_rust_tools.so`
+macOS: nevezze át a `target/release/libmy_rust_tools.dylib`-et `my_rust_tools.so`
 
-Or using maturin:
+Vagy a maturin használatával:
 ```bash
 pip install maturin     # build-time only
 maturin build --release
 # Extract .pyd/.so from target/wheels/*.whl
 ```
 
-#### Step 4: Create the Python wrapper
+#### 4. lépés: A Python burkoló létrehozása
 
-Create `my_rust_tool.py` in your `UAGENT_EXTERNAL_TOOLS_DIRS` directory:
+Hozza létre a `my_rust_tool.py` fájlt az `UAGENT_EXTERNAL_TOOLS_DIRS` könyvtárában:
 
 ```python
 from __future__ import annotations
@@ -276,14 +274,14 @@ TOOL_SPEC: dict[str, Any] = {
 }
 ```
 
-**``load_rust_pyd()`` resolution order:**
+**``load_rust_pyd()`` felbontási sorrend:**
 
-1. Look for `<module_name>.pyd` (or `.so`) in the same directory as the wrapper `.py`
-2. Fall back to a pip-installed module
+1. Keresse a `<modul_name>.pyd` (vagy `.so`) könyvtárat ugyanabban a könyvtárban, mint a `.py`
+2. Térjen vissza egy pip-telepített modulhoz
 
-#### Step 5: Distribution
+#### 5. lépés: Terjesztés
 
-Only these 3 files are needed. End-users do **not** need any `pip install`.
+Csak erre a 3 fájlra van szükség. A végfelhasználóknak **nincs** szükségük `pip telepítésre`.
 
 ```
 my_rust_tool.py         # Python wrapper (TOOL_SPEC + run_tool)
@@ -291,20 +289,20 @@ my_rust_tool.json       # i18n translations (optional)
 my_rust_tools.pyd       # Pre-built native binary
 ```
 
-### Notes
+### Megjegyzések
 
-- **Build-time only:** Rust toolchain and `maturin` are required
+- **Csak építési idő:** A Rust toolchain és a `maturin` szükséges
   ```bash
   pip install maturin
   ```
-- The Rust crate name (`[lib] name` in `Cargo.toml`) must match the first argument of `load_rust_pyd()`
-- The wrapper file name and `.pyd` location are independent as long as they are in the same directory
+- A Rust láda nevének (`[lib] name` a `Cargo.toml`-ban) meg kell egyeznie a `load_rust_pyd()` első argumentumával
+- A burkolófájl neve és a `.pyd` helye független mindaddig, amíg ugyanabban a könyvtárban vannak
 
 ---
 
 ## 4. TOOL_SPEC Reference
 
-### Basic Structure
+### Alapvető szerkezet
 
 ```python
 TOOL_SPEC: dict[str, Any] = {
@@ -336,35 +334,35 @@ TOOL_SPEC: dict[str, Any] = {
 }
 ```
 
-### Properties
+### Tulajdonságok
 
-| Field | Type | Description |
-|-------|------|-------------|
-| `type` | str | Always `"function"` |
-| `x_build` | str | `"rust"` for Rust implementation (omit for Python) |
-| `tool_genre` | str | Genre name (optional). Enables genre-based control |
-| `tool_level` | int | 0=enabled, 1=conditional (default), -1=disabled |
-| `function.name` | str | **Required**. Tool name (lowercase + digits + underscore) |
-| `function.description` | str | **Required**. Description |
-| `function.x_search_terms` | list[str] | i18n-aware search keywords (wrap with `_(...)`) |
-| `function.x_search_terms_en` | list[str] | Fixed English search keywords |
-| `function.parameters` | dict | Parameter definition (OpenAI function calling format) |
+| Mező | Típus | Leírás |
+|-------|------|--------------|
+| `type` | str | Mindig `"function"` |
+| `x_build` | str | `"rust"` Rust implementációhoz (Python esetén kihagyja) |
+| `tool_genre` | str | Műfaj neve (nem kötelező). Műfajalapú vezérlést tesz lehetővé |
+| `tool_level` | int | 0=engedélyezett, 1=feltételes (alapértelmezett), -1=letiltva |
+| `function.name` | str | **Kötelező**. Eszköz neve (kisbetű + számjegyek + aláhúzás) |
+| `function.description` | str | **Kötelező**. Leírás |
+| `function.x_search_terms` | lista[str] | i18n-aware keresési kulcsszavak (wrap with `_(...)`) |
+| `function.x_search_terms_en` | lista[str] | Javított angol keresési kulcsszavak |
+| `function.parameters` | dict | Paraméter definíció (OpenAI függvényhívási formátum) |
 
 ---
 
-## 5. Internationalization (i18n)
+## 5. Nemzetköziesítés (i18n)
 
-### Translation Mechanism
+### Fordítási mechanizmus
 
-Calling `make_tool_translator(__file__)` loads translations from a `.json` file
-with the same basename in the same directory.
+A `make_tool_translator(__file__)` meghívása betölti a fordításokat egy `.json` fájlból
+ugyanazzal az alapnévvel ugyanabban a könyvtárban.
 
 ```python
 from uagent.tools.i18n_helper import make_tool_translator
 _ = make_tool_translator(__file__)
 ```
 
-### Using Translation Keys
+### Fordítási kulcsok használata
 
 ```python
 description = _(
@@ -373,7 +371,7 @@ description = _(
 )
 ```
 
-### JSON File Format
+### JSON fájlformátum
 
 ```json
 {
@@ -388,19 +386,19 @@ description = _(
 }
 ```
 
-See existing `_tool.json` files for supported language codes.
+A támogatott nyelvkódokért tekintse meg a meglévő `_tool.json` fájlokat.
 
 ---
 
-## 6. Testing and Debugging
+## 6. Tesztelés és hibakeresés
 
-### Syntax Check
+### Szintaxis ellenőrzés
 
 ```bash
 python -m py_compile my_tool.py
 ```
 
-### Verify Tool Loading
+### Az eszköz betöltésének ellenőrzése
 
 ```python
 from uagent.tools import _RUNNERS, reload_plugins
@@ -411,28 +409,28 @@ if "my_tool" in _RUNNERS:
     print(result)
 ```
 
-### Error Logs
+### Hibanaplók
 
-Errors during tool loading are printed to stderr. If your tool isn't loaded,
-check the uag startup logs.
+Az eszközbetöltés során fellépő hibák az stderr-be kerülnek. Ha az eszköz nincs betöltve,
+ellenőrizze az uag indítási naplóit.
 
 ---
 
-## 7. Reference Examples
+## 7. Referencia példák
 
-### Python Tool Examples
+### Python Tool Példák
 
-- `date_calc_tool.py` (in `src/uagent/tools/`) — Date calculation. Copy externally and customize.
-- `calculator_tool.py` (in `src/uagent/tools/`) — Calculator.
+- `date_calc_tool.py` (a `src/uagent/tools/` könyvtárban) — Dátum számítás. Másolja ki és testreszabhatja.
+- `calculator_tool.py` (az `src/uagent/tools/` könyvtárban) — Számológép.
 
-### Rust Tool Examples
+### Rust Tool Példák
 
-- `rust_uuid_gen_tool.py` + `uag_tools_rust.pyd` (in `src/uagent/tools_rust/`) — UUID generation
-- `rust_slugify_tool.py` + `uag_tools_rust.pyd` (in `src/uagent/tools_rust/`) — Slug conversion
+- `rust_uuid_gen_tool.py` + `uag_tools_rust.pyd` (a `src/uagent/tools_rust/` könyvtárban) — UUID generálás
+- `rust_slugify_tool.py` + `uag_tools_rust.pyd` (az `src/uagent/tools_rust/` könyvtárban) — Slug konverzió
 
-Copy the `_tool.py` and `.pyd` files into `UAGENT_EXTERNAL_TOOLS_DIRS` to use them as external tools.
+Másolja a `_tool.py` és `.pyd` fájlokat a `UAGENT_EXTERNAL_TOOLS_DIRS`-be, hogy külső eszközként használhassa őket.
 
-### Setting Up External Tool Directories
+### Külső eszközkönyvtárak beállítása
 
 ```bash
 # Linux/macOS
@@ -445,5 +443,9 @@ set UAGENT_EXTERNAL_TOOLS_DIRS=C:\path\to\my\tools;C:\path\to\other\tools
 $env:UAGENT_EXTERNAL_TOOLS_DIRS = "C:\path\to\my\tools;C:\path\to\other\tools"
 ```
 
-Multiple directories can be separated by `:` (Linux/macOS) or `;` (Windows).
-`UAGENT_EXTERNAL_TOOLS_DIR` (singular) is also supported for backward compatibility.
+Több könyvtárat elválaszthat `:` (Linux/macOS) vagy `;` karakterrel. (Windows).
+`UAGENT_EXTERNAL_TOOLS_DIR` (egyes szám) szintén támogatott a visszafelé kompatibilitás érdekében.
+
+---
+
+*Ez a fordítás automatikusan létrejött. A legpontosabb és legfrissebb tartalomért kérjük, olvassa el az angol verziót.*
