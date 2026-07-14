@@ -1,34 +1,34 @@
-# Tool Creator Guide
+# 工具创建者指南
 
-This guide explains how to add your own tools to uag **without modifying uag itself**.
-If you want to add a tool directly to the uag source tree, see
-[DEVELOP_TOOL.md](https://github.com/awaku7/agentcli/blob/main/src/uagent/docs/DEVELOP_TOOL.md).
-
----
-
-## Table of Contents
-
-1. [Basic Tool Structure](#1-basic-tool-structure)
-2. [Creating a Python Tool](#2-creating-a-python-tool)
-3. [Creating a Rust + Python Tool](#3-creating-a-rust--python-tool)
-4. [TOOL_SPEC Reference](#4-tool_spec-reference)
-5. [Internationalization (i18n)](#5-internationalization-i18n)
-6. [Testing and Debugging](#6-testing-and-debugging)
-7. [Reference Examples](#7-reference-examples)
+本指南介绍了如何将您自己的工具添加到 uag **而不修改 uag 本身**。
+如果您想将工具直接添加到 uag 源代码树中，请参阅
+[DEVELOP_TOOL.md](https://github.com/awaku7/agentcli/blob/main/src/uagent/docs/DEVELOP_TOOL.md)。
 
 ---
 
-## 1. Basic Tool Structure
+## 目录
 
-A tool consists of the following elements:
+1。 [基本工具结构](#1-基本工具结构)
+2. [创建 Python 工具](#2-创建-python-工具)
+3. [创建 Rust + Python 工具](#3-creating-a-rust--python-tool)
+4. [工具规格参考](#4-工具规格参考)
+5。 [国际化 (i18n)](#5-国际化-i18n)
+6。 [测试和调试](#6-测试和调试)
+7. [参考示例](#7-参考-示例)
 
-| Element | Required | Description |
+---
+
+## 1. 基本工具结构
+
+工具由以下元素组成：
+
+|元素|必填 |描述 |
 |---------|----------|-------------|
-| `TOOL_SPEC` | Yes | Dictionary defining the tool's name, description, and parameters |
-| `run_tool(args)` | Yes | Function executed when the tool is called. Args is a dict, return is a string. |
-| i18n JSON | Recommended | Translation JSON file (same basename, `<name>_tool.json`) |
+| `工具规格` |是的 |定义工具名称、描述和参数的字典 |
+| `run_tool(args)` |是的 |调用该工具时执行的函数。 Args 是一个字典，return 是一个字符串。 |
+| i18n JSON |推荐|翻译 JSON 文件（相同的基本名称，`<name>_tool.json`） |
 
-### Minimal Python Tool
+### 最小 Python 工具
 
 ```python
 # my_tool.py
@@ -58,36 +58,36 @@ TOOL_SPEC: dict[str, Any] = {
 
 ---
 
-## 2. Creating a Python Tool
+## 2. 创建 Python 工具
 
-### Steps
+### 步骤
 
-1. **Set the `UAGENT_EXTERNAL_TOOLS_DIRS` environment variable** (if not already set)
+1. **设置 `UAGENT_EXTERNAL_TOOLS_DIRS` 环境变量**（如果尚未设置）
 
-   Example:
-   ```bash
+ 示例：
+ ```bash
    # Linux/macOS
    export UAGENT_EXTERNAL_TOOLS_DIRS=~/.uag/my_tools
    # Windows (cmd)
    set UAGENT_EXTERNAL_TOOLS_DIRS=%USERPROFILE%\.uag\my_tools
    ```
 
-   Multiple directories can be separated by `:` (Linux/macOS) or `;` (Windows).
-   `UAGENT_EXTERNAL_TOOLS_DIR` (singular) is also supported for backward compatibility.
+ 多个目录可以用 `:` (Linux/macOS) 或 `;` (Windows) 分隔。
+ `UAGENT_EXTERNAL_TOOLS_DIR` （单数）也支持向后兼容。
 
-2. **Create a Python file**
+2。 **创建 Python 文件**
 
-   File name is free, but `<name>_tool.py` naming is recommended (e.g. `my_tool.py`).
+ 文件名随意，但建议使用 `<name>_tool.py` 命名（例如 `my_tool.py`）。
 
-3. **Implement the required elements**
+3. **实现所需的元素**
 
-   - `TOOL_SPEC` dictionary
-   - `run_tool(args)` function
-   - Optionally, an i18n JSON file
+ - `TOOL_SPEC` 字典
+ - `run_tool(args)` 函数
+ - 可选的 i18n JSON 文件
 
-4. **Restart the agent** (or run the `system_reload` tool)
+4。 **重新启动代理**（或运行 `system_reload` 工具）
 
-### Full Template
+### 完整模板
 
 ```python
 from __future__ import annotations
@@ -132,18 +132,18 @@ TOOL_SPEC: dict[str, Any] = {
 }
 ```
 
-See [Section 5](#5-internationalization-i18n) for i18n details.
+有关 i18n 详细信息，请参阅[第 5 节](#5-internationalization-i18n)。
 
 ---
 
-## 3. Creating a Rust + Python Tool
+## 3. 创建 Rust + Python 工具
 
-Rust implementation is ideal for performance-critical tasks (heavy data processing, cryptography, file processing, etc.).
-uag can load pre-built `.pyd` files directly, so **end-users don't need `pip install`**.
+Rust 实现非常适合性能关键型任务（繁重的数据处理、加密、文件处理等）。
+uag 可以直接加载预构建的 `.pyd` 文件，因此 **最终用户不需要 `pip install`**。
 
-### Tool Structure
+### 工具结构
 
-A Rust tool consists of the following files:
+Rust 工具由以下部分组成文件:
 
 ```
 my_rust_tool/
@@ -154,12 +154,12 @@ my_rust_tool/
 └── my_rust_tool.pyd    # Build artifact (ship with distribution)
 ```
 
-For distribution, place the `_tool.py` + `_tool.json` + `.pyd` files in
-`UAGENT_EXTERNAL_TOOLS_DIRS`.
+要进行分发，请将 `_tool.py` + `_tool.json` + `.pyd` 文件放在 
+`UAGENT_EXTERNAL_TOOLS_DIRS` 中。
 
-### Steps
+### 步骤
 
-#### Step 1: Create the Rust project
+#### 第 1 步：创建 Rust project
 
 **Cargo.toml**
 ```toml
@@ -188,7 +188,7 @@ version = "0.1.0"
 requires-python = ">=3.11"
 ```
 
-#### Step 2: Rust implementation (src/lib.rs)
+#### 步骤 2：Rust 实现(src/lib.rs)
 
 ```rust
 use pyo3::prelude::*;
@@ -214,32 +214,32 @@ fn my_rust_tools(m: &Bound<'_, PyModule>) -> PyResult<()> {
 }
 ```
 
-**Key points:**
-- Expose functions with `#[pyfunction(name = "run_<name>")]`
-- Return type is `PyResult<String>`
-- The `#[pymodule]` function name must match the crate name (`my_rust_tools`)
+**要点：**
+- 使用 `#[pyfunction(name = "run_<name>")]` 公开函数
+- 返回类型为 `PyResult<String>`
+- `#[pymodule]` 函数名称必须与 crate 名称匹配(`my_rust_tools`)
 
-#### Step 3: Build
+#### 步骤 3：构建
 
 ```bash
 cd my_rust_tool
 cargo build --release
 ```
 
-Windows: rename `target/release/my_rust_tools.dll` to `my_rust_tools.pyd`
-Linux: rename `target/release/libmy_rust_tools.so` to `my_rust_tools.so`
-macOS: rename `target/release/libmy_rust_tools.dylib` to `my_rust_tools.so`
+Windows：将 `target/release/my_rust_tools.dll` 重命名为 `my_rust_tools.pyd`
+Linux：重命名`target/release/libmy_rust_tools.so` 为 `my_rust_tools.so`
+macOS：将 `target/release/libmy_rust_tools.dylib` 重命名为 `my_rust_tools.so`
 
-Or using maturin:
+或使用 maturin:
 ```bash
 pip install maturin     # build-time only
 maturin build --release
 # Extract .pyd/.so from target/wheels/*.whl
 ```
 
-#### Step 4: Create the Python wrapper
+#### 步骤 4：创建Python 包装器
 
-Create `my_rust_tool.py` in your `UAGENT_EXTERNAL_TOOLS_DIRS` directory:
+在 `UAGENT_EXTERNAL_TOOLS_DIRS` 目录中创建 `my_rust_tool.py`：
 
 ```python
 from __future__ import annotations
@@ -276,14 +276,14 @@ TOOL_SPEC: dict[str, Any] = {
 }
 ```
 
-**``load_rust_pyd()`` resolution order:**
+**``load_rust_pyd()`` 解析顺序：**
 
-1. Look for `<module_name>.pyd` (or `.so`) in the same directory as the wrapper `.py`
-2. Fall back to a pip-installed module
+1。在与包装器`.py`相同的目录中查找`<module_name>.pyd`（或`.so`）
+2。回退到 pip 安装的模块
 
-#### Step 5: Distribution
+#### 步骤 5：分发
 
-Only these 3 files are needed. End-users do **not** need any `pip install`.
+仅需要这 3 个文件。最终用户**不需要**任何`pip install`。
 
 ```
 my_rust_tool.py         # Python wrapper (TOOL_SPEC + run_tool)
@@ -291,20 +291,20 @@ my_rust_tool.json       # i18n translations (optional)
 my_rust_tools.pyd       # Pre-built native binary
 ```
 
-### Notes
+###注释
 
-- **Build-time only:** Rust toolchain and `maturin` are required
-  ```bash
+- **仅构建时：**需要Rust工具链和`maturin`
+ ```bash
   pip install maturin
   ```
-- The Rust crate name (`[lib] name` in `Cargo.toml`) must match the first argument of `load_rust_pyd()`
-- The wrapper file name and `.pyd` location are independent as long as they are in the same directory
+- Rust箱子名称(`Cargo.toml` 中的`[lib] name`) 必须与 `load_rust_pyd()` 的第一个参数匹配
+- 包装文件名和 `.pyd` 位置是独立的，只要它们在同一目录中即可
 
 ---
 
-## 4. TOOL_SPEC Reference
+## 4. TOOL_SPEC 参考
 
-### Basic Structure
+### 基本结构
 
 ```python
 TOOL_SPEC: dict[str, Any] = {
@@ -336,35 +336,35 @@ TOOL_SPEC: dict[str, Any] = {
 }
 ```
 
-### Properties
+### 属性
 
-| Field | Type | Description |
-|-------|------|-------------|
-| `type` | str | Always `"function"` |
-| `x_build` | str | `"rust"` for Rust implementation (omit for Python) |
-| `tool_genre` | str | Genre name (optional). Enables genre-based control |
-| `tool_level` | int | 0=enabled, 1=conditional (default), -1=disabled |
-| `function.name` | str | **Required**. Tool name (lowercase + digits + underscore) |
-| `function.description` | str | **Required**. Description |
-| `function.x_search_terms` | list[str] | i18n-aware search keywords (wrap with `_(...)`) |
-| `function.x_search_terms_en` | list[str] | Fixed English search keywords |
-| `function.parameters` | dict | Parameter definition (OpenAI function calling format) |
+|领域 |类型 |描述 |
+|--------|------|-------------|
+| `类型` | STR |始终"功能"|
+| `x_build` | STR | `"rust"` 用于 Rust 实现（对于 Python 则省略） |
+| `工具类型` | STR |流派名称（可选）。启用基于类型的控制 |
+| `工具级别` |整数 | 0=启用，1=有条件（默认），-1=禁用|
+| `函数名称` | STR | **必需的**。工具名称（小写+数字+下划线）|
+| `功能.描述` | STR | **必需的**。描述 |
+| `function.x_search_terms` |列表[str] |国际化搜索关键字（用 `_(...)` 括起来）|
+| `function.x_search_terms_en` |列表[str] |修复了英文搜索关键字 |
+| `函数.参数` |字典 |参数定义（OpenAI 函数调用格式）|
 
 ---
 
-## 5. Internationalization (i18n)
+## 5. 国际化（i18n）
 
-### Translation Mechanism
+### 翻译机制
 
-Calling `make_tool_translator(__file__)` loads translations from a `.json` file
-with the same basename in the same directory.
+调用`make_tool_translator(__file__)`从`.json`文件加载翻译
+相同的基名目录。
 
 ```python
 from uagent.tools.i18n_helper import make_tool_translator
 _ = make_tool_translator(__file__)
 ```
 
-### Using Translation Keys
+### 使用翻译键
 
 ```python
 description = _(
@@ -373,7 +373,7 @@ description = _(
 )
 ```
 
-### JSON File Format
+### JSON 文件格式
 
 ```json
 {
@@ -388,19 +388,19 @@ description = _(
 }
 ```
 
-See existing `_tool.json` files for supported language codes.
+查看现有支持的语言代码的 `_tool.json` 文件。
 
 ---
 
-## 6. Testing and Debugging
+## 6. 测试和调试
 
-### Syntax Check
+### 语法检查
 
 ```bash
 python -m py_compile my_tool.py
 ```
 
-### Verify Tool Loading
+### 验证工具正在加载
 
 ```python
 from uagent.tools import _RUNNERS, reload_plugins
@@ -411,28 +411,28 @@ if "my_tool" in _RUNNERS:
     print(result)
 ```
 
-### Error Logs
+### 错误日志
 
-Errors during tool loading are printed to stderr. If your tool isn't loaded,
-check the uag startup logs.
+工具加载期间的错误将打印到 stderr。如果您的工具未加载，
+检查 uag 启动日志。
 
 ---
 
-## 7. Reference Examples
+## 7. 参考示例
 
-### Python Tool Examples
+### Python 工具示例
 
-- `date_calc_tool.py` (in `src/uagent/tools/`) — Date calculation. Copy externally and customize.
-- `calculator_tool.py` (in `src/uagent/tools/`) — Calculator.
+- `date_calc_tool.py`（在 `src/uagent/tools/` 中）— 日期计算。外部复制并自定义。
+- `calculator_tool.py` （在 `src/uagent/tools/` 中） — 计算器。
 
-### Rust Tool Examples
+### Rust 工具示例
 
-- `rust_uuid_gen_tool.py` + `uag_tools_rust.pyd` (in `src/uagent/tools_rust/`) — UUID generation
-- `rust_slugify_tool.py` + `uag_tools_rust.pyd` (in `src/uagent/tools_rust/`) — Slug conversion
+- `rust_uuid_gen_tool.py` + `uag_tools_rust.pyd` （在 `src/uagent/tools_rust/` 中） — UUID生成
+- `rust_slugify_tool.py` + `uag_tools_rust.pyd`（在`src/uagent/tools_rust/`中）- Slug 转换
 
-Copy the `_tool.py` and `.pyd` files into `UAGENT_EXTERNAL_TOOLS_DIRS` to use them as external tools.
+将`_tool.py`和`.pyd`文件复制到`UAGENT_EXTERNAL_TOOLS_DIRS`中以将它们用作外部工具。
 
-### Setting Up External Tool Directories
+###设置外部工具目录
 
 ```bash
 # Linux/macOS
@@ -445,5 +445,5 @@ set UAGENT_EXTERNAL_TOOLS_DIRS=C:\path\to\my\tools;C:\path\to\other\tools
 $env:UAGENT_EXTERNAL_TOOLS_DIRS = "C:\path\to\my\tools;C:\path\to\other\tools"
 ```
 
-Multiple directories can be separated by `:` (Linux/macOS) or `;` (Windows).
-`UAGENT_EXTERNAL_TOOLS_DIR` (singular) is also supported for backward compatibility.
+多个目录可以用 `:` (Linux/macOS) 或 `;` (Windows) 分隔。
+`UAGENT_EXTERNAL_TOOLS_DIR`（单数）也支持向后兼容。
