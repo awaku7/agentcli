@@ -1,10 +1,10 @@
 [package]
-name = "tools-rust"
+name = "uag-tools-rust"
 version = "0.1.0"
 edition = "2021"
 
 [lib]
-name = "tools_rust"
+name = "uag_tools_rust"
 crate-type = ["cdylib"]
 
 [dependencies]

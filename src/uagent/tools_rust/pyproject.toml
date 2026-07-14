@@ -3,6 +3,6 @@ requires = ["maturin>=1.0"]
 build-backend = "maturin"
 
 [project]
-name = "tools_rust"
+name = "uag_tools_rust"
 version = "0.1.0"
 requires-python = ">=3.11"

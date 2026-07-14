@@ -6,7 +6,7 @@ from uagent.tools.i18n_helper import make_tool_translator
 
 _ = make_tool_translator(__file__)
 
-from tools_rust import run_slugify as run_tool  # noqa: E402
+from uag_tools_rust import run_slugify as run_tool  # noqa: E402
 
 TOOL_SPEC: dict[str, Any] = {
     "type": "function",
