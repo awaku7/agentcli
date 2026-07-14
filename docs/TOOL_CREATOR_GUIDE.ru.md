@@ -1,34 +1,34 @@
-# Tool Creator Guide
+# Руководство для создателей инструментов
 
-This guide explains how to add your own tools to uag **without modifying uag itself**.
-If you want to add a tool directly to the uag source tree, see
+В этом руководстве объясняется, как добавить свои собственные инструменты в uag **без изменения самого uag**.
+Если вы хотите добавить инструмент непосредственно в дерево исходного кода uag, см. 
 [DEVELOP_TOOL.md](https://github.com/awaku7/agentcli/blob/main/src/uagent/docs/DEVELOP_TOOL.md).
 
 ---
 
-## Table of Contents
+## Содержание
 
-1. [Basic Tool Structure](#1-basic-tool-structure)
-2. [Creating a Python Tool](#2-creating-a-python-tool)
-3. [Creating a Rust + Python Tool](#3-creating-a-rust--python-tool)
-4. [TOOL_SPEC Reference](#4-tool_spec-reference)
-5. [Internationalization (i18n)](#5-internationalization-i18n)
-6. [Testing and Debugging](#6-testing-and-debugging)
-7. [Reference Examples](#7-reference-examples)
+1. [Базовая структура инструмента](#1-базовая-структура-инструмента)
+2. [Создание инструмента Python](#2-создание-инструмента-python)
+3. [Создание инструмента Rust + Python](#3-creating-a-rust--python-tool)
+4. [Справочник по TOOL_SPEC](#4-tool_spec-reference)
+5. [Интернационализация (i18n)](#5-интернационализация-i18n)
+6. [Тестирование и отладка](#6-тестирование-и-отладка)
+7. [Справочные примеры](#7-reference-examples)
 
 ---
 
-## 1. Basic Tool Structure
+## 1. Базовая структура инструмента
 
-A tool consists of the following elements:
+Инструмент состоит из следующих элементов:
 
-| Element | Required | Description |
+| Элемент | Требуется | Описание |
 |---------|----------|-------------|
-| `TOOL_SPEC` | Yes | Dictionary defining the tool's name, description, and parameters |
-| `run_tool(args)` | Yes | Function executed when the tool is called. Args is a dict, return is a string. |
-| i18n JSON | Recommended | Translation JSON file (same basename, `<name>_tool.json`) |
+| `TOOL_SPEC` | Да | Словарь, определяющий имя, описание и параметры инструмента |
+| `run_tool(args)` | Да | Функция, выполняемая при вызове инструмента. Args — это dict, return — строка. |
+| i18n JSON | Рекомендуется | JSON-файл перевода (то же базовое имя, `<name>_tool.json`) |
 
-### Minimal Python Tool
+### Минимальный инструмент Python
 
 ```python
 # my_tool.py
@@ -58,36 +58,36 @@ TOOL_SPEC: dict[str, Any] = {
 
 ---
 
-## 2. Creating a Python Tool
+## 2. Создание инструмента Python
 
-### Steps
+### Шаги
 
-1. **Set the `UAGENT_EXTERNAL_TOOLS_DIRS` environment variable** (if not already set)
+1. **Установите переменную среды `UAGENT_EXTERNAL_TOOLS_DIRS`** (если она еще не установлена)
 
-   Example:
-   ```bash
+ Пример:
+ ```bash
    # Linux/macOS
    export UAGENT_EXTERNAL_TOOLS_DIRS=~/.uag/my_tools
    # Windows (cmd)
    set UAGENT_EXTERNAL_TOOLS_DIRS=%USERPROFILE%\.uag\my_tools
    ```
 
-   Multiple directories can be separated by `:` (Linux/macOS) or `;` (Windows).
-   `UAGENT_EXTERNAL_TOOLS_DIR` (singular) is also supported for backward compatibility.
+ Несколько каталогов можно разделить `:` (Linux/macOS) или `;` (Windows).
+ `UAGENT_EXTERNAL_TOOLS_DIR` (единственное число) также поддерживается для обратной совместимости.
 
-2. **Create a Python file**
+2. **Создайте файл Python**
 
-   File name is free, but `<name>_tool.py` naming is recommended (e.g. `my_tool.py`).
+ Имя файла произвольное, но рекомендуется использовать имя `<name>_tool.py` (например, `my_tool.py`).
 
-3. **Implement the required elements**
+3. **Реализуйте необходимые элементы**
 
-   - `TOOL_SPEC` dictionary
-   - `run_tool(args)` function
-   - Optionally, an i18n JSON file
+ – словарь `TOOL_SPEC`
+ – функцию `run_tool(args)`
+ – опционально файл i18n JSON
 
-4. **Restart the agent** (or run the `system_reload` tool)
+4. **Перезапустите агент** (или запустите инструмент `system_reload`)
 
-### Full Template
+### Полный шаблон
 
 ```python
 from __future__ import annotations
@@ -132,18 +132,18 @@ TOOL_SPEC: dict[str, Any] = {
 }
 ```
 
-See [Section 5](#5-internationalization-i18n) for i18n details.
+См. [Раздел 5](#5-internationalization-i18n) для i18n подробности.
 
 ---
 
-## 3. Creating a Rust + Python Tool
+## 3. Создание инструмента Rust + Python
 
-Rust implementation is ideal for performance-critical tasks (heavy data processing, cryptography, file processing, etc.).
-uag can load pre-built `.pyd` files directly, so **end-users don't need `pip install`**.
+Реализация Rust идеально подходит для задач, критичных к производительности (интенсивная обработка данных, криптография, обработка файлов и т. д.).
+uag может загружать предварительно созданные файлы `.pyd` напрямую, поэтому **конечным пользователям не нужен `pip install`**.
 
-### Tool Structure
+### Структура инструмента
 
-A Rust tool consists of the following files:
+Инструмент Rust состоит из следующих файлов:
 
 ```
 my_rust_tool/
@@ -154,12 +154,12 @@ my_rust_tool/
 └── my_rust_tool.pyd    # Build artifact (ship with distribution)
 ```
 
-For distribution, place the `_tool.py` + `_tool.json` + `.pyd` files in
+Для распространения поместите файлы `_tool.py` + `_tool.json` + `.pyd` in
 `UAGENT_EXTERNAL_TOOLS_DIRS`.
 
-### Steps
+### Шаги
 
-#### Step 1: Create the Rust project
+#### Шаг 1. Создайте Rust project
 
 **Cargo.toml**
 ```toml
@@ -188,7 +188,7 @@ version = "0.1.0"
 requires-python = ">=3.11"
 ```
 
-#### Step 2: Rust implementation (src/lib.rs)
+#### Шаг 2. Реализация Rust (src/lib.rs)
 
 ```rust
 use pyo3::prelude::*;
@@ -214,32 +214,32 @@ fn my_rust_tools(m: &Bound<'_, PyModule>) -> PyResult<()> {
 }
 ```
 
-**Key points:**
-- Expose functions with `#[pyfunction(name = "run_<name>")]`
-- Return type is `PyResult<String>`
-- The `#[pymodule]` function name must match the crate name (`my_rust_tools`)
+**Ключевые моменты:**
+- Предоставляйте функции с помощью `#[pyfunction(name = "run_<name>")]`
+- Тип возвращаемого значения: `PyResult<String>`
+- Имя функции `#[pymodule]` должно совпадать с именем крейта (`my_rust_tools`)
 
-#### Step 3: Build
+#### Шаг 3. Сборка
 
 ```bash
 cd my_rust_tool
 cargo build --release
 ```
 
-Windows: rename `target/release/my_rust_tools.dll` to `my_rust_tools.pyd`
-Linux: rename `target/release/libmy_rust_tools.so` to `my_rust_tools.so`
-macOS: rename `target/release/libmy_rust_tools.dylib` to `my_rust_tools.so`
+Windows: переименуйте `target/release/my_rust_tools.dll` в `my_rust_tools.pyd`
+Linux: переименуйте `target/release/libmy_rust_tools.so` в `my_rust_tools.so`
+macOS: переименуйте `target/release/libmy_rust_tools.dylib` в `my_rust_tools.so`
 
-Or using maturin:
+Или используйте maturin:
 ```bash
 pip install maturin     # build-time only
 maturin build --release
 # Extract .pyd/.so from target/wheels/*.whl
 ```
 
-#### Step 4: Create the Python wrapper
+#### Шаг 4. Создайте оболочку Python
 
-Create `my_rust_tool.py` in your `UAGENT_EXTERNAL_TOOLS_DIRS` directory:
+Создайте `my_rust_tool.py` в вашем `UAGENT_EXTERNAL_TOOLS_DIRS` каталог:
 
 ```python
 from __future__ import annotations
@@ -276,14 +276,14 @@ TOOL_SPEC: dict[str, Any] = {
 }
 ```
 
-**``load_rust_pyd()`` resolution order:**
+**``load_rust_pyd()`` порядок разрешения:**
 
-1. Look for `<module_name>.pyd` (or `.so`) in the same directory as the wrapper `.py`
-2. Fall back to a pip-installed module
+1. Найдите `<имя_модуля>.pyd` (или `.so`) в том же каталоге, что и оболочка `.py`
+2. Вернитесь к модулю, установленному в pip
 
-#### Step 5: Distribution
+#### Шаг 5. Распространение
 
-Only these 3 files are needed. End-users do **not** need any `pip install`.
+Требуются только эти 3 файла. Конечным пользователям **не** требуется никакая `pip install`.
 
 ```
 my_rust_tool.py         # Python wrapper (TOOL_SPEC + run_tool)
@@ -291,20 +291,20 @@ my_rust_tool.json       # i18n translations (optional)
 my_rust_tools.pyd       # Pre-built native binary
 ```
 
-### Notes
+### Примечания
 
-- **Build-time only:** Rust toolchain and `maturin` are required
-  ```bash
+- **Только во время сборки:** Требуются набор инструментов Rust и Maturin
+ ```bash
   pip install maturin
   ```
-- The Rust crate name (`[lib] name` in `Cargo.toml`) must match the first argument of `load_rust_pyd()`
-- The wrapper file name and `.pyd` location are independent as long as they are in the same directory
+- Имя крейта Rust (`[lib] name` в `Cargo.toml`) должно соответствовать первому аргументу `load_rust_pyd()`
+- Имя файла оболочки и местоположение `.pyd` независимы, пока они находятся в одном и том же каталоге
 
 ---
 
-## 4. TOOL_SPEC Reference
+## 4. Справочник по Tool_SPEC
 
-### Basic Structure
+### Basic Структура
 
 ```python
 TOOL_SPEC: dict[str, Any] = {
@@ -336,35 +336,35 @@ TOOL_SPEC: dict[str, Any] = {
 }
 ```
 
-### Properties
+### Свойства
 
-| Field | Type | Description |
+| Поле | Тип | Описание |
 |-------|------|-------------|
-| `type` | str | Always `"function"` |
-| `x_build` | str | `"rust"` for Rust implementation (omit for Python) |
-| `tool_genre` | str | Genre name (optional). Enables genre-based control |
-| `tool_level` | int | 0=enabled, 1=conditional (default), -1=disabled |
-| `function.name` | str | **Required**. Tool name (lowercase + digits + underscore) |
-| `function.description` | str | **Required**. Description |
-| `function.x_search_terms` | list[str] | i18n-aware search keywords (wrap with `_(...)`) |
-| `function.x_search_terms_en` | list[str] | Fixed English search keywords |
-| `function.parameters` | dict | Parameter definition (OpenAI function calling format) |
+| `тип` | ул | Всегда `"функция"` |
+| `x_build` | ул | `"rust"` для реализации Rust (опустить для Python) |
+| `tool_genre` | ул | Название жанра (необязательно). Включает управление по жанрам |
+| `tool_level` | интервал | 0=включено, 1=условно (по умолчанию), -1=выключено |
+| `функция.имя` | ул | **Необходимый**. Имя инструмента (строчные буквы + цифры + подчеркивание) |
+| `функция.описание` | ул | **Необходимый**. Описание |
+| `function.x_search_terms` | список[строка] | Ключевые слова поиска с поддержкой i18n (оберните с помощью `_(...)`) |
+| `function.x_search_terms_en` | список[строка] | Исправлены ключевые слова для поиска на английском языке |
+| `функция.параметры` | диктовать | Определение параметра (формат вызова функции OpenAI) |
 
 ---
 
-## 5. Internationalization (i18n)
+## 5. Интернационализация (i18n)
 
-### Translation Mechanism
+### Механизм перевода
 
-Calling `make_tool_translator(__file__)` loads translations from a `.json` file
-with the same basename in the same directory.
+Вызов `make_tool_translator(__file__)` загружает переводы из файла `.json`
+с тем же базовым именем в том же самом каталог.
 
 ```python
 from uagent.tools.i18n_helper import make_tool_translator
 _ = make_tool_translator(__file__)
 ```
 
-### Using Translation Keys
+### Использование ключей перевода
 
 ```python
 description = _(
@@ -373,7 +373,7 @@ description = _(
 )
 ```
 
-### JSON File Format
+### Файл JSON Формат
 
 ```json
 {
@@ -388,19 +388,19 @@ description = _(
 }
 ```
 
-See existing `_tool.json` files for supported language codes.
+Поддерживаемые коды языков см. в существующих файлах `_tool.json`.
 
 ---
 
-## 6. Testing and Debugging
+## 6. Тестирование и отладка
 
-### Syntax Check
+### Синтаксис Проверьте
 
 ```bash
 python -m py_compile my_tool.py
 ```
 
-### Verify Tool Loading
+### Проверка загрузки инструмента
 
 ```python
 from uagent.tools import _RUNNERS, reload_plugins
@@ -411,28 +411,28 @@ if "my_tool" in _RUNNERS:
     print(result)
 ```
 
-### Error Logs
+### Журналы ошибок
 
-Errors during tool loading are printed to stderr. If your tool isn't loaded,
-check the uag startup logs.
+Ошибки во время загрузки инструмента выводятся в stderr. Если ваш инструмент не загружен,
+проверьте журналы запуска uag.
 
 ---
 
-## 7. Reference Examples
+## 7. Справочные примеры
 
-### Python Tool Examples
+### Примеры инструментов Python
 
-- `date_calc_tool.py` (in `src/uagent/tools/`) — Date calculation. Copy externally and customize.
-- `calculator_tool.py` (in `src/uagent/tools/`) — Calculator.
+- `date_calc_tool.py` (в `src/uagent/tools/`) — расчет даты. Скопируйте извне и настройте.
+- `calculator_tool.py` (в `src/uagent/tools/`) — Калькулятор.
 
-### Rust Tool Examples
+### Примеры инструментов Rust
 
-- `rust_uuid_gen_tool.py` + `uag_tools_rust.pyd` (in `src/uagent/tools_rust/`) — UUID generation
-- `rust_slugify_tool.py` + `uag_tools_rust.pyd` (in `src/uagent/tools_rust/`) — Slug conversion
+- `rust_uuid_gen_tool.py` + `uag_tools_rust.pyd` (в `src/uagent/tools_rust/`) — Генерация UUID
+- `rust_slugify_tool.py` + `uag_tools_rust.pyd` (в `src/uagent/tools_rust/`) — преобразование URL-адресов
 
-Copy the `_tool.py` and `.pyd` files into `UAGENT_EXTERNAL_TOOLS_DIRS` to use them as external tools.
+Скопируйте файлы `_tool.py` и `.pyd` в `UAGENT_EXTERNAL_TOOLS_DIRS`, чтобы использовать их как внешние инструменты.
 
-### Setting Up External Tool Directories
+### Настройка внешних каталогов инструментов
 
 ```bash
 # Linux/macOS
@@ -445,5 +445,5 @@ set UAGENT_EXTERNAL_TOOLS_DIRS=C:\path\to\my\tools;C:\path\to\other\tools
 $env:UAGENT_EXTERNAL_TOOLS_DIRS = "C:\path\to\my\tools;C:\path\to\other\tools"
 ```
 
-Multiple directories can be separated by `:` (Linux/macOS) or `;` (Windows).
-`UAGENT_EXTERNAL_TOOLS_DIR` (singular) is also supported for backward compatibility.
+Несколько каталогов можно разделить `:` (Linux/macOS) или `;` (Windows).
+`UAGENT_EXTERNAL_TOOLS_DIR` (единственное число) также поддерживается для обратной совместимости.
