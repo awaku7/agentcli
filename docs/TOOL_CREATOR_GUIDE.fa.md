@@ -1,35 +1,34 @@
-# Tool Creator Guide
+# راهنمای ایجاد ابزار
 
-This guide explains how to add your own tools to uag **without modifying uag itself**.
-If you want to add a tool directly to the uag source tree, see
-[DEVELOP_TOOL.md](https://github.com/awaku7/agentcli/blob/main/src/uagent/docs/DEVELOP_TOOL.md).
+این راهنما توضیح می‌دهد که چگونه ابزارهای خود را به uag اضافه کنید **بدون تغییر خود uag**. 
+اگر می‌خواهید ابزاری را مستقیماً به درخت منبع uag اضافه کنید، 
+[DEVELOP_TOOL.md](https://github.com/awaku7/agentcli/blob/main/src/uagent/docs/DEVELOP_TOOL.md) را ببینید.
 
 ---
 
-## Table of Contents
+## فهرست مطالب
 
-1. [Basic Tool Structure](#1-basic-tool-structure)
-2. [Creating a Python Tool](#2-creating-a-python-tool)
+1. [ساختار ابزار پایه] (#1-ساختار-ابزار پایه)
+2. [Creating a Python Tool] (#2-creating-a-python-tool)
 3. [Creating a Rust + Python Tool](#3-creating-a-rust--python-tool)
 4. [TOOL_SPEC Reference](#4-tool_spec-reference)
-5. [Internationalization (i18n)](#5-internationalization-i18n)
-6. [Testing and Debugging](#6-testing-and-debugging)
-7. [Reference Examples](#7-reference-examples)
+5. [بین‌المللی‌سازی (i18n)](#5-internationalization-i18n)
+6. [Testing and Debugging] (#6-testing-and-debugging)
+7. [نمونه‌های مرجع](#7-reference-examples)
 
 ---
 
-## 1. Basic Tool Structure
+## 1. ساختار ابزار اصلی
 
-A tool consists of the following elements:
+یک ابزار از عناصر زیر تشکیل شده است:
 
-| Element | Required | Description |
+| عنصر | مورد نیاز | توضیحات |
 |---------|----------|-------------|
-| `TOOL_SPEC` | Yes | Dictionary defining the tool's name, description, and parameters |
-| `run_tool(args)` | Yes | Function executed when the tool is called. Args is a dict, return is a string. |
-| i18n JSON | Recommended | Translation JSON file (same basename, `<name>_tool.json`) |
+| `TOOL_SPEC` | بله | دیکشنری که نام، توضیحات و پارامترهای ابزار را تعریف می کند |
+| `run_tool(args)` | بله | تابع هنگام فراخوانی ابزار اجرا می شود. Args یک dict است، بازگشت یک رشته است. |
+| i18n JSON | توصیه شده | ترجمه فایل JSON (همان نام پایه، `<name>_tool.json`) |
 
 ### Minimal Python Tool
-
 ```python
 # my_tool.py
 from typing import Any
@@ -88,7 +87,6 @@ TOOL_SPEC: dict[str, Any] = {
 4. **Restart the agent** (or run the `system_reload` tool)
 
 ### Full Template
-
 ```python
 from __future__ import annotations
 
@@ -447,3 +445,7 @@ $env:UAGENT_EXTERNAL_TOOLS_DIRS = "C:\path\to\my\tools;C:\path\to\other\tools"
 
 Multiple directories can be separated by `:` (Linux/macOS) or `;` (Windows).
 `UAGENT_EXTERNAL_TOOLS_DIR` (singular) is also supported for backward compatibility.
+
+---
+
+*این ترجمه به صورت خودکار ایجاد شد. برای دریافت دقیق ترین و به روزترین مطالب، لطفا به نسخه انگلیسی مراجعه کنید.*
