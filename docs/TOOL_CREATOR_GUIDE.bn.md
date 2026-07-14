@@ -7,6 +7,7 @@
 ---
 
 ## বিষয়বস্তুর সারণী
+0. [Quick Start: Scaffold Command](#0-quick-start-scaffold-command)
 
 ১. [বেসিক টুল স্ট্রাকচার](#1-বেসিক-টুল-স্ট্রাকচার)
 2. [একটি পাইথন টুল তৈরি করা](#2-creating-a-python-tool)
@@ -17,6 +18,61 @@
 7. [রেফারেন্স উদাহরণ](#7-উদাহরণ-উদাহরণ)
 
 ---
+## 0. Quick Start: Scaffold Command
+
+The easiest way to create a new tool is to use the **`:tool create`** command
+from the CLI prompt. It generates the boilerplate files automatically.
+
+### Usage
+
+```
+:tool create <name> --lang python|rust [--description '...'] [--output-dir <dir>]
+```
+
+| Argument | Required | Description |
+|----------|----------|-------------|
+| `<name>` | Yes | Tool name (e.g., `my_search`, `file_processor`) |
+| `--lang` | No | `python` (default) or `rust` |
+| `--description` | No | Short description of the tool |
+| `--output-dir` | No | Output directory (default: first path in `UAGENT_EXTERNAL_TOOLS_DIRS`, or current directory) |
+
+### Examples
+
+```text
+# Python tool
+:tool create my_search --lang python --description "Custom search tool"
+
+# Rust tool
+:tool create heavy_processor --lang rust --description "Heavy data processor"
+```
+
+### What Gets Generated
+
+**Python (`--lang python`)**:
+- `<name>_tool.py` — Tool implementation with `TOOL_SPEC` and `run_tool()`
+- `<name>_tool.json` — i18n translation template
+
+Both files are ready to use. Place them in your `UAGENT_EXTERNAL_TOOLS_DIRS`
+and restart the agent (or run `system_reload`).
+
+**Rust (`--lang rust`)**:
+- `<name>/` — Cargo project directory with `Cargo.toml`, `pyproject.toml`, and `src/lib.rs`
+- `<name>_tool.py` — Python wrapper that loads the compiled `.pyd`
+
+After scaffolding, build and install:
+
+```bash
+cd <name>
+maturin build --release
+pip install target/wheels/*.whl
+```
+
+Then place `<name>_tool.py` and the built `.pyd` in your
+`UAGENT_EXTERNAL_TOOLS_DIRS` and restart the agent.
+
+---
+
+
 
 ## 1. বেসিক টুল স্ট্রাকচার
 
