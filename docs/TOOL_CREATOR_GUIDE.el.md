@@ -1,32 +1,32 @@
 # Tool Creator Guide
 
-This guide explains how to add your own tools to uag **without modifying uag itself**.
-If you want to add a tool directly to the uag source tree, see
+Αυτός ο οδηγός εξηγεί πώς να προσθέσετε τα δικά σας εργαλεία στο uag **χωρίς να τροποποιήσετε το ίδιο το uag**.
+Εάν θέλετε να προσθέσετε ένα εργαλείο απευθείας στο δέντρο της πηγής uag, δείτε
 [DEVELOP_TOOL.md](https://github.com/awaku7/agentcli/blob/main/src/uagent/docs/DEVELOP_TOOL.md).
 
 ---
 
-## Table of Contents
+## Πίνακας περιεχομένων
 
-1. [Basic Tool Structure](#1-basic-tool-structure)
-2. [Creating a Python Tool](#2-creating-a-python-tool)
-3. [Creating a Rust + Python Tool](#3-creating-a-rust--python-tool)
+1. [Βασική δομή εργαλείου](#1-βασικό-εργαλείο-δομή)
+2. [Δημιουργία εργαλείου Python](#2-creating-a-python-tool)
+3. [Δημιουργία εργαλείου Rust + Python](#3-creating-a-rust--python-tool)
 4. [TOOL_SPEC Reference](#4-tool_spec-reference)
-5. [Internationalization (i18n)](#5-internationalization-i18n)
+5. [Διεθνοποίηση (i18n)](#5-internationalization-i18n)
 6. [Testing and Debugging](#6-testing-and-debugging)
-7. [Reference Examples](#7-reference-examples)
+7. [Παραδείγματα αναφοράς](#7-παραδείγματα-αναφορές)
 
 ---
 
-## 1. Basic Tool Structure
+## 1. Βασική δομή εργαλείου
 
-A tool consists of the following elements:
+Ένα εργαλείο αποτελείται από τα ακόλουθα στοιχεία:
 
-| Element | Required | Description |
+| Στοιχείο | Απαιτείται | Περιγραφή |
 |---------|----------|-------------|
-| `TOOL_SPEC` | Yes | Dictionary defining the tool's name, description, and parameters |
-| `run_tool(args)` | Yes | Function executed when the tool is called. Args is a dict, return is a string. |
-| i18n JSON | Recommended | Translation JSON file (same basename, `<name>_tool.json`) |
+| `TOOL_SPEC` | Ναι | Λεξικό που ορίζει το όνομα, την περιγραφή και τις παραμέτρους του εργαλείου |
+| `run_tool(args)` | Ναι | Η συνάρτηση εκτελείται όταν καλείται το εργαλείο. |
+| i18n JSON | Συνιστάται | Μετάφραση αρχείου JSON (ίδιο όνομα βάσης, `<name>_tool.json`) |
 
 ### Minimal Python Tool
 
@@ -58,34 +58,34 @@ TOOL_SPEC: dict[str, Any] = {
 
 ---
 
-## 2. Creating a Python Tool
+## 2. Δημιουργία ενός εργαλείου Python
 
-### Steps
+### Βήματα
 
-1. **Set the `UAGENT_EXTERNAL_TOOLS_DIRS` environment variable** (if not already set)
+1. **Ορίστε τη μεταβλητή περιβάλλοντος `UAGENT_EXTERNAL_TOOLS_DIRS`** (αν δεν έχει ήδη οριστεί)
 
-   Example:
-   ```bash
+ Παράδειγμα:
+ ```bash
    # Linux/macOS
    export UAGENT_EXTERNAL_TOOLS_DIRS=~/.uag/my_tools
    # Windows (cmd)
    set UAGENT_EXTERNAL_TOOLS_DIRS=%USERPROFILE%\.uag\my_tools
    ```
 
-   Multiple directories can be separated by `:` (Linux/macOS) or `;` (Windows).
-   `UAGENT_EXTERNAL_TOOLS_DIR` (singular) is also supported for backward compatibility.
+ Πολλοί κατάλογοι μπορούν να διαχωριστούν με `:` (Linux/macOS) ή `;` (Windows).
+ `UAGENT_EXTERNAL_TOOLS_DIR` (ενικός) υποστηρίζεται επίσης για συμβατότητα προς τα πίσω.
 
-2. **Create a Python file**
+2. **Δημιουργήστε ένα αρχείο Python**
 
-   File name is free, but `<name>_tool.py` naming is recommended (e.g. `my_tool.py`).
+ Το όνομα αρχείου είναι δωρεάν, αλλά συνιστάται η ονομασία `<name>_tool.py` (π.χ. `my_tool.py`).
 
-3. **Implement the required elements**
+3. **Εφαρμόστε τα απαιτούμενα στοιχεία**
 
-   - `TOOL_SPEC` dictionary
-   - `run_tool(args)` function
-   - Optionally, an i18n JSON file
+ - Λεξικό `TOOL_SPEC`
+ - λειτουργία `run_tool(args)`
+ - Προαιρετικά, ένα αρχείο JSON i18n
 
-4. **Restart the agent** (or run the `system_reload` tool)
+4. **Επανεκκινήστε τον πράκτορα** (ή εκτελέστε το εργαλείο `system_reload`)
 
 ### Full Template
 
@@ -132,18 +132,18 @@ TOOL_SPEC: dict[str, Any] = {
 }
 ```
 
-See [Section 5](#5-internationalization-i18n) for i18n details.
+Ανατρέξτε στην ενότητα [Section 5](#5-internationalization-i18n) για λεπτομέρειες i18n.
 
 ---
 
-## 3. Creating a Rust + Python Tool
+## 3. Δημιουργία εργαλείου Rust + Python
 
-Rust implementation is ideal for performance-critical tasks (heavy data processing, cryptography, file processing, etc.).
-uag can load pre-built `.pyd` files directly, so **end-users don't need `pip install`**.
+Η υλοποίηση του Rust είναι ιδανική για εργασίες κρίσιμες για την απόδοση (επεξεργασία δεδομένων, κρυπτογραφία, επεξεργασία αρχείων, κ.λπ.).
+uag μπορεί να φορτώσει προκατασκευασμένα αρχεία `.pyd` απευθείας, έτσι ώστε **οι τελικοί χρήστες δεν χρειάζονται `pip install`**.
 
-### Tool Structure
+### Δομή εργαλείου
 
-A Rust tool consists of the following files:
+Ένα εργαλείο Rust αποτελείται από τα ακόλουθα αρχεία:
 
 ```
 my_rust_tool/
@@ -154,12 +154,12 @@ my_rust_tool/
 └── my_rust_tool.pyd    # Build artifact (ship with distribution)
 ```
 
-For distribution, place the `_tool.py` + `_tool.json` + `.pyd` files in
+Για διανομή, τοποθετήστε τα αρχεία `_tool.py` + `_tool.json` + `.pyd` στο
 `UAGENT_EXTERNAL_TOOLS_DIRS`.
 
-### Steps
+### Βήματα
 
-#### Step 1: Create the Rust project
+#### Βήμα 1: Δημιουργήστε το Rust project
 
 **Cargo.toml**
 ```toml
@@ -188,7 +188,7 @@ version = "0.1.0"
 requires-python = ">=3.11"
 ```
 
-#### Step 2: Rust implementation (src/lib.rs)
+#### Βήμα 2: Εφαρμογή Rust (src/lib.rs)
 
 ```rust
 use pyo3::prelude::*;
@@ -214,32 +214,32 @@ fn my_rust_tools(m: &Bound<'_, PyModule>) -> PyResult<()> {
 }
 ```
 
-**Key points:**
-- Expose functions with `#[pyfunction(name = "run_<name>")]`
-- Return type is `PyResult<String>`
-- The `#[pymodule]` function name must match the crate name (`my_rust_tools`)
+**Βασικά σημεία:**
+- Έκθεση συναρτήσεων με `#[pyfunction(name = "run_<name>")]`
+- Ο τύπος επιστροφής είναι `PyResult<String>`
+- Το όνομα της συνάρτησης `#[pymodule]` πρέπει να ταιριάζει με το όνομα του crate (`my_rust_tools`)
 
-#### Step 3: Build
+#### Βήμα 3: Build
 
 ```bash
 cd my_rust_tool
 cargo build --release
 ```
 
-Windows: rename `target/release/my_rust_tools.dll` to `my_rust_tools.pyd`
-Linux: rename `target/release/libmy_rust_tools.so` to `my_rust_tools.so`
-macOS: rename `target/release/libmy_rust_tools.dylib` to `my_rust_tools.so`
+Windows: μετονομάστε `target/release/my_rust_tools.dll` σε `my_rust_tools.pyd`
+Linux: μετονομάστε `target/release/libmy_rust_tools.so` σε `my_rust_tools.so`
+macOS: μετονομάστε `target/release/libmy_rust_tools.dylib` σε `my_rust_tools.so`
 
-Or using maturin:
+Ή χρησιμοποιώντας maturin:
 ```bash
 pip install maturin     # build-time only
 maturin build --release
 # Extract .pyd/.so from target/wheels/*.whl
 ```
 
-#### Step 4: Create the Python wrapper
+#### Βήμα 4: Δημιουργήστε το περιτύλιγμα Python
 
-Create `my_rust_tool.py` in your `UAGENT_EXTERNAL_TOOLS_DIRS` directory:
+Δημιουργήστε `my_rust_tool.py` στο `UAGENT_EXTERNAL_TOOLS_DIRS` directory:
 
 ```python
 from __future__ import annotations
@@ -276,14 +276,14 @@ TOOL_SPEC: dict[str, Any] = {
 }
 ```
 
-**``load_rust_pyd()`` resolution order:**
+**``load_rust_pyd()`` σειρά ανάλυσης:**
 
-1. Look for `<module_name>.pyd` (or `.so`) in the same directory as the wrapper `.py`
-2. Fall back to a pip-installed module
+1. Αναζητήστε `<module_name>.pyd` (ή `.so`) στον ίδιο κατάλογο με το περιτύλιγμα `.py`
+2. Επιστρέψτε σε μια μονάδα που έχει εγκατασταθεί με pip
 
-#### Step 5: Distribution
+#### Βήμα 5: Διανομή
 
-Only these 3 files are needed. End-users do **not** need any `pip install`.
+Απαιτούνται μόνο αυτά τα 3 αρχεία. Οι τελικοί χρήστες **δεν** χρειάζονται καμία `pip install`.
 
 ```
 my_rust_tool.py         # Python wrapper (TOOL_SPEC + run_tool)
@@ -291,20 +291,20 @@ my_rust_tool.json       # i18n translations (optional)
 my_rust_tools.pyd       # Pre-built native binary
 ```
 
-### Notes
+### Σημειώσεις
 
-- **Build-time only:** Rust toolchain and `maturin` are required
+- **Μόνο για χρόνο κατασκευής:** Απαιτούνται η αλυσίδα εργαλείων Rust και το `maturin`
   ```bash
   pip install maturin
   ```
-- The Rust crate name (`[lib] name` in `Cargo.toml`) must match the first argument of `load_rust_pyd()`
-- The wrapper file name and `.pyd` location are independent as long as they are in the same directory
+- Το όνομα του Rust crate (`[lib] name` στο `Cargo.toml`) πρέπει να ταιριάζει με το πρώτο όρισμα του `load_rust_pyd()`
+- Το όνομα του αρχείου περιτυλίγματος και η θέση `.pyd` είναι ανεξάρτητα εφόσον βρίσκονται στον ίδιο κατάλογο
 
 ---
 
-## 4. TOOL_SPEC Reference
+## 4. Αναφορά TOOL_SPEC
 
-### Basic Structure
+### Βασική δομή
 
 ```python
 TOOL_SPEC: dict[str, Any] = {
@@ -336,35 +336,35 @@ TOOL_SPEC: dict[str, Any] = {
 }
 ```
 
-### Properties
+### Ιδιότητες
 
-| Field | Type | Description |
+| Πεδίο | Τύπος | Περιγραφή |
 |-------|------|-------------|
-| `type` | str | Always `"function"` |
-| `x_build` | str | `"rust"` for Rust implementation (omit for Python) |
-| `tool_genre` | str | Genre name (optional). Enables genre-based control |
-| `tool_level` | int | 0=enabled, 1=conditional (default), -1=disabled |
-| `function.name` | str | **Required**. Tool name (lowercase + digits + underscore) |
-| `function.description` | str | **Required**. Description |
-| `function.x_search_terms` | list[str] | i18n-aware search keywords (wrap with `_(...)`) |
-| `function.x_search_terms_en` | list[str] | Fixed English search keywords |
-| `function.parameters` | dict | Parameter definition (OpenAI function calling format) |
+| `type` | str | Πάντα `"function"` |
+| `x_build` | str | `"rust"` για την υλοποίηση Rust (παράλειψη για Python) |
+| `tool_genre` | str | Όνομα είδους (προαιρετικό). Ενεργοποιεί τον έλεγχο βάσει είδους |
+| `tool_level` | int | 0=ενεργοποιημένο, 1=υπό όρους (προεπιλογή), -1=απενεργοποιημένο |
+| `function.name` | str | **Υποχρεωτικό**. Όνομα εργαλείου (πεζά + ψηφία + υπογράμμιση) |
+| `function.description` | str | **Υποχρεωτικό**. Περιγραφή |
+| `function.x_search_terms` | λίστα[str] | Λέξεις-κλειδιά αναζήτησης i18n-aware (αναδίπλωση με `_(...)`) |
+| `function.x_search_terms_en` | λίστα[str] | Διορθωμένες λέξεις-κλειδιά αναζήτησης στα αγγλικά |
+| `function.parameters` | dict | Ορισμός παραμέτρου (μορφή κλήσης συνάρτησης OpenAI) |
 
 ---
 
-## 5. Internationalization (i18n)
+## 5. Διεθνοποίηση (i18n)
 
-### Translation Mechanism
+### Μηχανισμός μετάφρασης
 
-Calling `make_tool_translator(__file__)` loads translations from a `.json` file
-with the same basename in the same directory.
+Κλήση του `make_tool_translator(__file__)` φορτώνει μεταφράσεις από ένα αρχείο `.json`
+με το ίδιο βασικό όνομα στον ίδιο κατάλογο.
 
 ```python
 from uagent.tools.i18n_helper import make_tool_translator
 _ = make_tool_translator(__file__)
 ```
 
-### Using Translation Keys
+### Χρήση κλειδιών μετάφρασης
 
 ```python
 description = _(
@@ -373,7 +373,7 @@ description = _(
 )
 ```
 
-### JSON File Format
+### Μορφή αρχείου JSON
 
 ```json
 {
@@ -388,19 +388,19 @@ description = _(
 }
 ```
 
-See existing `_tool.json` files for supported language codes.
+Δείτε τα υπάρχοντα αρχεία `_tool.json` για τους υποστηριζόμενους κωδικούς γλώσσας.
 
 ---
 
-## 6. Testing and Debugging
+## 6. Δοκιμή και εντοπισμός σφαλμάτων
 
-### Syntax Check
+### Έλεγχος σύνταξης
 
 ```bash
 python -m py_compile my_tool.py
 ```
 
-### Verify Tool Loading
+### Επαλήθευση φόρτωσης εργαλείου
 
 ```python
 from uagent.tools import _RUNNERS, reload_plugins
@@ -411,28 +411,28 @@ if "my_tool" in _RUNNERS:
     print(result)
 ```
 
-### Error Logs
+### Αρχεία καταγραφής σφαλμάτων
 
-Errors during tool loading are printed to stderr. If your tool isn't loaded,
-check the uag startup logs.
+Τα σφάλματα κατά τη φόρτωση του εργαλείου εκτυπώνονται στο stderr. Εάν το εργαλείο σας δεν έχει φορτωθεί,
+ελέγξτε τα αρχεία καταγραφής εκκίνησης uag.
 
 ---
 
-## 7. Reference Examples
+## 7. Παραδείγματα αναφοράς
 
-### Python Tool Examples
+### Παραδείγματα εργαλείου Python
 
-- `date_calc_tool.py` (in `src/uagent/tools/`) — Date calculation. Copy externally and customize.
-- `calculator_tool.py` (in `src/uagent/tools/`) — Calculator.
+- `date_calc_tool.py` (στο `src/uagent/tools/`) — Υπολογισμός ημερομηνίας. Αντιγράψτε εξωτερικά και προσαρμόστε.
+- `calculator_tool.py` (στο `src/uagent/tools/`) — Αριθμομηχανή.
 
-### Rust Tool Examples
+### Παραδείγματα εργαλείου Rust
 
-- `rust_uuid_gen_tool.py` + `uag_tools_rust.pyd` (in `src/uagent/tools_rust/`) — UUID generation
-- `rust_slugify_tool.py` + `uag_tools_rust.pyd` (in `src/uagent/tools_rust/`) — Slug conversion
+- `rust_uuid_gen_tool.py` + `uag_tools_rust.pyd` (στο `src/uagent/tools_rust/`) — Δημιουργία UUID
+- `rust_slugify_tool.py` + `uag_tools_rust.pyd` (στο `src/uagent/tools_rust/`) — Μετατροπή slug
 
-Copy the `_tool.py` and `.pyd` files into `UAGENT_EXTERNAL_TOOLS_DIRS` to use them as external tools.
+Αντιγράψτε τα αρχεία `_tool.py` και `.pyd` στο `UAGENT_EXTERNAL_TOOLS_DIRS` για να τα χρησιμοποιήσετε ως εξωτερικά εργαλεία.
 
-### Setting Up External Tool Directories
+### Ρύθμιση καταλόγων εξωτερικών εργαλείων
 
 ```bash
 # Linux/macOS
@@ -445,5 +445,5 @@ set UAGENT_EXTERNAL_TOOLS_DIRS=C:\path\to\my\tools;C:\path\to\other\tools
 $env:UAGENT_EXTERNAL_TOOLS_DIRS = "C:\path\to\my\tools;C:\path\to\other\tools"
 ```
 
-Multiple directories can be separated by `:` (Linux/macOS) or `;` (Windows).
-`UAGENT_EXTERNAL_TOOLS_DIR` (singular) is also supported for backward compatibility.
+Πολλοί κατάλογοι μπορούν να διαχωριστούν με `:` (Linux/macOS) ή `;` (Windows).
+`UAGENT_EXTERNAL_TOOLS_DIR` (ενικός) υποστηρίζεται επίσης για συμβατότητα προς τα πίσω.
