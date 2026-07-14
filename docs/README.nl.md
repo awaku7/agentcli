@@ -174,7 +174,7 @@ They load directly from a pre-built `.pyd` — **no `pip install` required**.
 External developers can also ship Rust-based tools: place a `.pyd` next to the
 wrapper `.py`, use ``load_rust_pyd()`` from ``uagent.tools.rust_helper``, and
 users get the tool without any extra dependencies. See
-[TOOL_CREATOR_GUIDE.md](https://github.com/awaku7/agentcli/blob/main/TOOL_CREATOR_GUIDE.md).
+[TOOL_CREATOR_GUIDE.nl.md](TOOL_CREATOR_GUIDE.nl.md).
 
 ### 🌐 i18n / L10n
 
@@ -216,7 +216,7 @@ Writing a new tool for uag is straightforward — create a single `.py` file wit
 it's immediately available. For Rust developers, ship a pre-built `.pyd` with
 zero extra dependencies for users.
 
-See [TOOL_CREATOR_GUIDE.md](https://github.com/awaku7/agentcli/blob/main/TOOL_CREATOR_GUIDE.md)
+See [TOOL_CREATOR_GUIDE.nl.md](TOOL_CREATOR_GUIDE.nl.md)
 for the step-by-step guide.
 
 ## Contributing
