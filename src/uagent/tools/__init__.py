@@ -631,6 +631,24 @@ def _load_plugins() -> None:
                         file=sys.stderr,
                     )
 
+    # 3. Load Rust tools from tools_rust package (if installed)
+    try:
+        import tools_rust as _rust_tools_mod
+        _rust_spec = getattr(_rust_tools_mod, "TOOL_SPEC", None)
+        _rust_runner = getattr(_rust_tools_mod, "run_tool", None)
+        if isinstance(_rust_spec, dict) and callable(_rust_runner):
+            _register_tool_module(_rust_tools_mod, "tools_rust")
+    except ImportError:
+        pass
+    except Exception as e:
+        print(
+            _(
+                "log.load_fail.rust",
+                default="[tools] Failed to load Rust tools: {err}",
+            ).format(err=repr(e)),
+            file=sys.stderr,
+        )
+
 
 def handle_dynamic_command(cmd: str, arg: str, **kwargs: Any) -> Any:
     """Execute a dynamic command registered by a tool module.
