@@ -1,34 +1,34 @@
-# Tool Creator Guide
+# Hướng dẫn tạo công cụ
 
-This guide explains how to add your own tools to uag **without modifying uag itself**.
-If you want to add a tool directly to the uag source tree, see
+Hướng dẫn này giải thích cách thêm các công cụ của riêng bạn vào uag **mà không sửa đổi chính uag**.
+Nếu bạn muốn thêm một công cụ trực tiếp vào cây nguồn uag, xem
 [DEVELOP_TOOL.md](https://github.com/awaku7/agentcli/blob/main/src/uagent/docs/DEVELOP_TOOL.md).
 
 ---
 
-## Table of Contents
+## Mục lục
 
-1. [Basic Tool Structure](#1-basic-tool-structure)
-2. [Creating a Python Tool](#2-creating-a-python-tool)
-3. [Creating a Rust + Python Tool](#3-creating-a-rust--python-tool)
-4. [TOOL_SPEC Reference](#4-tool_spec-reference)
-5. [Internationalization (i18n)](#5-internationalization-i18n)
-6. [Testing and Debugging](#6-testing-and-debugging)
-7. [Reference Examples](#7-reference-examples)
+1. [Cấu trúc công cụ cơ bản](#1-cấu-trúc-công-cụ-cơ-bản)
+2. [Tạo công cụ Python](#2-creating-a-python-tool)
+3. [Tạo công cụ Rust + Python](#3-creating-a-rust--python-tool)
+4. [Tham khảo TOOL_SPEC](#4-tool_spec-reference)
+5. [Quốc tế hóa (i18n)](#5-internationalization-i18n)
+6. [Kiểm tra và gỡ lỗi](#6-kiểm-tra-và-gỡ-lỗi)
+7. [Ví dụ tham khảo](#7-reference-examples)
 
 ---
 
-## 1. Basic Tool Structure
+## 1. Cấu trúc công cụ cơ bản
 
-A tool consists of the following elements:
+Một công cụ bao gồm các phần tử sau:
 
-| Element | Required | Description |
+| Yếu tố | Bắt buộc | Mô tả |
 |---------|----------|-------------|
-| `TOOL_SPEC` | Yes | Dictionary defining the tool's name, description, and parameters |
-| `run_tool(args)` | Yes | Function executed when the tool is called. Args is a dict, return is a string. |
-| i18n JSON | Recommended | Translation JSON file (same basename, `<name>_tool.json`) |
+| `TOOL_SPEC` | Có | Từ điển xác định tên, mô tả và tham số của công cụ |
+| `run_tool(args)` | Có | Chức năng được thực thi khi công cụ được gọi. Args là một lệnh, return là một chuỗi. |
+| i18n JSON | Được đề xuất | Tệp JSON dịch (cùng tên cơ sở, `<name>_tool.json`) |
 
-### Minimal Python Tool
+### Công cụ Python tối thiểu
 
 ```python
 # my_tool.py
@@ -58,36 +58,36 @@ TOOL_SPEC: dict[str, Any] = {
 
 ---
 
-## 2. Creating a Python Tool
+## 2. Tạo công cụ Python
 
-### Steps
+### Các bước
 
-1. **Set the `UAGENT_EXTERNAL_TOOLS_DIRS` environment variable** (if not already set)
+1. **Đặt biến môi trường `UAGENT_EXTERNAL_TOOLS_DIRS`** (nếu chưa được đặt)
 
-   Example:
-   ```bash
+ Ví dụ:
+ ```bash
    # Linux/macOS
    export UAGENT_EXTERNAL_TOOLS_DIRS=~/.uag/my_tools
    # Windows (cmd)
    set UAGENT_EXTERNAL_TOOLS_DIRS=%USERPROFILE%\.uag\my_tools
    ```
 
-   Multiple directories can be separated by `:` (Linux/macOS) or `;` (Windows).
-   `UAGENT_EXTERNAL_TOOLS_DIR` (singular) is also supported for backward compatibility.
+ Nhiều thư mục có thể được phân tách bằng `:` (Linux/macOS) hoặc `;` (Windows).
+ `UAGENT_EXTERNAL_TOOLS_DIR` (số ít) cũng được hỗ trợ để tương thích ngược.
 
-2. **Create a Python file**
+2. **Tạo tệp Python**
 
-   File name is free, but `<name>_tool.py` naming is recommended (e.g. `my_tool.py`).
+ Tên tệp là miễn phí nhưng nên đặt tên `<name>_tool.py` (ví dụ: `my_tool.py`).
 
-3. **Implement the required elements**
+3. **Triển khai các phần tử bắt buộc**
 
-   - `TOOL_SPEC` dictionary
-   - `run_tool(args)` function
-   - Optionally, an i18n JSON file
+ - `TOOL_SPEC` từ điển
+ - `run_tool(args)` function
+ - Tệp JSON i18n
 
-4. **Restart the agent** (or run the `system_reload` tool)
+4, tùy chọn. **Khởi động lại tác nhân** (hoặc chạy công cụ `system_reload`)
 
-### Full Template
+### Mẫu đầy đủ
 
 ```python
 from __future__ import annotations
@@ -132,18 +132,18 @@ TOOL_SPEC: dict[str, Any] = {
 }
 ```
 
-See [Section 5](#5-internationalization-i18n) for i18n details.
+Xem [Phần 5](#5-internationalization-i18n) để biết chi tiết về i18n.
 
 ---
 
-## 3. Creating a Rust + Python Tool
+## 3. Tạo a Rust + Python Tool
 
-Rust implementation is ideal for performance-critical tasks (heavy data processing, cryptography, file processing, etc.).
-uag can load pre-built `.pyd` files directly, so **end-users don't need `pip install`**.
+Triển khai Rust là lý tưởng cho các tác vụ quan trọng về hiệu suất (xử lý dữ liệu nặng, mật mã, xử lý tệp, v.v.).
+uag có thể tải trực tiếp các tệp `.pyd` dựng sẵn, vì vậy **người dùng cuối không cần `pip install`**.
 
-### Tool Structure
+### Cấu trúc công cụ
 
-A Rust tool consists of the following files:
+Công cụ Rust bao gồm những công cụ sau files:
 
 ```
 my_rust_tool/
@@ -154,12 +154,12 @@ my_rust_tool/
 └── my_rust_tool.pyd    # Build artifact (ship with distribution)
 ```
 
-For distribution, place the `_tool.py` + `_tool.json` + `.pyd` files in
+Để phân phối, hãy đặt các tệp `_tool.py` + `_tool.json` + `.pyd` trong
 `UAGENT_EXTERNAL_TOOLS_DIRS`.
 
-### Steps
+### Bước
 
-#### Step 1: Create the Rust project
+#### Bước 1: Tạo dự án Rust
 
 **Cargo.toml**
 ```toml
@@ -188,7 +188,7 @@ version = "0.1.0"
 requires-python = ">=3.11"
 ```
 
-#### Step 2: Rust implementation (src/lib.rs)
+#### Bước 2: Triển khai Rust (src/lib.rs)
 
 ```rust
 use pyo3::prelude::*;
@@ -214,32 +214,32 @@ fn my_rust_tools(m: &Bound<'_, PyModule>) -> PyResult<()> {
 }
 ```
 
-**Key points:**
-- Expose functions with `#[pyfunction(name = "run_<name>")]`
-- Return type is `PyResult<String>`
-- The `#[pymodule]` function name must match the crate name (`my_rust_tools`)
+**Các điểm chính:**
+- Hiển thị các hàm với `#[pyfunction(name = "run_<name>")]`
+- Kiểu trả về là `PyResult<String>`
+- Tên hàm `#[pymodule]` phải khớp với tên thùng (`my_rust_tools`)
 
-#### Step 3: Build
+#### Bước 3: Build
 
 ```bash
 cd my_rust_tool
 cargo build --release
 ```
 
-Windows: rename `target/release/my_rust_tools.dll` to `my_rust_tools.pyd`
-Linux: rename `target/release/libmy_rust_tools.so` to `my_rust_tools.so`
-macOS: rename `target/release/libmy_rust_tools.dylib` to `my_rust_tools.so`
+Windows: đổi tên `target/release/my_rust_tools.dll` thành `my_rust_tools.pyd`
+Linux: đổi tên `target/release/libmy_rust_tools.so` thành `my_rust_tools.so`
+macOS: đổi tên `target/release/libmy_rust_tools.dylib` thành `my_rust_tools.so`
 
-Or using maturin:
+Hoặc sử dụng maturin:
 ```bash
 pip install maturin     # build-time only
 maturin build --release
 # Extract .pyd/.so from target/wheels/*.whl
 ```
 
-#### Step 4: Create the Python wrapper
+#### Bước 4: Tạo trình bao bọc Python
 
-Create `my_rust_tool.py` in your `UAGENT_EXTERNAL_TOOLS_DIRS` directory:
+Tạo `my_rust_tool.py` trong thư mục `UAGENT_EXTERNAL_TOOLS_DIRS` của bạn:
 
 ```python
 from __future__ import annotations
@@ -276,14 +276,14 @@ TOOL_SPEC: dict[str, Any] = {
 }
 ```
 
-**``load_rust_pyd()`` resolution order:**
+**``load_rust_pyd()`` thứ tự độ phân giải:**
 
-1. Look for `<module_name>.pyd` (or `.so`) in the same directory as the wrapper `.py`
-2. Fall back to a pip-installed module
+1. Tìm `<module_name>.pyd` (hoặc `.so`) trong cùng thư mục với trình bao bọc `.py`
+2. Quay trở lại mô-đun được cài đặt bằng pip
 
-#### Step 5: Distribution
+#### Bước 5: Phân phối
 
-Only these 3 files are needed. End-users do **not** need any `pip install`.
+Chỉ cần 3 tệp này. Người dùng cuối **không** cần bất kỳ `cài đặt pip` nào.
 
 ```
 my_rust_tool.py         # Python wrapper (TOOL_SPEC + run_tool)
@@ -291,20 +291,20 @@ my_rust_tool.json       # i18n translations (optional)
 my_rust_tools.pyd       # Pre-built native binary
 ```
 
-### Notes
+### Ghi chú
 
-- **Build-time only:** Rust toolchain and `maturin` are required
-  ```bash
+- **Chỉ trong thời gian xây dựng:** Cần có chuỗi công cụ Rust và `maturin`
+ ```bash
   pip install maturin
   ```
-- The Rust crate name (`[lib] name` in `Cargo.toml`) must match the first argument of `load_rust_pyd()`
-- The wrapper file name and `.pyd` location are independent as long as they are in the same directory
+- Tên thùng Rust (`[lib] name` trong `Cargo.toml`) phải khớp với đối số đầu tiên của `load_rust_pyd()`
+- Tên tệp trình bao bọc và vị trí `.pyd` độc lập miễn là chúng nằm trong cùng một thư mục
 
 ---
 
 ## 4. TOOL_SPEC Reference
 
-### Basic Structure
+### Basic Cấu trúc
 
 ```python
 TOOL_SPEC: dict[str, Any] = {
@@ -336,35 +336,35 @@ TOOL_SPEC: dict[str, Any] = {
 }
 ```
 
-### Properties
+### Thuộc tính
 
-| Field | Type | Description |
+| Lĩnh vực | Loại | Mô tả |
 |-------|------|-------------|
-| `type` | str | Always `"function"` |
-| `x_build` | str | `"rust"` for Rust implementation (omit for Python) |
-| `tool_genre` | str | Genre name (optional). Enables genre-based control |
-| `tool_level` | int | 0=enabled, 1=conditional (default), -1=disabled |
-| `function.name` | str | **Required**. Tool name (lowercase + digits + underscore) |
-| `function.description` | str | **Required**. Description |
-| `function.x_search_terms` | list[str] | i18n-aware search keywords (wrap with `_(...)`) |
-| `function.x_search_terms_en` | list[str] | Fixed English search keywords |
-| `function.parameters` | dict | Parameter definition (OpenAI function calling format) |
+| `loại` | str | Luôn luôn `"chức năng"` |
+| `x_build` | str | `"rust"` để triển khai Rust (bỏ qua cho Python) |
+| `thể_công_cụ` | str | Tên thể loại (tùy chọn). Cho phép kiểm soát dựa trên thể loại |
+| `cấp_công_cụ` | int | 0=đã bật, 1=có điều kiện (mặc định), -1=đã tắt |
+| `function.name` | str | **Yêu cầu**. Tên công cụ (chữ thường + chữ số + dấu gạch dưới) |
+| `function.description` | str | **Yêu cầu**. Mô tả |
+| `function.x_search_terms` | danh sách[str] | Từ khóa tìm kiếm nhận biết i18n (được gói bằng `_(...)`) |
+| `function.x_search_terms_en` | danh sách[str] | Đã sửa lỗi từ khóa tìm kiếm tiếng Anh |
+| `function.parameters` | chính tả | Định nghĩa tham số (định dạng gọi hàm OpenAI) |
 
 ---
 
-## 5. Internationalization (i18n)
+## 5. Quốc tế hóa (i18n)
 
-### Translation Mechanism
+### Cơ chế dịch thuật
 
-Calling `make_tool_translator(__file__)` loads translations from a `.json` file
-with the same basename in the same directory.
+Gọi `make_tool_translator(__file__)` tải các bản dịch từ tệp `.json`
+có cùng tên cơ sở trong cùng một 
 
 ```python
 from uagent.tools.i18n_helper import make_tool_translator
 _ = make_tool_translator(__file__)
 ```
 
-### Using Translation Keys
+### Sử dụng phím dịch
 
 ```python
 description = _(
@@ -373,7 +373,7 @@ description = _(
 )
 ```
 
-### JSON File Format
+### Định dạng tệp JSON
 
 ```json
 {
@@ -388,19 +388,19 @@ description = _(
 }
 ```
 
-See existing `_tool.json` files for supported language codes.
+Xem hiện có Các tệp `_tool.json` cho mã ngôn ngữ được hỗ trợ.
 
 ---
 
-## 6. Testing and Debugging
+## 6. Kiểm tra và gỡ lỗi
 
-### Syntax Check
+### Kiểm tra cú pháp
 
 ```bash
 python -m py_compile my_tool.py
 ```
 
-### Verify Tool Loading
+### Công cụ xác minh Đang tải
 
 ```python
 from uagent.tools import _RUNNERS, reload_plugins
@@ -411,28 +411,28 @@ if "my_tool" in _RUNNERS:
     print(result)
 ```
 
-### Error Logs
+### Nhật ký lỗi
 
-Errors during tool loading are printed to stderr. If your tool isn't loaded,
-check the uag startup logs.
+Lỗi trong quá trình tải công cụ được in ra thiết bị lỗi chuẩn. Nếu công cụ của bạn không được tải,
+hãy kiểm tra nhật ký khởi động uag.
 
 ---
 
-## 7. Reference Examples
+## 7. Ví dụ tham khảo
 
-### Python Tool Examples
+### Ví dụ về công cụ Python
 
-- `date_calc_tool.py` (in `src/uagent/tools/`) — Date calculation. Copy externally and customize.
-- `calculator_tool.py` (in `src/uagent/tools/`) — Calculator.
+- `date_calc_tool.py` (trong `src/uagent/tools/`) — Tính toán ngày. Sao chép bên ngoài và tùy chỉnh.
+- `calculator_tool.py` (trong `src/uagent/tools/`) — Máy tính.
 
-### Rust Tool Examples
+### Ví dụ về công cụ Rust
 
-- `rust_uuid_gen_tool.py` + `uag_tools_rust.pyd` (in `src/uagent/tools_rust/`) — UUID generation
-- `rust_slugify_tool.py` + `uag_tools_rust.pyd` (in `src/uagent/tools_rust/`) — Slug conversion
+- `rust_uuid_gen_tool.py` + `uag_tools_rust.pyd` (trong `src/uagent/tools_rust/`) — UUID thế hệ
+- `rust_slugify_tool.py` + `uag_tools_rust.pyd` (trong `src/uagent/tools_rust/`) — Chuyển đổi sên
 
-Copy the `_tool.py` and `.pyd` files into `UAGENT_EXTERNAL_TOOLS_DIRS` to use them as external tools.
+Sao chép tệp `_tool.py` và `.pyd` vào `UAGENT_EXTERNAL_TOOLS_DIRS` để sử dụng chúng làm bên ngoài tools.
 
-### Setting Up External Tool Directories
+### Thiết lập thư mục công cụ bên ngoài
 
 ```bash
 # Linux/macOS
@@ -445,5 +445,5 @@ set UAGENT_EXTERNAL_TOOLS_DIRS=C:\path\to\my\tools;C:\path\to\other\tools
 $env:UAGENT_EXTERNAL_TOOLS_DIRS = "C:\path\to\my\tools;C:\path\to\other\tools"
 ```
 
-Multiple directories can be separated by `:` (Linux/macOS) or `;` (Windows).
-`UAGENT_EXTERNAL_TOOLS_DIR` (singular) is also supported for backward compatibility.
+Nhiều thư mục có thể được phân tách bằng `:` (Linux/macOS) hoặc `;` (Windows).
+`UAGENT_EXTERNAL_TOOLS_DIR` (số ít) cũng được hỗ trợ để tương thích ngược.

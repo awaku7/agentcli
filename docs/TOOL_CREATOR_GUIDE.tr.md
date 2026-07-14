@@ -1,34 +1,34 @@
-# Tool Creator Guide
+# Araç Oluşturma Kılavuzu
 
-This guide explains how to add your own tools to uag **without modifying uag itself**.
-If you want to add a tool directly to the uag source tree, see
+Bu kılavuz, **uag'ın kendisini değiştirmeden** kendi araçlarınızı uag'a nasıl ekleyeceğinizi açıklar.
+Uag kaynak ağacına doğrudan bir araç eklemek istiyorsanız, bkz.
 [DEVELOP_TOOL.md](https://github.com/awaku7/agentcli/blob/main/src/uagent/docs/DEVELOP_TOOL.md).
 
 ---
 
-## Table of Contents
+## İçindekiler
 
-1. [Basic Tool Structure](#1-basic-tool-structure)
-2. [Creating a Python Tool](#2-creating-a-python-tool)
-3. [Creating a Rust + Python Tool](#3-creating-a-rust--python-tool)
-4. [TOOL_SPEC Reference](#4-tool_spec-reference)
-5. [Internationalization (i18n)](#5-internationalization-i18n)
-6. [Testing and Debugging](#6-testing-and-debugging)
-7. [Reference Examples](#7-reference-examples)
+1. [Temel Araç Yapısı](#1-temel-araç-yapısı)
+2. [Python Aracı Oluşturma](#2-bir-python-aracı-oluşturma)
+3. [Bir Rust + Python Aracı Oluşturma](#3-pas-yaratma--python-aracı)
+4. [TOOL_SPEC Referansı](#4-tool_spec-reference)
+5. [Uluslararasılaştırma (i18n)](#5-uluslararasılaştırma-i18n)
+6. [Test Etme ve Hata Ayıklama](#6-test-etme-ve-hata-ayıklama)
+7. [Referans Örnekleri](#7-reference-examples)
 
 ---
 
-## 1. Basic Tool Structure
+## 1. Temel Araç Yapısı
 
-A tool consists of the following elements:
+Bir araç aşağıdaki öğelerden oluşur:
 
-| Element | Required | Description |
-|---------|----------|-------------|
-| `TOOL_SPEC` | Yes | Dictionary defining the tool's name, description, and parameters |
-| `run_tool(args)` | Yes | Function executed when the tool is called. Args is a dict, return is a string. |
-| i18n JSON | Recommended | Translation JSON file (same basename, `<name>_tool.json`) |
+| Eleman | Gerekli | Açıklama |
+|-----------|----------|------------|
+| 'TOOL_SPEC' | Evet | Aracın adını, açıklamasını ve parametrelerini tanımlayan sözlük |
+| `run_tool(args)` | Evet | Araç çağrıldığında yürütülen işlev. Args bir diktedir, dönüş ise bir dizedir. |
+| i18n JSON | Önerilen | Çeviri JSON dosyası (aynı temel ad, `<name>_tool.json`) |
 
-### Minimal Python Tool
+### Minimal Python Aracı
 
 ```python
 # my_tool.py
@@ -58,36 +58,36 @@ TOOL_SPEC: dict[str, Any] = {
 
 ---
 
-## 2. Creating a Python Tool
+## 2. Python Aracı Oluşturma
 
-### Steps
+### Adımlar
 
-1. **Set the `UAGENT_EXTERNAL_TOOLS_DIRS` environment variable** (if not already set)
+1. **`UAGENT_EXTERNAL_TOOLS_DIRS` ortam değişkenini ayarlayın** (zaten ayarlanmamışsa)
 
-   Example:
-   ```bash
+ Örnek:
+ ```bash
    # Linux/macOS
    export UAGENT_EXTERNAL_TOOLS_DIRS=~/.uag/my_tools
    # Windows (cmd)
    set UAGENT_EXTERNAL_TOOLS_DIRS=%USERPROFILE%\.uag\my_tools
    ```
 
-   Multiple directories can be separated by `:` (Linux/macOS) or `;` (Windows).
-   `UAGENT_EXTERNAL_TOOLS_DIR` (singular) is also supported for backward compatibility.
+ Birden fazla dizin `:` (Linux/macOS) veya `;` (Windows) ile ayrılabilir.
+ `UAGENT_EXTERNAL_TOOLS_DIR` (tekil) aynı zamanda geriye dönük uyumluluk açısından da desteklenir.
 
-2. **Create a Python file**
+2. **Python dosyası oluşturun**
 
-   File name is free, but `<name>_tool.py` naming is recommended (e.g. `my_tool.py`).
+ Dosya adı ücretsizdir, ancak `<name>_tool.py` adlandırması önerilir (ör. `my_tool.py`).
 
-3. **Implement the required elements**
+3. **Gerekli öğeleri uygulayın**
 
-   - `TOOL_SPEC` dictionary
-   - `run_tool(args)` function
-   - Optionally, an i18n JSON file
+ - `TOOL_SPEC` sözlüğü
+ - `run_tool(args)` işlevi
+ - İsteğe bağlı olarak bir i18n JSON dosyası
 
-4. **Restart the agent** (or run the `system_reload` tool)
+4. **Aracıyı yeniden başlatın** (veya `system_reload` aracını çalıştırın)
 
-### Full Template
+### Tam Şablon
 
 ```python
 from __future__ import annotations
@@ -132,18 +132,18 @@ TOOL_SPEC: dict[str, Any] = {
 }
 ```
 
-See [Section 5](#5-internationalization-i18n) for i18n details.
+i18n ayrıntıları için [Bölüm 5](#5-internationalization-i18n)'ye bakın.
 
 ---
 
-## 3. Creating a Rust + Python Tool
+## 3. Rust + Python Aracı Oluşturma
 
-Rust implementation is ideal for performance-critical tasks (heavy data processing, cryptography, file processing, etc.).
-uag can load pre-built `.pyd` files directly, so **end-users don't need `pip install`**.
+Rust uygulaması, performans açısından kritik görevler (yoğun veri işleme, kriptografi, dosya işleme vb.) için idealdir.
+uag, önceden oluşturulmuş `.pyd` dosyalarını doğrudan yükleyebilir, bu nedenle **son kullanıcılar `pip kurulumuna` gerek duymaz**.
 
-### Tool Structure
+### Araç Yapısı
 
-A Rust tool consists of the following files:
+Bir Rust aracı aşağıdakilerden oluşur: dosyalar:
 
 ```
 my_rust_tool/
@@ -154,12 +154,12 @@ my_rust_tool/
 └── my_rust_tool.pyd    # Build artifact (ship with distribution)
 ```
 
-For distribution, place the `_tool.py` + `_tool.json` + `.pyd` files in
-`UAGENT_EXTERNAL_TOOLS_DIRS`.
+Dağıtım için, `_tool.py` + `_tool.json` + `.pyd` dosyalarını 
+`UAGENT_EXTERNAL_TOOLS_DIRS` içine yerleştirin.
 
-### Steps
+### Adımlar
 
-#### Step 1: Create the Rust project
+#### Adım 1: Rust projesini oluşturun
 
 **Cargo.toml**
 ```toml
@@ -188,7 +188,7 @@ version = "0.1.0"
 requires-python = ">=3.11"
 ```
 
-#### Step 2: Rust implementation (src/lib.rs)
+#### 2. Adım: Rust uygulaması (src/lib.rs)
 
 ```rust
 use pyo3::prelude::*;
@@ -214,32 +214,32 @@ fn my_rust_tools(m: &Bound<'_, PyModule>) -> PyResult<()> {
 }
 ```
 
-**Key points:**
-- Expose functions with `#[pyfunction(name = "run_<name>")]`
-- Return type is `PyResult<String>`
-- The `#[pymodule]` function name must match the crate name (`my_rust_tools`)
+**Anahtar noktalar:**
+- İşlevleri `#[pyfunction(name = "run_<name>")] ile gösterme
+- Dönüş türü `PyResult<String>`
+- `#[pymodule]` işlev adı eşleşmelidir sandık adı (`my_rust_tools`)
 
-#### Step 3: Build
+#### 3. Adım: Oluşturun
 
 ```bash
 cd my_rust_tool
 cargo build --release
 ```
 
-Windows: rename `target/release/my_rust_tools.dll` to `my_rust_tools.pyd`
-Linux: rename `target/release/libmy_rust_tools.so` to `my_rust_tools.so`
-macOS: rename `target/release/libmy_rust_tools.dylib` to `my_rust_tools.so`
+Windows: `target/release/my_rust_tools.dll` dosyasını `my_rust_tools.pyd` olarak yeniden adlandırın
+Linux: yeniden adlandır `target/release/libmy_rust_tools.so`'yu `my_rust_tools.so`
+macOS: `target/release/libmy_rust_tools.dylib`i `my_rust_tools.so` olarak yeniden adlandırın
 
-Or using maturin:
+Veya kullanarak maturin:
 ```bash
 pip install maturin     # build-time only
 maturin build --release
 # Extract .pyd/.so from target/wheels/*.whl
 ```
 
-#### Step 4: Create the Python wrapper
+#### 4. Adım: Python sarmalayıcısını oluşturun
 
-Create `my_rust_tool.py` in your `UAGENT_EXTERNAL_TOOLS_DIRS` directory:
+`UAGENT_EXTERNAL_TOOLS_DIRS` dosyanızda `my_rust_tool.py`yi oluşturun dizin:
 
 ```python
 from __future__ import annotations
@@ -276,14 +276,14 @@ TOOL_SPEC: dict[str, Any] = {
 }
 ```
 
-**``load_rust_pyd()`` resolution order:**
+**``load_rust_pyd()`` çözünürlük sırası:**
 
-1. Look for `<module_name>.pyd` (or `.so`) in the same directory as the wrapper `.py`
-2. Fall back to a pip-installed module
+1. `.py`
+2 sarmalayıcısıyla aynı dizinde `<module_name>.pyd` (veya `.so`) ifadesini arayın. Pip yüklü bir modüle geri dönün
 
-#### Step 5: Distribution
+#### 5. Adım: Dağıtım
 
-Only these 3 files are needed. End-users do **not** need any `pip install`.
+Yalnızca bu 3 dosyaya ihtiyaç vardır. Son kullanıcıların **pip kurulumuna" ihtiyacı yoktur.
 
 ```
 my_rust_tool.py         # Python wrapper (TOOL_SPEC + run_tool)
@@ -291,20 +291,20 @@ my_rust_tool.json       # i18n translations (optional)
 my_rust_tools.pyd       # Pre-built native binary
 ```
 
-### Notes
+### Notlar
 
-- **Build-time only:** Rust toolchain and `maturin` are required
-  ```bash
+- **Yalnızca derleme zamanı:** Pas takım zinciri ve "maturin" gereklidir
+ ```bash
   pip install maturin
   ```
-- The Rust crate name (`[lib] name` in `Cargo.toml`) must match the first argument of `load_rust_pyd()`
-- The wrapper file name and `.pyd` location are independent as long as they are in the same directory
+- Rust sandık adı ("Cargo.toml" içindeki "[lib] name`), `load_rust_pyd()`'in ilk argümanıyla eşleşmelidir
+- Sarmalayıcı dosya adı ve `.pyd` konumu, aynı dizinde oldukları sürece bağımsızdır
 
 ---
 
-## 4. TOOL_SPEC Reference
+## 4. TOOL_SPEC Referansı
 
-### Basic Structure
+### Temel Yapı
 
 ```python
 TOOL_SPEC: dict[str, Any] = {
@@ -336,35 +336,35 @@ TOOL_SPEC: dict[str, Any] = {
 }
 ```
 
-### Properties
+### Özellikler
 
-| Field | Type | Description |
-|-------|------|-------------|
-| `type` | str | Always `"function"` |
-| `x_build` | str | `"rust"` for Rust implementation (omit for Python) |
-| `tool_genre` | str | Genre name (optional). Enables genre-based control |
-| `tool_level` | int | 0=enabled, 1=conditional (default), -1=disabled |
-| `function.name` | str | **Required**. Tool name (lowercase + digits + underscore) |
-| `function.description` | str | **Required**. Description |
-| `function.x_search_terms` | list[str] | i18n-aware search keywords (wrap with `_(...)`) |
-| `function.x_search_terms_en` | list[str] | Fixed English search keywords |
-| `function.parameters` | dict | Parameter definition (OpenAI function calling format) |
+| Alan | Tür | Açıklama |
+|----------|------|-------------|
+| 'tür' | dizi | Her zaman `"işlev"` |
+| 'x_build' | dizi | Rust uygulaması için `"rust"` (Python için atlayın) |
+| `araç_türü' | dizi | Tür adı (isteğe bağlı). Türe dayalı kontrolü etkinleştirir |
+| 'araç_seviyesi' | int | 0=etkin, 1=koşullu (varsayılan), -1=devre dışı |
+| 'işlev.adı' | dizi | **Gerekli**. Araç adı (küçük harf + rakamlar + alt çizgi) |
+| 'işlev.açıklama' | dizi | **Gerekli**. Açıklama |
+| `function.x_search_terms` | liste[str] | i18n uyumlu arama anahtar kelimeleri (`_(...)` ile sarın) |
+| `function.x_search_terms_en` | liste[str] | Sabit İngilizce arama anahtar kelimeleri |
+| 'işlev.parametreler' | dikte | Parametre tanımı (OpenAI işlev çağırma formatı) |
 
 ---
 
-## 5. Internationalization (i18n)
+## 5. Uluslararasılaştırma (i18n)
 
-### Translation Mechanism
+### Çeviri Mekanizması
 
-Calling `make_tool_translator(__file__)` loads translations from a `.json` file
-with the same basename in the same directory.
+`make_tool_translator(__file__)` çağrıldığında, çeviriler aynı taban adı ile bir `.json` dosyasından
+dizin.
 
 ```python
 from uagent.tools.i18n_helper import make_tool_translator
 _ = make_tool_translator(__file__)
 ```
 
-### Using Translation Keys
+### Çeviri Anahtarlarını Kullanma
 
 ```python
 description = _(
@@ -373,7 +373,7 @@ description = _(
 )
 ```
 
-### JSON File Format
+### JSON Dosya Formatı
 
 ```json
 {
@@ -388,19 +388,19 @@ description = _(
 }
 ```
 
-See existing `_tool.json` files for supported language codes.
+Mevcut olanı görüntüle Desteklenen dil kodları için `_tool.json` dosyaları.
 
 ---
 
-## 6. Testing and Debugging
+## 6. Test Etme ve Hata Ayıklama
 
-### Syntax Check
+### Sözdizimi Kontrolü
 
 ```bash
 python -m py_compile my_tool.py
 ```
 
-### Verify Tool Loading
+### Doğrulama Aracı Yükleniyor
 
 ```python
 from uagent.tools import _RUNNERS, reload_plugins
@@ -411,28 +411,28 @@ if "my_tool" in _RUNNERS:
     print(result)
 ```
 
-### Error Logs
+### Hata Günlükleri
 
-Errors during tool loading are printed to stderr. If your tool isn't loaded,
-check the uag startup logs.
+Takım yükleme sırasındaki hatalar stderr'e yazdırılır. Aracınız yüklü değilse,
+uag başlangıç ​​günlüklerini kontrol edin.
 
 ---
 
-## 7. Reference Examples
+## 7. Referans Örnekleri
 
-### Python Tool Examples
+### Python Aracı Örnekleri
 
-- `date_calc_tool.py` (in `src/uagent/tools/`) — Date calculation. Copy externally and customize.
-- `calculator_tool.py` (in `src/uagent/tools/`) — Calculator.
+- `date_calc_tool.py` (`src/uagent/tools/` içinde) — Tarih hesaplama. Harici olarak kopyalayın ve özelleştirin.
+- `calculator_tool.py` (`src/uagent/tools/` içinde) — Hesap Makinesi.
 
-### Rust Tool Examples
+### Rust Aracı Örnekleri
 
-- `rust_uuid_gen_tool.py` + `uag_tools_rust.pyd` (in `src/uagent/tools_rust/`) — UUID generation
-- `rust_slugify_tool.py` + `uag_tools_rust.pyd` (in `src/uagent/tools_rust/`) — Slug conversion
+- `rust_uuid_gen_tool.py` + `uag_tools_rust.pyd` (`src/uagent/tools_rust/` içinde) — UUID oluşturma
+- `rust_slugify_tool.py` + `uag_tools_rust.pyd` (`src/uagent/tools_rust/` içinde) — Slug dönüşümü
 
-Copy the `_tool.py` and `.pyd` files into `UAGENT_EXTERNAL_TOOLS_DIRS` to use them as external tools.
+Harici olarak kullanmak için `_tool.py` ve `.pyd` dosyalarını `UAGENT_EXTERNAL_TOOLS_DIRS` içine kopyalayın araçlar.
 
-### Setting Up External Tool Directories
+### Harici Araç Dizinlerini Ayarlama
 
 ```bash
 # Linux/macOS
@@ -445,5 +445,5 @@ set UAGENT_EXTERNAL_TOOLS_DIRS=C:\path\to\my\tools;C:\path\to\other\tools
 $env:UAGENT_EXTERNAL_TOOLS_DIRS = "C:\path\to\my\tools;C:\path\to\other\tools"
 ```
 
-Multiple directories can be separated by `:` (Linux/macOS) or `;` (Windows).
-`UAGENT_EXTERNAL_TOOLS_DIR` (singular) is also supported for backward compatibility.
+Birden çok dizin `:` (Linux/macOS) veya `;` (Windows) ile ayrılabilir.
+`UAGENT_EXTERNAL_TOOLS_DIR` (tekil) de geriye dönük uyumluluk için desteklenir.
