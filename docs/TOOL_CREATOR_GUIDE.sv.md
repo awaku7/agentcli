@@ -1,32 +1,32 @@
 # Tool Creator Guide
 
-This guide explains how to add your own tools to uag **without modifying uag itself**.
-If you want to add a tool directly to the uag source tree, see
+Den här guiden förklarar hur du lägger till dina egna verktyg i uag **utan att ändra uag själv**.
+Om du vill lägga till ett verktyg direkt i uag-källträdet, se
 [DEVELOP_TOOL.md](https://github.com/awaku7/agentcli/blob/main/src/uagent/docs/DEVELOP_TOOL.md).
 
 ---
 
-## Table of Contents
+## Innehållsförteckning
 
-1. [Basic Tool Structure](#1-basic-tool-structure)
+1. [Grundläggande verktygsstruktur](#1-grundläggande verktygsstruktur)
 2. [Creating a Python Tool](#2-creating-a-python-tool)
 3. [Creating a Rust + Python Tool](#3-creating-a-rust--python-tool)
 4. [TOOL_SPEC Reference](#4-tool_spec-reference)
-5. [Internationalization (i18n)](#5-internationalization-i18n)
+5. [Internationalisering (i18n)](#5-internationalisering-i18n)
 6. [Testing and Debugging](#6-testing-and-debugging)
-7. [Reference Examples](#7-reference-examples)
+7. [Referensexempel](#7-referensexempel)
 
 ---
 
-## 1. Basic Tool Structure
+## 1. Grundläggande verktygsstruktur
 
-A tool consists of the following elements:
+Ett verktyg består av följande element:
 
-| Element | Required | Description |
-|---------|----------|-------------|
-| `TOOL_SPEC` | Yes | Dictionary defining the tool's name, description, and parameters |
-| `run_tool(args)` | Yes | Function executed when the tool is called. Args is a dict, return is a string. |
-| i18n JSON | Recommended | Translation JSON file (same basename, `<name>_tool.json`) |
+| Element | Krävs | Beskrivning |
+|--------|--------|-------------------|
+| `TOOL_SPEC` | Ja | Ordbok som definierar verktygets namn, beskrivning och parametrar |
+| `run_tool(args)` | Ja | Funktion exekveras när verktyget anropas. Args är ett dikt, retur är en sträng. |
+| i18n JSON | Rekommenderas | Översättning av JSON-fil (samma basnamn, `<name>_tool.json`) |
 
 ### Minimal Python Tool
 
@@ -58,36 +58,35 @@ TOOL_SPEC: dict[str, Any] = {
 
 ---
 
-## 2. Creating a Python Tool
+## 2. Skapa ett Python Tool
 
-### Steps
+### Steg
 
-1. **Set the `UAGENT_EXTERNAL_TOOLS_DIRS` environment variable** (if not already set)
+1. **Ställ in miljövariabeln `UAGENT_EXTERNAL_TOOLS_DIRS`** (om den inte redan är inställd)
 
-   Example:
-   ```bash
+ Exempel:
+ ```bash
    # Linux/macOS
    export UAGENT_EXTERNAL_TOOLS_DIRS=~/.uag/my_tools
    # Windows (cmd)
    set UAGENT_EXTERNAL_TOOLS_DIRS=%USERPROFILE%\.uag\my_tools
    ```
 
-   Multiple directories can be separated by `:` (Linux/macOS) or `;` (Windows).
-   `UAGENT_EXTERNAL_TOOLS_DIR` (singular) is also supported for backward compatibility.
+ Flera kataloger kan separeras med `:` (Linux/macOS) eller `;` (Windows). kompatibilitet.
 
-2. **Create a Python file**
+2. **Skapa en Python-fil**
 
-   File name is free, but `<name>_tool.py` naming is recommended (e.g. `my_tool.py`).
+ Filnamnet är gratis, men namngivning av `<name>_tool.py` rekommenderas (t.ex. `my_tool.py`).
 
-3. **Implement the required elements**
+3. **Implementera de nödvändiga elementen**
 
-   - `TOOL_SPEC` dictionary
-   - `run_tool(args)` function
-   - Optionally, an i18n JSON file
+ - `TOOL_SPEC` ordbok
+ - `run_tool(args)`-funktionen
+ - Valfritt, en i18n JSON-fil
 
-4. **Restart the agent** (or run the `system_reload` tool)
+4. **Starta om agenten** (eller kör verktyget `system_reload`)
 
-### Full Template
+### Fullständig mall
 
 ```python
 from __future__ import annotations
@@ -132,18 +131,12 @@ TOOL_SPEC: dict[str, Any] = {
 }
 ```
 
-See [Section 5](#5-internationalization-i18n) for i18n details.
+Se [Avsnitt 5](#5-internationalization-i18n) för detaljer om i18n. idealisk för prestandakritiska uppgifter (tung databearbetning, kryptografi, filbehandling, etc.).
+uag kan ladda förbyggda `.pyd`-filer direkt, så **slutanvändare behöver inte `pipinstallation`**.
 
----
+### Verktygsstruktur
 
-## 3. Creating a Rust + Python Tool
-
-Rust implementation is ideal for performance-critical tasks (heavy data processing, cryptography, file processing, etc.).
-uag can load pre-built `.pyd` files directly, so **end-users don't need `pip install`**.
-
-### Tool Structure
-
-A Rust tool consists of the following files:
+Ett Rustverktyg består av följande filer:
 
 ```
 my_rust_tool/
@@ -154,12 +147,12 @@ my_rust_tool/
 └── my_rust_tool.pyd    # Build artifact (ship with distribution)
 ```
 
-For distribution, place the `_tool.py` + `_tool.json` + `.pyd` files in
+För distribution, placera filerna `_tool.py` + `_tool.json` + `.pyd` i
 `UAGENT_EXTERNAL_TOOLS_DIRS`.
 
-### Steps
+### Steg
 
-#### Step 1: Create the Rust project
+#### Steg 1: Skapa Rust project
 
 **Cargo.toml**
 ```toml
@@ -188,7 +181,7 @@ version = "0.1.0"
 requires-python = ">=3.11"
 ```
 
-#### Step 2: Rust implementation (src/lib.rs)
+#### Steg 2: Rustimplementering (src/lib.rs)
 
 ```rust
 use pyo3::prelude::*;
@@ -213,33 +206,30 @@ fn my_rust_tools(m: &Bound<'_, PyModule>) -> PyResult<()> {
     Ok(())
 }
 ```
+Expose function:-# "run_<name>")]`
+- Returtypen är `PyResult<String>`
+- Funktionsnamnet `#[pymodule]` måste matcha lådans namn (`my_rust_tools`)
 
-**Key points:**
-- Expose functions with `#[pyfunction(name = "run_<name>")]`
-- Return type is `PyResult<String>`
-- The `#[pymodule]` function name must match the crate name (`my_rust_tools`)
-
-#### Step 3: Build
+#### Steg 3: Build
 
 ```bash
 cd my_rust_tool
 cargo build --release
 ```
 
-Windows: rename `target/release/my_rust_tools.dll` to `my_rust_tools.pyd`
-Linux: rename `target/release/libmy_rust_tools.so` to `my_rust_tools.so`
-macOS: rename `target/release/libmy_rust_tools.dylib` to `my_rust_tools.so`
-
-Or using maturin:
+get_dll: re `my_rust_tools.pyd`
+Linux: byt namn på `target/release/libmy_rust_tools.so` till `my_rust_tools.so`
+macOS: byt namn på `target/release/libmy_rust_tools.dylib` till `my_rust_tools.so`
+ maturin:
 ```bash
 pip install maturin     # build-time only
 maturin build --release
 # Extract .pyd/.so from target/wheels/*.whl
 ```
 
-#### Step 4: Create the Python wrapper
+#### Steg 4: Skapa Python-omslaget
 
-Create `my_rust_tool.py` in your `UAGENT_EXTERNAL_TOOLS_DIRS` directory:
+Skapa `my_rust_tool.py` i din `UAGENT_EXTERNAL_TOOLS_DIRS`-katalog:
 
 ```python
 from __future__ import annotations
@@ -275,15 +265,14 @@ TOOL_SPEC: dict[str, Any] = {
     },
 }
 ```
+`load_rust_`py` beställning:**
 
-**``load_rust_pyd()`` resolution order:**
+1. Leta efter `<modulnamn>.pyd` (eller `.so`) i samma katalog som omslaget `.py`
+2. Gå tillbaka till en pip-installerad modul
 
-1. Look for `<module_name>.pyd` (or `.so`) in the same directory as the wrapper `.py`
-2. Fall back to a pip-installed module
+#### Steg 5: Distribution
 
-#### Step 5: Distribution
-
-Only these 3 files are needed. End-users do **not** need any `pip install`.
+Endast dessa 3 filer behövs. Slutanvändare behöver **inte** någon `pip-installation`.
 
 ```
 my_rust_tool.py         # Python wrapper (TOOL_SPEC + run_tool)
@@ -293,18 +282,18 @@ my_rust_tools.pyd       # Pre-built native binary
 
 ### Notes
 
-- **Build-time only:** Rust toolchain and `maturin` are required
-  ```bash
+- **Endast byggtid:** Rust verktygskedja och `maturin` krävs
+ ```bash
   pip install maturin
   ```
-- The Rust crate name (`[lib] name` in `Cargo.toml`) must match the first argument of `load_rust_pyd()`
-- The wrapper file name and `.pyd` location are independent as long as they are in the same directory
+- Rust-lådans namn (`[lib] namnet" i första argumentet i `Cargo) `load_rust_pyd()`
+- Omslagsfilens namn och `.pyd`-platsen är oberoende så länge de finns i samma katalog
 
 ---
 
 ## 4. TOOL_SPEC Reference
 
-### Basic Structure
+### Grundläggande struktur
 
 ```python
 TOOL_SPEC: dict[str, Any] = {
@@ -335,36 +324,33 @@ TOOL_SPEC: dict[str, Any] = {
     },
 }
 ```
-
-### Properties
-
-| Field | Type | Description |
-|-------|------|-------------|
-| `type` | str | Always `"function"` |
-| `x_build` | str | `"rust"` for Rust implementation (omit for Python) |
-| `tool_genre` | str | Genre name (optional). Enables genre-based control |
-| `tool_level` | int | 0=enabled, 1=conditional (default), -1=disabled |
-| `function.name` | str | **Required**. Tool name (lowercase + digits + underscore) |
-| `function.description` | str | **Required**. Description |
-| `function.x_search_terms` | list[str] | i18n-aware search keywords (wrap with `_(...)`) |
-| `function.x_search_terms_en` | list[str] | Fixed English search keywords |
-| `function.parameters` | dict | Parameter definition (OpenAI function calling format) |
+| Fält | Skriv | Beskrivning |
+|-------|------|--------------------|
+| `typ` | str | Alltid `"funktion"` |
+| `x_build` | str | `"rust"` för Rust-implementering (utelämna för Python) |
+| `verktygsgenre` | str | Genrenamn (valfritt). Aktiverar genrebaserad kontroll |
+| `verktygsnivå` | int | 0=aktiverad, 1=villkorlig (standard), -1=avaktiverad |
+| `funktion.namn` | str | **Nödvändig**. Verktygets namn (gemener + siffror + understreck) |
+| `function.description` | str | **Nödvändig**. Kuvaus |
+| `function.x_search_terms` | lista[str] | i18n-aware sökord (omslut med `_(...)`) |
+| `function.x_search_terms_en` | lista[str] | Fixade engelska sökord |
+| `function.parameters` | dikt | Parameterdefinition (OpenAI-funktionsanropsformat) |
 
 ---
 
-## 5. Internationalization (i18n)
+## 5. Internationalisering (i18n)
 
 ### Translation Mechanism
 
-Calling `make_tool_translator(__file__)` loads translations from a `.json` file
-with the same basename in the same directory.
+Anropar `make_tool_translator(__file__)` laddar översättningar från en `.json samma` fil
+med samma basnamn katalog.
 
 ```python
 from uagent.tools.i18n_helper import make_tool_translator
 _ = make_tool_translator(__file__)
 ```
 
-### Using Translation Keys
+### Använda översättningsnycklar
 
 ```python
 description = _(
@@ -373,7 +359,7 @@ description = _(
 )
 ```
 
-### JSON File Format
+### JSON-filformat
 
 ```json
 {
@@ -388,19 +374,15 @@ description = _(
 }
 ```
 
-See existing `_tool.json` files for supported language codes.
+Se befintliga `_tool.json`-filer för språkkoder som stöds.⎏-#.⎏-# Felsökning
 
----
-
-## 6. Testing and Debugging
-
-### Syntax Check
+### Syntaxkontroll
 
 ```bash
 python -m py_compile my_tool.py
 ```
 
-### Verify Tool Loading
+### Verifiera verktygsladdning
 
 ```python
 from uagent.tools import _RUNNERS, reload_plugins
@@ -411,28 +393,25 @@ if "my_tool" in _RUNNERS:
     print(result)
 ```
 
-### Error Logs
+### Felloggar
 
-Errors during tool loading are printed to stderr. If your tool isn't loaded,
-check the uag startup logs.
+Fel under verktygsladdning skrivs ut till stderr. Om ditt verktyg inte är laddat,
+kontrollera uags startloggar.
 
 ---
 
-## 7. Reference Examples
+## 7. Referensexempel
 
-### Python Tool Examples
+### Python Tool Exempel
 
-- `date_calc_tool.py` (in `src/uagent/tools/`) — Date calculation. Copy externally and customize.
-- `calculator_tool.py` (in `src/uagent/tools/`) — Calculator.
+- `date_calc_tool.py` (i `src/uagent/Datecalculation.) — Kopiera externt och anpassa.
+- `calculator_tool.py` (i `src/uagent/tools/`) — Calculator.
 
-### Rust Tool Examples
+### Exempel på Rustverktyg
 
-- `rust_uuid_gen_tool.py` + `uag_tools_rust.pyd` (in `src/uagent/tools_rust/`) — UUID generation
-- `rust_slugify_tool.py` + `uag_tools_rust.pyd` (in `src/uagent/tools_rust/`) — Slug conversion
+- `rust_uuid_gen_tool.py` + `uag_tools_rust.pyd` (i `rust-/src/)-ID (i `rust/src/) `rust_slugify_tool.py` + `uag_tools_rust.pyd` (i `src/uagent/tools_rust/`) — Slug conversion
 
-Copy the `_tool.py` and `.pyd` files into `UAGENT_EXTERNAL_TOOLS_DIRS` to use them as external tools.
-
-### Setting Up External Tool Directories
+Kopiera `_tool.py` och `.pyd`-filerna till `UAGENT_EXTERNAL_TOOLS_DIRS` för att använda dem som externa verktyg.#l# Kataloger
 
 ```bash
 # Linux/macOS
@@ -445,5 +424,5 @@ set UAGENT_EXTERNAL_TOOLS_DIRS=C:\path\to\my\tools;C:\path\to\other\tools
 $env:UAGENT_EXTERNAL_TOOLS_DIRS = "C:\path\to\my\tools;C:\path\to\other\tools"
 ```
 
-Multiple directories can be separated by `:` (Linux/macOS) or `;` (Windows).
-`UAGENT_EXTERNAL_TOOLS_DIR` (singular) is also supported for backward compatibility.
+Flera kataloger kan separeras med `:` (Linux/macOS) eller `;` (Windows).
+`UAGENT_EXTERNAL_TOOLS_DIR` (singular) stöds också för bakåtkompatibilitet.
