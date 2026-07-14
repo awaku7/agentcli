@@ -74,7 +74,7 @@ _LAST_REQUEST_TIME: float = 0
 # ---------------------------------------------------------------------------
 
 _PH_PREFIX = "__PH_"
-_BR_TAG = "[=BR=]"  # newline placeholder inside an element
+_BR_TAG = "⏎"  # newline placeholder inside an element (U+23CE, unlikely to be modified by translation)
 
 _EXT_PATTERNS: dict[str, list[tuple[str, str]]] = {
     ".py": [

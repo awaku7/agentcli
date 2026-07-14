@@ -1,34 +1,34 @@
 # Tool Creator Guide
 
-This guide explains how to add your own tools to uag **without modifying uag itself**.
-If you want to add a tool directly to the uag source tree, see
+Tato příručka vysvětluje, jak přidat své vlastní nástroje do uag **bez úpravy samotného uag**.
+Pokud chcete přidat nástroj přímo do stromu zdroje uag, viz
 [DEVELOP_TOOL.md](https://github.com/awaku7/agentcli/blob/main/src/uagent/docs/DEVELOP_TOOL.md).
 
 ---
 
-## Table of Contents
+## Obsah
 
-1. [Basic Tool Structure](#1-basic-tool-structure)
-2. [Creating a Python Tool](#2-creating-a-python-tool)
-3. [Creating a Rust + Python Tool](#3-creating-a-rust--python-tool)
+1. [Základní struktura nástroje](#1-základní-struktura-nástroje)
+2. [Vytvoření nástroje Python](#2-creating-a-python-tool)
+3. [Vytvoření nástroje Rust + Python](#3-creating-a-rust--python-tool)
 4. [TOOL_SPEC Reference](#4-tool_spec-reference)
-5. [Internationalization (i18n)](#5-internationalization-i18n)
-6. [Testing and Debugging](#6-testing-and-debugging)
-7. [Reference Examples](#7-reference-examples)
+5. [Internacionalizace (i18n)](#5-internacionalizace-i18n)
+6. [Testování a ladění](#6-testování-a-ladění)
+7. [Referenční příklady](#7-reference-examples)
 
 ---
 
-## 1. Basic Tool Structure
+## 1. Základní struktura nástroje
 
-A tool consists of the following elements:
+Nástroj se skládá z následujících prvků:
 
-| Element | Required | Description |
+| Prvek | Povinné | Popis |
 |---------|----------|-------------|
-| `TOOL_SPEC` | Yes | Dictionary defining the tool's name, description, and parameters |
-| `run_tool(args)` | Yes | Function executed when the tool is called. Args is a dict, return is a string. |
-| i18n JSON | Recommended | Translation JSON file (same basename, `<name>_tool.json`) |
+| `TOOL_SPEC` | Ano | Slovník definující název, popis a parametry nástroje |
+| `run_tool(args)` | Ano | Funkce provedená při vyvolání nástroje. Args je diktát, return je řetězec. |
+| i18n JSON | Doporučeno | Překladový soubor JSON (stejný základní název, `<name>_tool.json`) |
 
-### Minimal Python Tool
+### Minimální nástroj Python
 
 ```python
 # my_tool.py
@@ -58,36 +58,36 @@ TOOL_SPEC: dict[str, Any] = {
 
 ---
 
-## 2. Creating a Python Tool
+## 2. Vytvoření nástroje Python
 
-### Steps
+### Kroky
 
-1. **Set the `UAGENT_EXTERNAL_TOOLS_DIRS` environment variable** (if not already set)
+1. **Nastavte proměnnou prostředí `UAGENT_EXTERNAL_TOOLS_DIRS`** (pokud ještě není nastavena)
 
-   Example:
-   ```bash
+ Příklad:
+ ```bash
    # Linux/macOS
    export UAGENT_EXTERNAL_TOOLS_DIRS=~/.uag/my_tools
    # Windows (cmd)
    set UAGENT_EXTERNAL_TOOLS_DIRS=%USERPROFILE%\.uag\my_tools
    ```
 
-   Multiple directories can be separated by `:` (Linux/macOS) or `;` (Windows).
-   `UAGENT_EXTERNAL_TOOLS_DIR` (singular) is also supported for backward compatibility.
+ Více adresářů lze oddělit znakem `:` (Linux/macOS) nebo `;` (Windows).
+ `UAGENT_EXTERNAL_TOOLS_DIR` (singulární) je také podporován pro zpětnou kompatibilitu.
 
-2. **Create a Python file**
+2. **Vytvořte soubor Python**
 
-   File name is free, but `<name>_tool.py` naming is recommended (e.g. `my_tool.py`).
+ Název souboru je zdarma, ale doporučuje se pojmenování `<name>_tool.py` (např. `my_tool.py`).
 
-3. **Implement the required elements**
+3. **Implementujte požadované prvky**
 
-   - `TOOL_SPEC` dictionary
-   - `run_tool(args)` function
-   - Optionally, an i18n JSON file
+ - Slovník `TOOL_SPEC`
+ - Funkce `run_tool(args)`
+ - Volitelně soubor i18n JSON
 
-4. **Restart the agent** (or run the `system_reload` tool)
+4. **Restartujte agenta** (nebo spusťte nástroj `system_reload`)
 
-### Full Template
+### Úplná šablona
 
 ```python
 from __future__ import annotations
@@ -132,18 +132,18 @@ TOOL_SPEC: dict[str, Any] = {
 }
 ```
 
-See [Section 5](#5-internationalization-i18n) for i18n details.
+Podrobnosti o i18n naleznete v [sekci 5](#5-internacionalizace-i18n).
 
 ---
 
-## 3. Creating a Rust + Python Tool
+## 3. Vytvoření nástroje Rust + Python
 
-Rust implementation is ideal for performance-critical tasks (heavy data processing, cryptography, file processing, etc.).
-uag can load pre-built `.pyd` files directly, so **end-users don't need `pip install`**.
+Implementace Rust je ideální pro úkoly kritické z hlediska výkonu (náročné zpracování dat, kryptografie, zpracování souborů atd.).
+uag může načítat předem vytvořené soubory `.pyd` přímo, takže **koncoví uživatelé nepotřebují `pip instalaci`**.
 
-### Tool Structure
+### Struktura nástroje
 
-A Rust tool consists of the following files:
+Soubory:
 
 ```
 my_rust_tool/
@@ -154,12 +154,12 @@ my_rust_tool/
 └── my_rust_tool.pyd    # Build artifact (ship with distribution)
 ```
 
-For distribution, place the `_tool.py` + `_tool.json` + `.pyd` files in
+Pro distribuci umístěte soubory `_tool.py` + `_tool.json` + `.pyd` do
 `UAGENT_EXTERNAL_TOOLS_DIRS`.
 
-### Steps
+### Kroky
 
-#### Step 1: Create the Rust project
+#### Krok 1: Vytvořte Rust project
 
 **Cargo.toml**
 ```toml
@@ -188,7 +188,7 @@ version = "0.1.0"
 requires-python = ">=3.11"
 ```
 
-#### Step 2: Rust implementation (src/lib.rs)
+#### Krok 2: Implementace Rust (src/lib.rs)
 
 ```rust
 use pyo3::prelude::*;
@@ -214,32 +214,32 @@ fn my_rust_tools(m: &Bound<'_, PyModule>) -> PyResult<()> {
 }
 ```
 
-**Key points:**
-- Expose functions with `#[pyfunction(name = "run_<name>")]`
-- Return type is `PyResult<String>`
-- The `#[pymodule]` function name must match the crate name (`my_rust_tools`)
+**Klíčové body:**
+- Vystavit funkce s `#[pyfunction(name = "run_<name>")]`
+- Typ návratu je `PyResult<String>`
+- Název funkce `#[pymodule]` se musí shodovat s názvem bedny (`my_rust_tools`)
 
-#### Step 3: Build
+#### Krok 3: Build
 
 ```bash
 cd my_rust_tool
 cargo build --release
 ```
 
-Windows: rename `target/release/my_rust_tools.dll` to `my_rust_tools.pyd`
-Linux: rename `target/release/libmy_rust_tools.so` to `my_rust_tools.so`
-macOS: rename `target/release/libmy_rust_tools.dylib` to `my_rust_tools.so`
+Windows: přejmenujte `target/release/my_rust_tools.dll` na `my_rust_tools.pyd`
+Linux: přejmenujte `target/release/libmy_rust_tools.so` na `my_rust_tools.so`
+macOS: přejmenujte `target/release/libmy_rust_tools.dylib` na `my_rust_tools.so`
 
-Or using maturin:
+Nebo pomocí maturin:
 ```bash
 pip install maturin     # build-time only
 maturin build --release
 # Extract .pyd/.so from target/wheels/*.whl
 ```
 
-#### Step 4: Create the Python wrapper
+#### Krok 4: Vytvořte obálku Pythonu
 
-Create `my_rust_tool.py` in your `UAGENT_EXTERNAL_TOOLS_DIRS` directory:
+Vytvořte `my_rust_tool.py` ve svém `UAGENT_EXTERNAL_TOOLS_DIRS` adresář:
 
 ```python
 from __future__ import annotations
@@ -276,14 +276,14 @@ TOOL_SPEC: dict[str, Any] = {
 }
 ```
 
-**``load_rust_pyd()`` resolution order:**
+**``load_rust_pyd()`` pořadí rozlišení:**
 
-1. Look for `<module_name>.pyd` (or `.so`) in the same directory as the wrapper `.py`
-2. Fall back to a pip-installed module
+1. Hledejte `<name>.pyd` (nebo `.so`) ve stejném adresáři jako obal `.py`
+2. Vraťte se k modulu nainstalovanému pomocí pipu
 
-#### Step 5: Distribution
+#### Krok 5: Distribuce
 
-Only these 3 files are needed. End-users do **not** need any `pip install`.
+Jsou potřeba pouze tyto 3 soubory. Koncoví uživatelé **nepotřebují** žádnou `pip instalaci`.
 
 ```
 my_rust_tool.py         # Python wrapper (TOOL_SPEC + run_tool)
@@ -291,20 +291,20 @@ my_rust_tool.json       # i18n translations (optional)
 my_rust_tools.pyd       # Pre-built native binary
 ```
 
-### Notes
+### Poznámky
 
-- **Build-time only:** Rust toolchain and `maturin` are required
-  ```bash
+- **Pouze doba sestavení:** Je vyžadována sada nástrojů Rust a `maturin`
+ ```bash
   pip install maturin
   ```
-- The Rust crate name (`[lib] name` in `Cargo.toml`) must match the first argument of `load_rust_pyd()`
-- The wrapper file name and `.pyd` location are independent as long as they are in the same directory
+- Název Rust crate (`[lib] name` v `Cargo.toml`) musí odpovídat prvnímu argumentu `load_rust_pyd()`
+- Název souboru obalu a umístění `.pyd` jsou nezávislé, pokud jsou ve stejném adresáři
 
 ---
 
 ## 4. TOOL_SPEC Reference
 
-### Basic Structure
+### Základní Struktura
 
 ```python
 TOOL_SPEC: dict[str, Any] = {
@@ -336,35 +336,35 @@ TOOL_SPEC: dict[str, Any] = {
 }
 ```
 
-### Properties
+### Vlastnosti
 
-| Field | Type | Description |
+| Pole | Typ | Popis |
 |-------|------|-------------|
-| `type` | str | Always `"function"` |
-| `x_build` | str | `"rust"` for Rust implementation (omit for Python) |
-| `tool_genre` | str | Genre name (optional). Enables genre-based control |
-| `tool_level` | int | 0=enabled, 1=conditional (default), -1=disabled |
-| `function.name` | str | **Required**. Tool name (lowercase + digits + underscore) |
-| `function.description` | str | **Required**. Description |
-| `function.x_search_terms` | list[str] | i18n-aware search keywords (wrap with `_(...)`) |
-| `function.x_search_terms_en` | list[str] | Fixed English search keywords |
-| `function.parameters` | dict | Parameter definition (OpenAI function calling format) |
+| `type` | str | Vždy `"function"` |
+| `x_build` | str | `"rust"` pro implementaci Rust (vynechejte pro Python) |
+| `tool_genre` | str | Název žánru (volitelné). Umožňuje ovládání podle žánru |
+| `tool_level` | int | 0=povoleno, 1=podmíněné (výchozí), -1=vypnuto |
+| `function.name` | str | **Požadovaný**. Název nástroje (malá písmena + číslice + podtržítko) |
+| `function.description` | str | **Požadovaný**. Popis |
+| `function.x_search_terms` | seznam[str] | Klíčová slova pro vyhledávání s podporou i18n (obtékat `_(...)`) |
+| `function.x_search_terms_en` | seznam[str] | Opravená anglická klíčová slova pro vyhledávání |
+| `function.parameters` | dict | Definice parametru (formát volání funkce OpenAI) |
 
 ---
 
-## 5. Internationalization (i18n)
+## 5. Internacionalizace (i18n)
 
-### Translation Mechanism
+### Překladový mechanismus
 
-Calling `make_tool_translator(__file__)` loads translations from a `.json` file
-with the same basename in the same directory.
+Volání `make_tool_translator(__file__)` načte překlady ze souboru `.json` se stejným základním názvem
+ve stejném adresáři.
 
 ```python
 from uagent.tools.i18n_helper import make_tool_translator
 _ = make_tool_translator(__file__)
 ```
 
-### Using Translation Keys
+### Použití překladových klíčů
 
 ```python
 description = _(
@@ -373,7 +373,7 @@ description = _(
 )
 ```
 
-### JSON File Format
+### Formát souboru JSON
 
 ```json
 {
@@ -388,19 +388,19 @@ description = _(
 }
 ```
 
-See existing `_tool.json` files for supported language codes.
+Podporované soubory `_tool.json` pro podporované jazykové kódy.
 
 ---
 
-## 6. Testing and Debugging
+## 6. Testování a ladění
 
-### Syntax Check
+### Kontrola syntaxe
 
 ```bash
 python -m py_compile my_tool.py
 ```
 
-### Verify Tool Loading
+### Ověřte načítání nástroje
 
 ```python
 from uagent.tools import _RUNNERS, reload_plugins
@@ -411,28 +411,28 @@ if "my_tool" in _RUNNERS:
     print(result)
 ```
 
-### Error Logs
+### Protokoly chyb
 
-Errors during tool loading are printed to stderr. If your tool isn't loaded,
-check the uag startup logs.
+Chyby při načítání nástroje se tisknou na stderr. Pokud váš nástroj není načten,
+zkontrolujte protokoly spuštění uag.
 
 ---
 
-## 7. Reference Examples
+## 7. Referenční příklady
 
-### Python Tool Examples
+### Příklady nástrojů Python
 
-- `date_calc_tool.py` (in `src/uagent/tools/`) — Date calculation. Copy externally and customize.
-- `calculator_tool.py` (in `src/uagent/tools/`) — Calculator.
+- `date_calc_tool.py` (v `src/uagent/tools/`) — Výpočet data. Externě zkopírujte a přizpůsobte.
+- `calculator_tool.py` (v `src/uagent/tools/`) — Kalkulačka.
 
-### Rust Tool Examples
+### Příklady nástrojů pro Rust
 
-- `rust_uuid_gen_tool.py` + `uag_tools_rust.pyd` (in `src/uagent/tools_rust/`) — UUID generation
-- `rust_slugify_tool.py` + `uag_tools_rust.pyd` (in `src/uagent/tools_rust/`) — Slug conversion
+- `rust_uuid_gen_tool.py` + `uag_tools_rust.pyd` (v `src/uagent/tools_rust/`) — Generování UUID
+- `rust_slugify_tool.py` + `uag_tools_rust.pyd` (v `src/uagent/tools_rust/`) — Konverze slug
 
-Copy the `_tool.py` and `.pyd` files into `UAGENT_EXTERNAL_TOOLS_DIRS` to use them as external tools.
+Zkopírujte soubory `_tool.py` a `.pyd` do `UAGENT_EXTERNAL_TOOLS_DIRS` a použijte je jako externí nástroje.
 
-### Setting Up External Tool Directories
+### Nastavení adresářů externích nástrojů
 
 ```bash
 # Linux/macOS
@@ -445,5 +445,5 @@ set UAGENT_EXTERNAL_TOOLS_DIRS=C:\path\to\my\tools;C:\path\to\other\tools
 $env:UAGENT_EXTERNAL_TOOLS_DIRS = "C:\path\to\my\tools;C:\path\to\other\tools"
 ```
 
-Multiple directories can be separated by `:` (Linux/macOS) or `;` (Windows).
-`UAGENT_EXTERNAL_TOOLS_DIR` (singular) is also supported for backward compatibility.
+Více adresářů lze oddělit `:` (Linux/macOS) nebo `;` (Windows).
+`UAGENT_EXTERNAL_TOOLS_DIR` (singulární) je také podporován pro zpětnou kompatibilitu.
