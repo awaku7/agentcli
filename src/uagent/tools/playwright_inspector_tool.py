@@ -108,7 +108,13 @@ import sys
 import time
 from typing import Any, Dict, List
 
-from .._pip_auto import install_playwright_with_chromium as _install_pw_inspector
+import sys as _sys
+import os as _os
+_script_dir = _os.path.dirname(_os.path.abspath(__file__))
+_src_dir = _os.path.join(_script_dir, "src")
+if _os.path.isdir(_src_dir):
+    _sys.path.insert(0, _src_dir)
+from uagent._pip_auto import install_playwright_with_chromium as _install_pw_inspector
 
 if not _install_pw_inspector():
     async_playwright = None
@@ -406,7 +412,7 @@ async def main() -> None:
                 # タイムアウトを60秒に延長し、エラーが発生してもブラウザが落ちないようにする
                 await page.goto(url, timeout=60000)
             except Exception as e:
-                _emit_debug(f"Navigation failed or timed out: {e}")
+                print(f"Navigation failed or timed out: {e}")
 
         print(ui_started)
         
