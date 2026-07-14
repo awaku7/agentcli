@@ -1,8 +1,9 @@
-# DEVELOP_TOOL (How to create a tool)
+# DEVELOP_TOOL (How to add a built-in tool)
 
-This document explains how to add a new **Tool plugin** to uag.
-
-Tools are Python modules under `src/uagent/tools/` (or external tools under `UAGENT_EXTERNAL_TOOLS_DIR`). Note: External tools must be in a flat directory (no subdirectories).
+This document explains how to add a new **built-in Tool plugin** to the uag
+source tree. If you want to create a **custom / external tool** without
+modifying uag itself, see
+[TOOL_CREATOR_GUIDE.md](https://github.com/awaku7/agentcli/blob/main/TOOL_CREATOR_GUIDE.md).
 
 ______________________________________________________________________
 
@@ -25,9 +26,7 @@ ______________________________________________________________________
 
 ## 2. Where to place files
 
-### 2.1 Internal tool
-
-Create a new file:
+Create a new file in the built-in tools directory:
 
 - `src/uagent/tools/<your_tool>_tool.py`
 
@@ -35,13 +34,8 @@ Optional: add i18n resources:
 
 - `src/uagent/tools/<your_tool>_tool.json` (translations; e.g. `{"ja": {...}}`)
 
-### 2.2 External tool
-
-Place a `*.py` file under the directory pointed by:
-
-- `UAGENT_EXTERNAL_TOOLS_DIR`
-
-The file must export `TOOL_SPEC` and `run_tool`.
+External / third-party tools go into ``UAGENT_EXTERNAL_TOOLS_DIRS`` instead.
+See the separate [TOOL_CREATOR_GUIDE.md](https://github.com/awaku7/agentcli/blob/main/TOOL_CREATOR_GUIDE.md).
 
 ______________________________________________________________________
 
@@ -230,15 +224,13 @@ if __name__ == "__main__":
 
 ______________________________________________________________________
 
-## 8. Rust (native) tools
+## 8. Rust (native) tools — internal build
 
-Tools implemented in Rust (via PyO3) are treated as ordinary tool plugins.
-The only difference is how the native `.pyd` is loaded.
+Rust tools live under `src/uagent/tools_rust/`.  Each Rust function has a
+Python wrapper in the same directory that is auto-discovered by the plugin
+loader.
 
-### 8.1 Standard pattern (recommended for external tools)
-
-Place a pre-built `.pyd` file next to the wrapper `.py` file, then use the
-shared helper from ``uagent.tools.rust_helper``:
+### 8.1 Python wrapper
 
 ```python
 from __future__ import annotations
@@ -251,64 +243,51 @@ from uagent.tools.rust_helper import load_rust_pyd
 
 _ = make_tool_translator(__file__)
 
-_rust_mod = load_rust_pyd("my_rust_tools")
-run_tool = _rust_mod.run_my_operation
+_rust_mod = load_rust_pyd(
+    "uag_tools_rust",
+    pyd_path=os.path.join(
+        os.path.dirname(__file__),
+        "target", "release", "uag_tools_rust.pyd",
+    ),
+)
+run_tool = _rust_mod.run_<function_name>
+```
 
-TOOL_SPEC: dict[str, Any] = {
-    "type": "function",
-    "x_build": "rust",
-    "tool_genre": "utility",
-    "tool_level": 0,
-    "function": {
-        "name": "my_operation",
-        "description": _("tool.description", default="..."),
-        "parameters": {
-            "type": "object",
-            "properties": { ... },
-            "additionalProperties": False,
-        },
-    },
+Use the explicit ``pyd_path`` to point at the Cargo build output.
+
+### 8.2 Rust source
+
+Each function lives in its own file under `src/uagent/tools_rust/src/` and is
+registered in `lib.rs` via ``#[pymodule]``.
+
+```rust
+use pyo3::prelude::*;
+use std::collections::HashMap;
+
+#[pyfunction(name = "run_<function_name>")]
+pub fn run(args: HashMap<String, Py<PyAny>>) -> PyResult<String> {
+    let py = unsafe { Python::assume_attached() };
+    // ... implement
 }
 ```
 
-``load_rust_pyd`` resolves the ``.pyd`` in this order:
+### 8.3 Build
 
-1. Look for ``<module_name>.pyd`` next to the wrapper file (auto-detected).
-2. Fall back to a pip-installed module (``import <module_name>``).
-
-### 8.2 Custom .pyd path (internal build output)
-
-For tools built from source (e.g. inside the project's ``tools_rust/``
-directory), pass ``pyd_path`` explicitly:
-
-```python
-_rust_mod = load_rust_pyd(
-    "uag_tools_rust",
-    pyd_path=os.path.join(os.path.dirname(__file__), "target", "release", "uag_tools_rust.pyd"),
-)
+```bash
+cd src/uagent/tools_rust
+cargo build --release
 ```
 
-### 8.3 Rust project structure (PyO3 + maturin)
+The resulting ``uag_tools_rust.pyd`` is loaded automatically by the wrapper.
+No ``pip install`` or ``maturin build`` needed at runtime.
 
-A minimal Rust tool project:
+### 8.4 Adding a new Rust function
 
-```
-my_rust_tool/
-├── Cargo.toml
-├── pyproject.toml         # [build-system] requires = ["maturin>=1.0"]
-├── src/
-│   └── lib.rs             # #[pymodule] with pyfunctions
-└── my_rust_tool.pyd       # pre-built binary (ship this)
-```
-
-- The Rust module name (``#[pymodule]``) must match the ``module_name``
-  passed to ``load_rust_pyd()``.
-- Build locally with ``maturin build --release`` or ``cargo build --release``
-  then copy the resulting ``.dll`` / ``.so`` / ``.dylib`` as ``.pyd``
-  (Windows) next to the wrapper file.
-- **maturin (and Rust toolchain) are build-time dependencies only.**
-  End-users do **not** need to install maturin, Rust, or any extra pip
-  packages. The ``.pyd`` + ``.py`` pair is fully self-contained.
+1. Create ``src/uagent/tools_rust/src/<name>.rs`` with a ``#[pyfunction]``.
+2. Add ``mod <name>;`` and ``m.add_function!(wrap_pyfunction!(<name>::run, ...)?)?;``
+   to ``src/uagent/tools_rust/src/lib.rs``.
+3. Rebuild with ``cargo build --release``.
+4. Create a Python wrapper ``<name>_tool.py`` in ``src/uagent/tools_rust/``.
 
 ______________________________________________________________________
 
