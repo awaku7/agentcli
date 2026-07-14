@@ -595,10 +595,17 @@ def _load_plugins() -> None:
                 file=sys.stderr,
             )
 
-    # 2. Load external tools (UAGENT_EXTERNAL_TOOLS_DIR)
-    ext_dir = env_get("UAGENT_EXTERNAL_TOOLS_DIR")
-    if ext_dir and os.path.isdir(ext_dir):
-        for entry in os.scandir(ext_dir):
+    # 2. Load external tools (UAGENT_EXTERNAL_TOOLS_DIRS / UAGENT_EXTERNAL_TOOLS_DIR)
+    _ext_dirs_raw = (
+        env_get("UAGENT_EXTERNAL_TOOLS_DIRS")
+        or env_get("UAGENT_EXTERNAL_TOOLS_DIR")
+        or ""
+    )
+    for _ext_dir in _ext_dirs_raw.split(os.pathsep):
+        _ext_dir = _ext_dir.strip()
+        if not _ext_dir or not os.path.isdir(_ext_dir):
+            continue
+        for entry in os.scandir(_ext_dir):
             if (
                 entry.is_file()
                 and entry.name.endswith(".py")
