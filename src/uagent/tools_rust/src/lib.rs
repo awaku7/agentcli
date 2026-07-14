@@ -16,7 +16,7 @@ fn _build_spec(
     params: &[(&str, &str, &str)],
     required: &[&str],
     search_terms: &[&str],
-) -> PyResult<PyObject> {
+) -> PyResult<Py<PyAny>> {
     let spec = PyDict::new(py);
     let function = PyDict::new(py);
 
@@ -41,8 +41,7 @@ fn _build_spec(
 
     function.set_item("parameters", parameters)?;
 
-    let terms: Vec<&str> = search_terms.to_vec();
-    function.set_item("x_search_terms", terms)?;
+    function.set_item("x_search_terms", search_terms.to_vec())?;
     function.set_item("x_search_terms_en", search_terms.to_vec())?;
 
     spec.set_item("type", "function")?;
@@ -56,12 +55,12 @@ fn _build_spec(
 // ── Tool 1: uuid_gen ─────────────────────────────────────────────
 
 #[pyfunction]
-fn run_uuid_gen(args: HashMap<String, PyObject>) -> PyResult<String> {
-    let py = unsafe { Python::assume_gil_acquired() };
+fn run_uuid_gen(args: HashMap<String, Py<PyAny>>) -> PyResult<String> {
+    let py = unsafe { Python::assume_attached() };
 
     let count: usize = args
         .get("count")
-        .and_then(|v| v.extract::<usize>(py).ok())
+        .and_then(|v| v.bind(py).extract::<usize>().ok())
         .unwrap_or(1);
 
     if count == 0 || count > 100 {
@@ -76,7 +75,7 @@ fn run_uuid_gen(args: HashMap<String, PyObject>) -> PyResult<String> {
     Ok(result.join("\n"))
 }
 
-fn _uuid_spec(py: Python<'_>) -> PyResult<PyObject> {
+fn _uuid_spec(py: Python<'_>) -> PyResult<Py<PyAny>> {
     _build_spec(
         py,
         "uuid_gen",
@@ -94,17 +93,17 @@ fn _uuid_spec(py: Python<'_>) -> PyResult<PyObject> {
 // ── Tool 2: slugify ──────────────────────────────────────────────
 
 #[pyfunction]
-fn run_slugify(args: HashMap<String, PyObject>) -> PyResult<String> {
-    let py = unsafe { Python::assume_gil_acquired() };
+fn run_slugify(args: HashMap<String, Py<PyAny>>) -> PyResult<String> {
+    let py = unsafe { Python::assume_attached() };
 
     let text: String = args
         .get("text")
-        .and_then(|v| v.extract::<String>(py).ok())
+        .and_then(|v: &Py<PyAny>| v.bind(py).extract::<String>().ok())
         .ok_or_else(|| _py_err("text is required"))?;
 
     let separator: String = args
         .get("separator")
-        .and_then(|v| v.extract::<String>(py).ok())
+        .and_then(|v: &Py<PyAny>| v.bind(py).extract::<String>().ok())
         .unwrap_or_else(|| "-".to_string());
 
     if text.is_empty() {
@@ -114,7 +113,7 @@ fn run_slugify(args: HashMap<String, PyObject>) -> PyResult<String> {
     let slug: String = text
         .to_lowercase()
         .chars()
-        .map(|c| {
+        .map(|c: char| {
             if c.is_ascii_alphanumeric() {
                 c
             } else if c.is_whitespace() || c == '-' || c == '_' {
@@ -131,7 +130,7 @@ fn run_slugify(args: HashMap<String, PyObject>) -> PyResult<String> {
     Ok(slug)
 }
 
-fn _slugify_spec(py: Python<'_>) -> PyResult<PyObject> {
+fn _slugify_spec(py: Python<'_>) -> PyResult<Py<PyAny>> {
     _build_spec(
         py,
         "slugify",

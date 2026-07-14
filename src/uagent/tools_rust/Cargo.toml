@@ -8,5 +8,5 @@ name = "tools_rust"
 crate-type = ["cdylib"]
 
 [dependencies]
-pyo3 = { version = "0.23", features = ["extension-module", "abi3-py311"] }
+pyo3 = { version = "0.29", features = ["extension-module", "abi3-py311"] }
 uuid = { version = "1", features = ["v4"] }
