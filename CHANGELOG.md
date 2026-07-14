@@ -1,5 +1,19 @@
 # Changelog
 
+## [0.5.48] - 2026-07-13
+
+### Added
+- TOOL_CREATOR_GUIDE.md translated into 33 languages via Google Translate.
+- `translate_text` tool: newline placeholder changed to ⏎ (U+23CE) for better translation fidelity.
+- `<<<BLOCKNNNN/>>>` marker format for code block preservation during translation.
+
+### Changed
+- `translate_text`: placeholder `[=BR=]` replaced with `⏎` (U+23CE) to avoid Google Translate corruption.
+- Tool documentation: 33 language versions of TOOL_CREATOR_GUIDE.md available in `docs/`.
+
+### Fixed
+- Code block markers in translated documents now properly survive Google Translate restructuring.
+
 ## [0.5.47] - 2026-07-13
 
 ### Added
