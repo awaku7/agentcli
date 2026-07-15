@@ -1,5 +1,21 @@
 # Changelog
 
+## [0.5.49] - 2026-07-15
+
+### Added
+- Background tools warmup after CLI/GUI/Web startup to reduce first `:` command latency.
+- `switchbot-ble`: multi-device advertisement status decoding per official BLE API.
+- Design notes for browser_playwright session extension and scale tool.
+
+### Fixed
+- `shrink_llm`: stop stacking multiple history-summary system messages; merge prior summaries into one rolling summary.
+- `shrink_llm`: add hysteresis so auto-compression does not re-trigger immediately after a successful shrink.
+- Grok: use simple_xai_chat for history compress/profile LLM paths.
+- Grok: prevent double-printing streamed assistant replies.
+
+### Changed
+- Tools plugin load remains lazy, but is prewarmed in a background thread after startup.
+
 ## [0.5.48] - 2026-07-13
 
 ### Added
