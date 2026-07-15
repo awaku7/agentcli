@@ -773,6 +773,7 @@ def _run_one_round(
         empty_no_tool_rounds = 0
 
     else:  # OpenAI / Azure / Grok
+        _is_xai_grpc = False
         if provider == "grok":
             # Use xai_sdk (gRPC) only when client is XAIClient; otherwise OpenAI SDK
             try:
@@ -922,6 +923,7 @@ def _run_one_round(
 
         if not tool_calls_list:
             if not judgment_mode:
+                # Grok xai_sdk streaming already printed deltas in parse_xai_stream().
                 _emit_final_answer_if_any(
                     assistant_text=assistant_text,
                     reasoning_content=locals().get("reasoning_content", ""),
@@ -929,6 +931,9 @@ def _run_one_round(
                     stream_responses=stream_responses,
                     append_result_to_outfile_fn=append_result_to_outfile_fn,
                     try_open_images_from_text_fn=try_open_images_from_text_fn,
+                    skip_print=bool(
+                        provider == "grok" and stream_responses and _is_xai_grpc
+                    ),
                     core=core,
                     provider=provider,
                 )
