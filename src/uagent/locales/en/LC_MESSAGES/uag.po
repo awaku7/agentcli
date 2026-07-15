@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2026-07-06 16:38+0900\n"
+"POT-Creation-Date: 2026-07-15 14:52+0900\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -84,76 +84,6 @@ msgstr "Exited uag."
 
 msgid "[docs] name is required"
 msgstr "[docs] name is required"
-
-msgid "[INFO] startup genre prompt = numeric-input"
-msgstr "[INFO] startup genre prompt = numeric-input"
-
-msgid ""
-"Enter the sum of numbers "
-"(1=basic,2=comm,4=office,8=devel,16=iot,32=exec,64=external,128=media,256=file,512=index,1023=all,"
-" Enter=basic only):"
-msgstr ""
-"Enter the sum of numbers "
-"(1=basic,2=comm,4=office,8=devel,16=iot,32=exec,64=external,128=media,256=file,512=index,1023=all,"
-" Enter=basic only):"
-
-msgid "Basic (env, time, prompts, skills, memory, tools control)"
-msgstr "Basic (env, time, prompts, skills, memory, tools control)"
-
-msgid ""
-"File (create, delete, read, write, search, zip, rename, hash, grep, list "
-"dir)"
-msgstr ""
-"File (create, delete, read, write, search, zip, rename, hash, grep, list "
-"dir)"
-
-msgid "Communication (Teams, Discord, Bluesky)"
-msgstr "Communication (Teams, Discord, Bluesky)"
-
-msgid "Office (Excel, Word, PDF, PPT, document extraction)"
-msgstr "Office (Excel, Word, PDF, PPT, document extraction)"
-
-msgid ""
-"Development (lint, test, git, DB, screenshot, browser, binary, compile)"
-msgstr ""
-"Development (lint, test, git, DB, screenshot, browser, binary, compile)"
-
-msgid "IoT (Bluetooth/BLE, ECHONET, Matter, SwitchBot, UPnP, camera, geo-IP)"
-msgstr "IoT (Bluetooth/BLE, ECHONET, Matter, SwitchBot, UPnP, camera, geo-IP)"
-
-msgid "Execution (cmd, python, pwsh, bash, sub-agent)"
-msgstr "Execution (cmd, python, pwsh, bash, sub-agent)"
-
-msgid "External (A2A, MCP, fetch, search web)"
-msgstr "External (A2A, MCP, fetch, search web)"
-
-msgid "Media (image gen/edit/analyze, audio, QR code)"
-msgstr "Media (image gen/edit/analyze, audio, QR code)"
-
-msgid ""
-"Index (source code navigation: py2idx, ts2idx, jv2idx, cs2idx, dart2idx, "
-"cpp2idx, rs2idx, go2idx, swift2idx, kt2idx)"
-msgstr ""
-"Index (source code navigation: py2idx, ts2idx, jv2idx, cs2idx, dart2idx, "
-"cpp2idx, rs2idx, go2idx, swift2idx, kt2idx)"
-
-msgid "[INFO] startup genre prompt = prompt_toolkit"
-msgstr "[INFO] startup genre prompt = prompt_toolkit"
-
-msgid "Tool genre selection"
-msgstr "Tool genre selection"
-
-msgid "Use Space to toggle, Arrow keys to move, Enter to confirm."
-msgstr "Use Space to toggle, Arrow keys to move, Enter to confirm."
-
-msgid "OK"
-msgstr "OK"
-
-msgid "Default"
-msgstr "Default"
-
-msgid "[INFO] startup genre prompt = numeric-input (prompt_toolkit fallback)"
-msgstr "[INFO] startup genre prompt = numeric-input (prompt_toolkit fallback)"
 
 msgid "[WARN] Failed to apply startup tool selection: %(err)s"
 msgstr "[WARN] Failed to apply startup tool selection: %(err)s"
@@ -803,6 +733,13 @@ msgstr "400 BadRequest"
 msgid "Error code: %(code)d - %(err)s"
 msgstr "Error code: %(code)d - %(err)s"
 
+msgid ""
+"SSL certificate verification failed. Auto-disabling SSL verify and "
+"retrying..."
+msgstr ""
+"SSL certificate verification failed. Auto-disabling SSL verify and "
+"retrying..."
+
 msgid "Connection error"
 msgstr "Connection error"
 
@@ -952,6 +889,9 @@ msgstr "Stop generation"
 msgid "Send"
 msgstr "Send"
 
+msgid "Toggle reasoning display"
+msgstr "Toggle reasoning display"
+
 msgid "Stop auto-pilot"
 msgstr "Stop auto-pilot"
 
@@ -1006,11 +946,40 @@ msgstr "Tools"
 msgid "Basic (file, env, time, prompts, skills, memory, tools control)"
 msgstr "Basic (file, env, time, prompts, skills, memory, tools control)"
 
+msgid "Communication (Teams, Discord, Bluesky)"
+msgstr "Communication (Teams, Discord, Bluesky)"
+
+msgid "Office (Excel, Word, PDF, PPT, document extraction)"
+msgstr "Office (Excel, Word, PDF, PPT, document extraction)"
+
+msgid ""
+"Development (lint, test, git, DB, screenshot, browser, binary, compile)"
+msgstr ""
+"Development (lint, test, git, DB, screenshot, browser, binary, compile)"
+
+msgid "IoT (Bluetooth/BLE, ECHONET, Matter, SwitchBot, UPnP, camera, geo-IP)"
+msgstr "IoT (Bluetooth/BLE, ECHONET, Matter, SwitchBot, UPnP, camera, geo-IP)"
+
+msgid "Execution (cmd, python, pwsh, bash, sub-agent)"
+msgstr "Execution (cmd, python, pwsh, bash, sub-agent)"
+
+msgid "External (A2A, MCP, fetch, search web)"
+msgstr "External (A2A, MCP, fetch, search web)"
+
+msgid "Media (image gen/edit/analyze, audio, QR code)"
+msgstr "Media (image gen/edit/analyze, audio, QR code)"
+
 msgid "File (read, write, search, delete, listing)"
 msgstr "File (read, write, search, delete, listing)"
 
 msgid "Index (source code navigation: py2idx, ts2idx, etc.)"
 msgstr "Index (source code navigation: py2idx, ts2idx, etc.)"
+
+msgid "[display_reasoning] %(state)s"
+msgstr "[display_reasoning] %(state)s"
+
+msgid "[display_reasoning] error: %(err)s"
+msgstr "[display_reasoning] error: %(err)s"
 
 msgid "[mode] reasoning=%(mode)s"
 msgstr "[mode] reasoning=%(mode)s"
@@ -1295,6 +1264,18 @@ msgstr "SAKURA AI Engine model name (optional, default: llm)"
 
 msgid "SAKURA AI Engine temperature (optional)"
 msgstr "SAKURA AI Engine temperature (optional)"
+
+msgid "Novita AI API key"
+msgstr "Novita AI API key"
+
+msgid "Novita AI base URL (optional, default: https://api.novita.ai/openai)"
+msgstr "Novita AI base URL (optional, default: https://api.novita.ai/openai)"
+
+msgid "Novita AI model name (optional, default: tensent/hy3)"
+msgstr "Novita AI model name (optional, default: tensent/hy3)"
+
+msgid "Novita AI temperature (optional)"
+msgstr "Novita AI temperature (optional)"
 
 msgid "Enter number:"
 msgstr "Enter number:"
@@ -1610,6 +1591,9 @@ msgstr ""
 msgid "invalid reasoning"
 msgstr "invalid reasoning"
 
+msgid "[display] reasoning display=%(mode)s"
+msgstr "[display] reasoning display=%(mode)s"
+
 msgid "invalid verbosity"
 msgstr "invalid verbosity"
 
@@ -1907,6 +1891,13 @@ msgstr ""
 msgid "Set verbosity mode (0=off, 1=low, 2=medium, 3=high; no arg=keep)"
 msgstr "Set verbosity mode (0=off, 1=low, 2=medium, 3=high; no arg=keep)"
 
+msgid ""
+"Show detailed model configuration (chat, image, audio, translation, "
+"embedding)"
+msgstr ""
+"Show detailed model configuration (chat, image, audio, translation, "
+"embedding)"
+
 msgid "Exit"
 msgstr "Exit"
 
@@ -1975,6 +1966,12 @@ msgstr ""
 "The bullet points listed below are excerpts from this user's long-term memory (persistent memos). Use them as background information about the user. However, always prioritize newly provided information in the conversation, and if it contradicts older information, adopt the latest information.\n"
 "\n"
 
+msgid "[cd] workdir changed: %(old)s -> %(new)s"
+msgstr "[cd] workdir changed: %(old)s -> %(new)s"
+
+msgid "(room: %(id)s)"
+msgstr "(room: %(id)s)"
+
 msgid ""
 "[WARN] Another task is already running in this room. Please retry after it "
 "completes."
@@ -2036,8 +2033,47 @@ msgstr "missing path"
 msgid "path outside workdir"
 msgstr "path outside workdir"
 
+msgid "Basic (env, time, prompts, skills, memory, tools control)"
+msgstr "Basic (env, time, prompts, skills, memory, tools control)"
+
+msgid ""
+"File (create, delete, read, write, search, zip, rename, hash, grep, list "
+"dir)"
+msgstr ""
+"File (create, delete, read, write, search, zip, rename, hash, grep, list "
+"dir)"
+
+msgid "path is required"
+msgstr "path is required"
+
+msgid "File not found"
+msgstr "File not found"
+
+msgid "Index out of range"
+msgstr "Index out of range"
+
+msgid "Invalid JSON body"
+msgstr "Invalid JSON body"
+
+msgid "room_id and command are required"
+msgstr "room_id and command are required"
+
+msgid "[Error] :cd failed: %(err)s"
+msgstr "[Error] :cd failed: %(err)s"
+
+msgid "[Command Error] %(err)s"
+msgstr "[Command Error] %(err)s"
+
 msgid "Bind address (default: 127.0.0.1). Overrides UAGENT_WEB_HOST env var."
 msgstr "Bind address (default: 127.0.0.1). Overrides UAGENT_WEB_HOST env var."
+
+msgid ""
+"Run in API-only mode without frontend (no HTML templates or static files)."
+msgstr ""
+"Run in API-only mode without frontend (no HTML templates or static files)."
+
+msgid "Starting in API-only mode (no frontend)."
+msgstr "Starting in API-only mode (no frontend)."
 
 msgid "Starting server on"
 msgstr "Starting server on"
@@ -2184,6 +2220,37 @@ msgstr "[Gemini Error: Response blocked by safety filter or finish reason]"
 msgid "[Gemini Error: %(err)s]"
 msgstr "[Gemini Error: %(err)s]"
 
+msgid ""
+"[Tool calling rules]\n"
+"        - When calling a tool/function, you MUST provide function_call.arguments as a JSON object.\n"
+"        - The JSON object MUST include all required parameters defined by the tool schema.\n"
+"        - Never call a tool with an empty object {} unless the tool has no required parameters.\n"
+"        - If you do not have a required parameter, ask the user for it using human_ask instead of guessing.\n"
+"        "
+msgstr ""
+"[Tool calling rules]\n"
+"        - When calling a tool/function, you MUST provide function_call.arguments as a JSON object.\n"
+"        - The JSON object MUST include all required parameters defined by the tool schema.\n"
+"        - Never call a tool with an empty object {} unless the tool has no required parameters.\n"
+"        - If you do not have a required parameter, ask the user for it using human_ask instead of guessing.\n"
+"        "
+
+msgid ""
+"[Web search rules]\n"
+"        - Use web search only when fresh or external information is necessary.\n"
+"        - Do not use web search for local or stable information.\n"
+"        - Prefer answering without web search when the answer is already sufficient.\n"
+"        "
+msgstr ""
+"[Web search rules]\n"
+"        - Use web search only when fresh or external information is necessary.\n"
+"        - Do not use web search for local or stable information.\n"
+"        - Prefer answering without web search when the answer is already sufficient.\n"
+"        "
+
+msgid "Response body: %(body)s"
+msgstr "Response body: %(body)s"
+
 msgid "[WARN] assistant history contained image content; converted to text."
 msgstr "[WARN] assistant history contained image content; converted to text."
 
@@ -2217,39 +2284,8 @@ msgstr "Web search: completed"
 msgid "Web search: {action}"
 msgstr "Web search: {action}"
 
-msgid ""
-"[Tool calling rules]\n"
-"        - When calling a tool/function, you MUST provide function_call.arguments as a JSON object.\n"
-"        - The JSON object MUST include all required parameters defined by the tool schema.\n"
-"        - Never call a tool with an empty object {} unless the tool has no required parameters.\n"
-"        - If you do not have a required parameter, ask the user for it using human_ask instead of guessing.\n"
-"        "
-msgstr ""
-"[Tool calling rules]\n"
-"        - When calling a tool/function, you MUST provide function_call.arguments as a JSON object.\n"
-"        - The JSON object MUST include all required parameters defined by the tool schema.\n"
-"        - Never call a tool with an empty object {} unless the tool has no required parameters.\n"
-"        - If you do not have a required parameter, ask the user for it using human_ask instead of guessing.\n"
-"        "
-
-msgid ""
-"[Web search rules]\n"
-"        - Use web search only when fresh or external information is necessary.\n"
-"        - Do not use web search for local or stable information.\n"
-"        - Prefer answering without web search when the answer is already sufficient.\n"
-"        "
-msgstr ""
-"[Web search rules]\n"
-"        - Use web search only when fresh or external information is necessary.\n"
-"        - Do not use web search for local or stable information.\n"
-"        - Prefer answering without web search when the answer is already sufficient.\n"
-"        "
-
 msgid "Server-side compaction triggered (context compressed)."
 msgstr "Server-side compaction triggered (context compressed)."
-
-msgid "Response body: %(body)s"
-msgstr "Response body: %(body)s"
 
 msgid "Environment variable UAGENT_PROVIDER is not set."
 msgstr "Environment variable UAGENT_PROVIDER is not set."
@@ -2290,21 +2326,16 @@ msgstr "[INFO] vertexai = project=%(project)s, location=%(location)s"
 msgid "[INFO] %(label)s = %(provider)s; model = %(model)s"
 msgstr "[INFO] %(label)s = %(provider)s; model = %(model)s"
 
-msgid ""
-"UAGENT_RESPONSES=1 is set, but provider '%(provider)s' does not support "
-"Responses API. Falling back to ChatCompletions."
-msgstr ""
-"UAGENT_RESPONSES=1 is set, but provider '%(provider)s' does not support "
-"Responses API. Falling back to ChatCompletions."
+msgid "Responses (UAGENT_RESPONSES is enabled)"
+msgstr "Responses (UAGENT_RESPONSES is enabled)"
 
 msgid "LLM API mode = %(mode)s"
 msgstr "LLM API mode = %(mode)s"
 
-msgid "Responses (UAGENT_RESPONSES is enabled)"
-msgstr "Responses (UAGENT_RESPONSES is enabled)"
-
-msgid "Native Gemini/Vertex AI/Claude API (UAGENT_RESPONSES is ignored)"
-msgstr "Native Gemini/Vertex AI/Claude API (UAGENT_RESPONSES is ignored)"
+msgid ""
+"ChatCompletions (provider '%(provider)s' does not support Responses API)"
+msgstr ""
+"ChatCompletions (provider '%(provider)s' does not support Responses API)"
 
 msgid "ChatCompletions (UAGENT_RESPONSES is disabled)"
 msgstr "ChatCompletions (UAGENT_RESPONSES is disabled)"
@@ -2330,13 +2361,6 @@ msgstr ""
 msgid "[INFO] Applied .env.sec values to the current session."
 msgstr "[INFO] Applied .env.sec values to the current session."
 
-msgid ""
-"[INFO] .env.sec content does not match the current startup UAGENT_* "
-"environment variables. Use `uag_envsec` to update it."
-msgstr ""
-"[INFO] .env.sec content does not match the current startup UAGENT_* "
-"environment variables. Use `uag_envsec` to update it."
-
 msgid "Updated .env.sec: %(path)s"
 msgstr "Updated .env.sec: %(path)s"
 
@@ -2350,13 +2374,6 @@ msgstr ""
 "[INFO] .env.sec is missing. Create it from the current startup UAGENT_* "
 "environment variables? [y/N] "
 
-msgid ""
-"[INFO] .env.sec is missing. Use `uag_envsec` to create it from the current "
-"startup UAGENT_* environment variables."
-msgstr ""
-"[INFO] .env.sec is missing. Use `uag_envsec` to create it from the current "
-"startup UAGENT_* environment variables."
-
 msgid "Created .env.sec: %(path)s"
 msgstr "Created .env.sec: %(path)s"
 
@@ -2368,6 +2385,25 @@ msgstr "[WARN] Failed to check .env.sec synchronization: %(err)s"
 
 msgid "[WARN] Failed to decrypt .env.sec: %(err)s"
 msgstr "[WARN] Failed to decrypt .env.sec: %(err)s"
+
+msgid "[INFO] Project instruction files found:"
+msgstr "[INFO] Project instruction files found:"
+
+msgid " (includes: %(files)s)"
+msgstr " (includes: %(files)s)"
+
+msgid "  [%(idx)d] %(rel)s%(inc)s"
+msgstr "  [%(idx)d] %(rel)s%(inc)s"
+
+msgid ""
+"Load which files? Enter numbers (e.g. '1 2'), 'all' to load all, or 'n' to "
+"skip:"
+msgstr ""
+"Load which files? Enter numbers (e.g. '1 2'), 'all' to load all, or 'n' to "
+"skip:"
+
+msgid "[Project instructions from %(file)s]"
+msgstr "[Project instructions from %(file)s]"
 
 msgid "Specified workdir path is a file: %(path)s"
 msgstr "Specified workdir path is a file: %(path)s"
