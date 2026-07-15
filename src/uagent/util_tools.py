@@ -2274,8 +2274,8 @@ def _build_judgment_messages(
     system_prompt = (
         "You are a reviewer. Evaluate the conversation below and "
         "determine whether the goal '%(goal)s' has been achieved.\n"
-        "Achieved    → COMPLETE\n"
-        "More needed → CONTINUE\n"
+        "Achieved    \u2192 COMPLETE\n"
+        "More needed \u2192 CONTINUE\n"
         "Reply with COMPLETE or CONTINUE.\n"
         "If CONTINUE, briefly state what is still missing.\n"
         "Format: CONTINUE: <reason>"
@@ -2744,7 +2744,7 @@ def _handle_cmd_model(
             lines.append("  Translation:")
             lines.append(f"    Provider: {translate_provider}")
             lines.append(f"    Model:    {translate_model}")
-            lines.append(f"    From→To:  {translate_from} → {translate_to}")
+            lines.append(f"    From\u2192To:  {translate_from} \u2192 {translate_to}")
             if verbose:
                 capa_lines = _fetch_model_capa(translate_provider, translate_model)
                 if capa_lines:
@@ -2779,10 +2779,10 @@ def handle_command(
     *,
     core: Any,
 ) -> bool | CommandResult:
-    """コマンド行(:help, :logs, :load ...)を処理する
+    """\u30b3\u30de\u30f3\u30c9\u884c(:help, :logs, :load ...)\u3092\u51e6\u7406\u3059\u308b
 
-    戻り値: False を返すとメインループ終了(:exit / :quit)。
-    CommandResult(run_llm=True) を返すと、コマンド処理後に LLM を実行する。
+    \u623b\u308a\u5024: False \u3092\u8fd4\u3059\u3068\u30e1\u30a4\u30f3\u30eb\u30fc\u30d7\u7d42\u4e86(:exit / :quit)\u3002
+    CommandResult(run_llm=True) \u3092\u8fd4\u3059\u3068\u3001\u30b3\u30de\u30f3\u30c9\u51e6\u7406\u5f8c\u306b LLM \u3092\u5b9f\u884c\u3059\u308b\u3002
     """
     tr = getattr(core, "tr", tr_)
 
@@ -2854,6 +2854,9 @@ def handle_command(
 
     if cmd == "clean":
         return _handle_cmd_clean(arg, core=core, tr=tr)
+
+    if cmd == "cont":
+        return _handle_cmd_load("0", messages_ref, core=core, tr=tr)
 
     if cmd == "load":
         return _handle_cmd_load(arg, messages_ref, core=core, tr=tr)
@@ -2940,7 +2943,7 @@ def handle_command(
 
 
 def load_agents_md() -> str:
-    """起動ディレクトリに AGENTS.md があれば内容を返す。"""
+    """\u8d77\u52d5\u30c7\u30a3\u30ec\u30af\u30c8\u30ea\u306b AGENTS.md \u304c\u3042\u308c\u3070\u5185\u5bb9\u3092\u8fd4\u3059\u3002"""
     agents_path = os.path.join(os.getcwd(), "AGENTS.md")
     if not os.path.isfile(agents_path):
         return ""
@@ -2967,6 +2970,18 @@ def build_initial_messages(*, core: Any) -> list[dict[str, Any]]:
     system_msg = {"role": "system", "content": core.SYSTEM_PROMPT}
     messages.append(system_msg)
     core.log_message(system_msg)
+
+    # --- Load project instruction files (CLAUDE.md / AGENTS.md) ---
+    try:
+        from .runtime.runtime_instructions import load_project_instruction_files
+
+        instructions = load_project_instruction_files()
+        for instr in instructions:
+            msg = {"role": "system", "content": instr}
+            messages.append(msg)
+            core.log_message(msg)
+    except Exception:
+        pass
 
     # Record startup cwd into the message history + log.
     try:
@@ -3047,7 +3062,7 @@ def build_long_memory_system_message(long_mem_raw: Any) -> dict[str, Any]:
 
 
 def append_result_to_outfile(text: str) -> None:
-    """UAGENT_OUTFILE が指定されていれば、アシスタント最終出力を追記する。"""
+    """UAGENT_OUTFILE \u304c\u6307\u5b9a\u3055\u308c\u3066\u3044\u308c\u3070\u3001\u30a2\u30b7\u30b9\u30bf\u30f3\u30c8\u6700\u7d42\u51fa\u529b\u3092\u8ffd\u8a18\u3059\u308b\u3002"""
     out_path = env_get("UAGENT_OUTFILE")
     if not out_path:
         return
