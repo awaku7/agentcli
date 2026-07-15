@@ -556,6 +556,10 @@ class ScheckWorker(QtCore.QObject):
         try:
             self._init_callbacks()
             start_background_scheduler(core.event_queue)
+            try:
+                self.tools.start_tools_warmup()
+            except Exception:
+                pass
 
             # Provider/client/model are decided by util_make_client.
             self._provider, self._client, self._depname = util_make_client(core)

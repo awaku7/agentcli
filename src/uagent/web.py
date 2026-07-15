@@ -1817,6 +1817,10 @@ def main():
         core.tools_enabled = _use_tool_env not in ("0", "false", "no", "off")
 
     init_web()
+    try:
+        tools.start_tools_warmup()
+    except Exception:
+        pass
 
     if web_args.no_frontend:
         # Remove frontend routes (/, /room/{room_id}, /static) for API-only mode

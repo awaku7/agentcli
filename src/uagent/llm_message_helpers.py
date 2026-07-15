@@ -237,6 +237,65 @@ def _get_shrink_max_tokens(depname: str) -> int:
     return _get_default_shrink_max_tokens(depname)
 
 
+# Prefix used for LLM history-compression summary system messages (msgid).
+_HISTORY_SUMMARY_MSGID = "Summary of the conversation so far:" + chr(10)
+
+
+def _history_summary_prefixes(translator: Any | None = None) -> list[str]:
+    """Return candidate summary prefixes (English msgid + optional translation)."""
+    prefixes: set[str] = set()
+    candidates = [_HISTORY_SUMMARY_MSGID]
+    tr = translator if callable(translator) else _
+    try:
+        translated = tr(_HISTORY_SUMMARY_MSGID)
+        if isinstance(translated, str) and translated:
+            candidates.append(translated)
+    except Exception:
+        pass
+    for c in candidates:
+        if not isinstance(c, str) or not c:
+            continue
+        prefixes.add(c)
+        stripped = c.rstrip(chr(10))
+        prefixes.add(stripped)
+        prefixes.add(stripped + chr(10))
+    # Longest first so strip prefers the full prefix.
+    return sorted((p for p in prefixes if p), key=len, reverse=True)
+
+
+def _is_history_summary_content(content: Any, translator: Any | None = None) -> bool:
+    if not isinstance(content, str) or not content:
+        return False
+    for prefix in _history_summary_prefixes(translator):
+        if content.startswith(prefix):
+            return True
+    return False
+
+
+def _strip_history_summary_prefix(content: str, translator: Any | None = None) -> str:
+    for prefix in _history_summary_prefixes(translator):
+        if content.startswith(prefix):
+            return content[len(prefix) :].strip()
+    return content.strip()
+
+
+def _is_history_summary_message(
+    m: dict[str, Any], translator: Any | None = None
+) -> bool:
+    if not isinstance(m, dict) or m.get("role") != "system":
+        return False
+    return _is_history_summary_content(m.get("content"), translator)
+
+
+def _messages_have_history_summary(
+    messages: list[dict[str, Any]], translator: Any | None = None
+) -> bool:
+    for m in messages:
+        if _is_history_summary_message(m, translator):
+            return True
+    return False
+
+
 def _maybe_auto_shrink_messages(
     *,
     provider: str,
@@ -274,18 +333,34 @@ def _maybe_auto_shrink_messages(
     except Exception:
         keep_last = 20
 
-    # 蝨ｧ邵ｮ縺吶ｋ菴吝慍縺後↑縺・ｴ蜷医・繧ｹ繧ｭ繝・・
+    # Nothing compressible beyond the protected tail.
     if others_count <= keep_last:
         return gemini_cache_name
 
-    # 莉ｶ謨ｰ繝吶・繧ｹ縺ｾ縺溘・繝医・繧ｯ繝ｳ謨ｰ繝吶・繧ｹ縺ｮ縺・★繧後°縺御ｸ企剞繧定ｶ・∴縺ｦ縺・ｋ縺句愛螳・
+    # After a prior LLM summary exists, require enough NEW tail growth
+    # (hysteresis) so we do not re-shrink immediately on the next tool round.
     should_shrink = False
-    if shrink_cnt > 0 and others_count >= shrink_cnt:
-        should_shrink = True
-    elif shrink_max_tokens > 0:
-        total_tokens = _count_messages_tokens(messages, depname)
-        if total_tokens >= shrink_max_tokens:
+    has_summary = _messages_have_history_summary(messages)
+    if has_summary:
+        # Need more than keep_last messages after the previous compress.
+        # Default hysteresis: re-trigger only when others_count >= keep_last * 2
+        # or when token budget is exceeded again.
+        re_cnt = max(keep_last * 2, keep_last + 10)
+        if shrink_cnt > 0:
+            re_cnt = max(re_cnt, shrink_cnt)
+        if others_count >= re_cnt:
             should_shrink = True
+        elif shrink_max_tokens > 0:
+            total_tokens = _count_messages_tokens(messages, depname)
+            if total_tokens >= shrink_max_tokens:
+                should_shrink = True
+    else:
+        if shrink_cnt > 0 and others_count >= shrink_cnt:
+            should_shrink = True
+        elif shrink_max_tokens > 0:
+            total_tokens = _count_messages_tokens(messages, depname)
+            if total_tokens >= shrink_max_tokens:
+                should_shrink = True
 
     if not should_shrink:
         return gemini_cache_name

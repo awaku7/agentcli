@@ -13,6 +13,7 @@ from importlib import import_module, reload
 from pkgutil import iter_modules
 from typing import Any, Callable, Optional
 import concurrent.futures
+import threading
 from threading import Lock, RLock
 
 from .._pip_auto import install_with_status as _auto_install
@@ -1334,3 +1335,53 @@ def _ensure_loaded() -> None:
     if not _INITIALIZED:
         _load_plugins()
         _INITIALIZED = True
+
+
+_WARMUP_STARTED = False
+_WARMUP_LOCK = RLock()
+
+
+def start_tools_warmup(*, quiet: bool = True) -> None:
+    """Preload tool plugins in a background thread.
+
+    Speeds up the first ':' command / completion by overlapping plugin import
+    with idle time after CLI/GUI/web startup.
+    Safe to call multiple times; only the first call starts a worker.
+    """
+    global _WARMUP_STARTED
+    with _WARMUP_LOCK:
+        if _INITIALIZED or _WARMUP_STARTED:
+            return
+        _WARMUP_STARTED = True
+
+    def _worker() -> None:
+        try:
+            _ensure_loaded()
+            # Touch dynamic command map so completers are hot too.
+            try:
+                get_dynamic_commands_map()
+            except Exception:
+                pass
+        except Exception as e:
+            if not quiet:
+                try:
+                    print(
+                        f"[WARN] tools warmup failed: {type(e).__name__}: {e}",
+                        file=sys.stderr,
+                    )
+                except Exception:
+                    pass
+
+    try:
+        t = threading.Thread(
+            target=_worker,
+            name="uagent-tools-warmup",
+            daemon=True,
+        )
+        t.start()
+    except Exception:
+        # Fallback: best-effort synchronous load if thread cannot start.
+        try:
+            _ensure_loaded()
+        except Exception:
+            pass

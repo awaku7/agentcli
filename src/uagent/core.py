@@ -1411,11 +1411,26 @@ def compress_history_with_llm(
     except Exception:
         pass
 
+    from .llm_message_helpers import (
+        _is_history_summary_message,
+        _strip_history_summary_prefix,
+    )
+
     system_msgs: list[dict[str, Any]] = []
     others: list[dict[str, Any]] = []
+    prior_summary_bodies: list[str] = []
 
     hit_non_system = False
     for m in messages:
+        # History-compression summaries are system-role but must not be treated
+        # as permanent system instructions: fold them into the rolling summary
+        # and keep only one summary message in the result.
+        if _is_history_summary_message(m):
+            body = _strip_history_summary_prefix(str(m.get("content") or ""))
+            if body:
+                prior_summary_bodies.append(body)
+            hit_non_system = True
+            continue
         if m.get("role") == "system" and not hit_non_system:
             system_msgs.append(m)
         else:
@@ -1630,7 +1645,9 @@ def compress_history_with_llm(
 
         total_chunks = len(chunks)
         chunk_index = 0
-        rolling_summary = ""
+        # Seed rolling summary from any prior compressions so we merge instead
+        # of stacking multiple "Summary of the conversation so far" system msgs.
+        rolling_summary = "\n\n".join(prior_summary_bodies).strip()
         for chunk in chunks:
             lines = [
                 rendered
@@ -1695,7 +1712,8 @@ def compress_history_with_llm(
             rolling_summary = summary_content.strip()
 
         if not rolling_summary:
-            return list(messages), None
+            # No new summary text and no prior summary body to keep.
+            return system_msgs + tail_part, None
 
         summary_msg = {
             "role": "system",

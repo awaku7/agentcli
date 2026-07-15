@@ -1050,6 +1050,14 @@ def main() -> None:
     start_background_scheduler(core.event_queue)
     core.start_interrupt_monitor()
 
+    # Preload tool plugins in background so the first ':' command/completion
+    # does not pay the full plugin-import cost on the interactive path.
+    if not UAGENT_NON_INTERACTIVE:
+        try:
+            tools.start_tools_warmup()
+        except Exception:
+            pass
+
     t = threading.Thread(target=stdin_loop, daemon=True)
     t.start()
 
