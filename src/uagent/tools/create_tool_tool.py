@@ -10,7 +10,8 @@ _ = make_tool_translator(__file__)
 
 TOOL_SPEC: dict[str, Any] = {
     "type": "function",
-    "tool_genre": "",
+    "tool_genre": "devel",
+    "tool_level": 1,
     "function": {
         "name": "create_tool",
         "description": _(
@@ -392,12 +393,23 @@ def _cmd_handler(arg: str, **kwargs: Any) -> str:
     return run_tool(args)
 
 
-CMD_SPEC: dict[str, Any] = {
-    "command": "tool",
-    "subcommand": "create",
-    "help_text": _(
-        "cmd.help",
-        default=":tool create <name> --lang python|rust --description '...'",
-    ),
-    "handler": _cmd_handler,
-}
+CMD_SPECS: list[dict[str, Any]] = [
+    {
+        "command": "tool",
+        "subcommand": "create",
+        "help_text": _(
+            "cmd.help",
+            default=":tool create <name> --lang python|rust --description '...'",
+        ),
+        "handler": _cmd_handler,
+    },
+    {
+        "command": "tools",
+        "subcommand": "create",
+        "help_text": _(
+            "cmd.help_tools",
+            default="  :tools create <name> --lang python|rust --description '...'",
+        ),
+        "handler": _cmd_handler,
+    },
+]

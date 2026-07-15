@@ -310,6 +310,7 @@ def _sort_registered_tools() -> None:
 
 def _register_tool_module(mod: Any, mod_name: str) -> bool:
     """Register a module as a tool."""
+    global _TOOL_SPECS_DIRTY
     spec = getattr(mod, "TOOL_SPEC", None)
     runner = getattr(mod, "run_tool", None)
 
@@ -428,6 +429,7 @@ def _register_extra_spec(
     mod: Any,
 ) -> bool:
     """Register an additional tool spec from the same module (e.g. TOOL_SPEC_2)."""
+    global _TOOL_SPECS_DIRTY
     try:
         default_level = 1 if spec.get("tool_genre") else 0
         tool_level = int(spec.get("tool_level", default_level))
@@ -700,6 +702,17 @@ def get_dynamic_commands_help() -> list[str]:
             if help_text:
                 help_lines.append(help_text)
     return help_lines
+
+
+def get_dynamic_commands_map() -> dict[str, list[str]]:
+    """Return a mapping of command -> sorted list of subcommand names."""
+    _ensure_loaded()
+    result: dict[str, list[str]] = {}
+    for cmd in sorted(_DYNAMIC_COMMANDS.keys()):
+        subcmds = [k for k in _DYNAMIC_COMMANDS[cmd].keys() if k]
+        if subcmds:
+            result[cmd] = sorted(subcmds)
+    return result
 
 
 def get_tool_specs() -> list[dict[str, Any]]:
