@@ -168,14 +168,14 @@ TOOL_SPEC: dict[str, Any] = {
                     "type": "string",
                     "description": _(
                         "param.anchor_before.description",
-                        default="Start anchor.",
+                        default="Anchor text. For insert_before: text to search and insert before that line. For replace_between: start boundary.",
                     ),
                 },
                 "anchor_after": {
                     "type": "string",
                     "description": _(
                         "param.anchor_after.description",
-                        default="End anchor.",
+                        default="Anchor text. For insert_after: text to search and insert after that line. For replace_between: end boundary.",
                     ),
                 },
                 "preview": {
@@ -833,31 +833,33 @@ def _build_no_match_diagnostics(
             )
         )
 
-    if action == "replace_between":
-        diagnostics["anchor_before"] = anchor_before
-        diagnostics["anchor_after"] = anchor_after
-        diagnostics["anchor_before_flags"] = _text_newline_flags(anchor_before)
-        diagnostics["anchor_after_flags"] = _text_newline_flags(anchor_after)
-        diagnostics["anchor_before_found"] = bool(
-            anchor_before and anchor_before in original
-        )
-        diagnostics["anchor_after_found"] = bool(
-            anchor_after and anchor_after in original
-        )
-        if anchor_before and not diagnostics["anchor_before_found"]:
-            hints.append(
-                _(
-                    "hint.anchor_before_not_found",
-                    default="anchor_before was not found.",
-                )
+    if action in ("replace_between", "insert_before", "insert_after"):
+        if anchor_before:
+            diagnostics["anchor_before"] = anchor_before
+            diagnostics["anchor_before_flags"] = _text_newline_flags(anchor_before)
+            diagnostics["anchor_before_found"] = bool(
+                anchor_before and anchor_before in original
             )
-        if anchor_after and not diagnostics["anchor_after_found"]:
-            hints.append(
-                _(
-                    "hint.anchor_after_not_found",
-                    default="anchor_after was not found.",
+            if anchor_before and not diagnostics["anchor_before_found"]:
+                hints.append(
+                    _(
+                        "hint.anchor_before_not_found",
+                        default="anchor_before was not found.",
+                    )
                 )
+        if anchor_after:
+            diagnostics["anchor_after"] = anchor_after
+            diagnostics["anchor_after_flags"] = _text_newline_flags(anchor_after)
+            diagnostics["anchor_after_found"] = bool(
+                anchor_after and anchor_after in original
             )
+            if anchor_after and not diagnostics["anchor_after_found"]:
+                hints.append(
+                    _(
+                        "hint.anchor_after_not_found",
+                        default="anchor_after was not found.",
+                    )
+                )
     elif action == "replace_po_entry":
         target = po_msgid or search_text
         diagnostics["po_msgid"] = target
@@ -1214,7 +1216,14 @@ def run_tool(args: dict[str, Any]) -> str:
             else anchor_after
         )
 
-        regex_pattern = re.compile(p2, re.MULTILINE) if mode == "regex" else None
+        # Determine search key: for insert_before/insert_after, anchor text takes priority over pattern.
+        search_key = p2
+        if action == "insert_before" and anchor_before_norm:
+            search_key = anchor_before_norm
+        elif action == "insert_after" and anchor_after_norm:
+            search_key = anchor_after_norm
+
+        regex_pattern = re.compile(search_key, re.MULTILINE) if mode == "regex" else None
         hits: list[_Hit] = []
         target_hit: _Hit | None = None
         match_count = 0
@@ -1233,11 +1242,11 @@ def run_tool(args: dict[str, Any]) -> str:
                         hits = [target_hit]
             else:
                 if occurrence == 0:
-                    hits = _find_hits_literal(orig_norm, p2)
+                    hits = _find_hits_literal(orig_norm, search_key)
                     match_count = len(hits)
                 else:
-                    match_count = orig_norm.count(p2) if p2 else 0
-                    target_hit = _nth_literal_match(orig_norm, p2, occurrence)
+                    match_count = orig_norm.count(search_key) if search_key else 0
+                    target_hit = _nth_literal_match(orig_norm, search_key, occurrence)
                     if target_hit is not None:
                         hits = [target_hit]
 
@@ -1434,11 +1443,13 @@ def run_tool(args: dict[str, Any]) -> str:
         ):
             diagnostics = _build_no_match_diagnostics(
                 original=orig_norm,
-                search_text=p2,
+                search_text=search_key,
                 mode=mode,
                 action=action,
                 expand_newline_tokens=expand_newline_tokens,
                 newline_info=newline_info,
+                anchor_before=anchor_before_norm,
+                anchor_after=anchor_after_norm,
             )
             hint = _diagnostics_hint(diagnostics)
         if (
@@ -1446,7 +1457,7 @@ def run_tool(args: dict[str, Any]) -> str:
             and match_count == 0
             and action in {"replace", "insert_before", "insert_after"}
         ):
-            hint = _get_failure_hint(orig_norm, p2, mode)
+            hint = _get_failure_hint(orig_norm, search_key, mode)
 
         changed = replaced_text != orig_norm
         if (
@@ -1594,8 +1605,6 @@ def run_tool(args: dict[str, Any]) -> str:
 
         pattern_required_actions = {
             "replace",
-            "insert_before",
-            "insert_after",
             "replace_all_in_files",
         }
         if action in pattern_required_actions and not pattern:
@@ -1605,6 +1614,22 @@ def run_tool(args: dict[str, Any]) -> str:
                     "error": _(
                         "err.pattern_required",
                         default="pattern is required for this action",
+                    ),
+                },
+                ensure_ascii=False,
+            )
+
+        # For insert_before/insert_after, pattern is optional if the corresponding anchor is provided.
+        if action in ("insert_before", "insert_after") and not pattern and not (
+            (action == "insert_before" and anchor_before)
+            or (action == "insert_after" and anchor_after)
+        ):
+            return json.dumps(
+                {
+                    "ok": False,
+                    "error": _(
+                        "err.pattern_or_anchor_required",
+                        default="pattern (or anchor_before/anchor_after) is required for this action",
                     ),
                 },
                 ensure_ascii=False,
