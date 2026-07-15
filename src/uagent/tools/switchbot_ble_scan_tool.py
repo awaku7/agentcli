@@ -143,6 +143,24 @@ def _normalize_manufacturer_data(data: dict[int, bytes]) -> dict[str, str]:
     return normalized
 
 
+def _normalize_service_data(data: dict) -> dict[str, str]:
+    normalized: dict[str, str] = {}
+    for uuid, payload in (data or {}).items():
+        if isinstance(payload, (bytes, bytearray)):
+            normalized[str(uuid).casefold()] = bytes(payload).hex()
+        elif isinstance(payload, str):
+            text = payload.strip().lower().replace(':', '').replace(' ', '')
+            if text.startswith('0x'):
+                text = text[2:]
+            if text and len(text) % 2 == 0:
+                try:
+                    bytes.fromhex(text)
+                    normalized[str(uuid).casefold()] = text
+                except Exception:
+                    pass
+    return normalized
+
+
 def _looks_like_switchbot(name: str | None, manufacturer_data: dict[str, str]) -> bool:
     if name and "switchbot" in name.casefold():
         return True
@@ -192,6 +210,9 @@ async def _scan_once(timeout: int, interface: str | None) -> list[dict[str, Any]
         manufacturer_data = _normalize_manufacturer_data(
             getattr(adv, "manufacturer_data", {}) or {}
         )
+        service_data = _normalize_service_data(
+            getattr(adv, "service_data", {}) or {}
+        )
         service_uuids = list(getattr(adv, "service_uuids", None) or [])
         result.append(
             {
@@ -208,6 +229,7 @@ async def _scan_once(timeout: int, interface: str | None) -> list[dict[str, Any]
                 ),
                 "service_uuids": service_uuids,
                 "manufacturer_data": manufacturer_data,
+                "service_data": service_data,
                 "connectable": bool(getattr(adv, "connectable", None)),
                 "last_seen": _now_iso(),
             }
@@ -228,7 +250,7 @@ async def _scan_rounds(
     merged: dict[str, dict[str, Any]] = {}
     interface_used: str | None = interface
 
-    for _ in range(retry):
+    for _round in range(retry):
         devices = await _scan_once(timeout, interface)
         for item in devices:
             if not _matches_filters(
@@ -261,6 +283,10 @@ async def _scan_rounds(
                 current["manufacturer_data"] = {
                     **(current.get("manufacturer_data") or {}),
                     **(item.get("manufacturer_data") or {}),
+                }
+                current["service_data"] = {
+                    **(current.get("service_data") or {}),
+                    **(item.get("service_data") or {}),
                 }
                 current["connectable"] = bool(
                     current.get("connectable") or item.get("connectable")
