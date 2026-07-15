@@ -51,6 +51,10 @@ _LOADED_SINGLE_TOOLS: dict[str, int] = {}
 # bump_threshold() adds fib_current and advances the Fibonacci pair.
 _TOOL_DYNAMIC_THRESHOLDS: dict[str, tuple[int, int, int]] = {}
 
+# Tools pinned against auto-unload (name -> reason).
+# Used by long-lived tools such as browser_playwright while sessions are active.
+_PINNED_TOOLS: dict[str, str] = {}
+
 
 def get_enabled_tool_names() -> list[str]:
     """Return a sorted list of all currently enabled tool names."""
@@ -107,8 +111,10 @@ def _find_tool_modules(skip_lazy: bool = False) -> list[tuple[str, Any]]:
             continue
         mod_name = f"uagent.tools.{mname}"
         try:
+            # Do NOT reload existing modules here.
+            # Reload wipes module-level state (e.g. browser sessions).
             if mod_name in sys.modules:
-                mod = importlib.reload(sys.modules[mod_name])
+                mod = sys.modules[mod_name]
             else:
                 mod = importlib.import_module(mod_name)
             results.append((mname, mod))
@@ -239,10 +245,53 @@ def bump_threshold(tool_name: str, max_threshold: int = 30) -> None:
     _TOOL_DYNAMIC_THRESHOLDS[tool_name] = (new_threshold, fib_cur, fib_prev + fib_cur)
 
 
-def disable_single_tool(tool_name: str) -> bool:
-    """Unload a single tool by name. Returns True if found and removed."""
+def pin_tool(tool_name: str, reason: str = "") -> bool:
+    """Prevent *tool_name* from being auto-unloaded.
+
+    Returns True if the pin was newly set or the reason was updated.
+    """
+    name = str(tool_name or "").strip()
+    if not name:
+        return False
+    _PINNED_TOOLS[name] = str(reason or "")
+    return True
+
+
+def unpin_tool(tool_name: str) -> bool:
+    """Allow *tool_name* to be auto-unloaded again.
+
+    Returns True if a pin was removed.
+    """
+    name = str(tool_name or "").strip()
+    if not name:
+        return False
+    return _PINNED_TOOLS.pop(name, None) is not None
+
+
+def is_tool_pinned(tool_name: str) -> bool:
+    """Return True if *tool_name* is currently pinned against auto-unload."""
+    name = str(tool_name or "").strip()
+    if not name:
+        return False
+    return name in _PINNED_TOOLS
+
+
+def list_pinned_tools() -> dict[str, str]:
+    """Return a copy of pinned tools mapping (name -> reason)."""
+    return dict(_PINNED_TOOLS)
+
+
+def disable_single_tool(tool_name: str, force: bool = False) -> bool:
+    """Unload a single tool by name. Returns True if found and removed.
+
+    Pinned tools are skipped unless *force* is True.
+    """
+    if not force and is_tool_pinned(tool_name):
+        return False
     _LOADED_SINGLE_TOOLS.pop(tool_name, None)
     _TOOL_DYNAMIC_THRESHOLDS.pop(tool_name, None)
+    if force:
+        _PINNED_TOOLS.pop(tool_name, None)
     from . import TOOL_SPECS, _RUNNERS, _sort_registered_tools
 
     found = False

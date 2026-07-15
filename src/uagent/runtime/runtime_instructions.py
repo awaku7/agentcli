@@ -10,7 +10,6 @@ import os
 import sys
 from dataclasses import dataclass, field
 from pathlib import Path
-from typing import List
 
 from ..i18n import _
 
@@ -253,9 +252,9 @@ def load_project_instruction_files(
 
     contents: list[str] = []
     for c in selected:
-        header = _(
-            "[Project instructions from %(file)s]"
-        ) % {"file": os.path.relpath(c.path, workdir)}
+        header = _("[Project instructions from %(file)s]") % {
+            "file": os.path.relpath(c.path, workdir)
+        }
         content_block = f"--- {header} ---\n{c.content}"
         # Truncate to 100KB per file
         if len(content_block) > 100_000:

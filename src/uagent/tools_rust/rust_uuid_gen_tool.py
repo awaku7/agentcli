@@ -10,7 +10,9 @@ _ = make_tool_translator(__file__)
 
 _rust_mod = load_rust_pyd(
     "uag_tools_rust",
-    pyd_path=os.path.join(os.path.dirname(__file__), "target", "release", "uag_tools_rust.pyd"),
+    pyd_path=os.path.join(
+        os.path.dirname(__file__), "target", "release", "uag_tools_rust.pyd"
+    ),
 )
 run_tool = _rust_mod.run_uuid_gen
 

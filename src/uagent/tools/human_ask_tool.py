@@ -4,6 +4,7 @@ from __future__ import annotations
 from typing import Any
 import json
 import queue
+import threading
 
 from .context import get_callbacks
 from .i18n_helper import make_tool_translator
@@ -187,8 +188,43 @@ def run_tool(args: dict[str, Any]) -> str:
         if cb.set_status:
             cb.set_status(False, "")
 
-        # stdin_loop/GUI sends the user input to local_q
-        user_reply = local_q.get() or ""
+        # Keep browser sessions alive while waiting for human input.
+        # human_ask can take longer than browser session TTL (default 300s).
+        stop_keepalive = threading.Event()
+
+        def _keepalive_browser_sessions() -> None:
+            while not stop_keepalive.wait(30.0):
+                try:
+                    from . import browser_playwright_tool as bp
+
+                    if hasattr(bp, "_touch_all_sessions"):
+                        bp._touch_all_sessions()
+                except Exception:
+                    pass
+
+        keepalive_thread = threading.Thread(
+            target=_keepalive_browser_sessions,
+            name="human-ask-browser-keepalive",
+            daemon=True,
+        )
+        keepalive_thread.start()
+        try:
+            # stdin_loop/GUI sends the user input to local_q
+            user_reply = local_q.get() or ""
+        finally:
+            stop_keepalive.set()
+            try:
+                keepalive_thread.join(timeout=1.0)
+            except Exception:
+                pass
+            # Final touch after answer arrives.
+            try:
+                from . import browser_playwright_tool as bp
+
+                if hasattr(bp, "_touch_all_sessions"):
+                    bp._touch_all_sessions()
+            except Exception:
+                pass
 
         def _split_keep_lines(s: str) -> list[str]:
             # normalize CRLF/CR to LF

@@ -32,8 +32,8 @@ BUSY_LABEL = True
 # 空リスト = 全ツール許可。サブエージェントは human_ask でユーザー確認を取りながら全ツールを実行できる。
 _SUB_AGENT_TOOL_WHITELIST: Dict[str, List[str]] = {
     "none": [],
-    "read_only": [],      # 空 = 全ツール許可
-    "propose_only": [],   # 空 = 全ツール許可 (read_only と同一扱い)
+    "read_only": [],  # 空 = 全ツール許可
+    "propose_only": [],  # 空 = 全ツール許可 (read_only と同一扱い)
 }
 _DEFAULT_CACHE_DIR = Path.home() / ".uag" / "subagent_cache"
 _SUB_AGENT_LOG_DIR = Path.home() / ".uag" / "subagent_logs"
@@ -194,7 +194,8 @@ TOOL_SPEC: Dict[str, Any] = {
                         "param.agent_name.description",
                         default="The name of the sub-agent to run. Built-in: planner, reviewer, summarizer, patch_designer, error_analyst, general. Custom roles can be loaded from UAGENT_SUB_AGENT_ROLES_DIR.",
                     ),
-                },                "task": {
+                },
+                "task": {
                     "type": "string",
                     "description": _(
                         "param.task.description",
@@ -345,8 +346,8 @@ class SubAgentRunner:
                     "あなたは計画作成に特化したサブエージェントです。"
                     "【段階的思考】最初にタスクの全体像を把握し、次に依存関係を分析し、最後に実行可能な手順に分解してください。"
                     "【出力フォーマット】出力は必ずJSONで、以下の各フィールドを厳守してください:\n"
-                    "  - status: 必ず\"completed\"\n"
-                    "  - role: \"planner\"\n"
+                    '  - status: 必ず"completed"\n'
+                    '  - role: "planner"\n'
                     "  - summary: 計画の要約（1〜2文）\n"
                     "  - assumptions: 前提条件のリスト（情報不足の場合は何を仮定したか明記）\n"
                     "  - risks: リスク・注意点のリスト\n"
@@ -364,13 +365,13 @@ class SubAgentRunner:
                     "あなたはレビューに特化したサブエージェントです。"
                     "【段階的思考】最初に入力の全体構成を把握し、次に「抜け」「論理矛盾」「危険性」「改善余地」の4軸で検査し、最後に優先順位を付けて報告してください。\n"
                     "【出力フォーマット】JSONで以下を厳守:\n"
-                    "  - status: \"completed\" / 問題が致命的なら \"error\"\n"
-                    "  - role: \"reviewer\"\n"
+                    '  - status: "completed" / 問題が致命的なら "error"\n'
+                    '  - role: "reviewer"\n'
                     "  - summary: レビュー総評（2〜3文）\n"
                     "  - findings: 発見した問題点のリスト（各項目に severity: high/medium/low を含めること）\n"
                     "  - risks: 将来問題になりうる箇所\n"
                     "  - recommended_actions: 修正提案のリスト\n"
-                    "【エッジケース】問題がない場合は findings を空リストにしてください。入力が空や無意味な場合は status を \"error\" にして理由を message フィールドに記述してください。\n"
+                    '【エッジケース】問題がない場合は findings を空リストにしてください。入力が空や無意味な場合は status を "error" にして理由を message フィールドに記述してください。\n'
                     "【自己評価】各 finding に対して「本当に問題か？」「誤検知ではないか？」を確認し、確信度が低いものは risks に回してください。\n"
                     "【トークン効率】類似の問題はグルーピングし、重要度の高いものから順に記載してください。"
                 ),
@@ -383,8 +384,8 @@ class SubAgentRunner:
                     "あなたは要約に特化したサブエージェントです。"
                     "【段階的思考】最初に入力全体を読み、重要度で情報を選別し、最後に構造化して出力してください。\n"
                     "【出力フォーマット】JSONで以下を厳守:\n"
-                    "  - status: \"completed\"\n"
-                    "  - role: \"summarizer\"\n"
+                    '  - status: "completed"\n'
+                    '  - role: "summarizer"\n'
                     "  - summary: 全体の要約（1〜3文）\n"
                     "  - key_points: 重要なポイントのリスト（各項目は具体性を保ち、1項目1情報）\n"
                     "  - open_questions: 未解決の疑問点や確認が必要な点\n"
@@ -401,8 +402,8 @@ class SubAgentRunner:
                     "あなたは変更差分の設計に特化したサブエージェントです。"
                     "【段階的思考】最初に現状のコードを理解し、次に最小変更で目的を達成する方法を設計し、最後に変更の影響範囲を検証してください。\n"
                     "【出力フォーマット】JSONで以下を厳守:\n"
-                    "  - status: \"completed\"\n"
-                    "  - role: \"patch_designer\"\n"
+                    '  - status: "completed"\n'
+                    '  - role: "patch_designer"\n'
                     "  - summary: 変更概要\n"
                     "  - files: 変更対象ファイルのリスト\n"
                     "  - changes: 各ファイルの具体的な変更内容（追加/削除/修正を明確に）\n"
@@ -421,13 +422,13 @@ class SubAgentRunner:
                     "あなたはエラー分析に特化したサブエージェントです。"
                     "【段階的思考】最初にエラーメッセージとコンテキストを収集し、次に原因を切り分け（直接原因→根本原因）、最後に再現条件と対処案を整理してください。\n"
                     "【出力フォーマット】JSONで以下を厳守:\n"
-                    "  - status: \"completed\"\n"
-                    "  - role: \"error_analyst\"\n"
+                    '  - status: "completed"\n'
+                    '  - role: "error_analyst"\n'
                     "  - summary: エラーの要約\n"
                     "  - root_cause: 根本原因の説明\n"
                     "  - evidence: 判断根拠となった事実のリスト（エラーメッセージ、ログ、スタックトレースなど）\n"
                     "  - proposed_actions: 対処案のリスト（各項目は具体的な操作手順まで含めること）\n"
-                    "【エッジケース】原因が特定できない場合は root_cause を \"不明\" とし、調査に必要な追加情報を列挙してください。複数の原因が考えられる場合は可能性が高い順に列挙してください。\n"
+                    '【エッジケース】原因が特定できない場合は root_cause を "不明" とし、調査に必要な追加情報を列挙してください。複数の原因が考えられる場合は可能性が高い順に列挙してください。\n'
                     "【自己評価】「この原因分析でエラーを再現できるか」「対処案で本当に解決するか」を確認してください。\n"
                     "【トークン効率】evidence は関連部分のみに切り取り、全文を貼り付けないでください。"
                 ),
@@ -440,12 +441,12 @@ class SubAgentRunner:
                     "あなたは汎用タスク処理エージェントです。特定の役割に縛られず、与えられたタスクを柔軟に処理してください。\n"
                     "【段階的思考】最初にタスクの目的と要件を理解し、次に必要な情報やツールを判断し、最後に結果を構造化して出力してください。\n"
                     "【出力フォーマット】出力はJSONで、以下のフィールドを含めてください:\n"
-                    "  - status: \"completed\"\n"
-                    "  - role: \"general\"\n"
+                    '  - status: "completed"\n'
+                    '  - role: "general"\n'
                     "  - summary: 処理結果の要約\n"
                     "  - details: 詳細な結果（内容はタスクに応じて自由に構造化）\n"
                     "  - notes: 補足情報や前提条件（必要な場合のみ）\n"
-                    "【エッジケース】タスクの要件が不明確な場合は notes にその旨を記載し、判断した前提条件を明示してください。タスクが実行不能な場合は status を \"error\" として理由を summary に記述してください。\n"
+                    '【エッジケース】タスクの要件が不明確な場合は notes にその旨を記載し、判断した前提条件を明示してください。タスクが実行不能な場合は status を "error" として理由を summary に記述してください。\n'
                     "【自己評価】出力がタスクの要件を満たしているか確認し、不足があれば補ってから出力してください。\n"
                     "【トークン効率】details は必要十分な情報に絞り、冗長な説明を避けてください。"
                 ),
@@ -457,7 +458,8 @@ class SubAgentRunner:
         self._store_lock = Lock()
         self._call_chain: List[str] = []
         self._total_usage: Dict[str, int] = {
-            "prompt_tokens": 0,            "completion_tokens": 0,
+            "prompt_tokens": 0,
+            "completion_tokens": 0,
             "total_tokens": 0,
         }
         self._usage_lock = Lock()
@@ -575,7 +577,6 @@ class SubAgentRunner:
     def _build_tool_list_prompt(self, permission_level: str) -> str:
         if permission_level == "none":
             return ""
-        tools = _SUB_AGENT_TOOL_WHITELIST.get(permission_level, [])
         # 空リスト = 全ツール許可
         return (
             "\n\n[利用可能なツール]\n"
@@ -600,7 +601,8 @@ class SubAgentRunner:
                 continue
             seen_signatures.add(sig)
             args: Dict[str, Any] = {}
-            for arg_match in re.finditer(                r'(\w+)\s*=\s*(?:"([^"]*)"|(\d+(?:\.\d+)?)|(True|False)|(None))',
+            for arg_match in re.finditer(
+                r'(\w+)\s*=\s*(?:"([^"]*)"|(\d+(?:\.\d+)?)|(True|False)|(None))',
                 args_str,
             ):
                 key = arg_match.group(1)
@@ -616,6 +618,7 @@ class SubAgentRunner:
                     args[key] = None
             try:
                 from . import _RUNNERS as tool_runners
+
                 runner = tool_runners.get(tool_name)
                 if runner:
                     result = runner(args)
@@ -735,6 +738,7 @@ class SubAgentRunner:
     ) -> tuple[str, Dict[str, int]]:
         if provider in ("gemini", "vertexai"):
             from google.genai import types as gemini_types
+
             config_kw: Dict[str, Any] = dict(
                 system_instruction=system_prompt,
                 temperature=0.2,
@@ -751,7 +755,11 @@ class SubAgentRunner:
                 meta = response.usage_metadata
                 pt = getattr(meta, "prompt_token_count", 0) or 0
                 ct = getattr(meta, "candidates_token_count", 0) or 0
-                usage = {"prompt_tokens": pt, "completion_tokens": ct, "total_tokens": pt + ct}
+                usage = {
+                    "prompt_tokens": pt,
+                    "completion_tokens": ct,
+                    "total_tokens": pt + ct,
+                }
             return (response.text or "", usage)
 
         elif provider == "claude":
@@ -769,7 +777,11 @@ class SubAgentRunner:
             if hasattr(response, "usage") and response.usage:
                 it = getattr(response.usage, "input_tokens", 0) or 0
                 ot = getattr(response.usage, "output_tokens", 0) or 0
-                usage = {"prompt_tokens": it, "completion_tokens": ot, "total_tokens": it + ot}
+                usage = {
+                    "prompt_tokens": it,
+                    "completion_tokens": ot,
+                    "total_tokens": it + ot,
+                }
             return (response.content[0].text or "", usage)
 
         else:
@@ -788,7 +800,8 @@ class SubAgentRunner:
             if hasattr(response, "usage") and response.usage:
                 usage = {
                     "prompt_tokens": getattr(response.usage, "prompt_tokens", 0) or 0,
-                    "completion_tokens": getattr(response.usage, "completion_tokens", 0) or 0,
+                    "completion_tokens": getattr(response.usage, "completion_tokens", 0)
+                    or 0,
                     "total_tokens": getattr(response.usage, "total_tokens", 0) or 0,
                 }
             return (response.choices[0].message.content or "", usage)
@@ -828,7 +841,10 @@ class SubAgentRunner:
 
         if current_file and not os.path.isfile(current_file):
             result = json.dumps(
-                {"status": "error", "message": f"Access Denied: File '{current_file}' not found."},
+                {
+                    "status": "error",
+                    "message": f"Access Denied: File '{current_file}' not found.",
+                },
                 ensure_ascii=False,
             )
             self._write_log(agent_name, None, result, "error")
@@ -838,7 +854,10 @@ class SubAgentRunner:
         pack = ContextPack(
             current_goal=goal,
             current_state="PROCESSING",
-            constraints=["副作用のある直接操作は禁止", "JSONフォーマットでの確実な返却"],
+            constraints=[
+                "副作用のある直接操作は禁止",
+                "JSONフォーマットでの確実な返却",
+            ],
             relevant_snippets=self._load_current_file_snippets(current_file),
         )
 
@@ -861,7 +880,10 @@ class SubAgentRunner:
         with _SUB_AGENT_ENV_LOCK:
             if not self.duplicate_guard.check_and_record(agent_name, task):
                 result = json.dumps(
-                    {"status": "blocked", "message": f"Duplicate call blocked for agent: {agent_name} with same arguments."},
+                    {
+                        "status": "blocked",
+                        "message": f"Duplicate call blocked for agent: {agent_name} with same arguments.",
+                    },
                     ensure_ascii=False,
                 )
                 self._write_log(agent_name, task, result, "blocked")
@@ -875,7 +897,10 @@ class SubAgentRunner:
 
         if agent_name in self._call_chain:
             result = json.dumps(
-                {"status": "error", "message": f"Circular sub-agent call detected: {agent_name} is already in the call chain."},
+                {
+                    "status": "error",
+                    "message": f"Circular sub-agent call detected: {agent_name} is already in the call chain.",
+                },
                 ensure_ascii=False,
             )
             self._write_log(agent_name, task, result, "error")
@@ -902,7 +927,9 @@ class SubAgentRunner:
                 max_turns=max_turns,
             )
             status = self._infer_status(result)
-            self._write_log(agent_name, task, result, status, retries=total_retries, usage=llm_usage)
+            self._write_log(
+                agent_name, task, result, status, retries=total_retries, usage=llm_usage
+            )
             return result
         finally:
             self._call_chain.pop()
@@ -929,14 +956,24 @@ class SubAgentRunner:
         cb = get_callbacks()
         agent_upper = agent_name.upper()
         sub_provider = (
-            (env_get(f"UAGENT_SUB_AGENT_{agent_upper}_PROVIDER") or env_get("UAGENT_SUB_AGENT_PROVIDER") or "").strip().lower()
+            (
+                env_get(f"UAGENT_SUB_AGENT_{agent_upper}_PROVIDER")
+                or env_get("UAGENT_SUB_AGENT_PROVIDER")
+                or ""
+            )
+            .strip()
+            .lower()
         )
         sub_depname = (
-            (env_get(f"UAGENT_SUB_AGENT_{agent_upper}_DEPNAME") or env_get("UAGENT_SUB_AGENT_DEPNAME") or "").strip()
-        )
+            env_get(f"UAGENT_SUB_AGENT_{agent_upper}_DEPNAME")
+            or env_get("UAGENT_SUB_AGENT_DEPNAME")
+            or ""
+        ).strip()
         sub_api_key = (
-            (env_get(f"UAGENT_SUB_AGENT_{agent_upper}_API_KEY") or env_get("UAGENT_SUB_AGENT_API_KEY") or "").strip()
-        )
+            env_get(f"UAGENT_SUB_AGENT_{agent_upper}_API_KEY")
+            or env_get("UAGENT_SUB_AGENT_API_KEY")
+            or ""
+        ).strip()
 
         try:
             if sub_provider:
@@ -974,7 +1011,14 @@ class SubAgentRunner:
             else:
                 provider, client, model_name = make_client(cb)
         except Exception as exc:
-            return (json.dumps({"status": "error", "message": f"Failed to create client: {exc}"}, ensure_ascii=False), {}, 0)
+            return (
+                json.dumps(
+                    {"status": "error", "message": f"Failed to create client: {exc}"},
+                    ensure_ascii=False,
+                ),
+                {},
+                0,
+            )
 
         if response_mode is None:
             if spec.default_response_mode:
@@ -999,8 +1043,13 @@ class SubAgentRunner:
 
         if response_mode == "json":
             system_prompt = self._build_structured_prompt(
-                base_prompt, response_mode, response_schema,
-                required_fields, strict_output, evidence_required, evidence_min_items,
+                base_prompt,
+                response_mode,
+                response_schema,
+                required_fields,
+                strict_output,
+                evidence_required,
+                evidence_min_items,
             )
         else:
             system_prompt = base_prompt
@@ -1009,7 +1058,12 @@ class SubAgentRunner:
 
         if cb and getattr(cb, "log_message", None):
             try:
-                cb.log_message({"role": "assistant", "content": f"[Sub-Agent: {agent_name}] 処理を開始します...\nタスク: {task.task}"})
+                cb.log_message(
+                    {
+                        "role": "assistant",
+                        "content": f"[Sub-Agent: {agent_name}] 処理を開始します...\nタスク: {task.task}",
+                    }
+                )
             except Exception:
                 pass
 
@@ -1017,19 +1071,26 @@ class SubAgentRunner:
         if max_turns > 1 and permission_level != "none":
             raw_output, total_retries, llm_usage = self._run_llm_multi_turn(
                 cb=cb,
-                provider=provider, client=client, model_name=model_name,
+                provider=provider,
+                client=client,
+                model_name=model_name,
                 system_prompt=system_prompt,
                 user_prompt=user_prompt,
-                timeout=timeout, max_retries=max_retries,
+                timeout=timeout,
+                max_retries=max_retries,
                 response_mode=response_mode or "",
                 permission_level=permission_level,
-                max_turns=max_turns,            )
+                max_turns=max_turns,
+            )
         else:
             raw_output, total_retries, llm_usage = self._call_with_retry(
-                provider=provider, client=client, model_name=model_name,
+                provider=provider,
+                client=client,
+                model_name=model_name,
                 system_prompt=system_prompt,
                 user_prompt=user_prompt,
-                timeout=timeout, max_retries=max_retries,
+                timeout=timeout,
+                max_retries=max_retries,
                 response_mode=response_mode or "",
             )
             if permission_level != "none":
@@ -1039,7 +1100,12 @@ class SubAgentRunner:
 
         if cb and getattr(cb, "log_message", None):
             try:
-                cb.log_message({"role": "assistant", "content": f"[Sub-Agent: {agent_name}] 処理が完了しました。\n結果:\n{raw_output}"})
+                cb.log_message(
+                    {
+                        "role": "assistant",
+                        "content": f"[Sub-Agent: {agent_name}] 処理が完了しました。\n結果:\n{raw_output}",
+                    }
+                )
             except Exception:
                 pass
 
@@ -1048,9 +1114,17 @@ class SubAgentRunner:
             try:
                 result_obj = json.loads(raw_output)
             except Exception as exc:
-                return (self._wrap_error(f"Invalid JSON output: {exc}"), llm_usage, total_retries)
+                return (
+                    self._wrap_error(f"Invalid JSON output: {exc}"),
+                    llm_usage,
+                    total_retries,
+                )
             validation_error = self._validate_structured_output(
-                result_obj, required_fields, strict_output, evidence_required, evidence_min_items,
+                result_obj,
+                required_fields,
+                strict_output,
+                evidence_required,
+                evidence_min_items,
             )
             if validation_error:
                 return (self._wrap_error(validation_error), llm_usage, total_retries)
@@ -1086,32 +1160,41 @@ class SubAgentRunner:
         max_turns: int,
     ) -> tuple[str, int, Dict[str, int]]:
         """マルチターンLLM実行。ツール呼び出しを複数ラウンドにわたって処理する。"""
-        import time
 
         conversation = user_prompt
         total_retries = 0
-        total_usage: Dict[str, int] = {"prompt_tokens": 0, "completion_tokens": 0, "total_tokens": 0}
+        total_usage: Dict[str, int] = {
+            "prompt_tokens": 0,
+            "completion_tokens": 0,
+            "total_tokens": 0,
+        }
         last_raw = ""
 
         for turn in range(max_turns):
-            is_last = (turn == max_turns - 1)
+            is_last = turn == max_turns - 1
 
             if cb and getattr(cb, "log_message", None) and not is_last:
                 try:
-                    cb.log_message({
-                        "role": "assistant",
-                        "content": f"[Sub-Agent] Turn {turn + 1}/{max_turns} - ツール実行結果を反映して次のターンに進みます。"
-                    })
+                    cb.log_message(
+                        {
+                            "role": "assistant",
+                            "content": f"[Sub-Agent] Turn {turn + 1}/{max_turns} - ツール実行結果を反映して次のターンに進みます。",
+                        }
+                    )
                 except Exception:
                     pass
 
-            # 最終ターン以外はJSONバリデーションをスキップ（中間出力はツール呼び出しの可能性）            current_response_mode = response_mode if is_last else ""
+            # 最終ターン以外はJSONバリデーションをスキップ（中間出力はツール呼び出しの可能性）
+            current_response_mode = response_mode if is_last else ""
 
             raw, retries, usage = self._call_with_retry(
-                provider, client, model_name,
+                provider,
+                client,
+                model_name,
                 system_prompt,
                 conversation,
-                timeout, max_retries,
+                timeout,
+                max_retries,
                 current_response_mode,
             )
             total_retries += retries
@@ -1151,13 +1234,23 @@ class SubAgentRunner:
         response_mode: str,
     ) -> tuple[str, int, Dict[str, int]]:
         import time
+
         last_error = ""
         total_retries = 0
-        total_usage: Dict[str, int] = {"prompt_tokens": 0, "completion_tokens": 0, "total_tokens": 0}
+        total_usage: Dict[str, int] = {
+            "prompt_tokens": 0,
+            "completion_tokens": 0,
+            "total_tokens": 0,
+        }
         for attempt in range(max_retries + 1):
             try:
                 raw, usage = self._call_llm_single_round(
-                    provider, client, model_name, system_prompt, user_prompt, timeout,
+                    provider,
+                    client,
+                    model_name,
+                    system_prompt,
+                    user_prompt,
+                    timeout,
                 )
                 for k in total_usage:
                     total_usage[k] += usage.get(k, 0)
@@ -1179,7 +1272,13 @@ class SubAgentRunner:
                     time.sleep(2**attempt)
                     continue
                 break
-        return (self._wrap_error(f"LLM call failed after {max_retries + 1} attempts: {last_error}"), total_retries, total_usage)
+        return (
+            self._wrap_error(
+                f"LLM call failed after {max_retries + 1} attempts: {last_error}"
+            ),
+            total_retries,
+            total_usage,
+        )
 
 
 # ---------------------------------------------------------------------------
@@ -1213,13 +1312,23 @@ def run_tool(args: Dict[str, Any]) -> str:
         cb.set_status(True, f"Sub-Agent ({agent_name})")
     try:
         return _runner.run(
-            agent_name, task, current_file,
-            response_mode=response_mode, response_schema=response_schema,
-            required_fields=required_fields, strict_output=strict_output,
-            evidence_required=evidence_required, evidence_min_items=evidence_min_items,
-            permission_level=permission_level, cache_ttl=cache_ttl,
-            store_key=store_key, load_keys=load_keys, parent_goal=parent_goal,
-            timeout=timeout, max_retries=max_retries, max_turns=max_turns,
+            agent_name,
+            task,
+            current_file,
+            response_mode=response_mode,
+            response_schema=response_schema,
+            required_fields=required_fields,
+            strict_output=strict_output,
+            evidence_required=evidence_required,
+            evidence_min_items=evidence_min_items,
+            permission_level=permission_level,
+            cache_ttl=cache_ttl,
+            store_key=store_key,
+            load_keys=load_keys,
+            parent_goal=parent_goal,
+            timeout=timeout,
+            max_retries=max_retries,
+            max_turns=max_turns,
         )
     finally:
         if cb and hasattr(cb, "set_status") and cb.set_status:

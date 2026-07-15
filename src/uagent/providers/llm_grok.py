@@ -454,3 +454,30 @@ def parse_xai_stream(
     # Print final newline after streaming to avoid state messages on same line
     print()
     return assistant_text, tool_calls_list
+
+
+def simple_xai_chat(
+    client: Any,
+    model_name: str,
+    messages: list[dict[str, Any]],
+    *,
+    max_tokens: int = 2048,
+    temperature: float = 0.0,
+) -> str:
+    """Run a simple non-tool xai_sdk chat completion and return text content.
+
+    Converts OpenAI-format messages to xai_sdk protobuf messages, then calls
+    ``client.chat.create(...).sample()``.
+    """
+    _instructions, xai_msgs = build_xai_messages(messages)
+    create_kwargs: dict[str, Any] = {
+        "model": model_name,
+        "messages": xai_msgs,
+        "temperature": temperature,
+    }
+    if max_tokens and max_tokens > 0:
+        create_kwargs["max_tokens"] = int(max_tokens)
+
+    chat_obj = client.chat.create(**create_kwargs)
+    resp = chat_obj.sample()
+    return _as_str(getattr(resp, "content", None) or "")

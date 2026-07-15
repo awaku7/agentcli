@@ -7,6 +7,7 @@ import time
 from datetime import datetime, timezone
 from typing import Any
 
+from .asyncio_loop_util import windows_selector_event_loop_policy
 from .i18n_helper import make_tool_translator
 
 _ = make_tool_translator(__file__)
@@ -535,186 +536,183 @@ def run_tool(args: dict[str, Any]) -> str:
             else json.dumps(payload, ensure_ascii=False)
         )
 
-    if sys.platform == "win32":
+    with windows_selector_event_loop_policy():
+        started = time.perf_counter()
         try:
-            asyncio.set_event_loop_policy(asyncio.WindowsSelectorEventLoopPolicy())
-        except Exception:
-            pass
-
-    started = time.perf_counter()
-    try:
-        device, err = asyncio.run(
-            _discover_target(
-                timeout=timeout,
-                device_name=str(device_name) if device_name else None,
-                mac_address=str(mac_address) if mac_address else None,
+            device, err = asyncio.run(
+                _discover_target(
+                    timeout=timeout,
+                    device_name=str(device_name) if device_name else None,
+                    mac_address=str(mac_address) if mac_address else None,
+                )
             )
-        )
-        if err is not None or device is None:
-            payload = {
-                "ok": False,
-                "error": err or {"code": "not_found", "message": "Not found."},
+            if err is not None or device is None:
+                payload = {
+                    "ok": False,
+                    "error": err or {"code": "not_found", "message": "Not found."},
+                }
+                return (
+                    json.dumps(payload, ensure_ascii=False, indent=2)
+                    if output_format == "text"
+                    else json.dumps(payload, ensure_ascii=False)
+                )
+
+            if not _looks_like_switchbot(
+                device.get("name"), dict(device.get("manufacturer_data") or {})
+            ):
+                payload = {
+                    "ok": False,
+                    "error": {
+                        "code": "unsupported_device",
+                        "message": _(
+                            "err.unsupported_device",
+                            default="The matched device does not look like a SwitchBot BLE device.",
+                        ),
+                    },
+                    "device": device,
+                }
+                return (
+                    json.dumps(payload, ensure_ascii=False, indent=2)
+                    if output_format == "text"
+                    else json.dumps(payload, ensure_ascii=False)
+                )
+
+            payload_bytes, normalized_value, build_err = _build_payload(action, value)
+            if build_err is not None or payload_bytes is None:
+                payload = {
+                    "ok": False,
+                    "error": build_err
+                    or {"code": "invalid_argument", "message": "Invalid action."},
+                }
+                return (
+                    json.dumps(payload, ensure_ascii=False, indent=2)
+                    if output_format == "text"
+                    else json.dumps(payload, ensure_ascii=False)
+                )
+
+            status, capabilities, characteristic_uuid, write_with_response = (
+                asyncio.run(
+                    _write_control(
+                        address=str(device.get("address") or ""),
+                        timeout=timeout,
+                        payload=payload_bytes,
+                    )
+                )
+            )
+            elapsed_ms = int((time.perf_counter() - started) * 1000)
+            result = {
+                "ok": True,
+                "device": {
+                    "dev": device.get("address"),
+                    "devname": device.get("name"),
+                    "device_type": device.get("device_type"),
+                    "hub_id": None,
+                    "online": True,
+                    "battery": None,
+                    "reachable": True,
+                    "address": device.get("address"),
+                    "rssi": device.get("rssi"),
+                    "service_uuids": device.get("service_uuids") or [],
+                    "manufacturer_data": device.get("manufacturer_data") or {},
+                    "connectable": device.get("connectable"),
+                    "last_seen": device.get("last_seen"),
+                },
+                "status": {
+                    **status,
+                    "action": action,
+                    "value": normalized_value,
+                    "payload_hex": payload_bytes.hex(),
+                },
+                "capabilities": capabilities,
+                "elapsed_ms": elapsed_ms,
+                "last_updated": _now_iso(),
+                "account": {
+                    "source": "local_ble",
+                    "authenticated": True,
+                },
             }
-            return (
-                json.dumps(payload, ensure_ascii=False, indent=2)
-                if output_format == "text"
-                else json.dumps(payload, ensure_ascii=False)
-            )
+            if output_format == "text":
+                return _format_text(result)
+            return json.dumps(result, ensure_ascii=False)
+        except Exception as exc:
+            err_msg = str(exc)
+            if "timed out" in err_msg.lower():
+                payload = {
+                    "ok": False,
+                    "error": {
+                        "code": "timeout",
+                        "message": err_msg,
+                    },
+                }
+                return (
+                    json.dumps(payload, ensure_ascii=False, indent=2)
+                    if output_format == "text"
+                    else json.dumps(payload, ensure_ascii=False)
+                )
 
-        if not _looks_like_switchbot(
-            device.get("name"), dict(device.get("manufacturer_data") or {})
-        ):
+            if sys.platform.startswith("linux"):
+                if (
+                    "Permission" in err_msg
+                    or "AccessDenied" in err_msg
+                    or "dbus" in err_msg.lower()
+                    or "notready" in err_msg.lower()
+                ):
+                    payload = {
+                        "ok": False,
+                        "error": {
+                            "code": "network_error",
+                            "message": _(
+                                "err.linux_permission",
+                                default=(
+                                    "Error during BLE operation: {err_msg}\n\n[Linux/Raspberry Pi Permission Guide]\nYou might lack permissions to access the Bluetooth socket. Try one of the following:\n1. Add your user to the bluetooth group (recommended):\n   sudo usermod -aG bluetooth $USER\n   (Requires restart or re-login)\n2. Grant permissions directly to the Python binary:\n   sudo setcap 'cap_net_raw,cap_net_admin+eip' $(readlink -f $(which python))"
+                                ),
+                                err_msg=err_msg,
+                            ),
+                        },
+                    }
+                    return (
+                        json.dumps(payload, ensure_ascii=False, indent=2)
+                        if output_format == "text"
+                        else json.dumps(payload, ensure_ascii=False)
+                    )
+            elif sys.platform == "darwin":
+                if (
+                    "CoreBluetooth" in err_msg
+                    or "permission" in err_msg.lower()
+                    or "auth" in err_msg.lower()
+                ):
+                    payload = {
+                        "ok": False,
+                        "error": {
+                            "code": "network_error",
+                            "message": _(
+                                "err.macos_permission",
+                                default=(
+                                    "Error during BLE operation: {err_msg}\n\n[macOS Permission Guide]\nBluetooth access might have been denied by macOS security restrictions.\nPlease open 'System Settings > Privacy & Security > Bluetooth' and ensure your terminal, VS Code, or Python process is allowed to access Bluetooth."
+                                ),
+                                err_msg=err_msg,
+                            ),
+                        },
+                    }
+                    return (
+                        json.dumps(payload, ensure_ascii=False, indent=2)
+                        if output_format == "text"
+                        else json.dumps(payload, ensure_ascii=False)
+                    )
+
             payload = {
                 "ok": False,
                 "error": {
-                    "code": "unsupported_device",
+                    "code": "request_failed",
                     "message": _(
-                        "err.unsupported_device",
-                        default="The matched device does not look like a SwitchBot BLE device.",
+                        "err.operation_failed",
+                        default="Error during BLE operation: {err_msg}",
+                        err_msg=err_msg,
                     ),
                 },
-                "device": device,
             }
             return (
-                json.dumps(payload, ensure_ascii=False, indent=2)
+                _format_text(payload)
                 if output_format == "text"
                 else json.dumps(payload, ensure_ascii=False)
             )
-
-        payload_bytes, normalized_value, build_err = _build_payload(action, value)
-        if build_err is not None or payload_bytes is None:
-            payload = {
-                "ok": False,
-                "error": build_err
-                or {"code": "invalid_argument", "message": "Invalid action."},
-            }
-            return (
-                json.dumps(payload, ensure_ascii=False, indent=2)
-                if output_format == "text"
-                else json.dumps(payload, ensure_ascii=False)
-            )
-
-        status, capabilities, characteristic_uuid, write_with_response = asyncio.run(
-            _write_control(
-                address=str(device.get("address") or ""),
-                timeout=timeout,
-                payload=payload_bytes,
-            )
-        )
-        elapsed_ms = int((time.perf_counter() - started) * 1000)
-        result = {
-            "ok": True,
-            "device": {
-                "dev": device.get("address"),
-                "devname": device.get("name"),
-                "device_type": device.get("device_type"),
-                "hub_id": None,
-                "online": True,
-                "battery": None,
-                "reachable": True,
-                "address": device.get("address"),
-                "rssi": device.get("rssi"),
-                "service_uuids": device.get("service_uuids") or [],
-                "manufacturer_data": device.get("manufacturer_data") or {},
-                "connectable": device.get("connectable"),
-                "last_seen": device.get("last_seen"),
-            },
-            "status": {
-                **status,
-                "action": action,
-                "value": normalized_value,
-                "payload_hex": payload_bytes.hex(),
-            },
-            "capabilities": capabilities,
-            "elapsed_ms": elapsed_ms,
-            "last_updated": _now_iso(),
-            "account": {
-                "source": "local_ble",
-                "authenticated": True,
-            },
-        }
-        if output_format == "text":
-            return _format_text(result)
-        return json.dumps(result, ensure_ascii=False)
-    except Exception as exc:
-        err_msg = str(exc)
-        if "timed out" in err_msg.lower():
-            payload = {
-                "ok": False,
-                "error": {
-                    "code": "timeout",
-                    "message": err_msg,
-                },
-            }
-            return (
-                json.dumps(payload, ensure_ascii=False, indent=2)
-                if output_format == "text"
-                else json.dumps(payload, ensure_ascii=False)
-            )
-
-        if sys.platform.startswith("linux"):
-            if (
-                "Permission" in err_msg
-                or "AccessDenied" in err_msg
-                or "dbus" in err_msg.lower()
-                or "notready" in err_msg.lower()
-            ):
-                payload = {
-                    "ok": False,
-                    "error": {
-                        "code": "network_error",
-                        "message": _(
-                            "err.linux_permission",
-                            default=(
-                                "Error during BLE operation: {err_msg}\n\n[Linux/Raspberry Pi Permission Guide]\nYou might lack permissions to access the Bluetooth socket. Try one of the following:\n1. Add your user to the bluetooth group (recommended):\n   sudo usermod -aG bluetooth $USER\n   (Requires restart or re-login)\n2. Grant permissions directly to the Python binary:\n   sudo setcap 'cap_net_raw,cap_net_admin+eip' $(readlink -f $(which python))"
-                            ),
-                            err_msg=err_msg,
-                        ),
-                    },
-                }
-                return (
-                    json.dumps(payload, ensure_ascii=False, indent=2)
-                    if output_format == "text"
-                    else json.dumps(payload, ensure_ascii=False)
-                )
-        elif sys.platform == "darwin":
-            if (
-                "CoreBluetooth" in err_msg
-                or "permission" in err_msg.lower()
-                or "auth" in err_msg.lower()
-            ):
-                payload = {
-                    "ok": False,
-                    "error": {
-                        "code": "network_error",
-                        "message": _(
-                            "err.macos_permission",
-                            default=(
-                                "Error during BLE operation: {err_msg}\n\n[macOS Permission Guide]\nBluetooth access might have been denied by macOS security restrictions.\nPlease open 'System Settings > Privacy & Security > Bluetooth' and ensure your terminal, VS Code, or Python process is allowed to access Bluetooth."
-                            ),
-                            err_msg=err_msg,
-                        ),
-                    },
-                }
-                return (
-                    json.dumps(payload, ensure_ascii=False, indent=2)
-                    if output_format == "text"
-                    else json.dumps(payload, ensure_ascii=False)
-                )
-
-        payload = {
-            "ok": False,
-            "error": {
-                "code": "request_failed",
-                "message": _(
-                    "err.operation_failed",
-                    default="Error during BLE operation: {err_msg}",
-                    err_msg=err_msg,
-                ),
-            },
-        }
-        return (
-            _format_text(payload)
-            if output_format == "text"
-            else json.dumps(payload, ensure_ascii=False)
-        )

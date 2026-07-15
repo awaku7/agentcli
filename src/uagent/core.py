@@ -19,6 +19,7 @@ from typing import Any, Optional
 # ==============================
 
 from uagent.utils.paths import get_log_dir
+from uagent.utils.secret_mask import mask_message as _mask_message
 
 PYTHON_EXEC_TIMEOUT_MS = 2000_000
 CMD_EXEC_TIMEOUT_MS = 2000_000
@@ -593,35 +594,6 @@ def truncate_output(label: str, text: str, limit: int = MAX_TOOL_OUTPUT_CHARS) -
         return text
     omitted = len(text) - limit
     return text[:limit] + f"\n[{label} truncated: {omitted} chars omitted]"
-
-
-def _mask_message(obj: Any) -> Any:
-    """Recursively mask sensitive information for logging."""
-    if isinstance(obj, dict):
-        new_dict = {}
-        for k, v in obj.items():
-            # Fast human_ask detection: sub-string check before costly json.loads
-            if (
-                k == "content"
-                and isinstance(v, str)
-                and v[:1] == "{"
-                and v[-1:] == "}"
-                and "human_ask" in v
-            ):
-                try:
-                    parsed = json.loads(v)
-                    if isinstance(parsed, dict) and parsed.get("tool") == "human_ask":
-                        if parsed.get("display_reply") == "[SECRET]":
-                            parsed["user_reply"] = "********"
-                        v = json.dumps(parsed, ensure_ascii=False)
-                except Exception:
-                    pass
-            new_dict[k] = _mask_message(v)
-        return new_dict
-    elif isinstance(obj, list):
-        return [_mask_message(x) for x in obj]
-    else:
-        return obj
 
 
 def log_message(message: dict[str, Any]) -> None:
@@ -1579,22 +1551,27 @@ def compress_history_with_llm(
                                 for c in item.content:
                                     if c.type == "output_text":
                                         summary_content += c.text
+                elif (
+                    hasattr(client, "chat")
+                    and hasattr(client.chat, "create")
+                    and not hasattr(client.chat, "completions")
+                ):
+                    # xai_sdk (gRPC): convert OpenAI-format messages first
+                    from .providers.llm_grok import simple_xai_chat
+
+                    summary_content = simple_xai_chat(
+                        client,
+                        depname,
+                        summary_messages,
+                        max_tokens=2048,
+                        temperature=0.0,
+                    )
                 elif hasattr(client, "chat") and hasattr(client.chat, "completions"):
                     resp = client.chat.completions.create(
                         model=depname,
                         messages=summary_messages,
                     )
                     summary_content = resp.choices[0].message.content or ""
-                elif hasattr(client, "chat"):
-                    # xai_sdk: chat.create returns a Chat object with sample()
-                    chat_obj = client.chat.create(
-                        model=depname,
-                        messages=summary_messages,
-                        max_tokens=128,
-                        temperature=0.0,
-                    )
-                    resp = chat_obj.sample()
-                    summary_content = resp.content or ""
                 else:
                     raise AttributeError(
                         f"Client {type(client)} has no attribute 'chat' and is not recognized as Gemini."

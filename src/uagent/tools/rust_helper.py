@@ -51,16 +51,16 @@ def load_rust_pyd(
         caller = caller_file or _detect_caller_file()
         if caller:
             default_pyd = f"{module_name}.pyd"
-            candidate = os.path.join(os.path.dirname(os.path.abspath(caller)), default_pyd)
+            candidate = os.path.join(
+                os.path.dirname(os.path.abspath(caller)), default_pyd
+            )
             if os.path.isfile(candidate):
                 resolved_path = candidate
 
     if resolved_path and os.path.isfile(resolved_path):
         spec = importlib.util.spec_from_file_location(module_name, resolved_path)
         if spec is None or spec.loader is None:
-            raise ImportError(
-                f"Cannot create spec for .pyd at {resolved_path}"
-            )
+            raise ImportError(f"Cannot create spec for .pyd at {resolved_path}")
         mod = importlib.util.module_from_spec(spec)
         spec.loader.exec_module(mod)
         sys.modules[module_name] = mod

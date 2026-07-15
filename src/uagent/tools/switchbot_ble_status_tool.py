@@ -7,6 +7,7 @@ import time
 from datetime import datetime, timezone
 from typing import Any
 
+from .asyncio_loop_util import windows_selector_event_loop_policy
 from .i18n_helper import make_tool_translator
 
 _ = make_tool_translator(__file__)
@@ -101,7 +102,9 @@ TOOL_SPEC: dict[str, Any] = {
                     "type": "string",
                     "description": _(
                         "param.interface.description",
-                        default=("Optional local BLE adapter/interface name to bind to."),
+                        default=(
+                            "Optional local BLE adapter/interface name to bind to."
+                        ),
                     ),
                 },
                 "timeout": {
@@ -167,6 +170,7 @@ TOOL_SPEC: dict[str, Any] = {
     },
 }
 
+
 def _now_iso() -> str:
     return datetime.now(timezone.utc).astimezone().isoformat(timespec="seconds")
 
@@ -205,6 +209,7 @@ def _normalize_service_data(data: dict[Any, Any]) -> dict[str, str]:
             continue
         normalized[str(uuid).casefold()] = raw.hex()
     return normalized
+
 
 def _looks_like_switchbot(
     name: str | None,
@@ -252,6 +257,7 @@ def _matches_filters(
             return False
     return True
 
+
 def _pick_service_data_bytes(service_data: dict[str, str]) -> bytes | None:
     preferred = [
         "0000fd3d-0000-1000-8000-00805f9b34fb",
@@ -284,6 +290,7 @@ def _pick_manufacturer_data_bytes(manufacturer_data: dict[str, str]) -> bytes | 
         if raw:
             return raw
     return None
+
 
 def _decode_temp_humidity_bytes(
     temp_data: bytes, battery: int | None = None
@@ -477,7 +484,9 @@ def _decode_contact_payload(
     sensor = svc[3]
     motion = bool(status & 0b01000000)
     door_code = (sensor >> 1) & 0b11
-    door_state = {0: "closed", 1: "open", 2: "timeout_not_closed"}.get(door_code, "unknown")
+    door_state = {0: "closed", 1: "open", 2: "timeout_not_closed"}.get(
+        door_code, "unknown"
+    )
     light_level = "light" if (sensor & 0b1) else "dark"
     last_motion_seconds = None
     last_contact_seconds = None
@@ -669,7 +678,9 @@ def _decode_switchbot_from_adv(
     device_type_code: int | None = None
     if svc and len(svc) >= 1:
         device_type_code = svc[0] & 0b01111111
-    model = _DEVICE_TYPES.get(device_type_code) if device_type_code is not None else None
+    model = (
+        _DEVICE_TYPES.get(device_type_code) if device_type_code is not None else None
+    )
 
     # Prefer type-specific service-data decoders.
     if device_type_code is not None and svc is not None:
@@ -693,34 +704,52 @@ def _decode_switchbot_from_adv(
                 return decoded
         if device_type_code in _MOTION_DEVICE_TYPES:
             decoded = _decode_motion_payload(
-                svc=svc, device_type_code=device_type_code, model=model or "Motion Sensor"
+                svc=svc,
+                device_type_code=device_type_code,
+                model=model or "Motion Sensor",
             )
             if decoded:
                 return decoded
         if device_type_code in _CONTACT_DEVICE_TYPES:
             decoded = _decode_contact_payload(
-                svc=svc, device_type_code=device_type_code, model=model or "Contact Sensor"
+                svc=svc,
+                device_type_code=device_type_code,
+                model=model or "Contact Sensor",
             )
             if decoded:
                 return decoded
         if device_type_code in _LOCK_DEVICE_TYPES:
             decoded = _decode_lock_payload(
-                svc=svc, mfr=mfr, device_type_code=device_type_code, model=model or "Smart Lock"
+                svc=svc,
+                mfr=mfr,
+                device_type_code=device_type_code,
+                model=model or "Smart Lock",
             )
             if decoded:
                 return decoded
         if device_type_code in _PLUG_DEVICE_TYPES:
             decoded = _decode_plug_payload(
-                mfr=mfr, svc=svc, device_type_code=device_type_code, model=model or "Plug Mini"
+                mfr=mfr,
+                svc=svc,
+                device_type_code=device_type_code,
+                model=model or "Plug Mini",
             )
             if decoded:
                 return decoded
-        if device_type_code in _BULB_DEVICE_TYPES or device_type_code in _STRIP_DEVICE_TYPES:
+        if (
+            device_type_code in _BULB_DEVICE_TYPES
+            or device_type_code in _STRIP_DEVICE_TYPES
+        ):
             decoded = _decode_bulb_or_strip_payload(
                 mfr=mfr,
                 svc=svc,
                 device_type_code=device_type_code,
-                model=model or ("Color Bulb" if device_type_code in _BULB_DEVICE_TYPES else "LED Strip Light"),
+                model=model
+                or (
+                    "Color Bulb"
+                    if device_type_code in _BULB_DEVICE_TYPES
+                    else "LED Strip Light"
+                ),
             )
             if decoded:
                 return decoded
@@ -732,7 +761,9 @@ def _decode_switchbot_from_adv(
                 return decoded
 
     # Fallbacks when service data type is missing/incomplete.
-    meter = _decode_meter_payload(svc=svc, mfr=mfr, device_type_code=device_type_code, model=model)
+    meter = _decode_meter_payload(
+        svc=svc, mfr=mfr, device_type_code=device_type_code, model=model
+    )
     if meter:
         return meter
     plug = _decode_plug_payload(
@@ -773,6 +804,7 @@ def _decode_meter_from_adv(
         service_data=service_data,
     )
 
+
 def _merge_device(current: dict[str, Any], item: dict[str, Any]) -> dict[str, Any]:
     if item.get("rssi") is not None and (
         current.get("rssi") is None or item.get("rssi") > current.get("rssi")
@@ -791,14 +823,21 @@ def _merge_device(current: dict[str, Any], item: dict[str, Any]) -> dict[str, An
     }
     current["connectable"] = bool(current.get("connectable") or item.get("connectable"))
     current["last_seen"] = item.get("last_seen") or current.get("last_seen")
-    if current.get("device_type") != "switchbot" and item.get("device_type") == "switchbot":
+    if (
+        current.get("device_type") != "switchbot"
+        and item.get("device_type") == "switchbot"
+    ):
         current["device_type"] = "switchbot"
-    if item.get("name") and (not current.get("name") or current.get("name") == "Unknown"):
+    if item.get("name") and (
+        not current.get("name") or current.get("name") == "Unknown"
+    ):
         current["name"] = item.get("name")
     return current
 
+
 async def _scan_once(timeout: int, interface: str | None) -> list[dict[str, Any]]:
     from bleak import BleakScanner
+
     kwargs: dict[str, Any] = {"timeout": timeout, "return_adv": True}
     if interface:
         kwargs["adapter"] = interface
@@ -836,21 +875,38 @@ async def _scan_once(timeout: int, interface: str | None) -> list[dict[str, Any]
             or getattr(device, "metadata", {}).get("uuids", [])
             or []
         )
-        name = getattr(device, "name", None) or getattr(adv, "local_name", None) or "Unknown"
-        result.append({
-            "name": name,
-            "address": getattr(device, "address", None),
-            "rssi": getattr(adv, "rssi", None) if adv is not None else getattr(device, "rssi", None),
-            "device_type": (
-                "switchbot" if _looks_like_switchbot(name, manufacturer_data, service_data, service_uuids) else "ble"
-            ),
-            "service_uuids": service_uuids,
-            "manufacturer_data": manufacturer_data,
-            "service_data": service_data,
-            "connectable": bool(getattr(adv, "connectable", None)) if adv is not None else None,
-            "last_seen": _now_iso(),
-        })
+        name = (
+            getattr(device, "name", None)
+            or getattr(adv, "local_name", None)
+            or "Unknown"
+        )
+        result.append(
+            {
+                "name": name,
+                "address": getattr(device, "address", None),
+                "rssi": (
+                    getattr(adv, "rssi", None)
+                    if adv is not None
+                    else getattr(device, "rssi", None)
+                ),
+                "device_type": (
+                    "switchbot"
+                    if _looks_like_switchbot(
+                        name, manufacturer_data, service_data, service_uuids
+                    )
+                    else "ble"
+                ),
+                "service_uuids": service_uuids,
+                "manufacturer_data": manufacturer_data,
+                "service_data": service_data,
+                "connectable": (
+                    bool(getattr(adv, "connectable", None)) if adv is not None else None
+                ),
+                "last_seen": _now_iso(),
+            }
+        )
     return result
+
 
 async def _discover_target(
     *,
@@ -910,7 +966,9 @@ async def _discover_target(
         )
     if device_name:
         needle = device_name.casefold()
-        matches = [item for item in items if needle in str(item.get("name") or "").casefold()]
+        matches = [
+            item for item in items if needle in str(item.get("name") or "").casefold()
+        ]
         if not matches:
             return (
                 None,
@@ -954,6 +1012,7 @@ async def _discover_target(
         interface_used,
     )
 
+
 async def _read_device_status(
     *,
     device: dict[str, Any],
@@ -961,6 +1020,7 @@ async def _read_device_status(
     limit: int,
 ) -> tuple[dict[str, Any], dict[str, Any]]:
     from bleak import BleakClient
+
     address = str(device.get("address") or "")
     discovered_services: list[dict[str, Any]] = []
     capabilities: list[dict[str, Any]] = []
@@ -994,7 +1054,10 @@ async def _read_device_status(
                             hex_value = data.hex()
                             char_item["value_hex"] = hex_value
                             raw_values[str(getattr(char, "uuid", ""))] = hex_value
-                            if str(getattr(char, "uuid", "")).casefold() == _BATTERY_UUID:
+                            if (
+                                str(getattr(char, "uuid", "")).casefold()
+                                == _BATTERY_UUID
+                            ):
                                 try:
                                     battery = int(data[0])
                                 except Exception:
@@ -1004,11 +1067,13 @@ async def _read_device_status(
                     service_item["characteristics"].append(char_item)
                     characteristics.append(char_item)
                 discovered_services.append(service_item)
-                capabilities.append({
-                    "uuid": getattr(service, "uuid", None),
-                    "description": getattr(service, "description", None),
-                    "characteristic_count": len(service_item["characteristics"]),
-                })
+                capabilities.append(
+                    {
+                        "uuid": getattr(service, "uuid", None),
+                        "description": getattr(service, "description", None),
+                        "characteristic_count": len(service_item["characteristics"]),
+                    }
+                )
     if limit > 0:
         characteristics = characteristics[:limit]
         discovered_services = discovered_services[:limit]
@@ -1021,6 +1086,7 @@ async def _read_device_status(
         "source": "gatt",
     }
     return status, {"capabilities": capabilities}
+
 
 def _status_from_advertisement(device: dict[str, Any]) -> dict[str, Any] | None:
     manufacturer_data = dict(device.get("manufacturer_data") or {})
@@ -1079,6 +1145,7 @@ def _format_text(result: dict[str, Any]) -> str:
             )
     return chr(10).join(lines)
 
+
 def run_tool(args: dict[str, Any]) -> str:
     output_format = str(args.get("fmt") or "json").lower()
     interface = args.get("interface")
@@ -1131,7 +1198,9 @@ def run_tool(args: dict[str, Any]) -> str:
                 "message": _(
                     "err.bleak_missing",
                     default=(
-                        "Error: 'bleak' library is not installed. Please install it using:" + chr(10) + "pip install bleak"
+                        "Error: 'bleak' library is not installed. Please install it using:"
+                        + chr(10)
+                        + "pip install bleak"
                     ),
                 ),
             },
@@ -1141,157 +1210,172 @@ def run_tool(args: dict[str, Any]) -> str:
             if output_format == "text"
             else json.dumps(payload, ensure_ascii=False)
         )
-    if sys.platform == "win32":
+    with windows_selector_event_loop_policy():
+        started = time.perf_counter()
         try:
-            asyncio.set_event_loop_policy(asyncio.WindowsSelectorEventLoopPolicy())
-        except Exception:
-            pass
-    started = time.perf_counter()
-    try:
-        device, err, interface_used = asyncio.run(
-            _discover_target(
-                timeout=timeout,
-                retry=retry,
-                interface=str(interface) if interface else None,
-                device_name=str(device_name) if device_name else None,
-                mac_address=str(mac_address) if mac_address else None,
-                service_uuid=str(service_uuid) if service_uuid else None,
+            device, err, interface_used = asyncio.run(
+                _discover_target(
+                    timeout=timeout,
+                    retry=retry,
+                    interface=str(interface) if interface else None,
+                    device_name=str(device_name) if device_name else None,
+                    mac_address=str(mac_address) if mac_address else None,
+                    service_uuid=str(service_uuid) if service_uuid else None,
+                )
             )
-        )
-        if err is not None or device is None:
+            if err is not None or device is None:
+                payload = {
+                    "ok": False,
+                    "error": err or {"code": "not_found", "message": "Not found."},
+                }
+                return (
+                    json.dumps(payload, ensure_ascii=False, indent=2)
+                    if output_format == "text"
+                    else json.dumps(payload, ensure_ascii=False)
+                )
+            adv_status = _status_from_advertisement(device)
+            status: dict[str, Any]
+            extra: dict[str, Any]
+            if adv_status is not None:
+                status = adv_status
+                caps = ["advertisement"]
+                for key in (
+                    "temperature",
+                    "humidity",
+                    "battery",
+                    "power",
+                    "is_on",
+                    "position",
+                    "moving",
+                    "motion",
+                    "door_state",
+                    "lock_state",
+                    "brightness",
+                    "power_w",
+                ):
+                    if status.get(key) is not None:
+                        caps.append(key)
+                extra = {"capabilities": caps}
+            else:
+                status, extra = asyncio.run(
+                    _read_device_status(device=device, timeout=timeout, limit=limit)
+                )
+            elapsed_ms = int((time.perf_counter() - started) * 1000)
+            result = {
+                "ok": True,
+                "device": {
+                    "dev": device.get("address"),
+                    "devname": device.get("name"),
+                    "device_type": status.get("model") or device.get("device_type"),
+                    "hub_id": None,
+                    "online": True,
+                    "battery": status.get("battery"),
+                    "reachable": True,
+                    "address": device.get("address"),
+                    "rssi": device.get("rssi"),
+                    "service_uuids": device.get("service_uuids") or [],
+                    "manufacturer_data": device.get("manufacturer_data") or {},
+                    "service_data": device.get("service_data") or {},
+                    "connectable": device.get("connectable"),
+                    "last_seen": device.get("last_seen"),
+                },
+                "status": status,
+                "capabilities": extra.get("capabilities", []),
+                "interface_used": interface_used,
+                "elapsed_ms": elapsed_ms,
+                "last_updated": _now_iso(),
+                "account": {
+                    "source": "local_ble",
+                    "authenticated": True,
+                },
+            }
+            if output_format == "text":
+                return _format_text(result)
+            return json.dumps(result, ensure_ascii=False)
+        except Exception as exc:
+            err_msg = str(exc)
+            if sys.platform.startswith("linux"):
+                if (
+                    "Permission" in err_msg
+                    or "AccessDenied" in err_msg
+                    or "dbus" in err_msg.lower()
+                    or "notready" in err_msg.lower()
+                ):
+                    payload = {
+                        "ok": False,
+                        "error": {
+                            "code": "network_error",
+                            "message": _(
+                                "err.linux_permission",
+                                default=(
+                                    "Error during BLE operation: {err_msg}"
+                                    + chr(10) * 2
+                                    + "[Linux/Raspberry Pi Permission Guide]"
+                                    + chr(10)
+                                    + "You might lack permissions to access the Bluetooth socket. Try one of the following:"
+                                    + chr(10)
+                                    + "1. Add your user to the bluetooth group (recommended):"
+                                    + chr(10)
+                                    + "   sudo usermod -aG bluetooth $USER"
+                                    + chr(10)
+                                    + "   (Requires restart or re-login)"
+                                    + chr(10)
+                                    + "2. Grant permissions directly to the Python binary:"
+                                    + chr(10)
+                                    + "   sudo setcap 'cap_net_raw,cap_net_admin+eip' $(readlink -f $(which python))"
+                                ),
+                                err_msg=err_msg,
+                            ),
+                        },
+                    }
+                    return (
+                        json.dumps(payload, ensure_ascii=False, indent=2)
+                        if output_format == "text"
+                        else json.dumps(payload, ensure_ascii=False)
+                    )
+            elif sys.platform == "darwin":
+                if (
+                    "CoreBluetooth" in err_msg
+                    or "permission" in err_msg.lower()
+                    or "auth" in err_msg.lower()
+                ):
+                    payload = {
+                        "ok": False,
+                        "error": {
+                            "code": "network_error",
+                            "message": _(
+                                "err.macos_permission",
+                                default=(
+                                    "Error during BLE operation: {err_msg}"
+                                    + chr(10) * 2
+                                    + "[macOS Permission Guide]"
+                                    + chr(10)
+                                    + "Bluetooth access might have been denied by macOS security restrictions."
+                                    + chr(10)
+                                    + "Please open 'System Settings > Privacy & Security > Bluetooth' and ensure your terminal, VS Code, or Python process is allowed to access Bluetooth."
+                                ),
+                                err_msg=err_msg,
+                            ),
+                        },
+                    }
+                    return (
+                        json.dumps(payload, ensure_ascii=False, indent=2)
+                        if output_format == "text"
+                        else json.dumps(payload, ensure_ascii=False)
+                    )
             payload = {
                 "ok": False,
-                "error": err or {"code": "not_found", "message": "Not found."},
+                "error": {
+                    "code": "request_failed",
+                    "message": _(
+                        "err.operation_failed",
+                        default="Error during BLE operation: {err_msg}",
+                        err_msg=err_msg,
+                    ),
+                },
             }
             return (
-                json.dumps(payload, ensure_ascii=False, indent=2)
+                _format_text(payload)
                 if output_format == "text"
                 else json.dumps(payload, ensure_ascii=False)
             )
-        adv_status = _status_from_advertisement(device)
-        status: dict[str, Any]
-        extra: dict[str, Any]
-        if adv_status is not None:
-            status = adv_status
-            caps = ["advertisement"]
-            for key in (
-                "temperature",
-                "humidity",
-                "battery",
-                "power",
-                "is_on",
-                "position",
-                "moving",
-                "motion",
-                "door_state",
-                "lock_state",
-                "brightness",
-                "power_w",
-            ):
-                if status.get(key) is not None:
-                    caps.append(key)
-            extra = {"capabilities": caps}
-        else:
-            status, extra = asyncio.run(
-                _read_device_status(device=device, timeout=timeout, limit=limit)
-            )
-        elapsed_ms = int((time.perf_counter() - started) * 1000)
-        result = {
-            "ok": True,
-            "device": {
-                "dev": device.get("address"),
-                "devname": device.get("name"),
-                "device_type": status.get("model") or device.get("device_type"),
-                "hub_id": None,
-                "online": True,
-                "battery": status.get("battery"),
-                "reachable": True,
-                "address": device.get("address"),
-                "rssi": device.get("rssi"),
-                "service_uuids": device.get("service_uuids") or [],
-                "manufacturer_data": device.get("manufacturer_data") or {},
-                "service_data": device.get("service_data") or {},
-                "connectable": device.get("connectable"),
-                "last_seen": device.get("last_seen"),
-            },
-            "status": status,
-            "capabilities": extra.get("capabilities", []),
-            "interface_used": interface_used,
-            "elapsed_ms": elapsed_ms,
-            "last_updated": _now_iso(),
-            "account": {
-                "source": "local_ble",
-                "authenticated": True,
-            },
-        }
-        if output_format == "text":
-            return _format_text(result)
-        return json.dumps(result, ensure_ascii=False)
-    except Exception as exc:
-        err_msg = str(exc)
-        if sys.platform.startswith("linux"):
-            if (
-                "Permission" in err_msg
-                or "AccessDenied" in err_msg
-                or "dbus" in err_msg.lower()
-                or "notready" in err_msg.lower()
-            ):
-                payload = {
-                    "ok": False,
-                    "error": {
-                        "code": "network_error",
-                        "message": _(
-                            "err.linux_permission",
-                            default=(
-                                "Error during BLE operation: {err_msg}" + chr(10)*2 + "[Linux/Raspberry Pi Permission Guide]" + chr(10) + "You might lack permissions to access the Bluetooth socket. Try one of the following:" + chr(10) + "1. Add your user to the bluetooth group (recommended):" + chr(10) + "   sudo usermod -aG bluetooth $USER" + chr(10) + "   (Requires restart or re-login)" + chr(10) + "2. Grant permissions directly to the Python binary:" + chr(10) + "   sudo setcap 'cap_net_raw,cap_net_admin+eip' $(readlink -f $(which python))"
-                            ),
-                            err_msg=err_msg,
-                        ),
-                    },
-                }
-                return (
-                    json.dumps(payload, ensure_ascii=False, indent=2)
-                    if output_format == "text"
-                    else json.dumps(payload, ensure_ascii=False)
-                )
-        elif sys.platform == "darwin":
-            if (
-                "CoreBluetooth" in err_msg
-                or "permission" in err_msg.lower()
-                or "auth" in err_msg.lower()
-            ):
-                payload = {
-                    "ok": False,
-                    "error": {
-                        "code": "network_error",
-                        "message": _(
-                            "err.macos_permission",
-                            default=(
-                                "Error during BLE operation: {err_msg}" + chr(10)*2 + "[macOS Permission Guide]" + chr(10) + "Bluetooth access might have been denied by macOS security restrictions." + chr(10) + "Please open 'System Settings > Privacy & Security > Bluetooth' and ensure your terminal, VS Code, or Python process is allowed to access Bluetooth."
-                            ),
-                            err_msg=err_msg,
-                        ),
-                    },
-                }
-                return (
-                    json.dumps(payload, ensure_ascii=False, indent=2)
-                    if output_format == "text"
-                    else json.dumps(payload, ensure_ascii=False)
-                )
-        payload = {
-            "ok": False,
-            "error": {
-                "code": "request_failed",
-                "message": _(
-                    "err.operation_failed",
-                    default="Error during BLE operation: {err_msg}",
-                    err_msg=err_msg,
-                ),
-            },
-        }
-        return (
-            _format_text(payload)
-            if output_format == "text"
-            else json.dumps(payload, ensure_ascii=False)
-        )
-

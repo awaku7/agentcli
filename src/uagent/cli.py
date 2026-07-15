@@ -270,7 +270,9 @@ def _get_prompt_session(*, reply: bool = False) -> Any:
                         # :tools subcommand completion
                         after_tools = stripped[len(":tools ") :]
                         if " " not in after_tools:
-                            tools_subcmds = tools.get_dynamic_commands_map().get("tools", [])
+                            tools_subcmds = tools.get_dynamic_commands_map().get(
+                                "tools", []
+                            )
                             for sc in tools_subcmds:
                                 if sc.startswith(after_tools):
                                     yield Completion(
@@ -301,7 +303,7 @@ def _get_prompt_session(*, reply: bool = False) -> Any:
                                     )
                         elif after_tools.startswith("create "):
                             # :tools create <name> [--lang python|rust] [--description ...]
-                            create_arg = after_tools[len("create "):]
+                            create_arg = after_tools[len("create ") :]
                             create_parts = create_arg.split()
                             # Check what's being typed
                             if create_arg.endswith(" "):
@@ -316,7 +318,10 @@ def _get_prompt_session(*, reply: bool = False) -> Any:
                                 # Currently typing a token
                                 last_token = create_parts[-1] if create_parts else ""
                                 # Check for --lang value completion
-                                if len(create_parts) >= 2 and create_parts[-2] == "--lang":
+                                if (
+                                    len(create_parts) >= 2
+                                    and create_parts[-2] == "--lang"
+                                ):
                                     lang_opts = ["python", "rust"]
                                     for lo in lang_opts:
                                         if lo.startswith(last_token):
@@ -327,7 +332,9 @@ def _get_prompt_session(*, reply: bool = False) -> Any:
                                     # Suggest flags
                                     flags = ["--lang", "--description", "--output-dir"]
                                     for fl in flags:
-                                        if fl not in create_parts and fl.startswith(last_token):
+                                        if fl not in create_parts and fl.startswith(
+                                            last_token
+                                        ):
                                             yield Completion(
                                                 fl, start_position=-len(last_token)
                                             )
@@ -335,7 +342,9 @@ def _get_prompt_session(*, reply: bool = False) -> Any:
                         # :skills subcommand completion
                         after_skills = stripped[len(":skills ") :]
                         if " " not in after_skills:
-                            skills_subcmds = tools.get_dynamic_commands_map().get("skills", [])
+                            skills_subcmds = tools.get_dynamic_commands_map().get(
+                                "skills", []
+                            )
                             for sc in skills_subcmds:
                                 if sc.startswith(after_skills):
                                     yield Completion(
@@ -358,13 +367,14 @@ def _get_prompt_session(*, reply: bool = False) -> Any:
                         # Generic dynamic command completion
                         cmd_word = stripped.lstrip(":").split(" ", 1)[0].lower()
                         after_cmd = stripped[len(f":{cmd_word} ") :]
-                        if " " not in after_cmd and cmd_word in tools.get_dynamic_commands_map():
+                        if (
+                            " " not in after_cmd
+                            and cmd_word in tools.get_dynamic_commands_map()
+                        ):
                             dyn_subcmds = tools.get_dynamic_commands_map()[cmd_word]
                             for sc in dyn_subcmds:
                                 if sc.startswith(after_cmd):
-                                    yield Completion(
-                                        sc, start_position=-len(after_cmd)
-                                    )
+                                    yield Completion(sc, start_position=-len(after_cmd))
                     elif stripped.startswith((":r ", ":reasoning ")):
                         # :r reasoning mode values
                         r_prefix = stripped.split(" ", 1)[1] if " " in stripped else ""
@@ -422,8 +432,6 @@ def _get_prompt_session(*, reply: bool = False) -> Any:
                             "redo",
                             "history",
                             "replay",
-                            "export",
-                            "import",
                             "tool",
                             "tools",
                             "skills",

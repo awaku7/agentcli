@@ -408,7 +408,6 @@ def get_display_reasoning() -> bool:
 
 def apply_reasoning_arg(arg: str) -> str:
     global _REASONING_HISTORY, _DISPLAY_REASONING
-    cur = get_reasoning_mode()
     lv = _normalize_reasoning_level_arg(arg)
     if lv is None and (arg or "").strip():
         # invalid (non-empty)

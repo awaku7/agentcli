@@ -145,14 +145,23 @@ def handle_cmd_tools_list(arg: str, **kwargs: Any) -> Any:
             if n in ("tool_catalog", "tool_load", "unload_tool"):
                 print(f"  {n}  -")
                 continue
+            try:
+                from ._genre_control_util import is_tool_pinned, get_threshold
+
+                if is_tool_pinned(n):
+                    print(f"  {n}  pinned")
+                    continue
+                thr = get_threshold(n)
+            except Exception:
+                thr = _TOOL_AUTO_UNLOAD_ROUNDS
             last = _TOOL_LAST_ROUND.get(n)
             if last is not None:
                 ago = _TOTAL_ROUNDS - last
-                expire = _TOOL_AUTO_UNLOAD_ROUNDS - ago
+                expire = (thr or _TOOL_AUTO_UNLOAD_ROUNDS) - ago
                 if expire < 0:
                     expire = 0
             else:
-                expire = _TOOL_AUTO_UNLOAD_ROUNDS
+                expire = thr or _TOOL_AUTO_UNLOAD_ROUNDS
             print(f"  {n}  {expire}")
 
     from ..util_tools import CommandResult

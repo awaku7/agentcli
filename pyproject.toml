@@ -104,6 +104,11 @@ ignore = [
 fixable = ["ALL"]
 unfixable = []
 
+
+[tool.black]
+line-length = 88
+target-version = ["py311"]
+
 [tool.mypy]
 # Policy: reduce noise first (Project decision: 2b)
 python_version = "3.11"

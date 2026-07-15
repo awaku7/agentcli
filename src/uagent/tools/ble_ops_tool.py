@@ -7,6 +7,7 @@ import sys
 from typing import Any
 
 from .._pip_auto import install_with_status as _install_ble_pyside
+from .asyncio_loop_util import windows_selector_event_loop_policy
 from .i18n_helper import make_tool_translator
 
 _ = make_tool_translator(__file__)
@@ -241,76 +242,71 @@ def run_tool(args: dict[str, Any]) -> str:
                 default="Error: 'bleak' library is not installed. Please install it using:\npip install bleak",
             )
 
-    # 2. Set event loop policy for Windows
-    if sys.platform == "win32":
+    # 2. Use SelectorEventLoop on Windows only for this BLE call, then restore.
+    with windows_selector_event_loop_policy():
         try:
-            asyncio.set_event_loop_policy(asyncio.WindowsSelectorEventLoopPolicy())
-        except Exception:
-            pass
+            if action == "scan":
+                if scan_mode == "all":
+                    res = _scan_all_pyside6(timeout)
+                else:
+                    res = asyncio.run(_scan(timeout))
+                return str(res)
 
-    try:
-        if action == "scan":
-            if scan_mode == "all":
-                res = _scan_all_pyside6(timeout)
+            elif action == "read":
+                if not address or not char_uuid:
+                    return _(
+                        "err.missing_read_params",
+                        default="Error: 'address' and 'char_uuid' are required.",
+                    )
+                res = asyncio.run(_read(address, char_uuid, timeout))
+                return str(res)
+
+            elif action == "write":
+                if not address or not char_uuid or not data_hex:
+                    return _(
+                        "err.missing_write_params",
+                        default="Error: 'address', 'char_uuid', and 'data_hex' are required.",
+                    )
+                res = asyncio.run(_write(address, char_uuid, data_hex, timeout))
+                return str(res)
+
             else:
-                res = asyncio.run(_scan(timeout))
-            return str(res)
-
-        elif action == "read":
-            if not address or not char_uuid:
                 return _(
-                    "err.missing_read_params",
-                    default="Error: 'address' and 'char_uuid' are required.",
+                    "err.unknown_action",
+                    default="Error: Unknown action '{action}'.",
+                    action=action,
                 )
-            res = asyncio.run(_read(address, char_uuid, timeout))
-            return str(res)
 
-        elif action == "write":
-            if not address or not char_uuid or not data_hex:
-                return _(
-                    "err.missing_write_params",
-                    default="Error: 'address', 'char_uuid', and 'data_hex' are required.",
-                )
-            res = asyncio.run(_write(address, char_uuid, data_hex, timeout))
-            return str(res)
+        except Exception as e:
+            err_msg = str(e)
+            # Linux permission error handling
+            if sys.platform.startswith("linux"):
+                if (
+                    "Permission" in err_msg
+                    or "AccessDenied" in err_msg
+                    or "dbus" in err_msg.lower()
+                    or "notready" in err_msg.lower()
+                ):
+                    return _(
+                        "err.linux_permission",
+                        default="Error during BLE operation: {err_msg}\n\n[Linux/Raspberry Pi Permission Guide]\nYou might lack permissions to access the Bluetooth socket. Try one of the following:\n1. Add your user to the bluetooth group (recommended):\n   sudo usermod -aG bluetooth $USER\n   (Requires restart or re-login)\n2. Grant permissions directly to the Python binary:\n   sudo setcap 'cap_net_raw,cap_net_admin+eip' $(readlink -f $(which python))",
+                        err_msg=err_msg,
+                    )
+            # macOS permission error handling
+            elif sys.platform == "darwin":
+                if (
+                    "CoreBluetooth" in err_msg
+                    or "permission" in err_msg.lower()
+                    or "auth" in err_msg.lower()
+                ):
+                    return _(
+                        "err.macos_permission",
+                        default="Error during BLE operation: {err_msg}\n\n[macOS Permission Guide]\nBluetooth access might have been denied by macOS security restrictions.\nPlease open 'System Settings > Privacy & Security > Bluetooth' and ensure your terminal, VS Code, or Python process is allowed to access Bluetooth.",
+                        err_msg=err_msg,
+                    )
 
-        else:
             return _(
-                "err.unknown_action",
-                default="Error: Unknown action '{action}'.",
-                action=action,
+                "err.operation_failed",
+                default="Error during BLE operation: {err_msg}",
+                err_msg=err_msg,
             )
-
-    except Exception as e:
-        err_msg = str(e)
-        # Linux permission error handling
-        if sys.platform.startswith("linux"):
-            if (
-                "Permission" in err_msg
-                or "AccessDenied" in err_msg
-                or "dbus" in err_msg.lower()
-                or "notready" in err_msg.lower()
-            ):
-                return _(
-                    "err.linux_permission",
-                    default="Error during BLE operation: {err_msg}\n\n[Linux/Raspberry Pi Permission Guide]\nYou might lack permissions to access the Bluetooth socket. Try one of the following:\n1. Add your user to the bluetooth group (recommended):\n   sudo usermod -aG bluetooth $USER\n   (Requires restart or re-login)\n2. Grant permissions directly to the Python binary:\n   sudo setcap 'cap_net_raw,cap_net_admin+eip' $(readlink -f $(which python))",
-                    err_msg=err_msg,
-                )
-        # macOS permission error handling
-        elif sys.platform == "darwin":
-            if (
-                "CoreBluetooth" in err_msg
-                or "permission" in err_msg.lower()
-                or "auth" in err_msg.lower()
-            ):
-                return _(
-                    "err.macos_permission",
-                    default="Error during BLE operation: {err_msg}\n\n[macOS Permission Guide]\nBluetooth access might have been denied by macOS security restrictions.\nPlease open 'System Settings > Privacy & Security > Bluetooth' and ensure your terminal, VS Code, or Python process is allowed to access Bluetooth.",
-                    err_msg=err_msg,
-                )
-
-        return _(
-            "err.operation_failed",
-            default="Error during BLE operation: {err_msg}",
-            err_msg=err_msg,
-        )

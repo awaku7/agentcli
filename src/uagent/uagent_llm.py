@@ -61,6 +61,7 @@ from .tools._genre_control_util import (
     disable_single_tool as _disable_single_tool,
     get_threshold as _get_threshold,
     bump_threshold as _bump_threshold,
+    is_tool_pinned as _is_tool_pinned,
 )
 from .tools import TOOL_SPECS as _TOOL_SPECS
 from .tools import _should_preload_lazy_specs
@@ -1228,6 +1229,9 @@ def run_llm_rounds(
                         continue
                     # Only auto-unload tools explicitly loaded by user (:tools load or tool_load)
                     if tname not in _LOADED_SINGLE_TOOLS:
+                        continue
+                    # Skip tools pinned against auto-unload (e.g. active browser sessions)
+                    if _is_tool_pinned(tname):
                         continue
                     threshold = _get_threshold(tname)
                     if threshold <= 0:

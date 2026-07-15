@@ -1506,7 +1506,9 @@ async def api_command(req: Request):
             _pname, _client, _depname = providers.make_client(core)
         except Exception:
             pass
-        import io as _io, sys as _sys
+        import io as _io
+        import sys as _sys
+
         _capture = _io.StringIO()
         _old_stdout = _sys.stdout
         try:
@@ -1600,7 +1602,9 @@ async def websocket_endpoint(websocket: WebSocket):
                         _wc_pname, _wc_client, _wc_depname = providers.make_client(core)
                     except Exception:
                         pass
-                    import io as _io, sys as _sys
+                    import io as _io
+                    import sys as _sys
+
                     _capture = _io.StringIO()
                     _old_stdout = _sys.stdout
                     try:

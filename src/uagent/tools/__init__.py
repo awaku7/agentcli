@@ -124,61 +124,9 @@ _TOOLS_LOCK = RLock()
 # Tool trace (stdout only)
 # ------------------------------
 
-_SECRET_KEY_PATTERNS = [
-    re.compile(pat, re.IGNORECASE)
-    for pat in (
-        r"pass(word)?",
-        r"pwd",
-        r"token",
-        r"secret",
-        r"api[_-]?key",
-        r"access[_-]?key",
-        r"private[_-]?key",
-        r"bearer",
-        r"authorization",
-        r"auth[_-]?token",
-        r"credential",
-        r"cookie",
-        r"session",
-        r"sas",
-        r"signature",
-        r"user[_-]?reply",  # raw answer for human_ask
-    )
-]
-
-
-def _looks_like_secret_key(key: str) -> bool:
-    if not key:
-        return False
-    ks = str(key).lower()
-    if ks in ("is_password", "use_password", "enable_password", "mask"):
-        return False
-    return any(p.search(ks) for p in _SECRET_KEY_PATTERNS)
-
-
-def _mask_value(v: Any) -> Any:
-    if v is None:
-        return None
-    return "********"
-
-
-def _mask_args(args: Any) -> Any:
-    """Recursively walk arguments and mask secret values."""
-    if isinstance(args, dict):
-        out: dict[str, Any] = {}
-        for k, v in args.items():
-            ks = str(k)
-            if _looks_like_secret_key(ks):
-                out[k] = _mask_value(v)
-            else:
-                out[k] = _mask_args(v)
-        return out
-    elif isinstance(args, list):
-        return [_mask_args(item) for item in args]
-    elif isinstance(args, str) and len(args) > 300:
-        return args[:20] + "...(truncated)..." + args[-20:]
-    else:
-        return args
+from ..utils.secret_mask import (  # noqa: E402
+    mask_args as _mask_args,
+)
 
 
 def _emit_tool_trace(name: str, args: dict[str, Any]) -> None:

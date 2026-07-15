@@ -26,6 +26,14 @@ from .paths import (
     get_tmp_patch_dir,
 )
 from .scan_filters import is_ignored_path, path_has_dirname
+from .secret_mask import (
+    looks_like_password_field,
+    looks_like_secret_key,
+    mask_args,
+    mask_message,
+    mask_tool_call_arguments_json,
+    mask_value,
+)
 
 __all__ = [
     # paths
@@ -44,4 +52,11 @@ __all__ = [
     # scan_filters
     "path_has_dirname",
     "is_ignored_path",
+    # secret_mask
+    "looks_like_secret_key",
+    "looks_like_password_field",
+    "mask_value",
+    "mask_args",
+    "mask_tool_call_arguments_json",
+    "mask_message",
 ]

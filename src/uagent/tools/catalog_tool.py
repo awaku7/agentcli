@@ -164,7 +164,22 @@ def _run_tool_unload(args: dict[str, Any]) -> str:
         )
 
     try:
-        from ._genre_control_util import disable_single_tool
+        from ._genre_control_util import disable_single_tool, is_tool_pinned
+
+        if is_tool_pinned(name):
+            return json.dumps(
+                {
+                    "ok": False,
+                    "name": name,
+                    "unloaded": False,
+                    "pinned": True,
+                    "error": _(
+                        "msg.unload.pinned",
+                        default="Tool '{name}' is pinned against unload. Unpin it first or force-close its sessions.",
+                        name=name,
+                    ),
+                }
+            )
 
         ok = disable_single_tool(name)
         if ok:

@@ -240,6 +240,83 @@ def _compact_profile_text(value: Any) -> str:
     return " ".join(str(value).split()).strip()
 
 
+def _llm_simple_text(
+    *,
+    provider: str | None,
+    client: Any,
+    model_name: str,
+    system_prompt: str,
+    user_prompt: str,
+    max_tokens: int = 1024,
+    temperature: float = 0.0,
+) -> str:
+    """Provider-agnostic simple text completion (no tools)."""
+    if not provider or client is None or not model_name:
+        return ""
+
+    messages = [
+        {"role": "system", "content": system_prompt},
+        {"role": "user", "content": user_prompt},
+    ]
+
+    if provider in ("gemini", "vertexai"):
+        from google.genai import types as gemini_types
+
+        response = client.models.generate_content(
+            model=model_name,
+            contents=user_prompt,
+            config=gemini_types.GenerateContentConfig(
+                system_instruction=system_prompt,
+                temperature=temperature,
+            ),
+        )
+        return (response.text or "") if response is not None else ""
+
+    if provider == "claude":
+        response = client.messages.create(
+            model=model_name,
+            max_tokens=max_tokens,
+            system=system_prompt,
+            messages=[{"role": "user", "content": user_prompt}],
+            temperature=temperature,
+        )
+        try:
+            return response.content[0].text or ""
+        except Exception:
+            return ""
+
+    # xai_sdk (gRPC client has chat.create but no chat.completions)
+    if (
+        hasattr(client, "chat")
+        and hasattr(client.chat, "create")
+        and not hasattr(client.chat, "completions")
+    ):
+        from .providers.llm_grok import simple_xai_chat
+
+        return simple_xai_chat(
+            client,
+            model_name,
+            messages,
+            max_tokens=max_tokens,
+            temperature=temperature,
+        )
+
+    # OpenAI-compatible clients (incl. Grok fallback)
+    if hasattr(client, "chat") and hasattr(client.chat, "completions"):
+        response = client.chat.completions.create(
+            model=model_name,
+            messages=messages,
+            temperature=temperature,
+            max_tokens=max_tokens,
+        )
+        try:
+            return response.choices[0].message.content or ""
+        except Exception:
+            return ""
+
+    return ""
+
+
 def _summarize_profile_text(
     text: str,
     *,
@@ -264,53 +341,15 @@ def _summarize_profile_text(
     )
 
     try:
-        if provider in ("gemini", "vertexai"):
-            from google.genai import types as gemini_types
-
-            response = client.models.generate_content(
-                model=model_name,
-                contents=prompt,
-                config=gemini_types.GenerateContentConfig(
-                    system_instruction="Return only the summary text.",
-                    temperature=0.0,
-                ),
-            )
-            raw = response.text or ""
-        elif provider == "claude":
-            response = client.messages.create(
-                model=model_name,
-                max_tokens=128,
-                system="Return only the summary text.",
-                messages=[{"role": "user", "content": prompt}],
-                temperature=0.0,
-            )
-            raw = response.content[0].text or ""
-        elif hasattr(client, "chat") and hasattr(client.chat, "completions"):
-            response = client.chat.completions.create(
-                model=model_name,
-                messages=[
-                    {"role": "system", "content": "Return only the summary text."},
-                    {"role": "user", "content": prompt},
-                ],
-                temperature=0.0,
-                max_tokens=128,
-            )
-            raw = response.choices[0].message.content or ""
-        elif hasattr(client, "chat"):
-            # xai_sdk: chat.create returns a Chat object with sample()
-            chat_obj = client.chat.create(
-                model=model_name,
-                messages=[
-                    {"role": "system", "content": "Return only the summary text."},
-                    {"role": "user", "content": prompt},
-                ],
-                temperature=0.0,
-                max_tokens=128,
-            )
-            resp = chat_obj.sample()
-            raw = resp.content or ""
-        else:
-            raw = ""
+        raw = _llm_simple_text(
+            provider=provider,
+            client=client,
+            model_name=model_name,
+            system_prompt="Return only the summary text.",
+            user_prompt=prompt,
+            max_tokens=128,
+            temperature=0.0,
+        )
     except Exception:
         return compact[:PROFILE_MAX_TEXT_CHARS]
 
@@ -405,41 +444,15 @@ def _deduplicate_profile_with_llm(
     )
 
     try:
-        if provider in ("gemini", "vertexai"):
-            from google.genai import types as gemini_types
-
-            response = client.models.generate_content(
-                model=model_name,
-                contents=prompt,
-                config=gemini_types.GenerateContentConfig(
-                    system_instruction="Return only the cleaned JSON object.",
-                    temperature=0.0,
-                ),
-            )
-            raw = response.text or ""
-        elif provider == "claude":
-            response = client.messages.create(
-                model=model_name,
-                max_tokens=1000,
-                system="Return only the cleaned JSON object.",
-                messages=[{"role": "user", "content": prompt}],
-                temperature=0.0,
-            )
-            raw = response.content[0].text or ""
-        else:
-            response = client.chat.completions.create(
-                model=model_name,
-                messages=[
-                    {
-                        "role": "system",
-                        "content": "Return only the cleaned JSON object.",
-                    },
-                    {"role": "user", "content": prompt},
-                ],
-                temperature=0.0,
-                max_tokens=1000,
-            )
-            raw = response.choices[0].message.content or ""
+        raw = _llm_simple_text(
+            provider=provider,
+            client=client,
+            model_name=model_name,
+            system_prompt="Return only the cleaned JSON object.",
+            user_prompt=prompt,
+            max_tokens=1000,
+            temperature=0.0,
+        )
 
         cleaned = raw.strip()
         if cleaned.startswith("```"):
@@ -656,38 +669,15 @@ def _profile_worker(
         user_prompt = f"CONVERSATION LOG:\n{sanitized_log}"
 
         # Call LLM based on provider
-        raw_response = ""
-        if provider in ("gemini", "vertexai"):
-            from google.genai import types as gemini_types
-
-            response = client.models.generate_content(
-                model=model_name,
-                contents=user_prompt,
-                config=gemini_types.GenerateContentConfig(
-                    system_instruction=system_prompt,
-                    temperature=0.0,  # Deterministic
-                ),
-            )
-            raw_response = response.text or ""
-        elif provider == "claude":
-            response = client.messages.create(
-                model=model_name,
-                max_tokens=2000,
-                system=system_prompt,
-                messages=[{"role": "user", "content": user_prompt}],
-                temperature=0.0,
-            )
-            raw_response = response.content[0].text or ""
-        else:
-            response = client.chat.completions.create(
-                model=model_name,
-                messages=[
-                    {"role": "system", "content": system_prompt},
-                    {"role": "user", "content": user_prompt},
-                ],
-                temperature=0.0,
-            )
-            raw_response = response.choices[0].message.content or ""
+        raw_response = _llm_simple_text(
+            provider=provider,
+            client=client,
+            model_name=model_name,
+            system_prompt=system_prompt,
+            user_prompt=user_prompt,
+            max_tokens=2000,
+            temperature=0.0,
+        )
 
         # Cleanup JSON markdown blocks if any
         cleaned = raw_response.strip()
@@ -802,37 +792,15 @@ def profile_from_logs(
 
         raw_response = ""
         try:
-            if provider in ("gemini", "vertexai"):
-                from google.genai import types as gemini_types
-
-                response = client.models.generate_content(
-                    model=model_name,
-                    contents=user_prompt,
-                    config=gemini_types.GenerateContentConfig(
-                        system_instruction=system_prompt,
-                        temperature=0.0,
-                    ),
-                )
-                raw_response = response.text or ""
-            elif provider == "claude":
-                response = client.messages.create(
-                    model=model_name,
-                    max_tokens=2000,
-                    system=system_prompt,
-                    messages=[{"role": "user", "content": user_prompt}],
-                    temperature=0.0,
-                )
-                raw_response = response.content[0].text or ""
-            else:
-                response = client.chat.completions.create(
-                    model=model_name,
-                    messages=[
-                        {"role": "system", "content": system_prompt},
-                        {"role": "user", "content": user_prompt},
-                    ],
-                    temperature=0.0,
-                )
-                raw_response = response.choices[0].message.content or ""
+            raw_response = _llm_simple_text(
+                provider=provider,
+                client=client,
+                model_name=model_name,
+                system_prompt=system_prompt,
+                user_prompt=user_prompt,
+                max_tokens=2000,
+                temperature=0.0,
+            )
 
             cleaned = raw_response.strip()
             if cleaned.startswith("```"):

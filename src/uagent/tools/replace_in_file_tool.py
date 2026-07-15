@@ -1223,7 +1223,9 @@ def run_tool(args: dict[str, Any]) -> str:
         elif action == "insert_after" and anchor_after_norm:
             search_key = anchor_after_norm
 
-        regex_pattern = re.compile(search_key, re.MULTILINE) if mode == "regex" else None
+        regex_pattern = (
+            re.compile(search_key, re.MULTILINE) if mode == "regex" else None
+        )
         hits: list[_Hit] = []
         target_hit: _Hit | None = None
         match_count = 0
@@ -1620,9 +1622,13 @@ def run_tool(args: dict[str, Any]) -> str:
             )
 
         # For insert_before/insert_after, pattern is optional if the corresponding anchor is provided.
-        if action in ("insert_before", "insert_after") and not pattern and not (
-            (action == "insert_before" and anchor_before)
-            or (action == "insert_after" and anchor_after)
+        if (
+            action in ("insert_before", "insert_after")
+            and not pattern
+            and not (
+                (action == "insert_before" and anchor_before)
+                or (action == "insert_after" and anchor_after)
+            )
         ):
             return json.dumps(
                 {

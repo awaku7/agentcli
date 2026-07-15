@@ -7,6 +7,7 @@ import time
 from datetime import datetime, timezone
 from typing import Any
 
+from .asyncio_loop_util import windows_selector_event_loop_policy
 from .i18n_helper import make_tool_translator
 
 _ = make_tool_translator(__file__)
@@ -149,8 +150,8 @@ def _normalize_service_data(data: dict) -> dict[str, str]:
         if isinstance(payload, (bytes, bytearray)):
             normalized[str(uuid).casefold()] = bytes(payload).hex()
         elif isinstance(payload, str):
-            text = payload.strip().lower().replace(':', '').replace(' ', '')
-            if text.startswith('0x'):
+            text = payload.strip().lower().replace(":", "").replace(" ", "")
+            if text.startswith("0x"):
                 text = text[2:]
             if text and len(text) % 2 == 0:
                 try:
@@ -210,9 +211,7 @@ async def _scan_once(timeout: int, interface: str | None) -> list[dict[str, Any]
         manufacturer_data = _normalize_manufacturer_data(
             getattr(adv, "manufacturer_data", {}) or {}
         )
-        service_data = _normalize_service_data(
-            getattr(adv, "service_data", {}) or {}
-        )
+        service_data = _normalize_service_data(getattr(adv, "service_data", {}) or {})
         service_uuids = list(getattr(adv, "service_uuids", None) or [])
         result.append(
             {
@@ -424,102 +423,97 @@ def run_tool(args: dict[str, Any]) -> str:
             else json.dumps(payload, ensure_ascii=False)
         )
 
-    if sys.platform == "win32":
+    with windows_selector_event_loop_policy():
+        started = time.perf_counter()
         try:
-            asyncio.set_event_loop_policy(asyncio.WindowsSelectorEventLoopPolicy())
-        except Exception:
-            pass
-
-    started = time.perf_counter()
-    try:
-        items, interface_used = asyncio.run(
-            _scan_rounds(
-                timeout=timeout,
-                retry=retry,
-                interface=str(interface) if interface else None,
-                device_name=str(device_name) if device_name else None,
-                mac_address=str(mac_address) if mac_address else None,
-                service_uuid=str(service_uuid) if service_uuid else None,
-                limit=limit,
+            items, interface_used = asyncio.run(
+                _scan_rounds(
+                    timeout=timeout,
+                    retry=retry,
+                    interface=str(interface) if interface else None,
+                    device_name=str(device_name) if device_name else None,
+                    mac_address=str(mac_address) if mac_address else None,
+                    service_uuid=str(service_uuid) if service_uuid else None,
+                    limit=limit,
+                )
             )
-        )
-        elapsed_ms = int((time.perf_counter() - started) * 1000)
-        result = {
-            "ok": True,
-            "count": len(items),
-            "items": items,
-            "interface_used": interface_used,
-            "elapsed_ms": elapsed_ms,
-            "fetched_at": _now_iso(),
-        }
-        if output_format == "text":
-            return _format_text(result)
-        return json.dumps(result, ensure_ascii=False)
-    except Exception as exc:
-        err_msg = str(exc)
-        if sys.platform.startswith("linux"):
-            if (
-                "Permission" in err_msg
-                or "AccessDenied" in err_msg
-                or "dbus" in err_msg.lower()
-                or "notready" in err_msg.lower()
-            ):
-                payload = {
-                    "ok": False,
-                    "error": {
-                        "code": "network_error",
-                        "message": _(
-                            "err.linux_permission",
-                            default=(
-                                "Error during BLE operation: {err_msg}\n\n[Linux/Raspberry Pi Permission Guide]\nYou might lack permissions to access the Bluetooth socket. Try one of the following:\n1. Add your user to the bluetooth group (recommended):\n   sudo usermod -aG bluetooth $USER\n   (Requires restart or re-login)\n2. Grant permissions directly to the Python binary:\n   sudo setcap 'cap_net_raw,cap_net_admin+eip' $(readlink -f $(which python))"
+            elapsed_ms = int((time.perf_counter() - started) * 1000)
+            result = {
+                "ok": True,
+                "count": len(items),
+                "items": items,
+                "interface_used": interface_used,
+                "elapsed_ms": elapsed_ms,
+                "fetched_at": _now_iso(),
+            }
+            if output_format == "text":
+                return _format_text(result)
+            return json.dumps(result, ensure_ascii=False)
+        except Exception as exc:
+            err_msg = str(exc)
+            if sys.platform.startswith("linux"):
+                if (
+                    "Permission" in err_msg
+                    or "AccessDenied" in err_msg
+                    or "dbus" in err_msg.lower()
+                    or "notready" in err_msg.lower()
+                ):
+                    payload = {
+                        "ok": False,
+                        "error": {
+                            "code": "network_error",
+                            "message": _(
+                                "err.linux_permission",
+                                default=(
+                                    "Error during BLE operation: {err_msg}\n\n[Linux/Raspberry Pi Permission Guide]\nYou might lack permissions to access the Bluetooth socket. Try one of the following:\n1. Add your user to the bluetooth group (recommended):\n   sudo usermod -aG bluetooth $USER\n   (Requires restart or re-login)\n2. Grant permissions directly to the Python binary:\n   sudo setcap 'cap_net_raw,cap_net_admin+eip' $(readlink -f $(which python))"
+                                ),
+                                err_msg=err_msg,
                             ),
-                            err_msg=err_msg,
-                        ),
-                    },
-                }
-                return (
-                    json.dumps(payload, ensure_ascii=False, indent=2)
-                    if output_format == "text"
-                    else json.dumps(payload, ensure_ascii=False)
-                )
-        elif sys.platform == "darwin":
-            if (
-                "CoreBluetooth" in err_msg
-                or "permission" in err_msg.lower()
-                or "auth" in err_msg.lower()
-            ):
-                payload = {
-                    "ok": False,
-                    "error": {
-                        "code": "network_error",
-                        "message": _(
-                            "err.macos_permission",
-                            default=(
-                                "Error during BLE operation: {err_msg}\n\n[macOS Permission Guide]\nBluetooth access might have been denied by macOS security restrictions.\nPlease open 'System Settings > Privacy & Security > Bluetooth' and ensure your terminal, VS Code, or Python process is allowed to access Bluetooth."
+                        },
+                    }
+                    return (
+                        json.dumps(payload, ensure_ascii=False, indent=2)
+                        if output_format == "text"
+                        else json.dumps(payload, ensure_ascii=False)
+                    )
+            elif sys.platform == "darwin":
+                if (
+                    "CoreBluetooth" in err_msg
+                    or "permission" in err_msg.lower()
+                    or "auth" in err_msg.lower()
+                ):
+                    payload = {
+                        "ok": False,
+                        "error": {
+                            "code": "network_error",
+                            "message": _(
+                                "err.macos_permission",
+                                default=(
+                                    "Error during BLE operation: {err_msg}\n\n[macOS Permission Guide]\nBluetooth access might have been denied by macOS security restrictions.\nPlease open 'System Settings > Privacy & Security > Bluetooth' and ensure your terminal, VS Code, or Python process is allowed to access Bluetooth."
+                                ),
+                                err_msg=err_msg,
                             ),
-                            err_msg=err_msg,
-                        ),
-                    },
-                }
-                return (
-                    json.dumps(payload, ensure_ascii=False, indent=2)
-                    if output_format == "text"
-                    else json.dumps(payload, ensure_ascii=False)
-                )
+                        },
+                    }
+                    return (
+                        json.dumps(payload, ensure_ascii=False, indent=2)
+                        if output_format == "text"
+                        else json.dumps(payload, ensure_ascii=False)
+                    )
 
-        payload = {
-            "ok": False,
-            "error": {
-                "code": "request_failed",
-                "message": _(
-                    "err.operation_failed",
-                    default="Error during BLE operation: {err_msg}",
-                    err_msg=err_msg,
-                ),
-            },
-        }
-        return (
-            _format_text(payload)
-            if output_format == "text"
-            else json.dumps(payload, ensure_ascii=False)
-        )
+            payload = {
+                "ok": False,
+                "error": {
+                    "code": "request_failed",
+                    "message": _(
+                        "err.operation_failed",
+                        default="Error during BLE operation: {err_msg}",
+                        err_msg=err_msg,
+                    ),
+                },
+            }
+            return (
+                _format_text(payload)
+                if output_format == "text"
+                else json.dumps(payload, ensure_ascii=False)
+            )

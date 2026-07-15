@@ -225,6 +225,14 @@ class WsHandler:
                                     fn = tc.get("function", {})
                                     tname = fn.get("name", "")
                                     targs = fn.get("arguments", "{}")
+                                    try:
+                                        from uagent.utils.secret_mask import (
+                                            mask_tool_call_arguments_json,
+                                        )
+
+                                        targs = mask_tool_call_arguments_json(targs)
+                                    except Exception:
+                                        pass
                                     _lg.getLogger("uag.ws_handler").info(
                                         "_patched tool_call name=%s", tname
                                     )

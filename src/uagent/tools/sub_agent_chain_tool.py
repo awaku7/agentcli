@@ -25,10 +25,22 @@ TOOL_SPEC: Dict[str, Any] = {
         ),
         "x_search_terms": _(
             "x_search_terms",
-            default=["chain", "sequence", "pipeline", "orchestrate", "multi-step", "workflow"],
+            default=[
+                "chain",
+                "sequence",
+                "pipeline",
+                "orchestrate",
+                "multi-step",
+                "workflow",
+            ],
         ),
         "x_search_terms_en": [
-            "chain", "sequence", "pipeline", "orchestrate", "multi-step", "workflow",
+            "chain",
+            "sequence",
+            "pipeline",
+            "orchestrate",
+            "multi-step",
+            "workflow",
         ],
         "parameters": {
             "type": "object",
@@ -40,90 +52,147 @@ TOOL_SPEC: Dict[str, Any] = {
                         "properties": {
                             "agent_name": {
                                 "type": "string",
-                                "description": _("param.step.agent_name.description", default="Sub-agent name to execute for this step."),
+                                "description": _(
+                                    "param.step.agent_name.description",
+                                    default="Sub-agent name to execute for this step.",
+                                ),
                             },
                             "task": {
                                 "type": "string",
-                                "description": _("param.step.task.description", default="Task instruction for this step."),
+                                "description": _(
+                                    "param.step.task.description",
+                                    default="Task instruction for this step.",
+                                ),
                             },
                             "current_file": {
                                 "type": "string",
-                                "description": _("param.step.current_file.description", default="(Optional) File to scope this step's reasoning."),
+                                "description": _(
+                                    "param.step.current_file.description",
+                                    default="(Optional) File to scope this step's reasoning.",
+                                ),
                             },
                             "response_mode": {
                                 "type": "string",
                                 "enum": ["json", "text"],
-                                "description": _("param.step.response_mode.description", default="Output mode for this step."),
+                                "description": _(
+                                    "param.step.response_mode.description",
+                                    default="Output mode for this step.",
+                                ),
                             },
                             "response_schema": {
                                 "type": "object",
-                                "description": _("param.step.response_schema.description", default="Optional JSON Schema for the expected response."),
+                                "description": _(
+                                    "param.step.response_schema.description",
+                                    default="Optional JSON Schema for the expected response.",
+                                ),
                             },
                             "required_fields": {
                                 "type": "array",
                                 "items": {"type": "string"},
-                                "description": _("param.step.required_fields.description", default="Required fields in the JSON response."),
+                                "description": _(
+                                    "param.step.required_fields.description",
+                                    default="Required fields in the JSON response.",
+                                ),
                             },
                             "strict_output": {
                                 "type": "boolean",
-                                "description": _("param.step.strict_output.description", default="Treat missing required fields as errors."),
+                                "description": _(
+                                    "param.step.strict_output.description",
+                                    default="Treat missing required fields as errors.",
+                                ),
                             },
                             "evidence_required": {
                                 "type": "boolean",
-                                "description": _("param.step.evidence_required.description", default="Require evidence."),
+                                "description": _(
+                                    "param.step.evidence_required.description",
+                                    default="Require evidence.",
+                                ),
                             },
                             "evidence_min_items": {
                                 "type": "integer",
                                 "minimum": 0,
-                                "description": _("param.step.evidence_min_items.description", default="Minimum number of evidence items."),
+                                "description": _(
+                                    "param.step.evidence_min_items.description",
+                                    default="Minimum number of evidence items.",
+                                ),
                             },
                             "permission_level": {
                                 "type": "string",
                                 "enum": ["none", "read_only", "propose_only"],
-                                "description": _("param.step.permission_level.description", default="Permission level for this step."),
+                                "description": _(
+                                    "param.step.permission_level.description",
+                                    default="Permission level for this step.",
+                                ),
                             },
                             "parent_goal": {
                                 "type": "string",
-                                "description": _("param.step.parent_goal.description", default="Override the parent goal for this step."),
+                                "description": _(
+                                    "param.step.parent_goal.description",
+                                    default="Override the parent goal for this step.",
+                                ),
                             },
                             "store_key": {
                                 "type": "string",
-                                "description": _("param.step.store_key.description", default="Key to store this step's result for subsequent steps."),
+                                "description": _(
+                                    "param.step.store_key.description",
+                                    default="Key to store this step's result for subsequent steps.",
+                                ),
                             },
                             "load_keys": {
                                 "type": "array",
                                 "items": {"type": "string"},
-                                "description": _("param.step.load_keys.description", default="Keys to load from previous steps' stored results."),
+                                "description": _(
+                                    "param.step.load_keys.description",
+                                    default="Keys to load from previous steps' stored results.",
+                                ),
                             },
                             "cache_ttl": {
                                 "type": "integer",
                                 "minimum": 0,
-                                "description": _("param.step.cache_ttl.description", default="Cache TTL for this step. Default 0."),
+                                "description": _(
+                                    "param.step.cache_ttl.description",
+                                    default="Cache TTL for this step. Default 0.",
+                                ),
                             },
                             "timeout": {
                                 "type": "integer",
                                 "minimum": 0,
-                                "description": _("param.step.timeout.description", default="LLM timeout for this step. Default 120."),
+                                "description": _(
+                                    "param.step.timeout.description",
+                                    default="LLM timeout for this step. Default 120.",
+                                ),
                             },
                             "max_retries": {
                                 "type": "integer",
                                 "minimum": 0,
-                                "description": _("param.step.max_retries.description", default="Max retries for this step. Default 2."),
+                                "description": _(
+                                    "param.step.max_retries.description",
+                                    default="Max retries for this step. Default 2.",
+                                ),
                             },
                             "max_turns": {
                                 "type": "integer",
                                 "minimum": 1,
-                                "description": _("param.step.max_turns.description", default="Max multi-turn interactions for this step. 3 = recommended. Default 3."),
+                                "description": _(
+                                    "param.step.max_turns.description",
+                                    default="Max multi-turn interactions for this step. 3 = recommended. Default 3.",
+                                ),
                             },
                         },
                         "required": ["agent_name", "task"],
                         "additionalProperties": False,
                     },
-                    "description": _("param.chain.description", default="List of sub-agent steps to execute in sequence."),
+                    "description": _(
+                        "param.chain.description",
+                        default="List of sub-agent steps to execute in sequence.",
+                    ),
                 },
                 "stop_on_error": {
                     "type": "boolean",
-                    "description": _("param.stop_on_error.description", default="If true, stop chain execution on first error. Default true."),
+                    "description": _(
+                        "param.stop_on_error.description",
+                        default="If true, stop chain execution on first error. Default true.",
+                    ),
                 },
             },
             "required": ["chain"],
@@ -188,7 +257,9 @@ def run_tool(args: Dict[str, Any]) -> str:
             step_result["status"] = "error"
             step_result["error"] = str(exc)
             if stop_on_error:
-                chain_error = f"Chain stopped at step {i + 1} ({step['agent_name']}): {exc}"
+                chain_error = (
+                    f"Chain stopped at step {i + 1} ({step['agent_name']}): {exc}"
+                )
                 results.append(step_result)
                 break
 

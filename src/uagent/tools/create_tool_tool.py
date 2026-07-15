@@ -130,7 +130,7 @@ TOOL_SPEC: dict[str, Any] = {{
     files_created.append(tool_file)
 
     json_file = os.path.join(out_dir, f"{name}_tool.json")
-    json_code = f'''{{
+    json_code = f"""{{
     "en": {{
         "tool.description": "{desc_short}",
         "x_search_terms": ["{name}"],
@@ -142,7 +142,7 @@ TOOL_SPEC: dict[str, Any] = {{
         "param.input": "入力テキスト"
     }}
 }}
-'''
+"""
     with open(json_file, "w", encoding="utf-8") as f:
         f.write(json_code)
     files_created.append(json_file)
@@ -158,7 +158,7 @@ def _scaffold_rust_tool(name: str, description: str, out_dir: str) -> list[str]:
 
     desc_short = description or f"A {name} tool"
 
-    cargo_toml = f'''[package]
+    cargo_toml = f"""[package]
 name = "{name}"
 version = "0.1.0"
 edition = "2021"
@@ -169,13 +169,13 @@ crate-type = ["cdylib"]
 
 [dependencies]
 pyo3 = {{ version = "0.29", features = ["extension-module", "abi3-py311"] }}
-'''
+"""
     cargo_path = os.path.join(rust_dir, "Cargo.toml")
     with open(cargo_path, "w", encoding="utf-8") as f:
         f.write(cargo_toml)
     files_created.append(cargo_path)
 
-    lib_rs = f'''use pyo3::prelude::*;
+    lib_rs = f"""use pyo3::prelude::*;
 use std::collections::HashMap;
 
 #[pyfunction(name = "run_{name}")]
@@ -201,7 +201,7 @@ fn {name}(m: &Bound<'_, PyModule>) -> PyResult<()> {{
     m.add_function(wrap_pyfunction!(run, m)?)?;
     Ok(())
 }}
-'''
+"""
     lib_path = os.path.join(src_dir, "lib.rs")
     with open(lib_path, "w", encoding="utf-8") as f:
         f.write(lib_rs)
@@ -225,7 +225,7 @@ fn {name}(m: &Bound<'_, PyModule>) -> PyResult<()> {{
         f.write("\n".join(_readme_lines))
     files_created.append(readme_path)
 
-    pyproject_toml = f'''[build-system]
+    pyproject_toml = f"""[build-system]
 requires = ["maturin>=1.0"]
 build-backend = "maturin"
 
@@ -235,14 +235,14 @@ version = "0.1.0"
 description = "{desc_short}"
 readme = "README.md"
 requires-python = ">=3.11"
-'''
+"""
     pyproject_path = os.path.join(rust_dir, "pyproject.toml")
     with open(pyproject_path, "w", encoding="utf-8") as f:
         f.write(pyproject_toml)
     files_created.append(pyproject_path)
 
     wrapper_file = os.path.join(out_dir, f"{name}_tool.py")
-    wrapper_code = f'''from __future__ import annotations
+    wrapper_code = f"""from __future__ import annotations
 
 from typing import Any
 
@@ -278,13 +278,13 @@ TOOL_SPEC: dict[str, Any] = {{
         }},
     }},
 }}
-'''
+"""
     with open(wrapper_file, "w", encoding="utf-8") as f:
         f.write(wrapper_code)
     files_created.append(wrapper_file)
 
     json_file = os.path.join(out_dir, f"{name}_tool.json")
-    json_code = f'''{{
+    json_code = f"""{{
     "en": {{
         "tool.description": "{desc_short}",
         "x_search_terms": ["{name}"],
@@ -296,7 +296,7 @@ TOOL_SPEC: dict[str, Any] = {{
         "param.input": "入力テキスト"
     }}
 }}
-'''
+"""
     with open(json_file, "w", encoding="utf-8") as f:
         f.write(json_code)
     files_created.append(json_file)
@@ -316,6 +316,7 @@ def run_tool(args: dict[str, Any]) -> str:
 
     if not output_dir:
         from uagent.env_utils import env_get
+
         _ext_dirs = (
             env_get("UAGENT_EXTERNAL_TOOLS_DIRS")
             or env_get("UAGENT_EXTERNAL_TOOLS_DIR")
@@ -342,7 +343,9 @@ def run_tool(args: dict[str, Any]) -> str:
         lines.append(f"  1. cd {os.path.join(output_dir, name)}")
         lines.append("  2. maturin build --release")
         lines.append("  3. pip install target/wheels/*.whl")
-        lines.append(f"  4. Place {os.path.join(output_dir, name + '_tool.py')} in UAGENT_EXTERNAL_TOOLS_DIR")
+        lines.append(
+            f"  4. Place {os.path.join(output_dir, name + '_tool.py')} in UAGENT_EXTERNAL_TOOLS_DIR"
+        )
         lines.append("  5. Restart the agent")
 
     lines.append("")
