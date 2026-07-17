@@ -843,7 +843,7 @@ def profile_from_logs(
         # If buffer exceeds limit, or we are at the last file, process the chunk
         if len(message_buffer) >= chunk_size_limit or idx == total_files - 1:
             progress = int((idx + 1) / total_files * 100)
-            step_info = f"File {idx+1}/{total_files} ({progress}%)"
+            step_info = f"File {idx + 1}/{total_files} ({progress}%)"
             print(
                 f"Processing chunk up to {step_info} (messages: {len(message_buffer)})..."
             )

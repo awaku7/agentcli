@@ -95,11 +95,14 @@ class TestChannelsStore:
         store_path.write_text(json.dumps({"channels": []}), encoding="utf-8")
 
         store_channel_config(
-            "channel-plugin", "telegram",
+            "channel-plugin",
+            "telegram",
             {"bot_token": "abc123", "owner_id": "user1"},
             store_path=str(store_path),
         )
-        config = get_channel_config("channel-plugin", "telegram", store_path=str(store_path))
+        config = get_channel_config(
+            "channel-plugin", "telegram", store_path=str(store_path)
+        )
         assert config is not None
         assert config["bot_token"] == "abc123"
         assert config["owner_id"] == "user1"
@@ -111,7 +114,9 @@ class TestChannelsStore:
         store_path = repo_tmp_path / "empty_channels.json"
         store_path.write_text(json.dumps({"channels": []}), encoding="utf-8")
 
-        config = get_channel_config("no-plugin", "no-channel", store_path=str(store_path))
+        config = get_channel_config(
+            "no-plugin", "no-channel", store_path=str(store_path)
+        )
         assert config is None
 
     def test_list_channels(self, repo_tmp_path: Path) -> None:

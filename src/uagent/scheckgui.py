@@ -2785,6 +2785,7 @@ def main():
     # Fire SessionStart hook
     try:
         from .hooks_engine import fire_session_start
+
         fire_session_start()
     except Exception:
         pass
@@ -2794,6 +2795,7 @@ def main():
     # Fire Stop hook
     try:
         from .hooks_engine import fire_stop
+
         fire_stop()
     except Exception:
         pass

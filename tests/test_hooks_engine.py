@@ -7,11 +7,7 @@ from __future__ import annotations
 
 import json
 import os
-import subprocess
-import sys
-import tempfile
 from pathlib import Path
-from typing import Any
 
 import pytest
 
@@ -174,9 +170,7 @@ class TestHooksEngineMatcher:
 
         hooks = load_hooks_registry(hooks_registry)
         # PreToolUse has: matcher "Write|Edit" (hooks), and a default (no matcher)
-        matched = find_matching_hooks(
-            "PreToolUse", hooks, tool_name="Write"
-        )
+        matched = find_matching_hooks("PreToolUse", hooks, tool_name="Write")
         assert len(matched) >= 1
 
     def test_matcher_no_match(self, hooks_registry: str) -> None:
@@ -184,9 +178,7 @@ class TestHooksEngineMatcher:
         from uagent.hooks_engine import find_matching_hooks, load_hooks_registry
 
         hooks = load_hooks_registry(hooks_registry)
-        matched = find_matching_hooks(
-            "PreToolUse", hooks, tool_name="Read"
-        )
+        matched = find_matching_hooks("PreToolUse", hooks, tool_name="Read")
         # Should match the default hook (no matcher), not the Write|Edit one
         assert len(matched) >= 1
 
@@ -222,9 +214,7 @@ class TestHooksEngineIntegration:
                 "SessionStart": [
                     {"hooks": [{"type": "command", "command": "echo e2e-start"}]}
                 ],
-                "Stop": [
-                    {"hooks": [{"type": "command", "command": "echo e2e-stop"}]}
-                ],
+                "Stop": [{"hooks": [{"type": "command", "command": "echo e2e-stop"}]}],
             }
         }
         (p / "hooks" / "hooks.json").write_text(

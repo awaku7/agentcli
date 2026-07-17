@@ -7,14 +7,12 @@ Integrates with the existing skills, MCP, and command systems.
 from __future__ import annotations
 
 import os
-from pathlib import Path
 from typing import Any
 
 from ..plugin_shared import (
     discover_plugin_components,
     get_plugin_roots,
     is_plugin_enabled,
-    parse_plugin_manifest,
     scan_plugins,
 )
 from ..utils.paths import get_state_dir
@@ -64,9 +62,7 @@ def load_plugins_at_startup(
         de = manifest.get("defaultEnabled", True)
         if not isinstance(de, bool):
             de = True
-        enabled = is_plugin_enabled(
-            name, state_dir=_state_dir, default_enabled=de
-        )
+        enabled = is_plugin_enabled(name, state_dir=_state_dir, default_enabled=de)
 
         # Discover components
         components = discover_plugin_components(plugin_path, manifest)

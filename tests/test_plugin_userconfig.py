@@ -99,7 +99,10 @@ class TestUserConfigStore:
 
     def test_store_userconfig_values(self, repo_tmp_path: Path) -> None:
         """userConfig values should be storable in settings."""
-        from uagent.plugin_shared import store_user_config_values, get_user_config_values
+        from uagent.plugin_shared import (
+            store_user_config_values,
+            get_user_config_values,
+        )
 
         settings_path = repo_tmp_path / "settings.json"
         settings_path.write_text(json.dumps({"pluginConfigs": []}), encoding="utf-8")
@@ -114,11 +117,15 @@ class TestUserConfigStore:
             settings_path=str(settings_path),
         )
 
-        stored = get_user_config_values("config-plugin", settings_path=str(settings_path))
+        stored = get_user_config_values(
+            "config-plugin", settings_path=str(settings_path)
+        )
         assert stored["api_endpoint"] == "https://api.example.com"
         assert stored["max_retries"] == 5
 
-    def test_get_userconfig_defaults(self, plugin_with_userconfig: Path, repo_tmp_path: Path) -> None:
+    def test_get_userconfig_defaults(
+        self, plugin_with_userconfig: Path, repo_tmp_path: Path
+    ) -> None:
         """Getting values should fall back to defaults for missing keys."""
         from uagent.plugin_shared import (
             get_user_config_values,
@@ -164,13 +171,20 @@ class TestUserConfigStore:
 
     def test_plugin_configs_persistence(self, repo_tmp_path: Path) -> None:
         """Multiple plugins' configs should coexist."""
-        from uagent.plugin_shared import store_user_config_values, get_user_config_values
+        from uagent.plugin_shared import (
+            store_user_config_values,
+            get_user_config_values,
+        )
 
         settings_path = repo_tmp_path / "settings.json"
         settings_path.write_text(json.dumps({"pluginConfigs": []}), encoding="utf-8")
 
-        store_user_config_values("plugin-a", {"key_a": "val_a"}, settings_path=str(settings_path))
-        store_user_config_values("plugin-b", {"key_b": "val_b"}, settings_path=str(settings_path))
+        store_user_config_values(
+            "plugin-a", {"key_a": "val_a"}, settings_path=str(settings_path)
+        )
+        store_user_config_values(
+            "plugin-b", {"key_b": "val_b"}, settings_path=str(settings_path)
+        )
 
         a = get_user_config_values("plugin-a", settings_path=str(settings_path))
         b = get_user_config_values("plugin-b", settings_path=str(settings_path))

@@ -10,7 +10,7 @@ import json
 import os
 import re
 from pathlib import Path
-from typing import Any, Optional
+from typing import Any
 
 from .env_utils import env_get
 
@@ -27,6 +27,11 @@ def is_git_url(source: str) -> bool:
     if (s.startswith(("http://", "https://"))) and (
         s.endswith(".git") or "github.com/" in s or "gitlab.com/" in s
     ):
+        # Exclude URLs that look like archive downloads (ZIPs, tarballs, etc.)
+        if s.endswith((".zip", ".tar.gz", ".tgz", ".tar.bz2")):
+            return False
+        if "/archive/" in s or "/releases/download/" in s:
+            return False
         return True
     return False
 
@@ -113,12 +118,17 @@ KNOWN_MANIFEST_FIELDS: set[str] = {
 
 # Component fields that replace defaults (vs. add to defaults)
 REPLACE_FIELDS: set[str] = {
-    "commands", "agents", "outputStyles",
+    "commands",
+    "agents",
+    "outputStyles",
 }
 
 # Component fields that merge (add to defaults)
 MERGE_FIELDS: set[str] = {
-    "skills", "hooks", "mcpServers", "lspServers",
+    "skills",
+    "hooks",
+    "mcpServers",
+    "lspServers",
 }
 
 _NAME_RE = re.compile(r"^[a-z0-9]+(-[a-z0-9]+)*$")
@@ -188,8 +198,15 @@ def validate_plugin_manifest(
         errors.append("Manifest 'name' is missing or not a string.")
 
     # Validate paths (no traversal)
-    for field in ("skills", "commands", "agents", "hooks", "mcpServers",
-                  "lspServers", "outputStyles"):
+    for field in (
+        "skills",
+        "commands",
+        "agents",
+        "hooks",
+        "mcpServers",
+        "lspServers",
+        "outputStyles",
+    ):
         value = manifest.get(field)
         if value is None:
             continue
@@ -243,9 +260,7 @@ def _check_path_safe(
 ) -> None:
     """Check that a path field does not traverse outside the plugin directory."""
     if ".." in path_val.split("/") or ".." in path_val.split("\\"):
-        errors.append(
-            f"Path traversal detected in '{field}': {path_val}"
-        )
+        errors.append(f"Path traversal detected in '{field}': {path_val}")
 
 
 # ---------------------------------------------------------------------------
@@ -257,6 +272,7 @@ def get_plugin_roots(*, cwd: str | None = None) -> list[str]:
     """Return search roots for plugins, in priority order.
 
     Policy:
+      0. UAGENT_PLUGIN_DIRS (env var, highest priority)
       1. .uag/plugins/ (project, relative to cwd)
       2. .claude/plugins/ (project, Claude Code compat)
       3. ~/.uag/plugins/ (user, uagent native)
@@ -282,13 +298,17 @@ def get_plugin_roots(*, cwd: str | None = None) -> list[str]:
     _add(os.path.join(os.path.expanduser("~"), ".uag", "plugins"))
     _add(os.path.join(os.path.expanduser("~"), ".claude", "plugins"))
 
-    # UAGENT_PLUGIN_DIRS env var (highest priority, appended last but
-    # first in returned list is highest priority, so insert at front)
+    # UAGENT_PLUGIN_DIRS env var (highest priority — prepend in reverse
+    # so the first entry ends up at index 0)
     env = env_get("UAGENT_PLUGIN_DIRS")
     if env:
         extra = [p.strip() for p in env.split(os.pathsep) if p.strip()]
         for p in reversed(extra):
-            _add(p)
+            resolved = str(Path(p).resolve())
+            key = os.path.normcase(resolved)
+            if key not in seen:
+                seen.add(key)
+                roots.insert(0, p)
 
     return roots
 
@@ -508,13 +528,14 @@ def _collect_dir_entries(base: Path, subpath: str, out: list[str]) -> None:
 # ---------------------------------------------------------------------------
 
 
-def _read_plugin_mcp_servers(plugin_dir: str, manifest: dict[str, Any]) -> dict[str, Any] | None:
+def _read_plugin_mcp_servers(
+    plugin_dir: str, manifest: dict[str, Any]
+) -> dict[str, Any] | None:
     """Read MCP server definitions from a plugin.
 
     Returns the mcpServers dict, or None if no MCP config is found.
     Checks .mcp.json first, then inline mcpServers in manifest.
     """
-    from .env_utils import env_get as _env_get
 
     pd = Path(plugin_dir)
 
@@ -547,13 +568,19 @@ def merge_plugin_mcp_servers(
 
     Returns dict with ok, merged_count.
     """
-    from uagent.tools.mcp_servers_shared import get_default_mcp_config_path as _get_mcp_path
+    from uagent.tools.mcp_servers_shared import (
+        get_default_mcp_config_path as _get_mcp_path,
+    )
 
     # Read plugin MCP servers
     manifest = parse_plugin_manifest(plugin_dir) or {}
     servers = _read_plugin_mcp_servers(plugin_dir, manifest)
     if not servers:
-        return {"ok": False, "merged_count": 0, "error": "No MCP servers found in plugin."}
+        return {
+            "ok": False,
+            "merged_count": 0,
+            "error": "No MCP servers found in plugin.",
+        }
 
     # Read main config
     config_path = mcp_config_path or _get_mcp_path()
@@ -572,9 +599,7 @@ def merge_plugin_mcp_servers(
         existing = []
 
     # Track existing names for idempotency
-    existing_names = {
-        s.get("name") for s in existing if isinstance(s, dict)
-    }
+    existing_names = {s.get("name") for s in existing if isinstance(s, dict)}
 
     merged_count = 0
     for srv_name, srv_config in servers.items():
@@ -606,7 +631,9 @@ def remove_plugin_mcp_servers(
 
     Returns dict with ok, removed_count.
     """
-    from uagent.tools.mcp_servers_shared import get_default_mcp_config_path as _get_mcp_path
+    from uagent.tools.mcp_servers_shared import (
+        get_default_mcp_config_path as _get_mcp_path,
+    )
 
     config_path = mcp_config_path or _get_mcp_path()
     cp = Path(config_path)
@@ -624,7 +651,8 @@ def remove_plugin_mcp_servers(
 
     before = len(existing)
     existing = [
-        s for s in existing
+        s
+        for s in existing
         if not (isinstance(s, dict) and s.get("_plugin_source") == plugin_name)
     ]
     removed_count = before - len(existing)
@@ -664,7 +692,7 @@ def parse_agent_md(file_path: str) -> dict[str, Any] | None:
         end_idx = text.find("---", 3)
         if end_idx != -1:
             fm_text = text[3:end_idx].strip()
-            body = text[end_idx + 3:].strip()
+            body = text[end_idx + 3 :].strip()
             if body:
                 system_prompt = body
 
@@ -1061,6 +1089,7 @@ def resolve_user_config_string(
 
     Unknown keys are left as-is.
     """
+
     def _replacer(m: re.Match) -> str:
         key = m.group(1)
         if key in values:
@@ -1096,6 +1125,7 @@ def parse_marketplace(marketplace_path: str) -> dict[str, Any] | None:
 def _get_marketplace_registry_path() -> str:
     """Return default marketplace registry path."""
     from uagent.utils.paths import get_state_dir
+
     return str(get_state_dir() / "marketplaces.json")
 
 
@@ -1104,7 +1134,9 @@ def list_marketplaces(
     registry_path: str | None = None,
 ) -> list[dict[str, Any]]:
     """List registered marketplaces."""
-    rp = Path(registry_path) if registry_path else Path(_get_marketplace_registry_path())
+    rp = (
+        Path(registry_path) if registry_path else Path(_get_marketplace_registry_path())
+    )
     if not rp.is_file():
         return []
     try:
@@ -1122,7 +1154,9 @@ def add_marketplace(
     registry_path: str | None = None,
 ) -> dict[str, Any]:
     """Register a marketplace."""
-    rp = Path(registry_path) if registry_path else Path(_get_marketplace_registry_path())
+    rp = (
+        Path(registry_path) if registry_path else Path(_get_marketplace_registry_path())
+    )
     data: dict[str, Any] = {"marketplaces": []}
     if rp.is_file():
         try:
@@ -1138,7 +1172,9 @@ def add_marketplace(
             mps[i] = {"name": name, "url": url}
             data["marketplaces"] = mps
             rp.parent.mkdir(parents=True, exist_ok=True)
-            rp.write_text(json.dumps(data, indent=2, ensure_ascii=False), encoding="utf-8")
+            rp.write_text(
+                json.dumps(data, indent=2, ensure_ascii=False), encoding="utf-8"
+            )
             return {"ok": True, "name": name}
     mps.append({"name": name, "url": url})
     data["marketplaces"] = mps
@@ -1153,7 +1189,9 @@ def remove_marketplace(
     registry_path: str | None = None,
 ) -> dict[str, Any]:
     """Remove a marketplace from registry."""
-    rp = Path(registry_path) if registry_path else Path(_get_marketplace_registry_path())
+    rp = (
+        Path(registry_path) if registry_path else Path(_get_marketplace_registry_path())
+    )
     if not rp.is_file():
         return {"ok": True, "removed": False}
     try:
@@ -1189,7 +1227,11 @@ def resolve_marketplace_plugin(
         # Look up in registry
         mps = list_marketplaces(registry_path=registry_path)
         mp_entry = next(
-            (m for m in mps if isinstance(m, dict) and m.get("name") == marketplace_name),
+            (
+                m
+                for m in mps
+                if isinstance(m, dict) and m.get("name") == marketplace_name
+            ),
             None,
         )
         if not mp_entry:
@@ -1296,6 +1338,7 @@ _CHANNEL_CONFIG_PATH = None
 def _get_channel_store_path() -> str:
     """Return default channel config store path."""
     from uagent.utils.paths import get_state_dir
+
     return str(get_state_dir() / "channels.json")
 
 
@@ -1346,20 +1389,24 @@ def store_channel_config(
     # Find existing or create
     existing = None
     for entry in channels:
-        if (isinstance(entry, dict)
-                and entry.get("plugin") == plugin_name
-                and entry.get("channel") == channel_name):
+        if (
+            isinstance(entry, dict)
+            and entry.get("plugin") == plugin_name
+            and entry.get("channel") == channel_name
+        ):
             existing = entry
             break
 
     if existing:
         existing["config"].update(config)
     else:
-        channels.append({
-            "plugin": plugin_name,
-            "channel": channel_name,
-            "config": dict(config),
-        })
+        channels.append(
+            {
+                "plugin": plugin_name,
+                "channel": channel_name,
+                "config": dict(config),
+            }
+        )
 
     data["channels"] = channels
     sp_obj = Path(sp)
@@ -1378,9 +1425,11 @@ def get_channel_config(
     sp = store_path or _get_channel_store_path()
     data = _read_channel_store(sp)
     for entry in data.get("channels", []):
-        if (isinstance(entry, dict)
-                and entry.get("plugin") == plugin_name
-                and entry.get("channel") == channel_name):
+        if (
+            isinstance(entry, dict)
+            and entry.get("plugin") == plugin_name
+            and entry.get("channel") == channel_name
+        ):
             return dict(entry.get("config", {}))
     return None
 
@@ -1413,14 +1462,19 @@ def remove_channel_config(
 
     before = len(channels)
     channels = [
-        c for c in channels
-        if not (isinstance(c, dict)
-                and c.get("plugin") == plugin_name
-                and c.get("channel") == channel_name)
+        c
+        for c in channels
+        if not (
+            isinstance(c, dict)
+            and c.get("plugin") == plugin_name
+            and c.get("channel") == channel_name
+        )
     ]
     removed = len(channels) < before
     data["channels"] = channels
-    Path(sp).write_text(json.dumps(data, indent=2, ensure_ascii=False), encoding="utf-8")
+    Path(sp).write_text(
+        json.dumps(data, indent=2, ensure_ascii=False), encoding="utf-8"
+    )
     return {"ok": True, "removed": removed}
 
 
@@ -1438,12 +1492,15 @@ def remove_plugin_channels(
 
     before = len(channels)
     channels = [
-        c for c in channels
+        c
+        for c in channels
         if not (isinstance(c, dict) and c.get("plugin") == plugin_name)
     ]
     removed = before - len(channels)
     data["channels"] = channels
-    Path(sp).write_text(json.dumps(data, indent=2, ensure_ascii=False), encoding="utf-8")
+    Path(sp).write_text(
+        json.dumps(data, indent=2, ensure_ascii=False), encoding="utf-8"
+    )
     return {"ok": True, "removed": removed}
 
 

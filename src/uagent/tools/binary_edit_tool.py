@@ -355,7 +355,6 @@ def _parse_patch_json(patch_json: str) -> list[dict[str, Any]]:
 def run_tool(args: dict[str, Any]) -> str:
 
     try:
-
         path_s = str(args.get("path") or "").strip()
         if not path_s:
             raise ValueError("[binary_edit] path is required")

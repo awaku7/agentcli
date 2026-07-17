@@ -51,9 +51,7 @@ def test_python_src_layout_absolute_import(repo_tmp_path: Path) -> None:
     (package / "b.py").write_text("VALUE = 1\n", encoding="utf-8")
 
     result = _json_result(
-        run_tool(
-            {"path": str(project), "format": "json", "include_relations": True}
-        )
+        run_tool({"path": str(project), "format": "json", "include_relations": True})
     )
 
     assert any(
@@ -65,9 +63,13 @@ def test_python_src_layout_absolute_import(repo_tmp_path: Path) -> None:
 def test_project_only_does_not_fallback_to_full_scan(repo_tmp_path: Path) -> None:
     project = repo_tmp_path / "project"
     project.mkdir()
-    (project / "pyproject.toml").write_text("[project]\nname='demo'\n", encoding="utf-8")
+    (project / "pyproject.toml").write_text(
+        "[project]\nname='demo'\n", encoding="utf-8"
+    )
     (project / "src.py").write_text("def source():\n    pass\n", encoding="utf-8")
-    (project / "unrelated.py").write_text("def unrelated():\n    pass\n", encoding="utf-8")
+    (project / "unrelated.py").write_text(
+        "def unrelated():\n    pass\n", encoding="utf-8"
+    )
 
     result = _json_result(
         run_tool({"path": str(project), "format": "json", "project_only": True})
@@ -81,10 +83,14 @@ def test_mixed_project_types_are_combined(repo_tmp_path: Path) -> None:
     project = repo_tmp_path / "project"
     (project / "py").mkdir(parents=True)
     (project / "js" / "src").mkdir(parents=True)
-    (project / "py" / "pyproject.toml").write_text("[project]\nname='demo'\n", encoding="utf-8")
+    (project / "py" / "pyproject.toml").write_text(
+        "[project]\nname='demo'\n", encoding="utf-8"
+    )
     (project / "py" / "module.py").write_text("VALUE = 1\n", encoding="utf-8")
     (project / "js" / "package.json").write_text("{}\n", encoding="utf-8")
-    (project / "js" / "src" / "module.js").write_text("const value = 1;\n", encoding="utf-8")
+    (project / "js" / "src" / "module.js").write_text(
+        "const value = 1;\n", encoding="utf-8"
+    )
 
     result = _json_result(
         run_tool({"path": str(project), "format": "json", "project_only": True})
@@ -105,9 +111,7 @@ def test_go_module_relation_and_line_number(repo_tmp_path: Path) -> None:
     (project / "lib" / "lib.go").write_text("package lib\n", encoding="utf-8")
 
     result = _json_result(
-        run_tool(
-            {"path": str(project), "format": "json", "include_relations": True}
-        )
+        run_tool({"path": str(project), "format": "json", "include_relations": True})
     )
     assert result["relations"] == [
         {
@@ -184,4 +188,3 @@ def test_empty_and_missing_directories(repo_tmp_path: Path) -> None:
 
 
 # Keep the test module free of generated code-map artifacts.
-

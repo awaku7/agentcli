@@ -345,7 +345,6 @@ def _detect_text_encoding(head: bytes) -> str:
     if not head:
         return "utf-8"
     if head.startswith(b"\xef\xbb\xbf"):
-
         return "utf-8-sig"
     for enc in _TEXT_ENCODING_CANDIDATES:
         try:

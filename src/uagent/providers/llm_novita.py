@@ -373,7 +373,7 @@ def novita_chat_with_tools(
                 max_retries=max_retries_429,
                 base=retry_base,
                 cap=retry_cap,
-                recreate_client_fn=(lambda: (make_client_fn(core)[1])),
+                recreate_client_fn=(lambda: make_client_fn(core)[1]),
             )
             if action == "retry":
                 if new_client is not None:

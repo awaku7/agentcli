@@ -15,8 +15,6 @@ from __future__ import annotations
 import json
 from pathlib import Path
 
-import pytest
-
 
 def _run_diff(args: dict) -> dict:
     from uagent.tools.diff_files_tool import run_tool
@@ -52,9 +50,13 @@ def test_diff_then_patch_roundtrip(repo_tmp_path: Path) -> None:
     original.write_text("hello\nworld\n", encoding="utf-8")
     modified.write_text("hello\nearth\n", encoding="utf-8")
 
-    diff_result = _run_diff({
-        "path1": str(original), "path2": str(modified), "mode": "unified",
-    })
+    diff_result = _run_diff(
+        {
+            "path1": str(original),
+            "path2": str(modified),
+            "mode": "unified",
+        }
+    )
     assert diff_result["ok"] is True
     patch_text: str = diff_result["diff"]
     assert "+earth" in patch_text
@@ -144,9 +146,7 @@ def test_patch_multiple_files(repo_tmp_path: Path) -> None:
 def test_patch_append_to_end(repo_tmp_path: Path) -> None:
     f = repo_tmp_path / "append.txt"
     f.write_text("existing\n", encoding="utf-8")
-    patch = (
-        "--- a/{f}\n+++ b/{f}\n@@ -1 +1,2 @@\n existing\n+new_line\n"
-    ).format(f=f)
+    patch = ("--- a/{f}\n+++ b/{f}\n@@ -1 +1,2 @@\n existing\n+new_line\n").format(f=f)
     result = _run_patch({"patch_text": patch, "dry_run": False})
     assert result["ok"] is True
     assert f.read_text(encoding="utf-8") == "existing\nnew_line\n"
@@ -175,15 +175,23 @@ def test_diff_json_mode_then_patch(repo_tmp_path: Path) -> None:
     original.write_text('{"a": 1, "b": 2}\n', encoding="utf-8")
     modified.write_text('{"a": 1, "b": 3}\n', encoding="utf-8")
 
-    diff_result = _run_diff({
-        "path1": str(original), "path2": str(modified), "mode": "json_diff",
-    })
+    diff_result = _run_diff(
+        {
+            "path1": str(original),
+            "path2": str(modified),
+            "mode": "json_diff",
+        }
+    )
     assert diff_result["ok"] is True
     assert len(diff_result["hunks"]) >= 1
 
-    diff_result2 = _run_diff({
-        "path1": str(original), "path2": str(modified), "mode": "unified",
-    })
+    diff_result2 = _run_diff(
+        {
+            "path1": str(original),
+            "path2": str(modified),
+            "mode": "unified",
+        }
+    )
     fixed_patch = _normalize_patch_target(diff_result2["diff"], str(original))
     patch_result = _run_patch({"patch_text": fixed_patch, "dry_run": False})
     assert patch_result["ok"] is True
@@ -212,9 +220,9 @@ def test_diff_identical_files_empty_patch(repo_tmp_path: Path) -> None:
 def test_patch_create_new_file(repo_tmp_path: Path) -> None:
     f = repo_tmp_path / "new_file.txt"
     f.write_text("", encoding="utf-8")
-    patch = (
-        "--- a/{f}\n+++ b/{f}\n@@ -0,0 +1,3 @@\n+line1\n+line2\n+line3\n"
-    ).format(f=f)
+    patch = ("--- a/{f}\n+++ b/{f}\n@@ -0,0 +1,3 @@\n+line1\n+line2\n+line3\n").format(
+        f=f
+    )
     result = _run_patch({"patch_text": patch, "dry_run": False})
     assert result["ok"] is True
     assert f.read_text(encoding="utf-8") == "line1\nline2\nline3\n"
@@ -242,10 +250,11 @@ def test_patch_ignore_whitespace(repo_tmp_path: Path) -> None:
     f = repo_tmp_path / "space.txt"
     f.write_text("  indented\nnormal\n", encoding="utf-8")
     patch = (
-        "--- a/{f}\n+++ b/{f}\n"
-        "@@ -1,2 +1,2 @@\n  indented\n+modified\n normal\n"
+        "--- a/{f}\n+++ b/{f}\n@@ -1,2 +1,2 @@\n  indented\n+modified\n normal\n"
     ).format(f=f)
-    result = _run_patch({"patch_text": patch, "dry_run": False, "ignore_whitespace": True})
+    result = _run_patch(
+        {"patch_text": patch, "dry_run": False, "ignore_whitespace": True}
+    )
     assert result["ok"] is True
     assert "modified" in f.read_text(encoding="utf-8")
 
@@ -258,9 +267,13 @@ def test_diff_summary_stats(repo_tmp_path: Path) -> None:
     modified = repo_tmp_path / "stats_modified.txt"
     original.write_text("a\nb\nc\nd\ne\n", encoding="utf-8")
     modified.write_text("a\nx\nc\nd\nf\n", encoding="utf-8")
-    diff_result = _run_diff({
-        "path1": str(original), "path2": str(modified), "mode": "summary",
-    })
+    diff_result = _run_diff(
+        {
+            "path1": str(original),
+            "path2": str(modified),
+            "mode": "summary",
+        }
+    )
     assert diff_result["ok"] is True
     assert diff_result["added_lines"] == 2
     assert diff_result["removed_lines"] == 2
@@ -271,9 +284,9 @@ def test_diff_summary_stats(repo_tmp_path: Path) -> None:
 # 14. Non-existent target file
 # ---------------------------------------------------------------------------
 def test_patch_nonexistent_file(repo_tmp_path: Path) -> None:
-    patch = (
-        "--- a/{f}\n+++ b/{f}\n@@ -1 +1 @@\n-old\n+new\n"
-    ).format(f=repo_tmp_path / "nope.txt")
+    patch = ("--- a/{f}\n+++ b/{f}\n@@ -1 +1 @@\n-old\n+new\n").format(
+        f=repo_tmp_path / "nope.txt"
+    )
     result = _run_patch({"patch_text": patch, "dry_run": False})
     assert result["ok"] is False
     files = result.get("files", [])
@@ -286,9 +299,13 @@ def test_patch_nonexistent_file(repo_tmp_path: Path) -> None:
 def test_diff_text_mode_then_patch(repo_tmp_path: Path) -> None:
     f = repo_tmp_path / "greeting.txt"
     f.write_text("hello\n", encoding="utf-8")
-    diff_result = _run_diff({
-        "path1": str(f), "text": "hello\nworld\n", "mode": "unified",
-    })
+    diff_result = _run_diff(
+        {
+            "path1": str(f),
+            "text": "hello\nworld\n",
+            "mode": "unified",
+        }
+    )
     assert diff_result["ok"] is True
     fixed_patch = _normalize_patch_target(diff_result["diff"], str(f))
     patch_result = _run_patch({"patch_text": fixed_patch, "dry_run": False})
@@ -304,16 +321,23 @@ def test_diff_patch_crlf_roundtrip(repo_tmp_path: Path) -> None:
     modified = repo_tmp_path / "crlf_modified.txt"
     original.write_bytes(b"line1\r\nline2\r\n")
     modified.write_bytes(b"line1\r\nline2_modified\r\n")
-    diff_result = _run_diff({
-        "path1": str(original), "path2": str(modified),
-        "mode": "unified", "preserve_line_endings": True,
-    })
+    diff_result = _run_diff(
+        {
+            "path1": str(original),
+            "path2": str(modified),
+            "mode": "unified",
+            "preserve_line_endings": True,
+        }
+    )
     assert diff_result["ok"] is True
     fixed_patch = _normalize_patch_target(diff_result["diff"], str(original))
-    patch_result = _run_patch({
-        "patch_text": fixed_patch, "dry_run": False,
-        "preserve_line_endings": True,
-    })
+    patch_result = _run_patch(
+        {
+            "patch_text": fixed_patch,
+            "dry_run": False,
+            "preserve_line_endings": True,
+        }
+    )
     assert patch_result["ok"] is True
     assert original.read_bytes() == b"line1\r\nline2_modified\r\n"
 
@@ -321,6 +345,7 @@ def test_diff_patch_crlf_roundtrip(repo_tmp_path: Path) -> None:
 # ===================================================================
 # いじわるテスト: IFだけを見て追加 (実装未参照)
 # ===================================================================
+
 
 # ---------------------------------------------------------------------------
 # 17. diff_files: path2 と text の同時指定 -> エラー
@@ -340,9 +365,13 @@ def test_diff_zero_context_lines(repo_tmp_path: Path) -> None:
     f2 = repo_tmp_path / "ctx_b.txt"
     f1.write_text("keep\nremove\nkeep\n", encoding="utf-8")
     f2.write_text("keep\nadded\nkeep\n", encoding="utf-8")
-    result = _run_diff({
-        "path1": str(f1), "path2": str(f2), "context_lines": 0,
-    })
+    result = _run_diff(
+        {
+            "path1": str(f1),
+            "path2": str(f2),
+            "context_lines": 0,
+        }
+    )
     assert result["ok"] is True
     assert "-remove" in result["diff"]
     assert "+added" in result["diff"]
@@ -356,9 +385,13 @@ def test_diff_max_lines_one(repo_tmp_path: Path) -> None:
     f2 = repo_tmp_path / "big_b.txt"
     f1.write_text("\n".join(f"line{i}" for i in range(100)), encoding="utf-8")
     f2.write_text("\n".join(f"line{i}_mod" for i in range(100)), encoding="utf-8")
-    result = _run_diff({
-        "path1": str(f1), "path2": str(f2), "max_diff_lines": 1,
-    })
+    result = _run_diff(
+        {
+            "path1": str(f1),
+            "path2": str(f2),
+            "max_diff_lines": 1,
+        }
+    )
     assert result["ok"] is True
     # truncated marker が含まれていることを確認
     assert "[diff" in result["diff"].lower() or "truncat" in result["diff"].lower()
@@ -401,11 +434,7 @@ def test_diff_both_empty(repo_tmp_path: Path) -> None:
 def test_patch_wrong_hunk_line_count(repo_tmp_path: Path) -> None:
     f = repo_tmp_path / "wrong_count.txt"
     f.write_text("a\nb\n", encoding="utf-8")
-    patch = (
-        "--- a/{f}\n+++ b/{f}\n"
-        "@@ -1,2 +1,1 @@\n"
-        "-a\n-b\n+x\n+y\n"
-    ).format(f=f)
+    patch = ("--- a/{f}\n+++ b/{f}\n@@ -1,2 +1,1 @@\n-a\n-b\n+x\n+y\n").format(f=f)
     result = _run_patch({"patch_text": patch, "dry_run": False})
     assert "ok" in result
 
@@ -417,9 +446,7 @@ def test_patch_wrong_path_prefix(repo_tmp_path: Path) -> None:
     f = repo_tmp_path / "target.txt"
     f.write_text("old\n", encoding="utf-8")
     patch = (
-        "--- a/extra_dir/{name}\n"
-        "+++ b/extra_dir/{name}\n"
-        "@@ -1 +1 @@\n-old\n+new\n"
+        "--- a/extra_dir/{name}\n+++ b/extra_dir/{name}\n@@ -1 +1 @@\n-old\n+new\n"
     ).format(name=f.name)
     result = _run_patch({"patch_text": patch, "dry_run": False})
     assert result["ok"] is False
@@ -442,9 +469,9 @@ def test_patch_no_changes(repo_tmp_path: Path) -> None:
 # 25. apply_patch: 存在しないファイルに dry_run -> エラー
 # ---------------------------------------------------------------------------
 def test_patch_nonexistent_dry_run(repo_tmp_path: Path) -> None:
-    patch = (
-        "--- a/{f}\n+++ b/{f}\n@@ -1 +1 @@\n-old\n+new\n"
-    ).format(f=repo_tmp_path / "ghost.txt")
+    patch = ("--- a/{f}\n+++ b/{f}\n@@ -1 +1 @@\n-old\n+new\n").format(
+        f=repo_tmp_path / "ghost.txt"
+    )
     result = _run_patch({"patch_text": patch, "dry_run": True})
     assert result["ok"] is False
 
@@ -457,9 +484,13 @@ def test_diff_ignore_whitespace_only(repo_tmp_path: Path) -> None:
     f2 = repo_tmp_path / "spaces_b.txt"
     f1.write_text("a\nb\n", encoding="utf-8")
     f2.write_text("a  \nb\n", encoding="utf-8")
-    result = _run_diff({
-        "path1": str(f1), "path2": str(f2), "ignore_whitespace": True,
-    })
+    result = _run_diff(
+        {
+            "path1": str(f1),
+            "path2": str(f2),
+            "ignore_whitespace": True,
+        }
+    )
     assert result["ok"] is True
     assert result["identical"] is True
     assert result["diff"] == ""

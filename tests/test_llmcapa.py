@@ -36,9 +36,9 @@ class TestLlmcapaProviders:
     )
     def test_provider_has_models(self, provider: str, expected_min_models: int) -> None:
         models = llmcapa.list_models(provider=provider)
-        assert len(models) >= expected_min_models, (
-            f"{provider}: expected >= {expected_min_models} models, got {len(models)}"
-        )
+        assert (
+            len(models) >= expected_min_models
+        ), f"{provider}: expected >= {expected_min_models} models, got {len(models)}"
 
 
 class TestLlmcapaModelSpecs:
@@ -128,6 +128,7 @@ class TestLlmcapaCountTokens:
         n = llmcapa.count_tokens("This is a test sentence.", model_id)
         assert n > 0, f"{model_id}: expected positive token count, got {n}"
 
+
 class TestAllProviders:
     """Every provider in llmcapa has valid model data."""
 
@@ -145,7 +146,9 @@ class TestAllProviders:
             for m in llmcapa.list_models(provider=p):
                 if m.context_window <= 0:
                     bad.append(f"{p}/{m.model_id}: ctx={m.context_window}")
-        assert not bad, f"Models with non-positive context_window:\n" + "\n".join(bad[:20])
+        assert not bad, "Models with non-positive context_window:\n" + "\n".join(
+            bad[:20]
+        )
 
     def test_all_models_have_nonnegative_output(self) -> None:
         providers = llmcapa.providers()
@@ -154,4 +157,6 @@ class TestAllProviders:
             for m in llmcapa.list_models(provider=p):
                 if m.max_output_tokens < 0:
                     bad.append(f"{p}/{m.model_id}: out={m.max_output_tokens}")
-        assert not bad, f"Models with negative max_output_tokens:\n" + "\n".join(bad[:20])
+        assert not bad, "Models with negative max_output_tokens:\n" + "\n".join(
+            bad[:20]
+        )

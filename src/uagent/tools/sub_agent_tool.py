@@ -1313,7 +1313,12 @@ def run_tool(args: Dict[str, Any]) -> str:
 
     # Fire SubagentStart hook
     try:
-        from uagent.hooks_engine import get_default_registry_path, load_hooks_registry, fire_event
+        from uagent.hooks_engine import (
+            get_default_registry_path,
+            load_hooks_registry,
+            fire_event,
+        )
+
         _hooks = load_hooks_registry(get_default_registry_path())
         if _hooks:
             fire_event("SubagentStart", _hooks)
@@ -1347,7 +1352,12 @@ def run_tool(args: Dict[str, Any]) -> str:
 
     # Fire SubagentStop hook
     try:
-        from uagent.hooks_engine import get_default_registry_path, load_hooks_registry, fire_event
+        from uagent.hooks_engine import (
+            get_default_registry_path,
+            load_hooks_registry,
+            fire_event,
+        )
+
         _hooks = load_hooks_registry(get_default_registry_path())
         if _hooks:
             fire_event("SubagentStop", _hooks)

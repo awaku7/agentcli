@@ -908,6 +908,7 @@ def stdin_loop() -> None:
             # Broad catch to prevent sudden thread death
             try:
                 from .hooks_engine import fire_stop_failure
+
                 fire_stop_failure()
             except Exception:
                 pass
@@ -1065,7 +1066,13 @@ def main() -> None:
 
     # Fire SessionStart and Setup hooks
     try:
-        from .hooks_engine import fire_session_start, fire_event, load_hooks_registry, get_default_registry_path
+        from .hooks_engine import (
+            fire_session_start,
+            fire_event,
+            load_hooks_registry,
+            get_default_registry_path,
+        )
+
         fire_session_start()
         _hooks = load_hooks_registry(get_default_registry_path())
         if _hooks:
@@ -1134,7 +1141,12 @@ def main() -> None:
 
                 # Fire UserPromptSubmit hook
                 try:
-                    from .hooks_engine import fire_event, load_hooks_registry, get_default_registry_path
+                    from .hooks_engine import (
+                        fire_event,
+                        load_hooks_registry,
+                        get_default_registry_path,
+                    )
+
                     _hooks = load_hooks_registry(get_default_registry_path())
                     if _hooks:
                         fire_event("UserPromptSubmit", _hooks)
@@ -1280,7 +1292,13 @@ def main() -> None:
             pass
         # Fire Stop and SessionEnd hooks
         try:
-            from .hooks_engine import fire_stop, fire_event, load_hooks_registry, get_default_registry_path
+            from .hooks_engine import (
+                fire_stop,
+                fire_event,
+                load_hooks_registry,
+                get_default_registry_path,
+            )
+
             fire_stop()
             _hooks = load_hooks_registry(get_default_registry_path())
             if _hooks:

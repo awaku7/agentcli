@@ -63,6 +63,25 @@ LLMが複数のツールを同時に要求すると、uagは **自動的に並�
 
 読み取り専用のツール（ファイル検索、ハッシュ計算、ディレクトリ一覧、翻訳、DBクエリなど）は積極的に並列化されます。
 
+### 🧩 プラグインシステム（Claude Code 互換）
+
+uagentは **Claude Code 互換のプラグインシステム** を実装しています。プラグインはスキル、サブエージェント、MCPサーバ、フックなどを `.claude-plugin/plugin.json` マニフェストを持つ自己完結型ディレクトリにバンドルします。
+
+**対応コンポーネント**: スキル、サブエージェント、MCPサーバ、フック（12のライフサイクルイベント）、スラッシュコマンド、出力スタイル、userConfig、依存関係、チャンネル、マーケットプレイス
+
+**CLIコマンド**:
+```
+:plugin list                         # インストール済みプラグイン一覧
+:plugin install <source> [--scope]   # インストール（dir/zip/git/http）
+:plugin install <name>@<marketplace>  # マーケットプレイスからインストール
+:plugin remove <name>                # アンインストール
+:plugin enable/disable <name>        # 有効/無効の切り替え
+:plugin marketplace add/remove/list  # マーケットプレイスの管理
+:plugin init <name>                  # 新規プラグインのスキャフォールド
+```
+
+詳細は [DEVELOP_PLUGIN.md](src/uagent/docs/DEVELOP_PLUGIN.md) を参照してください。
+
 ### 🔄 セッションの継続性
 
 - **セッション中のプロバイダ切り替え**: `UAGENT_PROVIDER` を変更しても会話履歴は保持されます。

@@ -505,7 +505,7 @@ def discover_business(business_url: str) -> dict[str, Any]:
 
     if status != 200 or body is None:
         raise UCPUnrecoverableError(
-            f"Business at {business_url} does not support UCP " f"(HTTP {status})"
+            f"Business at {business_url} does not support UCP (HTTP {status})"
         )
 
     _cache_set(cache_key, body)

@@ -10,7 +10,6 @@ import json
 import os
 import re
 import subprocess
-import threading
 from pathlib import Path
 from typing import Any
 
@@ -224,9 +223,7 @@ def fire_event(
 
     Returns list of execution results.
     """
-    matching = find_matching_hooks(
-        event_name, hooks, tool_name=tool_name
-    )
+    matching = find_matching_hooks(event_name, hooks, tool_name=tool_name)
     if not matching:
         return []
 
@@ -261,6 +258,7 @@ def _expand_vars(command: str) -> str:
 
     Unknown variables are left as-is.
     """
+
     def _replace(m: re.Match) -> str:
         var_name = m.group(1)
 
@@ -291,7 +289,10 @@ def _execute_http_hook(
 
     method = hook.get("method", "POST").upper()
     if method not in ("POST", "PUT", "PATCH"):
-        return {"ok": False, "error": f"Unsupported HTTP method: {method}. Supported: POST, PUT, PATCH"}
+        return {
+            "ok": False,
+            "error": f"Unsupported HTTP method: {method}. Supported: POST, PUT, PATCH",
+        }
 
     import urllib.request
     import urllib.error
@@ -355,11 +356,13 @@ def _execute_mcp_tool_hook(
     try:
         from .tools.handle_mcp_v2_tool import run_tool as mcp_run
 
-        result = mcp_run({
-            "server_name": _expand_vars(server),
-            "tool_name": tool,
-            "arguments": args,
-        })
+        result = mcp_run(
+            {
+                "server_name": _expand_vars(server),
+                "tool_name": tool,
+                "arguments": args,
+            }
+        )
         return {"ok": True, "result": result}
     except Exception as e:
         return {"ok": False, "error": f"MCP tool call failed: {e}"}
@@ -434,9 +437,7 @@ def fire_tool_event(
 
     Supports PreToolUse, PostToolUse, PostToolUseFailure.
     """
-    matching = find_matching_hooks(
-        event_name, hooks, tool_name=tool_name
-    )
+    matching = find_matching_hooks(event_name, hooks, tool_name=tool_name)
     if not matching:
         return []
 

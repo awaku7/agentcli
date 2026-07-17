@@ -245,7 +245,7 @@ def _is_gpt_image_model(image_model: str) -> bool:
 def _save_many(outdir: str, prefix: str, ts: str, b64_list: list[str]) -> list[str]:
     saved: list[str] = []
     for i, b64 in enumerate(b64_list):
-        fn = f"{prefix}_{ts}_{i+1}.png" if len(b64_list) > 1 else f"{prefix}_{ts}.png"
+        fn = f"{prefix}_{ts}_{i + 1}.png" if len(b64_list) > 1 else f"{prefix}_{ts}.png"
         out_path = os.path.join(outdir, fn)
         with open(out_path, "wb") as f:
             f.write(base64.b64decode(b64))
@@ -572,7 +572,7 @@ def run_tool(args: dict[str, Any]) -> str:
             if url_list:
                 for i, url in enumerate(url_list):
                     fn = (
-                        f"{file_prefix}_{ts}_url_{i+1}.png"
+                        f"{file_prefix}_{ts}_url_{i + 1}.png"
                         if len(url_list) > 1
                         else f"{file_prefix}_{ts}_url.png"
                     )

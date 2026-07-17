@@ -29,6 +29,7 @@ def _is_json_err(out: str) -> dict | None:
 # 異常系
 # ===================================================================
 
+
 def test_filename_empty(repo_tmp_path: Path) -> None:
     out = _run({"filename": ""})
     assert _is_json_err(out) is not None
@@ -52,6 +53,7 @@ def test_path_is_directory(repo_tmp_path: Path) -> None:
 # ===================================================================
 # 正常系（基本）
 # ===================================================================
+
 
 def test_read_small_file(repo_tmp_path: Path) -> None:
     f = repo_tmp_path / "hello.txt"
@@ -77,6 +79,7 @@ def test_read_unicode_file(repo_tmp_path: Path) -> None:
 # ===================================================================
 # start_line / maxl
 # ===================================================================
+
 
 def test_start_line_negative(repo_tmp_path: Path) -> None:
     f = repo_tmp_path / "neg_start.txt"
@@ -122,6 +125,7 @@ def test_start_line_and_maxl(repo_tmp_path: Path) -> None:
 # ===================================================================
 # head / tail
 # ===================================================================
+
 
 def test_head_basic(repo_tmp_path: Path) -> None:
     f = repo_tmp_path / "head_test.txt"
@@ -184,6 +188,7 @@ def test_head_and_tail_conflict(repo_tmp_path: Path) -> None:
 # ページネーション
 # ===================================================================
 
+
 def test_page_default(repo_tmp_path: Path) -> None:
     f = repo_tmp_path / "page_default.txt"
     f.write_text("a\nb\nc\n", encoding="utf-8")
@@ -206,6 +211,7 @@ def test_page_with_maxl(repo_tmp_path: Path) -> None:
 # ===================================================================
 # エッジケース: ファイル内容
 # ===================================================================
+
 
 def test_binary_file(repo_tmp_path: Path) -> None:
     f = repo_tmp_path / "binary.bin"

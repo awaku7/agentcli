@@ -14,7 +14,6 @@ from typing import Any
 from ..plugin_shared import (
     discover_plugin_components,
     get_plugin_roots,
-    is_plugin_enabled,
     parse_plugin_manifest,
     scan_plugins,
     set_plugin_enabled,
@@ -164,7 +163,12 @@ def run_tool(args: dict[str, Any]) -> str:
     elif action == "info":
         return _action_info(name, scan_dirs)
     elif action == "install":
-        return _action_install(source, name, install_root, _test_marketplace_dir=args.get("_test_marketplace_dir"))
+        return _action_install(
+            source,
+            name,
+            install_root,
+            _test_marketplace_dir=args.get("_test_marketplace_dir"),
+        )
     elif action == "remove":
         return _action_remove(name, install_root)
     elif action == "enable":
@@ -174,9 +178,7 @@ def run_tool(args: dict[str, Any]) -> str:
     elif action == "validate":
         return _action_validate(name, scan_dirs)
     else:
-        return json.dumps(
-            {"ok": False, "error": f"Unknown action: {action}"}
-        )
+        return json.dumps({"ok": False, "error": f"Unknown action: {action}"})
 
 
 # ---------------------------------------------------------------------------
@@ -184,14 +186,13 @@ def run_tool(args: dict[str, Any]) -> str:
 # ---------------------------------------------------------------------------
 
 
-def _action_list(
-    scan_dirs: list[str], state_dir: str
-) -> str:
+def _action_list(scan_dirs: list[str], state_dir: str) -> str:
     """List all discovered plugins with their status."""
     plugins = scan_plugins(scan_dirs)
     ep = {}
     try:
         from ..plugin_shared import get_enabled_plugins
+
         ep = get_enabled_plugins(state_dir=state_dir)
     except Exception:
         pass
@@ -200,13 +201,15 @@ def _action_list(
     for p in plugins:
         name = p.get("name", "?")
         enabled = ep.get(name, True)
-        results.append({
-            "name": name,
-            "version": p.get("version", "0.0.0"),
-            "description": p.get("description", ""),
-            "enabled": enabled,
-            "path": p.get("_path", ""),
-        })
+        results.append(
+            {
+                "name": name,
+                "version": p.get("version", "0.0.0"),
+                "description": p.get("description", ""),
+                "enabled": enabled,
+                "path": p.get("_path", ""),
+            }
+        )
 
     return json.dumps(
         {"ok": True, "plugins": results},
@@ -224,13 +227,9 @@ def _action_info(name: str, scan_dirs: list[str]) -> str:
     for p in plugins:
         if p.get("name") == name:
             # Discover components
-            comps = discover_plugin_components(
-                p.get("_path", ""), p
-            )
+            comps = discover_plugin_components(p.get("_path", ""), p)
             # Validate
-            ok, errors, warnings = validate_plugin_manifest(
-                p.get("_path", ""), p
-            )
+            ok, errors, warnings = validate_plugin_manifest(p.get("_path", ""), p)
             return json.dumps(
                 {
                     "ok": True,
@@ -247,20 +246,18 @@ def _action_info(name: str, scan_dirs: list[str]) -> str:
                 indent=2,
             )
 
-    return json.dumps(
-        {"ok": False, "error": f"Plugin '{name}' not found."}
-    )
+    return json.dumps({"ok": False, "error": f"Plugin '{name}' not found."})
 
 
 def _action_install(
-    source: str, name: str, install_root: str,
+    source: str,
+    name: str,
+    install_root: str,
     _test_marketplace_dir: str | None = None,
 ) -> str:
     """Install a plugin from various source types."""
     if not source:
-        return json.dumps(
-            {"ok": False, "error": "Source is required for install."}
-        )
+        return json.dumps({"ok": False, "error": "Source is required for install."})
 
     from ..plugin_shared import (
         _infer_name_from_source,
@@ -278,8 +275,10 @@ def _action_install(
         mp_plugin_name = parts[0]
         mp_name = parts[1]
         from ..plugin_shared import resolve_marketplace_plugin
+
         resolved = resolve_marketplace_plugin(
-            mp_plugin_name, mp_name,
+            mp_plugin_name,
+            mp_name,
             marketplace_dir=_test_marketplace_dir,
         )
         if resolved:
@@ -287,10 +286,12 @@ def _action_install(
             if not name:
                 name = mp_plugin_name
         else:
-            return json.dumps({
-                "ok": False,
-                "error": f"Plugin '{mp_plugin_name}' not found in marketplace '{mp_name}'.",
-            })
+            return json.dumps(
+                {
+                    "ok": False,
+                    "error": f"Plugin '{mp_plugin_name}' not found in marketplace '{mp_name}'.",
+                }
+            )
 
     # Determine destination name
     dest_name = name or _infer_name_from_source(normalized)
@@ -306,7 +307,9 @@ def _action_install(
         )
 
     # Create temporary workspace for non-directory sources
-    import subprocess, urllib.request, tempfile, zipfile
+    import subprocess
+    import urllib.request
+    import tempfile
 
     dest.parent.mkdir(parents=True, exist_ok=True)
 
@@ -316,20 +319,25 @@ def _action_install(
             try:
                 subprocess.run(["git", "--version"], capture_output=True, check=True)
             except (subprocess.SubprocessError, FileNotFoundError):
-                return json.dumps({
-                    "ok": False,
-                    "error": "Git command not found. Please install Git or use a ZIP URL instead.",
-                })
+                return json.dumps(
+                    {
+                        "ok": False,
+                        "error": "Git command not found. Please install Git or use a ZIP URL instead.",
+                    }
+                )
 
             res = subprocess.run(
                 ["git", "clone", normalized, str(dest)],
-                capture_output=True, text=True,
+                capture_output=True,
+                text=True,
             )
             if res.returncode != 0:
-                return json.dumps({
-                    "ok": False,
-                    "error": f"Git clone failed: {res.stderr.strip()}",
-                })
+                return json.dumps(
+                    {
+                        "ok": False,
+                        "error": f"Git clone failed: {res.stderr.strip()}",
+                    }
+                )
 
         elif is_remote_zip(normalized):
             # Download and extract remote ZIP
@@ -338,10 +346,12 @@ def _action_install(
                 try:
                     urllib.request.urlretrieve(normalized, zip_path)
                 except Exception as e:
-                    return json.dumps({
-                        "ok": False,
-                        "error": f"Failed to download ZIP: {e}",
-                    })
+                    return json.dumps(
+                        {
+                            "ok": False,
+                            "error": f"Failed to download ZIP: {e}",
+                        }
+                    )
 
                 _extract_plugin_zip(zip_path, str(dest))
 
@@ -354,19 +364,23 @@ def _action_install(
             shutil.copytree(normalized, str(dest))
 
         else:
-            return json.dumps({
-                "ok": False,
-                "error": f"Source not recognized or not found: {source}",
-            })
+            return json.dumps(
+                {
+                    "ok": False,
+                    "error": f"Source not recognized or not found: {source}",
+                }
+            )
 
     except Exception as e:
         # Cleanup on failure
         if dest.exists():
             shutil.rmtree(str(dest))
-        return json.dumps({
-            "ok": False,
-            "error": f"Install failed: {e}",
-        })
+        return json.dumps(
+            {
+                "ok": False,
+                "error": f"Install failed: {e}",
+            }
+        )
 
     # Update manifest name if destination name differs from source
     installed_manifest = parse_plugin_manifest(str(dest))
@@ -376,9 +390,7 @@ def _action_install(
             try:
                 mdata = json.loads(manifest_path.read_text(encoding="utf-8"))
                 mdata["name"] = dest_name
-                manifest_path.write_text(
-                    json.dumps(mdata, indent=2), encoding="utf-8"
-                )
+                manifest_path.write_text(json.dumps(mdata, indent=2), encoding="utf-8")
             except (json.JSONDecodeError, OSError):
                 pass
 
@@ -394,7 +406,9 @@ def _action_install(
 
 def _extract_plugin_zip(zip_path: str, dest_dir: str) -> None:
     """Extract a plugin ZIP, unwrapping single top-level directory."""
-    import zipfile, tempfile
+    import zipfile
+    import tempfile
+
     with tempfile.TemporaryDirectory() as tmpdir:
         extract_root = os.path.join(tmpdir, "extracted")
         with zipfile.ZipFile(zip_path, "r") as zf:
@@ -465,9 +479,7 @@ def _action_validate(name: str, scan_dirs: list[str]) -> str:
     plugins = scan_plugins(scan_dirs)
     for p in plugins:
         if p.get("name") == name:
-            ok, errors, warnings = validate_plugin_manifest(
-                p.get("_path", ""), p
-            )
+            ok, errors, warnings = validate_plugin_manifest(p.get("_path", ""), p)
             return json.dumps(
                 {
                     "ok": ok,
@@ -479,9 +491,7 @@ def _action_validate(name: str, scan_dirs: list[str]) -> str:
                 indent=2,
             )
 
-    return json.dumps(
-        {"ok": False, "error": f"Plugin '{name}' not found."}
-    )
+    return json.dumps({"ok": False, "error": f"Plugin '{name}' not found."})
 
 
 # ---------------------------------------------------------------------------
@@ -506,8 +516,7 @@ def _register_cmd_specs() -> None:
             "help_text": _(
                 "cmd.help.plugin_list",
                 default=(
-                    "  :plugin list [--enabled] [--verbose]  "
-                    "List installed plugins."
+                    "  :plugin list [--enabled] [--verbose]  List installed plugins."
                 ),
             ),
         },
@@ -592,9 +601,7 @@ def _register_cmd_specs() -> None:
             "handler": _handle_cmd_plugin_validate,
             "help_text": _(
                 "cmd.help.plugin_validate",
-                default=(
-                    "  :plugin validate <name>  Validate a plugin's manifest."
-                ),
+                default=("  :plugin validate <name>  Validate a plugin's manifest."),
             ),
         },
     ]
@@ -628,7 +635,9 @@ def _handle_cmd_plugin_list(arg: str, **kwargs: Any) -> Any:
     name_width = max((len(p.get("name", "")) for p in plugins), default=8)
     ver_width = max((len(p.get("version", "")) for p in plugins), default=7)
 
-    print(f"{'Name':<{name_width}}  {'Version':<{ver_width}}  {'Enabled':<8}  Description")
+    print(
+        f"{'Name':<{name_width}}  {'Version':<{ver_width}}  {'Enabled':<8}  Description"
+    )
     print("-" * (name_width + ver_width + 30))
     for p in plugins:
         en = "yes" if p.get("enabled") else "no"
@@ -719,9 +728,7 @@ def _handle_cmd_plugin_enable(arg: str, **kwargs: Any) -> Any:
         return CommandResult()
 
     test_state_dir = kwargs.get("_test_state_dir")
-    result = json.loads(
-        _action_enable(name, test_state_dir or str(get_state_dir()))
-    )
+    result = json.loads(_action_enable(name, test_state_dir or str(get_state_dir())))
 
     if result.get("ok"):
         print(f"Enabled: {result.get('message')}")
@@ -741,9 +748,7 @@ def _handle_cmd_plugin_disable(arg: str, **kwargs: Any) -> Any:
         return CommandResult()
 
     test_state_dir = kwargs.get("_test_state_dir")
-    result = json.loads(
-        _action_disable(name, test_state_dir or str(get_state_dir()))
-    )
+    result = json.loads(_action_disable(name, test_state_dir or str(get_state_dir())))
 
     if result.get("ok"):
         print(f"Disabled: {result.get('message')}")
@@ -849,7 +854,7 @@ def _handle_cmd_plugin_init(arg: str, **kwargs: Any) -> Any:
     skill_dir.mkdir(parents=True)
     (skill_dir / "SKILL.md").write_text(
         "---\n"
-        f"name: hello\n"
+        "name: hello\n"
         "description: A sample skill\n"
         "---\n\n"
         "Hello from the plugin!\n",
@@ -919,6 +924,7 @@ def _handle_cmd_plugin_marketplace(arg: str, **kwargs: Any) -> Any:
 
     if subcmd == "list":
         from ..plugin_shared import list_marketplaces
+
         mps = list_marketplaces()
         if not mps:
             print("No marketplaces registered.")
@@ -936,9 +942,11 @@ def _handle_cmd_plugin_marketplace(arg: str, **kwargs: Any) -> Any:
         url = rest[0]
         # Infer name from URL
         import re
+
         name_match = re.search(r"([^/]+)/([^/]+?)(?:\.git)?$", url)
         name = name_match.group(0).replace("/", "-") if name_match else url
         from ..plugin_shared import add_marketplace
+
         result = add_marketplace(name, url)
         if result.get("ok"):
             print(f"Marketplace '{name}' added.")
@@ -952,6 +960,7 @@ def _handle_cmd_plugin_marketplace(arg: str, **kwargs: Any) -> Any:
             return CommandResult()
         name = rest[0]
         from ..plugin_shared import remove_marketplace
+
         result = remove_marketplace(name)
         if result.get("removed"):
             print(f"Marketplace '{name}' removed.")
@@ -965,6 +974,7 @@ def _handle_cmd_plugin_marketplace(arg: str, **kwargs: Any) -> Any:
             return CommandResult()
         name = rest[0]
         from ..plugin_shared import list_marketplaces, add_marketplace
+
         mps = list_marketplaces()
         mp = next((m for m in mps if m.get("name") == name), None)
         if mp:

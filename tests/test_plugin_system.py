@@ -9,10 +9,8 @@ import json
 import os
 import shutil
 from pathlib import Path
-from typing import Any
 
 import pytest
-
 
 # =========================================================================
 # Fixtures
@@ -62,12 +60,15 @@ def settings_file(repo_tmp_path: Path) -> Path:
     sf = repo_tmp_path / ".uag" / "settings.json"
     sf.parent.mkdir(parents=True)
     sf.write_text(
-        json.dumps({
-            "enabledPlugins": {
-                "test-plugin": True,
-                "disabled-plugin": False,
-            }
-        }, indent=2),
+        json.dumps(
+            {
+                "enabledPlugins": {
+                    "test-plugin": True,
+                    "disabled-plugin": False,
+                }
+            },
+            indent=2,
+        ),
         encoding="utf-8",
     )
     return sf
@@ -128,9 +129,7 @@ class TestParsePluginManifest:
         p = repo_tmp_path / "broken-plugin"
         manifest_dir = p / ".claude-plugin"
         manifest_dir.mkdir(parents=True)
-        (manifest_dir / "plugin.json").write_text(
-            "{invalid json}", encoding="utf-8"
-        )
+        (manifest_dir / "plugin.json").write_text("{invalid json}", encoding="utf-8")
         result = parse_plugin_manifest(str(p))
         assert result is None
 
@@ -215,9 +214,7 @@ class TestValidatePluginManifest:
 class TestScanPlugins:
     """Tests for scan_plugins()."""
 
-    def test_scan_finds_plugins(
-        self, repo_tmp_path: Path, plugin_dir: Path
-    ) -> None:
+    def test_scan_finds_plugins(self, repo_tmp_path: Path, plugin_dir: Path) -> None:
         from uagent.plugin_shared import scan_plugins
 
         results = scan_plugins([str(repo_tmp_path / "plugins")])
@@ -242,9 +239,7 @@ class TestScanPlugins:
         results = scan_plugins([str(d)])
         assert results == []
 
-    def test_scan_dedup_by_name(
-        self, repo_tmp_path: Path, plugin_dir: Path
-    ) -> None:
+    def test_scan_dedup_by_name(self, repo_tmp_path: Path, plugin_dir: Path) -> None:
         from uagent.plugin_shared import scan_plugins
 
         # Same plugin name in two directories - first should win
@@ -257,10 +252,12 @@ class TestScanPlugins:
             encoding="utf-8",
         )
 
-        results = scan_plugins([
-            str(repo_tmp_path / "plugins"),
-            str(repo_tmp_path / "dup-plugins"),
-        ])
+        results = scan_plugins(
+            [
+                str(repo_tmp_path / "plugins"),
+                str(repo_tmp_path / "dup-plugins"),
+            ]
+        )
         test_plugins = [r for r in results if r["name"] == "test-plugin"]
         assert len(test_plugins) == 1
         # First found wins (version should be 1.0.0 from plugin_dir)
@@ -316,9 +313,31 @@ class TestResolvePluginRoots:
 
         assert project_idx is not None, f"project root not found in {resolved}"
         assert user_idx is not None, f"user root not found in {resolved}"
-        assert project_idx < user_idx, (
-            f"project root (idx={project_idx}) should precede user root (idx={user_idx})"
-        )
+        assert (
+            project_idx < user_idx
+        ), f"project root (idx={project_idx}) should precede user root (idx={user_idx})"
+
+    def test_uagent_plugin_dirs_highest_priority(self, repo_tmp_path: Path) -> None:
+        import os
+        from uagent.plugin_shared import get_plugin_roots
+
+        custom = str(Path(repo_tmp_path / "custom" / "plugins").resolve())
+        key = "UAGENT_PLUGIN_DIRS"
+        old = os.environ.get(key)
+        try:
+            os.environ[key] = custom
+            roots = get_plugin_roots(cwd=str(repo_tmp_path))
+            resolved = [str(Path(r).resolve()) for r in roots]
+        finally:
+            if old is None:
+                del os.environ[key]
+            else:
+                os.environ[key] = old
+
+        assert custom in resolved, f"{custom} not found in {resolved}"
+        assert (
+            resolved.index(custom) == 0
+        ), f"UAGENT_PLUGIN_DIRS path should be first, got index {resolved.index(custom)}: {resolved}"
 
 
 class TestGetEnabledPlugins:
@@ -343,9 +362,7 @@ class TestGetEnabledPlugins:
 
         state_dir = repo_tmp_path / ".uag"
         state_dir.mkdir(parents=True)
-        (state_dir / "settings.json").write_text(
-            "{broken}", encoding="utf-8"
-        )
+        (state_dir / "settings.json").write_text("{broken}", encoding="utf-8")
         result = get_enabled_plugins(state_dir=str(state_dir))
         assert result == {}
 
@@ -449,7 +466,15 @@ class TestPluginManageToolSpec:
         params = TOOL_SPEC["function"]["parameters"]
         action_prop = params["properties"].get("action", {})
         assert "enum" in action_prop
-        expected = ["list", "install", "remove", "enable", "disable", "validate", "info"]
+        expected = [
+            "list",
+            "install",
+            "remove",
+            "enable",
+            "disable",
+            "validate",
+            "info",
+        ]
         for e in expected:
             assert e in action_prop["enum"], f"Missing action: {e}"
 
@@ -470,26 +495,28 @@ class TestPluginManageRunTool:
         from uagent.tools.plugin_manage_tool import run_tool
 
         plugins_root = str(repo_tmp_path / "plugins")
-        result = run_tool({
-            "action": "list",
-            "_test_roots": [plugins_root],
-        })
+        result = run_tool(
+            {
+                "action": "list",
+                "_test_roots": [plugins_root],
+            }
+        )
         parsed = json.loads(result)
         assert parsed["ok"] is True
         names = [p["name"] for p in parsed["plugins"]]
         assert "test-plugin" in names
 
-    def test_info_known_plugin(
-        self, repo_tmp_path: Path, plugin_dir: Path
-    ) -> None:
+    def test_info_known_plugin(self, repo_tmp_path: Path, plugin_dir: Path) -> None:
         from uagent.tools.plugin_manage_tool import run_tool
 
         plugins_root = str(repo_tmp_path / "plugins")
-        result = run_tool({
-            "action": "info",
-            "name": "test-plugin",
-            "_test_roots": [plugins_root],
-        })
+        result = run_tool(
+            {
+                "action": "info",
+                "name": "test-plugin",
+                "_test_roots": [plugins_root],
+            }
+        )
         parsed = json.loads(result)
         assert parsed["ok"] is True
         assert parsed["name"] == "test-plugin"
@@ -498,11 +525,13 @@ class TestPluginManageRunTool:
     def test_info_unknown_plugin(self, repo_tmp_path: Path) -> None:
         from uagent.tools.plugin_manage_tool import run_tool
 
-        result = run_tool({
-            "action": "info",
-            "name": "nonexistent",
-            "_test_roots": [str(repo_tmp_path)],
-        })
+        result = run_tool(
+            {
+                "action": "info",
+                "name": "nonexistent",
+                "_test_roots": [str(repo_tmp_path)],
+            }
+        )
         parsed = json.loads(result)
         assert parsed["ok"] is False
 
@@ -513,20 +542,22 @@ class TestPluginManageRunTool:
 
         dest_root = repo_tmp_path / "dest-plugins"
         dest_root.mkdir(parents=True)
-        result = run_tool({
-            "action": "install",
-            "source": str(plugin_dir),
-            "name": "installed-plugin",
-            "_test_install_root": str(dest_root),
-        })
+        result = run_tool(
+            {
+                "action": "install",
+                "source": str(plugin_dir),
+                "name": "installed-plugin",
+                "_test_install_root": str(dest_root),
+            }
+        )
         parsed = json.loads(result)
         assert parsed["ok"] is True
         assert (dest_root / "installed-plugin").exists()
-        assert (dest_root / "installed-plugin" / ".claude-plugin" / "plugin.json").exists()
+        assert (
+            dest_root / "installed-plugin" / ".claude-plugin" / "plugin.json"
+        ).exists()
 
-    def test_remove_plugin(
-        self, repo_tmp_path: Path, plugin_dir: Path
-    ) -> None:
+    def test_remove_plugin(self, repo_tmp_path: Path, plugin_dir: Path) -> None:
         from uagent.tools.plugin_manage_tool import run_tool
 
         dest_root = repo_tmp_path / "removable-plugins"
@@ -534,11 +565,13 @@ class TestPluginManageRunTool:
         shutil.copytree(plugin_dir, dest_root / "to-remove")
         assert (dest_root / "to-remove").exists()
 
-        result = run_tool({
-            "action": "remove",
-            "name": "to-remove",
-            "_test_install_root": str(dest_root),
-        })
+        result = run_tool(
+            {
+                "action": "remove",
+                "name": "to-remove",
+                "_test_install_root": str(dest_root),
+            }
+        )
         parsed = json.loads(result)
         assert parsed["ok"] is True
         assert not (dest_root / "to-remove").exists()
@@ -548,11 +581,13 @@ class TestPluginManageRunTool:
 
         state_dir = repo_tmp_path / ".uag"
         state_dir.mkdir(parents=True)
-        result = run_tool({
-            "action": "enable",
-            "name": "my-plugin",
-            "_test_state_dir": str(state_dir),
-        })
+        result = run_tool(
+            {
+                "action": "enable",
+                "name": "my-plugin",
+                "_test_state_dir": str(state_dir),
+            }
+        )
         parsed = json.loads(result)
         assert parsed["ok"] is True
 
@@ -567,11 +602,13 @@ class TestPluginManageRunTool:
 
         state_dir = repo_tmp_path / ".uag"
         state_dir.mkdir(parents=True)
-        result = run_tool({
-            "action": "disable",
-            "name": "my-plugin",
-            "_test_state_dir": str(state_dir),
-        })
+        result = run_tool(
+            {
+                "action": "disable",
+                "name": "my-plugin",
+                "_test_state_dir": str(state_dir),
+            }
+        )
         parsed = json.loads(result)
         assert parsed["ok"] is True
 
@@ -583,22 +620,26 @@ class TestPluginManageRunTool:
     def test_validate_ok(self, plugin_dir: Path) -> None:
         from uagent.tools.plugin_manage_tool import run_tool
 
-        result = run_tool({
-            "action": "validate",
-            "name": "test-plugin",
-            "_test_roots": [str(plugin_dir.parent)],
-        })
+        result = run_tool(
+            {
+                "action": "validate",
+                "name": "test-plugin",
+                "_test_roots": [str(plugin_dir.parent)],
+            }
+        )
         parsed = json.loads(result)
         assert parsed["ok"] is True
 
     def test_validate_missing_directory(self, repo_tmp_path: Path) -> None:
         from uagent.tools.plugin_manage_tool import run_tool
 
-        result = run_tool({
-            "action": "validate",
-            "name": "no-such-plugin",
-            "_test_roots": [str(repo_tmp_path)],
-        })
+        result = run_tool(
+            {
+                "action": "validate",
+                "name": "no-such-plugin",
+                "_test_roots": [str(repo_tmp_path)],
+            }
+        )
         parsed = json.loads(result)
         assert parsed["ok"] is False
 
@@ -615,15 +656,19 @@ class TestPluginManageCmdSpec:
         commands = {s["command"] for s in CMD_SPECS}
         assert "plugin" in commands
 
-        subcommands = {
-            s["subcommand"]
-            for s in CMD_SPECS
-            if s["command"] == "plugin"
-        }
+        subcommands = {s["subcommand"] for s in CMD_SPECS if s["command"] == "plugin"}
         expected = {
-            "list", "install", "remove", "enable", "disable",
-            "reload", "info", "init", "validate",
-            "marketplace", "uninstall",
+            "list",
+            "install",
+            "remove",
+            "enable",
+            "disable",
+            "reload",
+            "info",
+            "init",
+            "validate",
+            "marketplace",
+            "uninstall",
         }
         for e in expected:
             assert e in subcommands, f"Missing subcommand: {e}"
@@ -663,9 +708,7 @@ class TestRuntimePlugins:
         assert loaded[0]["enabled"] is True
         assert "skills" in loaded[0]["components"]
 
-    def test_load_disabled_plugin(
-        self, repo_tmp_path: Path, plugin_dir: Path
-    ) -> None:
+    def test_load_disabled_plugin(self, repo_tmp_path: Path, plugin_dir: Path) -> None:
         from uagent.runtime.runtime_plugins import load_plugins_at_startup
 
         # Mark plugin as disabled
@@ -733,57 +776,65 @@ class TestPluginWorkflow:
         install_root.mkdir(parents=True)
 
         # Install
-        r1 = run_tool({
-            "action": "install",
-            "source": str(plugin_dir),
-            "name": "e2e-plugin",
-            "_test_install_root": str(install_root),
-        })
+        r1 = run_tool(
+            {
+                "action": "install",
+                "source": str(plugin_dir),
+                "name": "e2e-plugin",
+                "_test_install_root": str(install_root),
+            }
+        )
         assert json.loads(r1)["ok"] is True
         assert (install_root / "e2e-plugin").exists()
 
         # List
-        r2 = run_tool({
-            "action": "list",
-            "_test_roots": [str(install_root)],
-        })
+        r2 = run_tool(
+            {
+                "action": "list",
+                "_test_roots": [str(install_root)],
+            }
+        )
         parsed = json.loads(r2)
         assert parsed["ok"] is True
         names = [p["name"] for p in parsed["plugins"]]
         assert "e2e-plugin" in names
 
         # Info
-        r3 = run_tool({
-            "action": "info",
-            "name": "e2e-plugin",
-            "_test_roots": [str(install_root)],
-        })
+        r3 = run_tool(
+            {
+                "action": "info",
+                "name": "e2e-plugin",
+                "_test_roots": [str(install_root)],
+            }
+        )
         parsed = json.loads(r3)
         assert parsed["name"] == "e2e-plugin"
 
         # Remove
-        r4 = run_tool({
-            "action": "remove",
-            "name": "e2e-plugin",
-            "_test_install_root": str(install_root),
-        })
+        r4 = run_tool(
+            {
+                "action": "remove",
+                "name": "e2e-plugin",
+                "_test_install_root": str(install_root),
+            }
+        )
         assert json.loads(r4)["ok"] is True
         assert not (install_root / "e2e-plugin").exists()
 
-    def test_enable_disable_persistence(
-        self, repo_tmp_path: Path
-    ) -> None:
+    def test_enable_disable_persistence(self, repo_tmp_path: Path) -> None:
         from uagent.tools.plugin_manage_tool import run_tool
 
         state_dir = repo_tmp_path / ".uag-persist"
         state_dir.mkdir(parents=True)
 
         # Enable
-        run_tool({
-            "action": "enable",
-            "name": "persist-plugin",
-            "_test_state_dir": str(state_dir),
-        })
+        run_tool(
+            {
+                "action": "enable",
+                "name": "persist-plugin",
+                "_test_state_dir": str(state_dir),
+            }
+        )
 
         # Check persisted
         sf = state_dir / "settings.json"
@@ -791,11 +842,13 @@ class TestPluginWorkflow:
         assert settings["enabledPlugins"]["persist-plugin"] is True
 
         # Disable
-        run_tool({
-            "action": "disable",
-            "name": "persist-plugin",
-            "_test_state_dir": str(state_dir),
-        })
+        run_tool(
+            {
+                "action": "disable",
+                "name": "persist-plugin",
+                "_test_state_dir": str(state_dir),
+            }
+        )
 
         settings = json.loads(sf.read_text(encoding="utf-8"))
         assert settings["enabledPlugins"]["persist-plugin"] is False
@@ -816,7 +869,9 @@ class TestPluginSkillsIntegration:
         from uagent.tools.agent_skills_shared import get_default_skill_roots
 
         # Create a plugin with skills in the project .uag/plugins/ dir
-        plugin_skills = repo_tmp_path / ".uag" / "plugins" / "my-plugin" / "skills" / "greet"
+        plugin_skills = (
+            repo_tmp_path / ".uag" / "plugins" / "my-plugin" / "skills" / "greet"
+        )
         plugin_skills.mkdir(parents=True)
         (plugin_skills / "SKILL.md").write_text(
             "---\nname: greet\ndescription: A greet skill\n---\n\nHi!",
@@ -827,7 +882,9 @@ class TestPluginSkillsIntegration:
         resolved = [str(Path(r).resolve()) for r in roots]
 
         # The plugin's skills directory should be in roots
-        expected = str((repo_tmp_path / ".uag" / "plugins" / "my-plugin" / "skills").resolve())
+        expected = str(
+            (repo_tmp_path / ".uag" / "plugins" / "my-plugin" / "skills").resolve()
+        )
         assert expected in resolved, f"Expected {expected} in roots: {resolved}"
 
     def test_skills_list_finds_plugin_skill(
@@ -838,11 +895,13 @@ class TestPluginSkillsIntegration:
         import json
 
         skills_dir = plugin_dir / "skills"
-        result = run_tool({
-            "root_dir": str(skills_dir),
-            "recur": True,
-            "include_invalid": True,
-        })
+        result = run_tool(
+            {
+                "root_dir": str(skills_dir),
+                "recur": True,
+                "include_invalid": True,
+            }
+        )
         items = json.loads(result)
         names = [i.get("name") for i in items]
         assert "hello" in names, f"Expected 'hello' skill, got {names}"
@@ -888,10 +947,12 @@ class TestPluginSkillsIntegration:
             encoding="utf-8",
         )
 
-        result = run_tool({
-            "root_dir": str(regular_skills_dir),
-            "recur": True,
-        })
+        result = run_tool(
+            {
+                "root_dir": str(regular_skills_dir),
+                "recur": True,
+            }
+        )
         items = json.loads(result)
         names = [i.get("name") for i in items]
         assert "regular-skill" in names
@@ -909,11 +970,13 @@ class TestPluginSkillsIntegration:
         (ref_dir / "HELP.md").write_text("Help content", encoding="utf-8")
 
         skill_dir = plugin_dir / "skills" / "hello"
-        result = run_tool({
-            "skill_dir": str(skill_dir),
-            "relative_path": "references/HELP.md",
-            "max_bytes": 1024,
-        })
+        result = run_tool(
+            {
+                "skill_dir": str(skill_dir),
+                "relative_path": "references/HELP.md",
+                "max_bytes": 1024,
+            }
+        )
         obj = json.loads(result)
         assert obj["ok"] is True
         assert obj["content"] == "Help content"
@@ -933,10 +996,12 @@ class TestPluginSkillsIntegration:
         )
 
         skills_dir = plugin_dir / "skills"
-        result = run_tool({
-            "root_dir": str(skills_dir),
-            "recur": True,
-        })
+        result = run_tool(
+            {
+                "root_dir": str(skills_dir),
+                "recur": True,
+            }
+        )
         items = json.loads(result)
         names = [i.get("name") for i in items]
         assert "hello" in names
@@ -951,16 +1016,16 @@ class TestPluginSkillsIntegration:
 
         scripts_dir = plugin_dir / "skills" / "hello" / "scripts"
         scripts_dir.mkdir(parents=True)
-        (scripts_dir / "run.sh").write_text(
-            "#!/bin/sh\necho hello", encoding="utf-8"
-        )
+        (scripts_dir / "run.sh").write_text("#!/bin/sh\necho hello", encoding="utf-8")
 
         skill_dir = plugin_dir / "skills" / "hello"
-        result = run_tool({
-            "skill_dir": str(skill_dir),
-            "relative_path": "scripts/run.sh",
-            "max_bytes": 1024,
-        })
+        result = run_tool(
+            {
+                "skill_dir": str(skill_dir),
+                "relative_path": "scripts/run.sh",
+                "max_bytes": 1024,
+            }
+        )
         obj = json.loads(result)
         assert obj["ok"] is True
 
@@ -1019,7 +1084,10 @@ class TestPluginMCPIntegration:
 
     def test_discover_mcp_component(self, plugin_with_mcp: Path) -> None:
         """discover_plugin_components should detect .mcp.json."""
-        from uagent.plugin_shared import discover_plugin_components, parse_plugin_manifest
+        from uagent.plugin_shared import (
+            discover_plugin_components,
+            parse_plugin_manifest,
+        )
 
         manifest = parse_plugin_manifest(str(plugin_with_mcp))
         assert manifest is not None
@@ -1038,7 +1106,9 @@ class TestPluginMCPIntegration:
         assert "plugin-db" in data["mcpServers"]
         assert "plugin-api" in data["mcpServers"]
 
-    def test_merge_plugin_mcp_into_config(self, plugin_with_mcp: Path, repo_tmp_path: Path) -> None:
+    def test_merge_plugin_mcp_into_config(
+        self, plugin_with_mcp: Path, repo_tmp_path: Path
+    ) -> None:
         """Plugin MCP servers can be merged into the main mcp_servers.json format."""
         from uagent.plugin_shared import merge_plugin_mcp_servers
         import json
@@ -1046,9 +1116,7 @@ class TestPluginMCPIntegration:
         # Create main MCP config
         main_config_path = repo_tmp_path / "mcps" / "mcp_servers.json"
         main_config_path.parent.mkdir(parents=True)
-        main_config_path.write_text(
-            json.dumps({"mcp_servers": []}), encoding="utf-8"
-        )
+        main_config_path.write_text(json.dumps({"mcp_servers": []}), encoding="utf-8")
 
         result = merge_plugin_mcp_servers(
             str(plugin_with_mcp),
@@ -1065,16 +1133,16 @@ class TestPluginMCPIntegration:
         assert "mcp-plugin:plugin-db" in names
         assert "mcp-plugin:plugin-api" in names
 
-    def test_merge_plugin_mcp_source_tracking(self, plugin_with_mcp: Path, repo_tmp_path: Path) -> None:
+    def test_merge_plugin_mcp_source_tracking(
+        self, plugin_with_mcp: Path, repo_tmp_path: Path
+    ) -> None:
         """Plugin MCP servers should have source tracking for cleanup."""
         from uagent.plugin_shared import merge_plugin_mcp_servers
         import json
 
         main_config_path = repo_tmp_path / "mcps" / "mcp_servers.json"
         main_config_path.parent.mkdir(parents=True)
-        main_config_path.write_text(
-            json.dumps({"mcp_servers": []}), encoding="utf-8"
-        )
+        main_config_path.write_text(json.dumps({"mcp_servers": []}), encoding="utf-8")
 
         merge_plugin_mcp_servers(
             str(plugin_with_mcp),
@@ -1086,10 +1154,11 @@ class TestPluginMCPIntegration:
         for server in config["mcp_servers"]:
             assert server.get("_plugin_source") == "mcp-plugin"
 
-    def test_remove_plugin_mcp_servers(self, plugin_with_mcp: Path, repo_tmp_path: Path) -> None:
+    def test_remove_plugin_mcp_servers(
+        self, plugin_with_mcp: Path, repo_tmp_path: Path
+    ) -> None:
         """Plugin MCP servers should be removable by plugin name."""
         from uagent.plugin_shared import (
-            merge_plugin_mcp_servers,
             remove_plugin_mcp_servers,
         )
         import json
@@ -1098,13 +1167,23 @@ class TestPluginMCPIntegration:
         main_config_path.parent.mkdir(parents=True)
         # Start with existing non-plugin server + plugin servers
         main_config_path.write_text(
-            json.dumps({
-                "mcp_servers": [
-                    {"name": "user-server", "command": "echo"},
-                    {"name": "mcp-plugin:plugin-db", "command": "python", "_plugin_source": "mcp-plugin"},
-                    {"name": "mcp-plugin:plugin-api", "command": "node", "_plugin_source": "mcp-plugin"},
-                ]
-            }),
+            json.dumps(
+                {
+                    "mcp_servers": [
+                        {"name": "user-server", "command": "echo"},
+                        {
+                            "name": "mcp-plugin:plugin-db",
+                            "command": "python",
+                            "_plugin_source": "mcp-plugin",
+                        },
+                        {
+                            "name": "mcp-plugin:plugin-api",
+                            "command": "node",
+                            "_plugin_source": "mcp-plugin",
+                        },
+                    ]
+                }
+            ),
             encoding="utf-8",
         )
 
@@ -1126,23 +1205,25 @@ class TestPluginMCPIntegration:
 
         main_config_path = repo_tmp_path / "mcps" / "mcp_servers.json"
         main_config_path.parent.mkdir(parents=True)
-        main_config_path.write_text(
-            json.dumps({"mcp_servers": []}), encoding="utf-8"
-        )
+        main_config_path.write_text(json.dumps({"mcp_servers": []}), encoding="utf-8")
 
         merge_plugin_mcp_servers(
-            str(plugin_with_mcp), "mcp-plugin",
+            str(plugin_with_mcp),
+            "mcp-plugin",
             mcp_config_path=str(main_config_path),
         )
         merge_plugin_mcp_servers(
-            str(plugin_with_mcp), "mcp-plugin",
+            str(plugin_with_mcp),
+            "mcp-plugin",
             mcp_config_path=str(main_config_path),
         )
 
         config = json.loads(main_config_path.read_text(encoding="utf-8"))
         assert len(config["mcp_servers"]) == 2  # not 4
 
-    def test_runtime_reports_mcp_components(self, plugin_with_mcp: Path, repo_tmp_path: Path) -> None:
+    def test_runtime_reports_mcp_components(
+        self, plugin_with_mcp: Path, repo_tmp_path: Path
+    ) -> None:
         """runtime_plugins should report MCP in components."""
         from uagent.runtime.runtime_plugins import load_plugins_at_startup
 
@@ -1157,21 +1238,26 @@ class TestPluginMCPIntegration:
 
     def test_inline_mcp_in_manifest(self, repo_tmp_path: Path) -> None:
         """Plugin can declare MCP servers inline in plugin.json instead of .mcp.json."""
-        from uagent.plugin_shared import discover_plugin_components, parse_plugin_manifest
+        from uagent.plugin_shared import (
+            discover_plugin_components,
+            parse_plugin_manifest,
+        )
 
         p = repo_tmp_path / "plugins" / "inline-mcp-plugin"
         manifest_dir = p / ".claude-plugin"
         manifest_dir.mkdir(parents=True)
         (manifest_dir / "plugin.json").write_text(
-            json.dumps({
-                "name": "inline-mcp-plugin",
-                "mcpServers": {
-                    "inline-server": {
-                        "command": "python",
-                        "args": ["server.py"],
-                    }
-                },
-            }),
+            json.dumps(
+                {
+                    "name": "inline-mcp-plugin",
+                    "mcpServers": {
+                        "inline-server": {
+                            "command": "python",
+                            "args": ["server.py"],
+                        }
+                    },
+                }
+            ),
             encoding="utf-8",
         )
 
@@ -1182,7 +1268,10 @@ class TestPluginMCPIntegration:
 
     def test_no_mcp_in_plugin(self, plugin_dir: Path) -> None:
         """Plugin without .mcp.json should not report MCP component."""
-        from uagent.plugin_shared import discover_plugin_components, parse_plugin_manifest
+        from uagent.plugin_shared import (
+            discover_plugin_components,
+            parse_plugin_manifest,
+        )
 
         manifest = parse_plugin_manifest(str(plugin_dir))
         assert manifest is not None
@@ -1198,7 +1287,9 @@ class TestPluginMCPIntegration:
 class TestPluginInstallSources:
     """plugin install should handle Git/HTTP ZIP/local ZIP sources."""
 
-    def test_install_from_local_zip(self, repo_tmp_path: Path, plugin_dir: Path) -> None:
+    def test_install_from_local_zip(
+        self, repo_tmp_path: Path, plugin_dir: Path
+    ) -> None:
         """Install a plugin from a local ZIP file."""
         import shutil
         from uagent.tools.plugin_manage_tool import run_tool
@@ -1211,12 +1302,14 @@ class TestPluginInstallSources:
         dest = repo_tmp_path / "zip-installed"
         dest.mkdir(parents=True)
 
-        result = run_tool({
-            "action": "install",
-            "source": str(zip_path),
-            "name": "from-zip",
-            "_test_install_root": str(dest),
-        })
+        result = run_tool(
+            {
+                "action": "install",
+                "source": str(zip_path),
+                "name": "from-zip",
+                "_test_install_root": str(dest),
+            }
+        )
         parsed = json.loads(result)
         assert parsed["ok"] is True
         assert (dest / "from-zip").exists()
@@ -1227,12 +1320,14 @@ class TestPluginInstallSources:
         from uagent.tools.plugin_manage_tool import run_tool
         import json
 
-        result = run_tool({
-            "action": "install",
-            "source": str(repo_tmp_path / "nonexistent"),
-            "name": "fail",
-            "_test_install_root": str(repo_tmp_path / "dest"),
-        })
+        result = run_tool(
+            {
+                "action": "install",
+                "source": str(repo_tmp_path / "nonexistent"),
+                "name": "fail",
+                "_test_install_root": str(repo_tmp_path / "dest"),
+            }
+        )
         parsed = json.loads(result)
         assert parsed["ok"] is False
 
@@ -1241,15 +1336,19 @@ class TestPluginInstallSources:
         from uagent.tools.plugin_manage_tool import run_tool
         import json
 
-        result = run_tool({
-            "action": "install",
-            "source": "",
-            "_test_install_root": str(repo_tmp_path / "dest"),
-        })
+        result = run_tool(
+            {
+                "action": "install",
+                "source": "",
+                "_test_install_root": str(repo_tmp_path / "dest"),
+            }
+        )
         parsed = json.loads(result)
         assert parsed["ok"] is False
 
-    def test_install_overwrite_not_allowed(self, repo_tmp_path: Path, plugin_dir: Path) -> None:
+    def test_install_overwrite_not_allowed(
+        self, repo_tmp_path: Path, plugin_dir: Path
+    ) -> None:
         """Install over existing plugin without --overwrite should fail."""
         from uagent.tools.plugin_manage_tool import run_tool
         import json
@@ -1258,16 +1357,20 @@ class TestPluginInstallSources:
         dest.mkdir(parents=True)
         (dest / "existing").mkdir()
 
-        result = run_tool({
-            "action": "install",
-            "source": str(plugin_dir),
-            "name": "existing",
-            "_test_install_root": str(dest),
-        })
+        result = run_tool(
+            {
+                "action": "install",
+                "source": str(plugin_dir),
+                "name": "existing",
+                "_test_install_root": str(dest),
+            }
+        )
         parsed = json.loads(result)
         assert parsed["ok"] is False
 
-    def test_install_name_inferred_from_source(self, repo_tmp_path: Path, plugin_dir: Path) -> None:
+    def test_install_name_inferred_from_source(
+        self, repo_tmp_path: Path, plugin_dir: Path
+    ) -> None:
         """When name is omitted, infer from source path."""
         from uagent.tools.plugin_manage_tool import run_tool
         import json
@@ -1275,11 +1378,13 @@ class TestPluginInstallSources:
         dest = repo_tmp_path / "inferred"
         dest.mkdir(parents=True)
 
-        result = run_tool({
-            "action": "install",
-            "source": str(plugin_dir),
-            "_test_install_root": str(dest),
-        })
+        result = run_tool(
+            {
+                "action": "install",
+                "source": str(plugin_dir),
+                "_test_install_root": str(dest),
+            }
+        )
         parsed = json.loads(result)
         assert parsed["ok"] is True
         # Name inferred from source dir basename
@@ -1296,6 +1401,23 @@ class TestPluginInstallSources:
         assert detect("./local/path") is False
         assert detect("/absolute/path") is False
 
+    def test_is_git_url_rejects_zip_urls(self) -> None:
+        """is_git_url should return False for URLs that look like ZIP archives."""
+        from uagent.plugin_shared import is_git_url as detect
+
+        # GitHub archive ZIP must NOT be treated as git URL
+        assert detect("https://github.com/user/repo/archive/main.zip") is False
+        assert (
+            detect("https://github.com/user/repo/archive/refs/heads/main.zip") is False
+        )
+        assert (
+            detect("https://github.com/user/repo/releases/download/v1.0/plugin.zip")
+            is False
+        )
+        # Plain git URLs should still be detected
+        assert detect("https://github.com/user/repo.git") is True
+        assert detect("https://github.com/user/repo") is True
+
     def test_install_remote_zip_detection(self) -> None:
         """Remote ZIP URLs should be detected."""
         from uagent.plugin_shared import is_remote_zip as detect
@@ -1309,15 +1431,21 @@ class TestPluginInstallSources:
         """Name should be inferred correctly from various source strings."""
         from uagent.plugin_shared import infer_plugin_name_from_source
 
-        assert infer_plugin_name_from_source("https://github.com/user/my-plugin.git") == "my-plugin"
-        assert infer_plugin_name_from_source("https://example.com/archive.zip") == "archive"
+        assert (
+            infer_plugin_name_from_source("https://github.com/user/my-plugin.git")
+            == "my-plugin"
+        )
+        assert (
+            infer_plugin_name_from_source("https://example.com/archive.zip")
+            == "archive"
+        )
         assert infer_plugin_name_from_source("./local/path/my-plugin") == "my-plugin"
         assert infer_plugin_name_from_source("user/repo") == "repo"
         assert infer_plugin_name_from_source("") == "plugin"
 
     def test_install_zip_with_single_top_dir(self, repo_tmp_path: Path) -> None:
         """ZIP with single top-level dir should install its contents."""
-        import shutil, zipfile
+        import zipfile
         from uagent.tools.plugin_manage_tool import run_tool
         import json
 
@@ -1340,12 +1468,14 @@ class TestPluginInstallSources:
         dest = repo_tmp_path / "zip-dest"
         dest.mkdir(parents=True)
 
-        result = run_tool({
-            "action": "install",
-            "source": str(zip_path),
-            "name": "unwrapped",
-            "_test_install_root": str(dest),
-        })
+        result = run_tool(
+            {
+                "action": "install",
+                "source": str(zip_path),
+                "name": "unwrapped",
+                "_test_install_root": str(dest),
+            }
+        )
         parsed = json.loads(result)
         assert parsed["ok"] is True
         assert (dest / "unwrapped" / ".claude-plugin" / "plugin.json").exists()
@@ -1398,7 +1528,10 @@ class TestPluginAgentsBundling:
 
     def test_discover_agents_component(self, plugin_with_agents: Path) -> None:
         """discover_plugin_components should detect agents/ directory."""
-        from uagent.plugin_shared import discover_plugin_components, parse_plugin_manifest
+        from uagent.plugin_shared import (
+            discover_plugin_components,
+            parse_plugin_manifest,
+        )
 
         manifest = parse_plugin_manifest(str(plugin_with_agents))
         assert manifest is not None
@@ -1407,7 +1540,9 @@ class TestPluginAgentsBundling:
         assert "code-reviewer" in comps["agents"]
         assert "tester" in comps["agents"]
 
-    def test_install_plugin_agents(self, plugin_with_agents: Path, repo_tmp_path: Path) -> None:
+    def test_install_plugin_agents(
+        self, plugin_with_agents: Path, repo_tmp_path: Path
+    ) -> None:
         """Plugin agents should be installed as JSON role files."""
         from uagent.plugin_shared import install_plugin_agents
         import json
@@ -1425,6 +1560,7 @@ class TestPluginAgentsBundling:
 
         # Check files exist with namespaced names
         from uagent.plugin_shared import _agent_role_filename
+
         fn1 = _agent_role_filename("agent-plugin", "code-reviewer")
         fn2 = _agent_role_filename("agent-plugin", "tester")
         assert (roles_dir / fn1).is_file()
@@ -1436,31 +1572,46 @@ class TestPluginAgentsBundling:
         assert "bugs" in data["description"]
         assert "code" in data["system_prompt"].lower()
 
-    def test_install_agents_idempotent(self, plugin_with_agents: Path, repo_tmp_path: Path) -> None:
+    def test_install_agents_idempotent(
+        self, plugin_with_agents: Path, repo_tmp_path: Path
+    ) -> None:
         """Installing same plugin agents twice should not duplicate."""
         from uagent.plugin_shared import install_plugin_agents
 
         roles_dir = repo_tmp_path / "idempotent-roles"
         roles_dir.mkdir(parents=True)
 
-        first = install_plugin_agents(str(plugin_with_agents), "agent-plugin", roles_dir=str(roles_dir))
-        assert first["installed_count"] == 2, f"First install should install 2 agents, got {first}"
+        first = install_plugin_agents(
+            str(plugin_with_agents), "agent-plugin", roles_dir=str(roles_dir)
+        )
+        assert (
+            first["installed_count"] == 2
+        ), f"First install should install 2 agents, got {first}"
 
-        result = install_plugin_agents(str(plugin_with_agents), "agent-plugin", roles_dir=str(roles_dir))
+        result = install_plugin_agents(
+            str(plugin_with_agents), "agent-plugin", roles_dir=str(roles_dir)
+        )
         assert result["installed_count"] == 0  # no new files
 
         from pathlib import Path as _Path
-        json_files = list(_Path(str(roles_dir)).glob("*.json"))
-        assert len(json_files) == 2, f"Expected 2 json files, got {len(json_files)}: {json_files}"
 
-    def test_remove_plugin_agents(self, plugin_with_agents: Path, repo_tmp_path: Path) -> None:
+        json_files = list(_Path(str(roles_dir)).glob("*.json"))
+        assert (
+            len(json_files) == 2
+        ), f"Expected 2 json files, got {len(json_files)}: {json_files}"
+
+    def test_remove_plugin_agents(
+        self, plugin_with_agents: Path, repo_tmp_path: Path
+    ) -> None:
         """Plugin agents should be removable by plugin name."""
         from uagent.plugin_shared import install_plugin_agents, remove_plugin_agents
 
         roles_dir = repo_tmp_path / "removable-roles"
         roles_dir.mkdir(parents=True)
 
-        install_plugin_agents(str(plugin_with_agents), "agent-plugin", roles_dir=str(roles_dir))
+        install_plugin_agents(
+            str(plugin_with_agents), "agent-plugin", roles_dir=str(roles_dir)
+        )
         assert len(list(roles_dir.glob("*.json"))) == 2
 
         result = remove_plugin_agents("agent-plugin", roles_dir=str(roles_dir))
@@ -1476,6 +1627,7 @@ class TestPluginAgentsBundling:
         roles_dir.mkdir(parents=True)
 
         from uagent.plugin_shared import _agent_role_filename
+
         # Pre-create some role files (use platform-safe filenames)
         fn_a1 = _agent_role_filename("plugin-a", "agent1")
         fn_a2 = _agent_role_filename("plugin-a", "agent2")
@@ -1492,14 +1644,19 @@ class TestPluginAgentsBundling:
 
     def test_no_agents_in_plugin(self, plugin_dir: Path) -> None:
         """Plugin without agents/ should not report agents component."""
-        from uagent.plugin_shared import discover_plugin_components, parse_plugin_manifest
+        from uagent.plugin_shared import (
+            discover_plugin_components,
+            parse_plugin_manifest,
+        )
 
         manifest = parse_plugin_manifest(str(plugin_dir))
         assert manifest is not None
         comps = discover_plugin_components(str(plugin_dir), manifest)
         assert "agents" not in comps or comps["agents"] == []
 
-    def test_runtime_reports_agents(self, plugin_with_agents: Path, repo_tmp_path: Path) -> None:
+    def test_runtime_reports_agents(
+        self, plugin_with_agents: Path, repo_tmp_path: Path
+    ) -> None:
         """runtime_plugins should report agents in components."""
         from uagent.runtime.runtime_plugins import load_plugins_at_startup
 
@@ -1601,7 +1758,10 @@ class TestPluginHooksIntegration:
 
     def test_discover_hooks_component(self, plugin_with_hooks: Path) -> None:
         """discover_plugin_components should detect hooks/ directory."""
-        from uagent.plugin_shared import discover_plugin_components, parse_plugin_manifest
+        from uagent.plugin_shared import (
+            discover_plugin_components,
+            parse_plugin_manifest,
+        )
 
         manifest = parse_plugin_manifest(str(plugin_with_hooks))
         assert manifest is not None
@@ -1620,7 +1780,9 @@ class TestPluginHooksIntegration:
         assert "SessionStart" in result
         assert len(result["PreToolUse"]) == 1
 
-    def test_install_plugin_hooks(self, plugin_with_hooks: Path, repo_tmp_path: Path) -> None:
+    def test_install_plugin_hooks(
+        self, plugin_with_hooks: Path, repo_tmp_path: Path
+    ) -> None:
         """Plugin hooks should be installable into a hooks registry."""
         from uagent.plugin_shared import install_plugin_hooks
 
@@ -1639,26 +1801,36 @@ class TestPluginHooksIntegration:
         assert "hooks-plugin" in registry["plugins"]
         assert "PreToolUse" in registry["plugins"]["hooks-plugin"]
 
-    def test_install_hooks_idempotent(self, plugin_with_hooks: Path, repo_tmp_path: Path) -> None:
+    def test_install_hooks_idempotent(
+        self, plugin_with_hooks: Path, repo_tmp_path: Path
+    ) -> None:
         """Installing same plugin hooks twice should not duplicate."""
         from uagent.plugin_shared import install_plugin_hooks
 
         registry_path = repo_tmp_path / "idempotent_hooks.json"
         registry_path.write_text(json.dumps({"plugins": {}}), encoding="utf-8")
 
-        install_plugin_hooks(str(plugin_with_hooks), "hooks-plugin", registry_path=str(registry_path))
-        result = install_plugin_hooks(str(plugin_with_hooks), "hooks-plugin", registry_path=str(registry_path))
+        install_plugin_hooks(
+            str(plugin_with_hooks), "hooks-plugin", registry_path=str(registry_path)
+        )
+        result = install_plugin_hooks(
+            str(plugin_with_hooks), "hooks-plugin", registry_path=str(registry_path)
+        )
 
         assert result["event_count"] == 0  # no new entries
 
-    def test_remove_plugin_hooks(self, plugin_with_hooks: Path, repo_tmp_path: Path) -> None:
+    def test_remove_plugin_hooks(
+        self, plugin_with_hooks: Path, repo_tmp_path: Path
+    ) -> None:
         """Plugin hooks should be removable by plugin name."""
         from uagent.plugin_shared import install_plugin_hooks, remove_plugin_hooks
 
         registry_path = repo_tmp_path / "removable_hooks.json"
         registry_path.write_text(json.dumps({"plugins": {}}), encoding="utf-8")
 
-        install_plugin_hooks(str(plugin_with_hooks), "hooks-plugin", registry_path=str(registry_path))
+        install_plugin_hooks(
+            str(plugin_with_hooks), "hooks-plugin", registry_path=str(registry_path)
+        )
 
         result = remove_plugin_hooks("hooks-plugin", registry_path=str(registry_path))
         assert result["ok"] is True
@@ -1673,12 +1845,22 @@ class TestPluginHooksIntegration:
 
         registry_path = repo_tmp_path / "partial_hooks.json"
         registry_path.write_text(
-            json.dumps({
-                "plugins": {
-                    "plugin-a": {"PreToolUse": [{"hooks": [{"type": "command", "command": "echo a"}]}]},
-                    "plugin-b": {"PreToolUse": [{"hooks": [{"type": "command", "command": "echo b"}]}]},
+            json.dumps(
+                {
+                    "plugins": {
+                        "plugin-a": {
+                            "PreToolUse": [
+                                {"hooks": [{"type": "command", "command": "echo a"}]}
+                            ]
+                        },
+                        "plugin-b": {
+                            "PreToolUse": [
+                                {"hooks": [{"type": "command", "command": "echo b"}]}
+                            ]
+                        },
+                    }
                 }
-            }),
+            ),
             encoding="utf-8",
         )
 
@@ -1691,7 +1873,10 @@ class TestPluginHooksIntegration:
 
     def test_no_hooks_in_plugin(self, plugin_dir: Path) -> None:
         """Plugin without hooks/ should not report hooks component."""
-        from uagent.plugin_shared import discover_plugin_components, parse_plugin_manifest
+        from uagent.plugin_shared import (
+            discover_plugin_components,
+            parse_plugin_manifest,
+        )
 
         manifest = parse_plugin_manifest(str(plugin_dir))
         assert manifest is not None
@@ -1700,7 +1885,6 @@ class TestPluginHooksIntegration:
 
     def test_inline_hooks_in_manifest(self, repo_tmp_path: Path) -> None:
         """Plugin can declare hooks inline in plugin.json."""
-        from uagent.plugin_shared import parse_plugin_hooks_file
 
         p = repo_tmp_path / "inline-hooks-plugin"
         manifest_dir = p / ".claude-plugin"
@@ -1717,6 +1901,7 @@ class TestPluginHooksIntegration:
             json.dumps(manifest), encoding="utf-8"
         )
         from uagent.plugin_shared import parse_plugin_manifest
+
         parsed = parse_plugin_manifest(str(p))
         assert parsed is not None
         inline = parsed.get("hooks")
@@ -1805,7 +1990,6 @@ class TestSkillsDirPluginDetection:
         assert len(skills_plugins) == 1
 
         # It should also show up when scanning the parent dir as a plugin dir
-        all_plugins = scan_plugins([str(repo_tmp_path)])
         # skills_root itself is a dir but has no plugin manifest at top level
         # The subdir integrated-plugin should be found when scanning skills_root
         skills_as_dirs = scan_plugins([str(skills_root)])

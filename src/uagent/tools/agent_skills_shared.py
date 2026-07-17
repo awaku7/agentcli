@@ -136,6 +136,7 @@ def get_default_skill_roots(cwd: Optional[str] = None) -> list[str]:
         os.path.join(os.path.expanduser("~"), ".claude", "plugins", "*", "skills"),
     ]
     import glob as _glob
+
     for pattern in plugin_patterns:
         matched = sorted(_glob.glob(pattern))
         roots.extend(matched)

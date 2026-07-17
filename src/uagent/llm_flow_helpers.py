@@ -267,7 +267,11 @@ def _handle_openai_empty_no_tool(
 def _fire_tool_hooks(event: str, tool_name: str) -> None:
     """Fire tool-related hooks (PreToolUse/PostToolUse/PostToolUseFailure)."""
     try:
-        from .hooks_engine import get_default_registry_path, load_hooks_registry, fire_tool_event
+        from .hooks_engine import (
+            get_default_registry_path,
+            load_hooks_registry,
+            fire_tool_event,
+        )
 
         registry_path = get_default_registry_path()
         hooks = load_hooks_registry(registry_path)

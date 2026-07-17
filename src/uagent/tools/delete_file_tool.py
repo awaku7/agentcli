@@ -242,7 +242,7 @@ def run_tool(args: dict[str, Any]) -> str:
     msg = _(
         "confirm.delete_paths_bulk",
         default=(
-            "Delete {count} paths?\n\n{paths}\n\n" "Enter y to proceed, or c to cancel."
+            "Delete {count} paths?\n\n{paths}\n\nEnter y to proceed, or c to cancel."
         ),
     ).format(count=len(all_matches), paths=preview_list)
 

@@ -95,7 +95,9 @@ def test_decode_motion_from_service_data() -> None:
 
 def test_decode_contact_from_service_data() -> None:
     # Contact: type=0x64, motion=0, battery=90, door open + light
-    svc = bytes([0x64, 0x00, 90, 0b00000010 | 0b00000001, 0x00, 0x05, 0x00, 0x08, 0b01010011]).hex()
+    svc = bytes(
+        [0x64, 0x00, 90, 0b00000010 | 0b00000001, 0x00, 0x05, 0x00, 0x08, 0b01010011]
+    ).hex()
     decoded = _decode_switchbot_from_adv(
         manufacturer_data={},
         service_data={"0000fd3d-0000-1000-8000-00805f9b34fb": svc},
@@ -113,7 +115,9 @@ def test_decode_contact_from_service_data() -> None:
 def test_decode_plug_from_manufacturer_data() -> None:
     # Plug Mini manufacturer payload (company id already stripped)
     # mac(6) + seq + state(on) + flags + wifi_rssi + power bytes
-    mfr = bytes([0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x01, 0x80, 0x00, 0xC8, 0x00, 123]).hex()
+    mfr = bytes(
+        [0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x01, 0x80, 0x00, 0xC8, 0x00, 123]
+    ).hex()
     svc = bytes([0x67, 0x00, 100]).hex()
     decoded = _decode_switchbot_from_adv(
         manufacturer_data={"2409": mfr},
@@ -129,7 +133,9 @@ def test_decode_plug_from_manufacturer_data() -> None:
 
 def test_decode_lock_from_manufacturer_data() -> None:
     # Lock manufacturer payload: mac(6)+seq+lock_info(locked+closed)+extra
-    mfr = bytes([0xAA, 0xBB, 0xCC, 0xDD, 0xEE, 0xFF, 0x01, 0b10000000, 0x00, 0x00]).hex()
+    mfr = bytes(
+        [0xAA, 0xBB, 0xCC, 0xDD, 0xEE, 0xFF, 0x01, 0b10000000, 0x00, 0x00]
+    ).hex()
     svc = bytes([0x6F, 0x00, 77]).hex()
     decoded = _decode_switchbot_from_adv(
         manufacturer_data={"2409": mfr},
@@ -155,20 +161,28 @@ def test_decode_hub_mini_from_service_data() -> None:
 
 
 def test_not_found_message_does_not_crash_i18n() -> None:
-    out = run_tool({"mac": "AA:BB:CC:DD:EE:FF", "timeout": 1, "retry": 1, "fmt": "json"})
+    out = run_tool(
+        {"mac": "AA:BB:CC:DD:EE:FF", "timeout": 1, "retry": 1, "fmt": "json"}
+    )
     payload = json.loads(out)
     assert payload["ok"] is False
     assert payload["error"]["code"] in {"not_found", "request_failed", "bleak_missing"}
-    assert "int" not in str(payload["error"].get("message", "")).lower() or "not callable" not in str(
-        payload["error"].get("message", "")
-    ).lower()
+    assert (
+        "int" not in str(payload["error"].get("message", "")).lower()
+        or "not callable" not in str(payload["error"].get("message", "")).lower()
+    )
 
 
 def test_format_text_includes_multi_device_fields() -> None:
     text = _format_text(
         {
             "ok": True,
-            "device": {"devname": "Bot", "dev": "AA:BB", "address": "AA:BB", "rssi": -50},
+            "device": {
+                "devname": "Bot",
+                "dev": "AA:BB",
+                "address": "AA:BB",
+                "rssi": -50,
+            },
             "status": {
                 "model": "Bot",
                 "power": "on",

@@ -6,9 +6,7 @@ Covers http, prompt, agent hook types and PreToolUse/PostToolUse integration.
 from __future__ import annotations
 
 import json
-import os
 from pathlib import Path
-from typing import Any
 
 import pytest
 
@@ -77,9 +75,7 @@ class TestPreToolUse:
         )
 
         hooks = load_hooks_registry(tool_hooks_registry)
-        results = fire_tool_event(
-            "PreToolUse", hooks, tool_name="Write"
-        )
+        results = fire_tool_event("PreToolUse", hooks, tool_name="Write")
         assert len(results) >= 1
         assert any("pre-tool" in r.get("stdout", "") for r in results)
 
@@ -95,9 +91,7 @@ class TestPostToolUse:
         )
 
         hooks = load_hooks_registry(tool_hooks_registry)
-        results = fire_tool_event(
-            "PostToolUse", hooks, tool_name="Read"
-        )
+        results = fire_tool_event("PostToolUse", hooks, tool_name="Read")
         assert len(results) >= 1
         assert any("post-tool: ok" in r.get("stdout", "") for r in results)
 
@@ -109,9 +103,7 @@ class TestPostToolUse:
         )
 
         hooks = load_hooks_registry(tool_hooks_registry)
-        results = fire_tool_event(
-            "PostToolUseFailure", hooks, tool_name="Write"
-        )
+        results = fire_tool_event("PostToolUseFailure", hooks, tool_name="Write")
         assert len(results) >= 1
         assert any("post-tool: failed" in r.get("stdout", "") for r in results)
 
@@ -167,7 +159,10 @@ class TestPromptHookType:
         result = execute_hook(hook)
         # No LLM client configured in test, should return error gracefully
         assert result["ok"] is False
-        assert "prompt" in result.get("error", "").lower() or "not supported" in result.get("error", "").lower()
+        assert (
+            "prompt" in result.get("error", "").lower()
+            or "not supported" in result.get("error", "").lower()
+        )
 
 
 class TestAgentHookType:
@@ -224,7 +219,11 @@ class TestUserPromptSubmit:
             "plugins": {
                 "test": {
                     "UserPromptSubmit": [
-                        {"hooks": [{"type": "command", "command": "echo 'prompt received'"}]}
+                        {
+                            "hooks": [
+                                {"type": "command", "command": "echo 'prompt received'"}
+                            ]
+                        }
                     ]
                 }
             }
@@ -250,7 +249,11 @@ class TestSubagentHooks:
             "plugins": {
                 "test": {
                     "SubagentStart": [
-                        {"hooks": [{"type": "command", "command": "echo 'agent started'"}]}
+                        {
+                            "hooks": [
+                                {"type": "command", "command": "echo 'agent started'"}
+                            ]
+                        }
                     ]
                 }
             }
@@ -272,7 +275,11 @@ class TestSubagentHooks:
             "plugins": {
                 "test": {
                     "SubagentStop": [
-                        {"hooks": [{"type": "command", "command": "echo 'agent stopped'"}]}
+                        {
+                            "hooks": [
+                                {"type": "command", "command": "echo 'agent stopped'"}
+                            ]
+                        }
                     ]
                 }
             }
@@ -379,7 +386,11 @@ class TestStopFailureHook:
             "plugins": {
                 "test": {
                     "StopFailure": [
-                        {"hooks": [{"type": "command", "command": "echo 'failure logged'"}]}
+                        {
+                            "hooks": [
+                                {"type": "command", "command": "echo 'failure logged'"}
+                            ]
+                        }
                     ]
                 }
             }
@@ -405,7 +416,11 @@ class TestSessionEndHook:
             "plugins": {
                 "test": {
                     "SessionEnd": [
-                        {"hooks": [{"type": "command", "command": "echo 'session ended'"}]}
+                        {
+                            "hooks": [
+                                {"type": "command", "command": "echo 'session ended'"}
+                            ]
+                        }
                     ]
                 }
             }

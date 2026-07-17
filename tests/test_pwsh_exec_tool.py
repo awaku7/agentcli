@@ -6,10 +6,6 @@ cmd_exec_json と違い shell=False で直接実行するため改行問題は�
 
 from __future__ import annotations
 
-import re
-
-import pytest
-
 
 def _run(args: dict) -> str:
     from uagent.tools.pwsh_exec_tool import run_tool
@@ -20,6 +16,7 @@ def _run(args: dict) -> str:
 # ===================================================================
 # 正常系
 # ===================================================================
+
 
 def test_simple_expression() -> None:
     """1+1 が計算できる."""
@@ -68,6 +65,7 @@ def test_explicit_shell_pwsh() -> None:
 # 異常系
 # ===================================================================
 
+
 def test_empty_command() -> None:
     """command が空 -> エラーメッセージ."""
     out = _run({"command": ""})
@@ -83,7 +81,11 @@ def test_missing_command_key() -> None:
 def test_nonexistent_cmdlet() -> None:
     """存在しないコマンドレット -> エラー."""
     out = _run({"command": "Get-NonexistentCommand12345"})
-    assert "returncode" in out.lower() or "エラー" in out or "not recognized" in out.lower()
+    assert (
+        "returncode" in out.lower()
+        or "エラー" in out
+        or "not recognized" in out.lower()
+    )
 
 
 def test_warning_to_stderr() -> None:
@@ -103,6 +105,7 @@ def test_return_emoji() -> None:
 # shell パラメータのエッジケース
 # ===================================================================
 
+
 def test_shell_invalid_value() -> None:
     """shell に enum 外の値を指定 -> pwsh にフォールバック？エラー？"""
     out = _run({"command": "1+1", "shell": "invalid_shell"})
@@ -114,6 +117,7 @@ def test_shell_invalid_value() -> None:
 # エッジケース: 出力が空のコマンド
 # ===================================================================
 
+
 def test_no_output_command() -> None:
     """出力がないコマンド -> '(no output)' が返る."""
     out = _run({"command": "$null=$null"})
@@ -123,6 +127,7 @@ def test_no_output_command() -> None:
 # ===================================================================
 # さらにいじわるなテスト
 # ===================================================================
+
 
 def test_exit_code_nonzero() -> None:
     """Exit 42 で終了コード非ゼロ -> エラーメッセージに returncode が含まれる."""
@@ -151,7 +156,7 @@ def test_env_var_set_and_read() -> None:
 
 def test_nested_quotes_single_inside_double() -> None:
     """二重引用符の中の単一引用符."""
-    out = _run({"command": "Write-Output \"it's a test\""})
+    out = _run({"command": 'Write-Output "it\'s a test"'})
     assert "it's a test" in out
 
 
@@ -205,5 +210,9 @@ def test_script_block() -> None:
 
 def test_write_progress_noise() -> None:
     """Write-Progress が出力に混入しないか."""
-    out = _run({"command": "Write-Progress -Activity 'test' -PercentComplete 50; Write-Output 'done'"})
+    out = _run(
+        {
+            "command": "Write-Progress -Activity 'test' -PercentComplete 50; Write-Output 'done'"
+        }
+    )
     assert "done" in out

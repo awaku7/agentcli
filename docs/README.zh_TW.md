@@ -62,6 +62,27 @@ OpenAI / Azure / Bedrock / OpenRouter / Ollama / Gemini / Vertex AI / Claude/
 
 只讀工具（檔案搜尋、哈希計算、目錄列表、翻譯、資料庫查詢等）被積極並行化。
 
+
+### 🧩 Plugin System (Claude Code Compatible)
+
+uagent implements a **Claude Code-compatible plugin system**. Plugins bundle skills, agents, MCP servers, hooks, and more into self-contained directories with a `.claude-plugin/plugin.json` manifest.
+
+**Supported components**: Skills, Sub-agents, MCP servers, Hooks (12 lifecycle events), Slash commands, Output styles, userConfig, Dependencies, Channels, Marketplaces
+
+**CLI commands**:
+```
+:plugin list                         # List installed plugins
+:plugin install <source> [--scope]   # Install (dir/zip/git/http)
+:plugin install <name>@<marketplace>  # Install from marketplace
+:plugin remove <name>                # Uninstall
+:plugin enable/disable <name>        # Toggle
+:plugin marketplace add/remove/list  # Manage marketplaces
+:plugin init <name>                  # Scaffold new plugin
+```
+
+See [DEVELOP_PLUGIN.md](src/uagent/docs/DEVELOP_PLUGIN.md) for full documentation.
+
+
 ### 🔄 會話連續性
 
 - **Switch providers mid-session** with `UAGENT_PROVIDER` — conversation history is preserved.

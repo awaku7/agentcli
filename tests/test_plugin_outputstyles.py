@@ -32,10 +32,6 @@ class TestOutputStylesDisk:
 
     def test_discover_output_styles(self, plugin_with_styles: Path) -> None:
         """output-styles directory should be detectable."""
-        from uagent.plugin_shared import discover_plugin_components, parse_plugin_manifest
-
-        manifest = parse_plugin_manifest(str(plugin_with_styles))
-        comps = discover_plugin_components(str(plugin_with_styles), manifest)
         # Currently output-styles may not be in discover; check directory directly
         styles_dir = plugin_with_styles / "output-styles"
         assert styles_dir.is_dir()

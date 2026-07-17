@@ -14,12 +14,7 @@ def _write_skill(skill_dir: Path, *, body: str = "# Skill\n") -> None:
     skill_dir.mkdir(parents=True, exist_ok=True)
     skill_name = skill_dir.name
     skill_md = (
-        "---\n"
-        f"name: {skill_name}\n"
-        "description: test skill\n"
-        "license: MIT\n"
-        "---\n\n"
-        f"{body}"
+        f"---\nname: {skill_name}\ndescription: test skill\nlicense: MIT\n---\n\n{body}"
     )
     (skill_dir / "SKILL.md").write_text(skill_md, encoding="utf-8")
 

@@ -430,7 +430,7 @@ async def payment_page(checkout_id: str):
         for item in checkout.get("line_items", [])
     )
     return HTML_RESPONSE.format(
-        body=f"<h1>Mock Payment Page</h1><p>Total: ${total/100:.2f}</p><ul>{items_html}</ul><form action='/pay/{checkout_id}' method='post'><button style='padding:12px 24px;font-size:16px;background:#1a73e8;color:white;border:none;border-radius:4px;cursor:pointer'>Pay</button></form>"
+        body=f"<h1>Mock Payment Page</h1><p>Total: ${total / 100:.2f}</p><ul>{items_html}</ul><form action='/pay/{checkout_id}' method='post'><button style='padding:12px 24px;font-size:16px;background:#1a73e8;color:white;border:none;border-radius:4px;cursor:pointer'>Pay</button></form>"
     )
 
 
@@ -541,7 +541,7 @@ async def ap2_authorize_page(mandate_id: str):
     return HTML_RESPONSE.format(
         body=f"<h1>AP2 Payment Mandate Authorization</h1>"
         f"<p>Merchant: {mandate.get('merchant_name', 'Unknown')}</p>"
-        f"<p>Max Amount: ${mandate.get('max_amount', 0)/100:.2f}</p>"
+        f"<p>Max Amount: ${mandate.get('max_amount', 0) / 100:.2f}</p>"
         f"<form action='/ap2/authorize/{mandate_id}' method='post'>"
         f"<button style='padding:12px 24px;font-size:16px;background:#1a73e8;color:white;border:none;border-radius:4px;cursor:pointer'>"
         f"Authorize Mandate</button></form>"
@@ -558,7 +558,7 @@ async def ap2_authorize_confirm(mandate_id: str):
     return HTML_RESPONSE.format(
         body=f"<h1>Mandate Authorized!</h1>"
         f"<p>Mandate ID: {mandate_id}</p>"
-        f"<p>The agent can now make autonomous purchases up to ${mandate.get('max_amount', 0)/100:.2f}.</p>"
+        f"<p>The agent can now make autonomous purchases up to ${mandate.get('max_amount', 0) / 100:.2f}.</p>"
         f"<p>You can close this window.</p>"
     )
 

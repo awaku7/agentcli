@@ -18,7 +18,9 @@ def marketplace_dir(repo_tmp_path: Path) -> Path:
     plugin_dir = p / "plugins" / "test-plugin"
     (plugin_dir / ".claude-plugin").mkdir(parents=True)
     (plugin_dir / ".claude-plugin" / "plugin.json").write_text(
-        json.dumps({"name": "test-plugin", "version": "1.0.0", "description": "A test plugin"}),
+        json.dumps(
+            {"name": "test-plugin", "version": "1.0.0", "description": "A test plugin"}
+        ),
         encoding="utf-8",
     )
 
@@ -47,7 +49,9 @@ class TestMarketplaceParse:
         """marketplace.json should be parseable."""
         from uagent.plugin_shared import parse_marketplace
 
-        mp = parse_marketplace(str(marketplace_dir / ".claude-plugin" / "marketplace.json"))
+        mp = parse_marketplace(
+            str(marketplace_dir / ".claude-plugin" / "marketplace.json")
+        )
         assert mp is not None
         assert mp["name"] == "my-marketplace"
         assert len(mp["plugins"]) == 1
@@ -63,7 +67,9 @@ class TestMarketplaceParse:
         """Should return list of available plugins."""
         from uagent.plugin_shared import parse_marketplace
 
-        mp = parse_marketplace(str(marketplace_dir / ".claude-plugin" / "marketplace.json"))
+        mp = parse_marketplace(
+            str(marketplace_dir / ".claude-plugin" / "marketplace.json")
+        )
         plugins = mp["plugins"]
         assert plugins[0]["name"] == "test-plugin"
         assert "source" in plugins[0]
@@ -72,7 +78,9 @@ class TestMarketplaceParse:
 class TestMarketplaceInstall:
     """Tests for installing from marketplace."""
 
-    def test_install_from_marketplace(self, marketplace_dir: Path, repo_tmp_path: Path) -> None:
+    def test_install_from_marketplace(
+        self, marketplace_dir: Path, repo_tmp_path: Path
+    ) -> None:
         """Plugin should be installable from marketplace source."""
         from uagent.tools.plugin_manage_tool import run_tool
         import json
@@ -80,18 +88,22 @@ class TestMarketplaceInstall:
         dest = repo_tmp_path / "mp-installed"
         dest.mkdir(parents=True)
 
-        result = run_tool({
-            "action": "install",
-            "source": str(marketplace_dir / "plugins" / "test-plugin"),
-            "name": "marketplace-plugin",
-            "_test_install_root": str(dest),
-        })
+        result = run_tool(
+            {
+                "action": "install",
+                "source": str(marketplace_dir / "plugins" / "test-plugin"),
+                "name": "marketplace-plugin",
+                "_test_install_root": str(dest),
+            }
+        )
         parsed = json.loads(result)
         assert parsed["ok"] is True
         assert (dest / "marketplace-plugin").exists()
         assert (dest / "marketplace-plugin" / ".claude-plugin" / "plugin.json").exists()
 
-    def test_install_from_marketplace_name_inferred(self, marketplace_dir: Path, repo_tmp_path: Path) -> None:
+    def test_install_from_marketplace_name_inferred(
+        self, marketplace_dir: Path, repo_tmp_path: Path
+    ) -> None:
         """Plugin name should be inferred from marketplace source."""
         from uagent.tools.plugin_manage_tool import run_tool
         import json
@@ -99,11 +111,13 @@ class TestMarketplaceInstall:
         dest = repo_tmp_path / "mp-inferred"
         dest.mkdir(parents=True)
 
-        result = run_tool({
-            "action": "install",
-            "source": str(marketplace_dir / "plugins" / "test-plugin"),
-            "_test_install_root": str(dest),
-        })
+        result = run_tool(
+            {
+                "action": "install",
+                "source": str(marketplace_dir / "plugins" / "test-plugin"),
+                "_test_install_root": str(dest),
+            }
+        )
         parsed = json.loads(result)
         assert parsed["ok"] is True
         # Name should be inferred from source path (test-plugin)
@@ -120,7 +134,9 @@ class TestMarketplaceManager:
         registry_path = repo_tmp_path / "mp_registry.json"
         registry_path.write_text(json.dumps({"marketplaces": []}), encoding="utf-8")
 
-        add_marketplace("my-marketplace", "https://example.com/mp", registry_path=str(registry_path))
+        add_marketplace(
+            "my-marketplace", "https://example.com/mp", registry_path=str(registry_path)
+        )
 
         mps = list_marketplaces(registry_path=str(registry_path))
         assert len(mps) == 1
@@ -129,13 +145,21 @@ class TestMarketplaceManager:
 
     def test_remove_marketplace(self, repo_tmp_path: Path) -> None:
         """Marketplace should be removable from registry."""
-        from uagent.plugin_shared import add_marketplace, remove_marketplace, list_marketplaces
+        from uagent.plugin_shared import (
+            add_marketplace,
+            remove_marketplace,
+            list_marketplaces,
+        )
 
         registry_path = repo_tmp_path / "mp_remove.json"
         registry_path.write_text(json.dumps({"marketplaces": []}), encoding="utf-8")
 
-        add_marketplace("mp1", "https://example.com/1", registry_path=str(registry_path))
-        add_marketplace("mp2", "https://example.com/2", registry_path=str(registry_path))
+        add_marketplace(
+            "mp1", "https://example.com/1", registry_path=str(registry_path)
+        )
+        add_marketplace(
+            "mp2", "https://example.com/2", registry_path=str(registry_path)
+        )
 
         remove_marketplace("mp1", registry_path=str(registry_path))
         mps = list_marketplaces(registry_path=str(registry_path))
@@ -156,7 +180,9 @@ class TestMarketplaceManager:
 class TestMarketplaceInstallFrom:
     """Tests for installing plugins from marketplace."""
 
-    def test_resolve_marketplace_plugin(self, marketplace_dir: Path, repo_tmp_path: Path) -> None:
+    def test_resolve_marketplace_plugin(
+        self, marketplace_dir: Path, repo_tmp_path: Path
+    ) -> None:
         """Should resolve plugin source from marketplace name."""
         from uagent.plugin_shared import resolve_marketplace_plugin
 
@@ -189,7 +215,9 @@ class TestMarketplaceInstallFrom:
         )
         assert source is None
 
-    def test_install_from_marketplace_syntax(self, marketplace_dir: Path, repo_tmp_path: Path) -> None:
+    def test_install_from_marketplace_syntax(
+        self, marketplace_dir: Path, repo_tmp_path: Path
+    ) -> None:
         """`name@marketplace` syntax should install from marketplace."""
         from uagent.tools.plugin_manage_tool import run_tool
         import json
@@ -197,12 +225,14 @@ class TestMarketplaceInstallFrom:
         dest = repo_tmp_path / "mp-syntax-installed"
         dest.mkdir(parents=True)
 
-        result = run_tool({
-            "action": "install",
-            "source": "test-plugin@my-marketplace",
-            "_test_install_root": str(dest),
-            "_test_marketplace_dir": str(marketplace_dir),
-        })
+        result = run_tool(
+            {
+                "action": "install",
+                "source": "test-plugin@my-marketplace",
+                "_test_install_root": str(dest),
+                "_test_marketplace_dir": str(marketplace_dir),
+            }
+        )
         parsed = json.loads(result)
         assert parsed["ok"] is True
         assert (dest / "test-plugin").exists()
@@ -219,16 +249,19 @@ class TestPluginDependencies:
         p = repo_tmp_path / "dep-plugin"
         (p / ".claude-plugin").mkdir(parents=True)
         (p / ".claude-plugin" / "plugin.json").write_text(
-            json.dumps({
-                "name": "dep-plugin",
-                "dependencies": [
-                    "base-lib",
-                    {"name": "secrets-vault", "version": "~2.1.0"},
-                ],
-            }),
+            json.dumps(
+                {
+                    "name": "dep-plugin",
+                    "dependencies": [
+                        "base-lib",
+                        {"name": "secrets-vault", "version": "~2.1.0"},
+                    ],
+                }
+            ),
             encoding="utf-8",
         )
         from uagent.plugin_shared import parse_plugin_manifest
+
         manifest = parse_plugin_manifest(str(p))
         assert manifest is not None
         deps = parse_plugin_dependencies(manifest)

@@ -267,9 +267,7 @@ def parse_startup_args() -> tuple[dict[str, Any], list[str]]:
         dest="plugin_dirs",
         action="append",
         default=None,
-        help=_(
-            "Load a plugin from a directory (can be specified multiple times)."
-        ),
+        help=_("Load a plugin from a directory (can be specified multiple times)."),
     )
     args, unknown = parser.parse_known_args()
     return vars(args), unknown
