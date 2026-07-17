@@ -29,7 +29,7 @@
       "env"
     ],
     "param.skip.description": "true の場合、見つからないときにエラーではなく「(not set)」を返します。既定は false。",
-    "err.name_required": "[get_env error] 'name' is required"
+    "err.name_required": "[get_env エラー] 「名前」は必須です"
   },
   "es": {
     "param.mask.description": "Si es verdadero, enmascara el valor (por ejemplo, para secretos). El valor predeterminado es verdadero.",
@@ -46,7 +46,7 @@
       "env"
     ],
     "param.skip.description": "Si es true, devuelve '(no establecido)' en lugar de un error cuando falta.",
-    "err.name_required": "[get_env error] 'name' is required"
+    "err.name_required": "[error get_env] 'nombre' es obligatorio"
   },
   "fr": {
     "param.mask.description": "Si vrai, masque la valeur (par exemple, pour les secrets). La valeur par défaut est vraie.",
@@ -63,7 +63,7 @@
       "env"
     ],
     "param.skip.description": "Si true, renvoie '(non défini)' au lieu d'une erreur lorsque la valeur est absente.",
-    "err.name_required": "[get_env error] 'name' is required"
+    "err.name_required": "[erreur get_env] 'nom' est requis"
   },
   "ko": {
     "param.mask.description": "true인 경우 값을 마스킹합니다(예: 비밀 정보). 기본값은 true입니다.",
@@ -80,7 +80,7 @@
       "env"
     ],
     "param.skip.description": "true인 경우 누락 시 오류 대신 '(not set)'을 반환합니다. 기본값은 false입니다.",
-    "err.name_required": "[get_env error] 'name' is required"
+    "err.name_required": "[get_env error] '이름'이 필요합니다"
   },
   "de": {
     "param.mask.description": "Wenn true, wird der Wert maskiert (z.B.",
@@ -97,7 +97,7 @@
       "env"
     ],
     "param.skip.description": "Wenn true, wird bei fehlendem Wert statt eines Fehlers '(not set)' zurückgegeben. Standard ist false.",
-    "err.name_required": "[get_env error] 'name' is required"
+    "err.name_required": "[get_env error] 'name' ist erforderlich"
   },
   "it": {
     "param.mask.description": "Se vero, maschera il valore (ad esempio, per i segreti). Il valore predefinito è vero.",
@@ -114,7 +114,7 @@
       "env"
     ],
     "param.skip.description": "Se true, restituisce '(non impostato)' invece di un errore quando manca. Il valore predefinito è false.",
-    "err.name_required": "[get_env error] 'name' is required"
+    "err.name_required": "[errore get_env] 'nome' è obbligatorio"
   },
   "ru": {
     "param.mask.description": "Исправление ошибок: L/M/Q/H (по умолчанию: M). Если true, значение маскируется (например, для секретов). Значение по умолчанию — true.",
@@ -125,7 +125,7 @@
       "получить окружение, окружение var, переменная среды, получить окружение, показать окружение, распечатать конверт, env"
     ],
     "param.skip.description": "Если true, при отсутствии значения возвращает '(not set)' вместо ошибки. Значение по умолчанию: false.",
-    "err.name_required": "[get_env error] 'name' is required"
+    "err.name_required": "[ошибка get_env] Требуется «имя»"
   },
   "pt_BR": {
     "param.mask.description": "Se verdadeiro, mascara o valor (por exemplo, para segredos). O padrão é verdadeiro.",
@@ -145,7 +145,7 @@
       "env get"
     ],
     "param.skip.description": "Se true, retorna '(not set)' em vez de um erro quando ausente. O padrão é false.",
-    "err.name_required": "[get_env error] 'name' is required"
+    "err.name_required": "[erro get_env] 'nome' é obrigatório"
   },
   "pt": {
     "param.mask.description": "Correção de erro: L/M/Q/H (padrão: M).",
@@ -165,7 +165,7 @@
       "env get"
     ],
     "param.skip.description": "Se for verdade, retorne '(not set)' em vez de um erro quando ausente. O padrão é falso.",
-    "err.name_required": "[get_env error] 'name' is required"
+    "err.name_required": "[erro get_env] 'nome' é obrigatório"
   },
   "id": {
     "param.mask.description": "Jika true, sembunyikan nilai (mis. informasi rahasia). Default true.",
@@ -185,7 +185,7 @@
       "env dapatkan"
     ],
     "param.skip.description": "Jika true, kembalikan '(not set)' alih-alih error saat tidak ada. Default false.",
-    "err.name_required": "[get_env error] 'name' is required"
+    "err.name_required": "[kesalahan get_env] 'nama' diperlukan"
   },
   "vi": {
     "param.mask.description": "Nếu đúng, hãy che dấu giá trị (ví dụ: thông tin bí mật).",
@@ -205,7 +205,7 @@
       "env get"
     ],
     "param.skip.description": "Nếu đúng, hãy trả về '(not set)' thay vì báo lỗi khi thiếu. Mặc định là sai.",
-    "err.name_required": "[get_env error] 'name' is required"
+    "err.name_required": "[lỗi get_env] 'tên' là bắt buộc"
   },
   "pl": {
     "param.mask.description": "Jeśli prawda, maskuje wartość (np.tajne informacje).",
@@ -225,7 +225,7 @@
       "env get"
     ],
     "param.skip.description": "Jeśli to prawda, w przypadku braku zwróć „(nie ustawiono)” zamiast błędu. Wartość domyślna to fałsz.",
-    "err.name_required": "[get_env error] 'name' is required"
+    "err.name_required": "[błąd get_env] Wymagana jest nazwa"
   },
   "hi": {
     "param.mask.description": "यदि सत्य है, तो मान छुपाएं (उदाहरण के लिए, रहस्यों के लिए)। डिफ़ॉल्ट सत्य है।",
@@ -245,7 +245,7 @@
       "env get"
     ],
     "param.skip.description": "यदि true है, तो गुम होने पर त्रुटि के बजाय \"(not set)\" लौटाएँ। डिफ़ॉल्ट false है.",
-    "err.name_required": "[get_env error] 'name' is required"
+    "err.name_required": "[get_env त्रुटि] 'नाम' आवश्यक है"
   },
   "ar": {
     "param.mask.description": "إذا كان صحيحًا، فإنه يخفي القيمة (مثل المعلومات السرية).",
@@ -265,7 +265,7 @@
       "env get"
     ],
     "param.skip.description": "إذا كان صحيحًا، قم بإرجاع \"(غير محدد)\" بدلاً من الخطأ عند فقده. الافتراضي خطأ.",
-    "err.name_required": "[get_env error] 'name' is required"
+    "err.name_required": "[خطأ get_env] مطلوب \"الاسم\"."
   },
   "sv": {
     "param.mask.description": "Om true, maskerar värdet (t.ex.hemlig information).",
@@ -285,13 +285,13 @@
       "env get"
     ],
     "param.skip.description": "Om true, returneras \"(not set)\" i stället för ett fel när värdet saknas. Standard är false.",
-    "err.name_required": "[get_env error] 'name' is required"
+    "err.name_required": "[get_env error] 'namn' krävs"
   },
   "sw": {
-    "param.mask.description": "true হলে মানটি আড়াল করা হবে (যেমন গোপন তথ্য)। ডিফল্ট true।",
-    "param.name.description": "পড়ার জন্য পরিবেশ ভ্যারিয়েবলের নাম।",
-    "param.unmasked_chars.description": "আড়াল করার সময় শুরু ও শেষে যতগুলো অক্ষর দেখা যাবে। ডিফল্ট 2।",
-    "tool.description": "নির্দিষ্ট পরিবেশ ভ্যারিয়েবলের মান পড়ে ফেরত দেয়। প্রয়োজনে মান আড়াল করতে পারে।",
+    "param.mask.description": "Ikiwa ndivyo, hufunika thamani (k.m., kwa siri). Chaguomsingi ni kweli.",
+    "param.name.description": "Jina la kutofautisha la mazingira la kusoma.",
+    "param.unmasked_chars.description": "Idadi ya wahusika wa kuondoka mwanzoni na mwisho wakati wa kufunika. Chaguomsingi ni 2.",
+    "tool.description": "Hupata thamani ya kigezo maalum cha mazingira na kuirejesha. Hufunika thamani kwa hiari.",
     "x_search_terms": [
       "get env",
       "environment variable",
@@ -304,8 +304,8 @@
       "environment value",
       "env get"
     ],
-    "param.skip.description": "true হলে অনুপস্থিত থাকলে ত্রুটির বদলে '(not set)' ফেরত দেবে। ডিফল্ট false।",
-    "err.name_required": "[get_env error] 'name' is required"
+    "param.skip.description": "Ikiwa ndivyo, rudisha '(haijawekwa)' badala ya hitilafu inapokosekana. Chaguomsingi ni uongo.",
+    "err.name_required": "[get_env error] 'jina' linahitajika"
   },
   "nb": {
     "param.mask.description": "Hvis sant, maskerer verdien (f.eks. for hemmeligheter). Standard er sant.",
@@ -325,7 +325,7 @@
       "env get"
     ],
     "param.skip.description": "Hvis true, returneres \"(not set)\" i stedet for en feil når verdien mangler. Standard er false.",
-    "err.name_required": "[get_env error] 'name' is required"
+    "err.name_required": "[get_env error] 'navn' er påkrevd"
   },
   "nl": {
     "param.mask.description": "Indien true, wordt de waarde gemaskeerd (bijv.",
@@ -345,7 +345,7 @@
       "env get"
     ],
     "param.skip.description": "Indien true, geef \"(not set)\" terug in plaats van een fout wanneer de waarde ontbreekt.",
-    "err.name_required": "[get_env error] 'name' is required"
+    "err.name_required": "[get_env error] 'naam' is vereist"
   },
   "fi": {
     "param.mask.description": "Jos true, arvo peitetään (esim. salainen tieto). Oletus on true.",
@@ -365,7 +365,7 @@
       "env get"
     ],
     "param.skip.description": "Jos true, palauta \"(not set)\" virheen sijaan, kun arvo puuttuu. Oletus on false.",
-    "err.name_required": "[get_env error] 'name' is required"
+    "err.name_required": "[get_env error] \"nimi\" on pakollinen"
   },
   "cs": {
     "param.mask.description": "Pokud je true, skryje hodnotu (např.citlivé údaje).",
@@ -385,7 +385,7 @@
       "env get"
     ],
     "param.skip.description": "Pokud je true, vrátí při chybějící hodnotě místo chyby '(not set)'. Výchozí hodnota je false.",
-    "err.name_required": "[get_env error] 'name' is required"
+    "err.name_required": "[chyba get_env] 'name' je povinné"
   },
   "uk": {
     "param.mask.description": "Якщо true, маскує значення (наприклад, для секретів). За умовчанням встановлено значення true.",
@@ -405,7 +405,7 @@
       "env get"
     ],
     "param.skip.description": "Якщо значення true, за відсутності значення повертає '(not set)' замість помилки.",
-    "err.name_required": "[get_env error] 'name' is required"
+    "err.name_required": "[помилка get_env] необхідне ім’я"
   },
   "tr": {
     "param.mask.description": "Doğruysa değeri maskeler (ör. gizli bilgiler). Varsayılan doğrudur.",
@@ -425,7 +425,7 @@
       "env get"
     ],
     "param.skip.description": "Doğruysa, eksik olduğunda hata yerine '(not set)' değerini döndürün. Varsayılan yanlıştır.",
-    "err.name_required": "[get_env error] 'name' is required"
+    "err.name_required": "[get_env hatası] 'ad' gerekli"
   },
   "th": {
     "param.mask.description": "หากเป็นจริง ให้ปิดบังค่า (เช่น ข้อมูลลับ) ค่าเริ่มต้นคือจริง",
@@ -445,7 +445,7 @@
       "env get"
     ],
     "param.skip.description": "หากเป็นจริง ให้ส่งกลับ '(not set)' แทนข้อผิดพลาดเมื่อไม่มีค่า ค่าเริ่มต้นคือเท็จ",
-    "err.name_required": "[get_env error] 'name' is required"
+    "err.name_required": "[ข้อผิดพลาด get_env] ต้องมี 'ชื่อ'"
   },
   "zh_CN": {
     "param.mask.description": "如果为 true，则掩码该值（例如敏感信息）。默认值为 true。",
@@ -465,7 +465,7 @@
       "env get"
     ],
     "param.skip.description": "如果为 true，则在缺失时返回“(未设置)”而不是报错。默认值为 false。",
-    "err.name_required": "[get_env error] 'name' is required"
+    "err.name_required": "[get_env 错误]“名称”是必需的"
   },
   "zh_TW": {
     "param.mask.description": "如果為 true，則遮罩該值（例如機密資訊）。預設為 true。",
@@ -485,7 +485,7 @@
       "env get"
     ],
     "param.skip.description": "如果為 true，則在缺少時傳回「(未設定)」而不是錯誤。預設為 false。",
-    "err.name_required": "[get_env error] 'name' is required"
+    "err.name_required": "[get_env 錯誤]「名稱」是必要的"
   },
   "bn": {
     "param.mask.description": "true হলে মানটি আড়াল করা হবে (যেমন গোপন তথ্য)। ডিফল্ট true।",
@@ -505,7 +505,7 @@
       "env get"
     ],
     "param.skip.description": "true হলে অনুপস্থিত থাকলে ত্রুটির বদলে '(not set)' ফেরত দেবে। ডিফল্ট false।",
-    "err.name_required": "[get_env error] 'name' is required"
+    "err.name_required": "[get_env ত্রুটি] 'নাম' প্রয়োজন"
   },
   "fa": {
     "param.mask.description": "اگر true باشد، مقدار را مخفی می‌کند (مثلاً اطلاعات محرمانه).",
@@ -525,7 +525,7 @@
       "env get"
     ],
     "param.skip.description": "اگر true باشد، هنگام نبودن مقدار به‌جای خطا '(not set)' برگردانده می‌شود. مقدار پیش‌فرض false است.",
-    "err.name_required": "[get_env error] 'name' is required"
+    "err.name_required": "[خطای get_env] 'نام' مورد نیاز است"
   },
   "mn": {
     "param.mask.description": "true бол утгыг далдална (жишээ нь нууц мэдээлэл). Өгөгдмөл нь true.",
@@ -545,7 +545,7 @@
       "env get"
     ],
     "param.skip.description": "true бол алга үед алдааны оронд '(not set)' буцаана. Өгөгдмөл нь false.",
-    "err.name_required": "[get_env error] 'name' is required"
+    "err.name_required": "[get_env алдаа] 'нэр' шаардлагатай"
   },
   "mr": {
     "param.mask.description": "true असल्यास मूल्य लपवते (उदा. गुप्त माहिती). डीफॉल्ट true आहे.",
@@ -565,7 +565,7 @@
       "env get"
     ],
     "param.skip.description": "true असल्यास, अनुपस्थित असताना त्रुटीऐवजी '(not set)' परत करते. डीफॉल्ट false आहे.",
-    "err.name_required": "[get_env error] 'name' is required"
+    "err.name_required": "[get_env त्रुटी] 'नाव' आवश्यक आहे"
   },
   "el": {
     "param.mask.description": "текум (π.χ., για τα μυστικά είναι true",

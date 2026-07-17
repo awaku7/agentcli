@@ -83,7 +83,7 @@
       "líneas máximas",
       "leer contenido"
     ],
-    "param.page.description": "Page number to read (1-based). Used in conjunction with max_lines.",
+    "param.page.description": "Número de página a leer (basado en 1). Se utiliza junto con max_lines.",
     "param.head.description": "Número de líneas a leer desde el principio. No se puede usar con tail_lines.",
     "param.maxl.description": "Número máximo de líneas a leer.",
     "param.tail.description": "Número de líneas a leer desde el final. No se puede usar con head_lines.",
@@ -114,7 +114,7 @@
       "lignes max",
       "lire contenu"
     ],
-    "param.page.description": "Page number to read (1-based). Used in conjunction with max_lines.",
+    "param.page.description": "Numéro de page à lire (basé sur 1). Utilisé conjointement avec max_lines.",
     "param.head.description": "Nombre de lignes à lire depuis le début. Ne peut pas être utilisé avec tail_lines.",
     "param.maxl.description": "Nombre maximum de lignes à lire.",
     "param.tail.description": "Nombre de lignes à lire depuis la fin.",
@@ -145,7 +145,7 @@
       "최대 줄 수",
       "내용 읽기"
     ],
-    "param.page.description": "Page number to read (1-based). Used in conjunction with max_lines.",
+    "param.page.description": "읽을 페이지 번호(1 기반)입니다. max_lines와 함께 사용됩니다.",
     "param.head.description": "처음부터 읽을 행 수. tail_lines와 함께 사용할 수 없습니다.",
     "param.maxl.description": "읽을 최대 행 수. null인 경우 끝까지 읽습니다.",
     "param.tail.description": "끝에서부터 읽을 행 수. head_lines와 함께 사용할 수 없습니다.",
@@ -176,7 +176,7 @@
       "max zeilen",
       "inhalt lesen"
     ],
-    "param.page.description": "Page number to read (1-based). Used in conjunction with max_lines.",
+    "param.page.description": "Zu lesende Seitenzahl (1-basiert). Wird in Verbindung mit max_lines verwendet.",
     "param.head.description": "Anzahl der Zeilen, die vom Anfang an gelesen werden sollen.",
     "param.maxl.description": "Maximale Anzahl der zu lesenden Zeilen.",
     "param.tail.description": "Anzahl der Zeilen, die vom Ende an gelesen werden sollen.",
@@ -207,7 +207,7 @@
       "righe max",
       "leggi contenuto"
     ],
-    "param.page.description": "Page number to read (1-based). Used in conjunction with max_lines.",
+    "param.page.description": "Numero di pagina da leggere (in base 1). Utilizzato insieme a max_lines.",
     "param.head.description": "Numero di righe da leggere dall'inizio. Non cumulabile con tail_lines.",
     "param.maxl.description": "Numero massimo di righe da leggere.",
     "param.tail.description": "Numero di righe da leggere dalla fine. Non cumulabile con head_lines.",
@@ -238,7 +238,7 @@
       "макс строк",
       "чтение содержимого"
     ],
-    "param.page.description": "Page number to read (1-based). Used in conjunction with max_lines.",
+    "param.page.description": "Номер страницы для чтения (отсчитывается от 1). Используется совместно с max_lines.",
     "param.head.description": "Количество строк для чтения с начала. Нельзя использовать вместе с tail_lines.",
     "param.maxl.description": "Максимальное число строк для чтения.",
     "param.tail.description": "Количество строк для чтения с конца.",
@@ -269,7 +269,7 @@
       "linhas máximas",
       "ler conteúdo"
     ],
-    "param.page.description": "Page number to read (1-based). Used in conjunction with max_lines.",
+    "param.page.description": "Número da página a ser lida (com base em 1). Usado em conjunto com max_lines.",
     "param.head.description": "Número de linhas para ler do início. Não pode ser usado com tail_lines.",
     "param.maxl.description": "Número máximo de linhas a ler. Se nulo, lê até o fim.",
     "param.tail.description": "Número de linhas para ler do fim. Não pode ser usado com head_lines.",
@@ -300,7 +300,7 @@
       "linhas máximas",
       "ler conteúdo"
     ],
-    "param.page.description": "Page number to read (1-based). Used in conjunction with max_lines.",
+    "param.page.description": "Número da página a ser lida (com base em 1). Usado em conjunto com max_lines.",
     "param.head.description": "Número de linhas a serem lidas desde o início.",
     "param.maxl.description": "Número máximo de linhas a serem lidas.",
     "param.tail.description": "Número de linhas a serem lidas a partir do final.",
@@ -331,7 +331,7 @@
       "baris maksimum",
       "baca isi"
     ],
-    "param.page.description": "Page number to read (1-based). Used in conjunction with max_lines.",
+    "param.page.description": "Nomor halaman untuk dibaca (berbasis 1). Digunakan bersama dengan max_lines.",
     "param.head.description": "Jumlah baris yang dibaca dari awal.",
     "param.maxl.description": "Jumlah maksimum baris yang dibaca.",
     "param.tail.description": "Jumlah baris yang dibaca dari akhir.",
@@ -362,7 +362,7 @@
       "số dòng tối đa",
       "đọc nội dung"
     ],
-    "param.page.description": "Page number to read (1-based). Used in conjunction with max_lines.",
+    "param.page.description": "Số trang cần đọc (dựa trên 1). Được sử dụng cùng với max_lines.",
     "param.head.description": "Số dòng cần đọc từ đầu. Không thể chỉ định cùng lúc với tail_lines.",
     "param.maxl.description": "Số hàng tối đa để đọc. Nếu null thì đọc đến cuối file.",
     "param.tail.description": "Số dòng đọc từ cuối. Không thể chỉ định cùng lúc với head_lines.",
@@ -393,7 +393,7 @@
       "maks wierszy",
       "czytaj zawartość"
     ],
-    "param.page.description": "Page number to read (1-based). Used in conjunction with max_lines.",
+    "param.page.description": "Numer strony do odczytania (od 1). Używane w połączeniu z max_lines.",
     "param.head.description": "Liczba linii do przeczytania od początku.",
     "param.maxl.description": "Maksymalna liczba wierszy do odczytania.",
     "param.tail.description": "Liczba linii do odczytania od końca.",
@@ -424,7 +424,7 @@
       "अधिकतम पंक्तियाँ",
       "सामग्री पढ़ें"
     ],
-    "param.page.description": "Page number to read (1-based). Used in conjunction with max_lines.",
+    "param.page.description": "पढ़ने के लिए पृष्ठ संख्या (1-आधारित)। max_lines के साथ संयोजन में उपयोग किया जाता है।",
     "param.head.description": "आरंभ से पढ़ने योग्य पंक्तियों की संख्या.",
     "param.maxl.description": "पढ़ने के लिए पंक्तियों की अधिकतम संख्या.",
     "param.tail.description": "अंत से पढ़ने के लिए पंक्तियों की संख्या.",
@@ -455,7 +455,7 @@
       "الحد الأقصى للأسطر",
       "قراءة المحتوى"
     ],
-    "param.page.description": "Page number to read (1-based). Used in conjunction with max_lines.",
+    "param.page.description": "رقم الصفحة المراد قراءتها (على أساس 1). تستخدم جنبا إلى جنب مع max_lines.",
     "param.head.description": "عدد الأسطر التي يجب قراءتها من البداية.",
     "param.maxl.description": "الحد الأقصى لعدد الأسطر المراد قراءتها.",
     "param.tail.description": "عدد الأسطر التي يجب قراءتها من النهاية.",
@@ -486,7 +486,7 @@
       "max rader",
       "läs innehåll"
     ],
-    "param.page.description": "Page number to read (1-based). Used in conjunction with max_lines.",
+    "param.page.description": "Sidnummer att läsa (1-baserat). Används tillsammans med max_lines.",
     "param.head.description": "Antal rader som ska läsas från början. Kan inte anges samtidigt med tail_lines.",
     "param.maxl.description": "Maximalt antal rader att läsa. Om null läses till slutet.",
     "param.tail.description": "Antal rader som ska läsas från slutet.",
@@ -517,7 +517,7 @@
       "mistari ya juu",
       "soma yaliyomo"
     ],
-    "param.page.description": "Page number to read (1-based). Used in conjunction with max_lines.",
+    "param.page.description": "Nambari ya ukurasa ya kusoma (1-msingi). Inatumika kwa kushirikiana na max_lines.",
     "param.head.description": "Idadi ya mistari ya kusoma kuanzia mwanzo. Haiwezi kutolewa pamoja na tail_lines.",
     "param.maxl.description": "Idadi ya juu ya mistari ya kusoma.",
     "param.tail.description": "Idadi ya mistari ya kusoma kuanzia mwisho.",
@@ -548,7 +548,7 @@
       "maks linjer",
       "les innhold"
     ],
-    "param.page.description": "Page number to read (1-based). Used in conjunction with max_lines.",
+    "param.page.description": "Sidetall å lese (1-basert). Brukes sammen med max_lines.",
     "param.head.description": "Antall linjer som skal leses fra starten. Kan ikke angis samtidig med tail_lines.",
     "param.maxl.description": "Maksimalt antall linjer som skal leses.",
     "param.tail.description": "Antall linjer som skal leses fra slutten.",
@@ -579,7 +579,7 @@
       "max regels",
       "lees inhoud"
     ],
-    "param.page.description": "Page number to read (1-based). Used in conjunction with max_lines.",
+    "param.page.description": "Te lezen paginanummer (gebaseerd op 1). Gebruikt in combinatie met max_lines.",
     "param.head.description": "Aantal regels dat vanaf het begin gelezen wordt.",
     "param.maxl.description": "Maximaal aantal regels om te lezen.",
     "param.tail.description": "Aantal regels dat vanaf het einde gelezen wordt.",
@@ -610,7 +610,7 @@
       "enimmäisrivimäärä",
       "lue sisältö"
     ],
-    "param.page.description": "Page number to read (1-based). Used in conjunction with max_lines.",
+    "param.page.description": "Luettava sivunumero (1-pohjainen). Käytetään max_lines kanssa.",
     "param.head.description": "Alusta luettavien rivien määrä. Ei voi olla yhtä aikaa tail_linesin kanssa.",
     "param.maxl.description": "Luettavien rivien enimmäismäärä.",
     "param.tail.description": "Lopusta luettavien rivien määrä.",
@@ -641,7 +641,7 @@
       "max řádků",
       "číst obsah"
     ],
-    "param.page.description": "Page number to read (1-based). Used in conjunction with max_lines.",
+    "param.page.description": "Číslo stránky ke čtení (založené na 1). Používá se ve spojení s max_lines.",
     "param.head.description": "Počet řádků ke čtení od začátku. Nelze zadat současně s tail_lines.",
     "param.maxl.description": "Maximální počet řádků ke čtení.",
     "param.tail.description": "Počet řádků ke čtení od konce. Nelze zadat současně s head_lines.",
@@ -672,7 +672,7 @@
       "макс рядків",
       "читати вміст"
     ],
-    "param.page.description": "Page number to read (1-based). Used in conjunction with max_lines.",
+    "param.page.description": "Номер сторінки для читання (від 1). Використовується в поєднанні з max_lines.",
     "param.head.description": "Кількість рядків для читання з початку. Не можна вказувати одночасно з tail_lines.",
     "param.maxl.description": "Максимальна кількість рядків для читання.",
     "param.tail.description": "Кількість рядків для читання з кінця.",
@@ -703,7 +703,7 @@
       "maksimum satır",
       "içeriği oku"
     ],
-    "param.page.description": "Page number to read (1-based). Used in conjunction with max_lines.",
+    "param.page.description": "Okunacak sayfa numarası (1 tabanlı). max_lines ile birlikte kullanılır.",
     "param.head.description": "Baştan itibaren okunacak satır sayısı. tail_lines ile aynı anda belirtilemez.",
     "param.maxl.description": "Okunacak maksimum satır sayısı.",
     "param.tail.description": "Sondan itibaren okunacak satır sayısı.",
@@ -734,7 +734,7 @@
       "จำนวนบรรทัดสูงสุด",
       "อ่านเนื้อหา"
     ],
-    "param.page.description": "Page number to read (1-based). Used in conjunction with max_lines.",
+    "param.page.description": "หมายเลขหน้าที่จะอ่าน (แบบ 1) ใช้ร่วมกับ max_lines",
     "param.head.description": "จำนวนบรรทัดที่อ่านจากตอนต้น ไม่สามารถใช้ร่วมกับ tail_lines ได้",
     "param.maxl.description": "จำนวนบรรทัดสูงสุดที่จะอ่าน หากเป็น null จะอ่านจนจบไฟล์",
     "param.tail.description": "จำนวนบรรทัดที่อ่านจากตอนท้าย ไม่สามารถใช้ร่วมกับ head_lines ได้",
@@ -765,7 +765,7 @@
       "最大行数",
       "读取内容"
     ],
-    "param.page.description": "Page number to read (1-based). Used in conjunction with max_lines.",
+    "param.page.description": "要阅读的页码（从 1 开始）。与 max_lines 结合使用。",
     "param.head.description": "从头读取的行数。不能与 tail_lines 同时指定。",
     "param.maxl.description": "读取的最大行数。为 null 时读取到末尾。",
     "param.tail.description": "从末尾读取的行数。不能与 head_lines 同时指定。",
@@ -796,7 +796,7 @@
       "最大行數",
       "讀取內容"
     ],
-    "param.page.description": "Page number to read (1-based). Used in conjunction with max_lines.",
+    "param.page.description": "要閱讀的頁碼（從 1 開始）。與 max_lines 結合使用。",
     "param.head.description": "從頭讀取的行數。不能與 tail_lines 同時指定。",
     "param.maxl.description": "讀取的最大行數。為 null 時讀取到末尾。",
     "param.tail.description": "從末尾讀取的行數。不能與 head_lines 同時指定。",
@@ -827,7 +827,7 @@
       "সর্বোচ্চ লাইন",
       "বিষয়বস্তু পড়ুন"
     ],
-    "param.page.description": "Page number to read (1-based). Used in conjunction with max_lines.",
+    "param.page.description": "পড়ার জন্য পৃষ্ঠা সংখ্যা (1-ভিত্তিক)। max_lines এর সাথে একযোগে ব্যবহৃত হয়।",
     "param.head.description": "শুরুর দিক থেকে যত লাইন পড়বে। tail_lines-এর সাথে একসাথে দেওয়া যাবে না।",
     "param.maxl.description": "পড়ার জন্য সর্বাধিক সংখ্যা",
     "param.tail.description": "শেষ দিক থেকে যত লাইন পড়বে। head_lines-এর সাথে একসাথে দেওয়া যাবে না।",
@@ -858,7 +858,7 @@
       "حداکثر سطرها",
       "خواندن محتوا"
     ],
-    "param.page.description": "Page number to read (1-based). Used in conjunction with max_lines.",
+    "param.page.description": "شماره صفحه برای خواندن (بر اساس 1). در ارتباط با max_lines استفاده می شود.",
     "param.head.description": "تعداد خطوطی که از ابتدا خوانده می‌شوند. نمی‌توان هم‌زمان با tail_lines مشخص کرد.",
     "param.maxl.description": "حداکثر تعداد خطوط برای خواندن.",
     "param.tail.description": "تعداد خطوطی که از انتها خوانده می‌شوند.",
@@ -889,7 +889,7 @@
       "дээд мөр",
       "агуулга унших"
     ],
-    "param.page.description": "Page number to read (1-based). Used in conjunction with max_lines.",
+    "param.page.description": "Унших хуудасны дугаар (1-д суурилсан). max_lines-тай хамт хэрэглэгддэг.",
     "param.head.description": "Эхнээс унших мөрийн тоо. tail_lines-тай зэрэг зааж болохгүй.",
     "param.maxl.description": "Унших хамгийн их мөрийн тоо.",
     "param.tail.description": "Төгсгөлөөс унших мөрийн тоо. head_lines-тай зэрэг зааж болохгүй.",
@@ -920,7 +920,7 @@
       "कमाल ओळी",
       "सामग्री वाचा"
     ],
-    "param.page.description": "Page number to read (1-based). Used in conjunction with max_lines.",
+    "param.page.description": "वाचण्यासाठी पृष्ठ क्रमांक (1-आधारित). max_lines सह संयोगाने वापरले.",
     "param.head.description": "सुरुवातीपासून वाचायच्या ओळींची संख्या. tail_lines सोबत एकाच वेळी देता येत नाही.",
     "param.maxl.description": "वाचायच्या जास्तीत जास्त ओळी.",
     "param.tail.description": "शेवटापासून वाचायच्या ओळींची संख्या.",
@@ -930,10 +930,10 @@
     "err.page_requires_maxl": "[read_file त्रुटी] page साठी maxl आवश्यक आहे"
   },
   "el": {
-    "err.dual_lines": "(το αρχείο έχει μόνο {count} γραμμές, η αρχική_γραμμή {start_line} είναι εκτός εμβέλειας)",
+    "err.dual_lines": "[Σφάλμα ανάγνωσης_αρχείου] οι γραμμές_κεφαλίδας και οι γραμμές_ουράς δεν μπορούν να καθοριστούν μαζί",
     "err.filename_missing": "[το όριο ανάγνωσης_αρχείου έχει περικοπεί: το όριο ανάγνωσης_αρχείου: για να διαβάσετε.",
-    "err.out_of_range": "Αριθμός σελίδας προς ανάγνωση (βάσει 1). Χρησιμοποιείται σε συνδυασμό με max_lines.",
-    "msg.truncated": "Αριθμός γραμμής για έναρξη ανάγνωσης (βάσει 1). Η προεπιλογή είναι 1.",
+    "err.out_of_range": "(το αρχείο έχει μόνο γραμμές {count}, η start_line {start_line} είναι εκτός εμβέλειας)",
+    "msg.truncated": "[read_file περικόπηκε: Συμπληρώθηκε το όριο byte {max_bytes}]",
     "param.filename.description": "Ανάγνωση των περιεχομένων του αρχείου (μέγιστο 1MB). Υποστηρίζει μερική ανάγνωση μέσω start_line/max_lines.",
     "param.page.description": "Αριθμός σελίδας προς ανάγνωση (βάσει 1). Χρησιμοποιείται σε συνδυασμό με max_lines.",
     "param.start_line.description": "Αριθμός γραμμής για έναρξη ανάγνωσης (βάσει 1). Η προεπιλογή είναι 1.",
@@ -962,9 +962,9 @@
   },
   "he": {
     "err.dual_lines": "[read_file error] שם קובץ/נתיב לא צוין",
-    "err.filename_missing": "(לקובץ יש רק {count} שורות, start_line {start_line} מחוץ לטווח)",
-    "err.out_of_range": "[read_file trincated: מגבלת בתים של {max_bytes} file] הגיעה לקריאה]",
-    "msg.truncated": "מספר עמוד לקריאה (מבוסס 1). משמש בשילוב עם max_lines.",
+    "err.filename_missing": "[שגיאת קובץ_קריאה] שם/נתיב לא צוין",
+    "err.out_of_range": "(בקובץ יש רק שורות {count}, start_line {start_line} מחוץ לטווח)",
+    "msg.truncated": "[read_file קטוע: הגעת למגבלת הבתים {max_bytes}]",
     "param.filename.description": "מספר שורה להתחיל לקרוא ממנו (מבוסס 1). ברירת המחדל היא 1.",
     "param.page.description": "קרא את תוכן הקובץ (מקסימום 1MB). תומך בקריאה חלקית באמצעות start_line/max_lines.",
     "param.start_line.description": "מספר שורה להתחיל לקרוא ממנו (מבוסס 1). ברירת המחדל היא 1.",
@@ -992,10 +992,10 @@
     "err.page_requires_maxl": "[שגיאת read_file] page דורש maxl"
   },
   "hu": {
-    "err.dual_lines": "(a fájlnak csak {count} sora van, start_line {start_line} a tartományon kívül esik)",
+    "err.dual_lines": "[read_file error] head_lines és tail_lines nem adhatók meg együtt",
     "err.filename_missing": "[read_file csonkolva: a fájl száma # bájt] elérve a # bájt korlátot].",
-    "err.out_of_range": "Olvasandó oldalszám (1 alapú). A max_lines paraméterrel együtt használatos.",
-    "msg.truncated": "Az olvasás megkezdésének sorszáma (1 alapú). Az alapértelmezett érték 1.",
+    "err.out_of_range": "(a fájl csak {count} sorokat tartalmaz, a kezdő_sor {start_line} a tartományon kívül esik)",
+    "msg.truncated": "[read_file csonka: a {max_bytes} bájtkorlát elérve]",
     "param.filename.description": "Fájltartalom olvasása (maximum 1 MB). Támogatja a részleges olvasást a start_line/max_lines segítségével.",
     "param.page.description": "Olvasandó oldalszám (1-es). A max_lines paraméterrel együtt használatos.",
     "param.start_line.description": "Az olvasás megkezdésének sorszáma (1-es). Az alapértelmezett az 1.",
@@ -1026,7 +1026,7 @@
     "err.dual_lines": "[read_file error] head_lines și tail_lines nu pot fi specificate împreună",
     "err.filename_missing": "[read_file error] numele fișierului/calea nu este specificat",
     "err.out_of_range": "(fișierul are doar {count} linii, start_line {start_line} este în afara intervalului)",
-    "msg.truncated": "[read_file truncated: limită de octeți {max_bytes] de [= the= the] read Path.]",
+    "msg.truncated": "[fișierul citit trunchiat: limita de octeți {max_bytes} atinsă]",
     "param.filename.description": "Număr de pagină de citit (pe baza 1). Folosit împreună cu max_lines.",
     "param.page.description": "Număr de linie de la care începe să citești (bazat pe 1). Implicit este 1.",
     "param.start_line.description": "Citiți conținutul fișierului (maxim 1MB). Acceptă citirea parțială prin start_line/max_lines.",

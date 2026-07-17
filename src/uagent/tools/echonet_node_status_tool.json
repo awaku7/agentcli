@@ -1,63 +1,75 @@
 {
   "ar": {
-    "param.ip.description": "Target node IPv4 address.",
-    "param.timeout.description": "Timeout (seconds).",
-    "param.fmt.description": "Format: json or text.",
-    "err.invalid_eoj": "Error: Could not parse EOJ '{eoj}'.",
-    "err.invalid_object_code": "Error: Could not parse object_code '{object_code}'.",
-    "msg.summary": "ECHONET Lite node status fetched: {ip_address} in {elapsed_ms} ms.",
-    "err.invalid_ip_address": "Error: ip_address must be a valid IPv4 address.",
+    "param.ip.description": "عنوان IPv4 للعقدة المستهدفة.",
+    "param.timeout.description": "المهلة (ثواني).",
+    "param.fmt.description": "التنسيق: json أو نص.",
+    "err.invalid_eoj": "خطأ: تعذر تحليل EOJ '{eoj}'.",
+    "err.invalid_object_code": "خطأ: تعذر تحليل كود_الكائن '{object_code}'.",
+    "msg.summary": "تم جلب حالة عقدة ECHONET Lite: {ip_address} في {elapsed_ms} مللي ثانية.",
+    "err.invalid_ip_address": "خطأ: يجب أن يكون ip_address عنوان IPv4 صالحًا.",
     "x_search_terms": [
       "حالة عقدة echonet",
       "echonet_node_status",
       "إيكونت",
       "إيكونت"
-    ]
+    ],
+    "param.eoj.description": "الهدف EOJ (الافتراضي: ملف تعريف العقدة).",
+    "param.obj.description": "عامل تصفية رمز الكائن (على سبيل المثال \"0130\").",
+    "tool.description": "اقرأ حالة عقدة ECHONET Lite على الشبكة المحلية وقم بإرجاع ملخص JSON أو نص."
   },
   "bn": {
-    "param.ip.description": "Target node IPv4 address.",
-    "param.timeout.description": "Timeout (seconds).",
-    "param.fmt.description": "Format: json or text.",
-    "err.invalid_eoj": "Error: Could not parse EOJ '{eoj}'.",
-    "err.invalid_object_code": "Error: Could not parse object_code '{object_code}'.",
-    "msg.summary": "ECHONET Lite node status fetched: {ip_address} in {elapsed_ms} ms.",
-    "err.invalid_ip_address": "Error: ip_address must be a valid IPv4 address.",
+    "param.ip.description": "লক্ষ্য নোড IPv4 ঠিকানা।",
+    "param.timeout.description": "সময়সীমা (সেকেন্ড)।",
+    "param.fmt.description": "বিন্যাস: json বা পাঠ্য।",
+    "err.invalid_eoj": "ত্রুটি: EOJ '{eoj}' পার্স করা যায়নি৷",
+    "err.invalid_object_code": "ত্রুটি: অবজেক্ট_কোড '{object_code}' পার্স করা যায়নি।",
+    "msg.summary": "ECHONET লাইট নোড স্থিতি আনা হয়েছে: {ip_address} {elapsed_ms} ms এ।",
+    "err.invalid_ip_address": "ত্রুটি: ip_address অবশ্যই একটি বৈধ IPv4 ঠিকানা হতে হবে।",
     "x_search_terms": [
       "echonet নোড স্থিতি",
       "echonet_node_status",
       "ইকোনেট",
       "ইকোনেট"
-    ]
+    ],
+    "param.eoj.description": "লক্ষ্য EOJ (ডিফল্ট: নোড প্রোফাইল)।",
+    "param.obj.description": "অবজেক্ট কোড ফিল্টার (যেমন '0130')।",
+    "tool.description": "স্থানীয় নেটওয়ার্কে একটি ECHONET Lite নোডের স্থিতি পড়ুন এবং একটি JSON বা পাঠ্যের সারাংশ ফেরত দিন৷"
   },
   "cs": {
-    "param.ip.description": "Target node IPv4 address.",
-    "param.timeout.description": "Timeout (seconds).",
-    "param.fmt.description": "Format: json or text.",
-    "err.invalid_eoj": "Error: Could not parse EOJ '{eoj}'.",
-    "err.invalid_object_code": "Error: Could not parse object_code '{object_code}'.",
-    "msg.summary": "ECHONET Lite node status fetched: {ip_address} in {elapsed_ms} ms.",
-    "err.invalid_ip_address": "Error: ip_address must be a valid IPv4 address.",
+    "param.ip.description": "Adresa IPv4 cílového uzlu.",
+    "param.timeout.description": "Časový limit (v sekundách).",
+    "param.fmt.description": "Formát: json nebo text.",
+    "err.invalid_eoj": "Chyba: Nelze analyzovat EOJ '{eoj}'.",
+    "err.invalid_object_code": "Chyba: Nelze analyzovat object_code '{object_code}'.",
+    "msg.summary": "Načten stav uzlu ECHONET Lite: {ip_address} za {elapsed_ms} ms.",
+    "err.invalid_ip_address": "Chyba: ip_address musí být platná adresa IPv4.",
     "x_search_terms": [
       "stav uzlu echonet",
       "echonet_node_status",
       "echosíť",
       "ECHONET"
-    ]
+    ],
+    "param.eoj.description": "Cílový EOJ (výchozí: profil uzlu).",
+    "param.obj.description": "Filtr kódu objektu (např. „0130“).",
+    "tool.description": "Přečtěte si stav uzlu ECHONET Lite v místní síti a vraťte JSON nebo textové shrnutí."
   },
   "de": {
-    "param.ip.description": "Target node IPv4 address.",
-    "param.timeout.description": "Timeout (seconds).",
-    "param.fmt.description": "Format: json or text.",
-    "err.invalid_eoj": "Error: Could not parse EOJ '{eoj}'.",
-    "err.invalid_object_code": "Error: Could not parse object_code '{object_code}'.",
-    "msg.summary": "ECHONET Lite node status fetched: {ip_address} in {elapsed_ms} ms.",
-    "err.invalid_ip_address": "Error: ip_address must be a valid IPv4 address.",
+    "param.ip.description": "IPv4-Adresse des Zielknotens.",
+    "param.timeout.description": "Timeout (Sekunden).",
+    "param.fmt.description": "Format: JSON oder Text.",
+    "err.invalid_eoj": "Fehler: EOJ '{eoj}' konnte nicht analysiert werden.",
+    "err.invalid_object_code": "Fehler: Objektcode „{object_code}“ konnte nicht analysiert werden.",
+    "msg.summary": "ECHONET Lite-Knotenstatus abgerufen: {ip_address} in {elapsed_ms} ms.",
+    "err.invalid_ip_address": "Fehler: ip_address muss eine gültige IPv4-Adresse sein.",
     "x_search_terms": [
       "Echonet-Knotenstatus",
       "echonet_node_status",
       "echonet",
       "ECHONET"
-    ]
+    ],
+    "param.eoj.description": "Ziel-EOJ (Standard: Knotenprofil).",
+    "param.obj.description": "Objektcodefilter (z. B. „0130“).",
+    "tool.description": "Lesen Sie den Status eines ECHONET Lite-Knotens im lokalen Netzwerk und geben Sie eine JSON- oder Textzusammenfassung zurück."
   },
   "en": {
     "param.ip.description": "Target node IPv4 address.",
@@ -78,118 +90,139 @@
     ]
   },
   "es": {
-    "param.ip.description": "Target node IPv4 address.",
-    "param.timeout.description": "Timeout (seconds).",
-    "param.fmt.description": "Format: json or text.",
-    "err.invalid_eoj": "Error: Could not parse EOJ '{eoj}'.",
-    "err.invalid_object_code": "Error: Could not parse object_code '{object_code}'.",
-    "msg.summary": "ECHONET Lite node status fetched: {ip_address} in {elapsed_ms} ms.",
-    "err.invalid_ip_address": "Error: ip_address must be a valid IPv4 address.",
+    "param.ip.description": "Dirección IPv4 del nodo de destino.",
+    "param.timeout.description": "Tiempo de espera (segundos).",
+    "param.fmt.description": "Formato: json o texto.",
+    "err.invalid_eoj": "Error: No se pudo analizar EOJ '{eoj}'.",
+    "err.invalid_object_code": "Error: No se pudo analizar el código_objeto '{object_code}'.",
+    "msg.summary": "Estado del nodo ECHONET Lite obtenido: {ip_address} en {elapsed_ms} ms.",
+    "err.invalid_ip_address": "Error: dirección_ip debe ser una dirección IPv4 válida.",
     "x_search_terms": [
       "estado del nodo echonet",
       "echonet_node_status",
       "econet",
       "ECHONET"
-    ]
+    ],
+    "param.eoj.description": "Objetivo EOJ (predeterminado: perfil de nodo).",
+    "param.obj.description": "Filtro de código objeto (por ejemplo, '0130').",
+    "tool.description": "Lea el estado de un nodo ECHONET Lite en la red local y devuelva un resumen de texto o JSON."
   },
   "fa": {
-    "param.ip.description": "Target node IPv4 address.",
-    "param.timeout.description": "Timeout (seconds).",
-    "param.fmt.description": "Format: json or text.",
-    "err.invalid_eoj": "Error: Could not parse EOJ '{eoj}'.",
-    "err.invalid_object_code": "Error: Could not parse object_code '{object_code}'.",
-    "msg.summary": "ECHONET Lite node status fetched: {ip_address} in {elapsed_ms} ms.",
-    "err.invalid_ip_address": "Error: ip_address must be a valid IPv4 address.",
+    "param.ip.description": "آدرس IPv4 گره هدف.",
+    "param.timeout.description": "تایم اوت (ثانیه).",
+    "param.fmt.description": "فرمت: json یا متن.",
+    "err.invalid_eoj": "خطا: EOJ '{eoj}' تجزیه نشد.",
+    "err.invalid_object_code": "خطا: نمی‌توان object_code \"{object_code}\" را تجزیه کرد.",
+    "msg.summary": "وضعیت گره ECHONET Lite واکشی شد: {ip_address} در {elapsed_ms} ms.",
+    "err.invalid_ip_address": "خطا: ip_address باید یک آدرس IPv4 معتبر باشد.",
     "x_search_terms": [
       "وضعیت گره echonet",
       "echonet_node_status",
       "اکونت",
       "اکونت"
-    ]
+    ],
+    "param.eoj.description": "EOJ هدف (پیش‌فرض: نمایه گره).",
+    "param.obj.description": "فیلتر کد شی (به عنوان مثال '0130').",
+    "tool.description": "وضعیت یک گره ECHONET Lite را در شبکه محلی بخوانید و یک JSON یا خلاصه متن را برگردانید."
   },
   "fi": {
-    "param.ip.description": "Target node IPv4 address.",
-    "param.timeout.description": "Timeout (seconds).",
-    "param.fmt.description": "Format: json or text.",
-    "err.invalid_eoj": "Error: Could not parse EOJ '{eoj}'.",
-    "err.invalid_object_code": "Error: Could not parse object_code '{object_code}'.",
-    "msg.summary": "ECHONET Lite node status fetched: {ip_address} in {elapsed_ms} ms.",
-    "err.invalid_ip_address": "Error: ip_address must be a valid IPv4 address.",
+    "param.ip.description": "Kohdesolmun IPv4-osoite.",
+    "param.timeout.description": "Aikakatkaisu (sekuntia).",
+    "param.fmt.description": "Muoto: json tai teksti.",
+    "err.invalid_eoj": "Virhe: EOJ:n '{eoj}' jäsentäminen epäonnistui.",
+    "err.invalid_object_code": "Virhe: Objektin_koodia '{object_code}' ei voitu jäsentää.",
+    "msg.summary": "ECHONET Lite -solmun tila haettu: {ip_address} {elapsed_ms} ms:ssa.",
+    "err.invalid_ip_address": "Virhe: ip_addressin on oltava kelvollinen IPv4-osoite.",
     "x_search_terms": [
       "echonet-solmutila",
       "echonet_node_status",
       "ekoverkko",
       "ECHONET"
-    ]
+    ],
+    "param.eoj.description": "Kohde EOJ (oletus: solmuprofiili).",
+    "param.obj.description": "Objektikoodisuodatin (esim. '0130').",
+    "tool.description": "Lue paikallisverkon ECHONET Lite -solmun tila ja palauta JSON- tai tekstiyhteenveto."
   },
   "fr": {
-    "param.ip.description": "Target node IPv4 address.",
-    "param.timeout.description": "Timeout (seconds).",
-    "param.fmt.description": "Format: json or text.",
-    "err.invalid_eoj": "Error: Could not parse EOJ '{eoj}'.",
-    "err.invalid_object_code": "Error: Could not parse object_code '{object_code}'.",
-    "msg.summary": "ECHONET Lite node status fetched: {ip_address} in {elapsed_ms} ms.",
-    "err.invalid_ip_address": "Error: ip_address must be a valid IPv4 address.",
+    "param.ip.description": "Adresse IPv4 du nœud cible.",
+    "param.timeout.description": "Délai d'expiration (secondes).",
+    "param.fmt.description": "Format : json ou texte.",
+    "err.invalid_eoj": "Erreur : Impossible d'analyser l'EOJ '{eoj}'.",
+    "err.invalid_object_code": "Erreur : Impossible d'analyser le code_objet '{object_code}'.",
+    "msg.summary": "État du nœud ECHONET Lite récupéré : {ip_address} en {elapsed_ms} ms.",
+    "err.invalid_ip_address": "Erreur : ip_address doit être une adresse IPv4 valide.",
     "x_search_terms": [
       "état du nœud echonet",
       "echonet_node_status",
       "échonet",
       "ÉCHONET"
-    ]
+    ],
+    "param.eoj.description": "Cible EOJ (par défaut : profil de nœud).",
+    "param.obj.description": "Filtre de code objet (par exemple « 0130 »).",
+    "tool.description": "Lisez l'état d'un nœud ECHONET Lite sur le réseau local et renvoyez un résumé JSON ou texte."
   },
   "hi": {
-    "param.ip.description": "Target node IPv4 address.",
-    "param.timeout.description": "Timeout (seconds).",
-    "param.fmt.description": "Format: json or text.",
-    "err.invalid_eoj": "Error: Could not parse EOJ '{eoj}'.",
-    "err.invalid_object_code": "Error: Could not parse object_code '{object_code}'.",
-    "msg.summary": "ECHONET Lite node status fetched: {ip_address} in {elapsed_ms} ms.",
-    "err.invalid_ip_address": "Error: ip_address must be a valid IPv4 address.",
+    "param.ip.description": "लक्ष्य नोड IPv4 पता.",
+    "param.timeout.description": "टाइमआउट (सेकंड)।",
+    "param.fmt.description": "प्रारूप: json या text.",
+    "err.invalid_eoj": "त्रुटि: EOJ '{eoj}' को पार्स नहीं किया जा सका।",
+    "err.invalid_object_code": "त्रुटि: object_code '{object_code}' को पार्स नहीं किया जा सका।",
+    "msg.summary": "ECHONET लाइट नोड स्थिति प्राप्त की गई: {ip_address} {elapsed_ms} एमएस में।",
+    "err.invalid_ip_address": "त्रुटि: ip_address एक वैध IPv4 पता होना चाहिए।",
     "x_search_terms": [
       "echonet नोड स्थिति",
       "echonet_node_status",
       "इकोनेट",
       "इकोनेट"
-    ]
+    ],
+    "param.eoj.description": "लक्ष्य EOJ (डिफ़ॉल्ट: नोड प्रोफ़ाइल).",
+    "param.obj.description": "ऑब्जेक्ट कोड फ़िल्टर (उदा. '0130').",
+    "tool.description": "स्थानीय नेटवर्क पर ECHONET लाइट नोड की स्थिति पढ़ें और JSON या टेक्स्ट सारांश लौटाएँ।"
   },
   "id": {
-    "param.ip.description": "Target node IPv4 address.",
-    "param.timeout.description": "Timeout (seconds).",
-    "param.fmt.description": "Format: json or text.",
-    "err.invalid_eoj": "Error: Could not parse EOJ '{eoj}'.",
-    "err.invalid_object_code": "Error: Could not parse object_code '{object_code}'.",
-    "msg.summary": "ECHONET Lite node status fetched: {ip_address} in {elapsed_ms} ms.",
-    "err.invalid_ip_address": "Error: ip_address must be a valid IPv4 address.",
+    "param.ip.description": "Alamat IPv4 simpul target.",
+    "param.timeout.description": "Batas waktu (detik).",
+    "param.fmt.description": "Format: json atau teks.",
+    "err.invalid_eoj": "Kesalahan: Tidak dapat menguraikan EOJ '{eoj}'.",
+    "err.invalid_object_code": "Kesalahan: Tidak dapat menguraikan kode_objek '{object_code}'.",
+    "msg.summary": "Status node ECHONET Lite diambil: {ip_address} dalam {elapsed_ms} ms.",
+    "err.invalid_ip_address": "Kesalahan: ip_address harus berupa alamat IPv4 yang valid.",
     "x_search_terms": [
       "status simpul echonet",
       "echonet_node_status",
       "gema",
       "ECHONET"
-    ]
+    ],
+    "param.eoj.description": "Target EOJ (default: profil simpul).",
+    "param.obj.description": "Filter kode objek (misalnya '0130').",
+    "tool.description": "Baca status node ECHONET Lite di jaringan lokal dan kembalikan JSON atau ringkasan teks."
   },
   "it": {
-    "param.ip.description": "Target node IPv4 address.",
-    "param.timeout.description": "Timeout (seconds).",
-    "param.fmt.description": "Format: json or text.",
-    "err.invalid_eoj": "Error: Could not parse EOJ '{eoj}'.",
-    "err.invalid_object_code": "Error: Could not parse object_code '{object_code}'.",
-    "msg.summary": "ECHONET Lite node status fetched: {ip_address} in {elapsed_ms} ms.",
-    "err.invalid_ip_address": "Error: ip_address must be a valid IPv4 address.",
+    "param.ip.description": "Indirizzo IPv4 del nodo di destinazione.",
+    "param.timeout.description": "Timeout (secondi).",
+    "param.fmt.description": "Formato: json o testo.",
+    "err.invalid_eoj": "Errore: impossibile analizzare l'EOJ '{eoj}'.",
+    "err.invalid_object_code": "Errore: impossibile analizzare il codice_oggetto '{object_code}'.",
+    "msg.summary": "Stato del nodo ECHONET Lite recuperato: {ip_address} in {elapsed_ms} ms.",
+    "err.invalid_ip_address": "Errore: indirizzo_ip deve essere un indirizzo IPv4 valido.",
     "x_search_terms": [
       "stato del nodo echonet",
       "echonet_node_status",
       "econet",
       "ECONET"
-    ]
+    ],
+    "param.eoj.description": "EOJ di destinazione (impostazione predefinita: profilo del nodo).",
+    "param.obj.description": "Filtro codice oggetto (es. '0130').",
+    "tool.description": "Legge lo stato di un nodo ECHONET Lite sulla rete locale e restituisce un JSON o un riepilogo testuale."
   },
   "ja": {
-    "param.ip.description": "Target node IPv4 address.",
-    "param.timeout.description": "Timeout (seconds).",
-    "param.fmt.description": "Format: json or text.",
-    "err.invalid_eoj": "Error: Could not parse EOJ '{eoj}'.",
-    "err.invalid_object_code": "Error: Could not parse object_code '{object_code}'.",
-    "msg.summary": "ECHONET Lite node status fetched: {ip_address} in {elapsed_ms} ms.",
-    "err.invalid_ip_address": "Error: ip_address must be a valid IPv4 address.",
+    "param.ip.description": "ターゲットノードのIPv4アドレス。",
+    "param.timeout.description": "タイムアウト (秒)。",
+    "param.fmt.description": "形式: json またはテキスト。",
+    "err.invalid_eoj": "エラー: EOJ '{eoj}' を解析できませんでした。",
+    "err.invalid_object_code": "エラー: object_code '{object_code}' を解析できませんでした。",
+    "msg.summary": "ECHONET Lite ノードのステータスを取得しました: {ip_address}、{elapsed_ms} ミリ秒。",
+    "err.invalid_ip_address": "エラー: ip_address は有効な IPv4 アドレスである必要があります。",
     "param.eoj.description": "ターゲット EOJ (デフォルト: ノード プロファイル)。",
     "param.obj.description": "オブジェクト コード フィルター (例: '0130')。",
     "tool.description": "ローカルネットワーク上のECHONET Liteノードのステータスを読み取り、JSONまたはテキストの概要を返します。",
@@ -201,49 +234,58 @@
     ]
   },
   "ko": {
-    "param.ip.description": "Target node IPv4 address.",
-    "param.timeout.description": "Timeout (seconds).",
-    "param.fmt.description": "Format: json or text.",
-    "err.invalid_eoj": "Error: Could not parse EOJ '{eoj}'.",
-    "err.invalid_object_code": "Error: Could not parse object_code '{object_code}'.",
-    "msg.summary": "ECHONET Lite node status fetched: {ip_address} in {elapsed_ms} ms.",
-    "err.invalid_ip_address": "Error: ip_address must be a valid IPv4 address.",
+    "param.ip.description": "대상 노드 IPv4 주소입니다.",
+    "param.timeout.description": "시간 초과(초).",
+    "param.fmt.description": "형식: json 또는 텍스트.",
+    "err.invalid_eoj": "오류: EOJ '{eoj}'을(를) 구문 분석할 수 없습니다.",
+    "err.invalid_object_code": "오류: object_code '{object_code}'을(를) 구문 분석할 수 없습니다.",
+    "msg.summary": "가져온 ECHONET Lite 노드 상태: {elapsed_ms}ms 후 {ip_address}.",
+    "err.invalid_ip_address": "오류: ip_address는 유효한 IPv4 주소여야 합니다.",
     "x_search_terms": [
       "echonet 노드 상태",
       "echonet_node_status",
       "에코넷",
       "에코넷"
-    ]
+    ],
+    "param.eoj.description": "타겟 EOJ(기본값: 노드 프로필)",
+    "param.obj.description": "개체 코드 필터(예: '0130').",
+    "tool.description": "로컬 네트워크에서 ECHONET Lite 노드의 상태를 읽고 JSON 또는 텍스트 요약을 반환합니다."
   },
   "mn": {
-    "param.ip.description": "Target node IPv4 address.",
-    "param.timeout.description": "Timeout (seconds).",
-    "param.fmt.description": "Format: json or text.",
-    "err.invalid_eoj": "Error: Could not parse EOJ '{eoj}'.",
-    "err.invalid_object_code": "Error: Could not parse object_code '{object_code}'.",
-    "msg.summary": "ECHONET Lite node status fetched: {ip_address} in {elapsed_ms} ms.",
-    "err.invalid_ip_address": "Error: ip_address must be a valid IPv4 address.",
+    "param.ip.description": "Зорилтот зангилааны IPv4 хаяг.",
+    "param.timeout.description": "Хугацаа хэтэрсэн (секунд).",
+    "param.fmt.description": "Формат: json эсвэл текст.",
+    "err.invalid_eoj": "Алдаа: EOJ '{eoj}'-г задлан шинжилж чадсангүй.",
+    "err.invalid_object_code": "Алдаа: '{object_code}' объектын кодыг задлан шинжилж чадсангүй.",
+    "msg.summary": "ECHONET Lite зангилааны төлөвийг дуудсан: {ip_address} {elapsed_ms} мс-д.",
+    "err.invalid_ip_address": "Алдаа: ip_address нь хүчинтэй IPv4 хаяг байх ёстой.",
     "x_search_terms": [
       "echonet зангилааны төлөв",
       "echonet_node_status",
       "эхонет",
       "эхонет"
-    ]
+    ],
+    "param.eoj.description": "Зорилтот EOJ (өгөгдмөл: зангилааны профайл).",
+    "param.obj.description": "Объект кодын шүүлтүүр (жишээ нь '0130').",
+    "tool.description": "Дотоод сүлжээн дэх ECHONET Lite зангилааны төлөвийг уншиж, JSON эсвэл текстийн хураангуйг буцаана уу."
   },
   "mr": {
-    "param.ip.description": "Target node IPv4 address.",
-    "param.timeout.description": "Timeout (seconds).",
-    "param.fmt.description": "Format: json or text.",
-    "err.invalid_eoj": "Error: Could not parse EOJ '{eoj}'.",
-    "err.invalid_object_code": "Error: Could not parse object_code '{object_code}'.",
-    "msg.summary": "ECHONET Lite node status fetched: {ip_address} in {elapsed_ms} ms.",
-    "err.invalid_ip_address": "Error: ip_address must be a valid IPv4 address.",
+    "param.ip.description": "लक्ष्य नोड IPv4 पत्ता.",
+    "param.timeout.description": "कालबाह्य (सेकंद).",
+    "param.fmt.description": "स्वरूप: json किंवा मजकूर.",
+    "err.invalid_eoj": "त्रुटी: EOJ '{eoj}' पार्स करू शकलो नाही.",
+    "err.invalid_object_code": "त्रुटी: ऑब्जेक्ट_कोड '{object_code}' पार्स करू शकलो नाही.",
+    "msg.summary": "ECHONET लाइट नोड स्थिती प्राप्त केली: {ip_address} मध्ये {elapsed_ms} ms.",
+    "err.invalid_ip_address": "त्रुटी: ip_address हा वैध IPv4 पत्ता असणे आवश्यक आहे.",
     "x_search_terms": [
       "echonet नोड स्थिती",
       "echonet_node_status",
       "इकोनेट",
       "इकोनेट"
-    ]
+    ],
+    "param.eoj.description": "लक्ष्य EOJ (डीफॉल्ट: नोड प्रोफाइल).",
+    "param.obj.description": "ऑब्जेक्ट कोड फिल्टर (उदा. '0130').",
+    "tool.description": "स्थानिक नेटवर्कवर ECHONET Lite नोडची स्थिती वाचा आणि JSON किंवा मजकूर सारांश परत करा."
   },
   "el": {
     "param.ip.description": "Διεύθυνση IPv4 κόμβου στόχου.",
@@ -258,7 +300,10 @@
       "echonet_node_status",
       "echonet",
       "ECHONET"
-    ]
+    ],
+    "param.eoj.description": "Στόχος EOJ (προεπιλογή: προφίλ κόμβου).",
+    "param.obj.description": "Φίλτρο κωδικού αντικειμένου (π.χ. '0130').",
+    "tool.description": "Διαβάστε την κατάσταση ενός κόμβου ECHONET Lite στο τοπικό δίκτυο και επιστρέψτε μια σύνοψη JSON ή κειμένου."
   },
   "he": {
     "param.ip.description": "כתובת IPv4 של צומת יעד.",
@@ -273,7 +318,10 @@
       "echonet_node_status",
       "אקו-נט",
       "אקו-נט"
-    ]
+    ],
+    "param.eoj.description": "יעד EOJ (ברירת מחדל: פרופיל צומת).",
+    "param.obj.description": "מסנן קוד אובייקט (למשל '0130').",
+    "tool.description": "קרא את המצב של צומת ECHONET Lite ברשת המקומית והחזר JSON או סיכום טקסט."
   },
   "hu": {
     "param.ip.description": "Célcsomópont IPv4-címe.",
@@ -288,7 +336,10 @@
       "echonet_node_status",
       "echonet",
       "ECHONET"
-    ]
+    ],
+    "param.eoj.description": "Cél EOJ (alapértelmezett: csomópont profil).",
+    "param.obj.description": "Objektumkód szűrő (pl. „0130”).",
+    "tool.description": "Olvassa el egy ECHONET Lite csomópont állapotát a helyi hálózaton, és küldjön vissza egy JSON- vagy szöveges összefoglalót."
   },
   "ro": {
     "param.ip.description": "Adresa IPv4 a nodului țintă.",
@@ -303,216 +354,261 @@
       "echonet_node_status",
       "econet",
       "ECHONET"
-    ]
+    ],
+    "param.eoj.description": "EOJ țintă (implicit: profil de nod).",
+    "param.obj.description": "Filtru de cod obiect (de exemplu, „0130”).",
+    "tool.description": "Citiți starea unui nod ECHONET Lite în rețeaua locală și returnați un rezumat JSON sau text."
   },
   "nb": {
-    "param.ip.description": "Target node IPv4 address.",
-    "param.timeout.description": "Timeout (seconds).",
-    "param.fmt.description": "Format: json or text.",
-    "err.invalid_eoj": "Error: Could not parse EOJ '{eoj}'.",
-    "err.invalid_object_code": "Error: Could not parse object_code '{object_code}'.",
-    "msg.summary": "ECHONET Lite node status fetched: {ip_address} in {elapsed_ms} ms.",
-    "err.invalid_ip_address": "Error: ip_address must be a valid IPv4 address.",
+    "param.ip.description": "Målnodens IPv4-adresse.",
+    "param.timeout.description": "Tidsavbrudd (sekunder).",
+    "param.fmt.description": "Format: json eller tekst.",
+    "err.invalid_eoj": "Feil: Kunne ikke analysere EOJ '{eoj}'.",
+    "err.invalid_object_code": "Feil: Kunne ikke analysere objektkode '{object_code}'.",
+    "msg.summary": "ECHONET Lite nodestatus hentet: {ip_address} på {elapsed_ms} ms.",
+    "err.invalid_ip_address": "Feil: ip_adresse må være en gyldig IPv4-adresse.",
     "x_search_terms": [
       "echonet node-status",
       "echonet_node_status",
       "ekonett",
       "ECHONET"
-    ]
+    ],
+    "param.eoj.description": "Mål EOJ (standard: nodeprofil).",
+    "param.obj.description": "Objektkodefilter (f.eks. '0130').",
+    "tool.description": "Les statusen til en ECHONET Lite-node på det lokale nettverket og returner et JSON- eller tekstsammendrag."
   },
   "nl": {
-    "param.ip.description": "Target node IPv4 address.",
-    "param.timeout.description": "Timeout (seconds).",
-    "param.fmt.description": "Format: json or text.",
-    "err.invalid_eoj": "Error: Could not parse EOJ '{eoj}'.",
-    "err.invalid_object_code": "Error: Could not parse object_code '{object_code}'.",
-    "msg.summary": "ECHONET Lite node status fetched: {ip_address} in {elapsed_ms} ms.",
-    "err.invalid_ip_address": "Error: ip_address must be a valid IPv4 address.",
+    "param.ip.description": "IPv4-adres van doelknooppunt.",
+    "param.timeout.description": "Time-out (seconden).",
+    "param.fmt.description": "Formaat: json of tekst.",
+    "err.invalid_eoj": "Fout: Kan EOJ '{eoj}' niet parseren.",
+    "err.invalid_object_code": "Fout: Kan object_code '{object_code}' niet parseren.",
+    "msg.summary": "ECHONET Lite-knooppuntstatus opgehaald: {ip_address} in {elapsed_ms} ms.",
+    "err.invalid_ip_address": "Fout: ip_address moet een geldig IPv4-adres zijn.",
     "x_search_terms": [
       "echonet-knooppuntstatus",
       "echonet_node_status",
       "echonet",
       "ECHONET"
-    ]
+    ],
+    "param.eoj.description": "Doel-EOJ (standaard: knooppuntprofiel).",
+    "param.obj.description": "Objectcodefilter (bijvoorbeeld '0130').",
+    "tool.description": "Lees de status van een ECHONET Lite-knooppunt op het lokale netwerk en retourneer een JSON- of tekstsamenvatting."
   },
   "pl": {
-    "param.ip.description": "Target node IPv4 address.",
-    "param.timeout.description": "Timeout (seconds).",
-    "param.fmt.description": "Format: json or text.",
-    "err.invalid_eoj": "Error: Could not parse EOJ '{eoj}'.",
-    "err.invalid_object_code": "Error: Could not parse object_code '{object_code}'.",
-    "msg.summary": "ECHONET Lite node status fetched: {ip_address} in {elapsed_ms} ms.",
-    "err.invalid_ip_address": "Error: ip_address must be a valid IPv4 address.",
+    "param.ip.description": "Adres IPv4 węzła docelowego.",
+    "param.timeout.description": "Limit czasu (sekundy).",
+    "param.fmt.description": "Format: json lub tekst.",
+    "err.invalid_eoj": "Błąd: nie można przeanalizować EOJ „{eoj}”.",
+    "err.invalid_object_code": "Błąd: nie można przeanalizować kodu_obiektu „{object_code}”.",
+    "msg.summary": "Pobrano status węzła ECHONET Lite: {ip_address} w {elapsed_ms} ms.",
+    "err.invalid_ip_address": "Błąd: adres_ip musi być prawidłowym adresem IPv4.",
     "x_search_terms": [
       "stan węzła echonetu",
       "status_węzła_echa",
       "echonet",
       "ECHONET"
-    ]
+    ],
+    "param.eoj.description": "Docelowy EOJ (domyślnie: profil węzła).",
+    "param.obj.description": "Filtr kodu obiektowego (np. „0130”).",
+    "tool.description": "Odczytaj status węzła ECHONET Lite w sieci lokalnej i zwróć podsumowanie w formacie JSON lub tekstowym."
   },
   "pt": {
-    "param.ip.description": "Target node IPv4 address.",
-    "param.timeout.description": "Timeout (seconds).",
-    "param.fmt.description": "Format: json or text.",
-    "err.invalid_eoj": "Error: Could not parse EOJ '{eoj}'.",
-    "err.invalid_object_code": "Error: Could not parse object_code '{object_code}'.",
-    "msg.summary": "ECHONET Lite node status fetched: {ip_address} in {elapsed_ms} ms.",
-    "err.invalid_ip_address": "Error: ip_address must be a valid IPv4 address.",
+    "param.ip.description": "Endereço IPv4 do nó de destino.",
+    "param.timeout.description": "Tempo limite (segundos).",
+    "param.fmt.description": "Formato: json ou texto.",
+    "err.invalid_eoj": "Erro: não foi possível analisar EOJ '{eoj}'.",
+    "err.invalid_object_code": "Erro: não foi possível analisar object_code '{object_code}'.",
+    "msg.summary": "Status do nó ECHONET Lite obtido: {ip_address} em {elapsed_ms} ms.",
+    "err.invalid_ip_address": "Erro: ip_address deve ser um endereço IPv4 válido.",
     "x_search_terms": [
       "estado do nó echonet",
       "echonet_node_status",
       "econet",
       "ECHONET"
-    ]
+    ],
+    "param.eoj.description": "EOJ de destino (padrão: perfil do nó).",
+    "param.obj.description": "Filtro de código de objeto (por exemplo, '0130').",
+    "tool.description": "Leia o status de um nó ECHONET Lite na rede local e retorne um JSON ou um resumo de texto."
   },
   "pt_BR": {
-    "param.ip.description": "Target node IPv4 address.",
-    "param.timeout.description": "Timeout (seconds).",
-    "param.fmt.description": "Format: json or text.",
-    "err.invalid_eoj": "Error: Could not parse EOJ '{eoj}'.",
-    "err.invalid_object_code": "Error: Could not parse object_code '{object_code}'.",
-    "msg.summary": "ECHONET Lite node status fetched: {ip_address} in {elapsed_ms} ms.",
-    "err.invalid_ip_address": "Error: ip_address must be a valid IPv4 address.",
+    "param.ip.description": "Endereço IPv4 do nó de destino.",
+    "param.timeout.description": "Tempo limite (segundos).",
+    "param.fmt.description": "Formato: json ou texto.",
+    "err.invalid_eoj": "Erro: não foi possível analisar EOJ '{eoj}'.",
+    "err.invalid_object_code": "Erro: não foi possível analisar object_code '{object_code}'.",
+    "msg.summary": "Status do nó ECHONET Lite obtido: {ip_address} em {elapsed_ms} ms.",
+    "err.invalid_ip_address": "Erro: ip_address deve ser um endereço IPv4 válido.",
     "x_search_terms": [
       "status do nó echonet",
       "echonet_node_status",
       "econet",
       "ECHONET"
-    ]
+    ],
+    "param.eoj.description": "EOJ de destino (padrão: perfil do nó).",
+    "param.obj.description": "Filtro de código de objeto (por exemplo, '0130').",
+    "tool.description": "Leia o status de um nó ECHONET Lite na rede local e retorne um JSON ou um resumo de texto."
   },
   "ru": {
-    "param.ip.description": "Target node IPv4 address.",
-    "param.timeout.description": "Timeout (seconds).",
-    "param.fmt.description": "Format: json or text.",
-    "err.invalid_eoj": "Error: Could not parse EOJ '{eoj}'.",
-    "err.invalid_object_code": "Error: Could not parse object_code '{object_code}'.",
-    "msg.summary": "ECHONET Lite node status fetched: {ip_address} in {elapsed_ms} ms.",
-    "err.invalid_ip_address": "Error: ip_address must be a valid IPv4 address.",
+    "param.ip.description": "IPv4-адрес целевого узла.",
+    "param.timeout.description": "Тайм-аут (секунды).",
+    "param.fmt.description": "Формат: json или текст.",
+    "err.invalid_eoj": "Ошибка: не удалось проанализировать EOJ «{eoj}».",
+    "err.invalid_object_code": "Ошибка: не удалось проанализировать код объекта «{object_code}».",
+    "msg.summary": "Статус узла ECHONET Lite получен: {ip_address} через {elapsed_ms} мс.",
+    "err.invalid_ip_address": "Ошибка: ip_address должен быть действительным адресом IPv4.",
     "x_search_terms": [
       "состояние узла echonet",
       "echonet_node_status",
       "эхосеть",
       "ECHONET"
-    ]
+    ],
+    "param.eoj.description": "Целевой EOJ (по умолчанию: профиль узла).",
+    "param.obj.description": "Фильтр объектного кода (например, «0130»).",
+    "tool.description": "Прочитайте состояние узла ECHONET Lite в локальной сети и верните JSON или текстовую сводку."
   },
   "sv": {
-    "param.ip.description": "Target node IPv4 address.",
-    "param.timeout.description": "Timeout (seconds).",
-    "param.fmt.description": "Format: json or text.",
-    "err.invalid_eoj": "Error: Could not parse EOJ '{eoj}'.",
-    "err.invalid_object_code": "Error: Could not parse object_code '{object_code}'.",
-    "msg.summary": "ECHONET Lite node status fetched: {ip_address} in {elapsed_ms} ms.",
-    "err.invalid_ip_address": "Error: ip_address must be a valid IPv4 address.",
+    "param.ip.description": "IPv4-adress för målnoden.",
+    "param.timeout.description": "Timeout (sekunder).",
+    "param.fmt.description": "Format: json eller text.",
+    "err.invalid_eoj": "Fel: Kunde inte analysera EOJ '{eoj}'.",
+    "err.invalid_object_code": "Fel: Kunde inte analysera objektkoden '{object_code}'.",
+    "msg.summary": "ECHONET Lite nodstatus hämtad: {ip_address} på {elapsed_ms} ms.",
+    "err.invalid_ip_address": "Fel: ip_address måste vara en giltig IPv4-adress.",
     "x_search_terms": [
       "echonet nodstatus",
       "echonet_node_status",
       "ekonät",
       "ECHONET"
-    ]
+    ],
+    "param.eoj.description": "Mål EOJ (standard: nodprofil).",
+    "param.obj.description": "Objektkodfilter (t.ex. '0130').",
+    "tool.description": "Läs statusen för en ECHONET Lite-nod på det lokala nätverket och returnera en JSON- eller textsammanfattning."
   },
   "sw": {
-    "param.ip.description": "Target node IPv4 address.",
-    "param.timeout.description": "Timeout (seconds).",
-    "param.fmt.description": "Format: json or text.",
-    "err.invalid_eoj": "Error: Could not parse EOJ '{eoj}'.",
-    "err.invalid_object_code": "Error: Could not parse object_code '{object_code}'.",
-    "msg.summary": "ECHONET Lite node status fetched: {ip_address} in {elapsed_ms} ms.",
-    "err.invalid_ip_address": "Error: ip_address must be a valid IPv4 address.",
+    "param.ip.description": "Anwani ya IPv4 ya nodi lengwa.",
+    "param.timeout.description": "Muda umeisha (sekunde).",
+    "param.fmt.description": "Umbizo: json au maandishi.",
+    "err.invalid_eoj": "Hitilafu: Haikuweza kuchanganua EOJ '{eoj}'.",
+    "err.invalid_object_code": "Hitilafu: Haikuweza kuchanganua object_code '{object_code}'.",
+    "msg.summary": "Hali ya nodi ya ECHONET Lite imeletwa: {ip_address} baada ya ms {elapsed_ms}.",
+    "err.invalid_ip_address": "Hitilafu: ip_address lazima iwe anwani halali ya IPv4.",
     "x_search_terms": [
       "hali ya nodi ya echonet",
       "echonet_node_status",
       "echonet",
       "ECHONET"
-    ]
+    ],
+    "param.eoj.description": "EOJ inayolengwa (chaguo-msingi: wasifu wa nodi).",
+    "param.obj.description": "Kichujio cha msimbo wa kitu (k.m. '0130').",
+    "tool.description": "Soma hali ya nodi ya ECHONET Lite kwenye mtandao wa ndani na urudishe muhtasari wa maandishi ya JSON."
   },
   "th": {
-    "param.ip.description": "Target node IPv4 address.",
-    "param.timeout.description": "Timeout (seconds).",
-    "param.fmt.description": "Format: json or text.",
-    "err.invalid_eoj": "Error: Could not parse EOJ '{eoj}'.",
-    "err.invalid_object_code": "Error: Could not parse object_code '{object_code}'.",
-    "msg.summary": "ECHONET Lite node status fetched: {ip_address} in {elapsed_ms} ms.",
-    "err.invalid_ip_address": "Error: ip_address must be a valid IPv4 address.",
+    "param.ip.description": "ที่อยู่ IPv4 ของโหนดเป้าหมาย",
+    "param.timeout.description": "หมดเวลา (วินาที)",
+    "param.fmt.description": "รูปแบบ: json หรือข้อความ",
+    "err.invalid_eoj": "ข้อผิดพลาด: ไม่สามารถแยกวิเคราะห์ EOJ '{eoj}'",
+    "err.invalid_object_code": "ข้อผิดพลาด: ไม่สามารถแยกวิเคราะห์ object_code '{object_code}'",
+    "msg.summary": "ดึงข้อมูลสถานะโหนด ECHONET Lite แล้ว: {ip_address} ใน {elapsed_ms} ms",
+    "err.invalid_ip_address": "ข้อผิดพลาด: ip_address ต้องเป็นที่อยู่ IPv4 ที่ถูกต้อง",
     "x_search_terms": [
       "สถานะโหนด echonet",
       "echonet_node_status",
       "อีโค่เน็ต",
       "อีโค่เน็ต"
-    ]
+    ],
+    "param.eoj.description": "เป้าหมาย EOJ (ค่าเริ่มต้น: โปรไฟล์โหนด)",
+    "param.obj.description": "ตัวกรองรหัสออบเจ็กต์ (เช่น '0130')",
+    "tool.description": "อ่านสถานะของโหนด ECHONET Lite บนเครือข่ายท้องถิ่นและส่งกลับ JSON หรือสรุปข้อความ"
   },
   "tr": {
-    "param.ip.description": "Target node IPv4 address.",
-    "param.timeout.description": "Timeout (seconds).",
-    "param.fmt.description": "Format: json or text.",
-    "err.invalid_eoj": "Error: Could not parse EOJ '{eoj}'.",
-    "err.invalid_object_code": "Error: Could not parse object_code '{object_code}'.",
-    "msg.summary": "ECHONET Lite node status fetched: {ip_address} in {elapsed_ms} ms.",
-    "err.invalid_ip_address": "Error: ip_address must be a valid IPv4 address.",
+    "param.ip.description": "Hedef düğüm IPv4 adresi.",
+    "param.timeout.description": "Zaman aşımı (saniye).",
+    "param.fmt.description": "Biçim: json veya metin.",
+    "err.invalid_eoj": "Hata: EOJ '{eoj}' ayrıştırılamadı.",
+    "err.invalid_object_code": "Hata: '{object_code}' nesne_kodu ayrıştırılamadı.",
+    "msg.summary": "ECHONET Lite düğüm durumu getirildi: {elapsed_ms} ms'de {ip_address}.",
+    "err.invalid_ip_address": "Hata: ip_address geçerli bir IPv4 adresi olmalıdır.",
     "x_search_terms": [
       "echonet düğüm durumu",
       "echonet_node_status",
       "eko ağ",
       "ECONET"
-    ]
+    ],
+    "param.eoj.description": "Hedef EOJ (varsayılan: düğüm profili).",
+    "param.obj.description": "Nesne kodu filtresi (ör. '0130').",
+    "tool.description": "Yerel ağdaki bir ECHONET Lite düğümünün durumunu okuyun ve bir JSON veya metin özeti döndürün."
   },
   "uk": {
-    "param.ip.description": "Target node IPv4 address.",
-    "param.timeout.description": "Timeout (seconds).",
-    "param.fmt.description": "Format: json or text.",
-    "err.invalid_eoj": "Error: Could not parse EOJ '{eoj}'.",
-    "err.invalid_object_code": "Error: Could not parse object_code '{object_code}'.",
-    "msg.summary": "ECHONET Lite node status fetched: {ip_address} in {elapsed_ms} ms.",
-    "err.invalid_ip_address": "Error: ip_address must be a valid IPv4 address.",
+    "param.ip.description": "IPv4-адреса цільового вузла.",
+    "param.timeout.description": "Тайм-аут (секунди).",
+    "param.fmt.description": "Формат: json або текстовий.",
+    "err.invalid_eoj": "Помилка: не вдалося проаналізувати EOJ '{eoj}'.",
+    "err.invalid_object_code": "Помилка: не вдалося проаналізувати object_code '{object_code}'.",
+    "msg.summary": "Статус вузла ECHONET Lite отримано: {ip_address} через {elapsed_ms} мс.",
+    "err.invalid_ip_address": "Помилка: ip_address має бути дійсною адресою IPv4.",
     "x_search_terms": [
       "стан вузла echonet",
       "echonet_node_status",
       "ехомережа",
       "ECHONET"
-    ]
+    ],
+    "param.eoj.description": "Цільовий EOJ (за замовчуванням: профіль вузла).",
+    "param.obj.description": "Фільтр коду об’єкта (наприклад, «0130»).",
+    "tool.description": "Зчитувати стан вузла ECHONET Lite у локальній мережі та повертати JSON або текстовий підсумок."
   },
   "vi": {
-    "param.ip.description": "Target node IPv4 address.",
-    "param.timeout.description": "Timeout (seconds).",
-    "param.fmt.description": "Format: json or text.",
-    "err.invalid_eoj": "Error: Could not parse EOJ '{eoj}'.",
-    "err.invalid_object_code": "Error: Could not parse object_code '{object_code}'.",
-    "msg.summary": "ECHONET Lite node status fetched: {ip_address} in {elapsed_ms} ms.",
-    "err.invalid_ip_address": "Error: ip_address must be a valid IPv4 address.",
+    "param.ip.description": "Địa chỉ IPv4 của nút đích.",
+    "param.timeout.description": "Thời gian chờ (giây).",
+    "param.fmt.description": "Định dạng: json hoặc văn bản.",
+    "err.invalid_eoj": "Lỗi: Không thể phân tích cú pháp EOJ '{eoj}'.",
+    "err.invalid_object_code": "Lỗi: Không thể phân tích cú pháp object_code '{object_code}'.",
+    "msg.summary": "Đã tìm nạp trạng thái nút ECHONET Lite: {ip_address} sau {elapsed_ms} mili giây.",
+    "err.invalid_ip_address": "Lỗi: ip_address phải là địa chỉ IPv4 hợp lệ.",
     "x_search_terms": [
       "trạng thái nút echonet",
       "echonet_node_status",
       "tiếng vang",
       "ECHONET"
-    ]
+    ],
+    "param.eoj.description": "Mục tiêu EOJ (mặc định: hồ sơ nút).",
+    "param.obj.description": "Bộ lọc mã đối tượng (ví dụ: '0130').",
+    "tool.description": "Đọc trạng thái của nút ECHONET Lite trên mạng cục bộ và trả về bản tóm tắt văn bản hoặc JSON."
   },
   "zh_CN": {
-    "param.ip.description": "Target node IPv4 address.",
-    "param.timeout.description": "Timeout (seconds).",
-    "param.fmt.description": "Format: json or text.",
-    "err.invalid_eoj": "Error: Could not parse EOJ '{eoj}'.",
-    "err.invalid_object_code": "Error: Could not parse object_code '{object_code}'.",
-    "msg.summary": "ECHONET Lite node status fetched: {ip_address} in {elapsed_ms} ms.",
-    "err.invalid_ip_address": "Error: ip_address must be a valid IPv4 address.",
+    "param.ip.description": "目标节点 IPv4 地址。",
+    "param.timeout.description": "超时（秒）。",
+    "param.fmt.description": "格式：json 或文本。",
+    "err.invalid_eoj": "错误：无法解析 EOJ“{eoj}”。",
+    "err.invalid_object_code": "错误：无法解析 object_code '{object_code}'。",
+    "msg.summary": "已获取 ECHONET Lite 节点状态：{elapsed_ms} 毫秒内 {ip_address}。",
+    "err.invalid_ip_address": "错误：ip_address 必须是有效的 IPv4 地址。",
     "x_search_terms": [
       "echonet 节点状态",
       "echonet_node_status",
       "echonet",
       "ECHONET"
-    ]
+    ],
+    "param.eoj.description": "目标 EOJ（默认：节点配置文件）。",
+    "param.obj.description": "目标代码过滤器（例如“0130”）。",
+    "tool.description": "读取本地网络上 ECHONET Lite 节点的状态并返回 JSON 或文本摘要。"
   },
   "zh_TW": {
-    "param.ip.description": "Target node IPv4 address.",
-    "param.timeout.description": "Timeout (seconds).",
-    "param.fmt.description": "Format: json or text.",
-    "err.invalid_eoj": "Error: Could not parse EOJ '{eoj}'.",
-    "err.invalid_object_code": "Error: Could not parse object_code '{object_code}'.",
-    "msg.summary": "ECHONET Lite node status fetched: {ip_address} in {elapsed_ms} ms.",
-    "err.invalid_ip_address": "Error: ip_address must be a valid IPv4 address.",
+    "param.ip.description": "目標節點 IPv4 位址。",
+    "param.timeout.description": "超時（秒）。",
+    "param.fmt.description": "格式：json 或文字。",
+    "err.invalid_eoj": "錯誤：無法解析 EOJ“{eoj}”。",
+    "err.invalid_object_code": "錯誤：無法解析 object_code '{object_code}'。",
+    "msg.summary": "已取得 ECHONET Lite 節點狀態：{elapsed_ms} 毫秒內 {ip_address}。",
+    "err.invalid_ip_address": "錯誤：ip_address 必須是有效的 IPv4 位址。",
     "x_search_terms": [
       "echonet 節點狀態",
       "echonet_node_status",
       "echonet",
       "ECHONET"
-    ]
+    ],
+    "param.eoj.description": "目標 EOJ（預設：節點設定檔）。",
+    "param.obj.description": "目標代碼過濾器（例如“0130”）。",
+    "tool.description": "讀取本機網路上 ECHONET Lite 節點的狀態並傳回 JSON 或文字摘要。"
   }
 }

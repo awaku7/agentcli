@@ -42,7 +42,8 @@
       "ejecución de Python",
       "pitón ejecutivo"
     ],
-    "tool.description": "Ejecute código Python de forma controlada. Utilice esta herramienta para cálculos, procesamiento de datos o ejecutar scripts cortos. Busque otras herramientas adecuadas a través de `tool_catalog` antes de usar esta herramienta."
+    "tool.description": "Ejecute código Python de forma controlada. Utilice esta herramienta para cálculos, procesamiento de datos o ejecutar scripts cortos. Busque otras herramientas adecuadas a través de `tool_catalog` antes de usar esta herramienta.",
+    "[python_exec error] Provide 'code'.": ""
   },
   "fr": {
     "param.code.description": "Code Python.",
@@ -56,7 +57,8 @@
       "exécution de python",
       "exec python"
     ],
-    "tool.description": "Exécutez le code Python de manière contrôlée. Utilisez cet outil pour les calculs, le traitement des données ou l'exécution de scripts courts. Recherchez d'autres outils appropriés via `tool_catalog` avant d'utiliser cet outil."
+    "tool.description": "Exécutez le code Python de manière contrôlée. Utilisez cet outil pour les calculs, le traitement des données ou l'exécution de scripts courts. Recherchez d'autres outils appropriés via `tool_catalog` avant d'utiliser cet outil.",
+    "[python_exec error] Provide 'code'.": ""
   },
   "ko": {
     "param.code.description": "Python 코드.",
@@ -70,7 +72,8 @@
       "python 실행",
       "exec python"
     ],
-    "tool.description": "통제된 방식으로 Python 코드를 실행하세요. 계산, 데이터 처리 또는 짧은 스크립트 실행에 이 도구를 사용하십시오. 이 도구를 사용하기 전에 `tool_catalog`를 통해 다른 적합한 도구를 검색하세요."
+    "tool.description": "통제된 방식으로 Python 코드를 실행하세요. 계산, 데이터 처리 또는 짧은 스크립트 실행에 이 도구를 사용하십시오. 이 도구를 사용하기 전에 `tool_catalog`를 통해 다른 적합한 도구를 검색하세요.",
+    "[python_exec error] Provide 'code'.": ""
   },
   "de": {
     "param.code.description": "Python-Code.",
@@ -84,7 +87,8 @@
       "Python-Lauf",
       "exec python"
     ],
-    "tool.description": "Führen Sie Python-Code auf kontrollierte Weise aus. Verwenden Sie dieses Tool für Berechnungen, Datenverarbeitung oder die Ausführung kurzer Skripte. Suchen Sie über „tool_catalog“ nach anderen geeigneten Tools, bevor Sie dieses Tool verwenden."
+    "tool.description": "Führen Sie Python-Code auf kontrollierte Weise aus. Verwenden Sie dieses Tool für Berechnungen, Datenverarbeitung oder die Ausführung kurzer Skripte. Suchen Sie über „tool_catalog“ nach anderen geeigneten Tools, bevor Sie dieses Tool verwenden.",
+    "[python_exec error] Provide 'code'.": ""
   },
   "it": {
     "param.code.description": "Codice Python.",
@@ -98,14 +102,16 @@
       "corsa pitone",
       "exec python"
     ],
-    "tool.description": "Esegui il codice Python in modo controllato. Utilizzare questo strumento per calcoli, elaborazione dati o esecuzione di brevi script. Cerca altri strumenti adatti tramite `tool_catalog` prima di utilizzare questo strumento."
+    "tool.description": "Esegui il codice Python in modo controllato. Utilizzare questo strumento per calcoli, elaborazione dati o esecuzione di brevi script. Cerca altri strumenti adatti tramite `tool_catalog` prima di utilizzare questo strumento.",
+    "[python_exec error] Provide 'code'.": ""
   },
   "ru": {
     "param.code.description": "Код Python.",
     "x_search_terms": [
       "python exec, запустить питон, выполнить питон, код Python, скрипт Python, запустить скрипт, запуск Python, exec python"
     ],
-    "tool.description": "Выполняйте код Python контролируемым образом. Используйте этот инструмент для вычислений, обработки данных или выполнения коротких сценариев. Прежде чем использовать этот инструмент, найдите другие подходящие инструменты через `tool_catalog`."
+    "tool.description": "Выполняйте код Python контролируемым образом. Используйте этот инструмент для вычислений, обработки данных или выполнения коротких сценариев. Прежде чем использовать этот инструмент, найдите другие подходящие инструменты через `tool_catalog`.",
+    "[python_exec error] Provide 'code'.": ""
   },
   "pt_BR": {
     "param.code.description": "Código Python.",
@@ -121,7 +127,8 @@
       "python interpreter",
       "python program"
     ],
-    "tool.description": "Execute código Python de maneira controlada. Use esta ferramenta para cálculos, processamento de dados ou execução de scripts curtos. Procure outras ferramentas adequadas via `tool_catalog` antes de usar esta ferramenta."
+    "tool.description": "Execute código Python de maneira controlada. Use esta ferramenta para cálculos, processamento de dados ou execução de scripts curtos. Procure outras ferramentas adequadas via `tool_catalog` antes de usar esta ferramenta.",
+    "[python_exec error] Provide 'code'.": ""
   },
   "pt": {
     "param.code.description": "Código Python.",
@@ -137,7 +144,8 @@
       "interpretador python",
       "programa python"
     ],
-    "tool.description": "Execute código Python de maneira controlada. Use esta ferramenta para cálculos, processamento de dados ou execução de scripts curtos. Procure outras ferramentas adequadas via `tool_catalog` antes de usar esta ferramenta."
+    "tool.description": "Execute código Python de maneira controlada. Use esta ferramenta para cálculos, processamento de dados ou execução de scripts curtos. Procure outras ferramentas adequadas via `tool_catalog` antes de usar esta ferramenta.",
+    "[python_exec error] Provide 'code'.": ""
   },
   "id": {
     "param.code.description": "Kode Python.",
@@ -153,7 +161,8 @@
       "juru bahasa python",
       "program python"
     ],
-    "tool.description": "Jalankan kode Python dengan cara yang terkendali. Gunakan alat ini untuk penghitungan, pemrosesan data, atau menjalankan skrip pendek. Cari alat lain yang sesuai melalui `tool_catalog` sebelum menggunakan alat ini."
+    "tool.description": "Jalankan kode Python dengan cara yang terkendali. Gunakan alat ini untuk penghitungan, pemrosesan data, atau menjalankan skrip pendek. Cari alat lain yang sesuai melalui `tool_catalog` sebelum menggunakan alat ini.",
+    "[python_exec error] Provide 'code'.": ""
   },
   "vi": {
     "param.code.description": "Mã Python.",
@@ -169,7 +178,8 @@
       "thông dịch viên python",
       "chương trình python"
     ],
-    "tool.description": "Thực thi mã Python theo cách được kiểm soát. Sử dụng công cụ này để tính toán, xử lý dữ liệu hoặc chạy các tập lệnh ngắn. Tìm kiếm các công cụ phù hợp khác thông qua `tool_catalog` trước khi sử dụng công cụ này."
+    "tool.description": "Thực thi mã Python theo cách được kiểm soát. Sử dụng công cụ này để tính toán, xử lý dữ liệu hoặc chạy các tập lệnh ngắn. Tìm kiếm các công cụ phù hợp khác thông qua `tool_catalog` trước khi sử dụng công cụ này.",
+    "[python_exec error] Provide 'code'.": ""
   },
   "pl": {
     "param.code.description": "Kod Pythona.",
@@ -185,7 +195,8 @@
       "python interpreter",
       "python program"
     ],
-    "tool.description": "Wykonaj kod Pythona w kontrolowany sposób. Użyj tego narzędzia do obliczeń, przetwarzania danych lub uruchamiania krótkich skryptów. Przed użyciem tego narzędzia wyszukaj inne odpowiednie narzędzia w `tool_catalog`."
+    "tool.description": "Wykonaj kod Pythona w kontrolowany sposób. Użyj tego narzędzia do obliczeń, przetwarzania danych lub uruchamiania krótkich skryptów. Przed użyciem tego narzędzia wyszukaj inne odpowiednie narzędzia w `tool_catalog`.",
+    "[python_exec error] Provide 'code'.": ""
   },
   "hi": {
     "param.code.description": "उपयोग के लिए पॉवरशेल निष्पादन योग्य: 'pwsh' (पावरशेल 7+) या 'पॉवरशेल'।",
@@ -201,7 +212,8 @@
       "python interpreter",
       "python program"
     ],
-    "tool.description": "पायथन कोड को नियंत्रित तरीके से निष्पादित करें। गणना, डेटा प्रोसेसिंग, या छोटी स्क्रिप्ट चलाने के लिए इस टूल का उपयोग करें। इसका उपयोग करने से पहले, अन्य उपयुक्त टूल के लिए टूल_कैटलॉग खोजें।"
+    "tool.description": "पायथन कोड को नियंत्रित तरीके से निष्पादित करें। गणना, डेटा प्रोसेसिंग, या छोटी स्क्रिप्ट चलाने के लिए इस टूल का उपयोग करें। इसका उपयोग करने से पहले, अन्य उपयुक्त टूल के लिए टूल_कैटलॉग खोजें।",
+    "[python_exec error] Provide 'code'.": ""
   },
   "ar": {
     "param.code.description": "كود بايثون.",
@@ -217,7 +229,8 @@
       "python interpreter",
       "python program"
     ],
-    "tool.description": "تنفيذ كود Python بطريقة يمكن التحكم فيها. استخدم هذه الأداة لإجراء العمليات الحسابية أو معالجة البيانات أو تشغيل البرامج النصية القصيرة. ابحث عن أدوات أخرى مناسبة عبر `tool_catalog` قبل استخدام هذه الأداة."
+    "tool.description": "تنفيذ كود Python بطريقة يمكن التحكم فيها. استخدم هذه الأداة لإجراء العمليات الحسابية أو معالجة البيانات أو تشغيل البرامج النصية القصيرة. ابحث عن أدوات أخرى مناسبة عبر `tool_catalog` قبل استخدام هذه الأداة.",
+    "[python_exec error] Provide 'code'.": ""
   },
   "sv": {
     "param.code.description": "Python-kod.",
@@ -233,7 +246,8 @@
       "python interpreter",
       "python program"
     ],
-    "tool.description": "Kör Python-koden på ett kontrollerat sätt. Använd det här verktyget för beräkningar, databearbetning eller köra korta skript. Sök efter andra lämpliga verktyg via `tool_catalog` innan du använder det här verktyget."
+    "tool.description": "Kör Python-koden på ett kontrollerat sätt. Använd det här verktyget för beräkningar, databearbetning eller köra korta skript. Sök efter andra lämpliga verktyg via `tool_catalog` innan du använder det här verktyget.",
+    "[python_exec error] Provide 'code'.": ""
   },
   "sw": {
     "param.code.description": "Msimbo wa chatu.",
@@ -249,7 +263,8 @@
       "python interpreter",
       "python program"
     ],
-    "tool.description": "Tekeleza msimbo wa Python kwa njia inayodhibitiwa. Tumia zana hii kwa hesabu, kuchakata data, au kuendesha hati fupi. Tafuta zana zingine zinazofaa kupitia `tool_catalog` kabla ya kutumia zana hii."
+    "tool.description": "Tekeleza msimbo wa Python kwa njia inayodhibitiwa. Tumia zana hii kwa hesabu, kuchakata data, au kuendesha hati fupi. Tafuta zana zingine zinazofaa kupitia `tool_catalog` kabla ya kutumia zana hii.",
+    "[python_exec error] Provide 'code'.": ""
   },
   "nb": {
     "param.code.description": "Python-kode.",
@@ -265,7 +280,8 @@
       "python interpreter",
       "python program"
     ],
-    "tool.description": "Kjør Python-koden på en kontrollert måte. Bruk dette verktøyet til beregninger, databehandling eller kjøring av korte skript. Søk etter andre passende verktøy via `tool_catalog` før du bruker dette verktøyet."
+    "tool.description": "Kjør Python-koden på en kontrollert måte. Bruk dette verktøyet til beregninger, databehandling eller kjøring av korte skript. Søk etter andre passende verktøy via `tool_catalog` før du bruker dette verktøyet.",
+    "[python_exec error] Provide 'code'.": ""
   },
   "nl": {
     "param.code.description": "Python-code.",
@@ -281,7 +297,8 @@
       "python interpreter",
       "python program"
     ],
-    "tool.description": "Voer Python-code op een gecontroleerde manier uit. Gebruik deze tool voor berekeningen, gegevensverwerking of het uitvoeren van korte scripts. Zoek naar andere geschikte tools via `tool_catalog` voordat je deze tool gebruikt."
+    "tool.description": "Voer Python-code op een gecontroleerde manier uit. Gebruik deze tool voor berekeningen, gegevensverwerking of het uitvoeren van korte scripts. Zoek naar andere geschikte tools via `tool_catalog` voordat je deze tool gebruikt.",
+    "[python_exec error] Provide 'code'.": ""
   },
   "fi": {
     "param.code.description": "Python-koodi.",
@@ -297,7 +314,8 @@
       "python interpreter",
       "python program"
     ],
-    "tool.description": "Suorita Python-koodi hallitusti. Käytä tätä työkalua laskelmiin, tietojenkäsittelyyn tai lyhyiden komentosarjojen suorittamiseen. Etsi muita sopivia työkaluja työkaluluettelon avulla ennen tämän työkalun käyttöä."
+    "tool.description": "Suorita Python-koodi hallitusti. Käytä tätä työkalua laskelmiin, tietojenkäsittelyyn tai lyhyiden komentosarjojen suorittamiseen. Etsi muita sopivia työkaluja työkaluluettelon avulla ennen tämän työkalun käyttöä.",
+    "[python_exec error] Provide 'code'.": ""
   },
   "cs": {
     "param.code.description": "kód Pythonu.",
@@ -313,7 +331,8 @@
       "python interpreter",
       "python program"
     ],
-    "tool.description": "Spouštějte kód Pythonu kontrolovaným způsobem. Tento nástroj použijte pro výpočty, zpracování dat nebo spouštění krátkých skriptů. Před použitím tohoto nástroje vyhledejte další vhodné nástroje prostřednictvím `tool_catalog`."
+    "tool.description": "Spouštějte kód Pythonu kontrolovaným způsobem. Tento nástroj použijte pro výpočty, zpracování dat nebo spouštění krátkých skriptů. Před použitím tohoto nástroje vyhledejte další vhodné nástroje prostřednictvím `tool_catalog`.",
+    "[python_exec error] Provide 'code'.": ""
   },
   "uk": {
     "param.code.description": "Код Python.",
@@ -329,7 +348,8 @@
       "python interpreter",
       "python program"
     ],
-    "tool.description": "Виконуйте код Python контрольованим способом. Використовуйте цей інструмент для обчислень, обробки даних або виконання коротких сценаріїв. Перш ніж використовувати цей інструмент, знайдіть інші відповідні інструменти за допомогою `tool_catalog`."
+    "tool.description": "Виконуйте код Python контрольованим способом. Використовуйте цей інструмент для обчислень, обробки даних або виконання коротких сценаріїв. Перш ніж використовувати цей інструмент, знайдіть інші відповідні інструменти за допомогою `tool_catalog`.",
+    "[python_exec error] Provide 'code'.": ""
   },
   "tr": {
     "param.code.description": "Python kodu.",
@@ -345,7 +365,8 @@
       "python interpreter",
       "python program"
     ],
-    "tool.description": "Python kodunu kontrollü bir şekilde yürütün. Bu aracı hesaplamalar, veri işleme veya kısa komut dosyalarını çalıştırmak için kullanın. Bu aracı kullanmadan önce `tool_catalog' aracılığıyla diğer uygun araçları arayın."
+    "tool.description": "Python kodunu kontrollü bir şekilde yürütün. Bu aracı hesaplamalar, veri işleme veya kısa komut dosyalarını çalıştırmak için kullanın. Bu aracı kullanmadan önce `tool_catalog' aracılığıyla diğer uygun araçları arayın.",
+    "[python_exec error] Provide 'code'.": ""
   },
   "th": {
     "param.code.description": "ปฏิบัติการ PowerShell ได้: 'pwsh' (PowerShell 7+) หรือ 'powershell' (Windows PowerShell) หากละเว้น ให้เลือกอัตโนมัติ",
@@ -361,7 +382,8 @@
       "python interpreter",
       "python program"
     ],
-    "tool.description": "รันโค้ด Python ด้วยวิธีที่มีการควบคุม ใช้เครื่องมือนี้สำหรับการคำนวณ การประมวลผลข้อมูล หรือการเรียกใช้สคริปต์สั้นๆ ค้นหาเครื่องมืออื่นๆ ที่เหมาะสมผ่าน `tool_catalog` ก่อนที่จะใช้เครื่องมือนี้"
+    "tool.description": "รันโค้ด Python ด้วยวิธีที่มีการควบคุม ใช้เครื่องมือนี้สำหรับการคำนวณ การประมวลผลข้อมูล หรือการเรียกใช้สคริปต์สั้นๆ ค้นหาเครื่องมืออื่นๆ ที่เหมาะสมผ่าน `tool_catalog` ก่อนที่จะใช้เครื่องมือนี้",
+    "[python_exec error] Provide 'code'.": ""
   },
   "zh_CN": {
     "param.code.description": "Python代码。",
@@ -377,7 +399,8 @@
       "python interpreter",
       "python program"
     ],
-    "tool.description": "以受控方式执行 Python 代码。使用此工具进行计算、数据处理或运行简短的脚本。使用此工具之前，请先通过“tool_catalog”搜索其他合适的工具。"
+    "tool.description": "以受控方式执行 Python 代码。使用此工具进行计算、数据处理或运行简短的脚本。使用此工具之前，请先通过“tool_catalog”搜索其他合适的工具。",
+    "[python_exec error] Provide 'code'.": ""
   },
   "zh_TW": {
     "param.code.description": "Python代码。",
@@ -393,10 +416,11 @@
       "python interpreter",
       "python program"
     ],
-    "tool.description": "以受控方式執行 Python 程式碼。使用此工具進行計算、資料處理或執行簡短的腳本。在使用此工具之前，請先透過「tool_catalog」搜尋其他合適的工具。 "
+    "tool.description": "以受控方式執行 Python 程式碼。使用此工具進行計算、資料處理或執行簡短的腳本。在使用此工具之前，請先透過「tool_catalog」搜尋其他合適的工具。 ",
+    "[python_exec error] Provide 'code'.": ""
   },
   "bn": {
-    "param.code.description": "প্রয়োগ করুন py_compile এর সাথে Python ফাইলগুলিকে যাচাই করুন, Python কোড__DEL_5.",
+    "param.code.description": "পাইথন কোড।",
     "x_search_terms": [
       "python exec",
       "run python",
@@ -409,7 +433,8 @@
       "python interpreter",
       "python program"
     ],
-    "tool.description": "নিয়ন্ত্রিত উপায়ে পাইথন কোড কার্যকর করুন। গণনা, ডেটা প্রসেসিং বা ছোট স্ক্রিপ্ট চালানোর জন্য এই টুলটি ব্যবহার করুন। এই টুলটি ব্যবহার করার আগে `tool_catalog` এর মাধ্যমে অন্যান্য উপযুক্ত টুল খুঁজুন।"
+    "tool.description": "নিয়ন্ত্রিত উপায়ে পাইথন কোড কার্যকর করুন। গণনা, ডেটা প্রসেসিং বা ছোট স্ক্রিপ্ট চালানোর জন্য এই টুলটি ব্যবহার করুন। এই টুলটি ব্যবহার করার আগে `tool_catalog` এর মাধ্যমে অন্যান্য উপযুক্ত টুল খুঁজুন।",
+    "[python_exec error] Provide 'code'.": ""
   },
   "fa": {
     "param.code.description": "کد پایتون.",
@@ -425,7 +450,8 @@
       "python interpreter",
       "python program"
     ],
-    "tool.description": "کد پایتون را به روشی کنترل شده اجرا کنید. از این ابزار برای محاسبات، پردازش داده ها یا اجرای اسکریپت های کوتاه استفاده کنید. قبل از استفاده از این ابزار، سایر ابزارهای مناسب را از طریق «ابزار_کاتالوگ» جستجو کنید."
+    "tool.description": "کد پایتون را به روشی کنترل شده اجرا کنید. از این ابزار برای محاسبات، پردازش داده ها یا اجرای اسکریپت های کوتاه استفاده کنید. قبل از استفاده از این ابزار، سایر ابزارهای مناسب را از طریق «ابزار_کاتالوگ» جستجو کنید.",
+    "[python_exec error] Provide 'code'.": ""
   },
   "mn": {
     "param.code.description": "Python код.",
@@ -441,7 +467,8 @@
       "python interpreter",
       "python program"
     ],
-    "tool.description": "Python кодыг хяналттай ажиллуулна уу. Тооцоолол хийх, өгөгдөл боловсруулах эсвэл богино скрипт ажиллуулахад энэ хэрэгслийг ашиглана уу. Энэ хэрэгслийг ашиглахаасаа өмнө `tool_catalog`-ээр өөр тохирох хэрэгслийг хайна уу."
+    "tool.description": "Python кодыг хяналттай ажиллуулна уу. Тооцоолол хийх, өгөгдөл боловсруулах эсвэл богино скрипт ажиллуулахад энэ хэрэгслийг ашиглана уу. Энэ хэрэгслийг ашиглахаасаа өмнө `tool_catalog`-ээр өөр тохирох хэрэгслийг хайна уу.",
+    "[python_exec error] Provide 'code'.": ""
   },
   "mr": {
     "param.code.description": "पायथन कोड.",
@@ -457,7 +484,8 @@
       "python interpreter",
       "python program"
     ],
-    "tool.description": "पायथन कोड नियंत्रित मार्गाने कार्यान्वित करा. गणना, डेटा प्रोसेसिंग किंवा शॉर्ट स्क्रिप्ट चालवण्यासाठी हे साधन वापरा. हे साधन वापरण्यापूर्वी `tool_catalog` द्वारे इतर योग्य साधने शोधा."
+    "tool.description": "पायथन कोड नियंत्रित मार्गाने कार्यान्वित करा. गणना, डेटा प्रोसेसिंग किंवा शॉर्ट स्क्रिप्ट चालवण्यासाठी हे साधन वापरा. हे साधन वापरण्यापूर्वी `tool_catalog` द्वारे इतर योग्य साधने शोधा.",
+    "[python_exec error] Provide 'code'.": ""
   },
   "el": {
     "param.code.description": "Κώδικας Python.",
@@ -473,7 +501,8 @@
       "python interpreter",
       "python program"
     ],
-    "tool.description": "Εκτελέστε τον κώδικα Python με ελεγχόμενο τρόπο. Χρησιμοποιήστε αυτό το εργαλείο για υπολογισμούς, επεξεργασία δεδομένων ή εκτέλεση σύντομων σεναρίων. Αναζητήστε άλλα κατάλληλα εργαλεία μέσω του \"tool_catalog\" πριν χρησιμοποιήσετε αυτό το εργαλείο."
+    "tool.description": "Εκτελέστε τον κώδικα Python με ελεγχόμενο τρόπο. Χρησιμοποιήστε αυτό το εργαλείο για υπολογισμούς, επεξεργασία δεδομένων ή εκτέλεση σύντομων σεναρίων. Αναζητήστε άλλα κατάλληλα εργαλεία μέσω του \"tool_catalog\" πριν χρησιμοποιήσετε αυτό το εργαλείο.",
+    "[python_exec error] Provide 'code'.": ""
   },
   "he": {
     "param.code.description": "קוד Python.",
@@ -489,7 +518,8 @@
       "python interpreter",
       "python program"
     ],
-    "tool.description": "הפעל את קוד Python בצורה מבוקרת. השתמש בכלי זה לחישובים, עיבוד נתונים או הפעלת סקריפטים קצרים. חפש כלים מתאימים אחרים באמצעות `tool_catalog` לפני השימוש בכלי זה."
+    "tool.description": "הפעל את קוד Python בצורה מבוקרת. השתמש בכלי זה לחישובים, עיבוד נתונים או הפעלת סקריפטים קצרים. חפש כלים מתאימים אחרים באמצעות `tool_catalog` לפני השימוש בכלי זה.",
+    "[python_exec error] Provide 'code'.": ""
   },
   "hu": {
     "param.code.description": "Python-kód.",
@@ -505,7 +535,8 @@
       "python interpreter",
       "python program"
     ],
-    "tool.description": "Futtassa a Python-kódot ellenőrzött módon. Használja ezt az eszközt számításokhoz, adatfeldolgozáshoz vagy rövid szkriptek futtatásához. Az eszköz használata előtt keressen más megfelelő eszközöket a `tool_catalog` segítségével."
+    "tool.description": "Futtassa a Python-kódot ellenőrzött módon. Használja ezt az eszközt számításokhoz, adatfeldolgozáshoz vagy rövid szkriptek futtatásához. Az eszköz használata előtt keressen más megfelelő eszközöket a `tool_catalog` segítségével.",
+    "[python_exec error] Provide 'code'.": ""
   },
   "ro": {
     "param.code.description": "Cod Python.",
@@ -521,6 +552,7 @@
       "python interpreter",
       "python program"
     ],
-    "tool.description": "Executați codul Python într-un mod controlat. Utilizați acest instrument pentru calcule, procesarea datelor sau rularea de scripturi scurte. Căutați alte instrumente adecvate prin `tool_catalog` înainte de a utiliza acest instrument."
+    "tool.description": "Executați codul Python într-un mod controlat. Utilizați acest instrument pentru calcule, procesarea datelor sau rularea de scripturi scurte. Căutați alte instrumente adecvate prin `tool_catalog` înainte de a utiliza acest instrument.",
+    "[python_exec error] Provide 'code'.": ""
   }
 }

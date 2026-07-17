@@ -87,7 +87,9 @@
     ],
     "param.password.description": "Contraseña (solicitudes si es necesario).",
     "error.missing_exstruct": "El paquete 'exstruct' no está instalado. Instálelo con: pip install exstruct",
-    "load.disabled": "El paquete 'exstruct' no está instalado. Instálelo con: pip install exstruct"
+    "load.disabled": "El paquete 'exstruct' no está instalado. Instálelo con: pip install exstruct",
+    "param.action.description": "Operación a realizar. extract=devolver el contenido extraído como una cadena / export_file=guardar en un archivo.",
+    "prompt.password": "Ingrese la contraseña para este archivo:{path}"
   },
   "fr": {
     "param.auto_page_breaks_dir.description": "Répertoire pour enregistrer les zones de saut de page automatique.",
@@ -115,7 +117,9 @@
     ],
     "param.password.description": "Mot de passe (invite si nécessaire).",
     "error.missing_exstruct": "Le package 'exstruct' n'est pas installé. Veuillez l'installer avec : pip install exstruct",
-    "load.disabled": "Le package 'exstruct' n'est pas installé. Veuillez l'installer avec : pip install exstruct"
+    "load.disabled": "Le package 'exstruct' n'est pas installé. Veuillez l'installer avec : pip install exstruct",
+    "param.action.description": "Opération à réaliser. extract=retourne le contenu extrait sous forme de chaîne / export_file=enregistre dans un fichier.",
+    "prompt.password": "Entrez le mot de passe de ce fichier :{path}"
   },
   "ko": {
     "param.auto_page_breaks_dir.description": "자동 페이지 나누기 영역을 저장할 디렉터리입니다.",
@@ -143,7 +147,9 @@
     ],
     "param.password.description": "비밀번호(필요시 프롬프트 표시).",
     "error.missing_exstruct": "'exstruct' 패키지가 설치되지 않았습니다. 다음을 사용하여 설치하십시오: pip install exstruct",
-    "load.disabled": "'exstruct' 패키지가 설치되지 않았습니다. 다음을 사용하여 설치하십시오: pip install exstruct"
+    "load.disabled": "'exstruct' 패키지가 설치되지 않았습니다. 다음을 사용하여 설치하십시오: pip install exstruct",
+    "param.action.description": "수행할 작업입니다. extract=추출된 콘텐츠를 문자열로 반환 / import_file=파일에 저장.",
+    "prompt.password": "이 파일의 비밀번호를 입력하세요:{path}"
   },
   "de": {
     "param.auto_page_breaks_dir.description": "Verzeichnis zum Speichern auto page break areas.",
@@ -171,7 +177,9 @@
     ],
     "param.password.description": "Passwort (fragt bei Bedarf nach).",
     "error.missing_exstruct": "Das Paket „exstruct“ ist nicht installiert. Bitte installieren Sie es mit: pip install exstruct",
-    "load.disabled": "Das Paket „exstruct“ ist nicht installiert. Bitte installieren Sie es mit: pip install exstruct"
+    "load.disabled": "Das Paket „exstruct“ ist nicht installiert. Bitte installieren Sie es mit: pip install exstruct",
+    "param.action.description": "Durchzuführende Operation. extract=extrahierten Inhalt als String zurückgeben / export_file=in einer Datei speichern.",
+    "prompt.password": "Geben Sie das Passwort für diese Datei ein:{path}"
   },
   "it": {
     "param.auto_page_breaks_dir.description": "Directory per salvare le aree di interruzione pagina automatica",
@@ -199,7 +207,9 @@
     ],
     "param.password.description": "Password (richiesta se necessario).",
     "error.missing_exstruct": "Il pacchetto 'exstruct' non è installato. Installalo con: pip install exstruct",
-    "load.disabled": "Il pacchetto 'exstruct' non è installato. Installalo con: pip install exstruct"
+    "load.disabled": "Il pacchetto 'exstruct' non è installato. Installalo con: pip install exstruct",
+    "param.action.description": "Operazione da eseguire. extract=restituisce il contenuto estratto come stringa / export_file=salva in un file.",
+    "prompt.password": "Inserisci la password per questo file:{path}"
   },
   "ru": {
     "param.auto_page_breaks_dir.description": "Каталог для сохранения областей автоматического разрыва страницы.",
@@ -227,7 +237,9 @@
     ],
     "param.password.description": "Взаимодействие с определенным каналом Discord с помощью токена бота: отправка сообщений, чтение последних сообщений и, при необходимости, ожидание ответов после отправки.",
     "error.missing_exstruct": "Пакет exstruct не установлен. Пожалуйста, установите его с помощью: pip install exstruct",
-    "load.disabled": "Пакет exstruct не установлен. Пожалуйста, установите его с помощью: pip install exstruct"
+    "load.disabled": "Пакет exstruct не установлен. Пожалуйста, установите его с помощью: pip install exstruct",
+    "param.action.description": "Операция, которую необходимо выполнить. Extract=возвратить извлеченное содержимое в виде строки/export_file=сохранить в файл.",
+    "prompt.password": "Введите пароль для этого файла: {path}"
   },
   "pt_BR": {
     "param.auto_page_breaks_dir.description": "Caminho de saída.",
@@ -255,7 +267,9 @@
     ],
     "param.password.description": "Senha (solicita se necessário).",
     "error.missing_exstruct": "O pacote 'exstruct' não está instalado. Instale-o com: pip install exstruct",
-    "load.disabled": "O pacote 'exstruct' não está instalado. Instale-o com: pip install exstruct"
+    "load.disabled": "O pacote 'exstruct' não está instalado. Instale-o com: pip install exstruct",
+    "param.action.description": "Operação a ser executada. extract=retorna o conteúdo extraído como uma string / export_file=save em um arquivo.",
+    "prompt.password": "Digite a senha deste arquivo:{path}"
   },
   "pt": {
     "param.auto_page_breaks_dir.description": "Caminho do Excel (absoluto).",
@@ -283,7 +297,9 @@
     ],
     "param.password.description": "Senha (solicita se necessário).",
     "error.missing_exstruct": "O pacote 'exstruct' não está instalado. Instale-o com: pip install exstruct",
-    "load.disabled": "O pacote 'exstruct' não está instalado. Instale-o com: pip install exstruct"
+    "load.disabled": "O pacote 'exstruct' não está instalado. Instale-o com: pip install exstruct",
+    "param.action.description": "Operação a ser executada. extract=retorna o conteúdo extraído como uma string / export_file=save em um arquivo.",
+    "prompt.password": "Digite a senha deste arquivo:{path}"
   },
   "id": {
     "param.auto_page_breaks_dir.description": "Direktori untuk menyimpan area page break otomatis.",
@@ -311,7 +327,9 @@
     ],
     "param.password.description": "Kata sandi (diminta jika diperlukan).",
     "error.missing_exstruct": "Paket 'exstruct' tidak diinstal. Silakan instal dengan: pip install exstruct",
-    "load.disabled": "Paket 'exstruct' tidak diinstal. Silakan instal dengan: pip install exstruct"
+    "load.disabled": "Paket 'exstruct' tidak diinstal. Silakan instal dengan: pip install exstruct",
+    "param.action.description": "Operasi untuk dilakukan. ekstrak=mengembalikan konten yang diekstraksi sebagai string / ekspor_file=simpan ke file.",
+    "prompt.password": "Masukkan kata sandi untuk file ini:{path}"
   },
   "vi": {
     "param.auto_page_breaks_dir.description": "Thư mục lưu vùng ngắt trang tự động.",
@@ -339,7 +357,9 @@
     ],
     "param.password.description": "Mật khẩu tùy chọn cho tệp .",
     "error.missing_exstruct": "Gói 'exstruct' chưa được cài đặt. Vui lòng cài đặt nó với: pip install exstruct",
-    "load.disabled": "Gói 'exstruct' chưa được cài đặt. Vui lòng cài đặt nó với: pip install exstruct"
+    "load.disabled": "Gói 'exstruct' chưa được cài đặt. Vui lòng cài đặt nó với: pip install exstruct",
+    "param.action.description": "Thao tác để thực hiện. extract=return nội dung được trích xuất dưới dạng chuỗi /export_file=lưu vào một tệp.",
+    "prompt.password": "Nhập mật khẩu cho tệp này:{path}"
   },
   "pl": {
     "param.auto_page_breaks_dir.description": "Katalog do zapisywania obszarów automatycznego podziału strony",
@@ -367,7 +387,9 @@
     ],
     "param.password.description": "Hasło (w razie potrzeby wyświetli monit).",
     "error.missing_exstruct": "Pakiet „exstruct” nie jest zainstalowany. Zainstaluj go za pomocą: pip install exstruct",
-    "load.disabled": "Pakiet „exstruct” nie jest zainstalowany. Zainstaluj go za pomocą: pip install exstruct"
+    "load.disabled": "Pakiet „exstruct” nie jest zainstalowany. Zainstaluj go za pomocą: pip install exstruct",
+    "param.action.description": "Operacja do wykonania. ekstrakt=zwróć wyodrębnioną zawartość jako ciąg znaków / eksport_pliku=zapisz do pliku.",
+    "prompt.password": "Wprowadź hasło do tego pliku:{path}"
   },
   "hi": {
     "param.auto_page_breaks_dir.description": "ऑटो पेज ब्रेक क्षेत्रों को सहेजने के लिए निर्देशिका।",
@@ -395,7 +417,9 @@
     ],
     "param.password.description": "एन्क्रिप्टेड .",
     "error.missing_exstruct": "'एक्सस्ट्रक्ट' पैकेज स्थापित नहीं है। कृपया इसे इसके साथ इंस्टॉल करें: pip install exstruct",
-    "load.disabled": "'एक्सस्ट्रक्ट' पैकेज स्थापित नहीं है। कृपया इसे इसके साथ इंस्टॉल करें: pip install exstruct"
+    "load.disabled": "'एक्सस्ट्रक्ट' पैकेज स्थापित नहीं है। कृपया इसे इसके साथ इंस्टॉल करें: pip install exstruct",
+    "param.action.description": "प्रदर्शन करने के लिए ऑपरेशन. एक्सट्रैक्ट = निकाली गई सामग्री को एक स्ट्रिंग के रूप में लौटाएं / निर्यात_फ़ाइल = एक फ़ाइल में सहेजें।",
+    "prompt.password": "इस फ़ाइल के लिए पासवर्ड दर्ज करें:{path}"
   },
   "ar": {
     "param.auto_page_breaks_dir.description": "دليل لحفظ مناطق فاصل الصفحات التلقائية.",
@@ -423,7 +447,9 @@
     ],
     "param.password.description": "كلمة مرور اختيارية لملفات .",
     "error.missing_exstruct": "لم يتم تثبيت الحزمة \"exstruct\". يرجى تثبيته باستخدام: pip install exstruct",
-    "load.disabled": "لم يتم تثبيت الحزمة \"exstruct\". يرجى تثبيته باستخدام: pip install exstruct"
+    "load.disabled": "لم يتم تثبيت الحزمة \"exstruct\". يرجى تثبيته باستخدام: pip install exstruct",
+    "param.action.description": "عملية لأداء. extract=return المحتوى المستخرج كسلسلة /export_file=حفظ في ملف.",
+    "prompt.password": "أدخل كلمة المرور لهذا الملف:{path}"
   },
   "sv": {
     "param.auto_page_breaks_dir.description": "Katalog för att spara områden för automatiska sidbrytningar.",
@@ -434,7 +460,7 @@
     "param.include_shapes.description": "Om former ska inkluderas.",
     "param.mode.description": "Extraktionsläge.",
     "param.output_path.description": "Utdatasökväg.",
-    "param.pretty.description": "Utmatningsväg_4.__DELIM_43__ Utmatningsväg_4.__DEL_4_4.__DEL Katalog för att spara automatiska sidbrytningsområden",
+    "param.pretty.description": "Snygg utskrift.",
     "param.print_areas_dir.description": "Katalog för att spara",
     "param.sheets_dir.description": "Katalog för att spara filer per blad.",
     "param.table_score_threshold.description": "Tabelldetekteringströskel",
@@ -451,7 +477,9 @@
     ],
     "param.password.description": "Lösenord (meddelanden om det behövs).",
     "error.missing_exstruct": "Paketet 'exstruct' är inte installerat. Installera den med: pip install exstruct",
-    "load.disabled": "Paketet 'exstruct' är inte installerat. Installera den med: pip install exstruct"
+    "load.disabled": "Paketet 'exstruct' är inte installerat. Installera den med: pip install exstruct",
+    "param.action.description": "Operation att utföra. extract=returnera extraherat innehåll som en sträng / export_file=spara till en fil.",
+    "prompt.password": "Ange lösenordet för denna fil:{path}"
   },
   "sw": {
     "param.auto_page_breaks_dir.description": "Saraka ya kuhifadhi maeneo ya kugawa ukurasa otomatiki",
@@ -479,7 +507,9 @@
     ],
     "param.password.description": "Nenosiri (vidokezo ikihitajika",
     "error.missing_exstruct": "Kifurushi cha 'exstruct' hakijasakinishwa. Tafadhali isakinishe kwa: pip install exstruct",
-    "load.disabled": "Kifurushi cha 'exstruct' hakijasakinishwa. Tafadhali isakinishe kwa: pip install exstruct"
+    "load.disabled": "Kifurushi cha 'exstruct' hakijasakinishwa. Tafadhali isakinishe kwa: pip install exstruct",
+    "param.action.description": "Operesheni ya kufanya. extract=return maudhui yaliyotolewa kama kamba / export_file=save kwenye faili.",
+    "prompt.password": "Weka nenosiri la faili hii:{path}"
   },
   "nb": {
     "param.auto_page_breaks_dir.description": "Katalog for å lagre områder for automatiske sideskift.",
@@ -488,7 +518,7 @@
     "param.format.description": "Utdataformat.",
     "param.include_cell_links.description": "Om cellehyperlenker skal inkluderes.",
     "param.include_shapes.description": "Om former skal inkluderes.",
-    "param.mode.description": "Utdatabane_4.__DEL_4.__DEL_4.__DEL_4.__ Uttrekksmodus",
+    "param.mode.description": "Ekstraksjonsmodus.",
     "param.output_path.description": "Utdatabane.",
     "param.pretty.description": "Pretty print",
     "param.print_areas_dir.description": "Katalog for å lagre",
@@ -507,7 +537,9 @@
     ],
     "param.password.description": "Passord (spør om nødvendig).",
     "error.missing_exstruct": "'exstruct'-pakken er ikke installert. Vennligst installer den med: pip install exstruct",
-    "load.disabled": "'exstruct'-pakken er ikke installert. Vennligst installer den med: pip install exstruct"
+    "load.disabled": "'exstruct'-pakken er ikke installert. Vennligst installer den med: pip install exstruct",
+    "param.action.description": "Operasjon å utføre. extract=returner uttrukket innhold som en streng / export_file=lagre til en fil.",
+    "prompt.password": "Skriv inn passordet for denne filen:{path}"
   },
   "nl": {
     "param.auto_page_breaks_dir.description": "Directory om automatische pagina-eindegebieden op te slaan.",
@@ -535,7 +567,9 @@
     ],
     "param.password.description": "Wachtwoord (vraagt ​​indien nodig).",
     "error.missing_exstruct": "Het 'exstruct'-pakket is niet geïnstalleerd. Installeer het alstublieft met: pip install exstruct",
-    "load.disabled": "Het 'exstruct'-pakket is niet geïnstalleerd. Installeer het alstublieft met: pip install exstruct"
+    "load.disabled": "Het 'exstruct'-pakket is niet geïnstalleerd. Installeer het alstublieft met: pip install exstruct",
+    "param.action.description": "Operatie uit te voeren. extract=geëxtraheerde inhoud retourneren als een tekenreeks / export_file=opslaan in een bestand.",
+    "prompt.password": "Voer het wachtwoord voor dit bestand in: {path}"
   },
   "fi": {
     "param.auto_page_breaks_dir.description": "Hakemisto automaattisten sivunvaihtoalueiden tallentamiseen.",
@@ -563,7 +597,9 @@
     ],
     "param.password.description": "Salasana salatuille .",
     "error.missing_exstruct": "Exstruct-pakettia ei ole asennettu. Asenna se komennolla: pip install exstruct",
-    "load.disabled": "Exstruct-pakettia ei ole asennettu. Asenna se komennolla: pip install exstruct"
+    "load.disabled": "Exstruct-pakettia ei ole asennettu. Asenna se komennolla: pip install exstruct",
+    "param.action.description": "Suoritettava toimenpide. extract=palauta purettu sisältö merkkijonona / export_file=tallenna tiedostoon.",
+    "prompt.password": "Anna tämän tiedoston salasana:{path}"
   },
   "cs": {
     "param.auto_page_breaks_dir.description": "Adresář pro uložení oblastí automatického konce stránek.",
@@ -591,7 +627,9 @@
     ],
     "param.password.description": "Heslo (v případě potřeby se zobrazí výzva).",
     "error.missing_exstruct": "Balíček 'exstruct' není nainstalován. Nainstalujte jej prosím pomocí: pip install exstruct",
-    "load.disabled": "Balíček 'exstruct' není nainstalován. Nainstalujte jej prosím pomocí: pip install exstruct"
+    "load.disabled": "Balíček 'exstruct' není nainstalován. Nainstalujte jej prosím pomocí: pip install exstruct",
+    "param.action.description": "Operace k provedení. extrakt=vrácení extrahovaného obsahu jako řetězec / export_file=uložení do souboru.",
+    "prompt.password": "Zadejte heslo pro tento soubor:{path}"
   },
   "uk": {
     "param.auto_page_breaks_dir.description": "Каталог для збереження областей автоматичного розриву сторінки.",
@@ -619,7 +657,9 @@
     ],
     "param.password.description": "Інтервал опитування під час очікування відповідей (у секундах).",
     "error.missing_exstruct": "Пакет exstruct не встановлено. Встановіть його за допомогою: pip install exstruct",
-    "load.disabled": "Пакет exstruct не встановлено. Встановіть його за допомогою: pip install exstruct"
+    "load.disabled": "Пакет exstruct не встановлено. Встановіть його за допомогою: pip install exstruct",
+    "param.action.description": "Операція для виконання. extract=повернути вилучений вміст у вигляді рядка / export_file=зберегти у файл.",
+    "prompt.password": "Введіть пароль для цього файлу: {path}"
   },
   "tr": {
     "param.auto_page_breaks_dir.description": "Otomatik sayfa sonu alanlarının kaydedileceği dizin.",
@@ -647,7 +687,9 @@
     ],
     "param.password.description": "Şifrelenmiş .",
     "error.missing_exstruct": "'Exstruct' paketi kurulu değil. Lütfen şu şekilde yükleyin: pip install exstruct",
-    "load.disabled": "'Exstruct' paketi kurulu değil. Lütfen şu şekilde yükleyin: pip install exstruct"
+    "load.disabled": "'Exstruct' paketi kurulu değil. Lütfen şu şekilde yükleyin: pip install exstruct",
+    "param.action.description": "Gerçekleştirilecek işlem. extract=çıkarılan içeriği bir dize olarak döndürür / import_file=bir dosyaya kaydet.",
+    "prompt.password": "Bu dosyanın şifresini girin:{path}"
   },
   "th": {
     "param.auto_page_breaks_dir.description": "ไดเรกทอรีสำหรับบันทึกพื้นที่แบ่งหน้าอัตโนมัติ",
@@ -675,7 +717,9 @@
     ],
     "param.password.description": "รหัสผ่านสำหรับไฟล์ .",
     "error.missing_exstruct": "ไม่ได้ติดตั้งแพ็คเกจ 'exstruct' กรุณาติดตั้งด้วย: pip install exstruct",
-    "load.disabled": "ไม่ได้ติดตั้งแพ็คเกจ 'exstruct' กรุณาติดตั้งด้วย: pip install exstruct"
+    "load.disabled": "ไม่ได้ติดตั้งแพ็คเกจ 'exstruct' กรุณาติดตั้งด้วย: pip install exstruct",
+    "param.action.description": "การดำเนินการที่จะดำเนินการ extract=return เนื้อหาที่แยกออกมาเป็นสตริง /export_file=save ลงในไฟล์",
+    "prompt.password": "ป้อนรหัสผ่านสำหรับไฟล์นี้:{path}"
   },
   "zh_CN": {
     "param.auto_page_breaks_dir.description": "保存自动分页区域的目录。",
@@ -703,7 +747,9 @@
     ],
     "param.password.description": "密码（需要时提示输入）。",
     "error.missing_exstruct": "未安装\"exstruct\"包。请使用以下命令安装：pip install exstruct",
-    "load.disabled": "未安装\"exstruct\"包。请使用以下命令安装：pip install exstruct"
+    "load.disabled": "未安装\"exstruct\"包。请使用以下命令安装：pip install exstruct",
+    "param.action.description": "要执行的操作。 extract=以字符串形式返回提取的内容/export_file=保存到文件。",
+    "prompt.password": "输入该文件的密码：{path}"
   },
   "zh_TW": {
     "param.auto_page_breaks_dir.description": "儲存自動分頁區域的目錄。",
@@ -731,7 +777,9 @@
     ],
     "param.password.description": "密码（需要时提示输入）。",
     "error.missing_exstruct": "未安裝\"exstruct\"包。請使用以下指令安裝：pip install exstruct",
-    "load.disabled": "未安裝\"exstruct\"包。請使用以下指令安裝：pip install exstruct"
+    "load.disabled": "未安裝\"exstruct\"包。請使用以下指令安裝：pip install exstruct",
+    "param.action.description": "要執行的操作。 extract=以字串形式傳回提取的內容/export_file=儲存到檔案。",
+    "prompt.password": "輸入該檔案的密碼：{path}"
   },
   "bn": {
     "param.auto_page_breaks_dir.description": "আউটপুট পাথ",
@@ -759,7 +807,9 @@
     ],
     "param.password.description": "এনক্রিপ্ট করা .",
     "error.missing_exstruct": "'exstruct' প্যাকেজ ইনস্টল করা নেই। অনুগ্রহ করে এটি দিয়ে ইনস্টল করুন: pip install exstruct",
-    "load.disabled": "'exstruct' প্যাকেজ ইনস্টল করা নেই। অনুগ্রহ করে এটি দিয়ে ইনস্টল করুন: pip install exstruct"
+    "load.disabled": "'exstruct' প্যাকেজ ইনস্টল করা নেই। অনুগ্রহ করে এটি দিয়ে ইনস্টল করুন: pip install exstruct",
+    "param.action.description": "সঞ্চালনের জন্য অপারেশন। extract=একটি স্ট্রিং হিসাবে নিষ্কাশিত বিষয়বস্তু ফেরত দিন/export_file=একটি ফাইলে সংরক্ষণ করুন।",
+    "prompt.password": "এই ফাইলটির জন্য পাসওয়ার্ড লিখুন:{path}"
   },
   "fa": {
     "param.auto_page_breaks_dir.description": "پوشهٔ ذخیرهٔ ناحیه‌های شکست صفحهٔ خودکار.",
@@ -787,7 +837,9 @@
     ],
     "param.password.description": "رمز عبور (در صورت نیاز درخواست می کند).",
     "error.missing_exstruct": "بسته \"exstruct\" نصب نشده است. لطفا آن را با: pip install exstruct نصب کنید",
-    "load.disabled": "بسته \"exstruct\" نصب نشده است. لطفا آن را با: pip install exstruct نصب کنید"
+    "load.disabled": "بسته \"exstruct\" نصب نشده است. لطفا آن را با: pip install exstruct نصب کنید",
+    "param.action.description": "عملیات برای انجام. extract=برگرداندن محتوای استخراج شده به صورت رشته / export_file=ذخیره در فایل.",
+    "prompt.password": "رمز عبور این فایل را وارد کنید:{path}"
   },
   "mn": {
     "param.auto_page_breaks_dir.description": "Автомат хуудас таслах бүсүүдийг хадгалах хавтас.",
@@ -815,7 +867,9 @@
     ],
     "param.password.description": "Шифрлэгдсэн .",
     "error.missing_exstruct": "\"Exstruct\" багцыг суулгаагүй байна. Үүнийг дараахаар суулгана уу: pip install exstruct",
-    "load.disabled": "\"Exstruct\" багцыг суулгаагүй байна. Үүнийг дараахаар суулгана уу: pip install exstruct"
+    "load.disabled": "\"Exstruct\" багцыг суулгаагүй байна. Үүнийг дараахаар суулгана уу: pip install exstruct",
+    "param.action.description": "Гүйцэтгэх ажиллагаа. extract= задалсан контентыг мөр болгон буцаана / export_file=файл руу хадгалах.",
+    "prompt.password": "Энэ файлын нууц үгийг оруулна уу:{path}"
   },
   "mr": {
     "param.auto_page_breaks_dir.description": "स्वयं पृष्ठ खंडित क्षेत्रे जतन करण्यासाठी निर्देशिका.",
@@ -843,7 +897,9 @@
     ],
     "param.password.description": "एन्क्रिप्ट केलेल्या .",
     "error.missing_exstruct": "'exstruct' पॅकेज स्थापित केलेले नाही. कृपया ते यासह स्थापित करा: pip install exstruct",
-    "load.disabled": "'exstruct' पॅकेज स्थापित केलेले नाही. कृपया ते यासह स्थापित करा: pip install exstruct"
+    "load.disabled": "'exstruct' पॅकेज स्थापित केलेले नाही. कृपया ते यासह स्थापित करा: pip install exstruct",
+    "param.action.description": "करण्यासाठी ऑपरेशन. extract=एक स्ट्रिंग म्हणून काढलेली सामग्री परत करा /export_file=फाइलमध्ये सेव्ह करा.",
+    "prompt.password": "या फाइलसाठी पासवर्ड एंटर करा:{path}"
   },
   "el": {
     "param.auto_page_breaks_dir.description": "Κατάλογος για αποθήκευση περιοχών αυτόματης αλλαγής σελίδας.",
@@ -871,7 +927,9 @@
     ],
     "param.password.description": "Κωδικός πρόσβασης (ζητείται εάν χρειάζεται).",
     "error.missing_exstruct": "Το πακέτο «exstruct» δεν είναι εγκατεστημένο. Εγκαταστήστε το με: pip install exstruct",
-    "load.disabled": "Το πακέτο «exstruct» δεν είναι εγκατεστημένο. Εγκαταστήστε το με: pip install exstruct"
+    "load.disabled": "Το πακέτο «exstruct» δεν είναι εγκατεστημένο. Εγκαταστήστε το με: pip install exstruct",
+    "param.action.description": "Λειτουργία για εκτέλεση. extract=επιστροφή εξαγόμενου περιεχομένου ως συμβολοσειρά / export_file=αποθήκευση σε αρχείο.",
+    "prompt.password": "Εισαγάγετε τον κωδικό πρόσβασης για αυτό το αρχείο:{path}"
   },
   "he": {
     "param.auto_page_breaks_dir.description": "ספרייה לשמירת אזורי מעבר דף אוטומטי.",
@@ -899,7 +957,9 @@
     ],
     "param.password.description": "סיסמה (מבקש במידת הצורך).",
     "error.missing_exstruct": "החבילה 'exstruct' אינה מותקנת. אנא התקן אותו עם: pip install exstruct",
-    "load.disabled": "החבילה 'exstruct' אינה מותקנת. אנא התקן אותו עם: pip install exstruct"
+    "load.disabled": "החבילה 'exstruct' אינה מותקנת. אנא התקן אותו עם: pip install exstruct",
+    "param.action.description": "פעולה לביצוע. extract=החזרת תוכן שחולץ כמחרוזת / export_file=שמור לקובץ.",
+    "prompt.password": "הזן את הסיסמה עבור הקובץ הזה:{path}"
   },
   "hu": {
     "param.auto_page_breaks_dir.description": "Könyvtár az automatikus oldaltörési területek mentéséhez.",
@@ -927,7 +987,9 @@
     ],
     "param.password.description": "Jelszó (szükség esetén kéri).",
     "error.missing_exstruct": "Az \"exstruct\" csomag nincs telepítve. Kérjük, telepítse a következővel: pip install exstruct",
-    "load.disabled": "Az \"exstruct\" csomag nincs telepítve. Kérjük, telepítse a következővel: pip install exstruct"
+    "load.disabled": "Az \"exstruct\" csomag nincs telepítve. Kérjük, telepítse a következővel: pip install exstruct",
+    "param.action.description": "Végrehajtandó művelet. extract=visszaadja a kibontott tartalmat karakterláncként / export_file=mentés fájlba.",
+    "prompt.password": "Adja meg a fájl jelszavát:{path}"
   },
   "ro": {
     "param.auto_page_breaks_dir.description": "Director pentru salvarea zonelor de întrerupere automată a paginii.",
@@ -955,6 +1017,8 @@
     ],
     "param.password.description": "Parola (se solicită dacă este necesar).",
     "error.missing_exstruct": "Pachetul „exstruct” nu este instalat. Instalați-l cu: pip install exstruct",
-    "load.disabled": "Pachetul „exstruct” nu este instalat. Instalați-l cu: pip install exstruct"
+    "load.disabled": "Pachetul „exstruct” nu este instalat. Instalați-l cu: pip install exstruct",
+    "param.action.description": "Operație de efectuat. extract=returnează conținutul extras ca șir / export_file=salvare într-un fișier.",
+    "prompt.password": "Introduceți parola pentru acest fișier:{path}"
   }
 }

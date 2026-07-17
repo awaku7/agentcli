@@ -24,7 +24,14 @@
       "سويتش بوت",
       "قريب",
       "عن بعد"
-    ]
+    ],
+    "err.bleak_missing": "خطأ: لم يتم تثبيت المكتبة \"القاتمة\". الرجاء تثبيته باستخدام: \npip install قاتمة",
+    "err.linux_permission": "خطأ أثناء تشغيل BLE: {err_msg}\n\n[دليل أذونات Linux/Raspberry Pi]\nقد تفتقر إلى أذونات الوصول إلى مقبس Bluetooth. جرب أحد الإجراءات التالية:\n1. أضف المستخدم الخاص بك إلى مجموعة البلوتوث (مستحسن): \n sudo usermod -aG bluetooth $USER\n (يتطلب إعادة التشغيل أو إعادة تسجيل الدخول) \n2. منح الأذونات مباشرة إلى ثنائي Python: \n sudo setcap 'cap_net_raw,cap_net_admin+eip' $(readlink -f $(what python))",
+    "err.macos_permission": "خطأ أثناء تشغيل BLE: {err_msg}\n\n[دليل أذونات macOS]\nربما تم رفض الوصول إلى البلوتوث بسبب قيود أمان macOS.\nيرجى فتح \"إعدادات النظام> الخصوصية والأمان> Bluetooth\" والتأكد من السماح للمحطة الطرفية أو VS Code أو عملية Python بالوصول إلى Bluetooth.",
+    "err.no_writable_characteristic": "لم يعرض الجهاز خاصية الجات القابلة للكتابة المناسبة للتحكم.",
+    "param.devname.description": "مرشح اسم الجهاز الاختياري. يطابق حسب الاسم الدقيق أو السلسلة الفرعية.",
+    "param.value.description": "قيمة رقمية اختيارية لإجراءات set_value. النطاق: 0-100.",
+    "tool.description": "يمكنك التحكم في جهاز SwitchBot BLE قريب وإرجاع نتيجة JSON أو نصية."
   },
   "bn": {
     "param.mac.description": "MAC ঠিকানা ফিল্টার।",
@@ -51,7 +58,14 @@
       "সুইচবট",
       "কাছাকাছি",
       "দূরবর্তী"
-    ]
+    ],
+    "err.bleak_missing": "ত্রুটি: 'ব্লাক' লাইব্রেরি ইনস্টল করা নেই। অনুগ্রহ করে এটি ব্যবহার করে ইনস্টল করুন:\nপিপ ইনস্টল ব্ল্যাক",
+    "err.linux_permission": "BLE অপারেশনের সময় ত্রুটি: {err_msg}\n\n[লিনাক্স/রাস্পবেরি পাই অনুমতি নির্দেশিকা]\nব্লুটুথ সকেট অ্যাক্সেস করার জন্য আপনার অনুমতির অভাব থাকতে পারে। নিম্নলিখিতগুলির মধ্যে একটি চেষ্টা করুন:\n1. আপনার ব্যবহারকারীকে ব্লুটুথ গ্রুপে যুক্ত করুন (প্রস্তাবিত):\nsudo usermod -aG ব্লুটুথ $USER\n(রিস্টার্ট বা পুনরায় লগইন প্রয়োজন)\n2. পাইথন বাইনারিতে সরাসরি অনুমতি দিন:\nsudo setcap 'cap_net_raw,cap_net_admin+eip' $(readlink -f $(which python))",
+    "err.macos_permission": "BLE অপারেশনের সময় ত্রুটি: {err_msg}\n\n[macOS অনুমতি নির্দেশিকা]\nব্লুটুথ অ্যাক্সেস macOS নিরাপত্তা বিধিনিষেধ দ্বারা অস্বীকার করা হতে পারে.\nঅনুগ্রহ করে 'সিস্টেম সেটিংস > গোপনীয়তা ও নিরাপত্তা > ব্লুটুথ' খুলুন এবং নিশ্চিত করুন যে আপনার টার্মিনাল, ভিএস কোড বা পাইথন প্রক্রিয়া ব্লুটুথ অ্যাক্সেস করার অনুমতি রয়েছে।",
+    "err.no_writable_characteristic": "ডিভাইসটি নিয়ন্ত্রণের জন্য উপযুক্ত একটি লিখনযোগ্য GATT বৈশিষ্ট্য প্রকাশ করেনি।",
+    "param.devname.description": "ঐচ্ছিক ডিভাইস নাম ফিল্টার. সঠিক নাম বা সাবস্ট্রিং দ্বারা মেলে।",
+    "param.value.description": "set_value অ্যাকশনের জন্য ঐচ্ছিক সাংখ্যিক মান। পরিসীমা: 0-100।",
+    "tool.description": "কাছাকাছি একটি SwitchBot BLE ডিভাইস নিয়ন্ত্রণ করুন এবং একটি JSON বা পাঠ্য ফলাফল প্রদান করুন।"
   },
   "cs": {
     "param.mac.description": "Filtr MAC adresy.",
@@ -78,7 +92,14 @@
       "přepínač",
       "poblíž",
       "vzdálený"
-    ]
+    ],
+    "err.bleak_missing": "Chyba: Knihovna není nainstalována. Nainstalujte jej prosím pomocí:\npip install bleak",
+    "err.linux_permission": "Chyba během operace BLE: {err_msg}\n\n[Průvodce oprávněními pro Linux/Raspberry Pi]\nMožná vám chybí oprávnění pro přístup k zásuvce Bluetooth. Zkuste jeden z následujících postupů:\n1. Přidejte svého uživatele do skupiny bluetooth (doporučeno):\n sudo usermod -aG bluetooth $USER\n (Vyžaduje restart nebo opětovné přihlášení)\n2. Udělte oprávnění přímo binárnímu souboru Pythonu:\n sudo setcap 'cap_net_raw,cap_net_admin+eip' $(readlink -f $(který python))",
+    "err.macos_permission": "Chyba během operace BLE: {err_msg}\n\n[Průvodce oprávněními pro macOS]\nPřístup k Bluetooth mohl být odepřen bezpečnostními omezeními macOS.\nOtevřete „Nastavení systému > Soukromí a zabezpečení > Bluetooth“ a ujistěte se, že váš terminál, kód VS nebo proces Python mají povolen přístup k Bluetooth.",
+    "err.no_writable_characteristic": "Zařízení neexponovalo zapisovatelnou charakteristiku GATT vhodnou pro kontrolu.",
+    "param.devname.description": "Volitelný filtr názvu zařízení. Shoduje se podle přesného názvu nebo podřetězce.",
+    "param.value.description": "Volitelná číselná hodnota pro akce set_value. Rozsah: 0-100.",
+    "tool.description": "Ovládejte blízké zařízení SwitchBot BLE a vraťte výsledek JSON nebo text."
   },
   "de": {
     "param.mac.description": "MAC-Adressfilter.",
@@ -105,7 +126,14 @@
       "Switchbot",
       "in der Nähe",
       "entfernt"
-    ]
+    ],
+    "err.bleak_missing": "Fehler: Die Bibliothek „bleak“ ist nicht installiert. Bitte installieren Sie es mit: \npip install bleak",
+    "err.linux_permission": "Fehler während des BLE-Betriebs: {err_msg}\n\n[Linux/Raspberry Pi-Berechtigungsleitfaden]\nMöglicherweise fehlen Ihnen Berechtigungen für den Zugriff auf die Bluetooth-Buchse. Versuchen Sie einen der folgenden Schritte:\n1. Fügen Sie Ihren Benutzer zur Bluetooth-Gruppe hinzu (empfohlen):\n sudo usermod -aG bluetooth $USER\n (Neustart oder erneute Anmeldung erforderlich)\n2. Erteilen Sie Berechtigungen direkt für die Python-Binärdatei:\n sudo setcap 'cap_net_raw,cap_net_admin+eip' $(readlink -f $(which python))",
+    "err.macos_permission": "Fehler während des BLE-Betriebs: {err_msg}\n\n[macOS-Berechtigungsleitfaden]\nDer Bluetooth-Zugriff wurde möglicherweise durch macOS-Sicherheitsbeschränkungen verweigert.\nBitte öffnen Sie „Systemeinstellungen > Datenschutz & Sicherheit > Bluetooth“ und stellen Sie sicher, dass Ihr Terminal, VS-Code oder Python-Prozess auf Bluetooth zugreifen darf.",
+    "err.no_writable_characteristic": "Das Gerät stellte kein beschreibbares GATT-Merkmal zur Verfügung, das zur Steuerung geeignet war.",
+    "param.devname.description": "Optionaler Gerätenamenfilter. Entspricht dem genauen Namen oder der Teilzeichenfolge.",
+    "param.value.description": "Optionaler numerischer Wert für set_value-Aktionen. Bereich: 0-100.",
+    "tool.description": "Steuern Sie ein SwitchBot BLE-Gerät in der Nähe und geben Sie ein JSON- oder Textergebnis zurück."
   },
   "en": {
     "param.mac.description": "MAC address filter.",
@@ -166,10 +194,17 @@
       "robot conmutador",
       "cerca",
       "remoto"
-    ]
+    ],
+    "err.bleak_missing": "Error: la biblioteca 'sombría' no está instalada. Instálelo usando: \npip install sombrío",
+    "err.linux_permission": "Error durante la operación BLE: {err_msg}\n\n[Guía de permisos de Linux/Raspberry Pi]\nEs posible que no tenga permisos para acceder al conector Bluetooth. Pruebe uno de los siguientes:\n1. Agregue su usuario al grupo de bluetooth (recomendado):\n sudo usermod -aG bluetooth $USER\n (Requiere reiniciar o volver a iniciar sesión)\n2. Otorgue permisos directamente al binario de Python:\n sudo setcap 'cap_net_raw,cap_net_admin+eip' $(readlink -f $(cuál python))",
+    "err.macos_permission": "Error durante la operación BLE: {err_msg}\n\n[Guía de permisos de macOS]\nEs posible que las restricciones de seguridad de macOS hayan denegado el acceso a Bluetooth.\nAbra 'Configuración del sistema > Privacidad y seguridad > Bluetooth' y asegúrese de que su terminal, VS Code o proceso Python tenga permiso para acceder a Bluetooth.",
+    "err.no_writable_characteristic": "El dispositivo no expuso una característica GATT grabable adecuada para el control.",
+    "param.devname.description": "Filtro de nombre de dispositivo opcional. Coincide con el nombre exacto o subcadena.",
+    "param.value.description": "Valor numérico opcional para acciones set_value. Rango: 0-100.",
+    "tool.description": "Controle un dispositivo SwitchBot BLE cercano y devuelva un resultado JSON o de texto."
   },
   "fa": {
-    "param.mac.description": "خطا: {err}",
+    "param.mac.description": "فیلتر آدرس مک",
     "param.action.description": "فیلتر آدرس MAC.",
     "param.timeout.description": "عمل: روشن/خاموش/باز/بستن/تنظیم_مقدار.",
     "param.fmt.description": "دستورات برای اجرا.",
@@ -178,22 +213,29 @@
     "err.invalid_argument": "چندین دستگاه SwitchBot BLE با device_name ارائه‌شده مطابقت داشتند.",
     "err.value_required": "یا mac_address یا device_name الزامی است.",
     "err.invalid_value_range": "فیلد value برای set_value الزامی است.",
-    "err.unknown_action": "فیلد value باید بین ۰ و ۱۰۰ باشد.",
-    "msg.summary": "خطا: عمل ناشناخته '{action}'.",
-    "err.invalid_numeric": "کنترل SwitchBot BLE تکمیل شد: {action} روی {device_name} ({device_id}).",
+    "err.unknown_action": "خطا: عملکرد ناشناخته \"{action}\".",
+    "msg.summary": "کنترل SwitchBot BLE تکمیل شد: {action} در {device_name} ({device_id}).",
+    "err.invalid_numeric": "مهلت زمانی باید یک عدد صحیح باشد.",
     "err.invalid_range": "مهلت باید یک عدد صحیح باشد.",
     "err.invalid_value_type": "مهلت باید بزرگتر از ۰ باشد.",
     "err.unsupported_device": "فیلد value باید یک عدد صحیح باشد.",
-    "err.operation_failed": "دستگاه مطابقت‌یافته شبیه یک دستگاه SwitchBot BLE نیست.",
-    "msg.error_fmt": "خطا در حین عملیات BLE: {err_msg}\n\n[راهنمای مجوزهای macOS]\nدسترسی بلوتوث ممکن است توسط محدودیت‌های امنیتی macOS رد شده باشد.\nلطفاً به 'تنظیمات سیستم > حریم خصوصی و امنیت > بلوتوث' بروید و اجازه دهید ترمینال، VS Code یا فرآیند پایتون شما به بلوتوث دسترسی داشته باشد.",
-    "msg.unknown_error": "خطا: {msg}",
+    "err.operation_failed": "خطا در حین عملیات BLE: {err_msg}",
+    "msg.error_fmt": "خطا: {msg}",
+    "msg.unknown_error": "خطای ناشناخته",
     "x_search_terms": [
       "کنترل switchbot ble",
       "switchbot_ble_control",
       "سوییچ‌بات",
       "نزدیک",
       "راه دور"
-    ]
+    ],
+    "err.bleak_missing": "خطا: کتابخانه \"مشت\" نصب نشده است. لطفا با استفاده از:\nنصب پیپ تاریک است",
+    "err.linux_permission": "خطا در حین عملیات BLE: {err_msg}\n\n[راهنمای مجوز لینوکس/رزبری پای]\nممکن است مجوز دسترسی به سوکت بلوتوث را نداشته باشید. یکی از موارد زیر را امتحان کنید:\n1. کاربر خود را به گروه بلوتوث اضافه کنید (توصیه می شود):\nsudo usermod -aG بلوتوث $USER\n(نیاز به راه اندازی مجدد یا ورود مجدد دارد)\n2. مجوزها را مستقیماً به باینری پایتون بدهید:\nsudo setcap 'cap_net_raw,cap_net_admin+eip' $(readlink -f $(کدام پایتون))",
+    "err.macos_permission": "خطا در حین عملیات BLE: {err_msg}\n\n[راهنمای مجوز macOS]\nدسترسی بلوتوث ممکن است توسط محدودیت های امنیتی macOS رد شده باشد.\nلطفاً «تنظیمات سیستم > حریم خصوصی و امنیت > بلوتوث» را باز کنید و مطمئن شوید که ترمینال، کد VS یا فرآیند پایتون شما اجازه دسترسی به بلوتوث را دارد.",
+    "err.no_writable_characteristic": "دستگاه یک مشخصه GATT قابل نوشتن مناسب برای کنترل را نشان نداد.",
+    "param.devname.description": "فیلتر نام دستگاه اختیاری. با نام دقیق یا زیر رشته مطابقت دارد.",
+    "param.value.description": "مقدار عددی اختیاری برای اقدامات set_value. محدوده: 0-100.",
+    "tool.description": "یک دستگاه SwitchBot BLE نزدیک را کنترل کنید و یک JSON یا نتیجه متنی را برگردانید."
   },
   "fi": {
     "param.mac.description": "MAC-osoitesuodatin.",
@@ -220,7 +262,14 @@
       "kytkinrobotti",
       "lähellä",
       "etä"
-    ]
+    ],
+    "err.bleak_missing": "Virhe: synkkää kirjastoa ei ole asennettu. Asenna se käyttämällä:\npip install bleak",
+    "err.linux_permission": "Virhe BLE-toiminnan aikana: {err_msg}\n\n[Linux/Raspberry Pi Permission Guide]\nSinulla ei ehkä ole oikeuksia käyttää Bluetooth-liitäntää. Kokeile jotakin seuraavista:\n1. Lisää käyttäjäsi bluetooth-ryhmään (suositus):\n sudo usermod -aG bluetooth $USER\n (Vaatii uudelleenkäynnistyksen tai uudelleenkirjautumisen)\n2. Myönnä käyttöoikeudet suoraan Python-binäärille:\n sudo setcap 'cap_net_raw,cap_net_admin+eip' $(readlink -f $(mikä python))",
+    "err.macos_permission": "Virhe BLE-toiminnan aikana: {err_msg}\n\n[macOS-käyttöoikeusopas]\nMacOS-suojausrajoitukset ovat saattaneet estää Bluetoothin käytön.\nAvaa \"Järjestelmäasetukset > Tietosuoja ja suojaus > Bluetooth\" ja varmista, että päätelaitteellasi, VS-koodillasi tai Python-prosessillasi on oikeus käyttää Bluetoothia.",
+    "err.no_writable_characteristic": "Laite ei paljastanut ohjaukseen soveltuvaa kirjoitettavaa GATT-ominaisuutta.",
+    "param.devname.description": "Valinnainen laitteen nimisuodatin. Vastaa tarkalla nimellä tai alimerkkijonolla.",
+    "param.value.description": "Valinnainen numeerinen arvo set_value-toimintoille. Alue: 0-100.",
+    "tool.description": "Ohjaa lähellä olevaa SwitchBot BLE -laitetta ja palauta JSON- tai tekstitulos."
   },
   "fr": {
     "param.mac.description": "Filtre d'adresse MAC.",
@@ -247,7 +296,14 @@
       "robot de commutation",
       "à proximité",
       "à distance"
-    ]
+    ],
+    "err.bleak_missing": "Erreur : la bibliothèque 'bleak' n'est pas installée. Veuillez l'installer en utilisant :\npip installbleak",
+    "err.linux_permission": "Erreur lors du fonctionnement BLE : {err_msg}\n\n[Guide des autorisations Linux/Raspberry Pi]\nVous ne disposez peut-être pas des autorisations nécessaires pour accéder à la prise Bluetooth. Essayez l'une des solutions suivantes :\n1. Ajoutez votre utilisateur au groupe Bluetooth (recommandé) :\n sudo usermod -aG bluetooth $USER\n (nécessite un redémarrage ou une reconnexion)\n2. Accordez des autorisations directement au binaire Python :\n sudo setcap 'cap_net_raw,cap_net_admin+eip' $(readlink -f $(which python))",
+    "err.macos_permission": "Erreur lors du fonctionnement BLE : {err_msg}\n\n[Guide des autorisations macOS]\nL'accès Bluetooth a peut-être été refusé par les restrictions de sécurité macOS.\nVeuillez ouvrir « Paramètres système > Confidentialité et sécurité > Bluetooth » et assurez-vous que votre terminal, VS Code ou votre processus Python est autorisé à accéder à Bluetooth.",
+    "err.no_writable_characteristic": "L'appareil ne présentait pas de caractéristiques GATT inscriptibles adaptées au contrôle.",
+    "param.devname.description": "Filtre de nom de périphérique facultatif. Correspondance par nom exact ou sous-chaîne.",
+    "param.value.description": "Valeur numérique facultative pour les actions set_value. Plage : 0-100.",
+    "tool.description": "Contrôlez un appareil SwitchBot BLE à proximité et renvoyez un résultat JSON ou texte."
   },
   "hi": {
     "param.mac.description": "MAC पता फ़िल्टर।",
@@ -274,7 +330,14 @@
       "स्विचबॉट",
       "निकट",
       "दूरस्थ"
-    ]
+    ],
+    "err.bleak_missing": "त्रुटि: 'ब्लीक' लाइब्रेरी स्थापित नहीं है। कृपया इसका उपयोग करके इसे स्थापित करें:\nपिप इंस्टाल धूमिल",
+    "err.linux_permission": "BLE ऑपरेशन के दौरान त्रुटि: {err_msg}\n\n[लिनक्स/रास्पबेरी पाई अनुमति गाइड]\nआपके पास ब्लूटूथ सॉकेट तक पहुंचने के लिए अनुमतियों की कमी हो सकती है। निम्नलिखित में से कोई एक प्रयास करें:\n1. अपने उपयोगकर्ता को ब्लूटूथ समूह में जोड़ें (अनुशंसित):\nsudo usermod -aG ब्लूटूथ $USER\n(पुनः आरंभ या पुनः लॉगिन की आवश्यकता है)\n2. सीधे पायथन बाइनरी को अनुमतियाँ प्रदान करें:\nसुडो सेटकैप 'कैप_नेट_रॉ, कैप_नेट_एडमिन+ईआईपी' $(रीडलिंक -एफ $(कौन सा पायथन))",
+    "err.macos_permission": "BLE ऑपरेशन के दौरान त्रुटि: {err_msg}\n\n[macOS अनुमति गाइड]\nहो सकता है कि macOS सुरक्षा प्रतिबंधों के कारण ब्लूटूथ एक्सेस अस्वीकृत कर दिया गया हो।\nकृपया 'सिस्टम सेटिंग्स> गोपनीयता और सुरक्षा> ब्लूटूथ' खोलें और सुनिश्चित करें कि आपके टर्मिनल, वीएस कोड, या पायथन प्रक्रिया को ब्लूटूथ तक पहुंचने की अनुमति है।",
+    "err.no_writable_characteristic": "डिवाइस ने नियंत्रण के लिए उपयुक्त लिखने योग्य GATT विशेषता को उजागर नहीं किया।",
+    "param.devname.description": "वैकल्पिक डिवाइस नाम फ़िल्टर. सटीक नाम या सबस्ट्रिंग से मेल खाता है।",
+    "param.value.description": "set_value क्रियाओं के लिए वैकल्पिक संख्यात्मक मान। रेंज: 0-100.",
+    "tool.description": "नजदीकी स्विचबॉट BLE डिवाइस को नियंत्रित करें और JSON या टेक्स्ट परिणाम लौटाएँ।"
   },
   "id": {
     "param.mac.description": "Filter alamat MAC.",
@@ -301,7 +364,14 @@
       "saklarbot",
       "terdekat",
       "terpencil"
-    ]
+    ],
+    "err.bleak_missing": "Kesalahan: perpustakaan 'suram' tidak diinstal. Silakan instal menggunakan: \npip install suram",
+    "err.linux_permission": "Kesalahan selama pengoperasian BLE: {err_msg}\n\n[Panduan Izin Linux/Raspberry Pi]\nAnda mungkin tidak memiliki izin untuk mengakses soket Bluetooth. Cobalah salah satu dari yang berikut:\n1. Tambahkan pengguna Anda ke grup bluetooth (disarankan):\n sudo usermod -aG bluetooth $USER\n (Memerlukan restart atau login ulang)\n2. Berikan izin langsung ke biner Python:\n sudo setcap 'cap_net_raw,cap_net_admin+eip' $(readlink -f $(which python))",
+    "err.macos_permission": "Kesalahan selama pengoperasian BLE: {err_msg}\n\n[Panduan Izin macOS]\nAkses Bluetooth mungkin ditolak oleh pembatasan keamanan macOS.\nSilakan buka 'Pengaturan Sistem > Privasi & Keamanan > Bluetooth' dan pastikan terminal Anda, Kode VS, atau proses Python diizinkan untuk mengakses Bluetooth.",
+    "err.no_writable_characteristic": "Perangkat tidak menampilkan karakteristik GATT yang dapat ditulis dan sesuai untuk kontrol.",
+    "param.devname.description": "Filter nama perangkat opsional. Cocok berdasarkan nama persis atau substring.",
+    "param.value.description": "Nilai numerik opsional untuk tindakan set_value. Kisaran: 0-100.",
+    "tool.description": "Kontrol perangkat SwitchBot BLE terdekat dan kembalikan JSON atau hasil teks."
   },
   "it": {
     "param.mac.description": "Filtro indirizzo MAC.",
@@ -328,25 +398,32 @@
       "commutatore",
       "nelle vicinanze",
       "remoto"
-    ]
+    ],
+    "err.bleak_missing": "Errore: la libreria 'bleak' non è installata. Installalo utilizzando: \npip install bleak",
+    "err.linux_permission": "Errore durante l'operazione BLE: {err_msg}\n\n[Guida alle autorizzazioni Linux/Raspberry Pi]\nPotresti non avere le autorizzazioni per accedere alla presa Bluetooth. Prova una delle seguenti soluzioni:\n1. Aggiungi il tuo utente al gruppo Bluetooth (consigliato):\n sudo usermod -aG bluetooth $USER\n (richiede il riavvio o il nuovo accesso)\n2. Concedi le autorizzazioni direttamente al binario Python:\n sudo setcap 'cap_net_raw,cap_net_admin+eip' $(readlink -f $(what python))",
+    "err.macos_permission": "Errore durante l'operazione BLE: {err_msg}\n\n[Guida alle autorizzazioni macOS]\nL'accesso Bluetooth potrebbe essere stato negato dalle restrizioni di sicurezza di macOS.\nApri \"Impostazioni di sistema > Privacy e sicurezza > Bluetooth\" e assicurati che il tuo terminale, VS Code o il processo Python siano autorizzati ad accedere al Bluetooth.",
+    "err.no_writable_characteristic": "Il dispositivo non ha esposto una caratteristica GATT scrivibile adatta al controllo.",
+    "param.devname.description": "Filtro nome dispositivo opzionale. Corrisponde per nome esatto o sottostringa.",
+    "param.value.description": "Valore numerico facoltativo per le azioni set_value. Intervallo: 0-100.",
+    "tool.description": "Controlla un dispositivo BLE SwitchBot nelle vicinanze e restituisce un risultato JSON o testuale."
   },
   "ja": {
     "param.mac.description": "MACアドレスフィルター。",
     "param.action.description": "アクション: on/off/open/close/set_value/lock/unlock。",
     "param.timeout.description": "HTTP タイムアウト（秒）。",
     "param.fmt.description": "形式: json または text。",
-    "err.not_found": "No SwitchBot BLE device matched the provided mac_address.",
-    "err.ambiguous_target": "Multiple SwitchBot BLE devices matched the provided device_name.",
-    "err.invalid_argument": "Either mac_address or device_name is required.",
-    "err.value_required": "The value field is required for set_value.",
-    "err.invalid_value_range": "The value field must be between 0 and 100.",
-    "err.unknown_action": "Error: Unknown action '{action}'.",
-    "msg.summary": "SwitchBot BLE control completed: {action} on {device_name} ({device_id}).",
-    "err.invalid_numeric": "Timeout must be an integer.",
-    "err.invalid_range": "Timeout must be greater than 0.",
-    "err.invalid_value_type": "The value field must be an integer.",
-    "err.unsupported_device": "The matched device does not look like a SwitchBot BLE device.",
-    "err.operation_failed": "Error during BLE operation: {err_msg}",
+    "err.not_found": "指定された mac_address に一致する SwitchBot BLE デバイスはありませんでした。",
+    "err.ambiguous_target": "複数の SwitchBot BLE デバイスが、指定された device_name と一致しました。",
+    "err.invalid_argument": "mac_address または device_name のいずれかが必要です。",
+    "err.value_required": "set_value には value フィールドが必要です。",
+    "err.invalid_value_range": "値フィールドは 0 ～ 100 でなければなりません。",
+    "err.unknown_action": "エラー: 不明なアクション '{action}'。",
+    "msg.summary": "SwitchBot BLE 制御が完了しました: {action} 上の {device_name} ({device_id})。",
+    "err.invalid_numeric": "タイムアウトは整数でなければなりません。",
+    "err.invalid_range": "タイムアウトは 0 より大きくなければなりません。",
+    "err.invalid_value_type": "値フィールドは整数である必要があります。",
+    "err.unsupported_device": "一致したデバイスは SwitchBot BLE デバイスのように見えません。",
+    "err.operation_failed": "BLE 操作中のエラー: {err_msg}",
     "msg.error_fmt": "エラー: {msg}",
     "msg.unknown_error": "不明なエラー",
     "err.bleak_missing": "エラー: 「bleak」ライブラリがインストールされていません。以下を使用してインストールしてください。\npip インストール ブランク",
@@ -389,10 +466,17 @@
       "스위치봇",
       "인근",
       "원격"
-    ]
+    ],
+    "err.bleak_missing": "오류: 'bleak' 라이브러리가 설치되지 않았습니다. 다음을 사용하여 설치하세요:\npip install bleak",
+    "err.linux_permission": "BLE 작동 중 오류: {err_msg}\n\n[Linux/Raspberry Pi 권한 안내]\n블루투스 소켓에 접근하기 위한 권한이 부족할 수 있습니다. 다음 중 하나를 시도해 보세요.\n1. 블루투스 그룹에 사용자 추가(권장):\n sudo usermod -aG bluetooth $USER\n (다시 시작하거나 다시 로그인해야 함)\n2. Python 바이너리에 직접 권한 부여:\n sudo setcap 'cap_net_raw,cap_net_admin+eip' $(readlink -f $(which python))",
+    "err.macos_permission": "BLE 작동 중 오류: {err_msg}\n\n[macOS 권한 가이드]\nBluetooth 액세스가 macOS 보안 제한으로 인해 거부되었을 수 있습니다.\n'시스템 설정 > 개인 정보 보호 및 보안 > Bluetooth'를 열고 터미널, VS Code 또는 Python 프로세스가 Bluetooth 액세스를 허용하는지 확인하세요.",
+    "err.no_writable_characteristic": "장치는 제어에 적합한 쓰기 가능한 GATT 특성을 노출하지 않았습니다.",
+    "param.devname.description": "선택적 장치 이름 필터입니다. 정확한 이름이나 하위 문자열로 일치합니다.",
+    "param.value.description": "set_value 작업에 대한 선택적 숫자 값입니다. 범위: 0-100.",
+    "tool.description": "근처의 SwitchBot BLE 장치를 제어하고 JSON 또는 텍스트 결과를 반환합니다."
   },
   "mn": {
-    "param.mac.description": "Алдаа: {err}",
+    "param.mac.description": "MAC хаягийн шүүлтүүр.",
     "param.action.description": "MAC хаягийн шүүлтүүр.",
     "param.timeout.description": "Үйлдэл: on/off/open/close/set_value.",
     "param.fmt.description": "Гүйцэтгэх командууд.",
@@ -401,25 +485,32 @@
     "err.invalid_argument": "Өгөгдсөн device_name-тай тохирох олон SwitchBot BLE төхөөрөмж олдлоо.",
     "err.value_required": "mac_address эсвэл device_name шаардлагатай.",
     "err.invalid_value_range": "set_value-д утгын талбар шаардлагатай.",
-    "err.unknown_action": "Утгын талбар 0-100 хооронд байх ёстой.",
-    "msg.summary": "Алдаа: Үл мэдэгдэх үйлдэл '{action}'.",
-    "err.invalid_numeric": "SwitchBot BLE хяналт дуусгавар боллоо: {action} on {device_name} ({device_id}).",
+    "err.unknown_action": "Алдаа: Үл мэдэгдэх үйлдэл '{action}'.",
+    "msg.summary": "SwitchBot BLE хяналт дууссан: {device_name} ({device_id}) дээр {action}.",
+    "err.invalid_numeric": "Хугацаа нь бүхэл тоо байх ёстой.",
     "err.invalid_range": "Хугацаа нь бүхэл тоо байх ёстой.",
     "err.invalid_value_type": "Хугацаа 0-ээс их байх ёстой.",
     "err.unsupported_device": "Утгын талбар нь бүхэл тоо байх ёстой.",
-    "err.operation_failed": "Тохирсон төхөөрөмж нь SwitchBot BLE төхөөрөмж шиг харагдахгүй байна.",
-    "msg.error_fmt": "BLE үйл ажиллагааны үед алдаа гарлаа: {err_msg}\n\n[macOS Зөвшөөрлийн Гарын Авлага]\nmacOS аюулгүй байдлын хязгаарлалтаар Bluetooth хандалтыг зөвшөөрөхгүй байж болно.\n'Системийн Тохиргоо > Нууцлал & Аюулгүй Байдал > Bluetooth' хэсгийг нээж, терминал, VS Code, эсвэл Python процесс тань Bluetooth-д хандахыг зөвшөөрсөн эсэхийг шалгана уу.",
-    "msg.unknown_error": "Алдаа: {msg}",
+    "err.operation_failed": "BLE үйлдлийн үед гарсан алдаа: {err_msg}",
+    "msg.error_fmt": "Алдаа: {msg}",
+    "msg.unknown_error": "үл мэдэгдэх алдаа",
     "x_search_terms": [
       "switchbot ble хяналт",
       "switchbot_ble_control",
       "свичбот",
       "ойролцоо",
       "алсын"
-    ]
+    ],
+    "err.bleak_missing": "Алдаа: 'харин' номын сан суулгаагүй байна. Үүнийг ашиглан суулгана уу: \npip install bleak",
+    "err.linux_permission": "Error during BLE operation: {err_msg}\n\n[Linux/Raspberry Pi Permission Guide]\nYou might lack permissions to access the Bluetooth socket. Дараахаас аль нэгийг нь туршаад үзээрэй: \n1. Хэрэглэгчээ bluetooth бүлэгт нэмнэ үү (санал болгож байна):\n sudo usermod -aG bluetooth $USER\n (Дахин эхлүүлэх эсвэл дахин нэвтрэх шаардлагатай)\n2. Python хоёртын файлд шууд зөвшөөрөл олгох:\n sudo setcap 'cap_net_raw,cap_net_admin+eip' $(унших холбоос -f $(аль python))",
+    "err.macos_permission": "BLE үйлдлийн үед гарсан алдаа: {err_msg}\n\n[macOS зөвшөөрлийн гарын авлага]\nBluetooth хандалтыг macOS-ийн аюулгүй байдлын хязгаарлалтаар хориглосон байж болзошгүй.\n'Системийн тохиргоо > Нууцлал, аюулгүй байдал > Bluetooth'-г нээж, таны терминал, VS код эсвэл Python процесс Bluetooth-д хандах эрхтэй эсэхийг шалгана уу.",
+    "err.no_writable_characteristic": "Уг төхөөрөмж нь удирдахад тохиромжтой, бичих боломжтой GATT шинж чанарыг илрүүлээгүй.",
+    "param.devname.description": "Нэмэлт төхөөрөмжийн нэр шүүлтүүр. Яг нэр эсвэл дэд мөрөөр таарч байна.",
+    "param.value.description": "Тодорхой_утга үйлдлүүдийн нэмэлт тоон утга. Хүрээ: 0-100.",
+    "tool.description": "Ойролцоох SwitchBot BLE төхөөрөмжийг удирдаж, JSON эсвэл текстийн үр дүнг буцаана уу."
   },
   "mr": {
-    "param.mac.description": "त्रुटी: {err}",
+    "param.mac.description": "MAC पत्ता फिल्टर.",
     "param.action.description": "MAC पत्ता फिल्टर.",
     "param.timeout.description": "क्रिया: on/off/open/close/set_value.",
     "param.fmt.description": "कार्यान्वित करण्यासाठी कमांड्स.",
@@ -428,22 +519,29 @@
     "err.invalid_argument": "प्रदान केलेल्या device_name शी अनेक SwitchBot BLE डिव्हाइसेस जुळली.",
     "err.value_required": "mac_address किंवा device_name पैकी एक आवश्यक आहे.",
     "err.invalid_value_range": "set_value साठी value फील्ड आवश्यक आहे.",
-    "err.unknown_action": "value फील्ड ० आणि १०० दरम्यान असणे आवश्यक आहे.",
-    "msg.summary": "त्रुटी: अज्ञात क्रिया '{action}'.",
-    "err.invalid_numeric": "SwitchBot BLE नियंत्रण पूर्ण: {action} on {device_name} ({device_id}).",
+    "err.unknown_action": "त्रुटी: अज्ञात क्रिया '{action}'.",
+    "msg.summary": "स्विचबॉट BLE नियंत्रण पूर्ण झाले: {device_name} ({device_id}) वर {action}.",
+    "err.invalid_numeric": "कालबाह्य पूर्णांक असणे आवश्यक आहे.",
     "err.invalid_range": "टाइमआउट पूर्णांक असणे आवश्यक आहे.",
     "err.invalid_value_type": "टाइमआउट ० पेक्षा मोठा असणे आवश्यक आहे.",
     "err.unsupported_device": "value फील्ड पूर्णांक असणे आवश्यक आहे.",
-    "err.operation_failed": "जुळणारे डिव्हाइस SwitchBot BLE डिव्हाइससारखे दिसत नाही.",
-    "msg.error_fmt": "BLE ऑपरेशन दरम्यान त्रुटी: {err_msg}\n\n[macOS परवानगी मार्गदर्शक]\nmacOS सुरक्षा निर्बंधांद्वारे ब्लूटूथ प्रवेश नाकारला गेला असावा.\nकृपया 'सिस्टम सेटिंग्ज > प्रायव्हसी आणि सिक्युरिटी > ब्लूटूथ' उघडा आणि तुमच्या टर्मिनल, VS Code, किंवा Python प्रक्रियेला ब्लूटूथमध्ये प्रवेश करण्याची परवानगी आहे याची खात्री करा.",
-    "msg.unknown_error": "त्रुटी: {msg}",
+    "err.operation_failed": "BLE ऑपरेशन दरम्यान त्रुटी: {err_msg}",
+    "msg.error_fmt": "त्रुटी: {msg}",
+    "msg.unknown_error": "अज्ञात त्रुटी",
     "x_search_terms": [
       "switchbot ble नियंत्रण",
       "switchbot_ble_control",
       "स्विचबॉट",
       "जवळ",
       "दूरस्थ"
-    ]
+    ],
+    "err.bleak_missing": "त्रुटी: 'ब्लॅक' लायब्ररी स्थापित केलेली नाही. कृपया ते वापरून स्थापित करा:\npip install bleak",
+    "err.linux_permission": "BLE ऑपरेशन दरम्यान त्रुटी: {err_msg}\n\n[Linux/Raspberry Pi परवानगी मार्गदर्शक]\nतुम्हाला ब्लूटूथ सॉकेटमध्ये प्रवेश करण्यासाठी परवानग्या नसतील. खालीलपैकी एक वापरून पहा:\n1. तुमच्या वापरकर्त्याला ब्लूटूथ ग्रुपमध्ये जोडा (शिफारस केलेले):\n sudo usermod -aG ब्लूटूथ $USER\n (रीस्टार्ट किंवा पुन्हा लॉगिन आवश्यक आहे)\n2. पायथन बायनरीला थेट परवानग्या द्या: \n sudo setcap 'cap_net_raw,cap_net_admin+eip' $(readlink -f $(which python))",
+    "err.macos_permission": "BLE ऑपरेशन दरम्यान त्रुटी: {err_msg}\n\n[macOS परवानगी मार्गदर्शक]\nBluetooth प्रवेश macOS सुरक्षा निर्बंधांमुळे नाकारला गेला असावा.",
+    "err.no_writable_characteristic": "उपकरणाने नियंत्रणासाठी योग्य लिहिण्यायोग्य GATT वैशिष्ट्य उघड केले नाही.",
+    "param.devname.description": "पर्यायी डिव्हाइस नाव फिल्टर. अचूक नाव किंवा सबस्ट्रिंगनुसार जुळते.",
+    "param.value.description": "set_value क्रियांसाठी पर्यायी अंकीय मूल्य. श्रेणी: 0-100.",
+    "tool.description": "जवळपासचे SwitchBot BLE डिव्हाइस नियंत्रित करा आणि JSON किंवा मजकूर परिणाम परत करा."
   },
   "el": {
     "param.mac.description": "Φίλτρο διεύθυνσης MAC.",
@@ -470,7 +568,14 @@
       "διακόπτης",
       "κοντά",
       "απομακρυσμένο"
-    ]
+    ],
+    "err.bleak_missing": "Σφάλμα: Δεν έχει εγκατασταθεί η «μαυρή» βιβλιοθήκη. Εγκαταστήστε το χρησιμοποιώντας:\npip install bleak",
+    "err.linux_permission": "Σφάλμα κατά τη λειτουργία BLE: {err_msg}\n\n[Οδηγός άδειας Linux/Raspberry Pi]\nΜπορεί να μην έχετε δικαιώματα πρόσβασης στην υποδοχή Bluetooth. Δοκιμάστε ένα από τα παρακάτω:\n1. Προσθέστε τον χρήστη σας στην ομάδα bluetooth (συνιστάται):\n sudo usermod -aG bluetooth $USER\n (Απαιτείται επανεκκίνηση ή επανασύνδεση)\n2. Εκχωρήστε δικαιώματα απευθείας στο δυαδικό της Python:\n sudo setcap 'cap_net_raw,cap_net_admin+eip' $(readlink -f $(ποιο python))",
+    "err.macos_permission": "Σφάλμα κατά τη λειτουργία BLE: {err_msg}\n\n[Οδηγός αδειών macOS]\nΗ πρόσβαση στο Bluetooth ενδέχεται να έχει απορριφθεί από περιορισμούς ασφαλείας του macOS.\nΑνοίξτε τις «Ρυθμίσεις συστήματος > Απόρρητο και ασφάλεια > Bluetooth» και βεβαιωθείτε ότι επιτρέπεται στο τερματικό σας, ο Κωδικός VS ή η διαδικασία Python να έχει πρόσβαση στο Bluetooth.",
+    "err.no_writable_characteristic": "Η συσκευή δεν εξέθεσε ένα εγγράψιμο χαρακτηριστικό GATT κατάλληλο για έλεγχο.",
+    "param.devname.description": "Προαιρετικό φίλτρο ονόματος συσκευής. Ταιριάζει με ακριβές όνομα ή υποσυμβολοσειρά.",
+    "param.value.description": "Προαιρετική αριθμητική τιμή για ενέργειες set_value. Εύρος: 0-100.",
+    "tool.description": "Ελέγξτε μια κοντινή συσκευή SwitchBot BLE και επιστρέψτε ένα αποτέλεσμα JSON ή κειμένου."
   },
   "he": {
     "param.mac.description": "מסנן כתובת MAC.",
@@ -497,7 +602,14 @@
       "מתג-בוט",
       "בקרבת מקום",
       "מרחוק"
-    ]
+    ],
+    "err.bleak_missing": "שגיאה: ספריית 'עגומה' אינה מותקנת. אנא התקן אותו באמצעות:\npip install beak",
+    "err.linux_permission": "שגיאה במהלך פעולת BLE: {err_msg}\n\n[מדריך ההרשאות של Linux/Raspberry Pi]\nייתכן שחסרות לך הרשאות גישה לשקע ה-Bluetooth. נסה אחת מהאפשרויות הבאות:\n1. הוסף את המשתמש שלך לקבוצת ה-Bluetooth (מומלץ):\n sudo usermod -aG bluetooth $USER\n (דורש הפעלה מחדש או התחברות מחדש)\n2. הענק הרשאות ישירות לקובץ הבינארי של Python:\n sudo setcap 'cap_net_raw,cap_net_admin+eip' $(readlink -f $(which python))",
+    "err.macos_permission": "שגיאה במהלך פעולת BLE: {err_msg}\n\n[מדריך הרשאות macOS]\nייתכן שהגישה ל-Bluetooth נדחתה על ידי הגבלות אבטחה של macOS.\nאנא פתח את 'הגדרות מערכת > פרטיות ואבטחה > Bluetooth' וודא שהטרמינל, קוד VS או תהליך Python שלך מורשה לגשת ל-Bluetooth.",
+    "err.no_writable_characteristic": "המכשיר לא חשף מאפיין GATT בר כתיבה המתאים לשליטה.",
+    "param.devname.description": "מסנן שמות מכשיר אופציונלי. התאמות לפי שם מדויק או מחרוזת משנה.",
+    "param.value.description": "ערך מספרי אופציונלי עבור פעולות set_value. טווח: 0-100.",
+    "tool.description": "שלטו במכשיר SwitchBot BLE קרוב והחזרו תוצאת JSON או טקסט."
   },
   "hu": {
     "param.mac.description": "MAC-cím szűrő.",
@@ -524,7 +636,14 @@
       "kapcsolóbot",
       "közel",
       "távoli"
-    ]
+    ],
+    "err.bleak_missing": "Hiba: a „sivár” könyvtár nincs telepítve. Telepítse a következővel:\npip install bleak",
+    "err.linux_permission": "Hiba a BLE működése közben: {err_msg}\n\n[Linux/Raspberry Pi engedélyek útmutatója]\nLehet, hogy nincs engedélye a Bluetooth-aljzat eléréséhez. Próbálja ki a következők egyikét:\n1. Adja hozzá felhasználóját a bluetooth csoporthoz (ajánlott):\n sudo usermod -aG bluetooth $USER\n (Újraindítást vagy újrajelentkezést igényel)\n2. Engedélyek megadása közvetlenül a Python binárisnak:\n sudo setcap 'cap_net_raw,cap_net_admin+eip' $(readlink -f $(melyik python))",
+    "err.macos_permission": "Hiba a BLE működése közben: {err_msg}\n\n[macOS Permission Guide]\nLehet, hogy a Bluetooth-hozzáférést megtagadták a macOS biztonsági korlátozások.\nKérjük, nyissa meg a „Rendszerbeállítások > Adatvédelem és biztonság > Bluetooth” menüpontot, és győződjön meg arról, hogy a terminál, a VS Code vagy a Python folyamat hozzáfér a Bluetooth-hoz.",
+    "err.no_writable_characteristic": "A készülék nem tett fel vezérlésre alkalmas írható GATT karakterisztikát.",
+    "param.devname.description": "Opcionális eszköznévszűrő. Pontos név vagy részkarakterlánc szerint egyezik.",
+    "param.value.description": "Opcionális numerikus érték a set_value műveletekhez. Tartomány: 0-100.",
+    "tool.description": "Vezéreljen egy közeli SwitchBot BLE-eszközt, és küldjön vissza JSON- vagy szöveges eredményt."
   },
   "ro": {
     "param.mac.description": "Filtru adresă MAC.",
@@ -551,7 +670,14 @@
       "comutator robot",
       "aproape",
       "de la distanță"
-    ]
+    ],
+    "err.bleak_missing": "Eroare: biblioteca „sumbră” nu este instalată. Instalați-l folosind:\npip install bleak",
+    "err.linux_permission": "Eroare în timpul funcționării BLE: {err_msg}\n\n[Linux/Raspberry Pi Permission Guide]\nEste posibil să nu aveți permisiuni pentru a accesa soclul Bluetooth. Încercați una dintre următoarele:\n1. Adăugați utilizatorul în grupul Bluetooth (recomandat):\n sudo usermod -aG bluetooth $USER\n (Necesită repornire sau reconectare)\n2. Acordați permisiuni direct binarului Python:\n sudo setcap 'cap_net_raw,cap_net_admin+eip' $(readlink -f $(which python))",
+    "err.macos_permission": "Eroare în timpul funcționării BLE: {err_msg}\n\n[MacOS Permission Guide]\nAccesul Bluetooth ar fi putut fi refuzat de restricțiile de securitate macOS.\nDeschideți „Setări de sistem > Confidențialitate și securitate > Bluetooth” și asigurați-vă că terminalul, VS Code sau procesul Python au permisiunea de a accesa Bluetooth.",
+    "err.no_writable_characteristic": "Dispozitivul nu a expus o caracteristică GATT inscriptabilă potrivită pentru control.",
+    "param.devname.description": "Filtru opțional pentru numele dispozitivului. Se potrivește după nume exact sau subșir.",
+    "param.value.description": "Valoare numerică opțională pentru acțiunile set_value. Interval: 0-100.",
+    "tool.description": "Controlați un dispozitiv SwitchBot BLE din apropiere și returnați un rezultat JSON sau text."
   },
   "nb": {
     "param.mac.description": "MAC-adressefilter.",
@@ -578,7 +704,14 @@
       "switchbot",
       "i nærheten",
       "ekstern"
-    ]
+    ],
+    "err.bleak_missing": "Feil: 'bleak'-biblioteket er ikke installert. Installer den ved å bruke:\npip install bleak",
+    "err.linux_permission": "Feil under BLE-drift: {err_msg}\n\n[Linux/Raspberry Pi Permission Guide]\nDu mangler kanskje tillatelser til å få tilgang til Bluetooth-kontakten. Prøv ett av følgende:\n1. Legg til brukeren din i bluetooth-gruppen (anbefalt):\n sudo usermod -aG bluetooth $USER\n (Krever omstart eller pålogging på nytt)\n2. Gi tillatelser direkte til Python-binæren:\n sudo setcap 'cap_net_raw,cap_net_admin+eip' $(readlink -f $(which python))",
+    "err.macos_permission": "Feil under BLE-operasjon: {err_msg}\n\n[macOS Permission Guide]\nBluetooth-tilgang kan ha blitt nektet av macOS-sikkerhetsbegrensninger.\nÅpne \"Systeminnstillinger > Personvern og sikkerhet > Bluetooth\" og sørg for at terminalen, VS-koden eller Python-prosessen har tilgang til Bluetooth.",
+    "err.no_writable_characteristic": "Enheten eksponerte ikke en skrivbar GATT-karakteristikk egnet for kontroll.",
+    "param.devname.description": "Valgfritt enhetsnavnfilter. Matcher etter eksakt navn eller understreng.",
+    "param.value.description": "Valgfri numerisk verdi for set_value-handlinger. Rekkevidde: 0-100.",
+    "tool.description": "Kontroller en SwitchBot BLE-enhet i nærheten og returner et JSON- eller tekstresultat."
   },
   "nl": {
     "param.mac.description": "MAC-adresfilter.",
@@ -605,7 +738,14 @@
       "schakelbot",
       "nabij",
       "extern"
-    ]
+    ],
+    "err.bleak_missing": "Fout: 'bleak'-bibliotheek is niet geïnstalleerd. Installeer het met behulp van: \npip install somber",
+    "err.linux_permission": "Fout tijdens BLE-bewerking: {err_msg}\n\n[Linux/Raspberry Pi Permission Guide]\nHet kan zijn dat u geen toestemming heeft om toegang te krijgen tot de Bluetooth-aansluiting. Probeer een van de volgende oplossingen:\n1. Voeg uw gebruiker toe aan de Bluetooth-groep (aanbevolen):\n sudo usermod -aG bluetooth $USER\n (vereist opnieuw opstarten of opnieuw inloggen)\n2. Verleen rechtstreeks rechten aan het binaire Python-bestand:\n sudo setcap 'cap_net_raw,cap_net_admin+eip' $(readlink -f $(welke python))",
+    "err.macos_permission": "Fout tijdens BLE-bewerking: {err_msg}\n\n[macOS Permission Guide]\nBluetooth-toegang is mogelijk geweigerd door macOS-beveiligingsbeperkingen.\nOpen 'Systeeminstellingen > Privacy en beveiliging > Bluetooth' en zorg ervoor dat uw terminal, VS Code of Python-proces toegang heeft tot Bluetooth.",
+    "err.no_writable_characteristic": "Het apparaat vertoonde geen beschrijfbare GATT-karakteristiek die geschikt is voor controle.",
+    "param.devname.description": "Optioneel apparaatnaamfilter. Komt overeen met exacte naam of subtekenreeks.",
+    "param.value.description": "Optionele numerieke waarde voor set_value-acties. Bereik: 0-100.",
+    "tool.description": "Bedien een SwitchBot BLE-apparaat in de buurt en retourneer een JSON- of tekstresultaat."
   },
   "pl": {
     "param.mac.description": "Filtr adresu MAC.",
@@ -632,7 +772,14 @@
       "przełącznik",
       "w pobliżu",
       "zdalny"
-    ]
+    ],
+    "err.bleak_missing": "Błąd: biblioteka „bleak” nie jest zainstalowana. Zainstaluj go za pomocą: \npip install bleak",
+    "err.linux_permission": "Błąd podczas działania BLE: {err_msg}\n\n[Przewodnik po uprawnieniach systemu Linux/Raspberry Pi]\nMożesz nie mieć uprawnień dostępu do gniazda Bluetooth. Wypróbuj jedną z poniższych opcji:\n1. Dodaj użytkownika do grupy Bluetooth (zalecane): \n sudo usermod -aG bluetooth $USER\n (wymaga ponownego uruchomienia lub ponownego zalogowania) \n2. Przyznaj uprawnienia bezpośrednio do pliku binarnego Pythona: \n sudo setcap 'cap_net_raw,cap_net_admin+eip' $(readlink -f $(what python))",
+    "err.macos_permission": "Błąd podczas działania BLE: {err_msg}\n\n[Przewodnik po uprawnieniach systemu macOS]\nDostęp Bluetooth mógł zostać odrzucony ze względu na ograniczenia bezpieczeństwa systemu macOS.\nOtwórz „Ustawienia systemu > Prywatność i bezpieczeństwo > Bluetooth” i upewnij się, że terminal, VS Code lub proces Pythona mają zezwolenie na dostęp do Bluetooth.",
+    "err.no_writable_characteristic": "Urządzenie nie udostępniało zapisywalnej charakterystyki GATT odpowiedniej do sterowania.",
+    "param.devname.description": "Opcjonalny filtr nazw urządzeń. Dopasowuje według dokładnej nazwy lub podciągu.",
+    "param.value.description": "Opcjonalna wartość liczbowa dla akcji set_value. Zakres: 0-100.",
+    "tool.description": "Kontroluj pobliskie urządzenie SwitchBot BLE i zwracaj wynik JSON lub tekst."
   },
   "pt": {
     "param.mac.description": "Filtro de endereço MAC.",
@@ -659,7 +806,14 @@
       "robô de comutação",
       "próximo",
       "remoto"
-    ]
+    ],
+    "err.bleak_missing": "Erro: a biblioteca 'bleak' não está instalada. Instale-o usando:\npip install bleak",
+    "err.linux_permission": "Erro durante a operação BLE: {err_msg}\n\n[Guia de permissão do Linux/Raspberry Pi]\nVocê pode não ter permissões para acessar o soquete Bluetooth. Experimente um dos seguintes:\n1. Adicione seu usuário ao grupo bluetooth (recomendado):\n sudo usermod -aG bluetooth $USER\n (requer reinicialização ou login novamente)\n2. Conceda permissões diretamente ao binário Python:\n sudo setcap 'cap_net_raw,cap_net_admin+eip' $(readlink -f $(qual python))",
+    "err.macos_permission": "Erro durante a operação BLE: {err_msg}\n\n[Guia de permissão do macOS]\nO acesso ao Bluetooth pode ter sido negado pelas restrições de segurança do macOS.\nAbra 'Configurações do sistema> Privacidade e segurança> Bluetooth' e certifique-se de que seu terminal, VS Code ou processo Python tenha permissão para acessar o Bluetooth.",
+    "err.no_writable_characteristic": "O dispositivo não expôs uma característica GATT gravável adequada para controle.",
+    "param.devname.description": "Filtro opcional de nome de dispositivo. Corresponde por nome exato ou substring.",
+    "param.value.description": "Valor numérico opcional para ações set_value. Faixa: 0-100.",
+    "tool.description": "Controle um dispositivo SwitchBot BLE próximo e retorne um resultado JSON ou de texto."
   },
   "pt_BR": {
     "param.mac.description": "Filtro de endereço MAC.",
@@ -686,7 +840,14 @@
       "robô de comutação",
       "nas proximidades",
       "remoto"
-    ]
+    ],
+    "err.bleak_missing": "Erro: a biblioteca 'bleak' não está instalada. Instale-o usando:\npip install bleak",
+    "err.linux_permission": "Erro durante a operação BLE: {err_msg}\n\n[Guia de permissão do Linux/Raspberry Pi]\nVocê pode não ter permissões para acessar o soquete Bluetooth. Experimente um dos seguintes:\n1. Adicione seu usuário ao grupo bluetooth (recomendado):\n sudo usermod -aG bluetooth $USER\n (requer reinicialização ou login novamente)\n2. Conceda permissões diretamente ao binário Python:\n sudo setcap 'cap_net_raw,cap_net_admin+eip' $(readlink -f $(qual python))",
+    "err.macos_permission": "Erro durante a operação BLE: {err_msg}\n\n[Guia de permissão do macOS]\nO acesso ao Bluetooth pode ter sido negado pelas restrições de segurança do macOS.\nAbra 'Configurações do sistema> Privacidade e segurança> Bluetooth' e certifique-se de que seu terminal, VS Code ou processo Python tenha permissão para acessar o Bluetooth.",
+    "err.no_writable_characteristic": "O dispositivo não expôs uma característica GATT gravável adequada para controle.",
+    "param.devname.description": "Filtro opcional de nome de dispositivo. Corresponde por nome exato ou substring.",
+    "param.value.description": "Valor numérico opcional para ações set_value. Faixa: 0-100.",
+    "tool.description": "Controle um dispositivo SwitchBot BLE próximo e retorne um resultado JSON ou de texto."
   },
   "ru": {
     "param.mac.description": "Фильтр по MAC-адресу.",
@@ -713,7 +874,14 @@
       "switchbot",
       "рядом",
       "удаленный"
-    ]
+    ],
+    "err.bleak_missing": "Ошибка: «мрачная» библиотека не установлена. Пожалуйста, установите его, используя: \npip install bleak",
+    "err.linux_permission": "Ошибка во время работы BLE: {err_msg}\n\n[Руководство по разрешениям Linux/Raspberry Pi]\nВозможно, у вас недостаточно прав для доступа к разъему Bluetooth. Попробуйте одно из следующих действий:\n1. Добавьте пользователя в группу Bluetooth (рекомендуется):\n sudo usermod -aG bluetooth $USER\n (требуется перезагрузка или повторный вход в систему)\n2. Предоставьте разрешения непосредственно двоичному файлу Python: sudo setcap 'cap_net_raw,cap_net_admin+eip' $(readlink -f $(what python))",
+    "err.macos_permission": "Ошибка во время работы BLE: {err_msg}\n\n[Руководство по разрешениям macOS]\nДоступ к Bluetooth мог быть запрещен ограничениями безопасности macOS.\nОткройте «Системные настройки > Конфиденциальность и безопасность > Bluetooth» и убедитесь, что вашему терминалу, VS Code или процессу Python разрешен доступ к Bluetooth.",
+    "err.no_writable_characteristic": "Устройство не предоставило записываемую характеристику GATT, подходящую для управления.",
+    "param.devname.description": "Дополнительный фильтр имени устройства. Соответствует точному имени или подстроке.",
+    "param.value.description": "Необязательное числовое значение для действий set_value. Диапазон: 0–100.",
+    "tool.description": "Управляйте ближайшим устройством SwitchBot BLE и возвращайте результат в формате JSON или текст."
   },
   "sv": {
     "param.mac.description": "MAC-adressfilter.",
@@ -740,7 +908,14 @@
       "switchbot",
       "nära",
       "fjärr"
-    ]
+    ],
+    "err.bleak_missing": "Fel: 'bleak'-biblioteket är inte installerat. Installera den med:\npip install bleak",
+    "err.linux_permission": "Fel under BLE-drift: {err_msg}\n\n[Linux/Raspberry Pi Permission Guide]\nDu kanske saknar behörighet att komma åt Bluetooth-uttaget. Prova något av följande:\n1. Lägg till din användare i bluetooth-gruppen (rekommenderas):\n sudo usermod -aG bluetooth $USER\n (kräver omstart eller ominloggning)\n2. Ge behörigheter direkt till Python-binären:\n sudo setcap 'cap_net_raw,cap_net_admin+eip' $(readlink -f $(vilken python))",
+    "err.macos_permission": "Fel under BLE-drift: {err_msg}\n\n[macOS Permission Guide]\nBluetooth-åtkomst kan ha nekats av macOS-säkerhetsbegränsningar.\nÖppna \"Systeminställningar > Sekretess och säkerhet > Bluetooth\" och se till att din terminal, VS-kod eller Python-process tillåts åtkomst till Bluetooth.",
+    "err.no_writable_characteristic": "Anordningen exponerade inte en skrivbar GATT-egenskap som var lämplig för kontroll.",
+    "param.devname.description": "Valfritt enhetsnamnfilter. Matchar efter exakt namn eller delsträng.",
+    "param.value.description": "Valfritt numeriskt värde för set_value-åtgärder. Räckvidd: 0-100.",
+    "tool.description": "Styr en närliggande SwitchBot BLE-enhet och returnera ett JSON- eller textresultat."
   },
   "sw": {
     "param.mac.description": "Kichujio cha anwani ya MAC.",
@@ -767,25 +942,32 @@
       "kubadili bot",
       "karibu",
       "kijijini"
-    ]
+    ],
+    "err.bleak_missing": "Hitilafu: maktaba ya 'mbaya' haijasakinishwa. Tafadhali isakinishe kwa kutumia:\npip install bleak",
+    "err.linux_permission": "Hitilafu wakati wa operesheni ya BLE: {err_msg}\n\n[Mwongozo wa Ruhusa wa Linux/Raspberry Pi]\nHuenda ukakosa ruhusa za kufikia soketi ya Bluetooth. Jaribu mojawapo ya yafuatayo:\n1. Ongeza mtumiaji wako kwenye kikundi cha bluetooth (inapendekezwa):\n sudo usermod -aG bluetooth $USER\n (Inahitaji kuzima na kuwasha upya au kuingia upya)\n2. Toa ruhusa moja kwa moja kwa mfumo wa binary wa Python:\n sudo setcap 'cap_net_raw,cap_net_admin+eip' $(readlink -f $(python ipi))",
+    "err.macos_permission": "Hitilafu wakati wa operesheni ya BLE: {err_msg}\n\n[Mwongozo wa Ruhusa wa macOS]\nUfikiaji wa Bluetooth unaweza kuwa umekataliwa na vikwazo vya usalama vya macOS.\nTafadhali fungua 'Mipangilio ya Mfumo > Faragha na Usalama > Bluetooth' na uhakikishe kwamba mchakato wako wa kulipia, Msimbo wa VS, au Python unaruhusiwa kufikia Bluetooth.",
+    "err.no_writable_characteristic": "Kifaa hakijafichua sifa ya GATT inayoweza kuandikwa inayofaa kwa udhibiti.",
+    "param.devname.description": "Kichujio cha hiari cha jina la kifaa. Inalingana kwa jina kamili au kamba ndogo.",
+    "param.value.description": "Thamani ya nambari ya hiari kwa vitendo vya kuweka_thamani. Mgawanyiko: 0-100.",
+    "tool.description": "Dhibiti kifaa cha SwitchBot BLE kilicho karibu na urudishe tokeo la maandishi la JSON au maandishi."
   },
   "th": {
     "param.mac.description": "MACアドレスフィルター。",
     "param.action.description": "アクション: on/off/open/close/set_value/lock/unlock。",
     "param.timeout.description": "HTTP タイムアウト（秒）。",
     "param.fmt.description": "形式: json または text。",
-    "err.not_found": "No SwitchBot BLE device matched the provided mac_address.",
-    "err.ambiguous_target": "Multiple SwitchBot BLE devices matched the provided device_name.",
-    "err.invalid_argument": "Either mac_address or device_name is required.",
-    "err.value_required": "The value field is required for set_value.",
-    "err.invalid_value_range": "The value field must be between 0 and 100.",
-    "err.unknown_action": "Error: Unknown action '{action}'.",
-    "msg.summary": "SwitchBot BLE control completed: {action} on {device_name} ({device_id}).",
-    "err.invalid_numeric": "Timeout must be an integer.",
-    "err.invalid_range": "Timeout must be greater than 0.",
-    "err.invalid_value_type": "The value field must be an integer.",
-    "err.unsupported_device": "The matched device does not look like a SwitchBot BLE device.",
-    "err.operation_failed": "Error during BLE operation: {err_msg}",
+    "err.not_found": "ไม่มีอุปกรณ์ SwitchBot BLE ที่ตรงกับ mac_address ที่ให้ไว้",
+    "err.ambiguous_target": "อุปกรณ์ SwitchBot BLE หลายเครื่องตรงกับชื่ออุปกรณ์ที่ให้มา",
+    "err.invalid_argument": "จำเป็นต้องมี mac_address หรือ device_name",
+    "err.value_required": "ต้องระบุฟิลด์ค่าสำหรับ set_value",
+    "err.invalid_value_range": "ช่องค่าต้องอยู่ระหว่าง 0 ถึง 100",
+    "err.unknown_action": "ข้อผิดพลาด: การกระทำที่ไม่รู้จัก '{action}'",
+    "msg.summary": "การควบคุม SwitchBot BLE เสร็จสมบูรณ์: {action} บน {device_name} ({device_id})",
+    "err.invalid_numeric": "การหมดเวลาต้องเป็นจำนวนเต็ม",
+    "err.invalid_range": "ระยะหมดเวลาต้องมากกว่า 0",
+    "err.invalid_value_type": "ฟิลด์ค่าต้องเป็นจำนวนเต็ม",
+    "err.unsupported_device": "อุปกรณ์ที่ตรงกันดูไม่เหมือนอุปกรณ์ SwitchBot BLE",
+    "err.operation_failed": "เกิดข้อผิดพลาดระหว่างการดำเนินการ BLE: {err_msg}",
     "msg.error_fmt": "エラー: {msg}",
     "msg.unknown_error": "不明なエラー",
     "x_search_terms": [
@@ -794,7 +976,14 @@
       "สวิตช์บอท",
       "ใกล้เคียง",
       "ระยะไกล"
-    ]
+    ],
+    "err.bleak_missing": "ข้อผิดพลาด: ไม่ได้ติดตั้งไลบรารี 'bleak' กรุณาติดตั้งโดยใช้:\npip install bleak",
+    "err.linux_permission": "เกิดข้อผิดพลาดระหว่างการดำเนินการ BLE: {err_msg}\n\n[Linux/Raspberry Pi Permission Guide]\nคุณอาจไม่มีสิทธิ์ในการเข้าถึงซ็อกเก็ต Bluetooth ลองวิธีใดวิธีหนึ่งต่อไปนี้:\n1. เพิ่มผู้ใช้ของคุณในกลุ่มบลูทูธ (แนะนำ):\n sudo usermod -aG bluetooth $USER\n (ต้องรีสตาร์ทหรือเข้าสู่ระบบใหม่)\n2. ให้สิทธิ์โดยตรงกับ Python binary:\n sudo setcap 'cap_net_raw,cap_net_admin+eip' $(readlink -f $( which python))",
+    "err.macos_permission": "ข้อผิดพลาดระหว่างการดำเนินการ BLE: {err_msg}\n\n[คู่มือการอนุญาต macOS]\nการเข้าถึงบลูทูธอาจถูกปฏิเสธโดยข้อจำกัดด้านความปลอดภัยของ macOS\nโปรดเปิด 'การตั้งค่าระบบ > ความเป็นส่วนตัวและความปลอดภัย > บลูทูธ' และตรวจสอบให้แน่ใจว่าเทอร์มินัล, รหัส VS หรือกระบวนการ Python ของคุณได้รับอนุญาตให้เข้าถึงบลูทูธ",
+    "err.no_writable_characteristic": "อุปกรณ์ไม่ได้เปิดเผยคุณลักษณะ GATT แบบเขียนได้ซึ่งเหมาะสำหรับการควบคุม",
+    "param.devname.description": "ตัวกรองชื่ออุปกรณ์เสริม จับคู่ตามชื่อหรือสตริงย่อยที่ตรงกันทุกประการ",
+    "param.value.description": "ค่าตัวเลขเพิ่มเติมสำหรับการดำเนินการ set_value ช่วง: 0-100",
+    "tool.description": "ควบคุมอุปกรณ์ SwitchBot BLE ที่อยู่ใกล้เคียงและส่งคืนผลลัพธ์ JSON หรือข้อความ"
   },
   "tr": {
     "param.mac.description": "MAC adresi filtresi.",
@@ -821,7 +1010,14 @@
       "anahtar bot",
       "yakın",
       "uzak"
-    ]
+    ],
+    "err.bleak_missing": "Hata: 'kasvetli' kitaplık yüklü değil. Lütfen şunu kullanarak yükleyin: \npip install kasvetli",
+    "err.linux_permission": "BLE işlemi sırasında hata: {err_msg}\n\n[Linux/Raspberry Pi Permission Guide]\nBluetooth soketine erişim izniniz olmayabilir. Aşağıdakilerden birini deneyin:\n1. Kullanıcınızı Bluetooth grubuna ekleyin (önerilir):\n sudo usermod -aG bluetooth $USER\n (Yeniden başlatma veya yeniden oturum açma gerektirir)\n2. İzinleri doğrudan Python ikili dosyasına verin:\n sudo setcap 'cap_net_raw,cap_net_admin+eip' $(readlink -f $(hangi python))",
+    "err.macos_permission": "BLE işlemi sırasında hata: {err_msg}\n\n[macOS İzin Kılavuzu]\nBluetooth erişimi, macOS güvenlik kısıtlamaları tarafından reddedilmiş olabilir.\nLütfen 'Sistem Ayarları > Gizlilik ve Güvenlik > Bluetooth'u açın ve terminalinizin, VS Kodunuzun veya Python işleminizin Bluetooth'a erişmesine izin verildiğinden emin olun.",
+    "err.no_writable_characteristic": "Cihaz, kontrole uygun, yazılabilir bir GATT karakteristiğini ortaya çıkarmadı.",
+    "param.devname.description": "İsteğe bağlı cihaz adı filtresi. Tam ada veya alt dizeye göre eşleşir.",
+    "param.value.description": "set_value eylemleri için isteğe bağlı sayısal değer. Aralık: 0-100.",
+    "tool.description": "Yakındaki bir SwitchBot BLE cihazını kontrol edin ve bir JSON veya metin sonucu döndürün."
   },
   "uk": {
     "param.mac.description": "Фільтр MAC-адреси.",
@@ -848,7 +1044,14 @@
       "перемикач",
       "поруч",
       "віддалений"
-    ]
+    ],
+    "err.bleak_missing": "Помилка: бібліотеку «bleak» не встановлено. Установіть його за допомогою:\npip install bleak",
+    "err.linux_permission": "Помилка під час роботи BLE: {err_msg}\n\n[Linux/Raspberry Pi Permission Guide]\nМожливо, у вас немає дозволів на доступ до роз’єму Bluetooth. Спробуйте одну з таких дій:\n1. Додайте свого користувача до групи bluetooth (рекомендовано):\n sudo usermod -aG bluetooth $USER\n (Потрібно перезапустити або повторно ввійти)\n2. Надайте дозволи безпосередньо для двійкового файлу Python:\n sudo setcap 'cap_net_raw,cap_net_admin+eip' $(readlink -f $(which python))",
+    "err.macos_permission": "Помилка під час роботи BLE: {err_msg}\n\n[Посібник з дозволів macOS]\nУ доступі до Bluetooth може бути відмовлено через обмеження безпеки macOS.\nБудь ласка, відкрийте «Параметри системи > Конфіденційність і безпека > Bluetooth» і переконайтеся, що вашому терміналу, коду VS або процесу Python дозволено доступ до Bluetooth.",
+    "err.no_writable_characteristic": "Пристрій не показав записувану характеристику GATT, придатну для контролю.",
+    "param.devname.description": "Додатковий фільтр імен пристроїв. Збігається за точною назвою або підрядком.",
+    "param.value.description": "Додаткове числове значення для дій set_value. Діапазон: 0-100.",
+    "tool.description": "Керуйте сусіднім пристроєм SwitchBot BLE і повертайте JSON або текстовий результат."
   },
   "vi": {
     "param.mac.description": "Bộ lọc địa chỉ MAC.",
@@ -875,7 +1078,14 @@
       "switchbot",
       "lân cận",
       "từ xa"
-    ]
+    ],
+    "err.bleak_missing": "Lỗi: thư viện 'ảm đạm' chưa được cài đặt. Vui lòng cài đặt nó bằng cách sử dụng:\npip install ảm đạm",
+    "err.linux_permission": "Lỗi trong quá trình vận hành BLE: {err_msg}\n\n[Hướng dẫn cấp phép Linux/Raspberry Pi]\nBạn có thể thiếu quyền truy cập vào ổ cắm Bluetooth. Hãy thử một trong những cách sau:\n1. Thêm người dùng của bạn vào nhóm bluetooth (được khuyến nghị):\n sudo usermod -aG bluetooth $USER\n (Yêu cầu khởi động lại hoặc đăng nhập lại)\n2. Cấp quyền trực tiếp cho tệp nhị phân Python:\n sudo setcap 'cap_net_raw,cap_net_admin+eip' $(readlink -f $(which python))",
+    "err.macos_permission": "Lỗi trong quá trình vận hành BLE: {err_msg}\n\n[Hướng dẫn cấp phép macOS]\nQuyền truy cập Bluetooth có thể đã bị từ chối do các hạn chế bảo mật macOS.\nVui lòng mở 'Cài đặt hệ thống > Quyền riêng tư & Bảo mật > Bluetooth' và đảm bảo thiết bị đầu cuối, Mã VS hoặc quy trình Python của bạn được phép truy cập Bluetooth.",
+    "err.no_writable_characteristic": "Thiết bị không hiển thị đặc tính GATT có thể ghi phù hợp để kiểm soát.",
+    "param.devname.description": "Bộ lọc tên thiết bị tùy chọn. Khớp theo tên hoặc chuỗi con chính xác.",
+    "param.value.description": "Giá trị số tùy chọn cho hành động set_value. Phạm vi: 0-100.",
+    "tool.description": "Điều khiển thiết bị SwitchBot BLE gần đó và trả về kết quả JSON hoặc văn bản."
   },
   "zh_CN": {
     "param.mac.description": "MAC地址过滤器。",
@@ -902,7 +1112,14 @@
       "开关机器人",
       "附近",
       "远程"
-    ]
+    ],
+    "err.bleak_missing": "错误：未安装“bleak”库。请使用以下命令安装：\npip install bleak",
+    "err.linux_permission": "BLE 操作期间出错：{err_msg}\n\n[Linux/Raspberry Pi 权限指南]\n您可能缺少访问蓝牙套接字的权限。尝试以下方法之一：\n1.将您的用户添加到蓝牙组（推荐）：\n sudo usermod -aG bluetooth $USER\n（需要重新启动或重新登录）\n2.直接向 Python 二进制文件授予权限：\n sudo setcap 'cap_net_raw,cap_net_admin+eip' $(readlink -f $(which python))",
+    "err.macos_permission": "BLE 操作期间出错：{err_msg}\n\n[macOS 权限指南]\n蓝牙访问可能已被 macOS 安全限制拒绝。\n请打开“系统设置 > 隐私和安全 > 蓝牙”并确保允许您的终端、VS Code 或 Python 进程访问蓝牙。",
+    "err.no_writable_characteristic": "该设备没有公开适合控制的可写 GATT 特征。",
+    "param.devname.description": "可选的设备名称过滤器。按确切名称或子字符串匹配。",
+    "param.value.description": "set_value 操作的可选数值。范围：0-100。",
+    "tool.description": "控制附近的 SwitchBot BLE 设备并返回 JSON 或文本结果。"
   },
   "zh_TW": {
     "param.mac.description": "MAC 位址篩選。",
@@ -929,6 +1146,13 @@
       "開關機器人",
       "附近",
       "遠端"
-    ]
+    ],
+    "err.bleak_missing": "錯誤：未安裝“bleak”庫。請使用以下指令安裝：\npip install bleak",
+    "err.linux_permission": "BLE 操作期間發生錯誤：{err_msg}\n\n[Linux/Raspberry Pi 權限指南]\n您可能缺少存取藍色牙套接字的權限。嘗試以下方法之一：\n1.將您的使用者新增至藍牙群組（建議）：\n sudo usermod -aG bluetooth $USER\n（需要重新啟動或重新登入）\n2.直接向 Python 二進位檔案授予權限：\n sudo set 'cmin_net_raw,cap_net_net_rawP(admin) $",
+    "err.macos_permission": "BLE 操作期間發生錯誤：{err_msg}\n\n[macOS 權限指南]\n藍牙存取可能已被 macOS 安全限制拒絕。 \n請開啟「系統設定 > 隱私和安全性 > 藍牙」並確保允許您的終端、VS Code 或 Python 進程存取藍牙。",
+    "err.no_writable_characteristic": "該設備沒有公開適合控制的可寫入 GATT 特徵。",
+    "param.devname.description": "可選的設備名稱過濾器。按確切名稱或子字串匹配。",
+    "param.value.description": "set_value 操作的可選數值。範圍：0-100。",
+    "tool.description": "控製附近的 SwitchBot BLE 設備並傳回 JSON 或文字結果。"
   }
 }

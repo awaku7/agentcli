@@ -66,7 +66,10 @@
     "param.quality.description": "Calidad de imagen.",
     "param.background.description": "Imagen de fondo.",
     "param.prefix.description": "Tamaño de la imagen",
-    "param.img.description": "Ruta a la imagen de origen para editar."
+    "param.img.description": "Ruta a la imagen de origen para editar.",
+    "param.mask_path.description": "Ruta opcional a una imagen de máscara. Las áreas transparentes se tratan como editables en muchas API.",
+    "param.output_dir.description": "Directorio para guardar imágenes (relativas o absolutas). El valor predeterminado es salidas/generaciones de imágenes si se omite.",
+    "tool.description": "Edite una imagen de entrada usando un mensaje de texto, guarde el resultado como PNG y devuelva la ruta guardada."
   },
   "fr": {
     "x_search_terms": [
@@ -87,7 +90,10 @@
     "param.quality.description": "Qualité d'image.",
     "param.background.description": "Fond de l'image.",
     "param.prefix.description": "Préfixe du nom de fichier enregistré (facultatif).",
-    "param.img.description": "Chemin d'accès à l'image source à modifier."
+    "param.img.description": "Chemin d'accès à l'image source à modifier.",
+    "param.mask_path.description": "Chemin facultatif vers une image de masque. Les zones transparentes sont traitées comme modifiables dans de nombreuses API.",
+    "param.output_dir.description": "Répertoire pour sauvegarder les images (relatives ou absolues). La valeur par défaut est outputs/image_generations en cas d'omission.",
+    "tool.description": "Modifiez une image d'entrée à l'aide d'une invite de texte, enregistrez le résultat au format PNG et renvoyez le chemin enregistré."
   },
   "ko": {
     "x_search_terms": [
@@ -108,7 +114,10 @@
     "param.quality.description": "이미지 품질.",
     "param.background.description": "이미지 배경.",
     "param.prefix.description": "저장 파일명 접두사입니다(선택 사항).",
-    "param.img.description": "편집할 원본 이미지 파일의 경로입니다."
+    "param.img.description": "편집할 원본 이미지 파일의 경로입니다.",
+    "param.mask_path.description": "마스크 이미지에 대한 선택적 경로입니다. 투명한 영역은 많은 API에서 편집 가능한 것으로 처리됩니다.",
+    "param.output_dir.description": "이미지를 저장할 디렉터리(상대 또는 절대)입니다. 생략된 경우 기본값은 출력/이미지 생성입니다.",
+    "tool.description": "텍스트 프롬프트를 사용하여 입력 이미지를 편집하고 결과를 PNG로 저장하고 저장된 경로를 반환합니다."
   },
   "de": {
     "x_search_terms": [
@@ -129,7 +138,10 @@
     "param.quality.description": "Bildqualität.",
     "param.background.description": "Bildhintergrund.",
     "param.prefix.description": "Präfix für den gespeicherten Dateinamen (optional).",
-    "param.img.description": "Pfad zum zu bearbeitenden Quellbild."
+    "param.img.description": "Pfad zum zu bearbeitenden Quellbild.",
+    "param.mask_path.description": "Optionaler Pfad zu einem Maskenbild. Transparente Bereiche werden in vielen APIs als bearbeitbar behandelt.",
+    "param.output_dir.description": "Verzeichnis zum Speichern von Bildern (relativ oder absolut). Wenn weggelassen, wird standardmäßig „outputs/image_generations“ verwendet.",
+    "tool.description": "Bearbeiten Sie ein Eingabebild mithilfe einer Textaufforderung, speichern Sie das Ergebnis als PNG und geben Sie den gespeicherten Pfad zurück."
   },
   "it": {
     "x_search_terms": [
@@ -150,7 +162,10 @@
     "param.quality.description": "Qualità dell'immagine.",
     "param.background.description": "Sfondo dell'immagine.",
     "param.prefix.description": "Prefisso del nome file salvato (facoltativo).",
-    "param.img.description": "Percorso dell'immagine sorgente da modificare."
+    "param.img.description": "Percorso dell'immagine sorgente da modificare.",
+    "param.mask_path.description": "Percorso facoltativo per un'immagine della maschera. Le aree trasparenti vengono trattate come modificabili in molte API.",
+    "param.output_dir.description": "Directory in cui salvare le immagini (relativa o assoluta). Il valore predefinito è output/generazioni_immagini se omesso.",
+    "tool.description": "Modifica un'immagine di input utilizzando un messaggio di testo, salva il risultato come PNG e restituisci il percorso salvato."
   },
   "ru": {
     "x_search_terms": [
@@ -171,7 +186,10 @@
     "param.quality.description": "Качество изображения.",
     "param.background.description": "Фон изображения.",
     "param.prefix.description": "Префикс для сохраненного имени файла (необязательно).",
-    "param.img.description": "Путь к исходному изображению для редактирования."
+    "param.img.description": "Путь к исходному изображению для редактирования.",
+    "param.mask_path.description": "Необязательный путь к изображению маски. Во многих API прозрачные области считаются доступными для редактирования.",
+    "param.output_dir.description": "Каталог для сохранения изображений (относительный или абсолютный). По умолчанию используется выходы/image_generations, если они опущены.",
+    "tool.description": "Отредактируйте входное изображение с помощью текстовой подсказки, сохраните результат в формате PNG и верните сохраненный путь."
   },
   "pt_BR": {
     "x_search_terms": [
@@ -192,7 +210,10 @@
     "param.quality.description": "Qualidade de imagem.",
     "param.background.description": "Fundo da imagem.",
     "param.prefix.description": "Prefixo do nome do arquivo salvo (opcional).",
-    "param.img.description": "Caminho para a imagem de origem a ser editada."
+    "param.img.description": "Caminho para a imagem de origem a ser editada.",
+    "param.mask_path.description": "Caminho opcional para uma imagem de máscara. As áreas transparentes são tratadas como editáveis ​​em muitas APIs.",
+    "param.output_dir.description": "Diretório para salvar imagens (relativas ou absolutas). O padrão é outputs/image_Generations se omitido.",
+    "tool.description": "Edite uma imagem de entrada usando um prompt de texto, salve o resultado como PNG e retorne o caminho salvo."
   },
   "pt": {
     "x_search_terms": [
@@ -213,7 +234,10 @@
     "param.quality.description": "Qualidade de imagem.",
     "param.background.description": "Fundo da imagem.",
     "param.prefix.description": "Prefixo do nome do arquivo salvo (opcional).",
-    "param.img.description": "Caminho para a imagem de origem a ser editada."
+    "param.img.description": "Caminho para a imagem de origem a ser editada.",
+    "param.mask_path.description": "Caminho opcional para uma imagem de máscara. As áreas transparentes são tratadas como editáveis ​​em muitas APIs.",
+    "param.output_dir.description": "Diretório para salvar imagens (relativas ou absolutas). O padrão é outputs/image_Generations se omitido.",
+    "tool.description": "Edite uma imagem de entrada usando um prompt de texto, salve o resultado como PNG e retorne o caminho salvo."
   },
   "id": {
     "x_search_terms": [
@@ -234,7 +258,10 @@
     "param.quality.description": "Kualitas gambar.",
     "param.background.description": "Latar belakang gambar.",
     "param.prefix.description": "Prefiks nama file yang disimpan (opsional).",
-    "param.img.description": "Jalur ke gambar sumber yang akan diedit."
+    "param.img.description": "Jalur ke gambar sumber yang akan diedit.",
+    "param.mask_path.description": "Jalur opsional ke gambar topeng. Area transparan dianggap dapat diedit di banyak API.",
+    "param.output_dir.description": "Direktori untuk menyimpan gambar (relatif atau absolut). Defaultnya adalah outputs/image_generasis jika dihilangkan.",
+    "tool.description": "Edit gambar masukan menggunakan perintah teks, simpan hasilnya sebagai PNG, dan kembalikan jalur yang disimpan."
   },
   "vi": {
     "x_search_terms": [
@@ -255,7 +282,10 @@
     "param.quality.description": "Chất lượng hình ảnh.",
     "param.background.description": "Hình nền.",
     "param.prefix.description": "Tiền tố cho tên tệp đã lưu (tùy chọn).",
-    "param.img.description": "Đường dẫn tới ảnh nguồn cần chỉnh sửa."
+    "param.img.description": "Đường dẫn tới ảnh nguồn cần chỉnh sửa.",
+    "param.mask_path.description": "Đường dẫn tùy chọn đến hình ảnh mặt nạ. Các vùng trong suốt được coi là có thể chỉnh sửa được trong nhiều API.",
+    "param.output_dir.description": "Thư mục lưu hình ảnh (tương đối hoặc tuyệt đối). Mặc định là kết quả đầu ra/image_thế hệ nếu bị bỏ qua.",
+    "tool.description": "Chỉnh sửa hình ảnh đầu vào bằng lời nhắc văn bản, lưu kết quả dưới dạng PNG và trả về đường dẫn đã lưu."
   },
   "pl": {
     "x_search_terms": [
@@ -276,7 +306,10 @@
     "param.quality.description": "Jakość obrazu.",
     "param.background.description": "Tło obrazu.",
     "param.prefix.description": "Prefiks nazwy zapisanego pliku (opcjonalnie).",
-    "param.img.description": "Ścieżka do obrazu źródłowego do edycji."
+    "param.img.description": "Ścieżka do obrazu źródłowego do edycji.",
+    "param.mask_path.description": "Opcjonalna ścieżka do obrazu maski. W wielu interfejsach API obszary przezroczyste są traktowane jako edytowalne.",
+    "param.output_dir.description": "Katalog do zapisywania obrazów (względny lub bezwzględny). Domyślnie ustawione są wyjścia/generacje_obrazów, jeśli zostały pominięte.",
+    "tool.description": "Edytuj obraz wejściowy za pomocą podpowiedzi tekstowej, zapisz wynik jako plik PNG i zwróć zapisaną ścieżkę."
   },
   "cs": {
     "x_search_terms": [
@@ -297,7 +330,10 @@
     "param.quality.description": "Kvalita obrazu.",
     "param.background.description": "Pozadí obrázku.",
     "param.prefix.description": "Předpona uloženého názvu souboru (volitelně).",
-    "param.img.description": "Cesta ke zdrojovému obrázku, který chcete upravit."
+    "param.img.description": "Cesta ke zdrojovému obrázku, který chcete upravit.",
+    "param.mask_path.description": "Volitelná cesta k obrazu masky. Transparentní oblasti jsou v mnoha rozhraních API považovány za upravitelné.",
+    "param.output_dir.description": "Adresář pro ukládání obrázků (relativní nebo absolutní). Výchozí hodnota outputs/image_generations, pokud je vynechána.",
+    "tool.description": "Upravte vstupní obrázek pomocí textové výzvy, uložte výsledek jako PNG a vraťte uloženou cestu."
   },
   "uk": {
     "x_search_terms": [
@@ -318,7 +354,10 @@
     "param.quality.description": "Якість зображення.",
     "param.background.description": "Фон зображення.",
     "param.prefix.description": "Префікс для збереженого імені файлу (необов’язково).",
-    "param.img.description": "Шлях до вихідного зображення для редагування."
+    "param.img.description": "Шлях до вихідного зображення для редагування.",
+    "param.mask_path.description": "Додатковий шлях до зображення маски. У багатьох API прозорі області розглядаються як редаговані.",
+    "param.output_dir.description": "Каталог для збереження зображень (відносних або абсолютних). За замовчуванням значення outputs/image_generations якщо опущено.",
+    "tool.description": "Відредагуйте вхідне зображення за допомогою текстової підказки, збережіть результат як PNG і поверніть збережений шлях."
   },
   "ar": {
     "x_search_terms": [
@@ -339,7 +378,10 @@
     "param.quality.description": "جودة الصورة.",
     "param.background.description": "خلفية الصورة.",
     "param.prefix.description": "بادئة لاسم الملف المحفوظ (اختياري).",
-    "param.img.description": "المسار إلى الصورة المصدر لتحريرها."
+    "param.img.description": "المسار إلى الصورة المصدر لتحريرها.",
+    "param.mask_path.description": "مسار اختياري لصورة القناع. يتم التعامل مع المناطق الشفافة على أنها قابلة للتحرير في العديد من واجهات برمجة التطبيقات.",
+    "param.output_dir.description": "دليل حفظ الصور (نسبي أو مطلق). الإعدادات الافتراضية هي المخرجات/image_ Generations إذا تم حذفها.",
+    "tool.description": "قم بتحرير صورة إدخال باستخدام موجه نصي، واحفظ النتيجة بتنسيق PNG، ثم قم بإرجاع المسار المحفوظ."
   },
   "sv": {
     "x_search_terms": [
@@ -360,7 +402,10 @@
     "param.quality.description": "Bildkvalitet.",
     "param.background.description": "Bildbakgrund.",
     "param.prefix.description": "Prefix för det sparade filnamnet (valfritt).",
-    "param.img.description": "Sökväg till källbilden att redigera."
+    "param.img.description": "Sökväg till källbilden att redigera.",
+    "param.mask_path.description": "Valfri sökväg till en maskbild. Transparenta områden behandlas som redigerbara i många API:er.",
+    "param.output_dir.description": "Katalog för att spara bilder (relativa eller absoluta). Förinställer utgångar/bildgenerationer om den utelämnas.",
+    "tool.description": "Redigera en inmatningsbild med en textprompt, spara resultatet som en PNG och returnera den sparade sökvägen."
   },
   "th": {
     "x_search_terms": [
@@ -381,7 +426,10 @@
     "param.quality.description": "คุณภาพของภาพ",
     "param.background.description": "พื้นหลังของภาพ",
     "param.prefix.description": "คำนำหน้าชื่อไฟล์ที่บันทึก (ไม่บังคับ)",
-    "param.img.description": "พาธไปยังรูปภาพต้นฉบับที่จะแก้ไข"
+    "param.img.description": "พาธไปยังรูปภาพต้นฉบับที่จะแก้ไข",
+    "param.mask_path.description": "เส้นทางเสริมไปยังรูปภาพมาสก์ พื้นที่โปร่งใสจะถือว่าสามารถแก้ไขได้ใน API จำนวนมาก",
+    "param.output_dir.description": "ไดเร็กทอรีสำหรับบันทึกรูปภาพ (แบบสัมพัทธ์หรือแบบสัมบูรณ์) ตั้งค่าเริ่มต้นเป็น outputs/image_generes หากละเว้น",
+    "tool.description": "แก้ไขภาพที่ป้อนเข้าโดยใช้ข้อความแจ้ง บันทึกผลลัพธ์เป็น PNG และส่งคืนเส้นทางที่บันทึกไว้"
   },
   "tr": {
     "x_search_terms": [
@@ -402,7 +450,10 @@
     "param.quality.description": "Görüntü kalitesi.",
     "param.background.description": "Görüntü arka planı.",
     "param.prefix.description": "Kaydedilen dosya adı öneki (isteğe bağlı).",
-    "param.img.description": "Düzenlenecek kaynak görüntünün yolu."
+    "param.img.description": "Düzenlenecek kaynak görüntünün yolu.",
+    "param.mask_path.description": "Maske görüntüsünün isteğe bağlı yolu. Şeffaf alanlar birçok API'de düzenlenebilir olarak kabul edilir.",
+    "param.output_dir.description": "Görüntülerin kaydedileceği dizin (göreceli veya mutlak). Atlanırsa varsayılan olarak çıktılar/görüntü_üretimleri kullanılır.",
+    "tool.description": "Metin istemini kullanarak bir giriş görüntüsünü düzenleyin, sonucu PNG olarak kaydedin ve kaydedilen yolu döndürün."
   },
   "nb": {
     "x_search_terms": [
@@ -423,7 +474,10 @@
     "param.quality.description": "Bildekvalitet.",
     "param.background.description": "Bildebakgrunn.",
     "param.prefix.description": "kasus (standard: true). (valgfritt).",
-    "param.img.description": "Bane til kildebildet som skal redigeres."
+    "param.img.description": "Bane til kildebildet som skal redigeres.",
+    "param.mask_path.description": "Valgfri bane til et maskebilde. Gjennomsiktige områder behandles som redigerbare i mange APIer.",
+    "param.output_dir.description": "Katalog for å lagre bilder (relative eller absolutte). Standard til utganger/bildegenerasjoner hvis utelatt.",
+    "tool.description": "Rediger et inndatabilde ved å bruke en tekstmelding, lagre resultatet som en PNG, og returner den lagrede banen."
   },
   "nl": {
     "x_search_terms": [
@@ -444,7 +498,10 @@
     "param.quality.description": "Beeldkwaliteit.",
     "param.background.description": "Afbeeldingsachtergrond.",
     "param.prefix.description": "Voorvoegsel voor de opgeslagen bestandsnaam (optioneel).",
-    "param.img.description": "Pad naar de bronafbeelding die u wilt bewerken."
+    "param.img.description": "Pad naar de bronafbeelding die u wilt bewerken.",
+    "param.mask_path.description": "Optioneel pad naar een maskerafbeelding. Transparante gebieden worden in veel API's als bewerkbaar beschouwd.",
+    "param.output_dir.description": "Directory om afbeeldingen op te slaan (relatief of absoluut). Standaard ingesteld op outputs/image_generations indien weggelaten.",
+    "tool.description": "Bewerk een invoerafbeelding met behulp van een tekstprompt, sla het resultaat op als PNG en retourneer het opgeslagen pad."
   },
   "fi": {
     "x_search_terms": [
@@ -465,7 +522,10 @@
     "param.quality.description": "Kuvanlaatu.",
     "param.background.description": "Kuvan tausta.",
     "param.prefix.description": "Tallennetun tiedostonimen etuliite (valinnainen).",
-    "param.img.description": "Polku muokattavaan lähdekuvaan."
+    "param.img.description": "Polku muokattavaan lähdekuvaan.",
+    "param.mask_path.description": "Valinnainen polku maskikuvaan. Läpinäkyviä alueita käsitellään muokattavina monissa sovellusliittymissä.",
+    "param.output_dir.description": "Hakemisto kuvien tallentamiseen (suhteellinen tai absoluuttinen). Oletusarvo on outputs/image_generations, jos se jätetään pois.",
+    "tool.description": "Muokkaa syöttökuvaa tekstikehotteen avulla, tallenna tulos PNG-muodossa ja palauta tallennettu polku."
   },
   "sw": {
     "x_search_terms": [
@@ -486,7 +546,10 @@
     "param.quality.description": "Ubora wa picha.",
     "param.background.description": "Mandharinyuma ya picha.",
     "param.prefix.description": "Kiambishi awali cha jina la faili lililohifadhiwa (hiari",
-    "param.img.description": "Njia ya kuelekea kwenye picha chanzo ili kuhariri."
+    "param.img.description": "Njia ya kuelekea kwenye picha chanzo ili kuhariri.",
+    "param.mask_path.description": "Njia ya hiari ya picha ya mask. Maeneo yenye uwazi yanachukuliwa kuwa yanaweza kuhaririwa katika API nyingi.",
+    "param.output_dir.description": "Saraka ya kuhifadhi picha (jamaa au kabisa). Chaguo-msingi kwa matokeo/image_generations ikiwa imeachwa.",
+    "tool.description": "Hariri taswira ya ingizo kwa kutumia kidokezo cha maandishi, hifadhi tokeo kama PNG, na urudishe njia iliyohifadhiwa."
   },
   "hi": {
     "x_search_terms": [
@@ -507,7 +570,10 @@
     "param.quality.description": "छवि गुणवत्ता।",
     "param.background.description": "छवि पृष्ठभूमि.",
     "param.prefix.description": "सहेजी गई फ़ाइल के नाम का उपसर्ग (वैकल्पिक)।",
-    "param.img.description": "संपादित करने के लिए स्रोत छवि का पथ।"
+    "param.img.description": "संपादित करने के लिए स्रोत छवि का पथ।",
+    "param.mask_path.description": "मुखौटा छवि के लिए वैकल्पिक पथ. कई एपीआई में पारदर्शी क्षेत्रों को संपादन योग्य माना जाता है।",
+    "param.output_dir.description": "छवियों को सहेजने के लिए निर्देशिका (सापेक्ष या निरपेक्ष)। यदि छोड़ दिया जाए तो आउटपुट/इमेज_जेनरेशन डिफ़ॉल्ट हो जाता है।",
+    "tool.description": "टेक्स्ट प्रॉम्प्ट का उपयोग करके इनपुट छवि को संपादित करें, परिणाम को पीएनजी के रूप में सहेजें, और सहेजे गए पथ को वापस लौटाएँ।"
   },
   "zh_CN": {
     "x_search_terms": [
@@ -528,7 +594,10 @@
     "param.quality.description": "图片质量。",
     "param.background.description": "图片背景。",
     "param.prefix.description": "保存文件名的前缀（可选）。",
-    "param.img.description": "要编辑的源图像文件路径。"
+    "param.img.description": "要编辑的源图像文件路径。",
+    "param.mask_path.description": "遮罩图像的可选路径。在许多 API 中，透明区域被视为可编辑。",
+    "param.output_dir.description": "保存图像的目录（相对或绝对）。如果省略，则默认为outputs/image_ Generations。",
+    "tool.description": "使用文本提示编辑输入图像，将结果保存为 PNG，并返回保存的路径。"
   },
   "zh_TW": {
     "x_search_terms": [
@@ -549,7 +618,10 @@
     "param.quality.description": "图片质量。",
     "param.background.description": "图片背景。",
     "param.prefix.description": "儲存檔名的前綴（選填）。",
-    "param.img.description": "要編輯的來源影像檔案路徑。"
+    "param.img.description": "要編輯的來源影像檔案路徑。",
+    "param.mask_path.description": "遮罩影像的可選路徑。在許多 API 中，透明區域被視為可編輯。",
+    "param.output_dir.description": "儲存影像的目錄（相對或絕對）。如果省略，則預設為outputs/image_ Generations。",
+    "tool.description": "使用文字提示編輯輸入圖像，將結果儲存為 PNG，並返回已儲存的路徑。"
   },
   "bn": {
     "x_search_terms": [
@@ -570,7 +642,10 @@
     "param.quality.description": "একটি টেক্সট প্রম্পট ব্যবহার করে একটি ইনপুট ইমেজ সম্পাদনা করুন, ফলাফলটিকে একটি PNG হিসেবে সংরক্ষণ করুন__ EL8-এর নির্দেশাবলী__ EL8-এর জন্য নির্দেশাবলী সংরক্ষণ করুন।",
     "param.background.description": "একটি টেক্সট প্রম্পট ব্যবহার করে একটি ইনপুট ইমেজ সম্পাদনা করুন, একটি PNG হিসাবে ফলাফলটি সংরক্ষণ করুন এবং সংরক্ষিত পথটি ফিরিয়ে দিন।",
     "param.prefix.description": "সংরক্ষিত filename-এর prefix (ঐচ্ছিক)।",
-    "param.img.description": "সম্পাদনা করার জন্য উৎস ছবির path।"
+    "param.img.description": "সম্পাদনা করার জন্য উৎস ছবির path।",
+    "param.mask_path.description": "একটি মাস্ক ইমেজ ঐচ্ছিক পথ. স্বচ্ছ এলাকাগুলিকে অনেক API-এ সম্পাদনাযোগ্য হিসাবে বিবেচনা করা হয়।",
+    "param.output_dir.description": "ছবি সংরক্ষণ করার জন্য ডিরেক্টরি (আপেক্ষিক বা পরম)। বাদ দিলে আউটপুট/ছবি_জেনারেশনে ডিফল্ট।",
+    "tool.description": "একটি পাঠ্য প্রম্পট ব্যবহার করে একটি ইনপুট চিত্র সম্পাদনা করুন, ফলাফলটিকে একটি PNG হিসাবে সংরক্ষণ করুন এবং সংরক্ষিত পথটি ফিরিয়ে দিন।"
   },
   "fa": {
     "x_search_terms": [
@@ -591,7 +666,10 @@
     "param.quality.description": "کیفیت تصویر.",
     "param.background.description": "پس زمینه تصویر.",
     "param.prefix.description": "پیشوند نام فایل ذخیره‌شده (اختیاری).",
-    "param.img.description": "مسیر فایل تصویرِ منبع برای ویرایش."
+    "param.img.description": "مسیر فایل تصویرِ منبع برای ویرایش.",
+    "param.mask_path.description": "مسیر اختیاری به تصویر ماسک. مناطق شفاف در بسیاری از APIها قابل ویرایش هستند.",
+    "param.output_dir.description": "دایرکتوری برای ذخیره تصاویر (نسبی یا مطلق). در صورت حذف، خروجی‌ها/تصویر_نسل‌ها پیش‌فرض می‌شوند.",
+    "tool.description": "یک تصویر ورودی را با استفاده از یک پیام متنی ویرایش کنید، نتیجه را به صورت PNG ذخیره کنید و مسیر ذخیره شده را برگردانید."
   },
   "mn": {
     "x_search_terms": [
@@ -612,7 +690,10 @@
     "param.quality.description": "Зургийн чанар.",
     "param.background.description": "Зургийн дэвсгэр.",
     "param.prefix.description": "Хадгалах файлын нэрийн prefix (сонголттой).",
-    "param.img.description": "Засах эх зургийн зам."
+    "param.img.description": "Засах эх зургийн зам.",
+    "param.mask_path.description": "Маскийн зураг руу орох нэмэлт зам. Ил тод хэсгүүдийг олон API-д засварлах боломжтой гэж үздэг.",
+    "param.output_dir.description": "Зургийг хадгалах лавлах (харьцангуй эсвэл үнэмлэхүй). Хэрэв орхигдуулсан бол гаралт/зураг_үүслийн өгөгдмөл.",
+    "tool.description": "Текст мөрийг ашиглан оруулах зургийг засварлаж, үр дүнг PNG хэлбэрээр хадгалж, хадгалсан замыг буцаана уу."
   },
   "mr": {
     "x_search_terms": [
@@ -633,7 +714,10 @@
     "param.quality.description": "प्रतिमा गुणवत्ता.",
     "param.background.description": "प्रतिमा पार्श्वभूमी.",
     "param.prefix.description": "जतन केलेल्या filename चा prefix (ऐच्छिक).",
-    "param.img.description": "संपादित करायच्या मूळ प्रतिमेचा path."
+    "param.img.description": "संपादित करायच्या मूळ प्रतिमेचा path.",
+    "param.mask_path.description": "मुखवटा प्रतिमेसाठी पर्यायी मार्ग. बऱ्याच API मध्ये पारदर्शक क्षेत्र संपादन करण्यायोग्य मानले जातात.",
+    "param.output_dir.description": "प्रतिमा जतन करण्यासाठी निर्देशिका (सापेक्ष किंवा परिपूर्ण). वगळल्यास आउटपुट/इमेज_जनरेशनवर डीफॉल्ट.",
+    "tool.description": "मजकूर प्रॉम्प्ट वापरून इनपुट प्रतिमा संपादित करा, परिणाम PNG म्हणून जतन करा आणि जतन केलेला मार्ग परत करा."
   },
   "el": {
     "x_search_terms": [
@@ -652,9 +736,12 @@
     "param.size.description": "Μέγεθος εικόνας.",
     "param.n.description": "Πλήθος εικόνων.",
     "param.quality.description": "Φόντο εικόνας. Το πρότυπο",
-    "param.background.description": "[generate_prompt error] έχει άγνωστο κλειδί: {key}",
+    "param.background.description": "Φόντο εικόνας.",
     "param.prefix.description": "Λειτουργία εποπτείας εικόνας (προαιρετικό).",
-    "param.img.description": "Διαδρομή προς την εικόνα προέλευσης για επεξεργασία."
+    "param.img.description": "Διαδρομή προς την εικόνα προέλευσης για επεξεργασία.",
+    "param.mask_path.description": "Προαιρετική διαδρομή προς μια εικόνα μάσκας. Οι διαφανείς περιοχές αντιμετωπίζονται ως επεξεργάσιμες σε πολλά API.",
+    "param.output_dir.description": "Κατάλογος για αποθήκευση εικόνων (σχετικές ή απόλυτες). Προεπιλογές για outputs/image_generations εάν παραλειφθεί.",
+    "tool.description": "Επεξεργαστείτε μια εικόνα εισόδου χρησιμοποιώντας μια προτροπή κειμένου, αποθηκεύστε το αποτέλεσμα ως PNG και επιστρέψτε την αποθηκευμένη διαδρομή."
   },
   "he": {
     "x_search_terms": [
@@ -675,7 +762,10 @@
     "param.quality.description": "איכות תמונה.",
     "param.background.description": "רקע תמונה.",
     "param.prefix.description": "קידומת עבור שם הקובץ השמור (אופציונלי).",
-    "param.img.description": "נתיב לתמונת המקור לעריכה."
+    "param.img.description": "נתיב לתמונת המקור לעריכה.",
+    "param.mask_path.description": "נתיב אופציונלי לתמונת מסכה. אזורים שקופים מטופלים כניתנים לעריכה בממשקי API רבים.",
+    "param.output_dir.description": "ספרייה לשמירת תמונות (יחסית או מוחלטת). ברירת מחדל ל-outputs/image_generations אם מושמט.",
+    "tool.description": "ערוך תמונת קלט באמצעות הנחית טקסט, שמור את התוצאה כ-PNG והחזר את הנתיב השמור."
   },
   "hu": {
     "x_search_terms": [
@@ -696,7 +786,10 @@
     "param.quality.description": "Képminőség.",
     "param.background.description": "Kép háttér.",
     "param.prefix.description": "A mentett fájlnév előtagja (opcionális).",
-    "param.img.description": "Hiba: Nem sikerült a minta elemzése: {err}"
+    "param.img.description": "A szerkeszteni kívánt forráskép elérési útja.",
+    "param.mask_path.description": "Nem kötelező elérési út a maszkképhez. Az átlátszó területeket számos API szerkeszthetőként kezeli.",
+    "param.output_dir.description": "Könyvtár a képek mentéséhez (relatív vagy abszolút). Alapértelmezés szerint kimenetek/képgenerációk, ha kimarad.",
+    "tool.description": "Szerkesszen egy bemeneti képet szöveges prompt segítségével, mentse az eredményt PNG formátumban, és adja vissza a mentett elérési utat."
   },
   "ro": {
     "x_search_terms": [
@@ -717,6 +810,9 @@
     "param.quality.description": "Calitatea imaginii.",
     "param.background.description": "Fundalul imaginii.",
     "param.prefix.description": "Prefix pentru numele fișierului salvat (opțional).",
-    "param.img.description": "Eroare: Nu s-a putut analiza modelul: {err}"
+    "param.img.description": "Calea către imaginea sursă de editat.",
+    "param.mask_path.description": "Cale opțională către o imagine de mască. Zonele transparente sunt tratate ca editabile în multe API-uri.",
+    "param.output_dir.description": "Director pentru salvarea imaginilor (relative sau absolute). Setarea implicită la outputs/image_generations dacă este omis.",
+    "tool.description": "Editați o imagine de intrare folosind un prompt text, salvați rezultatul ca PNG și returnați calea salvată."
   }
 }

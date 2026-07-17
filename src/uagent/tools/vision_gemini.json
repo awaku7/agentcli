@@ -208,36 +208,36 @@
     "err.analysis": "影像分析期間發生錯誤：{error}"
   },
   "bn": {
-    "err.missing_env": "Missing required env var(s): {keys}",
-    "err.not_installed": "google-genai package is not installed.",
-    "err.init_client": "Failed to initialize Gemini/VertexAI client: {error}",
-    "err.image_not_found": "Image file not found: {image_path}",
-    "result.no_description": "[No description generated]",
-    "err.analysis": "Error during image analysis: {error}"
+    "err.missing_env": "অনুপস্থিত প্রয়োজনীয় env var(গুলি): {keys}৷",
+    "err.not_installed": "google-genai প্যাকেজ ইনস্টল করা নেই।",
+    "err.init_client": "Gemini/VertexAI ক্লায়েন্ট শুরু করতে ব্যর্থ হয়েছে: {error}",
+    "err.image_not_found": "চিত্র ফাইল পাওয়া যায়নি: {image_path}",
+    "result.no_description": "[কোন বর্ণনা তৈরি হয়নি]",
+    "err.analysis": "চিত্র বিশ্লেষণের সময় ত্রুটি: {error}"
   },
   "fa": {
-    "err.missing_env": "Missing required env var(s): {keys}",
-    "err.not_installed": "google-genai package is not installed.",
-    "err.init_client": "Failed to initialize Gemini/VertexAI client: {error}",
-    "err.image_not_found": "Image file not found: {image_path}",
-    "result.no_description": "[No description generated]",
-    "err.analysis": "Error during image analysis: {error}"
+    "err.missing_env": "وار(های) env مورد نیاز موجود نیست: {keys}",
+    "err.not_installed": "بسته google-genai نصب نشده است.",
+    "err.init_client": "برنامه‌ریزی اولیه Gemini/VertexAI ناموفق بود: {error}",
+    "err.image_not_found": "فایل تصویر یافت نشد: {image_path}",
+    "result.no_description": "[توضیحی ایجاد نشد]",
+    "err.analysis": "خطا در هنگام تجزیه و تحلیل تصویر: {error}"
   },
   "mn": {
-    "err.missing_env": "Missing required env var(s): {keys}",
-    "err.not_installed": "google-genai package is not installed.",
-    "err.init_client": "Failed to initialize Gemini/VertexAI client: {error}",
-    "err.image_not_found": "Image file not found: {image_path}",
-    "result.no_description": "[No description generated]",
-    "err.analysis": "Error during image analysis: {error}"
+    "err.missing_env": "Шаардлагатай env var(ууд): {keys} дутуу байна",
+    "err.not_installed": "google-genai багц суулгаагүй байна.",
+    "err.init_client": "Gemini/VertexAI клиентийг эхлүүлж чадсангүй: {error}",
+    "err.image_not_found": "Зургийн файл олдсонгүй: {image_path}",
+    "result.no_description": "[Тодорхойлолт үүсгээгүй]",
+    "err.analysis": "Зургийн шинжилгээ хийх явцад гарсан алдаа: {error}"
   },
   "mr": {
-    "err.missing_env": "Missing required env var(s): {keys}",
-    "err.not_installed": "google-genai package is not installed.",
-    "err.init_client": "Failed to initialize Gemini/VertexAI client: {error}",
-    "err.image_not_found": "Image file not found: {image_path}",
-    "result.no_description": "[No description generated]",
-    "err.analysis": "Error during image analysis: {error}"
+    "err.missing_env": "आवश्यक env var(s): {keys}",
+    "err.not_installed": "google-genai पॅकेज स्थापित केलेले नाही.",
+    "err.init_client": "Gemini/VertexAI क्लायंट सुरू करण्यात अयशस्वी: {error}",
+    "err.image_not_found": "प्रतिमा फाइल आढळली नाही: {image_path}",
+    "result.no_description": "[कोणतेही वर्णन व्युत्पन्न केलेले नाही]",
+    "err.analysis": "प्रतिमा विश्लेषणादरम्यान त्रुटी: {error}"
   },
   "el": {
     "err.missing_env": "Λείπουν οι απαιτούμενες μεταβλητές env: {keys}",

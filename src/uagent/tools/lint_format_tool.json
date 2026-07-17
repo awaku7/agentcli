@@ -50,7 +50,8 @@
       "reparación automática",
       "reparación automática"
     ],
-    "param.xargs.description": "Argumentos adicionales (matriz). Rechaza metacaracteres peligrosos."
+    "param.xargs.description": "Argumentos adicionales (matriz). Rechaza metacaracteres peligrosos.",
+    "confirm.msg": "lint_format(mode=fix) podría sobrescribir archivos.\ntools: {tools}\ntargets: {targets}\ncwd: {cwd}\n\nResponda con y para continuar o c para cancelar."
   },
   "fr": {
     "param.cwd.description": "Répertoire de travail (sous workdir).",
@@ -68,7 +69,8 @@
       "correction automatique",
       "correction automatique"
     ],
-    "param.xargs.description": "Arguments supplémentaires (tableau). Rejetez les métacaractères dangereux."
+    "param.xargs.description": "Arguments supplémentaires (tableau). Rejetez les métacaractères dangereux.",
+    "confirm.msg": "lint_format(mode=fix) peut écraser les fichiers.\ntools : {tools}\ntargets : {targets}\ncwd : {cwd}\n\nRépondez par y pour continuer, ou c pour annuler."
   },
   "ko": {
     "param.cwd.description": "작업 디렉토리(workdir 하위).",
@@ -86,7 +88,8 @@
       "자동 수정",
       "자동 수정"
     ],
-    "param.xargs.description": "추가 인수(배열). 위험한 메타문자를 거부하세요."
+    "param.xargs.description": "추가 인수(배열). 위험한 메타문자를 거부하세요.",
+    "confirm.msg": "lint_format(mode=fix)는 파일을 덮어쓸 수 있습니다.\ntools: {tools}\ntargets: {targets}\ncwd: {cwd}\n\n계속하려면 y를, 취소하려면 c를 입력하세요."
   },
   "de": {
     "param.cwd.description": "Arbeitsverzeichnis (unter Arbeitsverzeichnis).",
@@ -104,7 +107,8 @@
       "Autofix",
       "Autofix"
     ],
-    "param.xargs.description": "Zusätzliche Argumente (Array). Gefährliche Metazeichen ablehnen."
+    "param.xargs.description": "Zusätzliche Argumente (Array). Gefährliche Metazeichen ablehnen.",
+    "confirm.msg": "lint_format(mode=fix) überschreibt möglicherweise Dateien.\ntools: {tools}\ntargets: {targets}\ncwd: {cwd}\n\nAntworten Sie mit y, um fortzufahren, oder c, um abzubrechen."
   },
   "it": {
     "param.cwd.description": "Dir di lavoro (sotto workdir).",
@@ -122,7 +126,8 @@
       "correzione automatica",
       "correzione automatica"
     ],
-    "param.xargs.description": "Argomenti aggiuntivi (array). Rifiuta i metacaratteri pericolosi."
+    "param.xargs.description": "Argomenti aggiuntivi (array). Rifiuta i metacaratteri pericolosi.",
+    "confirm.msg": "lint_format(mode=fix) potrebbe sovrascrivere i file.\ntools: {tools}\ntargets: {targets}\ncwd: {cwd}\n\nRispondi con y per procedere o c per annullare."
   },
   "ru": {
     "param.cwd.description": "Рабочий каталог (в рабочем каталоге).",
@@ -133,7 +138,8 @@
     "x_search_terms": [
       "lint, формат, формат ворса, формат проверки, код ворса, код формата, автоисправление, автоисправление"
     ],
-    "param.xargs.description": "Дополнительные аргументы (массив). Отклоняйте опасные метасимволы."
+    "param.xargs.description": "Дополнительные аргументы (массив). Отклоняйте опасные метасимволы.",
+    "confirm.msg": "lint_format(mode=fix) может перезаписать файлы.\ntools: {tools}\ntargets: {targets}\ncwd: {cwd}\n\nОтветьте, нажав y, чтобы продолжить, или c, чтобы отменить."
   },
   "pt_BR": {
     "param.cwd.description": "Diretório de trabalho (em workdir).",
@@ -153,7 +159,8 @@
       "linting",
       "formatting"
     ],
-    "param.xargs.description": "Argumentos adicionais (matriz). Rejeite metacaracteres perigosos."
+    "param.xargs.description": "Argumentos adicionais (matriz). Rejeite metacaracteres perigosos.",
+    "confirm.msg": "lint_format(mode=fix) pode substituir arquivos.\ntools: {tools}\ntargets: {targets}\ncwd: {cwd}\n\nResponda com y para continuar ou c para cancelar."
   },
   "pt": {
     "param.cwd.description": "Diretório de trabalho (em workdir).",
@@ -173,7 +180,8 @@
       "linting",
       "formatação"
     ],
-    "param.xargs.description": "Argumentos adicionais (matriz). Rejeite metacaracteres perigosos."
+    "param.xargs.description": "Argumentos adicionais (matriz). Rejeite metacaracteres perigosos.",
+    "confirm.msg": "lint_format(mode=fix) pode substituir arquivos.\ntools: {tools}\ntargets: {targets}\ncwd: {cwd}\n\nResponda com y para continuar ou c para cancelar."
   },
   "id": {
     "param.cwd.description": "Dir kerja (di bawah workdir).",
@@ -193,7 +201,8 @@
       "linting",
       "pemformatan"
     ],
-    "param.xargs.description": "Argumen tambahan (array). Tolak jika ada metakarakter shell berbahaya."
+    "param.xargs.description": "Argumen tambahan (array). Tolak jika ada metakarakter shell berbahaya.",
+    "confirm.msg": "lint_format(mode=fix) mungkin menimpa file.\ntools: {tools}\ntargets: {targets}\ncwd: {cwd}\n\nBalas dengan y untuk melanjutkan, atau c untuk membatalkan."
   },
   "vi": {
     "param.cwd.description": "Thư mục làm việc (dưới thư mục làm việc).",
@@ -213,7 +222,8 @@
       "xơ vải",
       "định dạng"
     ],
-    "param.xargs.description": "Đối số bổ sung (mảng). Từ chối các siêu ký tự nguy hiểm."
+    "param.xargs.description": "Đối số bổ sung (mảng). Từ chối các siêu ký tự nguy hiểm.",
+    "confirm.msg": "lint_format(mode=fix) có thể ghi đè lên các tệp.\ntools: {tools}\ntarget: {targets}\ncwd: {cwd}\n\nTrả lời y để tiếp tục hoặc c để hủy."
   },
   "pl": {
     "param.cwd.description": "Katalog roboczy (w katalogu roboczym).",
@@ -233,7 +243,8 @@
       "linting",
       "formatting"
     ],
-    "param.xargs.description": "Dodatkowe argumenty (tablica). Odrzuć niebezpieczne metaznaki."
+    "param.xargs.description": "Dodatkowe argumenty (tablica). Odrzuć niebezpieczne metaznaki.",
+    "confirm.msg": "lint_format(mode=fix) może zastąpić pliki.\ntools: {tools}\ntargets: {targets}\ncwd: {cwd}\n\nOdpowiedz, wpisując y, aby kontynuować, lub c, aby anulować."
   },
   "hi": {
     "param.cwd.description": "वर्किंग डीआईआर (वर्कडीआईआर के तहत)।",
@@ -253,7 +264,8 @@
       "linting",
       "formatting"
     ],
-    "param.xargs.description": "अतिरिक्त तर्क (सरणी)। खतरनाक मेटाकैरेक्टर अस्वीकार करें।"
+    "param.xargs.description": "अतिरिक्त तर्क (सरणी)। खतरनाक मेटाकैरेक्टर अस्वीकार करें।",
+    "confirm.msg": "lint_format(mode=fix) फ़ाइलों को अधिलेखित कर सकता है।\nउपकरण: {tools}\nलक्ष्य: {targets}\nसीडब्ल्यूडी: {cwd}\n\nआगे बढ़ने के लिए y, या रद्द करने के लिए c लिखकर उत्तर दें।"
   },
   "ar": {
     "param.cwd.description": "دير العمل (تحت دليل العمل).",
@@ -273,10 +285,11 @@
       "linting",
       "formatting"
     ],
-    "param.xargs.description": "وسائط إضافية (مصفوفة). ارفض المحارف الخاصة الخطرة."
+    "param.xargs.description": "وسائط إضافية (مصفوفة). ارفض المحارف الخاصة الخطرة.",
+    "confirm.msg": "قد يقوم lint_format(mode=fix) بالكتابة فوق الملفات. \nالأدوات: {tools}\nالأهداف: {targets}\ncwd: {cwd}\n\n قم بالرد بـ y للمتابعة، أو c للإلغاء."
   },
   "sv": {
-    "param.cwd.description": "Working dir (under workdir).",
+    "param.cwd.description": "Arbetskatalog (under workdir).",
     "param.mode.description": "check=endast kontroll / fix=automatisk korrigering",
     "param.targets.description": "Array med målvägar (tillåts endast under workdir).",
     "param.tools.description": "En array med verktygsnamn att köra. Om den är tom väljs den automatiskt.",
@@ -293,13 +306,14 @@
       "linting",
       "formatting"
     ],
-    "param.xargs.description": "Ytterligare argument (array). Avvisa farliga metatecken."
+    "param.xargs.description": "Ytterligare argument (array). Avvisa farliga metatecken.",
+    "confirm.msg": "lint_format(mode=fix) kan skriva över filer.\nverktyg: {tools}\nmål: {targets}\ncwd: {cwd}\n\nSvara med y för att fortsätta, eller c för att avbryta."
   },
   "sw": {
     "param.cwd.description": "Dir ya kufanya kazi (chini ya workdir).",
-    "param.mode.description": "check=check only / fix=automatic fix",
-    "param.targets.description": "Target path array (only allowed under workdir).",
-    "param.tools.description": "An array of tool names to run. If empty, tools are selected automatically.",
+    "param.mode.description": "check=angalia tu / rekebisha = kurekebisha otomatiki",
+    "param.targets.description": "Safu ya njia inayolengwa (inaruhusiwa tu chini ya workdir).",
+    "param.tools.description": "Safu ya majina ya zana za kukimbia. Ikiwa tupu, zana huchaguliwa kiotomatiki.",
     "tool.description": "Run static analysis/formatters (e.g., ruff/black/mypy).",
     "x_search_terms": [
       "lint",
@@ -313,7 +327,8 @@
       "linting",
       "formatting"
     ],
-    "param.xargs.description": "Additional arguments (array). Reject dangerous metacharacters."
+    "param.xargs.description": "Hoja za ziada (safu). Kataa vielelezo hatari.",
+    "confirm.msg": "lint_format(mode=fix) inaweza kubatilisha faili.\nzana: {tools}\nlengo: {targets}\ncwd: {cwd}\n\nJibu na y ili kuendelea, au c kughairi."
   },
   "nb": {
     "param.cwd.description": "Arbeidskatalog (under arbeidskatalog).",
@@ -333,7 +348,8 @@
       "linting",
       "formatting"
     ],
-    "param.xargs.description": "Tilleggsargumenter (liste). Avvis farlige metategn."
+    "param.xargs.description": "Tilleggsargumenter (liste). Avvis farlige metategn.",
+    "confirm.msg": "lint_format(mode=fix) kan overskrive filer.\nverktøy: {tools}\nmål: {targets}\ncwd: {cwd}\n\nSvar med y for å fortsette, eller c for å avbryte."
   },
   "nl": {
     "param.cwd.description": "Werkmap (onder werkmap).",
@@ -353,7 +369,8 @@
       "linting",
       "formatting"
     ],
-    "param.xargs.description": "Aanvullende argumenten (array). Weiger gevaarlijke metatekens."
+    "param.xargs.description": "Aanvullende argumenten (array). Weiger gevaarlijke metatekens.",
+    "confirm.msg": "lint_format(mode=fix) kan bestanden overschrijven.\ntools: {tools}\ntargets: {targets}\ncwd: {cwd}\n\nReageer met y om door te gaan, of c om te annuleren."
   },
   "fi": {
     "param.cwd.description": "Työhakemisto (työhakemiston alla).",
@@ -373,7 +390,8 @@
       "linting",
       "formatting"
     ],
-    "param.xargs.description": "Lisäargumentit (taulukko). Hylkää vaaralliset metamerkit."
+    "param.xargs.description": "Lisäargumentit (taulukko). Hylkää vaaralliset metamerkit.",
+    "confirm.msg": "lint_format(mode=fix) saattaa korvata tiedostoja.\ntyökalut: {tools}\nkohteet: {targets}\ncwd: {cwd}\n\nJatka vastaamalla y:llä tai peruuta painamalla c."
   },
   "cs": {
     "param.cwd.description": "Pracovní adresář (pod pracovním adresářem).",
@@ -393,7 +411,8 @@
       "linting",
       "formatting"
     ],
-    "param.xargs.description": "Další argumenty (pole). Odmítněte nebezpečné metaznaky."
+    "param.xargs.description": "Další argumenty (pole). Odmítněte nebezpečné metaznaky.",
+    "confirm.msg": "lint_format(mode=fix) může přepsat soubory.\nnástroje: {tools}\ncíle: {targets}\ncwd: {cwd}\n\nOdpovězte pomocí y pro pokračování nebo c pro zrušení."
   },
   "uk": {
     "param.cwd.description": "Робочий каталог (у робочому каталозі).",
@@ -413,7 +432,8 @@
       "linting",
       "formatting"
     ],
-    "param.xargs.description": "Додаткові аргументи (масив). Відхиляйте небезпечні метасимволи."
+    "param.xargs.description": "Додаткові аргументи (масив). Відхиляйте небезпечні метасимволи.",
+    "confirm.msg": "lint_format(mode=fix) може перезаписувати файли.\ntools: {tools}\ntargets: {targets}\ncwd: {cwd}\n\nУ відповідь натисніть y, щоб продовжити, або c, щоб скасувати."
   },
   "tr": {
     "param.cwd.description": "Çalışma dizini (çalışma dizini altında).",
@@ -433,7 +453,8 @@
       "linting",
       "formatting"
     ],
-    "param.xargs.description": "Ek bağımsız değişkenler (dizi). Tehlikeli meta karakterleri reddedin."
+    "param.xargs.description": "Ek bağımsız değişkenler (dizi). Tehlikeli meta karakterleri reddedin.",
+    "confirm.msg": "lint_format(mode=fix) dosyaların üzerine yazabilir.\ntools: {tools}\ntargets: {targets}\ncwd: {cwd}\n\nDevam etmek için y veya iptal etmek için c ile yanıtlayın."
   },
   "th": {
     "param.cwd.description": "dir ทำงาน (ภายใต้ workdir)",
@@ -453,7 +474,8 @@
       "linting",
       "formatting"
     ],
-    "param.xargs.description": "อาร์กิวเมนต์เพิ่มเติม (อาร์เรย์) ปฏิเสธเมตาอักขระที่เป็นอันตราย"
+    "param.xargs.description": "อาร์กิวเมนต์เพิ่มเติม (อาร์เรย์) ปฏิเสธเมตาอักขระที่เป็นอันตราย",
+    "confirm.msg": "lint_format(mode=fix) อาจเขียนทับไฟล์\ntools: {tools}\ntargets: {targets}\ncwd: {cwd}\n\nตอบกลับด้วย y เพื่อดำเนินการต่อ หรือ c เพื่อยกเลิก"
   },
   "zh_CN": {
     "param.cwd.description": "工作目录（workdir下）。",
@@ -473,7 +495,8 @@
       "linting",
       "formatting"
     ],
-    "param.xargs.description": "附加参数（数组）。拒绝危险的元字符。"
+    "param.xargs.description": "附加参数（数组）。拒绝危险的元字符。",
+    "confirm.msg": "lint_format(mode=fix) 可能会覆盖文件。\n工具：{tools}\n目标：{targets}\ncwd：{cwd}\n\n回复 y 继续，或回复 c 取消。"
   },
   "zh_TW": {
     "param.cwd.description": "工作目录（workdir下）。",
@@ -493,7 +516,8 @@
       "linting",
       "formatting"
     ],
-    "param.xargs.description": "附加參數（陣列）。拒絕危險的元字元。"
+    "param.xargs.description": "附加參數（陣列）。拒絕危險的元字元。",
+    "confirm.msg": "lint_format(mode=fix) 可能會覆寫檔案。 \n工具：{tools}\n目標：{targets}\ncwd：{cwd}\n\n回覆 y 繼續，或回覆 c 取消。"
   },
   "bn": {
     "param.cwd.description": "ওয়ার্কিং ডির (ওয়ার্কডির অধীনে)।",
@@ -513,7 +537,8 @@
       "linting",
       "formatting"
     ],
-    "param.xargs.description": "অতিরিক্ত আর্গুমেন্ট (array)। বিপজ্জনক metacharacter প্রত্যাখ্যান করুন।"
+    "param.xargs.description": "অতিরিক্ত আর্গুমেন্ট (array)। বিপজ্জনক metacharacter প্রত্যাখ্যান করুন।",
+    "confirm.msg": "lint_format(mode=fix) ফাইল ওভাররাইট করতে পারে।\nটুলস: {tools}\nলক্ষ্য: {targets}\ncwd: {cwd}\n\nএগিয়ে যেতে y দিয়ে উত্তর দিন অথবা বাতিল করতে c দিয়ে উত্তর দিন।"
   },
   "fa": {
     "param.cwd.description": "کارگردانی کاری (در زیر کار). فهرست",
@@ -533,7 +558,8 @@
       "linting",
       "formatting"
     ],
-    "param.xargs.description": "آرگومان‌های اضافی (آرایه). metacharacterهای خطرناک را رد کنید."
+    "param.xargs.description": "آرگومان‌های اضافی (آرایه). metacharacterهای خطرناک را رد کنید.",
+    "confirm.msg": "lint_format (mode=fix) ممکن است فایل‌ها را بازنویسی کند.\nابزار: {tools}\nاهداف: {targets}\ncwd: {cwd}\n\nبرای ادامه با y یا برای لغو با c پاسخ دهید."
   },
   "mn": {
     "param.cwd.description": "Ажлын чиглүүлэгч (ажлын доор).",
@@ -553,7 +579,8 @@
       "linting",
       "formatting"
     ],
-    "param.xargs.description": "Нэмэлт аргументууд (array). Аюултай metacharacter-уудыг татгалзана."
+    "param.xargs.description": "Нэмэлт аргументууд (array). Аюултай metacharacter-уудыг татгалзана.",
+    "confirm.msg": "lint_format(mode=fix) нь файлуудыг дарж бичиж болзошгүй.\ntools: {tools}\ntargets: {targets}\ncwd: {cwd}\n\nҮргэлжлүүлэхийн тулд y, цуцлахын тулд c товчийг дарна уу."
   },
   "mr": {
     "param.cwd.description": "कार्यरत दिर (वर्कडीर अंतर्गत).",
@@ -573,7 +600,8 @@
       "linting",
       "formatting"
     ],
-    "param.xargs.description": "अतिरिक्त arguments (array). धोकादायक metacharacter नाकारावेत."
+    "param.xargs.description": "अतिरिक्त arguments (array). धोकादायक metacharacter नाकारावेत.",
+    "confirm.msg": "lint_format(mode=fix) फाइल्स ओव्हरराइट करू शकतात. \n साधने: {tools}\n लक्ष्य: {targets}\ncwd: {cwd}\n\n पुढे जाण्यासाठी y किंवा रद्द करण्यासाठी c सह उत्तर द्या."
   },
   "el": {
     "param.cwd.description": "Συστοιχία διαδρομής στόχου (επιτρέπεται μόνο στο workdir).",
@@ -593,7 +621,8 @@
       "linting",
       "formatting"
     ],
-    "param.xargs.description": "Πρόσθετα ορίσματα (πίνακας). Απορρίψτε επικίνδυνους μεταχαρακτήρες."
+    "param.xargs.description": "Πρόσθετα ορίσματα (πίνακας). Απορρίψτε επικίνδυνους μεταχαρακτήρες.",
+    "confirm.msg": "Το lint_format(mode=fix) ενδέχεται να αντικαταστήσει τα αρχεία.\nεργαλεία: {tools}\nστόχοι: {targets}\ncwd: {cwd}\n\nΑπαντήστε με y για να συνεχίσετε ή c για ακύρωση."
   },
   "he": {
     "param.cwd.description": "lint_format_tool\n\nכלי עטיפה להפעלת כלי ניתוח ועיצוב סטטי.\n\n- Python: מעדיף ruff / שחור / mypy\n- JavaScript: מסיבות בטיחות, אל תפעיל npx ישירות.\n\nבטיחות:\n- mode=fix משנה קבצים, אז בקש אישור עם human_ask.\n- קבל ארגומנטים כמערך ודחה אותם אם הם מכילים מטא-תווים מסוכנים של מעטפת.",
@@ -613,7 +642,8 @@
       "linting",
       "formatting"
     ],
-    "param.xargs.description": "ארגומנטים נוספים (מערך). דחה דמויות מטא מסוכנות."
+    "param.xargs.description": "ארגומנטים נוספים (מערך). דחה דמויות מטא מסוכנות.",
+    "confirm.msg": "lint_format(mode=fix) עלול לדרוס קבצים.\nכלים: {tools}\nיעדים: {targets}\ncwd: {cwd}\n\nהשב עם y כדי להמשיך, או c כדי לבטל."
   },
   "hu": {
     "param.cwd.description": "Munkakönyvtár (a munkakönyvtár alatt).",
@@ -633,7 +663,8 @@
       "linting",
       "formatting"
     ],
-    "param.xargs.description": "További argumentumok (tömb). Veszélyes metakarakterek elutasítása."
+    "param.xargs.description": "További argumentumok (tömb). Veszélyes metakarakterek elutasítása.",
+    "confirm.msg": "A lint_format(mode=fix) felülírhatja a fájlokat.\nEszközök: {tools}\ncélok: {targets}\ncwd: {cwd}\n\nA folytatáshoz válaszoljon y-val, vagy a megszakításhoz c."
   },
   "ro": {
     "param.cwd.description": "check=verificare doar / fix=remediere automată",
@@ -653,6 +684,7 @@
       "linting",
       "formatting"
     ],
-    "param.xargs.description": "Listează intrările dintr-un director cu paginare, similar cu ls."
+    "param.xargs.description": "Listează intrările dintr-un director cu paginare, similar cu ls.",
+    "confirm.msg": "lint_format(mode=fix) poate suprascrie fișierele.\ninstrumente: {tools}\nținte: {targets}\ncwd: {cwd}\n\nRăspundeți cu y pentru a continua sau c pentru a anula."
   }
 }

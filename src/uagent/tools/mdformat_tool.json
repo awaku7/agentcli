@@ -55,9 +55,9 @@
     "result.fallback_detail": "フォーマットの問題",
     "result.more": "...そして {count} 詳細",
     "label.ok": "OK",
-    "label.fail": "FAIL",
-    "label.timeout": "TIMEOUT",
-    "label.error": "ERROR"
+    "label.fail": "失敗",
+    "label.timeout": "タイムアウト",
+    "label.error": "エラー"
   },
   "ar": {
     "tool.description": "تحقق من تنسيق ملف Markdown باستخدام mdformat. تقارير الملفات التي تحتاج إلى إصلاحات التنسيق. اختياريا الإصلاح التلقائي.",
@@ -87,10 +87,10 @@
     "result.error": "[{label}] {path}: {e}",
     "result.fallback_detail": "مشكلة التنسيق",
     "result.more": "... و{count} أكثر",
-    "label.ok": "OK",
-    "label.fail": "FAIL",
-    "label.timeout": "TIMEOUT",
-    "label.error": "ERROR"
+    "label.ok": "حسنًا",
+    "label.fail": "فشل",
+    "label.timeout": "المهلة",
+    "label.error": "خطأ"
   },
   "bn": {
     "tool.description": "mdformat এর সাথে Markdown ফাইল ফরম্যাটিং চেক করুন। ফাইলগুলি রিপোর্ট করে যেগুলির ফর্ম্যাটিং সংশোধনের প্রয়োজন৷ ঐচ্ছিকভাবে অটো-ফিক্স।",
@@ -120,10 +120,10 @@
     "result.error": "[{label}] {path}: {e}",
     "result.fallback_detail": "বিন্যাস সমস্যা",
     "result.more": "... এবং {count} আরো",
-    "label.ok": "OK",
-    "label.fail": "FAIL",
-    "label.timeout": "TIMEOUT",
-    "label.error": "ERROR"
+    "label.ok": "ঠিক আছে",
+    "label.fail": "ব্যর্থ",
+    "label.timeout": "টাইমআউট",
+    "label.error": "ত্রুটি"
   },
   "cs": {
     "tool.description": "Zkontrolujte formátování souboru Markdown pomocí mdformat. Hlásí soubory, které vyžadují opravy formátování. Volitelně automatická oprava.",
@@ -153,9 +153,9 @@
     "result.fallback_detail": "problém s formátováním",
     "result.more": "... a {count} dalších",
     "label.ok": "OK",
-    "label.fail": "FAIL",
-    "label.timeout": "TIMEOUT",
-    "label.error": "ERROR"
+    "label.fail": "SELHÁNÍ",
+    "label.timeout": "ČASOVÝ LIMIT",
+    "label.error": "CHYBA"
   },
   "de": {
     "tool.description": "Überprüfen Sie die Markdown-Dateiformatierung mit mdformat. Meldet Dateien, die Formatierungskorrekturen benötigen. Optional automatische Korrektur.",
@@ -183,10 +183,10 @@
     "result.error": "[{label}] {path}: {e}",
     "result.fallback_detail": "Formatierungsproblem",
     "result.more": "... und {count} mehr",
-    "label.ok": "OK",
-    "label.fail": "FAIL",
-    "label.timeout": "TIMEOUT",
-    "label.error": "ERROR"
+    "label.ok": "Okay",
+    "label.fail": "FEHLER",
+    "label.timeout": "AUSZEIT",
+    "label.error": "FEHLER"
   },
   "el": {
     "tool.description": "Ελέγξτε τη μορφοποίηση αρχείου Markdown με mdformat. Αναφέρει αρχεία που χρειάζονται επιδιορθώσεις μορφοποίησης. Προαιρετικά αυτόματη επιδιόρθωση.",
@@ -205,7 +205,7 @@
     "param.path.description": "Glob μοτίβο ή διαδρομή αρχείου προς έλεγχο (π.χ. 'docs/**/*.md' ή 'README.md').",
     "param.fix.description": "Εάν ισχύει, διορθώστε αυτόματα τα προβλήματα μορφοποίησης αντί να τα ελέγξετε.",
     "pkg.mdformat": "mdformat (Μορφοποιητής Markdown)",
-    "pkg.mdformat_frontmatter": "mdformat YAML front matter plugin",
+    "pkg.mdformat_frontmatter": "πρόσθετο mdformat YAML front matter",
     "result.no_match": "Κανένα αρχείο Markdown δεν αντιστοιχεί σε μοτίβο: {pattern}",
     "result.summary": "mdformat_check: {total} αρχεία, {ok} εντάξει, {failed} απέτυχε",
     "result.ok": "[{label}] {path}",
@@ -215,10 +215,10 @@
     "result.error": "[{label}] {path}: {e}",
     "result.fallback_detail": "πρόβλημα μορφοποίησης",
     "result.more": "... και {count} ακόμη",
-    "label.ok": "OK",
-    "label.fail": "FAIL",
-    "label.timeout": "TIMEOUT",
-    "label.error": "ERROR"
+    "label.ok": "ΟΚ",
+    "label.fail": "ΑΠΟΤΥΧΙΑ",
+    "label.timeout": "TIME OUT",
+    "label.error": "ΣΦΑΛΜΑ"
   },
   "es": {
     "tool.description": "Verifique el formato del archivo Markdown con mdformat. Informa archivos que necesitan correcciones de formato. Opcionalmente reparación automática.",
@@ -250,8 +250,8 @@
     "result.fallback_detail": "problema de formato",
     "result.more": "... y {count} más",
     "label.ok": "OK",
-    "label.fail": "FAIL",
-    "label.timeout": "TIMEOUT",
+    "label.fail": "FALLO",
+    "label.timeout": "TIEMPO DE ESPERA",
     "label.error": "ERROR"
   },
   "fa": {
@@ -281,10 +281,10 @@
     "result.error": "[{label}] {path}: {e}",
     "result.fallback_detail": "مشکل قالب بندی",
     "result.more": "... و {count} بیشتر",
-    "label.ok": "OK",
-    "label.fail": "FAIL",
-    "label.timeout": "TIMEOUT",
-    "label.error": "ERROR"
+    "label.ok": "باشه",
+    "label.fail": "شکست",
+    "label.timeout": "تایم اوت",
+    "label.error": "خطا"
   },
   "fi": {
     "tool.description": "Tarkista Markdown-tiedoston muotoilu mdformatilla. Raportoi tiedostot, jotka tarvitsevat muotoilukorjauksia. Valinnaisesti automaattinen korjaus.",
@@ -314,9 +314,9 @@
     "result.fallback_detail": "muotoiluongelma",
     "result.more": "... ja {count} muuta",
     "label.ok": "OK",
-    "label.fail": "FAIL",
-    "label.timeout": "TIMEOUT",
-    "label.error": "ERROR"
+    "label.fail": "EPÄONNISTUI",
+    "label.timeout": "AIKAKATKAISU",
+    "label.error": "VIRHE"
   },
   "fr": {
     "tool.description": "Vérifiez le formatage du fichier Markdown avec mdformat. Signale les fichiers qui nécessitent des correctifs de formatage. En option, correction automatique.",
@@ -345,10 +345,10 @@
     "result.error": "[{label}] {path} : {e}",
     "result.fallback_detail": "problème de formatage",
     "result.more": "... et {count} plus",
-    "label.ok": "OK",
-    "label.fail": "FAIL",
-    "label.timeout": "TIMEOUT",
-    "label.error": "ERROR"
+    "label.ok": "D'accord",
+    "label.fail": "ÉCHEC",
+    "label.timeout": "DÉLAI",
+    "label.error": "ERREUR"
   },
   "he": {
     "tool.description": "סמן את עיצוב הקובץ Markdown עם mdformat. מדווח על קבצים שזקוקים לתיקוני עיצוב. אופציונלי תיקון אוטומטי.",
@@ -367,7 +367,7 @@
     "param.path.description": "דפוס גלוב או נתיב קובץ לבדיקה (למשל 'docs/**/*.md' או 'README.md').",
     "param.fix.description": "אם זה נכון, תקן אוטומטית בעיות עיצוב במקום רק לבדוק.",
     "pkg.mdformat": "mdformat (פורמט Markdown)",
-    "pkg.mdformat_frontmatter": "mdformat YAML front matter plugin",
+    "pkg.mdformat_frontmatter": "תוסף mdformat YAML front matter",
     "result.no_match": "אין קבצי Markdown תואמים לדפוס: {pattern}",
     "result.summary": "mdformat_check: {total} קבצים, {ok} בסדר, {failed} נכשלו",
     "result.ok": "[{label}] {path}",
@@ -377,10 +377,10 @@
     "result.error": "[{label}] {path}: {e}",
     "result.fallback_detail": "בעיית עיצוב",
     "result.more": "... ועוד {count}",
-    "label.ok": "OK",
-    "label.fail": "FAIL",
-    "label.timeout": "TIMEOUT",
-    "label.error": "ERROR"
+    "label.ok": "בסדר",
+    "label.fail": "נכשל",
+    "label.timeout": "פסק זמן",
+    "label.error": "שגיאה"
   },
   "hi": {
     "tool.description": "एमडीफॉर्मेट के साथ मार्कडाउन फ़ाइल फ़ॉर्मेटिंग की जाँच करें। उन फ़ाइलों की रिपोर्ट करता है जिन्हें फ़ॉर्मेटिंग सुधार की आवश्यकता होती है। वैकल्पिक रूप से स्वतः ठीक करें.",
@@ -409,10 +409,10 @@
     "result.error": "[{label}] {path}: {e}",
     "result.fallback_detail": "स्वरूपण समस्या",
     "result.more": "... और {count} अधिक",
-    "label.ok": "OK",
-    "label.fail": "FAIL",
-    "label.timeout": "TIMEOUT",
-    "label.error": "ERROR"
+    "label.ok": "ठीक है",
+    "label.fail": "असफल",
+    "label.timeout": "समयबाह्य",
+    "label.error": "गलती"
   },
   "hu": {
     "tool.description": "Ellenőrizze a Markdown fájl formázását az mdformat segítségével. A formázási javításokat igénylő fájlokat jelenti. Opcionálisan automatikus javítás.",
@@ -432,7 +432,7 @@
     "param.path.description": "Globális minta vagy ellenőrizendő fájl elérési útja (pl. „docs/**/*.md” vagy „README.md”).",
     "param.fix.description": "Ha igaz, a formázási problémák automatikus javítása az ellenőrzés helyett.",
     "pkg.mdformat": "mdformat (Markdown formázó)",
-    "pkg.mdformat_frontmatter": "mdformat YAML front matter plugin",
+    "pkg.mdformat_frontmatter": "mdformat YAML front matter bővítmény",
     "result.no_match": "Egyetlen Markdown fájl sem felel meg a következő mintának: {pattern}",
     "result.summary": "mdformat_check: {total} fájl, {ok} rendben, {failed} sikertelen",
     "result.ok": "[{label}] {path}",
@@ -443,9 +443,9 @@
     "result.fallback_detail": "formázási probléma",
     "result.more": "... és még {count}",
     "label.ok": "OK",
-    "label.fail": "FAIL",
-    "label.timeout": "TIMEOUT",
-    "label.error": "ERROR"
+    "label.fail": "SIKERTELEN",
+    "label.timeout": "IDŐTÚL",
+    "label.error": "HIBA"
   },
   "id": {
     "tool.description": "Periksa pemformatan file Markdown dengan mdformat. Melaporkan file yang memerlukan perbaikan format. Opsional, perbaiki otomatis.",
@@ -474,10 +474,10 @@
     "result.error": "[{label}] {path}: {e}",
     "result.fallback_detail": "masalah pemformatan",
     "result.more": "... dan {count} lainnya",
-    "label.ok": "OK",
-    "label.fail": "FAIL",
-    "label.timeout": "TIMEOUT",
-    "label.error": "ERROR"
+    "label.ok": "Oke",
+    "label.fail": "GAGAL",
+    "label.timeout": "WAKTU HABIS",
+    "label.error": "KESALAHAN"
   },
   "it": {
     "tool.description": "Controlla la formattazione del file Markdown con mdformat. Segnala i file che necessitano di correzioni di formattazione. Facoltativamente correzione automatica.",
@@ -506,10 +506,10 @@
     "result.error": "[{label}] {path}: {e}",
     "result.fallback_detail": "problema di formattazione",
     "result.more": "... e {count} altro ancora",
-    "label.ok": "OK",
-    "label.fail": "FAIL",
-    "label.timeout": "TIMEOUT",
-    "label.error": "ERROR"
+    "label.ok": "Va bene",
+    "label.fail": "FALLIMENTO",
+    "label.timeout": "TEMPO SCADUTO",
+    "label.error": "ERRORE"
   },
   "ko": {
     "tool.description": "mdformat으로 마크다운 파일 형식을 확인하세요. 형식 수정이 필요한 파일을 보고합니다. 선택적으로 자동 수정.",
@@ -538,10 +538,10 @@
     "result.error": "[{label}] {path}: {e}",
     "result.fallback_detail": "서식 문제",
     "result.more": "... 그리고 {count} 더",
-    "label.ok": "OK",
-    "label.fail": "FAIL",
-    "label.timeout": "TIMEOUT",
-    "label.error": "ERROR"
+    "label.ok": "알았어",
+    "label.fail": "실패",
+    "label.timeout": "시간 초과",
+    "label.error": "오류"
   },
   "mn": {
     "tool.description": "Markdown файлын форматыг mdformat ашиглан шалгана уу. Форматыг засах шаардлагатай файлуудыг мэдээлдэг. Сонголтоор автоматаар засах боломжтой.",
@@ -571,9 +571,9 @@
     "result.fallback_detail": "форматын асуудал",
     "result.more": "... болон бусад {count}",
     "label.ok": "OK",
-    "label.fail": "FAIL",
-    "label.timeout": "TIMEOUT",
-    "label.error": "ERROR"
+    "label.fail": "БҮТЭЭЛГҮЙ",
+    "label.timeout": "ХУГАЦААНЫ ХУГАЦАА",
+    "label.error": "АЛДАА"
   },
   "mr": {
     "tool.description": "mdformat सह मार्कडाउन फाइल फॉरमॅटिंग तपासा. स्वरूपण निराकरणे आवश्यक असलेल्या फाइल्सचा अहवाल देते. वैकल्पिकरित्या स्वयं-निराकरण.",
@@ -602,10 +602,10 @@
     "result.error": "[{label}] {path}: {e}",
     "result.fallback_detail": "स्वरूपन समस्या",
     "result.more": "... आणि {count} अधिक",
-    "label.ok": "OK",
-    "label.fail": "FAIL",
-    "label.timeout": "TIMEOUT",
-    "label.error": "ERROR"
+    "label.ok": "ठीक आहे",
+    "label.fail": "अयशस्वी",
+    "label.timeout": "कालबाह्य",
+    "label.error": "एरर"
   },
   "nb": {
     "tool.description": "Sjekk Markdown-filformatering med mdformat. Rapporterer filer som trenger formateringsfikser. Eventuelt autofiks.",
@@ -622,8 +622,8 @@
     ],
     "param.path.description": "Globmønster eller filbane å sjekke (f.eks. 'docs/**/*.md' eller 'README.md').",
     "param.fix.description": "Hvis sant, reparer formateringsproblemer automatisk i stedet for bare å sjekke.",
-    "pkg.mdformat": "mdformat (Markdown formatter)",
-    "pkg.mdformat_frontmatter": "mdformat YAML front matter plugin",
+    "pkg.mdformat": "mdformat (Markdown-formaterer)",
+    "pkg.mdformat_frontmatter": "mdformat YAML front matter-plugin",
     "result.no_match": "Ingen Markdown-filer samsvarte med mønsteret: {pattern}",
     "result.summary": "mdformat_check: {total} filer, {ok} ok, {failed} mislyktes",
     "result.ok": "[{label}] {path}",
@@ -634,9 +634,9 @@
     "result.fallback_detail": "formateringsproblem",
     "result.more": "... og {count} til",
     "label.ok": "OK",
-    "label.fail": "FAIL",
-    "label.timeout": "TIMEOUT",
-    "label.error": "ERROR"
+    "label.fail": "FEIL",
+    "label.timeout": "TIDSAVBRUDD",
+    "label.error": "FEIL"
   },
   "nl": {
     "tool.description": "Controleer de Markdown-bestandsopmaak met mdformat. Rapporteert bestanden waarvoor opmaakcorrecties nodig zijn. Optioneel autofix.",
@@ -665,10 +665,10 @@
     "result.error": "[{label}] {path}: {e}",
     "result.fallback_detail": "formatteringsprobleem",
     "result.more": "... en {count} meer",
-    "label.ok": "OK",
-    "label.fail": "FAIL",
-    "label.timeout": "TIMEOUT",
-    "label.error": "ERROR"
+    "label.ok": "Oké",
+    "label.fail": "FOUT",
+    "label.timeout": "TIME-OUT",
+    "label.error": "FOUT"
   },
   "pl": {
     "tool.description": "Sprawdź formatowanie pliku Markdown za pomocą mdformat. Raportuje pliki wymagające poprawek formatowania. Opcjonalnie automatyczna naprawa.",
@@ -697,9 +697,9 @@
     "result.fallback_detail": "problem z formatowaniem",
     "result.more": "... i {count} więcej",
     "label.ok": "OK",
-    "label.fail": "FAIL",
-    "label.timeout": "TIMEOUT",
-    "label.error": "ERROR"
+    "label.fail": "NIEPOwodzenie",
+    "label.timeout": "LIMIT CZASU",
+    "label.error": "BŁĄD"
   },
   "pt": {
     "tool.description": "Verifique a formatação do arquivo Markdown com mdformat. Relata arquivos que precisam de correções de formatação. Opcionalmente, correção automática.",
@@ -731,9 +731,9 @@
     "result.fallback_detail": "problema de formatação",
     "result.more": "... e {count} mais",
     "label.ok": "OK",
-    "label.fail": "FAIL",
-    "label.timeout": "TIMEOUT",
-    "label.error": "ERROR"
+    "label.fail": "FALHA",
+    "label.timeout": "TEMPO LIMITE",
+    "label.error": "ERRO"
   },
   "pt_BR": {
     "tool.description": "Verifique a formatação do arquivo Markdown com mdformat. Relata arquivos que precisam de correções de formatação. Opcionalmente, correção automática.",
@@ -765,9 +765,9 @@
     "result.fallback_detail": "problema de formatação",
     "result.more": "... e {count} mais",
     "label.ok": "OK",
-    "label.fail": "FAIL",
-    "label.timeout": "TIMEOUT",
-    "label.error": "ERROR"
+    "label.fail": "FALHA",
+    "label.timeout": "TEMPO LIMITE",
+    "label.error": "ERRO"
   },
   "ro": {
     "tool.description": "Verificați formatarea fișierului Markdown cu mdformat. Raportează fișierele care necesită remedieri de formatare. Opțional, remediere automată.",
@@ -796,9 +796,9 @@
     "result.fallback_detail": "problema de formatare",
     "result.more": "... și încă {count}",
     "label.ok": "OK",
-    "label.fail": "FAIL",
-    "label.timeout": "TIMEOUT",
-    "label.error": "ERROR"
+    "label.fail": "EȘEC",
+    "label.timeout": "PAUZĂ",
+    "label.error": "EROARE"
   },
   "ru": {
     "tool.description": "Проверьте форматирование файла Markdown с помощью mdformat. Сообщает о файлах, требующих исправления форматирования. Опционально автоисправление.",
@@ -829,10 +829,10 @@
     "result.error": "[{label}] {path}: {e}",
     "result.fallback_detail": "проблема с форматированием",
     "result.more": "... и еще {count}",
-    "label.ok": "OK",
-    "label.fail": "FAIL",
-    "label.timeout": "TIMEOUT",
-    "label.error": "ERROR"
+    "label.ok": "ОК",
+    "label.fail": "НЕУДАЧА",
+    "label.timeout": "ТАЙМ-АУТ",
+    "label.error": "ОШИБКА"
   },
   "sv": {
     "tool.description": "Kontrollera Markdown-filformatering med mdformat. Rapporterar filer som behöver formateringsfixar. Valfritt autofix.",
@@ -851,7 +851,7 @@
     "param.path.description": "Globmönster eller filsökväg att kontrollera (t.ex. 'docs/**/*.md' eller 'README.md').",
     "param.fix.description": "Om det är sant, åtgärda formateringsproblem istället för att bara kontrollera.",
     "pkg.mdformat": "mdformat (Markdown-formaterare)",
-    "pkg.mdformat_frontmatter": "mdformat YAML front matter plugin",
+    "pkg.mdformat_frontmatter": "mdformat YAML front matter-plugin",
     "result.no_match": "Inga Markdown-filer matchade mönster: {pattern}",
     "result.summary": "mdformat_check: {total} filer, {ok} ok, {failed} misslyckades",
     "result.ok": "[{label}] {path}",
@@ -862,9 +862,9 @@
     "result.fallback_detail": "formateringsproblem",
     "result.more": "... och {count} till",
     "label.ok": "OK",
-    "label.fail": "FAIL",
-    "label.timeout": "TIMEOUT",
-    "label.error": "ERROR"
+    "label.fail": "MISSLYCKADES",
+    "label.timeout": "Tidsgräns",
+    "label.error": "FEL"
   },
   "sw": {
     "tool.description": "Angalia umbizo la faili la Markdown na mdformat. Huripoti faili zinazohitaji marekebisho ya umbizo. Hiari kurekebisha kiotomatiki.",
@@ -893,10 +893,10 @@
     "result.error": "[{label}] {path}: {e}",
     "result.fallback_detail": "suala la umbizo",
     "result.more": "... na {count} zaidi",
-    "label.ok": "OK",
-    "label.fail": "FAIL",
-    "label.timeout": "TIMEOUT",
-    "label.error": "ERROR"
+    "label.ok": "Sawa",
+    "label.fail": "KUSHINDWA",
+    "label.timeout": "MUDA UMEISHA",
+    "label.error": "HITILAFU"
   },
   "th": {
     "tool.description": "ตรวจสอบการจัดรูปแบบไฟล์ Markdown ด้วย mdformat รายงานไฟล์ที่ต้องการแก้ไขการจัดรูปแบบ เลือกแก้ไขอัตโนมัติได้",
@@ -926,10 +926,10 @@
     "result.error": "[{label}] {path}: {e}",
     "result.fallback_detail": "ปัญหาการจัดรูปแบบ",
     "result.more": "... และอีก {count}",
-    "label.ok": "OK",
-    "label.fail": "FAIL",
-    "label.timeout": "TIMEOUT",
-    "label.error": "ERROR"
+    "label.ok": "ตกลง",
+    "label.fail": "ล้มเหลว",
+    "label.timeout": "หมดเวลา",
+    "label.error": "ข้อผิดพลาด"
   },
   "tr": {
     "tool.description": "Markdown dosya formatını mdformat ile kontrol edin. Biçimlendirme düzeltmeleri gerektiren dosyaları bildirir. İsteğe bağlı olarak otomatik düzeltme.",
@@ -959,10 +959,10 @@
     "result.error": "[{label}] {path}: {e}",
     "result.fallback_detail": "biçimlendirme sorunu",
     "result.more": "... ve {count} tane daha",
-    "label.ok": "OK",
-    "label.fail": "FAIL",
-    "label.timeout": "TIMEOUT",
-    "label.error": "ERROR"
+    "label.ok": "tamam",
+    "label.fail": "BAŞARISIZ",
+    "label.timeout": "ZAMAN AŞIMI",
+    "label.error": "HATA"
   },
   "uk": {
     "tool.description": "Перевірте форматування файлу Markdown за допомогою mdformat. Повідомляє про файли, які потребують виправлення форматування. За бажанням автовиправлення.",
@@ -991,10 +991,10 @@
     "result.error": "[{label}] {path}: {e}",
     "result.fallback_detail": "проблема форматування",
     "result.more": "... і ще {count}",
-    "label.ok": "OK",
-    "label.fail": "FAIL",
-    "label.timeout": "TIMEOUT",
-    "label.error": "ERROR"
+    "label.ok": "добре",
+    "label.fail": "НЕВДАЧА",
+    "label.timeout": "ТАЙМ-АУТ",
+    "label.error": "ПОМИЛКА"
   },
   "vi": {
     "tool.description": "Kiểm tra định dạng tệp Markdown bằng mdformat. Báo cáo các tập tin cần sửa định dạng. Tùy chọn tự động sửa lỗi.",
@@ -1023,10 +1023,10 @@
     "result.error": "[{label}] {path}: {e}",
     "result.fallback_detail": "vấn đề định dạng",
     "result.more": "... và {count} người khác",
-    "label.ok": "OK",
-    "label.fail": "FAIL",
-    "label.timeout": "TIMEOUT",
-    "label.error": "ERROR"
+    "label.ok": "được rồi",
+    "label.fail": "THẤT BẠI",
+    "label.timeout": "HẾT THỜI GIAN",
+    "label.error": "LỖI"
   },
   "zh_CN": {
     "tool.description": "使用 mdformat 检查 Markdown 文件格式。报告需要格式修复的文件。可选择自动修复。",
@@ -1056,10 +1056,10 @@
     "result.error": "[{label}] {path}：{e}",
     "result.fallback_detail": "格式问题",
     "result.more": "...以及 {count} 更多",
-    "label.ok": "OK",
-    "label.fail": "FAIL",
-    "label.timeout": "TIMEOUT",
-    "label.error": "ERROR"
+    "label.ok": "好的",
+    "label.fail": "失败",
+    "label.timeout": "超时",
+    "label.error": "错误"
   },
   "zh_TW": {
     "tool.description": "使用 mdformat 檢查 Markdown 文件格式。報告需要格式修復的文件。可選擇自動修復。",
@@ -1089,9 +1089,9 @@
     "result.error": "[{label}] {path}：{e}",
     "result.fallback_detail": "格式問題",
     "result.more": "....以及 {count} 更多",
-    "label.ok": "OK",
-    "label.fail": "FAIL",
-    "label.timeout": "TIMEOUT",
-    "label.error": "ERROR"
+    "label.ok": "好的",
+    "label.fail": "失敗",
+    "label.timeout": "超時",
+    "label.error": "錯誤"
   }
 }

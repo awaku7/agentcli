@@ -720,10 +720,10 @@
     "err.po_msgid_required": "po_msgid diperlukan untuk replace_po_entry",
     "err.anchors_required": "jangkar_sebelum dan jangkar_setelah diperlukan untuk ganti_antara",
     "err.line_no_out_of_range": "line_no {line_no} di luar jangkauan untuk file dengan {line_count} baris (valid: 1..{max_line})",
-    "err.replacement_required": "replacement is required",
-    "err.invalid_mode": "invalid mode: {mode}",
-    "err.invalid_mode_after": "invalid mode_after: {mode}",
-    "err.invalid_action": "invalid action: {action}"
+    "err.replacement_required": "penggantian diperlukan",
+    "err.invalid_mode": "modus tidak valid: {mode}",
+    "err.invalid_mode_after": "mode_setelah tidak valid: {mode}",
+    "err.invalid_action": "tindakan tidak valid: {action}"
   },
   "vi": {
     "err.path_missing": "không được chỉ định",
@@ -786,10 +786,10 @@
     "err.po_msgid_required": "po_msgid là cần thiết cho thay thế_po_entry",
     "err.anchors_required": "cần có neo_trước và neo_sau cho thay thế giữa",
     "err.line_no_out_of_range": "dòng_no {line_no} nằm ngoài phạm vi của tệp có {line_count} dòng (hợp lệ: 1..{max_line})",
-    "err.replacement_required": "replacement is required",
-    "err.invalid_mode": "invalid mode: {mode}",
-    "err.invalid_mode_after": "invalid mode_after: {mode}",
-    "err.invalid_action": "invalid action: {action}"
+    "err.replacement_required": "cần phải thay thế",
+    "err.invalid_mode": "chế độ không hợp lệ: {mode}",
+    "err.invalid_mode_after": "chế độ không hợp lệ_sau: {mode}",
+    "err.invalid_action": "hành động không hợp lệ: {action}"
   },
   "pl": {
     "err.path_missing": "nie określono ścieżki",
@@ -852,10 +852,10 @@
     "err.po_msgid_required": "po_msgid jest wymagany do zamiany_po_entry",
     "err.anchors_required": "kotwica_before i kotwica_po są wymagane dla zamiany_pomiędzy",
     "err.line_no_out_of_range": "nr linii {line_no} poza zakresem dla pliku z {line_count} liniami (ważne: 1..{max_line})",
-    "err.replacement_required": "replacement is required",
-    "err.invalid_mode": "invalid mode: {mode}",
-    "err.invalid_mode_after": "invalid mode_after: {mode}",
-    "err.invalid_action": "invalid action: {action}"
+    "err.replacement_required": "wymagana jest wymiana",
+    "err.invalid_mode": "nieprawidłowy tryb: {mode}",
+    "err.invalid_mode_after": "nieprawidłowy mode_after: {mode}",
+    "err.invalid_action": "nieprawidłowe działanie: {action}"
   },
   "hi": {
     "err.path_missing": "पथ निर्दिष्ट नहीं है",
@@ -873,7 +873,7 @@
     "summary.blocked": "अवरोधित: {count}",
     "summary.blocked_reason": "अवरोधित: {reason}",
     "summary.error": "त्रुटि: {error}",
-    "summary.files_changed": "फ़ाइल (फ़ाइलें) बदली गईं",
+    "summary.files_changed": "{count} फ़ाइल(फ़ाइलें) बदल गईं",
     "summary.matches": "{count} मिलान",
     "summary.no_change": "सफलतापूर्वक कोई परिवर्तन नहीं (0 मैच)",
     "summary.preview_matches": "पूर्वावलोकन: {count} मिलान मिले",
@@ -918,10 +918,10 @@
     "err.po_msgid_required": "Replace_po_entry के लिए po_msgid आवश्यक है",
     "err.anchors_required": "रिप्लेस_बिटवीन के लिए एंकर_बिफोर और एंकर_आफ्टर आवश्यक हैं",
     "err.line_no_out_of_range": "लाइन संख्या {line_no} {line_count} लाइन वाली फ़ाइल के लिए सीमा से बाहर है (मान्य: 1..{max_line})",
-    "err.replacement_required": "replacement is required",
-    "err.invalid_mode": "invalid mode: {mode}",
-    "err.invalid_mode_after": "invalid mode_after: {mode}",
-    "err.invalid_action": "invalid action: {action}"
+    "err.replacement_required": "प्रतिस्थापन की आवश्यकता है",
+    "err.invalid_mode": "अमान्य मोड: {mode}",
+    "err.invalid_mode_after": "अमान्य मोड_बाद: {mode}",
+    "err.invalid_action": "अमान्य कार्रवाई: {action}"
   },
   "ar": {
     "err.path_missing": "لم يتم تحديد المسار",
@@ -984,10 +984,10 @@
     "err.po_msgid_required": "مطلوب po_msgid لreplace_po_entry",
     "err.anchors_required": "مرساة_قبل و مرساة_بعد مطلوبة لاستبدال_بين",
     "err.line_no_out_of_range": "line_no {line_no} خارج النطاق للملف الذي يحتوي على {line_count} سطر (أسطر) (صالح: 1..{max_line})",
-    "err.replacement_required": "replacement is required",
-    "err.invalid_mode": "invalid mode: {mode}",
-    "err.invalid_mode_after": "invalid mode_after: {mode}",
-    "err.invalid_action": "invalid action: {action}"
+    "err.replacement_required": "مطلوب استبدال",
+    "err.invalid_mode": "الوضع غير صالح: {mode}",
+    "err.invalid_mode_after": "mode_after غير صالح: {mode}",
+    "err.invalid_action": "إجراء غير صالح: {action}"
   },
   "sv": {
     "err.path_missing": "path är inte angiven",
@@ -1050,10 +1050,10 @@
     "err.po_msgid_required": "po_msgid krävs för replace_po_entry",
     "err.anchors_required": "anchor_before och anchor_after krävs för replace_between",
     "err.line_no_out_of_range": "line_no {line_no} utanför intervallet för fil med {line_count} rad(er) (giltigt: 1..{max_line})",
-    "err.replacement_required": "replacement is required",
-    "err.invalid_mode": "invalid mode: {mode}",
-    "err.invalid_mode_after": "invalid mode_after: {mode}",
-    "err.invalid_action": "invalid action: {action}"
+    "err.replacement_required": "byte krävs",
+    "err.invalid_mode": "ogiltigt läge: {mode}",
+    "err.invalid_mode_after": "ogiltigt mode_after: {mode}",
+    "err.invalid_action": "ogiltig åtgärd: {action}"
   },
   "sw": {
     "err.path_missing": "path haijabainishwa",
@@ -1116,10 +1116,10 @@
     "err.po_msgid_required": "po_msgid inahitajika kwa replace_po_entry",
     "err.anchors_required": "anchor_before na anchor_after zinahitajika kwa replace_between",
     "err.line_no_out_of_range": "mstari_hapana {line_no} nje ya safu ya faili iliyo na {line_count} laini (sahihi: 1..{max_line})",
-    "err.replacement_required": "replacement is required",
-    "err.invalid_mode": "invalid mode: {mode}",
-    "err.invalid_mode_after": "invalid mode_after: {mode}",
-    "err.invalid_action": "invalid action: {action}"
+    "err.replacement_required": "uingizwaji unahitajika",
+    "err.invalid_mode": "hali batili: {mode}",
+    "err.invalid_mode_after": "hali_batili baada ya: {mode}",
+    "err.invalid_action": "kitendo batili: {action}"
   },
   "nb": {
     "err.path_missing": "path er ikke angitt",
@@ -1182,10 +1182,10 @@
     "err.po_msgid_required": "po_msgid kreves for replace_po_entry",
     "err.anchors_required": "anchor_before og anchor_after kreves for replace_between",
     "err.line_no_out_of_range": "line_no {line_no} utenfor rekkevidde for fil med {line_count} linje(r) (gyldig: 1..{max_line})",
-    "err.replacement_required": "replacement is required",
-    "err.invalid_mode": "invalid mode: {mode}",
-    "err.invalid_mode_after": "invalid mode_after: {mode}",
-    "err.invalid_action": "invalid action: {action}"
+    "err.replacement_required": "utskifting er nødvendig",
+    "err.invalid_mode": "ugyldig modus: {mode}",
+    "err.invalid_mode_after": "ugyldig modus_etter: {mode}",
+    "err.invalid_action": "ugyldig handling: {action}"
   },
   "nl": {
     "err.path_missing": "pad is niet opgegeven",
@@ -1248,10 +1248,10 @@
     "err.po_msgid_required": "po_msgid is vereist voor Replace_po_entry",
     "err.anchors_required": "anchor_before en anchor_after zijn vereist voor vervangen_tussen",
     "err.line_no_out_of_range": "line_no {line_no} buiten bereik voor bestand met {line_count} regel(s) (geldig: 1..{max_line})",
-    "err.replacement_required": "replacement is required",
-    "err.invalid_mode": "invalid mode: {mode}",
-    "err.invalid_mode_after": "invalid mode_after: {mode}",
-    "err.invalid_action": "invalid action: {action}"
+    "err.replacement_required": "vervanging is vereist",
+    "err.invalid_mode": "ongeldige modus: {mode}",
+    "err.invalid_mode_after": "ongeldige mode_after: {mode}",
+    "err.invalid_action": "ongeldige actie: {action}"
   },
   "fi": {
     "err.path_missing": "polkua ei ole annettu",
@@ -1314,10 +1314,10 @@
     "err.po_msgid_required": "po_msgid vaaditaan replace_po_entrylle",
     "err.anchors_required": "anchor_before ja anchor_after vaaditaan korvaa_välille",
     "err.line_no_out_of_range": "line_no {line_no} alueen ulkopuolella tiedostolle, jossa on {line_count} riviä (kelvollinen: 1..{max_line})",
-    "err.replacement_required": "replacement is required",
-    "err.invalid_mode": "invalid mode: {mode}",
-    "err.invalid_mode_after": "invalid mode_after: {mode}",
-    "err.invalid_action": "invalid action: {action}"
+    "err.replacement_required": "vaihto on tarpeen",
+    "err.invalid_mode": "virheellinen tila: {mode}",
+    "err.invalid_mode_after": "virheellinen mode_after: {mode}",
+    "err.invalid_action": "virheellinen toiminto: {action}"
   },
   "cs": {
     "err.path_missing": "cesta není zadána",
@@ -1380,10 +1380,10 @@
     "err.po_msgid_required": "po_msgid je vyžadováno pro replace_po_entry",
     "err.anchors_required": "anchor_before a anchor_after jsou vyžadovány pro nahrazení_mezi",
     "err.line_no_out_of_range": "line_no {line_no} mimo rozsah pro soubor s {line_count} řádky (platný: 1..{max_line})",
-    "err.replacement_required": "replacement is required",
-    "err.invalid_mode": "invalid mode: {mode}",
-    "err.invalid_mode_after": "invalid mode_after: {mode}",
-    "err.invalid_action": "invalid action: {action}"
+    "err.replacement_required": "je nutná výměna",
+    "err.invalid_mode": "neplatný režim: {mode}",
+    "err.invalid_mode_after": "neplatný režim_po: {mode}",
+    "err.invalid_action": "neplatná akce: {action}"
   },
   "uk": {
     "err.path_missing": "шлях не вказано",
@@ -1446,10 +1446,10 @@
     "err.po_msgid_required": "po_msgid необхідний для replace_po_entry",
     "err.anchors_required": "anchor_before і anchor_after необхідні для replace_between",
     "err.line_no_out_of_range": "line_no {line_no} поза діапазоном для файлу з {line_count} рядками (дійсний: 1..{max_line})",
-    "err.replacement_required": "replacement is required",
-    "err.invalid_mode": "invalid mode: {mode}",
-    "err.invalid_mode_after": "invalid mode_after: {mode}",
-    "err.invalid_action": "invalid action: {action}"
+    "err.replacement_required": "потрібна заміна",
+    "err.invalid_mode": "недійсний режим: {mode}",
+    "err.invalid_mode_after": "недійсний режим_після: {mode}",
+    "err.invalid_action": "недійсна дія: {action}"
   },
   "tr": {
     "err.path_missing": "yol belirtilmedi",
@@ -1512,10 +1512,10 @@
     "err.po_msgid_required": "replacement_po_entry için po_msgid gereklidir",
     "err.anchors_required": "replacement_between için çapa_before ve çapa_sonra gereklidir",
     "err.line_no_out_of_range": "line_no {line_no}, {line_count} satırlı dosya için aralık dışında (geçerli: 1..{max_line})",
-    "err.replacement_required": "replacement is required",
-    "err.invalid_mode": "invalid mode: {mode}",
-    "err.invalid_mode_after": "invalid mode_after: {mode}",
-    "err.invalid_action": "invalid action: {action}"
+    "err.replacement_required": "değiştirme gerekli",
+    "err.invalid_mode": "geçersiz mod: {mode}",
+    "err.invalid_mode_after": "geçersiz mode_after: {mode}",
+    "err.invalid_action": "geçersiz işlem: {action}"
   },
   "th": {
     "err.path_missing": "ไม่ได้ระบุเส้นทาง",
@@ -1534,7 +1534,7 @@
     "summary.blocked_reason": "ถูกบล็อก: {reason}",
     "summary.error": "ข้อผิดพลาด: {error}",
     "summary.files_changed": "{count} ไฟล์มีการเปลี่ยนแปลง",
-    "summary.matches": "เส้นทางไฟล์ (ภายใต้ workdir)",
+    "summary.matches": "การแข่งขัน {count}",
     "summary.no_change": "ไม่มีการเปลี่ยนแปลง (ตรงกัน 0 รายการ)",
     "summary.preview_matches": "ดูตัวอย่าง: พบการจับคู่ {count}",
     "tool.description": "แก้ไขไฟล์ข้อความอย่างปลอดภัย (แทนที่ตามตัวอักษร/regex, แทรก, ต่อท้าย)",
@@ -1578,10 +1578,10 @@
     "err.po_msgid_required": "po_msgid จำเป็นสำหรับ replacement_po_entry",
     "err.anchors_required": "ต้องใช้ Anchor_before และ Anchor_after เพื่อแทนที่ระหว่าง",
     "err.line_no_out_of_range": "line_no {line_no} อยู่นอกช่วงสำหรับไฟล์ที่มี {line_count} บรรทัด (ที่ถูกต้อง: 1..{max_line})",
-    "err.replacement_required": "replacement is required",
-    "err.invalid_mode": "invalid mode: {mode}",
-    "err.invalid_mode_after": "invalid mode_after: {mode}",
-    "err.invalid_action": "invalid action: {action}"
+    "err.replacement_required": "จำเป็นต้องเปลี่ยน",
+    "err.invalid_mode": "โหมดไม่ถูกต้อง: {mode}",
+    "err.invalid_mode_after": "mode_after ไม่ถูกต้อง: {mode}",
+    "err.invalid_action": "การกระทำที่ไม่ถูกต้อง: {action}"
   },
   "zh_CN": {
     "err.path_missing": "未指定路径",
@@ -1734,7 +1734,7 @@
     "summary.files_changed": "{count}টি ফাইল পরিবর্তিত",
     "summary.matches": "{count}টি মিল",
     "summary.no_change": "সফলভাবে কোন পরিবর্তন হয়নি (0টি মিল)",
-    "summary.preview_matches": "ডাইরেক্টরি রিকারসিভ স্ক্যান করবেন না বা regex।",
+    "summary.preview_matches": "পূর্বরূপ: {count} মিল পাওয়া গেছে",
     "tool.description": "নিরাপদে পাঠ্য ফাইল সম্পাদনা করুন (আক্ষরিক/রেজেক্স প্রতিস্থাপন, সন্নিবেশ করান, যুক্ত করুন)। প্যাটার্নে ব্যাকস্ল্যাশ এস্কেপ সমর্থন করে।",
     "x_search_terms": [
       "ফাইল প্রতিস্থাপন",
@@ -1776,10 +1776,10 @@
     "err.po_msgid_required": "Replace_po_entry 需要 po_msgid",
     "err.anchors_required": "update_ Between 需要anchor_before 和anchor_after",
     "err.line_no_out_of_range": "对于具有 {line_count} 行的文件，line_no {line_no} 超出范围（有效：1..{max_line}）",
-    "err.replacement_required": "replacement is required",
-    "err.invalid_mode": "invalid mode: {mode}",
-    "err.invalid_mode_after": "invalid mode_after: {mode}",
-    "err.invalid_action": "invalid action: {action}"
+    "err.replacement_required": "প্রতিস্থাপন প্রয়োজন",
+    "err.invalid_mode": "অবৈধ মোড: {mode}",
+    "err.invalid_mode_after": "অবৈধ মোড_আফটার: {mode}",
+    "err.invalid_action": "অবৈধ কর্ম: {action}"
   },
   "fa": {
     "err.path_missing": "مسیر مشخص نشده است",
@@ -1842,10 +1842,10 @@
     "err.po_msgid_required": "po_msgid برای replace_po_entry مورد نیاز است",
     "err.anchors_required": "anchor_before و anchor_after برای replace_between مورد نیاز هستند",
     "err.line_no_out_of_range": "line_no {line_no} خارج از محدوده برای فایل با {line_count} خط(های) (معتبر: 1..{max_line})",
-    "err.replacement_required": "replacement is required",
-    "err.invalid_mode": "invalid mode: {mode}",
-    "err.invalid_mode_after": "invalid mode_after: {mode}",
-    "err.invalid_action": "invalid action: {action}"
+    "err.replacement_required": "تعویض مورد نیاز است",
+    "err.invalid_mode": "حالت نامعتبر: {mode}",
+    "err.invalid_mode_after": "نامعتبر mode_after: {mode}",
+    "err.invalid_action": "اقدام نامعتبر: {action}"
   },
   "mn": {
     "err.path_missing": "замыг заагаагүй байна",
@@ -1908,10 +1908,10 @@
     "err.po_msgid_required": "replace_po_entry-д po_msgid шаардлагатай",
     "err.anchors_required": "хооронд_орлуулахын тулд anchor_befor and anchor_after шаардлагатай",
     "err.line_no_out_of_range": "мөр_no {line_no} {line_count} мөртэй файлын хүрээнээс гарсан (хүчинтэй: 1..{max_line})",
-    "err.replacement_required": "replacement is required",
-    "err.invalid_mode": "invalid mode: {mode}",
-    "err.invalid_mode_after": "invalid mode_after: {mode}",
-    "err.invalid_action": "invalid action: {action}"
+    "err.replacement_required": "солих шаардлагатай",
+    "err.invalid_mode": "Буруу горим: {mode}",
+    "err.invalid_mode_after": "хүчингүй горим_дараа: {mode}",
+    "err.invalid_action": "хүчингүй үйлдэл: {action}"
   },
   "mr": {
     "err.path_missing": "पथ निर्दिष्ट नाही",
@@ -1974,10 +1974,10 @@
     "err.po_msgid_required": "po_msgid पुनर्स्थित_po_entry साठी आवश्यक आहे",
     "err.anchors_required": "दरम्यान बदलण्यासाठी anchor_before आणि anchor_after आवश्यक आहे",
     "err.line_no_out_of_range": "{line_count} ओळ (वैध: 1..{max_line}) असलेल्या फाईलसाठी line_no {line_no} श्रेणीबाहेर आहे",
-    "err.replacement_required": "replacement is required",
-    "err.invalid_mode": "invalid mode: {mode}",
-    "err.invalid_mode_after": "invalid mode_after: {mode}",
-    "err.invalid_action": "invalid action: {action}"
+    "err.replacement_required": "बदली आवश्यक आहे",
+    "err.invalid_mode": "अवैध मोड: {mode}",
+    "err.invalid_mode_after": "अवैध मोड_after: {mode}",
+    "err.invalid_action": "अवैध क्रिया: {action}"
   },
   "el": {
     "err.path_missing": "η διαδρομή δεν έχει καθοριστεί",
@@ -1998,7 +1998,7 @@
     "summary.files_changed": "{count} αρχεία άλλαξαν",
     "summary.matches": "{count} αντιστοιχίσεις",
     "summary.no_change": "Επιτυχώς καμία αλλαγή (0 αντιστοιχίσεις)",
-    "summary.preview_matches": "Προεπισκόπηση: {count} αντιστοιχίσεις βρέθηκαν (βρέθηκαν {count} αρχεία (Sagged,exliter)",
+    "summary.preview_matches": "Προεπισκόπηση: Βρέθηκαν αντιστοιχίσεις {count}",
     "tool.description": "εισαγωγή, προσθήκη). Υποστηρίζει διαφυγή ανάστροφης κάθετου σε μοτίβα.",
     "x_search_terms": [
       "replace_in_file",
@@ -2019,7 +2019,7 @@
     "param.anchor_after.description": "Κείμενο άγκυρας. Για insert_after: κείμενο για αναζήτηση και εισαγωγή μετά από αυτήν τη γραμμή. Για replace_between: τέλος ορίου.",
     "param.occurrence.description": "Δεκαεξαδική συμβολοσειρά για αντικατάσταση με (λειτουργία αντικατάστασης). Πρέπει να έχει το ίδιο μήκος με το search_hex εκτός εάν allow_resize=true (δεν υποστηρίζεται).",
     "hint.anchor_before_not_found": "msgid δεν βρέθηκε στο αρχείο .po.",
-    "hint.anchor_after_not_found": "Η αιτούμενη εμφάνιση {occurrence} υπερβαίνει τις διαθέσιμες αντιστοιχίσεις ({match_count}). Το",
+    "hint.anchor_after_not_found": "anchor_after δεν βρέθηκε.",
     "hint.po_msgid_not_found": "anchor_after δεν βρέθηκε μετά το anchor_before.",
     "hint.anchor_after_not_found_after_before": "Αναδρομική σάρωση κάτω από τον κατάλογο προορισμού.",
     "param.glob.description": "Μοτίβο Glob που χρησιμοποιείται από το replace_all_in_files (προεπιλογή: '*').",
@@ -2040,10 +2040,10 @@
     "err.po_msgid_required": "Το po_msgid απαιτείται για το replace_po_entry",
     "err.anchors_required": "Τα anchor_before και anchor_after απαιτούνται για το replace_between",
     "err.line_no_out_of_range": "line_no {line_no} εκτός εμβέλειας για αρχείο με {line_count} γραμμή(εις) (έγκυρο: 1..{max_line})",
-    "err.replacement_required": "replacement is required",
-    "err.invalid_mode": "invalid mode: {mode}",
-    "err.invalid_mode_after": "invalid mode_after: {mode}",
-    "err.invalid_action": "invalid action: {action}"
+    "err.replacement_required": "απαιτείται αντικατάσταση",
+    "err.invalid_mode": "μη έγκυρη λειτουργία: {mode}",
+    "err.invalid_mode_after": "μη έγκυρη λειτουργία_μετά: {mode}",
+    "err.invalid_action": "μη έγκυρη ενέργεια: {action}"
   },
   "he": {
     "err.path_missing": "נתיב לא צוין",
@@ -2086,7 +2086,7 @@
     "param.occurrence.description": "תיקון מחרוזת JSON (מצב apply_patch).",
     "hint.anchor_before_not_found": "anchor_after לא נמצא.",
     "hint.anchor_after_not_found": "ה-msgid לא נמצא בקובץ ה-po.",
-    "hint.po_msgid_not_found": "המופע המבוקש {occurrence} חורג מההתאמות הזמינות ({match_count}).",
+    "hint.po_msgid_not_found": "msgid לא נמצא בקובץ ה-.po.",
     "hint.anchor_after_not_found_after_before": "דפוס גלוב בשימוש על ידי replace_all_in_files (ברירת מחדל: '*').",
     "param.glob.description": "סרוק רקורסיבית מתחת לספריית היעד.",
     "param.recur.description": "סרוק רקורסיבית מתחת לספריית היעד.",
@@ -2106,10 +2106,10 @@
     "err.po_msgid_required": "po_msgid נדרש עבור replace_po_entry",
     "err.anchors_required": "anchor_before ו-anchor_after נדרשים עבור replace_between",
     "err.line_no_out_of_range": "line_no {line_no} מחוץ לטווח עבור קובץ עם {line_count} שורות (תקף: 1..{max_line})",
-    "err.replacement_required": "replacement is required",
-    "err.invalid_mode": "invalid mode: {mode}",
-    "err.invalid_mode_after": "invalid mode_after: {mode}",
-    "err.invalid_action": "invalid action: {action}"
+    "err.replacement_required": "נדרשת החלפה",
+    "err.invalid_mode": "מצב לא חוקי: {mode}",
+    "err.invalid_mode_after": "מצב לא חוקי_אחרי: {mode}",
+    "err.invalid_action": "פעולה לא חוקית: {action}"
   },
   "hu": {
     "err.path_missing": "útvonal nincs megadva",
@@ -2125,7 +2125,7 @@
     "param.preview.description": "Csak előnézet (nincs változás).",
     "param.replacement.description": "Csereszöveg.",
     "summary.blocked": "Letiltva: {count}",
-    "summary.blocked_reason": "Letiltva: {ok}",
+    "summary.blocked_reason": "Letiltva: {reason}",
     "summary.error": "Hiba: {error}",
     "summary.files_changed": "{count} fájl módosult",
     "summary.matches": "{count} egyezés",
@@ -2172,10 +2172,10 @@
     "err.po_msgid_required": "po_msgid szükséges a change_po_entry-hez",
     "err.anchors_required": "anchor_before és anchor_after szükséges a helyettesítő_között",
     "err.line_no_out_of_range": "line_no {line_no} a tartományon kívül esik a {line_count} sorral rendelkező fájlnál (érvényes: 1..{max_line})",
-    "err.replacement_required": "replacement is required",
-    "err.invalid_mode": "invalid mode: {mode}",
-    "err.invalid_mode_after": "invalid mode_after: {mode}",
-    "err.invalid_action": "invalid action: {action}"
+    "err.replacement_required": "csere szükséges",
+    "err.invalid_mode": "érvénytelen mód: {mode}",
+    "err.invalid_mode_after": "érvénytelen mode_after: {mode}",
+    "err.invalid_action": "érvénytelen művelet: {action}"
   },
   "ro": {
     "err.path_missing": "calea nu este specificată",
@@ -2192,7 +2192,7 @@
     "param.replacement.description": "Text de înlocuire.",
     "summary.blocked": "Blocat: {count}",
     "summary.blocked_reason": "Blocat: {reason}",
-    "summary.error": "Eroare: {eroare}",
+    "summary.error": "Eroare: {error}",
     "summary.files_changed": "{count} fișier(e) schimbat(e)",
     "summary.matches": "{count} potriviri",
     "summary.no_change": "Nicio modificare (0 potriviri)",
@@ -2219,7 +2219,7 @@
     "hint.anchor_before_not_found": "Fișierul de intrare are stiluri mixte de linie nouă. Scrierea va folosi stilul select_for_write.",
     "hint.anchor_after_not_found": "anchor_before nu a fost găsit.",
     "hint.po_msgid_not_found": "anchor_after nu a fost găsit.",
-    "hint.anchor_after_not_found_after_before": "Apariția solicitată {occurrence} depășește potrivirile disponibile ({match_count}).",
+    "hint.anchor_after_not_found_after_before": "anchor_after nu a fost găsit după anchor_before.",
     "param.glob.description": "anchor_after nu a fost găsit după anchor_before.",
     "param.recur.description": "Model Glob folosit de replace_all_in_files (implicit: „*”).",
     "param.return_hashes.description": "Includeți sha256 înainte/după.",
@@ -2238,9 +2238,9 @@
     "err.po_msgid_required": "po_msgid este necesar pentru replace_po_entry",
     "err.anchors_required": "anchor_before și anchor_after sunt necesare pentru replace_between",
     "err.line_no_out_of_range": "line_no {line_no} în afara intervalului pentru fișierul cu {line_count} rând(i) (valid: 1..{max_line})",
-    "err.replacement_required": "replacement is required",
-    "err.invalid_mode": "invalid mode: {mode}",
-    "err.invalid_mode_after": "invalid mode_after: {mode}",
-    "err.invalid_action": "invalid action: {action}"
+    "err.replacement_required": "este necesară înlocuirea",
+    "err.invalid_mode": "mod nevalid: {mode}",
+    "err.invalid_mode_after": "mod invalid_după: {mode}",
+    "err.invalid_action": "acțiune nevalidă: {action}"
   }
 }

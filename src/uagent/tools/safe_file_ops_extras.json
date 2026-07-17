@@ -45,9 +45,9 @@
     "err.path_empty": "o caminho está vazio"
   },
   "pt": {
-    "err.file_not_found": "file not found: {filename}",
-    "err.outside_workdir": "path is outside workdir: root={root} path={path}",
-    "err.path_empty": "path is empty"
+    "err.file_not_found": "arquivo não encontrado: {filename}",
+    "err.outside_workdir": "o caminho está fora do diretório de trabalho: root={root} path={path}",
+    "err.path_empty": "o caminho está vazio"
   },
   "id": {
     "err.file_not_found": "file tidak ditemukan: {filename}",
@@ -65,9 +65,9 @@
     "err.path_empty": "ścieżka jest pusta"
   },
   "hi": {
-    "err.file_not_found": "file not found: {filename}",
-    "err.outside_workdir": "path is outside workdir: root={root} path={path}",
-    "err.path_empty": "path is empty"
+    "err.file_not_found": "फ़ाइल नहीं मिली: {filename}",
+    "err.outside_workdir": "पथ कार्यदिर के बाहर है: रूट={root} पथ={path}",
+    "err.path_empty": "रास्ता खाली है"
   },
   "ar": {
     "err.file_not_found": "لم يتم العثور على الملف: {filename}",
@@ -75,39 +75,39 @@
     "err.path_empty": "المسار فارغ"
   },
   "sv": {
-    "err.file_not_found": "file not found: {filename}",
-    "err.outside_workdir": "path is outside workdir: root={root} path={path}",
-    "err.path_empty": "path is empty"
+    "err.file_not_found": "filen hittades inte: {filename}",
+    "err.outside_workdir": "sökvägen är utanför arbetskatalogen: root={root} sökväg={path}",
+    "err.path_empty": "vägen är tom"
   },
   "sw": {
-    "err.file_not_found": "file not found: {filename}",
-    "err.outside_workdir": "path is outside workdir: root={root} path={path}",
-    "err.path_empty": "path is empty"
+    "err.file_not_found": "faili haijapatikana: {filename}",
+    "err.outside_workdir": "njia iko nje ya workdir: mzizi={root} njia={path}",
+    "err.path_empty": "njia ni tupu"
   },
   "nb": {
-    "err.file_not_found": "file not found: {filename}",
-    "err.outside_workdir": "path is outside workdir: root={root} path={path}",
-    "err.path_empty": "path is empty"
+    "err.file_not_found": "fil ikke funnet: {filename}",
+    "err.outside_workdir": "banen er utenfor arbeidskatalogen: root={root} bane={path}",
+    "err.path_empty": "banen er tom"
   },
   "nl": {
-    "err.file_not_found": "file not found: {filename}",
-    "err.outside_workdir": "path is outside workdir: root={root} path={path}",
-    "err.path_empty": "path is empty"
+    "err.file_not_found": "bestand niet gevonden: {filename}",
+    "err.outside_workdir": "pad bevindt zich buiten de werkmap: root={root} pad={path}",
+    "err.path_empty": "pad is leeg"
   },
   "fi": {
-    "err.file_not_found": "file not found: {filename}",
-    "err.outside_workdir": "path is outside workdir: root={root} path={path}",
-    "err.path_empty": "path is empty"
+    "err.file_not_found": "tiedostoa ei löydy: {filename}",
+    "err.outside_workdir": "polku on työhakemiston ulkopuolella: root={root} polku={path}",
+    "err.path_empty": "polku on tyhjä"
   },
   "cs": {
-    "err.file_not_found": "file not found: {filename}",
-    "err.outside_workdir": "path is outside workdir: root={root} path={path}",
-    "err.path_empty": "path is empty"
+    "err.file_not_found": "soubor nenalezen: {filename}",
+    "err.outside_workdir": "cesta je mimo pracovní adresář: root={root} cesta={path}",
+    "err.path_empty": "cesta je prázdná"
   },
   "uk": {
-    "err.file_not_found": "file not found: {filename}",
-    "err.outside_workdir": "path is outside workdir: root={root} path={path}",
-    "err.path_empty": "path is empty"
+    "err.file_not_found": "файл не знайдено: {filename}",
+    "err.outside_workdir": "шлях знаходиться поза робочим каталогом: root={root} path={path}",
+    "err.path_empty": "шлях порожній"
   },
   "tr": {
     "err.file_not_found": "dosya bulunamadı: {filename}",
@@ -130,24 +130,24 @@
     "err.path_empty": "路徑為空"
   },
   "bn": {
-    "err.file_not_found": "file not found: {filename}",
-    "err.outside_workdir": "path is outside workdir: root={root} path={path}",
-    "err.path_empty": "path is empty"
+    "err.file_not_found": "ফাইল পাওয়া যায়নি: {filename}",
+    "err.outside_workdir": "পথটি ওয়ার্কডিরের বাইরে: রুট={root} পথ={path}",
+    "err.path_empty": "পথ ফাঁকা"
   },
   "fa": {
-    "err.file_not_found": "file not found: {filename}",
-    "err.outside_workdir": "path is outside workdir: root={root} path={path}",
-    "err.path_empty": "path is empty"
+    "err.file_not_found": "فایل یافت نشد: {filename}",
+    "err.outside_workdir": "مسیر خارج از workdir است: root={root} مسیر={path}",
+    "err.path_empty": "مسیر خالی است"
   },
   "mn": {
-    "err.file_not_found": "file not found: {filename}",
-    "err.outside_workdir": "path is outside workdir: root={root} path={path}",
-    "err.path_empty": "path is empty"
+    "err.file_not_found": "файл олдсонгүй: {filename}",
+    "err.outside_workdir": "зам нь workdir-ээс гадуур байна: root={root} path={path}",
+    "err.path_empty": "зам хоосон байна"
   },
   "mr": {
-    "err.file_not_found": "file not found: {filename}",
-    "err.outside_workdir": "path is outside workdir: root={root} path={path}",
-    "err.path_empty": "path is empty"
+    "err.file_not_found": "फाइल आढळली नाही: {filename}",
+    "err.outside_workdir": "मार्ग वर्कडायरच्या बाहेर आहे: रूट={root} पथ={path}",
+    "err.path_empty": "मार्ग रिकामा आहे"
   },
   "el": {
     "err.file_not_found": "το αρχείο δεν βρέθηκε: {filename}",
@@ -162,7 +162,7 @@
   "hu": {
     "err.file_not_found": "a fájl nem található: {filename}",
     "err.outside_workdir": "az elérési út a munkakönyvtáron kívül található: root={root} path={path}",
-    "err.path_empty": "az elérési út üres {}hiba"
+    "err.path_empty": "az út üres"
   },
   "ro": {
     "err.file_not_found": "fișierul nu a fost găsit: {filename}",

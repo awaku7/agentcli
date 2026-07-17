@@ -79,7 +79,9 @@
     "err.text_empty": "se requiere texto",
     "err.output_path_empty": "se requiere ruta_salida",
     "err.speech_failed": "Falló la generación de voz: {err}",
-    "ok.saved": "Archivo de audio guardado"
+    "ok.saved": "Archivo de audio guardado",
+    "param.model.description": "Nombre del modelo de habla. Si se omite, se utiliza el nombre de implementación configurado o predeterminado del proveedor.",
+    "tool.description": "Convierta texto a voz, guarde el audio como un archivo y devuelva la ruta guardada."
   },
   "fr": {
     "x_search_terms": [
@@ -105,7 +107,9 @@
     "err.text_empty": "text est requis",
     "err.output_path_empty": "output_path est requis",
     "err.speech_failed": "Échec de la génération vocale : {err}",
-    "ok.saved": "Fichier audio enregistré"
+    "ok.saved": "Fichier audio enregistré",
+    "param.model.description": "Nom du modèle vocal. En cas d'omission, le nom de déploiement par défaut ou configuré du fournisseur est utilisé.",
+    "tool.description": "Convertissez le texte en parole, enregistrez l'audio sous forme de fichier et renvoyez le chemin enregistré."
   },
   "ko": {
     "x_search_terms": [
@@ -131,7 +135,9 @@
     "err.text_empty": "text가 필요합니다",
     "err.output_path_empty": "output_path가 필요합니다",
     "err.speech_failed": "음성 생성에 실패했습니다: {err}",
-    "ok.saved": "오디오 파일이 저장되었습니다"
+    "ok.saved": "오디오 파일이 저장되었습니다",
+    "param.model.description": "음성 모델 이름. 생략하면 공급자 기본 또는 구성된 배포 이름이 사용됩니다.",
+    "tool.description": "텍스트를 음성으로 변환하고, 오디오를 파일로 저장하고, 저장된 경로를 반환합니다."
   },
   "de": {
     "x_search_terms": [
@@ -157,7 +163,9 @@
     "err.text_empty": "Text ist erforderlich",
     "err.output_path_empty": "Ausgabepfad ist erforderlich",
     "err.speech_failed": "Sprachgenerierung fehlgeschlagen: {err}",
-    "ok.saved": "Audiodatei gespeichert"
+    "ok.saved": "Audiodatei gespeichert",
+    "param.model.description": "Name des Sprachmodells. Wenn es weggelassen wird, wird der standardmäßige oder konfigurierte Bereitstellungsname des Anbieters verwendet.",
+    "tool.description": "Konvertieren Sie Text in Sprache, speichern Sie das Audio als Datei und geben Sie den gespeicherten Pfad zurück."
   },
   "it": {
     "x_search_terms": [
@@ -183,7 +191,9 @@
     "err.text_empty": "testo è obbligatorio",
     "err.output_path_empty": "output_path è obbligatorio",
     "err.speech_failed": "Generazione vocale non riuscita: {err}",
-    "ok.saved": "File audio salvato"
+    "ok.saved": "File audio salvato",
+    "param.model.description": "Nome del modello vocale. Se omesso, viene utilizzato il nome di distribuzione predefinito o configurato del provider.",
+    "tool.description": "Converti testo in voce, salva l'audio come file e restituisci il percorso salvato."
   },
   "ru": {
     "x_search_terms": [
@@ -209,7 +219,9 @@
     "err.text_empty": "text обязателен",
     "err.output_path_empty": "output_path обязателен",
     "err.speech_failed": "Не удалось сгенерировать речь: {err}",
-    "ok.saved": "Аудиофайл сохранен."
+    "ok.saved": "Аудиофайл сохранен.",
+    "param.model.description": "Название речевой модели. Если этот параметр опущен, используется имя развертывания по умолчанию или настроенное поставщиком.",
+    "tool.description": "Преобразуйте текст в речь, сохраните аудио в виде файла и верните сохраненный путь."
   },
   "pt_BR": {
     "x_search_terms": [
@@ -235,7 +247,9 @@
     "err.text_empty": "texto é obrigatório",
     "err.output_path_empty": "output_path é obrigatório",
     "err.speech_failed": "Falha na geração de voz: {err}",
-    "ok.saved": "Arquivo de áudio salvo"
+    "ok.saved": "Arquivo de áudio salvo",
+    "param.model.description": "Nome do modelo de fala. Se omitido, o nome de implantação padrão ou configurado do provedor será usado.",
+    "tool.description": "Converta texto em fala, salve o áudio como um arquivo e retorne o caminho salvo."
   },
   "pt": {
     "x_search_terms": [
@@ -261,7 +275,9 @@
     "err.text_empty": "texto é obrigatório",
     "err.output_path_empty": "output_path é obrigatório",
     "err.speech_failed": "Falha na geração de fala: {err}",
-    "ok.saved": "Arquivo de áudio salvo"
+    "ok.saved": "Arquivo de áudio salvo",
+    "param.model.description": "Nome do modelo de fala. Se omitido, o nome de implantação padrão ou configurado do provedor será usado.",
+    "tool.description": "Converta texto em fala, salve o áudio como um arquivo e retorne o caminho salvo."
   },
   "id": {
     "x_search_terms": [
@@ -287,7 +303,9 @@
     "err.text_empty": "text wajib diisi",
     "err.output_path_empty": "output_path wajib diisi",
     "err.speech_failed": "Pembuatan suara gagal: {err}",
-    "ok.saved": "File audio disimpan"
+    "ok.saved": "File audio disimpan",
+    "param.model.description": "Nama model ucapan. Jika dihilangkan, nama penyebaran default atau yang dikonfigurasi penyedia akan digunakan.",
+    "tool.description": "Ubah teks menjadi ucapan, simpan audio sebagai file, dan kembalikan jalur yang disimpan."
   },
   "vi": {
     "x_search_terms": [
@@ -313,7 +331,9 @@
     "err.text_empty": "text là bắt buộc",
     "err.output_path_empty": "output_path là bắt buộc",
     "err.speech_failed": "Tạo giọng nói thất bại: {err}",
-    "ok.saved": "Đã lưu tệp âm thanh"
+    "ok.saved": "Đã lưu tệp âm thanh",
+    "param.model.description": "Tên mẫu giọng nói Nếu bị bỏ qua, tên triển khai mặc định hoặc được định cấu hình của nhà cung cấp sẽ được sử dụng.",
+    "tool.description": "Chuyển đổi văn bản thành giọng nói, lưu âm thanh dưới dạng tệp và trả về đường dẫn đã lưu."
   },
   "pl": {
     "x_search_terms": [
@@ -339,7 +359,9 @@
     "err.text_empty": "tekst jest wymagany",
     "err.output_path_empty": "output_path jest wymagany",
     "err.speech_failed": "Generowanie mowy nie powiodło się: {err}",
-    "ok.saved": "Zapisano plik audio"
+    "ok.saved": "Zapisano plik audio",
+    "param.model.description": "Nazwa modelu mowy. W przypadku pominięcia używana jest domyślna lub skonfigurowana nazwa wdrożenia dostawcy.",
+    "tool.description": "Konwertuj tekst na mowę, zapisz dźwięk jako plik i zwróć zapisaną ścieżkę."
   },
   "hi": {
     "x_search_terms": [
@@ -365,7 +387,9 @@
     "err.text_empty": "text आवश्यक है",
     "err.output_path_empty": "output_path आवश्यक है",
     "err.speech_failed": "स्पीच निर्माण विफल: {err}",
-    "ok.saved": "ऑडियो फ़ाइल सहेजी गई"
+    "ok.saved": "ऑडियो फ़ाइल सहेजी गई",
+    "param.model.description": "भाषण मॉडल का नाम. यदि छोड़ दिया जाए, तो प्रदाता डिफ़ॉल्ट या कॉन्फ़िगर परिनियोजन नाम का उपयोग किया जाता है।",
+    "tool.description": "टेक्स्ट को वाक् में बदलें, ऑडियो को फ़ाइल के रूप में सहेजें, और सहेजा गया पथ वापस लौटाएँ।"
   },
   "ar": {
     "x_search_terms": [
@@ -391,7 +415,9 @@
     "err.text_empty": "text مطلوب",
     "err.output_path_empty": "output_path مطلوب",
     "err.speech_failed": "فشل توليد الكلام: {err}",
-    "ok.saved": "تم حفظ ملف الصوت"
+    "ok.saved": "تم حفظ ملف الصوت",
+    "param.model.description": "اسم نموذج الكلام إذا تم حذفه، فسيتم استخدام اسم النشر الافتراضي للموفر أو اسم النشر الذي تم تكوينه.",
+    "tool.description": "تحويل النص إلى كلام، وحفظ الصوت كملف، وإرجاع المسار المحفوظ."
   },
   "sv": {
     "x_search_terms": [
@@ -417,7 +443,9 @@
     "err.text_empty": "text krävs",
     "err.output_path_empty": "output_path krävs",
     "err.speech_failed": "Talgenerering misslyckades: {err}",
-    "ok.saved": "Ljudfil sparad"
+    "ok.saved": "Ljudfil sparad",
+    "param.model.description": "Namn på talmodell. Om det utelämnas används leverantörens standardnamn eller konfigurerade distributionsnamn.",
+    "tool.description": "Konvertera text till tal, spara ljudet som en fil och returnera den sparade sökvägen."
   },
   "sw": {
     "x_search_terms": [
@@ -443,7 +471,9 @@
     "err.text_empty": "text inahitajika",
     "err.output_path_empty": "output_path inahitajika",
     "err.speech_failed": "Uundaji wa sauti umeshindwa: {err}",
-    "ok.saved": "Faili ya sauti imehifadhiwa"
+    "ok.saved": "Faili ya sauti imehifadhiwa",
+    "param.model.description": "Jina la mfano wa hotuba. Ikiwa imeachwa, jina la chaguo-msingi la mtoa huduma au lililosanidiwa la utumaji hutumiwa.",
+    "tool.description": "Badilisha maandishi kuwa matamshi, hifadhi sauti kama faili, na urudishe njia iliyohifadhiwa."
   },
   "nb": {
     "x_search_terms": [
@@ -469,7 +499,9 @@
     "err.text_empty": "text er påkrevd",
     "err.output_path_empty": "output_path er påkrevd",
     "err.speech_failed": "Talegenerering mislyktes: {err}",
-    "ok.saved": "Lydfil lagret"
+    "ok.saved": "Lydfil lagret",
+    "param.model.description": "Navn på talemodell. Hvis det utelates, brukes leverandørens standard eller konfigurerte distribusjonsnavn.",
+    "tool.description": "Konverter tekst til tale, lagre lyden som en fil, og returner den lagrede banen."
   },
   "nl": {
     "x_search_terms": [
@@ -495,7 +527,9 @@
     "err.text_empty": "text is verplicht",
     "err.output_path_empty": "output_path is verplicht",
     "err.speech_failed": "Spraaksynthese mislukt: {err}",
-    "ok.saved": "Audiobestand opgeslagen"
+    "ok.saved": "Audiobestand opgeslagen",
+    "param.model.description": "Naam van spraakmodel. Als u dit weglaat, wordt de standaard- of geconfigureerde implementatienaam van de provider gebruikt.",
+    "tool.description": "Converteer tekst naar spraak, sla de audio op als een bestand en retourneer het opgeslagen pad."
   },
   "fi": {
     "x_search_terms": [
@@ -521,7 +555,9 @@
     "err.text_empty": "teksti on pakollinen",
     "err.output_path_empty": "output_path on pakollinen",
     "err.speech_failed": "Puheentuotto epäonnistui: {err}",
-    "ok.saved": "Äänitiedosto tallennettu"
+    "ok.saved": "Äänitiedosto tallennettu",
+    "param.model.description": "Puhemallin nimi. Jos jätetään pois, käytetään palveluntarjoajan oletusarvoista tai määritettyä käyttöönottonimeä.",
+    "tool.description": "Muunna teksti puheeksi, tallenna ääni tiedostona ja palauta tallennettu polku."
   },
   "cs": {
     "x_search_terms": [
@@ -547,7 +583,9 @@
     "err.text_empty": "text je povinné",
     "err.output_path_empty": "output_path je povinné",
     "err.speech_failed": "Generování řeči se nezdařilo: {err}",
-    "ok.saved": "Zvukový soubor uložen"
+    "ok.saved": "Zvukový soubor uložen",
+    "param.model.description": "Název řečového modelu. Pokud je vynechán, použije se výchozí nebo nakonfigurovaný název nasazení poskytovatele.",
+    "tool.description": "Převeďte text na řeč, uložte zvuk jako soubor a vraťte uloženou cestu."
   },
   "uk": {
     "x_search_terms": [
@@ -573,7 +611,9 @@
     "err.text_empty": "потрібен текст",
     "err.output_path_empty": "вихідний_шлях потрібен",
     "err.speech_failed": "Не вдалося згенерувати мовлення: {err}",
-    "ok.saved": "Аудіофайл збережено"
+    "ok.saved": "Аудіофайл збережено",
+    "param.model.description": "Назва моделі мовлення. Якщо опущено, використовується ім’я розгортання за замовчуванням або налаштоване постачальником.",
+    "tool.description": "Перетворіть текст на мовлення, збережіть аудіо як файл і поверніть збережений шлях."
   },
   "tr": {
     "x_search_terms": [
@@ -599,7 +639,9 @@
     "err.text_empty": "metin gerekli",
     "err.output_path_empty": "çıktı_yolu gerekli",
     "err.speech_failed": "Sesli konuşma oluşturulamadı: {err}",
-    "ok.saved": "Ses dosyası kaydedildi"
+    "ok.saved": "Ses dosyası kaydedildi",
+    "param.model.description": "Konuşma modeli adı. Atlanırsa sağlayıcının varsayılan veya yapılandırılmış dağıtım adı kullanılır.",
+    "tool.description": "Metni konuşmaya dönüştürün, sesi dosya olarak kaydedin ve kaydedilen yola geri dönün."
   },
   "th": {
     "x_search_terms": [
@@ -625,7 +667,9 @@
     "err.text_empty": "ต้องระบุ text",
     "err.output_path_empty": "ต้องระบุ output_path",
     "err.speech_failed": "การสร้างเสียงล้มเหลว: {err}",
-    "ok.saved": "บันทึกไฟล์เสียงแล้ว"
+    "ok.saved": "บันทึกไฟล์เสียงแล้ว",
+    "param.model.description": "ชื่อรุ่นคำพูด หากละเว้น ระบบจะใช้ชื่อการปรับใช้ที่เป็นค่าเริ่มต้นหรือที่กำหนดค่าไว้",
+    "tool.description": "แปลงข้อความเป็นคำพูด บันทึกเสียงเป็นไฟล์ และส่งคืนเส้นทางที่บันทึกไว้"
   },
   "zh_CN": {
     "x_search_terms": [
@@ -651,7 +695,9 @@
     "err.text_empty": "text 是必需的",
     "err.output_path_empty": "output_path 是必需的",
     "err.speech_failed": "语音生成失败：{err}",
-    "ok.saved": "音频文件已保存"
+    "ok.saved": "音频文件已保存",
+    "param.model.description": "语音模型名称。如果省略，则使用提供程序默认或配置的部署名称。",
+    "tool.description": "将文本转换为语音，将音频保存为文件，并返回保存的路径。"
   },
   "zh_TW": {
     "x_search_terms": [
@@ -677,7 +723,9 @@
     "err.text_empty": "text 為必填項目",
     "err.output_path_empty": "output_path 為必填項目",
     "err.speech_failed": "語音產生失敗：{err}",
-    "ok.saved": "音訊檔已儲存"
+    "ok.saved": "音訊檔已儲存",
+    "param.model.description": "語音模型名稱。如果省略，則使用提供者預設或設定的部署名稱。",
+    "tool.description": "將文字轉換為語音，將音訊儲存為文件，並返回已儲存的路徑。"
   },
   "bn": {
     "x_search_terms": [
@@ -703,7 +751,9 @@
     "err.text_empty": "text প্রয়োজন",
     "err.output_path_empty": "output_path প্রয়োজন",
     "err.speech_failed": "অডিও স্পিচ তৈরি ব্যর্থ হয়েছে: {err}",
-    "ok.saved": "অডিও ফাইল সংরক্ষিত হয়েছে"
+    "ok.saved": "অডিও ফাইল সংরক্ষিত হয়েছে",
+    "param.model.description": "বক্তৃতা মডেল নাম। বাদ দেওয়া হলে, প্রদানকারীর ডিফল্ট বা কনফিগার করা স্থাপনার নাম ব্যবহার করা হয়।",
+    "tool.description": "পাঠ্যকে বক্তৃতায় রূপান্তর করুন, অডিওটিকে একটি ফাইল হিসাবে সংরক্ষণ করুন এবং সংরক্ষিত পথটি ফিরিয়ে দিন।"
   },
   "fa": {
     "x_search_terms": [
@@ -729,7 +779,9 @@
     "err.text_empty": "text لازم است",
     "err.output_path_empty": "output_path لازم است",
     "err.speech_failed": "تولید گفتار ناموفق بود: {err}",
-    "ok.saved": "فایل صوتی ذخیره شد"
+    "ok.saved": "فایل صوتی ذخیره شد",
+    "param.model.description": "نام مدل گفتار در صورت حذف، از نام استقرار پیش‌فرض ارائه‌دهنده یا پیکربندی شده استفاده می‌شود.",
+    "tool.description": "متن را به گفتار تبدیل کنید، صدا را به صورت فایل ذخیره کنید و مسیر ذخیره شده را برگردانید."
   },
   "mn": {
     "x_search_terms": [
@@ -755,7 +807,9 @@
     "err.text_empty": "text шаардлагатай",
     "err.output_path_empty": "output_path шаардлагатай",
     "err.speech_failed": "Аудио яриа үүсгэж чадсангүй: {err}",
-    "ok.saved": "Аудио файлыг хадгалсан"
+    "ok.saved": "Аудио файлыг хадгалсан",
+    "param.model.description": "Ярианы загварын нэр. Хэрэв орхигдуулсан бол үйлчилгээ үзүүлэгчийн өгөгдмөл эсвэл тохируулсан байршуулалтын нэрийг ашиглана.",
+    "tool.description": "Текстийг яриа болгон хувиргаж, аудиог файл болгон хадгалж, хадгалсан замыг буцаана уу."
   },
   "mr": {
     "x_search_terms": [
@@ -781,7 +835,9 @@
     "err.text_empty": "text आवश्यक आहे",
     "err.output_path_empty": "output_path आवश्यक आहे",
     "err.speech_failed": "ऑडिओ स्पीच निर्मिती अयशस्वी: {err}",
-    "ok.saved": "ऑडिओ फाइल जतन केली"
+    "ok.saved": "ऑडिओ फाइल जतन केली",
+    "param.model.description": "भाषण मॉडेल नाव. वगळल्यास, प्रदाता डीफॉल्ट किंवा कॉन्फिगर केलेले उपयोजन नाव वापरले जाते.",
+    "tool.description": "मजकूर भाषणात रूपांतरित करा, ऑडिओ फाइल म्हणून जतन करा आणि जतन केलेला मार्ग परत करा."
   },
   "el": {
     "x_search_terms": [
@@ -807,7 +863,9 @@
     "err.text_empty": "απαιτείται κείμενο",
     "err.output_path_empty": "απαιτείται διαδρομή_εξόδου",
     "err.speech_failed": "Η δημιουργία ομιλίας ήχου απέτυχε: {err}",
-    "ok.saved": "Το αρχείο ήχου αποθηκεύτηκε"
+    "ok.saved": "Το αρχείο ήχου αποθηκεύτηκε",
+    "param.model.description": "Όνομα μοντέλου ομιλίας. Εάν παραλειφθεί, χρησιμοποιείται το προεπιλεγμένο όνομα του παρόχου ή το ρυθμισμένο όνομα ανάπτυξης.",
+    "tool.description": "Μετατρέψτε κείμενο σε ομιλία, αποθηκεύστε τον ήχο ως αρχείο και επιστρέψτε την αποθηκευμένη διαδρομή."
   },
   "he": {
     "x_search_terms": [
@@ -833,7 +891,9 @@
     "err.text_empty": "נדרש טקסט",
     "err.output_path_empty": "נדרש output_path",
     "err.speech_failed": "יצירת דיבור אודיו נכשלה: {err}",
-    "ok.saved": "קובץ השמע נשמר"
+    "ok.saved": "קובץ השמע נשמר",
+    "param.model.description": "שם דגם דיבור. אם מושמט, נעשה שימוש בשם הפריסה המוגדר כברירת מחדל או המוגדר של ספק.",
+    "tool.description": "המר טקסט לדיבור, שמור את השמע כקובץ והחזר את הנתיב השמור."
   },
   "hu": {
     "x_search_terms": [
@@ -859,7 +919,9 @@
     "err.text_empty": "szöveg kötelező",
     "err.output_path_empty": "output_path megadása kötelező",
     "err.speech_failed": "A hangbeszéd létrehozása nem sikerült: {err}",
-    "ok.saved": "Hangfájl mentve"
+    "ok.saved": "Hangfájl mentve",
+    "param.model.description": "Beszédmodell neve. Ha kihagyja, akkor a szolgáltató alapértelmezett vagy konfigurált központi telepítési neve kerül felhasználásra.",
+    "tool.description": "Konvertálja a szöveget beszéddé, mentse a hangot fájlként, és adja vissza a mentett elérési utat."
   },
   "ro": {
     "x_search_terms": [
@@ -885,6 +947,8 @@
     "err.text_empty": "textul este necesar",
     "err.output_path_empty": "output_path este necesară",
     "err.speech_failed": "Generarea vorbirii audio a eșuat: {err}",
-    "ok.saved": "Fișier audio salvat"
+    "ok.saved": "Fișier audio salvat",
+    "param.model.description": "Numele modelului de vorbire. Dacă este omis, este folosit numele de implementare prestabilit sau configurat al furnizorului.",
+    "tool.description": "Convertiți textul în vorbire, salvați sunetul ca fișier și returnați calea salvată."
   }
 }

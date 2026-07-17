@@ -793,7 +793,7 @@
     "param.bcc.description": "ที่อยู่อีเมลผู้รับ BCC ",
     "param.html.description": "หากเป็นจริง เนื้อความจะถือเป็น HTML ",
     "err.to_missing": "ต้องระบุฟิลด์ 'ถึง'",
-    "err.subject_missing": "'subject' field is required.",
+    "err.subject_missing": "ต้องระบุข้อมูลในช่อง 'หัวเรื่อง'",
     "err.credentials_missing": "ต้องตั้งค่า UAGENT_GMAIL_ADDRESS และ UAGENT_GMAIL_APP_PASSWORD ในตัวแปรสภาพแวดล้อม",
     "err.no_recipients": "ไม่ได้ระบุผู้รับที่ถูกต้อง",
     "err.auth_failed": "การรับรองความถูกต้อง SMTP ล้มเหลว ",
@@ -915,7 +915,7 @@
     "msg.sent": "电子邮件已发送至 {count} 收件人。"
   },
   "zh_TW": {
-    "tool.description": "Send an email via Gmail SMTP using App Password. Requires UAGENT_GMAIL_ADDRESS and UAGENT_GMAIL_APP_PASSWORD environment variables.",
+    "tool.description": "使用應用程式密碼透過 Gmail SMTP 發送電子郵件。需要 UAGENT_GMAIL_ADDRESS 和 UAGENT_GMAIL_APP_PASSWORD 環境變數。",
     "x_search_terms": [
       "Gmail 傳送",
       "傳送電子郵件",

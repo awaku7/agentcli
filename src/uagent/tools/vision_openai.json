@@ -7,7 +7,14 @@
     "param.model.description": "اسم نموذج OpenAI (مثل gpt-4o, gpt-4-vision-preview).",
     "err.analysis_failed": "فشل تحليل الصورة: {err}",
     "err.image_required": "بيانات الصورة مطلوبة.",
-    "param.detail.description": "مستوى تفاصيل الصورة (تلقائي/منخفض/مرتفع)."
+    "param.detail.description": "مستوى تفاصيل الصورة (تلقائي/منخفض/مرتفع).",
+    "err.image_not_found": "لم يتم العثور على ملف الصورة: {path}",
+    "err.image_too_large": "ملف الصورة كبير جدًا: {size} بايت (الحد={max_bytes})",
+    "err.unsupported_provider": "موفر غير مدعوم لـanalyse_image (الدردشة): {provider!r}",
+    "err.import_openai": "فشل استيراد حزمة openai: {err}",
+    "prompt.default": "يرجى وصف هذه الصورة بالتفصيل.",
+    "warn.empty_response": "[تحذير] استجابة فارغة",
+    "err.missing_env.azure": "يفتقد vars env المطلوبة لتحليل الصور اللازوردية."
   },
   "bn": {
     "tool.description": "OpenAI ভিশন মডেল ব্যবহার করে একটি ছবি বিশ্লেষণ করুন।",
@@ -17,7 +24,14 @@
     "param.model.description": "OpenAI মডেল নাম (যেমন gpt-4o, gpt-4-vision-preview)।",
     "err.analysis_failed": "ছবি বিশ্লেষণ ব্যর্থ হয়েছে: {err}",
     "err.image_required": "ছবির ডেটা প্রয়োজন।",
-    "param.detail.description": "ছবির বিস্তারিত স্তর (auto/নিম্ন/উচ্চ)।"
+    "param.detail.description": "ছবির বিস্তারিত স্তর (auto/নিম্ন/উচ্চ)।",
+    "err.image_not_found": "ইমেজ ফাইল পাওয়া যায়নি: {path}",
+    "err.image_too_large": "চিত্র ফাইলটি খুব বড়: {size} বাইট (সীমা={max_bytes})",
+    "err.unsupported_provider": "analyze_image (চ্যাট): {provider!r} এর জন্য অসমর্থিত প্রদানকারী",
+    "err.import_openai": "Openai প্যাকেজ আমদানি করতে ব্যর্থ হয়েছে: {err}৷",
+    "prompt.default": "এই ছবিটি বিস্তারিত বর্ণনা করুন.",
+    "warn.empty_response": "[সতর্ক] খালি প্রতিক্রিয়া",
+    "err.missing_env.azure": "আকাশী চিত্র বিশ্লেষণের জন্য প্রয়োজনীয় env vars অনুপস্থিত৷"
   },
   "cs": {
     "tool.description": "Analyzovat obrázek pomocí modelu vidění OpenAI.",
@@ -27,7 +41,14 @@
     "param.model.description": "Název modelu OpenAI (např. gpt-4o, gpt-4-vision-preview).",
     "err.analysis_failed": "Analýza obrázku selhala: {err}",
     "err.image_required": "Data obrázku jsou vyžadována.",
-    "param.detail.description": "Úroveň detailu obrázku (auto/nízká/vysoká)."
+    "param.detail.description": "Úroveň detailu obrázku (auto/nízká/vysoká).",
+    "err.image_not_found": "soubor obrázku nenalezen: {path}",
+    "err.image_too_large": "soubor obrázku je příliš velký: {size} bajtů (limit={max_bytes})",
+    "warn.empty_response": "[WARN] prázdná odpověď",
+    "err.unsupported_provider": "Nepodporovaný poskytovatel pro Analysis_image (chat): {provider!r}",
+    "err.import_openai": "Nepodařilo se importovat balíček openai: {err}",
+    "prompt.default": "Popište prosím tento obrázek podrobně.",
+    "err.missing_env.azure": "Chybí požadované env vars pro analýzu azurového obrazu."
   },
   "de": {
     "tool.description": "Ein Bild mit dem OpenAI-Visionsmodell analysieren.",
@@ -37,7 +58,14 @@
     "param.model.description": "OpenAI-Modellname (z.B. gpt-4o, gpt-4-vision-preview).",
     "err.analysis_failed": "Bildanalyse fehlgeschlagen: {err}",
     "err.image_required": "Bilddaten sind erforderlich.",
-    "param.detail.description": "Bilddetailstufe (auto/niedrig/hoch)."
+    "param.detail.description": "Bilddetailstufe (auto/niedrig/hoch).",
+    "err.image_not_found": "Bilddatei nicht gefunden: {path}",
+    "err.image_too_large": "Bilddatei zu groß: {size} Bytes (Limit={max_bytes})",
+    "err.unsupported_provider": "Nicht unterstützter Anbieter füranalys_image (Chat): {provider!r}",
+    "err.import_openai": "Fehler beim Importieren des OpenAI-Pakets: {err}",
+    "prompt.default": "Bitte beschreiben Sie dieses Bild ausführlich.",
+    "warn.empty_response": "[WARN] leere Antwort",
+    "err.missing_env.azure": "Für die Azure-Image-Analyse fehlen erforderliche Umgebungsvariablen."
   },
   "en": {
     "err.image_not_found": "image file not found: {path}",
@@ -56,7 +84,14 @@
     "param.model.description": "Nombre del modelo OpenAI (ej. gpt-4o, gpt-4-vision-preview).",
     "err.analysis_failed": "El análisis de la imagen falló: {err}",
     "err.image_required": "Se requieren datos de imagen.",
-    "param.detail.description": "Nivel de detalle de la imagen (auto/bajo/alto)."
+    "param.detail.description": "Nivel de detalle de la imagen (auto/bajo/alto).",
+    "err.image_not_found": "archivo de imagen no encontrado: {path}",
+    "err.image_too_large": "archivo de imagen demasiado grande: {size} bytes (límite={max_bytes})",
+    "err.unsupported_provider": "Proveedor no compatible con analyse_image (chat): {provider!r}",
+    "err.import_openai": "No se pudo importar el paquete openai: {err}",
+    "prompt.default": "Por favor describe esta imagen en detalle.",
+    "warn.empty_response": "[ADVERTENCIA] respuesta vacía",
+    "err.missing_env.azure": "Faltan variables de entorno necesarias para el análisis de imágenes de Azure."
   },
   "fa": {
     "tool.description": "تحلیل تصویر با استفاده از مدل بینایی OpenAI.",
@@ -66,7 +101,14 @@
     "param.model.description": "نام مدل OpenAI (مثال: gpt-4o, gpt-4-vision-preview).",
     "err.analysis_failed": "تحلیل تصویر ناموفق بود: {err}",
     "err.image_required": "داده تصویر الزامی است.",
-    "param.detail.description": "سطح جزئیات تصویر (auto/پایین/بالا)."
+    "param.detail.description": "سطح جزئیات تصویر (auto/پایین/بالا).",
+    "err.image_not_found": "فایل تصویری یافت نشد: {path}",
+    "err.image_too_large": "فایل تصویر خیلی بزرگ است: {size} بایت (Limit={max_bytes})",
+    "err.unsupported_provider": "ارائه دهنده پشتیبانی نشده برای analyzy_image (chat): {provider!r}",
+    "err.import_openai": "بسته openai وارد نشد: {err}",
+    "prompt.default": "لطفا این تصویر را با جزئیات توضیح دهید.",
+    "warn.empty_response": "[WARN] پاسخ خالی",
+    "err.missing_env.azure": "برای تجزیه و تحلیل تصویر لاجوردی، env vars مورد نیاز وجود ندارد."
   },
   "fi": {
     "tool.description": "Analysoi kuva OpenAI-näkömallilla.",
@@ -76,7 +118,14 @@
     "param.model.description": "OpenAI-mallin nimi (esim. gpt-4o, gpt-4-vision-preview).",
     "err.analysis_failed": "Kuvan analysointi epäonnistui: {err}",
     "err.image_required": "Kuvadata on pakollinen.",
-    "param.detail.description": "Kuvan yksityiskohtataso (auto/matala/korkea)."
+    "param.detail.description": "Kuvan yksityiskohtataso (auto/matala/korkea).",
+    "err.image_not_found": "kuvatiedostoa ei löydy: {path}",
+    "err.image_too_large": "kuvatiedosto liian suuri: {size} tavua (raja={max_bytes})",
+    "err.unsupported_provider": "Ei tueta palveluntarjoajaa analysoida_kuvalle (chat): {provider!r}",
+    "err.import_openai": "Openai-paketin tuonti epäonnistui: {err}",
+    "prompt.default": "Kuvaile tätä kuvaa yksityiskohtaisesti.",
+    "warn.empty_response": "[VAROITUS] tyhjä vastaus",
+    "err.missing_env.azure": "Taivaansinisen kuva-analyysin pakolliset env-muuttujat puuttuvat."
   },
   "fr": {
     "tool.description": "Analyser une image à l'aide du modèle de vision OpenAI.",
@@ -86,7 +135,14 @@
     "param.model.description": "Nom du modèle OpenAI (ex. gpt-4o, gpt-4-vision-preview).",
     "err.analysis_failed": "L'analyse de l'image a échoué : {err}",
     "err.image_required": "Les données d'image sont requises.",
-    "param.detail.description": "Niveau de détail de l'image (auto/faible/élevé)."
+    "param.detail.description": "Niveau de détail de l'image (auto/faible/élevé).",
+    "err.image_not_found": "fichier image introuvable : {path}",
+    "err.image_too_large": "fichier image trop volumineux : {size} octets (limite={max_bytes})",
+    "err.unsupported_provider": "Fournisseur non pris en charge pour analyse_image (chat) : {provider!r}",
+    "err.import_openai": "Échec de l'importation du package openai : {err}",
+    "prompt.default": "Veuillez décrire cette image en détail.",
+    "warn.empty_response": "[WARN] réponse vide",
+    "err.missing_env.azure": "Vars d'environnement requis manquants pour l'analyse d'image Azure."
   },
   "hi": {
     "tool.description": "OpenAI विज़न मॉडल का उपयोग करके छवि का विश्लेषण करें।",
@@ -96,7 +152,14 @@
     "param.model.description": "OpenAI मॉडल नाम (उदा. gpt-4o, gpt-4-vision-preview)।",
     "err.analysis_failed": "छवि विश्लेषण विफल: {err}",
     "err.image_required": "छवि डेटा आवश्यक है।",
-    "param.detail.description": "छवि विस्तार स्तर (auto/निम्न/उच्च)।"
+    "param.detail.description": "छवि विस्तार स्तर (auto/निम्न/उच्च)।",
+    "err.image_not_found": "छवि फ़ाइल नहीं मिली: {path}",
+    "err.image_too_large": "छवि फ़ाइल बहुत बड़ी है: {size} बाइट्स (सीमा={max_bytes})",
+    "err.unsupported_provider": "विश्लेषण_छवि (चैट) के लिए असमर्थित प्रदाता: {provider!r}",
+    "err.import_openai": "openai पैकेज आयात करने में विफल: {err}",
+    "prompt.default": "कृपया इस छवि का विस्तार से वर्णन करें।",
+    "warn.empty_response": "[चेतावनी] खाली प्रतिक्रिया",
+    "err.missing_env.azure": "नीला छवि विश्लेषण के लिए आवश्यक env संस्करण गुम हैं।"
   },
   "id": {
     "tool.description": "Menganalisis gambar menggunakan model visi OpenAI.",
@@ -106,7 +169,14 @@
     "param.model.description": "Nama model OpenAI (mis. gpt-4o, gpt-4-vision-preview).",
     "err.analysis_failed": "Analisis gambar gagal: {err}",
     "err.image_required": "Data gambar diperlukan.",
-    "param.detail.description": "Tingkat detail gambar (oto/rendah/tinggi)."
+    "param.detail.description": "Tingkat detail gambar (oto/rendah/tinggi).",
+    "err.image_not_found": "file gambar tidak ditemukan: {path}",
+    "err.image_too_large": "file gambar terlalu besar: {size} byte (batas={max_bytes})",
+    "err.unsupported_provider": "Penyedia tidak didukung untuk analisa_gambar (obrolan): {provider!r}",
+    "err.import_openai": "Gagal mengimpor paket openai: {err}",
+    "prompt.default": "Tolong jelaskan gambar ini secara detail.",
+    "warn.empty_response": "[PERINGATAN] respon kosong",
+    "err.missing_env.azure": "Vars env yang diperlukan untuk analisis gambar biru tidak ada."
   },
   "it": {
     "tool.description": "Analizza un'immagine usando il modello di visione OpenAI.",
@@ -116,7 +186,14 @@
     "param.model.description": "Nome del modello OpenAI (es. gpt-4o, gpt-4-vision-preview).",
     "err.analysis_failed": "Analisi dell'immagine fallita: {err}",
     "err.image_required": "I dati dell'immagine sono obbligatori.",
-    "param.detail.description": "Livello di dettaglio dell'immagine (auto/basso/alto)."
+    "param.detail.description": "Livello di dettaglio dell'immagine (auto/basso/alto).",
+    "err.image_not_found": "file immagine non trovato: {path}",
+    "err.image_too_large": "file immagine troppo grande: {size} byte (limite={max_bytes})",
+    "err.unsupported_provider": "Provider non supportato per analyze_image (chat): {provider!r}",
+    "err.import_openai": "Impossibile importare il pacchetto openai: {err}",
+    "prompt.default": "Per favore descrivi questa immagine in dettaglio.",
+    "warn.empty_response": "[WARN] risposta vuota",
+    "err.missing_env.azure": "Variabili di ambiente richieste mancanti per l'analisi delle immagini di Azure."
   },
   "ja": {
     "tool.description": "OpenAIビジョンモデルを使用して画像を分析します。",
@@ -143,7 +220,14 @@
     "param.model.description": "OpenAI 모델 이름 (예: gpt-4o, gpt-4-vision-preview).",
     "err.analysis_failed": "이미지 분석 실패: {err}",
     "err.image_required": "이미지 데이터가 필요합니다.",
-    "param.detail.description": "이미지 세부 수준 (auto/low/high)."
+    "param.detail.description": "이미지 세부 수준 (auto/low/high).",
+    "err.image_not_found": "이미지 파일을 찾을 수 없습니다: {path}",
+    "err.image_too_large": "이미지 파일이 너무 큼: {size}바이트(한도={max_bytes})",
+    "err.unsupported_provider": "analyze_image(채팅)에 대해 지원되지 않는 공급자: {provider!r}",
+    "err.import_openai": "openai 패키지를 가져오지 못했습니다: {err}",
+    "prompt.default": "이 이미지를 자세히 설명해주세요.",
+    "warn.empty_response": "[경고] 빈 응답",
+    "err.missing_env.azure": "Azure 이미지 분석에 필요한 환경 변수가 누락되었습니다."
   },
   "mn": {
     "tool.description": "OpenAI харааны загвар ашиглан зургийг шинжлэх.",
@@ -153,7 +237,14 @@
     "param.model.description": "OpenAI загварын нэр (жишээ нь: gpt-4o, gpt-4-vision-preview).",
     "err.analysis_failed": "Зураг шинжилгээ амжилтгүй: {err}",
     "err.image_required": "Зургийн өгөгдөл шаардлагатай.",
-    "param.detail.description": "Зургийн дэлгэрэнгүй түвшин (auto/бага/өндөр)."
+    "param.detail.description": "Зургийн дэлгэрэнгүй түвшин (auto/бага/өндөр).",
+    "err.image_not_found": "зургийн файл олдсонгүй: {path}",
+    "err.image_too_large": "зургийн файл хэт том: {size} байт (хязгаарлалт={max_bytes})",
+    "err.unsupported_provider": "Шинжилгээний_зургийн (чат) дэмждэггүй үйлчилгээ үзүүлэгч: {provider!r}",
+    "err.import_openai": "Openai багцыг оруулж чадсангүй: {err}",
+    "prompt.default": "Энэ зургийг дэлгэрэнгүй тайлбарлана уу.",
+    "warn.empty_response": "[АНХААРУУЛГА] хоосон хариулт",
+    "err.missing_env.azure": "Номин өнгөтэй дүрсний шинжилгээнд шаардлагатай env vars дутуу байна."
   },
   "mr": {
     "tool.description": "OpenAI दृष्टी मॉडेल वापरून प्रतिमेचे विश्लेषण करा.",
@@ -163,12 +254,19 @@
     "param.model.description": "OpenAI मॉडेल नाव (उदा. gpt-4o, gpt-4-vision-preview).",
     "err.analysis_failed": "प्रतिमा विश्लेषण अयशस्वी: {err}",
     "err.image_required": "प्रतिमा डेटा आवश्यक आहे.",
-    "param.detail.description": "प्रतिमा तपशील पातळी (auto/कमी/उच्च)."
+    "param.detail.description": "प्रतिमा तपशील पातळी (auto/कमी/उच्च).",
+    "err.image_not_found": "प्रतिमा फाइल आढळली नाही: {path}",
+    "err.image_too_large": "प्रतिमा फाइल खूप मोठी: {size} बाइट्स (मर्यादा={max_bytes})",
+    "err.unsupported_provider": "analyze_image (चॅट) साठी असमर्थित प्रदाता: {provider!r}",
+    "err.import_openai": "Openai पॅकेज आयात करण्यात अयशस्वी: {err}",
+    "prompt.default": "कृपया या प्रतिमेचे तपशीलवार वर्णन करा.",
+    "warn.empty_response": "[चेतावणी] रिक्त प्रतिसाद",
+    "err.missing_env.azure": "अझर इमेज विश्लेषणासाठी आवश्यक env var गहाळ आहे."
   },
   "el": {
     "err.image_not_found": "αρχείο εικόνας δεν βρέθηκε: {path}",
     "err.image_too_large": "το αρχείο εικόνας είναι πολύ μεγάλο: {size} byte (όριο={max_bytes})",
-    "err.unsupported_provider": "Έχει οριστεί το UAGENT_RESPONSES=1, αλλά η ανάλυση εικόνας μέσω Responses υποστηρίζεται μόνο για openai/azure/bedrock/openrouter/ollama",
+    "err.unsupported_provider": "Μη υποστηριζόμενος πάροχος για analyzy_image (chat): {provider!r}",
     "err.import_openai": "Αποτυχία εισαγωγής πακέτου openai: {err}",
     "prompt.default": "Λείπει το απαιτούμενο env var για ανάλυση εικόνας ollama (UAGENT_OLLAMA_DEPNAME)",
     "warn.empty_response": "[ΠΡΟΕΙΔΟΠΟΙΗΣΗ] κενή απάντηση",
@@ -177,16 +275,16 @@
   "he": {
     "err.image_not_found": "קובץ תמונה לא נמצא: {path}",
     "err.image_too_large": "קובץ התמונה גדול מדי: {size} בתים (מגבלה={max_bytes})",
-    "err.unsupported_provider": "אנליזה מספקת! חסרות וריאציות של env נדרשות לניתוח תמונה תכלת.",
+    "err.unsupported_provider": "ספק לא נתמך עבור analyse_image (צ'אט): {provider!r}",
     "err.import_openai": "ייבוא ​​חבילת openai נכשל: {err}",
     "prompt.default": "חסר var env נדרש עבור ניתוח תמונה של ollama (UAGENT_OLLAMA_DEPNAME)",
     "warn.empty_response": "[אזהרה] תגובה ריקה",
     "err.missing_env.azure": "UAGENT_RESPONSES=1 מוגדר, אך ניתוח תמונה באמצעות תגובות נתמך רק עבור openai/azure/bedrock/openrouter/ollama"
   },
   "hu": {
-    "err.image_not_found": "képfájl nem található: [=path}",
+    "err.image_not_found": "képfájl nem található: {path}",
     "err.image_too_large": "a képfájl túl nagy: {size} bájt (korlát={max_bytes})",
-    "err.unsupported_provider": "Az UAGENT_RESPONSES=1 be van állítva, de a válaszokon keresztüli képelemzés csak openai/azure/bedrock/openrouter/ollama esetén támogatott",
+    "err.unsupported_provider": "Nem támogatott szolgáltató az elemző_képhez (csevegés): {provider!r}",
     "err.import_openai": "Nem sikerült importálni az openai csomagot: {err}",
     "prompt.default": "Hiányzik az env var az ollama képelemzéshez (UAGENT_OLLAMA_DEPNAME)",
     "warn.empty_response": "[WARN] üres válasz",
@@ -195,7 +293,7 @@
   "ro": {
     "err.image_not_found": "fișierul imagine nu a fost găsit: {path}",
     "err.image_too_large": "fișierul imagine este prea mare: {size} octeți (limită={max_bytes})",
-    "err.unsupported_provider": "Lipsesc valorile de mediu necesare pentru analiza imaginii azure.",
+    "err.unsupported_provider": "Furnizor neacceptat pentru analiza_imagine (chat): {provider!r}",
     "err.import_openai": "Nu s-a putut importa pachetul openai: {err}",
     "prompt.default": "Lipsește var env necesar pentru analiza imaginii ollama (UAGENT_OLLAMA_DEPNAME)",
     "warn.empty_response": "[WARN] răspuns gol",
@@ -209,7 +307,14 @@
     "param.model.description": "OpenAI-modellnavn (f.eks. gpt-4o, gpt-4-vision-preview).",
     "err.analysis_failed": "Bildeanalyse mislyktes: {err}",
     "err.image_required": "Bildedata er påkrevd.",
-    "param.detail.description": "Bildedetaljnivå (auto/lav/høy)."
+    "param.detail.description": "Bildedetaljnivå (auto/lav/høy).",
+    "err.image_not_found": "Finner ikke bildefil: {path}",
+    "err.image_too_large": "bildefilen er for stor: {size} byte (limit={max_bytes})",
+    "err.unsupported_provider": "Ikke-støttet leverandør for analyse_image (chat): {provider!r}",
+    "prompt.default": "Vennligst beskriv dette bildet i detalj.",
+    "warn.empty_response": "[ADVARSEL] tomt svar",
+    "err.import_openai": "Kunne ikke importere openai-pakke: {err}",
+    "err.missing_env.azure": "Mangler nødvendige env-varianter for asurblå bildeanalyse."
   },
   "nl": {
     "tool.description": "Analyseer een afbeelding met het OpenAI-visiemodel.",
@@ -219,7 +324,14 @@
     "param.model.description": "OpenAI-modelnaam (bijv. gpt-4o, gpt-4-vision-preview).",
     "err.analysis_failed": "Afbeeldingsanalyse mislukt: {err}",
     "err.image_required": "Afbeeldingsgegevens zijn vereist.",
-    "param.detail.description": "Afbeeldingsdetailniveau (auto/laag/hoog)."
+    "param.detail.description": "Afbeeldingsdetailniveau (auto/laag/hoog).",
+    "err.image_not_found": "afbeeldingsbestand niet gevonden: {path}",
+    "err.image_too_large": "afbeeldingsbestand te groot: {size} bytes (limiet={max_bytes})",
+    "err.unsupported_provider": "Niet-ondersteunde provider voor analyse_image (chat): {provider!r}",
+    "err.import_openai": "Kan openai-pakket niet importeren: {err}",
+    "prompt.default": "Beschrijf deze afbeelding in detail.",
+    "warn.empty_response": "[WARN] leeg antwoord",
+    "err.missing_env.azure": "Ontbrekende vereiste env-vars voor Azure-beeldanalyse."
   },
   "pl": {
     "tool.description": "Analizuj obraz za pomocą modelu wizji OpenAI.",
@@ -229,7 +341,14 @@
     "param.model.description": "Nazwa modelu OpenAI (np. gpt-4o, gpt-4-vision-preview).",
     "err.analysis_failed": "Analiza obrazu nie powiodła się: {err}",
     "err.image_required": "Dane obrazu są wymagane.",
-    "param.detail.description": "Poziom szczegółowości obrazu (auto/niski/wysoki)."
+    "param.detail.description": "Poziom szczegółowości obrazu (auto/niski/wysoki).",
+    "err.image_not_found": "nie znaleziono pliku obrazu: {path}",
+    "err.image_too_large": "plik obrazu jest za duży: {size} bajtów (limit={max_bytes})",
+    "err.unsupported_provider": "Nieobsługiwany dostawca dla Analysis_image (czat): {provider!r}",
+    "err.import_openai": "Nie udało się zaimportować pakietu Openai: {err}",
+    "prompt.default": "Opisz szczegółowo ten obraz.",
+    "warn.empty_response": "[OSTRZEŻENIE] pusta odpowiedź",
+    "err.missing_env.azure": "Brak wymaganych zmiennych środowiskowych do analizy obrazu platformy Azure."
   },
   "pt": {
     "tool.description": "Analisar uma imagem usando o modelo de visão OpenAI.",
@@ -239,7 +358,14 @@
     "param.model.description": "Nome do modelo OpenAI (ex. gpt-4o, gpt-4-vision-preview).",
     "err.analysis_failed": "A análise da imagem falhou: {err}",
     "err.image_required": "Os dados da imagem são obrigatórios.",
-    "param.detail.description": "Nível de detalhe da imagem (auto/baixo/alto)."
+    "param.detail.description": "Nível de detalhe da imagem (auto/baixo/alto).",
+    "err.image_not_found": "arquivo de imagem não encontrado: {path}",
+    "err.image_too_large": "arquivo de imagem muito grande: {size} bytes (limite={max_bytes})",
+    "err.unsupported_provider": "Provedor não suportado para analyze_image (chat): {provider!r}",
+    "err.import_openai": "Falha ao importar o pacote openai: {err}",
+    "prompt.default": "Por favor, descreva esta imagem em detalhes.",
+    "warn.empty_response": "[WARN] resposta vazia",
+    "err.missing_env.azure": "Faltam variáveis de ambiente necessárias para análise de imagem do Azure."
   },
   "pt_BR": {
     "tool.description": "Analisar uma imagem usando o modelo de visão OpenAI.",
@@ -249,7 +375,14 @@
     "param.model.description": "Nome do modelo OpenAI (ex. gpt-4o, gpt-4-vision-preview).",
     "err.analysis_failed": "Análise de imagem falhou: {err}",
     "err.image_required": "Dados de imagem são obrigatórios.",
-    "param.detail.description": "Nível de detalhe da imagem (auto/baixo/alto)."
+    "param.detail.description": "Nível de detalhe da imagem (auto/baixo/alto).",
+    "err.image_not_found": "arquivo de imagem não encontrado: {path}",
+    "err.image_too_large": "arquivo de imagem muito grande: {size} bytes (limite={max_bytes})",
+    "err.unsupported_provider": "Provedor não suportado para analyze_image (chat): {provider!r}",
+    "err.import_openai": "Falha ao importar o pacote openai: {err}",
+    "prompt.default": "Por favor, descreva esta imagem em detalhes.",
+    "warn.empty_response": "[WARN] resposta vazia",
+    "err.missing_env.azure": "Faltam variáveis de ambiente necessárias para análise de imagem do Azure."
   },
   "ru": {
     "tool.description": "Анализировать изображение с помощью модели зрения OpenAI.",
@@ -259,7 +392,14 @@
     "param.model.description": "Имя модели OpenAI (например, gpt-4o, gpt-4-vision-preview).",
     "err.analysis_failed": "Анализ изображения не удался: {err}",
     "err.image_required": "Необходимы данные изображения.",
-    "param.detail.description": "Уровень детализации изображения (auto/низкий/высокий)."
+    "param.detail.description": "Уровень детализации изображения (auto/низкий/высокий).",
+    "err.image_not_found": "файл изображения не найден: {path}",
+    "err.image_too_large": "слишком большой файл изображения: {size} байт (ограничение={max_bytes})",
+    "err.unsupported_provider": "Неподдерживаемый поставщик для Analysis_image (чат): {provider!r}",
+    "err.import_openai": "Не удалось импортировать пакет openai: {err}.",
+    "prompt.default": "Пожалуйста, опишите этот образ подробно.",
+    "warn.empty_response": "[ПРЕДУПРЕЖДЕНИЕ] пустой ответ",
+    "err.missing_env.azure": "Отсутствуют необходимые переменные среды для анализа изображений Azure."
   },
   "sv": {
     "tool.description": "Analysera en bild med OpenAIs visionsmodell.",
@@ -269,7 +409,14 @@
     "param.model.description": "OpenAI-modellnamn (t.ex. gpt-4o, gpt-4-vision-preview).",
     "err.analysis_failed": "Bildanalys misslyckades: {err}",
     "err.image_required": "Bilddata krävs.",
-    "param.detail.description": "Bilddetaljnivå (auto/låg/hög)."
+    "param.detail.description": "Bilddetaljnivå (auto/låg/hög).",
+    "err.image_not_found": "bildfilen hittades inte: {path}",
+    "err.image_too_large": "bildfilen är för stor: {size} byte (limit={max_bytes})",
+    "err.unsupported_provider": "Ej stödd leverantör för analyse_image (chatt): {provider!r}",
+    "err.import_openai": "Det gick inte att importera openai-paket: {err}",
+    "prompt.default": "Beskriv denna bild i detalj.",
+    "warn.empty_response": "[VARNING] tomt svar",
+    "err.missing_env.azure": "Env vars krävs för azurblå bildanalys saknas."
   },
   "sw": {
     "tool.description": "Chambua picha kwa kutumia modeli ya maono ya OpenAI.",
@@ -279,7 +426,14 @@
     "param.model.description": "Jina la modeli ya OpenAI (mf. gpt-4o, gpt-4-vision-preview).",
     "err.analysis_failed": "Uchambuzi wa picha umeshindwa: {err}",
     "err.image_required": "Data ya picha inahitajika.",
-    "param.detail.description": "Kiwango cha undani cha picha (auto/chini/juu)."
+    "param.detail.description": "Kiwango cha undani cha picha (auto/chini/juu).",
+    "err.image_not_found": "faili ya picha haijapatikana: {path}",
+    "err.image_too_large": "faili ya picha ni kubwa mno: {size} baiti (kikomo={max_bytes})",
+    "err.unsupported_provider": "Mtoa huduma asiyetumika kwa analyze_image (chat): {provider!r}",
+    "err.import_openai": "Imeshindwa kuleta kifurushi cha openai: {err}",
+    "prompt.default": "Tafadhali fafanua picha hii kwa undani.",
+    "warn.empty_response": "[ONYA] jibu tupu",
+    "err.missing_env.azure": "Vyumba vya env vinavyohitajika kwa uchanganuzi wa picha za azure hazipo."
   },
   "th": {
     "tool.description": "วิเคราะห์ภาพโดยใช้โมเดลการมองเห็น OpenAI",
@@ -289,7 +443,14 @@
     "param.model.description": "ชื่อโมเดล OpenAI (เช่น gpt-4o, gpt-4-vision-preview)",
     "err.analysis_failed": "การวิเคราะห์ภาพล้มเหลว: {err}",
     "err.image_required": "ข้อมูลภาพเป็นสิ่งจำเป็น",
-    "param.detail.description": "ระดับรายละเอียดของภาพ (auto/ต่ำ/สูง)"
+    "param.detail.description": "ระดับรายละเอียดของภาพ (auto/ต่ำ/สูง)",
+    "err.image_not_found": "ไม่พบไฟล์ภาพ: {path}",
+    "err.image_too_large": "ไฟล์ภาพใหญ่เกินไป: {size} ไบต์ (จำกัด={max_bytes})",
+    "err.unsupported_provider": "ผู้ให้บริการที่ไม่รองรับ analy_image (แชท): {provider!r}",
+    "err.import_openai": "ไม่สามารถนำเข้าแพ็คเกจ openai: {err}",
+    "prompt.default": "กรุณาอธิบายภาพนี้โดยละเอียด",
+    "warn.empty_response": "[คำเตือน] คำตอบที่ว่างเปล่า",
+    "err.missing_env.azure": "ไม่มี env vars ที่จำเป็นสำหรับการวิเคราะห์ภาพสีฟ้า"
   },
   "tr": {
     "tool.description": "OpenAI görüş modelini kullanarak bir görseli analiz edin.",
@@ -299,7 +460,14 @@
     "param.model.description": "OpenAI model adı (ör. gpt-4o, gpt-4-vision-preview).",
     "err.analysis_failed": "Görsel analizi başarısız: {err}",
     "err.image_required": "Görsel verisi gereklidir.",
-    "param.detail.description": "Görsel detay seviyesi (oto/düşük/yüksek)."
+    "param.detail.description": "Görsel detay seviyesi (oto/düşük/yüksek).",
+    "err.image_not_found": "resim dosyası bulunamadı: {path}",
+    "err.image_too_large": "resim dosyası çok büyük: {size} bayt (limit={max_bytes})",
+    "err.unsupported_provider": "analyze_image (sohbet) için desteklenmeyen sağlayıcı: {provider!r}",
+    "err.import_openai": "Openai paketi içe aktarılamadı: {err}",
+    "prompt.default": "Lütfen bu resmi ayrıntılı olarak açıklayın.",
+    "warn.empty_response": "[WARN] boş yanıt",
+    "err.missing_env.azure": "Azure görüntü analizi için gerekli ortam değişkenleri eksik."
   },
   "uk": {
     "tool.description": "Аналізувати зображення за допомогою моделі зору OpenAI.",
@@ -309,7 +477,14 @@
     "param.model.description": "Назва моделі OpenAI (наприклад, gpt-4o, gpt-4-vision-preview).",
     "err.analysis_failed": "Аналіз зображення не вдався: {err}",
     "err.image_required": "Дані зображення обов'язкові.",
-    "param.detail.description": "Рівень деталізації зображення (auto/низький/високий)."
+    "param.detail.description": "Рівень деталізації зображення (auto/низький/високий).",
+    "err.image_not_found": "файл зображення не знайдено: {path}",
+    "err.image_too_large": "файл зображення завеликий: {size} байт (ліміт={max_bytes})",
+    "err.unsupported_provider": "Непідтримуваний постачальник для analy_image (чат): {provider!r}",
+    "err.import_openai": "Не вдалося імпортувати пакет openai: {err}",
+    "prompt.default": "Будь ласка, опишіть це зображення детально.",
+    "warn.empty_response": "[WARN] порожня відповідь",
+    "err.missing_env.azure": "Відсутні необхідні змінні env для аналізу зображень Azure."
   },
   "vi": {
     "tool.description": "Phân tích hình ảnh bằng mô hình thị giác OpenAI.",
@@ -319,7 +494,14 @@
     "param.model.description": "Tên mô hình OpenAI (ví dụ: gpt-4o, gpt-4-vision-preview).",
     "err.analysis_failed": "Phân tích hình ảnh thất bại: {err}",
     "err.image_required": "Dữ liệu hình ảnh là bắt buộc.",
-    "param.detail.description": "Mức độ chi tiết hình ảnh (auto/thấp/cao)."
+    "param.detail.description": "Mức độ chi tiết hình ảnh (auto/thấp/cao).",
+    "err.image_not_found": "không tìm thấy tệp hình ảnh: {path}",
+    "err.image_too_large": "tệp hình ảnh quá lớn: {size} byte (giới hạn={max_bytes})",
+    "err.unsupported_provider": "Nhà cung cấp không được hỗ trợ cho analyze_image (trò chuyện): {provider!r}",
+    "err.import_openai": "Không thể nhập gói openai: {err}",
+    "prompt.default": "Hãy mô tả chi tiết hình ảnh này.",
+    "warn.empty_response": "[CẢNH BÁO] phản hồi trống",
+    "err.missing_env.azure": "Thiếu các biến env cần thiết để phân tích hình ảnh Azure."
   },
   "zh_CN": {
     "tool.description": "使用OpenAI视觉模型分析图像。",
@@ -329,7 +511,14 @@
     "param.model.description": "OpenAI模型名称（例如 gpt-4o, gpt-4-vision-preview）。",
     "err.analysis_failed": "图像分析失败: {err}",
     "err.image_required": "图像数据是必需的。",
-    "param.detail.description": "图像细节级别（auto/低/高）。"
+    "param.detail.description": "图像细节级别（auto/低/高）。",
+    "err.image_not_found": "未找到图像文件：{path}",
+    "err.image_too_large": "图像文件太大：{size} 字节（限制={max_bytes}）",
+    "err.unsupported_provider": "不支持的analyze_image 提供程序（聊天）：{provider!r}",
+    "err.import_openai": "导入 openai 包失败：{err}",
+    "prompt.default": "请详细描述这张图片。",
+    "warn.empty_response": "[警告] 空响应",
+    "err.missing_env.azure": "缺少天蓝色图像分析所需的环境变量。"
   },
   "zh_TW": {
     "tool.description": "使用 OpenAI 視覺模型分析影像。",
@@ -339,6 +528,13 @@
     "param.model.description": "OpenAI 模型名稱（例如 gpt-4o, gpt-4-vision-preview）。",
     "err.analysis_failed": "影像分析失敗: {err}",
     "err.image_required": "影像資料為必填。",
-    "param.detail.description": "影像細節層級（auto/低/高）。"
+    "param.detail.description": "影像細節層級（auto/低/高）。",
+    "err.image_not_found": "未找到圖像檔：{path}",
+    "err.image_too_large": "圖像檔案太大：{size} 位元組（限制={max_bytes}）",
+    "err.unsupported_provider": "不支援的analyze_image 提供者（聊天）：{provider!r}",
+    "err.import_openai": "導入 openai 套件失敗：{err}",
+    "prompt.default": "請詳細描述這張圖。",
+    "warn.empty_response": "[警告] 空響應",
+    "err.missing_env.azure": "缺少天藍色影像分析所需的環境變數。"
   }
 }

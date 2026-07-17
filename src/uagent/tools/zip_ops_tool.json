@@ -45,7 +45,7 @@
     "error.cancelled_by_user": "ユーザーによりキャンセルされました",
     "error.dangerous_dest_dir_rejected": "危険な dest_dir を拒否しました: {dest_dir}",
     "error.dangerous_source_rejected": "危険なソースが拒否されました: {source}",
-    "error.dangerous_zip_entries_rejected": "危険な zip エントリを拒否しました: {names}",
+    "error.dangerous_zip_entries_rejected": "危険な zip エントリは拒否されました",
     "error.dangerous_zip_path_rejected": "危険な zip_path が拒否されました: {zip_path}",
     "error.dest_dir_not_allowed": "dest_dir は許可されていません: {error}",
     "error.invalid_action": "不正な action です: {action}",
@@ -113,7 +113,8 @@
       "descomprimir archivo",
       "compresión",
       "descomprimir"
-    ]
+    ],
+    "confirm.extract_overwrite": "zip_ops(extract) puede sobrescribir archivos existentes.\nzip: {zip_path}\ndest: {dest_dir}\nentries: {entries}\n\nIngrese y para continuar o c para cancelar."
   },
   "fr": {
     "error.cancelled_by_user": "annulé par l'utilisateur",
@@ -153,13 +154,14 @@
       "décompresser le fichier",
       "compression",
       "décompresser"
-    ]
+    ],
+    "confirm.extract_overwrite": "zip_ops(extract) peut écraser les fichiers existants.\nzip : {zip_path}\ndest : {dest_dir}\nentries : {entries}\n\nEntrez y pour continuer ou c pour annuler."
   },
   "ko": {
     "error.cancelled_by_user": "사용자에 의해 취소됨",
     "error.dangerous_dest_dir_rejected": "위험한 dest_dir 거부됨: {dest_dir}",
     "error.dangerous_source_rejected": "위험한 소스가 거부됨: {source}",
-    "error.dangerous_zip_entries_rejected": "위험한 zip 항목이 거부되었습니다: {names}",
+    "error.dangerous_zip_entries_rejected": "위험한 zip 항목이 거부됨",
     "error.dangerous_zip_path_rejected": "위험한 zip_path가 거부됨: {zip_path}",
     "error.dest_dir_not_allowed": "dest_dir은 허용되지 않습니다: {error}",
     "error.invalid_action": "잘못된 작업: {action}",
@@ -193,7 +195,8 @@
       "압축 해제",
       "압축",
       "압축 해제"
-    ]
+    ],
+    "confirm.extract_overwrite": "zip_ops(추출)는 기존 파일을 덮어쓸 수 있습니다.\nzip: {zip_path}\ndest: {dest_dir}\n항목: {entries}\n\n계속하려면 y를 입력하고 취소하려면 c를 입력합니다."
   },
   "de": {
     "error.cancelled_by_user": "vom Benutzer abgebrochen",
@@ -233,7 +236,8 @@
       "Datei entpacken",
       "Komprimierung",
       "dekomprimieren"
-    ]
+    ],
+    "confirm.extract_overwrite": "zip_ops(extract) überschreibt möglicherweise vorhandene Dateien.\nzip: {zip_path}\ndest: {dest_dir}\nentries: {entries}\n\nGeben Sie y ein, um fortzufahren, oder c, um abzubrechen."
   },
   "it": {
     "error.cancelled_by_user": "annullato dall'utente",
@@ -273,7 +277,8 @@
       "decomprimere il file",
       "compressione",
       "decomprimi"
-    ]
+    ],
+    "confirm.extract_overwrite": "zip_ops(extract) potrebbe sovrascrivere i file esistenti.\nzip: {zip_path}\ndest: {dest_dir}\nentries: {entries}\n\nInserisci y per procedere o c per annullare."
   },
   "ru": {
     "error.cancelled_by_user": "отменен пользователем",
@@ -305,7 +310,8 @@
     "tool.description": "Создаёт/распаковывает/перечисляет ZIP-файлы (с защитой Zip Slip / Zip Bomb).",
     "x_search_terms": [
       "zip, разархивировать, сжимать, экстракт, архив, zip-файл, разархивировать файл, сжатие, распаковать"
-    ]
+    ],
+    "confirm.extract_overwrite": "zip_ops(extract) может перезаписать существующие файлы.\nzip: {zip_path}\ndest: {dest_dir}\nentries: {entries}\n\nВведите y, чтобы продолжить, или c, чтобы отменить."
   },
   "pt_BR": {
     "error.cancelled_by_user": "cancelado pelo usuário",
@@ -346,7 +352,8 @@
       "zip archive",
       "file compression",
       "decompress"
-    ]
+    ],
+    "confirm.extract_overwrite": "zip_ops(extract) pode substituir arquivos existentes.\nzip: {zip_path}\ndest: {dest_dir}\nentries: {entries}\n\nDigite y para continuar ou c para cancelar."
   },
   "pt": {
     "error.cancelled_by_user": "cancelado pelo usuário",
@@ -387,7 +394,8 @@
       "arquivo zip",
       "compactação de arquivos",
       "descompactar"
-    ]
+    ],
+    "confirm.extract_overwrite": "zip_ops(extract) pode substituir arquivos existentes.\nzip: {zip_path}\ndest: {dest_dir}\nentries: {entries}\n\nDigite y para continuar ou c para cancelar."
   },
   "id": {
     "error.cancelled_by_user": "dibatalkan oleh pengguna",
@@ -428,7 +436,8 @@
       "arsip zip",
       "kompresi file",
       "dekompresi"
-    ]
+    ],
+    "confirm.extract_overwrite": "zip_ops(ekstrak) dapat menimpa file yang sudah ada.\nzip: {zip_path}\ntujuan: {dest_dir}\nentri: {entries}\n\nMasukkan y untuk melanjutkan, atau c untuk membatalkan."
   },
   "vi": {
     "error.cancelled_by_user": "bị người dùng hủy",
@@ -469,7 +478,8 @@
       "lưu trữ zip",
       "nén tập tin",
       "giải nén"
-    ]
+    ],
+    "confirm.extract_overwrite": "zip_ops(giải nén) có thể ghi đè lên các tệp hiện có.\nzip: {zip_path}\ndest: {dest_dir}\nmục nhập: {entries}\n\nNhập y để tiếp tục hoặc c để hủy."
   },
   "pl": {
     "error.cancelled_by_user": "anulowane przez użytkownika",
@@ -510,7 +520,8 @@
       "zip archive",
       "file compression",
       "decompress"
-    ]
+    ],
+    "confirm.extract_overwrite": "zip_ops(extract) może zastąpić istniejące pliki.\nzip: {zip_path}\ndest: {dest_dir}\nentries: {entries}\n\nWprowadź y, aby kontynuować, lub c, aby anulować."
   },
   "hi": {
     "error.cancelled_by_user": "उपयोगकर्ता द्वारा रद्द",
@@ -536,7 +547,7 @@
     "param.exclude_globs.description": "बनाने के लिए बहिष्करण (सरल: बेसनाम मिलान)।",
     "param.max_files.description": "एक्सट्रैक्ट (ज़िप बम सुरक्षा) पर अनुमत फ़ाइलों की अधिकतम संख्या।",
     "param.max_total_uncompressed_bytes.description": "एक्सट्रैक्ट (ज़िप बम सुरक्षा) पर अधिकतम कुल असम्पीडित बाइट्स की अनुमति है।",
-    "param.overwrite.description": "बनाने के लिए __DELIM_218__ स्रोतों की आवश्यकता है क्या एक्सट्रैक्ट पर मौजूदा फ़ाइलों को अधिलेखित करना है (पुष्टि की आवश्यकता है)",
+    "param.overwrite.description": "क्या एक्सट्रैक्ट पर मौजूदा फ़ाइलों को अधिलेखित करना है (पुष्टि की आवश्यकता है)।",
     "param.sources.description": "बनाने के लिए इनपुट",
     "param.zip_path.description": "ज़िप फ़ाइल का पथ.",
     "tool.description": "ज़िप फ़ाइलें बनाएं/निकालें/सूचीबद्ध करें (ज़िप स्लिप/ज़िप बम सुरक्षा के साथ)।",
@@ -551,7 +562,8 @@
       "zip archive",
       "file compression",
       "decompress"
-    ]
+    ],
+    "confirm.extract_overwrite": "zip_ops(extract) मौजूदा फ़ाइलों को अधिलेखित कर सकता है।\nज़िप: {zip_path}\nगंतव्य: {dest_dir}\nप्रविष्टियाँ: {entries}\n\nआगे बढ़ने के लिए y दर्ज करें, या रद्द करने के लिए c दर्ज करें।"
   },
   "ar": {
     "error.cancelled_by_user": "تم إلغاؤه بواسطة المستخدم",
@@ -592,7 +604,8 @@
       "zip archive",
       "file compression",
       "decompress"
-    ]
+    ],
+    "confirm.extract_overwrite": "قد يقوم zip_ops(extract) بالكتابة فوق الملفات الموجودة. \nzip: {zip_path}\ndest: {dest_dir}\nentries: {entries}\n\n أدخل y للمتابعة، أو c للإلغاء."
   },
   "sv": {
     "error.cancelled_by_user": "avbruten av användaren",
@@ -633,7 +646,8 @@
       "zip archive",
       "file compression",
       "decompress"
-    ]
+    ],
+    "confirm.extract_overwrite": "zip_ops(extract) kan skriva över befintliga filer.\nzip: {zip_path}\ndest: {dest_dir}\nposter: {entries}\n\nAnge y för att fortsätta, eller c för att avbryta."
   },
   "sw": {
     "error.cancelled_by_user": "imeghairiwa na mtumiaji",
@@ -674,7 +688,8 @@
       "zip archive",
       "file compression",
       "decompress"
-    ]
+    ],
+    "confirm.extract_overwrite": "zip_ops(dondoo) zinaweza kubatilisha faili zilizopo.\nzip: {zip_path}\ndest: {dest_dir}\nmaingizo: {entries}\n\nIngiza y ili kuendelea, au c ili kughairi."
   },
   "nb": {
     "error.cancelled_by_user": "avbrutt av bruker",
@@ -715,7 +730,8 @@
       "zip archive",
       "file compression",
       "decompress"
-    ]
+    ],
+    "confirm.extract_overwrite": "zip_ops(extract) kan overskrive eksisterende filer.\nzip: {zip_path}\ndest: {dest_dir}\noppføringer: {entries}\n\nSkriv inn y for å fortsette, eller c for å avbryte."
   },
   "nl": {
     "error.cancelled_by_user": "geannuleerd door gebruiker",
@@ -756,7 +772,8 @@
       "zip archive",
       "file compression",
       "decompress"
-    ]
+    ],
+    "confirm.extract_overwrite": "zip_ops(extract) kan bestaande bestanden overschrijven.\nzip: {zip_path}\ndest: {dest_dir}\nentries: {entries}\n\nVoer y in om door te gaan, of c om te annuleren."
   },
   "fi": {
     "error.cancelled_by_user": "käyttäjä peruutti",
@@ -797,7 +814,8 @@
       "zip archive",
       "file compression",
       "decompress"
-    ]
+    ],
+    "confirm.extract_overwrite": "zip_ops(extract) voi korvata olemassa olevat tiedostot.\nzip: {zip_path}\ndest: {dest_dir}\nmerkinnät: {entries}\n\nSyötä y jatkaaksesi tai c peruuttaaksesi."
   },
   "cs": {
     "error.cancelled_by_user": "zrušeno uživatelem",
@@ -838,7 +856,8 @@
       "zip archive",
       "file compression",
       "decompress"
-    ]
+    ],
+    "confirm.extract_overwrite": "zip_ops (extract) může přepsat existující soubory.\nzip: {zip_path}\ncíl: {dest_dir}\npoložky: {entries}\n\nPro pokračování zadejte y, pro zrušení zadejte c."
   },
   "uk": {
     "error.cancelled_by_user": "скасовано користувачем",
@@ -879,7 +898,8 @@
       "zip archive",
       "file compression",
       "decompress"
-    ]
+    ],
+    "confirm.extract_overwrite": "zip_ops(extract) може перезаписати існуючі файли.\nzip: {zip_path}\ndest: {dest_dir}\nentries: {entries}\n\nВведіть y, щоб продовжити, або c, щоб скасувати."
   },
   "tr": {
     "error.cancelled_by_user": "kullanıcı tarafından iptal edildi",
@@ -920,7 +940,8 @@
       "zip archive",
       "file compression",
       "decompress"
-    ]
+    ],
+    "confirm.extract_overwrite": "zip_ops(extract) mevcut dosyaların üzerine yazabilir.\nzip: {zip_path}\ndest: {dest_dir}\nentries: {entries}\n\nDevam etmek için y veya iptal etmek için c girin."
   },
   "th": {
     "error.cancelled_by_user": "ยกเลิกโดยผู้ใช้",
@@ -961,17 +982,18 @@
       "zip archive",
       "file compression",
       "decompress"
-    ]
+    ],
+    "confirm.extract_overwrite": "zip_ops(extract) อาจเขียนทับไฟล์ที่มีอยู่\nzip: {zip_path}\ndest: {dest_dir}\nentries: {entries}\n\nป้อน y เพื่อดำเนินการต่อ หรือ c เพื่อยกเลิก"
   },
   "zh_CN": {
     "error.cancelled_by_user": "被用户取消",
     "error.dangerous_dest_dir_rejected": "危险的 dest_dir 被拒绝：{dest_dir}",
     "error.dangerous_source_rejected": "危险源被拒绝：{source}",
-    "error.dangerous_zip_entries_rejected": "危险的 ZIP 条目被拒绝：{names}",
+    "error.dangerous_zip_entries_rejected": "危险的邮政编码条目被拒绝",
     "error.dangerous_zip_path_rejected": "危险的 zip_path 被拒绝：{zip_path}",
     "error.dest_dir_not_allowed": "dest_dir 不允许：{error}",
     "error.invalid_action": "无效操作：{action}",
-    "error.source_not_allowed": "不允许来源：{path} ({error})",
+    "error.source_not_allowed": "不允许来源：{error}",
     "error.sources_required_for_create": "action=create 需要 sources",
     "error.too_many_files_in_zip": "zip 中的文件太多：{count} > {max_files}",
     "error.zip_create_failed": "zip 创建失败：{error}",
@@ -1002,17 +1024,18 @@
       "zip archive",
       "file compression",
       "decompress"
-    ]
+    ],
+    "confirm.extract_overwrite": "zip_ops(extract) 可能会覆盖现有文件。\nzip: {zip_path}\ndest: {dest_dir}\n条目: {entries}\n输入 y 继续，或 c 取消。"
   },
   "zh_TW": {
     "error.cancelled_by_user": "被用戶取消",
     "error.dangerous_dest_dir_rejected": "危險的 dest_dir 被拒絕：{dest_dir}",
     "error.dangerous_source_rejected": "危險源被拒絕：{source}",
-    "error.dangerous_zip_entries_rejected": "危險的 ZIP 條目被拒絕：{names}",
+    "error.dangerous_zip_entries_rejected": "危險的郵遞區號條目被拒絕",
     "error.dangerous_zip_path_rejected": "危險的 zip_path 被拒絕：{zip_path}",
     "error.dest_dir_not_allowed": "dest_dir 不允許：{error}",
     "error.invalid_action": "無效操作：{action}",
-    "error.source_not_allowed": "不允許來源：{path} ({error})",
+    "error.source_not_allowed": "不允許來源：{error}",
     "error.sources_required_for_create": "action=create 需要 sources",
     "error.too_many_files_in_zip": "zip 中的檔案太多：{count} > {max_files}",
     "error.zip_create_failed": "zip 建立失敗：{error}",
@@ -1043,10 +1066,11 @@
       "zip archive",
       "file compression",
       "decompress"
-    ]
+    ],
+    "confirm.extract_overwrite": "zip_ops(extract) 可能會覆寫現有檔案。 \nzip: {zip_path}\ndest: {dest_dir}\n條目: {entries}\n輸入 y 繼續，或 c 取消。"
   },
   "bn": {
-    "error.cancelled_by_user": "পোর্ট যোগ করা হয়নি {elapsed_ms} ms",
+    "error.cancelled_by_user": "ব্যবহারকারী দ্বারা বাতিল",
     "error.dangerous_dest_dir_rejected": "বিপজ্জনক dest_dir প্রত্যাখ্যান: {dest_dir}",
     "error.dangerous_source_rejected": "বিপজ্জনক উত্স প্রত্যাখ্যান করা হয়েছে: {source}",
     "error.dangerous_zip_entries_rejected": "বিপজ্জনক জিপ এন্ট্রি প্রত্যাখ্যান করা হয়েছে",
@@ -1084,7 +1108,8 @@
       "zip archive",
       "file compression",
       "decompress"
-    ]
+    ],
+    "confirm.extract_overwrite": "zip_ops(extract) বিদ্যমান ফাইল ওভাররাইট করতে পারে।\nজিপ: {zip_path}\nগন্তব্য: {dest_dir}\nএন্ট্রি: {entries}\n\nএগিয়ে যেতে y লিখুন, বা বাতিল করতে c লিখুন।"
   },
   "fa": {
     "error.cancelled_by_user": "توسط کاربر لغو شد",
@@ -1125,7 +1150,8 @@
       "zip archive",
       "file compression",
       "decompress"
-    ]
+    ],
+    "confirm.extract_overwrite": "zip_ops(extract) ممکن است فایل های موجود را بازنویسی کند.\nزیپ: {zip_path}\nمقصد: {dest_dir}\nورودی ها: {entries}\n\nبرای ادامه y یا برای لغو c را وارد کنید."
   },
   "mn": {
     "error.cancelled_by_user": "Хэрэглэгч цуцалсан",
@@ -1166,7 +1192,8 @@
       "zip archive",
       "file compression",
       "decompress"
-    ]
+    ],
+    "confirm.extract_overwrite": "zip_ops(extract) нь одоо байгаа файлуудыг дарж бичиж болно.\nzip: {zip_path}\ndest: {dest_dir}\nnot: {entries}\n\nҮргэлжлүүлэхийн тулд y, цуцлахын тулд c-г оруулна уу."
   },
   "mr": {
     "error.cancelled_by_user": "वापरकर्त्याने रद्द केले",
@@ -1207,20 +1234,21 @@
       "zip archive",
       "file compression",
       "decompress"
-    ]
+    ],
+    "confirm.extract_overwrite": "zip_ops(अर्क) विद्यमान फायली ओव्हरराइट करू शकतात. \nzip: {zip_path}\ndest: {dest_dir}\n प्रविष्ट्या: {entries}\n\n पुढे जाण्यासाठी y प्रविष्ट करा किंवा रद्द करण्यासाठी c प्रविष्ट करा."
   },
   "el": {
-    "error.cancelled_by_user": "επικίνδυνες καταχωρίσεις zip απορρίφθηκαν: {zip_path}",
-    "error.dangerous_dest_dir_rejected": "dest_dir δεν επιτρέπεται: {error} [αξιολόγηση της ενέργειας:#=] {error} Απαιτούνται",
-    "error.dangerous_source_rejected": "πηγές για τη δημιουργία",
-    "error.dangerous_zip_entries_rejected": "πάρα πολλών αρχείων σε zip: {count} > {max_files}",
-    "error.dangerous_zip_path_rejected": "η δημιουργία zip απέτυχε: {error}",
+    "error.cancelled_by_user": "ακυρώθηκε από τον χρήστη",
+    "error.dangerous_dest_dir_rejected": "επικίνδυνο dest_dir απορρίφθηκε: {dest_dir}",
+    "error.dangerous_source_rejected": "επικίνδυνη πηγή που απορρίφθηκε: {source}",
+    "error.dangerous_zip_entries_rejected": "Οι επικίνδυνες καταχωρήσεις zip απορρίφθηκαν",
+    "error.dangerous_zip_path_rejected": "επικίνδυνο zip_path απορρίφθηκε: {zip_path}",
     "error.dest_dir_not_allowed": "η εξαγωγή zip απέτυχε: {error}",
-    "error.invalid_action": "zip λίστα απέτυχε: {error}",
-    "error.source_not_allowed": "zip δεν επιτρέπονται: {zip_path:#=_p Απαιτείται zip_path",
-    "error.sources_required_for_create": "zip πολύ μεγάλο για εξαγωγή: {total} > {limit}",
-    "error.too_many_files_in_zip": "Τύπος λειτουργίας.",
-    "error.zip_create_failed": "Κατάλογος προορισμού για εξαγωγή.",
+    "error.invalid_action": "μη έγκυρη ενέργεια: {action}",
+    "error.source_not_allowed": "δεν επιτρέπεται η πηγή: {error}",
+    "error.sources_required_for_create": "απαιτούνται πηγές για τη δημιουργία",
+    "error.too_many_files_in_zip": "πάρα πολλά αρχεία σε zip: {count} > {max_files}",
+    "error.zip_create_failed": "Η δημιουργία zip απέτυχε: {error}",
     "error.zip_extract_failed": "Το απόσπασμα zip απέτυχε: {error}",
     "error.zip_list_failed": "η λίστα zip απέτυχε: {error}",
     "error.zip_not_found": "το zip δεν βρέθηκε: {zip_path}",
@@ -1248,24 +1276,25 @@
       "zip archive",
       "file compression",
       "decompress"
-    ]
+    ],
+    "confirm.extract_overwrite": "Το zip_ops(extract) μπορεί να αντικαταστήσει υπάρχοντα αρχεία.\nzip: {zip_path}\ndest: {dest_dir}\nεγγραφές: {entries}\n\nΕισαγάγετε y για να συνεχίσετε ή c για ακύρωση."
   },
   "he": {
-    "error.cancelled_by_user": "מקור מסוכן נדחה: {source}",
-    "error.dangerous_dest_dir_rejected": "רשומות zip מסוכנות נדחו",
-    "error.dangerous_source_rejected": "נתיבי zip_ מסוכנים נדחה: {zip_path}",
-    "error.dangerous_zip_entries_rejected": "כתובות יעד לא מותרות: {error}",
-    "error.dangerous_zip_path_rejected": "מקור לא חוקי",
-    "error.dest_dir_not_allowed": "מקור שגוי נדרשים",
-    "error.invalid_action": "מקורות ליצירת",
-    "error.source_not_allowed": "יותר מדי קבצים ב-zip: {count} > {max_files}",
-    "error.sources_required_for_create": "יצירת zip נכשלה: {error}",
-    "error.too_many_files_in_zip": "חילוץ zip נכשל: {error}",
+    "error.cancelled_by_user": "בוטל על ידי המשתמש",
+    "error.dangerous_dest_dir_rejected": "מסוכן dest_dir נדחה: {dest_dir}",
+    "error.dangerous_source_rejected": "מקור מסוכן נדחה: {source}",
+    "error.dangerous_zip_entries_rejected": "רשומות zip מסוכנות נדחו",
+    "error.dangerous_zip_path_rejected": "zip_path מסוכן נדחה: {zip_path}",
+    "error.dest_dir_not_allowed": "dest_dir אסור: {error}",
+    "error.invalid_action": "פעולה לא חוקית: {action}",
+    "error.source_not_allowed": "מקור אסור: {error}",
+    "error.sources_required_for_create": "נדרשים מקורות ליצירה",
+    "error.too_many_files_in_zip": "יותר מדי קבצים ב-zip: {count} > {max_files}",
     "error.zip_create_failed": "רשימת zip נכשלה: {error}",
-    "error.zip_extract_failed": "zip לא נמצא: {zip_path}",
-    "error.zip_list_failed": "zip_path} [=#==] zip_path לא מותרת: zip_}# לא מותרת zip גדול מדי כדי לחלץ: {total} > {limit}",
-    "error.zip_not_found": "סוג פעולה.",
-    "error.zip_path_not_allowed": "ספריית יעד לחילוץ.",
+    "error.zip_extract_failed": "חילוץ zip נכשל: {error}",
+    "error.zip_list_failed": "רשימת zip נכשלה: {error}",
+    "error.zip_not_found": "zip לא נמצא: {zip_path}",
+    "error.zip_path_not_allowed": "zip_path אסור: {error}",
     "error.zip_path_required": "נדרש zip_path",
     "error.zip_too_large_to_extract": "zip גדול מדי כדי לחלץ: {total} > {limit}",
     "param.action.description": "סוג הפעולה.",
@@ -1289,20 +1318,21 @@
       "zip archive",
       "file compression",
       "decompress"
-    ]
+    ],
+    "confirm.extract_overwrite": "zip_ops(extract) עשוי להחליף קבצים קיימים.\nzip: {zip_path}\ndest: {dest_dir}\nערכים: {entries}\n\nהזן y כדי להמשיך, או c כדי לבטל."
   },
   "hu": {
-    "error.cancelled_by_user": "veszélyes zip_path elutasítva: {zip_path} művelet",
-    "error.dangerous_dest_dir_rejected": "célkönyvtár nem engedélyezett: [=#] célkönyvtár nem engedélyezett: [=#] nem érvénytelen } engedélyezett: {error}",
-    "error.dangerous_source_rejected": "forrás szükséges a létrehozáshoz",
-    "error.dangerous_zip_entries_rejected": "túl sok fájl a zip-ben: {count} > {max_files}",
-    "error.dangerous_zip_path_rejected": "zip létrehozás sikertelen: {error}",
+    "error.cancelled_by_user": "felhasználó törölte",
+    "error.dangerous_dest_dir_rejected": "veszélyes célkönyvtár elutasítva: {dest_dir}",
+    "error.dangerous_source_rejected": "veszélyes forrás elutasítva: {source}",
+    "error.dangerous_zip_entries_rejected": "veszélyes zip bejegyzések elutasítva",
+    "error.dangerous_zip_path_rejected": "veszélyes zip_path elutasítva: {zip_path}",
     "error.dest_dir_not_allowed": "zip kicsomagolás sikertelen: {error}",
-    "error.invalid_action": "zip lista nem sikerült: {error} [==zip] not found] zip_path nem engedélyezett: {error}",
-    "error.source_not_allowed": "zip_path szükséges",
-    "error.sources_required_for_create": "zip túl nagy a kibontáshoz: {total} > {limit}",
-    "error.too_many_files_in_zip": "Művelet típusa.",
-    "error.zip_create_failed": "A kivonat célkönyvtára.",
+    "error.invalid_action": "érvénytelen művelet: {action}",
+    "error.source_not_allowed": "forrás nem engedélyezett: {error}",
+    "error.sources_required_for_create": "létrehozásához forrásra van szükség",
+    "error.too_many_files_in_zip": "túl sok fájl a zip-ben: {count} > {max_files}",
+    "error.zip_create_failed": "zip létrehozása nem sikerült: {error}",
     "error.zip_extract_failed": "zip kivonat nem sikerült: {error}",
     "error.zip_list_failed": "zip lista nem sikerült: {error}",
     "error.zip_not_found": "zip nem található: {zip_path}",
@@ -1330,24 +1360,25 @@
       "zip archive",
       "file compression",
       "decompress"
-    ]
+    ],
+    "confirm.extract_overwrite": "A zip_ops(extract) felülírhatja a meglévő fájlokat.\nzip: {zip_path}\ndest: {dest_dir}\nbejegyzések: {entries}\n\nA folytatáshoz írja be az y-t, a megszakításhoz pedig c."
   },
   "ro": {
-    "error.cancelled_by_user": "sursă periculoasă respinsă: {source}",
-    "error.dangerous_dest_dir_rejected": "intrări zip periculoase respinse",
-    "error.dangerous_source_rejected": "zip_path periculoasă respinsă: {zip_path}",
-    "error.dangerous_zip_entries_rejected": "dest_dir nu este permisă: {error} invalid action= action=#= sursă: Este necesară {error}",
-    "error.dangerous_zip_path_rejected": "surse pentru a crea",
-    "error.dest_dir_not_allowed": "prea multe fișiere în zip: {count} > {max_files}",
-    "error.invalid_action": "zip create failed: {error}",
-    "error.source_not_allowed": "zip extract failed: {error}",
-    "error.sources_required_for_create": "zip list failed: {error}",
-    "error.too_many_files_in_zip": "zip not found: {count} [=#=_path is allowed: zip] necesar",
-    "error.zip_create_failed": "zip prea mare pentru a fi extras: {total} > {limit}",
-    "error.zip_extract_failed": "Tip de operație.",
-    "error.zip_list_failed": "Director de destinație pentru extragere.",
+    "error.cancelled_by_user": "anulat de utilizator",
+    "error.dangerous_dest_dir_rejected": "periculos dest_dir respins: {dest_dir}",
+    "error.dangerous_source_rejected": "sursă periculoasă respinsă: {source}",
+    "error.dangerous_zip_entries_rejected": "intrări zip periculoase respinse",
+    "error.dangerous_zip_path_rejected": "zip_path periculos respins: {zip_path}",
+    "error.dest_dir_not_allowed": "dest_dir nu este permis: {error}",
+    "error.invalid_action": "acțiune nevalidă: {action}",
+    "error.source_not_allowed": "sursa nu este permisă: {error}",
+    "error.sources_required_for_create": "sursele sunt necesare pentru creare",
+    "error.too_many_files_in_zip": "prea multe fișiere în zip: {count} > {max_files}",
+    "error.zip_create_failed": "Crearea zip a eșuat: {error}",
+    "error.zip_extract_failed": "Extragerea zip a eșuat: {error}",
+    "error.zip_list_failed": "Lista zip a eșuat: {error}",
     "error.zip_not_found": "zip nu a fost găsit: {zip_path}",
-    "error.zip_path_not_allowed": "calea_zip nu este permisă: {eroare}",
+    "error.zip_path_not_allowed": "zip_path nu este permis: {error}",
     "error.zip_path_required": "zip_path este necesar",
     "error.zip_too_large_to_extract": "zip prea mare pentru a fi extras: {total} > {limit}",
     "param.action.description": "Tipul operațiunii.",
@@ -1371,6 +1402,7 @@
       "zip archive",
       "file compression",
       "decompress"
-    ]
+    ],
+    "confirm.extract_overwrite": "zip_ops(extract) poate suprascrie fișierele existente.\nzip: {zip_path}\ndest: {dest_dir}\nentry: {entries}\n\nIntroduceți y pentru a continua sau c pentru a anula."
   }
 }

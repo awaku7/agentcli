@@ -50,7 +50,10 @@
     "param.path.description": "Directorio a listar (predeterminado: directorio actual). Alias ​​de root_path.",
     "param.show_hidden.description": "Incluir elementos ocultos en la lista.",
     "param.page.description": "Número de página a recuperar (predeterminado: 1).",
-    "param.limit.description": "Número máximo de entradas a devolver por página (predeterminado: 50)."
+    "param.limit.description": "Número máximo de entradas a devolver por página (predeterminado: 50).",
+    "err.not_a_dir": "Error: no es un directorio: {path}",
+    "msg.empty_dir": "(directorio vacío)",
+    "msg.paginate": "Página {page} de {total_pages} (que muestra {count} de {total} entradas)"
   },
   "fr": {
     "tool.description": "Liste les entrées dans un répertoire avec une pagination, similaire à ls.",
@@ -67,7 +70,10 @@
     "param.path.description": "Répertoire à lister (par défaut : répertoire courant). Alias ​​de root_path.",
     "param.show_hidden.description": "Inclure les entrées masquées dans la liste.",
     "param.page.description": "Numéro de page à récupérer (par défaut : 1).",
-    "param.limit.description": "Nombre maximal d’éléments à renvoyer par page (par défaut : 50)."
+    "param.limit.description": "Nombre maximal d’éléments à renvoyer par page (par défaut : 50).",
+    "err.not_a_dir": "Erreur : il ne s'agit pas d'un répertoire : {path}",
+    "msg.empty_dir": "(répertoire vide)",
+    "msg.paginate": "Page {page} sur {total_pages} (affichant {count} sur {total} entrées)"
   },
   "ko": {
     "tool.description": "디렉토리 내용 목록 표시(페이지네이션 지원).",
@@ -84,7 +90,10 @@
     "param.path.description": "나열할 디렉터리(기본값: 현재 디렉터리). root_path의 별칭입니다.",
     "param.show_hidden.description": "숨김 항목도 목록에 포함합니다.",
     "param.page.description": "가져올 페이지 번호(기본값: 1).",
-    "param.limit.description": "페이지당 반환할 최대 항목 수(기본값: 50)."
+    "param.limit.description": "페이지당 반환할 최대 항목 수(기본값: 50).",
+    "err.not_a_dir": "오류: 디렉터리가 아닙니다: {path}",
+    "msg.empty_dir": "(빈 디렉토리)",
+    "msg.paginate": "페이지 {page}/{total_pages}({total}개 항목 중 {count} 표시)"
   },
   "de": {
     "tool.description": "Einträge in einem Verzeichnis mit Paginierung auflisten, ähnlich wie bei ls.",
@@ -101,7 +110,10 @@
     "param.path.description": "Verzeichnis zum Auflisten (Standard: aktuelles Verzeichnis). Alias von root_path.",
     "param.show_hidden.description": "Ausgeblendete Einträge in die Liste einbeziehen.",
     "param.page.description": "Abzurufende Seitennummer (Standard: 1).",
-    "param.limit.description": "Maximale Anzahl der Einträge pro Seite (Standard: 50)."
+    "param.limit.description": "Maximale Anzahl der Einträge pro Seite (Standard: 50).",
+    "err.not_a_dir": "Fehler: kein Verzeichnis: {path}",
+    "msg.empty_dir": "(leeres Verzeichnis)",
+    "msg.paginate": "Seite {page} von {total_pages} (zeigt {count} von {total} Einträgen)"
   },
   "it": {
     "tool.description": "Elenca le voci in una directory con impaginazione, simile a ls.",
@@ -118,7 +130,10 @@
     "param.path.description": "Directory da elencare (predefinita: directory corrente). Alias di percorso_root.",
     "param.show_hidden.description": "Includi voci nascoste nell'elenco.",
     "param.page.description": "Numero di pagina da recuperare (default: 1).",
-    "param.limit.description": "Numero massimo di voci da restituire per pagina (impostazione predefinita: 50)."
+    "param.limit.description": "Numero massimo di voci da restituire per pagina (impostazione predefinita: 50).",
+    "err.not_a_dir": "Errore: non è una directory: {path}",
+    "msg.empty_dir": "(directory vuota)",
+    "msg.paginate": "Pagina {page} di {total_pages} (mostra {count} di {total} voci)"
   },
   "ru": {
     "tool.description": "Список записей в каталоге с нумерацией страниц, аналогично ls.",
@@ -128,7 +143,10 @@
     "param.path.description": "Каталог для отображения (по умолчанию: текущий каталог). Псевдоним root_path.",
     "param.show_hidden.description": "Включать скрытые элементы в список.",
     "param.page.description": "Номер страницы для получения (по умолчанию: 1).",
-    "param.limit.description": "Максимальное число элементов на странице (по умолчанию: 50)."
+    "param.limit.description": "Максимальное число элементов на странице (по умолчанию: 50).",
+    "err.not_a_dir": "Ошибка: не каталог: {path}",
+    "msg.empty_dir": "(пустой каталог)",
+    "msg.paginate": "Страница {page} из {total_pages} (показано {count} из {total} записей)"
   },
   "pt_BR": {
     "tool.description": "Liste os itens de um diretório e retorne JSON estruturado.",
@@ -147,7 +165,10 @@
     "param.path.description": "Diretório a listar (padrão: diretório atual).",
     "param.show_hidden.description": "Incluir itens ocultos na lista.",
     "param.page.description": "Número da página a ser recuperada (padrão: 1).",
-    "param.limit.description": "Número máximo de itens a retornar por página (padrão: 50)."
+    "param.limit.description": "Número máximo de itens a retornar por página (padrão: 50).",
+    "err.not_a_dir": "Erro: não é um diretório: {path}",
+    "msg.empty_dir": "(diretório vazio)",
+    "msg.paginate": "Página {page} de {total_pages} (mostrando {count} de {total} entradas)"
   },
   "pt": {
     "tool.description": "Liste os itens de um diretório e devolva JSON estruturado.",
@@ -166,7 +187,10 @@
     "param.path.description": "Diretório a ser listado (padrão: diretório atual). Alias de root_path.",
     "param.show_hidden.description": "Incluir itens ocultos na lista.",
     "param.page.description": "Número da página a ser recuperada (padrão: 1).",
-    "param.limit.description": "Número máximo de itens a devolver por página (predefinição: 50)."
+    "param.limit.description": "Número máximo de itens a devolver por página (predefinição: 50).",
+    "err.not_a_dir": "Erro: não é um diretório: {path}",
+    "msg.empty_dir": "(diretório vazio)",
+    "msg.paginate": "Página {page} de {total_pages} (mostrando {count} de {total} entradas)"
   },
   "id": {
     "tool.description": "Daftar entri dalam direktori dengan pagination, mirip dengan ls.",
@@ -185,7 +209,10 @@
     "param.path.description": "Direktori yang akan dicantumkan (default: direktori saat ini). Alias ​​​​dari root_path.",
     "param.show_hidden.description": "Sertakan item tersembunyi dalam daftar.",
     "param.page.description": "Nomor halaman yang diambil (default: 1).",
-    "param.limit.description": "Jumlah maksimum entri yang akan dikembalikan per halaman (default: 50)."
+    "param.limit.description": "Jumlah maksimum entri yang akan dikembalikan per halaman (default: 50).",
+    "err.not_a_dir": "Kesalahan: bukan direktori: {path}",
+    "msg.empty_dir": "(direktori kosong)",
+    "msg.paginate": "Halaman {page} dari {total_pages} (menampilkan {count} dari {total} entri)"
   },
   "vi": {
     "tool.description": "Liệt kê các mục trong một thư mục có phân trang, tương tự như ls.",
@@ -204,7 +231,10 @@
     "param.path.description": "Thư mục vào danh sách (mặc định: thư mục hiện tại). Bí danh của root_path.",
     "param.show_hidden.description": "Bao gồm cả các mục ẩn trong danh sách.",
     "param.page.description": "Số trang cần lấy (mặc định: 1).",
-    "param.limit.description": "Số lượng mục tối đa trả về mỗi trang (mặc định: 50)."
+    "param.limit.description": "Số lượng mục tối đa trả về mỗi trang (mặc định: 50).",
+    "err.not_a_dir": "Lỗi: không phải thư mục: {path}",
+    "msg.empty_dir": "(thư mục trống)",
+    "msg.paginate": "Trang {page} trên tổng số {total_pages} (hiển thị {count} trên tổng số {total} mục)"
   },
   "pl": {
     "tool.description": "Wylistuj elementy katalogu i zwróć ustrukturyzowany JSON.",
@@ -223,7 +253,10 @@
     "param.path.description": "Katalog do wyświetlenia (domyślnie: katalog bieżący). Alias ścieżki_rootu.",
     "param.show_hidden.description": "Uwzględnij ukryte elementy na liście.",
     "param.page.description": "Numer strony do pobrania (domyślnie: 1).",
-    "param.limit.description": "Maksymalna liczba zwracanych wpisów na stronę (domyślnie: 50)."
+    "param.limit.description": "Maksymalna liczba zwracanych wpisów na stronę (domyślnie: 50).",
+    "err.not_a_dir": "Błąd: nie jest to katalog: {path}",
+    "msg.empty_dir": "(pusty katalog)",
+    "msg.paginate": "Strona {page} z {total_pages} (wyświetla {count} z {total} wpisów)"
   },
   "hi": {
     "tool.description": "ls के समान पेजिनेशन के साथ निर्देशिका में प्रविष्टियों की सूची बनाएं।",
@@ -242,7 +275,10 @@
     "param.path.description": "सूची में निर्देशिका (डिफ़ॉल्ट: वर्तमान निर्देशिका)। रूट_पाथ का उपनाम.",
     "param.show_hidden.description": "छिपे हुए आइटम सूची में शामिल करें।",
     "param.page.description": "पुनर्प्राप्त करने के लिए पृष्ठ संख्या (डिफ़ॉल्ट: 1)।",
-    "param.limit.description": "प्रति पृष्ठ लौटाए जाने वाले अधिकतम आइटम (डिफ़ॉल्ट: 50)."
+    "param.limit.description": "प्रति पृष्ठ लौटाए जाने वाले अधिकतम आइटम (डिफ़ॉल्ट: 50).",
+    "err.not_a_dir": "त्रुटि: निर्देशिका नहीं: {path}",
+    "msg.empty_dir": "(खाली निर्देशिका)",
+    "msg.paginate": "{total_pages} का पेज {page} ({total} प्रविष्टियों में से {count} दिखा रहा है)"
   },
   "ar": {
     "tool.description": "اعرض عناصر دليل وأعد JSON منظمًا.",
@@ -261,7 +297,10 @@
     "param.path.description": "الدليل المراد عرضه (الافتراضي: الدليل الحالي).",
     "param.show_hidden.description": "تضمين العناصر المخفية في القائمة.",
     "param.page.description": "رقم الصفحة المراد جلبها (الافتراضي: 1).",
-    "param.limit.description": "الحد الأقصى للعناصر المعروضة في كل صفحة (الافتراضي: 50)."
+    "param.limit.description": "الحد الأقصى للعناصر المعروضة في كل صفحة (الافتراضي: 50).",
+    "err.not_a_dir": "خطأ: ليس دليلاً: {path}",
+    "msg.empty_dir": "(دليل فارغ)",
+    "msg.paginate": "الصفحة {page} من {total_pages} (تعرض {count} من {total} إدخالات)"
   },
   "sv": {
     "tool.description": "Lista poster i en katalog och returnera strukturerad JSON.",
@@ -280,7 +319,10 @@
     "param.path.description": "Katalog till lista (standard: aktuell katalog). Alias för root_path.",
     "param.show_hidden.description": "Inkludera dolda poster i listan.",
     "param.page.description": "Sidnummer att hämta (standard: 1).",
-    "param.limit.description": "Maximalt antal poster per sida (standard: 50)."
+    "param.limit.description": "Maximalt antal poster per sida (standard: 50).",
+    "err.not_a_dir": "Fel: inte en katalog: {path}",
+    "msg.empty_dir": "(tom katalog)",
+    "msg.paginate": "Sida {page} av {total_pages} (visar {count} av {total} poster)"
   },
   "sw": {
     "tool.description": "Orodhesha maingizo katika saraka yenye kurasa, sawa na ls.",
@@ -299,7 +341,10 @@
     "param.path.description": "Saraka ya kuorodheshwa (chaguo-msingi: saraka ya sasa). Lakabu ya root_path.",
     "param.show_hidden.description": "Jumuisha maingizo yaliyofichwa kwenye tangazo.",
     "param.page.description": "Nambari ya ukurasa ya kurejesha (chaguo-msingi: 1).",
-    "param.limit.description": "Idadi ya juu zaidi ya maingizo ya kurudi kwa kila ukurasa (chaguo-msingi: 50)."
+    "param.limit.description": "Idadi ya juu zaidi ya maingizo ya kurudi kwa kila ukurasa (chaguo-msingi: 50).",
+    "err.not_a_dir": "Hitilafu: si saraka: {path}",
+    "msg.empty_dir": "(saraka tupu)",
+    "msg.paginate": "Ukurasa {page} kati ya {total_pages} (inaonyesha {count} kati ya maingizo {total})"
   },
   "nb": {
     "tool.description": "List oppføringer i en katalog med paginering, lik ls.",
@@ -318,7 +363,10 @@
     "param.path.description": "Katalog til liste (standard: gjeldende katalog). Alias av root_path.",
     "param.show_hidden.description": "Ta med skjulte elementer i listen.",
     "param.page.description": "Sidenummer å hente (standard: 1).",
-    "param.limit.description": "Maks antall elementer per side (standard: 50)."
+    "param.limit.description": "Maks antall elementer per side (standard: 50).",
+    "err.not_a_dir": "Feil: ikke en katalog: {path}",
+    "msg.empty_dir": "(tom katalog)",
+    "msg.paginate": "Side {page} av {total_pages} (viser {count} av {total} oppføringer)"
   },
   "nl": {
     "tool.description": "Toon items in een directory met paginering, vergelijkbaar met ls.",
@@ -337,7 +385,10 @@
     "param.path.description": "Map om weer te geven (standaard: huidige map).",
     "param.show_hidden.description": "Verborgen items opnemen in de lijst.",
     "param.page.description": "Paginanummer dat moet worden opgehaald (standaard: 1).",
-    "param.limit.description": "Maximaal aantal items per pagina (standaard: 50)."
+    "param.limit.description": "Maximaal aantal items per pagina (standaard: 50).",
+    "err.not_a_dir": "Fout: geen directory: {path}",
+    "msg.empty_dir": "(lege map)",
+    "msg.paginate": "Pagina {page} van {total_pages} (toont {count} van {total} vermeldingen)"
   },
   "fi": {
     "tool.description": "Listaa hakemiston kohteet ja palauta jäsennelty JSON.",
@@ -356,7 +407,10 @@
     "param.path.description": "Listattava hakemisto (oletus: nykyinen hakemisto). root_polun alias.",
     "param.show_hidden.description": "Sisällytä piilotetut kohteet listaan.",
     "param.page.description": "Haettava sivunumero (oletus: 1).",
-    "param.limit.description": "Sivua kohti palautettavien kohteiden enimmäismäärä (oletus: 50)."
+    "param.limit.description": "Sivua kohti palautettavien kohteiden enimmäismäärä (oletus: 50).",
+    "err.not_a_dir": "Virhe: ei hakemisto: {path}",
+    "msg.empty_dir": "(tyhjä hakemisto)",
+    "msg.paginate": "Sivu {page}/{total_pages} (näytetään {count}/{total} merkintää)"
   },
   "cs": {
     "tool.description": "Vypíše položky v adresáři a vrátí strukturovaný JSON.",
@@ -375,7 +429,10 @@
     "param.path.description": "Adresář k vypsání (výchozí: aktuální adresář).",
     "param.show_hidden.description": "Zahrnout do seznamu skryté položky.",
     "param.page.description": "Číslo stránky k načtení (výchozí: 1).",
-    "param.limit.description": "Maximální počet položek na stránku (výchozí: 50)."
+    "param.limit.description": "Maximální počet položek na stránku (výchozí: 50).",
+    "err.not_a_dir": "Chyba: nejde o adresář: {path}",
+    "msg.empty_dir": "(prázdný adresář)",
+    "msg.paginate": "Stránka {page} z {total_pages} (zobrazeno {count} z {total} záznamů)"
   },
   "uk": {
     "tool.description": "Список записів у каталозі з розбивкою на сторінки, подібно до ls.",
@@ -394,7 +451,10 @@
     "param.path.description": "Каталог для списку (за замовчуванням: поточний каталог). Псевдонім root_path.",
     "param.show_hidden.description": "Включати приховані елементи до списку.",
     "param.page.description": "Номер сторінки для отримання (за замовчуванням: 1).",
-    "param.limit.description": "Максимальна кількість записів для повернення на сторінку (за замовчуванням: 50)."
+    "param.limit.description": "Максимальна кількість записів для повернення на сторінку (за замовчуванням: 50).",
+    "err.not_a_dir": "Помилка: не каталог: {path}",
+    "msg.empty_dir": "(порожній каталог)",
+    "msg.paginate": "Сторінка {page} з {total_pages} (показано {count} з {total} записів)"
   },
   "tr": {
     "tool.description": "Bir dizindeki girişleri ls'ye benzer şekilde sayfalandırmayla listeleyin.",
@@ -413,7 +473,10 @@
     "param.path.description": "Listelenecek dizin (varsayılan: geçerli dizin).",
     "param.show_hidden.description": "Gizli öğeleri listeye dahil et.",
     "param.page.description": "Alınacak sayfa numarası (varsayılan: 1).",
-    "param.limit.description": "Sayfa başına döndürülecek maksimum öğe sayısı (varsayılan: 50)."
+    "param.limit.description": "Sayfa başına döndürülecek maksimum öğe sayısı (varsayılan: 50).",
+    "err.not_a_dir": "Hata: dizin değil: {path}",
+    "msg.empty_dir": "(boş dizin)",
+    "msg.paginate": "Sayfa {page} / {total_pages} ({count} / {total} giriş gösteriliyor)"
   },
   "th": {
     "tool.description": "แสดงรายการในไดเร็กทอรีที่มีการแบ่งหน้า คล้ายกับ ls",
@@ -432,7 +495,10 @@
     "param.path.description": "ไดเรกทอรีไปยังรายการ (ค่าเริ่มต้น: ไดเรกทอรีปัจจุบัน) นามแฝงของ root_path",
     "param.show_hidden.description": "รวมรายการที่ซ่อนอยู่ในรายการ.",
     "param.page.description": "หมายเลขหน้าที่จะดึงข้อมูล (ค่าเริ่มต้น: 1)",
-    "param.limit.description": "จำนวนรายการสูงสุดต่อหน้าที่ส่งกลับ (ค่าเริ่มต้น: 50)."
+    "param.limit.description": "จำนวนรายการสูงสุดต่อหน้าที่ส่งกลับ (ค่าเริ่มต้น: 50).",
+    "err.not_a_dir": "ข้อผิดพลาด: ไม่ใช่ไดเรกทอรี: {path}",
+    "msg.empty_dir": "(ไดเรกทอรีว่างเปล่า)",
+    "msg.paginate": "หน้า {page} จาก {total_pages} (แสดง {count} จาก {total} รายการ)"
   },
   "zh_CN": {
     "tool.description": "列出目录内容（支持分页）。",
@@ -451,7 +517,10 @@
     "param.path.description": "要列出的目录（默认：当前目录）。root_path 的别名。",
     "param.show_hidden.description": "在列表中包含隐藏条目。",
     "param.page.description": "要获取的页码（默认：1）。",
-    "param.limit.description": "每页返回的最大条目数（默认：50）。"
+    "param.limit.description": "每页返回的最大条目数（默认：50）。",
+    "err.not_a_dir": "错误：不是目录：{path}",
+    "msg.empty_dir": "（空目录）",
+    "msg.paginate": "第 {page} 页，共 {total_pages} 页（显示第 {count} 页，共 {total} 个条目）"
   },
   "zh_TW": {
     "tool.description": "列出目录内容（支持分页）。",
@@ -470,7 +539,10 @@
     "param.path.description": "要列出的目錄（預設：目前目錄）。root_path 的別名。",
     "param.show_hidden.description": "在列表中包含隱藏項目。",
     "param.page.description": "要取得的頁碼（預設：1）。",
-    "param.limit.description": "每頁要傳回的最大項目數（預設：50）。"
+    "param.limit.description": "每頁要傳回的最大項目數（預設：50）。",
+    "err.not_a_dir": "錯誤：不是目錄：{path}",
+    "msg.empty_dir": "（空目錄）",
+    "msg.paginate": "第 {page} 頁，共 {total_pages} 頁（顯示第 {count} 頁，共 {total} 個項目）"
   },
   "bn": {
     "tool.description": "একটি ডিরেক্টরিতে তালিকাভুক্ত এন্ট্রি পেজিনেশন সহ, ls এর মতো।",
@@ -489,7 +561,10 @@
     "param.path.description": "তালিকাভুক্ত ডিরেক্টরি (ডিফল্ট: বর্তমান ডিরেক্টরি)। root_path এর উপনাম।",
     "param.show_hidden.description": "তালিকায় লুকানো এন্ট্রি অন্তর্ভুক্ত করুন।",
     "param.page.description": "যে পৃষ্ঠাটি নিতে হবে (ডিফল্ট: 1).",
-    "param.limit.description": "প্রতি পৃষ্ঠায় ফেরত দেওয়া সর্বোচ্চ আইটেম সংখ্যা (ডিফল্ট: 50)."
+    "param.limit.description": "প্রতি পৃষ্ঠায় ফেরত দেওয়া সর্বোচ্চ আইটেম সংখ্যা (ডিফল্ট: 50).",
+    "err.not_a_dir": "ত্রুটি: একটি ডিরেক্টরি নয়: {path}",
+    "msg.empty_dir": "(খালি ডিরেক্টরি)",
+    "msg.paginate": "{total_pages}-এর {page} ({total} এন্ট্রিগুলির {count} দেখানো হচ্ছে)"
   },
   "fa": {
     "tool.description": "آیتم‌های یک پوشه را فهرست کنید و JSON ساخت‌یافته برگردانید.",
@@ -508,7 +583,10 @@
     "param.path.description": "فهرست (پیش‌فرض: فهرست فعلی). نام مستعار root_path.",
     "param.show_hidden.description": "آیتم‌های مخفی را هم در فهرست شامل کنید.",
     "param.page.description": "شماره صفحه برای بازیابی (پیش‌فرض: 1).",
-    "param.limit.description": "حداکثر تعداد آیتم در هر صفحه (پیش‌فرض: 50)."
+    "param.limit.description": "حداکثر تعداد آیتم در هر صفحه (پیش‌فرض: 50).",
+    "err.not_a_dir": "خطا: دایرکتوری نیست: {path}",
+    "msg.empty_dir": "(دایرکتوری خالی)",
+    "msg.paginate": "صفحه {page} از {total_pages} (نمایش ورودی های {count} از {total})"
   },
   "mn": {
     "tool.description": "Лавлахын зүйлсийг жагсааж, бүтэцлэгдсэн JSON буцаана.",
@@ -527,7 +605,10 @@
     "param.path.description": "Жагсаах лавлах (анхдагч: одоогийн лавлах).",
     "param.show_hidden.description": "Нуусан зүйлсийг жагсаалтад оруулна.",
     "param.page.description": "Авах хуудасны дугаар (анхдагч: 1).",
-    "param.limit.description": "Хуудас бүрт буцаах хамгийн их зүйлсийн тоо (анхдагч: 50)."
+    "param.limit.description": "Хуудас бүрт буцаах хамгийн их зүйлсийн тоо (анхдагч: 50).",
+    "err.not_a_dir": "Алдаа: лавлах биш: {path}",
+    "msg.empty_dir": "(хоосон лавлах)",
+    "msg.paginate": "{total_pages} хуудасны {page} хуудас ({total} бичлэгийн {count}-г харуулж байна)"
   },
   "mr": {
     "tool.description": "ls प्रमाणेच पृष्ठांकन असलेल्या निर्देशिकेतील नोंदी सूचीबद्ध करा.",
@@ -546,7 +627,10 @@
     "param.path.description": "सूचीसाठी निर्देशिका (डीफॉल्ट: वर्तमान निर्देशिका). रूट_पथचे उपनाव.",
     "param.show_hidden.description": "लपलेले घटक यादीत समाविष्ट करा.",
     "param.page.description": "घ्यायचा पृष्ठ क्रमांक (डीफॉल्ट: 1).",
-    "param.limit.description": "प्रति पृष्ठ परत द्यायची कमाल घटकसंख्या (डीफॉल्ट: 50)."
+    "param.limit.description": "प्रति पृष्ठ परत द्यायची कमाल घटकसंख्या (डीफॉल्ट: 50).",
+    "err.not_a_dir": "त्रुटी: निर्देशिका नाही: {path}",
+    "msg.empty_dir": "(रिक्त निर्देशिका)",
+    "msg.paginate": "पृष्ठ {total_pages} पैकी {page} ({total} पैकी {count} दर्शवित आहे)"
   },
   "el": {
     "tool.description": "Καταχωρήσεις λίστας σε έναν κατάλογο με σελιδοποίηση, παρόμοια με το ls.",
@@ -563,9 +647,12 @@
       "folder contents"
     ],
     "param.path.description": "Μέγιστος αριθμός καταχωρήσεων προς επιστροφή ανά σελίδα (προεπιλογή: 50).",
-    "param.show_hidden.description": "[list_dir error] Ο κατάλογος δεν υπάρχει: {path}",
+    "param.show_hidden.description": "Συμπεριλάβετε κρυφές καταχωρήσεις στην καταχώριση.",
     "param.page.description": "Αριθμός σελίδας προς ανάκτηση (προεπιλογή: 1).",
-    "param.limit.description": "[list_dir error] Η διαδρομή δεν είναι κατάλογος: {path}"
+    "param.limit.description": "Μέγιστος αριθμός καταχωρήσεων προς επιστροφή ανά σελίδα (προεπιλογή: 50).",
+    "err.not_a_dir": "Σφάλμα: δεν είναι κατάλογος: {path}",
+    "msg.empty_dir": "(κενός κατάλογος)",
+    "msg.paginate": "Σελίδα {page} από {total_pages} (εμφανίζει {count} από {total} καταχωρήσεις)"
   },
   "he": {
     "tool.description": "ארגומנטים נוספים (מערך). דחה דמויות מטא מסוכנות.",
@@ -584,7 +671,10 @@
     "param.path.description": "ספרייה לרשימה (ברירת מחדל: ספרייה נוכחית). כינוי של root_path.",
     "param.show_hidden.description": "ספרייה לרשימה (ברירת מחדל: ספרייה נוכחית). כינוי של root_path.",
     "param.page.description": "מספר עמוד לאחזור (ברירת מחדל: 1).",
-    "param.limit.description": "כלול ערכים נסתרים ברישום."
+    "param.limit.description": "כלול ערכים נסתרים ברישום.",
+    "err.not_a_dir": "שגיאה: לא ספריה: {path}",
+    "msg.empty_dir": "(ספרייה ריקה)",
+    "msg.paginate": "עמוד {page} מתוך {total_pages} (מציג {count} מתוך {total} ערכים)"
   },
   "hu": {
     "tool.description": "Az ls-hez hasonló oldalszámozással rendelkező könyvtár bejegyzéseinek listázása.",
@@ -603,7 +693,10 @@
     "param.path.description": "Lista könyvtár (alapértelmezett: jelenlegi könyvtár). A gyökér_útvonal álneve.",
     "param.show_hidden.description": "Rejtett bejegyzések szerepeltetése az adatlapon.",
     "param.page.description": "Keressen egy mintát a fájlokban, és adja vissza a megfelelő sorokat sorszámokkal (például grep -n). Minta szükséges.",
-    "param.limit.description": "Oldalanként visszaküldhető bejegyzések maximális száma (alapértelmezett: 50)."
+    "param.limit.description": "Oldalanként visszaküldhető bejegyzések maximális száma (alapértelmezett: 50).",
+    "err.not_a_dir": "Hiba: nem könyvtár: {path}",
+    "msg.empty_dir": "(üres könyvtár)",
+    "msg.paginate": "{total_pages}/{page}. oldal ({total}/{count} bejegyzés megjelenítése)"
   },
   "ro": {
     "tool.description": "Listează intrările dintr-un director cu paginare, similar cu ls.",
@@ -622,6 +715,9 @@
     "param.path.description": "Includeți intrări ascunse în listă.",
     "param.show_hidden.description": "Numărul maxim de intrări de returnat pe pagină (implicit: 50).",
     "param.page.description": "Director rădăcină sau cale de fișier specifică (implicit: „.”).",
-    "param.limit.description": "[list_dir error] Directorul nu există: {path}"
+    "param.limit.description": "Numărul maxim de intrări de returnat pe pagină (implicit: 50).",
+    "err.not_a_dir": "Eroare: nu este un director: {path}",
+    "msg.empty_dir": "(director gol)",
+    "msg.paginate": "Pagina {page} din {total_pages} (afișează {count} din {total} intrări)"
   }
 }

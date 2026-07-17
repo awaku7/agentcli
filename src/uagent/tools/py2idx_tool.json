@@ -77,7 +77,11 @@
     "err.section_invalid": "错误：'section' 必须是整数。",
     "err.section_not_found": "错误：章节 {section_num} 未找到。有效范围：1..{last}。",
     "err.invalid_mode": "错误：无效模式 '{mode}'。请使用 'index' 或 'section'。",
-    "msg.no_entries": "（未找到公共定义）"
+    "msg.no_entries": "（未找到公共定义）",
+    "param.mode.description": "“index”返回带有行号的编号目录。 “section”按数字返回特定定义。",
+    "param.section.description": "要检索的节号（仅当 mode='section' 时使用）。从索引输出中获取数字。",
+    "msg.index_output": "索引：{path}\n---\n{toc}\n---\n总定义：{total}\n要检索定义，请使用 mode='section' 和节号调用 py2idx。",
+    "tool.description": "将 Python 文件解析为函数、类和方法，并返回编号索引或特定定义部分。当您需要读取大型 Python 文件时，请使用此方法：首先使用 mode='index' 调用以获取目录，然后使用 mode='section' 和节号调用以仅检索您需要的定义。与读取整个文件相比，这可以节省令牌。"
   },
   "zh_TW": {
     "x_search_terms": [
@@ -101,7 +105,11 @@
     "err.section_invalid": "錯誤：'section' 必須是整數。",
     "err.section_not_found": "錯誤：章節 {section_num} 找不到。有效範圍：1..{last}。",
     "err.invalid_mode": "錯誤：無效模式 '{mode}'。請使用 'index' 或 'section'。",
-    "msg.no_entries": "（未找到公共定義）"
+    "msg.no_entries": "（未找到公共定義）",
+    "param.mode.description": "“index”傳回帶有行號的編號目錄。 “section”按數字返回特定定義。",
+    "param.section.description": "要檢索的節號（僅當 mode='section' 時使用）。從索引輸出中取得數字。",
+    "msg.index_output": "索引：{path}\n---\n{toc}\n---\n總定義：{total}\n要檢索定義，請使用 mode='section' 和節號呼叫 py2idx。",
+    "tool.description": "將 Python 檔案解析為函數、類別和方法，並傳回編號索引或特定定義部分。當您需要讀取大型 Python 檔案時，請使用此方法：首先使用 mode='index' 呼叫以取得目錄，然後使用 mode='section' 和節號呼叫以僅檢索您需要的定義。與讀取整個文件相比，這可以節省令牌。"
   },
   "ko": {
     "x_search_terms": [
@@ -125,7 +133,11 @@
     "err.section_invalid": "오류: 'section'은 정수여야 합니다.",
     "err.section_not_found": "오류: 섹션 {section_num}을(를) 찾을 수 없습니다. 유효 범위: 1..{last}.",
     "err.invalid_mode": "오류: 잘못된 모드 '{mode}'입니다. 'index' 또는 'section'을 사용하세요.",
-    "msg.no_entries": "(공개 정의를 찾을 수 없음)"
+    "msg.no_entries": "(공개 정의를 찾을 수 없음)",
+    "param.mode.description": "\"index\"는 줄 번호와 함께 번호가 매겨진 목차를 반환합니다. \"section\"은 숫자로 특정 정의를 반환합니다.",
+    "param.section.description": "검색할 섹션 번호(mode='section'인 경우에만 사용됨). 인덱스 출력에서 ​​숫자를 가져옵니다.",
+    "msg.index_output": "색인: {path}\n---\n{toc}\n---\n전체 정의: {total}\n정의를 검색하려면 mode='section' 및 섹션 번호를 사용하여 py2idx를 호출하세요.",
+    "tool.description": "Python 파일을 함수, 클래스 및 메서드로 구문 분석하고 번호가 매겨진 인덱스 또는 특정 정의 섹션을 반환합니다. 큰 Python 파일을 읽어야 할 때 이것을 사용하십시오. 먼저 mode='index'로 호출하여 목차를 가져온 다음 mode='section'과 섹션 번호로 호출하여 필요한 정의만 검색하십시오. 이렇게 하면 전체 파일을 읽는 것에 비해 토큰이 절약됩니다."
   },
   "fr": {
     "x_search_terms": [
@@ -149,7 +161,11 @@
     "err.section_invalid": "Erreur : 'section' doit être un entier.",
     "err.section_not_found": "Erreur : Section {section_num} introuvable. Plage valide : 1..{last}.",
     "err.invalid_mode": "Erreur : Mode '{mode}' invalide. Utilisez 'index' ou 'section'.",
-    "msg.no_entries": "(aucune définition publique trouvée)"
+    "msg.no_entries": "(aucune définition publique trouvée)",
+    "param.mode.description": "\"index\" renvoie une table des matières numérotée avec des numéros de ligne. \"section\" renvoie une définition spécifique par numéro.",
+    "param.section.description": "Numéro de section à récupérer (utilisé uniquement lorsque mode='section'). Obtenez le numéro de la sortie d’index.",
+    "msg.index_output": "Index pour : {path}\n---\n{toc}\n---\nTotal des définitions : {total}\nPour récupérer une définition, appelez py2idx avec mode='section' et le numéro de section.",
+    "tool.description": "Analysez un fichier Python en fonctions, classes et méthodes et renvoyez un index numéroté ou une section de définition spécifique. Utilisez-le lorsque vous avez besoin de lire un gros fichier Python : appelez d'abord avec mode='index' pour obtenir la table des matières, puis appelez avec mode='section' et le numéro de section pour récupérer uniquement la définition dont vous avez besoin. Cela permet d'économiser des jetons par rapport à la lecture de l'intégralité du fichier."
   },
   "de": {
     "x_search_terms": [
@@ -173,7 +189,11 @@
     "err.section_invalid": "Fehler: 'section' muss eine Ganzzahl sein.",
     "err.section_not_found": "Fehler: Abschnitt {section_num} nicht gefunden. Gültiger Bereich: 1..{last}.",
     "err.invalid_mode": "Fehler: Ungültiger Modus '{mode}'. Verwenden Sie 'index' oder 'section'.",
-    "msg.no_entries": "(keine öffentlichen Definitionen gefunden)"
+    "msg.no_entries": "(keine öffentlichen Definitionen gefunden)",
+    "param.mode.description": "„index“ gibt ein nummeriertes Inhaltsverzeichnis mit Zeilennummern zurück. „Abschnitt“ gibt eine bestimmte Definition anhand der Nummer zurück.",
+    "param.section.description": "Nummer des abzurufenden Abschnitts (wird nur verwendet, wenn mode='section'). Rufen Sie die Nummer aus der Indexausgabe ab.",
+    "msg.index_output": "Index für: {path}\n---\n{toc}\n---\nGesamtdefinitionen: {total}\nUm eine Definition abzurufen, rufen Sie py2idx mit mode='section' und der Abschnittsnummer auf.",
+    "tool.description": "Analysieren Sie eine Python-Datei in Funktionen, Klassen und Methoden und geben Sie einen nummerierten Index oder einen bestimmten Definitionsabschnitt zurück. Verwenden Sie dies, wenn Sie eine große Python-Datei lesen müssen: Rufen Sie zuerst mit mode='index' auf, um das Inhaltsverzeichnis abzurufen, und rufen Sie dann mit mode='section' und der Abschnittsnummer auf, um nur die Definition abzurufen, die Sie benötigen. Dies spart Token im Vergleich zum Lesen der gesamten Datei."
   },
   "es": {
     "x_search_terms": [
@@ -197,7 +217,11 @@
     "err.section_invalid": "Error: 'section' debe ser un entero.",
     "err.section_not_found": "Error: Sección {section_num} no encontrada. Rango válido: 1..{last}.",
     "err.invalid_mode": "Error: Modo '{mode}' inválido. Use 'index' o 'section'.",
-    "msg.no_entries": "(no se encontraron definiciones públicas)"
+    "msg.no_entries": "(no se encontraron definiciones públicas)",
+    "msg.index_output": "Índice para: {path}\n---\n{toc}\n---\nDefiniciones totales: {total}\nPara recuperar una definición, llame a py2idx con mode='sección' y el número de sección.",
+    "param.mode.description": "\"índice\" devuelve una tabla de contenido numerada con números de línea. \"sección\" devuelve una definición específica por número.",
+    "param.section.description": "Número de sección a recuperar (usado solo cuando modo='sección'). Obtenga el número de la salida del índice.",
+    "tool.description": "Analiza un archivo Python en funciones, clases y métodos y devuelve un índice numerado o una sección de definición específica. Use esto cuando necesite leer un archivo Python grande: primero llame con mode='index' para obtener la tabla de contenido, luego llame con mode='section' y el número de sección para recuperar solo la definición que necesita. Esto ahorra tokens en comparación con leer el archivo completo."
   },
   "it": {
     "x_search_terms": [
@@ -221,7 +245,11 @@
     "err.section_invalid": "Errore: 'section' deve essere un intero.",
     "err.section_not_found": "Errore: Sezione {section_num} non trovata. Intervallo valido: 1..{last}.",
     "err.invalid_mode": "Errore: Modalità '{mode}' non valida. Usa 'index' o 'section'.",
-    "msg.no_entries": "(nessuna definizione pubblica trovata)"
+    "msg.no_entries": "(nessuna definizione pubblica trovata)",
+    "param.mode.description": "\"index\" restituisce un sommario numerato con numeri di riga. \"sezione\" restituisce una definizione specifica per numero.",
+    "param.section.description": "Numero di sezione da recuperare (utilizzato solo quando mode='section'). Ottieni il numero dall'output dell'indice.",
+    "msg.index_output": "Indice per: {path}\n---\n{toc}\n---\nDefinizioni totali: {total}\nPer recuperare una definizione, chiama py2idx con mode='section' e il numero della sezione.",
+    "tool.description": "Analizza un file Python in funzioni, classi e metodi e restituisce un indice numerato o una sezione di definizione specifica. Usalo quando devi leggere un file Python di grandi dimensioni: chiama prima con mode='index' per ottenere il sommario, quindi chiama con mode='section' e il numero di sezione per recuperare solo la definizione che ti serve. Ciò consente di risparmiare token rispetto alla lettura dell'intero file."
   },
   "pt_BR": {
     "x_search_terms": [
@@ -245,7 +273,11 @@
     "err.section_invalid": "Erro: 'section' deve ser um inteiro.",
     "err.section_not_found": "Erro: Seção {section_num} não encontrada. Intervalo válido: 1..{last}.",
     "err.invalid_mode": "Erro: Modo '{mode}' inválido. Use 'index' ou 'section'.",
-    "msg.no_entries": "(nenhuma definição pública encontrada)"
+    "msg.no_entries": "(nenhuma definição pública encontrada)",
+    "param.mode.description": "\"índice\" retorna um índice numerado com números de linha. \"seção\" retorna uma definição específica por número.",
+    "param.section.description": "Número da seção a ser recuperada (usado somente quando mode='section'). Obtenha o número da saída do índice.",
+    "msg.index_output": "Índice para: {path}\n---\n{toc}\n---\nTotal de definições: {total}\nPara recuperar uma definição, chame py2idx com mode='section' e o número da seção.",
+    "tool.description": "Analise um arquivo Python em funções, classes e métodos e retorne um índice numerado ou uma seção de definição específica. Use isto quando precisar ler um arquivo Python grande: primeiro chame com mode='index' para obter o índice, depois chame com mode='section' e o número da seção para recuperar apenas a definição necessária. Isso economiza tokens em comparação com a leitura do arquivo inteiro."
   },
   "pt": {
     "x_search_terms": [
@@ -269,7 +301,11 @@
     "err.section_invalid": "Erro: 'section' deve ser um inteiro.",
     "err.section_not_found": "Erro: Secção {section_num} não encontrada. Intervalo válido: 1..{last}.",
     "err.invalid_mode": "Erro: Modo '{mode}' inválido. Use 'index' ou 'section'.",
-    "msg.no_entries": "(nenhuma definição pública encontrada)"
+    "msg.no_entries": "(nenhuma definição pública encontrada)",
+    "param.mode.description": "\"índice\" retorna um índice numerado com números de linha. \"seção\" retorna uma definição específica por número.",
+    "param.section.description": "Número da seção a ser recuperada (usado somente quando mode='section'). Obtenha o número da saída do índice.",
+    "msg.index_output": "Índice para: {path}\n---\n{toc}\n---\nTotal de definições: {total}\nPara recuperar uma definição, chame py2idx com mode='section' e o número da seção.",
+    "tool.description": "Analise um arquivo Python em funções, classes e métodos e retorne um índice numerado ou uma seção de definição específica. Use isto quando precisar ler um arquivo Python grande: primeiro chame com mode='index' para obter o índice, depois chame com mode='section' e o número da seção para recuperar apenas a definição necessária. Isso economiza tokens em comparação com a leitura do arquivo inteiro."
   },
   "ru": {
     "x_search_terms": [
@@ -293,7 +329,11 @@
     "err.section_invalid": "Ошибка: 'section' должно быть целым числом.",
     "err.section_not_found": "Ошибка: Раздел {section_num} не найден. Допустимый диапазон: 1..{last}.",
     "err.invalid_mode": "Ошибка: Недопустимый режим '{mode}'. Используйте 'index' или 'section'.",
-    "msg.no_entries": "(публичные определения не найдены)"
+    "msg.no_entries": "(публичные определения не найдены)",
+    "param.mode.description": "«index» возвращает пронумерованное оглавление с номерами строк. «раздел» возвращает конкретное определение по номеру.",
+    "param.section.description": "Номер раздела, который требуется получить (используется только в том случае, если mode='section'). Получите число из вывода индекса.",
+    "msg.index_output": "Индекс для: {path}\n---\n{toc}\n---\nВсего определений: {total}\nЧтобы получить определение, вызовите py2idx с mode='section' и номером раздела.",
+    "tool.description": "Разберите файл Python на функции, классы и методы и верните нумерованный индекс или конкретный раздел определения. Используйте это, когда вам нужно прочитать большой файл Python: сначала вызовите с mode='index', чтобы получить оглавление, затем вызовите с mode='section' и номером раздела, чтобы получить только то определение, которое вам нужно. Это экономит токены по сравнению с чтением всего файла."
   },
   "id": {
     "x_search_terms": [
@@ -317,7 +357,11 @@
     "err.section_invalid": "Error: 'section' harus berupa bilangan bulat.",
     "err.section_not_found": "Error: Bagian {section_num} tidak ditemukan. Rentang valid: 1..{last}.",
     "err.invalid_mode": "Error: Mode '{mode}' tidak valid. Gunakan 'index' atau 'section'.",
-    "msg.no_entries": "(tidak ada definisi umum yang ditemukan)"
+    "msg.no_entries": "(tidak ada definisi umum yang ditemukan)",
+    "param.mode.description": "\"indeks\" mengembalikan daftar isi bernomor dengan nomor baris. \"bagian\" mengembalikan definisi spesifik berdasarkan nomor.",
+    "param.section.description": "Nomor bagian yang akan diambil (hanya digunakan ketika mode='bagian'). Dapatkan nomor dari output indeks.",
+    "msg.index_output": "Indeks untuk: {path}\n---\n{toc}\n---\nTotal definisi: {total}\nUntuk mengambil definisi, panggil py2idx dengan mode='section' dan nomor bagian.",
+    "tool.description": "Parsing file Python menjadi fungsi, kelas, dan metode dan kembalikan indeks bernomor atau bagian definisi tertentu. Gunakan ini ketika Anda perlu membaca file Python besar: panggilan pertama dengan mode='index' untuk mendapatkan daftar isi, kemudian panggil dengan mode='section' dan nomor bagian untuk mengambil definisi yang Anda perlukan saja. Ini menghemat token dibandingkan dengan membaca seluruh file."
   },
   "vi": {
     "x_search_terms": [
@@ -341,7 +385,11 @@
     "err.section_invalid": "Lỗi: 'section' phải là số nguyên.",
     "err.section_not_found": "Lỗi: Phần {section_num} không tìm thấy. Phạm vi hợp lệ: 1..{last}.",
     "err.invalid_mode": "Lỗi: Chế độ '{mode}' không hợp lệ. Sử dụng 'index' hoặc 'section'.",
-    "msg.no_entries": "(không tìm thấy định nghĩa công khai)"
+    "msg.no_entries": "(không tìm thấy định nghĩa công khai)",
+    "param.mode.description": "\"index\" trả về một mục lục được đánh số cùng với số dòng. \"phần\" trả về một định nghĩa cụ thể theo số.",
+    "param.section.description": "Số phần cần truy xuất (chỉ được sử dụng khi mode='section'). Lấy số từ đầu ra chỉ mục.",
+    "msg.index_output": "Chỉ mục cho: {path}\n---\n{toc}\n---\nTổng định nghĩa: {total}\nĐể truy xuất định nghĩa, hãy gọi py2idx với mode='section' và số phần.",
+    "tool.description": "Phân tích tệp Python thành các hàm, lớp và phương thức rồi trả về một chỉ mục được đánh số hoặc một phần định nghĩa cụ thể. Sử dụng tính năng này khi bạn cần đọc một tệp Python lớn: trước tiên hãy gọi bằng mode='index' để lấy mục lục, sau đó gọi bằng mode='section' và số phần để chỉ truy xuất định nghĩa bạn cần. Điều này tiết kiệm mã thông báo so với việc đọc toàn bộ tệp."
   },
   "pl": {
     "x_search_terms": [
@@ -365,7 +413,11 @@
     "err.section_invalid": "Błąd: 'section' musi być liczbą całkowitą.",
     "err.section_not_found": "Błąd: Sekcja {section_num} nie znaleziona. Prawidłowy zakres: 1..{last}.",
     "err.invalid_mode": "Błąd: Nieprawidłowy tryb '{mode}'. Użyj 'index' lub 'section'.",
-    "msg.no_entries": "(nie znaleziono publicznych definicji)"
+    "msg.no_entries": "(nie znaleziono publicznych definicji)",
+    "param.mode.description": "„indeks” zwraca numerowany spis treści z numerami wierszy. „sekcja” zwraca konkretną definicję według numeru.",
+    "param.section.description": "Numer sekcji do pobrania (używany tylko wtedy, gdy tryb = „sekcja”). Pobierz liczbę z wyniku indeksu.",
+    "msg.index_output": "Indeks dla: {path}\n---\n{toc}\n---\nWszystkie definicje: {total}\nAby pobrać definicję, wywołaj py2idx z mode='section' i numerem sekcji.",
+    "tool.description": "Przeanalizuj plik Pythona na funkcje, klasy i metody i zwróć numerowany indeks lub określoną sekcję definicji. Użyj tego, gdy chcesz przeczytać duży plik Pythona: najpierw wywołaj mode='index', aby uzyskać spis treści, następnie wywołaj mode='section' i numer sekcji, aby pobrać tylko potrzebną definicję. Oszczędza to tokeny w porównaniu do odczytu całego pliku."
   },
   "hi": {
     "x_search_terms": [
@@ -389,7 +441,11 @@
     "err.section_invalid": "त्रुटि: 'section' एक पूर्णांक होना चाहिए।",
     "err.section_not_found": "त्रुटि: अनुभाग {section_num} नहीं मिला। मान्य सीमा: 1..{last}।",
     "err.invalid_mode": "त्रुटि: अमान्य मोड '{mode}'। 'index' या 'section' का उपयोग करें।",
-    "msg.no_entries": "(कोई सार्वजनिक परिभाषा नहीं मिली)"
+    "msg.no_entries": "(कोई सार्वजनिक परिभाषा नहीं मिली)",
+    "param.mode.description": "\"सूचकांक\" पंक्ति संख्याओं के साथ सामग्री की एक क्रमांकित तालिका लौटाता है। \"अनुभाग\" संख्या के आधार पर एक विशिष्ट परिभाषा लौटाता है।",
+    "param.section.description": "पुनः प्राप्त करने के लिए अनुभाग संख्या (केवल तभी उपयोग की जाती है जब mode='section')। इंडेक्स आउटपुट से नंबर प्राप्त करें।",
+    "msg.index_output": "इसके लिए सूचकांक: {path}\n---\n{toc}\n---\nकुल परिभाषाएँ: {total}\nकिसी परिभाषा को पुनः प्राप्त करने के लिए, py2idx को mode='section' और सेक्शन नंबर के साथ कॉल करें।",
+    "tool.description": "पायथन फ़ाइल को फ़ंक्शंस, कक्षाओं और विधियों में पार्स करें और एक क्रमांकित इंडेक्स या एक विशिष्ट परिभाषा अनुभाग लौटाएं। जब आपको एक बड़ी पायथन फ़ाइल को पढ़ने की आवश्यकता हो तो इसका उपयोग करें: सामग्री की तालिका प्राप्त करने के लिए पहले mode='index' के साथ कॉल करें, फिर केवल वही परिभाषा प्राप्त करने के लिए mode='section' और अनुभाग संख्या के साथ कॉल करें जिसकी आपको आवश्यकता है। यह संपूर्ण फ़ाइल को पढ़ने की तुलना में टोकन बचाता है।"
   },
   "ar": {
     "x_search_terms": [
@@ -413,7 +469,11 @@
     "err.section_invalid": "خطأ: 'section' يجب أن يكون عددًا صحيحًا.",
     "err.section_not_found": "خطأ: القسم {section_num} غير موجود. النطاق الصالح: 1..{last}.",
     "err.invalid_mode": "خطأ: الوضع '{mode}' غير صالح. استخدم 'index' أو 'section'.",
-    "msg.no_entries": "(لم يتم العثور على تعريفات عامة)"
+    "msg.no_entries": "(لم يتم العثور على تعريفات عامة)",
+    "param.mode.description": "يقوم \"الفهرس\" بإرجاع جدول محتويات مرقّم بأرقام الأسطر. يقوم \"القسم\" بإرجاع تعريف محدد حسب الرقم.",
+    "param.section.description": "رقم القسم المطلوب استرداده (يُستخدم فقط عندما يكون الوضع='القسم'). الحصول على الرقم من إخراج الفهرس.",
+    "msg.index_output": "فهرس لـ: {path}\n---\n{toc}\n---\nإجمالي التعريفات: {total}\nلاسترداد تعريف، اتصل بـ py2idx مع mode='section' ورقم القسم.",
+    "tool.description": "قم بتحليل ملف Python إلى وظائف وفئات وأساليب وإرجاع فهرس مرقّم أو قسم تعريف محدد. استخدم هذا عندما تحتاج إلى قراءة ملف بايثون كبير: اتصل أولاً بـ mode='index' للحصول على جدول المحتويات، ثم اتصل بـ mode='section' ورقم القسم لاسترداد التعريف الذي تحتاجه فقط. يؤدي هذا إلى حفظ الرموز المميزة مقارنة بقراءة الملف بأكمله."
   },
   "sv": {
     "x_search_terms": [
@@ -437,7 +497,11 @@
     "err.section_invalid": "Fel: 'section' måste vara ett heltal.",
     "err.section_not_found": "Fel: Avsnitt {section_num} hittades inte. Giltigt intervall: 1..{last}.",
     "err.invalid_mode": "Fel: Ogiltigt läge '{mode}'. Använd 'index' eller 'section'.",
-    "msg.no_entries": "(inga offentliga definitioner hittades)"
+    "msg.no_entries": "(inga offentliga definitioner hittades)",
+    "param.mode.description": "\"index\" returnerar en numrerad innehållsförteckning med radnummer. \"sektion\" returnerar en specifik definition med nummer.",
+    "param.section.description": "Sektionsnummer att hämta (används endast när mode='sektion'). Få numret från indexutgången.",
+    "msg.index_output": "Index för: {path}\n---\n{toc}\n---\nTotala definitioner: {total}\nFör att hämta en definition, ring py2idx med mode='section' och sektionsnumret.",
+    "tool.description": "Analysera en Python-fil i funktioner, klasser och metoder och returnera ett numrerat index eller en specifik definitionssektion. Använd detta när du behöver läsa en stor Python-fil: anrop först med mode='index' för att få innehållsförteckningen, ring sedan med mode='section' och sektionsnumret för att bara hämta den definition du behöver. Detta sparar tokens jämfört med att läsa hela filen."
   },
   "sw": {
     "x_search_terms": [
@@ -461,7 +525,11 @@
     "err.section_invalid": "Hitilafu: 'sehemu' lazima iwe nambari kamili.",
     "err.section_not_found": "Hitilafu: Sehemu ya {section_num} haijapatikana. Masafa halali: 1..{last}.",
     "err.invalid_mode": "Hitilafu: Hali batili '{mode}'. Tumia 'index' au 'section'.",
-    "msg.no_entries": "(hakuna ufafanuzi wa umma uliopatikana)"
+    "msg.no_entries": "(hakuna ufafanuzi wa umma uliopatikana)",
+    "param.mode.description": "\"index\" hurejesha jedwali la yaliyomo lenye nambari na nambari za mstari. \"sehemu\" inarudisha ufafanuzi maalum kwa nambari.",
+    "param.section.description": "Nambari ya sehemu ya kurejesha (inatumika tu wakati mode='sehemu'). Pata nambari kutoka kwa matokeo ya faharisi.",
+    "msg.index_output": "Kielezo cha: {path}\n---\n{toc}\n---\n Jumla ya ufafanuzi: {total}\nIli kupata ufafanuzi, piga py2idx ukitumia mode='section' na nambari ya sehemu.",
+    "tool.description": "Changanua faili ya Python kuwa kazi, madarasa, na mbinu na urudishe faharisi iliyohesabiwa au sehemu maalum ya ufafanuzi. Tumia hii unapohitaji kusoma faili kubwa ya Python: kwanza piga simu na mode='index' ili kupata jedwali la yaliyomo, kisha piga simu na mode='sehemu' na nambari ya sehemu ili kupata ufafanuzi unaohitaji tu. Hii huokoa tokeni ikilinganishwa na kusoma faili nzima."
   },
   "nb": {
     "x_search_terms": [
@@ -485,7 +553,11 @@
     "err.section_invalid": "Feil: 'section' må være et heltall.",
     "err.section_not_found": "Feil: Seksjon {section_num} ble ikke funnet. Gyldig område: 1..{last}.",
     "err.invalid_mode": "Feil: Ugyldig modus '{mode}'. Bruk 'index' eller 'section'.",
-    "msg.no_entries": "(ingen offentlige definisjoner funnet)"
+    "msg.no_entries": "(ingen offentlige definisjoner funnet)",
+    "param.mode.description": "\"indeks\" returnerer en nummerert innholdsfortegnelse med linjenummer. \"seksjon\" returnerer en spesifikk definisjon etter tall.",
+    "param.section.description": "Seksjonsnummer å hente (brukes bare når modus='seksjon'). Få tallet fra indeksutgangen.",
+    "msg.index_output": "Indeks for: {path}\n---\n{toc}\n---\nTotale definisjoner: {total}\nFor å hente en definisjon, ring py2idx med mode='section' og seksjonsnummeret.",
+    "tool.description": "Parse en Python-fil i funksjoner, klasser og metoder og returner en nummerert indeks eller en spesifikk definisjonsseksjon. Bruk dette når du trenger å lese en stor Python-fil: ring først med mode='index' for å få innholdsfortegnelsen, ring deretter med mode='section' og seksjonsnummeret for å hente kun definisjonen du trenger. Dette sparer tokens sammenlignet med å lese hele filen."
   },
   "nl": {
     "x_search_terms": [
@@ -509,7 +581,11 @@
     "err.section_invalid": "Fout: 'section' moet een geheel getal zijn.",
     "err.section_not_found": "Fout: Sectie {section_num} niet gevonden. Geldig bereik: 1..{last}.",
     "err.invalid_mode": "Fout: Ongeldige modus '{mode}'. Gebruik 'index' of 'section'.",
-    "msg.no_entries": "(geen openbare definities gevonden)"
+    "msg.no_entries": "(geen openbare definities gevonden)",
+    "param.mode.description": "\"index\" retourneert een genummerde inhoudsopgave met regelnummers. \"sectie\" retourneert een specifieke definitie op nummer.",
+    "param.section.description": "Op te halen sectienummer (alleen gebruikt wanneer mode='sectie'). Haal het nummer op uit de indexuitvoer.",
+    "msg.index_output": "Index voor: {path}\n---\n{toc}\n---\nTotaal definities: {total}\nOm een definitie op te halen, roept u py2idx aan met mode='section' en het sectienummer.",
+    "tool.description": "Parseer een Python-bestand in functies, klassen en methoden en retourneer een genummerde index of een specifieke definitiesectie. Gebruik dit als je een groot Python-bestand moet lezen: roep eerst aan met mode='index' om de inhoudsopgave te krijgen, roep vervolgens aan met mode='section' en het sectienummer om alleen de definitie op te halen die je nodig hebt. Dit bespaart tokens in vergelijking met het lezen van het hele bestand."
   },
   "fi": {
     "x_search_terms": [
@@ -533,7 +609,11 @@
     "err.section_invalid": "Virhe: 'section' on oltava kokonaisluku.",
     "err.section_not_found": "Virhe: Osiota {section_num} ei löydy. Kelvollinen alue: 1..{last}.",
     "err.invalid_mode": "Virhe: Virheellinen tila '{mode}'. Käytä 'index' tai 'section'.",
-    "msg.no_entries": "(julkisia määritelmiä ei löytynyt)"
+    "msg.no_entries": "(julkisia määritelmiä ei löytynyt)",
+    "param.mode.description": "\"indeksi\" palauttaa numeroidun sisällysluettelon rivinumeroineen. \"osio\" palauttaa tietyn määritelmän numerolla.",
+    "param.section.description": "Haettavan osan numero (käytetään vain, kun mode='osio'). Hanki numero indeksitulosteesta.",
+    "msg.index_output": "Hakemisto: {path}\n---\n{toc}\n---\nMääritelmät yhteensä: {total}\nHae määritelmä soittamalla py2idx:lle mode='section' ja osion numero.",
+    "tool.description": "Jäsennä Python-tiedosto funktioiksi, luokiksi ja menetelmiksi ja palauta numeroitu indeksi tai tietty määritelmäosio. Käytä tätä, kun sinun on luettava suuri Python-tiedosto: soita ensin mode='index' saadaksesi sisällysluettelon, sitten mode='section' ja osion numero hakeaksesi vain tarvitsemasi määritelmän. Tämä säästää tunnuksia verrattuna koko tiedoston lukemiseen."
   },
   "cs": {
     "x_search_terms": [
@@ -557,7 +637,11 @@
     "err.section_invalid": "Chyba: 'section' musí být celé číslo.",
     "err.section_not_found": "Chyba: Sekce {section_num} nenalezena. Platný rozsah: 1..{last}.",
     "err.invalid_mode": "Chyba: Neplatný režim '{mode}'. Použijte 'index' nebo 'section'.",
-    "msg.no_entries": "(nenalezeny žádné veřejné definice)"
+    "msg.no_entries": "(nenalezeny žádné veřejné definice)",
+    "param.mode.description": "\"index\" vrátí očíslovaný obsah s čísly řádků. \"sekce\" vrátí konkrétní definici podle čísla.",
+    "param.section.description": "Číslo sekce k načtení (používá se pouze při mode='section'). Získejte číslo z výstupu indexu.",
+    "msg.index_output": "Index pro: {path}\n---\n{toc}\n---\nCelkové definice: {total}\nChcete-li načíst definici, zavolejte py2idx s mode='section' a číslem sekce.",
+    "tool.description": "Analyzujte soubor Pythonu na funkce, třídy a metody a vraťte očíslovaný index nebo konkrétní sekci definice. Použijte to, když potřebujete přečíst velký soubor Python: nejprve zavolejte s mode='index', abyste získali obsah, pak zavolejte s mode='section' a číslem sekce, abyste získali pouze definici, kterou potřebujete. To šetří tokeny ve srovnání s čtením celého souboru."
   },
   "uk": {
     "x_search_terms": [
@@ -581,7 +665,11 @@
     "err.section_invalid": "Помилка: 'section' має бути цілим числом.",
     "err.section_not_found": "Помилка: Розділ {section_num} не знайдено. Діапазон: 1..{last}.",
     "err.invalid_mode": "Помилка: Недійсний режим '{mode}'. Використовуйте 'index' або 'section'.",
-    "msg.no_entries": "(загальнодоступних визначень не знайдено)"
+    "msg.no_entries": "(загальнодоступних визначень не знайдено)",
+    "param.mode.description": "\"index\" повертає пронумерований зміст із номерами рядків. \"section\" повертає конкретне визначення за номером.",
+    "param.section.description": "Номер розділу для отримання (використовується лише тоді, коли mode='section'). Отримайте число з виведення індексу.",
+    "msg.index_output": "Індекс для: {path}\n---\n{toc}\n---\nЗагальна кількість визначень: {total}\nЩоб отримати визначення, викличте py2idx з mode='section' і номером розділу.",
+    "tool.description": "Розберіть файл Python на функції, класи та методи та поверніть нумерований індекс або певний розділ визначення. Використовуйте це, коли вам потрібно прочитати великий файл Python: спочатку викликайте mode='index', щоб отримати зміст, потім викликайте mode='section' і номер розділу, щоб отримати лише потрібне визначення. Це зберігає токени порівняно з читанням усього файлу."
   },
   "tr": {
     "x_search_terms": [
@@ -605,7 +693,11 @@
     "err.section_invalid": "Hata: 'section' bir tamsayı olmalıdır.",
     "err.section_not_found": "Hata: {section_num} bölümü bulunamadı. Geçerli aralık: 1..{last}.",
     "err.invalid_mode": "Hata: Geçersiz mod '{mode}'. 'index' veya 'section' kullanın.",
-    "msg.no_entries": "(genel tanım bulunamadı)"
+    "msg.no_entries": "(genel tanım bulunamadı)",
+    "param.mode.description": "\"index\", satır numaralarıyla birlikte numaralandırılmış bir içindekiler tablosu döndürür. \"bölüm\" sayıya göre belirli bir tanımı döndürür.",
+    "param.section.description": "Alınacak bölüm numarası (yalnızca mode='bölüm' olduğunda kullanılır). Dizin çıktısından numarayı alın.",
+    "msg.index_output": "Dizin: {path}\n---\n{toc}\n---\nToplam tanımlar: {total}\nBir tanımı almak için mode='section' ve bölüm numarasıyla py2idx'i çağırın.",
+    "tool.description": "Bir Python dosyasını işlevlere, sınıflara ve yöntemlere ayrıştırın ve numaralandırılmış bir dizin veya belirli bir tanım bölümü döndürün. Büyük bir Python dosyasını okumanız gerektiğinde bunu kullanın: önce içindekiler tablosunu almak için mode='index' ile çağrı yapın, ardından yalnızca ihtiyacınız olan tanımı almak için mode='section' ve bölüm numarasıyla çağrı yapın. Bu, dosyanın tamamını okumaya kıyasla belirteçlerden tasarruf sağlar."
   },
   "th": {
     "x_search_terms": [
@@ -629,7 +721,11 @@
     "err.section_invalid": "ข้อผิดพลาด: 'section' ต้องเป็นจำนวนเต็ม",
     "err.section_not_found": "ข้อผิดพลาด: ไม่พบส่วน {section_num} ช่วงที่ถูกต้อง: 1..{last}",
     "err.invalid_mode": "ข้อผิดพลาด: โหมด '{mode}' ไม่ถูกต้อง ใช้ 'index' หรือ 'section'",
-    "msg.no_entries": "(ไม่พบคำจำกัดความสาธารณะ)"
+    "msg.no_entries": "(ไม่พบคำจำกัดความสาธารณะ)",
+    "param.mode.description": "\"index\" ส่งคืนสารบัญที่มีตัวเลขพร้อมหมายเลขบรรทัด \"section\" ส่งคืนคำจำกัดความเฉพาะตามตัวเลข",
+    "param.section.description": "หมายเลขส่วนที่จะดึงข้อมูล (ใช้เฉพาะเมื่อ mode='section') รับตัวเลขจากเอาต์พุตดัชนี",
+    "msg.index_output": "ดัชนีสำหรับ: {path}\n---\n{toc}\n---\n คำจำกัดความทั้งหมด: {total}\n หากต้องการดึงคำจำกัดความ ให้เรียก py2idx ด้วย mode='section' และหมายเลขส่วน",
+    "tool.description": "แยกไฟล์ Python ออกเป็นฟังก์ชัน คลาส และเมธอด แล้วส่งคืนดัชนีที่เป็นตัวเลขหรือส่วนคำจำกัดความเฉพาะ ใช้สิ่งนี้เมื่อคุณต้องการอ่านไฟล์ Python ขนาดใหญ่ ขั้นแรกให้เรียกด้วย mode='index' เพื่อรับสารบัญ จากนั้นจึงเรียกด้วย mode='section' และหมายเลขส่วนเพื่อดึงเฉพาะคำจำกัดความที่คุณต้องการ วิธีนี้จะช่วยประหยัดโทเค็นเมื่อเทียบกับการอ่านไฟล์ทั้งหมด"
   },
   "bn": {
     "x_search_terms": [
@@ -653,7 +749,11 @@
     "err.section_invalid": "ত্রুটি: 'section' একটি পূর্ণসংখ্যা হতে হবে।",
     "err.section_not_found": "ত্রুটি: বিভাগ {section_num} পাওয়া যায়নি। বৈধ সীমা: 1..{last}।",
     "err.invalid_mode": "ত্রুটি: অবৈধ মোড '{mode}'। 'index' বা 'section' ব্যবহার করুন।",
-    "msg.no_entries": "(কোন সর্বজনীন সংজ্ঞা পাওয়া যায়নি)"
+    "msg.no_entries": "(কোন সর্বজনীন সংজ্ঞা পাওয়া যায়নি)",
+    "param.mode.description": "\"সূচী\" লাইন সংখ্যা সহ বিষয়বস্তুর একটি সংখ্যাযুক্ত সারণী প্রদান করে। \"বিভাগ\" সংখ্যা দ্বারা একটি নির্দিষ্ট সংজ্ঞা প্রদান করে।",
+    "param.section.description": "পুনরুদ্ধার করার জন্য বিভাগ নম্বর (শুধুমাত্র যখন মোড = 'বিভাগ' ব্যবহার করা হয়)। সূচক আউটপুট থেকে নম্বর পান।",
+    "msg.index_output": "এর জন্য সূচক: {path}\n---\n{toc}\n---\nমোট সংজ্ঞা: {total}\nএকটি সংজ্ঞা পুনরুদ্ধার করতে, mode='section' এবং সেকশন নম্বর সহ py2idx কল করুন।",
+    "tool.description": "একটি পাইথন ফাইলকে ফাংশন, ক্লাস এবং পদ্ধতিতে পার্স করুন এবং একটি সংখ্যাযুক্ত সূচক বা একটি নির্দিষ্ট সংজ্ঞা বিভাগ প্রদান করুন। যখন আপনার একটি বড় পাইথন ফাইল পড়ার প্রয়োজন হয় তখন এটি ব্যবহার করুন: বিষয়বস্তুর সারণী পেতে প্রথমে mode='index' দিয়ে কল করুন, তারপর আপনার প্রয়োজনীয় সংজ্ঞাটি পুনরুদ্ধার করতে mode='section' এবং সেকশন নম্বর দিয়ে কল করুন। এটি সম্পূর্ণ ফাইল পড়ার তুলনায় টোকেন সংরক্ষণ করে।"
   },
   "fa": {
     "x_search_terms": [
@@ -677,7 +777,11 @@
     "err.section_invalid": "خطا: 'section' باید یک عدد صحیح باشد.",
     "err.section_not_found": "خطا: بخش {section_num} یافت نشد. محدوده معتبر: 1..{last}.",
     "err.invalid_mode": "خطا: حالت '{mode}' نامعتبر است. از 'index' یا 'section' استفاده کنید.",
-    "msg.no_entries": "(هیچ تعریف عمومی یافت نشد)"
+    "msg.no_entries": "(هیچ تعریف عمومی یافت نشد)",
+    "param.mode.description": "\"index\" فهرست مطالب شماره گذاری شده با شماره خطوط را برمی گرداند. \"بخش\" یک تعریف خاص را بر اساس شماره برمی گرداند.",
+    "param.section.description": "شماره بخش برای بازیابی (فقط زمانی که mode='section' استفاده می شود). عدد را از خروجی شاخص دریافت کنید.",
+    "msg.index_output": "فهرست برای: {path}\n---\n{toc}\n---\nکل تعاریف: {total}\nبرای بازیابی یک تعریف، py2idx را با mode='section' و شماره بخش فراخوانی کنید.",
+    "tool.description": "یک فایل پایتون را به توابع، کلاس ها و متدها تجزیه کنید و یک شاخص شماره گذاری شده یا یک بخش تعریف خاص را برگردانید. هنگامی که نیاز به خواندن یک فایل بزرگ پایتون دارید از این استفاده کنید: ابتدا با mode='index' تماس بگیرید تا فهرست مطالب را دریافت کنید، سپس با mode='section' و شماره بخش تماس بگیرید تا فقط تعریف مورد نیاز خود را بازیابی کنید. این توکن ها را در مقایسه با خواندن کل فایل ذخیره می کند."
   },
   "mn": {
     "x_search_terms": [
@@ -701,7 +805,11 @@
     "err.section_invalid": "Алдаа: \"хэсэг\" нь бүхэл тоо байх ёстой.",
     "err.section_not_found": "Алдаа: {section_num} хэсэг олдсонгүй. Хүчинтэй муж: 1..{last}.",
     "err.invalid_mode": "Алдаа: '{mode}' горим буруу байна. \"индекс\" эсвэл \"хэсэг\"-ийг ашиглана уу.",
-    "msg.no_entries": "(олон нийтийн тодорхойлолт олдсонгүй)"
+    "msg.no_entries": "(олон нийтийн тодорхойлолт олдсонгүй)",
+    "param.mode.description": "\"индекс\" нь мөрийн дугаар бүхий дугаарлагдсан агуулгын хүснэгтийг буцаана. \"хэсэг\" нь тоогоор тодорхой тодорхойлолтыг буцаана.",
+    "param.section.description": "Татаж авах хэсгийн дугаар (зөвхөн mode='section' үед хэрэглэнэ). Индекс гаралтаас дугаарыг авна уу.",
+    "msg.index_output": "Индекс: {path}\n---\n{toc}\n---\nНийт тодорхойлолт: {total}\nТодорхойлолтыг сэргээхийн тулд mode='section' болон хэсгийн дугаартай py2idx руу залгана уу.",
+    "tool.description": "Python файлыг функц, анги, арга болгон задалж, дугаарласан индекс эсвэл тодорхой тодорхойлолтын хэсгийг буцаана уу. Том хэмжээний Python файлыг унших шаардлагатай үед үүнийг ашиглана уу: эхлээд агуулгын хүснэгтийг авахын тулд mode='index' гэж залгаж, дараа нь mode='section' болон хэсгийн дугаарыг залгаж зөвхөн хэрэгтэй тодорхойлолтыг аваарай. Энэ нь файлыг бүхэлд нь уншихтай харьцуулахад жетоныг хэмнэдэг."
   },
   "mr": {
     "x_search_terms": [
@@ -725,7 +833,11 @@
     "err.section_invalid": "त्रुटी: 'विभाग' पूर्णांक असणे आवश्यक आहे.",
     "err.section_not_found": "त्रुटी: विभाग {section_num} आढळला नाही. वैध श्रेणी: 1..{last}.",
     "err.invalid_mode": "त्रुटी: अवैध मोड '{mode}'. 'इंडेक्स' किंवा 'सेक्शन' वापरा.",
-    "msg.no_entries": "(सार्वजनिक व्याख्या आढळल्या नाहीत)"
+    "msg.no_entries": "(सार्वजनिक व्याख्या आढळल्या नाहीत)",
+    "param.mode.description": "\"इंडेक्स\" ओळ क्रमांकांसह सामग्रीची क्रमांकित सारणी मिळवते. \"विभाग\" संख्येनुसार विशिष्ट व्याख्या देतो.",
+    "param.section.description": "पुनर्प्राप्त करण्यासाठी विभाग क्रमांक (केवळ मोड='विभाग' तेव्हाच वापरला जातो). इंडेक्स आउटपुटमधून नंबर मिळवा.",
+    "msg.index_output": "यासाठी अनुक्रमणिका: {path}\n---\n{toc}\n---\nएकूण व्याख्या: {total}\n व्याख्या पुनर्प्राप्त करण्यासाठी, मोड='विभाग' आणि विभाग क्रमांकासह py2idx वर कॉल करा.",
+    "tool.description": "फंक्शन्स, क्लासेस आणि पद्धतींमध्ये पायथन फाइल पार्स करा आणि क्रमांकित अनुक्रमणिका किंवा विशिष्ट परिभाषा विभाग परत करा. जेव्हा तुम्हाला एक मोठी Python फाइल वाचायची असेल तेव्हा याचा वापर करा: सामग्री सारणी मिळवण्यासाठी प्रथम mode='index' सह कॉल करा, नंतर mode='section' सह कॉल करा आणि तुम्हाला आवश्यक असलेली व्याख्या पुनर्प्राप्त करण्यासाठी विभाग क्रमांक. संपूर्ण फाइल वाचण्याच्या तुलनेत हे टोकन वाचवते."
   },
   "el": {
     "x_search_terms": [
@@ -749,7 +861,11 @@
     "err.section_invalid": "Σφάλμα: το 'τμήμα' πρέπει να είναι ακέραιος.",
     "err.section_not_found": "Σφάλμα: Η ενότητα {section_num} δεν βρέθηκε. Έγκυρο εύρος: 0..{last}.",
     "err.invalid_mode": "Σφάλμα: Μη έγκυρη λειτουργία '{mode}'. Χρησιμοποιήστε «ευρετήριο» ή «τμήμα».",
-    "msg.no_entries": "(δεν βρέθηκαν δημόσιοι ορισμοί)"
+    "msg.no_entries": "(δεν βρέθηκαν δημόσιοι ορισμοί)",
+    "param.mode.description": "Το \"index\" επιστρέφει έναν αριθμημένο πίνακα περιεχομένων με αριθμούς γραμμών. Το \"section\" επιστρέφει έναν συγκεκριμένο ορισμό με αριθμό.",
+    "param.section.description": "Αριθμός ενότητας για ανάκτηση (χρησιμοποιείται μόνο όταν mode='section'). Λάβετε τον αριθμό από την έξοδο ευρετηρίου.",
+    "msg.index_output": "Ευρετήριο για: {path}\n---\n{toc}\n---\nΣυνολικοί ορισμοί: {total}\nΓια να ανακτήσετε έναν ορισμό, καλέστε το py2idx με mode='section' και τον αριθμό ενότητας.",
+    "tool.description": "Αναλύστε ένα αρχείο Python σε συναρτήσεις, κλάσεις και μεθόδους και επιστρέψτε ένα αριθμημένο ευρετήριο ή μια συγκεκριμένη ενότητα ορισμού. Χρησιμοποιήστε το όταν χρειάζεται να διαβάσετε ένα μεγάλο αρχείο Python: πρώτα καλέστε με mode='index' για να λάβετε τον πίνακα περιεχομένων, μετά καλέστε με mode='section' και τον αριθμό ενότητας για να ανακτήσετε μόνο τον ορισμό που χρειάζεστε. Αυτό εξοικονομεί διακριτικά σε σύγκριση με την ανάγνωση ολόκληρου του αρχείου."
   },
   "he": {
     "x_search_terms": [
@@ -773,7 +889,11 @@
     "err.section_invalid": "שגיאה: 'קטע' חייב להיות מספר שלם.",
     "err.section_not_found": "שגיאה: הקטע {section_num} לא נמצא. טווח חוקי: 0..{last}.",
     "err.invalid_mode": "שגיאה: מצב לא חוקי '{mode}'. השתמש ב'אינדקס' או 'קטע'.",
-    "msg.no_entries": "(לא נמצאו הגדרות ציבוריות)"
+    "msg.no_entries": "(לא נמצאו הגדרות ציבוריות)",
+    "param.mode.description": "\"אינדקס\" מחזיר תוכן עניינים ממוספר עם מספרי שורות. \"קטע\" מחזיר הגדרה ספציפית לפי מספר.",
+    "param.section.description": "מספר סעיף לאחזור (משמש רק כאשר mode='section'). קבל את המספר מפלט האינדקס.",
+    "msg.index_output": "אינדקס עבור: {path}\n---\n{toc}\n---\nסה\"כ הגדרות: {total}\nכדי לאחזר הגדרה, התקשר ל-py2idx עם mode='section' ומספר הקטע.",
+    "tool.description": "נתח קובץ Python לפונקציות, מחלקות ושיטות והחזר אינדקס ממוספר או קטע הגדרה ספציפי. השתמש בזה כאשר אתה צריך לקרוא קובץ Python גדול: תחילה התקשר עם mode='index' כדי לקבל את תוכן העניינים, ואז התקשר עם mode='section' ומספר המדור כדי לאחזר רק את ההגדרה שאתה צריך. זה חוסך אסימונים בהשוואה לקריאת הקובץ כולו."
   },
   "hu": {
     "x_search_terms": [
@@ -797,7 +917,11 @@
     "err.section_invalid": "Hiba: a „szakasznak” egész számnak kell lennie.",
     "err.section_not_found": "Hiba: A(z) {section_num} szakasz nem található. Érvényes tartomány: 1..{last}.",
     "err.invalid_mode": "Hiba: Érvénytelen mód: '{mode}'. Használja az „index” vagy a „szakasz” kifejezést.",
-    "msg.no_entries": "(nem található nyilvános definíció)"
+    "msg.no_entries": "(nem található nyilvános definíció)",
+    "param.mode.description": "Az \"index\" számozott tartalomjegyzéket ad vissza sorszámokkal. A \"szakasz\" egy adott definíciót ad vissza szám szerint.",
+    "param.section.description": "A lekérendő szakasz száma (csak akkor használatos, ha mode='szakasz'). Szerezze le a számot az indexkimenetből.",
+    "msg.index_output": "Index a következőhöz: {path}\n---\n{toc}\n---\nÖsszes definíció: {total}\nDefiníció lekéréséhez hívja a py2idx-et a mode='section' paraméterrel és a szakaszszámmal.",
+    "tool.description": "Elemezze a Python-fájlt függvényekké, osztályokká és metódusokká, és adja vissza a számozott indexet vagy egy meghatározott definíciós részt. Használja ezt, ha nagy Python-fájlt kell olvasnia: először hívja meg a mode='index' paramétert a tartalomjegyzék eléréséhez, majd hívja meg a mode='section' és a szakaszszámot, hogy csak a szükséges definíciót kérje le. Ez a tokeneket menti a teljes fájl elolvasásához képest."
   },
   "ro": {
     "x_search_terms": [
@@ -821,6 +945,10 @@
     "err.section_invalid": "Eroare: „secțiunea” trebuie să fie un număr întreg.",
     "err.section_not_found": "Eroare: secțiunea {section_num} nu a fost găsită. Interval valid: 1..{last}.",
     "err.invalid_mode": "Eroare: modul „{mode}” nevalid. Folosiți „index” sau „secțiune”.",
-    "msg.no_entries": "(nu au fost găsite definiții publice)"
+    "msg.no_entries": "(nu au fost găsite definiții publice)",
+    "param.mode.description": "„index” returnează un cuprins numerotat cu numere de rând. „secțiune” returnează o definiție specifică prin număr.",
+    "param.section.description": "Numărul secțiunii de preluat (utilizat numai când mode='section'). Obțineți numărul din rezultatul indexului.",
+    "msg.index_output": "Index pentru: {path}\n---\n{toc}\n---\nTotal definiții: {total}\nPentru a prelua o definiție, apelați py2idx cu mode='section' și numărul secțiunii.",
+    "tool.description": "Analizați un fișier Python în funcții, clase și metode și returnați un index numerotat sau o anumită secțiune de definiție. Utilizați acest lucru atunci când trebuie să citiți un fișier Python mare: mai întâi apelați cu mode='index' pentru a obține cuprinsul, apoi apelați cu mode='section' și numărul secțiunii pentru a prelua doar definiția de care aveți nevoie. Acest lucru economisește jetoane în comparație cu citirea întregului fișier."
   }
 }

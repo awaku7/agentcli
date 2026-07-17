@@ -80,7 +80,11 @@
     "err.section_not_found": "错误：章节 {section_num} 未找到。有效范围：1..{last}。",
     "err.invalid_mode": "错误：无效模式 '{mode}'。请使用 'index' 或 'section'。",
     "msg.no_entries": "（未找到定义）",
-    "msg.brace_imbalance": "花括号不平衡: 打开 {open} 个 vs 关闭 {close} 个"
+    "msg.brace_imbalance": "花括号不平衡: 打开 {open} 个 vs 关闭 {close} 个",
+    "msg.index_output": "索引：{path}\n---\n{toc}\n---\n总定义：{total}\n要检索定义，请使用 mode='section' 和节号调用 cs2idx。",
+    "param.mode.description": "“index”返回带有行号的编号目录。 “section”按数字返回特定定义。",
+    "param.section.description": "要检索的节号（仅当 mode='section' 时使用）。从索引输出中获取数字。",
+    "tool.description": "将 C# (.cs) 文件解析为类、接口、结构、枚举、方法和属性，并返回编号索引或特定定义部分。当您需要读取大型 .cs 文件时，请使用此方法：首先使用 mode='index' 调用以获取目录，然后使用 mode='section' 和节号调用以仅检索您需要的定义。与读取整个文件相比，这可以节省令牌。"
   },
   "zh_TW": {
     "x_search_terms": [
@@ -105,7 +109,11 @@
     "err.section_not_found": "錯誤：章節 {section_num} 找不到。有效範圍：1..{last}。",
     "err.invalid_mode": "錯誤：無效模式 '{mode}'。請使用 'index' 或 'section'。",
     "msg.no_entries": "（未找到定義）",
-    "msg.brace_imbalance": "花括號不平衡: 開啟 {open} 個 vs 關閉 {close} 個"
+    "msg.brace_imbalance": "花括號不平衡: 開啟 {open} 個 vs 關閉 {close} 個",
+    "msg.index_output": "索引：{path}\n---\n{toc}\n---\n總定義：{total}\n要檢索定義，請使用 mode='section' 和節號呼叫 cs2idx。",
+    "param.mode.description": "“index”傳回帶有行號的編號目錄。 “section”按數字返回特定定義。",
+    "param.section.description": "要檢索的節號（僅當 mode='section' 時使用）。從索引輸出中取得數字。",
+    "tool.description": "將 C# (.cs) 檔案解析為類別、介面、結構、枚舉、方法和屬性，並傳回編號索引或特定定義部分。當您需要讀取大型 .cs 檔案時，請使用此方法：首先使用 mode='index' 呼叫以取得目錄，然後使用 mode='section' 和節號呼叫以僅擷取您需要的定義。與讀取整個文件相比，這可以節省令牌。"
   },
   "ko": {
     "x_search_terms": [
@@ -130,7 +138,11 @@
     "err.section_not_found": "오류: 섹션 {section_num}을(를) 찾을 수 없습니다. 유효 범위: 1..{last}.",
     "err.invalid_mode": "오류: 잘못된 모드 '{mode}'입니다. 'index' 또는 'section'을 사용하세요.",
     "msg.no_entries": "(정의를 찾을 수 없음)",
-    "msg.brace_imbalance": "중괄호 불균형: 열림 {open} 개 vs 닫힘 {close} 개"
+    "msg.brace_imbalance": "중괄호 불균형: 열림 {open} 개 vs 닫힘 {close} 개",
+    "msg.index_output": "색인: {path}\n---\n{toc}\n---\n전체 정의: {total}\n정의를 검색하려면 mode='section' 및 섹션 번호를 사용하여 cs2idx를 호출합니다.",
+    "param.mode.description": "\"index\"는 줄 번호와 함께 번호가 매겨진 목차를 반환합니다. \"section\"은 숫자로 특정 정의를 반환합니다.",
+    "param.section.description": "검색할 섹션 번호(mode='section'인 경우에만 사용됨). 인덱스 출력에서 ​​숫자를 가져옵니다.",
+    "tool.description": "C#(.cs) 파일을 클래스, 인터페이스, 구조체, 열거형, 메서드 및 속성으로 구문 분석하고 번호가 매겨진 인덱스 또는 특정 정의 섹션을 반환합니다. 큰 .cs 파일을 읽어야 할 때 이 방법을 사용하세요. 먼저 mode='index'로 호출하여 목차를 가져온 다음 mode='section'과 섹션 번호로 호출하여 필요한 정의만 검색하세요. 이렇게 하면 전체 파일을 읽는 것에 비해 토큰이 절약됩니다."
   },
   "fr": {
     "x_search_terms": [
@@ -155,7 +167,11 @@
     "err.section_not_found": "Erreur : Section {section_num} introuvable. Plage valide : 1..{last}.",
     "err.invalid_mode": "Erreur : Mode '{mode}' invalide. Utilisez 'index' ou 'section'.",
     "msg.no_entries": "(aucune définition trouvée)",
-    "msg.brace_imbalance": "déséquilibre d'accolades: {open} ouvertes vs {close} fermées"
+    "msg.brace_imbalance": "déséquilibre d'accolades: {open} ouvertes vs {close} fermées",
+    "msg.index_output": "Index pour : {path}\n---\n{toc}\n---\nTotal des définitions : {total}\nPour récupérer une définition, appelez cs2idx avec mode='section' et le numéro de section.",
+    "param.mode.description": "\"index\" renvoie une table des matières numérotée avec des numéros de ligne. \"section\" renvoie une définition spécifique par numéro.",
+    "param.section.description": "Numéro de section à récupérer (utilisé uniquement lorsque mode='section'). Obtenez le numéro de la sortie d’index.",
+    "tool.description": "Analysez un fichier C# (.cs) en classes, interfaces, structures, énumérations, méthodes et propriétés et renvoyez un index numéroté ou une section de définition spécifique. Utilisez-le lorsque vous avez besoin de lire un gros fichier .cs : appelez d'abord avec mode='index' pour obtenir la table des matières, puis appelez avec mode='section' et le numéro de section pour récupérer uniquement la définition dont vous avez besoin. Cela permet d'économiser des jetons par rapport à la lecture de l'intégralité du fichier."
   },
   "de": {
     "x_search_terms": [
@@ -180,7 +196,11 @@
     "err.section_not_found": "Fehler: Abschnitt {section_num} nicht gefunden. Gültiger Bereich: 1..{last}.",
     "err.invalid_mode": "Fehler: Ungültiger Modus '{mode}'. Verwenden Sie 'index' oder 'section'.",
     "msg.no_entries": "(keine Definitionen gefunden)",
-    "msg.brace_imbalance": "Klammerungleichgewicht: {open} offen vs {close} geschlossen"
+    "msg.brace_imbalance": "Klammerungleichgewicht: {open} offen vs {close} geschlossen",
+    "msg.index_output": "Index für: {path}\n---\n{toc}\n---\nGesamtdefinitionen: {total}\nUm eine Definition abzurufen, rufen Sie cs2idx mit mode='section' und der Abschnittsnummer auf.",
+    "param.mode.description": "„index“ gibt ein nummeriertes Inhaltsverzeichnis mit Zeilennummern zurück. „Abschnitt“ gibt eine bestimmte Definition anhand der Nummer zurück.",
+    "param.section.description": "Nummer des abzurufenden Abschnitts (wird nur verwendet, wenn mode='section'). Rufen Sie die Nummer aus der Indexausgabe ab.",
+    "tool.description": "Analysieren Sie eine C#-Datei (.cs) in Klassen, Schnittstellen, Strukturen, Aufzählungen, Methoden und Eigenschaften und geben Sie einen nummerierten Index oder einen bestimmten Definitionsabschnitt zurück. Verwenden Sie dies, wenn Sie eine große CS-Datei lesen müssen: Rufen Sie zuerst mit mode='index' auf, um das Inhaltsverzeichnis abzurufen, und rufen Sie dann mit mode='section' und der Abschnittsnummer auf, um nur die Definition abzurufen, die Sie benötigen. Dies spart Token im Vergleich zum Lesen der gesamten Datei."
   },
   "es": {
     "x_search_terms": [
@@ -205,7 +225,11 @@
     "err.section_not_found": "Error: Sección {section_num} no encontrada. Rango válido: 1..{last}.",
     "err.invalid_mode": "Error: Modo '{mode}' inválido. Use 'index' o 'section'.",
     "msg.no_entries": "(no se encontraron definiciones)",
-    "msg.brace_imbalance": "desequilibrio de llaves: {open} abiertas vs {close} cerradas"
+    "msg.brace_imbalance": "desequilibrio de llaves: {open} abiertas vs {close} cerradas",
+    "msg.index_output": "Índice para: {path}\n---\n{toc}\n---\nDefiniciones totales: {total}\nPara recuperar una definición, llame a cs2idx con mode='sección' y el número de sección.",
+    "param.mode.description": "\"índice\" devuelve una tabla de contenido numerada con números de línea. \"sección\" devuelve una definición específica por número.",
+    "param.section.description": "Número de sección a recuperar (usado solo cuando modo='sección'). Obtenga el número de la salida del índice.",
+    "tool.description": "Analice un archivo C# (.cs) en clases, interfaces, estructuras, enumeraciones, métodos y propiedades y devuelva un índice numerado o una sección de definición específica. Utilice esto cuando necesite leer un archivo .cs grande: primero llame con mode='index' para obtener la tabla de contenido, luego llame con mode='section' y el número de sección para recuperar solo la definición que necesita. Esto ahorra tokens en comparación con leer el archivo completo."
   },
   "it": {
     "x_search_terms": [
@@ -230,7 +254,11 @@
     "err.section_not_found": "Errore: Sezione {section_num} non trovata. Intervallo valido: 1..{last}.",
     "err.invalid_mode": "Errore: Modalità '{mode}' non valida. Usa 'index' o 'section'.",
     "msg.no_entries": "(nessuna definizione trovata)",
-    "msg.brace_imbalance": "sbilanciamento di parentesi graffe: {open} aperte vs {close} chiuse"
+    "msg.brace_imbalance": "sbilanciamento di parentesi graffe: {open} aperte vs {close} chiuse",
+    "msg.index_output": "Indice per: {path}\n---\n{toc}\n---\nDefinizioni totali: {total}\nPer recuperare una definizione, chiamare cs2idx con mode='section' e il numero della sezione.",
+    "param.mode.description": "\"index\" restituisce un sommario numerato con numeri di riga. \"sezione\" restituisce una definizione specifica per numero.",
+    "param.section.description": "Numero di sezione da recuperare (utilizzato solo quando mode='section'). Ottieni il numero dall'output dell'indice.",
+    "tool.description": "Analizza un file C# (.cs) in classi, interfacce, strutture, enumerazioni, metodi e proprietà e restituisce un indice numerato o una sezione di definizione specifica. Utilizzalo quando devi leggere un file .cs di grandi dimensioni: chiama prima con mode='index' per ottenere il sommario, quindi chiama con mode='section' e il numero di sezione per recuperare solo la definizione che ti serve. Ciò consente di risparmiare token rispetto alla lettura dell'intero file."
   },
   "pt_BR": {
     "x_search_terms": [
@@ -255,7 +283,11 @@
     "err.section_not_found": "Erro: Seção {section_num} não encontrada. Intervalo válido: 1..{last}.",
     "err.invalid_mode": "Erro: Modo '{mode}' inválido. Use 'index' ou 'section'.",
     "msg.no_entries": "(nenhuma definição encontrada)",
-    "msg.brace_imbalance": "desequilíbrio de chaves: {open} abertas vs {close} fechadas"
+    "msg.brace_imbalance": "desequilíbrio de chaves: {open} abertas vs {close} fechadas",
+    "msg.index_output": "Índice para: {path}\n---\n{toc}\n---\nTotal de definições: {total}\nPara recuperar uma definição, chame cs2idx com mode='section' e o número da seção.",
+    "param.mode.description": "\"índice\" retorna um índice numerado com números de linha. \"seção\" retorna uma definição específica por número.",
+    "param.section.description": "Número da seção a ser recuperada (usado somente quando mode='section'). Obtenha o número da saída do índice.",
+    "tool.description": "Analise um arquivo C# (.cs) em classes, interfaces, estruturas, enumerações, métodos e propriedades e retorne um índice numerado ou uma seção de definição específica. Use isto quando precisar ler um arquivo .cs grande: primeiro chame com mode='index' para obter o índice, depois chame com mode='section' e o número da seção para recuperar apenas a definição necessária. Isso economiza tokens em comparação com a leitura do arquivo inteiro."
   },
   "pt": {
     "x_search_terms": [
@@ -280,7 +312,11 @@
     "err.section_not_found": "Erro: Secção {section_num} não encontrada. Intervalo válido: 1..{last}.",
     "err.invalid_mode": "Erro: Modo '{mode}' inválido. Use 'index' ou 'section'.",
     "msg.no_entries": "(nenhuma definição encontrada)",
-    "msg.brace_imbalance": "desequilíbrio de chavetas: {open} abertas vs {close} fechadas"
+    "msg.brace_imbalance": "desequilíbrio de chavetas: {open} abertas vs {close} fechadas",
+    "msg.index_output": "Índice para: {path}\n---\n{toc}\n---\nTotal de definições: {total}\nPara recuperar uma definição, chame cs2idx com mode='section' e o número da seção.",
+    "param.mode.description": "\"índice\" retorna um índice numerado com números de linha. \"seção\" retorna uma definição específica por número.",
+    "param.section.description": "Número da seção a ser recuperada (usado somente quando mode='section'). Obtenha o número da saída do índice.",
+    "tool.description": "Analise um arquivo C# (.cs) em classes, interfaces, estruturas, enumerações, métodos e propriedades e retorne um índice numerado ou uma seção de definição específica. Use isto quando precisar ler um arquivo .cs grande: primeiro chame com mode='index' para obter o índice, depois chame com mode='section' e o número da seção para recuperar apenas a definição necessária. Isso economiza tokens em comparação com a leitura do arquivo inteiro."
   },
   "ru": {
     "x_search_terms": [
@@ -305,7 +341,11 @@
     "err.section_not_found": "Ошибка: Раздел {section_num} не найден. Допустимый диапазон: 1..{last}.",
     "err.invalid_mode": "Ошибка: Недопустимый режим '{mode}'. Используйте 'index' или 'section'.",
     "msg.no_entries": "(определений не найдено)",
-    "msg.brace_imbalance": "дисбаланс скобок: {open} открыто vs {close} закрыто"
+    "msg.brace_imbalance": "дисбаланс скобок: {open} открыто vs {close} закрыто",
+    "msg.index_output": "Индекс для: {path}\n---\n{toc}\n---\nВсего определений: {total}\nЧтобы получить определение, вызовите cs2idx с mode='section' и номером раздела.",
+    "param.mode.description": "«index» возвращает пронумерованное оглавление с номерами строк. «раздел» возвращает конкретное определение по номеру.",
+    "param.section.description": "Номер раздела, который требуется получить (используется только в том случае, если mode='section'). Получите число из вывода индекса.",
+    "tool.description": "Разберите файл C# (.cs) на классы, интерфейсы, структуры, перечисления, методы и свойства и верните нумерованный индекс или конкретный раздел определения. Используйте это, когда вам нужно прочитать большой файл .cs: сначала вызовите с mode='index', чтобы получить оглавление, затем вызовите с mode='section' и номером раздела, чтобы получить только то определение, которое вам нужно. Это экономит токены по сравнению с чтением всего файла."
   },
   "id": {
     "x_search_terms": [
@@ -330,7 +370,11 @@
     "err.section_not_found": "Error: Bagian {section_num} tidak ditemukan. Rentang valid: 1..{last}.",
     "err.invalid_mode": "Error: Mode '{mode}' tidak valid. Gunakan 'index' atau 'section'.",
     "msg.no_entries": "(tidak ada definisi yang ditemukan)",
-    "msg.brace_imbalance": "ketidakseimbangan kurung kurawal: {open} buka vs {close} tutup"
+    "msg.brace_imbalance": "ketidakseimbangan kurung kurawal: {open} buka vs {close} tutup",
+    "msg.index_output": "Indeks untuk: {path}\n---\n{toc}\n---\nTotal definisi: {total}\nUntuk mengambil definisi, panggil cs2idx dengan mode='section' dan nomor bagian.",
+    "param.mode.description": "\"indeks\" mengembalikan daftar isi bernomor dengan nomor baris. \"bagian\" mengembalikan definisi spesifik berdasarkan nomor.",
+    "param.section.description": "Nomor bagian yang akan diambil (hanya digunakan ketika mode='bagian'). Dapatkan nomor dari output indeks.",
+    "tool.description": "Parsing file C# (.cs) ke dalam kelas, antarmuka, struct, enum, metode, dan properti dan kembalikan indeks bernomor atau bagian definisi tertentu. Gunakan ini ketika Anda perlu membaca file .cs yang besar: panggilan pertama dengan mode='index' untuk mendapatkan daftar isi, lalu panggil dengan mode='section' dan nomor bagian untuk mengambil definisi yang Anda perlukan saja. Ini menghemat token dibandingkan dengan membaca seluruh file."
   },
   "vi": {
     "x_search_terms": [
@@ -355,7 +399,11 @@
     "err.section_not_found": "Lỗi: Phần {section_num} không tìm thấy. Phạm vi hợp lệ: 1..{last}.",
     "err.invalid_mode": "Lỗi: Chế độ '{mode}' không hợp lệ. Sử dụng 'index' hoặc 'section'.",
     "msg.no_entries": "(không tìm thấy định nghĩa)",
-    "msg.brace_imbalance": "mất cân bằng dấu ngoặc nhọn: {open} mở vs {close} đóng"
+    "msg.brace_imbalance": "mất cân bằng dấu ngoặc nhọn: {open} mở vs {close} đóng",
+    "msg.index_output": "Chỉ mục cho: {path}\n---\n{toc}\n---\nTổng định nghĩa: {total}\nĐể truy xuất định nghĩa, hãy gọi cs2idx với mode='section' và số phần.",
+    "param.mode.description": "\"index\" trả về một mục lục được đánh số cùng với số dòng. \"phần\" trả về một định nghĩa cụ thể theo số.",
+    "param.section.description": "Số phần cần truy xuất (chỉ được sử dụng khi mode='section'). Lấy số từ đầu ra chỉ mục.",
+    "tool.description": "Phân tích tệp C# (.cs) thành các lớp, giao diện, cấu trúc, enum, phương thức và thuộc tính rồi trả về một chỉ mục được đánh số hoặc một phần định nghĩa cụ thể. Hãy sử dụng tính năng này khi bạn cần đọc một tệp .cs lớn: trước tiên hãy gọi với mode='index' để lấy mục lục, sau đó gọi bằng mode='section' và số phần để chỉ truy xuất định nghĩa bạn cần. Điều này tiết kiệm mã thông báo so với việc đọc toàn bộ tệp."
   },
   "pl": {
     "x_search_terms": [
@@ -380,7 +428,11 @@
     "err.section_not_found": "Błąd: Sekcja {section_num} nie znaleziona. Prawidłowy zakres: 1..{last}.",
     "err.invalid_mode": "Błąd: Nieprawidłowy tryb '{mode}'. Użyj 'index' lub 'section'.",
     "msg.no_entries": "(nie znaleziono definicji)",
-    "msg.brace_imbalance": "nierównowaga nawiasów klamrowych: {open} otwartych vs {close} zamkniętych"
+    "msg.brace_imbalance": "nierównowaga nawiasów klamrowych: {open} otwartych vs {close} zamkniętych",
+    "msg.index_output": "Indeks dla: {path}\n---\n{toc}\n---\nWszystkie definicje: {total}\nAby pobrać definicję, wywołaj cs2idx z mode='section' i numerem sekcji.",
+    "param.mode.description": "„indeks” zwraca numerowany spis treści z numerami wierszy. „sekcja” zwraca konkretną definicję według numeru.",
+    "param.section.description": "Numer sekcji do pobrania (używany tylko wtedy, gdy tryb = „sekcja”). Pobierz liczbę z wyniku indeksu.",
+    "tool.description": "Przeanalizuj plik C# (.cs) na klasy, interfejsy, struktury, wyliczenia, metody i właściwości, a następnie zwróć numerowany indeks lub określoną sekcję definicji. Użyj tej opcji, gdy chcesz przeczytać duży plik .cs: najpierw wywołaj mode='index', aby uzyskać spis treści, następnie wywołaj mode='section' i numer sekcji, aby pobrać tylko potrzebną definicję. Oszczędza to tokeny w porównaniu do odczytu całego pliku."
   },
   "hi": {
     "x_search_terms": [
@@ -405,7 +457,11 @@
     "err.section_not_found": "त्रुटि: अनुभाग {section_num} नहीं मिला। मान्य सीमा: 1..{last}।",
     "err.invalid_mode": "त्रुटि: अमान्य मोड '{mode}'। 'index' या 'section' का उपयोग करें।",
     "msg.no_entries": "(कोई परिभाषा नहीं मिली)",
-    "msg.brace_imbalance": "ब्रैकेट असंतुलन: {open} खुले vs {close} बंद"
+    "msg.brace_imbalance": "ब्रैकेट असंतुलन: {open} खुले vs {close} बंद",
+    "msg.index_output": "इसके लिए सूचकांक: {path}\n---\n{toc}\n---\nकुल परिभाषाएँ: {total}\nकिसी परिभाषा को पुनः प्राप्त करने के लिए, mode='section' और अनुभाग संख्या के साथ cs2idx पर कॉल करें।",
+    "param.mode.description": "\"सूचकांक\" पंक्ति संख्याओं के साथ सामग्री की एक क्रमांकित तालिका लौटाता है। \"अनुभाग\" संख्या के आधार पर एक विशिष्ट परिभाषा लौटाता है।",
+    "param.section.description": "पुनः प्राप्त करने के लिए अनुभाग संख्या (केवल तभी उपयोग की जाती है जब mode='section')। इंडेक्स आउटपुट से नंबर प्राप्त करें।",
+    "tool.description": "C# (.cs) फ़ाइल को कक्षाओं, इंटरफ़ेस, स्ट्रक्चर, एनम, विधियों और गुणों में पार्स करें और एक क्रमांकित इंडेक्स या एक विशिष्ट परिभाषा अनुभाग लौटाएँ। जब आपको बड़ी .cs फ़ाइल को पढ़ने की आवश्यकता हो तो इसका उपयोग करें: सामग्री तालिका प्राप्त करने के लिए पहले mode='index' के साथ कॉल करें, फिर केवल वही परिभाषा प्राप्त करने के लिए mode='section' और अनुभाग संख्या के साथ कॉल करें जिसकी आपको आवश्यकता है। यह संपूर्ण फ़ाइल को पढ़ने की तुलना में टोकन बचाता है।"
   },
   "ar": {
     "x_search_terms": [
@@ -430,7 +486,11 @@
     "err.section_not_found": "خطأ: القسم {section_num} غير موجود. النطاق الصالح: 1..{last}.",
     "err.invalid_mode": "خطأ: الوضع '{mode}' غير صالح. استخدم 'index' أو 'section'.",
     "msg.no_entries": "(لم يتم العثور على تعريفات)",
-    "msg.brace_imbalance": "عدم توازن الأقواس: {open} مفتوحة vs {close} مغلقة"
+    "msg.brace_imbalance": "عدم توازن الأقواس: {open} مفتوحة vs {close} مغلقة",
+    "msg.index_output": "فهرس لـ: {path}\n---\n{toc}\n---\nإجمالي التعريفات: {total}\nلاسترداد تعريف، اتصل بـ cs2idx مع mode='section' ورقم القسم.",
+    "param.mode.description": "يقوم \"الفهرس\" بإرجاع جدول محتويات مرقّم بأرقام الأسطر. يقوم \"القسم\" بإرجاع تعريف محدد حسب الرقم.",
+    "param.section.description": "رقم القسم المطلوب استرداده (يُستخدم فقط عندما يكون الوضع='القسم'). الحصول على الرقم من إخراج الفهرس.",
+    "tool.description": "قم بتحليل ملف C# (.cs) إلى فئات وواجهات وبنيات وتعدادات وأساليب وخصائص وإرجاع فهرس مرقّم أو قسم تعريف محدد. استخدم هذا عندما تحتاج إلى قراءة ملف .cs كبير: اتصل أولاً بـ mode='index' للحصول على جدول المحتويات، ثم اتصل بـ mode='section' ورقم القسم لاسترداد التعريف الذي تحتاجه فقط. يؤدي هذا إلى حفظ الرموز المميزة مقارنة بقراءة الملف بأكمله."
   },
   "sv": {
     "x_search_terms": [
@@ -455,7 +515,11 @@
     "err.section_not_found": "Fel: Avsnitt {section_num} hittades inte. Giltigt intervall: 1..{last}.",
     "err.invalid_mode": "Fel: Ogiltigt läge '{mode}'. Använd 'index' eller 'section'.",
     "msg.no_entries": "(inga definitioner hittades)",
-    "msg.brace_imbalance": "balansfel i klamrar: {open} öppna vs {close} stängda"
+    "msg.brace_imbalance": "balansfel i klamrar: {open} öppna vs {close} stängda",
+    "msg.index_output": "Index för: {path}\n---\n{toc}\n---\nTotala definitioner: {total}\nFör att hämta en definition, ring cs2idx med mode='sektion' och sektionsnumret.",
+    "param.mode.description": "\"index\" returnerar en numrerad innehållsförteckning med radnummer. \"sektion\" returnerar en specifik definition med nummer.",
+    "param.section.description": "Sektionsnummer att hämta (används endast när mode='sektion'). Få numret från indexutgången.",
+    "tool.description": "Analysera en C#-fil (.cs) i klasser, gränssnitt, strukturer, enums, metoder och egenskaper och returnera ett numrerat index eller en specifik definitionssektion. Använd detta när du behöver läsa en stor .cs-fil: anrop först med mode='index' för att få innehållsförteckningen, ring sedan med mode='section' och sektionsnumret för att bara hämta den definition du behöver. Detta sparar tokens jämfört med att läsa hela filen."
   },
   "sw": {
     "x_search_terms": [
@@ -480,7 +544,11 @@
     "err.section_not_found": "Hitilafu: Sehemu ya {section_num} haijapatikana. Masafa halali: 1..{last}.",
     "err.invalid_mode": "Hitilafu: Hali batili '{mode}'. Tumia 'index' au 'section'.",
     "msg.no_entries": "(hakuna ufafanuzi uliopatikana)",
-    "msg.brace_imbalance": "kutokuwa na usawa wa mabano: {open} wazi vs {close} funga"
+    "msg.brace_imbalance": "kutokuwa na usawa wa mabano: {open} wazi vs {close} funga",
+    "msg.index_output": "Kielezo cha: {path}\n---\n{toc}\n---\n Jumla ya ufafanuzi: {total}\nIli kupata ufafanuzi, piga cs2idx ukitumia mode='section' na nambari ya sehemu.",
+    "param.mode.description": "\"index\" hurejesha jedwali la yaliyomo lenye nambari na nambari za mstari. \"sehemu\" inarudisha ufafanuzi maalum kwa nambari.",
+    "param.section.description": "Nambari ya sehemu ya kurejesha (inatumika tu wakati mode='sehemu'). Pata nambari kutoka kwa matokeo ya faharisi.",
+    "tool.description": "Changanua faili ya C# (.cs) katika madarasa, violesura, miundo, enum, mbinu, na sifa na urudishe faharasa yenye nambari au sehemu mahususi ya ufafanuzi. Tumia hii unapohitaji kusoma faili kubwa ya .cs: piga kwanza kwa mode='index' ili kupata jedwali la yaliyomo, kisha piga simu na mode='section' na nambari ya sehemu ili kupata ufafanuzi unaohitaji pekee. Hii huokoa tokeni ikilinganishwa na kusoma faili nzima."
   },
   "nb": {
     "x_search_terms": [
@@ -505,7 +573,11 @@
     "err.section_not_found": "Feil: Seksjon {section_num} ble ikke funnet. Gyldig område: 1..{last}.",
     "err.invalid_mode": "Feil: Ugyldig modus '{mode}'. Bruk 'index' eller 'section'.",
     "msg.no_entries": "(ingen definisjoner funnet)",
-    "msg.brace_imbalance": "ubalanse i klammeparenteser: {open} åpne vs {close} lukkede"
+    "msg.brace_imbalance": "ubalanse i klammeparenteser: {open} åpne vs {close} lukkede",
+    "msg.index_output": "Indeks for: {path}\n---\n{toc}\n---\nTotale definisjoner: {total}\nFor å hente en definisjon, ring cs2idx med mode='section' og seksjonsnummeret.",
+    "param.mode.description": "\"indeks\" returnerer en nummerert innholdsfortegnelse med linjenummer. \"seksjon\" returnerer en spesifikk definisjon etter tall.",
+    "param.section.description": "Seksjonsnummer å hente (brukes bare når modus='seksjon'). Få tallet fra indeksutgangen.",
+    "tool.description": "Parse en C# (.cs)-fil i klasser, grensesnitt, strukturer, enums, metoder og egenskaper og returner en nummerert indeks eller en spesifikk definisjonsseksjon. Bruk dette når du trenger å lese en stor .cs-fil: ring først med mode='index' for å få innholdsfortegnelsen, ring deretter med mode='section' og seksjonsnummeret for å hente kun definisjonen du trenger. Dette sparer tokens sammenlignet med å lese hele filen."
   },
   "nl": {
     "x_search_terms": [
@@ -530,7 +602,11 @@
     "err.section_not_found": "Fout: Sectie {section_num} niet gevonden. Geldig bereik: 1..{last}.",
     "err.invalid_mode": "Fout: Ongeldige modus '{mode}'. Gebruik 'index' of 'section'.",
     "msg.no_entries": "(geen definities gevonden)",
-    "msg.brace_imbalance": "onevenwicht in accolades: {open} open vs {close} gesloten"
+    "msg.brace_imbalance": "onevenwicht in accolades: {open} open vs {close} gesloten",
+    "msg.index_output": "Index voor: {path}\n---\n{toc}\n---\nTotaal definities: {total}\nOm een definitie op te halen, roept u cs2idx aan met mode='section' en het sectienummer.",
+    "param.mode.description": "\"index\" retourneert een genummerde inhoudsopgave met regelnummers. \"sectie\" retourneert een specifieke definitie op nummer.",
+    "param.section.description": "Op te halen sectienummer (alleen gebruikt wanneer mode='sectie'). Haal het nummer op uit de indexuitvoer.",
+    "tool.description": "Parseer een C#-bestand (.cs) in klassen, interfaces, structuren, opsommingen, methoden en eigenschappen en retourneer een genummerde index of een specifieke definitiesectie. Gebruik dit wanneer u een groot .cs-bestand moet lezen: roep eerst met mode='index' aan om de inhoudsopgave te krijgen, roep vervolgens aan met mode='section' en het sectienummer om alleen de definitie op te halen die u nodig heeft. Dit bespaart tokens in vergelijking met het lezen van het hele bestand."
   },
   "fi": {
     "x_search_terms": [
@@ -555,7 +631,11 @@
     "err.section_not_found": "Virhe: Osiota {section_num} ei löydy. Kelvollinen alue: 1..{last}.",
     "err.invalid_mode": "Virhe: Virheellinen tila '{mode}'. Käytä 'index' tai 'section'.",
     "msg.no_entries": "(määritelmiä ei löytynyt)",
-    "msg.brace_imbalance": "aaltosulkeiden epätasapaino: {open} auki vs {close} kiinni"
+    "msg.brace_imbalance": "aaltosulkeiden epätasapaino: {open} auki vs {close} kiinni",
+    "msg.index_output": "Hakemisto: {path}\n---\n{toc}\n---\nMääritelmät yhteensä: {total}\nHae määritelmä soittamalla cs2idx:lle mode='section' ja osion numero.",
+    "param.mode.description": "\"indeksi\" palauttaa numeroidun sisällysluettelon rivinumeroineen. \"osio\" palauttaa tietyn määritelmän numerolla.",
+    "param.section.description": "Haettavan osan numero (käytetään vain, kun mode='osio'). Hanki numero indeksitulosteesta.",
+    "tool.description": "Jäsennä C# (.cs) -tiedosto luokiksi, rajapinnoiksi, rakenteiksi, enumiksi, menetelmiksi ja ominaisuuksiksi ja palauta numeroitu indeksi tai tietty määritelmäosio. Käytä tätä, kun sinun on luettava suuri .cs-tiedosto: soita ensin mode='index' saadaksesi sisällysluettelon, sitten soita mode='section' ja osion numerolla hakeaksesi vain tarvitsemasi määritelmän. Tämä säästää tunnuksia verrattuna koko tiedoston lukemiseen."
   },
   "cs": {
     "x_search_terms": [
@@ -580,7 +660,11 @@
     "err.section_not_found": "Chyba: Sekce {section_num} nenalezena. Platný rozsah: 1..{last}.",
     "err.invalid_mode": "Chyba: Neplatný režim '{mode}'. Použijte 'index' nebo 'section'.",
     "msg.no_entries": "(nenalezeny žádné definice)",
-    "msg.brace_imbalance": "nevyváženost složených závorek: {open} otevřených vs {close} uzavřených"
+    "msg.brace_imbalance": "nevyváženost složených závorek: {open} otevřených vs {close} uzavřených",
+    "msg.index_output": "Index pro: {path}\n---\n{toc}\n---\nCelkové definice: {total}\nChcete-li načíst definici, zavolejte cs2idx s mode='section' a číslem sekce.",
+    "param.mode.description": "\"index\" vrátí očíslovaný obsah s čísly řádků. \"sekce\" vrátí konkrétní definici podle čísla.",
+    "param.section.description": "Číslo sekce k načtení (používá se pouze při mode='section'). Získejte číslo z výstupu indexu.",
+    "tool.description": "Analyzujte soubor C# (.cs) na třídy, rozhraní, struktury, výčty, metody a vlastnosti a vraťte očíslovaný index nebo konkrétní sekci definice. Použijte to, když potřebujete přečíst velký soubor .cs: nejprve zavolejte s mode='index', abyste získali obsah, pak zavolejte s mode='section' a číslem sekce, abyste získali pouze definici, kterou potřebujete. To šetří tokeny ve srovnání s čtením celého souboru."
   },
   "uk": {
     "x_search_terms": [
@@ -605,7 +689,11 @@
     "err.section_not_found": "Помилка: Розділ {section_num} не знайдено. Діапазон: 1..{last}.",
     "err.invalid_mode": "Помилка: Недійсний режим '{mode}'. Використовуйте 'index' або 'section'.",
     "msg.no_entries": "(визначення не знайдено)",
-    "msg.brace_imbalance": "дисбаланс фігурних дужок: {open} відкрито vs {close} закрито"
+    "msg.brace_imbalance": "дисбаланс фігурних дужок: {open} відкрито vs {close} закрито",
+    "msg.index_output": "Індекс для: {path}\n---\n{toc}\n---\nЗагальна кількість визначень: {total}\nЩоб отримати визначення, викличте cs2idx з mode='section' і номером розділу.",
+    "param.mode.description": "\"index\" повертає пронумерований зміст із номерами рядків. \"section\" повертає конкретне визначення за номером.",
+    "param.section.description": "Номер розділу для отримання (використовується лише тоді, коли mode='section'). Отримайте число з виведення індексу.",
+    "tool.description": "Розберіть файл C# (.cs) на класи, інтерфейси, структури, переліки, методи та властивості та поверніть нумерований індекс або певний розділ визначення. Використовуйте це, коли вам потрібно прочитати великий файл .cs: спочатку викликайте mode='index', щоб отримати зміст, потім викликайте mode='section' і номер розділу, щоб отримати лише потрібне визначення. Це зберігає токени порівняно з читанням усього файлу."
   },
   "tr": {
     "x_search_terms": [
@@ -630,7 +718,11 @@
     "err.section_not_found": "Hata: {section_num} bölümü bulunamadı. Geçerli aralık: 1..{last}.",
     "err.invalid_mode": "Hata: Geçersiz mod '{mode}'. 'index' veya 'section' kullanın.",
     "msg.no_entries": "(tanım bulunamadı)",
-    "msg.brace_imbalance": "süslü parantez dengesizliği: {open} açık vs {close} kapalı"
+    "msg.brace_imbalance": "süslü parantez dengesizliği: {open} açık vs {close} kapalı",
+    "msg.index_output": "Dizin: {path}\n---\n{toc}\n---\nToplam tanımlar: {total}\nBir tanımı almak için cs2idx'i mode='section' ve bölüm numarasıyla çağırın.",
+    "param.mode.description": "\"index\", satır numaralarıyla birlikte numaralandırılmış bir içindekiler tablosu döndürür. \"bölüm\" sayıya göre belirli bir tanımı döndürür.",
+    "param.section.description": "Alınacak bölüm numarası (yalnızca mode='bölüm' olduğunda kullanılır). Dizin çıktısından numarayı alın.",
+    "tool.description": "Bir C# (.cs) dosyasını sınıflara, arayüzlere, yapılara, numaralandırmalara, yöntemlere ve özelliklere ayrıştırın ve numaralandırılmış bir dizin veya belirli bir tanım bölümü döndürün. Büyük bir .cs dosyasını okumanız gerektiğinde bunu kullanın: önce içindekiler tablosunu almak için mode='index' ile çağrı yapın, ardından yalnızca ihtiyacınız olan tanımı almak için mode='section' ve bölüm numarasıyla çağrı yapın. Bu, dosyanın tamamını okumaya kıyasla belirteçlerden tasarruf sağlar."
   },
   "th": {
     "x_search_terms": [
@@ -655,7 +747,11 @@
     "err.section_not_found": "ข้อผิดพลาด: ไม่พบส่วน {section_num} ช่วงที่ถูกต้อง: 1..{last}",
     "err.invalid_mode": "ข้อผิดพลาด: โหมด '{mode}' ไม่ถูกต้อง ใช้ 'index' หรือ 'section'",
     "msg.no_entries": "(ไม่พบคำจำกัดความ)",
-    "msg.brace_imbalance": "ความไม่สมดุลของวงเล็บปีกกา: เปิด {open} vs ปิด {close}"
+    "msg.brace_imbalance": "ความไม่สมดุลของวงเล็บปีกกา: เปิด {open} vs ปิด {close}",
+    "msg.index_output": "ดัชนีสำหรับ: {path}\n---\n{toc}\n---\n คำจำกัดความทั้งหมด: {total}\n หากต้องการดึงคำจำกัดความ ให้เรียก cs2idx ด้วย mode='section' และหมายเลขส่วน",
+    "param.mode.description": "\"index\" ส่งคืนสารบัญที่มีตัวเลขพร้อมหมายเลขบรรทัด \"section\" ส่งคืนคำจำกัดความเฉพาะตามตัวเลข",
+    "param.section.description": "หมายเลขส่วนที่จะดึงข้อมูล (ใช้เฉพาะเมื่อ mode='section') รับตัวเลขจากเอาต์พุตดัชนี",
+    "tool.description": "แยกวิเคราะห์ไฟล์ C# (.cs) ออกเป็นคลาส อินเทอร์เฟซ โครงสร้าง การแจงนับ วิธีการ และคุณสมบัติ แล้วส่งคืนดัชนีที่มีตัวเลขหรือส่วนคำจำกัดความเฉพาะ ใช้สิ่งนี้เมื่อคุณต้องการอ่านไฟล์ .cs ขนาดใหญ่: ขั้นแรกให้เรียกด้วย mode='index' เพื่อรับสารบัญ จากนั้นจึงเรียกด้วย mode='section' และหมายเลขส่วนเพื่อดึงเฉพาะคำจำกัดความที่คุณต้องการ วิธีนี้จะช่วยประหยัดโทเค็นเมื่อเทียบกับการอ่านไฟล์ทั้งหมด"
   },
   "bn": {
     "x_search_terms": [
@@ -680,7 +776,11 @@
     "err.section_not_found": "ত্রুটি: বিভাগ {section_num} পাওয়া যায়নি। বৈধ সীমা: 1..{last}।",
     "err.invalid_mode": "ত্রুটি: অবৈধ মোড '{mode}'। 'index' বা 'section' ব্যবহার করুন।",
     "msg.no_entries": "(কোন সংজ্ঞা পাওয়া যায়নি)",
-    "msg.brace_imbalance": "বন্ধনীর অসমতা: {open} খোলা vs {close} বন্ধ"
+    "msg.brace_imbalance": "বন্ধনীর অসমতা: {open} খোলা vs {close} বন্ধ",
+    "msg.index_output": "এর জন্য সূচক: {path}\n---\n{toc}\n---\nমোট সংজ্ঞা: {total}\n একটি সংজ্ঞা পুনরুদ্ধার করতে, মোড='বিভাগ' এবং বিভাগ নম্বর সহ cs2idx কল করুন৷",
+    "param.mode.description": "\"সূচী\" লাইন সংখ্যা সহ বিষয়বস্তুর একটি সংখ্যাযুক্ত সারণী প্রদান করে। \"বিভাগ\" সংখ্যা দ্বারা একটি নির্দিষ্ট সংজ্ঞা প্রদান করে।",
+    "param.section.description": "পুনরুদ্ধার করার জন্য বিভাগ নম্বর (শুধুমাত্র যখন মোড = 'বিভাগ' ব্যবহার করা হয়)। সূচক আউটপুট থেকে নম্বর পান।",
+    "tool.description": "একটি C# (.cs) ফাইলকে ক্লাস, ইন্টারফেস, স্ট্রাকস, enums, পদ্ধতি এবং বৈশিষ্ট্যগুলিতে পার্স করুন এবং একটি সংখ্যাযুক্ত সূচক বা একটি নির্দিষ্ট সংজ্ঞা বিভাগে ফেরত দিন। আপনার যখন একটি বড় .cs ফাইল পড়তে হবে তখন এটি ব্যবহার করুন: বিষয়বস্তুর সারণী পেতে প্রথমে mode='index' দিয়ে কল করুন, তারপর আপনার প্রয়োজনীয় সংজ্ঞাটি পুনরুদ্ধার করতে mode='section' এবং সেকশন নম্বর দিয়ে কল করুন। এটি সম্পূর্ণ ফাইল পড়ার তুলনায় টোকেন সংরক্ষণ করে।"
   },
   "fa": {
     "x_search_terms": [
@@ -705,7 +805,11 @@
     "err.section_not_found": "خطا: بخش {section_num} یافت نشد. محدوده معتبر: 1..{last}.",
     "err.invalid_mode": "خطا: حالت '{mode}' نامعتبر است. از 'index' یا 'section' استفاده کنید.",
     "msg.no_entries": "(هیچ تعریفی یافت نشد)",
-    "msg.brace_imbalance": "عدم تعادل براکت: {open} باز vs {close} بسته"
+    "msg.brace_imbalance": "عدم تعادل براکت: {open} باز vs {close} بسته",
+    "msg.index_output": "فهرست برای: {path}\n---\n{toc}\n---\nکل تعاریف: {total}\nبرای بازیابی یک تعریف، cs2idx را با mode='section' و شماره بخش تماس بگیرید.",
+    "param.mode.description": "\"index\" فهرست مطالب شماره گذاری شده با شماره خطوط را برمی گرداند. \"بخش\" یک تعریف خاص را بر اساس شماره برمی گرداند.",
+    "param.section.description": "شماره بخش برای بازیابی (فقط زمانی که mode='section' استفاده می شود). عدد را از خروجی شاخص دریافت کنید.",
+    "tool.description": "یک فایل C# (.cs) را به کلاس‌ها، رابط‌ها، ساختارها، enums، متدها و ویژگی‌ها تجزیه کنید و یک فهرست شماره‌دار یا یک بخش تعریف خاص را برگردانید. هنگامی که نیاز به خواندن یک فایل .cs بزرگ دارید از این استفاده کنید: ابتدا با mode='index' تماس بگیرید تا فهرست مطالب را دریافت کنید، سپس با mode='section' و شماره بخش تماس بگیرید تا فقط تعریف مورد نیاز خود را بازیابی کنید. این توکن ها را در مقایسه با خواندن کل فایل ذخیره می کند."
   },
   "mn": {
     "x_search_terms": [
@@ -730,7 +834,11 @@
     "err.section_not_found": "Алдаа: {section_num} хэсэг олдсонгүй. Хүчинтэй муж: 1..{last}.",
     "err.invalid_mode": "Алдаа: '{mode}' горим буруу байна. \"индекс\" эсвэл \"хэсэг\"-ийг ашиглана уу.",
     "msg.no_entries": "(тодорхойлолт олдсонгүй)",
-    "msg.brace_imbalance": "буржгар хаалтны тэнцвэргүй байдал: {open} нээлттэй vs {close} хаалттай"
+    "msg.brace_imbalance": "буржгар хаалтны тэнцвэргүй байдал: {open} нээлттэй vs {close} хаалттай",
+    "msg.index_output": "Индекс: {path}\n---\n{toc}\n---\nНийт тодорхойлолт: {total}\nТодорхойлолтыг сэргээхийн тулд cs2idx руу mode='section' болон хэсгийн дугаарыг залгана уу.",
+    "param.mode.description": "\"индекс\" нь мөрийн дугаар бүхий дугаарлагдсан агуулгын хүснэгтийг буцаана. \"хэсэг\" нь тоогоор тодорхой тодорхойлолтыг буцаана.",
+    "param.section.description": "Татаж авах хэсгийн дугаар (зөвхөн mode='section' үед хэрэглэнэ). Индекс гаралтаас дугаарыг авна уу.",
+    "tool.description": "C# (.cs) файлыг анги, интерфэйс, бүтэц, тоолол, арга, шинж чанар болгон задалж, дугаарласан индекс эсвэл тодорхой тодорхойлолтын хэсгийг буцаана уу. Том хэмжээтэй .cs файлыг унших шаардлагатай үед үүнийг ашиглана уу: эхлээд агуулгын хүснэгтийг авахын тулд mode='index' гэж залгаж, дараа нь mode='section' болон хэсгийн дугаарыг залгаад зөвхөн хэрэгтэй тодорхойлолтыг аваарай. Энэ нь файлыг бүхэлд нь уншихтай харьцуулахад жетоныг хэмнэдэг."
   },
   "mr": {
     "x_search_terms": [
@@ -755,7 +863,11 @@
     "err.section_not_found": "त्रुटी: विभाग {section_num} आढळला नाही. वैध श्रेणी: 1..{last}.",
     "err.invalid_mode": "त्रुटी: अवैध मोड '{mode}'. 'इंडेक्स' किंवा 'सेक्शन' वापरा.",
     "msg.no_entries": "(कोणतीही व्याख्या सापडली नाही)",
-    "msg.brace_imbalance": "ब्रॅकेट असंतुलन: {open} उघडा vs {close} बंद"
+    "msg.brace_imbalance": "ब्रॅकेट असंतुलन: {open} उघडा vs {close} बंद",
+    "msg.index_output": "यासाठी अनुक्रमणिका: {path}\n---\n{toc}\n---\nएकूण व्याख्या: {total}\n व्याख्या पुनर्प्राप्त करण्यासाठी, मोड='विभाग' आणि विभाग क्रमांकासह cs2idx वर कॉल करा.",
+    "param.mode.description": "\"इंडेक्स\" ओळ क्रमांकांसह सामग्रीची क्रमांकित सारणी मिळवते. \"विभाग\" संख्येनुसार विशिष्ट व्याख्या देतो.",
+    "param.section.description": "पुनर्प्राप्त करण्यासाठी विभाग क्रमांक (केवळ मोड='विभाग' तेव्हाच वापरला जातो). इंडेक्स आउटपुटमधून नंबर मिळवा.",
+    "tool.description": "C# (.cs) फाईलचे वर्ग, इंटरफेस, रचना, enums, पद्धती आणि गुणधर्मांमध्ये विश्लेषण करा आणि क्रमांकित अनुक्रमणिका किंवा विशिष्ट परिभाषा विभाग परत करा. जेव्हा तुम्हाला मोठी .cs फाईल वाचण्याची आवश्यकता असेल तेव्हा याचा वापर करा: सामग्री सारणी मिळविण्यासाठी प्रथम mode='index' सह कॉल करा, नंतर मोड='विभाग' आणि तुम्हाला आवश्यक असलेली व्याख्या पुनर्प्राप्त करण्यासाठी विभाग क्रमांकासह कॉल करा. संपूर्ण फाइल वाचण्याच्या तुलनेत हे टोकन वाचवते."
   },
   "el": {
     "x_search_terms": [
@@ -780,7 +892,11 @@
     "err.section_not_found": "Σφάλμα: Η ενότητα {section_num} δεν βρέθηκε. Έγκυρο εύρος: 0..{last}.",
     "err.invalid_mode": "Σφάλμα: Μη έγκυρη λειτουργία '{mode}'. Χρησιμοποιήστε «ευρετήριο» ή «τμήμα».",
     "msg.no_entries": "(δεν βρέθηκαν ορισμοί)",
-    "msg.brace_imbalance": "ανισορροπία αγκυλών: {open} ανοιχτές vs {close} κλειστές"
+    "msg.brace_imbalance": "ανισορροπία αγκυλών: {open} ανοιχτές vs {close} κλειστές",
+    "msg.index_output": "Ευρετήριο για: {path}\n---\n{toc}\n---\nΣυνολικοί ορισμοί: {total}\nΓια να ανακτήσετε έναν ορισμό, καλέστε το cs2idx με mode='section' και τον αριθμό ενότητας.",
+    "param.mode.description": "Το \"index\" επιστρέφει έναν αριθμημένο πίνακα περιεχομένων με αριθμούς γραμμών. Το \"section\" επιστρέφει έναν συγκεκριμένο ορισμό με αριθμό.",
+    "param.section.description": "Αριθμός ενότητας για ανάκτηση (χρησιμοποιείται μόνο όταν mode='section'). Λάβετε τον αριθμό από την έξοδο ευρετηρίου.",
+    "tool.description": "Αναλύστε ένα αρχείο C# (.cs) σε κλάσεις, διεπαφές, δομές, αριθμούς, μεθόδους και ιδιότητες και επιστρέψτε ένα αριθμημένο ευρετήριο ή μια συγκεκριμένη ενότητα ορισμού. Χρησιμοποιήστε το όταν χρειάζεται να διαβάσετε ένα μεγάλο αρχείο .cs: πρώτα καλέστε με mode='index' για να λάβετε τον πίνακα περιεχομένων, μετά καλέστε με mode='section' και τον αριθμό ενότητας για να ανακτήσετε μόνο τον ορισμό που χρειάζεστε. Αυτό εξοικονομεί διακριτικά σε σύγκριση με την ανάγνωση ολόκληρου του αρχείου."
   },
   "he": {
     "x_search_terms": [
@@ -805,7 +921,11 @@
     "err.section_not_found": "שגיאה: הקטע {section_num} לא נמצא. טווח חוקי: 0..{last}.",
     "err.invalid_mode": "שגיאה: מצב לא חוקי '{mode}'. השתמש ב'אינדקס' או 'קטע'.",
     "msg.no_entries": "(לא נמצאו הגדרות)",
-    "msg.brace_imbalance": "חוסר איזון בסוגריים מסולסלים: {open} פתוחים vs {close} סגורים"
+    "msg.brace_imbalance": "חוסר איזון בסוגריים מסולסלים: {open} פתוחים vs {close} סגורים",
+    "msg.index_output": "אינדקס עבור: {path}\n---\n{toc}\n---\nסה\"כ הגדרות: {total}\nכדי לאחזר הגדרה, התקשר ל-cs2idx עם mode='section' ומספר המדור.",
+    "param.mode.description": "\"אינדקס\" מחזיר תוכן עניינים ממוספר עם מספרי שורות. \"קטע\" מחזיר הגדרה ספציפית לפי מספר.",
+    "param.section.description": "מספר סעיף לאחזור (משמש רק כאשר mode='section'). קבל את המספר מפלט האינדקס.",
+    "tool.description": "נתח קובץ C# (.cs) למחלקות, ממשקים, מבנים, רשימות, שיטות ומאפיינים והחזר אינדקס ממוספר או קטע הגדרה ספציפי. השתמש בזה כאשר אתה צריך לקרוא קובץ .cs גדול: תחילה התקשר עם mode='index' כדי לקבל את תוכן העניינים, ואז התקשר עם mode='section' ומספר המדור כדי לאחזר רק את ההגדרה שאתה צריך. זה חוסך אסימונים בהשוואה לקריאת הקובץ כולו."
   },
   "hu": {
     "x_search_terms": [
@@ -830,7 +950,11 @@
     "err.section_not_found": "Hiba: A(z) {section_num} szakasz nem található. Érvényes tartomány: 1..{last}.",
     "err.invalid_mode": "Hiba: Érvénytelen mód: '{mode}'. Használja az „index” vagy a „szakasz” kifejezést.",
     "msg.no_entries": "(nem található definíció)",
-    "msg.brace_imbalance": "kapcsos zárójelek egyensúlyhiánya: {open} nyitott vs {close} zárt"
+    "msg.brace_imbalance": "kapcsos zárójelek egyensúlyhiánya: {open} nyitott vs {close} zárt",
+    "msg.index_output": "Index ehhez: {path}\n---\n{toc}\n---\nÖsszes definíció: {total}\nDefiníció lekéréséhez hívja a cs2idx-et a mode='section' paraméterrel és a szakaszszámmal.",
+    "param.mode.description": "Az \"index\" számozott tartalomjegyzéket ad vissza sorszámokkal. A \"szakasz\" egy adott definíciót ad vissza szám szerint.",
+    "param.section.description": "A lekérendő szakasz száma (csak akkor használatos, ha mode='szakasz'). Szerezze le a számot az indexkimenetből.",
+    "tool.description": "Elemezze a C# (.cs) fájlokat osztályokba, interfészekbe, struktúrákba, enum-okba, metódusokba és tulajdonságokba, és adjon vissza egy számozott indexet vagy egy meghatározott definíciós részt. Használja ezt, ha nagy .cs fájlt kell olvasnia: először hívja meg a mode='index' paramétert a tartalomjegyzék eléréséhez, majd hívja meg a mode='section' és a szakaszszámot, hogy csak a szükséges definíciót kérje le. Ez a tokeneket menti a teljes fájl elolvasásához képest."
   },
   "ro": {
     "x_search_terms": [
@@ -855,6 +979,10 @@
     "err.section_not_found": "Eroare: secțiunea {section_num} nu a fost găsită. Interval valid: 1..{last}.",
     "err.invalid_mode": "Eroare: modul „{mode}” nevalid. Folosiți „index” sau „secțiune”.",
     "msg.no_entries": "(nu au fost găsite definiții)",
-    "msg.brace_imbalance": "dezechilibru de acolade: {open} deschise vs {close} închise"
+    "msg.brace_imbalance": "dezechilibru de acolade: {open} deschise vs {close} închise",
+    "msg.index_output": "Index pentru: {path}\n---\n{toc}\n---\nTotal definiții: {total}\nPentru a prelua o definiție, apelați cs2idx cu mode='section' și numărul secțiunii.",
+    "param.mode.description": "„index” returnează un cuprins numerotat cu numere de rând. „secțiune” returnează o definiție specifică prin număr.",
+    "param.section.description": "Numărul secțiunii de preluat (utilizat numai când mode='section'). Obțineți numărul din rezultatul indexului.",
+    "tool.description": "Analizați un fișier C# (.cs) în clase, interfețe, structuri, enumerari, metode și proprietăți și returnați un index numerotat sau o anumită secțiune de definiție. Utilizați acest lucru atunci când trebuie să citiți un fișier .cs mare: mai întâi apelați cu mode='index' pentru a obține cuprinsul, apoi apelați cu mode='section' și numărul secțiunii pentru a prelua doar definiția de care aveți nevoie. Acest lucru economisește jetoane în comparație cu citirea întregului fișier."
   }
 }

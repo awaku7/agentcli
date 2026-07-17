@@ -54,7 +54,7 @@
     "status.created": "QRコードを作成しました: %(path)s",
     "status.overwritten": "QRコードを上書きしました: %(path)s",
     "param.ecc.description": "誤り訂正: L/M/Q/H（デフォルト: M）。",
-    "log.opened_default_app": "[INFO] Opened image file with the default app."
+    "log.opened_default_app": "[情報] 画像ファイルをデフォルトのアプリで開きました。"
   },
   "es": {
     "tool.description": "Genera una imagen de código QR (PNG) a partir de texto o URL.",
@@ -81,7 +81,7 @@
     "status.created": "Código QR creado: %(path)s",
     "status.overwritten": "Código QR sobrescrito: %(path)s",
     "param.ecc.description": "Corrección de errores: L/M/Q/H (predeterminado: M).",
-    "log.opened_default_app": "[INFO] Opened image file with the default app."
+    "log.opened_default_app": "[INFO] Archivo de imagen abierto con la aplicación predeterminada."
   },
   "fr": {
     "tool.description": "Générez une image de code QR (PNG) à partir d’un texte ou d’une URL.",
@@ -108,7 +108,7 @@
     "status.created": "Code QR créé : %(path)s",
     "status.overwritten": "Code QR écrasé : %(path)s",
     "param.ecc.description": "Correction d'erreur : L/M/Q/H (par défaut : M).",
-    "log.opened_default_app": "[INFO] Opened image file with the default app."
+    "log.opened_default_app": "[INFO] Fichier image ouvert avec l'application par défaut."
   },
   "ko": {
     "tool.description": "텍스트나 URL로부터 QR 코드 이미지(PNG)를 생성합니다. 오류 정정 수준, 박스 크기, 테두리, 색상을 조정할 수 있습니다.",
@@ -135,7 +135,7 @@
     "status.created": "QR 코드 생성됨: %(path)s",
     "status.overwritten": "QR 코드 덮어씀: %(path)s",
     "param.ecc.description": "오류 수정: L/M/Q/H(기본: M).",
-    "log.opened_default_app": "[INFO] Opened image file with the default app."
+    "log.opened_default_app": "[정보] 기본 앱으로 이미지 파일을 열었습니다."
   },
   "de": {
     "tool.description": "Erzeugt ein QR-Code-Bild (PNG) aus Text oder URL.",
@@ -162,7 +162,7 @@
     "status.created": "QR-Code erstellt: %(path)s",
     "status.overwritten": "QR-Code überschrieben: %(path)s",
     "param.ecc.description": "Fehlerkorrektur: L/M/Q/H.",
-    "log.opened_default_app": "[INFO] Opened image file with the default app."
+    "log.opened_default_app": "[INFO] Bilddatei mit der Standard-App geöffnet."
   },
   "it": {
     "tool.description": "Genera un’immagine del codice QR (PNG) da testo o URL.",
@@ -189,7 +189,7 @@
     "status.created": "Codice QR creato: %(path)s",
     "status.overwritten": "Codice QR sovrascritto: %(path)s",
     "param.ecc.description": "La dimensione di ogni casella (larghezza/altezza in pixel è obbligatoria). correzione: L/M/Q/H (predefinito: M).",
-    "log.opened_default_app": "[INFO] Opened image file with the default app."
+    "log.opened_default_app": "[INFO] File immagine aperto con l'app predefinita."
   },
   "ru": {
     "tool.description": "Создаёт изображение QR-кода (PNG) из текста или URL.",
@@ -216,7 +216,7 @@
     "status.created": "QR-код создан: %(path)s",
     "status.overwritten": "QR-код перезаписан: %(path)s",
     "param.ecc.description": "Исправление ошибок: L/M/Q/H (по умолчанию: M).",
-    "log.opened_default_app": "[INFO] Opened image file with the default app."
+    "log.opened_default_app": "[ИНФО] Открыт файл изображения в приложении по умолчанию."
   },
   "pt_BR": {
     "tool.description": "Gera uma imagem de código QR (PNG) a partir de texto ou URL.",
@@ -243,7 +243,7 @@
     "status.created": "QR code criado: %(path)s",
     "status.overwritten": "QR code sobrescrito: %(path)s",
     "param.ecc.description": "Correção de erros: L/M/Q/H (padrão: M).",
-    "log.opened_default_app": "[INFO] Opened image file with the default app."
+    "log.opened_default_app": "[INFO] Arquivo de imagem aberto com o aplicativo padrão."
   },
   "pt": {
     "tool.description": "Gera uma imagem de código QR (PNG) a partir de texto ou URL.",
@@ -270,7 +270,7 @@
     "status.created": "Código QR criado: %(path)s",
     "status.overwritten": "Código QR substituído: %(path)s",
     "param.ecc.description": "Correção de erro: L/M/Q/H (padrão: M).",
-    "log.opened_default_app": "[INFO] Opened image file with the default app."
+    "log.opened_default_app": "[INFO] Arquivo de imagem aberto com o aplicativo padrão."
   },
   "id": {
     "tool.description": "Menghasilkan gambar kode QR (PNG) dari teks atau URL.",
@@ -297,7 +297,7 @@
     "status.created": "QR code dibuat: %(path)s",
     "status.overwritten": "QR code ditimpa: %(path)s",
     "param.ecc.description": "Koreksi kesalahan: L/M/Q/H (default: M).",
-    "log.opened_default_app": "[INFO] Opened image file with the default app."
+    "log.opened_default_app": "[INFO] Membuka file gambar dengan aplikasi default."
   },
   "vi": {
     "tool.description": "Tạo ảnh mã QR (PNG) từ văn bản hoặc URL.",
@@ -324,7 +324,7 @@
     "status.created": "Đã tạo mã QR: %(path)s",
     "status.overwritten": "Đã ghi đè mã QR: %(path)s",
     "param.ecc.description": "Sửa lỗi: L/M/Q/H (mặc định: M).",
-    "log.opened_default_app": "[INFO] Opened image file with the default app."
+    "log.opened_default_app": "[INFO] Đã mở tệp hình ảnh bằng ứng dụng mặc định."
   },
   "pl": {
     "tool.description": "Generuje obraz kodu QR (PNG) z tekstu lub adresu URL.",
@@ -351,7 +351,7 @@
     "status.created": "Utworzono kod QR: %(path)s",
     "status.overwritten": "Nadpisano kod QR: %(path)s",
     "param.ecc.description": "Korekcja błędów: L/M/Q/H (domyślnie: M).",
-    "log.opened_default_app": "[INFO] Opened image file with the default app."
+    "log.opened_default_app": "[INFO] Otwarto plik obrazu z domyślną aplikacją."
   },
   "hi": {
     "tool.description": "अनुकूलन योग्य रंगों और आकार से एक QR कोड छवि (PNG) बनाएं।",
@@ -378,7 +378,7 @@
     "status.created": "QR कोड बनाया गया: %(path)s",
     "status.overwritten": "क्यूआर कोड को ओवरराइट किया गया: %(path)s",
     "param.ecc.description": "त्रुटि सुधार: L/M/Q/H (डिफ़ॉल्ट: M).",
-    "log.opened_default_app": "[INFO] Opened image file with the default app."
+    "log.opened_default_app": "[जानकारी] डिफ़ॉल्ट ऐप के साथ छवि फ़ाइल खोली गई।"
   },
   "ar": {
     "tool.description": "ينشئ صورة رمز QR (PNG) من نص أو رابط.",
@@ -405,7 +405,7 @@
     "status.created": "تم إنشاء رمز QR: %(path)s",
     "status.overwritten": "تمت الكتابة فوق رمز الاستجابة السريعة: %(path)s",
     "param.ecc.description": "تصحيح الخطأ: L/M/Q/H (الافتراضي: M",
-    "log.opened_default_app": "[INFO] Opened image file with the default app."
+    "log.opened_default_app": "[معلومات] تم فتح ملف الصورة بالتطبيق الافتراضي."
   },
   "th": {
     "tool.description": "สร้างรูปภาพโค้ด QR (PNG)",
@@ -432,7 +432,7 @@
     "status.created": "สร้างโค้ด QR: %(path)s",
     "status.overwritten": "เขียนทับโค้ด QR: %(path)s",
     "param.ecc.description": "การแก้ไขข้อผิดพลาด: L/M/Q/H (ค่าเริ่มต้น: M)",
-    "log.opened_default_app": "[INFO] Opened image file with the default app."
+    "log.opened_default_app": "[INFO] เปิดไฟล์รูปภาพด้วยแอปเริ่มต้น"
   },
   "zh_CN": {
     "tool.description": "根据文本或 URL 生成 QR 码图片（PNG）。支持调整纠错级别、方块大小、边框和颜色。",
@@ -459,7 +459,7 @@
     "status.created": "已创建二维码：%(path)s",
     "status.overwritten": "已覆盖二维码：%(path)s",
     "param.ecc.description": "纠错级别: L/M/Q/H（默认: M）。",
-    "log.opened_default_app": "[INFO] Opened image file with the default app."
+    "log.opened_default_app": "[信息] 使用默认应用程序打开图像文件。"
   },
   "zh_TW": {
     "tool.description": "根據文字或 URL 產生 QR 碼圖片（PNG）。支援調整錯誤修正等級、方塊大小、邊框與色彩。",
@@ -486,7 +486,7 @@
     "status.created": "已建立 QR 碼：%(path)s",
     "status.overwritten": "已覆寫 QR 碼：%(path)s",
     "param.ecc.description": "纠错级别: L/M/Q/H（默认: M）。",
-    "log.opened_default_app": "[INFO] Opened image file with the default app."
+    "log.opened_default_app": "[資訊] 使用預設應用程式開啟圖像檔案。"
   },
   "bn": {
     "tool.description": "পাঠ্য বা URL থেকে একটি QR কোড চিত্র (PNG) তৈরি করুন৷ কাস্টমাইজযোগ্য রং এবং আকার.",
@@ -513,7 +513,7 @@
     "status.created": "QR কোড তৈরি করা হয়েছে: %(path)s",
     "status.overwritten": "ওভাররাট করা QR কোড: %(path)s",
     "param.ecc.description": "ত্রুটি সংশোধন: L/M/Q/H (ডিফল্ট: M)",
-    "log.opened_default_app": "[INFO] Opened image file with the default app."
+    "log.opened_default_app": "[INFO] ডিফল্ট অ্যাপের সাথে ইমেজ ফাইল খোলা হয়েছে।"
   },
   "fa": {
     "tool.description": "از متن یا URL یک تصویر کد QR (PNG) می‌سازد.",
@@ -540,7 +540,7 @@
     "status.created": "کد QR ساخته شد: %(path)s",
     "status.overwritten": "کد QR بازنویسی شد: %(path)s",
     "param.ecc.description": "تصحیح خطا: L/M/Q/H (پیش‌فرض: M).",
-    "log.opened_default_app": "[INFO] Opened image file with the default app."
+    "log.opened_default_app": "[INFO] فایل تصویری با برنامه پیش‌فرض باز شد."
   },
   "mn": {
     "tool.description": "Текст эсвэл URL-ээс QR кодын зураг (PNG) үүсгэнэ.",
@@ -567,7 +567,7 @@
     "status.created": "QR код үүсгэлээ: %(path)s",
     "status.overwritten": "QR кодыг дарж бичсэн: %(path)s",
     "param.ecc.description": "Алдаа засах: L/M/Q/H (өгөгдмөл: M).",
-    "log.opened_default_app": "[INFO] Opened image file with the default app."
+    "log.opened_default_app": "[МЭДЭЭЛЭЛ] Өгөгдмөл програмын тусламжтайгаар зургийн файлыг нээсэн."
   },
   "mr": {
     "tool.description": "मजकूर किंवा URL मधून QR कोड प्रतिमा (PNG) तयार करते.",
@@ -594,7 +594,7 @@
     "status.created": "QR कोड तयार केला: %(path)s",
     "status.overwritten": "ओव्हरराईट केलेला QR कोड: %(path)s",
     "param.ecc.description": "त्रुटी दुरुस्ती: L/M/Q/H (डिफॉल्ट: M).",
-    "log.opened_default_app": "[INFO] Opened image file with the default app."
+    "log.opened_default_app": "[INFO] डीफॉल्ट ॲपसह प्रतिमा फाइल उघडली."
   },
   "el": {
     "tool.description": "Δημιουργήστε μια εικόνα κώδικα QR (PNG) από κείμενο ή URL. Προσαρμόσιμα χρώματα και μέγεθος.",
@@ -615,8 +615,8 @@
     "param.back_color.description": "το όνομα αρχείου πρέπει να τελειώνει σε .png",
     "param.overwrite.description": "Αντικαταστήστε εάν υπάρχει (προεπιλογή: false).",
     "error.text_required": "Απαιτείται διαδρομή_εξόδου",
-    "error.filename_required": "Το αρχείο υπάρχει ήδη: %(path)s",
-    "error.must_be_png": "Δημιουργήθηκε κωδικός QR: %(path)s",
+    "error.filename_required": "απαιτείται όνομα αρχείου",
+    "error.must_be_png": "Το όνομα αρχείου πρέπει να τελειώνει σε .png",
     "error.file_exists": "Το αρχείο υπάρχει ήδη: %(path)s",
     "status.created": "Δημιουργήθηκε κωδικός QR: %(path)s",
     "status.overwritten": "Αντικατάσταση κωδικού QR: %(path)s",
@@ -728,8 +728,8 @@
     "error.file_exists": "Faili tayari ipo: %(path)s",
     "status.created": "QR code imeundwa: %(path)s",
     "status.overwritten": "Batilisha msimbo wa QR: %(path)s",
-    "param.ecc.description": "rangi ya BG (chaguo-msingi: nyeupe __DELI_M).",
-    "log.opened_default_app": "[INFO] Opened image file with the default app."
+    "param.ecc.description": "Urekebishaji wa hitilafu: L/M/Q/H (chaguo-msingi: M).",
+    "log.opened_default_app": "[INFO] Umefungua faili ya picha kwa kutumia programu chaguomsingi."
   },
   "tr": {
     "tool.description": "Metin veya URL’den bir QR kodu görüntüsü (PNG) oluşturur.",
@@ -756,7 +756,7 @@
     "status.created": "QR kodu oluşturuldu: %(path)s",
     "status.overwritten": "QR kodunun üzerine yazıldı: %(path)s",
     "param.ecc.description": "Hata düzeltme: L/M/Q/H (varsayılan: M).",
-    "log.opened_default_app": "[INFO] Opened image file with the default app."
+    "log.opened_default_app": "[BİLGİ] Varsayılan uygulamayla açılan görüntü dosyası."
   },
   "cs": {
     "tool.description": "Vytvoří obrázek QR kódu (PNG) z textu nebo URL.",
@@ -783,7 +783,7 @@
     "status.created": "QR kód vytvořen: %(path)s",
     "status.overwritten": "QR kód přepsán: %(path)s",
     "param.ecc.description": "Oprava chyb: L/M/Q/H (výchozí: M).",
-    "log.opened_default_app": "[INFO] Opened image file with the default app."
+    "log.opened_default_app": "[INFO] Otevřený soubor obrázku pomocí výchozí aplikace."
   },
   "fi": {
     "tool.description": "Luo QR-koodikuva (PNG) tekstistä tai URL-osoitteesta.",
@@ -810,7 +810,7 @@
     "status.created": "QR-koodi luotu: %(path)s",
     "status.overwritten": "QR-koodi korvattu: %(path)s",
     "param.ecc.description": "Virheenkorjaus: L/M/Q/H (oletus: M).",
-    "log.opened_default_app": "[INFO] Opened image file with the default app."
+    "log.opened_default_app": "[INFO] Avattu kuvatiedosto oletussovelluksella."
   },
   "nb": {
     "tool.description": "Genererer et QR-kodebilde (PNG) fra tekst eller URL.",
@@ -837,7 +837,7 @@
     "status.created": "QR-kode opprettet: %(path)s",
     "status.overwritten": "QR-kode overskrevet: %(path)s",
     "param.ecc.description": "Feilretting: L/M/Q/H (standard: M).",
-    "log.opened_default_app": "[INFO] Opened image file with the default app."
+    "log.opened_default_app": "[INFO] Åpnet bildefil med standardappen."
   },
   "nl": {
     "tool.description": "Genereer een QR-codeafbeelding (PNG) uit tekst of URL.",
@@ -864,7 +864,7 @@
     "status.created": "QR-code gemaakt: %(path)s",
     "status.overwritten": "QR-code overschreven: %(path)s",
     "param.ecc.description": "Foutcorrectie: L/M/Q/H (standaard: M).",
-    "log.opened_default_app": "[INFO] Opened image file with the default app."
+    "log.opened_default_app": "[INFO] Afbeeldingsbestand geopend met de standaardapp."
   },
   "sv": {
     "tool.description": "Skapar en QR-kodbild (PNG) från text eller URL.",
@@ -891,7 +891,7 @@
     "status.created": "QR-kod skapad: %(path)s",
     "status.overwritten": "QR-kod överskriven: %(path)s",
     "param.ecc.description": "Felkorrigering: L/M/Q/H (standard: M",
-    "log.opened_default_app": "[INFO] Opened image file with the default app."
+    "log.opened_default_app": "[INFO] Öppnad bildfil med standardappen."
   },
   "uk": {
     "tool.description": "Створює зображення QR-коду (PNG) з тексту або URL.",
@@ -918,6 +918,6 @@
     "status.created": "QR-код створено: %(path)s",
     "status.overwritten": "QR-код перезаписано: %(path)s",
     "param.ecc.description": "Виправлення помилок: L/M/Q/H.",
-    "log.opened_default_app": "[INFO] Opened image file with the default app."
+    "log.opened_default_app": "[INFO] Відкритий файл зображення за допомогою програми за умовчанням."
   }
 }

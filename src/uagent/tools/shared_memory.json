@@ -108,16 +108,16 @@
     "msg.truncated": "\n[shared_memory avkortet: begrenset til {max_bytes} byte]"
   },
   "nl": {
-    "err.load": "[shared_memory error] {err_type}: {err}",
-    "msg.disabled": "(shared memory is disabled; set UAGENT_SHARED_MEMORY_FILE to enable it)",
-    "msg.no_shared_memory": "(no shared memory yet)",
-    "msg.truncated": "\n[shared_memory truncated: limited to {max_bytes} bytes]"
+    "err.load": "[gedeelde geheugenfout] {err_type}: {err}",
+    "msg.disabled": "(gedeeld geheugen is uitgeschakeld; stel UAGENT_SHARED_MEMORY_FILE in om dit in te schakelen)",
+    "msg.no_shared_memory": "(nog geen gedeeld geheugen)",
+    "msg.truncated": "\n[shared_memory afgekapt: beperkt tot {max_bytes} bytes]"
   },
   "fi": {
     "err.load": "[shared_memory error] {err_type}: {err}",
-    "msg.disabled": "(shared memory is disabled; set UAGENT_SHARED_MEMORY_FILE to enable it)",
-    "msg.no_shared_memory": "(no shared memory yet)",
-    "msg.truncated": "\n[shared_memory truncated: limited to {max_bytes} bytes]"
+    "msg.disabled": "(jaettu muisti ei ole käytössä; ota se käyttöön asettamalla UAGENT_SHARED_MEMORY_FILE)",
+    "msg.no_shared_memory": "(ei vielä jaettua muistia)",
+    "msg.truncated": "\n[shared_memory typistetty: rajoitettu {max_bytes} tavuun]"
   },
   "cs": {
     "err.load": "[chyba shared_memory] {err_type}: {err}",
@@ -157,50 +157,50 @@
   },
   "bn": {
     "err.load": "[shared_memory error] {err_type}: {err}",
-    "msg.disabled": "(shared memory is disabled; set UAGENT_SHARED_MEMORY_FILE to enable it)",
-    "msg.no_shared_memory": "(no shared memory yet)",
-    "msg.truncated": "\n[shared_memory truncated: limited to {max_bytes} bytes]"
+    "msg.disabled": "(শেয়ার করা মেমরি নিষ্ক্রিয় করা হয়েছে; এটি সক্ষম করতে UAGENT_SHARED_MEMORY_FILE সেট করুন)",
+    "msg.no_shared_memory": "(এখনও শেয়ার করা মেমরি নেই)",
+    "msg.truncated": "\n[শেয়ারড_মেমরি কাটা: {max_bytes} বাইটে সীমাবদ্ধ]"
   },
   "fa": {
-    "err.load": "[shared_memory error] {err_type}: {err}",
-    "msg.disabled": "(shared memory is disabled; set UAGENT_SHARED_MEMORY_FILE to enable it)",
-    "msg.no_shared_memory": "(no shared memory yet)",
-    "msg.truncated": "\n[shared_memory truncated: limited to {max_bytes} bytes]"
+    "err.load": "[خطای shared_memory] {err_type}: {err}",
+    "msg.disabled": "(حافظه مشترک غیرفعال است؛ UAGENT_SHARED_MEMORY_FILE را برای فعال کردن آن تنظیم کنید)",
+    "msg.no_shared_memory": "(هنوز حافظه مشترکی وجود ندارد)",
+    "msg.truncated": "\n[shared_memory کوتاه شده: محدود به {max_bytes} بایت]"
   },
   "mn": {
-    "err.load": "[shared_memory error] {err_type}: {err}",
-    "msg.disabled": "(shared memory is disabled; set UAGENT_SHARED_MEMORY_FILE to enable it)",
-    "msg.no_shared_memory": "(no shared memory yet)",
-    "msg.truncated": "\n[shared_memory truncated: limited to {max_bytes} bytes]"
+    "err.load": "[хуваалцсан_санах ойн алдаа] {err_type}: {err}",
+    "msg.disabled": "(хуваалцсан санах ой идэвхгүй болсон; үүнийг идэвхжүүлэхийн тулд UAGENT_SHARED_MEMORY_FILE-г тохируулна уу)",
+    "msg.no_shared_memory": "(хараахан хуваалцсан санах ой байхгүй)",
+    "msg.truncated": "\n[хуваалцсан_санах ой таслагдсан: {max_bytes} байтаар хязгаарлагдсан]"
   },
   "mr": {
     "err.load": "[shared_memory error] {err_type}: {err}",
-    "msg.disabled": "(shared memory is disabled; set UAGENT_SHARED_MEMORY_FILE to enable it)",
-    "msg.no_shared_memory": "(no shared memory yet)",
-    "msg.truncated": "\n[shared_memory truncated: limited to {max_bytes} bytes]"
+    "msg.disabled": "(सामायिक मेमरी अक्षम केली आहे; ती सक्षम करण्यासाठी UAGENT_SHARED_MEMORY_FILE सेट करा)",
+    "msg.no_shared_memory": "(अद्याप सामायिक केलेली मेमरी नाही)",
+    "msg.truncated": "\n[shared_memory truncated: {max_bytes} बाइट्सपर्यंत मर्यादित]"
   },
   "el": {
-    "err.load": "(η κοινόχρηστη μνήμη είναι απενεργοποιημένη, δεν έχει οριστεί ακόμη η μνήμη UAGENT_SHARED_LE σε #MORY)",
-    "msg.disabled": "[shared_memory περικομμένη: περιορισμένη σε {max_bytes} bytes]",
+    "err.load": "[shared_memory error] {err_type}: {err}",
+    "msg.disabled": "(η κοινόχρηστη μνήμη είναι απενεργοποιημένη, ορίστε το UAGENT_SHARED_MEMORY_FILE για να την ενεργοποιήσετε)",
     "msg.no_shared_memory": "[SKILL]",
-    "msg.truncated": "{max_bytes} (Διαγράφηκαν {removed} μηνύματα δεξιοτήτων)"
+    "msg.truncated": "\n[shared_memory περικομμένη: περιορισμένη σε {max_bytes} byte]"
   },
   "he": {
-    "err.load": "(זיכרון משותף מושבת; הגדר את",
-    "msg.disabled": "UAGENT_SHARED_MEMORY=enable it]_FILE כדי להפעיל את [#= shared_MEMORY] (#) \n[shared_memory truncated: מוגבל ל-{max_bytes} bytes]",
+    "err.load": "[shared_memory error] {err_type}: {err}",
+    "msg.disabled": "(זיכרון משותף מושבת; הגדר את UAGENT_SHARED_MEMORY_FILE כדי להפעיל אותו)",
     "msg.no_shared_memory": "[מיומנות]",
-    "msg.truncated": "{max_bytes} (הודעות מיומנות שנמחקו {removed})"
+    "msg.truncated": "\n[shared_memory קטוע: מוגבל ל-{max_bytes} בתים]"
   },
   "hu": {
-    "err.load": "(a megosztott memória le van tiltva; állítsa be az UAGENT_SHARED_MEMORY_# beállítást, hogy engedélyezze még] (nincs megosztott memória) #= \n[shared_memory csonka: {max_bytes} bájtra korlátozva]",
+    "err.load": "[shared_memory error] {err_type}: {err}",
     "msg.disabled": "(a megosztott memória le van tiltva; engedélyezéséhez állítsa be az UAGENT_SHARED_MEMORY_FILE fájlt)",
-    "msg.no_shared_memory": "{message} (Törölve {removed} képzettségi üzenet)",
+    "msg.no_shared_memory": "(még nincs megosztott memória)",
     "msg.truncated": "[megosztott_memória csonka: {max_bytes} bájtra korlátozva]"
   },
   "ro": {
-    "err.load": "(memoria partajată este dezactivată; setați UAGENT_SHAREDILE_ME pentru a-l partaja pe memorie) încă)",
-    "msg.disabled": "[memorie_partajată trunchiată: limitată la {max_bytes} octeți]",
+    "err.load": "[eroare de memorie partajată] {err_type}: {err}",
+    "msg.disabled": "(Memoria partajată este dezactivată; setați UAGENT_SHARED_MEMORY_FILE pentru ao activa)",
     "msg.no_shared_memory": "[SKILL]",
-    "msg.truncated": "{message} (Mesaje de aptitudini {eliminate)"
+    "msg.truncated": "\n[shared_memory trunchiată: limitată la {max_bytes} octeți]"
   }
 }

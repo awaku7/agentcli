@@ -194,7 +194,8 @@
       "jendela desktop",
       "buka jendela",
       "info jendela"
-    ]
+    ],
+    "tool.description": "Hitung judul jendela tingkat atas di Windows dan kembalikan JSON terstruktur. Parameter: 'semua' (termasuk yang tidak terlihat), 'pid' (termasuk PID), 'kelas' (termasuk nama kelas)."
   },
   "vi": {
     "param.all.description": "Bao gồm các cửa sổ không hiển thị",
@@ -289,7 +290,7 @@
   "sw": {
     "param.all.description": "Include non-visible windows.",
     "param.class.description": "Jumuisha jina la darasa.",
-    "param.pid.description": "Include process IDs.",
+    "param.pid.description": "Jumuisha vitambulisho vya mchakato.",
     "x_search_terms": [
       "majina ya dirisha",
       "orodha madirisha",

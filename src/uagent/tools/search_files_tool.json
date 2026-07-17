@@ -46,8 +46,8 @@
     "param.re_content.description": "ファイル内容を検索する正規表現。指定した場合、1行でも一致したファイルのみ返します。",
     "param.limit.description": "返す一致ファイルの最大数（既定: 50）。",
     "param.glob.description": "ファイル名の glob パターン（例: '*.py', 'test_*'）。省略時はすべてのファイルを対象にします。",
-    "param.path.description": "Search root (default: cwd).",
-    "out.found_paginated": "[search_files] Page {page} of {total_pages} (Total {total} results, showing {showing})",
+    "param.path.description": "ルートを検索します (デフォルト: cwd)。",
+    "out.found_paginated": "[search_files] ページ {page}/{total_pages} (合計 {total} 件の結果、{showing} を表示)",
     "param.fast_read_threshold_bytes.description": "このしきい値より小さいファイルは高速検索のため完全にread()されます（デフォルト: 8000000 ≈ 8MB）。より大きなファイルはメモリ使用量を抑えるためストリーミングでスキャンされます。"
   },
   "es": {
@@ -69,13 +69,13 @@
       "localizar",
       "buscar archivo"
     ],
-    "param.page.description": "Page number to retrieve (default: 1).",
+    "param.page.description": "Número de página a recuperar (predeterminado: 1).",
     "param.cs.description": "Si la búsqueda de contenido distingue entre mayúsculas y minúsculas (valor predeterminado: falso). Los argumentos",
     "param.re_content.description": "Expresión regular para buscar dentro de los archivos.",
     "param.limit.description": "Número máximo de archivos coincidentes a devolver (por defecto: 50).",
     "param.glob.description": "Patrón glob de nombre de archivo (p.ej., '*.py', 'test_*').",
-    "param.path.description": "Search root (default: cwd).",
-    "out.found_paginated": "[search_files] Page {page} of {total_pages} (Total {total} results, showing {showing})",
+    "param.path.description": "Buscar raíz (predeterminado: cwd).",
+    "out.found_paginated": "[search_files] Página {page} de {total_pages} (resultados totales de {total}, que muestran {showing})",
     "param.fast_read_threshold_bytes.description": "Los archivos más pequeños que este umbral se leen completamente con read() para una búsqueda más rápida (predeterminado: 8000000 ≈ 8MB). Los archivos más grandes se escanean con transmisión para limitar el uso de memoria."
   },
   "fr": {
@@ -97,13 +97,13 @@
       "localiser",
       "rechercher un fichier"
     ],
-    "param.page.description": "Page number to retrieve (default: 1).",
+    "param.page.description": "Numéro de page à récupérer (par défaut : 1).",
     "param.cs.description": "Si la recherche de contenu est sensible à la casse (par défaut : false). Les arguments",
     "param.re_content.description": "Expression régulière pour rechercher dans les fichiers.",
     "param.limit.description": "Nombre maximum de fichiers correspondants à renvoyer (par défaut : 50).",
     "param.glob.description": "Modèle glob du nom de fichier (par exemple, '*.py', 'test_*').",
-    "param.path.description": "Search root (default: cwd).",
-    "out.found_paginated": "[search_files] Page {page} of {total_pages} (Total {total} results, showing {showing})",
+    "param.path.description": "Rechercher la racine (par défaut : cwd).",
+    "out.found_paginated": "[search_files] Page {page} sur {total_pages} (Total de {total} résultats, affichant {showing})",
     "param.fast_read_threshold_bytes.description": "Les fichiers plus petits que ce seuil sont entièrement lus() pour une recherche plus rapide (par défaut : 8000000 ≈ 8 Mo). Les fichiers plus volumineux sont scannés en streaming pour limiter l'utilisation de la mémoire."
   },
   "ko": {
@@ -125,13 +125,13 @@
       "위치 찾기",
       "파일 검색"
     ],
-    "param.page.description": "Page number to retrieve (default: 1).",
+    "param.page.description": "검색할 페이지 번호(기본값: 1).",
     "param.cs.description": "내용 검색 시 대소문자를 구분할지 여부(기본값: false).",
     "param.re_content.description": "파일 내에서 검색할 정규식입니다. 제공된 경우 일치하는 줄이 하나 이상 있는 파일만 반환됩니다.",
     "param.limit.description": "반환할 최대 일치 파일 수(기본값: 50).",
     "param.glob.description": "파일명 glob 패턴(예: '*.py', 'test_*'). 생략하면 모든 파일이 대상입니다.",
-    "param.path.description": "Search root (default: cwd).",
-    "out.found_paginated": "[search_files] Page {page} of {total_pages} (Total {total} results, showing {showing})",
+    "param.path.description": "루트를 검색합니다(기본값: cwd).",
+    "out.found_paginated": "[search_files] 페이지 {page}/{total_pages}(총 {total}개 결과, {showing} 표시)",
     "param.fast_read_threshold_bytes.description": "이 임계값보다 작은 파일은 더 빠른 검색을 위해 완전히 read()됩니다(기본값: 8000000 ≈ 8MB). 더 큰 파일은 메모리 사용을 제한하기 위해 스트리밍 방식으로 스캔됩니다."
   },
   "de": {
@@ -153,13 +153,13 @@
       "lokalisieren",
       "Datei durchsuchen"
     ],
-    "param.page.description": "Page number to retrieve (default: 1).",
+    "param.page.description": "Seitenzahl, die abgerufen werden soll (Standard: 1).",
     "param.cs.description": "Ob bei der Inhaltssuche die Groß-/Kleinschreibung beachtet wird (Standard: false).",
     "param.re_content.description": "Regulärer Ausdruck für die Suche in Dateien.",
     "param.limit.description": "Maximale Anzahl der zurückzugebenden Treffer (Standard: 50).",
     "param.glob.description": "Dateinamen-Globmuster (z.B.'*.py', 'test_*').",
-    "param.path.description": "Search root (default: cwd).",
-    "out.found_paginated": "[search_files] Page {page} of {total_pages} (Total {total} results, showing {showing})",
+    "param.path.description": "Stammverzeichnis durchsuchen (Standard: cwd).",
+    "out.found_paginated": "[search_files] Seite {page} von {total_pages} (insgesamt {total} Ergebnisse, angezeigt {showing})",
     "param.fast_read_threshold_bytes.description": "Dateien, die kleiner als dieser Schwellenwert sind, werden vollständig mit read() gelesen, um eine schnellere Suche zu ermöglichen (Standard: 8000000 ≈ 8 MB). Größere Dateien werden mit Streaming gescannt, um die Speichernutzung zu begrenzen."
   },
   "it": {
@@ -181,13 +181,13 @@
       "individuare",
       "cerca file"
     ],
-    "param.page.description": "Page number to retrieve (default: 1).",
+    "param.page.description": "Numero di pagina da recuperare (predefinito: 1).",
     "param.cs.description": "Indica se la ricerca del contenuto fa distinzione tra maiuscole e minuscole (impostazione predefinita: false).",
     "param.re_content.description": "Espressione regolare da cercare nei file.",
     "param.limit.description": "Numero massimo di file corrispondenti da restituire (predefinito: 50).",
     "param.glob.description": "Modello glob del nome file (es.'*.py', 'test_*').",
-    "param.path.description": "Search root (default: cwd).",
-    "out.found_paginated": "[search_files] Page {page} of {total_pages} (Total {total} results, showing {showing})",
+    "param.path.description": "Cerca root (predefinito: cwd).",
+    "out.found_paginated": "[search_files] Pagina {page} di {total_pages} (risultati totali di {total}, visualizzati {showing})",
     "param.fast_read_threshold_bytes.description": "I file più piccoli di questa soglia vengono letti completamente con read() per una ricerca più veloce (default: 8000000 ≈ 8MB). I file più grandi vengono scansionati con streaming per limitare l'uso della memoria."
   },
   "ru": {
@@ -202,13 +202,13 @@
     "x_search_terms": [
       "поиск файлов, найти файлы, поиск файлов, поиск, глобальный поиск, найти, найти, найти файл"
     ],
-    "param.page.description": "Page number to retrieve (default: 1).",
+    "param.page.description": "Номер страницы для получения (по умолчанию: 1).",
     "param.cs.description": "Указывает, учитывает ли поиск контента регистр (по умолчанию: false).",
     "param.re_content.description": "Регулярное выражение для поиска в файлах.",
     "param.limit.description": "Максимальное число совпавших файлов для возврата (по умолчанию: 50).",
     "param.glob.description": "Шаблон glob для имени файла (например, '*.py', 'test_*').",
-    "param.path.description": "Search root (default: cwd).",
-    "out.found_paginated": "[search_files] Page {page} of {total_pages} (Total {total} results, showing {showing})",
+    "param.path.description": "Корень поиска (по умолчанию: cwd).",
+    "out.found_paginated": "[search_files] Страница {page} из {total_pages} (всего результатов {total}, показано {showing})",
     "param.fast_read_threshold_bytes.description": "Файлы меньше этого порога полностью считываются через read() для более быстрого поиска (по умолчанию: 8000000 ≈ 8 МБ). Файлы большего размера сканируются потоково для ограничения использования памяти."
   },
   "pt_BR": {
@@ -232,13 +232,13 @@
       "file lookup",
       "search directory"
     ],
-    "param.page.description": "Page number to retrieve (default: 1).",
+    "param.page.description": "Número da página a ser recuperada (padrão: 1).",
     "param.cs.description": "Se a pesquisa de conteúdo diferencia maiúsculas de minúsculas (padrão: falso).",
     "param.re_content.description": "Expressão regular para pesquisar nos arquivos.",
     "param.limit.description": "Número máximo de arquivos correspondentes a retornar (padrão: 50).",
     "param.glob.description": "Padrão glob para o nome do arquivo (ex.: '*.py', 'test_*').",
-    "param.path.description": "Search root (default: cwd).",
-    "out.found_paginated": "[search_files] Page {page} of {total_pages} (Total {total} results, showing {showing})",
+    "param.path.description": "Raiz de pesquisa (padrão: cwd).",
+    "out.found_paginated": "[search_files] Página {page} de {total_pages} (total de {total} resultados, mostrando {showing})",
     "param.fast_read_threshold_bytes.description": "Arquivos menores que este limite são totalmente lidos com read() para busca mais rápida (padrão: 8000000 ≈ 8MB). Arquivos maiores são escaneados com streaming para limitar o uso de memória."
   },
   "pt": {
@@ -262,13 +262,13 @@
       "pesquisa de arquivo",
       "diretório de pesquisa"
     ],
-    "param.page.description": "Page number to retrieve (default: 1).",
+    "param.page.description": "Número da página a ser recuperada (padrão: 1).",
     "param.cs.description": "Se a pesquisa de conteúdo diferencia maiúsculas de minúsculas (padrão: falso).",
     "param.re_content.description": "Expressão regular para pesquisar em arquivos.",
     "param.limit.description": "Número máximo de arquivos correspondentes a serem retornados (padrão: 50).",
     "param.glob.description": "Padrão glob de nome de arquivo (por exemplo, '*.py', 'test_*').",
-    "param.path.description": "Search root (default: cwd).",
-    "out.found_paginated": "[search_files] Page {page} of {total_pages} (Total {total} results, showing {showing})",
+    "param.path.description": "Raiz de pesquisa (padrão: cwd).",
+    "out.found_paginated": "[search_files] Página {page} de {total_pages} (total de {total} resultados, mostrando {showing})",
     "param.fast_read_threshold_bytes.description": "Ficheiros menores que este limiar são totalmente lidos (read()) para pesquisa mais rápida (padrão: 8000000 ≈ 8MB). Ficheiros maiores são digitalizados com streaming para limitar o uso de memória."
   },
   "id": {
@@ -292,13 +292,13 @@
       "pencarian file",
       "direktori pencarian"
     ],
-    "param.page.description": "Page number to retrieve (default: 1).",
+    "param.page.description": "Nomor halaman yang akan diambil (default: 1).",
     "param.cs.description": "Apakah pencarian isi peka huruf besar/kecil (default: false).",
     "param.re_content.description": "Ekspresi reguler untuk mencari di dalam file.",
     "param.limit.description": "Jumlah maksimum file yang cocok untuk dikembalikan (default: 50).",
     "param.glob.description": "Pola glob nama file (mis. '*.py', 'test_*'). Jika dihilangkan, semua file dipertimbangkan.",
-    "param.path.description": "Search root (default: cwd).",
-    "out.found_paginated": "[search_files] Page {page} of {total_pages} (Total {total} results, showing {showing})",
+    "param.path.description": "Pencarian root (default: cwd).",
+    "out.found_paginated": "[file_pencarian] Halaman {page} dari {total_pages} (Total {total} hasil, menampilkan {showing})",
     "param.fast_read_threshold_bytes.description": "File yang lebih kecil dari ambang batas ini akan dibaca sepenuhnya() untuk pencarian yang lebih cepat (default: 8000000 ≈ 8MB). File yang lebih besar dipindai dengan streaming untuk membatasi penggunaan memori."
   },
   "vi": {
@@ -322,13 +322,13 @@
       "tra cứu tập tin",
       "thư mục tìm kiếm"
     ],
-    "param.page.description": "Page number to retrieve (default: 1).",
+    "param.page.description": "Số trang cần truy xuất (mặc định: 1).",
     "param.cs.description": "Tìm kiếm nội dung có phân biệt chữ hoa chữ thường hay không (mặc định: sai).",
     "param.re_content.description": "Biểu thức chính quy để tìm kiếm trong tập tin.",
     "param.limit.description": "Số lượng tệp phù hợp tối đa cần trả về (mặc định: 50).",
     "param.glob.description": "Mẫu hình cầu tên tệp (ví dụ: '*.py', 'test_*').",
-    "param.path.description": "Search root (default: cwd).",
-    "out.found_paginated": "[search_files] Page {page} of {total_pages} (Total {total} results, showing {showing})",
+    "param.path.description": "Tìm kiếm gốc (mặc định: cwd).",
+    "out.found_paginated": "[tệp_tìm kiếm] Trang {page} trên {total_pages} (Tổng cộng {total} kết quả, hiển thị {showing})",
     "param.fast_read_threshold_bytes.description": "Các tệp nhỏ hơn ngưỡng này sẽ được đọc() toàn bộ để tìm kiếm nhanh hơn (mặc định: 8000000 ≈ 8MB). Các tệp lớn hơn được quét bằng cách phát trực tuyến để giới hạn sử dụng bộ nhớ."
   },
   "pl": {
@@ -352,13 +352,13 @@
       "file lookup",
       "search directory"
     ],
-    "param.page.description": "Page number to retrieve (default: 1).",
+    "param.page.description": "Numer strony do pobrania (domyślnie: 1).",
     "param.cs.description": "Określa, czy w wyszukiwaniu treści uwzględniana jest wielkość liter (domyślnie: fałsz).",
     "param.re_content.description": "Wyrażenie regularne do wyszukiwania w plikach.",
     "param.limit.description": "Maksymalna liczba pasujących plików do zwrócenia (domyślnie: 50).",
     "param.glob.description": "Wzorzec globalny nazwy pliku (np.„*.py”, „test_*”).",
-    "param.path.description": "Search root (default: cwd).",
-    "out.found_paginated": "[search_files] Page {page} of {total_pages} (Total {total} results, showing {showing})",
+    "param.path.description": "Wyszukaj katalog główny (domyślnie: cwd).",
+    "out.found_paginated": "[search_files] Strona {page} z {total_pages} (łącznie {total} wyników, pokazujące {showing})",
     "param.fast_read_threshold_bytes.description": "Pliki mniejsze niż ten próg są w pełni odczytywane (read()) w celu szybszego wyszukiwania (domyślnie: 8000000 ≈ 8MB). Większe pliki są skanowane strumieniowo, aby ograniczyć użycie pamięci."
   },
   "hi": {
@@ -382,13 +382,13 @@
       "file lookup",
       "search directory"
     ],
-    "param.page.description": "Page number to retrieve (default: 1).",
+    "param.page.description": "पुनर्प्राप्त करने के लिए पृष्ठ क्रमांक (डिफ़ॉल्ट: 1).",
     "param.cs.description": "क्या सामग्री खोज केस-संवेदी है (डिफ़ॉल्ट: गलत)।",
     "param.re_content.description": "इस सीमा से छोटी फ़ाइलें तेजी से खोज के लिए पूरी तरह से पढ़ी जाती हैं (डिफ़ॉल्ट: 8000000 ≈ 8MB)। मिलान किया जाता है।",
     "param.limit.description": "लौटाने के लिए मिलान की गई फ़ाइलों की अधिकतम संख्या (डिफ़ॉल्ट: 50)।",
     "param.glob.description": "फ़ाइल नाम ग्लोब पैटर्न (जैसे '*.",
-    "param.path.description": "Search root (default: cwd).",
-    "out.found_paginated": "[search_files] Page {page} of {total_pages} (Total {total} results, showing {showing})",
+    "param.path.description": "रूट खोजें (डिफ़ॉल्ट: cwd)।",
+    "out.found_paginated": "[खोज_फ़ाइलें] {total_pages} का पृष्ठ {page} (कुल {total} परिणाम, {showing} दिखा रहा है)",
     "param.fast_read_threshold_bytes.description": "इस सीमा से छोटी फ़ाइलों को तेज़ खोज के लिए पूरी तरह से read() किया जाता है (डिफ़ॉल्ट: 8000000 ≈ 8MB)। बड़ी फ़ाइलों को मेमोरी उपयोग सीमित करने के लिए स्ट्रीमिंग के साथ स्कैन किया जाता है।"
   },
   "ar": {
@@ -412,13 +412,13 @@
       "file lookup",
       "search directory"
     ],
-    "param.page.description": "Page number to retrieve (default: 1).",
+    "param.page.description": "رقم الصفحة المراد استردادها (الافتراضي: 1).",
     "param.cs.description": "ما إذا كان البحث في المحتوى حساسًا لحالة الأحرف (الافتراضي: false).",
     "param.re_content.description": "تعبير نمطي للبحث داخل الملفات.",
     "param.limit.description": "الحد الأقصى لعدد الملفات المطابقة التي ستُعاد (الافتراضي: 50).",
     "param.glob.description": "نمط glob لاسم الملف (مثل '*.py' و 'test_*'). إذا أُهمل، تُؤخذ جميع الملفات في الاعتبار.",
-    "param.path.description": "Search root (default: cwd).",
-    "out.found_paginated": "[search_files] Page {page} of {total_pages} (Total {total} results, showing {showing})",
+    "param.path.description": "البحث عن الجذر (الافتراضي: cwd).",
+    "out.found_paginated": "[search_files] الصفحة {page} من {total_pages} (إجمالي {total} النتائج، عرض {showing})",
     "param.fast_read_threshold_bytes.description": "الملفات الأصغر من هذا الحد تتم قراءتها بالكامل () للبحث الأسرع (الافتراضي: 8000000 ≈ 8 ميجابايت). الملفات الأكبر يتم مسحها ضوئيًا باستخدام التدفق للحد من استخدام الذاكرة."
   },
   "sv": {
@@ -442,13 +442,13 @@
       "file lookup",
       "search directory"
     ],
-    "param.page.description": "Page number to retrieve (default: 1).",
+    "param.page.description": "Sidnummer att hämta (standard: 1).",
     "param.cs.description": "Om innehållssökningen ska vara skiftlägeskänslig (standard: false).",
     "param.re_content.description": "Reguljärt uttryck att söka efter i filer.",
     "param.limit.description": "Maximalt antal matchande filer att returnera (standard: 50).",
     "param.glob.description": "Filnamns-globmönster (t.ex. '*.py', 'test_*'). Om det utelämnas beaktas alla filer.",
-    "param.path.description": "Search root (default: cwd).",
-    "out.found_paginated": "[search_files] Page {page} of {total_pages} (Total {total} results, showing {showing})",
+    "param.path.description": "Sök root (standard: cwd).",
+    "out.found_paginated": "[search_files] Sida {page} av {total_pages} (Totalt {total} resultat, visar {showing})",
     "param.fast_read_threshold_bytes.description": "Filer mindre än denna tröskel läses fullständigt med read() för snabbare sökning (standard: 8000000 ≈ 8MB). Större filer skannas med strömning för att begränsa minnesanvändningen."
   },
   "sw": {
@@ -472,13 +472,13 @@
       "file lookup",
       "search directory"
     ],
-    "param.page.description": "Page number to retrieve (default: 1).",
+    "param.page.description": "Nambari ya ukurasa ya kurejesha (chaguo-msingi: 1).",
     "param.cs.description": "Iwapo utafutaji wa maudhui ni nyeti kwa kesi (chaguo-msingi: si kweli).",
     "param.re_content.description": "Regex ya kutafuta ndani ya faili.",
     "param.limit.description": "Idadi ya juu ya faili zinazolingana za kurudisha (chaguomsingi: 50).",
     "param.glob.description": "Mfano wa glob wa jina la faili (mfano: '*.py', 'test_*'). Ukiachwa, faili zote huzingatiwa.",
-    "param.path.description": "Search root (default: cwd).",
-    "out.found_paginated": "[search_files] Page {page} of {total_pages} (Total {total} results, showing {showing})",
+    "param.path.description": "Tafuta mzizi (chaguo-msingi: cwd).",
+    "out.found_paginated": "[tafuta_faili] Ukurasa {page} kati ya {total_pages} (Jumla ya matokeo {total}, yanayoonyesha {showing})",
     "param.fast_read_threshold_bytes.description": "Faili ndogo kuliko kizingiti hiki husomwa kikamilifu () kwa utafutaji wa haraka (chaguo-msingi: 8000000 ≈ 8MB). Faili kubwa huchunguzwa kwa utiririshaji ili kupunguza matumizi ya kumbukumbu."
   },
   "nb": {
@@ -502,13 +502,13 @@
       "file lookup",
       "search directory"
     ],
-    "param.page.description": "Page number to retrieve (default: 1).",
+    "param.page.description": "Sidenummer å hente (standard: 1).",
     "param.cs.description": "Om innholdssøket skiller mellom store og små bokstaver (standard: usann).",
     "param.re_content.description": "Regulært uttrykk som skal søkes etter i filer.",
     "param.limit.description": "Maksimalt antall trefffiler som skal returneres (standard: 50).",
     "param.glob.description": "Glob-mønster for filnavn (f.eks. '*.py', 'test_*'). Hvis utelatt, vurderes alle filer.",
-    "param.path.description": "Search root (default: cwd).",
-    "out.found_paginated": "[search_files] Page {page} of {total_pages} (Total {total} results, showing {showing})",
+    "param.path.description": "Søk root (standard: cwd).",
+    "out.found_paginated": "[search_files] Side {page} av {total_pages} (Totalt {total} resultater, viser {showing})",
     "param.fast_read_threshold_bytes.description": "Filer mindre enn denne terskelen leses fullstendig med read() for raskere søk (standard: 8000000 ≈ 8MB). Større filer skannes med strømming for å begrense minnebruk."
   },
   "nl": {
@@ -532,13 +532,13 @@
       "file lookup",
       "search directory"
     ],
-    "param.page.description": "Page number to retrieve (default: 1).",
+    "param.page.description": "Paginanummer dat moet worden opgehaald (standaard: 1).",
     "param.cs.description": "Of de inhoudszoekopdracht hoofdlettergevoelig is (standaard: false).",
     "param.re_content.description": "Reguliere expressie om in bestanden te zoeken.",
     "param.limit.description": "Maximaal aantal overeenkomende bestanden dat moet worden geretourneerd (standaard: 50).",
     "param.glob.description": "Glob-patroon voor bestandsnamen (bijv.'*.py', 'test_*').",
-    "param.path.description": "Search root (default: cwd).",
-    "out.found_paginated": "[search_files] Page {page} of {total_pages} (Total {total} results, showing {showing})",
+    "param.path.description": "Zoek root (standaard: cwd).",
+    "out.found_paginated": "[search_files] Pagina {page} van {total_pages} (totaal {total} resultaten, met {showing})",
     "param.fast_read_threshold_bytes.description": "Bestanden kleiner dan deze drempel worden volledig uitgelezen met read() voor sneller zoeken (standaard: 8000000 ≈ 8 MB). Grotere bestanden worden gestreamd gescand om het geheugengebruik te beperken."
   },
   "fi": {
@@ -562,13 +562,13 @@
       "file lookup",
       "search directory"
     ],
-    "param.page.description": "Page number to retrieve (default: 1).",
+    "param.page.description": "Haettavan sivun numero (oletus: 1).",
     "param.cs.description": "Onko sisällön haku kirjainkoon suhteen herkkä (oletus: false).",
     "param.re_content.description": "Säännöllinen lauseke, jota etsitään tiedostoista.",
     "param.limit.description": "Palautettavien vastaavien tiedostojen enimmäismäärä (oletus: 50).",
     "param.glob.description": "Tiedostonimien glob-kuvio (esim.'*.py', 'test_*').",
-    "param.path.description": "Search root (default: cwd).",
-    "out.found_paginated": "[search_files] Page {page} of {total_pages} (Total {total} results, showing {showing})",
+    "param.path.description": "Hae root (oletus: cwd).",
+    "out.found_paginated": "[search_files] Sivu {page}/{total_pages} (yhteensä {total} tulosta, näytetään {showing})",
     "param.fast_read_threshold_bytes.description": "Tätä rajaa pienemmät tiedostot luetaan kokonaan nopeampaa hakua varten (oletus: 8000000 ≈ 8 Mt). Suuremmat tiedostot skannataan suoratoistona muistinkäytön rajoittamiseksi."
   },
   "cs": {
@@ -592,13 +592,13 @@
       "file lookup",
       "search directory"
     ],
-    "param.page.description": "Page number to retrieve (default: 1).",
+    "param.page.description": "Číslo stránky k načtení (výchozí: 1).",
     "param.cs.description": "Zda se při vyhledávání obsahu rozlišují velká a malá písmena (výchozí: false).",
     "param.re_content.description": "Regulární výraz pro vyhledávání v souborech.",
     "param.limit.description": "Maximální počet vrácených shodných souborů (výchozí: 50).",
     "param.glob.description": "Glob vzor názvu souboru (např.'*.py', 'test_*').",
-    "param.path.description": "Search root (default: cwd).",
-    "out.found_paginated": "[search_files] Page {page} of {total_pages} (Total {total} results, showing {showing})",
+    "param.path.description": "Hledat kořenový adresář (výchozí: cwd).",
+    "out.found_paginated": "[search_files] Stránka {page} z {total_pages} (celkem {total} výsledků, zobrazeno {showing})",
     "param.fast_read_threshold_bytes.description": "Soubory menší než tato prahová hodnota jsou plně načteny read() pro rychlejší vyhledávání (výchozí: 8000000 ≈ 8 MB). Větší soubory jsou skenovány pomocí streamování pro omezení využití paměti."
   },
   "uk": {
@@ -622,13 +622,13 @@
       "file lookup",
       "search directory"
     ],
-    "param.page.description": "Page number to retrieve (default: 1).",
+    "param.page.description": "Номер сторінки для отримання (за замовчуванням: 1).",
     "param.cs.description": "Чи враховувати регістр під час пошуку вмісту (типово: false).",
     "param.re_content.description": "Регулярний вираз для пошуку всередині файлів.",
     "param.limit.description": "Максимальна кількість знайдених файлів (за замовчуванням: 50).",
     "param.glob.description": "Glob-шаблон назви файла (наприклад, '*.py', 'test_*'). Якщо опущено, враховуються всі файли.",
-    "param.path.description": "Search root (default: cwd).",
-    "out.found_paginated": "[search_files] Page {page} of {total_pages} (Total {total} results, showing {showing})",
+    "param.path.description": "Корінь пошуку (за замовчуванням: cwd).",
+    "out.found_paginated": "[search_files] Сторінка {page} з {total_pages} (Усього {total} результатів, показано {showing})",
     "param.fast_read_threshold_bytes.description": "Файли, менші за цей поріг, повністю зчитуються для швидшого пошуку (за замовчуванням: 8000000 ≈ 8 МБ). Більші файли скануються потоково для обмеження використання пам'яті."
   },
   "tr": {
@@ -652,13 +652,13 @@
       "file lookup",
       "search directory"
     ],
-    "param.page.description": "Page number to retrieve (default: 1).",
+    "param.page.description": "Alınacak sayfa numarası (varsayılan: 1).",
     "param.cs.description": "İçerik aramasının büyük/küçük harfe duyarlı olup olmadığı (varsayılan: false).",
     "param.re_content.description": "Dosyalar içinde aranacak düzenli ifade.",
     "param.limit.description": "Döndürülecek maksimum eşleşen dosya sayısı (varsayılan: 50).",
     "param.glob.description": "Dosya adı glob deseni (örn. '*.py', 'test_*'). Atlanırsa tüm dosyalar değerlendirilir.",
-    "param.path.description": "Search root (default: cwd).",
-    "out.found_paginated": "[search_files] Page {page} of {total_pages} (Total {total} results, showing {showing})",
+    "param.path.description": "Arama kökü (varsayılan: cwd).",
+    "out.found_paginated": "[search_files] Sayfa {page} / {total_pages} (Toplam {total} sonuç, {showing} gösteriliyor)",
     "param.fast_read_threshold_bytes.description": "Bu eşikten küçük dosyalar daha hızlı arama için tamamen read() ile okunur (varsayılan: 8000000 ≈ 8MB). Daha büyük dosyalar, bellek kullanımını sınırlamak için akışla taranır."
   },
   "th": {
@@ -682,20 +682,20 @@
       "file lookup",
       "search directory"
     ],
-    "param.page.description": "Page number to retrieve (default: 1).",
+    "param.page.description": "หมายเลขหน้าที่จะดึงข้อมูล (ค่าเริ่มต้น: 1)",
     "param.cs.description": "การค้นหาเนื้อหาจะแยกตัวพิมพ์เล็ก/ใหญ่หรือไม่ (ค่าเริ่มต้น: false)",
     "param.re_content.description": "นิพจน์ทั่วไปสำหรับค้นหาภายในไฟล์ หากระบุ จะคืนเฉพาะไฟล์ที่มีอย่างน้อยหนึ่งบรรทัดที่ตรงกัน",
     "param.limit.description": "จำนวนไฟล์ที่ตรงกันสูงสุดที่จะส่งคืน (ค่าเริ่มต้น: 50)",
     "param.glob.description": "รูปแบบ glob ของชื่อไฟล์ (เช่น '*.py', 'test_*') หากละเว้น จะพิจารณาไฟล์ทั้งหมด",
-    "param.path.description": "Search root (default: cwd).",
-    "out.found_paginated": "[search_files] Page {page} of {total_pages} (Total {total} results, showing {showing})",
+    "param.path.description": "ค้นหารูท (ค่าเริ่มต้น: cwd)",
+    "out.found_paginated": "[search_files] หน้า {page} จาก {total_pages} (ผลลัพธ์ทั้งหมด {total} แสดง {showing})",
     "param.fast_read_threshold_bytes.description": "ไฟล์ที่มีขนาดเล็กกว่าเกณฑ์นี้จะถูกอ่าน() ทั้งหมดเพื่อการค้นหาที่เร็วขึ้น (ค่าเริ่มต้น: 8000000 ≈ 8MB) ไฟล์ขนาดใหญ่จะถูกสแกนแบบสตรีมมิ่งเพื่อจำกัดการใช้หน่วยความจำ"
   },
   "zh_CN": {
     "err.dir_not_exist": "[search_files 错误] 目录不存在：{path}",
     "err.regex_compile": "[search_files 错误] 正则表达式编译失败：{error}",
     "match.excerpt": "匹配：{text}",
-    "match.line": "L{line}: {text}",
+    "match.line": "L{line}：{text}",
     "match.more": "...（文件中还有更多匹配项）",
     "out.file": "文件：{file}",
     "out.no_match": "[search_files] 没有符合条件的文件。",
@@ -712,20 +712,20 @@
       "file lookup",
       "search directory"
     ],
-    "param.page.description": "Page number to retrieve (default: 1).",
+    "param.page.description": "要检索的页码（默认值：1）。",
     "param.cs.description": "内容搜索是否区分大小写（默认：false）。",
     "param.re_content.description": "用于在文件中搜索的正则表达式。若提供，则仅返回至少包含一行匹配内容的文件。",
     "param.limit.description": "要返回的最大匹配文件数（默认：50）。",
     "param.glob.description": "文件名 glob 模式（例如 '*.py'、'test_*'）。如果省略，则考虑所有文件。",
-    "param.path.description": "Search root (default: cwd).",
-    "out.found_paginated": "[search_files] Page {page} of {total_pages} (Total {total} results, showing {showing})",
+    "param.path.description": "搜索根目录（默认：cwd）。",
+    "out.found_paginated": "[search_files] 第 {page} 页，共 {total_pages} 页（总共 {total} 个结果，显示 {showing} 个）",
     "param.fast_read_threshold_bytes.description": "小于此阈值的文件会通过完整read()读取以加快搜索速度（默认值：8000000 ≈ 8MB）。较大文件则使用流式扫描以限制内存使用。"
   },
   "zh_TW": {
     "err.dir_not_exist": "[search_files 錯誤] 目錄不存在：{path}",
     "err.regex_compile": "[search_files 錯誤] 正規表示式編譯失敗：{error}",
     "match.excerpt": "相符：{text}",
-    "match.line": "L{line}: {text}",
+    "match.line": "L{line}：{text}",
     "match.more": "...（檔案中還有更多相符項）",
     "out.file": "檔案：{file}",
     "out.no_match": "[search_files] 沒有符合條件的檔案。",
@@ -742,13 +742,13 @@
       "file lookup",
       "search directory"
     ],
-    "param.page.description": "Page number to retrieve (default: 1).",
+    "param.page.description": "要檢索的頁碼（預設值：1）。",
     "param.cs.description": "內容搜尋是否區分大小寫（預設：false）。",
     "param.re_content.description": "要在檔案中搜尋的正規表示式。若提供，則僅傳回至少包含一行相符內容的檔案。",
     "param.limit.description": "要傳回的最大相符檔案數（預設：50）。",
     "param.glob.description": "檔名 glob 模式（例如 '*.py'、'test_*'）。如果省略，則考慮所有檔案。",
-    "param.path.description": "Search root (default: cwd).",
-    "out.found_paginated": "[search_files] Page {page} of {total_pages} (Total {total} results, showing {showing})",
+    "param.path.description": "搜尋根目錄（預設：cwd）。",
+    "out.found_paginated": "[search_files] 第 {page} 頁，共 {total_pages} 頁（總共 {total} 個結果，顯示 {showing} 個）",
     "param.fast_read_threshold_bytes.description": "小於此閾值的檔案會完整讀取以加快搜尋速度（預設值：8000000 ≈ 8MB）。較大的檔案則使用串流掃描以限制記憶體使用量。"
   },
   "bn": {
@@ -772,13 +772,13 @@
       "file lookup",
       "search directory"
     ],
-    "param.page.description": "Page number to retrieve (default: 1).",
+    "param.page.description": "পুনরুদ্ধার করার জন্য পৃষ্ঠা নম্বর (ডিফল্ট: 1)।",
     "param.cs.description": "বিষয়বস্তু অনুসন্ধান কেস-সংবেদনশীল কিনা (ডিফল্ট: মিথ্যা)।",
     "param.re_content.description": "ফাইলের মধ্যে অনুসন্ধানের জন্য নিয়মিত অভিব্যক্তি। যদি বাদ দেওয়া হয়, শুধুমাত্র ফাইলের নাম মিল করা হয়।",
     "param.limit.description": "ফেরত দেওয়ার সর্বোচ্চ মেলানো ফাইল সংখ্যা (ডিফল্ট: 50)।",
     "param.glob.description": "ফাইলনামের glob pattern (যেমন '*.py', 'test_*')। বাদ দিলে সব ফাইল বিবেচনা করা হয়।",
-    "param.path.description": "Search root (default: cwd).",
-    "out.found_paginated": "[search_files] Page {page} of {total_pages} (Total {total} results, showing {showing})",
+    "param.path.description": "অনুসন্ধান রুট (ডিফল্ট: cwd)।",
+    "out.found_paginated": "[সার্চ_ফাইলস] {total_pages}-এর {page} (মোট {total} ফলাফল, {showing} দেখাচ্ছে)",
     "param.fast_read_threshold_bytes.description": "এই থ্রেশহোল্ডের চেয়ে ছোট ফাইলগুলি দ্রুত অনুসন্ধানের জন্য সম্পূর্ণ read() করা হয় (ডিফল্ট: 8000000 ≈ 8MB)। বড় ফাইলগুলি মেমরি ব্যবহার সীমিত করতে স্ট্রিমিং দিয়ে স্ক্যান করা হয়।"
   },
   "fa": {
@@ -802,13 +802,13 @@
       "file lookup",
       "search directory"
     ],
-    "param.page.description": "Page number to retrieve (default: 1).",
+    "param.page.description": "شماره صفحه برای بازیابی (پیش فرض: 1).",
     "param.cs.description": "اینکه آیا جستجوی محتوا به حروف کوچک و بزرگ حساس است (پیش‌فرض: نادرست). آرگهای",
     "param.re_content.description": "عبارت regular expression برای جستجو داخل فایل‌ها.",
     "param.limit.description": "حداکثر تعداد فایل‌های منطبق برای بازگشت (پیش‌فرض: 50).",
     "param.glob.description": "الگوی glob نام فایل (مثلاً '*.py'، 'test_*'). اگر حذف شود، همهٔ فایل‌ها در نظر گرفته می‌شوند.",
-    "param.path.description": "Search root (default: cwd).",
-    "out.found_paginated": "[search_files] Page {page} of {total_pages} (Total {total} results, showing {showing})",
+    "param.path.description": "ریشه جستجو (پیش‌فرض: cwd).",
+    "out.found_paginated": "[search_files] صفحه {page} از {total_pages} (مجموع نتایج {total}، نمایش {showing})",
     "param.fast_read_threshold_bytes.description": "فایل‌های کوچک‌تر از این آستانه به طور کامل read() می‌شوند برای جستجوی سریع‌تر (پیش‌فرض: 8000000 ≈ 8MB). فایل‌های بزرگ‌تر با جریان‌سازی برای محدود کردن مصرف حافظه اسکن می‌شوند."
   },
   "mn": {
@@ -832,13 +832,13 @@
       "file lookup",
       "search directory"
     ],
-    "param.page.description": "Page number to retrieve (default: 1).",
+    "param.page.description": "Татаж авах хуудасны дугаар (өгөгдмөл: 1).",
     "param.cs.description": "Агуулга хайхдаа том/жижиг үсгийг ялгах эсэх (анхдагч: false).",
     "param.re_content.description": "Файл дотор хайх regular expression. Өгвөл дор хаяж нэг тохирсон мөртэй файлуудыг л буцаана.",
     "param.limit.description": "Буцаах тохирсон файлын дээд тоо (анхдагч: 50).",
     "param.glob.description": "Файлын нэрийн glob загвар (ж. '*.py', 'test_*'). Орхивол бүх файлыг авч үзнэ.",
-    "param.path.description": "Search root (default: cwd).",
-    "out.found_paginated": "[search_files] Page {page} of {total_pages} (Total {total} results, showing {showing})",
+    "param.path.description": "Үндэс хайх (өгөгдмөл: cwd).",
+    "out.found_paginated": "[хайлтын_файл] {total_pages} хуудасны {page} (Нийт {total} илэрц, {showing}-г харуулж байна)",
     "param.fast_read_threshold_bytes.description": "Энэ босгоос бага файлуудыг хурдан хайхын тулд бүрэн read() хийнэ (анхдагч: 8000000 ≈ 8MB). Том файлуудыг санах ойн хэрэглээг хязгаарлахын тулд урсгалаар сканнердана."
   },
   "mr": {
@@ -862,22 +862,22 @@
       "file lookup",
       "search directory"
     ],
-    "param.page.description": "Page number to retrieve (default: 1).",
+    "param.page.description": "पुनर्प्राप्त करण्यासाठी पृष्ठ क्रमांक (डिफॉल्ट: 1).",
     "param.cs.description": "मजकूर शोधात मोठ्या/लहान अक्षरांचा फरक धरायचा का (डीफॉल्ट: false).",
     "param.re_content.description": "फाइल्समध्ये शोधण्यासाठी regular expression.",
     "param.limit.description": "परत द्यायच्या जुळणाऱ्या फाइल्सची कमाल संख्या (डीफॉल्ट: 50).",
     "param.glob.description": "फाइलनाव glob pattern (उदा. '*.py', 'test_*'). वगळल्यास सर्व फाइल्स विचारात घेतल्या जातात.",
-    "param.path.description": "Search root (default: cwd).",
-    "out.found_paginated": "[search_files] Page {page} of {total_pages} (Total {total} results, showing {showing})",
+    "param.path.description": "शोध रूट (डिफॉल्ट: cwd).",
+    "out.found_paginated": "[शोध_फाईल्स] {total_pages} चे {page} (एकूण {total} परिणाम, {showing} दर्शवित आहे)",
     "param.fast_read_threshold_bytes.description": "या थ्रेशोल्डपेक्षा लहान फाइल्स वेगवान शोधासाठी पूर्णपणे read() केल्या जातात (डीफॉल्ट: 8000000 ≈ 8MB). मोठ्या फाइल्स मेमरी वापर मर्यादित करण्यासाठी स्ट्रीमिंगसह स्कॅन केल्या जातात."
   },
   "el": {
     "err.dir_not_exist": "[search_files error] Ο κατάλογος δεν υπάρχει: {path}",
     "err.regex_compile": "[search_files error] Απέτυχε η μεταγλώττιση του regex: {error}",
-    "match.excerpt": "MATCH: {text}",
+    "match.excerpt": "ΑΓΩΝΑΣ: {text}",
     "match.line": "L{line}: {text}",
-    "match.more": "... (περισσότερες αντιστοιχίσεις στο αρχείο) [=#==}Filee {n} αποτελέσματα",
-    "out.file": "[search_files] Βρέθηκαν {n} αποτελέσματα (περικομμένα σε {max_results})",
+    "match.more": "... (περισσότερες αντιστοιχίσεις στο αρχείο)",
+    "out.file": "Αρχείο: {file}",
     "out.no_match": "Αναζήτηση αρχείων σε έναν κατάλογο με μοτίβο ονόματος (glob) ή/και κατά περιεχόμενο (regex).",
     "param.page.description": "Αριθμός σελίδας προς ανάκτηση (προεπιλογή: 1).",
     "tool.description": "Αναζήτηση αρχείων κάτω από έναν κατάλογο με μοτίβο ονόματος (glob) ή/και κατά περιεχόμενο (regex).",
@@ -894,7 +894,7 @@
       "search directory"
     ],
     "param.cs.description": "Ρίζα αναζήτησης (προεπιλογή: cwd).",
-    "param.re_content.description": "[search_files] Σελίδα {page} από {total_pages} (Σύνολο {total} αποτελέσματα, εμφανίζει {showing})",
+    "param.re_content.description": "Κανονική έκφραση για αναζήτηση σε αρχεία. Εάν παραλειφθεί, εκτελείται μόνο αντιστοίχιση ονόματος αρχείου.",
     "param.limit.description": "args πρέπει να είναι εντολή",
     "param.glob.description": "Μοτίβο σφαιρών ονόματος αρχείου (π.χ. '*.py', 'test_*'). Εάν παραλειφθεί, όλα τα αρχεία λαμβάνονται υπόψη.",
     "param.path.description": "Ρίζα αναζήτησης (προεπιλογή: cwd).",
@@ -903,14 +903,14 @@
   },
   "he": {
     "err.dir_not_exist": "[search_files error] ספרייה לא קיימת: {path}",
-    "err.regex_compile": "אנא נתח את צילום המסך הזה.",
-    "match.excerpt": "האם לסגור את החלון לאחר הלכידה. יעיל רק אם צוין window_title.",
-    "match.line": "כותרת חלון היעד (התאמה חלקית). אם צוין, החלון מופעל ורק האזור הזה נקלט.",
-    "match.more": "[שגיאת קבצי חיפוש] ספריה לא קיימת: {path}",
-    "out.file": "[שגיאת קבצי חיפוש] נכשלה הידור הרגולרי: {error}",
+    "err.regex_compile": "[שגיאה של קבצי חיפוש] נכשל הידור הרגולרי: {error}",
+    "match.excerpt": "התאמה: {text}",
+    "match.line": "L{line}: {text}",
+    "match.more": "... (התאמות נוספות בקובץ)",
+    "out.file": "קובץ: {file}",
     "out.no_match": "... (התאמות נוספות בקובץ)",
     "param.page.description": "מספר עמוד לאחזור (ברירת מחדל: 1).",
-    "tool.description": "[search_files] נמצאו {n} תוצאות (קטועות ל-{max_results})",
+    "tool.description": "חפש קבצים תחת ספרייה לפי תבנית שם (גלוב) ו/או לפי תוכן (רגקס).",
     "x_search_terms": [
       "search files",
       "find files",
@@ -928,16 +928,16 @@
     "param.limit.description": "п# תלוי רישיות (ברירת מחדל: false).",
     "param.glob.description": "ביטוי רגולרי לחיפוש בתוך קבצים. אם מושמט, מתבצעת התאמת שמות קבצים בלבד.",
     "param.path.description": "מספר מקסימלי של קבצים תואמים להחזרה (ברירת מחדל: 50).",
-    "out.found_paginated": "דפוס גלוב של שם קובץ (למשל '*.py', 'test_*'). אם מושמט, כל הקבצים נחשבים.",
+    "out.found_paginated": "[search_files] עמוד {page} מתוך {total_pages} (סה\"כ תוצאות {total}, מציגות {showing})",
     "param.fast_read_threshold_bytes.description": "קבצים קטנים מסף זה נקראים במלואם read() לחיפוש מהיר יותר (ברירת מחדל: 8000000 ≈ 8MB). קבצים גדולים יותר נסרקים באמצעות הזרמה כדי להגביל את השימוש בזיכרון."
   },
   "hu": {
     "err.dir_not_exist": "[search_files error] A könyvtár nem létezik: {path}",
-    "err.regex_compile": "[search_files error] Nem sikerült lefordítani a regex-et: {hiba}",
+    "err.regex_compile": "[search_files hiba] Nem sikerült lefordítani a reguláris kifejezést: {error}",
     "match.excerpt": "EGYEZÉS: {text}",
-    "match.line": "L{sor}: {text}",
+    "match.line": "L{line}: {text}",
     "match.more": "... (további egyezések a fájlban) [=}Fájl_keresése [==#] fájl: eredmények",
-    "out.file": "[search_files] {n} találatot találtunk (csonkolva {max_results} értékre)",
+    "out.file": "Fájl: {file}",
     "out.no_match": "Fájlok keresése egy könyvtárban névminta (glob) és/vagy tartalom (regex) alapján.",
     "param.page.description": "Keressen egy mintát a fájlokban, és adja vissza a megfelelő sorokat sorszámokkal (például grep -n). Minta szükséges.",
     "tool.description": "Keressen fájlokat egy könyvtárban névminta (glob) és/vagy tartalom (regex) alapján.",
@@ -955,20 +955,20 @@
     ],
     "param.cs.description": "Fájlnév-gömbminta (pl. „*.py”, „teszt_*”). Ha kihagyja, akkor az összes fájlt figyelembe veszi.",
     "param.re_content.description": "Keresés a gyökérben (alapértelmezett: cwd).",
-    "param.limit.description": "[search_files] {total_pages}/{page}. oldal (Összesen {total} találat, a következőkkel: {showing})",
+    "param.limit.description": "A visszaküldendő egyező fájlok maximális száma (alapértelmezett: 50).",
     "param.glob.description": "az arg-nak diktátumnak kell lennie",
     "param.path.description": "Keresés a gyökérben (alapértelmezett: cwd).",
     "out.found_paginated": "[search_files] {total_pages}/{page}. oldal (Összesen {total} találat, {showing} megjelenítése)",
     "param.fast_read_threshold_bytes.description": "Az ennél a küszöbértéknél kisebb fájlok teljes mértékben beolvasásra kerülnek a gyorsabb keresés érdekében (alapértelmezett: 8000000 ≈ 8 MB). A nagyobb fájlok streameléssel kerülnek beolvasásra a memóriahasználat korlátozása érdekében."
   },
   "ro": {
-    "err.dir_not_exist": "Vă rugăm să analizați această captură de ecran.",
-    "err.regex_compile": "Dacă se închide fereastra după capturare. Eficace numai dacă este specificat window_title.",
-    "match.excerpt": "Titlul ferestrei țintă (potrivire parțială). Dacă este specificat, fereastra este activată și numai acea regiune este capturată.",
-    "match.line": "[eroare search_files] Directorul nu există: {path}",
-    "match.more": "[eroare search_files] Nu s-a putut compila expresia regex: {error}",
-    "out.file": "MATCH: {text}",
-    "out.no_match": "Fișier: {file} [n] [=fișier#=] [n] [=fișier#=] [search_files] S-au găsit {n} rezultate (trunchiate la {max_results})",
+    "err.dir_not_exist": "[eroare search_files] Directorul nu există: {path}",
+    "err.regex_compile": "[eroare search_files] Nu s-a putut compila expresia regex: {error}",
+    "match.excerpt": "MECI: {text}",
+    "match.line": "L{line}: {text}",
+    "match.more": "... (mai multe potriviri în fișier)",
+    "out.file": "Fișier: {file}",
+    "out.no_match": "[search_files] Niciun fișier nu corespunde criteriilor.",
     "param.page.description": "Director rădăcină sau cale de fișier specifică (implicit: „.”).",
     "tool.description": "Fișierele mai mici decât acest prag sunt complet citite() pentru o căutare mai rapidă (implicit: 8000000 ≈ 8MB). Fișierele mai mari sunt sc...",
     "x_search_terms": [
@@ -988,7 +988,7 @@
     "param.limit.description": "Numărul maxim de fișiere potrivite de returnat (implicit: 50).",
     "param.glob.description": "Model de nume de fișier (de exemplu, „*.py”, „test_*”). Dacă sunt omise, toate fișierele sunt luate în considerare.",
     "param.path.description": "Căutare rădăcină (implicit: cwd).",
-    "out.found_paginated": "[search_files] Pagina {pagina} din {total_pages} (Total {total} rezultate, afișând {showing})",
+    "out.found_paginated": "[search_files] Pagina {page} din {total_pages} (total de rezultate {total}, afișând {showing})",
     "param.fast_read_threshold_bytes.description": "Fișierele mai mici decât acest prag sunt citite complet () pentru o căutare mai rapidă (implicit: 8000000 ≈ 8MB). Fișierele mai mari sunt scanate cu flux pentru a limita utilizarea memoriei."
   }
 }

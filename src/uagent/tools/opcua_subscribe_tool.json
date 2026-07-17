@@ -343,7 +343,7 @@
   },
   "nb": {
     "tool.description": "Abonner på dataendringer på en OPC UA-servernode. Når verdien endres, blir LLM automatisk varslet.",
-    "param.url.description": "OPC UA server URL.",
+    "param.url.description": "OPC UA-server-URL.",
     "param.node_id.description": "Node-ID som skal overvåkes (f.eks. 'i=85' eller 'ns=2;s=Temperature').",
     "param.label.description": "Etikett som kan leses av mennesker (f.eks. 'ボイラー温度').",
     "param.on_change_prompt.description": "Valgfri melding om LLM når verdien endres.",
@@ -380,8 +380,8 @@
   "pl": {
     "tool.description": "Subscribe to data changes on an OPC UA server node. Gdy wartość się zmieni, LLM zostanie automatycznie powiadomiony.",
     "param.url.description": "Adres URL serwera OPC UA.",
-    "param.node_id.description": "Node ID to monitor (e.g. 'i=85' or 'ns=2;s=Temperature').",
-    "param.label.description": "Human-readable label (e.g. 'ボイラー温度').",
+    "param.node_id.description": "Identyfikator węzła do monitorowania (np. „i=85” lub „ns=2;s=temperatura”).",
+    "param.label.description": "Etykieta czytelna dla człowieka (np. „ボイラー温度”).",
     "param.on_change_prompt.description": "Opcjonalny monit o LLM w przypadku zmiany wartości.",
     "param.fmt.description": "Format: json lub tekst.",
     "msg.subscribed": "Aktywna subskrypcja OPC UA: id={id}, {label}",
@@ -469,7 +469,7 @@
   },
   "sv": {
     "tool.description": "Prenumerera på dataändringar på en OPC UA-servernod. När värdet ändras meddelas LLM automatiskt.",
-    "param.url.description": "OPC UA server URL.",
+    "param.url.description": "OPC UA-server-URL.",
     "param.node_id.description": "Nod-ID att övervaka (t.ex. 'i=85' eller 'ns=2;s=Temperature').",
     "param.label.description": "Människor läsbar etikett (t.ex. 'ボイラー温度').",
     "param.on_change_prompt.description": "Valfri uppmaning om LLM när värdet ändras.",

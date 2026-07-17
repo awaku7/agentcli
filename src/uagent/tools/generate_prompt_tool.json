@@ -46,7 +46,8 @@
       "constructor de avisos",
       "plantilla de aviso",
       "generar mensaje"
-    ]
+    ],
+    "param.template.description": "Plantilla de formato Python. Ejemplo: '{lines} líneas\n\n{content}'."
   },
   "fr": {
     "err.bad_template": "Le modèle [generate_prompt error] a une clé inconnue : {key}",
@@ -62,7 +63,8 @@
       "constructeur d'invites",
       "modèle d'invite",
       "make prompt"
-    ]
+    ],
+    "param.template.description": "Modèle au format Python. Exemple : '{lines} lignes\n\n{content}'."
   },
   "ko": {
     "err.bad_template": "[generate_prompt 오류] 템플릿에 알 수 없는 키가 있음: {key}",
@@ -78,7 +80,8 @@
       "프롬프트 빌더",
       "프롬프트 템플릿",
       "프롬프트 만들기"
-    ]
+    ],
+    "param.template.description": "Python 형식 템플릿입니다. 예: '{lines}줄\n\n{content}'."
   },
   "de": {
     "err.bad_template": "[generate_prompt-Fehler] Vorlage hat unbekannten Schlüssel: {key}",
@@ -94,7 +97,8 @@
       "prompter Builder",
       "Eingabeaufforderungsvorlage",
       "make prompt"
-    ]
+    ],
+    "param.template.description": "Python-Formatvorlage. Beispiel: „{lines} Zeilen\n\n{content}“."
   },
   "it": {
     "err.bad_template": "Il modello [generate_prompt error] ha una chiave sconosciuta: {key}",
@@ -110,7 +114,8 @@
       "costruttore rapido",
       "modello di richiesta",
       "make prompt"
-    ]
+    ],
+    "param.template.description": "Modello di formato Python. Esempio: '{lines} righe\n\n{content}'."
   },
   "ru": {
     "err.bad_template": "[ошибка generate_prompt] в шаблоне неизвестный ключ: {key}",
@@ -121,7 +126,8 @@
     "tool.description": "Создайте строку подсказки из файла с помощью шаблона формата Python.",
     "x_search_terms": [
       "создать подсказку, подсказка, создать подсказку, быстрый строитель, шаблон подсказки, сделать подсказку"
-    ]
+    ],
+    "param.template.description": "Шаблон формата Python. Пример: «{lines} строк\n\n{content}»."
   },
   "pt_BR": {
     "err.bad_template": "[generate_prompt error] modelo tem chave desconhecida: {key}",
@@ -141,7 +147,8 @@
       "create prompt",
       "prompt generator",
       "text prompt"
-    ]
+    ],
+    "param.template.description": "Modelo de formato Python. Exemplo: '{lines} linhas\n\n{content}'."
   },
   "pt": {
     "err.bad_template": "[generate_prompt error] modelo tem chave desconhecida: {key}",
@@ -161,7 +168,8 @@
       "criar prompt",
       "gerador de prompt",
       "prompt de texto"
-    ]
+    ],
+    "param.template.description": "Modelo de formato Python. Exemplo: '{lines} linhas\n\n{content}'."
   },
   "id": {
     "err.bad_template": "Templat [generate_prompt error] memiliki kunci yang tidak diketahui: {key}",
@@ -181,7 +189,8 @@
       "buat perintah",
       "generator cepat",
       "teks prompt"
-    ]
+    ],
+    "param.template.description": "Templat format python. Contoh: '{lines} baris\n\n{content}'."
   },
   "vi": {
     "err.bad_template": "[lỗi generate_prompt] mẫu có khóa không xác định: {key}",
@@ -201,7 +210,8 @@
       "tạo lời nhắc",
       "trình tạo lời nhắc",
       "lời nhắc văn bản"
-    ]
+    ],
+    "param.template.description": "Mẫu định dạng Python. Ví dụ: '{lines} dòng\n\n{content}'."
   },
   "pl": {
     "err.bad_template": "[błąd generate_prompt] szablon zawiera nieznany klucz: {key}",
@@ -221,7 +231,8 @@
       "create prompt",
       "prompt generator",
       "text prompt"
-    ]
+    ],
+    "param.template.description": "Szablon w formacie Pythona. Przykład: „{lines} linii\n\n{content}”."
   },
   "hi": {
     "err.bad_template": "[जनरेट_प्रॉम्प्ट त्रुटि] टेम्पलेट में अज्ञात कुंजी है: {key}",
@@ -241,7 +252,8 @@
       "create prompt",
       "prompt generator",
       "text prompt"
-    ]
+    ],
+    "param.template.description": "पायथन प्रारूप टेम्पलेट. उदाहरण: '{lines} लाइनें\n\n{content}'."
   },
   "ar": {
     "err.bad_template": "يحتوي القالب [generate_prompt error] على مفتاح غير معروف: {key}",
@@ -261,14 +273,15 @@
       "create prompt",
       "prompt generator",
       "text prompt"
-    ]
+    ],
+    "param.template.description": "قالب تنسيق بايثون. مثال: '{lines} خطوط\n\n{content}'."
   },
   "sv": {
     "err.bad_template": "[generate_prompt-fel] mallen har en okänd nyckel: {key}",
     "err.not_a_file": "[generate_prompt-fel] inte en fil: {path}",
     "err.path_missing": "[generate_prompt-fel] sökväg/filnamn är inte angivet",
     "err.template_missing": "[generate_prompt-fel] mallen är inte angiven",
-    "param.path.description": "Maximalt antal tecken att returnera (tillämpas efter avkodning/extrahering av __DELIM_50 katalogen). Om du vill ignorera skiftläge (standard: true).",
+    "param.path.description": "Sökvägen till indatafilen (måste finnas under workdir).",
     "tool.description": "Genererar en promptsträng från en fil med en Python-formatmall.",
     "x_search_terms": [
       "generate prompt",
@@ -281,7 +294,8 @@
       "create prompt",
       "prompt generator",
       "text prompt"
-    ]
+    ],
+    "param.template.description": "Python-formatmall. Exempel: '{lines} rader\n\n{content}'."
   },
   "sw": {
     "err.bad_template": "[generate_prompt error] kiolezo kina ufunguo usiojulikana: {key}",
@@ -301,7 +315,8 @@
       "create prompt",
       "prompt generator",
       "text prompt"
-    ]
+    ],
+    "param.template.description": "Kiolezo cha umbizo la Python. Mfano: '{lines} mistari\n\n{content}'."
   },
   "nb": {
     "err.bad_template": "[generate_prompt-feil] malen har en ukjent nøkkel: {key}",
@@ -321,7 +336,8 @@
       "create prompt",
       "prompt generator",
       "text prompt"
-    ]
+    ],
+    "param.template.description": "Python-formatmal. Eksempel: '{lines} linjer\n\n{content}'."
   },
   "nl": {
     "err.bad_template": "[generate_prompt error] sjabloon heeft onbekende sleutel: {key}",
@@ -341,7 +357,8 @@
       "create prompt",
       "prompt generator",
       "text prompt"
-    ]
+    ],
+    "param.template.description": "Sjabloon voor Python-indeling. Voorbeeld: '{lines} regels\n\n{content}'."
   },
   "fi": {
     "err.bad_template": "[generate_prompt error] mallissa on tuntematon avain: {key}",
@@ -361,7 +378,8 @@
       "create prompt",
       "prompt generator",
       "text prompt"
-    ]
+    ],
+    "param.template.description": "Python-muotoinen malli. Esimerkki: '{lines} riviä\n\n{content}'."
   },
   "cs": {
     "err.bad_template": "[generate_prompt chyba] šablona obsahuje neznámý klíč: {key}",
@@ -381,7 +399,8 @@
       "create prompt",
       "prompt generator",
       "text prompt"
-    ]
+    ],
+    "param.template.description": "Šablona formátu Python. Příklad: '{lines} řádků\n\n{content}'."
   },
   "uk": {
     "err.bad_template": "[generate_prompt error] шаблон має невідомий ключ: {key}",
@@ -401,7 +420,8 @@
       "create prompt",
       "prompt generator",
       "text prompt"
-    ]
+    ],
+    "param.template.description": "Шаблон формату Python. Приклад: \"{lines} рядків\n\n{content}\"."
   },
   "tr": {
     "err.bad_template": "[generate_prompt error] şablonunda bilinmeyen anahtar var: {key}",
@@ -421,7 +441,8 @@
       "create prompt",
       "prompt generator",
       "text prompt"
-    ]
+    ],
+    "param.template.description": "Python biçimi şablonu. Örnek: '{lines} satır\n\n{content}'."
   },
   "th": {
     "err.bad_template": "เทมเพลต [generate_prompt error] มีรหัสที่ไม่รู้จัก: {key}",
@@ -441,7 +462,8 @@
       "create prompt",
       "prompt generator",
       "text prompt"
-    ]
+    ],
+    "param.template.description": "เทมเพลตรูปแบบ Python ตัวอย่าง: '{lines} บรรทัด\n\n{content}'"
   },
   "zh_CN": {
     "err.bad_template": "[generate_prompt 错误] 模板包含未知键：{key}",
@@ -461,7 +483,8 @@
       "create prompt",
       "prompt generator",
       "text prompt"
-    ]
+    ],
+    "param.template.description": "Python 格式模板。示例：“{lines} 行\n\n{content}”。"
   },
   "zh_TW": {
     "err.bad_template": "[generate_prompt 錯誤] 範本包含未知鍵：{key}",
@@ -481,7 +504,8 @@
       "create prompt",
       "prompt generator",
       "text prompt"
-    ]
+    ],
+    "param.template.description": "Python 格式範本。範例：「{lines} 行\n\n{content}」。"
   },
   "bn": {
     "err.bad_template": "[generate_prompt error] template-এ অজানা key আছে: {key}",
@@ -501,7 +525,8 @@
       "create prompt",
       "prompt generator",
       "text prompt"
-    ]
+    ],
+    "param.template.description": "পাইথন বিন্যাস টেমপ্লেট। উদাহরণ: '{lines} লাইন\n\n{content}'।"
   },
   "fa": {
     "err.bad_template": "[generate_prompt error] الگو دارای کلید ناشناخته است: {key}",
@@ -521,7 +546,8 @@
       "create prompt",
       "prompt generator",
       "text prompt"
-    ]
+    ],
+    "param.template.description": "قالب با فرمت پایتون مثال: خطوط {lines}\n\n{content}'."
   },
   "mn": {
     "err.bad_template": "[generate_prompt error] template-д танихгүй key байна: {key}",
@@ -541,7 +567,8 @@
       "create prompt",
       "prompt generator",
       "text prompt"
-    ]
+    ],
+    "param.template.description": "Python форматын загвар. Жишээ: '{lines} мөр\n\n{content}'."
   },
   "mr": {
     "err.bad_template": "[generate_prompt error] template मध्ये अज्ञात key आहे: {key}",
@@ -561,13 +588,14 @@
       "create prompt",
       "prompt generator",
       "text prompt"
-    ]
+    ],
+    "param.template.description": "पायथन स्वरूप टेम्पलेट. उदाहरण: '{lines} ओळी\n\n{content}'."
   },
   "el": {
-    "err.bad_template": "[generate_prompt error] δεν είναι αρχείο: {path}",
-    "err.not_a_file": "[generate_prompt error] η διαδρομή/όνομα αρχείου δεν έχει καθοριστεί",
+    "err.bad_template": "Το πρότυπο [generate_prompt error] έχει άγνωστο κλειδί: {key}",
+    "err.not_a_file": "[generate_prompt error] όχι αρχείο: {path}",
     "err.path_missing": "[generate_prompt error] [mus the template of the work#=th] δεν έχει καθοριστεί.",
-    "err.template_missing": "Πρότυπο μορφής Python. Παράδειγμα: '{lines} γραμμές\n\n{content}\".",
+    "err.template_missing": "Το πρότυπο [generate_prompt error] δεν έχει καθοριστεί",
     "param.path.description": "Δημιουργήστε μια συμβολοσειρά προτροπής από ένα αρχείο χρησιμοποιώντας ένα πρότυπο μορφής Python.",
     "tool.description": "Δημιουργήστε μια συμβολοσειρά προτροπής από ένα αρχείο χρησιμοποιώντας ένα πρότυπο μορφής Python.",
     "x_search_terms": [
@@ -581,7 +609,8 @@
       "create prompt",
       "prompt generator",
       "text prompt"
-    ]
+    ],
+    "param.template.description": "Πρότυπο μορφής Python. Παράδειγμα: '{lines} γραμμές\n\n{content}'."
   },
   "he": {
     "err.bad_template": "לתבנית [generate_prompt error] יש מפתח לא ידוע: {key}",
@@ -601,7 +630,8 @@
       "create prompt",
       "prompt generator",
       "text prompt"
-    ]
+    ],
+    "param.template.description": "תבנית פורמט Python. דוגמה: '{lines} שורות\n\n{content}'."
   },
   "hu": {
     "err.bad_template": "A [generate_prompt error] sablonhoz ismeretlen kulcs tartozik: {key}",
@@ -621,7 +651,8 @@
       "create prompt",
       "prompt generator",
       "text prompt"
-    ]
+    ],
+    "param.template.description": "Python formátumú sablon. Példa: '{lines} sor\n\n{content}'."
   },
   "ro": {
     "err.bad_template": "Șablonul [generate_prompt error] are o cheie necunoscută: {key}",
@@ -641,6 +672,7 @@
       "create prompt",
       "prompt generator",
       "text prompt"
-    ]
+    ],
+    "param.template.description": "Șablon format Python. Exemplu: „{lines} linii\n\n{content}”."
   }
 }

@@ -20,7 +20,7 @@
   },
   "ja": {
     "cmd.help.tools_list": "  :tools list [query]               読み込んだツール一覧を表示（名前/説明でフィルタ可）",
-    "cmd.help.tools_load": "  :tools load <name>",
+    "cmd.help.tools_load": ":tools ロード <名前>",
     "msg.tools.usage_load": "使用方法: :tools load <tool_name>",
     "msg.tools.loaded_single": "[tools] ツールを読み込みました: {name}",
     "msg.tools.not_found": "[tools] ツールが見つかりません: {name}",
@@ -39,7 +39,7 @@
   },
   "es": {
     "cmd.help.tools_list": "  :tools list [query]               Listar herramientas cargadas, opcionalmente filtradas por nombre/descripción",
-    "cmd.help.tools_load": "  :tools load <name>",
+    "cmd.help.tools_load": ": carga de herramientas <nombre>",
     "msg.tools.usage_load": "Uso: :tools load <tool_name>",
     "msg.tools.loaded_single": "[tools] Herramienta cargada: {name}",
     "msg.tools.not_found": "[tools] Herramienta no encontrada: {name}",
@@ -52,11 +52,13 @@
       "control_herramientas",
       "herramientas",
       "HERRAMIENTAS"
-    ]
+    ],
+    "msg.tools.list_header": "[herramientas] Herramientas cargadas ({count}):",
+    "msg.tools.no_match": "[herramientas] No hay herramientas coincidentes: {q}"
   },
   "fr": {
     "cmd.help.tools_list": "  :tools list [query]               Lister les outils chargés, éventuellement filtrés par nom/description",
-    "cmd.help.tools_load": "  :tools load <name>",
+    "cmd.help.tools_load": ":tools charge <nom>",
     "msg.tools.usage_load": "Utilisation : :tools load <tool_name>",
     "msg.tools.loaded_single": "[tools] Outil chargé : {name}",
     "msg.tools.not_found": "[tools] Outil non trouvé : {name}",
@@ -69,11 +71,13 @@
       "outils_control",
       "outils",
       "OUTILS"
-    ]
+    ],
+    "msg.tools.list_header": "[outils] Outils chargés ({count}) :",
+    "msg.tools.no_match": "[outils] Aucun outil correspondant : {q}"
   },
   "ko": {
     "cmd.help.tools_list": "  :tools list [query]               로드된 도구를 나열하며, 선택적으로 이름/설명으로 필터링",
-    "cmd.help.tools_load": "  :tools load <name>",
+    "cmd.help.tools_load": ":도구 로드 <이름>",
     "msg.tools.usage_load": "사용법: :tools load <tool_name>",
     "msg.tools.loaded_single": "[tools] 도구 로드됨: {name}",
     "msg.tools.not_found": "[tools] 도구를 찾을 수 없음: {name}",
@@ -86,11 +90,13 @@
       "도구_제어",
       "도구",
       "도구"
-    ]
+    ],
+    "msg.tools.list_header": "[도구] 로드된 도구({count}):",
+    "msg.tools.no_match": "[도구] 일치하는 도구 없음: {q}"
   },
   "de": {
     "cmd.help.tools_list": "  :tools list [query]               Geladene Werkzeuge auflisten, optional nach Name/Beschreibung gefiltert",
-    "cmd.help.tools_load": "  :tools load <name>",
+    "cmd.help.tools_load": ":tools laden <Name>",
     "msg.tools.usage_load": "Verwendung: :tools load <tool_name>",
     "msg.tools.loaded_single": "[tools] Werkzeug geladen: {name}",
     "msg.tools.not_found": "[tools] Werkzeug nicht gefunden: {name}",
@@ -103,11 +109,13 @@
       "tools_control",
       "Werkzeuge",
       "WERKZEUGE"
-    ]
+    ],
+    "msg.tools.list_header": "[Werkzeuge] Geladene Werkzeuge ({count}):",
+    "msg.tools.no_match": "[Tools] Keine passenden Tools: {q}"
   },
   "it": {
     "cmd.help.tools_list": "  :tools list [query]               Elenca gli strumenti caricati, opzionalmente filtrati per nome/descrizione",
-    "cmd.help.tools_load": "  :tools load <name>",
+    "cmd.help.tools_load": ":gli strumenti caricano <nome>",
     "msg.tools.usage_load": "Utilizzo: :tools load <tool_name>",
     "msg.tools.loaded_single": "[tools] Strumento caricato: {name}",
     "msg.tools.not_found": "[tools] Strumento non trovato: {name}",
@@ -120,11 +128,13 @@
       "strumenti_controllo",
       "strumenti",
       "STRUMENTI"
-    ]
+    ],
+    "msg.tools.list_header": "[strumenti] Strumenti caricati ({count}):",
+    "msg.tools.no_match": "[strumenti] Nessuno strumento corrispondente: {q}"
   },
   "ru": {
     "cmd.help.tools_list": "  :tools list [query]               Список загруженных инструментов, опционально отфильтрованных по имени/описанию",
-    "cmd.help.tools_load": "  :tools load <name>",
+    "cmd.help.tools_load": ":tools load <имя>",
     "msg.tools.usage_load": "Использование: :tools load <tool_name>",
     "msg.tools.loaded_single": "[tools] Инструмент загружен: {name}",
     "msg.tools.not_found": "[tools] Инструмент не найден: {name}",
@@ -137,11 +147,13 @@
       "tools_control",
       "инструменты",
       "ИНСТРУМЕНТЫ"
-    ]
+    ],
+    "msg.tools.list_header": "[инструменты] Загруженные инструменты ({count}):",
+    "msg.tools.no_match": "[инструменты] Нет подходящих инструментов: {q}"
   },
   "pt_BR": {
     "cmd.help.tools_list": "  :tools list [query]               Listar ferramentas carregadas, opcionalmente filtradas por nome/descrição",
-    "cmd.help.tools_load": "  :tools load <name>",
+    "cmd.help.tools_load": ":ferramentas carregam <nome>",
     "msg.tools.usage_load": "Uso: :tools load <tool_name>",
     "msg.tools.loaded_single": "[tools] Ferramenta carregada: {name}",
     "msg.tools.not_found": "[tools] Ferramenta não encontrada: {name}",
@@ -154,11 +166,13 @@
       "ferramentas_controle",
       "ferramentas",
       "FERRAMENTAS"
-    ]
+    ],
+    "msg.tools.list_header": "[ferramentas] Ferramentas carregadas ({count}):",
+    "msg.tools.no_match": "[ferramentas] Nenhuma ferramenta correspondente: {q}"
   },
   "pt": {
     "cmd.help.tools_list": "  :tools list [query]               Listar ferramentas carregadas, opcionalmente filtradas por nome/descrição",
-    "cmd.help.tools_load": "  :tools load <name>",
+    "cmd.help.tools_load": ":ferramentas carregam <nome>",
     "msg.tools.usage_load": "Uso: :tools load <tool_name>",
     "msg.tools.loaded_single": "[tools] Ferramenta carregada: {name}",
     "msg.tools.not_found": "[tools] Ferramenta não encontrada: {name}",
@@ -171,11 +185,13 @@
       "tools_control",
       "ferramentas",
       "FERRAMENTAS"
-    ]
+    ],
+    "msg.tools.list_header": "[ferramentas] Ferramentas carregadas ({count}):",
+    "msg.tools.no_match": "[ferramentas] Nenhuma ferramenta correspondente: {q}"
   },
   "id": {
     "cmd.help.tools_list": "  :tools list [query]               Daftar alat yang dimuat, opsional difilter berdasarkan nama/deskripsi",
-    "cmd.help.tools_load": "  :tools load <name>",
+    "cmd.help.tools_load": ":alat memuat <nama>",
     "msg.tools.usage_load": "Penggunaan: :tools load <tool_name>",
     "msg.tools.loaded_single": "[tools] Alat dimuat: {name}",
     "msg.tools.not_found": "[tools] Alat tidak ditemukan: {name}",
@@ -188,11 +204,13 @@
       "alat_kontrol",
       "alat",
       "ALAT"
-    ]
+    ],
+    "msg.tools.list_header": "[alat] Alat yang dimuat ({count}):",
+    "msg.tools.no_match": "[alat] Tidak ada alat yang cocok: {q}"
   },
   "vi": {
     "cmd.help.tools_list": "  :tools list [query]               Liệt kê các công cụ đã tải, tùy chọn lọc theo tên/mô tả",
-    "cmd.help.tools_load": "  :tools load <name>",
+    "cmd.help.tools_load": ":tải công cụ <name>",
     "msg.tools.usage_load": "Cách dùng: :tools load <tool_name>",
     "msg.tools.loaded_single": "[tools] Đã tải công cụ: {name}",
     "msg.tools.not_found": "[tools] Không tìm thấy công cụ: {name}",
@@ -205,11 +223,13 @@
       "công cụ_điều khiển",
       "công cụ",
       "CÔNG CỤ"
-    ]
+    ],
+    "msg.tools.list_header": "[công cụ] Công cụ đã tải ({count}):",
+    "msg.tools.no_match": "[công cụ] Không có công cụ phù hợp: {q}"
   },
   "pl": {
     "cmd.help.tools_list": "  :tools list [query]               Wymień załadowane narzędzia, opcjonalnie filtrowane według nazwy/opisu",
-    "cmd.help.tools_load": "  :tools load <name>",
+    "cmd.help.tools_load": ":tools ładuje <nazwa>",
     "msg.tools.usage_load": "Użycie: :tools load <tool_name>",
     "msg.tools.loaded_single": "[tools] Załadowano narzędzie: {name}",
     "msg.tools.not_found": "[tools] Nie znaleziono narzędzia: {name}",
@@ -222,11 +242,13 @@
       "kontrola_narzędzi",
       "narzędzia",
       "NARZĘDZIA"
-    ]
+    ],
+    "msg.tools.list_header": "[narzędzia] Załadowane narzędzia ({count}):",
+    "msg.tools.no_match": "[narzędzia] Brak pasujących narzędzi: {q}"
   },
   "hi": {
     "cmd.help.tools_list": "  :tools list [query]               लोड किए गए उपकरणों की सूची बनाएं, वैकल्पिक रूप से नाम/विवरण के अनुसार फ़िल्टर किया गया",
-    "cmd.help.tools_load": "  :tools load <name>",
+    "cmd.help.tools_load": ":टूल्स लोड <नाम>",
     "msg.tools.usage_load": "उपयोग: :tools load <tool_name>",
     "msg.tools.loaded_single": "[tools] उपकरण लोड किया गया: {name}",
     "msg.tools.not_found": "[tools] उपकरण नहीं मिला: {name}",
@@ -239,11 +261,13 @@
       "tools_control",
       "उपकरण",
       "उपकरण"
-    ]
+    ],
+    "msg.tools.list_header": "[उपकरण] लोड किए गए उपकरण ({count}):",
+    "msg.tools.no_match": "[उपकरण] कोई मिलान उपकरण नहीं: {q}"
   },
   "ar": {
     "cmd.help.tools_list": "  :tools list [query]               قائمة الأدوات المحملة، اختيارياً تمت تصفيتها حسب الاسم/الوصف",
-    "cmd.help.tools_load": "  :tools load <name>",
+    "cmd.help.tools_load": ": تحميل الأدوات <الاسم>",
     "msg.tools.usage_load": "الاستخدام: :tools load <tool_name>",
     "msg.tools.loaded_single": "[tools] تم تحميل الأداة: {name}",
     "msg.tools.not_found": "[tools] الأداة غير موجودة: {name}",
@@ -256,11 +280,13 @@
       "tools_control",
       "أدوات",
       "أدوات"
-    ]
+    ],
+    "msg.tools.list_header": "[الأدوات] الأدوات المحملة ({count}):",
+    "msg.tools.no_match": "[الأدوات] لا توجد أدوات مطابقة: {q}"
   },
   "sv": {
     "cmd.help.tools_list": "  :tools list [query]               Lista laddade verktyg, eventuellt filtrerade efter namn/beskrivning",
-    "cmd.help.tools_load": "  :tools load <name>",
+    "cmd.help.tools_load": ":verktyg laddar <namn>",
     "msg.tools.usage_load": "Användning: :tools load <tool_name>",
     "msg.tools.loaded_single": "[tools] Laddat verktyg: {name}",
     "msg.tools.not_found": "[tools] Verktyg hittades inte: {name}",
@@ -273,11 +299,13 @@
       "tools_control",
       "verktyg",
       "VERKTYG"
-    ]
+    ],
+    "msg.tools.list_header": "[verktyg] Laddade verktyg ({count}):",
+    "msg.tools.no_match": "[verktyg] Inga matchande verktyg: {q}"
   },
   "sw": {
     "cmd.help.tools_list": "  :tools list [query]               Orodhesha zana zilizopakiwa, kwa hiari kuchujwa kwa jina/maelezo",
-    "cmd.help.tools_load": "  :tools load <name>",
+    "cmd.help.tools_load": ":zana kupakia <name>",
     "msg.tools.usage_load": "Matumizi: :tools load <tool_name>",
     "msg.tools.loaded_single": "[tools] Chombo kimepakiwa: {name}",
     "msg.tools.not_found": "[tools] Chombo hakijapatikana: {name}",
@@ -290,11 +318,13 @@
       "tools_control",
       "zana",
       "ZANA"
-    ]
+    ],
+    "msg.tools.list_header": "[zana] Zana zilizopakiwa ({count}):",
+    "msg.tools.no_match": "[zana] Hakuna zana zinazolingana: {q}"
   },
   "nb": {
     "cmd.help.tools_list": "  :tools list [query]               List innlastede verktøy, eventuelt filtrert etter navn/beskrivelse",
-    "cmd.help.tools_load": "  :tools load <name>",
+    "cmd.help.tools_load": ":verktøy laster inn <navn>",
     "msg.tools.usage_load": "Bruk: :tools load <tool_name>",
     "msg.tools.loaded_single": "[tools] Lastet verktøy: {name}",
     "msg.tools.not_found": "[tools] Verktøy ikke funnet: {name}",
@@ -307,11 +337,13 @@
       "tools_control",
       "verktøy",
       "VERKTØY"
-    ]
+    ],
+    "msg.tools.list_header": "[verktøy] Lastede verktøy ({count}):",
+    "msg.tools.no_match": "[verktøy] Ingen samsvarende verktøy: {q}"
   },
   "nl": {
     "cmd.help.tools_list": "  :tools list [query]               Toon geladen tools, optioneel gefilterd op naam/beschrijving",
-    "cmd.help.tools_load": "  :tools load <name>",
+    "cmd.help.tools_load": ":tools laad <naam>",
     "msg.tools.usage_load": "Gebruik: :tools load <tool_name>",
     "msg.tools.loaded_single": "[tools] Tool geladen: {name}",
     "msg.tools.not_found": "[tools] Tool niet gevonden: {name}",
@@ -324,11 +356,13 @@
       "tools_control",
       "gereedschap",
       "GEREEDSCHAP"
-    ]
+    ],
+    "msg.tools.list_header": "[tools] Geladen tools ({count}):",
+    "msg.tools.no_match": "[tools] Geen overeenkomende tools: {q}"
   },
   "fi": {
     "cmd.help.tools_list": "  :tools list [query]               Listaa ladatut työkalut, valinnaisesti suodatettuna nimen/kuvauksen perusteella",
-    "cmd.help.tools_load": "  :tools load <name>",
+    "cmd.help.tools_load": ":tools load <nimi>",
     "msg.tools.usage_load": "Käyttö: :tools load <tool_name>",
     "msg.tools.loaded_single": "[tools] Työkalu ladattu: {name}",
     "msg.tools.not_found": "[tools] Työkalua ei löydy: {name}",
@@ -341,11 +375,13 @@
       "tools_control",
       "työkalut",
       "TYÖKALUT"
-    ]
+    ],
+    "msg.tools.list_header": "[työkalut] Ladatut työkalut ({count}):",
+    "msg.tools.no_match": "[työkalut] Ei vastaavia työkaluja: {q}"
   },
   "cs": {
     "cmd.help.tools_list": "  :tools list [query]               Seznam načtených nástrojů, volitelně filtrovaných podle názvu/popisu",
-    "cmd.help.tools_load": "  :tools load <name>",
+    "cmd.help.tools_load": ":tools load <name>",
     "msg.tools.usage_load": "Použití: :tools load <tool_name>",
     "msg.tools.loaded_single": "[tools] Načten nástroj: {name}",
     "msg.tools.not_found": "[tools] Nástroj nenalezen: {name}",
@@ -358,11 +394,13 @@
       "tools_control",
       "nástroje",
       "NÁSTROJE"
-    ]
+    ],
+    "msg.tools.list_header": "[tools] Načtené nástroje ({count}):",
+    "msg.tools.no_match": "[nástroje] Žádné odpovídající nástroje: {q}"
   },
   "uk": {
     "cmd.help.tools_list": "  :tools list [query]               Список завантажених інструментів, опціонально відфільтрованих за назвою/описом",
-    "cmd.help.tools_load": "  :tools load <name>",
+    "cmd.help.tools_load": ":tools load <name>",
     "msg.tools.usage_load": "Використання: :tools load <tool_name>",
     "msg.tools.loaded_single": "[tools] Інструмент завантажено: {name}",
     "msg.tools.not_found": "[tools] Інструмент не знайдено: {name}",
@@ -375,11 +413,13 @@
       "tools_control",
       "інструменти",
       "ІНСТРУМЕНТИ"
-    ]
+    ],
+    "msg.tools.list_header": "[інструменти] Завантажені інструменти ({count}):",
+    "msg.tools.no_match": "[інструменти] Немає відповідних інструментів: {q}"
   },
   "tr": {
     "cmd.help.tools_list": "  :tools list [query]               Yüklenmiş araçları listele, isteğe bağlı olarak ad/açıklamaya göre filtrele",
-    "cmd.help.tools_load": "  :tools load <name>",
+    "cmd.help.tools_load": ":araçlar <ad> yükle",
     "msg.tools.usage_load": "Kullanım: :tools load <tool_name>",
     "msg.tools.loaded_single": "[tools] Araç yüklendi: {name}",
     "msg.tools.not_found": "[tools] Araç bulunamadı: {name}",
@@ -392,11 +432,13 @@
       "tools_control",
       "araçlar",
       "ARAÇLAR"
-    ]
+    ],
+    "msg.tools.list_header": "[tools] Yüklenen araçlar ({count}):",
+    "msg.tools.no_match": "[araçlar] Eşleşen araç yok: {q}"
   },
   "th": {
     "cmd.help.tools_list": "  :tools list [query]               แสดงรายการเครื่องมือที่โหลดแล้ว สามารถกรองตามชื่อ/คำอธิบายได้",
-    "cmd.help.tools_load": "  :tools load <name>",
+    "cmd.help.tools_load": ":tools โหลด <ชื่อ>",
     "msg.tools.usage_load": "การใช้งาน: :tools load <tool_name>",
     "msg.tools.loaded_single": "[tools] โหลดเครื่องมือแล้ว: {name}",
     "msg.tools.not_found": "[tools] ไม่พบเครื่องมือ: {name}",
@@ -409,11 +451,13 @@
       "tools_control",
       "เครื่องมือ",
       "เครื่องมือ"
-    ]
+    ],
+    "msg.tools.list_header": "[เครื่องมือ] เครื่องมือที่โหลด ({count}):",
+    "msg.tools.no_match": "[เครื่องมือ] ไม่มีเครื่องมือที่ตรงกัน: {q}"
   },
   "zh_CN": {
     "cmd.help.tools_list": "  :tools list [query]               列出已加载的工具，可选按名称/描述筛选",
-    "cmd.help.tools_load": "  :tools load <name>",
+    "cmd.help.tools_load": ":工具加载<名称>",
     "msg.tools.usage_load": "用法: :tools load <tool_name>",
     "msg.tools.loaded_single": "[tools] 已加载工具: {name}",
     "msg.tools.not_found": "[tools] 未找到工具: {name}",
@@ -426,11 +470,13 @@
       "tools_control",
       "工具",
       "工具"
-    ]
+    ],
+    "msg.tools.list_header": "[工具] 加载的工具 ({count})：",
+    "msg.tools.no_match": "[工具] 没有匹配的工具：{q}"
   },
   "zh_TW": {
     "cmd.help.tools_list": "  :tools list [query]               列出已載入的工具，可選按名稱/描述篩選",
-    "cmd.help.tools_load": "  :tools load <name>",
+    "cmd.help.tools_load": ":工具載入<名稱>",
     "msg.tools.usage_load": "用法: :tools load <tool_name>",
     "msg.tools.loaded_single": "[tools] 已載入工具: {name}",
     "msg.tools.not_found": "[tools] 找不到工具: {name}",
@@ -443,11 +489,13 @@
       "tools_control",
       "工具",
       "工具"
-    ]
+    ],
+    "msg.tools.list_header": "[工具] 載入的工具 ({count})：",
+    "msg.tools.no_match": "[工具] 沒有匹配的工具：{q}"
   },
   "bn": {
     "cmd.help.tools_list": "  :tools list [query]               লোড করা টুলগুলি তালিকাভুক্ত করুন, ঐচ্ছিকভাবে নাম/বিবরণ অনুসারে ফিল্টার করুন",
-    "cmd.help.tools_load": "  :tools load <name>",
+    "cmd.help.tools_load": ": টুলস লোড <নাম>",
     "msg.tools.usage_load": "ব্যবহার: :tools load <tool_name>",
     "msg.tools.loaded_single": "[tools] টুল লোড হয়েছে: {name}",
     "msg.tools.not_found": "[tools] টুল পাওয়া যায়নি: {name}",
@@ -460,11 +508,13 @@
       "tools_control",
       "সরঞ্জাম",
       "সরঞ্জাম"
-    ]
+    ],
+    "msg.tools.list_header": "[tools] লোড করা টুল ({count}):",
+    "msg.tools.no_match": "[tools] কোনো মিল নেই এমন টুলস: {q}"
   },
   "fa": {
     "cmd.help.tools_list": "  :tools list [query]               فهرست ابزارهای بارگذاری شده، به صورت اختیاری بر اساس نام/توضیح فیلتر شده",
-    "cmd.help.tools_load": "  :tools load <name>",
+    "cmd.help.tools_load": ":tools load <name>",
     "msg.tools.usage_load": "کاربرد: :tools load <tool_name>",
     "msg.tools.loaded_single": "[tools] ابزار بارگذاری شد: {name}",
     "msg.tools.not_found": "[tools] ابزار یافت نشد: {name}",
@@ -477,11 +527,13 @@
       "tools_control",
       "ابزارها",
       "ابزارها"
-    ]
+    ],
+    "msg.tools.list_header": "[ابزار] ابزارهای بارگذاری شده ({count}):",
+    "msg.tools.no_match": "[ابزار] هیچ ابزار منطبقی وجود ندارد: {q}"
   },
   "mn": {
     "cmd.help.tools_list": "  :tools list [query]               Ачаалагдсан хэрэгслүүдийг жагсаах, нэр/тодорхойлолтоор шүүх боломжтой",
-    "cmd.help.tools_load": "  :tools load <name>",
+    "cmd.help.tools_load": ":хэрэгслүүд <нэр> ачаална",
     "msg.tools.usage_load": "Хэрэглээ: :tools load <tool_name>",
     "msg.tools.loaded_single": "[tools] Хэрэгсэл ачаалагдсан: {name}",
     "msg.tools.not_found": "[tools] Хэрэгсэл олдсонгүй: {name}",
@@ -494,11 +546,13 @@
       "tools_control",
       "хэрэгслүүд",
       "хэрэгслүүд"
-    ]
+    ],
+    "msg.tools.list_header": "[хэрэгсэл] Ачаалсан хэрэгслүүд ({count}):",
+    "msg.tools.no_match": "[хэрэгсэл] Тохирох хэрэгсэл алга: {q}"
   },
   "mr": {
     "cmd.help.tools_list": "  :tools list [query]               लोड केलेली साधने यादी करा, वैकल्पिकरित्या नाव/वर्णनानुसार फिल्टर केलेले",
-    "cmd.help.tools_load": "  :tools load <name>",
+    "cmd.help.tools_load": ": साधने लोड <name>",
     "msg.tools.usage_load": "वापर: :tools load <tool_name>",
     "msg.tools.loaded_single": "[tools] साधन लोड केले: {name}",
     "msg.tools.not_found": "[tools] साधन सापडले नाही: {name}",
@@ -511,14 +565,16 @@
       "tools_control",
       "साधने",
       "साधने"
-    ]
+    ],
+    "msg.tools.list_header": "[tools] लोड केलेली साधने ({count}):",
+    "msg.tools.no_match": "[tools] जुळणारी साधने नाहीत: {q}"
   },
   "el": {
     "cmd.help.tools_list": ":tools on comm Ενεργοποίηση εργαλείων επικοινωνίας (Ομάδες, Discord)\n  :tools on office Ενεργοποίηση εργαλείων του Office (Excel, Word, κ.λπ.)\n  :tools on devel Ενεργοποίηση εργαλείων ανάπτυξης (lint, py_compile, tests)\n  :tools on iot Ενεργοποίηση εργαλείων IoT (Bluetooth, κ.λπ.)",
     "cmd.help.tools_load": ":tools load <όνομα>",
-    "msg.tools.usage_load": "[εργαλεία] Φορτωμένο εργαλείο: {name}",
+    "msg.tools.usage_load": "Χρήση: :tools φόρτωση <όνομα_εργαλείου>",
     "msg.tools.loaded_single": "[εργαλεία] Το εργαλείο δεν βρέθηκε: {name}",
-    "msg.tools.not_found": "[εργαλεία] Δεν φορτώθηκαν εργαλεία.",
+    "msg.tools.not_found": "[εργαλεία] Το εργαλείο δεν βρέθηκε: {name}",
     "cmd.help.tools_output": "  :tools output                     Εναλλαγή εμφάνισης αποτελεσμάτων εργαλείων",
     "msg.tools.output_state": "[tools] Εμφάνιση εξόδου εργαλείου: {state}",
     "cmd.help.tools_reload": "  :tools reload                    Επαναφορτωστε ολο τον κωδικα εργαλειου απο τον δισκο.",
@@ -528,14 +584,16 @@
       "tools_control",
       "εργαλεία",
       "ΕΡΓΑΛΕΙΑ"
-    ]
+    ],
+    "msg.tools.list_header": "[εργαλεία] Φορτωμένα εργαλεία ({count}):",
+    "msg.tools.no_match": "[εργαλεία] Δεν υπάρχουν εργαλεία που να ταιριάζουν: {q}"
   },
   "he": {
     "cmd.help.tools_list": ":כלים ב-comm הפעל כלי תקשורת (צוותים, דיסקורד)\n  :tools on office הפעל כלי Office (Excel, Word וכו')\n  :tools on devel אפשר כלי פיתוח (lint, py_compile, tests)\n  :tools on iot הפעל כלי IoT (Bluetooth וכו')",
     "cmd.help.tools_load": ":tools טען <name>",
-    "msg.tools.usage_load": "[כלים] כלי נטען: {name}",
+    "msg.tools.usage_load": "שימוש: :כלים נטענים <שם_כלי>",
     "msg.tools.loaded_single": "[כלים] הכלי לא נמצא: {name}",
-    "msg.tools.not_found": "[כלים] לא נטענו כלים.",
+    "msg.tools.not_found": "[כלים] הכלי לא נמצא: {name}",
     "cmd.help.tools_output": "  :tools output                     החלף תצוגת תוצאות הפעלת כלים",
     "msg.tools.output_state": "[tools] תצוגת פלט כלים: {state}",
     "cmd.help.tools_reload": "  :tools reload                    טען מחדש את כל קוד הכלי מהדיסק.",
@@ -545,14 +603,16 @@
       "tools_control",
       "כלים",
       "כלים"
-    ]
+    ],
+    "msg.tools.list_header": "[כלים] כלים טעונים ({count}):",
+    "msg.tools.no_match": "[כלים] אין כלים תואמים: {q}"
   },
   "hu": {
     "cmd.help.tools_list": ":tools on comm Kommunikációs eszközök engedélyezése (Teams, Discord)\n  :tools on office Engedélyezze az Office-eszközöket (Excel, Word stb.)\n  :tools on devel Fejlesztői eszközök engedélyezése (lint, py_compile, tesztek)\n  :tools on iot IoT-eszközök engedélyezése (Bluetooth stb.)",
     "cmd.help.tools_load": ":tools load <name>",
-    "msg.tools.usage_load": "[eszközök] Betöltött eszköz: {name}",
+    "msg.tools.usage_load": "Használat: :tools load <eszköz_neve>",
     "msg.tools.loaded_single": "[eszközök] Az eszköz nem található: {name}",
-    "msg.tools.not_found": "[eszközök] Nincsenek betöltött eszközök.",
+    "msg.tools.not_found": "[eszközök] Az eszköz nem található: {name}",
     "cmd.help.tools_output": "  :tools output                     Eszközök végrehajtási eredményeinek megjelenítésének váltása",
     "msg.tools.output_state": "[tools] Eszköz kimenet megjelenítése: {state}",
     "cmd.help.tools_reload": "  :tools reload                    Az osszes eszkozkod ujratoltese a lemezrol.",
@@ -562,14 +622,16 @@
       "tools_control",
       "eszközök",
       "ESZKÖZÖK"
-    ]
+    ],
+    "msg.tools.list_header": "[eszközök] Betöltött eszközök ({count}):",
+    "msg.tools.no_match": "[eszközök] Nincsenek megfelelő eszközök: {q}"
   },
   "ro": {
     "cmd.help.tools_list": ":listă instrumente [interogare] Listează instrumentele încărcate, opțional filtrate după nume/descriere",
     "cmd.help.tools_load": ":tools load <nume>",
-    "msg.tools.usage_load": "[tools] Instrument încărcat: {name}",
+    "msg.tools.usage_load": "Utilizare: :tools load <nume_instrument>",
     "msg.tools.loaded_single": "[tools] Instrument negăsit: {name}",
-    "msg.tools.not_found": "[tools] Nu s-a încărcat unelte.",
+    "msg.tools.not_found": "[instrumente] Instrumentul nu a fost găsit: {name}",
     "cmd.help.tools_output": "  :tools output                     Comutarea afișării rezultatelor de execuție a instrumentelor",
     "msg.tools.output_state": "[tools] Afișare ieșire instrument: {state}",
     "cmd.help.tools_reload": "  :tools reload                    Reincarcati tot codul instrumentului de pe disc.",
@@ -579,6 +641,8 @@
       "tools_control",
       "unelte",
       "UNELTE"
-    ]
+    ],
+    "msg.tools.list_header": "[instrumente] Instrumente încărcate ({count}):",
+    "msg.tools.no_match": "[instrumente] Nu există instrumente potrivite: {q}"
   }
 }

@@ -25,7 +25,12 @@
       "سويتش بوت",
       "سحابة",
       "عن بعد"
-    ]
+    ],
+    "err.config_missing": "بيانات اعتماد SwitchBot Cloud مفقودة. قم بتعيين UAGENT_SWITCHBOT_TOKEN وUAGENT_SWITCHBOT_SECRET.",
+    "param.dev.description": "معرف جهاز SwitchBot للبحث عنه. المعرف المفضل",
+    "param.devname.description": "اسم جهاز SwitchBot للبحث عنه عند عدم توفير معرف_الجهاز.",
+    "param.value.description": "قيمة رقمية اختيارية لإجراءات set_value. النطاق: 0-100.",
+    "tool.description": "تحكم في جهاز SwitchBot Cloud من الحساب الذي تم تكوينه وقم بإرجاع نتيجة JSON أو نصية."
   },
   "bn": {
     "param.action.description": "ক্রিয়া: on/off/open/close/set_value/lock/unlock।",
@@ -53,7 +58,12 @@
       "সুইচবট",
       "মেঘ",
       "দূরবর্তী"
-    ]
+    ],
+    "err.config_missing": "SwitchBot ক্লাউড শংসাপত্র অনুপস্থিত. UAGENT_SWITCHBOT_TOKEN এবং UAGENT_SWITCHBOT_SECRET সেট করুন।",
+    "param.dev.description": "দেখতে সুইচবট ডিভাইস আইডি. পছন্দের শনাক্তকারী।",
+    "param.devname.description": "ডিভাইস_আইডি দেওয়া না থাকলে তা দেখতে SwitchBot ডিভাইসের নাম।",
+    "param.value.description": "set_value অ্যাকশনের জন্য ঐচ্ছিক সাংখ্যিক মান। পরিসীমা: 0-100।",
+    "tool.description": "কনফিগার করা অ্যাকাউন্ট থেকে একটি SwitchBot ক্লাউড ডিভাইস নিয়ন্ত্রণ করুন এবং একটি JSON বা পাঠ্য ফলাফল ফেরত দিন।"
   },
   "cs": {
     "param.action.description": "Akce: on/off/open/close/set_value/lock/unlock.",
@@ -81,7 +91,12 @@
       "přepínač",
       "mrak",
       "vzdálený"
-    ]
+    ],
+    "err.config_missing": "Chybí přihlašovací údaje SwitchBot Cloud. Nastavte UAGENT_SWITCHBOT_TOKEN a UAGENT_SWITCHBOT_SECRET.",
+    "param.dev.description": "ID zařízení SwitchBot k vyhledání. Preferovaný identifikátor.",
+    "param.devname.description": "Název zařízení SwitchBot, který se má vyhledat, když není zadáno ID zařízení.",
+    "param.value.description": "Volitelná číselná hodnota pro akce set_value. Rozsah: 0-100.",
+    "tool.description": "Ovládejte zařízení SwitchBot Cloud z nakonfigurovaného účtu a vraťte výsledek JSON nebo text."
   },
   "de": {
     "param.action.description": "Aktion: on/off/open/close/set_value/lock/unlock.",
@@ -109,7 +124,12 @@
       "Switchbot",
       "Wolke",
       "entfernt"
-    ]
+    ],
+    "err.config_missing": "Die Anmeldeinformationen für SwitchBot Cloud fehlen. Legen Sie UAGENT_SWITCHBOT_TOKEN und UAGENT_SWITCHBOT_SECRET fest.",
+    "param.dev.description": "Zu suchende SwitchBot-Geräte-ID. Bevorzugter Bezeichner.",
+    "param.devname.description": "Der nachzuschlagende SwitchBot-Gerätename, wenn die Geräte-ID nicht angegeben ist.",
+    "param.value.description": "Optionaler numerischer Wert für set_value-Aktionen. Bereich: 0-100.",
+    "tool.description": "Steuern Sie ein SwitchBot Cloud-Gerät über das konfigurierte Konto und geben Sie ein JSON- oder Textergebnis zurück."
   },
   "en": {
     "param.action.description": "Action: on/off/open/close/set_value/lock/unlock.",
@@ -170,7 +190,12 @@
       "robot conmutador",
       "nube",
       "remoto"
-    ]
+    ],
+    "err.config_missing": "Faltan las credenciales de SwitchBot Cloud. Establezca UAGENT_SWITCHBOT_TOKEN y UAGENT_SWITCHBOT_SECRET.",
+    "param.dev.description": "ID del dispositivo SwitchBot para buscar. Identificador preferido.",
+    "param.devname.description": "Nombre del dispositivo SwitchBot que se buscará cuando no se proporcione el ID del dispositivo.",
+    "param.value.description": "Valor numérico opcional para acciones set_value. Rango: 0-100.",
+    "tool.description": "Controle un dispositivo SwitchBot Cloud desde la cuenta configurada y devuelva un resultado JSON o de texto."
   },
   "fa": {
     "param.action.description": "حداکثر ویژگی‌ها (۰ = نامحدود).",
@@ -185,20 +210,25 @@
     "err.unsupported_device": "چندین دستگاه SwitchBot با device_name ارائه‌شده مطابقت داشتند.",
     "err.value_required": "یا mac_address یا device_name الزامی است.",
     "err.invalid_value_range": "فیلد value برای set_value الزامی است.",
-    "msg.summary": "نوع دستگاه انتخاب‌شده از عمل درخواستی پشتیبانی نمی‌کند.",
-    "err.invalid_numeric": "کنترل SwitchBot BLE تکمیل شد: {action} روی {device_name} ({device_id}).",
+    "msg.summary": "کنترل SwitchBot Cloud تکمیل شد: {action} در {device_name} ({device_id}).",
+    "err.invalid_numeric": "مهلت زمانی باید یک عدد صحیح باشد.",
     "err.invalid_range": "مهلت باید یک عدد صحیح باشد.",
     "err.invalid_value_type": "مهلت باید بزرگتر از ۰ باشد.",
-    "err.operation_failed": "کنترل SwitchBot Cloud تکمیل شد: {action} روی {device_name} ({device_id}).",
-    "msg.error_fmt": "خطا در حین عملیات BLE: {err_msg}\n\n[راهنمای مجوزهای macOS]\nدسترسی بلوتوث ممکن است توسط محدودیت‌های امنیتی macOS رد شده باشد.\nلطفاً به 'تنظیمات سیستم > حریم خصوصی و امنیت > بلوتوث' بروید و اجازه دهید ترمینال، VS Code یا فرآیند پایتون شما به بلوتوث دسترسی داشته باشد.",
-    "msg.unknown_error": "خطا: {msg}",
+    "err.operation_failed": "خطا در هنگام کنترل SwitchBot Cloud: {err_msg}",
+    "msg.error_fmt": "خطا: {msg}",
+    "msg.unknown_error": "خطای ناشناخته",
     "x_search_terms": [
       "کنترل ابری switchbot",
       "switchbot_cloud_control",
       "سوییچ‌بات",
       "ابر",
       "راه دور"
-    ]
+    ],
+    "err.config_missing": "اعتبارنامه SwitchBot Cloud وجود ندارد. UAGENT_SWITCHBOT_TOKEN و UAGENT_SWITCHBOT_SECRET را تنظیم کنید.",
+    "param.dev.description": "شناسه دستگاه SwitchBot برای جستجو. شناسه ترجیحی",
+    "param.devname.description": "وقتی device_id ارائه نشده است، نام دستگاه SwitchBot را جستجو کنید.",
+    "param.value.description": "مقدار عددی اختیاری برای اقدامات set_value. محدوده: 0-100.",
+    "tool.description": "یک دستگاه SwitchBot Cloud را از حساب پیکربندی شده کنترل کنید و یک JSON یا نتیجه متنی را برگردانید."
   },
   "fi": {
     "param.action.description": "Toiminto: on/off/open/close/set_value/lock/unlock.",
@@ -226,7 +256,12 @@
       "kytkinrobotti",
       "pilvi",
       "etä"
-    ]
+    ],
+    "err.config_missing": "SwitchBot Cloud -tunnistetiedot puuttuvat. Aseta UAGENT_SWITCHBOT_TOKEN ja UAGENT_SWITCHBOT_SECRET.",
+    "param.dev.description": "SwitchBot-laitteen tunnus etsittäväksi. Ensisijainen tunniste.",
+    "param.devname.description": "SwitchBot-laitteen nimi, joka etsitään, kun laitetunnusta ei ole annettu.",
+    "param.value.description": "Valinnainen numeerinen arvo set_value-toimintoille. Alue: 0-100.",
+    "tool.description": "Ohjaa SwitchBot Cloud -laitetta määritetyltä tililtä ja palauta JSON- tai tekstitulos."
   },
   "fr": {
     "param.action.description": "Action : on/off/open/close/set_value/lock/unlock.",
@@ -254,7 +289,12 @@
       "robot de commutation",
       "nuage",
       "à distance"
-    ]
+    ],
+    "err.config_missing": "Les informations d’identification SwitchBot Cloud sont manquantes. Définissez UAGENT_SWITCHBOT_TOKEN et UAGENT_SWITCHBOT_SECRET.",
+    "param.dev.description": "ID de l’appareil SwitchBot à rechercher. Identifiant préféré.",
+    "param.devname.description": "Nom de l’appareil SwitchBot à rechercher lorsque device_id n’est pas fourni.",
+    "param.value.description": "Valeur numérique facultative pour les actions set_value. Plage : 0-100.",
+    "tool.description": "Contrôlez un appareil SwitchBot Cloud à partir du compte configuré et renvoyez un résultat JSON ou texte."
   },
   "hi": {
     "param.action.description": "क्रिया: on/off/open/close/set_value/lock/unlock।",
@@ -282,7 +322,12 @@
       "स्विचबॉट",
       "बादल",
       "दूरस्थ"
-    ]
+    ],
+    "err.config_missing": "स्विचबॉट क्लाउड क्रेडेंशियल गायब हैं। UAGENT_SWITCHBOT_TOKEN और UAGENT_SWITCHBOT_SECRET सेट करें।",
+    "param.dev.description": "देखने के लिए स्विचबॉट डिवाइस आईडी। पसंदीदा पहचानकर्ता.",
+    "param.devname.description": "जब डिवाइस_आईडी उपलब्ध न हो तो स्विचबॉट डिवाइस का नाम देखा जा सकता है।",
+    "param.value.description": "set_value क्रियाओं के लिए वैकल्पिक संख्यात्मक मान। रेंज: 0-100.",
+    "tool.description": "कॉन्फ़िगर किए गए खाते से स्विचबॉट क्लाउड डिवाइस को नियंत्रित करें और JSON या टेक्स्ट परिणाम लौटाएं।"
   },
   "id": {
     "param.action.description": "Tindakan: on/off/open/close/set_value/lock/unlock.",
@@ -310,7 +355,12 @@
       "saklarbot",
       "awan",
       "terpencil"
-    ]
+    ],
+    "err.config_missing": "Kredensial SwitchBot Cloud tidak ada. Tetapkan UAGENT_SWITCHBOT_TOKEN dan UAGENT_SWITCHBOT_SECRET.",
+    "param.dev.description": "ID perangkat SwitchBot untuk mencari. Pengidentifikasi pilihan.",
+    "param.devname.description": "Nama perangkat SwitchBot yang akan dicari ketika device_id tidak disediakan.",
+    "param.value.description": "Nilai numerik opsional untuk tindakan set_value. Kisaran: 0-100.",
+    "tool.description": "Kontrol perangkat SwitchBot Cloud dari akun yang dikonfigurasi dan kembalikan JSON atau hasil teks."
   },
   "it": {
     "param.action.description": "Azione: on/off/open/close/set_value/lock/unlock.",
@@ -338,7 +388,12 @@
       "commutatore",
       "nuvola",
       "remoto"
-    ]
+    ],
+    "err.config_missing": "Mancano le credenziali di SwitchBot Cloud. Imposta UAGENT_SWITCHBOT_TOKEN e UAGENT_SWITCHBOT_SECRET.",
+    "param.dev.description": "ID del dispositivo SwitchBot da cercare. Identificatore preferito.",
+    "param.devname.description": "Nome del dispositivo SwitchBot da cercare quando non viene fornito device_id.",
+    "param.value.description": "Valore numerico facoltativo per le azioni set_value. Intervallo: 0-100.",
+    "tool.description": "Controlla un dispositivo SwitchBot Cloud dall'account configurato e restituisce un risultato JSON o di testo."
   },
   "ja": {
     "param.action.description": "アクション: on/off/open/close/set_value/lock/unlock。",
@@ -346,18 +401,18 @@
     "param.fan.description": "ACファン: auto/low/medium/high。",
     "param.timeout.description": "HTTP タイムアウト（秒）。",
     "param.fmt.description": "形式: json または text。",
-    "err.invalid_response": "SwitchBot Cloud returned an unexpected payload.",
-    "err.invalid_arguments": "Either device_id or device_name is required.",
-    "err.not_found": "No SwitchBot device matched the provided device_id.",
-    "err.ambiguous_target": "Multiple SwitchBot devices matched the provided device_name.",
-    "err.unsupported_device": "The selected device type does not support the requested action.",
-    "err.value_required": "The value field is required for set_value.",
-    "err.invalid_value_range": "The value field must be between 0 and 100.",
-    "msg.summary": "SwitchBot Cloud control completed: {action} on {device_name} ({device_id}).",
-    "err.invalid_numeric": "Timeout must be an integer.",
-    "err.invalid_range": "Timeout must be greater than 0.",
-    "err.invalid_value_type": "The value field must be an integer.",
-    "err.operation_failed": "Error during SwitchBot Cloud control: {err_msg}",
+    "err.invalid_response": "SwitchBot クラウドが予期しないペイロードを返しました。",
+    "err.invalid_arguments": "device_id または device_name のいずれかが必要です。",
+    "err.not_found": "指定された device_id に一致する SwitchBot デバイスはありません。",
+    "err.ambiguous_target": "複数の SwitchBot デバイスが、指定された device_name と一致しました。",
+    "err.unsupported_device": "選択したデバイス タイプは、要求されたアクションをサポートしていません。",
+    "err.value_required": "set_value には value フィールドが必要です。",
+    "err.invalid_value_range": "値フィールドは 0 ～ 100 でなければなりません。",
+    "msg.summary": "SwitchBot クラウド制御が完了しました: {action}、{device_name} ({device_id})。",
+    "err.invalid_numeric": "タイムアウトは整数でなければなりません。",
+    "err.invalid_range": "タイムアウトは 0 より大きくなければなりません。",
+    "err.invalid_value_type": "値フィールドは整数である必要があります。",
+    "err.operation_failed": "SwitchBot クラウド制御中のエラー: {err_msg}",
     "msg.error_fmt": "エラー: {msg}",
     "msg.unknown_error": "不明なエラー",
     "err.config_missing": "SwitchBot クラウドの認証情報がありません。UAGENT_SWITCHBOT_TOKEN と UAGENT_SWITCHBOT_SECRET を設定します。",
@@ -399,7 +454,12 @@
       "스위치봇",
       "구름",
       "원격"
-    ]
+    ],
+    "err.config_missing": "SwitchBot Cloud 자격 증명이 누락되었습니다. UAGENT_SWITCHBOT_TOKEN 및 UAGENT_SWITCHBOT_SECRET을 설정합니다.",
+    "param.dev.description": "조회할 SwitchBot 장치 ID입니다. 선호하는 식별자입니다.",
+    "param.devname.description": "device_id가 제공되지 않은 경우 조회할 SwitchBot 장치 이름입니다.",
+    "param.value.description": "set_value 작업에 대한 선택적 숫자 값입니다. 범위: 0-100.",
+    "tool.description": "구성된 계정에서 SwitchBot Cloud 장치를 제어하고 JSON 또는 텍스트 결과를 반환합니다."
   },
   "mn": {
     "param.action.description": "Хамгийн их шинж чанарууд (0 = хязгааргүй).",
@@ -414,20 +474,25 @@
     "err.unsupported_device": "Өгөгдсөн device_name-тай тохирох олон SwitchBot төхөөрөмж олдлоо.",
     "err.value_required": "mac_address эсвэл device_name шаардлагатай.",
     "err.invalid_value_range": "set_value-д утгын талбар шаардлагатай.",
-    "msg.summary": "Сонгосон төхөөрөмжийн төрөл нь хүссэн үйлдлийг дэмжихгүй байна.",
-    "err.invalid_numeric": "SwitchBot BLE хяналт дуусгавар боллоо: {action} on {device_name} ({device_id}).",
+    "msg.summary": "SwitchBot Cloud хяналт дууссан: {action} дээр {device_name} ({device_id}).",
+    "err.invalid_numeric": "Хугацаа нь бүхэл тоо байх ёстой.",
     "err.invalid_range": "Хугацаа нь бүхэл тоо байх ёстой.",
     "err.invalid_value_type": "Хугацаа 0-ээс их байх ёстой.",
-    "err.operation_failed": "SwitchBot Cloud хяналт дуусгавар боллоо: {action} on {device_name} ({device_id}).",
-    "msg.error_fmt": "BLE үйл ажиллагааны үед алдаа гарлаа: {err_msg}\n\n[macOS Зөвшөөрлийн Гарын Авлага]\nmacOS аюулгүй байдлын хязгаарлалтаар Bluetooth хандалтыг зөвшөөрөхгүй байж болно.\n'Системийн Тохиргоо > Нууцлал & Аюулгүй Байдал > Bluetooth' хэсгийг нээж, терминал, VS Code, эсвэл Python процесс тань Bluetooth-д хандахыг зөвшөөрсөн эсэхийг шалгана уу.",
-    "msg.unknown_error": "Алдаа: {msg}",
+    "err.operation_failed": "SwitchBot Cloud хяналтын үеийн алдаа: {err_msg}",
+    "msg.error_fmt": "Алдаа: {msg}",
+    "msg.unknown_error": "үл мэдэгдэх алдаа",
     "x_search_terms": [
       "switchbot үүлэн хяналт",
       "switchbot_cloud_control",
       "свичбот",
       "үүл",
       "алсын"
-    ]
+    ],
+    "err.config_missing": "SwitchBot Cloud итгэмжлэл байхгүй байна. UAGENT_SWITCHBOT_TOKEN болон UAGENT_SWITCHBOT_SECRET-г тохируулна уу.",
+    "param.dev.description": "Хайх бол SwitchBot төхөөрөмжийн ID. Сонгосон танигч.",
+    "param.devname.description": "device_id-г өгөөгүй үед хайхын тулд SwitchBot төхөөрөмжийн нэр.",
+    "param.value.description": "Тодорхой_утга үйлдлүүдийн нэмэлт тоон утга. Хүрээ: 0-100.",
+    "tool.description": "Тохируулсан бүртгэлээс SwitchBot Cloud төхөөрөмжийг удирдаж, JSON эсвэл текстийн үр дүнг буцаана уу."
   },
   "mr": {
     "param.action.description": "कमाल वैशिष्ट्ये (० = अमर्यादित).",
@@ -442,20 +507,25 @@
     "err.unsupported_device": "प्रदान केलेल्या device_name शी अनेक SwitchBot डिव्हाइसेस जुळली.",
     "err.value_required": "mac_address किंवा device_name पैकी एक आवश्यक आहे.",
     "err.invalid_value_range": "set_value साठी value फील्ड आवश्यक आहे.",
-    "msg.summary": "निवडलेला डिव्हाइस प्रकार विनंती केलेल्या क्रियेला समर्थन देत नाही.",
-    "err.invalid_numeric": "SwitchBot BLE नियंत्रण पूर्ण: {action} on {device_name} ({device_id}).",
+    "msg.summary": "स्विचबॉट क्लाउड नियंत्रण पूर्ण झाले: {device_name} ({device_id}) वर {action}.",
+    "err.invalid_numeric": "कालबाह्य पूर्णांक असणे आवश्यक आहे.",
     "err.invalid_range": "टाइमआउट पूर्णांक असणे आवश्यक आहे.",
     "err.invalid_value_type": "टाइमआउट ० पेक्षा मोठा असणे आवश्यक आहे.",
-    "err.operation_failed": "SwitchBot Cloud नियंत्रण पूर्ण: {action} on {device_name} ({device_id}).",
-    "msg.error_fmt": "BLE ऑपरेशन दरम्यान त्रुटी: {err_msg}\n\n[macOS परवानगी मार्गदर्शक]\nmacOS सुरक्षा निर्बंधांद्वारे ब्लूटूथ प्रवेश नाकारला गेला असावा.\nकृपया 'सिस्टम सेटिंग्ज > प्रायव्हसी आणि सिक्युरिटी > ब्लूटूथ' उघडा आणि तुमच्या टर्मिनल, VS Code, किंवा Python प्रक्रियेला ब्लूटूथमध्ये प्रवेश करण्याची परवानगी आहे याची खात्री करा.",
-    "msg.unknown_error": "त्रुटी: {msg}",
+    "err.operation_failed": "स्विचबॉट क्लाउड नियंत्रणादरम्यान त्रुटी: {err_msg}",
+    "msg.error_fmt": "त्रुटी: {msg}",
+    "msg.unknown_error": "अज्ञात त्रुटी",
     "x_search_terms": [
       "switchbot क्लाउड नियंत्रण",
       "switchbot_cloud_control",
       "स्विचबॉट",
       "ढग",
       "दूरस्थ"
-    ]
+    ],
+    "err.config_missing": "SwitchBot क्लाउड क्रेडेन्शियल गहाळ आहेत. UAGENT_SWITCHBOT_TOKEN आणि UAGENT_SWITCHBOT_SECRET सेट करा.",
+    "param.dev.description": "पाहण्यासाठी स्विचबॉट डिव्हाइस आयडी. प्राधान्य दिलेला ओळखकर्ता.",
+    "param.devname.description": "device_id प्रदान केलेला नसताना पाहण्यासाठी SwitchBot डिव्हाइसचे नाव.",
+    "param.value.description": "set_value क्रियांसाठी पर्यायी अंकीय मूल्य. श्रेणी: 0-100.",
+    "tool.description": "कॉन्फिगर केलेल्या खात्यातून स्विचबॉट क्लाउड डिव्हाइस नियंत्रित करा आणि JSON किंवा मजकूर परिणाम परत करा."
   },
   "el": {
     "param.action.description": "Ενέργεια: on/off/open/close/set_value/lock/unlock.",
@@ -483,7 +553,12 @@
       "διακόπτης",
       "σύννεφο",
       "απομακρυσμένο"
-    ]
+    ],
+    "err.config_missing": "Τα διαπιστευτήρια SwitchBot Cloud λείπουν. Ορίστε UAGENT_SWITCHBOT_TOKEN και UAGENT_SWITCHBOT_SECRET.",
+    "param.dev.description": "Αναγνωριστικό συσκευής SwitchBot για αναζήτηση. Προτιμώμενο αναγνωριστικό.",
+    "param.devname.description": "SwitchBot όνομα συσκευής για αναζήτηση όταν δεν παρέχεται το device_id.",
+    "param.value.description": "Προαιρετική αριθμητική τιμή για ενέργειες set_value. Εύρος: 0-100.",
+    "tool.description": "Ελέγξτε μια συσκευή SwitchBot Cloud από τον διαμορφωμένο λογαριασμό και επιστρέψτε ένα αποτέλεσμα JSON ή κειμένου."
   },
   "he": {
     "param.action.description": "פעולה: on/off/open/close/set_value/lock/unlock.",
@@ -511,7 +586,12 @@
       "מתג-בוט",
       "ענן",
       "מרחוק"
-    ]
+    ],
+    "err.config_missing": "חסרים אישורי SwitchBot Cloud. הגדר UAGENT_SWITCHBOT_TOKEN ו-UAGENT_SWITCHBOT_SECRET.",
+    "param.dev.description": "מזהה מכשיר SwitchBot כדי לחפש. מזהה מועדף.",
+    "param.devname.description": "שם מכשיר SwitchBot כדי לחפש כאשר device_id לא מסופק.",
+    "param.value.description": "ערך מספרי אופציונלי עבור פעולות set_value. טווח: 0-100.",
+    "tool.description": "שלטו במכשיר SwitchBot Cloud מהחשבון המוגדר והחזרו תוצאת JSON או טקסט."
   },
   "hu": {
     "param.action.description": "Művelet: on/off/open/close/set_value/lock/unlock.",
@@ -539,7 +619,12 @@
       "kapcsolóbot",
       "felhő",
       "távoli"
-    ]
+    ],
+    "err.config_missing": "Hiányoznak a SwitchBot Cloud hitelesítő adatai. UAGENT_SWITCHBOT_TOKEN és UAGENT_SWITCHBOT_SECRET beállítása.",
+    "param.dev.description": "SwitchBot eszközazonosító a kereséshez. Preferált azonosító.",
+    "param.devname.description": "SwitchBot eszköznév, amely akkor kereshető, ha az eszköz_azonosítója nincs megadva.",
+    "param.value.description": "Opcionális numerikus érték a set_value műveletekhez. Tartomány: 0-100.",
+    "tool.description": "Vezéreljen egy SwitchBot Cloud-eszközt a konfigurált fiókból, és küldjön vissza JSON- vagy szöveges eredményt."
   },
   "ro": {
     "param.action.description": "Acțiune: on/off/open/close/set_value/lock/unlock.",
@@ -567,7 +652,12 @@
       "comutator robot",
       "nor",
       "de la distanță"
-    ]
+    ],
+    "err.config_missing": "Acreditările SwitchBot Cloud lipsesc. Setați UAGENT_SWITCHBOT_TOKEN și UAGENT_SWITCHBOT_SECRET.",
+    "param.dev.description": "ID-ul dispozitivului SwitchBot pentru a căuta. Identificator preferat.",
+    "param.devname.description": "Numele dispozitivului SwitchBot de căutat atunci când device_id nu este furnizat.",
+    "param.value.description": "Valoare numerică opțională pentru acțiunile set_value. Interval: 0-100.",
+    "tool.description": "Controlați un dispozitiv SwitchBot Cloud din contul configurat și returnați un rezultat JSON sau text."
   },
   "nb": {
     "param.action.description": "Handling: på/av/åpen/lukk/sett_verdi/lås/opplås.",
@@ -595,7 +685,12 @@
       "switchbot",
       "sky",
       "ekstern"
-    ]
+    ],
+    "err.config_missing": "SwitchBot Cloud-legitimasjon mangler. Sett UAGENT_SWITCHBOT_TOKEN og UAGENT_SWITCHBOT_SECRET.",
+    "param.dev.description": "SwitchBot-enhets-ID for å slå opp. Foretrukket identifikator.",
+    "param.devname.description": "SwitchBot-enhetsnavn for å slå opp når device_id ikke er oppgitt.",
+    "param.value.description": "Valgfri numerisk verdi for set_value-handlinger. Rekkevidde: 0-100.",
+    "tool.description": "Kontroller en SwitchBot Cloud-enhet fra den konfigurerte kontoen og returner et JSON- eller tekstresultat."
   },
   "nl": {
     "param.action.description": "Actie: on/off/open/close/set_value/lock/unlock.",
@@ -623,7 +718,12 @@
       "schakelbot",
       "wolk",
       "extern"
-    ]
+    ],
+    "err.config_missing": "SwitchBot Cloud-inloggegevens ontbreken. Stel UAGENT_SWITCHBOT_TOKEN en UAGENT_SWITCHBOT_SECRET in.",
+    "param.dev.description": "SwitchBot-apparaat-ID om op te zoeken. Voorkeursidentificatienummer.",
+    "param.devname.description": "SwitchBot-apparaatnaam om op te zoeken als device_id niet is opgegeven.",
+    "param.value.description": "Optionele numerieke waarde voor set_value-acties. Bereik: 0-100.",
+    "tool.description": "Bedien een SwitchBot Cloud-apparaat vanuit het geconfigureerde account en retourneer een JSON- of tekstresultaat."
   },
   "pl": {
     "param.action.description": "Akcja: on/off/open/close/set_value/lock/unlock.",
@@ -651,7 +751,12 @@
       "przełącznik",
       "chmura",
       "zdalny"
-    ]
+    ],
+    "err.config_missing": "Brak danych uwierzytelniających SwitchBot Cloud. Ustaw UAGENT_SWITCHBOT_TOKEN i UAGENT_SWITCHBOT_SECRET.",
+    "param.dev.description": "Identyfikator urządzenia SwitchBot do sprawdzenia. Preferowany identyfikator.",
+    "param.devname.description": "Nazwa urządzenia SwitchBot, którą należy sprawdzić, jeśli nie podano identyfikatora urządzenia.",
+    "param.value.description": "Opcjonalna wartość liczbowa dla akcji set_value. Zakres: 0-100.",
+    "tool.description": "Kontroluj urządzenie SwitchBot Cloud ze skonfigurowanego konta i zwracaj wynik JSON lub tekst."
   },
   "pt": {
     "param.action.description": "Ação: on/off/open/close/set_value/lock/unlock.",
@@ -679,7 +784,12 @@
       "robô de comutação",
       "nuvem",
       "remoto"
-    ]
+    ],
+    "err.config_missing": "As credenciais do SwitchBot Cloud estão faltando. Defina UAGENT_SWITCHBOT_TOKEN e UAGENT_SWITCHBOT_SECRET.",
+    "param.dev.description": "ID do dispositivo SwitchBot para procurar. Identificador preferido.",
+    "param.devname.description": "Nome do dispositivo SwitchBot a ser pesquisado quando device_id não for fornecido.",
+    "param.value.description": "Valor numérico opcional para ações set_value. Faixa: 0-100.",
+    "tool.description": "Controle um dispositivo SwitchBot Cloud a partir da conta configurada e retorne um resultado JSON ou de texto."
   },
   "pt_BR": {
     "param.action.description": "Ação: on/off/open/close/set_value/lock/unlock.",
@@ -707,7 +817,12 @@
       "robô de comutação",
       "nuvem",
       "remoto"
-    ]
+    ],
+    "err.config_missing": "As credenciais do SwitchBot Cloud estão faltando. Defina UAGENT_SWITCHBOT_TOKEN e UAGENT_SWITCHBOT_SECRET.",
+    "param.dev.description": "ID do dispositivo SwitchBot para procurar. Identificador preferido.",
+    "param.devname.description": "Nome do dispositivo SwitchBot a ser pesquisado quando device_id não for fornecido.",
+    "param.value.description": "Valor numérico opcional para ações set_value. Faixa: 0-100.",
+    "tool.description": "Controle um dispositivo SwitchBot Cloud a partir da conta configurada e retorne um resultado JSON ou de texto."
   },
   "ru": {
     "param.action.description": "Действие: on/off/open/close/set_value/lock/unlock.",
@@ -735,7 +850,12 @@
       "switchbot",
       "облако",
       "удаленный"
-    ]
+    ],
+    "err.config_missing": "Учетные данные SwitchBot Cloud отсутствуют. Установите UAGENT_SWITCHBOT_TOKEN и UAGENT_SWITCHBOT_SECRET.",
+    "param.dev.description": "Идентификатор устройства SwitchBot для поиска. Предпочтительный идентификатор.",
+    "param.devname.description": "Имя устройства SwitchBot для поиска, если не указан идентификатор устройства.",
+    "param.value.description": "Необязательное числовое значение для действий set_value. Диапазон: 0–100.",
+    "tool.description": "Управляйте устройством SwitchBot Cloud из настроенной учетной записи и возвращайте JSON или текстовый результат."
   },
   "sv": {
     "param.action.description": "Åtgärd: on/off/open/close/set_value/lock/unlock.",
@@ -763,7 +883,12 @@
       "switchbot",
       "moln",
       "fjärr"
-    ]
+    ],
+    "err.config_missing": "SwitchBot Cloud-uppgifter saknas. Ställ in UAGENT_SWITCHBOT_TOKEN och UAGENT_SWITCHBOT_SECRET.",
+    "param.dev.description": "SwitchBot enhets-ID för att slå upp. Föredragen identifierare.",
+    "param.devname.description": "SwitchBot-enhetsnamn för att slå upp när device_id inte tillhandahålls.",
+    "param.value.description": "Valfritt numeriskt värde för set_value-åtgärder. Räckvidd: 0-100.",
+    "tool.description": "Styr en SwitchBot Cloud-enhet från det konfigurerade kontot och returnera ett JSON- eller textresultat."
   },
   "sw": {
     "param.action.description": "Kitendo: on/off/open/close/set_value/lock/unlock.",
@@ -791,7 +916,12 @@
       "kubadili bot",
       "wingu",
       "kijijini"
-    ]
+    ],
+    "err.config_missing": "Kitambulisho cha Wingu cha SwitchBot hakipo. Weka UAGENT_SWITCHBOT_TOKEN na UAGENT_SWITCHBOT_SECRET.",
+    "param.dev.description": "Kitambulisho cha kifaa cha SwitchBot ili kutafuta. Kitambulisho kinachopendekezwa.",
+    "param.devname.description": "SwitchBot jina la kifaa kutafuta wakati device_id haijatolewa.",
+    "param.value.description": "Thamani ya nambari ya hiari kwa vitendo vya kuweka_thamani. Mgawanyiko: 0-100.",
+    "tool.description": "Dhibiti kifaa cha Wingu la SwitchBot kutoka kwa akaunti iliyosanidiwa na urudishe tokeo la maandishi la JSON au maandishi."
   },
   "th": {
     "param.action.description": "アクション: on/off/open/close/set_value/lock/unlock。",
@@ -799,18 +929,18 @@
     "param.fan.description": "ACファン: auto/low/medium/high。",
     "param.timeout.description": "HTTP タイムアウト（秒）。",
     "param.fmt.description": "形式: json または text。",
-    "err.invalid_response": "SwitchBot Cloud returned an unexpected payload.",
-    "err.invalid_arguments": "Either device_id or device_name is required.",
-    "err.not_found": "No SwitchBot device matched the provided device_id.",
-    "err.ambiguous_target": "Multiple SwitchBot devices matched the provided device_name.",
-    "err.unsupported_device": "The selected device type does not support the requested action.",
-    "err.value_required": "The value field is required for set_value.",
-    "err.invalid_value_range": "The value field must be between 0 and 100.",
-    "msg.summary": "SwitchBot Cloud control completed: {action} on {device_name} ({device_id}).",
-    "err.invalid_numeric": "Timeout must be an integer.",
-    "err.invalid_range": "Timeout must be greater than 0.",
-    "err.invalid_value_type": "The value field must be an integer.",
-    "err.operation_failed": "Error during SwitchBot Cloud control: {err_msg}",
+    "err.invalid_response": "SwitchBot Cloud ส่งคืนเพย์โหลดที่ไม่คาดคิด",
+    "err.invalid_arguments": "จำเป็นต้องมี device_id หรือ device_name",
+    "err.not_found": "ไม่มีอุปกรณ์ SwitchBot ที่ตรงกับ device_id ที่ให้มา",
+    "err.ambiguous_target": "อุปกรณ์ SwitchBot หลายเครื่องตรงกับ device_name ที่ให้มา",
+    "err.unsupported_device": "ประเภทอุปกรณ์ที่เลือกไม่รองรับการดำเนินการที่ร้องขอ",
+    "err.value_required": "ต้องระบุฟิลด์ค่าสำหรับ set_value",
+    "err.invalid_value_range": "ช่องค่าต้องอยู่ระหว่าง 0 ถึง 100",
+    "msg.summary": "การควบคุม SwitchBot Cloud เสร็จสมบูรณ์: {action} บน {device_name} ({device_id})",
+    "err.invalid_numeric": "การหมดเวลาต้องเป็นจำนวนเต็ม",
+    "err.invalid_range": "ระยะหมดเวลาต้องมากกว่า 0",
+    "err.invalid_value_type": "ฟิลด์ค่าต้องเป็นจำนวนเต็ม",
+    "err.operation_failed": "เกิดข้อผิดพลาดระหว่างการควบคุม SwitchBot Cloud: {err_msg}",
     "msg.error_fmt": "エラー: {msg}",
     "msg.unknown_error": "不明なエラー",
     "x_search_terms": [
@@ -819,7 +949,12 @@
       "สวิตช์บอท",
       "คลาวด์",
       "ระยะไกล"
-    ]
+    ],
+    "err.config_missing": "ข้อมูลประจำตัวของ SwitchBot Cloud หายไป ตั้งค่า UAGENT_SWITCHBOT_TOKEN และ UAGENT_SWITCHBOT_SECRET",
+    "param.dev.description": "รหัสอุปกรณ์ SwitchBot เพื่อค้นหา ตัวระบุที่ต้องการ",
+    "param.devname.description": "ชื่ออุปกรณ์ SwitchBot เพื่อค้นหาเมื่อไม่ได้ระบุ device_id",
+    "param.value.description": "ค่าตัวเลขเพิ่มเติมสำหรับการดำเนินการ set_value ช่วง: 0-100",
+    "tool.description": "ควบคุมอุปกรณ์ SwitchBot Cloud จากบัญชีที่กำหนดค่าและส่งคืน JSON หรือผลลัพธ์ข้อความ"
   },
   "tr": {
     "param.action.description": "Eylem: on/off/open/close/set_value/lock/unlock.",
@@ -847,7 +982,12 @@
       "anahtar bot",
       "bulut",
       "uzak"
-    ]
+    ],
+    "err.config_missing": "SwitchBot Cloud kimlik bilgileri eksik. UAGENT_SWITCHBOT_TOKEN ve UAGENT_SWITCHBOT_SECRET'i ayarlayın.",
+    "param.dev.description": "Aranacak SwitchBot cihaz kimliği. Tercih edilen tanımlayıcı.",
+    "param.devname.description": "Device_id sağlanmadığında aranacak SwitchBot cihaz adı.",
+    "param.value.description": "set_value eylemleri için isteğe bağlı sayısal değer. Aralık: 0-100.",
+    "tool.description": "Bir SwitchBot Cloud cihazını yapılandırılmış hesaptan kontrol edin ve bir JSON veya metin sonucu döndürün."
   },
   "uk": {
     "param.action.description": "Дія: on/off/open/close/set_value/lock/unlock.",
@@ -875,7 +1015,12 @@
       "перемикач",
       "хмара",
       "віддалений"
-    ]
+    ],
+    "err.config_missing": "Облікові дані SwitchBot Cloud відсутні. Установіть UAGENT_SWITCHBOT_TOKEN і UAGENT_SWITCHBOT_SECRET.",
+    "param.dev.description": "ID пристрою SwitchBot для пошуку. Бажаний ідентифікатор.",
+    "param.devname.description": "Ім’я пристрою SwitchBot для пошуку, якщо device_id не вказано.",
+    "param.value.description": "Додаткове числове значення для дій set_value. Діапазон: 0-100.",
+    "tool.description": "Керуйте пристроєм SwitchBot Cloud із налаштованого облікового запису та повертайте JSON або текстовий результат."
   },
   "vi": {
     "param.action.description": "Hành động: on/off/open/close/set_value/lock/unlock.",
@@ -903,7 +1048,12 @@
       "switchbot",
       "đám mây",
       "từ xa"
-    ]
+    ],
+    "err.config_missing": "Thiếu thông tin xác thực trên SwitchBot Cloud. Đặt UAGENT_SWITCHBOT_TOKEN và UAGENT_SWITCHBOT_SECRET.",
+    "param.dev.description": "ID thiết bị SwitchBot để tra cứu. Định danh ưa thích.",
+    "param.devname.description": "Tên thiết bị SwitchBot để tra cứu khi không cung cấp device_id.",
+    "param.value.description": "Giá trị số tùy chọn cho hành động set_value. Phạm vi: 0-100.",
+    "tool.description": "Điều khiển thiết bị SwitchBot Cloud từ tài khoản đã định cấu hình và trả về kết quả JSON hoặc văn bản."
   },
   "zh_CN": {
     "param.action.description": "动作：开/关/打开/关闭/设置值/锁定/解锁。",
@@ -931,7 +1081,12 @@
       "开关机器人",
       "云",
       "远程"
-    ]
+    ],
+    "err.config_missing": "SwitchBot Cloud 凭据丢失。设置 UAGENT_SWITCHBOT_TOKEN 和 UAGENT_SWITCHBOT_SECRET。",
+    "param.dev.description": "要查找的 SwitchBot 设备 ID。首选标识符。",
+    "param.devname.description": "未提供 device_id 时要查找的 SwitchBot 设备名称。",
+    "param.value.description": "set_value 操作的可选数值。范围：0-100。",
+    "tool.description": "从配置的帐户控制 SwitchBot Cloud 设备并返回 JSON 或文本结果。"
   },
   "zh_TW": {
     "param.action.description": "動作：on/off/open/close/set_value/lock/unlock。",
@@ -959,6 +1114,11 @@
       "開關機器人",
       "雲端",
       "遠端"
-    ]
+    ],
+    "err.config_missing": "SwitchBot Cloud 憑證遺失。設定 UAGENT_SWITCHBOT_TOKEN 和 UAGENT_SWITCHBOT_SECRET。",
+    "param.dev.description": "要尋找的 SwitchBot 設備 ID。首選標識符。",
+    "param.devname.description": "未提供 device_id 時要尋找的 SwitchBot 裝置名稱。",
+    "param.value.description": "set_value 操作的可選數值。範圍：0-100。",
+    "tool.description": "從配置的帳戶控制 SwitchBot Cloud 設備並傳回 JSON 或文字結果。"
   }
 }

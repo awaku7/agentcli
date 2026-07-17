@@ -54,9 +54,9 @@
     "log.load_disabled.internal": "[ferramentas] O plugin interno {mod_name} está desativado: {reason}"
   },
   "pt": {
-    "log.load_fail.external": "[tools] Failed to load external plugin {entry_path}: {err}",
-    "log.load_fail.internal": "[tools] Failed to load internal plugin {mod_name}: {err}",
-    "log.load_ok.external": "[tools] Loaded external tools: {entry_name}",
+    "log.load_fail.external": "[ferramentas] Falha ao carregar o plugin externo {entry_path}: {err}",
+    "log.load_fail.internal": "[ferramentas] Falha ao carregar o plugin interno {mod_name}: {err}",
+    "log.load_ok.external": "[ferramentas] Ferramentas externas carregadas: {entry_name}",
     "log.load_disabled.internal": "[tools] O plugin interno {mod_name} está desativado: {reason}"
   },
   "id": {
@@ -78,10 +78,10 @@
     "log.load_disabled.internal": "[narzędzia] Wtyczka wewnętrzna {mod_name} jest wyłączona: {reason}"
   },
   "hi": {
-    "log.load_fail.external": "[tools] Failed to load external plugin {entry_path}: {err}",
-    "log.load_fail.internal": "[tools] Failed to load internal plugin {mod_name}: {err}",
-    "log.load_ok.external": "[tools] Loaded external tools: {entry_name}",
-    "log.load_disabled.internal": "[tools] Internal plugin {mod_name} is disabled: {reason}"
+    "log.load_fail.external": "[टूल्स] बाहरी प्लगइन लोड करने में विफल {entry_path}: {err}",
+    "log.load_fail.internal": "[टूल्स] आंतरिक प्लगइन लोड करने में विफल {mod_name}: {err}",
+    "log.load_ok.external": "[उपकरण] लोड किए गए बाहरी उपकरण: {entry_name}",
+    "log.load_disabled.internal": "[टूल्स] आंतरिक प्लगइन {mod_name} अक्षम है: {reason}"
   },
   "ar": {
     "log.load_fail.external": "[الأدوات] فشل تحميل البرنامج الإضافي الخارجي {entry_path}: {err}",
@@ -90,46 +90,46 @@
     "log.load_disabled.internal": "[الأدوات] البرنامج الإضافي الداخلي {mod_name} معطّل: {reason}"
   },
   "sv": {
-    "log.load_fail.external": "[tools] Failed to load external plugin {entry_path}: {err}",
-    "log.load_fail.internal": "[tools] Failed to load internal plugin {mod_name}: {err}",
-    "log.load_ok.external": "[tools] Loaded external tools: {entry_name}",
-    "log.load_disabled.internal": "[tools] Internal plugin {mod_name} is disabled: {reason}"
+    "log.load_fail.external": "[verktyg] Det gick inte att ladda extern plugin {entry_path}: {err}",
+    "log.load_fail.internal": "[verktyg] Det gick inte att ladda intern plugin {mod_name}: {err}",
+    "log.load_ok.external": "[verktyg] Laddade externa verktyg: {entry_name}",
+    "log.load_disabled.internal": "[verktyg] Intern plugin {mod_name} är inaktiverad: {reason}"
   },
   "sw": {
-    "log.load_fail.external": "[tools] Failed to load external plugin {entry_path}: {err}",
-    "log.load_fail.internal": "[tools] Failed to load internal plugin {mod_name}: {err}",
-    "log.load_ok.external": "[tools] Loaded external tools: {entry_name}",
-    "log.load_disabled.internal": "[tools] Internal plugin {mod_name} is disabled: {reason}"
+    "log.load_fail.external": "[zana] Imeshindwa kupakia programu-jalizi ya nje {entry_path}: {err}",
+    "log.load_fail.internal": "[zana] Imeshindwa kupakia programu-jalizi ya ndani {mod_name}: {err}",
+    "log.load_ok.external": "[tools] Zana za nje zilizopakia: {entry_name}",
+    "log.load_disabled.internal": "[tools] Programu-jalizi ya ndani {mod_name} imezimwa: {reason}"
   },
   "nb": {
-    "log.load_fail.external": "[tools] Failed to load external plugin {entry_path}: {err}",
-    "log.load_fail.internal": "[tools] Failed to load internal plugin {mod_name}: {err}",
-    "log.load_ok.external": "[tools] Loaded external tools: {entry_name}",
-    "log.load_disabled.internal": "[tools] Internal plugin {mod_name} is disabled: {reason}"
+    "log.load_fail.external": "[verktøy] Kunne ikke laste inn ekstern plugin {entry_path}: {err}",
+    "log.load_fail.internal": "[verktøy] Kunne ikke laste inn intern plugin {mod_name}: {err}",
+    "log.load_ok.external": "[verktøy] Lastede eksterne verktøy: {entry_name}",
+    "log.load_disabled.internal": "[verktøy] Intern plugin {mod_name} er deaktivert: {reason}"
   },
   "nl": {
-    "log.load_fail.external": "[tools] Failed to load external plugin {entry_path}: {err}",
-    "log.load_fail.internal": "[tools] Failed to load internal plugin {mod_name}: {err}",
-    "log.load_ok.external": "[tools] Loaded external tools: {entry_name}",
-    "log.load_disabled.internal": "[tools] Internal plugin {mod_name} is disabled: {reason}"
+    "log.load_fail.external": "[tools] Kan externe plug-in {entry_path}: {err} niet laden",
+    "log.load_fail.internal": "[tools] Kan interne plug-in {mod_name}: {err} niet laden",
+    "log.load_ok.external": "[tools] Geladen externe tools: {entry_name}",
+    "log.load_disabled.internal": "[tools] Interne plug-in {mod_name} is uitgeschakeld: {reason}"
   },
   "fi": {
-    "log.load_fail.external": "[tools] Failed to load external plugin {entry_path}: {err}",
-    "log.load_fail.internal": "[tools] Failed to load internal plugin {mod_name}: {err}",
-    "log.load_ok.external": "[tools] Loaded external tools: {entry_name}",
-    "log.load_disabled.internal": "[tools] Internal plugin {mod_name} is disabled: {reason}"
+    "log.load_fail.external": "[työkalut] Ulkoisen laajennuksen {entry_path}: {err} lataaminen epäonnistui",
+    "log.load_fail.internal": "[työkalut] Sisäisen laajennuksen {mod_name}: {err} lataaminen epäonnistui",
+    "log.load_ok.external": "[työkalut] Ladatut ulkoiset työkalut: {entry_name}",
+    "log.load_disabled.internal": "[työkalut] Sisäinen laajennus {mod_name} on poistettu käytöstä: {reason}"
   },
   "cs": {
-    "log.load_fail.external": "[tools] Failed to load external plugin {entry_path}: {err}",
-    "log.load_fail.internal": "[tools] Failed to load internal plugin {mod_name}: {err}",
-    "log.load_ok.external": "[tools] Loaded external tools: {entry_name}",
-    "log.load_disabled.internal": "[tools] Internal plugin {mod_name} is disabled: {reason}"
+    "log.load_fail.external": "[tools] Nepodařilo se načíst externí plugin {entry_path}: {err}",
+    "log.load_fail.internal": "[tools] Nepodařilo se načíst interní plugin {mod_name}: {err}",
+    "log.load_ok.external": "[nástroje] Načtené externí nástroje: {entry_name}",
+    "log.load_disabled.internal": "[tools] Interní plugin {mod_name} je zakázán: {reason}"
   },
   "uk": {
-    "log.load_fail.external": "[tools] Failed to load external plugin {entry_path}: {err}",
-    "log.load_fail.internal": "[tools] Failed to load internal plugin {mod_name}: {err}",
-    "log.load_ok.external": "[tools] Loaded external tools: {entry_name}",
-    "log.load_disabled.internal": "[tools] Internal plugin {mod_name} is disabled: {reason}"
+    "log.load_fail.external": "[інструменти] Не вдалося завантажити зовнішній плагін {entry_path}: {err}",
+    "log.load_fail.internal": "[інструменти] Не вдалося завантажити внутрішній плагін {mod_name}: {err}",
+    "log.load_ok.external": "[інструменти] Завантажено зовнішні інструменти: {entry_name}",
+    "log.load_disabled.internal": "[інструменти] Внутрішній плагін {mod_name} вимкнено: {reason}"
   },
   "tr": {
     "log.load_fail.external": "[araçlar] Harici eklenti {entry_path} yüklenemedi: {err}",

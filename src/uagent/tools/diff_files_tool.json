@@ -58,8 +58,8 @@
     "err.invalid_mode": "無効なモード: %(mode)s。次のいずれかである必要があります: %(valid)s",
     "err.path_required": "path1 または path2 の少なくとも 1 つを指定する必要があります。",
     "err.path2_and_text": "path2 と text を同時に指定することはできません。ファイル比較には path1+path2 を使用し、ファイルと文字列を比較するには path1+text を使用します。",
-    "label.text_input": "<text>",
-    "label.empty": "<empty>",
+    "label.text_input": "<テキスト>",
+    "label.empty": "<空>",
     "summary.changed": "%(added)s 行が追加され、%(hunks)s 個のハンクで %(removed)s 行が削除されました",
     "summary.identical": "ファイルは同一です。",
     "msg.diff_truncated": "\n[diff が切り捨てられました: 最大 %(max)s 行 または %(max_chars)s 文字]",
@@ -94,7 +94,7 @@
     "summary.changed": "%(added)s Zeile(n) hinzugefügt, %(removed)s Zeile(n) entfernt in %(hunks)s Stück(en)",
     "summary.identical": "Dateien sind identisch.",
     "msg.diff_truncated": "[Unterschied abgeschnitten: max. %(max)s Zeilen oder %(max_chars)s Zeichen erreicht]",
-    "param.preserve_line_endings.description": "Preserve original line endings (CRLF/CR) in diff output instead of normalizing to LF. Required for patch compatibility with CRLF files."
+    "param.preserve_line_endings.description": "Behalten Sie die ursprünglichen Zeilenenden (CRLF/CR) in der Diff-Ausgabe bei, anstatt auf LF zu normalisieren. Erforderlich für die Patch-Kompatibilität mit CRLF-Dateien."
   },
   "fr": {
     "x_search_terms": [
@@ -125,7 +125,7 @@
     "summary.changed": "%(added)s ligne(s) ajoutée(s), %(removed)s ligne(s) supprimée(s) dans %(hunks)s morceau(s)",
     "summary.identical": "Les fichiers sont identiques.",
     "msg.diff_truncated": "[diff tronqué : maximum de %(max)s lignes ou %(max_chars)s caractères atteint]",
-    "param.preserve_line_endings.description": "Preserve original line endings (CRLF/CR) in diff output instead of normalizing to LF. Required for patch compatibility with CRLF files."
+    "param.preserve_line_endings.description": "Conservez les fins de ligne d'origine (CRLF/CR) dans la sortie diff au lieu de normaliser en LF. Requis pour la compatibilité des correctifs avec les fichiers CRLF."
   },
   "es": {
     "x_search_terms": [
@@ -156,7 +156,7 @@
     "summary.changed": "%(added)s líneas agregadas, %(removed)s líneas eliminadas en %(hunks)s fragmentos",
     "summary.identical": "Los archivos son idénticos.",
     "msg.diff_truncated": "[diferencia truncada: se alcanzó un máximo de %(max)s líneas o %(max_chars)s caracteres]",
-    "param.preserve_line_endings.description": "Preserve original line endings (CRLF/CR) in diff output instead of normalizing to LF. Required for patch compatibility with CRLF files."
+    "param.preserve_line_endings.description": "Conserve los finales de línea originales (CRLF/CR) en la salida de diferencias en lugar de normalizar a LF. Requerido para la compatibilidad del parche con archivos CRLF."
   },
   "zh_CN": {
     "x_search_terms": [
@@ -187,7 +187,7 @@
     "summary.changed": "添加了 %(added)s 行，在 %(hunks)s 个块中删除了 %(removed)s 行",
     "summary.identical": "文件是相同的。",
     "msg.diff_truncated": "[差异截断：达到最大 %(max)s 行或 %(max_chars)s 个字符]",
-    "param.preserve_line_endings.description": "Preserve original line endings (CRLF/CR) in diff output instead of normalizing to LF. Required for patch compatibility with CRLF files."
+    "param.preserve_line_endings.description": "在 diff 输出中保留原始行结尾 (CRLF/CR)，而不是标准化为 LF。补丁与 CRLF 文件兼容所需。"
   },
   "zh_TW": {
     "x_search_terms": [
@@ -218,7 +218,7 @@
     "summary.changed": "新增了 %(added)s 行，在 %(hunks)s 個區塊中刪除了 %(removed)s 行",
     "summary.identical": "文件是相同的。",
     "msg.diff_truncated": "[差異截斷：達到最大 %(max)s 行或 %(max_chars)s 個字元]",
-    "param.preserve_line_endings.description": "Preserve original line endings (CRLF/CR) in diff output instead of normalizing to LF. Required for patch compatibility with CRLF files."
+    "param.preserve_line_endings.description": "在 diff 輸出中保留原始行結尾 (CRLF/CR)，而不是標準化為 LF。補丁與 CRLF 檔案相容所需。"
   },
   "ko": {
     "x_search_terms": [
@@ -249,7 +249,7 @@
     "summary.changed": "%(added)s줄이 추가되고 %(hunks)s행크에서 %(removed)s줄이 제거되었습니다.",
     "summary.identical": "파일은 동일합니다.",
     "msg.diff_truncated": "[차이점 잘림: 최대 %(max)s줄 또는 %(max_chars)s자 도달]",
-    "param.preserve_line_endings.description": "Preserve original line endings (CRLF/CR) in diff output instead of normalizing to LF. Required for patch compatibility with CRLF files."
+    "param.preserve_line_endings.description": "LF로 정규화하는 대신 diff 출력에서 ​​원래 줄 끝(CRLF/CR)을 유지합니다. CRLF 파일과의 패치 호환성을 위해 필요합니다."
   },
   "ru": {
     "x_search_terms": [
@@ -280,7 +280,7 @@
     "summary.changed": "Добавлено %(added)s строк, удалено %(removed)s строк в фрагментах %(hunks)s",
     "summary.identical": "Файлы идентичны.",
     "msg.diff_truncated": "[diff усечен: достигнуто максимальное количество строк %(max)s или символов %(max_chars)s]",
-    "param.preserve_line_endings.description": "Preserve original line endings (CRLF/CR) in diff output instead of normalizing to LF. Required for patch compatibility with CRLF files."
+    "param.preserve_line_endings.description": "Сохраняйте исходные окончания строк (CRLF/CR) в выводе diff вместо нормализации к LF. Требуется для совместимости исправлений с файлами CRLF."
   },
   "it": {
     "x_search_terms": [
@@ -311,7 +311,7 @@
     "summary.changed": "%(added)s righe aggiunte, %(removed)s righe rimosse in %(hunks)s blocchi",
     "summary.identical": "I file sono identici.",
     "msg.diff_truncated": "[diff troncato: max %(max)s righe o %(max_chars)s caratteri raggiunti]",
-    "param.preserve_line_endings.description": "Preserve original line endings (CRLF/CR) in diff output instead of normalizing to LF. Required for patch compatibility with CRLF files."
+    "param.preserve_line_endings.description": "Conserva le terminazioni di riga originali (CRLF/CR) nell'output diff invece di normalizzarle in LF. Necessario per la compatibilità delle patch con i file CRLF."
   },
   "pt_BR": {
     "x_search_terms": [
@@ -342,7 +342,7 @@
     "summary.changed": "%(added)s linha(s) adicionada(s), %(removed)s linha(s) removida(s) em %(hunks)s pedaços",
     "summary.identical": "Os arquivos são idênticos.",
     "msg.diff_truncated": "[diff truncado: máximo de %(max)s linhas ou %(max_chars)s caracteres alcançados]",
-    "param.preserve_line_endings.description": "Preserve original line endings (CRLF/CR) in diff output instead of normalizing to LF. Required for patch compatibility with CRLF files."
+    "param.preserve_line_endings.description": "Preservar os finais de linha originais (CRLF/CR) na saída diff em vez de normalizar para LF. Necessário para compatibilidade de patch com arquivos CRLF."
   },
   "pt": {
     "x_search_terms": [
@@ -373,7 +373,7 @@
     "summary.changed": "%(added)s linha(s) adicionada(s), %(removed)s linha(s) removida(s) em %(hunks)s pedaços",
     "summary.identical": "Os arquivos são idênticos.",
     "msg.diff_truncated": "[diff truncado: máximo de %(max)s linhas ou %(max_chars)s caracteres alcançados]",
-    "param.preserve_line_endings.description": "Preserve original line endings (CRLF/CR) in diff output instead of normalizing to LF. Required for patch compatibility with CRLF files."
+    "param.preserve_line_endings.description": "Preservar os finais de linha originais (CRLF/CR) na saída diff em vez de normalizar para LF. Necessário para compatibilidade de patch com arquivos CRLF."
   },
   "nl": {
     "x_search_terms": [
@@ -404,7 +404,7 @@
     "summary.changed": "%(added)s regel(s) toegevoegd, %(removed)s regel(s) verwijderd in %(hunks)s hunk(s)",
     "summary.identical": "Bestanden zijn identiek.",
     "msg.diff_truncated": "[verschil afgekapt: max. %(max)s regels of %(max_chars)s tekens bereikt]",
-    "param.preserve_line_endings.description": "Preserve original line endings (CRLF/CR) in diff output instead of normalizing to LF. Required for patch compatibility with CRLF files."
+    "param.preserve_line_endings.description": "Behoud de originele regeleinden (CRLF/CR) in diff-uitvoer in plaats van te normaliseren naar LF. Vereist voor patchcompatibiliteit met CRLF-bestanden."
   },
   "pl": {
     "x_search_terms": [
@@ -435,7 +435,7 @@
     "summary.changed": "Dodano %(added)s wierszy, usunięto %(removed)s wierszy w %(hunks)s fragmentach",
     "summary.identical": "Pliki są identyczne.",
     "msg.diff_truncated": "[różnica obcięta: osiągnięto maksymalnie %(max)s linii lub %(max_chars)s znaków]",
-    "param.preserve_line_endings.description": "Preserve original line endings (CRLF/CR) in diff output instead of normalizing to LF. Required for patch compatibility with CRLF files."
+    "param.preserve_line_endings.description": "Zachowaj oryginalne zakończenia linii (CRLF/CR) na wyjściu różnicowym zamiast normalizować do LF. Wymagane dla zgodności poprawek z plikami CRLF."
   },
   "sv": {
     "x_search_terms": [
@@ -466,7 +466,7 @@
     "summary.changed": "%(added)s rad(er) har lagts till, %(removed)s rad(er) har tagits bort i %(hunks)s hunk(ar)",
     "summary.identical": "Filerna är identiska.",
     "msg.diff_truncated": "[diff trunkerad: max %(max)s rader eller %(max_chars)s tecken nådde]",
-    "param.preserve_line_endings.description": "Preserve original line endings (CRLF/CR) in diff output instead of normalizing to LF. Required for patch compatibility with CRLF files."
+    "param.preserve_line_endings.description": "Bevara ursprungliga radändelser (CRLF/CR) i diff-utgång istället för att normalisera till LF. Krävs för patchkompatibilitet med CRLF-filer."
   },
   "id": {
     "x_search_terms": [
@@ -497,7 +497,7 @@
     "summary.changed": "%(added)s baris ditambahkan, %(removed)s baris dihapus di %(hunks)s bongkahan",
     "summary.identical": "Filenya identik.",
     "msg.diff_truncated": "[perbedaan terpotong: maks %(max)s baris atau %(max_chars)s karakter tercapai]",
-    "param.preserve_line_endings.description": "Preserve original line endings (CRLF/CR) in diff output instead of normalizing to LF. Required for patch compatibility with CRLF files."
+    "param.preserve_line_endings.description": "Pertahankan akhiran baris asli (CRLF/CR) dalam keluaran diff alih-alih melakukan normalisasi ke LF. Diperlukan untuk kompatibilitas patch dengan file CRLF."
   },
   "tr": {
     "x_search_terms": [
@@ -528,7 +528,7 @@
     "summary.changed": "%(added)s satır eklendi, %(hunks)s parçada %(removed)s satır kaldırıldı",
     "summary.identical": "Dosyalar aynıdır.",
     "msg.diff_truncated": "[fark kesildi: maksimum %(max)s satıra veya %(max_chars)s karaktere ulaşıldı]",
-    "param.preserve_line_endings.description": "Preserve original line endings (CRLF/CR) in diff output instead of normalizing to LF. Required for patch compatibility with CRLF files."
+    "param.preserve_line_endings.description": "LF'ye normalleştirmek yerine fark çıktısındaki orijinal satır sonlarını (CRLF/CR) koruyun. CRLF dosyalarıyla yama uyumluluğu için gereklidir."
   },
   "th": {
     "x_search_terms": [
@@ -559,7 +559,7 @@
     "summary.changed": "เพิ่ม %(added)s บรรทัดแล้ว %(removed)s บรรทัดถูกลบออกใน %(hunks)s ก้อนใหญ่",
     "summary.identical": "ไฟล์เหมือนกัน",
     "msg.diff_truncated": "[ความแตกต่างที่ถูกตัดทอน: ถึงสูงสุด %(max)s บรรทัดหรือ %(max_chars)s ตัวอักษรแล้ว]",
-    "param.preserve_line_endings.description": "Preserve original line endings (CRLF/CR) in diff output instead of normalizing to LF. Required for patch compatibility with CRLF files."
+    "param.preserve_line_endings.description": "รักษาการสิ้นสุดบรรทัดเดิม (CRLF/CR) ในเอาต์พุต diff แทนการทำให้เป็นมาตรฐานเป็น LF จำเป็นสำหรับความเข้ากันได้ของแพตช์กับไฟล์ CRLF"
   },
   "vi": {
     "x_search_terms": [
@@ -590,7 +590,7 @@
     "summary.changed": "%(added)s dòng đã được thêm, %(removed)s dòng đã bị xóa trong %(hunks)s phần",
     "summary.identical": "Các tập tin giống hệt nhau.",
     "msg.diff_truncated": "[sự khác biệt đã bị cắt bớt: đã đạt tối đa %(max)s dòng hoặc %(max_chars)s ký tự]",
-    "param.preserve_line_endings.description": "Preserve original line endings (CRLF/CR) in diff output instead of normalizing to LF. Required for patch compatibility with CRLF files."
+    "param.preserve_line_endings.description": "Giữ nguyên các kết thúc dòng gốc (CRLF/CR) ở đầu ra khác thay vì chuẩn hóa thành LF. Cần thiết để tương thích bản vá với các tệp CRLF."
   },
   "uk": {
     "x_search_terms": [
@@ -621,7 +621,7 @@
     "summary.changed": "%(added)s рядків додано, %(removed)s рядків вилучено в %(hunks)s розділах",
     "summary.identical": "Файли ідентичні.",
     "msg.diff_truncated": "[різниця скорочена: досягнуто максимум %(max)s рядків або %(max_chars)s символів]",
-    "param.preserve_line_endings.description": "Preserve original line endings (CRLF/CR) in diff output instead of normalizing to LF. Required for patch compatibility with CRLF files."
+    "param.preserve_line_endings.description": "Зберігайте оригінальні закінчення рядків (CRLF/CR) у виведенні відмінностей замість нормалізації до LF. Необхідний для сумісності патча з файлами CRLF."
   },
   "ro": {
     "x_search_terms": [
@@ -652,7 +652,7 @@
     "summary.changed": "%(added)s rânduri adăugate, %(removed)s rânduri eliminate în %(hunks)s bucăți",
     "summary.identical": "Fișierele sunt identice.",
     "msg.diff_truncated": "[difer trunchiat: maxim %(max)s linii sau %(max_chars)s caractere atinse]",
-    "param.preserve_line_endings.description": "Preserve original line endings (CRLF/CR) in diff output instead of normalizing to LF. Required for patch compatibility with CRLF files."
+    "param.preserve_line_endings.description": "Păstrați terminațiile de linie originale (CRLF/CR) în ieșirea diferită în loc să se normalizeze la LF. Necesar pentru compatibilitatea corecțiilor cu fișierele CRLF."
   },
   "cs": {
     "x_search_terms": [
@@ -683,7 +683,7 @@
     "summary.changed": "%(added)s řádků přidáno, %(removed)s řádků odebráno v %(hunks)s kusech",
     "summary.identical": "Soubory jsou totožné.",
     "msg.diff_truncated": "[rozdíl zkrácen: bylo dosaženo max. %(max)s řádků nebo %(max_chars)s znaků]",
-    "param.preserve_line_endings.description": "Preserve original line endings (CRLF/CR) in diff output instead of normalizing to LF. Required for patch compatibility with CRLF files."
+    "param.preserve_line_endings.description": "Zachovat původní konce řádků (CRLF/CR) ve výstupu rozdílu namísto normalizace na LF. Vyžadováno pro kompatibilitu oprav se soubory CRLF."
   },
   "ar": {
     "x_search_terms": [
@@ -714,7 +714,7 @@
     "summary.changed": "تمت إضافة %(added)s سطر (أسطر)، %(removed)s تمت إزالة سطر (أسطر) في %(hunks)s مجموعة (مجموعات)",
     "summary.identical": "الملفات متطابقة.",
     "msg.diff_truncated": "[تم اقتطاع الفرق: تم الوصول إلى الحد الأقصى %(max)s من الأسطر أو %(max_chars)s من الأحرف]",
-    "param.preserve_line_endings.description": "Preserve original line endings (CRLF/CR) in diff output instead of normalizing to LF. Required for patch compatibility with CRLF files."
+    "param.preserve_line_endings.description": "الحفاظ على نهايات الأسطر الأصلية (CRLF/CR) في مخرجات مختلفة بدلاً من تطبيعها إلى LF. مطلوب لتوافق التصحيح مع ملفات CRLF."
   },
   "bn": {
     "x_search_terms": [
@@ -745,7 +745,7 @@
     "summary.changed": "%(added)s লাইন(গুলি) যোগ করা হয়েছে, %(hunks)s হাংক(গুলি) এ %(removed)s লাইন(গুলি) সরানো হয়েছে",
     "summary.identical": "ফাইলগুলি অভিন্ন।",
     "msg.diff_truncated": "[বিচ্ছিন্ন করা হয়েছে: সর্বোচ্চ %(max)s লাইন বা %(max_chars)sটি অক্ষরে পৌঁছেছে]",
-    "param.preserve_line_endings.description": "Preserve original line endings (CRLF/CR) in diff output instead of normalizing to LF. Required for patch compatibility with CRLF files."
+    "param.preserve_line_endings.description": "LF-এ স্বাভাবিক করার পরিবর্তে ভিন্ন আউটপুটে মূল লাইন শেষ (CRLF/CR) সংরক্ষণ করুন। CRLF ফাইলগুলির সাথে প্যাচ সামঞ্জস্যের জন্য প্রয়োজনীয়৷"
   },
   "el": {
     "x_search_terms": [
@@ -776,7 +776,7 @@
     "summary.changed": "Προστέθηκαν %(added)s γραμμές, αφαιρέθηκαν %(removed)s γραμμές σε %(hunks)s κομμάτια",
     "summary.identical": "Τα αρχεία είναι πανομοιότυπα.",
     "msg.diff_truncated": "[περικομμένη διαφορά: έφθασε το μέγιστο %(max)s γραμμές ή %(max_chars)s χαρακτήρες]",
-    "param.preserve_line_endings.description": "Preserve original line endings (CRLF/CR) in diff output instead of normalizing to LF. Required for patch compatibility with CRLF files."
+    "param.preserve_line_endings.description": "Διατηρήστε τις αρχικές καταλήξεις γραμμών (CRLF/CR) στην έξοδο διαφοράς αντί να κανονικοποιήσετε σε LF. Απαιτείται για συμβατότητα ενημέρωσης κώδικα με αρχεία CRLF."
   },
   "fa": {
     "x_search_terms": [
@@ -807,7 +807,7 @@
     "summary.changed": "%(added)s خط(هایی) اضافه شد، %(removed)s خط(هایی) در %(hunks)s قطعه حذف شد",
     "summary.identical": "فایل ها یکسان هستند",
     "msg.diff_truncated": "[تفاوت کوتاه شده: حداکثر %(max)s خط یا %(max_chars)s نویسه رسیده است]",
-    "param.preserve_line_endings.description": "Preserve original line endings (CRLF/CR) in diff output instead of normalizing to LF. Required for patch compatibility with CRLF files."
+    "param.preserve_line_endings.description": "به جای عادی سازی به LF، انتهای خط اصلی (CRLF/CR) را در خروجی diff حفظ کنید. برای سازگاری پچ با فایل های CRLF مورد نیاز است."
   },
   "fi": {
     "x_search_terms": [
@@ -838,7 +838,7 @@
     "summary.changed": "%(added)s rivi(ä) lisätty, %(removed)s rivi(ä) poistettu %(hunks)s kappaleessa",
     "summary.identical": "Tiedostot ovat identtisiä.",
     "msg.diff_truncated": "[ero lyhennetty: enintään %(max)s riviä tai %(max_chars)s merkkiä saavutettu]",
-    "param.preserve_line_endings.description": "Preserve original line endings (CRLF/CR) in diff output instead of normalizing to LF. Required for patch compatibility with CRLF files."
+    "param.preserve_line_endings.description": "Säilytä alkuperäiset rivinpäätteet (CRLF/CR) erotuslähdössä sen sijaan, että normalisoitisit LF:ksi. Vaaditaan korjaustiedoston yhteensopivuuden vuoksi CRLF-tiedostojen kanssa."
   },
   "he": {
     "x_search_terms": [
@@ -869,7 +869,7 @@
     "summary.changed": "%(added)s שורות נוספו, %(removed)s שורות הוסרו ב-%(hunks)s חתיכות",
     "summary.identical": "הקבצים זהים.",
     "msg.diff_truncated": "[ההבדל קטוע: הגעתם ל-%(max)s שורות לכל הרבה או %(max_chars)s תווים]",
-    "param.preserve_line_endings.description": "Preserve original line endings (CRLF/CR) in diff output instead of normalizing to LF. Required for patch compatibility with CRLF files."
+    "param.preserve_line_endings.description": "שמור את סיומות השורות המקוריות (CRLF/CR) בפלט הבדל במקום לנרמל ל-LF. נדרש עבור תאימות תיקון לקבצי CRLF."
   },
   "hi": {
     "x_search_terms": [
@@ -900,7 +900,7 @@
     "summary.changed": "%(added)s लाइन जोड़ी गईं, %(hunks)s हंक में %(removed)s लाइन हटाई गईं",
     "summary.identical": "फ़ाइलें समान हैं।",
     "msg.diff_truncated": "[अंतर छोटा: अधिकतम %(max)s लाइनें या %(max_chars)s वर्ण पहुंग गए]",
-    "param.preserve_line_endings.description": "Preserve original line endings (CRLF/CR) in diff output instead of normalizing to LF. Required for patch compatibility with CRLF files."
+    "param.preserve_line_endings.description": "एलएफ को सामान्य करने के बजाय भिन्न आउटपुट में मूल पंक्ति अंत (सीआरएलएफ/सीआर) को संरक्षित करें। सीआरएलएफ फाइलों के साथ पैच संगतता के लिए आवश्यक।"
   },
   "hu": {
     "x_search_terms": [
@@ -931,7 +931,7 @@
     "summary.changed": "%(added)s sor hozzáadva, %(removed)s sor eltávolítva %(hunks)s darabban",
     "summary.identical": "A fájlok azonosak.",
     "msg.diff_truncated": "[diff csonka: max. %(max)s sor vagy %(max_chars)s karakter elérve]",
-    "param.preserve_line_endings.description": "Preserve original line endings (CRLF/CR) in diff output instead of normalizing to LF. Required for patch compatibility with CRLF files."
+    "param.preserve_line_endings.description": "Őrizze meg az eredeti sorvégződéseket (CRLF/CR) a diff kimenetben az LF-re történő normalizálás helyett. Szükséges a javítások CRLF fájlokkal való kompatibilitásához."
   },
   "mn": {
     "x_search_terms": [
@@ -962,7 +962,7 @@
     "summary.changed": "%(hunks)s бүлэгт %(added)s мөр нэмсэн, %(removed)s мөрийг хассан",
     "summary.identical": "Файлууд ижил байна.",
     "msg.diff_truncated": "[ялгааг хассан: хамгийн ихдээ %(max)s мөр эсвэл %(max_chars)s тэмдэгт хүрсэн]",
-    "param.preserve_line_endings.description": "Preserve original line endings (CRLF/CR) in diff output instead of normalizing to LF. Required for patch compatibility with CRLF files."
+    "param.preserve_line_endings.description": "LF болгон хэвийн болгохын оронд ялгах гаралт дахь анхны мөрийн төгсгөлүүдийг (CRLF/CR) хадгал. CRLF файлуудтай нөхөөстэй нийцтэй байх шаардлагатай."
   },
   "mr": {
     "x_search_terms": [
@@ -993,7 +993,7 @@
     "summary.changed": "%(added)s ओळ जोडली, %(hunks)s हंक मध्ये %(removed)s ओळ काढली",
     "summary.identical": "फायली एकसारख्या आहेत.",
     "msg.diff_truncated": "[अंतर कापलेले: कमाल %(max)s ओळी किंवा %(max_chars)s वर्ण गाठले]",
-    "param.preserve_line_endings.description": "Preserve original line endings (CRLF/CR) in diff output instead of normalizing to LF. Required for patch compatibility with CRLF files."
+    "param.preserve_line_endings.description": "ओरिजिनल लाइन एंडिंग (CRLF/CR) LF ला नॉर्मल करण्याऐवजी डिफ आउटपुटमध्ये जतन करा. CRLF फाइल्ससह पॅच सुसंगततेसाठी आवश्यक."
   },
   "nb": {
     "x_search_terms": [
@@ -1024,7 +1024,7 @@
     "summary.changed": "%(added)s linje(r) lagt til, %(removed)s linje(r) fjernet i %(hunks)s hunk(er)",
     "summary.identical": "Filene er identiske.",
     "msg.diff_truncated": "[diff trunkert: maks %(max)s linjer eller %(max_chars)s tegn nådd]",
-    "param.preserve_line_endings.description": "Preserve original line endings (CRLF/CR) in diff output instead of normalizing to LF. Required for patch compatibility with CRLF files."
+    "param.preserve_line_endings.description": "Behold originale linjeavslutninger (CRLF/CR) i diff-utgang i stedet for å normalisere til LF. Nødvendig for patch-kompatibilitet med CRLF-filer."
   },
   "sw": {
     "x_search_terms": [
@@ -1055,6 +1055,6 @@
     "summary.changed": "%(added)s laini zimeongezwa, %(removed)s laini zimeondolewa katika sehemu %(hunks)s",
     "summary.identical": "Faili zinafanana.",
     "msg.diff_truncated": "[tofauti imekatwa: upeo wa mistari %(max)s au herufi %(max_chars)s umefikiwa]",
-    "param.preserve_line_endings.description": "Preserve original line endings (CRLF/CR) in diff output instead of normalizing to LF. Required for patch compatibility with CRLF files."
+    "param.preserve_line_endings.description": "Hifadhi miisho ya laini asili (CRLF/CR) katika pato tofauti badala ya kurekebisha kuwa LF. Inahitajika kwa uoanifu wa kiraka na faili za CRLF."
   }
 }

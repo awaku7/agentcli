@@ -126,7 +126,7 @@
       "Dom-Inspektor",
       "Seiteninspektor"
     ],
-    "ui.captured": "--- CAPTURED: {html}, {png}, {flow}, {snapshots}/ ---",
+    "ui.captured": "--- ERFASST: {html}, {png}, {flow}, {snapshots}/ ---",
     "ui.resume_prompt": "Drücken Sie nach dem Vorgang im Inspektor auf „Fortsetzen“ (▷).",
     "ui.started": "--- PLAYWRIGHT INSPECTOR GESTARTET ---",
     "tool.description": "Starten Sie den Playwright Inspector, um Browseroperationen zu erfassen. Öffnet die angegebene URL und speichert den Seitenstatus (HTML und Bild), nachdem der Benutzer auf das Zielelement geklickt hat."
@@ -352,10 +352,10 @@
     "tool.description": "Starta Playwright Inspector för att fånga webbläsaroperationer. Öppnar den angivna URL:en och sparar sidans tillstånd (HTML och bild) efter att användaren klickat på målelementet."
   },
   "sw": {
-    "err.child_failed": "[playwright_inspector error] Child process failed:\n{stderr}",
+    "err.child_failed": "[hitilafu ya mkaguzi wa playwright] Mchakato wa mtoto haukufaulu:\n{stderr}",
     "out.ok": "Capture completed: {prefix}.html, {prefix}.png, {prefix}.flow.jsonl, {prefix}_snapshots/, pages/, index.jsonl, latest.html were created.\n{stdout}",
-    "param.prefix.description": "Prefix of file name to save (default: debug_capture)",
-    "param.url.description": "First URL to open (default: about:blank)",
+    "param.prefix.description": "Kiambishi awali cha jina la faili la kuhifadhi (chaguo-msingi: debug_capture)",
+    "param.url.description": "URL ya kwanza kufunguliwa (chaguo-msingi: kuhusu:tupu)",
     "x_search_terms": [
       "mwandishi wa kuigiza",
       "mkaguzi wa kivinjari",
@@ -369,8 +369,8 @@
       "mkaguzi wa ukurasa"
     ],
     "ui.captured": "--- IMETEKWA: {html}, {png}, {flow}, {snapshots}/ ---",
-    "ui.resume_prompt": "After the operation, press Resume (▷) in the Inspector.",
-    "ui.started": "--- PLAYWRIGHT INSPECTOR STARTED ---",
+    "ui.resume_prompt": "Baada ya operesheni, bonyeza Endelea (▷) katika Kikaguzi.",
+    "ui.started": "--- MKAGUZI WA PLAYWRIGHT AMEANZA ---",
     "tool.description": "Zindua Playwright Inspector ili kunasa shughuli za kivinjari. Fungua URL maalum na uhifadhi hali ya ukurasa (HTML na picha) baada ya mtumiaji kubofya kipengele lengwa."
   },
   "nb": {
@@ -412,7 +412,7 @@
       "dominspecteur",
       "pagina-inspecteur"
     ],
-    "ui.captured": "--- CAPTURED: {html}, {png}, {flow}, {snapshots}/ ---",
+    "ui.captured": "--- VASTGELEGD: {html}, {png}, {flow}, {snapshots}/ ---",
     "ui.resume_prompt": "Druk na de handeling op Doorgaan (▷) in de Inspector.",
     "ui.started": "--- PLAYWRIGHT INSPECTOR GESTART ---",
     "tool.description": "Start Playwright Inspector om browserbewerkingen vast te leggen. Opent de opgegeven URL en slaat de paginastatus (HTML en afbeelding) op nadat de gebruiker op het doelelement heeft geklikt."
@@ -500,9 +500,9 @@
       "dom müfettişi",
       "sayfa denetçisi"
     ],
-    "ui.captured": "--- CAPTURED: {html}, {png}, {flow}, {snapshots}/ ---",
+    "ui.captured": "--- YAKALANDI: {html}, {png}, {flow}, {snapshots}/ ---",
     "ui.resume_prompt": "İşlemden sonra Inspector'da Devam Et (▷) tuşuna basın.",
-    "ui.started": "--- PLAYWRIGHT INSPECTOR STARTED ---",
+    "ui.started": "--- OYUN YAZARI MÜFETTİŞİ BAŞLADI ---",
     "tool.description": "Tarayıcı işlemlerini yakalamak için Playwright Inspector'ı başlatır. Belirtilen URL'yi açar ve kullanıcı hedef öğeye tıkladıktan sonra sayfa durumunu (HTML ve görüntü) kaydeder."
   },
   "th": {
@@ -524,7 +524,7 @@
     ],
     "ui.captured": "--- จับภาพ: {html}, {png}, {flow}, {snapshots}/ ---",
     "ui.resume_prompt": "หลังจากดำเนินการแล้ว ให้กด Resume (▷) ใน Inspector",
-    "ui.started": "--- PLAYWRIGHT INSPECTOR STARTED ---",
+    "ui.started": "--- สารวัตรนักเขียนบทละครเริ่มต้นแล้ว ---",
     "tool.description": "เปิด Playwright Inspector เพื่อบันทึกการทำงานของเบราว์เซอร์ เปิด URL ที่ระบุและบันทึกสถานะหน้า (HTML และรูปภาพ) หลังจากผู้ใช้คลิกที่องค์ประกอบเป้าหมาย"
   },
   "zh_CN": {
@@ -676,7 +676,7 @@
       "dom επιθεωρητής",
       "επιθεωρητής σελίδας"
     ],
-    "ui.captured": "--- CAPTURED: {png} ---n}",
+    "ui.captured": "--- ΣΥΓΓΡΑΦΕ: {html}, {png}, {flow}, {snapshots}/ ---",
     "ui.resume_prompt": "Μετά τη λειτουργία, πατήστε Συνέχιση (▷) στο Inspector.",
     "ui.started": "--- ΞΕΚΙΝΗΣΕ Ο ΕΠΙΘΕΩΡΗΤΗΣ ΣΥΓΓΡΑΦΕΑΣ ---",
     "tool.description": "Εκκίνηση του Playwright Inspector για καταγραφή λειτουργιών προγράμματος περιήγησης. Ανοίγει την καθορισμένη διεύθυνση URL και αποθηκεύει την κατάσταση της σελίδας (HTML και εικόνα) αφού ο χρήστης κάνει κλικ στο στόχο στοιχείο."
@@ -698,8 +698,8 @@
       "מפקח דום",
       "מפקח עמודים"
     ],
-    "ui.captured": "--- נלכד: {html}, {p}, {p}} לאחר הפעולה, לחץ על המשך (▷) במפקח.",
-    "ui.resume_prompt": "--- PLAYWRIGHT INSPECTOR STARTED ---",
+    "ui.captured": "--- נתפסו: {html}, {png}, {flow}, {snapshots}/ ---",
+    "ui.resume_prompt": "לאחר הפעולה, לחץ על המשך (▷) במפקח.",
     "ui.started": "החל עיבוד מקדים של תמונה כגון גווני אפור, דה-נויז, בינאריזציה ושיפור קצה, ולאחר מכן שמור את התוצאה כ-PNG.",
     "tool.description": "הפעל את Playwright Inspector כדי ללכוד פעולות דפדפן. פותח את ה-URL שצוין ושומר את מצב העמוד (HTML ותמונה) לאחר שהמשתמש לוחץ על רכיב היעד."
   },
@@ -720,7 +720,7 @@
       "dom ellenőr",
       "oldalellenőr"
     ],
-    "ui.captured": "--- RÖGZÍTETT: {html}, {png}s=nap#ot a műveletet, nyomja meg a Folytatás (▷) gombot az Inspectorban.",
+    "ui.captured": "--- RÖGZÍTETT: {html}, {png}, {flow}, {snapshots}/ ---",
     "ui.resume_prompt": "--- A PLAYWRIGHT INSPECTOR ELINDULT ---",
     "ui.started": "Alkalmazza a kép előfeldolgozását, például szürkeárnyalatos, zajtalanítás, binarizálás és éljavítás, majd mentse az eredményt PNG formátumban.",
     "tool.description": "Indítsd el a Playwright Inspector-t a böngészőműveletek rögzítéséhez. Megnyitja a megadott URL-t, és elmenti az oldal állapotát (HTML és kép), miután a felhasználó rákattintott a cél elemre."
@@ -742,7 +742,7 @@
       "dom inspector",
       "inspector de pagină"
     ],
-    "ui.captured": "--- CAPTURED: {},}, {flow}",
+    "ui.captured": "--- CAPTURAT: {html}, {png}, {flow}, {snapshots}/ ---",
     "ui.resume_prompt": "După operație, apăsați Reluare (▷) în Inspector.",
     "ui.started": "--- PLAYWRIGHT INSPECTOR A STARTED ---",
     "tool.description": "Lansează Playwright Inspector pentru a captura operațiunile browserului. Deschide URL-ul specificat și salvează starea paginii (HTML și imagine) după ce utilizatorul face clic pe elementul țintă."

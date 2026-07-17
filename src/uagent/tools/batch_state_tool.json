@@ -88,7 +88,12 @@
     "param.file.description": "Archivo de destino para complete_file/skip_file/error_file.",
     "param.reason.description": "Motivo de skip_file/error_file, o una breve nota para completarlo.",
     "param.status.description": "Estado del lote.",
-    "param.remaining_files.description": "Archivos del grupo de destino actual. Prioriza targets."
+    "param.remaining_files.description": "Archivos del grupo de destino actual. Prioriza targets.",
+    "err.batch_exists": "",
+    "err.exception": "",
+    "err.unknown_action": "",
+    "param.patch.description": "Actualización parcial para fusionarse al estado por lotes. Prefiere patch.targets y patch.current_target.",
+    "param.targets.description": "Grupos objetivo. Cada entrada contiene directorio, archivos (relativos al directorio) e índice."
   },
   "fr": {
     "tool.description": "Gère l’état du lot pour les tâches multi-fichiers dans ~/.",
@@ -115,7 +120,12 @@
     "param.file.description": "Fichier cible pour complete_file/skip_file/error_file.",
     "param.reason.description": "Raison pour skip_file/error_file, ou courte note de fin.",
     "param.status.description": "État du lot.",
-    "param.remaining_files.description": "Fichiers du groupe de cibles actuel."
+    "param.remaining_files.description": "Fichiers du groupe de cibles actuel.",
+    "err.batch_exists": "",
+    "err.exception": "",
+    "err.unknown_action": "",
+    "param.patch.description": "Mise à jour partielle pour fusionner dans l'état batch. Préférez patch.targets et patch.current_target.",
+    "param.targets.description": "Groupes cibles. Chaque entrée contient un répertoire, des fichiers (relatifs au répertoire) et un index."
   },
   "ko": {
     "tool.description": "여러 파일 작업의 배치 상태를 ~/.uag/batches/ 아래에서 관리합니다.",
@@ -142,7 +152,12 @@
     "param.file.description": "complete_file/skip_file/error_file의 대상 파일입니다. 생략하면 current file이 사용됩니다.",
     "param.reason.description": "skip_file/error_file의 이유 또는 완료에 대한 짧은 메모입니다.",
     "param.status.description": "배치 상태.",
-    "param.remaining_files.description": "현재 대상 그룹의 파일 목록입니다. targets를 우선하세요."
+    "param.remaining_files.description": "현재 대상 그룹의 파일 목록입니다. targets를 우선하세요.",
+    "err.batch_exists": "",
+    "err.exception": "",
+    "err.unknown_action": "",
+    "param.patch.description": "배치 상태로 병합하기 위한 부분 업데이트입니다. patch.targets 및 patch.current_target을 선호하세요.",
+    "param.targets.description": "대상 그룹. 각 항목에는 dir, 파일(dir 상대) 및 인덱스가 포함됩니다."
   },
   "de": {
     "tool.description": "Verwalten Sie den Batch-Status für Aufgaben mit mehreren Dateien unter ~/.uag/batches/.",
@@ -169,7 +184,12 @@
     "param.file.description": "Zieldatei für complete_file/skip_file/error_file.",
     "param.reason.description": "Grund für skip_file/error_file oder eine kurze Abschlussnotiz.",
     "param.status.description": "Batch-Status.",
-    "param.remaining_files.description": "Dateien der aktuellen Zielgruppe."
+    "param.remaining_files.description": "Dateien der aktuellen Zielgruppe.",
+    "err.batch_exists": "",
+    "err.exception": "",
+    "err.unknown_action": "",
+    "param.patch.description": "Teilweise Aktualisierung zum Zusammenführen in den Batch-Status. Bevorzugen Sie patch.targets und patch.current_target.",
+    "param.targets.description": "Zielgruppen. Jeder Eintrag enthält Verzeichnis, Dateien (verzeichnisrelativ) und Index."
   },
   "it": {
     "tool.description": "Gestisce lo stato del batch per attività con più file in ~/.",
@@ -196,7 +216,12 @@
     "param.file.description": "File di destinazione per complete_file/skip_file/error_file.",
     "param.reason.description": "Motivo per skip_file/error_file o una breve nota per il completamento.",
     "param.status.description": "Stato del lotto.",
-    "param.remaining_files.description": "File del gruppo di destinazione corrente."
+    "param.remaining_files.description": "File del gruppo di destinazione corrente.",
+    "err.batch_exists": "",
+    "err.exception": "",
+    "err.unknown_action": "",
+    "param.patch.description": "Aggiornamento parziale per l'unione allo stato batch. Preferisco patch.targets e patch.current_target.",
+    "param.targets.description": "Gruppi target. Ogni voce contiene dir, file (dir-relativo) e indice."
   },
   "ru": {
     "tool.description": "Управляет состоянием пакета для многофайловых задач в ~/.",
@@ -223,7 +248,12 @@
     "param.file.description": "Целевой файл для complete_file/skip_file/error_file. Если не указан, используется текущий файл.",
     "param.reason.description": "Причина для skip_file/error_file или короткая заметка о завершении.",
     "param.status.description": "Статус пакета.",
-    "param.remaining_files.description": "Файлы текущей группы целей. Предпочитайте targets."
+    "param.remaining_files.description": "Файлы текущей группы целей. Предпочитайте targets.",
+    "err.batch_exists": "",
+    "err.exception": "",
+    "err.unknown_action": "",
+    "param.patch.description": "Частичное обновление для слияния в пакетное состояние. Предпочитайте patch.targets и patch.current_target.",
+    "param.targets.description": "Целевые группы. Каждая запись содержит каталог, файлы (относительно каталога) и индекс."
   },
   "pt_BR": {
     "tool.description": "Gerencie o estado do lote para tarefas de vários arquivos em ~/.uag/batches/.",
@@ -250,7 +280,12 @@
     "param.file.description": "Arquivo de destino para complete_file/skip_file/error_file. Se omitido, usa-se o arquivo atual.",
     "param.reason.description": "Motivo para skip_file/error_file, ou uma breve nota de conclusão.",
     "param.status.description": "Status do lote.",
-    "param.remaining_files.description": "Arquivos do grupo de destino atual. Priorize targets."
+    "param.remaining_files.description": "Arquivos do grupo de destino atual. Priorize targets.",
+    "err.batch_exists": "",
+    "err.exception": "",
+    "err.unknown_action": "",
+    "param.patch.description": "Atualização parcial para mesclar no estado em lote. Prefira patch.targets e patch.current_target.",
+    "param.targets.description": "Grupos-alvo. Cada entrada contém diretório, arquivos (relativos ao diretório) e índice."
   },
   "pt": {
     "tool.description": "Gere o estado do lote para tarefas com vários ficheiros em ~/.",
@@ -277,7 +312,12 @@
     "param.file.description": "Ficheiro de destino para complete_file/skip_file/error_file.",
     "param.reason.description": "Motivo para skip_file/error_file, ou uma breve nota de conclusão.",
     "param.status.description": "Status do lote.",
-    "param.remaining_files.description": "Ficheiros do grupo de destino actual. Priorize targets."
+    "param.remaining_files.description": "Ficheiros do grupo de destino actual. Priorize targets.",
+    "err.batch_exists": "",
+    "err.exception": "",
+    "err.unknown_action": "",
+    "param.patch.description": "Atualização parcial para mesclar no estado em lote. Prefira patch.targets e patch.current_target.",
+    "param.targets.description": "Grupos-alvo. Cada entrada contém diretório, arquivos (relativos ao diretório) e índice."
   },
   "id": {
     "tool.description": "Mengelola status batch untuk tugas multi-file di ~/.uag/batches/.",
@@ -304,7 +344,12 @@
     "param.file.description": "File target untuk complete_file/skip_file/error_file. Jika dihilangkan, file saat ini digunakan.",
     "param.reason.description": "Alasan skip_file/error_file, atau catatan singkat untuk penyelesaian.",
     "param.status.description": "Status kumpulan.",
-    "param.remaining_files.description": "File dalam kelompok target saat ini. Utamakan targets."
+    "param.remaining_files.description": "File dalam kelompok target saat ini. Utamakan targets.",
+    "err.batch_exists": "",
+    "err.exception": "",
+    "err.unknown_action": "",
+    "param.patch.description": "Pembaruan sebagian untuk digabungkan ke dalam status batch. Lebih suka patch.targets dan patch.current_target.",
+    "param.targets.description": "Kelompok sasaran. Setiap entri berisi dir, file (dir-relatif), dan indeks."
   },
   "bn": {
     "tool.description": "একাধিক ফাইলের কাজের জন্য ~/.",
@@ -331,7 +376,12 @@
     "param.file.description": "complete_file/skip_file/error_file-এর জন্য টার্গেট ফাইল। না দিলে বর্তমান ফাইল ব্যবহার করা হয়।",
     "param.reason.description": "skip_file/error_file-এর কারণ, বা completion-এর জন্য সংক্ষিপ্ত note।",
     "param.status.description": "ব্যাচ স্থিতি।",
-    "param.remaining_files.description": "বর্তমান টার্গেট গ্রুপে ফাইল। লক্ষ্য পছন্দ করুন।"
+    "param.remaining_files.description": "বর্তমান টার্গেট গ্রুপে ফাইল। লক্ষ্য পছন্দ করুন।",
+    "err.batch_exists": "",
+    "err.exception": "",
+    "err.unknown_action": "",
+    "param.patch.description": "ব্যাচ স্টেটে মার্জ করার জন্য আংশিক আপডেট। patch.targets এবং patch.current_target পছন্দ করুন।",
+    "param.targets.description": "টার্গেট গ্রুপ. প্রতিটি এন্ট্রিতে ডির, ফাইল (ডির-রিলেটিভ) এবং ইনডেক্স থাকে।"
   },
   "fa": {
     "tool.description": "وضعیت دسته را برای کارهای چندفایلی در ~/.uag/batches/ مدیریت می‌کند.",
@@ -348,7 +398,7 @@
       "صف وظایف"
     ],
     "param.action.description": "اقدام: init/load/status/current/complete_file/...",
-    "param.batch_id.description": "Batch ID.",
+    "param.batch_id.description": "شناسه دسته.",
     "param.task_description.description": "توضیح کوتاهِ وظیفهٔ batch.",
     "param.instructions.description": "دستورالعمل‌های دقیقِ وظیفهٔ batch.",
     "param.message.description": "پیام لاگ برای افزودن.",
@@ -358,7 +408,12 @@
     "param.file.description": "فایل هدف برای complete_file/skip_file/error_file. اگر حذف شود، فایل فعلی استفاده می‌شود.",
     "param.reason.description": "دلیلِ skip_file/error_file یا یک یادداشت کوتاه برای تکمیل.",
     "param.status.description": "وضعیت دسته.",
-    "param.remaining_files.description": "فایل‌های گروه هدف فعلی. targets را در اولویت قرار دهید."
+    "param.remaining_files.description": "فایل‌های گروه هدف فعلی. targets را در اولویت قرار دهید.",
+    "err.batch_exists": "",
+    "err.exception": "",
+    "err.unknown_action": "",
+    "param.patch.description": "به روز رسانی جزئی برای ادغام در حالت دسته ای. patch.targets و patch.current_target را ترجیح دهید.",
+    "param.targets.description": "گروه های هدف هر ورودی حاوی dir، فایل‌ها (dir-relative) و فهرست است."
   },
   "mn": {
     "tool.description": "Олон файлтай ажлуудын багц төлөвийг ~/.uag/batches/ дотор удирдана.",
@@ -385,7 +440,12 @@
     "param.file.description": "complete_file/skip_file/error_file-д зориулсан зорилтот файл.",
     "param.reason.description": "skip_file/error_file-ийн шалтгаан эсвэл дуусгах богино тэмдэглэл байх ёстой.",
     "param.status.description": "Багцын төлөв.",
-    "param.remaining_files.description": "Одоогийн зорилтот бүлгийн файлууд."
+    "param.remaining_files.description": "Одоогийн зорилтот бүлгийн файлууд.",
+    "err.batch_exists": "",
+    "err.exception": "",
+    "err.unknown_action": "",
+    "param.patch.description": "Багцын төлөвт нэгтгэхийн тулд хэсэгчилсэн шинэчлэлт. patch.targets болон patch.current_target-ийг илүүд үз.",
+    "param.targets.description": "Зорилтот бүлгүүд. Оруулга бүр нь dir, файлууд (дир-харьцангуй) болон индексийг агуулна."
   },
   "mr": {
     "tool.description": "अनेक फायलींच्या कामांसाठी ~/.",
@@ -412,7 +472,12 @@
     "param.file.description": "complete_file/skip_file/error_file साठी लक्ष्य फाइल. वगळल्यास चालू फाइल वापरली जाते.",
     "param.reason.description": "skip_file/error_file चे कारण, किंवा पूर्णतेसाठी लहान नोंद.",
     "param.status.description": "बॅच स्थिती.",
-    "param.remaining_files.description": "सध्याच्या लक्ष्य गटातील फायली."
+    "param.remaining_files.description": "सध्याच्या लक्ष्य गटातील फायली.",
+    "err.batch_exists": "",
+    "err.exception": "",
+    "err.unknown_action": "",
+    "param.patch.description": "बॅच स्थितीत विलीन होण्यासाठी आंशिक अपडेट. patch.targets आणि patch.current_target ला प्राधान्य द्या.",
+    "param.targets.description": "लक्ष्य गट. प्रत्येक एंट्रीमध्ये dir, फाइल्स (dir-relative) आणि इंडेक्स असतात."
   },
   "el": {
     "tool.description": "Διαχειριστείτε την κατάσταση παρτίδας για εργασίες πολλών αρχείων στο ~/.uag/batches/.",
@@ -439,7 +504,12 @@
     "param.file.description": "Το αρχείο προορισμού για το full_file/skip_file/error_file. Εάν παραλειφθεί, χρησιμοποιείται το τρέχον αρχείο.",
     "param.reason.description": "Αιτία για το skip_file/error_file ή μια σύντομη σημείωση για την ολοκλήρωση.",
     "param.status.description": "Κατάσταση παρτίδας.",
-    "param.remaining_files.description": "Αρχεία στην τρέχουσα ομάδα στόχο. Προτιμήστε στόχους."
+    "param.remaining_files.description": "Αρχεία στην τρέχουσα ομάδα στόχο. Προτιμήστε στόχους.",
+    "err.batch_exists": "",
+    "err.exception": "",
+    "err.unknown_action": "",
+    "param.patch.description": "Μερική ενημέρωση για συγχώνευση στην κατάσταση παρτίδας. Προτιμήστε patch.targets και patch.current_target.",
+    "param.targets.description": "Ομάδες-στόχοι. Κάθε καταχώρηση περιέχει dir, αρχεία (dir-relative) και ευρετήριο."
   },
   "he": {
     "tool.description": "נהל מצב אצווה עבור משימות מרובות קבצים תחת ~/.uag/batches/.",
@@ -466,7 +536,12 @@
     "param.file.description": "קובץ יעד עבור complete_file/skip_file/error_file. אם מושמט, נעשה שימוש בקובץ הנוכחי.",
     "param.reason.description": "סיבת skip_file/error_file, או הערה קצרה להשלמה.",
     "param.status.description": "מצב אצווה.",
-    "param.remaining_files.description": "קבצים בקבוצת היעד הנוכחית. העדיפו יעדים."
+    "param.remaining_files.description": "קבצים בקבוצת היעד הנוכחית. העדיפו יעדים.",
+    "err.batch_exists": "",
+    "err.exception": "",
+    "err.unknown_action": "",
+    "param.patch.description": "עדכון חלקי למיזוג למצב אצווה. העדיפו patch.targets ו-patch.current_target.",
+    "param.targets.description": "קבוצות יעד. כל ערך מכיל dir, קבצים (יחסי dir) ואינדקס."
   },
   "hu": {
     "tool.description": "A többfájlos feladatok kötegelt állapotának kezelése a ~/.uag/batches/ alatt.",
@@ -483,7 +558,7 @@
       "feladatsor"
     ],
     "param.action.description": "Művelet: init/load/status/current/complete_file/...",
-    "param.batch_id.description": "Batch ID.",
+    "param.batch_id.description": "Kötegazonosító.",
     "param.task_description.description": "A kötegelt feladat rövid leírása.",
     "param.instructions.description": "Részletes utasítások a kötegelt feladathoz.",
     "param.message.description": "Hozzáfűzendő naplóüzenet.",
@@ -493,7 +568,12 @@
     "param.file.description": "A teljes_fájl/skip_file/error_file célfájlja. Ha kihagyja, akkor az aktuális fájl kerül felhasználásra.",
     "param.reason.description": "A skip_file/error_file oka, vagy egy rövid megjegyzés a kiegészítéshez.",
     "param.status.description": "A köteg állapota.",
-    "param.remaining_files.description": "Az aktuális célcsoportba tartozó fájlok. Inkább célokat."
+    "param.remaining_files.description": "Az aktuális célcsoportba tartozó fájlok. Inkább célokat.",
+    "err.batch_exists": "",
+    "err.exception": "",
+    "err.unknown_action": "",
+    "param.patch.description": "Részleges frissítés a kötegelt állapotba való egyesítéshez. Inkább a patch.targets és a patch.current_target.",
+    "param.targets.description": "Célcsoportok. Minden bejegyzés tartalmaz könyvtárat, fájlokat (dir-relative) és indexet."
   },
   "ro": {
     "tool.description": "Gestionați starea lotului pentru sarcinile cu mai multe fișiere sub ~/.uag/batches/.",
@@ -520,7 +600,12 @@
     "param.file.description": "Fișierul țintă pentru complet_file/skip_file/error_file. Dacă este omis, este utilizat fișierul curent.",
     "param.reason.description": "Motivul skip_file/error_file sau o scurtă notă pentru finalizare.",
     "param.status.description": "Starea lotului.",
-    "param.remaining_files.description": "Fișierele din grupul țintă curent. Preferați ținte."
+    "param.remaining_files.description": "Fișierele din grupul țintă curent. Preferați ținte.",
+    "err.batch_exists": "",
+    "err.exception": "",
+    "err.unknown_action": "",
+    "param.patch.description": "Actualizare parțială pentru îmbinare în starea lotului. Preferă patch.targets și patch.current_target.",
+    "param.targets.description": "Grupuri țintă. Fiecare intrare conține director, fișiere (relativ cu dir) și index."
   },
   "vi": {
     "tool.description": "Quản lý trạng thái hàng loạt cho các tác vụ nhiều tệp trong ~/.uag/batches/.",
@@ -547,7 +632,12 @@
     "param.file.description": "Tệp đích cho complete_file/skip_file/error_file. Nếu bỏ qua, tệp hiện tại sẽ được dùng.",
     "param.reason.description": "Lý do cho skip_file/error_file, hoặc ghi chú ngắn khi hoàn tất.",
     "param.status.description": "Trạng thái hàng loạt.",
-    "param.remaining_files.description": "Danh sách tệp đích."
+    "param.remaining_files.description": "Danh sách tệp đích.",
+    "err.batch_exists": "",
+    "err.exception": "",
+    "err.unknown_action": "",
+    "param.patch.description": "Cập nhật một phần để hợp nhất vào trạng thái hàng loạt. Thích patch.targets và patch.current_target.",
+    "param.targets.description": "Các nhóm mục tiêu. Mỗi mục chứa thư mục, tệp (thư mục tương đối) và chỉ mục."
   },
   "pl": {
     "tool.description": "Zarządza trwałym stanem partii dla zadań wieloplikowych w ~/.",
@@ -574,7 +664,12 @@
     "param.file.description": "Plik docelowy dla complete_file/skip_file/error_file. Jeśli pominięto, używany jest bieżący plik.",
     "param.reason.description": "Powód dla skip_file/error_file albo krótka notatka o zakończeniu.",
     "param.status.description": "Stan wsadowy.",
-    "param.remaining_files.description": "Lista plików docelowych."
+    "param.remaining_files.description": "Lista plików docelowych.",
+    "err.batch_exists": "",
+    "err.exception": "",
+    "err.unknown_action": "",
+    "param.patch.description": "Częściowa aktualizacja w celu połączenia ze stanem wsadowym. Preferuj patch.targets i patch.current_target.",
+    "param.targets.description": "Grupy docelowe. Każdy wpis zawiera katalog, pliki (względne w stosunku do katalogu) i indeks."
   },
   "hi": {
     "tool.description": "~/.",
@@ -601,7 +696,12 @@
     "param.file.description": "पूर्ण_फ़ाइल/स्किप_फ़ाइल/त्रुटि_फ़ाइल के लिए लक्ष्य फ़ाइल। यदि छोड़ दिया जाए, तो वर्तमान फ़ाइल का उपयोग किया जाता है।",
     "param.reason.description": "skip_file/error_file का कारण, या पूर्णता के लिए छोटा नोट।",
     "param.status.description": "बैच स्थिति।",
-    "param.remaining_files.description": "लक्ष्य फ़ाइलों की सूची."
+    "param.remaining_files.description": "लक्ष्य फ़ाइलों की सूची.",
+    "err.batch_exists": "",
+    "err.exception": "",
+    "err.unknown_action": "",
+    "param.patch.description": "बैच स्थिति में विलय के लिए आंशिक अद्यतन। पैच.लक्ष्य और पैच.वर्तमान_लक्ष्य को प्राथमिकता दें।",
+    "param.targets.description": "लक्ष्य समूह. प्रत्येक प्रविष्टि में dir, फ़ाइलें (dir-सापेक्ष), और अनुक्रमणिका शामिल हैं।"
   },
   "ar": {
     "tool.description": "يدير حالة الدُفعات الدائمة للمهام متعددة الملفات ضمن ~/.",
@@ -628,7 +728,12 @@
     "param.file.description": "الملف الهدف لـ complete_file/skip_file/error_file. إذا تم حذفه، فيُستخدم الملف الحالي.",
     "param.reason.description": "سبب skip_file/error_file، أو ملاحظة قصيرة عند الإكمال.",
     "param.status.description": "حالة الدفعة.",
-    "param.remaining_files.description": "قائمة الملفات المستهدفة."
+    "param.remaining_files.description": "قائمة الملفات المستهدفة.",
+    "err.batch_exists": "",
+    "err.exception": "",
+    "err.unknown_action": "",
+    "param.patch.description": "تحديث جزئي للدمج في الحالة الدفعية. تفضل patch.targets و patch.current_target.",
+    "param.targets.description": "المجموعات المستهدفة. يحتوي كل إدخال على dir، وملفات (نسبية لـ dir)، وindex."
   },
   "sv": {
     "tool.description": "Hantera batchstatus för uppgifter med flera filer under ~/.",
@@ -655,7 +760,12 @@
     "param.file.description": "Målfil för complete_file/skip_file/error_file. Om den utelämnas används den aktuella filen.",
     "param.reason.description": "Anledning till skip_file/error_file, eller en kort notering för slutförande.",
     "param.status.description": "Batchstatus.",
-    "param.remaining_files.description": "Filer i den aktuella målgruppen. Prioritera targets."
+    "param.remaining_files.description": "Filer i den aktuella målgruppen. Prioritera targets.",
+    "err.batch_exists": "",
+    "err.exception": "",
+    "err.unknown_action": "",
+    "param.patch.description": "Partiell uppdatering för att slås samman till batchtillståndet. Föredrar patch.targets och patch.current_target.",
+    "param.targets.description": "Målgrupper. Varje post innehåller dir, filer (dir-relativ) och index."
   },
   "sw": {
     "tool.description": "Dhibiti hali ya batch kwa kazi zenye faili nyingi ndani ya ~/.",
@@ -682,7 +792,12 @@
     "param.file.description": "Faili lengwa kwa complete_file/skip_file/error_file. Likiwa halikutajwa, faili la sasa hutumiwa.",
     "param.reason.description": "Sababu ya skip_file/error_file, au dokezo fupi la kukamilisha.",
     "param.status.description": "Hali ya kundi.",
-    "param.remaining_files.description": "Faili za kikundi cha sasa cha malengo."
+    "param.remaining_files.description": "Faili za kikundi cha sasa cha malengo.",
+    "err.batch_exists": "",
+    "err.exception": "",
+    "err.unknown_action": "",
+    "param.patch.description": "Sasisho kidogo ili kuunganishwa katika hali ya kundi. Pendelea patch.targets na patch.current_target.",
+    "param.targets.description": "Vikundi lengwa. Kila ingizo lina dir, faili (dir-relative), na index."
   },
   "nb": {
     "tool.description": "Administrer batchstatus for oppgaver med flere filer under ~/.",
@@ -709,7 +824,12 @@
     "param.file.description": "Målfil for complete_file/skip_file/error_file. Hvis utelatt, brukes gjeldende fil.",
     "param.reason.description": "Årsak for skip_file/error_file, eller en kort merknad ved fullføring.",
     "param.status.description": "batchstatus.",
-    "param.remaining_files.description": "Filer i gjeldende målgruppe. Prioriter targets."
+    "param.remaining_files.description": "Filer i gjeldende målgruppe. Prioriter targets.",
+    "err.batch_exists": "",
+    "err.exception": "",
+    "err.unknown_action": "",
+    "param.patch.description": "Delvis oppdatering for å slå sammen til batch-tilstanden. Foretrekk patch.targets og patch.current_target.",
+    "param.targets.description": "Målgrupper. Hver oppføring inneholder dir, filer (dir-relativ) og indeks."
   },
   "nl": {
     "tool.description": "Beheer de batchstatus voor taken met meerdere bestanden onder ~/.uag/batches/.",
@@ -736,7 +856,12 @@
     "param.file.description": "Doelbestand voor complete_file/skip_file/error_file.",
     "param.reason.description": "Reden voor skip_file/error_file, of een korte notitie bij voltooiing.",
     "param.status.description": "Batchstatus.",
-    "param.remaining_files.description": "Bestanden in de huidige doelgroep."
+    "param.remaining_files.description": "Bestanden in de huidige doelgroep.",
+    "err.batch_exists": "",
+    "err.exception": "",
+    "err.unknown_action": "",
+    "param.patch.description": "Gedeeltelijke update om samen te voegen met de batchstatus. Geef de voorkeur aan patch.targets en patch.current_target.",
+    "param.targets.description": "Doelgroepen. Elk item bevat dir, bestanden (dir-relatief) en index."
   },
   "fi": {
     "tool.description": "Hallitse erätilaa monitiedostoisille tehtäville polun ~/.",
@@ -763,7 +888,12 @@
     "param.file.description": "Kohdetiedosto complete_file/skip_file/error_file -toiminnoille.",
     "param.reason.description": "Syy skip_file/error_file-toiminnolle tai lyhyt valmistumismerkintä.",
     "param.status.description": "Erätila.",
-    "param.remaining_files.description": "Nykyisen kohderyhmän tiedostot. Suosi targets-kenttää."
+    "param.remaining_files.description": "Nykyisen kohderyhmän tiedostot. Suosi targets-kenttää.",
+    "err.batch_exists": "",
+    "err.exception": "",
+    "err.unknown_action": "",
+    "param.patch.description": "Osittainen päivitys yhdistääksesi erätilaan. Valitse mieluummin patch.targets ja patch.current_target.",
+    "param.targets.description": "Kohderyhmät. Jokainen merkintä sisältää dir, tiedostot (dir-relative) ja indeksin."
   },
   "cs": {
     "tool.description": "Spravuje stav dávky pro úlohy s více soubory v ~/.uag/batches/.",
@@ -790,7 +920,12 @@
     "param.file.description": "Cílový soubor pro complete_file/skip_file/error_file.",
     "param.reason.description": "Důvod pro skip_file/error_file nebo krátká poznámka k dokončení.",
     "param.status.description": "Stav dávky.",
-    "param.remaining_files.description": "Soubory v aktuální cílové skupině."
+    "param.remaining_files.description": "Soubory v aktuální cílové skupině.",
+    "err.batch_exists": "",
+    "err.exception": "",
+    "err.unknown_action": "",
+    "param.patch.description": "Částečná aktualizace pro sloučení do stavu dávky. Preferujte patch.targets a patch.current_target.",
+    "param.targets.description": "Cílové skupiny. Každý záznam obsahuje adresář, soubory (relativní adresář) a index."
   },
   "uk": {
     "tool.description": "Керує станом пакета для багатофайлових завдань у ~/.uag/batches/.",
@@ -817,7 +952,12 @@
     "param.file.description": "Цільовий файл для complete_file/skip_file/error_file.",
     "param.reason.description": "Причина для skip_file/error_file або коротка нотатка про завершення.",
     "param.status.description": "Статус пакета.",
-    "param.remaining_files.description": "Файли поточної групи цілей. Надавайте перевагу targets."
+    "param.remaining_files.description": "Файли поточної групи цілей. Надавайте перевагу targets.",
+    "err.batch_exists": "",
+    "err.exception": "",
+    "err.unknown_action": "",
+    "param.patch.description": "Часткове оновлення для злиття в пакетний стан. Віддавайте перевагу patch.targets і patch.current_target.",
+    "param.targets.description": "Цільові групи. Кожен запис містить dir, файли (dir-relative) та індекс."
   },
   "tr": {
     "tool.description": "~/.",
@@ -844,7 +984,12 @@
     "param.file.description": "complete_file/skip_file/error_file için hedef dosya. Atlanırsa geçerli dosya kullanılır.",
     "param.reason.description": "skip_file/error_file nedeni veya tamamlama için kısa not.",
     "param.status.description": "Toplu iş durumu.",
-    "param.remaining_files.description": "Geçerli hedef grubundaki dosyalar."
+    "param.remaining_files.description": "Geçerli hedef grubundaki dosyalar.",
+    "err.batch_exists": "",
+    "err.exception": "",
+    "err.unknown_action": "",
+    "param.patch.description": "Toplu durumla birleştirmek için kısmi güncelleme. patch.targets ve patch.current_target'ı tercih edin.",
+    "param.targets.description": "Hedef gruplar. Her giriş; dizin, dosyalar (dizine bağlı) ve dizin içerir."
   },
   "th": {
     "tool.description": "จัดการสถานะงานแบบแบตช์สำหรับงานหลายไฟล์ภายใต้ ~/.uag/batches/.",
@@ -871,7 +1016,12 @@
     "param.file.description": "ไฟล์เป้าหมายสำหรับ complete_file/skip_file/error_file หากละไว้จะใช้ไฟล์ปัจจุบัน",
     "param.reason.description": "เหตุผลสำหรับ skip_file/error_file หรือบันทึกสั้น ๆ เมื่อเสร็จสิ้น",
     "param.status.description": "สถานะแบตช์",
-    "param.remaining_files.description": "ไฟล์ในกลุ่มเป้าหมายปัจจุบัน ให้ให้ความสำคัญกับ targets"
+    "param.remaining_files.description": "ไฟล์ในกลุ่มเป้าหมายปัจจุบัน ให้ให้ความสำคัญกับ targets",
+    "err.batch_exists": "",
+    "err.exception": "",
+    "err.unknown_action": "",
+    "param.patch.description": "การอัปเดตบางส่วนเพื่อรวมเข้ากับสถานะแบตช์ ต้องการ patch.targets และ patch.current_target",
+    "param.targets.description": "กลุ่มเป้าหมาย. แต่ละรายการประกอบด้วย dir, ไฟล์ (dir-relative) และดัชนี"
   },
   "zh_CN": {
     "tool.description": "管理 ~/.uag/batches/ 下多文件任务的批处理状态。",
@@ -898,7 +1048,12 @@
     "param.file.description": "complete_file/skip_file/error_file 的目标文件。如果省略，则使用当前文件。",
     "param.reason.description": "skip_file/error_file 的原因，或完成时的简短备注。",
     "param.status.description": "批次状态。",
-    "param.remaining_files.description": "当前目标组中的文件。优先使用 targets。"
+    "param.remaining_files.description": "当前目标组中的文件。优先使用 targets。",
+    "err.batch_exists": "",
+    "err.exception": "",
+    "err.unknown_action": "",
+    "param.patch.description": "部分更新合并到批处理状态。更喜欢 patch.targets 和 patch.current_target。",
+    "param.targets.description": "目标群体。每个条目包含目录、文件（相对目录）和索引。"
   },
   "zh_TW": {
     "tool.description": "管理 ~/.uag/batches/ 下多檔案任務的批次狀態。",
@@ -925,6 +1080,11 @@
     "param.file.description": "complete_file/skip_file/error_file 的目標檔案。若省略，則使用目前檔案。",
     "param.reason.description": "skip_file/error_file 的原因，或完成時的簡短備註。",
     "param.status.description": "批次状态。",
-    "param.remaining_files.description": "目前目標群組中的檔案。優先使用 targets。"
+    "param.remaining_files.description": "目前目標群組中的檔案。優先使用 targets。",
+    "err.batch_exists": "",
+    "err.exception": "",
+    "err.unknown_action": "",
+    "param.patch.description": "部分更新合併到批次狀態。更喜歡 patch.targets 和 patch.current_target。",
+    "param.targets.description": "目標群體。每個條目包含目錄、檔案（相對目錄）和索引。"
   }
 }

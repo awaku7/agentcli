@@ -1,63 +1,75 @@
 {
   "ar": {
-    "tool.description": "List Matter device endpoints.",
-    "param.dev.description": "Device ID (required).",
-    "param.fmt.description": "Format: json or text.",
-    "err.device_id_required": "Matter device ID is required.",
-    "err.not_found": "Matter device not found: {device_id}",
-    "err.ambiguous_target": "Matter device target is ambiguous: {device_id}",
+    "tool.description": "قائمة نقاط نهاية الجهاز المسألة.",
+    "param.dev.description": "معرف الجهاز (مطلوب).",
+    "param.fmt.description": "التنسيق: json أو نص.",
+    "err.device_id_required": "مطلوب معرف الجهاز المسألة.",
+    "err.not_found": "لم يتم العثور على جهاز المادة: {device_id}",
+    "err.ambiguous_target": "هدف الجهاز المهم غامض: {device_id}",
     "x_search_terms": [
       "قائمة نقاط النهاية للمادة",
       "matter_endpoint_list",
       "مادة",
       "مادة",
       "نقطة نهاية"
-    ]
+    ],
+    "err.config_missing": "بيانات الجهاز المسألة مفقودة. قم بتعيين {env_json} أو {env_file} للأجهزة أو وحدات التحكم أو الجسور.",
+    "param.bridge.description": "معرف الجسر (اختياري).",
+    "param.ctrl.description": "معرف وحدة التحكم (اختياري)."
   },
   "bn": {
-    "tool.description": "List Matter device endpoints.",
-    "param.dev.description": "Device ID (required).",
-    "param.fmt.description": "Format: json or text.",
-    "err.device_id_required": "Matter device ID is required.",
-    "err.not_found": "Matter device not found: {device_id}",
-    "err.ambiguous_target": "Matter device target is ambiguous: {device_id}",
+    "tool.description": "তালিকা ম্যাটার ডিভাইস শেষ পয়েন্ট.",
+    "param.dev.description": "ডিভাইস আইডি (প্রয়োজনীয়)।",
+    "param.fmt.description": "বিন্যাস: json বা পাঠ্য।",
+    "err.device_id_required": "ম্যাটার ডিভাইস আইডি প্রয়োজন।",
+    "err.not_found": "ম্যাটার ডিভাইস পাওয়া যায়নি: {device_id}",
+    "err.ambiguous_target": "বস্তুর ডিভাইস লক্ষ্য অস্পষ্ট: {device_id}",
     "x_search_terms": [
       "বিষয় শেষ বিন্দু তালিকা",
       "matter_endpoint_list",
       "বিষয়",
       "বিষয়",
       "শেষ বিন্দু"
-    ]
+    ],
+    "err.config_missing": "ম্যাটার ডিভাইস ডেটা অনুপস্থিত. ডিভাইস, কন্ট্রোলার বা সেতুর জন্য {env_json} বা {env_file} সেট করুন।",
+    "param.bridge.description": "সেতু আইডি (ঐচ্ছিক)।",
+    "param.ctrl.description": "কন্ট্রোলার আইডি (ঐচ্ছিক)।"
   },
   "cs": {
-    "tool.description": "List Matter device endpoints.",
-    "param.dev.description": "Device ID (required).",
-    "param.fmt.description": "Format: json or text.",
-    "err.device_id_required": "Matter device ID is required.",
-    "err.not_found": "Matter device not found: {device_id}",
-    "err.ambiguous_target": "Matter device target is ambiguous: {device_id}",
+    "tool.description": "Seznam koncových bodů zařízení Matter.",
+    "param.dev.description": "ID zařízení (povinné).",
+    "param.fmt.description": "Formát: json nebo text.",
+    "err.device_id_required": "Je vyžadováno ID zařízení.",
+    "err.not_found": "Hmotné zařízení nenalezeno: {device_id}",
+    "err.ambiguous_target": "Cíl zařízení je nejednoznačný: {device_id}",
     "x_search_terms": [
       "seznam koncových bodů hmoty",
       "matter_endpoint_list",
       "hmota",
       "HMOTA",
       "koncový bod"
-    ]
+    ],
+    "err.config_missing": "Chybí data zařízení Matter. Nastavte {env_json} nebo {env_file} pro zařízení, řadiče nebo mosty.",
+    "param.bridge.description": "ID mostu (volitelné).",
+    "param.ctrl.description": "ID ovladače (volitelné)."
   },
   "de": {
-    "tool.description": "List Matter device endpoints.",
-    "param.dev.description": "Device ID (required).",
-    "param.fmt.description": "Format: json or text.",
-    "err.device_id_required": "Matter device ID is required.",
-    "err.not_found": "Matter device not found: {device_id}",
-    "err.ambiguous_target": "Matter device target is ambiguous: {device_id}",
+    "tool.description": "Listen Sie Matter-Geräteendpunkte auf.",
+    "param.dev.description": "Geräte-ID (erforderlich).",
+    "param.fmt.description": "Format: JSON oder Text.",
+    "err.device_id_required": "Die Geräte-ID ist erforderlich.",
+    "err.not_found": "Matter-Gerät nicht gefunden: {device_id}",
+    "err.ambiguous_target": "Das Matter-Geräteziel ist nicht eindeutig: {device_id}",
     "x_search_terms": [
       "Matter-Endpunktliste",
       "matter_endpoint_list",
       "Angelegenheit",
       "MATTER",
       "Endpunkt"
-    ]
+    ],
+    "err.config_missing": "Matter-Gerätedaten fehlen. Legen Sie {env_json} oder {env_file} für Geräte, Controller oder Bridges fest.",
+    "param.bridge.description": "Bridge-ID (optional).",
+    "param.ctrl.description": "Controller-ID (optional)."
   },
   "en": {
     "tool.description": "List Matter device endpoints.",
@@ -78,117 +90,138 @@
     ]
   },
   "es": {
-    "tool.description": "List Matter device endpoints.",
-    "param.dev.description": "Device ID (required).",
-    "param.fmt.description": "Format: json or text.",
-    "err.device_id_required": "Matter device ID is required.",
-    "err.not_found": "Matter device not found: {device_id}",
-    "err.ambiguous_target": "Matter device target is ambiguous: {device_id}",
+    "tool.description": "Enumere los puntos finales del dispositivo Matter.",
+    "param.dev.description": "ID del dispositivo (obligatorio).",
+    "param.fmt.description": "Formato: json o texto.",
+    "err.device_id_required": "Se requiere la identificación del dispositivo.",
+    "err.not_found": "Dispositivo de asunto no encontrado: {device_id}",
+    "err.ambiguous_target": "El destino del dispositivo de materia es ambiguo: {device_id}",
     "x_search_terms": [
       "lista de puntos finales de la materia",
       "lista_punto_final_de_materia",
       "materia",
       "ASUNTO",
       "punto final"
-    ]
+    ],
+    "err.config_missing": "Faltan datos del dispositivo Matter. Establezca {env_json} o {env_file} para dispositivos, controladores o puentes.",
+    "param.bridge.description": "ID de puente (opcional).",
+    "param.ctrl.description": "ID del controlador (opcional)."
   },
   "fa": {
-    "tool.description": "List Matter device endpoints.",
-    "param.dev.description": "Device ID (required).",
-    "param.fmt.description": "Format: json or text.",
-    "err.device_id_required": "Matter device ID is required.",
-    "err.not_found": "Matter device not found: {device_id}",
-    "err.ambiguous_target": "Matter device target is ambiguous: {device_id}",
+    "tool.description": "نقاط پایانی دستگاه Matter را فهرست کنید.",
+    "param.dev.description": "شناسه دستگاه (الزامی).",
+    "param.fmt.description": "فرمت: json یا متن.",
+    "err.device_id_required": "شناسه دستگاه مورد نیاز است.",
+    "err.not_found": "دستگاه ماده پیدا نشد: {device_id}",
+    "err.ambiguous_target": "هدف دستگاه موضوع مبهم است: {device_id}",
     "x_search_terms": [
       "لیست نقاط پایانی ماده",
       "matter_endpoint_list",
       "ماده",
       "ماده",
       "نقطه پایانی"
-    ]
+    ],
+    "err.config_missing": "داده‌های دستگاه موضوعی وجود ندارد. {env_json} یا {env_file} را برای دستگاه ها، کنترلرها یا پل ها تنظیم کنید.",
+    "param.bridge.description": "شناسه پل (اختیاری).",
+    "param.ctrl.description": "شناسه کنترلر (اختیاری)."
   },
   "fi": {
-    "tool.description": "List Matter device endpoints.",
-    "param.dev.description": "Device ID (required).",
-    "param.fmt.description": "Format: json or text.",
-    "err.device_id_required": "Matter device ID is required.",
-    "err.not_found": "Matter device not found: {device_id}",
-    "err.ambiguous_target": "Matter device target is ambiguous: {device_id}",
+    "tool.description": "Luettelo Matter-laitteen päätepisteet.",
+    "param.dev.description": "Laitetunnus (pakollinen).",
+    "param.fmt.description": "Muoto: json tai teksti.",
+    "err.device_id_required": "Asian laitetunnus vaaditaan.",
+    "err.not_found": "Asialaitetta ei löydy: {device_id}",
+    "err.ambiguous_target": "Laitteen kohde on epäselvä: {device_id}",
     "x_search_terms": [
       "asian päätepisteluettelo",
       "matter_endpoint_list",
       "asia",
       "ASIA",
       "päätepiste"
-    ]
+    ],
+    "err.config_missing": "Laitteen tiedot puuttuvat. Aseta {env_json} tai {env_file} laitteille, ohjaimille tai silloille.",
+    "param.bridge.description": "Bridge ID (valinnainen).",
+    "param.ctrl.description": "Ohjaimen tunnus (valinnainen)."
   },
   "fr": {
-    "tool.description": "List Matter device endpoints.",
-    "param.dev.description": "Device ID (required).",
-    "param.fmt.description": "Format: json or text.",
-    "err.device_id_required": "Matter device ID is required.",
-    "err.not_found": "Matter device not found: {device_id}",
-    "err.ambiguous_target": "Matter device target is ambiguous: {device_id}",
+    "tool.description": "Répertoriez les points de terminaison de l’appareil Matter.",
+    "param.dev.description": "ID de l'appareil (obligatoire).",
+    "param.fmt.description": "Format : json ou texte.",
+    "err.device_id_required": "L'ID de l'appareil concerné est requis.",
+    "err.not_found": "Appareil concerné introuvable : {device_id}",
+    "err.ambiguous_target": "La cible de l'appareil Matter est ambiguë : {device_id}",
     "x_search_terms": [
       "liste des points de terminaison",
       "matière_endpoint_list",
       "matière",
       "MATIÈRE",
       "point final"
-    ]
+    ],
+    "err.config_missing": "Les données de l'appareil Matter sont manquantes. Définissez {env_json} ou {env_file} pour les appareils, les contrôleurs ou les ponts.",
+    "param.bridge.description": "ID de pont (facultatif).",
+    "param.ctrl.description": "ID du contrôleur (facultatif)."
   },
   "hi": {
-    "tool.description": "List Matter device endpoints.",
-    "param.dev.description": "Device ID (required).",
-    "param.fmt.description": "Format: json or text.",
-    "err.device_id_required": "Matter device ID is required.",
-    "err.not_found": "Matter device not found: {device_id}",
-    "err.ambiguous_target": "Matter device target is ambiguous: {device_id}",
+    "tool.description": "मैटर डिवाइस एंडपॉइंट की सूची बनाएं।",
+    "param.dev.description": "डिवाइस आईडी (आवश्यक)।",
+    "param.fmt.description": "प्रारूप: json या text.",
+    "err.device_id_required": "मैटर डिवाइस आईडी आवश्यक है.",
+    "err.not_found": "मैटर डिवाइस नहीं मिला: {device_id}",
+    "err.ambiguous_target": "मैटर डिवाइस लक्ष्य अस्पष्ट है: {device_id}",
     "x_search_terms": [
       "विषय अंतिम बिंदु सूची",
       "matter_endpoint_list",
       "विषय",
       "विषय",
       "अंतिम बिंदु"
-    ]
+    ],
+    "err.config_missing": "मैटर डिवाइस डेटा गायब है. उपकरणों, नियंत्रकों या पुलों के लिए {env_json} या {env_file} सेट करें।",
+    "param.bridge.description": "ब्रिज आईडी (वैकल्पिक)।",
+    "param.ctrl.description": "नियंत्रक आईडी (वैकल्पिक)."
   },
   "id": {
-    "tool.description": "List Matter device endpoints.",
-    "param.dev.description": "Device ID (required).",
-    "param.fmt.description": "Format: json or text.",
-    "err.device_id_required": "Matter device ID is required.",
-    "err.not_found": "Matter device not found: {device_id}",
-    "err.ambiguous_target": "Matter device target is ambiguous: {device_id}",
+    "tool.description": "Daftarkan titik akhir perangkat Matter.",
+    "param.dev.description": "ID Perangkat (wajib).",
+    "param.fmt.description": "Format: json atau teks.",
+    "err.device_id_required": "ID perangkat penting diperlukan.",
+    "err.not_found": "Perangkat materi tidak ditemukan: {device_id}",
+    "err.ambiguous_target": "Target perangkat materi tidak jelas: {device_id}",
     "x_search_terms": [
       "daftar titik akhir masalah",
       "daftar_titik_masalah_",
       "penting",
       "MASALAH",
       "titik akhir"
-    ]
+    ],
+    "err.config_missing": "Data perangkat penting tidak ada. Setel {env_json} atau {env_file} untuk perangkat, pengontrol, atau jembatan.",
+    "param.bridge.description": "ID Jembatan (opsional).",
+    "param.ctrl.description": "ID Pengontrol (opsional)."
   },
   "it": {
-    "tool.description": "List Matter device endpoints.",
-    "param.dev.description": "Device ID (required).",
-    "param.fmt.description": "Format: json or text.",
-    "err.device_id_required": "Matter device ID is required.",
-    "err.not_found": "Matter device not found: {device_id}",
-    "err.ambiguous_target": "Matter device target is ambiguous: {device_id}",
+    "tool.description": "Elenca gli endpoint del dispositivo dell'argomento.",
+    "param.dev.description": "ID dispositivo (obbligatorio).",
+    "param.fmt.description": "Formato: json o testo.",
+    "err.device_id_required": "L'ID dispositivo dell'argomento è obbligatorio.",
+    "err.not_found": "Dispositivo dell’argomento non trovato: {device_id}",
+    "err.ambiguous_target": "La destinazione del dispositivo dell’argomento è ambigua: {device_id}",
     "x_search_terms": [
       "elenco degli endpoint dell'argomento",
       "materia_endpoint_list",
       "materia",
       "MATERIA",
       "punto finale"
-    ]
+    ],
+    "err.config_missing": "Mancano i dati del dispositivo dell'argomento. Imposta {env_json} o {env_file} per dispositivi, controller o bridge.",
+    "param.bridge.description": "ID ponte (facoltativo).",
+    "param.ctrl.description": "ID del controller (facoltativo)."
   },
   "ja": {
-    "tool.description": "List Matter device endpoints.",
-    "param.dev.description": "Device ID (required).",
-    "param.fmt.description": "Format: json or text.",
-    "err.device_id_required": "Matter device ID is required.",
-    "err.not_found": "Matter device not found: {device_id}",
-    "err.ambiguous_target": "Matter device target is ambiguous: {device_id}",
+    "tool.description": "Matter デバイスのエンドポイントをリストします。",
+    "param.dev.description": "デバイス ID (必須)。",
+    "param.fmt.description": "形式: json またはテキスト。",
+    "err.device_id_required": "案件デバイスIDは必須です。",
+    "err.not_found": "デバイスが見つかりません: {device_id}",
+    "err.ambiguous_target": "デバイスのターゲットがあいまいです: {device_id}",
     "err.config_missing": "問題のデバイスデータが欠落しています。デバイス、コントローラー、またはブリッジに {env_json} または {env_file} を設定します。",
     "param.bridge.description": "ブリッジ ID (オプション)。",
     "param.ctrl.description": "コントローラ ID (オプション)。",
@@ -201,101 +234,119 @@
     ]
   },
   "ko": {
-    "tool.description": "List Matter device endpoints.",
-    "param.dev.description": "Device ID (required).",
-    "param.fmt.description": "Format: json or text.",
-    "err.device_id_required": "Matter device ID is required.",
-    "err.not_found": "Matter device not found: {device_id}",
-    "err.ambiguous_target": "Matter device target is ambiguous: {device_id}",
+    "tool.description": "Matter 장치 엔드포인트를 나열합니다.",
+    "param.dev.description": "장치 ID(필수).",
+    "param.fmt.description": "형식: json 또는 텍스트.",
+    "err.device_id_required": "Matter 장치 ID가 필요합니다.",
+    "err.not_found": "물질적 장치를 찾을 수 없습니다: {device_id}",
+    "err.ambiguous_target": "Matter 장치 대상이 모호합니다: {device_id}",
     "x_search_terms": [
       "문제 끝점 목록",
       "물질_종료점_목록",
       "문제",
       "물질",
       "끝점"
-    ]
+    ],
+    "err.config_missing": "Matter 장치 데이터가 누락되었습니다. 장치, 컨트롤러 또는 브리지에 대해 {env_json} 또는 {env_file}을 설정합니다.",
+    "param.bridge.description": "브리지 ID(선택 사항).",
+    "param.ctrl.description": "컨트롤러 ID(선택 사항)."
   },
   "mn": {
-    "tool.description": "List Matter device endpoints.",
-    "param.dev.description": "Device ID (required).",
-    "param.fmt.description": "Format: json or text.",
-    "err.device_id_required": "Matter device ID is required.",
-    "err.not_found": "Matter device not found: {device_id}",
-    "err.ambiguous_target": "Matter device target is ambiguous: {device_id}",
+    "tool.description": "Төхөөрөмжийн төгсгөлийн цэгүүдийг жагсаана уу.",
+    "param.dev.description": "Төхөөрөмжийн ID (шаардлагатай).",
+    "param.fmt.description": "Формат: json эсвэл текст.",
+    "err.device_id_required": "Төхөөрөмжийн ID шаардлагатай.",
+    "err.not_found": "Төхөөрөмж олдсонгүй: {device_id}",
+    "err.ambiguous_target": "Төхөөрөмжийн зорилт тодорхойгүй байна: {device_id}",
     "x_search_terms": [
       "материйн төгсгөлийн цэгийн жагсаалт",
       "matter_endpoint_list",
       "асуудал",
       "асуудал",
       "төгсгөлийн цэг"
-    ]
+    ],
+    "err.config_missing": "Төхөөрөмжийн өгөгдөл дутуу байна. Төхөөрөмж, хянагч эсвэл гүүрэнд {env_json} эсвэл {env_file} тохируулна уу.",
+    "param.bridge.description": "Bridge ID (заавал биш).",
+    "param.ctrl.description": "Хянагчийн ID (заавал биш)."
   },
   "mr": {
-    "tool.description": "List Matter device endpoints.",
-    "param.dev.description": "Device ID (required).",
-    "param.fmt.description": "Format: json or text.",
-    "err.device_id_required": "Matter device ID is required.",
-    "err.not_found": "Matter device not found: {device_id}",
-    "err.ambiguous_target": "Matter device target is ambiguous: {device_id}",
+    "tool.description": "मॅटर डिव्हाइस एंडपॉइंट्सची यादी करा.",
+    "param.dev.description": "डिव्हाइस आयडी (आवश्यक).",
+    "param.fmt.description": "स्वरूप: json किंवा मजकूर.",
+    "err.device_id_required": "मॅटर डिव्हाइस आयडी आवश्यक आहे.",
+    "err.not_found": "मॅटर डिव्हाइस आढळले नाही: {device_id}",
+    "err.ambiguous_target": "मॅटर डिव्हाइस लक्ष्य अस्पष्ट आहे: {device_id}",
     "x_search_terms": [
       "विषय शेवटचा बिंदू यादी",
       "matter_endpoint_list",
       "विषय",
       "विषय",
       "शेवटचा बिंदू"
-    ]
+    ],
+    "err.config_missing": "मॅटर डिव्हाइस डेटा गहाळ आहे. डिव्हाइसेस, कंट्रोलर किंवा ब्रिजसाठी {env_json} किंवा {env_file} सेट करा.",
+    "param.bridge.description": "ब्रिज आयडी (पर्यायी).",
+    "param.ctrl.description": "कंट्रोलर आयडी (पर्यायी)."
   },
   "el": {
     "tool.description": "Λίστα τελικών σημείων συσκευής.",
-    "param.dev.description": "Η συσκευή δεν βρέθηκε: {device_id}",
-    "param.fmt.description": "Στιγμιότυπο προσωρινής μνήμης ECHONET: {count} στοιχεία.",
-    "err.device_id_required": "Ο στόχος της συσκευής είναι διφορούμενος: {device_id}",
-    "err.not_found": "Αναγνωριστικό ελεγκτή (προαιρετικό).",
-    "err.ambiguous_target": "Αναγνωριστικό γέφυρας (προαιρετικό).",
+    "param.dev.description": "Αναγνωριστικό συσκευής (απαιτείται).",
+    "param.fmt.description": "Μορφή: json ή κείμενο.",
+    "err.device_id_required": "Απαιτείται το αναγνωριστικό συσκευής θέματος.",
+    "err.not_found": "Η συσκευή ουσίας δεν βρέθηκε: {device_id}",
+    "err.ambiguous_target": "Ο στόχος της συσκευής είναι διφορούμενος: {device_id}",
     "x_search_terms": [
       "λίστα τελικών σημείων ύλης",
       "matter_endpoint_list",
       "ύλη",
       "ΥΛΗ",
       "τελικό σημείο"
-    ]
+    ],
+    "err.config_missing": "Λείπουν τα δεδομένα της συσκευής. Ορίστε {env_json} ή {env_file} για συσκευές, ελεγκτές ή γέφυρες.",
+    "param.bridge.description": "Bridge ID (προαιρετικό).",
+    "param.ctrl.description": "Αναγνωριστικό ελεγκτή (προαιρετικό)."
   },
   "he": {
     "tool.description": "רשימת נקודות קצה של מכשירי Matter.",
-    "param.dev.description": "מכשיר עניין לא נמצא: {device_id}",
+    "param.dev.description": "מזהה מכשיר (חובה).",
     "param.fmt.description": "אין ערכים במטמון.",
-    "err.device_id_required": "יעד מכשיר עניין אינו ברור: {device_id}",
-    "err.not_found": "מזהה בקר (אופציונלי).",
-    "err.ambiguous_target": "מזהה גשר (אופציונלי).",
+    "err.device_id_required": "נדרש מזהה מכשיר של עניין.",
+    "err.not_found": "התקן עניין לא נמצא: {device_id}",
+    "err.ambiguous_target": "יעד מכשיר החומר אינו חד משמעי: {device_id}",
     "x_search_terms": [
       "רשימת נקודות קצה של חומר",
       "matter_endpoint_list",
       "חומר",
       "חומר",
       "נקודת קצה"
-    ]
+    ],
+    "err.config_missing": "נתוני המכשיר חסרים. הגדר {env_json} או {env_file} עבור מכשירים, בקרים או גשרים.",
+    "param.bridge.description": "מזהה גשר (אופציונלי).",
+    "param.ctrl.description": "מזהה בקר (אופציונלי)."
   },
   "hu": {
     "tool.description": "Sorolja fel a Matter eszköz végpontjait.",
-    "param.dev.description": "A fontos eszköz nem található: {device_id}",
+    "param.dev.description": "Eszközazonosító (kötelező).",
     "param.fmt.description": "Gyorsítótár művelet: pillanatfelvétel vagy törlés.",
-    "err.device_id_required": "Az eszköz célpontja nem egyértelmű: {device_id}",
-    "err.not_found": "Vezérlőazonosító (nem kötelező).",
-    "err.ambiguous_target": "Hídazonosító (nem kötelező).",
+    "err.device_id_required": "Az eszköz azonosítója kötelező.",
+    "err.not_found": "Az eszköz nem található: {device_id}",
+    "err.ambiguous_target": "Az anyag eszköz célpontja nem egyértelmű: {device_id}",
     "x_search_terms": [
       "anyag végpont lista",
       "matter_endpoint_list",
       "anyag",
       "ANYAG",
       "végpont"
-    ]
+    ],
+    "err.config_missing": "Az eszköz adatai hiányoznak. Állítsa be a {env_json} vagy {env_file} értéket az eszközökhöz, vezérlőkhöz vagy hidakhoz.",
+    "param.bridge.description": "Hídazonosító (opcionális).",
+    "param.ctrl.description": "Vezérlőazonosító (opcionális)."
   },
   "ro": {
     "tool.description": "Este necesar să căutați ID-ul dispozitivului. Identificator necesar.",
     "param.dev.description": "Listă clustere Matter pentru un dispozitiv.",
     "param.fmt.description": "Inspectați sau ștergeți memoria cache ECHONET Lite partajată.",
     "err.device_id_required": "ID dispozitiv (obligatoriu).",
-    "err.not_found": "ID-ul dispozitivului este necesar.",
+    "err.not_found": "Dispozitivul nu a fost găsit: {device_id}",
     "err.ambiguous_target": "Dispozitivul nu a fost găsit: {device_id}",
     "x_search_terms": [
       "listă puncte finale materie",
@@ -303,216 +354,261 @@
       "materie",
       "MATERIE",
       "punct final"
-    ]
+    ],
+    "err.config_missing": "Lipsesc datele de pe dispozitiv Matter. Setați {env_json} sau {env_file} pentru dispozitive, controlere sau punți.",
+    "param.bridge.description": "ID pod (opțional).",
+    "param.ctrl.description": "ID controler (opțional)."
   },
   "nb": {
-    "tool.description": "List Matter device endpoints.",
-    "param.dev.description": "Device ID (required).",
-    "param.fmt.description": "Format: json or text.",
-    "err.device_id_required": "Matter device ID is required.",
-    "err.not_found": "Matter device not found: {device_id}",
-    "err.ambiguous_target": "Matter device target is ambiguous: {device_id}",
+    "tool.description": "List Matter-endepunkter.",
+    "param.dev.description": "Enhets-ID (påkrevd).",
+    "param.fmt.description": "Format: json eller tekst.",
+    "err.device_id_required": "Enhets-ID for saken kreves.",
+    "err.not_found": "Saksenhet ikke funnet: {device_id}",
+    "err.ambiguous_target": "Materiell enhetsmål er tvetydig: {device_id}",
     "x_search_terms": [
       "liste over endepunkter for materie",
       "matter_endpoint_list",
       "saken",
       "MATTER",
       "endepunkt"
-    ]
+    ],
+    "err.config_missing": "Saksenhetsdata mangler. Angi {env_json} eller {env_file} for enheter, kontrollere eller broer.",
+    "param.bridge.description": "Bro-ID (valgfritt).",
+    "param.ctrl.description": "Kontroller-ID (valgfritt)."
   },
   "nl": {
-    "tool.description": "List Matter device endpoints.",
-    "param.dev.description": "Device ID (required).",
-    "param.fmt.description": "Format: json or text.",
-    "err.device_id_required": "Matter device ID is required.",
-    "err.not_found": "Matter device not found: {device_id}",
-    "err.ambiguous_target": "Matter device target is ambiguous: {device_id}",
+    "tool.description": "Lijst met Matter-apparaateindpunten.",
+    "param.dev.description": "Apparaat-ID (vereist).",
+    "param.fmt.description": "Formaat: json of tekst.",
+    "err.device_id_required": "Kwestie-apparaat-ID is vereist.",
+    "err.not_found": "Kwestie-apparaat niet gevonden: {device_id}",
+    "err.ambiguous_target": "Het doel van het Matter-apparaat is dubbelzinnig: {device_id}",
     "x_search_terms": [
       "materie-eindpuntlijst",
       "matter_endpoint_list",
       "materie",
       "MATTER",
       "eindpunt"
-    ]
+    ],
+    "err.config_missing": "Er ontbreken gegevens over het Matter-apparaat. Stel {env_json} of {env_file} in voor apparaten, controllers of bridges.",
+    "param.bridge.description": "Bridge-ID (optioneel).",
+    "param.ctrl.description": "Controller-ID (optioneel)."
   },
   "pl": {
-    "tool.description": "List Matter device endpoints.",
-    "param.dev.description": "Device ID (required).",
-    "param.fmt.description": "Format: json or text.",
-    "err.device_id_required": "Matter device ID is required.",
-    "err.not_found": "Matter device not found: {device_id}",
-    "err.ambiguous_target": "Matter device target is ambiguous: {device_id}",
+    "tool.description": "Lista punktów końcowych urządzeń Matter.",
+    "param.dev.description": "Identyfikator urządzenia (wymagany).",
+    "param.fmt.description": "Format: json lub tekst.",
+    "err.device_id_required": "Wymagany jest identyfikator urządzenia Matter.",
+    "err.not_found": "Nie znaleziono urządzenia materii: {device_id}",
+    "err.ambiguous_target": "Cel urządzenia materii jest niejednoznaczny: {device_id}",
     "x_search_terms": [
       "lista punktów końcowych sprawy",
       "lista_punktów końcowych sprawy",
       "sprawa",
       "MATERIA",
       "punkt końcowy"
-    ]
+    ],
+    "err.config_missing": "Brak danych urządzenia Matter. Ustaw {env_json} lub {env_file} dla urządzeń, kontrolerów lub mostów.",
+    "param.bridge.description": "Identyfikator mostu (opcjonalnie).",
+    "param.ctrl.description": "Identyfikator kontrolera (opcjonalnie)."
   },
   "pt": {
-    "tool.description": "List Matter device endpoints.",
-    "param.dev.description": "Device ID (required).",
-    "param.fmt.description": "Format: json or text.",
-    "err.device_id_required": "Matter device ID is required.",
-    "err.not_found": "Matter device not found: {device_id}",
-    "err.ambiguous_target": "Matter device target is ambiguous: {device_id}",
+    "tool.description": "Listar endpoints de dispositivos Matter.",
+    "param.dev.description": "ID do dispositivo (obrigatório).",
+    "param.fmt.description": "Formato: json ou texto.",
+    "err.device_id_required": "O ID do dispositivo é obrigatório.",
+    "err.not_found": "Dispositivo do caso não encontrado: {device_id}",
+    "err.ambiguous_target": "O destino do dispositivo é ambíguo: {device_id}",
     "x_search_terms": [
       "lista de endpoints de matéria",
       "lista_endpoints_matéria",
       "assunto",
       "MATÉRIA",
       "endpoint"
-    ]
+    ],
+    "err.config_missing": "Faltam dados do dispositivo importante. Defina {env_json} ou {env_file} para dispositivos, controladores ou pontes.",
+    "param.bridge.description": "ID da ponte (opcional).",
+    "param.ctrl.description": "ID do controlador (opcional)."
   },
   "pt_BR": {
-    "tool.description": "List Matter device endpoints.",
-    "param.dev.description": "Device ID (required).",
-    "param.fmt.description": "Format: json or text.",
-    "err.device_id_required": "Matter device ID is required.",
-    "err.not_found": "Matter device not found: {device_id}",
-    "err.ambiguous_target": "Matter device target is ambiguous: {device_id}",
+    "tool.description": "Listar endpoints de dispositivos Matter.",
+    "param.dev.description": "ID do dispositivo (obrigatório).",
+    "param.fmt.description": "Formato: json ou texto.",
+    "err.device_id_required": "O ID do dispositivo é obrigatório.",
+    "err.not_found": "Dispositivo do caso não encontrado: {device_id}",
+    "err.ambiguous_target": "O destino do dispositivo é ambíguo: {device_id}",
     "x_search_terms": [
       "lista de endpoints de assuntos",
       "matéria_endpoint_list",
       "assunto",
       "MATÉRIA",
       "ponto final"
-    ]
+    ],
+    "err.config_missing": "Faltam dados do dispositivo importante. Defina {env_json} ou {env_file} para dispositivos, controladores ou pontes.",
+    "param.bridge.description": "ID da ponte (opcional).",
+    "param.ctrl.description": "ID do controlador (opcional)."
   },
   "ru": {
-    "tool.description": "List Matter device endpoints.",
-    "param.dev.description": "Device ID (required).",
-    "param.fmt.description": "Format: json or text.",
-    "err.device_id_required": "Matter device ID is required.",
-    "err.not_found": "Matter device not found: {device_id}",
-    "err.ambiguous_target": "Matter device target is ambiguous: {device_id}",
+    "tool.description": "Получение списка конечных точек устройства Matter.",
+    "param.dev.description": "Идентификатор устройства (обязательно).",
+    "param.fmt.description": "Формат: json или текст.",
+    "err.device_id_required": "Требуется идентификатор устройства Matter.",
+    "err.not_found": "Материнское устройство не найдено: {device_id}",
+    "err.ambiguous_target": "Цель устройства Matter неоднозначна: {device_id}",
     "x_search_terms": [
       "список конечных точек материи",
       "matter_endpoint_list",
       "материя",
       "МАТЕРИЯ",
       "конечная точка"
-    ]
+    ],
+    "err.config_missing": "Данные устройства Matter отсутствуют. Установите {env_json} или {env_file} для устройств, контроллеров или мостов.",
+    "param.bridge.description": "Идентификатор моста (необязательно).",
+    "param.ctrl.description": "Идентификатор контроллера (необязательно)."
   },
   "sv": {
-    "tool.description": "List Matter device endpoints.",
-    "param.dev.description": "Device ID (required).",
-    "param.fmt.description": "Format: json or text.",
-    "err.device_id_required": "Matter device ID is required.",
-    "err.not_found": "Matter device not found: {device_id}",
-    "err.ambiguous_target": "Matter device target is ambiguous: {device_id}",
+    "tool.description": "Lista Matter-enhetsändpunkter.",
+    "param.dev.description": "Enhets-ID (krävs).",
+    "param.fmt.description": "Format: json eller text.",
+    "err.device_id_required": "Enhets-ID krävs.",
+    "err.not_found": "Problemenhet hittades inte: {device_id}",
+    "err.ambiguous_target": "Materiens enhetsmål är tvetydigt: {device_id}",
     "x_search_terms": [
       "materia slutpunktlista",
       "matter_endpoint_list",
       "materia",
       "MATTER",
       "slutpunkt"
-    ]
+    ],
+    "err.config_missing": "Enhetsdata saknas. Ställ in {env_json} eller {env_file} för enheter, kontroller eller bryggor.",
+    "param.bridge.description": "Bridge ID (valfritt).",
+    "param.ctrl.description": "Controller-ID (valfritt)."
   },
   "sw": {
-    "tool.description": "List Matter device endpoints.",
-    "param.dev.description": "Device ID (required).",
-    "param.fmt.description": "Format: json or text.",
-    "err.device_id_required": "Matter device ID is required.",
-    "err.not_found": "Matter device not found: {device_id}",
-    "err.ambiguous_target": "Matter device target is ambiguous: {device_id}",
+    "tool.description": "Orodha ya vituo vya mwisho vya kifaa.",
+    "param.dev.description": "Kitambulisho cha Kifaa (kinahitajika).",
+    "param.fmt.description": "Umbizo: json au maandishi.",
+    "err.device_id_required": "Kitambulisho cha kifaa cha Matter kinahitajika.",
+    "err.not_found": "Kifaa muhimu hakijapatikana: {device_id}",
+    "err.ambiguous_target": "Lengo la kifaa ni utata: {device_id}",
     "x_search_terms": [
       "orodha ya ncha za maada",
       "matter_endpoint_list",
       "maada",
       "MAADA",
       "ncha"
-    ]
+    ],
+    "err.config_missing": "Data ya kifaa cha jambo haipo. Weka {env_json} au {env_file} kwa vifaa, vidhibiti au madaraja.",
+    "param.bridge.description": "Kitambulisho cha daraja (si lazima).",
+    "param.ctrl.description": "Kitambulisho cha Kidhibiti (si lazima)."
   },
   "th": {
-    "tool.description": "List Matter device endpoints.",
-    "param.dev.description": "Device ID (required).",
-    "param.fmt.description": "Format: json or text.",
-    "err.device_id_required": "Matter device ID is required.",
-    "err.not_found": "Matter device not found: {device_id}",
-    "err.ambiguous_target": "Matter device target is ambiguous: {device_id}",
+    "tool.description": "แสดงรายการปลายทางอุปกรณ์ที่สำคัญ",
+    "param.dev.description": "รหัสอุปกรณ์ (จำเป็น)",
+    "param.fmt.description": "รูปแบบ: json หรือข้อความ",
+    "err.device_id_required": "ต้องระบุรหัสอุปกรณ์กรณี",
+    "err.not_found": "ไม่พบอุปกรณ์สำคัญ: {device_id}",
+    "err.ambiguous_target": "เป้าหมายอุปกรณ์ที่สำคัญไม่ชัดเจน: {device_id}",
     "x_search_terms": [
       "รายการจุดสิ้นสุดสสาร",
       "matter_endpoint_list",
       "สสาร",
       "สสาร",
       "จุดสิ้นสุด"
-    ]
+    ],
+    "err.config_missing": "ข้อมูลอุปกรณ์ Matter หายไป ตั้งค่า {env_json} หรือ {env_file} สำหรับอุปกรณ์ ตัวควบคุม หรือบริดจ์",
+    "param.bridge.description": "รหัสบริดจ์ (ไม่บังคับ)",
+    "param.ctrl.description": "รหัสตัวควบคุม (ไม่บังคับ)"
   },
   "tr": {
-    "tool.description": "List Matter device endpoints.",
-    "param.dev.description": "Device ID (required).",
-    "param.fmt.description": "Format: json or text.",
-    "err.device_id_required": "Matter device ID is required.",
-    "err.not_found": "Matter device not found: {device_id}",
-    "err.ambiguous_target": "Matter device target is ambiguous: {device_id}",
+    "tool.description": "Matter cihazı uç noktalarını listeleyin.",
+    "param.dev.description": "Cihaz Kimliği (gerekli).",
+    "param.fmt.description": "Biçim: json veya metin.",
+    "err.device_id_required": "Önemli cihaz kimliği gerekli.",
+    "err.not_found": "Madde cihazı bulunamadı: {device_id}",
+    "err.ambiguous_target": "Madde cihazı hedefi belirsiz: {device_id}",
     "x_search_terms": [
       "madde uç nokta listesi",
       "matter_endpoint_list",
       "madde",
       "MADDE",
       "uç nokta"
-    ]
+    ],
+    "err.config_missing": "Madde cihazı verileri eksik. Cihazlar, denetleyiciler veya köprüler için {env_json} veya {env_file}'i ayarlayın.",
+    "param.bridge.description": "Köprü Kimliği (isteğe bağlı).",
+    "param.ctrl.description": "Denetleyici Kimliği (isteğe bağlı)."
   },
   "uk": {
-    "tool.description": "List Matter device endpoints.",
-    "param.dev.description": "Device ID (required).",
-    "param.fmt.description": "Format: json or text.",
-    "err.device_id_required": "Matter device ID is required.",
-    "err.not_found": "Matter device not found: {device_id}",
-    "err.ambiguous_target": "Matter device target is ambiguous: {device_id}",
+    "tool.description": "Список кінцевих точок пристроїв Matter.",
+    "param.dev.description": "ID пристрою (обов’язково).",
+    "param.fmt.description": "Формат: json або текстовий.",
+    "err.device_id_required": "Необхідний ідентифікатор пристрою Matter.",
+    "err.not_found": "Пристрій справи не знайдено: {device_id}",
+    "err.ambiguous_target": "Цільовий пристрій має значення неоднозначне: {device_id}",
     "x_search_terms": [
       "список кінцевих точок матерії",
       "matter_endpoint_list",
       "матерія",
       "МАТЕРІЯ",
       "кінцева точка"
-    ]
+    ],
+    "err.config_missing": "Відсутні дані пристрою Matter. Установіть {env_json} або {env_file} для пристроїв, контролерів або мостів.",
+    "param.bridge.description": "Bridge ID (опціонально).",
+    "param.ctrl.description": "ID контролера (необов'язково)."
   },
   "vi": {
-    "tool.description": "List Matter device endpoints.",
-    "param.dev.description": "Device ID (required).",
-    "param.fmt.description": "Format: json or text.",
-    "err.device_id_required": "Matter device ID is required.",
-    "err.not_found": "Matter device not found: {device_id}",
-    "err.ambiguous_target": "Matter device target is ambiguous: {device_id}",
+    "tool.description": "Liệt kê các điểm cuối của thiết bị Matter.",
+    "param.dev.description": "ID thiết bị (bắt buộc).",
+    "param.fmt.description": "Định dạng: json hoặc văn bản.",
+    "err.device_id_required": "ID thiết bị có vấn đề là bắt buộc.",
+    "err.not_found": "Không tìm thấy thiết bị có vấn đề: {device_id}",
+    "err.ambiguous_target": "Mục tiêu thiết bị có vấn đề không rõ ràng: {device_id}",
     "x_search_terms": [
       "danh sách điểm cuối vấn đề",
       "vấn đề_endpoint_list",
       "vấn đề",
       "VẤN ĐỀ",
       "điểm cuối"
-    ]
+    ],
+    "err.config_missing": "Dữ liệu thiết bị có vấn đề bị thiếu. Đặt {env_json} hoặc {env_file} cho thiết bị, bộ điều khiển hoặc cầu nối.",
+    "param.bridge.description": "ID cầu (tùy chọn).",
+    "param.ctrl.description": "ID bộ điều khiển (tùy chọn)."
   },
   "zh_CN": {
-    "tool.description": "List Matter device endpoints.",
-    "param.dev.description": "Device ID (required).",
-    "param.fmt.description": "Format: json or text.",
-    "err.device_id_required": "Matter device ID is required.",
-    "err.not_found": "Matter device not found: {device_id}",
-    "err.ambiguous_target": "Matter device target is ambiguous: {device_id}",
+    "tool.description": "列出 Matter 设备端点。",
+    "param.dev.description": "设备 ID（必填）。",
+    "param.fmt.description": "格式：json 或文本。",
+    "err.device_id_required": "需要物质设备 ID。",
+    "err.not_found": "未找到问题设备：{device_id}",
+    "err.ambiguous_target": "物质设备目标不明确：{device_id}",
     "x_search_terms": [
       "物质端点列表",
       "matter_endpoint_list",
       "物质",
       "物质",
       "端点"
-    ]
+    ],
+    "err.config_missing": "物质设备数据丢失。为设备、控制器或网桥设置 {env_json} 或 {env_file}。",
+    "param.bridge.description": "网桥 ID（可选）。",
+    "param.ctrl.description": "控制器 ID（可选）。"
   },
   "zh_TW": {
-    "tool.description": "List Matter device endpoints.",
-    "param.dev.description": "Device ID (required).",
-    "param.fmt.description": "Format: json or text.",
-    "err.device_id_required": "Matter device ID is required.",
-    "err.not_found": "Matter device not found: {device_id}",
-    "err.ambiguous_target": "Matter device target is ambiguous: {device_id}",
+    "tool.description": "列出 Matter 設備端點。",
+    "param.dev.description": "設備 ID（必填）。",
+    "param.fmt.description": "格式：json 或文字。",
+    "err.device_id_required": "需要物質設備 ID。",
+    "err.not_found": "未找到問題設備：{device_id}",
+    "err.ambiguous_target": "物質設備目標不明確：{device_id}",
     "x_search_terms": [
       "物質端點清單",
       "matter_endpoint_list",
       "物質",
       "物質",
       "端點"
-    ]
+    ],
+    "err.config_missing": "物質設備資料遺失。為裝置、控制器或橋接器設定 {env_json} 或 {env_file}。",
+    "param.bridge.description": "網橋 ID（可選）。",
+    "param.ctrl.description": "控制器 ID（可選）。"
   }
 }

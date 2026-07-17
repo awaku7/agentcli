@@ -19,13 +19,13 @@
     ]
   },
   "ar": {
-    "param.location.description": "UPnP device description URL (e.g. http://192.168.1.100:5000/description.xml).",
-    "param.ip.description": "Device IP address (used with optional port to build a description URL).",
-    "param.port.description": "Port number (used with ip). Default: 5000 (common UPnP port).",
-    "param.timeout.description": "HTTP fetch timeout in seconds.",
-    "param.fmt.description": "Format: json or text.",
-    "err.no_target": "Either 'location' or 'ip' must be provided.",
-    "msg.device_info": "Device info for {location}",
+    "param.location.description": "عنوان URL لوصف جهاز UPnP (على سبيل المثال، http://192.168.1.100:5000/description.xml).",
+    "param.ip.description": "عنوان IP للجهاز (يُستخدم مع منفذ اختياري لإنشاء عنوان URL للوصف).",
+    "param.port.description": "رقم المنفذ (يستخدم مع IP). الافتراضي: 5000 (منفذ UPnP المشترك).",
+    "param.timeout.description": "انتهت مهلة جلب HTTP بالثواني.",
+    "param.fmt.description": "التنسيق: json أو نص.",
+    "err.no_target": "يجب توفير إما \"الموقع\" أو \"ip\".",
+    "msg.device_info": "معلومات الجهاز لـ {location}",
     "x_search_terms": [
       "معلومات جهاز upnp",
       "upnp_device_info",
@@ -33,16 +33,17 @@
       "أب إن بي",
       "مفصل",
       "حول"
-    ]
+    ],
+    "tool.description": "احصل على معلومات تفصيلية حول جهاز UPnP محدد من خلال عنوان URL الوصفي (الموقع) أو عنوان IP الخاص به. إرجاع البيانات التعريفية للجهاز وقائمة الخدمات وشجرة الأجهزة (الأجهزة الفرعية)."
   },
   "bn": {
-    "param.location.description": "UPnP device description URL (e.g. http://192.168.1.100:5000/description.xml).",
-    "param.ip.description": "Device IP address (used with optional port to build a description URL).",
-    "param.port.description": "Port number (used with ip). Default: 5000 (common UPnP port).",
-    "param.timeout.description": "HTTP fetch timeout in seconds.",
-    "param.fmt.description": "Format: json or text.",
-    "err.no_target": "Either 'location' or 'ip' must be provided.",
-    "msg.device_info": "Device info for {location}",
+    "param.location.description": "UPnP ডিভাইসের বিবরণ URL (যেমন http://192.168.1.100:5000/description.xml)।",
+    "param.ip.description": "ডিভাইসের আইপি ঠিকানা (একটি বর্ণনা URL তৈরি করতে ঐচ্ছিক পোর্টের সাথে ব্যবহার করা হয়)।",
+    "param.port.description": "পোর্ট নম্বর (আইপির সাথে ব্যবহৃত)। ডিফল্ট: 5000 (সাধারণ UPnP পোর্ট)।",
+    "param.timeout.description": "HTTP সেকেন্ডের মধ্যে টাইমআউট আনা।",
+    "param.fmt.description": "বিন্যাস: json বা পাঠ্য।",
+    "err.no_target": "হয় 'অবস্থান' বা 'ip' প্রদান করতে হবে।",
+    "msg.device_info": "{location} এর জন্য ডিভাইসের তথ্য",
     "x_search_terms": [
       "upnp ডিভাইস তথ্য",
       "upnp_device_info",
@@ -50,16 +51,17 @@
       "ইউপিএনপি",
       "বিস্তারিত",
       "সম্পর্কে"
-    ]
+    ],
+    "tool.description": "একটি নির্দিষ্ট UPnP ডিভাইসের বর্ণনা URL (অবস্থান) বা IP ঠিকানা দ্বারা তার সম্পর্কে বিস্তারিত তথ্য পান। ডিভাইস মেটাডেটা, পরিষেবা তালিকা এবং ডিভাইস ট্রি (সাব-ডিভাইস) প্রদান করে।"
   },
   "cs": {
-    "param.location.description": "UPnP device description URL (e.g. http://192.168.1.100:5000/description.xml).",
-    "param.ip.description": "Device IP address (used with optional port to build a description URL).",
-    "param.port.description": "Port number (used with ip). Default: 5000 (common UPnP port).",
-    "param.timeout.description": "HTTP fetch timeout in seconds.",
-    "param.fmt.description": "Format: json or text.",
-    "err.no_target": "Either 'location' or 'ip' must be provided.",
-    "msg.device_info": "Device info for {location}",
+    "param.location.description": "Adresa URL popisu zařízení UPnP (např. http://192.168.1.100:5000/description.xml).",
+    "param.ip.description": "IP adresa zařízení (používá se s volitelným portem k vytvoření adresy URL popisu).",
+    "param.port.description": "Číslo portu (používá se s IP). Výchozí: 5000 (společný port UPnP).",
+    "param.timeout.description": "Časový limit načítání HTTP v sekundách.",
+    "param.fmt.description": "Formát: json nebo text.",
+    "err.no_target": "Musí být poskytnuto buď 'location' nebo 'ip'.",
+    "msg.device_info": "Informace o zařízení pro {location}",
     "x_search_terms": [
       "informace o zařízení upnp",
       "upnp_device_info",
@@ -67,16 +69,17 @@
       "UPNP",
       "podrobný",
       "o"
-    ]
+    ],
+    "tool.description": "Získejte podrobné informace o konkrétním zařízení UPnP podle jeho popisné URL (umístění) nebo IP adresy. Vrátí metadata zařízení, seznam služeb a strom zařízení (podzařízení)."
   },
   "de": {
-    "param.location.description": "UPnP device description URL (e.g. http://192.168.1.100:5000/description.xml).",
-    "param.ip.description": "Device IP address (used with optional port to build a description URL).",
-    "param.port.description": "Port number (used with ip). Default: 5000 (common UPnP port).",
-    "param.timeout.description": "HTTP fetch timeout in seconds.",
-    "param.fmt.description": "Format: json or text.",
-    "err.no_target": "Either 'location' or 'ip' must be provided.",
-    "msg.device_info": "Device info for {location}",
+    "param.location.description": "UPnP-Gerätebeschreibungs-URL (z. B. http://192.168.1.100:5000/description.xml).",
+    "param.ip.description": "Geräte-IP-Adresse (wird mit optionalem Port zum Erstellen einer Beschreibungs-URL verwendet).",
+    "param.port.description": "Portnummer (wird mit IP verwendet). Standard: 5000 (gemeinsamer UPnP-Port).",
+    "param.timeout.description": "Zeitüberschreitung beim HTTP-Abruf in Sekunden.",
+    "param.fmt.description": "Format: JSON oder Text.",
+    "err.no_target": "Es muss entweder „Standort“ oder „IP“ angegeben werden.",
+    "msg.device_info": "Geräteinformationen für {location}",
     "x_search_terms": [
       "Upnp-Geräteinformationen",
       "upnp_device_info",
@@ -84,16 +87,17 @@
       "UPNP",
       "detailliert",
       "ungefähr"
-    ]
+    ],
+    "tool.description": "Erhalten Sie detaillierte Informationen zu einem bestimmten UPnP-Gerät anhand seiner Beschreibungs-URL (Standort) oder IP-Adresse. Gibt Gerätemetadaten, Dienstliste und Gerätebaum (Untergeräte) zurück."
   },
   "es": {
-    "param.location.description": "UPnP device description URL (e.g. http://192.168.1.100:5000/description.xml).",
-    "param.ip.description": "Device IP address (used with optional port to build a description URL).",
-    "param.port.description": "Port number (used with ip). Default: 5000 (common UPnP port).",
-    "param.timeout.description": "HTTP fetch timeout in seconds.",
-    "param.fmt.description": "Format: json or text.",
-    "err.no_target": "Either 'location' or 'ip' must be provided.",
-    "msg.device_info": "Device info for {location}",
+    "param.location.description": "URL de descripción del dispositivo UPnP (por ejemplo, http://192.168.1.100:5000/description.xml).",
+    "param.ip.description": "Dirección IP del dispositivo (utilizada con un puerto opcional para crear una URL de descripción).",
+    "param.port.description": "Número de puerto (usado con ip). Valor predeterminado: 5000 (puerto UPnP común).",
+    "param.timeout.description": "Tiempo de espera de recuperación de HTTP en segundos.",
+    "param.fmt.description": "Formato: json o texto.",
+    "err.no_target": "Se debe proporcionar 'ubicación' o 'ip'.",
+    "msg.device_info": "Información del dispositivo para {location}",
     "x_search_terms": [
       "información del dispositivo upnp",
       "upnp_device_info",
@@ -101,16 +105,17 @@
       "UPNP",
       "detallado",
       "acerca de"
-    ]
+    ],
+    "tool.description": "Obtenga información detallada sobre un dispositivo UPnP específico mediante su descripción URL (ubicación) o dirección IP. Devuelve metadatos del dispositivo, lista de servicios y árbol de dispositivos (subdispositivos)."
   },
   "fa": {
-    "param.location.description": "UPnP device description URL (e.g. http://192.168.1.100:5000/description.xml).",
-    "param.ip.description": "Device IP address (used with optional port to build a description URL).",
-    "param.port.description": "Port number (used with ip). Default: 5000 (common UPnP port).",
-    "param.timeout.description": "HTTP fetch timeout in seconds.",
-    "param.fmt.description": "Format: json or text.",
-    "err.no_target": "Either 'location' or 'ip' must be provided.",
-    "msg.device_info": "Device info for {location}",
+    "param.location.description": "URL توضیحات دستگاه UPnP (به عنوان مثال http://192.168.1.100:5000/description.xml).",
+    "param.ip.description": "آدرس IP دستگاه (با پورت اختیاری برای ساخت URL توضیحات استفاده می شود).",
+    "param.port.description": "شماره پورت (با ip استفاده می شود). پیش‌فرض: 5000 (درگاه UPnP رایج).",
+    "param.timeout.description": "پایان زمان واکشی HTTP در چند ثانیه.",
+    "param.fmt.description": "فرمت: json یا متن.",
+    "err.no_target": "\"موقعیت\" یا \"IP\" باید ارائه شود.",
+    "msg.device_info": "اطلاعات دستگاه برای {location}",
     "x_search_terms": [
       "اطلاعات دستگاه upnp",
       "upnp_device_info",
@@ -118,16 +123,17 @@
       "آپ‌ان‌پی",
       "جزئی",
       "درباره"
-    ]
+    ],
+    "tool.description": "اطلاعات دقیقی در مورد یک دستگاه UPnP خاص از طریق آدرس URL (موقعیت) یا آدرس IP شرح آن دریافت کنید. فراداده دستگاه، فهرست خدمات و درخت دستگاه (دستگاه‌های فرعی) را برمی‌گرداند."
   },
   "fi": {
-    "param.location.description": "UPnP device description URL (e.g. http://192.168.1.100:5000/description.xml).",
-    "param.ip.description": "Device IP address (used with optional port to build a description URL).",
-    "param.port.description": "Port number (used with ip). Default: 5000 (common UPnP port).",
-    "param.timeout.description": "HTTP fetch timeout in seconds.",
-    "param.fmt.description": "Format: json or text.",
-    "err.no_target": "Either 'location' or 'ip' must be provided.",
-    "msg.device_info": "Device info for {location}",
+    "param.location.description": "UPnP-laitteen kuvauksen URL-osoite (esim. http://192.168.1.100:5000/description.xml).",
+    "param.ip.description": "Laitteen IP-osoite (käytetään valinnaisen portin kanssa kuvaus-URL-osoitteen luomiseen).",
+    "param.port.description": "Portin numero (käytetään ip:n kanssa). Oletus: 5000 (yleinen UPnP-portti).",
+    "param.timeout.description": "HTTP-haun aikakatkaisu sekunneissa.",
+    "param.fmt.description": "Muoto: json tai teksti.",
+    "err.no_target": "Joko \"sijainti\" tai \"ip\" on annettava.",
+    "msg.device_info": "Laitetiedot kohteelle {location}",
     "x_search_terms": [
       "upnp-laitetiedot",
       "upnp_device_info",
@@ -135,16 +141,17 @@
       "UPNP",
       "yksityiskohtainen",
       "noin"
-    ]
+    ],
+    "tool.description": "Saat yksityiskohtaisia ​​tietoja tietystä UPnP-laitteesta sen kuvaus-URL-osoitteen (sijainnin) tai IP-osoitteen avulla. Palauttaa laitteen metatiedot, palveluluettelon ja laitepuun (alilaitteet)."
   },
   "fr": {
-    "param.location.description": "UPnP device description URL (e.g. http://192.168.1.100:5000/description.xml).",
-    "param.ip.description": "Device IP address (used with optional port to build a description URL).",
-    "param.port.description": "Port number (used with ip). Default: 5000 (common UPnP port).",
-    "param.timeout.description": "HTTP fetch timeout in seconds.",
-    "param.fmt.description": "Format: json or text.",
-    "err.no_target": "Either 'location' or 'ip' must be provided.",
-    "msg.device_info": "Device info for {location}",
+    "param.location.description": "URL de description de l'appareil UPnP (par exemple http://192.168.1.100:5000/description.xml).",
+    "param.ip.description": "Adresse IP de l'appareil (utilisée avec un port facultatif pour créer une URL de description).",
+    "param.port.description": "Numéro de port (utilisé avec IP). Par défaut : 5 000 (port UPnP commun).",
+    "param.timeout.description": "Délai d'expiration de la récupération HTTP en secondes.",
+    "param.fmt.description": "Format : json ou texte.",
+    "err.no_target": "Soit « emplacement » soit « IP » doivent être fournis.",
+    "msg.device_info": "Informations sur l'appareil pour {location}",
     "x_search_terms": [
       "informations sur le périphérique upnp",
       "upnp_device_info",
@@ -152,16 +159,17 @@
       "UPNP",
       "détaillé",
       "à propos"
-    ]
+    ],
+    "tool.description": "Obtenez des informations détaillées sur un périphérique UPnP spécifique par son URL de description (emplacement) ou son adresse IP. Renvoie les métadonnées de l'appareil, la liste des services et l'arborescence des appareils (sous-appareils)."
   },
   "hi": {
-    "param.location.description": "UPnP device description URL (e.g. http://192.168.1.100:5000/description.xml).",
-    "param.ip.description": "Device IP address (used with optional port to build a description URL).",
-    "param.port.description": "Port number (used with ip). Default: 5000 (common UPnP port).",
-    "param.timeout.description": "HTTP fetch timeout in seconds.",
-    "param.fmt.description": "Format: json or text.",
-    "err.no_target": "Either 'location' or 'ip' must be provided.",
-    "msg.device_info": "Device info for {location}",
+    "param.location.description": "UPnP डिवाइस विवरण URL (जैसे http://192.168.1.100:5000/description.xml)।",
+    "param.ip.description": "डिवाइस आईपी पता (विवरण यूआरएल बनाने के लिए वैकल्पिक पोर्ट के साथ प्रयोग किया जाता है)।",
+    "param.port.description": "पोर्ट नंबर (आईपी के साथ प्रयुक्त)। डिफ़ॉल्ट: 5000 (सामान्य यूपीएनपी पोर्ट)।",
+    "param.timeout.description": "HTTP फ़ेच टाइमआउट सेकंड में।",
+    "param.fmt.description": "प्रारूप: json या text.",
+    "err.no_target": "या तो 'स्थान' या 'आईपी' प्रदान किया जाना चाहिए।",
+    "msg.device_info": "{location} के लिए डिवाइस जानकारी",
     "x_search_terms": [
       "upnp डिवाइस जानकारी",
       "upnp_device_info",
@@ -169,16 +177,17 @@
       "यूपीएनपी",
       "विस्तृत",
       "के बारे में"
-    ]
+    ],
+    "tool.description": "किसी विशिष्ट UPnP डिवाइस के बारे में उसके विवरण URL (स्थान) या IP पते से विस्तृत जानकारी प्राप्त करें। डिवाइस मेटाडेटा, सेवा सूची और डिवाइस ट्री (उप-डिवाइस) लौटाता है।"
   },
   "id": {
-    "param.location.description": "UPnP device description URL (e.g. http://192.168.1.100:5000/description.xml).",
-    "param.ip.description": "Device IP address (used with optional port to build a description URL).",
-    "param.port.description": "Port number (used with ip). Default: 5000 (common UPnP port).",
-    "param.timeout.description": "HTTP fetch timeout in seconds.",
-    "param.fmt.description": "Format: json or text.",
-    "err.no_target": "Either 'location' or 'ip' must be provided.",
-    "msg.device_info": "Device info for {location}",
+    "param.location.description": "URL deskripsi perangkat UPnP (mis. http://192.168.1.100:5000/description.xml).",
+    "param.ip.description": "Alamat IP perangkat (digunakan dengan port opsional untuk membuat URL deskripsi).",
+    "param.port.description": "Nomor port (digunakan dengan ip). Default: 5000 (port UPnP umum).",
+    "param.timeout.description": "Batas waktu pengambilan HTTP dalam hitungan detik.",
+    "param.fmt.description": "Format: json atau teks.",
+    "err.no_target": "Baik 'lokasi' atau 'ip' harus disediakan.",
+    "msg.device_info": "Info perangkat untuk {location}",
     "x_search_terms": [
       "info perangkat upnp",
       "upnp_device_info",
@@ -186,16 +195,17 @@
       "UPNP",
       "rinci",
       "tentang"
-    ]
+    ],
+    "tool.description": "Dapatkan info detail tentang perangkat UPnP tertentu berdasarkan URL deskripsi (lokasi) atau alamat IP. Mengembalikan metadata perangkat, daftar layanan, dan pohon perangkat (sub-perangkat)."
   },
   "it": {
-    "param.location.description": "UPnP device description URL (e.g. http://192.168.1.100:5000/description.xml).",
-    "param.ip.description": "Device IP address (used with optional port to build a description URL).",
-    "param.port.description": "Port number (used with ip). Default: 5000 (common UPnP port).",
-    "param.timeout.description": "HTTP fetch timeout in seconds.",
-    "param.fmt.description": "Format: json or text.",
-    "err.no_target": "Either 'location' or 'ip' must be provided.",
-    "msg.device_info": "Device info for {location}",
+    "param.location.description": "URL di descrizione del dispositivo UPnP (ad esempio http://192.168.1.100:5000/description.xml).",
+    "param.ip.description": "Indirizzo IP del dispositivo (utilizzato con porta opzionale per creare un URL di descrizione).",
+    "param.port.description": "Numero di porta (utilizzato con ip). Impostazione predefinita: 5000 (porta UPnP comune).",
+    "param.timeout.description": "Timeout recupero HTTP in secondi.",
+    "param.fmt.description": "Formato: json o testo.",
+    "err.no_target": "È necessario fornire \"località\" o \"ip\".",
+    "msg.device_info": "Informazioni sul dispositivo per {location}",
     "x_search_terms": [
       "informazioni sul dispositivo upnp",
       "upnp_device_info",
@@ -203,16 +213,17 @@
       "UPNP",
       "dettagliato",
       "circa"
-    ]
+    ],
+    "tool.description": "Ottieni informazioni dettagliate su un dispositivo UPnP specifico tramite l'URL di descrizione (posizione) o l'indirizzo IP. Restituisce i metadati del dispositivo, l'elenco dei servizi e la struttura dei dispositivi (sottodispositivi)."
   },
   "ko": {
-    "param.location.description": "UPnP device description URL (e.g. http://192.168.1.100:5000/description.xml).",
-    "param.ip.description": "Device IP address (used with optional port to build a description URL).",
-    "param.port.description": "Port number (used with ip). Default: 5000 (common UPnP port).",
-    "param.timeout.description": "HTTP fetch timeout in seconds.",
-    "param.fmt.description": "Format: json or text.",
-    "err.no_target": "Either 'location' or 'ip' must be provided.",
-    "msg.device_info": "Device info for {location}",
+    "param.location.description": "UPnP 장치 설명 URL(예: http://192.168.1.100:5000/description.xml)",
+    "param.ip.description": "장치 IP 주소(설명 URL을 구축하기 위해 선택적 포트와 함께 사용됨)",
+    "param.port.description": "포트 번호(ip와 함께 사용됨) 기본값: 5000(공통 UPnP 포트).",
+    "param.timeout.description": "HTTP 가져오기 시간 초과(초)입니다.",
+    "param.fmt.description": "형식: json 또는 텍스트.",
+    "err.no_target": "'위치' 또는 'ip'를 제공해야 합니다.",
+    "msg.device_info": "{location}의 기기 정보",
     "x_search_terms": [
       "upnp 장치 정보",
       "upnp_device_info",
@@ -220,16 +231,17 @@
       "UPNP",
       "상세한",
       "약"
-    ]
+    ],
+    "tool.description": "설명 URL(위치) 또는 IP 주소를 통해 특정 UPnP 장치에 대한 자세한 정보를 얻으세요. 장치 메타데이터, 서비스 목록 및 장치 트리(하위 장치)를 반환합니다."
   },
   "mn": {
-    "param.location.description": "UPnP device description URL (e.g. http://192.168.1.100:5000/description.xml).",
-    "param.ip.description": "Device IP address (used with optional port to build a description URL).",
-    "param.port.description": "Port number (used with ip). Default: 5000 (common UPnP port).",
-    "param.timeout.description": "HTTP fetch timeout in seconds.",
-    "param.fmt.description": "Format: json or text.",
-    "err.no_target": "Either 'location' or 'ip' must be provided.",
-    "msg.device_info": "Device info for {location}",
+    "param.location.description": "UPnP төхөөрөмжийн тодорхойлолтын URL (жишээ нь: http://192.168.1.100:5000/description.xml).",
+    "param.ip.description": "Төхөөрөмжийн IP хаяг (тайлбарын URL үүсгэхийн тулд нэмэлт порттой хамт ашигладаг).",
+    "param.port.description": "Портын дугаар (ip-д ашиглагддаг). Өгөгдмөл: 5000 (нийтлэг UPnP порт).",
+    "param.timeout.description": "HTTP дуудах хугацаа секундын дотор.",
+    "param.fmt.description": "Формат: json эсвэл текст.",
+    "err.no_target": "\"Байршил\" эсвэл \"ip\"-ийн аль нэгийг өгөх ёстой.",
+    "msg.device_info": "{location}-д зориулсан төхөөрөмжийн мэдээлэл",
     "x_search_terms": [
       "upnp төхөөрөмжийн мэдээлэл",
       "upnp_device_info",
@@ -237,16 +249,17 @@
       "упнп",
       "дэлгэрэнгүй",
       "тухай"
-    ]
+    ],
+    "tool.description": "Тодорхой UPnP төхөөрөмжийн талаарх дэлгэрэнгүй мэдээллийг түүний тайлбарын URL (байршил) эсвэл IP хаягаар аваарай. Төхөөрөмжийн мета өгөгдөл, үйлчилгээний жагсаалт болон төхөөрөмжийн модыг (дэд төхөөрөмж) буцаана."
   },
   "mr": {
-    "param.location.description": "UPnP device description URL (e.g. http://192.168.1.100:5000/description.xml).",
-    "param.ip.description": "Device IP address (used with optional port to build a description URL).",
-    "param.port.description": "Port number (used with ip). Default: 5000 (common UPnP port).",
-    "param.timeout.description": "HTTP fetch timeout in seconds.",
-    "param.fmt.description": "Format: json or text.",
-    "err.no_target": "Either 'location' or 'ip' must be provided.",
-    "msg.device_info": "Device info for {location}",
+    "param.location.description": "UPnP डिव्हाइस वर्णन URL (उदा. http://192.168.1.100:5000/description.xml).",
+    "param.ip.description": "डिव्हाइसचा IP पत्ता (वर्णन URL तयार करण्यासाठी पर्यायी पोर्टसह वापरला जातो).",
+    "param.port.description": "पोर्ट क्रमांक (ip सह वापरलेला). डीफॉल्ट: 5000 (सामान्य UPnP पोर्ट).",
+    "param.timeout.description": "HTTP प्राप्त करण्याचा कालबाह्य सेकंदात.",
+    "param.fmt.description": "स्वरूप: json किंवा मजकूर.",
+    "err.no_target": "एकतर 'स्थान' किंवा 'ip' प्रदान करणे आवश्यक आहे.",
+    "msg.device_info": "{location} साठी डिव्हाइस माहिती",
     "x_search_terms": [
       "upnp उपकरण माहिती",
       "upnp_device_info",
@@ -254,16 +267,17 @@
       "यूपीएनपी",
       "तपशीलवार",
       "बद्दल"
-    ]
+    ],
+    "tool.description": "विशिष्ट UPnP डिव्हाइसबद्दल तपशीलवार माहिती त्याच्या वर्णन URL (स्थान) किंवा IP पत्त्याद्वारे मिळवा. डिव्हाइस मेटाडेटा, सेवा सूची आणि डिव्हाइस ट्री (उप-डिव्हाइस) मिळवते."
   },
   "el": {
     "param.location.description": "Διεύθυνση IP συσκευής (χρησιμοποιείται με προαιρετική θύρα για τη δημιουργία διεύθυνσης URL περιγραφής).",
     "param.ip.description": "Αριθμός θύρας (χρησιμοποιείται με ip). Προεπιλογή: 5000 (κοινή θύρα UPnP).",
     "param.port.description": "Λήξη χρονικού ορίου ανάκτησης HTTP σε δευτερόλεπτα.",
     "param.timeout.description": "Πρέπει να παρέχεται είτε \"τοποθεσία\" ή \"ip\".",
-    "param.fmt.description": "Στιγμιότυπο προσωρινής μνήμης ECHONET: {count} στοιχεία.",
-    "err.no_target": "Πληροφορίες συσκευής για {location}",
-    "msg.device_info": "Εκτελέστε λειτουργίες δρομολογητή UPnP IGD: επιθεωρήστε την κατάσταση WAN, παραθέστε αντιστοιχίσεις θυρών, προσθέστε μια αντιστοίχιση θύρας ή διαγράψτε μια αντιστοίχιση θύρας.",
+    "param.fmt.description": "Μορφή: json ή κείμενο.",
+    "err.no_target": "Πρέπει να παρέχεται είτε «τοποθεσία» ή «IP».",
+    "msg.device_info": "Πληροφορίες συσκευής για {location}",
     "x_search_terms": [
       "πληροφορίες συσκευής upnp",
       "upnp_device_info",
@@ -271,7 +285,8 @@
       "UPNP",
       "λεπτομερής",
       "σχετικά"
-    ]
+    ],
+    "tool.description": "Λάβετε λεπτομερείς πληροφορίες σχετικά με μια συγκεκριμένη συσκευή UPnP από τη διεύθυνση URL περιγραφής (τοποθεσία) ή τη διεύθυνση IP της. Επιστρέφει μεταδεδομένα συσκευής, λίστα υπηρεσιών και δέντρο συσκευών (υπο-συσκευές)."
   },
   "he": {
     "param.location.description": "כתובת IP של מכשיר (משמשת עם יציאה אופציונלית לבניית כתובת URL לתיאור).",
@@ -279,8 +294,8 @@
     "param.port.description": "פסק זמן לאחזור HTTP בשניות.",
     "param.timeout.description": "יש לספק 'מיקום' או 'ip'.",
     "param.fmt.description": "אין ערכים במטמון.",
-    "err.no_target": "מידע מכשיר עבור {location}",
-    "msg.device_info": "בצע פעולות נתב UPnP IGD: בדוק את סטטוס ה-WAN, רשום מיפויי יציאות, הוסף מיפוי יציאות או מחק מיפוי יציאה.",
+    "err.no_target": "יש לספק 'מיקום' או 'ip'.",
+    "msg.device_info": "מידע מכשיר עבור {location}",
     "x_search_terms": [
       "מידע על מכשיר upnp",
       "upnp_device_info",
@@ -288,7 +303,8 @@
       "UPNP",
       "מפורט",
       "אודות"
-    ]
+    ],
+    "tool.description": "קבל מידע מפורט על מכשיר UPnP ספציפי לפי כתובת ה-URL התיאורית שלו (מיקום) או כתובת ה-IP. מחזירה מטא נתונים של המכשיר, רשימת שירותים ועץ התקנים (תת-התקנים)."
   },
   "hu": {
     "param.location.description": "Az eszköz IP-címe (opcionális porttal használva a leíró URL létrehozásához).",
@@ -296,8 +312,8 @@
     "param.port.description": "HTTP lekérési időtúllépés másodpercben.",
     "param.timeout.description": "Meg kell adni a „location” vagy az „ip” értéket.",
     "param.fmt.description": "Gyorsítótár művelet: pillanatfelvétel vagy törlés.",
-    "err.no_target": "Eszközadatok a következőhöz: {location}",
-    "msg.device_info": "Hajtsa végre az UPnP IGD útválasztó műveleteit: ellenőrizze a WAN állapotát, listázza ki a portleképezéseket, adjon hozzá portleképezést vagy törölje a portleképezést.",
+    "err.no_target": "Meg kell adni a „location” vagy az „ip” értéket.",
+    "msg.device_info": "A {location} eszközinformációi",
     "x_search_terms": [
       "upnp eszköz információ",
       "upnp_device_info",
@@ -305,7 +321,8 @@
       "UPNP",
       "részletes",
       "körülbelül"
-    ]
+    ],
+    "tool.description": "Részletes információkat kaphat egy adott UPnP-eszközről a leírás URL-je (helye) vagy IP-címe alapján. Visszaadja az eszköz metaadatait, a szolgáltatáslistát és az eszközfát (aleszközöket)."
   },
   "ro": {
     "param.location.description": "Adresă IP a dispozitivului (utilizată cu portul opțional pentru a crea o adresă URL de descriere).",
@@ -313,8 +330,8 @@
     "param.port.description": "Timeout pentru preluarea HTTP în secunde.",
     "param.timeout.description": "Trebuie furnizate fie „locație”, fie „ip”.",
     "param.fmt.description": "Inspectați sau ștergeți memoria cache ECHONET Lite partajată.",
-    "err.no_target": "Informații despre dispozitiv pentru {location}",
-    "msg.device_info": "Efectuați operațiuni de ruter UPnP IGD: inspectați starea WAN, listați mapările de porturi, adăugați o mapare de porturi sau ștergeți o mapare de porturi.",
+    "err.no_target": "Trebuie furnizate fie „locație”, fie „ip”.",
+    "msg.device_info": "Informații despre dispozitiv pentru {location}",
     "x_search_terms": [
       "informații dispozitiv upnp",
       "upnp_device_info",
@@ -322,16 +339,17 @@
       "UPNP",
       "detaliat",
       "despre"
-    ]
+    ],
+    "tool.description": "Obțineți informații detaliate despre un anumit dispozitiv UPnP prin adresa URL de descriere (locație) sau adresa IP. Returnează metadatele dispozitivului, lista de servicii și arborele dispozitivelor (sub-dispozitive)."
   },
   "nb": {
-    "param.location.description": "UPnP device description URL (e.g. http://192.168.1.100:5000/description.xml).",
-    "param.ip.description": "Device IP address (used with optional port to build a description URL).",
-    "param.port.description": "Port number (used with ip). Default: 5000 (common UPnP port).",
-    "param.timeout.description": "HTTP fetch timeout in seconds.",
-    "param.fmt.description": "Format: json or text.",
-    "err.no_target": "Either 'location' or 'ip' must be provided.",
-    "msg.device_info": "Device info for {location}",
+    "param.location.description": "URL for UPnP-enhetsbeskrivelse (f.eks. http://192.168.1.100:5000/description.xml).",
+    "param.ip.description": "Enhetens IP-adresse (brukes med valgfri port for å bygge en beskrivelses-URL).",
+    "param.port.description": "Portnummer (brukes med ip). Standard: 5000 (vanlig UPnP-port).",
+    "param.timeout.description": "Tidsavbrudd for HTTP-henting i sekunder.",
+    "param.fmt.description": "Format: json eller tekst.",
+    "err.no_target": "Enten 'location' eller 'ip' må oppgis.",
+    "msg.device_info": "Enhetsinformasjon for {location}",
     "x_search_terms": [
       "upnp-enhetsinformasjon",
       "upnp_device_info",
@@ -339,16 +357,17 @@
       "UPNP",
       "detaljert",
       "om"
-    ]
+    ],
+    "tool.description": "Få detaljert informasjon om en spesifikk UPnP-enhet ved dens beskrivelses-URL (plassering) eller IP-adresse. Returnerer enhetsmetadata, tjenesteliste og enhetstre (underenheter)."
   },
   "nl": {
-    "param.location.description": "UPnP device description URL (e.g. http://192.168.1.100:5000/description.xml).",
-    "param.ip.description": "Device IP address (used with optional port to build a description URL).",
-    "param.port.description": "Port number (used with ip). Default: 5000 (common UPnP port).",
-    "param.timeout.description": "HTTP fetch timeout in seconds.",
-    "param.fmt.description": "Format: json or text.",
-    "err.no_target": "Either 'location' or 'ip' must be provided.",
-    "msg.device_info": "Device info for {location}",
+    "param.location.description": "UPnP-apparaatbeschrijvings-URL (bijvoorbeeld http://192.168.1.100:5000/description.xml).",
+    "param.ip.description": "IP-adres van apparaat (gebruikt met optionele poort om een ​​beschrijvings-URL samen te stellen).",
+    "param.port.description": "Poortnummer (gebruikt met IP). Standaard: 5000 (gemeenschappelijke UPnP-poort).",
+    "param.timeout.description": "Time-out voor HTTP-ophaaltijd in seconden.",
+    "param.fmt.description": "Formaat: json of tekst.",
+    "err.no_target": "Er moet 'locatie' of 'ip' worden opgegeven.",
+    "msg.device_info": "Apparaatgegevens voor {location}",
     "x_search_terms": [
       "upnp-apparaatinformatie",
       "upnp_device_info",
@@ -356,16 +375,17 @@
       "UPNP",
       "gedetailleerd",
       "over"
-    ]
+    ],
+    "tool.description": "Ontvang gedetailleerde informatie over een specifiek UPnP-apparaat via de beschrijvings-URL (locatie) of IP-adres. Retourneert metagegevens van het apparaat, de servicelijst en de apparaatstructuur (subapparaten)."
   },
   "pl": {
-    "param.location.description": "UPnP device description URL (e.g. http://192.168.1.100:5000/description.xml).",
-    "param.ip.description": "Device IP address (used with optional port to build a description URL).",
-    "param.port.description": "Port number (used with ip). Default: 5000 (common UPnP port).",
-    "param.timeout.description": "HTTP fetch timeout in seconds.",
-    "param.fmt.description": "Format: json or text.",
-    "err.no_target": "Either 'location' or 'ip' must be provided.",
-    "msg.device_info": "Device info for {location}",
+    "param.location.description": "Adres URL opisu urządzenia UPnP (np. http://192.168.1.100:5000/description.xml).",
+    "param.ip.description": "Adres IP urządzenia (używany z opcjonalnym portem do tworzenia adresu URL opisu).",
+    "param.port.description": "Numer portu (używany z IP). Wartość domyślna: 5000 (wspólny port UPnP).",
+    "param.timeout.description": "Limit czasu pobierania HTTP w sekundach.",
+    "param.fmt.description": "Format: json lub tekst.",
+    "err.no_target": "Należy podać „lokalizację” lub „ip”.",
+    "msg.device_info": "Informacje o urządzeniu dla {location}",
     "x_search_terms": [
       "informacje o urządzeniu upnp",
       "upnp_device_info",
@@ -373,16 +393,17 @@
       "UPNP",
       "szczegółowe",
       "o"
-    ]
+    ],
+    "tool.description": "Uzyskaj szczegółowe informacje o konkretnym urządzeniu UPnP według jego adresu URL (lokalizacji) lub adresu IP. Zwraca metadane urządzenia, listę usług i drzewo urządzeń (urządzenia podrzędne)."
   },
   "pt": {
-    "param.location.description": "UPnP device description URL (e.g. http://192.168.1.100:5000/description.xml).",
-    "param.ip.description": "Device IP address (used with optional port to build a description URL).",
-    "param.port.description": "Port number (used with ip). Default: 5000 (common UPnP port).",
-    "param.timeout.description": "HTTP fetch timeout in seconds.",
-    "param.fmt.description": "Format: json or text.",
-    "err.no_target": "Either 'location' or 'ip' must be provided.",
-    "msg.device_info": "Device info for {location}",
+    "param.location.description": "URL de descrição do dispositivo UPnP (por exemplo, http://192.168.1.100:5000/description.xml).",
+    "param.ip.description": "Endereço IP do dispositivo (usado com porta opcional para criar um URL de descrição).",
+    "param.port.description": "Número da porta (usado com ip). Padrão: 5000 (porta UPnP comum).",
+    "param.timeout.description": "Tempo limite de busca HTTP em segundos.",
+    "param.fmt.description": "Formato: json ou texto.",
+    "err.no_target": "Deve ser fornecido 'local' ou 'ip'.",
+    "msg.device_info": "Informações do dispositivo para {location}",
     "x_search_terms": [
       "informações do dispositivo upnp",
       "upnp_device_info",
@@ -390,16 +411,17 @@
       "UPNP",
       "detalhado",
       "sobre"
-    ]
+    ],
+    "tool.description": "Obtenha informações detalhadas sobre um dispositivo UPnP específico por meio de seu URL de descrição (localização) ou endereço IP. Retorna metadados de dispositivos, lista de serviços e árvore de dispositivos (subdispositivos)."
   },
   "pt_BR": {
-    "param.location.description": "UPnP device description URL (e.g. http://192.168.1.100:5000/description.xml).",
-    "param.ip.description": "Device IP address (used with optional port to build a description URL).",
-    "param.port.description": "Port number (used with ip). Default: 5000 (common UPnP port).",
-    "param.timeout.description": "HTTP fetch timeout in seconds.",
-    "param.fmt.description": "Format: json or text.",
-    "err.no_target": "Either 'location' or 'ip' must be provided.",
-    "msg.device_info": "Device info for {location}",
+    "param.location.description": "URL de descrição do dispositivo UPnP (por exemplo, http://192.168.1.100:5000/description.xml).",
+    "param.ip.description": "Endereço IP do dispositivo (usado com porta opcional para criar um URL de descrição).",
+    "param.port.description": "Número da porta (usado com ip). Padrão: 5000 (porta UPnP comum).",
+    "param.timeout.description": "Tempo limite de busca HTTP em segundos.",
+    "param.fmt.description": "Formato: json ou texto.",
+    "err.no_target": "Deve ser fornecido 'local' ou 'ip'.",
+    "msg.device_info": "Informações do dispositivo para {location}",
     "x_search_terms": [
       "informações do dispositivo upnp",
       "upnp_device_info",
@@ -407,16 +429,17 @@
       "UPNP",
       "detalhado",
       "sobre"
-    ]
+    ],
+    "tool.description": "Obtenha informações detalhadas sobre um dispositivo UPnP específico por meio de seu URL de descrição (localização) ou endereço IP. Retorna metadados de dispositivos, lista de serviços e árvore de dispositivos (subdispositivos)."
   },
   "ru": {
-    "param.location.description": "UPnP device description URL (e.g. http://192.168.1.100:5000/description.xml).",
-    "param.ip.description": "Device IP address (used with optional port to build a description URL).",
-    "param.port.description": "Port number (used with ip). Default: 5000 (common UPnP port).",
-    "param.timeout.description": "HTTP fetch timeout in seconds.",
-    "param.fmt.description": "Format: json or text.",
-    "err.no_target": "Either 'location' or 'ip' must be provided.",
-    "msg.device_info": "Device info for {location}",
+    "param.location.description": "URL-адрес описания устройства UPnP (например, http://192.168.1.100:5000/description.xml).",
+    "param.ip.description": "IP-адрес устройства (используется с дополнительным портом для создания URL-адреса описания).",
+    "param.port.description": "Номер порта (используется с IP). По умолчанию: 5000 (общий порт UPnP).",
+    "param.timeout.description": "Тайм-аут HTTP-загрузки в секундах.",
+    "param.fmt.description": "Формат: json или текст.",
+    "err.no_target": "Необходимо указать либо «местоположение», либо «ip».",
+    "msg.device_info": "Информация об устройстве для {location}",
     "x_search_terms": [
       "информация об устройстве upnp",
       "upnp_device_info",
@@ -424,16 +447,17 @@
       "UPNP",
       "подробно",
       "о"
-    ]
+    ],
+    "tool.description": "Получите подробную информацию о конкретном устройстве UPnP по URL-адресу его описания (местоположению) или IP-адресу. Возвращает метаданные устройства, список сервисов и дерево устройств (подустройства)."
   },
   "sv": {
-    "param.location.description": "UPnP device description URL (e.g. http://192.168.1.100:5000/description.xml).",
-    "param.ip.description": "Device IP address (used with optional port to build a description URL).",
-    "param.port.description": "Port number (used with ip). Default: 5000 (common UPnP port).",
-    "param.timeout.description": "HTTP fetch timeout in seconds.",
-    "param.fmt.description": "Format: json or text.",
-    "err.no_target": "Either 'location' or 'ip' must be provided.",
-    "msg.device_info": "Device info for {location}",
+    "param.location.description": "URL för UPnP-enhetsbeskrivning (t.ex. http://192.168.1.100:5000/description.xml).",
+    "param.ip.description": "Enhetens IP-adress (används med valfri port för att skapa en beskrivnings-URL).",
+    "param.port.description": "Portnummer (används med ip). Standard: 5000 (vanlig UPnP-port).",
+    "param.timeout.description": "HTTP-hämtningstidsgräns på sekunder.",
+    "param.fmt.description": "Format: json eller text.",
+    "err.no_target": "Antingen \"plats\" eller \"ip\" måste anges.",
+    "msg.device_info": "Enhetsinformation för {location}",
     "x_search_terms": [
       "upnp-enhetsinformation",
       "upnp_device_info",
@@ -441,16 +465,17 @@
       "UPNP",
       "detaljerad",
       "om"
-    ]
+    ],
+    "tool.description": "Få detaljerad information om en specifik UPnP-enhet genom dess beskrivnings-URL (plats) eller IP-adress. Returnerar enhetens metadata, tjänstelista och enhetsträd (underenheter)."
   },
   "sw": {
-    "param.location.description": "UPnP device description URL (e.g. http://192.168.1.100:5000/description.xml).",
-    "param.ip.description": "Device IP address (used with optional port to build a description URL).",
-    "param.port.description": "Port number (used with ip). Default: 5000 (common UPnP port).",
-    "param.timeout.description": "HTTP fetch timeout in seconds.",
-    "param.fmt.description": "Format: json or text.",
-    "err.no_target": "Either 'location' or 'ip' must be provided.",
-    "msg.device_info": "Device info for {location}",
+    "param.location.description": "URL ya maelezo ya kifaa cha UPnP (k.m. http://192.168.1.100:5000/description.xml).",
+    "param.ip.description": "Anwani ya IP ya kifaa (inatumiwa na mlango wa hiari kuunda URL ya maelezo).",
+    "param.port.description": "Nambari ya bandari (inayotumiwa na ip). Chaguomsingi: 5000 (mlango wa kawaida wa UPnP).",
+    "param.timeout.description": "Muda wa kuleta HTTP umekwisha kwa sekunde.",
+    "param.fmt.description": "Umbizo: json au maandishi.",
+    "err.no_target": "Ni lazima 'mahali' au 'ip' itolewe.",
+    "msg.device_info": "Maelezo ya kifaa ya {location}",
     "x_search_terms": [
       "maelezo ya kifaa cha upnp",
       "upnp_device_info",
@@ -458,16 +483,17 @@
       "UPNP",
       "kina",
       "kuhusu"
-    ]
+    ],
+    "tool.description": "Pata maelezo ya kina kuhusu kifaa mahususi cha UPnP kwa maelezo yake ya URL (mahali) au anwani ya IP. Hurejesha metadata ya kifaa, orodha ya huduma na mti wa kifaa (vifaa vidogo)."
   },
   "th": {
-    "param.location.description": "UPnP device description URL (e.g. http://192.168.1.100:5000/description.xml).",
-    "param.ip.description": "Device IP address (used with optional port to build a description URL).",
-    "param.port.description": "Port number (used with ip). Default: 5000 (common UPnP port).",
-    "param.timeout.description": "HTTP fetch timeout in seconds.",
-    "param.fmt.description": "Format: json or text.",
-    "err.no_target": "Either 'location' or 'ip' must be provided.",
-    "msg.device_info": "Device info for {location}",
+    "param.location.description": "URL คำอธิบายอุปกรณ์ UPnP (เช่น http://192.168.1.100:5000/description.xml)",
+    "param.ip.description": "ที่อยู่ IP ของอุปกรณ์ (ใช้กับพอร์ตเสริมเพื่อสร้าง URL คำอธิบาย)",
+    "param.port.description": "หมายเลขพอร์ต (ใช้กับ IP) ค่าเริ่มต้น: 5000 (พอร์ต UPnP ทั่วไป)",
+    "param.timeout.description": "หมดเวลาการดึงข้อมูล HTTP ในหน่วยวินาที",
+    "param.fmt.description": "รูปแบบ: json หรือข้อความ",
+    "err.no_target": "ต้องระบุ 'ตำแหน่ง' หรือ 'ip'",
+    "msg.device_info": "ข้อมูลอุปกรณ์สำหรับ {location}",
     "x_search_terms": [
       "ข้อมูลอุปกรณ์ upnp",
       "upnp_device_info",
@@ -475,16 +501,17 @@
       "อัปเอ็นพี",
       "รายละเอียด",
       "เกี่ยวกับ"
-    ]
+    ],
+    "tool.description": "รับข้อมูลโดยละเอียดเกี่ยวกับอุปกรณ์ UPnP เฉพาะตาม URL คำอธิบาย (ตำแหน่ง) หรือที่อยู่ IP ส่งคืนข้อมูลเมตาของอุปกรณ์ รายการบริการ และแผนผังอุปกรณ์ (อุปกรณ์ย่อย)"
   },
   "tr": {
-    "param.location.description": "UPnP device description URL (e.g. http://192.168.1.100:5000/description.xml).",
-    "param.ip.description": "Device IP address (used with optional port to build a description URL).",
-    "param.port.description": "Port number (used with ip). Default: 5000 (common UPnP port).",
-    "param.timeout.description": "HTTP fetch timeout in seconds.",
-    "param.fmt.description": "Format: json or text.",
-    "err.no_target": "Either 'location' or 'ip' must be provided.",
-    "msg.device_info": "Device info for {location}",
+    "param.location.description": "UPnP cihaz açıklama URL'si (ör. http://192.168.1.100:5000/description.xml).",
+    "param.ip.description": "Cihaz IP adresi (bir açıklama URL'si oluşturmak için isteğe bağlı bağlantı noktasıyla birlikte kullanılır).",
+    "param.port.description": "Bağlantı noktası numarası (ip ile kullanılır). Varsayılan: 5000 (ortak UPnP bağlantı noktası).",
+    "param.timeout.description": "HTTP getirme zaman aşımı saniye cinsinden.",
+    "param.fmt.description": "Biçim: json veya metin.",
+    "err.no_target": "Ya 'konum' ya da 'ip' sağlanmalıdır.",
+    "msg.device_info": "{location} için cihaz bilgisi",
     "x_search_terms": [
       "upnp cihaz bilgisi",
       "upnp_device_info",
@@ -492,16 +519,17 @@
       "UPNP",
       "ayrıntılı",
       "hakkında"
-    ]
+    ],
+    "tool.description": "Açıklama URL'sine (konumuna) veya IP adresine göre belirli bir UPnP cihazı hakkında ayrıntılı bilgi edinin. Cihaz meta verilerini, hizmet listesini ve cihaz ağacını (alt cihazlar) döndürür."
   },
   "uk": {
-    "param.location.description": "UPnP device description URL (e.g. http://192.168.1.100:5000/description.xml).",
-    "param.ip.description": "Device IP address (used with optional port to build a description URL).",
-    "param.port.description": "Port number (used with ip). Default: 5000 (common UPnP port).",
-    "param.timeout.description": "HTTP fetch timeout in seconds.",
-    "param.fmt.description": "Format: json or text.",
-    "err.no_target": "Either 'location' or 'ip' must be provided.",
-    "msg.device_info": "Device info for {location}",
+    "param.location.description": "URL-адреса опису пристрою UPnP (наприклад, http://192.168.1.100:5000/description.xml).",
+    "param.ip.description": "IP-адреса пристрою (використовується з додатковим портом для створення URL-адреси опису).",
+    "param.port.description": "Номер порту (використовується з ip). За замовчуванням: 5000 (загальний порт UPnP).",
+    "param.timeout.description": "Час очікування отримання HTTP в секундах.",
+    "param.fmt.description": "Формат: json або текстовий.",
+    "err.no_target": "Потрібно вказати або «location», або «ip».",
+    "msg.device_info": "Інформація про пристрій для {location}",
     "x_search_terms": [
       "інформація про пристрій upnp",
       "upnp_device_info",
@@ -509,16 +537,17 @@
       "UPNP",
       "детально",
       "про"
-    ]
+    ],
+    "tool.description": "Отримайте детальну інформацію про конкретний пристрій UPnP за URL-адресою опису (розташування) або IP-адресою. Повертає метадані пристрою, список послуг і дерево пристроїв (підпристрої)."
   },
   "vi": {
-    "param.location.description": "UPnP device description URL (e.g. http://192.168.1.100:5000/description.xml).",
-    "param.ip.description": "Device IP address (used with optional port to build a description URL).",
-    "param.port.description": "Port number (used with ip). Default: 5000 (common UPnP port).",
-    "param.timeout.description": "HTTP fetch timeout in seconds.",
-    "param.fmt.description": "Format: json or text.",
-    "err.no_target": "Either 'location' or 'ip' must be provided.",
-    "msg.device_info": "Device info for {location}",
+    "param.location.description": "URL mô tả thiết bị UPnP (ví dụ: http://192.168.1.100:5000/description.xml).",
+    "param.ip.description": "Địa chỉ IP của thiết bị (được sử dụng với cổng tùy chọn để tạo URL mô tả).",
+    "param.port.description": "Số cổng (được sử dụng với ip). Mặc định: 5000 (cổng UPnP chung).",
+    "param.timeout.description": "Thời gian chờ tìm nạp HTTP tính bằng giây.",
+    "param.fmt.description": "Định dạng: json hoặc văn bản.",
+    "err.no_target": "Phải cung cấp 'vị trí' hoặc 'ip'.",
+    "msg.device_info": "Thông tin thiết bị cho {location}",
     "x_search_terms": [
       "upnp thông tin thiết bị",
       "upnp_device_info",
@@ -526,16 +555,17 @@
       "UPNP",
       "chi tiết",
       "về"
-    ]
+    ],
+    "tool.description": "Nhận thông tin chi tiết về một thiết bị UPnP cụ thể theo URL mô tả (vị trí) hoặc địa chỉ IP của thiết bị đó. Trả về siêu dữ liệu thiết bị, danh sách dịch vụ và cây thiết bị (thiết bị phụ)."
   },
   "zh_CN": {
-    "param.location.description": "UPnP device description URL (e.g. http://192.168.1.100:5000/description.xml).",
-    "param.ip.description": "Device IP address (used with optional port to build a description URL).",
-    "param.port.description": "Port number (used with ip). Default: 5000 (common UPnP port).",
-    "param.timeout.description": "HTTP fetch timeout in seconds.",
-    "param.fmt.description": "Format: json or text.",
-    "err.no_target": "Either 'location' or 'ip' must be provided.",
-    "msg.device_info": "Device info for {location}",
+    "param.location.description": "UPnP 设备描述 URL（例如 http://192.168.1.100:5000/description.xml）。",
+    "param.ip.description": "设备 IP 地址（与可选端口一起使用来构建描述 URL）。",
+    "param.port.description": "端口号（与 ip 一起使用）。默认值：5000（通用 UPnP 端口）。",
+    "param.timeout.description": "HTTP 获取超时（以秒为单位）。",
+    "param.fmt.description": "格式：json 或文本。",
+    "err.no_target": "必须提供“位置”或“IP”。",
+    "msg.device_info": "{location} 的设备信息",
     "x_search_terms": [
       "upnp 设备信息",
       "upnp_device_info",
@@ -543,16 +573,17 @@
       "UPNP",
       "详细",
       "关于"
-    ]
+    ],
+    "tool.description": "通过其描述 URL（位置）或 IP 地址获取有关特定 UPnP 设备的详细信息。返回设备元数据、服务列表和设备树（子设备）。"
   },
   "zh_TW": {
-    "param.location.description": "UPnP device description URL (e.g. http://192.168.1.100:5000/description.xml).",
-    "param.ip.description": "Device IP address (used with optional port to build a description URL).",
-    "param.port.description": "Port number (used with ip). Default: 5000 (common UPnP port).",
-    "param.timeout.description": "HTTP fetch timeout in seconds.",
-    "param.fmt.description": "Format: json or text.",
-    "err.no_target": "Either 'location' or 'ip' must be provided.",
-    "msg.device_info": "Device info for {location}",
+    "param.location.description": "UPnP 裝置描述 URL（例如 http://192.168.1.100:5000/description.xml）。",
+    "param.ip.description": "設備 IP 位址（與選用連接埠一起使用來建立描述 URL）。",
+    "param.port.description": "連接埠號碼（與 ip 一起使用）。預設值：5000（通用 UPnP 連接埠）。",
+    "param.timeout.description": "HTTP 取得逾時（以秒為單位）。",
+    "param.fmt.description": "格式：json 或文字。",
+    "err.no_target": "必須提供“位置”或“IP”。",
+    "msg.device_info": "{location} 的裝置資訊",
     "x_search_terms": [
       "upnp 裝置資訊",
       "upnp_device_info",
@@ -560,16 +591,17 @@
       "UPNP",
       "詳細",
       "關於"
-    ]
+    ],
+    "tool.description": "透過其描述 URL（位置）或 IP 位址獲取有關特定 UPnP 設備的詳細資訊。傳回設備元資料、服務清單和設備樹（子設備）。"
   },
   "ja": {
-    "param.location.description": "UPnP device description URL (e.g. http://192.168.1.100:5000/description.xml).",
-    "param.ip.description": "Device IP address (used with optional port to build a description URL).",
-    "param.port.description": "Port number (used with ip). Default: 5000 (common UPnP port).",
-    "param.timeout.description": "HTTP fetch timeout in seconds.",
-    "param.fmt.description": "Format: json or text.",
-    "err.no_target": "Either 'location' or 'ip' must be provided.",
-    "msg.device_info": "Device info for {location}",
+    "param.location.description": "UPnP デバイスの説明 URL (例: http://192.168.1.100:5000/description.xml)。",
+    "param.ip.description": "デバイスの IP アドレス (説明 URL を構築するためにオプションのポートとともに使用されます)。",
+    "param.port.description": "ポート番号 (ip とともに使用)。デフォルト: 5000 (共通 UPnP ポート)。",
+    "param.timeout.description": "HTTP フェッチのタイムアウト (秒単位)。",
+    "param.fmt.description": "形式: json またはテキスト。",
+    "err.no_target": "「location」または「ip」のいずれかを指定する必要があります。",
+    "msg.device_info": "{location} のデバイス情報",
     "tool.description": "特定の UPnP デバイスに関する詳細情報を、その説明 URL (場所) または IP アドレスによって取得します。デバイスのメタデータ、サービス リスト、およびデバイス ツリー (サブデバイス) を返します。",
     "x_search_terms": [
       "upnp デバイス情報",

@@ -72,7 +72,12 @@
       "اكتشاف",
       "أب إن بي/إس إس دي بي",
       "أجهزة"
-    ]
+    ],
+    "param.filter_name.description": "مرشح سلسلة فرعية اختياري غير حساس لحالة الأحرف لـ Friendly_name.",
+    "param.filter_manufacturer.description": "مرشح سلسلة فرعية اختياري غير حساس لحالة الأحرف للشركة المصنعة.",
+    "param.filter_model.description": "مرشح سلسلة فرعية اختياري غير حساس لحالة الأحرف لـ model_name.",
+    "param.filter_type.description": "مرشح سلسلة فرعية اختياري غير حساس لحالة الأحرف لنوع_الجهاز.",
+    "tool.description": "اكتشف أجهزة UPnP/SSDP على الشبكة المحلية وقم بإرجاع قائمة JSON أو قائمة نصية. يدعم التصفية حسب الاسم أو الشركة المصنعة أو الطراز أو نوع الجهاز."
   },
   "bn": {
     "param.mx.description": "M-SEARCH-এ ব্যবহৃত SSDP MX হেডারের মান (১-৫ সেকেন্ড)।",
@@ -93,7 +98,12 @@
       "আবিষ্কার",
       "ইউপিএনপি/এসএসডিপি",
       "ডিভাইস"
-    ]
+    ],
+    "param.filter_name.description": "বন্ধুত্বপূর্ণ_নামের জন্য ঐচ্ছিক কেস-সংবেদনশীল সাবস্ট্রিং ফিল্টার।",
+    "param.filter_manufacturer.description": "প্রস্তুতকারকের জন্য ঐচ্ছিক কেস-সংবেদনশীল সাবস্ট্রিং ফিল্টার।",
+    "param.filter_model.description": "মডেল_নামের জন্য ঐচ্ছিক কেস-সংবেদনশীল সাবস্ট্রিং ফিল্টার।",
+    "param.filter_type.description": "ডিভাইস_টাইপের জন্য ঐচ্ছিক কেস-সংবেদনশীল সাবস্ট্রিং ফিল্টার।",
+    "tool.description": "স্থানীয় নেটওয়ার্কে UPnP/SSDP ডিভাইসগুলি আবিষ্কার করুন এবং একটি JSON বা পাঠ্য তালিকা ফেরত দিন৷ নাম, প্রস্তুতকারক, মডেল বা ডিভাইসের ধরন দ্বারা ফিল্টারিং সমর্থন করে।"
   },
   "cs": {
     "param.mx.description": "Hodnota záhlaví SSDP MX (1-5 sekund) používaná M-SEARCH.",
@@ -114,7 +124,12 @@
       "objevit",
       "upnp/ssdp",
       "zařízení"
-    ]
+    ],
+    "param.filter_name.description": "Volitelný filtr podřetězců bez ohledu na velikost písmen pro přátelský_název.",
+    "param.filter_manufacturer.description": "Volitelný filtr podřetězců nerozlišující malá a velká písmena pro výrobce.",
+    "param.filter_model.description": "Volitelný filtr podřetězců bez ohledu na velikost písmen pro název_modelu.",
+    "param.filter_type.description": "Volitelný filtr podřetězců bez ohledu na velikost písmen pro typ_zařízení.",
+    "tool.description": "Objevte zařízení UPnP/SSDP v místní síti a vraťte seznam JSON nebo text. Podporuje filtrování podle názvu, výrobce, modelu nebo typu zařízení."
   },
   "de": {
     "param.mx.description": "SSDP MX-Header-Wert (1–5 Sekunden), der von M-SEARCH verwendet wird.",
@@ -135,7 +150,12 @@
       "entdecken",
       "upnp/ssdp",
       "Geräte"
-    ]
+    ],
+    "param.filter_name.description": "Optionaler Teilzeichenfolgenfilter ohne Berücksichtigung der Groß-/Kleinschreibung für „Friendly_name“.",
+    "param.filter_manufacturer.description": "Optionaler Teilzeichenfolgenfilter für den Hersteller, bei dem die Groß-/Kleinschreibung nicht beachtet wird.",
+    "param.filter_model.description": "Optionaler Teilzeichenfolgenfilter ohne Berücksichtigung der Groß-/Kleinschreibung für Modellname.",
+    "param.filter_type.description": "Optionaler Teilzeichenfolgenfilter ohne Berücksichtigung der Groß- und Kleinschreibung für „device_type“.",
+    "tool.description": "Entdecken Sie UPnP/SSDP-Geräte im lokalen Netzwerk und geben Sie eine JSON- oder Textliste zurück. Unterstützt das Filtern nach Name, Hersteller, Modell oder Gerätetyp."
   },
   "es": {
     "param.mx.description": "Valor del encabezado SSDP MX (1-5 segundos) utilizado por M-SEARCH.",
@@ -156,7 +176,12 @@
       "descubrir",
       "upnp/ssdp",
       "dispositivos"
-    ]
+    ],
+    "param.filter_name.description": "Filtro de subcadena opcional que no distingue entre mayúsculas y minúsculas para nombre_descriptivo.",
+    "param.filter_manufacturer.description": "Filtro de subcadena opcional que no distingue entre mayúsculas y minúsculas para el fabricante.",
+    "param.filter_model.description": "Filtro de subcadena opcional que no distingue entre mayúsculas y minúsculas para model_name.",
+    "param.filter_type.description": "Filtro de subcadena opcional que no distingue entre mayúsculas y minúsculas para tipo_dispositivo.",
+    "tool.description": "Descubra dispositivos UPnP/SSDP en la red local y devuelva una lista JSON o de texto. Admite filtrado por nombre, fabricante, modelo o tipo de dispositivo."
   },
   "fa": {
     "param.mx.description": "مقدار سرصفحه SSDP MX (1-5 ثانیه) توسط M-SEARCH استفاده شده است.",
@@ -177,7 +202,12 @@
       "کشف",
       "آپ‌ان‌پی/اس‌اس‌دی‌پی",
       "دستگاه‌ها"
-    ]
+    ],
+    "param.filter_name.description": "فیلتر زیر رشته ای غیر حساس به حروف کوچک و بزرگ اختیاری برای friendly_name.",
+    "param.filter_manufacturer.description": "فیلتر زیر رشته ای غیر حساس به بزرگی برای سازنده اختیاری است.",
+    "param.filter_model.description": "فیلتر زیر رشته ای غیرحساس به حروف کوچک و بزرگ اختیاری برای model_name.",
+    "param.filter_type.description": "فیلتر زیر رشته ای غیرحساس به حروف کوچک و بزرگ اختیاری برای device_type.",
+    "tool.description": "دستگاه های UPnP/SSDP را در شبکه محلی کشف کنید و یک JSON یا لیست متنی را برگردانید. از فیلتر کردن بر اساس نام، سازنده، مدل یا نوع دستگاه پشتیبانی می کند."
   },
   "fi": {
     "param.mx.description": "SSDP MX -otsikon arvo (1-5 sekuntia), jota M-SEARCH käyttää.",
@@ -198,7 +228,12 @@
       "löydä",
       "upnp/ssdp",
       "laitteet"
-    ]
+    ],
+    "param.filter_name.description": "Valinnainen isot ja pienet kirjaimet erotteleva alimerkkijonosuodatin ystävällinen_nimi.",
+    "param.filter_manufacturer.description": "Valinnainen valmistajan osamerkkijonosuodatin, jossa kirjainkoolla ei ole merkitystä.",
+    "param.filter_model.description": "Valinnainen alimerkkijonosuodatin, jossa kirjainkoolla ei eroa mallin_nimi.",
+    "param.filter_type.description": "Valinnainen alimerkkijonosuodatin, jossa kirjainkoolla ei eroa laitetyyppi.",
+    "tool.description": "Löydä UPnP/SSDP-laitteet paikallisverkosta ja palauta JSON- tai tekstiluettelo. Tukee suodatusta nimen, valmistajan, mallin tai laitetyypin mukaan."
   },
   "fr": {
     "param.mx.description": "Valeur d'en-tête SSDP MX (1 à 5 secondes) utilisée par M-SEARCH.",
@@ -219,7 +254,12 @@
       "découvrir",
       "upnp/ssdp",
       "appareils"
-    ]
+    ],
+    "param.filter_name.description": "Filtre de sous-chaîne facultatif insensible à la casse pour friendly_name.",
+    "param.filter_manufacturer.description": "Filtre de sous-chaîne insensible à la casse en option pour le fabricant.",
+    "param.filter_model.description": "Filtre de sous-chaîne facultatif insensible à la casse pour model_name.",
+    "param.filter_type.description": "Filtre de sous-chaîne facultatif insensible à la casse pour device_type.",
+    "tool.description": "Découvrez les appareils UPnP/SSDP sur le réseau local et renvoyez une liste JSON ou texte. Prend en charge le filtrage par nom, fabricant, modèle ou type d'appareil."
   },
   "hi": {
     "param.mx.description": "M-SEARCH द्वारा उपयोग किया जाने वाला SSDP MX हेडर मान।",
@@ -240,7 +280,12 @@
       "खोजें",
       "upnp/ssdp",
       "डिवाइस"
-    ]
+    ],
+    "param.filter_name.description": "फ्रेंडली_नाम के लिए वैकल्पिक केस-असंवेदनशील सबस्ट्रिंग फ़िल्टर।",
+    "param.filter_manufacturer.description": "निर्माता के लिए वैकल्पिक केस-असंवेदनशील सबस्ट्रिंग फ़िल्टर।",
+    "param.filter_model.description": "मॉडल_नाम के लिए वैकल्पिक केस-असंवेदनशील सबस्ट्रिंग फ़िल्टर।",
+    "param.filter_type.description": "डिवाइस_प्रकार के लिए वैकल्पिक केस-असंवेदनशील सबस्ट्रिंग फ़िल्टर।",
+    "tool.description": "स्थानीय नेटवर्क पर UPnP/SSDP डिवाइस खोजें और JSON या टेक्स्ट सूची लौटाएँ। नाम, निर्माता, मॉडल या डिवाइस प्रकार के आधार पर फ़िल्टरिंग का समर्थन करता है।"
   },
   "id": {
     "param.mx.description": "Nilai header SSDP MX (1-5 detik) digunakan oleh M-SEARCH.",
@@ -261,7 +306,12 @@
       "temukan",
       "upnp/ssdp",
       "perangkat"
-    ]
+    ],
+    "param.filter_name.description": "Filter substring peka huruf besar dan kecil opsional untuk nama_ramah.",
+    "param.filter_manufacturer.description": "Filter substring peka huruf besar-kecil opsional untuk pabrikan.",
+    "param.filter_model.description": "Filter substring peka huruf besar-kecil opsional untuk model_name.",
+    "param.filter_type.description": "Filter substring peka huruf besar dan kecil opsional untuk tipe_perangkat.",
+    "tool.description": "Temukan perangkat UPnP/SSDP di jaringan lokal dan kembalikan JSON atau daftar teks. Mendukung pemfilteran berdasarkan nama, pabrikan, model, atau jenis perangkat."
   },
   "it": {
     "param.mx.description": "Valore dell'intestazione SSDP MX (1-5 secondi) utilizzato da M-SEARCH.",
@@ -282,7 +332,12 @@
       "scopri",
       "upnp/ssdp",
       "dispositivi"
-    ]
+    ],
+    "param.filter_name.description": "Filtro sottostringa opzionale senza distinzione tra maiuscole e minuscole per friendly_name.",
+    "param.filter_manufacturer.description": "Filtro sottostringa opzionale senza distinzione tra maiuscole e minuscole per il produttore.",
+    "param.filter_model.description": "Filtro sottostringa opzionale senza distinzione tra maiuscole e minuscole per nome_modello.",
+    "param.filter_type.description": "Filtro sottostringa facoltativo senza distinzione tra maiuscole e minuscole per tipo_dispositivo.",
+    "tool.description": "Rileva i dispositivi UPnP/SSDP sulla rete locale e restituisce un JSON o un elenco di testo. Supporta il filtraggio per nome, produttore, modello o tipo di dispositivo."
   },
   "ko": {
     "param.mx.description": "M-SEARCH에서 사용하는 SSDP MX 헤더 값(1~5초).",
@@ -303,7 +358,12 @@
       "발견",
       "upnp/ssdp",
       "장치"
-    ]
+    ],
+    "param.filter_name.description": "Friendly_name에 대한 선택적 대소문자 구분 하위 문자열 필터입니다.",
+    "param.filter_manufacturer.description": "제조업체를 위한 선택적 대소문자 구분 하위 문자열 필터입니다.",
+    "param.filter_model.description": "model_name에 대한 선택적 대소문자 구분 하위 문자열 필터입니다.",
+    "param.filter_type.description": "device_type에 대한 선택적 대소문자 구분 하위 문자열 필터입니다.",
+    "tool.description": "로컬 네트워크에서 UPnP/SSDP 장치를 검색하고 JSON 또는 텍스트 목록을 반환합니다. 이름, 제조업체, 모델 또는 장치 유형별 필터링을 지원합니다."
   },
   "mn": {
     "param.mx.description": "M-SEARCH-д ашиглагдах SSDP MX толгойн утга (1-5 секунд).",
@@ -324,7 +384,12 @@
       "нээх",
       "упнп/ссдп",
       "төхөөрөмж"
-    ]
+    ],
+    "param.filter_name.description": "Friendly_name-д зориулсан жижиг жижиг жижиг мөрийн нэмэлт шүүлтүүр.",
+    "param.filter_manufacturer.description": "Үйлдвэрлэгчийн хувьд том жижиг үсэг мэдрэгддэггүй дэд мөр шүүлтүүр.",
+    "param.filter_model.description": "Model_name-д зориулсан жижиг жижиг жижиг мөрийн нэмэлт шүүлтүүр.",
+    "param.filter_type.description": "Төхөөрөмжийн төрөлд зориулсан том жижиг үсэг мэдрэгддэггүй дэд мөрийн шүүлтүүр.",
+    "tool.description": "Дотоод сүлжээн дэх UPnP/SSDP төхөөрөмжүүдийг олж, JSON эсвэл текстийн жагсаалтыг буцаана уу. Нэр, үйлдвэрлэгч, загвар эсвэл төхөөрөмжийн төрлөөр шүүхийг дэмждэг."
   },
   "mr": {
     "param.mx.description": "SSDP MX शीर्षलेख मूल्य (1-5 सेकंद) M-SEARCH द्वारे वापरले.",
@@ -345,7 +410,12 @@
       "शोधा",
       "upnp/ssdp",
       "उपकरणे"
-    ]
+    ],
+    "param.filter_name.description": "friendly_name साठी पर्यायी केस-संवेदनशील सबस्ट्रिंग फिल्टर.",
+    "param.filter_manufacturer.description": "निर्मात्यासाठी पर्यायी केस-संवेदनशील सबस्ट्रिंग फिल्टर.",
+    "param.filter_model.description": "model_name साठी पर्यायी केस-संवेदनशील सबस्ट्रिंग फिल्टर.",
+    "param.filter_type.description": "device_type साठी पर्यायी केस-संवेदनशील सबस्ट्रिंग फिल्टर.",
+    "tool.description": "स्थानिक नेटवर्कवर UPnP/SSDP डिव्हाइस शोधा आणि JSON किंवा मजकूर सूची परत करा. नाव, निर्माता, मॉडेल किंवा डिव्हाइस प्रकारानुसार फिल्टरिंगला समर्थन देते."
   },
   "el": {
     "param.mx.description": "Χρόνος αναμονής από την πλευρά του πελάτη σε δευτερόλεπτα για απαντήσεις SSDP.",
@@ -353,11 +423,11 @@
     "param.interface.description": "Στόχος αναζήτησης SSDP (ST) για ανακάλυψη. Προεπιλογή στο InternetGatewayDevice και επιστρέφει στο ssdp:all εάν χρειάζεται.",
     "param.retry.description": "Μέγιστος αριθμός καταχωρίσεων χαρτογράφησης θυρών προς επιστροφή.",
     "param.limit.description": "Στόχος αναζήτησης SSDP (ST), για παράδειγμα 'ssdp:all' ή 'upnp:rootdevice'.",
-    "param.search_target.description": "Σφάλμα: Δεν ήταν δυνατή η επίλυση της διεπαφής '{interface}' σε μια τοπική διεύθυνση IPv4.",
-    "err.invalid_interface": "Ολοκληρώθηκε η ανακάλυψη UPnP: Βρέθηκαν {count} συσκευές σε {elapsed_ms} ms.",
-    "msg.summary": "Δεν βρέθηκαν συσκευές UPnP.",
+    "param.search_target.description": "Στόχος αναζήτησης SSDP (ST), για παράδειγμα 'ssdp:all' ή 'upnp:rootdevice'.",
+    "err.invalid_interface": "Σφάλμα: Δεν ήταν δυνατή η επίλυση της διεπαφής '{interface}' σε μια τοπική διεύθυνση IPv4.",
+    "msg.summary": "Ολοκληρώθηκε η ανακάλυψη UPnP: Βρέθηκαν συσκευές {count} σε {elapsed_ms} ms.",
     "msg.no_devices": "Προαιρετικό φίλτρο υποσυμβολοσειράς χωρίς διάκριση πεζών-κεφαλαίων για το friendly_name.",
-    "param.fmt.description": "Στιγμιότυπο προσωρινής μνήμης ECHONET: {count} στοιχεία.",
+    "param.fmt.description": "Μορφή: json ή κείμενο.",
     "param.filter_name.description": "Προαιρετικό φίλτρο υποσυμβολοσειράς χωρίς διάκριση πεζών-κεφαλαίων για τον κατασκευαστή.",
     "param.filter_manufacturer.description": "Προαιρετικό φίλτρο υποσυμβολοσειράς χωρίς διάκριση πεζών-κεφαλαίων για το όνομα_μοντέλου.",
     "param.filter_model.description": "Προαιρετικό φίλτρο υποσυμβολοσειράς χωρίς διάκριση πεζών-κεφαλαίων για τον τύπο συσκευής.",
@@ -370,7 +440,8 @@
       "ανακάλυψη",
       "upnp/ssdp",
       "συσκευές"
-    ]
+    ],
+    "tool.description": "Ανακαλύψτε συσκευές UPnP/SSDP στο τοπικό δίκτυο και επιστρέψτε μια λίστα JSON ή κειμένου. Υποστηρίζει φιλτράρισμα κατά όνομα, κατασκευαστή, μοντέλο ή τύπο συσκευής."
   },
   "he": {
     "param.mx.description": "זמן המתנה בצד הלקוח בשניות לתגובות SSDP.",
@@ -378,8 +449,8 @@
     "param.interface.description": "יעד חיפוש SSDP (ST) לגילוי. ברירת המחדל היא InternetGatewayDevice ונופלת חזרה ל-ssdp:all במידת הצורך.",
     "param.retry.description": "המספר המרבי של ערכי מיפוי יציאות שיש להחזיר.",
     "param.limit.description": "יעד חיפוש SSDP (ST), למשל 'ssdp:all' או 'upnp:rootdevice'.",
-    "param.search_target.description": "שגיאה: לא ניתן היה לפתור את הממשק '{interface}' לכתובת IPv4 מקומית.",
-    "err.invalid_interface": "גילוי UPnP הושלם: {count} מכשירים נמצאו ב-{elapsed_ms} אלפיות השנייה.",
+    "param.search_target.description": "יעד חיפוש SSDP (ST), למשל 'ssdp:all' או 'upnp:rootdevice'.",
+    "err.invalid_interface": "שגיאה: לא ניתן היה לפתור את הממשק '{interface}' לכתובת IPv4 מקומית.",
     "msg.summary": "גילוי UPnP הושלם: {count} מכשירים נמצאו ב-{elapsed_ms} אלפיות השנייה.",
     "msg.no_devices": "מסנן משנה אופציונלי לא תלוי-רישיות עבור friendly_name.",
     "param.fmt.description": "אין ערכים במטמון.",
@@ -395,7 +466,8 @@
       "גלה",
       "upnp/ssdp",
       "מכשירים"
-    ]
+    ],
+    "tool.description": "גלה התקני UPnP/SSDP ברשת המקומית והחזר רשימת JSON או טקסט. תומך בסינון לפי שם, יצרן, דגם או סוג מכשיר."
   },
   "hu": {
     "param.mx.description": "Az ügyféloldali várakozási idő másodpercben az SSDP-válaszokra.",
@@ -403,9 +475,9 @@
     "param.interface.description": "SSDP keresési célpont (ST) a felfedezéshez. Alapértelmezés szerint az InternetGatewayDevice, és szükség esetén visszaáll az ssdp:all-ra.",
     "param.retry.description": "A visszaküldendő portleképezési bejegyzések maximális száma.",
     "param.limit.description": "SSDP keresési cél (ST), például „ssdp:all” vagy „upnp:rootdevice”.",
-    "param.search_target.description": "Hiba: Nem sikerült megoldani a(z) '{interface}' interfész helyi IPv4-címét.",
-    "err.invalid_interface": "UPnP-felderítés befejeződött: {count} eszköz található {elapsed_ms} ms alatt.",
-    "msg.summary": "Nem található UPnP-eszköz.",
+    "param.search_target.description": "SSDP keresési cél (ST), például „ssdp:all” vagy „upnp:rootdevice”.",
+    "err.invalid_interface": "Hiba: A '{interface}' interfész nem oldható fel helyi IPv4-címre.",
+    "msg.summary": "Az UPnP-felderítés befejeződött: {count} eszköz(ek) található(k) {elapsed_ms} ms alatt.",
     "msg.no_devices": "Opcionális, a kis- és nagybetűket nem megkülönböztető részkarakterlánc-szűrő a barátságos_névhez.",
     "param.fmt.description": "Gyorsítótár művelet: pillanatfelvétel vagy törlés.",
     "param.filter_name.description": "Opcionális kis- és nagybetűk közötti részkarakterlánc-szűrő a gyártó számára.",
@@ -420,7 +492,8 @@
       "felfedez",
       "upnp/ssdp",
       "eszközök"
-    ]
+    ],
+    "tool.description": "Fedezze fel az UPnP/SSDP-eszközöket a helyi hálózaton, és küldjön vissza egy JSON- vagy szöveglistát. Támogatja a név, gyártó, modell vagy eszköztípus szerinti szűrést."
   },
   "ro": {
     "param.mx.description": "Timp de așteptare la nivelul clientului în secunde pentru răspunsurile SSDP.",
@@ -428,9 +501,9 @@
     "param.interface.description": "Țintă de căutare SSDP (ST) pentru descoperire. Este implicit la InternetGatewayDevice și revine la ssdp:all dacă este necesar.",
     "param.retry.description": "Numărul maxim de intrări de mapare porturi de returnat.",
     "param.limit.description": "Țintă de căutare SSDP (ST), de exemplu „ssdp:all” sau „upnp:rootdevice”.",
-    "param.search_target.description": "Eroare: nu s-a putut rezolva interfața „{interface}” la o adresă IPv4 locală.",
-    "err.invalid_interface": "Descoperirea UPnP finalizată: {count} dispozitiv(e) găsit(e) în {elapsed_ms} ms.",
-    "msg.summary": "Nu au fost găsite dispozitive UPnP.",
+    "param.search_target.description": "Țintă de căutare SSDP (ST), de exemplu „ssdp:all” sau „upnp:rootdevice”.",
+    "err.invalid_interface": "Eroare: nu s-a putut rezolva interfața „{interface}” la o adresă IPv4 locală.",
+    "msg.summary": "Descoperirea UPnP finalizată: dispozitive {count} găsit(e) în {elapsed_ms} ms.",
     "msg.no_devices": "Filtru opțional de subșiruri care nu ține seama de majuscule și minuscule pentru friendly_name.",
     "param.fmt.description": "Inspectați sau ștergeți memoria cache ECHONET Lite partajată.",
     "param.filter_name.description": "Opțional, filtru de subșiruri care nu ține seama de majuscule și minuscule pentru producător.",
@@ -445,7 +518,8 @@
       "descoperă",
       "upnp/ssdp",
       "dispozitive"
-    ]
+    ],
+    "tool.description": "Descoperiți dispozitivele UPnP/SSDP din rețeaua locală și returnați o listă JSON sau text. Acceptă filtrarea după nume, producător, model sau tip de dispozitiv."
   },
   "nb": {
     "param.mx.description": "SSDP MX topptekstverdi (1-5 sekunder) brukt av M-SEARCH.",
@@ -466,7 +540,12 @@
       "oppdage",
       "upnp/ssdp",
       "enheter"
-    ]
+    ],
+    "param.filter_name.description": "Valgfritt substringfilter for friendly_name som ikke skiller mellom store og små bokstaver.",
+    "param.filter_manufacturer.description": "Valgfritt små og store bokstaver ufølsomt substring filter for produsenten.",
+    "param.filter_model.description": "Valgfritt substring-filter som skiller mellom store og små bokstaver for modellnavn.",
+    "param.filter_type.description": "Valgfritt substring-filter som ikke skiller mellom store og små bokstaver for device_type.",
+    "tool.description": "Oppdag UPnP/SSDP-enheter på det lokale nettverket og returner en JSON- eller tekstliste. Støtter filtrering etter navn, produsent, modell eller enhetstype."
   },
   "nl": {
     "param.mx.description": "SSDP MX-headerwaarde (1-5 seconden) gebruikt door M-SEARCH.",
@@ -487,7 +566,12 @@
       "ontdekken",
       "upnp/ssdp",
       "apparaten"
-    ]
+    ],
+    "param.filter_name.description": "Optioneel hoofdletterongevoelig subtekenreeksfilter voor vriendelijke_naam.",
+    "param.filter_manufacturer.description": "Optioneel hoofdletterongevoelig subtekenreeksfilter voor fabrikant.",
+    "param.filter_model.description": "Optioneel hoofdletterongevoelig subtekenreeksfilter voor modelnaam.",
+    "param.filter_type.description": "Optioneel hoofdletterongevoelig subtekenreeksfilter voor device_type.",
+    "tool.description": "Ontdek UPnP/SSDP-apparaten op het lokale netwerk en stuur een JSON- of tekstlijst terug. Ondersteunt filteren op naam, fabrikant, model of apparaattype."
   },
   "pl": {
     "param.mx.description": "Wartość nagłówka MX SSDP (1-5 sekund) używana przez M-SEARCH.",
@@ -508,7 +592,12 @@
       "odkryj",
       "upnp/ssd",
       "urządzenia"
-    ]
+    ],
+    "param.filter_name.description": "Opcjonalny filtr podłańcuchowy nieuwzględniający wielkości liter dla przyjaznej_nazwy.",
+    "param.filter_manufacturer.description": "Opcjonalny filtr podciągu nieuwzględniający wielkości liter dla producenta.",
+    "param.filter_model.description": "Opcjonalny filtr podciągu nieuwzględniający wielkości liter dla nazwy_modelu.",
+    "param.filter_type.description": "Opcjonalny filtr podłańcucha nieuwzględniający wielkości liter dla typu urządzenia.",
+    "tool.description": "Odkryj urządzenia UPnP/SSDP w sieci lokalnej i zwróć listę JSON lub tekstową. Obsługuje filtrowanie według nazwy, producenta, modelu lub typu urządzenia."
   },
   "pt": {
     "param.mx.description": "Valor do cabeçalho SSDP MX (1-5 segundos) usado pelo M-SEARCH.",
@@ -529,7 +618,12 @@
       "descobrir",
       "upnp/ssdp",
       "dispositivos"
-    ]
+    ],
+    "param.filter_name.description": "Filtro opcional de substring que não diferencia maiúsculas de minúsculas para nome_amigável.",
+    "param.filter_manufacturer.description": "Filtro de substring opcional que não diferencia maiúsculas de minúsculas para o fabricante.",
+    "param.filter_model.description": "Filtro opcional de substring que não diferencia maiúsculas de minúsculas para model_name.",
+    "param.filter_type.description": "Filtro de substring opcional que não diferencia maiúsculas de minúsculas para device_type.",
+    "tool.description": "Descubra dispositivos UPnP/SSDP na rede local e retorne um JSON ou uma lista de texto. Suporta filtragem por nome, fabricante, modelo ou tipo de dispositivo."
   },
   "pt_BR": {
     "param.mx.description": "Valor do cabeçalho SSDP MX (1-5 segundos) usado pelo M-SEARCH.",
@@ -550,7 +644,12 @@
       "descobrir",
       "upnp/ssdp",
       "dispositivos"
-    ]
+    ],
+    "param.filter_name.description": "Filtro opcional de substring que não diferencia maiúsculas de minúsculas para nome_amigável.",
+    "param.filter_manufacturer.description": "Filtro de substring opcional que não diferencia maiúsculas de minúsculas para o fabricante.",
+    "param.filter_model.description": "Filtro opcional de substring que não diferencia maiúsculas de minúsculas para model_name.",
+    "param.filter_type.description": "Filtro de substring opcional que não diferencia maiúsculas de minúsculas para device_type.",
+    "tool.description": "Descubra dispositivos UPnP/SSDP na rede local e retorne um JSON ou uma lista de texto. Suporta filtragem por nome, fabricante, modelo ou tipo de dispositivo."
   },
   "ru": {
     "param.mx.description": "Значение заголовка SSDP MX (1–5 секунд), используемое M-SEARCH.",
@@ -571,7 +670,12 @@
       "обнаружить",
       "upnp/ssdp",
       "устройства"
-    ]
+    ],
+    "param.filter_name.description": "Дополнительный фильтр подстроки без учета регистра для дружественного_имени.",
+    "param.filter_manufacturer.description": "Дополнительный фильтр подстроки без учета регистра для производителя.",
+    "param.filter_model.description": "Дополнительный фильтр подстроки без учета регистра для model_name.",
+    "param.filter_type.description": "Дополнительный фильтр подстроки без учета регистра для device_type.",
+    "tool.description": "Обнаружьте устройства UPnP/SSDP в локальной сети и верните JSON или текстовый список. Поддерживает фильтрацию по имени, производителю, модели или типу устройства."
   },
   "sv": {
     "param.mx.description": "SSDP MX-huvudvärde (1-5 sekunder) som används av M-SEARCH.",
@@ -592,7 +696,12 @@
       "upptäcka",
       "upnp/ssdp",
       "enheter"
-    ]
+    ],
+    "param.filter_name.description": "Valfritt skiftlägesokänsligt substrängfilter för friendly_name.",
+    "param.filter_manufacturer.description": "Valfritt skiftlägesokänsligt delsträngsfilter för tillverkaren.",
+    "param.filter_model.description": "Valfritt skiftlägesokänsligt delsträngsfilter för modellnamn.",
+    "param.filter_type.description": "Valfritt skiftlägesokänsligt delsträngsfilter för device_type.",
+    "tool.description": "Upptäck UPnP/SSDP-enheter på det lokala nätverket och returnera en JSON- eller textlista. Stöder filtrering efter namn, tillverkare, modell eller enhetstyp."
   },
   "sw": {
     "param.mx.description": "thamani ya kichwa cha SSDP MX (sekunde 1-5) inayotumiwa na M-SEARCH.",
@@ -613,7 +722,12 @@
       "gundua",
       "upnp/ssdp",
       "vifaa"
-    ]
+    ],
+    "param.filter_name.description": "Kichujio cha kichujio cha kamba-kidogo kisicho na hisia kwa friendly_name.",
+    "param.filter_manufacturer.description": "Kichujio cha kichujio cha mfuatano ambacho hakijali kansi kwa mtengenezaji.",
+    "param.filter_model.description": "Kichujio cha kichujio cha mfuatano ambacho hakijali ukubwa wa kipochi cha model_name.",
+    "param.filter_type.description": "Kichujio cha kichujio cha mfuatano kidogo ambacho hakijali ukubwa wa kifaa kwa aina_ya kifaa.",
+    "tool.description": "Gundua vifaa vya UPnP/SSDP kwenye mtandao wa ndani na urudishe JSON au orodha ya maandishi. Inaauni uchujaji kulingana na jina, mtengenezaji, muundo au aina ya kifaa."
   },
   "th": {
     "param.mx.description": "ค่าหัวข้อ SSDP MX (1-5 วินาที) ที่ใช้โดย M-SEARCH",
@@ -622,7 +736,7 @@
     "param.retry.description": "จำนวนรอบการค้นหา SSDP ที่จะส่งก่อนส่งผลลัพธ์กลับ",
     "param.limit.description": "จำนวนอุปกรณ์สูงสุดที่จะส่งกลับ",
     "param.search_target.description": "เป้าหมายการค้นหา SSDP (ST) เช่น 'ssdp:all' หรือ 'upnp:rootdevice'",
-    "err.invalid_interface": "คำอธิบาย",
+    "err.invalid_interface": "ข้อผิดพลาด: ไม่สามารถแก้ไขอินเทอร์เฟซ '{interface}' เป็นที่อยู่ IPv4 ในเครื่องได้",
     "msg.summary": "ค้นหา UPnP เสร็จสิ้น: พบอุปกรณ์ {count} เครื่องใน {elapsed_ms} มิลลิวินาที",
     "msg.no_devices": "ไม่พบอุปกรณ์ UPnP",
     "param.fmt.description": "คำอธิบาย",
@@ -634,7 +748,12 @@
       "ค้นพบ",
       "อัปเอ็นพี/เอสเอสดีพี",
       "อุปกรณ์"
-    ]
+    ],
+    "param.filter_name.description": "ตัวกรองสตริงย่อยที่ไม่คำนึงถึงตัวพิมพ์เล็กหรือตัวพิมพ์ใหญ่สำหรับ Friendly_name",
+    "param.filter_manufacturer.description": "ตัวกรองสตริงย่อยที่ไม่คำนึงถึงขนาดตัวพิมพ์เสริมสำหรับผู้ผลิต",
+    "param.filter_model.description": "ตัวกรองสตริงย่อยที่ไม่คำนึงถึงตัวพิมพ์เล็กหรือตัวพิมพ์ใหญ่สำหรับ model_name",
+    "param.filter_type.description": "ตัวกรองสตริงย่อยที่ไม่คำนึงถึงตัวพิมพ์เล็กหรือตัวพิมพ์ใหญ่สำหรับ device_type",
+    "tool.description": "ค้นหาอุปกรณ์ UPnP/SSDP บนเครือข่ายท้องถิ่นและส่งคืน JSON หรือรายการข้อความ รองรับการกรองตามชื่อ ผู้ผลิต รุ่น หรือประเภทอุปกรณ์"
   },
   "tr": {
     "param.mx.description": "M-SEARCH tarafından kullanılan SSDP MX başlık değeri (1-5 saniye).",
@@ -655,7 +774,12 @@
       "keşfetmek",
       "upnp/ssdp",
       "cihazlar"
-    ]
+    ],
+    "param.filter_name.description": "Kolay_ad için isteğe bağlı büyük/küçük harfe duyarlı olmayan alt dize filtresi.",
+    "param.filter_manufacturer.description": "Üretici için isteğe bağlı büyük/küçük harfe duyarlı olmayan alt dize filtresi.",
+    "param.filter_model.description": "model_name için isteğe bağlı büyük/küçük harfe duyarlı olmayan alt dize filtresi.",
+    "param.filter_type.description": "Device_type için isteğe bağlı büyük/küçük harfe duyarlı olmayan alt dize filtresi.",
+    "tool.description": "Yerel ağdaki UPnP/SSDP cihazlarını keşfedin ve bir JSON veya metin listesi döndürün. Ada, üreticiye, modele veya cihaz türüne göre filtrelemeyi destekler."
   },
   "uk": {
     "param.mx.description": "Значення заголовка MX SSDP (1-5 секунд), що використовується M-SEARCH.",
@@ -676,7 +800,12 @@
       "виявити",
       "upnp/ssdp",
       "пристрої"
-    ]
+    ],
+    "param.filter_name.description": "Додатковий фільтр підрядка без урахування регістру для дружнього_назви.",
+    "param.filter_manufacturer.description": "Додатковий фільтр підрядків без урахування регістру для виробника.",
+    "param.filter_model.description": "Додатковий фільтр підрядка без урахування регістру для model_name.",
+    "param.filter_type.description": "Додатковий фільтр підрядків без урахування регістру для device_type.",
+    "tool.description": "Виявляйте пристрої UPnP/SSDP у локальній мережі та повертайте JSON або текстовий список. Підтримує фільтрацію за назвою, виробником, моделлю або типом пристрою."
   },
   "vi": {
     "param.mx.description": "Giá trị tiêu đề SSDP MX (1-5 giây) được M-SEARCH sử dụng.",
@@ -697,7 +826,12 @@
       "khám phá",
       "upnp/ssdp",
       "thiết bị"
-    ]
+    ],
+    "param.filter_name.description": "Bộ lọc chuỗi con không phân biệt chữ hoa chữ thường tùy chọn cho Friendly_name.",
+    "param.filter_manufacturer.description": "Bộ lọc chuỗi con không phân biệt chữ hoa chữ thường tùy chọn dành cho nhà sản xuất.",
+    "param.filter_model.description": "Bộ lọc chuỗi con không phân biệt chữ hoa chữ thường tùy chọn cho model_name.",
+    "param.filter_type.description": "Bộ lọc chuỗi con không phân biệt chữ hoa chữ thường tùy chọn cho device_type.",
+    "tool.description": "Khám phá các thiết bị UPnP/SSDP trên mạng cục bộ và trả về danh sách JSON hoặc văn bản. Hỗ trợ lọc theo tên, nhà sản xuất, kiểu máy hoặc loại thiết bị."
   },
   "zh_CN": {
     "param.mx.description": "M-SEARCH 使用的 SSDP MX 头部值（1-5 秒）。",
@@ -718,7 +852,12 @@
       "发现",
       "upnp/ssdp",
       "设备"
-    ]
+    ],
+    "param.filter_name.description": "Friendly_name 可选的不区分大小写的子字符串过滤器。",
+    "param.filter_manufacturer.description": "制造商可选的不区分大小写的子字符串过滤器。",
+    "param.filter_model.description": "model_name 的可选不区分大小写的子字符串过滤器。",
+    "param.filter_type.description": "device_type 的可选不区分大小写的子字符串过滤器。",
+    "tool.description": "发现本地网络上的 UPnP/SSDP 设备并返回 JSON 或文本列表。支持按名称、制造商、型号或设备类型进行过滤。"
   },
   "zh_TW": {
     "param.mx.description": "M-SEARCH 使用的 SSDP MX 標頭值（1-5 秒）。",
@@ -739,6 +878,11 @@
       "發現",
       "upnp/ssdp",
       "裝置"
-    ]
+    ],
+    "param.filter_name.description": "Friendly_name 可選的不區分大小寫的子字串過濾器。",
+    "param.filter_manufacturer.description": "製造商可選的不區分大小寫的子字串過濾器。",
+    "param.filter_model.description": "model_name 的可選不區分大小寫的子字串過濾器。",
+    "param.filter_type.description": "device_type 的可選不區分大小寫的子字串過濾器。",
+    "tool.description": "發現本機網路上的 UPnP/SSDP 設備並傳回 JSON 或文字清單。支援按名稱、製造商、型號或設備類型進行過濾。"
   }
 }

@@ -32,7 +32,7 @@
       "評価",
       "解く"
     ],
-    "err.expression_missing": "[calculator]\\\nError: No expression provided.",
+    "err.expression_missing": "[calculator]\\\nエラー: 式が指定されていません。",
     "err.eval": ""
   },
   "es": {
@@ -50,7 +50,8 @@
       "resolver",
       "numérico"
     ],
-    "err.expression_missing": "[calculator]\\\nError: No expression provided."
+    "err.expression_missing": "[calculadora]\\\nError: no se proporcionó ninguna expresión.",
+    "err.eval": ""
   },
   "fr": {
     "param.expression.description": "L'expression mathématique à évaluer (par exemple.",
@@ -67,7 +68,8 @@
       "résoudre",
       "numérique"
     ],
-    "err.expression_missing": "[calculator]\\\nError: No expression provided."
+    "err.expression_missing": "[calculatrice]\\\nErreur : aucune expression fournie.",
+    "err.eval": ""
   },
   "ko": {
     "param.expression.description": "계산할 수식(예: '123*(45+67)').",
@@ -84,7 +86,8 @@
       "해결",
       "숫자"
     ],
-    "err.expression_missing": "[calculator]\\\nError: No expression provided."
+    "err.expression_missing": "[계산기]\\\n오류: 표현식이 제공되지 않았습니다.",
+    "err.eval": ""
   },
   "de": {
     "param.expression.description": "Die Formel, die Sie berechnen möchten (z.B.",
@@ -101,7 +104,8 @@
       "lösen",
       "numerisch"
     ],
-    "err.expression_missing": "[calculator]\\\nError: No expression provided."
+    "err.expression_missing": "[Rechner]\\\nFehler: Kein Ausdruck angegeben.",
+    "err.eval": ""
   },
   "it": {
     "param.expression.description": "L'espressione matematica da valutare (es.",
@@ -118,7 +122,8 @@
       "risolvere",
       "numerico"
     ],
-    "err.expression_missing": "[calculator]\\\nError: No expression provided."
+    "err.expression_missing": "[calcolatrice]\\\nErrore: nessuna espressione fornita.",
+    "err.eval": ""
   },
   "ru": {
     "param.expression.description": "Математическое выражение для вычисления (например,",
@@ -135,7 +140,8 @@
       "решить",
       "числовой"
     ],
-    "err.expression_missing": "[calculator]\\\nError: No expression provided."
+    "err.expression_missing": "[калькулятор]\\\nОшибка: выражение не указано.",
+    "err.eval": ""
   },
   "pt_BR": {
     "param.expression.description": "A expressão matemática a ser avaliada (por exemplo,",
@@ -152,7 +158,8 @@
       "resolver",
       "numérico"
     ],
-    "err.expression_missing": "[calculator]\\\nError: No expression provided."
+    "err.expression_missing": "[calculadora]\\\nErro: Nenhuma expressão fornecida.",
+    "err.eval": ""
   },
   "pt": {
     "param.expression.description": "A expressão matemática a ser avaliada (por exemplo,",
@@ -169,7 +176,8 @@
       "resolver",
       "numérico"
     ],
-    "err.expression_missing": "[calculator]\\\nError: No expression provided."
+    "err.expression_missing": "[calculadora]\\\nErro: Nenhuma expressão fornecida.",
+    "err.eval": ""
   },
   "id": {
     "param.expression.description": "Rumus yang ingin Anda hitung (mis.",
@@ -186,7 +194,8 @@
       "menyelesaikan",
       "numerik"
     ],
-    "err.expression_missing": "[calculator]\\\nError: No expression provided."
+    "err.expression_missing": "[kalkulator]\\\nKesalahan: Tidak ada ekspresi yang tersedia.",
+    "err.eval": ""
   },
   "vi": {
     "param.expression.description": "Biểu thức toán học cần đánh giá (ví dụ:",
@@ -203,7 +212,8 @@
       "giải",
       "số"
     ],
-    "err.expression_missing": "[calculator]\\\nError: No expression provided."
+    "err.expression_missing": "[máy tính]\\\nLỗi: Không cung cấp biểu thức nào.",
+    "err.eval": ""
   },
   "pl": {
     "param.expression.description": "Formuła, którą chcesz obliczyć (np.",
@@ -220,7 +230,8 @@
       "rozwiązać",
       "numeryczny"
     ],
-    "err.expression_missing": "[calculator]\\\nError: No expression provided."
+    "err.expression_missing": "[Kalkulator]\\\nBłąd: nie podano wyrażenia.",
+    "err.eval": ""
   },
   "hi": {
     "param.expression.description": "मूल्यांकन करने के लिए गणितीय अभिव्यक्ति (उदाहरण के लिए",
@@ -237,7 +248,8 @@
       "हल करना",
       "संख्यात्मक"
     ],
-    "err.expression_missing": "[calculator]\\\nError: No expression provided."
+    "err.expression_missing": "[कैलकुलेटर]\\\nत्रुटि: कोई अभिव्यक्ति प्रदान नहीं की गई।",
+    "err.eval": ""
   },
   "ar": {
     "param.expression.description": "التعبير الرياضي المطلوب تقييمه (على سبيل المثال",
@@ -254,7 +266,8 @@
       "حل",
       "عددي"
     ],
-    "err.expression_missing": "[calculator]\\\nError: No expression provided."
+    "err.expression_missing": "[الآلة الحاسبة]\\\nخطأ: لم يتم توفير تعبير.",
+    "err.eval": ""
   },
   "sv": {
     "param.expression.description": "Formeln du vill beräkna (t.ex.",
@@ -271,7 +284,8 @@
       "lösa",
       "numerisk"
     ],
-    "err.expression_missing": "[calculator]\\\nError: No expression provided."
+    "err.expression_missing": "[kalkylator]\\\nFel: Inget uttryck tillhandahålls.",
+    "err.eval": ""
   },
   "sw": {
     "param.expression.description": "Usemi wa hisabati wa kutathminiwa (k.m.",
@@ -288,7 +302,8 @@
       "suluhisha",
       "nambari"
     ],
-    "err.expression_missing": "[calculator]\\\nError: No expression provided."
+    "err.expression_missing": "[kikokotoo]\\\nHitilafu: Hakuna usemi uliotolewa.",
+    "err.eval": ""
   },
   "nb": {
     "param.expression.description": "Formelen du vil beregne (f.eks.",
@@ -305,7 +320,8 @@
       "løse",
       "numerisk"
     ],
-    "err.expression_missing": "[calculator]\\\nError: No expression provided."
+    "err.expression_missing": "[kalkulator]\\\nFeil: Ingen uttrykk gitt.",
+    "err.eval": ""
   },
   "nl": {
     "param.expression.description": "De formule die u wilt berekenen (bijv.",
@@ -322,7 +338,8 @@
       "oplossen",
       "numeriek"
     ],
-    "err.expression_missing": "[calculator]\\\nError: No expression provided."
+    "err.expression_missing": "[calculator]\\\nFout: geen expressie opgegeven.",
+    "err.eval": ""
   },
   "fi": {
     "param.expression.description": "Laskettava lauseke (esim.",
@@ -339,7 +356,8 @@
       "ratkaista",
       "numeerinen"
     ],
-    "err.expression_missing": "[calculator]\\\nError: No expression provided."
+    "err.expression_missing": "[laskin]\\\nVirhe: Ei lauseketta.",
+    "err.eval": ""
   },
   "cs": {
     "param.expression.description": "Vzorec, který chcete vypočítat (např.",
@@ -356,7 +374,8 @@
       "vyřešit",
       "číselný"
     ],
-    "err.expression_missing": "[calculator]\\\nError: No expression provided."
+    "err.expression_missing": "[kalkulačka]\\\nChyba: Nebyl zadán žádný výraz.",
+    "err.eval": ""
   },
   "uk": {
     "param.expression.description": "Математичний вираз для оцінки (наприклад,",
@@ -373,7 +392,8 @@
       "розв’язати",
       "числовий"
     ],
-    "err.expression_missing": "[calculator]\\\nError: No expression provided."
+    "err.expression_missing": "[калькулятор]\\\nПомилка: не вказано вираз.",
+    "err.eval": ""
   },
   "tr": {
     "param.expression.description": "Hesaplamak istediğiniz formül (ör.",
@@ -390,7 +410,8 @@
       "çözmek",
       "sayısal"
     ],
-    "err.expression_missing": "[calculator]\\\nError: No expression provided."
+    "err.expression_missing": "[hesap makinesi]\\\nHata: İfade sağlanmadı.",
+    "err.eval": ""
   },
   "th": {
     "param.expression.description": "นิพจน์ทางคณิตศาสตร์ที่จะประเมิน (เช่น",
@@ -407,7 +428,8 @@
       "แก้",
       "ตัวเลข"
     ],
-    "err.expression_missing": "[calculator]\\\nError: No expression provided."
+    "err.expression_missing": "[เครื่องคิดเลข]\\\nข้อผิดพลาด: ไม่ได้ระบุนิพจน์",
+    "err.eval": ""
   },
   "zh_CN": {
     "param.expression.description": "要计算的数学表达式（例如: '123*(45+67)'）。",
@@ -424,7 +446,8 @@
       "求解",
       "数值"
     ],
-    "err.expression_missing": "[calculator]\\\nError: No expression provided."
+    "err.expression_missing": "[计算器]\\\n错误：未提供表达式。",
+    "err.eval": ""
   },
   "zh_TW": {
     "param.expression.description": "要计算的数学表达式（例如: '123*(45+67)'）。",
@@ -441,7 +464,8 @@
       "求解",
       "數值"
     ],
-    "err.expression_missing": "[calculator]\\\nError: No expression provided."
+    "err.expression_missing": "[計算器]\\\n錯誤：未提供表達式。",
+    "err.eval": ""
   },
   "bn": {
     "param.expression.description": "মূল্যায়ন করার জন্য গাণিতিক অভিব্যক্তি (যেমন.",
@@ -458,7 +482,8 @@
       "সমাধান",
       "সংখ্যাসূচক"
     ],
-    "err.expression_missing": "[calculator]\\\nError: No expression provided."
+    "err.expression_missing": "[ক্যালকুলেটর]\\\nত্রুটি: কোনো অভিব্যক্তি প্রদান করা হয়নি।",
+    "err.eval": ""
   },
   "fa": {
     "param.expression.description": "عبارت ریاضی برای ارزیابی (مثلاً",
@@ -475,7 +500,8 @@
       "حل",
       "عددی"
     ],
-    "err.expression_missing": "[calculator]\\\nError: No expression provided."
+    "err.expression_missing": "[ماشین حساب]\\\nخطا: هیچ عبارتی ارائه نشده است.",
+    "err.eval": ""
   },
   "mn": {
     "param.expression.description": "Үнэлгээ хийх математик илэрхийлэл (жишээ нь.",
@@ -492,7 +518,8 @@
       "шийдэх",
       "тоон"
     ],
-    "err.expression_missing": "[calculator]\\\nError: No expression provided."
+    "err.expression_missing": "[Тооцоологч]\\\nАлдаа: Илэрхийлэл өгөөгүй.",
+    "err.eval": ""
   },
   "mr": {
     "param.expression.description": "तुम्हाला ज्याची गणना करायची आहे ते सूत्र (उदा.",
@@ -509,7 +536,8 @@
       "सोडवणे",
       "संख्यात्मक"
     ],
-    "err.expression_missing": "[calculator]\\\nError: No expression provided."
+    "err.expression_missing": "[कॅल्क्युलेटर]\\\nत्रुटी: कोणतीही अभिव्यक्ती प्रदान केलेली नाही.",
+    "err.eval": ""
   },
   "el": {
     "param.expression.description": "Η μαθηματική έκφραση προς αξιολόγηση (π.χ.",
@@ -526,7 +554,8 @@
       "λύνω",
       "αριθμητικός"
     ],
-    "err.expression_missing": "[αριθμομηχανή]\\\nΣφάλμα: Δεν παρέχεται έκφραση."
+    "err.expression_missing": "[αριθμομηχανή]\\\nΣφάλμα: Δεν παρέχεται έκφραση.",
+    "err.eval": ""
   },
   "he": {
     "param.expression.description": "הביטוי המתמטי שיש להעריך (למשל.",
@@ -543,7 +572,8 @@
       "לִפְתוֹר",
       "מספרי"
     ],
-    "err.expression_missing": "[מחשבון]\\\nשגיאה: לא סופק ביטוי."
+    "err.expression_missing": "[מחשבון]\\\nשגיאה: לא סופק ביטוי.",
+    "err.eval": ""
   },
   "hu": {
     "param.expression.description": "A kiértékelendő matematikai kifejezés (pl.",
@@ -560,7 +590,8 @@
       "megoldani",
       "numerikus"
     ],
-    "err.expression_missing": "[számológép]\\\nHiba: Nincs megadva kifejezés."
+    "err.expression_missing": "[számológép]\\\nHiba: Nincs megadva kifejezés.",
+    "err.eval": ""
   },
   "ro": {
     "param.expression.description": "Expresia matematică de evaluat (de ex.",
@@ -577,6 +608,7 @@
       "rezolva",
       "numeric"
     ],
-    "err.expression_missing": "[calculator]\\\nEroare: nu este furnizată nicio expresie."
+    "err.expression_missing": "[calculator]\\\nEroare: nu este furnizată nicio expresie.",
+    "err.eval": ""
   }
 }

@@ -25,7 +25,9 @@
       "switchbot_cloud_status",
       "سويتش بوت",
       "سحابة"
-    ]
+    ],
+    "err.config_missing": "بيانات اعتماد SwitchBot Cloud مفقودة. قم بتعيين UAGENT_SWITCHBOT_TOKEN وUAGENT_SWITCHBOT_SECRET.",
+    "tool.description": "احصل على حالة جهاز SwitchBot Cloud واحد من الحساب الذي تم تكوينه."
   },
   "bn": {
     "param.dev.description": "ডিভাইস আইডি (পছন্দের)।",
@@ -53,7 +55,9 @@
       "switchbot_cloud_status",
       "সুইচবট",
       "মেঘ"
-    ]
+    ],
+    "err.config_missing": "SwitchBot ক্লাউড শংসাপত্র অনুপস্থিত. UAGENT_SWITCHBOT_TOKEN এবং UAGENT_SWITCHBOT_SECRET সেট করুন।",
+    "tool.description": "কনফিগার করা অ্যাকাউন্ট থেকে একটি SwitchBot ক্লাউড ডিভাইসের স্থিতি পান।"
   },
   "cs": {
     "param.dev.description": "ID zařízení (preferované).",
@@ -81,7 +85,9 @@
       "switchbot_cloud_status",
       "přepínač",
       "mrak"
-    ]
+    ],
+    "err.config_missing": "Chybí přihlašovací údaje SwitchBot Cloud. Nastavte UAGENT_SWITCHBOT_TOKEN a UAGENT_SWITCHBOT_SECRET.",
+    "tool.description": "Získejte stav jednoho zařízení SwitchBot Cloud z nakonfigurovaného účtu."
   },
   "de": {
     "param.dev.description": "Geräte-ID (bevorzugt).",
@@ -109,7 +115,9 @@
       "switchbot_cloud_status",
       "Switchbot",
       "Wolke"
-    ]
+    ],
+    "err.config_missing": "Die Anmeldeinformationen für SwitchBot Cloud fehlen. Legen Sie UAGENT_SWITCHBOT_TOKEN und UAGENT_SWITCHBOT_SECRET fest.",
+    "tool.description": "Rufen Sie den Status eines SwitchBot Cloud-Geräts vom konfigurierten Konto ab."
   },
   "en": {
     "param.dev.description": "Device ID (preferred).",
@@ -167,35 +175,39 @@
       "switchbot_cloud_status",
       "robot conmutador",
       "nube"
-    ]
+    ],
+    "err.config_missing": "Faltan las credenciales de SwitchBot Cloud. Establezca UAGENT_SWITCHBOT_TOKEN y UAGENT_SWITCHBOT_SECRET.",
+    "tool.description": "Obtenga el estado de un dispositivo SwitchBot Cloud de la cuenta configurada."
   },
   "fa": {
-    "param.dev.description": "دریافت‌شده در: {ts}",
+    "param.dev.description": "شناسه دستگاه (ترجیحا).",
     "param.devname.description": "شناسه دستگاه (ترجیحی).",
     "param.fmt.description": "دستورات برای اجرا.",
     "err.invalid_response": "فرمت: json یا متن.",
     "err.invalid_arguments": "مهلت HTTP (ثانیه).",
     "err.not_found": "یا device_id یا device_name الزامی است.",
     "err.ambiguous_target": "هیچ دستگاه SwitchBot با device_id ارائه‌شده مطابقت نداشت.",
-    "msg.summary": "نام دستگاه (جایگزین).",
-    "msg.battery": "دریافت وضعیت یک دستگاه SwitchBot Cloud از حساب پیکربندی‌شده.",
-    "msg.error_code_fmt": "باتری: {val}",
-    "msg.fetched_at": "دستگاه‌های SwitchBot Cloud: {count}",
-    "msg.humidity": "خطا [{code}]: {msg}",
+    "msg.summary": "وضعیت SwitchBot Cloud واکشی شد: {device_name} ({device_id}).",
+    "msg.battery": "باتری: {val}",
+    "msg.error_code_fmt": "خطا [{code}]: {msg}",
+    "msg.fetched_at": "واکشی شده در: {ts}",
+    "msg.humidity": "رطوبت: {val}",
     "msg.lock_state": "رطوبت: {val}",
     "msg.mode": "وضعیت قفل: {val}",
     "msg.online": "حالت: {val}",
     "msg.position": "آنلاین: {val}",
     "msg.power": "موقعیت: {val}",
     "msg.temperature": "برق: {val}",
-    "msg.type": "دما: {val}",
-    "msg.unknown": "نوع: {dtype}",
+    "msg.type": "نوع: {dtype}",
+    "msg.unknown": "(ناشناخته)",
     "x_search_terms": [
       "وضعیت ابری switchbot",
       "switchbot_cloud_status",
       "سوییچ‌بات",
       "ابر"
-    ]
+    ],
+    "err.config_missing": "اعتبارنامه SwitchBot Cloud وجود ندارد. UAGENT_SWITCHBOT_TOKEN و UAGENT_SWITCHBOT_SECRET را تنظیم کنید.",
+    "tool.description": "وضعیت یک دستگاه SwitchBot Cloud را از حساب پیکربندی شده دریافت کنید."
   },
   "fi": {
     "param.dev.description": "Laitteen tunnus (ensisijainen).",
@@ -223,7 +235,9 @@
       "switchbot_cloud_status",
       "kytkinrobotti",
       "pilvi"
-    ]
+    ],
+    "err.config_missing": "SwitchBot Cloud -tunnistetiedot puuttuvat. Aseta UAGENT_SWITCHBOT_TOKEN ja UAGENT_SWITCHBOT_SECRET.",
+    "tool.description": "Hae yhden SwitchBot Cloud -laitteen tila määritetyltä tililtä."
   },
   "fr": {
     "param.dev.description": "ID de l'appareil (préféré).",
@@ -251,7 +265,9 @@
       "switchbot_cloud_status",
       "robot de commutation",
       "nuage"
-    ]
+    ],
+    "err.config_missing": "Les informations d’identification SwitchBot Cloud sont manquantes. Définissez UAGENT_SWITCHBOT_TOKEN et UAGENT_SWITCHBOT_SECRET.",
+    "tool.description": "Obtenez l'état d'un appareil SwitchBot Cloud à partir du compte configuré."
   },
   "hi": {
     "param.dev.description": "डिवाइस आईडी (पसंदीदा)।",
@@ -279,7 +295,9 @@
       "switchbot_cloud_status",
       "स्विचबॉट",
       "बादल"
-    ]
+    ],
+    "err.config_missing": "स्विचबॉट क्लाउड क्रेडेंशियल गायब हैं। UAGENT_SWITCHBOT_TOKEN और UAGENT_SWITCHBOT_SECRET सेट करें।",
+    "tool.description": "कॉन्फ़िगर किए गए खाते से एक स्विचबॉट क्लाउड डिवाइस की स्थिति प्राप्त करें।"
   },
   "id": {
     "param.dev.description": "ID Perangkat (disukai).",
@@ -307,7 +325,9 @@
       "switchbot_cloud_status",
       "saklarbot",
       "awan"
-    ]
+    ],
+    "err.config_missing": "Kredensial SwitchBot Cloud tidak ada. Tetapkan UAGENT_SWITCHBOT_TOKEN dan UAGENT_SWITCHBOT_SECRET.",
+    "tool.description": "Dapatkan status satu perangkat SwitchBot Cloud dari akun yang dikonfigurasi."
   },
   "it": {
     "param.dev.description": "ID dispositivo (preferito).",
@@ -335,17 +355,19 @@
       "switchbot_cloud_status",
       "commutatore",
       "nuvola"
-    ]
+    ],
+    "err.config_missing": "Mancano le credenziali di SwitchBot Cloud. Imposta UAGENT_SWITCHBOT_TOKEN e UAGENT_SWITCHBOT_SECRET.",
+    "tool.description": "Ottieni lo stato di un dispositivo SwitchBot Cloud dall'account configurato."
   },
   "ja": {
     "param.dev.description": "デバイスID（推奨）。",
     "param.devname.description": "デバイス名（代替指定）。",
     "param.fmt.description": "形式: json または text。",
-    "err.invalid_response": "SwitchBot Cloud returned an unexpected payload.",
-    "err.invalid_arguments": "Either device_id or device_name is required.",
-    "err.not_found": "No SwitchBot device matched the provided device_id.",
-    "err.ambiguous_target": "Multiple SwitchBot devices matched the provided device_name.",
-    "msg.summary": "SwitchBot Cloud status fetched: {device_name} ({device_id}).",
+    "err.invalid_response": "SwitchBot クラウドが予期しないペイロードを返しました。",
+    "err.invalid_arguments": "device_id または device_name のいずれかが必要です。",
+    "err.not_found": "指定された device_id に一致する SwitchBot デバイスはありません。",
+    "err.ambiguous_target": "複数の SwitchBot デバイスが、指定された device_name と一致しました。",
+    "msg.summary": "取得された SwitchBot クラウドのステータス: {device_name} ({device_id})。",
     "msg.battery": "バッテリー: {val}",
     "msg.error_code_fmt": "エラー [{code}]: {msg}",
     "msg.fetched_at": "取得日時: {ts}",
@@ -393,63 +415,69 @@
       "스위치봇_클라우드_상태",
       "스위치봇",
       "구름"
-    ]
+    ],
+    "err.config_missing": "SwitchBot Cloud 자격 증명이 누락되었습니다. UAGENT_SWITCHBOT_TOKEN 및 UAGENT_SWITCHBOT_SECRET을 설정합니다.",
+    "tool.description": "구성된 계정에서 SwitchBot Cloud 장치 하나의 상태를 가져옵니다."
   },
   "mn": {
-    "param.dev.description": "Татагдсан: {ts}",
+    "param.dev.description": "Төхөөрөмжийн ID (илүү зохимжтой).",
     "param.devname.description": "Төхөөрөмжийн ID (илүүдэл).",
     "param.fmt.description": "Гүйцэтгэх командууд.",
     "err.invalid_response": "Формат: json эсвэл text.",
     "err.invalid_arguments": "HTTP хугацаа (секунд).",
     "err.not_found": "device_id эсвэл device_name шаардлагатай.",
     "err.ambiguous_target": "Өгөгдсөн device_id-тай тохирох SwitchBot төхөөрөмж олдсонгүй.",
-    "msg.summary": "Төхөөрөмжийн нэр (нөөц).",
-    "msg.battery": "Тохируулсан бүртгэлээс нэг SwitchBot Cloud төхөөрөмжийн төлөвийг авах.",
-    "msg.error_code_fmt": "Батерей: {val}",
-    "msg.fetched_at": "SwitchBot Cloud төхөөрөмжүүд: {count}",
-    "msg.humidity": "Алдаа [{code}]: {msg}",
+    "msg.summary": "SwitchBot Cloud-ын төлөвийг татаж авсан: {device_name} ({device_id}).",
+    "msg.battery": "Зай: {val}",
+    "msg.error_code_fmt": "Алдаа [{code}]: {msg}",
+    "msg.fetched_at": "Татаж авсан: {ts}",
+    "msg.humidity": "Чийглэг: {val}",
     "msg.lock_state": "Чийгшил: {val}",
     "msg.mode": "Түгжээний төлөв: {val}",
     "msg.online": "Горим: {val}",
     "msg.position": "Онлайн: {val}",
     "msg.power": "Байрлал: {val}",
     "msg.temperature": "Цахилгаан: {val}",
-    "msg.type": "Температур: {val}",
-    "msg.unknown": "Төрөл: {dtype}",
+    "msg.type": "Төрөл: {dtype}",
+    "msg.unknown": "(үл мэдэгдэх)",
     "x_search_terms": [
       "switchbot үүлэн төлөв",
       "switchbot_cloud_status",
       "свичбот",
       "үүл"
-    ]
+    ],
+    "err.config_missing": "SwitchBot Cloud итгэмжлэл байхгүй байна. UAGENT_SWITCHBOT_TOKEN болон UAGENT_SWITCHBOT_SECRET-г тохируулна уу.",
+    "tool.description": "Тохируулсан бүртгэлээс нэг SwitchBot Cloud төхөөрөмжийн статусыг аваарай."
   },
   "mr": {
-    "param.dev.description": "येथे आणले: {ts}",
+    "param.dev.description": "डिव्हाइस आयडी (प्राधान्य).",
     "param.devname.description": "डिव्हाइस आयडी (पसंतीचा).",
     "param.fmt.description": "कार्यान्वित करण्यासाठी कमांड्स.",
     "err.invalid_response": "फॉरमॅट: json किंवा text.",
     "err.invalid_arguments": "HTTP टाइमआउट (सेकंद).",
     "err.not_found": "device_id किंवा device_name पैकी एक आवश्यक आहे.",
     "err.ambiguous_target": "प्रदान केलेल्या device_id शी जुळणारे कोणतेही SwitchBot डिव्हाइस सापडले नाही.",
-    "msg.summary": "डिव्हाइस नाव (फॉलबॅक).",
-    "msg.battery": "कॉन्फिगर केलेल्या खात्यातील एका SwitchBot Cloud डिव्हाइसची स्थिती मिळवा.",
-    "msg.error_code_fmt": "बॅटरी: {val}",
-    "msg.fetched_at": "SwitchBot Cloud डिव्हाइसेस: {count}",
-    "msg.humidity": "त्रुटी [{code}]: {msg}",
+    "msg.summary": "स्विचबॉट क्लाउड स्थिती प्राप्त केली: {device_name} ({device_id}).",
+    "msg.battery": "बॅटरी: {val}",
+    "msg.error_code_fmt": "त्रुटी [{code}]: {msg}",
+    "msg.fetched_at": "येथे आणले: {ts}",
+    "msg.humidity": "आर्द्रता: {val}",
     "msg.lock_state": "आर्द्रता: {val}",
     "msg.mode": "लॉक स्थिती: {val}",
     "msg.online": "मोड: {val}",
     "msg.position": "ऑनलाइन: {val}",
     "msg.power": "स्थिती: {val}",
     "msg.temperature": "पॉवर: {val}",
-    "msg.type": "तापमान: {val}",
-    "msg.unknown": "प्रकार: {dtype}",
+    "msg.type": "प्रकार: {dtype}",
+    "msg.unknown": "(अज्ञात)",
     "x_search_terms": [
       "switchbot क्लाउड स्थिती",
       "switchbot_cloud_status",
       "स्विचबॉट",
       "ढग"
-    ]
+    ],
+    "err.config_missing": "SwitchBot क्लाउड क्रेडेन्शियल गहाळ आहेत. UAGENT_SWITCHBOT_TOKEN आणि UAGENT_SWITCHBOT_SECRET सेट करा.",
+    "tool.description": "कॉन्फिगर केलेल्या खात्यातून एका स्विचबॉट क्लाउड डिव्हाइसची स्थिती मिळवा."
   },
   "el": {
     "param.dev.description": "Αναγνωριστικό συσκευής (προτιμώμενο).",
@@ -477,7 +505,9 @@
       "switchbot_cloud_status",
       "διακόπτης",
       "σύννεφο"
-    ]
+    ],
+    "err.config_missing": "Τα διαπιστευτήρια SwitchBot Cloud λείπουν. Ορίστε UAGENT_SWITCHBOT_TOKEN και UAGENT_SWITCHBOT_SECRET.",
+    "tool.description": "Λάβετε την κατάσταση μιας συσκευής SwitchBot Cloud από τον διαμορφωμένο λογαριασμό."
   },
   "he": {
     "param.dev.description": "מזהה התקן (מועדף).",
@@ -505,7 +535,9 @@
       "switchbot_cloud_status",
       "מתג-בוט",
       "ענן"
-    ]
+    ],
+    "err.config_missing": "חסרים אישורי SwitchBot Cloud. הגדר UAGENT_SWITCHBOT_TOKEN ו-UAGENT_SWITCHBOT_SECRET.",
+    "tool.description": "קבל את הסטטוס של מכשיר SwitchBot Cloud אחד מהחשבון המוגדר."
   },
   "hu": {
     "param.dev.description": "Eszköz azonosító (előnyben részesített).",
@@ -533,7 +565,9 @@
       "switchbot_cloud_status",
       "kapcsolóbot",
       "felhő"
-    ]
+    ],
+    "err.config_missing": "Hiányoznak a SwitchBot Cloud hitelesítő adatai. UAGENT_SWITCHBOT_TOKEN és UAGENT_SWITCHBOT_SECRET beállítása.",
+    "tool.description": "Kérje le egy SwitchBot Cloud eszköz állapotát a konfigurált fiókból."
   },
   "ro": {
     "param.dev.description": "ID dispozitiv (preferat).",
@@ -561,7 +595,9 @@
       "switchbot_cloud_status",
       "comutator robot",
       "nor"
-    ]
+    ],
+    "err.config_missing": "Acreditările SwitchBot Cloud lipsesc. Setați UAGENT_SWITCHBOT_TOKEN și UAGENT_SWITCHBOT_SECRET.",
+    "tool.description": "Obțineți starea unui dispozitiv SwitchBot Cloud din contul configurat."
   },
   "nb": {
     "param.dev.description": "Enhets-ID (foretrukket).",
@@ -589,7 +625,9 @@
       "switchbot_cloud_status",
       "switchbot",
       "sky"
-    ]
+    ],
+    "err.config_missing": "SwitchBot Cloud-legitimasjon mangler. Sett UAGENT_SWITCHBOT_TOKEN og UAGENT_SWITCHBOT_SECRET.",
+    "tool.description": "Få statusen til én SwitchBot Cloud-enhet fra den konfigurerte kontoen."
   },
   "nl": {
     "param.dev.description": "Apparaat-ID (voorkeur).",
@@ -617,7 +655,9 @@
       "switchbot_cloud_status",
       "schakelbot",
       "wolk"
-    ]
+    ],
+    "err.config_missing": "SwitchBot Cloud-inloggegevens ontbreken. Stel UAGENT_SWITCHBOT_TOKEN en UAGENT_SWITCHBOT_SECRET in.",
+    "tool.description": "Haal de status van één SwitchBot Cloud-apparaat op via het geconfigureerde account."
   },
   "pl": {
     "param.dev.description": "Identyfikator urządzenia (preferowany).",
@@ -645,7 +685,9 @@
       "switchbot_cloud_status",
       "przełącznik",
       "chmura"
-    ]
+    ],
+    "err.config_missing": "Brak danych uwierzytelniających SwitchBot Cloud. Ustaw UAGENT_SWITCHBOT_TOKEN i UAGENT_SWITCHBOT_SECRET.",
+    "tool.description": "Uzyskaj status jednego urządzenia SwitchBot Cloud ze skonfigurowanego konta."
   },
   "pt": {
     "param.dev.description": "ID do dispositivo (preferido).",
@@ -673,7 +715,9 @@
       "switchbot_cloud_status",
       "robô de comutação",
       "nuvem"
-    ]
+    ],
+    "err.config_missing": "As credenciais do SwitchBot Cloud estão faltando. Defina UAGENT_SWITCHBOT_TOKEN e UAGENT_SWITCHBOT_SECRET.",
+    "tool.description": "Obtenha o status de um dispositivo SwitchBot Cloud da conta configurada."
   },
   "pt_BR": {
     "param.dev.description": "ID do dispositivo (preferido).",
@@ -701,7 +745,9 @@
       "switchbot_cloud_status",
       "robô de comutação",
       "nuvem"
-    ]
+    ],
+    "err.config_missing": "As credenciais do SwitchBot Cloud estão faltando. Defina UAGENT_SWITCHBOT_TOKEN e UAGENT_SWITCHBOT_SECRET.",
+    "tool.description": "Obtenha o status de um dispositivo SwitchBot Cloud da conta configurada."
   },
   "ru": {
     "param.dev.description": "ID устройства (предпочтительно).",
@@ -729,7 +775,9 @@
       "switchbot_cloud_status",
       "switchbot",
       "облако"
-    ]
+    ],
+    "err.config_missing": "Учетные данные SwitchBot Cloud отсутствуют. Установите UAGENT_SWITCHBOT_TOKEN и UAGENT_SWITCHBOT_SECRET.",
+    "tool.description": "Получите статус одного устройства SwitchBot Cloud из настроенной учетной записи."
   },
   "sv": {
     "param.dev.description": "Enhets-ID (föredraget).",
@@ -757,7 +805,9 @@
       "switchbot_cloud_status",
       "switchbot",
       "moln"
-    ]
+    ],
+    "err.config_missing": "SwitchBot Cloud-uppgifter saknas. Ställ in UAGENT_SWITCHBOT_TOKEN och UAGENT_SWITCHBOT_SECRET.",
+    "tool.description": "Hämta status för en SwitchBot Cloud-enhet från det konfigurerade kontot."
   },
   "sw": {
     "param.dev.description": "Kitambulisho cha Kifaa (kinachopendekezwa).",
@@ -785,17 +835,19 @@
       "switchbot_cloud_status",
       "kubadili bot",
       "wingu"
-    ]
+    ],
+    "err.config_missing": "Kitambulisho cha Wingu cha SwitchBot hakipo. Weka UAGENT_SWITCHBOT_TOKEN na UAGENT_SWITCHBOT_SECRET.",
+    "tool.description": "Pata hali ya kifaa kimoja cha Wingu cha SwitchBot kutoka kwa akaunti iliyosanidiwa."
   },
   "th": {
     "param.dev.description": "デバイスID（推奨）。",
     "param.devname.description": "デバイス名（代替指定）。",
     "param.fmt.description": "形式: json または text。",
-    "err.invalid_response": "SwitchBot Cloud returned an unexpected payload.",
-    "err.invalid_arguments": "Either device_id or device_name is required.",
-    "err.not_found": "No SwitchBot device matched the provided device_id.",
-    "err.ambiguous_target": "Multiple SwitchBot devices matched the provided device_name.",
-    "msg.summary": "SwitchBot Cloud status fetched: {device_name} ({device_id}).",
+    "err.invalid_response": "SwitchBot Cloud ส่งคืนเพย์โหลดที่ไม่คาดคิด",
+    "err.invalid_arguments": "จำเป็นต้องมี device_id หรือ device_name",
+    "err.not_found": "ไม่มีอุปกรณ์ SwitchBot ที่ตรงกับ device_id ที่ให้มา",
+    "err.ambiguous_target": "อุปกรณ์ SwitchBot หลายเครื่องตรงกับ device_name ที่ให้มา",
+    "msg.summary": "ดึงข้อมูลสถานะ SwitchBot Cloud แล้ว: {device_name} ({device_id})",
     "msg.battery": "バッテリー: {val}",
     "msg.error_code_fmt": "エラー [{code}]: {msg}",
     "msg.fetched_at": "取得日時: {ts}",
@@ -813,7 +865,9 @@
       "switchbot_cloud_status",
       "สวิตช์บอท",
       "คลาวด์"
-    ]
+    ],
+    "err.config_missing": "ข้อมูลประจำตัวของ SwitchBot Cloud หายไป ตั้งค่า UAGENT_SWITCHBOT_TOKEN และ UAGENT_SWITCHBOT_SECRET",
+    "tool.description": "รับสถานะของอุปกรณ์ SwitchBot Cloud หนึ่งเครื่องจากบัญชีที่กำหนดค่า"
   },
   "tr": {
     "param.dev.description": "Cihaz kimliği (tercih edilen).",
@@ -841,7 +895,9 @@
       "switchbot_cloud_status",
       "anahtar bot",
       "bulut"
-    ]
+    ],
+    "err.config_missing": "SwitchBot Cloud kimlik bilgileri eksik. UAGENT_SWITCHBOT_TOKEN ve UAGENT_SWITCHBOT_SECRET'i ayarlayın.",
+    "tool.description": "Yapılandırılmış hesaptan bir SwitchBot Bulut cihazının durumunu alın."
   },
   "uk": {
     "param.dev.description": "ID пристрою (пріоритетний).",
@@ -869,7 +925,9 @@
       "switchbot_cloud_status",
       "перемикач",
       "хмара"
-    ]
+    ],
+    "err.config_missing": "Облікові дані SwitchBot Cloud відсутні. Установіть UAGENT_SWITCHBOT_TOKEN і UAGENT_SWITCHBOT_SECRET.",
+    "tool.description": "Отримайте статус одного пристрою SwitchBot Cloud із налаштованого облікового запису."
   },
   "vi": {
     "param.dev.description": "ID thiết bị (ưu tiên).",
@@ -897,7 +955,9 @@
       "switchbot_cloud_status",
       "switchbot",
       "đám mây"
-    ]
+    ],
+    "err.config_missing": "Thiếu thông tin xác thực trên SwitchBot Cloud. Đặt UAGENT_SWITCHBOT_TOKEN và UAGENT_SWITCHBOT_SECRET.",
+    "tool.description": "Nhận trạng thái của một thiết bị SwitchBot Cloud từ tài khoản đã định cấu hình."
   },
   "zh_CN": {
     "param.dev.description": "设备ID（首选）。",
@@ -925,7 +985,9 @@
       "switchbot_cloud_status",
       "开关机器人",
       "云"
-    ]
+    ],
+    "err.config_missing": "SwitchBot Cloud 凭据丢失。设置 UAGENT_SWITCHBOT_TOKEN 和 UAGENT_SWITCHBOT_SECRET。",
+    "tool.description": "从配置的帐户获取一台 SwitchBot Cloud 设备的状态。"
   },
   "zh_TW": {
     "param.dev.description": "裝置 ID（優先）。",
@@ -953,6 +1015,8 @@
       "switchbot_cloud_status",
       "開關機器人",
       "雲端"
-    ]
+    ],
+    "err.config_missing": "SwitchBot Cloud 憑證遺失。設定 UAGENT_SWITCHBOT_TOKEN 和 UAGENT_SWITCHBOT_SECRET。",
+    "tool.description": "從已設定的帳戶取得一台 SwitchBot Cloud 設備的狀態。"
   }
 }

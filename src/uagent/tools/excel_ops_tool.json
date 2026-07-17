@@ -65,7 +65,8 @@
       "hoja de excel"
     ],
     "param.password.description": "Contraseña (solicitudes si es necesario).",
-    "prompt.password": "Ingrese la contraseña para este archivo:\n{path}"
+    "prompt.password": "Ingrese la contraseña para este archivo:\n{path}",
+    "param.sheet_name.description": "Nombre de la hoja de destino (para lectura/escritura). Si se omite, la lectura usa la primera hoja y la escritura usa 'Hoja1'."
   },
   "fr": {
     "param.action.description": "Opération.",
@@ -87,7 +88,8 @@
       "feuille Excel"
     ],
     "param.password.description": "Mot de passe (invite si nécessaire).",
-    "prompt.password": "Entrez le mot de passe de ce fichier :\n{path}"
+    "prompt.password": "Entrez le mot de passe de ce fichier :\n{path}",
+    "param.sheet_name.description": "Nom de la feuille cible (pour lecture/écriture). En cas d'omission, la lecture utilise la première feuille et l'écriture utilise « Feuille1 »."
   },
   "ko": {
     "param.action.description": "수행할 작업입니다.",
@@ -109,7 +111,8 @@
       "엑셀 시트"
     ],
     "param.password.description": "비밀번호(필요시 프롬프트 표시).",
-    "prompt.password": "이 파일의 비밀번호를 입력하세요:\n{path}"
+    "prompt.password": "이 파일의 비밀번호를 입력하세요:\n{path}",
+    "param.sheet_name.description": "대상 시트 이름(읽기/쓰기용)입니다. 생략하면 읽기는 첫 번째 시트를 사용하고 쓰기는 '시트1'을 사용합니다."
   },
   "de": {
     "param.action.description": "Vorgang.",
@@ -131,7 +134,8 @@
       "Excel-Tabelle"
     ],
     "param.password.description": "Passwort (fragt bei Bedarf nach).",
-    "prompt.password": "Geben Sie das Passwort für diese Datei ein:\n{path}"
+    "prompt.password": "Geben Sie das Passwort für diese Datei ein:\n{path}",
+    "param.sheet_name.description": "Name des Zielblatts (zum Lesen/Schreiben). Wenn es weggelassen wird, verwendet das Lesen das erste Blatt und das Schreiben verwendet „Blatt1“."
   },
   "it": {
     "param.action.description": "Formato di output: testo o json.",
@@ -153,7 +157,8 @@
       "foglio Excel"
     ],
     "param.password.description": "Password (richiesta se necessario).",
-    "prompt.password": "Inserisci la password di questo file:\n{path}"
+    "prompt.password": "Inserisci la password di questo file:\n{path}",
+    "param.sheet_name.description": "Nome del foglio di destinazione (per lettura/scrittura). Se omesso, la lettura utilizza il primo foglio e la scrittura utilizza 'Foglio1'."
   },
   "ru": {
     "param.action.description": "Операция.",
@@ -175,7 +180,8 @@
       "лист Excel"
     ],
     "param.password.description": "Взаимодействие с определенным каналом Discord с помощью токена бота: отправка сообщений, чтение последних сообщений и, при необходимости, ожидание ответов после отправки.",
-    "prompt.password": "Введите пароль для этого файла:\n{path}"
+    "prompt.password": "Введите пароль для этого файла:\n{path}",
+    "param.sheet_name.description": "Имя целевого листа (для чтения/записи). Если этот параметр опущен, чтение использует первый лист, а запись использует «Лист1»."
   },
   "pt_BR": {
     "param.action.description": "Operação.",
@@ -197,7 +203,8 @@
       "planilha excel"
     ],
     "param.password.description": "Senha (solicita se necessário).",
-    "prompt.password": "Digite a senha deste arquivo:\n{path}"
+    "prompt.password": "Digite a senha deste arquivo:\n{path}",
+    "param.sheet_name.description": "Nome da planilha de destino (para leitura/gravação). Se omitido, a leitura usa a primeira planilha e a gravação usa 'Planilha1'."
   },
   "pt": {
     "param.action.description": "Operação.",
@@ -219,7 +226,8 @@
       "planilha excel"
     ],
     "param.password.description": "Senha (solicita se necessário).",
-    "prompt.password": "Digite a senha deste arquivo:\n{path}"
+    "prompt.password": "Digite a senha deste arquivo:\n{path}",
+    "param.sheet_name.description": "Nome da planilha de destino (para leitura/gravação). Se omitido, a leitura usa a primeira planilha e a gravação usa 'Planilha1'."
   },
   "id": {
     "param.action.description": "Operasi.",
@@ -241,7 +249,8 @@
       "lembar excel"
     ],
     "param.password.description": "Kata sandi (diminta jika diperlukan).",
-    "prompt.password": "Masukkan kata sandi untuk file ini:\n{path}"
+    "prompt.password": "Masukkan kata sandi untuk file ini:\n{path}",
+    "param.sheet_name.description": "Nama lembar target (untuk baca/tulis). Jika dihilangkan, baca menggunakan sheet pertama dan menulis menggunakan 'Sheet1'."
   },
   "vi": {
     "param.action.description": "Nếu đúng, không xảy ra lỗi khi đường dẫn không tồn tại.",
@@ -263,7 +272,8 @@
       "bảng excel"
     ],
     "param.password.description": "Mật khẩu tùy chọn cho tệp .",
-    "prompt.password": "Nhập mật khẩu của tệp này:\n{path}"
+    "prompt.password": "Nhập mật khẩu của tệp này:\n{path}",
+    "param.sheet_name.description": "Tên trang mục tiêu (để đọc/ghi). Nếu bị bỏ qua, đọc sẽ sử dụng trang đầu tiên và viết sẽ sử dụng 'Trang tính 1'."
   },
   "pl": {
     "param.action.description": "Operacja.",
@@ -285,7 +295,8 @@
       "arkusz Excela"
     ],
     "param.password.description": "Hasło (w razie potrzeby wyświetli monit).",
-    "prompt.password": "Wprowadź hasło do tego pliku:\n{path}"
+    "prompt.password": "Wprowadź hasło do tego pliku:\n{path}",
+    "param.sheet_name.description": "Nazwa arkusza docelowego (do odczytu/zapisu). Jeśli zostanie pominięty, odczyt użyje pierwszego arkusza, a zapis użyje „Arkusza 1”."
   },
   "hi": {
     "param.action.description": "पासवर्ड (यदि आवश्यक हो)।",
@@ -307,7 +318,8 @@
       "एक्सेल शीट"
     ],
     "param.password.description": "एन्क्रिप्टेड .",
-    "prompt.password": "इस फ़ाइल के लिए पासवर्ड दर्ज करें:\n{path}"
+    "prompt.password": "इस फ़ाइल के लिए पासवर्ड दर्ज करें:\n{path}",
+    "param.sheet_name.description": "लक्ष्य पत्रक का नाम (पढ़ने/लिखने के लिए)। यदि छोड़ दिया जाए, तो पढ़ने के लिए पहली शीट का उपयोग करें और लिखने के लिए 'शीट1' का उपयोग करें।"
   },
   "ar": {
     "param.action.description": "كلمة المرور (مطالبات إذا لزم الأمر).",
@@ -329,7 +341,8 @@
       "ورقة Excel"
     ],
     "param.password.description": "كلمة مرور اختيارية لملفات .",
-    "prompt.password": "أدخل كلمة المرور لهذا الملف:\n{path}"
+    "prompt.password": "أدخل كلمة المرور لهذا الملف:\n{path}",
+    "param.sheet_name.description": "اسم الورقة المستهدفة (للقراءة/الكتابة). إذا تم حذفها، تستخدم القراءة الورقة الأولى والكتابة تستخدم \"الورقة1\"."
   },
   "sv": {
     "param.action.description": "Funktion.",
@@ -351,7 +364,8 @@
       "excelark"
     ],
     "param.password.description": "Lösenord (meddelanden om det behövs).",
-    "prompt.password": "Ange lösenordet för den här filen:\n{path}"
+    "prompt.password": "Ange lösenordet för den här filen:\n{path}",
+    "param.sheet_name.description": "Målbladsnamn (för läs/skriv). Om det utelämnas använder läs det första arket och skriv använder 'Sheet1'."
   },
   "sw": {
     "param.action.description": "Operesheni.",
@@ -373,7 +387,8 @@
       "laha bora zaidi"
     ],
     "param.password.description": "Nenosiri (vidokezo ikihitajika",
-    "prompt.password": "Ingiza nenosiri la faili hili:\n{path}"
+    "prompt.password": "Ingiza nenosiri la faili hili:\n{path}",
+    "param.sheet_name.description": "Jina la laha inayolengwa (ya kusoma/kuandika). Ikiwa imeachwa, kusoma hutumia laha ya kwanza na kuandika hutumia 'Karatasi1'."
   },
   "nb": {
     "param.action.description": "Operasjon.",
@@ -395,7 +410,8 @@
       "excel-ark"
     ],
     "param.password.description": "Passord (spør om nødvendig).",
-    "prompt.password": "Skriv inn passordet for denne filen:\n{path}"
+    "prompt.password": "Skriv inn passordet for denne filen:\n{path}",
+    "param.sheet_name.description": "Navn på målark (for lesing/skriving). Hvis utelatt, bruker les det første arket og skriv bruker 'Sheet1'."
   },
   "nl": {
     "param.action.description": "Bediening.",
@@ -417,7 +433,8 @@
       "Excel-blad"
     ],
     "param.password.description": "Wachtwoord (vraagt ​​indien nodig).",
-    "prompt.password": "Voer het wachtwoord voor dit bestand in:\n{path}"
+    "prompt.password": "Voer het wachtwoord voor dit bestand in:\n{path}",
+    "param.sheet_name.description": "Naam doelblad (voor lezen/schrijven). Indien dit wordt weggelaten, wordt voor lezen het eerste blad gebruikt en voor schrijven wordt 'Blad1' gebruikt."
   },
   "fi": {
     "param.action.description": "Käyttö.",
@@ -439,7 +456,8 @@
       "excel-arkki"
     ],
     "param.password.description": "Salasana salatuille .",
-    "prompt.password": "Anna tämän tiedoston salasana:\n{path}"
+    "prompt.password": "Anna tämän tiedoston salasana:\n{path}",
+    "param.sheet_name.description": "Kohdearkin nimi (lukuun/kirjoitukseen). Jos jätetään pois, luku käyttää ensimmäistä arkkia ja kirjoitus käyttää \"Arkki1\"."
   },
   "cs": {
     "param.action.description": "Provoz.",
@@ -461,7 +479,8 @@
       "excelový list"
     ],
     "param.password.description": "Heslo (v případě potřeby se zobrazí výzva).",
-    "prompt.password": "Zadejte heslo pro tento soubor:\n{path}"
+    "prompt.password": "Zadejte heslo pro tento soubor:\n{path}",
+    "param.sheet_name.description": "Název cílového listu (pro čtení/zápis). Pokud je vynechán, čtení používá první list a zápis používá 'Sheet1'."
   },
   "uk": {
     "param.action.description": "Операція.",
@@ -483,7 +502,8 @@
       "аркуш Excel"
     ],
     "param.password.description": "Інтервал опитування під час очікування відповідей (у секундах).",
-    "prompt.password": "Введіть пароль для цього файла:\n{path}"
+    "prompt.password": "Введіть пароль для цього файла:\n{path}",
+    "param.sheet_name.description": "Назва цільового аркуша (для читання/запису). Якщо опущено, для читання використовується перший аркуш, а для запису – «Аркуш1»."
   },
   "tr": {
     "param.action.description": "İşlem.",
@@ -505,7 +525,8 @@
       "excel sayfası"
     ],
     "param.password.description": "Şifrelenmiş .",
-    "prompt.password": "Bu dosyanın şifresini girin:\n{path}"
+    "prompt.password": "Bu dosyanın şifresini girin:\n{path}",
+    "param.sheet_name.description": "Hedef sayfa adı (okuma/yazma için). Atlanırsa, okuma ilk sayfayı, yazma ise 'Sayfa1'i kullanır."
   },
   "th": {
     "param.action.description": "ปฏิบัติการ",
@@ -527,7 +548,8 @@
       "แผ่นงาน Excel"
     ],
     "param.password.description": "รหัสผ่านสำหรับไฟล์ .",
-    "prompt.password": "กรุณาใส่รหัสผ่านของไฟล์นี้:\n{path}"
+    "prompt.password": "กรุณาใส่รหัสผ่านของไฟล์นี้:\n{path}",
+    "param.sheet_name.description": "ชื่อชีตเป้าหมาย (สำหรับอ่าน/เขียน) หากละเว้น การอ่านจะใช้แผ่นงานแรกและการเขียนจะใช้ 'Sheet1'"
   },
   "zh_CN": {
     "param.action.description": "要执行的操作。",
@@ -549,7 +571,8 @@
       "Excel 工作表"
     ],
     "param.password.description": "密码（需要时提示输入）。",
-    "prompt.password": "请输入此文件的密码：\n{path}"
+    "prompt.password": "请输入此文件的密码：\n{path}",
+    "param.sheet_name.description": "目标工作表名称（用于读/写）。如果省略，则读取使用第一个工作表，写入使用“Sheet1”。"
   },
   "zh_TW": {
     "param.action.description": "要執行的操作。",
@@ -571,7 +594,8 @@
       "excel表"
     ],
     "param.password.description": "密码（需要时提示输入）。",
-    "prompt.password": "請輸入此文件的密碼：\n{path}"
+    "prompt.password": "請輸入此文件的密碼：\n{path}",
+    "param.sheet_name.description": "目標工作表名稱（用於讀取/寫入）。如果省略，則讀取使用第一個工作表，寫入使用「Sheet1」。"
   },
   "bn": {
     "param.action.description": "অপারেশন।",
@@ -593,7 +617,8 @@
       "এক্সেল শীট"
     ],
     "param.password.description": "এনক্রিপ্ট করা .",
-    "prompt.password": "এই ফাইলের পাসওয়ার্ড লিখুন:\n{path}"
+    "prompt.password": "এই ফাইলের পাসওয়ার্ড লিখুন:\n{path}",
+    "param.sheet_name.description": "টার্গেট শীটের নাম (পড়া/লেখার জন্য)। যদি বাদ দেওয়া হয়, পড়ুন প্রথম পত্রক ব্যবহার করে এবং লিখুন 'শিট1' ব্যবহার করে।"
   },
   "fa": {
     "param.action.description": "عملیات.",
@@ -615,7 +640,8 @@
       "صفحه اکسل"
     ],
     "param.password.description": "رمز عبور (در صورت نیاز درخواست می کند).",
-    "prompt.password": "گذرواژهٔ این فایل را وارد کنید:\n{path}"
+    "prompt.password": "گذرواژهٔ این فایل را وارد کنید:\n{path}",
+    "param.sheet_name.description": "نام برگه هدف (برای خواندن/نوشتن). در صورت حذف، خواندن از اولین ورق استفاده می کند و نوشتن از «Sheet1» استفاده می کند."
   },
   "mn": {
     "param.action.description": "Excel-ийн замыг",
@@ -637,7 +663,8 @@
       "excel хуудас"
     ],
     "param.password.description": "Шифрлэгдсэн .",
-    "prompt.password": "Энэ файлын нууц үгийг оруулна уу:\n{path}"
+    "prompt.password": "Энэ файлын нууц үгийг оруулна уу:\n{path}",
+    "param.sheet_name.description": "Зорилтот хуудасны нэр (унших/бичих). Хэрэв орхигдуулсан бол унших нь эхний хуудсыг, бичих нь 'Sheet1'-г ашиглана."
   },
   "mr": {
     "param.action.description": "ऑपरेशन.",
@@ -659,7 +686,8 @@
       "एक्सेल शीट"
     ],
     "param.password.description": "एनक्रिप्टेड .",
-    "prompt.password": "या फाइलचा पासवर्ड टाका:\n{path}"
+    "prompt.password": "या फाइलचा पासवर्ड टाका:\n{path}",
+    "param.sheet_name.description": "टार्गेट शीटचे नाव (वाचन/लेखनासाठी). वगळल्यास, वाचा प्रथम पत्रक वापरते आणि लिहा 'शीट1' वापरते."
   },
   "el": {
     "param.action.description": "Λειτουργία.",
@@ -681,7 +709,8 @@
       "φύλλο excel"
     ],
     "param.password.description": "Κωδικός πρόσβασης (ζητείται εάν χρειάζεται).",
-    "prompt.password": "Εισαγάγετε τον κωδικό πρόσβασης για αυτό το αρχείο:\n{path}"
+    "prompt.password": "Εισαγάγετε τον κωδικό πρόσβασης για αυτό το αρχείο:\n{path}",
+    "param.sheet_name.description": "Όνομα φύλλου προορισμού (για ανάγνωση/εγγραφή). Εάν παραλειφθεί, η ανάγνωση χρησιμοποιεί το πρώτο φύλλο και η εγγραφή χρησιμοποιεί το \"Φύλλο1\"."
   },
   "he": {
     "param.action.description": "מִבצָע.",
@@ -703,7 +732,8 @@
       "גיליון אקסל"
     ],
     "param.password.description": "סיסמה (מבקש במידת הצורך).",
-    "prompt.password": "הזן את הסיסמה עבור הקובץ הזה:\n{path}"
+    "prompt.password": "הזן את הסיסמה עבור הקובץ הזה:\n{path}",
+    "param.sheet_name.description": "שם גיליון היעד (לקריאה/כתיבה). אם הושמט, קריאה משתמשת בגיליון הראשון וכתיבה משתמשת ב-'Sheet1'."
   },
   "hu": {
     "param.action.description": "Művelet.",
@@ -725,7 +755,8 @@
       "excel munkalap"
     ],
     "param.password.description": "Jelszó (szükség esetén kéri).",
-    "prompt.password": "Adja meg a fájl jelszavát:\n{path}"
+    "prompt.password": "Adja meg a fájl jelszavát:\n{path}",
+    "param.sheet_name.description": "A céllap neve (olvasáshoz/íráshoz). Ha kimarad, az olvasás az első lapot használja, az írás pedig az „1. ​​lap”-ot."
   },
   "ro": {
     "param.action.description": "Operațiunea.",
@@ -747,6 +778,7 @@
       "foaie excel"
     ],
     "param.password.description": "Parola (se solicită dacă este necesar).",
-    "prompt.password": "Introduceți parola pentru acest fișier:\n{path}"
+    "prompt.password": "Introduceți parola pentru acest fișier:\n{path}",
+    "param.sheet_name.description": "Numele foii țintă (pentru citire/scriere). Dacă este omis, citiți folosește prima foaie și scrieți folosește „Sheet1”."
   }
 }

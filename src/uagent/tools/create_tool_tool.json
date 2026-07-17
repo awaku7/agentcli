@@ -1,20 +1,30 @@
 {
-    "en": {
-        "tool.description": "Scaffold a new tool (Python or Rust+Python) with boilerplate files.",
-        "x_search_terms": ["create tool", "scaffold", "new tool", "tool template"],
-        "param.name": "Tool name (snake_case, e.g. 'my_tool')",
-        "param.lang": "Implementation language: 'python' or 'rust'",
-        "param.description": "Short description of what the tool does",
-        "param.output_dir": "Output directory (default: UAGENT_EXTERNAL_TOOLS_DIR or current dir)",
-        "cmd.help": ":tool create <name> --lang python|rust --description '...'"
-    },
-    "ja": {
-        "tool.description": "新規ツール（Python または Rust+Python）のボイラープレートファイルを生成します。",
-        "x_search_terms": ["ツール作成", "スキャフォールド", "新規ツール", "ツールテンプレート"],
-        "param.name": "ツール名（スネークケース, 例: 'my_tool'）",
-        "param.lang": "実装言語: 'python' または 'rust'",
-        "param.description": "ツールの簡単な説明",
-        "param.output_dir": "出力ディレクトリ（既定: UAGENT_EXTERNAL_TOOLS_DIR またはカレントディレクトリ）",
-        "cmd.help": ":tool create <name> --lang python|rust --description '...'"
-    }
+  "en": {
+    "tool.description": "Scaffold a new tool (Python or Rust+Python) with boilerplate files.",
+    "x_search_terms": [
+      "create tool",
+      "scaffold",
+      "new tool",
+      "tool template"
+    ],
+    "param.name": "Tool name (snake_case, e.g. 'my_tool')",
+    "param.lang": "Implementation language: 'python' or 'rust'",
+    "param.description": "Short description of what the tool does",
+    "param.output_dir": "Output directory (default: UAGENT_EXTERNAL_TOOLS_DIR or current dir)",
+    "cmd.help": ":tool create <name> --lang python|rust --description '...'"
+  },
+  "ja": {
+    "tool.description": "新規ツール（Python または Rust+Python）のボイラープレートファイルを生成します。",
+    "x_search_terms": [
+      "ツール作成",
+      "スキャフォールド",
+      "新規ツール",
+      "ツールテンプレート"
+    ],
+    "param.name": "ツール名（スネークケース, 例: 'my_tool'）",
+    "param.lang": "実装言語: 'python' または 'rust'",
+    "param.description": "ツールの簡単な説明",
+    "param.output_dir": "出力ディレクトリ（既定: UAGENT_EXTERNAL_TOOLS_DIR またはカレントディレクトリ）",
+    "cmd.help": ":tool create <名前> --lang python|rust --description '...'"
+  }
 }

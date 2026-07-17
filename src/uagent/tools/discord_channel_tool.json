@@ -461,7 +461,7 @@
     "param.limit.description": "Idadi ya ujumbe wa kuchukua kwa historia/majibu.",
     "param.message.description": "Ujumbe.",
     "param.poll_interval_s.description": "Muda wa kuchuja majibu (sekunde).",
-    "param.token_env.description": "Kitambulisho cha kituo cha Discord __DELIM_4 kinakosekana.",
+    "param.token_env.description": "Jina la kutofautisha la mazingira ambalo huhifadhi tokeni ya Discord bot.",
     "param.wait_s.description": "Muda wa kusubiri majibu baada ya kutuma (sekunde).",
     "x_search_terms": [
       "mfarakano",

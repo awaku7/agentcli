@@ -67,7 +67,8 @@
       "operación git",
       "ejecute git"
     ],
-    "tool.description": "Ejecute comandos Git con restricciones de seguridad. Algunas operaciones o caracteres especiales en los argumentos pueden estar restringidos por motivos de seguridad."
+    "tool.description": "Ejecute comandos Git con restricciones de seguridad. Algunas operaciones o caracteres especiales en los argumentos pueden estar restringidos por motivos de seguridad.",
+    "param.allow_danger.description": "Si se permiten operaciones peligrosas (falso predeterminado). Ejemplo: empujar --force, restablecer --hard."
   },
   "fr": {
     "error.git_not_found": "[erreur git_ops] commande git introuvable.",
@@ -90,7 +91,8 @@
       "opération git",
       "exécuter git"
     ],
-    "tool.description": "Exécutez les commandes Git avec des restrictions axées sur la sécurité. Certaines opérations ou caractères spéciaux dans les arguments peuvent être restreints pour des raisons de sécurité."
+    "tool.description": "Exécutez les commandes Git avec des restrictions axées sur la sécurité. Certaines opérations ou caractères spéciaux dans les arguments peuvent être restreints pour des raisons de sécurité.",
+    "param.allow_danger.description": "S'il faut autoriser les opérations dangereuses (par défaut false). Exemple : push --force, reset --hard."
   },
   "ko": {
     "error.git_not_found": "[git_ops 오류] git 명령을 찾을 수 없습니다. Git이 설치되어 있는지 확인하세요.",
@@ -113,7 +115,8 @@
       "git 작업",
       "git 실행"
     ],
-    "tool.description": "안전 우선 제한 사항을 적용하여 Git 명령을 실행하세요. 인수의 일부 작업이나 특수 문자는 보안을 위해 제한될 수 있습니다."
+    "tool.description": "안전 우선 제한 사항을 적용하여 Git 명령을 실행하세요. 인수의 일부 작업이나 특수 문자는 보안을 위해 제한될 수 있습니다.",
+    "param.allow_danger.description": "위험한 작업을 허용할지 여부(기본값은 false)입니다. 예: push --force, 재설정 --hard."
   },
   "de": {
     "error.git_not_found": "[git_ops-Fehler] git-Befehl nicht gefunden.",
@@ -136,7 +139,8 @@
       "Git-Operation",
       "Führen Sie git"
     ],
-    "tool.description": "Führen Sie Git-Befehle mit Sicherheitseinschränkungen aus. Einige Vorgänge oder Sonderzeichen in Argumenten können aus Sicherheitsgründen eingeschränkt sein."
+    "tool.description": "Führen Sie Git-Befehle mit Sicherheitseinschränkungen aus. Einige Vorgänge oder Sonderzeichen in Argumenten können aus Sicherheitsgründen eingeschränkt sein.",
+    "param.allow_danger.description": "Ob gefährliche Vorgänge zugelassen werden sollen (Standard: false). Beispiel: push --force, reset --hard."
   },
   "it": {
     "error.git_not_found": "[errore git_ops] comando git non trovato. Verifica che Git sia installato.",
@@ -159,7 +163,8 @@
       "operazione git",
       "esegui git"
     ],
-    "tool.description": "Esegui comandi Git con restrizioni che mettono la sicurezza al primo posto. Alcune operazioni o caratteri speciali negli argomenti potrebbero essere limitati per motivi di sicurezza."
+    "tool.description": "Esegui comandi Git con restrizioni che mettono la sicurezza al primo posto. Alcune operazioni o caratteri speciali negli argomenti potrebbero essere limitati per motivi di sicurezza.",
+    "param.allow_danger.description": "Indica se consentire operazioni pericolose (impostazione predefinita: false). Esempio: push --force, reset --hard."
   },
   "ru": {
     "error.git_not_found": "[ошибка git_ops] команда git не найдена. Убедитесь, что Git установлен.",
@@ -175,7 +180,8 @@
     "x_search_terms": [
       "git ops, команда git, git, контроль версий, виртуальные машины, контроль версий, операция git, запустить git"
     ],
-    "tool.description": "Выполняйте команды Git с ограничениями безопасности. Некоторые операции или специальные символы в аргументах могут быть ограничены в целях безопасности."
+    "tool.description": "Выполняйте команды Git с ограничениями безопасности. Некоторые операции или специальные символы в аргументах могут быть ограничены в целях безопасности.",
+    "param.allow_danger.description": "Разрешить ли опасные операции (по умолчанию false). Пример: нажмите --force, сброс --hard."
   },
   "pt_BR": {
     "error.git_not_found": "[erro git_ops] comando git não encontrado. Verifique se o Git está instalado.",
@@ -200,7 +206,8 @@
       "git pull",
       "vcs"
     ],
-    "tool.description": "Execute comandos do Git com restrições de segurança. Algumas operações ou caracteres especiais em argumentos podem ser restritos por questões de segurança."
+    "tool.description": "Execute comandos do Git com restrições de segurança. Algumas operações ou caracteres especiais em argumentos podem ser restritos por questões de segurança.",
+    "param.allow_danger.description": "Se permitir operações perigosas (padrão falso). Exemplo: push --force, reset --hard."
   },
   "pt": {
     "error.git_not_found": "[erro git_ops] comando git não encontrado.",
@@ -225,7 +232,8 @@
       "puxar",
       "vcs"
     ],
-    "tool.description": "Execute comandos do Git com restrições de segurança. Algumas operações ou caracteres especiais em argumentos podem ser restritos por questões de segurança."
+    "tool.description": "Execute comandos do Git com restrições de segurança. Algumas operações ou caracteres especiais em argumentos podem ser restritos por questões de segurança.",
+    "param.allow_danger.description": "Se permitir operações perigosas (padrão falso). Exemplo: push --force, reset --hard."
   },
   "id": {
     "error.git_not_found": "[git_ops error] perintah git tidak ditemukan. Pastikan Git terpasang.",
@@ -250,7 +258,8 @@
       "git tarik",
       "vcs"
     ],
-    "tool.description": "Jalankan perintah Git dengan batasan yang mengutamakan keselamatan. Beberapa operasi atau karakter khusus dalam argumen mungkin dibatasi demi keamanan."
+    "tool.description": "Jalankan perintah Git dengan batasan yang mengutamakan keselamatan. Beberapa operasi atau karakter khusus dalam argumen mungkin dibatasi demi keamanan.",
+    "param.allow_danger.description": "Apakah akan mengizinkan operasi berbahaya (default salah). Contoh: tekan --force, reset --hard."
   },
   "vi": {
     "error.git_not_found": "[lỗi git_ops] không tìm thấy lệnh git. Hãy đảm bảo Git đã được cài đặt.",
@@ -275,7 +284,8 @@
       "kéo git",
       "vcs"
     ],
-    "tool.description": "Chạy các lệnh Git với các hạn chế ưu tiên an toàn. Một số thao tác hoặc ký tự đặc biệt trong các đối số có thể bị hạn chế vì lý do bảo mật."
+    "tool.description": "Chạy các lệnh Git với các hạn chế ưu tiên an toàn. Một số thao tác hoặc ký tự đặc biệt trong các đối số có thể bị hạn chế vì lý do bảo mật.",
+    "param.allow_danger.description": "Có cho phép các hoạt động nguy hiểm hay không (mặc định là sai). Ví dụ: đẩy --force, đặt lại --hard."
   },
   "pl": {
     "error.git_not_found": "[błąd git_ops] Nie znaleziono polecenia git.",
@@ -300,7 +310,8 @@
       "git pull",
       "vcs"
     ],
-    "tool.description": "Uruchamiaj polecenia Git z ograniczeniami związanymi przede wszystkim z bezpieczeństwem. Niektóre operacje lub znaki specjalne w argumentach mogą być ograniczone ze względów bezpieczeństwa."
+    "tool.description": "Uruchamiaj polecenia Git z ograniczeniami związanymi przede wszystkim z bezpieczeństwem. Niektóre operacje lub znaki specjalne w argumentach mogą być ograniczone ze względów bezpieczeństwa.",
+    "param.allow_danger.description": "Czy zezwalać na niebezpieczne operacje (domyślnie false). Przykład: push --force, reset --hard."
   },
   "hi": {
     "error.git_not_found": "[git_ops त्रुटि] git कमांड नहीं मिला। कृपया सुनिश्चित करें कि Git स्थापित है।",
@@ -325,7 +336,8 @@
       "git pull",
       "vcs"
     ],
-    "tool.description": "सुरक्षा-प्रथम प्रतिबंधों के साथ Git कमांड चलाएँ। कुछ ऑपरेशन या विशेष वर्ण अवरुद्ध हो सकते हैं. यदि कोई आदेश अस्वीकार कर दिया जाता है तो उपयोगकर्ता से परामर्श लें।"
+    "tool.description": "सुरक्षा-प्रथम प्रतिबंधों के साथ Git कमांड चलाएँ। कुछ ऑपरेशन या विशेष वर्ण अवरुद्ध हो सकते हैं. यदि कोई आदेश अस्वीकार कर दिया जाता है तो उपयोगकर्ता से परामर्श लें।",
+    "param.allow_danger.description": "क्या खतरनाक परिचालनों की अनुमति देनी है (डिफ़ॉल्ट ग़लत)। उदाहरण: पुश--फोर्स, रीसेट--हार्ड।"
   },
   "ar": {
     "error.git_not_found": "[خطأ git_ops] لم يتم العثور على أمر git. يرجى التأكد من تثبيت Git.",
@@ -350,7 +362,8 @@
       "git pull",
       "vcs"
     ],
-    "tool.description": "قم بتشغيل أوامر Git مع قيود السلامة أولاً. قد يتم تقييد بعض العمليات أو الأحرف الخاصة في الوسائط لأسباب تتعلق بالأمان."
+    "tool.description": "قم بتشغيل أوامر Git مع قيود السلامة أولاً. قد يتم تقييد بعض العمليات أو الأحرف الخاصة في الوسائط لأسباب تتعلق بالأمان.",
+    "param.allow_danger.description": "ما إذا كان سيتم السماح بعمليات خطيرة (خطأ افتراضي). على سبيل المثال: الدفع --القوة، إعادة التعيين --صعب."
   },
   "sv": {
     "error.git_not_found": "[git_ops fel] git-kommandot hittades inte.",
@@ -375,18 +388,19 @@
       "git pull",
       "vcs"
     ],
-    "tool.description": "Kör Git-kommandon med säkerhetsbegränsningar. Vissa operationer eller specialtecken i argument kan vara begränsade av säkerhetsskäl."
+    "tool.description": "Kör Git-kommandon med säkerhetsbegränsningar. Vissa operationer eller specialtecken i argument kan vara begränsade av säkerhetsskäl.",
+    "param.allow_danger.description": "Om farliga operationer ska tillåtas (falsk standard). Exempel: push --force, reset --hard."
   },
   "sw": {
-    "error.git_not_found": "[git_ops error] git command not found. Please ensure Git is installed.",
-    "error.invalid_command": "[git_ops error] unsupported or invalid command: {command}",
-    "error.meta_char": "Dangerous metacharacter is not allowed in args: {arg}",
-    "error.option_danger_requires_allow_danger": "Dangerous option requires allow_danger=true: {opt}",
-    "error.option_denied": "Disallowed option is present: {opt}",
-    "error.option_not_allowed": "Unallowed option is present: {opt}",
-    "error.timeout": "[git_ops error] command timed out.",
-    "error.unexpected": "[git_ops error] unexpected error: {error}",
-    "param.args.description": "List of arguments passed to the Git command.",
+    "error.git_not_found": "[git_ops error] git amri haipatikani. Tafadhali hakikisha Git imesakinishwa.",
+    "error.invalid_command": "[git_ops error] amri isiyotumika au batili: {command}",
+    "error.meta_char": "Metacharac hatari hairuhusiwi katika args: {arg}",
+    "error.option_danger_requires_allow_danger": "Chaguo hatari linahitaji allow_danger=true: {opt}",
+    "error.option_denied": "Chaguo lisiloruhusiwa lipo: {opt}",
+    "error.option_not_allowed": "Chaguo lisiloruhusiwa lipo: {opt}",
+    "error.timeout": "[git_ops error] amri imeisha.",
+    "error.unexpected": "[git_ops error] hitilafu isiyotarajiwa: {error}",
+    "param.args.description": "Orodha ya hoja zilizopitishwa kwa amri ya Git.",
     "param.command.description": "Amri ndogo ya Git (imezuiliwa).",
     "x_search_terms": [
       "git",
@@ -400,7 +414,8 @@
       "git pull",
       "vcs"
     ],
-    "tool.description": "Endesha amri za Git kwa vizuizi vya usalama kwanza. Baadhi ya shughuli au vibambo maalum katika mabishano vinaweza kuzuiwa kwa usalama."
+    "tool.description": "Endesha amri za Git kwa vizuizi vya usalama kwanza. Baadhi ya shughuli au vibambo maalum katika mabishano vinaweza kuzuiwa kwa usalama.",
+    "param.allow_danger.description": "Iwapo itaruhusu shughuli hatari (sivyo chaguomsingi). Mfano: push --force, reset --hard."
   },
   "nb": {
     "error.git_not_found": "[git_ops-feil] git-kommandoen ble ikke funnet.",
@@ -425,7 +440,8 @@
       "git pull",
       "vcs"
     ],
-    "tool.description": "Kjør Git-kommandoer med sikkerhetsbegrensninger. Noen operasjoner eller spesialtegn i argumenter kan være begrenset for sikkerheten."
+    "tool.description": "Kjør Git-kommandoer med sikkerhetsbegrensninger. Noen operasjoner eller spesialtegn i argumenter kan være begrenset for sikkerheten.",
+    "param.allow_danger.description": "Om farlige operasjoner skal tillates (false standard). Eksempel: push --force, reset --hard."
   },
   "nl": {
     "error.git_not_found": "[git_ops fout] git-opdracht niet gevonden.",
@@ -450,7 +466,8 @@
       "git pull",
       "vcs"
     ],
-    "tool.description": "Voer Git-opdrachten uit met beperkingen waarbij de veiligheid voorop staat. Sommige bewerkingen of speciale tekens in argumenten kunnen om veiligheidsredenen beperkt zijn."
+    "tool.description": "Voer Git-opdrachten uit met beperkingen waarbij de veiligheid voorop staat. Sommige bewerkingen of speciale tekens in argumenten kunnen om veiligheidsredenen beperkt zijn.",
+    "param.allow_danger.description": "Of gevaarlijke handelingen moeten worden toegestaan ​​(standaard false). Voorbeeld: push --force, reset --hard."
   },
   "fi": {
     "error.git_not_found": "[git_ops-virhe] git-komentoa ei löytynyt. Varmista, että Git on asennettu.",
@@ -475,7 +492,8 @@
       "git pull",
       "vcs"
     ],
-    "tool.description": "Suorita Git-komentoja turvallisuuden ensisijaisina rajoituksin. Joitakin argumenttien toimintoja tai erikoismerkkejä voidaan rajoittaa turvallisuuden vuoksi."
+    "tool.description": "Suorita Git-komentoja turvallisuuden ensisijaisina rajoituksin. Joitakin argumenttien toimintoja tai erikoismerkkejä voidaan rajoittaa turvallisuuden vuoksi.",
+    "param.allow_danger.description": "Sallitaanko vaaralliset toiminnot (oletusarvo epätosi). Esimerkki: push --force, reset --hard."
   },
   "cs": {
     "error.git_not_found": "[chyba git_ops] příkaz git nebyl nalezen.",
@@ -500,7 +518,8 @@
       "git pull",
       "vcs"
     ],
-    "tool.description": "Spouštějte příkazy Git s omezeními na prvním místě. Některé operace nebo speciální znaky v argumentech mohou být z bezpečnostních důvodů omezeny."
+    "tool.description": "Spouštějte příkazy Git s omezeními na prvním místě. Některé operace nebo speciální znaky v argumentech mohou být z bezpečnostních důvodů omezeny.",
+    "param.allow_danger.description": "Zda povolit nebezpečné operace (výchozí hodnota false). Příklad: push --force, reset --hard."
   },
   "uk": {
     "error.git_not_found": "[помилка git_ops] команду git не знайдено. Переконайтеся, що Git встановлено.",
@@ -525,7 +544,8 @@
       "git pull",
       "vcs"
     ],
-    "tool.description": "Виконуйте команди Git з обмеженнями безпеки. Деякі операції або спеціальні символи в аргументах можуть бути обмежені з міркувань безпеки."
+    "tool.description": "Виконуйте команди Git з обмеженнями безпеки. Деякі операції або спеціальні символи в аргументах можуть бути обмежені з міркувань безпеки.",
+    "param.allow_danger.description": "Чи дозволяти небезпечні операції (за замовчуванням false). Приклад: push --force, reset --hard."
   },
   "tr": {
     "error.git_not_found": "[git_ops hatası] git komutu bulunamadı.",
@@ -550,7 +570,8 @@
       "git pull",
       "vcs"
     ],
-    "tool.description": "Git komutlarını önce güvenlik kısıtlamalarıyla çalıştırın. Bağımsız değişkenlerdeki bazı işlemler veya özel karakterler güvenlik nedeniyle kısıtlanabilir."
+    "tool.description": "Git komutlarını önce güvenlik kısıtlamalarıyla çalıştırın. Bağımsız değişkenlerdeki bazı işlemler veya özel karakterler güvenlik nedeniyle kısıtlanabilir.",
+    "param.allow_danger.description": "Tehlikeli işlemlere izin verilip verilmeyeceği (varsayılan yanlış). Örnek: push --force, reset --hard."
   },
   "th": {
     "error.git_not_found": "[ข้อผิดพลาด git_ops] ไม่พบคำสั่ง git โปรดตรวจสอบว่าติดตั้ง Git แล้ว",
@@ -575,7 +596,8 @@
       "git pull",
       "vcs"
     ],
-    "tool.description": "เรียกใช้คำสั่ง Git โดยมีข้อจำกัดด้านความปลอดภัยเป็นอันดับแรก การดำเนินการบางอย่างหรืออักขระพิเศษในอาร์กิวเมนต์อาจถูกจำกัดเพื่อความปลอดภัย"
+    "tool.description": "เรียกใช้คำสั่ง Git โดยมีข้อจำกัดด้านความปลอดภัยเป็นอันดับแรก การดำเนินการบางอย่างหรืออักขระพิเศษในอาร์กิวเมนต์อาจถูกจำกัดเพื่อความปลอดภัย",
+    "param.allow_danger.description": "ว่าจะอนุญาตการดำเนินการที่เป็นอันตรายหรือไม่ (ค่าเริ่มต้นเป็นเท็จ) ตัวอย่าง: กด --force, รีเซ็ต --hard"
   },
   "zh_CN": {
     "error.git_not_found": "[git_ops 错误] 未找到 git 命令。请确保已安装 Git。",
@@ -600,7 +622,8 @@
       "git pull",
       "vcs"
     ],
-    "tool.description": "在安全第一的限制下运行 Git 命令。为了安全起见，参数中的某些操作或特殊字符可能受到限制。"
+    "tool.description": "在安全第一的限制下运行 Git 命令。为了安全起见，参数中的某些操作或特殊字符可能受到限制。",
+    "param.allow_danger.description": "是否允许危险操作（默认 false）。示例：push --force、reset --hard。"
   },
   "zh_TW": {
     "error.git_not_found": "[git_ops 錯誤] 未找到 git 指令。請確保已安裝 Git。",
@@ -625,7 +648,8 @@
       "git pull",
       "vcs"
     ],
-    "tool.description": "在安全第一的限制下執行 Git 指令。為了安全起見，參數中的某些操作或特殊字元可能受到限制。 "
+    "tool.description": "在安全第一的限制下執行 Git 指令。為了安全起見，參數中的某些操作或特殊字元可能受到限制。 ",
+    "param.allow_danger.description": "是否允許危險操作（預設 false）。例：push --force、reset --hard。"
   },
   "bn": {
     "error.git_not_found": "[git_ops error] git command পাওয়া যায়নি। Git ইনস্টল আছে কিনা নিশ্চিত করুন।",
@@ -650,7 +674,8 @@
       "git pull",
       "vcs"
     ],
-    "tool.description": "নিরাপত্তা-প্রথম বিধিনিষেধ সহ গিট কমান্ড চালান। আর্গুমেন্টে কিছু অপারেশন বা বিশেষ অক্ষর নিরাপত্তার জন্য সীমাবদ্ধ হতে পারে।"
+    "tool.description": "নিরাপত্তা-প্রথম বিধিনিষেধ সহ গিট কমান্ড চালান। আর্গুমেন্টে কিছু অপারেশন বা বিশেষ অক্ষর নিরাপত্তার জন্য সীমাবদ্ধ হতে পারে।",
+    "param.allow_danger.description": "বিপজ্জনক ক্রিয়াকলাপগুলির অনুমতি দেওয়া হবে কিনা (ডিফল্ট মিথ্যা)। উদাহরণ: push --force, reset --hard."
   },
   "fa": {
     "error.git_not_found": "[خطای git_ops] فرمان git پیدا نشد. مطمئن شوید Git نصب شده است.",
@@ -675,7 +700,8 @@
       "git pull",
       "vcs"
     ],
-    "tool.description": "فرمان‌های Git را با محدودیت‌های ایمنی اجرا کنید. برخی از عملیات یا نویسه‌های خاص در آرگومان‌ها ممکن است برای امنیت محدود شده باشند."
+    "tool.description": "فرمان‌های Git را با محدودیت‌های ایمنی اجرا کنید. برخی از عملیات یا نویسه‌های خاص در آرگومان‌ها ممکن است برای امنیت محدود شده باشند.",
+    "param.allow_danger.description": "اجازه دادن به عملیات خطرناک (پیش‌فرض نادرست). مثال: فشار -- نیرو، بازنشانی -- سخت."
   },
   "mn": {
     "error.git_not_found": "[git_ops error] git command олдсонгүй. Git суусан эсэхийг шалгана уу.",
@@ -700,7 +726,8 @@
       "git pull",
       "vcs"
     ],
-    "tool.description": "Git командуудыг аюулгүй байдлын нэгдүгээрт хязгаарлалттайгаар ажиллуул. Аюулгүй байдлын үүднээс зарим үйлдэл эсвэл аргумент дахь тусгай тэмдэгтүүдийг хязгаарласан байж магадгүй."
+    "tool.description": "Git командуудыг аюулгүй байдлын нэгдүгээрт хязгаарлалттайгаар ажиллуул. Аюулгүй байдлын үүднээс зарим үйлдэл эсвэл аргумент дахь тусгай тэмдэгтүүдийг хязгаарласан байж магадгүй.",
+    "param.allow_danger.description": "Аюултай үйлдлүүдийг зөвшөөрөх эсэх (анхдагчаар худал). Жишээ нь: push --force, reset --hard."
   },
   "mr": {
     "error.git_not_found": "[git_ops error] git command सापडले नाही. Git स्थापित आहे याची खात्री करा.",
@@ -725,11 +752,12 @@
       "git pull",
       "vcs"
     ],
-    "tool.description": "सुरक्षा-प्रथम निर्बंधांसह Git कमांड चालवा. सुरक्षेसाठी आर्ग्युमेंटमधील काही ऑपरेशन्स किंवा विशेष वर्ण प्रतिबंधित केले जाऊ शकतात."
+    "tool.description": "सुरक्षा-प्रथम निर्बंधांसह Git कमांड चालवा. सुरक्षेसाठी आर्ग्युमेंटमधील काही ऑपरेशन्स किंवा विशेष वर्ण प्रतिबंधित केले जाऊ शकतात.",
+    "param.allow_danger.description": "धोकादायक ऑपरेशनला परवानगी द्यायची की नाही (डिफॉल्ट खोटे). उदाहरण: पुश --फोर्स, रीसेट --हार्ड."
   },
   "el": {
-    "error.git_not_found": "[git_ops error] μη υποστηριζόμενη ή μη έγκυρη εντολή: {command}",
-    "error.invalid_command": "Επικίνδυνη επιλογή απαιτεί allow_danger=true: {opt}",
+    "error.git_not_found": "[git_ops error] Η εντολή git δεν βρέθηκε. Βεβαιωθείτε ότι το Git είναι εγκατεστημένο.",
+    "error.invalid_command": "[σφάλμα git_ops] μη υποστηριζόμενη ή μη έγκυρη εντολή: {command}",
     "error.meta_char": "Ο επικίνδυνος μεταχαρακτήρας δεν επιτρέπεται στο args: {arg}",
     "error.option_danger_requires_allow_danger": "Η επικίνδυνη επιλογή απαιτεί allow_danger=true: {opt}",
     "error.option_denied": "Υπάρχει η μη επιτρεπόμενη επιλογή: {opt}",
@@ -750,12 +778,13 @@
       "git pull",
       "vcs"
     ],
-    "tool.description": "Εκτέλεση εντολών Git με περιορισμούς πρώτα από την ασφάλεια. Ορισμένες λειτουργίες ή ειδικοί χαρακτήρες σε ορίσματα ενδέχεται να περιορίζονται για λόγους ασφάλειας."
+    "tool.description": "Εκτέλεση εντολών Git με περιορισμούς πρώτα από την ασφάλεια. Ορισμένες λειτουργίες ή ειδικοί χαρακτήρες σε ορίσματα ενδέχεται να περιορίζονται για λόγους ασφάλειας.",
+    "param.allow_danger.description": "Εάν επιτρέπονται επικίνδυνες λειτουργίες (προεπιλογή false). Παράδειγμα: push --force, reset --hard."
   },
   "he": {
     "error.git_not_found": "[שגיאת git_ops] שגיאה פנימית לא ידועה",
-    "error.invalid_command": "מטא-תו מסוכן אסור ב-arg: {arg}",
-    "error.meta_char": "אפשרות מסוכנת דורשת allow_danger=true: {opt}",
+    "error.invalid_command": "[שגיאת git_ops] פקודה לא נתמכת או לא חוקית: {command}",
+    "error.meta_char": "מטא מסוכן אסור בארגזים: {arg}",
     "error.option_danger_requires_allow_danger": "אפשרות מסוכנת דורשת allow_danger=true: {opt}",
     "error.option_denied": "קיימת אפשרות לא מותרת: {opt}",
     "error.option_not_allowed": "אפשרות לא מותרת קיימת: {opt}",
@@ -775,7 +804,8 @@
       "git pull",
       "vcs"
     ],
-    "tool.description": "הפעל פקודות Git עם הגבלות של Safety-first. פעולות מסוימות או תווים מיוחדים בארגומנטים עשויים להיות מוגבלים מטעמי אבטחה."
+    "tool.description": "הפעל פקודות Git עם הגבלות של Safety-first. פעולות מסוימות או תווים מיוחדים בארגומנטים עשויים להיות מוגבלים מטעמי אבטחה.",
+    "param.allow_danger.description": "האם לאפשר פעולות מסוכנות (ברירת מחדל שווא). דוגמה: push --force, reset --hard."
   },
   "hu": {
     "error.git_not_found": "[git_ops hiba] A git parancs nem található. Győződjön meg róla, hogy a Git telepítve van.",
@@ -800,12 +830,13 @@
       "git pull",
       "vcs"
     ],
-    "tool.description": "Futtassa a Git-parancsokat a biztonság előtti korlátozásokkal. Egyes műveletek vagy speciális karakterek az argumentumokban a biztonság kedvéért korlátozva lehetnek."
+    "tool.description": "Futtassa a Git-parancsokat a biztonság előtti korlátozásokkal. Egyes műveletek vagy speciális karakterek az argumentumokban a biztonság kedvéért korlátozva lehetnek.",
+    "param.allow_danger.description": "Veszélyes műveletek engedélyezése (alapértelmezett hamis). Példa: push --force, reset --hard."
   },
   "ro": {
     "error.git_not_found": "[git_ops error] necunoscută eroare internă",
-    "error.invalid_command": "Metacaracterul periculos nu este permis în argumente: {arg}",
-    "error.meta_char": "Opțiunea periculoasă necesită allow_danger=true: {opt}",
+    "error.invalid_command": "[Eroare git_ops] Comandă neacceptată sau nevalidă: {command}",
+    "error.meta_char": "Metacaracterul periculos nu este permis în argumente: {arg}",
     "error.option_danger_requires_allow_danger": "Opțiunea periculoasă necesită allow_danger=true: {opt}",
     "error.option_denied": "Opțiunea nepermisă este prezentă: {opt}",
     "error.option_not_allowed": "Opțiunea nepermisă este prezentă: {opt}",
@@ -825,6 +856,7 @@
       "git pull",
       "vcs"
     ],
-    "tool.description": "Rulați comenzile Git cu restricții de siguranță. Unele operațiuni sau caractere speciale din argumente pot fi restricționate din motive de securitate."
+    "tool.description": "Rulați comenzile Git cu restricții de siguranță. Unele operațiuni sau caractere speciale din argumente pot fi restricționate din motive de securitate.",
+    "param.allow_danger.description": "Dacă se permit operațiuni periculoase (implicit false). Exemplu: push --force, reset --hard."
   }
 }

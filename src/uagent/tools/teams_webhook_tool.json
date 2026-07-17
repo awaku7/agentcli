@@ -152,7 +152,7 @@
     "param.theme_color.description": "Colore del tema della carta come stringa esadecimale senza #.",
     "param.payload_json.description": "Payload webhook non elaborato come stringa JSON o oggetto.",
     "param.webhook_env.description": "Nome della variabile di ambiente che memorizza l'URL del webhook di Teams.",
-    "param.timeout_s.description": "Timeout.",
+    "param.timeout_s.description": "Tempo scaduto.",
     "err.missing_message": "Manca 'message'.",
     "err.exception": "Eccezione"
   },
@@ -350,7 +350,7 @@
     "param.theme_color.description": "Kortets temafärg som en hex-sträng utan #.",
     "param.payload_json.description": "Rå webhook-payload som JSON-sträng eller objekt.",
     "param.webhook_env.description": "Namnet på miljövariabeln som lagrar Teams-webhook-URL:en.",
-    "param.timeout_s.description": "Timeout.",
+    "param.timeout_s.description": "Tidsgräns.",
     "err.missing_message": "'message' saknas.",
     "err.exception": "Undantag"
   },
@@ -746,7 +746,7 @@
     "param.theme_color.description": "Culoarea temei cardului ca șir hexagonal fără #.",
     "param.payload_json.description": "Sarcina utilă webhook brută ca șir sau obiect JSON. Dacă este furnizat, acesta este trimis așa cum este.",
     "param.webhook_env.description": "Numele variabilei de mediu care stochează adresa URL a webhook-ului Teams.",
-    "param.timeout_s.description": "Timeout.",
+    "param.timeout_s.description": "Pauză.",
     "err.missing_message": "Configurația nu a fost găsită. Rulați mai întâi action=init.",
     "err.exception": "Trimiteți un mesaj către un profil de server A2A. Utilizați numai atunci când niciun instrument local nu poate înlocui."
   }

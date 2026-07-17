@@ -1,14 +1,14 @@
 {
   "ar": {
-    "param.ip.description": "Target node IPv4 address.",
-    "param.interval.description": "Polling interval in seconds.",
-    "param.duration.description": "Monitoring duration in seconds.",
-    "param.timeout.description": "Timeout (seconds).",
-    "param.fmt.description": "Format: json or text.",
-    "msg.summary": "ECHONET Lite monitoring completed: {count} change(s) in {elapsed_ms} ms.",
-    "msg.no_changes": "No property changes were detected.",
-    "err.invalid_argument": "Error: ip_address is required.",
-    "msg.no_response": "No ECHONET Lite response was received during monitoring.",
+    "param.ip.description": "عنوان IPv4 للعقدة المستهدفة.",
+    "param.interval.description": "الفاصل الزمني للاستقصاء بالثواني.",
+    "param.duration.description": "مدة الرصد بالثواني.",
+    "param.timeout.description": "المهلة (ثواني).",
+    "param.fmt.description": "التنسيق: json أو نص.",
+    "msg.summary": "اكتملت مراقبة ECHONET Lite: {count} تغيير (تغييرات) خلال {elapsed_ms} مللي ثانية.",
+    "msg.no_changes": "لم يتم الكشف عن أي تغييرات في الممتلكات.",
+    "err.invalid_argument": "خطأ: عنوان IP_address مطلوب.",
+    "msg.no_response": "لم يتم تلقي أي استجابة لـ ECHONET Lite أثناء المراقبة.",
     "x_search_terms": [
       "مراقب echonet",
       "echonet_monitor",
@@ -17,18 +17,21 @@
       "بشكل متكرر",
       "بيانات",
       "إشعارات"
-    ]
+    ],
+    "param.eoj.description": "الهدف EOJ (الافتراضي: ملف تعريف العقدة).",
+    "param.obj.description": "عامل تصفية رمز الكائن (على سبيل المثال \"0130\").",
+    "tool.description": "قم باستقصاء عقدة ECHONET Lite بشكل متكرر، واكتشف تغييرات الخصائص، وقم بإرجاع ملخص JSON أو نص."
   },
   "bn": {
-    "param.ip.description": "Target node IPv4 address.",
-    "param.interval.description": "Polling interval in seconds.",
-    "param.duration.description": "Monitoring duration in seconds.",
-    "param.timeout.description": "Timeout (seconds).",
-    "param.fmt.description": "Format: json or text.",
-    "msg.summary": "ECHONET Lite monitoring completed: {count} change(s) in {elapsed_ms} ms.",
-    "msg.no_changes": "No property changes were detected.",
-    "err.invalid_argument": "Error: ip_address is required.",
-    "msg.no_response": "No ECHONET Lite response was received during monitoring.",
+    "param.ip.description": "লক্ষ্য নোড IPv4 ঠিকানা।",
+    "param.interval.description": "সেকেন্ডে ভোটের ব্যবধান।",
+    "param.duration.description": "সেকেন্ডে নিরীক্ষণের সময়কাল।",
+    "param.timeout.description": "সময়সীমা (সেকেন্ড)।",
+    "param.fmt.description": "বিন্যাস: json বা পাঠ্য।",
+    "msg.summary": "ECHONET লাইট মনিটরিং সম্পন্ন হয়েছে: {elapsed_ms} ms এ {count} পরিবর্তন(গুলি)",
+    "msg.no_changes": "কোন সম্পত্তি পরিবর্তন সনাক্ত করা হয়নি.",
+    "err.invalid_argument": "ত্রুটি: ip_address প্রয়োজন।",
+    "msg.no_response": "পর্যবেক্ষণের সময় কোন ECHONET Lite প্রতিক্রিয়া পাওয়া যায়নি।",
     "x_search_terms": [
       "echonet মনিটর",
       "echonet_monitor",
@@ -37,18 +40,21 @@
       "বারবার",
       "তথ্য",
       "বিজ্ঞপ্তি"
-    ]
+    ],
+    "param.eoj.description": "লক্ষ্য EOJ (ডিফল্ট: নোড প্রোফাইল)।",
+    "param.obj.description": "অবজেক্ট কোড ফিল্টার (যেমন '0130')।",
+    "tool.description": "বারবার একটি ECHONET Lite নোড পোল করুন, সম্পত্তির পরিবর্তনগুলি সনাক্ত করুন এবং একটি JSON বা পাঠ্য সারাংশ ফেরত দিন।"
   },
   "cs": {
-    "param.ip.description": "Target node IPv4 address.",
-    "param.interval.description": "Polling interval in seconds.",
-    "param.duration.description": "Monitoring duration in seconds.",
-    "param.timeout.description": "Timeout (seconds).",
-    "param.fmt.description": "Format: json or text.",
-    "msg.summary": "ECHONET Lite monitoring completed: {count} change(s) in {elapsed_ms} ms.",
-    "msg.no_changes": "No property changes were detected.",
-    "err.invalid_argument": "Error: ip_address is required.",
-    "msg.no_response": "No ECHONET Lite response was received during monitoring.",
+    "param.ip.description": "Adresa IPv4 cílového uzlu.",
+    "param.interval.description": "Interval dotazování v sekundách.",
+    "param.duration.description": "Doba sledování v sekundách.",
+    "param.timeout.description": "Časový limit (v sekundách).",
+    "param.fmt.description": "Formát: json nebo text.",
+    "msg.summary": "Monitorování ECHONET Lite dokončeno: {count} změn za {elapsed_ms} ms.",
+    "msg.no_changes": "Nebyly zjištěny žádné majetkové změny.",
+    "err.invalid_argument": "Chyba: ip_address je vyžadováno.",
+    "msg.no_response": "Během monitorování nebyla přijata žádná odpověď ECHONET Lite.",
     "x_search_terms": [
       "monitor echonet",
       "echonet_monitor",
@@ -57,18 +63,21 @@
       "opakovaně",
       "data",
       "oznámení"
-    ]
+    ],
+    "param.eoj.description": "Cílový EOJ (výchozí: profil uzlu).",
+    "param.obj.description": "Filtr kódu objektu (např. „0130“).",
+    "tool.description": "Opakovaně dotazujte uzel ECHONET Lite, zjistěte změny vlastností a vraťte JSON nebo textové shrnutí."
   },
   "de": {
-    "param.ip.description": "Target node IPv4 address.",
-    "param.interval.description": "Polling interval in seconds.",
-    "param.duration.description": "Monitoring duration in seconds.",
-    "param.timeout.description": "Timeout (seconds).",
-    "param.fmt.description": "Format: json or text.",
-    "msg.summary": "ECHONET Lite monitoring completed: {count} change(s) in {elapsed_ms} ms.",
-    "msg.no_changes": "No property changes were detected.",
-    "err.invalid_argument": "Error: ip_address is required.",
-    "msg.no_response": "No ECHONET Lite response was received during monitoring.",
+    "param.ip.description": "IPv4-Adresse des Zielknotens.",
+    "param.interval.description": "Abfrageintervall in Sekunden.",
+    "param.duration.description": "Überwachungsdauer in Sekunden.",
+    "param.timeout.description": "Timeout (Sekunden).",
+    "param.fmt.description": "Format: JSON oder Text.",
+    "msg.summary": "ECHONET Lite-Überwachung abgeschlossen: {count} Änderung(en) in {elapsed_ms} ms.",
+    "msg.no_changes": "Es wurden keine Eigentumsänderungen festgestellt.",
+    "err.invalid_argument": "Fehler: ip_address ist erforderlich.",
+    "msg.no_response": "Während der Überwachung wurde keine ECHONET Lite-Antwort empfangen.",
     "x_search_terms": [
       "Echonet-Monitor",
       "echonet_monitor",
@@ -77,7 +86,10 @@
       "wiederholt",
       "Daten",
       "Benachrichtigungen"
-    ]
+    ],
+    "param.eoj.description": "Ziel-EOJ (Standard: Knotenprofil).",
+    "param.obj.description": "Objektcodefilter (z. B. „0130“).",
+    "tool.description": "Fragen Sie wiederholt einen ECHONET Lite-Knoten ab, erkennen Sie Eigenschaftsänderungen und geben Sie eine JSON- oder Textzusammenfassung zurück."
   },
   "en": {
     "param.ip.description": "Target node IPv4 address.",
@@ -102,15 +114,15 @@
     ]
   },
   "es": {
-    "param.ip.description": "Target node IPv4 address.",
-    "param.interval.description": "Polling interval in seconds.",
-    "param.duration.description": "Monitoring duration in seconds.",
-    "param.timeout.description": "Timeout (seconds).",
-    "param.fmt.description": "Format: json or text.",
-    "msg.summary": "ECHONET Lite monitoring completed: {count} change(s) in {elapsed_ms} ms.",
-    "msg.no_changes": "No property changes were detected.",
-    "err.invalid_argument": "Error: ip_address is required.",
-    "msg.no_response": "No ECHONET Lite response was received during monitoring.",
+    "param.ip.description": "Dirección IPv4 del nodo de destino.",
+    "param.interval.description": "Intervalo de sondeo en segundos.",
+    "param.duration.description": "Duración del seguimiento en segundos.",
+    "param.timeout.description": "Tiempo de espera (segundos).",
+    "param.fmt.description": "Formato: json o texto.",
+    "msg.summary": "Monitoreo de ECHONET Lite completado: {count} cambios en {elapsed_ms} ms.",
+    "msg.no_changes": "No se detectaron cambios de propiedad.",
+    "err.invalid_argument": "Error: se requiere dirección_ip.",
+    "msg.no_response": "No se recibió ninguna respuesta de ECHONET Lite durante el monitoreo.",
     "x_search_terms": [
       "monitor de econet",
       "monitor_echonet",
@@ -119,18 +131,21 @@
       "repetidamente",
       "datos",
       "notificaciones"
-    ]
+    ],
+    "param.eoj.description": "Objetivo EOJ (predeterminado: perfil de nodo).",
+    "param.obj.description": "Filtro de código objeto (por ejemplo, '0130').",
+    "tool.description": "Sondee un nodo ECHONET Lite repetidamente, detecte cambios de propiedad y devuelva un resumen de texto o JSON."
   },
   "fa": {
-    "param.ip.description": "Target node IPv4 address.",
-    "param.interval.description": "Polling interval in seconds.",
-    "param.duration.description": "Monitoring duration in seconds.",
-    "param.timeout.description": "Timeout (seconds).",
-    "param.fmt.description": "Format: json or text.",
-    "msg.summary": "ECHONET Lite monitoring completed: {count} change(s) in {elapsed_ms} ms.",
-    "msg.no_changes": "No property changes were detected.",
-    "err.invalid_argument": "Error: ip_address is required.",
-    "msg.no_response": "No ECHONET Lite response was received during monitoring.",
+    "param.ip.description": "آدرس IPv4 گره هدف.",
+    "param.interval.description": "فاصله نظرسنجی بر حسب ثانیه",
+    "param.duration.description": "مدت زمان نظارت بر حسب ثانیه",
+    "param.timeout.description": "تایم اوت (ثانیه).",
+    "param.fmt.description": "فرمت: json یا متن.",
+    "msg.summary": "نظارت ECHONET Lite تکمیل شد: تغییر(های) {count} در {elapsed_ms} ms.",
+    "msg.no_changes": "هیچ تغییری در ملک شناسایی نشد.",
+    "err.invalid_argument": "خطا: ip_address مورد نیاز است.",
+    "msg.no_response": "هیچ پاسخ ECHONET Lite در طول نظارت دریافت نشد.",
     "x_search_terms": [
       "نمایشگر echonet",
       "echonet_monitor",
@@ -139,18 +154,21 @@
       "مکرراً",
       "داده‌ها",
       "اعلان‌ها"
-    ]
+    ],
+    "param.eoj.description": "EOJ هدف (پیش‌فرض: نمایه گره).",
+    "param.obj.description": "فیلتر کد شی (به عنوان مثال '0130').",
+    "tool.description": "یک گره ECHONET Lite را مکرراً نظرسنجی کنید، تغییرات ویژگی را شناسایی کنید و یک JSON یا خلاصه متن را برگردانید."
   },
   "fi": {
-    "param.ip.description": "Target node IPv4 address.",
-    "param.interval.description": "Polling interval in seconds.",
-    "param.duration.description": "Monitoring duration in seconds.",
-    "param.timeout.description": "Timeout (seconds).",
-    "param.fmt.description": "Format: json or text.",
-    "msg.summary": "ECHONET Lite monitoring completed: {count} change(s) in {elapsed_ms} ms.",
-    "msg.no_changes": "No property changes were detected.",
-    "err.invalid_argument": "Error: ip_address is required.",
-    "msg.no_response": "No ECHONET Lite response was received during monitoring.",
+    "param.ip.description": "Kohdesolmun IPv4-osoite.",
+    "param.interval.description": "Pollausväli sekunneissa.",
+    "param.duration.description": "Valvonnan kesto sekunneissa.",
+    "param.timeout.description": "Aikakatkaisu (sekuntia).",
+    "param.fmt.description": "Muoto: json tai teksti.",
+    "msg.summary": "ECHONET Lite -valvonta valmis: {count} muutosta {elapsed_ms} sekunnissa.",
+    "msg.no_changes": "Omaisuusmuutoksia ei havaittu.",
+    "err.invalid_argument": "Virhe: ip_address vaaditaan.",
+    "msg.no_response": "ECHONET Lite -vastausta ei saatu valvonnan aikana.",
     "x_search_terms": [
       "echonet-näyttö",
       "echonet_monitor",
@@ -159,18 +177,21 @@
       "toistuvasti",
       "tiedot",
       "ilmoitukset"
-    ]
+    ],
+    "param.eoj.description": "Kohde EOJ (oletus: solmuprofiili).",
+    "param.obj.description": "Objektikoodisuodatin (esim. '0130').",
+    "tool.description": "Pyydä ECHONET Lite -solmu toistuvasti, havaitse ominaisuuksien muutokset ja palauta JSON- tai tekstiyhteenveto."
   },
   "fr": {
-    "param.ip.description": "Target node IPv4 address.",
-    "param.interval.description": "Polling interval in seconds.",
-    "param.duration.description": "Monitoring duration in seconds.",
-    "param.timeout.description": "Timeout (seconds).",
-    "param.fmt.description": "Format: json or text.",
-    "msg.summary": "ECHONET Lite monitoring completed: {count} change(s) in {elapsed_ms} ms.",
-    "msg.no_changes": "No property changes were detected.",
-    "err.invalid_argument": "Error: ip_address is required.",
-    "msg.no_response": "No ECHONET Lite response was received during monitoring.",
+    "param.ip.description": "Adresse IPv4 du nœud cible.",
+    "param.interval.description": "Intervalle d'interrogation en secondes.",
+    "param.duration.description": "Durée de surveillance en secondes.",
+    "param.timeout.description": "Délai d'expiration (secondes).",
+    "param.fmt.description": "Format : json ou texte.",
+    "msg.summary": "Surveillance ECHONET Lite terminée : {count} changement(s) en {elapsed_ms} ms.",
+    "msg.no_changes": "Aucun changement de propriété n'a été détecté.",
+    "err.invalid_argument": "Erreur : l'adresse_ip est requise.",
+    "msg.no_response": "Aucune réponse ECHONET Lite n'a été reçue pendant la surveillance.",
     "x_search_terms": [
       "moniteur échonet",
       "echonet_monitor",
@@ -179,18 +200,21 @@
       "à plusieurs reprises",
       "données",
       "avis"
-    ]
+    ],
+    "param.eoj.description": "Cible EOJ (par défaut : profil de nœud).",
+    "param.obj.description": "Filtre de code objet (par exemple « 0130 »).",
+    "tool.description": "Interrogez un nœud ECHONET Lite à plusieurs reprises, détectez les modifications de propriété et renvoyez un résumé JSON ou texte."
   },
   "hi": {
-    "param.ip.description": "Target node IPv4 address.",
-    "param.interval.description": "Polling interval in seconds.",
-    "param.duration.description": "Monitoring duration in seconds.",
-    "param.timeout.description": "Timeout (seconds).",
-    "param.fmt.description": "Format: json or text.",
-    "msg.summary": "ECHONET Lite monitoring completed: {count} change(s) in {elapsed_ms} ms.",
-    "msg.no_changes": "No property changes were detected.",
-    "err.invalid_argument": "Error: ip_address is required.",
-    "msg.no_response": "No ECHONET Lite response was received during monitoring.",
+    "param.ip.description": "लक्ष्य नोड IPv4 पता.",
+    "param.interval.description": "मतदान अंतराल सेकंड में.",
+    "param.duration.description": "निगरानी अवधि सेकंड में.",
+    "param.timeout.description": "टाइमआउट (सेकंड)।",
+    "param.fmt.description": "प्रारूप: json या text.",
+    "msg.summary": "ECHONET लाइट की निगरानी पूरी हुई: {count} परिवर्तन {elapsed_ms} एमएस में।",
+    "msg.no_changes": "कोई संपत्ति परिवर्तन नहीं पाया गया.",
+    "err.invalid_argument": "त्रुटि: ip_address आवश्यक है.",
+    "msg.no_response": "निगरानी के दौरान कोई ECHONET लाइट प्रतिक्रिया प्राप्त नहीं हुई।",
     "x_search_terms": [
       "echonet मॉनिटर",
       "echonet_monitor",
@@ -199,18 +223,21 @@
       "बार-बार",
       "डेटा",
       "सूचनाएं"
-    ]
+    ],
+    "param.eoj.description": "लक्ष्य EOJ (डिफ़ॉल्ट: नोड प्रोफ़ाइल).",
+    "param.obj.description": "ऑब्जेक्ट कोड फ़िल्टर (उदा. '0130').",
+    "tool.description": "ECHONET लाइट नोड को बार-बार पोल करें, गुण परिवर्तन का पता लगाएं, और JSON या टेक्स्ट सारांश लौटाएं।"
   },
   "id": {
-    "param.ip.description": "Target node IPv4 address.",
-    "param.interval.description": "Polling interval in seconds.",
-    "param.duration.description": "Monitoring duration in seconds.",
-    "param.timeout.description": "Timeout (seconds).",
-    "param.fmt.description": "Format: json or text.",
-    "msg.summary": "ECHONET Lite monitoring completed: {count} change(s) in {elapsed_ms} ms.",
-    "msg.no_changes": "No property changes were detected.",
-    "err.invalid_argument": "Error: ip_address is required.",
-    "msg.no_response": "No ECHONET Lite response was received during monitoring.",
+    "param.ip.description": "Alamat IPv4 simpul target.",
+    "param.interval.description": "Interval pemungutan suara dalam hitungan detik.",
+    "param.duration.description": "Durasi pemantauan dalam hitungan detik.",
+    "param.timeout.description": "Batas waktu (detik).",
+    "param.fmt.description": "Format: json atau teks.",
+    "msg.summary": "Pemantauan ECHONET Lite selesai: {count} perubahan dalam {elapsed_ms} ms.",
+    "msg.no_changes": "Tidak ada perubahan properti yang terdeteksi.",
+    "err.invalid_argument": "Kesalahan: ip_address diperlukan.",
+    "msg.no_response": "Tidak ada respons ECHONET Lite yang diterima selama pemantauan.",
     "x_search_terms": [
       "monitor gema",
       "echonet_monitor",
@@ -219,18 +246,21 @@
       "berulang kali",
       "data",
       "pemberitahuan"
-    ]
+    ],
+    "param.eoj.description": "Target EOJ (default: profil simpul).",
+    "param.obj.description": "Filter kode objek (misalnya '0130').",
+    "tool.description": "Lakukan polling pada node ECHONET Lite berulang kali, deteksi perubahan properti, dan kembalikan JSON atau ringkasan teks."
   },
   "it": {
-    "param.ip.description": "Target node IPv4 address.",
-    "param.interval.description": "Polling interval in seconds.",
-    "param.duration.description": "Monitoring duration in seconds.",
-    "param.timeout.description": "Timeout (seconds).",
-    "param.fmt.description": "Format: json or text.",
-    "msg.summary": "ECHONET Lite monitoring completed: {count} change(s) in {elapsed_ms} ms.",
-    "msg.no_changes": "No property changes were detected.",
-    "err.invalid_argument": "Error: ip_address is required.",
-    "msg.no_response": "No ECHONET Lite response was received during monitoring.",
+    "param.ip.description": "Indirizzo IPv4 del nodo di destinazione.",
+    "param.interval.description": "Intervallo di polling in secondi.",
+    "param.duration.description": "Durata del monitoraggio in secondi.",
+    "param.timeout.description": "Timeout (secondi).",
+    "param.fmt.description": "Formato: json o testo.",
+    "msg.summary": "Monitoraggio ECHONET Lite completato: {count} modifiche in {elapsed_ms} ms.",
+    "msg.no_changes": "Non sono state rilevate modifiche alla proprietà.",
+    "err.invalid_argument": "Errore: indirizzo_ip è obbligatorio.",
+    "msg.no_response": "Durante il monitoraggio non è stata ricevuta alcuna risposta da ECHONET Lite.",
     "x_search_terms": [
       "monitor econet",
       "echonet_monitor",
@@ -239,18 +269,21 @@
       "ripetutamente",
       "dati",
       "notifiche"
-    ]
+    ],
+    "param.eoj.description": "EOJ di destinazione (impostazione predefinita: profilo del nodo).",
+    "param.obj.description": "Filtro codice oggetto (es. '0130').",
+    "tool.description": "Interroga ripetutamente un nodo ECHONET Lite, rileva le modifiche alle proprietà e restituisce un JSON o un riepilogo testuale."
   },
   "ja": {
-    "param.ip.description": "Target node IPv4 address.",
-    "param.interval.description": "Polling interval in seconds.",
-    "param.duration.description": "Monitoring duration in seconds.",
-    "param.timeout.description": "Timeout (seconds).",
-    "param.fmt.description": "Format: json or text.",
-    "msg.summary": "ECHONET Lite monitoring completed: {count} change(s) in {elapsed_ms} ms.",
-    "msg.no_changes": "No property changes were detected.",
-    "err.invalid_argument": "Error: ip_address is required.",
-    "msg.no_response": "No ECHONET Lite response was received during monitoring.",
+    "param.ip.description": "ターゲットノードのIPv4アドレス。",
+    "param.interval.description": "ポーリング間隔 (秒)。",
+    "param.duration.description": "監視期間 (秒)。",
+    "param.timeout.description": "タイムアウト (秒)。",
+    "param.fmt.description": "形式: json またはテキスト。",
+    "msg.summary": "ECHONET Lite モニタリングが完了しました: {elapsed_ms} ミリ秒で {count} 件の変化。",
+    "msg.no_changes": "プロパティの変更は検出されませんでした。",
+    "err.invalid_argument": "エラー: ip_address は必須です。",
+    "msg.no_response": "モニタリング中にECHONET Liteの応答を受信できませんでした。",
     "param.eoj.description": "ターゲット EOJ (デフォルト: ノード プロファイル)。",
     "param.obj.description": "オブジェクト コード フィルター (例: '0130')。",
     "tool.description": "ECHONET Lite ノードを繰り返しポーリングし、プロパティの変更を検出し、JSON またはテキストの概要を返します。",
@@ -265,15 +298,15 @@
     ]
   },
   "ko": {
-    "param.ip.description": "Target node IPv4 address.",
-    "param.interval.description": "Polling interval in seconds.",
-    "param.duration.description": "Monitoring duration in seconds.",
-    "param.timeout.description": "Timeout (seconds).",
-    "param.fmt.description": "Format: json or text.",
-    "msg.summary": "ECHONET Lite monitoring completed: {count} change(s) in {elapsed_ms} ms.",
-    "msg.no_changes": "No property changes were detected.",
-    "err.invalid_argument": "Error: ip_address is required.",
-    "msg.no_response": "No ECHONET Lite response was received during monitoring.",
+    "param.ip.description": "대상 노드 IPv4 주소입니다.",
+    "param.interval.description": "폴링 간격(초)입니다.",
+    "param.duration.description": "모니터링 기간(초)입니다.",
+    "param.timeout.description": "시간 초과(초).",
+    "param.fmt.description": "형식: json 또는 텍스트.",
+    "msg.summary": "ECHONET Lite 모니터링 완료: {elapsed_ms}ms 내에 {count}개 변경.",
+    "msg.no_changes": "속성 변경 사항이 감지되지 않았습니다.",
+    "err.invalid_argument": "오류: ip_address가 필요합니다.",
+    "msg.no_response": "모니터링 중에 ECHONET Lite 응답이 수신되지 않았습니다.",
     "x_search_terms": [
       "에코넷 모니터",
       "에코넷_모니터",
@@ -282,18 +315,21 @@
       "반복적으로",
       "데이터",
       "알림"
-    ]
+    ],
+    "param.eoj.description": "타겟 EOJ(기본값: 노드 프로필)",
+    "param.obj.description": "개체 코드 필터(예: '0130').",
+    "tool.description": "ECHONET Lite 노드를 반복적으로 폴링하고, 속성 변경을 감지하고, JSON 또는 텍스트 요약을 반환합니다."
   },
   "mn": {
-    "param.ip.description": "Target node IPv4 address.",
-    "param.interval.description": "Polling interval in seconds.",
-    "param.duration.description": "Monitoring duration in seconds.",
-    "param.timeout.description": "Timeout (seconds).",
-    "param.fmt.description": "Format: json or text.",
-    "msg.summary": "ECHONET Lite monitoring completed: {count} change(s) in {elapsed_ms} ms.",
-    "msg.no_changes": "No property changes were detected.",
-    "err.invalid_argument": "Error: ip_address is required.",
-    "msg.no_response": "No ECHONET Lite response was received during monitoring.",
+    "param.ip.description": "Зорилтот зангилааны IPv4 хаяг.",
+    "param.interval.description": "Санал авах интервал секундээр.",
+    "param.duration.description": "Хяналтын үргэлжлэх хугацаа секундээр.",
+    "param.timeout.description": "Хугацаа хэтэрсэн (секунд).",
+    "param.fmt.description": "Формат: json эсвэл текст.",
+    "msg.summary": "ECHONET Lite-ийн хяналт дууссан: {elapsed_ms} мс-д {count} өөрчлөлт(үүд).",
+    "msg.no_changes": "Үл хөдлөх хөрөнгийн өөрчлөлт илрээгүй.",
+    "err.invalid_argument": "Алдаа: ip_хаяг шаардлагатай.",
+    "msg.no_response": "Хяналтын явцад ECHONET Lite-ийн хариу ирээгүй.",
     "x_search_terms": [
       "echonet хяналтын самбар",
       "echonet_monitor",
@@ -302,18 +338,21 @@
       "дахин дахин",
       "өгөгдөл",
       "мэдэгдэл"
-    ]
+    ],
+    "param.eoj.description": "Зорилтот EOJ (өгөгдмөл: зангилааны профайл).",
+    "param.obj.description": "Объект кодын шүүлтүүр (жишээ нь '0130').",
+    "tool.description": "ECHONET Lite зангилаанаас дахин дахин санал асуулга явуулж, өмчийн өөрчлөлтийг илрүүлж, JSON эсвэл текстийн хураангуйг буцаана уу."
   },
   "mr": {
-    "param.ip.description": "Target node IPv4 address.",
-    "param.interval.description": "Polling interval in seconds.",
-    "param.duration.description": "Monitoring duration in seconds.",
-    "param.timeout.description": "Timeout (seconds).",
-    "param.fmt.description": "Format: json or text.",
-    "msg.summary": "ECHONET Lite monitoring completed: {count} change(s) in {elapsed_ms} ms.",
-    "msg.no_changes": "No property changes were detected.",
-    "err.invalid_argument": "Error: ip_address is required.",
-    "msg.no_response": "No ECHONET Lite response was received during monitoring.",
+    "param.ip.description": "लक्ष्य नोड IPv4 पत्ता.",
+    "param.interval.description": "सेकंदात मतदान मध्यांतर.",
+    "param.duration.description": "सेकंदात निरीक्षण कालावधी.",
+    "param.timeout.description": "कालबाह्य (सेकंद).",
+    "param.fmt.description": "स्वरूप: json किंवा मजकूर.",
+    "msg.summary": "ECHONET लाइट मॉनिटरिंग पूर्ण झाले: {count} {elapsed_ms} ms मध्ये बदल.",
+    "msg.no_changes": "कोणतेही गुणधर्म बदल आढळले नाहीत.",
+    "err.invalid_argument": "त्रुटी: ip_address आवश्यक आहे.",
+    "msg.no_response": "निरीक्षणादरम्यान कोणताही ECHONET Lite प्रतिसाद प्राप्त झाला नाही.",
     "x_search_terms": [
       "echonet मॉनिटर",
       "echonet_monitor",
@@ -322,7 +361,10 @@
       "वारंवार",
       "डेटा",
       "सूचना"
-    ]
+    ],
+    "param.eoj.description": "लक्ष्य EOJ (डीफॉल्ट: नोड प्रोफाइल).",
+    "param.obj.description": "ऑब्जेक्ट कोड फिल्टर (उदा. '0130').",
+    "tool.description": "ECHONET Lite नोडला वारंवार मतदान करा, गुणधर्म बदल शोधा आणि JSON किंवा मजकूर सारांश परत करा."
   },
   "el": {
     "param.ip.description": "Διεύθυνση IPv4 κόμβου στόχου.",
@@ -342,7 +384,10 @@
       "επανειλημμένα",
       "δεδομένα",
       "ειδοποιήσεις"
-    ]
+    ],
+    "param.eoj.description": "Στόχος EOJ (προεπιλογή: προφίλ κόμβου).",
+    "param.obj.description": "Φίλτρο κωδικού αντικειμένου (π.χ. '0130').",
+    "tool.description": "Δημοσιεύστε επανειλημμένα έναν κόμβο ECHONET Lite, εντοπίστε αλλαγές ιδιοτήτων και επιστρέψτε μια σύνοψη JSON ή κειμένου."
   },
   "he": {
     "param.ip.description": "כתובת IPv4 של צומת יעד.",
@@ -362,7 +407,10 @@
       "שוב ושוב",
       "נתונים",
       "הודעות"
-    ]
+    ],
+    "param.eoj.description": "יעד EOJ (ברירת מחדל: פרופיל צומת).",
+    "param.obj.description": "מסנן קוד אובייקט (למשל '0130').",
+    "tool.description": "סקר צומת ECHONET Lite שוב ושוב, זיהוי שינויים במאפיינים והחזר JSON או סיכום טקסט."
   },
   "hu": {
     "param.ip.description": "Célcsomópont IPv4-címe.",
@@ -382,7 +430,10 @@
       "ismételten",
       "adatok",
       "értesítések"
-    ]
+    ],
+    "param.eoj.description": "Cél EOJ (alapértelmezett: csomópont profil).",
+    "param.obj.description": "Objektumkód szűrő (pl. „0130”).",
+    "tool.description": "Egy ECHONET Lite csomópont ismételt lekérdezése, tulajdonságváltozások észlelése, valamint JSON vagy szöveges összefoglaló visszaadása."
   },
   "ro": {
     "param.ip.description": "Adresa IPv4 a nodului țintă.",
@@ -402,18 +453,21 @@
       "repetat",
       "date",
       "notificări"
-    ]
+    ],
+    "param.eoj.description": "EOJ țintă (implicit: profil de nod).",
+    "param.obj.description": "Filtru de cod obiect (de exemplu, „0130”).",
+    "tool.description": "Interogați în mod repetat un nod ECHONET Lite, detectați modificările de proprietate și returnați un rezumat JSON sau text."
   },
   "nb": {
-    "param.ip.description": "Target node IPv4 address.",
-    "param.interval.description": "Polling interval in seconds.",
-    "param.duration.description": "Monitoring duration in seconds.",
-    "param.timeout.description": "Timeout (seconds).",
-    "param.fmt.description": "Format: json or text.",
-    "msg.summary": "ECHONET Lite monitoring completed: {count} change(s) in {elapsed_ms} ms.",
-    "msg.no_changes": "No property changes were detected.",
-    "err.invalid_argument": "Error: ip_address is required.",
-    "msg.no_response": "No ECHONET Lite response was received during monitoring.",
+    "param.ip.description": "Målnodens IPv4-adresse.",
+    "param.interval.description": "Polling-intervall i sekunder.",
+    "param.duration.description": "Overvåkingsvarighet i sekunder.",
+    "param.timeout.description": "Tidsavbrudd (sekunder).",
+    "param.fmt.description": "Format: json eller tekst.",
+    "msg.summary": "ECHONET Lite-overvåking fullført: {count} endring(er) på {elapsed_ms} ms.",
+    "msg.no_changes": "Ingen egenskapsendringer ble oppdaget.",
+    "err.invalid_argument": "Feil: ip_adresse er påkrevd.",
+    "msg.no_response": "Ingen ECHONET Lite-svar ble mottatt under overvåking.",
     "x_search_terms": [
       "echonet-overvåking",
       "echonet_monitor",
@@ -422,18 +476,21 @@
       "gjentatte ganger",
       "data",
       "varsler"
-    ]
+    ],
+    "param.eoj.description": "Mål EOJ (standard: nodeprofil).",
+    "param.obj.description": "Objektkodefilter (f.eks. '0130').",
+    "tool.description": "Poll en ECHONET Lite-node gjentatte ganger, oppdage egenskapsendringer og returner et JSON- eller tekstsammendrag."
   },
   "nl": {
-    "param.ip.description": "Target node IPv4 address.",
-    "param.interval.description": "Polling interval in seconds.",
-    "param.duration.description": "Monitoring duration in seconds.",
-    "param.timeout.description": "Timeout (seconds).",
-    "param.fmt.description": "Format: json or text.",
-    "msg.summary": "ECHONET Lite monitoring completed: {count} change(s) in {elapsed_ms} ms.",
-    "msg.no_changes": "No property changes were detected.",
-    "err.invalid_argument": "Error: ip_address is required.",
-    "msg.no_response": "No ECHONET Lite response was received during monitoring.",
+    "param.ip.description": "IPv4-adres van doelknooppunt.",
+    "param.interval.description": "Polling-interval in seconden.",
+    "param.duration.description": "Bewakingsduur in seconden.",
+    "param.timeout.description": "Time-out (seconden).",
+    "param.fmt.description": "Formaat: json of tekst.",
+    "msg.summary": "ECHONET Lite-monitoring voltooid: {count} wijziging(en) in {elapsed_ms} ms.",
+    "msg.no_changes": "Er zijn geen eigendomswijzigingen gedetecteerd.",
+    "err.invalid_argument": "Fout: ip_address is vereist.",
+    "msg.no_response": "Tijdens de monitoring werd geen ECHONET Lite-antwoord ontvangen.",
     "x_search_terms": [
       "echonet-monitor",
       "echonet_monitor",
@@ -442,18 +499,21 @@
       "herhaaldelijk",
       "gegevens",
       "meldingen"
-    ]
+    ],
+    "param.eoj.description": "Doel-EOJ (standaard: knooppuntprofiel).",
+    "param.obj.description": "Objectcodefilter (bijvoorbeeld '0130').",
+    "tool.description": "Poll herhaaldelijk een ECHONET Lite-knooppunt, detecteer wijzigingen in eigenschappen en retourneer een JSON- of tekstsamenvatting."
   },
   "pl": {
-    "param.ip.description": "Target node IPv4 address.",
-    "param.interval.description": "Polling interval in seconds.",
-    "param.duration.description": "Monitoring duration in seconds.",
-    "param.timeout.description": "Timeout (seconds).",
-    "param.fmt.description": "Format: json or text.",
-    "msg.summary": "ECHONET Lite monitoring completed: {count} change(s) in {elapsed_ms} ms.",
-    "msg.no_changes": "No property changes were detected.",
-    "err.invalid_argument": "Error: ip_address is required.",
-    "msg.no_response": "No ECHONET Lite response was received during monitoring.",
+    "param.ip.description": "Adres IPv4 węzła docelowego.",
+    "param.interval.description": "Interwał odpytywania w sekundach.",
+    "param.duration.description": "Czas monitorowania w sekundach.",
+    "param.timeout.description": "Limit czasu (sekundy).",
+    "param.fmt.description": "Format: json lub tekst.",
+    "msg.summary": "Zakończono monitorowanie ECHONET Lite: {count} zmian w {elapsed_ms} ms.",
+    "msg.no_changes": "Nie wykryto żadnych zmian właściwości.",
+    "err.invalid_argument": "Błąd: wymagany jest adres_ip.",
+    "msg.no_response": "Podczas monitorowania nie otrzymano żadnej odpowiedzi od ECHONET Lite.",
     "x_search_terms": [
       "monitor echonetu",
       "echonet_monitor",
@@ -462,18 +522,21 @@
       "wielokrotnie",
       "dane",
       "powiadomienia"
-    ]
+    ],
+    "param.eoj.description": "Docelowy EOJ (domyślnie: profil węzła).",
+    "param.obj.description": "Filtr kodu obiektowego (np. „0130”).",
+    "tool.description": "Wielokrotnie odpytuj węzeł ECHONET Lite, wykryj zmiany właściwości i zwróć podsumowanie w formacie JSON lub tekstowym."
   },
   "pt": {
-    "param.ip.description": "Target node IPv4 address.",
-    "param.interval.description": "Polling interval in seconds.",
-    "param.duration.description": "Monitoring duration in seconds.",
-    "param.timeout.description": "Timeout (seconds).",
-    "param.fmt.description": "Format: json or text.",
-    "msg.summary": "ECHONET Lite monitoring completed: {count} change(s) in {elapsed_ms} ms.",
-    "msg.no_changes": "No property changes were detected.",
-    "err.invalid_argument": "Error: ip_address is required.",
-    "msg.no_response": "No ECHONET Lite response was received during monitoring.",
+    "param.ip.description": "Endereço IPv4 do nó de destino.",
+    "param.interval.description": "Intervalo de pesquisa em segundos.",
+    "param.duration.description": "Duração do monitoramento em segundos.",
+    "param.timeout.description": "Tempo limite (segundos).",
+    "param.fmt.description": "Formato: json ou texto.",
+    "msg.summary": "Monitoramento ECHONET Lite concluído: {count} alterações em {elapsed_ms} ms.",
+    "msg.no_changes": "Nenhuma alteração de propriedade foi detectada.",
+    "err.invalid_argument": "Erro: endereço_ip é obrigatório.",
+    "msg.no_response": "Nenhuma resposta do ECHONET Lite foi recebida durante o monitoramento.",
     "x_search_terms": [
       "monitor econet",
       "echonet_monitor",
@@ -482,18 +545,21 @@
       "repetidamente",
       "dados",
       "notificações"
-    ]
+    ],
+    "param.eoj.description": "EOJ de destino (padrão: perfil do nó).",
+    "param.obj.description": "Filtro de código de objeto (por exemplo, '0130').",
+    "tool.description": "Pesquise repetidamente um nó ECHONET Lite, detecte alterações de propriedade e retorne um JSON ou um resumo de texto."
   },
   "pt_BR": {
-    "param.ip.description": "Target node IPv4 address.",
-    "param.interval.description": "Polling interval in seconds.",
-    "param.duration.description": "Monitoring duration in seconds.",
-    "param.timeout.description": "Timeout (seconds).",
-    "param.fmt.description": "Format: json or text.",
-    "msg.summary": "ECHONET Lite monitoring completed: {count} change(s) in {elapsed_ms} ms.",
-    "msg.no_changes": "No property changes were detected.",
-    "err.invalid_argument": "Error: ip_address is required.",
-    "msg.no_response": "No ECHONET Lite response was received during monitoring.",
+    "param.ip.description": "Endereço IPv4 do nó de destino.",
+    "param.interval.description": "Intervalo de pesquisa em segundos.",
+    "param.duration.description": "Duração do monitoramento em segundos.",
+    "param.timeout.description": "Tempo limite (segundos).",
+    "param.fmt.description": "Formato: json ou texto.",
+    "msg.summary": "Monitoramento ECHONET Lite concluído: {count} alterações em {elapsed_ms} ms.",
+    "msg.no_changes": "Nenhuma alteração de propriedade foi detectada.",
+    "err.invalid_argument": "Erro: endereço_ip é obrigatório.",
+    "msg.no_response": "Nenhuma resposta do ECHONET Lite foi recebida durante o monitoramento.",
     "x_search_terms": [
       "monitor echonet",
       "echonet_monitor",
@@ -502,18 +568,21 @@
       "repetidamente",
       "dados",
       "notificações"
-    ]
+    ],
+    "param.eoj.description": "EOJ de destino (padrão: perfil do nó).",
+    "param.obj.description": "Filtro de código de objeto (por exemplo, '0130').",
+    "tool.description": "Pesquise repetidamente um nó ECHONET Lite, detecte alterações de propriedade e retorne um JSON ou um resumo de texto."
   },
   "ru": {
-    "param.ip.description": "Target node IPv4 address.",
-    "param.interval.description": "Polling interval in seconds.",
-    "param.duration.description": "Monitoring duration in seconds.",
-    "param.timeout.description": "Timeout (seconds).",
-    "param.fmt.description": "Format: json or text.",
-    "msg.summary": "ECHONET Lite monitoring completed: {count} change(s) in {elapsed_ms} ms.",
-    "msg.no_changes": "No property changes were detected.",
-    "err.invalid_argument": "Error: ip_address is required.",
-    "msg.no_response": "No ECHONET Lite response was received during monitoring.",
+    "param.ip.description": "IPv4-адрес целевого узла.",
+    "param.interval.description": "Интервал опроса в секундах.",
+    "param.duration.description": "Продолжительность мониторинга в секундах.",
+    "param.timeout.description": "Тайм-аут (секунды).",
+    "param.fmt.description": "Формат: json или текст.",
+    "msg.summary": "Мониторинг ECHONET Lite завершен: {count} изменений за {elapsed_ms} мс.",
+    "msg.no_changes": "Никаких изменений свойств не обнаружено.",
+    "err.invalid_argument": "Ошибка: требуется ip_address.",
+    "msg.no_response": "Во время мониторинга ответа ECHONET Lite получено не было.",
     "x_search_terms": [
       "монитор echonet",
       "echonet_monitor",
@@ -522,18 +591,21 @@
       "многократно",
       "данные",
       "уведомления"
-    ]
+    ],
+    "param.eoj.description": "Целевой EOJ (по умолчанию: профиль узла).",
+    "param.obj.description": "Фильтр объектного кода (например, «0130»).",
+    "tool.description": "Повторно опрашивайте узел ECHONET Lite, обнаруживайте изменения свойств и возвращайте JSON или текстовую сводку."
   },
   "sv": {
-    "param.ip.description": "Target node IPv4 address.",
-    "param.interval.description": "Polling interval in seconds.",
-    "param.duration.description": "Monitoring duration in seconds.",
-    "param.timeout.description": "Timeout (seconds).",
-    "param.fmt.description": "Format: json or text.",
-    "msg.summary": "ECHONET Lite monitoring completed: {count} change(s) in {elapsed_ms} ms.",
-    "msg.no_changes": "No property changes were detected.",
-    "err.invalid_argument": "Error: ip_address is required.",
-    "msg.no_response": "No ECHONET Lite response was received during monitoring.",
+    "param.ip.description": "IPv4-adress för målnoden.",
+    "param.interval.description": "Pollingintervall i sekunder.",
+    "param.duration.description": "Övervakningstid i sekunder.",
+    "param.timeout.description": "Timeout (sekunder).",
+    "param.fmt.description": "Format: json eller text.",
+    "msg.summary": "ECHONET Lite-övervakning slutförd: {count} förändring(ar) på {elapsed_ms} ms.",
+    "msg.no_changes": "Inga egenskapsändringar upptäcktes.",
+    "err.invalid_argument": "Fel: ip_adress krävs.",
+    "msg.no_response": "Inget ECHONET Lite-svar mottogs under övervakning.",
     "x_search_terms": [
       "echonet övervakning",
       "echonet_monitor",
@@ -542,18 +614,21 @@
       "upprepade gånger",
       "data",
       "meddelanden"
-    ]
+    ],
+    "param.eoj.description": "Mål EOJ (standard: nodprofil).",
+    "param.obj.description": "Objektkodfilter (t.ex. '0130').",
+    "tool.description": "Poll en ECHONET Lite-nod upprepade gånger, upptäck egenskapsändringar och returnera en JSON- eller textsammanfattning."
   },
   "sw": {
-    "param.ip.description": "Target node IPv4 address.",
-    "param.interval.description": "Polling interval in seconds.",
-    "param.duration.description": "Monitoring duration in seconds.",
-    "param.timeout.description": "Timeout (seconds).",
-    "param.fmt.description": "Format: json or text.",
-    "msg.summary": "ECHONET Lite monitoring completed: {count} change(s) in {elapsed_ms} ms.",
-    "msg.no_changes": "No property changes were detected.",
-    "err.invalid_argument": "Error: ip_address is required.",
-    "msg.no_response": "No ECHONET Lite response was received during monitoring.",
+    "param.ip.description": "Anwani ya IPv4 ya nodi lengwa.",
+    "param.interval.description": "Muda wa upigaji kura kwa sekunde.",
+    "param.duration.description": "Muda wa ufuatiliaji katika sekunde.",
+    "param.timeout.description": "Muda umeisha (sekunde).",
+    "param.fmt.description": "Umbizo: json au maandishi.",
+    "msg.summary": "Ufuatiliaji wa ECHONET Lite umekamilika: {count} mabadiliko baada ya ms {elapsed_ms}.",
+    "msg.no_changes": "Hakuna mabadiliko ya mali yaligunduliwa.",
+    "err.invalid_argument": "Hitilafu: ip_anwani inahitajika.",
+    "msg.no_response": "Hakuna jibu la ECHONET Lite lililopokelewa wakati wa ufuatiliaji.",
     "x_search_terms": [
       "kifuatiliaji cha echonet",
       "echonet_monitor",
@@ -562,18 +637,21 @@
       "mara kwa mara",
       "data",
       "arifa"
-    ]
+    ],
+    "param.eoj.description": "EOJ inayolengwa (chaguo-msingi: wasifu wa nodi).",
+    "param.obj.description": "Kichujio cha msimbo wa kitu (k.m. '0130').",
+    "tool.description": "Piga kura kwa nodi ya ECHONET Lite mara kwa mara, tambua mabadiliko ya sifa, na urudishe muhtasari wa maandishi ya JSON au maandishi."
   },
   "th": {
-    "param.ip.description": "Target node IPv4 address.",
-    "param.interval.description": "Polling interval in seconds.",
-    "param.duration.description": "Monitoring duration in seconds.",
-    "param.timeout.description": "Timeout (seconds).",
-    "param.fmt.description": "Format: json or text.",
-    "msg.summary": "ECHONET Lite monitoring completed: {count} change(s) in {elapsed_ms} ms.",
-    "msg.no_changes": "No property changes were detected.",
-    "err.invalid_argument": "Error: ip_address is required.",
-    "msg.no_response": "No ECHONET Lite response was received during monitoring.",
+    "param.ip.description": "ที่อยู่ IPv4 ของโหนดเป้าหมาย",
+    "param.interval.description": "ช่วงเวลาการโพลเป็นวินาที",
+    "param.duration.description": "ระยะเวลาการตรวจสอบเป็นวินาที",
+    "param.timeout.description": "หมดเวลา (วินาที)",
+    "param.fmt.description": "รูปแบบ: json หรือข้อความ",
+    "msg.summary": "การตรวจสอบ ECHONET Lite เสร็จสมบูรณ์: {count} การเปลี่ยนแปลงใน {elapsed_ms} ms",
+    "msg.no_changes": "ไม่พบการเปลี่ยนแปลงคุณสมบัติ",
+    "err.invalid_argument": "ข้อผิดพลาด: จำเป็นต้องระบุ ip_address",
+    "msg.no_response": "ไม่ได้รับการตอบสนองของ ECHONET Lite ระหว่างการตรวจสอบ",
     "x_search_terms": [
       "มอนิเตอร์ echonet",
       "echonet_monitor",
@@ -582,18 +660,21 @@
       "ซ้ำๆ",
       "ข้อมูล",
       "การแจ้งเตือน"
-    ]
+    ],
+    "param.eoj.description": "เป้าหมาย EOJ (ค่าเริ่มต้น: โปรไฟล์โหนด)",
+    "param.obj.description": "ตัวกรองรหัสออบเจ็กต์ (เช่น '0130')",
+    "tool.description": "สำรวจโหนด ECHONET Lite ซ้ำๆ ตรวจหาการเปลี่ยนแปลงคุณสมบัติ และส่งคืน JSON หรือสรุปข้อความ"
   },
   "tr": {
-    "param.ip.description": "Target node IPv4 address.",
-    "param.interval.description": "Polling interval in seconds.",
-    "param.duration.description": "Monitoring duration in seconds.",
-    "param.timeout.description": "Timeout (seconds).",
-    "param.fmt.description": "Format: json or text.",
-    "msg.summary": "ECHONET Lite monitoring completed: {count} change(s) in {elapsed_ms} ms.",
-    "msg.no_changes": "No property changes were detected.",
-    "err.invalid_argument": "Error: ip_address is required.",
-    "msg.no_response": "No ECHONET Lite response was received during monitoring.",
+    "param.ip.description": "Hedef düğüm IPv4 adresi.",
+    "param.interval.description": "Saniye cinsinden yoklama aralığı.",
+    "param.duration.description": "Saniye cinsinden izleme süresi.",
+    "param.timeout.description": "Zaman aşımı (saniye).",
+    "param.fmt.description": "Biçim: json veya metin.",
+    "msg.summary": "ECHONET Lite izleme tamamlandı: {elapsed_ms} ms'de {count} değişiklik.",
+    "msg.no_changes": "Herhangi bir özellik değişikliği tespit edilmedi.",
+    "err.invalid_argument": "Hata: ip_adresi gerekli.",
+    "msg.no_response": "İzleme sırasında ECHONET Lite yanıtı alınmadı.",
     "x_search_terms": [
       "echonet monitörü",
       "echonet_monitor",
@@ -602,18 +683,21 @@
       "tekrar tekrar",
       "veri",
       "bildirimler"
-    ]
+    ],
+    "param.eoj.description": "Hedef EOJ (varsayılan: düğüm profili).",
+    "param.obj.description": "Nesne kodu filtresi (ör. '0130').",
+    "tool.description": "Bir ECHONET Lite düğümünü tekrar tekrar yoklayın, özellik değişikliklerini tespit edin ve bir JSON veya metin özeti döndürün."
   },
   "uk": {
-    "param.ip.description": "Target node IPv4 address.",
-    "param.interval.description": "Polling interval in seconds.",
-    "param.duration.description": "Monitoring duration in seconds.",
-    "param.timeout.description": "Timeout (seconds).",
-    "param.fmt.description": "Format: json or text.",
-    "msg.summary": "ECHONET Lite monitoring completed: {count} change(s) in {elapsed_ms} ms.",
-    "msg.no_changes": "No property changes were detected.",
-    "err.invalid_argument": "Error: ip_address is required.",
-    "msg.no_response": "No ECHONET Lite response was received during monitoring.",
+    "param.ip.description": "IPv4-адреса цільового вузла.",
+    "param.interval.description": "Інтервал опитування в секундах.",
+    "param.duration.description": "Тривалість моніторингу в секундах.",
+    "param.timeout.description": "Тайм-аут (секунди).",
+    "param.fmt.description": "Формат: json або текстовий.",
+    "msg.summary": "Моніторинг ECHONET Lite завершено: {count} змін за {elapsed_ms} мс.",
+    "msg.no_changes": "Змін властивостей не виявлено.",
+    "err.invalid_argument": "Помилка: потрібен ip_address.",
+    "msg.no_response": "Під час моніторингу не було отримано відповіді ECHONET Lite.",
     "x_search_terms": [
       "монітор echonet",
       "echonet_monitor",
@@ -622,18 +706,21 @@
       "багаторазово",
       "дані",
       "сповіщення"
-    ]
+    ],
+    "param.eoj.description": "Цільовий EOJ (за замовчуванням: профіль вузла).",
+    "param.obj.description": "Фільтр коду об’єкта (наприклад, «0130»).",
+    "tool.description": "Повторно опитуйте вузол ECHONET Lite, виявляйте зміни властивостей і повертайте JSON або текстовий підсумок."
   },
   "vi": {
-    "param.ip.description": "Target node IPv4 address.",
-    "param.interval.description": "Polling interval in seconds.",
-    "param.duration.description": "Monitoring duration in seconds.",
-    "param.timeout.description": "Timeout (seconds).",
-    "param.fmt.description": "Format: json or text.",
-    "msg.summary": "ECHONET Lite monitoring completed: {count} change(s) in {elapsed_ms} ms.",
-    "msg.no_changes": "No property changes were detected.",
-    "err.invalid_argument": "Error: ip_address is required.",
-    "msg.no_response": "No ECHONET Lite response was received during monitoring.",
+    "param.ip.description": "Địa chỉ IPv4 của nút đích.",
+    "param.interval.description": "Khoảng thời gian bỏ phiếu tính bằng giây.",
+    "param.duration.description": "Thời lượng giám sát tính bằng giây.",
+    "param.timeout.description": "Thời gian chờ (giây).",
+    "param.fmt.description": "Định dạng: json hoặc văn bản.",
+    "msg.summary": "Quá trình giám sát ECHONET Lite đã hoàn tất: {count} thay đổi sau {elapsed_ms} mili giây.",
+    "msg.no_changes": "Không có thay đổi thuộc tính nào được phát hiện.",
+    "err.invalid_argument": "Lỗi: địa chỉ ip là bắt buộc.",
+    "msg.no_response": "Không nhận được phản hồi ECHONET Lite trong quá trình theo dõi.",
     "x_search_terms": [
       "màn hình tiếng vang",
       "echonet_monitor",
@@ -642,18 +729,21 @@
       "nhiều lần",
       "dữ liệu",
       "thông báo"
-    ]
+    ],
+    "param.eoj.description": "Mục tiêu EOJ (mặc định: hồ sơ nút).",
+    "param.obj.description": "Bộ lọc mã đối tượng (ví dụ: '0130').",
+    "tool.description": "Thăm dò nút ECHONET Lite nhiều lần, phát hiện các thay đổi về thuộc tính và trả về một bản tóm tắt văn bản hoặc JSON."
   },
   "zh_CN": {
-    "param.ip.description": "Target node IPv4 address.",
-    "param.interval.description": "Polling interval in seconds.",
-    "param.duration.description": "Monitoring duration in seconds.",
-    "param.timeout.description": "Timeout (seconds).",
-    "param.fmt.description": "Format: json or text.",
-    "msg.summary": "ECHONET Lite monitoring completed: {count} change(s) in {elapsed_ms} ms.",
-    "msg.no_changes": "No property changes were detected.",
-    "err.invalid_argument": "Error: ip_address is required.",
-    "msg.no_response": "No ECHONET Lite response was received during monitoring.",
+    "param.ip.description": "目标节点 IPv4 地址。",
+    "param.interval.description": "轮询间隔（以秒为单位）。",
+    "param.duration.description": "监控持续时间（以秒为单位）。",
+    "param.timeout.description": "超时（秒）。",
+    "param.fmt.description": "格式：json 或文本。",
+    "msg.summary": "ECHONET Lite 监控已完成：{elapsed_ms} 毫秒内发生 {count} 次更改。",
+    "msg.no_changes": "未检测到属性变化。",
+    "err.invalid_argument": "错误：需要 ip_address。",
+    "msg.no_response": "监控期间未收到 ECHONET Lite 响应。",
     "x_search_terms": [
       "echonet 监视器",
       "echonet_monitor",
@@ -662,18 +752,21 @@
       "重复",
       "数据",
       "通知"
-    ]
+    ],
+    "param.eoj.description": "目标 EOJ（默认：节点配置文件）。",
+    "param.obj.description": "目标代码过滤器（例如“0130”）。",
+    "tool.description": "重复轮询 ECHONET Lite 节点，检测属性更改，并返回 JSON 或文本摘要。"
   },
   "zh_TW": {
-    "param.ip.description": "Target node IPv4 address.",
-    "param.interval.description": "Polling interval in seconds.",
-    "param.duration.description": "Monitoring duration in seconds.",
-    "param.timeout.description": "Timeout (seconds).",
-    "param.fmt.description": "Format: json or text.",
-    "msg.summary": "ECHONET Lite monitoring completed: {count} change(s) in {elapsed_ms} ms.",
-    "msg.no_changes": "No property changes were detected.",
-    "err.invalid_argument": "Error: ip_address is required.",
-    "msg.no_response": "No ECHONET Lite response was received during monitoring.",
+    "param.ip.description": "目標節點 IPv4 位址。",
+    "param.interval.description": "輪詢間隔（以秒為單位）。",
+    "param.duration.description": "監控持續時間（以秒為單位）。",
+    "param.timeout.description": "超時（秒）。",
+    "param.fmt.description": "格式：json 或文字。",
+    "msg.summary": "ECHONET Lite 監控已完成：{elapsed_ms} 毫秒內發生 {count} 次變更。",
+    "msg.no_changes": "未檢測到屬性變化。",
+    "err.invalid_argument": "錯誤：需要 ip_address。",
+    "msg.no_response": "監控期間未收到 ECHONET Lite 回應。",
     "x_search_terms": [
       "echonet 監視器",
       "echonet_monitor",
@@ -682,6 +775,9 @@
       "重複",
       "資料",
       "通知"
-    ]
+    ],
+    "param.eoj.description": "目標 EOJ（預設：節點設定檔）。",
+    "param.obj.description": "目標代碼過濾器（例如“0130”）。",
+    "tool.description": "重複輪詢 ECHONET Lite 節點，偵測屬性更改，並傳回 JSON 或文字摘要。"
   }
 }

@@ -281,7 +281,7 @@
     ]
   },
   "nl": {
-    "tool.description": "Convert a conversation log file (JSONL) to PDF using Playwright.",
+    "tool.description": "Converteer een gesprekslogbestand (JSONL) naar PDF met Playwright.",
     "param.log_path.description": "Pad naar het JSONL-logboekbestand dat moet worden geconverteerd.",
     "param.output_path.description": "Uitvoerpad voor het PDF-bestand. Standaard ingesteld op log_path met de extensie .pdf.",
     "x_search_terms": [

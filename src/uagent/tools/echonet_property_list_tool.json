@@ -1,12 +1,12 @@
 {
   "ar": {
-    "param.ip.description": "Target node IPv4 address.",
-    "param.timeout.description": "Timeout (seconds).",
-    "param.limit.description": "Maximum number of properties to return. 0 means unlimited.",
-    "param.fmt.description": "Format: json or text.",
-    "err.invalid_eoj": "Error: Could not parse EOJ '{eoj}'.",
-    "err.invalid_object_code": "Error: Could not parse object_code '{object_code}'.",
-    "err.invalid_ip_address": "Error: ip_address must be a valid IPv4 address.",
+    "param.ip.description": "عنوان IPv4 للعقدة المستهدفة.",
+    "param.timeout.description": "المهلة (ثواني).",
+    "param.limit.description": "الحد الأقصى لعدد العقارات المراد إرجاعها. 0 يعني غير محدود.",
+    "param.fmt.description": "التنسيق: json أو نص.",
+    "err.invalid_eoj": "خطأ: تعذر تحليل EOJ '{eoj}'.",
+    "err.invalid_object_code": "خطأ: تعذر تحليل كود_الكائن '{object_code}'.",
+    "err.invalid_ip_address": "خطأ: يجب أن يكون ip_address عنوان IPv4 صالحًا.",
     "x_search_terms": [
       "قائمة خصائص echonet",
       "echonet_property_list",
@@ -14,16 +14,20 @@
       "إيكونت",
       "اكتشاف",
       "خصائص"
-    ]
+    ],
+    "msg.summary": "تم جلب قائمة خصائص ECHONET Lite: {count} خاصية (خصائص) في {elapsed_ms} مللي ثانية.",
+    "param.eoj.description": "الهدف EOJ (الافتراضي: ملف تعريف العقدة).",
+    "param.obj.description": "عامل تصفية رمز الكائن (على سبيل المثال \"0130\").",
+    "tool.description": "اكتشف خصائص ECHONET Lite على العقدة وقم بإرجاع قائمة JSON أو قائمة نصية."
   },
   "bn": {
-    "param.ip.description": "Target node IPv4 address.",
-    "param.timeout.description": "Timeout (seconds).",
-    "param.limit.description": "Maximum number of properties to return. 0 means unlimited.",
-    "param.fmt.description": "Format: json or text.",
-    "err.invalid_eoj": "Error: Could not parse EOJ '{eoj}'.",
-    "err.invalid_object_code": "Error: Could not parse object_code '{object_code}'.",
-    "err.invalid_ip_address": "Error: ip_address must be a valid IPv4 address.",
+    "param.ip.description": "লক্ষ্য নোড IPv4 ঠিকানা।",
+    "param.timeout.description": "সময়সীমা (সেকেন্ড)।",
+    "param.limit.description": "প্রত্যাবর্তনের জন্য সর্বাধিক সম্পত্তির সংখ্যা। 0 মানে সীমাহীন।",
+    "param.fmt.description": "বিন্যাস: json বা পাঠ্য।",
+    "err.invalid_eoj": "ত্রুটি: EOJ '{eoj}' পার্স করা যায়নি৷",
+    "err.invalid_object_code": "ত্রুটি: অবজেক্ট_কোড '{object_code}' পার্স করা যায়নি।",
+    "err.invalid_ip_address": "ত্রুটি: ip_address অবশ্যই একটি বৈধ IPv4 ঠিকানা হতে হবে।",
     "x_search_terms": [
       "echonet সম্পত্তি তালিকা",
       "echonet_property_list",
@@ -31,16 +35,20 @@
       "ইকোনেট",
       "আবিষ্কার",
       "বৈশিষ্ট্য"
-    ]
+    ],
+    "msg.summary": "ECHONET Lite সম্পত্তির তালিকা আনা হয়েছে: {count} প্রপার্টি(ies) {elapsed_ms} ms এ।",
+    "param.eoj.description": "লক্ষ্য EOJ (ডিফল্ট: নোড প্রোফাইল)।",
+    "param.obj.description": "অবজেক্ট কোড ফিল্টার (যেমন '0130')।",
+    "tool.description": "একটি নোডে ECHONET Lite বৈশিষ্ট্যগুলি আবিষ্কার করুন এবং একটি JSON বা পাঠ্য তালিকা ফেরত দিন৷"
   },
   "cs": {
-    "param.ip.description": "Target node IPv4 address.",
-    "param.timeout.description": "Timeout (seconds).",
-    "param.limit.description": "Maximum number of properties to return. 0 means unlimited.",
-    "param.fmt.description": "Format: json or text.",
-    "err.invalid_eoj": "Error: Could not parse EOJ '{eoj}'.",
-    "err.invalid_object_code": "Error: Could not parse object_code '{object_code}'.",
-    "err.invalid_ip_address": "Error: ip_address must be a valid IPv4 address.",
+    "param.ip.description": "Adresa IPv4 cílového uzlu.",
+    "param.timeout.description": "Časový limit (v sekundách).",
+    "param.limit.description": "Maximální počet vlastností k vrácení. 0 znamená neomezené.",
+    "param.fmt.description": "Formát: json nebo text.",
+    "err.invalid_eoj": "Chyba: Nelze analyzovat EOJ '{eoj}'.",
+    "err.invalid_object_code": "Chyba: Nelze analyzovat object_code '{object_code}'.",
+    "err.invalid_ip_address": "Chyba: ip_address musí být platná adresa IPv4.",
     "x_search_terms": [
       "seznam vlastností echonet",
       "echonet_property_list",
@@ -48,16 +56,20 @@
       "ECHONET",
       "objevit",
       "vlastnosti"
-    ]
+    ],
+    "msg.summary": "Načten seznam vlastností ECHONET Lite: {count} vlastností za {elapsed_ms} ms.",
+    "param.eoj.description": "Cílový EOJ (výchozí: profil uzlu).",
+    "param.obj.description": "Filtr kódu objektu (např. „0130“).",
+    "tool.description": "Objevte vlastnosti ECHONET Lite na uzlu a vraťte seznam JSON nebo text."
   },
   "de": {
-    "param.ip.description": "Target node IPv4 address.",
-    "param.timeout.description": "Timeout (seconds).",
-    "param.limit.description": "Maximum number of properties to return. 0 means unlimited.",
-    "param.fmt.description": "Format: json or text.",
-    "err.invalid_eoj": "Error: Could not parse EOJ '{eoj}'.",
-    "err.invalid_object_code": "Error: Could not parse object_code '{object_code}'.",
-    "err.invalid_ip_address": "Error: ip_address must be a valid IPv4 address.",
+    "param.ip.description": "IPv4-Adresse des Zielknotens.",
+    "param.timeout.description": "Timeout (Sekunden).",
+    "param.limit.description": "Maximale Anzahl der zurückzugebenden Eigenschaften. 0 bedeutet unbegrenzt.",
+    "param.fmt.description": "Format: JSON oder Text.",
+    "err.invalid_eoj": "Fehler: EOJ '{eoj}' konnte nicht analysiert werden.",
+    "err.invalid_object_code": "Fehler: Objektcode „{object_code}“ konnte nicht analysiert werden.",
+    "err.invalid_ip_address": "Fehler: ip_address muss eine gültige IPv4-Adresse sein.",
     "x_search_terms": [
       "echonet-Eigenschaftsliste",
       "echonet_property_list",
@@ -65,7 +77,11 @@
       "ECHONET",
       "entdecken",
       "Eigenschaften"
-    ]
+    ],
+    "msg.summary": "ECHONET Lite-Eigenschaftsliste abgerufen: {count} Eigenschaft(en) in {elapsed_ms} ms.",
+    "param.eoj.description": "Ziel-EOJ (Standard: Knotenprofil).",
+    "param.obj.description": "Objektcodefilter (z. B. „0130“).",
+    "tool.description": "Entdecken Sie ECHONET Lite-Eigenschaften auf einem Knoten und geben Sie eine JSON- oder Textliste zurück."
   },
   "en": {
     "param.ip.description": "Target node IPv4 address.",
@@ -89,13 +105,13 @@
     ]
   },
   "es": {
-    "param.ip.description": "Target node IPv4 address.",
-    "param.timeout.description": "Timeout (seconds).",
-    "param.limit.description": "Maximum number of properties to return. 0 means unlimited.",
-    "param.fmt.description": "Format: json or text.",
-    "err.invalid_eoj": "Error: Could not parse EOJ '{eoj}'.",
-    "err.invalid_object_code": "Error: Could not parse object_code '{object_code}'.",
-    "err.invalid_ip_address": "Error: ip_address must be a valid IPv4 address.",
+    "param.ip.description": "Dirección IPv4 del nodo de destino.",
+    "param.timeout.description": "Tiempo de espera (segundos).",
+    "param.limit.description": "Número máximo de propiedades a devolver. 0 significa ilimitado.",
+    "param.fmt.description": "Formato: json o texto.",
+    "err.invalid_eoj": "Error: No se pudo analizar EOJ '{eoj}'.",
+    "err.invalid_object_code": "Error: No se pudo analizar el código_objeto '{object_code}'.",
+    "err.invalid_ip_address": "Error: dirección_ip debe ser una dirección IPv4 válida.",
     "x_search_terms": [
       "lista de propiedades de echonet",
       "lista_propiedad_echonet",
@@ -103,16 +119,20 @@
       "ECHONET",
       "descubrir",
       "propiedades"
-    ]
+    ],
+    "msg.summary": "Lista de propiedades de ECHONET Lite obtenida: {count} propiedades en {elapsed_ms} ms.",
+    "param.eoj.description": "Objetivo EOJ (predeterminado: perfil de nodo).",
+    "param.obj.description": "Filtro de código objeto (por ejemplo, '0130').",
+    "tool.description": "Descubra las propiedades de ECHONET Lite en un nodo y devuelva un JSON o una lista de texto."
   },
   "fa": {
-    "param.ip.description": "Target node IPv4 address.",
-    "param.timeout.description": "Timeout (seconds).",
-    "param.limit.description": "Maximum number of properties to return. 0 means unlimited.",
-    "param.fmt.description": "Format: json or text.",
-    "err.invalid_eoj": "Error: Could not parse EOJ '{eoj}'.",
-    "err.invalid_object_code": "Error: Could not parse object_code '{object_code}'.",
-    "err.invalid_ip_address": "Error: ip_address must be a valid IPv4 address.",
+    "param.ip.description": "آدرس IPv4 گره هدف.",
+    "param.timeout.description": "تایم اوت (ثانیه).",
+    "param.limit.description": "حداکثر تعداد املاک برای بازگشت. 0 به معنی نامحدود است.",
+    "param.fmt.description": "فرمت: json یا متن.",
+    "err.invalid_eoj": "خطا: EOJ '{eoj}' تجزیه نشد.",
+    "err.invalid_object_code": "خطا: نمی‌توان object_code \"{object_code}\" را تجزیه کرد.",
+    "err.invalid_ip_address": "خطا: ip_address باید یک آدرس IPv4 معتبر باشد.",
     "x_search_terms": [
       "لیست ویژگی‌های echonet",
       "echonet_property_list",
@@ -120,16 +140,20 @@
       "اکونت",
       "کشف",
       "ویژگی‌ها"
-    ]
+    ],
+    "msg.summary": "فهرست دارایی ECHONET Lite واکشی شد: ویژگی(های) {count} در {elapsed_ms} ms.",
+    "param.eoj.description": "EOJ هدف (پیش‌فرض: نمایه گره).",
+    "param.obj.description": "فیلتر کد شی (به عنوان مثال '0130').",
+    "tool.description": "ویژگی های ECHONET Lite را در یک گره کشف کنید و یک JSON یا لیست متنی را برگردانید."
   },
   "fi": {
-    "param.ip.description": "Target node IPv4 address.",
-    "param.timeout.description": "Timeout (seconds).",
-    "param.limit.description": "Maximum number of properties to return. 0 means unlimited.",
-    "param.fmt.description": "Format: json or text.",
-    "err.invalid_eoj": "Error: Could not parse EOJ '{eoj}'.",
-    "err.invalid_object_code": "Error: Could not parse object_code '{object_code}'.",
-    "err.invalid_ip_address": "Error: ip_address must be a valid IPv4 address.",
+    "param.ip.description": "Kohdesolmun IPv4-osoite.",
+    "param.timeout.description": "Aikakatkaisu (sekuntia).",
+    "param.limit.description": "Palautettavien kiinteistöjen enimmäismäärä. 0 tarkoittaa rajatonta.",
+    "param.fmt.description": "Muoto: json tai teksti.",
+    "err.invalid_eoj": "Virhe: EOJ:n '{eoj}' jäsentäminen epäonnistui.",
+    "err.invalid_object_code": "Virhe: Objektin_koodia '{object_code}' ei voitu jäsentää.",
+    "err.invalid_ip_address": "Virhe: ip_addressin on oltava kelvollinen IPv4-osoite.",
     "x_search_terms": [
       "echonet-ominaisuusluettelo",
       "echonet_property_list",
@@ -137,16 +161,20 @@
       "ECHONET",
       "löydä",
       "ominaisuudet"
-    ]
+    ],
+    "msg.summary": "ECHONET Lite -ominaisuusluettelo haettu: {count} omaisuutta {elapsed_ms} ms:ssa.",
+    "param.eoj.description": "Kohde EOJ (oletus: solmuprofiili).",
+    "param.obj.description": "Objektikoodisuodatin (esim. '0130').",
+    "tool.description": "Tutustu solmun ECHONET Lite -ominaisuuksiin ja palauta JSON- tai tekstiluettelo."
   },
   "fr": {
-    "param.ip.description": "Target node IPv4 address.",
-    "param.timeout.description": "Timeout (seconds).",
-    "param.limit.description": "Maximum number of properties to return. 0 means unlimited.",
-    "param.fmt.description": "Format: json or text.",
-    "err.invalid_eoj": "Error: Could not parse EOJ '{eoj}'.",
-    "err.invalid_object_code": "Error: Could not parse object_code '{object_code}'.",
-    "err.invalid_ip_address": "Error: ip_address must be a valid IPv4 address.",
+    "param.ip.description": "Adresse IPv4 du nœud cible.",
+    "param.timeout.description": "Délai d'expiration (secondes).",
+    "param.limit.description": "Nombre maximum de propriétés à renvoyer. 0 signifie illimité.",
+    "param.fmt.description": "Format : json ou texte.",
+    "err.invalid_eoj": "Erreur : Impossible d'analyser l'EOJ '{eoj}'.",
+    "err.invalid_object_code": "Erreur : Impossible d'analyser le code_objet '{object_code}'.",
+    "err.invalid_ip_address": "Erreur : ip_address doit être une adresse IPv4 valide.",
     "x_search_terms": [
       "liste des propriétés echonet",
       "echonet_property_list",
@@ -154,16 +182,20 @@
       "ÉCHONET",
       "découvrir",
       "propriétés"
-    ]
+    ],
+    "msg.summary": "Liste des propriétés ECHONET Lite récupérée : {count} propriété(s) en {elapsed_ms} ms.",
+    "param.eoj.description": "Cible EOJ (par défaut : profil de nœud).",
+    "param.obj.description": "Filtre de code objet (par exemple « 0130 »).",
+    "tool.description": "Découvrez les propriétés ECHONET Lite sur un nœud et renvoyez une liste JSON ou de texte."
   },
   "hi": {
-    "param.ip.description": "Target node IPv4 address.",
-    "param.timeout.description": "Timeout (seconds).",
-    "param.limit.description": "Maximum number of properties to return. 0 means unlimited.",
-    "param.fmt.description": "Format: json or text.",
-    "err.invalid_eoj": "Error: Could not parse EOJ '{eoj}'.",
-    "err.invalid_object_code": "Error: Could not parse object_code '{object_code}'.",
-    "err.invalid_ip_address": "Error: ip_address must be a valid IPv4 address.",
+    "param.ip.description": "लक्ष्य नोड IPv4 पता.",
+    "param.timeout.description": "टाइमआउट (सेकंड)।",
+    "param.limit.description": "लौटाने के लिए संपत्तियों की अधिकतम संख्या. 0 का मतलब असीमित है.",
+    "param.fmt.description": "प्रारूप: json या text.",
+    "err.invalid_eoj": "त्रुटि: EOJ '{eoj}' को पार्स नहीं किया जा सका।",
+    "err.invalid_object_code": "त्रुटि: object_code '{object_code}' को पार्स नहीं किया जा सका।",
+    "err.invalid_ip_address": "त्रुटि: ip_address एक वैध IPv4 पता होना चाहिए।",
     "x_search_terms": [
       "echonet गुण सूची",
       "echonet_property_list",
@@ -171,16 +203,20 @@
       "इकोनेट",
       "खोजें",
       "गुण"
-    ]
+    ],
+    "msg.summary": "ECHONET लाइट संपत्ति सूची प्राप्त की गई: {count} संपत्ति (यां) {elapsed_ms} एमएस में।",
+    "param.eoj.description": "लक्ष्य EOJ (डिफ़ॉल्ट: नोड प्रोफ़ाइल).",
+    "param.obj.description": "ऑब्जेक्ट कोड फ़िल्टर (उदा. '0130').",
+    "tool.description": "एक नोड पर ECHONET लाइट गुणों की खोज करें और एक JSON या टेक्स्ट सूची लौटाएँ।"
   },
   "id": {
-    "param.ip.description": "Target node IPv4 address.",
-    "param.timeout.description": "Timeout (seconds).",
-    "param.limit.description": "Maximum number of properties to return. 0 means unlimited.",
-    "param.fmt.description": "Format: json or text.",
-    "err.invalid_eoj": "Error: Could not parse EOJ '{eoj}'.",
-    "err.invalid_object_code": "Error: Could not parse object_code '{object_code}'.",
-    "err.invalid_ip_address": "Error: ip_address must be a valid IPv4 address.",
+    "param.ip.description": "Alamat IPv4 simpul target.",
+    "param.timeout.description": "Batas waktu (detik).",
+    "param.limit.description": "Jumlah maksimum properti yang akan dikembalikan. 0 berarti tidak terbatas.",
+    "param.fmt.description": "Format: json atau teks.",
+    "err.invalid_eoj": "Kesalahan: Tidak dapat menguraikan EOJ '{eoj}'.",
+    "err.invalid_object_code": "Kesalahan: Tidak dapat menguraikan kode_objek '{object_code}'.",
+    "err.invalid_ip_address": "Kesalahan: ip_address harus berupa alamat IPv4 yang valid.",
     "x_search_terms": [
       "daftar properti echonet",
       "echonet_property_list",
@@ -188,16 +224,20 @@
       "ECHONET",
       "temukan",
       "properti"
-    ]
+    ],
+    "msg.summary": "Daftar properti ECHONET Lite diambil: {count} properti dalam {elapsed_ms} ms.",
+    "param.eoj.description": "Target EOJ (default: profil simpul).",
+    "param.obj.description": "Filter kode objek (misalnya '0130').",
+    "tool.description": "Temukan properti ECHONET Lite pada sebuah node dan kembalikan JSON atau daftar teks."
   },
   "it": {
-    "param.ip.description": "Target node IPv4 address.",
-    "param.timeout.description": "Timeout (seconds).",
-    "param.limit.description": "Maximum number of properties to return. 0 means unlimited.",
-    "param.fmt.description": "Format: json or text.",
-    "err.invalid_eoj": "Error: Could not parse EOJ '{eoj}'.",
-    "err.invalid_object_code": "Error: Could not parse object_code '{object_code}'.",
-    "err.invalid_ip_address": "Error: ip_address must be a valid IPv4 address.",
+    "param.ip.description": "Indirizzo IPv4 del nodo di destinazione.",
+    "param.timeout.description": "Timeout (secondi).",
+    "param.limit.description": "Numero massimo di proprietà da restituire. 0 significa illimitato.",
+    "param.fmt.description": "Formato: json o testo.",
+    "err.invalid_eoj": "Errore: impossibile analizzare l'EOJ '{eoj}'.",
+    "err.invalid_object_code": "Errore: impossibile analizzare il codice_oggetto '{object_code}'.",
+    "err.invalid_ip_address": "Errore: indirizzo_ip deve essere un indirizzo IPv4 valido.",
     "x_search_terms": [
       "elenco delle proprietà echonet",
       "echonet_property_list",
@@ -205,16 +245,20 @@
       "ECHONET",
       "scopri",
       "proprietà"
-    ]
+    ],
+    "msg.summary": "Elenco delle proprietà ECHONET Lite recuperato: {count} proprietà in {elapsed_ms} ms.",
+    "param.eoj.description": "EOJ di destinazione (impostazione predefinita: profilo del nodo).",
+    "param.obj.description": "Filtro codice oggetto (es. '0130').",
+    "tool.description": "Scopri le proprietà ECHONET Lite su un nodo e restituisce un JSON o un elenco di testo."
   },
   "ja": {
-    "param.ip.description": "Target node IPv4 address.",
-    "param.timeout.description": "Timeout (seconds).",
-    "param.limit.description": "Maximum number of properties to return. 0 means unlimited.",
-    "param.fmt.description": "Format: json or text.",
-    "err.invalid_eoj": "Error: Could not parse EOJ '{eoj}'.",
-    "err.invalid_object_code": "Error: Could not parse object_code '{object_code}'.",
-    "err.invalid_ip_address": "Error: ip_address must be a valid IPv4 address.",
+    "param.ip.description": "ターゲットノードのIPv4アドレス。",
+    "param.timeout.description": "タイムアウト (秒)。",
+    "param.limit.description": "返されるプロパティの最大数。0 は無制限を意味します。",
+    "param.fmt.description": "形式: json またはテキスト。",
+    "err.invalid_eoj": "エラー: EOJ '{eoj}' を解析できませんでした。",
+    "err.invalid_object_code": "エラー: object_code '{object_code}' を解析できませんでした。",
+    "err.invalid_ip_address": "エラー: ip_address は有効な IPv4 アドレスである必要があります。",
     "msg.summary": "ECHONET Lite プロパティ リストを取得しました: {count} 個のプロパティ (数件)、{elapsed_ms} ミリ秒。",
     "param.eoj.description": "ターゲット EOJ (デフォルト: ノード プロファイル)。",
     "param.obj.description": "オブジェクト コード フィルター (例: '0130')。",
@@ -229,13 +273,13 @@
     ]
   },
   "ko": {
-    "param.ip.description": "Target node IPv4 address.",
-    "param.timeout.description": "Timeout (seconds).",
-    "param.limit.description": "Maximum number of properties to return. 0 means unlimited.",
-    "param.fmt.description": "Format: json or text.",
-    "err.invalid_eoj": "Error: Could not parse EOJ '{eoj}'.",
-    "err.invalid_object_code": "Error: Could not parse object_code '{object_code}'.",
-    "err.invalid_ip_address": "Error: ip_address must be a valid IPv4 address.",
+    "param.ip.description": "대상 노드 IPv4 주소입니다.",
+    "param.timeout.description": "시간 초과(초).",
+    "param.limit.description": "반환할 최대 속성 수입니다. 0은 무제한을 의미합니다.",
+    "param.fmt.description": "형식: json 또는 텍스트.",
+    "err.invalid_eoj": "오류: EOJ '{eoj}'을(를) 구문 분석할 수 없습니다.",
+    "err.invalid_object_code": "오류: object_code '{object_code}'을(를) 구문 분석할 수 없습니다.",
+    "err.invalid_ip_address": "오류: ip_address는 유효한 IPv4 주소여야 합니다.",
     "x_search_terms": [
       "에코넷 속성 목록",
       "echonet_property_list",
@@ -243,16 +287,20 @@
       "에코넷",
       "발견",
       "속성"
-    ]
+    ],
+    "msg.summary": "ECHONET Lite 속성 목록을 가져왔습니다: {elapsed_ms}ms 안에 {count} 속성.",
+    "param.eoj.description": "타겟 EOJ(기본값: 노드 프로필)",
+    "param.obj.description": "개체 코드 필터(예: '0130').",
+    "tool.description": "노드에서 ECHONET Lite 속성을 검색하고 JSON 또는 텍스트 목록을 반환합니다."
   },
   "mn": {
-    "param.ip.description": "Target node IPv4 address.",
-    "param.timeout.description": "Timeout (seconds).",
-    "param.limit.description": "Maximum number of properties to return. 0 means unlimited.",
-    "param.fmt.description": "Format: json or text.",
-    "err.invalid_eoj": "Error: Could not parse EOJ '{eoj}'.",
-    "err.invalid_object_code": "Error: Could not parse object_code '{object_code}'.",
-    "err.invalid_ip_address": "Error: ip_address must be a valid IPv4 address.",
+    "param.ip.description": "Зорилтот зангилааны IPv4 хаяг.",
+    "param.timeout.description": "Хугацаа хэтэрсэн (секунд).",
+    "param.limit.description": "Буцаах үл хөдлөх хөрөнгийн дээд тоо. 0 гэдэг нь хязгааргүй гэсэн үг.",
+    "param.fmt.description": "Формат: json эсвэл текст.",
+    "err.invalid_eoj": "Алдаа: EOJ '{eoj}'-г задлан шинжилж чадсангүй.",
+    "err.invalid_object_code": "Алдаа: '{object_code}' объектын кодыг задлан шинжилж чадсангүй.",
+    "err.invalid_ip_address": "Алдаа: ip_address нь хүчинтэй IPv4 хаяг байх ёстой.",
     "x_search_terms": [
       "echonet өмчийн жагсаалт",
       "echonet_property_list",
@@ -260,16 +308,20 @@
       "эхонет",
       "нээх",
       "шинж чанарууд"
-    ]
+    ],
+    "msg.summary": "ECHONET Lite өмчийн жагсаалтыг татаж авсан: {elapsed_ms} мс-ийн дотор {count} өмч(үүд).",
+    "param.eoj.description": "Зорилтот EOJ (өгөгдмөл: зангилааны профайл).",
+    "param.obj.description": "Объект кодын шүүлтүүр (жишээ нь '0130').",
+    "tool.description": "Зангилаа дээрх ECHONET Lite шинж чанаруудтай танилцаж, JSON эсвэл текстийн жагсаалтыг буцаана уу."
   },
   "mr": {
-    "param.ip.description": "Target node IPv4 address.",
-    "param.timeout.description": "Timeout (seconds).",
-    "param.limit.description": "Maximum number of properties to return. 0 means unlimited.",
-    "param.fmt.description": "Format: json or text.",
-    "err.invalid_eoj": "Error: Could not parse EOJ '{eoj}'.",
-    "err.invalid_object_code": "Error: Could not parse object_code '{object_code}'.",
-    "err.invalid_ip_address": "Error: ip_address must be a valid IPv4 address.",
+    "param.ip.description": "लक्ष्य नोड IPv4 पत्ता.",
+    "param.timeout.description": "कालबाह्य (सेकंद).",
+    "param.limit.description": "परत करण्यासाठी गुणधर्मांची कमाल संख्या. 0 म्हणजे अमर्यादित.",
+    "param.fmt.description": "स्वरूप: json किंवा मजकूर.",
+    "err.invalid_eoj": "त्रुटी: EOJ '{eoj}' पार्स करू शकलो नाही.",
+    "err.invalid_object_code": "त्रुटी: ऑब्जेक्ट_कोड '{object_code}' पार्स करू शकलो नाही.",
+    "err.invalid_ip_address": "त्रुटी: ip_address हा वैध IPv4 पत्ता असणे आवश्यक आहे.",
     "x_search_terms": [
       "echonet गुणधर्म यादी",
       "echonet_property_list",
@@ -277,7 +329,11 @@
       "इकोनेट",
       "शोधा",
       "गुणधर्म"
-    ]
+    ],
+    "msg.summary": "ECHONET Lite मालमत्ता सूची प्राप्त केली: {elapsed_ms} ms मध्ये {count} मालमत्ता(ies).",
+    "param.eoj.description": "लक्ष्य EOJ (डीफॉल्ट: नोड प्रोफाइल).",
+    "param.obj.description": "ऑब्जेक्ट कोड फिल्टर (उदा. '0130').",
+    "tool.description": "नोडवर ECHONET Lite गुणधर्म शोधा आणि JSON किंवा मजकूर सूची परत करा."
   },
   "el": {
     "param.ip.description": "Διεύθυνση IPv4 κόμβου στόχου.",
@@ -294,7 +350,11 @@
       "ECHONET",
       "ανακάλυψη",
       "ιδιότητες"
-    ]
+    ],
+    "msg.summary": "Έγινε ανάκτηση λίστας ιδιοτήτων ECHONET Lite: {count} ιδιοκτησία(εις) σε {elapsed_ms} ms.",
+    "param.eoj.description": "Στόχος EOJ (προεπιλογή: προφίλ κόμβου).",
+    "param.obj.description": "Φίλτρο κωδικού αντικειμένου (π.χ. '0130').",
+    "tool.description": "Ανακαλύψτε τις ιδιότητες του ECHONET Lite σε έναν κόμβο και επιστρέψτε μια λίστα JSON ή κειμένου."
   },
   "he": {
     "param.ip.description": "כתובת IPv4 של צומת יעד.",
@@ -311,7 +371,11 @@
       "אקו-נט",
       "גלה",
       "מאפיינים"
-    ]
+    ],
+    "msg.summary": "רשימת המאפיינים של ECHONET Lite הוחזרה: {count} נכסים ב-{elapsed_ms} אלפיות השנייה.",
+    "param.eoj.description": "יעד EOJ (ברירת מחדל: פרופיל צומת).",
+    "param.obj.description": "מסנן קוד אובייקט (למשל '0130').",
+    "tool.description": "גלה מאפייני ECHONET Lite בצומת והחזר JSON או רשימת טקסט."
   },
   "hu": {
     "param.ip.description": "Célcsomópont IPv4-címe.",
@@ -328,7 +392,11 @@
       "ECHONET",
       "felfedez",
       "tulajdonságok"
-    ]
+    ],
+    "msg.summary": "ECHONET Lite tulajdonságlista lekérve: {count} tulajdonság {elapsed_ms} ms alatt.",
+    "param.eoj.description": "Cél EOJ (alapértelmezett: csomópont profil).",
+    "param.obj.description": "Objektumkód szűrő (pl. „0130”).",
+    "tool.description": "Fedezze fel az ECHONET Lite tulajdonságait egy csomóponton, és adjon vissza JSON- vagy szöveglistát."
   },
   "ro": {
     "param.ip.description": "Adresa IPv4 a nodului țintă.",
@@ -345,16 +413,20 @@
       "ECHONET",
       "descoperă",
       "proprietăți"
-    ]
+    ],
+    "msg.summary": "Lista de proprietăți ECHONET Lite preluată: {count} proprietate(i) în {elapsed_ms} ms.",
+    "param.eoj.description": "EOJ țintă (implicit: profil de nod).",
+    "param.obj.description": "Filtru de cod obiect (de exemplu, „0130”).",
+    "tool.description": "Descoperiți proprietățile ECHONET Lite pe un nod și returnați o listă JSON sau text."
   },
   "nb": {
-    "param.ip.description": "Target node IPv4 address.",
-    "param.timeout.description": "Timeout (seconds).",
-    "param.limit.description": "Maximum number of properties to return. 0 means unlimited.",
-    "param.fmt.description": "Format: json or text.",
-    "err.invalid_eoj": "Error: Could not parse EOJ '{eoj}'.",
-    "err.invalid_object_code": "Error: Could not parse object_code '{object_code}'.",
-    "err.invalid_ip_address": "Error: ip_address must be a valid IPv4 address.",
+    "param.ip.description": "Målnodens IPv4-adresse.",
+    "param.timeout.description": "Tidsavbrudd (sekunder).",
+    "param.limit.description": "Maksimalt antall eiendommer å returnere. 0 betyr ubegrenset.",
+    "param.fmt.description": "Format: json eller tekst.",
+    "err.invalid_eoj": "Feil: Kunne ikke analysere EOJ '{eoj}'.",
+    "err.invalid_object_code": "Feil: Kunne ikke analysere objektkode '{object_code}'.",
+    "err.invalid_ip_address": "Feil: ip_adresse må være en gyldig IPv4-adresse.",
     "x_search_terms": [
       "echonet-egenskapsliste",
       "echonet_property_list",
@@ -362,16 +434,20 @@
       "ECHONET",
       "oppdage",
       "egenskaper"
-    ]
+    ],
+    "msg.summary": "ECHONET Lite egenskapsliste hentet: {count} eiendom(er) på {elapsed_ms} ms.",
+    "param.eoj.description": "Mål EOJ (standard: nodeprofil).",
+    "param.obj.description": "Objektkodefilter (f.eks. '0130').",
+    "tool.description": "Oppdag ECHONET Lite-egenskaper på en node og returner en JSON- eller tekstliste."
   },
   "nl": {
-    "param.ip.description": "Target node IPv4 address.",
-    "param.timeout.description": "Timeout (seconds).",
-    "param.limit.description": "Maximum number of properties to return. 0 means unlimited.",
-    "param.fmt.description": "Format: json or text.",
-    "err.invalid_eoj": "Error: Could not parse EOJ '{eoj}'.",
-    "err.invalid_object_code": "Error: Could not parse object_code '{object_code}'.",
-    "err.invalid_ip_address": "Error: ip_address must be a valid IPv4 address.",
+    "param.ip.description": "IPv4-adres van doelknooppunt.",
+    "param.timeout.description": "Time-out (seconden).",
+    "param.limit.description": "Maximaal aantal eigenschappen dat moet worden geretourneerd. 0 betekent onbeperkt.",
+    "param.fmt.description": "Formaat: json of tekst.",
+    "err.invalid_eoj": "Fout: Kan EOJ '{eoj}' niet parseren.",
+    "err.invalid_object_code": "Fout: Kan object_code '{object_code}' niet parseren.",
+    "err.invalid_ip_address": "Fout: ip_address moet een geldig IPv4-adres zijn.",
     "x_search_terms": [
       "echonet-eigenschappenlijst",
       "echonet_property_list",
@@ -379,16 +455,20 @@
       "ECHONET",
       "ontdekken",
       "eigenschappen"
-    ]
+    ],
+    "msg.summary": "ECHONET Lite-eigenschappenlijst opgehaald: {count} eigenschap(pen) in {elapsed_ms} ms.",
+    "param.eoj.description": "Doel-EOJ (standaard: knooppuntprofiel).",
+    "param.obj.description": "Objectcodefilter (bijvoorbeeld '0130').",
+    "tool.description": "Ontdek ECHONET Lite-eigenschappen op een knooppunt en retourneer een JSON- of tekstlijst."
   },
   "pl": {
-    "param.ip.description": "Target node IPv4 address.",
-    "param.timeout.description": "Timeout (seconds).",
-    "param.limit.description": "Maximum number of properties to return. 0 means unlimited.",
-    "param.fmt.description": "Format: json or text.",
-    "err.invalid_eoj": "Error: Could not parse EOJ '{eoj}'.",
-    "err.invalid_object_code": "Error: Could not parse object_code '{object_code}'.",
-    "err.invalid_ip_address": "Error: ip_address must be a valid IPv4 address.",
+    "param.ip.description": "Adres IPv4 węzła docelowego.",
+    "param.timeout.description": "Limit czasu (sekundy).",
+    "param.limit.description": "Maksymalna liczba właściwości do zwrócenia. 0 oznacza nieograniczone.",
+    "param.fmt.description": "Format: json lub tekst.",
+    "err.invalid_eoj": "Błąd: nie można przeanalizować EOJ „{eoj}”.",
+    "err.invalid_object_code": "Błąd: nie można przeanalizować kodu_obiektu „{object_code}”.",
+    "err.invalid_ip_address": "Błąd: adres_ip musi być prawidłowym adresem IPv4.",
     "x_search_terms": [
       "lista właściwości echonetu",
       "lista_właściwości echonet",
@@ -396,16 +476,20 @@
       "ECHONET",
       "odkryj",
       "właściwości"
-    ]
+    ],
+    "msg.summary": "Pobrano listę właściwości ECHONET Lite: {count} właściwości w {elapsed_ms} ms.",
+    "param.eoj.description": "Docelowy EOJ (domyślnie: profil węzła).",
+    "param.obj.description": "Filtr kodu obiektowego (np. „0130”).",
+    "tool.description": "Odkryj właściwości ECHONET Lite w węźle i zwróć listę JSON lub tekstową."
   },
   "pt": {
-    "param.ip.description": "Target node IPv4 address.",
-    "param.timeout.description": "Timeout (seconds).",
-    "param.limit.description": "Maximum number of properties to return. 0 means unlimited.",
-    "param.fmt.description": "Format: json or text.",
-    "err.invalid_eoj": "Error: Could not parse EOJ '{eoj}'.",
-    "err.invalid_object_code": "Error: Could not parse object_code '{object_code}'.",
-    "err.invalid_ip_address": "Error: ip_address must be a valid IPv4 address.",
+    "param.ip.description": "Endereço IPv4 do nó de destino.",
+    "param.timeout.description": "Tempo limite (segundos).",
+    "param.limit.description": "Número máximo de propriedades a serem retornadas. 0 significa ilimitado.",
+    "param.fmt.description": "Formato: json ou texto.",
+    "err.invalid_eoj": "Erro: não foi possível analisar EOJ '{eoj}'.",
+    "err.invalid_object_code": "Erro: não foi possível analisar object_code '{object_code}'.",
+    "err.invalid_ip_address": "Erro: ip_address deve ser um endereço IPv4 válido.",
     "x_search_terms": [
       "lista de propriedades echonet",
       "echonet_property_list",
@@ -413,16 +497,20 @@
       "ECHONET",
       "descobrir",
       "propriedades"
-    ]
+    ],
+    "msg.summary": "Lista de propriedades do ECHONET Lite buscada: {count} propriedades em {elapsed_ms} ms.",
+    "param.eoj.description": "EOJ de destino (padrão: perfil do nó).",
+    "param.obj.description": "Filtro de código de objeto (por exemplo, '0130').",
+    "tool.description": "Descubra as propriedades do ECHONET Lite em um nó e retorne um JSON ou uma lista de texto."
   },
   "pt_BR": {
-    "param.ip.description": "Target node IPv4 address.",
-    "param.timeout.description": "Timeout (seconds).",
-    "param.limit.description": "Maximum number of properties to return. 0 means unlimited.",
-    "param.fmt.description": "Format: json or text.",
-    "err.invalid_eoj": "Error: Could not parse EOJ '{eoj}'.",
-    "err.invalid_object_code": "Error: Could not parse object_code '{object_code}'.",
-    "err.invalid_ip_address": "Error: ip_address must be a valid IPv4 address.",
+    "param.ip.description": "Endereço IPv4 do nó de destino.",
+    "param.timeout.description": "Tempo limite (segundos).",
+    "param.limit.description": "Número máximo de propriedades a serem retornadas. 0 significa ilimitado.",
+    "param.fmt.description": "Formato: json ou texto.",
+    "err.invalid_eoj": "Erro: não foi possível analisar EOJ '{eoj}'.",
+    "err.invalid_object_code": "Erro: não foi possível analisar object_code '{object_code}'.",
+    "err.invalid_ip_address": "Erro: ip_address deve ser um endereço IPv4 válido.",
     "x_search_terms": [
       "lista de propriedades echonet",
       "echonet_property_list",
@@ -430,16 +518,20 @@
       "ECONET",
       "descobrir",
       "propriedades"
-    ]
+    ],
+    "msg.summary": "Lista de propriedades do ECHONET Lite buscada: {count} propriedades em {elapsed_ms} ms.",
+    "param.eoj.description": "EOJ de destino (padrão: perfil do nó).",
+    "param.obj.description": "Filtro de código de objeto (por exemplo, '0130').",
+    "tool.description": "Descubra as propriedades do ECHONET Lite em um nó e retorne um JSON ou uma lista de texto."
   },
   "ru": {
-    "param.ip.description": "Target node IPv4 address.",
-    "param.timeout.description": "Timeout (seconds).",
-    "param.limit.description": "Maximum number of properties to return. 0 means unlimited.",
-    "param.fmt.description": "Format: json or text.",
-    "err.invalid_eoj": "Error: Could not parse EOJ '{eoj}'.",
-    "err.invalid_object_code": "Error: Could not parse object_code '{object_code}'.",
-    "err.invalid_ip_address": "Error: ip_address must be a valid IPv4 address.",
+    "param.ip.description": "IPv4-адрес целевого узла.",
+    "param.timeout.description": "Тайм-аут (секунды).",
+    "param.limit.description": "Максимальное количество возвращаемых свойств. 0 означает неограниченный.",
+    "param.fmt.description": "Формат: json или текст.",
+    "err.invalid_eoj": "Ошибка: не удалось проанализировать EOJ «{eoj}».",
+    "err.invalid_object_code": "Ошибка: не удалось проанализировать код объекта «{object_code}».",
+    "err.invalid_ip_address": "Ошибка: ip_address должен быть действительным адресом IPv4.",
     "x_search_terms": [
       "список свойств echonet",
       "echonet_property_list",
@@ -447,16 +539,20 @@
       "ECHONET",
       "обнаружить",
       "свойства"
-    ]
+    ],
+    "msg.summary": "Получен список свойств ECHONET Lite: {count} свойств за {elapsed_ms} мс.",
+    "param.eoj.description": "Целевой EOJ (по умолчанию: профиль узла).",
+    "param.obj.description": "Фильтр объектного кода (например, «0130»).",
+    "tool.description": "Откройте для себя свойства ECHONET Lite на узле и верните JSON или текстовый список."
   },
   "sv": {
-    "param.ip.description": "Target node IPv4 address.",
-    "param.timeout.description": "Timeout (seconds).",
-    "param.limit.description": "Maximum number of properties to return. 0 means unlimited.",
-    "param.fmt.description": "Format: json or text.",
-    "err.invalid_eoj": "Error: Could not parse EOJ '{eoj}'.",
-    "err.invalid_object_code": "Error: Could not parse object_code '{object_code}'.",
-    "err.invalid_ip_address": "Error: ip_address must be a valid IPv4 address.",
+    "param.ip.description": "IPv4-adress för målnoden.",
+    "param.timeout.description": "Timeout (sekunder).",
+    "param.limit.description": "Maximalt antal fastigheter att returnera. 0 betyder obegränsat.",
+    "param.fmt.description": "Format: json eller text.",
+    "err.invalid_eoj": "Fel: Kunde inte analysera EOJ '{eoj}'.",
+    "err.invalid_object_code": "Fel: Kunde inte analysera objektkoden '{object_code}'.",
+    "err.invalid_ip_address": "Fel: ip_address måste vara en giltig IPv4-adress.",
     "x_search_terms": [
       "echonet egenskapslista",
       "echonet_property_list",
@@ -464,16 +560,20 @@
       "ECHONET",
       "upptäcka",
       "egenskaper"
-    ]
+    ],
+    "msg.summary": "ECHONET Lite egendomslista hämtad: {count} egendom(er) på {elapsed_ms} ms.",
+    "param.eoj.description": "Mål EOJ (standard: nodprofil).",
+    "param.obj.description": "Objektkodfilter (t.ex. '0130').",
+    "tool.description": "Upptäck ECHONET Lite-egenskaper på en nod och returnera en JSON- eller textlista."
   },
   "sw": {
-    "param.ip.description": "Target node IPv4 address.",
-    "param.timeout.description": "Timeout (seconds).",
-    "param.limit.description": "Maximum number of properties to return. 0 means unlimited.",
-    "param.fmt.description": "Format: json or text.",
-    "err.invalid_eoj": "Error: Could not parse EOJ '{eoj}'.",
-    "err.invalid_object_code": "Error: Could not parse object_code '{object_code}'.",
-    "err.invalid_ip_address": "Error: ip_address must be a valid IPv4 address.",
+    "param.ip.description": "Anwani ya IPv4 ya nodi lengwa.",
+    "param.timeout.description": "Muda umeisha (sekunde).",
+    "param.limit.description": "Idadi ya juu zaidi ya mali ya kurejesha. 0 inamaanisha kutokuwa na kikomo.",
+    "param.fmt.description": "Umbizo: json au maandishi.",
+    "err.invalid_eoj": "Hitilafu: Haikuweza kuchanganua EOJ '{eoj}'.",
+    "err.invalid_object_code": "Hitilafu: Haikuweza kuchanganua object_code '{object_code}'.",
+    "err.invalid_ip_address": "Hitilafu: ip_address lazima iwe anwani halali ya IPv4.",
     "x_search_terms": [
       "orodha ya mali ya echonet",
       "echonet_property_list",
@@ -481,16 +581,20 @@
       "ECHONET",
       "gundua",
       "sifa"
-    ]
+    ],
+    "msg.summary": "Orodha ya vipengee vya ECHONET Lite imeletwa: {count} mali katika ms {elapsed_ms}.",
+    "param.eoj.description": "EOJ inayolengwa (chaguo-msingi: wasifu wa nodi).",
+    "param.obj.description": "Kichujio cha msimbo wa kitu (k.m. '0130').",
+    "tool.description": "Gundua sifa za ECHONET Lite kwenye nodi na urudishe orodha ya maandishi ya JSON au maandishi."
   },
   "th": {
-    "param.ip.description": "Target node IPv4 address.",
-    "param.timeout.description": "Timeout (seconds).",
-    "param.limit.description": "Maximum number of properties to return. 0 means unlimited.",
-    "param.fmt.description": "Format: json or text.",
-    "err.invalid_eoj": "Error: Could not parse EOJ '{eoj}'.",
-    "err.invalid_object_code": "Error: Could not parse object_code '{object_code}'.",
-    "err.invalid_ip_address": "Error: ip_address must be a valid IPv4 address.",
+    "param.ip.description": "ที่อยู่ IPv4 ของโหนดเป้าหมาย",
+    "param.timeout.description": "หมดเวลา (วินาที)",
+    "param.limit.description": "จำนวนคุณสมบัติสูงสุดที่จะส่งคืน 0 หมายถึงไม่จำกัด",
+    "param.fmt.description": "รูปแบบ: json หรือข้อความ",
+    "err.invalid_eoj": "ข้อผิดพลาด: ไม่สามารถแยกวิเคราะห์ EOJ '{eoj}'",
+    "err.invalid_object_code": "ข้อผิดพลาด: ไม่สามารถแยกวิเคราะห์ object_code '{object_code}'",
+    "err.invalid_ip_address": "ข้อผิดพลาด: ip_address ต้องเป็นที่อยู่ IPv4 ที่ถูกต้อง",
     "x_search_terms": [
       "รายการคุณสมบัติ echonet",
       "echonet_property_list",
@@ -498,16 +602,20 @@
       "อีโค่เน็ต",
       "ค้นพบ",
       "คุณสมบัติ"
-    ]
+    ],
+    "msg.summary": "ดึงข้อมูลรายการคุณสมบัติ ECHONET Lite แล้ว: คุณสมบัติ {count} (ies) ใน {elapsed_ms} ms",
+    "param.eoj.description": "เป้าหมาย EOJ (ค่าเริ่มต้น: โปรไฟล์โหนด)",
+    "param.obj.description": "ตัวกรองรหัสออบเจ็กต์ (เช่น '0130')",
+    "tool.description": "ค้นหาคุณสมบัติ ECHONET Lite บนโหนดและส่งคืน JSON หรือรายการข้อความ"
   },
   "tr": {
-    "param.ip.description": "Target node IPv4 address.",
-    "param.timeout.description": "Timeout (seconds).",
-    "param.limit.description": "Maximum number of properties to return. 0 means unlimited.",
-    "param.fmt.description": "Format: json or text.",
-    "err.invalid_eoj": "Error: Could not parse EOJ '{eoj}'.",
-    "err.invalid_object_code": "Error: Could not parse object_code '{object_code}'.",
-    "err.invalid_ip_address": "Error: ip_address must be a valid IPv4 address.",
+    "param.ip.description": "Hedef düğüm IPv4 adresi.",
+    "param.timeout.description": "Zaman aşımı (saniye).",
+    "param.limit.description": "Döndürülecek maksimum özellik sayısı. 0 sınırsız anlamına gelir.",
+    "param.fmt.description": "Biçim: json veya metin.",
+    "err.invalid_eoj": "Hata: EOJ '{eoj}' ayrıştırılamadı.",
+    "err.invalid_object_code": "Hata: '{object_code}' nesne_kodu ayrıştırılamadı.",
+    "err.invalid_ip_address": "Hata: ip_address geçerli bir IPv4 adresi olmalıdır.",
     "x_search_terms": [
       "echonet özellik listesi",
       "echonet_property_list",
@@ -515,16 +623,20 @@
       "ECONET",
       "keşfetmek",
       "özellikler"
-    ]
+    ],
+    "msg.summary": "ECHONET Lite özellik listesi getirildi: {elapsed_ms} ms içinde {count} özellik(ler).",
+    "param.eoj.description": "Hedef EOJ (varsayılan: düğüm profili).",
+    "param.obj.description": "Nesne kodu filtresi (ör. '0130').",
+    "tool.description": "Bir düğümdeki ECHONET Lite özelliklerini keşfedin ve bir JSON veya metin listesi döndürün."
   },
   "uk": {
-    "param.ip.description": "Target node IPv4 address.",
-    "param.timeout.description": "Timeout (seconds).",
-    "param.limit.description": "Maximum number of properties to return. 0 means unlimited.",
-    "param.fmt.description": "Format: json or text.",
-    "err.invalid_eoj": "Error: Could not parse EOJ '{eoj}'.",
-    "err.invalid_object_code": "Error: Could not parse object_code '{object_code}'.",
-    "err.invalid_ip_address": "Error: ip_address must be a valid IPv4 address.",
+    "param.ip.description": "IPv4-адреса цільового вузла.",
+    "param.timeout.description": "Тайм-аут (секунди).",
+    "param.limit.description": "Максимальна кількість властивостей для повернення. 0 означає необмежений.",
+    "param.fmt.description": "Формат: json або текстовий.",
+    "err.invalid_eoj": "Помилка: не вдалося проаналізувати EOJ '{eoj}'.",
+    "err.invalid_object_code": "Помилка: не вдалося проаналізувати object_code '{object_code}'.",
+    "err.invalid_ip_address": "Помилка: ip_address має бути дійсною адресою IPv4.",
     "x_search_terms": [
       "список властивостей echonet",
       "echonet_property_list",
@@ -532,16 +644,20 @@
       "ECHONET",
       "виявити",
       "властивості"
-    ]
+    ],
+    "msg.summary": "Отримано список властивостей ECHONET Lite: {count} властивостей за {elapsed_ms} мс.",
+    "param.eoj.description": "Цільовий EOJ (за замовчуванням: профіль вузла).",
+    "param.obj.description": "Фільтр коду об’єкта (наприклад, «0130»).",
+    "tool.description": "Відкрийте властивості ECHONET Lite на вузлі та поверніть JSON або текстовий список."
   },
   "vi": {
-    "param.ip.description": "Target node IPv4 address.",
-    "param.timeout.description": "Timeout (seconds).",
-    "param.limit.description": "Maximum number of properties to return. 0 means unlimited.",
-    "param.fmt.description": "Format: json or text.",
-    "err.invalid_eoj": "Error: Could not parse EOJ '{eoj}'.",
-    "err.invalid_object_code": "Error: Could not parse object_code '{object_code}'.",
-    "err.invalid_ip_address": "Error: ip_address must be a valid IPv4 address.",
+    "param.ip.description": "Địa chỉ IPv4 của nút đích.",
+    "param.timeout.description": "Thời gian chờ (giây).",
+    "param.limit.description": "Số lượng thuộc tính tối đa cần trả về. 0 có nghĩa là không giới hạn.",
+    "param.fmt.description": "Định dạng: json hoặc văn bản.",
+    "err.invalid_eoj": "Lỗi: Không thể phân tích cú pháp EOJ '{eoj}'.",
+    "err.invalid_object_code": "Lỗi: Không thể phân tích cú pháp object_code '{object_code}'.",
+    "err.invalid_ip_address": "Lỗi: ip_address phải là địa chỉ IPv4 hợp lệ.",
     "x_search_terms": [
       "danh sách tài sản echonet",
       "echonet_property_list",
@@ -549,16 +665,20 @@
       "ECHONET",
       "khám phá",
       "thuộc tính"
-    ]
+    ],
+    "msg.summary": "Đã tìm nạp danh sách thuộc tính ECHONET Lite: {count} thuộc tính sau {elapsed_ms} mili giây.",
+    "param.eoj.description": "Mục tiêu EOJ (mặc định: hồ sơ nút).",
+    "param.obj.description": "Bộ lọc mã đối tượng (ví dụ: '0130').",
+    "tool.description": "Khám phá các thuộc tính ECHONET Lite trên một nút và trả về danh sách văn bản hoặc JSON."
   },
   "zh_CN": {
-    "param.ip.description": "Target node IPv4 address.",
-    "param.timeout.description": "Timeout (seconds).",
-    "param.limit.description": "Maximum number of properties to return. 0 means unlimited.",
-    "param.fmt.description": "Format: json or text.",
-    "err.invalid_eoj": "Error: Could not parse EOJ '{eoj}'.",
-    "err.invalid_object_code": "Error: Could not parse object_code '{object_code}'.",
-    "err.invalid_ip_address": "Error: ip_address must be a valid IPv4 address.",
+    "param.ip.description": "目标节点 IPv4 地址。",
+    "param.timeout.description": "超时（秒）。",
+    "param.limit.description": "要返回的最大属性数。 0 表示无限制。",
+    "param.fmt.description": "格式：json 或文本。",
+    "err.invalid_eoj": "错误：无法解析 EOJ“{eoj}”。",
+    "err.invalid_object_code": "错误：无法解析 object_code '{object_code}'。",
+    "err.invalid_ip_address": "错误：ip_address 必须是有效的 IPv4 地址。",
     "x_search_terms": [
       "echonet 属性列表",
       "echonet_property_list",
@@ -566,16 +686,20 @@
       "ECHONET",
       "发现",
       "属性"
-    ]
+    ],
+    "msg.summary": "已获取 ECHONET Lite 属性列表：{elapsed_ms} 毫秒内 {count} 个属性。",
+    "param.eoj.description": "目标 EOJ（默认：节点配置文件）。",
+    "param.obj.description": "目标代码过滤器（例如“0130”）。",
+    "tool.description": "发现节点上的 ECHONET Lite 属性并返回 JSON 或文本列表。"
   },
   "zh_TW": {
-    "param.ip.description": "Target node IPv4 address.",
-    "param.timeout.description": "Timeout (seconds).",
-    "param.limit.description": "Maximum number of properties to return. 0 means unlimited.",
-    "param.fmt.description": "Format: json or text.",
-    "err.invalid_eoj": "Error: Could not parse EOJ '{eoj}'.",
-    "err.invalid_object_code": "Error: Could not parse object_code '{object_code}'.",
-    "err.invalid_ip_address": "Error: ip_address must be a valid IPv4 address.",
+    "param.ip.description": "目標節點 IPv4 位址。",
+    "param.timeout.description": "超時（秒）。",
+    "param.limit.description": "要傳回的最大屬性數。 0 表示無限制。",
+    "param.fmt.description": "格式：json 或文字。",
+    "err.invalid_eoj": "錯誤：無法解析 EOJ“{eoj}”。",
+    "err.invalid_object_code": "錯誤：無法解析 object_code '{object_code}'。",
+    "err.invalid_ip_address": "錯誤：ip_address 必須是有效的 IPv4 位址。",
     "x_search_terms": [
       "echonet 屬性清單",
       "echonet_property_list",
@@ -583,6 +707,10 @@
       "ECHONET",
       "發現",
       "屬性"
-    ]
+    ],
+    "msg.summary": "已取得 ECHONET Lite 屬性清單：{elapsed_ms} 毫秒內 {count} 個屬性。",
+    "param.eoj.description": "目標 EOJ（預設：節點設定檔）。",
+    "param.obj.description": "目標代碼過濾器（例如“0130”）。",
+    "tool.description": "發現節點上的 ECHONET Lite 屬性並傳回 JSON 或文字清單。"
   }
 }

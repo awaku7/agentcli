@@ -1,43 +1,63 @@
 {
   "ar": {
-    "param.fmt.description": "Format: json or text.",
+    "param.fmt.description": "التنسيق: json أو نص.",
     "x_search_terms": [
       "قائمة جسور المادة",
       "matter_bridge_list",
       "مادة",
       "مادة",
       "يديرها جسر"
-    ]
+    ],
+    "err.config_missing": "لم يتم العثور على ملف تكوين Matter Bridge. اضبط {env_json} أو {env_file}.",
+    "err.invalid_config": "تعذر تحليل تكوين جسر المادة: {err}",
+    "err.not_found": "لم يتم العثور على جسر المسألة: {bridge_id}",
+    "param.bridge.description": "معرف الجسر (حذف للجميع).",
+    "tool.description": "قم بإدراج الأجهزة المُدارة بواسطة جسر Matter وقم بإرجاع JSON أو ملخص نصي."
   },
   "bn": {
-    "param.fmt.description": "Format: json or text.",
+    "param.fmt.description": "বিন্যাস: json বা পাঠ্য।",
     "x_search_terms": [
       "বিষয় ব্রিজ তালিকা",
       "matter_bridge_list",
       "বিষয়",
       "বিষয়",
       "ব্রিজ পরিচালিত"
-    ]
+    ],
+    "err.config_missing": "ম্যাটার ব্রিজ কনফিগারেশন ফাইল পাওয়া যায়নি. {env_json} বা {env_file} সেট করুন।",
+    "err.invalid_config": "ম্যাটার ব্রিজ কনফিগারেশন পার্স করা যায়নি: {err}",
+    "err.not_found": "ম্যাটার ব্রিজ পাওয়া যায়নি: {bridge_id}",
+    "param.bridge.description": "ব্রিজ আইডি (সকলের জন্য বাদ দিন)।",
+    "tool.description": "ম্যাটার ব্রিজ-পরিচালিত ডিভাইসগুলি তালিকাভুক্ত করুন এবং একটি JSON বা পাঠ্য সারাংশ প্রদান করুন।"
   },
   "cs": {
-    "param.fmt.description": "Format: json or text.",
+    "param.fmt.description": "Formát: json nebo text.",
     "x_search_terms": [
       "seznam můstků hmoty",
       "matter_bridge_list",
       "hmota",
       "HMOTA",
       "spravováno mostem"
-    ]
+    ],
+    "err.config_missing": "Konfigurační soubor mostu Matter nebyl nalezen. Nastavte {env_json} nebo {env_file}.",
+    "err.invalid_config": "Konfiguraci můstku hmoty nelze analyzovat: {err}",
+    "err.not_found": "Hmotový most nenalezen: {bridge_id}",
+    "param.bridge.description": "Bridge ID (vynechat pro všechny).",
+    "tool.description": "Vypište seznam zařízení spravovaných mostem Matter a vraťte JSON nebo textové shrnutí."
   },
   "de": {
-    "param.fmt.description": "Format: json or text.",
+    "param.fmt.description": "Format: JSON oder Text.",
     "x_search_terms": [
       "Liste der Materiebrücken",
       "matter_bridge_list",
       "Angelegenheit",
       "MATTER",
       "Brücke verwaltet"
-    ]
+    ],
+    "err.config_missing": "Die Matter-Bridge-Konfigurationsdatei wurde nicht gefunden. Stellen Sie {env_json} oder {env_file} ein.",
+    "err.invalid_config": "Die Matter-Bridge-Konfiguration konnte nicht geparst werden: {err}",
+    "err.not_found": "Materiebrücke nicht gefunden: {bridge_id}",
+    "param.bridge.description": "Bridge-ID (für alle weglassen).",
+    "tool.description": "Listen Sie von der Matter-Bridge verwaltete Geräte auf und geben Sie eine JSON- oder Textzusammenfassung zurück."
   },
   "en": {
     "param.fmt.description": "Format: json or text.",
@@ -57,77 +77,112 @@
     ]
   },
   "es": {
-    "param.fmt.description": "Format: json or text.",
+    "param.fmt.description": "Formato: json o texto.",
     "x_search_terms": [
       "lista de puentes de materia",
       "lista_puente_materia",
       "materia",
       "ASUNTO",
       "gestionado por puente"
-    ]
+    ],
+    "param.bridge.description": "ID de puente (omitir para todos).",
+    "tool.description": "Enumere los dispositivos administrados por el puente Matter y devuelva un resumen de texto o JSON.",
+    "err.config_missing": "No se encontró el archivo de configuración del puente de materia. Establezca {env_json} o {env_file}.",
+    "err.invalid_config": "No se pudo analizar la configuración del puente de materia: {err}",
+    "err.not_found": "Puente de materia no encontrado: {bridge_id}"
   },
   "fa": {
-    "param.fmt.description": "Format: json or text.",
+    "param.fmt.description": "فرمت: json یا متن.",
     "x_search_terms": [
       "لیست پل‌های ماده",
       "matter_bridge_list",
       "ماده",
       "ماده",
       "مدیریت شده توسط پل"
-    ]
+    ],
+    "err.config_missing": "فایل پیکربندی Matter Bridge یافت نشد. {env_json} یا {env_file} را تنظیم کنید.",
+    "err.invalid_config": "پیکربندی پل ماده قابل تجزیه نیست: {err}",
+    "err.not_found": "پل ماده یافت نشد: {bridge_id}",
+    "param.bridge.description": "شناسه پل (برای همه حذف شود).",
+    "tool.description": "دستگاه‌های Matter-bridge-managed را فهرست کنید و یک JSON یا خلاصه متنی را برگردانید."
   },
   "fi": {
-    "param.fmt.description": "Format: json or text.",
+    "param.fmt.description": "Muoto: json tai teksti.",
     "x_search_terms": [
       "asian siltaluettelo",
       "matter_bridge_list",
       "asia",
       "ASIA",
       "sillan hallinnoima"
-    ]
+    ],
+    "err.config_missing": "Matter Bridge -määritystiedostoa ei löytynyt. Aseta {env_json} tai {env_file}.",
+    "err.invalid_config": "Asiasillan määritystä ei voitu jäsentää: {err}",
+    "err.not_found": "Matter siltaa ei löydy: {bridge_id}",
+    "param.bridge.description": "Bridge ID (jätä pois kaikista).",
+    "tool.description": "Luettele Matter-siltahallitut laitteet ja palauta JSON- tai tekstiyhteenveto."
   },
   "fr": {
-    "param.fmt.description": "Format: json or text.",
+    "param.fmt.description": "Format : json ou texte.",
     "x_search_terms": [
       "liste de ponts de matière",
       "matière_bridge_list",
       "matière",
       "MATIÈRE",
       "géré par pont"
-    ]
+    ],
+    "err.config_missing": "Le fichier de configuration du pont Matter est introuvable. Définissez {env_json} ou {env_file}.",
+    "err.invalid_config": "La configuration du pont de matière n'a pas pu être analysée : {err}",
+    "err.not_found": "Pont de matière introuvable : {bridge_id}",
+    "param.bridge.description": "ID du pont (omettre pour tous).",
+    "tool.description": "Répertoriez les appareils gérés par le pont Matter et renvoyez un résumé JSON ou texte."
   },
   "hi": {
-    "param.fmt.description": "Format: json or text.",
+    "param.fmt.description": "प्रारूप: json या text.",
     "x_search_terms": [
       "विषय ब्रिज सूची",
       "matter_bridge_list",
       "विषय",
       "विषय",
       "ब्रिज प्रबंधित"
-    ]
+    ],
+    "err.config_missing": "मैटर ब्रिज कॉन्फ़िगरेशन फ़ाइल नहीं मिली. {env_json} या {env_file} सेट करें।",
+    "err.invalid_config": "मैटर ब्रिज कॉन्फ़िगरेशन को पार्स नहीं किया जा सका: {err}",
+    "err.not_found": "मैटर ब्रिज नहीं मिला: {bridge_id}",
+    "param.bridge.description": "ब्रिज आईडी (सभी के लिए छोड़ें)।",
+    "tool.description": "मैटर ब्रिज-प्रबंधित उपकरणों की सूची बनाएं और JSON या टेक्स्ट सारांश लौटाएं।"
   },
   "id": {
-    "param.fmt.description": "Format: json or text.",
+    "param.fmt.description": "Format: json atau teks.",
     "x_search_terms": [
       "daftar jembatan masalah",
       "daftar_masalah_jembatan",
       "penting",
       "MASALAH",
       "dikelola jembatan"
-    ]
+    ],
+    "err.config_missing": "File konfigurasi jembatan materi tidak ditemukan. Setel {env_json} atau {env_file}.",
+    "err.invalid_config": "Konfigurasi jembatan materi tidak dapat diuraikan: {err}",
+    "err.not_found": "Jembatan materi tidak ditemukan: {bridge_id}",
+    "param.bridge.description": "ID Jembatan (hilangkan untuk semua).",
+    "tool.description": "Cantumkan perangkat yang dikelola jembatan Matter dan kembalikan JSON atau ringkasan teks."
   },
   "it": {
-    "param.fmt.description": "Format: json or text.",
+    "param.fmt.description": "Formato: json o testo.",
     "x_search_terms": [
       "elenco dei ponti di materia",
       "materia_bridge_list",
       "materia",
       "MATERIA",
       "gestito dal ponte"
-    ]
+    ],
+    "err.config_missing": "Il file di configurazione del Matters Bridge non è stato trovato. Imposta {env_json} o {env_file}.",
+    "err.invalid_config": "Impossibile analizzare la configurazione del bridge argomento: {err}",
+    "err.not_found": "Ponte dell'argomento non trovato: {bridge_id}",
+    "param.bridge.description": "ID ponte (omettere per tutti).",
+    "tool.description": "Elenca i dispositivi gestiti tramite bridge Matter e restituisce un JSON o un riepilogo di testo."
   },
   "ja": {
-    "param.fmt.description": "Format: json or text.",
+    "param.fmt.description": "形式: json またはテキスト。",
     "err.config_missing": "マターブリッジ設定ファイルが見つかりませんでした。{env_json} または {env_file} を設定します。",
     "err.invalid_config": "マターブリッジ構成を解析できませんでした: {err}",
     "err.not_found": "マターブリッジが見つかりません: {bridge_id}",
@@ -142,44 +197,64 @@
     ]
   },
   "ko": {
-    "param.fmt.description": "Format: json or text.",
+    "param.fmt.description": "형식: json 또는 텍스트.",
     "x_search_terms": [
       "물질 브리지 목록",
       "문제_브리지_목록",
       "문제",
       "물질",
       "브리지 관리"
-    ]
+    ],
+    "err.config_missing": "Matter 브리지 구성 파일을 찾을 수 없습니다. {env_json} 또는 {env_file}을 설정합니다.",
+    "err.invalid_config": "Matter 브리지 구성을 파싱할 수 없습니다: {err}",
+    "err.not_found": "물질 브리지를 찾을 수 없습니다: {bridge_id}",
+    "param.bridge.description": "브리지 ID(모두 생략).",
+    "tool.description": "Matter 브리지 관리 장치를 나열하고 JSON 또는 텍스트 요약을 반환합니다."
   },
   "mn": {
-    "param.fmt.description": "Format: json or text.",
+    "param.fmt.description": "Формат: json эсвэл текст.",
     "x_search_terms": [
       "материйн гүүрний жагсаалт",
       "matter_bridge_list",
       "асуудал",
       "асуудал",
       "гүүрээр удирддаг"
-    ]
+    ],
+    "err.config_missing": "Matter bridge тохиргооны файл олдсонгүй. {env_json} эсвэл {env_file} тохируулна уу.",
+    "err.invalid_config": "Материйн гүүрний тохиргоог задлан шинжилж чадсангүй: {err}",
+    "err.not_found": "Бодисын гүүр олдсонгүй: {bridge_id}",
+    "param.bridge.description": "Bridge ID (бүгдийг орхих).",
+    "tool.description": "Асуудлыг гүүрээр удирддаг төхөөрөмжүүдийг жагсааж, JSON эсвэл текстийн хураангуйг буцаана уу."
   },
   "mr": {
-    "param.fmt.description": "Format: json or text.",
+    "param.fmt.description": "स्वरूप: json किंवा मजकूर.",
     "x_search_terms": [
       "विषय ब्रिज यादी",
       "matter_bridge_list",
       "विषय",
       "विषय",
       "ब्रिज व्यवस्थापित"
-    ]
+    ],
+    "err.config_missing": "मॅटर ब्रिज कॉन्फिगरेशन फाइल आढळली नाही. {env_json} किंवा {env_file} सेट करा.",
+    "err.invalid_config": "मॅटर ब्रिज कॉन्फिगरेशनचे विश्लेषण करणे शक्य नाही: {err}",
+    "err.not_found": "मॅटर ब्रिज सापडला नाही: {bridge_id}",
+    "param.bridge.description": "ब्रिज आयडी (सर्वांसाठी वगळा).",
+    "tool.description": "मॅटर ब्रिज-व्यवस्थापित डिव्हाइसेसची यादी करा आणि JSON किंवा मजकूर सारांश परत करा."
   },
   "el": {
-    "param.fmt.description": "Στιγμιότυπο προσωρινής μνήμης ECHONET: {count} στοιχεία.",
+    "param.fmt.description": "Μορφή: json ή κείμενο.",
     "x_search_terms": [
       "λίστα γεφυρών ύλης",
       "matter_bridge_list",
       "ύλη",
       "ΥΛΗ",
       "γέφυρα διαχειρίζεται"
-    ]
+    ],
+    "err.config_missing": "Το αρχείο διαμόρφωσης Matter Bridge δεν βρέθηκε. Ορίστε {env_json} ή {env_file}.",
+    "err.invalid_config": "Δεν ήταν δυνατή η ανάλυση της διαμόρφωσης γέφυρας υλικού: {err}",
+    "err.not_found": "Η γέφυρα ουσίας δεν βρέθηκε: {bridge_id}",
+    "param.bridge.description": "Ταυτότητα γέφυρας (παράλειψη για όλους).",
+    "tool.description": "Καταχωρίστε τις συσκευές που διαχειρίζονται το Matter bridge και επιστρέψτε μια σύνοψη JSON ή κειμένου."
   },
   "he": {
     "param.fmt.description": "אין ערכים במטמון.",
@@ -189,7 +264,12 @@
       "חומר",
       "חומר",
       "מנוהל על ידי גשר"
-    ]
+    ],
+    "err.config_missing": "קובץ התצורה של Matter Bridge לא נמצא. הגדר {env_json} או {env_file}.",
+    "err.invalid_config": "לא ניתן היה לנתח את תצורת גשר החומר: {err}",
+    "err.not_found": "גשר החומר לא נמצא: {bridge_id}",
+    "param.bridge.description": "מזהה גשר (השמט לכולם).",
+    "tool.description": "רשום מכשירים המנוהלים על גשר של Matter והחזר JSON או סיכום טקסט."
   },
   "hu": {
     "param.fmt.description": "Gyorsítótár művelet: pillanatfelvétel vagy törlés.",
@@ -199,7 +279,12 @@
       "anyag",
       "ANYAG",
       "híd által kezelt"
-    ]
+    ],
+    "err.config_missing": "Az anyaghíd konfigurációs fájlja nem található. Állítsa be: {env_json} vagy {env_file}.",
+    "err.invalid_config": "Az anyaghíd konfigurációja nem értelmezhető: {err}",
+    "err.not_found": "Az anyaghíd nem található: {bridge_id}",
+    "param.bridge.description": "Bridge ID (mindennél kihagyja).",
+    "tool.description": "Sorolja fel a Matter hídkezelésű eszközöket, és küldjön vissza egy JSON- vagy szöveges összefoglalót."
   },
   "ro": {
     "param.fmt.description": "Inspectați sau ștergeți memoria cache ECHONET Lite partajată.",
@@ -209,146 +294,221 @@
       "materie",
       "MATERIE",
       "gestionat de pod"
-    ]
+    ],
+    "err.config_missing": "Fișierul de configurare a podului Matter nu a fost găsit. Setați {env_json} sau {env_file}.",
+    "err.invalid_config": "Configurația punctului de lucru nu a putut fi analizată: {err}",
+    "err.not_found": "Puntea materiei nu a fost găsită: {bridge_id}",
+    "param.bridge.description": "ID pod (omiteți pentru toți).",
+    "tool.description": "Enumerați dispozitivele Matter gestionate prin punte și returnați un rezumat JSON sau text."
   },
   "nb": {
-    "param.fmt.description": "Format: json or text.",
+    "param.fmt.description": "Format: json eller tekst.",
     "x_search_terms": [
       "liste over broer for materie",
       "matter_bridge_list",
       "saken",
       "MATTER",
       "bro administrert"
-    ]
+    ],
+    "err.config_missing": "Saksbro-konfigurasjonsfilen ble ikke funnet. Sett {env_json} eller {env_file}.",
+    "err.invalid_config": "Saksbrokonfigurasjon kunne ikke analyseres: {err}",
+    "err.not_found": "Saksbroen ble ikke funnet: {bridge_id}",
+    "param.bridge.description": "Bridge ID (utelat for alle).",
+    "tool.description": "Vis Matter-broadministrerte enheter og returner et JSON- eller tekstsammendrag."
   },
   "nl": {
-    "param.fmt.description": "Format: json or text.",
+    "param.fmt.description": "Formaat: json of tekst.",
     "x_search_terms": [
       "materie-bruggenlijst",
       "matter_bridge_list",
       "materie",
       "MATTER",
       "brug beheerd"
-    ]
+    ],
+    "err.config_missing": "Het configuratiebestand van de Matter Bridge is niet gevonden. Stel {env_json} of {env_file} in.",
+    "err.invalid_config": "De configuratie van de materiebrug kan niet worden geparseerd: {err}",
+    "err.not_found": "Materiebrug niet gevonden: {bridge_id}",
+    "param.bridge.description": "Bridge-ID (weglaten voor iedereen).",
+    "tool.description": "Maak een lijst van door Matter Bridge beheerde apparaten en retourneer een JSON- of tekstsamenvatting."
   },
   "pl": {
-    "param.fmt.description": "Format: json or text.",
+    "param.fmt.description": "Format: json lub tekst.",
     "x_search_terms": [
       "lista mostów materii",
       "lista_pomostów spraw",
       "sprawa",
       "MATERIA",
       "zarządzane przez most"
-    ]
+    ],
+    "err.config_missing": "Nie znaleziono pliku konfiguracyjnego mostu Matter. Ustaw {env_json} lub {env_file}.",
+    "err.invalid_config": "Nie można przeanalizować konfiguracji mostu materii: {err}",
+    "err.not_found": "Nie znaleziono mostu materii: {bridge_id}",
+    "param.bridge.description": "Identyfikator mostu (pomiń dla wszystkich).",
+    "tool.description": "Wyświetl listę urządzeń zarządzanych przez most Matter i zwróć podsumowanie w formacie JSON lub tekstowym."
   },
   "pt": {
-    "param.fmt.description": "Format: json or text.",
+    "param.fmt.description": "Formato: json ou texto.",
     "x_search_terms": [
       "lista de pontes de matéria",
       "lista_pontes_matéria",
       "assunto",
       "MATÉRIA",
       "gerido por ponte"
-    ]
+    ],
+    "err.config_missing": "O arquivo de configuração da ponte Matter não foi encontrado. Defina {env_json} ou {env_file}.",
+    "err.invalid_config": "A configuração da ponte de assunto não pôde ser analisada: {err}",
+    "err.not_found": "Ponte de assunto não encontrada: {bridge_id}",
+    "param.bridge.description": "ID da ponte (omitir para todos).",
+    "tool.description": "Liste os dispositivos gerenciados por ponte do Matter e retorne um JSON ou um resumo de texto."
   },
   "pt_BR": {
-    "param.fmt.description": "Format: json or text.",
+    "param.fmt.description": "Formato: json ou texto.",
     "x_search_terms": [
       "lista de pontes de matéria",
       "matéria_bridge_list",
       "assunto",
       "MATÉRIA",
       "gerenciado por ponte"
-    ]
+    ],
+    "err.config_missing": "O arquivo de configuração da ponte Matter não foi encontrado. Defina {env_json} ou {env_file}.",
+    "err.invalid_config": "A configuração da ponte de assunto não pôde ser analisada: {err}",
+    "err.not_found": "Ponte de assunto não encontrada: {bridge_id}",
+    "param.bridge.description": "ID da ponte (omitir para todos).",
+    "tool.description": "Liste os dispositivos gerenciados por ponte do Matter e retorne um JSON ou um resumo de texto."
   },
   "ru": {
-    "param.fmt.description": "Format: json or text.",
+    "param.fmt.description": "Формат: json или текст.",
     "x_search_terms": [
       "список мостов материи",
       "matter_bridge_list",
       "материя",
       "МАТЕРИЯ",
       "управляется мостом"
-    ]
+    ],
+    "err.config_missing": "Файл конфигурации моста Matter не найден. Установите {env_json} или {env_file}.",
+    "err.invalid_config": "Конфигурацию моста материи не удалось проанализировать: {err}",
+    "err.not_found": "Материальный мост не найден: {bridge_id}",
+    "param.bridge.description": "Идентификатор моста (пропустить для всех).",
+    "tool.description": "Перечислите устройства, управляемые мостом Matter, и верните JSON или текстовую сводку."
   },
   "sv": {
-    "param.fmt.description": "Format: json or text.",
+    "param.fmt.description": "Format: json eller text.",
     "x_search_terms": [
       "lista över materia-bryggor",
       "matter_bridge_list",
       "materia",
       "MATTER",
       "brygga hanteras"
-    ]
+    ],
+    "err.config_missing": "Konfigurationsfilen för ärendebryggan hittades inte. Ställ in {env_json} eller {env_file}.",
+    "err.invalid_config": "Det gick inte att tolka ärendebryggans konfiguration: {err}",
+    "err.not_found": "Ärendebryggan hittades inte: {bridge_id}",
+    "param.bridge.description": "Bridge ID (utelämna för alla).",
+    "tool.description": "Lista Matter-brygghanterade enheter och returnera en JSON eller textsammanfattning."
   },
   "sw": {
-    "param.fmt.description": "Format: json or text.",
+    "param.fmt.description": "Umbizo: json au maandishi.",
     "x_search_terms": [
       "orodha ya madaraja ya maada",
       "matter_bridge_list",
       "maada",
       "MAADA",
       "daraja linalosimamiwa"
-    ]
+    ],
+    "err.config_missing": "Faili ya usanidi wa daraja la jambo haikupatikana. Weka {env_json} au {env_file}.",
+    "err.invalid_config": "Usanidi wa daraja la jambo haukuweza kuchanganuliwa: {err}",
+    "err.not_found": "Madaraja ya jambo halijapatikana: {bridge_id}",
+    "param.bridge.description": "Kitambulisho cha daraja (acha kwa wote).",
+    "tool.description": "Orodhesha vifaa vinavyodhibitiwa na daraja la Matter na urudishe JSON au muhtasari wa maandishi."
   },
   "th": {
-    "param.fmt.description": "Format: json or text.",
+    "param.fmt.description": "รูปแบบ: json หรือข้อความ",
     "x_search_terms": [
       "รายการสะพานสสาร",
       "matter_bridge_list",
       "สสาร",
       "สสาร",
       "จัดการโดยสะพาน"
-    ]
+    ],
+    "err.config_missing": "ไม่พบไฟล์การกำหนดค่า Matter Bridge ตั้งค่า {env_json} หรือ {env_file}",
+    "err.invalid_config": "ไม่สามารถแยกวิเคราะห์การกำหนดค่า Matter Bridge: {err}",
+    "err.not_found": "ไม่พบบริดจ์เรื่อง: {bridge_id}",
+    "param.bridge.description": "Bridge ID (ละเว้นทั้งหมด)",
+    "tool.description": "แสดงรายการอุปกรณ์ที่จัดการบริดจ์ของ Matter และส่งคืน JSON หรือสรุปข้อความ"
   },
   "tr": {
-    "param.fmt.description": "Format: json or text.",
+    "param.fmt.description": "Biçim: json veya metin.",
     "x_search_terms": [
       "madde köprüleri listesi",
       "matter_bridge_list",
       "madde",
       "MADDE",
       "köprü yönetiliyor"
-    ]
+    ],
+    "err.config_missing": "Madde köprüsü yapılandırma dosyası bulunamadı. {env_json} veya {env_file}'i ayarlayın.",
+    "err.invalid_config": "Madde köprüsü yapılandırması ayrıştırılamadı: {err}",
+    "err.not_found": "Madde köprüsü bulunamadı: {bridge_id}",
+    "param.bridge.description": "Köprü Kimliği (hepsi için atlayın).",
+    "tool.description": "Matter köprüsüyle yönetilen cihazları listeleyin ve bir JSON veya metin özeti döndürün."
   },
   "uk": {
-    "param.fmt.description": "Format: json or text.",
+    "param.fmt.description": "Формат: json або текстовий.",
     "x_search_terms": [
       "список мостів матерії",
       "matter_bridge_list",
       "матерія",
       "МАТЕРІЯ",
       "керується мостом"
-    ]
+    ],
+    "err.config_missing": "Файл конфігурації мосту Matter не знайдено. Установіть {env_json} або {env_file}.",
+    "err.invalid_config": "Не вдалося проаналізувати конфігурацію мосту Matter: {err}",
+    "err.not_found": "Міст матерії не знайдено: {bridge_id}",
+    "param.bridge.description": "Ідентифікатор мосту (пропустити для всіх).",
+    "tool.description": "Список пристроїв, керованих мостом Matter, і повернення JSON або текстового підсумку."
   },
   "vi": {
-    "param.fmt.description": "Format: json or text.",
+    "param.fmt.description": "Định dạng: json hoặc văn bản.",
     "x_search_terms": [
       "danh sách cầu vật chất",
       "vấn đề_bridge_list",
       "vấn đề",
       "VẤN ĐỀ",
       "quản lý cầu"
-    ]
+    ],
+    "err.config_missing": "Không tìm thấy tập tin cấu hình cầu vấn đề. Đặt {env_json} hoặc {env_file}.",
+    "err.invalid_config": "Không thể phân tích cú pháp cấu hình cầu vấn đề: {err}",
+    "err.not_found": "Không tìm thấy cầu vấn đề: {bridge_id}",
+    "param.bridge.description": "ID cầu (bỏ qua tất cả).",
+    "tool.description": "Liệt kê các thiết bị được quản lý bởi bridge Matter và trả về bản tóm tắt văn bản hoặc JSON."
   },
   "zh_CN": {
-    "param.fmt.description": "Format: json or text.",
+    "param.fmt.description": "格式：json 或文本。",
     "x_search_terms": [
       "物质桥列表",
       "matter_bridge_list",
       "物质",
       "物质",
       "桥接管理"
-    ]
+    ],
+    "err.config_missing": "未找到问题桥配置文件。设置 {env_json} 或 {env_file}。",
+    "err.invalid_config": "无法解析物质桥配置：{err}",
+    "err.not_found": "未找到问题桥：{bridge_id}",
+    "param.bridge.description": "网桥 ID（全部省略）。",
+    "tool.description": "列出 Matter 桥接管理的设备并返回 JSON 或文本摘要。"
   },
   "zh_TW": {
-    "param.fmt.description": "Format: json or text.",
+    "param.fmt.description": "格式：json 或文字。",
     "x_search_terms": [
       "物質橋接清單",
       "matter_bridge_list",
       "物質",
       "物質",
       "橋接管理"
-    ]
+    ],
+    "err.config_missing": "未找到問題橋設定檔。設定 {env_json} 或 {env_file}。",
+    "err.invalid_config": "無法解析物質橋配置：{err}",
+    "err.not_found": "未找到問題橋：{bridge_id}",
+    "param.bridge.description": "網橋 ID（全部省略）。",
+    "tool.description": "列出 Matter 橋接管理的設備並傳回 JSON 或文字摘要。"
   }
 }

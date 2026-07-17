@@ -202,7 +202,7 @@
     ]
   },
   "sw": {
-    "tool.description": "Get the current working directory.",
+    "tool.description": "Pata saraka ya sasa ya kufanya kazi.",
     "x_search_terms": [
       "get workdir",
       "working directory",

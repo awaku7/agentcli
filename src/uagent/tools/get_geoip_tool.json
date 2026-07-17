@@ -33,7 +33,7 @@
       "IP情報",
       "地域 IP"
     ],
-    "err.format_invalid": "[get_geoip error] format must be 'text' or 'json'",
+    "err.format_invalid": "[get_geoip エラー] 形式は「text」または「json」である必要があります",
     "err.local_db_unavailable": "[get_geoip エラー] ローカル DB が設定されていません。UAGENT_GEOIP_DB_PATH を .mmdb ファイルに設定し、maxminddb をインストールして任意の IP アドレスをオフラインで検索します。"
   },
   "es": {
@@ -51,7 +51,8 @@
       "información IP",
       "IP geográfica"
     ],
-    "err.format_invalid": "[get_geoip error] format must be 'text' or 'json'"
+    "err.format_invalid": "[error get_geoip] el formato debe ser 'texto' o 'json'",
+    "err.local_db_unavailable": "[error get_geoip] Base de datos local no configurada. Configure UAGENT_GEOIP_DB_PATH en un archivo .mmdb e instale maxminddb para buscar direcciones IP arbitrarias sin conexión."
   },
   "fr": {
     "param.format.description": "Format de sortie.",
@@ -68,7 +69,8 @@
       "informations IP",
       "géo ip"
     ],
-    "err.format_invalid": "[get_geoip error] format must be 'text' or 'json'"
+    "err.format_invalid": "Le format [erreur get_geoip] doit être « texte » ou « json »",
+    "err.local_db_unavailable": "[erreur get_geoip] Base de données locale non configurée. Définissez UAGENT_GEOIP_DB_PATH sur un fichier .mmdb et installez maxminddb pour rechercher des adresses IP arbitraires hors ligne."
   },
   "ko": {
     "param.format.description": "출력 형식.",
@@ -85,7 +87,8 @@
       "IP 정보",
       "지역 IP"
     ],
-    "err.format_invalid": "[get_geoip error] format must be 'text' or 'json'"
+    "err.format_invalid": "[get_geoip 오류] 형식은 'text' 또는 'json'이어야 합니다.",
+    "err.local_db_unavailable": "[get_geoip error] 로컬 DB가 구성되지 않았습니다. UAGENT_GEOIP_DB_PATH를 .mmdb 파일로 설정하고 maxminddb를 설치하여 오프라인에서 임의의 IP 주소를 조회하세요."
   },
   "de": {
     "param.format.description": "Ausgabeformat.",
@@ -102,7 +105,8 @@
       "IP-Info",
       "Geo-IP"
     ],
-    "err.format_invalid": "[get_geoip error] format must be 'text' or 'json'"
+    "err.format_invalid": "[get_geoip error] Format muss „text“ oder „json“ sein.",
+    "err.local_db_unavailable": "[get_geoip-Fehler] Lokale Datenbank nicht konfiguriert. Setzen Sie UAGENT_GEOIP_DB_PATH auf eine .mmdb-Datei und installieren Sie maxminddb, um offline nach beliebigen IP-Adressen zu suchen."
   },
   "it": {
     "param.format.description": "Formato di output.",
@@ -119,7 +123,8 @@
       "informazioni ip",
       "ip geografico"
     ],
-    "err.format_invalid": "[get_geoip error] format must be 'text' or 'json'"
+    "err.format_invalid": "Il formato [get_geoip error] deve essere \"text\" o \"json\"",
+    "err.local_db_unavailable": "[errore get_geoip] DB locale non configurato. Imposta UAGENT_GEOIP_DB_PATH su un file .mmdb e installa maxminddb per cercare indirizzi IP arbitrari offline."
   },
   "ru": {
     "param.format.description": "Формат вывода.",
@@ -136,7 +141,8 @@
       "IP-информация",
       "гео ip"
     ],
-    "err.format_invalid": "[get_geoip error] format must be 'text' or 'json'"
+    "err.format_invalid": "[ошибка get_geoip] формат должен быть «текст» или «json».",
+    "err.local_db_unavailable": "[ошибка get_geoip] Локальная база данных не настроена. Задайте для UAGENT_GEOIP_DB_PATH файл .mmdb и установите maxminddb для поиска произвольных IP-адресов в автономном режиме."
   },
   "pt_BR": {
     "param.format.description": "Formato de saída.",
@@ -153,7 +159,8 @@
       "informações de IP",
       "geo ip"
     ],
-    "err.format_invalid": "[get_geoip error] format must be 'text' or 'json'"
+    "err.format_invalid": "O formato [get_geoip error] deve ser 'texto' ou 'json'",
+    "err.local_db_unavailable": "[erro get_geoip] Banco de dados local não configurado. Defina UAGENT_GEOIP_DB_PATH como um arquivo .mmdb e instale maxminddb para procurar endereços IP arbitrários offline."
   },
   "pt": {
     "param.format.description": "Formato de saída.",
@@ -170,7 +177,8 @@
       "informaes de IP",
       "geo ip"
     ],
-    "err.format_invalid": "[get_geoip error] format must be 'text' or 'json'"
+    "err.format_invalid": "O formato [get_geoip error] deve ser 'texto' ou 'json'",
+    "err.local_db_unavailable": "[erro get_geoip] Banco de dados local não configurado. Defina UAGENT_GEOIP_DB_PATH como um arquivo .mmdb e instale maxminddb para procurar endereços IP arbitrários offline."
   },
   "id": {
     "param.format.description": "Format keluaran.",
@@ -187,7 +195,8 @@
       "info ip",
       "geo ip"
     ],
-    "err.format_invalid": "[get_geoip error] format must be 'text' or 'json'"
+    "err.format_invalid": "Format [get_geoip error] harus 'teks' atau 'json'",
+    "err.local_db_unavailable": "[kesalahan get_geoip] DB lokal tidak dikonfigurasi. Setel UAGENT_GEOIP_DB_PATH ke file .mmdb dan instal maxminddb untuk mencari alamat IP arbitrer secara offline."
   },
   "vi": {
     "param.format.description": "Định dạng đầu ra.",
@@ -204,7 +213,8 @@
       "thông tin ip",
       "địa lý ip"
     ],
-    "err.format_invalid": "[get_geoip error] format must be 'text' or 'json'"
+    "err.format_invalid": "[lỗi get_geoip] định dạng phải là 'văn bản' hoặc 'json'",
+    "err.local_db_unavailable": "[lỗi get_geoip] DB cục bộ chưa được định cấu hình. Đặt UAGENT_GEOIP_DB_PATH thành tệp .mmdb và cài đặt maxminddb để tra cứu địa chỉ IP tùy ý ngoại tuyến."
   },
   "pl": {
     "param.format.description": "Format wyjściowy.",
@@ -221,7 +231,8 @@
       "informacje o ip",
       "geo ip"
     ],
-    "err.format_invalid": "[get_geoip error] format must be 'text' or 'json'"
+    "err.format_invalid": "Format [błąd get_geoip] musi mieć format „text” lub „json”",
+    "err.local_db_unavailable": "[błąd get_geoip] Lokalna baza danych nie została skonfigurowana. Ustaw UAGENT_GEOIP_DB_PATH na plik .mmdb i zainstaluj maxminddb, aby wyszukiwać dowolne adresy IP w trybie offline."
   },
   "hi": {
     "param.format.description": "आउटपुट स्वरूप.",
@@ -238,7 +249,8 @@
       "आईपी ​​जानकारी",
       "जियो आईपी"
     ],
-    "err.format_invalid": "[get_geoip error] format must be 'text' or 'json'"
+    "err.format_invalid": "[get_geoip त्रुटि] प्रारूप 'टेक्स्ट' या 'json' होना चाहिए",
+    "err.local_db_unavailable": "[get_geoip त्रुटि] स्थानीय DB कॉन्फ़िगर नहीं किया गया है। UAGENT_GEOIP_DB_PATH को एक .mmdb फ़ाइल पर सेट करें और ऑफ़लाइन मनमाने IP पते देखने के लिए maxminddb इंस्टॉल करें।"
   },
   "ar": {
     "param.format.description": "تنسيق الإخراج.",
@@ -255,7 +267,8 @@
       "معلومات الملكية الفكرية",
       "Geo ip"
     ],
-    "err.format_invalid": "[get_geoip error] format must be 'text' or 'json'"
+    "err.format_invalid": "يجب أن يكون تنسيق [خطأ get_geoip] \"نص\" أو \"json\"",
+    "err.local_db_unavailable": "[خطأ get_geoip] لم يتم تكوين قاعدة البيانات المحلية. قم بتعيين UAGENT_GEOIP_DB_PATH إلى ملف .mmdb وقم بتثبيت maxminddb للبحث عن عناوين IP عشوائية دون الاتصال بالإنترنت."
   },
   "sv": {
     "param.format.description": "Utdataformat.",
@@ -272,10 +285,11 @@
       "ip info",
       "geo ip"
     ],
-    "err.format_invalid": "[get_geoip error] format must be 'text' or 'json'"
+    "err.format_invalid": "Formatet [get_geoip error] måste vara 'text' eller 'json'",
+    "err.local_db_unavailable": "[get_geoip error] Lokal DB inte konfigurerad. Ställ in UAGENT_GEOIP_DB_PATH till en .mmdb-fil och installera maxminddb för att söka upp godtyckliga IP-adresser offline."
   },
   "sw": {
-    "param.format.description": "Output format.",
+    "param.format.description": "Umbizo la pato.",
     "param.ip.description": "Anwani ya IP ya hiari ya kutafuta. Ikiwa haijatajwa, IP ya umma ya sasa inatumika (hali ya API tu).",
     "tool.description": "Kadiria eneo mbaya la kiwango cha jiji la mtumiaji kutoka kwa anwani yake ya IP ya umma. Usahihi wa chini (jiji pekee, sio kuratibu halisi). Inaccurate with VPN/proxy/mobile. Pendelea get_windows_gps kwa viwianishi sahihi vya GPS.",
     "x_search_terms": [
@@ -289,7 +303,8 @@
       "habari ya ip",
       "geo ip"
     ],
-    "err.format_invalid": "[get_geoip error] format must be 'text' or 'json'"
+    "err.format_invalid": "[get_geoip error] umbizo lazima liwe 'text' au 'json'",
+    "err.local_db_unavailable": "[get_geoip error] DB ya Ndani haijasanidiwa. Weka UAGENT_GEOIP_DB_PATH iwe faili ya .mmdb na usakinishe maxminddb ili kutafuta anwani za IP za kiholela nje ya mtandao."
   },
   "nb": {
     "param.format.description": "Utdataformat.",
@@ -306,7 +321,8 @@
       "ip info",
       "geo ip"
     ],
-    "err.format_invalid": "[get_geoip error] format must be 'text' or 'json'"
+    "err.format_invalid": "[get_geoip error] formatet må være 'text' eller 'json'",
+    "err.local_db_unavailable": "[get_geoip error] Lokal DB er ikke konfigurert. Sett UAGENT_GEOIP_DB_PATH til en .mmdb-fil og installer maxminddb for å slå opp vilkårlige IP-adresser offline."
   },
   "nl": {
     "param.format.description": "Uitvoerformaat.",
@@ -323,7 +339,8 @@
       "ip-info",
       "geo ip"
     ],
-    "err.format_invalid": "[get_geoip error] format must be 'text' or 'json'"
+    "err.format_invalid": "[get_geoip error] formaat moet 'text' of 'json' zijn",
+    "err.local_db_unavailable": "[get_geoip error] Lokale DB niet geconfigureerd. Stel UAGENT_GEOIP_DB_PATH in op een .mmdb-bestand en installeer maxminddb om offline willekeurige IP-adressen op te zoeken."
   },
   "fi": {
     "param.format.description": "Tulostusmuoto.",
@@ -340,7 +357,8 @@
       "ip tiedot",
       "geo ip"
     ],
-    "err.format_invalid": "[get_geoip error] format must be 'text' or 'json'"
+    "err.format_invalid": "[get_geoip error] -muodon on oltava teksti tai json",
+    "err.local_db_unavailable": "[get_geoip error] Paikallista tietokantaa ei ole määritetty. Aseta UAGENT_GEOIP_DB_PATH .mmdb-tiedostoksi ja asenna maxminddb etsiäksesi mielivaltaisia ​​IP-osoitteita offline-tilassa."
   },
   "cs": {
     "param.format.description": "Formát výstupu.",
@@ -357,7 +375,8 @@
       "ip info",
       "geo ip"
     ],
-    "err.format_invalid": "[get_geoip error] format must be 'text' or 'json'"
+    "err.format_invalid": "[get_geoip error] formát musí být 'text' nebo 'json'",
+    "err.local_db_unavailable": "[chyba get_geoip] Místní databáze není nakonfigurována. Nastavte UAGENT_GEOIP_DB_PATH na soubor .mmdb a nainstalujte maxminddb pro vyhledávání libovolných IP adres offline."
   },
   "uk": {
     "param.format.description": "Формат виводу.",
@@ -374,7 +393,8 @@
       "ip інформація",
       "geo ip"
     ],
-    "err.format_invalid": "[get_geoip error] format must be 'text' or 'json'"
+    "err.format_invalid": "[помилка get_geoip] формат має бути «текст» або «json»",
+    "err.local_db_unavailable": "[помилка get_geoip] Локальну БД не налаштовано. Встановіть для UAGENT_GEOIP_DB_PATH файл .mmdb і встановіть maxminddb для пошуку довільних IP-адрес в автономному режимі."
   },
   "tr": {
     "param.format.description": "Çıkış formatı.",
@@ -391,7 +411,8 @@
       "ip bilgisi",
       "coğrafi ip"
     ],
-    "err.format_invalid": "[get_geoip error] format must be 'text' or 'json'"
+    "err.format_invalid": "[get_geoip error] biçimi 'text' veya 'json' olmalıdır",
+    "err.local_db_unavailable": "[get_geoip hatası] Yerel DB yapılandırılmadı. UAGENT_GEOIP_DB_PATH'i bir .mmdb dosyasına ayarlayın ve isteğe bağlı IP adreslerini çevrimdışı aramak için maxminddb'yi yükleyin."
   },
   "th": {
     "param.format.description": "รูปแบบเอาต์พุต",
@@ -408,7 +429,8 @@
       "ข้อมูลไอพี",
       "ภูมิศาสตร์ IP"
     ],
-    "err.format_invalid": "[get_geoip error] format must be 'text' or 'json'"
+    "err.format_invalid": "รูปแบบ [ข้อผิดพลาด get_geoip] ต้องเป็น 'ข้อความ' หรือ 'json'",
+    "err.local_db_unavailable": "[ข้อผิดพลาด get_geoip] ไม่ได้กำหนดค่าฐานข้อมูลท้องถิ่น ตั้งค่า UAGENT_GEOIP_DB_PATH เป็นไฟล์ .mmdb และติดตั้ง maxminddb เพื่อค้นหาที่อยู่ IP ที่กำหนดเองแบบออฟไลน์"
   },
   "zh_CN": {
     "param.format.description": "输出格式。",
@@ -425,7 +447,8 @@
       "ip 信息",
       "geo ip"
     ],
-    "err.format_invalid": "[get_geoip error] format must be 'text' or 'json'"
+    "err.format_invalid": "[get_geoip 错误] 格式必须为“text”或“json”",
+    "err.local_db_unavailable": "[get_geoip 错误] 未配置本地数据库。将 UAGENT_GEOIP_DB_PATH 设置为 .mmdb 文件并安装 maxminddb 以离线查找任意 IP 地址。"
   },
   "zh_TW": {
     "param.format.description": "輸出格式。",
@@ -442,7 +465,8 @@
       "ip 資訊",
       "地理IP"
     ],
-    "err.format_invalid": "[get_geoip error] format must be 'text' or 'json'"
+    "err.format_invalid": "[get_geoip 錯誤] 格式必須為“text”或“json”",
+    "err.local_db_unavailable": "[get_geoip 錯誤] 未配置本機資料庫。將 UAGENT_GEOIP_DB_PATH 設定為 .mmdb 檔案並安裝 maxminddb 以離線查找任意 IP 位址。"
   },
   "bn": {
     "param.format.description": "আউটপুট ফরম্যাট।",
@@ -459,7 +483,8 @@
       "আইপি তথ্য",
       "জিও আইপি"
     ],
-    "err.format_invalid": "[get_geoip error] format must be 'text' or 'json'"
+    "err.format_invalid": "[get_geoip ত্রুটি] বিন্যাস অবশ্যই 'টেক্সট' বা 'json' হতে হবে",
+    "err.local_db_unavailable": "[get_geoip ত্রুটি] স্থানীয় ডিবি কনফিগার করা হয়নি। একটি .mmdb ফাইলে UAGENT_GEOIP_DB_PATH সেট করুন এবং অফলাইনে নির্বিচারে IP ঠিকানাগুলি দেখতে maxminddb ইনস্টল করুন৷"
   },
   "fa": {
     "param.format.description": "فرمت خروجی.",
@@ -476,7 +501,8 @@
       "اطلاعات ip",
       "geo ip"
     ],
-    "err.format_invalid": "[get_geoip error] format must be 'text' or 'json'"
+    "err.format_invalid": "قالب [خطای get_geoip] باید «متن» یا «json» باشد",
+    "err.local_db_unavailable": "[خطای get_geoip] DB محلی پیکربندی نشده است. UAGENT_GEOIP_DB_PATH را روی یک فایل mmdb. تنظیم کنید و maxminddb را نصب کنید تا آدرس های IP دلخواه را به صورت آفلاین جستجو کنید."
   },
   "mn": {
     "param.format.description": "Гаралтын формат.",
@@ -493,7 +519,8 @@
       "ip мэдээлэл",
       "geo ip"
     ],
-    "err.format_invalid": "[get_geoip error] format must be 'text' or 'json'"
+    "err.format_invalid": "[get_geoip алдаа] формат нь 'текст' эсвэл 'json' байх ёстой",
+    "err.local_db_unavailable": "[get_geoip алдаа] Локал DB тохируулагдаагүй. UAGENT_GEOIP_DB_PATH-г .mmdb файл болгож тохируулаад maxminddb-г суулгаж дурын IP хаягуудыг офлайнаар хайх болно."
   },
   "mr": {
     "param.format.description": "आउटपुट फॉरमॅट.",
@@ -510,7 +537,8 @@
       "ip माहिती",
       "geo ip"
     ],
-    "err.format_invalid": "[get_geoip error] format must be 'text' or 'json'"
+    "err.format_invalid": "[get_geoip त्रुटी] स्वरूप 'मजकूर' किंवा 'json' असणे आवश्यक आहे",
+    "err.local_db_unavailable": "[get_geoip त्रुटी] स्थानिक DB कॉन्फिगर केलेले नाही. UAGENT_GEOIP_DB_PATH ला .mmdb फाइलवर सेट करा आणि अनियंत्रित IP पत्ते ऑफलाइन शोधण्यासाठी maxminddb स्थापित करा."
   },
   "el": {
     "param.format.description": "Μορφή εξόδου.",
@@ -527,7 +555,8 @@
       "ip πληροφορίες",
       "geo ip"
     ],
-    "err.format_invalid": "[get_geoip error] η μορφή \"text\" ή \"json get Local."
+    "err.format_invalid": "[get_geoip error] η μορφή \"text\" ή \"json get Local.",
+    "err.local_db_unavailable": "[get_geoip error] Το τοπικό DB δεν έχει διαμορφωθεί. Ρυθμίστε το UAGENT_GEOIP_DB_PATH σε ένα αρχείο .mmdb και εγκαταστήστε το maxminddb για να αναζητήσετε αυθαίρετες διευθύνσεις IP εκτός σύνδεσης."
   },
   "he": {
     "param.format.description": "פורמט פלט.",
@@ -544,7 +573,8 @@
       "מידע ip",
       "geo ip"
     ],
-    "err.format_invalid": "פורמט [get_geoip error] חייב להיות 'טקסט' או 'json'"
+    "err.format_invalid": "פורמט [get_geoip error] חייב להיות 'טקסט' או 'json'",
+    "err.local_db_unavailable": "[get_geoip error] DB מקומי לא מוגדר. הגדר את UAGENT_GEOIP_DB_PATH לקובץ ‎.mmdb והתקן את maxminddb כדי לחפש כתובות IP שרירותיות במצב לא מקוון."
   },
   "hu": {
     "param.format.description": "Kimeneti formátum.",
@@ -561,7 +591,8 @@
       "ip info",
       "geo ip"
     ],
-    "err.format_invalid": "[get_geoip error] formátumnak \"text\" vagy \"json\" formátumúnak kell lennie"
+    "err.format_invalid": "[get_geoip error] formátumnak \"text\" vagy \"json\" formátumúnak kell lennie",
+    "err.local_db_unavailable": "[get_geoip hiba] A helyi adatbázis nincs konfigurálva. Állítsa be az UAGENT_GEOIP_DB_PATH-t egy .mmdb fájlra, és telepítse a maxminddb-t, hogy tetszőleges IP-címeket keressen offline."
   },
   "ro": {
     "param.format.description": "Format de ieșire.",
@@ -578,6 +609,7 @@
       "info ip",
       "geo ip"
     ],
-    "err.format_invalid": "[get_geoip error] formatul trebuie să fie „text” sau „json”"
+    "err.format_invalid": "[get_geoip error] formatul trebuie să fie „text” sau „json”",
+    "err.local_db_unavailable": "[Eroare get_geoip] DB local nu este configurat. Setați UAGENT_GEOIP_DB_PATH la un fișier .mmdb și instalați maxminddb pentru a căuta adrese IP arbitrare offline."
   }
 }

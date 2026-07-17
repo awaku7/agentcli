@@ -1,11 +1,11 @@
 {
   "ar": {
-    "param.timeout.description": "Receive wait time in seconds for ECHONET Lite discovery.",
-    "param.retry.description": "Discovery rounds.",
-    "param.limit.description": "Maximum number of nodes to return. 0 means unlimited.",
-    "param.fmt.description": "Format: json or text.",
-    "msg.summary": "ECHONET Lite discovery completed: {count} node(s) found in {elapsed_ms} ms.",
-    "msg.no_devices": "No ECHONET Lite nodes were found.",
+    "param.timeout.description": "احصل على وقت الانتظار بالثواني لاكتشاف ECHONET Lite.",
+    "param.retry.description": "جولات الاكتشاف.",
+    "param.limit.description": "الحد الأقصى لعدد العقد للعودة. 0 يعني غير محدود.",
+    "param.fmt.description": "التنسيق: json أو نص.",
+    "msg.summary": "اكتمل اكتشاف ECHONET Lite: تم العثور على {count} عقدة (عقد) خلال {elapsed_ms} مللي ثانية.",
+    "msg.no_devices": "لم يتم العثور على عقد ECHONET Lite.",
     "Crime prevention sensor": "جهاز استشعار منع الجريمة",
     "Emergency button": "زر الطوارئ",
     "Human detection sensor": "جهاز استشعار الكشف عن الإنسان",
@@ -70,15 +70,18 @@
       "عقد",
       "محلي",
       "شبكة"
-    ]
+    ],
+    "err.invalid_interface": "خطأ: تعذر حل الواجهة '{interface}' إلى عنوان IPv4 محلي.",
+    "param.interface.description": "الواجهة المحلية IPv4/الاسم (اختياري).",
+    "tool.description": "اكتشف عقد ECHONET Lite على الشبكة المحلية وقم بإرجاع قائمة JSON أو قائمة نصية."
   },
   "bn": {
-    "param.timeout.description": "Receive wait time in seconds for ECHONET Lite discovery.",
-    "param.retry.description": "Discovery rounds.",
-    "param.limit.description": "Maximum number of nodes to return. 0 means unlimited.",
-    "param.fmt.description": "Format: json or text.",
-    "msg.summary": "ECHONET Lite discovery completed: {count} node(s) found in {elapsed_ms} ms.",
-    "msg.no_devices": "No ECHONET Lite nodes were found.",
+    "param.timeout.description": "ECHONET Lite আবিষ্কারের জন্য সেকেন্ডের মধ্যে অপেক্ষার সময় পান৷",
+    "param.retry.description": "আবিষ্কার রাউন্ড.",
+    "param.limit.description": "নোডের সর্বাধিক সংখ্যা ফেরত দিতে হবে। 0 মানে সীমাহীন।",
+    "param.fmt.description": "বিন্যাস: json বা পাঠ্য।",
+    "msg.summary": "ECHONET লাইট আবিষ্কার সম্পন্ন হয়েছে: {count} নোড(গুলি) {elapsed_ms} মিসে পাওয়া গেছে।",
+    "msg.no_devices": "কোনো ECHONET Lite নোড পাওয়া যায়নি।",
     "Crime prevention sensor": "অপরাধ প্রতিরোধ সেন্সর",
     "Emergency button": "জরুরী বোতাম",
     "Human detection sensor": "মানব সনাক্তকরণ সেন্সর",
@@ -143,15 +146,18 @@
       "নোড",
       "স্থানীয়",
       "নেটওয়ার্ক"
-    ]
+    ],
+    "err.invalid_interface": "ত্রুটি: একটি স্থানীয় IPv4 ঠিকানায় ইন্টারফেস '{interface}' সমাধান করা যায়নি৷",
+    "param.interface.description": "স্থানীয় ইন্টারফেস IPv4/নাম (ঐচ্ছিক)।",
+    "tool.description": "স্থানীয় নেটওয়ার্কে ECHONET Lite নোডগুলি আবিষ্কার করুন এবং একটি JSON বা পাঠ্য তালিকা ফেরত দিন৷"
   },
   "cs": {
-    "param.timeout.description": "Receive wait time in seconds for ECHONET Lite discovery.",
-    "param.retry.description": "Discovery rounds.",
-    "param.limit.description": "Maximum number of nodes to return. 0 means unlimited.",
-    "param.fmt.description": "Format: json or text.",
-    "msg.summary": "ECHONET Lite discovery completed: {count} node(s) found in {elapsed_ms} ms.",
-    "msg.no_devices": "No ECHONET Lite nodes were found.",
+    "param.timeout.description": "Získejte čekací dobu v sekundách na zjištění ECHONET Lite.",
+    "param.retry.description": "Objevovací kola.",
+    "param.limit.description": "Maximální počet uzlů, které se mají vrátit. 0 znamená neomezené.",
+    "param.fmt.description": "Formát: json nebo text.",
+    "msg.summary": "Zjišťování ECHONET Lite dokončeno: {count} uzlů nalezeno za {elapsed_ms} ms.",
+    "msg.no_devices": "Nebyly nalezeny žádné uzly ECHONET Lite.",
     "Crime prevention sensor": "Senzor prevence kriminality",
     "Emergency button": "Nouzové tlačítko",
     "Human detection sensor": "Senzor detekce člověka",
@@ -216,15 +222,18 @@
       "uzly",
       "místní",
       "síť"
-    ]
+    ],
+    "err.invalid_interface": "Chyba: Nelze přeložit rozhraní '{interface}' na místní adresu IPv4.",
+    "param.interface.description": "Lokální rozhraní IPv4/název (volitelné).",
+    "tool.description": "Objevte uzly ECHONET Lite v místní síti a vraťte seznam JSON nebo text."
   },
   "de": {
-    "param.timeout.description": "Receive wait time in seconds for ECHONET Lite discovery.",
-    "param.retry.description": "Discovery rounds.",
-    "param.limit.description": "Maximum number of nodes to return. 0 means unlimited.",
-    "param.fmt.description": "Format: json or text.",
-    "msg.summary": "ECHONET Lite discovery completed: {count} node(s) found in {elapsed_ms} ms.",
-    "msg.no_devices": "No ECHONET Lite nodes were found.",
+    "param.timeout.description": "Erhalten Sie die Wartezeit in Sekunden für die ECHONET Lite-Erkennung.",
+    "param.retry.description": "Entdeckungsrunden.",
+    "param.limit.description": "Maximale Anzahl der zurückzugebenden Knoten. 0 bedeutet unbegrenzt.",
+    "param.fmt.description": "Format: JSON oder Text.",
+    "msg.summary": "ECHONET Lite-Erkennung abgeschlossen: {count} Knoten in {elapsed_ms} ms gefunden.",
+    "msg.no_devices": "Es wurden keine ECHONET Lite-Knoten gefunden.",
     "Crime prevention sensor": "Sensor zur Kriminalprävention",
     "Emergency button": "Notruftaste",
     "Human detection sensor": "Sensor zur Personenerkennung",
@@ -278,7 +287,7 @@
     "Washer/dryer": "Waschmaschine/Trockner",
     "Commercial showcase outdoor unit": "Kommerzielles Schaufenster-Außengerät",
     "Switch (JEM-A/HA)": "Schalter (JEM-A/HA)",
-    "Controller": "Controller",
+    "Controller": "Regler",
     "Television": "Fernsehen",
     "x_search_terms": [
       "Echonet-Scan",
@@ -289,7 +298,10 @@
       "Knoten",
       "lokal",
       "Netzwerk"
-    ]
+    ],
+    "err.invalid_interface": "Fehler: Die Schnittstelle „{interface}“ konnte nicht in eine lokale IPv4-Adresse aufgelöst werden.",
+    "param.interface.description": "Lokale Schnittstelle IPv4/Name (optional).",
+    "tool.description": "Entdecken Sie ECHONET Lite-Knoten im lokalen Netzwerk und geben Sie eine JSON- oder Textliste zurück."
   },
   "en": {
     "param.timeout.description": "Receive wait time in seconds for ECHONET Lite discovery.",
@@ -368,12 +380,12 @@
     ]
   },
   "es": {
-    "param.timeout.description": "Receive wait time in seconds for ECHONET Lite discovery.",
-    "param.retry.description": "Discovery rounds.",
-    "param.limit.description": "Maximum number of nodes to return. 0 means unlimited.",
-    "param.fmt.description": "Format: json or text.",
-    "msg.summary": "ECHONET Lite discovery completed: {count} node(s) found in {elapsed_ms} ms.",
-    "msg.no_devices": "No ECHONET Lite nodes were found.",
+    "param.timeout.description": "Reciba el tiempo de espera en segundos para el descubrimiento de ECHONET Lite.",
+    "param.retry.description": "Rondas de descubrimiento.",
+    "param.limit.description": "Número máximo de nodos a devolver. 0 significa ilimitado.",
+    "param.fmt.description": "Formato: json o texto.",
+    "msg.summary": "Descubrimiento de ECHONET Lite completado: {count} nodos encontrados en {elapsed_ms} ms.",
+    "msg.no_devices": "No se encontraron nodos ECHONET Lite.",
     "Crime prevention sensor": "Sensor de prevención de delitos",
     "Emergency button": "Botón de emergencia",
     "Human detection sensor": "Sensor de detección humana",
@@ -438,15 +450,18 @@
       "nodos",
       "locales",
       "red"
-    ]
+    ],
+    "err.invalid_interface": "Error: no se pudo resolver la interfaz '{interface}' a una dirección IPv4 local.",
+    "param.interface.description": "Interfaz local IPv4/nombre (opcional).",
+    "tool.description": "Descubra los nodos ECHONET Lite en la red local y devuelva una lista JSON o de texto."
   },
   "fa": {
-    "param.timeout.description": "Receive wait time in seconds for ECHONET Lite discovery.",
-    "param.retry.description": "Discovery rounds.",
-    "param.limit.description": "Maximum number of nodes to return. 0 means unlimited.",
-    "param.fmt.description": "Format: json or text.",
-    "msg.summary": "ECHONET Lite discovery completed: {count} node(s) found in {elapsed_ms} ms.",
-    "msg.no_devices": "No ECHONET Lite nodes were found.",
+    "param.timeout.description": "زمان انتظار را در ثانیه برای کشف ECHONET Lite دریافت کنید.",
+    "param.retry.description": "دور کشف",
+    "param.limit.description": "حداکثر تعداد گره برای بازگشت. 0 به معنی نامحدود است.",
+    "param.fmt.description": "فرمت: json یا متن.",
+    "msg.summary": "کشف ECHONET Lite تکمیل شد: گره(های) {count} در {elapsed_ms} ms یافت شد.",
+    "msg.no_devices": "هیچ گره ECHONET Lite پیدا نشد.",
     "Crime prevention sensor": "سنسور پیشگیری از جرم",
     "Emergency button": "دکمه اضطراری",
     "Human detection sensor": "سنسور تشخیص انسان",
@@ -511,15 +526,18 @@
       "گره‌ها",
       "محلی",
       "شبکه"
-    ]
+    ],
+    "err.invalid_interface": "خطا: رابط \"{interface}\" به آدرس IPv4 محلی حل نشد.",
+    "param.interface.description": "رابط محلی IPv4/name (اختیاری).",
+    "tool.description": "گره های ECHONET Lite را در شبکه محلی کشف کنید و یک JSON یا لیست متنی را برگردانید."
   },
   "fi": {
-    "param.timeout.description": "Receive wait time in seconds for ECHONET Lite discovery.",
-    "param.retry.description": "Discovery rounds.",
-    "param.limit.description": "Maximum number of nodes to return. 0 means unlimited.",
-    "param.fmt.description": "Format: json or text.",
-    "msg.summary": "ECHONET Lite discovery completed: {count} node(s) found in {elapsed_ms} ms.",
-    "msg.no_devices": "No ECHONET Lite nodes were found.",
+    "param.timeout.description": "Vastaanota odotusaika sekunneissa ECHONET Lite -löydön yhteydessä.",
+    "param.retry.description": "Löytökierrokset.",
+    "param.limit.description": "Palautettavien solmujen enimmäismäärä. 0 tarkoittaa rajatonta.",
+    "param.fmt.description": "Muoto: json tai teksti.",
+    "msg.summary": "ECHONET Lite -etsintä valmis: {count} solmua löydetty {elapsed_ms} ms:ssa.",
+    "msg.no_devices": "ECHONET Lite -solmuja ei löytynyt.",
     "Crime prevention sensor": "Rikoksentorjuntaanturi",
     "Emergency button": "Hätäpainike",
     "Human detection sensor": "Ihmisen tunnistusanturi",
@@ -584,15 +602,18 @@
       "solmut",
       "paikallinen",
       "verkko"
-    ]
+    ],
+    "err.invalid_interface": "Virhe: Liittymää '{interface}' ei voitu ratkaista paikalliseen IPv4-osoitteeseen.",
+    "param.interface.description": "Paikallinen liitäntä IPv4/nimi (valinnainen).",
+    "tool.description": "Löydä paikallisverkon ECHONET Lite -solmut ja palauta JSON- tai tekstiluettelo."
   },
   "fr": {
-    "param.timeout.description": "Receive wait time in seconds for ECHONET Lite discovery.",
-    "param.retry.description": "Discovery rounds.",
-    "param.limit.description": "Maximum number of nodes to return. 0 means unlimited.",
-    "param.fmt.description": "Format: json or text.",
-    "msg.summary": "ECHONET Lite discovery completed: {count} node(s) found in {elapsed_ms} ms.",
-    "msg.no_devices": "No ECHONET Lite nodes were found.",
+    "param.timeout.description": "Recevez le temps d'attente en secondes pour la découverte ECHONET Lite.",
+    "param.retry.description": "Tours de découverte.",
+    "param.limit.description": "Nombre maximum de nœuds à renvoyer. 0 signifie illimité.",
+    "param.fmt.description": "Format : json ou texte.",
+    "msg.summary": "Découverte ECHONET Lite terminée : {count} nœud(s) trouvé(s) en {elapsed_ms} ms.",
+    "msg.no_devices": "Aucun nœud ECHONET Lite n'a été trouvé.",
     "Crime prevention sensor": "Capteur de prévention du crime",
     "Emergency button": "Bouton d'urgence",
     "Human detection sensor": "Capteur de détection humaine",
@@ -657,15 +678,18 @@
       "nœuds",
       "locale",
       "réseau"
-    ]
+    ],
+    "err.invalid_interface": "Erreur : Impossible de résoudre l'interface « {interface} » en une adresse IPv4 locale.",
+    "param.interface.description": "Interface locale IPv4/nom (facultatif).",
+    "tool.description": "Découvrez les nœuds ECHONET Lite sur le réseau local et renvoyez une liste JSON ou texte."
   },
   "hi": {
-    "param.timeout.description": "Receive wait time in seconds for ECHONET Lite discovery.",
-    "param.retry.description": "Discovery rounds.",
-    "param.limit.description": "Maximum number of nodes to return. 0 means unlimited.",
-    "param.fmt.description": "Format: json or text.",
-    "msg.summary": "ECHONET Lite discovery completed: {count} node(s) found in {elapsed_ms} ms.",
-    "msg.no_devices": "No ECHONET Lite nodes were found.",
+    "param.timeout.description": "ECHONET लाइट खोज के लिए सेकंडों में प्रतीक्षा समय प्राप्त करें।",
+    "param.retry.description": "खोज दौर.",
+    "param.limit.description": "लौटने के लिए नोड्स की अधिकतम संख्या. 0 का मतलब असीमित है.",
+    "param.fmt.description": "प्रारूप: json या text.",
+    "msg.summary": "ECHONET लाइट की खोज पूरी हुई: {count} नोड {elapsed_ms} एमएस में मिले।",
+    "msg.no_devices": "कोई ECHONET लाइट नोड नहीं मिला.",
     "Crime prevention sensor": "अपराध निवारण सेंसर",
     "Emergency button": "आपातकालीन बटन",
     "Human detection sensor": "मानव पहचान सेंसर",
@@ -730,15 +754,18 @@
       "नोड",
       "स्थानीय",
       "नेटवर्क"
-    ]
+    ],
+    "err.invalid_interface": "त्रुटि: इंटरफ़ेस '{interface}' को स्थानीय IPv4 पते पर हल नहीं किया जा सका।",
+    "param.interface.description": "स्थानीय इंटरफ़ेस IPv4/नाम (वैकल्पिक).",
+    "tool.description": "स्थानीय नेटवर्क पर ECHONET लाइट नोड्स खोजें और JSON या टेक्स्ट सूची लौटाएँ।"
   },
   "id": {
-    "param.timeout.description": "Receive wait time in seconds for ECHONET Lite discovery.",
-    "param.retry.description": "Discovery rounds.",
-    "param.limit.description": "Maximum number of nodes to return. 0 means unlimited.",
-    "param.fmt.description": "Format: json or text.",
-    "msg.summary": "ECHONET Lite discovery completed: {count} node(s) found in {elapsed_ms} ms.",
-    "msg.no_devices": "No ECHONET Lite nodes were found.",
+    "param.timeout.description": "Dapatkan waktu tunggu dalam hitungan detik untuk penemuan ECHONET Lite.",
+    "param.retry.description": "Putaran penemuan.",
+    "param.limit.description": "Jumlah maksimum node yang akan dikembalikan. 0 berarti tidak terbatas.",
+    "param.fmt.description": "Format: json atau teks.",
+    "msg.summary": "Penemuan ECHONET Lite selesai: {count} node ditemukan dalam {elapsed_ms} ms.",
+    "msg.no_devices": "Tidak ada node ECHONET Lite yang ditemukan.",
     "Crime prevention sensor": "Sensor pencegahan kejahatan",
     "Emergency button": "Tombol darurat",
     "Human detection sensor": "Sensor deteksi manusia",
@@ -803,15 +830,18 @@
       "node",
       "lokal",
       "jaringan"
-    ]
+    ],
+    "err.invalid_interface": "Kesalahan: Tidak dapat menyelesaikan antarmuka '{interface}' ke alamat IPv4 lokal.",
+    "param.interface.description": "Antarmuka lokal IPv4/nama (opsional).",
+    "tool.description": "Temukan node ECHONET Lite di jaringan lokal dan kembalikan JSON atau daftar teks."
   },
   "it": {
-    "param.timeout.description": "Receive wait time in seconds for ECHONET Lite discovery.",
-    "param.retry.description": "Discovery rounds.",
-    "param.limit.description": "Maximum number of nodes to return. 0 means unlimited.",
-    "param.fmt.description": "Format: json or text.",
-    "msg.summary": "ECHONET Lite discovery completed: {count} node(s) found in {elapsed_ms} ms.",
-    "msg.no_devices": "No ECHONET Lite nodes were found.",
+    "param.timeout.description": "Ricevi il tempo di attesa in secondi per la scoperta di ECHONET Lite.",
+    "param.retry.description": "Giro di scoperta.",
+    "param.limit.description": "Numero massimo di nodi da restituire. 0 significa illimitato.",
+    "param.fmt.description": "Formato: json o testo.",
+    "msg.summary": "Rilevamento ECHONET Lite completato: {count} nodo/i trovati in {elapsed_ms} ms.",
+    "msg.no_devices": "Nessun nodo ECHONET Lite trovato.",
     "Crime prevention sensor": "Sensore di prevenzione della criminalità",
     "Emergency button": "Pulsante di emergenza",
     "Human detection sensor": "Sensore di rilevamento umano",
@@ -876,15 +906,18 @@
       "nodi",
       "locale",
       "rete"
-    ]
+    ],
+    "err.invalid_interface": "Errore: impossibile risolvere l'interfaccia '{interface}' in un indirizzo IPv4 locale.",
+    "param.interface.description": "Interfaccia locale IPv4/nome (opzionale).",
+    "tool.description": "Scopri i nodi ECHONET Lite sulla rete locale e restituisce un JSON o un elenco di testo."
   },
   "ja": {
-    "param.timeout.description": "Receive wait time in seconds for ECHONET Lite discovery.",
-    "param.retry.description": "Discovery rounds.",
-    "param.limit.description": "Maximum number of nodes to return. 0 means unlimited.",
-    "param.fmt.description": "Format: json or text.",
-    "msg.summary": "ECHONET Lite discovery completed: {count} node(s) found in {elapsed_ms} ms.",
-    "msg.no_devices": "No ECHONET Lite nodes were found.",
+    "param.timeout.description": "ECHONET Lite 検出時の受信待ち時間 (秒)。",
+    "param.retry.description": "ディスカバリーラウンド。",
+    "param.limit.description": "返されるノードの最大数。 0 は無制限を意味します。",
+    "param.fmt.description": "形式: json またはテキスト。",
+    "msg.summary": "ECHONET Lite の検出が完了しました: {count} 個のノードが {elapsed_ms} ミリ秒で見つかりました。",
+    "msg.no_devices": "ECHONET Liteノードが見つかりませんでした。",
     "err.invalid_interface": "エラー: インターフェース '{interface}' をローカル IPv4 アドレスに解決できませんでした。",
     "param.interface.description": "ローカル インターフェイスの IPv4/名前 (オプション)。",
     "tool.description": "ローカルネットワーク上のECHONET Liteノードを検出し、JSONまたはテキストリストを返します。",
@@ -955,12 +988,12 @@
     ]
   },
   "ko": {
-    "param.timeout.description": "Receive wait time in seconds for ECHONET Lite discovery.",
-    "param.retry.description": "Discovery rounds.",
-    "param.limit.description": "Maximum number of nodes to return. 0 means unlimited.",
-    "param.fmt.description": "Format: json or text.",
-    "msg.summary": "ECHONET Lite discovery completed: {count} node(s) found in {elapsed_ms} ms.",
-    "msg.no_devices": "No ECHONET Lite nodes were found.",
+    "param.timeout.description": "ECHONET Lite 검색을 위한 대기 시간(초)을 수신합니다.",
+    "param.retry.description": "발견 라운드.",
+    "param.limit.description": "반환할 최대 노드 수입니다. 0은 무제한을 의미합니다.",
+    "param.fmt.description": "형식: json 또는 텍스트.",
+    "msg.summary": "ECHONET Lite 검색 완료: {elapsed_ms}ms 안에 {count}개 노드를 찾았습니다.",
+    "msg.no_devices": "ECHONET Lite 노드를 찾을 수 없습니다.",
     "Crime prevention sensor": "방범센서",
     "Emergency button": "비상버튼",
     "Human detection sensor": "인간 감지 센서",
@@ -1025,15 +1058,18 @@
       "노드",
       "지역",
       "네트워크"
-    ]
+    ],
+    "err.invalid_interface": "오류: '{interface}' 인터페이스를 로컬 IPv4 주소로 확인할 수 없습니다.",
+    "param.interface.description": "로컬 인터페이스 IPv4/이름(선택 사항).",
+    "tool.description": "로컬 네트워크에서 ECHONET Lite 노드를 검색하고 JSON 또는 텍스트 목록을 반환합니다."
   },
   "mn": {
-    "param.timeout.description": "Receive wait time in seconds for ECHONET Lite discovery.",
-    "param.retry.description": "Discovery rounds.",
-    "param.limit.description": "Maximum number of nodes to return. 0 means unlimited.",
-    "param.fmt.description": "Format: json or text.",
-    "msg.summary": "ECHONET Lite discovery completed: {count} node(s) found in {elapsed_ms} ms.",
-    "msg.no_devices": "No ECHONET Lite nodes were found.",
+    "param.timeout.description": "ECHONET Lite-ийн нээлтийг хүлээх хугацааг секундээр хүлээн авна уу.",
+    "param.retry.description": "Нээлтийн тойрог.",
+    "param.limit.description": "Буцах зангилааны дээд тоо. 0 гэдэг нь хязгааргүй гэсэн үг.",
+    "param.fmt.description": "Формат: json эсвэл текст.",
+    "msg.summary": "ECHONET Lite-ийн нээлт дууссан: {elapsed_ms} ms-д {count} зангилаа олдсон.",
+    "msg.no_devices": "ECHONET Lite-ийн зангилаа олдсонгүй.",
     "Crime prevention sensor": "Гэмт хэргээс урьдчилан сэргийлэх мэдрэгч",
     "Emergency button": "Яаралтай тусламжийн товчлуур",
     "Human detection sensor": "Хүний илрүүлэгч мэдрэгч",
@@ -1098,15 +1134,18 @@
       "зангилаа",
       "орон нутгийн",
       "сүлжээ"
-    ]
+    ],
+    "err.invalid_interface": "Алдаа: '{interface}' интерфэйсийг локал IPv4 хаяг руу шийдэж чадсангүй.",
+    "param.interface.description": "Орон нутгийн интерфэйс IPv4/нэр (заавал биш).",
+    "tool.description": "Дотоод сүлжээн дэх ECHONET Lite зангилаануудыг олж, JSON эсвэл текстийн жагсаалтыг буцаана уу."
   },
   "mr": {
-    "param.timeout.description": "Receive wait time in seconds for ECHONET Lite discovery.",
-    "param.retry.description": "Discovery rounds.",
-    "param.limit.description": "Maximum number of nodes to return. 0 means unlimited.",
-    "param.fmt.description": "Format: json or text.",
-    "msg.summary": "ECHONET Lite discovery completed: {count} node(s) found in {elapsed_ms} ms.",
-    "msg.no_devices": "No ECHONET Lite nodes were found.",
+    "param.timeout.description": "ECHONET Lite शोधासाठी काही सेकंदात प्रतीक्षा वेळ प्राप्त करा.",
+    "param.retry.description": "शोध फेरी.",
+    "param.limit.description": "परत करण्यासाठी नोड्सची कमाल संख्या. 0 म्हणजे अमर्यादित.",
+    "param.fmt.description": "स्वरूप: json किंवा मजकूर.",
+    "msg.summary": "ECHONET Lite शोध पूर्ण झाला: {elapsed_ms} ms मध्ये {count} नोड आढळले.",
+    "msg.no_devices": "कोणतेही ECHONET Lite नोड आढळले नाहीत.",
     "Crime prevention sensor": "गुन्हेगारी प्रतिबंध सेन्सर",
     "Emergency button": "आणीबाणी बटण",
     "Human detection sensor": "मानवी शोध सेन्सर",
@@ -1171,7 +1210,10 @@
       "नोड",
       "स्थानिक",
       "नेटवर्क"
-    ]
+    ],
+    "err.invalid_interface": "त्रुटी: स्थानिक IPv4 पत्त्यावर इंटरफेस '{interface}' निराकरण करू शकलो नाही.",
+    "param.interface.description": "स्थानिक इंटरफेस IPv4/नाव (पर्यायी).",
+    "tool.description": "स्थानिक नेटवर्कवर ECHONET Lite नोड शोधा आणि JSON किंवा मजकूर सूची परत करा."
   },
   "el": {
     "param.timeout.description": "Λάβετε χρόνο αναμονής σε δευτερόλεπτα για την ανακάλυψη ECHONET Lite.",
@@ -1244,7 +1286,10 @@
       "κόμβοι",
       "τοπικό",
       "δίκτυο"
-    ]
+    ],
+    "err.invalid_interface": "Σφάλμα: Δεν ήταν δυνατή η επίλυση της διεπαφής '{interface}' σε μια τοπική διεύθυνση IPv4.",
+    "param.interface.description": "Τοπική διεπαφή IPv4/όνομα (προαιρετικό).",
+    "tool.description": "Ανακαλύψτε τους κόμβους ECHONET Lite στο τοπικό δίκτυο και επιστρέψτε μια λίστα JSON ή κειμένου."
   },
   "he": {
     "param.timeout.description": "קבל זמן המתנה בשניות לגילוי ECHONET Lite.",
@@ -1317,7 +1362,10 @@
       "צמתים",
       "מקומי",
       "רשת"
-    ]
+    ],
+    "err.invalid_interface": "שגיאה: לא ניתן היה לפתור את הממשק '{interface}' לכתובת IPv4 מקומית.",
+    "param.interface.description": "ממשק מקומי IPv4/שם (אופציונלי).",
+    "tool.description": "גלה צמתי ECHONET Lite ברשת המקומית והחזר JSON או רשימת טקסט."
   },
   "hu": {
     "param.timeout.description": "Várakozási idő másodpercekben az ECHONET Lite felfedezéséhez.",
@@ -1390,7 +1438,10 @@
       "csomópontok",
       "helyi",
       "hálózat"
-    ]
+    ],
+    "err.invalid_interface": "Hiba: A '{interface}' interfész nem oldható fel helyi IPv4-címre.",
+    "param.interface.description": "Helyi interfész IPv4/név (opcionális).",
+    "tool.description": "Fedezze fel az ECHONET Lite csomópontokat a helyi hálózaton, és küldjön vissza egy JSON- vagy szöveglistát."
   },
   "ro": {
     "param.timeout.description": "Primiți timpul de așteptare în secunde pentru descoperirea ECHONET Lite.",
@@ -1463,23 +1514,26 @@
       "noduri",
       "local",
       "rețea"
-    ]
+    ],
+    "err.invalid_interface": "Eroare: nu s-a putut rezolva interfața „{interface}” la o adresă IPv4 locală.",
+    "param.interface.description": "Interfață locală IPv4/nume (opțional).",
+    "tool.description": "Descoperiți nodurile ECHONET Lite din rețeaua locală și returnați o listă JSON sau text."
   },
   "nb": {
-    "param.timeout.description": "Receive wait time in seconds for ECHONET Lite discovery.",
-    "param.retry.description": "Discovery rounds.",
-    "param.limit.description": "Maximum number of nodes to return. 0 means unlimited.",
-    "param.fmt.description": "Format: json or text.",
-    "msg.summary": "ECHONET Lite discovery completed: {count} node(s) found in {elapsed_ms} ms.",
-    "msg.no_devices": "No ECHONET Lite nodes were found.",
+    "param.timeout.description": "Motta ventetid i sekunder for ECHONET Lite-oppdagelse.",
+    "param.retry.description": "Oppdagelsesrunder.",
+    "param.limit.description": "Maksimalt antall noder å returnere. 0 betyr ubegrenset.",
+    "param.fmt.description": "Format: json eller tekst.",
+    "msg.summary": "ECHONET Lite-oppdagelse fullført: {count} node(r) funnet på {elapsed_ms} ms.",
+    "msg.no_devices": "Ingen ECHONET Lite-noder ble funnet.",
     "Crime prevention sensor": "Kriminalitetsforebyggende sensor",
     "Emergency button": "Nødknapp",
     "Human detection sensor": "Menneskelig deteksjonssensor",
     "Temperature sensor": "Temperatursensor",
     "Humidity sensor": "Fuktighetssensor",
     "Bath heating status sensor": "Statussensor for badevarme",
-    "CO2 sensor": "CO2 sensor",
-    "VOC sensor": "VOC sensor",
+    "CO2 sensor": "CO2-sensor",
+    "VOC sensor": "VOC-sensor",
     "Electric energy sensor": "Elektrisk energisensor",
     "Current sensor": "Strømsensor",
     "Illuminance sensor": "Lysstyrkesensor",
@@ -1536,15 +1590,18 @@
       "noder",
       "lokal",
       "nettverk"
-    ]
+    ],
+    "err.invalid_interface": "Feil: Kunne ikke løse grensesnitt '{interface}' til en lokal IPv4-adresse.",
+    "param.interface.description": "Lokalt grensesnitt IPv4/navn (valgfritt).",
+    "tool.description": "Oppdag ECHONET Lite-noder på det lokale nettverket og returner en JSON- eller tekstliste."
   },
   "nl": {
-    "param.timeout.description": "Receive wait time in seconds for ECHONET Lite discovery.",
-    "param.retry.description": "Discovery rounds.",
-    "param.limit.description": "Maximum number of nodes to return. 0 means unlimited.",
-    "param.fmt.description": "Format: json or text.",
-    "msg.summary": "ECHONET Lite discovery completed: {count} node(s) found in {elapsed_ms} ms.",
-    "msg.no_devices": "No ECHONET Lite nodes were found.",
+    "param.timeout.description": "Ontvang wachttijd in seconden voor ECHONET Lite-detectie.",
+    "param.retry.description": "Ontdekkingsrondes.",
+    "param.limit.description": "Maximaal aantal knooppunten dat moet worden geretourneerd. 0 betekent onbeperkt.",
+    "param.fmt.description": "Formaat: json of tekst.",
+    "msg.summary": "ECHONET Lite-detectie voltooid: {count} knooppunt(en) gevonden in {elapsed_ms} ms.",
+    "msg.no_devices": "Er zijn geen ECHONET Lite-knooppunten gevonden.",
     "Crime prevention sensor": "Sensor voor misdaadpreventie",
     "Emergency button": "Noodknop",
     "Human detection sensor": "Menselijke detectiesensor",
@@ -1609,15 +1666,18 @@
       "knooppunten",
       "lokaal",
       "netwerk"
-    ]
+    ],
+    "err.invalid_interface": "Fout: Kan interface '{interface}' niet omzetten naar een lokaal IPv4-adres.",
+    "param.interface.description": "Lokale interface IPv4/naam (optioneel).",
+    "tool.description": "Ontdek ECHONET Lite-knooppunten op het lokale netwerk en retourneer een JSON- of tekstlijst."
   },
   "pl": {
-    "param.timeout.description": "Receive wait time in seconds for ECHONET Lite discovery.",
-    "param.retry.description": "Discovery rounds.",
-    "param.limit.description": "Maximum number of nodes to return. 0 means unlimited.",
-    "param.fmt.description": "Format: json or text.",
-    "msg.summary": "ECHONET Lite discovery completed: {count} node(s) found in {elapsed_ms} ms.",
-    "msg.no_devices": "No ECHONET Lite nodes were found.",
+    "param.timeout.description": "Otrzymuj czas oczekiwania w sekundach na odkrycie ECHONET Lite.",
+    "param.retry.description": "Rundy odkrywcze.",
+    "param.limit.description": "Maksymalna liczba węzłów do zwrócenia. 0 oznacza nieograniczone.",
+    "param.fmt.description": "Format: json lub tekst.",
+    "msg.summary": "Zakończono wykrywanie ECHONET Lite: znaleziono {count} węzłów w ciągu {elapsed_ms} ms.",
+    "msg.no_devices": "Nie znaleziono żadnych węzłów ECHONET Lite.",
     "Crime prevention sensor": "Czujnik zapobiegania przestępstwom",
     "Emergency button": "Przycisk awaryjny",
     "Human detection sensor": "Czujnik wykrywania obecności człowieka",
@@ -1682,15 +1742,18 @@
       "węzły",
       "lokalny",
       "sieć"
-    ]
+    ],
+    "err.invalid_interface": "Błąd: nie można przypisać interfejsu „{interface}” do lokalnego adresu IPv4.",
+    "param.interface.description": "Interfejs lokalny IPv4/nazwa (opcjonalnie).",
+    "tool.description": "Odkryj węzły ECHONET Lite w sieci lokalnej i zwróć listę JSON lub tekstową."
   },
   "pt": {
-    "param.timeout.description": "Receive wait time in seconds for ECHONET Lite discovery.",
-    "param.retry.description": "Discovery rounds.",
-    "param.limit.description": "Maximum number of nodes to return. 0 means unlimited.",
-    "param.fmt.description": "Format: json or text.",
-    "msg.summary": "ECHONET Lite discovery completed: {count} node(s) found in {elapsed_ms} ms.",
-    "msg.no_devices": "No ECHONET Lite nodes were found.",
+    "param.timeout.description": "Receba o tempo de espera em segundos para a descoberta do ECHONET Lite.",
+    "param.retry.description": "Rodadas de descoberta.",
+    "param.limit.description": "Número máximo de nós a serem retornados. 0 significa ilimitado.",
+    "param.fmt.description": "Formato: json ou texto.",
+    "msg.summary": "Descoberta do ECHONET Lite concluída: {count} nós encontrados em {elapsed_ms} ms.",
+    "msg.no_devices": "Nenhum nó ECHONET Lite foi encontrado.",
     "Crime prevention sensor": "Sensor de prevenção ao crime",
     "Emergency button": "Botão de emergência",
     "Human detection sensor": "Sensor de detecção humana",
@@ -1755,15 +1818,18 @@
       "nós",
       "local",
       "rede"
-    ]
+    ],
+    "err.invalid_interface": "Erro: não foi possível resolver a interface '{interface}' para um endereço IPv4 local.",
+    "param.interface.description": "Interface local IPv4/nome (opcional).",
+    "tool.description": "Descubra nós ECHONET Lite na rede local e retorne um JSON ou uma lista de texto."
   },
   "pt_BR": {
-    "param.timeout.description": "Receive wait time in seconds for ECHONET Lite discovery.",
-    "param.retry.description": "Discovery rounds.",
-    "param.limit.description": "Maximum number of nodes to return. 0 means unlimited.",
-    "param.fmt.description": "Format: json or text.",
-    "msg.summary": "ECHONET Lite discovery completed: {count} node(s) found in {elapsed_ms} ms.",
-    "msg.no_devices": "No ECHONET Lite nodes were found.",
+    "param.timeout.description": "Receba o tempo de espera em segundos para a descoberta do ECHONET Lite.",
+    "param.retry.description": "Rodadas de descoberta.",
+    "param.limit.description": "Número máximo de nós a serem retornados. 0 significa ilimitado.",
+    "param.fmt.description": "Formato: json ou texto.",
+    "msg.summary": "Descoberta do ECHONET Lite concluída: {count} nós encontrados em {elapsed_ms} ms.",
+    "msg.no_devices": "Nenhum nó ECHONET Lite foi encontrado.",
     "Crime prevention sensor": "Sensor de prevenção ao crime",
     "Emergency button": "Botão de emergência",
     "Human detection sensor": "Sensor de detecção humana",
@@ -1828,15 +1894,18 @@
       "nós",
       "locais",
       "rede"
-    ]
+    ],
+    "err.invalid_interface": "Erro: não foi possível resolver a interface '{interface}' para um endereço IPv4 local.",
+    "param.interface.description": "Interface local IPv4/nome (opcional).",
+    "tool.description": "Descubra nós ECHONET Lite na rede local e retorne um JSON ou uma lista de texto."
   },
   "ru": {
-    "param.timeout.description": "Receive wait time in seconds for ECHONET Lite discovery.",
-    "param.retry.description": "Discovery rounds.",
-    "param.limit.description": "Maximum number of nodes to return. 0 means unlimited.",
-    "param.fmt.description": "Format: json or text.",
-    "msg.summary": "ECHONET Lite discovery completed: {count} node(s) found in {elapsed_ms} ms.",
-    "msg.no_devices": "No ECHONET Lite nodes were found.",
+    "param.timeout.description": "Получите время ожидания в секундах для обнаружения ECHONET Lite.",
+    "param.retry.description": "Дискавери-туры.",
+    "param.limit.description": "Максимальное количество возвращаемых узлов. 0 означает неограниченный.",
+    "param.fmt.description": "Формат: json или текст.",
+    "msg.summary": "Обнаружение ECHONET Lite завершено: {count} узлов обнаружено за {elapsed_ms} мс.",
+    "msg.no_devices": "Узлы ECHONET Lite не найдены.",
     "Crime prevention sensor": "Датчик предотвращения преступности",
     "Emergency button": "Аварийная кнопка",
     "Human detection sensor": "Датчик обнаружения человека",
@@ -1901,22 +1970,25 @@
       "узлы",
       "локальный",
       "сеть"
-    ]
+    ],
+    "err.invalid_interface": "Ошибка: не удалось преобразовать интерфейс «{interface}» в локальный адрес IPv4.",
+    "param.interface.description": "IPv4/имя локального интерфейса (необязательно).",
+    "tool.description": "Обнаруживайте узлы ECHONET Lite в локальной сети и возвращайте JSON или текстовый список."
   },
   "sv": {
-    "param.timeout.description": "Receive wait time in seconds for ECHONET Lite discovery.",
-    "param.retry.description": "Discovery rounds.",
-    "param.limit.description": "Maximum number of nodes to return. 0 means unlimited.",
-    "param.fmt.description": "Format: json or text.",
-    "msg.summary": "ECHONET Lite discovery completed: {count} node(s) found in {elapsed_ms} ms.",
-    "msg.no_devices": "No ECHONET Lite nodes were found.",
+    "param.timeout.description": "Ta emot väntetid i sekunder för upptäckt av ECHONET Lite.",
+    "param.retry.description": "Upptäckarrundor.",
+    "param.limit.description": "Maximalt antal noder att returnera. 0 betyder obegränsat.",
+    "param.fmt.description": "Format: json eller text.",
+    "msg.summary": "ECHONET Lite-upptäckt slutförd: {count} nod(er) hittades på {elapsed_ms} ms.",
+    "msg.no_devices": "Inga ECHONET Lite-noder hittades.",
     "Crime prevention sensor": "Brottsförebyggande sensor",
     "Emergency button": "Nödknapp",
     "Human detection sensor": "Människodetektionssensor",
     "Temperature sensor": "Temperaturgivare",
     "Humidity sensor": "Fuktsensor",
     "Bath heating status sensor": "Statussensor för badvärme",
-    "CO2 sensor": "CO2 sensor",
+    "CO2 sensor": "CO2-sensor",
     "VOC sensor": "VOC-sensor",
     "Electric energy sensor": "Elektrisk energisensor",
     "Current sensor": "Strömsensor",
@@ -1974,15 +2046,18 @@
       "noder",
       "lokal",
       "nätverk"
-    ]
+    ],
+    "err.invalid_interface": "Fel: Kunde inte lösa gränssnittet '{interface}' till en lokal IPv4-adress.",
+    "param.interface.description": "Lokalt gränssnitt IPv4/namn (valfritt).",
+    "tool.description": "Upptäck ECHONET Lite-noder på det lokala nätverket och returnera en JSON- eller textlista."
   },
   "sw": {
-    "param.timeout.description": "Receive wait time in seconds for ECHONET Lite discovery.",
-    "param.retry.description": "Discovery rounds.",
-    "param.limit.description": "Maximum number of nodes to return. 0 means unlimited.",
-    "param.fmt.description": "Format: json or text.",
-    "msg.summary": "ECHONET Lite discovery completed: {count} node(s) found in {elapsed_ms} ms.",
-    "msg.no_devices": "No ECHONET Lite nodes were found.",
+    "param.timeout.description": "Pokea muda wa kusubiri kwa sekunde chache kwa ugunduzi wa ECHONET Lite.",
+    "param.retry.description": "Raundi za ugunduzi.",
+    "param.limit.description": "Idadi ya juu zaidi ya nodi za kurejesha. 0 inamaanisha kutokuwa na kikomo.",
+    "param.fmt.description": "Umbizo: json au maandishi.",
+    "msg.summary": "Ugunduzi wa ECHONET Lite umekamilika: {count} nodi zimepatikana katika ms {elapsed_ms}.",
+    "msg.no_devices": "Hakuna nodi za ECHONET Lite zilizopatikana.",
     "Crime prevention sensor": "Sensor ya kuzuia uhalifu",
     "Emergency button": "Kitufe cha dharura",
     "Human detection sensor": "Sensor ya utambuzi wa binadamu",
@@ -2047,15 +2122,18 @@
       "nodi",
       "ndani",
       "mtandao"
-    ]
+    ],
+    "err.invalid_interface": "Hitilafu: Haikuweza kutatua kiolesura cha '{interface}' kwa anwani ya ndani ya IPv4.",
+    "param.interface.description": "Kiolesura cha ndani IPv4/jina (si lazima).",
+    "tool.description": "Gundua nodi za ECHONET Lite kwenye mtandao wa karibu na urudishe JSON au orodha ya maandishi."
   },
   "th": {
-    "param.timeout.description": "Receive wait time in seconds for ECHONET Lite discovery.",
-    "param.retry.description": "Discovery rounds.",
-    "param.limit.description": "Maximum number of nodes to return. 0 means unlimited.",
-    "param.fmt.description": "Format: json or text.",
-    "msg.summary": "ECHONET Lite discovery completed: {count} node(s) found in {elapsed_ms} ms.",
-    "msg.no_devices": "No ECHONET Lite nodes were found.",
+    "param.timeout.description": "รับเวลารอเป็นวินาทีสำหรับการค้นพบ ECHONET Lite",
+    "param.retry.description": "รอบการค้นพบ.",
+    "param.limit.description": "จำนวนโหนดสูงสุดที่จะส่งคืน 0 หมายถึงไม่จำกัด",
+    "param.fmt.description": "รูปแบบ: json หรือข้อความ",
+    "msg.summary": "การค้นพบ ECHONET Lite เสร็จสมบูรณ์: พบโหนด {count} รายการใน {elapsed_ms} ms",
+    "msg.no_devices": "ไม่พบโหนด ECHONET Lite",
     "Crime prevention sensor": "เซ็นเซอร์ป้องกันอาชญากรรม",
     "Emergency button": "ปุ่มฉุกเฉิน",
     "Human detection sensor": "เซ็นเซอร์ตรวจจับมนุษย์",
@@ -2120,15 +2198,18 @@
       "โหนด",
       "ท้องถิ่น",
       "เครือข่าย"
-    ]
+    ],
+    "err.invalid_interface": "ข้อผิดพลาด: ไม่สามารถแก้ไขอินเทอร์เฟซ '{interface}' เป็นที่อยู่ IPv4 ในเครื่องได้",
+    "param.interface.description": "อินเทอร์เฟซท้องถิ่น IPv4/ชื่อ (ทางเลือก)",
+    "tool.description": "ค้นหาโหนด ECHONET Lite บนเครือข่ายท้องถิ่นและส่งคืน JSON หรือรายการข้อความ"
   },
   "tr": {
-    "param.timeout.description": "Receive wait time in seconds for ECHONET Lite discovery.",
-    "param.retry.description": "Discovery rounds.",
-    "param.limit.description": "Maximum number of nodes to return. 0 means unlimited.",
-    "param.fmt.description": "Format: json or text.",
-    "msg.summary": "ECHONET Lite discovery completed: {count} node(s) found in {elapsed_ms} ms.",
-    "msg.no_devices": "No ECHONET Lite nodes were found.",
+    "param.timeout.description": "ECHONET Lite keşfi için bekleme süresini saniyeler içinde alın.",
+    "param.retry.description": "Keşif turları.",
+    "param.limit.description": "Döndürülecek maksimum düğüm sayısı. 0 sınırsız anlamına gelir.",
+    "param.fmt.description": "Biçim: json veya metin.",
+    "msg.summary": "ECHONET Lite keşfi tamamlandı: {elapsed_ms} ms'de {count} düğüm bulundu.",
+    "msg.no_devices": "ECHONET Lite düğümü bulunamadı.",
     "Crime prevention sensor": "Suç önleme sensörü",
     "Emergency button": "Acil durum düğmesi",
     "Human detection sensor": "İnsan algılama sensörü",
@@ -2193,15 +2274,18 @@
       "düğümler",
       "yerel",
       "ağ"
-    ]
+    ],
+    "err.invalid_interface": "Hata: '{interface}' arayüzü yerel bir IPv4 adresine çözümlenemedi.",
+    "param.interface.description": "Yerel arayüz IPv4/ad (isteğe bağlı).",
+    "tool.description": "Yerel ağdaki ECHONET Lite düğümlerini keşfedin ve bir JSON veya metin listesi döndürün."
   },
   "uk": {
-    "param.timeout.description": "Receive wait time in seconds for ECHONET Lite discovery.",
-    "param.retry.description": "Discovery rounds.",
-    "param.limit.description": "Maximum number of nodes to return. 0 means unlimited.",
-    "param.fmt.description": "Format: json or text.",
-    "msg.summary": "ECHONET Lite discovery completed: {count} node(s) found in {elapsed_ms} ms.",
-    "msg.no_devices": "No ECHONET Lite nodes were found.",
+    "param.timeout.description": "Отримайте час очікування в секундах для виявлення ECHONET Lite.",
+    "param.retry.description": "Відкриття раундів.",
+    "param.limit.description": "Максимальна кількість вузлів для повернення. 0 означає необмежений.",
+    "param.fmt.description": "Формат: json або текстовий.",
+    "msg.summary": "Виявлення ECHONET Lite завершено: {count} вузлів знайдено за {elapsed_ms} мс.",
+    "msg.no_devices": "Не знайдено вузлів ECHONET Lite.",
     "Crime prevention sensor": "Датчик запобігання злочинності",
     "Emergency button": "Аварійна кнопка",
     "Human detection sensor": "Датчик виявлення людини",
@@ -2266,15 +2350,18 @@
       "вузли",
       "локальний",
       "мережа"
-    ]
+    ],
+    "err.invalid_interface": "Помилка: не вдалося перевести інтерфейс \"{interface}\" на локальну адресу IPv4.",
+    "param.interface.description": "Локальний інтерфейс IPv4/ім’я (необов’язково).",
+    "tool.description": "Знаходьте вузли ECHONET Lite у локальній мережі та повертайте JSON або текстовий список."
   },
   "vi": {
-    "param.timeout.description": "Receive wait time in seconds for ECHONET Lite discovery.",
-    "param.retry.description": "Discovery rounds.",
-    "param.limit.description": "Maximum number of nodes to return. 0 means unlimited.",
-    "param.fmt.description": "Format: json or text.",
-    "msg.summary": "ECHONET Lite discovery completed: {count} node(s) found in {elapsed_ms} ms.",
-    "msg.no_devices": "No ECHONET Lite nodes were found.",
+    "param.timeout.description": "Nhận thời gian chờ tính bằng giây để khám phá ECHONET Lite.",
+    "param.retry.description": "Các vòng khám phá",
+    "param.limit.description": "Số lượng nút tối đa để trả về. 0 có nghĩa là không giới hạn.",
+    "param.fmt.description": "Định dạng: json hoặc văn bản.",
+    "msg.summary": "Quá trình khám phá ECHONET Lite đã hoàn tất: Đã tìm thấy {count} nút sau {elapsed_ms} mili giây.",
+    "msg.no_devices": "Không tìm thấy nút ECHONET Lite nào.",
     "Crime prevention sensor": "Cảm biến phòng chống tội phạm",
     "Emergency button": "Nút khẩn cấp",
     "Human detection sensor": "Cảm biến phát hiện con người",
@@ -2339,15 +2426,18 @@
       "nút",
       "địa phương",
       "mạng lưới"
-    ]
+    ],
+    "err.invalid_interface": "Lỗi: Không thể phân giải giao diện '{interface}' thành địa chỉ IPv4 cục bộ.",
+    "param.interface.description": "Giao diện cục bộ IPv4/tên (tùy chọn).",
+    "tool.description": "Khám phá các nút ECHONET Lite trên mạng cục bộ và trả về danh sách văn bản hoặc JSON."
   },
   "zh_CN": {
-    "param.timeout.description": "Receive wait time in seconds for ECHONET Lite discovery.",
-    "param.retry.description": "Discovery rounds.",
-    "param.limit.description": "Maximum number of nodes to return. 0 means unlimited.",
-    "param.fmt.description": "Format: json or text.",
-    "msg.summary": "ECHONET Lite discovery completed: {count} node(s) found in {elapsed_ms} ms.",
-    "msg.no_devices": "No ECHONET Lite nodes were found.",
+    "param.timeout.description": "接收 ECHONET Lite 发现的等待时间（以秒为单位）。",
+    "param.retry.description": "发现轮。",
+    "param.limit.description": "返回的最大节点数。 0 表示无限制。",
+    "param.fmt.description": "格式：json 或文本。",
+    "msg.summary": "ECHONET Lite 发现已完成：在 {elapsed_ms} 毫秒内找到 {count} 个节点。",
+    "msg.no_devices": "未找到 ECHONET Lite 节点。",
     "Crime prevention sensor": "犯罪预防传感器",
     "Emergency button": "紧急按钮",
     "Human detection sensor": "人体检测传感器",
@@ -2412,15 +2502,18 @@
       "节点",
       "本地",
       "网络"
-    ]
+    ],
+    "err.invalid_interface": "错误：无法将接口“{interface}”解析为本地 IPv4 地址。",
+    "param.interface.description": "本地接口 IPv4/名称（可选）。",
+    "tool.description": "发现本地网络上的 ECHONET Lite 节点并返回 JSON 或文本列表。"
   },
   "zh_TW": {
-    "param.timeout.description": "Receive wait time in seconds for ECHONET Lite discovery.",
-    "param.retry.description": "Discovery rounds.",
-    "param.limit.description": "Maximum number of nodes to return. 0 means unlimited.",
-    "param.fmt.description": "Format: json or text.",
-    "msg.summary": "ECHONET Lite discovery completed: {count} node(s) found in {elapsed_ms} ms.",
-    "msg.no_devices": "No ECHONET Lite nodes were found.",
+    "param.timeout.description": "接收 ECHONET Lite 發現的等待時間（以秒為單位）。",
+    "param.retry.description": "發現輪。",
+    "param.limit.description": "傳回的最大節點數。 0 表示無限制。",
+    "param.fmt.description": "格式：json 或文字。",
+    "msg.summary": "ECHONET Lite 發現已完成：在 {elapsed_ms} 毫秒內找到 {count} 個節點。",
+    "msg.no_devices": "未找到 ECHONET Lite 節點。",
     "Crime prevention sensor": "犯罪預防感測器",
     "Emergency button": "緊急按鈕",
     "Human detection sensor": "人體偵測感測器",
@@ -2485,6 +2578,9 @@
       "節點",
       "本機",
       "網路"
-    ]
+    ],
+    "err.invalid_interface": "錯誤：無法將介面“{interface}”解析為本機 IPv4 位址。",
+    "param.interface.description": "本機介面 IPv4/名稱（可選）。",
+    "tool.description": "發現本地網路上的 ECHONET Lite 節點並傳回 JSON 或文字清單。"
   }
 }

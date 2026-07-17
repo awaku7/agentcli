@@ -811,10 +811,10 @@
     "error.cwd_not_allowed": "cwd δεν επιτρέπεται: {error}",
     "error.dangerous_cwd_rejected": "επικίνδυνο cwd απορρίφθηκε: {cwd}",
     "error.framework_auto_detect_failed": "ο αυτόματος εντοπισμός πλαισίου απέτυχε",
-    "error.invalid_framework": "μη έγκυρο πλαίσιο: {framework} [=report:{valid}id επιτρέπεται σε ορίσματα: {arg}",
-    "error.invalid_report": "μη υποστηριζόμενο πλαίσιο: {framework}",
-    "error.shell_metacharacters_not_allowed": "Κατάλογος εργασίας για εκτέλεση (πρέπει να βρίσκεται εντός του workdir). Εάν είναι μηδενικό, ο τρέχων κατάλογος.",
-    "error.unsupported_framework": "Δοκιμαστικός τύπος πλαισίου.",
+    "error.invalid_framework": "μη έγκυρο πλαίσιο: {framework}",
+    "error.invalid_report": "μη έγκυρη αναφορά: {report}",
+    "error.shell_metacharacters_not_allowed": "Οι μεταχαρακτήρες φλοιού δεν επιτρέπονται σε ορίσματα: {arg}",
+    "error.unsupported_framework": "μη υποστηριζόμενο πλαίσιο: {framework}",
     "param.cwd.description": "Πρόσθετο PYTHONPATH (π.χ. 'src'). Εάν παρέχεται, έχει το πρόθεμα της εντολής δοκιμής.",
     "param.framework.description": "Στόχος (διαδρομή pytest, κατάλογος έναρξης δοκιμής μονάδας, σενάριο npm, κ.λπ.). Εάν είναι null, χρησιμοποιούνται προεπιλογές.",
     "param.pythonpath.description": "Εκτέλεση δοκιμών (αυτόματος εντοπισμός pytest/unittest/npm). Απόρριψη μεταχαρακτήρες κελύφους στο extra_args.",
@@ -840,9 +840,9 @@
     "error.dangerous_cwd_rejected": "cwd מסוכנת נדחתה: {cwd}",
     "error.framework_auto_detect_failed": "זיהוי אוטומטי של מסגרת נכשל",
     "error.invalid_framework": "מסגרת לא חוקית: {framework}",
-    "error.invalid_report": "דוח לא חוקי: ארגומנטים: {arg}",
-    "error.shell_metacharacters_not_allowed": "מסגרת לא נתמכת: {framework}",
-    "error.unsupported_framework": "ספריית עבודה להפעלה (חייבת להיות בתוך workdir). אם ריק, ספרייה נוכחית.",
+    "error.invalid_report": "דוח לא חוקי: {report}",
+    "error.shell_metacharacters_not_allowed": "מטא-תווים של מעטפת אינם מותרים בטיעונים: {arg}",
+    "error.unsupported_framework": "מסגרת לא נתמכת: {framework}",
     "param.cwd.description": "ספריית עבודה להפעלה (חייבת להיות בתוך workdir). אם ריק, ספרייה נוכחית.",
     "param.framework.description": "PYTHONPATH נוסף (למשל 'src'). אם הוא מסופק, הוא מקודם לפקודת הבדיקה.",
     "param.pythonpath.description": "יעד (נתיב pytest, ספריית התחלה של unittest, סקריפט npm וכו'). אם null, נעשה שימוש בברירות המחדל.",
@@ -861,16 +861,16 @@
       "test suite",
       "testing"
     ],
-    "param.xargs.description": "זוהו אופרטורים של מעטפת (צינור/הפניה מחדש/שרשור).\nפקודה: {cmd}\nהקלד y כדי להמשיך, או c כדי לבטל."
+    "param.xargs.description": "מערך ארגומנטים נוספים. דחה אם קיימות תווי מטא של מעטפת."
   },
   "hu": {
     "error.cwd_not_allowed": "csoport nem engedélyezett: {error}",
     "error.dangerous_cwd_rejected": "veszélyes csoport elutasítva: {cwd}",
     "error.framework_auto_detect_failed": "a keretrendszer automatikus észlelése sikertelen",
-    "error.invalid_framework": "érvénytelen keretrendszer: {framework} argumentumok: {arg}",
-    "error.invalid_report": "nem támogatott keretrendszer: {framework}",
-    "error.shell_metacharacters_not_allowed": "A futtatandó munkakönyvtár (a munkakönyvtárban kell lennie). Ha null, akkor az aktuális könyvtár.",
-    "error.unsupported_framework": "Teszt keretrendszer típusa.",
+    "error.invalid_framework": "érvénytelen keretrendszer: {framework}",
+    "error.invalid_report": "érvénytelen bejelentés: {report}",
+    "error.shell_metacharacters_not_allowed": "shell metakarakterek nem megengedettek az argumentumokban: {arg}",
+    "error.unsupported_framework": "nem támogatott keretrendszer: {framework}",
     "param.cwd.description": "További PYTHONPATH (pl. „src”). Ha megadja, akkor a tesztparancs előtagjaként szerepel.",
     "param.framework.description": "Cél (pytest elérési út, unittest kezdőkönyvtár, npm szkript stb.). Ha null, akkor az alapértelmezett értékeket használják.",
     "param.pythonpath.description": "Tesztek futtatása (pytest/unittest/npm automatikus észlelése). A shell metakaraktereinek elutasítása az extra_args-ban.",
@@ -895,8 +895,8 @@
     "error.cwd_not_allowed": "cwd nu este permis: {error}",
     "error.dangerous_cwd_rejected": "cwd periculos respins: {cwd}",
     "error.framework_auto_detect_failed": "detectarea automată a cadrului a eșuat",
-    "error.invalid_framework": "cadru invalid: {cadru}",
-    "error.invalid_report": "raportul nevalid este permis [metaac:#=] raportul este invalid în shell: {cwd}",
+    "error.invalid_framework": "cadru nevalid: {framework}",
+    "error.invalid_report": "raport nevalid: {report}",
     "error.shell_metacharacters_not_allowed": "Metacaracterele shell nu sunt permise în argumente: {arg}",
     "error.unsupported_framework": "cadru neacceptat: {framework}",
     "param.cwd.description": "Director de lucru în care să ruleze (trebuie să fie în workdir). Dacă nul, directorul curent.",
@@ -917,6 +917,6 @@
       "test suite",
       "testing"
     ],
-    "param.xargs.description": "A fost detectat conținut de comandă potențial periculos.\ncomanda: {command}\nTastați y pentru a continua sau c pentru a anula."
+    "param.xargs.description": "Matrice de argumente suplimentare. Respingeți dacă sunt prezente metacaracterele shell."
   }
 }

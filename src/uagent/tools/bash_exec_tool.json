@@ -269,7 +269,7 @@
     "tool.description": "كملاذ أخير، قم بتنفيذ أمر bash. استخدم فقط في حالة عدم توفر أي أداة أخرى مناسبة.",
     "err.blocked": "[تم حظر bash_exec] %(reason)s",
     "err.exception": "[خطأ bash_exec] %(type)s: %(message)s",
-    "err.returncode": "[bash_exec]\n(returncode=%(code)s)\nSTDOUT:\n%(stdout)s\nSTDERR:\n%(stderr)s"
+    "err.returncode": "[bash_exec]\n(رمز الإرجاع=%(code)s)\nSTDOUT:\n%(stdout)s\nSTDERR:\n%(stderr)s"
   },
   "sv": {
     "err.unavailable": "Det här verktyget är tillgängligt på Unix-liknande system med bash installerat.",

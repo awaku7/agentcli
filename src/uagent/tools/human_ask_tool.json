@@ -69,10 +69,13 @@
       "obtener información",
       "consultar usuario"
     ],
-    "ui.footer": "=== /human_ask ===",
+    "ui.footer": "=== /humano_pregunta ===",
     "ui.title": "=== Solicitud humana (human_ask) ===",
     "tool.description": "Una herramienta para solicitar al usuario humano una entrada/decisión que el modelo no puede completar por sí mismo. Nota de seguridad: al solicitar secretos (contraseñas/tokens), la entrada se enmascara.",
-    "ui.auto_pilot_skip": "[AUTO] human_ask omitido (modo auto-pilot). El modelo debe decidir autónomamente."
+    "ui.auto_pilot_skip": "[AUTO] human_ask omitido (modo auto-pilot). El modelo debe decidir autónomamente.",
+    "msg.empty_request": "(El mensaje de solicitud del modelo está vacío. Describa aquí la acción/decisión requerida).",
+    "param.is_password.description": "Si es verdadero, oculta los caracteres de entrada (máscara). Úselo cuando solicite contraseñas o tokens.",
+    "ui.howto": "Cómo responder:\n - Escriba su respuesta y presione Entrar\n - Escriba 'f' para ingresar al modo multilínea\n - Escriba 'c' o 'cancelar' para cancelar\n"
   },
   "fr": {
     "err.active_uninitialized": "[erreur human_ask] Le rappel human_ask_active n'a pas été initialisé.",
@@ -96,7 +99,10 @@
     "ui.footer": "=== /human_ask ===",
     "ui.title": "=== Requête humaine (human_ask) ===",
     "tool.description": "Un outil pour demander à l'utilisateur humain une entrée/décision que le modèle ne peut pas effectuer seul. Note de sécurité : lors de la demande de secrets (mots de passe/tokens), la saisie est masquée.",
-    "ui.auto_pilot_skip": "[AUTO] human_ask ignoré (mode auto-pilot). Le modèle doit décider de manière autonome."
+    "ui.auto_pilot_skip": "[AUTO] human_ask ignoré (mode auto-pilot). Le modèle doit décider de manière autonome.",
+    "msg.empty_request": "(Le message de demande du modèle est vide. Veuillez décrire l'action/décision requise ici.)",
+    "param.is_password.description": "Si c'est vrai, masquez les caractères saisis (masque). Utilisez-le lorsque vous demandez des mots de passe ou des jetons.",
+    "ui.howto": "Comment répondre :\n - Tapez votre réponse et appuyez sur Entrée\n - Tapez 'f' pour accéder au mode multiligne\n - Tapez 'c' ou 'cancel' pour annuler\n"
   },
   "ko": {
     "err.active_uninitialized": "[human_ask 오류] human_ask_active 콜백이 초기화되지 않았습니다.",
@@ -120,7 +126,10 @@
     "ui.footer": "=== /human_ask ===",
     "ui.title": "=== 사람에게 요청(human_ask) ===",
     "tool.description": "모델이 스스로 완료할 수 없는 입력/결정을 인간 사용자에게 요청하는 도구입니다. 보안 참고: 비밀(비밀번호/토큰)을 요청할 때 입력이 마스킹됩니다.",
-    "ui.auto_pilot_skip": "[AUTO] human_ask가 건너뛰어졌습니다(자동 실행 모드). 모델은 자율적으로 판단해야 합니다."
+    "ui.auto_pilot_skip": "[AUTO] human_ask가 건너뛰어졌습니다(자동 실행 모드). 모델은 자율적으로 판단해야 합니다.",
+    "msg.empty_request": "(모델의 요청 메시지가 비어 있습니다. 여기에 필요한 조치/결정을 설명해주세요.)",
+    "param.is_password.description": "true인 경우 입력 문자(마스크)를 숨깁니다. 비밀번호나 토큰을 요청할 때 사용하세요.",
+    "ui.howto": "답변 방법:\n - 답변을 입력하고 Enter를 누르세요\n - 'f'를 입력하여 여러 줄 모드로 들어갑니다\n - 'c' 또는 'cancel'을 입력하여 취소\n"
   },
   "de": {
     "err.active_uninitialized": "[human_ask error] human_ask_active-Rückrufe werden nicht initialisiert.",
@@ -144,7 +153,10 @@
     "ui.footer": "=== /human_ask ===",
     "ui.title": "=== Menschliche Anfrage (human_ask) ===",
     "tool.description": "Ein Werkzeug, um den menschlichen Benutzer um eine Eingabe/Entscheidung zu bitten, die das Modell nicht selbst abschließen kann. Sicherheitshinweis: Bei der Anforderung von Geheimnissen (Passwörtern/Tokens) wird die Eingabe maskiert.",
-    "ui.auto_pilot_skip": "[AUTO] human_ask übersprungen (Auto-Pilot-Modus). Das Modell muss autonom entscheiden."
+    "ui.auto_pilot_skip": "[AUTO] human_ask übersprungen (Auto-Pilot-Modus). Das Modell muss autonom entscheiden.",
+    "msg.empty_request": "(Die Anforderungsnachricht des Modells ist leer. Bitte beschreiben Sie hier die erforderliche Aktion/Entscheidung.)",
+    "param.is_password.description": "Wenn wahr, werden Eingabezeichen (Maske) ausgeblendet. Verwenden Sie dies, wenn Sie Passwörter oder Token anfordern.",
+    "ui.howto": "So antworten Sie:\n – Geben Sie Ihre Antwort ein und drücken Sie die Eingabetaste\n – Geben Sie „f“ ein, um in den Mehrzeilenmodus zu wechseln\n – Geben Sie „c“ oder „Abbrechen“ ein, um abzubrechen\n"
   },
   "it": {
     "err.active_uninitialized": "[errore human_ask] i callback human_ask_active non sono inizializzati.",
@@ -165,10 +177,13 @@
       "ottieni input",
       "interroga utente"
     ],
-    "ui.footer": "=== /human_ask ===",
+    "ui.footer": "=== /chiesta_umana ===",
     "ui.title": "=== Richiesta umana (human_ask) ===",
     "tool.description": "Uno strumento per chiedere all'utente umano un input/decisione che il modello non può completare da solo. Nota di sicurezza: quando si richiedono segreti (password/token) l'input viene mascherato.",
-    "ui.auto_pilot_skip": "[AUTO] human_ask saltato (modalità auto-pilot). Il modello deve decidere autonomamente."
+    "ui.auto_pilot_skip": "[AUTO] human_ask saltato (modalità auto-pilot). Il modello deve decidere autonomamente.",
+    "msg.empty_request": "(Il messaggio di richiesta del modello è vuoto. Descrivi qui l'azione/decisione richiesta.)",
+    "param.is_password.description": "Se vero, nasconde i caratteri immessi (maschera). Utilizzalo quando richiedi password o token.",
+    "ui.howto": "Come rispondere:\n - Digita la risposta e premi Invio\n - Digita \"f\" per accedere alla modalità multilinea\n - Digita \"c\" o \"annulla\" per annullare\n"
   },
   "ru": {
     "err.active_uninitialized": "[ошибка human_ask] Обратные вызовы human_ask_active не инициализируются.",
@@ -186,7 +201,10 @@
     "ui.footer": "=== /human_ask ===",
     "ui.title": "=== Человеческий запрос (human_ask) ===",
     "tool.description": "Инструмент для запроса у пользователя ввода/решения, которое модель не может выполнить самостоятельно. Примечание по безопасности: при запросе секретов (паролей/токенов) ввод маскируется.",
-    "ui.auto_pilot_skip": "[AUTO] human_ask пропущен (режим автопилота). Модель должна принимать решения автономно."
+    "ui.auto_pilot_skip": "[AUTO] human_ask пропущен (режим автопилота). Модель должна принимать решения автономно.",
+    "msg.empty_request": "(Сообщение-запрос от модели пустое. Опишите здесь необходимое действие/решение.)",
+    "param.is_password.description": "Если true, скрыть вводимые символы (маска). Используйте это при запросе паролей или токенов.",
+    "ui.howto": "Как ответить:\n – Введите ответ и нажмите Enter\n – Введите «f», чтобы войти в многострочный режим\n – Введите «c» или «отмена», чтобы отменить\n"
   },
   "pt_BR": {
     "err.active_uninitialized": "[erro human_ask] o callback human_ask_active não foi inicializado.",
@@ -213,7 +231,10 @@
     "ui.footer": "=== /human_ask ===",
     "ui.title": "=== Solicitação humana (human_ask) ===",
     "tool.description": "Uma ferramenta para solicitar ao usuário humano uma entrada/decisão que o modelo não pode concluir sozinho. Nota de segurança: ao solicitar segredos (senhas/tokens), a entrada é mascarada.",
-    "ui.auto_pilot_skip": "[AUTO] human_ask ignorado (modo auto-pilot). O modelo deve decidir de forma autônoma."
+    "ui.auto_pilot_skip": "[AUTO] human_ask ignorado (modo auto-pilot). O modelo deve decidir de forma autônoma.",
+    "msg.empty_request": "(A mensagem de solicitação do modelo está vazia. Descreva aqui a ação/decisão necessária.)",
+    "param.is_password.description": "Se for verdade, oculta os caracteres de entrada (máscara). Use isto ao solicitar senhas ou tokens.",
+    "ui.howto": "Como responder:\n - Digite sua resposta e pressione Enter\n - Digite 'f' para entrar no modo multilinha\n - Digite 'c' ou 'cancelar' para cancelar\n"
   },
   "pt": {
     "err.active_uninitialized": "[erro human_ask] retornos de chamada human_ask_active não são inicializados.",
@@ -240,7 +261,10 @@
     "ui.footer": "=== /human_ask ===",
     "ui.title": "=== Solicitação humana (human_ask) ===",
     "tool.description": "Uma ferramenta para pedir ao utilizador humano uma entrada/decisão que o modelo não pode concluir por si só. Nota de segurança: ao solicitar segredos (palavras-passe/tokens) a entrada é mascarada.",
-    "ui.auto_pilot_skip": "[AUTO] human_ask ignorado (modo auto-pilot). O modelo deve decidir autonomamente."
+    "ui.auto_pilot_skip": "[AUTO] human_ask ignorado (modo auto-pilot). O modelo deve decidir autonomamente.",
+    "msg.empty_request": "(A mensagem de solicitação do modelo está vazia. Descreva aqui a ação/decisão necessária.)",
+    "param.is_password.description": "Se for verdade, oculta os caracteres de entrada (máscara). Use isto ao solicitar senhas ou tokens.",
+    "ui.howto": "Como responder:\n - Digite sua resposta e pressione Enter\n - Digite 'f' para entrar no modo multilinha\n - Digite 'c' ou 'cancelar' para cancelar\n"
   },
   "id": {
     "err.active_uninitialized": "[human_ask error] callback human_ask_active belum diinisialisasi.",
@@ -264,10 +288,13 @@
       "minta masukan",
       "dapatkan jawaban"
     ],
-    "ui.footer": "=== /human_ask ===",
+    "ui.footer": "=== /manusia_ask ===",
     "ui.title": "=== Permintaan manusia (human_ask) ===",
     "tool.description": "Alat untuk meminta input/keputusan dari pengguna manusia yang tidak dapat diselesaikan oleh model sendiri. Catatan keamanan: saat meminta rahasia (kata sandi/token) input akan disembunyikan.",
-    "ui.auto_pilot_skip": "[AUTO] human_ask dilewati (mode auto-pilot). Model harus memutuskan secara mandiri."
+    "ui.auto_pilot_skip": "[AUTO] human_ask dilewati (mode auto-pilot). Model harus memutuskan secara mandiri.",
+    "msg.empty_request": "(Pesan permintaan dari model kosong. Harap jelaskan tindakan/keputusan yang diperlukan di sini.)",
+    "param.is_password.description": "Jika benar, sembunyikan karakter masukan (mask). Gunakan ini saat meminta kata sandi atau token.",
+    "ui.howto": "Cara menjawab:\n - Ketik jawaban Anda dan tekan Enter\n - Ketik 'f' untuk masuk ke mode multi-baris\n - Ketik 'c' atau 'cancel' untuk membatalkan\n"
   },
   "vi": {
     "err.active_uninitialized": "[lỗi human_ask] lệnh gọi lại human_ask_active chưa được khởi tạo.",
@@ -294,7 +321,10 @@
     "ui.footer": "=== /human_ask ===",
     "ui.title": "=== Yêu cầu của con người (human_ask) ===",
     "tool.description": "Một công cụ để yêu cầu người dùng nhập thông tin/quyết định mà mô hình không thể tự hoàn thành. Lưu ý bảo mật: khi yêu cầu bí mật (mật khẩu/token), đầu vào sẽ được che dấu.",
-    "ui.auto_pilot_skip": "[AUTO] Đã bỏ qua human_ask (chế độ auto-pilot). Mô hình phải tự quyết định."
+    "ui.auto_pilot_skip": "[AUTO] Đã bỏ qua human_ask (chế độ auto-pilot). Mô hình phải tự quyết định.",
+    "msg.empty_request": "(Thông báo yêu cầu từ mô hình trống. Vui lòng mô tả hành động/quyết định bắt buộc tại đây.)",
+    "param.is_password.description": "Nếu đúng, hãy ẩn các ký tự đầu vào (mặt nạ). Sử dụng điều này khi yêu cầu mật khẩu hoặc mã thông báo.",
+    "ui.howto": "Cách trả lời:\n - Nhập câu trả lời của bạn và nhấn Enter\n - Gõ 'f' để vào chế độ nhiều dòng\n - Gõ 'c' hoặc 'cancel' để hủy\n"
   },
   "pl": {
     "err.active_uninitialized": "[błąd human_ask] Wywołania zwrotne human_ask_active nie są inicjowane.",
@@ -321,7 +351,10 @@
     "ui.footer": "=== /human_ask ===",
     "ui.title": "=== Prośba do osoby (human_ask) ===",
     "tool.description": "Narzędzie do proszenia użytkownika o dane wejściowe/decyzję, której model nie może samodzielnie wykonać. Uwaga dotycząca bezpieczeństwa: przy żądaniu tajemnic (haseł/tokenów) dane wejściowe są maskowane.",
-    "ui.auto_pilot_skip": "[AUTO] Pominięto human_ask (tryb autopilota). Model musi decydować samodzielnie."
+    "ui.auto_pilot_skip": "[AUTO] Pominięto human_ask (tryb autopilota). Model musi decydować samodzielnie.",
+    "msg.empty_request": "(Komunikat żądania od modelu jest pusty. Proszę opisać tutaj wymagane działanie/decyzję.)",
+    "param.is_password.description": "Jeśli prawda, ukryj wprowadzone znaki (maskę). Użyj tego, żądając haseł lub tokenów.",
+    "ui.howto": "Jak odpowiedzieć:\n – Wpisz odpowiedź i naciśnij Enter\n – Wpisz „f”, aby przejść do trybu wielowierszowego\n – Wpisz „c” lub „anuluj”, aby anulować\n"
   },
   "hi": {
     "err.active_uninitialized": "[मानव_आस्क त्रुटि] मानव_आस्क_एक्टिव कॉलबैक प्रारंभ नहीं किया गया है।",
@@ -348,7 +381,10 @@
     "ui.footer": "=== / human_ask ===",
     "ui.title": "=== मानव अनुरोध (मानव_पूछ) ===",
     "tool.description": "मानव उपयोगकर्ता से इनपुट/निर्णय मांगने का एक उपकरण जो मॉडल स्वयं पूरा नहीं कर सकता। सुरक्षा नोट: गुप्त जानकारी (पासवर्ड/टोकन) मांगते समय इनपुट छिपा दिया जाता है।",
-    "ui.auto_pilot_skip": "[AUTO] human_ask को छोड़ दिया गया (ऑटो-पायलट मोड)। मॉडल को स्वायत्त रूप से निर्णय लेना होगा।"
+    "ui.auto_pilot_skip": "[AUTO] human_ask को छोड़ दिया गया (ऑटो-पायलट मोड)। मॉडल को स्वायत्त रूप से निर्णय लेना होगा।",
+    "msg.empty_request": "(मॉडल से अनुरोध संदेश खाली है। कृपया यहां आवश्यक कार्रवाई/निर्णय का वर्णन करें।)",
+    "param.is_password.description": "यदि सत्य है, तो इनपुट वर्ण छिपाएँ (मुखौटा)। पासवर्ड या टोकन का अनुरोध करते समय इसका उपयोग करें।",
+    "ui.howto": "कैसे उत्तर दें:\n- अपना उत्तर टाइप करें और एंटर दबाएं\n- मल्टी-लाइन मोड में प्रवेश करने के लिए 'f' टाइप करें\n- रद्द करने के लिए 'सी' या 'रद्द करें' टाइप करें\n"
   },
   "ar": {
     "err.active_uninitialized": "[خطأ human_ask] لم تتم تهيئة رد الاتصال human_ask_active.",
@@ -375,7 +411,10 @@
     "ui.footer": "عنوان URL لنقطة نهاية خادم MCP (http://... أو stdio://command...). /human_ask ===",
     "ui.title": "=== طلب لشخص (human_ask) ===",
     "tool.description": "أداة لطلب إدخال/قرار من المستخدم البشري لا يمكن للنموذج إكماله بنفسه. ملاحظة أمنية: عند طلب أسرار (كلمات مرور/رموز) يتم إخفاء الإدخال.",
-    "ui.auto_pilot_skip": "[AUTO] تم تخطي human_ask (وضع الطيار الآلي). يجب على النموذج أن يقرر بشكل مستقل."
+    "ui.auto_pilot_skip": "[AUTO] تم تخطي human_ask (وضع الطيار الآلي). يجب على النموذج أن يقرر بشكل مستقل.",
+    "msg.empty_request": "(رسالة الطلب من النموذج فارغة. يرجى وصف الإجراء/القرار المطلوب هنا.)",
+    "param.is_password.description": "إذا كان صحيحًا، قم بإخفاء أحرف الإدخال (القناع). استخدم هذا عند طلب كلمات المرور أو الرموز المميزة.",
+    "ui.howto": "كيفية الإجابة: \n - اكتب إجابتك واضغط على Enter \n - اكتب \"f\" للدخول إلى وضع متعدد الأسطر \n - اكتب \"c\" أو \"إلغاء\" للإلغاء \n"
   },
   "sv": {
     "err.active_uninitialized": "[human_ask-fel] callbacken human_ask_active har inte initierats.",
@@ -402,7 +441,10 @@
     "ui.footer": "=== /human_ask ===",
     "ui.title": "=== Mänsklig begäran (human_ask) ===",
     "tool.description": "Ett verktyg för att be den mänskliga användaren om en inmatning/ett beslut som modellen inte kan slutföra på egen hand. Säkerhetsnot: vid begäran av hemligheter (lösenord/token) maskeras inmatningen.",
-    "ui.auto_pilot_skip": "[AUTO] human_ask hoppades över (autopilotläge). Modellen måste fatta beslut självständigt."
+    "ui.auto_pilot_skip": "[AUTO] human_ask hoppades över (autopilotläge). Modellen måste fatta beslut självständigt.",
+    "msg.empty_request": "(Begäranmeddelandet från modellen är tomt. Beskriv den nödvändiga åtgärden/beslutet här.)",
+    "param.is_password.description": "Om sant, dölj inmatningstecken (mask). Använd detta när du begär lösenord eller tokens.",
+    "ui.howto": "Så här svarar:\n - Skriv ditt svar och tryck på Enter\n - Skriv 'f' för att gå till flerradsläge\n - Skriv 'c' eller 'avbryt' för att avbryta\n"
   },
   "sw": {
     "err.active_uninitialized": "[hitilafu ya human_ask] callback ya human_ask_active haijaanzishwa.",
@@ -426,10 +468,13 @@
       "request input",
       "get answer"
     ],
-    "ui.footer": "=== /human_ask ===",
+    "ui.footer": "=== /binadamu_uliza ===",
     "ui.title": "=== Ombi kwa mtu (human_ask) ===",
     "tool.description": "Chombo cha kuuliza mtumiaji binadamu kwa ingizo/uamuzi ambao mfano hauwezi kukamilisha peke yake. Dokezo la usalama: wakati wa kuomba siri (nywila/vidokezo) ingizo hufichwa.",
-    "ui.auto_pilot_skip": "[AUTO] human_ask imerukwa (hali ya auto-pilot). Modeli lazima aamue kwa uhuru."
+    "ui.auto_pilot_skip": "[AUTO] human_ask imerukwa (hali ya auto-pilot). Modeli lazima aamue kwa uhuru.",
+    "msg.empty_request": "(Ujumbe wa ombi kutoka kwa kielelezo ni tupu. Tafadhali eleza kitendo/uamuzi unaohitajika hapa.)",
+    "param.is_password.description": "Ikiwa ni kweli, ficha herufi za kuingiza (mask). Tumia hii unapoomba nenosiri au ishara.",
+    "ui.howto": "Jinsi ya kujibu:\n - Andika jibu lako na ubonyeze Enter\n - Andika 'f' ili kuingiza hali ya mistari mingi\n - Andika 'c' au 'ghairi' ili kughairi\n"
   },
   "nb": {
     "err.active_uninitialized": "[human_ask-feil] callbacken human_ask_active er ikke initialisert.",
@@ -456,7 +501,10 @@
     "ui.footer": "=== /human_ask ===",
     "ui.title": "=== Menneskelig forespørsel (human_ask) ===",
     "tool.description": "Et verktøy for å be menneskelig bruker om input/beslutning som modellen ikke kan fullføre selv. Sikkerhetsmerknad: ved forespørsel om hemmeligheter (passord/nøkler) maskeres input.",
-    "ui.auto_pilot_skip": "[AUTO] human_ask hoppet over (autopilot-modus). Modellen må bestemme selvstendig."
+    "ui.auto_pilot_skip": "[AUTO] human_ask hoppet over (autopilot-modus). Modellen må bestemme selvstendig.",
+    "msg.empty_request": "(Forespørselsmeldingen fra modellen er tom. Beskriv den nødvendige handlingen/beslutningen her.)",
+    "param.is_password.description": "Hvis sant, skjul inndatategn (maske). Bruk dette når du ber om passord eller tokens.",
+    "ui.howto": "Slik svarer du:\n - Skriv inn svaret ditt og trykk Enter\n - Skriv \"f\" for å gå inn i flerlinjemodus\n - Skriv inn \"c\" eller \"avbryt\" for å avbryte\n"
   },
   "nl": {
     "err.active_uninitialized": "[human_ask fout] human_ask_active callback is niet geïnitialiseerd.",
@@ -483,7 +531,10 @@
     "ui.footer": "=== /human_ask ===",
     "ui.title": "=== Menselijk verzoek (human_ask) ===",
     "tool.description": "Een hulpmiddel om de menselijke gebruiker om een invoer/beslissing te vragen die het model niet zelf kan voltooien. Beveiligingsopmerking: bij het opvragen van geheimen (wachtwoorden/tokens) wordt de invoer gemaskeerd.",
-    "ui.auto_pilot_skip": "[AUTO] human_ask overgeslagen (auto-pilot modus). Het model moet autonoom beslissen."
+    "ui.auto_pilot_skip": "[AUTO] human_ask overgeslagen (auto-pilot modus). Het model moet autonoom beslissen.",
+    "msg.empty_request": "(Het verzoekbericht van het model is leeg. Beschrijf hier de vereiste actie/beslissing.)",
+    "param.is_password.description": "Indien waar, verberg de invoertekens (masker). Gebruik dit bij het opvragen van wachtwoorden of tokens.",
+    "ui.howto": "Zo antwoordt u:\n - Typ uw antwoord en druk op Enter\n - Typ 'f' om de modus met meerdere regels te openen\n - Typ 'c' of 'annuleren' om te annuleren\n"
   },
   "fi": {
     "err.active_uninitialized": "[human_ask-virhe] human_ask_active-callbackia ei ole alustettu.",
@@ -507,10 +558,13 @@
       "request input",
       "get answer"
     ],
-    "ui.footer": "=== /human_ask ===",
+    "ui.footer": "=== /ihminen_kysy ===",
     "ui.title": "=== Ihmisen pyyntö (human_ask) ===",
     "tool.description": "Työkalu, jolla pyydetään ihmiskäyttäjältä syöte/päätös, jota malli ei voi itse suorittaa. Turvallisuushuomautus: salaisuuksia (salasanoja/tunnuksia) pyydettäessä syöte peitetään.",
-    "ui.auto_pilot_skip": "[AUTO] human_ask ohitettu (autopilottitila). Mallin on päätettävä itsenäisesti."
+    "ui.auto_pilot_skip": "[AUTO] human_ask ohitettu (autopilottitila). Mallin on päätettävä itsenäisesti.",
+    "msg.empty_request": "(Mallin pyyntöviesti on tyhjä. Kuvaile vaadittu toimenpide/päätös tähän.)",
+    "param.is_password.description": "Jos tosi, piilota syöttömerkit (maski). Käytä tätä, kun pyydät salasanoja tai tunnuksia.",
+    "ui.howto": "Kuinka vastata:\n - Kirjoita vastauksesi ja paina Enter\n - Kirjoita 'f' siirtyäksesi moniriviseen tilaan. - Kirjoita 'c' tai 'peruuta' peruuttaaksesi"
   },
   "cs": {
     "err.active_uninitialized": "[human_ask error] callback human_ask_active nebyl inicializován.",
@@ -537,7 +591,10 @@
     "ui.footer": "=== /human_ask ===",
     "ui.title": "=== Žádost k člověku (human_ask) ===",
     "tool.description": "Nástroj pro vyžádání vstupu/rozhodnutí od lidského uživatele, které model nemůže dokončit sám. Bezpečnostní poznámka: při vyžádání tajných údajů (hesel/tokenů) je vstup maskován.",
-    "ui.auto_pilot_skip": "[AUTO] human_ask přeskočeno (režim autopilota). Model musí rozhodovat autonomně."
+    "ui.auto_pilot_skip": "[AUTO] human_ask přeskočeno (režim autopilota). Model musí rozhodovat autonomně.",
+    "msg.empty_request": "(Zpráva požadavku od modelu je prázdná. Zde prosím popište požadovanou akci/rozhodnutí.)",
+    "param.is_password.description": "Pokud je pravda, skryjte vstupní znaky (masku). Použijte to, když požadujete hesla nebo tokeny.",
+    "ui.howto": "Jak odpovědět:\n – Napište svou odpověď a stiskněte Enter\n – Napište „f“ pro vstup do víceřádkového režimu\n – Napište „c“ nebo „zrušit“ pro zrušení\n"
   },
   "uk": {
     "err.active_uninitialized": "[human_ask error] callback human_ask_active не було ініціалізовано.",
@@ -564,7 +621,10 @@
     "ui.footer": "=== /human_ask ===",
     "ui.title": "=== Запит до людини (human_ask) ===",
     "tool.description": "Інструмент для запиту до людини-користувача щодо введення/рішення, яке модель не може виконати самостійно. Зауваження щодо безпеки: при запиті секретів (паролів/токенів) введення маскується.",
-    "ui.auto_pilot_skip": "[AUTO] human_ask пропущено (режим автопілота). Модель повинна приймати рішення автономно."
+    "ui.auto_pilot_skip": "[AUTO] human_ask пропущено (режим автопілота). Модель повинна приймати рішення автономно.",
+    "msg.empty_request": "(Повідомлення запиту від моделі порожнє. Опишіть необхідну дію/рішення тут.)",
+    "param.is_password.description": "Якщо істина, приховати введені символи (маска). Використовуйте це під час запиту паролів або маркерів.",
+    "ui.howto": "Як відповісти:\n - Введіть відповідь і натисніть Enter\n - Введіть «f», щоб увійти в багаторядковий режим\n - Введіть «c» або «скасувати», щоб скасувати\n"
   },
   "tr": {
     "err.active_uninitialized": "[human_ask error] human_ask_active geri araması başlatılmadı.",
@@ -591,7 +651,10 @@
     "ui.footer": "=== /human_ask ===",
     "ui.title": "=== Bir kişiye istek (human_ask) ===",
     "tool.description": "Modelin kendi başına tamamlayamadığı bir girdi/karar için insan kullanıcıya sorma aracı. Güvenlik notu: sırlar (şifreler/tokenlar) istenirken girdi maskelenir.",
-    "ui.auto_pilot_skip": "[AUTO] human_ask atlandı (otomatik pilot modu). Model bağımsız olarak karar vermelidir."
+    "ui.auto_pilot_skip": "[AUTO] human_ask atlandı (otomatik pilot modu). Model bağımsız olarak karar vermelidir.",
+    "msg.empty_request": "(Modelin istek mesajı boş. Lütfen gerekli eylemi/kararı burada açıklayın.)",
+    "param.is_password.description": "Doğruysa, giriş karakterlerini (maske) gizleyin. Parola veya belirteç isterken bunu kullanın.",
+    "ui.howto": "Nasıl cevap verilir:\n - Cevabınızı yazın ve Enter'a basın\n - Çok hatlı moda girmek için 'f' yazın\n - İptal etmek için 'c' veya 'iptal' yazın\n"
   },
   "th": {
     "err.active_uninitialized": "[ข้อผิดพลาด human_ask] ยังไม่ได้เริ่มต้น callback human_ask_active",
@@ -618,7 +681,10 @@
     "ui.footer": "=== /human_ask ===",
     "ui.title": "=== คำขอถึงบุคคล (human_ask) ===",
     "tool.description": "เครื่องมือสำหรับขอข้อมูล/การตัดสินใจจากผู้ใช้ที่เป็นมนุษย์ ซึ่งโมเดลไม่สามารถดำเนินการให้เสร็จสมบูรณ์ได้ด้วยตัวเอง หมายเหตุด้านความปลอดภัย: เมื่อขอข้อมูลลับ (รหัสผ่าน/โทเค็น) ข้อมูลที่ป้อนจะถูกปกปิด",
-    "ui.auto_pilot_skip": "[AUTO] ข้าม human_ask (โหมด auto-pilot) โมเดลต้องตัดสินใจด้วยตนเอง"
+    "ui.auto_pilot_skip": "[AUTO] ข้าม human_ask (โหมด auto-pilot) โมเดลต้องตัดสินใจด้วยตนเอง",
+    "msg.empty_request": "(ข้อความคำขอจากแบบจำลองว่างเปล่า โปรดอธิบายการดำเนินการ/การตัดสินใจที่จำเป็นที่นี่)",
+    "param.is_password.description": "หากเป็นจริง ให้ซ่อนอักขระที่ป้อน (มาสก์) ใช้สิ่งนี้เมื่อขอรหัสผ่านหรือโทเค็น",
+    "ui.howto": "วิธีตอบ:\n - พิมพ์คำตอบของคุณแล้วกด Enter\n - พิมพ์ 'f' เพื่อเข้าสู่โหมดหลายบรรทัด\n - พิมพ์ 'c' หรือ 'cancel' เพื่อยกเลิก\n"
   },
   "zh_CN": {
     "err.active_uninitialized": "[human_ask 错误] human_ask_active 回调尚未初始化。",
@@ -642,10 +708,13 @@
       "request input",
       "get answer"
     ],
-    "ui.footer": "=== /human_ask ===",
+    "ui.footer": "=== / human_ask ===",
     "ui.title": "=== 向某人提出请求 (human_ask) ===",
     "tool.description": "用于向人类用户请求模型无法自行完成的输入/决策的工具。安全提示：请求机密信息（密码/令牌）时，输入内容会被遮蔽。",
-    "ui.auto_pilot_skip": "[AUTO] 已跳过 human_ask（自动执行模式）。模型必须自主决定。"
+    "ui.auto_pilot_skip": "[AUTO] 已跳过 human_ask（自动执行模式）。模型必须自主决定。",
+    "msg.empty_request": "（来自模型的请求消息为空。请在此处描述所需的操作/决策。）",
+    "param.is_password.description": "如果为 true，则隐藏输入字符（掩码）。请求密码或令牌时使用此选项。",
+    "ui.howto": "如何回答：\n - 输入您的答案并按 Enter \n - 输入“f”进入多行模式\n - 输入“c”或“取消”取消\n"
   },
   "zh_TW": {
     "err.active_uninitialized": "[human_ask 錯誤] human_ask_active 回呼尚未初始化。",
@@ -669,10 +738,13 @@
       "request input",
       "get answer"
     ],
-    "ui.footer": "=== /human_ask ===",
+    "ui.footer": "=== / human_ask ===",
     "ui.title": "=== 向某人提出請求 (human_ask) ===",
     "tool.description": "一個用於向人類使用者請求模型無法自行完成的輸入/決策的工具。安全提示：當請求機密資訊（密碼/令牌）時，輸入內容會被遮蔽。",
-    "ui.auto_pilot_skip": "[AUTO] 已跳過 human_ask（自動執行模式）。模型必須自主決定。"
+    "ui.auto_pilot_skip": "[AUTO] 已跳過 human_ask（自動執行模式）。模型必須自主決定。",
+    "msg.empty_request": "（來自模型的請求訊息為空。請在此處描述所需的操作/決策。）",
+    "param.is_password.description": "如果為 true，則隱藏輸入字元（遮罩）。請求密碼或令牌時使用此選項。",
+    "ui.howto": "如何回答：\n - 輸入您的答案並按 Enter \n - 輸入“f”進入多行模式\n - 輸入“c”或“取消”取消\n"
   },
   "bn": {
     "err.active_uninitialized": "[human_ask error] human_ask_active callback শুরু করা হয়নি।",
@@ -696,10 +768,13 @@
       "request input",
       "get answer"
     ],
-    "ui.footer": "=== /human_ask ===",
+    "ui.footer": "=== /মানুষ_আস্ক ===",
     "ui.title": "=== মানুষের অনুরোধ (মানব_আস্ক) ===",
     "tool.description": "একটি টুল যা মানব ব্যবহারকারীর কাছ থেকে এমন একটি ইনপুট/সিদ্ধান্ত চাওয়ার জন্য যা মডেল নিজে সম্পূর্ণ করতে পারে না। নিরাপত্তা নোট: গোপন তথ্য (পাসওয়ার্ড/টোকেন) চাওয়ার সময় ইনপুটটি মাস্ক করা হয়।",
-    "ui.auto_pilot_skip": "[AUTO] human_ask এড়িয়ে গেছেন (অটো-পাইলট মোড)। মডেলটিকে স্বায়ত্তশাসিতভাবে সিদ্ধান্ত নিতে হবে।"
+    "ui.auto_pilot_skip": "[AUTO] human_ask এড়িয়ে গেছেন (অটো-পাইলট মোড)। মডেলটিকে স্বায়ত্তশাসিতভাবে সিদ্ধান্ত নিতে হবে।",
+    "msg.empty_request": "(মডেলের অনুরোধ বার্তাটি খালি। অনুগ্রহ করে প্রয়োজনীয় পদক্ষেপ/সিদ্ধান্ত এখানে বর্ণনা করুন।)",
+    "param.is_password.description": "সত্য হলে, ইনপুট অক্ষর লুকান (মাস্ক)। পাসওয়ার্ড বা টোকেন অনুরোধ করার সময় এটি ব্যবহার করুন।",
+    "ui.howto": "কিভাবে উত্তর দিতে হবে:\n- আপনার উত্তর টাইপ করুন এবং এন্টার টিপুন\n- মাল্টি-লাইন মোডে প্রবেশ করতে 'f' টাইপ করুন\n- বাতিল করতে 'c' বা 'বাতিল' টাইপ করুন\n"
   },
   "fa": {
     "err.active_uninitialized": "[خطای_پرسش_انسان] پاسخ‌های پاسخ فعال human_ask_in اولیه نمی‌شوند.",
@@ -726,7 +801,10 @@
     "ui.footer": "=== /human_ask ===",
     "ui.title": "=== درخواست انسانی (human_ask) ===",
     "tool.description": "ابزاری برای درخواست ورودی/تصمیم از کاربر انسانی که مدل نمی‌تواند به تنهایی آن را تکمیل کند. نکته امنیتی: هنگام درخواست اسرار (رمزهای عبور/توکن‌ها) ورودی پنهان می‌شود.",
-    "ui.auto_pilot_skip": "[AUTO] human_ask رد شد (حالت خودکار). مدل باید به طور مستقل تصمیم بگیرد."
+    "ui.auto_pilot_skip": "[AUTO] human_ask رد شد (حالت خودکار). مدل باید به طور مستقل تصمیم بگیرد.",
+    "msg.empty_request": "(پیام درخواست مدل خالی است. لطفاً اقدام/تصمیم مورد نیاز را در اینجا شرح دهید.)",
+    "param.is_password.description": "اگر درست است، کاراکترهای ورودی (ماسک) را پنهان کنید. هنگام درخواست رمز عبور یا رمز از این مورد استفاده کنید.",
+    "ui.howto": "نحوه پاسخگویی:\n- پاسخ خود را تایپ کرده و Enter را فشار دهید\n- برای وارد شدن به حالت چند خطی 'f' را تایپ کنید\n- برای لغو عبارت \"c\" یا \"cancel\" را تایپ کنید\n"
   },
   "mn": {
     "err.active_uninitialized": "[human_ask error] human_ask_active callback эхлээгүй байна.",
@@ -753,7 +831,10 @@
     "ui.footer": "=== /хүний_асуу ===",
     "ui.title": "=== Хүний хүсэлт (хүний_асуулт) ===",
     "tool.description": "Модель өөрөө гүйцэтгэж чадахгүй оролт/шийдвэрийг хүний хэрэглэгчээс асуух хэрэгсэл. Аюулгүй байдлын тэмдэглэл: нууц үг/токен асуухад оролт далдлагдана.",
-    "ui.auto_pilot_skip": "[AUTO] human_ask алгассан (авто-пилот горим). Загвар нь бие даан шийдвэр гаргах ёстой."
+    "ui.auto_pilot_skip": "[AUTO] human_ask алгассан (авто-пилот горим). Загвар нь бие даан шийдвэр гаргах ёстой.",
+    "msg.empty_request": "(Загвараас ирсэн хүсэлтийн зурвас хоосон байна. Шаардлагатай арга хэмжээ/шийдвэрийг энд тайлбарлана уу.)",
+    "param.is_password.description": "Хэрэв үнэн бол оруулах тэмдэгтүүдийг (маск) нуу. Нууц үг эсвэл жетон хүсэх үед үүнийг ашиглана уу.",
+    "ui.howto": "Хэрхэн хариулах вэ:\n - Хариугаа бичээд Enter товч дарна\n - Олон мөрт горимд орохын тулд 'f' гэж бичнэ үү\n - Цуцлах бол 'c' эсвэл 'цуцлах' гэж бичнэ үү\n"
   },
   "mr": {
     "err.active_uninitialized": "[human_ask error] human_ask_active callback initialize केलेला नाही.",
@@ -780,7 +861,10 @@
     "ui.footer": "=== /human_ask ===",
     "ui.title": "=== मानवी विनंती (मानवी_विचार) ===",
     "tool.description": "मॉडेल स्वतःहून पूर्ण करू शकत नसलेल्या इनपुट/निर्णयासाठी मानवी वापरकर्त्याला विचारण्याचे साधन. सुरक्षा टीप: गुप्त माहिती (पासवर्ड/टोकन) विनंती करताना इनपुट लपवले जाते.",
-    "ui.auto_pilot_skip": "[AUTO] human_ask वगळले (ऑटो-पायलट मोड). मॉडेलने स्वायत्तपणे निर्णय घेणे आवश्यक आहे."
+    "ui.auto_pilot_skip": "[AUTO] human_ask वगळले (ऑटो-पायलट मोड). मॉडेलने स्वायत्तपणे निर्णय घेणे आवश्यक आहे.",
+    "msg.empty_request": "(मॉडेलमधील विनंती संदेश रिक्त आहे. कृपया आवश्यक कृती/निर्णयाचे येथे वर्णन करा.)",
+    "param.is_password.description": "खरे असल्यास, इनपुट वर्ण लपवा (मुखवटा). पासवर्ड किंवा टोकन्सची विनंती करताना याचा वापर करा.",
+    "ui.howto": "उत्तर कसे द्यावे:\n - तुमचे उत्तर टाइप करा आणि एंटर दाबा\n - मल्टी-लाइन मोडमध्ये प्रवेश करण्यासाठी 'f' टाइप करा\n - रद्द करण्यासाठी 'c' किंवा 'रद्द करा' टाइप करा\n"
   },
   "el": {
     "err.active_uninitialized": "[human_ask error] Οι επιστροφές κλήσεων human_ask_active δεν αρχικοποιούνται.",
@@ -807,7 +891,10 @@
     "ui.footer": "απόφαση",
     "ui.title": "Πώς να απαντήσετε:\n  - Πληκτρολογήστε την απάντησή σας και πατήστε Enter\n  - Πληκτρολογήστε 'f' για να εισέλθετε σε λειτουργία πολλαπλών γραμμών\n  - Πληκτρολογήστε 'c' ή 'cancel' για ακύρωση",
     "tool.description": "Ένα εργαλείο για να ζητήσετε από τον ανθρώπινο χρήστη μια είσοδο/απόφαση που το μοντέλο δεν μπορεί να ολοκληρώσει μόνο του. Σημείωση ασφαλείας: κατά την αίτηση μυστικών (κωδικών/tokens) η είσοδος αποκρύπτεται.",
-    "ui.auto_pilot_skip": "[AUTO] Παραλείφθηκε το human_ask (λειτουργία αυτόματου πιλότου). Το μοντέλο πρέπει να αποφασίζει αυτόνομα."
+    "ui.auto_pilot_skip": "[AUTO] Παραλείφθηκε το human_ask (λειτουργία αυτόματου πιλότου). Το μοντέλο πρέπει να αποφασίζει αυτόνομα.",
+    "msg.empty_request": "(Το μήνυμα αιτήματος από το μοντέλο είναι κενό. Περιγράψτε την απαιτούμενη ενέργεια/απόφαση εδώ.)",
+    "param.is_password.description": "Εάν ισχύει, αποκρύψτε τους χαρακτήρες εισόδου (μάσκα). Χρησιμοποιήστε το όταν ζητάτε κωδικούς πρόσβασης ή διακριτικά.",
+    "ui.howto": "Πώς να απαντήσετε:\n - Πληκτρολογήστε την απάντησή σας και πατήστε Enter\n - Πληκτρολογήστε 'f' για να μπείτε σε λειτουργία πολλαπλών γραμμών\n - Πληκτρολογήστε 'c' ή 'cancel' για ακύρωση"
   },
   "he": {
     "err.active_uninitialized": "[human_ask error] התקשרות חוזרת של human_ask_active אינן מאתחלות.",
@@ -834,7 +921,10 @@
     "ui.footer": "=== /human_ask ===",
     "ui.title": "=== בקשה אנושית (human_ask) ===",
     "tool.description": "כלי לבקש מהמשתמש האנושי קלט/החלטה שהמודל אינו יכול להשלים בעצמו. הערת אבטחה: בעת בקשת סודות (סיסמאות/טוקנים) הקלט מוסתר.",
-    "ui.auto_pilot_skip": "[AUTO] human_ask דולג (מצב טיס אוטומטי). המודל חייב להחליט באופן עצמאי."
+    "ui.auto_pilot_skip": "[AUTO] human_ask דולג (מצב טיס אוטומטי). המודל חייב להחליט באופן עצמאי.",
+    "msg.empty_request": "(הודעת הבקשה מהדגם ריקה. נא לתאר כאן את הפעולה/ההחלטה הנדרשת).",
+    "param.is_password.description": "אם נכון, הסתר תווי קלט (מסכה). השתמש בזה בעת בקשת סיסמאות או אסימונים.",
+    "ui.howto": "איך לענות:\n - הקלד את תשובתך והקש Enter\n - הקלד 'f' כדי להיכנס למצב ריבוי שורות\n - הקלד 'c' או 'ביטול' כדי לבטל\n"
   },
   "hu": {
     "err.active_uninitialized": "[human_ask error] A human_ask_active visszahívások nincsenek inicializálva.",
@@ -858,10 +948,13 @@
       "request input",
       "get answer"
     ],
-    "ui.footer": "=== /human_ask ===",
+    "ui.footer": "=== /human_sk ===",
     "ui.title": "=== Emberi kérés (human_ask) ===",
     "tool.description": "Egy eszköz, amellyel a felhasználótól kérhetsz bemenetet/döntést, amit a modell nem tud önállóan elvégezni. Biztonsági megjegyzés: titkok (jelszavak/tokenek) kérésekor a bemenet maszkolt.",
-    "ui.auto_pilot_skip": "[AUTO] human_ask kihagyva (automatikus vezetési mód). A modellnek önállóan kell döntenie."
+    "ui.auto_pilot_skip": "[AUTO] human_ask kihagyva (automatikus vezetési mód). A modellnek önállóan kell döntenie.",
+    "msg.empty_request": "(A kérés üzenete a modelltől üres. Kérjük, írja le itt a szükséges műveletet/döntést.)",
+    "param.is_password.description": "Ha igaz, rejtse el a bemeneti karaktereket (maszk). Jelszavak vagy tokenek kérésekor használja ezt.",
+    "ui.howto": "Hogyan válaszoljon:\n - Írja be a választ, és nyomja meg az Enter billentyűt. - Írja be az \"f\" billentyűt a többsoros módba való belépéshez"
   },
   "ro": {
     "err.active_uninitialized": "[human_ask error] apelurile human_ask_active nu sunt inițializate.",
@@ -888,6 +981,9 @@
     "ui.footer": "=== /human_ask ===",
     "ui.title": "=== Cerere umană (human_ask) ===",
     "tool.description": "Un instrument pentru a solicita utilizatorului uman o intrare/decizie pe care modelul nu o poate finaliza singur. Notă de securitate: la solicitarea secretelor (parole/token-uri), intrarea este mascată.",
-    "ui.auto_pilot_skip": "[AUTO] human_ask omis (modul auto-pilot). Modelul trebuie să decidă în mod autonom."
+    "ui.auto_pilot_skip": "[AUTO] human_ask omis (modul auto-pilot). Modelul trebuie să decidă în mod autonom.",
+    "msg.empty_request": "(Mesajul de solicitare de la model este gol. Vă rugăm să descrieți acțiunea/decizia necesară aici.)",
+    "param.is_password.description": "Dacă este adevărat, ascundeți caracterele introduse (mască). Utilizați acest lucru atunci când solicitați parole sau jetoane.",
+    "ui.howto": "Cum să răspunzi:\n - Tastați răspunsul și apăsați Enter\n - Tastați „f” pentru a intra în modul cu mai multe linii\n - Tastați „c” sau „anulați” pentru a anula\n"
   }
 }

@@ -18,7 +18,7 @@
     "param.validate.description": "(list) If true, add basic validation warnings (default: true).",
     "param.default_only.description": "(list) If true, return only the default server (index 0).",
     "param.fail_on_warning.description": "(validate) If true, overall=FAIL when there is any warning.",
-    "param.name.description": "(add/remove) সার্ভার নাম (mcp_servers[].name).",
+    "param.name.description": "(add/remove) Server name (mcp_servers[].name).",
     "param.url.description": "(add) MCP endpoint URL for HTTP(SSE) servers.",
     "param.command.description": "(add) Amri kwa seva za stdio.",
     "param.args.description": "(add) Hoja kwa seva za stdio.",
@@ -36,10 +36,10 @@
     "warn.not_exists_new": "WARNING: {path!r} haipo; inachukuliwa kama tupu/mpya.",
     "warn.not_exists": "WARNING: {path!r} haipo (inachukuliwa kama orodha tupu).",
     "err.load_fail": "ERROR: Failed to load {path!r}: {err}",
-    "err.root_not_dict": "ERROR: mzizi si kamusi",
+    "err.root_not_dict": "ERROR: root is not a dictionary",
     "warn.no_mcp_servers": "WARNING: 'mcp_servers' key is missing (treating as empty list).",
     "err.mcp_servers_not_list": "ERROR: 'mcp_servers' si orodha",
-    "warn.item_not_dict": "WARNING: mcp_servers[{idx}] si kamusi.",
+    "warn.item_not_dict": "WARNING: mcp_servers[{idx}] is not a dictionary.",
     "err.item_not_dict": "ERROR: mcp_servers[{idx}] is not a dictionary",
     "warn.name_missing": "WARNING: mcp_servers[{idx}].name haipo au ni tupu.",
     "err.name_missing": "ERROR: mcp_servers[{idx}].name haipo au ni tupu",
@@ -118,7 +118,7 @@
     "param.validate.description": "(lista) Si es verdadero, agregue advertencias de validación básicas (predeterminado: verdadero).",
     "param.default_only.description": "(lista) Si es verdadero, devuelve solo el servidor predeterminado (índice 0).",
     "param.fail_on_warning.description": "(validar) Si es verdadero, general = FAIL cuando hay alguna advertencia.",
-    "param.name.description": "(agregar/eliminar) সার্ভার নাম (mcp_servers[].name).",
+    "param.name.description": "(agregar/eliminar) Nombre del servidor (mcp_servers[].name).",
     "param.url.description": "(agregar) URL del punto final de MCP para servidores HTTP(SSE).",
     "param.command.description": "(agregar) Amri kwa seva za stdio.",
     "param.args.description": "(agregar) Hoja kwa seva za stdio.",
@@ -133,13 +133,13 @@
     "param.default_name.description": "(init_template) Nombre del servidor predeterminado.",
     "param.default_url.description": "(init_template) URL predeterminada.",
     "err.not_exists": "ERROR: {path!r} no existe",
-    "warn.not_exists_new": "ADVERTENCIA: {path!",
+    "warn.not_exists_new": "ADVERTENCIA: {path!r} haipó; inachukuliwa kama tupu/mpya.",
     "warn.not_exists": "ADVERTENCIA: {path!r} no existe (se trata como lista vacía).",
     "err.load_fail": "ERROR: No se pudo cargar {path!r}: {err}",
-    "err.root_not_dict": "ERROR: mzizi si kamusi",
+    "err.root_not_dict": "ERROR: root no es un diccionario",
     "warn.no_mcp_servers": "ADVERTENCIA: Falta la clave 'mcp_servers' (se trata como una lista vacía).",
     "err.mcp_servers_not_list": "ERROR: 'mcp_servers' no es una lista",
-    "warn.item_not_dict": "ADVERTENCIA: mcp_servers[{idx}] si kamusi.",
+    "warn.item_not_dict": "ADVERTENCIA: mcp_servers[{idx}] no es un diccionario.",
     "err.item_not_dict": "ERROR: mcp_servers[{idx}] no es un diccionario",
     "warn.name_missing": "ADVERTENCIA: mcp_servers[{idx}].name falta o está vacío.",
     "err.name_missing": "ERROR: mcp_servers[{idx}].name falta o está vacío",
@@ -147,7 +147,8 @@
     "warn.endpoint_missing": "ADVERTENCIA: mcp_servers[{idx}] no tiene ni url ni command.",
     "err.endpoint_missing": "ERROR: mcp_servers[{idx}] debe tener url o command",
     "warn.name_duplicate": "ADVERTENCIA: name={name!r} está duplicado ({count} veces).",
-    "err.name_duplicate": "ERROR: name={name!r} está duplicado ({count} veces)"
+    "err.name_duplicate": "ERROR: name={name!r} está duplicado ({count} veces)",
+    "param.action.description": "Operación a realizar. Uno de: list/add/remove/set_default/validate/init_template."
   },
   "fr": {
     "tool.description": "Gère les définitions de serveurs MCP stockées dans mcp_servers.",
@@ -183,13 +184,13 @@
     "param.default_name.description": "(init_template) Nom du serveur par défaut.",
     "param.default_url.description": "(init_template) URL par défaut.",
     "err.not_exists": "ERREUR : {path!r} n'existe pas",
-    "warn.not_exists_new": "AVERTISSEMENT : {path!",
-    "warn.not_exists": "AVERTISSEMENT : {path!",
+    "warn.not_exists_new": "AVERTISSEMENT : {path!r} haipo ; inachukuliwa kama tupu/mpya.",
+    "warn.not_exists": "AVERTISSEMENT : {path!r} haipo (inachukuliwa kama orodha tupu).",
     "err.load_fail": "ERREUR : Échec du chargement de {path!r} : {err}",
-    "err.root_not_dict": "ERREUR : mzizi si kamusi",
+    "err.root_not_dict": "ERREUR : la racine n'est pas un dictionnaire",
     "warn.no_mcp_servers": "AVERTISSEMENT : la clé 'mcp_servers' est manquante (traitée comme une liste vide).",
     "err.mcp_servers_not_list": "ERREUR : 'mcp_servers' est activé",
-    "warn.item_not_dict": "AVERTISSEMENT : mcp_servers[{idx}] est activé.",
+    "warn.item_not_dict": "AVERTISSEMENT : mcp_servers[{idx}] n'est pas un dictionnaire.",
     "err.item_not_dict": "ERREUR : mcp_servers[{idx}] n'est pas un dictionnaire",
     "warn.name_missing": "AVERTISSEMENT : mcp_servers[{idx}].",
     "err.name_missing": "ERREUR : mcp_servers[{idx}].name est manquant ou vide",
@@ -197,7 +198,8 @@
     "warn.endpoint_missing": "AVERTISSEMENT : mcp_servers[{idx}] n'a ni url ni command.",
     "err.endpoint_missing": "ERREUR : mcp_servers[{idx}] doit avoir url ou command",
     "warn.name_duplicate": "AVERTISSEMENT : name={name!r} est dupliqué ({count} fois).",
-    "err.name_duplicate": "ERREUR : name={name!r} est dupliqué ({count} fois)"
+    "err.name_duplicate": "ERREUR : name={name!r} est dupliqué ({count} fois)",
+    "param.action.description": "Opération à réaliser. L'un des éléments suivants : list/add/remove/set_default/validate/init_template."
   },
   "ko": {
     "tool.description": "mcp_servers.json의 MCP 서버 정의 관리.",
@@ -247,7 +249,8 @@
     "warn.endpoint_missing": "경고: mcp_servers[{idx}]에 url 또는 command가 없습니다.",
     "err.endpoint_missing": "오류: mcp_servers[{idx}]에는 url 또는 command 중 하나가 필요합니다",
     "warn.name_duplicate": "경고: name={name!r}이(가) 중복됩니다({count}회).",
-    "err.name_duplicate": "오류: name={name!r}이(가) 중복됩니다({count}회)"
+    "err.name_duplicate": "오류: name={name!r}이(가) 중복됩니다({count}회)",
+    "param.action.description": "수행할 작업입니다. 목록/추가/제거/set_default/validate/init_template 중 하나입니다."
   },
   "de": {
     "tool.description": "Verwalten Sie MCP-Serverdefinitionen in mcp_servers.",
@@ -283,8 +286,8 @@
     "param.default_name.description": "(init_template) Standardservername.",
     "param.default_url.description": "(init_template) Standard-URL.",
     "err.not_exists": "FEHLER: {path!r} existiert nicht",
-    "warn.not_exists_new": "WARNUNG: {path!",
-    "warn.not_exists": "WARNUNG: {path!",
+    "warn.not_exists_new": "WARNUNG: {path!r} Haipo; inachukuliwa kama tupu/mpya.",
+    "warn.not_exists": "WARNUNG: {path!r} haipo (inachukuliwa kama orodha tupu).",
     "err.load_fail": "FEHLER: {path!r} konnte nicht geladen werden: {err}",
     "err.root_not_dict": "FEHLER: root ist kein Wörterbuch",
     "warn.no_mcp_servers": "WARNUNG: Der Schlüssel „mcp_servers“ fehlt (wird als leere Liste behandelt).",
@@ -297,7 +300,8 @@
     "warn.endpoint_missing": "WARNUNG: mcp_servers[{idx}] hat weder url noch command.",
     "err.endpoint_missing": "FEHLER: mcp_servers[{idx}] lazima iwe na url au command",
     "warn.name_duplicate": "WARNUNG: name={name!r} imerudiwa ({count} mara).",
-    "err.name_duplicate": "FEHLER: name={name!r} imerudiwa ({count} mara)"
+    "err.name_duplicate": "FEHLER: name={name!r} imerudiwa ({count} mara)",
+    "param.action.description": "Durchzuführende Operation. Einer von: list/add/remove/set_default/validate/init_template."
   },
   "it": {
     "tool.description": "Gestisci le definizioni del server MCP in mcp_servers.",
@@ -347,7 +351,8 @@
     "warn.endpoint_missing": "AVVISO: mcp_servers[{idx}] non ha né url né command.",
     "err.endpoint_missing": "ERRORE: mcp_servers[{idx}] deve avere url o command",
     "warn.name_duplicate": "AVVISO: name={name!r} è duplicato ({count} volte).",
-    "err.name_duplicate": "ERRORE: name={name!r} è duplicato ({count} volte)"
+    "err.name_duplicate": "ERRORE: name={name!r} è duplicato ({count} volte)",
+    "param.action.description": "Operazione da eseguire. Uno tra: list/add/remove/set_default/validate/init_template."
   },
   "ru": {
     "tool.description": "Управление определениями MCP-серверов в mcp_servers.",
@@ -374,13 +379,13 @@
     "param.default_name.description": "(init_template) Имя сервера по умолчанию.",
     "param.default_url.description": "(init_template) URL-адрес по умолчанию.",
     "err.not_exists": "ОШИБКА: {path!r} не существует",
-    "warn.not_exists_new": "ПРЕДУПРЕЖДЕНИЕ: {path!",
-    "warn.not_exists": "ПРЕДУПРЕЖДЕНИЕ: {path!",
+    "warn.not_exists_new": "ВНИМАНИЕ: {path!r} хайпо; иначукулива кама тупу/мпья.",
+    "warn.not_exists": "ВНИМАНИЕ: {path!r} хайпо (иначукулива кама ородха тупу).",
     "err.load_fail": "ОШИБКА: не удалось загрузить {path!r}: {err}.",
     "err.root_not_dict": "ОШИБКА: root не является словарём",
     "warn.no_mcp_servers": "ВНИМАНИЕ: ключ «mcp_servers» отсутствует (расценивается как пустой список).",
     "err.mcp_servers_not_list": "ОШИБКА: 'mcp_servers' si orodha",
-    "warn.item_not_dict": "ПРЕДУПРЕЖДЕНИЕ: mcp_servers[{idx}] si kamusi.",
+    "warn.item_not_dict": "ВНИМАНИЕ: mcp_servers[{idx}] не является словарем.",
     "err.item_not_dict": "ОШИБКА: mcp_servers[{idx}] не является словарём",
     "warn.name_missing": "ПРЕДУПРЕЖДЕНИЕ: mcp_servers[{idx}].",
     "err.name_missing": "ОШИБКА: mcp_servers[{idx}].name не задано или пустое",
@@ -388,7 +393,8 @@
     "warn.endpoint_missing": "ПРЕДУПРЕЖДЕНИЕ: у mcp_servers[{idx}] нет ни url, ни command.",
     "err.endpoint_missing": "ОШИБКА: у mcp_servers[{idx}] должен быть url или command",
     "warn.name_duplicate": "ПРЕДУПРЕЖДЕНИЕ: name={name!r} повторяется ({count} раз).",
-    "err.name_duplicate": "ОШИБКА: name={name!r} повторяется ({count} раз)"
+    "err.name_duplicate": "ОШИБКА: name={name!r} повторяется ({count} раз)",
+    "param.action.description": "Операция, которую необходимо выполнить. Один из: list/add/remove/set_default/validate/init_template."
   },
   "pt_BR": {
     "tool.description": "Gerencie as definições de servidores MCP em mcp_servers.",
@@ -438,7 +444,8 @@
     "warn.endpoint_missing": "AVISO: mcp_servers[{idx}] não tem nem url nem command.",
     "err.endpoint_missing": "ERRO: mcp_servers[{idx}] deve ter url ou command",
     "warn.name_duplicate": "AVISO: name={name!r} está duplicado ({count} vezes).",
-    "err.name_duplicate": "ERRO: name={name!r} está duplicado ({count} vezes)"
+    "err.name_duplicate": "ERRO: name={name!r} está duplicado ({count} vezes)",
+    "param.action.description": "Operação a ser executada. Um de: list/add/remove/set_default/validate/init_template."
   },
   "pt": {
     "tool.description": "Gerencie as definições do servidor MCP em mcp_servers.",
@@ -459,7 +466,7 @@
     "param.validate.description": "(lista) Se verdadeiro, adicione avisos básicos de validação (padrão: verdadeiro).",
     "param.default_only.description": "(lista) Se verdadeiro, retorna apenas o servidor padrão (índice 0).",
     "param.fail_on_warning.description": "(validar) Se verdadeiro, global=FAIL quando houver algum aviso.",
-    "param.name.description": "(adicionar/remover) সার্ভার নাম (mcp_servers[].name).",
+    "param.name.description": "(adicionar/remover) Nome do servidor (mcp_servers[].name).",
     "param.url.description": "(adicionar) URL do terminal MCP para servidores HTTP(SSE).",
     "param.command.description": "(adicionar) Amri kwa seva za stdio.",
     "param.args.description": "(adicionar) Hoja kwa seva za stdio.",
@@ -488,7 +495,8 @@
     "warn.endpoint_missing": "AVISO: mcp_servers[{idx}] não possui url nem comando.",
     "err.endpoint_missing": "ERRO: mcp_servers[{idx}] deve ter url ou comando",
     "warn.name_duplicate": "AVISO: name={name!r} está duplicado ({count} vezes).",
-    "err.name_duplicate": "ERRO: name={name!r} está duplicado ({count} vezes)"
+    "err.name_duplicate": "ERRO: name={name!r} está duplicado ({count} vezes)",
+    "param.action.description": "Operação a ser executada. Um de: list/add/remove/set_default/validate/init_template."
   },
   "id": {
     "tool.description": "Kelola definisi server MCP di mcp_servers.json (list/add/remove/set_default/validate/init_template).",
@@ -524,8 +532,8 @@
     "param.default_name.description": "(init_template) Nama server default.",
     "param.default_url.description": "(init_template) URL default.",
     "err.not_exists": "ERROR: {path!r} tidak ada",
-    "warn.not_exists_new": "PERINGATAN: {path!",
-    "warn.not_exists": "PERINGATAN: {path!",
+    "warn.not_exists_new": "PERINGATAN: {path!r} haipo; inachukuliwa kama tupu/mpya.",
+    "warn.not_exists": "PERINGATAN: {path!r} haipo (inachukuliwa kama orodha tupu).",
     "err.load_fail": "ERROR: Gagal memuat {path!r}: {err}",
     "err.root_not_dict": "ERROR: root bukan dictionary",
     "warn.no_mcp_servers": "PERINGATAN: Kunci 'mcp_servers' tidak ada (diperlakukan sebagai daftar kosong).",
@@ -538,7 +546,8 @@
     "warn.endpoint_missing": "PERINGATAN: perintah mcp_servers[{idx}] haina url wala.",
     "err.endpoint_missing": "ERROR: mcp_servers[{idx}] harus memiliki url atau command",
     "warn.name_duplicate": "PERINGATAN: name={name!r} duplikat ({count} kali).",
-    "err.name_duplicate": "ERROR: name={name!r} duplikat ({count} kali)."
+    "err.name_duplicate": "ERROR: name={name!r} duplikat ({count} kali).",
+    "param.action.description": "Operasi untuk dilakukan. Salah satu dari: list/add/remove/set_default/validate/init_template."
   },
   "vi": {
     "tool.description": "Quản lý các định nghĩa máy chủ MCP trong mcp_servers.",
@@ -588,7 +597,8 @@
     "warn.endpoint_missing": "CẢNH BÁO: mcp_servers[{idx}] không có url cũng như lệnh.",
     "err.endpoint_missing": "LỖI: mcp_servers[{idx}] phải có url hoặc lệnh",
     "warn.name_duplicate": "CẢNH BÁO: name={name!r} bị trùng lặp ({count} lần).",
-    "err.name_duplicate": "LỖI: name={name!r} bị trùng lặp ({count} lần)"
+    "err.name_duplicate": "LỖI: name={name!r} bị trùng lặp ({count} lần)",
+    "param.action.description": "Thao tác để thực hiện. Một trong: list/add/remove/set_default/validate/init_template."
   },
   "pl": {
     "tool.description": "Zarządzaj definicjami serwerów MCP w pliku mcp_servers.",
@@ -624,7 +634,7 @@
     "param.default_name.description": "(init_template) Domyślna nazwa serwera.",
     "param.default_url.description": "(init_template) Domyślny adres URL.",
     "err.not_exists": "BŁĄD: {path!r} nie istnieje",
-    "warn.not_exists_new": "OSTRZEŻENIE: {path!",
+    "warn.not_exists_new": "OSTRZEŻENIE: {path!r} haipo; inachukuliwa kama tupu/mpya.",
     "warn.not_exists": "OSTRZEŻENIE: {path!r} nie istnieje (traktuję jako pustą listę).",
     "err.load_fail": "BŁĄD: Nie udało się załadować {path!r}: {err}",
     "err.root_not_dict": "BŁĄD: root nie jest słownikiem",
@@ -638,7 +648,8 @@
     "warn.endpoint_missing": "OSTRZEŻENIE: polecenie mcp_servers[{idx}] haina url wala.",
     "err.endpoint_missing": "BŁĄD: mcp_servers[{idx}] musi mieć adres URL lub polecenie",
     "warn.name_duplicate": "OSTRZEŻENIE: name={name!r} imerudiwa ({count} mara).",
-    "err.name_duplicate": "BŁĄD: nazwa={name!r} jest zduplikowana ({count} razy)"
+    "err.name_duplicate": "BŁĄD: nazwa={name!r} jest zduplikowana ({count} razy)",
+    "param.action.description": "Operacja do wykonania. Jeden z: list/add/remove/set_default/validate/init_template."
   },
   "hi": {
     "tool.description": "mcp_servers.",
@@ -675,7 +686,7 @@
     "param.default_url.description": "(init_template) डिफ़ॉल्ट URL.",
     "err.not_exists": "त्रुटि: {path!r} मौजूद नहीं है",
     "warn.not_exists_new": "चेतावनी: {path!r} मौजूद नहीं है; खाली/नया मानना।",
-    "warn.not_exists": "चेतावनी: {path!",
+    "warn.not_exists": "चेतावनी: {path!r} हाइपो (इनाचुकुलीवा काम ओरोधा तुपु)।",
     "err.load_fail": "त्रुटि: {path!r} लोड करने में विफल: {err}",
     "err.root_not_dict": "त्रुटि: रूट एक शब्दकोश नहीं है",
     "warn.no_mcp_servers": "चेतावनी: 'mcp_servers' कुंजी गायब है (खाली सूची के रूप में माना जा रहा है)।",
@@ -688,7 +699,8 @@
     "warn.endpoint_missing": "चेतावनी: mcp_servers[{idx}] यूआरएल वाला कमांड है",
     "err.endpoint_missing": "त्रुटि: mcp_servers[{idx}] आपके पास url कमांड है",
     "warn.name_duplicate": "चेतावनी: नाम={name!r} इमेरुडीवा ({count} मारा)।",
-    "err.name_duplicate": "त्रुटि: नाम={name!r} इमेरुडीवा ({count} मारा)"
+    "err.name_duplicate": "त्रुटि: नाम={name!r} इमेरुडीवा ({count} मारा)",
+    "param.action.description": "प्रदर्शन करने के लिए ऑपरेशन. इनमें से एक: सूची/जोड़ें/निकालें/सेट_डिफ़ॉल्ट/मान्य करें/init_template."
   },
   "ar": {
     "tool.description": "إدارة تعريفات خادم MCP في mcp_servers.json (list/add/remove/set_default/validate/init_template). إخراج JSON فقط.",
@@ -738,7 +750,8 @@
     "warn.endpoint_missing": "تحذير: mcp_servers[{idx}] لا يحتوي على عنوان url ولا أمر.",
     "err.endpoint_missing": "خطأ: يجب أن يحتوي mcp_servers[{idx}] على عنوان url أو أمر",
     "warn.name_duplicate": "تحذير: الاسم = {name!r} مكرر ({count} مرات).",
-    "err.name_duplicate": "خطأ: الاسم = {name!r} مكرر ({count} مرات)"
+    "err.name_duplicate": "خطأ: الاسم = {name!r} مكرر ({count} مرات)",
+    "param.action.description": "عملية لأداء. أحد: list/add/remove/set_default/validate/init_template."
   },
   "sv": {
     "tool.description": "Hantera MCP-serverdefinitioner i mcp_servers.json (list/add/remove/set_default/validate/init_template).",
@@ -788,7 +801,8 @@
     "warn.endpoint_missing": "VARNING: mcp_servers[{idx}] saknar både url och command.",
     "err.endpoint_missing": "FEL: mcp_servers[{idx}] måste ha antingen url eller command",
     "warn.name_duplicate": "VARNING: name={name!r} är duplicerat ({count} gånger).",
-    "err.name_duplicate": "FEL: name={name!r} är duplicerat ({count} gånger)"
+    "err.name_duplicate": "FEL: name={name!r} är duplicerat ({count} gånger)",
+    "param.action.description": "Operation att utföra. En av: list/add/remove/set_default/validate/init_template."
   },
   "sw": {
     "tool.description": "Manage MCP server definitions stored in mcp_servers.",
@@ -807,38 +821,39 @@
     "param.path.description": "Njia ya mcp_servers.json. Iwapo imeachwa, tumia eneo chaguo-msingi.",
     "param.pretty.description": "Iwapo ni kweli, chapisha vizuri toleo la JSON (chaguo-msingi: kweli).",
     "param.validate.description": "(orodha) Ikiwa ndivyo, ongeza maonyo ya msingi ya uthibitishaji (chaguo-msingi: kweli).",
-    "param.default_only.description": "(list) If true, return only the default server (index 0).",
+    "param.default_only.description": "(orodha) Ikiwa ndivyo, rudisha seva chaguo-msingi pekee (faharasa 0).",
     "param.fail_on_warning.description": "(validate) If true, set overall=FAIL when there is any warning.",
-    "param.name.description": "(add/remove) Server name (mcp_servers[].name).",
-    "param.url.description": "(add) MCP endpoint URL for HTTP(SSE) servers.",
+    "param.name.description": "(ongeza/ondoa) Jina la seva (mcp_servers[].name).",
+    "param.url.description": "(ongeza) URL ya mwisho ya MCP kwa seva za HTTP(SSE).",
     "param.command.description": "(add) Command for stdio servers.",
     "param.args.description": "(add) Args for stdio servers.",
     "param.env.description": "(ongeza) Upangaji wa ramani za Env kwa seva za stdio.",
-    "param.transport.description": "(add/init_template) Transport (informational).",
-    "param.set_default.description": "(add) If true, move the added/updated server to index 0.",
-    "param.replace.description": "(add) If true, overwrite an existing entry with the same name.",
+    "param.transport.description": "(ongeza/init_template) Usafiri (taarifa).",
+    "param.set_default.description": "(ongeza) Ikiwa ndivyo, sogeza seva iliyoongezwa/iliyosasishwa hadi kwenye faharasa 0.",
+    "param.replace.description": "(ongeza) Ikiwa ndivyo, batilisha ingizo lililopo kwa jina sawa.",
     "param.create_if_missing.description": "(add/set_default) If true, create a missing config as empty.",
-    "param.index.description": "(remove) Index to remove. If specified with name, index takes priority.",
-    "param.require_nonempty.description": "(remove) If true, prevent removal if it would make the list empty.",
-    "param.server_name.description": "(set_default) The server name to set as default.",
-    "param.default_name.description": "(init_template) Default server name.",
-    "param.default_url.description": "(init_template) Default URL.",
+    "param.index.description": "(ondoa) Kielezo cha kuondoa. Ikibainishwa na jina, faharasa inachukua kipaumbele.",
+    "param.require_nonempty.description": "(ondoa) Ikiwa ndivyo, zuia kuondolewa ikiwa kutafanya orodha iwe tupu.",
+    "param.server_name.description": "(set_default) Jina la seva la kuweka kama chaguo-msingi.",
+    "param.default_name.description": "(init_template) Jina chaguo-msingi la seva.",
+    "param.default_url.description": "(init_template) URL chaguomsingi.",
     "err.not_exists": "ERROR: {path!r} does not exist",
     "warn.not_exists_new": "WARNING: {path!r} does not exist; treating it as empty/new.",
     "warn.not_exists": "WARNING: {path!r} does not exist (treating as empty list).",
-    "err.load_fail": "ERROR: Failed to load {path!r}: {err}",
-    "err.root_not_dict": "ERROR: root is not a dictionary",
+    "err.load_fail": "HITILAFU: Imeshindwa kupakia {path!r}: {err}",
+    "err.root_not_dict": "HITILAFU: root si kamusi",
     "warn.no_mcp_servers": "WARNING: 'mcp_servers' key is missing; treating as an empty list.",
     "err.mcp_servers_not_list": "ERROR: 'mcp_servers' is not a list",
-    "warn.item_not_dict": "WARNING: mcp_servers[{idx}] is not a dictionary.",
-    "err.item_not_dict": "ERROR: mcp_servers[{idx}] is not a dictionary",
+    "warn.item_not_dict": "ONYO: mcp_servers[{idx}] si kamusi.",
+    "err.item_not_dict": "HITILAFU: mcp_servers[{idx}] si kamusi",
     "warn.name_missing": "WARNING: mcp_servers[{idx}].name is missing or empty.",
     "err.name_missing": "ERROR: mcp_servers[{idx}].name is missing or empty",
-    "warn.url_no_mcp": "WARNING: mcp_servers[{idx}].url={url!r} does not end with '/mcp'. (handle_mcp_v2 / mcp_tools_list will auto-append, but explicit suffix is recommended)",
+    "warn.url_no_mcp": "ONYO: mcp_servers[{idx}].url={url!r} haiishii kwa '/mcp'. (handle_mcp_v2 / mcp_tools_list itaambatanishwa kiotomatiki, lakini kiambishi tamati cha dhahiri kinapendekezwa)",
     "warn.endpoint_missing": "WARNING: mcp_servers[{idx}] has neither url nor command.",
     "err.endpoint_missing": "ERROR: mcp_servers[{idx}] must have either url or command",
     "warn.name_duplicate": "WARNING: name={name!r} is duplicated ({count} times).",
-    "err.name_duplicate": "ERROR: name={name!r} is duplicated ({count} times)"
+    "err.name_duplicate": "ERROR: name={name!r} is duplicated ({count} times)",
+    "param.action.description": "Operesheni ya kufanya. Moja ya: list/add/remove/set_default/validate/init_template."
   },
   "nb": {
     "tool.description": "Administrer MCP-serverdefinisjoner i mcp_servers.",
@@ -888,7 +903,8 @@
     "warn.endpoint_missing": "ADVARSEL: mcp_servers[{idx}] mangler både url og command.",
     "err.endpoint_missing": "FEIL: mcp_servers[{idx}] må ha enten url eller command",
     "warn.name_duplicate": "ADVARSEL: name={name!r} er duplisert ({count} ganger).",
-    "err.name_duplicate": "FEIL: name={name!r} er duplisert ({count} ganger)"
+    "err.name_duplicate": "FEIL: name={name!r} er duplisert ({count} ganger)",
+    "param.action.description": "Operasjon å utføre. En av: list/add/remove/set_default/validate/init_template."
   },
   "nl": {
     "tool.description": "Beheert MCP-serverdefinities die zijn opgeslagen in mcp_servers.",
@@ -924,8 +940,8 @@
     "param.default_name.description": "(init_template) Standaard servernaam.",
     "param.default_url.description": "(init_template) Standaard-URL.",
     "err.not_exists": "FOUT: {path!r} bestaat niet",
-    "warn.not_exists_new": "WAARSCHUWING: {path!",
-    "warn.not_exists": "WAARSCHUWING: {path!",
+    "warn.not_exists_new": "WAARSCHUWING: {path!r} haipo; inachukuliwa kama tupu/mpya.",
+    "warn.not_exists": "WAARSCHUWING: {path!r} haipo (inachukuliwa kama orodha tupu).",
     "err.load_fail": "FOUT: laden van {path!r} mislukt: {err}",
     "err.root_not_dict": "FOUT: root is geen dictionary",
     "warn.no_mcp_servers": "WAARSCHUWING: sleutel 'mcp_servers' ontbreekt (wordt behandeld als lege lijst).",
@@ -938,7 +954,8 @@
     "warn.endpoint_missing": "WAARSCHUWING: mcp_servers[{idx}] heeft noch url noch command.",
     "err.endpoint_missing": "FOUT: mcp_servers[{idx}] moet ofwel url of command hebben",
     "warn.name_duplicate": "WAARSCHUWING: naam={name!r} imerudiwa ({count} mara).",
-    "err.name_duplicate": "FOUT: name={name!r} is gedupliceerd ({count} keer)"
+    "err.name_duplicate": "FOUT: name={name!r} is gedupliceerd ({count} keer)",
+    "param.action.description": "Operatie uit te voeren. Een van: list/add/remove/set_default/validate/init_template."
   },
   "fi": {
     "tool.description": "Hallitsee mcp_servers.",
@@ -974,10 +991,10 @@
     "param.default_name.description": "(init_template) Oletuspalvelimen nimi.",
     "param.default_url.description": "(init_template) Oletus-URL.",
     "err.not_exists": "VIRHE: {path!r} ei ole olemassa",
-    "warn.not_exists_new": "VAROITUS: {path!",
-    "warn.not_exists": "VAROITUS: {path!",
+    "warn.not_exists_new": "VAROITUS: {path!r} haipo; inachukuliwa kama tupu/mpya.",
+    "warn.not_exists": "VAROITUS: {path!r} haipo (inachukuliwa kama orodha tupu).",
     "err.load_fail": "VIRHE: {path!r}:n lataus epäonnistui: {err}",
-    "err.root_not_dict": "VIRHE: mzizi si kamusi",
+    "err.root_not_dict": "VIRHE: root ei ole sanakirja",
     "warn.no_mcp_servers": "VAROITUS: 'mcp_servers'-avain puuttuu (käsitellään tyhjänä listana).",
     "err.mcp_servers_not_list": "VIRHE: 'mcp_servers' ei ole lista",
     "warn.item_not_dict": "VAROITUS: mcp_servers[{idx}] ei ole sanakirja.",
@@ -988,7 +1005,8 @@
     "warn.endpoint_missing": "VAROITUS: mcp_servers[{idx}] haina url wala -komento.",
     "err.endpoint_missing": "VIRHE: mcp_servers[{idx}]:llä on oltava joko url tai command",
     "warn.name_duplicate": "VAROITUS: name={name!r} on duplikaatti ({count} kertaa).",
-    "err.name_duplicate": "VIRHE: name={name!r} on duplikaatti ({count} kertaa)"
+    "err.name_duplicate": "VIRHE: name={name!r} on duplikaatti ({count} kertaa)",
+    "param.action.description": "Suoritettava toimenpide. Yksi seuraavista: list/add/remove/set_default/validate/init_template."
   },
   "cs": {
     "tool.description": "Spravuje definice MCP serverů uložené v mcp_servers.",
@@ -1024,7 +1042,7 @@
     "param.default_name.description": "(init_template) Výchozí název serveru.",
     "param.default_url.description": "(init_template) Výchozí URL.",
     "err.not_exists": "CHYBA: {path!r} neexistuje",
-    "warn.not_exists_new": "VAROVÁNÍ: {path!",
+    "warn.not_exists_new": "VAROVÁNÍ: {path!r} haipo; inachukuliwa kama tupu/mpya.",
     "warn.not_exists": "VAROVÁNÍ: {path!r} neexistuje (považováno za prázdný seznam).",
     "err.load_fail": "CHYBA: Nepodařilo se načíst {path!r}: {err}",
     "err.root_not_dict": "CHYBA: kořen není slovník",
@@ -1038,7 +1056,8 @@
     "warn.endpoint_missing": "VAROVÁNÍ: mcp_servers[{idx}] nemá ani url ani command.",
     "err.endpoint_missing": "CHYBA: mcp_servers[{idx}] musí mít buď url, nebo command",
     "warn.name_duplicate": "VAROVÁNÍ: name={name!r} je duplicitní ({count}×).",
-    "err.name_duplicate": "CHYBA: name={name!r} je duplicitní ({count}×)"
+    "err.name_duplicate": "CHYBA: name={name!r} je duplicitní ({count}×)",
+    "param.action.description": "Operace k provedení. Jeden z: list/add/remove/set_default/validate/init_template."
   },
   "uk": {
     "tool.description": "Керує визначеннями MCP-серверів, збереженими в mcp_servers.",
@@ -1074,7 +1093,7 @@
     "param.default_name.description": "(init_template) Назва сервера за замовчуванням.",
     "param.default_url.description": "(init_template) Типова URL-адреса.",
     "err.not_exists": "ПОМИЛКА: {path!r} не існує",
-    "warn.not_exists_new": "ПОПЕРЕДЖЕННЯ: {path!",
+    "warn.not_exists_new": "ПОПЕРЕДЖЕННЯ: {path!r} haipo; inachukuliwa kama tupu/mpya.",
     "warn.not_exists": "ПОПЕРЕДЖЕННЯ: {path!r} не існує (вважається порожнім списком).",
     "err.load_fail": "ПОМИЛКА: Не вдалося завантажити {path!r}: {err}",
     "err.root_not_dict": "ПОМИЛКА: корінь не є словником",
@@ -1088,7 +1107,8 @@
     "warn.endpoint_missing": "ПОПЕРЕДЖЕННЯ: mcp_servers[{idx}] не має ні url, ні command.",
     "err.endpoint_missing": "ПОМИЛКА: mcp_servers[{idx}] має містити або url, або command",
     "warn.name_duplicate": "ПОПЕРЕДЖЕННЯ: name={name!r} дублюється ({count} разів).",
-    "err.name_duplicate": "ПОМИЛКА: name={name!r} дублюється ({count} разів)"
+    "err.name_duplicate": "ПОМИЛКА: name={name!r} дублюється ({count} разів)",
+    "param.action.description": "Операція для виконання. Один із: list/add/remove/set_default/validate/init_template."
   },
   "tr": {
     "tool.description": "mcp_servers.",
@@ -1112,7 +1132,7 @@
     "param.name.description": "(ekle/kaldır) Sunucu adı (mcp_servers[].name).",
     "param.url.description": "(ekle) HTTP(SSE) sunucuları için MCP uç nokta URL'si.",
     "param.command.description": "(ekle) Stdio sunucuları için komut.",
-    "param.args.description": "(add) Hoja kwa seva za stdio.",
+    "param.args.description": "(ekleyin) Hoja kwa seva za stdio.",
     "param.env.description": "(add) Env, stdio sunucuları için eşlemeyi değiştirir.",
     "param.transport.description": "(add/init_template) Taşıma (bilgilendirici).",
     "param.set_default.description": "(add) Doğruysa, eklenen/güncellenen sunucuyu 0 dizinine taşıyın.",
@@ -1125,7 +1145,7 @@
     "param.default_url.description": "(init_template) Varsayılan URL.",
     "err.not_exists": "ERROR: {path!r} mevcut değil",
     "warn.not_exists_new": "WARNING: {path!r} mevcut değil; boş/yeni olarak ele almak.",
-    "warn.not_exists": "WARNING: {path!",
+    "warn.not_exists": "UYARI: {path!r} haipo (inachukuliwa kama orodha tupu).",
     "err.load_fail": "ERROR: {path!r} yüklenemedi: {err}",
     "err.root_not_dict": "ERROR: root bir sözlük değil",
     "warn.no_mcp_servers": "UYARI: 'mcp_servers' anahtarı eksik (boş liste olarak değerlendiriliyor).",
@@ -1138,7 +1158,8 @@
     "warn.endpoint_missing": "WARNING: mcp_servers[{idx}]'da ne URL ne de komut var.",
     "err.endpoint_missing": "ERROR: mcp_servers[{idx}] komutun url'sini girin",
     "warn.name_duplicate": "WARNING: name={name!r} kopyalanıyor ({count} kez).",
-    "err.name_duplicate": "ERROR: name={name!r} kopyalanıyor ({count} kez)"
+    "err.name_duplicate": "ERROR: name={name!r} kopyalanıyor ({count} kez)",
+    "param.action.description": "Gerçekleştirilecek işlem. Şunlardan biri: list/add/remove/set_default/validate/init_template."
   },
   "th": {
     "tool.description": "จัดการนิยามเซิร์ฟเวอร์ MCP ที่บันทึกไว้ใน mcp_servers.",
@@ -1174,7 +1195,7 @@
     "param.default_name.description": "(init_template) ชื่อเซิร์ฟเวอร์เริ่มต้น",
     "param.default_url.description": "(init_template) URL เริ่มต้น",
     "err.not_exists": "ข้อผิดพลาด: {path!r} ไม่มีอยู่",
-    "warn.not_exists_new": "คำเตือน: {path!",
+    "warn.not_exists_new": "คำเตือน: {path!r} ไฮโป; อินะชูคุลิวะ กามา ตูปู/มพยา.",
     "warn.not_exists": "คำเตือน: {path!r} ไม่มีอยู่ (ถือว่าเป็นรายการว่าง)",
     "err.load_fail": "ข้อผิดพลาด: ไม่สามารถโหลด {path!r}: {err}",
     "err.root_not_dict": "ข้อผิดพลาด: ค่ารากไม่ใช่ดิกชันนารี",
@@ -1188,7 +1209,8 @@
     "warn.endpoint_missing": "คำเตือน: mcp_servers[{idx}] ไม่มีทั้ง url และ command",
     "err.endpoint_missing": "ข้อผิดพลาด: mcp_servers[{idx}] lazima iwe na url au command",
     "warn.name_duplicate": "คำเตือน: name={name!r} ซ้ำ ({count} ครั้ง)",
-    "err.name_duplicate": "ข้อผิดพลาด: name={name!r} ซ้ำ ({count} ครั้ง)"
+    "err.name_duplicate": "ข้อผิดพลาด: name={name!r} ซ้ำ ({count} ครั้ง)",
+    "param.action.description": "การดำเนินการที่จะดำเนินการ หนึ่งใน: รายการ/เพิ่ม/ลบ/set_default/validate/init_template"
   },
   "zh_CN": {
     "tool.description": "管理保存在 mcp_servers.json 中的 MCP 服务器定义（list/add/remove/set_default/validate/init_template）。仅输出 JSON。",
@@ -1238,7 +1260,8 @@
     "warn.endpoint_missing": "警告：mcp_servers[{idx}] 既没有 url 也没有 command。",
     "err.endpoint_missing": "错误：mcp_servers[{idx}] 必须包含 url 或 command 之一",
     "warn.name_duplicate": "警告：name={name!r} 重复（共 {count} 次）。",
-    "err.name_duplicate": "错误：name={name!r} 重复（共 {count} 次）"
+    "err.name_duplicate": "错误：name={name!r} 重复（共 {count} 次）",
+    "param.action.description": "要执行的操作。以下之一：列表/添加/删除/set_default/validate/init_template。"
   },
   "zh_TW": {
     "tool.description": "管理儲存在 mcp_servers.json 中的 MCP 伺服器定義（list/add/remove/set_default/validate/init_template）。僅輸出 JSON。",
@@ -1288,7 +1311,8 @@
     "warn.endpoint_missing": "警告：mcp_servers[{idx}] 既沒有 url 也沒有 command。",
     "err.endpoint_missing": "錯誤：mcp_servers[{idx}] 必須包含 url 或 command 其一",
     "warn.name_duplicate": "警告：name={name!r} 重複（共 {count} 次）。",
-    "err.name_duplicate": "錯誤：name={name!r} 重複（共 {count} 次）"
+    "err.name_duplicate": "錯誤：name={name!r} 重複（共 {count} 次）",
+    "param.action.description": "要執行的操作。以下之一：清單/新增/刪除/set_default/validate/init_template。"
   },
   "bn": {
     "tool.description": "mcp_servers.",
@@ -1309,7 +1333,7 @@
     "param.validate.description": "(list) true হলে মৌলিক validation warnings যোগ করুন (default: true)।",
     "param.default_only.description": "(list) true হলে শুধু default server (index 0) ফেরত দিন।",
     "param.fail_on_warning.description": "(validate) কোনও warning থাকলে overall=FAIL করুন।",
-    "param.name.description": "(add/remove) Server name (mcp_servers[].name).",
+    "param.name.description": "(যোগ/সরানো) সার্ভারের নাম (mcp_servers[].name)।",
     "param.url.description": "(add) HTTP(SSE) সার্ভারের জন্য MCP endpoint URL।",
     "param.command.description": "(add) stdio সার্ভারের জন্য command।",
     "param.args.description": "(যোগ করুন) Hoja kwa seva za stdio.",
@@ -1324,7 +1348,7 @@
     "param.default_name.description": "(init_template) ডিফল্ট সার্ভারের নাম।",
     "param.default_url.description": "(init_template) ডিফল্ট URL।",
     "err.not_exists": "ত্রুটি: {path!r} অস্তিত্ব নেই",
-    "warn.not_exists_new": "সতর্কতা: {path!",
+    "warn.not_exists_new": "সতর্কতা: {path!r} হাইপো; ইনচুকুলিওয়া কামা টুপু/এমপিয়া।",
     "warn.not_exists": "সতর্কতা: {path!r} অস্তিত্ব নেই (ফাঁকা তালিকা হিসেবে ধরা হচ্ছে)।",
     "err.load_fail": "ত্রুটি: {path!r} লোড করা যায়নি: {err}",
     "err.root_not_dict": "ত্রুটি: root একটি dictionary নয়",
@@ -1338,7 +1362,8 @@
     "warn.endpoint_missing": "সতর্কতা: mcp_servers[{idx}]-এ url বা command কোনোটিই নেই।",
     "err.endpoint_missing": "(add/set_default) খালি হিসাবে অনুপস্থিত কনফিগারেশন তৈরি করুন: mcp_servers[{idx}] lazima iwe na url au কমান্ড",
     "warn.name_duplicate": "সতর্কতা: name={name!r} একাধিকবার আছে ({count} বার)।",
-    "err.name_duplicate": "ত্রুটি: name={name!r} একাধিকবার আছে ({count} বার)"
+    "err.name_duplicate": "ত্রুটি: name={name!r} একাধিকবার আছে ({count} বার)",
+    "param.action.description": "সঞ্চালনের জন্য অপারেশন। এর মধ্যে একটি: list/add/remove/set_default/validate/init_template."
   },
   "fa": {
     "tool.description": "تعاریف سرور MCP ذخیره‌شده در mcp_servers.",
@@ -1374,8 +1399,8 @@
     "param.default_name.description": "(init_template) نام پیش‌فرض سرور.",
     "param.default_url.description": "(init_template) URL پیش فرض.",
     "err.not_exists": "خطا: {path!r} وجود ندارد",
-    "warn.not_exists_new": "هشدار: {path!",
-    "warn.not_exists": "هشدار: {path!",
+    "warn.not_exists_new": "هشدار: {path!r} haipo; ایناچوکولیوا کاما توپو/مپیا.",
+    "warn.not_exists": "هشدار: {path!r} haipo (inachukuliwa kama orodha tupu).",
     "err.load_fail": "خطا: بارگذاری {path!r} ناموفق بود: {err}",
     "err.root_not_dict": "خطا: root یک dictionary نیست",
     "warn.no_mcp_servers": "هشدار: کلید 'mcp_servers' گم شده است (به عنوان لیست خالی در نظر گرفته می شود).",
@@ -1388,7 +1413,8 @@
     "warn.endpoint_missing": "هشدار: mcp_servers[{idx}] نه url دارد و نه command.",
     "err.endpoint_missing": "خطا: mcp_servers[{idx}] lazima iwe na url au فرمان",
     "warn.name_duplicate": "هشدار: name={name!r} تکراری است ({count} بار).",
-    "err.name_duplicate": "خطا: name={name!r} تکراری است ({count} بار)"
+    "err.name_duplicate": "خطا: name={name!r} تکراری است ({count} بار)",
+    "param.action.description": "عملیات برای انجام. یکی از: list/add/remove/set_default/validate/init_template."
   },
   "mn": {
     "tool.description": "mcp_servers.",
@@ -1427,10 +1453,10 @@
     "warn.not_exists_new": "Анхааруулга: {path!r} байхгүй байна; хоосон/шинэ гэж үзнэ.",
     "warn.not_exists": "Анхааруулга: {path!r} байхгүй байна (хоосон жагсаалт гэж үзнэ).",
     "err.load_fail": "АЛДАА: {path!r}-г ачаалж чадсангүй: {err}",
-    "err.root_not_dict": "АЛДАА: mzizi si kamusi",
+    "err.root_not_dict": "АЛДАА: root нь толь бичиг биш юм",
     "warn.no_mcp_servers": "Анхааруулга: 'mcp_servers' түлхүүр алга; хоосон жагсаалт гэж үзнэ.",
     "err.mcp_servers_not_list": "АЛДАА: 'mcp_servers'",
-    "warn.item_not_dict": "ERROR: 'mcp_servers' si orodha __DELIMAR_NING:[_DELIM_90_xid] си камуси.",
+    "warn.item_not_dict": "АНХААРУУЛГА: mcp_servers[{idx}] нь толь бичиг биш юм.",
     "err.item_not_dict": "Алдаа: mcp_servers[{idx}] нь dictionary биш байна",
     "warn.name_missing": "Анхааруулга: mcp_servers[{idx}].",
     "err.name_missing": "Алдаа: mcp_servers[{idx}].",
@@ -1438,7 +1464,8 @@
     "warn.endpoint_missing": "АНХААРУУЛГА: mcp_servers[{idx}] haina url wala тушаал.",
     "err.endpoint_missing": "АЛДАА: mcp_servers[{idx}] lazima iwe na url au тушаал",
     "warn.name_duplicate": "АНХААРУУЛГА: name={name!r} imerudiwa ({count} mara).",
-    "err.name_duplicate": "Алдаа: name={name!r} давхардсан байна ({count} удаа)"
+    "err.name_duplicate": "Алдаа: name={name!r} давхардсан байна ({count} удаа)",
+    "param.action.description": "Гүйцэтгэх ажиллагаа. Үүний нэг нь: жагсаалт/нэмэх/арилгах/тогтоох_өгөгдмөл/баталгаажуулах/init_template."
   },
   "mr": {
     "tool.description": "mcp_servers.",
@@ -1474,8 +1501,8 @@
     "param.default_name.description": "(init_template) default server चे नाव.",
     "param.default_url.description": "(init_template) default URL.",
     "err.not_exists": "त्रुटी: {path!r} अस्तित्वात नाही",
-    "warn.not_exists_new": "इशारा: {path!",
-    "warn.not_exists": "इशारा: {path!",
+    "warn.not_exists_new": "चेतावणी: {path!r} हायपो; inachukuliwa kama tupu/mpya.",
+    "warn.not_exists": "चेतावणी: {path!r} हायपो (इनचुकुलिवा काम ओरोधा तुपू).",
     "err.load_fail": "त्रुटी: {path!r} लोड करण्यात अपयश: {err}",
     "err.root_not_dict": "त्रुटी: root dictionary नाही",
     "warn.no_mcp_servers": "इशारा: 'mcp_servers' key नाही; ते रिकामी यादी म्हणून धरले जात आहे.",
@@ -1488,7 +1515,8 @@
     "warn.endpoint_missing": "इशारा: mcp_servers[{idx}] कडे url किंवा command दोन्ही नाहीत.",
     "err.endpoint_missing": "त्रुटी: mcp_servers[{idx}] lazima iwe na url au command",
     "warn.name_duplicate": "इशारा: name={name!r} डुप्लिकेट आहे ({count} वेळा).",
-    "err.name_duplicate": "त्रुटी: name={name!r} डुप्लिकेट आहे ({count} वेळा)"
+    "err.name_duplicate": "त्रुटी: name={name!r} डुप्लिकेट आहे ({count} वेळा)",
+    "param.action.description": "करण्यासाठी ऑपरेशन. त्यापैकी एक: list/add/remove/set_default/validate/init_template."
   },
   "el": {
     "tool.description": "Διαχειριστείτε τους ορισμούς διακομιστή MCP στο mcp_servers.json (list/add/remove/set_default/validate/init_template).",
@@ -1509,7 +1537,7 @@
     "param.validate.description": "(λίστα) Εάν ισχύει, προσθέστε βασικές προειδοποιήσεις επικύρωσης (προεπιλογή: αληθές).",
     "param.default_only.description": "(λίστα) Εάν είναι αληθές, επιστρέψτε μόνο τον προεπιλεγμένο διακομιστή (ευρετήριο 0).",
     "param.fail_on_warning.description": "(επικύρωση) Εάν αληθεύει, συνολικά=ΑΠΤΥΧΙΑ όταν υπάρχει κάποια προειδοποίηση.",
-    "param.name.description": "(προσθήκη/αφαίρεση) সার্ভার নাম (mcp_servers[].name).",
+    "param.name.description": "(προσθήκη/αφαίρεση) Όνομα διακομιστή (mcp_servers[].name).",
     "param.url.description": "(προσθήκη) URL τελικού σημείου MCP για διακομιστές HTTP(SSE).",
     "param.command.description": "(προσθήκη) Amri kwa seva za stdio.",
     "param.args.description": "(προσθήκη) Hoja kwa seva za stdio.",
@@ -1527,10 +1555,10 @@
     "warn.not_exists_new": "ΠΡΟΕΙΔΟΠΟΙΗΣΗ: {path!r} haipo; inachukuliwa kama tupu/mpya.",
     "warn.not_exists": "ΠΡΟΕΙΔΟΠΟΙΗΣΗ: {path!r} haipo (inachukuliwa kama orodha tupu).",
     "err.load_fail": "ΣΦΑΛΜΑ: Απέτυχε η φόρτωση του {path!r}: {err}",
-    "err.root_not_dict": "ΣΦΑΛΜΑ: mzizi si kamusi",
+    "err.root_not_dict": "ΣΦΑΛΜΑ: το root δεν είναι λεξικό",
     "warn.no_mcp_servers": "ΠΡΟΕΙΔΟΠΟΙΗΣΗ: Το κλειδί 'mcp_servers' λείπει (αντιλαμβάνεται ως κενή λίστα).",
     "err.mcp_servers_not_list": "ΣΦΑΛΜΑ: 'mcp_servers' si orodha",
-    "warn.item_not_dict": "ΠΡΟΕΙΔΟΠΟΙΗΣΗ: mcp_servers[{idx}] si kamusi.",
+    "warn.item_not_dict": "ΠΡΟΕΙΔΟΠΟΙΗΣΗ: Το mcp_servers[{idx}] δεν είναι λεξικό.",
     "err.item_not_dict": "ΣΦΑΛΜΑ: Το mcp_servers[{idx}] δεν είναι λεξικό",
     "warn.name_missing": "ΠΡΟΕΙΔΟΠΟΙΗΣΗ: mcp_servers[{idx}].name haipo au ni tupu.",
     "err.name_missing": "ΣΦΑΛΜΑ: mcp_servers[{idx}].name haipo au ni tupu",
@@ -1538,7 +1566,8 @@
     "warn.endpoint_missing": "ΠΡΟΕΙΔΟΠΟΙΗΣΗ: mcp_servers[{idx}] εντολή haina url wala.",
     "err.endpoint_missing": "ΣΦΑΛΜΑ: mcp_servers[{idx}] lazima iwe na url au εντολή",
     "warn.name_duplicate": "ΠΡΟΕΙΔΟΠΟΙΗΣΗ: name={name!r} imerudiwa ({count} mara).",
-    "err.name_duplicate": "ΣΦΑΛΜΑ: name={name!r} imerudiwa ({count} mara)"
+    "err.name_duplicate": "ΣΦΑΛΜΑ: name={name!r} imerudiwa ({count} mara)",
+    "param.action.description": "Λειτουργία για εκτέλεση. Ένα από τα: list/add/remove/set_default/validate/init_template."
   },
   "he": {
     "tool.description": "נהל הגדרות שרת MCP ב-mcp_servers.json (list/add/remove/set_default/validate/init_template).",
@@ -1559,7 +1588,7 @@
     "param.validate.description": "(רשימה) אם נכון, הוסף אזהרות אימות בסיסיות (ברירת מחדל: true).",
     "param.default_only.description": "(רשימה) אם נכון, החזר רק את שרת ברירת המחדל (אינדקס 0).",
     "param.fail_on_warning.description": "(אמת) אם נכון, בסך הכל=כשל כאשר יש אזהרה כלשהי.",
-    "param.name.description": "(הוסף/הסר) সার্ভার নাম (mcp_servers[].name).",
+    "param.name.description": "(הוסף/הסר) שם שרת (mcp_servers[].name).",
     "param.url.description": "(הוסף) כתובת URL של נקודת קצה MCP עבור שרתי HTTP(SSE).",
     "param.command.description": "(הוסף) אמרי kwa seva za stdio.",
     "param.args.description": "(הוסף) Hoja kwa seva za stdio.",
@@ -1577,10 +1606,10 @@
     "warn.not_exists_new": "אזהרה: {path!r} haipo; inachukuliwa kama tupu/mpya.",
     "warn.not_exists": "אזהרה: {path!r} haipo (inachukuliwa kama orodha tupu).",
     "err.load_fail": "שגיאה: טעינת {path!r} נכשלה: {err}",
-    "err.root_not_dict": "שגיאה: mzizi si kamusi",
+    "err.root_not_dict": "שגיאה: שורש אינו מילון",
     "warn.no_mcp_servers": "אזהרה: מפתח 'mcp_servers' חסר (מתייחס לרשימה ריקה).",
     "err.mcp_servers_not_list": "שגיאה: 'mcp_servers' עבור אורודה",
-    "warn.item_not_dict": "אזהרה: mcp_servers[{idx}] הוא מקור.",
+    "warn.item_not_dict": "אזהרה: mcp_servers[{idx}] אינו מילון.",
     "err.item_not_dict": "שגיאה: mcp_servers[{idx}] אינו מילון",
     "warn.name_missing": "אזהרה: mcp_servers[{idx}].name haipo au ni tupu.",
     "err.name_missing": "שגיאה: mcp_servers[{idx}].name haipo au ni tupu",
@@ -1588,7 +1617,8 @@
     "warn.endpoint_missing": "אזהרה: mcp_servers[{idx}] הפקודה haina url wala.",
     "err.endpoint_missing": "שגיאה: mcp_servers[{idx}] lazima iwe na url au פקודה",
     "warn.name_duplicate": "אזהרה: name={name!r} imerudiwa ({count} mara).",
-    "err.name_duplicate": "שגיאה: name={name!r} imerudiwa ({count} mara)"
+    "err.name_duplicate": "שגיאה: name={name!r} imerudiwa ({count} mara)",
+    "param.action.description": "פעולה לביצוע. אחד מ: list/add/remove/set_default/validate/init_template."
   },
   "hu": {
     "tool.description": "Az MCP-kiszolgáló definícióinak kezelése az mcp_servers.json fájlban (list/add/remove/set_default/validate/init_template).",
@@ -1609,7 +1639,7 @@
     "param.validate.description": "(lista) Ha igaz, adjon hozzá alapvető érvényesítési figyelmeztetéseket (alapértelmezett: igaz).",
     "param.default_only.description": "(lista) Ha igaz, csak az alapértelmezett szervert adja vissza (index 0).",
     "param.fail_on_warning.description": "(ellenőrzés) Ha igaz, akkor összességében = FAIL, ha figyelmeztetés van.",
-    "param.name.description": "(hozzáadás/eltávolítás) সার্ভার নাম (mcp_servers[].name).",
+    "param.name.description": "(hozzáadás/eltávolítás) Szerver neve (mcp_servers[].name).",
     "param.url.description": "(adjon hozzá) MCP-végpont URL-t HTTP(SSE) szerverekhez.",
     "param.command.description": "(hozzáadás) Amri kwa seva za stdio.",
     "param.args.description": "(hozzáadás) Hoja kwa seva za stdio.",
@@ -1627,10 +1657,10 @@
     "warn.not_exists_new": "FIGYELMEZTETÉS: {path!r} haipo; inachukuliwa kama tupu/mpya.",
     "warn.not_exists": "FIGYELMEZTETÉS: {path!r} haipo (inachukuliwa kama orodha tupu).",
     "err.load_fail": "HIBA: Nem sikerült betölteni a(z) {path!r}: {err}",
-    "err.root_not_dict": "HIBA: mzizi si kamusi",
+    "err.root_not_dict": "HIBA: a root nem szótár",
     "warn.no_mcp_servers": "FIGYELMEZTETÉS: Az 'mcp_servers' kulcs hiányzik (üres listaként kezelendő).",
     "err.mcp_servers_not_list": "HIBA: 'mcp_servers' si orodha",
-    "warn.item_not_dict": "FIGYELMEZTETÉS: mcp_servers[{idx}] si kamusi.",
+    "warn.item_not_dict": "FIGYELMEZTETÉS: Az mcp_servers[{idx}] nem szótár.",
     "err.item_not_dict": "HIBA: Az mcp_servers[{idx}] nem szótár",
     "warn.name_missing": "FIGYELMEZTETÉS: mcp_servers[{idx}].name haipo au ni tupu.",
     "err.name_missing": "HIBA: mcp_servers[{idx}].name haipo au ni tupu",
@@ -1638,7 +1668,8 @@
     "warn.endpoint_missing": "FIGYELMEZTETÉS: mcp_servers[{idx}] haina url wala parancs.",
     "err.endpoint_missing": "HIBA: mcp_servers[{idx}] lazima iwe na url au parancs",
     "warn.name_duplicate": "FIGYELMEZTETÉS: name={name!r} imerudiwa ({count} mara).",
-    "err.name_duplicate": "HIBA: name={name!r} imerudiwa ({count} mara)"
+    "err.name_duplicate": "HIBA: name={name!r} imerudiwa ({count} mara)",
+    "param.action.description": "Végrehajtandó művelet. Az egyik: list/add/remove/set_default/validate/init_template."
   },
   "ro": {
     "tool.description": "Gestionați definițiile serverului MCP în mcp_servers.json (list/add/remove/set_default/validate/init_template).",
@@ -1659,7 +1690,7 @@
     "param.validate.description": "(listă) Dacă este adevărat, adăugați avertismente de validare de bază (implicit: adevărat).",
     "param.default_only.description": "(listă) Dacă este adevărat, returnează numai serverul implicit (index 0).",
     "param.fail_on_warning.description": "(validare) Dacă este adevărat, global=FAIL atunci când există vreo avertizare.",
-    "param.name.description": "(adăugați/eliminați) সার্ভার নাম (mcp_servers[].name).",
+    "param.name.description": "(adăugați/eliminați) Nume server (mcp_servers[].name).",
     "param.url.description": "(adăugați) adresa URL a punctului final MCP pentru serverele HTTP(SSE).",
     "param.command.description": "(adăugați) Amri kwa seva za stdio.",
     "param.args.description": "(adăugați) Hoja kwa seva za stdio.",
@@ -1677,10 +1708,10 @@
     "warn.not_exists_new": "AVERTISMENT: {path!r} haipo; inachukuliwa kama tupu/mpya.",
     "warn.not_exists": "AVERTISMENT: {path!r} haipo (inachukuliwa kama orodha tupu).",
     "err.load_fail": "EROARE: Nu s-a încărcat {path!r}: {err}",
-    "err.root_not_dict": "EROARE: mzizi și kamusi",
+    "err.root_not_dict": "EROARE: root nu este un dicționar",
     "warn.no_mcp_servers": "AVERTISMENT: cheia „mcp_servers” lipsește (tratată ca o listă goală).",
     "err.mcp_servers_not_list": "EROARE: 'mcp_servers' și orodha",
-    "warn.item_not_dict": "AVERTISMENT: mcp_servers[{idx}] și kamusi.",
+    "warn.item_not_dict": "AVERTISMENT: mcp_servers[{idx}] nu este un dicționar.",
     "err.item_not_dict": "EROARE: mcp_servers[{idx}] nu este un dicționar",
     "warn.name_missing": "AVERTISMENT: mcp_servers[{idx}].name haipo au ni tupu.",
     "err.name_missing": "EROARE: mcp_servers[{idx}].name haipo au ni tupu",
@@ -1688,6 +1719,7 @@
     "warn.endpoint_missing": "AVERTISMENT: mcp_servers[{idx}] haina url wala command.",
     "err.endpoint_missing": "EROARE: mcp_servers[{idx}] lazima iwe na url au command",
     "warn.name_duplicate": "AVERTISMENT: name={name!r} imerudiwa ({count} mara).",
-    "err.name_duplicate": "EROARE: name={name!r} imerudiwa ({count} mara)"
+    "err.name_duplicate": "EROARE: name={name!r} imerudiwa ({count} mara)",
+    "param.action.description": "Operație de efectuat. Unul dintre: list/add/remove/set_default/validate/init_template."
   }
 }

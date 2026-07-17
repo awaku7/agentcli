@@ -207,30 +207,6 @@
     "param.render_image.description": "Если формат 'mermaid' и установлен output_dir, также визуализируйте диаграмму как изображение PNG через API Mermaid.ink.",
     "param.include_relations.description": "Извлекайте отношения импорта/требования между файлами. Когда format='ontology', по умолчанию используется True. Поддерживаемые языки: Python, TypeScript, JavaScript, Go, Rust."
   },
-  "pt_br": {
-    "tool.description": "Analise um diretório de base de código e uma árvore de arquivos de saída com definições de símbolos (classes, funções, etc.) em vários idiomas. Suporta C#, Python, TypeScript, Go, Rust, C/C++, Java, Kotlin e muito mais. Lê .sln/.csproj, build.gradle.kts, Cargo.toml, go.mod, CMakeLists.txt, Makefile, package.json, pyproject.toml para verificação de origem com reconhecimento de projeto.",
-    "param.path.description": "Diretório raiz a ser analisado (padrão: diretório de trabalho atual).",
-    "param.depth.description": "Profundidade máxima do diretório para exibição na árvore (0 = ilimitado).",
-    "param.include_symbols.description": "Se as definições de símbolos devem ser extraídas dos arquivos de origem.",
-    "param.project_only.description": "Verifique apenas arquivos referenciados por arquivos de projeto (.sln, .csproj, build.gradle.kts, etc.).",
-    "x_search_terms": [
-      "mapa de código",
-      "estrutura da base de código",
-      "árvore de arquivos",
-      "lista de símbolos",
-      "análise de projeto",
-      "visão geral do código-fonte",
-      "estrutura do repositório",
-      "コードマップ",
-      "code ontology",
-      "knowledge graph",
-      "JSON-LD"
-    ],
-    "param.format.description": "Formato de saida: 'json' para dados estruturados, 'mermaid' para diagrama visual, 'ontology' para grafo de conhecimento JSON-LD com relacoes de arquivos.",
-    "param.output_dir.description": "Diretorio para salvar o arquivo de saida em vez de retorna-lo. Para formato mermaid com render_image=true, salva como PNG. Usa convencao de nomenclatura: code_map_<timestamp>.<ext>.",
-    "param.render_image.description": "Quando o formato for 'mermaid' e output_dir estiver definido, renderize tambem o diagrama como uma imagem PNG por meio da API Mermaid.ink.",
-    "param.include_relations.description": "Extrair relacoes import/require entre arquivos. Quando format='ontology', o padrao e True. Idiomas suportados: Python, TypeScript, JavaScript, Go, Rust."
-  },
   "pt": {
     "tool.description": "Analise um diretório de base de código e uma árvore de arquivos de saída com definições de símbolos (classes, funções, etc.) em vários idiomas. Suporta C#, Python, TypeScript, Go, Rust, C/C++, Java, Kotlin e muito mais. Lê .sln/.csproj, build.gradle.kts, Cargo.toml, go.mod, CMakeLists.txt, Makefile, package.json, pyproject.toml para verificação de origem com reconhecimento de projeto.",
     "param.path.description": "Diretório raiz a ser analisado (padrão: diretório de trabalho atual).",
@@ -621,54 +597,6 @@
     "param.render_image.description": "เมื่อรูปแบบเปน 'mermaid' และตังค่า output_dir ให้เรนเดอร์ไดอะแกรมเปนรูปภาพ PNG ผาน Mermaid.ink API ดวย",
     "param.include_relations.description": "แยกความสัมพันธ์ import/require ระหว่างไฟล์ เมื่อ format='ontology' ค่าเริ่มต้นเป็น True ภาษาที่รองรับ: Python, TypeScript, JavaScript, Go, Rust"
   },
-  "zh_cn": {
-    "tool.description": "Analyze a codebase directory and output file tree with symbol definitions (classes, functions, etc.) across multiple languages. Supports C#, Python, TypeScript, Go, Rust, C/C++, Java, Kotlin, and more. Reads .sln/.csproj, build.gradle.kts, Cargo.toml, go.mod, CMakeLists.txt, Makefile, package.json, pyproject.toml for project-aware source scanning.",
-    "param.path.description": "Root directory to analyze (default: current working directory).",
-    "param.depth.description": "Maximum directory depth to display in tree (0 = unlimited).",
-    "param.include_symbols.description": "Whether to extract symbol definitions from source files.",
-    "param.project_only.description": "Only scan files referenced by project files (.sln, .csproj, build.gradle.kts, etc.).",
-    "x_search_terms": [
-      "code map",
-      "codebase structure",
-      "file tree",
-      "symbol list",
-      "project analysis",
-      "source code overview",
-      "repository structure",
-      "コードマップ",
-      "code ontology",
-      "knowledge graph",
-      "JSON-LD"
-    ],
-    "param.format.description": "输出格式：'json'表示结构化数据，'mermaid'表示可视化图表，'ontology'表示JSON-LD知识图谱（含文件关系）。",
-    "param.output_dir.description": "保存输出文件而不是返回它的目录。对于 mermaid 格式且 render_image=true，另存为 PNG。使用命名约定：code_map_<timestamp>.<ext>。",
-    "param.render_image.description": "当格式为'mermaid'并且设置了output_dir时，还可以通过Mermaid.ink API将图表渲染为PNG图像。",
-    "param.include_relations.description": "提取文件之间的 import/require 关系。当 format='ontology' 时，默认为 True。支持的语言：Python、TypeScript、JavaScript、Go、Rust。"
-  },
-  "zh_tw": {
-    "tool.description": "Analyze a codebase directory and output file tree with symbol definitions (classes, functions, etc.) across multiple languages. Supports C#, Python, TypeScript, Go, Rust, C/C++, Java, Kotlin, and more. Reads .sln/.csproj, build.gradle.kts, Cargo.toml, go.mod, CMakeLists.txt, Makefile, package.json, pyproject.toml for project-aware source scanning.",
-    "param.path.description": "Root directory to analyze (default: current working directory).",
-    "param.depth.description": "Maximum directory depth to display in tree (0 = unlimited).",
-    "param.include_symbols.description": "Whether to extract symbol definitions from source files.",
-    "param.project_only.description": "Only scan files referenced by project files (.sln, .csproj, build.gradle.kts, etc.).",
-    "x_search_terms": [
-      "code map",
-      "codebase structure",
-      "file tree",
-      "symbol list",
-      "project analysis",
-      "source code overview",
-      "repository structure",
-      "コードマップ",
-      "code ontology",
-      "knowledge graph",
-      "JSON-LD"
-    ],
-    "param.format.description": "輸出格式：'json'表示結構化數據，'mermaid'表示可視化圖表，'ontology'表示JSON-LD知識圖譜（含文件關係）。",
-    "param.output_dir.description": "保存輸出檔案而不是返回它的目錄。對於 mermaid 格式且 render_image=true，另存為 PNG。使用命名約定：code_map_<timestamp>.<ext>。",
-    "param.render_image.description": "當格式為'mermaid'並且設定了output_dir時，也可以透過Mermaid.ink API將圖表渲染為PNG影像。",
-    "param.include_relations.description": "提取文件之間的 import/require 關係。當 format='ontology' 時，預設為 True。支援的語言：Python、TypeScript、JavaScript、Go、Rust。"
-  },
   "bn": {
     "tool.description": "একাধিক ভাষা জুড়ে প্রতীক সংজ্ঞা (ক্লাস, ফাংশন, ইত্যাদি) সহ একটি কোডবেস ডিরেক্টরি এবং আউটপুট ফাইল ট্রি বিশ্লেষণ করুন। C#, Python, TypeScript, Go, Rust, C/C++, Java, Kotlin এবং আরও অনেক কিছু সমর্থন করে। প্রকল্প-সচেতন উত্স স্ক্যান করার জন্য .sln/.csproj, build.gradle.kts, Cargo.toml, go.mod, CMakeLists.txt, Makefile, package.json, pyproject.toml পড়ে।",
     "param.path.description": "বিশ্লেষণ করার জন্য রুট ডিরেক্টরি (ডিফল্ট: বর্তমান কাজের ডিরেক্টরি)।",
@@ -876,5 +804,77 @@
     "param.output_dir.description": "Director pentru a salva fisierul de iesire in loc sa-l returneze. Pentru formatul mermaid cu render_image=true, salveaza ca PNG. Utilizeaza conventia de denumire: code_map_<timestamp>.<ext>.",
     "param.render_image.description": "Cand formatul este 'mermaid' si output_dir este setat, redati si diagrama ca imagine PNG prin API-ul Mermaid.ink.",
     "param.include_relations.description": "Extrageti relatiile import/require intre fisiere. Cand format='ontology', valoarea implicita este True. Limbaje acceptate: Python, TypeScript, JavaScript, Go, Rust."
+  },
+  "pt_BR": {
+    "tool.description": "Analise um diretório de base de código e uma árvore de arquivos de saída com definições de símbolos (classes, funções, etc.) em vários idiomas. Suporta C#, Python, TypeScript, Go, Rust, C/C++, Java, Kotlin e muito mais. Lê .sln/.csproj, build.gradle.kts, Cargo.toml, go.mod, CMakeLists.txt, Makefile, package.json, pyproject.toml para verificação de origem com reconhecimento de projeto.",
+    "param.path.description": "Diretório raiz a ser analisado (padrão: diretório de trabalho atual).",
+    "param.depth.description": "Profundidade máxima do diretório para exibição na árvore (0 = ilimitado).",
+    "param.include_symbols.description": "Se as definições de símbolos devem ser extraídas dos arquivos de origem.",
+    "param.project_only.description": "Verifique apenas arquivos referenciados por arquivos de projeto (.sln, .csproj, build.gradle.kts, etc.).",
+    "x_search_terms": [
+      "mapa de código",
+      "estrutura da base de código",
+      "árvore de arquivos",
+      "lista de símbolos",
+      "análise de projeto",
+      "visão geral do código-fonte",
+      "estrutura do repositório",
+      "コードマップ",
+      "code ontology",
+      "knowledge graph",
+      "JSON-LD"
+    ],
+    "param.format.description": "Formato de saida: 'json' para dados estruturados, 'mermaid' para diagrama visual, 'ontology' para grafo de conhecimento JSON-LD com relacoes de arquivos.",
+    "param.output_dir.description": "Diretorio para salvar o arquivo de saida em vez de retorna-lo. Para formato mermaid com render_image=true, salva como PNG. Usa convencao de nomenclatura: code_map_<timestamp>.<ext>.",
+    "param.render_image.description": "Quando o formato for 'mermaid' e output_dir estiver definido, renderize tambem o diagrama como uma imagem PNG por meio da API Mermaid.ink.",
+    "param.include_relations.description": "Extrair relacoes import/require entre arquivos. Quando format='ontology', o padrao e True. Idiomas suportados: Python, TypeScript, JavaScript, Go, Rust."
+  },
+  "zh_CN": {
+    "tool.description": "分析代码库目录并输出包含多种语言符号定义（类、函数等）的文件树。支持 C#、Python、TypeScript、Go、Rust、C/C++、Java、Kotlin 等。读取 .sln/.csproj、build.gradle.kts、Cargo.toml、go.mod、CMakeLists.txt、Makefile、package.json、pyproject.toml 以进行项目感知源扫描。",
+    "param.path.description": "要分析的根目录（默认：当前工作目录）。",
+    "param.depth.description": "在树中显示的最大目录深度（0 = 无限制）。",
+    "param.include_symbols.description": "是否从源文件中提取符号定义。",
+    "param.project_only.description": "仅扫描项目文件引用的文件（.sln、.csproj、build.gradle.kts 等）。",
+    "x_search_terms": [
+      "code map",
+      "codebase structure",
+      "file tree",
+      "symbol list",
+      "project analysis",
+      "source code overview",
+      "repository structure",
+      "コードマップ",
+      "code ontology",
+      "knowledge graph",
+      "JSON-LD"
+    ],
+    "param.format.description": "输出格式：'json'表示结构化数据，'mermaid'表示可视化图表，'ontology'表示JSON-LD知识图谱（含文件关系）。",
+    "param.output_dir.description": "保存输出文件而不是返回它的目录。对于 mermaid 格式且 render_image=true，另存为 PNG。使用命名约定：code_map_<timestamp>.<ext>。",
+    "param.render_image.description": "当格式为'mermaid'并且设置了output_dir时，还可以通过Mermaid.ink API将图表渲染为PNG图像。",
+    "param.include_relations.description": "提取文件之间的 import/require 关系。当 format='ontology' 时，默认为 True。支持的语言：Python、TypeScript、JavaScript、Go、Rust。"
+  },
+  "zh_TW": {
+    "tool.description": "使用跨多種語言的符號定義（類別、函數等）分析程式碼庫目錄和輸出檔案樹。支援 C#、Python、TypeScript、Go、Rust、C/C++、Java、Kotlin 等。讀取 .sln/.csproj、build.gradle.kts、Cargo.toml、go.mod、CMakeLists.txt、Makefile、package.json、pyproject.toml 以進行專案感知來源掃描。",
+    "param.path.description": "要分析的根目錄（預設：目前工作目錄）。",
+    "param.depth.description": "在樹中顯示的最大目錄深度（0 = 無限制）。",
+    "param.include_symbols.description": "是否從來源檔案中提取符號定義。",
+    "param.project_only.description": "僅掃描專案文件引用的文件（.sln、.csproj、build.gradle.kts 等）。",
+    "x_search_terms": [
+      "code map",
+      "codebase structure",
+      "file tree",
+      "symbol list",
+      "project analysis",
+      "source code overview",
+      "repository structure",
+      "コードマップ",
+      "code ontology",
+      "knowledge graph",
+      "JSON-LD"
+    ],
+    "param.format.description": "輸出格式：'json'表示結構化數據，'mermaid'表示可視化圖表，'ontology'表示JSON-LD知識圖譜（含文件關係）。",
+    "param.output_dir.description": "保存輸出檔案而不是返回它的目錄。對於 mermaid 格式且 render_image=true，另存為 PNG。使用命名約定：code_map_<timestamp>.<ext>。",
+    "param.render_image.description": "當格式為'mermaid'並且設定了output_dir時，也可以透過Mermaid.ink API將圖表渲染為PNG影像。",
+    "param.include_relations.description": "提取文件之間的 import/require 關係。當 format='ontology' 時，預設為 True。支援的語言：Python、TypeScript、JavaScript、Go、Rust。"
   }
 }

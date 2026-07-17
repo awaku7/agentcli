@@ -924,7 +924,7 @@
     "wmo.96": "Åskväder med lätt hagel",
     "wmo.99": "Åskväder med kraftigt hagel",
     "err.geocoding_failed": "Fel: Kunde inte hitta stad '{city}'.",
-    "err.fallback_source": "[via Open-Meteo fallback]"
+    "err.fallback_source": "[via Open-Meteo-reserv]"
   },
   "sw": {
     "tool.description": "Pata maelezo ya hali ya hewa kutoka kwa wttr.in. Inaauni jina la jiji au viwianishi vya GPS. Hurejea kwa Open-Meteo API wakati wttr.in haipatikani.",
@@ -1040,7 +1040,7 @@
     "wmo.96": "Tordenvær med lett hagl",
     "wmo.99": "Tordenvær med kraftig hagl",
     "err.geocoding_failed": "Feil: Kunne ikke finne byen '{city}'.",
-    "err.fallback_source": "[via Open-Meteo fallback]"
+    "err.fallback_source": "[via Open-Meteo-reserve]"
   },
   "nl": {
     "tool.description": "Ontvang weersinformatie van wttr.in. Ondersteunt stadsnaam of GPS-coördinaten. Valt terug naar Open-Meteo API wanneer wttr.in niet beschikbaar is.",

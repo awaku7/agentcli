@@ -18,7 +18,12 @@
     "err.camera_not_found": "لم يتم العثور على كاميرا في الفهرس {index}.",
     "err.capture_failed": "فشل التقاط الصورة من الكاميرا.",
     "err.opencv_missing": "OpenCV غير متوفر. قم بالتثبيت باستخدام: pip install opencv-python",
-    "msg.captured": "تم التقاط الصورة من الكاميرا {index}."
+    "msg.captured": "تم التقاط الصورة من الكاميرا {index}.",
+    "param.action.description": "الإجراء: التقاط (التقاط صورة)، أو قائمة (إظهار الأجهزة)، أو list_caps (إظهار إمكانيات مثل الدقة وFPS لجهاز).",
+    "param.index.description": "فهرس جهاز الفيديو (0 = الأول). الافتراضي: 0.",
+    "param.devname.description": "اسم/مسار الجهاز (يتجاوز الفهرس). على Linux استخدم /dev/videoN. استخدم إجراء القائمة للعثور على الأسماء.",
+    "param.fps.description": "إطارات في الثانية (على سبيل المثال 30). يستخدم الافتراضي إذا تم حذفه.",
+    "param.outdir.description": "دليل الإخراج للصور الملتقطة. الافتراضي: المخرجات/usb_camera."
   },
   "bn": {
     "tool.description": "USB ক্যামেরা থেকে ছবি ক্যাপচার করুন।",
@@ -39,7 +44,12 @@
     "err.camera_not_found": "সূচক {index} এ কোনো ক্যামেরা পাওয়া যায়নি।",
     "err.capture_failed": "ক্যামেরা থেকে ছবি ক্যাপচার করতে ব্যর্থ।",
     "err.opencv_missing": "OpenCV উপলব্ধ নয়। ইনস্টল করুন: pip install opencv-python",
-    "msg.captured": "ক্যামেরা {index} থেকে ছবি ক্যাপচার করা হয়েছে।"
+    "msg.captured": "ক্যামেরা {index} থেকে ছবি ক্যাপচার করা হয়েছে।",
+    "param.action.description": "অ্যাকশন: ক্যাপচার (একটি ফটো তুলুন), তালিকা (ডিভাইস দেখান), বা লিস্ট_ক্যাপস (একটি ডিভাইসের জন্য রেজোলিউশন এবং FPS এর মতো ক্ষমতা দেখান)।",
+    "param.index.description": "ভিডিও ডিভাইস সূচক (0 = প্রথম)। ডিফল্ট: 0।",
+    "param.devname.description": "ডিভাইসের নাম/পাথ (সূচি ওভাররাইড করে)। লিনাক্সে /dev/videoN ব্যবহার করুন। নাম খুঁজতে তালিকা ক্রিয়া ব্যবহার করুন।",
+    "param.fps.description": "প্রতি সেকেন্ডে ফ্রেম (যেমন 30)। বাদ দিলে ডিফল্ট ব্যবহার করে।",
+    "param.outdir.description": "ক্যাপচার করা ছবির জন্য আউটপুট ডিরেক্টরি। ডিফল্ট: outputs/usb_camera."
   },
   "cs": {
     "tool.description": "Zachytit snímek z USB kamery.",
@@ -60,7 +70,12 @@
     "err.camera_not_found": "Kamera nenalezena na indexu {index}.",
     "err.capture_failed": "Nepodařilo se zachytit snímek z kamery.",
     "err.opencv_missing": "OpenCV není k dispozici. Nainstalujte pomocí: pip install opencv-python",
-    "msg.captured": "Snímek zachycen z kamery {index}."
+    "msg.captured": "Snímek zachycen z kamery {index}.",
+    "param.action.description": "Akce: zachytit (vyfotografovat), zobrazit seznam (zobrazit zařízení) nebo list_caps (zobrazit možnosti zařízení, jako jsou rozlišení a FPS).",
+    "param.index.description": "Index video zařízení (0 = první). Výchozí: 0.",
+    "param.devname.description": "Název/cesta zařízení (přepíše index). V systému Linux použijte /dev/videoN. K vyhledání jmen použijte akci seznamu.",
+    "param.fps.description": "Snímky za sekundu (např. 30). Pokud je vynechán, použije výchozí.",
+    "param.outdir.description": "Výstupní adresář pro pořízené snímky. Výchozí: outputs/usb_camera."
   },
   "de": {
     "tool.description": "Bild von einer USB-Kamera aufnehmen.",
@@ -81,7 +96,12 @@
     "err.camera_not_found": "Keine Kamera an Index {index} gefunden.",
     "err.capture_failed": "Fehler beim Aufnehmen des Bildes von der Kamera.",
     "err.opencv_missing": "OpenCV ist nicht verfügbar. Installieren mit: pip install opencv-python",
-    "msg.captured": "Bild von Kamera {index} aufgenommen."
+    "msg.captured": "Bild von Kamera {index} aufgenommen.",
+    "param.action.description": "Aktion: Capture (Foto aufnehmen), List (Geräte anzeigen) oder list_caps (Funktionen wie Auflösungen und FPS für ein Gerät anzeigen).",
+    "param.index.description": "Videogeräteindex (0 = zuerst). Standard: 0.",
+    "param.devname.description": "Gerätename/Pfad (überschreibt den Index). Unter Linux verwenden Sie /dev/videoN. Verwenden Sie die Listenaktion, um Namen zu finden.",
+    "param.fps.description": "Bilder pro Sekunde (z. B. 30). Verwendet den Standardwert, wenn er weggelassen wird.",
+    "param.outdir.description": "Ausgabeverzeichnis für aufgenommene Bilder. Standard: Ausgänge/USB-Kamera."
   },
   "en": {
     "tool.description": "Capture a photo from a USB camera via ffmpeg, or list available video devices. Supports Windows (dshow), Linux (v4l2), macOS (avfoundation).",
@@ -124,7 +144,12 @@
     "err.camera_not_found": "No se encontró cámara en el índice {index}.",
     "err.capture_failed": "Error al capturar imagen de la cámara.",
     "err.opencv_missing": "OpenCV no está disponible. Instalar con: pip install opencv-python",
-    "msg.captured": "Imagen capturada de la cámara {index}."
+    "msg.captured": "Imagen capturada de la cámara {index}.",
+    "param.action.description": "Acción: capturar (tomar una foto), enumerar (mostrar dispositivos) o list_caps (mostrar capacidades como resoluciones y FPS para un dispositivo).",
+    "param.index.description": "Índice de dispositivo de vídeo (0 = primero). Predeterminado: 0.",
+    "param.devname.description": "Nombre/ruta del dispositivo (anula el índice). En Linux utilice /dev/videoN. Utilice la acción de lista para buscar nombres.",
+    "param.fps.description": "Fotogramas por segundo (por ejemplo, 30). Utiliza el valor predeterminado si se omite.",
+    "param.outdir.description": "Directorio de salida para imágenes capturadas. Predeterminado: salidas/usb_camera."
   },
   "fa": {
     "tool.description": "گرفتن تصویر از دوربین USB.",
@@ -145,7 +170,12 @@
     "err.camera_not_found": "دوربینی در شاخص {index} یافت نشد.",
     "err.capture_failed": "گرفتن تصویر از دوربین ناموفق بود.",
     "err.opencv_missing": "OpenCV در دسترس نیست. نصب با: pip install opencv-python",
-    "msg.captured": "تصویر از دوربین {index} گرفته شد."
+    "msg.captured": "تصویر از دوربین {index} گرفته شد.",
+    "param.action.description": "اقدام: گرفتن (عکس گرفتن)، لیست (نمایش دستگاه ها)، یا list_caps (نمایش قابلیت هایی مانند وضوح و FPS برای یک دستگاه).",
+    "param.index.description": "شاخص دستگاه ویدیویی (0 = اول). پیش فرض: 0.",
+    "param.devname.description": "نام/مسیر دستگاه (فهرست را لغو می کند). در لینوکس از /dev/videoN استفاده کنید. برای یافتن اسامی از اقدام لیست استفاده کنید.",
+    "param.fps.description": "فریم در ثانیه (به عنوان مثال 30). در صورت حذف از پیش فرض استفاده می کند.",
+    "param.outdir.description": "فهرست خروجی برای تصاویر گرفته شده پیش فرض: outputs/usb_camera."
   },
   "fi": {
     "tool.description": "Ota kuva USB-kamerasta.",
@@ -166,7 +196,12 @@
     "err.camera_not_found": "Kameraa ei löydy indeksistä {index}.",
     "err.capture_failed": "Kuvan ottaminen kamerasta epäonnistui.",
     "err.opencv_missing": "OpenCV ei ole käytettävissä. Asenna: pip install opencv-python",
-    "msg.captured": "Kuva otettu kamerasta {index}."
+    "msg.captured": "Kuva otettu kamerasta {index}.",
+    "param.action.description": "Toimi: kaappaa (ota valokuva), luettelo (näytä laitteet) tai list_caps (näytä laitteen ominaisuudet, kuten resoluutiot ja FPS).",
+    "param.index.description": "Videolaitteen indeksi (0 = ensimmäinen). Oletus: 0.",
+    "param.devname.description": "Laitteen nimi/polku (ohittaa indeksin). Linuxissa käytä /dev/videoN. Käytä luettelotoimintoa nimien etsimiseen.",
+    "param.fps.description": "Kuvaa sekunnissa (esim. 30). Käyttää oletusarvoa, jos se jätetään pois.",
+    "param.outdir.description": "Tulostushakemisto kaapatuille kuville. Oletus: outputs/usb_camera."
   },
   "fr": {
     "tool.description": "Capturer une image depuis une caméra USB.",
@@ -187,7 +222,12 @@
     "err.camera_not_found": "Aucune caméra trouvée à l'index {index}.",
     "err.capture_failed": "Échec de la capture d'image depuis la caméra.",
     "err.opencv_missing": "OpenCV n'est pas disponible. Installez avec : pip install opencv-python",
-    "msg.captured": "Image capturée depuis la caméra {index}."
+    "msg.captured": "Image capturée depuis la caméra {index}.",
+    "param.action.description": "Action : capturer (prendre une photo), lister (afficher les appareils) ou list_caps (afficher les fonctionnalités telles que les résolutions et les FPS pour un appareil).",
+    "param.index.description": "Index du périphérique vidéo (0 = premier). Par défaut : 0.",
+    "param.devname.description": "Nom/chemin de l’appareil (remplace l’index). Sous Linux, utilisez /dev/videoN. Utilisez l'action de liste pour trouver des noms.",
+    "param.fps.description": "Images par seconde (par exemple 30). Utilise la valeur par défaut en cas d'omission.",
+    "param.outdir.description": "Répertoire de sortie pour les images capturées. Par défaut : sorties/usb_camera."
   },
   "hi": {
     "tool.description": "USB कैमरे से चित्र कैप्चर करें।",
@@ -208,7 +248,12 @@
     "err.camera_not_found": "इंडेक्स {index} पर कोई कैमरा नहीं मिला।",
     "err.capture_failed": "कैमरे से चित्र कैप्चर करने में विफल।",
     "err.opencv_missing": "OpenCV उपलब्ध नहीं है। स्थापित करें: pip install opencv-python",
-    "msg.captured": "कैमरे {index} से चित्र कैप्चर किया गया।"
+    "msg.captured": "कैमरे {index} से चित्र कैप्चर किया गया।",
+    "param.action.description": "क्रिया: कैप्चर करें (फोटो लें), सूची बनाएं (डिवाइस दिखाएं), या लिस्ट_कैप्स (डिवाइस के लिए रिज़ॉल्यूशन और एफपीएस जैसी क्षमताएं दिखाएं)।",
+    "param.index.description": "वीडियो डिवाइस इंडेक्स (0 = प्रथम). डिफ़ॉल्ट: 0.",
+    "param.devname.description": "डिवाइस का नाम/पथ (सूचकांक को ओवरराइड करता है)। लिनक्स पर /dev/videoN का उपयोग करें। नाम ढूंढने के लिए सूची क्रिया का उपयोग करें.",
+    "param.fps.description": "फ़्रेम प्रति सेकंड (उदा. 30). यदि छोड़ दिया जाए तो डिफ़ॉल्ट का उपयोग करता है।",
+    "param.outdir.description": "कैप्चर की गई छवियों के लिए आउटपुट निर्देशिका। डिफ़ॉल्ट: आउटपुट/यूएसबी_कैमरा।"
   },
   "id": {
     "tool.description": "Ambil gambar dari kamera USB.",
@@ -229,7 +274,12 @@
     "err.camera_not_found": "Tidak ada kamera ditemukan di indeks {index}.",
     "err.capture_failed": "Gagal mengambil gambar dari kamera.",
     "err.opencv_missing": "OpenCV tidak tersedia. Instal dengan: pip install opencv-python",
-    "msg.captured": "Gambar diambil dari kamera {index}."
+    "msg.captured": "Gambar diambil dari kamera {index}.",
+    "param.action.description": "Tindakan: ambil (ambil foto), daftar (tampilkan perangkat), atau list_caps (tampilkan kemampuan seperti resolusi dan FPS untuk perangkat).",
+    "param.index.description": "Indeks perangkat video (0 = pertama). Bawaan: 0.",
+    "param.devname.description": "Nama/jalur perangkat (mengganti indeks). Di Linux gunakan /dev/videoN. Gunakan tindakan daftar untuk menemukan nama.",
+    "param.fps.description": "Bingkai per detik (misalnya 30). Menggunakan default jika dihilangkan.",
+    "param.outdir.description": "Direktori keluaran untuk gambar yang diambil. Bawaan: output/usb_camera."
   },
   "it": {
     "tool.description": "Catturare immagine da una fotocamera USB.",
@@ -250,7 +300,12 @@
     "err.camera_not_found": "Nessuna fotocamera trovata all'indice {index}.",
     "err.capture_failed": "Impossibile catturare l'immagine dalla fotocamera.",
     "err.opencv_missing": "OpenCV non è disponibile. Installare con: pip install opencv-python",
-    "msg.captured": "Immagine catturata dalla fotocamera {index}."
+    "msg.captured": "Immagine catturata dalla fotocamera {index}.",
+    "param.action.description": "Azione: cattura (scatta una foto), elenca (mostra i dispositivi) o list_caps (mostra funzionalità come risoluzioni e FPS per un dispositivo).",
+    "param.index.description": "Indice del dispositivo video (0 = primo). Impostazione predefinita: 0.",
+    "param.devname.description": "Nome/percorso del dispositivo (sostituisce l'indice). Su Linux utilizzare /dev/videoN. Utilizza l'azione elenco per trovare i nomi.",
+    "param.fps.description": "Fotogrammi al secondo (ad esempio 30). Utilizza il valore predefinito se omesso.",
+    "param.outdir.description": "Directory di output per le immagini catturate. Impostazione predefinita: uscite/usb_camera."
   },
   "ja": {
     "tool.description": "ffmpeg 経由で USB カメラから写真をキャプチャするか、利用可能なビデオ デバイスをリストします。Windows (dshow)、Linux (v4l2)、macOS (avfoundation) をサポートします。",
@@ -275,8 +330,8 @@
     "param.action.description": "アクション: キャプチャ (写真を撮る)、リスト (デバイスを表示)、または list_caps (デバイスの解像度や FPS などの機能を表示)。",
     "param.devname.description": "デバイス名/パス (インデックスを上書き)。Linux では、/dev/videoN を使用します。リスト アクションを使用して名前を検索します。",
     "param.index.description": "ビデオ デバイスのインデックス (0 = 最初)。デフォルト: 0。",
-    "param.fps.description": "Frames per second (e.g. 30). Uses default if omitted.",
-    "param.outdir.description": "Output directory for captured images. Default: outputs/usb_camera."
+    "param.fps.description": "1 秒あたりのフレーム数 (例: 30)。省略した場合はデフォルトが使用されます。",
+    "param.outdir.description": "キャプチャした画像の出力ディレクトリ。デフォルト: 出力/usb_camera。"
   },
   "ko": {
     "tool.description": "USB 카메라에서 이미지를 캡쳐합니다.",
@@ -297,7 +352,12 @@
     "err.camera_not_found": "인덱스 {index}에서 카메라를 찾을 수 없습니다.",
     "err.capture_failed": "카메라에서 이미지를 캡처하지 못했습니다.",
     "err.opencv_missing": "OpenCV를 사용할 수 없습니다. 설치: pip install opencv-python",
-    "msg.captured": "카메라 {index}에서 이미지를 캡처했습니다."
+    "msg.captured": "카메라 {index}에서 이미지를 캡처했습니다.",
+    "param.action.description": "작업: 캡처(사진 찍기), 목록(장치 표시) 또는 list_caps(장치의 해상도 및 FPS와 같은 기능 표시).",
+    "param.index.description": "비디오 장치 인덱스(0 = 첫 번째). 기본값: 0.",
+    "param.devname.description": "장치 이름/경로(색인 재정의). Linux에서는 /dev/videoN을 사용하세요. 목록 작업을 사용하여 이름을 찾으세요.",
+    "param.fps.description": "초당 프레임 수(예: 30) 생략하면 기본값을 사용합니다.",
+    "param.outdir.description": "캡처된 이미지의 출력 디렉터리입니다. 기본값: 출력/usb_camera."
   },
   "mn": {
     "tool.description": "USB камераас зураг авах.",
@@ -318,7 +378,12 @@
     "err.camera_not_found": "{index} индексэд камер олдсонгүй.",
     "err.capture_failed": "Камераас зураг авахад алдаа гарлаа.",
     "err.opencv_missing": "OpenCV боломжгүй. Суулгах: pip install opencv-python",
-    "msg.captured": "Камер {index} -аас зураг авсан."
+    "msg.captured": "Камер {index} -аас зураг авсан.",
+    "param.action.description": "Үйлдэл: авах (зураг авах), жагсаалт (төхөөрөмжийг харуулах) эсвэл жагсаалтын_caps (төхөөрөмжийн нягтрал, FPS зэрэг чадварыг харуулах).",
+    "param.index.description": "Видео төхөөрөмжийн индекс (0 = эхний). Default: 0.",
+    "param.devname.description": "Төхөөрөмжийн нэр/зам (индексийг дарж бичнэ). Линукс дээр /dev/videoN ашигладаг. Нэрийг олохын тулд жагсаалтын үйлдлийг ашиглана уу.",
+    "param.fps.description": "Секундэд фрэйм ​​(жишээ нь 30). Uses default if omitted.",
+    "param.outdir.description": "Авсан зургийн гаралтын лавлах. Өгөгдмөл: гаралт/usb_camera."
   },
   "mr": {
     "tool.description": "USB कॅमेर्यातून प्रतिमा कॅप्चर करा.",
@@ -339,7 +404,12 @@
     "err.camera_not_found": "अनुक्रमणिका {index} वर कॅमेरा आढळला नाही.",
     "err.capture_failed": "कॅमेर्यातून प्रतिमा कॅप्चर करण्यात अयशस्वी.",
     "err.opencv_missing": "OpenCV उपलब्ध नाही. स्थापित करा: pip install opencv-python",
-    "msg.captured": "कॅमेरा {index} वरून प्रतिमा कॅप्चर केली."
+    "msg.captured": "कॅमेरा {index} वरून प्रतिमा कॅप्चर केली.",
+    "param.action.description": "क्रिया: कॅप्चर (फोटो घ्या), सूची (डिव्हाइस दाखवा), किंवा list_caps (डिव्हाइससाठी रिझोल्यूशन आणि FPS सारख्या क्षमता दर्शवा).",
+    "param.index.description": "व्हिडिओ डिव्हाइस अनुक्रमणिका (0 = प्रथम). डीफॉल्ट: 0.",
+    "param.devname.description": "डिव्हाइसचे नाव/पथ (अनुक्रमणिका अधिलिखित करते). लिनक्सवर /dev/videoN वापरा. नावे शोधण्यासाठी सूची क्रिया वापरा.",
+    "param.fps.description": "फ्रेम्स प्रति सेकंद (उदा. ३०). वगळल्यास डीफॉल्ट वापरते.",
+    "param.outdir.description": "कॅप्चर केलेल्या प्रतिमांसाठी आउटपुट निर्देशिका. डीफॉल्ट: outputs/usb_camera."
   },
   "el": {
     "tool.description": "Ενέργεια: λήψη (λήψη φωτογραφίας), λίστα (εμφάνιση συσκευών) ή list_caps (εμφάνιση δυνατοτήτων όπως αναλύσεις και FPS για μια συσκευή).",
@@ -444,7 +514,12 @@
     "err.camera_not_found": "Ingen kamera funnet ved indeks {index}.",
     "err.capture_failed": "Mislyktes å ta bilde fra kamera.",
     "err.opencv_missing": "OpenCV er ikke tilgjengelig. Installer med: pip install opencv-python",
-    "msg.captured": "Bilde tatt fra kamera {index}."
+    "msg.captured": "Bilde tatt fra kamera {index}.",
+    "param.action.description": "Handling: ta bilde (ta et bilde), liste (vis enheter) eller list_caps (vis funksjoner som oppløsninger og FPS for en enhet).",
+    "param.index.description": "Videoenhetsindeks (0 = først). Standard: 0.",
+    "param.devname.description": "Enhetsnavn/bane (overstyrer indeks). På Linux bruk /dev/videoN. Bruk listehandling for å finne navn.",
+    "param.fps.description": "Bilder per sekund (f.eks. 30). Bruker standard hvis utelatt.",
+    "param.outdir.description": "Utdatakatalog for tatt bilder. Standard: utganger/usb_kamera."
   },
   "nl": {
     "tool.description": "Afbeelding vastleggen van een USB-camera.",
@@ -465,7 +540,12 @@
     "err.camera_not_found": "Geen camera gevonden op index {index}.",
     "err.capture_failed": "Mislukt om afbeelding van camera vast te leggen.",
     "err.opencv_missing": "OpenCV is niet beschikbaar. Installeer met: pip install opencv-python",
-    "msg.captured": "Afbeelding vastgelegd van camera {index}."
+    "msg.captured": "Afbeelding vastgelegd van camera {index}.",
+    "param.action.description": "Actie: vastleggen (maak een foto), lijst (apparaten tonen) of list_caps (toon mogelijkheden zoals resoluties en FPS voor een apparaat).",
+    "param.index.description": "Videoapparaatindex (0 = eerste). Standaard: 0.",
+    "param.devname.description": "Apparaatnaam/pad (overschrijft index). Gebruik op Linux /dev/videoN. Gebruik lijstactie om namen te vinden.",
+    "param.fps.description": "Frames per seconde (bijvoorbeeld 30). Gebruikt standaard indien weggelaten.",
+    "param.outdir.description": "Uitvoermap voor vastgelegde afbeeldingen. Standaard: uitgangen/usb_camera."
   },
   "pl": {
     "tool.description": "Przechwyć obraz z kamery USB.",
@@ -486,7 +566,12 @@
     "err.camera_not_found": "Nie znaleziono kamery o indeksie {index}.",
     "err.capture_failed": "Nie udało się przechwycić obrazu z kamery.",
     "err.opencv_missing": "OpenCV nie jest dostępne. Zainstaluj za pomocą: pip install opencv-python",
-    "msg.captured": "Przechwycono obraz z kamery {index}."
+    "msg.captured": "Przechwycono obraz z kamery {index}.",
+    "param.action.description": "Akcja: przechwyć (zrób zdjęcie), lista (pokaż urządzenia) lub list_caps (pokaż możliwości, takie jak rozdzielczość i liczba klatek na sekundę dla urządzenia).",
+    "param.index.description": "Indeks urządzenia wideo (0 = pierwszy). Wartość domyślna: 0.",
+    "param.devname.description": "Nazwa/ścieżka urządzenia (zastępuje indeks). W systemie Linux użyj /dev/videoN. Użyj akcji listy, aby znaleźć nazwiska.",
+    "param.fps.description": "Klatki na sekundę (np. 30). Używa wartości domyślnej, jeśli została pominięta.",
+    "param.outdir.description": "Katalog wyjściowy dla przechwyconych obrazów. Wartość domyślna: wyjścia/kamera_USB."
   },
   "pt": {
     "tool.description": "Capturar imagem de uma câmara USB.",
@@ -507,7 +592,12 @@
     "err.camera_not_found": "Nenhuma câmara encontrada no índice {index}.",
     "err.capture_failed": "Falha ao capturar imagem da câmara.",
     "err.opencv_missing": "OpenCV não está disponível. Instale com: pip install opencv-python",
-    "msg.captured": "Imagem capturada da câmara {index}."
+    "msg.captured": "Imagem capturada da câmara {index}.",
+    "param.action.description": "Ação: capturar (tirar uma foto), listar (mostrar dispositivos) ou list_caps (mostrar recursos como resoluções e FPS para um dispositivo).",
+    "param.index.description": "Índice do dispositivo de vídeo (0 = primeiro). Padrão: 0.",
+    "param.devname.description": "Nome/caminho do dispositivo (substitui o índice). No Linux use /dev/videoN. Use a ação de lista para encontrar nomes.",
+    "param.fps.description": "Quadros por segundo (por exemplo, 30). Usa padrão se omitido.",
+    "param.outdir.description": "Diretório de saída para imagens capturadas. Padrão: saídas/usb_camera."
   },
   "pt_BR": {
     "tool.description": "Capturar imagem de uma câmera USB.",
@@ -528,7 +618,12 @@
     "err.camera_not_found": "Nenhuma câmera encontrada no índice {index}.",
     "err.capture_failed": "Falha ao capturar imagem da câmera.",
     "err.opencv_missing": "OpenCV não está disponível. Instale com: pip install opencv-python",
-    "msg.captured": "Imagem capturada da câmera {index}."
+    "msg.captured": "Imagem capturada da câmera {index}.",
+    "param.action.description": "Ação: capturar (tirar uma foto), listar (mostrar dispositivos) ou list_caps (mostrar recursos como resoluções e FPS para um dispositivo).",
+    "param.index.description": "Índice do dispositivo de vídeo (0 = primeiro). Padrão: 0.",
+    "param.devname.description": "Nome/caminho do dispositivo (substitui o índice). No Linux use /dev/videoN. Use a ação de lista para encontrar nomes.",
+    "param.fps.description": "Quadros por segundo (por exemplo, 30). Usa padrão se omitido.",
+    "param.outdir.description": "Diretório de saída para imagens capturadas. Padrão: saídas/usb_camera."
   },
   "ru": {
     "tool.description": "Захватить изображение с USB-камеры.",
@@ -549,7 +644,12 @@
     "err.camera_not_found": "Камера не найдена по индексу {index}.",
     "err.capture_failed": "Не удалось захватить изображение с камеры.",
     "err.opencv_missing": "OpenCV недоступен. Установите с помощью: pip install opencv-python",
-    "msg.captured": "Изображение захвачено с камеры {index}."
+    "msg.captured": "Изображение захвачено с камеры {index}.",
+    "param.action.description": "Действие: захват (сделать фотографию), список (показать устройства) или list_caps (показать такие возможности, как разрешение и частота кадров для устройства).",
+    "param.index.description": "Индекс видеоустройства (0 = первое). По умолчанию: 0.",
+    "param.devname.description": "Имя/путь устройства (переопределяет индекс). В Linux используйте /dev/videoN. Используйте действие списка, чтобы найти имена.",
+    "param.fps.description": "Кадров в секунду (например, 30). Использует значение по умолчанию, если оно опущено.",
+    "param.outdir.description": "Выходной каталог для захваченных изображений. По умолчанию: выходы/usb_camera."
   },
   "sv": {
     "tool.description": "Fånga bild från en USB-kamera.",
@@ -570,7 +670,12 @@
     "err.camera_not_found": "Ingen kamera hittades vid index {index}.",
     "err.capture_failed": "Misslyckades med att fånga bild från kameran.",
     "err.opencv_missing": "OpenCV är inte tillgängligt. Installera med: pip install opencv-python",
-    "msg.captured": "Bild fångad från kamera {index}."
+    "msg.captured": "Bild fångad från kamera {index}.",
+    "param.action.description": "Åtgärd: fånga (ta ett foto), lista (visa enheter) eller list_caps (visa funktioner som upplösningar och FPS för en enhet).",
+    "param.index.description": "Videoenhetsindex (0 = först). Standard: 0.",
+    "param.devname.description": "Enhetens namn/sökväg (åsidosätter index). På Linux använd /dev/videoN. Använd liståtgärder för att hitta namn.",
+    "param.fps.description": "Bildrutor per sekund (t.ex. 30). Använder standard om den utelämnas.",
+    "param.outdir.description": "Utdatakatalog för tagna bilder. Standard: outputs/usb_camera."
   },
   "sw": {
     "tool.description": "Nasa picha kutoka kwenye kamera ya USB.",
@@ -591,7 +696,12 @@
     "err.camera_not_found": "Hakuna kamera iliyopatikana katika faharasa {index}.",
     "err.capture_failed": "Imeshindwa kunasa picha kutoka kwenye kamera.",
     "err.opencv_missing": "OpenCV haipatikani. Sakinisha kwa: pip install opencv-python",
-    "msg.captured": "Picha imenaswa kutoka kamera {index}."
+    "msg.captured": "Picha imenaswa kutoka kamera {index}.",
+    "param.action.description": "Kitendo: piga picha (piga picha), orodhesha (onyesha vifaa), au list_caps (onyesha uwezo kama vile maazimio na FPS ya kifaa).",
+    "param.index.description": "Fahirisi ya kifaa cha video (0 = kwanza). Chaguomsingi: 0.",
+    "param.devname.description": "Jina/njia ya kifaa (inabatilisha faharasa). Kwenye Linux tumia /dev/videoN. Tumia kitendo cha orodha kupata majina.",
+    "param.fps.description": "Fremu kwa sekunde (k.m. 30). Hutumia chaguo-msingi ikiwa imeachwa.",
+    "param.outdir.description": "Saraka ya pato kwa picha zilizonaswa. Chaguomsingi: matokeo/usb_camera."
   },
   "th": {
     "tool.description": "จับภาพจากกล้อง USB",
@@ -612,7 +722,12 @@
     "err.camera_not_found": "ไม่พบกล้องที่ดัชนี {index}",
     "err.capture_failed": "ไม่สามารถจับภาพจากกล้อง",
     "err.opencv_missing": "OpenCV ไม่พร้อมใช้งาน ติดตั้งด้วย: pip install opencv-python",
-    "msg.captured": "จับภาพจากกล้อง {index} แล้ว"
+    "msg.captured": "จับภาพจากกล้อง {index} แล้ว",
+    "param.action.description": "การดำเนินการ: จับภาพ (ถ่ายภาพ) รายการ (แสดงอุปกรณ์) หรือ list_caps (แสดงความสามารถ เช่น ความละเอียดและ FPS สำหรับอุปกรณ์)",
+    "param.index.description": "ดัชนีอุปกรณ์วิดีโอ (0 = อันดับแรก) ค่าเริ่มต้น: 0",
+    "param.devname.description": "ชื่ออุปกรณ์/เส้นทาง (แทนที่ดัชนี) บน Linux ให้ใช้ /dev/videoN ใช้การดำเนินการรายการเพื่อค้นหาชื่อ",
+    "param.fps.description": "เฟรมต่อวินาที (เช่น 30) ใช้ค่าเริ่มต้นหากละเว้น",
+    "param.outdir.description": "ไดเร็กทอรีเอาต์พุตสำหรับภาพที่ถ่าย ค่าเริ่มต้น: เอาท์พุต/usb_camera"
   },
   "tr": {
     "tool.description": "USB kameradan görüntü yakalayın.",
@@ -633,7 +748,12 @@
     "err.camera_not_found": "{index} indeksinde kamera bulunamadı.",
     "err.capture_failed": "Kameradan görüntü yakalanamadı.",
     "err.opencv_missing": "OpenCV mevcut değil. Şununla kurun: pip install opencv-python",
-    "msg.captured": "Kamera {index}'den görüntü yakalandı."
+    "msg.captured": "Kamera {index}'den görüntü yakalandı.",
+    "param.action.description": "Eylem: yakala (fotoğraf çek), listele (cihazları göster) veya list_caps (bir cihazın çözünürlükleri ve FPS gibi özelliklerini göster).",
+    "param.index.description": "Video cihazı dizini (0 = ilk). Varsayılan: 0.",
+    "param.devname.description": "Cihaz adı/yolu (dizini geçersiz kılar). Linux'ta /dev/videoN kullanın. Adları bulmak için listeleme eylemini kullanın.",
+    "param.fps.description": "Saniyedeki kare sayısı (ör. 30). Atlanırsa varsayılanı kullanır.",
+    "param.outdir.description": "Yakalanan görüntüler için çıkış dizini. Varsayılan: çıkışlar/usb_camera."
   },
   "uk": {
     "tool.description": "Захопити зображення з USB-камери.",
@@ -654,7 +774,12 @@
     "err.camera_not_found": "Камеру не знайдено за індексом {index}.",
     "err.capture_failed": "Не вдалося захопити зображення з камери.",
     "err.opencv_missing": "OpenCV недоступний. Встановіть за допомогою: pip install opencv-python",
-    "msg.captured": "Зображення захоплено з камери {index}."
+    "msg.captured": "Зображення захоплено з камери {index}.",
+    "param.action.description": "Дія: захопити (зробити фото), list (показати пристрої) або list_caps (показати такі можливості, як роздільна здатність і FPS для пристрою).",
+    "param.index.description": "Індекс відеопристрою (0 = перший). Типове значення: 0.",
+    "param.devname.description": "Ім'я/шлях пристрою (перекриває індекс). У Linux використовуйте /dev/videoN. Використовуйте дію списку, щоб знайти імена.",
+    "param.fps.description": "Кадрів за секунду (наприклад, 30). Використовується за умовчанням, якщо опущено.",
+    "param.outdir.description": "Вихідний каталог для захоплених зображень. За замовчуванням: виходи/usb_camera."
   },
   "vi": {
     "tool.description": "Chụp ảnh từ camera USB.",
@@ -675,7 +800,12 @@
     "err.camera_not_found": "Không tìm thấy camera tại chỉ mục {index}.",
     "err.capture_failed": "Không thể chụp ảnh từ camera.",
     "err.opencv_missing": "OpenCV không khả dụng. Cài đặt bằng: pip install opencv-python",
-    "msg.captured": "Đã chụp ảnh từ camera {index}."
+    "msg.captured": "Đã chụp ảnh từ camera {index}.",
+    "param.action.description": "Hành động: chụp (chụp ảnh), liệt kê (hiển thị thiết bị) hoặc list_caps (hiển thị các khả năng như độ phân giải và FPS cho thiết bị).",
+    "param.index.description": "Chỉ số thiết bị video (0 = đầu tiên). Mặc định: 0.",
+    "param.devname.description": "Tên/đường dẫn thiết bị (ghi đè chỉ mục). Trên Linux sử dụng /dev/videoN. Sử dụng hành động danh sách để tìm tên.",
+    "param.fps.description": "Số khung hình trên giây (ví dụ: 30). Sử dụng mặc định nếu bỏ qua.",
+    "param.outdir.description": "Thư mục đầu ra cho hình ảnh được chụp. Mặc định: đầu ra/usb_Camera."
   },
   "zh_CN": {
     "tool.description": "从USB摄像头捕获图像。",
@@ -696,7 +826,12 @@
     "err.camera_not_found": "在索引 {index} 处未找到摄像头。",
     "err.capture_failed": "从摄像头捕获图像失败。",
     "err.opencv_missing": "OpenCV不可用。使用以下命令安装：pip install opencv-python",
-    "msg.captured": "已从摄像头 {index} 捕获图像。"
+    "msg.captured": "已从摄像头 {index} 捕获图像。",
+    "param.action.description": "操作：捕获（拍照）、列表（显示设备）或 list_caps（显示设备的分辨率和 FPS 等功能）。",
+    "param.index.description": "视频设备索引（0 = 第一个）。默认值：0。",
+    "param.devname.description": "设备名称/路径（覆盖索引）。在 Linux 上使用 /dev/videoN。使用列表操作来查找名称。",
+    "param.fps.description": "每秒帧数（例如 30）。如果省略则使用默认值。",
+    "param.outdir.description": "捕获图像的输出目录。默认值：输出/usb_camera。"
   },
   "zh_TW": {
     "tool.description": "從 USB 攝影機擷取影像。",
@@ -717,6 +852,11 @@
     "err.camera_not_found": "在索引 {index} 處未找到攝影機。",
     "err.capture_failed": "從攝影機擷取影像失敗。",
     "err.opencv_missing": "OpenCV 無法使用。請使用以下指令安裝：pip install opencv-python",
-    "msg.captured": "已從攝影機 {index} 擷取影像。"
+    "msg.captured": "已從攝影機 {index} 擷取影像。",
+    "param.action.description": "操作：擷取（拍照）、清單（顯示裝置）或 list_caps（顯示裝置的解析度和 FPS 等功能）。",
+    "param.index.description": "視訊設備索引（0 = 第一個）。預設值：0。",
+    "param.devname.description": "設備名稱/路徑（覆蓋索引）。在 Linux 上使用 /dev/videoN。使用清單操作來尋找名稱。",
+    "param.fps.description": "每秒幀數（例如 30）。如果省略則使用預設值。",
+    "param.outdir.description": "捕捉影像的輸出目錄。預設值：輸出/usb_camera。"
   }
 }

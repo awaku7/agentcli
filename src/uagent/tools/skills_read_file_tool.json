@@ -5,7 +5,7 @@
     "err.relative_path_required": "[tool error] relative_path must be a non-empty string",
     "err.skill_dir_required": "[tool error] skill_dir must be a non-empty string",
     "param.relative_path.description": "Path relative to skill root (e.g. references/REFERENCE.md)",
-    "param.skill_dir.description": "স্কিল ডিরেক্টরি",
+    "param.skill_dir.description": "Skill directory.",
     "tool.description": "Safely reads a file under a skill directory using a relative path. Path traversal is blocked.",
     "x_search_terms": [
       "skill read",
@@ -179,7 +179,7 @@
     "err.relative_path_required": "[erro de ferramenta] relativo_path deve ser uma string não vazia",
     "err.skill_dir_required": "[erro de ferramenta] skill_dir deve ser uma string não vazia",
     "param.relative_path.description": "Caminho relativo à raiz da habilidade (por exemplo, references/REFERENCE.md)",
-    "param.skill_dir.description": "স্কিল ডিরেক্টরি",
+    "param.skill_dir.description": "O que é isso?",
     "tool.description": "Lê com segurança um arquivo em um diretório de habilidade usando um caminho relativo.",
     "x_search_terms": [
       "habilidades lidas",
@@ -578,7 +578,7 @@
     "err.relative_path_required": "[σφάλμα εργαλείου] relative_path πρέπει να είναι μια μη κενή συμβολοσειρά",
     "err.skill_dir_required": "Το [σφάλμα εργαλείου] skill_dir πρέπει να είναι μια μη κενή συμβολοσειρά",
     "param.relative_path.description": "Διαδρομή σε σχέση με τη ρίζα (mRE.FdER) CE.",
-    "param.skill_dir.description": "স্কিল ডিরেক্টরি",
+    "param.skill_dir.description": "Κατάλογος δεξιοτήτων.",
     "tool.description": "Διαβάζει με ασφάλεια ένα αρχείο κάτω από έναν κατάλογο δεξιοτήτων χρησιμοποιώντας μια σχετική διαδρομή. Η διέλευση της διαδρομής είναι αποκλεισμένη.",
     "x_search_terms": [
       "δεξιότητες ανάγνωσης",
@@ -596,8 +596,8 @@
     "err.max_bytes_positive": "[שגיאת כלי] max_bytes חייב להיות מספר שלם חיובי",
     "err.relative_path_required": "[שגיאת הכלי] relative_path חייב להיות מחרוזת לא ריקה",
     "err.skill_dir_required": "טעינת מיומנויות",
-    "param.relative_path.description": "נתיב ביחס לשורש המיומנות (למשל= references.md#) [REFERENCE] স্কিল ডিরেক্টরি",
-    "param.skill_dir.description": "קורא בבטחה קובץ תחת ספריית מיומנות באמצעות נתיב יחסי. מעבר נתיב חסום.",
+    "param.relative_path.description": "נתיב ביחס לשורש המיומנות (לדוגמה, references/REFERENCE.md)",
+    "param.skill_dir.description": "ספריית skill.",
     "tool.description": "קורא בבטחה קובץ תחת ספריית מיומנות באמצעות נתיב יחסי. מעבר נתיב חסום.",
     "x_search_terms": [
       "כישורים לקרוא",
@@ -615,8 +615,8 @@
     "err.max_bytes_positive": "[eszközhiba] max_byte-nak pozitív egész számnak kell lennie",
     "err.relative_path_required": "[eszközhiba] relatív_útvonalnak nem üres karakterláncnak kell lennie",
     "err.skill_dir_required": "[eszközhiba] A skill_dir nem lehet üres karakterlánc",
-    "param.relative_path.description": "A készséggyökérhez viszonyított elérési út (pl. referenciák/REFERENCIA) [=m=]REFERENCE#. স্কিল ডিরেক্টরি",
-    "param.skill_dir.description": "Biztonságosan beolvas egy fájlt egy készségkönyvtárban egy relatív elérési út használatával. Az útvonal bejárása blokkolva van.",
+    "param.relative_path.description": "A készség gyökeréhez viszonyított elérési út (pl. referenciák/REFERENCE.md)",
+    "param.skill_dir.description": "Skill könyvtár.",
     "tool.description": "Biztonságosan beolvas egy fájlt egy készségkönyvtárban egy relatív elérési út használatával. Az útvonal bejárása blokkolva van.",
     "x_search_terms": [
       "olvasási készségek",
@@ -635,7 +635,7 @@
     "err.relative_path_required": "[tool error] relative_path trebuie să fie un șir nevid",
     "err.skill_dir_required": "[eroare instrument] skill_dir trebuie să fie un șir nevid",
     "param.relative_path.description": "Calea relativă la rădăcina aptitudinii (de exemplu, referințe/REFERENCE)",
-    "param.skill_dir.description": "d/REFERENCE স্কিল ডিরেক্টরি",
+    "param.skill_dir.description": "Directorul de aptitudini.",
     "tool.description": "Citește în siguranță un fișier dintr-un director de abilități folosind o cale relativă. Traversarea căii este blocată.",
     "x_search_terms": [
       "skills read",

@@ -258,8 +258,8 @@
     "param.level.description": "Halványítási szint (0-254). Kötelező az action=dim.",
     "param.group.description": "Választható csoportcím (0-15) egyetlen cím helyett.",
     "param.driver.description": "DALI driver típus.",
-    "param.host.description": "daliserver host.",
-    "param.port.description": "daliserver port.",
+    "param.host.description": "daliserver gazdagép.",
+    "param.port.description": "daliserver portja.",
     "param.fmt.description": "Formátum: json vagy szöveg.",
     "msg.summary": "DALI {action}: addr={addr} szint={level}",
     "x_search_terms": [
@@ -404,9 +404,9 @@
     "param.action.description": "Handling: på, av eller dimme.",
     "param.level.description": "Dimnivå (0-254). Nødvendig for handling=dim.",
     "param.group.description": "Valgfri gruppeadresse (0-15) i stedet for enkeltadresse.",
-    "param.driver.description": "DALI driver type.",
+    "param.driver.description": "DALI-drivertype.",
     "param.host.description": "daliserver vert.",
-    "param.port.description": "daliserver port.",
+    "param.port.description": "daliserver-port.",
     "param.fmt.description": "Format: json eller tekst.",
     "msg.summary": "DALI {action}: addr={addr} nivå={level}",
     "x_search_terms": [
@@ -553,7 +553,7 @@
     "param.group.description": "Valfri gruppadress (0-15) istället för enstaka adress.",
     "param.driver.description": "DALI drivrutinstyp.",
     "param.host.description": "daliserver värd.",
-    "param.port.description": "daliserver port.",
+    "param.port.description": "daliserver-port.",
     "param.fmt.description": "Format: json eller text.",
     "msg.summary": "DALI {action}: addr={addr} nivå={level}",
     "x_search_terms": [

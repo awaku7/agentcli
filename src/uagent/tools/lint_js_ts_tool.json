@@ -60,8 +60,8 @@
     "result.more": "... 他 {count} 件",
     "err.no_npx": "Node.js/npx が利用できません。このツールを使用するには Node.js (https://nodejs.org) をインストールしてください。",
     "label.ok": "OK",
-    "label.fail": "FAIL",
-    "label.error": "ERROR",
+    "label.fail": "失敗",
+    "label.error": "エラー",
     "label.no_issues": "問題は見つかりませんでした"
   },
   "ar": {
@@ -89,10 +89,10 @@
     "result.error": "[{label}] {path}: {e}",
     "result.more": "... و{count} أكثر",
     "err.no_npx": "Node.js/npx غير متوفر. الرجاء تثبيت Node.js (https://nodejs.org) لاستخدام هذه الأداة.",
-    "label.no_issues": "No issues found",
-    "label.ok": "OK",
-    "label.error": "ERROR",
-    "label.fail": "FAIL"
+    "label.no_issues": "لم يتم العثور على أي مشاكل",
+    "label.ok": "حسنًا",
+    "label.error": "خطأ",
+    "label.fail": "فشل"
   },
   "bn": {
     "tool.description": "বায়োম ব্যবহার করে লিন্ট জাভাস্ক্রিপ্ট/টাইপস্ক্রিপ্ট ফাইল। সমস্যাগুলি রিপোর্ট করে এবং ঐচ্ছিকভাবে সেগুলি স্বয়ংক্রিয়ভাবে ঠিক করে৷",
@@ -119,10 +119,10 @@
     "result.error": "[{label}] {path}: {e}",
     "result.more": "... এবং {count} আরো",
     "err.no_npx": "Node.js/npx উপলব্ধ নয়। এই টুলটি ব্যবহার করতে অনুগ্রহ করে Node.js (https://nodejs.org) ইনস্টল করুন।",
-    "label.no_issues": "No issues found",
-    "label.ok": "OK",
-    "label.error": "ERROR",
-    "label.fail": "FAIL"
+    "label.no_issues": "কোনো সমস্যা পাওয়া যায়নি",
+    "label.ok": "ঠিক আছে",
+    "label.error": "ত্রুটি",
+    "label.fail": "ব্যর্থ"
   },
   "cs": {
     "tool.description": "Lint JavaScript/TypeScript soubory pomocí Biome. Hlásí problémy a volitelně je automaticky opravuje.",
@@ -149,10 +149,10 @@
     "result.error": "[{label}] {path}: {e}",
     "result.more": "... a {count} dalších",
     "err.no_npx": "Node.js/npx není k dispozici. Chcete-li používat tento nástroj, nainstalujte si prosím Node.js (https://nodejs.org).",
-    "label.no_issues": "No issues found",
+    "label.no_issues": "Nebyly nalezeny žádné problémy",
     "label.ok": "OK",
-    "label.error": "ERROR",
-    "label.fail": "FAIL"
+    "label.error": "CHYBA",
+    "label.fail": "SELHÁNÍ"
   },
   "de": {
     "tool.description": "Lint-JavaScript-/TypeScript-Dateien mit Biome. Meldet Probleme und behebt sie optional automatisch.",
@@ -179,10 +179,10 @@
     "result.error": "[{label}] {path}: {e}",
     "result.more": "... und {count} mehr",
     "err.no_npx": "Node.js/npx ist nicht verfügbar. Bitte installieren Sie Node.js (https://nodejs.org), um dieses Tool zu verwenden.",
-    "label.no_issues": "No issues found",
-    "label.ok": "OK",
-    "label.error": "ERROR",
-    "label.fail": "FAIL"
+    "label.no_issues": "Keine Probleme gefunden",
+    "label.ok": "Okay",
+    "label.error": "FEHLER",
+    "label.fail": "FEHLER"
   },
   "el": {
     "tool.description": "Lint αρχεία JavaScript/TypeScript χρησιμοποιώντας το Biome. Αναφέρει προβλήματα και προαιρετικά τα διορθώνει αυτόματα.",
@@ -209,10 +209,10 @@
     "result.error": "[{label}] {path}: {e}",
     "result.more": "... και {count} ακόμη",
     "err.no_npx": "Το Node.js/npx δεν είναι διαθέσιμο. Εγκαταστήστε το Node.js (https://nodejs.org) για να χρησιμοποιήσετε αυτό το εργαλείο.",
-    "label.no_issues": "No issues found",
-    "label.ok": "OK",
-    "label.error": "ERROR",
-    "label.fail": "FAIL"
+    "label.no_issues": "Δεν βρέθηκαν προβλήματα",
+    "label.ok": "ΟΚ",
+    "label.error": "ΣΦΑΛΜΑ",
+    "label.fail": "ΑΠΟΤΥΧΙΑ"
   },
   "fr": {
     "tool.description": "Lint les fichiers JavaScript/TypeScript a l'aide de Biome. Signale les problemes et les corrige eventuellement automatiquement.",
@@ -224,7 +224,7 @@
     "result.fail": "[{label}] {path}",
     "result.fail_with_count": "[{label}] {path}: {count} probleme(s)",
     "result.timeout": "[{label}] {path}: delai d'attente",
-    "result.error": "[{label}] {path}: {e}",
+    "result.error": "[{label}] {path} : {e}",
     "result.more": "... et {count} de plus",
     "err.no_npx": "Node.js/npx n'est pas disponible. Veuillez installer Node.js (https://nodejs.org) pour utiliser cet outil.",
     "x_search_terms": [
@@ -239,10 +239,10 @@
       "ts lint",
       "format"
     ],
-    "label.ok": "OK",
-    "label.fail": "FAIL",
-    "label.error": "ERROR",
-    "label.no_issues": "No issues found"
+    "label.ok": "D'accord",
+    "label.fail": "ÉCHEC",
+    "label.error": "ERREUR",
+    "label.no_issues": "Aucun problème trouvé"
   },
   "es": {
     "tool.description": "Archivos Lint JavaScript/TypeScript usando Biome. Informa problemas y, opcionalmente, los soluciona automaticamente.",
@@ -270,9 +270,9 @@
       "format"
     ],
     "label.ok": "OK",
-    "label.fail": "FAIL",
+    "label.fail": "FALLO",
     "label.error": "ERROR",
-    "label.no_issues": "No issues found"
+    "label.no_issues": "No se encontraron problemas"
   },
   "hu": {
     "tool.description": "Lint JavaScript/TypeScript fajlokat a Biome segitsegevel. Jelenti a problemakat, es opcionalisan automatikusan kijavitja azokat.",
@@ -300,9 +300,9 @@
       "format"
     ],
     "label.ok": "OK",
-    "label.fail": "FAIL",
-    "label.error": "ERROR",
-    "label.no_issues": "No issues found"
+    "label.fail": "SIKERTELEN",
+    "label.error": "HIBA",
+    "label.no_issues": "Nem található probléma"
   },
   "id": {
     "tool.description": "File Lint JavaScript/TypeScript menggunakan Biome. Melaporkan masalah dan secara opsional memperbaikinya secara otomatis.",
@@ -329,10 +329,10 @@
       "ts lint",
       "format"
     ],
-    "label.ok": "OK",
-    "label.fail": "FAIL",
-    "label.error": "ERROR",
-    "label.no_issues": "No issues found"
+    "label.ok": "Oke",
+    "label.fail": "GAGAL",
+    "label.error": "KESALAHAN",
+    "label.no_issues": "Tidak ada masalah yang ditemukan"
   },
   "it": {
     "tool.description": "Linting file JavaScript/TypeScript utilizzando Biome. Segnala i problemi e, facoltativamente, li risolve automaticamente.",
@@ -359,10 +359,10 @@
       "ts lint",
       "format"
     ],
-    "label.ok": "OK",
-    "label.fail": "FAIL",
-    "label.error": "ERROR",
-    "label.no_issues": "No issues found"
+    "label.ok": "Va bene",
+    "label.fail": "FALLIMENTO",
+    "label.error": "ERRORE",
+    "label.no_issues": "Nessun problema trovato"
   },
   "ko": {
     "tool.description": "Biome을 사용하는 Lint JavaScript/TypeScript 파일. 문제를 보고하고 선택적으로 자동 수정합니다.",
@@ -389,10 +389,10 @@
       "ts lint",
       "format"
     ],
-    "label.ok": "OK",
-    "label.fail": "FAIL",
-    "label.error": "ERROR",
-    "label.no_issues": "No issues found"
+    "label.ok": "알았어",
+    "label.fail": "실패",
+    "label.error": "오류",
+    "label.no_issues": "발견된 문제 없음"
   },
   "mn": {
     "tool.description": "Biome-г ашиглан JavaScript/TypeScript файлуудыг хулгана. Асуудлыг мэдээлж, автоматаар засдаг.",
@@ -420,9 +420,9 @@
       "format"
     ],
     "label.ok": "OK",
-    "label.fail": "FAIL",
-    "label.error": "ERROR",
-    "label.no_issues": "No issues found"
+    "label.fail": "БҮТЭЭЛГҮЙ",
+    "label.error": "АЛДАА",
+    "label.no_issues": "Асуудал олдсонгүй"
   },
   "mr": {
     "tool.description": "बायोम वापरून JavaScript/TypeScript फाइल्स लिंट करा. समस्यांचा अहवाल देते आणि वैकल्पिकरित्या त्यांचे स्वयं-निराकरण करते.",
@@ -449,10 +449,10 @@
       "ts lint",
       "format"
     ],
-    "label.ok": "OK",
-    "label.fail": "FAIL",
-    "label.error": "ERROR",
-    "label.no_issues": "No issues found"
+    "label.ok": "ठीक आहे",
+    "label.fail": "अयशस्वी",
+    "label.error": "एरर",
+    "label.no_issues": "कोणतीही समस्या आढळली नाही"
   },
   "nb": {
     "tool.description": "Lint JavaScript/TypeScript-filer ved hjelp av Biome. Rapporterer problemer og eventuelt fikser dem automatisk.",
@@ -480,9 +480,9 @@
       "format"
     ],
     "label.ok": "OK",
-    "label.fail": "FAIL",
-    "label.error": "ERROR",
-    "label.no_issues": "No issues found"
+    "label.fail": "FEIL",
+    "label.error": "FEIL",
+    "label.no_issues": "Ingen problemer funnet"
   },
   "nl": {
     "tool.description": "Lint JavaScript/TypeScript-bestanden met Biome. Rapporteert problemen en lost deze eventueel automatisch op.",
@@ -509,10 +509,10 @@
       "ts lint",
       "format"
     ],
-    "label.ok": "OK",
-    "label.fail": "FAIL",
-    "label.error": "ERROR",
-    "label.no_issues": "No issues found"
+    "label.ok": "Oké",
+    "label.fail": "FOUT",
+    "label.error": "FOUT",
+    "label.no_issues": "Geen problemen gevonden"
   },
   "pl": {
     "tool.description": "Lintuj pliki JavaScript/TypeScript przy uzyciu Biome. Zglasza problemy i opcjonalnie automatycznie je naprawia.",
@@ -540,9 +540,9 @@
       "format"
     ],
     "label.ok": "OK",
-    "label.fail": "FAIL",
-    "label.error": "ERROR",
-    "label.no_issues": "No issues found"
+    "label.fail": "NIEPOwodzenie",
+    "label.error": "BŁĄD",
+    "label.no_issues": "Nie znaleziono żadnych problemów"
   },
   "pt": {
     "tool.description": "Arquivos Lint JavaScript/TypeScript usando Biome. Relata problemas e, opcionalmente, corrige-os automaticamente.",
@@ -570,9 +570,9 @@
       "format"
     ],
     "label.ok": "OK",
-    "label.fail": "FAIL",
-    "label.error": "ERROR",
-    "label.no_issues": "No issues found"
+    "label.fail": "FALHA",
+    "label.error": "ERRO",
+    "label.no_issues": "Nenhum problema encontrado"
   },
   "pt_BR": {
     "tool.description": "Arquivos Lint JavaScript/TypeScript usando Biome. Relata problemas e, opcionalmente, corrige-os automaticamente.",
@@ -600,9 +600,9 @@
       "format"
     ],
     "label.ok": "OK",
-    "label.fail": "FAIL",
-    "label.error": "ERROR",
-    "label.no_issues": "No issues found"
+    "label.fail": "FALHA",
+    "label.error": "ERRO",
+    "label.no_issues": "Nenhum problema encontrado"
   },
   "ro": {
     "tool.description": "Lint fisiere JavaScript/TypeScript folosind Biome. Raporteaza probleme si, optional, le remediaza automat.",
@@ -630,9 +630,9 @@
       "format"
     ],
     "label.ok": "OK",
-    "label.fail": "FAIL",
-    "label.error": "ERROR",
-    "label.no_issues": "No issues found"
+    "label.fail": "EȘEC",
+    "label.error": "EROARE",
+    "label.no_issues": "Nu s-au găsit probleme"
   },
   "ru": {
     "tool.description": "Связывайте файлы JavaScript/TypeScript с использованием Biome. Сообщает о проблемах и, при необходимости, автоматически их исправляет.",
@@ -659,10 +659,10 @@
       "ts lint",
       "format"
     ],
-    "label.ok": "OK",
-    "label.fail": "FAIL",
-    "label.error": "ERROR",
-    "label.no_issues": "No issues found"
+    "label.ok": "ОК",
+    "label.fail": "НЕУДАЧА",
+    "label.error": "ОШИБКА",
+    "label.no_issues": "Проблем не обнаружено"
   },
   "sv": {
     "tool.description": "Lint JavaScript/TypeScript-filer med Biome. Rapporterar problem och atgardar dem automatiskt.",
@@ -690,9 +690,9 @@
       "format"
     ],
     "label.ok": "OK",
-    "label.fail": "FAIL",
-    "label.error": "ERROR",
-    "label.no_issues": "No issues found"
+    "label.fail": "MISSLYCKADES",
+    "label.error": "FEL",
+    "label.no_issues": "Inga problem hittades"
   },
   "th": {
     "tool.description": "ไฟล์ Lint JavaScript/TypeScript โดยใช้ Biome รายงานปัญหาและเลือกแก้ไขอัตโนมัติได้",
@@ -719,10 +719,10 @@
       "ts lint",
       "format"
     ],
-    "label.ok": "OK",
-    "label.fail": "FAIL",
-    "label.error": "ERROR",
-    "label.no_issues": "No issues found"
+    "label.ok": "ตกลง",
+    "label.fail": "ล้มเหลว",
+    "label.error": "ข้อผิดพลาด",
+    "label.no_issues": "ไม่พบปัญหา"
   },
   "tr": {
     "tool.description": "Biome kullanarak JavaScript/TypeScript dosyalarini lintleyin. Sorunlari bildirir ve istege bagli olarak bunlari otomatik olarak duzeltir.",
@@ -749,10 +749,10 @@
       "ts lint",
       "format"
     ],
-    "label.ok": "OK",
-    "label.fail": "FAIL",
-    "label.error": "ERROR",
-    "label.no_issues": "No issues found"
+    "label.ok": "tamam",
+    "label.fail": "BAŞARISIZ",
+    "label.error": "HATA",
+    "label.no_issues": "Hiçbir sorun bulunamadı"
   },
   "uk": {
     "tool.description": "Файли Lint JavaScript/TypeScript за допомогою Biome. Повідомляє про проблеми та, за бажанням, автоматично виправляє їх.",
@@ -779,10 +779,10 @@
       "ts lint",
       "format"
     ],
-    "label.ok": "OK",
-    "label.fail": "FAIL",
-    "label.error": "ERROR",
-    "label.no_issues": "No issues found"
+    "label.ok": "добре",
+    "label.fail": "НЕВДАЧА",
+    "label.error": "ПОМИЛКА",
+    "label.no_issues": "Проблем не знайдено"
   },
   "vi": {
     "tool.description": "Lint các tệp JavaScript/TypeScript bằng Biome. Báo cáo sự cố và tùy chọn tự động khắc phục chúng.",
@@ -809,10 +809,10 @@
       "ts lint",
       "format"
     ],
-    "label.ok": "OK",
-    "label.fail": "FAIL",
-    "label.error": "ERROR",
-    "label.no_issues": "No issues found"
+    "label.ok": "được rồi",
+    "label.fail": "THẤT BẠI",
+    "label.error": "LỖI",
+    "label.no_issues": "Không tìm thấy vấn đề nào"
   },
   "zh_CN": {
     "tool.description": "使用 Biome 检测 JavaScript/TypeScript 文件。报告问题并可选择自动修复它们。",
@@ -839,10 +839,10 @@
       "ts lint",
       "format"
     ],
-    "label.ok": "OK",
-    "label.fail": "FAIL",
-    "label.error": "ERROR",
-    "label.no_issues": "No issues found"
+    "label.ok": "好的",
+    "label.fail": "失败",
+    "label.error": "错误",
+    "label.no_issues": "没有发现问题"
   },
   "zh_TW": {
     "tool.description": "使用 Biome 检测 JavaScript/TypeScript 档案。回报问题并可选择自动修复它们。",
@@ -869,10 +869,10 @@
       "ts lint",
       "format"
     ],
-    "label.ok": "OK",
-    "label.fail": "FAIL",
-    "label.error": "ERROR",
-    "label.no_issues": "No issues found"
+    "label.ok": "好的",
+    "label.fail": "失敗",
+    "label.error": "錯誤",
+    "label.no_issues": "沒有發現問題"
   },
   "fa": {
     "tool.description": "فایل های جاوا اسکریپت/تایپ اسکریپت را با استفاده از Biome پر کنید. مشکلات را گزارش می کند و به صورت اختیاری آنها را به صورت خودکار رفع می کند.",
@@ -899,10 +899,10 @@
       "ts lint",
       "format"
     ],
-    "label.ok": "OK",
-    "label.fail": "FAIL",
-    "label.error": "ERROR",
-    "label.no_issues": "No issues found"
+    "label.ok": "باشه",
+    "label.fail": "شکست",
+    "label.error": "خطا",
+    "label.no_issues": "مشکلی پیدا نشد"
   },
   "fi": {
     "tool.description": "Lint JavaScript/TypeScript-tiedostot Biomen avulla. Raportoi ongelmista ja valinnaisesti korjaa ne automaattisesti.",
@@ -930,9 +930,9 @@
       "format"
     ],
     "label.ok": "OK",
-    "label.fail": "FAIL",
-    "label.error": "ERROR",
-    "label.no_issues": "No issues found"
+    "label.fail": "EPÄONNISTUI",
+    "label.error": "VIRHE",
+    "label.no_issues": "Ei ongelmia"
   },
   "he": {
     "tool.description": "מוך קובצי JavaScript/TypeScript באמצעות Biome. מדווח על בעיות ואופציונלי מתקן אותן באופן אוטומטי.",
@@ -959,10 +959,10 @@
       "ts lint",
       "format"
     ],
-    "label.ok": "OK",
-    "label.fail": "FAIL",
-    "label.error": "ERROR",
-    "label.no_issues": "No issues found"
+    "label.ok": "בסדר",
+    "label.fail": "נכשל",
+    "label.error": "שגיאה",
+    "label.no_issues": "לא נמצאו בעיות"
   },
   "hi": {
     "tool.description": "बायोम का उपयोग करके लिंट जावास्क्रिप्ट/टाइपस्क्रिप्ट फ़ाइलें। समस्याओं की रिपोर्ट करता है और वैकल्पिक रूप से उन्हें स्वतः ठीक करता है।",
@@ -989,10 +989,10 @@
       "ts lint",
       "format"
     ],
-    "label.ok": "OK",
-    "label.fail": "FAIL",
-    "label.error": "ERROR",
-    "label.no_issues": "No issues found"
+    "label.ok": "ठीक है",
+    "label.fail": "असफल",
+    "label.error": "गलती",
+    "label.no_issues": "कोई समस्या नहीं मिली"
   },
   "sw": {
     "tool.description": "Weka faili za JavaScript/TypeScript kwa kutumia Biome. Huripoti matatizo na kuyarekebisha kiotomatiki kwa hiari.",
@@ -1019,9 +1019,9 @@
       "ts lint",
       "format"
     ],
-    "label.ok": "OK",
-    "label.fail": "FAIL",
-    "label.error": "ERROR",
-    "label.no_issues": "No issues found"
+    "label.ok": "Sawa",
+    "label.fail": "KUSHINDWA",
+    "label.error": "HITILAFU",
+    "label.no_issues": "Hakuna matatizo yaliyopatikana"
   }
 }

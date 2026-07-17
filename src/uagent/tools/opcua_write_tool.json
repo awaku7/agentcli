@@ -324,7 +324,7 @@
   },
   "nb": {
     "tool.description": "Skriv en verdi til en OPC UA-servernode.",
-    "param.url.description": "OPC UA server URL.",
+    "param.url.description": "OPC UA-server-URL.",
     "param.node_id.description": "Målnode-ID (f.eks. 'i=85' eller 'ns=2;s=settpunkt').",
     "param.value.description": "Verdi å skrive. Bruk typehint for ikke-strengtyper.",
     "param.type.description": "Datatypehint for verdien: string, int, float, bool.",
@@ -443,7 +443,7 @@
   },
   "sv": {
     "tool.description": "Skriv ett värde till en OPC UA-servernod.",
-    "param.url.description": "OPC UA server URL.",
+    "param.url.description": "OPC UA-server-URL.",
     "param.node_id.description": "Målnod-ID (t.ex. 'i=85' eller 'ns=2;s=börvärde').",
     "param.value.description": "Värde att skriva. Använd typtips för icke-strängtyper.",
     "param.type.description": "Datatyptips för värdet: string, int, float, bool.",

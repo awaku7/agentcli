@@ -90,14 +90,14 @@
     "msg.truncated": "\n[long_memory avkortet: begrenset til {max_bytes} tegn]"
   },
   "nl": {
-    "err.load": "[long_memory error] {err_type}: {err}",
-    "msg.no_memory": "(no long-term memory yet)",
-    "msg.truncated": "\n[long_memory truncated: limited to {max_bytes} chars]"
+    "err.load": "[fout lang geheugen] {err_type}: {err}",
+    "msg.no_memory": "(nog geen langetermijngeheugen)",
+    "msg.truncated": "\n[lang geheugen afgekapt: beperkt tot {max_bytes} tekens]"
   },
   "fi": {
-    "err.load": "[long_memory error] {err_type}: {err}",
-    "msg.no_memory": "(no long-term memory yet)",
-    "msg.truncated": "\n[long_memory truncated: limited to {max_bytes} chars]"
+    "err.load": "[pitkä_muistivirhe] {err_type}: {err}",
+    "msg.no_memory": "(ei vielä pitkäaikaista muistia)",
+    "msg.truncated": "\n[long_memory typistetty: rajoitettu {max_bytes} merkkiin]"
   },
   "cs": {
     "err.load": "[chyba long_memory] {err_type}: {err}",
@@ -131,42 +131,42 @@
   },
   "bn": {
     "err.load": "[long_memory error] {err_type}: {err}",
-    "msg.no_memory": "(no long-term memory yet)",
-    "msg.truncated": "\n[long_memory truncated: limited to {max_bytes} chars]"
+    "msg.no_memory": "(এখনও দীর্ঘমেয়াদী স্মৃতি নেই)",
+    "msg.truncated": "\n[দীর্ঘ_স্মৃতি কাটা: {max_bytes} অক্ষরে সীমাবদ্ধ]"
   },
   "fa": {
-    "err.load": "[long_memory error] {err_type}: {err}",
-    "msg.no_memory": "(no long-term memory yet)",
-    "msg.truncated": "\n[long_memory truncated: limited to {max_bytes} chars]"
+    "err.load": "[خطای long_memory] {err_type}: {err}",
+    "msg.no_memory": "(هنوز حافظه بلند مدت وجود ندارد)",
+    "msg.truncated": "\n[long_memory کوتاه شده: محدود به نویسه‌های {max_bytes}]"
   },
   "mn": {
-    "err.load": "[long_memory error] {err_type}: {err}",
-    "msg.no_memory": "(no long-term memory yet)",
-    "msg.truncated": "\n[long_memory truncated: limited to {max_bytes} chars]"
+    "err.load": "[урт_санах ойн алдаа] {err_type}: {err}",
+    "msg.no_memory": "(урт хугацааны санах ой хараахан байхгүй)",
+    "msg.truncated": "\n[урт_санах ой таслагдсан: {max_bytes} тэмдэгтээр хязгаарлагдсан]"
   },
   "mr": {
     "err.load": "[long_memory error] {err_type}: {err}",
-    "msg.no_memory": "(no long-term memory yet)",
-    "msg.truncated": "\n[long_memory truncated: limited to {max_bytes} chars]"
+    "msg.no_memory": "(अद्याप दीर्घकालीन स्मृती नाही)",
+    "msg.truncated": "\n[long_memory truncated: {max_bytes} अक्षरांपर्यंत मर्यादित]"
   },
   "el": {
-    "err.load": "[long_memory περικομμένη: περιορισμένη σε {max_bytes} χαρακτήρες]",
+    "err.load": "[σφάλμα long_memory] {err_type}: {err}",
     "msg.no_memory": "Καταχωρίστε τις συσκευές που διαχειρίζονται γέφυρα Matter και επιστρέψτε μια σύνοψη JSON ή κειμένου.",
-    "msg.truncated": "Bridge ID (παράλειψη για όλους)."
+    "msg.truncated": "\n[long_memory περικομμένη: περιορισμένη σε χαρακτήρες {max_bytes}]"
   },
   "he": {
-    "err.load": "[זיכרון ארוך קטוע: מוגבל ל-{max_bytes} תווים]",
+    "err.load": "[שגיאת זיכרון ארוכה] {err_type}: {err}",
     "msg.no_memory": "רשימת מכשירים מנוהלים ב-Matter והחזרת JSON או סיכום טקסט.",
-    "msg.truncated": "מזהה גשר (השמט לכולם)."
+    "msg.truncated": "\n[זיכרון ארוך קטוע: מוגבל לתווים {max_bytes}]"
   },
   "hu": {
-    "err.load": "[long_memory truncated: maximum {max_bytes} karakter]",
+    "err.load": "[long_memory error] {err_type}: {err}",
     "msg.no_memory": "A hídkezeléssel felügyelt eszközök listázása, és JSON vagy szöveges összefoglaló visszaadása.",
-    "msg.truncated": "Hídazonosító (mindennél kihagyja)."
+    "msg.truncated": "\n[long_memory csonka: {max_bytes} karakterekre korlátozva]"
   },
   "ro": {
     "err.load": "[eroare de memorie lungă] {err_type}: {err}",
     "msg.no_memory": "nume de clasă",
-    "msg.truncated": ": {er_memorrr_type] (nu există încă memorie pe termen lung)"
+    "msg.truncated": "\n[long_memory trunchiată: limitată la caracterele {max_bytes}]"
   }
 }

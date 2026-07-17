@@ -48,7 +48,8 @@
       "rm"
     ],
     "param.skip.description": "Si es verdadero, no genera error cuando la ruta no existe.",
-    "tool.description": "Elimine el archivo o directorio especificado (los directorios se eliminan de forma recursiva). Debido a que esto es peligroso, es posible que se requiera confirmación."
+    "tool.description": "Elimine el archivo o directorio especificado (los directorios se eliminan de forma recursiva). Debido a que esto es peligroso, es posible que se requiera confirmación.",
+    "confirm.delete_paths_bulk": "¿Eliminar {count} rutas?\n\n{paths}\n\nIngrese y para continuar o c para cancelar."
   },
   "fr": {
     "param.allow_dir.description": "Années à ajouter (négatif pour la soustraction). correspondant par glob.",
@@ -65,7 +66,8 @@
       "rm"
     ],
     "param.skip.description": "Si c'est vrai, ne faites pas d'erreur lorsque le chemin n'existe pas.",
-    "tool.description": "Supprimez le fichier ou le répertoire spécifié (les répertoires sont supprimés de manière récursive). Comme cela est dangereux, une confirmation peut être requise."
+    "tool.description": "Supprimez le fichier ou le répertoire spécifié (les répertoires sont supprimés de manière récursive). Comme cela est dangereux, une confirmation peut être requise.",
+    "confirm.delete_paths_bulk": "Supprimer {count} chemins ?\n\n{paths}\n\nEntrez y pour continuer ou c pour annuler."
   },
   "ko": {
     "param.allow_dir.description": "활성화하면 glob과 일치하는 디렉토리 삭제를 허용합니다.",
@@ -82,7 +84,8 @@
       "rm"
     ],
     "param.skip.description": "활성화하면 경로가 존재하지 않아도 에러를 발생시키지 않습니다.",
-    "tool.description": "지정된 파일이나 디렉터리를 삭제합니다(디렉터리는 반복적으로 삭제됩니다). 이는 위험하므로 확인이 필요할 수 있습니다."
+    "tool.description": "지정된 파일이나 디렉터리를 삭제합니다(디렉터리는 반복적으로 삭제됩니다). 이는 위험하므로 확인이 필요할 수 있습니다.",
+    "confirm.delete_paths_bulk": "{count} 경로를 삭제하시겠습니까?\n\n{paths}\n\n계속하려면 y를 입력하고, 취소하려면 c를 입력하세요."
   },
   "de": {
     "param.allow_dir.description": "Wenn „true“, erlaubt das Löschen von Verzeichnissen, die mit Glob übereinstimmen.",
@@ -99,7 +102,8 @@
       "rm"
     ],
     "param.skip.description": "Wenn wahr, wird kein Fehler angezeigt, wenn der Pfad nicht vorhanden ist.",
-    "tool.description": "Löschen Sie die angegebene Datei oder das angegebene Verzeichnis (Verzeichnisse werden rekursiv gelöscht). Da dies gefährlich ist, ist möglicherweise eine Bestätigung erforderlich."
+    "tool.description": "Löschen Sie die angegebene Datei oder das angegebene Verzeichnis (Verzeichnisse werden rekursiv gelöscht). Da dies gefährlich ist, ist möglicherweise eine Bestätigung erforderlich.",
+    "confirm.delete_paths_bulk": "{count} Pfade löschen?\n\n{paths}\n\nGeben Sie y ein, um fortzufahren, oder c, um abzubrechen."
   },
   "it": {
     "param.allow_dir.description": "Anni da aggiungere (negativo per sottrazione). corrispondente a glob.",
@@ -116,7 +120,8 @@
       "rm"
     ],
     "param.skip.description": "Se vero, non generare errori quando il percorso non esiste",
-    "tool.description": "Elimina il file o la directory specificata (le directory vengono eliminate in modo ricorsivo). Poiché questo è pericoloso, potrebbe essere richiesta una conferma."
+    "tool.description": "Elimina il file o la directory specificata (le directory vengono eliminate in modo ricorsivo). Poiché questo è pericoloso, potrebbe essere richiesta una conferma.",
+    "confirm.delete_paths_bulk": "Eliminare {count} percorsi?\n\n{paths}\n\nInserisci y per procedere oppure c per annullare."
   },
   "ru": {
     "param.allow_dir.description": "Если установлено значение true, разрешить удаление каталогов, соответствующих glob.",
@@ -127,7 +132,8 @@
       "удалить файл, удалить файл, стереть файл, удалить, дель, удалить, rm"
     ],
     "param.skip.description": "Если это правда, не допускайте ошибок, если путь не существует.",
-    "tool.description": "Удалить указанный файл или каталог (каталоги удаляются рекурсивно). Поскольку это опасно, может потребоваться подтверждение."
+    "tool.description": "Удалить указанный файл или каталог (каталоги удаляются рекурсивно). Поскольку это опасно, может потребоваться подтверждение.",
+    "confirm.delete_paths_bulk": "Удалить пути {count}?\n\n{paths}\n\nВведите y, чтобы продолжить, или c, чтобы отменить."
   },
   "pt_BR": {
     "param.allow_dir.description": "Se verdadeiro, permite a exclusão de diretórios correspondentes ao glob.",
@@ -147,7 +153,8 @@
       "delete item"
     ],
     "param.skip.description": "Se ativado, não gera erro se o caminho não existir.",
-    "tool.description": "Exclua o arquivo ou diretório especificado (os diretórios são excluídos recursivamente). Como isso é perigoso, pode ser necessária confirmação."
+    "tool.description": "Exclua o arquivo ou diretório especificado (os diretórios são excluídos recursivamente). Como isso é perigoso, pode ser necessária confirmação.",
+    "confirm.delete_paths_bulk": "Excluir caminhos {count}?\n\n{paths}\n\nDigite y para continuar ou c para cancelar."
   },
   "pt": {
     "param.allow_dir.description": "Se verdadeiro, permite a exclusão de diretórios correspondentes ao glob.",
@@ -167,7 +174,8 @@
       "excluir item"
     ],
     "param.skip.description": "Se verdadeiro, não comete erros quando o caminho não existe.",
-    "tool.description": "Exclua o arquivo ou diretório especificado (os diretórios são excluídos recursivamente). Como isso é perigoso, pode ser necessária confirmação."
+    "tool.description": "Exclua o arquivo ou diretório especificado (os diretórios são excluídos recursivamente). Como isso é perigoso, pode ser necessária confirmação.",
+    "confirm.delete_paths_bulk": "Excluir caminhos {count}?\n\n{paths}\n\nDigite y para continuar ou c para cancelar."
   },
   "id": {
     "param.allow_dir.description": "Jika benar, izinkan penghapusan direktori yang cocok dengan glob.",
@@ -187,7 +195,8 @@
       "hapus item"
     ],
     "param.skip.description": "Jika diaktifkan, tidak error saat path tidak ada.",
-    "tool.description": "Hapus file atau direktori tertentu (direktori dihapus secara rekursif). Karena ini berbahaya, konfirmasi mungkin diperlukan."
+    "tool.description": "Hapus file atau direktori tertentu (direktori dihapus secara rekursif). Karena ini berbahaya, konfirmasi mungkin diperlukan.",
+    "confirm.delete_paths_bulk": "Hapus {count} jalur?\n\n{paths}\n\nMasukkan y untuk melanjutkan, atau c untuk membatalkan."
   },
   "vi": {
     "param.allow_dir.description": "Nếu được bật, cho phép xóa các thư mục khớp với glob.",
@@ -207,7 +216,8 @@
       "xóa mục"
     ],
     "param.skip.description": "Nếu đúng, không xảy ra lỗi khi đường dẫn không tồn tại.",
-    "tool.description": "Xóa tệp hoặc thư mục đã chỉ định (các thư mục sẽ bị xóa đệ quy). Vì điều này nguy hiểm nên có thể cần phải xác nhận."
+    "tool.description": "Xóa tệp hoặc thư mục đã chỉ định (các thư mục sẽ bị xóa đệ quy). Vì điều này nguy hiểm nên có thể cần phải xác nhận.",
+    "confirm.delete_paths_bulk": "Xóa {count} đường dẫn?\n\n{paths}\n\nNhập y để tiếp tục hoặc c để hủy."
   },
   "pl": {
     "param.allow_dir.description": "Jeśli true, zezwól na usuwanie katalogów pasujących do glob.",
@@ -227,7 +237,8 @@
       "delete item"
     ],
     "param.skip.description": "Jeśli true, nie popełniaj błędu, gdy ścieżka nie istnieje.",
-    "tool.description": "Usuń określony plik lub katalog (katalogi są usuwane rekurencyjnie). Ponieważ jest to niebezpieczne, może być wymagane potwierdzenie."
+    "tool.description": "Usuń określony plik lub katalog (katalogi są usuwane rekurencyjnie). Ponieważ jest to niebezpieczne, może być wymagane potwierdzenie.",
+    "confirm.delete_paths_bulk": "Usunąć ścieżki {count}?\n\n{paths}\n\nWpisz y, aby kontynuować, lub c, aby anulować."
   },
   "hi": {
     "param.allow_dir.description": "यदि सत्य है, तो ग्लोब से मेल खाने वाली निर्देशिकाओं को हटाने की अनुमति दें।",
@@ -247,7 +258,8 @@
       "delete item"
     ],
     "param.skip.description": "यदि सक्षम है, तो पथ मौजूद न होने पर त्रुटि न करें।",
-    "tool.description": "निर्दिष्ट फ़ाइल या निर्देशिका हटाएँ (निर्देशिकाएँ पुनरावर्ती रूप से हटा दी जाती हैं)। हटाने से पहले, हमेशा एक पूर्वावलोकन दिखाएं और उपयोगकर्ता से पुष्टि पूछें।"
+    "tool.description": "निर्दिष्ट फ़ाइल या निर्देशिका हटाएँ (निर्देशिकाएँ पुनरावर्ती रूप से हटा दी जाती हैं)। हटाने से पहले, हमेशा एक पूर्वावलोकन दिखाएं और उपयोगकर्ता से पुष्टि पूछें।",
+    "confirm.delete_paths_bulk": "{count} पथ हटाएं?\n\n{paths}\n\nआगे बढ़ने के लिए y दर्ज करें, या रद्द करने के लिए c दर्ज करें।"
   },
   "ar": {
     "param.allow_dir.description": "إذا تم تمكينه، فاسمح بحذف الدلائل المطابقة لـ glob.",
@@ -267,7 +279,8 @@
       "delete item"
     ],
     "param.skip.description": "إذا تم تمكينه، فلا تخطئ عندما يكون المسار غير موجود.",
-    "tool.description": "احذف الملف أو الدليل المحدد (يتم حذف الدلائل بشكل متكرر). نظرًا لخطورة ذلك، قد يلزم التأكيد."
+    "tool.description": "احذف الملف أو الدليل المحدد (يتم حذف الدلائل بشكل متكرر). نظرًا لخطورة ذلك، قد يلزم التأكيد.",
+    "confirm.delete_paths_bulk": "هل تريد حذف {count} من المسارات؟ \n\n{paths}\n\nأدخل y للمتابعة، أو c للإلغاء."
   },
   "sv": {
     "param.allow_dir.description": "Om sant, tillåt borttagning av kataloger som matchas av glob.",
@@ -287,7 +300,8 @@
       "delete item"
     ],
     "param.skip.description": "Om sant, fel inte när sökvägen inte finns.",
-    "tool.description": "Ta bort den angivna filen eller katalogen (kataloger tas bort rekursivt). Eftersom detta är farligt kan bekräftelse krävas."
+    "tool.description": "Ta bort den angivna filen eller katalogen (kataloger tas bort rekursivt). Eftersom detta är farligt kan bekräftelse krävas.",
+    "confirm.delete_paths_bulk": "Ta bort {count} sökvägar?\n\n{paths}\n\nAnge y för att fortsätta, eller c för att avbryta."
   },
   "sw": {
     "param.allow_dir.description": "Ikiwashwa, ruhusu kufuta saraka zinazolingana na glob.",
@@ -307,7 +321,8 @@
       "delete item"
     ],
     "param.skip.description": "Ikiwashwa, usitoe hitilafu njia isipokuwepo.",
-    "tool.description": "Futa faili au saraka iliyoainishwa (saraka hufutwa kwa kujirudia). Kwa sababu hii ni hatari, uthibitisho unaweza kuhitajika."
+    "tool.description": "Futa faili au saraka iliyoainishwa (saraka hufutwa kwa kujirudia). Kwa sababu hii ni hatari, uthibitisho unaweza kuhitajika.",
+    "confirm.delete_paths_bulk": "Ungependa kufuta njia {count}?\n\n{paths}\n\n Weka y ili kuendelea, au c ili kughairi."
   },
   "nb": {
     "param.allow_dir.description": "Hvis sant, tillat sletting av kataloger som samsvarer med glob.",
@@ -327,7 +342,8 @@
       "delete item"
     ],
     "param.skip.description": "Hvis sant, ikke feil når banen ikke eksisterer.",
-    "tool.description": "Slett den angitte filen eller katalogen (kataloger slettes rekursivt). Fordi dette er farlig, kan bekreftelse være nødvendig."
+    "tool.description": "Slett den angitte filen eller katalogen (kataloger slettes rekursivt). Fordi dette er farlig, kan bekreftelse være nødvendig.",
+    "confirm.delete_paths_bulk": "Vil du slette {count} baner?\n\n{paths}\n\nSkriv inn y for å fortsette, eller c for å avbryte."
   },
   "nl": {
     "param.allow_dir.description": "Indien waar, sta het verwijderen van mappen toe die overeenkomen met glob.",
@@ -347,7 +363,8 @@
       "delete item"
     ],
     "param.skip.description": "Indien waar, geef dan geen foutmelding als het pad niet bestaat.",
-    "tool.description": "Verwijder het opgegeven bestand of de opgegeven map (mappen worden recursief verwijderd). Omdat dit gevaarlijk is, is mogelijk bevestiging vereist."
+    "tool.description": "Verwijder het opgegeven bestand of de opgegeven map (mappen worden recursief verwijderd). Omdat dit gevaarlijk is, is mogelijk bevestiging vereist.",
+    "confirm.delete_paths_bulk": "{count} paden verwijderen?\n\n{paths}\n\nVoer y in om door te gaan, of c om te annuleren."
   },
   "fi": {
     "param.allow_dir.description": "Jos tosi, salli globilla vastaavien hakemistojen poistaminen.",
@@ -367,7 +384,8 @@
       "delete item"
     ],
     "param.skip.description": "Jos tosi, älä tee virhettä, kun polkua ei ole olemassa.",
-    "tool.description": "Poista määritetty tiedosto tai hakemisto (hakemistot poistetaan rekursiivisesti). Koska tämä on vaarallista, vahvistus voidaan vaatia."
+    "tool.description": "Poista määritetty tiedosto tai hakemisto (hakemistot poistetaan rekursiivisesti). Koska tämä on vaarallista, vahvistus voidaan vaatia.",
+    "confirm.delete_paths_bulk": "Poistetaanko {count} polkua?\n\n{paths}\n\nSyötä y jatkaaksesi tai c peruuttaaksesi."
   },
   "cs": {
     "param.allow_dir.description": "Pokud je pravda, povolí mazání adresářů odpovídajících glob.",
@@ -387,7 +405,8 @@
       "delete item"
     ],
     "param.skip.description": "Je-li povoleno, nevyvolá chybu, pokud cesta neexistuje.",
-    "tool.description": "Odstraňte zadaný soubor nebo adresář (adresáře jsou mazány rekurzivně). Protože je to nebezpečné, může být vyžadováno potvrzení."
+    "tool.description": "Odstraňte zadaný soubor nebo adresář (adresáře jsou mazány rekurzivně). Protože je to nebezpečné, může být vyžadováno potvrzení.",
+    "confirm.delete_paths_bulk": "Smazat cesty {count}?\n\n{paths}\n\nPro pokračování zadejte y, pro zrušení zadejte c."
   },
   "uk": {
     "param.allow_dir.description": "Якщо true, дозволити видалення каталогів, які відповідають glob.",
@@ -407,7 +426,8 @@
       "delete item"
     ],
     "param.skip.description": "Якщо шлях не існує.",
-    "tool.description": "Видалити вказаний файл або каталог (каталоги видаляються рекурсивно). Оскільки це небезпечно, може знадобитися підтвердження."
+    "tool.description": "Видалити вказаний файл або каталог (каталоги видаляються рекурсивно). Оскільки це небезпечно, може знадобитися підтвердження.",
+    "confirm.delete_paths_bulk": "Видалити {count} шляхів?\n\n{paths}\n\nВведіть y, щоб продовжити, або c, щоб скасувати."
   },
   "tr": {
     "param.allow_dir.description": "Doğruysa, glob ile eşleşen dizinlerin silinmesine izin ver.",
@@ -427,7 +447,8 @@
       "delete item"
     ],
     "param.skip.description": "Etkinleştirilirse, yol mevcut olmadığında hata yapmayın.",
-    "tool.description": "Belirtilen dosyayı veya dizini silin (dizinler yinelemeli olarak silinir). Bu tehlikeli olduğundan onay gerekebilir."
+    "tool.description": "Belirtilen dosyayı veya dizini silin (dizinler yinelemeli olarak silinir). Bu tehlikeli olduğundan onay gerekebilir.",
+    "confirm.delete_paths_bulk": "{count} yol silinsin mi?\n\n{paths}\n\nDevam etmek için y veya iptal etmek için c girin."
   },
   "th": {
     "param.allow_dir.description": "หากเปิดใช้งาน จะอนุญาตให้ลบไดเรกทอรีที่ตรงกับ glob",
@@ -447,7 +468,8 @@
       "delete item"
     ],
     "param.skip.description": "หากเปิดใช้งาน จะไม่แสดงข้อผิดพลาดหากไม่พบเส้นทาง",
-    "tool.description": "ลบไฟล์หรือไดเร็กทอรีที่ระบุ (ไดเร็กทอรีจะถูกลบซ้ำ) เนื่องจากสิ่งนี้เป็นอันตราย จึงอาจจำเป็นต้องมีการยืนยัน"
+    "tool.description": "ลบไฟล์หรือไดเร็กทอรีที่ระบุ (ไดเร็กทอรีจะถูกลบซ้ำ) เนื่องจากสิ่งนี้เป็นอันตราย จึงอาจจำเป็นต้องมีการยืนยัน",
+    "confirm.delete_paths_bulk": "ลบ {count} เส้นทาง?\n\n{paths}\n\nป้อน y เพื่อดำเนินการต่อ หรือ c เพื่อยกเลิก"
   },
   "zh_CN": {
     "param.allow_dir.description": "如果启用，允许删除与 glob 匹配的目录。",
@@ -467,7 +489,8 @@
       "delete item"
     ],
     "param.skip.description": "如果启用，路径不存在时不会报错。",
-    "tool.description": "删除指定的文件或目录（目录被递归删除）。由于这很危险，因此可能需要确认。"
+    "tool.description": "删除指定的文件或目录（目录被递归删除）。由于这很危险，因此可能需要确认。",
+    "confirm.delete_paths_bulk": "删除 {count} 路径？\n\n{paths}\n\n输入 y 继续，或输入 c 取消。"
   },
   "zh_TW": {
     "param.allow_dir.description": "如果啟用，允許刪除與 glob 相符的目錄。",
@@ -487,7 +510,8 @@
       "delete item"
     ],
     "param.skip.description": "如果啟用，路徑不存在時不會報錯。",
-    "tool.description": "刪除指定的檔案或目錄（目錄被遞歸刪除）。由於這很危險，因此可能需要確認。 "
+    "tool.description": "刪除指定的檔案或目錄（目錄被遞歸刪除）。由於這很危險，因此可能需要確認。 ",
+    "confirm.delete_paths_bulk": "刪除 {count} 路徑？ \n\n{paths}\n\n輸入 y 繼續，或輸入 c 取消。"
   },
   "bn": {
     "param.allow_dir.description": "সত্য হলে, গ্লোবের সাথে মিলে যাওয়া ডিরেক্টরি মুছে ফেলার অনুমতি দিন।",
@@ -507,7 +531,8 @@
       "delete item"
     ],
     "param.skip.description": "সক্ষম থাকলে পথ না থাকলেও ত্রুটি দেবে না।",
-    "tool.description": "নির্দিষ্ট ফাইল বা ডিরেক্টরি মুছুন (ডিরেক্টরিগুলি পুনরাবৃত্তিমূলকভাবে মুছে ফেলা হয়)। কারণ এটি বিপজ্জনক, নিশ্চিতকরণের প্রয়োজন হতে পারে।"
+    "tool.description": "নির্দিষ্ট ফাইল বা ডিরেক্টরি মুছুন (ডিরেক্টরিগুলি পুনরাবৃত্তিমূলকভাবে মুছে ফেলা হয়)। কারণ এটি বিপজ্জনক, নিশ্চিতকরণের প্রয়োজন হতে পারে।",
+    "confirm.delete_paths_bulk": "{count}টি পথ মুছে ফেলবেন?\n\n{paths}\n\nএগিয়ে যেতে y লিখুন বা বাতিল করতে c দিন।"
   },
   "fa": {
     "param.allow_dir.description": "اگر درست است، به حذف دایرکتوری های مطابق با glob اجازه دهید.",
@@ -527,7 +552,8 @@
       "delete item"
     ],
     "param.skip.description": "اگر فعال باشد، نبودن مسیر خطا محسوب نمی‌شود.",
-    "tool.description": "فایل یا دایرکتوری مشخص شده را حذف کنید (دایرکتوری ها به صورت بازگشتی حذف می شوند). از آنجایی که این خطرناک است، ممکن است نیاز به تأیید باشد."
+    "tool.description": "فایل یا دایرکتوری مشخص شده را حذف کنید (دایرکتوری ها به صورت بازگشتی حذف می شوند). از آنجایی که این خطرناک است، ممکن است نیاز به تأیید باشد.",
+    "confirm.delete_paths_bulk": "مسیرهای {count} حذف شود؟\n\n{paths}\n\nبرای ادامه y یا برای لغو c را وارد کنید."
   },
   "mn": {
     "param.allow_dir.description": "Хэрэв үнэн бол glob-д таарсан сангуудыг устгахыг зөвшөөрнө үү.",
@@ -547,7 +573,8 @@
       "delete item"
     ],
     "param.skip.description": "Идэвхтэй бол зам байхгүй үед алдаа гаргахгүй.",
-    "tool.description": "Заасан файл эсвэл лавлахыг устгах (сангуудыг рекурсив байдлаар устгадаг). Энэ нь аюултай тул баталгаажуулах шаардлагатай байж магадгүй."
+    "tool.description": "Заасан файл эсвэл лавлахыг устгах (сангуудыг рекурсив байдлаар устгадаг). Энэ нь аюултай тул баталгаажуулах шаардлагатай байж магадгүй.",
+    "confirm.delete_paths_bulk": "{count} замыг устгах уу?\n\n{paths}\n\nҮргэлжлүүлэхийн тулд y, цуцлахын тулд c-г оруулна уу."
   },
   "mr": {
     "param.allow_dir.description": "सत्य असल्यास, ग्लोबद्वारे जुळलेल्या निर्देशिका हटविण्यास अनुमती द्या.",
@@ -567,7 +594,8 @@
       "delete item"
     ],
     "param.skip.description": "सक्षम असल्यास, मार्ग अस्तित्वात नसला तरी त्रुटी देऊ नका.",
-    "tool.description": "निर्दिष्ट फाइल किंवा निर्देशिका हटवा (डिरेक्टरी वारंवार हटवल्या जातात). हे धोकादायक असल्यामुळे, पुष्टीकरण आवश्यक असू शकते."
+    "tool.description": "निर्दिष्ट फाइल किंवा निर्देशिका हटवा (डिरेक्टरी वारंवार हटवल्या जातात). हे धोकादायक असल्यामुळे, पुष्टीकरण आवश्यक असू शकते.",
+    "confirm.delete_paths_bulk": "{count} पथ हटवायचे?\n\n{paths}\n\n पुढे जाण्यासाठी y प्रविष्ट करा किंवा रद्द करण्यासाठी c प्रविष्ट करा."
   },
   "el": {
     "param.allow_dir.description": "Εάν ισχύει, επιτρέψτε τη διαγραφή καταλόγων που ταιριάζουν με glob.",
@@ -587,7 +615,8 @@
       "delete item"
     ],
     "param.skip.description": "Εάν ισχύει, μην κάνετε λάθος όταν η διαδρομή δεν υπάρχει.",
-    "tool.description": "Διαγράψτε το καθορισμένο αρχείο ή κατάλογο (οι κατάλογοι διαγράφονται αναδρομικά). Επειδή αυτό είναι επικίνδυνο, μπορεί να απαιτείται επιβεβαίωση."
+    "tool.description": "Διαγράψτε το καθορισμένο αρχείο ή κατάλογο (οι κατάλογοι διαγράφονται αναδρομικά). Επειδή αυτό είναι επικίνδυνο, μπορεί να απαιτείται επιβεβαίωση.",
+    "confirm.delete_paths_bulk": "Διαγραφή {count} μονοπατιών;\n\n{paths}\n\nΕισαγάγετε y για να συνεχίσετε ή c για ακύρωση."
   },
   "he": {
     "param.allow_dir.description": "אם נכון, אפשר למחוק ספריות המותאמות לפי glob.",
@@ -607,7 +636,8 @@
       "delete item"
     ],
     "param.skip.description": "אם נכון, אל תטעה כאשר הנתיב אינו קיים.",
-    "tool.description": "מחק את הקובץ או הספרייה שצוינו (הספריות נמחקות באופן רקורסיבי). מכיוון שזה מסוכן, ייתכן שיידרש אישור."
+    "tool.description": "מחק את הקובץ או הספרייה שצוינו (הספריות נמחקות באופן רקורסיבי). מכיוון שזה מסוכן, ייתכן שיידרש אישור.",
+    "confirm.delete_paths_bulk": "למחוק {count} נתיבים?\n\n{paths}\n\nהזן y כדי להמשיך, או c כדי לבטל."
   },
   "hu": {
     "param.allow_dir.description": "Ha igaz, akkor engedélyezze a glob-nak megfelelő könyvtárak törlését.",
@@ -627,7 +657,8 @@
       "delete item"
     ],
     "param.skip.description": "Ha igaz, ne hibázz, ha az elérési út nem létezik.",
-    "tool.description": "Törölje a megadott fájlt vagy könyvtárat (a könyvtárak rekurzív módon törlődnek). Mivel ez veszélyes, megerősítésre lehet szükség."
+    "tool.description": "Törölje a megadott fájlt vagy könyvtárat (a könyvtárak rekurzív módon törlődnek). Mivel ez veszélyes, megerősítésre lehet szükség.",
+    "confirm.delete_paths_bulk": "Törli a {count} elérési utat?\n\n{paths}\n\nA folytatáshoz írja be az y-t vagy a megszakításhoz c."
   },
   "ro": {
     "param.allow_dir.description": "Dacă este adevărat, permiteți ștergerea directoarelor potrivite de glob.",
@@ -647,6 +678,7 @@
       "delete item"
     ],
     "param.skip.description": "Dacă este adevărat, nu eroați atunci când calea nu există.",
-    "tool.description": "Ștergeți fișierul sau directorul specificat (directoarele sunt șterse recursiv). Deoarece acest lucru este periculos, poate fi necesară confirmarea."
+    "tool.description": "Ștergeți fișierul sau directorul specificat (directoarele sunt șterse recursiv). Deoarece acest lucru este periculos, poate fi necesară confirmarea.",
+    "confirm.delete_paths_bulk": "Ștergeți {count} căi?\n\n{paths}\n\nIntroduceți y pentru a continua sau c pentru a anula."
   }
 }

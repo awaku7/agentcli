@@ -75,7 +75,11 @@
     "err.invalid_output_format": "output_format inválido: {output_format}",
     "err.transcribe_failed": "Error en la transcripción de audio: {err}",
     "ok.transcribed": "Transcripción completada",
-    "warn.empty_transcript": "[WARN] transcripción vacía"
+    "warn.empty_transcript": "[WARN] transcripción vacía",
+    "param.fmt.description": "Cuántos detalles devolver en la respuesta JSON: texto o json.",
+    "param.language.description": "Sugerencia de idioma opcional (por ejemplo, 'ja', 'en'). Si se omite, se utiliza el idioma de visualización actual.",
+    "param.model.description": "Nombre del modelo de transcripción. Si se omite, se utiliza el nombre de implementación configurado o predeterminado del proveedor.",
+    "tool.description": "Transcribe un archivo de audio a texto. Útil para reuniones, entrevistas y notas de voz."
   },
   "fr": {
     "x_search_terms": [
@@ -98,7 +102,11 @@
     "err.invalid_output_format": "output_format invalide : {output_format}",
     "err.transcribe_failed": "Échec de la transcription audio : {err}",
     "ok.transcribed": "Transcription terminée",
-    "warn.empty_transcript": "[WARN] transcription vide"
+    "warn.empty_transcript": "[WARN] transcription vide",
+    "param.fmt.description": "Quelle quantité de détails renvoyer dans la réponse JSON : texte ou json.",
+    "param.language.description": "Indice de langue facultatif (par exemple « ja », « en »). En cas d'omission, la langue d'affichage actuelle est utilisée.",
+    "param.model.description": "Nom du modèle de transcription. En cas d'omission, le nom de déploiement par défaut ou configuré du fournisseur est utilisé.",
+    "tool.description": "Transcrivez un fichier audio en texte. Utile pour les réunions, les entretiens et les notes vocales."
   },
   "ko": {
     "x_search_terms": [
@@ -121,7 +129,11 @@
     "err.invalid_output_format": "잘못된 output_format입니다: {output_format}",
     "err.transcribe_failed": "오디오 전사에 실패했습니다: {err}",
     "ok.transcribed": "전사가 완료되었습니다",
-    "warn.empty_transcript": "[WARN] 전사 결과가 비어 있습니다"
+    "warn.empty_transcript": "[WARN] 전사 결과가 비어 있습니다",
+    "param.fmt.description": "JSON 응답으로 반환할 세부 정보(text 또는 json)입니다.",
+    "param.language.description": "선택적 언어 힌트(예: 'ja', 'en'). 생략하면 현재 표시 언어가 사용됩니다.",
+    "param.model.description": "전사 모델 이름. 생략하면 공급자 기본 또는 구성된 배포 이름이 사용됩니다.",
+    "tool.description": "오디오 파일을 텍스트로 변환합니다. 회의, 인터뷰, 음성 메모에 유용합니다."
   },
   "de": {
     "x_search_terms": [
@@ -144,7 +156,11 @@
     "err.invalid_output_format": "Ungültiges output_format: {output_format}",
     "err.transcribe_failed": "Audiotranskription fehlgeschlagen: {err}",
     "ok.transcribed": "Transkription abgeschlossen",
-    "warn.empty_transcript": "[WARN] leeres Transkript"
+    "warn.empty_transcript": "[WARN] leeres Transkript",
+    "param.fmt.description": "Wie viele Details in der JSON-Antwort zurückgegeben werden sollen: Text oder JSON.",
+    "param.language.description": "Optionaler Sprachhinweis (z. B. „ja“, „en“). Wenn es weggelassen wird, wird die aktuelle Anzeigesprache verwendet.",
+    "param.model.description": "Name des Transkriptionsmodells. Wenn es weggelassen wird, wird der standardmäßige oder konfigurierte Bereitstellungsname des Anbieters verwendet.",
+    "tool.description": "Transkribieren Sie eine Audiodatei in Text. Nützlich für Besprechungen, Interviews und Sprachnotizen."
   },
   "it": {
     "x_search_terms": [
@@ -167,7 +183,11 @@
     "err.invalid_output_format": "output_format non valido: {output_format}",
     "err.transcribe_failed": "Trascrizione audio non riuscita: {err}",
     "ok.transcribed": "Trascrizione completata",
-    "warn.empty_transcript": "[WARN] trascrizione vuota"
+    "warn.empty_transcript": "[WARN] trascrizione vuota",
+    "param.fmt.description": "Quanti dettagli restituire nella risposta JSON: testo o json.",
+    "param.language.description": "Suggerimento linguistico opzionale (ad esempio \"ja\", \"en\"). Se omesso, viene utilizzata la lingua di visualizzazione corrente.",
+    "param.model.description": "Nome del modello di trascrizione. Se omesso, viene utilizzato il nome di distribuzione predefinito o configurato del provider.",
+    "tool.description": "Trascrivere un file audio in testo. Utile per riunioni, interviste e note vocali."
   },
   "ru": {
     "x_search_terms": [
@@ -190,7 +210,11 @@
     "err.invalid_output_format": "Неверный выходной_формат: {output_format}",
     "err.transcribe_failed": "Не удалось распознать аудио: {err}",
     "ok.transcribed": "Транскрипция завершена",
-    "warn.empty_transcript": "[WARN] пустая расшифровка"
+    "warn.empty_transcript": "[WARN] пустая расшифровка",
+    "param.fmt.description": "Насколько подробно следует возвращать ответ в формате JSON: текст или json.",
+    "param.language.description": "Дополнительная языковая подсказка (например, «ja», «en»). Если этот параметр опущен, используется текущий язык отображения.",
+    "param.model.description": "Название модели транскрипции. Если этот параметр опущен, используется имя развертывания по умолчанию или настроенное поставщиком.",
+    "tool.description": "Транскрипция аудиофайла в текст. Полезно для встреч, интервью и голосовых заметок."
   },
   "pt_BR": {
     "x_search_terms": [
@@ -213,7 +237,11 @@
     "err.invalid_output_format": "output_format inválido: {output_format}",
     "err.transcribe_failed": "Falha na transcrição de áudio: {err}",
     "ok.transcribed": "Transcrição concluída",
-    "warn.empty_transcript": "[WARN] transcrição vazia"
+    "warn.empty_transcript": "[WARN] transcrição vazia",
+    "param.fmt.description": "Quantos detalhes retornar na resposta JSON: texto ou json.",
+    "param.language.description": "Dica de idioma opcional (por exemplo, 'ja', 'en'). Se omitido, o idioma de exibição atual será usado.",
+    "param.model.description": "Nome do modelo de transcrição. Se omitido, o nome de implantação padrão ou configurado do provedor será usado.",
+    "tool.description": "Transcrever um arquivo de áudio para texto. Útil para reuniões, entrevistas e anotações de voz."
   },
   "pt": {
     "x_search_terms": [
@@ -236,7 +264,11 @@
     "err.invalid_output_format": "output_format inválido: {output_format}",
     "err.transcribe_failed": "Falha na transcrição de áudio: {err}",
     "ok.transcribed": "Transcrição concluída",
-    "warn.empty_transcript": "[WARN] transcrição vazia"
+    "warn.empty_transcript": "[WARN] transcrição vazia",
+    "param.fmt.description": "Quantos detalhes retornar na resposta JSON: texto ou json.",
+    "param.language.description": "Dica de idioma opcional (por exemplo, 'ja', 'en'). Se omitido, o idioma de exibição atual será usado.",
+    "param.model.description": "Nome do modelo de transcrição. Se omitido, o nome de implantação padrão ou configurado do provedor será usado.",
+    "tool.description": "Transcrever um arquivo de áudio para texto. Útil para reuniões, entrevistas e anotações de voz."
   },
   "id": {
     "x_search_terms": [
@@ -259,7 +291,11 @@
     "err.invalid_output_format": "Format_output tidak valid: {output_format}",
     "err.transcribe_failed": "Transkripsi audio gagal: {err}",
     "ok.transcribed": "Transkripsi selesai",
-    "warn.empty_transcript": "[WARN] transkrip kosong"
+    "warn.empty_transcript": "[WARN] transkrip kosong",
+    "param.fmt.description": "Berapa banyak detail yang harus dikembalikan dalam respons JSON: teks atau json.",
+    "param.language.description": "Petunjuk bahasa opsional (misalnya 'ja', 'en'). Jika dihilangkan, bahasa tampilan saat ini akan digunakan.",
+    "param.model.description": "Nama model transkripsi. Jika dihilangkan, nama penyebaran default atau yang dikonfigurasi penyedia akan digunakan.",
+    "tool.description": "Transkripsikan file audio ke teks. Berguna untuk rapat, wawancara, dan catatan suara."
   },
   "vi": {
     "x_search_terms": [
@@ -282,7 +318,11 @@
     "err.invalid_output_format": "Định dạng đầu ra không hợp lệ: {output_format}",
     "err.transcribe_failed": "Phiên âm âm thanh thất bại: {err}",
     "ok.transcribed": "Đã phiên âm xong",
-    "warn.empty_transcript": "[WARN] bản phiên âm trống"
+    "warn.empty_transcript": "[WARN] bản phiên âm trống",
+    "param.fmt.description": "Bao nhiêu chi tiết cần trả về trong phản hồi JSON: văn bản hoặc json.",
+    "param.language.description": "Gợi ý ngôn ngữ tùy chọn (ví dụ: 'ja', 'en'). Nếu bị bỏ qua, ngôn ngữ hiển thị hiện tại sẽ được sử dụng.",
+    "param.model.description": "Tên mô hình phiên mã. Nếu bị bỏ qua, tên triển khai mặc định hoặc được định cấu hình của nhà cung cấp sẽ được sử dụng.",
+    "tool.description": "Phiên âm một tập tin âm thanh thành văn bản. Hữu ích cho các cuộc họp, phỏng vấn và ghi chú bằng giọng nói."
   },
   "pl": {
     "x_search_terms": [
@@ -305,7 +345,11 @@
     "err.invalid_output_format": "Nieprawidłowy format_wyjściowy: {output_format}",
     "err.transcribe_failed": "Transkrypcja dźwięku nie powiodła się: {err}",
     "ok.transcribed": "Transkrypcja zakończona",
-    "warn.empty_transcript": "[WARN] pusta transkrypcja"
+    "warn.empty_transcript": "[WARN] pusta transkrypcja",
+    "param.fmt.description": "Ile szczegółów zwrócić w odpowiedzi JSON: tekst lub json.",
+    "param.language.description": "Opcjonalna wskazówka dotycząca języka (np. „ja”, „en”). Jeśli zostanie pominięty, używany będzie bieżący język wyświetlania.",
+    "param.model.description": "Nazwa modelu transkrypcji. W przypadku pominięcia używana jest domyślna lub skonfigurowana nazwa wdrożenia dostawcy.",
+    "tool.description": "Transkrypcja pliku audio na tekst. Przydatne podczas spotkań, wywiadów i notatek głosowych."
   },
   "hi": {
     "x_search_terms": [
@@ -328,7 +372,11 @@
     "err.invalid_output_format": "अमान्य output_format: {output_format}",
     "err.transcribe_failed": "ऑडियो ट्रांसक्रिप्शन विफल: {err}",
     "ok.transcribed": "ट्रांसक्रिप्शन पूरा हुआ",
-    "warn.empty_transcript": "[WARN] खाली ट्रांसक्रिप्ट"
+    "warn.empty_transcript": "[WARN] खाली ट्रांसक्रिप्ट",
+    "param.fmt.description": "JSON प्रतिक्रिया में कितना विवरण लौटाना है: टेक्स्ट या json।",
+    "param.language.description": "वैकल्पिक भाषा संकेत (जैसे 'जा', 'एन')। यदि छोड़ दिया जाए, तो वर्तमान प्रदर्शन भाषा का उपयोग किया जाता है।",
+    "param.model.description": "प्रतिलेखन मॉडल का नाम. यदि छोड़ दिया जाए, तो प्रदाता डिफ़ॉल्ट या कॉन्फ़िगर परिनियोजन नाम का उपयोग किया जाता है।",
+    "tool.description": "किसी ऑडियो फ़ाइल को टेक्स्ट में ट्रांसक्राइब करें। मीटिंग, साक्षात्कार और वॉयस नोट्स के लिए उपयोगी।"
   },
   "ar": {
     "x_search_terms": [
@@ -351,7 +399,11 @@
     "err.invalid_output_format": "output_format غير صالح: {output_format}",
     "err.transcribe_failed": "فشل تفريغ الصوت: {err}",
     "ok.transcribed": "اكتمل التفريغ",
-    "warn.empty_transcript": "[WARN] التفريغ فارغ"
+    "warn.empty_transcript": "[WARN] التفريغ فارغ",
+    "param.fmt.description": "ما مقدار التفاصيل المطلوب إرجاعها في استجابة JSON: text أو json.",
+    "param.language.description": "تلميح لغة اختياري (على سبيل المثال، 'ja'، 'en'). إذا تم حذفها، يتم استخدام لغة العرض الحالية.",
+    "param.model.description": "اسم نموذج النسخ. إذا تم حذفه، فسيتم استخدام اسم النشر الافتراضي للموفر أو اسم النشر الذي تم تكوينه.",
+    "tool.description": "نسخ ملف صوتي إلى نص. مفيد للاجتماعات والمقابلات والملاحظات الصوتية."
   },
   "sv": {
     "x_search_terms": [
@@ -374,7 +426,11 @@
     "err.invalid_output_format": "ogiltigt output_format: {output_format}",
     "err.transcribe_failed": "Ljudtranskription misslyckades: {err}",
     "ok.transcribed": "Transkriberingen är klar",
-    "warn.empty_transcript": "[WARN] tom transkription"
+    "warn.empty_transcript": "[WARN] tom transkription",
+    "param.fmt.description": "Hur mycket detaljer som ska returneras i JSON-svaret: text eller json.",
+    "param.language.description": "Valfritt språktips (t.ex. 'ja', 'en'). Om det utelämnas används det aktuella visningsspråket.",
+    "param.model.description": "Transkriptionsmodellens namn. Om det utelämnas används leverantörens standardnamn eller konfigurerade distributionsnamn.",
+    "tool.description": "Transkribera en ljudfil till text. Användbar för möten, intervjuer och röstanteckningar."
   },
   "sw": {
     "x_search_terms": [
@@ -397,7 +453,11 @@
     "err.invalid_output_format": "output_format si sahihi: {output_format}",
     "err.transcribe_failed": "Unukuzi wa sauti haukufaulu: {err}",
     "ok.transcribed": "Unukuzi umekamilika",
-    "warn.empty_transcript": "[WARN] transkripti tupu"
+    "warn.empty_transcript": "[WARN] transkripti tupu",
+    "param.fmt.description": "Ni maelezo ngapi ya kurudisha katika jibu la JSON: maandishi au json.",
+    "param.language.description": "Dokezo la hiari la lugha (k.m. 'ja', 'en'). Ikiwa imeachwa, lugha ya sasa ya kuonyesha inatumika.",
+    "param.model.description": "Jina la muundo wa unukuzi. Ikiwa imeachwa, jina la chaguo-msingi la mtoa huduma au lililosanidiwa la utumaji hutumiwa.",
+    "tool.description": "Nakili faili ya sauti hadi maandishi. Inafaa kwa mikutano, mahojiano na madokezo ya sauti."
   },
   "nb": {
     "x_search_terms": [
@@ -420,7 +480,11 @@
     "err.invalid_output_format": "ugyldig output_format: {output_format}",
     "err.transcribe_failed": "Lydtranskripsjon mislyktes: {err}",
     "ok.transcribed": "Transkripsjon fullført",
-    "warn.empty_transcript": "[WARN] tom transkripsjon"
+    "warn.empty_transcript": "[WARN] tom transkripsjon",
+    "param.fmt.description": "Hvor mye detaljer som skal returneres i JSON-svaret: tekst eller json.",
+    "param.language.description": "Valgfritt språkhint (f.eks. 'ja', 'en'). Hvis den utelates, brukes gjeldende visningsspråk.",
+    "param.model.description": "Navn på transkripsjonsmodell. Hvis det utelates, brukes leverandørens standard eller konfigurerte distribusjonsnavn.",
+    "tool.description": "Transkribere en lydfil til tekst. Nyttig for møter, intervjuer og talenotater."
   },
   "nl": {
     "x_search_terms": [
@@ -443,7 +507,11 @@
     "err.invalid_output_format": "ongeldige output_format: {output_format}",
     "err.transcribe_failed": "Audiotranscriptie mislukt: {err}",
     "ok.transcribed": "Transcriptie voltooid",
-    "warn.empty_transcript": "[WARN] lege transcriptie"
+    "warn.empty_transcript": "[WARN] lege transcriptie",
+    "param.fmt.description": "Hoeveel details er moeten worden geretourneerd in het JSON-antwoord: tekst of json.",
+    "param.language.description": "Optionele taalhint (bijvoorbeeld 'ja', 'en'). Als u dit weglaat, wordt de huidige weergavetaal gebruikt.",
+    "param.model.description": "Naam van transcriptiemodel. Als u dit weglaat, wordt de standaard- of geconfigureerde implementatienaam van de provider gebruikt.",
+    "tool.description": "Een audiobestand naar tekst transcriberen. Handig voor vergaderingen, interviews en spraaknotities."
   },
   "fi": {
     "x_search_terms": [
@@ -466,7 +534,11 @@
     "err.invalid_output_format": "Virheellinen tulostusmuoto: {output_format}",
     "err.transcribe_failed": "Äänilitterointi epäonnistui: {err}",
     "ok.transcribed": "Litterointi valmis",
-    "warn.empty_transcript": "[WARN] tyhjä litterointi"
+    "warn.empty_transcript": "[WARN] tyhjä litterointi",
+    "param.fmt.description": "Kuinka paljon yksityiskohtia palautetaan JSON-vastauksessa: teksti vai json.",
+    "param.language.description": "Valinnainen kielivinkki (esim. 'ja', 'en'). Jos se jätetään pois, käytössä on nykyinen näyttökieli.",
+    "param.model.description": "Transkriptiomallin nimi. Jos jätetään pois, käytetään palveluntarjoajan oletusarvoista tai määritettyä käyttöönottonimeä.",
+    "tool.description": "Literoi äänitiedosto tekstiksi. Hyödyllinen kokouksissa, haastatteluissa ja äänimuistiinpanoissa."
   },
   "cs": {
     "x_search_terms": [
@@ -489,7 +561,11 @@
     "err.invalid_output_format": "neplatný output_format: {output_format}",
     "err.transcribe_failed": "Přepis audia selhal: {err}",
     "ok.transcribed": "Přepis dokončen",
-    "warn.empty_transcript": "[WARN] prázdný přepis"
+    "warn.empty_transcript": "[WARN] prázdný přepis",
+    "param.fmt.description": "Kolik podrobností vrátit v odpovědi JSON: text nebo json.",
+    "param.language.description": "Volitelná jazyková nápověda (např. 'ja', 'en'). Pokud je vynechán, použije se aktuální jazyk zobrazení.",
+    "param.model.description": "Název transkripčního modelu. Pokud je vynechán, použije se výchozí nebo nakonfigurovaný název nasazení poskytovatele.",
+    "tool.description": "Přepis zvukového souboru na text. Užitečné pro schůzky, rozhovory a hlasové poznámky."
   },
   "uk": {
     "x_search_terms": [
@@ -512,7 +588,11 @@
     "err.invalid_output_format": "недійсний output_format: {output_format}",
     "err.transcribe_failed": "Помилка транскрипції аудіо: {err}",
     "ok.transcribed": "Транскрипцію завершено",
-    "warn.empty_transcript": "[WARN] порожня транскрипція"
+    "warn.empty_transcript": "[WARN] порожня транскрипція",
+    "param.fmt.description": "Скільки деталей повертати у відповіді JSON: текст чи json.",
+    "param.language.description": "Додаткова мовна підказка (наприклад, «ja», «en»). Якщо опущено, використовується поточна мова відображення.",
+    "param.model.description": "Транскрипція назви моделі. Якщо опущено, використовується ім’я розгортання за замовчуванням або налаштоване постачальником.",
+    "tool.description": "Транскрибувати аудіофайл у текст. Корисно для зустрічей, співбесід і голосових нотаток."
   },
   "tr": {
     "x_search_terms": [
@@ -535,7 +615,11 @@
     "err.invalid_output_format": "Geçersiz çıktı_biçimi: {output_format}",
     "err.transcribe_failed": "Sesin transkripsiyonu başarısız oldu: {err}",
     "ok.transcribed": "Transkripsiyon tamamlandı",
-    "warn.empty_transcript": "[WARN] boş transkript"
+    "warn.empty_transcript": "[WARN] boş transkript",
+    "param.fmt.description": "JSON yanıtında ne kadar ayrıntı döndürülecek: text veya json.",
+    "param.language.description": "İsteğe bağlı dil ipucu (ör. 'ja', 'en'). Atlanırsa geçerli görüntüleme dili kullanılır.",
+    "param.model.description": "Transkripsiyon modeli adı. Atlanırsa sağlayıcının varsayılan veya yapılandırılmış dağıtım adı kullanılır.",
+    "tool.description": "Bir ses dosyasını metne dönüştürün. Toplantılar, röportajlar ve sesli notlar için kullanışlıdır."
   },
   "th": {
     "x_search_terms": [
@@ -558,7 +642,11 @@
     "err.invalid_output_format": "output_format ไม่ถูกต้อง: {output_format}",
     "err.transcribe_failed": "การถอดเสียงล้มเหลว: {err}",
     "ok.transcribed": "ถอดเสียงเสร็จแล้ว",
-    "warn.empty_transcript": "[คำเตือน] การถอดเสียงว่างเปล่า"
+    "warn.empty_transcript": "[คำเตือน] การถอดเสียงว่างเปล่า",
+    "param.fmt.description": "รายละเอียดที่ต้องส่งคืนในการตอบกลับ JSON: ข้อความหรือ json",
+    "param.language.description": "คำใบ้ภาษาเพิ่มเติม (เช่น 'ja', 'en') หากละเว้น ระบบจะใช้ภาษาที่แสดงในปัจจุบัน",
+    "param.model.description": "ชื่อโมเดลการถอดเสียง หากละเว้น ระบบจะใช้ชื่อการปรับใช้ที่เป็นค่าเริ่มต้นหรือที่กำหนดค่าไว้",
+    "tool.description": "ถอดเสียงไฟล์เสียงเป็นข้อความ มีประโยชน์สำหรับการประชุม การสัมภาษณ์ และการบันทึกเสียง"
   },
   "zh_CN": {
     "x_search_terms": [
@@ -581,7 +669,11 @@
     "err.invalid_output_format": "无效的 output_format：{output_format}",
     "err.transcribe_failed": "音频转写失败：{err}",
     "ok.transcribed": "转写完成",
-    "warn.empty_transcript": "[WARN] 转写结果为空"
+    "warn.empty_transcript": "[WARN] 转写结果为空",
+    "param.fmt.description": "在 JSON 响应中返回多少详细信息：文本或 json。",
+    "param.language.description": "可选的语言提示（例如“ja”、“en”）。如果省略，则使用当前显示语言。",
+    "param.model.description": "转录模型名称。如果省略，则使用提供程序默认或配置的部署名称。",
+    "tool.description": "将音频文件转录为文本。适用于会议、采访和语音笔记。"
   },
   "zh_TW": {
     "x_search_terms": [
@@ -604,7 +696,11 @@
     "err.invalid_output_format": "無效的 output_format：{output_format}",
     "err.transcribe_failed": "音訊轉寫失敗：{err}",
     "ok.transcribed": "轉寫完成",
-    "warn.empty_transcript": "[WARN] 轉寫結果為空"
+    "warn.empty_transcript": "[WARN] 轉寫結果為空",
+    "param.fmt.description": "在 JSON 回應中傳回多少詳細資訊：文字或 json。",
+    "param.language.description": "可選的語言提示（例如“ja”、“en”）。如果省略，則使用目前顯示語言。",
+    "param.model.description": "轉錄模型​​名稱。如果省略，則使用提供者預設或設定的部署名稱。",
+    "tool.description": "將音訊檔案轉錄為文字。適用於會議、採訪和語音筆記。"
   },
   "bn": {
     "x_search_terms": [
@@ -627,7 +723,11 @@
     "err.invalid_output_format": "অবৈধ output_format: {output_format}",
     "err.transcribe_failed": "অডিও ট্রান্সক্রিপশন ব্যর্থ হয়েছে: {err}",
     "ok.transcribed": "ট্রান্সক্রিপশন সম্পন্ন হয়েছে",
-    "warn.empty_transcript": "[সতর্ক] খালি প্রতিলিপি"
+    "warn.empty_transcript": "[সতর্ক] খালি প্রতিলিপি",
+    "param.fmt.description": "JSON প্রতিক্রিয়াতে কত বিশদ ফেরত দিতে হবে: পাঠ্য বা json।",
+    "param.language.description": "ঐচ্ছিক ভাষার ইঙ্গিত (যেমন 'ja', 'en')। যদি বাদ দেওয়া হয়, বর্তমান প্রদর্শন ভাষা ব্যবহার করা হয়।",
+    "param.model.description": "ট্রান্সক্রিপশন মডেল নাম। বাদ দেওয়া হলে, প্রদানকারীর ডিফল্ট বা কনফিগার করা স্থাপনার নাম ব্যবহার করা হয়।",
+    "tool.description": "পাঠ্যে একটি অডিও ফাইল প্রতিলিপি। মিটিং, ইন্টারভিউ এবং ভয়েস নোটের জন্য দরকারী।"
   },
   "fa": {
     "x_search_terms": [
@@ -650,7 +750,11 @@
     "err.invalid_output_format": "فرمت_خروجی نامعتبر: {output_format}",
     "err.transcribe_failed": "پیاده‌سازی صوتی ناموفق بود: {err}",
     "ok.transcribed": "پیاده‌سازی کامل شد",
-    "warn.empty_transcript": "[WARN] رونوشت خالی"
+    "warn.empty_transcript": "[WARN] رونوشت خالی",
+    "param.fmt.description": "چه مقدار جزئیات باید در پاسخ JSON برگردانده شود: متن یا json.",
+    "param.language.description": "اشاره زبان اختیاری (به عنوان مثال 'ja'، 'en'). اگر حذف شود، از زبان نمایش فعلی استفاده می شود.",
+    "param.model.description": "نام مدل رونویسی. در صورت حذف، از نام استقرار پیش‌فرض ارائه‌دهنده یا پیکربندی شده استفاده می‌شود.",
+    "tool.description": "یک فایل صوتی را به متن رونویسی کنید. برای جلسات، مصاحبه ها و یادداشت های صوتی مفید است."
   },
   "mn": {
     "x_search_terms": [
@@ -673,7 +777,11 @@
     "err.invalid_output_format": "Буруу output_format: {output_format}",
     "err.transcribe_failed": "Аудио орчуулга амжилтгүй боллоо: {err}",
     "ok.transcribed": "Хөрвүүлэлт дууслаа",
-    "warn.empty_transcript": "[АНХААРУУЛГА] хоосон хуулбар"
+    "warn.empty_transcript": "[АНХААРУУЛГА] хоосон хуулбар",
+    "param.fmt.description": "JSON хариултанд хэр их дэлгэрэнгүй мэдээлэл өгөх вэ: текст эсвэл json.",
+    "param.language.description": "Нэмэлт хэлний зөвлөгөө (жишээ нь: 'ja', 'en'). Хэрэв орхигдуулсан бол одоогийн дэлгэцийн хэлийг ашиглана.",
+    "param.model.description": "Транскрипцийн загварын нэр. Хэрэв орхигдуулсан бол үйлчилгээ үзүүлэгчийн өгөгдмөл эсвэл тохируулсан байршуулалтын нэрийг ашиглана.",
+    "tool.description": "Аудио файлыг текст болгон хөрвүүлэх. Уулзалт, ярилцлага, дуут тэмдэглэл хийхэд хэрэгтэй."
   },
   "mr": {
     "x_search_terms": [
@@ -696,7 +804,11 @@
     "err.invalid_output_format": "अवैध output_format: {output_format}",
     "err.transcribe_failed": "ऑडिओ लिप्यंतरण अयशस्वी: {err}",
     "ok.transcribed": "लिप्यंतरण पूर्ण झाले",
-    "warn.empty_transcript": "[WARN] रिक्त लिप्यंतरण"
+    "warn.empty_transcript": "[WARN] रिक्त लिप्यंतरण",
+    "param.fmt.description": "JSON प्रतिसादात किती तपशील परत करायचे: मजकूर किंवा json.",
+    "param.language.description": "पर्यायी भाषा इशारा (उदा. 'ja', 'en'). वगळल्यास, वर्तमान प्रदर्शन भाषा वापरली जाते.",
+    "param.model.description": "ट्रान्सक्रिप्शन मॉडेलचे नाव. वगळल्यास, प्रदाता डीफॉल्ट किंवा कॉन्फिगर केलेले उपयोजन नाव वापरले जाते.",
+    "tool.description": "मजकूरात ऑडिओ फाईल लिप्यंतरण करा. मीटिंग, मुलाखती आणि व्हॉइस नोट्ससाठी उपयुक्त."
   },
   "el": {
     "x_search_terms": [
@@ -719,7 +831,11 @@
     "err.invalid_output_format": "Μη έγκυρο output_format: {output_format}",
     "err.transcribe_failed": "Η μεταγραφή ήχου απέτυχε: {err}",
     "ok.transcribed": "Η μεταγραφή ολοκληρώθηκε",
-    "warn.empty_transcript": "[ΠΡΟΕΙΔΟΠΟΙΗΣΗ] κενή μεταγραφή"
+    "warn.empty_transcript": "[ΠΡΟΕΙΔΟΠΟΙΗΣΗ] κενή μεταγραφή",
+    "param.fmt.description": "Πόσες λεπτομέρειες πρέπει να επιστραφούν στην απάντηση JSON: κείμενο ή json.",
+    "param.language.description": "Προαιρετική υπόδειξη γλώσσας (π.χ. 'ja', 'en'). Εάν παραλειφθεί, χρησιμοποιείται η τρέχουσα γλώσσα εμφάνισης.",
+    "param.model.description": "Όνομα μοντέλου μεταγραφής. Εάν παραλειφθεί, χρησιμοποιείται το προεπιλεγμένο όνομα του παρόχου ή το ρυθμισμένο όνομα ανάπτυξης.",
+    "tool.description": "Μεταγραφή ενός αρχείου ήχου σε κείμενο. Χρήσιμο για συναντήσεις, συνεντεύξεις και φωνητικές σημειώσεις."
   },
   "he": {
     "x_search_terms": [
@@ -742,7 +858,11 @@
     "err.invalid_output_format": "פלט_פורמט לא חוקי: {output_format}",
     "err.transcribe_failed": "תמלול אודיו נכשל: {err}",
     "ok.transcribed": "התמלול הושלם",
-    "warn.empty_transcript": "[אזהרה] תמליל ריק"
+    "warn.empty_transcript": "[אזהרה] תמליל ריק",
+    "param.fmt.description": "כמה פרטים להחזיר בתגובת JSON: טקסט או json.",
+    "param.language.description": "רמז אופציונלי לשפה (למשל 'ja', 'en'). אם מושמט, נעשה שימוש בשפת התצוגה הנוכחית.",
+    "param.model.description": "שם דגם תמלול. אם מושמט, נעשה שימוש בשם הפריסה המוגדר כברירת מחדל או המוגדר של ספק.",
+    "tool.description": "תמלול קובץ שמע לטקסט. שימושי עבור פגישות, ראיונות והערות קוליות."
   },
   "hu": {
     "x_search_terms": [
@@ -765,7 +885,11 @@
     "err.invalid_output_format": "Érvénytelen kimeneti_formátum: {output_format}",
     "err.transcribe_failed": "A hang átírása nem sikerült: {err}",
     "ok.transcribed": "Az átírás befejeződött",
-    "warn.empty_transcript": "[WARN] üres átirat"
+    "warn.empty_transcript": "[WARN] üres átirat",
+    "param.fmt.description": "Mennyi részletet kell visszaadni a JSON-válaszban: szöveg vagy json.",
+    "param.language.description": "Választható nyelvi tipp (pl. „ja”, „en”). Ha kihagyja, akkor az aktuális megjelenítési nyelv kerül felhasználásra.",
+    "param.model.description": "Átírási modell neve. Ha kihagyja, akkor a szolgáltató alapértelmezett vagy konfigurált központi telepítési neve kerül felhasználásra.",
+    "tool.description": "Hangfájl átírása szöveggé. Hasznos megbeszélésekhez, interjúkhoz és hangjegyzetekhez."
   },
   "ro": {
     "x_search_terms": [
@@ -788,6 +912,10 @@
     "err.invalid_output_format": "Format_output nevalid: {output_format}",
     "err.transcribe_failed": "Transcrierea audio a eșuat: {err}",
     "ok.transcribed": "Transcrierea finalizată",
-    "warn.empty_transcript": "[WARN] transcriere goală"
+    "warn.empty_transcript": "[WARN] transcriere goală",
+    "param.fmt.description": "Câte detalii trebuie returnate în răspunsul JSON: text sau json.",
+    "param.language.description": "Sugestie de limbă opțională (de exemplu, „ja”, „en”). Dacă este omisă, este utilizată limba de afișare curentă.",
+    "param.model.description": "Numele modelului de transcriere. Dacă este omis, este folosit numele de implementare prestabilit sau configurat al furnizorului.",
+    "tool.description": "Transcrie un fișier audio în text. Util pentru întâlniri, interviuri și note vocale."
   }
 }

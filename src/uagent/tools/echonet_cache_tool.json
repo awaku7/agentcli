@@ -19,13 +19,13 @@
     ]
   },
   "ja": {
-    "tool.description": "Inspect or clear the shared ECHONET Lite cache.",
-    "param.action.description": "Cache action to perform: snapshot or clear.",
-    "param.fmt.description": "Format: json or text.",
-    "msg.snapshot": "ECHONET cache snapshot: {count} item(s).",
-    "msg.no_items": "No cached entries are present.",
-    "msg.cleared": "Cleared {removed} cached entries from {scope}.",
-    "err.invalid_action": "Error: action must be 'snapshot' or 'clear'.",
+    "tool.description": "ECHONET Lite 共有キャッシュを検査またはクリアします。",
+    "param.action.description": "実行するキャッシュアクション: スナップショットまたはクリア。",
+    "param.fmt.description": "形式: json またはテキスト。",
+    "msg.snapshot": "ECHONET キャッシュスナップショット: {count} 件。",
+    "msg.no_items": "キャッシュされたエントリはありません。",
+    "msg.cleared": "{scope} からキャッシュされたエントリ {removed} 件をクリアしました。",
+    "err.invalid_action": "エラー: アクションは「snapshot」または「clear」でなければなりません。",
     "param.namespace.description": "キャッシュ名前空間 (すべて省略)。",
     "x_search_terms": [
       "エコーネットキャッシュ",
@@ -38,13 +38,13 @@
     ]
   },
   "id": {
-    "tool.description": "Inspect or clear the shared ECHONET Lite cache.",
-    "param.action.description": "Cache action to perform: snapshot or clear.",
-    "param.fmt.description": "Format: json or text.",
-    "msg.snapshot": "ECHONET cache snapshot: {count} item(s).",
-    "msg.no_items": "No cached entries are present.",
-    "msg.cleared": "Cleared {removed} cached entries from {scope}.",
-    "err.invalid_action": "Error: action must be 'snapshot' or 'clear'.",
+    "tool.description": "Periksa atau hapus cache ECHONET Lite bersama.",
+    "param.action.description": "Tindakan cache yang harus dilakukan: snapshot atau hapus.",
+    "param.fmt.description": "Format: json atau teks.",
+    "msg.snapshot": "Cuplikan cache ECHONET: {count} item.",
+    "msg.no_items": "Tidak ada entri cache.",
+    "msg.cleared": "Menghapus {removed} entri cache dari {scope}.",
+    "err.invalid_action": "Kesalahan: tindakan harus 'snapshot' atau 'clear'.",
     "x_search_terms": [
       "cache echonet",
       "echonet_cache",
@@ -53,16 +53,17 @@
       "memeriksa",
       "jelas",
       "di-cache"
-    ]
+    ],
+    "param.namespace.description": "Namespace cache (hilangkan untuk semua)."
   },
   "ar": {
-    "tool.description": "Inspect or clear the shared ECHONET Lite cache.",
-    "param.action.description": "Cache action to perform: snapshot or clear.",
-    "param.fmt.description": "Format: json or text.",
-    "msg.snapshot": "ECHONET cache snapshot: {count} item(s).",
-    "msg.no_items": "No cached entries are present.",
-    "msg.cleared": "Cleared {removed} cached entries from {scope}.",
-    "err.invalid_action": "Error: action must be 'snapshot' or 'clear'.",
+    "tool.description": "افحص أو امسح ذاكرة التخزين المؤقت المشتركة لـ ECHONET Lite.",
+    "param.action.description": "إجراء ذاكرة التخزين المؤقت المطلوب تنفيذه: لقطة أو مسح.",
+    "param.fmt.description": "التنسيق: json أو نص.",
+    "msg.snapshot": "لقطة ذاكرة التخزين المؤقت لـ ECHONET: {count} عنصر (عناصر).",
+    "msg.no_items": "لا توجد إدخالات مخزنة مؤقتًا.",
+    "msg.cleared": "تم مسح {removed} من الإدخالات المخزنة مؤقتًا من {scope}.",
+    "err.invalid_action": "خطأ: يجب أن يكون الإجراء \"لقطة\" أو \"واضحًا\".",
     "x_search_terms": [
       "ذاكرة تخزين مؤقت echonet",
       "echonet_cache",
@@ -71,16 +72,17 @@
       "تفتيش",
       "مسح",
       "مخبأ"
-    ]
+    ],
+    "param.namespace.description": "مساحة اسم ذاكرة التخزين المؤقت (حذف للجميع)."
   },
   "bn": {
-    "tool.description": "Inspect or clear the shared ECHONET Lite cache.",
-    "param.action.description": "Cache action to perform: snapshot or clear.",
-    "param.fmt.description": "Format: json or text.",
-    "msg.snapshot": "ECHONET cache snapshot: {count} item(s).",
-    "msg.no_items": "No cached entries are present.",
-    "msg.cleared": "Cleared {removed} cached entries from {scope}.",
-    "err.invalid_action": "Error: action must be 'snapshot' or 'clear'.",
+    "tool.description": "শেয়ার করা ECHONET Lite ক্যাশে পরিদর্শন করুন বা সাফ করুন।",
+    "param.action.description": "সঞ্চালনের জন্য ক্যাশে অ্যাকশন: স্ন্যাপশট বা পরিষ্কার।",
+    "param.fmt.description": "বিন্যাস: json বা পাঠ্য।",
+    "msg.snapshot": "ECHONET ক্যাশে স্ন্যাপশট: {count} আইটেম(গুলি)৷",
+    "msg.no_items": "কোন ক্যাশে এন্ট্রি উপস্থিত নেই.",
+    "msg.cleared": "{scope} থেকে {removed} ক্যাশে করা এন্ট্রি সাফ করা হয়েছে।",
+    "err.invalid_action": "ত্রুটি: অ্যাকশন অবশ্যই 'স্ন্যাপশট' বা 'ক্লিয়ার' হতে হবে।",
     "x_search_terms": [
       "echonet ক্যাশে",
       "echonet_cache",
@@ -89,7 +91,8 @@
       "পরিদর্শন",
       "পরিষ্কার",
       "ক্যাশে করা"
-    ]
+    ],
+    "param.namespace.description": "ক্যাশে নামস্থান (সকলের জন্য বাদ দিন)।"
   },
   "cs": {
     "parameters": {
@@ -123,13 +126,13 @@
       ],
       "additionalProperties": false
     },
-    "tool.description": "Inspect or clear the shared ECHONET Lite cache.",
-    "param.action.description": "Cache action to perform: snapshot or clear.",
-    "param.fmt.description": "Format: json or text.",
-    "msg.snapshot": "ECHONET cache snapshot: {count} item(s).",
-    "msg.no_items": "No cached entries are present.",
-    "msg.cleared": "Cleared {removed} cached entries from {scope}.",
-    "err.invalid_action": "Error: action must be 'snapshot' or 'clear'.",
+    "tool.description": "Zkontrolujte nebo vymažte sdílenou mezipaměť ECHONET Lite.",
+    "param.action.description": "Akce mezipaměti, která se má provést: snímek nebo vymazání.",
+    "param.fmt.description": "Formát: json nebo text.",
+    "msg.snapshot": "Snímek mezipaměti ECHONET: {count} položek.",
+    "msg.no_items": "Nejsou k dispozici žádné položky uložené v mezipaměti.",
+    "msg.cleared": "Bylo vymazáno {removed} položek uložených v mezipaměti z {scope}.",
+    "err.invalid_action": "Chyba: akce musí být „snímek“ nebo „vymazat“.",
     "x_search_terms": [
       "mezipaměť echonet",
       "echonet_cache",
@@ -138,16 +141,17 @@
       "prozkoumat",
       "jasný",
       "uloženo do mezipaměti"
-    ]
+    ],
+    "param.namespace.description": "Mezipaměť jmenného prostoru (vynechat pro všechny)."
   },
   "de": {
-    "tool.description": "Inspect or clear the shared ECHONET Lite cache.",
-    "param.action.description": "Cache action to perform: snapshot or clear.",
-    "param.fmt.description": "Format: json or text.",
-    "msg.snapshot": "ECHONET cache snapshot: {count} item(s).",
-    "msg.no_items": "No cached entries are present.",
-    "msg.cleared": "Cleared {removed} cached entries from {scope}.",
-    "err.invalid_action": "Error: action must be 'snapshot' or 'clear'.",
+    "tool.description": "Überprüfen oder löschen Sie den freigegebenen ECHONET Lite-Cache.",
+    "param.action.description": "Auszuführende Cache-Aktion: Snapshot oder Löschen.",
+    "param.fmt.description": "Format: JSON oder Text.",
+    "msg.snapshot": "ECHONET-Cache-Snapshot: {count} Elemente.",
+    "msg.no_items": "Es sind keine zwischengespeicherten Einträge vorhanden.",
+    "msg.cleared": "{removed} zwischengespeicherte Einträge von {scope} gelöscht.",
+    "err.invalid_action": "Fehler: Aktion muss „Snapshot“ oder „clear“ sein.",
     "x_search_terms": [
       "Echonet-Cache",
       "echonet_cache",
@@ -156,16 +160,17 @@
       "inspizieren",
       "klar",
       "zwischengespeichert"
-    ]
+    ],
+    "param.namespace.description": "Cache-Namespace (für alle weglassen)."
   },
   "es": {
-    "tool.description": "Inspect or clear the shared ECHONET Lite cache.",
-    "param.action.description": "Cache action to perform: snapshot or clear.",
-    "param.fmt.description": "Format: json or text.",
-    "msg.snapshot": "ECHONET cache snapshot: {count} item(s).",
-    "msg.no_items": "No cached entries are present.",
-    "msg.cleared": "Cleared {removed} cached entries from {scope}.",
-    "err.invalid_action": "Error: action must be 'snapshot' or 'clear'.",
+    "tool.description": "Inspeccione o borre el caché compartido de ECHONET Lite.",
+    "param.action.description": "Acción de caché a realizar: instantánea o borrar.",
+    "param.fmt.description": "Formato: json o texto.",
+    "msg.snapshot": "Instantánea de caché de ECHONET: {count} elementos.",
+    "msg.no_items": "No hay entradas almacenadas en caché.",
+    "msg.cleared": "Se borraron {removed} entradas almacenadas en caché de {scope}.",
+    "err.invalid_action": "Error: la acción debe ser \"instantánea\" o \"clara\".",
     "x_search_terms": [
       "caché de econet",
       "echonet_cache",
@@ -174,16 +179,17 @@
       "inspeccionar",
       "claro",
       "almacenado en caché"
-    ]
+    ],
+    "param.namespace.description": "Espacio de nombres de caché (omitir para todos)."
   },
   "fa": {
-    "tool.description": "Inspect or clear the shared ECHONET Lite cache.",
-    "param.action.description": "Cache action to perform: snapshot or clear.",
-    "param.fmt.description": "Format: json or text.",
-    "msg.snapshot": "ECHONET cache snapshot: {count} item(s).",
-    "msg.no_items": "No cached entries are present.",
-    "msg.cleared": "Cleared {removed} cached entries from {scope}.",
-    "err.invalid_action": "Error: action must be 'snapshot' or 'clear'.",
+    "tool.description": "کش ECHONET Lite مشترک را بررسی یا پاک کنید.",
+    "param.action.description": "عمل کش برای انجام: عکس فوری یا پاک کردن.",
+    "param.fmt.description": "فرمت: json یا متن.",
+    "msg.snapshot": "عکس فوری کش ECHONET: مورد(های) {count}.",
+    "msg.no_items": "هیچ ورودی کش وجود ندارد.",
+    "msg.cleared": "ورودی‌های حافظه پنهان {removed} از {scope} پاک شد.",
+    "err.invalid_action": "خطا: اقدام باید «عکس فوری» یا «واضح» باشد.",
     "x_search_terms": [
       "کش echonet",
       "echonet_cache",
@@ -192,16 +198,17 @@
       "بازرسی",
       "پاک",
       "ذخیره شده در کش"
-    ]
+    ],
+    "param.namespace.description": "فضای نام کش (برای همه حذف شود)."
   },
   "fi": {
-    "tool.description": "Inspect or clear the shared ECHONET Lite cache.",
-    "param.action.description": "Cache action to perform: snapshot or clear.",
-    "param.fmt.description": "Format: json or text.",
-    "msg.snapshot": "ECHONET cache snapshot: {count} item(s).",
-    "msg.no_items": "No cached entries are present.",
-    "msg.cleared": "Cleared {removed} cached entries from {scope}.",
-    "err.invalid_action": "Error: action must be 'snapshot' or 'clear'.",
+    "tool.description": "Tarkista tai tyhjennä jaettu ECHONET Lite -välimuisti.",
+    "param.action.description": "Suoritettava välimuistitoiminto: tilannekuva tai tyhjennä.",
+    "param.fmt.description": "Muoto: json tai teksti.",
+    "msg.snapshot": "ECHONET-välimuistin tilannekuva: {count} kohde(tta).",
+    "msg.no_items": "Välimuistissa ei ole merkintöjä.",
+    "msg.cleared": "Tyhjennettiin {removed} välimuistissa olevaa merkintää kohteesta {scope}.",
+    "err.invalid_action": "Virhe: toiminnon on oltava \"snapshot\" tai \"clear\".",
     "x_search_terms": [
       "echonet-välimuisti",
       "echonet_cache",
@@ -210,16 +217,17 @@
       "tarkasta",
       "tyhjennä",
       "välimuistitettu"
-    ]
+    ],
+    "param.namespace.description": "Välimuistin nimiavaruus (jätä pois kaikille)."
   },
   "fr": {
-    "tool.description": "Inspect or clear the shared ECHONET Lite cache.",
-    "param.action.description": "Cache action to perform: snapshot or clear.",
-    "param.fmt.description": "Format: json or text.",
-    "msg.snapshot": "ECHONET cache snapshot: {count} item(s).",
-    "msg.no_items": "No cached entries are present.",
-    "msg.cleared": "Cleared {removed} cached entries from {scope}.",
-    "err.invalid_action": "Error: action must be 'snapshot' or 'clear'.",
+    "tool.description": "Inspectez ou effacez le cache ECHONET Lite partagé.",
+    "param.action.description": "Action de cache à effectuer : instantané ou effacement.",
+    "param.fmt.description": "Format : json ou texte.",
+    "msg.snapshot": "Instantané du cache ECHONET : élément(s) {count}.",
+    "msg.no_items": "Aucune entrée en cache n'est présente.",
+    "msg.cleared": "Suppression de {removed} entrées mises en cache de {scope}.",
+    "err.invalid_action": "Erreur : l'action doit être « instantané » ou « effacer ».",
     "x_search_terms": [
       "cache échonet",
       "echonet_cache",
@@ -228,16 +236,17 @@
       "inspecter",
       "clair",
       "mis en cache"
-    ]
+    ],
+    "param.namespace.description": "Espace de noms de cache (omettre pour tous)."
   },
   "hi": {
-    "tool.description": "Inspect or clear the shared ECHONET Lite cache.",
-    "param.action.description": "Cache action to perform: snapshot or clear.",
-    "param.fmt.description": "Format: json or text.",
-    "msg.snapshot": "ECHONET cache snapshot: {count} item(s).",
-    "msg.no_items": "No cached entries are present.",
-    "msg.cleared": "Cleared {removed} cached entries from {scope}.",
-    "err.invalid_action": "Error: action must be 'snapshot' or 'clear'.",
+    "tool.description": "साझा किए गए ECHONET लाइट कैश का निरीक्षण करें या साफ़ करें।",
+    "param.action.description": "निष्पादित करने के लिए कैश क्रिया: स्नैपशॉट या साफ़ करें।",
+    "param.fmt.description": "प्रारूप: json या text.",
+    "msg.snapshot": "ECHONET कैश स्नैपशॉट: {count} आइटम।",
+    "msg.no_items": "कोई कैश्ड प्रविष्टियाँ मौजूद नहीं हैं.",
+    "msg.cleared": "{scope} से {removed} कैश्ड प्रविष्टियाँ साफ़ की गईं।",
+    "err.invalid_action": "त्रुटि: कार्रवाई 'स्नैपशॉट' या 'स्पष्ट' होनी चाहिए।",
     "x_search_terms": [
       "echonet कैश",
       "echonet_cache",
@@ -246,16 +255,17 @@
       "निरीक्षण करें",
       "साफ़ करें",
       "कैश किया गया"
-    ]
+    ],
+    "param.namespace.description": "कैश नेमस्पेस (सभी के लिए छोड़ें)।"
   },
   "it": {
-    "tool.description": "Inspect or clear the shared ECHONET Lite cache.",
-    "param.action.description": "Cache action to perform: snapshot or clear.",
-    "param.fmt.description": "Format: json or text.",
-    "msg.snapshot": "ECHONET cache snapshot: {count} item(s).",
-    "msg.no_items": "No cached entries are present.",
-    "msg.cleared": "Cleared {removed} cached entries from {scope}.",
-    "err.invalid_action": "Error: action must be 'snapshot' or 'clear'.",
+    "tool.description": "Ispezionare o cancellare la cache condivisa di ECHONET Lite.",
+    "param.action.description": "Azione della cache da eseguire: istantanea o cancellazione.",
+    "param.fmt.description": "Formato: json o testo.",
+    "msg.snapshot": "Istantanea della cache ECHONET: {count} elemento/i.",
+    "msg.no_items": "Non sono presenti voci memorizzate nella cache.",
+    "msg.cleared": "Cancellate {removed} voci memorizzate nella cache da {scope}.",
+    "err.invalid_action": "Errore: l'azione deve essere \"istantanea\" o \"cancella\".",
     "x_search_terms": [
       "cache di echonet",
       "echonet_cache",
@@ -264,16 +274,17 @@
       "ispezionare",
       "chiaro",
       "memorizzato nella cache"
-    ]
+    ],
+    "param.namespace.description": "Spazio dei nomi nella cache (omettere per tutti)."
   },
   "ko": {
-    "tool.description": "Inspect or clear the shared ECHONET Lite cache.",
-    "param.action.description": "Cache action to perform: snapshot or clear.",
-    "param.fmt.description": "Format: json or text.",
-    "msg.snapshot": "ECHONET cache snapshot: {count} item(s).",
-    "msg.no_items": "No cached entries are present.",
-    "msg.cleared": "Cleared {removed} cached entries from {scope}.",
-    "err.invalid_action": "Error: action must be 'snapshot' or 'clear'.",
+    "tool.description": "공유 ECHONET Lite 캐시를 검사하거나 지웁니다.",
+    "param.action.description": "수행할 캐시 작업: 스냅샷 또는 지우기.",
+    "param.fmt.description": "형식: json 또는 텍스트.",
+    "msg.snapshot": "ECHONET 캐시 스냅샷: {count}개 항목.",
+    "msg.no_items": "캐시된 항목이 없습니다.",
+    "msg.cleared": "{scope}에서 {removed} 캐시된 항목을 삭제했습니다.",
+    "err.invalid_action": "오류: 작업은 '스냅샷' 또는 '지우기'여야 합니다.",
     "x_search_terms": [
       "에코넷 캐시",
       "에코넷_캐시",
@@ -282,16 +293,17 @@
       "검사하다",
       "지우다",
       "캐시된"
-    ]
+    ],
+    "param.namespace.description": "캐시 네임스페이스(모두 생략)."
   },
   "mn": {
-    "tool.description": "Inspect or clear the shared ECHONET Lite cache.",
-    "param.action.description": "Cache action to perform: snapshot or clear.",
-    "param.fmt.description": "Format: json or text.",
-    "msg.snapshot": "ECHONET cache snapshot: {count} item(s).",
-    "msg.no_items": "No cached entries are present.",
-    "msg.cleared": "Cleared {removed} cached entries from {scope}.",
-    "err.invalid_action": "Error: action must be 'snapshot' or 'clear'.",
+    "tool.description": "Хуваалцсан ECHONET Lite кэшийг шалгаж эсвэл устгана уу.",
+    "param.action.description": "Гүйцэтгэх кэш үйлдэл: хормын хувилбар эсвэл цэвэрлэх.",
+    "param.fmt.description": "Формат: json эсвэл текст.",
+    "msg.snapshot": "ECHONET кэшийн агшин зураг: {count} зүйл.",
+    "msg.no_items": "Кэш хийсэн оруулгууд байхгүй байна.",
+    "msg.cleared": "{scope}-с хадгалагдсан {removed} оруулгуудыг устгасан.",
+    "err.invalid_action": "Алдаа: үйлдэл нь \"хормын хувилбар\" эсвэл \"тодорхой\" байх ёстой.",
     "x_search_terms": [
       "echonet кэш",
       "echonet_cache",
@@ -300,16 +312,17 @@
       "шалгах",
       "цэвэрлэх",
       "кэшлэгдсэн"
-    ]
+    ],
+    "param.namespace.description": "Кэшийн нэрийн зай (бүгдийг орхих)."
   },
   "mr": {
-    "tool.description": "Inspect or clear the shared ECHONET Lite cache.",
-    "param.action.description": "Cache action to perform: snapshot or clear.",
-    "param.fmt.description": "Format: json or text.",
-    "msg.snapshot": "ECHONET cache snapshot: {count} item(s).",
-    "msg.no_items": "No cached entries are present.",
-    "msg.cleared": "Cleared {removed} cached entries from {scope}.",
-    "err.invalid_action": "Error: action must be 'snapshot' or 'clear'.",
+    "tool.description": "सामायिक केलेल्या ECHONET Lite कॅशेची तपासणी करा किंवा साफ करा.",
+    "param.action.description": "करण्यासाठी कॅशे क्रिया: स्नॅपशॉट किंवा साफ करा.",
+    "param.fmt.description": "स्वरूप: json किंवा मजकूर.",
+    "msg.snapshot": "ECHONET कॅशे स्नॅपशॉट: {count} आयटम.",
+    "msg.no_items": "कोणत्याही कॅशे केलेल्या नोंदी उपस्थित नाहीत.",
+    "msg.cleared": "{scope} मधील {removed} कॅशे केलेल्या नोंदी साफ केल्या.",
+    "err.invalid_action": "त्रुटी: क्रिया 'स्नॅपशॉट' किंवा 'स्पष्ट' असणे आवश्यक आहे.",
     "x_search_terms": [
       "echonet कॅश",
       "echonet_cache",
@@ -318,7 +331,8 @@
       "तपासणी",
       "साफ",
       "कॅश केलेले"
-    ]
+    ],
+    "param.namespace.description": "कॅशे नेमस्पेस (सर्वांसाठी वगळा)."
   },
   "el": {
     "tool.description": "Επιθεωρήστε ή εκκαθαρίστε την κοινόχρηστη προσωρινή μνήμη ECHONET Lite.",
@@ -336,7 +350,8 @@
       "επιθεώρηση",
       "καθαρό",
       "αποθηκευμένο στην κρυφή μνήμη"
-    ]
+    ],
+    "param.namespace.description": "Cache namespace (παράλειψη για όλους)."
   },
   "he": {
     "tool.description": "בדוק או נקה את המטמון המשותף של ECHONET Lite.",
@@ -354,7 +369,8 @@
       "בדוק",
       "נקה",
       "נשמר במטמון"
-    ]
+    ],
+    "param.namespace.description": "מרחב שמות מטמון (השמט לכולם)."
   },
   "hu": {
     "tool.description": "Vizsgálja meg vagy törölje a megosztott ECHONET Lite gyorsítótárat.",
@@ -372,7 +388,8 @@
       "ellenőriz",
       "tiszta",
       "gyorsítótárazott"
-    ]
+    ],
+    "param.namespace.description": "Gyorsítótár névtér (mindennél kihagyja)."
   },
   "ro": {
     "tool.description": "Inspectați sau ștergeți memoria cache ECHONET Lite partajată.",
@@ -390,16 +407,17 @@
       "inspectează",
       "clar",
       "stocat în cache"
-    ]
+    ],
+    "param.namespace.description": "Cache namespace (omiteți pentru toți)."
   },
   "nb": {
-    "tool.description": "Inspect or clear the shared ECHONET Lite cache.",
-    "param.action.description": "Cache action to perform: snapshot or clear.",
-    "param.fmt.description": "Format: json or text.",
-    "msg.snapshot": "ECHONET cache snapshot: {count} item(s).",
-    "msg.no_items": "No cached entries are present.",
-    "msg.cleared": "Cleared {removed} cached entries from {scope}.",
-    "err.invalid_action": "Error: action must be 'snapshot' or 'clear'.",
+    "tool.description": "Inspiser eller tøm den delte ECHONET Lite-bufferen.",
+    "param.action.description": "Bufferhandling som skal utføres: øyeblikksbilde eller slett.",
+    "param.fmt.description": "Format: json eller tekst.",
+    "msg.snapshot": "ECHONET cache øyeblikksbilde: {count} element(er).",
+    "msg.no_items": "Ingen bufrede oppføringer er til stede.",
+    "msg.cleared": "Fjernet {removed} bufrede oppføringer fra {scope}.",
+    "err.invalid_action": "Feil: handlingen må være \"øyeblikksbilde\" eller \"clear\".",
     "x_search_terms": [
       "echonet-cache",
       "echonet_cache",
@@ -408,16 +426,17 @@
       "inspisere",
       "klar",
       "bufret"
-    ]
+    ],
+    "param.namespace.description": "Cache navneområde (utelat for alle)."
   },
   "nl": {
-    "tool.description": "Inspect or clear the shared ECHONET Lite cache.",
-    "param.action.description": "Cache action to perform: snapshot or clear.",
-    "param.fmt.description": "Format: json or text.",
-    "msg.snapshot": "ECHONET cache snapshot: {count} item(s).",
-    "msg.no_items": "No cached entries are present.",
-    "msg.cleared": "Cleared {removed} cached entries from {scope}.",
-    "err.invalid_action": "Error: action must be 'snapshot' or 'clear'.",
+    "tool.description": "Inspecteer of wis de gedeelde ECHONET Lite-cache.",
+    "param.action.description": "Uit te voeren cacheactie: momentopname of wissen.",
+    "param.fmt.description": "Formaat: json of tekst.",
+    "msg.snapshot": "Momentopname van ECHONET-cache: {count} item(s).",
+    "msg.no_items": "Er zijn geen gegevens in de cache aanwezig.",
+    "msg.cleared": "{removed} in de cache opgeslagen vermeldingen van {scope} gewist.",
+    "err.invalid_action": "Fout: actie moet 'snapshot' of 'clear' zijn.",
     "x_search_terms": [
       "echonet-cache",
       "echonet_cache",
@@ -426,16 +445,17 @@
       "inspecteren",
       "duidelijk",
       "in cache"
-    ]
+    ],
+    "param.namespace.description": "Cache-naamruimte (weglaten voor alles)."
   },
   "pl": {
-    "tool.description": "Inspect or clear the shared ECHONET Lite cache.",
-    "param.action.description": "Cache action to perform: snapshot or clear.",
-    "param.fmt.description": "Format: json or text.",
-    "msg.snapshot": "ECHONET cache snapshot: {count} item(s).",
-    "msg.no_items": "No cached entries are present.",
-    "msg.cleared": "Cleared {removed} cached entries from {scope}.",
-    "err.invalid_action": "Error: action must be 'snapshot' or 'clear'.",
+    "tool.description": "Sprawdź lub wyczyść współdzieloną pamięć podręczną ECHONET Lite.",
+    "param.action.description": "Akcja w pamięci podręcznej do wykonania: migawka lub wyczyszczenie.",
+    "param.fmt.description": "Format: json lub tekst.",
+    "msg.snapshot": "Migawka pamięci podręcznej ECHONET: {count} elementów.",
+    "msg.no_items": "Brak wpisów w pamięci podręcznej.",
+    "msg.cleared": "Usunięto {removed} wpisów w pamięci podręcznej z {scope}.",
+    "err.invalid_action": "Błąd: akcja musi być „migawkowa” lub „wyczyszczona”.",
     "x_search_terms": [
       "pamięć podręczna echonetu",
       "pamięć podręczna_echa",
@@ -444,16 +464,17 @@
       "sprawdzić",
       "jasne",
       "buforowane"
-    ]
+    ],
+    "param.namespace.description": "Przestrzeń nazw pamięci podręcznej (pomiń dla wszystkich)."
   },
   "pt": {
-    "tool.description": "Inspect or clear the shared ECHONET Lite cache.",
-    "param.action.description": "Cache action to perform: snapshot or clear.",
-    "param.fmt.description": "Format: json or text.",
-    "msg.snapshot": "ECHONET cache snapshot: {count} item(s).",
-    "msg.no_items": "No cached entries are present.",
-    "msg.cleared": "Cleared {removed} cached entries from {scope}.",
-    "err.invalid_action": "Error: action must be 'snapshot' or 'clear'.",
+    "tool.description": "Inspecione ou limpe o cache compartilhado do ECHONET Lite.",
+    "param.action.description": "Ação de cache a ser executada: instantâneo ou limpeza.",
+    "param.fmt.description": "Formato: json ou texto.",
+    "msg.snapshot": "Instantâneo do cache ECHONET: {count} item(s).",
+    "msg.no_items": "Nenhuma entrada em cache está presente.",
+    "msg.cleared": "{removed} entradas em cache de {scope} foram apagadas.",
+    "err.invalid_action": "Erro: a ação deve ser 'instantâneo' ou 'limpa'.",
     "x_search_terms": [
       "cache echonet",
       "echonet_cache",
@@ -462,16 +483,17 @@
       "inspecionar",
       "limpar",
       "cache"
-    ]
+    ],
+    "param.namespace.description": "Namespace de cache (omitir para todos)."
   },
   "pt_BR": {
-    "tool.description": "Inspect or clear the shared ECHONET Lite cache.",
-    "param.action.description": "Cache action to perform: snapshot or clear.",
-    "param.fmt.description": "Format: json or text.",
-    "msg.snapshot": "ECHONET cache snapshot: {count} item(s).",
-    "msg.no_items": "No cached entries are present.",
-    "msg.cleared": "Cleared {removed} cached entries from {scope}.",
-    "err.invalid_action": "Error: action must be 'snapshot' or 'clear'.",
+    "tool.description": "Inspecione ou limpe o cache compartilhado do ECHONET Lite.",
+    "param.action.description": "Ação de cache a ser executada: instantâneo ou limpeza.",
+    "param.fmt.description": "Formato: json ou texto.",
+    "msg.snapshot": "Instantâneo do cache ECHONET: {count} item(s).",
+    "msg.no_items": "Nenhuma entrada em cache está presente.",
+    "msg.cleared": "{removed} entradas em cache de {scope} foram apagadas.",
+    "err.invalid_action": "Erro: a ação deve ser 'instantâneo' ou 'limpa'.",
     "x_search_terms": [
       "cache echonet",
       "echonet_cache",
@@ -480,16 +502,17 @@
       "inspecionar",
       "claro",
       "armazenado em cache"
-    ]
+    ],
+    "param.namespace.description": "Namespace de cache (omitir para todos)."
   },
   "ru": {
-    "tool.description": "Inspect or clear the shared ECHONET Lite cache.",
-    "param.action.description": "Cache action to perform: snapshot or clear.",
-    "param.fmt.description": "Format: json or text.",
-    "msg.snapshot": "ECHONET cache snapshot: {count} item(s).",
-    "msg.no_items": "No cached entries are present.",
-    "msg.cleared": "Cleared {removed} cached entries from {scope}.",
-    "err.invalid_action": "Error: action must be 'snapshot' or 'clear'.",
+    "tool.description": "Проверьте или очистите общий кэш ECHONET Lite.",
+    "param.action.description": "Действие кэша, которое необходимо выполнить: снимок или очистка.",
+    "param.fmt.description": "Формат: json или текст.",
+    "msg.snapshot": "Снимок кэша ECHONET: элементов {count}.",
+    "msg.no_items": "Кэшированные записи отсутствуют.",
+    "msg.cleared": "Удалены {removed} кешированных записей из {scope}.",
+    "err.invalid_action": "Ошибка: действие должно быть «снимок» или «очистить».",
     "x_search_terms": [
       "кэш echonet",
       "echonet_cache",
@@ -498,16 +521,17 @@
       "осмотреть",
       "очистить",
       "кэшировано"
-    ]
+    ],
+    "param.namespace.description": "Пространство имен кэша (опустить для всех)."
   },
   "sv": {
-    "tool.description": "Inspect or clear the shared ECHONET Lite cache.",
-    "param.action.description": "Cache action to perform: snapshot or clear.",
-    "param.fmt.description": "Format: json or text.",
-    "msg.snapshot": "ECHONET cache snapshot: {count} item(s).",
-    "msg.no_items": "No cached entries are present.",
-    "msg.cleared": "Cleared {removed} cached entries from {scope}.",
-    "err.invalid_action": "Error: action must be 'snapshot' or 'clear'.",
+    "tool.description": "Inspektera eller rensa den delade ECHONET Lite-cachen.",
+    "param.action.description": "Cache-åtgärd att utföra: ögonblicksbild eller rensa.",
+    "param.fmt.description": "Format: json eller text.",
+    "msg.snapshot": "ECHONET cache ögonblicksbild: {count} objekt(er).",
+    "msg.no_items": "Inga cachade poster finns.",
+    "msg.cleared": "Rensade {removed} cachade poster från {scope}.",
+    "err.invalid_action": "Fel: åtgärden måste vara \"snapshot\" eller \"clear\".",
     "x_search_terms": [
       "echonet cache",
       "echonet_cache",
@@ -516,16 +540,17 @@
       "inspektera",
       "rensa",
       "cachade"
-    ]
+    ],
+    "param.namespace.description": "Cachenamnutrymme (utelämna för alla)."
   },
   "sw": {
-    "tool.description": "Inspect or clear the shared ECHONET Lite cache.",
-    "param.action.description": "Cache action to perform: snapshot or clear.",
-    "param.fmt.description": "Format: json or text.",
-    "msg.snapshot": "ECHONET cache snapshot: {count} item(s).",
-    "msg.no_items": "No cached entries are present.",
-    "msg.cleared": "Cleared {removed} cached entries from {scope}.",
-    "err.invalid_action": "Error: action must be 'snapshot' or 'clear'.",
+    "tool.description": "Kagua au ufute akiba ya ECHONET Lite iliyoshirikiwa.",
+    "param.action.description": "Kitendo cha akiba cha kutekeleza: piga picha au futa.",
+    "param.fmt.description": "Umbizo: json au maandishi.",
+    "msg.snapshot": "Muhtasari wa akiba ya ECHONET: {count} bidhaa.",
+    "msg.no_items": "Hakuna maingizo yaliyohifadhiwa yaliyopo.",
+    "msg.cleared": "Imefuta maingizo {removed} yaliyohifadhiwa kutoka {scope}.",
+    "err.invalid_action": "Hitilafu: kitendo lazima kiwe 'picha' au 'wazi'.",
     "x_search_terms": [
       "akiba ya echonet",
       "echonet_cache",
@@ -534,16 +559,17 @@
       "kagua",
       "wazi",
       "kwenye akiba"
-    ]
+    ],
+    "param.namespace.description": "Nafasi ya majina ya akiba (ondoa kwa wote)."
   },
   "th": {
-    "tool.description": "Inspect or clear the shared ECHONET Lite cache.",
-    "param.action.description": "Cache action to perform: snapshot or clear.",
-    "param.fmt.description": "Format: json or text.",
-    "msg.snapshot": "ECHONET cache snapshot: {count} item(s).",
-    "msg.no_items": "No cached entries are present.",
-    "msg.cleared": "Cleared {removed} cached entries from {scope}.",
-    "err.invalid_action": "Error: action must be 'snapshot' or 'clear'.",
+    "tool.description": "ตรวจสอบหรือล้างแคช ECHONET Lite ที่ใช้ร่วมกัน",
+    "param.action.description": "การดำเนินการแคชที่จะดำเนินการ: สแน็ปช็อตหรือล้าง",
+    "param.fmt.description": "รูปแบบ: json หรือข้อความ",
+    "msg.snapshot": "สแนปชอตแคช ECHONET: {count} รายการ",
+    "msg.no_items": "ไม่มีรายการแคชอยู่",
+    "msg.cleared": "ล้างรายการแคช {removed} รายการจาก {scope}",
+    "err.invalid_action": "ข้อผิดพลาด: การดำเนินการต้องเป็น 'สแนปชอต' หรือ 'ชัดเจน'",
     "x_search_terms": [
       "แคช echonet",
       "echonet_cache",
@@ -552,16 +578,17 @@
       "ตรวจสอบ",
       "ล้าง",
       "ถูกแคช"
-    ]
+    ],
+    "param.namespace.description": "เนมสเปซแคช (ละเว้นสำหรับทุกคน)"
   },
   "tr": {
-    "tool.description": "Inspect or clear the shared ECHONET Lite cache.",
-    "param.action.description": "Cache action to perform: snapshot or clear.",
-    "param.fmt.description": "Format: json or text.",
-    "msg.snapshot": "ECHONET cache snapshot: {count} item(s).",
-    "msg.no_items": "No cached entries are present.",
-    "msg.cleared": "Cleared {removed} cached entries from {scope}.",
-    "err.invalid_action": "Error: action must be 'snapshot' or 'clear'.",
+    "tool.description": "Paylaşılan ECHONET Lite önbelleğini inceleyin veya temizleyin.",
+    "param.action.description": "Gerçekleştirilecek önbellek eylemi: anlık görüntü veya temizleme.",
+    "param.fmt.description": "Biçim: json veya metin.",
+    "msg.snapshot": "ECHONET önbellek anlık görüntüsü: {count} öğe.",
+    "msg.no_items": "Önbelleğe alınmış giriş yok.",
+    "msg.cleared": "{scope} kaynağından önbelleğe alınmış {removed} giriş temizlendi.",
+    "err.invalid_action": "Hata: Eylem 'anlık görüntü' veya 'temiz' olmalıdır.",
     "x_search_terms": [
       "echonet önbelleği",
       "echonet_cache",
@@ -570,16 +597,17 @@
       "denetlemek",
       "temiz",
       "önbelleğe alındı"
-    ]
+    ],
+    "param.namespace.description": "Önbellek ad alanı (tümü için atlayın)."
   },
   "uk": {
-    "tool.description": "Inspect or clear the shared ECHONET Lite cache.",
-    "param.action.description": "Cache action to perform: snapshot or clear.",
-    "param.fmt.description": "Format: json or text.",
-    "msg.snapshot": "ECHONET cache snapshot: {count} item(s).",
-    "msg.no_items": "No cached entries are present.",
-    "msg.cleared": "Cleared {removed} cached entries from {scope}.",
-    "err.invalid_action": "Error: action must be 'snapshot' or 'clear'.",
+    "tool.description": "Перевірте або очистіть спільний кеш ECHONET Lite.",
+    "param.action.description": "Дія кешу для виконання: знімок або очищення.",
+    "param.fmt.description": "Формат: json або текстовий.",
+    "msg.snapshot": "Знімок кешу ECHONET: {count} елемент(ів).",
+    "msg.no_items": "Кешованих записів немає.",
+    "msg.cleared": "Видалено {removed} кешованих записів із {scope}.",
+    "err.invalid_action": "Помилка: дія має бути \"миттєвий знімок\" або \"очистити\".",
     "x_search_terms": [
       "кеш echonet",
       "echonet_cache",
@@ -588,16 +616,17 @@
       "оглянути",
       "очистити",
       "кешовано"
-    ]
+    ],
+    "param.namespace.description": "Простір імен кешу (пропустити для всіх)."
   },
   "vi": {
-    "tool.description": "Inspect or clear the shared ECHONET Lite cache.",
-    "param.action.description": "Cache action to perform: snapshot or clear.",
-    "param.fmt.description": "Format: json or text.",
-    "msg.snapshot": "ECHONET cache snapshot: {count} item(s).",
-    "msg.no_items": "No cached entries are present.",
-    "msg.cleared": "Cleared {removed} cached entries from {scope}.",
-    "err.invalid_action": "Error: action must be 'snapshot' or 'clear'.",
+    "tool.description": "Kiểm tra hoặc xóa bộ đệm ECHONET Lite được chia sẻ.",
+    "param.action.description": "Hành động bộ nhớ đệm cần thực hiện: chụp nhanh hoặc xóa.",
+    "param.fmt.description": "Định dạng: json hoặc văn bản.",
+    "msg.snapshot": "Ảnh chụp nhanh bộ nhớ đệm ECHONET: {count} mục.",
+    "msg.no_items": "Không có mục được lưu trong bộ nhớ cache nào hiện diện.",
+    "msg.cleared": "Đã xóa {removed} mục được lưu trong bộ nhớ cache khỏi {scope}.",
+    "err.invalid_action": "Lỗi: hành động phải là 'ảnh chụp nhanh' hoặc 'xóa'.",
     "x_search_terms": [
       "bộ đệm echonet",
       "echonet_cache",
@@ -606,16 +635,17 @@
       "kiểm tra",
       "rõ ràng",
       "được lưu vào bộ nhớ đệm"
-    ]
+    ],
+    "param.namespace.description": "Không gian tên bộ đệm (bỏ qua tất cả)."
   },
   "zh_CN": {
-    "tool.description": "Inspect or clear the shared ECHONET Lite cache.",
-    "param.action.description": "Cache action to perform: snapshot or clear.",
-    "param.fmt.description": "Format: json or text.",
-    "msg.snapshot": "ECHONET cache snapshot: {count} item(s).",
-    "msg.no_items": "No cached entries are present.",
-    "msg.cleared": "Cleared {removed} cached entries from {scope}.",
-    "err.invalid_action": "Error: action must be 'snapshot' or 'clear'.",
+    "tool.description": "检查或清除共享 ECHONET Lite 缓存。",
+    "param.action.description": "要执行的缓存操作：快照或清除。",
+    "param.fmt.description": "格式：json 或文本。",
+    "msg.snapshot": "ECHONET 缓存快照：{count} 项。",
+    "msg.no_items": "不存在缓存条目。",
+    "msg.cleared": "已从 {scope} 中清除 {removed} 缓存条目。",
+    "err.invalid_action": "错误：操作必须是“快照”或“清除”。",
     "x_search_terms": [
       "echonet 缓存",
       "echonet_cache",
@@ -624,16 +654,17 @@
       "检查",
       "清除",
       "已缓存"
-    ]
+    ],
+    "param.namespace.description": "缓存命名空间（全部省略）。"
   },
   "zh_TW": {
-    "tool.description": "Inspect or clear the shared ECHONET Lite cache.",
-    "param.action.description": "Cache action to perform: snapshot or clear.",
-    "param.fmt.description": "Format: json or text.",
-    "msg.snapshot": "ECHONET cache snapshot: {count} item(s).",
-    "msg.no_items": "No cached entries are present.",
-    "msg.cleared": "Cleared {removed} cached entries from {scope}.",
-    "err.invalid_action": "Error: action must be 'snapshot' or 'clear'.",
+    "tool.description": "檢查或清除共享 ECHONET Lite 快取。",
+    "param.action.description": "要執行的快取操作：快照或清除。",
+    "param.fmt.description": "格式：json 或文字。",
+    "msg.snapshot": "ECHONET 快取快照：{count} 項。",
+    "msg.no_items": "不存在快取條目。",
+    "msg.cleared": "已從 {scope} 清除 {removed} 快取項目。",
+    "err.invalid_action": "錯誤：操作必須是“快照”或“清除”。",
     "x_search_terms": [
       "echonet 快取",
       "echonet_cache",
@@ -642,6 +673,7 @@
       "檢查",
       "清除",
       "已快取"
-    ]
+    ],
+    "param.namespace.description": "快取命名空間（全部省略）。"
   }
 }

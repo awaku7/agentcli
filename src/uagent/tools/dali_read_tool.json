@@ -207,8 +207,8 @@
     "tool.description": "Állapot és szint leolvasása DALI világítóeszközről. Lekérdezi a megadott címet az aktuális állapothoz.",
     "param.address.description": "DALI eszköz címe (0-63).",
     "param.driver.description": "DALI driver típus.",
-    "param.host.description": "daliserver host.",
-    "param.port.description": "daliserver port.",
+    "param.host.description": "daliserver gazdagép.",
+    "param.port.description": "daliserver portja.",
     "param.fmt.description": "Formátum: json vagy szöveg.",
     "msg.summary": "DALI olvasás: addr={addr} szint={level} állapot={status}",
     "x_search_terms": [
@@ -258,8 +258,8 @@
     "tool.description": "DALI照明デバイスからステータスとレベルを読み取ります。指定されたアドレスの現在の状態を問い合わせます。",
     "param.address.description": "DALI デバイスのアドレス (0 ～ 63)。",
     "param.driver.description": "DALIドライバーの種類。",
-    "param.host.description": "daliserver host.",
-    "param.port.description": "daliserver port.",
+    "param.host.description": "ダリサーバーホスト。",
+    "param.port.description": "ダリサーバーポート。",
     "param.fmt.description": "形式: json またはテキスト。",
     "msg.summary": "DALI 読み取り: addr={addr} level={level} status={status}",
     "x_search_terms": [
@@ -325,9 +325,9 @@
   "nb": {
     "tool.description": "Les status og nivå fra en DALI-lysenhet. Spørrer den angitte adressen for gjeldende tilstand.",
     "param.address.description": "DALI-enhetsadresse (0-63).",
-    "param.driver.description": "DALI driver type.",
+    "param.driver.description": "DALI-drivertype.",
     "param.host.description": "daliserver vert.",
-    "param.port.description": "daliserver port.",
+    "param.port.description": "daliserver-port.",
     "param.fmt.description": "Format: json eller tekst.",
     "msg.summary": "DALI lest: addr={addr} nivå={level} status={status}",
     "x_search_terms": [
@@ -446,7 +446,7 @@
     "param.address.description": "DALI-enhetsadress (0-63).",
     "param.driver.description": "DALI drivrutinstyp.",
     "param.host.description": "daliserver värd.",
-    "param.port.description": "daliserver port.",
+    "param.port.description": "daliserver-port.",
     "param.fmt.description": "Format: json eller text.",
     "msg.summary": "DALI läst: addr={addr} nivå={level} status={status}",
     "x_search_terms": [

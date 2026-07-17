@@ -47,7 +47,8 @@
     ],
     "error.exit_code": "comando salió con el código %(returncode)s",
     "error.os_error": "Error en la ejecución del comando (error del sistema operativo): %(error)s",
-    "error.exec_failed": "Error en la ejecución del comando: %(error)s"
+    "error.exec_failed": "Error en la ejecución del comando: %(error)s",
+    "param.cwd.description": "Directorio de trabajo. Sólo se permiten rutas relativas en workdir. Si es nulo, utiliza el directorio actual."
   },
   "fr": {
     "param.command.description": "Chaîne de commande transmise au shell du système.Sous Windows, cmd.",
@@ -63,7 +64,8 @@
     ],
     "error.exit_code": "commande terminée avec le code %(returncode)s",
     "error.os_error": "échec de l'exécution de la commande (erreur du système d'exploitation) : %(error)s",
-    "error.exec_failed": "échec de l'exécution de la commande : %(error)s"
+    "error.exec_failed": "échec de l'exécution de la commande : %(error)s",
+    "param.cwd.description": "Répertoire de travail. Seuls les chemins relatifs sous workdir sont autorisés. Si nul, utilise le répertoire courant."
   },
   "ko": {
     "param.command.description": "시스템 셸에 전달되는 명령 문자열입니다. Windows에서는 cmd.exe /c를 사용합니다.",
@@ -79,7 +81,8 @@
     ],
     "error.exit_code": "명령이 코드 %(returncode)s으로 종료되었습니다.",
     "error.os_error": "명령 실행 실패(OS 오류): %(error)s",
-    "error.exec_failed": "명령 실행 실패: %(error)s"
+    "error.exec_failed": "명령 실행 실패: %(error)s",
+    "param.cwd.description": "작업 디렉토리. workdir 아래의 상대 경로만 허용됩니다. null인 경우 현재 디렉터리를 사용합니다."
   },
   "de": {
     "param.command.description": "Befehlszeichenfolge, die an die System-Shell übergeben wird.",
@@ -95,7 +98,8 @@
     ],
     "error.exit_code": "Befehl wurde mit Code %(returncode)s beendet",
     "error.os_error": "Befehlsausführung fehlgeschlagen (Betriebssystemfehler): %(error)s",
-    "error.exec_failed": "Befehlsausführung fehlgeschlagen: %(error)s"
+    "error.exec_failed": "Befehlsausführung fehlgeschlagen: %(error)s",
+    "param.cwd.description": "Arbeitsverzeichnis. Unter workdir sind nur relative Pfade zulässig. Wenn null, wird das aktuelle Verzeichnis verwendet."
   },
   "it": {
     "param.command.description": "Stringa di comando passata alla shell di sistema.",
@@ -111,7 +115,8 @@
     ],
     "error.exit_code": "comando terminato con il codice %(returncode)s",
     "error.os_error": "esecuzione del comando non riuscita (errore del sistema operativo): %(error)s",
-    "error.exec_failed": "esecuzione del comando non riuscita: %(error)s"
+    "error.exec_failed": "esecuzione del comando non riuscita: %(error)s",
+    "param.cwd.description": "Directory di lavoro. Sono consentiti solo percorsi relativi nella directory di lavoro. Se null, utilizza la directory corrente."
   },
   "ru": {
     "param.command.description": "Строка команды, передаваемая системной оболочке.",
@@ -121,7 +126,8 @@
     ],
     "error.exit_code": "команда завершилась с кодом %(returncode)s",
     "error.os_error": "не удалось выполнить команду (ошибка ОС): %(error)s",
-    "error.exec_failed": "не удалось выполнить команду: %(error)s"
+    "error.exec_failed": "не удалось выполнить команду: %(error)s",
+    "param.cwd.description": "Рабочий каталог. Разрешены только относительные пути в рабочем каталоге. Если значение равно нулю, используется текущий каталог."
   },
   "pt_BR": {
     "param.command.description": "Cadeia de comandos passada para o shell do sistema.",
@@ -140,7 +146,8 @@
     ],
     "error.exit_code": "comando encerrado com código %(returncode)s",
     "error.os_error": "falha na execução do comando (erro do sistema operacional): %(error)s",
-    "error.exec_failed": "falha na execução do comando: %(error)s"
+    "error.exec_failed": "falha na execução do comando: %(error)s",
+    "param.cwd.description": "Diretório de trabalho. Somente caminhos relativos em workdir são permitidos. Se for nulo, usa o diretório atual."
   },
   "pt": {
     "param.command.description": "Cadeia de comandos passada para o shell do sistema.",
@@ -159,7 +166,8 @@
     ],
     "error.exit_code": "comando terminado com o código %(returncode)s",
     "error.os_error": "falha na execução do comando (erro do sistema operativo): %(error)s",
-    "error.exec_failed": "falha na execução do comando: %(error)s"
+    "error.exec_failed": "falha na execução do comando: %(error)s",
+    "param.cwd.description": "Diretório de trabalho. Somente caminhos relativos em workdir são permitidos. Se for nulo, usa o diretório atual."
   },
   "id": {
     "param.command.description": "String perintah yang diteruskan ke shell sistem.",
@@ -178,7 +186,8 @@
     ],
     "error.exit_code": "perintah keluar dengan kode %(returncode)s",
     "error.os_error": "eksekusi perintah gagal (kesalahan OS): %(error)s",
-    "error.exec_failed": "eksekusi perintah gagal: %(error)s"
+    "error.exec_failed": "eksekusi perintah gagal: %(error)s",
+    "param.cwd.description": "Direktori kerja. Hanya jalur relatif di bawah workdir yang diperbolehkan. Jika null, gunakan direktori saat ini."
   },
   "vi": {
     "param.command.description": "Chuỗi lệnh được truyền đến shell hệ thống. Trên Windows, dùng cmd.exe /c.",
@@ -197,7 +206,8 @@
     ],
     "error.exit_code": "lệnh đã thoát với mã %(returncode)s",
     "error.os_error": "thực thi lệnh không thành công (lỗi hệ điều hành): %(error)s",
-    "error.exec_failed": "thực thi lệnh không thành công: %(error)s"
+    "error.exec_failed": "thực thi lệnh không thành công: %(error)s",
+    "param.cwd.description": "Thư mục làm việc. Chỉ cho phép các đường dẫn tương đối trong Workdir. Nếu null, sử dụng thư mục hiện tại."
   },
   "pl": {
     "param.command.description": "Ciąg polecenia przekazywany do powłoki systemowej.",
@@ -216,7 +226,8 @@
     ],
     "error.exit_code": "polecenie zostało zakończone z kodem %(returncode)s",
     "error.os_error": "wykonanie polecenia nie powiodło się (błąd systemu operacyjnego): %(error)s",
-    "error.exec_failed": "Wykonanie polecenia nie powiodło się: %(error)s"
+    "error.exec_failed": "Wykonanie polecenia nie powiodło się: %(error)s",
+    "param.cwd.description": "Katalog roboczy. Dozwolone są tylko ścieżki względne w katalogu roboczym. Jeśli ma wartość null, używa bieżącego katalogu."
   },
   "hi": {
     "param.command.description": "सिस्टम शेल को दी जाने वाली कमांड स्ट्रिंग। Windows पर cmd.",
@@ -235,7 +246,8 @@
     ],
     "error.exit_code": "कमांड कोड %(returncode)s के साथ बाहर निकला",
     "error.os_error": "आदेश निष्पादन विफल (OS त्रुटि): %(error)s",
-    "error.exec_failed": "आदेश निष्पादन विफल: %(error)s"
+    "error.exec_failed": "आदेश निष्पादन विफल: %(error)s",
+    "param.cwd.description": "कार्यकारी डाइरेक्टरी। वर्कडिर के अंतर्गत केवल सापेक्ष पथों की अनुमति है। यदि शून्य है, तो वर्तमान निर्देशिका का उपयोग करता है।"
   },
   "ar": {
     "param.command.description": "سلسلة الأوامر التي تُمرَّر إلى غلاف النظام. في Windows يُستخدم cmd.exe /c.",
@@ -254,7 +266,8 @@
     ],
     "error.exit_code": "تم الخروج من الأمر بالرمز %(returncode)s",
     "error.os_error": "فشل تنفيذ الأمر (خطأ في نظام التشغيل): %(error)s",
-    "error.exec_failed": "فشل تنفيذ الأمر: %(error)s"
+    "error.exec_failed": "فشل تنفيذ الأمر: %(error)s",
+    "param.cwd.description": "دليل العمل. يُسمح فقط بالمسارات النسبية ضمن Workdir. إذا كانت فارغة، يستخدم الدليل الحالي."
   },
   "sv": {
     "param.command.description": "Kommandosträng som skickas till systemets skal. I Windows används cmd.exe /c.",
@@ -273,7 +286,8 @@
     ],
     "error.exit_code": "kommandot avslutades med koden %(returncode)s",
     "error.os_error": "kommandokörning misslyckades (OS-fel): %(error)s",
-    "error.exec_failed": "kommandokörning misslyckades: %(error)s"
+    "error.exec_failed": "kommandokörning misslyckades: %(error)s",
+    "param.cwd.description": "Arbetskatalog. Endast relativa sökvägar under workdir är tillåtna. Om null, använder den aktuella katalogen."
   },
   "sw": {
     "param.command.description": "Mfuatano wa amri unaopitishwa kwa ganda la mfumo.",
@@ -292,7 +306,8 @@
     ],
     "error.exit_code": "amri imetoka kwa msimbo %(returncode)s",
     "error.os_error": "utekelezaji wa amri haukufaulu (hitilafu ya Mfumo wa Uendeshaji): %(error)s",
-    "error.exec_failed": "utekelezaji wa amri haukufaulu: %(error)s"
+    "error.exec_failed": "utekelezaji wa amri haukufaulu: %(error)s",
+    "param.cwd.description": "Saraka ya kufanya kazi. Njia za jamaa tu chini ya workdir zinaruhusiwa. Ikiwa null, hutumia saraka ya sasa."
   },
   "nb": {
     "param.command.description": "Kommandostreng som sendes til systemskallet. På Windows brukes cmd.exe /c.",
@@ -311,7 +326,8 @@
     ],
     "error.exit_code": "kommandoen ble avsluttet med koden %(returncode)s",
     "error.os_error": "kommandoutførelse mislyktes (OS-feil): %(error)s",
-    "error.exec_failed": "kommandoutførelse mislyktes: %(error)s"
+    "error.exec_failed": "kommandoutførelse mislyktes: %(error)s",
+    "param.cwd.description": "Arbeidskatalog. Bare relative baner under workdir er tillatt. Hvis null, bruker den gjeldende katalogen."
   },
   "nl": {
     "param.command.description": "Opdrachtregel die naar de systeem-shell wordt doorgegeven.",
@@ -330,7 +346,8 @@
     ],
     "error.exit_code": "opdracht afgesloten met code %(returncode)s",
     "error.os_error": "uitvoering van opdracht mislukt (OS-fout): %(error)s",
-    "error.exec_failed": "uitvoering van opdracht mislukt: %(error)s"
+    "error.exec_failed": "uitvoering van opdracht mislukt: %(error)s",
+    "param.cwd.description": "Werkmap. Alleen relatieve paden onder workdir zijn toegestaan. Indien nul, wordt de huidige map gebruikt."
   },
   "fi": {
     "param.command.description": "Komentorivi, joka välitetään järjestelmän komentotulkille.",
@@ -349,7 +366,8 @@
     ],
     "error.exit_code": "komento lopetettiin koodilla %(returncode)s",
     "error.os_error": "komennon suoritus epäonnistui (käyttöjärjestelmävirhe): %(error)s",
-    "error.exec_failed": "komennon suoritus epäonnistui: %(error)s"
+    "error.exec_failed": "komennon suoritus epäonnistui: %(error)s",
+    "param.cwd.description": "Työhakemisto. Vain työhakemiston alla olevat suhteelliset polut ovat sallittuja. Jos null, käyttää nykyistä hakemistoa."
   },
   "cs": {
     "param.command.description": "Řetězec příkazu předávaný systémovému shellu.",
@@ -368,7 +386,8 @@
     ],
     "error.exit_code": "příkaz byl ukončen s kódem %(returncode)s",
     "error.os_error": "spuštění příkazu se nezdařilo (chyba OS): %(error)s",
-    "error.exec_failed": "spuštění příkazu se nezdařilo: %(error)s"
+    "error.exec_failed": "spuštění příkazu se nezdařilo: %(error)s",
+    "param.cwd.description": "Pracovní adresář. Jsou povoleny pouze relativní cesty pod workdir. Pokud je null, použije aktuální adresář."
   },
   "uk": {
     "param.command.description": "Рядок команди, що передається системній оболонці.",
@@ -387,7 +406,8 @@
     ],
     "error.exit_code": "команда завершилася з кодом %(returncode)s",
     "error.os_error": "не вдалося виконати команду (помилка ОС): %(error)s",
-    "error.exec_failed": "не вдалося виконати команду: %(error)s"
+    "error.exec_failed": "не вдалося виконати команду: %(error)s",
+    "param.cwd.description": "Робочий каталог. Дозволені лише відносні шляхи в робочому каталозі. Якщо значення null, використовується поточний каталог."
   },
   "tr": {
     "param.command.description": "Sistem kabuğuna iletilen komut dizisi. Windows’ta cmd.exe /c kullanılır.",
@@ -406,7 +426,8 @@
     ],
     "error.exit_code": "komuttan %(returncode)s koduyla çıkıldı",
     "error.os_error": "komut yürütme başarısız oldu (İşletim Sistemi hatası): %(error)s",
-    "error.exec_failed": "komut yürütme başarısız oldu: %(error)s"
+    "error.exec_failed": "komut yürütme başarısız oldu: %(error)s",
+    "param.cwd.description": "Çalışma dizini. Yalnızca çalışma dizini altındaki göreli yollara izin verilir. Eğer null ise geçerli dizini kullanır."
   },
   "th": {
     "param.command.description": "สตริงคำสั่งที่ส่งไปยังเชลล์ของระบบ บน Windows ใช้ cmd.exe /c",
@@ -425,7 +446,8 @@
     ],
     "error.exit_code": "ออกจากคำสั่งด้วยรหัส %(returncode)s",
     "error.os_error": "การดำเนินการคำสั่งล้มเหลว (ข้อผิดพลาดระบบปฏิบัติการ): %(error)s",
-    "error.exec_failed": "การดำเนินการคำสั่งล้มเหลว: %(error)s"
+    "error.exec_failed": "การดำเนินการคำสั่งล้มเหลว: %(error)s",
+    "param.cwd.description": "ไดเร็กทอรีการทำงาน อนุญาตเฉพาะเส้นทางสัมพัทธ์ภายใต้ workdir เท่านั้น หากเป็นโมฆะ ให้ใช้ไดเร็กทอรีปัจจุบัน"
   },
   "zh_CN": {
     "param.command.description": "传递给系统 shell 的命令字符串。Windows 上使用 cmd.exe /c。",
@@ -444,7 +466,8 @@
     ],
     "error.exit_code": "命令退出，代码为 %(returncode)s",
     "error.os_error": "命令执行失败（操作系统错误）：%(error)s",
-    "error.exec_failed": "命令执行失败：%(error)s"
+    "error.exec_failed": "命令执行失败：%(error)s",
+    "param.cwd.description": "工作目录。仅允许 workdir 下的相对路径。如果为空，则使用当前目录。"
   },
   "zh_TW": {
     "param.command.description": "傳遞給系統 shell 的命令字串。Windows 會使用 cmd.exe /c。",
@@ -463,7 +486,8 @@
     ],
     "error.exit_code": "指令退出，代碼為 %(returncode)s",
     "error.os_error": "指令執行失敗（作業系統錯誤）：%(error)s",
-    "error.exec_failed": "指令執行失敗：%(error)s"
+    "error.exec_failed": "指令執行失敗：%(error)s",
+    "param.cwd.description": "工作目錄。僅允許 workdir 下的相對路徑。如果為空，則使用目前目錄。"
   },
   "bn": {
     "param.command.description": "OS shell-এ পাঠানোর কমান্ড স্ট্রিং। Windows-এ cmd.exe /c ব্যবহার করা হয়।",
@@ -482,7 +506,8 @@
     ],
     "error.exit_code": "কমান্ড %(returncode)s কোড সহ প্রস্থান হয়েছে",
     "error.os_error": "কমান্ড কার্যকর করা ব্যর্থ হয়েছে (OS ত্রুটি): %(error)s",
-    "error.exec_failed": "কমান্ড কার্যকর করা ব্যর্থ হয়েছে: %(error)s"
+    "error.exec_failed": "কমান্ড কার্যকর করা ব্যর্থ হয়েছে: %(error)s",
+    "param.cwd.description": "ওয়ার্কিং ডিরেক্টরি। শুধুমাত্র workdir অধীনে আপেক্ষিক পাথ অনুমোদিত. শূন্য হলে, বর্তমান ডিরেক্টরি ব্যবহার করে।"
   },
   "fa": {
     "param.command.description": "رشتهٔ فرمانی که به پوستهٔ سیستم داده می‌شود.در ویندوز از cmd.",
@@ -501,7 +526,8 @@
     ],
     "error.exit_code": "فرمان با کد %(returncode)s خارج شد",
     "error.os_error": "اجرای دستور انجام نشد (خطای سیستم عامل): %(error)s",
-    "error.exec_failed": "اجرای دستور انجام نشد: %(error)s"
+    "error.exec_failed": "اجرای دستور انجام نشد: %(error)s",
+    "param.cwd.description": "دایرکتوری کار فقط مسیرهای نسبی تحت workdir مجاز هستند. اگر null باشد، از دایرکتوری فعلی استفاده می کند."
   },
   "mn": {
     "param.command.description": "Системийн shell-д дамжуулах командын мөр. Windows дээр cmd.exe /c ашиглана.",
@@ -520,7 +546,8 @@
     ],
     "error.exit_code": "тушаал %(returncode)s кодоор гарсан",
     "error.os_error": "тушаалын гүйцэтгэл амжилтгүй болсон (OS-ийн алдаа): %(error)s",
-    "error.exec_failed": "тушаалын гүйцэтгэл амжилтгүй болсон: %(error)s"
+    "error.exec_failed": "тушаалын гүйцэтгэл амжилтгүй болсон: %(error)s",
+    "param.cwd.description": "Ажлын лавлах. Зөвхөн ажлын чиглэлийн доорх харьцангуй замыг зөвшөөрдөг. Хэрэв null бол одоогийн лавлахыг ашиглана."
   },
   "mr": {
     "param.command.description": "OS shell ला दिलेली कमांड स्ट्रिंग. Windows वर cmd.exe /c वापरले जाते.",
@@ -539,7 +566,8 @@
     ],
     "error.exit_code": "आदेश %(returncode)s कोडसह बाहेर पडला",
     "error.os_error": "आदेशाची अंमलबजावणी अयशस्वी झाली (OS त्रुटी): %(error)s",
-    "error.exec_failed": "आदेशाची अंमलबजावणी अयशस्वी झाली: %(error)s"
+    "error.exec_failed": "आदेशाची अंमलबजावणी अयशस्वी झाली: %(error)s",
+    "param.cwd.description": "कार्यरत निर्देशिका. workdir अंतर्गत फक्त संबंधित मार्गांना परवानगी आहे. शून्य असल्यास, वर्तमान निर्देशिका वापरा."
   },
   "el": {
     "param.command.description": "Η συμβολοσειρά εντολών πέρασε στο κέλυφος του λειτουργικού συστήματος. Στα Windows χρησιμοποιείται το cmd.exe /c.",
@@ -558,7 +586,8 @@
     ],
     "error.exit_code": "Έγινε έξοδος της εντολής με κωδικό %(returncode)s",
     "error.os_error": "η εκτέλεση εντολής απέτυχε (σφάλμα λειτουργικού συστήματος): %(error)s",
-    "error.exec_failed": "η εκτέλεση της εντολής απέτυχε: %(error)s"
+    "error.exec_failed": "η εκτέλεση της εντολής απέτυχε: %(error)s",
+    "param.cwd.description": "Κατάλογος εργασίας. Επιτρέπονται μόνο σχετικές διαδρομές κάτω από το workdir. Εάν είναι null, χρησιμοποιεί τον τρέχοντα κατάλογο."
   },
   "he": {
     "param.command.description": "מחרוזת הפקודה הועברה למעטפת מערכת ההפעלה. ב-Windows, נעשה שימוש ב-cmd.exe /c.",
@@ -577,7 +606,8 @@
     ],
     "error.exit_code": "הפקודה יצאה עם הקוד %(returncode)s",
     "error.os_error": "ביצוע הפקודה נכשל (שגיאת מערכת ההפעלה): %(error)s",
-    "error.exec_failed": "ביצוע הפקודה נכשל: %(error)s"
+    "error.exec_failed": "ביצוע הפקודה נכשל: %(error)s",
+    "param.cwd.description": "ספריית עבודה. רק נתיבים יחסיים תחת workdir מותרים. אם null, משתמש בספרייה הנוכחית."
   },
   "hu": {
     "param.command.description": "A parancssor átkerült az operációs rendszer parancsértelmezőjébe. Windows rendszeren a cmd.exe /c fájl használatos.",
@@ -596,7 +626,8 @@
     ],
     "error.exit_code": "parancs a %(returncode)s kóddal fejeződött be",
     "error.os_error": "a parancs végrehajtása sikertelen (OS hiba): %(error)s",
-    "error.exec_failed": "a parancs végrehajtása sikertelen: %(error)s"
+    "error.exec_failed": "a parancs végrehajtása sikertelen: %(error)s",
+    "param.cwd.description": "Munkakönyvtár. Csak a workdir alatti relatív elérési utak engedélyezettek. Ha null, akkor az aktuális könyvtárat használja."
   },
   "ro": {
     "param.command.description": "Șirul de comandă a fost transmis shell-ului sistemului de operare. Pe Windows, se folosește cmd.exe /c.",
@@ -615,6 +646,7 @@
     ],
     "error.exit_code": "comanda ieșită cu codul %(returncode)s",
     "error.os_error": "Execuția comenzii a eșuat (eroare OS): %(error)s",
-    "error.exec_failed": "executarea comenzii a eșuat: %(error)s"
+    "error.exec_failed": "executarea comenzii a eșuat: %(error)s",
+    "param.cwd.description": "Director de lucru. Sunt permise doar căile relative sub workdir. Dacă null, folosește directorul curent."
   }
 }

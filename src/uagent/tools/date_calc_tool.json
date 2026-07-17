@@ -149,7 +149,7 @@
     "param.country.description": "Codice paese.",
     "param.days.description": "Giorni da aggiungere (negativo per sottrazione).",
     "param.months.description": "Mesi da aggiungere (negativo per sottrazione).",
-    "param.weeks.description": "Mesi da aggiungere (negativo per sottrazione). __DELIM_46__ Settimane da aggiungere (negativo per sottrazione).",
+    "param.weeks.description": "Settimane da aggiungere (negativo per sottrazione).",
     "param.years.description": "Anni da aggiungere (negativo per sottrazione).",
     "tool.description": "Aggiunge o sottrae anni, mesi, settimane o giorni a una data specificata e restituisce il risultato. Include il rilevamento delle festività con la libreria holidays.",
     "x_search_terms": [

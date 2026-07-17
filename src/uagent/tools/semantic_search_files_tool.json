@@ -54,7 +54,7 @@
       "file retrieval",
       "semantic retrieval"
     ],
-    "err.no_index": "Error: No indexed vectors found. Run index_files first.",
+    "err.no_index": "エラー: インデックス付きベクトルが見つかりません。最初にindex_filesを実行します。",
     "tool.description": "ローカルファイルに対してセマンティック検索（ベクター検索）を実行します。Embedding APIを使用してファイル内容をベクトル化し、関連する文書の一節を抽出します。"
   },
   "es": {
@@ -83,7 +83,7 @@
       "file retrieval",
       "semantic retrieval"
     ],
-    "err.no_index": "Error: No indexed vectors found. Run index_files first.",
+    "err.no_index": "Error: no se encontraron vectores indexados. Ejecute index_files primero.",
     "tool.description": "Realiza una búsqueda semántica (búsqueda vectorial) contra archivos locales. Utiliza la API de Embedding para vectorizar el contenido de los archivos y extraer pasajes de documentos relevantes."
   },
   "fr": {
@@ -112,7 +112,7 @@
       "file retrieval",
       "semantic retrieval"
     ],
-    "err.no_index": "Error: No indexed vectors found. Run index_files first.",
+    "err.no_index": "Erreur : aucun vecteur indexé trouvé. Exécutez d'abord index_files.",
     "tool.description": "Effectue une recherche sémantique (recherche vectorielle) dans les fichiers locaux. Utilise l'API d'Embedding pour vectoriser le contenu des fichiers et extrait les passages de documents pertinents."
   },
   "ko": {
@@ -141,7 +141,7 @@
       "file retrieval",
       "semantic retrieval"
     ],
-    "err.no_index": "Error: No indexed vectors found. Run index_files first.",
+    "err.no_index": "오류: 색인화된 벡터를 찾을 수 없습니다. index_files를 먼저 실행하세요.",
     "tool.description": "로컬 파일에 대해 의미 검색(벡터 검색)을 수행합니다. Embedding API를 사용하여 파일 내용을 벡터화하고 관련 문서 구절을 추출합니다."
   },
   "de": {
@@ -170,7 +170,7 @@
       "file retrieval",
       "semantic retrieval"
     ],
-    "err.no_index": "Error: No indexed vectors found. Run index_files first.",
+    "err.no_index": "Fehler: Keine indizierten Vektoren gefunden. Führen Sie zuerst index_files aus.",
     "tool.description": "Führt eine semantische Suche (Vektorsuche) gegen lokale Dateien durch. Verwendet die Embedding-API, um Dateiinhalte zu vektorisieren und relevante Dokumentpassagen zu extrahieren."
   },
   "it": {
@@ -199,7 +199,7 @@
       "file retrieval",
       "semantic retrieval"
     ],
-    "err.no_index": "Error: No indexed vectors found. Run index_files first.",
+    "err.no_index": "Errore: nessun vettore indicizzato trovato. Esegui prima index_files.",
     "tool.description": "Esegue una ricerca semantica (ricerca vettoriale) sui file locali. Usa l'API di Embedding per vettorizzare i contenuti dei file ed estrarre passaggi di documento rilevanti."
   },
   "ru": {
@@ -228,7 +228,7 @@
       "file retrieval",
       "semantic retrieval"
     ],
-    "err.no_index": "Error: No indexed vectors found. Run index_files first.",
+    "err.no_index": "Ошибка: индексированные векторы не найдены. Сначала запустите index_files.",
     "tool.description": "Выполняет семантический поиск (векторный поиск) по локальным файлам. Использует Embedding API для векторизации содержимого файлов и извлекает релевантные фрагменты документов."
   },
   "pt_BR": {
@@ -257,7 +257,7 @@
       "file retrieval",
       "semantic retrieval"
     ],
-    "err.no_index": "Error: No indexed vectors found. Run index_files first.",
+    "err.no_index": "Erro: Nenhum vetor indexado encontrado. Execute index_files primeiro.",
     "tool.description": "Realiza uma pesquisa semântica (busca vetorial) em arquivos locais. Usa a API de Embedding para vetorizar o conteúdo dos arquivos e extrair passagens relevantes dos documentos."
   },
   "pt": {
@@ -286,7 +286,7 @@
       "file retrieval",
       "semantic retrieval"
     ],
-    "err.no_index": "Error: No indexed vectors found. Run index_files first.",
+    "err.no_index": "Erro: Nenhum vetor indexado encontrado. Execute index_files primeiro.",
     "tool.description": "Realiza uma pesquisa semântica (pesquisa vetorial) contra ficheiros locais. Usa a API de Embedding para vetorizar o conteúdo dos ficheiros e extrai passagens de documentos relevantes."
   },
   "id": {
@@ -315,7 +315,7 @@
       "file retrieval",
       "semantic retrieval"
     ],
-    "err.no_index": "Error: No indexed vectors found. Run index_files first.",
+    "err.no_index": "Kesalahan: Tidak ditemukan vektor yang diindeks. Jalankan index_files terlebih dahulu.",
     "tool.description": "Melakukan pencarian semantik (pencarian vektor) terhadap file lokal. Menggunakan API Embedding untuk memvektorkan konten file dan mengekstrak bagian dokumen yang relevan."
   },
   "vi": {
@@ -344,7 +344,7 @@
       "file retrieval",
       "semantic retrieval"
     ],
-    "err.no_index": "Error: No indexed vectors found. Run index_files first.",
+    "err.no_index": "Lỗi: Không tìm thấy vectơ được lập chỉ mục. Trước tiên hãy chạy index_files.",
     "tool.description": "Thực hiện tìm kiếm ngữ nghĩa (tìm kiếm vector) trên các tệp cục bộ. Sử dụng API Nhúng để vector hóa nội dung tệp và trích xuất các đoạn tài liệu liên quan."
   },
   "pl": {
@@ -373,7 +373,7 @@
       "file retrieval",
       "semantic retrieval"
     ],
-    "err.no_index": "Error: No indexed vectors found. Run index_files first.",
+    "err.no_index": "Błąd: nie znaleziono indeksowanych wektorów. Najpierw uruchom plik indeksowy.",
     "tool.description": "Wykonuje wyszukiwanie semantyczne (wyszukiwanie wektorowe) w plikach lokalnych. Używa API osadzania do wektoryzacji zawartości plików i wyodrębnia odpowiednie fragmenty dokumentów."
   },
   "hi": {
@@ -402,7 +402,7 @@
       "file retrieval",
       "semantic retrieval"
     ],
-    "err.no_index": "Error: No indexed vectors found. Run index_files first.",
+    "err.no_index": "त्रुटि: कोई अनुक्रमित वेक्टर नहीं मिला। पहले Index_files चलाएँ।",
     "tool.description": "स्थानीय फ़ाइलों के विरुद्ध एक सिमैंटिक खोज (वेक्टर खोज) करता है। फ़ाइल सामग्री को वेक्टराइज़ करने और प्रासंगिक दस्तावेज़ अंश निकालने के लिए Embedding API का उपयोग करता है।"
   },
   "ar": {
@@ -431,7 +431,7 @@
       "file retrieval",
       "semantic retrieval"
     ],
-    "err.no_index": "Error: No indexed vectors found. Run index_files first.",
+    "err.no_index": "خطأ: لم يتم العثور على متجهات مفهرسة. قم بتشغيل ملفات Index_files أولاً.",
     "tool.description": "إجراء بحث دلالي (بحث متجه) ضد الملفات المحلية. يستخدم واجهة برمجة التطبيقات للتضمين لتحويل محتويات الملفات إلى متجهات واستخراج مقاطع المستندات ذات الصلة."
   },
   "sv": {
@@ -460,7 +460,7 @@
       "file retrieval",
       "semantic retrieval"
     ],
-    "err.no_index": "Error: No indexed vectors found. Run index_files first.",
+    "err.no_index": "Fel: Inga indexerade vektorer hittades. Kör index_files först.",
     "tool.description": "Utför en semantisk sökning (vektorsökning) mot lokala filer. Använder inbäddnings-API:et för att vektorisera filinnehåll och extraherar relevanta dokumentavsnitt."
   },
   "sw": {
@@ -489,7 +489,7 @@
       "file retrieval",
       "semantic retrieval"
     ],
-    "err.no_index": "Error: No indexed vectors found. Run index_files first.",
+    "err.no_index": "Hitilafu: Hakuna vekta zilizo kwenye faharasa zilizopatikana. Endesha index_files kwanza.",
     "tool.description": "Fanya utafutaji wa kisemantiki (utafutaji wa vekta) dhidi ya faili za ndani. Tumia API ya Upachikaji kuweka maudhui ya faili katika vekta na kutoa vifungu muhimu vya nyaraka."
   },
   "nb": {
@@ -518,7 +518,7 @@
       "file retrieval",
       "semantic retrieval"
     ],
-    "err.no_index": "Error: No indexed vectors found. Run index_files first.",
+    "err.no_index": "Feil: Ingen indekserte vektorer funnet. Kjør index_files først.",
     "tool.description": "Utfører et semantisk søk (vektorsøk) mot lokale filer. Bruker Embedding API til å vektorisere filinnhold og trekker ut relevante dokumentpassasjer."
   },
   "nl": {
@@ -547,7 +547,7 @@
       "file retrieval",
       "semantic retrieval"
     ],
-    "err.no_index": "Error: No indexed vectors found. Run index_files first.",
+    "err.no_index": "Fout: geen geïndexeerde vectoren gevonden. Voer eerst index_files uit.",
     "tool.description": "Voert een semantische zoekopdracht (vectorzoekopdracht) uit op lokale bestanden. Gebruikt de Embedding-API om bestandsinhoud te vectoriseren en relevante documentpassages te extraheren."
   },
   "fi": {
@@ -576,7 +576,7 @@
       "file retrieval",
       "semantic retrieval"
     ],
-    "err.no_index": "Error: No indexed vectors found. Run index_files first.",
+    "err.no_index": "Virhe: Indeksoituja vektoreita ei löytynyt. Suorita ensin index_files.",
     "tool.description": "Suorittaa semanttisen haun (vektorihaku) paikallisia tiedostoja vastaan. Käyttää upotus-API:a tiedostojen sisällön vektoroimiseen ja poimii asiaankuuluvia dokumenttikatkelmia."
   },
   "cs": {
@@ -605,7 +605,7 @@
       "file retrieval",
       "semantic retrieval"
     ],
-    "err.no_index": "Error: No indexed vectors found. Run index_files first.",
+    "err.no_index": "Chyba: Nebyly nalezeny žádné indexované vektory. Nejprve spusťte index_files.",
     "tool.description": "Provádí sémantické vyhledávání (vektorové vyhledávání) proti místním souborům. Používá Embedding API k vektorizaci obsahu souborů a extrahuje relevantní pasáže dokumentů."
   },
   "uk": {
@@ -634,7 +634,7 @@
       "file retrieval",
       "semantic retrieval"
     ],
-    "err.no_index": "Error: No indexed vectors found. Run index_files first.",
+    "err.no_index": "Помилка: не знайдено індексованих векторів. Спочатку запустіть index_files.",
     "tool.description": "Виконує семантичний пошук (векторний пошук) по локальних файлах. Використовує Embedding API для векторизації вмісту файлів та вилучення відповідних фрагментів документів."
   },
   "tr": {
@@ -663,7 +663,7 @@
       "file retrieval",
       "semantic retrieval"
     ],
-    "err.no_index": "Error: No indexed vectors found. Run index_files first.",
+    "err.no_index": "Hata: Dizine alınmış vektör bulunamadı. Önce index_files'ı çalıştırın.",
     "tool.description": "Yerel dosyalara karşı anlamsal arama (vektör araması) gerçekleştirir. Dosya içeriklerini vektörleştirmek için Embedding API'sini kullanır ve ilgili belge pasajlarını çıkarır."
   },
   "th": {
@@ -692,7 +692,7 @@
       "file retrieval",
       "semantic retrieval"
     ],
-    "err.no_index": "Error: No indexed vectors found. Run index_files first.",
+    "err.no_index": "ข้อผิดพลาด: ไม่พบเวกเตอร์ที่จัดทำดัชนีไว้ รัน index_files ก่อน",
     "tool.description": "ดำเนินการค้นหาเชิงความหมาย (การค้นหาเวกเตอร์) กับไฟล์ในเครื่อง ใช้ Embedding API เพื่อแปลงเนื้อหาไฟล์เป็นเวกเตอร์และแยกข้อความที่เกี่ยวข้องจากเอกสาร"
   },
   "zh_CN": {
@@ -721,7 +721,7 @@
       "file retrieval",
       "semantic retrieval"
     ],
-    "err.no_index": "Error: No indexed vectors found. Run index_files first.",
+    "err.no_index": "错误：未找到索引向量。首先运行index_files。",
     "tool.description": "对本地文件执行语义搜索（向量搜索）。使用嵌入API对文件内容进行向量化，并提取相关文档段落。"
   },
   "zh_TW": {
@@ -750,7 +750,7 @@
       "file retrieval",
       "semantic retrieval"
     ],
-    "err.no_index": "Error: No indexed vectors found. Run index_files first.",
+    "err.no_index": "錯誤：未找到索引向量。首先運行index_files。",
     "tool.description": "對本地檔案執行語意搜尋（向量搜尋）。使用 Embedding API 將檔案內容向量化，並提取相關的文件段落。"
   },
   "bn": {
@@ -779,7 +779,7 @@
       "file retrieval",
       "semantic retrieval"
     ],
-    "err.no_index": "Error: No indexed vectors found. Run index_files first.",
+    "err.no_index": "ত্রুটি: কোনো সূচীকৃত ভেক্টর পাওয়া যায়নি। প্রথমে index_files চালান।",
     "tool.description": "স্থানীয় ফাইলগুলির বিরুদ্ধে একটি সিম্যান্টিক সার্চ (ভেক্টর সার্চ) সম্পাদন করে। ফাইলের বিষয়বস্তু ভেক্টরাইজ করতে এম্বেডিং API ব্যবহার করে এবং প্রাসঙ্গিক ডকুমেন্ট প্যাসেজ বের করে।"
   },
   "fa": {
@@ -808,7 +808,7 @@
       "file retrieval",
       "semantic retrieval"
     ],
-    "err.no_index": "Error: No indexed vectors found. Run index_files first.",
+    "err.no_index": "خطا: هیچ بردار نمایه شده ای یافت نشد. ابتدا index_files را اجرا کنید.",
     "tool.description": "یک جستجوی معنایی (جستجوی برداری) را در برابر فایل‌های محلی انجام می‌دهد. از API جاسازی برای برداری کردن محتوای فایل‌ها و استخراج بخش‌های مرتبط سند استفاده می‌کند."
   },
   "mn": {
@@ -837,7 +837,7 @@
       "file retrieval",
       "semantic retrieval"
     ],
-    "err.no_index": "Error: No indexed vectors found. Run index_files first.",
+    "err.no_index": "Алдаа: Индексжүүлсэн вектор олдсонгүй. Run index_files first.",
     "tool.description": "Орон нутгийн файлуудын эсрэг семантик хайлт (вектор хайлт) гүйцэтгэх. Файлын агуулгыг векторжуулахын тулд Embedding API ашиглаж, холбогдох баримтын хэсгүүдийг гаргаж авна."
   },
   "mr": {
@@ -866,18 +866,18 @@
       "file retrieval",
       "semantic retrieval"
     ],
-    "err.no_index": "Error: No indexed vectors found. Run index_files first.",
+    "err.no_index": "त्रुटी: अनुक्रमित वेक्टर आढळले नाहीत. प्रथम index_files चालवा.",
     "tool.description": "स्थानिक फाइल्स विरुद्ध सिमेंटिक शोध (वेक्टर शोध) करते. फाइल सामग्री वेक्टराइज करण्यासाठी Embedding API वापरते आणि संबंधित दस्तऐवज परिच्छेद काढते."
   },
   "el": {
     "err.dir_not_found": "Σφάλμα: Ο κατάλογος δεν βρέθηκε: {root_path}",
     "err.query_required": "Σφάλμα: απαιτείται ερώτημα.",
-    "err.vec_fail": "Επισκέψεις: {count}",
-    "out.hits": "Δεν βρέθηκαν σχετικά έγγραφα.",
-    "out.not_found": "[{rank}] Βαθμολογία: {score:.4f} | Αρχείο: {rel_path}",
+    "err.vec_fail": "Σφάλμα: Απέτυχε η διανυσματική διαμόρφωση του ερωτήματος.",
+    "out.hits": "Επισκέψεις: {count}\n",
+    "out.not_found": "Δεν βρέθηκαν σχετικά έγγραφα.",
     "out.query": "Ερώτημα αναζήτησης: {query}",
     "out.result_content": "Περιεχόμενο: {snippet}",
-    "out.result_item": "Επεκτάσεις στόχων (διαχωρίζονται με κόμμα).",
+    "out.result_item": "[{rank}] Σκορ: {score:.4f} | Αρχείο: {rel_path}",
     "out.target_dir": "Κατάλογος στόχου: {root_path}",
     "param.file_pattern.description": "Λέξη-κλειδί αναζήτησης.",
     "param.query.description": "αριθμός.",
@@ -901,12 +901,12 @@
   "he": {
     "err.dir_not_found": "שגיאה: ספריה לא נמצאה: {root_path}",
     "err.query_required": "שגיאה: נדרשת שאילתה.",
-    "err.vec_fail": "התאמות: {count}",
-    "out.hits": "לא נמצאו מסמכים קשורים.",
-    "out.not_found": "[{rank}] ציון: {score:.4f} | קובץ: {rel_path}",
+    "err.vec_fail": "שגיאה: נכשל בהעברת השאילתה.",
+    "out.hits": "להיטים: {count}\n",
+    "out.not_found": "לא נמצאו מסמכים קשורים.",
     "out.query": "שאילתת חיפוש: {query}",
     "out.result_content": "תוכן: {snippet}",
-    "out.result_item": "הרחבות יעד (מופרדות בפסיק).",
+    "out.result_item": "[{rank}] ציון: {score:.4f} | קובץ: {rel_path}",
     "out.target_dir": "ספריית יעד: {root_path}",
     "param.file_pattern.description": "מילת מפתח לחיפוש. מספר",
     "param.query.description": ".",
@@ -930,12 +930,12 @@
   "hu": {
     "err.dir_not_found": "Hiba: A könyvtár nem található: {root_path}",
     "err.query_required": "Hiba: lekérdezés szükséges.",
-    "err.vec_fail": "Találatok: {count}",
-    "out.hits": "Nem található kapcsolódó dokumentum.",
-    "out.not_found": "[{rank}] Pontszám: {score:.4f} | Fájl: {rel_path}",
+    "err.vec_fail": "Hiba: Nem sikerült vektorizálni a lekérdezést.",
+    "out.hits": "Találatok: {count}\n",
+    "out.not_found": "Nem találhatók kapcsolódó dokumentumok.",
     "out.query": "Keresési lekérdezés: {query}",
     "out.result_content": "Tartalom: {snippet}",
-    "out.result_item": "Célbővítmények (vesszővel elválasztva).",
+    "out.result_item": "[{rank}] Pontszám: {score:.4f} | Fájl: {rel_path}",
     "out.target_dir": "Célkönyvtár: {root_path}",
     "param.file_pattern.description": "Keresési kulcsszó.",
     "param.query.description": "szám.",
@@ -959,12 +959,12 @@
   "ro": {
     "err.dir_not_found": "Eroare: Directorul nu a fost găsit: {root_path}",
     "err.query_required": "Eroare: interogarea este necesară.",
-    "err.vec_fail": "Accesări: {count}",
-    "out.hits": "Nu au fost găsite documente înrudite.",
-    "out.not_found": "[{rank}] Scor: {score:.4f} | Fișier: {rel_path}",
+    "err.vec_fail": "Eroare: nu s-a putut vectoriza interogarea.",
+    "out.hits": "Afișări: {count}\n",
+    "out.not_found": "Nu au fost găsite documente aferente.",
     "out.query": "Interogare de căutare: {query}",
     "out.result_content": "Conținut: {snippet}",
-    "out.result_item": "Extensii țintă (separate prin virgulă).",
+    "out.result_item": "[{rank}] Scor: {score:.4f} | Fișier: {rel_path}",
     "out.target_dir": "Director țintă: {root_path}",
     "param.file_pattern.description": "Căutare cuvânt cheie.",
     "param.query.description": "număr.",

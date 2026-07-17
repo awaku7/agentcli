@@ -38,7 +38,8 @@
       "herramientas disponibles",
       "listado de herramientas",
       "lista de herramientas mcp"
-    ]
+    ],
+    "param.url.description": "URL del punto final del servidor MCP. Si se omite, se puede utilizar un servidor configurado."
   },
   "fr": {
     "param.pretty.description": "Indique s'il faut formater la sortie JSON.",
@@ -51,7 +52,8 @@
       "outils disponibles",
       "liste d'outils",
       "liste des outils mcp"
-    ]
+    ],
+    "param.url.description": "URL du point de terminaison du serveur MCP. En cas d'omission, un serveur configuré peut être utilisé."
   },
   "ko": {
     "param.pretty.description": "JSON 출력을 예쁘게 표시할지 여부입니다.",
@@ -64,7 +66,8 @@
       "사용 가능한 도구",
       "도구 목록",
       "mcp 도구 목록"
-    ]
+    ],
+    "param.url.description": "MCP 서버 엔드포인트 URL. 생략할 경우 구성된 서버를 사용할 수 있습니다."
   },
   "de": {
     "param.pretty.description": "Ob die JSON-Ausgabe hübsch formatiert werden soll.",
@@ -77,7 +80,8 @@
       "verfügbare Werkzeuge",
       "Werkzeugliste",
       "mcp tools list"
-    ]
+    ],
+    "param.url.description": "MCP-Server-Endpunkt-URL. Wenn es weggelassen wird, kann ein konfigurierter Server verwendet werden."
   },
   "it": {
     "param.pretty.description": "Indica se formattare in modo leggibile l'output JSON.",
@@ -90,7 +94,8 @@
       "strumenti disponibili",
       "elenco degli strumenti",
       "Elenco strumenti mcp"
-    ]
+    ],
+    "param.url.description": "URL dell'endpoint del server MCP. Se omesso, è possibile utilizzare un server configurato."
   },
   "ru": {
     "param.pretty.description": "Нужно ли форматировать JSON-вывод.",
@@ -98,7 +103,8 @@
     "tool.description": "Подключитесь к серверу MCP и перечислите доступные инструменты. Поддерживает транспорт HTTP и stdio.",
     "x_search_terms": [
       "mcp инструменты, список инструментов, список инструментов, доступные инструменты, список инструментов, список инструментов mcp"
-    ]
+    ],
+    "param.url.description": "URL-адрес конечной точки сервера MCP. Если этот параметр опущен, можно использовать настроенный сервер."
   },
   "pt_BR": {
     "param.pretty.description": "Se deve formatar a saída JSON.",
@@ -115,7 +121,8 @@
       "tool catalog",
       "mcp functions",
       "mcp endpoints"
-    ]
+    ],
+    "param.url.description": "URL do terminal do servidor MCP. Se omitido, um servidor configurado poderá ser usado."
   },
   "pt": {
     "param.pretty.description": "Se true, formate a saída JSON.",
@@ -132,7 +139,8 @@
       "catálogo de ferramentas",
       "funções mcp",
       "pontos de extremidade mcp"
-    ]
+    ],
+    "param.url.description": "URL do terminal do servidor MCP. Se omitido, um servidor configurado poderá ser usado."
   },
   "id": {
     "param.pretty.description": "Apakah keluaran JSON akan diformat rapi.",
@@ -149,7 +157,8 @@
       "katalog alat",
       "fungsi mcp",
       "titik akhir mcp"
-    ]
+    ],
+    "param.url.description": "URL titik akhir server MCP. Jika dihilangkan, server yang dikonfigurasi dapat digunakan."
   },
   "vi": {
     "param.pretty.description": "Có in đầu ra JSON đẹp hay không.",
@@ -166,7 +175,8 @@
       "danh mục công cụ",
       "chức năng mcp",
       "điểm cuối mcp"
-    ]
+    ],
+    "param.url.description": "URL điểm cuối của máy chủ MCP. Nếu bị bỏ qua, máy chủ đã được cấu hình có thể được sử dụng."
   },
   "pl": {
     "param.pretty.description": "Określa, czy ładnie wydrukować dane wyjściowe JSON.",
@@ -183,7 +193,8 @@
       "tool catalog",
       "mcp functions",
       "mcp endpoints"
-    ]
+    ],
+    "param.url.description": "Adres URL punktu końcowego serwera MCP. Jeśli zostanie pominięty, może zostać użyty skonfigurowany serwer."
   },
   "hi": {
     "param.pretty.description": "क्या JSON आउटपुट को प्री-प्रिंट करना है।",
@@ -200,7 +211,8 @@
       "tool catalog",
       "mcp functions",
       "mcp endpoints"
-    ]
+    ],
+    "param.url.description": "एमसीपी सर्वर एंडपॉइंट यूआरएल। यदि छोड़ दिया जाए, तो एक कॉन्फ़िगर सर्वर का उपयोग किया जा सकता है।"
   },
   "ar": {
     "param.pretty.description": "ما إذا كان سيتم طباعة مخرجات JSON بشكل جميل.",
@@ -217,7 +229,8 @@
       "tool catalog",
       "mcp functions",
       "mcp endpoints"
-    ]
+    ],
+    "param.url.description": "عنوان URL لنقطة نهاية خادم MCP. إذا تم حذفه، فيمكن استخدام خادم تم تكوينه."
   },
   "sv": {
     "param.pretty.description": "Om JSON-utdata ska formateras snyggt.",
@@ -234,11 +247,12 @@
       "tool catalog",
       "mcp functions",
       "mcp endpoints"
-    ]
+    ],
+    "param.url.description": "MCP-serverns slutpunkts-URL. Om den utelämnas kan en konfigurerad server användas."
   },
   "sw": {
-    "param.pretty.description": "Whether to pretty-print JSON output.",
-    "param.server_name.description": "Server name from the config file.",
+    "param.pretty.description": "Iwapo itachapisha vizuri matokeo ya JSON.",
+    "param.server_name.description": "Jina la seva kutoka kwa faili ya usanidi.",
     "tool.description": "Unganisha kwa seva ya MCP na uorodheshe zana zinazopatikana. Inaauni usafirishaji wa HTTP na stdio.",
     "x_search_terms": [
       "mcp",
@@ -251,7 +265,8 @@
       "tool catalog",
       "mcp functions",
       "mcp endpoints"
-    ]
+    ],
+    "param.url.description": "URL ya mwisho ya seva ya MCP. Ikiwa imeachwa, seva iliyosanidiwa inaweza kutumika."
   },
   "nb": {
     "param.pretty.description": "Om JSON-utdata skal formateres pent.",
@@ -268,7 +283,8 @@
       "tool catalog",
       "mcp functions",
       "mcp endpoints"
-    ]
+    ],
+    "param.url.description": "MCP-serverendepunkt-URL. Hvis utelatt, kan en konfigurert server brukes."
   },
   "nl": {
     "param.pretty.description": "Of JSON-uitvoer netjes geformatteerd wordt.",
@@ -285,7 +301,8 @@
       "tool catalog",
       "mcp functions",
       "mcp endpoints"
-    ]
+    ],
+    "param.url.description": "Eindpunt-URL van MCP-server. Indien dit wordt weggelaten, kan een geconfigureerde server worden gebruikt."
   },
   "fi": {
     "param.pretty.description": "Muotoillaanko JSON-tulos siististi.",
@@ -302,7 +319,8 @@
       "tool catalog",
       "mcp functions",
       "mcp endpoints"
-    ]
+    ],
+    "param.url.description": "MCP-palvelimen päätepisteen URL-osoite. Jos se jätetään pois, voidaan käyttää määritettyä palvelinta."
   },
   "cs": {
     "param.pretty.description": "Zda se má JSON výstup formátovat přehledně.",
@@ -319,7 +337,8 @@
       "tool catalog",
       "mcp functions",
       "mcp endpoints"
-    ]
+    ],
+    "param.url.description": "Adresa URL koncového bodu serveru MCP. Pokud je vynechán, lze použít nakonfigurovaný server."
   },
   "uk": {
     "param.pretty.description": "Чи потрібно гарно форматувати JSON-вивід.",
@@ -336,7 +355,8 @@
       "tool catalog",
       "mcp functions",
       "mcp endpoints"
-    ]
+    ],
+    "param.url.description": "URL-адреса кінцевої точки сервера MCP. Якщо опущено, можна використовувати налаштований сервер."
   },
   "tr": {
     "param.pretty.description": "JSON çıktısının güzel yazdırılıp yazdırılmayacağı.",
@@ -353,7 +373,8 @@
       "tool catalog",
       "mcp functions",
       "mcp endpoints"
-    ]
+    ],
+    "param.url.description": "MCP sunucusu uç noktası URL'si. Atlanırsa yapılandırılmış bir sunucu kullanılabilir."
   },
   "th": {
     "param.pretty.description": "จะจัดรูปแบบเอาต์พุต JSON ให้อ่านง่ายหรือไม่",
@@ -370,7 +391,8 @@
       "tool catalog",
       "mcp functions",
       "mcp endpoints"
-    ]
+    ],
+    "param.url.description": "URL ปลายทางของเซิร์ฟเวอร์ MCP หากละเว้น อาจใช้เซิร์ฟเวอร์ที่กำหนดค่าไว้ได้"
   },
   "zh_CN": {
     "param.pretty.description": "是否格式化 JSON 输出。",
@@ -387,7 +409,8 @@
       "tool catalog",
       "mcp functions",
       "mcp endpoints"
-    ]
+    ],
+    "param.url.description": "MCP 服务器端点 URL。如果省略，则可以使用已配置的服务器。"
   },
   "zh_TW": {
     "param.pretty.description": "是否格式化 JSON 輸出。",
@@ -404,7 +427,8 @@
       "tool catalog",
       "mcp functions",
       "mcp endpoints"
-    ]
+    ],
+    "param.url.description": "MCP 伺服器端點 URL。如果省略，則可以使用已設定的伺服器。"
   },
   "bn": {
     "param.pretty.description": "JSON আউটপুট সুন্দরভাবে ফরম্যাট করবেন কি না।",
@@ -421,7 +445,8 @@
       "tool catalog",
       "mcp functions",
       "mcp endpoints"
-    ]
+    ],
+    "param.url.description": "MCP সার্ভার এন্ডপয়েন্ট URL। বাদ দেওয়া হলে, একটি কনফিগার করা সার্ভার ব্যবহার করা হতে পারে।"
   },
   "fa": {
     "param.pretty.description": "آیا خروجی JSON به‌صورت خوانا/زیبا چاپ شود.",
@@ -438,7 +463,8 @@
       "tool catalog",
       "mcp functions",
       "mcp endpoints"
-    ]
+    ],
+    "param.url.description": "URL نقطه پایانی سرور MCP. اگر حذف شود، ممکن است از یک سرور پیکربندی شده استفاده شود."
   },
   "mn": {
     "param.pretty.description": "JSON гаралтыг гоёор хэвлэх эсэх.",
@@ -455,7 +481,8 @@
       "tool catalog",
       "mcp functions",
       "mcp endpoints"
-    ]
+    ],
+    "param.url.description": "MCP серверийн төгсгөлийн URL. Хэрэв орхигдуулсан бол тохируулсан серверийг ашиглаж болно."
   },
   "mr": {
     "param.pretty.description": "JSON output सुंदररीत्या format करायचा का.",
@@ -472,7 +499,8 @@
       "tool catalog",
       "mcp functions",
       "mcp endpoints"
-    ]
+    ],
+    "param.url.description": "MCP सर्व्हर एंडपॉइंट URL. वगळल्यास, कॉन्फिगर केलेला सर्व्हर वापरला जाऊ शकतो."
   },
   "el": {
     "param.pretty.description": "Είτε θα εκτυπωθεί όμορφη εκτύπωση JSON.",
@@ -489,7 +517,8 @@
       "tool catalog",
       "mcp functions",
       "mcp endpoints"
-    ]
+    ],
+    "param.url.description": "URL τελικού σημείου διακομιστή MCP. Εάν παραλειφθεί, μπορεί να χρησιμοποιηθεί ένας διαμορφωμένος διακομιστής."
   },
   "he": {
     "param.pretty.description": "האם להדפיס פלט JSON יפה.",
@@ -506,7 +535,8 @@
       "tool catalog",
       "mcp functions",
       "mcp endpoints"
-    ]
+    ],
+    "param.url.description": "כתובת URL של שרת MCP. אם מושמט, ניתן להשתמש בשרת מוגדר."
   },
   "hu": {
     "param.pretty.description": "Szépen nyomtatja-e a JSON-kimenetet.",
@@ -523,7 +553,8 @@
       "tool catalog",
       "mcp functions",
       "mcp endpoints"
-    ]
+    ],
+    "param.url.description": "MCP-kiszolgáló végpont URL-je. Ha kihagyja, egy konfigurált szerver használható."
   },
   "ro": {
     "param.pretty.description": "Dacă se imprimă destul de ieșire JSON.",
@@ -540,6 +571,7 @@
       "tool catalog",
       "mcp functions",
       "mcp endpoints"
-    ]
+    ],
+    "param.url.description": "Adresa URL a punctului final al serverului MCP. Dacă este omis, poate fi utilizat un server configurat."
   }
 }

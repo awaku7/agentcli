@@ -547,7 +547,7 @@
     "param.max_files.description": "Idadi ya juu ya faili za kuchakata wakati wa kuchanganua saraka.",
     "param.path.description": "Njia ya faili lengwa la .",
     "param.visible.description": "Onyesha dirisha la Excel wakati wa otomatiki.",
-    "tool.description": "max=files_1 _DELIM_1 lazima ziwe nambari kamili Fomula za Excel kwa kuweka kiotomatiki Microsoft Excel (Windows COM) na kuhifadhi maadili yaliyosasishwa ya kache. Inasaidia moja.",
+    "tool.description": "Kokotoa upya fomula za Excel kwa kuweka kiotomatiki Microsoft Excel (Windows COM) na uhifadhi maadili yaliyosasishwa yaliyoakibishwa. Inasaidia moja.",
     "x_search_terms": [
       "recalc excel",
       "bora recalc",
@@ -638,7 +638,7 @@
     "err.path_required": "polku vaaditaan",
     "err.pywin32_required": "pywin32 vaaditaan (ja Microsoft Excelin on oltava asennettuna).",
     "err.recursive_bool": "rekursiivisen on oltava looginen",
-    "err.visible_bool": "on oltava ___DELIM_104____ rekursiivinen boolean",
+    "err.visible_bool": "näkyvän on oltava looginen",
     "err.windows_only": "recalc_excel on tuettu vain Windowsissa (Microsoft Excel COM -automaatio).",
     "param.backup.description": "Luo varmuuskopio ennen tallennusta.",
     "param.dry_run.description": "Jos true, listaa vain kohteet eikä laske uudelleen/tallenna. Oletus: false.",
@@ -777,7 +777,7 @@
     "param.include_glob.description": "รูปแบบ glob ที่ใช้เมื่อ path เป็นไดเร็กทอรี ค่าเริ่มต้น: '*.xlsx'",
     "param.max_files.description": "จำนวนไฟล์สูงสุดที่จะประมวลผลเมื่อสแกนไดเร็กทอรี ค่าเริ่มต้น: 200",
     "param.path.description": "พาธไฟล์ .xlsx เป้าหมาย หรือพาธไดเร็กทอรี",
-    "param.visible.description": "Show Excel window during automation. Default: false.",
+    "param.visible.description": "แสดงหน้าต่าง Excel ระหว่างการทำงานอัตโนมัติ ค่าเริ่มต้น: เท็จ",
     "tool.description": "คำนวณสูตร Excel ใหม่โดยทำงานอัตโนมัติกับ Microsoft Excel (Windows COM) และบันทึกค่าที่แคชไว้ซึ่งอัปเดตแล้ว รองรับไฟล์ .",
     "x_search_terms": [
       "recalc excel",
@@ -905,7 +905,7 @@
     "err.visible_bool": "قابل مشاهده باید یک پیام متنی",
     "err.windows_only": "recalc_excel فقط در Windows پشتیبانی می‌شود (اتوماسیون COM مایکروسافت اکسل).",
     "param.backup.description": "پیش از ذخیره یک نسخه پشتیبان بسازید.",
-    "param.dry_run.description": "اگر لیست Boolean قابل مشاهده باشد __DELIM_110__ فقط قابل مشاهده است. را هدف قرار دهید و دوباره محاسبه/ذخیره نکنید. پیش فرض: نادرست.",
+    "param.dry_run.description": "اگر درست است، فقط اهداف را فهرست کنید و دوباره محاسبه/ذخیره نکنید. پیش فرض: نادرست.",
     "param.include_glob.description": "الگوی glob که وقتی path یک پوشه است استفاده می‌شود.",
     "param.max_files.description": "حداکثر تعداد فایل‌هایی که هنگام اسکن یک پوشه پردازش می‌شوند. پیش‌فرض: 200.",
     "param.path.description": "مسیر فایل .xlsx هدف یا مسیر پوشه.",
@@ -934,7 +934,7 @@
     "err.path_not_found": "Зам олдсонгүй: {path}",
     "err.path_required": "path шаардлагатай",
     "err.pywin32_required": "pywin32 шаардлагатай (мөн Microsoft Excel суусан байх ёстой).",
-    "err.recursive_bool": "max_файлууд нь >= 1 __DELIM_14 рекурсив байх ёстой",
+    "err.recursive_bool": "рекурсив нь логик байх ёстой",
     "err.visible_bool": "харагдахуйц логик байх ёстой",
     "err.windows_only": "recalc_excel нь зөвхөн Windows дээр дэмжигддэг (Microsoft Excel COM автоматжуулалт).",
     "param.backup.description": "Хадгалахаас өмнө нөөц хуулбар үүсгэнэ.",
@@ -967,7 +967,7 @@
     "err.path_not_found": "पथ सापडला नाही: {path}",
     "err.path_required": "path आवश्यक आहे",
     "err.pywin32_required": "pywin32 आवश्यक आहे (आणि Microsoft Excel स्थापित असणे आवश्यक आहे).",
-    "err.recursive_bool": "__DELIM_88__ max_files असणे आवश्यक आहे__ EL1 __= IM_9 असणे आवश्यक आहे. बुलियन",
+    "err.recursive_bool": "रिकर्सिव हे बुलियन असणे आवश्यक आहे",
     "err.visible_bool": "दृश्यमान एक बुलियन असणे आवश्यक आहे",
     "err.windows_only": "recalc_excel फक्त Windows वर समर्थित आहे (Microsoft Excel COM automation).",
     "param.backup.description": "जतन करण्यापूर्वी बॅकअप तयार करा.",
@@ -994,11 +994,11 @@
   "el": {
     "err.backup_bool": "το αντίγραφο ασφαλείας πρέπει να είναι boolean",
     "err.dry_run_bool": "dry_run πρέπει να είναι boolean",
-    "err.file_ext": "Μόνο .xlsx υποστηρίζεται για λειτουργία αρχείου: {path anx] Τα max_files πρέπει να είναι >= 1",
-    "err.max_files_int": "Η διαδρομή δεν βρέθηκε: {path}",
+    "err.file_ext": "Μόνο .xlsx υποστηρίζεται για λειτουργία αρχείου: {path}",
+    "err.max_files_int": "Το max_files πρέπει να είναι ακέραιος",
     "err.max_files_positive": "pywin32 απαιτείται (και το Microsoft Excel πρέπει να εγκατασταθεί). Το",
-    "err.path_not_found": "αναδρομικό πρέπει να είναι boolean",
-    "err.path_required": "δεν βρέθηκε το αρχείο ήχου: {path}",
+    "err.path_not_found": "Η διαδρομή δεν βρέθηκε: {path}",
+    "err.path_required": "απαιτείται διαδρομή",
     "err.pywin32_required": "ορατό πρέπει να είναι boolean",
     "err.recursive_bool": "το recalc_excel υποστηρίζεται μόνο σε Windows (Microsoft Excel COM automation).",
     "err.visible_bool": "Δημιουργήστε αντίγραφο ασφαλείας πριν την αποθήκευση. Προεπιλογή: ψευδής.",
@@ -1020,18 +1020,18 @@
       "ενημέρωση τύπου",
       "υπολογισμός excel"
     ],
-    "param.password.description": "Εισαγάγετε τον κωδικό πρόσβασης για αυτό το αρχείο:\n{path}",
-    "prompt.password": "Μορφή εξόδου: κείμενο ή json.",
+    "param.password.description": "Κωδικός πρόσβασης (ζητείται εάν χρειάζεται).",
+    "prompt.password": "Εισαγάγετε τον κωδικό πρόσβασης για αυτό το αρχείο:\n{path}",
     "param.recur.description": "Διαδρομή προορισμού (αρχείο/κατάλογος). Συνιστάται σχετική διαδρομή."
   },
   "he": {
     "err.backup_bool": "הגיבוי חייב להיות בוליאני",
     "err.dry_run_bool": "dry_run חייב להיות בוליאני",
     "err.file_ext": "רק .xlsx נתמך במצב קובץ: {path} [_=#=max] חייב להיות >= 1",
-    "err.max_files_int": "נתיב לא נמצא: {path}",
+    "err.max_files_int": "max_files חייב להיות מספר שלם",
     "err.max_files_positive": "נדרש pywin32 (ויש להתקין את Microsoft Excel).",
-    "err.path_not_found": "רקורסיבי חייב להיות בוליאני",
-    "err.path_required": "קובץ אודיו לא נמצא: {path}",
+    "err.path_not_found": "נתיב לא נמצא: {path}",
+    "err.path_required": "נדרש נתיב",
     "err.pywin32_required": "גלוי חייב להיות בוליאני",
     "err.recursive_bool": "recalc_excel נתמך רק ב-Windows (אוטומציה של Microsoft Excel COM).",
     "err.visible_bool": "צור גיבוי לפני השמירה. ברירת מחדל: שקר.",
@@ -1054,16 +1054,16 @@
       "חישוב אקסל"
     ],
     "param.password.description": "פורמט פלט: טקסט או json.",
-    "prompt.password": "בדוק או נקה את המטמון המשותף של ECHONET Lite.",
+    "prompt.password": "הזן את הסיסמה עבור הקובץ הזה:\n{path}",
     "param.recur.description": "נתיב יעד (קובץ/ספרייה). דרך יחסית מומלצת."
   },
   "hu": {
     "err.backup_bool": "a biztonsági másolatnak logikai értéknek kell lennie",
     "err.dry_run_bool": "a száraz_futásnak logikai értéknek kell lennie",
-    "err.file_ext": "Fájl módban csak az .xlsx támogatott: {path_max] fájl [=es=#] max. >= 1 kell, hogy legyen",
-    "err.max_files_int": "Az elérési út nem található: {path}",
+    "err.file_ext": "Csak az .xlsx támogatott fájlmódban: {path}",
+    "err.max_files_int": "A max_files értéknek egész számnak kell lennie",
     "err.max_files_positive": "pywin32 szükséges (és telepíteni kell a Microsoft Excelt).",
-    "err.path_not_found": "rekurzívnak logikai értéknek kell lennie",
+    "err.path_not_found": "Az elérési út nem található: {path}",
     "err.path_required": "elérési út szükséges",
     "err.pywin32_required": "láthatónak logikai értéknek kell lennie",
     "err.recursive_bool": "a recalc_excel csak Windowson támogatott (Microsoft Excel COM automatizálás).",
@@ -1087,7 +1087,7 @@
       "excel számítás"
     ],
     "param.password.description": "dokumentumhoz.f., t.x).",
-    "prompt.password": "Jelszó (ha szükséges, kéri",
+    "prompt.password": "Adja meg a fájl jelszavát:\n{path}",
     "param.recur.description": "Cél elérési útja (fájl/könyvtár). Relatív útvonal ajánlott."
   },
   "ro": {
@@ -1095,8 +1095,8 @@
     "err.dry_run_bool": "dry_run trebuie să fie boolean",
     "err.file_ext": "Numai .xlsx este acceptat pentru modul fișier: {path}",
     "err.max_files_int": "file must be max= ante_ger >= 1",
-    "err.max_files_positive": "Calea nu a fost găsită: {path}",
-    "err.path_not_found": "este necesar pywin32 (și Microsoft Excel trebuie să fie instalat).",
+    "err.max_files_positive": "max_files trebuie să fie >= 1",
+    "err.path_not_found": "Calea nu a fost găsită: {path}",
     "err.path_required": "este necesară calea",
     "err.pywin32_required": "recursiv trebuie să fie un boolean",
     "err.recursive_bool": "vizibil trebuie să fie un boolean",
@@ -1120,7 +1120,7 @@
       "calcul excel"
     ],
     "param.password.description": "extrage document",
-    "prompt.password": "Path to.x, odt.",
+    "prompt.password": "Introduceți parola pentru acest fișier:\n{path}",
     "param.recur.description": "tools/rename_path_tool.py\n\ninstrumentul rename_path\n\nScop:\n- Redenumiți/mutați fișiere/directoare.\n\nPolitica de siguranta:\n- Confirmați cu utilizatorul dacă sunt îndeplinite condițiile periculoase ale căii, cum ar fi căi în afara directorului de lucru, căi absolute sau căi care conțin ..\n- Confirmați cu utilizatorul dacă overwrite=True (ștergeți și înlocuiți dst-ul existent).\n\nImplementare:\n- Operațiile efective sunt delegate la tools.safe_file_ops.safe_rename_path().\n- Pentru a elimina un dst existent, fișierele sunt eliminate cu os.remove și directoarele cu shutil.rmtree.\n\nAtentie:\n- Acest instrument modifică fișierele reale la fel ca create_file/delete_file, deci este conceput pentru a necesita confirmare de siguranță chiar și atunci când este apelat de la un LLM."
   }
 }

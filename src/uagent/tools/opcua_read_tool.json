@@ -286,7 +286,7 @@
   },
   "nb": {
     "tool.description": "Les nodeverdi(er) fra en OPC UA-server. Returnerer gjeldende verdi og metadata.",
-    "param.url.description": "OPC UA server URL.",
+    "param.url.description": "OPC UA-server-URL.",
     "param.node_ids.description": "Node-ID(er) å lese. Singel: 'i=85' eller 'ns=2;s=Temp'. Multippel: kommadelt.",
     "param.fmt.description": "Format: json eller tekst.",
     "msg.summary": "OPC UA lest: {count} verdi(er) i {ms} ms.",
@@ -391,7 +391,7 @@
   },
   "sv": {
     "tool.description": "Läs nodvärden från en OPC UA-server. Returnerar aktuellt värde och metadata.",
-    "param.url.description": "OPC UA server URL.",
+    "param.url.description": "OPC UA-server-URL.",
     "param.node_ids.description": "Nod-ID att läsa. Singel: 'i=85' eller 'ns=2;s=Temp'. Multipel: kommaseparerad.",
     "param.fmt.description": "Format: json eller text.",
     "msg.summary": "OPC UA läst: {count} värde(n) i {ms} ms.",

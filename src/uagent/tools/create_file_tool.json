@@ -50,7 +50,11 @@
       "toque",
       "crear documento",
       "escribir documento"
-    ]
+    ],
+    "err.file_exists": "El archivo ya existe: {path}",
+    "err.path_missing": "nombre de archivo/ruta es obligatorio",
+    "msg.created": "Archivo creado: {path}",
+    "msg.overwrote": "Archivo sobrescrito: {path}"
   },
   "fr": {
     "param.content.description": "Contenu du texte.",
@@ -66,7 +70,11 @@
       "toucher",
       "créer un document",
       "écrire un document"
-    ]
+    ],
+    "err.file_exists": "Le fichier existe déjà : {path}",
+    "err.path_missing": "le nom/chemin du fichier est requis",
+    "msg.created": "Fichier créé : {path}",
+    "msg.overwrote": "Fichier écrasé : {path}"
   },
   "ko": {
     "param.content.description": "작성할 텍스트 내용.",
@@ -82,7 +90,11 @@
       "터치",
       "문서 작성",
       "문서 쓰기"
-    ]
+    ],
+    "err.file_exists": "파일이 이미 존재합니다: {path}",
+    "err.path_missing": "파일 이름/경로가 필요합니다",
+    "msg.created": "생성된 파일: {path}",
+    "msg.overwrote": "덮어쓴 파일: {path}"
   },
   "de": {
     "param.content.description": "Textinhalt.",
@@ -98,7 +110,11 @@
       "berühren",
       "Dokument erstellen",
       "Dokument schreiben"
-    ]
+    ],
+    "err.file_exists": "Datei existiert bereits: {path}",
+    "err.path_missing": "Dateiname/Pfad ist erforderlich",
+    "msg.created": "Erstellte Datei: {path}",
+    "msg.overwrote": "Datei überschrieben: {path}"
   },
   "it": {
     "param.content.description": "Contenuto di testo.",
@@ -114,7 +130,11 @@
       "toccare",
       "crea documento",
       "scrivi documento"
-    ]
+    ],
+    "err.file_exists": "Il file esiste già: {path}",
+    "err.path_missing": "il nome file/percorso è obbligatorio",
+    "msg.created": "File creato: {path}",
+    "msg.overwrote": "File sovrascritto: {path}"
   },
   "ru": {
     "param.content.description": "Текстовое содержимое.",
@@ -124,7 +144,11 @@
     "tool.description": "Создает текстовый файл.По умолчанию не перезаписывает файлы.",
     "x_search_terms": [
       "создать файл, записать файл, новый файл, сделать файл, прикосновение, создать документ, записать документ"
-    ]
+    ],
+    "err.file_exists": "Файл уже существует: {path}",
+    "err.path_missing": "требуется имя файла/путь",
+    "msg.created": "Создан файл: {path}",
+    "msg.overwrote": "Перезаписан файл: {path}"
   },
   "pt_BR": {
     "param.content.description": "Conteúdo de texto.",
@@ -143,7 +167,11 @@
       "new document",
       "file write",
       "save file"
-    ]
+    ],
+    "err.file_exists": "O arquivo já existe: {path}",
+    "err.path_missing": "nome do arquivo/caminho é obrigatório",
+    "msg.created": "Arquivo criado: {path}",
+    "msg.overwrote": "Arquivo substituído: {path}"
   },
   "pt": {
     "param.content.description": "Conteúdo de texto.",
@@ -162,7 +190,11 @@
       "novo documento",
       "gravação de arquivo",
       "salvar arquivo"
-    ]
+    ],
+    "err.file_exists": "O arquivo já existe: {path}",
+    "err.path_missing": "nome do arquivo/caminho é obrigatório",
+    "msg.created": "Arquivo criado: {path}",
+    "msg.overwrote": "Arquivo substituído: {path}"
   },
   "id": {
     "param.content.description": "Konten teks.",
@@ -181,7 +213,11 @@
       "dokumen baru",
       "tulis file",
       "simpan file"
-    ]
+    ],
+    "err.file_exists": "File sudah ada: {path}",
+    "err.path_missing": "nama file/jalur diperlukan",
+    "msg.created": "File yang dibuat: {path}",
+    "msg.overwrote": "Timpa file: {path}"
   },
   "vi": {
     "param.content.description": "Nội dung văn bản.",
@@ -200,7 +236,11 @@
       "tài liệu mới",
       "ghi tập tin",
       "lưu tệp"
-    ]
+    ],
+    "err.file_exists": "Tệp đã tồn tại: {path}",
+    "err.path_missing": "tên tệp/đường dẫn là bắt buộc",
+    "msg.created": "Tệp đã tạo: {path}",
+    "msg.overwrote": "Ghi đè tệp: {path}"
   },
   "pl": {
     "param.content.description": "Treść tekstowa.",
@@ -219,7 +259,11 @@
       "new document",
       "file write",
       "save file"
-    ]
+    ],
+    "err.file_exists": "Plik już istnieje: {path}",
+    "err.path_missing": "wymagana jest nazwa pliku/ścieżka",
+    "msg.created": "Utworzono plik: {path}",
+    "msg.overwrote": "Nadpisał plik: {path}"
   },
   "hi": {
     "param.content.description": "टेक्स्ट सामग्री।",
@@ -238,7 +282,11 @@
       "new document",
       "file write",
       "save file"
-    ]
+    ],
+    "err.file_exists": "फ़ाइल पहले से मौजूद है: {path}",
+    "err.path_missing": "फ़ाइल नाम/पथ आवश्यक है",
+    "msg.created": "बनाई गई फ़ाइल: {path}",
+    "msg.overwrote": "ओवरराइट की गई फ़ाइल: {path}"
   },
   "ar": {
     "param.content.description": "محتوى النص.",
@@ -257,7 +305,11 @@
       "new document",
       "file write",
       "save file"
-    ]
+    ],
+    "err.file_exists": "الملف موجود بالفعل: {path}",
+    "err.path_missing": "اسم الملف/المسار مطلوب",
+    "msg.created": "الملف الذي تم إنشاؤه: {path}",
+    "msg.overwrote": "تمت الكتابة فوق الملف: {path}"
   },
   "sv": {
     "param.content.description": "Textinnehåll.",
@@ -276,7 +328,11 @@
       "new document",
       "file write",
       "save file"
-    ]
+    ],
+    "err.file_exists": "Filen finns redan: {path}",
+    "err.path_missing": "filnamn/sökväg krävs",
+    "msg.created": "Skapat fil: {path}",
+    "msg.overwrote": "Överskriven fil: {path}"
   },
   "sw": {
     "param.content.description": "Maudhui ya maandishi.",
@@ -295,7 +351,11 @@
       "new document",
       "file write",
       "save file"
-    ]
+    ],
+    "err.file_exists": "Faili tayari ipo: {path}",
+    "err.path_missing": "jina la faili/njia inahitajika",
+    "msg.created": "Faili iliyoundwa: {path}",
+    "msg.overwrote": "Batilisha faili: {path}"
   },
   "nb": {
     "param.content.description": "Tekstinnhold.",
@@ -314,7 +374,11 @@
       "new document",
       "file write",
       "save file"
-    ]
+    ],
+    "err.file_exists": "Filen eksisterer allerede: {path}",
+    "err.path_missing": "filnavn/bane kreves",
+    "msg.created": "Opprettet fil: {path}",
+    "msg.overwrote": "Overskrev fil: {path}"
   },
   "nl": {
     "param.content.description": "Tekstinhoud.",
@@ -333,7 +397,11 @@
       "new document",
       "file write",
       "save file"
-    ]
+    ],
+    "err.file_exists": "Bestand bestaat al: {path}",
+    "err.path_missing": "bestandsnaam/pad is vereist",
+    "msg.created": "Bestand gemaakt: {path}",
+    "msg.overwrote": "Bestand overschreven: {path}"
   },
   "fi": {
     "param.content.description": "Tekstisisältö.",
@@ -352,7 +420,11 @@
       "new document",
       "file write",
       "save file"
-    ]
+    ],
+    "err.file_exists": "Tiedosto on jo olemassa: {path}",
+    "err.path_missing": "tiedostonimi/polku vaaditaan",
+    "msg.created": "Luotu tiedosto: {path}",
+    "msg.overwrote": "Korvattu tiedosto: {path}"
   },
   "cs": {
     "param.content.description": "Textový obsah.",
@@ -371,7 +443,11 @@
       "new document",
       "file write",
       "save file"
-    ]
+    ],
+    "err.file_exists": "Soubor již existuje: {path}",
+    "err.path_missing": "je vyžadováno jméno souboru/cesta",
+    "msg.created": "Vytvořený soubor: {path}",
+    "msg.overwrote": "Přepsaný soubor: {path}"
   },
   "uk": {
     "param.content.description": "Текстовий вміст.",
@@ -390,7 +466,11 @@
       "new document",
       "file write",
       "save file"
-    ]
+    ],
+    "err.file_exists": "Файл уже існує: {path}",
+    "err.path_missing": "потрібно вказати ім'я файлу/шлях",
+    "msg.created": "Створено файл: {path}",
+    "msg.overwrote": "Перезаписаний файл: {path}"
   },
   "tr": {
     "param.content.description": "Metin içeriği.",
@@ -409,7 +489,11 @@
       "new document",
       "file write",
       "save file"
-    ]
+    ],
+    "err.file_exists": "Dosya zaten mevcut: {path}",
+    "err.path_missing": "dosya adı/yol gerekli",
+    "msg.created": "Oluşturulan dosya: {path}",
+    "msg.overwrote": "Üzerine yazılan dosya: {path}"
   },
   "th": {
     "param.content.description": "เนื้อหาข้อความ",
@@ -428,7 +512,11 @@
       "new document",
       "file write",
       "save file"
-    ]
+    ],
+    "err.file_exists": "มีไฟล์อยู่แล้ว: {path}",
+    "err.path_missing": "ต้องระบุชื่อไฟล์/พาธ",
+    "msg.created": "ไฟล์ที่สร้าง: {path}",
+    "msg.overwrote": "เขียนทับไฟล์: {path}"
   },
   "zh_CN": {
     "param.content.description": "要写入的文本内容。",
@@ -447,7 +535,11 @@
       "new document",
       "file write",
       "save file"
-    ]
+    ],
+    "err.file_exists": "文件已存在：{path}",
+    "err.path_missing": "文件名/路径为必填项",
+    "msg.created": "创建的文件：{path}",
+    "msg.overwrote": "覆盖文件：{path}"
   },
   "zh_TW": {
     "param.content.description": "要寫入的文字內容。",
@@ -466,7 +558,11 @@
       "new document",
       "file write",
       "save file"
-    ]
+    ],
+    "err.file_exists": "文件已存在：{path}",
+    "err.path_missing": "檔案名稱/路徑為必填項",
+    "msg.created": "建立的檔案：{path}",
+    "msg.overwrote": "覆蓋檔案：{path}"
   },
   "bn": {
     "param.content.description": "পাঠ্য বিষয়বস্তু।",
@@ -485,7 +581,11 @@
       "new document",
       "file write",
       "save file"
-    ]
+    ],
+    "err.file_exists": "ফাইল ইতিমধ্যেই বিদ্যমান: {path}৷",
+    "err.path_missing": "ফাইলের নাম/পাথ প্রয়োজন",
+    "msg.created": "তৈরি করা ফাইল: {path}",
+    "msg.overwrote": "ওভাররাট করা ফাইল: {path}"
   },
   "fa": {
     "param.content.description": "محتوای متنی.",
@@ -504,7 +604,11 @@
       "new document",
       "file write",
       "save file"
-    ]
+    ],
+    "err.file_exists": "فایل از قبل وجود دارد: {path}",
+    "err.path_missing": "نام فایل/مسیر مورد نیاز است",
+    "msg.created": "فایل ایجاد شده: {path}",
+    "msg.overwrote": "بازنویسی فایل: {path}"
   },
   "mn": {
     "param.content.description": "Текстийн агуулга.",
@@ -523,7 +627,11 @@
       "new document",
       "file write",
       "save file"
-    ]
+    ],
+    "err.file_exists": "Файл аль хэдийн байна: {path}",
+    "err.path_missing": "файлын нэр/зам шаардлагатай",
+    "msg.created": "Үүсгэсэн файл: {path}",
+    "msg.overwrote": "Файлыг дарж бичсэн: {path}"
   },
   "mr": {
     "param.content.description": "लिहायचा मजकूर.",
@@ -542,7 +650,11 @@
       "new document",
       "file write",
       "save file"
-    ]
+    ],
+    "err.file_exists": "फाइल आधीपासून अस्तित्वात आहे: {path}",
+    "err.path_missing": "फाइलनाव/पथ आवश्यक आहे",
+    "msg.created": "फाइल तयार केली: {path}",
+    "msg.overwrote": "अधिलिखित फाइल: {path}"
   },
   "el": {
     "param.content.description": "Περιεχόμενο κειμένου.",
@@ -561,7 +673,11 @@
       "new document",
       "file write",
       "save file"
-    ]
+    ],
+    "err.file_exists": "Το αρχείο υπάρχει ήδη: {path}",
+    "err.path_missing": "απαιτείται όνομα αρχείου/διαδρομή",
+    "msg.created": "Δημιουργήθηκε αρχείο: {path}",
+    "msg.overwrote": "Αντικαταστάθηκε το αρχείο: {path}"
   },
   "he": {
     "param.content.description": "תוכן טקסט.",
@@ -580,7 +696,11 @@
       "new document",
       "file write",
       "save file"
-    ]
+    ],
+    "err.file_exists": "הקובץ כבר קיים: {path}",
+    "err.path_missing": "נדרש שם קובץ/נתיב",
+    "msg.created": "קובץ נוצר: {path}",
+    "msg.overwrote": "קובץ שהוחלף: {path}"
   },
   "hu": {
     "param.content.description": "Szöveges tartalom.",
@@ -599,7 +719,11 @@
       "new document",
       "file write",
       "save file"
-    ]
+    ],
+    "err.file_exists": "A fájl már létezik: {path}",
+    "err.path_missing": "fájlnév/útvonal kötelező",
+    "msg.created": "Létrehozott fájl: {path}",
+    "msg.overwrote": "Felülírt fájl: {path}"
   },
   "ro": {
     "param.content.description": "Conținut text.",
@@ -618,6 +742,10 @@
       "new document",
       "file write",
       "save file"
-    ]
+    ],
+    "err.file_exists": "Fișierul există deja: {path}",
+    "err.path_missing": "este necesar numele fișierului/calea",
+    "msg.created": "Fișier creat: {path}",
+    "msg.overwrote": "Fișierul a fost suprascris: {path}"
   }
 }

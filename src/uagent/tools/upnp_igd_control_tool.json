@@ -93,7 +93,13 @@
       "أب إن بي",
       "إي جي دي",
       "تنفيذ"
-    ]
+    ],
+    "param.action.description": "العملية المطلوب تنفيذها: الحالة، أو portmap_list، أو portmap_add، أو portmap_delete.",
+    "param.interface.description": "عنوان IPv4 للواجهة المحلية الاختيارية أو اسم الواجهة المراد الارتباط به.",
+    "param.internal_ip.description": "عنوان IP الداخلي لشبكة LAN الذي يجب أن يستقبل حركة المرور المعاد توجيهها.",
+    "param.remote_host.description": "مرشح مضيف بعيد اختياري لعمليات تعيين منافذ محددة. اتركه فارغًا لجميع المضيفين.",
+    "param.search_target.description": "هدف بحث SSDP (ST) للاكتشاف. يتم تعيينه افتراضيًا على InternetGatewayDevice ويعود إلى ssdp:all إذا لزم الأمر.",
+    "tool.description": "تنفيذ عمليات جهاز التوجيه UPnP IGD: فحص حالة WAN، أو إدراج تعيينات المنفذ، أو إضافة تعيين منفذ، أو حذف تعيين المنفذ."
   },
   "bn": {
     "param.timeout.description": "সময়সীমা (সেকেন্ড)।",
@@ -120,7 +126,13 @@
       "ইউপিএনপি",
       "আইজিডি",
       "সম্পাদন"
-    ]
+    ],
+    "param.action.description": "সঞ্চালনের জন্য অপারেশন: স্থিতি, পোর্টম্যাপ_লিস্ট, পোর্টম্যাপ_অ্যাড, বা পোর্টম্যাপ_ডিলিট।",
+    "param.interface.description": "ঐচ্ছিক স্থানীয় ইন্টারফেস IPv4 ঠিকানা বা আবদ্ধ করার জন্য ইন্টারফেসের নাম।",
+    "param.internal_ip.description": "অভ্যন্তরীণ LAN আইপি ঠিকানা যা ফরোয়ার্ড ট্রাফিক গ্রহণ করা উচিত।",
+    "param.remote_host.description": "নির্দিষ্ট পোর্ট ম্যাপিং অপারেশনের জন্য ঐচ্ছিক দূরবর্তী হোস্ট ফিল্টার। সমস্ত হোস্টের জন্য খালি ছেড়ে দিন।",
+    "param.search_target.description": "SSDP অনুসন্ধান লক্ষ্য (ST) আবিষ্কারের জন্য। InternetGatewayDevice-এ ডিফল্ট হয় এবং প্রয়োজনে ssdp: all-এ ফিরে আসে।",
+    "tool.description": "UPnP IGD রাউটার অপারেশনগুলি সম্পাদন করুন: WAN স্থিতি পরীক্ষা করুন, পোর্ট ম্যাপিংগুলি তালিকাভুক্ত করুন, একটি পোর্ট ম্যাপিং যুক্ত করুন বা একটি পোর্ট ম্যাপিং মুছুন৷"
   },
   "cs": {
     "param.timeout.description": "Časový limit (v sekundách).",
@@ -147,7 +159,13 @@
       "UPNP",
       "igd",
       "provést"
-    ]
+    ],
+    "param.action.description": "Operace, kterou je třeba provést: status, portmap_list, portmap_add nebo portmap_delete.",
+    "param.interface.description": "Volitelná adresa IPv4 místního rozhraní nebo název rozhraní, ke kterému se má navázat.",
+    "param.internal_ip.description": "Interní LAN IP adresa, která by měla přijímat přesměrovaný provoz.",
+    "param.remote_host.description": "Volitelný filtr vzdáleného hostitele pro specifické operace mapování portů. Ponechte prázdné pro všechny hostitele.",
+    "param.search_target.description": "Cíl vyhledávání SSDP (ST) pro zjišťování. Výchozí nastavení je InternetGatewayDevice a v případě potřeby se vrátí na ssdp:all.",
+    "tool.description": "Proveďte operace směrovače UPnP IGD: zkontrolujte stav WAN, vypište mapování portů, přidejte mapování portů nebo odstraňte mapování portů."
   },
   "de": {
     "param.timeout.description": "Timeout (Sekunden).",
@@ -174,7 +192,13 @@
       "UPNP",
       "igd",
       "durchführen"
-    ]
+    ],
+    "param.action.description": "Auszuführende Operation: status, portmap_list, portmap_add oder portmap_delete.",
+    "param.interface.description": "Optionale IPv4-Adresse oder Schnittstellenname der lokalen Schnittstelle für die Bindung.",
+    "param.internal_ip.description": "Interne LAN-IP-Adresse, die den weitergeleiteten Datenverkehr empfangen soll.",
+    "param.remote_host.description": "Optionaler Remote-Host-Filter für bestimmte Port-Mapping-Vorgänge. Für alle Hosts leer lassen.",
+    "param.search_target.description": "SSDP-Suchziel (ST) für die Erkennung. Standardmäßig ist InternetGatewayDevice und greift bei Bedarf auf ssdp:all zurück.",
+    "tool.description": "Führen Sie UPnP-IGD-Router-Vorgänge aus: Überprüfen Sie den WAN-Status, listen Sie Portzuordnungen auf, fügen Sie eine Portzuordnung hinzu oder löschen Sie eine Portzuordnung."
   },
   "es": {
     "param.timeout.description": "Tiempo de espera (segundos).",
@@ -201,7 +225,13 @@
       "UPNP",
       "igd",
       "realizar"
-    ]
+    ],
+    "param.action.description": "Operación a realizar: estado, portmap_list, portmap_add o portmap_delete.",
+    "param.interface.description": "Dirección IPv4 de interfaz local opcional o nombre de interfaz a la que vincularse.",
+    "param.internal_ip.description": "Dirección IP de LAN interna que debe recibir el tráfico reenviado.",
+    "param.remote_host.description": "Filtro de host remoto opcional para operaciones de mapeo de puertos específicos. Déjelo vacío para todos los hosts.",
+    "param.search_target.description": "Destino de búsqueda SSDP (ST) para descubrimiento. El valor predeterminado es InternetGatewayDevice y recurre a ssdp:all si es necesario.",
+    "tool.description": "Realice operaciones de enrutador UPnP IGD: inspeccione el estado de WAN, enumere las asignaciones de puertos, agregue una asignación de puertos o elimine una asignación de puertos."
   },
   "fa": {
     "param.timeout.description": "تایم اوت (ثانیه).",
@@ -228,7 +258,13 @@
       "آپ‌ان‌پی",
       "ای‌جی‌دی",
       "انجام"
-    ]
+    ],
+    "param.action.description": "عملیات برای انجام: status، portmap_list، portmap_add یا portmap_delete.",
+    "param.interface.description": "آدرس IPv4 رابط محلی اختیاری یا نام رابط برای اتصال.",
+    "param.internal_ip.description": "آدرس IP داخلی LAN که باید ترافیک ارسال شده را دریافت کند.",
+    "param.remote_host.description": "فیلتر میزبان راه دور اختیاری برای عملیات نگاشت پورت خاص. برای همه میزبان ها خالی بگذارید.",
+    "param.search_target.description": "هدف جستجوی SSDP (ST) برای کشف. به طور پیش فرض InternetGatewayDevice می شود و در صورت نیاز به ssdp:all برمی گردد.",
+    "tool.description": "عملیات روتر UPnP IGD را انجام دهید: وضعیت WAN را بررسی کنید، نگاشت پورت ها را فهرست کنید، یک نقشه پورت اضافه کنید، یا یک نگاشت پورت را حذف کنید."
   },
   "fi": {
     "param.timeout.description": "Aikakatkaisu (sekunteina).",
@@ -255,7 +291,13 @@
       "UPNP",
       "igd",
       "suorita"
-    ]
+    ],
+    "param.action.description": "Suoritettava toiminto: status, portmap_list, portmap_add tai portmap_delete.",
+    "param.interface.description": "Valinnainen paikallisrajapinnan IPv4-osoite tai liitännän nimi, johon sitoudutaan.",
+    "param.internal_ip.description": "Sisäinen LAN-IP-osoite, jonka pitäisi vastaanottaa välitetty liikenne.",
+    "param.remote_host.description": "Valinnainen etäisäntäsuodatin tiettyjä porttikartoitustoimintoja varten. Jätä tyhjäksi kaikille isännille.",
+    "param.search_target.description": "SSDP-hakukohde (ST) etsintää varten. Oletusarvo on InternetGatewayDevice ja palaa tarvittaessa ssdp:all:ksi.",
+    "tool.description": "Suorita UPnP IGD -reitittimen toimintoja: tarkasta WAN-tila, lue porttikartoitukset, lisää porttikartoitus tai poista porttikartoitus."
   },
   "fr": {
     "param.timeout.description": "Délai d'expiration (secondes).",
@@ -282,7 +324,13 @@
       "UPNP",
       "igd",
       "effectuer"
-    ]
+    ],
+    "param.action.description": "Opération à effectuer : status, portmap_list, portmap_add ou portmap_delete.",
+    "param.interface.description": "Adresse IPv4 ou nom de l'interface facultative de l'interface locale à laquelle se lier.",
+    "param.internal_ip.description": "Adresse IP du réseau local interne qui doit recevoir le trafic transféré.",
+    "param.remote_host.description": "Filtre d'hôte distant en option pour les opérations de mappage de ports spécifiques. Laissez vide pour tous les hôtes.",
+    "param.search_target.description": "Cible de recherche SSDP (ST) pour la découverte. La valeur par défaut est InternetGatewayDevice et revient à ssdp:all si nécessaire.",
+    "tool.description": "Effectuez des opérations de routeur UPnP IGD : inspectez l'état du WAN, répertoriez les mappages de ports, ajoutez un mappage de port ou supprimez un mappage de port."
   },
   "hi": {
     "param.timeout.description": "टाइमआउट (सेकंड)।",
@@ -309,7 +357,13 @@
       "यूपीएनपी",
       "आईजीडी",
       "निष्पादित करें"
-    ]
+    ],
+    "param.action.description": "निष्पादित करने के लिए ऑपरेशन: स्थिति, पोर्टमैप_लिस्ट, पोर्टमैप_ऐड, या पोर्टमैप_डिलीट।",
+    "param.interface.description": "बाइंड करने के लिए वैकल्पिक स्थानीय इंटरफ़ेस IPv4 पता या इंटरफ़ेस नाम।",
+    "param.internal_ip.description": "आंतरिक LAN IP पता जिसे अग्रेषित ट्रैफ़िक प्राप्त होना चाहिए।",
+    "param.remote_host.description": "विशिष्ट पोर्ट मैपिंग संचालन के लिए वैकल्पिक रिमोट होस्ट फ़िल्टर। सभी मेज़बानों के लिए खाली छोड़ें.",
+    "param.search_target.description": "खोज के लिए एसएसडीपी खोज लक्ष्य (एसटी)। InternetGatewayDevice पर डिफ़ॉल्ट होता है और यदि आवश्यक हो तो वापस ssdp:all पर आ जाता है।",
+    "tool.description": "UPnP IGD राउटर संचालन करें: WAN स्थिति का निरीक्षण करें, पोर्ट मैपिंग सूचीबद्ध करें, पोर्ट मैपिंग जोड़ें, या पोर्ट मैपिंग हटाएं।"
   },
   "id": {
     "param.timeout.description": "Batas waktu (detik).",
@@ -336,7 +390,13 @@
       "UPNP",
       "igd",
       "melakukan"
-    ]
+    ],
+    "param.action.description": "Operasi yang harus dilakukan: status, portmap_list, portmap_add, atau portmap_delete.",
+    "param.interface.description": "Alamat IPv4 antarmuka lokal opsional atau nama antarmuka untuk diikat.",
+    "param.internal_ip.description": "Alamat IP LAN internal yang seharusnya menerima lalu lintas yang diteruskan.",
+    "param.remote_host.description": "Filter host jarak jauh opsional untuk operasi pemetaan port tertentu. Biarkan kosong untuk semua host.",
+    "param.search_target.description": "Target pencarian SSDP (ST) untuk penemuan. Defaultnya adalah InternetGatewayDevice dan kembali ke ssdp:all jika diperlukan.",
+    "tool.description": "Lakukan operasi router UPnP IGD: periksa status WAN, daftar pemetaan port, tambahkan pemetaan port, atau hapus pemetaan port."
   },
   "it": {
     "param.timeout.description": "Timeout (secondi).",
@@ -363,7 +423,13 @@
       "UPNP",
       "igd",
       "eseguire"
-    ]
+    ],
+    "param.action.description": "Operazione da eseguire: status, portmap_list, portmap_add o portmap_delete.",
+    "param.interface.description": "Indirizzo IPv4 dell'interfaccia locale opzionale o nome dell'interfaccia a cui associarsi.",
+    "param.internal_ip.description": "Indirizzo IP della LAN interna che dovrebbe ricevere il traffico inoltrato.",
+    "param.remote_host.description": "Filtro host remoto opzionale per operazioni di mappatura delle porte specifiche. Lascia vuoto per tutti gli host.",
+    "param.search_target.description": "Destinazione di ricerca SSDP (ST) per l'individuazione. Il valore predefinito è InternetGatewayDevice e torna a ssdp:all se necessario.",
+    "tool.description": "Eseguire le operazioni del router IGD UPnP: ispezionare lo stato della WAN, elencare le mappature delle porte, aggiungere una mappatura delle porte o eliminare una mappatura delle porte."
   },
   "ko": {
     "param.timeout.description": "타임아웃(초).",
@@ -390,7 +456,13 @@
       "UPNP",
       "igd",
       "수행하다"
-    ]
+    ],
+    "param.action.description": "수행할 작업: status, portmap_list, portmap_add 또는 portmap_delete.",
+    "param.interface.description": "바인딩할 선택적 로컬 인터페이스 IPv4 주소 또는 인터페이스 이름입니다.",
+    "param.internal_ip.description": "전달된 트래픽을 수신해야 하는 내부 LAN IP 주소입니다.",
+    "param.remote_host.description": "특정 포트 매핑 작업을 위한 선택적 원격 호스트 필터입니다. 모든 호스트에 대해 비워 둡니다.",
+    "param.search_target.description": "검색을 위한 SSDP 검색 대상(ST)입니다. 기본값은 InternetGatewayDevice이며 필요한 경우 ssdp:all로 대체됩니다.",
+    "tool.description": "UPnP IGD 라우터 작업 수행: WAN 상태 검사, 포트 매핑 나열, 포트 매핑 추가 또는 포트 매핑 삭제."
   },
   "mn": {
     "param.timeout.description": "Хугацаа дууссан (секунд).",
@@ -417,7 +489,13 @@
       "упнп",
       "игд",
       "гүйцэтгэх"
-    ]
+    ],
+    "param.action.description": "Гүйцэтгэх үйлдлүүд: status, portmap_list, portmap_add, эсвэл portmap_delete.",
+    "param.interface.description": "Нэмэлт локал интерфейсийн IPv4 хаяг эсвэл холбогдох интерфейсийн нэр.",
+    "param.internal_ip.description": "Дамжуулсан урсгалыг хүлээн авах дотоод LAN IP хаяг.",
+    "param.remote_host.description": "Тодорхой портын зураглалын үйлдлүүдэд зориулсан алсын хост шүүлтүүр. Бүх хостуудад хоосон орхи.",
+    "param.search_target.description": "SSDP хайлтын зорилтот (ST). Анхдагчаар InternetGatewayDevice-д тохируулж, шаардлагатай бол ssdp:all руу буцна.",
+    "tool.description": "UPnP IGD чиглүүлэгчийн үйлдлийг гүйцэтгэх: WAN статусыг шалгах, портын зураглалыг жагсаах, портын зураглал нэмэх эсвэл портын зураглалыг устгах."
   },
   "mr": {
     "param.timeout.description": "कालबाह्य (सेकंद).",
@@ -444,7 +522,13 @@
       "यूपीएनपी",
       "आयजीडी",
       "कार्यान्वित करा"
-    ]
+    ],
+    "param.action.description": "करण्यासाठी ऑपरेशन: स्थिती, portmap_list, portmap_add, किंवा portmap_delete.",
+    "param.interface.description": "पर्यायी स्थानिक इंटरफेस IPv4 पत्ता किंवा इंटरफेसचे नाव बांधण्यासाठी.",
+    "param.internal_ip.description": "अंतर्गत LAN IP पत्ता जो फॉरवर्ड केलेला ट्रॅफिक प्राप्त केला पाहिजे.",
+    "param.remote_host.description": "विशिष्ट पोर्ट मॅपिंग ऑपरेशन्ससाठी पर्यायी रिमोट होस्ट फिल्टर. सर्व यजमानांसाठी रिकामे सोडा.",
+    "param.search_target.description": "शोधासाठी SSDP शोध लक्ष्य (ST). InternetGatewayDevice वर डीफॉल्ट आणि ssdp वर परत येते:सर्व आवश्यक असल्यास.",
+    "tool.description": "UPnP IGD राउटर ऑपरेशन्स करा: WAN स्थितीची तपासणी करा, पोर्ट मॅपिंग सूचीबद्ध करा, पोर्ट मॅपिंग जोडा किंवा पोर्ट मॅपिंग हटवा."
   },
   "el": {
     "param.timeout.description": "Λήξη χρονικού ορίου (δευτερόλεπτα).",
@@ -456,14 +540,14 @@
     "param.description.description": "Διάρκεια μίσθωσης σε δευτερόλεπτα για λειτουργίες προσθήκης χαρτογράφησης λιμένων. Το 0 σημαίνει αόριστο στους περισσότερους δρομολογητές.",
     "param.lease_duration.description": "Προαιρετικό φίλτρο απομακρυσμένου κεντρικού υπολογιστή για συγκεκριμένες λειτουργίες χαρτογράφησης θυρών. Αφήστε κενό για όλους τους οικοδεσπότες.",
     "param.enabled.description": "Δεν βρέθηκαν συσκευές UPnP με δυνατότητα IGD στα αποτελέσματα ανακάλυψης.",
-    "msg.no_igd_candidates": "Η κατάσταση UPnP IGD ολοκληρώθηκε σε {elapsed_ms} ms.",
-    "msg.status.summary": "Λίστα αντιστοίχισης θυρών UPnP IGD: {count} στοιχεία σε {elapsed_ms} ms.",
-    "msg.portmap.summary": "Δεν βρέθηκαν αντιστοιχίσεις θυρών.",
-    "msg.no_portmaps": "Η προσθήκη χαρτογράφησης θύρας ολοκληρώθηκε σε {elapsed_ms} ms.",
+    "msg.no_igd_candidates": "Δεν βρέθηκαν συσκευές UPnP με δυνατότητα IGD στα αποτελέσματα ανακάλυψης.",
+    "msg.status.summary": "Η κατάσταση UPnP IGD ολοκληρώθηκε σε {elapsed_ms} ms.",
+    "msg.portmap.summary": "Λίστα αντιστοίχισης θυρών UPnP IGD: {count} στοιχεία σε {elapsed_ms} ms.",
+    "msg.no_portmaps": "Δεν βρέθηκαν αντιστοιχίσεις λιμένων.",
     "msg.portmap_add.summary": "Η διαγραφή χαρτογράφησης θύρας ολοκληρώθηκε σε {elapsed_ms} ms.",
-    "msg.portmap_delete.summary": "Ανακαλύψτε συσκευές UPnP/SSDP στο τοπικό δίκτυο και επιστρέψτε μια λίστα JSON ή κειμένου. Υποστηρίζει φιλτράρισμα κατά όνομα, κατασκευαστή, μοντέλο ή τύπο συσκευής.",
+    "msg.portmap_delete.summary": "Η διαγραφή χαρτογράφησης θύρας ολοκληρώθηκε σε {elapsed_ms} ms.",
     "err.unknown_action": "Σφάλμα: Άγνωστη ενέργεια \"{action}\".",
-    "param.fmt.description": "Στιγμιότυπο προσωρινής μνήμης ECHONET: {count} στοιχεία.",
+    "param.fmt.description": "Μορφή: json ή κείμενο.",
     "x_search_terms": [
       "έλεγχος upnp igd",
       "upnp_igd_control",
@@ -471,7 +555,13 @@
       "UPNP",
       "igd",
       "εκτέλεση"
-    ]
+    ],
+    "param.action.description": "Λειτουργία προς εκτέλεση: status, portmap_list, portmap_add ή portmap_delete.",
+    "param.interface.description": "Προαιρετική διεύθυνση IPv4 τοπικής διεπαφής ή όνομα διεπαφής προς σύνδεση.",
+    "param.internal_ip.description": "Εσωτερική διεύθυνση IP LAN που θα πρέπει να λαμβάνει την προωθούμενη κίνηση.",
+    "param.remote_host.description": "Προαιρετικό φίλτρο απομακρυσμένου κεντρικού υπολογιστή για συγκεκριμένες λειτουργίες χαρτογράφησης θυρών. Αφήστε κενό για όλους τους οικοδεσπότες.",
+    "param.search_target.description": "Στόχος αναζήτησης SSDP (ST) για ανακάλυψη. Προεπιλογή στο InternetGatewayDevice και επιστρέφει στο ssdp:all εάν χρειάζεται.",
+    "tool.description": "Εκτελέστε λειτουργίες δρομολογητή UPnP IGD: επιθεωρήστε την κατάσταση WAN, παραθέστε αντιστοιχίσεις θυρών, προσθέστε μια αντιστοίχιση θύρας ή διαγράψτε μια αντιστοίχιση θύρας."
   },
   "he": {
     "param.timeout.description": "פסק זמן (שניות).",
@@ -483,12 +573,12 @@
     "param.description.description": "משך החכירה בשניות עבור פעולות הוספה של מיפוי נמלים. 0 פירושו בלתי מוגבל ברוב הנתבים.",
     "param.lease_duration.description": "מסנן מארח מרוחק אופציונלי עבור פעולות מיפוי יציאות ספציפיות. השאר ריק עבור כל המארחים.",
     "param.enabled.description": "לא נמצאו מכשירי UPnP התומכים ב-IGD בתוצאות הגילוי.",
-    "msg.no_igd_candidates": "סטטוס UPnP IGD הושלם בעוד {elapsed_ms} אלפיות השנייה.",
-    "msg.status.summary": "רשימת מיפוי יציאות UPnP IGD: {count} פריטים ב-{elapsed_ms} אלפיות השנייה.",
-    "msg.portmap.summary": "לא נמצאו מיפויי יציאות.",
-    "msg.no_portmaps": "הוספת מיפוי יציאה הושלמה תוך {elapsed_ms} אלפיות השנייה.",
+    "msg.no_igd_candidates": "לא נמצאו מכשירי UPnP התומכים ב-IGD בתוצאות הגילוי.",
+    "msg.status.summary": "סטטוס UPnP IGD הושלם ב-{elapsed_ms} ms.",
+    "msg.portmap.summary": "רשימת מיפוי יציאות UPnP IGD: פריטים {count} ב-{elapsed_ms} ms.",
+    "msg.no_portmaps": "לא נמצאו מיפוי נמלים.",
     "msg.portmap_add.summary": "מחיקת מיפוי הפורטים הושלמה תוך {elapsed_ms} אלפיות השנייה.",
-    "msg.portmap_delete.summary": "גלה התקני UPnP/SSDP ברשת המקומית והחזר JSON או רשימת טקסט. תומך בסינון לפי שם, יצרן, דגם או סוג מכשיר.",
+    "msg.portmap_delete.summary": "מחיקת מיפוי הפורטים הושלמה ב-{elapsed_ms} ms.",
     "err.unknown_action": "שגיאה: פעולה לא ידועה '{action}'.",
     "param.fmt.description": "אין ערכים במטמון.",
     "x_search_terms": [
@@ -498,7 +588,13 @@
       "UPNP",
       "igd",
       "בצע"
-    ]
+    ],
+    "param.action.description": "פעולה לביצוע: status, portmap_list, portmap_add או portmap_delete.",
+    "param.interface.description": "כתובת IPv4 של ממשק מקומי אופציונלי או שם ממשק לאיגד.",
+    "param.internal_ip.description": "כתובת IP LAN פנימית שאמורה לקבל את התעבורה המועברת.",
+    "param.remote_host.description": "מסנן מארח מרוחק אופציונלי לפעולות מיפוי יציאות ספציפיות. השאר ריק עבור כל המארחים.",
+    "param.search_target.description": "יעד חיפוש SSDP (ST) לגילוי. ברירת המחדל היא InternetGatewayDevice ונופלת חזרה ל-ssdp:all במידת הצורך.",
+    "tool.description": "בצע פעולות נתב UPnP IGD: בדוק את סטטוס ה-WAN, רשום מיפויי יציאות, הוסף מיפוי יציאות או מחק מיפוי יציאה."
   },
   "hu": {
     "param.timeout.description": "Időtúllépés (másodpercben).",
@@ -510,12 +606,12 @@
     "param.description.description": "A kölcsönzés időtartama másodpercben a port-leképezés hozzáadási műveleteihez. A 0 a legtöbb útválasztón határozatlan időt jelent.",
     "param.lease_duration.description": "Opcionális távoli gazdagép-szűrő bizonyos port-leképezési műveletekhez. Hagyja üresen az összes házigazdát.",
     "param.enabled.description": "Nem találhatók IGD-kompatibilis UPnP-eszközök a felderítési eredmények között.",
-    "msg.no_igd_candidates": "Az UPnP IGD állapota {elapsed_ms} ms alatt befejeződött.",
-    "msg.status.summary": "UPnP IGD portleképezési lista: {count} elem {elapsed_ms} ms alatt.",
-    "msg.portmap.summary": "Nem található portleképezés.",
-    "msg.no_portmaps": "A portleképezés hozzáadása {elapsed_ms} ms alatt befejeződött.",
+    "msg.no_igd_candidates": "A felderítési eredmények között nem találhatók IGD-képes UPnP-eszközök.",
+    "msg.status.summary": "Az UPnP IGD állapota {elapsed_ms} ms alatt befejeződött.",
+    "msg.portmap.summary": "UPnP IGD portleképezési lista: {count} elem(ek) {elapsed_ms} ms alatt.",
+    "msg.no_portmaps": "Nem található port-leképezés.",
     "msg.portmap_add.summary": "A portleképezés törlése {elapsed_ms} ms alatt befejeződött.",
-    "msg.portmap_delete.summary": "Fedezze fel az UPnP/SSDP-eszközöket a helyi hálózaton, és küldjön vissza egy JSON-t vagy szöveges listát. Támogatja a név, gyártó, modell vagy eszköztípus szerinti szűrést.",
+    "msg.portmap_delete.summary": "A portleképezés törlése {elapsed_ms} ms alatt befejeződött.",
     "err.unknown_action": "Hiba: Ismeretlen művelet „{action}”.",
     "param.fmt.description": "Gyorsítótár művelet: pillanatfelvétel vagy törlés.",
     "x_search_terms": [
@@ -525,7 +621,13 @@
       "UPNP",
       "igd",
       "végrehajt"
-    ]
+    ],
+    "param.action.description": "Végrehajtandó művelet: status, portmap_list, portmap_add vagy portmap_delete.",
+    "param.interface.description": "Opcionális helyi interfész IPv4-címe vagy interfésznév, amelyhez kapcsolódni kell.",
+    "param.internal_ip.description": "Belső LAN IP-cím, amelynek fogadnia kell a továbbított forgalmat.",
+    "param.remote_host.description": "Opcionális távoli gazdagép szűrő bizonyos portleképezési műveletekhez. Hagyja üresen az összes házigazdát.",
+    "param.search_target.description": "SSDP keresési célpont (ST) a felfedezéshez. Alapértelmezés szerint az InternetGatewayDevice, és szükség esetén visszaáll az ssdp:all-ra.",
+    "tool.description": "Végezze el az UPnP IGD útválasztó műveleteit: ellenőrizze a WAN állapotát, listázza ki a portleképezéseket, adjon hozzá portleképezést vagy törölje a portleképezést."
   },
   "ro": {
     "param.timeout.description": "Timeout (secunde).",
@@ -537,12 +639,12 @@
     "param.description.description": "Durata contractului de închiriere în secunde pentru operațiunile de adăugare de cartografiere a portului. 0 înseamnă nedefinit pe majoritatea routerelor.",
     "param.lease_duration.description": "Filtru de gazdă la distanță opțional pentru operațiuni specifice de mapare a portului. Lăsați gol pentru toate gazdele.",
     "param.enabled.description": "Nu au fost găsite dispozitive UPnP compatibile cu IGD în rezultatele descoperirii.",
-    "msg.no_igd_candidates": "Starea UPnP IGD a fost finalizată în {elapsed_ms} ms.",
-    "msg.status.summary": "Lista de mapare a portului UPnP IGD: {count} element(e) în {elapsed_ms} ms.",
-    "msg.portmap.summary": "Nu au fost găsite mapări de porturi.",
-    "msg.no_portmaps": "Adăugarea maparii portului a fost finalizată în {elapsed_ms} ms.",
+    "msg.no_igd_candidates": "Nu au fost găsite dispozitive UPnP compatibile cu IGD în rezultatele descoperirii.",
+    "msg.status.summary": "Starea UPnP IGD a fost finalizată în {elapsed_ms} ms.",
+    "msg.portmap.summary": "Lista de mapare a portului UPnP IGD: {count} element(e) în {elapsed_ms} ms.",
+    "msg.no_portmaps": "Nu au fost găsite mapări de porturi.",
     "msg.portmap_add.summary": "Ștergerea maparii portului a fost finalizată în {elapsed_ms} ms.",
-    "msg.portmap_delete.summary": "Descoperiți dispozitivele UPnP/SSDP din rețeaua locală și returnați o listă JSON sau text. Acceptă filtrarea după nume, producător, model sau tip de dispozitiv.",
+    "msg.portmap_delete.summary": "Ștergerea maparii portului a fost finalizată în {elapsed_ms} ms.",
     "err.unknown_action": "Eroare: Acțiune necunoscută „{action}”.",
     "param.fmt.description": "Inspectați sau ștergeți memoria cache ECHONET Lite partajată.",
     "x_search_terms": [
@@ -552,7 +654,13 @@
       "UPNP",
       "igd",
       "execută"
-    ]
+    ],
+    "param.action.description": "Operație de efectuat: status, portmap_list, portmap_add sau portmap_delete.",
+    "param.interface.description": "Opțional adresa IPv4 a interfeței locale sau numele interfeței la care să vă legați.",
+    "param.internal_ip.description": "Adresă IP LAN internă care ar trebui să primească traficul redirecționat.",
+    "param.remote_host.description": "Filtru de gazdă la distanță opțional pentru operațiuni specifice de mapare a portului. Lăsați gol pentru toate gazdele.",
+    "param.search_target.description": "ținta de căutare SSDP (ST) pentru descoperire. Este implicit la InternetGatewayDevice și revine la ssdp:all dacă este necesar.",
+    "tool.description": "Efectuați operațiuni de router UPnP IGD: inspectați starea WAN, listați mapările de porturi, adăugați o mapare de porturi sau ștergeți o mapare de porturi."
   },
   "nb": {
     "param.timeout.description": "Tidsavbrudd (sekunder).",
@@ -579,7 +687,13 @@
       "UPNP",
       "igd",
       "utføre"
-    ]
+    ],
+    "param.action.description": "Operasjon som skal utføres: status, portmap_list, portmap_add eller portmap_delete.",
+    "param.interface.description": "Valgfri IPv4-adresse for lokalt grensesnitt eller grensesnittnavn å binde til.",
+    "param.internal_ip.description": "Intern LAN IP-adresse som skal motta den videresendte trafikken.",
+    "param.remote_host.description": "Valgfritt eksternt vertsfilter for spesifikke portkartleggingsoperasjoner. La stå tomt for alle verter.",
+    "param.search_target.description": "SSDP-søkemål (ST) for oppdagelse. Standard er InternetGatewayDevice og faller tilbake til ssdp:all om nødvendig.",
+    "tool.description": "Utfør UPnP IGD-ruteroperasjoner: inspiser WAN-status, liste opp porttilordninger, legg til en porttilordning eller slett en porttilordning."
   },
   "nl": {
     "param.timeout.description": "Time-out (seconden).",
@@ -606,7 +720,13 @@
       "UPNP",
       "igd",
       "uitvoeren"
-    ]
+    ],
+    "param.action.description": "Uit te voeren bewerking: status, portmap_list, portmap_add of portmap_delete.",
+    "param.interface.description": "Optioneel lokaal interface-IPv4-adres of interfacenaam om aan te binden.",
+    "param.internal_ip.description": "Intern LAN IP-adres dat het doorgestuurde verkeer moet ontvangen.",
+    "param.remote_host.description": "Optioneel extern hostfilter voor specifieke poorttoewijzingsbewerkingen. Laat leeg voor alle hosts.",
+    "param.search_target.description": "SSDP-zoekdoel (ST) voor ontdekking. Standaard ingesteld op InternetGatewayDevice en valt indien nodig terug op ssdp:all.",
+    "tool.description": "Voer UPnP IGD-routerbewerkingen uit: inspecteer de WAN-status, maak een lijst van poorttoewijzingen, voeg een poorttoewijzing toe of verwijder een poorttoewijzing."
   },
   "pl": {
     "param.timeout.description": "Limit czasu (sekundy).",
@@ -633,7 +753,13 @@
       "UPNP",
       "igd",
       "wykonać"
-    ]
+    ],
+    "param.action.description": "Operacja do wykonania: status, portmap_list, portmap_add lub portmap_delete.",
+    "param.interface.description": "Opcjonalny adres IPv4 interfejsu lokalnego lub nazwa interfejsu do powiązania.",
+    "param.internal_ip.description": "Adres IP wewnętrznej sieci LAN, który powinien odbierać przesyłany ruch.",
+    "param.remote_host.description": "Opcjonalny filtr hosta zdalnego dla określonych operacji mapowania portów. Pozostaw puste dla wszystkich hostów.",
+    "param.search_target.description": "Cel wyszukiwania SSDP (ST) w celu odkrycia. Domyślnie jest to InternetGatewayDevice i w razie potrzeby powraca do ssdp:all.",
+    "tool.description": "Wykonuj operacje na routerze UPnP IGD: sprawdź stan sieci WAN, wyświetl listę mapowań portów, dodaj mapowanie portów lub usuń mapowanie portów."
   },
   "pt": {
     "param.timeout.description": "Tempo limite (segundos).",
@@ -660,7 +786,13 @@
       "UPNP",
       "igd",
       "executar"
-    ]
+    ],
+    "param.action.description": "Operação a ser executada: status, portmap_list, portmap_add ou portmap_delete.",
+    "param.interface.description": "Endereço IPv4 da interface local opcional ou nome da interface à qual vincular.",
+    "param.internal_ip.description": "Endereço IP interno da LAN que deve receber o tráfego encaminhado.",
+    "param.remote_host.description": "Filtro de host remoto opcional para operações específicas de mapeamento de portas. Deixe em branco para todos os hosts.",
+    "param.search_target.description": "Alvo de pesquisa SSDP (ST) para descoberta. O padrão é InternetGatewayDevice e volta para ssdp:all se necessário.",
+    "tool.description": "Execute operações do roteador UPnP IGD: inspecione o status da WAN, liste mapeamentos de portas, adicione um mapeamento de portas ou exclua um mapeamento de portas."
   },
   "pt_BR": {
     "param.timeout.description": "Tempo limite (segundos).",
@@ -687,7 +819,13 @@
       "UPNP",
       "igd",
       "executar"
-    ]
+    ],
+    "param.action.description": "Operação a ser executada: status, portmap_list, portmap_add ou portmap_delete.",
+    "param.interface.description": "Endereço IPv4 da interface local opcional ou nome da interface à qual vincular.",
+    "param.internal_ip.description": "Endereço IP interno da LAN que deve receber o tráfego encaminhado.",
+    "param.remote_host.description": "Filtro de host remoto opcional para operações específicas de mapeamento de portas. Deixe em branco para todos os hosts.",
+    "param.search_target.description": "Alvo de pesquisa SSDP (ST) para descoberta. O padrão é InternetGatewayDevice e volta para ssdp:all se necessário.",
+    "tool.description": "Execute operações do roteador UPnP IGD: inspecione o status da WAN, liste mapeamentos de portas, adicione um mapeamento de portas ou exclua um mapeamento de portas."
   },
   "ru": {
     "param.timeout.description": "Тайм-аут (секунды).",
@@ -714,7 +852,13 @@
       "UPNP",
       "igd",
       "выполнять"
-    ]
+    ],
+    "param.action.description": "Операция, которую необходимо выполнить: status, portmap_list, portmap_add или portmap_delete.",
+    "param.interface.description": "Необязательный IPv4-адрес локального интерфейса или имя интерфейса для привязки.",
+    "param.internal_ip.description": "Внутренний IP-адрес локальной сети, который должен получать пересылаемый трафик.",
+    "param.remote_host.description": "Дополнительный фильтр удаленных хостов для определенных операций сопоставления портов. Оставьте пустым для всех хостов.",
+    "param.search_target.description": "Цель поиска SSDP (ST) для обнаружения. По умолчанию используется InternetGatewayDevice и при необходимости возвращается к ssdp:all.",
+    "tool.description": "Выполняйте операции маршрутизатора UPnP IGD: проверьте состояние WAN, выведите список сопоставлений портов, добавьте сопоставление портов или удалите сопоставление портов."
   },
   "sv": {
     "param.timeout.description": "Timeout (sekunder).",
@@ -741,7 +885,13 @@
       "UPNP",
       "igd",
       "utföra"
-    ]
+    ],
+    "param.action.description": "Åtgärd att utföra: status, portmap_list, portmap_add eller portmap_delete.",
+    "param.interface.description": "Valfritt lokalt gränssnitt IPv4-adress eller gränssnittsnamn att binda till.",
+    "param.internal_ip.description": "Intern LAN IP-adress som ska ta emot den vidarebefordrade trafiken.",
+    "param.remote_host.description": "Valfritt fjärrvärdfilter för specifika portmappningsoperationer. Lämna tomt för alla värdar.",
+    "param.search_target.description": "SSDP-sökmål (ST) för upptäckt. Används som standard till InternetGatewayDevice och faller tillbaka till ssdp:all om det behövs.",
+    "tool.description": "Utför UPnP IGD-routeroperationer: inspektera WAN-status, lista portmappningar, lägg till en portmappning eller ta bort en portmappning."
   },
   "sw": {
     "param.mx.description": "Thamani ya kichwa cha SSDP MX (sekunde 1-5) inayotumiwa na M-SEARCH.",
@@ -759,7 +909,27 @@
       "UPNP",
       "igd",
       "fanya"
-    ]
+    ],
+    "err.unknown_action": "Hitilafu: Kitendo '{action}' kisichojulikana.",
+    "param.timeout.description": "Muda umeisha (sekunde).",
+    "param.external_port.description": "Bandari ya nje.",
+    "param.internal_port.description": "Bandari ya ndani.",
+    "param.protocol.description": "Itifaki ya ramani ya bandari: TCP au UDP.",
+    "param.description.description": "Maelezo.",
+    "param.lease_duration.description": "Muda wa kukodisha kwa sekunde kwa ajili ya shughuli za kuongeza ramani ya bandari. 0 ina maana ya muda usiojulikana kwenye ruta nyingi.",
+    "param.enabled.description": "Iwapo uchoraji wa ramani wa mlango unafaa kuwashwa wakati wa kuongeza sheria.",
+    "msg.no_igd_candidates": "Hakuna vifaa vya UPnP vinavyoweza IGD vilivyopatikana katika matokeo ya ugunduzi.",
+    "msg.status.summary": "Hali ya UPnP IGD imekamilika baada ya ms {elapsed_ms}.",
+    "msg.portmap.summary": "Orodha ya ramani ya mlango wa UPnP IGD: {count} bidhaa katika {elapsed_ms} ms.",
+    "msg.no_portmaps": "Hakuna ramani za mlango zilizopatikana.",
+    "msg.portmap_add.summary": "Uwekaji ramani wa mlango mlango umekamilika baada ya ms {elapsed_ms}.",
+    "msg.portmap_delete.summary": "Ufutaji wa ramani ya mlango mlangoni umekamilika baada ya ms {elapsed_ms}.",
+    "param.action.description": "Operesheni ya kutekeleza: hadhi, orodha_ya_maelezo, kuongeza_mwisho, au ukurasa_wa_kufuta.",
+    "param.interface.description": "Anwani ya hiari ya kiolesura cha ndani cha IPv4 au jina la kiolesura cha kuunganisha.",
+    "param.internal_ip.description": "Anwani ya IP ya LAN ya ndani ambayo inapaswa kupokea trafiki iliyotumwa.",
+    "param.remote_host.description": "Kichujio cha hiari cha seva pangishi ya mbali kwa shughuli mahususi za uchoraji wa bandari. Ondoka tupu kwa wapangishi wote.",
+    "param.search_target.description": "Utafutaji wa SSDP (ST) wa ugunduzi. Chaguomsingi kwa InternetGatewayDevice na inarudi kwa ssdp:yote ikihitajika.",
+    "tool.description": "Tekeleza shughuli za kipanga njia cha UPnP IGD: kagua hali ya WAN, orodhesha upangaji wa bandari, ongeza ramani ya mlango, au ufute ramani ya mlango."
   },
   "th": {
     "param.timeout.description": "หมดเวลา (วินาที)",
@@ -786,7 +956,13 @@
       "อัปเอ็นพี",
       "ไอจีดี",
       "ดำเนินการ"
-    ]
+    ],
+    "param.action.description": "การดำเนินการที่จะดำเนินการ: status, portmap_list, portmap_add หรือ portmap_delete",
+    "param.interface.description": "ที่อยู่ IPv4 ของอินเทอร์เฟซภายในที่เป็นตัวเลือกหรือชื่ออินเทอร์เฟซที่จะเชื่อมโยง",
+    "param.internal_ip.description": "ที่อยู่ IP ของ LAN ภายในที่ควรรับการรับส่งข้อมูลที่ส่งต่อ",
+    "param.remote_host.description": "ตัวกรองโฮสต์ระยะไกลเสริมสำหรับการดำเนินการแมปพอร์ตเฉพาะ เว้นว่างไว้สำหรับโฮสต์ทั้งหมด",
+    "param.search_target.description": "เป้าหมายการค้นหา SSDP (ST) สำหรับการค้นพบ มีค่าเริ่มต้นเป็น InternetGatewayDevice และกลับไปเป็น ssdp:all หากจำเป็น",
+    "tool.description": "ดำเนินการเราเตอร์ UPnP IGD: ตรวจสอบสถานะ WAN แสดงรายการการแมปพอร์ต เพิ่มการแมปพอร์ต หรือลบการแมปพอร์ต"
   },
   "tr": {
     "param.mx.description": "M-SEARCH tarafından kullanılan SSDP MX başlık değeri (1-5 saniye).",
@@ -804,7 +980,27 @@
       "UPNP",
       "igd",
       "gerçekleştirmek"
-    ]
+    ],
+    "err.unknown_action": "Hata: Bilinmeyen eylem '{action}'.",
+    "param.timeout.description": "Zaman aşımı (saniye).",
+    "param.external_port.description": "Harici bağlantı noktası.",
+    "param.internal_port.description": "Dahili bağlantı noktası.",
+    "param.protocol.description": "Bağlantı noktası eşleme protokolü: TCP veya UDP.",
+    "param.description.description": "Tanım.",
+    "param.lease_duration.description": "Bağlantı noktası eşleme ekleme işlemleri için saniye cinsinden kiralama süresi. 0 çoğu yönlendiricide belirsiz anlamına gelir.",
+    "param.enabled.description": "Kural eklerken bağlantı noktası eşlemenin etkinleştirilip etkinleştirilmeyeceği.",
+    "msg.no_igd_candidates": "Keşif sonuçlarında IGD özellikli UPnP cihazı bulunamadı.",
+    "msg.status.summary": "UPnP IGD durumu {elapsed_ms} ms içinde tamamlandı.",
+    "msg.portmap.summary": "UPnP IGD bağlantı noktası eşleme listesi: {elapsed_ms} ms'de {count} öğe.",
+    "msg.no_portmaps": "Hiçbir bağlantı noktası eşlemesi bulunamadı.",
+    "msg.portmap_add.summary": "Bağlantı noktası eşleme ekleme işlemi {elapsed_ms} ms içinde tamamlandı.",
+    "msg.portmap_delete.summary": "Bağlantı noktası eşleme silme işlemi {elapsed_ms} ms içinde tamamlandı.",
+    "param.action.description": "Gerçekleştirilecek işlem: durum, portmap_list, portmap_add veya portmap_delete.",
+    "param.interface.description": "Bağlanılacak isteğe bağlı yerel arayüz IPv4 adresi veya arayüz adı.",
+    "param.internal_ip.description": "İletilen trafiği alması gereken dahili LAN IP adresi.",
+    "param.remote_host.description": "Belirli bağlantı noktası eşleme işlemleri için isteğe bağlı uzak ana bilgisayar filtresi. Tüm ana bilgisayarlar için boş bırakın.",
+    "param.search_target.description": "Keşif için SSDP arama hedefi (ST). Varsayılan olarak InternetGatewayDevice'e ayarlanır ve gerekirse ssdp:all'a geri döner.",
+    "tool.description": "UPnP IGD yönlendirici işlemlerini gerçekleştirin: WAN durumunu inceleyin, bağlantı noktası eşlemelerini listeleyin, bağlantı noktası eşlemesi ekleyin veya bağlantı noktası eşlemesini silin."
   },
   "uk": {
     "param.mx.description": "Значення заголовка SSDP MX (1–5 секунд), яке використовується M-SEARCH.",
@@ -822,7 +1018,27 @@
       "UPNP",
       "igd",
       "виконувати"
-    ]
+    ],
+    "err.unknown_action": "Помилка: невідома дія \"{action}\".",
+    "param.timeout.description": "Тайм-аут (секунди).",
+    "param.external_port.description": "Зовнішній порт.",
+    "param.internal_port.description": "Внутрішній порт.",
+    "param.protocol.description": "Протокол для відображення портів: TCP або UDP.",
+    "param.description.description": "опис.",
+    "param.lease_duration.description": "Тривалість оренди в секундах для операцій додавання відображення портів. 0 означає невизначений на більшості маршрутизаторів.",
+    "param.enabled.description": "Чи слід увімкнути зіставлення портів під час додавання правила.",
+    "msg.no_igd_candidates": "У результатах пошуку не знайдено пристроїв UPnP із підтримкою IGD.",
+    "msg.status.summary": "Статус UPnP IGD завершено через {elapsed_ms} мс.",
+    "msg.portmap.summary": "Список зіставлення портів UPnP IGD: {count} елемент(ів) за {elapsed_ms} мс.",
+    "msg.no_portmaps": "Зіставлення портів не знайдено.",
+    "msg.portmap_add.summary": "Додавання зіставлення портів завершено за {elapsed_ms} мс.",
+    "msg.portmap_delete.summary": "Видалення зіставлення портів завершено за {elapsed_ms} мс.",
+    "param.action.description": "Операція для виконання: status, portmap_list, portmap_add або portmap_delete.",
+    "param.interface.description": "Додаткова адреса IPv4 локального інтерфейсу або ім’я інтерфейсу для прив’язки.",
+    "param.internal_ip.description": "Внутрішня IP-адреса локальної мережі, яка має отримувати переадресований трафік.",
+    "param.remote_host.description": "Додатковий фільтр віддаленого хосту для певних операцій відображення портів. Залиште порожнім для всіх хостів.",
+    "param.search_target.description": "Мета пошуку SSDP (ST) для виявлення. За замовчуванням InternetGatewayDevice і за потреби повертається до ssdp:all.",
+    "tool.description": "Виконуйте операції маршрутизатора UPnP IGD: перевіряйте статус глобальної мережі, створюйте список зіставлення портів, додавайте зіставлення портів або видаляйте зіставлення портів."
   },
   "vi": {
     "param.mx.description": "Giá trị tiêu đề SSDP MX (1-5 giây) được dùng bởi M-SEARCH.",
@@ -840,7 +1056,27 @@
       "UPNP",
       "igd",
       "thực hiện"
-    ]
+    ],
+    "param.timeout.description": "Thời gian chờ (giây).",
+    "param.external_port.description": "Cổng ngoài.",
+    "param.internal_port.description": "Cảng nội bộ.",
+    "param.protocol.description": "Giao thức ánh xạ cổng: TCP hoặc UDP.",
+    "param.description.description": "Sự miêu tả.",
+    "param.lease_duration.description": "Thời lượng thuê tính bằng giây cho các hoạt động thêm bản đồ cổng. 0 có nghĩa là không xác định trên hầu hết các bộ định tuyến.",
+    "param.enabled.description": "Có nên bật ánh xạ cổng khi thêm quy tắc hay không.",
+    "msg.no_igd_candidates": "Không tìm thấy thiết bị UPnP có khả năng IGD nào trong kết quả khám phá.",
+    "msg.status.summary": "Trạng thái UPnP IGD hoàn tất sau {elapsed_ms} mili giây.",
+    "msg.portmap.summary": "Danh sách ánh xạ cổng UPnP IGD: {count} mục trong {elapsed_ms} mili giây.",
+    "msg.no_portmaps": "Không tìm thấy bản đồ cổng.",
+    "msg.portmap_add.summary": "Quá trình thêm ánh xạ cổng hoàn tất sau {elapsed_ms} mili giây.",
+    "msg.portmap_delete.summary": "Quá trình xóa ánh xạ cổng hoàn tất sau {elapsed_ms} mili giây.",
+    "err.unknown_action": "Lỗi: Hành động không xác định '{action}'.",
+    "param.action.description": "Thao tác cần thực hiện: trạng thái, portmap_list, portmap_add hoặc portmap_delete.",
+    "param.interface.description": "Địa chỉ IPv4 hoặc tên giao diện giao diện cục bộ tùy chọn để liên kết.",
+    "param.internal_ip.description": "Địa chỉ IP LAN nội bộ sẽ nhận lưu lượng chuyển tiếp.",
+    "param.remote_host.description": "Bộ lọc máy chủ từ xa tùy chọn cho các hoạt động ánh xạ cổng cụ thể. Để trống cho tất cả các máy chủ.",
+    "param.search_target.description": "Mục tiêu tìm kiếm SSDP (ST) để khám phá. Mặc định là InternetGatewayDevice và quay lại ssdp:all nếu cần.",
+    "tool.description": "Thực hiện các hoạt động của bộ định tuyến UPnP IGD: kiểm tra trạng thái WAN, liệt kê ánh xạ cổng, thêm ánh xạ cổng hoặc xóa ánh xạ cổng."
   },
   "zh_CN": {
     "param.timeout.description": "超时（秒）。",
@@ -867,7 +1103,13 @@
       "UPNP",
       "igd",
       "执行"
-    ]
+    ],
+    "param.action.description": "要执行的操作：status、portmap_list、portmap_add 或 portmap_delete。",
+    "param.interface.description": "要绑定到的可选本地接口 IPv4 地址或接口名称。",
+    "param.internal_ip.description": "应接收转发流量的内部 LAN IP 地址。",
+    "param.remote_host.description": "用于特定端口映射操作的可选远程主机过滤器。对于所有主机留空。",
+    "param.search_target.description": "SSDP 搜索目标 (ST) 进行发现。默认为 InternetGatewayDevice，如果需要则回退到 ssdp:all。",
+    "tool.description": "执行 UPnP IGD 路由器操作：检查 WAN 状态、列出端口映射、添加端口映射或删除端口映射。"
   },
   "zh_TW": {
     "param.timeout.description": "超时（秒）。",
@@ -894,6 +1136,12 @@
       "UPNP",
       "igd",
       "執行"
-    ]
+    ],
+    "param.action.description": "要執行的操作：status、portmap_list、portmap_add 或 portmap_delete。",
+    "param.interface.description": "若要綁定到的選用本機介面 IPv4 位址或介面名稱。",
+    "param.internal_ip.description": "應接收轉送流量的內部 LAN IP 位址。",
+    "param.remote_host.description": "用於特定連接埠映射操作的可選遠端主機過濾器。對於所有主機留空。",
+    "param.search_target.description": "SSDP 搜尋目標 (ST) 進行發現。預設為 InternetGatewayDevice，如果需要則回退到 ssdp:all。",
+    "tool.description": "執行 UPnP IGD 路由器操作：檢查 WAN 狀態、列出連接埠對映、新增連接埠對映或刪除連接埠對映。"
   }
 }

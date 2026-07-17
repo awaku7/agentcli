@@ -68,20 +68,21 @@
       "preproceso de imagen",
       "transformación de imagen"
     ],
-    "param.deskew.description": "Attempt to correct small image skew (lightweight heuristic).",
-    "ok.generated": "[OK] generated: {path}",
-    "err.image_path_empty": "[preprocess_image] image_path is required",
-    "param.denoise.description": "Apply denoising / smoothing.",
-    "param.binarize.description": "Apply binarization / thresholding.",
-    "param.grayscale.description": "Convert the image to grayscale.",
+    "param.deskew.description": "Intente corregir la inclinación pequeña de la imagen (heurística ligera).",
+    "ok.generated": "[Aceptar] generado: {path}",
+    "err.image_path_empty": "[preprocess_image] image_path es necesaria",
+    "param.denoise.description": "Aplicar eliminador de ruido/alisado.",
+    "param.binarize.description": "Aplicar binarización/umbralización.",
+    "param.grayscale.description": "Convierte la imagen a escala de grises.",
     "param.mode.description": "Modo de preproceso.",
-    "param.contrast.description": "Optional contrast factor. 1.0 keeps original; >1.0 increases contrast.",
-    "param.resize.description": "Optional resize target, e.g. 2x or 1600x1200. Leave empty to keep original size.",
-    "err.image_not_found": "[preprocess_image] image file not found: {path}",
-    "param.edge_enhance.description": "Enhance edges / outlines.",
-    "param.output_dir.description": "Directory to save processed images. Defaults to outputs/image_preprocess if omitted.",
-    "param.prefix.description": "Prefix for the saved filename (optional).",
-    "param.img.description": "Path to the source image to preprocess."
+    "param.contrast.description": "Factor de contraste opcional. 1.0 mantiene el original; >1,0 aumenta el contraste.",
+    "param.resize.description": "Objetivo de cambio de tamaño opcional, p. 2x o 1600x1200. Déjelo vacío para mantener el tamaño original.",
+    "err.image_not_found": "[preprocess_image] archivo de imagen no encontrado: {path}",
+    "param.edge_enhance.description": "Mejorar bordes/contornos.",
+    "param.output_dir.description": "Directorio para guardar imágenes procesadas. El valor predeterminado es salidas/image_preprocess si se omite.",
+    "param.prefix.description": "Prefijo para el nombre del archivo guardado (opcional).",
+    "param.img.description": "Ruta a la imagen de origen para preprocesar.",
+    "tool.description": "Aplique preprocesamiento de imágenes, como escala de grises, eliminación de ruido, binarización y mejora de bordes, luego guarde el resultado como PNG."
   },
   "fr": {
     "x_search_terms": [
@@ -95,20 +96,21 @@
       "prétraitement de l'image",
       "transformation d'image"
     ],
-    "param.deskew.description": "Attempt to correct small image skew (lightweight heuristic).",
-    "ok.generated": "[OK] generated: {path}",
-    "err.image_path_empty": "[preprocess_image] image_path is required",
-    "param.denoise.description": "Apply denoising / smoothing.",
-    "param.binarize.description": "Apply binarization / thresholding.",
-    "param.grayscale.description": "Convert the image to grayscale.",
+    "param.deskew.description": "Tentative de correction d'une petite asymétrie de l'image (heuristique légère).",
+    "ok.generated": "[OK] généré : {path}",
+    "err.image_path_empty": "[preprocess_image] image_path est requis",
+    "param.denoise.description": "Appliquer un débruitage/lissage.",
+    "param.binarize.description": "Appliquer la binarisation/le seuillage.",
+    "param.grayscale.description": "Convertissez l'image en niveaux de gris.",
     "param.mode.description": "Mode prétraitement.",
-    "param.contrast.description": "Optional contrast factor. 1.0 keeps original; >1.0 increases contrast.",
-    "param.resize.description": "Optional resize target, e.g. 2x or 1600x1200. Leave empty to keep original size.",
-    "err.image_not_found": "[preprocess_image] image file not found: {path}",
-    "param.edge_enhance.description": "Enhance edges / outlines.",
-    "param.output_dir.description": "Directory to save processed images. Defaults to outputs/image_preprocess if omitted.",
-    "param.prefix.description": "Prefix for the saved filename (optional).",
-    "param.img.description": "Path to the source image to preprocess."
+    "param.contrast.description": "Facteur de contraste en option. 1.0 conserve l'original ; >1,0 augmente le contraste.",
+    "param.resize.description": "Cible de redimensionnement facultative, par ex. 2x ou 1600x1200. Laissez vide pour conserver la taille originale.",
+    "err.image_not_found": "Fichier image [preprocess_image] introuvable : {path}",
+    "param.edge_enhance.description": "Améliorez les bords/contours.",
+    "param.output_dir.description": "Répertoire pour sauvegarder les images traitées. La valeur par défaut est outputs/image_preprocess en cas d'omission.",
+    "param.prefix.description": "Préfixe du nom de fichier enregistré (facultatif).",
+    "param.img.description": "Chemin d’accès à l’image source à prétraiter.",
+    "tool.description": "Appliquez un prétraitement d'image tel que les niveaux de gris, le débruitage, la binarisation et l'amélioration des bords, puis enregistrez le résultat au format PNG."
   },
   "ko": {
     "x_search_terms": [
@@ -122,20 +124,21 @@
       "이미지 전처리",
       "이미지 변환"
     ],
-    "param.deskew.description": "Attempt to correct small image skew (lightweight heuristic).",
-    "ok.generated": "[OK] generated: {path}",
-    "err.image_path_empty": "[preprocess_image] image_path is required",
-    "param.denoise.description": "Apply denoising / smoothing.",
-    "param.binarize.description": "Apply binarization / thresholding.",
-    "param.grayscale.description": "Convert the image to grayscale.",
+    "param.deskew.description": "작은 이미지 왜곡을 수정하려고 시도합니다(경량 휴리스틱).",
+    "ok.generated": "[확인] 생성됨: {path}",
+    "err.image_path_empty": "[preprocess_image] image_path가 필요합니다.",
+    "param.denoise.description": "노이즈 제거/스무딩을 적용합니다.",
+    "param.binarize.description": "이진화/임계값을 적용합니다.",
+    "param.grayscale.description": "이미지를 회색조로 변환합니다.",
     "param.mode.description": "전처리 모드.",
-    "param.contrast.description": "Optional contrast factor. 1.0 keeps original; >1.0 increases contrast.",
-    "param.resize.description": "Optional resize target, e.g. 2x or 1600x1200. Leave empty to keep original size.",
-    "err.image_not_found": "[preprocess_image] image file not found: {path}",
-    "param.edge_enhance.description": "Enhance edges / outlines.",
-    "param.output_dir.description": "Directory to save processed images. Defaults to outputs/image_preprocess if omitted.",
-    "param.prefix.description": "Prefix for the saved filename (optional).",
-    "param.img.description": "Path to the source image to preprocess."
+    "param.contrast.description": "선택적 대비 요소. 1.0은 원본을 유지합니다. >1.0은 대비를 증가시킵니다.",
+    "param.resize.description": "선택적 크기 조정 대상, 예: 2x 또는 1600x1200. 원본 크기를 유지하려면 비워 두세요.",
+    "err.image_not_found": "[preprocess_image] 이미지 파일을 찾을 수 없습니다: {path}",
+    "param.edge_enhance.description": "가장자리/윤곽선을 향상시킵니다.",
+    "param.output_dir.description": "처리된 이미지를 저장할 디렉터리입니다. 생략할 경우 기본값은 outputs/image_preprocess입니다.",
+    "param.prefix.description": "저장된 파일 이름의 접두사(선택 사항)입니다.",
+    "param.img.description": "전처리할 소스 이미지의 경로입니다.",
+    "tool.description": "회색조, 노이즈 제거, 이진화, 가장자리 향상 등의 이미지 전처리를 적용한 다음 결과를 PNG로 저장합니다."
   },
   "de": {
     "x_search_terms": [
@@ -149,20 +152,21 @@
       "Bildvorverarbeitung",
       "Bildtransformation"
     ],
-    "param.deskew.description": "Attempt to correct small image skew (lightweight heuristic).",
-    "ok.generated": "[OK] generated: {path}",
-    "err.image_path_empty": "[preprocess_image] image_path is required",
-    "param.denoise.description": "Apply denoising / smoothing.",
-    "param.binarize.description": "Apply binarization / thresholding.",
-    "param.grayscale.description": "Convert the image to grayscale.",
+    "param.deskew.description": "Versuchen Sie, einen kleinen Bildversatz zu korrigieren (leichte Heuristik).",
+    "ok.generated": "[OK] generiert: {path}",
+    "err.image_path_empty": "[preprocess_image] image_path ist erforderlich",
+    "param.denoise.description": "Entrauschen/Glätten anwenden.",
+    "param.binarize.description": "Wenden Sie Binärisierung/Schwellenwertbildung an.",
+    "param.grayscale.description": "Konvertieren Sie das Bild in Graustufen.",
     "param.mode.description": "Vorverarbeitungsmodus.",
-    "param.contrast.description": "Optional contrast factor. 1.0 keeps original; >1.0 increases contrast.",
-    "param.resize.description": "Optional resize target, e.g. 2x or 1600x1200. Leave empty to keep original size.",
-    "err.image_not_found": "[preprocess_image] image file not found: {path}",
-    "param.edge_enhance.description": "Enhance edges / outlines.",
-    "param.output_dir.description": "Directory to save processed images. Defaults to outputs/image_preprocess if omitted.",
-    "param.prefix.description": "Prefix for the saved filename (optional).",
-    "param.img.description": "Path to the source image to preprocess."
+    "param.contrast.description": "Optionaler Kontrastfaktor. 1.0 bleibt original; >1,0 erhöht den Kontrast.",
+    "param.resize.description": "Optionales Größenänderungsziel, z.B. 2x oder 1600x1200. Leer lassen, um die Originalgröße beizubehalten.",
+    "err.image_not_found": "[preprocess_image] Bilddatei nicht gefunden: {path}",
+    "param.edge_enhance.description": "Kanten/Konturen verstärken.",
+    "param.output_dir.description": "Verzeichnis zum Speichern verarbeiteter Bilder. Wenn weggelassen, wird standardmäßig „outputs/image_preprocess“ verwendet.",
+    "param.prefix.description": "Präfix für den gespeicherten Dateinamen (optional).",
+    "param.img.description": "Pfad zum Quellbild zur Vorverarbeitung.",
+    "tool.description": "Wenden Sie Bildvorverarbeitungen wie Graustufen, Rauschunterdrückung, Binärisierung und Kantenverbesserung an und speichern Sie das Ergebnis dann als PNG."
   },
   "it": {
     "x_search_terms": [
@@ -176,20 +180,21 @@
       "preelaborazione immagine",
       "trasformazione immagine"
     ],
-    "param.deskew.description": "Attempt to correct small image skew (lightweight heuristic).",
-    "ok.generated": "[OK] generated: {path}",
-    "err.image_path_empty": "[preprocess_image] image_path is required",
-    "param.denoise.description": "Apply denoising / smoothing.",
-    "param.binarize.description": "Apply binarization / thresholding.",
-    "param.grayscale.description": "Convert the image to grayscale.",
+    "param.deskew.description": "Tentativo di correggere una piccola distorsione dell'immagine (euristica leggera).",
+    "ok.generated": "[OK] generato: {path}",
+    "err.image_path_empty": "[immagine_preprocesso] percorso_immagine è obbligatorio",
+    "param.denoise.description": "Applicare il denoising/livellamento.",
+    "param.binarize.description": "Applicare binarizzazione/soglia.",
+    "param.grayscale.description": "Converti l'immagine in scala di grigi.",
     "param.mode.description": "Modalità preelaborazione.",
-    "param.contrast.description": "Optional contrast factor. 1.0 keeps original; >1.0 increases contrast.",
-    "param.resize.description": "Optional resize target, e.g. 2x or 1600x1200. Leave empty to keep original size.",
-    "err.image_not_found": "[preprocess_image] image file not found: {path}",
-    "param.edge_enhance.description": "Enhance edges / outlines.",
-    "param.output_dir.description": "Directory to save processed images. Defaults to outputs/image_preprocess if omitted.",
-    "param.prefix.description": "Prefix for the saved filename (optional).",
-    "param.img.description": "Path to the source image to preprocess."
+    "param.contrast.description": "Fattore di contrasto opzionale. 1.0 mantiene l'originale; >1.0 aumenta il contrasto.",
+    "param.resize.description": "Destinazione di ridimensionamento opzionale, ad es. 2x o 1600x1200. Lascia vuoto per mantenere la dimensione originale.",
+    "err.image_not_found": "File immagine [preprocess_image] non trovato: {path}",
+    "param.edge_enhance.description": "Migliora bordi/contorni.",
+    "param.output_dir.description": "Directory in cui salvare le immagini elaborate. Il valore predefinito è outputs/image_preprocess se omesso.",
+    "param.prefix.description": "Prefisso per il nome del file salvato (facoltativo).",
+    "param.img.description": "Percorso dell'immagine di origine da preelaborare.",
+    "tool.description": "Applica la preelaborazione delle immagini come scala di grigi, riduzione del rumore, binarizzazione e miglioramento dei bordi, quindi salva il risultato come PNG."
   },
   "ru": {
     "x_search_terms": [
@@ -203,20 +208,21 @@
       "предварительная обработка изображений",
       "преобразование изображения"
     ],
-    "param.deskew.description": "Attempt to correct small image skew (lightweight heuristic).",
-    "ok.generated": "[OK] generated: {path}",
-    "err.image_path_empty": "[preprocess_image] image_path is required",
-    "param.denoise.description": "Apply denoising / smoothing.",
-    "param.binarize.description": "Apply binarization / thresholding.",
-    "param.grayscale.description": "Convert the image to grayscale.",
+    "param.deskew.description": "Попытайтесь исправить небольшой перекос изображения (облегченная эвристика).",
+    "ok.generated": "[ОК] создано: {path}",
+    "err.image_path_empty": "[preprocess_image] Требуется путь к изображению",
+    "param.denoise.description": "Примените шумоподавление/сглаживание.",
+    "param.binarize.description": "Примените бинаризацию/пороговую обработку.",
+    "param.grayscale.description": "Преобразуйте изображение в оттенки серого.",
     "param.mode.description": "Режим предварительной обработки.",
-    "param.contrast.description": "Optional contrast factor. 1.0 keeps original; >1.0 increases contrast.",
-    "param.resize.description": "Optional resize target, e.g. 2x or 1600x1200. Leave empty to keep original size.",
-    "err.image_not_found": "[preprocess_image] image file not found: {path}",
-    "param.edge_enhance.description": "Enhance edges / outlines.",
-    "param.output_dir.description": "Directory to save processed images. Defaults to outputs/image_preprocess if omitted.",
-    "param.prefix.description": "Prefix for the saved filename (optional).",
-    "param.img.description": "Path to the source image to preprocess."
+    "param.contrast.description": "Дополнительный коэффициент контрастности. 1.0 сохраняет оригинал; >1,0 увеличивает контраст.",
+    "param.resize.description": "Необязательная цель изменения размера, например. 2х или 1600х1200. Оставьте пустым, чтобы сохранить исходный размер.",
+    "err.image_not_found": "[preprocess_image] файл изображения не найден: {path}",
+    "param.edge_enhance.description": "Улучшите края/контуры.",
+    "param.output_dir.description": "Каталог для сохранения обработанных изображений. По умолчанию используется выходы/image_preprocess, если он опущен.",
+    "param.prefix.description": "Префикс имени сохраненного файла (необязательно).",
+    "param.img.description": "Путь к исходному изображению для предварительной обработки.",
+    "tool.description": "Примените предварительную обработку изображения, например оттенки серого, шумоподавление, бинаризацию и улучшение краев, а затем сохраните результат в формате PNG."
   },
   "pt_BR": {
     "x_search_terms": [
@@ -230,20 +236,21 @@
       "pré-processamento de imagem",
       "transformação de imagem"
     ],
-    "param.deskew.description": "Attempt to correct small image skew (lightweight heuristic).",
-    "ok.generated": "[OK] generated: {path}",
-    "err.image_path_empty": "[preprocess_image] image_path is required",
-    "param.denoise.description": "Apply denoising / smoothing.",
-    "param.binarize.description": "Apply binarization / thresholding.",
-    "param.grayscale.description": "Convert the image to grayscale.",
+    "param.deskew.description": "Tentativa de corrigir pequenas distorções da imagem (heurística leve).",
+    "ok.generated": "[OK] gerado: {path}",
+    "err.image_path_empty": "[preprocess_image] image_path é obrigatório",
+    "param.denoise.description": "Aplicar remoção de ruído / suavização.",
+    "param.binarize.description": "Aplicar binarização/limiar.",
+    "param.grayscale.description": "Converta a imagem em tons de cinza.",
     "param.mode.description": "Modo de pré-processamento.",
-    "param.contrast.description": "Optional contrast factor. 1.0 keeps original; >1.0 increases contrast.",
-    "param.resize.description": "Optional resize target, e.g. 2x or 1600x1200. Leave empty to keep original size.",
-    "err.image_not_found": "[preprocess_image] image file not found: {path}",
-    "param.edge_enhance.description": "Enhance edges / outlines.",
-    "param.output_dir.description": "Directory to save processed images. Defaults to outputs/image_preprocess if omitted.",
-    "param.prefix.description": "Prefix for the saved filename (optional).",
-    "param.img.description": "Path to the source image to preprocess."
+    "param.contrast.description": "Fator de contraste opcional. 1.0 mantém o original; >1,0 aumenta o contraste.",
+    "param.resize.description": "Destino de redimensionamento opcional, por ex. 2x ou 1600x1200. Deixe em branco para manter o tamanho original.",
+    "err.image_not_found": "Arquivo de imagem [preprocess_image] não encontrado: {path}",
+    "param.edge_enhance.description": "Aprimore bordas/contornos.",
+    "param.output_dir.description": "Diretório para salvar imagens processadas. O padrão é outputs/image_preprocess se omitido.",
+    "param.prefix.description": "Prefixo para o nome do arquivo salvo (opcional).",
+    "param.img.description": "Caminho para a imagem de origem a ser pré-processada.",
+    "tool.description": "Aplique pré-processamento de imagem, como escala de cinza, redução de ruído, binarização e aprimoramento de bordas, e salve o resultado como PNG."
   },
   "pt": {
     "x_search_terms": [
@@ -257,20 +264,21 @@
       "pr-processamento de imagem",
       "transformao de imagem"
     ],
-    "param.deskew.description": "Attempt to correct small image skew (lightweight heuristic).",
-    "ok.generated": "[OK] generated: {path}",
-    "err.image_path_empty": "[preprocess_image] image_path is required",
-    "param.denoise.description": "Apply denoising / smoothing.",
-    "param.binarize.description": "Apply binarization / thresholding.",
-    "param.grayscale.description": "Convert the image to grayscale.",
+    "param.deskew.description": "Tentativa de corrigir pequenas distorções da imagem (heurística leve).",
+    "ok.generated": "[OK] gerado: {path}",
+    "err.image_path_empty": "[preprocess_image] image_path é obrigatório",
+    "param.denoise.description": "Aplicar remoção de ruído / suavização.",
+    "param.binarize.description": "Aplicar binarização/limiar.",
+    "param.grayscale.description": "Converta a imagem em tons de cinza.",
     "param.mode.description": "Modo de pré-processamento.",
-    "param.contrast.description": "Optional contrast factor. 1.0 keeps original; >1.0 increases contrast.",
-    "param.resize.description": "Optional resize target, e.g. 2x or 1600x1200. Leave empty to keep original size.",
-    "err.image_not_found": "[preprocess_image] image file not found: {path}",
-    "param.edge_enhance.description": "Enhance edges / outlines.",
-    "param.output_dir.description": "Directory to save processed images. Defaults to outputs/image_preprocess if omitted.",
-    "param.prefix.description": "Prefix for the saved filename (optional).",
-    "param.img.description": "Path to the source image to preprocess."
+    "param.contrast.description": "Fator de contraste opcional. 1.0 mantém o original; >1,0 aumenta o contraste.",
+    "param.resize.description": "Destino de redimensionamento opcional, por ex. 2x ou 1600x1200. Deixe em branco para manter o tamanho original.",
+    "err.image_not_found": "Arquivo de imagem [preprocess_image] não encontrado: {path}",
+    "param.edge_enhance.description": "Aprimore bordas/contornos.",
+    "param.output_dir.description": "Diretório para salvar imagens processadas. O padrão é outputs/image_preprocess se omitido.",
+    "param.prefix.description": "Prefixo para o nome do arquivo salvo (opcional).",
+    "param.img.description": "Caminho para a imagem de origem a ser pré-processada.",
+    "tool.description": "Aplique pré-processamento de imagem, como escala de cinza, redução de ruído, binarização e aprimoramento de bordas, e salve o resultado como PNG."
   },
   "id": {
     "x_search_terms": [
@@ -284,20 +292,21 @@
       "praproses gambar",
       "transformasi gambar"
     ],
-    "param.deskew.description": "Attempt to correct small image skew (lightweight heuristic).",
-    "ok.generated": "[OK] generated: {path}",
-    "err.image_path_empty": "[preprocess_image] image_path is required",
-    "param.denoise.description": "Apply denoising / smoothing.",
-    "param.binarize.description": "Apply binarization / thresholding.",
-    "param.grayscale.description": "Convert the image to grayscale.",
+    "param.deskew.description": "Mencoba memperbaiki kemiringan gambar yang kecil (heuristik ringan).",
+    "ok.generated": "[OK] dihasilkan: {path}",
+    "err.image_path_empty": "[preprocess_image] image_path diperlukan",
+    "param.denoise.description": "Terapkan denoising / smoothing.",
+    "param.binarize.description": "Terapkan binarisasi/thresholding.",
+    "param.grayscale.description": "Ubah gambar menjadi skala abu-abu.",
     "param.mode.description": "Mode praproses.",
-    "param.contrast.description": "Optional contrast factor. 1.0 keeps original; >1.0 increases contrast.",
-    "param.resize.description": "Optional resize target, e.g. 2x or 1600x1200. Leave empty to keep original size.",
-    "err.image_not_found": "[preprocess_image] image file not found: {path}",
-    "param.edge_enhance.description": "Enhance edges / outlines.",
-    "param.output_dir.description": "Directory to save processed images. Defaults to outputs/image_preprocess if omitted.",
-    "param.prefix.description": "Prefix for the saved filename (optional).",
-    "param.img.description": "Path to the source image to preprocess."
+    "param.contrast.description": "Faktor kontras opsional. 1.0 tetap asli; >1,0 meningkatkan kontras.",
+    "param.resize.description": "Target pengubahan ukuran opsional, mis. 2x atau 1600x1200. Biarkan kosong untuk mempertahankan ukuran aslinya.",
+    "err.image_not_found": "File gambar [preprocess_image] tidak ditemukan: {path}",
+    "param.edge_enhance.description": "Meningkatkan tepi/garis luar.",
+    "param.output_dir.description": "Direktori untuk menyimpan gambar yang diproses. Defaultnya adalah outputs/image_preprocess jika dihilangkan.",
+    "param.prefix.description": "Awalan untuk nama file yang disimpan (opsional).",
+    "param.img.description": "Jalur ke gambar sumber untuk diproses sebelumnya.",
+    "tool.description": "Terapkan pra-pemrosesan gambar seperti skala abu-abu, denoise, binarisasi, dan peningkatan tepi, lalu simpan hasilnya sebagai PNG."
   },
   "vi": {
     "x_search_terms": [
@@ -311,20 +320,21 @@
       "tiền xử lý hình ảnh",
       "biến đổi hình ảnh"
     ],
-    "param.deskew.description": "Attempt to correct small image skew (lightweight heuristic).",
-    "ok.generated": "[OK] generated: {path}",
-    "err.image_path_empty": "[preprocess_image] image_path is required",
-    "param.denoise.description": "Apply denoising / smoothing.",
-    "param.binarize.description": "Apply binarization / thresholding.",
-    "param.grayscale.description": "Convert the image to grayscale.",
+    "param.deskew.description": "Cố gắng sửa độ lệch hình ảnh nhỏ (heuristic nhẹ).",
+    "ok.generated": "[OK] đã tạo: {path}",
+    "err.image_path_empty": "[preprocess_image] image_path là bắt buộc",
+    "param.denoise.description": "Áp dụng khử nhiễu / làm mịn.",
+    "param.binarize.description": "Áp dụng nhị phân/ngưỡng.",
+    "param.grayscale.description": "Chuyển đổi hình ảnh sang thang độ xám.",
     "param.mode.description": "Chế độ tiền xử lý.",
-    "param.contrast.description": "Optional contrast factor. 1.0 keeps original; >1.0 increases contrast.",
-    "param.resize.description": "Optional resize target, e.g. 2x or 1600x1200. Leave empty to keep original size.",
-    "err.image_not_found": "[preprocess_image] image file not found: {path}",
-    "param.edge_enhance.description": "Enhance edges / outlines.",
-    "param.output_dir.description": "Directory to save processed images. Defaults to outputs/image_preprocess if omitted.",
-    "param.prefix.description": "Prefix for the saved filename (optional).",
-    "param.img.description": "Path to the source image to preprocess."
+    "param.contrast.description": "Hệ số tương phản tùy chọn. 1.0 giữ nguyên bản; >1.0 tăng độ tương phản.",
+    "param.resize.description": "Mục tiêu thay đổi kích thước tùy chọn, ví dụ: 2x hoặc 1600x1200. Để trống để giữ kích thước ban đầu.",
+    "err.image_not_found": "Không tìm thấy tệp hình ảnh [preprocess_image]: {path}",
+    "param.edge_enhance.description": "Tăng cường các cạnh/đường viền.",
+    "param.output_dir.description": "Thư mục lưu hình ảnh đã xử lý. Mặc định là kết quả đầu ra/image_preprocess nếu bị bỏ qua.",
+    "param.prefix.description": "Tiền tố cho tên tệp đã lưu (tùy chọn).",
+    "param.img.description": "Đường dẫn tới ảnh nguồn cần tiền xử lý.",
+    "tool.description": "Áp dụng tiền xử lý hình ảnh như thang độ xám, khử nhiễu, nhị phân hóa và nâng cao cạnh, sau đó lưu kết quả dưới dạng PNG."
   },
   "pl": {
     "x_search_terms": [
@@ -338,20 +348,21 @@
       "wstępna obróbka obrazu",
       "transformacja obrazu"
     ],
-    "param.deskew.description": "Attempt to correct small image skew (lightweight heuristic).",
-    "ok.generated": "[OK] generated: {path}",
-    "err.image_path_empty": "[preprocess_image] image_path is required",
-    "param.denoise.description": "Apply denoising / smoothing.",
-    "param.binarize.description": "Apply binarization / thresholding.",
-    "param.grayscale.description": "Convert the image to grayscale.",
+    "param.deskew.description": "Próba skorygowania małego przekrzywienia obrazu (lekka heurystyka).",
+    "ok.generated": "[OK] wygenerowano: {path}",
+    "err.image_path_empty": "[preprocess_image] ścieżka_obrazu jest wymagana",
+    "param.denoise.description": "Zastosuj odszumianie/wygładzenie.",
+    "param.binarize.description": "Zastosuj binaryzację/próg.",
+    "param.grayscale.description": "Konwertuj obraz do skali szarości.",
     "param.mode.description": "Tryb wstępnego przetwarzania.",
-    "param.contrast.description": "Optional contrast factor. 1.0 keeps original; >1.0 increases contrast.",
-    "param.resize.description": "Optional resize target, e.g. 2x or 1600x1200. Leave empty to keep original size.",
-    "err.image_not_found": "[preprocess_image] image file not found: {path}",
-    "param.edge_enhance.description": "Enhance edges / outlines.",
-    "param.output_dir.description": "Directory to save processed images. Defaults to outputs/image_preprocess if omitted.",
-    "param.prefix.description": "Prefix for the saved filename (optional).",
-    "param.img.description": "Path to the source image to preprocess."
+    "param.contrast.description": "Opcjonalny współczynnik kontrastu. 1.0 zachowuje oryginał; >1,0 zwiększa kontrast.",
+    "param.resize.description": "Opcjonalny cel zmiany rozmiaru, np. 2x lub 1600x1200. Pozostaw puste, aby zachować oryginalny rozmiar.",
+    "err.image_not_found": "Nie znaleziono pliku obrazu [preprocess_image]: {path}",
+    "param.edge_enhance.description": "Popraw krawędzie/kontury.",
+    "param.output_dir.description": "Katalog do zapisywania przetworzonych obrazów. Domyślnie ma wartość Outputs/image_preprocess, jeśli została pominięta.",
+    "param.prefix.description": "Przedrostek nazwy zapisanego pliku (opcjonalnie).",
+    "param.img.description": "Ścieżka do obrazu źródłowego do wstępnego przetworzenia.",
+    "tool.description": "Zastosuj wstępne przetwarzanie obrazu, takie jak skala szarości, odszumianie, binaryzacja i wzmocnienie krawędzi, a następnie zapisz wynik jako plik PNG."
   },
   "hi": {
     "x_search_terms": [
@@ -365,20 +376,21 @@
       "छवि प्रीप्रोसेस",
       "छवि परिवर्तन"
     ],
-    "param.deskew.description": "Attempt to correct small image skew (lightweight heuristic).",
-    "ok.generated": "[OK] generated: {path}",
-    "err.image_path_empty": "[preprocess_image] image_path is required",
-    "param.denoise.description": "Apply denoising / smoothing.",
-    "param.binarize.description": "Apply binarization / thresholding.",
-    "param.grayscale.description": "Convert the image to grayscale.",
+    "param.deskew.description": "छोटी छवि विषमता (हल्के अनुमान) को ठीक करने का प्रयास।",
+    "ok.generated": "[ठीक] उत्पन्न: {path}",
+    "err.image_path_empty": "[प्रीप्रोसेस_इमेज] इमेज_पथ आवश्यक है",
+    "param.denoise.description": "डीनोइज़िंग/स्मूथिंग लागू करें।",
+    "param.binarize.description": "बाइनराइजेशन/थ्रेशोल्डिंग लागू करें।",
+    "param.grayscale.description": "छवि को ग्रेस्केल में कनवर्ट करें.",
     "param.mode.description": "ब्राउज़र संचालन को कैप्चर करने के लिए प्लेराइट इंस्पेक्टर लॉन्च करें। उपयोगकर्ता द्वारा क्लिक करने के बाद पेज स्थिति (HTML और छवि) को सहेजता है।",
-    "param.contrast.description": "Optional contrast factor. 1.0 keeps original; >1.0 increases contrast.",
-    "param.resize.description": "Optional resize target, e.g. 2x or 1600x1200. Leave empty to keep original size.",
-    "err.image_not_found": "[preprocess_image] image file not found: {path}",
-    "param.edge_enhance.description": "Enhance edges / outlines.",
-    "param.output_dir.description": "Directory to save processed images. Defaults to outputs/image_preprocess if omitted.",
-    "param.prefix.description": "Prefix for the saved filename (optional).",
-    "param.img.description": "Path to the source image to preprocess."
+    "param.contrast.description": "वैकल्पिक कंट्रास्ट कारक. 1.0 मूल रखता है; >1.0 कंट्रास्ट बढ़ाता है।",
+    "param.resize.description": "वैकल्पिक आकार लक्ष्य, उदा. 2x या 1600x1200. मूल आकार बनाए रखने के लिए खाली छोड़ दें।",
+    "err.image_not_found": "[प्रीप्रोसेस_इमेज] छवि फ़ाइल नहीं मिली: {path}",
+    "param.edge_enhance.description": "किनारों/रूपरेखा को बेहतर बनाएं.",
+    "param.output_dir.description": "संसाधित छवियों को सहेजने के लिए निर्देशिका। यदि छोड़ दिया जाए तो आउटपुट/इमेज_प्रीप्रोसेस डिफ़ॉल्ट हो जाता है।",
+    "param.prefix.description": "सहेजे गए फ़ाइल नाम के लिए उपसर्ग (वैकल्पिक)।",
+    "param.img.description": "प्रीप्रोसेस करने के लिए स्रोत छवि का पथ।",
+    "tool.description": "छवि प्रीप्रोसेसिंग जैसे ग्रेस्केल, डीनोइस, बाइनराइजेशन और एज एन्हांसमेंट लागू करें, फिर परिणाम को पीएनजी के रूप में सहेजें।"
   },
   "ar": {
     "x_search_terms": [
@@ -392,20 +404,21 @@
       "المعالجة المسبقة للصورة",
       "تحويل الصورة"
     ],
-    "param.deskew.description": "Attempt to correct small image skew (lightweight heuristic).",
-    "ok.generated": "[OK] generated: {path}",
-    "err.image_path_empty": "[preprocess_image] image_path is required",
-    "param.denoise.description": "Apply denoising / smoothing.",
-    "param.binarize.description": "Apply binarization / thresholding.",
-    "param.grayscale.description": "Convert the image to grayscale.",
+    "param.deskew.description": "محاولة تصحيح الانحراف الصغير في الصورة (إرشادي خفيف الوزن).",
+    "ok.generated": "[موافق] تم إنشاؤه: {path}",
+    "err.image_path_empty": "[preprocess_image] مطلوب مسار الصورة",
+    "param.denoise.description": "تطبيق تقليل الضوضاء / التنعيم.",
+    "param.binarize.description": "تطبيق الثنائية / العتبة.",
+    "param.grayscale.description": "تحويل الصورة إلى تدرج الرمادي.",
     "param.mode.description": "وضع المعالجة المسبقة.",
-    "param.contrast.description": "Optional contrast factor. 1.0 keeps original; >1.0 increases contrast.",
-    "param.resize.description": "Optional resize target, e.g. 2x or 1600x1200. Leave empty to keep original size.",
-    "err.image_not_found": "[preprocess_image] image file not found: {path}",
-    "param.edge_enhance.description": "Enhance edges / outlines.",
-    "param.output_dir.description": "Directory to save processed images. Defaults to outputs/image_preprocess if omitted.",
-    "param.prefix.description": "Prefix for the saved filename (optional).",
-    "param.img.description": "Path to the source image to preprocess."
+    "param.contrast.description": "عامل التباين الاختياري. 1.0 يحتفظ بالأصل؛ > 1.0 يزيد التباين.",
+    "param.resize.description": "هدف تغيير الحجم الاختياري، على سبيل المثال. 2x أو 1600x1200. اتركه فارغا للحفاظ على الحجم الأصلي.",
+    "err.image_not_found": "لم يتم العثور على ملف الصورة [preprocess_image]: {path}",
+    "param.edge_enhance.description": "تعزيز الحواف / الخطوط العريضة.",
+    "param.output_dir.description": "دليل لحفظ الصور المعالجة. الإعدادات الافتراضية هي المخرجات/image_preprocess إذا تم حذفها.",
+    "param.prefix.description": "بادئة لاسم الملف المحفوظ (اختياري).",
+    "param.img.description": "المسار إلى الصورة المصدر للمعالجة المسبقة.",
+    "tool.description": "قم بتطبيق المعالجة المسبقة للصور مثل التدرج الرمادي وتقليل الضوضاء والتحويل الثنائي وتحسين الحواف، ثم احفظ النتيجة بتنسيق PNG."
   },
   "sv": {
     "x_search_terms": [
@@ -419,20 +432,21 @@
       "bildförbearbetning",
       "bildtransform"
     ],
-    "param.deskew.description": "Attempt to correct small image skew (lightweight heuristic).",
-    "ok.generated": "[OK] generated: {path}",
-    "err.image_path_empty": "[preprocess_image] image_path is required",
-    "param.denoise.description": "Apply denoising / smoothing.",
-    "param.binarize.description": "Apply binarization / thresholding.",
-    "param.grayscale.description": "Convert the image to grayscale.",
+    "param.deskew.description": "Försök att korrigera liten bildskevning (lättheuristik).",
+    "ok.generated": "[OK] genererat: {path}",
+    "err.image_path_empty": "[preprocess_image] image_path krävs",
+    "param.denoise.description": "Applicera denoising / utjämning.",
+    "param.binarize.description": "Tillämpa binarisering/tröskelvärde.",
+    "param.grayscale.description": "Konvertera bilden till gråskala.",
     "param.mode.description": "Förbearbetningsläge.",
-    "param.contrast.description": "Optional contrast factor. 1.0 keeps original; >1.0 increases contrast.",
-    "param.resize.description": "Optional resize target, e.g. 2x or 1600x1200. Leave empty to keep original size.",
-    "err.image_not_found": "[preprocess_image] image file not found: {path}",
-    "param.edge_enhance.description": "Enhance edges / outlines.",
-    "param.output_dir.description": "Directory to save processed images. Defaults to outputs/image_preprocess if omitted.",
-    "param.prefix.description": "Prefix for the saved filename (optional).",
-    "param.img.description": "Path to the source image to preprocess."
+    "param.contrast.description": "Valfri kontrastfaktor. 1.0 behåller originalet; >1,0 ökar kontrasten.",
+    "param.resize.description": "Valfritt mål för att ändra storlek, t.ex. 2x eller 1600x1200. Lämna tomt för att behålla originalstorleken.",
+    "err.image_not_found": "[preprocess_image] bildfil hittades inte: {path}",
+    "param.edge_enhance.description": "Förbättra kanter/konturer.",
+    "param.output_dir.description": "Katalog för att spara bearbetade bilder. Standard till outputs/image_preprocess om den utelämnas.",
+    "param.prefix.description": "Prefix för det sparade filnamnet (valfritt).",
+    "param.img.description": "Sökväg till källbilden som ska förbehandlas.",
+    "tool.description": "Använd bildförbearbetning som gråskala, denoise, binarisering och kantförbättring och spara sedan resultatet som en PNG."
   },
   "sw": {
     "x_search_terms": [
@@ -446,20 +460,21 @@
       "mchakato wa picha",
       "kubadilisha picha"
     ],
-    "param.deskew.description": "Attempt to correct small image skew (lightweight heuristic).",
-    "ok.generated": "[OK] generated: {path}",
-    "err.image_path_empty": "[preprocess_image] image_path is required",
-    "param.denoise.description": "Apply denoising / smoothing.",
-    "param.binarize.description": "Apply binarization / thresholding.",
-    "param.grayscale.description": "Convert the image to grayscale.",
+    "param.deskew.description": "Jaribio la kurekebisha skew ndogo ya picha (heuristic nyepesi).",
+    "ok.generated": "[Sawa] imetolewa: {path}",
+    "err.image_path_empty": "[preprocess_image] image_path inahitajika",
+    "param.denoise.description": "Omba denoising / kulainisha.",
+    "param.binarize.description": "Tumia uwekaji alama mbili / kizingiti.",
+    "param.grayscale.description": "Badilisha picha kuwa kijivu.",
     "param.mode.description": "Hali ya kuchakata mapema.",
-    "param.contrast.description": "Optional contrast factor. 1.0 keeps original; >1.0 increases contrast.",
-    "param.resize.description": "Optional resize target, e.g. 2x or 1600x1200. Leave empty to keep original size.",
-    "err.image_not_found": "[preprocess_image] image file not found: {path}",
-    "param.edge_enhance.description": "Enhance edges / outlines.",
-    "param.output_dir.description": "Directory to save processed images. Defaults to outputs/image_preprocess if omitted.",
-    "param.prefix.description": "Prefix for the saved filename (optional).",
-    "param.img.description": "Path to the source image to preprocess."
+    "param.contrast.description": "Kipengele cha hiari cha utofautishaji. 1.0 huweka asili; >1.0 huongeza utofautishaji.",
+    "param.resize.description": "Lengo la kubadilisha ukubwa wa hiari, k.m. 2x au 1600x1200. Acha tupu ili kuweka saizi asili.",
+    "err.image_not_found": "[preprocess_image] faili ya picha haijapatikana: {path}",
+    "param.edge_enhance.description": "Boresha kingo / muhtasari.",
+    "param.output_dir.description": "Saraka ya kuhifadhi picha zilizochakatwa. Chaguo-msingi kwa matokeo/image_preprocess ikiwa imeachwa.",
+    "param.prefix.description": "Kiambishi awali cha jina la faili lililohifadhiwa (si lazima).",
+    "param.img.description": "Njia ya kuelekea kwenye picha chanzo ili kuchakatwa.",
+    "tool.description": "Tekeleza usindikaji wa awali wa picha kama vile rangi ya kijivu, denoise, uboreshaji wa kingo, kisha uhifadhi matokeo kama PNG."
   },
   "nb": {
     "x_search_terms": [
@@ -473,20 +488,21 @@
       "bildeforbehandling",
       "bildetransformasjon"
     ],
-    "param.deskew.description": "Attempt to correct small image skew (lightweight heuristic).",
-    "ok.generated": "[OK] generated: {path}",
-    "err.image_path_empty": "[preprocess_image] image_path is required",
-    "param.denoise.description": "Apply denoising / smoothing.",
-    "param.binarize.description": "Apply binarization / thresholding.",
-    "param.grayscale.description": "Convert the image to grayscale.",
-    "param.mode.description": "--- FANGET: {html}, {png}, {flow}, {snapshots}/ --- __DELIM_102.__",
-    "param.contrast.description": "Optional contrast factor. 1.0 keeps original; >1.0 increases contrast.",
-    "param.resize.description": "Optional resize target, e.g. 2x or 1600x1200. Leave empty to keep original size.",
-    "err.image_not_found": "[preprocess_image] image file not found: {path}",
-    "param.edge_enhance.description": "Enhance edges / outlines.",
-    "param.output_dir.description": "Directory to save processed images. Defaults to outputs/image_preprocess if omitted.",
-    "param.prefix.description": "Prefix for the saved filename (optional).",
-    "param.img.description": "Path to the source image to preprocess."
+    "param.deskew.description": "Forsøk å korrigere liten bildeskjevhet (lett heuristikk).",
+    "ok.generated": "[OK] generert: {path}",
+    "err.image_path_empty": "[preprocess_image] image_path kreves",
+    "param.denoise.description": "Påfør denoising/utjevning.",
+    "param.binarize.description": "Bruk binarisering / terskelverdi.",
+    "param.grayscale.description": "Konverter bildet til gråtoner.",
+    "param.mode.description": "Forbehandlingsmodus.",
+    "param.contrast.description": "Valgfri kontrastfaktor. 1.0 beholder originalen; >1,0 øker kontrasten.",
+    "param.resize.description": "Valgfritt mål for endring av størrelse, f.eks. 2x eller 1600x1200. La stå tomt for å beholde originalstørrelsen.",
+    "err.image_not_found": "[preprocess_image] bildefil ikke funnet: {path}",
+    "param.edge_enhance.description": "Forbedre kanter/konturer.",
+    "param.output_dir.description": "Katalog for å lagre behandlede bilder. Standard til outputs/image_preprocess hvis utelatt.",
+    "param.prefix.description": "Prefiks for det lagrede filnavnet (valgfritt).",
+    "param.img.description": "Banen til kildebildet for å forhåndsbehandle.",
+    "tool.description": "Bruk bildeforbehandling som gråtoner, denoise, binarisering og kantforbedring, og lagre deretter resultatet som en PNG."
   },
   "nl": {
     "x_search_terms": [
@@ -500,20 +516,21 @@
       "afbeelding voorbewerken",
       "afbeelding transformatie"
     ],
-    "param.deskew.description": "Attempt to correct small image skew (lightweight heuristic).",
-    "ok.generated": "[OK] generated: {path}",
-    "err.image_path_empty": "[preprocess_image] image_path is required",
-    "param.denoise.description": "Apply denoising / smoothing.",
-    "param.binarize.description": "Apply binarization / thresholding.",
-    "param.grayscale.description": "Convert the image to grayscale.",
+    "param.deskew.description": "Probeer een kleine scheefheid van de afbeelding te corrigeren (lichtgewicht heuristiek).",
+    "ok.generated": "[OK] gegenereerd: {path}",
+    "err.image_path_empty": "[preprocess_image] afbeeldingspad is vereist",
+    "param.denoise.description": "Breng ruisonderdrukking/verzachting aan.",
+    "param.binarize.description": "Pas binarisatie/drempelwaarde toe.",
+    "param.grayscale.description": "Converteer de afbeelding naar grijswaarden.",
     "param.mode.description": "Voorverwerkingsmodus.",
-    "param.contrast.description": "Optional contrast factor. 1.0 keeps original; >1.0 increases contrast.",
-    "param.resize.description": "Optional resize target, e.g. 2x or 1600x1200. Leave empty to keep original size.",
-    "err.image_not_found": "[preprocess_image] image file not found: {path}",
-    "param.edge_enhance.description": "Enhance edges / outlines.",
-    "param.output_dir.description": "Directory to save processed images. Defaults to outputs/image_preprocess if omitted.",
-    "param.prefix.description": "Prefix for the saved filename (optional).",
-    "param.img.description": "Path to the source image to preprocess."
+    "param.contrast.description": "Optionele contrastfactor. 1.0 blijft origineel; >1,0 verhoogt het contrast.",
+    "param.resize.description": "Optioneel formaat van doel wijzigen, b.v. 2x of 1600x1200. Laat dit leeg om de originele grootte te behouden.",
+    "err.image_not_found": "[preprocess_image] afbeeldingsbestand niet gevonden: {path}",
+    "param.edge_enhance.description": "Verbeter randen / contouren.",
+    "param.output_dir.description": "Directory om verwerkte afbeeldingen op te slaan. Standaard ingesteld op outputs/image_preprocess indien weggelaten.",
+    "param.prefix.description": "Voorvoegsel voor de opgeslagen bestandsnaam (optioneel).",
+    "param.img.description": "Pad naar de bronafbeelding die moet worden voorbewerkt.",
+    "tool.description": "Pas beeldvoorbewerking toe, zoals grijstinten, ruis verwijderen, binarisatie en randverbetering, en sla het resultaat vervolgens op als PNG."
   },
   "fi": {
     "x_search_terms": [
@@ -527,20 +544,21 @@
       "kuvan esikäsittely",
       "kuvan muunnos"
     ],
-    "param.deskew.description": "Attempt to correct small image skew (lightweight heuristic).",
-    "ok.generated": "[OK] generated: {path}",
-    "err.image_path_empty": "[preprocess_image] image_path is required",
-    "param.denoise.description": "Apply denoising / smoothing.",
-    "param.binarize.description": "Apply binarization / thresholding.",
-    "param.grayscale.description": "Convert the image to grayscale.",
+    "param.deskew.description": "Yritä korjata pieni kuvan vino (kevyt heuristinen).",
+    "ok.generated": "[OK] luotu: {path}",
+    "err.image_path_empty": "[preprocess_image] image_path vaaditaan",
+    "param.denoise.description": "Levitä äänenvaimennus / tasoitus.",
+    "param.binarize.description": "Käytä binarisointia / kynnysarvoa.",
+    "param.grayscale.description": "Muunna kuva harmaasävyiksi.",
     "param.mode.description": "Esikäsittelytila.",
-    "param.contrast.description": "Optional contrast factor. 1.0 keeps original; >1.0 increases contrast.",
-    "param.resize.description": "Optional resize target, e.g. 2x or 1600x1200. Leave empty to keep original size.",
-    "err.image_not_found": "[preprocess_image] image file not found: {path}",
-    "param.edge_enhance.description": "Enhance edges / outlines.",
-    "param.output_dir.description": "Directory to save processed images. Defaults to outputs/image_preprocess if omitted.",
-    "param.prefix.description": "Prefix for the saved filename (optional).",
-    "param.img.description": "Path to the source image to preprocess."
+    "param.contrast.description": "Valinnainen kontrastitekijä. 1.0 säilyttää alkuperäisen; >1.0 lisää kontrastia.",
+    "param.resize.description": "Valinnainen koonmuutoskohde, esim. 2x tai 1600x1200. Jätä tyhjäksi säilyttääksesi alkuperäisen koon.",
+    "err.image_not_found": "[preprocess_image] -kuvatiedostoa ei löydy: {path}",
+    "param.edge_enhance.description": "Paranna reunoja / ääriviivoja.",
+    "param.output_dir.description": "Hakemisto käsiteltyjen kuvien tallentamiseen. Oletusarvo on outputs/image_preprocess, jos se jätetään pois.",
+    "param.prefix.description": "Tallennetun tiedostonimen etuliite (valinnainen).",
+    "param.img.description": "Esikäsiteltävän lähdekuvan polku.",
+    "tool.description": "Käytä kuvan esikäsittelyä, kuten harmaasävyä, kohinaa, binarisointia ja reunan parannusta, ja tallenna sitten tulos PNG-muodossa."
   },
   "cs": {
     "x_search_terms": [
@@ -554,20 +572,21 @@
       "předzpracování obrazu",
       "transformace obrázku"
     ],
-    "param.deskew.description": "Attempt to correct small image skew (lightweight heuristic).",
-    "ok.generated": "[OK] generated: {path}",
-    "err.image_path_empty": "[preprocess_image] image_path is required",
-    "param.denoise.description": "Apply denoising / smoothing.",
-    "param.binarize.description": "Apply binarization / thresholding.",
-    "param.grayscale.description": "Convert the image to grayscale.",
+    "param.deskew.description": "Pokuste se opravit malé zkreslení obrazu (lehká heuristika).",
+    "ok.generated": "[OK] vygenerováno: {path}",
+    "err.image_path_empty": "[preprocess_image] je vyžadována cesta k obrázku",
+    "param.denoise.description": "Aplikujte odšumování / vyhlazování.",
+    "param.binarize.description": "Použít binarizaci / prahování.",
+    "param.grayscale.description": "Převeďte obrázek do odstínů šedi.",
     "param.mode.description": "Režim předběžného zpracování.",
-    "param.contrast.description": "Optional contrast factor. 1.0 keeps original; >1.0 increases contrast.",
-    "param.resize.description": "Optional resize target, e.g. 2x or 1600x1200. Leave empty to keep original size.",
-    "err.image_not_found": "[preprocess_image] image file not found: {path}",
-    "param.edge_enhance.description": "Enhance edges / outlines.",
-    "param.output_dir.description": "Directory to save processed images. Defaults to outputs/image_preprocess if omitted.",
-    "param.prefix.description": "Prefix for the saved filename (optional).",
-    "param.img.description": "Path to the source image to preprocess."
+    "param.contrast.description": "Volitelný kontrastní faktor. 1.0 zachovává původní; >1,0 zvyšuje kontrast.",
+    "param.resize.description": "Volitelný cíl pro změnu velikosti, např. 2x nebo 1600x1200. Nechte prázdné, abyste zachovali původní velikost.",
+    "err.image_not_found": "Soubor obrázku [preprocess_image] nebyl nalezen: {path}",
+    "param.edge_enhance.description": "Vylepšení hran / obrysů.",
+    "param.output_dir.description": "Adresář pro ukládání zpracovaných obrázků. Výchozí hodnota outputs/image_preprocess, pokud je vynechána.",
+    "param.prefix.description": "Předpona pro uložený název souboru (volitelné).",
+    "param.img.description": "Cesta ke zdrojovému obrazu k předběžnému zpracování.",
+    "tool.description": "Použijte předzpracování obrazu, jako jsou stupně šedi, odšum, binarizace a vylepšení hran, a poté výsledek uložte jako PNG."
   },
   "uk": {
     "x_search_terms": [
@@ -581,20 +600,21 @@
       "попередня обробка зображення",
       "перетворення зображення"
     ],
-    "param.deskew.description": "Attempt to correct small image skew (lightweight heuristic).",
-    "ok.generated": "[OK] generated: {path}",
-    "err.image_path_empty": "[preprocess_image] image_path is required",
-    "param.denoise.description": "Apply denoising / smoothing.",
-    "param.binarize.description": "Apply binarization / thresholding.",
-    "param.grayscale.description": "Convert the image to grayscale.",
+    "param.deskew.description": "Спроба виправити невеликий перекіс зображення (полегшена евристика).",
+    "ok.generated": "[OK] створено: {path}",
+    "err.image_path_empty": "[preprocess_image] image_path потрібен",
+    "param.denoise.description": "Застосувати шумозаглушення/згладжування.",
+    "param.binarize.description": "Застосувати бінаризацію / порогове значення.",
+    "param.grayscale.description": "Перетворити зображення в градації сірого.",
     "param.mode.description": "Режим попередньої обробки.",
-    "param.contrast.description": "Optional contrast factor. 1.0 keeps original; >1.0 increases contrast.",
-    "param.resize.description": "Optional resize target, e.g. 2x or 1600x1200. Leave empty to keep original size.",
-    "err.image_not_found": "[preprocess_image] image file not found: {path}",
-    "param.edge_enhance.description": "Enhance edges / outlines.",
-    "param.output_dir.description": "Directory to save processed images. Defaults to outputs/image_preprocess if omitted.",
-    "param.prefix.description": "Prefix for the saved filename (optional).",
-    "param.img.description": "Path to the source image to preprocess."
+    "param.contrast.description": "Додатковий фактор контрастності. 1.0 зберігає оригінал; >1,0 збільшує контрастність.",
+    "param.resize.description": "Додаткова ціль зміни розміру, напр. 2x або 1600x1200. Залиште пустим, щоб зберегти початковий розмір.",
+    "err.image_not_found": "[preprocess_image] файл зображення не знайдено: {path}",
+    "param.edge_enhance.description": "Покращення країв / контурів.",
+    "param.output_dir.description": "Каталог для збереження оброблених зображень. За замовчуванням значення outputs/image_preprocess якщо опущено.",
+    "param.prefix.description": "Префікс імені збереженого файлу (необов’язково).",
+    "param.img.description": "Шлях до вихідного зображення для попередньої обробки.",
+    "tool.description": "Застосуйте попередню обробку зображення, як-от відтінки сірого, усунення шумів, бінаризацію та покращення країв, а потім збережіть результат у форматі PNG."
   },
   "tr": {
     "x_search_terms": [
@@ -608,20 +628,21 @@
       "görüntü önişlemesi",
       "görüntü dönüşümü"
     ],
-    "param.deskew.description": "Attempt to correct small image skew (lightweight heuristic).",
-    "ok.generated": "[OK] generated: {path}",
-    "err.image_path_empty": "[preprocess_image] image_path is required",
-    "param.denoise.description": "Apply denoising / smoothing.",
-    "param.binarize.description": "Apply binarization / thresholding.",
-    "param.grayscale.description": "Convert the image to grayscale.",
+    "param.deskew.description": "Küçük görüntü eğriliğini düzeltmeye çalışın (hafif buluşsal yöntem).",
+    "ok.generated": "[Tamam] oluşturuldu: {path}",
+    "err.image_path_empty": "[önişlem_görüntü] görüntü_yolu gerekli",
+    "param.denoise.description": "Gürültü giderme / yumuşatma uygulayın.",
+    "param.binarize.description": "İkilileştirme/eşikleme uygulayın.",
+    "param.grayscale.description": "Görüntüyü gri tonlamaya dönüştürün.",
     "param.mode.description": "Ön işleme modu.",
-    "param.contrast.description": "Optional contrast factor. 1.0 keeps original; >1.0 increases contrast.",
-    "param.resize.description": "Optional resize target, e.g. 2x or 1600x1200. Leave empty to keep original size.",
-    "err.image_not_found": "[preprocess_image] image file not found: {path}",
-    "param.edge_enhance.description": "Enhance edges / outlines.",
-    "param.output_dir.description": "Directory to save processed images. Defaults to outputs/image_preprocess if omitted.",
-    "param.prefix.description": "Prefix for the saved filename (optional).",
-    "param.img.description": "Path to the source image to preprocess."
+    "param.contrast.description": "İsteğe bağlı kontrast faktörü. 1.0 orijinali korur; >1,0 kontrastı artırır.",
+    "param.resize.description": "İsteğe bağlı yeniden boyutlandırma hedefi, ör. 2x veya 1600x1200. Orijinal boyutu korumak için boş bırakın.",
+    "err.image_not_found": "[preprocess_image] resim dosyası bulunamadı: {path}",
+    "param.edge_enhance.description": "Kenarları/ana hatları geliştirin.",
+    "param.output_dir.description": "İşlenen görüntülerin kaydedileceği dizin. Atlanırsa varsayılan olarak çıktılar/image_preprocess olarak ayarlanır.",
+    "param.prefix.description": "Kaydedilen dosya adı için önek (isteğe bağlı).",
+    "param.img.description": "Ön işleme tabi tutulacak kaynak görüntünün yolu.",
+    "tool.description": "Gri tonlama, gürültü giderme, ikilileştirme ve kenar iyileştirme gibi görüntü ön işlemelerini uygulayın ve ardından sonucu PNG olarak kaydedin."
   },
   "th": {
     "x_search_terms": [
@@ -635,20 +656,21 @@
       "การประมวลผลภาพล่วงหน้า",
       "การแปลงภาพ"
     ],
-    "param.deskew.description": "Attempt to correct small image skew (lightweight heuristic).",
-    "ok.generated": "[OK] generated: {path}",
-    "err.image_path_empty": "[preprocess_image] image_path is required",
-    "param.denoise.description": "Apply denoising / smoothing.",
-    "param.binarize.description": "Apply binarization / thresholding.",
-    "param.grayscale.description": "Convert the image to grayscale.",
+    "param.deskew.description": "พยายามแก้ไขการเอียงของภาพเล็กน้อย (การศึกษาพฤติกรรมแบบ lightweight)",
+    "ok.generated": "[ตกลง] สร้างขึ้น: {path}",
+    "err.image_path_empty": "จำเป็นต้องมี [preprocess_image] image_path",
+    "param.denoise.description": "ใช้ลดนอยส์/ปรับให้เรียบ",
+    "param.binarize.description": "ใช้ไบนารี / การกำหนดเกณฑ์ขั้นต่ำ",
+    "param.grayscale.description": "แปลงภาพให้เป็นโทนสีเทา",
     "param.mode.description": "โหมดประมวลผลล่วงหน้า",
-    "param.contrast.description": "Optional contrast factor. 1.0 keeps original; >1.0 increases contrast.",
-    "param.resize.description": "Optional resize target, e.g. 2x or 1600x1200. Leave empty to keep original size.",
-    "err.image_not_found": "[preprocess_image] image file not found: {path}",
-    "param.edge_enhance.description": "Enhance edges / outlines.",
-    "param.output_dir.description": "Directory to save processed images. Defaults to outputs/image_preprocess if omitted.",
-    "param.prefix.description": "Prefix for the saved filename (optional).",
-    "param.img.description": "Path to the source image to preprocess."
+    "param.contrast.description": "ปัจจัยความคมชัดที่เป็นตัวเลือก 1.0 คงความเป็นต้นฉบับ >1.0 เพิ่มคอนทราสต์",
+    "param.resize.description": "เป้าหมายการปรับขนาดเพิ่มเติม เช่น 2x หรือ 1600x1200 เว้นว่างไว้เพื่อรักษาขนาดเดิม",
+    "err.image_not_found": "ไม่พบไฟล์ภาพ [preprocess_image]: {path}",
+    "param.edge_enhance.description": "ปรับปรุงขอบ/โครงร่าง",
+    "param.output_dir.description": "ไดเร็กทอรีสำหรับบันทึกภาพที่ประมวลผล ค่าเริ่มต้นเป็น outputs/image_preprocess หากละเว้น",
+    "param.prefix.description": "คำนำหน้าชื่อไฟล์ที่บันทึกไว้ (ไม่บังคับ)",
+    "param.img.description": "เส้นทางไปยังอิมเมจต้นฉบับเพื่อประมวลผลล่วงหน้า",
+    "tool.description": "ใช้การประมวลผลภาพล่วงหน้า เช่น ระดับสีเทา ลดเสียงรบกวน ไบนาไรเซชัน และการปรับปรุงขอบ จากนั้นบันทึกผลลัพธ์เป็น PNG"
   },
   "zh_CN": {
     "x_search_terms": [
@@ -662,20 +684,21 @@
       "图像预处理",
       "图像变换"
     ],
-    "param.deskew.description": "Attempt to correct small image skew (lightweight heuristic).",
-    "ok.generated": "[OK] generated: {path}",
-    "err.image_path_empty": "[preprocess_image] image_path is required",
-    "param.denoise.description": "Apply denoising / smoothing.",
-    "param.binarize.description": "Apply binarization / thresholding.",
-    "param.grayscale.description": "Convert the image to grayscale.",
+    "param.deskew.description": "尝试纠正小图像倾斜（轻量级启发式）。",
+    "ok.generated": "[确定]生成：{path}",
+    "err.image_path_empty": "[preprocess_image] image_path 是必需的",
+    "param.denoise.description": "应用去噪/平滑。",
+    "param.binarize.description": "应用二值化/阈值化。",
+    "param.grayscale.description": "将图像转换为灰度。",
     "param.mode.description": "预处理模式。",
-    "param.contrast.description": "Optional contrast factor. 1.0 keeps original; >1.0 increases contrast.",
-    "param.resize.description": "Optional resize target, e.g. 2x or 1600x1200. Leave empty to keep original size.",
-    "err.image_not_found": "[preprocess_image] image file not found: {path}",
-    "param.edge_enhance.description": "Enhance edges / outlines.",
-    "param.output_dir.description": "Directory to save processed images. Defaults to outputs/image_preprocess if omitted.",
-    "param.prefix.description": "Prefix for the saved filename (optional).",
-    "param.img.description": "Path to the source image to preprocess."
+    "param.contrast.description": "可选对比度系数。 1.0保持原汁原味； >1.0 增加对比度。",
+    "param.resize.description": "可选的调整目标大小，例如2x 或 1600x1200。留空以保持原始大小。",
+    "err.image_not_found": "[preprocess_image] 未找到图像文件：{path}",
+    "param.edge_enhance.description": "增强边缘/轮廓。",
+    "param.output_dir.description": "保存处理后的图像的目录。如果省略，则默认为outputs/image_preprocess。",
+    "param.prefix.description": "保存的文件名的前缀（可选）。",
+    "param.img.description": "要预处理的源图像的路径。",
+    "tool.description": "应用图像预处理，例如灰度、去噪、二值化和边缘增强，然后将结果保存为 PNG。"
   },
   "zh_TW": {
     "x_search_terms": [
@@ -689,20 +712,21 @@
       "影像預處理",
       "影像變換"
     ],
-    "param.deskew.description": "Attempt to correct small image skew (lightweight heuristic).",
-    "ok.generated": "[OK] generated: {path}",
-    "err.image_path_empty": "[preprocess_image] image_path is required",
-    "param.denoise.description": "Apply denoising / smoothing.",
-    "param.binarize.description": "Apply binarization / thresholding.",
-    "param.grayscale.description": "Convert the image to grayscale.",
+    "param.deskew.description": "嘗試修正小影像傾斜（輕量級啟發式）。",
+    "ok.generated": "[確定]產生：{path}",
+    "err.image_path_empty": "[preprocess_image] image_path 是必要的",
+    "param.denoise.description": "應用去噪/平滑。",
+    "param.binarize.description": "應用二值化/閾值化。",
+    "param.grayscale.description": "將影像轉換為灰階。",
     "param.mode.description": "预处理模式。",
-    "param.contrast.description": "Optional contrast factor. 1.0 keeps original; >1.0 increases contrast.",
-    "param.resize.description": "Optional resize target, e.g. 2x or 1600x1200. Leave empty to keep original size.",
-    "err.image_not_found": "[preprocess_image] image file not found: {path}",
-    "param.edge_enhance.description": "Enhance edges / outlines.",
-    "param.output_dir.description": "Directory to save processed images. Defaults to outputs/image_preprocess if omitted.",
-    "param.prefix.description": "Prefix for the saved filename (optional).",
-    "param.img.description": "Path to the source image to preprocess."
+    "param.contrast.description": "可選對比度係數。 1.0保持原汁原味； >1.0 增加對比。",
+    "param.resize.description": "可選的調整目標大小，例如2x 或 1600x1200。留空以保持原始大小。",
+    "err.image_not_found": "[preprocess_image] 找不到影像檔：{path}",
+    "param.edge_enhance.description": "增強邊緣/輪廓。",
+    "param.output_dir.description": "儲存處理後的影像的目錄。如果省略，則預設為outputs/image_preprocess。",
+    "param.prefix.description": "已儲存的檔案名稱的前綴（可選）。",
+    "param.img.description": "要預處理的來源影像的路徑。",
+    "tool.description": "應用影像預處理，例如灰階、去噪、二值化和邊緣增強，然後將結果儲存為 PNG。"
   },
   "bn": {
     "x_search_terms": [
@@ -729,7 +753,8 @@
     "err.image_not_found": "[preprocess_image] image file পাওয়া যায়নি: {path}",
     "ok.generated": "[OK] তৈরি হয়েছে: {path}",
     "param.prefix.description": "সংরক্ষিত ফাইলনামের prefix (ঐচ্ছিক)।",
-    "param.img.description": "প্রি-প্রসেস করার জন্য উৎস ছবির path।"
+    "param.img.description": "প্রি-প্রসেস করার জন্য উৎস ছবির path।",
+    "tool.description": "ইমেজ প্রিপ্রসেসিং যেমন গ্রেস্কেল, ডিনোইস, বাইনারিকরণ এবং এজ এনহান্সমেন্ট প্রয়োগ করুন, তারপর ফলাফলটিকে PNG হিসাবে সংরক্ষণ করুন।"
   },
   "fa": {
     "x_search_terms": [
@@ -756,7 +781,8 @@
     "err.image_not_found": "[preprocess_image] فایل تصویر پیدا نشد: {path}",
     "ok.generated": "[OK] ایجاد شد: {path}",
     "param.prefix.description": "پیشوند نام فایلِ ذخیره‌شده (اختیاری).",
-    "param.img.description": "مسیر تصویرِ منبع برای پیش‌پردازش."
+    "param.img.description": "مسیر تصویرِ منبع برای پیش‌پردازش.",
+    "tool.description": "پیش پردازش تصویر مانند مقیاس خاکستری، حذف نویز، باینریزه کردن و بهبود لبه را اعمال کنید، سپس نتیجه را به صورت PNG ذخیره کنید."
   },
   "mn": {
     "x_search_terms": [
@@ -783,7 +809,8 @@
     "err.image_not_found": "[preprocess_image] image file олдсонгүй: {path}",
     "ok.generated": "[OK] үүсгэлээ: {path}",
     "param.prefix.description": "Хадгалах файлын нэрийн prefix (сонголттой).",
-    "param.img.description": "Урьдчилан боловсруулах эх зургийн зам."
+    "param.img.description": "Урьдчилан боловсруулах эх зургийн зам.",
+    "tool.description": "Саарал өнгө, бүдгэрүүлэх, хоёртын хэлбэрт оруулах, ирмэгийг сайжруулах зэрэг зургийн урьдчилсан боловсруулалтыг хийж, үр дүнг PNG хэлбэрээр хадгална."
   },
   "mr": {
     "x_search_terms": [
@@ -810,7 +837,8 @@
     "err.image_not_found": "[preprocess_image] image file सापडली नाही: {path}",
     "ok.generated": "[OK] तयार झाले: {path}",
     "param.prefix.description": "जतन केलेल्या फाइलनावासाठी prefix (ऐच्छिक).",
-    "param.img.description": "प्रीप्रोसेस करण्यासाठी स्त्रोत प्रतिमेचा मार्ग."
+    "param.img.description": "प्रीप्रोसेस करण्यासाठी स्त्रोत प्रतिमेचा मार्ग.",
+    "tool.description": "ग्रेस्केल, डिनोइझ, बायनरायझेशन आणि एज एन्हांसमेंट यासारखी इमेज प्रीप्रोसेसिंग लागू करा, नंतर परिणाम PNG म्हणून सेव्ह करा."
   },
   "el": {
     "x_search_terms": [
@@ -835,9 +863,10 @@
     "param.output_dir.description": "Κατάλογος για αποθήκευση επεξεργασμένων εικόνων. Προεπιλογές για outputs/image_preprocess εάν παραλειφθεί.",
     "err.image_path_empty": "Απαιτείται [preprocess_image] image_path",
     "err.image_not_found": "[preprocess_image] αρχείο εικόνας δεν βρέθηκε: {path}",
-    "ok.generated": "[OK] δημιουργήθηκε:\n{paths}",
+    "ok.generated": "[ΟΚ] δημιουργήθηκε: {path}",
     "param.prefix.description": "Λειτουργία εποπτείας εικόνας (προαιρετικό).",
-    "param.img.description": "Διαδρομή προς την εικόνα προέλευσης για προεπεξεργασία."
+    "param.img.description": "Διαδρομή προς την εικόνα προέλευσης για προεπεξεργασία.",
+    "tool.description": "Εφαρμόστε προεπεξεργασία εικόνας, όπως κλίμακα του γκρι, αποθόρυβο, δυαδοποίηση και βελτίωση άκρων και, στη συνέχεια, αποθηκεύστε το αποτέλεσμα ως PNG."
   },
   "he": {
     "x_search_terms": [
@@ -864,7 +893,8 @@
     "err.image_not_found": "קובץ התמונה [preprocess_image] לא נמצא: {path}",
     "ok.generated": "[אישור] נוצר: {path}",
     "param.prefix.description": "קידומת עבור שם הקובץ השמור (אופציונלי).",
-    "param.img.description": "נתיב לתמונת המקור לעיבוד מקדים."
+    "param.img.description": "נתיב לתמונת המקור לעיבוד מקדים.",
+    "tool.description": "החל עיבוד מקדים של תמונה כגון גווני אפור, דה-נויז, בינאריזציה ושיפור קצה, ולאחר מכן שמור את התוצאה כ-PNG."
   },
   "hu": {
     "x_search_terms": [
@@ -891,7 +921,8 @@
     "err.image_not_found": "[preprocess_image] képfájl nem található: {path}",
     "ok.generated": "[OK] generálva: {path}",
     "param.prefix.description": "A mentett fájlnév előtagja (opcionális).",
-    "param.img.description": "Az előfeldolgozáshoz szükséges forráskép elérési útja."
+    "param.img.description": "Az előfeldolgozáshoz szükséges forráskép elérési útja.",
+    "tool.description": "Alkalmazzon kép-előfeldolgozást, például szürkeárnyalatos, zajtalanítást, binarizálást és éljavítást, majd mentse az eredményt PNG formátumban."
   },
   "ro": {
     "x_search_terms": [
@@ -918,6 +949,7 @@
     "err.image_not_found": "[preprocess_image] fișier imagine nu a fost găsit: {path}",
     "ok.generated": "[OK] generate: {path}",
     "param.prefix.description": "Prefix pentru numele fișierului salvat (opțional).",
-    "param.img.description": "Calea către imaginea sursă pentru preprocesare."
+    "param.img.description": "Calea către imaginea sursă pentru preprocesare.",
+    "tool.description": "Aplicați preprocesarea imaginii, cum ar fi tonuri de gri, dezgomot, binarizare și îmbunătățirea marginilor, apoi salvați rezultatul ca PNG."
   }
 }

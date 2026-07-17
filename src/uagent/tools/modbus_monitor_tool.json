@@ -74,7 +74,7 @@
   "cs": {
     "tool.description": "Poll Modbus se opakovaně registruje a detekuje změny. Vrátí souhrn všech zjištěných změn.",
     "param.ip.description": "Adresa IPv4 cílového zařízení.",
-    "param.port.description": "Modbus TCP port.",
+    "param.port.description": "Port Modbus TCP.",
     "param.unit.description": "ID jednotky Modbus.",
     "param.type.description": "Registrovat typ pro sledování.",
     "param.address.description": "Počáteční adresa registrace.",

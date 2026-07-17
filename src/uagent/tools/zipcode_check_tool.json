@@ -66,7 +66,7 @@
     "param.prefecture.description": "Nom de la préfecture japonaise dans laquelle répertorier les villes (par exemple « 東京都 », « Kanagawa »). Kanji, kana ou romaji acceptés."
   },
   "ko": {
-    "tool.description": "Look up Japanese addresses by zipcode, or list cities in a prefecture. Uses the jpzip public dataset (no API key required).",
+    "tool.description": "우편번호로 일본 주소를 검색하거나 현의 도시를 나열하세요. jpzip 공개 데이터 세트를 사용합니다(API 키가 필요하지 않음).",
     "x_search_terms": [
       "zipcode",
       "postal code",
@@ -132,20 +132,6 @@
     ],
     "param.zipcode.description": "7-значный японский почтовый индекс для поиска (например, «1000001»). Дефисы игнорируются.",
     "param.prefecture.description": "Название японской префектуры, в которой будут указаны города (например, «東京都», «Канагава»). Принимаются кандзи, кана или ромадзи."
-  },
-  "pt_br": {
-    "tool.description": "Look up Japanese addresses by zipcode, or list cities in a prefecture. Usa o conjunto de dados público jpzip (não é necessária chave de API).",
-    "x_search_terms": [
-      "CEP",
-      "código postal",
-      "Endereço no Japão",
-      "pesquisa de endereço",
-      "CEP japonês",
-      "zip code",
-      "postal"
-    ],
-    "param.zipcode.description": "CEP japonês de 7 dígitos para procurar (por exemplo, '1000001'). Os hífens são ignorados.",
-    "param.prefecture.description": "Nome da prefeitura japonesa para listar as cidades (por exemplo, '東京都', 'Kanagawa'). Kanji, kana ou romaji são aceitos."
   },
   "pt": {
     "tool.description": "Look up Japanese addresses by zipcode, or list cities in a prefecture. Usa o conjunto de dados público jpzip (não é necessária chave de API).",
@@ -267,7 +253,7 @@
     "param.prefecture.description": "Japansk prefekturnamn för att lista städer i (t.ex. '東京都', 'Kanagawa'). Kanji, kana eller romaji accepteras."
   },
   "sw": {
-    "tool.description": "Look up Japanese addresses by zipcode, or list cities in a prefecture. Uses the jpzip public dataset (no API key required).",
+    "tool.description": "Tafuta anwani za Kijapani kwa msimbo wa posta, au orodhesha miji katika mkoa. Inatumia mkusanyiko wa data wa jpzip (hakuna ufunguo wa API unaohitajika).",
     "x_search_terms": [
       "zipcode",
       "postal code",
@@ -280,8 +266,8 @@
       "japan address",
       "〒"
     ],
-    "param.zipcode.description": "7-digit Japanese zipcode to look up (e.g. '1000001'). Hyphens are ignored.",
-    "param.prefecture.description": "Japanese prefecture name to list cities in (e.g. '東京都', 'Kanagawa'). Kanji, kana, or romaji accepted."
+    "param.zipcode.description": "Msimbo wa eneo wa Kijapani wenye tarakimu 7 wa kutafuta (k.m. '1000001'). Vistawishi hupuuzwa.",
+    "param.prefecture.description": "Jina la wilaya ya Japani kuorodhesha miji katika (k.m. '東京都', 'Kanagawa'). Kanji, kana, au romaji imekubaliwa."
   },
   "nb": {
     "tool.description": "Slå opp japanske adresser etter postnummer, eller oppgi byer i en prefektur. Bruker det offentlige jpzip-datasettet (ingen API-nøkkel kreves).",
@@ -401,34 +387,6 @@
     ],
     "param.zipcode.description": "รหัสไปรษณีย์ญี่ปุ่น 7 หลักเพื่อค้นหา (เช่น '1000001') ยัติภังค์จะถูกละเว้น",
     "param.prefecture.description": "ชื่อจังหวัดของญี่ปุ่นสำหรับแสดงรายการเมืองต่างๆ (เช่น '東京都', 'Kanagawa') ยอมรับคันจิ คานา หรือโรมาจิ"
-  },
-  "zh_cn": {
-    "tool.description": "通过邮政编码查找日本地址，或列出县内的城市。使用 jpzip 公共数据集（无需 API 密钥）。",
-    "x_search_terms": [
-      "邮政编码",
-      "邮政编码",
-      "日本地址",
-      "地址查找",
-      "日本邮政编码",
-      "zip code",
-      "postal"
-    ],
-    "param.zipcode.description": "要查找的 7 位日本邮政编码（例如“1000001”）。连字符被忽略。",
-    "param.prefecture.description": "列出城市的日本都道府县名称（例如“东京都”、“神奈川”）。接受汉字、假名或罗马字。"
-  },
-  "zh_tw": {
-    "tool.description": "透過郵遞區號尋找日本地址，或列出縣內的城市。使用 jpzip 公用資料集（無需 API 金鑰）。",
-    "x_search_terms": [
-      "郵遞區號",
-      "郵遞區號",
-      "日本地址",
-      "地址查找",
-      "日本郵遞區號",
-      "zip code",
-      "postal"
-    ],
-    "param.zipcode.description": "要尋找的 7 位日本郵遞區號（例如「1000001」）。連字符被忽略。",
-    "param.prefecture.description": "列出城市日本都道府縣的名稱（例如「東京都」、「神奈川」）。接受漢字、假名或羅馬字。"
   },
   "bn": {
     "tool.description": "জিপকোড দ্বারা জাপানি ঠিকানাগুলি সন্ধান করুন, বা একটি প্রিফেকচারের শহরগুলির তালিকা করুন৷ jpzip পাবলিক ডেটাসেট ব্যবহার করে (কোন API কী প্রয়োজন নেই)।",
@@ -565,5 +523,47 @@
     ],
     "param.zipcode.description": "Cod poștal japonez din 7 cifre de căutat (de exemplu, „1000001”). Cratimele sunt ignorate.",
     "param.prefecture.description": "Numele prefecturii japoneze pentru a lista orașele în (de exemplu, „東京都”, „Kanagawa”). Se acceptă kanji, kana sau romaji."
+  },
+  "pt_BR": {
+    "tool.description": "Look up Japanese addresses by zipcode, or list cities in a prefecture. Usa o conjunto de dados público jpzip (não é necessária chave de API).",
+    "x_search_terms": [
+      "CEP",
+      "código postal",
+      "Endereço no Japão",
+      "pesquisa de endereço",
+      "CEP japonês",
+      "zip code",
+      "postal"
+    ],
+    "param.zipcode.description": "CEP japonês de 7 dígitos para procurar (por exemplo, '1000001'). Os hífens são ignorados.",
+    "param.prefecture.description": "Nome da prefeitura japonesa para listar as cidades (por exemplo, '東京都', 'Kanagawa'). Kanji, kana ou romaji são aceitos."
+  },
+  "zh_CN": {
+    "tool.description": "通过邮政编码查找日本地址，或列出县内的城市。使用 jpzip 公共数据集（无需 API 密钥）。",
+    "x_search_terms": [
+      "邮政编码",
+      "邮政编码",
+      "日本地址",
+      "地址查找",
+      "日本邮政编码",
+      "zip code",
+      "postal"
+    ],
+    "param.zipcode.description": "要查找的 7 位日本邮政编码（例如“1000001”）。连字符被忽略。",
+    "param.prefecture.description": "列出城市的日本都道府县名称（例如“东京都”、“神奈川”）。接受汉字、假名或罗马字。"
+  },
+  "zh_TW": {
+    "tool.description": "透過郵遞區號尋找日本地址，或列出縣內的城市。使用 jpzip 公用資料集（無需 API 金鑰）。",
+    "x_search_terms": [
+      "郵遞區號",
+      "郵遞區號",
+      "日本地址",
+      "地址查找",
+      "日本郵遞區號",
+      "zip code",
+      "postal"
+    ],
+    "param.zipcode.description": "要尋找的 7 位日本郵遞區號（例如「1000001」）。連字符被忽略。",
+    "param.prefecture.description": "列出城市日本都道府縣的名稱（例如「東京都」、「神奈川」）。接受漢字、假名或羅馬字。"
   }
 }

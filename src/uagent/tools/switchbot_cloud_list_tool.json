@@ -11,7 +11,8 @@
       "سويتش بوت",
       "سحابة",
       "أجهزة"
-    ]
+    ],
+    "tool.description": "قم بإدراج أجهزة SwitchBot Cloud للحساب الذي تم تكوينه."
   },
   "bn": {
     "param.fmt.description": "ফরম্যাট: json বা text।",
@@ -25,7 +26,8 @@
       "সুইচবট",
       "মেঘ",
       "ডিভাইস"
-    ]
+    ],
+    "tool.description": "কনফিগার করা অ্যাকাউন্টের জন্য SwitchBot ক্লাউড ডিভাইসের তালিকা করুন।"
   },
   "cs": {
     "param.fmt.description": "Formát: json nebo text.",
@@ -39,7 +41,8 @@
       "přepínač",
       "mrak",
       "zařízení"
-    ]
+    ],
+    "tool.description": "Seznam zařízení SwitchBot Cloud pro nakonfigurovaný účet."
   },
   "de": {
     "param.fmt.description": "Format: json oder text.",
@@ -53,7 +56,8 @@
       "Switchbot",
       "Wolke",
       "Geräte"
-    ]
+    ],
+    "tool.description": "Listen Sie SwitchBot Cloud-Geräte für das konfigurierte Konto auf."
   },
   "en": {
     "param.fmt.description": "Format: json or text.",
@@ -84,21 +88,23 @@
       "robot conmutador",
       "nube",
       "dispositivos"
-    ]
+    ],
+    "tool.description": "Enumere los dispositivos SwitchBot Cloud para la cuenta configurada."
   },
   "fa": {
     "param.fmt.description": "دستورات برای اجرا.",
-    "msg.device_count": "فهرست دستگاه‌های SwitchBot Cloud برای حساب پیکربندی‌شده.",
-    "msg.error_fmt": "خطا در حین عملیات BLE: {err_msg}\n\n[راهنمای مجوزهای macOS]\nدسترسی بلوتوث ممکن است توسط محدودیت‌های امنیتی macOS رد شده باشد.\nلطفاً به 'تنظیمات سیستم > حریم خصوصی و امنیت > بلوتوث' بروید و اجازه دهید ترمینال، VS Code یا فرآیند پایتون شما به بلوتوث دسترسی داشته باشد.",
-    "msg.fetched_at": "دستگاه‌های SwitchBot Cloud: {count}",
-    "msg.unknown_error": "خطا: {msg}",
+    "msg.device_count": "دستگاه های SwitchBot Cloud: {count}",
+    "msg.error_fmt": "خطا: {msg}",
+    "msg.fetched_at": "واکشی شده در: {ts}",
+    "msg.unknown_error": "خطای ناشناخته",
     "x_search_terms": [
       "لیست ابری switchbot",
       "switchbot_cloud_list",
       "سوییچ‌بات",
       "ابر",
       "دستگاه‌ها"
-    ]
+    ],
+    "tool.description": "دستگاه های SwitchBot Cloud را برای حساب پیکربندی شده فهرست کنید."
   },
   "fi": {
     "param.fmt.description": "Muoto: json tai text.",
@@ -112,7 +118,8 @@
       "kytkinrobotti",
       "pilvi",
       "laitteet"
-    ]
+    ],
+    "tool.description": "Luettele määritetyn tilin SwitchBot Cloud -laitteet."
   },
   "fr": {
     "param.fmt.description": "Format : json ou text.",
@@ -126,7 +133,8 @@
       "robot de commutation",
       "nuage",
       "appareils"
-    ]
+    ],
+    "tool.description": "Répertoriez les appareils SwitchBot Cloud pour le compte configuré."
   },
   "hi": {
     "param.fmt.description": "प्रारूप: json या text।",
@@ -140,7 +148,8 @@
       "स्विचबॉट",
       "बादल",
       "डिवाइस"
-    ]
+    ],
+    "tool.description": "कॉन्फ़िगर किए गए खाते के लिए स्विचबॉट क्लाउड डिवाइस की सूची बनाएं।"
   },
   "id": {
     "param.fmt.description": "Format: json atau teks.",
@@ -154,7 +163,8 @@
       "saklarbot",
       "awan",
       "perangkat"
-    ]
+    ],
+    "tool.description": "Cantumkan perangkat SwitchBot Cloud untuk akun yang dikonfigurasi."
   },
   "it": {
     "param.fmt.description": "Formato: json o text.",
@@ -168,7 +178,8 @@
       "commutatore",
       "nuvola",
       "dispositivi"
-    ]
+    ],
+    "tool.description": "Elenca i dispositivi SwitchBot Cloud per l'account configurato."
   },
   "ja": {
     "param.fmt.description": "形式: json または text。",
@@ -197,35 +208,38 @@
       "스위치봇",
       "구름",
       "장치"
-    ]
+    ],
+    "tool.description": "구성된 계정에 대한 SwitchBot Cloud 장치를 나열합니다."
   },
   "mn": {
     "param.fmt.description": "Гүйцэтгэх командууд.",
-    "msg.device_count": "Тохируулсан бүртгэлийн SwitchBot Cloud төхөөрөмжүүдийг жагсаах.",
-    "msg.error_fmt": "BLE үйл ажиллагааны үед алдаа гарлаа: {err_msg}\n\n[macOS Зөвшөөрлийн Гарын Авлага]\nmacOS аюулгүй байдлын хязгаарлалтаар Bluetooth хандалтыг зөвшөөрөхгүй байж болно.\n'Системийн Тохиргоо > Нууцлал & Аюулгүй Байдал > Bluetooth' хэсгийг нээж, терминал, VS Code, эсвэл Python процесс тань Bluetooth-д хандахыг зөвшөөрсөн эсэхийг шалгана уу.",
-    "msg.fetched_at": "SwitchBot Cloud төхөөрөмжүүд: {count}",
-    "msg.unknown_error": "Алдаа: {msg}",
+    "msg.device_count": "SwitchBot Cloud төхөөрөмжүүд: {count}",
+    "msg.error_fmt": "Алдаа: {msg}",
+    "msg.fetched_at": "Татаж авсан: {ts}",
+    "msg.unknown_error": "үл мэдэгдэх алдаа",
     "x_search_terms": [
       "switchbot үүлэн жагсаалт",
       "switchbot_cloud_list",
       "свичбот",
       "үүл",
       "төхөөрөмж"
-    ]
+    ],
+    "tool.description": "Тохируулсан бүртгэлд зориулсан SwitchBot Cloud төхөөрөмжүүдийг жагсаана уу."
   },
   "mr": {
     "param.fmt.description": "कार्यान्वित करण्यासाठी कमांड्स.",
-    "msg.device_count": "कॉन्फिगर केलेल्या खात्यासाठी SwitchBot Cloud डिव्हाइसेसची यादी करा.",
-    "msg.error_fmt": "BLE ऑपरेशन दरम्यान त्रुटी: {err_msg}\n\n[macOS परवानगी मार्गदर्शक]\nmacOS सुरक्षा निर्बंधांद्वारे ब्लूटूथ प्रवेश नाकारला गेला असावा.\nकृपया 'सिस्टम सेटिंग्ज > प्रायव्हसी आणि सिक्युरिटी > ब्लूटूथ' उघडा आणि तुमच्या टर्मिनल, VS Code, किंवा Python प्रक्रियेला ब्लूटूथमध्ये प्रवेश करण्याची परवानगी आहे याची खात्री करा.",
-    "msg.fetched_at": "SwitchBot Cloud डिव्हाइसेस: {count}",
-    "msg.unknown_error": "त्रुटी: {msg}",
+    "msg.device_count": "स्विचबॉट क्लाउड डिव्हाइसेस: {count}",
+    "msg.error_fmt": "त्रुटी: {msg}",
+    "msg.fetched_at": "येथे आणले: {ts}",
+    "msg.unknown_error": "अज्ञात त्रुटी",
     "x_search_terms": [
       "switchbot क्लाउड यादी",
       "switchbot_cloud_list",
       "स्विचबॉट",
       "ढग",
       "उपकरणे"
-    ]
+    ],
+    "tool.description": "कॉन्फिगर केलेल्या खात्यासाठी SwitchBot क्लाउड डिव्हाइसेसची यादी करा."
   },
   "el": {
     "param.fmt.description": "Μορφή: json ή text.",
@@ -239,7 +253,8 @@
       "διακόπτης",
       "σύννεφο",
       "συσκευές"
-    ]
+    ],
+    "tool.description": "Καταχωρίστε τις συσκευές SwitchBot Cloud για τον διαμορφωμένο λογαριασμό."
   },
   "he": {
     "param.fmt.description": "פורמט: json או text.",
@@ -253,7 +268,8 @@
       "מתג-בוט",
       "ענן",
       "מכשירים"
-    ]
+    ],
+    "tool.description": "רשום מכשירי SwitchBot Cloud עבור החשבון המוגדר."
   },
   "hu": {
     "param.fmt.description": "Formátum: json vagy text.",
@@ -267,7 +283,8 @@
       "kapcsolóbot",
       "felhő",
       "eszközök"
-    ]
+    ],
+    "tool.description": "Sorolja fel a SwitchBot Cloud eszközöket a konfigurált fiókhoz."
   },
   "ro": {
     "param.fmt.description": "Format: json sau text.",
@@ -281,7 +298,8 @@
       "comutator robot",
       "nor",
       "dispozitive"
-    ]
+    ],
+    "tool.description": "Listați dispozitivele SwitchBot Cloud pentru contul configurat."
   },
   "nb": {
     "param.fmt.description": "Format: json eller tekst.",
@@ -295,7 +313,8 @@
       "switchbot",
       "sky",
       "enheter"
-    ]
+    ],
+    "tool.description": "List SwitchBot Cloud-enheter for den konfigurerte kontoen."
   },
   "nl": {
     "param.fmt.description": "Formaat: json of text.",
@@ -309,7 +328,8 @@
       "schakelbot",
       "wolk",
       "apparaten"
-    ]
+    ],
+    "tool.description": "Maak een lijst van SwitchBot Cloud-apparaten voor het geconfigureerde account."
   },
   "pl": {
     "param.fmt.description": "Format: json lub text.",
@@ -323,7 +343,8 @@
       "przełącznik",
       "chmura",
       "urządzenia"
-    ]
+    ],
+    "tool.description": "Wyświetl listę urządzeń SwitchBot Cloud dla skonfigurowanego konta."
   },
   "pt": {
     "param.fmt.description": "Formato: json ou texto.",
@@ -337,7 +358,8 @@
       "robô de comutação",
       "nuvem",
       "dispositivos"
-    ]
+    ],
+    "tool.description": "Listar dispositivos SwitchBot Cloud para a conta configurada."
   },
   "pt_BR": {
     "param.fmt.description": "Formato: json ou texto.",
@@ -351,7 +373,8 @@
       "robô de comutação",
       "nuvem",
       "dispositivos"
-    ]
+    ],
+    "tool.description": "Listar dispositivos SwitchBot Cloud para a conta configurada."
   },
   "ru": {
     "param.fmt.description": "Формат: json или text.",
@@ -365,7 +388,8 @@
       "switchbot",
       "облако",
       "устройства"
-    ]
+    ],
+    "tool.description": "Список устройств SwitchBot Cloud для настроенной учетной записи."
   },
   "sv": {
     "param.fmt.description": "Format: json eller text.",
@@ -379,7 +403,8 @@
       "switchbot",
       "moln",
       "enheter"
-    ]
+    ],
+    "tool.description": "Lista SwitchBot Cloud-enheter för det konfigurerade kontot."
   },
   "sw": {
     "param.fmt.description": "Muundo: json au text.",
@@ -393,7 +418,8 @@
       "kubadili bot",
       "wingu",
       "vifaa"
-    ]
+    ],
+    "tool.description": "Orodhesha vifaa vya Wingu vya SwitchBot kwa akaunti iliyosanidiwa."
   },
   "th": {
     "param.fmt.description": "形式: json または text。",
@@ -407,7 +433,8 @@
       "สวิตช์บอท",
       "คลาวด์",
       "อุปกรณ์"
-    ]
+    ],
+    "tool.description": "แสดงรายการอุปกรณ์ SwitchBot Cloud สำหรับบัญชีที่กำหนดค่า"
   },
   "tr": {
     "param.fmt.description": "Biçim: json veya text.",
@@ -421,7 +448,8 @@
       "anahtar bot",
       "bulut",
       "cihazlar"
-    ]
+    ],
+    "tool.description": "Yapılandırılmış hesap için SwitchBot Cloud cihazlarını listeleyin."
   },
   "uk": {
     "param.fmt.description": "Формат: json або text.",
@@ -435,7 +463,8 @@
       "перемикач",
       "хмара",
       "пристрої"
-    ]
+    ],
+    "tool.description": "Список пристроїв SwitchBot Cloud для налаштованого облікового запису."
   },
   "vi": {
     "param.fmt.description": "Định dạng: json hoặc text.",
@@ -449,7 +478,8 @@
       "switchbot",
       "đám mây",
       "thiết bị"
-    ]
+    ],
+    "tool.description": "Liệt kê các thiết bị SwitchBot Cloud cho tài khoản được định cấu hình."
   },
   "zh_CN": {
     "param.fmt.description": "格式：json或text。",
@@ -463,7 +493,8 @@
       "开关机器人",
       "云",
       "设备"
-    ]
+    ],
+    "tool.description": "列出已配置帐户的 SwitchBot Cloud 设备。"
   },
   "zh_TW": {
     "param.fmt.description": "格式：json 或 text。",
@@ -477,6 +508,7 @@
       "開關機器人",
       "雲端",
       "裝置"
-    ]
+    ],
+    "tool.description": "列出已設定帳戶的 SwitchBot Cloud 設備。"
   }
 }

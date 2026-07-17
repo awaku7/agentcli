@@ -32,7 +32,7 @@
       "pwsh実行",
       "powershell スクリプト"
     ],
-    "err.command_required": "[pwsh_exec error] 'command' is required",
+    "err.command_required": "[pwsh_exec エラー] 「コマンド」が必要です",
     "err.blocked": "[pwsh_exec がブロックされました] %(reason)s",
     "err.exception": "[pwsh_exec エラー] %(type)s: %(message)s",
     "err.returncode": "[pwsh_exec エラー] returncode=%(code)s\nSTDOUT:\n%(stdout)s\nSTDERR:\n%(stderr)s",
@@ -51,7 +51,7 @@
       "ejecutar pwsh",
       "script de powershell"
     ],
-    "err.command_required": "[pwsh_exec error] 'command' is required",
+    "err.command_required": "[error pwsh_exec] Se requiere 'comando'",
     "err.blocked": "[pwsh_exec bloqueado] %(reason)s",
     "err.exception": "[error pwsh_exec] %(type)s: %(message)s",
     "err.returncode": "[error pwsh_exec] código de retorno=%(code)s\nSTDOUT:\n%(stdout)s\nSTDERR:\n%(stderr)s",
@@ -70,7 +70,7 @@
       "pwsh exécuter",
       "script PowerShell"
     ],
-    "err.command_required": "[pwsh_exec error] 'command' is required",
+    "err.command_required": "[Erreur pwsh_exec] 'commande' est requis",
     "err.blocked": "[pwsh_exec bloqué] %(reason)s",
     "err.exception": "[Erreur pwsh_exec] %(type)s : %(message)s",
     "err.returncode": "[Erreur pwsh_exec] code retour=%(code)s\nSTDOUT :\n%(stdout)s\nSTDERR :\n%(stderr)s",
@@ -89,7 +89,7 @@
       "pwsh 실행",
       "powershell 스크립트"
     ],
-    "err.command_required": "[pwsh_exec error] 'command' is required",
+    "err.command_required": "[pwsh_exec 오류] '명령어'가 필요합니다",
     "err.blocked": "[pwsh_exec가 차단됨] %(reason)s",
     "err.exception": "[pwsh_exec 오류] %(type)s: %(message)s",
     "err.returncode": "[pwsh_exec 오류] 반환 코드=%(code)s\nSTDOUT:\n%(stdout)s\nSTDERR:\n%(stderr)s",
@@ -108,7 +108,7 @@
       "pwsh ausführen",
       "Powershell-Skript"
     ],
-    "err.command_required": "[pwsh_exec error] 'command' is required",
+    "err.command_required": "[pwsh_exec-Fehler] „Befehl“ ist erforderlich",
     "err.blocked": "[pwsh_exec blockiert] %(reason)s",
     "err.exception": "[pwsh_exec-Fehler] %(type)s: %(message)s",
     "err.returncode": "[pwsh_exec-Fehler] Returncode=%(code)s\nSTDOUT:\n%(stdout)s\nSTDERR:\n%(stderr)s",
@@ -127,7 +127,7 @@
       "pwsh esegui",
       "script powershell"
     ],
-    "err.command_required": "[pwsh_exec error] 'command' is required",
+    "err.command_required": "[errore pwsh_exec] È richiesto il 'comando'",
     "err.blocked": "[pwsh_exec bloccato] %(reason)s",
     "err.exception": "[errore pwsh_exec] %(type)s: %(message)s",
     "err.returncode": "[errore pwsh_exec] returncode=%(code)s\nSTDOUT:\n%(stdout)s\nSTDERR:\n%(stderr)s",
@@ -141,7 +141,7 @@
     "x_search_terms": [
       "pwsh exec, силовая оболочка, запустить PowerShell, выполнить powershell, пвш бежать, сценарий powershell"
     ],
-    "err.command_required": "[pwsh_exec error] 'command' is required",
+    "err.command_required": "[ошибка pwsh_exec] требуется «команда»",
     "err.blocked": "[pwsh_exec заблокирован] %(reason)s",
     "err.exception": "[ошибка pwsh_exec] %(type)s: %(message)s",
     "err.returncode": "[ошибка pwsh_exec] returncode=%(code)s\nSTDOUT:\n%(stdout)s\nSTDERR:\n%(stderr)s",
@@ -164,7 +164,7 @@
       "run script",
       "ps command"
     ],
-    "err.command_required": "[pwsh_exec error] 'command' is required",
+    "err.command_required": "[erro pwsh_exec] 'comando' é necessário",
     "err.blocked": "[pwsh_exec bloqueado] %(reason)s",
     "err.exception": "[erro pwsh_exec] %(type)s: %(message)s",
     "err.returncode": "[erro pwsh_exec] código de retorno=%(code)s\nSTDOUT:\n%(stdout)s\nSTDERR:\n%(stderr)s",
@@ -187,7 +187,7 @@
       "executar script",
       "comando ps"
     ],
-    "err.command_required": "[pwsh_exec error] 'command' is required",
+    "err.command_required": "[erro pwsh_exec] 'comando' é necessário",
     "err.blocked": "[pwsh_exec bloqueado] %(reason)s",
     "err.exception": "[erro pwsh_exec] %(type)s: %(message)s",
     "err.returncode": "[erro pwsh_exec] código de retorno=%(code)s\nSTDOUT:\n%(stdout)s\nSTDERR:\n%(stderr)s",
@@ -210,7 +210,7 @@
       "jalankan skrip",
       "perintah ps"
     ],
-    "err.command_required": "[pwsh_exec error] 'command' is required",
+    "err.command_required": "[kesalahan pwsh_exec] 'perintah' diperlukan",
     "err.blocked": "[pwsh_exec diblokir] %(reason)s",
     "err.exception": "[kesalahan pwsh_exec] %(type)s: %(message)s",
     "err.returncode": "[kesalahan pwsh_exec] kode pengembalian=%(code)s\nSTDOUT:\n%(stdout)s\nSTDERR:\n%(stderr)s",
@@ -233,7 +233,7 @@
       "chạy tập lệnh",
       "lệnh ps"
     ],
-    "err.command_required": "[pwsh_exec error] 'command' is required",
+    "err.command_required": "[lỗi pwsh_exec] 'lệnh' là bắt buộc",
     "err.blocked": "[pwsh_exec bị chặn] %(reason)s",
     "err.exception": "[lỗi pwsh_exec] %(type)s: %(message)s",
     "err.returncode": "[lỗi pwsh_exec] returncode=%(code)s\nSTDOUT:\n%(stdout)s\nSTDERR:\n%(stderr)s",
@@ -256,7 +256,7 @@
       "run script",
       "ps command"
     ],
-    "err.command_required": "[pwsh_exec error] 'command' is required",
+    "err.command_required": "[błąd pwsh_exec] Wymagane jest „polecenie”.",
     "err.blocked": "[pwsh_exec zablokowany] %(reason)s",
     "err.exception": "[błąd pwsh_exec] %(type)s: %(message)s",
     "err.returncode": "[błąd pwsh_exec] kod powrotu=%(code)s\nSTDOUT:\n%(stdout)s\nSTDERR:\n%(stderr)s",
@@ -279,7 +279,7 @@
       "run script",
       "ps command"
     ],
-    "err.command_required": "[pwsh_exec error] 'command' is required",
+    "err.command_required": "[pwsh_exec त्रुटि] 'कमांड' आवश्यक है",
     "err.blocked": "[pwsh_exec अवरुद्ध] %(reason)s",
     "err.exception": "[pwsh_exec त्रुटि] %(type)s: %(message)s",
     "err.returncode": "[pwsh_exec त्रुटि] रिटर्नकोड=%(code)s\nSTDOUT:\n%(stdout)s\nSTDERR:\n%(stderr)s",
@@ -302,7 +302,7 @@
       "run script",
       "ps command"
     ],
-    "err.command_required": "[pwsh_exec error] 'command' is required",
+    "err.command_required": "[خطأ pwsh_exec] مطلوب \"الأمر\".",
     "err.blocked": "[تم حظر pwsh_exec] %(reason)s",
     "err.exception": "[خطأ pwsh_exec] %(type)s: %(message)s",
     "err.returncode": "[خطأ pwsh_exec] رمز الإرجاع=%(code)s\nSTDOUT:\n%(stdout)s\nSTDERR:\n%(stderr)s",
@@ -325,16 +325,16 @@
       "run script",
       "ps command"
     ],
-    "err.command_required": "[pwsh_exec error] 'command' is required",
+    "err.command_required": "[pwsh_exec error] 'kommando' krävs",
     "err.blocked": "[pwsh_exec blockerad] %(reason)s",
     "err.exception": "[pwsh_exec-fel] %(type)s: %(message)s",
-    "err.returncode": "[pwsh_exec error] returncode=%(code)s\nSTDOUT:\n%(stdout)s\nSTDERR:\n%(stderr)s",
+    "err.returncode": "[pwsh_exec error] returkod=%(code)s\nSTDOUT:\n%(stdout)s\nSTDERR:\n%(stderr)s",
     "err.shell_not_found": "[pwsh_exec-fel] PowerShell-körbar fil hittades inte: %(shell)s"
   },
   "sw": {
-    "err.timeout": "[pwsh_exec timeout] did not finish within %(seconds)s seconds",
-    "param.command.description": "PowerShell command string passed to -Command.",
-    "param.shell.description": "PowerShell executable to use: 'pwsh' (PowerShell 7+) or 'powershell' (Windows PowerShell). If omitted, auto-select.",
+    "err.timeout": "[pwsh_exec timeout] haikuisha ndani ya sekunde %(seconds)s",
+    "param.command.description": "Mfuatano wa amri ya PowerShell umepitishwa kwa -Command.",
+    "param.shell.description": "PowerShell inayoweza kutekelezwa kutumia: 'pwsh' (PowerShell 7+) au 'powershell' (Windows PowerShell). Ikiwa imeachwa, chagua kiotomatiki.",
     "tool.description": "As a last resort, execute PowerShell.Use only when no other appropriate tool (e.g.",
     "x_search_terms": [
       "powershell",
@@ -348,7 +348,7 @@
       "run script",
       "ps command"
     ],
-    "err.command_required": "[pwsh_exec error] 'command' is required",
+    "err.command_required": "[pwsh_exec error] 'amri' inahitajika",
     "err.blocked": "[pwsh_exec imezuiwa] %(reason)s",
     "err.exception": "[pwsh_exec error] %(type)s: %(message)s",
     "err.returncode": "[pwsh_exec error] returncode=%(code)s\nSTDOUT:\n%(stdout)s\nSTDERR:\n%(stderr)s",
@@ -371,7 +371,7 @@
       "run script",
       "ps command"
     ],
-    "err.command_required": "[pwsh_exec error] 'command' is required",
+    "err.command_required": "[pwsh_exec error] 'kommando' er påkrevd",
     "err.blocked": "[pwsh_exec blokkert] %(reason)s",
     "err.exception": "[pwsh_exec-feil] %(type)s: %(message)s",
     "err.returncode": "[pwsh_exec error] returkode=%(code)s\nSTDOUT:\n%(stdout)s\nSTDERR:\n%(stderr)s",
@@ -394,7 +394,7 @@
       "run script",
       "ps command"
     ],
-    "err.command_required": "[pwsh_exec error] 'command' is required",
+    "err.command_required": "[pwsh_exec-fout] 'opdracht' is vereist",
     "err.blocked": "[pwsh_exec geblokkeerd] %(reason)s",
     "err.exception": "[pwsh_exec-fout] %(type)s: %(message)s",
     "err.returncode": "[pwsh_exec-fout] retourcode=%(code)s\nSTDOUT:\n%(stdout)s\nSTDERR:\n%(stderr)s",
@@ -417,7 +417,7 @@
       "run script",
       "ps command"
     ],
-    "err.command_required": "[pwsh_exec error] 'command' is required",
+    "err.command_required": "[pwsh_exec error] \"komento\" vaaditaan",
     "err.blocked": "[pwsh_exec estetty] %(reason)s",
     "err.exception": "[pwsh_exec-virhe] %(type)s: %(message)s",
     "err.returncode": "[pwsh_exec error] returncode=%(code)s\nSTDOUT:\n%(stdout)s\nSTDERR:\n%(stderr)s",
@@ -440,7 +440,7 @@
       "run script",
       "ps command"
     ],
-    "err.command_required": "[pwsh_exec error] 'command' is required",
+    "err.command_required": "[chyba pwsh_exec] 'příkaz' je povinný",
     "err.blocked": "[pwsh_exec blokováno] %(reason)s",
     "err.exception": "[chyba pwsh_exec] %(type)s: %(message)s",
     "err.returncode": "[chyba pwsh_exec] návratový kód=%(code)s\nSTDOUT:\n%(stdout)s\nSTDERR:\n%(stderr)s",
@@ -463,7 +463,7 @@
       "run script",
       "ps command"
     ],
-    "err.command_required": "[pwsh_exec error] 'command' is required",
+    "err.command_required": "[помилка pwsh_exec] потрібна 'команда'",
     "err.blocked": "[pwsh_exec заблоковано] %(reason)s",
     "err.exception": "[помилка pwsh_exec] %(type)s: %(message)s",
     "err.returncode": "[помилка pwsh_exec] код повернення=%(code)s\nSTDOUT:\n%(stdout)s\nSTDERR:\n%(stderr)s",
@@ -486,7 +486,7 @@
       "run script",
       "ps command"
     ],
-    "err.command_required": "[pwsh_exec error] 'command' is required",
+    "err.command_required": "[pwsh_exec hatası] 'komut' gerekli",
     "err.blocked": "[pwsh_exec engellendi] %(reason)s",
     "err.exception": "[pwsh_exec hatası] %(type)s: %(message)s",
     "err.returncode": "[pwsh_exec hatası] dönüş kodu=%(code)s\nSTDOUT:\n%(stdout)s\nSTDERR:\n%(stderr)s",
@@ -509,7 +509,7 @@
       "run script",
       "ps command"
     ],
-    "err.command_required": "[pwsh_exec error] 'command' is required",
+    "err.command_required": "[ข้อผิดพลาด pwsh_exec] จำเป็นต้องมี 'คำสั่ง'",
     "err.blocked": "[pwsh_exec ถูกบล็อก] %(reason)s",
     "err.exception": "[ข้อผิดพลาด pwsh_exec] %(type)s: %(message)s",
     "err.returncode": "[ข้อผิดพลาด pwsh_exec] returncode=%(code)s\nSTDOUT:\n%(stdout)s\nSTDERR:\n%(stderr)s",
@@ -532,7 +532,7 @@
       "run script",
       "ps command"
     ],
-    "err.command_required": "[pwsh_exec error] 'command' is required",
+    "err.command_required": "[pwsh_exec 错误] 需要“命令”",
     "err.blocked": "[pwsh_exec 被阻止] %(reason)s",
     "err.exception": "[pwsh_exec 错误] %(type)s: %(message)s",
     "err.returncode": "[pwsh_exec 错误] 返回码=%(code)s\nSTDOUT:\n%(stdout)s\nSTDERR:\n%(stderr)s",
@@ -555,7 +555,7 @@
       "run script",
       "ps command"
     ],
-    "err.command_required": "[pwsh_exec error] 'command' is required",
+    "err.command_required": "[pwsh_exec 錯誤] 需要“命令”",
     "err.blocked": "[pwsh_exec 被阻止] %(reason)s",
     "err.exception": "[pwsh_exec 錯誤] %(type)s: %(message)s",
     "err.returncode": "[pwsh_exec 錯誤] 回傳碼=%(code)s\nSTDOUT:\n%(stdout)s\nSTDERR:\n%(stderr)s",
@@ -578,7 +578,7 @@
       "run script",
       "ps command"
     ],
-    "err.command_required": "[pwsh_exec error] 'command' is required",
+    "err.command_required": "[pwsh_exec ত্রুটি] 'কমান্ড' প্রয়োজন",
     "err.blocked": "[pwsh_exec অবরুদ্ধ] %(reason)s",
     "err.exception": "[pwsh_exec ত্রুটি] %(type)s: %(message)s",
     "err.returncode": "[pwsh_exec ত্রুটি] returncode=%(code)s\nSTDOUT:\n%(stdout)s\nSTDERR:\n%(stderr)s",
@@ -601,7 +601,7 @@
       "run script",
       "ps command"
     ],
-    "err.command_required": "[pwsh_exec error] 'command' is required",
+    "err.command_required": "[خطای pwsh_exec] 'فرمان' مورد نیاز است",
     "err.blocked": "[pwsh_exec مسدود شد] %(reason)s",
     "err.exception": "[خطای pwsh_exec] %(type)s: %(message)s",
     "err.returncode": "[خطای pwsh_exec] کد بازگشتی=%(code)s\nSTDOUT:\n%(stdout)s\nSTDERR:\n%(stderr)s",
@@ -624,7 +624,7 @@
       "run script",
       "ps command"
     ],
-    "err.command_required": "[pwsh_exec error] 'command' is required",
+    "err.command_required": "[pwsh_exec алдаа] \"команд\" шаардлагатай",
     "err.blocked": "[pwsh_exec блоклогдсон] %(reason)s",
     "err.exception": "[pwsh_exec алдаа] %(type)s: %(message)s",
     "err.returncode": "[pwsh_exec алдаа] буцах код=%(code)s\nSTDOUT:\n%(stdout)s\nSTDERR:\n%(stderr)s",
@@ -647,7 +647,7 @@
       "run script",
       "ps command"
     ],
-    "err.command_required": "[pwsh_exec error] 'command' is required",
+    "err.command_required": "[pwsh_exec त्रुटी] 'कमांड' आवश्यक आहे",
     "err.blocked": "[pwsh_exec अवरोधित] %(reason)s",
     "err.exception": "[pwsh_exec त्रुटी] %(type)s: %(message)s",
     "err.returncode": "[pwsh_exec त्रुटी] returncode=%(code)s\nSTDOUT:\n%(stdout)s\nSTDERR:\n%(stderr)s",

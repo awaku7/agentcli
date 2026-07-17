@@ -159,7 +159,7 @@
     "param.protect_placeholders.description": "Se for verdade, protege os espaços reservados (detectados automaticamente no conteúdo) de serem traduzidos.Padrão: verdadeiro."
   },
   "id": {
-    "tool.description": "Terjemahkan satu atau lebih teks menggunakan Google Terjemahan.Mendukung 30+ bahasa.Beberapa teks digabungkan dan diterjemahkan sebagai satu blok untuk menjaga konteks.Maks 10.000 karakter per elemen.JANGAN memotong teks sebelum mengirim;API menangani teks panjang secara asli.Ketika proteksi_placeholders diaktifkan (default), berbagai jenis placeholder (%(name), {name}, ${name}, dll.) dilindungi dari terjemahan jika jenis file terdeteksi secara otomatis dari konten.",
+    "tool.description": "Terjemahkan satu atau lebih teks menggunakan Google Terjemahan. Mendukung 30+ bahasa. Beberapa teks digabungkan dan diterjemahkan sebagai satu blok untuk menjaga konteks. Maks 10.000 karakter per elemen. JANGAN memotong teks sebelum mengirim; API menangani teks panjang secara asli. Ketika proteksi_placeholders diaktifkan (default), berbagai jenis placeholder (%(name)s, {name}, ${name}, dll.) dilindungi dari terjemahan jika jenis file terdeteksi secara otomatis dari konten.",
     "param.target_lang.description": "Kode bahasa target (misalnya ja, en, zh_CN, pt_BR, fr, de, es, ko).",
     "param.source_lang.description": "Kode bahasa sumber. Terdeteksi otomatis jika dihilangkan.",
     "x_search_terms": [
@@ -216,7 +216,7 @@
     "param.protect_placeholders.description": "Jeśli to prawda, chroń symbole zastępcze (automatycznie wykrywane w treści) przed tłumaczeniem.Wartość domyślna: prawda."
   },
   "hi": {
-    "tool.description": "Google अनुवाद का उपयोग करके एक या अधिक पाठों का अनुवाद करें।30+ भाषाओं का समर्थन करता है।संदर्भ को संरक्षित करने के लिए एकाधिक पाठों को एक ब्लॉक के रूप में जोड़ा और अनुवादित किया जाता है।प्रति तत्व अधिकतम 10000 अक्षर।भेजने से पहले पाठ को छोटा-छोटा न करें;एपीआई लंबे टेक्स्ट को मूल रूप से संभालता है।जब प्रोटेक्ट_प्लेसहोल्डर्स सक्षम (डिफ़ॉल्ट) होता है, तो विभिन्न प्लेसहोल्डर प्रकार (% (नाम) एस, {name}, $ {name}, आदि) अनुवाद से सुरक्षित होते हैं यदि फ़ाइल प्रकार सामग्री से स्वतः पता लगाया जाता है।",
+    "tool.description": "Google अनुवाद का उपयोग करके एक या अधिक पाठों का अनुवाद करें। 30+ भाषाओं का समर्थन करता है। संदर्भ को संरक्षित करने के लिए एकाधिक पाठों को एक ब्लॉक के रूप में जोड़ा और अनुवादित किया जाता है। प्रति तत्व अधिकतम 10000 अक्षर। भेजने से पहले पाठ को छोटा-छोटा न करें; एपीआई लंबे टेक्स्ट को मूल रूप से संभालता है। जब प्रोटेक्ट_प्लेसहोल्डर्स सक्षम (डिफ़ॉल्ट) होता है, तो विभिन्न प्लेसहोल्डर प्रकार (%(name)s, {name}, ${name}, आदि) अनुवाद से सुरक्षित होते हैं यदि फ़ाइल प्रकार सामग्री से स्वत: पता लगाया जाता है।",
     "param.target_lang.description": "लक्ष्य भाषा कोड (उदा. ja, en, zh_CN, pt_BR, fr, de, es, ko)।",
     "param.source_lang.description": "स्रोत भाषा कोड. यदि छोड़ा गया हो तो स्वतः पता लगाया जाता है।",
     "x_search_terms": [
@@ -501,7 +501,7 @@
     "param.protect_placeholders.description": "اگر درست است، از متغیرهایی (که به طور خودکار از محتوا شناسایی می شوند) از ترجمه محافظت کنید.پیش فرض: درست است."
   },
   "mn": {
-    "tool.description": "Google Translate ашиглан нэг буюу хэд хэдэн текстийг орчуулаарай.30+ хэлийг дэмждэг.Контекстийг хадгалахын тулд олон текстийг нэгтгэж, нэг блок болгон орчуулдаг.Нэг элемент бүрт хамгийн ихдээ 10000 тэмдэгт байна.Илгээхийн өмнө текстийг тайрч болохгүй;API нь урт текстийг эх аргаар боловсруулдаг.Хамгаалалтын_орлуулагчийг идэвхжүүлсэн үед (өгөгдмөл) янз бүрийн орлуулагчийн төрлүүд (%(нэр)s, {name}, ${name} гэх мэт) нь контентоос файлын төрлийг автоматаар илрүүлсэн тохиолдолд орчуулгаас хамгаалагдана.",
+    "tool.description": "Google Translate ашиглан нэг буюу хэд хэдэн текстийг орчуулаарай. 30+ хэлийг дэмждэг. Контекстийг хадгалахын тулд олон текстийг нэгтгэж, нэг блок болгон орчуулдаг. Нэг элемент бүрт хамгийн ихдээ 10000 тэмдэгт байна. Илгээхийн өмнө текстийг тайрч болохгүй; API нь урт текстийг эх аргаар боловсруулдаг. Хамгаалалтын_орлуулагчийг идэвхжүүлсэн үед (өгөгдмөл) файлын төрлийг контентоос автоматаар илрүүлсэн тохиолдолд янз бүрийн орлуулагчийн төрлийг (%(name)s, {name}, ${name} гэх мэт) орчуулахаас хамгаална.",
     "param.target_lang.description": "Зорилтот хэлний код (жишээ нь: ja, en, zh_CN, pt_BR, fr, de, es, ko).",
     "param.source_lang.description": "Эх хэлний код. Хэрэв орхигдуулсан бол автоматаар илрүүлнэ.",
     "x_search_terms": [
