@@ -1310,8 +1310,18 @@ def run_tool(args: Dict[str, Any]) -> str:
 
     if cb and hasattr(cb, "set_status") and cb.set_status:
         cb.set_status(True, f"Sub-Agent ({agent_name})")
+
+    # Fire SubagentStart hook
     try:
-        return _runner.run(
+        from uagent.hooks_engine import get_default_registry_path, load_hooks_registry, fire_event
+        _hooks = load_hooks_registry(get_default_registry_path())
+        if _hooks:
+            fire_event("SubagentStart", _hooks)
+    except Exception:
+        pass
+
+    try:
+        result = _runner.run(
             agent_name,
             task,
             current_file,
@@ -1333,3 +1343,15 @@ def run_tool(args: Dict[str, Any]) -> str:
     finally:
         if cb and hasattr(cb, "set_status") and cb.set_status:
             cb.set_status(False, "")
+            cb.set_status(False, "")
+
+    # Fire SubagentStop hook
+    try:
+        from uagent.hooks_engine import get_default_registry_path, load_hooks_registry, fire_event
+        _hooks = load_hooks_registry(get_default_registry_path())
+        if _hooks:
+            fire_event("SubagentStop", _hooks)
+    except Exception:
+        pass
+
+    return result

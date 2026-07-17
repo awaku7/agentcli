@@ -1860,9 +1860,24 @@ def main():
     if bind_host == "0.0.0.0" and local_ip and local_ip != "127.0.0.1":
         sys.__stdout__.write(_("External URL:") + f" http://{local_ip}:{port}\n")
     sys.__stdout__.flush()
+    # Fire SessionStart hook
+    try:
+        from .hooks_engine import fire_session_start
+        fire_session_start()
+    except Exception:
+        pass
+
     config = uvicorn.Config(app, host=bind_host, port=port, ws_max_size=10_000_000)
     server = uvicorn.Server(config)
-    server.run()
+    try:
+        server.run()
+    finally:
+        # Fire Stop hook
+        try:
+            from .hooks_engine import fire_stop
+            fire_stop()
+        except Exception:
+            pass
 
 
 if __name__ == "__main__":

@@ -127,6 +127,19 @@ def get_default_skill_roots(cwd: Optional[str] = None) -> list[str]:
         os.path.join(base, ".github", "skills"),
     ]
 
+    # Plugin skill directories: expand glob patterns and add to roots.
+    # Order: project first, user second.
+    plugin_patterns = [
+        os.path.join(base, ".uag", "plugins", "*", "skills"),
+        os.path.join(base, ".claude", "plugins", "*", "skills"),
+        os.path.join(os.path.expanduser("~"), ".uag", "plugins", "*", "skills"),
+        os.path.join(os.path.expanduser("~"), ".claude", "plugins", "*", "skills"),
+    ]
+    import glob as _glob
+    for pattern in plugin_patterns:
+        matched = sorted(_glob.glob(pattern))
+        roots.extend(matched)
+
     # De-duplicate while preserving order.
     # Normalize by realpath + normcase (Windows-safe).
     seen: set[str] = set()

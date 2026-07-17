@@ -906,6 +906,11 @@ def stdin_loop() -> None:
             break
         except Exception as e:
             # Broad catch to prevent sudden thread death
+            try:
+                from .hooks_engine import fire_stop_failure
+                fire_stop_failure()
+            except Exception:
+                pass
             print(
                 "\n[ERROR] " + "Unexpected error in stdin_loop: %(err)s" % {"err": e},
                 file=sys.stderr,
@@ -1058,6 +1063,16 @@ def main() -> None:
         except Exception:
             pass
 
+    # Fire SessionStart and Setup hooks
+    try:
+        from .hooks_engine import fire_session_start, fire_event, load_hooks_registry, get_default_registry_path
+        fire_session_start()
+        _hooks = load_hooks_registry(get_default_registry_path())
+        if _hooks:
+            fire_event("Setup", _hooks)
+    except Exception:
+        pass
+
     t = threading.Thread(target=stdin_loop, daemon=True)
     t.start()
 
@@ -1116,6 +1131,15 @@ def main() -> None:
                 text = ev.get("text", "")
                 if not text:
                     continue
+
+                # Fire UserPromptSubmit hook
+                try:
+                    from .hooks_engine import fire_event, load_hooks_registry, get_default_registry_path
+                    _hooks = load_hooks_registry(get_default_registry_path())
+                    if _hooks:
+                        fire_event("UserPromptSubmit", _hooks)
+                except Exception:
+                    pass
 
                 # If Responses API is enabled (Azure/OpenAI) and the user message contains local image paths,
                 # ask for explicit permission before embedding images as data URLs.
@@ -1252,6 +1276,15 @@ def main() -> None:
             pass
         try:
             core.stop_interrupt_monitor()
+        except Exception:
+            pass
+        # Fire Stop and SessionEnd hooks
+        try:
+            from .hooks_engine import fire_stop, fire_event, load_hooks_registry, get_default_registry_path
+            fire_stop()
+            _hooks = load_hooks_registry(get_default_registry_path())
+            if _hooks:
+                fire_event("SessionEnd", _hooks)
         except Exception:
             pass
         # Clear cache on program exit

@@ -2781,7 +2781,24 @@ def main():
         pass
     win = MainWindow(GuiConfig(prov, model, unknown[0] if unknown else None))
     win.show()
-    sys.exit(app.exec())
+
+    # Fire SessionStart hook
+    try:
+        from .hooks_engine import fire_session_start
+        fire_session_start()
+    except Exception:
+        pass
+
+    exit_code = app.exec()
+
+    # Fire Stop hook
+    try:
+        from .hooks_engine import fire_stop
+        fire_stop()
+    except Exception:
+        pass
+
+    sys.exit(exit_code)
 
 
 if __name__ == "__main__":

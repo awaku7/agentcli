@@ -264,6 +264,19 @@ def _handle_openai_empty_no_tool(
     return "pass", 0
 
 
+def _fire_tool_hooks(event: str, tool_name: str) -> None:
+    """Fire tool-related hooks (PreToolUse/PostToolUse/PostToolUseFailure)."""
+    try:
+        from .hooks_engine import get_default_registry_path, load_hooks_registry, fire_tool_event
+
+        registry_path = get_default_registry_path()
+        hooks = load_hooks_registry(registry_path)
+        if hooks:
+            fire_tool_event(event, hooks, tool_name=tool_name)
+    except Exception:
+        pass
+
+
 def _execute_tool_calls(
     *,
     tool_calls_list: list[dict[str, Any]],
@@ -343,6 +356,12 @@ def _execute_tool_calls(
                 )
                 if ck not in tool_result_cache:
                     tool_result_cache[ck] = result
+            # Fire PostToolBatch hook
+            try:
+                _fire_tool_hooks("PostToolBatch", "")
+            except Exception:
+                pass
+
             executed_new_tool = bool(to_run)
             core.set_status(True, "LLM")
 
@@ -404,6 +423,9 @@ def _execute_tool_calls(
                 if _prefetched_result is not None:
                     tool_result = _prefetched_result
                 else:
+                    # Fire PreToolUse hook
+                    _fire_tool_hooks("PreToolUse", name)
+
                     core.set_status(True, f"tool:{name}")
                     try:
                         # ファイルアクセスをキャッシュ管理に記録
@@ -411,7 +433,12 @@ def _execute_tool_calls(
                             cache_mgr.record_file_access(parsed_args["filename"])
 
                         tool_result = tools.run_tool(name, parsed_args)
+
+                        # Fire PostToolUse hook
+                        _fire_tool_hooks("PostToolUse", name)
                     except Exception as e:
+                        # Fire PostToolUseFailure hook
+                        _fire_tool_hooks("PostToolUseFailure", name)
                         tb = traceback.format_exc()
                         tool_result = _(
                             "[tool runtime error] name=%(name)r err=%(etype)s: %(err)s\nTraceback:\n%(tb)s",
