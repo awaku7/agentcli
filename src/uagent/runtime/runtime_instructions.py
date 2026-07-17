@@ -13,6 +13,10 @@ from pathlib import Path
 
 from ..i18n import _
 
+# Tracks absolute paths of instruction files already loaded in this session.
+# Used by reload_instruction_files() to skip duplicates after workdir changes.
+_loaded_paths: set[str] = set()
+
 
 @dataclass
 class InstructionCandidate:
@@ -260,5 +264,43 @@ def load_project_instruction_files(
         if len(content_block) > 100_000:
             content_block = content_block[:100_000] + "\n...[truncated at 100KB]"
         contents.append(content_block)
+        _loaded_paths.add(c.path)
+
+    return contents
+
+
+def reload_instruction_files(
+    *,
+    workdir: str | None = None,
+) -> list[str]:
+    """Discover and load NEW instruction files after a workdir change.
+
+    Walks up from the given workdir to root, but skips files that were
+    already loaded in this session (tracked by _loaded_paths).
+
+    Returns a list of content strings to inject as additional system messages.
+    """
+    if workdir is None:
+        workdir = os.getcwd()
+
+    candidates = _find_instruction_files(workdir)
+    if not candidates:
+        return []
+
+    # Filter out already-loaded files
+    new_candidates = [c for c in candidates if c.path not in _loaded_paths]
+    if not new_candidates:
+        return []
+
+    contents: list[str] = []
+    for c in new_candidates:
+        header = _("[Project instructions from %(file)s]") % {
+            "file": os.path.relpath(c.path, workdir)
+        }
+        content_block = f"--- {header} ---\n{c.content}"
+        if len(content_block) > 100_000:
+            content_block = content_block[:100_000] + "\n...[truncated at 100KB]"
+        contents.append(content_block)
+        _loaded_paths.add(c.path)
 
     return contents

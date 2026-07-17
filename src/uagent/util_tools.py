@@ -518,6 +518,47 @@ def _handle_cmd_cd(
     return True
 
 
+
+
+def _handle_cmd_reload(
+    arg: str,
+    messages_ref: list[dict[str, Any]],
+    *,
+    core: Any,
+    tr: Any,
+) -> bool:
+    """Reload project instruction files (CLAUDE.md / AGENTS.md) for current workdir.
+
+    Only loads files that haven't been loaded before in this session.
+    Skips the interactive prompt; new files are auto-loaded.
+    """
+    a = (arg or "").strip()
+    try:
+        from .runtime.runtime_instructions import reload_instruction_files
+
+        instructions = reload_instruction_files(workdir=os.getcwd())
+        if not instructions:
+            print(tr("[reload] No new instruction files found."))
+            return True
+
+        for instr in instructions:
+            msg = {"role": "system", "content": instr}
+            messages_ref.append(msg)
+            core.log_message(msg)
+
+        print(
+            tr("[reload] Loaded %(count)d new instruction file(s).")
+            % {"count": len(instructions)}
+        )
+    except Exception as e:
+        print(
+            tr("[reload error] %(etype)s: %(err)s")
+            % {"etype": type(e).__name__, "err": e}
+        )
+
+    return True
+
+
 def _handle_cmd_ls(arg: str, *, tr: Any) -> bool:
     target = (arg or "").strip() or "."
 
@@ -2812,6 +2853,9 @@ def handle_command(
 
     if cmd == "cd":
         return _handle_cmd_cd(arg, messages_ref, core=core, tr=tr)
+
+    if cmd == "reload":
+        return _handle_cmd_reload(arg, messages_ref, core=core, tr=tr)
 
     if cmd == "ls":
         return _handle_cmd_ls(arg, tr=tr)
