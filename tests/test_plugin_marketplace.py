@@ -138,7 +138,9 @@ class TestMarketplaceManager:
             "my-marketplace", "https://example.com/mp", registry_path=str(registry_path)
         )
 
-        mps = list_marketplaces(registry_path=str(registry_path))
+        mps = list_marketplaces(
+            registry_path=str(registry_path), include_defaults=False
+        )
         assert len(mps) == 1
         assert mps[0]["name"] == "my-marketplace"
         assert mps[0]["url"] == "https://example.com/mp"
@@ -162,7 +164,9 @@ class TestMarketplaceManager:
         )
 
         remove_marketplace("mp1", registry_path=str(registry_path))
-        mps = list_marketplaces(registry_path=str(registry_path))
+        mps = list_marketplaces(
+            registry_path=str(registry_path), include_defaults=False
+        )
         assert len(mps) == 1
         assert mps[0]["name"] == "mp2"
 
@@ -173,7 +177,9 @@ class TestMarketplaceManager:
         registry_path = repo_tmp_path / "mp_empty.json"
         registry_path.write_text(json.dumps({"marketplaces": []}), encoding="utf-8")
 
-        mps = list_marketplaces(registry_path=str(registry_path))
+        mps = list_marketplaces(
+            registry_path=str(registry_path), include_defaults=False
+        )
         assert mps == []
 
 

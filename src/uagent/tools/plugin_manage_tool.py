@@ -932,7 +932,9 @@ def _handle_cmd_plugin_marketplace(arg: str, **kwargs: Any) -> Any:
             for mp in mps:
                 name = mp.get("name", "?")
                 url = mp.get("url", "?")
-                print(f"  {name}: {url}")
+                builtin = mp.get("builtin", False)
+                tag = " (builtin)" if builtin else ""
+                print(f"  {name}{tag}: {url}")
         return CommandResult()
 
     elif subcmd == "add":

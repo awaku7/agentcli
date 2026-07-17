@@ -1122,6 +1122,25 @@ def parse_marketplace(marketplace_path: str) -> dict[str, Any] | None:
     return None
 
 
+# ---------------------------------------------------------------------------
+# Default built-in marketplaces
+# ---------------------------------------------------------------------------
+
+DEFAULT_MARKETPLACES: list[dict[str, Any]] = [
+    {
+        "name": "claude-plugins-official",
+        "url": "https://github.com/anthropics/claude-plugins-official",
+        "description": "Anthropic official plugin marketplace",
+        "builtin": True,
+    },
+]
+
+
+# ---------------------------------------------------------------------------
+# Marketplace registry
+# ---------------------------------------------------------------------------
+
+
 def _get_marketplace_registry_path() -> str:
     """Return default marketplace registry path."""
     from uagent.utils.paths import get_state_dir
@@ -1129,22 +1148,178 @@ def _get_marketplace_registry_path() -> str:
     return str(get_state_dir() / "marketplaces.json")
 
 
+def _get_marketplace_cache_dir() -> Path:
+    """Return the cache directory where remote marketplaces are cloned."""
+    from uagent.utils.paths import get_state_dir
+
+    return get_state_dir() / "marketplace_cache"
+
+
+def _marketplace_cache_path(marketplace_name: str) -> Path:
+    """Return the expected cache path for a marketplace by name."""
+    return _get_marketplace_cache_dir() / marketplace_name
+
+
+def _ensure_marketplace_local(
+    mp_entry: dict[str, Any],
+) -> Path | None:
+    """Ensure a marketplace is available locally, cloning if needed.
+
+    If the entry points to a local directory, returns it directly.
+    If it points to a remote Git URL, clones it into the cache directory.
+
+    Returns the local path, or None on failure.
+    """
+    mp_url = mp_entry.get("url", "")
+    if not mp_url:
+        return None
+
+    name = mp_entry.get("name", "")
+    if not name:
+        return None
+
+    local_path = Path(mp_url)
+
+    # Already a local directory
+    if local_path.is_dir():
+        return local_path
+
+    # Try cache
+    cached = _marketplace_cache_path(name)
+    if cached.is_dir() and (cached / ".claude-plugin" / "marketplace.json").is_file():
+        return cached
+
+    # Remote URL -- clone into cache
+    normalized = _normalize_source(mp_url)
+    if not is_git_url(normalized):
+        return None
+
+    try:
+        import subprocess
+
+        subprocess.run(["git", "--version"], capture_output=True, check=True)
+    except (subprocess.SubprocessError, FileNotFoundError):
+        return None
+
+    try:
+        import subprocess
+        import shutil
+
+        parent = cached.parent
+        parent.mkdir(parents=True, exist_ok=True)
+
+        # If cache dir already exists from a previous failed attempt, clean it
+        if cached.exists():
+            shutil.rmtree(str(cached))
+
+        result = subprocess.run(
+            ["git", "clone", "--depth", "1", normalized, str(cached)],
+            capture_output=True,
+            text=True,
+        )
+        if result.returncode != 0:
+            return None
+
+        if cached.is_dir() and (cached / ".claude-plugin" / "marketplace.json").is_file():
+            return cached
+    except Exception:
+        return None
+
+    return None
+
+
 def list_marketplaces(
     *,
     registry_path: str | None = None,
+    include_defaults: bool = True,
 ) -> list[dict[str, Any]]:
-    """List registered marketplaces."""
+    """List registered marketplaces.
+
+    Always includes built-in default marketplaces unless
+    include_defaults=False or a user-registered marketplace
+    with the same name exists.
+    """
     rp = (
         Path(registry_path) if registry_path else Path(_get_marketplace_registry_path())
     )
-    if not rp.is_file():
-        return []
-    try:
-        data = json.loads(rp.read_text(encoding="utf-8"))
-        mps = data.get("marketplaces", [])
-        return mps if isinstance(mps, list) else []
-    except (json.JSONDecodeError, OSError):
-        return []
+    mps: list[dict[str, Any]] = []
+    if rp.is_file():
+        try:
+            data = json.loads(rp.read_text(encoding="utf-8"))
+            user_mps = data.get("marketplaces", [])
+            if isinstance(user_mps, list):
+                mps = user_mps
+        except (json.JSONDecodeError, OSError):
+            pass
+
+    # Merge with defaults (user entries override builtins with same name)
+    if include_defaults:
+        user_names: set[str] = set()
+        for mp in mps:
+            if isinstance(mp, dict) and mp.get("name"):
+                user_names.add(mp["name"])
+        for default in DEFAULT_MARKETPLACES:
+            if default["name"] not in user_names:
+                mps.append(dict(default))
+
+    return mps
+
+
+def seed_default_marketplaces(
+    *,
+    registry_path: str | None = None,
+    overwrite: bool = False,
+) -> dict[str, Any]:
+    """Seed registry with default marketplaces if empty.
+
+    Returns dict with 'added' list of marketplace names.
+    """
+    rp = (
+        Path(registry_path) if registry_path else Path(_get_marketplace_registry_path())
+    )
+    data: dict[str, Any] = {"marketplaces": []}
+    if rp.is_file():
+        try:
+            data = json.loads(rp.read_text(encoding="utf-8"))
+        except (json.JSONDecodeError, OSError):
+            data = {"marketplaces": []}
+
+    mps = data.get("marketplaces", [])
+    if not isinstance(mps, list):
+        mps = []
+
+    existing_names = {
+        m["name"]
+        for m in mps
+        if isinstance(m, dict) and m.get("name")
+    }
+
+    added: list[str] = []
+    for default in DEFAULT_MARKETPLACES:
+        if default["name"] not in existing_names:
+            mps.append(
+                {
+                    "name": default["name"],
+                    "url": default["url"],
+                }
+            )
+            added.append(default["name"])
+        elif overwrite:
+            for i, mp in enumerate(mps):
+                if isinstance(mp, dict) and mp.get("name") == default["name"]:
+                    mps[i] = {"name": default["name"], "url": default["url"]}
+                    if default["name"] not in added:
+                        added.append(default["name"])
+                    break
+
+    if added:
+        data["marketplaces"] = mps
+        rp.parent.mkdir(parents=True, exist_ok=True)
+        rp.write_text(
+            json.dumps(data, indent=2, ensure_ascii=False), encoding="utf-8"
+        )
+
+    return {"ok": True, "added": added}
 
 
 def add_marketplace(
@@ -1153,7 +1328,11 @@ def add_marketplace(
     *,
     registry_path: str | None = None,
 ) -> dict[str, Any]:
-    """Register a marketplace."""
+    """Register a marketplace.
+
+    If the name matches a built-in default marketplace, the built-in
+    entry is overridden with the new URL.
+    """
     rp = (
         Path(registry_path) if registry_path else Path(_get_marketplace_registry_path())
     )
@@ -1188,7 +1367,13 @@ def remove_marketplace(
     *,
     registry_path: str | None = None,
 ) -> dict[str, Any]:
-    """Remove a marketplace from registry."""
+    """Remove a marketplace from registry.
+
+    Built-in default marketplaces are only hidden from the user
+    registry but will still appear via include_defaults=True in
+    list_marketplaces(). To fully hide them, pass include_defaults=False
+    or add them with a different name.
+    """
     rp = (
         Path(registry_path) if registry_path else Path(_get_marketplace_registry_path())
     )
@@ -1218,13 +1403,16 @@ def resolve_marketplace_plugin(
 ) -> str | None:
     """Resolve a plugin source path from a marketplace.
 
+    Handles both local directories and remote Git URLs
+    (auto-clones remote repos into cache).
+
     Returns the resolved source path, or None if not found.
     """
     # If marketplace_dir is provided, use it directly (for testing)
     if marketplace_dir:
         mp_path = Path(marketplace_dir)
     else:
-        # Look up in registry
+        # Look up in registry (includes defaults)
         mps = list_marketplaces(registry_path=registry_path)
         mp_entry = next(
             (
@@ -1236,12 +1424,12 @@ def resolve_marketplace_plugin(
         )
         if not mp_entry:
             return None
-        mp_url = mp_entry.get("url", "")
-        if not mp_url:
+
+        # Ensure marketplace is available locally
+        mp_path_or_none = _ensure_marketplace_local(mp_entry)
+        if mp_path_or_none is None:
             return None
-        mp_path = Path(mp_url)
-        if not mp_path.is_dir():
-            return None
+        mp_path = mp_path_or_none
 
     # Parse marketplace.json
     mp_json = mp_path / ".claude-plugin" / "marketplace.json"
@@ -1249,16 +1437,39 @@ def resolve_marketplace_plugin(
     if not mp_data:
         return None
 
+    # Handle plugin entries with 'source' field
     plugins = mp_data.get("plugins", [])
     for entry in plugins:
         if isinstance(entry, dict) and entry.get("name") == plugin_name:
-            source = entry.get("source", "")
-            if source:
-                # Resolve relative to marketplace root
-                resolved = mp_path / source
-                return str(resolved)
-    return None
+            raw_source = entry.get("source", "")
+            if not raw_source:
+                continue
 
+            # 'source' can be a str (path) or a dict with {source, url, path, ref}
+            if isinstance(raw_source, str):
+                # Relative path, resolve to absolute
+                resolved = mp_path / raw_source
+                return str(resolved)
+            elif isinstance(raw_source, dict):
+                # Complex source: git-subdir, url, etc.
+                src_type = raw_source.get("source", "")
+                # Handle inline URL
+                if src_type == "url":
+                    return raw_source.get("url", "")
+                # Handle git-subdir
+                elif src_type == "git-subdir":
+                    sub_url = raw_source.get("url", "")
+                    sub_path = raw_source.get("path", "")
+                    if sub_url and sub_path:
+                        # Return the clone URL + subdirectory -- the caller handles cloning
+                        return f"{sub_url}#subdir={sub_path}"
+                # Fallback: relative path
+                sub_path = raw_source.get("path", "")
+                if sub_path:
+                    resolved = mp_path / sub_path
+                    return str(resolved)
+
+    return None
 
 # ---------------------------------------------------------------------------
 # Dependencies support
