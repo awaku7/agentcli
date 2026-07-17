@@ -88,9 +88,96 @@ _TOOL_AUTO_UNLOAD_ROUNDS = int(
 )  # unload after this many rounds without use
 _TOTAL_ROUNDS: int = 0  # total rounds across all LLM calls, monotonically increasing
 
-# Track repeated tool call fingerprints (name + sorted args) to detect loops.
-# Some models (e.g. Grok) may call the same management tool repeatedly.
+# Track repeated management-tool fingerprints to detect loops.
+# Fingerprint is action + target (e.g. tool_load:file_grep), so loading
+# several *different* tools in parallel is allowed. Only the same target
+# repeated across rounds is treated as a loop (e.g. Grok reloading one tool).
 _TOOL_CALL_FINGERPRINTS: dict[str, int] = {}
+_MGMT_TOOLS = frozenset({"tool_catalog", "tool_load", "unload_tool"})
+_MGMT_LOOP_THRESHOLD = 4
+
+
+def _parse_mgmt_tool_args(args_raw: Any) -> Any:
+    try:
+        if isinstance(args_raw, str):
+            return json.loads(args_raw) if args_raw.strip() else {}
+        return args_raw if args_raw is not None else {}
+    except Exception:
+        return {"_raw": args_raw}
+
+
+def _mgmt_tool_fingerprint(name: str, args: Any) -> str:
+    """Build a loop-detection key for a management tool call.
+
+    tool_load/unload_tool are keyed by the *target* tool name so that
+    parallel loads of different tools do not share a counter.
+    """
+    if not isinstance(args, dict):
+        return f"{name}:{args!r}"
+    if name in ("tool_load", "unload_tool"):
+        target = args.get("name") or args.get("tool") or ""
+        return f"{name}:{target}"
+    if name == "tool_catalog":
+        return (
+            f"tool_catalog:query={args.get('query', '')}:all={args.get('all', False)}"
+        )
+    return f"{name}:{json.dumps(args, sort_keys=True, ensure_ascii=False)}"
+
+
+def _mgmt_tool_display(name: str, args: Any) -> str:
+    if name in ("tool_load", "unload_tool") and isinstance(args, dict):
+        target = args.get("name") or args.get("tool") or ""
+        if target:
+            return f"{name}({target})"
+    return name
+
+
+def check_mgmt_tool_loop(
+    tool_calls_list: list[dict[str, Any]],
+    *,
+    record: bool = True,
+    threshold: int | None = None,
+) -> tuple[bool, str, int]:
+    """Detect repeated same-target management tool calls.
+
+    Returns (blocked, display_name, count). When record=False, only peeks
+    without mutating counters (unused currently; kept for tests/callers).
+    """
+    if not tool_calls_list:
+        return False, "", 0
+    limit = _MGMT_LOOP_THRESHOLD if threshold is None else threshold
+
+    round_counts: dict[str, int] = {}
+    display: dict[str, str] = {}
+    for tc in tool_calls_list:
+        fn = tc.get("function", {}) or {}
+        name = fn.get("name", "") or ""
+        if name not in _MGMT_TOOLS:
+            continue
+        args = _parse_mgmt_tool_args(fn.get("arguments", "{}"))
+        fp = _mgmt_tool_fingerprint(name, args)
+        round_counts[fp] = round_counts.get(fp, 0) + 1
+        display[fp] = _mgmt_tool_display(name, args)
+
+    if not round_counts:
+        return False, "", 0
+
+    blocked_name = ""
+    blocked_count = 0
+    for fp, n in round_counts.items():
+        if record:
+            total = _TOOL_CALL_FINGERPRINTS.get(fp, 0) + n
+            _TOOL_CALL_FINGERPRINTS[fp] = total
+        else:
+            total = _TOOL_CALL_FINGERPRINTS.get(fp, 0) + n
+        if total >= limit and total > blocked_count:
+            blocked_name = display.get(fp, fp)
+            blocked_count = total
+
+    if blocked_count >= limit:
+        return True, blocked_name, blocked_count
+    return False, "", 0
+
 
 # --- Round status constants (internal) ---
 _RS_RETURN = "return"  # fatal error, caller must return
@@ -1020,41 +1107,24 @@ def _run_one_round(
                 assistant_text,
             )
 
-    # Detect repeated management tool calls (same name + same args).
-    # Some models (e.g. Grok) may call tool_load/tool_catalog repeatedly in a loop.
+    # Detect repeated same-target management tool calls.
+    # Parallel tool_load of different tools is allowed; only the same target
+    # (e.g. tool_load(file_grep) x4) across rounds is treated as a loop.
     if tool_calls_list and not judgment_mode:
-        _LOOP_THRESHOLD = 4
-        for _tc in tool_calls_list:
-            _fn = _tc.get("function", {})
-            _name = _fn.get("name", "")
-            if _name not in ("tool_catalog", "tool_load", "unload_tool"):
-                continue
-            _args_raw = _fn.get("arguments", "{}")
-            try:
-                _args_parsed = (
-                    json.loads(_args_raw) if isinstance(_args_raw, str) else _args_raw
-                )
-            except Exception:
-                _args_parsed = _args_raw
-            _fp = json.dumps(
-                {"name": _name, "args": _args_parsed},
-                sort_keys=True,
-                ensure_ascii=False,
+        blocked, blocked_name, blocked_count = check_mgmt_tool_loop(tool_calls_list)
+        if blocked:
+            print(
+                "[WARN] Management tool call '%(name)s' repeated %(n)d times; aborting to prevent loop."
+                % {"name": blocked_name, "n": blocked_count}
             )
-            _TOOL_CALL_FINGERPRINTS[_fp] = _TOOL_CALL_FINGERPRINTS.get(_fp, 0) + 1
-            if _TOOL_CALL_FINGERPRINTS[_fp] >= _LOOP_THRESHOLD:
-                print(
-                    "[WARN] Management tool call '%(name)s' repeated %(n)d times; aborting to prevent loop."
-                    % {"name": _name, "n": _TOOL_CALL_FINGERPRINTS[_fp]}
-                )
-                return (
-                    _RS_BREAK,
-                    client,
-                    gemini_cache_name,
-                    empty_no_tool_rounds,
-                    reuse_only_rounds,
-                    assistant_text,
-                )
+            return (
+                _RS_BREAK,
+                client,
+                gemini_cache_name,
+                empty_no_tool_rounds,
+                reuse_only_rounds,
+                assistant_text,
+            )
 
     return (
         _RS_OK,

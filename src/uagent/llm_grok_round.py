@@ -208,49 +208,9 @@ def _call_grok_round(
                     tool_calls=len(tool_calls_list),
                 )
 
-            # --- Loop detection for management tools ---
-            if tool_calls_list:
-                mgmt_tools = {"tool_catalog", "tool_load", "unload_tool"}
-                mgmt_count = sum(
-                    1
-                    for tc in tool_calls_list
-                    if tc.get("function", {}).get("name") in mgmt_tools
-                )
-                if mgmt_count == len(tool_calls_list) and len(tool_calls_list) > 0:
-                    _debug_log(
-                        "mgmt_only_tool_calls",
-                        names=[tc["function"]["name"] for tc in tool_calls_list],
-                    )
-                    from .uagent_llm import _TOOL_CALL_FINGERPRINTS
-
-                    _LOOP_THRESHOLD = 4
-                    for tc in tool_calls_list:
-                        _fn = tc.get("function", {})
-                        _name = _fn.get("name", "")
-                        _args_raw = _fn.get("arguments", "{}")
-                        try:
-                            _args_parsed = (
-                                json.loads(_args_raw)
-                                if isinstance(_args_raw, str)
-                                else _args_raw
-                            )
-                        except Exception:
-                            _args_parsed = _args_raw
-                        _fp = json.dumps(
-                            {"name": _name, "args": _args_parsed},
-                            sort_keys=True,
-                            ensure_ascii=False,
-                        )
-                        _TOOL_CALL_FINGERPRINTS[_fp] = (
-                            _TOOL_CALL_FINGERPRINTS.get(_fp, 0) + 1
-                        )
-                        if _TOOL_CALL_FINGERPRINTS[_fp] >= _LOOP_THRESHOLD:
-                            print(
-                                "[GROK] Management tool call '%(name)s' repeated %(n)d times; "
-                                "aborting to prevent loop."
-                                % {"name": _name, "n": _TOOL_CALL_FINGERPRINTS[_fp]}
-                            )
-                            return True, client, "", []
+            # Management-tool loop detection is handled once in uagent_llm._run_one_round
+            # (check_mgmt_tool_loop). Do not count here to avoid double-counting
+            # when Grok loads several tools in parallel.
 
             # Break out of retry loop on success
             break

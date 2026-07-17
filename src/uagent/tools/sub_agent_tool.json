@@ -1,6 +1,6 @@
 {
   "ar": {
-    "param.agent_name.description": "اسم الوكيل الفرعي المتخصص لتشغيله.",
+    "param.agent_name.description": "اسم الوكيل الفرعي المراد تشغيله. المدمج: planner, reviewer, summarizer, patch_designer, error_analyst, translator, general. يمكن تحميل أدوار مخصصة من UAGENT_SUB_AGENT_ROLES_DIR.",
     "param.current_file.description": "(اختياري) قصر نطاق تفكير الوكيل الفرعي على هذا الملف المحدد.",
     "param.task.description": "تعليمات أو مهمة محددة للوكيل الفرعي لمعالجتها.",
     "x_search_terms": [
@@ -20,7 +20,9 @@
       "debug",
       "error",
       "تحليل الخطأ",
-      "تصحيح"
+      "تصحيح",
+      "general",
+      "عام"
     ],
     "param.evidence_min_items.description": "الحد الأدنى لعدد عناصر الأدلة المطلوبة.",
     "param.evidence_required.description": "تتطلب أدلة.",
@@ -28,7 +30,7 @@
     "param.response_mode.description": "وضع الإخراج للوكيل الفرعي.",
     "param.response_schema.description": "كائن JSON Schema اختياري للاستجابة المتوقعة.",
     "param.strict_output.description": "معاملة الحقول المطلوبة المفقودة أو عدم تطابق المخطط كأخطاء.",
-    "tool.description": "تنفيذ وكيل فرعي متخصص وآمن (مخطط، مراجع، ملخص، مصمم تصحيحات، محلل أخطاء، أو مترجم) تحت سيطرة المنسق الرئيسي.",
+    "tool.description": "تنفيذ وكيل فرعي متخصص أو للأغراض العامة (مخطط، مراجع، ملخص، مصمم تصحيحات، محلل أخطاء، مترجم، أو general) تحت سيطرة المنسق الرئيسي.",
     "param.permission_level.description": "مستوى إذن التنفيذ للوكيل الفرعي. 'read_only' يسمح بقراءة الملفات، 'propose_only' يسمح بالقراءة + إنشاء ملف جديد.",
     "param.cache_ttl.description": "ذاكرة التخزين المؤقت TTL في ثوان. 0 = لا يوجد ذاكرة تخزين مؤقت. الافتراضي 0.",
     "param.store_key.description": "مفتاح لتخزين نتيجة هذا الوكيل الفرعي في مخزن السياق المشترك ليستخدمها الوكلاء الفرعيون اللاحقون.",
@@ -39,7 +41,7 @@
     "param.max_turns.description": "الحد الأقصى لعدد التفاعلات متعددة المنعطفات لاستخدام الأداة. 3 = موصى به. يمكن للوكيل الفرعي استخدام الأدوات عبر جولات متعددة قبل تقديم الإجابة النهائية."
   },
   "bn": {
-    "param.agent_name.description": "চালানোর জন্য বিশেষায়িত সাব-এজেন্টের নাম।",
+    "param.agent_name.description": "চালানোর জন্য সাব-এজেন্টের নাম। বিল্ট-ইন: planner, reviewer, summarizer, patch_designer, error_analyst, translator, general। কাস্টম রোল UAGENT_SUB_AGENT_ROLES_DIR থেকে লোড করা যায়।",
     "param.current_file.description": "(ঐচ্ছিক) সাব-এজেন্টের যুক্তির পরিধি এই নির্দিষ্ট ফাইলে সীমাবদ্ধ করুন।",
     "param.task.description": "প্রক্রিয়া করার জন্য সাব-এজেন্টের জন্য নির্দিষ্ট নির্দেশ/টাস্ক।",
     "x_search_terms": [
@@ -59,7 +61,9 @@
       "debug",
       "error",
       "ত্রুটি বিশ্লেষণ",
-      "ডিবাগ"
+      "ডিবাগ",
+      "general",
+      "জেনারেল"
     ],
     "param.evidence_min_items.description": "প্রয়োজনীয় প্রমাণের উপাদানের ন্যূনতম সংখ্যা।",
     "param.evidence_required.description": "অসিঙ্ক্রোনাসভাবে একটি বহিরাগত GUI বা ব্রাউজার প্রক্রিয়া শুরু করতে হবে।",
@@ -67,7 +71,7 @@
     "param.response_mode.description": "সাব-এজেন্টের জন্য আউটপুট মোড।",
     "param.response_schema.description": "প্রত্যাশিত প্রতিক্রিয়ার জন্য ঐচ্ছিক JSON Schema অবজেক্ট।",
     "param.strict_output.description": "JSON প্রতিক্রিয়াতে প্রয়োজনীয় ক্ষেত্রগুলির তালিকা",
-    "tool.description": "প্যারেন্ট অর্কেস্ট্রেটরের নিয়ন্ত্রণে একটি বিশেষায়িত, নিরাপদ সাব-এজেন্ট (প্ল্যানার, রিভিউয়ার, সামারাইজার, প্যাচ_ডিজাইনার, এরর_অ্যানালিস্ট, বা ট্রান্সলেটর) কার্যকর করুন।",
+    "tool.description": "প্যারেন্ট অর্কেস্ট্রেটরের নিয়ন্ত্রণে একটি বিশেষায়িত বা সাধারণ-উদ্দেশ্য সাব-এজেন্ট (প্ল্যানার, রিভিউয়ার, সামারাইজার, প্যাচ_ডিজাইনার, এরর_অ্যানালিস্ট, ট্রান্সলেটর, বা general) চালান।",
     "param.permission_level.description": "সাব-এজেন্টের জন্য এক্সিকিউশন পারমিশন লেভেল। 'অনলি-পড়া' ফাইল পড়ার অনুমতি দেয়, 'অনলি_প্রস্তাব' রিড + নতুন ফাইল তৈরি করতে দেয়।",
     "param.cache_ttl.description": "সেকেন্ডের মধ্যে ক্যাশে TTL. 0 = কোন ক্যাশে নেই। ডিফল্ট 0",
     "param.store_key.description": "পরবর্তী সাব-এজেন্টদের দ্বারা ব্যবহারের জন্য শেয়ার্ড কনটেক্সট স্টোরে এই সাব-এজেন্টের ফলাফল সংরক্ষণ করার কী।",
@@ -78,7 +82,7 @@
     "param.max_turns.description": "টুল ব্যবহারের জন্য মাল্টি-টার্ন ইন্টারঅ্যাকশনের সর্বাধিক সংখ্যা। 3 = প্রস্তাবিত। সাব-এজেন্ট চূড়ান্ত উত্তর তৈরি করার আগে একাধিক রাউন্ড জুড়ে টুল ব্যবহার করতে পারে।"
   },
   "cs": {
-    "param.agent_name.description": "Název specializovaného podřízeného agenta, který se má spustit.",
+    "param.agent_name.description": "Název sub-agenta, který se má spustit. Vestavěné: planner, reviewer, summarizer, patch_designer, error_analyst, translator, general. Vlastní role lze načíst z UAGENT_SUB_AGENT_ROLES_DIR.",
     "param.current_file.description": "(Volitelné) Omezit rozsah uvažování sub-agenta na tento konkrétní soubor.",
     "param.task.description": "Konkrétní pokyny nebo úkol, které má sub-agent zpracovat.",
     "x_search_terms": [
@@ -98,7 +102,9 @@
       "debug",
       "error",
       "chyba",
-      "ladění"
+      "ladění",
+      "general",
+      "obecný"
     ],
     "param.evidence_min_items.description": "Minimální požadovaný počet položek důkazů.",
     "param.evidence_required.description": "Vyžadovat důkazy.",
@@ -106,7 +112,7 @@
     "param.response_mode.description": "Výstupní režim pro podřízeného agenta.",
     "param.response_schema.description": "Volitelný objekt JSON Schema pro očekávanou odpověď.",
     "param.strict_output.description": "Chybějící povinná pole nebo nesoulad schématu považovat za chyby.",
-    "tool.description": "Spusťte specializovaného, bezpečného sub-agenta (plánovač, recenzent, sumarizátor, návrhář záplat, analytik chyb nebo překladač) pod kontrolou nadřazeného orchestrátoru.",
+    "tool.description": "Spusťte specializovaného nebo univerzálního sub-agenta (plánovač, recenzent, sumarizátor, návrhář záplat, analytik chyb, překladatel nebo general) pod kontrolou nadřazeného orchestrátoru.",
     "param.permission_level.description": "Úroveň oprávnění k provedení pro podřízeného agenta. 'read_only' umožňuje čtení souborů, 'propose_only' umožňuje čtení + vytváření nových souborů.",
     "param.cache_ttl.description": "Uložte TTL do mezipaměti během několika sekund. 0 = žádná mezipaměť. Výchozí 0.",
     "param.store_key.description": "Klíč k uložení výsledku tohoto dílčího agenta ve sdíleném úložišti kontextu pro použití následujícími dílčími agenty.",
@@ -117,7 +123,7 @@
     "param.max_turns.description": "Maximální počet víceotáčkových interakcí pro použití nástroje. 3 = doporučeno. Sub-agent může používat nástroje ve více kolech, než vytvoří konečnou odpověď."
   },
   "de": {
-    "param.agent_name.description": "Der Name des auszuführenden spezialisierten Subagenten.",
+    "param.agent_name.description": "Name des auszuführenden Subagenten. Eingebaut: planner, reviewer, summarizer, patch_designer, error_analyst, translator, general. Benutzerdefinierte Rollen können aus UAGENT_SUB_AGENT_ROLES_DIR geladen werden.",
     "param.current_file.description": "(Optional) Beschränken Sie den Begründungsbereich des Subagenten auf diese bestimmte Datei.",
     "param.task.description": "Spezifische Anweisung/Aufgabe, die der Subagent verarbeiten soll.",
     "x_search_terms": [
@@ -137,7 +143,9 @@
       "debug",
       "error",
       "Fehleranalyse",
-      "Fehlerbehebung"
+      "Fehlerbehebung",
+      "general",
+      "allgemein"
     ],
     "param.evidence_min_items.description": "Mindestanzahl der erforderlichen Belege.",
     "param.evidence_required.description": "Beweise erforderlich.",
@@ -145,7 +153,7 @@
     "param.response_mode.description": "Ausgabemodus für den Sub-Agenten.",
     "param.response_schema.description": "Optionales JSON-Schema-Objekt für die erwartete Antwort.",
     "param.strict_output.description": "Behandeln Sie fehlende Pflichtfelder oder Schemakonflikte als Fehler.",
-    "tool.description": "Führen Sie einen spezialisierten, sicheren Unter-Agenten (Planer, Prüfer, Zusammenfasser, Patch-Designer, Fehleranalyst oder Übersetzer) unter der Kontrolle des übergeordneten Orchestrators aus.",
+    "tool.description": "Führen Sie einen spezialisierten oder allgemeinen Unter-Agenten (Planer, Prüfer, Zusammenfasser, Patch-Designer, Fehleranalyst, Übersetzer oder general) unter der Kontrolle des übergeordneten Orchestrators aus.",
     "param.permission_level.description": "Ausführungsberechtigungsstufe für den Subagenten. „read_only“ ermöglicht das Lesen von Dateien, „propose_only“ ermöglicht das Lesen + Erstellen neuer Dateien.",
     "param.cache_ttl.description": "Cache-TTL in Sekunden. 0 = kein Cache. Standard 0.",
     "param.store_key.description": "Schlüssel zum Speichern des Ergebnisses dieses Subagenten im gemeinsamen Kontextspeicher zur Verwendung durch nachfolgende Subagenten.",
@@ -156,7 +164,7 @@
     "param.max_turns.description": "Maximale Anzahl von Multiturn-Interaktionen für den Werkzeugeinsatz. 3 = empfohlen. Der Subagent kann Tools über mehrere Runden hinweg nutzen, bevor er die endgültige Antwort erstellt."
   },
   "en": {
-    "param.agent_name.description": "The name of the specialized sub-agent to run.",
+    "param.agent_name.description": "The name of the sub-agent to run. Built-in: planner, reviewer, summarizer, patch_designer, error_analyst, translator, general. Custom roles can be loaded from UAGENT_SUB_AGENT_ROLES_DIR.",
     "param.current_file.description": "(Optional) Limit the sub-agent's reasoning scope to this specific file.",
     "param.evidence_min_items.description": "Minimum number of evidence items required.",
     "param.evidence_required.description": "Require evidence.",
@@ -165,23 +173,24 @@
     "param.response_schema.description": "Optional JSON Schema object for the expected response.",
     "param.strict_output.description": "Treat missing required fields or schema mismatch as errors.",
     "param.task.description": "Specific instruction/task for the sub-agent to process.",
-    "tool.description": "Execute a specialized, safe sub-agent (planner, reviewer, summarizer, patch_designer, error_analyst, or translator) under the control of the parent orchestrator.",
+    "tool.description": "Execute a specialized or general-purpose sub-agent (planner, reviewer, summarizer, patch_designer, error_analyst, translator, or general) under the control of the parent orchestrator.",
     "x_search_terms": [
       "sub-agent",
       "planner",
       "reviewer",
       "summarizer",
-      "orchestrate",
       "patch_designer",
-      "patch",
-      "code patch",
       "error_analyst",
-      "debug",
+      "translator",
+      "general",
+      "orchestrate",
+      "patch",
       "error analysis",
       "debugging",
-      "translator",
       "translation",
-      "localization"
+      "localization",
+      "code patch",
+      "debug"
     ],
     "param.permission_level.description": "Execution permission level for the sub-agent. 'read_only' allows file reads, 'propose_only' allows reads + new file creation.",
     "param.cache_ttl.description": "Cache TTL in seconds. 0 = no cache. Default 0.",
@@ -193,7 +202,7 @@
     "param.max_turns.description": "Maximum number of multi-turn interactions for tool use. 3 = recommended. The sub-agent can use tools across multiple rounds before producing the final answer."
   },
   "es": {
-    "param.agent_name.description": "El nombre del subagente especializado a ejecutar.",
+    "param.agent_name.description": "Nombre del subagente a ejecutar. Integrados: planner, reviewer, summarizer, patch_designer, error_analyst, translator, general. Los roles personalizados se pueden cargar desde UAGENT_SUB_AGENT_ROLES_DIR.",
     "param.current_file.description": "(Opcional) Limite el alcance de razonamiento del subagente a este archivo específico.",
     "param.task.description": "Instrucción/tarea específica para que la procese el subagente.",
     "x_search_terms": [
@@ -213,7 +222,8 @@
       "debug",
       "error",
       "análisis de errores",
-      "depuración"
+      "depuración",
+      "general"
     ],
     "param.evidence_min_items.description": "Número mínimo de elementos de evidencia requeridos.",
     "param.evidence_required.description": "Requerir evidencia.",
@@ -221,7 +231,7 @@
     "param.response_mode.description": "Modo de salida para el subagente.",
     "param.response_schema.description": "Objeto JSON Schema opcional para la respuesta esperada.",
     "param.strict_output.description": "Trate los campos obligatorios que faltan o la discrepancia de esquema como errores.",
-    "tool.description": "Ejecuta un subagente especializado y seguro (planificador, revisor, resumidor, diseñador de parches, analista de errores o traductor) bajo el control del orquestador principal.",
+    "tool.description": "Ejecuta un subagente especializado o de propósito general (planificador, revisor, resumidor, diseñador de parches, analista de errores, traductor o general) bajo el control del orquestador principal.",
     "param.permission_level.description": "Nivel de permiso de ejecución para el subagente. 'read_only' permite lecturas de archivos, 'propose_only' permite lecturas + creación de nuevos archivos.",
     "param.cache_ttl.description": "Caché TTL en segundos. 0 = sin caché. Predeterminado 0.",
     "param.store_key.description": "Clave para almacenar el resultado de este subagente en el almacén de contexto compartido para que lo utilicen los subagentes posteriores.",
@@ -232,7 +242,7 @@
     "param.max_turns.description": "Número máximo de interacciones de múltiples vueltas para el uso de herramientas. 3 = recomendado. El subagente puede utilizar herramientas en varias rondas antes de producir la respuesta final."
   },
   "fa": {
-    "param.agent_name.description": "نام عامل فرعی تخصصی برای اجرا.",
+    "param.agent_name.description": "نام عامل فرعی برای اجرا. داخلی: planner, reviewer, summarizer, patch_designer, error_analyst, translator, general. نقش‌های سفارشی را می‌توان از UAGENT_SUB_AGENT_ROLES_DIR بارگذاری کرد.",
     "param.current_file.description": "(اختیاری) محدود کردن دامنه استدلال عامل فرعی به این فایل خاص.",
     "param.task.description": "دستورالعمل یا وظیفه خاص برای پردازش توسط عامل فرعی.",
     "x_search_terms": [
@@ -252,7 +262,9 @@
       "debug",
       "error",
       "تحلیل خطا",
-      "دیباگ"
+      "دیباگ",
+      "general",
+      "عمومی"
     ],
     "param.evidence_min_items.description": "حداقل تعداد موارد شواهد مورد نیاز.",
     "param.evidence_required.description": "نیاز به شواهد.",
@@ -260,7 +272,7 @@
     "param.response_mode.description": "حالت خروجی برای زیر-عامل.",
     "param.response_schema.description": "شیء اختیاری JSON Schema برای پاسخ مورد انتظار.",
     "param.strict_output.description": "فیلدهای الزامی از دست رفته یا عدم تطابق طرحواره را به عنوان خطا در نظر بگیرید.",
-    "tool.description": "یک زیرعامل تخصصی و ایمن (برنامه‌ریز، بازبین، خلاصه‌کننده، طراح وصله، تحلیل‌گر خطا، یا مترجم) را تحت کنترل هماهنگ‌کننده اصلی اجرا کنید.",
+    "tool.description": "یک زیرعامل تخصصی یا همه‌منظوره (برنامه‌ریز، بازبین، خلاصه‌کننده، طراح وصله، تحلیل‌گر خطا، مترجم، یا general) را تحت کنترل هماهنگ‌کننده اصلی اجرا کنید.",
     "param.permission_level.description": "سطح مجوز اجرا برای عامل فرعی. 'read_only' اجازه خواندن فایل را می دهد، 'propose_only' اجازه خواندن + ایجاد فایل جدید را می دهد.",
     "param.cache_ttl.description": "کش TTL در چند ثانیه 0 = بدون کش پیش فرض 0.",
     "param.store_key.description": "کلید ذخیره نتیجه این عامل فرعی در ذخیره سازی زمینه مشترک برای استفاده توسط عوامل فرعی بعدی.",
@@ -271,7 +283,7 @@
     "param.max_turns.description": "حداکثر تعداد فعل و انفعالات چند چرخشی برای استفاده از ابزار. 3 = توصیه می شود. عامل فرعی می تواند از ابزارها در چندین دور قبل از تولید پاسخ نهایی استفاده کند."
   },
   "fi": {
-    "param.agent_name.description": "Suoritettavan erikoisagentin nimi.",
+    "param.agent_name.description": "Suoritettavan ala-agentin nimi. Sisäänrakennetut: planner, reviewer, summarizer, patch_designer, error_analyst, translator, general. Mukautettuja rooleja voidaan ladata UAGENT_SUB_AGENT_ROLES_DIR:stä.",
     "param.current_file.description": "(Valinnainen) Rajaa alitoimijan päättelyalue tähän tiettyyn tiedostoon.",
     "param.task.description": "Erityinen ohje tai tehtävä alitoimijan käsiteltäväksi.",
     "x_search_terms": [
@@ -291,7 +303,9 @@
       "debug",
       "error",
       "virheanalyysi",
-      "vianmääritys"
+      "vianmääritys",
+      "general",
+      "yleinen"
     ],
     "param.evidence_min_items.description": "Todisteiden vähimmäismäärä.",
     "param.evidence_required.description": "Vaadi todisteita.",
@@ -299,7 +313,7 @@
     "param.response_mode.description": "Alijäsenen tulostustila.",
     "param.response_schema.description": "Valinnainen JSON-skeemaobjekti odotetulle vastaukselle.",
     "param.strict_output.description": "Käsittele puuttuvia pakollisia kenttiä tai skeeman yhteensopimattomuutta virheinä.",
-    "tool.description": "Suorita erikoistunut, turvallinen ala-agentti (suunnittelija, arvioija, tiivistäjä, korjaussuunnittelija, virheanalyytikko tai kääntäjä) yläohjaimen hallinnassa.",
+    "tool.description": "Suorita erikoistunut tai yleiskäyttöinen ala-agentti (suunnittelija, arvioija, tiivistäjä, korjaussuunnittelija, virheanalyytikko, kääntäjä tai general) ylätason orkestroijan hallinnassa.",
     "param.permission_level.description": "Suoritusoikeustaso aliagentille. 'read_only' sallii tiedostojen lukemisen, 'propose_only' sallii lukemisen + uuden tiedoston luomisen.",
     "param.cache_ttl.description": "Tallenna TTL välimuistiin sekunneissa. 0 = ei välimuistia. Oletusarvo 0.",
     "param.store_key.description": "Avain tämän aliagentin tuloksen tallentamiseen jaettuun kontekstivarastoon myöhempien aliagenttien käyttöön.",
@@ -310,7 +324,7 @@
     "param.max_turns.description": "Maksimimäärä usean kierroksen vuorovaikutuksia työkalun käyttöön. 3 = suositeltava. Aliagentti voi käyttää työkaluja useilla kierroksilla ennen lopullisen vastauksen antamista."
   },
   "fr": {
-    "param.agent_name.description": "Le nom du sous-agent spécialisé à exécuter.",
+    "param.agent_name.description": "Nom du sous-agent à exécuter. Intégrés : planner, reviewer, summarizer, patch_designer, error_analyst, translator, general. Les rôles personnalisés peuvent être chargés depuis UAGENT_SUB_AGENT_ROLES_DIR.",
     "param.current_file.description": "(Facultatif) Limitez la portée de raisonnement du sous-agent à ce fichier spécifique.",
     "param.task.description": "Instruction ou tâche spécifique à traiter par le sous-agent.",
     "x_search_terms": [
@@ -330,7 +344,9 @@
       "debug",
       "error",
       "analyse d'erreurs",
-      "débogage"
+      "débogage",
+      "general",
+      "général"
     ],
     "param.evidence_min_items.description": "Nombre minimal d'éléments de preuve requis.",
     "param.evidence_required.description": "Exiger des preuves.",
@@ -338,7 +354,7 @@
     "param.response_mode.description": "Mode de sortie du sous-agent.",
     "param.response_schema.description": "Objet JSON Schema facultatif pour la réponse attendue.",
     "param.strict_output.description": "Traitez les champs obligatoires manquants ou les incohérences de schéma comme des erreurs.",
-    "tool.description": "Exécute un sous-agent spécialisé et sécurisé (planificateur, réviseur, résumeur, concepteur de correctifs, analyste d'erreurs ou traducteur) sous le contrôle de l'orchestrateur parent.",
+    "tool.description": "Exécute un sous-agent spécialisé ou polyvalent (planificateur, réviseur, résumeur, concepteur de correctifs, analyste d'erreurs, traducteur ou general) sous le contrôle de l'orchestrateur parent.",
     "param.permission_level.description": "Niveau d'autorisation d'exécution pour le sous-agent. 'read_only' autorise les lectures de fichiers, 'propose_only' autorise les lectures + la création d'un nouveau fichier.",
     "param.cache_ttl.description": "Cachez le TTL en quelques secondes. 0 = pas de cache. Par défaut 0.",
     "param.store_key.description": "Clé pour stocker le résultat de ce sous-agent dans le magasin de contexte partagé pour une utilisation par les sous-agents suivants.",
@@ -349,7 +365,7 @@
     "param.max_turns.description": "Nombre maximum d'interactions multi-tours pour l'utilisation de l'outil. 3 = recommandé. Le sous-agent peut utiliser des outils sur plusieurs tours avant de produire la réponse finale."
   },
   "hi": {
-    "param.agent_name.description": "चलाने के लिए विशेष उप-एजेंट (sub-agent) का नाम।",
+    "param.agent_name.description": "चलाने के लिए उप-एजेंट का नाम। बिल्ट-इन: planner, reviewer, summarizer, patch_designer, error_analyst, translator, general। कस्टम भूमिकाएँ UAGENT_SUB_AGENT_ROLES_DIR से लोड की जा सकती हैं।",
     "param.current_file.description": "(वैकल्पिक) उप-एजेंट के तर्क कार्यक्षेत्र को इस विशिष्ट फ़ाइल तक सीमित करें।",
     "param.task.description": "अनुपलब्ध आवश्यक फ़ील्ड या स्कीमा बेमेल को त्रुटियों के रूप में मानें।",
     "x_search_terms": [
@@ -369,7 +385,9 @@
       "debug",
       "error",
       "त्रुटि विश्लेषण",
-      "डीबग"
+      "डीबग",
+      "general",
+      "सामान्य"
     ],
     "param.evidence_min_items.description": "आवश्यक साक्ष्य वस्तुओं की न्यूनतम संख्या।",
     "param.evidence_required.description": "एक ही अनुरोध के लिए बार-बार उत्पन्न होने से बचें।",
@@ -377,7 +395,7 @@
     "param.response_mode.description": "उप-एजेंट के लिए आउटपुट मोड।",
     "param.response_schema.description": "अपेक्षित प्रतिक्रिया के लिए वैकल्पिक JSON Schema ऑब्जेक्ट।",
     "param.strict_output.description": "लापता आवश्यक फ़ील्ड या स्कीमा बेमेल को त्रुटियों के रूप में मानें।",
-    "tool.description": "मूल ऑर्केस्ट्रेटर के नियंत्रण में एक विशेष, सुरक्षित उप-एजेंट (योजनाकार, समीक्षक, सारांशकर्ता, पैच_डिज़ाइनर, त्रुटि_विश्लेषक, या अनुवादक) निष्पादित करें।",
+    "tool.description": "मूल ऑर्केस्ट्रेटर के नियंत्रण में एक विशेष या सामान्य-उद्देश्य उप-एजेंट (योजनाकार, समीक्षक, सारांशकर्ता, पैच_डिज़ाइनर, त्रुटि_विश्लेषक, अनुवादक, या general) चलाएँ।",
     "param.permission_level.description": "उप-एजेंट के लिए निष्पादन अनुमति स्तर. 'read_only' फ़ाइल को पढ़ने की अनुमति देता है, 'propose_only' रीड्स + नई फ़ाइल निर्माण की अनुमति देता है।",
     "param.cache_ttl.description": "सेकंड में टीटीएल कैश करें। 0 = कोई कैश नहीं. डिफ़ॉल्ट 0.",
     "param.store_key.description": "इस उप-एजेंट के परिणाम को बाद के उप-एजेंटों द्वारा उपयोग के लिए साझा संदर्भ स्टोर में संग्रहीत करने की कुंजी।",
@@ -388,7 +406,7 @@
     "param.max_turns.description": "टूल उपयोग के लिए मल्टी-टर्न इंटरैक्शन की अधिकतम संख्या। 3 = अनुशंसित. अंतिम उत्तर देने से पहले उप-एजेंट कई राउंड में टूल का उपयोग कर सकता है।"
   },
   "id": {
-    "param.agent_name.description": "Nama sub-agen khusus yang akan dijalankan.",
+    "param.agent_name.description": "Nama sub-agen yang akan dijalankan. Bawaan: planner, reviewer, summarizer, patch_designer, error_analyst, translator, general. Peran kustom dapat dimuat dari UAGENT_SUB_AGENT_ROLES_DIR.",
     "param.current_file.description": "(Opsional) Batasi cakupan penalaran sub-agen ke file spesifik ini.",
     "param.task.description": "Instruksi/tugas spesifik yang harus diproses oleh sub-agen.",
     "x_search_terms": [
@@ -408,7 +426,9 @@
       "debug",
       "error",
       "analisis kesalahan",
-      "debugging"
+      "debugging",
+      "general",
+      "umum"
     ],
     "param.evidence_min_items.description": "Jumlah minimum item bukti yang diperlukan.",
     "param.evidence_required.description": "Membutuhkan bukti.",
@@ -416,7 +436,7 @@
     "param.response_mode.description": "Mode output untuk sub-agen.",
     "param.response_schema.description": "Objek JSON Schema opsional untuk respons yang diharapkan.",
     "param.strict_output.description": "Perlakukan bidang wajib yang hilang atau ketidakcocokan skema sebagai kesalahan.",
-    "tool.description": "Jalankan sub-agen khusus yang aman (perencana, peninjau, perangkum, perancang tambalan, analis kesalahan, atau penerjemah) di bawah kendali orkestrator induk.",
+    "tool.description": "Jalankan sub-agen khusus atau tujuan umum (perencana, peninjau, perangkum, perancang tambalan, analis kesalahan, penerjemah, atau general) di bawah kendali orkestrator induk.",
     "param.permission_level.description": "Tingkat izin eksekusi untuk sub-agen. 'read_only' memungkinkan pembacaan file, 'propose_only' memungkinkan pembacaan + pembuatan file baru.",
     "param.cache_ttl.description": "Tembolok TTL dalam hitungan detik. 0 = tidak ada cache. Bawaan 0.",
     "param.store_key.description": "Kunci untuk menyimpan hasil sub-agen ini di penyimpanan konteks bersama untuk digunakan oleh sub-agen berikutnya.",
@@ -427,7 +447,7 @@
     "param.max_turns.description": "Jumlah maksimum interaksi multi-putaran untuk penggunaan alat. 3 = direkomendasikan. Sub-agen dapat menggunakan alat dalam beberapa putaran sebelum menghasilkan jawaban akhir."
   },
   "it": {
-    "param.agent_name.description": "Il nome dell'agente secondario specializzato da eseguire.",
+    "param.agent_name.description": "Nome del sotto-agente da eseguire. Integrati: planner, reviewer, summarizer, patch_designer, error_analyst, translator, general. I ruoli personalizzati possono essere caricati da UAGENT_SUB_AGENT_ROLES_DIR.",
     "param.current_file.description": "(Facoltativo) Limita l'ambito del ragionamento del sub-agente a questo file specifico.",
     "param.task.description": "Istruzione/attività specifica da elaborare per l'agente secondario.",
     "x_search_terms": [
@@ -447,7 +467,9 @@
       "debug",
       "error",
       "analisi degli errori",
-      "debugging"
+      "debugging",
+      "general",
+      "generale"
     ],
     "param.evidence_min_items.description": "Numero minimo di elementi di prova richiesti.",
     "param.evidence_required.description": "Richiedi prove.",
@@ -455,7 +477,7 @@
     "param.response_mode.description": "Modalità di output per il sub-agente.",
     "param.response_schema.description": "Oggetto JSON Schema opzionale per la risposta attesa.",
     "param.strict_output.description": "Tratta i campi obbligatori mancanti o la mancata corrispondenza dello schema come errori.",
-    "tool.description": "Esegui un sotto-agente specializzato e sicuro (pianificatore, revisore, riassuntore, progettista di patch, analista di errori o traduttore) sotto il controllo dell'orchestratore principale.",
+    "tool.description": "Esegui un sotto-agente specializzato o generico (pianificatore, revisore, riassuntore, progettista di patch, analista di errori, traduttore o general) sotto il controllo dell'orchestratore principale.",
     "param.permission_level.description": "Livello di autorizzazione di esecuzione per l'agente secondario. 'read_only' consente la lettura dei file, 'propose_only' consente la lettura + la creazione di nuovi file.",
     "param.cache_ttl.description": "Memorizza nella cache TTL in pochi secondi. 0 = nessuna cache. Predefinito 0.",
     "param.store_key.description": "Chiave per archiviare il risultato di questo agente secondario nell'archivio del contesto condiviso per l'utilizzo da parte degli agenti secondari successivi.",
@@ -466,7 +488,7 @@
     "param.max_turns.description": "Numero massimo di interazioni multigiro per l'utilizzo dello strumento. 3 = consigliato. Il sub-agente può utilizzare gli strumenti in più round prima di produrre la risposta finale."
   },
   "ja": {
-    "param.agent_name.description": "実行する専門サブエージェントの名前。",
+    "param.agent_name.description": "実行するサブエージェントの名前。組み込み: planner, reviewer, summarizer, patch_designer, error_analyst, translator, general。カスタムロールは UAGENT_SUB_AGENT_ROLES_DIR から読み込めます。",
     "param.current_file.description": "（任意）サブエージェントの推論対象をこの特定のファイルに制限します。",
     "param.evidence_min_items.description": "必要なエビデンス項目の最小数。",
     "param.evidence_required.description": "エビデンス必須。",
@@ -495,9 +517,11 @@
       "デバッグ",
       "エラー解析",
       "エラー",
-      "不具合解析"
+      "不具合解析",
+      "general",
+      "汎用"
     ],
-    "tool.description": "親オーケストレーターの制御下で、専門的で安全なサブエージェント（プランナー、レビュアー、要約者、パッチデザイナー、エラー分析者、または翻訳者）を実行します。",
+    "tool.description": "親オーケストレーターの制御下で、専門的または汎用のサブエージェント（プランナー、レビュアー、要約者、パッチデザイナー、エラー分析者、翻訳者、または general）を実行します。",
     "param.permission_level.description": "サブエージェントの実行権限レベル。 「read_only」はファイルの読み取りを許可し、「propose_only」は読み取りと新しいファイルの作成を許可します。",
     "param.cache_ttl.description": "TTLを数秒でキャッシュします。 0 = キャッシュなし。デフォルトは 0。",
     "param.store_key.description": "後続のサブエージェントが使用できるように、このサブエージェントの結果を共有コンテキスト ストアに保存するためのキー。",
@@ -508,7 +532,7 @@
     "param.max_turns.description": "ツール使用時のマルチターン インタラクションの最大数。 3 = 推奨。サブエージェントは、最終的な回答を生成する前に、複数のラウンドにわたってツールを使用できます。"
   },
   "ko": {
-    "param.agent_name.description": "실행할 전문 서브 에이전트의 이름.",
+    "param.agent_name.description": "실행할 서브 에이전트의 이름. 내장: planner, reviewer, summarizer, patch_designer, error_analyst, translator, general. 사용자 정의 역할은 UAGENT_SUB_AGENT_ROLES_DIR에서 로드할 수 있습니다.",
     "param.current_file.description": "(선택 사항) 서브 에이전트의 추론 범위를 이 특정 파일로 제한합니다.",
     "param.task.description": "서브 에이전트가 처리할 구체적인 지시 사항 또는 작업.",
     "x_search_terms": [
@@ -529,7 +553,9 @@
       "error",
       "디버깅",
       "에러 분석",
-      "오류 해결"
+      "오류 해결",
+      "general",
+      "범용"
     ],
     "param.evidence_min_items.description": "필요한 최소 증거 항목 수.",
     "param.evidence_required.description": "응답에 증거 항목 필수 포함.",
@@ -537,7 +563,7 @@
     "param.response_mode.description": "하위 에이전트의 출력 모드.",
     "param.response_schema.description": "예상 응답에 대한 선택적 JSON Schema 객체.",
     "param.strict_output.description": "필수 필드 누락 또는 스키마 불일치를 오류로 처리.",
-    "tool.description": "상위 오케스트레이터의 제어 하에 특화된 안전한 하위 에이전트(planner, reviewer, summarizer, patch_designer, error_analyst 또는 translator)를 실행합니다.",
+    "tool.description": "상위 오케스트레이터의 제어 하에 특화 또는 범용 하위 에이전트(planner, reviewer, summarizer, patch_designer, error_analyst, translator 또는 general)를 실행합니다.",
     "param.permission_level.description": "하위 에이전트에 대한 실행 권한 수준입니다. 'read_only'는 파일 읽기를 허용하고, 'propose_only'는 읽기 + 새 파일 생성을 허용합니다.",
     "param.cache_ttl.description": "초 단위의 캐시 TTL입니다. 0 = 캐시가 없습니다. 기본값은 0입니다.",
     "param.store_key.description": "후속 하위 에이전트에서 사용할 수 있도록 공유 컨텍스트 저장소에 이 하위 에이전트의 결과를 저장하기 위한 키입니다.",
@@ -548,7 +574,7 @@
     "param.max_turns.description": "도구 사용을 위한 다중 회전 상호 작용의 최대 수입니다. 3 = 권장됩니다. 하위 에이전트는 최종 답변을 생성하기 전에 여러 라운드에 걸쳐 도구를 사용할 수 있습니다."
   },
   "mn": {
-    "param.agent_name.description": "Ажиллуулах тусгай дэд агентийн нэр.",
+    "param.agent_name.description": "Ажиллуулах дэд агентийн нэр. Суурилуулсан: planner, reviewer, summarizer, patch_designer, error_analyst, translator, general. Тусгай үүргүүдийг UAGENT_SUB_AGENT_ROLES_DIR-ээс ачаалж болно.",
     "param.current_file.description": "(Нэмэлт) Дэд агентийн ажиллах хүрээг энэхүү тодорхой файлаар хязгаарлах.",
     "param.task.description": "Дэд агентаар шийдвэрлүүлэх тодорхой заавар эсвэл даалгавар.",
     "x_search_terms": [
@@ -568,7 +594,9 @@
       "debug",
       "error",
       "алдаа шинжилгээ",
-      "дебаг"
+      "дебаг",
+      "general",
+      "ерөнхий"
     ],
     "param.evidence_min_items.description": "Шаардлагатай нотлох баримтын хамгийн бага тоо.",
     "param.evidence_required.description": "Нотлох баримт шаардана.",
@@ -576,7 +604,7 @@
     "param.response_mode.description": "Дэд агентын гаралтын горим.",
     "param.response_schema.description": "Хүлээгдэж буй хариунд зориулсан нэмэлт JSON Schema объект.",
     "param.strict_output.description": "Шаардлагатай талбар дутуу эсвэл схемийн зөрүүг алдаа гэж үзэх.",
-    "tool.description": "Эх зохицуулагчийн хяналтан дор тусгай, аюулгүй дэд-агент (төлөвлөгч, шүүмжлэгч, хураангуйлагч, нөхөөс зохион бүтээгч, алдаа шинжээч, эсвэл орчуулагч) гүйцэтгэх.",
+    "tool.description": "Эх зохицуулагчийн хяналтан дор тусгай эсвэл ерөнхий зориулалтын дэд-агент (төлөвлөгч, шүүмжлэгч, хураангуйлагч, нөхөөс зохион бүтээгч, алдааны шинжээч, орчуулагч эсвэл general)-ийг ажиллуулна.",
     "param.permission_level.description": "Дэд агентын гүйцэтгэх зөвшөөрлийн түвшин. \"зөвхөн_унших\" нь файлыг уншихыг, \"зөвхөн_санал\" нь уншихыг + шинэ файл үүсгэхийг зөвшөөрдөг.",
     "param.cache_ttl.description": "TTL-г секундын дотор кэш. 0 = кэш байхгүй. Өгөгдмөл 0.",
     "param.store_key.description": "Энэ дэд агентын үр дүнг дараагийн дэд агентуудад ашиглахын тулд хуваалцсан контекст хадгалах түлхүүр.",
@@ -587,7 +615,7 @@
     "param.max_turns.description": "Багаж ашиглах олон эргэлтийн харилцан үйлчлэлийн хамгийн их тоо. 3 = санал болгож байна. Дэд агент нь эцсийн хариултыг гаргахаасаа өмнө хэд хэдэн шатанд хэрэглүүр ашиглаж болно."
   },
   "mr": {
-    "param.agent_name.description": "चालवण्यासाठी विशेष उप-एजंटचे (sub-agent) नाव.",
+    "param.agent_name.description": "चालवण्यासाठी उप-एजंटचे नाव. अंगभूत: planner, reviewer, summarizer, patch_designer, error_analyst, translator, general. सानुकूल भूमिका UAGENT_SUB_AGENT_ROLES_DIR मधून लोड करता येतात.",
     "param.current_file.description": "(पर्यायी) उप-एजंटची विचार करण्याची मर्यादा या विशिष्ट फाईलपर्यंत मर्यादित करा.",
     "param.task.description": "उप-एजंटने प्रक्रिया करण्यासाठी विशिष्ट सूचना किंवा कार्य.",
     "x_search_terms": [
@@ -607,7 +635,9 @@
       "debug",
       "error",
       "त्रुटी विश्लेषण",
-      "डीबग"
+      "डीबग",
+      "general",
+      "सामान्य"
     ],
     "param.evidence_min_items.description": "आवश्यक पुराव्यांच्या घटकांची किमान संख्या.",
     "param.evidence_required.description": "पुरावा आवश्यक आहे.",
@@ -615,7 +645,7 @@
     "param.response_mode.description": "सब-एजंटसाठी आउटपुट मोड.",
     "param.response_schema.description": "अपेक्षित प्रतिसादासाठी पर्यायी JSON Schema ऑब्जेक्ट.",
     "param.strict_output.description": "गहाळ आवश्यक फील्ड किंवा स्कीमा विसंगती त्रुटी म्हणून समजा.",
-    "tool.description": "पालक ऑर्केस्ट्रेटरच्या नियंत्रणाखाली एक विशेष, सुरक्षित उप-एजंट (प्लॅनर, पुनरावलोकनकर्ता, सारांशकर्ता, पॅच_डिझायनर, त्रुटी_विश्लेषक किंवा अनुवादक) कार्यान्वित करा.",
+    "tool.description": "पालक ऑर्केस्ट्रेटरच्या नियंत्रणाखाली एक विशेष किंवा सामान्य-उद्देश उप-एजंट (प्लॅनर, पुनरावलोकनकर्ता, सारांशकर्ता, पॅच_डिझायनर, त्रुटी_विश्लेषक, अनुवादक, किंवा general) चालवा.",
     "param.permission_level.description": "सब-एजंटसाठी अंमलबजावणी परवानगी पातळी. 'ओन्ली_रीड' फाइल वाचण्यास परवानगी देते, 'प्रपोज_ओन्ली' रीड्स + नवीन फाइल तयार करण्यास अनुमती देते.",
     "param.cache_ttl.description": "सेकंदात टीटीएल कॅशे करा. 0 = कॅशे नाही. डीफॉल्ट 0.",
     "param.store_key.description": "या सब-एजंटचा परिणाम नंतरच्या सब-एजंटद्वारे वापरण्यासाठी सामायिक संदर्भ स्टोअरमध्ये संग्रहित करण्यासाठी की.",
@@ -626,7 +656,7 @@
     "param.max_turns.description": "साधन वापरासाठी बहु-वळण परस्परसंवादांची कमाल संख्या. 3 = शिफारस केलेले. उप-एजंट अंतिम उत्तर तयार करण्यापूर्वी अनेक फेऱ्यांमध्ये साधने वापरू शकतो."
   },
   "el": {
-    "param.agent_name.description": "Το όνομα του εξειδικευμένου δευτερεύοντος αντιπροσώπου που θα εκτελεστεί.",
+    "param.agent_name.description": "Το όνομα του υπο-πράκτορα που θα εκτελεστεί. Ενσωματωμένοι: planner, reviewer, summarizer, patch_designer, error_analyst, translator, general. Προσαρμοσμένοι ρόλοι μπορούν να φορτωθούν από UAGENT_SUB_AGENT_ROLES_DIR.",
     "param.current_file.description": "(Προαιρετικό) Περιορίστε το εύρος συλλογιστικής του δευτερεύοντος πράκτορα σε αυτό το συγκεκριμένο αρχείο.",
     "param.evidence_min_items.description": "Απαιτείται ελάχιστος αριθμός αποδεικτικών στοιχείων.",
     "param.evidence_required.description": "Απαιτούνται αποδεικτικά στοιχεία.",
@@ -650,9 +680,11 @@
       "εντοπισμός σφαλμάτων",
       "μεταφραστής",
       "μετάφραση",
-      "τοπική προσαρμογή"
+      "τοπική προσαρμογή",
+      "general",
+      "γενικός"
     ],
-    "tool.description": "Εκτέλεση ενός εξειδικευμένου, ασφαλούς υπο-πράκτορα (προγραμματιστής, αναθεωρητής, συνοψιστής, σχεδιαστής ενημερώσεων, αναλυτής σφαλμάτων ή μεταφραστής) υπό τον έλεγχο του γονικού ενορχηστρωτή.",
+    "tool.description": "Εκτέλεση ενός εξειδικευμένου ή γενικού υπο-πράκτορα (προγραμματιστής, αναθεωρητής, συνοψιστής, σχεδιαστής ενημερώσεων, αναλυτής σφαλμάτων, μεταφραστής ή general) υπό τον έλεγχο του γονικού ενορχηστρωτή.",
     "param.permission_level.description": "Επίπεδο άδειας εκτέλεσης για τον δευτερεύοντα πράκτορα. Το 'read_only' επιτρέπει την ανάγνωση αρχείων, το 'propose_only' επιτρέπει τις αναγνώσεις + τη δημιουργία νέου αρχείου.",
     "param.cache_ttl.description": "Προσωρινή αποθήκευση TTL σε δευτερόλεπτα. 0 = χωρίς κρυφή μνήμη. Προεπιλογή 0.",
     "param.store_key.description": "Κλειδί για την αποθήκευση του αποτελέσματος αυτού του δευτερεύοντος πράκτορα στον κοινόχρηστο χώρο αποθήκευσης περιβάλλοντος για χρήση από τους επόμενους δευτερεύοντες πράκτορες.",
@@ -663,8 +695,8 @@
     "param.max_turns.description": "Μέγιστος αριθμός αλληλεπιδράσεων πολλαπλών στροφών για χρήση εργαλείου. 3 = συνιστάται. Ο δευτερεύων πράκτορας μπορεί να χρησιμοποιήσει εργαλεία σε πολλούς γύρους πριν δώσει την τελική απάντηση."
   },
   "he": {
-    "param.agent_name.description": "(אופציונלי) הגבל את היקף ההנמקה של סוכן המשנה לקובץ הספציפי הזה.",
-    "param.current_file.description": "נדרש מספר מינימלי של פריטי ראיות.",
+    "param.agent_name.description": "שם תת-הסוכן להרצה. מובנים: planner, reviewer, summarizer, patch_designer, error_analyst, translator, general. ניתן לטעון תפקידים מותאמים מ-UAGENT_SUB_AGENT_ROLES_DIR.",
+    "param.current_file.description": "(אופציונלי) הגבל את היקף ההנמקה של סוכן המשנה לקובץ הספציפי הזה.",
     "param.evidence_min_items.description": "נדרש מספר מינימלי של פריטי ראיות.",
     "param.evidence_required.description": "רשימת שדות חובה בתגובת JSON.",
     "param.required_fields.description": "מצב פלט עבור סוכן המשנה.",
@@ -687,9 +719,11 @@
       "באגים",
       "מתרגם",
       "תרגום",
-      "לוקליזציה"
+      "לוקליזציה",
+      "general",
+      "כללי"
     ],
-    "tool.description": "בצע תת-סוכן מיוחד ובטוח (מתכנן, סוקר, מסכם, מעצב תיקונים, מנתח שגיאות, או מתרגם) תחת שליטתו של המתזמן הראשי.",
+    "tool.description": "בצע תת-סוכן מיוחד או לשימוש כללי (מתכנן, סוקר, מסכם, מעצב תיקונים, מנתח שגיאות, מתרגם או general) תחת שליטתו של המתזמן הראשי.",
     "param.permission_level.description": "רמת הרשאת ביצוע עבור סוכן המשנה. 'read_only' מאפשר קריאת קובץ, 'propose_only' מאפשר קריאה + יצירת קובץ חדש.",
     "param.cache_ttl.description": "שמור TTL בשניות. 0 = אין מטמון. ברירת מחדל 0.",
     "param.store_key.description": "מפתח לאחסון התוצאה של סוכן משנה זה במאגר ההקשר המשותף לשימוש על ידי סוכני משנה הבאים.",
@@ -700,8 +734,8 @@
     "param.max_turns.description": "מספר מרבי של אינטראקציות מרובה פניות לשימוש בכלי. 3 = מומלץ. סוכן המשנה יכול להשתמש בכלים על פני מספר סבבים לפני הפקת התשובה הסופית."
   },
   "hu": {
-    "param.agent_name.description": "(Opcionális) Korlátozza az alügynök érvelési hatókörét erre a fájlra.",
-    "param.current_file.description": "A szükséges bizonyítékok minimális száma.",
+    "param.agent_name.description": "A futtatandó al-ágens neve. Beépített: planner, reviewer, summarizer, patch_designer, error_analyst, translator, general. Egyéni szerepkörök az UAGENT_SUB_AGENT_ROLES_DIR-ből tölthetők be.",
+    "param.current_file.description": "(Opcionális) Korlátozza az alügynök érvelési hatókörét erre a fájlra.",
     "param.evidence_min_items.description": "Bizonyítékot kér.",
     "param.evidence_required.description": "A kötelező mezők listája a JSON-válaszban.",
     "param.required_fields.description": "Kimeneti mód az alügynökhöz.",
@@ -724,9 +758,11 @@
       "hibakeresés",
       "fordító",
       "fordítás",
-      "lokalizáció"
+      "lokalizáció",
+      "general",
+      "általános"
     ],
-    "tool.description": "Hajtson végre egy speciális, biztonságos al-ágens (tervező, felülvizsgáló, összefoglaló, javítástervező, hibaelemző vagy fordító) irányítását a szülő orchestrator felügyelete alatt.",
+    "tool.description": "Hajtson végre egy speciális vagy általános célú al-ágenst (tervező, felülvizsgáló, összefoglaló, javítástervező, hibaelemző, fordító vagy general) a szülő orchestrator felügyelete alatt.",
     "param.permission_level.description": "Végrehajtási engedély szintje az alügynök számára. A 'read_only' lehetővé teszi a fájl olvasását, a 'propose_only' lehetővé teszi az olvasást + új fájl létrehozását.",
     "param.cache_ttl.description": "Gyorsítótár TTL másodpercek alatt. 0 = nincs gyorsítótár. Alapértelmezett 0.",
     "param.store_key.description": "Kulcs az alügynök eredményének a megosztott környezettárolóban való tárolására, amelyet a következő alügynökök használhatnak.",
@@ -737,7 +773,7 @@
     "param.max_turns.description": "A többfordulatú interakciók maximális száma szerszámhasználathoz. 3 = ajánlott. Az alügynök több körön keresztül is használhat eszközöket, mielőtt megadná a végső választ."
   },
   "ro": {
-    "param.agent_name.description": "Numele agentului secundar specializat de rulat.",
+    "param.agent_name.description": "Numele sub-agentului de rulat. Integrate: planner, reviewer, summarizer, patch_designer, error_analyst, translator, general. Rolurile personalizate pot fi încărcate din UAGENT_SUB_AGENT_ROLES_DIR.",
     "param.current_file.description": "(Opțional) Limitați sfera raționamentului agentului secundar la acest fișier specific.",
     "param.evidence_min_items.description": "Numărul minim de dovezi necesare.",
     "param.evidence_required.description": "Solicită dovezi.",
@@ -761,9 +797,10 @@
       "depanare",
       "translator",
       "traducere",
-      "localizare"
+      "localizare",
+      "general"
     ],
-    "tool.description": "Execută un sub-agent specializat și sigur (planificator, recenzor, sumarizator, proiectant de patch-uri, analist de erori sau traducător) sub controlul orchestratorului părinte.",
+    "tool.description": "Execută un sub-agent specializat sau de uz general (planificator, recenzor, sumarizator, proiectant de patch-uri, analist de erori, traducător sau general) sub controlul orchestratorului părinte.",
     "param.permission_level.description": "Nivelul permisiunii de execuție pentru sub-agent. „read_only” permite citirea fișierelor, „propose_only” permite citirea + crearea de fișiere noi.",
     "param.cache_ttl.description": "Cache TTL în câteva secunde. 0 = fără cache. Implicit 0.",
     "param.store_key.description": "Cheie pentru a stoca rezultatul acestui sub-agent în stocul de context partajat pentru a fi utilizat de sub-agenții următori.",
@@ -774,7 +811,7 @@
     "param.max_turns.description": "Număr maxim de interacțiuni cu mai multe ture pentru utilizarea sculei. 3 = recomandat. Agentul secundar poate folosi instrumente în mai multe runde înainte de a produce răspunsul final."
   },
   "nb": {
-    "param.agent_name.description": "Navnet på den spesialiserte underagenten som skal kjøres.",
+    "param.agent_name.description": "Navnet på underagenten som skal kjøres. Innebygd: planner, reviewer, summarizer, patch_designer, error_analyst, translator, general. Egendefinerte roller kan lastes fra UAGENT_SUB_AGENT_ROLES_DIR.",
     "param.current_file.description": "(Valgfritt) Begrens subagentens resonnementomfang til denne spesifikke filen.",
     "param.task.description": "Spesifikk instruksjon/oppgave for underagenten å behandle.",
     "x_search_terms": [
@@ -794,7 +831,9 @@
       "debug",
       "error",
       "feilanalyse",
-      "feilsøking"
+      "feilsøking",
+      "general",
+      "generell"
     ],
     "param.evidence_min_items.description": "Minimum antall påkrevde beviselementer.",
     "param.evidence_required.description": "Krev bevis.",
@@ -802,7 +841,7 @@
     "param.response_mode.description": "Utdatamodus for underagenten.",
     "param.response_schema.description": "Valgfritt JSON-skjemaobjekt for det forventede svaret.",
     "param.strict_output.description": "Behandle manglende obligatoriske felt eller skjemamismatch som feil.",
-    "tool.description": "Utfør en spesialisert, sikker underagent (planlegger, anmelder, oppsummerer, patch-designer, feilanalytiker eller oversetter) under kontroll av den overordnede orkestratoren.",
+    "tool.description": "Utfør en spesialisert eller generell underagent (planlegger, anmelder, oppsummerer, patch-designer, feilanalytiker, oversetter eller general) under kontroll av den overordnede orkestratoren.",
     "param.permission_level.description": "Utførelsestillatelsesnivå for underagenten. 'read_only' tillater fillesing, 'propose_only' tillater lesing + ny filoppretting.",
     "param.cache_ttl.description": "Buffer TTL på sekunder. 0 = ingen cache. Standard 0.",
     "param.store_key.description": "Nøkkel for å lagre denne underagentens resultat i det delte kontekstlageret for bruk av påfølgende underagenter.",
@@ -813,7 +852,7 @@
     "param.max_turns.description": "Maksimalt antall interaksjoner med flere svinger for bruk av verktøy. 3 = anbefalt. Underagenten kan bruke verktøy på tvers av flere runder før den produserer det endelige svaret."
   },
   "nl": {
-    "param.agent_name.description": "De naam van de gespecialiseerde subagent die moet worden uitgevoerd.",
+    "param.agent_name.description": "Naam van de uit te voeren subagent. Ingebouwd: planner, reviewer, summarizer, patch_designer, error_analyst, translator, general. Aangepaste rollen kunnen worden geladen vanuit UAGENT_SUB_AGENT_ROLES_DIR.",
     "param.current_file.description": "(Optioneel) Beperk het redeneerbereik van de subagent tot dit specifieke bestand.",
     "param.task.description": "Specifieke instructie/taak die de sub-agent moet verwerken.",
     "x_search_terms": [
@@ -833,7 +872,9 @@
       "debug",
       "error",
       "foutanalyse",
-      "foutopsporing"
+      "foutopsporing",
+      "general",
+      "algemeen"
     ],
     "param.evidence_min_items.description": "Minimaal aantal vereiste bewijsstukken.",
     "param.evidence_required.description": "Bewijs nodig.",
@@ -841,7 +882,7 @@
     "param.response_mode.description": "Uitvoermodus voor de subagent.",
     "param.response_schema.description": "Optioneel JSON-schema-object voor het verwachte antwoord.",
     "param.strict_output.description": "Behandel ontbrekende verplichte velden of schema-mismatches als fouten.",
-    "tool.description": "Voer een gespecialiseerde, veilige sub-agent uit (planner, reviewer, summarizer, patch_designer, error_analyst of translator) onder controle van de bovenliggende orchestrator.",
+    "tool.description": "Voer een gespecialiseerde of algemene sub-agent uit (planner, reviewer, summarizer, patch_designer, error_analyst, translator of general) onder controle van de bovenliggende orchestrator.",
     "param.permission_level.description": "Uitvoeringsmachtigingsniveau voor de subagent. 'read_only' staat het lezen van bestanden toe, 'propose_only' staat lezen + aanmaken van nieuwe bestanden toe.",
     "param.cache_ttl.description": "Cache TTL in seconden. 0 = geen cache. Standaard 0.",
     "param.store_key.description": "Sleutel om het resultaat van deze subagent op te slaan in het gedeelde contextarchief voor gebruik door volgende subagenten.",
@@ -852,7 +893,7 @@
     "param.max_turns.description": "Maximaal aantal multi-turn-interacties voor gereedschapsgebruik. 3 = aanbevolen. De subagent kan tools in meerdere rondes gebruiken voordat hij het definitieve antwoord geeft."
   },
   "pl": {
-    "param.agent_name.description": "Nazwa wyspecjalizowanego podagenta, którego należy uruchomić.",
+    "param.agent_name.description": "Nazwa podagenta do uruchomienia. Wbudowane: planner, reviewer, summarizer, patch_designer, error_analyst, translator, general. Role niestandardowe można wczytać z UAGENT_SUB_AGENT_ROLES_DIR.",
     "param.current_file.description": "(Opcjonalnie) Ogranicz zakres rozumowania podagenta do tego konkretnego pliku.",
     "param.task.description": "Konkretne instrukcje/zadanie do przetworzenia przez subagenta.",
     "x_search_terms": [
@@ -872,7 +913,9 @@
       "debug",
       "error",
       "analiza błędów",
-      "debugowanie"
+      "debugowanie",
+      "general",
+      "ogólny"
     ],
     "param.evidence_min_items.description": "Minimalna wymagana liczba elementów dowodowych.",
     "param.evidence_required.description": "Wymagaj dowodów.",
@@ -880,7 +923,7 @@
     "param.response_mode.description": "Tryb wyjściowy dla podagenta.",
     "param.response_schema.description": "Opcjonalny obiekt JSON Schema dla oczekiwanej odpowiedzi.",
     "param.strict_output.description": "Brakujące wymagane pola lub niezgodność schematu traktuj jako błędy.",
-    "tool.description": "Wykonaj wyspecjalizowany, bezpieczny pod-agent (planista, recenzent, podsumowujący, projektant łatek, analityk błędów lub tłumacz) pod kontrolą nadrzędnego orkiestratora.",
+    "tool.description": "Wykonaj wyspecjalizowanego lub uniwersalnego pod-agenta (planista, recenzent, podsumowujący, projektant łatek, analityk błędów, tłumacz lub general) pod kontrolą nadrzędnego orkiestratora.",
     "param.permission_level.description": "Poziom uprawnień do wykonywania dla podagenta. „read_only” pozwala na odczyt plików, „propose_only” pozwala na odczyty i utworzenie nowego pliku.",
     "param.cache_ttl.description": "Cache TTL w kilka sekund. 0 = brak pamięci podręcznej. Domyślnie 0.",
     "param.store_key.description": "Klucz do przechowywania wyniku tego podagenta we wspólnym magazynie kontekstu do wykorzystania przez kolejnych podagentów.",
@@ -891,7 +934,7 @@
     "param.max_turns.description": "Maksymalna liczba interakcji wieloobrotowych przy użyciu narzędzia. 3 = zalecane. Podagent może korzystać z narzędzi w wielu rundach, zanim udzieli ostatecznej odpowiedzi."
   },
   "pt": {
-    "param.agent_name.description": "O nome do subagente especializado a ser executado.",
+    "param.agent_name.description": "Nome do subagente a executar. Integrados: planner, reviewer, summarizer, patch_designer, error_analyst, translator, general. Funções personalizadas podem ser carregadas de UAGENT_SUB_AGENT_ROLES_DIR.",
     "param.current_file.description": "(Opcional) Limite o escopo de raciocínio do subagente a este arquivo específico.",
     "param.task.description": "Instrução ou tarefa específica para o subagente processar.",
     "x_search_terms": [
@@ -911,7 +954,9 @@
       "debug",
       "error",
       "análise de erros",
-      "depuração"
+      "depuração",
+      "general",
+      "geral"
     ],
     "param.evidence_min_items.description": "Número mínimo de itens de prova necessários.",
     "param.evidence_required.description": "Exigir provas.",
@@ -919,7 +964,7 @@
     "param.response_mode.description": "Modo de saída para o subagente.",
     "param.response_schema.description": "Objeto JSON Schema opcional para a resposta esperada.",
     "param.strict_output.description": "Trate campos obrigatórios ausentes ou incompatibilidade de esquema como erros.",
-    "tool.description": "Execute um subagente especializado e seguro (planeador, revisor, sumarizador, designer de patches, analista de erros ou tradutor) sob o controlo do orquestrador principal.",
+    "tool.description": "Execute um subagente especializado ou de uso geral (planeador, revisor, sumarizador, designer de patches, analista de erros, tradutor ou general) sob o controlo do orquestrador principal.",
     "param.permission_level.description": "Nível de permissão de execução para o subagente. 'read_only' permite leituras de arquivos, 'propose_only' permite leituras + criação de novo arquivo.",
     "param.cache_ttl.description": "Cache TTL em segundos. 0 = sem cache. Padrão 0.",
     "param.store_key.description": "Chave para armazenar o resultado deste subagente no armazenamento de contexto compartilhado para uso pelos subagentes subsequentes.",
@@ -930,7 +975,7 @@
     "param.max_turns.description": "Número máximo de interações multivoltas para uso da ferramenta. 3 = recomendado. O subagente pode usar ferramentas em diversas rodadas antes de produzir a resposta final."
   },
   "pt_BR": {
-    "param.agent_name.description": "O nome do subagente especializado a ser executado.",
+    "param.agent_name.description": "Nome do subagente a ser executado. Integrados: planner, reviewer, summarizer, patch_designer, error_analyst, translator, general. Funções personalizadas podem ser carregadas de UAGENT_SUB_AGENT_ROLES_DIR.",
     "param.current_file.description": "(Opcional) Limite o escopo de raciocínio do subagente a este arquivo específico.",
     "param.task.description": "Instrução ou tarefa específica para o subagente processar.",
     "x_search_terms": [
@@ -950,7 +995,9 @@
       "debug",
       "error",
       "análise de erros",
-      "depuração"
+      "depuração",
+      "general",
+      "geral"
     ],
     "param.evidence_min_items.description": "Número mínimo de itens de evidência necessários.",
     "param.evidence_required.description": "Exigir provas.",
@@ -958,7 +1005,7 @@
     "param.response_mode.description": "Modo de saída para o subagente.",
     "param.response_schema.description": "Objeto JSON Schema opcional para a resposta esperada.",
     "param.strict_output.description": "Trate campos obrigatórios ausentes ou incompatibilidade de esquema como erros.",
-    "tool.description": "Execute um subagente especializado e seguro (planejador, revisor, resumidor, designer de patch, analista de erros ou tradutor) sob o controle do orquestrador pai.",
+    "tool.description": "Execute um subagente especializado ou de uso geral (planejador, revisor, resumidor, designer de patch, analista de erros, tradutor ou general) sob o controle do orquestrador principal.",
     "param.permission_level.description": "Nível de permissão de execução para o subagente. 'read_only' permite leituras de arquivos, 'propose_only' permite leituras + criação de novo arquivo.",
     "param.cache_ttl.description": "Cache TTL em segundos. 0 = sem cache. Padrão 0.",
     "param.store_key.description": "Chave para armazenar o resultado deste subagente no armazenamento de contexto compartilhado para uso pelos subagentes subsequentes.",
@@ -969,7 +1016,7 @@
     "param.max_turns.description": "Número máximo de interações multivoltas para uso da ferramenta. 3 = recomendado. O subagente pode usar ferramentas em diversas rodadas antes de produzir a resposta final."
   },
   "ru": {
-    "param.agent_name.description": "Имя специализированного суб-агента для запуска.",
+    "param.agent_name.description": "Имя суб-агента для запуска. Встроенные: planner, reviewer, summarizer, patch_designer, error_analyst, translator, general. Пользовательские роли можно загрузить из UAGENT_SUB_AGENT_ROLES_DIR.",
     "param.current_file.description": "(Необязательно) Ограничьте область рассуждений субагента этим конкретным файлом.",
     "param.task.description": "Конкретная инструкция или задача для обработки суб-агентом.",
     "x_search_terms": [
@@ -990,7 +1037,9 @@
       "error",
       "анализ ошибок",
       "отладка",
-      "дебаг"
+      "дебаг",
+      "general",
+      "универсальный"
     ],
     "param.evidence_min_items.description": "Минимальное необходимое количество доказательств.",
     "param.evidence_required.description": "Требуйте доказательства.",
@@ -998,7 +1047,7 @@
     "param.response_mode.description": "Режим вывода для субагента.",
     "param.response_schema.description": "Необязательный объект JSON Schema для ожидаемого ответа.",
     "param.strict_output.description": "Отсутствующие обязательные поля или несоответствие схемы считаются ошибками.",
-    "tool.description": "Запустить специализированного безопасного саб-агента (планировщик, рецензент, суммаризатор, разработчик патчей, аналитик ошибок или переводчик) под управлением родительского оркестратора.",
+    "tool.description": "Запустить специализированного или универсального саб-агента (планировщик, рецензент, суммаризатор, разработчик патчей, аналитик ошибок, переводчик или general) под управлением родительского оркестратора.",
     "param.permission_level.description": "Уровень разрешений на выполнение для субагента. «read_only» разрешает чтение файлов, «propose_only» разрешает чтение + создание нового файла.",
     "param.cache_ttl.description": "Срок жизни кэша за считанные секунды. 0 = нет кэша. По умолчанию 0.",
     "param.store_key.description": "Ключ для сохранения результата этого субагента в хранилище общего контекста для использования последующими субагентами.",
@@ -1009,7 +1058,7 @@
     "param.max_turns.description": "Максимальное количество многооборотных взаимодействий при использовании инструмента. 3 = рекомендуется. Субагент может использовать инструменты в течение нескольких раундов, прежде чем дать окончательный ответ."
   },
   "sv": {
-    "param.agent_name.description": "Namnet på den specialiserade underagenten som ska köras.",
+    "param.agent_name.description": "Namnet på underagenten som ska köras. Inbyggda: planner, reviewer, summarizer, patch_designer, error_analyst, translator, general. Anpassade roller kan laddas från UAGENT_SUB_AGENT_ROLES_DIR.",
     "param.current_file.description": "(Valfritt) Begränsa underagentens resonemang till denna specifika fil.",
     "param.task.description": "Specifik instruktion/uppgift för underagenten att bearbeta.",
     "x_search_terms": [
@@ -1029,7 +1078,9 @@
       "debug",
       "error",
       "felanalys",
-      "felsökning"
+      "felsökning",
+      "general",
+      "generell"
     ],
     "param.evidence_min_items.description": "Minsta antal bevisobjekt som krävs.",
     "param.evidence_required.description": "Kräv bevis.",
@@ -1037,7 +1088,7 @@
     "param.response_mode.description": "Utdataläge för underagenten.",
     "param.response_schema.description": "Valfritt JSON-schemaobjekt för det förväntade svaret.",
     "param.strict_output.description": "Behandla saknade obligatoriska fält eller schemafel som fel.",
-    "tool.description": "Kör en specialiserad, säker underagent (planerare, granskare, sammanfattare, patchdesigner, felanalytiker eller översättare) under kontroll av den överordnade orkestratorn.",
+    "tool.description": "Kör en specialiserad eller generell underagent (planerare, granskare, sammanfattare, patchdesigner, felanalytiker, översättare eller general) under kontroll av den överordnade orkestratorn.",
     "param.permission_level.description": "Exekveringsbehörighetsnivå för underagenten. 'read_only' tillåter filläsning, 'propose_only' tillåter läsning + ny filskapande.",
     "param.cache_ttl.description": "Cache TTL på några sekunder. 0 = ingen cache. Standard 0.",
     "param.store_key.description": "Nyckel för att lagra denna underagents resultat i den delade kontextlagringen för användning av efterföljande underagenter.",
@@ -1048,7 +1099,7 @@
     "param.max_turns.description": "Maximalt antal flervarvsinteraktioner för verktygsanvändning. 3 = rekommenderas. Underagenten kan använda verktyg i flera omgångar innan det slutliga svaret produceras."
   },
   "sw": {
-    "param.agent_name.description": "Jina la ejenti msaidizi maalum wa kumendesha.",
+    "param.agent_name.description": "Jina la ejenti msaidizi wa kumendesha. Iliyojengwa ndani: planner, reviewer, summarizer, patch_designer, error_analyst, translator, general. Majukumu maalum yanaweza kupakiwa kutoka UAGENT_SUB_AGENT_ROLES_DIR.",
     "param.current_file.description": "(Hiari) Punguza wigo wa kufikiri wa ejenti msaidizi kwenye faili hii maalum.",
     "param.task.description": "Maagizo/kazi mahususi kwa wakala mdogo kuchakata.",
     "x_search_terms": [
@@ -1068,7 +1119,9 @@
       "debug",
       "error",
       "uchambuzi wa makosa",
-      "utatuzi"
+      "utatuzi",
+      "general",
+      "jumla"
     ],
     "param.evidence_min_items.description": "Idadi ya chini kabisa ya vipengee vya ushahidi vinavyohitajika.",
     "param.evidence_required.description": "Inahitaji ushahidi.",
@@ -1076,7 +1129,7 @@
     "param.response_mode.description": "Hali ya pato kwa wakala mdogo.",
     "param.response_schema.description": "Kitu cha hiari cha JSON Schema kwa jibu linalotarajiwa.",
     "param.strict_output.description": "Chukua uga zinazokosekana au ulinganifu wa taratibu kama hitilafu.",
-    "tool.description": "Tekeleza wakala mdogo maalum, salama (mpangaji, mkaguzi, muhtasari, mbuni wa kiraka, mchambuzi wa makosa, au mtafsiri) chini ya udhibiti wa mratibu mzazi.",
+    "tool.description": "Tekeleza wakala mdogo maalum au wa madhumuni ya jumla (mpangaji, mkaguzi, muhtasari, mbuni wa kiraka, mchambuzi wa makosa, mtafsiri, au general) chini ya udhibiti wa mratibu mkuu.",
     "param.permission_level.description": "Kiwango cha ruhusa ya utekelezaji kwa wakala mdogo. 'soma_pekee' inaruhusu faili kusomeka, 'pendekeza_pekee' inaruhusu kusomeka + kuunda faili mpya.",
     "param.cache_ttl.description": "Cache TTL kwa sekunde. 0 = hakuna kashe. Chaguomsingi 0.",
     "param.store_key.description": "Ufunguo wa kuhifadhi matokeo ya wakala huyu mdogo katika hifadhi ya muktadha iliyoshirikiwa ili kutumiwa na mawakala wadogo wanaofuata.",
@@ -1087,7 +1140,7 @@
     "param.max_turns.description": "Idadi ya juu zaidi ya mwingiliano wa zamu nyingi kwa matumizi ya zana. 3 = inapendekezwa. Wakala mdogo anaweza kutumia zana katika raundi nyingi kabla ya kutoa jibu la mwisho."
   },
   "th": {
-    "param.agent_name.description": "ชื่อของซับเอเจนต์ (sub-agent) เฉพาะทางที่จะรัน",
+    "param.agent_name.description": "ชื่อของซับเอเจนต์ที่จะรัน ที่มีมาให้: planner, reviewer, summarizer, patch_designer, error_analyst, translator, general บทบาทที่กำหนดเองสามารถโหลดจาก UAGENT_SUB_AGENT_ROLES_DIR",
     "param.current_file.description": "(ไม่บังคับ) จำกัดขอบเขตการคิดของซับเอเจนต์ไว้ที่ไฟล์เฉพาะนี้",
     "param.task.description": "คำสั่งหรือภารกิจเฉพาะเจาะจงเพื่อให้ซับเอเจนต์ประมวลผล",
     "x_search_terms": [
@@ -1107,7 +1160,9 @@
       "debug",
       "error",
       "การวิเคราะห์ข้อผิดพลาด",
-      "ดีบัก"
+      "ดีบัก",
+      "general",
+      "ทั่วไป"
     ],
     "param.evidence_min_items.description": "จำนวนขั้นต่ำของรายการหลักฐานที่ต้องการ",
     "param.evidence_required.description": "ต้องมีหลักฐาน",
@@ -1115,7 +1170,7 @@
     "param.response_mode.description": "โหมดเอาต์พุตสำหรับซับเอเจนต์",
     "param.response_schema.description": "อ็อบเจกต์ JSON Schema ทางเลือกสำหรับการตอบกลับที่คาดหวัง",
     "param.strict_output.description": "ถือว่าฟิลด์ที่จำเป็นหรือสคีมาไม่ตรงกันเป็นข้อผิดพลาด",
-    "tool.description": "ดำเนินการตัวแทนย่อยเฉพาะทางที่ปลอดภัย (ผู้วางแผน ผู้ตรวจสอบ ผู้สรุป ผู้ออกแบบแพตช์ นักวิเคราะห์ข้อผิดพลาด หรือนักแปล) ภายใต้การควบคุมของตัวประสานงานหลัก",
+    "tool.description": "ดำเนินการตัวแทนย่อยเฉพาะทางหรืออเนกประสงค์ (ผู้วางแผน ผู้ตรวจสอบ ผู้สรุป ผู้ออกแบบแพตช์ นักวิเคราะห์ข้อผิดพลาด นักแปล หรือ general) ภายใต้การควบคุมของตัวประสานหลัก",
     "param.permission_level.description": "ระดับสิทธิ์ในการดำเนินการสำหรับตัวแทนย่อย 'read_only' อนุญาตให้อ่านไฟล์ 'propose_only' อนุญาตให้อ่าน + สร้างไฟล์ใหม่",
     "param.cache_ttl.description": "แคช TTL ในไม่กี่วินาที 0 = ไม่มีแคช ค่าเริ่มต้น 0",
     "param.store_key.description": "คีย์เพื่อจัดเก็บผลลัพธ์ของตัวแทนย่อยนี้ในที่เก็บบริบทที่ใช้ร่วมกันเพื่อใช้โดยตัวแทนย่อยที่ตามมา",
@@ -1126,7 +1181,7 @@
     "param.max_turns.description": "จำนวนการโต้ตอบหลายรอบสูงสุดสำหรับการใช้เครื่องมือ 3 = แนะนำ ตัวแทนย่อยสามารถใช้เครื่องมือได้หลายรอบก่อนที่จะสร้างคำตอบสุดท้าย"
   },
   "tr": {
-    "param.agent_name.description": "Çalıştırılacak özel alt aracının adı.",
+    "param.agent_name.description": "Çalıştırılacak alt aracının adı. Yerleşik: planner, reviewer, summarizer, patch_designer, error_analyst, translator, general. Özel roller UAGENT_SUB_AGENT_ROLES_DIR konumundan yüklenebilir.",
     "param.current_file.description": "(İsteğe bağlı) Alt aracının muhakeme kapsamını bu belirli dosyayla sınırlayın.",
     "param.task.description": "Alt temsilcinin işlemesi için belirli talimat veya görev.",
     "x_search_terms": [
@@ -1146,7 +1201,9 @@
       "debug",
       "error",
       "hata analizi",
-      "hata ayıklama"
+      "hata ayıklama",
+      "general",
+      "genel"
     ],
     "param.evidence_min_items.description": "Gerekli minimum kanıt öğesi sayısı.",
     "param.evidence_required.description": "Kanıt iste.",
@@ -1154,7 +1211,7 @@
     "param.response_mode.description": "Alt aracı için çıktı modu.",
     "param.response_schema.description": "Beklenen yanıt için isteğe bağlı JSON Şeması nesnesi.",
     "param.strict_output.description": "Gerekli alanların eksik olmasını veya şema uyumsuzluğunu hata olarak değerlendirin.",
-    "tool.description": "Ana orkestratörün kontrolü altında özelleştirilmiş, güvenli bir alt ajan (planlayıcı, inceleyici, özetleyici, yama tasarımcısı, hata analisti veya çevirmen) yürütür.",
+    "tool.description": "Ana orkestratörün kontrolü altında özelleştirilmiş veya genel amaçlı bir alt ajan (planlayıcı, inceleyici, özetleyici, yama tasarımcısı, hata analisti, çevirmen veya general) çalıştırın.",
     "param.permission_level.description": "Alt aracı için yürütme izni düzeyi. 'read_only' dosya okumalarına izin verir, 'propose_only' okumalara + yeni dosya oluşturmaya izin verir.",
     "param.cache_ttl.description": "TTL'yi saniyeler içinde önbelleğe alın. 0 = önbellek yok. Varsayılan 0.",
     "param.store_key.description": "Bu alt aracının sonucunu, sonraki alt aracıların kullanması için paylaşılan bağlam deposunda saklamanın anahtarı.",
@@ -1165,7 +1222,7 @@
     "param.max_turns.description": "Takım kullanımı için maksimum çok turlu etkileşim sayısı. 3 = önerilir. Alt temsilci, nihai cevabı üretmeden önce araçları birden fazla turda kullanabilir."
   },
   "uk": {
-    "param.agent_name.description": "Ім'я спеціалізованого суб-агента для запуску.",
+    "param.agent_name.description": "Ім'я суб-агента для запуску. Вбудовані: planner, reviewer, summarizer, patch_designer, error_analyst, translator, general. Користувацькі ролі можна завантажити з UAGENT_SUB_AGENT_ROLES_DIR.",
     "param.current_file.description": "(Необов'язково) Обмежити область міркувань суб-агента цим конкретним файлом.",
     "param.task.description": "Конкретна інструкція або завдання для обробки суб-агентом.",
     "x_search_terms": [
@@ -1185,7 +1242,9 @@
       "debug",
       "error",
       "аналіз помилок",
-      "налагодження"
+      "налагодження",
+      "general",
+      "універсальний"
     ],
     "param.evidence_min_items.description": "Мінімальна кількість необхідних доказів.",
     "param.evidence_required.description": "Вимагати доказів.",
@@ -1193,7 +1252,7 @@
     "param.response_mode.description": "Режим виведення для субагента.",
     "param.response_schema.description": "Необязательный объект JSON Schema для ожидаемого ответа.",
     "param.strict_output.description": "Вважайте відсутність обов’язкових полів або невідповідність схеми помилками.",
-    "tool.description": "Виконати спеціалізований, безпечний підагент (планувальник, рецензент, підсумовувач, дизайнер патчів, аналітик помилок або перекладач) під контролем батьківського оркестратора.",
+    "tool.description": "Виконати спеціалізований або універсальний підагент (планувальник, рецензент, підсумовувач, дизайнер патчів, аналітик помилок, перекладач або general) під контролем батьківського оркестратора.",
     "param.permission_level.description": "Рівень дозволу на виконання для субагента. 'read_only' дозволяє читати файли, 'propose_only' дозволяє читати + створення нового файлу.",
     "param.cache_ttl.description": "Кеш TTL за секунди. 0 = немає кешу. За замовчуванням 0.",
     "param.store_key.description": "Ключ для збереження результату цього підагента в спільному контекстному сховищі для використання наступними підагентами.",
@@ -1204,7 +1263,7 @@
     "param.max_turns.description": "Максимальна кількість багатооборотних взаємодій для використання інструменту. 3 = рекомендовано. Субагент може використовувати інструменти в кількох раундах, перш ніж дати остаточну відповідь."
   },
   "vi": {
-    "param.agent_name.description": "Tên của sub-agent chuyên biệt cần chạy.",
+    "param.agent_name.description": "Tên sub-agent cần chạy. Tích hợp sẵn: planner, reviewer, summarizer, patch_designer, error_analyst, translator, general. Vai trò tùy chỉnh có thể tải từ UAGENT_SUB_AGENT_ROLES_DIR.",
     "param.current_file.description": "(Tùy chọn) Giới hạn phạm vi lập luận của sub-agent trong tệp cụ thể này.",
     "param.task.description": "Hướng dẫn hoặc nhiệm vụ cụ thể để sub-agent xử lý.",
     "x_search_terms": [
@@ -1224,7 +1283,9 @@
       "debug",
       "error",
       "phân tích lỗi",
-      "gỡ lỗi"
+      "gỡ lỗi",
+      "general",
+      "đa năng"
     ],
     "param.evidence_min_items.description": "Cần có số lượng mục bằng chứng tối thiểu.",
     "param.evidence_required.description": "Yêu cầu bằng chứng.",
@@ -1232,7 +1293,7 @@
     "param.response_mode.description": "Chế độ đầu ra cho tác nhân phụ.",
     "param.response_schema.description": "Đối tượng JSON Schema tùy chọn cho phản hồi mong đợi.",
     "param.strict_output.description": "Coi các trường bắt buộc bị thiếu hoặc không khớp lược đồ là lỗi.",
-    "tool.description": "Thực thi một tác nhân phụ chuyên biệt, an toàn (lập kế hoạch, người đánh giá, người tóm tắt, người thiết kế bản vá, nhà phân tích lỗi hoặc người dịch) dưới sự kiểm soát của bộ điều phối chính.",
+    "tool.description": "Thực thi một tác nhân phụ chuyên biệt hoặc đa năng (lập kế hoạch, người đánh giá, người tóm tắt, người thiết kế bản vá, nhà phân tích lỗi, dịch giả hoặc general) dưới sự kiểm soát của bộ điều phối cha.",
     "param.permission_level.description": "Cấp độ quyền thực thi cho tác nhân phụ. 'read_only' cho phép đọc tệp, 'propose_only' cho phép đọc + tạo tệp mới.",
     "param.cache_ttl.description": "Bộ nhớ đệm TTL trong vài giây. 0 = không có bộ đệm. Mặc định 0.",
     "param.store_key.description": "Khóa để lưu trữ kết quả của tác nhân phụ này trong kho ngữ cảnh dùng chung để các tác nhân phụ tiếp theo sử dụng.",
@@ -1243,7 +1304,7 @@
     "param.max_turns.description": "Số lượng tương tác nhiều lượt tối đa để sử dụng công cụ. 3 = được khuyến nghị. Tác nhân phụ có thể sử dụng các công cụ qua nhiều vòng trước khi đưa ra câu trả lời cuối cùng."
   },
   "zh_CN": {
-    "param.agent_name.description": "要运行的专业子智能体（sub-agent）的名称。",
+    "param.agent_name.description": "要运行的子智能体名称。内置：planner, reviewer, summarizer, patch_designer, error_analyst, translator, general。自定义角色可从 UAGENT_SUB_AGENT_ROLES_DIR 加载。",
     "param.current_file.description": "（可选）将子智能体的推理范围限制在此特定文件。",
     "param.task.description": "要交由子智能体处理的具体指令或任务。",
     "x_search_terms": [
@@ -1264,7 +1325,9 @@
       "error",
       "错误分析",
       "调试",
-      "找错"
+      "找错",
+      "general",
+      "通用"
     ],
     "param.evidence_min_items.description": "所需证据项的最小数量。",
     "param.evidence_required.description": "要求在响应中包含证据项。",
@@ -1272,7 +1335,7 @@
     "param.response_mode.description": "子代理的输出模式。",
     "param.response_schema.description": "预期响应的可选 JSON Schema 对象。",
     "param.strict_output.description": "将缺失必填字段或架构不匹配视为错误。",
-    "tool.description": "在父编排器控制下执行专门的、安全的子代理（规划器、审查器、摘要器、补丁设计器、错误分析器或翻译器）。",
+    "tool.description": "在父编排器控制下执行专门的或通用的子代理（规划器、审查器、摘要器、补丁设计器、错误分析器、翻译器或 general）。",
     "param.permission_level.description": "子代理的执行权限级别。 “read_only”允许文件读取，“propose_only”允许读取+创建新文件。",
     "param.cache_ttl.description": "以秒为单位缓存 TTL。 0 = 无缓存。默认 0。",
     "param.store_key.description": "将该子代理的结果存储在共享上下文存储中以供后续子代理使用的密钥。",
@@ -1283,7 +1346,7 @@
     "param.max_turns.description": "工具使用的多轮交互的最大数量。 3 = 推荐。在产生最终答案之前，子代理可以在多轮中使用工具。"
   },
   "zh_TW": {
-    "param.agent_name.description": "要執行的專業子代理（sub-agent）名稱。",
+    "param.agent_name.description": "要執行的子代理名稱。內建：planner, reviewer, summarizer, patch_designer, error_analyst, translator, general。自訂角色可從 UAGENT_SUB_AGENT_ROLES_DIR 載入。",
     "param.current_file.description": "（選填）將子代理的推理範圍限制在此特定檔案。",
     "param.task.description": "要交由子代理處理的具體指令或任務。",
     "x_search_terms": [
@@ -1304,7 +1367,9 @@
       "error",
       "錯誤分析",
       "調試",
-      "除錯"
+      "除錯",
+      "general",
+      "通用"
     ],
     "param.evidence_min_items.description": "所需證據項目的最少數量。",
     "param.evidence_required.description": "要求在回應中包含證據項目。",
@@ -1312,7 +1377,7 @@
     "param.response_mode.description": "子代理的輸出模式。",
     "param.response_schema.description": "預期回應的可選 JSON Schema 物件。",
     "param.strict_output.description": "將遺失必填欄位或結構描述不符視為錯誤。",
-    "tool.description": "在父協調器的控制下，執行一個專門、安全的子代理（規劃者、審閱者、摘要者、修補設計者、錯誤分析者或翻譯者）。",
+    "tool.description": "在父協調器的控制下，執行一個專門或通用的子代理（規劃者、審閱者、摘要者、修補設計者、錯誤分析者、翻譯者或 general）。",
     "param.permission_level.description": "子代理的执行权限级别。 “read_only”允許檔案讀取，“propose_only”允許讀取+建立新檔案。",
     "param.cache_ttl.description": "以秒为单位缓存 TTL。 0 = 無緩存。預設 0。",
     "param.store_key.description": "將該子代理程式的結果儲存在共用上下文儲存中以供後續子代理程式使用的金鑰。",

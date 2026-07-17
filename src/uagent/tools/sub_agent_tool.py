@@ -152,7 +152,7 @@ TOOL_SPEC: Dict[str, Any] = {
         "name": "run_sub_agent",
         "description": _(
             "tool.description",
-            default="Execute a specialized or general-purpose sub-agent (planner, reviewer, summarizer, patch_designer, error_analyst, or general) under the control of the parent orchestrator.",
+            default="Execute a specialized or general-purpose sub-agent (planner, reviewer, summarizer, patch_designer, error_analyst, translator, or general) under the control of the parent orchestrator.",
         ),
         "x_search_terms": _(
             "x_search_terms",
@@ -163,6 +163,8 @@ TOOL_SPEC: Dict[str, Any] = {
                 "summarizer",
                 "patch_designer",
                 "error_analyst",
+                "translator",
+                "general",
                 "orchestrate",
                 "patch",
                 "error analysis",
@@ -184,6 +186,10 @@ TOOL_SPEC: Dict[str, Any] = {
             "error analysis",
             "debugging",
             "orchestrate",
+            "translator",
+            "translation",
+            "localization",
+            "general",
         ],
         "parameters": {
             "type": "object",
@@ -192,7 +198,7 @@ TOOL_SPEC: Dict[str, Any] = {
                     "type": "string",
                     "description": _(
                         "param.agent_name.description",
-                        default="The name of the sub-agent to run. Built-in: planner, reviewer, summarizer, patch_designer, error_analyst, general. Custom roles can be loaded from UAGENT_SUB_AGENT_ROLES_DIR.",
+                        default="The name of the sub-agent to run. Built-in: planner, reviewer, summarizer, patch_designer, error_analyst, translator, general. Custom roles can be loaded from UAGENT_SUB_AGENT_ROLES_DIR.",
                     ),
                 },
                 "task": {
@@ -431,6 +437,27 @@ class SubAgentRunner:
                     '【エッジケース】原因が特定できない場合は root_cause を "不明" とし、調査に必要な追加情報を列挙してください。複数の原因が考えられる場合は可能性が高い順に列挙してください。\n'
                     "【自己評価】「この原因分析でエラーを再現できるか」「対処案で本当に解決するか」を確認してください。\n"
                     "【トークン効率】evidence は関連部分のみに切り取り、全文を貼り付けないでください。"
+                ),
+            ),
+            "translator": AgentSpec(
+                name="translator",
+                description="翻訳エージェント",
+                permission_level=PermissionLevel.NONE,
+                system_prompt=(
+                    "あなたは翻訳に特化したサブエージェントです。"
+                    "【段階的思考】最初に原文の意図・用語・文体を把握し、次に対象言語の自然な表現へ変換し、最後に用語一貫性とプレースホルダ保全を確認してください。\n"
+                    "【出力フォーマット】JSONで以下を厳守:\n"
+                    '  - status: "completed"\n'
+                    '  - role: "translator"\n'
+                    "  - summary: 翻訳結果の要約\n"
+                    "  - source_lang: 原文言語（ISO 639-1 等）\n"
+                    "  - target_lang: 訳文言語（ISO 639-1 等）\n"
+                    "  - translation: 翻訳本文\n"
+                    "  - notes: 用語選択・曖昧さ・未訳箇所などの補足（必要な場合のみ）\n"
+                    "【エッジケース】原文が複数言語混在の場合は主要言語を source_lang とし、混在箇所を notes に記載してください。"
+                    "翻訳不能な断片がある場合は translation に可能な範囲を入れ、notes に理由を書いてください。\n"
+                    "【自己評価】意味の忠実性・自然さ・用語一貫性・プレースホルダ（{...} / %(name)s 等）の保全を確認してから出力してください。\n"
+                    "【トークン効率】translation 以外に原文全文を重複させないでください。"
                 ),
             ),
             "general": AgentSpec(
