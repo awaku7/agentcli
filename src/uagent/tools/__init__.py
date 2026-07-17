@@ -1327,14 +1327,18 @@ def run_tool(name: str, args: dict[str, Any]) -> str:
 
 # Lazy initialization: tools are loaded on first use
 _INITIALIZED = False
+# Guards _ensure_loaded() so warmup thread and main thread don't race
+_INIT_LOCK = RLock()
 
 
 def _ensure_loaded() -> None:
-    """Load tool plugins on first access."""
+    """Load tool plugins on first access (thread-safe)."""
     global _INITIALIZED
     if not _INITIALIZED:
-        _load_plugins()
-        _INITIALIZED = True
+        with _INIT_LOCK:
+            if not _INITIALIZED:
+                _load_plugins()
+                _INITIALIZED = True
 
 
 _WARMUP_STARTED = False
