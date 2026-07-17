@@ -11,6 +11,7 @@ Notes:
 
 - In this document, **uagent** refers to the Python package / codebase, while **uag** refers to the user-facing CLI project name.
 - Startup behavior is shared across entry points unless noted otherwise.
+- Plugin system: see [DEVELOP_PLUGIN.md](DEVELOP_PLUGIN.md) for full documentation.
 
 ______________________________________________________________________
 
