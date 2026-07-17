@@ -831,8 +831,29 @@ def _call_openai_azure_round(
                     _thinking_disabled = True
                     resp_kwargs.pop("reasoning", None)
                     continue
-                # No tool call found: previous_response_id is stale, retry without it
-                if "no tool call found" in err_text:
+                # A Responses continuation can fail when the stored
+                # previous_response_id refers to a tool call whose output was
+                # not accepted/stored by the service. Azure/OpenAI uses both
+                # "no tool call found" and "no tool output found" for this
+                # stale/incomplete continuation state. Treat both as stale
+                # and retry with the locally retained full history.
+                if (
+                    "no tool call found" in err_text
+                    or "no tool output found" in err_text
+                ):
+                    # The retry below must be a one-shot fallback. If the
+                    # provider rejects the reconstructed history too,
+                    # continuing here creates a tight loop that repeats the
+                    # same stale previous_response_id message forever.
+                    if _stale_rid_retried:
+                        print(
+                            "[Azure/OpenAI Error] "
+                            + _(
+                                "The Responses API rejected the full-history "
+                                "retry; starting a new session is required."
+                            )
+                        )
+                        return False, client, "", "", []
                     _stale_rid_retried = True
                     # Set persistent flag so subsequent calls also skip previous_response_id.
                     if isinstance(responses_state, dict):
