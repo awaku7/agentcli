@@ -639,6 +639,14 @@ def run_tool(args: dict[str, Any]) -> str:
             image_model = "imagen-3.0-generate-002"
         if provider == "vertexai" and "imagen" not in image_model.lower():
             image_model = "imagen-3.0-generate-002"
+        try:
+            from uagent.llmcapa_util import check_image_output_support
+
+            img_err = check_image_output_support(image_model, provider)
+            if img_err:
+                return f"[generate_image] {img_err}"
+        except Exception:
+            pass
     except RuntimeError:
         if provider == "vertexai":
             image_model = "imagen-3.0-generate-002"

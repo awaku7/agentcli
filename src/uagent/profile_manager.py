@@ -275,6 +275,7 @@ def _llm_simple_text(
             config=gemini_types.GenerateContentConfig(
                 system_instruction=system_prompt,
                 temperature=temperature,
+                max_output_tokens=max_tokens,
             ),
         )
         return (response.text or "") if response is not None else ""

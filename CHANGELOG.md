@@ -19,6 +19,7 @@
 - llmcapa: resolve tokenizer model ids; gate Responses/FIM with capability data; clamp Ollama/FIM/Grok max tokens.
 - llmcapa: clamp profile/translate/sub-agent max tokens; sub-agent usage cost estimate; deprecated model WARN on banner/`:model`; refresh integration docs.
 - llmcapa: vision tools (analyze_image backends) check vision support and clamp max tokens.
+- llmcapa: DeepSeek/ZAI/Novita shared max_tokens; image/embedding capability checks for generate_image/img2img/semantic_search.
 - Tools plugin load remains lazy, but is prewarmed in a background thread after startup.
 
 ## [0.5.48] - 2026-07-13

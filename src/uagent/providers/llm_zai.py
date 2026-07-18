@@ -170,6 +170,13 @@ def build_zai_chat_kwargs(
         except ValueError:
             chat_kwargs["frequency_penalty"] = 0.0
 
+    try:
+        from uagent.llmcapa_util import apply_shared_max_tokens
+
+        apply_shared_max_tokens(chat_kwargs, model_id=depname, provider="zai")
+    except Exception:
+        pass
+
     return chat_kwargs, effort_used
 
 

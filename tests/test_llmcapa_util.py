@@ -7,6 +7,9 @@ import pytest
 pytest.importorskip("llmcapa")
 
 from uagent.llmcapa_util import (
+    check_embedding_support,
+    check_image_output_support,
+    apply_shared_max_tokens,
     check_vision_support,
     vision_completion_max_tokens,
     deprecated_model_warning,
@@ -177,3 +180,27 @@ class TestVisionToolHelpers:
         n = vision_completion_max_tokens("gpt-4o", "openai", default=1024)
         assert isinstance(n, int) and n > 0
         assert n <= 16384
+
+
+class TestImageAndEmbeddingHelpers:
+    def test_image_output_gpt_image(self) -> None:
+        assert check_image_output_support("gpt-image-1", "openai") is None
+
+    def test_image_output_blocks_chat_model(self) -> None:
+        err = check_image_output_support("gpt-4o", "openai")
+        # gpt-4o is text output only
+        assert err is not None
+
+    def test_embedding_model(self) -> None:
+        assert check_embedding_support("text-embedding-3-small", "openai") is None
+
+    def test_embedding_blocks_chat_model(self) -> None:
+        err = check_embedding_support("gpt-4o", "openai")
+        assert err is not None
+
+    def test_apply_shared_max_tokens(self, monkeypatch) -> None:
+        monkeypatch.setenv("UAGENT_MAX_TOKENS", "999999")
+        kw: dict = {}
+        apply_shared_max_tokens(kw, model_id="gpt-4o", provider="openai")
+        assert "max_tokens" in kw
+        assert kw["max_tokens"] <= 16384

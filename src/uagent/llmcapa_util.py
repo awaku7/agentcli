@@ -414,6 +414,111 @@ def provider_allows_fim(
 
 
 
+
+def supports_image_output(
+    model_id: str | None = None,
+    provider: str | None = None,
+    *,
+    default: bool | None = None,
+) -> bool | None:
+    """Whether the model can generate images."""
+    cap = get_capability(model_id, provider)
+    if cap is None:
+        return default
+    try:
+        if cap.supports("image_output"):
+            return True
+        mods = set(getattr(cap, "output_modalities", None) or [])
+        if "image" in mods:
+            return True
+        if mods and "image" not in mods:
+            return False
+    except Exception:
+        pass
+    return default
+
+
+def check_image_output_support(
+    model_id: str | None = None,
+    provider: str | None = None,
+) -> str | None:
+    """Error string if model is known not to generate images; else None."""
+    mid = (model_id or "").strip()
+    if not mid:
+        return None
+    flag = supports_image_output(mid, provider, default=None)
+    if flag is False:
+        prov = normalize_provider(provider) or "?"
+        return (
+            f"Model '{mid}' (provider={prov}) does not support image generation "
+            "according to llmcapa. Choose an image-capable model."
+        )
+    return None
+
+
+def supports_embedding(
+    model_id: str | None = None,
+    provider: str | None = None,
+    *,
+    default: bool | None = None,
+) -> bool | None:
+    """Whether the model is an embedding model."""
+    cap = get_capability(model_id, provider)
+    if cap is None:
+        return default
+    try:
+        mods = set(getattr(cap, "output_modalities", None) or [])
+        if "embedding" in mods or "embeddings" in mods:
+            return True
+        mid = (getattr(cap, "model_id", None) or model_id or "").lower()
+        if "embed" in mid:
+            return True
+        # Known text chat models are not embeddings when modalities are text-only.
+        if mods and not ({"embedding", "embeddings"} & mods):
+            if "embed" not in mid:
+                return False
+    except Exception:
+        pass
+    return default
+
+
+def check_embedding_support(
+    model_id: str | None = None,
+    provider: str | None = None,
+) -> str | None:
+    """Error string if model is known not to be an embedding model; else None."""
+    mid = (model_id or "").strip()
+    if not mid:
+        return None
+    flag = supports_embedding(mid, provider, default=None)
+    if flag is False:
+        prov = normalize_provider(provider) or "?"
+        return (
+            f"Model '{mid}' (provider={prov}) does not look like an embedding model "
+            "according to llmcapa."
+        )
+    return None
+
+
+def apply_shared_max_tokens(
+    kwargs: dict[str, Any],
+    *,
+    model_id: str | None,
+    provider: str | None,
+    key: str = "max_tokens",
+) -> dict[str, Any]:
+    """If UAGENT_MAX_TOKENS is set, clamp and set kwargs[key]."""
+    raw = (env_get("UAGENT_MAX_TOKENS") or "").strip()
+    if not raw:
+        return kwargs
+    try:
+        n = clamp_max_tokens(int(raw), model_id, provider)
+        kwargs[key] = n
+    except Exception:
+        pass
+    return kwargs
+
+
 def check_vision_support(
     model_id: str | None = None,
     provider: str | None = None,

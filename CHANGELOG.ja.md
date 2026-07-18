@@ -19,6 +19,7 @@
 - llmcapa: tokenizer 用 model id 解決、Responses/FIM の capability ゲート、Ollama/FIM/Grok の max-token クランプを追加。
 - llmcapa: profile/translate/sub-agent の max-token クランプ、sub-agent 利用コスト見積、banner/`:model` の deprecated 警告、統合ドキュメント更新。
 - llmcapa: vision ツール (analyze_image 系) で vision 可否チェックと max-token クランプを追加。
+- llmcapa: DeepSeek/ZAI/Novita の共有 max_tokens、generate_image/img2img/semantic_search の image/embedding capability チェックを追加。
 - ツールプラグインは遅延ロードのまま、起動後バックグラウンドで予熱する方式に変更。
 
 ## [0.5.48] - 2026-07-13

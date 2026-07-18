@@ -297,6 +297,23 @@ def build_novita_chat_kwargs(
         resolved_temp = 0.0
     chat_kwargs["temperature"] = resolved_temp
 
+    try:
+        from uagent.llmcapa_util import apply_shared_max_tokens
+
+        apply_shared_max_tokens(chat_kwargs, model_id=depname, provider="novita")
+    except Exception:
+        pass
+
+    # top_p shared fallback
+    top_p_env = (
+        env_get(f"{_ENV_PREFIX}_TOP_P") or env_get("UAGENT_TOP_P") or ""
+    ).strip()
+    if top_p_env:
+        try:
+            chat_kwargs["top_p"] = float(top_p_env)
+        except ValueError:
+            pass
+
     return chat_kwargs
 
 

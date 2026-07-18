@@ -262,6 +262,19 @@ def _get_embedding(text: str) -> list[float]:
         raise RuntimeError("Embedding config is not set")
 
     provider = cfg.get("provider")
+    depname = cfg.get("depname")
+    try:
+        from uagent.llmcapa_util import check_embedding_support
+
+        emb_err = check_embedding_support(
+            str(depname or ""), str(provider or "") or None
+        )
+        if emb_err:
+            raise RuntimeError(emb_err)
+    except RuntimeError:
+        raise
+    except Exception:
+        pass
     if provider in {"gemini", "vertexai"}:
         try:
             from google import genai

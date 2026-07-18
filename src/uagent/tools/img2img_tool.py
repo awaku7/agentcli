@@ -502,6 +502,15 @@ def run_tool(args: dict[str, Any]) -> str:
         )
 
     try:
+        from uagent.llmcapa_util import check_image_output_support
+
+        img_err = check_image_output_support(image_model, provider)
+        if img_err:
+            return f"[img2img] {img_err}"
+    except Exception:
+        pass
+
+    try:
         outdir = os.path.abspath(_ensure_dir(output_dir))
     except Exception as e:
         return _msg(
