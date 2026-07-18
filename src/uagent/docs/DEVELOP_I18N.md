@@ -218,6 +218,10 @@ TOOL_SPEC = {
 #    #   protect_placeholders=True,
 #    #   overwrite=False,
 #    # )
+#    # Efficient batch (recommended for many keys/langs):
+#    # python scripts/tool_json_i18n_batch.py status --langs ja,es,de
+#    # python scripts/tool_json_i18n_batch.py run --tools my_tool --langs es --apply
+#    # Artifacts land in tmp/tool_json_i18n/<lang>/ (gitignored).
 # 4. Validate syntax
 python -m py_compile src/uagent/tools/<name>_tool.py
 
@@ -232,6 +236,7 @@ python scripts/i18n_tools_check.py
 | Script | Purpose |
 |--------|---------|
 | `scripts/i18n_tools_check.py` | Validate all `*_tool.json` files for missing keys, broken placeholders, etc. |
+| `scripts/tool_json_i18n_batch.py` | Extract missing values to `tmp/`, batch-translate via `translate_text`, merge back. |
 
 ### Note about return values
 
@@ -256,6 +261,20 @@ ______________________________________________________________________
 6. Commit both `.po` and `.mo`
 
 ### Tool side (JSON)
+
+**Recommended (batch via tmp/):**
+
+```bash
+python scripts/tool_json_i18n_batch.py status --langs fr
+python scripts/tool_json_i18n_batch.py run --tools <name> --langs fr --apply
+python scripts/i18n_tools_check.py
+```
+
+This extracts only missing English values into `tmp/tool_json_i18n/<lang>/`,
+translates them with `protect_placeholders=True`, then merges back without
+touching JSON keys/structure.
+
+**Manual (single strings):**
 
 1. Open the tool's `*_tool.json`
 2. Add a new top-level key for the language (e.g. `"fr": { ... }`)

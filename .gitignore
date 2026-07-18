@@ -46,3 +46,6 @@ tmp_ucp_sdk/
 # Browser4 snapshot caches
 .browser4-cli/test_write.txt 
 _or_check.json 
+
+# Local scratch (tool json i18n batches, etc.)
+tmp/
