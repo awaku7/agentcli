@@ -14,6 +14,7 @@
 - Grok: prevent double-printing streamed assistant replies.
 
 ### Changed
+- llmcapa dependency bumped to >=0.4.1.
 - Tools plugin load remains lazy, but is prewarmed in a background thread after startup.
 
 ## [0.5.48] - 2026-07-13
