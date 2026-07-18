@@ -210,6 +210,14 @@ TOOL_SPEC = {
 #      source_lang="en",
 #      protect_placeholders=True   # preserves %(name)s automatically
 #    )
+#    # File mode example:
+#    # translate_text(
+#    #   path="README.md",
+#    #   output_path="README.ja.md",
+#    #   target_lang="ja",
+#    #   protect_placeholders=True,
+#    #   overwrite=False,
+#    # )
 # 4. Validate syntax
 python -m py_compile src/uagent/tools/<name>_tool.py
 

@@ -5,16 +5,23 @@ MAX_TEXT_LENGTH = 10000
 BUSY_LABEL = True
 
 import json
-import ssl
-import time
-import urllib.request
-import urllib.parse
-from typing import Any
+import os
 import re
+import ssl
+import threading
+import time
+import urllib.parse
+import urllib.request
+from typing import Any
 
 from .i18n_helper import make_tool_translator
+from .safe_file_ops_extras import ensure_within_workdir, make_backup_before_overwrite
 
 _ = make_tool_translator(__file__)
+
+
+def _error_json(message: str) -> str:
+    return json.dumps({"ok": False, "error": message}, ensure_ascii=False)
 
 _LOCALE_TO_GOOGLE: dict[str, str] = {
     "ja": "ja",
@@ -61,20 +68,27 @@ _LOCALE_TO_GOOGLE: dict[str, str] = {
     "ro": "ro",
 }
 
-_GOOGLE_TO_LOCALE: dict[str, str] = {v: k for k, v in _LOCALE_TO_GOOGLE.items()}
+# Reverse map: first locale wins for duplicate Google codes (e.g. pt_br/pt -> pt).
+_GOOGLE_TO_LOCALE: dict[str, str] = {}
+for _loc, _g in _LOCALE_TO_GOOGLE.items():
+    _GOOGLE_TO_LOCALE.setdefault(_g, _loc)
+# Prefer canonical locale tags for shared Google codes.
+_GOOGLE_TO_LOCALE["pt"] = "pt"
+_GOOGLE_TO_LOCALE["no"] = "nb"
 
 _SSL_CTX = ssl.create_default_context()
 _SSL_CTX.check_hostname = False
 _SSL_CTX.verify_mode = ssl.CERT_NONE
 
 _LAST_REQUEST_TIME: float = 0
+_RATE_LOCK = threading.Lock()
 
 # ---------------------------------------------------------------------------
 # Placeholder protection
 # ---------------------------------------------------------------------------
 
 _PH_PREFIX = "__PH_"
-_BR_TAG = "⏎"  # newline placeholder inside an element (U+23CE, unlikely to be modified by translation)
+_BR_TAG = "⏎"  # newline placeholder inside an element (U+23CE)
 
 _EXT_PATTERNS: dict[str, list[tuple[str, str]]] = {
     ".py": [
@@ -111,9 +125,24 @@ _EXT_ALIASES: dict[str, str] = {
     ".cxx": ".c",
     ".hxx": ".c",
     ".pot": ".po",
+    ".md": ".md",
+    ".txt": ".txt",
+    ".json": ".json",
 }
 
 _EXT_PATTERNS_CACHE: dict[str, list[tuple[re.Pattern, str]]] = {}
+
+# Encoding detection candidates (no CP932 preference).
+_TEXT_ENCODING_CANDIDATES: tuple[str, ...] = (
+    "utf-8-sig",
+    "utf-8",
+    "utf-16",
+    "utf-16-le",
+    "utf-16-be",
+    "latin-1",
+)
+
+_MAX_FILE_BYTES = 5_000_000
 
 
 def _get_patterns(ext: str) -> list[tuple[re.Pattern, str]]:
@@ -128,7 +157,14 @@ def _get_patterns(ext: str) -> list[tuple[re.Pattern, str]]:
     return compiled
 
 
-def _detect_extension(text: str) -> str:
+def _detect_extension(text: str, path_hint: str | None = None) -> str:
+    if path_hint:
+        ext = os.path.splitext(path_hint)[1].lower()
+        if ext:
+            if ext in _EXT_PATTERNS or ext in _EXT_ALIASES:
+                return _EXT_ALIASES.get(ext, ext)
+            if ext == ".po":
+                return ".po"
     lines = text.split("\n")
     if any(re.search(r"\bdef \w+\s*\(", ln) for ln in lines[:30]):
         return ".py"
@@ -189,13 +225,14 @@ def _po_placeholder_patterns(text: str) -> list[re.Pattern]:
     return patterns
 
 
-def protect_placeholders(text: str) -> tuple[str, dict[str, str]]:
+def protect_placeholders(
+    text: str, path_hint: str | None = None
+) -> tuple[str, dict[str, str]]:
     mapping: dict[str, str] = {}
     seen: dict[str, str] = {}
     idx = 0
-    detected = _detect_extension(text)
+    detected = _detect_extension(text, path_hint=path_hint)
     if detected == ".po":
-        # .po: dynamically detect placeholders from msgid lines
         msgid_lines = []
         for ln in text.split("\n"):
             if ln.startswith("msgid "):
@@ -206,10 +243,10 @@ def protect_placeholders(text: str) -> tuple[str, dict[str, str]]:
         patterns = _po_placeholder_patterns(combined)
     elif detected:
         patterns = _get_patterns(detected)
+        if not patterns:
+            patterns = _po_placeholder_patterns(text)
     else:
         # Plain text fallback: protect common placeholders even without code detection.
-        # Google Translate tends to translate {xxx} placeholder names (e.g. {path} -> {パス})
-        # so we must protect them proactively.
         patterns = _po_placeholder_patterns(text)
 
     def _replacer(m: re.Match) -> str:
@@ -224,24 +261,203 @@ def protect_placeholders(text: str) -> tuple[str, dict[str, str]]:
         return token
 
     for pat in patterns:
-        text = pat.sub(_replacer, text)
+        # _get_patterns returns (Pattern, desc); _po_placeholder_patterns returns Pattern.
+        regex = pat[0] if isinstance(pat, tuple) else pat
+        text = regex.sub(_replacer, text)
     return text, mapping
 
 
 def restore_placeholders(text: str, mapping: dict[str, str]) -> str:
-    for token, original in mapping.items():
+    # Longer tokens first to avoid prefix collisions (__PH_1 vs __PH_10).
+    for token, original in sorted(mapping.items(), key=lambda kv: len(kv[0]), reverse=True):
         text = text.replace(token, original)
     return text
+
+
+# ---------------------------------------------------------------------------
+# Encoding / newline helpers
+# ---------------------------------------------------------------------------
+
+
+def _detect_newline_from_text(text: str) -> str:
+    """Return 'crlf', 'cr', or 'lf' based on decoded text (pre-normalization)."""
+    if "\r\n" in text:
+        return "crlf"
+    if "\r" in text:
+        return "cr"
+    return "lf"
+
+
+def _detect_newline(raw: bytes) -> str:
+    """Return 'crlf', 'cr', or 'lf' based on raw file bytes (8-bit encodings)."""
+    if b"\r\n" in raw:
+        return "crlf"
+    if b"\r" in raw:
+        return "cr"
+    return "lf"
+
+
+def _normalize_newline_name(value: str | None) -> str | None:
+    if value is None:
+        return None
+    v = str(value).strip().lower().replace("-", "").replace("_", "")
+    if v in ("", "auto"):
+        return "auto"
+    if v in ("lf", "\n", "unix", "posix"):
+        return "lf"
+    if v in ("crlf", "\r\n", "windows", "dos", "win"):
+        return "crlf"
+    if v in ("cr", "\r", "mac"):
+        return "cr"
+    return None
+
+
+def _apply_newline(text: str, newline: str) -> str:
+    # text is expected to use LF internally
+    if newline == "crlf":
+        return text.replace("\n", "\r\n")
+    if newline == "cr":
+        return text.replace("\n", "\r")
+    return text
+
+
+def _ordered_encodings(preferred: str | None = None) -> list[str]:
+    order: list[str] = []
+    if preferred:
+        order.append(preferred)
+    for enc in _TEXT_ENCODING_CANDIDATES:
+        if enc not in order:
+            order.append(enc)
+    return order
+
+
+def _detect_text_encoding(head: bytes) -> str:
+    if not head:
+        return "utf-8"
+    if head.startswith(b"\xef\xbb\xbf"):
+        return "utf-8-sig"
+    if head.startswith(b"\xff\xfe"):
+        return "utf-16-le"
+    if head.startswith(b"\xfe\xff"):
+        return "utf-16-be"
+    # Prefer plain utf-8 over utf-8-sig when no BOM is present.
+    for enc in ("utf-8", "utf-16", "latin-1"):
+        try:
+            head.decode(enc, errors="strict")
+        except UnicodeDecodeError:
+            continue
+        return enc
+    return "utf-8"
+
+
+def _decode_file_bytes(
+    data: bytes, encoding: str | None = None
+) -> tuple[str, str, str]:
+    """Decode bytes -> (text_lf, encoding_used, newline_style)."""
+    if encoding:
+        candidates = _ordered_encodings(encoding)
+    else:
+        preferred = _detect_text_encoding(data[:8192])
+        # Avoid reporting utf-8-sig for non-BOM utf-8 content.
+        if preferred == "utf-8":
+            candidates = ["utf-8", "latin-1"]
+        else:
+            candidates = _ordered_encodings(preferred)
+    last_err: Exception | None = None
+    for enc in candidates:
+        try:
+            text = data.decode(enc, errors="strict")
+            # Strip UTF-16 BOM if present as character.
+            if text.startswith("\ufeff"):
+                text = text[1:]
+            newline = _detect_newline_from_text(text)
+            text = text.replace("\r\n", "\n").replace("\r", "\n")
+            return text, enc, newline
+        except UnicodeDecodeError as e:
+            last_err = e
+            continue
+    raise ValueError(
+        _(
+            "err.decode_failed",
+            default="Failed to decode file with encoding candidates (last error: {error})",
+        ).format(error=last_err)
+    )
+
+
+def _read_input_file(
+    path: str, encoding: str | None = None
+) -> tuple[str, str, str, str]:
+    """Return (text_lf, abs_path, encoding_used, newline_style)."""
+    safe_path = ensure_within_workdir(path)
+    if not os.path.isfile(safe_path):
+        raise FileNotFoundError(
+            _("err.file_not_found", default="File not found: {path}").format(
+                path=safe_path
+            )
+        )
+    size = os.path.getsize(safe_path)
+    if size > _MAX_FILE_BYTES:
+        raise ValueError(
+            _(
+                "err.file_too_large",
+                default="File too large: {size} bytes (max {max_bytes})",
+            ).format(size=size, max_bytes=_MAX_FILE_BYTES)
+        )
+    with open(safe_path, "rb") as f:
+        data = f.read()
+    text, enc_used, newline = _decode_file_bytes(data, encoding=encoding)
+    return text, safe_path, enc_used, newline
+
+
+def _write_output_file(
+    path: str,
+    text_lf: str,
+    *,
+    encoding: str,
+    newline: str,
+    overwrite: bool,
+) -> tuple[str, str | None]:
+    """Write translated text. Returns (abs_path, backup_path|None)."""
+    safe_path = ensure_within_workdir(path)
+    existed = os.path.exists(safe_path)
+    if existed and not overwrite:
+        raise FileExistsError(
+            _(
+                "err.file_exists",
+                default="File already exists: {path}",
+            ).format(path=safe_path)
+        )
+    backup_path: str | None = None
+    if existed and overwrite:
+        backup_path = make_backup_before_overwrite(safe_path)
+
+    parent = os.path.dirname(safe_path)
+    if parent:
+        os.makedirs(parent, exist_ok=True)
+
+    payload = _apply_newline(text_lf, newline)
+    # newline="" keeps exact line endings we already applied.
+    with open(safe_path, "w", encoding=encoding, newline="") as f:
+        f.write(payload)
+    return safe_path, backup_path
+
+
+# ---------------------------------------------------------------------------
+# Translation core
+# ---------------------------------------------------------------------------
 
 
 def _translate(
     text: str, target_lang: str, source_lang: str | None = None
 ) -> tuple[str, str | None]:
     global _LAST_REQUEST_TIME
-    now = time.time()
-    since_last = now - _LAST_REQUEST_TIME
-    if since_last < 0.5:
-        time.sleep(0.5 - since_last)
+    with _RATE_LOCK:
+        now = time.time()
+        since_last = now - _LAST_REQUEST_TIME
+        if since_last < 0.5:
+            time.sleep(0.5 - since_last)
+        # Reserve the slot before releasing the lock so concurrent callers wait.
+        _LAST_REQUEST_TIME = time.time()
     params = {
         "client": "gtx",
         "sl": source_lang if source_lang else "auto",
@@ -275,10 +491,86 @@ def _translate(
                 if detected_raw
                 else None
             )
-            _LAST_REQUEST_TIME = time.time()
             return translated, detected
     except Exception as e:
         raise RuntimeError(f"Translation request failed: {e}")
+
+
+def _adjust_split_away_from_placeholder(text: str, split_at: int) -> int:
+    """Move split_at left if it would cut inside a __PH_N token."""
+    if split_at <= 0 or split_at >= len(text):
+        return split_at
+    left = text[:split_at]
+    idx = left.rfind(_PH_PREFIX)
+    if idx < 0:
+        return split_at
+    m = re.match(r"__PH_\d+", text[idx:])
+    if not m:
+        # Incomplete prefix like "__PH_" or "__PH".
+        return idx
+    token_end = idx + len(m.group(0))
+    if split_at < token_end:
+        return idx
+    return split_at
+
+
+def _chunk_text(text: str, max_len: int = MAX_TEXT_LENGTH) -> list[str]:
+    """Split long text without breaking mid-line/placeholder when possible."""
+    if len(text) <= max_len:
+        return [text]
+    chunks: list[str] = []
+    remaining = text
+    while remaining:
+        if len(remaining) <= max_len:
+            chunks.append(remaining)
+            break
+        window = remaining[:max_len]
+        split_at = window.rfind("\n")
+        if split_at < max_len // 2:
+            split_at = window.rfind(" ")
+        if split_at < max_len // 2:
+            split_at = max_len
+        else:
+            split_at += 1  # keep delimiter with left chunk
+        split_at = _adjust_split_away_from_placeholder(remaining, split_at)
+        if split_at <= 0:
+            hard = _adjust_split_away_from_placeholder(remaining, max_len)
+            if hard <= 0:
+                m = re.match(r"__PH_\d+", remaining)
+                hard = len(m.group(0)) if m else max_len
+            split_at = hard
+        if split_at <= 0:
+            split_at = max_len
+        chunks.append(remaining[:split_at])
+        remaining = remaining[split_at:]
+    return chunks
+
+
+def _translate_long(
+    text: str, target_lang: str, source_lang: str | None = None
+) -> tuple[str, str | None]:
+    chunks = _chunk_text(text, MAX_TEXT_LENGTH)
+    if len(chunks) == 1:
+        return _translate(chunks[0], target_lang, source_lang)
+    out_parts: list[str] = []
+    detected: str | None = None
+    for chunk in chunks:
+        if not chunk:
+            out_parts.append("")
+            continue
+        translated, det = _translate(chunk, target_lang, source_lang)
+        if detected is None and det:
+            detected = det
+        out_parts.append(translated)
+    return "".join(out_parts), detected
+
+
+def _resolve_google_lang(lang: str | None) -> str | None:
+    if not lang:
+        return None
+    norm = lang.lower().replace("-", "_")
+    mapped = _LOCALE_TO_GOOGLE.get(norm)
+    return mapped if mapped is not None else lang
 
 
 TOOL_SPEC: dict[str, Any] = {
@@ -290,11 +582,24 @@ TOOL_SPEC: dict[str, Any] = {
         "name": "translate_text",
         "description": _(
             "tool.description",
-            default="Translate one or more texts using Google Translate. Supports 30+ languages. Multiple texts are joined and translated as a single block to preserve context. Max 10000 characters per element. Do NOT truncate text before sending; the API handles long text natively. When protect_placeholders is enabled (default), various placeholder types (%(name)s, {name}, ${name}, etc.) are protected from translation if the file type is auto-detected from content.",
+            default=(
+                "Translate one or more texts using Google Translate. Supports 30+ languages. "
+                "Multiple texts are joined and translated as a single block to preserve context. "
+                "Max 10000 characters per element for texts[]; longer file content is auto-chunked. "
+                "Do NOT truncate text before sending. When protect_placeholders is enabled (default), "
+                "placeholders (%(name)s, {name}, ${name}, etc.) are protected. "
+                "Optional path/output_path enable file-to-file translation with encoding/newline preservation."
+            ),
         ),
         "x_search_terms": _(
             "x_search_terms",
-            default=["translate", "translation", "google translate", "language"],
+            default=[
+                "translate",
+                "translation",
+                "google translate",
+                "language",
+                "file translate",
+            ],
         ),
         "x_search_terms_en": [
             "translate",
@@ -303,6 +608,8 @@ TOOL_SPEC: dict[str, Any] = {
             "language",
             "i18n",
             "localization",
+            "file translate",
+            "translate file",
         ],
         "parameters": {
             "type": "object",
@@ -312,7 +619,31 @@ TOOL_SPEC: dict[str, Any] = {
                     "items": {"type": "string"},
                     "description": _(
                         "param.texts.description",
-                        default="Array of text strings to translate (max 10000 characters each). Send full text without truncation; the API handles length natively. Texts are joined and translated as a single block (context preserved).",
+                        default=(
+                            "Array of text strings to translate (max 10000 characters each). "
+                            "Send full text without truncation. Texts are joined and translated "
+                            "as a single block (context preserved). Optional when path is set."
+                        ),
+                    ),
+                },
+                "path": {
+                    "type": "string",
+                    "description": _(
+                        "param.path.description",
+                        default=(
+                            "Input file path to translate. When set, file content is used "
+                            "instead of texts. Relative paths are resolved from workdir."
+                        ),
+                    ),
+                },
+                "output_path": {
+                    "type": "string",
+                    "description": _(
+                        "param.output_path.description",
+                        default=(
+                            "Output file path for translated content. If omitted in file mode, "
+                            "translated text is returned in JSON only (no write)."
+                        ),
                     ),
                 },
                 "target_lang": {
@@ -333,104 +664,272 @@ TOOL_SPEC: dict[str, Any] = {
                     "type": "boolean",
                     "description": _(
                         "param.protect_placeholders.description",
-                        default="If true, protect placeholders (auto-detected from content) from being translated. Default: true.",
+                        default=(
+                            "If true, protect placeholders (auto-detected from content/path) "
+                            "from being translated. Default: true."
+                        ),
+                    ),
+                },
+                "encoding": {
+                    "type": "string",
+                    "description": _(
+                        "param.encoding.description",
+                        default=(
+                            "File encoding for read/write. If omitted, encoding is auto-detected "
+                            "(BOM/utf-8/utf-16/latin-1). Output uses the same encoding as input "
+                            "unless explicitly set."
+                        ),
+                    ),
+                },
+                "newline": {
+                    "type": "string",
+                    "description": _(
+                        "param.newline.description",
+                        default=(
+                            "Output newline style: auto (default, preserve input), lf, crlf, or cr."
+                        ),
+                    ),
+                },
+                "overwrite": {
+                    "type": "boolean",
+                    "description": _(
+                        "param.overwrite.description",
+                        default=(
+                            "Overwrite output_path if it already exists (creates .org backup). "
+                            "Default: false."
+                        ),
                     ),
                 },
             },
-            "required": ["texts", "target_lang"],
+            "required": ["target_lang"],
         },
     },
 }
 
 
-def run_tool(args: dict[str, Any]) -> str:
-    raw_texts = args.get("texts")
-    if raw_texts is None or not isinstance(raw_texts, list) or len(raw_texts) == 0:
-        return json.dumps(
-            {"error": "texts is required (non-empty array)"}, ensure_ascii=False
-        )
-
-    target_lang = str(args.get("target_lang") or "").strip()
-    source_lang = str(args.get("source_lang") or "").strip() or None
-    protect = args.get("protect_placeholders")
-
-    if not target_lang:
-        return json.dumps({"error": "target_lang is required"}, ensure_ascii=False)
-
-    target_norm = target_lang.lower().replace("-", "_")
-    google_target = _LOCALE_TO_GOOGLE.get(target_norm)
-    if google_target is None:
-        # Fallback: pass the original code directly to Google (many ISO 639-1 codes
-        # work without an explicit mapping).
-        google_target = target_lang
-
-    google_source: str | None = None
-    if source_lang:
-        source_norm = source_lang.lower().replace("-", "_")
-        google_source = _LOCALE_TO_GOOGLE.get(source_norm)
-        if google_source is None:
-            google_source = source_lang
-
-    # ---------------------------------------------------------------
-    # Batch: protect each element, join with \n, single API call
-    # ---------------------------------------------------------------
+def _translate_texts_batch(
+    raw_texts: list[Any],
+    *,
+    google_target: str,
+    google_source: str | None,
+    protect: bool,
+    path_hint: str | None = None,
+) -> tuple[list[str], str | None, int]:
     protected_parts: list[str] = []
     mappings: list[dict[str, str]] = []
+    placeholders_count = 0
 
     for i, text in enumerate(raw_texts):
-        text = str(text).strip()
-        if not text:
+        text = str(text)
+        # Preserve whitespace-only elements as-is (do not collapse to empty).
+        if text == "":
             protected_parts.append("")
             mappings.append({})
             continue
         if len(text) > MAX_TEXT_LENGTH:
-            return json.dumps(
-                {
-                    "error": f"Element {i} too long: {len(text)} characters (max {MAX_TEXT_LENGTH})"
-                },
-                ensure_ascii=False,
+            raise ValueError(
+                f"Element {i} too long: {len(text)} characters (max {MAX_TEXT_LENGTH})"
             )
 
-        # Protect placeholders per element
-        if protect is None or protect is True:
-            protected_text, ph_mapping = protect_placeholders(text)
+        if protect:
+            protected_text, ph_mapping = protect_placeholders(text, path_hint=path_hint)
         else:
             protected_text, ph_mapping = text, {}
+        placeholders_count += len(ph_mapping)
 
-        # Escape newlines inside element so they don't become element separators
         protected_text = protected_text.replace("\n", _BR_TAG)
         protected_parts.append(protected_text)
         mappings.append(ph_mapping)
 
-    # Join with newline (element separator)
     joined = "\n".join(protected_parts)
+    translated, detected = _translate_long(joined, google_target, google_source)
 
-    try:
-        translated, detected = _translate(joined, google_target, google_source)
-    except Exception as e:
-        return json.dumps({"error": str(e)}, ensure_ascii=False)
-
-    # Split back
     translated_lines = translated.split("\n")
     if len(translated_lines) != len(raw_texts):
-        return json.dumps(
-            {
-                "error": f"Line count mismatch after translation: got {len(translated_lines)}, expected {len(raw_texts)}"
-            },
-            ensure_ascii=False,
+        raise RuntimeError(
+            f"Line count mismatch after translation: got {len(translated_lines)}, expected {len(raw_texts)}"
         )
 
-    # Restore placeholders & internal newlines
     results: list[str] = []
-    detected_lang: str | None = detected if detected else None
     for translated_line, ph_mapping in zip(translated_lines, mappings):
-        line = translated_line.strip()
+        # Do not strip: preserve intentional indentation/spaces when possible.
+        line = translated_line
+        # Google may introduce surrounding spaces around tokens; only strip pure
+        # empty-looking lines that were empty inputs.
         line = line.replace(_BR_TAG, "\n")
         if ph_mapping:
             line = restore_placeholders(line, ph_mapping)
         results.append(line)
+    return results, detected, placeholders_count
 
-    result: dict[str, Any] = {"translated": results}
-    if detected_lang:
-        result["detected_source_lang"] = detected_lang
-    return json.dumps(result, ensure_ascii=False)
+
+def _translate_single_document(
+    text: str,
+    *,
+    google_target: str,
+    google_source: str | None,
+    protect: bool,
+    path_hint: str | None = None,
+) -> tuple[str, str | None, int]:
+    """Translate a whole document (may exceed MAX_TEXT_LENGTH) with placeholder protection."""
+    if protect:
+        protected_text, ph_mapping = protect_placeholders(text, path_hint=path_hint)
+    else:
+        protected_text, ph_mapping = text, {}
+
+    # Protect internal newlines for each chunk independently after chunking,
+    # so chunk boundaries stay on real newlines.
+    chunks = _chunk_text(protected_text, MAX_TEXT_LENGTH)
+    out_parts: list[str] = []
+    detected: str | None = None
+    for chunk in chunks:
+        if chunk == "":
+            out_parts.append("")
+            continue
+        # Convert newlines inside chunk to BR tag so API doesn't alter structure badly.
+        # For multi-chunk docs we translate chunk-by-chunk (not joined), so BR is optional
+        # but still helps preserve blank lines.
+        payload = chunk.replace("\n", _BR_TAG)
+        translated, det = _translate(payload, google_target, google_source)
+        if detected is None and det:
+            detected = det
+        restored = translated.replace(_BR_TAG, "\n")
+        out_parts.append(restored)
+
+    result = "".join(out_parts)
+    if ph_mapping:
+        result = restore_placeholders(result, ph_mapping)
+    return result, detected, len(ph_mapping)
+
+
+def run_tool(args: dict[str, Any]) -> str:
+    raw_texts = args.get("texts")
+    path = str(args.get("path") or "").strip() or None
+    output_path = str(args.get("output_path") or "").strip() or None
+    target_lang = str(args.get("target_lang") or "").strip()
+    source_lang = str(args.get("source_lang") or "").strip() or None
+    protect = args.get("protect_placeholders")
+    encoding_arg = str(args.get("encoding") or "").strip() or None
+    newline_arg = _normalize_newline_name(args.get("newline"))
+    overwrite_raw = args.get("overwrite", False)
+
+    if not target_lang:
+        return _error_json(
+            _("err.target_lang_required", default="target_lang is required")
+        )
+
+    if newline_arg is None and args.get("newline") not in (None, ""):
+        return _error_json(
+            _(
+                "err.invalid_newline",
+                default="newline must be one of: auto, lf, crlf, cr",
+            )
+        )
+
+    if not isinstance(overwrite_raw, bool):
+        return _error_json(
+            _("err.overwrite_bool", default="overwrite must be a boolean")
+        )
+    overwrite = bool(overwrite_raw)
+
+    if path is None and (
+        raw_texts is None or not isinstance(raw_texts, list) or len(raw_texts) == 0
+    ):
+        return _error_json(
+            _(
+                "err.texts_or_path_required",
+                default="texts (non-empty array) or path is required",
+            )
+        )
+
+    if path is not None and raw_texts is not None:
+        return _error_json(
+            _(
+                "err.texts_and_path_mutex",
+                default="Specify either texts or path, not both",
+            )
+        )
+
+    google_target = _resolve_google_lang(target_lang) or target_lang
+    google_source = _resolve_google_lang(source_lang)
+    do_protect = True if protect is None else bool(protect)
+
+    try:
+        if path is not None:
+            text, source_abs, enc_used, newline_in = _read_input_file(
+                path, encoding=encoding_arg
+            )
+            translated, detected, ph_count = _translate_single_document(
+                text,
+                google_target=google_target,
+                google_source=google_source,
+                protect=do_protect,
+                path_hint=source_abs,
+            )
+            out_newline = newline_in if (newline_arg in (None, "auto")) else newline_arg
+            # encoding: explicit arg wins for output; else keep detected/input encoding
+            out_encoding = encoding_arg or enc_used
+
+            result: dict[str, Any] = {
+                "ok": True,
+                "translated": [translated],
+                "source_path": source_abs,
+                "chars_in": len(text),
+                "chars_out": len(translated),
+                "encoding": out_encoding,
+                "newline": out_newline,
+                "placeholders_protected": ph_count,
+            }
+            if detected:
+                result["detected_source_lang"] = detected
+
+            if output_path:
+                out_abs, backup_path = _write_output_file(
+                    output_path,
+                    translated,
+                    encoding=out_encoding,
+                    newline=out_newline or "lf",
+                    overwrite=overwrite,
+                )
+                result["output_path"] = out_abs
+                result["backup_path"] = backup_path
+            return json.dumps(result, ensure_ascii=False)
+
+        # texts[] mode (existing behavior, with optional output_path for joined result)
+        assert isinstance(raw_texts, list)
+        results, detected, ph_count = _translate_texts_batch(
+            raw_texts,
+            google_target=google_target,
+            google_source=google_source,
+            protect=do_protect,
+            path_hint=None,
+        )
+        result = {
+            "ok": True,
+            "translated": results,
+            "placeholders_protected": ph_count,
+        }
+        if detected:
+            result["detected_source_lang"] = detected
+
+        if output_path:
+            # Join translated elements with LF; newline/encoding apply to file write.
+            joined = "\n".join(results)
+            out_encoding = encoding_arg or "utf-8"
+            out_newline = "lf" if newline_arg in (None, "auto") else newline_arg
+            out_abs, backup_path = _write_output_file(
+                output_path,
+                joined,
+                encoding=out_encoding,
+                newline=out_newline or "lf",
+                overwrite=overwrite,
+            )
+            result["output_path"] = out_abs
+            result["backup_path"] = backup_path
+            result["encoding"] = out_encoding
+            result["newline"] = out_newline
+            result["chars_out"] = len(joined)
+        return json.dumps(result, ensure_ascii=False)
+
+    except Exception as e:
+        return _error_json(str(e))
