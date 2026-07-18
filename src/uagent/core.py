@@ -1544,36 +1544,8 @@ def compress_history_with_llm(
                         )
                     else:
                         summary_content = str(claude_result)
-                elif use_responses_api:
-                    resp = client.responses.create(
-                        model=depname,
-                        instructions=summary_messages[0]["content"],
-                        input=[
-                            {
-                                "role": "user",
-                                "content": [
-                                    {
-                                        "type": "input_text",
-                                        "text": summary_messages[1]["content"],
-                                    },
-                                ],
-                            }
-                        ],
-                    )
-                    if hasattr(resp, "output") and resp.output:
-                        for item in resp.output:
-                            if item.type == "message":
-                                for c in item.content:
-                                    if c.type == "output_text":
-                                        summary_content += c.text
-                elif (
-                    hasattr(client, "chat")
-                    and hasattr(client.chat, "create")
-                    and not hasattr(client.chat, "completions")
-                ):
-                    # xai_sdk (gRPC): convert OpenAI-format messages first
-                    from .providers.llm_grok import simple_xai_chat
-
+                else:
+                    # Shared max tokens for history-summary generation.
                     _sum_max = 2048
                     try:
                         from .llmcapa_util import clamp_max_tokens
@@ -1581,23 +1553,57 @@ def compress_history_with_llm(
                         _sum_max = clamp_max_tokens(_sum_max, depname, provider)
                     except Exception:
                         pass
-                    summary_content = simple_xai_chat(
-                        client,
-                        depname,
-                        summary_messages,
-                        max_tokens=_sum_max,
-                        temperature=0.0,
-                    )
-                elif hasattr(client, "chat") and hasattr(client.chat, "completions"):
-                    resp = client.chat.completions.create(
-                        model=depname,
-                        messages=summary_messages,
-                    )
-                    summary_content = resp.choices[0].message.content or ""
-                else:
-                    raise AttributeError(
-                        f"Client {type(client)} has no attribute 'chat' and is not recognized as Gemini."
-                    )
+
+                    if use_responses_api:
+                        resp = client.responses.create(
+                            model=depname,
+                            instructions=summary_messages[0]["content"],
+                            input=[
+                                {
+                                    "role": "user",
+                                    "content": [
+                                        {
+                                            "type": "input_text",
+                                            "text": summary_messages[1]["content"],
+                                        },
+                                    ],
+                                }
+                            ],
+                            max_output_tokens=_sum_max,
+                        )
+                        if hasattr(resp, "output") and resp.output:
+                            for item in resp.output:
+                                if item.type == "message":
+                                    for c in item.content:
+                                        if c.type == "output_text":
+                                            summary_content += c.text
+                    elif (
+                        hasattr(client, "chat")
+                        and hasattr(client.chat, "create")
+                        and not hasattr(client.chat, "completions")
+                    ):
+                        # xai_sdk (gRPC): convert OpenAI-format messages first
+                        from .providers.llm_grok import simple_xai_chat
+
+                        summary_content = simple_xai_chat(
+                            client,
+                            depname,
+                            summary_messages,
+                            max_tokens=_sum_max,
+                            temperature=0.0,
+                        )
+                    elif hasattr(client, "chat") and hasattr(client.chat, "completions"):
+                        resp = client.chat.completions.create(
+                            model=depname,
+                            messages=summary_messages,
+                            max_tokens=_sum_max,
+                            temperature=0.0,
+                        )
+                        summary_content = resp.choices[0].message.content or ""
+                    else:
+                        raise AttributeError(
+                            f"Client {type(client)} has no attribute 'chat' and is not recognized as Gemini."
+                        )
                 return summary_content, None
             except Exception as e:
                 if _is_context_length_exceeded(e):
