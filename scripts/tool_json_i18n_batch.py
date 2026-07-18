@@ -202,6 +202,7 @@ def collect_units(
     force: bool,
     skip_same_as_en: bool,
     only_missing: bool,
+    only_existing_lang: bool = True,
 ) -> list[Unit]:
     units: list[Unit] = []
     for path in files:
@@ -212,8 +213,14 @@ def collect_units(
             print(f"[skip] {path}: {e}", file=sys.stderr)
             continue
         tool = path.name[: -len("_tool.json")]
+        present_langs = {
+            k for k, v in data.items() if _is_lang_block(k, v) and k != "en"
+        }
         for lang in langs:
             if lang == "en":
+                continue
+            if only_existing_lang and lang not in present_langs:
+                # Do not create brand-new language blocks unless explicitly allowed.
                 continue
             block = data.get(lang) if isinstance(data.get(lang), dict) else {}
             assert isinstance(block, dict)
@@ -354,6 +361,26 @@ def translate_lang(
             "target_lang": lang,
             "source_lang": source_lang,
             "protect_placeholders": True,
+            "protect_terms": True,
+            "extra_protect_terms": [
+                # common voice / model ids seen in tool JSON
+                "alloy",
+                "echo",
+                "fable",
+                "onyx",
+                "nova",
+                "shimmer",
+                "ash",
+                "ballad",
+                "coral",
+                "sage",
+                "verse",
+                "eve",
+                "ara",
+                "rex",
+                "sal",
+                "mao",
+            ],
         }
         raw = run_tool(payload)
         try:
@@ -378,7 +405,7 @@ def translate_lang(
             out[i] = str(tr)
         print(
             f"  batch {bi}/{len(batches)}: {len(idxs)} items, "
-            f"ph={res.get('placeholders_protected', '?')}"
+            f"ph={res.get('placeholders_protected', '?')} terms={res.get('terms_protected', '?')}"
         )
         if sleep_s > 0 and bi < len(batches):
             time.sleep(sleep_s)
@@ -528,6 +555,7 @@ def cmd_status(args: argparse.Namespace) -> int:
         force=False,
         skip_same_as_en=args.skip_same_as_en,
         only_missing=True,
+        only_existing_lang=not args.add_lang,
     )
     by: dict[tuple[str, str], int] = {}
     for u in units:
@@ -547,6 +575,7 @@ def cmd_extract(args: argparse.Namespace) -> int:
         force=args.force,
         skip_same_as_en=args.skip_same_as_en,
         only_missing=not args.force,
+        only_existing_lang=not args.add_lang,
     )
     if not units:
         print("[extract] nothing to do")
@@ -665,6 +694,11 @@ def build_parser() -> argparse.ArgumentParser:
         "--keep-existing",
         action="store_true",
         help="On merge, do not overwrite non-empty existing translations",
+    )
+    p.add_argument(
+        "--add-lang",
+        action="store_true",
+        help="Allow creating a language block on files that do not have it yet",
     )
     p.add_argument("--batch-chars", type=int, default=DEFAULT_BATCH_CHARS)
     p.add_argument("--batch-items", type=int, default=DEFAULT_BATCH_ITEMS)

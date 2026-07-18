@@ -269,9 +269,218 @@ def protect_placeholders(
 
 def restore_placeholders(text: str, mapping: dict[str, str]) -> str:
     # Longer tokens first to avoid prefix collisions (__PH_1 vs __PH_10).
-    for token, original in sorted(mapping.items(), key=lambda kv: len(kv[0]), reverse=True):
+    for token, original in sorted(
+        mapping.items(), key=lambda kv: len(kv[0]), reverse=True
+    ):
         text = text.replace(token, original)
     return text
+
+
+# ---------------------------------------------------------------------------
+# Proper-noun / fixed-term protection
+# ---------------------------------------------------------------------------
+
+# Lightweight defaults: brands, products, and tokens that machine translation
+# often mangles. Voice/model ids are NOT all included; pass them via
+# extra_protect_terms when needed (e.g. alloy, eve).
+_DEFAULT_PROTECT_TERMS: tuple[str, ...] = (
+    # products / companies
+    "OpenAI",
+    "Azure",
+    "Google Translate",
+    "Google",
+    "ChatGPT",
+    "Claude",
+    "Anthropic",
+    "Grok",
+    "xAI",
+    "n8n",
+    "uagent",
+    "uag",
+    "GitHub",
+    "Docker",
+    "Kubernetes",
+    "Playwright",
+    "Nominatim",
+    # model / API family tokens
+    "GPT-5.4",
+    "GPT-5",
+    "GPT-4o",
+    "GPT-4",
+    "GPT",
+    # tech tokens / codecs / protocols
+    "BCP-47",
+    "LLM",
+    "TTS",
+    "STT",
+    "API",
+    "HTTP",
+    "HTTPS",
+    "JSON",
+    "UTF-8",
+    "UTF-16",
+    "SSO",
+    "SAML",
+    "LDAP",
+    "RBAC",
+    "MCP",
+    "A2A",
+    "mp3",
+    "wav",
+    "pcm",
+    "opus",
+    "aac",
+    "flac",
+    "mulaw",
+    "alaw",
+)
+
+
+def _iter_extra_terms(raw: Any) -> list[str]:
+    """Normalize extra_protect_terms from list/tuple/str/JSON-ish input."""
+    if raw is None:
+        return []
+    if isinstance(raw, str):
+        s = raw.strip()
+        if not s:
+            return []
+        # allow comma-separated or JSON array string
+        if s.startswith("[") and s.endswith("]"):
+            try:
+                parsed = json.loads(s)
+                if isinstance(parsed, list):
+                    return [str(x).strip() for x in parsed if str(x).strip()]
+            except Exception:
+                pass
+        return [p.strip() for p in re.split(r"[,;\n]", s) if p.strip()]
+    if isinstance(raw, (list, tuple, set)):
+        out: list[str] = []
+        for x in raw:
+            t = str(x).strip()
+            if t:
+                out.append(t)
+        return out
+    t = str(raw).strip()
+    return [t] if t else []
+
+
+def _merge_protect_terms(
+    *,
+    protect_terms_enabled: bool,
+    extra_terms: list[str] | None = None,
+) -> list[str]:
+    terms: list[str] = []
+    seen: set[str] = set()
+
+    def _add(term: str) -> None:
+        t = term.strip()
+        if not t:
+            return
+        # Avoid protecting our own placeholder tokens.
+        if t.startswith(_PH_PREFIX):
+            return
+        key = t.casefold()
+        if key in seen:
+            return
+        seen.add(key)
+        terms.append(t)
+
+    if protect_terms_enabled:
+        for t in _DEFAULT_PROTECT_TERMS:
+            _add(t)
+    for t in extra_terms or []:
+        _add(t)
+
+    # Longer first so "Google Translate" wins over "Google".
+    terms.sort(key=lambda s: (-len(s), s))
+    return terms
+
+
+def _term_pattern(term: str) -> re.Pattern[str]:
+    """Build a conservative search pattern for a fixed term.
+
+    - Escape regex metacharacters.
+    - Use ASCII word boundaries when the term starts/ends with word chars.
+    - Keep matching case-sensitive (brand capitalization matters).
+    """
+    esc = re.escape(term)
+    # Word-ish edges: letter/digit/underscore
+    left = r"(?<![A-Za-z0-9_])" if re.match(r"^[A-Za-z0-9_]", term) else ""
+    right = r"(?![A-Za-z0-9_])" if re.search(r"[A-Za-z0-9_]$", term) else ""
+    return re.compile(left + esc + right)
+
+
+def protect_fixed_terms(
+    text: str,
+    terms: list[str],
+    *,
+    start_idx: int = 0,
+    existing_mapping: dict[str, str] | None = None,
+) -> tuple[str, dict[str, str], int]:
+    """Replace fixed terms with __PH_N tokens.
+
+    Returns (text, mapping, next_idx). mapping maps token -> original term.
+    """
+    mapping: dict[str, str] = dict(existing_mapping or {})
+    # reverse lookup original -> token for reuse
+    seen: dict[str, str] = {v: k for k, v in mapping.items()}
+    idx = int(start_idx)
+
+    if not terms or not text:
+        return text, mapping, idx
+
+    for term in terms:
+        if not term:
+            continue
+        # Fast path: only run regex when the exact substring exists.
+        if term not in text:
+            continue
+        pat = _term_pattern(term)
+
+        def _replacer(m: re.Match[str], _term: str = term) -> str:
+            nonlocal idx
+            orig = m.group(0)
+            if orig in seen:
+                return seen[orig]
+            token = f"{_PH_PREFIX}{idx}"
+            idx += 1
+            mapping[token] = orig
+            seen[orig] = token
+            return token
+
+        text = pat.sub(_replacer, text)
+
+    return text, mapping, idx
+
+
+def protect_for_translation(
+    text: str,
+    *,
+    path_hint: str | None = None,
+    protect_placeholders_enabled: bool = True,
+    protect_terms_list: list[str] | None = None,
+) -> tuple[str, dict[str, str]]:
+    """Apply placeholder protection then fixed-term protection."""
+    mapping: dict[str, str] = {}
+    idx = 0
+    if protect_placeholders_enabled:
+        text, mapping = protect_placeholders(text, path_hint=path_hint)
+        # continue index after existing tokens
+        if mapping:
+            nums = []
+            for tok in mapping:
+                m = re.match(rf"{re.escape(_PH_PREFIX)}(\d+)$", tok)
+                if m:
+                    nums.append(int(m.group(1)))
+            idx = (max(nums) + 1) if nums else 0
+    if protect_terms_list:
+        text, mapping, idx = protect_fixed_terms(
+            text,
+            protect_terms_list,
+            start_idx=idx,
+            existing_mapping=mapping,
+        )
+    return text, mapping
 
 
 # ---------------------------------------------------------------------------
@@ -587,7 +796,7 @@ TOOL_SPEC: dict[str, Any] = {
                 "Multiple texts are joined and translated as a single block to preserve context. "
                 "Max 10000 characters per element for texts[]; longer file content is auto-chunked. "
                 "Do NOT truncate text before sending. When protect_placeholders is enabled (default), "
-                "placeholders (%(name)s, {name}, ${name}, etc.) are protected. "
+                "placeholders (%(name)s, {name}, ${name}, etc.) are protected. Brand/product terms can be protected via protect_terms/extra_protect_terms. "
                 "Optional path/output_path enable file-to-file translation with encoding/newline preservation."
             ),
         ),
@@ -700,6 +909,28 @@ TOOL_SPEC: dict[str, Any] = {
                         ),
                     ),
                 },
+                "protect_terms": {
+                    "type": "boolean",
+                    "description": _(
+                        "param.protect_terms.description",
+                        default=(
+                            "If true, protect built-in brand/product/tech terms (OpenAI, Grok, "
+                            "mp3, API, ...) from being translated. Default: true."
+                        ),
+                    ),
+                },
+                "extra_protect_terms": {
+                    "type": "array",
+                    "items": {"type": "string"},
+                    "description": _(
+                        "param.extra_protect_terms.description",
+                        default=(
+                            "Additional fixed terms to keep unchanged (e.g. voice ids alloy/eve, "
+                            "model names). Applied in addition to built-in terms when "
+                            "protect_terms is true; still applied when protect_terms is false."
+                        ),
+                    ),
+                },
             },
             "required": ["target_lang"],
         },
@@ -714,6 +945,7 @@ def _translate_texts_batch(
     google_source: str | None,
     protect: bool,
     path_hint: str | None = None,
+    protect_terms_list: list[str] | None = None,
 ) -> tuple[list[str], str | None, int]:
     protected_parts: list[str] = []
     mappings: list[dict[str, str]] = []
@@ -731,8 +963,13 @@ def _translate_texts_batch(
                 f"Element {i} too long: {len(text)} characters (max {MAX_TEXT_LENGTH})"
             )
 
-        if protect:
-            protected_text, ph_mapping = protect_placeholders(text, path_hint=path_hint)
+        if protect or protect_terms_list:
+            protected_text, ph_mapping = protect_for_translation(
+                text,
+                path_hint=path_hint,
+                protect_placeholders_enabled=protect,
+                protect_terms_list=protect_terms_list,
+            )
         else:
             protected_text, ph_mapping = text, {}
         placeholders_count += len(ph_mapping)
@@ -770,10 +1007,16 @@ def _translate_single_document(
     google_source: str | None,
     protect: bool,
     path_hint: str | None = None,
+    protect_terms_list: list[str] | None = None,
 ) -> tuple[str, str | None, int]:
-    """Translate a whole document (may exceed MAX_TEXT_LENGTH) with placeholder protection."""
-    if protect:
-        protected_text, ph_mapping = protect_placeholders(text, path_hint=path_hint)
+    """Translate a whole document with placeholder/term protection (may exceed MAX_TEXT_LENGTH)."""
+    if protect or protect_terms_list:
+        protected_text, ph_mapping = protect_for_translation(
+            text,
+            path_hint=path_hint,
+            protect_placeholders_enabled=protect,
+            protect_terms_list=protect_terms_list,
+        )
     else:
         protected_text, ph_mapping = text, {}
 
@@ -809,6 +1052,8 @@ def run_tool(args: dict[str, Any]) -> str:
     target_lang = str(args.get("target_lang") or "").strip()
     source_lang = str(args.get("source_lang") or "").strip() or None
     protect = args.get("protect_placeholders")
+    protect_terms_arg = args.get("protect_terms")
+    extra_terms = _iter_extra_terms(args.get("extra_protect_terms"))
     encoding_arg = str(args.get("encoding") or "").strip() or None
     newline_arg = _normalize_newline_name(args.get("newline"))
     overwrite_raw = args.get("overwrite", False)
@@ -853,6 +1098,11 @@ def run_tool(args: dict[str, Any]) -> str:
     google_target = _resolve_google_lang(target_lang) or target_lang
     google_source = _resolve_google_lang(source_lang)
     do_protect = True if protect is None else bool(protect)
+    do_protect_terms = True if protect_terms_arg is None else bool(protect_terms_arg)
+    terms_list = _merge_protect_terms(
+        protect_terms_enabled=do_protect_terms,
+        extra_terms=extra_terms,
+    )
 
     try:
         if path is not None:
@@ -865,6 +1115,7 @@ def run_tool(args: dict[str, Any]) -> str:
                 google_source=google_source,
                 protect=do_protect,
                 path_hint=source_abs,
+                protect_terms_list=terms_list or None,
             )
             out_newline = newline_in if (newline_arg in (None, "auto")) else newline_arg
             # encoding: explicit arg wins for output; else keep detected/input encoding
@@ -879,6 +1130,7 @@ def run_tool(args: dict[str, Any]) -> str:
                 "encoding": out_encoding,
                 "newline": out_newline,
                 "placeholders_protected": ph_count,
+                "terms_protected": len(terms_list),
             }
             if detected:
                 result["detected_source_lang"] = detected
@@ -903,11 +1155,13 @@ def run_tool(args: dict[str, Any]) -> str:
             google_source=google_source,
             protect=do_protect,
             path_hint=None,
+            protect_terms_list=terms_list or None,
         )
         result = {
             "ok": True,
             "translated": results,
             "placeholders_protected": ph_count,
+            "terms_protected": len(terms_list),
         }
         if detected:
             result["detected_source_lang"] = detected

@@ -197,6 +197,8 @@ TOOL_SPEC = {
 - Use `%(name)s` format (same as host side).
 - Keep placeholders **unchanged** in translations.
 - Use `translate_text` tool with `protect_placeholders=True` (default) when machine-translating.
+- Also keep `protect_terms=True` (default) so brand/product tokens (`OpenAI`, `Grok`, `mp3`, ...) stay intact.
+- Pass voice/model ids via `extra_protect_terms` (e.g. `["alloy", "eve"]`) when needed.
 
 ### Workflow for adding/modifying tool i18n
 

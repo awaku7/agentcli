@@ -1,6 +1,6 @@
 {
   "en": {
-    "tool.description": "Translate one or more texts using Google Translate. Supports 30+ languages. Multiple texts are joined and translated as a single block to preserve context. Max 10000 characters per element for texts[]; longer file content is auto-chunked. Do NOT truncate text before sending. When protect_placeholders is enabled (default), placeholders (%(name)s, {name}, ${name}, etc.) are protected. Optional path/output_path enable file-to-file translation with encoding/newline preservation.",
+    "tool.description": "Translate one or more texts using Google Translate. Supports 30+ languages. Multiple texts are joined and translated as a single block to preserve context. Max 10000 characters per element for texts[]; longer file content is auto-chunked. Do NOT truncate text before sending. When protect_placeholders is enabled (default), placeholders (%(name)s, {name}, ${name}, etc.) are protected. Brand/product terms can be protected via protect_terms/extra_protect_terms. Optional path/output_path enable file-to-file translation with encoding/newline preservation.",
     "param.target_lang.description": "Target language code (e.g. ja, en, zh_CN, pt_BR, fr, de, es, ko).",
     "param.source_lang.description": "Source language code. Auto-detected if omitted.",
     "x_search_terms": [
@@ -34,7 +34,9 @@
     "err.invalid_newline": "newline must be one of: auto, lf, crlf, cr",
     "err.overwrite_bool": "overwrite must be a boolean",
     "err.texts_or_path_required": "texts (non-empty array) or path is required",
-    "err.texts_and_path_mutex": "Specify either texts or path, not both"
+    "err.texts_and_path_mutex": "Specify either texts or path, not both",
+    "param.protect_terms.description": "If true, protect built-in brand/product/tech terms (OpenAI, Grok, mp3, API, ...) from being translated. Default: true.",
+    "param.extra_protect_terms.description": "Additional fixed terms to keep unchanged (e.g. voice ids alloy/eve, model names). Applied in addition to built-in terms when protect_terms is true; still applied when protect_terms is false."
   },
   "ja": {
     "tool.description": "Google 翻訳を使用してテキストを翻訳します。30 以上の言語をサポートします。複数のテキストは結合され、1つのブロックとして翻訳されるため文脈が保持されます。texts[] は1要素あたり最大 10000 文字。ファイル入力は自動分割します。テキストを切り詰めずに送信してください。protect_placeholders が有効（デフォルト）の場合、%(name)s、{name}、${name} などのプレースホルダを保護します。path/output_path でファイル入出力と encoding/改行コード保持に対応します。",
@@ -60,7 +62,9 @@
     "err.invalid_newline": "newline は auto, lf, crlf, cr のいずれかです",
     "err.overwrite_bool": "overwrite は boolean である必要があります",
     "err.texts_or_path_required": "texts（空でない配列）または path が必要です",
-    "err.texts_and_path_mutex": "texts と path は同時に指定できません"
+    "err.texts_and_path_mutex": "texts と path は同時に指定できません",
+    "param.protect_terms.description": "true の場合、組み込みのブランド/製品/技術用語（OpenAI、Grok、mp3、API など）を翻訳から保護します。デフォルト: true。",
+    "param.extra_protect_terms.description": "追加で保護する固定用語（例: 音声 ID の alloy/eve、モデル名）。protect_terms が true のときは組み込みに追加、false のときでも適用されます。"
   },
   "es": {
     "tool.description": "Traduce uno o más textos usando Google Translate.Admite más de 30 idiomas.Se unen y traducen varios textos como un solo bloque para preservar el contexto.Máximo 10000 caracteres por elemento.NO trunque el texto antes de enviarlo;la API maneja textos largos de forma nativa.Cuando protect_placeholders está habilitado (predeterminado), varios tipos de marcadores de posición (%(name)s, {name}, ${name}, etc.) están protegidos de la traducción si el tipo de archivo se detecta automáticamente en el contenido.",
