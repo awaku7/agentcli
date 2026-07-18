@@ -142,6 +142,10 @@ def _image_generation_depname(provider: str) -> str:
         return "gpt-image-1"
     if provider in {"gemini", "vertexai"}:
         return "imagen-4.0-generate-001"
+    if provider == "zai":
+        return "glm-image"
+    if provider == "grok":
+        return "grok-imagine-image"
     return ""
 
 
@@ -157,6 +161,8 @@ def _image_generation_model_info() -> tuple[str, str] | None:
         "gemini",
         "nvidia",
         "vertexai",
+        "zai",
+        "grok",
     }:
         return None
 
@@ -177,8 +183,14 @@ def _image_generation_model_info() -> tuple[str, str] | None:
             and _img_env("bedrock", "generate", "api_key")
         ):
             return None
-    elif provider in {"openai", "openrouter", "gemini", "nvidia"}:
+    elif provider in {"openai", "openrouter", "gemini", "nvidia", "zai"}:
         if not _img_env(provider, "generate", "api_key"):
+            return None
+    elif provider == "grok":
+        # Accept image-specific key or shared chat key
+        if not (
+            _img_env("grok", "generate", "api_key") or _env("UAGENT_GROK_API_KEY")
+        ):
             return None
 
     return provider, depname

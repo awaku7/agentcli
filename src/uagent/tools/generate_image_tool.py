@@ -182,6 +182,7 @@ def _get_provider() -> str:
         "nvidia",
         "vertexai",
         "zai",
+        "grok",
     ):
         raise RuntimeError(
             _msg(
@@ -259,6 +260,8 @@ def _get_image_depname(cb_get_env, provider: str) -> str:
         return "imagen-3.0-generate-002"
     if provider == "zai":
         return "glm-image"
+    if provider == "grok":
+        return "grok-imagine-image"
     raise RuntimeError(
         _msg(
             "err.required_env_vars_missing",
@@ -758,6 +761,43 @@ def run_tool(args: dict[str, Any]) -> str:
                 _download_to_png(url, out_path)
                 saved.append(out_path)
                 meta_payload["downloaded_urls"].append(url)
+
+        elif provider == "grok":
+            from .generate_grok import generate_image_grok
+
+            res = generate_image_grok(
+                prompt=prompt,
+                size=size2,
+                n=n,
+                quality=quality,
+            )
+            if not res.get("ok"):
+                raise RuntimeError(res.get("error", "Grok image generation failed"))
+            url_list = res.get("url_list") or []
+            b64_list = res.get("b64_list") or []
+            meta_payload["items"] = res.get("items") or []
+            if res.get("aspect_ratio"):
+                meta_payload["aspect_ratio"] = res.get("aspect_ratio")
+            if res.get("resolution"):
+                meta_payload["resolution"] = res.get("resolution")
+            if b64_list:
+                saved.extend(_save_many(outdir, file_prefix, ts, b64_list))
+            if url_list:
+                meta_payload["downloaded_urls"] = []
+                for i, url in enumerate(url_list):
+                    # Prefer URL download when b64 was not already saved
+                    if b64_list and i < len(b64_list):
+                        meta_payload["downloaded_urls"].append(url)
+                        continue
+                    fn = (
+                        f"{file_prefix}_{ts}_url_{i + 1}.png"
+                        if len(url_list) > 1
+                        else f"{file_prefix}_{ts}_url.png"
+                    )
+                    out_path = os.path.join(outdir, fn)
+                    _download_to_png(url, out_path)
+                    saved.append(out_path)
+                    meta_payload["downloaded_urls"].append(url)
 
         else:
             return _msg(

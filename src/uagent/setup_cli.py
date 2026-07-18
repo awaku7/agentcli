@@ -396,6 +396,8 @@ IMAGE_GENERATION_PROVIDERS: list[tuple[str, str]] = [
     ("openrouter", "OpenRouter"),
     ("gemini", "Gemini"),
     ("nvidia", "NVIDIA"),
+    ("zai", "Z.AI (GLM-Image)"),
+    ("grok", "xAI Grok Imagine"),
 ]
 
 AUDIO_PROVIDERS: list[tuple[str, str]] = [
@@ -707,6 +709,17 @@ def _ask_provider_image_values(
             ("api_key", True, _("NVIDIA API key")),
             ("base_url", False, _("NVIDIA base URL (optional)")),
             ("depname", True, _("NVIDIA model/deployment name")),
+        ]
+    elif provider == "zai":
+        specs = [
+            ("api_key", True, _("Z.AI API key")),
+            ("base_url", False, _("Z.AI base URL (optional)")),
+            ("depname", True, _("Z.AI image model (e.g. glm-image)")),
+        ]
+    elif provider == "grok":
+        specs = [
+            ("api_key", True, _("xAI Grok API key")),
+            ("depname", True, _("Grok image model (e.g. grok-imagine-image)")),
         ]
     else:
         return "ok", vals
