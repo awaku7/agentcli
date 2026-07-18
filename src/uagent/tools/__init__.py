@@ -662,8 +662,7 @@ def get_dynamic_commands_help() -> list[str]:
             shown = sub_names[:8]
             more = "" if len(sub_names) <= 8 else ", ..."
             help_lines.append(
-                f"  :{cmd} <{'|'.join(shown)}{more}>  "
-                f"(dynamic; :help {cmd})"
+                f"  :{cmd} <{'|'.join(shown)}{more}>  (dynamic; :help {cmd})"
             )
         else:
             ht = (subs.get("").get("help_text") or "").strip() if "" in subs else ""

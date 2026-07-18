@@ -201,9 +201,11 @@ async def _mcp_tools_list_http(
 
         http_client = httpx.AsyncClient(headers=headers)
     try:
-        async with streamable_http_client(
-            mcp_url, http_client=http_client
-        ) as (read, write, session_id):
+        async with streamable_http_client(mcp_url, http_client=http_client) as (
+            read,
+            write,
+            session_id,
+        ):
             result = await _get_tools_from_session(read, write)
             result["url"] = mcp_url
             return result

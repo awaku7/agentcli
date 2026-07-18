@@ -26,16 +26,17 @@ def _debug_log(prefix: str, **kwargs: Any) -> None:
     print("\n".join(parts), file=sys.__stderr__, flush=True)
 
 
-
-
-def _resolve_grok_reasoning_effort() -> str | None:
+def _resolve_grok_reasoning_effort() -> tuple[str | None, bool]:
     """Resolve Grok reasoning_effort from env.
 
     Preference:
       1) UAGENT_REASONING (shared UI/CLI: off/auto/minimal/low/medium/high/xhigh/max)
       2) UAGENT_REASONING_EFFORT (legacy Grok-only: none/low/medium/high)
 
-    Returns one of: none, low, medium, high — or None to omit the parameter.
+    Returns:
+      (effort, is_auto) where effort is one of none/low/medium/high, or None to
+      omit the parameter. is_auto is True when the source value was auto (or an
+      auto alias), so callers can show LLM:auto-><effort> in the CLI status.
     Unsupported values are rounded to the nearest supported level.
     """
     raw = (env_get("UAGENT_REASONING") or "").strip().lower()
@@ -44,37 +45,41 @@ def _resolve_grok_reasoning_effort() -> str | None:
         raw = (env_get("UAGENT_REASONING_EFFORT") or "").strip().lower()
         source = "UAGENT_REASONING_EFFORT"
     if not raw:
-        return None
+        return None, False
 
     # off / disabled => omit (model default), not forced none
     if raw in ("off", "0", "false", "no", "disable", "disabled"):
-        return None
+        return None, False
 
     # Direct / legacy aliases
     if raw in ("none",):
-        return "none"
+        return "none", False
     if raw in ("low", "1", "min", "minimal"):
-        return "low"
-    if raw in ("medium", "2", "mid", "middle", "auto", "a"):
+        return "low", False
+    if raw in ("auto", "a"):
         # auto: no task-aware heuristic for Grok; use medium
-        return "medium"
+        return "medium", True
+    if raw in ("medium", "2", "mid", "middle"):
+        return "medium", False
     if raw in ("high", "3"):
-        return "high"
+        return "high", False
     if raw in ("xhigh", "xh", "x-high", "4", "max", "m", "5"):
         # xhigh/max are above Grok's high; clamp to high
-        return "high"
+        return "high", False
 
     # Unknown value: try coarse rounding by keyword, else medium
     if any(k in raw for k in ("max", "xhigh", "ultra", "highest")):
-        return "high"
+        return "high", False
     if "high" in raw:
-        return "high"
-    if any(k in raw for k in ("med", "mid", "normal", "default", "auto")):
-        return "medium"
+        return "high", False
+    if "auto" in raw:
+        return "medium", True
+    if any(k in raw for k in ("med", "mid", "normal", "default")):
+        return "medium", False
     if any(k in raw for k in ("low", "min", "light", "small")):
-        return "low"
+        return "low", False
     if any(k in raw for k in ("none", "off", "disable", "no")):
-        return None
+        return None, False
 
     _debug_log(
         "unknown_reasoning_rounded",
@@ -82,7 +87,18 @@ def _resolve_grok_reasoning_effort() -> str | None:
         raw=raw,
         rounded="medium",
     )
-    return "medium"
+    return "medium", False
+
+
+def _set_grok_reasoning_status(core: Any, effort: str | None, is_auto: bool) -> None:
+    """Mirror OpenAI/Claude status labels for Grok reasoning effort."""
+    if not effort:
+        return
+    label = f"LLM:auto->{effort}" if is_auto else f"LLM:{effort}"
+    try:
+        core.set_status(True, label)
+    except Exception:
+        pass
 
 
 def _call_grok_round(
@@ -179,9 +195,10 @@ def _call_grok_round(
             # Map UAGENT_REASONING (preferred) / UAGENT_REASONING_EFFORT (legacy)
             # onto xAI reasoning_effort: none|low|medium|high.
             # Unsupported levels are rounded to the nearest supported value.
-            reasoning_effort = _resolve_grok_reasoning_effort()
+            reasoning_effort, reasoning_is_auto = _resolve_grok_reasoning_effort()
             if reasoning_effort is not None:
                 create_kwargs["reasoning_effort"] = reasoning_effort
+            _set_grok_reasoning_status(core, reasoning_effort, reasoning_is_auto)
 
             stop_env = (env_get("UAGENT_STOP") or "").strip()
             if stop_env:

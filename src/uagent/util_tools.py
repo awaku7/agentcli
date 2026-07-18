@@ -200,7 +200,6 @@ def image_file_to_data_url(path: str, *, max_bytes: int = 10_000_000) -> str:
     return f"data:{mime_type};base64,{b64}"
 
 
-
 def provider_allows_chat_vision(
     provider: str,
     *,
@@ -289,9 +288,7 @@ def build_multimodal_user_message(
                 warn_bits.append(
                     "[WARN] "
                     + (
-                        tr(
-                            "Failed to attach image: %(path)s (%(etype)s: %(err)s)"
-                        )
+                        tr("Failed to attach image: %(path)s (%(etype)s: %(err)s)")
                         % {
                             "path": path,
                             "etype": type(e).__name__,
@@ -319,18 +316,14 @@ def build_multimodal_user_message(
                 parts.append({"type": "input_image", "image_url": data_url})
             else:
                 # Chat Completions / Claude / Grok multimodal shape.
-                parts.append(
-                    {"type": "image_url", "image_url": {"url": data_url}}
-                )
+                parts.append({"type": "image_url", "image_url": {"url": data_url}})
         except Exception as e:
             parts.append(
                 {
                     "type": "text",
                     "text": "[WARN] "
                     + (
-                        tr(
-                            "Failed to attach image: %(path)s (%(etype)s: %(err)s)"
-                        )
+                        tr("Failed to attach image: %(path)s (%(etype)s: %(err)s)")
                         % {
                             "path": path,
                             "etype": type(e).__name__,
@@ -660,8 +653,6 @@ def _handle_cmd_cd(
     return True
 
 
-
-
 def _handle_cmd_reload(
     arg: str,
     messages_ref: list[dict[str, Any]],
@@ -674,7 +665,6 @@ def _handle_cmd_reload(
     Only loads files that haven't been loaded before in this session.
     Skips the interactive prompt; new files are auto-loaded.
     """
-    a = (arg or "").strip()
     try:
         from .runtime.runtime_instructions import reload_instruction_files
 
@@ -2312,7 +2302,8 @@ def format_help(*, core: Any, topic: str | None = None) -> str:
         + [
             "",
             tr("Hints:"),
-            "  " + tr("Type :help <command> for details (e.g. :help tools, :help skills)."),
+            "  "
+            + tr("Type :help <command> for details (e.g. :help tools, :help skills)."),
             "  " + tr("Enter a line that is just 'f' to enter multiline input mode."),
             '  """retry  ' + tr("(in multiline) restart input from the beginning"),
         ]
@@ -2479,7 +2470,9 @@ def _static_help_catalog(*, tr: Any) -> dict[str, dict[str, Any]]:
             usage=":profile-fromlog [N]",
             detail=tr("Default N=100; 0=all."),
         ),
-        "profile-clear": e(tr("Clear learned user profile data"), usage=":profile-clear"),
+        "profile-clear": e(
+            tr("Clear learned user profile data"), usage=":profile-clear"
+        ),
         "cp": e(
             tr("Copy file or directory"),
             usage=":cp <src> <dst> [-f|--overwrite] [-p|--mkdirs]",
@@ -2577,7 +2570,11 @@ def format_help_detail(topic: str, *, core: Any) -> str:
             pass
         msg = tr("Unknown command: :%(cmd)s") % {"cmd": cmd}
         if suggestions:
-            msg += "\n" + tr("Did you mean: ") + ", ".join(f":{s}" for s in suggestions[:12])
+            msg += (
+                "\n"
+                + tr("Did you mean: ")
+                + ", ".join(f":{s}" for s in suggestions[:12])
+            )
         msg += "\n" + tr("Try :help for the full list.")
         return msg
 
@@ -3062,8 +3059,10 @@ def _fetch_model_capa(provider: str, model: str) -> list[str]:
         if cap:
             # Prefer shared formatter (includes provider/cost); fall back to local.
             lines = format_capability_lines(cap)
-            return lines if lines else [f"    model_id: {cap.model_id}"] + _format_capa(
-                cap
+            return (
+                lines
+                if lines
+                else [f"    model_id: {cap.model_id}"] + _format_capa(cap)
             )
     except Exception:
         pass

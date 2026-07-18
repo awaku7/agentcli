@@ -30,9 +30,7 @@ def apply_openrouter_extra_body(chat_kwargs: dict[str, Any], *, provider: str) -
                 try:
                     from uagent.llmcapa_util import get_capability, current_provider
 
-                    _cap = get_capability(
-                        _depname, current_provider() or "openrouter"
-                    )
+                    _cap = get_capability(_depname, current_provider() or "openrouter")
                     if _cap is not None and getattr(
                         _cap, "supports_reasoning_effort", False
                     ):

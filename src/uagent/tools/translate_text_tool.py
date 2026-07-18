@@ -23,6 +23,7 @@ _ = make_tool_translator(__file__)
 def _error_json(message: str) -> str:
     return json.dumps({"ok": False, "error": message}, ensure_ascii=False)
 
+
 _LOCALE_TO_GOOGLE: dict[str, str] = {
     "ja": "ja",
     "en": "en",

@@ -239,9 +239,15 @@ def _get_prompt_session(*, reply: bool = False) -> Any:
                         after_env = stripped[len(":env ") :]
                         if " " not in after_env:
                             env_subcmds = [
-                            "help",
-                            "h",
-                            "?","show", "list", "set", "unset", "save"]
+                                "help",
+                                "h",
+                                "?",
+                                "show",
+                                "list",
+                                "set",
+                                "unset",
+                                "save",
+                            ]
                             for sc in env_subcmds:
                                 if sc.startswith(after_env):
                                     yield Completion(

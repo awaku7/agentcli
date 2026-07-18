@@ -510,9 +510,7 @@ def _verbosity_to_max_output_tokens(verbosity_mode: str) -> int | None:
     # Allow user override via environment variable.
     # Preference: UAGENT_GEMINI_MAX_OUTPUT_TOKENS > UAGENT_MAX_TOKENS > verbosity map.
     env_val = (
-        env_get("UAGENT_GEMINI_MAX_OUTPUT_TOKENS")
-        or env_get("UAGENT_MAX_TOKENS")
-        or ""
+        env_get("UAGENT_GEMINI_MAX_OUTPUT_TOKENS") or env_get("UAGENT_MAX_TOKENS") or ""
     ).strip()
     if env_val:
         try:

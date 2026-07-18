@@ -715,7 +715,6 @@ def parse_responses_stream(
     output_items: list[dict[str, Any]] = []
     _seen_output_item_keys: set[str] = set()
     _reasoning_printed = False
-    _reasoning_buf: list[str] = []
     fallback_full_text = ""
 
     tool_calls_buf: dict[str, dict[str, Any]] = {}
@@ -805,26 +804,19 @@ def parse_responses_stream(
                 except Exception:
                     _print_delta(delta_text)
 
-            # Reasoning text deltas (buffered)
+            # Reasoning text deltas (stream immediately; do not break on '.')
             if ev_type == "response.reasoning_text.delta":
                 reasoning_delta = getattr(ev, "delta", None)
                 if isinstance(reasoning_delta, str) and reasoning_delta:
                     reasoning_parts.append(reasoning_delta)
-                    _reasoning_buf.append(reasoning_delta)
-                    buf_text = "".join(_reasoning_buf)
-                    if (
-                        reasoning_delta.endswith((".", "!", "?", "\n"))
-                        or len(buf_text) >= 60
-                    ):
-                        show_reasoning(
-                            buf_text,
-                            provider=provider,
-                            is_first=(not _reasoning_printed),
-                            print_fn=_print_delta,
-                            core=core,
-                        )
-                        _reasoning_printed = True
-                        _reasoning_buf.clear()
+                    show_reasoning(
+                        reasoning_delta,
+                        provider=provider,
+                        is_first=(not _reasoning_printed),
+                        print_fn=_print_delta,
+                        core=core,
+                    )
+                    _reasoning_printed = True
 
             if ev_type == "response.output_text.done":
                 t = getattr(ev, "text", None)
@@ -1001,18 +993,6 @@ def parse_responses_stream(
                 debug_fp.close()
             except Exception:
                 pass
-
-    # Flush any remaining reasoning buffer
-    if _reasoning_buf:
-        show_reasoning(
-            "".join(_reasoning_buf),
-            provider=provider,
-            is_first=(not _reasoning_printed),
-            print_fn=_print_delta,
-            core=core,
-        )
-        _reasoning_printed = True
-        _reasoning_buf.clear()
 
     assistant_text = "".join(assistant_text_parts) or fallback_full_text
 

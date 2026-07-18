@@ -188,9 +188,7 @@ def _image_generation_model_info() -> tuple[str, str] | None:
             return None
     elif provider == "grok":
         # Accept image-specific key or shared chat key
-        if not (
-            _img_env("grok", "generate", "api_key") or _env("UAGENT_GROK_API_KEY")
-        ):
+        if not (_img_env("grok", "generate", "api_key") or _env("UAGENT_GROK_API_KEY")):
             return None
 
     return provider, depname

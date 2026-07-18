@@ -326,7 +326,9 @@ def _translate_claude(
         try:
             from .llmcapa_util import clamp_max_tokens
 
-            max_tokens = clamp_max_tokens(max_tokens, cfg.depname, cfg.provider or "claude")
+            max_tokens = clamp_max_tokens(
+                max_tokens, cfg.depname, cfg.provider or "claude"
+            )
         except Exception:
             pass
 

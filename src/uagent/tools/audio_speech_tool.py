@@ -112,7 +112,16 @@ TOOL_SPEC: dict[str, Any] = {
                 },
                 "response_format": {
                     "type": "string",
-                    "enum": ["mp3", "opus", "aac", "flac", "wav", "pcm", "mulaw", "alaw"],
+                    "enum": [
+                        "mp3",
+                        "opus",
+                        "aac",
+                        "flac",
+                        "wav",
+                        "pcm",
+                        "mulaw",
+                        "alaw",
+                    ],
                     "default": "mp3",
                     "description": _(
                         "param.response_format.description",
@@ -321,7 +330,9 @@ def _grok_tts_bytes(
         # timestamps mode returns base64 audio
         audio_b64 = data.get("audio") or data.get("audio_content")
         if not audio_b64:
-            raise RuntimeError(f"xAI TTS JSON response missing audio: {list(data)[:20]}")
+            raise RuntimeError(
+                f"xAI TTS JSON response missing audio: {list(data)[:20]}"
+            )
         import base64
 
         return base64.b64decode(audio_b64)

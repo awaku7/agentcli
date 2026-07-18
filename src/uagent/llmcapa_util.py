@@ -87,9 +87,7 @@ def current_model(provider: str | None = None) -> str:
 
 
 @lru_cache(maxsize=256)
-def _get_capability_cached(
-    model_id: str, provider_key: str
-) -> Any | None:
+def _get_capability_cached(model_id: str, provider_key: str) -> Any | None:
     """Cached llmcapa.get with provider/model candidate fallbacks."""
     try:
         import llmcapa
@@ -299,7 +297,6 @@ def estimate_cost(
         return None
 
 
-
 def resolve_model_id_for_tokenizer(
     model_id: str | None = None,
     provider: str | None = None,
@@ -352,9 +349,7 @@ def supports_responses_api(
     default: bool | None = None,
 ) -> bool | None:
     """Model-level Responses API support, or ``default`` when unknown."""
-    return supports_feature(
-        "responses_api", model_id, provider, default=default
-    )
+    return supports_feature("responses_api", model_id, provider, default=default)
 
 
 def supports_fim(
@@ -411,8 +406,6 @@ def provider_allows_fim(
     if flag is None:
         return True
     return bool(flag)
-
-
 
 
 def supports_image_output(
@@ -684,7 +677,9 @@ def format_capability_lines(cap: Any) -> list[str]:
         out = int(getattr(cap, "max_output_tokens", 0) or 0)
         lines.append(f"    Context Window: {ctx:,} tokens")
         lines.append(f"    Max Output:    {out:,} tokens")
-        lines.append(f"    Tokenizer:     {getattr(cap, 'tokenizer_name', None) or '?'}")
+        lines.append(
+            f"    Tokenizer:     {getattr(cap, 'tokenizer_name', None) or '?'}"
+        )
         lines.append(f"    License:       {getattr(cap, 'license_type', None) or '?'}")
         lines.append(
             f"    Knowledge Cutoff: {getattr(cap, 'knowledge_cutoff', None) or '?'}"
@@ -763,9 +758,7 @@ def format_capability_lines(cap: Any) -> list[str]:
         except Exception:
             budgets = getattr(cap, "thinking_budget_values", None)
         if budgets:
-            lines.append(
-                f"    Thinking Budgets: {', '.join(str(v) for v in budgets)}"
-            )
+            lines.append(f"    Thinking Budgets: {', '.join(str(v) for v in budgets)}")
     except Exception:
         return lines
     return lines

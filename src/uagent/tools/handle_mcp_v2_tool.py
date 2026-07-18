@@ -202,9 +202,11 @@ async def _call_mcp_http(
 
             http_client = httpx.AsyncClient(headers=headers)
         try:
-            async with streamable_http_client(
-                mcp_url, http_client=http_client
-            ) as (read, write, session_id):
+            async with streamable_http_client(mcp_url, http_client=http_client) as (
+                read,
+                write,
+                session_id,
+            ):
                 async with ClientSession(read, write) as session:
                     await session.initialize()
                     result = await session.call_tool(name, argv)

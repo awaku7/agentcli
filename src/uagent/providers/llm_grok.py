@@ -392,33 +392,39 @@ def parse_xai_stream(
     """
     assistant_text = ""
     tool_calls_list: list[dict[str, Any]] = []
-    _reasoning_printed = False
-    _reasoning_buf: list[str] = []
+    _reasoning_started = False
+    _saw_reasoning = False
+
+    def _print_delta(s: str) -> None:
+        print(s, end="", flush=True)
 
     try:
         for response, chunk in stream_iter:
             # Accumulate text from chunk
             if hasattr(chunk, "content"):
-                text = chunk.content or ""
-                if text:
-                    print(text, end="", flush=True)
-                    assistant_text += text
-            # Print reasoning content (not added to assistant_text)
+                text_delta = chunk.content or ""
+                if text_delta:
+                    # Separate reasoning stream from answer text
+                    if _saw_reasoning:
+                        _print_delta("\n")
+                        _saw_reasoning = False
+                    print(text_delta, end="", flush=True)
+                    assistant_text += text_delta
+            # Stream reasoning deltas immediately (do not break on '.').
+            # show_reasoning defaults to print() which adds a newline per call;
+            # use end="" so sentence-final periods do not force line breaks.
             if hasattr(chunk, "reasoning_content"):
                 rc = chunk.reasoning_content or ""
                 if rc:
-                    _reasoning_buf.append(rc)
-                    buf_text = "".join(_reasoning_buf)
-                    # Flush on natural boundaries
-                    if rc.endswith((".", "!", "?", "\\n")) or len(buf_text) >= 60:
-                        show_reasoning(
-                            buf_text,
-                            provider="Grok",
-                            is_first=(not _reasoning_printed),
-                            core=core,
-                        )
-                        _reasoning_printed = True
-                        _reasoning_buf.clear()
+                    show_reasoning(
+                        rc,
+                        provider="Grok",
+                        is_first=(not _reasoning_started),
+                        print_fn=_print_delta,
+                        core=core,
+                    )
+                    _reasoning_started = True
+                    _saw_reasoning = True
 
             # Tool calls from chunk
             if hasattr(chunk, "tool_calls"):

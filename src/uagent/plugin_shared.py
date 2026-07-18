@@ -1220,7 +1220,10 @@ def _ensure_marketplace_local(
         if result.returncode != 0:
             return None
 
-        if cached.is_dir() and (cached / ".claude-plugin" / "marketplace.json").is_file():
+        if (
+            cached.is_dir()
+            and (cached / ".claude-plugin" / "marketplace.json").is_file()
+        ):
             return cached
     except Exception:
         return None
@@ -1288,11 +1291,7 @@ def seed_default_marketplaces(
     if not isinstance(mps, list):
         mps = []
 
-    existing_names = {
-        m["name"]
-        for m in mps
-        if isinstance(m, dict) and m.get("name")
-    }
+    existing_names = {m["name"] for m in mps if isinstance(m, dict) and m.get("name")}
 
     added: list[str] = []
     for default in DEFAULT_MARKETPLACES:
@@ -1315,9 +1314,7 @@ def seed_default_marketplaces(
     if added:
         data["marketplaces"] = mps
         rp.parent.mkdir(parents=True, exist_ok=True)
-        rp.write_text(
-            json.dumps(data, indent=2, ensure_ascii=False), encoding="utf-8"
-        )
+        rp.write_text(json.dumps(data, indent=2, ensure_ascii=False), encoding="utf-8")
 
     return {"ok": True, "added": added}
 
@@ -1470,6 +1467,7 @@ def resolve_marketplace_plugin(
                     return str(resolved)
 
     return None
+
 
 # ---------------------------------------------------------------------------
 # Dependencies support

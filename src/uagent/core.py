@@ -1592,7 +1592,9 @@ def compress_history_with_llm(
                             max_tokens=_sum_max,
                             temperature=0.0,
                         )
-                    elif hasattr(client, "chat") and hasattr(client.chat, "completions"):
+                    elif hasattr(client, "chat") and hasattr(
+                        client.chat, "completions"
+                    ):
                         resp = client.chat.completions.create(
                             model=depname,
                             messages=summary_messages,

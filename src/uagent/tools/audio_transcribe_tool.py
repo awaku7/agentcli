@@ -148,9 +148,7 @@ TOOL_SPEC: dict[str, Any] = {
                     "type": "boolean",
                     "description": _(
                         "param.filler_words.description",
-                        default=(
-                            "Grok/xAI only: keep filler words (um/uh) when true."
-                        ),
+                        default=("Grok/xAI only: keep filler words (um/uh) when true."),
                     ),
                 },
                 "itn_format": {
@@ -471,14 +469,16 @@ def run_tool(args: dict[str, Any]) -> str:
     elif provider != "grok" or not remote_url:
         return make_response(
             False,
-            _(
-                "err.path_empty",
-                default="path is required",
-            )
-            if provider != "grok"
-            else _(
-                "err.path_or_url_required",
-                default="path or url is required for Grok/xAI STT",
+            (
+                _(
+                    "err.path_empty",
+                    default="path is required",
+                )
+                if provider != "grok"
+                else _(
+                    "err.path_or_url_required",
+                    default="path or url is required for Grok/xAI STT",
+                )
             ),
         )
 
@@ -528,9 +528,7 @@ def run_tool(args: dict[str, Any]) -> str:
 
     elif provider in ("gemini", "vertexai"):
         if not safe_path:
-            return make_response(
-                False, _("err.path_empty", default="path is required")
-            )
+            return make_response(False, _("err.path_empty", default="path is required"))
         try:
             from google import genai
             from google.genai import types
@@ -596,9 +594,7 @@ def run_tool(args: dict[str, Any]) -> str:
             )
     else:
         if not safe_path:
-            return make_response(
-                False, _("err.path_empty", default="path is required")
-            )
+            return make_response(False, _("err.path_empty", default="path is required"))
         try:
             client = _make_client(provider)
         except Exception as exc:
