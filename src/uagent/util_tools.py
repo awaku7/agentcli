@@ -202,25 +202,45 @@ def image_file_to_data_url(path: str, *, max_bytes: int = 10_000_000) -> str:
 
 
 def provider_allows_chat_vision(
-    provider: str, *, use_responses_api: bool | None = None
+    provider: str,
+    *,
+    use_responses_api: bool | None = None,
+    model_id: str | None = None,
 ) -> bool:
     """Return True if main-chat image auto-attach is allowed for this provider.
 
     CHAT_VISION_PROVIDERS (openai/azure/openrouter/grok/claude/gemini/vertexai)
     already convert multimodal content at the provider layer and do not require
     UAGENT_RESPONSES.  Other RESPONSES_PROVIDERS still need Responses enabled.
+
+    When ``model_id`` is given (or resolvable from env) and llmcapa knows the
+    model, vision/image-input support is required in addition to provider gating.
+    Unknown models keep the provider-level allow decision.
     """
     from .providers.provider_caps import CHAT_VISION_PROVIDERS, RESPONSES_PROVIDERS
+    from .llmcapa_util import supports_vision, current_model
 
     prov = (provider or "").strip().lower()
-    if prov in CHAT_VISION_PROVIDERS:
-        return True
     if use_responses_api is None:
         use_responses_api = (env_get("UAGENT_RESPONSES") or "").strip().lower() in (
             "1",
             "true",
         )
-    return bool(use_responses_api) and prov in RESPONSES_PROVIDERS
+
+    if prov in CHAT_VISION_PROVIDERS:
+        provider_ok = True
+    else:
+        provider_ok = bool(use_responses_api) and prov in RESPONSES_PROVIDERS
+    if not provider_ok:
+        return False
+
+    mid = (model_id or "").strip() or current_model(prov)
+    if not mid:
+        return True
+    vision = supports_vision(mid, prov, default=None)
+    if vision is None:
+        return True
+    return bool(vision)
 
 
 def build_multimodal_user_message(
@@ -2786,15 +2806,16 @@ def _format_capa(cap) -> list[str]:
 def _fetch_model_capa(provider: str, model: str) -> list[str]:
     """Fetch llmcapa info for a model. Returns detail lines, or empty if unavailable."""
     try:
-        import llmcapa
+        from .llmcapa_util import format_capability_lines, get_capability
 
-        cap = llmcapa.get(
-            model, provider=provider if provider not in ("(none)", "") else None
-        )
+        prov = provider if provider not in ("(none)", "") else None
+        cap = get_capability(model, prov)
         if cap:
-            return [f"    model_id: {cap.model_id}"] + _format_capa(cap)
-    except ImportError:
-        pass
+            # Prefer shared formatter (includes provider/cost); fall back to local.
+            lines = format_capability_lines(cap)
+            return lines if lines else [f"    model_id: {cap.model_id}"] + _format_capa(
+                cap
+            )
     except Exception:
         pass
     return []

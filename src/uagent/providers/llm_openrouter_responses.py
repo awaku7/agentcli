@@ -41,13 +41,17 @@ def apply_openrouter_responses_compat(
                 _effort = _raw_reason
                 if depname:
                     try:
-                        import llmcapa
+                        from uagent.llmcapa_util import (
+                            get_capability,
+                            current_provider,
+                        )
 
-                        _provider = (
-                            env_get("UAGENT_PROVIDER") or ""
-                        ).lower().strip() or None
-                        _cap = llmcapa.get(depname, provider=_provider)
-                        if _cap is not None and _cap.supports_reasoning_effort:
+                        _cap = get_capability(
+                            depname, current_provider() or "openrouter"
+                        )
+                        if _cap is not None and getattr(
+                            _cap, "supports_reasoning_effort", False
+                        ):
                             _valid = _cap.get_reasoning_effort_values()
                             if _valid and _effort not in _valid:
                                 _effort = "medium" if "medium" in _valid else _valid[0]

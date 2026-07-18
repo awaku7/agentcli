@@ -28,13 +28,14 @@ def apply_openrouter_extra_body(chat_kwargs: dict[str, Any], *, provider: str) -
             _depname = chat_kwargs.get("model", "")
             if _depname:
                 try:
-                    import llmcapa
+                    from uagent.llmcapa_util import get_capability, current_provider
 
-                    _provider = (
-                        env_get("UAGENT_PROVIDER") or ""
-                    ).lower().strip() or None
-                    _cap = llmcapa.get(_depname, provider=_provider)
-                    if _cap is not None and _cap.supports_reasoning_effort:
+                    _cap = get_capability(
+                        _depname, current_provider() or "openrouter"
+                    )
+                    if _cap is not None and getattr(
+                        _cap, "supports_reasoning_effort", False
+                    ):
                         _valid = _cap.get_reasoning_effort_values()
                         if _valid and _effort not in _valid:
                             # Fall back to a safe default

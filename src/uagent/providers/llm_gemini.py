@@ -428,12 +428,11 @@ def _choose_auto_thinking_level(user_text: str) -> str:
 
 def _model_uses_thinking_budget(model_name: str) -> bool:
     try:
-        import llmcapa
+        from uagent.llmcapa_util import get_capability, current_provider
 
-        _provider = (env_get("UAGENT_PROVIDER") or "").lower().strip() or None
-        cap = llmcapa.get(model_name, provider=_provider)
+        cap = get_capability(model_name, current_provider() or "gemini")
         if cap is not None:
-            return cap.supports_thinking_budget
+            return bool(getattr(cap, "supports_thinking_budget", False))
     except Exception:
         pass
     mn = (model_name or "").lower()
@@ -875,6 +874,15 @@ def gemini_chat_with_tools(
     )
 
     max_output_tokens = _verbosity_to_max_output_tokens(verbosity_mode)
+    if max_output_tokens is not None:
+        try:
+            from uagent.llmcapa_util import clamp_max_tokens, current_provider
+
+            max_output_tokens = clamp_max_tokens(
+                max_output_tokens, model_name, current_provider() or "gemini"
+            )
+        except Exception:
+            pass
 
     system_instruction = (
         "\n\n".join(system_instruction_parts) if system_instruction_parts else None

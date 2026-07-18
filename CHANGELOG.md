@@ -15,6 +15,7 @@
 
 ### Changed
 - llmcapa dependency bumped to >=0.4.1.
+- llmcapa: shared `llmcapa_util` lookup (provider aliases), vision gating, max-token clamp, shrink ctx, richer `:model v`.
 - Tools plugin load remains lazy, but is prewarmed in a background thread after startup.
 
 ## [0.5.48] - 2026-07-13

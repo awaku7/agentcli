@@ -161,7 +161,11 @@ def _call_grok_round(
             max_tokens_env = (env_get("UAGENT_MAX_TOKENS") or "").strip()
             if max_tokens_env:
                 try:
-                    create_kwargs["max_tokens"] = int(max_tokens_env)
+                    from .llmcapa_util import clamp_max_tokens
+
+                    create_kwargs["max_tokens"] = clamp_max_tokens(
+                        int(max_tokens_env), depname, "grok"
+                    )
                 except ValueError:
                     pass
 

@@ -520,7 +520,11 @@ def _call_openai_azure_round(
                 _max_tokens_env = (env_get("UAGENT_MAX_TOKENS") or "").strip()
                 if _max_tokens_env:
                     try:
-                        resp_kwargs["max_output_tokens"] = int(_max_tokens_env)
+                        from .llmcapa_util import clamp_max_tokens
+
+                        resp_kwargs["max_output_tokens"] = clamp_max_tokens(
+                            int(_max_tokens_env), depname, provider
+                        )
                     except ValueError:
                         pass
                 if instructions_str is not None:
@@ -766,7 +770,11 @@ def _call_openai_azure_round(
                 max_tokens_env = (env_get("UAGENT_MAX_TOKENS") or "").strip()
                 if max_tokens_env:
                     try:
-                        chat_kwargs["max_tokens"] = int(max_tokens_env)
+                        from .llmcapa_util import clamp_max_tokens
+
+                        chat_kwargs["max_tokens"] = clamp_max_tokens(
+                            int(max_tokens_env), depname, provider
+                        )
                     except ValueError:
                         pass
                 top_p_env = (env_get("UAGENT_TOP_P") or "").strip()

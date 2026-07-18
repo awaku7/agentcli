@@ -175,27 +175,16 @@ def _get_default_shrink_max_tokens(depname: str) -> int:
         ratio = 0.5
 
     try:
-        import llmcapa
+        from .llmcapa_util import current_model, current_provider, get_context_window
 
-        _provider = (env_get("UAGENT_PROVIDER") or "").lower().strip() or None
-        cap = llmcapa.get(depname, provider=_provider)
-        if cap and cap.context_window > 0:
-            return int(cap.context_window * ratio)
-    except Exception:
-        pass
-
-    # Fallback: try actual model name from provider-specific env var
-    try:
-        import llmcapa
-
-        provider = (env_get("UAGENT_PROVIDER") or "").lower().strip()
-        if provider:
-            model_env_key = f"UAGENT_{provider.upper()}_DEPNAME"
-            actual_model = env_get(model_env_key)
-            if actual_model and actual_model.strip() != depname:
-                cap = llmcapa.get(actual_model.strip(), provider=provider)
-                if cap and cap.context_window > 0:
-                    return int(cap.context_window * ratio)
+        provider = current_provider() or None
+        ctx = get_context_window(depname, provider)
+        if ctx is None:
+            actual = current_model(provider)
+            if actual and actual != depname:
+                ctx = get_context_window(actual, provider)
+        if ctx is not None and ctx > 0:
+            return max(1, int(ctx * ratio))
     except Exception:
         pass
 

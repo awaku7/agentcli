@@ -1163,7 +1163,9 @@ def main() -> None:
                 )
                 prov = (env_get("UAGENT_PROVIDER") or "").lower()
                 allow_multimodal = provider_allows_chat_vision(
-                    prov, use_responses_api=use_responses_api
+                    prov,
+                    use_responses_api=use_responses_api,
+                    model_id=depname,
                 )
 
                 user_msg: dict[str, Any]

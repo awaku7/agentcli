@@ -63,13 +63,12 @@ def _get_valid_deepseek_efforts(model_name: str = "") -> frozenset:
     """
     if model_name:
         try:
-            import llmcapa
-            from uagent.env_utils import env_get
+            from uagent.llmcapa_util import get_capability, current_provider
 
-            _provider = (env_get("UAGENT_PROVIDER") or "").lower().strip() or None
-            cap = llmcapa.get(model_name, provider=_provider)
-            if cap is not None and cap.supports_reasoning_effort:
-                return frozenset(cap.get_reasoning_effort_values())
+            cap = get_capability(model_name, current_provider() or "deepseek")
+            if cap is not None and getattr(cap, "supports_reasoning_effort", False):
+                vals = cap.get_reasoning_effort_values() or []
+                return frozenset(vals)
         except Exception:
             pass
     return frozenset({"high", "max"})

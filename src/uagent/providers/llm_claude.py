@@ -99,13 +99,11 @@ def _claude_supports_max_effort(model_name: str) -> bool:
     """Check if model supports "max" effort using llmcapa data."""
 
     try:
-        import llmcapa
-        from uagent.env_utils import env_get
+        from uagent.llmcapa_util import get_capability, current_provider
 
-        _provider = (env_get("UAGENT_PROVIDER") or "").lower().strip() or None
-        cap = llmcapa.get(model_name, provider=_provider)
-        if cap is not None and cap.supports_reasoning_effort:
-            return "max" in cap.get_reasoning_effort_values()
+        cap = get_capability(model_name, current_provider() or None)
+        if cap is not None and getattr(cap, "supports_reasoning_effort", False):
+            return "max" in (cap.get_reasoning_effort_values() or [])
     except Exception:
         pass
 
@@ -130,11 +128,10 @@ def _claude_supports_effort(model_name: str) -> bool:
     We treat Opus 4.5+ and Sonnet 4.6+ as supported to be forward-compatible.
     """
     try:
-        import llmcapa
+        from uagent.llmcapa_util import get_capability, current_provider
 
-        _provider = (env_get("UAGENT_PROVIDER") or "").lower().strip() or None
-        cap = llmcapa.get(model_name, provider=_provider)
-        if cap is not None and cap.supports_reasoning_effort:
+        cap = get_capability(model_name, current_provider() or None)
+        if cap is not None and getattr(cap, "supports_reasoning_effort", False):
             return True
     except Exception:
         pass
@@ -188,13 +185,11 @@ def build_claude_output_config_for_effort(
         return None
 
     try:
-        import llmcapa
-        from uagent.env_utils import env_get
+        from uagent.llmcapa_util import get_capability, current_provider
 
-        _provider = (env_get("UAGENT_PROVIDER") or "").lower().strip() or None
-        cap = llmcapa.get(model_name, provider=_provider)
-        if cap is not None and cap.supports_reasoning_effort:
-            valid = cap.get_reasoning_effort_values()
+        cap = get_capability(model_name, current_provider() or None)
+        if cap is not None and getattr(cap, "supports_reasoning_effort", False):
+            valid = cap.get_reasoning_effort_values() or []
             if e in valid:
                 # Map xhigh/max based on model support
                 if e in ("xhigh", "max"):
@@ -421,6 +416,14 @@ def claude_chat_with_tools(
         # If model is modern Claude or output_config (thinking) is enabled, default to 8192
         if is_modern_claude or out_cfg is not None:
             max_tokens = 8192
+    try:
+        from uagent.llmcapa_util import clamp_max_tokens, current_provider
+
+        max_tokens = clamp_max_tokens(
+            max_tokens, model_name, current_provider() or "claude"
+        )
+    except Exception:
+        pass
 
     # Resolve thinking parameter for modern Claude models (Claude 3.7+, Claude 4+, Fable 5+)
     thinking_param = None
