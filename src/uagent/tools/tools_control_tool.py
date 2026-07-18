@@ -228,8 +228,40 @@ def _register_tools_subcommands() -> None:
                 default="  :tools load <name>  Load a single tool by name.",
             ),
         },
-        {"command": "tools", "subcommand": "on", "handler": handle_cmd_tools_on},
-        {"command": "tools", "subcommand": "off", "handler": handle_cmd_tools_off},
+        {
+            "command": "tools",
+            "subcommand": "on",
+            "handler": handle_cmd_tools_on,
+            "help_text": _(
+                "cmd.help.tools_on",
+                default="  :tools on [genre]              Enable tools (global) or one genre",
+            ),
+            "usage": ":tools on [genre]",
+            "help_detail": _(
+                "cmd.detail.tools_on",
+                default=(
+                    "No genre: turn on sending tools to the LLM.\n"
+                    "With genre: enable that genre and turn global tools on."
+                ),
+            ),
+        },
+        {
+            "command": "tools",
+            "subcommand": "off",
+            "handler": handle_cmd_tools_off,
+            "help_text": _(
+                "cmd.help.tools_off",
+                default="  :tools off [genre]             Disable tools (global) or one genre",
+            ),
+            "usage": ":tools off [genre]",
+            "help_detail": _(
+                "cmd.detail.tools_off",
+                default=(
+                    "No genre: turn off sending tools to the LLM.\n"
+                    "With genre: disable that genre only."
+                ),
+            ),
+        },
         {
             "command": "tools",
             "subcommand": "reload",

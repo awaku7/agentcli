@@ -360,13 +360,19 @@ def _register_tool_module(mod: Any, mod_name: str) -> bool:
             cmd_name = cmd_spec.get("command")
             subcmd_name = cmd_spec.get("subcommand", "")
             handler = cmd_spec.get("handler")
-            help_text = cmd_spec.get("help_text", "")
+            help_text = cmd_spec.get("help_text", "") or ""
+            help_detail = cmd_spec.get("help_detail", "") or ""
+            usage = cmd_spec.get("usage", "") or ""
             if cmd_name and callable(handler):
                 if cmd_name not in _DYNAMIC_COMMANDS:
                     _DYNAMIC_COMMANDS[cmd_name] = {}
+                # Prefer non-empty help when re-registering the same subcommand.
+                prev = _DYNAMIC_COMMANDS[cmd_name].get(subcmd_name) or {}
                 _DYNAMIC_COMMANDS[cmd_name][subcmd_name] = {
                     "handler": handler,
-                    "help_text": help_text,
+                    "help_text": help_text or prev.get("help_text", ""),
+                    "help_detail": help_detail or prev.get("help_detail", ""),
+                    "usage": usage or prev.get("usage", ""),
                 }
 
     return True
@@ -642,14 +648,32 @@ def handle_dynamic_command(cmd: str, arg: str, **kwargs: Any) -> Any:
 
 
 def get_dynamic_commands_help() -> list[str]:
-    """Return help lines for all registered dynamic commands."""
+    """Return short help lines for all registered dynamic commands (overview).
+
+    One compact line per top-level command. Full subcommand text is for :help <cmd>.
+    """
     _ensure_loaded()
     help_lines: list[str] = []
     for cmd in sorted(_DYNAMIC_COMMANDS.keys()):
-        for subcmd in sorted(_DYNAMIC_COMMANDS[cmd].keys()):
-            help_text = _DYNAMIC_COMMANDS[cmd][subcmd].get("help_text")
-            if help_text:
-                help_lines.append(help_text)
+        subs = _DYNAMIC_COMMANDS[cmd]
+        sub_names = [k for k in sorted(subs.keys()) if k]
+        if sub_names:
+            # Keep overview short: show subcommand names only.
+            shown = sub_names[:8]
+            more = "" if len(sub_names) <= 8 else ", ..."
+            help_lines.append(
+                f"  :{cmd} <{'|'.join(shown)}{more}>  "
+                f"(dynamic; :help {cmd})"
+            )
+        else:
+            ht = (subs.get("").get("help_text") or "").strip() if "" in subs else ""
+            if ht:
+                first = ht.splitlines()[0].strip()
+                if not first.startswith(":"):
+                    first = f":{cmd}  {first}"
+                help_lines.append("  " + first if not first.startswith("  ") else first)
+            else:
+                help_lines.append(f"  :{cmd}  (dynamic; :help {cmd})")
     return help_lines
 
 
@@ -662,6 +686,74 @@ def get_dynamic_commands_map() -> dict[str, list[str]]:
         if subcmds:
             result[cmd] = sorted(subcmds)
     return result
+
+
+def list_dynamic_command_names() -> list[str]:
+    """Return sorted top-level dynamic command names."""
+    _ensure_loaded()
+    return sorted(_DYNAMIC_COMMANDS.keys())
+
+
+def get_dynamic_command_detail(cmd: str, subcmd: str | None = None) -> str | None:
+    """Return detailed help for a dynamic command (and optional subcommand).
+
+    Returns None if the command is not registered.
+    """
+    _ensure_loaded()
+    name = (cmd or "").strip().lstrip(":").lower()
+    if not name or name not in _DYNAMIC_COMMANDS:
+        return None
+
+    subs = _DYNAMIC_COMMANDS[name]
+    want_sub = (subcmd or "").strip().lower()
+
+    lines: list[str] = []
+    lines.append(f":{name}  (dynamic command)")
+
+    if want_sub:
+        info = subs.get(want_sub)
+        if info is None:
+            known = ", ".join(sorted(k for k in subs if k)) or "(none)"
+            lines.append(f"Unknown subcommand: {want_sub}")
+            lines.append(f"Available: {known}")
+            return "\n".join(lines)
+        targets = [(want_sub, info)]
+    else:
+        # Default handler first, then named subcommands.
+        order = sorted(subs.keys(), key=lambda s: (s != "", s))
+        targets = [(k, subs[k]) for k in order]
+
+    sub_list = [k for k in sorted(subs.keys()) if k]
+    if sub_list and not want_sub:
+        lines.append("Subcommands: " + ", ".join(sub_list))
+        lines.append("")
+
+    for sk, info in targets:
+        label = f":{name}" if not sk else f":{name} {sk}"
+        lines.append(label)
+        usage = (info.get("usage") or "").strip()
+        detail = (info.get("help_detail") or "").strip()
+        short = (info.get("help_text") or "").strip()
+        if usage:
+            lines.append(f"  Usage: {usage}")
+        if detail:
+            for dl in detail.splitlines():
+                lines.append("  " + dl if dl.strip() else "")
+        elif short:
+            for sl in short.splitlines():
+                s2 = sl.strip()
+                if s2.startswith(":"):
+                    lines.append("  " + s2)
+                elif s2:
+                    lines.append("  " + s2)
+        else:
+            lines.append("  (no help_text; see CMD_SPEC help_text/help_detail)")
+        lines.append("")
+
+    # Trim trailing blank
+    while lines and not lines[-1].strip():
+        lines.pop()
+    return "\n".join(lines)
 
 
 def get_tool_specs() -> list[dict[str, Any]]:

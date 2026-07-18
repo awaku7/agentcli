@@ -139,4 +139,9 @@ CMD_SPEC = {
     "command": "skills",
     "subcommand": "uninstall",
     "handler": handle_cmd_uninstall,
+    "help_text": _(
+        "help_text.uninstall",
+        default="  :skills uninstall <name>         Uninstall an installed skill",
+    ),
+    "usage": ":skills uninstall <name>",
 }
