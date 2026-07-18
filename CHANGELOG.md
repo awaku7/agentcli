@@ -1,5 +1,22 @@
 # Changelog
 
+## [0.5.50] - 2026-07-18
+
+### Added
+- llmcapa: shared `llmcapa_util` lookup (provider aliases), vision gating, max-token clamp, shrink ctx, richer `:model v`.
+- llmcapa: resolve tokenizer model ids; gate Responses/FIM with capability data; clamp Ollama/FIM/Grok max tokens.
+- llmcapa: clamp profile/translate/sub-agent max tokens; sub-agent usage cost estimate; deprecated model WARN on banner/`:model`; refresh integration docs.
+- llmcapa: vision tools (analyze_image backends) check vision support and clamp max tokens.
+- llmcapa: DeepSeek/ZAI/Novita shared max_tokens; image/embedding capability checks for generate_image/img2img/semantic_search.
+- llmcapa: `supports_audio_input` / `check_audio_input_support` for STT gating (catalog miss allows; not completion max_tokens).
+- llmcapa: `supports_audio_output` / `check_audio_output_support` for TTS gating (catalog miss allows; not completion max_tokens).
+- `audio_transcribe`: Grok/xAI batch STT via POST `/v1/stt` (multipart file or url); provider aliases `grok`/`xai`; default model `grok-stt-batch`; diarize/keyterm/filler_words/format options.
+- `audio_speech`: Grok/xAI TTS via POST `/v1/tts` (requests); provider aliases `grok`/`xai`; defaults model `grok-tts`, voice `eve`; language/speed/codec mapping.
+- Management tool loop detection: fingerprint by target (`tool_load:name`); `unload_tool(target)` and auto-unload via `disable_single_tool` clear that target's load streak so unload→reload is not blocked.
+
+### Changed
+- llmcapa dependency bumped to >=0.4.1.
+
 ## [0.5.49] - 2026-07-15
 
 ### Added
@@ -14,18 +31,7 @@
 - Grok: prevent double-printing streamed assistant replies.
 
 ### Changed
-- llmcapa dependency bumped to >=0.4.1.
-- llmcapa: shared `llmcapa_util` lookup (provider aliases), vision gating, max-token clamp, shrink ctx, richer `:model v`.
-- llmcapa: resolve tokenizer model ids; gate Responses/FIM with capability data; clamp Ollama/FIM/Grok max tokens.
-- llmcapa: clamp profile/translate/sub-agent max tokens; sub-agent usage cost estimate; deprecated model WARN on banner/`:model`; refresh integration docs.
-- llmcapa: vision tools (analyze_image backends) check vision support and clamp max tokens.
-- llmcapa: DeepSeek/ZAI/Novita shared max_tokens; image/embedding capability checks for generate_image/img2img/semantic_search.
-- llmcapa: `supports_audio_input` / `check_audio_input_support` for STT gating (catalog miss allows; not completion max_tokens).
-- `audio_transcribe`: Grok/xAI batch STT via POST `/v1/stt` (multipart file or url); provider aliases `grok`/`xai`; default model `grok-stt-batch`; diarize/keyterm/filler_words/format options.
-- llmcapa: `supports_audio_output` / `check_audio_output_support` for TTS gating (catalog miss allows; not completion max_tokens).
-- `audio_speech`: Grok/xAI TTS via POST `/v1/tts` (requests); provider aliases `grok`/`xai`; defaults model `grok-tts`, voice `eve`; language/speed/codec mapping.
 - Tools plugin load remains lazy, but is prewarmed in a background thread after startup.
-- Management tool loop detection: fingerprint by target (`tool_load:name`); `unload_tool(target)` and auto-unload via `disable_single_tool` clear that target's load streak so unload→reload is not blocked.
 
 ## [0.5.48] - 2026-07-13
 

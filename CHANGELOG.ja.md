@@ -1,5 +1,22 @@
 # 変更履歴
 
+## [0.5.50] - 2026-07-18
+
+### 追加
+- llmcapa: 共通 `llmcapa_util` lookup（プロバイダ別名）、vision 判定、max-token クランプ、shrink ctx、`:model v` 詳細表示を強化。
+- llmcapa: tokenizer 用 model id 解決、Responses/FIM の capability ゲート、Ollama/FIM/Grok の max-token クランプを追加。
+- llmcapa: profile/translate/sub-agent の max-token クランプ、sub-agent 利用コスト見積、banner/`:model` の deprecated 警告、統合ドキュメント更新。
+- llmcapa: vision ツール (analyze_image 系) で vision 可否チェックと max-token クランプを追加。
+- llmcapa: DeepSeek/ZAI/Novita の共有 max_tokens、generate_image/img2img/semantic_search の image/embedding capability チェックを追加。
+- llmcapa: STT 向け `supports_audio_input` / `check_audio_input_support` を追加（カタログ欠落は許可、completion max_tokens とは別扱い）。
+- llmcapa: TTS 向け `supports_audio_output` / `check_audio_output_support` を追加（カタログ欠落は許可、completion max_tokens とは別扱い）。
+- `audio_transcribe`: Grok/xAI バッチ STT を POST `/v1/stt`（multipart file または url）で対応。プロバイダ別名 `grok`/`xai`、既定 model `grok-stt-batch`、diarize/keyterm/filler_words/format 対応。
+- `audio_speech`: Grok/xAI TTS を POST `/v1/tts`（requests）で対応。プロバイダ別名 `grok`/`xai`、既定 model `grok-tts` / voice `eve`、language/speed/codec マッピング。
+- 管理ツールのループ検出: 対象名単位の fingerprint（`tool_load:name`）。`unload_tool(target)` および auto-unload（`disable_single_tool`）でその対象の load 連続回数をリセットし、unload→reload を誤検知しない。
+
+### 変更
+- llmcapa 依存を >=0.4.1 に更新。
+
 ## [0.5.49] - 2026-07-15
 
 ### 追加
@@ -14,18 +31,7 @@
 - Grok: ストリーム応答の二重表示を防止。
 
 ### 変更
-- llmcapa 依存を >=0.4.1 に更新。
-- llmcapa: 共通 `llmcapa_util` lookup（プロバイダ別名）、vision 判定、max-token クランプ、shrink ctx、`:model v` 詳細表示を強化。
-- llmcapa: tokenizer 用 model id 解決、Responses/FIM の capability ゲート、Ollama/FIM/Grok の max-token クランプを追加。
-- llmcapa: profile/translate/sub-agent の max-token クランプ、sub-agent 利用コスト見積、banner/`:model` の deprecated 警告、統合ドキュメント更新。
-- llmcapa: vision ツール (analyze_image 系) で vision 可否チェックと max-token クランプを追加。
-- llmcapa: DeepSeek/ZAI/Novita の共有 max_tokens、generate_image/img2img/semantic_search の image/embedding capability チェックを追加。
-- llmcapa: STT 向け `supports_audio_input` / `check_audio_input_support` を追加（カタログ欠落は許可、completion max_tokens とは別扱い）。
-- `audio_transcribe`: Grok/xAI バッチ STT を POST `/v1/stt`（multipart file または url）で対応。プロバイダ別名 `grok`/`xai`、既定 model `grok-stt-batch`、diarize/keyterm/filler_words/format 対応。
-- llmcapa: TTS 向け `supports_audio_output` / `check_audio_output_support` を追加（カタログ欠落は許可、completion max_tokens とは別扱い）。
-- `audio_speech`: Grok/xAI TTS を POST `/v1/tts`（requests）で対応。プロバイダ別名 `grok`/`xai`、既定 model `grok-tts` / voice `eve`、language/speed/codec マッピング。
 - ツールプラグインは遅延ロードのまま、起動後バックグラウンドで予熱する方式に変更。
-- 管理ツールのループ検出: 対象名単位の fingerprint（`tool_load:name`）。`unload_tool(target)` および auto-unload（`disable_single_tool`）でその対象の load 連続回数をリセットし、unload→reload を誤検知しない。
 
 ## [0.5.48] - 2026-07-13
 
