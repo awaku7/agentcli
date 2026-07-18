@@ -20,6 +20,8 @@
 - llmcapa: profile/translate/sub-agent の max-token クランプ、sub-agent 利用コスト見積、banner/`:model` の deprecated 警告、統合ドキュメント更新。
 - llmcapa: vision ツール (analyze_image 系) で vision 可否チェックと max-token クランプを追加。
 - llmcapa: DeepSeek/ZAI/Novita の共有 max_tokens、generate_image/img2img/semantic_search の image/embedding capability チェックを追加。
+- llmcapa: TTS 向け `supports_audio_output` / `check_audio_output_support` を追加（カタログ欠落は許可、completion max_tokens とは別扱い）。
+- `audio_speech`: Grok/xAI TTS を POST `/v1/tts`（requests）で対応。プロバイダ別名 `grok`/`xai`、既定 model `grok-tts` / voice `eve`、language/speed/codec マッピング。
 - ツールプラグインは遅延ロードのまま、起動後バックグラウンドで予熱する方式に変更。
 
 ## [0.5.48] - 2026-07-13

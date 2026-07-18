@@ -3,8 +3,11 @@ from __future__ import annotations
 from pathlib import Path
 from typing import Any
 
+import requests
+
 from .._pip_auto import install_with_status as _auto_install
 from ..env_utils import env_get
+from ..llmcapa_util import check_audio_output_support
 from .openers import open_image_with_default_app
 from .arg_util import get_float, get_str
 from .context import get_callbacks
@@ -15,6 +18,15 @@ from .safe_file_ops_extras import ensure_within_workdir
 _ = make_tool_translator(__file__)
 
 BUSY_LABEL = True
+
+# xAI TTS limits / defaults (https://docs.x.ai)
+_GROK_TTS_URL_DEFAULT = "https://api.x.ai/v1/tts"
+_GROK_TEXT_MAX = 15000
+_GROK_SPEED_MIN = 0.7
+_GROK_SPEED_MAX = 1.5
+_GROK_CODECS = frozenset({"mp3", "wav", "pcm", "mulaw", "alaw"})
+_GROK_SAMPLE_RATES = frozenset({8000, 16000, 22050, 24000, 44100, 48000})
+_OPENAI_FORMATS = frozenset({"mp3", "opus", "aac", "flac", "wav", "pcm"})
 
 TOOL_SPEC: dict[str, Any] = {
     "load_order": 8000,
@@ -49,6 +61,8 @@ TOOL_SPEC: dict[str, Any] = {
             "sound",
             "tts",
             "text to speech",
+            "grok tts",
+            "xai tts",
         ],
         "parameters": {
             "type": "object",
@@ -80,24 +94,41 @@ TOOL_SPEC: dict[str, Any] = {
                     "type": "string",
                     "description": _(
                         "param.voice.description",
-                        default="Voice.",
+                        default=(
+                            "Voice id/name. OpenAI default: alloy. Grok/xAI default: eve."
+                        ),
                     ),
                     "default": "alloy",
                 },
+                "language": {
+                    "type": "string",
+                    "description": _(
+                        "param.language.description",
+                        default=(
+                            "BCP-47 language tag for Grok/xAI TTS (e.g. en, ja, auto). Ignored by other providers."
+                        ),
+                    ),
+                    "default": "auto",
+                },
                 "response_format": {
                     "type": "string",
-                    "enum": ["mp3", "opus", "aac", "flac", "wav", "pcm"],
+                    "enum": ["mp3", "opus", "aac", "flac", "wav", "pcm", "mulaw", "alaw"],
                     "default": "mp3",
                     "description": _(
                         "param.response_format.description",
-                        default="Audio file format to generate.",
+                        default=(
+                            "Audio file format. OpenAI: mp3/opus/aac/flac/wav/pcm. "
+                            "Grok/xAI: mp3/wav/pcm/mulaw/alaw."
+                        ),
                     ),
                 },
                 "speed": {
                     "type": "number",
                     "description": _(
                         "param.speed.description",
-                        default="Playback speed multiplier (e.g. 1.0).",
+                        default=(
+                            "Playback speed multiplier (e.g. 1.0). Grok/xAI range: 0.7-1.5."
+                        ),
                     ),
                     "default": 1.0,
                 },
@@ -131,7 +162,9 @@ def _provider() -> str:
         ["UAGENT_AUDIO_SPEECH_PROVIDER", "UAGENT_PROVIDER"], default="openai"
     )
     provider = provider.strip().lower()
-    if provider not in ("openai", "azure", "gemini", "vertexai"):
+    if provider in ("xai",):
+        provider = "grok"
+    if provider not in ("openai", "azure", "gemini", "vertexai", "grok"):
         raise RuntimeError(
             _(
                 "err.unsupported_provider",
@@ -152,14 +185,37 @@ def _model(provider: str) -> str:
             ["UAGENT_GEMINI_SPEECH_DEPNAME", "UAGENT_GEMINI_MODEL"],
             default="ja-JP-Neural2-B",
         )
+    if provider == "grok":
+        return _env_first(
+            ["UAGENT_GROK_SPEECH_DEPNAME", "UAGENT_GROK_TTS_MODEL"],
+            default="grok-tts",
+        )
     return _env_first(
         ["UAGENT_OPENAI_SPEECH_DEPNAME"],
         default="gpt-4o-mini-tts",
     )
 
 
+def _ssl_verify_enabled() -> bool:
+    """Match Grok HTTP SSL policy: honor util_providers + UAGENT_SSL_VERIFY."""
+    try:
+        from ..providers.util_providers import is_ssl_verify_disabled
+
+        if is_ssl_verify_disabled():
+            return False
+    except Exception:
+        pass
+    v = (env_get("UAGENT_SSL_VERIFY") or "").strip().lower()
+    # Default: verify on unless explicitly disabled (or util flag set above).
+    if v in ("0", "false", "no", "off"):
+        return False
+    if v in ("1", "true", "yes", "on"):
+        return True
+    return True
+
+
 def _make_client(provider: str):
-    if provider in ("gemini", "vertexai"):
+    if provider in ("gemini", "vertexai", "grok"):
         return None
     try:
         from openai import AzureOpenAI, OpenAI
@@ -188,6 +244,103 @@ def _make_client(provider: str):
     return OpenAI(api_key=api_key, base_url=base_url.rstrip("/"))
 
 
+def _clamp_grok_speed(speed: float) -> float:
+    try:
+        s = float(speed)
+    except Exception:
+        s = 1.0
+    if s < _GROK_SPEED_MIN:
+        return _GROK_SPEED_MIN
+    if s > _GROK_SPEED_MAX:
+        return _GROK_SPEED_MAX
+    return s
+
+
+def _grok_tts_bytes(
+    *,
+    text: str,
+    voice_id: str,
+    language: str,
+    speed: float,
+    codec: str,
+    sample_rate: int = 24000,
+) -> bytes:
+    """POST https://api.x.ai/v1/tts and return raw audio bytes."""
+    api_key = _env_first(
+        ["UAGENT_GROK_API_KEY", "XAI_API_KEY"],
+        required=True,
+    )
+    # Optional session mirror: UAGENT_GROK_API_KEY -> XAI_API_KEY (do not persist).
+    if api_key and not (env_get("XAI_API_KEY") or "").strip():
+        try:
+            import os
+
+            os.environ["XAI_API_KEY"] = api_key
+        except Exception:
+            pass
+
+    base = _env_first(
+        ["UAGENT_GROK_BASE_URL", "UAGENT_GROK_TTS_BASE_URL"],
+        default="https://api.x.ai/v1",
+    ).rstrip("/")
+    if base.endswith("/tts"):
+        url = base
+    else:
+        url = f"{base}/tts"
+
+    if sample_rate not in _GROK_SAMPLE_RATES:
+        sample_rate = 24000
+
+    body: dict[str, Any] = {
+        "text": text,
+        "language": language or "auto",
+        "voice_id": voice_id or "eve",
+        "speed": _clamp_grok_speed(speed),
+        "output_format": {
+            "codec": codec,
+            "sample_rate": int(sample_rate),
+        },
+    }
+    if codec == "mp3":
+        body["output_format"]["bit_rate"] = 128000
+
+    headers = {
+        "Authorization": f"Bearer {api_key}",
+        "Content-Type": "application/json",
+        "Accept": "application/octet-stream, application/json",
+    }
+    verify = _ssl_verify_enabled()
+    resp = requests.post(url, json=body, headers=headers, timeout=120, verify=verify)
+    if resp.status_code >= 400:
+        detail = (resp.text or "")[:500]
+        raise RuntimeError(f"xAI TTS HTTP {resp.status_code}: {detail}")
+
+    ctype = (resp.headers.get("Content-Type") or "").lower()
+    if "application/json" in ctype:
+        data = resp.json()
+        # timestamps mode returns base64 audio
+        audio_b64 = data.get("audio") or data.get("audio_content")
+        if not audio_b64:
+            raise RuntimeError(f"xAI TTS JSON response missing audio: {list(data)[:20]}")
+        import base64
+
+        return base64.b64decode(audio_b64)
+    return resp.content
+
+
+def _mime_for_format(fmt: str) -> str:
+    f = (fmt or "mp3").lower()
+    if f == "mp3":
+        return "audio/mpeg"
+    if f == "pcm":
+        return "audio/L16"
+    if f == "mulaw":
+        return "audio/basic"
+    if f == "alaw":
+        return "audio/PCMA"
+    return f"audio/{f}"
+
+
 def run_tool(args: dict[str, Any]) -> str:
     text = get_str(args, "text", "")
     output_path = get_str(args, "output_path", "")
@@ -198,12 +351,23 @@ def run_tool(args: dict[str, Any]) -> str:
             False, _("err.output_path_empty", default="output_path is required")
         )
 
-    provider = _provider()
+    try:
+        provider = _provider()
+    except Exception as exc:
+        return make_response(False, str(exc))
+
     model = get_str(args, "model", "") or _model(provider)
-    voice = get_str(args, "voice", "alloy") or "alloy"
-    response_format = get_str(args, "response_format", "mp3") or "mp3"
+    default_voice = "eve" if provider == "grok" else "alloy"
+    voice = get_str(args, "voice", default_voice) or default_voice
+    response_format = (get_str(args, "response_format", "mp3") or "mp3").lower()
     speed = get_float(args, "speed", 1.0)
     instructions = get_str(args, "instructions", "")
+    language = get_str(args, "language", "auto") or "auto"
+
+    # llmcapa audio gate (catalog miss => allow; do not use completion max_tokens)
+    gate_err = check_audio_output_support(model, provider)
+    if gate_err:
+        return make_response(False, gate_err)
 
     try:
         safe_out = ensure_within_workdir(output_path)
@@ -212,7 +376,45 @@ def run_tool(args: dict[str, Any]) -> str:
 
     Path(safe_out).parent.mkdir(parents=True, exist_ok=True)
 
-    if provider in ("gemini", "vertexai"):
+    if provider == "grok":
+        if len(text) > _GROK_TEXT_MAX:
+            return make_response(
+                False,
+                _(
+                    "err.grok_text_too_long",
+                    default="text exceeds Grok TTS limit of {max} characters (got {n})",
+                ).format(max=_GROK_TEXT_MAX, n=len(text)),
+            )
+        if response_format not in _GROK_CODECS:
+            return make_response(
+                False,
+                _(
+                    "err.grok_unsupported_format",
+                    default=(
+                        "Grok/xAI TTS does not support format {fmt!r}. "
+                        "Use one of: mp3, wav, pcm, mulaw, alaw."
+                    ),
+                ).format(fmt=response_format),
+            )
+        try:
+            audio = _grok_tts_bytes(
+                text=text,
+                voice_id=voice,
+                language=language,
+                speed=speed,
+                codec=response_format,
+            )
+            Path(safe_out).write_bytes(audio)
+        except Exception as exc:
+            return make_response(
+                False,
+                _(
+                    "err.speech_failed",
+                    default="Audio speech generation failed: {err}",
+                ).format(err=repr(exc)),
+                data={"path": safe_out, "provider": provider, "model": model},
+            )
+    elif provider in ("gemini", "vertexai"):
         if not _auto_install(
             "google-cloud-texttospeech",
             "google.cloud.texttospeech",
@@ -304,7 +506,21 @@ def run_tool(args: dict[str, Any]) -> str:
                 data={"path": safe_out, "provider": provider, "model": model},
             )
     else:
-        client = _make_client(provider)
+        if response_format not in _OPENAI_FORMATS:
+            return make_response(
+                False,
+                _(
+                    "err.openai_unsupported_format",
+                    default=(
+                        "OpenAI/Azure TTS does not support format {fmt!r}. "
+                        "Use one of: mp3, opus, aac, flac, wav, pcm."
+                    ),
+                ).format(fmt=response_format),
+            )
+        try:
+            client = _make_client(provider)
+        except Exception as exc:
+            return make_response(False, str(exc))
 
         speech_kwargs: dict[str, Any] = {
             "input": text,
@@ -330,7 +546,7 @@ def run_tool(args: dict[str, Any]) -> str:
                 data={"path": safe_out, "provider": provider, "model": model},
             )
 
-    mime = "audio/mpeg" if response_format == "mp3" else f"audio/{response_format}"
+    mime = _mime_for_format(response_format)
     data = {
         "path": safe_out,
         "saved_path": safe_out,
@@ -348,6 +564,7 @@ def run_tool(args: dict[str, Any]) -> str:
         "model": model,
         "voice": voice,
         "response_format": response_format,
+        "language": language if provider == "grok" else None,
     }
 
     open_flag = (env_get("UAGENT_AUDIO_OPEN") or "").strip().lower()

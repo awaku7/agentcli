@@ -500,6 +500,54 @@ def check_embedding_support(
     return None
 
 
+def supports_audio_output(
+    model_id: str | None = None,
+    provider: str | None = None,
+    *,
+    default: bool | None = None,
+) -> bool | None:
+    """Whether the model can generate audio / TTS output.
+
+    Catalog miss (e.g. gpt-4o-mini-tts not listed) returns ``default`` so callers
+    may proceed. Do not treat TTS as completion max_tokens.
+    """
+    cap = get_capability(model_id, provider)
+    if cap is None:
+        return default
+    try:
+        if cap.supports("audio_output") or cap.supports("audio"):
+            return True
+        mods = set(getattr(cap, "output_modalities", None) or [])
+        if "audio" in mods:
+            return True
+        if mods and "audio" not in mods:
+            return False
+    except Exception:
+        pass
+    return default
+
+
+def check_audio_output_support(
+    model_id: str | None = None,
+    provider: str | None = None,
+) -> str | None:
+    """Error string if model is known not to produce audio; else None.
+
+    Unknown / missing catalog rows return None (allow).
+    """
+    mid = (model_id or "").strip()
+    if not mid:
+        return None
+    flag = supports_audio_output(mid, provider, default=None)
+    if flag is False:
+        prov = normalize_provider(provider) or "?"
+        return (
+            f"Model '{mid}' (provider={prov}) does not support audio/TTS output "
+            "according to llmcapa. Choose a speech-capable model."
+        )
+    return None
+
+
 def apply_shared_max_tokens(
     kwargs: dict[str, Any],
     *,

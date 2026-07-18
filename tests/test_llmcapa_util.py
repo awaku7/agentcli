@@ -7,6 +7,7 @@ import pytest
 pytest.importorskip("llmcapa")
 
 from uagent.llmcapa_util import (
+    check_audio_output_support,
     check_embedding_support,
     check_image_output_support,
     apply_shared_max_tokens,
@@ -26,6 +27,7 @@ from uagent.llmcapa_util import (
     get_max_output_tokens,
     provider_candidates,
     supports_vision,
+    supports_audio_output,
 )
 
 
@@ -204,3 +206,27 @@ class TestImageAndEmbeddingHelpers:
         apply_shared_max_tokens(kw, model_id="gpt-4o", provider="openai")
         assert "max_tokens" in kw
         assert kw["max_tokens"] <= 16384
+
+
+class TestAudioOutputHelpers:
+    def test_grok_tts_supported(self) -> None:
+        assert supports_audio_output("grok-tts", "grok") is True
+        assert check_audio_output_support("grok-tts", "grok") is None
+
+    def test_chat_model_blocked(self) -> None:
+        err = check_audio_output_support("gpt-4o", "openai")
+        assert err is not None
+        assert "audio" in err.lower() or "tts" in err.lower()
+
+    def test_catalog_miss_allows(self) -> None:
+        # gpt-4o-mini-tts may be absent from llmcapa; miss => allow
+        assert (
+            supports_audio_output(
+                "gpt-4o-mini-tts", "openai", default=None
+            )
+            is None
+        )
+        assert check_audio_output_support("gpt-4o-mini-tts", "openai") is None
+
+    def test_empty_model_allows(self) -> None:
+        assert check_audio_output_support("", "openai") is None
