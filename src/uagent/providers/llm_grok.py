@@ -476,7 +476,14 @@ def simple_xai_chat(
         "temperature": temperature,
     }
     if max_tokens and max_tokens > 0:
-        create_kwargs["max_tokens"] = int(max_tokens)
+        try:
+            from uagent.llmcapa_util import clamp_max_tokens
+
+            create_kwargs["max_tokens"] = clamp_max_tokens(
+                int(max_tokens), model_name, "grok"
+            )
+        except Exception:
+            create_kwargs["max_tokens"] = int(max_tokens)
 
     chat_obj = client.chat.create(**create_kwargs)
     resp = chat_obj.sample()

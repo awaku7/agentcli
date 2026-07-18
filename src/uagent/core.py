@@ -2017,6 +2017,13 @@ def fim(
         f"UAGENT_{provider.upper()}_API_KEY"
     )
 
+    try:
+        from .llmcapa_util import clamp_max_tokens
+
+        max_tokens = clamp_max_tokens(max_tokens, depname, provider)
+    except Exception:
+        pass
+
     if not provider or not depname:
         raise ValueError(
             "FIM requires a provider and model. Set UAGENT_FIM_PROVIDER "
@@ -2060,13 +2067,18 @@ def fim(
             api_key=api_key,
         )
 
-    # Check if the provider is in known FIM-capable list
+    # Provider/model FIM capability gate (static provider list + llmcapa when known)
+    from .llmcapa_util import provider_allows_fim
     from .providers.provider_caps import FIM_SUPPORTED_PROVIDERS
 
-    if provider_lower not in FIM_SUPPORTED_PROVIDERS:
+    if not provider_allows_fim(provider_lower, depname):
+        if provider_lower not in FIM_SUPPORTED_PROVIDERS:
+            raise ValueError(
+                f"FIM is not supported for provider '{provider}'. "
+                f"Supported providers: {', '.join(sorted(FIM_SUPPORTED_PROVIDERS))}"
+            )
         raise ValueError(
-            f"FIM is not supported for provider '{provider}'. "
-            f"Supported providers: {', '.join(sorted(FIM_SUPPORTED_PROVIDERS))}"
+            f"FIM is not supported for model '{depname}' on provider '{provider}'."
         )
 
     raise ValueError(f"FIM provider '{provider}' is known but not yet implemented.")

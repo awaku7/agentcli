@@ -86,17 +86,19 @@ def _translate_call_messages(
     return translated_call_messages
 
 
-def _resolve_round_runtime_flags(*, tr_cfg: Any, core: Any, provider: str = "") -> Any:
+def _resolve_round_runtime_flags(
+    *, tr_cfg: Any, core: Any, provider: str = "", depname: str = ""
+) -> Any:
     responses_env = (env_get("UAGENT_RESPONSES", "") or "").lower().strip()
     if responses_env in ("1", "true"):
         use_responses_api = True
     elif responses_env in ("0", "false", "no", "off"):
         use_responses_api = False
     else:
-        # Auto-enable for providers that support Responses API (e.g. Sakana Fugu)
-        from .providers.provider_caps import RESPONSES_PROVIDERS
+        # Auto-enable when provider/model can use Responses API
+        from .llmcapa_util import provider_allows_responses_api
 
-        use_responses_api = provider.lower() in RESPONSES_PROVIDERS
+        use_responses_api = provider_allows_responses_api(provider, depname or None)
 
     stream_responses = _env_default_true("UAGENT_STREAMING", default=True)
 

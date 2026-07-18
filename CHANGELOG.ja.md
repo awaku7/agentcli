@@ -16,6 +16,7 @@
 ### 変更
 - llmcapa 依存を >=0.4.1 に更新。
 - llmcapa: 共通 `llmcapa_util` lookup（プロバイダ別名）、vision 判定、max-token クランプ、shrink ctx、`:model v` 詳細表示を強化。
+- llmcapa: tokenizer 用 model id 解決、Responses/FIM の capability ゲート、Ollama/FIM/Grok の max-token クランプを追加。
 - ツールプラグインは遅延ロードのまま、起動後バックグラウンドで予熱する方式に変更。
 
 ## [0.5.48] - 2026-07-13

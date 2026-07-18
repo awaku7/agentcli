@@ -32,6 +32,26 @@ def _parse_int_env(*names: str, default: int) -> int:
 def _ollama_extra_params() -> dict[str, Any]:
     """Build Ollama-specific request params from environment variables."""
 
+    num_ctx = _parse_int_env("UAGENT_OLLAMA_NUM_CTX", default=8192)
+    num_predict = _parse_int_env(
+        "UAGENT_OLLAMA_NUM_PREDICT", "UAGENT_MAX_TOKENS", default=1024
+    )
+    try:
+        from uagent.llmcapa_util import (
+            clamp_max_tokens,
+            current_model,
+            get_context_window,
+        )
+
+        mid = current_model("ollama")
+        ctx = get_context_window(mid, "ollama")
+        if ctx is not None and ctx > 0:
+            # Keep user override, but never exceed known context window.
+            num_ctx = min(num_ctx, ctx) if num_ctx > 0 else ctx
+        num_predict = clamp_max_tokens(num_predict, mid, "ollama")
+    except Exception:
+        pass
+
     params = {
         "keep_alive": (env_get("UAGENT_OLLAMA_KEEP_ALIVE", "5m") or "5m"),
         "options": {
@@ -45,11 +65,9 @@ def _ollama_extra_params() -> dict[str, Any]:
             "repeat_penalty": _parse_float_env(
                 "UAGENT_OLLAMA_REPEAT_PENALTY", default=1.1
             ),
-            "num_ctx": _parse_int_env("UAGENT_OLLAMA_NUM_CTX", default=8192),
+            "num_ctx": num_ctx,
             "num_keep": _parse_int_env("UAGENT_OLLAMA_NUM_KEEP", default=256),
-            "num_predict": _parse_int_env(
-                "UAGENT_OLLAMA_NUM_PREDICT", "UAGENT_MAX_TOKENS", default=1024
-            ),
+            "num_predict": num_predict,
         },
     }
 
@@ -102,6 +120,13 @@ def ollama_fim_generate(
         The generated completion text (the ``middle`` part).
     """
     import requests
+
+    try:
+        from uagent.llmcapa_util import clamp_max_tokens
+
+        max_tokens = clamp_max_tokens(max_tokens, model, "ollama")
+    except Exception:
+        pass
 
     payload = {
         "model": model,

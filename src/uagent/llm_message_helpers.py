@@ -119,8 +119,9 @@ def _count_messages_tokens(
     """Count tokens for messages, using incremental cache when possible.
 
     When ``depname`` is provided and llmcapa is available, uses
-    ``llmcapa.count_messages_tokens`` (provider-specific format). Otherwise
-    falls back to tiktoken (cl100k_base) or character-based heuristic.
+    ``llmcapa.count_messages_tokens`` with a resolved model id (provider
+    aliases applied). Otherwise falls back to tiktoken (cl100k_base) or a
+    character-based heuristic.
 
     Cache is keyed by ``id(messages)`` and reset automatically when the
     list shrinks (compression).
@@ -128,6 +129,18 @@ def _count_messages_tokens(
     cache_key = id(messages)
     cached_total, cached_len = _token_count_cache.get(cache_key, (0, 0))
     current_len = len(messages)
+
+    def _count_chunk(chunk: list[dict[str, Any]]) -> int:
+        if depname:
+            try:
+                from .llmcapa_util import count_messages_tokens, current_provider
+
+                n = count_messages_tokens(chunk, depname, current_provider() or None)
+                if n is not None:
+                    return n
+            except Exception:
+                pass
+        return _count_messages_tokens_fallback(chunk)
 
     # If compression happened (messages were replaced), reset cache
     if current_len < cached_len:
@@ -139,30 +152,12 @@ def _count_messages_tokens(
     if cached_len > 0 and current_len >= cached_len:
         new_messages = messages[cached_len:]
         if new_messages:
-            if depname:
-                try:
-                    import llmcapa
-
-                    new_tokens = llmcapa.count_messages_tokens(new_messages, depname)
-                except Exception:
-                    new_tokens = _count_messages_tokens_fallback(new_messages)
-            else:
-                new_tokens = _count_messages_tokens_fallback(new_messages)
-            cached_total += new_tokens
+            cached_total += _count_chunk(new_messages)
         _token_count_cache[cache_key] = (cached_total, current_len)
         return cached_total
 
     # First call: full count
-    if depname:
-        try:
-            import llmcapa
-
-            total = llmcapa.count_messages_tokens(messages, depname)
-        except Exception:
-            total = _count_messages_tokens_fallback(messages)
-    else:
-        total = _count_messages_tokens_fallback(messages)
-
+    total = _count_chunk(messages)
     _token_count_cache[cache_key] = (total, current_len)
     return total
 

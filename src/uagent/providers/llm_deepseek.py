@@ -821,6 +821,13 @@ def deepseek_fim_generate(
     client = OpenAI(base_url=url, api_key=api_key or "dummy")
 
     try:
+        from uagent.llmcapa_util import clamp_max_tokens
+
+        max_tokens = clamp_max_tokens(max_tokens, model, "deepseek")
+    except Exception:
+        pass
+
+    try:
         resp = client.completions.create(
             model=model,
             prompt=prefix,

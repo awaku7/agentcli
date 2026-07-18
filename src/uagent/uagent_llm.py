@@ -4,7 +4,7 @@ import json
 
 from .env_utils import env_get
 from .i18n import _, detect_lang, set_thread_lang
-from .providers.provider_caps import RESPONSES_PROVIDERS
+from .llmcapa_util import provider_allows_responses_api
 
 set_thread_lang(detect_lang())
 
@@ -253,9 +253,10 @@ def _run_one_round(
         tr_cfg=tr_cfg,
         core=core,
         provider=provider,
+        depname=depname,
     )
-    # Responses API is only supported on specific providers.
-    if provider not in RESPONSES_PROVIDERS:
+    # Responses API is only supported when provider/model allow it.
+    if use_responses_api and not provider_allows_responses_api(provider, depname):
         use_responses_api = False
 
     def _call_maybe_thread_fn(fn: Any) -> Any:

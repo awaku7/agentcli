@@ -464,7 +464,14 @@ def build_startup_banner(*, core: Any, workdir: str, workdir_source: str) -> str
         "1",
         "true",
     )
-    _responses_supported = provider in RESPONSES_PROVIDERS
+    try:
+        from ..llmcapa_util import current_model, provider_allows_responses_api
+
+        _responses_supported = provider_allows_responses_api(
+            provider, current_model(provider)
+        )
+    except Exception:
+        _responses_supported = provider in RESPONSES_PROVIDERS
 
     if _use_responses_flag and _responses_supported:
         _mode_msg = _("Responses (UAGENT_RESPONSES is enabled)")

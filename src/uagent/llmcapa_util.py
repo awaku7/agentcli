@@ -299,6 +299,139 @@ def estimate_cost(
         return None
 
 
+
+def resolve_model_id_for_tokenizer(
+    model_id: str | None = None,
+    provider: str | None = None,
+) -> str | None:
+    """Return a model id suitable for llmcapa token counting.
+
+    Prefers the resolved Capability.model_id when lookup succeeds; otherwise
+    returns the original non-empty model_id.
+    """
+    mid = (model_id or "").strip()
+    cap = get_capability(mid or None, provider)
+    if cap is not None:
+        resolved = (getattr(cap, "model_id", None) or "").strip()
+        if resolved:
+            return resolved
+    return mid or None
+
+
+def count_messages_tokens(
+    messages: list[dict[str, Any]],
+    model_id: str | None = None,
+    provider: str | None = None,
+) -> int | None:
+    """Count message tokens via llmcapa, or None if unavailable/failed."""
+    mid = resolve_model_id_for_tokenizer(model_id, provider)
+    if not mid:
+        return None
+    try:
+        import llmcapa
+
+        n = llmcapa.count_messages_tokens(messages, mid)
+        return int(n)
+    except Exception:
+        # Retry with the raw id if resolved id failed.
+        raw = (model_id or "").strip()
+        if raw and raw != mid:
+            try:
+                import llmcapa
+
+                return int(llmcapa.count_messages_tokens(messages, raw))
+            except Exception:
+                return None
+        return None
+
+
+def supports_responses_api(
+    model_id: str | None = None,
+    provider: str | None = None,
+    *,
+    default: bool | None = None,
+) -> bool | None:
+    """Model-level Responses API support, or ``default`` when unknown."""
+    return supports_feature(
+        "responses_api", model_id, provider, default=default
+    )
+
+
+def supports_fim(
+    model_id: str | None = None,
+    provider: str | None = None,
+    *,
+    default: bool | None = None,
+) -> bool | None:
+    """Model-level FIM support, or ``default`` when unknown."""
+    return supports_feature("fim", model_id, provider, default=default)
+
+
+def provider_allows_responses_api(
+    provider: str | None,
+    model_id: str | None = None,
+) -> bool:
+    """Whether Responses API may be used for this provider/model.
+
+    Provider must be in RESPONSES_PROVIDERS. When model capability is known,
+    ``supports_responses_api`` must not be explicitly false.
+    """
+    from .providers.provider_caps import RESPONSES_PROVIDERS
+
+    prov = normalize_provider(provider)
+    if prov not in RESPONSES_PROVIDERS:
+        return False
+    mid = (model_id or "").strip() or current_model(prov)
+    if not mid:
+        return True
+    flag = supports_responses_api(mid, prov, default=None)
+    if flag is None:
+        return True
+    return bool(flag)
+
+
+def provider_allows_fim(
+    provider: str | None,
+    model_id: str | None = None,
+) -> bool:
+    """Whether FIM may be attempted for this provider/model.
+
+    Provider must be in FIM_SUPPORTED_PROVIDERS (implementation exists).
+    When model capability is known, ``supports_fim`` must not be false.
+    """
+    from .providers.provider_caps import FIM_SUPPORTED_PROVIDERS
+
+    prov = normalize_provider(provider)
+    if prov not in FIM_SUPPORTED_PROVIDERS:
+        return False
+    mid = (model_id or "").strip() or current_model(prov)
+    if not mid:
+        return True
+    flag = supports_fim(mid, prov, default=None)
+    if flag is None:
+        return True
+    return bool(flag)
+
+
+def deprecated_model_warning(
+    model_id: str | None = None,
+    provider: str | None = None,
+) -> str | None:
+    """Return a short deprecation warning line, or None."""
+    cap = get_capability(model_id, provider)
+    if cap is None or not getattr(cap, "deprecated", False):
+        return None
+    mid = getattr(cap, "model_id", model_id) or model_id or "?"
+    repl = None
+    try:
+        repl = cap.can_be_replaced_by()
+    except Exception:
+        repl = None
+    if repl:
+        return f"Model '{mid}' is deprecated; consider '{repl}'."
+    return f"Model '{mid}' is deprecated."
+
+
 def format_capability_lines(cap: Any) -> list[str]:
     """Format a Capability into human-readable detail lines."""
     if cap is None:

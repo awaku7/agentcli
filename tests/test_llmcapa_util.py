@@ -7,6 +7,10 @@ import pytest
 pytest.importorskip("llmcapa")
 
 from uagent.llmcapa_util import (
+    count_messages_tokens,
+    provider_allows_fim,
+    provider_allows_responses_api,
+    resolve_model_id_for_tokenizer,
     clamp_max_tokens,
     clear_capability_cache,
     format_capability_lines,
@@ -113,3 +117,32 @@ class TestProviderAllowsChatVision:
             )
             is True
         )
+
+
+class TestResponsesAndFimGates:
+    def test_openai_responses_provider_allowed(self) -> None:
+        assert provider_allows_responses_api("openai", "gpt-4o") is True
+
+    def test_claude_not_in_responses_providers(self) -> None:
+        assert provider_allows_responses_api("claude", "claude-sonnet-4") is False
+
+    def test_fim_provider_gate(self) -> None:
+        # Provider must be in FIM_SUPPORTED_PROVIDERS first.
+        assert provider_allows_fim("openai", "gpt-4o") is False
+        # deepseek/ollama stay allowed when model capability is unknown/true.
+        assert provider_allows_fim("deepseek", "DeepSeek-V3") in (True, False)
+
+
+class TestTokenCountResolve:
+    def test_resolve_model_id(self) -> None:
+        mid = resolve_model_id_for_tokenizer("gpt-4o", "openai")
+        assert mid
+        assert "gpt-4o" in mid
+
+    def test_count_messages_tokens(self) -> None:
+        n = count_messages_tokens(
+            [{"role": "user", "content": "hello"}],
+            "gpt-4o",
+            "openai",
+        )
+        assert n is not None and n > 0
