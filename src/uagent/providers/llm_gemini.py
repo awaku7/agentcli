@@ -508,8 +508,13 @@ def _build_thinking_config(
 
 
 def _verbosity_to_max_output_tokens(verbosity_mode: str) -> int | None:
-    # Allow user override via environment variable
-    env_val = (env_get("UAGENT_GEMINI_MAX_OUTPUT_TOKENS") or "").strip()
+    # Allow user override via environment variable.
+    # Preference: UAGENT_GEMINI_MAX_OUTPUT_TOKENS > UAGENT_MAX_TOKENS > verbosity map.
+    env_val = (
+        env_get("UAGENT_GEMINI_MAX_OUTPUT_TOKENS")
+        or env_get("UAGENT_MAX_TOKENS")
+        or ""
+    ).strip()
     if env_val:
         try:
             return int(env_val)
@@ -929,7 +934,10 @@ def gemini_chat_with_tools(
             cfg_kwargs["system_instruction"] = system_instruction
 
     # Resolve temperature (default 0.2 for deterministic tool use and stable reasoning)
-    temp_env = (env_get("UAGENT_GEMINI_TEMPERATURE") or "").strip()
+    # Preference: UAGENT_GEMINI_TEMPERATURE > UAGENT_TEMPERATURE > 0.2
+    temp_env = (
+        env_get("UAGENT_GEMINI_TEMPERATURE") or env_get("UAGENT_TEMPERATURE") or ""
+    ).strip()
     if temp_env:
         try:
             cfg_kwargs["temperature"] = float(temp_env)

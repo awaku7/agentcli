@@ -388,9 +388,12 @@ def claude_chat_with_tools(
     if isinstance(output_config, dict) and output_config:
         out_cfg = output_config
 
-    # Resolve temperature (only set if explicitly configured via UAGENT_CLAUDE_TEMPERATURE)
+    # Resolve temperature: UAGENT_CLAUDE_TEMPERATURE, then UAGENT_TEMPERATURE.
+    # Only set when explicitly configured (thinking mode may force omit later).
     claude_temp = None
-    temp_env = (env_get("UAGENT_CLAUDE_TEMPERATURE") or "").strip()
+    temp_env = (
+        env_get("UAGENT_CLAUDE_TEMPERATURE") or env_get("UAGENT_TEMPERATURE") or ""
+    ).strip()
     if temp_env:
         try:
             claude_temp = float(temp_env)

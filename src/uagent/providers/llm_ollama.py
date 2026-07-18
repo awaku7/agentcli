@@ -5,24 +5,28 @@ from typing import Any
 from ..env_utils import env_get
 
 
-def _parse_float_env(name: str, default: float) -> float:
-    raw = (env_get(name, "") or "").strip()
-    if not raw:
-        return float(default)
-    try:
-        return float(raw)
-    except Exception:
-        return float(default)
+def _parse_float_env(*names: str, default: float) -> float:
+    for name in names:
+        raw = (env_get(name, "") or "").strip()
+        if not raw:
+            continue
+        try:
+            return float(raw)
+        except Exception:
+            continue
+    return float(default)
 
 
-def _parse_int_env(name: str, default: int) -> int:
-    raw = (env_get(name, "") or "").strip()
-    if not raw:
-        return int(default)
-    try:
-        return int(raw)
-    except Exception:
-        return int(default)
+def _parse_int_env(*names: str, default: int) -> int:
+    for name in names:
+        raw = (env_get(name, "") or "").strip()
+        if not raw:
+            continue
+        try:
+            return int(raw)
+        except Exception:
+            continue
+    return int(default)
 
 
 def _ollama_extra_params() -> dict[str, Any]:
@@ -31,13 +35,21 @@ def _ollama_extra_params() -> dict[str, Any]:
     params = {
         "keep_alive": (env_get("UAGENT_OLLAMA_KEEP_ALIVE", "5m") or "5m"),
         "options": {
-            "temperature": _parse_float_env("UAGENT_OLLAMA_TEMPERATURE", 0.7),
-            "top_p": _parse_float_env("UAGENT_OLLAMA_TOP_P", 0.9),
-            "top_k": _parse_int_env("UAGENT_OLLAMA_TOP_K", 40),
-            "repeat_penalty": _parse_float_env("UAGENT_OLLAMA_REPEAT_PENALTY", 1.1),
-            "num_ctx": _parse_int_env("UAGENT_OLLAMA_NUM_CTX", 8192),
-            "num_keep": _parse_int_env("UAGENT_OLLAMA_NUM_KEEP", 256),
-            "num_predict": _parse_int_env("UAGENT_OLLAMA_NUM_PREDICT", 1024),
+            "temperature": _parse_float_env(
+                "UAGENT_OLLAMA_TEMPERATURE", "UAGENT_TEMPERATURE", default=0.7
+            ),
+            "top_p": _parse_float_env(
+                "UAGENT_OLLAMA_TOP_P", "UAGENT_TOP_P", default=0.9
+            ),
+            "top_k": _parse_int_env("UAGENT_OLLAMA_TOP_K", default=40),
+            "repeat_penalty": _parse_float_env(
+                "UAGENT_OLLAMA_REPEAT_PENALTY", default=1.1
+            ),
+            "num_ctx": _parse_int_env("UAGENT_OLLAMA_NUM_CTX", default=8192),
+            "num_keep": _parse_int_env("UAGENT_OLLAMA_NUM_KEEP", default=256),
+            "num_predict": _parse_int_env(
+                "UAGENT_OLLAMA_NUM_PREDICT", "UAGENT_MAX_TOKENS", default=1024
+            ),
         },
     }
 

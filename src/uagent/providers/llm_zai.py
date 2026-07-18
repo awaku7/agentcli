@@ -138,18 +138,20 @@ def build_zai_chat_kwargs(
     # frequency_penalty.  In thinking mode these are silently ignored or
     # rejected by the API, so we only send them when thinking is disabled.
     if effort_used not in valid_efforts:
-        # temperature
+        # temperature (default 0.2 to match other tool-using providers)
         temp_env = (
             env_get(f"{_ENV_PREFIX}_TEMPERATURE") or env_get("UAGENT_TEMPERATURE") or ""
         ).strip()
         try:
-            resolved_temp = float(temp_env) if temp_env else 0.0
+            resolved_temp = float(temp_env) if temp_env else 0.2
         except ValueError:
-            resolved_temp = 0.0
+            resolved_temp = 0.2
         chat_kwargs["temperature"] = resolved_temp
 
         # top_p (default: 1.0)
-        top_p_env = (env_get(f"{_ENV_PREFIX}_TOP_P") or "").strip()
+        top_p_env = (
+            env_get(f"{_ENV_PREFIX}_TOP_P") or env_get("UAGENT_TOP_P") or ""
+        ).strip()
         try:
             chat_kwargs["top_p"] = float(top_p_env) if top_p_env else 1.0
         except ValueError:

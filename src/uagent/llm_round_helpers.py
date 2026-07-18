@@ -515,6 +515,14 @@ def _call_openai_azure_round(
                         _text_cfg = {}
                     _text_cfg["verbosity"] = _verbosity
                     resp_kwargs["text"] = _text_cfg
+
+                # Shared max tokens for Responses API (OpenAI/Azure/OpenRouter/etc.)
+                _max_tokens_env = (env_get("UAGENT_MAX_TOKENS") or "").strip()
+                if _max_tokens_env:
+                    try:
+                        resp_kwargs["max_output_tokens"] = int(_max_tokens_env)
+                    except ValueError:
+                        pass
                 if instructions_str is not None:
                     resp_kwargs["instructions"] = instructions_str
                 if send_tools_this_round and req_tools:
@@ -753,6 +761,20 @@ def _call_openai_azure_round(
                     "messages": call_messages,
                     "temperature": resolved_temp,
                 }
+                # Common generation knobs (optional). Provider-specific envs win
+                # when already handled above; these are shared fallbacks.
+                max_tokens_env = (env_get("UAGENT_MAX_TOKENS") or "").strip()
+                if max_tokens_env:
+                    try:
+                        chat_kwargs["max_tokens"] = int(max_tokens_env)
+                    except ValueError:
+                        pass
+                top_p_env = (env_get("UAGENT_TOP_P") or "").strip()
+                if top_p_env:
+                    try:
+                        chat_kwargs["top_p"] = float(top_p_env)
+                    except ValueError:
+                        pass
                 if send_tools_this_round and req_tools is not None:
                     chat_kwargs["tools"] = req_tools
                     chat_kwargs["tool_choice"] = "auto"
