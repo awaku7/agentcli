@@ -363,6 +363,18 @@ def translate_lang(
             "protect_placeholders": True,
             "protect_terms": True,
             "extra_protect_terms": [
+                # param / tool identifiers
+                "protect_terms",
+                "protect_placeholders",
+                "extra_protect_terms",
+                "target_lang",
+                "source_lang",
+                "output_path",
+                "response_format",
+                "x_search_terms",
+                "translate_text",
+                "audio_speech",
+                "audio_transcribe",
                 # common voice / model ids seen in tool JSON
                 "alloy",
                 "echo",

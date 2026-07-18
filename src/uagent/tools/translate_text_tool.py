@@ -333,6 +333,18 @@ _DEFAULT_PROTECT_TERMS: tuple[str, ...] = (
     "flac",
     "mulaw",
     "alaw",
+    # common tool/param identifiers (keep machine-readable names stable)
+    "protect_terms",
+    "protect_placeholders",
+    "extra_protect_terms",
+    "target_lang",
+    "source_lang",
+    "output_path",
+    "response_format",
+    "x_search_terms",
+    "translate_text",
+    "audio_speech",
+    "audio_transcribe",
 )
 
 
