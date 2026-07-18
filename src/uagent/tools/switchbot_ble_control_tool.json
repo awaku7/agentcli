@@ -20,7 +20,7 @@
     "msg.unknown_error": "خطأ غير معروف",
     "x_search_terms": [
       "تحكم switchbot ble",
-      "switchbot_ble_control",
+      "Switchbot_ble_control",
       "سويتش بوت",
       "قريب",
       "عن بعد"
@@ -190,7 +190,7 @@
     "msg.unknown_error": "error desconocido",
     "x_search_terms": [
       "control switchbot ble",
-      "switchbot_ble_control",
+      "interruptorbot_ble_control",
       "robot conmutador",
       "cerca",
       "remoto"
@@ -326,7 +326,7 @@
     "msg.unknown_error": "अज्ञात त्रुटि",
     "x_search_terms": [
       "switchbot ble नियंत्रण",
-      "switchbot_ble_control",
+      "स्विचबॉट_ब्ले_कंट्रोल",
       "स्विचबॉट",
       "निकट",
       "दूरस्थ"

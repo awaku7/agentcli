@@ -236,7 +236,7 @@
       "خط لوله",
       "سازماندهی",
       "گردش کاری چند مرحله ای",
-      ""
+      "گردش کار"
     ]
   },
   "fi": {
@@ -326,7 +326,7 @@
       "צינור",
       "תזמורת",
       "זרימת עבודה",
-      ""
+      "זרימת עבודה"
     ]
   },
   "hi": {
@@ -686,7 +686,7 @@
       "pipeline",
       "orquestrar",
       "fluxo de trabalho de múltiplas etapas",
-      ""
+      "fluxo de trabalho"
     ]
   },
   "pt_BR": {
@@ -716,7 +716,7 @@
       "pipeline",
       "orquestrar",
       "fluxo de trabalho de múltiplas etapas",
-      ""
+      "fluxo de trabalho"
     ]
   },
   "ro": {
@@ -746,7 +746,7 @@
       "conductă",
       "orchestrați",
       "fluxul de lucru în mai mulți pași",
-      ""
+      "fluxul de lucru"
     ]
   },
   "ru": {

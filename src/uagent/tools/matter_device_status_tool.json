@@ -6,7 +6,7 @@
     "err.ambiguous_target": "هدف الجهاز المهم غامض: {device_id}",
     "x_search_terms": [
       "حالة جهاز المادة",
-      "matter_device_status",
+      "Matter_device_status",
       "مادة",
       "مادة"
     ],
@@ -24,7 +24,7 @@
     "err.ambiguous_target": "বস্তুর ডিভাইস লক্ষ্য অস্পষ্ট: {device_id}",
     "x_search_terms": [
       "বিষয় ডিভাইস স্থিতি",
-      "matter_device_status",
+      "ব্যাপার_ডিভাইস_স্ট্যাটাস",
       "বিষয়",
       "বিষয়"
     ],
@@ -42,7 +42,7 @@
     "err.ambiguous_target": "Cíl zařízení je nejednoznačný: {device_id}",
     "x_search_terms": [
       "stav zařízení hmoty",
-      "matter_device_status",
+      "záležitosti_stav_zařízení",
       "hmota",
       "HMOTA"
     ],
@@ -114,7 +114,7 @@
     "err.ambiguous_target": "هدف دستگاه موضوع مبهم است: {device_id}",
     "x_search_terms": [
       "وضعیت دستگاه ماده",
-      "matter_device_status",
+      "موضوع_دستگاه_وضعیت",
       "ماده",
       "ماده"
     ],
@@ -132,7 +132,7 @@
     "err.ambiguous_target": "Laitteen kohde on epäselvä: {device_id}",
     "x_search_terms": [
       "asian laitteen tila",
-      "matter_device_status",
+      "asia_laitteen_tila",
       "asia",
       "ASIA"
     ],
@@ -168,7 +168,7 @@
     "err.ambiguous_target": "मैटर डिवाइस लक्ष्य अस्पष्ट है: {device_id}",
     "x_search_terms": [
       "विषय डिवाइस स्थिति",
-      "matter_device_status",
+      "मामला_डिवाइस_स्थिति",
       "विषय",
       "विषय"
     ],
@@ -258,7 +258,7 @@
     "err.ambiguous_target": "Төхөөрөмжийн зорилт тодорхойгүй байна: {device_id}",
     "x_search_terms": [
       "материйн төхөөрөмжийн төлөв",
-      "matter_device_status",
+      "төхөөрөмжийн_төлөв",
       "асуудал",
       "асуудал"
     ],
@@ -294,7 +294,7 @@
     "err.ambiguous_target": "Ο στόχος της συσκευής είναι διφορούμενος: {device_id}",
     "x_search_terms": [
       "κατάσταση συσκευής ύλης",
-      "matter_device_status",
+      "θέμα_συσκευής_κατάσταση",
       "ύλη",
       "ΥΛΗ"
     ],
@@ -330,7 +330,7 @@
     "err.ambiguous_target": "Az anyag eszköz célpontja nem egyértelmű: {device_id}",
     "x_search_terms": [
       "anyag eszköz állapot",
-      "matter_device_status",
+      "ügy_eszköz_állapota",
       "anyag",
       "ANYAG"
     ],
@@ -348,7 +348,7 @@
     "err.ambiguous_target": "Dispozitivul nu a fost găsit: {device_id}",
     "x_search_terms": [
       "stare dispozitiv materie",
-      "matter_device_status",
+      "materie_device_status",
       "materie",
       "MATERIE"
     ],
@@ -384,7 +384,7 @@
     "err.ambiguous_target": "Het doel van het Matter-apparaat is dubbelzinnig: {device_id}",
     "x_search_terms": [
       "materie-apparaatstatus",
-      "matter_device_status",
+      "kwestie_apparaat_status",
       "materie",
       "MATTER"
     ],
@@ -456,7 +456,7 @@
     "err.ambiguous_target": "Цель устройства Matter неоднозначна: {device_id}",
     "x_search_terms": [
       "состояние устройства материи",
-      "matter_device_status",
+      "Matter_device_status",
       "материя",
       "МАТЕРИЯ"
     ],
@@ -492,7 +492,7 @@
     "err.ambiguous_target": "Lengo la kifaa ni utata: {device_id}",
     "x_search_terms": [
       "hali ya kifaa cha maada",
-      "matter_device_status",
+      "hali_ya_kifaa",
       "maada",
       "MAADA"
     ],
@@ -510,7 +510,7 @@
     "err.ambiguous_target": "เป้าหมายอุปกรณ์ที่สำคัญไม่ชัดเจน: {device_id}",
     "x_search_terms": [
       "สถานะอุปกรณ์สสาร",
-      "matter_device_status",
+      "เรื่อง_อุปกรณ์_สถานะ",
       "สสาร",
       "สสาร"
     ],
@@ -528,7 +528,7 @@
     "err.ambiguous_target": "Madde cihazı hedefi belirsiz: {device_id}",
     "x_search_terms": [
       "madde cihaz durumu",
-      "matter_device_status",
+      "Matter_device_status",
       "madde",
       "MADDE"
     ],
@@ -546,7 +546,7 @@
     "err.ambiguous_target": "Цільовий пристрій має значення неоднозначне: {device_id}",
     "x_search_terms": [
       "стан пристрою матерії",
-      "matter_device_status",
+      "справа_статус_пристрою",
       "матерія",
       "МАТЕРІЯ"
     ],
@@ -582,7 +582,7 @@
     "err.ambiguous_target": "物质设备目标不明确：{device_id}",
     "x_search_terms": [
       "物质设备状态",
-      "matter_device_status",
+      "物质设备状态",
       "物质",
       "物质"
     ],
@@ -600,7 +600,7 @@
     "err.ambiguous_target": "物質設備目標不明確：{device_id}",
     "x_search_terms": [
       "物質裝置狀態",
-      "matter_device_status",
+      "物質設備狀態",
       "物質",
       "物質"
     ],

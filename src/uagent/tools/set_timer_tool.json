@@ -752,7 +752,7 @@
       "alarm",
       "delay",
       "timeout",
-      "set timeout",
+      "ตั้งเวลาหมดเวลา",
       "schedule Task",
       "นับถอยหลัง"
     ],
@@ -1072,7 +1072,7 @@
       "alarma",
       "întârziere",
       "timeout",
-      "set timeout",
+      "setați timeout",
       "programați sarcină",
       "numărătoare inversă"
     ],

@@ -473,15 +473,15 @@
     "tool.description": "যদি সত্য হয়, JSON আউটপুট (ডিফল্ট: সত্য) প্রিন্ট-প্রিন্ট করুন। এবং উপলভ্য সরঞ্জামগুলিকে সমর্থন করে",
     "x_search_terms": [
       "mcp",
-      "mcp tools",
-      "tool list",
-      "mcp server",
-      "available tools",
-      "mcp capabilities",
-      "server tools",
-      "tool catalog",
-      "mcp functions",
-      "mcp endpoints"
+      "mcp টুলস",
+      "টুল তালিকা",
+      "mcp সার্ভার",
+      "উপলব্ধ সরঞ্জাম",
+      "mcp ক্ষমতা",
+      "সার্ভার সরঞ্জাম",
+      "টুল ক্যাটালগ",
+      "mcp ফাংশন",
+      "mcp এন্ডপয়েন্ট"
     ],
     "param.url.description": "MCP সার্ভার এন্ডপয়েন্ট URL। বাদ দেওয়া হলে, একটি কনফিগার করা সার্ভার ব্যবহার করা হতে পারে।"
   },
@@ -491,15 +491,15 @@
     "tool.description": "به یک سرور MCP متصل شوید و ابزارهای موجود را فهرست کنید. از انتقال HTTP و stdio پشتیبانی می کند.",
     "x_search_terms": [
       "mcp",
-      "mcp tools",
+      "ابزارهای mcp",
       " لیست ابزار",
-      "mcp server",
+      "سرور mcp",
       "ابزارهای در دسترس",
       "قابلیت‌های mcp",
       "ابزارهای سرور",
       "کاتالوگ ابزار",
-      "",
-      ""
+      "توابع mcp",
+      "نقاط پایانی mcp"
     ],
     "param.url.description": "URL نقطه پایانی سرور MCP. اگر حذف شود، ممکن است از یک سرور پیکربندی شده استفاده شود."
   },
@@ -547,7 +547,7 @@
       "mcp",
       "mcp εργαλεία",
       "λίστα εργαλείων",
-      "mcp server",
+      "διακομιστή mcp",
       "διαθέσιμα εργαλεία",
       "mcp ικανότητες",
       "εργαλεία διακομιστή",
@@ -563,14 +563,14 @@
     "tool.description": "התחבר לשרת MCP ורשום כלים זמינים. תומך בהעברות HTTP ו-stdio.",
     "x_search_terms": [
       "mcp",
-      "mcp tools",
+      "כלי mcp",
       "רשימת כלים",
       "mcp שרת",
       "כלים זמינים",
       "יכולות mcp",
       "כלי שרת",
       "קטלוג כלים",
-      "mcp functions",
+      "פונקציות mcp",
       "mcp נקודות קצה"
     ],
     "param.url.description": "כתובת URL של שרת MCP. אם מושמט, ניתן להשתמש בשרת מוגדר."
@@ -599,9 +599,9 @@
     "tool.description": "Conectați-vă la un server MCP și enumerați instrumentele disponibile. Suportă transporturi HTTP și stdio.",
     "x_search_terms": [
       "mcp",
-      "mcp tools",
+      "instrumente mcp",
       "listă de instrumente",
-      "mcp server",
+      "server mcp",
       "instrumente disponibile",
       "capacități mcp",
       "unelte server",

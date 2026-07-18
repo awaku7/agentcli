@@ -80,7 +80,7 @@
       "pregunta",
       "solicitar entrada",
       "obtener respuesta",
-      ""
+      "obtener respuesta"
     ],
     "ui.footer": "=== /humano_pregunta ===",
     "ui.title": "=== Solicitud humana (human_ask) ===",
@@ -581,7 +581,7 @@
     "param.message.description": "Ihmiskäyttäjälle näytettävä viesti.",
     "tool.description": "Työkalu, jolla pyydetään ihmiskäyttäjältä syöte/päätös, jota malli ei voi itse suorittaa. Turvallisuushuomautus: salaisuuksia (salasanoja/tunnuksia) pyydettäessä syöte peitetään.",
     "x_search_terms": [
-      "human ask",
+      "ihminen kysyy",
       "kysy käyttäjältä",
       "käyttäjän syöttö",
       "ihmissyöttö",
@@ -589,7 +589,7 @@
       "kysy ihmiseltä",
       "kysymys",
       "käyttäjäkehote",
-      "request input",
+      "pyytää syötteitä",
       "hae vastaus"
     ],
     "ui.footer": "=== /ihminen_kysy ===",
@@ -860,7 +860,7 @@
       "хэрэглэгчийн асуулт",
       "хэрэглэгчийн оролт",
       "хариулт авах",
-      ""
+      "хариулт авах"
     ],
     "ui.footer": "=== /хүний_асуу ===",
     "ui.title": "=== Хүний хүсэлт (хүний_асуулт) ===",
@@ -975,7 +975,7 @@
       "felhasználói kérés",
       "felhasználói bevitel",
       "emberi bevitel",
-      "prompt user",
+      "felszólító felhasználó",
       "kérdez emberi",
       "kérdés",
       "felhasználói prompt",

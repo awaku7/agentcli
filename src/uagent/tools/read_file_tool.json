@@ -41,7 +41,7 @@
     "tool.description": "ファイル内容を読み取ります（最大 1,000,000バイト）。start_line や max_lines を指定して部分的に読み取ることも可能です。",
     "x_search_terms": [
       "read_file",
-      "read file",
+      "ファイルを読み取る",
       "file contents",
       "ファイルを読む",
       "ファイルを開く",
@@ -71,7 +71,7 @@
     "tool.description": "Lee el contenido del archivo (hasta 1.000.000 bytes).",
     "x_search_terms": [
       "read_file",
-      "read file",
+      "leer archivo",
       "file contents",
       "leer archivo",
       "abrir archivo",
@@ -102,7 +102,7 @@
     "tool.description": "Lit le contenu d'un fichier (max 1 000 000 octets).",
     "x_search_terms": [
       "read_file",
-      "read file",
+      "lire le fichier",
       "file contents",
       "lire fichier",
       "ouvrir fichier",
@@ -133,7 +133,7 @@
     "tool.description": "파일 내용을 읽습니다(최대 1,000,000바이트). start_line 및 max_lines를 사용하여 부분적으로 읽을 수 있습니다.",
     "x_search_terms": [
       "read_file",
-      "read file",
+      "파일 읽기",
       "file contents",
       "파일 읽기",
       "파일 열기",
@@ -164,7 +164,7 @@
     "tool.description": "Liest Dateiinhalte (bis zu 1.000.000 Byte).",
     "x_search_terms": [
       "read_file",
-      "read file",
+      "Datei lesen",
       "file contents",
       "datei lesen",
       "datei öffnen",
@@ -195,7 +195,7 @@
     "tool.description": "Legge il contenuto del file (fino a 1.000.000 di byte).",
     "x_search_terms": [
       "read_file",
-      "read file",
+      "leggere il file",
       "file contents",
       "leggi file",
       "apri file",
@@ -226,7 +226,7 @@
     "tool.description": "Читает содержимое файла (до 1 000 000 байт).",
     "x_search_terms": [
       "read_file",
-      "read file",
+      "прочитать файл",
       "file contents",
       "читать файл",
       "открыть файл",
@@ -257,7 +257,7 @@
     "tool.description": "Lê o conteúdo do arquivo (até 1.000.000 bytes).",
     "x_search_terms": [
       "read_file",
-      "read file",
+      "ler arquivo",
       "file contents",
       "ler arquivo",
       "abrir arquivo",
@@ -288,7 +288,7 @@
     "tool.description": "Leia o conteúdo do arquivo (até 1.000.000 bytes).",
     "x_search_terms": [
       "read_file",
-      "read file",
+      "ler arquivo",
       "file contents",
       "ler ficheiro",
       "abrir ficheiro",
@@ -319,7 +319,7 @@
     "tool.description": "Baca isi file (hingga 1.000.000 byte).",
     "x_search_terms": [
       "read_file",
-      "read file",
+      "membaca berkas",
       "file contents",
       "baca file",
       "buka file",
@@ -350,7 +350,7 @@
     "tool.description": "Đọc nội dung tệp (tối đa 1.000.000 byte).",
     "x_search_terms": [
       "read_file",
-      "read file",
+      "đọc tập tin",
       "file contents",
       "đọc tệp",
       "mở tệp",
@@ -381,7 +381,7 @@
     "tool.description": "Odczytaj zawartość pliku (do 1 000 000 bajtów).",
     "x_search_terms": [
       "read_file",
-      "read file",
+      "przeczytaj plik",
       "file contents",
       "czytaj plik",
       "otwórz plik",
@@ -412,7 +412,7 @@
     "tool.description": "फ़ाइल सामग्री पढ़ें (अधिकतम 1 एमबी)। स्टार्ट_लाइन/मैक्स_लाइन्स के माध्यम से आंशिक पढ़ने का समर्थन करता है",
     "x_search_terms": [
       "read_file",
-      "read file",
+      "फ़ाइल पढ़ें",
       "file contents",
       "फ़ाइल पढ़ें",
       "फ़ाइल खोलें",
@@ -443,7 +443,7 @@
     "tool.description": "قراءة محتويات الملف (حتى 1,000,000 بايت).",
     "x_search_terms": [
       "read_file",
-      "read file",
+      "قراءة الملف",
       "file contents",
       "قراءة ملف",
       "فتح ملف",
@@ -474,7 +474,7 @@
     "tool.description": "Läs filinnehåll (upp till 1 000 000 byte).",
     "x_search_terms": [
       "read_file",
-      "read file",
+      "läsa filen",
       "file contents",
       "läs fil",
       "öppna fil",
@@ -505,7 +505,7 @@
     "tool.description": "Soma maudhui ya faili (hadi baiti 1,000,000).",
     "x_search_terms": [
       "read_file",
-      "read file",
+      "soma faili",
       "file contents",
       "soma faili",
       "fungua faili",
@@ -536,7 +536,7 @@
     "tool.description": "Les filinnhold (opptil 1 000 000 byte).",
     "x_search_terms": [
       "read_file",
-      "read file",
+      "lese fil",
       "file contents",
       "les fil",
       "åpne fil",
@@ -567,7 +567,7 @@
     "tool.description": "Bestandsinhoud lezen (tot 1.000.000 bytes).",
     "x_search_terms": [
       "read_file",
-      "read file",
+      "bestand lezen",
       "file contents",
       "lees bestand",
       "open bestand",
@@ -598,7 +598,7 @@
     "tool.description": "Lue tiedoston sisältö (enintään 1 000 000 tavua).",
     "x_search_terms": [
       "read_file",
-      "read file",
+      "lue tiedosto",
       "file contents",
       "lue tiedosto",
       "avaa tiedosto",
@@ -629,7 +629,7 @@
     "tool.description": "Čte obsah souboru (až 1 000 000 bajtů).",
     "x_search_terms": [
       "read_file",
-      "read file",
+      "číst soubor",
       "file contents",
       "číst soubor",
       "otevřít soubor",
@@ -660,7 +660,7 @@
     "tool.description": "Читає вміст файла (до 1 000 000 байтів).",
     "x_search_terms": [
       "read_file",
-      "read file",
+      "читати файл",
       "file contents",
       "читати файл",
       "відкрити файл",
@@ -691,7 +691,7 @@
     "tool.description": "Dosya içeriğini okuyun (1,000,000 bayta kadar).",
     "x_search_terms": [
       "read_file",
-      "read file",
+      "dosyayı oku",
       "file contents",
       "dosya oku",
       "dosya aç",
@@ -722,7 +722,7 @@
     "tool.description": "เส้นทางของไฟล์ที่จะอ่าน (สูงสุด 1MB) รองรับการอ่านบางส่วนผ่าน start_line/max_lines",
     "x_search_terms": [
       "read_file",
-      "read file",
+      "อ่านไฟล์",
       "file contents",
       "อ่านไฟล์",
       "เปิดไฟล์",
@@ -753,7 +753,7 @@
     "tool.description": "读取文件内容（最大 1,000,000 字节）。可指定 start_line 和 max_lines 进行部分读取。",
     "x_search_terms": [
       "read_file",
-      "read file",
+      "读取文件",
       "file contents",
       "读取文件",
       "打开文件",
@@ -784,7 +784,7 @@
     "tool.description": "讀取檔案內容（最大 1,000,000 位元組）。可指定 start_line 和 max_lines 進行部分讀取。",
     "x_search_terms": [
       "read_file",
-      "read file",
+      "讀取文件",
       "file contents",
       "讀取檔案",
       "開啟檔案",
@@ -815,7 +815,7 @@
     "tool.description": "ফাইলের বিষয়বস্তু পড়ুন (সর্বোচ্চ 1MB)",
     "x_search_terms": [
       "read_file",
-      "read file",
+      "ফাইল পড়ুন",
       "file contents",
       "ফাইল পড়ুন",
       "ফাইল খুলুন",
@@ -846,7 +846,7 @@
     "tool.description": "محتوای فایل را بخوانید (تا 1,000,000 بایت).",
     "x_search_terms": [
       "read_file",
-      "read file",
+      "خواندن فایل",
       "file contents",
       "خواندن فایل",
       "باز کردن فایل",
@@ -877,7 +877,7 @@
     "tool.description": "Файлын агуулгыг уншина (хамгийн ихдээ 1,000,000 байт).",
     "x_search_terms": [
       "read_file",
-      "read file",
+      "файлыг унших",
       "file contents",
       "файл унших",
       "файл нээх",
@@ -908,7 +908,7 @@
     "tool.description": "फाइलची सामग्री वाचा (जास्तीत जास्त 1,000,000 बाइट्स).",
     "x_search_terms": [
       "read_file",
-      "read file",
+      "फाइल वाचा",
       "file contents",
       "फाइल वाचा",
       "फाइल उघडा",
@@ -1043,7 +1043,7 @@
       "citire text",
       "citire parțială",
       "citire parțială",
-      "max lines"
+      "linii max"
     ],
     "param.head.description": "Numărul de linii de citit de la început. Nu poate fi folosit cu tail_lines.",
     "param.maxl.description": "Numărul maxim de rânduri de citit. Dacă nul, citiți la EOF.",

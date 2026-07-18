@@ -29,7 +29,7 @@
     "err.ip_range_required": "مطلوب ip_range.",
     "err.invalid_ip_range": "تعذر تحليل نطاق ip_range: {text}",
     "x_search_terms": [
-      "opcua scan",
+      "مسح غامض",
       "opcua_scan",
       "opcua",
       "OPCUA",
@@ -49,7 +49,7 @@
     "err.ip_range_required": "ip_range প্রয়োজন।",
     "err.invalid_ip_range": "ip_range পার্স করা যায়নি: {text}",
     "x_search_terms": [
-      "opcua scan",
+      "opcua স্ক্যান",
       "opcua_scan",
       "opcua",
       "OPCUA",
@@ -69,7 +69,7 @@
     "err.ip_range_required": "ip_range je vyžadováno.",
     "err.invalid_ip_range": "Nelze analyzovat rozsah ip_range: {text}",
     "x_search_terms": [
-      "opcua scan",
+      "skenování opcua",
       "opcua_scan",
       "opcua",
       "OPCUA",
@@ -89,7 +89,7 @@
     "err.ip_range_required": "ip_range ist erforderlich.",
     "err.invalid_ip_range": "IP_Bereich konnte nicht analysiert werden: {text}",
     "x_search_terms": [
-      "opcua scan",
+      "Opcua-Scan",
       "opcua_scan",
       "opcua",
       "OPCUA",
@@ -109,7 +109,7 @@
     "err.ip_range_required": "ip_range απαιτείται.",
     "err.invalid_ip_range": "Δεν ήταν δυνατή η ανάλυση ip_range: {text}",
     "x_search_terms": [
-      "opcua scan",
+      "σάρωση opcua",
       "opcua_scan",
       "opcua",
       "OPCUA",
@@ -129,7 +129,7 @@
     "err.ip_range_required": "ip_range es obligatorio.",
     "err.invalid_ip_range": "No se pudo analizar ip_range: {text}",
     "x_search_terms": [
-      "opcua scan",
+      "escaneo opcua",
       "opcua_scan",
       "opcua",
       "OPCUA",
@@ -149,7 +149,7 @@
     "err.ip_range_required": "ip_range مورد نیاز است.",
     "err.invalid_ip_range": "ip_range: {text} تجزیه نشد",
     "x_search_terms": [
-      "opcua scan",
+      "اسکن opcua",
       "opcua_scan",
       "opcua",
       "OPCUA",
@@ -189,7 +189,7 @@
     "err.ip_range_required": "ip_range est requis.",
     "err.invalid_ip_range": "Impossible d'analyser ip_range : {text}",
     "x_search_terms": [
-      "opcua scan",
+      "scan opcua",
       "opcua_scan",
       "opcua",
       "OPCUA",
@@ -209,7 +209,7 @@
     "err.ip_range_required": "ip_range נדרש.",
     "err.invalid_ip_range": "לא ניתן לנתח ip_range: {text}",
     "x_search_terms": [
-      "opcua scan",
+      "סריקת opcua",
       "opcua_scan",
       "opcua",
       "OPCUA",
@@ -256,7 +256,7 @@
       "fedezze fel",
       "szervereket",
       "helyi hálózatot",
-      ""
+      "hálózat"
     ]
   },
   "id": {
@@ -289,7 +289,7 @@
     "err.ip_range_required": "intervallo_ip è obbligatorio.",
     "err.invalid_ip_range": "Impossibile analizzare l'intervallo_ip: {text}",
     "x_search_terms": [
-      "opcua scan",
+      "scansione opcua",
       "opcua_scan",
       "opcua",
       "OPCUA",
@@ -349,7 +349,7 @@
     "err.ip_range_required": "ip_range шаардлагатай.",
     "err.invalid_ip_range": "ip_range-г задлан шинжилж чадсангүй: {text}",
     "x_search_terms": [
-      "opcua scan",
+      "опкуа сканнер",
       "opcua_scan",
       "opcua",
       "OPCUA",
@@ -369,7 +369,7 @@
     "err.ip_range_required": "ip_range आवश्यक आहे.",
     "err.invalid_ip_range": "ip_range पार्स करू शकलो नाही: {text}",
     "x_search_terms": [
-      "opcua scan",
+      "opcua स्कॅन",
       "opcua_scan",
       "opcua",
       "OPCUA",
@@ -389,7 +389,7 @@
     "err.ip_range_required": "ip_range kreves.",
     "err.invalid_ip_range": "Kunne ikke analysere ip_range: {text}",
     "x_search_terms": [
-      "opcua scan",
+      "opcua skanning",
       "opcua_scan",
       "opcua",
       "OPCUA",
@@ -409,7 +409,7 @@
     "err.ip_range_required": "ip_range is vereist.",
     "err.invalid_ip_range": "Kan ip_range: {text} niet parseren",
     "x_search_terms": [
-      "opcua scan",
+      "opcua-scan",
       "opcua_scan",
       "opcua",
       "OPCUA",
@@ -429,7 +429,7 @@
     "err.ip_range_required": "ip_range jest wymagane.",
     "err.invalid_ip_range": "Nie można przeanalizować zakresu ip: {text}",
     "x_search_terms": [
-      "opcua scan",
+      "skan opcu",
       "opcua_scan",
       "opcua",
       "OPCUA",
@@ -449,7 +449,7 @@
     "err.ip_range_required": "intervalo_ip é obrigatório.",
     "err.invalid_ip_range": "Não foi possível analisar ip_range: {text}",
     "x_search_terms": [
-      "opcua scan",
+      "varredura opcua",
       "opcua_scan",
       "opcua",
       "OPCUA",
@@ -469,7 +469,7 @@
     "err.ip_range_required": "intervalo_ip é obrigatório.",
     "err.invalid_ip_range": "Não foi possível analisar ip_range: {text}",
     "x_search_terms": [
-      "opcua scan",
+      "varredura opcua",
       "opcua_scan",
       "opcua",
       "OPCUA",
@@ -509,7 +509,7 @@
     "err.ip_range_required": "ip_range является обязательным.",
     "err.invalid_ip_range": "Не удалось разобрать ip_range: {text}.",
     "x_search_terms": [
-      "opcua scan",
+      "сканирование опкуа",
       "opcua_scan",
       "opcua",
       "OPCUA",
@@ -589,7 +589,7 @@
     "err.ip_range_required": "ip_range gereklidir.",
     "err.invalid_ip_range": "İp_range ayrıştırılamadı: {text}",
     "x_search_terms": [
-      "opcua scan",
+      "opcua taraması",
       "opcua_scan",
       "opcua",
       "OPCUA",

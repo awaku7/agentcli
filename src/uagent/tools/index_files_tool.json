@@ -496,15 +496,15 @@
     "tool.description": "Faharasa faili au saraka maalum (muundo wa glob) kwenye DB ya vekta ili kuwezesha utafutaji wa kisemantiki (semantic_search_files). Hii ni muhimu kwa kuandaa nyaraka kwa maswali ya kisemantiki.",
     "x_search_terms": [
       "index_files",
-      "index files",
-      "file indexing",
-      "indexing files",
-      "semantic indexing",
-      "vector index",
-      "build index",
-      "batch index",
-      "index directory",
-      "glob index"
+      "faili za index",
+      "kuorodhesha faili",
+      "kuorodhesha faili",
+      "indexing ya kisemantiki",
+      "index ya vekta",
+      "kujenga index",
+      "faharisi ya kundi",
+      "saraka ya faharisi",
+      "index ya globu"
     ],
     "param.recur.description": "Ikiwa utatafuta kwa kujirudia wakati mchoro una '**'.",
     "out.total": "Jumla ya faili: {count}"
@@ -561,10 +561,10 @@
       "indexering van bestanden",
       "semantische indexering",
       "vectorindex",
-      "build index",
+      "index opbouwen",
       "batchindex",
-      "index directory",
-      "glob index"
+      "index-map",
+      "globale index"
     ],
     "param.recur.description": "Of recursief gezocht wordt wanneer het patroon '**' bevat.",
     "out.total": "Totaal aantal bestanden: {count}"
@@ -796,15 +796,15 @@
     "tool.description": "নির্দিষ্ট ফাইল বা ডিরেক্টরি (গ্লোব প্যাটার্ন) ভেক্টর DB-তে ইনডেক্স করে সিম্যান্টিক সার্চ (semantic_search_files) সক্ষম করে। এটি সিম্যান্টিক কোয়েরির জন্য ডকুমেন্ট প্রস্তুত করতে কার্যকর।",
     "x_search_terms": [
       "index_files",
-      "index files",
-      "file indexing",
-      "indexing files",
-      "semantic indexing",
-      "vector index",
-      "build index",
-      "batch index",
+      "ইনডেক্স ফাইল",
+      "ফাইল ইনডেক্সিং",
+      "ইনডেক্সিং ফাইল",
+      "শব্দার্থিক সূচক",
+      "ভেক্টর সূচক",
+      "সূচক তৈরি করুন",
+      "ব্যাচ সূচক",
       "index Directory",
-      "glob index"
+      "গ্লোব সূচক"
     ],
     "param.recur.description": "Pattern-এ '**' থাকলে recursive search করা হবে কি না।",
     "out.total": "মোট ফাইল: {count}"
@@ -826,15 +826,15 @@
     "tool.description": "فایل‌ها یا دایرکتوری‌های مشخص شده (الگوی glob) را در پایگاه داده برداری نمایه می‌کند تا جستجوی معنایی (semantic_search_files) فعال شود. این برای آماده‌سازی اسناد برای پرس‌وجوهای معنایی مفید است.",
     "x_search_terms": [
       "index_files",
-      "",
-      "",
-      "",
-      "",
-      "",
-      "",
-      "",
-      "",
-      ""
+      "فایل های فهرست",
+      "نمایه سازی فایل",
+      "نمایه سازی فایل ها",
+      "نمایه سازی معنایی",
+      "شاخص برداری",
+      "شاخص ساخت",
+      "شاخص دسته ای",
+      "فهرست فهرست",
+      "شاخص جهانی"
     ],
     "param.recur.description": "اگر pattern شامل '**' باشد، جستجوی بازگشتی انجام شود یا نه.",
     "out.total": "کل فایل ها: {count}"
@@ -886,15 +886,15 @@
     "tool.description": "निर्दिष्ट फाइल्स किंवा डिरेक्टरीज (ग्लोब पॅटर्न) वेक्टर DB मध्ये इंडेक्स करा जेणेकरून सिमेंटिक शोध (semantic_search_files) सक्षम होईल. हे सिमेंटिक क्वेरीसाठी दस्तऐवज तयार करण्यासाठी उपयुक्त आहे.",
     "x_search_terms": [
       "index_files",
-      "index files",
-      "file indexing",
-      "indexing files",
-      "semantic indexing",
-      "vector index",
-      "build index",
-      "batch index",
+      "इंडेक्स फाइल्स",
+      "फाइल अनुक्रमणिका",
+      "अनुक्रमणिका फाइल्स",
+      "सिमेंटिक इंडेक्सिंग",
+      "वेक्टर निर्देशांक",
+      "निर्देशांक तयार करा",
+      "बॅच निर्देशांक",
       "index Directory",
-      "glob index"
+      "ग्लोब इंडेक्स"
     ],
     "param.recur.description": "Pattern मध्ये '**' असल्यास recursive search करायची का.",
     "out.total": "एकूण फायली: {count}"

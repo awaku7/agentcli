@@ -27,7 +27,7 @@
     "err.dev_required": "مطلوب معرف_الجهاز (مطور).",
     "x_search_terms": [
       "اشتراك switchbot",
-      "switchbot_subscribe",
+      "Switchbot_subscribe",
       "سويتش بوت",
       "تغييرات",
       "استطلاع"
@@ -197,7 +197,7 @@
     "err.dev_required": "डिवाइस_आईडी (डेव) आवश्यक है।",
     "x_search_terms": [
       "switchbot सब्सक्राइब करें",
-      "switchbot_subscribe",
+      "स्विचबॉट_सदस्यता लें",
       "स्विचबॉट",
       "परिवर्तन",
       "मतदान"
@@ -554,7 +554,7 @@
     "err.dev_required": "device_id (dev) 是必需的。",
     "x_search_terms": [
       "switchbot 订阅",
-      "switchbot_subscribe",
+      "switchbot_订阅",
       "开关机器人",
       "变化",
       "轮询"
@@ -571,7 +571,7 @@
     "err.dev_required": "device_id (dev) 是必要的。",
     "x_search_terms": [
       "switchbot 訂閱",
-      "switchbot_subscribe",
+      "switchbot_訂閱",
       "開關機器人",
       "變更",
       "輪詢"

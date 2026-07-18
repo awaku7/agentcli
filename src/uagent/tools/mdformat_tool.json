@@ -875,7 +875,7 @@
       "lint",
       "mdformat",
       "md",
-      ""
+      "phong cách"
     ],
     "param.path.description": "Mẫu toàn cầu hoặc đường dẫn tệp cần kiểm tra (ví dụ: 'docs/**/*.md' hoặc 'README.md').",
     "param.fix.description": "Nếu đúng, hãy tự động sửa các vấn đề về định dạng thay vì chỉ kiểm tra.",

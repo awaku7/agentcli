@@ -793,7 +793,7 @@
       "عادی‌سازی تصویر",
       "تغییر اندازه تصویر",
       "بهبود تصویر",
-      ""
+      "عملیات تصویر"
     ],
     "param.mode.description": "حالت پیش پردازش.",
     "param.grayscale.description": "تصویر را به خاکستری تبدیل کنید.",
@@ -930,15 +930,15 @@
   "hu": {
     "x_search_terms": [
       "kép előfeldolgozása kép előfeldolgozása kép feldolgozása kép előkészítése kép átalakítása előfeldolgozás kép normalizálása kép átméretezése képjavítás",
-      "",
-      "",
-      "",
-      "",
-      "",
-      "",
-      "",
-      "",
-      ""
+      "kép előfeldolgozása",
+      "képfeldolgozás",
+      "kép előkészítése",
+      "képátalakítás",
+      "előfeldolgozás",
+      "kép normalizálása",
+      "kép átméretezése",
+      "képjavítás",
+      "kép ops"
     ],
     "param.mode.description": "A kép átalakítása szürkeárnyalatossá.",
     "param.grayscale.description": "Alkalmazzon zajcsökkentést/simítást.",

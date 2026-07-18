@@ -198,7 +198,7 @@
     "err.invalid_ip_address": "त्रुटि: ip_address एक वैध IPv4 पता होना चाहिए।",
     "x_search_terms": [
       "echonet गुण सूची",
-      "echonet_property_list",
+      "इकोनेट_प्रॉपर्टी_लिस्ट",
       "इकोनेट",
       "इकोनेट",
       "खोजें",
@@ -282,7 +282,7 @@
     "err.invalid_ip_address": "오류: ip_address는 유효한 IPv4 주소여야 합니다.",
     "x_search_terms": [
       "에코넷 속성 목록",
-      "echonet_property_list",
+      "에코넷_속성_목록",
       "에코넷",
       "에코넷",
       "발견",
@@ -576,7 +576,7 @@
     "err.invalid_ip_address": "Hitilafu: ip_address lazima iwe anwani halali ya IPv4.",
     "x_search_terms": [
       "orodha ya mali ya echonet",
-      "echonet_property_list",
+      "orodha_ya_mali_echonet",
       "echonet",
       "ECHONET",
       "gundua",
@@ -681,7 +681,7 @@
     "err.invalid_ip_address": "错误：ip_address 必须是有效的 IPv4 地址。",
     "x_search_terms": [
       "echonet 属性列表",
-      "echonet_property_list",
+      "echonet_属性列表",
       "echonet",
       "ECHONET",
       "发现",
@@ -702,7 +702,7 @@
     "err.invalid_ip_address": "錯誤：ip_address 必須是有效的 IPv4 位址。",
     "x_search_terms": [
       "echonet 屬性清單",
-      "echonet_property_list",
+      "echonet_屬性列表",
       "echonet",
       "ECHONET",
       "發現",

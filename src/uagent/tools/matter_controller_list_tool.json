@@ -8,7 +8,7 @@
     "tool.description": "قم بإدراج الأجهزة التي تديرها وحدة التحكم Matter وأرجع ملخص JSON أو النص.",
     "x_search_terms": [
       "قائمة التحكم في المادة",
-      "matter_controller_list",
+      "Matter_controller_list",
       "matter",
       "MATTER",
       "إدارة التحكم",
@@ -25,10 +25,10 @@
     "tool.description": "ম্যাটার কন্ট্রোলার-পরিচালিত ডিভাইসগুলি তালিকাভুক্ত করুন এবং একটি JSON বা পাঠ্য সারাংশ প্রদান করুন।",
     "x_search_terms": [
       "ম্যাটার কন্ট্রোলার লিস্ট",
-      "matter_controller_list",
+      "বিষয়_নিয়ন্ত্রক_তালিকা",
       "matter",
       "MATTER",
-      "controller-managed",
+      "নিয়ন্ত্রক-পরিচালিত",
       "devices",
       "return"
     ]
@@ -64,7 +64,7 @@
       "MATTER",
       "Controller-verwaltete Geräte",
       "Rückgabe",
-      ""
+      "Rückkehr"
     ]
   },
   "en": {
@@ -93,7 +93,7 @@
     "tool.description": "Enumere los dispositivos administrados por el controlador Matter y devuelva un resumen de texto o JSON.",
     "x_search_terms": [
       "lista de controladores de materia",
-      "matter_controller_list",
+      "lista_controlador_de_materia",
       "materia",
       "MATTER",
       "controlador-administrado",
@@ -110,12 +110,12 @@
     "tool.description": "دستگاه‌های مدیریت‌شده توسط Matter را فهرست کنید و یک JSON یا خلاصه متنی را برگردانید.",
     "x_search_terms": [
       "فهرست کنترل‌کننده ماده",
-      "",
-      "",
-      "",
-      "",
-      "",
-      ""
+      "ماده_کنترل_لیست",
+      "موضوع",
+      "موضوع",
+      "کنترل کننده مدیریت شده است",
+      "دستگاه ها",
+      "بازگشت"
     ]
   },
   "fi": {
@@ -130,7 +130,7 @@
       "matter_controller_list",
       "matter",
       "MATTER",
-      "controller-managed",
+      "ohjaimen hallinnassa",
       "laitteet",
       "palautus"
     ]
@@ -144,10 +144,10 @@
     "tool.description": "Répertoriez les appareils gérés par le contrôleur Matter et renvoyez un résumé JSON ou texte.",
     "x_search_terms": [
       "liste des contrôleurs de matière",
-      "matter_controller_list",
+      "liste_de_contrôleurs_de_matière",
       "matter",
       "MATTER",
-      "controller-managed",
+      "géré par le contrôleur",
       "devices",
       "return"
     ]
@@ -229,7 +229,7 @@
     "tool.description": "Matter 컨트롤러 관리 장치를 나열하고 JSON 또는 텍스트 요약을 반환합니다.",
     "x_search_terms": [
       "Matter 컨트롤러 목록",
-      "matter_controller_list",
+      "Matter_controller_list",
       "matter",
       "MATTER",
       "컨트롤러 관리",
@@ -280,7 +280,7 @@
     "tool.description": "Καταχωρίστε τις συσκευές που διαχειρίζονται το Matter και επιστρέψτε μια σύνοψη JSON ή κειμένου.",
     "x_search_terms": [
       "λίστα ελεγκτών θέματος",
-      "matter_controller_list",
+      "list_controller_list",
       "matter",
       "MATTER",
       "διαχείριση από ελεγκτή",
@@ -301,8 +301,8 @@
       "matter",
       "MATTER",
       "החזרת מכשירים מנוהלים בקרה",
-      "",
-      ""
+      "מכשירים",
+      "לחזור"
     ]
   },
   "hu": {
@@ -336,7 +336,7 @@
       "MATTER",
       "dispozitive gestionate de controler",
       "return",
-      ""
+      "întoarcere"
     ]
   },
   "nb": {
@@ -347,7 +347,7 @@
     "param.ctrl.description": "Kontroller-ID (utelat for alle).",
     "tool.description": "List opp Matter-kontrollerstyrte enheter og returner et JSON- eller tekstsammendrag.",
     "x_search_terms": [
-      "matter controller list",
+      "sakskontrollørliste",
       "matter_controller_list",
       "matter",
       "MATTER",
@@ -364,11 +364,11 @@
     "param.ctrl.description": "Controller-ID (weglaten voor alles).",
     "tool.description": "Maak een lijst van door de Matter-controller beheerde apparaten en retourneer een JSON- of tekstsamenvatting.",
     "x_search_terms": [
-      "matter controller list",
+      "materiecontrollerlijst",
       "matter_controller_list",
       "matter",
       "MATTER",
-      "controller-managed",
+      "door de controller beheerd",
       "devices",
       "return"
     ]
@@ -399,7 +399,7 @@
     "tool.description": "Liste os dispositivos gerenciados pelo controlador Matter e retorne um JSON ou um resumo de texto.",
     "x_search_terms": [
       "lista de controladores de matéria",
-      "matter_controller_list",
+      "lista_de_controladores_matéria",
       "matter",
       "MATTER",
       "gerenciados por controladores",
@@ -416,7 +416,7 @@
     "tool.description": "Liste os dispositivos gerenciados pelo controlador Matter e retorne um JSON ou um resumo de texto.",
     "x_search_terms": [
       "lista de controladores de matéria",
-      "matter_controller_list",
+      "lista_de_controladores_matéria",
       "matter",
       "MATTER",
       "gerenciados por controladores",
@@ -433,7 +433,7 @@
     "tool.description": "Перечислите устройства, управляемые контроллером Matter, и верните JSON или текстовую сводку.",
     "x_search_terms": [
       "список контроллеров материи",
-      "matter_controller_list",
+      "Matter_controller_list",
       "matter",
       "MATTER",
       "управляемые контроллером",
@@ -467,10 +467,10 @@
     "tool.description": "Orodhesha vifaa vinavyodhibitiwa na kidhibiti na urudishe JSON au muhtasari wa maandishi.",
     "x_search_terms": [
       "list controller list",
-      "matter_controller_list",
+      "matter_controller_orodha",
       "matter",
       "MATTER",
-      "controller-managed",
+      "kidhibiti-kusimamiwa",
       "devices",
       "return"
     ]
@@ -484,7 +484,7 @@
     "tool.description": "แสดงรายการอุปกรณ์ที่จัดการโดยตัวควบคุมและส่งคืน JSON หรือสรุปข้อความ",
     "x_search_terms": [
       "รายการตัวควบคุมเรื่อง",
-      "matter_controller_list",
+      "Matter_Controller_list",
       "เรื่อง",
       "MATTER",
       "ตัวควบคุมจัดการ",
@@ -501,7 +501,7 @@
     "tool.description": "Matter denetleyicisi tarafından yönetilen cihazları listeleyin ve bir JSON veya metin özeti döndürün.",
     "x_search_terms": [
       "madde denetleyici listesi",
-      "matter_controller_list",
+      "Matter_controller_list",
       "matter",
       "MATTER",
       "kontrolör tarafından yönetilen",
@@ -518,12 +518,12 @@
     "tool.description": "Список пристроїв, керованих контролером Matter, і повернення JSON або текстового підсумку.",
     "x_search_terms": [
       "список контролерів матерії",
-      "matter_controller_list",
+      "матерія_контролер_список",
       "matter",
       "МАТЕР",
       "пристрої, керовані контролером",
       "повернути",
-      ""
+      "повернення"
     ]
   },
   "vi": {
@@ -535,10 +535,10 @@
     "tool.description": "Liệt kê các thiết bị do bộ điều khiển quản lý Matter và trả về bản tóm tắt văn bản hoặc JSON.",
     "x_search_terms": [
       "danh sách bộ điều khiển vật chất",
-      "matter_controller_list",
+      "vấn đề_controller_list",
       "matter",
       "MATTER",
-      "controller-managed",
+      "được quản lý bởi bộ điều khiển",
       "devices",
       "return"
     ]
@@ -552,7 +552,7 @@
     "tool.description": "列出 Matter 控制器管理的设备并返回 JSON 或文本摘要。",
     "x_search_terms": [
       "事件控制器列表",
-      "matter_controller_list",
+      "物质控制器列表",
       "matter",
       "MATTER",
       "控制器管理",
@@ -569,7 +569,7 @@
     "tool.description": "列出 Matter 控制器管理的裝置並傳回 JSON 或文字摘要。",
     "x_search_terms": [
       "事件控制器清單",
-      "matter_controller_list",
+      "物質控制器列表",
       "matter",
       "MATTER",
       "控制器管理",

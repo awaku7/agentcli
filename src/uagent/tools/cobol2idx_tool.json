@@ -504,10 +504,10 @@
     ],
     "x_search_terms_en": [
       "قراءة ملف كوبول، فهرس ملف كوبول، هيكل برنامج كوبول، قسم كوبول، فقرة كوبول",
-      "",
-      "",
-      "",
-      ""
+      "فهرس ملف كوبول",
+      "هيكل برنامج كوبول",
+      "قسم كوبول",
+      "فقرة كوبول"
     ],
     "param.path.description": "المسار إلى ملف COBOL (.cbl/.cob/.cpy).",
     "err.path_required": "خطأ: \"المسار\" مطلوب.",
@@ -527,14 +527,14 @@
   "sv": {
     "x_search_terms": [
       "cobol",
-      "cobol code",
+      "cobol-kod",
       "cobolanalys",
       "kodindex",
-      "cobol source",
+      "cobolkälla",
       "cobol-parser",
       "cobol-program",
       "cobol-fil",
-      "legacy code",
+      "äldre kod",
       "mainframe"
     ],
     "x_search_terms_en": [
@@ -562,14 +562,14 @@
   "sw": {
     "x_search_terms": [
       "cobol",
-      "cobol code",
-      "cobol analysis",
-      "code index",
-      "cobol source",
-      "cobol parser",
-      "cobol program",
-      "cobol file",
-      "legacy code",
+      "kanuni ya cobol",
+      "uchambuzi wa cobol",
+      "index index",
+      "chanzo cha cobol",
+      "kichanganuzi cha cobol",
+      "programu ya cobol",
+      "faili ya cobol",
+      "kanuni ya urithi",
       "mainframe"
     ],
     "x_search_terms_en": [
@@ -597,21 +597,21 @@
   "nb": {
     "x_search_terms": [
       "cobol",
-      "cobol code",
+      "cobol-kode",
       "cobol analyse",
       "kodeindeks",
-      "cobol source",
-      "cobol parser",
-      "cobol program",
-      "cobol file",
-      "legacy code",
+      "cobol kilde",
+      "cobol-parser",
+      "cobol-programmet",
+      "cobol filen",
+      "eldre kode",
       "mainframe"
     ],
     "x_search_terms_en": [
       "les cobol fil",
       "cobol filindeks",
       "cobol programstruktur",
-      "cobol division",
+      "cobol divisjon",
       "cobol avsnitt"
     ],
     "param.path.description": "Banen til COBOL-filen (.cbl/.cob/.cpy).",
@@ -632,11 +632,11 @@
   "nl": {
     "x_search_terms": [
       "cobol",
-      "cobol code",
+      "cobol-code",
       "cobol analyse",
-      "code index",
+      "code-index",
       "cobol bron",
-      "cobol parser",
+      "cobol-parser",
       "cobol programma",
       "cobol bestand",
       "verouderde code",
@@ -912,14 +912,14 @@
   "bn": {
     "x_search_terms": [
       "cobol",
-      "cobol code",
-      "cobol analysis",
-      "code index",
-      "cobol source",
-      "cobol parser",
-      "cobol program",
-      "cobol file",
-      "legacy code",
+      "cobol কোড",
+      "কোবল বিশ্লেষণ",
+      "কোড সূচক",
+      "কোবল উৎস",
+      "কোবল পার্সার",
+      "কোবল প্রোগ্রাম",
+      "cobol ফাইল",
+      "উত্তরাধিকার কোড",
       "mainframe"
     ],
     "x_search_terms_en": [
@@ -947,15 +947,15 @@
   "fa": {
     "x_search_terms": [
       "cobol",
-      "cobol code",
-      "cobol analysis",
+      "کد cobol",
+      "تجزیه و تحلیل کوبول",
       "index code",
-      "cobol source",
-      "",
-      "",
-      "",
-      "",
-      ""
+      "منبع cobol",
+      "تجزیه کننده کوبول",
+      "برنامه cobol",
+      "فایل cobol",
+      "کد میراث",
+      "پردازنده مرکزی"
     ],
     "x_search_terms_en": [
       "خواندن فایل cobol",
@@ -1017,14 +1017,14 @@
   "mr": {
     "x_search_terms": [
       "cobol",
-      "cobol code",
-      "cobol analysis",
-      "code index",
-      "cobol source",
-      "cobol parser",
-      "cobol program",
-      "cobol file",
-      "legacy code",
+      "कोबोल कोड",
+      "कोबोल विश्लेषण",
+      "कोड निर्देशांक",
+      "कोबोल स्त्रोत",
+      "कोबोल पार्सर",
+      "कोबोल प्रोग्राम",
+      "cobol फाइल",
+      "वारसा कोड",
       "mainframe"
     ],
     "x_search_terms_en": [
@@ -1052,14 +1052,14 @@
   "el": {
     "x_search_terms": [
       "cobol",
-      "cobol code",
-      "cobol analysis",
+      "κωδικός cobol",
+      "ανάλυση cobol",
       "index code",
-      "cobol source",
+      "πηγή cobol",
       "cobol parser",
-      "cobol program",
-      "cobol file",
-      "legacy code",
+      "πρόγραμμα cobol",
+      "αρχείο cobol",
+      "κωδικός παλαιού τύπου",
       "mainframe"
     ],
     "x_search_terms_en": [
@@ -1087,15 +1087,15 @@
   "he": {
     "x_search_terms": [
       "cobol-cobol code",
-      "",
-      "",
-      "",
-      "",
-      "",
-      "",
-      "",
-      "",
-      ""
+      "קוד cobol",
+      "ניתוח קובול",
+      "אינדקס קוד",
+      "מקור קובול",
+      "מנתח cobol",
+      "תוכנית cobol",
+      "קובץ cobol",
+      "קוד מדור קודם",
+      "מיינפריים"
     ],
     "x_search_terms_en": [
       "קרא את קובץ cobol",
@@ -1158,13 +1158,13 @@
     "x_search_terms": [
       "cobol",
       "cod code",
-      "cobol analysis",
-      "code index",
-      "cobol source",
-      "cobol parser",
-      "cobol program",
-      "cobol file",
-      "legacy code",
+      "analiza cobol",
+      "index de cod",
+      "sursa de cobol",
+      "parser cobol",
+      "programul cobol",
+      "fișier cobol",
+      "cod moștenit",
       "mainframe"
     ],
     "x_search_terms_en": [

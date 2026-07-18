@@ -133,7 +133,7 @@
     "err.value_required": "Error: se requiere valor o edt.",
     "x_search_terms": [
       "conjunto de propiedades de echonet",
-      "echonet_property_set",
+      "conjunto_propiedad_echonet",
       "econet",
       "ECHONET"
     ],
@@ -229,7 +229,7 @@
     "err.value_required": "त्रुटि: या तो मान या edt आवश्यक है।",
     "x_search_terms": [
       "echonet गुण सेट",
-      "echonet_property_set",
+      "इकोनेट_प्रॉपर्टी_सेट",
       "इकोनेट",
       "इकोनेट"
     ],

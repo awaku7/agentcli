@@ -73,7 +73,7 @@
     "param.top_k.description": "número.",
     "tool.description": "Realiza una búsqueda semántica (búsqueda vectorial) contra archivos locales. Utiliza la API de Embedding para vectorizar el contenido de los archivos y extraer pasajes de documentos relevantes.",
     "x_search_terms": [
-      "semantic_search_files",
+      "archivos_de_búsqueda_semántica",
       "archivos de búsqueda semántica",
       "búsqueda semántica",
       "búsqueda vectorial",
@@ -102,7 +102,7 @@
     "param.top_k.description": "nombre.",
     "tool.description": "Effectue une recherche sémantique (recherche vectorielle) dans les fichiers locaux. Utilise l'API d'Embedding pour vectoriser le contenu des fichiers et extrait les passages de documents pertinents.",
     "x_search_terms": [
-      "semantic_search_files",
+      "fichiers_de_recherche_sémantique",
       "fichiers de recherche sémantique",
       "recherche sémantique",
       "recherche de vecteur",
@@ -160,7 +160,7 @@
     "param.top_k.description": "Anzahl.",
     "tool.description": "Führt eine semantische Suche (Vektorsuche) gegen lokale Dateien durch. Verwendet die Embedding-API, um Dateiinhalte zu vektorisieren und relevante Dokumentpassagen zu extrahieren.",
     "x_search_terms": [
-      "semantic_search_files",
+      "semantische_Suchdateien",
       "semantische Suchdateien",
       "semantische Suche",
       "Vektorsuche",
@@ -450,7 +450,7 @@
     "param.top_k.description": "antal.",
     "tool.description": "Utför en semantisk sökning (vektorsökning) mot lokala filer. Använder inbäddnings-API:et för att vektorisera filinnehåll och extraherar relevanta dokumentavsnitt.",
     "x_search_terms": [
-      "semantic_search_files",
+      "semantiska_sökfiler",
       "semantiska sökfiler",
       "semantisk sökning",
       "vektorsökning",
@@ -508,7 +508,7 @@
     "param.top_k.description": "antall.",
     "tool.description": "Utfører et semantisk søk (vektorsøk) mot lokale filer. Bruker Embedding API til å vektorisere filinnhold og trekker ut relevante dokumentpassasjer.",
     "x_search_terms": [
-      "semantic_search_files",
+      "semantiske_søkefiler",
       "semantiske søkefiler",
       "semantisk søk",
       "vektorsøk",
@@ -711,7 +711,7 @@
     "param.top_k.description": "数字。",
     "tool.description": "对本地文件执行语义搜索（向量搜索）。使用嵌入API对文件内容进行向量化，并提取相关文档段落。",
     "x_search_terms": [
-      "semantic_search_files",
+      "语义搜索文件",
       "语义搜索文件",
       "语义搜索",
       "矢量搜索",
@@ -740,7 +740,7 @@
     "param.top_k.description": "數字。",
     "tool.description": "對本地檔案執行語意搜尋（向量搜尋）。使用 Embedding API 將檔案內容向量化，並提取相關的文件段落。",
     "x_search_terms": [
-      "semantic_search_files",
+      "語意搜尋文件",
       "語意搜尋檔案",
       "語意搜尋",
       "向量搜尋",
@@ -856,10 +856,10 @@
     "param.top_k.description": "संख्या.",
     "tool.description": "स्थानिक फाइल्स विरुद्ध सिमेंटिक शोध (वेक्टर शोध) करते. फाइल सामग्री वेक्टराइज करण्यासाठी Embedding API वापरते आणि संबंधित दस्तऐवज परिच्छेद काढते.",
     "x_search_terms": [
-      "semantic_search_files",
-      "semantic search files",
-      "semantic search",
-      "vector search",
+      "अर्थपूर्ण_शोध_फाईल्स",
+      "सिमेंटिक शोध फाइल्स",
+      "अर्थपूर्ण शोध",
+      "वेक्टर शोध",
       "एम्बेडिंग शोध",
       "स्थानिक फाइल शोध",
       "शोध फाइल्स",

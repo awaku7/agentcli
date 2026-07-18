@@ -57,7 +57,7 @@
       "duckduckgo",
       "buscar en internet",
       "buscar en la web",
-      "recherche web",
+      "buscar en la web",
       "google",
       "browse"
     ],
@@ -76,11 +76,11 @@
     "param.query.description": ".",
     "tool.description": "Recherchez sur le Web via l'interface HTML de DuckDuckGo (par défaut) ou Brave Search. Retourne titre/lien/extrait. Brave Search est meilleur pour les requêtes en japonais/locales.",
     "x_search_terms": [
-      "web search",
+      "recherche sur le Web",
       "duckduckgo",
-      "search internet",
-      "buscar en la web",
-      "recherche web",
+      "recherche sur Internet",
+      "rechercher sur le web",
+      "rechercher sur le Web",
       "google",
       "browse"
     ],
@@ -102,8 +102,8 @@
       "웹 검색",
       "duckduckgo",
       "인터넷 검색",
-      "buscar en la web",
-      "recherche web",
+      "웹사이트에서 버스카",
+      "웹 검색",
       "google",
       "browse"
     ],
@@ -124,9 +124,9 @@
     "x_search_terms": [
       "Websuche",
       "duckduckgo",
-      "search internet",
-      "buscar en la web",
-      "recherche web",
+      "Suche im Internet",
+      "Im Internet suchen",
+      "Recherche-Web",
       "google",
       "browse"
     ],
@@ -148,7 +148,7 @@
       "ricerca web",
       "duckduckgo",
       "cerca internet",
-      "buscar en la web",
+      "cercare sul web",
       "ricerca web",
       "google",
       "browse"
@@ -171,8 +171,8 @@
       "поиск в Интернете",
       "duckduckgo",
       "поиск в Интернете",
-      "buscar en la web",
-      "recherche web",
+      "автобус в Интернете",
+      "поиск в Интернете",
       "google",
       "просмотр"
     ],
@@ -191,11 +191,11 @@
     "param.query.description": "Consulta de pesquisa.",
     "tool.description": "Pesquise na web através da interface HTML do DuckDuckGo (padrão) ou Brave Search. Retorna título/link/trecho. Brave Search é melhor para consultas em japonês/locais.",
     "x_search_terms": [
-      "web search",
+      "pesquisa na web",
       "duckduckgo",
-      "search internet",
-      "buscar en la web",
-      "recherche web",
+      "pesquisar na internet",
+      "pesquisar na web",
+      "pesquisar na web",
       "google",
       "browse"
     ],
@@ -214,11 +214,11 @@
     "param.query.description": "Consulta de pesquisa.",
     "tool.description": "Pesquise na web através da interface HTML do DuckDuckGo (padrão) ou Brave Search. Retorna título/trecho. Brave Search é melhor para consultas em japonês/locais.",
     "x_search_terms": [
-      "web search",
+      "pesquisa na web",
       "duckduckgo",
-      "search internet",
-      "buscar en la web",
-      "recherche web",
+      "pesquisar na internet",
+      "pesquisar na web",
+      "pesquisar na web",
       "google",
       "browse"
     ],
@@ -241,7 +241,7 @@
       "duckduckgo",
       "cari internet",
       "buscar en la web",
-      "recherche web",
+      "web pencarian ulang",
       "google",
       "browse"
     ],
@@ -264,7 +264,7 @@
       "duckduckgo",
       "tìm kiếm trên internet",
       "xe buýt trên web",
-      "recherche web",
+      "trang web tìm kiếm",
       "google",
       "duyệt"
     ],
@@ -354,9 +354,9 @@
     "x_search_terms": [
       "webbsökning",
       "duckduckgo",
-      "search internet",
+      "sök på internet",
       "buscar en la web",
-      "recherche web",
+      "hitta webben",
       "google",
       "surf"
     ],
@@ -378,8 +378,8 @@
       "tafuta mtandao",
       "duckduckgo",
       "tafuta mtandao",
-      "buscar en la web",
-      "recherche web",
+      "buscar katika mtandao",
+      "recherche mtandao",
       "google",
       "vinjari"
     ],
@@ -402,7 +402,7 @@
       "duckduckgo",
       "søk på internett",
       "buscar en la web",
-      "recherche web",
+      "søke på nettet",
       "google",
       "se"
     ],
@@ -423,9 +423,9 @@
     "x_search_terms": [
       "zoeken op internet",
       "duckduckgo",
-      "search internet",
+      "zoeken op internet",
       "buscar en la web",
-      "recherche web",
+      "zoek web",
       "google",
       "browse"
     ],
@@ -471,7 +471,7 @@
       "duckduckgo",
       "hledání na internetu",
       "buscar en la web",
-      "recherche web",
+      "rešeršní web",
       "google",
       "procházet"
     ],
@@ -493,8 +493,8 @@
       "пошук в Інтернеті",
       "duckduckgo",
       "пошук в Інтернеті",
-      "buscar en la web",
-      "recherche web",
+      "автобус в Інтернеті",
+      "пошук веб-сайту",
       "google",
       "перегляд"
     ],
@@ -516,8 +516,8 @@
       "web araması",
       "duckduckgo",
       "internette arama",
-      "buscar en la web",
-      "recherche web",
+      "web'de otobüs",
+      "web'i araştır",
       "google",
       "göz at"
     ],
@@ -539,8 +539,8 @@
       "ค้นหาเว็บ",
       "duckduckgo",
       "ค้นหาอินเทอร์เน็ต",
-      "buscar en la web",
-      "recherche web",
+      "รถบัสและเว็บ",
+      "ค้นหาเว็บอีกครั้ง",
       "google",
       "เรียกดู"
     ],
@@ -562,8 +562,8 @@
       "网络搜索",
       "duckduckgo",
       "搜索互联网",
-      "buscar en la web",
-      "recherche web",
+      "网络巴士",
+      "研究网",
       "google",
       "浏览"
     ],
@@ -585,8 +585,8 @@
       "網路搜尋",
       "duckduckgo",
       "搜尋網路",
-      "buscar en la web",
-      "recherche web",
+      "網路巴士",
+      "研究網",
       "google",
       "瀏覽"
     ],
@@ -608,7 +608,7 @@
       "ওয়েব সার্চ",
       "duckduckgo",
       " ইন্টারনেট অনুসন্ধান করুন",
-      "buscar en la web",
+      "ওয়েবে বাসকার",
       "recherche web",
       "google",
       " ব্রাউজ করুন"
@@ -632,7 +632,7 @@
       "duckduckgo",
       "جستجوی اینترنتی",
       "buscar en la web",
-      "recherche web",
+      "وب recherche",
       "google",
       "مرور"
     ],
@@ -678,7 +678,7 @@
       "duckduckgo",
       "इंटरनेट शोधा",
       "buscar en la web",
-      "recherche web",
+      "recherche वेब",
       "google",
       "browse"
     ],
@@ -766,10 +766,10 @@
     "param.query.description": "Interogare de căutare.",
     "tool.description": "Căutați pe web prin DuckDuckGo (implicit) sau interfața HTML Brave Search. Returnează titlul/linkul/fragmentul. Brave Search este mai bun pentru interogările în limba japoneză/locale.",
     "x_search_terms": [
-      "web search",
+      "căutare pe web",
       "duckduckgo",
-      "search internet",
-      "buscar en la web",
+      "cauta pe internet",
+      "caută pe web",
       "recherche web",
       "google",
       "browse"

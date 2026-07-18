@@ -126,7 +126,7 @@
       "md5",
       "sha",
       "checksum del file",
-      "hash file",
+      "file hash",
       "integrità del file",
       "valore hash",
       "digest del file"
@@ -373,9 +373,9 @@
       "md5",
       "sha",
       "tiedoston tarkistussumma",
-      "hash file",
+      "hash-tiedosto",
       "tiedoston eheys",
-      "hash value",
+      "hash-arvo",
       "tiedoston tiivistelmä"
     ]
   },
@@ -520,15 +520,15 @@
     "tool.description": "هش فایل‌ها (sha256/sha1/md5) را محاسبه می‌کند.",
     "x_search_terms": [
       "هش فایل",
-      "",
-      "",
-      "",
-      "",
-      "",
-      "",
-      "",
-      "",
-      ""
+      "هش",
+      "چک جمع",
+      "md5",
+      "شا",
+      "چک جمع فایل",
+      "فایل هش",
+      "یکپارچگی فایل",
+      "مقدار هش",
+      "خلاصه فایل"
     ]
   },
   "mn": {
@@ -600,7 +600,7 @@
       "checksum",
       "md5",
       "sha",
-      "file checksum",
+      "סכום בדיקה של קובץ",
       "קובץ hash",
       "שלמות הקובץ",
       "ערך hash",
@@ -619,7 +619,7 @@
       "checksum",
       "md5",
       "sha",
-      "file checksum",
+      "fájl ellenőrzőösszeg",
       "hash fájl",
       "fájl integritása",
       "hash érték",
@@ -638,11 +638,11 @@
       "checksum",
       "md5",
       "sha",
-      "file checksum",
+      "sumă de verificare a fișierului",
       "hash fișier",
       "fișier integritatea",
-      "hash value",
-      "file digest"
+      "valoare hash",
+      "fisier digest"
     ]
   }
 }

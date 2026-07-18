@@ -68,15 +68,15 @@
   "fr": {
     "tool.description": "Liste les entrées dans un répertoire avec une pagination, similaire à ls.",
     "x_search_terms": [
-      "list dir",
+      "répertoire de la liste",
       "directory",
-      "list directory",
+      "répertoire de liste",
       "dir list",
       "folder",
-      "list files",
+      "lister les fichiers",
       "directory list",
-      "file list",
-      "show dir",
+      "liste de fichiers",
+      "afficher le répertoire",
       "folder content"
     ],
     "param.path.description": "Répertoire à lister (par défaut : répertoire courant). Alias ​​de root_path.",
@@ -98,7 +98,7 @@
       "목록 파일",
       "디렉토리 목록",
       "파일 목록",
-      "show dir",
+      "디렉토리 표시",
       "폴더 내용"
     ],
     "param.path.description": "나열할 디렉터리(기본값: 현재 디렉터리). root_path의 별칭입니다.",
@@ -112,15 +112,15 @@
   "de": {
     "tool.description": "Einträge in einem Verzeichnis mit Paginierung auflisten, ähnlich wie bei ls.",
     "x_search_terms": [
-      "list dir",
+      "Listenverzeichnis",
       "directory",
       "list Verzeichnis",
       "dir list",
       "folder",
-      "list files",
+      "Dateien auflisten",
       "directory list",
-      "file list",
-      "show dir",
+      "Dateiliste",
+      "Richt. anzeigen",
       "folder content"
     ],
     "param.path.description": "Verzeichnis zum Auflisten (Standard: aktuelles Verzeichnis). Alias von root_path.",
@@ -156,7 +156,7 @@
   "ru": {
     "tool.description": "Список записей в каталоге с нумерацией страниц, аналогично ls.",
     "x_search_terms": [
-      "list dir",
+      "список каталогов",
       "каталог",
       "список каталогов",
       "список каталогов",
@@ -319,7 +319,7 @@
       "قائمة الدليل",
       "قائمة الملفات",
       "إظهار محتويات المجلد",
-      ""
+      "محتويات المجلد"
     ],
     "param.path.description": "الدليل المراد عرضه (الافتراضي: الدليل الحالي).",
     "param.show_hidden.description": "تضمين العناصر المخفية في القائمة.",
@@ -341,7 +341,7 @@
       "kataloglista",
       "fillista",
       "visa katalogmappinnehåll",
-      ""
+      "mappinnehåll"
     ],
     "param.path.description": "Katalog till lista (standard: aktuell katalog). Alias för root_path.",
     "param.show_hidden.description": "Inkludera dolda poster i listan.",
@@ -354,16 +354,16 @@
   "sw": {
     "tool.description": "Orodhesha maingizo katika saraka yenye kurasa, sawa na ls.",
     "x_search_terms": [
-      "list dir",
+      "orodha dir",
       "directory",
-      "list directory",
+      "orodha orodha",
       "dir listing",
       "folder",
       "orodhesha faili",
-      "directory listing",
-      "file list",
+      "orodha ya saraka",
+      "orodha ya faili",
       "onyesha dir",
-      "folder contents"
+      "yaliyomo kwenye folda"
     ],
     "param.path.description": "Saraka ya kuorodheshwa (chaguo-msingi: saraka ya sasa). Lakabu ya root_path.",
     "param.show_hidden.description": "Jumuisha maingizo yaliyofichwa kwenye tangazo.",
@@ -385,7 +385,7 @@
       "katalogoppføring",
       "filliste",
       "vis kataloginnhold",
-      ""
+      "mappeinnhold"
     ],
     "param.path.description": "Katalog til liste (standard: gjeldende katalog). Alias av root_path.",
     "param.show_hidden.description": "Ta med skjulte elementer i listen.",
@@ -429,7 +429,7 @@
       "hakemistoluettelo",
       "tiedostoluettelo",
       "näytä hakemistokansion sisältö",
-      ""
+      "kansion sisältö"
     ],
     "param.path.description": "Listattava hakemisto (oletus: nykyinen hakemisto). root_polun alias.",
     "param.show_hidden.description": "Sisällytä piilotetut kohteet listaan.",
@@ -577,13 +577,13 @@
       "তালিকা dir",
       "directory",
       "list Directory",
-      "dir listing",
+      "dir তালিকা",
       "folder",
-      "list files",
-      "directory listing",
-      "file list",
+      "তালিকা ফাইল",
+      "ডিরেক্টরি তালিকা",
+      "ফাইল তালিকা",
       " show dir",
-      "folder contents"
+      "ফোল্ডার বিষয়বস্তু"
     ],
     "param.path.description": "তালিকাভুক্ত ডিরেক্টরি (ডিফল্ট: বর্তমান ডিরেক্টরি)। root_path এর উপনাম।",
     "param.show_hidden.description": "তালিকায় লুকানো এন্ট্রি অন্তর্ভুক্ত করুন।",
@@ -598,14 +598,14 @@
     "x_search_terms": [
       "فهرست dir",
       "directory",
-      "list directory",
+      "فهرست فهرست",
       " listingdir",
       "folder",
-      "list files",
-      "",
-      "",
-      "",
-      ""
+      "لیست فایل ها",
+      "فهرست دایرکتوری",
+      "لیست فایل",
+      "نمایش کارگردان",
+      "محتویات پوشه"
     ],
     "param.path.description": "فهرست (پیش‌فرض: فهرست فعلی). نام مستعار root_path.",
     "param.show_hidden.description": "آیتم‌های مخفی را هم در فهرست شامل کنید.",
@@ -643,11 +643,11 @@
       "dir",
       "directory",
       "list Directory",
-      "dir listing",
+      "dir सूची",
       "folder",
-      "list files",
-      "directory listing",
-      "file list",
+      "फायलींची यादी करा",
+      "निर्देशिका सूची",
+      "फाइल सूची",
       "dir",
       "folder सामग्री दाखवा"
     ],
@@ -688,12 +688,12 @@
       "רשימת קבצים",
       "רשימת קבצים",
       "רשימת קבצים",
-      "",
-      "",
-      "",
-      "",
-      "",
-      ""
+      "תיקייה",
+      "רשימת קבצים",
+      "רישום ספריות",
+      "רשימת קבצים",
+      "הצג במאי",
+      "תוכן התיקיה"
     ],
     "param.path.description": "ספרייה לרשימה (ברירת מחדל: ספרייה נוכחית). כינוי של root_path.",
     "param.show_hidden.description": "ספרייה לרשימה (ברירת מחדל: ספרייה נוכחית). כינוי של root_path.",
@@ -736,8 +736,8 @@
       "listă fișiere",
       "liste directoare",
       "listă fișiere",
-      "show dir",
-      "folder contents"
+      "afișează dir",
+      "conținutul folderului"
     ],
     "param.path.description": "Includeți intrări ascunse în listă.",
     "param.show_hidden.description": "Numărul maxim de intrări de returnat pe pagină (implicit: 50).",

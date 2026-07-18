@@ -34,7 +34,7 @@
     "param.log_path.description": "রূপান্তর করতে JSONL লগ ফাইলের পাথ।",
     "param.output_path.description": "পিডিএফ ফাইলের জন্য আউটপুট পাথ। .pdf এক্সটেনশন সহ log_path এ ডিফল্ট।",
     "x_search_terms": [
-      "pdf export",
+      "পিডিএফ এক্সপোর্ট",
       "pdf_export",
       "pdf",
       "PDF",
@@ -49,7 +49,7 @@
     "param.log_path.description": "Cesta k souboru protokolu JSONL, který se má převést.",
     "param.output_path.description": "Výstupní cesta pro soubor PDF. Výchozí hodnota je log_path s příponou .pdf.",
     "x_search_terms": [
-      "pdf export",
+      "export do pdf",
       "pdf_export",
       "pdf",
       "PDF",
@@ -64,7 +64,7 @@
     "param.log_path.description": "Pfad zur zu konvertierenden JSONL-Protokolldatei.",
     "param.output_path.description": "Ausgabepfad für die PDF-Datei. Standardmäßig ist log_path mit der Erweiterung .pdf.",
     "x_search_terms": [
-      "pdf export",
+      "PDF-Export",
       "pdf_export",
       "pdf",
       "PDF",
@@ -139,7 +139,7 @@
     "param.log_path.description": "Chemin d'accès au fichier journal JSONL à convertir.",
     "param.output_path.description": "Chemin de sortie du fichier PDF. La valeur par défaut est log_path avec l'extension .pdf.",
     "x_search_terms": [
-      "pdf export",
+      "exportation pdf",
       "pdf_export",
       "pdf",
       "PDF",
@@ -154,7 +154,7 @@
     "param.log_path.description": "נתיב לקובץ היומן JSONL להמרה.",
     "param.output_path.description": "נתיב פלט עבור קובץ ה-PDF. ברירת המחדל היא log_path עם סיומת .pdf.",
     "x_search_terms": [
-      "pdf export",
+      "ייצוא pdf",
       "pdf_export",
       "pdf",
       "PDF",
@@ -184,7 +184,7 @@
     "param.log_path.description": "A konvertálandó JSONL-naplófájl elérési útja.",
     "param.output_path.description": "A PDF-fájl kimeneti útvonala. Alapértelmezés szerint a log_path .pdf kiterjesztéssel.",
     "x_search_terms": [
-      "pdf export",
+      "pdf exportálás",
       "pdf_export",
       "pdf",
       "PDF",
@@ -274,7 +274,7 @@
     "param.log_path.description": "रूपांतरित करण्यासाठी JSONL लॉग फाइलचा मार्ग.",
     "param.output_path.description": "पीडीएफ फाइलसाठी आउटपुट पथ. .pdf विस्तारासह log_path वर डीफॉल्ट.",
     "x_search_terms": [
-      "pdf export",
+      "पीडीएफ निर्यात",
       "pdf_export",
       "pdf",
       "PDF",
@@ -304,7 +304,7 @@
     "param.log_path.description": "Pad naar het JSONL-logboekbestand dat moet worden geconverteerd.",
     "param.output_path.description": "Uitvoerpad voor het PDF-bestand. Standaard ingesteld op log_path met de extensie .pdf.",
     "x_search_terms": [
-      "pdf export",
+      "pdf-export",
       "pdf_export",
       "pdf",
       "PDF",
@@ -364,7 +364,7 @@
     "param.log_path.description": "Calea către fișierul jurnal JSONL de convertit.",
     "param.output_path.description": "Calea de ieșire pentru fișierul PDF. Setarea implicită este log_path cu extensia .pdf.",
     "x_search_terms": [
-      "pdf export",
+      "export pdf",
       "pdf_export",
       "pdf",
       "PDF",
@@ -409,7 +409,7 @@
     "param.log_path.description": "Njia ya faili ya kumbukumbu ya JSONL ya kubadilisha.",
     "param.output_path.description": "Njia ya pato kwa faili ya PDF. Chaguomsingi kwa log_path na kiendelezi cha .pdf.",
     "x_search_terms": [
-      "pdf export",
+      "pdf kuuza nje",
       "pdf_export",
       "pdf",
       "PDF",
@@ -454,7 +454,7 @@
     "param.log_path.description": "Шлях до файлу журналу JSONL для конвертації.",
     "param.output_path.description": "Вихідний шлях для файлу PDF. За замовчуванням log_path із розширенням .pdf.",
     "x_search_terms": [
-      "pdf export",
+      "експорт pdf",
       "pdf_export",
       "pdf",
       "PDF",

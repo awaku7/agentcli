@@ -112,7 +112,7 @@
     "tool.description": "Descubra objetos ECHONET Lite en un nodo y devuelva un JSON o una lista de texto.",
     "x_search_terms": [
       "lista de objetos echonet",
-      "echonet_object_list",
+      "lista_objetos_echonet",
       "echonet",
       "ECHONET",
       "descubrir",
@@ -351,7 +351,7 @@
     "param.timeout.description": "פסק זמן בשניות עבור בקשות ECHONET Lite.",
     "tool.description": "גלה אובייקטים של ECHONET Lite בצומת והחזר JSON או רשימת טקסט.",
     "x_search_terms": [
-      "echonet object list",
+      "רשימת אובייקטים של echonet",
       "echonet_object_list",
       "echonet",
       "ECHONET",
@@ -432,7 +432,7 @@
     "tool.description": "Ontdek ECHONET Lite-objecten op een knooppunt en retourneer een JSON- of tekstlijst.",
     "x_search_terms": [
       "echonet-objectlijst",
-      "echonet_object_list",
+      "echonet_object_lijst",
       "echonet",
       "ECHONET",
       "discover",
@@ -652,7 +652,7 @@
     "tool.description": "发现节点上的 ECHONET Lite 对象并返回 JSON 或文本列表。",
     "x_search_terms": [
       "echonet 对象列表",
-      "echonet_object_list",
+      "回声网络对象列表",
       "echonet",
       "ECHONET",
       "发现",
@@ -672,7 +672,7 @@
     "tool.description": "發現節點上的 ECHONET Lite 物件並傳回 JSON 或文字清單。",
     "x_search_terms": [
       "echonet 物件清單",
-      "echonet_object_list",
+      "迴聲網路物件列表",
       "echonet",
       "ECHONET",
       "發現",

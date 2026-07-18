@@ -17,7 +17,7 @@
     "param.fmt.description": "التنسيق: json أو نص.",
     "x_search_terms": [
       "قائمة الاشتراكات مهمة",
-      "matter_subscription_list",
+      "Matter_subscription_list",
       "matter",
       "MATTER",
       "الاشتراك",
@@ -30,7 +30,7 @@
     "param.fmt.description": "বিন্যাস: json বা পাঠ্য।",
     "x_search_terms": [
       "বিষয় সদস্যতা তালিকা",
-      "matter_subscription_list",
+      "বিষয়_সাবস্ক্রিপশন_তালিকা",
       "matter",
       "MATTER",
       "subscription",
@@ -69,7 +69,7 @@
     "param.fmt.description": "Μορφή: json ή κείμενο.",
     "x_search_terms": [
       "θέμα λίστα συνδρομών",
-      "matter_subscription_list",
+      "θέμα_συνδρομής_λίστα",
       "matter",
       "MATTER",
       "subscription",
@@ -95,12 +95,12 @@
     "param.fmt.description": "فرمت: json یا متن.",
     "x_search_terms": [
       "لیست اشتراکات مهم",
-      "",
-      "",
-      "",
-      "",
-      "",
-      ""
+      "list_subscription_material_subscription_list",
+      "موضوع",
+      "موضوع",
+      "اشتراک",
+      "فعال",
+      "اشتراک ها"
     ]
   },
   "fi": {
@@ -108,7 +108,7 @@
     "param.fmt.description": "Muoto: json tai teksti.",
     "x_search_terms": [
       "asia tilauslista",
-      "matter_subscription_list",
+      "Asia_subscription_list",
       "matter",
       "MATTER",
       "subscription",
@@ -121,7 +121,7 @@
     "param.fmt.description": "Format : json ou texte.",
     "x_search_terms": [
       "liste d'abonnements importants",
-      "matter_subscription_list",
+      "liste_d'abonnement_matière",
       "matter",
       "MATTER",
       "subscription",
@@ -147,7 +147,7 @@
     "param.fmt.description": "प्रारूप: json या text.",
     "x_search_terms": [
       "मैटर सदस्यता सूची",
-      "matter_subscription_list",
+      "मामला_सदस्यता_सूची",
       "matter",
       "MATTER",
       "subscription",
@@ -212,7 +212,7 @@
     "param.fmt.description": "형식: json 또는 텍스트.",
     "x_search_terms": [
       "Matter 구독 목록",
-      "matter_subscription_list",
+      "문제_구독_목록",
       "matter",
       "MATTER",
       "subscription",
@@ -290,7 +290,7 @@
     "param.fmt.description": "Formato: json ou texto.",
     "x_search_terms": [
       "lista de assinaturas de assuntos",
-      "matter_subscription_list",
+      "matéria_lista_de_subscrição",
       "matter",
       "MATTER",
       "subscription",
@@ -303,7 +303,7 @@
     "param.fmt.description": "Formato: json ou texto.",
     "x_search_terms": [
       "lista de assinaturas de assuntos",
-      "matter_subscription_list",
+      "matéria_lista_de_subscrição",
       "matter",
       "MATTER",
       "subscription",
@@ -329,7 +329,7 @@
     "param.fmt.description": "Формат: json или текст.",
     "x_search_terms": [
       "список подписок на вопрос",
-      "matter_subscription_list",
+      "Matter_subscription_list",
       "matter",
       "MATTER",
       "подписка",
@@ -368,7 +368,7 @@
     "param.fmt.description": "รูปแบบ: json หรือข้อความ",
     "x_search_terms": [
       "รายการสมัครสมาชิกเรื่อง",
-      "matter_subscription_list",
+      "Matter_subscription_list",
       "เรื่อง",
       "MATTER",
       "สมัครสมาชิก",
@@ -381,7 +381,7 @@
     "param.fmt.description": "Biçim: json veya metin.",
     "x_search_terms": [
       "madde abonelik listesi",
-      "matter_subscription_list",
+      "Matter_subscription_list",
       "matter",
       "MATTER",
       "abonelik",
@@ -394,7 +394,7 @@
     "param.fmt.description": "Формат: json або текстовий.",
     "x_search_terms": [
       "важливий список підписок",
-      "matter_subscription_list",
+      "матерія_список_підписки",
       "matter",
       "MATTER",
       "підписка",
@@ -407,7 +407,7 @@
     "param.fmt.description": "Định dạng: json hoặc văn bản.",
     "x_search_terms": [
       "danh sách đăng ký quan trọng",
-      "matter_subscription_list",
+      "vấn đề_subscription_list",
       "matter",
       "MATTER",
       "subscription",
@@ -420,7 +420,7 @@
     "param.fmt.description": "格式：json 或文本。",
     "x_search_terms": [
       "事项订阅列表",
-      "matter_subscription_list",
+      "问题订阅列表",
       "matter",
       "MATTER",
       "订阅",
@@ -433,7 +433,7 @@
     "param.fmt.description": "格式：json 或文字。",
     "x_search_terms": [
       "事項訂閱清單",
-      "matter_subscription_list",
+      "問題訂閱列表",
       "matter",
       "MATTER",
       "訂閱",

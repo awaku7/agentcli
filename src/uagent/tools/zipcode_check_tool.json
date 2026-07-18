@@ -219,7 +219,7 @@
       "japanskt postnummer",
       "adresssökning",
       "japan adress",
-      ""
+      "japan adress"
     ],
     "param.zipcode.description": "7-siffrigt japanskt postnummer att slå upp (t.ex. '1000001'). Bindestreck ignoreras.",
     "param.prefecture.description": "Japansk prefekturnamn för att lista städer i (t.ex. '東京都', 'Kanagawa'). Kanji, kana eller romaji accepteras."
@@ -249,7 +249,7 @@
       "japansk postnummer",
       "adresseoppslag",
       "japan adresse",
-      ""
+      "japan adresse"
     ],
     "param.zipcode.description": "7-sifret japansk postnummer for å slå opp (f.eks. '1000001'). Bindestreker ignoreres.",
     "param.prefecture.description": "Japansk prefekturnavn for å liste byer i (f.eks. '東京都', 'Kanagawa'). Kanji, kana eller romaji godtas."
@@ -294,7 +294,7 @@
       "Japonské PSČ",
       "Vyhledání adresy",
       "japonská adresa",
-      ""
+      "japonská adresa"
     ],
     "param.zipcode.description": "7místné japonské PSČ k vyhledání (např. '1000001'). Pomlčky jsou ignorovány.",
     "param.prefecture.description": "Název japonské prefektury pro seznam měst (např. '東京都', 'Kanagawa'). Kanji, kana nebo romaji přijato."
@@ -414,7 +414,7 @@
       "ιαπωνικός ταχυδρομικός κώδικας",
       "Αναζήτηση διεύθυνσης",
       "διεύθυνση Ιαπωνίας",
-      ""
+      "διεύθυνση Ιαπωνίας"
     ],
     "param.zipcode.description": "7ψήφιος ιαπωνικός ταχυδρομικός κώδικας για αναζήτηση (π.χ. '1000001'). Οι παύλες αγνοούνται.",
     "param.prefecture.description": "Όνομα ιαπωνικού νομού για λίστα πόλεων (π.χ. '東京都', 'Kanagawa'). Καντζί, κανά ή ρομάτζι δεκτά."

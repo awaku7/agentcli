@@ -22,7 +22,7 @@
     "msg.unknown": "(غير معروف)",
     "x_search_terms": [
       "حالة سحابة switchbot",
-      "switchbot_cloud_status",
+      "Switchbot_cloud_status",
       "سويتش بوت",
       "سحابة"
     ],
@@ -292,7 +292,7 @@
     "msg.unknown": "(अज्ञात)",
     "x_search_terms": [
       "switchbot क्लाउड स्थिति",
-      "switchbot_cloud_status",
+      "स्विचबॉट_क्लाउड_स्टेटस",
       "स्विचबॉट",
       "बादल"
     ],

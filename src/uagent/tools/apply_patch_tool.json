@@ -24,10 +24,10 @@
   "ja": {
     "tool.description": "パッチ（unified diff）を純粋 Python で適用します。dry-run プレビュー、ホワイトスペース共通、CRLF 保持に対応。",
     "x_search_terms": [
-      "apply patch",
-      "patch file",
-      "apply diff",
-      "unified diff apply",
+      "パッチを適用する",
+      "パッチファイル",
+      "差分を適用する",
+      "統合された差分適用",
       "パッチ適用"
     ],
     "param.patch_text.description": "適用する unified diff テキスト (git 形式互換、---/+++ ヘッダ必須)",
@@ -203,8 +203,8 @@
       "käytä korjaustiedostoa",
       " korjaustiedostoa",
       " käytä erotusta",
-      "",
-      ""
+      "sovelletaan yhtenäistä erotusta",
+      "ux30d1ux30c3ux30c1ux9069ux7528"
     ],
     "param.patch_text.description": "Yhtenäinen eroteksti käytettäväksi (git-muodon yhteensopiva, esim. ---/+++-otsikot).",
     "param.dry_run.description": "Jos totta, esikatsele vain sitä, mitä muutetaan ilman hakemista.",
@@ -313,7 +313,7 @@
       "terapkan patch",
       "file patch",
       "terapkan diff",
-      "unified diff apply",
+      "perbedaan terpadu berlaku",
       "ux30d1ux30c3ux30c1ux9069ux7528"
     ],
     "param.patch_text.description": "Teks diff terpadu untuk diterapkan (kompatibel dengan format git, misalnya ---/+++ header).",
@@ -421,9 +421,9 @@
     "tool.description": "Bruk en enhetlig diff (patch) på filer ved å bruke ren Python. Støtter forhåndsvisning av tørrkjøring, toleranse for mellomrom og CRLF-bevaring.",
     "x_search_terms": [
       "bruk patch",
-      "patch file",
-      "apply diff",
-      "unified diff apply",
+      "patch-fil",
+      "påfør diff",
+      "enhetlig diff gjelder",
       "ux30d1ux30c3ux30c1ux9069ux7528"
     ],
     "param.patch_text.description": "Samlet diff-tekst som skal brukes (git-format-kompatibel, f.eks. ---/+++ overskrifter).",
@@ -488,8 +488,8 @@
     "x_search_terms": [
       "aplicar patch",
       "arquivo de patch",
-      "apply diff",
-      "unified diff apply",
+      "aplicar diferença",
+      "diferença unificada aplicada",
       "ux30d1ux30c3ux30c1ux9069ux7528"
     ],
     "param.patch_text.description": "Texto diff unificado a ser aplicado (compatível com o formato git, por exemplo, cabeçalhos ---/+++).",
@@ -510,8 +510,8 @@
     "x_search_terms": [
       "aplicar patch",
       "arquivo de patch",
-      "apply diff",
-      "unified diff apply",
+      "aplicar diferença",
+      "diferença unificada aplicada",
       "ux30d1ux30c3ux30c1ux9069ux7528"
     ],
     "param.patch_text.description": "Texto diff unificado a ser aplicado (compatível com o formato git, por exemplo, cabeçalhos ---/+++).",
@@ -531,9 +531,9 @@
     "tool.description": "Aplicați o diferență (patch) unificată fișierelor folosind Python pur. Acceptă previzualizarea la rulare uscată, toleranța la spații albe și conservarea CRLF.",
     "x_search_terms": [
       "aplicați patch",
-      "patch file",
+      "fișier de corecție",
       "aply diff",
-      "unified diff apply",
+      "se aplică diferența unificată",
       "ux30d1ux30c3ux30c1ux9069ux7528"
     ],
     "param.patch_text.description": "Text diferit unificat de aplicat (compatibil cu formatul git, de exemplu antete ---/+++).",
@@ -576,7 +576,7 @@
     "x_search_terms": [
       "tillämpa patch",
       "patchfil",
-      "apply diff",
+      "tillämpa diff",
       "unified diff tillämpa",
       "ux30d1ux30c3ux30c1ux9069ux7528"
     ],
@@ -619,7 +619,7 @@
     "tool.description": "ใช้ unified diff (แพทช์) กับไฟล์โดยใช้ Python ล้วนๆ รองรับการแสดงตัวอย่างการทดลองเรียกใช้ ความทนต่อช่องว่าง และการอนุรักษ์ CRLF",
     "x_search_terms": [
       "ใช้ patch",
-      "patch file",
+      "ไฟล์แพทช์",
       "ใช้ diff",
       "unified diff ใช้",
       "ux30d1ux30c3ux30c1ux9069ux7528"

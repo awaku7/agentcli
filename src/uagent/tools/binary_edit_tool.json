@@ -392,15 +392,15 @@
     "tool.description": "تحرير ملف محلي على شكل بايتات خام (ثنائي).",
     "x_search_terms": [
       "تحرير ثنائي، تحرير سداسي، ملف ثنائي، تحرير ثنائي، محرر سداسي، تعديل ثنائي، تصحيح ثنائي، بيانات ثنائية، ملف سداسي، محرر ثنائي",
-      "",
-      "",
-      "",
-      "",
-      "",
-      "",
-      "",
-      "",
-      ""
+      "تحرير سداسي عشري",
+      "ملف ثنائي",
+      "تحرير ثنائي",
+      "محرر سداسي عشري",
+      "تعديل ثنائي",
+      "التصحيح الثنائي",
+      "البيانات الثنائية",
+      "ملف سداسي عشري",
+      "محرر ثنائي"
     ],
     "param.maxb.description": "ارفض الملفات الأكبر من هذا الحجم (بالبايت)."
   },
@@ -449,7 +449,7 @@
       "hex hariri",
       "faili binary",
       "hariri binary",
-      "hex editor",
+      "mhariri wa hex",
       "binary kurekebisha",
       "kiraka binary",
       "data binary",
@@ -500,14 +500,14 @@
     "tool.description": "Bewerk een lokaal bestand als ruwe bytes (binair).",
     "x_search_terms": [
       "binaire bewerking",
-      "hex edit",
+      "hexadecimale bewerking",
       "binair bestand",
       "bewerk binaire",
-      "hex editor",
+      "hex-editor",
       "binaire wijziging",
       "binaire patch",
       "binaire data",
-      "file hex",
+      "bestand hex",
       "binaire editor"
     ],
     "param.maxb.description": "Bestanden weigeren die groter zijn dan deze grootte (bytes)."
@@ -719,12 +719,12 @@
       "হেক্স সম্পাদনা",
       "বাইনারি ফাইল",
       " সম্পাদনা করুন",
-      "",
-      "",
-      "",
-      "",
-      "",
-      ""
+      "হেক্স সম্পাদক",
+      "বাইনারি পরিবর্তন",
+      "বাইনারি প্যাচ",
+      "বাইনারি ডেটা",
+      "ফাইল হেক্স",
+      "বাইনারি সম্পাদক"
     ],
     "param.maxb.description": "এই আকারের (বাইট) থেকে বড় ফাইল প্রত্যাখ্যান করুন।"
   },
@@ -859,7 +859,7 @@
       "תיקון בינארי",
       "נתונים בינאריים",
       "עורך משושי קובץ",
-      ""
+      "עורך בינארי"
     ],
     "param.maxb.description": "דחה קבצים גדולים מגודל זה (בתים)."
   },
@@ -881,12 +881,12 @@
       "hex szerkesztés",
       "bináris fájl szerkesztés bináris hex szerkesztő bináris módosítás bináris javítás",
       "bináris adatfájl hexadecimális szerkesztő",
-      "",
-      "",
-      "",
-      "",
-      "",
-      ""
+      "hex szerkesztő",
+      "binárisan módosítani",
+      "bináris patch",
+      "bináris adatok",
+      "fájl hex",
+      "bináris szerkesztő"
     ],
     "param.maxb.description": "Ennél a méretnél (byte) nagyobb fájlok elutasítása."
   },

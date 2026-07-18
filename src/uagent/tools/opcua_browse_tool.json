@@ -46,7 +46,7 @@
     "msg.summary": "OPC UA ব্রাউজ করুন: {ms} ms এ {node} থেকে {count} নোড(গুলি)।",
     "err.url_required": "url আবশ্যক।",
     "x_search_terms": [
-      "opcua browse",
+      "অপকুয়া ব্রাউজ করুন",
       "opcua_browse",
       "opcua",
       "OPCUA",
@@ -65,7 +65,7 @@
     "msg.summary": "Procházení OPC UA: {count} uzlů z {node} za {ms} ms.",
     "err.url_required": "adresa URL je povinná.",
     "x_search_terms": [
-      "opcua browse",
+      "opcua procházet",
       "opcua_browse",
       "opcua",
       "OPCUA",
@@ -84,7 +84,7 @@
     "msg.summary": "OPC UA-Durchsuchen: {count} Knoten von {node} in {ms} ms.",
     "err.url_required": "URL ist erforderlich.",
     "x_search_terms": [
-      "opcua browse",
+      "opcua durchsuchen",
       "opcua_browse",
       "opcua",
       "OPCUA",
@@ -103,7 +103,7 @@
     "msg.summary": "Περιήγηση OPC UA: {count} κόμβοι από {node} σε {ms} ms.",
     "err.url_required": "url απαιτείται.",
     "x_search_terms": [
-      "opcua browse",
+      "opcua περιήγηση",
       "opcua_browse",
       "opcua",
       "OPCUA",
@@ -141,7 +141,7 @@
     "msg.summary": "مرور OPC UA: {count} گره از {node} در {ms} میلی‌ثانیه.",
     "err.url_required": "آدرس اینترنتی مورد نیاز است.",
     "x_search_terms": [
-      "opcua browse",
+      "opcua را مرور کنید",
       "opcua_browse",
       "opcua",
       "OPCUA",
@@ -160,7 +160,7 @@
     "msg.summary": "OPC UA:n selaus: {count} solmua kohteesta {node} {ms} ms:ssa.",
     "err.url_required": "url vaaditaan.",
     "x_search_terms": [
-      "opcua browse",
+      "opcua selaa",
       "opcua_browse",
       "opcua",
       "OPCUA",
@@ -198,7 +198,7 @@
     "msg.summary": "דפדוף ב-OPC UA: {count} צמתים מ-{node} ב-{ms} אלפיות השנייה.",
     "err.url_required": "נדרשת כתובת URL.",
     "x_search_terms": [
-      "opcua browse",
+      "opcua לדפדף",
       "opcua_browse",
       "opcua",
       "OPCUA",
@@ -236,7 +236,7 @@
     "msg.summary": "OPC UA tallózás: {count} csomópont {node}-től {ms} ms alatt.",
     "err.url_required": "url megadása kötelező.",
     "x_search_terms": [
-      "opcua browse",
+      "opcua böngészés",
       "opcua_browse",
       "opcua",
       "OPCUA",
@@ -331,7 +331,7 @@
     "msg.summary": "OPC UA үзэх: {count} зангилаа(ууд) {node}-ээс {ms} мс-д.",
     "err.url_required": "url шаардлагатай.",
     "x_search_terms": [
-      "opcua browse",
+      "opcua үзэх",
       "opcua_browse",
       "opcua",
       "OPCUA",
@@ -350,7 +350,7 @@
     "msg.summary": "OPC UA ब्राउझ करा: {ms} ms मध्ये {node} वरून {count} नोड.",
     "err.url_required": "url आवश्यक आहे.",
     "x_search_terms": [
-      "opcua browse",
+      "ब्राउझ करा",
       "opcua_browse",
       "opcua",
       "OPCUA",
@@ -369,7 +369,7 @@
     "msg.summary": "OPC UA-søk: {count} node(r) fra {node} om {ms} ms.",
     "err.url_required": "url er påkrevd.",
     "x_search_terms": [
-      "opcua browse",
+      "opcua bla",
       "opcua_browse",
       "opcua",
       "OPCUA",
@@ -388,7 +388,7 @@
     "msg.summary": "OPC UA-bladeren: {count} knooppunt(en) van {node} in {ms} ms.",
     "err.url_required": "URL is vereist.",
     "x_search_terms": [
-      "opcua browse",
+      "opcua bladeren",
       "opcua_browse",
       "opcua",
       "OPCUA",
@@ -502,7 +502,7 @@
     "msg.summary": "OPC UA-bläddring: {count} nod(er) från {node} om {ms} ms.",
     "err.url_required": "URL krävs.",
     "x_search_terms": [
-      "opcua browse",
+      "opcua bläddra",
       "opcua_browse",
       "opcua",
       "OPCUA",
@@ -578,7 +578,7 @@
     "msg.summary": "Перегляд OPC UA: {count} вузлів із {node} за {ms} мс.",
     "err.url_required": "необхідна URL-адреса.",
     "x_search_terms": [
-      "opcua browse",
+      "opcua переглядати",
       "opcua_browse",
       "opcua",
       "OPCUA",

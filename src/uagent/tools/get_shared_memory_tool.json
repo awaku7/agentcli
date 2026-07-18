@@ -198,15 +198,15 @@
     "tool.description": "उपयोगकर्ताओं के बीच साझा किए गए कच्चे दीर्घकालिक मेमोरी (साझा मेमोरी) डेटा को पुनः प्राप्त करता है। - आमतौर पर JSONL प्रारूप में पाठ लौटाता है (प्रति पंक्ति एक रिकॉर्ड)।",
     "x_search_terms": [
       "साझा की गई मेमोरी प्राप्त करें साझा की गई पढ़ें साझा की गई मेमोरी पुनः प्राप्त करें साझा की गई यादें प्राप्त करें टीम मेमोरी साझा की गई जानकारी प्राप्त करें सहयोगात्मक प्राप्त करें समूह मेमोरी प्राप्त करें साझा की गई पुनः प्राप्त करें",
-      "",
-      "",
-      "",
-      "",
-      "",
-      "",
-      "",
-      "",
-      ""
+      "साझा स्मृति प्राप्त करें",
+      "पढ़ें साझा",
+      "साझा पुनः प्राप्त करें",
+      "साझा स्मरण",
+      "टीम मेमोरी प्राप्त करें",
+      "साझा जानकारी प्राप्त करें",
+      "सहयोगात्मक प्राप्त",
+      "समूह स्मृति प्राप्त करें",
+      "साझा पुनर्प्राप्ति"
     ]
   },
   "ar": {
@@ -243,15 +243,15 @@
     "tool.description": "Retrieves raw long-term memory (shared memory) data shared among users.- Usually returns text in JSONL format (one record per line).",
     "x_search_terms": [
       "kushiriki kumbukumbu",
-      "",
-      "",
-      "",
-      "",
-      "",
-      "",
-      "",
-      "",
-      ""
+      "kumbukumbu ya pamoja pata",
+      "soma pamoja",
+      "rudisha iliyoshirikiwa",
+      "kumbukumbu iliyoshirikiwa",
+      "kupata kumbukumbu ya timu",
+      "habari iliyoshirikiwa pata",
+      "pata ushirikiano",
+      "kumbukumbu ya kikundi pata",
+      "urejeshaji wa pamoja"
     ]
   },
   "nb": {
@@ -272,15 +272,15 @@
   "nl": {
     "tool.description": "Haalt ruwe langetermijngeheugen-/gedeelde-geheugengegevens op die tussen gebruikers worden gedeeld.",
     "x_search_terms": [
-      "get shared",
-      "shared memory get",
-      "read shared",
-      "retrieve shared",
-      "shared recall",
-      "team memory get",
-      "shared info get",
-      "collaborative get",
-      "group memory get",
+      "gedeeld worden",
+      "gedeeld geheugen krijgen",
+      "lees gedeeld",
+      "gedeeld ophalen",
+      "gedeelde herinnering",
+      "teamgeheugen krijgen",
+      "gedeelde informatie krijgen",
+      "samenwerkend verkrijgen",
+      "groepsgeheugen krijgen",
       "shared ophalen"
     ]
   },
@@ -317,16 +317,16 @@
   "uk": {
     "tool.description": "Отримує сирі дані довготривалої пам’яті (спільної пам’яті), спільні між користувачами.",
     "x_search_terms": [
-      "get shared",
-      "shared memory get",
-      "read shared",
-      "retrieve shared",
-      "shared recall",
-      "team memory get",
-      "shared info get",
-      "collaborative get",
-      "group memory get",
-      "shared retrieve"
+      "отримати спільний доступ",
+      "отримати спільну пам'ять",
+      "читати поділилася",
+      "отримати спільний доступ",
+      "спільне відкликання",
+      "командна пам'ять отримати",
+      "отримати спільну інформацію",
+      "спільне отримання",
+      "група пам'яті отримати",
+      "спільне отримання"
     ]
   },
   "tr": {
@@ -410,13 +410,13 @@
       "دریافت به اشتراک گذاشته شده",
       "حافظه مشترک دریافت",
       "خواندن اشتراک‌گذاری شده",
-      "",
-      "",
-      "",
-      "",
-      "",
-      "",
-      ""
+      "بازیابی به اشتراک گذاشته شده",
+      "یادآوری مشترک",
+      "به دست آوردن حافظه تیم",
+      "دریافت اطلاعات به اشتراک گذاشته شده",
+      "بدست آوردن مشارکتی",
+      "دریافت حافظه گروهی",
+      "بازیابی مشترک"
     ]
   },
   "mn": {
@@ -438,15 +438,15 @@
     "tool.description": "वापरकर्त्यांमध्ये सामायिक केलेला raw long-term memory (shared memory) data मिळवते.",
     "x_search_terms": [
       "शेअर करा.",
-      "",
-      "",
-      "",
-      "",
-      "",
-      "",
-      "",
-      "",
-      ""
+      "सामायिक मेमरी मिळते",
+      "शेअर केलेले वाचले",
+      "सामायिक पुनर्प्राप्त करा",
+      "सामायिक आठवण",
+      "संघ मेमरी मिळवा",
+      "सामायिक केलेली माहिती मिळते",
+      "सहयोगी मिळवा",
+      "गट मेमरी मिळवा",
+      "सामायिक पुनर्प्राप्ती"
     ]
   },
   "el": {
@@ -484,14 +484,14 @@
     "x_search_terms": [
       "megosztott",
       "megosztott memória olvasása megosztott memória lekérése megosztott visszahívás csapatmemória megosztási információ beszerzése együttműködési csoportmemória beszerzése megosztott visszakeresés",
-      "",
-      "",
-      "",
-      "",
-      "",
-      "",
-      "",
-      ""
+      "olvasni megosztott",
+      "megosztott letöltése",
+      "közös visszaemlékezés",
+      "csapat memória kap",
+      "megosztott információkat kap",
+      "együttműködő kap",
+      "csoportmemória kap",
+      "megosztott visszakeresés"
     ]
   },
   "ro": {

@@ -491,12 +491,12 @@
     "param.lon.description": "Longitudo (k.m. 139.6917).",
     "param.language.description": "Lugha ya matokeo (msimbo wa ISO 639-1, k.m. ja, en, zh, ko). Imegunduliwa kiotomatiki ikiwa imeachwa.",
     "x_search_terms": [
-      "reverse geocode",
-      "reverse geocoding",
+      "geuza msimbo wa kijiografia",
+      "kubadilisha geocoding",
       "anwani kutoka kwa viwianishi",
-      "lat lon to address",
-      "gps to address",
-      "geocode reverse",
+      "latlon kushughulikia",
+      "gps kushughulikia",
+      "geocode kinyume",
       "location look",
       "utafutaji wa anwani",
       "kuratibu kwa anwani",
@@ -676,11 +676,11 @@
       "விலாசம்",
       "லட் லோன் முகவரி",
       "ஜிபிஎஸ் இருந்து முகவரிக்கு",
-      "",
-      "",
-      "",
-      "",
-      ""
+      "புவிசார் குறியீடு தலைகீழ்",
+      "இருப்பிடத் தேடல்",
+      "முகவரி தேடல்",
+      "உரையாற்ற ஒருங்கிணைக்கிறது",
+      "புவி முகவரி"
     ]
   },
   "ur": {
@@ -698,7 +698,7 @@
       " ایڈریس کی تلاش",
       " ایڈریس کے لیے کوآرڈینیٹس",
       " جیو ایڈریس",
-      ""
+      "جیو ایڈریس"
     ]
   },
   "ne": {

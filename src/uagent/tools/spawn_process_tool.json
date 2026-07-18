@@ -110,16 +110,16 @@
   "it": {
     "param.command.description": "Riga di comando da eseguire.",
     "x_search_terms": [
-      "spawn process",
-      "launch process",
-      "start process",
-      "run process",
-      "execute process",
-      "process launch",
-      "process start",
-      "run external",
-      "external process",
-      "process exec"
+      "processo di deposizione delle uova",
+      "processo di lancio",
+      "avviare il processo",
+      "eseguire il processo",
+      "eseguire il processo",
+      "avvio del processo",
+      "inizio del processo",
+      "eseguire esterno",
+      "processo esterno",
+      "processo esecuz"
     ],
     "err.command_empty": "Il comando [spawn_process error] è vuoto",
     "err.windows_start_missing_target": "[errore spawn_process] Il comando \"start\" di Windows non ha URL o percorso eseguibile.\\\nEsempio: start \\\"\\\" https://www.google.com",
@@ -147,15 +147,15 @@
     "param.command.description": "Linha de comando para executar.",
     "x_search_terms": [
       "processo spawn",
-      "launch process",
-      "start process",
-      "run process",
+      "processo de lançamento",
+      "iniciar processo",
       "executar processo",
-      "process launch",
-      "process start",
-      "run external",
-      "external process",
-      "process exec"
+      "executar processo",
+      "lançamento do processo",
+      "início do processo",
+      "executar externo",
+      "processo externo",
+      "executivo de processo"
     ],
     "err.command_empty": "O comando [spawn_process error] está vazio",
     "err.windows_start_missing_target": "[erro spawn_process] O comando 'start' do Windows não tem URL ou caminho executável.\\\nExemplo: start \\\"\\\" https://www.google.com",
@@ -587,7 +587,7 @@
       "folyamat indítása",
       "külső futtatása",
       "külső folyamat folyamat végrehajtása",
-      ""
+      "folyamat végrehajtó"
     ],
     "err.command_empty": "[spawn_process error] A Windows 'start' parancsnak nincs URL-je vagy végrehajtható elérési útja\nPélda: start \\\"\\\" https://www.google.com",
     "err.windows_start_missing_target": "A futtatandó speciális alügynök neve.",
@@ -596,16 +596,16 @@
   "ro": {
     "param.command.description": "Linie de comandă de executat.",
     "x_search_terms": [
-      "spawn process",
+      "procesul de generare a icrelor",
       "proces de lansare",
-      "start process",
-      "run process",
+      "începe procesul",
+      "rulați procesul",
       "execu process",
-      "process launch",
-      "process start",
-      "run external",
-      "external process",
-      "process exec"
+      "lansarea procesului",
+      "începerea procesului",
+      "rulează extern",
+      "proces extern",
+      "proces exec"
     ],
     "err.command_empty": "[spawn_process error] comanda este goală",
     "err.windows_start_missing_target": "[spawn_process error] Comanda „start” Windows nu are nici o adresă URL sau o cale executabilă.\nExemplu: start \\\"\\\" https://www.google.com",

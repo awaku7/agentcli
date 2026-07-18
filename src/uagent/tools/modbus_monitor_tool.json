@@ -144,7 +144,7 @@
     "msg.no_changes": "Δεν εντοπίστηκαν αλλαγές.",
     "err.ip_required": "απαιτείται ip.",
     "x_search_terms": [
-      "modbus monitor",
+      "οθόνη modbus",
       "modbus_monitor",
       "modbus",
       "MODBUS",
@@ -170,7 +170,7 @@
     "msg.no_changes": "No se detectaron cambios.",
     "err.ip_required": "Se requiere IP.",
     "x_search_terms": [
-      "modbus monitor",
+      "monitor modbus",
       "modbus_monitor",
       "modbus",
       "MODBUS",
@@ -282,7 +282,7 @@
       "מגלה",
       "שינויים",
       "החזרות",
-      ""
+      "מחזיר"
     ]
   },
   "hi": {
@@ -307,8 +307,8 @@
       "बार-बार रजिस्टर करता है",
       "परिवर्तनों",
       "रिटर्न का पता लगाता है",
-      "",
-      ""
+      "परिवर्तन",
+      "रिटर्न"
     ]
   },
   "hu": {
@@ -352,7 +352,7 @@
     "msg.no_changes": "Tidak ada perubahan yang terdeteksi.",
     "err.ip_required": "diperlukan.",
     "x_search_terms": [
-      "modbus monitor",
+      "monitor modbus",
       "modbus_monitor",
       "modbus",
       "MODBUS",
@@ -378,7 +378,7 @@
     "msg.no_changes": "Nessuna modifica rilevata.",
     "err.ip_required": "l'IP è obbligatorio.",
     "x_search_terms": [
-      "modbus monitor",
+      "monitor modbus",
       "modbus_monitor",
       "modbus",
       "MODBUS",
@@ -456,7 +456,7 @@
     "msg.no_changes": "Өөрчлөлт илрээгүй.",
     "err.ip_required": "ip шаардлагатай.",
     "x_search_terms": [
-      "modbus monitor",
+      "modbus дэлгэц",
       "modbus_monitor",
       "modbus",
       "MODBUS",
@@ -534,7 +534,7 @@
     "msg.no_changes": "Geen wijzigingen gedetecteerd.",
     "err.ip_required": "ip is vereist.",
     "x_search_terms": [
-      "modbus monitor",
+      "modbus-monitor",
       "modbus_monitor",
       "modbus",
       "MODBUS",
@@ -691,14 +691,14 @@
     "err.ip_required": "ip krävs.",
     "x_search_terms": [
       "modbus monitor",
-      "",
-      "",
-      "",
-      "",
-      "",
-      "",
-      "",
-      ""
+      "modbus_monitor",
+      "modbus",
+      "MODBUS",
+      "register",
+      "upprepade gånger",
+      "upptäcka",
+      "förändringar",
+      "returnerar"
     ]
   },
   "sw": {
@@ -716,7 +716,7 @@
     "msg.no_changes": "Hakuna mabadiliko yaliyogunduliwa.",
     "err.ip_required": "ip inahitajika.",
     "x_search_terms": [
-      "modbus monitor",
+      "mfuatiliaji wa modbus",
       "modbus_monitor",
       "modbus",
       "MODBUS",
@@ -742,7 +742,7 @@
     "msg.no_changes": "ไม่พบการเปลี่ยนแปลง",
     "err.ip_required": "จำเป็นต้องมีไอพี",
     "x_search_terms": [
-      "modbus monitor",
+      "มอนิเตอร์โมดบัส",
       "modbus_monitor",
       "modbus",
       "MODBUS",
@@ -776,7 +776,7 @@
       "tekrar tekrar",
       "değişiklikleri algılar",
       "geri döner",
-      ""
+      "geri döner"
     ]
   },
   "uk": {

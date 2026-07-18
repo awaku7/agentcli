@@ -57,7 +57,7 @@
     "param.obj.description": "Filtr kódu objektu (např. „0130“).",
     "tool.description": "Opakovaně dotazujte uzel ECHONET Lite, zjistěte změny vlastností a vraťte JSON nebo textové shrnutí.",
     "x_search_terms": [
-      "echonet monitor",
+      "echonetový monitor",
       "echonet_monitor",
       "echonet",
       "ECHONET",
@@ -79,7 +79,7 @@
     "param.obj.description": "Objektcodefilter (z. B. „0130“).",
     "tool.description": "Fragen Sie wiederholt einen ECHONET Lite-Knoten ab, erkennen Sie Eigenschaftsänderungen und geben Sie eine JSON- oder Textzusammenfassung zurück.",
     "x_search_terms": [
-      "echonet monitor",
+      "Echonet-Monitor",
       "echonet_monitor",
       "echonet",
       "ECHONET",
@@ -123,7 +123,7 @@
     "param.obj.description": "Filtro de código objeto (por ejemplo, '0130').",
     "tool.description": "Sondee un nodo ECHONET Lite repetidamente, detecte cambios de propiedad y devuelva un resumen de texto o JSON.",
     "x_search_terms": [
-      "echonet monitor",
+      "monitor de red de eco",
       "echonet_monitor",
       "echonet",
       "ECHONET",
@@ -150,7 +150,7 @@
       "echonet",
       "ECHONET",
       "تشخیص مکرر",
-      ""
+      "تشخیص دهد"
     ]
   },
   "fi": {
@@ -167,7 +167,7 @@
     "param.obj.description": "Objektikoodisuodatin (esim. '0130').",
     "tool.description": "Pyydä ECHONET Lite -solmu toistuvasti, havaitse ominaisuuksien muutokset ja palauta JSON- tai tekstiyhteenveto.",
     "x_search_terms": [
-      "echonet monitor",
+      "echonet monitori",
       "echonet_monitor",
       "echonet",
       "ECHONET",
@@ -216,7 +216,7 @@
       "इकोनेट",
       "ECHONET",
       "बार-बार पता लगाएं",
-      ""
+      "पता लगाएं"
     ]
   },
   "id": {
@@ -233,7 +233,7 @@
     "param.obj.description": "Filter kode objek (misalnya '0130').",
     "tool.description": "Lakukan polling pada node ECHONET Lite berulang kali, deteksi perubahan properti, dan kembalikan JSON atau ringkasan teks.",
     "x_search_terms": [
-      "echonet monitor",
+      "monitor gema",
       "echonet_monitor",
       "echonet",
       "ECHONET",
@@ -255,7 +255,7 @@
     "param.obj.description": "Filtro codice oggetto (es. '0130').",
     "tool.description": "Interroga ripetutamente un nodo ECHONET Lite, rileva le modifiche alle proprietà e restituisce un JSON o un riepilogo testuale.",
     "x_search_terms": [
-      "echonet monitor",
+      "monitor econet",
       "echonet_monitor",
       "echonet",
       "ECHONET",
@@ -299,7 +299,7 @@
     "param.obj.description": "개체 코드 필터(예: '0130').",
     "tool.description": "ECHONET Lite 노드를 반복적으로 폴링하고, 속성 변경을 감지하고, JSON 또는 텍스트 요약을 반환합니다.",
     "x_search_terms": [
-      "echonet monitor",
+      "에코넷 모니터",
       "echonet_monitor",
       "echonet",
       "ECHONET",
@@ -387,12 +387,12 @@
     "param.obj.description": "מסנן קוד אובייקט (למשל '0130').",
     "tool.description": "סקר צומת ECHONET Lite שוב ושוב, זיהוי שינויים במאפיינים והחזר JSON או סיכום טקסט.",
     "x_search_terms": [
-      "echonet monitor",
+      "מוניטור echonet",
       "echonet_monitor",
       "echonet",
       "ECHONET",
       "זיהוי שוב ושוב",
-      ""
+      "לזהות"
     ]
   },
   "hu": {
@@ -414,7 +414,7 @@
       "echonet",
       "ECHONET",
       "ismétlődően észlel",
-      ""
+      "észlelni"
     ]
   },
   "ro": {
@@ -431,12 +431,12 @@
     "param.obj.description": "Filtru de cod obiect (de exemplu, „0130”).",
     "tool.description": "Interogați în mod repetat un nod ECHONET Lite, detectați modificările de proprietate și returnați un rezumat JSON sau text.",
     "x_search_terms": [
-      "echonet monitor",
+      "monitor echonet",
       "echonet_monitor",
       "echonet",
       "ECHONET",
       "detecta în mod repetat",
-      ""
+      "detectează"
     ]
   },
   "nb": {
@@ -475,7 +475,7 @@
     "param.obj.description": "Objectcodefilter (bijvoorbeeld '0130').",
     "tool.description": "Poll herhaaldelijk een ECHONET Lite-knooppunt, detecteer wijzigingen in eigenschappen en retourneer een JSON- of tekstsamenvatting.",
     "x_search_terms": [
-      "echonet monitor",
+      "echonet-monitor",
       "echonet_monitor",
       "echonet",
       "ECHONET",
@@ -497,7 +497,7 @@
     "param.obj.description": "Filtr kodu obiektowego (np. „0130”).",
     "tool.description": "Wielokrotnie odpytuj węzeł ECHONET Lite, wykryj zmiany właściwości i zwróć podsumowanie w formacie JSON lub tekstowym.",
     "x_search_terms": [
-      "echonet monitor",
+      "monitor echonetu",
       "echonet_monitor",
       "echonet",
       "ECHONET",
@@ -590,7 +590,7 @@
       "echonet",
       "ECHONET",
       "upptäcka upprepade gånger",
-      ""
+      "upptäcka"
     ]
   },
   "sw": {
@@ -607,7 +607,7 @@
     "param.obj.description": "Kichujio cha msimbo wa kitu (k.m. '0130').",
     "tool.description": "Piga kura kwa nodi ya ECHONET Lite mara kwa mara, tambua mabadiliko ya sifa, na urudishe muhtasari wa maandishi ya JSON au maandishi.",
     "x_search_terms": [
-      "echonet monitor",
+      "mfuatiliaji wa echonet",
       "echonet_monitor",
       "echonet",
       "ECHONET",
@@ -629,7 +629,7 @@
     "param.obj.description": "ตัวกรองรหัสออบเจ็กต์ (เช่น '0130')",
     "tool.description": "สำรวจโหนด ECHONET Lite ซ้ำๆ ตรวจหาการเปลี่ยนแปลงคุณสมบัติ และส่งคืน JSON หรือสรุปข้อความ",
     "x_search_terms": [
-      "echonet monitor",
+      "มอนิเตอร์เอคโคเน็ต",
       "echonet_monitor",
       "echonet",
       "ECHONET",

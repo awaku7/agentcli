@@ -250,7 +250,7 @@
     "err.task_id_required": "A task_id megadása szükséges az action=unsubscribe paraméterhez.",
     "x_search_terms": [
       "bacnet cov leiratkozás",
-      "bacnet_cov_unsubscribe",
+      "bacnet_cov_leiratkozás",
       "bacnet",
       "BACNET",
       "cov",
@@ -350,7 +350,7 @@
     "err.task_id_required": "Үйлдэл=бүртгэлээ цуцлахад task_id шаардлагатай.",
     "x_search_terms": [
       "bacnet cov бүртгэлээ цуцлах",
-      "bacnet_cov_unsubscribe",
+      "bacnet_cov_бүртгэлээ цуцлах",
       "бакнет",
       "бакнет",
       "ков",
@@ -550,7 +550,7 @@
     "err.task_id_required": "task_id inahitajika kwa action=kujiondoa.",
     "x_search_terms": [
       "bacnet cov jiondoe",
-      "bacnet_cov_unsubscribe",
+      "bacnet_cov_kujiondoa",
       "bacnet",
       "BACNET",
       "cov",
@@ -590,7 +590,7 @@
     "err.task_id_required": "action=aboneliği iptal etmek için görev_id'si gereklidir.",
     "x_search_terms": [
       "bacnet cov aboneliği iptal et",
-      "bacnet_cov_unsubscribe",
+      "bacnet_cov_abonelikten çık",
       "bacnet",
       "BACNET",
       "cov",
@@ -610,7 +610,7 @@
     "err.task_id_required": "task_id необхідний для action=unsubscribe.",
     "x_search_terms": [
       "відписатися від bacnet cov",
-      "bacnet_cov_unsubscribe",
+      "bacnet_cov_відписатися",
       "bacnet",
       "BACNET",
       "cov",
@@ -650,7 +650,7 @@
     "err.task_id_required": "action=unsubscribe 需要 task_id。",
     "x_search_terms": [
       "取消 bacnet cov 订阅",
-      "bacnet_cov_unsubscribe",
+      "bacnet_cov_取消订阅",
       "bacnet",
       "BACNET",
       "cov",
@@ -670,7 +670,7 @@
     "err.task_id_required": "action=unsubscribe 需要 task_id。",
     "x_search_terms": [
       "取消 bacnet cov 訂閱",
-      "bacnet_cov_unsubscribe",
+      "bacnet_cov_取消訂閱",
       "bacnet",
       "BACNET",
       "cov",

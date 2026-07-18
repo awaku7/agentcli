@@ -12,7 +12,7 @@
     "param.endpoint.description": "مرشح نقطة النهاية (اختياري).",
     "x_search_terms": [
       "قائمة مجموعة المسألة",
-      "matter_cluster_list",
+      "Matter_cluster_list",
       "المادة",
       "MATTER",
       "cluster",
@@ -34,9 +34,9 @@
       "পদার্থের ক্লাস্টার তালিকা",
       "বস্তু_গুচ্ছ_তালিকা",
       "ব্যাপার",
-      "",
-      "",
-      ""
+      "ব্যাপার",
+      "ক্লাস্টার",
+      "ক্লাস্টার"
     ]
   },
   "cs": {
@@ -56,7 +56,7 @@
       " seskupení",
       " klastrů",
       "záležitostí",
-      ""
+      "shluky"
     ]
   },
   "de": {
@@ -112,7 +112,7 @@
     "param.endpoint.description": "Filtro de punto final (opcional).",
     "x_search_terms": [
       "lista de grupos de materia",
-      "matter_cluster_list",
+      "lista_cluster_materia",
       "matter",
       "MATTER",
       "cluster",
@@ -132,11 +132,11 @@
     "param.endpoint.description": "فیلتر نقطه پایانی (اختیاری).",
     "x_search_terms": [
       "فهرست خوشه‌ای ماده",
-      "",
-      "",
-      "",
-      "",
-      ""
+      "ماده_خوشه_لیست",
+      "موضوع",
+      "موضوع",
+      "خوشه",
+      "خوشه ها"
     ]
   },
   "fi": {
@@ -172,7 +172,7 @@
     "param.endpoint.description": "Filtre de point de terminaison (facultatif).",
     "x_search_terms": [
       "liste de clusters de matières",
-      "matter_cluster_list",
+      "liste_cluster_question",
       "matter",
       "MATTER",
       "cluster",
@@ -212,7 +212,7 @@
     "param.endpoint.description": "Filter titik akhir (opsional).",
     "x_search_terms": [
       "daftar cluster materi",
-      "matter_cluster_list",
+      "daftar_materi_cluster",
       "matter",
       "MATTER",
       "cluster",
@@ -272,7 +272,7 @@
     "param.endpoint.description": "엔드포인트 필터(선택 사항).",
     "x_search_terms": [
       "물질 클러스터 목록",
-      "matter_cluster_list",
+      "물질 클러스터 목록",
       "물질",
       "MATTER",
       "cluster",
@@ -312,7 +312,7 @@
     "param.endpoint.description": "एंडपॉइंट फिल्टर (पर्यायी).",
     "x_search_terms": [
       "पदार्थ क्लस्टर सूची",
-      "matter_cluster_list",
+      "बाब_क्लस्टर_लिस्ट",
       "matter",
       "MATTER",
       "क्लस्टर",
@@ -332,7 +332,7 @@
     "param.endpoint.description": "Φίλτρο τελικού σημείου (προαιρετικό).",
     "x_search_terms": [
       "λίστα συστάδων ύλης",
-      "matter_cluster_list",
+      "λίστα_συστάδας_ύλης",
       "matter",
       "MATTER",
       "cluster",
@@ -354,9 +354,9 @@
       "רשימת אשכולות עניינים",
       "matter_cluster_list",
       "חומרי אשכולות",
-      "",
-      "",
-      ""
+      "עניין",
+      "אשכול",
+      "אשכולות"
     ]
   },
   "hu": {
@@ -411,7 +411,7 @@
     "param.ctrl.description": "Kontroller-ID (valgfritt).",
     "param.endpoint.description": "Endepunktfilter (valgfritt).",
     "x_search_terms": [
-      "matter cluster list",
+      "saksklyngeliste",
       "matter_cluster_list",
       "matter",
       "MATTER",
@@ -432,7 +432,7 @@
     "param.endpoint.description": "Eindpuntfilter (optioneel).",
     "x_search_terms": [
       "kwestieclusterlijst",
-      "matter_cluster_list",
+      "materie_cluster_lijst",
       "matter",
       "MATTER",
       "cluster",
@@ -452,7 +452,7 @@
     "param.endpoint.description": "Filtr punktu końcowego (opcjonalnie).",
     "x_search_terms": [
       "lista skupień materii",
-      "matter_cluster_list",
+      "lista_klastrów materii",
       "materia",
       "MATTER",
       "klaster",
@@ -472,7 +472,7 @@
     "param.endpoint.description": "Filtro de endpoint (opcional).",
     "x_search_terms": [
       "lista de clusters de matéria",
-      "matter_cluster_list",
+      "lista_de_clusters_matéria",
       "matter",
       "MATTER",
       "cluster",
@@ -492,7 +492,7 @@
     "param.endpoint.description": "Filtro de endpoint (opcional).",
     "x_search_terms": [
       "lista de clusters de matéria",
-      "matter_cluster_list",
+      "lista_de_clusters_matéria",
       "matter",
       "MATTER",
       "cluster",
@@ -512,7 +512,7 @@
     "param.endpoint.description": "Фильтр конечных точек (необязательно).",
     "x_search_terms": [
       "список кластеров материи",
-      "matter_cluster_list",
+      "Matter_cluster_list",
       "материя",
       "МАТЕРИЯ",
       "кластер",
@@ -531,7 +531,7 @@
     "param.ctrl.description": "Controller-ID (valfritt).",
     "param.endpoint.description": "Slutpunktsfilter (tillval).",
     "x_search_terms": [
-      "matter cluster list",
+      "ärendeklusterlista",
       "matter_cluster_list",
       "matter",
       "MATTER",
@@ -552,7 +552,7 @@
     "param.endpoint.description": "Kichujio cha mwisho (si lazima).",
     "x_search_terms": [
       "list cluster list",
-      "matter_cluster_list",
+      "matter_cluster list",
       "matter",
       "MATTER",
       "cluster",
@@ -572,7 +572,7 @@
     "param.endpoint.description": "ตัวกรองปลายทาง (ไม่จำเป็น)",
     "x_search_terms": [
       "รายการคลัสเตอร์เรื่อง",
-      "matter_cluster_list",
+      "Matter_cluster_list",
       "เรื่อง",
       "MATTER",
       "คลัสเตอร์",
@@ -592,7 +592,7 @@
     "param.endpoint.description": "Uç nokta filtresi (isteğe bağlı).",
     "x_search_terms": [
       "madde kümesi listesi",
-      "matter_cluster_list",
+      "Matter_cluster_list",
       "matter",
       "MATTER",
       "cluster",
@@ -612,7 +612,7 @@
     "param.endpoint.description": "Фільтр кінцевої точки (необов’язково).",
     "x_search_terms": [
       "список кластерів матерії",
-      "matter_cluster_list",
+      "список_кластерів матерії",
       "matter",
       "МАТЕР",
       "кластер",
@@ -632,7 +632,7 @@
     "param.endpoint.description": "Bộ lọc điểm cuối (tùy chọn).",
     "x_search_terms": [
       "danh sách cụm vật chất",
-      "matter_cluster_list",
+      "vấn đề_cluster_list",
       "matter",
       "MATTER",
       "cluster",
@@ -652,7 +652,7 @@
     "param.endpoint.description": "端点过滤器（可选）。",
     "x_search_terms": [
       "物质簇列表",
-      "matter_cluster_list",
+      "物质簇列表",
       "matter",
       "MATTER",
       "cluster",
@@ -672,7 +672,7 @@
     "param.endpoint.description": "端點過濾器（可選）。",
     "x_search_terms": [
       "物質簇列表",
-      "matter_cluster_list",
+      "物質簇列表",
       "matter",
       "MATTER",
       "cluster",

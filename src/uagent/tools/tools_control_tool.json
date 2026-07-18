@@ -400,7 +400,7 @@
   },
   "uk": {
     "cmd.help.tools_list": "  :tools list [query]               Список завантажених інструментів, опціонально відфільтрованих за назвою/описом",
-    "cmd.help.tools_load": "  :tools load <name>",
+    "cmd.help.tools_load": ":tools load <name>",
     "msg.tools.usage_load": "Використання: :tools load <tool_name>",
     "msg.tools.loaded_single": "[tools] Інструмент завантажено: {name}",
     "msg.tools.not_found": "[tools] Інструмент не знайдено: {name}",

@@ -47,7 +47,7 @@
     "msg.unsubscribed": "OPC UA সদস্যতা {id} বাতিল হয়েছে৷",
     "err.id_required": "অ্যাকশনের জন্য সাবস্ক্রিপশন_আইডি প্রয়োজন= আনসাবস্ক্রাইব।",
     "x_search_terms": [
-      "opcua unsubscribe",
+      "সদস্যতা ত্যাগ করুন",
       "opcua_unsubscribe",
       "opcua",
       "OPCUA",
@@ -66,13 +66,13 @@
     "msg.unsubscribed": "Předplatné OPC UA {id} bylo zrušeno.",
     "err.id_required": "Subscription_id je vyžadováno pro action=unsubscribe.",
     "x_search_terms": [
-      "opcua unsubscribe",
+      "opcua odhlásit",
       "opcua_unsubscribe",
       "opcua",
       "OPCUA",
       "zrušit",
       "subscription_id",
-      ""
+      "id_předplatného"
     ]
   },
   "de": {
@@ -85,7 +85,7 @@
     "msg.unsubscribed": "OPC UA-Abonnement {id} gekündigt.",
     "err.id_required": "subscription_id ist für action=unsubscribe erforderlich.",
     "x_search_terms": [
-      "opcua unsubscribe",
+      "opcua abmelden",
       "opcua_unsubscribe",
       "opcua",
       "OPCUA",
@@ -104,7 +104,7 @@
     "msg.unsubscribed": "Η συνδρομή OPC UA {id} ακυρώθηκε.",
     "err.id_required": "Το subscription_id απαιτείται για action=unsubscribe.",
     "x_search_terms": [
-      "opcua unsubscribe",
+      "opcua απεγγραφή",
       "opcua_unsubscribe",
       "opcua",
       "OPCUA",
@@ -124,7 +124,7 @@
     "err.id_required": "Se requiere id_suscripción para acción=cancelar suscripción.",
     "x_search_terms": [
       "opcua darse de baja",
-      "opcua_unsubscribe",
+      "opcua_cancelar suscripción",
       "opcua",
       "OPCUA",
       "cancelar",
@@ -161,7 +161,7 @@
     "msg.unsubscribed": "OPC UA -tilaus {id} peruutettu.",
     "err.id_required": "tilaustunnus vaaditaan parametrille action=unsubscribe.",
     "x_search_terms": [
-      "opcua unsubscribe",
+      "opcua peruuttaa tilauksen",
       "opcua_unsubscribe",
       "opcua",
       "OPCUA",
@@ -199,7 +199,7 @@
     "msg.unsubscribed": "מנוי OPC UA {id} בוטל.",
     "err.id_required": "subscription_id נדרש עבור action=unsubscribe.",
     "x_search_terms": [
-      "opcua unsubscribe",
+      "opcua בטל את המנוי",
       "opcua_unsubscribe",
       "opcua",
       "OPCUA",
@@ -218,7 +218,7 @@
     "msg.unsubscribed": "ओपीसी यूए सदस्यता {id} रद्द कर दी गई।",
     "err.id_required": "कार्रवाई=सदस्यता समाप्त करने के लिए subscribe_id आवश्यक है।",
     "x_search_terms": [
-      "opcua unsubscribe",
+      "विकल्प सदस्यता समाप्त करें",
       "opcua_unsubscribe",
       "opcua",
       "OPCUA",
@@ -257,7 +257,7 @@
     "err.id_required": "ID_langganan diperlukan untuk tindakan=berhenti berlangganan.",
     "x_search_terms": [
       "opcua berhenti berlangganan",
-      "opcua_unsubscribe",
+      "opcua_berhenti berlangganan",
       "opcua",
       "OPCUA",
       "batalkan",
@@ -313,7 +313,7 @@
     "msg.unsubscribed": "OPC UA 구독 {id}이 취소되었습니다.",
     "err.id_required": "action=unsubscribe에는 subscribe_id가 필요합니다.",
     "x_search_terms": [
-      "opcua unsubscribe",
+      "opcua 구독 취소",
       "opcua_unsubscribe",
       "opcua",
       "OPCUA",
@@ -333,7 +333,7 @@
     "err.id_required": "Үйлдэл=бүртгэлээ цуцлахад subscription_id шаардлагатай.",
     "x_search_terms": [
       "opcua захиалгаа цуцлах",
-      "opcua_unsubscribe",
+      "opcua_бүртгэлээ цуцлах",
       "opcua",
       "OPCUA",
       "цуцлах",
@@ -351,7 +351,7 @@
     "msg.unsubscribed": "OPC UA सदस्यता {id} रद्द केली.",
     "err.id_required": "कृती = सदस्यत्व रद्द करण्यासाठी subscription_id आवश्यक आहे.",
     "x_search_terms": [
-      "opcua unsubscribe",
+      "सदस्यता रद्द करा",
       "opcua_unsubscribe",
       "opcua",
       "OPCUA",
@@ -370,7 +370,7 @@
     "msg.unsubscribed": "OPC UA-abonnement {id} kansellert.",
     "err.id_required": "subscription_id kreves for action=unsubscribe.",
     "x_search_terms": [
-      "opcua unsubscribe",
+      "opcua avslutte abonnementet",
       "opcua_unsubscribe",
       "opcua",
       "OPCUA",
@@ -389,7 +389,7 @@
     "msg.unsubscribed": "OPC UA-abonnement {id} geannuleerd.",
     "err.id_required": "abonnement_id is vereist voor actie=afmelden.",
     "x_search_terms": [
-      "opcua unsubscribe",
+      "opcua afmelden",
       "opcua_unsubscribe",
       "opcua",
       "OPCUA",
@@ -465,7 +465,7 @@
     "msg.unsubscribed": "Abonamentul OPC UA {id} a fost anulat.",
     "err.id_required": "subscription_id este necesar pentru action=unsubscribe.",
     "x_search_terms": [
-      "opcua unsubscribe",
+      "opcua dezabonare",
       "opcua_unsubscribe",
       "opcua",
       "OPCUA",
@@ -503,7 +503,7 @@
     "msg.unsubscribed": "OPC UA-prenumeration {id} avbröts.",
     "err.id_required": "subscription_id krävs för action=unsubscribe.",
     "x_search_terms": [
-      "opcua unsubscribe",
+      "opcua avsluta prenumerationen",
       "opcua_unsubscribe",
       "opcua",
       "OPCUA",
@@ -523,7 +523,7 @@
     "err.id_required": "subscription_id inahitajika kwa action=kujiondoa.",
     "x_search_terms": [
       "opcua kujiondoa",
-      "opcua_unsubscribe",
+      "opcua_jiondoe",
       "opcua",
       "OPCUA",
       "ghairi",
@@ -579,7 +579,7 @@
     "msg.unsubscribed": "Підписку на OPC UA {id} скасовано.",
     "err.id_required": "subscription_id необхідний для action=unsubscribe.",
     "x_search_terms": [
-      "opcua unsubscribe",
+      "opcua відписатися",
       "opcua_unsubscribe",
       "opcua",
       "OPCUA",
@@ -599,7 +599,7 @@
     "err.id_required": "subscribe_id là bắt buộc đối với action=unsubscribe.",
     "x_search_terms": [
       "opcua hủy đăng ký",
-      "opcua_unsubscribe",
+      "opcua_hủy đăng ký",
       "opcua",
       "OPCUA",
       "hủy",
@@ -618,7 +618,7 @@
     "err.id_required": "action=unsubscribe 需要 subscription_id。",
     "x_search_terms": [
       "opcua 取消订阅",
-      "opcua_unsubscribe",
+      "opcua_取消订阅",
       "opcua",
       "OPCUA",
       "取消",
@@ -637,7 +637,7 @@
     "err.id_required": "action=unsubscribe 需要 subscription_id。",
     "x_search_terms": [
       "opcua 取消訂閱",
-      "opcua_unsubscribe",
+      "opcua_取消訂閱",
       "opcua",
       "OPCUA",
       "取消",

@@ -62,7 +62,7 @@
     "param.use_tls.description": "TLS/SSL (MQTTS) সক্ষম করুন৷ ডিফল্ট পোর্ট 8883 হয়ে যায়।",
     "param.insecure.description": "TLS শংসাপত্র যাচাইকরণ (অনিরাপদ) এড়িয়ে যান।",
     "x_search_terms": [
-      "mqtt subscribe",
+      "mqtt সাবস্ক্রাইব করুন",
       "mqtt_subscribe",
       "mqtt",
       "MQTT",
@@ -110,7 +110,7 @@
     "param.use_tls.description": "Aktivieren Sie TLS/SSL (MQTTS). Der Standardport wird 8883.",
     "param.insecure.description": "Überprüfung des TLS-Zertifikats überspringen (unsicher).",
     "x_search_terms": [
-      "mqtt subscribe",
+      "mqtt abonnieren",
       "mqtt_subscribe",
       "mqtt",
       "MQTT",
@@ -134,7 +134,7 @@
     "param.use_tls.description": "Ενεργοποίηση TLS/SSL (MQTTS). Η προεπιλεγμένη θύρα γίνεται 8883.",
     "param.insecure.description": "Παράβλεψη επαλήθευσης πιστοποιητικού TLS (μη ασφαλής).",
     "x_search_terms": [
-      "mqtt subscribe",
+      "mqtt εγγραφείτε",
       "mqtt_subscribe",
       "mqtt",
       "MQTT",
@@ -182,7 +182,7 @@
     "param.use_tls.description": "TLS/SSL (MQTTS) را فعال کنید. پورت پیش فرض 8883 می شود.",
     "param.insecure.description": "رد شدن از تأیید گواهی TLS (ناامن).",
     "x_search_terms": [
-      "mqtt subscribe",
+      "mqtt مشترک شوید",
       "mqtt_subscribe",
       "mqtt",
       "MQTT",
@@ -254,7 +254,7 @@
     "param.use_tls.description": "אפשר TLS/SSL (MQTTS). יציאת ברירת המחדל הופכת ל-8883.",
     "param.insecure.description": "דלג על אימות אישור TLS (לא מאובטח).",
     "x_search_terms": [
-      "mqtt subscribe",
+      "mqtt הירשם",
       "mqtt_subscribe",
       "mqtt",
       "MQTT",
@@ -278,7 +278,7 @@
     "param.use_tls.description": "टीएलएस/एसएसएल (एमक्यूटीटीएस) सक्षम करें। डिफ़ॉल्ट पोर्ट 8883 हो जाता है.",
     "param.insecure.description": "टीएलएस प्रमाणपत्र सत्यापन छोड़ें (असुरक्षित)।",
     "x_search_terms": [
-      "mqtt subscribe",
+      "mqtt सदस्यता लें",
       "mqtt_subscribe",
       "mqtt",
       "MQTT",
@@ -398,7 +398,7 @@
     "param.use_tls.description": "TLS/SSL(MQTTS)을 활성화합니다. 기본 포트는 8883이 됩니다.",
     "param.insecure.description": "TLS 인증서 확인을 건너뜁니다(안전하지 않음).",
     "x_search_terms": [
-      "mqtt subscribe",
+      "mqtt 구독",
       "mqtt_subscribe",
       "mqtt",
       "MQTT",
@@ -422,7 +422,7 @@
     "param.use_tls.description": "TLS/SSL (MQTTS) идэвхжүүлнэ. Анхдагч порт нь 8883 болно.",
     "param.insecure.description": "TLS сертификатын баталгаажуулалтыг алгасах (найдваргүй).",
     "x_search_terms": [
-      "mqtt subscribe",
+      "mqtt бүртгүүлнэ үү",
       "mqtt_subscribe",
       "mqtt",
       "MQTT",
@@ -446,7 +446,7 @@
     "param.use_tls.description": "TLS/SSL (MQTTS) सक्षम करा. डीफॉल्ट पोर्ट 8883 होते.",
     "param.insecure.description": "TLS प्रमाणपत्र पडताळणी वगळा (असुरक्षित).",
     "x_search_terms": [
-      "mqtt subscribe",
+      "mqtt सदस्यता घ्या",
       "mqtt_subscribe",
       "mqtt",
       "MQTT",
@@ -470,7 +470,7 @@
     "param.use_tls.description": "Aktiver TLS/SSL (MQTTS). Standardporten blir 8883.",
     "param.insecure.description": "Hopp over TLS-sertifikatverifisering (usikker).",
     "x_search_terms": [
-      "mqtt subscribe",
+      "mqtt abonnere",
       "mqtt_subscribe",
       "mqtt",
       "MQTT",
@@ -542,7 +542,7 @@
     "param.use_tls.description": "Habilite TLS/SSL (MQTTS). A porta padrão passa a ser 8883.",
     "param.insecure.description": "Ignore a verificação do certificado TLS (inseguro).",
     "x_search_terms": [
-      "mqtt subscribe",
+      "assinar mqtt",
       "mqtt_subscribe",
       "mqtt",
       "MQTT",
@@ -566,7 +566,7 @@
     "param.use_tls.description": "Habilite TLS/SSL (MQTTS). A porta padrão passa a ser 8883.",
     "param.insecure.description": "Ignore a verificação do certificado TLS (inseguro).",
     "x_search_terms": [
-      "mqtt subscribe",
+      "assinar mqtt",
       "mqtt_subscribe",
       "mqtt",
       "MQTT",
@@ -590,7 +590,7 @@
     "param.use_tls.description": "Activați TLS/SSL (MQTTS). Portul implicit devine 8883.",
     "param.insecure.description": "Omiteți verificarea certificatului TLS (nesigur).",
     "x_search_terms": [
-      "mqtt subscribe",
+      "mqtt abonați-vă",
       "mqtt_subscribe",
       "mqtt",
       "MQTT",

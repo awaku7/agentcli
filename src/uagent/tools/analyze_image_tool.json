@@ -284,7 +284,7 @@
       "maudhui ya picha",
       "uchanganuzi wa taswira",
       "ugunduzi wa picha",
-      ""
+      "utambuzi wa picha"
     ],
     "param.img.description": "Njia ya faili ya picha kuchanganua."
   },
@@ -467,11 +467,11 @@
       "تشخیص تصویر",
       "بینایی",
       "درک تصویر",
-      "",
-      "",
-      "",
-      "",
-      ""
+      "تصویر توصیف",
+      "محتوای تصویر",
+      "تصویر ai",
+      "تجزیه و تحلیل بصری",
+      "تشخیص تصویر"
     ],
     "param.img.description": "مسیر فایل تصویر برای تحلیل."
   },
@@ -539,7 +539,7 @@
       "תוכן תמונה",
       "ניתוח חזותי של תמונה",
       "זיהוי תמונה",
-      ""
+      "זיהוי תמונה"
     ],
     "param.img.description": "נתיב לקובץ התמונה לניתוח."
   },
@@ -551,12 +551,12 @@
       " képelemzés ",
       " képfelismerés ",
       " látás",
-      "",
-      "",
-      "",
-      "",
-      "",
-      ""
+      "képértés",
+      "kép írja le",
+      "képtartalom",
+      "kép ai",
+      "vizuális elemzés",
+      "képfelismerés"
     ],
     "param.img.description": "Az elemezni kívánt képfájl elérési útja."
   },

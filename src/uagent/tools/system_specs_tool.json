@@ -191,7 +191,7 @@
       "informasi sistem",
       "spesifikasi komputer",
       "info perangkat",
-      "os info"
+      "infonya"
     ],
     "param.include_volumes.description": "Sertakan informasi penggunaan volume yang terpasang.",
     "param.include_disks.description": "Sertakan informasi disk fisik jika tersedia (best-effort).",
@@ -477,7 +477,7 @@
       "মেমরি",
       "কম্পিউটার তথ্য",
       "সিস্টেম তথ্য",
-      "pc specs",
+      "পিসি চশমা",
       "ডিভাইস তথ্য",
       "os তথ্য"
     ],

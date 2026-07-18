@@ -293,7 +293,7 @@
       "filtillägg",
       "filtyp",
       "typ upptäck",
-      "magic bytes",
+      "magiska bytes",
       "filformat",
       "filkategori",
       "identifiera fil"
@@ -331,7 +331,7 @@
       "filtype",
       "filtype",
       "typedetect",
-      "magic bytes",
+      "magiske bytes",
       "filformat",
       "filkategori",
       "identifiser fil"
@@ -364,12 +364,12 @@
     "tool.description": "Määrittää tiedostojen MIME-tyypin ja muodon käyttämällä tiedostopäätettä, maagisia tavuja ja heuristiikkaa.",
     "x_search_terms": [
       "tiedostotyyppi",
-      "detect type",
+      "tunnistaa tyyppi",
       "mime-tyyppi",
       "tiedostotunniste",
       "tiedostotyyppi",
       "tyyppi havaitse",
-      "magic bytes",
+      "maagisia tavuja",
       "tiedostomuoto",
       "tiedostoluokka",
       "tunnista tiedosto"
@@ -520,11 +520,11 @@
       "نوع mime",
       "پسوند فایل",
       "نوع پرونده",
-      "",
-      "",
-      "",
-      "",
-      ""
+      "تشخیص نوع",
+      "بایت های جادویی",
+      "فرمت فایل",
+      "دسته بندی فایل",
+      "شناسایی فایل"
     ],
     "param.paths.description": "یک یا چند مسیر فایل برای شناسایی.",
     "err.no_paths": "هیچ مسیری ارائه نشده است.",
@@ -597,7 +597,7 @@
       "סיומת קובץ",
       "סוג קובץ",
       "סוג detect",
-      "magic bytes",
+      "בתים קסמים",
       "פורמט קובץ",
       "קטגוריית קובץ",
       "זיהוי קובץ"
@@ -616,7 +616,7 @@
       "fájl kiterjesztése",
       "fájl típusa",
       "típus észlelése",
-      "magic bytes",
+      "mágikus bájtok",
       "fájlformátum",
       "fájl kategória",
       "a fájl azonosítása"

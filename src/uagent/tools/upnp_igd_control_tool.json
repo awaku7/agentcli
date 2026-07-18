@@ -132,7 +132,7 @@
     "param.search_target.description": "SSDP অনুসন্ধান লক্ষ্য (ST) আবিষ্কারের জন্য। InternetGatewayDevice-এ ডিফল্ট হয় এবং প্রয়োজনে ssdp: all-এ ফিরে আসে।",
     "tool.description": "UPnP IGD রাউটার অপারেশনগুলি সম্পাদন করুন: WAN স্থিতি পরীক্ষা করুন, পোর্ট ম্যাপিংগুলি তালিকাভুক্ত করুন, একটি পোর্ট ম্যাপিং যুক্ত করুন বা একটি পোর্ট ম্যাপিং মুছুন৷",
     "x_search_terms": [
-      "upnp igd control",
+      "upnp igd নিয়ন্ত্রণ",
       "upnp_igd_control",
       "upnp",
       "UPNP",
@@ -168,7 +168,7 @@
     "param.search_target.description": "Cíl vyhledávání SSDP (ST) pro zjišťování. Výchozí nastavení je InternetGatewayDevice a v případě potřeby se vrátí na ssdp:all.",
     "tool.description": "Proveďte operace směrovače UPnP IGD: zkontrolujte stav WAN, vypište mapování portů, přidejte mapování portů nebo odstraňte mapování portů.",
     "x_search_terms": [
-      "upnp igd control",
+      "ovládání upnp igd",
       "upnp_igd_control",
       "upnp",
       "UPNP",
@@ -204,7 +204,7 @@
     "param.search_target.description": "SSDP-Suchziel (ST) für die Erkennung. Standardmäßig ist InternetGatewayDevice und greift bei Bedarf auf ssdp:all zurück.",
     "tool.description": "Führen Sie UPnP-IGD-Router-Vorgänge aus: Überprüfen Sie den WAN-Status, listen Sie Portzuordnungen auf, fügen Sie eine Portzuordnung hinzu oder löschen Sie eine Portzuordnung.",
     "x_search_terms": [
-      "upnp igd control",
+      "UPNP-IGD-Steuerung",
       "upnp_igd_control",
       "upnp",
       "UPNP",
@@ -240,7 +240,7 @@
     "param.search_target.description": "Destino de búsqueda SSDP (ST) para descubrimiento. El valor predeterminado es InternetGatewayDevice y recurre a ssdp:all si es necesario.",
     "tool.description": "Realice operaciones de enrutador UPnP IGD: inspeccione el estado de WAN, enumere las asignaciones de puertos, agregue una asignación de puertos o elimine una asignación de puertos.",
     "x_search_terms": [
-      "upnp igd control",
+      "control upnp igd",
       "upnp_igd_control",
       "upnp",
       "UPNP",
@@ -276,7 +276,7 @@
     "param.search_target.description": "هدف جستجوی SSDP (ST) برای کشف. به طور پیش فرض InternetGatewayDevice می شود و در صورت نیاز به ssdp:all برمی گردد.",
     "tool.description": "عملیات روتر UPnP IGD را انجام دهید: وضعیت WAN را بررسی کنید، نگاشت پورت ها را فهرست کنید، یک نقشه پورت اضافه کنید، یا یک نگاشت پورت را حذف کنید.",
     "x_search_terms": [
-      "upnp igd control",
+      "کنترل upnp IGD",
       "upnp_igd_control",
       "upnp",
       "UPNP",
@@ -284,7 +284,7 @@
       "اجرای",
       "عملیات روتر",
       "بازرسی",
-      ""
+      "بازرسی"
     ]
   },
   "fi": {
@@ -312,7 +312,7 @@
     "param.search_target.description": "SSDP-hakukohde (ST) etsintää varten. Oletusarvo on InternetGatewayDevice ja palaa tarvittaessa ssdp:all:ksi.",
     "tool.description": "Suorita UPnP IGD -reitittimen toimintoja: tarkasta WAN-tila, lue porttikartoitukset, lisää porttikartoitus tai poista porttikartoitus.",
     "x_search_terms": [
-      "upnp igd control",
+      "upnp igd ohjaus",
       "upnp_igd_control",
       "upnp",
       "UPNP",
@@ -348,7 +348,7 @@
     "param.search_target.description": "Cible de recherche SSDP (ST) pour la découverte. La valeur par défaut est InternetGatewayDevice et revient à ssdp:all si nécessaire.",
     "tool.description": "Effectuez des opérations de routeur UPnP IGD : inspectez l'état du WAN, répertoriez les mappages de ports, ajoutez un mappage de port ou supprimez un mappage de port.",
     "x_search_terms": [
-      "upnp igd control",
+      "contrôle upnp igd",
       "upnp_igd_control",
       "upnp",
       "UPNP",
@@ -420,7 +420,7 @@
     "param.search_target.description": "Target pencarian SSDP (ST) untuk penemuan. Defaultnya adalah InternetGatewayDevice dan kembali ke ssdp:all jika diperlukan.",
     "tool.description": "Lakukan operasi router UPnP IGD: periksa status WAN, daftar pemetaan port, tambahkan pemetaan port, atau hapus pemetaan port.",
     "x_search_terms": [
-      "upnp igd control",
+      "kontrol upnp igd",
       "upnp_igd_control",
       "upnp",
       "UPNP",
@@ -456,7 +456,7 @@
     "param.search_target.description": "Destinazione di ricerca SSDP (ST) per l'individuazione. Il valore predefinito è InternetGatewayDevice e torna a ssdp:all se necessario.",
     "tool.description": "Eseguire le operazioni del router IGD UPnP: ispezionare lo stato della WAN, elencare le mappature delle porte, aggiungere una mappatura delle porte o eliminare una mappatura delle porte.",
     "x_search_terms": [
-      "upnp igd control",
+      "controllo upnp igd",
       "upnp_igd_control",
       "upnp",
       "UPNP",
@@ -528,7 +528,7 @@
     "param.search_target.description": "SSDP хайлтын зорилтот (ST). Анхдагчаар InternetGatewayDevice-д тохируулж, шаардлагатай бол ssdp:all руу буцна.",
     "tool.description": "UPnP IGD чиглүүлэгчийн үйлдлийг гүйцэтгэх: WAN статусыг шалгах, портын зураглалыг жагсаах, портын зураглал нэмэх эсвэл портын зураглалыг устгах.",
     "x_search_terms": [
-      "upnp igd control",
+      "upnp igd хяналт",
       "upnp_igd_control",
       "upnp",
       "UPNP",
@@ -564,7 +564,7 @@
     "param.search_target.description": "शोधासाठी SSDP शोध लक्ष्य (ST). InternetGatewayDevice वर डीफॉल्ट आणि ssdp वर परत येते:सर्व आवश्यक असल्यास.",
     "tool.description": "UPnP IGD राउटर ऑपरेशन्स करा: WAN स्थितीची तपासणी करा, पोर्ट मॅपिंग सूचीबद्ध करा, पोर्ट मॅपिंग जोडा किंवा पोर्ट मॅपिंग हटवा.",
     "x_search_terms": [
-      "upnp igd control",
+      "upnp igd नियंत्रण",
       "upnp_igd_control",
       "upnp",
       "UPNP",
@@ -600,7 +600,7 @@
     "param.search_target.description": "Στόχος αναζήτησης SSDP (ST) για ανακάλυψη. Προεπιλογή στο InternetGatewayDevice και επιστρέφει στο ssdp:all εάν χρειάζεται.",
     "tool.description": "Εκτελέστε λειτουργίες δρομολογητή UPnP IGD: επιθεωρήστε την κατάσταση WAN, παραθέστε αντιστοιχίσεις θυρών, προσθέστε μια αντιστοίχιση θύρας ή διαγράψτε μια αντιστοίχιση θύρας.",
     "x_search_terms": [
-      "upnp igd control",
+      "upnp έλεγχος igd",
       "upnp_igd_control",
       "upnp",
       "UPNP",
@@ -636,7 +636,7 @@
     "param.search_target.description": "יעד חיפוש SSDP (ST) לגילוי. ברירת המחדל היא InternetGatewayDevice ונופלת חזרה ל-ssdp:all במידת הצורך.",
     "tool.description": "בצע פעולות נתב UPnP IGD: בדוק את סטטוס ה-WAN, רשום מיפויי יציאות, הוסף מיפוי יציאות או מחק מיפוי יציאה.",
     "x_search_terms": [
-      "upnp igd control",
+      "בקרת igd upnp",
       "upnp_igd_control",
       "upnp",
       "UPNP",
@@ -672,7 +672,7 @@
     "param.search_target.description": "SSDP keresési célpont (ST) a felfedezéshez. Alapértelmezés szerint az InternetGatewayDevice, és szükség esetén visszaáll az ssdp:all-ra.",
     "tool.description": "Végezze el az UPnP IGD útválasztó műveleteit: ellenőrizze a WAN állapotát, listázza ki a portleképezéseket, adjon hozzá portleképezést vagy törölje a portleképezést.",
     "x_search_terms": [
-      "upnp igd control",
+      "upnp igd vezérlés",
       "upnp_igd_control",
       "upnp",
       "UPNP",
@@ -744,7 +744,7 @@
     "param.search_target.description": "SSDP-søkemål (ST) for oppdagelse. Standard er InternetGatewayDevice og faller tilbake til ssdp:all om nødvendig.",
     "tool.description": "Utfør UPnP IGD-ruteroperasjoner: inspiser WAN-status, liste opp porttilordninger, legg til en porttilordning eller slett en porttilordning.",
     "x_search_terms": [
-      "upnp igd control",
+      "upnp igd-kontroll",
       "upnp_igd_control",
       "upnp",
       "UPNP",
@@ -780,7 +780,7 @@
     "param.search_target.description": "SSDP-zoekdoel (ST) voor ontdekking. Standaard ingesteld op InternetGatewayDevice en valt indien nodig terug op ssdp:all.",
     "tool.description": "Voer UPnP IGD-routerbewerkingen uit: inspecteer de WAN-status, maak een lijst van poorttoewijzingen, voeg een poorttoewijzing toe of verwijder een poorttoewijzing.",
     "x_search_terms": [
-      "upnp igd control",
+      "upnp igd-controle",
       "upnp_igd_control",
       "upnp",
       "UPNP",
@@ -788,7 +788,7 @@
       "uitvoeren",
       "routerbewerkingen",
       "inspecteren",
-      ""
+      "inspecteren"
     ]
   },
   "pl": {
@@ -924,7 +924,7 @@
     "param.search_target.description": "Цель поиска SSDP (ST) для обнаружения. По умолчанию используется InternetGatewayDevice и при необходимости возвращается к ssdp:all.",
     "tool.description": "Выполняйте операции маршрутизатора UPnP IGD: проверьте состояние WAN, выведите список сопоставлений портов, добавьте сопоставление портов или удалите сопоставление портов.",
     "x_search_terms": [
-      "upnp igd control",
+      "управление upnp igd",
       "upnp_igd_control",
       "upnp",
       "UPNP",
@@ -960,7 +960,7 @@
     "param.search_target.description": "SSDP-sökmål (ST) för upptäckt. Används som standard till InternetGatewayDevice och faller tillbaka till ssdp:all om det behövs.",
     "tool.description": "Utför UPnP IGD-routeroperationer: inspektera WAN-status, lista portmappningar, lägg till en portmappning eller ta bort en portmappning.",
     "x_search_terms": [
-      "upnp igd control",
+      "upnp igd kontroll",
       "upnp_igd_control",
       "upnp",
       "UPNP",
@@ -996,7 +996,7 @@
     "param.search_target.description": "Utafutaji wa SSDP (ST) wa ugunduzi. Chaguomsingi kwa InternetGatewayDevice na inarudi kwa ssdp:yote ikihitajika.",
     "tool.description": "Tekeleza shughuli za kipanga njia cha UPnP IGD: kagua hali ya WAN, orodhesha upangaji wa bandari, ongeza ramani ya mlango, au ufute ramani ya mlango.",
     "x_search_terms": [
-      "upnp igd control",
+      "udhibiti wa upnp igd",
       "upnp_igd_control",
       "upnp",
       "UPNP",
@@ -1114,7 +1114,7 @@
     "param.search_target.description": "Мета пошуку SSDP (ST) для виявлення. За замовчуванням InternetGatewayDevice і за потреби повертається до ssdp:all.",
     "tool.description": "Виконуйте операції маршрутизатора UPnP IGD: перевіряйте статус глобальної мережі, створюйте список зіставлення портів, додавайте зіставлення портів або видаляйте зіставлення портів.",
     "x_search_terms": [
-      "upnp igd control",
+      "контроль upnp igd",
       "upnp_igd_control",
       "upnp",
       "UPNP",
@@ -1155,7 +1155,7 @@
     "param.search_target.description": "Mục tiêu tìm kiếm SSDP (ST) để khám phá. Mặc định là InternetGatewayDevice và quay lại ssdp:all nếu cần.",
     "tool.description": "Thực hiện các hoạt động của bộ định tuyến UPnP IGD: kiểm tra trạng thái WAN, liệt kê ánh xạ cổng, thêm ánh xạ cổng hoặc xóa ánh xạ cổng.",
     "x_search_terms": [
-      "upnp igd control",
+      "kiểm soát igd upnp",
       "upnp_igd_control",
       "upnp",
       "UPNP",

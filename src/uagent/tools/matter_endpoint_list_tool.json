@@ -8,7 +8,7 @@
     "err.ambiguous_target": "هدف الجهاز المهم غامض: {device_id}",
     "x_search_terms": [
       "قائمة نقاط النهاية للمادة",
-      "matter_endpoint_list",
+      "Matter_endpoint_list",
       "مادة",
       "مادة",
       "نقطة نهاية"
@@ -26,7 +26,7 @@
     "err.ambiguous_target": "বস্তুর ডিভাইস লক্ষ্য অস্পষ্ট: {device_id}",
     "x_search_terms": [
       "বিষয় শেষ বিন্দু তালিকা",
-      "matter_endpoint_list",
+      "বিষয়_শেষবিন্দু_তালিকা",
       "বিষয়",
       "বিষয়",
       "শেষ বিন্দু"
@@ -44,7 +44,7 @@
     "err.ambiguous_target": "Cíl zařízení je nejednoznačný: {device_id}",
     "x_search_terms": [
       "seznam koncových bodů hmoty",
-      "matter_endpoint_list",
+      "seznam_koncových_bodů",
       "hmota",
       "HMOTA",
       "koncový bod"
@@ -116,7 +116,7 @@
     "err.ambiguous_target": "هدف دستگاه موضوع مبهم است: {device_id}",
     "x_search_terms": [
       "لیست نقاط پایانی ماده",
-      "matter_endpoint_list",
+      "list_endpoint",
       "ماده",
       "ماده",
       "نقطه پایانی"
@@ -134,7 +134,7 @@
     "err.ambiguous_target": "Laitteen kohde on epäselvä: {device_id}",
     "x_search_terms": [
       "asian päätepisteluettelo",
-      "matter_endpoint_list",
+      "Asia_endpoint_list",
       "asia",
       "ASIA",
       "päätepiste"
@@ -170,7 +170,7 @@
     "err.ambiguous_target": "मैटर डिवाइस लक्ष्य अस्पष्ट है: {device_id}",
     "x_search_terms": [
       "विषय अंतिम बिंदु सूची",
-      "matter_endpoint_list",
+      "मामला_अंतबिंदु_सूची",
       "विषय",
       "विषय",
       "अंतिम बिंदु"
@@ -260,7 +260,7 @@
     "err.ambiguous_target": "Төхөөрөмжийн зорилт тодорхойгүй байна: {device_id}",
     "x_search_terms": [
       "материйн төгсгөлийн цэгийн жагсаалт",
-      "matter_endpoint_list",
+      "асуудлын_төгсгөлийн_жагсаалт",
       "асуудал",
       "асуудал",
       "төгсгөлийн цэг"
@@ -278,7 +278,7 @@
     "err.ambiguous_target": "मॅटर डिव्हाइस लक्ष्य अस्पष्ट आहे: {device_id}",
     "x_search_terms": [
       "विषय शेवटचा बिंदू यादी",
-      "matter_endpoint_list",
+      "बाब_अंतिमबिंदू_सूची",
       "विषय",
       "विषय",
       "शेवटचा बिंदू"
@@ -296,7 +296,7 @@
     "err.ambiguous_target": "Ο στόχος της συσκευής είναι διφορούμενος: {device_id}",
     "x_search_terms": [
       "λίστα τελικών σημείων ύλης",
-      "matter_endpoint_list",
+      "Λίστα_τελικού σημείου",
       "ύλη",
       "ΥΛΗ",
       "τελικό σημείο"
@@ -332,7 +332,7 @@
     "err.ambiguous_target": "Az anyag eszköz célpontja nem egyértelmű: {device_id}",
     "x_search_terms": [
       "anyag végpont lista",
-      "matter_endpoint_list",
+      "ügy_végpontok listája",
       "anyag",
       "ANYAG",
       "végpont"
@@ -386,7 +386,7 @@
     "err.ambiguous_target": "Het doel van het Matter-apparaat is dubbelzinnig: {device_id}",
     "x_search_terms": [
       "materie-eindpuntlijst",
-      "matter_endpoint_list",
+      "materie_eindpunt_lijst",
       "materie",
       "MATTER",
       "eindpunt"
@@ -458,7 +458,7 @@
     "err.ambiguous_target": "Цель устройства Matter неоднозначна: {device_id}",
     "x_search_terms": [
       "список конечных точек материи",
-      "matter_endpoint_list",
+      "Matter_endpoint_list",
       "материя",
       "МАТЕРИЯ",
       "конечная точка"
@@ -512,7 +512,7 @@
     "err.ambiguous_target": "เป้าหมายอุปกรณ์ที่สำคัญไม่ชัดเจน: {device_id}",
     "x_search_terms": [
       "รายการจุดสิ้นสุดสสาร",
-      "matter_endpoint_list",
+      "Matter_endpoint_list",
       "สสาร",
       "สสาร",
       "จุดสิ้นสุด"
@@ -530,7 +530,7 @@
     "err.ambiguous_target": "Madde cihazı hedefi belirsiz: {device_id}",
     "x_search_terms": [
       "madde uç nokta listesi",
-      "matter_endpoint_list",
+      "Matter_endpoint_list",
       "madde",
       "MADDE",
       "uç nokta"
@@ -548,7 +548,7 @@
     "err.ambiguous_target": "Цільовий пристрій має значення неоднозначне: {device_id}",
     "x_search_terms": [
       "список кінцевих точок матерії",
-      "matter_endpoint_list",
+      "матерія_кінцевий_список",
       "матерія",
       "МАТЕРІЯ",
       "кінцева точка"
@@ -584,7 +584,7 @@
     "err.ambiguous_target": "物质设备目标不明确：{device_id}",
     "x_search_terms": [
       "物质端点列表",
-      "matter_endpoint_list",
+      "问题端点列表",
       "物质",
       "物质",
       "端点"
@@ -602,7 +602,7 @@
     "err.ambiguous_target": "物質設備目標不明確：{device_id}",
     "x_search_terms": [
       "物質端點清單",
-      "matter_endpoint_list",
+      "問題端點列表",
       "物質",
       "物質",
       "端點"

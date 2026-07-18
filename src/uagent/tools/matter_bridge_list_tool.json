@@ -8,7 +8,7 @@
     "tool.description": "قم بإدراج الأجهزة المُدارة بواسطة جسر Matter وقم بإرجاع JSON أو ملخص نصي.",
     "x_search_terms": [
       "قائمة جسر المسألة",
-      "matter_bridge_list",
+      "Matter_bridge_list",
       "matter",
       "MATTER",
       "إدارة الجسر",
@@ -25,7 +25,7 @@
     "tool.description": "ম্যাটার ব্রিজ-পরিচালিত ডিভাইসগুলি তালিকাভুক্ত করুন এবং একটি JSON বা পাঠ্য সারাংশ প্রদান করুন।",
     "x_search_terms": [
       "ব্যাপার সেতু তালিকা",
-      "matter_bridge_list",
+      "ব্যাপার_সেতু_তালিকা",
       "matter",
       "MATTER",
       "ব্রিজ-পরিচালিত",
@@ -42,7 +42,7 @@
     "tool.description": "Vypište seznam zařízení spravovaných mostem Matter a vraťte JSON nebo textové shrnutí.",
     "x_search_terms": [
       "seznam přemostění",
-      "matter_bridge_list",
+      "seznam_můstků",
       "záležitost",
       "MATTER",
       "přemostění",
@@ -110,12 +110,12 @@
     "tool.description": "دستگاه‌های Matter-bridge-managed را فهرست کنید و یک JSON یا خلاصه متنی را برگردانید.",
     "x_search_terms": [
       "فهرست پل ماده",
-      "matter_bridge_list",
+      "ماده_پل_لیست",
       "matter",
       "MATTER",
       "دستگاه‌های مدیریت‌شده با پل",
       "بازگشت",
-      ""
+      "بازگشت"
     ]
   },
   "fi": {
@@ -144,7 +144,7 @@
     "tool.description": "Répertoriez les appareils gérés par le pont Matter et renvoyez un résumé JSON ou texte.",
     "x_search_terms": [
       "liste de ponts d'importance",
-      "matter_bridge_list",
+      "liste_pont_matière",
       "matter",
       "MATTER",
       "bridge-managed",
@@ -195,7 +195,7 @@
     "tool.description": "Elenca i dispositivi gestiti tramite bridge Matter e restituisce un JSON o un riepilogo di testo.",
     "x_search_terms": [
       "elenco",
-      "matter_bridge_list",
+      "materia_bridge_list",
       "matter",
       "MATTER",
       "dispositivi",
@@ -229,7 +229,7 @@
     "tool.description": "Matter 브리지 관리 장치를 나열하고 JSON 또는 텍스트 요약을 반환합니다.",
     "x_search_terms": [
       "Matter 브리지 목록",
-      "matter_bridge_list",
+      "문제_브리지_목록",
       "matter",
       "MATTER",
       "브리지 관리",
@@ -246,7 +246,7 @@
     "tool.description": "Асуудлыг гүүрээр удирддаг төхөөрөмжүүдийг жагсааж, JSON эсвэл текстийн хураангуйг буцаана уу.",
     "x_search_terms": [
       "асуудлын гүүрний жагсаалт",
-      "matter_bridge_list",
+      "асуудал_гүүрийн_жагсаалт",
       "matter",
       "MATTER",
       "гүүрээр удирддаг",
@@ -280,7 +280,7 @@
     "tool.description": "Καταχωρίστε τις συσκευές που διαχειρίζονται το Matter bridge και επιστρέψτε μια σύνοψη JSON ή κειμένου.",
     "x_search_terms": [
       "λίστα γέφυρας θέματος",
-      "matter_bridge_list",
+      "ύλη_γέφυρα_λίστα",
       "matter",
       "MATTER",
       "διαχειριζόμενη γέφυρα",
@@ -296,13 +296,13 @@
     "param.bridge.description": "מזהה גשר (השמט לכולם).",
     "tool.description": "רשום מכשירים המנוהלים על גשר של Matter והחזר JSON או סיכום טקסט.",
     "x_search_terms": [
-      "matter bridge list",
+      "רשימת גשר עניינים",
       "matter_bridge_list",
       "matter",
       "MATTER",
       "מכשירים מנוהלים",
       "החזרה",
-      ""
+      "לחזור"
     ]
   },
   "hu": {
@@ -336,7 +336,7 @@
       "MATTER",
       "dispozitive gestionate de punte",
       "return",
-      ""
+      "întoarcere"
     ]
   },
   "nb": {
@@ -347,7 +347,7 @@
     "param.bridge.description": "Bridge ID (utelat for alle).",
     "tool.description": "Vis Matter-broadministrerte enheter og returner et JSON- eller tekstsammendrag.",
     "x_search_terms": [
-      "matter bridge list",
+      "saksbroliste",
       "matter_bridge_list",
       "matter",
       "MATTER",
@@ -364,7 +364,7 @@
     "param.bridge.description": "Bridge-ID (weglaten voor iedereen).",
     "tool.description": "Maak een lijst van door Matter Bridge beheerde apparaten en retourneer een JSON- of tekstsamenvatting.",
     "x_search_terms": [
-      "matter bridge list",
+      "kwestie brug lijst",
       "matter_bridge_list",
       "matter",
       "MATTER",
@@ -399,12 +399,12 @@
     "tool.description": "Liste os dispositivos gerenciados por ponte do Matter e retorne um JSON ou um resumo de texto.",
     "x_search_terms": [
       "lista de pontes de matéria",
-      "matter_bridge_list",
+      "matéria_bridge_list",
       "matter",
       "MATTER",
       "dispositivos gerenciados por ponte",
       "retorno",
-      ""
+      "retornar"
     ]
   },
   "pt_BR": {
@@ -416,12 +416,12 @@
     "tool.description": "Liste os dispositivos gerenciados por ponte do Matter e retorne um JSON ou um resumo de texto.",
     "x_search_terms": [
       "lista de pontes de matéria",
-      "matter_bridge_list",
+      "matéria_bridge_list",
       "matter",
       "MATTER",
       "dispositivos gerenciados por ponte",
       "retorno",
-      ""
+      "retornar"
     ]
   },
   "ru": {
@@ -433,7 +433,7 @@
     "tool.description": "Перечислите устройства, управляемые мостом Matter, и верните JSON или текстовую сводку.",
     "x_search_terms": [
       "список материальных мостов",
-      "matter_bridge_list",
+      "Matter_bridge_list",
       "matter",
       "MATTER",
       "управляемые мостом",
@@ -449,7 +449,7 @@
     "param.bridge.description": "Bridge ID (utelämna för alla).",
     "tool.description": "Lista Matter-brygghanterade enheter och returnera en JSON eller textsammanfattning.",
     "x_search_terms": [
-      "matter bridge list",
+      "ärendebrygga lista",
       "matter_bridge_list",
       "matter",
       "MATTER",
@@ -484,7 +484,7 @@
     "tool.description": "แสดงรายการอุปกรณ์ที่จัดการบริดจ์ของ Matter และส่งคืน JSON หรือสรุปข้อความ",
     "x_search_terms": [
       "รายการสะพานเรื่อง",
-      "matter_bridge_list",
+      "Matter_bridge_list",
       "เรื่อง",
       "MATTER",
       "สะพานจัดการ",
@@ -501,7 +501,7 @@
     "tool.description": "Matter köprüsüyle yönetilen cihazları listeleyin ve bir JSON veya metin özeti döndürün.",
     "x_search_terms": [
       "madde köprüsü listesi",
-      "matter_bridge_list",
+      "madde_bridge_list",
       "matter",
       "MATTER",
       "köprü tarafından yönetilen",
@@ -517,8 +517,8 @@
     "param.bridge.description": "Ідентифікатор мосту (пропустити для всіх).",
     "tool.description": "Список пристроїв, керованих мостом Matter, і повернення JSON або текстового підсумку.",
     "x_search_terms": [
-      "matter bridge list",
-      "matter_bridge_list",
+      "Матеріальний список міст",
+      "матерія_мост_список",
       "matter",
       "MATTER",
       "bridge-managed",
@@ -535,7 +535,7 @@
     "tool.description": "Liệt kê các thiết bị được quản lý bởi bridge Matter và trả về bản tóm tắt văn bản hoặc JSON.",
     "x_search_terms": [
       "danh sách cầu quan trọng",
-      "matter_bridge_list",
+      "vấn đề_bridge_list",
       "matter",
       "MATTER",
       "bridge-managed",
@@ -552,7 +552,7 @@
     "tool.description": "列出 Matter 桥接管理的设备并返回 JSON 或文本摘要。",
     "x_search_terms": [
       "问题桥列表",
-      "matter_bridge_list",
+      "物质桥列表",
       "matter",
       "MATTER",
       "桥接管理",
@@ -569,7 +569,7 @@
     "tool.description": "列出 Matter 橋接管理的設備並傳回 JSON 或文字摘要。",
     "x_search_terms": [
       "問題橋列表",
-      "matter_bridge_list",
+      "物質橋列表",
       "matter",
       "MATTER",
       "橋接管理",

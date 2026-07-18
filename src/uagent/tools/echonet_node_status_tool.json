@@ -99,7 +99,7 @@
     "err.invalid_ip_address": "Error: dirección_ip debe ser una dirección IPv4 válida.",
     "x_search_terms": [
       "estado del nodo echonet",
-      "echonet_node_status",
+      "estado_nodo_echonet",
       "econet",
       "ECHONET"
     ],
@@ -171,7 +171,7 @@
     "err.invalid_ip_address": "त्रुटि: ip_address एक वैध IPv4 पता होना चाहिए।",
     "x_search_terms": [
       "echonet नोड स्थिति",
-      "echonet_node_status",
+      "इकोनेट_नोड_स्थिति",
       "इकोनेट",
       "इकोनेट"
     ],
@@ -243,7 +243,7 @@
     "err.invalid_ip_address": "오류: ip_address는 유효한 IPv4 주소여야 합니다.",
     "x_search_terms": [
       "echonet 노드 상태",
-      "echonet_node_status",
+      "에코넷_노드_상태",
       "에코넷",
       "에코넷"
     ],
@@ -351,7 +351,7 @@
     "err.invalid_ip_address": "Eroare: ip_address trebuie să fie o adresă IPv4 validă.",
     "x_search_terms": [
       "stare nod echonet",
-      "echonet_node_status",
+      "starea_nodului_echonet",
       "econet",
       "ECHONET"
     ],
@@ -495,7 +495,7 @@
     "err.invalid_ip_address": "Hitilafu: ip_address lazima iwe anwani halali ya IPv4.",
     "x_search_terms": [
       "hali ya nodi ya echonet",
-      "echonet_node_status",
+      "hali_ya_nodi_echonet",
       "echonet",
       "ECHONET"
     ],

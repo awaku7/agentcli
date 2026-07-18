@@ -300,7 +300,7 @@
       "kompetensgranskning",
       "testa färdighet",
       "färdighetsanalys",
-      ""
+      "färdighetsanalys"
     ]
   },
   "sw": {
@@ -337,8 +337,8 @@
       "validering",
       "ferdighetsvurdering",
       "test ferdighetsanalyse",
-      "",
-      ""
+      "test ferdighet",
+      "ferdighetsanalyse"
     ]
   },
   "nl": {
@@ -373,10 +373,10 @@
       "taitotesti",
       "taitotarkistus",
       "taidon tarkistus",
-      "",
-      "",
-      "",
-      ""
+      "validointi",
+      "taitojen arvostelu",
+      "testaa taitoa",
+      "taitoanalyysi"
     ]
   },
   "cs": {
@@ -501,15 +501,15 @@
     "tool.description": "Agent Skills স্পেসিফিকেশন অনুযায়ী একটি skill directory (SKILL.md) যাচাই করে এবং error ও warning ফেরত দেয়।",
     "x_search_terms": [
       "দক্ষতা যাচাই করুন",
-      "",
-      "",
-      "",
-      "",
-      "",
-      "",
-      "",
-      "",
-      ""
+      "দক্ষতা যাচাই করা",
+      "দক্ষতা পরীক্ষা করুন",
+      "দক্ষতা পরীক্ষা",
+      "দক্ষতা যাচাই",
+      "দক্ষতা পরীক্ষা",
+      "বৈধতা",
+      "দক্ষতা পর্যালোচনা",
+      "পরীক্ষার দক্ষতা",
+      "দক্ষতা বিশ্লেষণ"
     ]
   },
   "fa": {
@@ -615,15 +615,15 @@
     "tool.description": "Érvényesíti a készségkatalógust (SKILL.md) az Agent Skills specifikációi szerint, és hibákat és figyelmeztetéseket ad vissza.",
     "x_search_terms": [
       "készség ellenőrzése készség ellenőrzése készség ellenőrzése készség tesztje készség ellenőrzése készség ellenőrzése készség ellenőrzése",
-      "",
-      "",
-      "",
-      "",
-      "",
-      "",
-      "",
-      "",
-      ""
+      "igazolja a készségeket",
+      "ügyesség ellenőrzése",
+      "ügyességi teszt",
+      "ügyességet igazolni",
+      "ügyességi ellenőrzés",
+      "érvényesítését",
+      "készség áttekintése",
+      "próbára készség",
+      "készségelemzés"
     ]
   },
   "ro": {

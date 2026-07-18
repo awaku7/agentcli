@@ -22,12 +22,12 @@
     "tool.description": "اكتشف أجهزة SwitchBot BLE القريبة وقم بإرجاع قائمة JSON أو قائمة نصية.",
     "x_search_terms": [
       "مسح Switchbot ",
-      "switchbot_ble_scan",
+      "Switchbot_ble_scan",
       "switchbot",
       "اكتشاف",
       "الأجهزة القريبة",
       "العودة",
-      ""
+      "العودة"
     ]
   },
   "bn": {
@@ -52,7 +52,7 @@
     "param.timeout.description": "সেকেন্ডের মধ্যে সময়সীমা স্ক্যান করুন।",
     "tool.description": "কাছাকাছি SwitchBot BLE ডিভাইসগুলি আবিষ্কার করুন এবং একটি JSON বা পাঠ্য তালিকা ফেরত দিন৷",
     "x_search_terms": [
-      "switchbot ble scan",
+      "switchbot ble স্ক্যান",
       "switchbot_ble_scan",
       "switchbot",
       "discover",
@@ -83,7 +83,7 @@
     "param.timeout.description": "Časový limit skenování v sekundách.",
     "tool.description": "Objevte blízká zařízení SwitchBot BLE a vraťte seznam JSON nebo text.",
     "x_search_terms": [
-      "switchbot ble scan",
+      "spínač ble skenování",
       "switchbot_ble_scan",
       "switchbot",
       "objevit",
@@ -114,7 +114,7 @@
     "param.timeout.description": "Scan-Timeout in Sekunden.",
     "tool.description": "Entdecken Sie SwitchBot BLE-Geräte in der Nähe und geben Sie eine JSON- oder Textliste zurück.",
     "x_search_terms": [
-      "switchbot ble scan",
+      "Switchbot-fähiger Scan",
       "switchbot_ble_scan",
       "switchbot",
       "entdecken",
@@ -176,7 +176,7 @@
     "param.timeout.description": "Tiempo de espera de escaneo en segundos.",
     "tool.description": "Descubra dispositivos SwitchBot BLE cercanos y devuelva una lista JSON o de texto.",
     "x_search_terms": [
-      "switchbot ble scan",
+      "escaneo ble switchbot",
       "switchbot_ble_scan",
       "switchbot",
       "descubrir",
@@ -207,13 +207,13 @@
     "param.timeout.description": "اسکن در عرض چند ثانیه",
     "tool.description": "دستگاه های SwitchBot BLE نزدیک را کشف کنید و یک JSON یا لیست متنی را برگردانید.",
     "x_search_terms": [
-      "switchbot ble scan",
+      "Switchbot ble ble",
       "switchbot_ble_scan",
       "switchbot",
       "کشف",
       "دستگاههای نزدیک",
       "بازگشت",
-      ""
+      "بازگشت"
     ]
   },
   "fi": {
@@ -269,7 +269,7 @@
     "param.timeout.description": "Délai d'expiration de l'analyse en secondes.",
     "tool.description": "Découvrez les appareils SwitchBot BLE à proximité et renvoyez une liste JSON ou de texte.",
     "x_search_terms": [
-      "switchbot ble scan",
+      "analyse du switchbot",
       "switchbot_ble_scan",
       "switchbot",
       "découvrir",
@@ -331,7 +331,7 @@
     "param.timeout.description": "Batas waktu pemindaian dalam hitungan detik.",
     "tool.description": "Temukan perangkat SwitchBot BLE terdekat dan kembalikan JSON atau daftar teks.",
     "x_search_terms": [
-      "switchbot ble scan",
+      "pemindaian switchbot",
       "switchbot_ble_scan",
       "switchbot",
       "discover",
@@ -362,7 +362,7 @@
     "param.timeout.description": "Timeout scansione in secondi.",
     "tool.description": "Scopri i dispositivi BLE SwitchBot nelle vicinanze e restituisci un JSON o un elenco di testo.",
     "x_search_terms": [
-      "switchbot ble scan",
+      "scansione del pulsante switchbot",
       "switchbot_ble_scan",
       "switchbot",
       "scopri",
@@ -424,8 +424,8 @@
     "param.timeout.description": "스캔 시간 초과(초)입니다.",
     "tool.description": "근처의 SwitchBot BLE 장치를 검색하고 JSON 또는 텍스트 목록을 반환합니다.",
     "x_search_terms": [
-      "switchbot ble scan",
-      "switchbot_ble_scan",
+      "스위치봇 블 스캔",
+      "스위치봇_블_스캔",
       "switchbot",
       "discover",
       "nearby",
@@ -486,7 +486,7 @@
     "param.timeout.description": "सेकंदात कालबाह्य स्कॅन करा.",
     "tool.description": "जवळपासचे SwitchBot BLE डिव्हाइस शोधा आणि JSON किंवा मजकूर सूची परत करा.",
     "x_search_terms": [
-      "switchbot ble scan",
+      "switchbot ble स्कॅन",
       "switchbot_ble_scan",
       "switchbot",
       "discover",
@@ -517,7 +517,7 @@
     "param.timeout.description": "Λήξη χρονικού ορίου σάρωσης σε δευτερόλεπτα.",
     "tool.description": "Ανακαλύψτε κοντινές συσκευές SwitchBot BLE και επιστρέψτε μια λίστα JSON ή κειμένου.",
     "x_search_terms": [
-      "switchbot ble scan",
+      "σάρωση switchbot ble",
       "switchbot_ble_scan",
       "switchbot",
       "discover",
@@ -548,7 +548,7 @@
     "param.timeout.description": "פסק זמן סריקה בשניות.",
     "tool.description": "גלה מכשירי SwitchBot BLE בקרבת מקום והחזר רשימת JSON או טקסט.",
     "x_search_terms": [
-      "switchbot ble scan",
+      "switchbot ble סריקה",
       "switchbot_ble_scan",
       "switchbot",
       "discover",
@@ -610,7 +610,7 @@
     "param.timeout.description": "Timeout scanare în secunde.",
     "tool.description": "Descoperiți dispozitivele SwitchBot BLE din apropiere și returnați o listă JSON sau text.",
     "x_search_terms": [
-      "switchbot ble scan",
+      "scanare switchbot ble",
       "switchbot_ble_scan",
       "switchbot",
       "descoperiți",
@@ -641,7 +641,7 @@
     "param.timeout.description": "Tidsavbrudd for skanning på sekunder.",
     "tool.description": "Oppdag SwitchBot BLE-enheter i nærheten og returner en JSON- eller tekstliste.",
     "x_search_terms": [
-      "switchbot ble scan",
+      "switchbot ble skanning",
       "switchbot_ble_scan",
       "switchbot",
       "oppdag",
@@ -672,7 +672,7 @@
     "param.timeout.description": "Scantime-out in seconden.",
     "tool.description": "Ontdek nabijgelegen SwitchBot BLE-apparaten en stuur een JSON- of tekstlijst terug.",
     "x_search_terms": [
-      "switchbot ble scan",
+      "schakelbot ble-scan",
       "switchbot_ble_scan",
       "switchbot",
       "discover",
@@ -703,7 +703,7 @@
     "param.timeout.description": "Limit czasu skanowania w sekundach.",
     "tool.description": "Odkryj pobliskie urządzenia SwitchBot BLE i zwróć listę JSON lub tekstową.",
     "x_search_terms": [
-      "switchbot ble scan",
+      "skanowanie bota przełączającego",
       "switchbot_ble_scan",
       "switchbot",
       "discover",
@@ -734,7 +734,7 @@
     "param.timeout.description": "Tempo limite de verificação em segundos.",
     "tool.description": "Descubra dispositivos SwitchBot BLE próximos e retorne um JSON ou uma lista de texto.",
     "x_search_terms": [
-      "switchbot ble scan",
+      "varredura flexível do switchbot",
       "switchbot_ble_scan",
       "switchbot",
       "discover",
@@ -765,7 +765,7 @@
     "param.timeout.description": "Tempo limite de verificação em segundos.",
     "tool.description": "Descubra dispositivos SwitchBot BLE próximos e retorne um JSON ou uma lista de texto.",
     "x_search_terms": [
-      "switchbot ble scan",
+      "varredura flexível do switchbot",
       "switchbot_ble_scan",
       "switchbot",
       "discover",
@@ -796,7 +796,7 @@
     "param.timeout.description": "Тайм-аут сканирования в секундах.",
     "tool.description": "Обнаружьте ближайшие устройства SwitchBot BLE и верните JSON или текстовый список.",
     "x_search_terms": [
-      "switchbot ble scan",
+      "Switchbot ble сканирование",
       "switchbot_ble_scan",
       "switchbot",
       "открыть",
@@ -827,7 +827,7 @@
     "param.timeout.description": "Skanningstimeout på sekunder.",
     "tool.description": "Upptäck närliggande SwitchBot BLE-enheter och returnera en JSON- eller textlista.",
     "x_search_terms": [
-      "switchbot ble scan",
+      "switchbot ble skanna",
       "switchbot_ble_scan",
       "switchbot",
       "upptäck",
@@ -889,7 +889,7 @@
     "param.timeout.description": "หมดเวลาสแกนในไม่กี่วินาที",
     "tool.description": "ค้นหาอุปกรณ์ SwitchBot BLE ที่อยู่ใกล้เคียงและส่งคืน JSON หรือรายการข้อความ",
     "x_search_terms": [
-      "switchbot ble scan",
+      "การสแกน switchbot ble",
       "switchbot_ble_scan",
       "switchbot",
       "ค้นพบ",
@@ -920,7 +920,7 @@
     "param.timeout.description": "Saniye cinsinden tarama zaman aşımı.",
     "tool.description": "Yakındaki SwitchBot BLE cihazlarını keşfedin ve bir JSON veya metin listesi döndürün.",
     "x_search_terms": [
-      "switchbot ble scan",
+      "switchbot ble taraması",
       "switchbot_ble_scan",
       "switchbot",
       "discover",
@@ -951,7 +951,7 @@
     "param.timeout.description": "Час очікування сканування в секундах.",
     "tool.description": "Виявляйте пристрої SwitchBot BLE поблизу та повертайте JSON або текстовий список.",
     "x_search_terms": [
-      "switchbot ble scan",
+      "switchbot ble сканування",
       "switchbot_ble_scan",
       "switchbot",
       "знайти",
@@ -982,7 +982,7 @@
     "param.timeout.description": "Thời gian chờ quét tính bằng giây.",
     "tool.description": "Khám phá các thiết bị SwitchBot BLE gần đó và trả về danh sách văn bản hoặc JSON.",
     "x_search_terms": [
-      "switchbot ble scan",
+      "quét ble của switchbot",
       "switchbot_ble_scan",
       "switchbot",
       "discover",

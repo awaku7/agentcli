@@ -45,8 +45,8 @@
     "msg.subscribed": "ECHONET Lite সদস্যতা সক্রিয়: id={id}, {label}",
     "err.ip_required": "আইপি প্রয়োজন।",
     "x_search_terms": [
-      "echonet subscribe",
-      "echonet_subscribe",
+      "echonet সাবস্ক্রাইব করুন",
+      "echonet_subscribe করুন",
       "echonet",
       "ECHONET",
       "নোটিফিকেশন",
@@ -63,7 +63,7 @@
     "msg.subscribed": "Aktivní předplatné ECHONET Lite: id={id}, {label}",
     "err.ip_required": "IP je vyžadováno.",
     "x_search_terms": [
-      "echonet subscribe",
+      "odběr echonetu",
       "echonet_subscribe",
       "echonet",
       "ECHONET",
@@ -81,7 +81,7 @@
     "msg.subscribed": "ECHONET Lite-Abonnement aktiv: id={id}, {label}",
     "err.ip_required": "IP ist erforderlich.",
     "x_search_terms": [
-      "echonet subscribe",
+      "echonet abonnieren",
       "echonet_subscribe",
       "echonet",
       "ECHONET",
@@ -99,7 +99,7 @@
     "msg.subscribed": "Ενεργή συνδρομή ECHONET Lite: id={id}, {label}",
     "err.ip_required": "απαιτείται ip.",
     "x_search_terms": [
-      "echonet subscribe",
+      "εγγραφείτε στο echonet",
       "echonet_subscribe",
       "echonet",
       "ECHONET",
@@ -135,7 +135,7 @@
     "msg.subscribed": "اشتراک ECHONET Lite فعال است: id={id}، {label}",
     "err.ip_required": "ip مورد نیاز است.",
     "x_search_terms": [
-      "echonet subscribe",
+      "اشتراک echonet",
       "echonet_subscribe",
       "echonet",
       "ECHONET",
@@ -153,7 +153,7 @@
     "msg.subscribed": "ECHONET Lite -tilaus aktiivinen: id={id}, {label}",
     "err.ip_required": "ip vaaditaan.",
     "x_search_terms": [
-      "echonet subscribe",
+      "echonet tilata",
       "echonet_subscribe",
       "echonet",
       "ECHONET",
@@ -189,7 +189,7 @@
     "msg.subscribed": "מנוי ECHONET Lite פעיל: id={id}, {label}",
     "err.ip_required": "נדרש ip.",
     "x_search_terms": [
-      "echonet subscribe",
+      "echonet הירשם",
       "echonet_subscribe",
       "echonet",
       "ECHONET",
@@ -225,7 +225,7 @@
     "msg.subscribed": "ECHONET Lite előfizetés aktív: id={id}, {label}",
     "err.ip_required": "ip szükséges.",
     "x_search_terms": [
-      "echonet subscribe",
+      "echonet előfizetés",
       "echonet_subscribe",
       "echonet",
       "ECHONET",
@@ -244,7 +244,7 @@
     "err.ip_required": "diperlukan.",
     "x_search_terms": [
       "echonet berlangganan",
-      "echonet_subscribe",
+      "echonet_berlangganan",
       "echonet",
       "ECHONET",
       "notifikasi",
@@ -280,7 +280,7 @@
     "err.ip_required": "IPは必須です。",
     "x_search_terms": [
       "echonet サブスクライブ",
-      "echonet_subscribe",
+      "エコーネット_サブスクライブ",
       "echonet",
       "ECHONET",
       "通知",
@@ -315,7 +315,7 @@
     "msg.subscribed": "ECHONET Lite-н захиалга идэвхтэй: id={id}, {label}",
     "err.ip_required": "ip шаардлагатай.",
     "x_search_terms": [
-      "echonet subscribe",
+      "echoneт бүртгүүлнэ үү",
       "echonet_subscribe",
       "echonet",
       "ECHONET",
@@ -333,7 +333,7 @@
     "msg.subscribed": "ECHONET Lite सदस्यता सक्रिय: id={id}, {label}",
     "err.ip_required": "ip आवश्यक आहे.",
     "x_search_terms": [
-      "echonet subscribe",
+      "echonet सदस्यता घ्या",
       "echonet_subscribe",
       "echonet",
       "ECHONET",
@@ -351,12 +351,12 @@
     "msg.subscribed": "ECHONET Lite-abonnement aktivt: id={id}, {label}",
     "err.ip_required": "ip kreves.",
     "x_search_terms": [
-      "echonet subscribe",
+      "echonet abonner",
       "echonet_subscribe",
       "echonet",
       "ECHONET",
       "varslingsmeldinger",
-      ""
+      "meldinger"
     ]
   },
   "nl": {
@@ -388,7 +388,7 @@
     "err.ip_required": "wymagane jest IP.",
     "x_search_terms": [
       "echonet subskrybuj",
-      "echonet_subscribe",
+      "echonet_subskrybuj",
       "echonet",
       "ECHONET",
       "powiadomienia",
@@ -405,7 +405,7 @@
     "msg.subscribed": "Assinatura ECHONET Lite ativa: id={id}, {label}",
     "err.ip_required": "ip é obrigatório.",
     "x_search_terms": [
-      "echonet subscribe",
+      "assinar echonet",
       "echonet_subscribe",
       "echonet",
       "ECHONET",
@@ -423,7 +423,7 @@
     "msg.subscribed": "Assinatura ECHONET Lite ativa: id={id}, {label}",
     "err.ip_required": "ip é obrigatório.",
     "x_search_terms": [
-      "echonet subscribe",
+      "assinar echonet",
       "echonet_subscribe",
       "echonet",
       "ECHONET",
@@ -441,7 +441,7 @@
     "msg.subscribed": "Abonament ECHONET Lite activ: id={id}, {label}",
     "err.ip_required": "ip este necesar.",
     "x_search_terms": [
-      "echonet subscribe",
+      "abonare echonet",
       "echonet_subscribe",
       "echonet",
       "ECHONET",
@@ -459,7 +459,7 @@
     "msg.subscribed": "Подписка ECHONET Lite активна: id={id}, {label}",
     "err.ip_required": "айпи обязателен.",
     "x_search_terms": [
-      "echonet subscribe",
+      "подписка на эхонет",
       "echonet_subscribe",
       "echonet",
       "ECHONET",
@@ -586,7 +586,7 @@
     "err.ip_required": "ip 是必需的。",
     "x_search_terms": [
       "echonet 订阅",
-      "echonet_subscribe",
+      "echonet_订阅",
       "echonet",
       "ECHONET",
       "通知",
@@ -604,7 +604,7 @@
     "err.ip_required": "ip 是必需的。",
     "x_search_terms": [
       "echonet 訂閱",
-      "echonet_subscribe",
+      "echonet_訂閱",
       "echonet",
       "ECHONET",
       "通知",

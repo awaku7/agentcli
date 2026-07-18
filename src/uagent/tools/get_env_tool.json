@@ -47,7 +47,7 @@
     "x_search_terms": [
       "obtener entorno",
       "variable de entorno",
-      "env var",
+      "var env",
       "entorno",
       "obtener entorno",
       "leer entorno",
@@ -67,7 +67,7 @@
     "x_search_terms": [
       "obtenir env",
       "variable d'environnement",
-      "env var",
+      "variable d'environnement",
       "environnement",
       "obtenir environnement",
       "lire env",
@@ -87,7 +87,7 @@
     "x_search_terms": [
       "env",
       "환경 변수",
-      "env var",
+      "환경 변수",
       "environment",
       "환경 가져오기",
       "env",
@@ -105,16 +105,16 @@
     "param.unmasked_chars.description": "Anzahl der Zeichen, die beim Maskieren am Anfang und Ende sichtbar bleiben. Standard ist 2.",
     "tool.description": "Ruft den Wert einer angegebenen Umgebungsvariable ab und gibt ihn zurück.",
     "x_search_terms": [
-      "get env",
-      "environment variable",
-      "env var",
+      "Holen Sie sich env",
+      "Umgebungsvariable",
+      "Umgebungsvar",
       "environment",
       "get Environment",
-      "read env",
-      "env value",
-      "system env",
-      "environment value",
-      "env get"
+      "lesen env",
+      "env-Wert",
+      "Systemumgebung",
+      "Umweltwert",
+      "env bekommen"
     ],
     "param.skip.description": "Wenn true, wird bei fehlendem Wert statt eines Fehlers '(not set)' zurückgegeben. Standard ist false.",
     "err.name_required": "[get_env error] 'name' ist erforderlich"
@@ -127,7 +127,7 @@
     "x_search_terms": [
       "ottieni ambiente",
       "variabile d'ambiente",
-      "env var",
+      "var",
       "ambiente",
       "ottieni ambiente",
       "leggi env",
@@ -147,14 +147,14 @@
     "x_search_terms": [
       "получить env",
       "переменную среды",
-      "env var",
+      "окружающая переменная",
       "среда",
       "получить среду",
       "прочитать env",
       "значение env",
-      "system env",
+      "системная среда",
       "значение среды",
-      "env get"
+      "окружение получить"
     ],
     "param.skip.description": "Если true, при отсутствии значения возвращает '(not set)' вместо ошибки. Значение по умолчанию: false.",
     "err.name_required": "[ошибка get_env] Требуется «имя»"
@@ -194,7 +194,7 @@
       "valor ambiente",
       "ambiente do sistema",
       "valor ambiental",
-      "env get"
+      "ambiente obter"
     ],
     "param.skip.description": "Se for verdade, retorne '(not set)' em vez de um erro quando ausente. O padrão é falso.",
     "err.name_required": "[erro get_env] 'nome' é obrigatório"
@@ -225,16 +225,16 @@
     "param.unmasked_chars.description": "Số lượng ký tự để lại ở đầu và cuối khi tạo mặt nạ. Mặc định là 2.",
     "tool.description": "Nhận giá trị của một biến môi trường được chỉ định và trả về giá trị đó. Tùy chọn che giấu giá trị.",
     "x_search_terms": [
-      "get env",
+      "nhận được env",
       "biến môi trường",
-      "env var",
+      "biến env",
       "môi trường",
       "lấy môi trường",
       "đọc env",
       "giá trị env",
       "môi trường hệ thống",
       "giá trị môi trường",
-      "env get"
+      "env có được"
     ],
     "param.skip.description": "Nếu đúng, hãy trả về '(not set)' thay vì báo lỗi khi thiếu. Mặc định là sai.",
     "err.name_required": "[lỗi get_env] 'tên' là bắt buộc"
@@ -247,14 +247,14 @@
     "x_search_terms": [
       "pobierz env",
       "zmienna środowiskowa",
-      "env var",
+      "środowisko var",
       "environment",
       "pobierz środowisko",
       "przeczytaj env",
       "wartość env",
-      "system env",
+      "środowisko systemowe",
       "wartość środowiska",
-      "env get"
+      "env dostać"
     ],
     "param.skip.description": "Jeśli to prawda, w przypadku braku zwróć „(nie ustawiono)” zamiast błędu. Wartość domyślna to fałsz.",
     "err.name_required": "[błąd get_env] Wymagana jest nazwa"
@@ -272,7 +272,7 @@
       "env प्राप्त करें",
       "env",
       "env वैल्यू पढ़ें",
-      "system env",
+      "सिस्टम पर्यावरण",
       "environment वैल्यू",
       "env प्राप्त करें"
     ],
@@ -287,7 +287,7 @@
     "x_search_terms": [
       "الحصول على البيئة",
       "متغير البيئة",
-      "env var",
+      "بيئى فار",
       "البيئة",
       "الحصول على البيئة",
       "قراءة env",
@@ -311,7 +311,7 @@
       "miljö",
       "få miljö",
       "läs env",
-      "env value",
+      "env-värde",
       "system env",
       "miljövärde",
       "env"
@@ -333,8 +333,8 @@
       "env",
       "thamani ya mazingira",
       "env pata",
-      "",
-      ""
+      "thamani ya mazingira",
+      "env kupata"
     ],
     "param.skip.description": "Ikiwa ndivyo, rudisha '(haijawekwa)' badala ya hitilafu inapokosekana. Chaguomsingi ni uongo.",
     "err.name_required": "[get_env error] 'jina' linahitajika"
@@ -351,9 +351,9 @@
       "environment",
       "få miljø",
       "les env",
-      "env value",
-      "system env",
-      "environment value",
+      "env-verdi",
+      "systemenv",
+      "miljøverdi",
       "env få"
     ],
     "param.skip.description": "Hvis true, returneres \"(not set)\" i stedet for en feil når verdien mangler. Standard er false.",
@@ -365,16 +365,16 @@
     "param.unmasked_chars.description": "Aantal tekens dat aan het begin en einde zichtbaar blijft bij maskeren. Standaard is 2.",
     "tool.description": "Haalt de waarde op van een opgegeven omgevingsvariabele en geeft deze terug.",
     "x_search_terms": [
-      "get env",
+      "krijg omgeving",
       "environment variabele",
       "env var",
       "environment",
       "get Environment",
-      "read env",
-      "env value",
-      "system env",
-      "environment value",
-      "env get"
+      "lees omgeving",
+      "omgevingswaarde",
+      "systeem omgeving",
+      "milieu waarde",
+      "env krijgen"
     ],
     "param.skip.description": "Indien true, geef \"(not set)\" terug in plaats van een fout wanneer de waarde ontbreekt.",
     "err.name_required": "[get_env error] 'naam' is vereist"
@@ -385,15 +385,15 @@
     "param.unmasked_chars.description": "Kuinka monta merkkiä säilytetään näkyvissä alussa ja lopussa peittämisen yhteydessä.",
     "tool.description": "Hakee annetun ympäristömuuttujan arvon ja palauttaa sen. Arvon voi halutessa peittää.",
     "x_search_terms": [
-      "get env",
-      "environment variable",
+      "saada env",
+      "ympäristömuuttuja",
       "env var",
       "environment",
       "get ympäristö",
-      "read env",
-      "env value",
-      "system env",
-      "environment value",
+      "lue env",
+      "env-arvo",
+      "järjestelmä env",
+      "ympäristöarvo",
       "env get"
     ],
     "param.skip.description": "Jos true, palauta \"(not set)\" virheen sijaan, kun arvo puuttuu. Oletus on false.",
@@ -405,16 +405,16 @@
     "param.unmasked_chars.description": "Počet znaků, které se při maskování ponechají na začátku a na konci. Výchozí hodnota je 2.",
     "tool.description": "Získá hodnotu zadané proměnné prostředí a vrátí ji. Volitelně hodnotu zamaskuje.",
     "x_search_terms": [
-      "get env",
-      "environment variable",
+      "získat env",
+      "proměnná prostředí",
       "env var",
       "environment",
-      "get environment",
-      "read env",
-      "env value",
-      "system env",
-      "environment value",
-      "env get"
+      "získat prostředí",
+      "číst env",
+      "hodnota env",
+      "systém env",
+      "environmentální hodnotu",
+      "env získat"
     ],
     "param.skip.description": "Pokud je true, vrátí při chybějící hodnotě místo chyby '(not set)'. Výchozí hodnota je false.",
     "err.name_required": "[chyba get_env] 'name' je povinné"
@@ -425,16 +425,16 @@
     "param.unmasked_chars.description": "Кількість символів, які залишаються на початку та в кінці під час маскування.",
     "tool.description": "Отримує значення вказаної змінної середовища та повертає його. За потреби значення можна замаскувати.",
     "x_search_terms": [
-      "get env",
-      "environment variable",
+      "отримати env",
+      "змінна середовища",
       "env var",
       "environment",
-      "get environment",
-      "read env",
-      "env value",
-      "system env",
-      "environment value",
-      "env get"
+      "отримати середовище",
+      "читати env",
+      "значення env",
+      "системне оточення",
+      "цінність середовища",
+      "env отримати"
     ],
     "param.skip.description": "Якщо значення true, за відсутності значення повертає '(not set)' замість помилки.",
     "err.name_required": "[помилка get_env] необхідне ім’я"
@@ -454,7 +454,7 @@
       "sistem ortamını oku",
       "ortam değerini",
       "env al",
-      ""
+      "env al"
     ],
     "param.skip.description": "Doğruysa, eksik olduğunda hata yerine '(not set)' değerini döndürün. Varsayılan yanlıştır.",
     "err.name_required": "[get_env hatası] 'ad' gerekli"
@@ -474,7 +474,7 @@
       "ระบบ env",
       "ค่าสภาพแวดล้อม",
       "env รับ",
-      ""
+      "รับสิ่งแวดล้อม"
     ],
     "param.skip.description": "หากเป็นจริง ให้ส่งกลับ '(not set)' แทนข้อผิดพลาดเมื่อไม่มีค่า ค่าเริ่มต้นคือเท็จ",
     "err.name_required": "[ข้อผิดพลาด get_env] ต้องมี 'ชื่อ'"
@@ -487,14 +487,14 @@
     "x_search_terms": [
       "获取env",
       "环境变量",
-      "env var",
+      "环境变量",
       "环境",
       "获取环境",
       "读取env",
       "env值",
       "系统env",
       "环境值",
-      "env get"
+      "环境获取"
     ],
     "param.skip.description": "如果为 true，则在缺失时返回“(未设置)”而不是报错。默认值为 false。",
     "err.name_required": "[get_env 错误]“名称”是必需的"
@@ -507,14 +507,14 @@
     "x_search_terms": [
       "取得env",
       "環境變數",
-      "env var",
+      "環境變數",
       "環境",
       "取得環境",
       "讀取env",
       "env值",
       "系統env",
       "環境值",
-      "env get"
+      "環境獲取"
     ],
     "param.skip.description": "如果為 true，則在缺少時傳回「(未設定)」而不是錯誤。預設為 false。",
     "err.name_required": "[get_env 錯誤]「名稱」是必要的"
@@ -527,14 +527,14 @@
     "x_search_terms": [
       "env",
       "এনভায়রনমেন্ট ভেরিয়েবল পান",
-      "",
-      "",
-      "",
-      "",
-      "",
-      "",
-      "",
-      ""
+      "env var",
+      "পরিবেশ",
+      "পরিবেশ পান",
+      "env পড়ুন",
+      "env মান",
+      "সিস্টেম env",
+      "পরিবেশ মান",
+      "env পেতে"
     ],
     "param.skip.description": "true হলে অনুপস্থিত থাকলে ত্রুটির বদলে '(not set)' ফেরত দেবে। ডিফল্ট false।",
     "err.name_required": "[get_env ত্রুটি] 'নাম' প্রয়োজন"
@@ -591,9 +591,9 @@
       "environment",
       "वातावरण मिळवा",
       "वाचा env",
-      "env value",
-      "system env",
-      "environment value",
+      "env मूल्य",
+      "प्रणाली env",
+      "पर्यावरण मूल्य",
       "env मिळवा"
     ],
     "param.skip.description": "true असल्यास, अनुपस्थित असताना त्रुटीऐवजी '(not set)' परत करते. डीफॉल्ट false आहे.",
@@ -605,16 +605,16 @@
     "param.unmasked_chars.description": "Λαμβάνει την τιμή μιας καθορισμένης μεταβλητής και την επιστρέφει",
     "tool.description": "Λαμβάνει την τιμή μιας καθορισμένης μεταβλητής περιβάλλοντος και την επιστρέφει. Προαιρετικά καλύπτει την τιμή.",
     "x_search_terms": [
-      "get env",
-      "environment variable",
+      "παίρνω env",
+      "μεταβλητή περιβάλλοντος",
       "env var",
       "environment",
       "get περιβάλλον",
       " read env",
-      "env value",
+      "τιμή env",
       "system env",
-      "environment value",
-      "env get"
+      "περιβαλλοντική αξία",
+      "env παίρνω"
     ],
     "param.skip.description": "Εάν είναι αληθές, επιστρέψτε \"(not set)\" αντί για σφάλμα όταν λείπει. Η προεπιλογή είναι ψευδής.",
     "err.name_required": "Απαιτείται [get_env error] 'όνομα'"
@@ -634,7 +634,7 @@
       "system env",
       "environment value",
       "env קבל",
-      ""
+      "env get"
     ],
     "param.skip.description": "אם נכון, החזר '(not set)' במקום שגיאה כאשר חסר. ברירת המחדל היא שקר.",
     "err.name_required": "[get_env error] נדרש 'שם'"
@@ -645,15 +645,15 @@
     "param.unmasked_chars.description": "A maszkoláskor az elején és a végén elhagyandó karakterek száma. Az alapértelmezett a 2.",
     "tool.description": "Lekéri egy megadott környezeti változó értékét, és visszaadja azt. Opcionálisan maszkolja az értéket.",
     "x_search_terms": [
-      "get env",
-      "environment variable",
+      "kap env",
+      "környezeti változó",
       "env var",
       "environment",
       "get Environment",
-      "read env",
-      "env value",
-      "system env",
-      "environment value",
+      "env",
+      "env érték",
+      "rendszer env",
+      "környezeti érték",
       "env get"
     ],
     "param.skip.description": "Ha igaz, akkor a hiányzó hiba helyett a „(not set)” értéket adja vissza. Az alapértelmezett érték hamis.",
@@ -665,15 +665,15 @@
     "param.unmasked_chars.description": "valoare (de exemplu, pentru secrete).",
     "tool.description": "Numele variabilei de mediu de citit",
     "x_search_terms": [
-      "get env",
+      "obține env",
       "variabila de mediu",
       "env var",
       "environment",
       "get mediu",
       "citește env",
-      "env value",
-      "system env",
-      "environment value",
+      "valoare env",
+      "sistem înv",
+      "valoarea mediului",
       "env get"
     ],
     "param.skip.description": "Dacă este adevărat, returnați „(nesetat)” în loc de o eroare când lipsește. Implicit este fals.",

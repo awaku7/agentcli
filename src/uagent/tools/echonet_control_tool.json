@@ -45,7 +45,7 @@
     "param.value.description": "set_value/খোলা/বন্ধ ক্রিয়াগুলির জন্য ঐচ্ছিক সাংখ্যিক মান। পরিসীমা: 0-100।",
     "tool.description": "একটি নোডে মৌলিক ECHONET লাইট নিয়ন্ত্রণ চালান এবং একটি JSON বা পাঠ্য ফলাফল প্রদান করুন।",
     "x_search_terms": [
-      "echonet control",
+      "ইকোনেট নিয়ন্ত্রণ",
       "echonet_control",
       "echonet",
       "ECHONET",
@@ -72,7 +72,7 @@
     "param.value.description": "Volitelná číselná hodnota pro akce set_value/open/close. Rozsah: 0-100.",
     "tool.description": "Proveďte základní ovládací prvek ECHONET Lite na uzlu a vraťte výsledek JSON nebo text.",
     "x_search_terms": [
-      "echonet control",
+      "ovládání echonetu",
       "echonet_control",
       "echonet",
       "ECHONET",
@@ -99,7 +99,7 @@
     "param.value.description": "Optionaler numerischer Wert für set_value/open/close-Aktionen. Bereich: 0-100.",
     "tool.description": "Führen Sie die grundlegende ECHONET Lite-Steuerung auf einem Knoten aus und geben Sie ein JSON- oder Textergebnis zurück.",
     "x_search_terms": [
-      "echonet control",
+      "Echonet-Steuerung",
       "echonet_control",
       "echonet",
       "ECHONET",
@@ -207,7 +207,7 @@
     "param.value.description": "Valinnainen numeerinen arvo set_value/open/close-toimintoille. Alue: 0-100.",
     "tool.description": "Suorita ECHONET Lite -perusohjaus solmussa ja palauta JSON- tai tekstitulos.",
     "x_search_terms": [
-      "echonet control",
+      "echonet ohjaus",
       "echonet_control",
       "echonet",
       "ECHONET",
@@ -234,7 +234,7 @@
     "param.value.description": "Valeur numérique facultative pour les actions set_value/open/close. Plage : 0-100.",
     "tool.description": "Exécutez le contrôle ECHONET Lite de base sur un nœud et renvoyez un résultat JSON ou texte.",
     "x_search_terms": [
-      "echonet control",
+      "contrôle échonet",
       "echonet_control",
       "echonet",
       "ECHONET",
@@ -396,7 +396,7 @@
     "param.value.description": "Тодорхой_утга/нээлт/хаах үйлдлүүдийн нэмэлт тоон утга. Хүрээ: 0-100.",
     "tool.description": "Зангилаа дээр үндсэн ECHONET Lite хяналтыг ажиллуулж, JSON эсвэл текстийн үр дүнг буцаана уу.",
     "x_search_terms": [
-      "echonet control",
+      "echonet хяналт",
       "echonet_control",
       "echonet",
       "ECHONET",
@@ -423,7 +423,7 @@
     "param.value.description": "set_value/open/close क्रियांसाठी पर्यायी अंकीय मूल्य. श्रेणी: 0-100.",
     "tool.description": "नोडवर मूलभूत ECHONET लाइट नियंत्रण कार्यान्वित करा आणि JSON किंवा मजकूर परिणाम परत करा.",
     "x_search_terms": [
-      "echonet control",
+      "इकोनेट नियंत्रण",
       "echonet_control",
       "echonet",
       "ECHONET",
@@ -450,7 +450,7 @@
     "param.value.description": "Προαιρετική αριθμητική τιμή για ενέργειες set_value/open/close. Εύρος: 0-100.",
     "tool.description": "Εκτελέστε το βασικό στοιχείο ελέγχου ECHONET Lite σε έναν κόμβο και επιστρέψτε ένα αποτέλεσμα JSON ή κειμένου.",
     "x_search_terms": [
-      "echonet control",
+      "έλεγχος echonet",
       "echonet_control",
       "echonet",
       "ECHONET",
@@ -477,7 +477,7 @@
     "param.value.description": "ערך מספרי אופציונלי עבור פעולות set_value/open/close. טווח: 0-100.",
     "tool.description": "בצע פקד ECHONET Lite בסיסי על צומת והחזר תוצאת JSON או טקסט.",
     "x_search_terms": [
-      "echonet control",
+      "בקרת אקונט",
       "echonet_control",
       "echonet",
       "ECHONET",
@@ -504,7 +504,7 @@
     "param.value.description": "Opcionális numerikus érték a set_value/open/close műveletekhez. Tartomány: 0-100.",
     "tool.description": "Végezze el az alapvető ECHONET Lite vezérlést egy csomóponton, és adja vissza a JSON vagy szöveges eredményt.",
     "x_search_terms": [
-      "echonet control",
+      "echonet vezérlés",
       "echonet_control",
       "echonet",
       "ECHONET",
@@ -558,7 +558,7 @@
     "param.value.description": "Valgfri numerisk verdi for set_value/open/close-handlinger. Rekkevidde: 0-100.",
     "tool.description": "Utfør grunnleggende ECHONET Lite-kontroll på en node og returner et JSON- eller tekstresultat.",
     "x_search_terms": [
-      "echonet control",
+      "ekkonettkontroll",
       "echonet_control",
       "echonet",
       "ECHONET",
@@ -693,7 +693,7 @@
     "param.value.description": "Необязательное числовое значение для действий set_value/open/close. Диапазон: 0–100.",
     "tool.description": "Выполните базовый элемент управления ECHONET Lite на узле и верните результат в формате JSON или текстовый результат.",
     "x_search_terms": [
-      "echonet control",
+      "управление эхосетью",
       "echonet_control",
       "echonet",
       "ECHONET",
@@ -720,7 +720,7 @@
     "param.value.description": "Valfritt numeriskt värde för set_value/öppna/stäng-åtgärder. Räckvidd: 0-100.",
     "tool.description": "Kör grundläggande ECHONET Lite-kontroll på en nod och returnera ett JSON- eller textresultat.",
     "x_search_terms": [
-      "echonet control",
+      "ekonetkontroll",
       "echonet_control",
       "echonet",
       "ECHONET",
@@ -828,7 +828,7 @@
     "param.value.description": "Додаткове числове значення для дій set_value/open/close. Діапазон: 0-100.",
     "tool.description": "Виконайте базовий елемент керування ECHONET Lite на вузлі та поверніть JSON або текстовий результат.",
     "x_search_terms": [
-      "echonet control",
+      "управління echonet",
       "echonet_control",
       "echonet",
       "ECHONET",

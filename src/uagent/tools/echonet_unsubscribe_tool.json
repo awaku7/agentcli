@@ -47,7 +47,7 @@
     "msg.unsubscribed": "ECHONET Lite সদস্যতা {id} বাতিল করা হয়েছে৷",
     "err.id_required": "action=unsubscribe এর জন্য listener_id আবশ্যক।",
     "x_search_terms": [
-      "echonet unsubscribe",
+      "echonet সদস্যতা ত্যাগ করুন",
       "echonet_unsubscribe",
       "echonet",
       "ECHONET",
@@ -66,7 +66,7 @@
     "msg.unsubscribed": "Předplatné ECHONET Lite {id} bylo zrušeno.",
     "err.id_required": "Pro action=unsubscribe je vyžadováno listener_id.",
     "x_search_terms": [
-      "echonet unsubscribe",
+      "echonet odhlásit odběr",
       "echonet_unsubscribe",
       "echonet",
       "ECHONET",
@@ -85,7 +85,7 @@
     "msg.unsubscribed": "ECHONET Lite-Abonnement {id} gekündigt.",
     "err.id_required": "listener_id ist für action=unsubscribe erforderlich.",
     "x_search_terms": [
-      "echonet unsubscribe",
+      "echonet abmelden",
       "echonet_unsubscribe",
       "echonet",
       "ECHONET",
@@ -104,7 +104,7 @@
     "msg.unsubscribed": "Η συνδρομή ECHONET Lite {id} ακυρώθηκε.",
     "err.id_required": "Το listener_id απαιτείται για action=unsubscribe.",
     "x_search_terms": [
-      "echonet unsubscribe",
+      "διαγραφή echonet",
       "echonet_unsubscribe",
       "echonet",
       "ECHONET",
@@ -143,12 +143,12 @@
     "err.id_required": "listener_id برای action=unsubscribe مورد نیاز است.",
     "x_search_terms": [
       "لغو اشتراک echonet",
-      "",
-      "",
-      "",
-      "",
-      "",
-      ""
+      "echonet_unsubscribe",
+      "اکونت",
+      "اکونت",
+      "لغو",
+      "اشتراک",
+      "listener_id"
     ]
   },
   "fi": {
@@ -161,7 +161,7 @@
     "msg.unsubscribed": "ECHONET Lite -tilaus {id} peruutettu.",
     "err.id_required": "listener_id vaaditaan action=unsubscribe.",
     "x_search_terms": [
-      "echonet unsubscribe",
+      "echonet peruuttaa tilauksen",
       "echonet_unsubscribe",
       "echonet",
       "ECHONET",
@@ -199,7 +199,7 @@
     "msg.unsubscribed": "מנוי ECHONET Lite {id} בוטל.",
     "err.id_required": "דרוש listener_id עבור action=unsubscribe.",
     "x_search_terms": [
-      "echonet unsubscribe",
+      "ביטול המנוי של echonet",
       "echonet_unsubscribe",
       "echonet",
       "ECHONET",
@@ -238,7 +238,7 @@
     "err.id_required": "Az action=unsubscribe paraméterhez a listener_id megadása szükséges.",
     "x_search_terms": [
       "echonet leiratkozás",
-      "echonet_unsubscribe",
+      "echonet_leiratkozás",
       "echonet",
       "ECHONET",
       "cancel",
@@ -257,7 +257,7 @@
     "err.id_required": "pendengar_id diperlukan untuk tindakan=berhenti berlangganan.",
     "x_search_terms": [
       "echonet berhenti berlangganan",
-      "echonet_unsubscribe",
+      "echonet_berhenti berlangganan",
       "echonet",
       "ECHONET",
       "batalkan",
@@ -295,7 +295,7 @@
     "err.id_required": "listener_id は、action=unsubscribe に必要です。",
     "x_search_terms": [
       "echonet 購読解除",
-      "echonet_unsubscribe",
+      "echonet_購読解除",
       "echonet",
       "ECHONET",
       "キャンセル",
@@ -313,7 +313,7 @@
     "msg.unsubscribed": "ECHONET Lite 구독 {id}이 취소되었습니다.",
     "err.id_required": "action=unsubscribe에는 Listener_id가 필요합니다.",
     "x_search_terms": [
-      "echonet unsubscribe",
+      "에코넷 구독 취소",
       "echonet_unsubscribe",
       "echonet",
       "ECHONET",
@@ -333,7 +333,7 @@
     "err.id_required": "Үйлдэл=бүртгэлээ цуцлахад сонсогч_id шаардлагатай.",
     "x_search_terms": [
       "echonet захиалгаа цуцлах",
-      "echonet_unsubscribe",
+      "echonet_бүртгэлээ цуцлах",
       "echonet",
       "ECHONET",
       "цуцлах",
@@ -351,7 +351,7 @@
     "msg.unsubscribed": "ECHONET Lite सदस्यता {id} रद्द केली.",
     "err.id_required": "action=unsubscribe साठी listener_id आवश्यक आहे.",
     "x_search_terms": [
-      "echonet unsubscribe",
+      "echonet सदस्यता रद्द करा",
       "echonet_unsubscribe",
       "echonet",
       "ECHONET",
@@ -370,7 +370,7 @@
     "msg.unsubscribed": "ECHONET Lite-abonnement {id} kansellert.",
     "err.id_required": "listener_id kreves for action=unsubscribe.",
     "x_search_terms": [
-      "echonet unsubscribe",
+      "echonet avslutte abonnementet",
       "echonet_unsubscribe",
       "echonet",
       "ECHONET",
@@ -390,7 +390,7 @@
     "err.id_required": "luisteraar_id is vereist voor actie=afmelden.",
     "x_search_terms": [
       "echonet afmelden",
-      "echonet_unsubscribe",
+      "echonet_uitschrijven",
       "echonet",
       "ECHONET",
       "cancel",
@@ -465,7 +465,7 @@
     "msg.unsubscribed": "Abonamentul ECHONET Lite {id} a fost anulat.",
     "err.id_required": "listener_id este necesar pentru action=unsubscribe.",
     "x_search_terms": [
-      "echonet unsubscribe",
+      "dezabonare echonet",
       "echonet_unsubscribe",
       "echonet",
       "ECHONET",
@@ -503,7 +503,7 @@
     "msg.unsubscribed": "ECHONET Lite-prenumeration {id} avbröts.",
     "err.id_required": "listener_id krävs för action=unsubscribe.",
     "x_search_terms": [
-      "echonet unsubscribe",
+      "echonet avsluta prenumerationen",
       "echonet_unsubscribe",
       "echonet",
       "ECHONET",
@@ -523,7 +523,7 @@
     "err.id_required": "msikilizaji_id inahitajika kwa action=kujiondoa.",
     "x_search_terms": [
       "echonet jiondoe",
-      "echonet_unsubscribe",
+      "echonet_jiondoe",
       "echonet",
       "ECHONET",
       "ghairi",
@@ -579,7 +579,7 @@
     "msg.unsubscribed": "Підписку на ECHONET Lite {id} скасовано.",
     "err.id_required": "listener_id необхідний для action=unsubscribe.",
     "x_search_terms": [
-      "echonet unsubscribe",
+      "echonet скасувати підписку",
       "echonet_unsubscribe",
       "echonet",
       "ECHONET",
@@ -618,7 +618,7 @@
     "err.id_required": "action=unsubscribe 需要listener_id。",
     "x_search_terms": [
       "echonet 取消订阅",
-      "echonet_unsubscribe",
+      "echonet_取消订阅",
       "echonet",
       "ECHONET",
       "取消",
@@ -637,7 +637,7 @@
     "err.id_required": "action=unsubscribe 需要listener_id。",
     "x_search_terms": [
       "echonet 取消訂閱",
-      "echonet_unsubscribe",
+      "echonet_取消訂閱",
       "echonet",
       "ECHONET",
       "取消",

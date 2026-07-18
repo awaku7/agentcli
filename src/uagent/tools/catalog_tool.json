@@ -422,17 +422,17 @@
   "sv": {
     "x_search_terms": [
       "verktyg katalog",
-      "",
-      "",
-      "",
-      "",
-      "",
-      "",
-      "",
-      "",
-      "",
-      "",
-      ""
+      "tillgängliga verktyg",
+      "verktygslista",
+      "lista verktyg",
+      "sökverktyg",
+      "verktygsupptäckt",
+      "hitta verktyg",
+      "verktygssökning",
+      "katalogsökning",
+      "verktygssökning",
+      "automatisk laddning",
+      "automatiskt ladda verktyg"
     ],
     "param.query.description": "Naturlig-språk-fråga som beskriver den nödvändiga kapaciteten. Tips: dela upp ditt mål i delsteg (t.ex. 'geoip plats + väderprognos') för att förbättra matchningen.",
     "tool_load.description": "Ladda ett verktyg vid namn så att det blir tillgängligt för användning. Använd detta efter att tool_catalog returnerar ett verktyg med loaded=false. Returnerar den laddade verktygsinformationen eller ett fel om inte hittad.",

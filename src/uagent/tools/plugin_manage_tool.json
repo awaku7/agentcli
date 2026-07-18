@@ -408,12 +408,12 @@
     "tool.description": "Hallinnoi uagent-laajennuksia: lue, asenna, poista, ota käyttöön, poista käytöstä, vahvista tai hanki tietoja laajennuksesta.",
     "x_search_terms": [
       "laajennus",
-      "",
-      "",
-      "",
-      "",
-      "",
-      ""
+      "hallita laajennusta",
+      "asenna laajennus",
+      "poista laajennus",
+      "ota laajennus käyttöön",
+      "poista laajennus käytöstä",
+      "lista laajennuksia"
     ],
     "param.action.description": "Suoritettava toimenpide. Yksi seuraavista: lista/asenna/poista/ota käyttöön/poista käytöstä/validate/info.",
     "param.source.description": "Lähteen URL-osoite tai asennustoiminnon polku (Git URL, HTTP ZIP, paikallinen hakemisto).",
@@ -764,7 +764,7 @@
       "ta bort plugin",
       "aktivera plugin",
       "inaktivera plugin",
-      "list plugins"
+      "lista plugins"
     ],
     "param.action.description": "Operation att utföra. En av: list/install/remove/enable/disable/validate/info.",
     "param.source.description": "Källadress eller sökväg för installationsåtgärd (Git URL, HTTP ZIP, lokal katalog).",

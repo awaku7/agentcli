@@ -314,7 +314,7 @@
       "geheugen toevoegen",
       "agentgeheugen",
       "herinneren",
-      "persist memory",
+      "herinnering vasthouden",
       "informatie opslaan",
       "geheugen opslaan"
     ],
@@ -461,15 +461,15 @@
   "fa": {
     "x_search_terms": [
       "افزایش حافظه",
-      "",
-      "",
-      "",
-      "",
-      "",
-      "",
-      "",
-      "",
-      ""
+      "حافظه بلند مدت",
+      "ذخیره حافظه",
+      "ذخیره حافظه",
+      "افزودن حافظه",
+      "حافظه عامل",
+      "به یاد داشته باشید",
+      "حافظه ماندگار",
+      "ذخیره اطلاعات",
+      "ذخیره حافظه"
     ],
     "err.note_empty": "یادداشت [add_long_memory error] خالی است",
     "param.note.description": "دقیقاً یک یادداشت مختصر (ترجیح ژاپنی) بنویسید که باید در مکالمات بعدی قابل استفاده مجدد باشد.",
@@ -552,7 +552,7 @@
       "memória hozzáadása",
       "ügynökmemória",
       "remember",
-      "persist memory",
+      "fennmaradó memória",
       "információ mentése",
       "memória tárolása"
     ],

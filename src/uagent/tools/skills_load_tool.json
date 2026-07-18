@@ -599,15 +599,15 @@
     "param.skill_dir.description": "Căutați și răsfoiți SkillsMP marketplace (skillsmp.com) pentru abilități de agent, cu numele, autorul, descrierea, stele și URL-ul GitHub",
     "tool.description": "Încarcă SKILL.md pentru o abilitate de agent și returnează materialul principal YAML și corpul Markdown.",
     "x_search_terms": [
-      "skill load",
+      "sarcina de calificare",
       "încărcare skill",
       "activare skill",
       "activare skill",
-      "skill activation",
+      "activarea abilităților",
       "încărcare skill agent",
       "skill activare",
       "utilizare skill",
-      "skill import",
+      "importul de aptitudini",
       "activare skill agent"
     ]
   }

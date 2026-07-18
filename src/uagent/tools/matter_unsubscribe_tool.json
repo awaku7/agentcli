@@ -37,7 +37,7 @@
     "err.subscription_not_found": "সদস্যতা পাওয়া যায়নি: {id}",
     "x_search_terms": [
       "ব্যাপার unsubscribe",
-      "matter_unsubscribe",
+      "ব্যাপার_আনসাবস্ক্রাইব",
       "matter",
       "MATTER",
       "remove",
@@ -52,7 +52,7 @@
     "err.subscription_not_found": "Předplatné nenalezeno: {id}",
     "x_search_terms": [
       "záležitost unsubscribe",
-      "matter_unsubscribe",
+      "záležitost_odhlásit",
       "matter",
       "MATTER",
       "odebrat",
@@ -67,11 +67,11 @@
     "err.subscription_not_found": "Abonnement nicht gefunden: {id}",
     "x_search_terms": [
       "Angelegenheit abbestellen",
-      "matter_unsubscribe",
+      "Matter_unsubscribe",
       "matter",
       "MATTER",
       "Abonnement entfernen",
-      ""
+      "Abonnement"
     ]
   },
   "el": {
@@ -82,7 +82,7 @@
     "err.subscription_not_found": "Η συνδρομή δεν βρέθηκε: {id}",
     "x_search_terms": [
       "θέμα απεγγραφή",
-      "matter_unsubscribe",
+      "θέμα_κατάργηση εγγραφής",
       "matter",
       "MATTER",
       "αφαίρεση",
@@ -97,7 +97,7 @@
     "err.subscription_not_found": "Suscripción no encontrada: {id}",
     "x_search_terms": [
       "asunto cancelar suscripción",
-      "matter_unsubscribe",
+      "materia_cancelar suscripción",
       "matter",
       "MATTER",
       "eliminar",
@@ -112,11 +112,11 @@
     "err.subscription_not_found": "اشتراک پیدا نشد: {id}",
     "x_search_terms": [
       "موضوع لغو اشتراک",
-      "",
-      "",
-      "",
-      "",
-      ""
+      "موضوع_لغو اشتراک",
+      "موضوع",
+      "موضوع",
+      "حذف کنید",
+      "اشتراک"
     ]
   },
   "fi": {
@@ -142,7 +142,7 @@
     "err.subscription_not_found": "Abonnement introuvable : {id}",
     "x_search_terms": [
       "question désabonnement",
-      "matter_unsubscribe",
+      "Matter_unsubscribe",
       "matter",
       "MATTER",
       "remove",
@@ -156,7 +156,7 @@
     "param.fmt.description": "פורמט: json או טקסט.",
     "err.subscription_not_found": "מנוי לא נמצא: {id}",
     "x_search_terms": [
-      "matter unsubscribe",
+      "עניין לבטל את המנוי",
       "matter_unsubscribe",
       "matter",
       "MATTER",
@@ -176,7 +176,7 @@
       " मामला",
       " मामला",
       " सदस्यता हटाना",
-      ""
+      "सदस्यता"
     ]
   },
   "hu": {
@@ -232,7 +232,7 @@
     "err.subscription_not_found": "サブスクリプションが見つかりません: {id}",
     "x_search_terms": [
       "件の購読解除",
-      "matter_unsubscribe",
+      "matter_購読解除",
       "件",
       "MATTER",
       "削除",
@@ -247,7 +247,7 @@
     "err.subscription_not_found": "구독을 찾을 수 없음: {id}",
     "x_search_terms": [
       "Matter unsubscribe",
-      "matter_unsubscribe",
+      "문제_구독 취소",
       "matter",
       "MATTER",
       "remove",
@@ -291,7 +291,7 @@
     "param.fmt.description": "Format: json eller tekst.",
     "err.subscription_not_found": "Finner ikke abonnement: {id}",
     "x_search_terms": [
-      "matter unsubscribe",
+      "saken avslutte abonnementet",
       "matter_unsubscribe",
       "matter",
       "MATTER",
@@ -337,7 +337,7 @@
     "err.subscription_not_found": "Assinatura não encontrada: {id}",
     "x_search_terms": [
       "assunto cancelar",
-      "matter_unsubscribe",
+      "assunto_unsubscribe",
       "matter",
       "MATTER",
       "remove",
@@ -352,7 +352,7 @@
     "err.subscription_not_found": "Assinatura não encontrada: {id}",
     "x_search_terms": [
       "assunto cancelar",
-      "matter_unsubscribe",
+      "assunto_unsubscribe",
       "matter",
       "MATTER",
       "remove",
@@ -366,7 +366,7 @@
     "param.fmt.description": "Format: json sau text.",
     "err.subscription_not_found": "Abonamentul nu a fost găsit: {id}",
     "x_search_terms": [
-      "matter unsubscribe",
+      "materie dezabonare",
       "matter_unsubscribe",
       "matter",
       "MATTER",
@@ -382,7 +382,7 @@
     "err.subscription_not_found": "Подписка не найдена: {id}",
     "x_search_terms": [
       "важно отписаться",
-      "matter_unsubscribe",
+      "Matter_unsubscribe",
       "matter",
       "MATTER",
       "удалить",
@@ -396,7 +396,7 @@
     "param.fmt.description": "Format: json eller text.",
     "err.subscription_not_found": "Abonnemanget hittades inte: {id}",
     "x_search_terms": [
-      "matter unsubscribe",
+      "fråga avsluta prenumerationen",
       "matter_unsubscribe",
       "matter",
       "MATTER",
@@ -412,7 +412,7 @@
     "err.subscription_not_found": "Usajili haujapatikana: {id}",
     "x_search_terms": [
       "jambo la kujiondoa",
-      "matter_unsubscribe",
+      "jambo_jiondoe",
       "matter",
       "MATTER",
       "ondoa",
@@ -442,7 +442,7 @@
     "err.subscription_not_found": "Abonelik bulunamadı: {id}",
     "x_search_terms": [
       "madde aboneliğinden çık",
-      "matter_unsubscribe",
+      "önemli_abonelikten çık",
       "matter",
       "MATTER",
       "kaldır",
@@ -472,7 +472,7 @@
     "err.subscription_not_found": "Không tìm thấy đăng ký: {id}",
     "x_search_terms": [
       "vấn đề hủy đăng ký",
-      "matter_unsubscribe",
+      "vấn đề_hủy đăng ký",
       "matter",
       "MATTER",
       "xóa",
@@ -491,7 +491,7 @@
       "取消订阅",
       "取消订阅",
       "订阅",
-      ""
+      "订阅"
     ]
   },
   "zh_TW": {
@@ -506,7 +506,7 @@
       "取消訂閱",
       "取消訂閱",
       "訂閱",
-      ""
+      "訂閱"
     ]
   }
 }

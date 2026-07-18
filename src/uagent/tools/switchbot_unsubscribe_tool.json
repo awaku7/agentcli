@@ -28,7 +28,7 @@
     "err.id_required": "معرف الاشتراك مطلوب للإجراء = إلغاء الاشتراك.",
     "x_search_terms": [
       "إلغاء الاشتراك في Switchbot",
-      "switchbot_unsubscribe",
+      "Switchbot_unsubscribe",
       "switchbot",
       "إلغاء",
       "الاشتراك",
@@ -45,7 +45,7 @@
     "msg.unsubscribed": "SwitchBot সদস্যতা {id} বাতিল করা হয়েছে৷",
     "err.id_required": "অ্যাকশনের জন্য সাবস্ক্রিপশন_আইডি প্রয়োজন= আনসাবস্ক্রাইব।",
     "x_search_terms": [
-      "switchbot unsubscribe",
+      "switchbot সদস্যতা ত্যাগ করুন",
       "switchbot_unsubscribe",
       "switchbot",
       "cancel",
@@ -63,12 +63,12 @@
     "msg.unsubscribed": "Předplatné SwitchBot {id} bylo zrušeno.",
     "err.id_required": "Subscription_id je vyžadováno pro action=unsubscribe.",
     "x_search_terms": [
-      "switchbot unsubscribe",
+      "switchbot odhlásit odběr",
       "switchbot_unsubscribe",
       "switchbot",
       "cancel",
       "subscription_id",
-      ""
+      "id_předplatného"
     ]
   },
   "de": {
@@ -81,7 +81,7 @@
     "msg.unsubscribed": "SwitchBot-Abonnement {id} gekündigt.",
     "err.id_required": "subscription_id ist für action=unsubscribe erforderlich.",
     "x_search_terms": [
-      "switchbot unsubscribe",
+      "Switchbot abmelden",
       "switchbot_unsubscribe",
       "switchbot",
       "cancel",
@@ -99,7 +99,7 @@
     "msg.unsubscribed": "Η συνδρομή SwitchBot {id} ακυρώθηκε.",
     "err.id_required": "Το subscription_id απαιτείται για action=unsubscribe.",
     "x_search_terms": [
-      "switchbot unsubscribe",
+      "switchbot απεγγραφή",
       "switchbot_unsubscribe",
       "switchbot",
       "cancel",
@@ -153,7 +153,7 @@
     "msg.unsubscribed": "SwitchBot-tilaus {id} peruutettu.",
     "err.id_required": "tilaustunnus vaaditaan parametrille action=unsubscribe.",
     "x_search_terms": [
-      "switchbot unsubscribe",
+      "switchbot peruuttaa tilauksen",
       "switchbot_unsubscribe",
       "switchbot",
       "cancel",
@@ -189,7 +189,7 @@
     "msg.unsubscribed": "מנוי SwitchBot {id} בוטל.",
     "err.id_required": "subscription_id נדרש עבור action=unsubscribe.",
     "x_search_terms": [
-      "switchbot unsubscribe",
+      "switchbot בטל את המנוי",
       "switchbot_unsubscribe",
       "switchbot",
       "cancel",
@@ -225,7 +225,7 @@
     "msg.unsubscribed": "A SwitchBot {id} előfizetése törölve.",
     "err.id_required": "Az action=unsubscribe paraméterhez az előfizetés_azonosítója szükséges.",
     "x_search_terms": [
-      "switchbot unsubscribe",
+      "switchbot leiratkozás",
       "switchbot_unsubscribe",
       "switchbot",
       "cancel",
@@ -244,7 +244,7 @@
     "err.id_required": "ID_langganan diperlukan untuk tindakan=berhenti berlangganan.",
     "x_search_terms": [
       "switchbot berhenti berlangganan",
-      "switchbot_unsubscribe",
+      "switchbot_berhenti berlangganan",
       "switchbot",
       "batalkan",
       "langganan",
@@ -280,7 +280,7 @@
     "err.id_required": "action=unsubscribe には subscription_id が必要です。",
     "x_search_terms": [
       "switchbot 購読解除",
-      "switchbot_unsubscribe",
+      "switchbot_購読解除",
       "switchbot",
       "キャンセル",
       "購読",
@@ -297,8 +297,8 @@
     "msg.unsubscribed": "SwitchBot 구독 {id}이 취소되었습니다.",
     "err.id_required": "action=unsubscribe에는 subscribe_id가 필요합니다.",
     "x_search_terms": [
-      "switchbot unsubscribe",
-      "switchbot_unsubscribe",
+      "스위치봇 구독 취소",
+      "스위치봇_구독 취소",
       "switchbot",
       "cancel",
       "subscription",
@@ -315,7 +315,7 @@
     "msg.unsubscribed": "SwitchBot-н захиалга {id} цуцлагдлаа.",
     "err.id_required": "Үйлдэл=бүртгэлээ цуцлахад subscription_id шаардлагатай.",
     "x_search_terms": [
-      "switchbot unsubscribe",
+      "switchbot бүртгэлээ цуцлах",
       "switchbot_unsubscribe",
       "switchbot",
       "cancel",
@@ -333,8 +333,8 @@
     "msg.unsubscribed": "SwitchBot सदस्यता {id} रद्द केली.",
     "err.id_required": "कृती = सदस्यत्व रद्द करण्यासाठी subscription_id आवश्यक आहे.",
     "x_search_terms": [
-      "switchbot unsubscribe",
-      "switchbot_unsubscribe",
+      "switchbot सदस्यता रद्द करा",
+      "switchbot_unsubscribe करा",
       "switchbot",
       "cancel",
       "subscription",
@@ -351,7 +351,7 @@
     "msg.unsubscribed": "SwitchBot-abonnement {id} kansellert.",
     "err.id_required": "subscription_id kreves for action=unsubscribe.",
     "x_search_terms": [
-      "switchbot unsubscribe",
+      "switchbot avslutte abonnementet",
       "switchbot_unsubscribe",
       "switchbot",
       "cancel",
@@ -441,7 +441,7 @@
     "msg.unsubscribed": "Abonamentul SwitchBot {id} a fost anulat.",
     "err.id_required": "subscription_id este necesar pentru action=unsubscribe.",
     "x_search_terms": [
-      "switchbot unsubscribe",
+      "dezabonare switchbot",
       "switchbot_unsubscribe",
       "switchbot",
       "cancel",
@@ -477,7 +477,7 @@
     "msg.unsubscribed": "SwitchBot-prenumeration {id} avbröts.",
     "err.id_required": "subscription_id krävs för action=unsubscribe.",
     "x_search_terms": [
-      "switchbot unsubscribe",
+      "switchbot avsluta prenumerationen",
       "switchbot_unsubscribe",
       "switchbot",
       "cancel",
@@ -496,7 +496,7 @@
     "err.id_required": "subscription_id inahitajika kwa action=kujiondoa.",
     "x_search_terms": [
       "switchbot jiondoe",
-      "switchbot_unsubscribe",
+      "switchbot_jiondoe",
       "switchbot",
       "ghairi",
       "subscription",
@@ -549,7 +549,7 @@
     "msg.unsubscribed": "Підписку на SwitchBot {id} скасовано.",
     "err.id_required": "subscription_id необхідний для action=unsubscribe.",
     "x_search_terms": [
-      "switchbot unsubscribe",
+      "switchbot відписатися",
       "switchbot_unsubscribe",
       "switchbot",
       "cancel",
@@ -586,7 +586,7 @@
     "err.id_required": "action=unsubscribe 需要 subscription_id。",
     "x_search_terms": [
       "switchbot 取消订阅",
-      "switchbot_unsubscribe",
+      "switchbot_取消订阅",
       "switchbot",
       "取消",
       "订阅",
@@ -604,7 +604,7 @@
     "err.id_required": "action=unsubscribe 需要 subscription_id。",
     "x_search_terms": [
       "switchbot 取消訂閱",
-      "switchbot_unsubscribe",
+      "switchbot_取消訂閱",
       "switchbot",
       "取消",
       "訂閱",

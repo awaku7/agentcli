@@ -19,7 +19,7 @@
   "ja": {
     "param.code.description": "Pythonコード。",
     "x_search_terms": [
-      "python exec",
+      "Pythonの実行",
       "pythonを実行",
       "pythonを実行",
       "pythonコード",
@@ -36,7 +36,7 @@
   "es": {
     "param.code.description": "Código Python.",
     "x_search_terms": [
-      "python exec",
+      "ejecutivo de Python",
       "ejecutar python",
       "ejecutar python",
       "código python",
@@ -53,12 +53,12 @@
   "fr": {
     "param.code.description": "Code Python.",
     "x_search_terms": [
-      "python exec",
-      "run python",
+      "exécutable python",
+      "exécuter python",
       "exécuter python",
       "code python",
       "script python",
-      "python run",
+      "exécution de python",
       "python exécuter",
       "commande python",
       "interpréteur python",
@@ -70,14 +70,14 @@
   "ko": {
     "param.code.description": "Python 코드.",
     "x_search_terms": [
-      "python exec",
-      "run python",
-      "execute python",
-      "python code",
-      "python script",
-      "python run",
+      "파이썬 exec",
+      "파이썬을 실행하다",
+      "파이썬을 실행하다",
+      "파이썬 코드",
+      "파이썬 스크립트",
+      "파이썬 실행",
       "python 실행",
-      "python command",
+      "파이썬 명령",
       "python 인터프리터",
       "python 프로그램"
     ],
@@ -104,7 +104,7 @@
   "it": {
     "param.code.description": "Codice Python.",
     "x_search_terms": [
-      "python exec",
+      "Python esecutivo",
       "esegui python",
       "esegui python",
       "codice python",
@@ -121,7 +121,7 @@
   "ru": {
     "param.code.description": "Код Python.",
     "x_search_terms": [
-      "python exec",
+      "Python-исполнитель",
       "запустить python",
       "выполнить python",
       "код Python",
@@ -138,7 +138,7 @@
   "pt_BR": {
     "param.code.description": "Código Python.",
     "x_search_terms": [
-      "python exec",
+      "executivo python",
       "executar python",
       "executar python",
       "código python",
@@ -155,7 +155,7 @@
   "pt": {
     "param.code.description": "Código Python.",
     "x_search_terms": [
-      "python exec",
+      "executivo python",
       "execute python",
       "executar python",
       "código python",
@@ -172,7 +172,7 @@
   "id": {
     "param.code.description": "Kode Python.",
     "x_search_terms": [
-      "python exec",
+      "eksekutif python",
       "jalankan python",
       "jalankan python",
       "kode python",
@@ -189,7 +189,7 @@
   "vi": {
     "param.code.description": "Mã Python.",
     "x_search_terms": [
-      "python exec",
+      "người thực thi python",
       "chạy trăn",
       "thực thi trăn",
       "mã trăn",
@@ -206,12 +206,12 @@
   "pl": {
     "param.code.description": "Kod Pythona.",
     "x_search_terms": [
-      "python exec",
-      "run python",
+      "wykonanie Pythona",
+      "uruchom Pythona",
       "wykonaj python",
       "kod Pythona",
       "skrypt Pythona",
-      "python run",
+      "bieg Pythona",
       "python wykonaj",
       "polecenie Pythona",
       "interpreter Pythona",
@@ -232,7 +232,7 @@
       "पायथन कमांड",
       "पायथन दुभाषिया",
       "पायथन प्रोग्राम",
-      ""
+      "पायथन प्रोग्राम"
     ],
     "[python_exec error] Provide 'code'.": "",
     "tool.description": "पायथन कोड को नियंत्रित तरीके से निष्पादित करें। गणना, डेटा प्रोसेसिंग, या छोटी स्क्रिप्ट चलाने के लिए इस टूल का उपयोग करें। इसका उपयोग करने से पहले, अन्य उपयुक्त टूल के लिए टूल_कैटलॉग खोजें।"
@@ -249,7 +249,7 @@
       "أمر بايثون",
       "مترجم بايثون",
       "برنامج بايثون",
-      ""
+      "برنامج بايثون"
     ],
     "[python_exec error] Provide 'code'.": "",
     "tool.description": "تنفيذ كود Python بطريقة يمكن التحكم فيها. استخدم هذه الأداة لإجراء العمليات الحسابية أو معالجة البيانات أو تشغيل البرامج النصية القصيرة. ابحث عن أدوات أخرى مناسبة عبر `tool_catalog` قبل استخدام هذه الأداة."
@@ -308,15 +308,15 @@
   "nl": {
     "param.code.description": "Python-code.",
     "x_search_terms": [
-      "python exec",
+      "python-exec",
       "python uitvoeren",
       "python uitvoeren",
-      "python code",
-      "python script",
-      "python run",
-      "python execute",
-      "python command",
-      "python interpreter",
+      "Python-code",
+      "Python-script",
+      "python rennen",
+      "Python uitvoeren",
+      "Python-opdracht",
+      "Python-tolk",
       "python programma"
     ],
     "[python_exec error] Provide 'code'.": "",
@@ -330,8 +330,8 @@
       "suorita python",
       "python-koodi",
       "python-skripti",
-      "python run",
-      "python execute",
+      "python-juoksu",
+      "python suorittaa",
       "python-komento",
       "python-tulkki",
       "python-ohjelma"
@@ -376,7 +376,7 @@
   "tr": {
     "param.code.description": "Python kodu.",
     "x_search_terms": [
-      "python exec",
+      "piton yöneticisi",
       "python çalıştır",
       "python'u çalıştır",
       "python kodunu çalıştır",
@@ -393,12 +393,12 @@
   "th": {
     "param.code.description": "ปฏิบัติการ PowerShell ได้: 'pwsh' (PowerShell 7+) หรือ 'powershell' (Windows PowerShell) หากละเว้น ให้เลือกอัตโนมัติ",
     "x_search_terms": [
-      "python exec",
-      "run python",
-      "execute python",
+      "หลามผู้บริหาร",
+      "เรียกใช้หลาม",
+      "ดำเนินการหลาม",
       "รหัส python",
       "สคริปต์ python",
-      "python run",
+      "หลามวิ่ง",
       "python ดำเนินการ",
       "คำสั่ง python",
       "python interterter",
@@ -410,12 +410,12 @@
   "zh_CN": {
     "param.code.description": "Python代码。",
     "x_search_terms": [
-      "python exec",
-      "run python",
+      "蟒蛇执行",
+      "运行Python",
       "执行python",
       "python代码",
       "python脚本",
-      "python run",
+      "蟒蛇运行",
       "python执行",
       "python命令",
       "python解释器",
@@ -427,12 +427,12 @@
   "zh_TW": {
     "param.code.description": "Python代码。",
     "x_search_terms": [
-      "python exec",
-      "run python",
+      "蟒蛇執行",
+      "運行Python",
       "執行python",
       "python程式碼",
       "python腳本",
-      "python run",
+      "蟒蛇運行",
       "python執行",
       "python指令",
       "python解釋器",
@@ -445,15 +445,15 @@
     "param.code.description": "পাইথন কোড।",
     "x_search_terms": [
       "python exec",
-      "run python",
-      "execute python",
-      "python code",
-      "python script",
-      "python run",
-      "python execute",
-      "python command",
-      "python interpreter",
-      "python program"
+      "পাইথন চালান",
+      "পাইথন চালান",
+      "পাইথন কোড",
+      "পাইথন স্ক্রিপ্ট",
+      "পাইথন দৌড়",
+      "পাইথন চালান",
+      "পাইথন কমান্ড",
+      "পাইথন দোভাষী",
+      "পাইথন প্রোগ্রাম"
     ],
     "[python_exec error] Provide 'code'.": "",
     "tool.description": "নিয়ন্ত্রিত উপায়ে পাইথন কোড কার্যকর করুন। গণনা, ডেটা প্রসেসিং বা ছোট স্ক্রিপ্ট চালানোর জন্য এই টুলটি ব্যবহার করুন। এই টুলটি ব্যবহার করার আগে `tool_catalog` এর মাধ্যমে অন্যান্য উপযুক্ত টুল খুঁজুন।"
@@ -462,15 +462,15 @@
     "param.code.description": "کد پایتون.",
     "x_search_terms": [
       "اجرای پایتون",
-      "",
-      "",
-      "",
-      "",
-      "",
-      "",
-      "",
-      "",
-      ""
+      "پایتون را اجرا کنید",
+      "پایتون را اجرا کنید",
+      "کد پایتون",
+      "اسکریپت پایتون",
+      "اجرای پایتون",
+      "پایتون اجرا کنید",
+      "دستور پایتون",
+      "مفسر پایتون",
+      "برنامه پایتون"
     ],
     "[python_exec error] Provide 'code'.": "",
     "tool.description": "کد پایتون را به روشی کنترل شده اجرا کنید. از این ابزار برای محاسبات، پردازش داده ها یا اجرای اسکریپت های کوتاه استفاده کنید. قبل از استفاده از این ابزار، سایر ابزارهای مناسب را از طریق «ابزار_کاتالوگ» جستجو کنید."
@@ -479,14 +479,14 @@
     "param.code.description": "Python код.",
     "x_search_terms": [
       "python exec",
-      "run python",
-      "execute python",
-      "python code",
-      "python script",
-      "python run",
-      "python execute",
-      "python command",
-      "python interpreter",
+      "python ажиллуулах",
+      "python ажиллуулах",
+      "питон код",
+      "питон скрипт",
+      "питон гүйлт",
+      "питон ажиллуулна",
+      "питон команд",
+      "питон орчуулагч",
       "python программ"
     ],
     "[python_exec error] Provide 'code'.": "",
@@ -496,15 +496,15 @@
     "param.code.description": "पायथन कोड.",
     "x_search_terms": [
       "python exec",
-      "run python",
-      "execute python",
-      "python code",
-      "python script",
-      "python run",
-      "python execute",
-      "python command",
-      "python interpreter",
-      "python program"
+      "पायथन चालवा",
+      "पायथन चालवा",
+      "पायथन कोड",
+      "पायथन स्क्रिप्ट",
+      "अजगर धावणे",
+      "पायथन अंमलात आणा",
+      "पायथन कमांड",
+      "अजगर दुभाषी",
+      "पायथन प्रोग्राम"
     ],
     "[python_exec error] Provide 'code'.": "",
     "tool.description": "पायथन कोड नियंत्रित मार्गाने कार्यान्वित करा. गणना, डेटा प्रोसेसिंग किंवा शॉर्ट स्क्रिप्ट चालवण्यासाठी हे साधन वापरा. हे साधन वापरण्यापूर्वी `tool_catalog` द्वारे इतर योग्य साधने शोधा."
@@ -513,12 +513,12 @@
     "param.code.description": "Κώδικας Python.",
     "x_search_terms": [
       "python exec",
-      "run python",
-      "execute python",
-      "python code",
-      "python script",
+      "τρέξτε python",
+      "εκτελέσει python",
+      "κώδικας python",
+      "σενάριο python",
       "python run",
-      "python execute",
+      "εκτέλεση python",
       "εντολή python",
       "ερμηνευτής python",
       "πρόγραμμα python"
@@ -529,13 +529,13 @@
   "he": {
     "param.code.description": "קוד Python.",
     "x_search_terms": [
-      "python exec",
+      "מנהל פיתון",
       "הרץ python",
       "הפעל python",
-      "python code",
-      "python script",
-      "python run",
-      "python execute",
+      "קוד פיתון",
+      "סקריפט פיתון",
+      "ריצת פיתון",
+      "python לבצע",
       "python פקודה",
       "python מתורגמן",
       "python"
@@ -546,15 +546,15 @@
   "hu": {
     "param.code.description": "Python-kód.",
     "x_search_terms": [
-      "python exec",
-      "run python",
-      "execute python",
-      "python code",
-      "python script",
-      "python run",
-      "python execute",
+      "python végrehajtó",
+      "futtassa a pythont",
+      "python végrehajtása",
+      "python kód",
+      "python szkript",
+      "python futás",
+      "python végrehajtása",
       "python parancs",
-      "python interpreter",
+      "python tolmács",
       "python program"
     ],
     "[python_exec error] Provide 'code'.": "",
@@ -564,14 +564,14 @@
     "param.code.description": "Cod Python.",
     "x_search_terms": [
       "python exec",
-      "run python",
+      "rulați python",
       "execut python",
-      "python code",
-      "python script",
+      "cod python",
+      "script python",
       "python run",
-      "python execute",
-      "python command",
-      "python interpreter",
+      "python execută",
+      "comanda python",
+      "interpret python",
       "program python"
     ],
     "[python_exec error] Provide 'code'.": "",

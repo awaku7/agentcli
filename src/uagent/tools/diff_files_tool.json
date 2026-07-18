@@ -68,11 +68,11 @@
   "de": {
     "tool.description": "Vergleichen Sie Dateien oder Textinhalte und geben Sie eine strukturierte Diff-Ausgabe zurück. Unterstützt die Modi „Unified“, „Summary“ und „json_diff“.",
     "x_search_terms": [
-      "diff files",
-      "file diff",
-      "compare files",
+      "diff-Dateien",
+      "Dateidiff",
+      "Dateien vergleichen",
       "difference",
-      "unified diff",
+      "einheitliches Diff",
       "diff",
       "ファイル比較",
       "差分"
@@ -402,7 +402,7 @@
       "bestand diff",
       "bestanden vergelijken",
       "verschil",
-      "unified diff",
+      "verenigd verschil",
       "diff",
       "ファイル比較",
       "差分"
@@ -468,7 +468,7 @@
       "fil diff",
       "jämför filer",
       "difference",
-      "unified diff",
+      "enhetlig diff",
       "diff",
       "ファイル比較",
       "差分"
@@ -498,10 +498,10 @@
     "tool.description": "Bandingkan file atau konten teks dan kembalikan keluaran diff terstruktur. Mendukung mode terpadu, ringkasan, dan json_diff.",
     "x_search_terms": [
       "file diff",
-      "file diff",
+      "perbedaan file",
       "bandingkan file",
       "difference",
-      "unified diff",
+      "perbedaan terpadu",
       "diff",
       "ファイル比較",
       "差分"
@@ -536,7 +536,7 @@
       "difference",
       "birleştirilmiş fark",
       "diff",
-      "ファイル比較",
+      "bu",
       "差分"
     ],
     "param.path1.description": "İlk dosya yolu (yol2 belirtilmediği sürece gereklidir).",
@@ -567,9 +567,9 @@
       "ไฟล์ diff",
       "เปรียบเทียบไฟล์",
       "ความแตกต่าง",
-      "unified diff",
+      "ความแตกต่างแบบครบวงจร",
       "diff",
-      "ファイル比較",
+      "ฟิลเลอร์比較",
       "差分"
     ],
     "param.path1.description": "เส้นทางไฟล์แรก (จำเป็น เว้นแต่ระบุ path2)",
@@ -629,11 +629,11 @@
   "uk": {
     "tool.description": "Порівняйте файли або текстовий вміст і поверніть структурований вихід різниць. Підтримує режими unified, summary і json_diff.",
     "x_search_terms": [
-      "diff files",
-      "file diff",
+      "diff файли",
+      "файл диф",
       "порівняти файли",
       "difference",
-      "unified diff",
+      "уніфікована диф",
       "diff",
       "ファイル比較",
       "差分"
@@ -666,7 +666,7 @@
       "fișier diff",
       "compara fișiere",
       "diferență",
-      "unified diff",
+      "dif. unificat",
       "diff",
       "ファイル比較",
       "差分"
@@ -761,8 +761,8 @@
   "bn": {
     "tool.description": "ফাইল বা টেক্সট বিষয়বস্তুর তুলনা করুন এবং স্ট্রাক্চারড ডিফ আউটপুট ফেরত দিন। ইউনিফাইড, সারাংশ এবং json_diff মোড সমর্থন করে।",
     "x_search_terms": [
-      "diff files",
-      "file diff",
+      "ডিফ ফাইল",
+      "ফাইলের পার্থক্য",
       "ফাইলের তুলনা",
       "difference",
       "uniified diff",
@@ -828,13 +828,13 @@
     "tool.description": "فایل ها یا محتوای متنی را با هم مقایسه کنید و خروجی تفاوت ساختار یافته را برگردانید. از حالت های یکپارچه، خلاصه و json_diff پشتیبانی می کند.",
     "x_search_terms": [
       "فایل‌های متفاوت",
-      "",
-      "",
-      "",
-      "",
-      "",
-      "",
-      ""
+      "تفاوت فایل",
+      "مقایسه فایل ها",
+      "تفاوت",
+      "تفاوت یکپارچه",
+      "تفاوت",
+      "ファイル比較",
+      "差分"
     ],
     "param.path1.description": "مسیر فایل اول (الزامی است مگر اینکه path2 مشخص شده باشد).",
     "param.path2.description": "مسیر فایل دوم. از مقایسه مسیر 1 با «متن» صرف نظر کنید.",
@@ -893,11 +893,11 @@
   "he": {
     "tool.description": "השווה קבצים או תוכן טקסט והחזר פלט הבדל מובנה. תומך במצבים מאוחדים, סיכום ו-json_diff.",
     "x_search_terms": [
-      "diff files",
-      "file diff",
+      "קבצי diff",
+      "הבדל קובץ",
       "השוואת קבצים",
       "difference",
-      "unified diff",
+      "הבדל מאוחד",
       "diff",
       "ファイル比較",
       "差分"
@@ -933,7 +933,7 @@
       "एकीकृत अंतर",
       "ファイル比較",
       "差分",
-      ""
+      "差分"
     ],
     "param.path1.description": "प्रथम फ़ाइल पथ (जब तक पथ2 निर्दिष्ट न हो तब तक आवश्यक है)।",
     "param.path2.description": "दूसरा फ़ाइल पथ. 'पाठ' के विरुद्ध पथ1 की तुलना करना छोड़ें।",
@@ -959,11 +959,11 @@
   "hu": {
     "tool.description": "Hasonlítsa össze a fájlokat vagy szöveges tartalmat, és adja vissza a strukturált diff kimenetet. Támogatja az egyesített, összefoglaló és json_diff módokat.",
     "x_search_terms": [
-      "diff files",
-      "file diff",
-      "compare files",
+      "diff fájlokat",
+      "fájl diff",
+      "összehasonlítani a fájlokat",
       "difference",
-      "unified diff",
+      "egységes diff",
       "diff",
       "ファイル比較",
       "差分"
@@ -993,7 +993,7 @@
     "tool.description": "Файл эсвэл текстийн агуулгыг харьцуулж, бүтэцлэгдсөн дифференцийн гаралтыг буцаана уу. Нэгдсэн, хураангуй, json_diff горимуудыг дэмждэг.",
     "x_search_terms": [
       "diff файлууд",
-      "file diff",
+      "файлын ялгаа",
       "харьцуулах файлууд",
       "ялгаанууд",
       "нэгдсэн ялгаа",
@@ -1025,11 +1025,11 @@
   "mr": {
     "tool.description": "फाइल्स किंवा मजकूर सामग्रीची तुलना करा आणि संरचित भिन्न आउटपुट परत करा. युनिफाइड, सारांश आणि json_diff मोडला सपोर्ट करते.",
     "x_search_terms": [
-      "diff files",
-      "file diff",
+      "diff फाइल्स",
+      "फाइल फरक",
       "फाईल्सची तुलना करा",
       " difference",
-      "unified diff",
+      "युनिफाइड फरक",
       "diff",
       "ファイル比較",
       "差分"
@@ -1062,7 +1062,7 @@
       "fil diff",
       "sammenlign filer",
       "difference",
-      "unified diff",
+      "enhetlig diff",
       "diff",
       "ファイル比較",
       "差分"
@@ -1091,11 +1091,11 @@
   "sw": {
     "tool.description": "Linganisha faili au maudhui ya maandishi na urudishe towe la muundo tofauti. Inaauni hali zilizounganishwa, muhtasari na json_diff.",
     "x_search_terms": [
-      "diff files",
-      "file diff",
-      "compare files",
+      "faili tofauti",
+      "faili tofauti",
+      "kulinganisha faili",
       "difference",
-      "unified diff",
+      "tofauti ya umoja",
       "diff",
       "ファイル比較",
       "差分"

@@ -161,7 +161,7 @@
       "isi ulang alat",
       "isi ulang agen",
       "penyegaran sistem",
-      "hot reload"
+      "isi ulang panas"
     ]
   },
   "vi": {
@@ -213,30 +213,30 @@
     "tool.description": "أعد تحميل النظام واعكس أحدث التعليمات البرمجية لجميع الأدوات ضمن الأدوات/ (ملفات Python .py) في الذاكرة. قم بتشغيل هذا بعد تعديل التعليمات البرمجية.",
     "x_search_terms": [
       "إعادة تحميل النظام، أدوات إعادة التحميل، إعادة تحميل التكوين، أدوات التحديث، أدوات إعادة التشغيل، إعادة تحميل النظام، إعادة تحميل الأداة، إعادة تحميل الوكيل، تحديث النظام، إعادة التحميل السريع",
-      "",
-      "",
-      "",
-      "",
-      "",
-      "",
-      "",
-      "",
-      ""
+      "أدوات إعادة التحميل",
+      "إعادة تحميل التكوين",
+      "أدوات التحديث",
+      "أدوات إعادة التشغيل",
+      "نظام إعادة التحميل",
+      "إعادة تحميل الأداة",
+      "وكيل إعادة التحميل",
+      "تحديث النظام",
+      "إعادة التحميل الساخن"
     ]
   },
   "sv": {
     "tool.description": "Laddar om systemet och läser in den senaste koden för alla verktyg under tools/ (Python .py-filer) i minnet.",
     "x_search_terms": [
-      "system reload",
-      "reload tools",
-      "reload config",
-      "refresh tools",
-      "restart tools",
-      "reload system",
-      "tool reload",
-      "reload agent",
-      "system refresh",
-      "hot reload"
+      "ladda om systemet",
+      "ladda om verktyg",
+      "ladda om konfiguration",
+      "uppdatera verktyg",
+      "starta om verktyg",
+      "ladda om systemet",
+      "ladda om verktyget",
+      "omladdningsagent",
+      "systemuppdatering",
+      "varm omladdning"
     ]
   },
   "sw": {
@@ -258,15 +258,15 @@
     "tool.description": "Laster systemet på nytt og laster inn den nyeste koden for alle verktøy under tools/ (Python .py-filer) i minnet.",
     "x_search_terms": [
       "systemreload",
-      "reload tools",
-      "reload config",
-      "refresh tools",
-      "restart tools",
-      "reload system",
-      "tool reload",
+      "last verktøy på nytt",
+      "last inn konfigurasjonen på nytt",
+      "oppdater verktøy",
+      "start verktøy på nytt",
+      "laste systemet på nytt",
+      "last inn verktøyet på nytt",
       "reload agent",
-      "system refresh",
-      "hot reload"
+      "systemoppdatering",
+      "varm omlasting"
     ]
   },
   "nl": {
@@ -281,7 +281,7 @@
       "tool opnieuw laden",
       "agent opnieuw laden",
       "systeem vernieuwen",
-      "hot reload"
+      "heet herladen"
     ]
   },
   "fi": {
@@ -296,7 +296,7 @@
       "reload-agentti",
       "järjestelmän päivitys",
       "kuuma uudelleenlataus",
-      ""
+      "kuuma reload"
     ]
   },
   "cs": {
@@ -416,7 +416,7 @@
       "بارگیری مجدد ابزار",
       "بارگیری مجدد عامل",
       "بازسازی سیستم",
-      ""
+      "بارگذاری مجدد داغ"
     ]
   },
   "mn": {
@@ -468,15 +468,15 @@
     "tool.description": "טען מחדש את המערכת וטען את הקוד העדכני ביותר עבור כל הכלים תחת tools/ (קבצי Python .py) לזיכרון. הפעל את זה לאחר שינוי הקוד.",
     "x_search_terms": [
       "כלים לטעינה מחדש של המערכת",
-      "",
-      "",
-      "",
-      "",
-      "",
-      "",
-      "",
-      "",
-      ""
+      "טען כלים מחדש",
+      "טען מחדש את התצורה",
+      "כלים לרענן",
+      "הפעל מחדש את הכלים",
+      "טען מחדש מערכת",
+      "טעינת הכלים מחדש",
+      "סוכן לטעון מחדש",
+      "רענון מערכת",
+      "טעינה חמה"
     ]
   },
   "hu": {
@@ -487,11 +487,11 @@
       "konfiguráció újratöltése",
       "frissítési eszközök",
       "újraindítási eszközök",
-      "",
-      "",
-      "",
-      "",
-      ""
+      "újratöltési rendszer",
+      "szerszám újratöltése",
+      "reload agent",
+      "rendszerfrissítés",
+      "forró újratöltés"
     ]
   },
   "ro": {
