@@ -1,0 +1,19 @@
+{
+  "mcp_servers": [
+    {
+      "name": "n8n",
+      "url": "https://<your-n8n-host>/mcp",
+      "transport": "streamable-http",
+      "headers": {
+        "Authorization": "Bearer ${N8N_MCP_ACCESS_TOKEN}"
+      },
+      "_comment": "Replace url with Instance-level MCP URL from n8n Settings > Instance-level MCP > Connection details. Prefer Access Token auth. Do not commit real tokens; set N8N_MCP_ACCESS_TOKEN in the environment or .env.sec."
+    },
+    {
+      "name": "n8n-docs",
+      "url": "https://docs.n8n.io/~gitbook/mcp",
+      "transport": "streamable-http",
+      "_comment": "Public n8n documentation MCP (GitBook). No token required."
+    }
+  ]
+}

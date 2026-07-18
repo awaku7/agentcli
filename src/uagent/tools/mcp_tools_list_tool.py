@@ -159,12 +159,57 @@ async def _get_tools_from_session(read, write):
         }
 
 
-async def _mcp_tools_list_http(url: str) -> dict[str, Any]:
+def _resolve_http_headers(raw: Any) -> dict[str, str]:
+    """Build HTTP headers for MCP streamable HTTP.
+
+    Supports plain strings and env refs: "env:VAR" or "${VAR}".
+    """
+
+    if not isinstance(raw, dict):
+        return {}
+    out: dict[str, str] = {}
+    for k, v in raw.items():
+        key = str(k).strip()
+        if not key:
+            continue
+        val = "" if v is None else str(v)
+        s = val.strip()
+        if s.startswith("env:"):
+            env_name = s[4:].strip()
+            val = env_get(env_name, "") or os.environ.get(env_name, "")
+        elif s.startswith("${") and s.endswith("}") and len(s) > 3:
+            env_name = s[2:-1].strip()
+            val = env_get(env_name, "") or os.environ.get(env_name, "")
+        out[key] = str(val)
+    return out
+
+
+async def _mcp_tools_list_http(
+    url: str, headers: dict[str, str] | None = None
+) -> dict[str, Any]:
     mcp_url = url if url.endswith("/mcp") else url.rstrip("/") + "/mcp"
-    async with streamable_http_client(mcp_url) as (read, write, session_id):
-        result = await _get_tools_from_session(read, write)
-        result["url"] = mcp_url
-        return result
+    http_client = None
+    if headers:
+        try:
+            import httpx
+        except ImportError:
+            from .._pip_auto import install_with_status as _install_httpx
+
+            if not _install_httpx("httpx"):
+                raise
+            import httpx
+
+        http_client = httpx.AsyncClient(headers=headers)
+    try:
+        async with streamable_http_client(
+            mcp_url, http_client=http_client
+        ) as (read, write, session_id):
+            result = await _get_tools_from_session(read, write)
+            result["url"] = mcp_url
+            return result
+    finally:
+        if http_client is not None:
+            await http_client.aclose()
 
 
 async def _mcp_tools_list_stdio(
@@ -190,6 +235,7 @@ def run_tool(args: dict[str, Any]) -> str:
     command = ""
     cmd_args: list[str] = []
     cmd_env: dict[str, str] = {}
+    http_headers: dict[str, str] = {}
 
     if (not url) and server_name:
         try:
@@ -216,6 +262,7 @@ def run_tool(args: dict[str, Any]) -> str:
                                 if isinstance(raw_env, dict)
                                 else {}
                             )
+                            http_headers = _resolve_http_headers(s.get("headers"))
                             break
         except Exception:
             pass
@@ -250,7 +297,7 @@ def run_tool(args: dict[str, Any]) -> str:
 
         # 3) http
         else:
-            result = asyncio.run(_mcp_tools_list_http(str(url)))
+            result = asyncio.run(_mcp_tools_list_http(str(url), http_headers))
 
         if pretty:
             return json.dumps(result, ensure_ascii=False, indent=2)

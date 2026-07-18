@@ -154,14 +154,64 @@ async def _call_mcp_stdio(
         return f"[Error] MCP stdio call failed: {str(e)}"
 
 
-async def _call_mcp_http(url: str, name: str, argv: dict[str, Any]) -> str:
+def _resolve_http_headers(raw: Any) -> dict[str, str]:
+    """Build HTTP headers for MCP streamable HTTP.
+
+    Supports:
+    - dict values as plain strings
+    - values like "env:VAR_NAME" or "${VAR_NAME}" resolved via env_get/os.environ
+    """
+
+    if not isinstance(raw, dict):
+        return {}
+    out: dict[str, str] = {}
+    for k, v in raw.items():
+        key = str(k).strip()
+        if not key:
+            continue
+        val = "" if v is None else str(v)
+        s = val.strip()
+        if s.startswith("env:"):
+            env_name = s[4:].strip()
+            val = env_get(env_name, "") or os.environ.get(env_name, "")
+        elif s.startswith("${") and s.endswith("}") and len(s) > 3:
+            env_name = s[2:-1].strip()
+            val = env_get(env_name, "") or os.environ.get(env_name, "")
+        out[key] = str(val)
+    return out
+
+
+async def _call_mcp_http(
+    url: str,
+    name: str,
+    argv: dict[str, Any],
+    headers: dict[str, str] | None = None,
+) -> str:
     mcp_url = url if url.endswith("/mcp") else url.rstrip("/") + "/mcp"
     try:
-        async with streamable_http_client(mcp_url) as (read, write, session_id):
-            async with ClientSession(read, write) as session:
-                await session.initialize()
-                result = await session.call_tool(name, argv)
-                return _format_result(result)
+        http_client = None
+        if headers:
+            try:
+                import httpx
+            except ImportError:
+                from .._pip_auto import install_with_status as _install_httpx
+
+                if not _install_httpx("httpx"):
+                    raise
+                import httpx
+
+            http_client = httpx.AsyncClient(headers=headers)
+        try:
+            async with streamable_http_client(
+                mcp_url, http_client=http_client
+            ) as (read, write, session_id):
+                async with ClientSession(read, write) as session:
+                    await session.initialize()
+                    result = await session.call_tool(name, argv)
+                    return _format_result(result)
+        finally:
+            if http_client is not None:
+                await http_client.aclose()
     except BaseExceptionGroup as eg:
         # NOTE: ExceptionGroup の内訳を返して原因を特定する（調査用）
         import traceback
@@ -370,6 +420,7 @@ def run_tool(args: dict[str, Any]) -> str:
     command = ""
     cmd_args = []
     cmd_env = {}
+    http_headers: dict[str, str] = {}
 
     config_path = get_default_mcp_config_path()
     if server_name:
@@ -385,6 +436,7 @@ def run_tool(args: dict[str, Any]) -> str:
                             command = s.get("command", "")
                             cmd_args = s.get("args", [])
                             cmd_env = s.get("env", {})
+                            http_headers = _resolve_http_headers(s.get("headers"))
                             found = True
                             break
                     if not found and not url:
@@ -414,7 +466,7 @@ def run_tool(args: dict[str, Any]) -> str:
                 _call_mcp_stdio(parts[0], parts[1:], {}, name, argv)
             )
         else:
-            result_text = asyncio.run(_call_mcp_http(url, name, argv))
+            result_text = asyncio.run(_call_mcp_http(url, name, argv, http_headers))
         trunc = getattr(cb, "truncate_output", None)
         if callable(trunc):
             try:
