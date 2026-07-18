@@ -12,8 +12,8 @@
       "audio recognition",
       "speech transcription"
     ],
-    "param.path.description": "Path to the input audio file.",
-    "param.prompt.description": "Optional context prompt to improve transcription quality.",
+    "param.path.description": "Path to the input audio file. Required unless url is set (Grok/xAI).",
+    "param.prompt.description": "Optional context prompt to improve transcription quality. Ignored by Grok/xAI batch STT.",
     "err.unsupported_provider": "Unsupported provider for audio transcription: {provider!r}",
     "err.openai_import": "Failed to import openai package: {err}",
     "err.path_empty": "path is required",
@@ -24,8 +24,15 @@
     "warn.empty_transcript": "[WARN] empty transcript",
     "param.fmt.description": "How much detail to return in the JSON response: text or json.",
     "param.language.description": "Optional language hint (e.g. 'ja', 'en'). If omitted, the current display language is used.",
-    "param.model.description": "Transcription model name. If omitted, the provider default or configured deployment name is used.",
-    "tool.description": "Transcribe an audio file to text. Useful for meetings, interviews, and voice notes."
+    "param.model.description": "Transcription model name. If omitted, the provider default or configured deployment name is used. Grok/xAI default: grok-stt-batch.",
+    "tool.description": "Transcribe an audio file to text. Useful for meetings, interviews, and voice notes.",
+    "param.url.description": "Remote audio URL for Grok/xAI STT (alternative to path). Ignored by other providers.",
+    "param.diarize.description": "Grok/xAI only: enable speaker diarization when true.",
+    "param.keyterm.description": "Grok/xAI only: bias terms (max 100, each <= 50 chars). A single string is also accepted.",
+    "param.filler_words.description": "Grok/xAI only: keep filler words (um/uh) when true.",
+    "param.itn_format.description": "Grok/xAI only: enable inverse text normalization (numbers/dates as digits) when true.",
+    "err.path_or_url_required": "path or url is required for Grok/xAI STT",
+    "err.grok_file_too_large": "audio file exceeds Grok STT limit of {max_mb} MB (got {size_mb:.1f} MB)"
   },
   "ja": {
     "x_search_terms": [
@@ -39,8 +46,8 @@
       "音声からテキストへ",
       "音声認識"
     ],
-    "param.path.description": "入力する音声ファイルのパス。",
-    "param.prompt.description": "書き起こし精度を高めるための任意の文脈プロンプト。",
+    "param.path.description": "入力する音声ファイルのパス。url 指定時（Grok/xAI）は省略可。",
+    "param.prompt.description": "書き起こし精度を高めるための任意の文脈プロンプト。Grok/xAI バッチ STT では無視。",
     "err.unsupported_provider": "音声書き起こしに対応していない provider です: {provider!r}",
     "err.openai_import": "openai パッケージの読み込みに失敗しました: {err}",
     "err.path_empty": "path は必須です",
@@ -51,8 +58,15 @@
     "warn.empty_transcript": "書き起こし結果が空です",
     "param.fmt.description": "JSON 応答で返す詳細の量: テキストまたは json。",
     "param.language.description": "オプションの言語ヒント (例: 「ja」、「en」)。省略した場合は、現在の表示言語が使用されます。",
-    "param.model.description": "転写モデル名。省略した場合、プロバイダーのデフォルトまたは構成されたデプロイメント名が使用されます。",
-    "tool.description": "音声ファイルをテキストに書き起こします。会議やインタビュー、音声メモなどに便利です。"
+    "param.model.description": "転写モデル名。省略時はプロバイダー既定または設定されたデプロイ名。Grok/xAI 既定: grok-stt-batch。",
+    "tool.description": "音声ファイルをテキストに書き起こします。会議やインタビュー、音声メモなどに便利です。",
+    "param.url.description": "Grok/xAI STT 用のリモート音声 URL（path の代替）。他プロバイダでは無視。",
+    "param.diarize.description": "Grok/xAI のみ: true で話者分離を有効化。",
+    "param.keyterm.description": "Grok/xAI のみ: バイアス用語（最大100、各50文字以内）。文字列1つでも可。",
+    "param.filler_words.description": "Grok/xAI のみ: true でフィラー（um/uh）を保持。",
+    "param.itn_format.description": "Grok/xAI のみ: true で逆テキスト正規化（数字・日付を桁表記）を有効化。",
+    "err.path_or_url_required": "Grok/xAI STT には path または url が必要です",
+    "err.grok_file_too_large": "音声ファイルが Grok STT 上限 {max_mb} MB を超えています（{size_mb:.1f} MB）"
   },
   "es": {
     "x_search_terms": [
@@ -79,7 +93,14 @@
     "param.fmt.description": "Cuántos detalles devolver en la respuesta JSON: texto o json.",
     "param.language.description": "Sugerencia de idioma opcional (por ejemplo, 'ja', 'en'). Si se omite, se utiliza el idioma de visualización actual.",
     "param.model.description": "Nombre del modelo de transcripción. Si se omite, se utiliza el nombre de implementación configurado o predeterminado del proveedor.",
-    "tool.description": "Transcribe un archivo de audio a texto. Útil para reuniones, entrevistas y notas de voz."
+    "tool.description": "Transcribe un archivo de audio a texto. Útil para reuniones, entrevistas y notas de voz.",
+    "param.url.description": "Remote audio URL for Grok/xAI STT (alternative to path). Ignored by other providers.",
+    "param.diarize.description": "Grok/xAI only: enable speaker diarization when true.",
+    "param.keyterm.description": "Grok/xAI only: bias terms (max 100, each <= 50 chars). A single string is also accepted.",
+    "param.filler_words.description": "Grok/xAI only: keep filler words (um/uh) when true.",
+    "param.itn_format.description": "Grok/xAI only: enable inverse text normalization (numbers/dates as digits) when true.",
+    "err.path_or_url_required": "path or url is required for Grok/xAI STT",
+    "err.grok_file_too_large": "audio file exceeds Grok STT limit of {max_mb} MB (got {size_mb:.1f} MB)"
   },
   "fr": {
     "x_search_terms": [
@@ -106,7 +127,14 @@
     "param.fmt.description": "Quelle quantité de détails renvoyer dans la réponse JSON : texte ou json.",
     "param.language.description": "Indice de langue facultatif (par exemple « ja », « en »). En cas d'omission, la langue d'affichage actuelle est utilisée.",
     "param.model.description": "Nom du modèle de transcription. En cas d'omission, le nom de déploiement par défaut ou configuré du fournisseur est utilisé.",
-    "tool.description": "Transcrivez un fichier audio en texte. Utile pour les réunions, les entretiens et les notes vocales."
+    "tool.description": "Transcrivez un fichier audio en texte. Utile pour les réunions, les entretiens et les notes vocales.",
+    "param.url.description": "Remote audio URL for Grok/xAI STT (alternative to path). Ignored by other providers.",
+    "param.diarize.description": "Grok/xAI only: enable speaker diarization when true.",
+    "param.keyterm.description": "Grok/xAI only: bias terms (max 100, each <= 50 chars). A single string is also accepted.",
+    "param.filler_words.description": "Grok/xAI only: keep filler words (um/uh) when true.",
+    "param.itn_format.description": "Grok/xAI only: enable inverse text normalization (numbers/dates as digits) when true.",
+    "err.path_or_url_required": "path or url is required for Grok/xAI STT",
+    "err.grok_file_too_large": "audio file exceeds Grok STT limit of {max_mb} MB (got {size_mb:.1f} MB)"
   },
   "ko": {
     "x_search_terms": [
@@ -133,7 +161,14 @@
     "param.fmt.description": "JSON 응답으로 반환할 세부 정보(text 또는 json)입니다.",
     "param.language.description": "선택적 언어 힌트(예: 'ja', 'en'). 생략하면 현재 표시 언어가 사용됩니다.",
     "param.model.description": "전사 모델 이름. 생략하면 공급자 기본 또는 구성된 배포 이름이 사용됩니다.",
-    "tool.description": "오디오 파일을 텍스트로 변환합니다. 회의, 인터뷰, 음성 메모에 유용합니다."
+    "tool.description": "오디오 파일을 텍스트로 변환합니다. 회의, 인터뷰, 음성 메모에 유용합니다.",
+    "param.url.description": "Remote audio URL for Grok/xAI STT (alternative to path). Ignored by other providers.",
+    "param.diarize.description": "Grok/xAI only: enable speaker diarization when true.",
+    "param.keyterm.description": "Grok/xAI only: bias terms (max 100, each <= 50 chars). A single string is also accepted.",
+    "param.filler_words.description": "Grok/xAI only: keep filler words (um/uh) when true.",
+    "param.itn_format.description": "Grok/xAI only: enable inverse text normalization (numbers/dates as digits) when true.",
+    "err.path_or_url_required": "path or url is required for Grok/xAI STT",
+    "err.grok_file_too_large": "audio file exceeds Grok STT limit of {max_mb} MB (got {size_mb:.1f} MB)"
   },
   "de": {
     "x_search_terms": [
@@ -160,7 +195,14 @@
     "param.fmt.description": "Wie viele Details in der JSON-Antwort zurückgegeben werden sollen: Text oder JSON.",
     "param.language.description": "Optionaler Sprachhinweis (z. B. „ja“, „en“). Wenn es weggelassen wird, wird die aktuelle Anzeigesprache verwendet.",
     "param.model.description": "Name des Transkriptionsmodells. Wenn es weggelassen wird, wird der standardmäßige oder konfigurierte Bereitstellungsname des Anbieters verwendet.",
-    "tool.description": "Transkribieren Sie eine Audiodatei in Text. Nützlich für Besprechungen, Interviews und Sprachnotizen."
+    "tool.description": "Transkribieren Sie eine Audiodatei in Text. Nützlich für Besprechungen, Interviews und Sprachnotizen.",
+    "param.url.description": "Remote audio URL for Grok/xAI STT (alternative to path). Ignored by other providers.",
+    "param.diarize.description": "Grok/xAI only: enable speaker diarization when true.",
+    "param.keyterm.description": "Grok/xAI only: bias terms (max 100, each <= 50 chars). A single string is also accepted.",
+    "param.filler_words.description": "Grok/xAI only: keep filler words (um/uh) when true.",
+    "param.itn_format.description": "Grok/xAI only: enable inverse text normalization (numbers/dates as digits) when true.",
+    "err.path_or_url_required": "path or url is required for Grok/xAI STT",
+    "err.grok_file_too_large": "audio file exceeds Grok STT limit of {max_mb} MB (got {size_mb:.1f} MB)"
   },
   "it": {
     "x_search_terms": [
@@ -187,7 +229,14 @@
     "param.fmt.description": "Quanti dettagli restituire nella risposta JSON: testo o json.",
     "param.language.description": "Suggerimento linguistico opzionale (ad esempio \"ja\", \"en\"). Se omesso, viene utilizzata la lingua di visualizzazione corrente.",
     "param.model.description": "Nome del modello di trascrizione. Se omesso, viene utilizzato il nome di distribuzione predefinito o configurato del provider.",
-    "tool.description": "Trascrivere un file audio in testo. Utile per riunioni, interviste e note vocali."
+    "tool.description": "Trascrivere un file audio in testo. Utile per riunioni, interviste e note vocali.",
+    "param.url.description": "Remote audio URL for Grok/xAI STT (alternative to path). Ignored by other providers.",
+    "param.diarize.description": "Grok/xAI only: enable speaker diarization when true.",
+    "param.keyterm.description": "Grok/xAI only: bias terms (max 100, each <= 50 chars). A single string is also accepted.",
+    "param.filler_words.description": "Grok/xAI only: keep filler words (um/uh) when true.",
+    "param.itn_format.description": "Grok/xAI only: enable inverse text normalization (numbers/dates as digits) when true.",
+    "err.path_or_url_required": "path or url is required for Grok/xAI STT",
+    "err.grok_file_too_large": "audio file exceeds Grok STT limit of {max_mb} MB (got {size_mb:.1f} MB)"
   },
   "ru": {
     "x_search_terms": [
@@ -214,7 +263,14 @@
     "param.fmt.description": "Насколько подробно следует возвращать ответ в формате JSON: текст или json.",
     "param.language.description": "Дополнительная языковая подсказка (например, «ja», «en»). Если этот параметр опущен, используется текущий язык отображения.",
     "param.model.description": "Название модели транскрипции. Если этот параметр опущен, используется имя развертывания по умолчанию или настроенное поставщиком.",
-    "tool.description": "Транскрипция аудиофайла в текст. Полезно для встреч, интервью и голосовых заметок."
+    "tool.description": "Транскрипция аудиофайла в текст. Полезно для встреч, интервью и голосовых заметок.",
+    "param.url.description": "Remote audio URL for Grok/xAI STT (alternative to path). Ignored by other providers.",
+    "param.diarize.description": "Grok/xAI only: enable speaker diarization when true.",
+    "param.keyterm.description": "Grok/xAI only: bias terms (max 100, each <= 50 chars). A single string is also accepted.",
+    "param.filler_words.description": "Grok/xAI only: keep filler words (um/uh) when true.",
+    "param.itn_format.description": "Grok/xAI only: enable inverse text normalization (numbers/dates as digits) when true.",
+    "err.path_or_url_required": "path or url is required for Grok/xAI STT",
+    "err.grok_file_too_large": "audio file exceeds Grok STT limit of {max_mb} MB (got {size_mb:.1f} MB)"
   },
   "pt_BR": {
     "x_search_terms": [
@@ -241,7 +297,14 @@
     "param.fmt.description": "Quantos detalhes retornar na resposta JSON: texto ou json.",
     "param.language.description": "Dica de idioma opcional (por exemplo, 'ja', 'en'). Se omitido, o idioma de exibição atual será usado.",
     "param.model.description": "Nome do modelo de transcrição. Se omitido, o nome de implantação padrão ou configurado do provedor será usado.",
-    "tool.description": "Transcrever um arquivo de áudio para texto. Útil para reuniões, entrevistas e anotações de voz."
+    "tool.description": "Transcrever um arquivo de áudio para texto. Útil para reuniões, entrevistas e anotações de voz.",
+    "param.url.description": "Remote audio URL for Grok/xAI STT (alternative to path). Ignored by other providers.",
+    "param.diarize.description": "Grok/xAI only: enable speaker diarization when true.",
+    "param.keyterm.description": "Grok/xAI only: bias terms (max 100, each <= 50 chars). A single string is also accepted.",
+    "param.filler_words.description": "Grok/xAI only: keep filler words (um/uh) when true.",
+    "param.itn_format.description": "Grok/xAI only: enable inverse text normalization (numbers/dates as digits) when true.",
+    "err.path_or_url_required": "path or url is required for Grok/xAI STT",
+    "err.grok_file_too_large": "audio file exceeds Grok STT limit of {max_mb} MB (got {size_mb:.1f} MB)"
   },
   "pt": {
     "x_search_terms": [
@@ -268,7 +331,14 @@
     "param.fmt.description": "Quantos detalhes retornar na resposta JSON: texto ou json.",
     "param.language.description": "Dica de idioma opcional (por exemplo, 'ja', 'en'). Se omitido, o idioma de exibição atual será usado.",
     "param.model.description": "Nome do modelo de transcrição. Se omitido, o nome de implantação padrão ou configurado do provedor será usado.",
-    "tool.description": "Transcrever um arquivo de áudio para texto. Útil para reuniões, entrevistas e anotações de voz."
+    "tool.description": "Transcrever um arquivo de áudio para texto. Útil para reuniões, entrevistas e anotações de voz.",
+    "param.url.description": "Remote audio URL for Grok/xAI STT (alternative to path). Ignored by other providers.",
+    "param.diarize.description": "Grok/xAI only: enable speaker diarization when true.",
+    "param.keyterm.description": "Grok/xAI only: bias terms (max 100, each <= 50 chars). A single string is also accepted.",
+    "param.filler_words.description": "Grok/xAI only: keep filler words (um/uh) when true.",
+    "param.itn_format.description": "Grok/xAI only: enable inverse text normalization (numbers/dates as digits) when true.",
+    "err.path_or_url_required": "path or url is required for Grok/xAI STT",
+    "err.grok_file_too_large": "audio file exceeds Grok STT limit of {max_mb} MB (got {size_mb:.1f} MB)"
   },
   "id": {
     "x_search_terms": [
@@ -295,7 +365,14 @@
     "param.fmt.description": "Berapa banyak detail yang harus dikembalikan dalam respons JSON: teks atau json.",
     "param.language.description": "Petunjuk bahasa opsional (misalnya 'ja', 'en'). Jika dihilangkan, bahasa tampilan saat ini akan digunakan.",
     "param.model.description": "Nama model transkripsi. Jika dihilangkan, nama penyebaran default atau yang dikonfigurasi penyedia akan digunakan.",
-    "tool.description": "Transkripsikan file audio ke teks. Berguna untuk rapat, wawancara, dan catatan suara."
+    "tool.description": "Transkripsikan file audio ke teks. Berguna untuk rapat, wawancara, dan catatan suara.",
+    "param.url.description": "Remote audio URL for Grok/xAI STT (alternative to path). Ignored by other providers.",
+    "param.diarize.description": "Grok/xAI only: enable speaker diarization when true.",
+    "param.keyterm.description": "Grok/xAI only: bias terms (max 100, each <= 50 chars). A single string is also accepted.",
+    "param.filler_words.description": "Grok/xAI only: keep filler words (um/uh) when true.",
+    "param.itn_format.description": "Grok/xAI only: enable inverse text normalization (numbers/dates as digits) when true.",
+    "err.path_or_url_required": "path or url is required for Grok/xAI STT",
+    "err.grok_file_too_large": "audio file exceeds Grok STT limit of {max_mb} MB (got {size_mb:.1f} MB)"
   },
   "vi": {
     "x_search_terms": [
@@ -322,7 +399,14 @@
     "param.fmt.description": "Bao nhiêu chi tiết cần trả về trong phản hồi JSON: văn bản hoặc json.",
     "param.language.description": "Gợi ý ngôn ngữ tùy chọn (ví dụ: 'ja', 'en'). Nếu bị bỏ qua, ngôn ngữ hiển thị hiện tại sẽ được sử dụng.",
     "param.model.description": "Tên mô hình phiên mã. Nếu bị bỏ qua, tên triển khai mặc định hoặc được định cấu hình của nhà cung cấp sẽ được sử dụng.",
-    "tool.description": "Phiên âm một tập tin âm thanh thành văn bản. Hữu ích cho các cuộc họp, phỏng vấn và ghi chú bằng giọng nói."
+    "tool.description": "Phiên âm một tập tin âm thanh thành văn bản. Hữu ích cho các cuộc họp, phỏng vấn và ghi chú bằng giọng nói.",
+    "param.url.description": "Remote audio URL for Grok/xAI STT (alternative to path). Ignored by other providers.",
+    "param.diarize.description": "Grok/xAI only: enable speaker diarization when true.",
+    "param.keyterm.description": "Grok/xAI only: bias terms (max 100, each <= 50 chars). A single string is also accepted.",
+    "param.filler_words.description": "Grok/xAI only: keep filler words (um/uh) when true.",
+    "param.itn_format.description": "Grok/xAI only: enable inverse text normalization (numbers/dates as digits) when true.",
+    "err.path_or_url_required": "path or url is required for Grok/xAI STT",
+    "err.grok_file_too_large": "audio file exceeds Grok STT limit of {max_mb} MB (got {size_mb:.1f} MB)"
   },
   "pl": {
     "x_search_terms": [
@@ -349,7 +433,14 @@
     "param.fmt.description": "Ile szczegółów zwrócić w odpowiedzi JSON: tekst lub json.",
     "param.language.description": "Opcjonalna wskazówka dotycząca języka (np. „ja”, „en”). Jeśli zostanie pominięty, używany będzie bieżący język wyświetlania.",
     "param.model.description": "Nazwa modelu transkrypcji. W przypadku pominięcia używana jest domyślna lub skonfigurowana nazwa wdrożenia dostawcy.",
-    "tool.description": "Transkrypcja pliku audio na tekst. Przydatne podczas spotkań, wywiadów i notatek głosowych."
+    "tool.description": "Transkrypcja pliku audio na tekst. Przydatne podczas spotkań, wywiadów i notatek głosowych.",
+    "param.url.description": "Remote audio URL for Grok/xAI STT (alternative to path). Ignored by other providers.",
+    "param.diarize.description": "Grok/xAI only: enable speaker diarization when true.",
+    "param.keyterm.description": "Grok/xAI only: bias terms (max 100, each <= 50 chars). A single string is also accepted.",
+    "param.filler_words.description": "Grok/xAI only: keep filler words (um/uh) when true.",
+    "param.itn_format.description": "Grok/xAI only: enable inverse text normalization (numbers/dates as digits) when true.",
+    "err.path_or_url_required": "path or url is required for Grok/xAI STT",
+    "err.grok_file_too_large": "audio file exceeds Grok STT limit of {max_mb} MB (got {size_mb:.1f} MB)"
   },
   "hi": {
     "x_search_terms": [
@@ -376,7 +467,14 @@
     "param.fmt.description": "JSON प्रतिक्रिया में कितना विवरण लौटाना है: टेक्स्ट या json।",
     "param.language.description": "वैकल्पिक भाषा संकेत (जैसे 'जा', 'एन')। यदि छोड़ दिया जाए, तो वर्तमान प्रदर्शन भाषा का उपयोग किया जाता है।",
     "param.model.description": "प्रतिलेखन मॉडल का नाम. यदि छोड़ दिया जाए, तो प्रदाता डिफ़ॉल्ट या कॉन्फ़िगर परिनियोजन नाम का उपयोग किया जाता है।",
-    "tool.description": "किसी ऑडियो फ़ाइल को टेक्स्ट में ट्रांसक्राइब करें। मीटिंग, साक्षात्कार और वॉयस नोट्स के लिए उपयोगी।"
+    "tool.description": "किसी ऑडियो फ़ाइल को टेक्स्ट में ट्रांसक्राइब करें। मीटिंग, साक्षात्कार और वॉयस नोट्स के लिए उपयोगी।",
+    "param.url.description": "Remote audio URL for Grok/xAI STT (alternative to path). Ignored by other providers.",
+    "param.diarize.description": "Grok/xAI only: enable speaker diarization when true.",
+    "param.keyterm.description": "Grok/xAI only: bias terms (max 100, each <= 50 chars). A single string is also accepted.",
+    "param.filler_words.description": "Grok/xAI only: keep filler words (um/uh) when true.",
+    "param.itn_format.description": "Grok/xAI only: enable inverse text normalization (numbers/dates as digits) when true.",
+    "err.path_or_url_required": "path or url is required for Grok/xAI STT",
+    "err.grok_file_too_large": "audio file exceeds Grok STT limit of {max_mb} MB (got {size_mb:.1f} MB)"
   },
   "ar": {
     "x_search_terms": [
@@ -403,7 +501,14 @@
     "param.fmt.description": "ما مقدار التفاصيل المطلوب إرجاعها في استجابة JSON: text أو json.",
     "param.language.description": "تلميح لغة اختياري (على سبيل المثال، 'ja'، 'en'). إذا تم حذفها، يتم استخدام لغة العرض الحالية.",
     "param.model.description": "اسم نموذج النسخ. إذا تم حذفه، فسيتم استخدام اسم النشر الافتراضي للموفر أو اسم النشر الذي تم تكوينه.",
-    "tool.description": "نسخ ملف صوتي إلى نص. مفيد للاجتماعات والمقابلات والملاحظات الصوتية."
+    "tool.description": "نسخ ملف صوتي إلى نص. مفيد للاجتماعات والمقابلات والملاحظات الصوتية.",
+    "param.url.description": "Remote audio URL for Grok/xAI STT (alternative to path). Ignored by other providers.",
+    "param.diarize.description": "Grok/xAI only: enable speaker diarization when true.",
+    "param.keyterm.description": "Grok/xAI only: bias terms (max 100, each <= 50 chars). A single string is also accepted.",
+    "param.filler_words.description": "Grok/xAI only: keep filler words (um/uh) when true.",
+    "param.itn_format.description": "Grok/xAI only: enable inverse text normalization (numbers/dates as digits) when true.",
+    "err.path_or_url_required": "path or url is required for Grok/xAI STT",
+    "err.grok_file_too_large": "audio file exceeds Grok STT limit of {max_mb} MB (got {size_mb:.1f} MB)"
   },
   "sv": {
     "x_search_terms": [
@@ -430,7 +535,14 @@
     "param.fmt.description": "Hur mycket detaljer som ska returneras i JSON-svaret: text eller json.",
     "param.language.description": "Valfritt språktips (t.ex. 'ja', 'en'). Om det utelämnas används det aktuella visningsspråket.",
     "param.model.description": "Transkriptionsmodellens namn. Om det utelämnas används leverantörens standardnamn eller konfigurerade distributionsnamn.",
-    "tool.description": "Transkribera en ljudfil till text. Användbar för möten, intervjuer och röstanteckningar."
+    "tool.description": "Transkribera en ljudfil till text. Användbar för möten, intervjuer och röstanteckningar.",
+    "param.url.description": "Remote audio URL for Grok/xAI STT (alternative to path). Ignored by other providers.",
+    "param.diarize.description": "Grok/xAI only: enable speaker diarization when true.",
+    "param.keyterm.description": "Grok/xAI only: bias terms (max 100, each <= 50 chars). A single string is also accepted.",
+    "param.filler_words.description": "Grok/xAI only: keep filler words (um/uh) when true.",
+    "param.itn_format.description": "Grok/xAI only: enable inverse text normalization (numbers/dates as digits) when true.",
+    "err.path_or_url_required": "path or url is required for Grok/xAI STT",
+    "err.grok_file_too_large": "audio file exceeds Grok STT limit of {max_mb} MB (got {size_mb:.1f} MB)"
   },
   "sw": {
     "x_search_terms": [
@@ -457,7 +569,14 @@
     "param.fmt.description": "Ni maelezo ngapi ya kurudisha katika jibu la JSON: maandishi au json.",
     "param.language.description": "Dokezo la hiari la lugha (k.m. 'ja', 'en'). Ikiwa imeachwa, lugha ya sasa ya kuonyesha inatumika.",
     "param.model.description": "Jina la muundo wa unukuzi. Ikiwa imeachwa, jina la chaguo-msingi la mtoa huduma au lililosanidiwa la utumaji hutumiwa.",
-    "tool.description": "Nakili faili ya sauti hadi maandishi. Inafaa kwa mikutano, mahojiano na madokezo ya sauti."
+    "tool.description": "Nakili faili ya sauti hadi maandishi. Inafaa kwa mikutano, mahojiano na madokezo ya sauti.",
+    "param.url.description": "Remote audio URL for Grok/xAI STT (alternative to path). Ignored by other providers.",
+    "param.diarize.description": "Grok/xAI only: enable speaker diarization when true.",
+    "param.keyterm.description": "Grok/xAI only: bias terms (max 100, each <= 50 chars). A single string is also accepted.",
+    "param.filler_words.description": "Grok/xAI only: keep filler words (um/uh) when true.",
+    "param.itn_format.description": "Grok/xAI only: enable inverse text normalization (numbers/dates as digits) when true.",
+    "err.path_or_url_required": "path or url is required for Grok/xAI STT",
+    "err.grok_file_too_large": "audio file exceeds Grok STT limit of {max_mb} MB (got {size_mb:.1f} MB)"
   },
   "nb": {
     "x_search_terms": [
@@ -484,7 +603,14 @@
     "param.fmt.description": "Hvor mye detaljer som skal returneres i JSON-svaret: tekst eller json.",
     "param.language.description": "Valgfritt språkhint (f.eks. 'ja', 'en'). Hvis den utelates, brukes gjeldende visningsspråk.",
     "param.model.description": "Navn på transkripsjonsmodell. Hvis det utelates, brukes leverandørens standard eller konfigurerte distribusjonsnavn.",
-    "tool.description": "Transkribere en lydfil til tekst. Nyttig for møter, intervjuer og talenotater."
+    "tool.description": "Transkribere en lydfil til tekst. Nyttig for møter, intervjuer og talenotater.",
+    "param.url.description": "Remote audio URL for Grok/xAI STT (alternative to path). Ignored by other providers.",
+    "param.diarize.description": "Grok/xAI only: enable speaker diarization when true.",
+    "param.keyterm.description": "Grok/xAI only: bias terms (max 100, each <= 50 chars). A single string is also accepted.",
+    "param.filler_words.description": "Grok/xAI only: keep filler words (um/uh) when true.",
+    "param.itn_format.description": "Grok/xAI only: enable inverse text normalization (numbers/dates as digits) when true.",
+    "err.path_or_url_required": "path or url is required for Grok/xAI STT",
+    "err.grok_file_too_large": "audio file exceeds Grok STT limit of {max_mb} MB (got {size_mb:.1f} MB)"
   },
   "nl": {
     "x_search_terms": [
@@ -511,7 +637,14 @@
     "param.fmt.description": "Hoeveel details er moeten worden geretourneerd in het JSON-antwoord: tekst of json.",
     "param.language.description": "Optionele taalhint (bijvoorbeeld 'ja', 'en'). Als u dit weglaat, wordt de huidige weergavetaal gebruikt.",
     "param.model.description": "Naam van transcriptiemodel. Als u dit weglaat, wordt de standaard- of geconfigureerde implementatienaam van de provider gebruikt.",
-    "tool.description": "Een audiobestand naar tekst transcriberen. Handig voor vergaderingen, interviews en spraaknotities."
+    "tool.description": "Een audiobestand naar tekst transcriberen. Handig voor vergaderingen, interviews en spraaknotities.",
+    "param.url.description": "Remote audio URL for Grok/xAI STT (alternative to path). Ignored by other providers.",
+    "param.diarize.description": "Grok/xAI only: enable speaker diarization when true.",
+    "param.keyterm.description": "Grok/xAI only: bias terms (max 100, each <= 50 chars). A single string is also accepted.",
+    "param.filler_words.description": "Grok/xAI only: keep filler words (um/uh) when true.",
+    "param.itn_format.description": "Grok/xAI only: enable inverse text normalization (numbers/dates as digits) when true.",
+    "err.path_or_url_required": "path or url is required for Grok/xAI STT",
+    "err.grok_file_too_large": "audio file exceeds Grok STT limit of {max_mb} MB (got {size_mb:.1f} MB)"
   },
   "fi": {
     "x_search_terms": [
@@ -538,7 +671,14 @@
     "param.fmt.description": "Kuinka paljon yksityiskohtia palautetaan JSON-vastauksessa: teksti vai json.",
     "param.language.description": "Valinnainen kielivinkki (esim. 'ja', 'en'). Jos se jätetään pois, käytössä on nykyinen näyttökieli.",
     "param.model.description": "Transkriptiomallin nimi. Jos jätetään pois, käytetään palveluntarjoajan oletusarvoista tai määritettyä käyttöönottonimeä.",
-    "tool.description": "Literoi äänitiedosto tekstiksi. Hyödyllinen kokouksissa, haastatteluissa ja äänimuistiinpanoissa."
+    "tool.description": "Literoi äänitiedosto tekstiksi. Hyödyllinen kokouksissa, haastatteluissa ja äänimuistiinpanoissa.",
+    "param.url.description": "Remote audio URL for Grok/xAI STT (alternative to path). Ignored by other providers.",
+    "param.diarize.description": "Grok/xAI only: enable speaker diarization when true.",
+    "param.keyterm.description": "Grok/xAI only: bias terms (max 100, each <= 50 chars). A single string is also accepted.",
+    "param.filler_words.description": "Grok/xAI only: keep filler words (um/uh) when true.",
+    "param.itn_format.description": "Grok/xAI only: enable inverse text normalization (numbers/dates as digits) when true.",
+    "err.path_or_url_required": "path or url is required for Grok/xAI STT",
+    "err.grok_file_too_large": "audio file exceeds Grok STT limit of {max_mb} MB (got {size_mb:.1f} MB)"
   },
   "cs": {
     "x_search_terms": [
@@ -565,7 +705,14 @@
     "param.fmt.description": "Kolik podrobností vrátit v odpovědi JSON: text nebo json.",
     "param.language.description": "Volitelná jazyková nápověda (např. 'ja', 'en'). Pokud je vynechán, použije se aktuální jazyk zobrazení.",
     "param.model.description": "Název transkripčního modelu. Pokud je vynechán, použije se výchozí nebo nakonfigurovaný název nasazení poskytovatele.",
-    "tool.description": "Přepis zvukového souboru na text. Užitečné pro schůzky, rozhovory a hlasové poznámky."
+    "tool.description": "Přepis zvukového souboru na text. Užitečné pro schůzky, rozhovory a hlasové poznámky.",
+    "param.url.description": "Remote audio URL for Grok/xAI STT (alternative to path). Ignored by other providers.",
+    "param.diarize.description": "Grok/xAI only: enable speaker diarization when true.",
+    "param.keyterm.description": "Grok/xAI only: bias terms (max 100, each <= 50 chars). A single string is also accepted.",
+    "param.filler_words.description": "Grok/xAI only: keep filler words (um/uh) when true.",
+    "param.itn_format.description": "Grok/xAI only: enable inverse text normalization (numbers/dates as digits) when true.",
+    "err.path_or_url_required": "path or url is required for Grok/xAI STT",
+    "err.grok_file_too_large": "audio file exceeds Grok STT limit of {max_mb} MB (got {size_mb:.1f} MB)"
   },
   "uk": {
     "x_search_terms": [
@@ -592,7 +739,14 @@
     "param.fmt.description": "Скільки деталей повертати у відповіді JSON: текст чи json.",
     "param.language.description": "Додаткова мовна підказка (наприклад, «ja», «en»). Якщо опущено, використовується поточна мова відображення.",
     "param.model.description": "Транскрипція назви моделі. Якщо опущено, використовується ім’я розгортання за замовчуванням або налаштоване постачальником.",
-    "tool.description": "Транскрибувати аудіофайл у текст. Корисно для зустрічей, співбесід і голосових нотаток."
+    "tool.description": "Транскрибувати аудіофайл у текст. Корисно для зустрічей, співбесід і голосових нотаток.",
+    "param.url.description": "Remote audio URL for Grok/xAI STT (alternative to path). Ignored by other providers.",
+    "param.diarize.description": "Grok/xAI only: enable speaker diarization when true.",
+    "param.keyterm.description": "Grok/xAI only: bias terms (max 100, each <= 50 chars). A single string is also accepted.",
+    "param.filler_words.description": "Grok/xAI only: keep filler words (um/uh) when true.",
+    "param.itn_format.description": "Grok/xAI only: enable inverse text normalization (numbers/dates as digits) when true.",
+    "err.path_or_url_required": "path or url is required for Grok/xAI STT",
+    "err.grok_file_too_large": "audio file exceeds Grok STT limit of {max_mb} MB (got {size_mb:.1f} MB)"
   },
   "tr": {
     "x_search_terms": [
@@ -619,7 +773,14 @@
     "param.fmt.description": "JSON yanıtında ne kadar ayrıntı döndürülecek: text veya json.",
     "param.language.description": "İsteğe bağlı dil ipucu (ör. 'ja', 'en'). Atlanırsa geçerli görüntüleme dili kullanılır.",
     "param.model.description": "Transkripsiyon modeli adı. Atlanırsa sağlayıcının varsayılan veya yapılandırılmış dağıtım adı kullanılır.",
-    "tool.description": "Bir ses dosyasını metne dönüştürün. Toplantılar, röportajlar ve sesli notlar için kullanışlıdır."
+    "tool.description": "Bir ses dosyasını metne dönüştürün. Toplantılar, röportajlar ve sesli notlar için kullanışlıdır.",
+    "param.url.description": "Remote audio URL for Grok/xAI STT (alternative to path). Ignored by other providers.",
+    "param.diarize.description": "Grok/xAI only: enable speaker diarization when true.",
+    "param.keyterm.description": "Grok/xAI only: bias terms (max 100, each <= 50 chars). A single string is also accepted.",
+    "param.filler_words.description": "Grok/xAI only: keep filler words (um/uh) when true.",
+    "param.itn_format.description": "Grok/xAI only: enable inverse text normalization (numbers/dates as digits) when true.",
+    "err.path_or_url_required": "path or url is required for Grok/xAI STT",
+    "err.grok_file_too_large": "audio file exceeds Grok STT limit of {max_mb} MB (got {size_mb:.1f} MB)"
   },
   "th": {
     "x_search_terms": [
@@ -646,7 +807,14 @@
     "param.fmt.description": "รายละเอียดที่ต้องส่งคืนในการตอบกลับ JSON: ข้อความหรือ json",
     "param.language.description": "คำใบ้ภาษาเพิ่มเติม (เช่น 'ja', 'en') หากละเว้น ระบบจะใช้ภาษาที่แสดงในปัจจุบัน",
     "param.model.description": "ชื่อโมเดลการถอดเสียง หากละเว้น ระบบจะใช้ชื่อการปรับใช้ที่เป็นค่าเริ่มต้นหรือที่กำหนดค่าไว้",
-    "tool.description": "ถอดเสียงไฟล์เสียงเป็นข้อความ มีประโยชน์สำหรับการประชุม การสัมภาษณ์ และการบันทึกเสียง"
+    "tool.description": "ถอดเสียงไฟล์เสียงเป็นข้อความ มีประโยชน์สำหรับการประชุม การสัมภาษณ์ และการบันทึกเสียง",
+    "param.url.description": "Remote audio URL for Grok/xAI STT (alternative to path). Ignored by other providers.",
+    "param.diarize.description": "Grok/xAI only: enable speaker diarization when true.",
+    "param.keyterm.description": "Grok/xAI only: bias terms (max 100, each <= 50 chars). A single string is also accepted.",
+    "param.filler_words.description": "Grok/xAI only: keep filler words (um/uh) when true.",
+    "param.itn_format.description": "Grok/xAI only: enable inverse text normalization (numbers/dates as digits) when true.",
+    "err.path_or_url_required": "path or url is required for Grok/xAI STT",
+    "err.grok_file_too_large": "audio file exceeds Grok STT limit of {max_mb} MB (got {size_mb:.1f} MB)"
   },
   "zh_CN": {
     "x_search_terms": [
@@ -673,7 +841,14 @@
     "param.fmt.description": "在 JSON 响应中返回多少详细信息：文本或 json。",
     "param.language.description": "可选的语言提示（例如“ja”、“en”）。如果省略，则使用当前显示语言。",
     "param.model.description": "转录模型名称。如果省略，则使用提供程序默认或配置的部署名称。",
-    "tool.description": "将音频文件转录为文本。适用于会议、采访和语音笔记。"
+    "tool.description": "将音频文件转录为文本。适用于会议、采访和语音笔记。",
+    "param.url.description": "Remote audio URL for Grok/xAI STT (alternative to path). Ignored by other providers.",
+    "param.diarize.description": "Grok/xAI only: enable speaker diarization when true.",
+    "param.keyterm.description": "Grok/xAI only: bias terms (max 100, each <= 50 chars). A single string is also accepted.",
+    "param.filler_words.description": "Grok/xAI only: keep filler words (um/uh) when true.",
+    "param.itn_format.description": "Grok/xAI only: enable inverse text normalization (numbers/dates as digits) when true.",
+    "err.path_or_url_required": "path or url is required for Grok/xAI STT",
+    "err.grok_file_too_large": "audio file exceeds Grok STT limit of {max_mb} MB (got {size_mb:.1f} MB)"
   },
   "zh_TW": {
     "x_search_terms": [
@@ -700,7 +875,14 @@
     "param.fmt.description": "在 JSON 回應中傳回多少詳細資訊：文字或 json。",
     "param.language.description": "可選的語言提示（例如“ja”、“en”）。如果省略，則使用目前顯示語言。",
     "param.model.description": "轉錄模型​​名稱。如果省略，則使用提供者預設或設定的部署名稱。",
-    "tool.description": "將音訊檔案轉錄為文字。適用於會議、採訪和語音筆記。"
+    "tool.description": "將音訊檔案轉錄為文字。適用於會議、採訪和語音筆記。",
+    "param.url.description": "Remote audio URL for Grok/xAI STT (alternative to path). Ignored by other providers.",
+    "param.diarize.description": "Grok/xAI only: enable speaker diarization when true.",
+    "param.keyterm.description": "Grok/xAI only: bias terms (max 100, each <= 50 chars). A single string is also accepted.",
+    "param.filler_words.description": "Grok/xAI only: keep filler words (um/uh) when true.",
+    "param.itn_format.description": "Grok/xAI only: enable inverse text normalization (numbers/dates as digits) when true.",
+    "err.path_or_url_required": "path or url is required for Grok/xAI STT",
+    "err.grok_file_too_large": "audio file exceeds Grok STT limit of {max_mb} MB (got {size_mb:.1f} MB)"
   },
   "bn": {
     "x_search_terms": [
@@ -727,7 +909,14 @@
     "param.fmt.description": "JSON প্রতিক্রিয়াতে কত বিশদ ফেরত দিতে হবে: পাঠ্য বা json।",
     "param.language.description": "ঐচ্ছিক ভাষার ইঙ্গিত (যেমন 'ja', 'en')। যদি বাদ দেওয়া হয়, বর্তমান প্রদর্শন ভাষা ব্যবহার করা হয়।",
     "param.model.description": "ট্রান্সক্রিপশন মডেল নাম। বাদ দেওয়া হলে, প্রদানকারীর ডিফল্ট বা কনফিগার করা স্থাপনার নাম ব্যবহার করা হয়।",
-    "tool.description": "পাঠ্যে একটি অডিও ফাইল প্রতিলিপি। মিটিং, ইন্টারভিউ এবং ভয়েস নোটের জন্য দরকারী।"
+    "tool.description": "পাঠ্যে একটি অডিও ফাইল প্রতিলিপি। মিটিং, ইন্টারভিউ এবং ভয়েস নোটের জন্য দরকারী।",
+    "param.url.description": "Remote audio URL for Grok/xAI STT (alternative to path). Ignored by other providers.",
+    "param.diarize.description": "Grok/xAI only: enable speaker diarization when true.",
+    "param.keyterm.description": "Grok/xAI only: bias terms (max 100, each <= 50 chars). A single string is also accepted.",
+    "param.filler_words.description": "Grok/xAI only: keep filler words (um/uh) when true.",
+    "param.itn_format.description": "Grok/xAI only: enable inverse text normalization (numbers/dates as digits) when true.",
+    "err.path_or_url_required": "path or url is required for Grok/xAI STT",
+    "err.grok_file_too_large": "audio file exceeds Grok STT limit of {max_mb} MB (got {size_mb:.1f} MB)"
   },
   "fa": {
     "x_search_terms": [
@@ -754,7 +943,14 @@
     "param.fmt.description": "چه مقدار جزئیات باید در پاسخ JSON برگردانده شود: متن یا json.",
     "param.language.description": "اشاره زبان اختیاری (به عنوان مثال 'ja'، 'en'). اگر حذف شود، از زبان نمایش فعلی استفاده می شود.",
     "param.model.description": "نام مدل رونویسی. در صورت حذف، از نام استقرار پیش‌فرض ارائه‌دهنده یا پیکربندی شده استفاده می‌شود.",
-    "tool.description": "یک فایل صوتی را به متن رونویسی کنید. برای جلسات، مصاحبه ها و یادداشت های صوتی مفید است."
+    "tool.description": "یک فایل صوتی را به متن رونویسی کنید. برای جلسات، مصاحبه ها و یادداشت های صوتی مفید است.",
+    "param.url.description": "Remote audio URL for Grok/xAI STT (alternative to path). Ignored by other providers.",
+    "param.diarize.description": "Grok/xAI only: enable speaker diarization when true.",
+    "param.keyterm.description": "Grok/xAI only: bias terms (max 100, each <= 50 chars). A single string is also accepted.",
+    "param.filler_words.description": "Grok/xAI only: keep filler words (um/uh) when true.",
+    "param.itn_format.description": "Grok/xAI only: enable inverse text normalization (numbers/dates as digits) when true.",
+    "err.path_or_url_required": "path or url is required for Grok/xAI STT",
+    "err.grok_file_too_large": "audio file exceeds Grok STT limit of {max_mb} MB (got {size_mb:.1f} MB)"
   },
   "mn": {
     "x_search_terms": [
@@ -781,7 +977,14 @@
     "param.fmt.description": "JSON хариултанд хэр их дэлгэрэнгүй мэдээлэл өгөх вэ: текст эсвэл json.",
     "param.language.description": "Нэмэлт хэлний зөвлөгөө (жишээ нь: 'ja', 'en'). Хэрэв орхигдуулсан бол одоогийн дэлгэцийн хэлийг ашиглана.",
     "param.model.description": "Транскрипцийн загварын нэр. Хэрэв орхигдуулсан бол үйлчилгээ үзүүлэгчийн өгөгдмөл эсвэл тохируулсан байршуулалтын нэрийг ашиглана.",
-    "tool.description": "Аудио файлыг текст болгон хөрвүүлэх. Уулзалт, ярилцлага, дуут тэмдэглэл хийхэд хэрэгтэй."
+    "tool.description": "Аудио файлыг текст болгон хөрвүүлэх. Уулзалт, ярилцлага, дуут тэмдэглэл хийхэд хэрэгтэй.",
+    "param.url.description": "Remote audio URL for Grok/xAI STT (alternative to path). Ignored by other providers.",
+    "param.diarize.description": "Grok/xAI only: enable speaker diarization when true.",
+    "param.keyterm.description": "Grok/xAI only: bias terms (max 100, each <= 50 chars). A single string is also accepted.",
+    "param.filler_words.description": "Grok/xAI only: keep filler words (um/uh) when true.",
+    "param.itn_format.description": "Grok/xAI only: enable inverse text normalization (numbers/dates as digits) when true.",
+    "err.path_or_url_required": "path or url is required for Grok/xAI STT",
+    "err.grok_file_too_large": "audio file exceeds Grok STT limit of {max_mb} MB (got {size_mb:.1f} MB)"
   },
   "mr": {
     "x_search_terms": [
@@ -808,7 +1011,14 @@
     "param.fmt.description": "JSON प्रतिसादात किती तपशील परत करायचे: मजकूर किंवा json.",
     "param.language.description": "पर्यायी भाषा इशारा (उदा. 'ja', 'en'). वगळल्यास, वर्तमान प्रदर्शन भाषा वापरली जाते.",
     "param.model.description": "ट्रान्सक्रिप्शन मॉडेलचे नाव. वगळल्यास, प्रदाता डीफॉल्ट किंवा कॉन्फिगर केलेले उपयोजन नाव वापरले जाते.",
-    "tool.description": "मजकूरात ऑडिओ फाईल लिप्यंतरण करा. मीटिंग, मुलाखती आणि व्हॉइस नोट्ससाठी उपयुक्त."
+    "tool.description": "मजकूरात ऑडिओ फाईल लिप्यंतरण करा. मीटिंग, मुलाखती आणि व्हॉइस नोट्ससाठी उपयुक्त.",
+    "param.url.description": "Remote audio URL for Grok/xAI STT (alternative to path). Ignored by other providers.",
+    "param.diarize.description": "Grok/xAI only: enable speaker diarization when true.",
+    "param.keyterm.description": "Grok/xAI only: bias terms (max 100, each <= 50 chars). A single string is also accepted.",
+    "param.filler_words.description": "Grok/xAI only: keep filler words (um/uh) when true.",
+    "param.itn_format.description": "Grok/xAI only: enable inverse text normalization (numbers/dates as digits) when true.",
+    "err.path_or_url_required": "path or url is required for Grok/xAI STT",
+    "err.grok_file_too_large": "audio file exceeds Grok STT limit of {max_mb} MB (got {size_mb:.1f} MB)"
   },
   "el": {
     "x_search_terms": [
@@ -835,7 +1045,14 @@
     "param.fmt.description": "Πόσες λεπτομέρειες πρέπει να επιστραφούν στην απάντηση JSON: κείμενο ή json.",
     "param.language.description": "Προαιρετική υπόδειξη γλώσσας (π.χ. 'ja', 'en'). Εάν παραλειφθεί, χρησιμοποιείται η τρέχουσα γλώσσα εμφάνισης.",
     "param.model.description": "Όνομα μοντέλου μεταγραφής. Εάν παραλειφθεί, χρησιμοποιείται το προεπιλεγμένο όνομα του παρόχου ή το ρυθμισμένο όνομα ανάπτυξης.",
-    "tool.description": "Μεταγραφή ενός αρχείου ήχου σε κείμενο. Χρήσιμο για συναντήσεις, συνεντεύξεις και φωνητικές σημειώσεις."
+    "tool.description": "Μεταγραφή ενός αρχείου ήχου σε κείμενο. Χρήσιμο για συναντήσεις, συνεντεύξεις και φωνητικές σημειώσεις.",
+    "param.url.description": "Remote audio URL for Grok/xAI STT (alternative to path). Ignored by other providers.",
+    "param.diarize.description": "Grok/xAI only: enable speaker diarization when true.",
+    "param.keyterm.description": "Grok/xAI only: bias terms (max 100, each <= 50 chars). A single string is also accepted.",
+    "param.filler_words.description": "Grok/xAI only: keep filler words (um/uh) when true.",
+    "param.itn_format.description": "Grok/xAI only: enable inverse text normalization (numbers/dates as digits) when true.",
+    "err.path_or_url_required": "path or url is required for Grok/xAI STT",
+    "err.grok_file_too_large": "audio file exceeds Grok STT limit of {max_mb} MB (got {size_mb:.1f} MB)"
   },
   "he": {
     "x_search_terms": [
@@ -862,7 +1079,14 @@
     "param.fmt.description": "כמה פרטים להחזיר בתגובת JSON: טקסט או json.",
     "param.language.description": "רמז אופציונלי לשפה (למשל 'ja', 'en'). אם מושמט, נעשה שימוש בשפת התצוגה הנוכחית.",
     "param.model.description": "שם דגם תמלול. אם מושמט, נעשה שימוש בשם הפריסה המוגדר כברירת מחדל או המוגדר של ספק.",
-    "tool.description": "תמלול קובץ שמע לטקסט. שימושי עבור פגישות, ראיונות והערות קוליות."
+    "tool.description": "תמלול קובץ שמע לטקסט. שימושי עבור פגישות, ראיונות והערות קוליות.",
+    "param.url.description": "Remote audio URL for Grok/xAI STT (alternative to path). Ignored by other providers.",
+    "param.diarize.description": "Grok/xAI only: enable speaker diarization when true.",
+    "param.keyterm.description": "Grok/xAI only: bias terms (max 100, each <= 50 chars). A single string is also accepted.",
+    "param.filler_words.description": "Grok/xAI only: keep filler words (um/uh) when true.",
+    "param.itn_format.description": "Grok/xAI only: enable inverse text normalization (numbers/dates as digits) when true.",
+    "err.path_or_url_required": "path or url is required for Grok/xAI STT",
+    "err.grok_file_too_large": "audio file exceeds Grok STT limit of {max_mb} MB (got {size_mb:.1f} MB)"
   },
   "hu": {
     "x_search_terms": [
@@ -889,7 +1113,14 @@
     "param.fmt.description": "Mennyi részletet kell visszaadni a JSON-válaszban: szöveg vagy json.",
     "param.language.description": "Választható nyelvi tipp (pl. „ja”, „en”). Ha kihagyja, akkor az aktuális megjelenítési nyelv kerül felhasználásra.",
     "param.model.description": "Átírási modell neve. Ha kihagyja, akkor a szolgáltató alapértelmezett vagy konfigurált központi telepítési neve kerül felhasználásra.",
-    "tool.description": "Hangfájl átírása szöveggé. Hasznos megbeszélésekhez, interjúkhoz és hangjegyzetekhez."
+    "tool.description": "Hangfájl átírása szöveggé. Hasznos megbeszélésekhez, interjúkhoz és hangjegyzetekhez.",
+    "param.url.description": "Remote audio URL for Grok/xAI STT (alternative to path). Ignored by other providers.",
+    "param.diarize.description": "Grok/xAI only: enable speaker diarization when true.",
+    "param.keyterm.description": "Grok/xAI only: bias terms (max 100, each <= 50 chars). A single string is also accepted.",
+    "param.filler_words.description": "Grok/xAI only: keep filler words (um/uh) when true.",
+    "param.itn_format.description": "Grok/xAI only: enable inverse text normalization (numbers/dates as digits) when true.",
+    "err.path_or_url_required": "path or url is required for Grok/xAI STT",
+    "err.grok_file_too_large": "audio file exceeds Grok STT limit of {max_mb} MB (got {size_mb:.1f} MB)"
   },
   "ro": {
     "x_search_terms": [
@@ -916,6 +1147,13 @@
     "param.fmt.description": "Câte detalii trebuie returnate în răspunsul JSON: text sau json.",
     "param.language.description": "Sugestie de limbă opțională (de exemplu, „ja”, „en”). Dacă este omisă, este utilizată limba de afișare curentă.",
     "param.model.description": "Numele modelului de transcriere. Dacă este omis, este folosit numele de implementare prestabilit sau configurat al furnizorului.",
-    "tool.description": "Transcrie un fișier audio în text. Util pentru întâlniri, interviuri și note vocale."
+    "tool.description": "Transcrie un fișier audio în text. Util pentru întâlniri, interviuri și note vocale.",
+    "param.url.description": "Remote audio URL for Grok/xAI STT (alternative to path). Ignored by other providers.",
+    "param.diarize.description": "Grok/xAI only: enable speaker diarization when true.",
+    "param.keyterm.description": "Grok/xAI only: bias terms (max 100, each <= 50 chars). A single string is also accepted.",
+    "param.filler_words.description": "Grok/xAI only: keep filler words (um/uh) when true.",
+    "param.itn_format.description": "Grok/xAI only: enable inverse text normalization (numbers/dates as digits) when true.",
+    "err.path_or_url_required": "path or url is required for Grok/xAI STT",
+    "err.grok_file_too_large": "audio file exceeds Grok STT limit of {max_mb} MB (got {size_mb:.1f} MB)"
   }
 }

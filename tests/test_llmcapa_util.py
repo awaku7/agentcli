@@ -7,6 +7,7 @@ import pytest
 pytest.importorskip("llmcapa")
 
 from uagent.llmcapa_util import (
+    check_audio_input_support,
     check_audio_output_support,
     check_embedding_support,
     check_image_output_support,
@@ -27,6 +28,7 @@ from uagent.llmcapa_util import (
     get_max_output_tokens,
     provider_candidates,
     supports_vision,
+    supports_audio_input,
     supports_audio_output,
 )
 
@@ -230,3 +232,39 @@ class TestAudioOutputHelpers:
 
     def test_empty_model_allows(self) -> None:
         assert check_audio_output_support("", "openai") is None
+
+
+class TestAudioInputHelpers:
+    def test_grok_stt_supported(self) -> None:
+        assert supports_audio_input("grok-stt-batch", "grok") is True
+        assert check_audio_input_support("grok-stt-batch", "grok") is None
+
+    def test_tts_model_blocked(self) -> None:
+        err = check_audio_input_support("grok-tts", "grok")
+        assert err is not None
+        assert "audio" in err.lower() or "stt" in err.lower()
+
+    def test_chat_model_blocked(self) -> None:
+        # openai gpt-4o has no audio input in catalog
+        err = check_audio_input_support("gpt-4o", "openai")
+        assert err is not None
+
+    def test_catalog_miss_allows(self) -> None:
+        # Unknown model id => catalog miss => allow (default=None)
+        assert (
+            supports_audio_input(
+                "definitely-not-a-real-stt-model-xyz", "openai", default=None
+            )
+            is None
+        )
+        assert (
+            check_audio_input_support(
+                "definitely-not-a-real-stt-model-xyz", "openai"
+            )
+            is None
+        )
+
+
+    def test_empty_model_allows(self) -> None:
+        assert check_audio_input_support("", "openai") is None
+

@@ -20,6 +20,8 @@
 - llmcapa: clamp profile/translate/sub-agent max tokens; sub-agent usage cost estimate; deprecated model WARN on banner/`:model`; refresh integration docs.
 - llmcapa: vision tools (analyze_image backends) check vision support and clamp max tokens.
 - llmcapa: DeepSeek/ZAI/Novita shared max_tokens; image/embedding capability checks for generate_image/img2img/semantic_search.
+- llmcapa: `supports_audio_input` / `check_audio_input_support` for STT gating (catalog miss allows; not completion max_tokens).
+- `audio_transcribe`: Grok/xAI batch STT via POST `/v1/stt` (multipart file or url); provider aliases `grok`/`xai`; default model `grok-stt-batch`; diarize/keyterm/filler_words/format options.
 - llmcapa: `supports_audio_output` / `check_audio_output_support` for TTS gating (catalog miss allows; not completion max_tokens).
 - `audio_speech`: Grok/xAI TTS via POST `/v1/tts` (requests); provider aliases `grok`/`xai`; defaults model `grok-tts`, voice `eve`; language/speed/codec mapping.
 - Tools plugin load remains lazy, but is prewarmed in a background thread after startup.

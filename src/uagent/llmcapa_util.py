@@ -548,6 +548,54 @@ def check_audio_output_support(
     return None
 
 
+def supports_audio_input(
+    model_id: str | None = None,
+    provider: str | None = None,
+    *,
+    default: bool | None = None,
+) -> bool | None:
+    """Whether the model can accept audio / STT input.
+
+    Catalog miss (e.g. provider-specific whisper deploy not listed) returns
+    ``default`` so callers may proceed. Do not treat STT as completion max_tokens.
+    """
+    cap = get_capability(model_id, provider)
+    if cap is None:
+        return default
+    try:
+        if cap.supports("audio_input"):
+            return True
+        mods = set(getattr(cap, "input_modalities", None) or [])
+        if "audio" in mods:
+            return True
+        if mods and "audio" not in mods:
+            return False
+    except Exception:
+        pass
+    return default
+
+
+def check_audio_input_support(
+    model_id: str | None = None,
+    provider: str | None = None,
+) -> str | None:
+    """Error string if model is known not to accept audio input; else None.
+
+    Unknown / missing catalog rows return None (allow).
+    """
+    mid = (model_id or "").strip()
+    if not mid:
+        return None
+    flag = supports_audio_input(mid, provider, default=None)
+    if flag is False:
+        prov = normalize_provider(provider) or "?"
+        return (
+            f"Model '{mid}' (provider={prov}) does not support audio/STT input "
+            "according to llmcapa. Choose a speech-to-text capable model."
+        )
+    return None
+
+
 def apply_shared_max_tokens(
     kwargs: dict[str, Any],
     *,
