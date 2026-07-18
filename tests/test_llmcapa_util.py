@@ -7,6 +7,8 @@ import pytest
 pytest.importorskip("llmcapa")
 
 from uagent.llmcapa_util import (
+    deprecated_model_warning,
+    estimate_cost,
     count_messages_tokens,
     provider_allows_fim,
     provider_allows_responses_api,
@@ -146,3 +148,15 @@ class TestTokenCountResolve:
             "openai",
         )
         assert n is not None and n > 0
+
+
+class TestCostAndDeprecated:
+    def test_estimate_cost_gpt4o(self) -> None:
+        est = estimate_cost(1_000_000, 1_000_000, "gpt-4o", "openai")
+        assert est is not None
+        assert float(est.get("cost", 0)) > 0
+
+    def test_deprecated_warning_optional(self) -> None:
+        # gpt-4o is marked deprecated in current llmcapa; accept warn or None if data changes
+        warn = deprecated_model_warning("gpt-4o", "openai")
+        assert warn is None or "deprecated" in warn.lower()

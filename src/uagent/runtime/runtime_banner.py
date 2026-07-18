@@ -465,11 +465,17 @@ def build_startup_banner(*, core: Any, workdir: str, workdir_source: str) -> str
         "true",
     )
     try:
-        from ..llmcapa_util import current_model, provider_allows_responses_api
-
-        _responses_supported = provider_allows_responses_api(
-            provider, current_model(provider)
+        from ..llmcapa_util import (
+            current_model,
+            deprecated_model_warning,
+            provider_allows_responses_api,
         )
+
+        _banner_model = current_model(provider)
+        _responses_supported = provider_allows_responses_api(provider, _banner_model)
+        _dep_warn = deprecated_model_warning(_banner_model, provider)
+        if _dep_warn:
+            lines.append("[WARN] " + _dep_warn)
     except Exception:
         _responses_supported = provider in RESPONSES_PROVIDERS
 

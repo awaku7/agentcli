@@ -1574,11 +1574,18 @@ def compress_history_with_llm(
                     # xai_sdk (gRPC): convert OpenAI-format messages first
                     from .providers.llm_grok import simple_xai_chat
 
+                    _sum_max = 2048
+                    try:
+                        from .llmcapa_util import clamp_max_tokens
+
+                        _sum_max = clamp_max_tokens(_sum_max, depname, provider)
+                    except Exception:
+                        pass
                     summary_content = simple_xai_chat(
                         client,
                         depname,
                         summary_messages,
-                        max_tokens=2048,
+                        max_tokens=_sum_max,
                         temperature=0.0,
                     )
                 elif hasattr(client, "chat") and hasattr(client.chat, "completions"):

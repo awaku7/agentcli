@@ -254,6 +254,13 @@ def _llm_simple_text(
     if not provider or client is None or not model_name:
         return ""
 
+    try:
+        from .llmcapa_util import clamp_max_tokens
+
+        max_tokens = clamp_max_tokens(max_tokens, model_name, provider)
+    except Exception:
+        pass
+
     messages = [
         {"role": "system", "content": system_prompt},
         {"role": "user", "content": user_prompt},

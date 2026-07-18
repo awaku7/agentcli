@@ -1,87 +1,62 @@
-# llmcapa Improvement Requests
+# llmcapa Integration Notes
 
-This document lists gaps and inconsistencies between **uag** (agentcli) providers and
-**llmcapa** model capability database. Addressing these would improve token counting
-and capability detection accuracy for uag users.
+Status of **uag** (agentcli) vs **llmcapa** capability database.
 
-## 1. Missing providers (not in llmcapa at all)
+- llmcapa version targeted by uag: **>=0.4.1**
+- Shared helper: `src/uagent/llmcapa_util.py`
+- Tests: `tests/test_llmcapa.py`, `tests/test_llmcapa_util.py`
 
-These uag providers have **no corresponding entry** in llmcapa:
+## What uag already uses
 
-| uag provider | Description | Notes |
-|---|---|---|
-| `lmstudio` | LM Studio — local model server | Models are user-installed; static DB may not apply. Consider a generic "local/lmstudio" fallback entry with conservative specs. |
-| `hf` | HuggingFace Inference API | HuggingFace hosts thousands of models. A representative subset (e.g. popular Text Generation Inference models) would be useful. |
-| `sakura` | SAKURA AI Engine | Japanese LLM provider. Currently no models indexed. |
-
-## 2. Mismatched provider names
-
-These uag providers exist in llmcapa but under a **different name**:
-
-| uag provider | llmcapa provider | Models | Action |
-|---|---|---|---|
-| `bedrock` | `amazon` | 21 | Add `bedrock` as an alias for `amazon` |
-| `gemini` | `google` | 75 | Add `gemini` as an alias for `google` |
-| `vertexai` | `google` | 75 | Add `vertexai` as an alias for `google` |
-| `grok` | `xai` | 18 | Add `grok` as an alias for `xai` |
-| `alibaba` | `qwen` | 143 | Add `alibaba` as an alias for `qwen` |
-| `moonshot` | `moonshotai` | 15 | Add `moonshot` as an alias for `moonshotai` |
-| `mimo` | `xiaomi` | 5 | Add `mimo` as an alias for `xiaomi` |
-
-**Expected behavior**: `llmcapa.get("gpt-4o", provider="bedrock")` should resolve to
-the same capability as `llmcapa.get("gpt-4o", provider="amazon")`.
-
-## 3. Provider name normalization
-
-llmcapa provider names use inconsistent casing and separators:
-
-- `azure-openai` (kebab-case)
-- `bytedance-seed` (kebab-case)
-- `anthracite-org` (kebab-case)
-- `cognitivecomputations` (no separator)
-- `inclusionai` (no separator)
-
-Suggestion: accept lookups case-insensitively and treat hyphens/underscores as optional
-separators so that `provider="azure_openai"` and `provider="azureopenai"` also work.
-
-## 4. Incomplete capability flags
-
-Several models have `supports_function_calling=None` or `supports_vision=None`
-where the capability is known to exist:
-
-| Model | Known capability | llmcapa value |
-|---|---|---|
-| `Llama-3.2-90B-Vision-Instruct` | vision=True, fc=True | vision=False, fc=None |
-| `Llama-4-Scout-17B-16E` | vision=True, fc=True | vision=False, fc=None |
-| `Codestral-2501` | fc=True | fc=None |
-| `mistral-small` | vision=False (text-only) | vision=False ✓ |
-
-Suggestion: fill `None` → `True`/`False` where the information is publicly documented.
-Treat `None` as "unknown" only when truly uncertain.
-
-## 5. Model ID discovery from API responses
-
-When uag calls `llmcapa.get(model_id)` without a provider, the first-registered
-(native) version is returned. However, the same model_id may exist under multiple
-providers with different specs (e.g. `gpt-4o` under both `openai` and `azure-openai`).
-
-Suggestion: add a `find(model_id)` method that returns a list of `(provider, Capability)`
-tuples for all matches, allowing the caller to pick the right one.
-
-## 6. Model ID variations
-
-Some models are known by different IDs across providers:
-
-| uag usage | llmcapa model_id |
+| Area | Integration |
 |---|---|
-| `DeepSeek-V3` | `DeepSeek-V3-0324` |
-| `gpt-4o-mini` | not in `openai` provider (only `gpt-4o-mini-transcribe` exists) |
-| `o3-mini` | `openai/o3-mini` (with `openai/` prefix) |
+| Lookup | `get_capability()` with uag→llmcapa provider aliases (`gemini→google`, `grok→xai`, `bedrock→amazon`, …) |
+| Vision | `provider_allows_chat_vision()` + `supports_vision` / image_input |
+| Context shrink | `get_context_window()` × `UAGENT_SHRINK_RATIO` |
+| Max tokens | `clamp_max_tokens()` on main chat/responses, Claude/Gemini/Grok/Ollama/FIM, profile/translate/sub-agent |
+| Reasoning | `get_reasoning_effort_values()` / thinking_budget flags on Claude/DeepSeek/ZAI/OpenRouter/Gemini |
+| Responses API | `provider_allows_responses_api()` (static provider set + model flag) |
+| FIM | `provider_allows_fim()` (static provider set + model flag) |
+| Token count | `count_messages_tokens()` with resolved model id |
+| Cost | `estimate_cost()` in `:model v`, sub-agent usage logs |
+| Deprecated | startup banner WARN + `:model` WARN |
 
-Suggestion: maintain an alias table so that common short names resolve correctly.
+## Remaining upstream gaps (llmcapa side)
 
-## 7. Implementation notes
+These are still useful upstream improvements; uag already mitigates many via aliases/fallbacks.
 
-- llmcapa version at time of writing: **0.3.0**
-- uag provider list source: `AGENTS.md` and `src/uagent/providers/provider_caps.py`
-- Test file: `tests/test_llmcapa.py` (37 tests covering all 70 llmcapa providers)
+### 1. Sparse / local providers
+
+| uag provider | Notes |
+|---|---|
+| `lmstudio` | User-installed local models; static DB often incomplete |
+| `hf` | Huge catalog; only a subset is practical offline |
+| `sakura` | May still have limited coverage depending on llmcapa release |
+
+### 2. Provider naming
+
+uag normalizes these in `llmcapa_util.provider_candidates()`:
+
+| uag | llmcapa candidates |
+|---|---|
+| `bedrock` | `amazon`, `bedrock` |
+| `gemini` / `vertexai` | `google`, … |
+| `grok` | `xai`, `grok` |
+| `alibaba` | `qwen`, `alibaba` |
+| `moonshot` | `moonshot`, `moonshotai` |
+| `mimo` | `xiaomi`, `mimo` |
+| `azure` | `azure-openai`, `azure-foundry`, `openai` |
+
+### 3. Incomplete rows
+
+Some catalog rows still have `context_window=0` / `max_output_tokens=0` (especially image/audio or incomplete Foundry rows). uag treats non-positive values as unknown and falls back.
+
+### 4. Model id variants
+
+Short names and deployment aliases still vary (`openai/o3-mini` vs `o3-mini`, dated DeepSeek ids, etc.). uag retries bare ids and prefix search as a last resort.
+
+## Design rules in uag
+
+1. **Never hard-fail** when llmcapa is missing or a model is unknown — keep previous defaults.
+2. Provider static sets (`RESPONSES_PROVIDERS`, `FIM_SUPPORTED_PROVIDERS`, `CHAT_VISION_PROVIDERS`) remain the implementation gate; llmcapa only tightens model-level allow/deny when known.
+3. Prefer provider-specific env knobs, then shared `UAGENT_TEMPERATURE` / `UAGENT_TOP_P` / `UAGENT_MAX_TOKENS`.

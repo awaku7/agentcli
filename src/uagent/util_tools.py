@@ -2843,6 +2843,15 @@ def _handle_cmd_model(
     lines.append("  Chat (main):")
     lines.append(f"    Provider: {provider}")
     lines.append(f"    Model:    {model}")
+    if provider not in ("(none)", ""):
+        try:
+            from .llmcapa_util import deprecated_model_warning
+
+            warn = deprecated_model_warning(model, provider)
+            if warn:
+                lines.append(f"    WARN: {warn}")
+        except Exception:
+            pass
     if verbose and provider not in ("(none)", ""):
         capa_lines = _fetch_model_capa(provider, model)
         if capa_lines:

@@ -178,6 +178,14 @@ def _translate_openai_compat(
         client = OpenAI(**kwargs)
         system, user = _translation_prompts(src_lang, dst_lang, text)
 
+        max_tokens = 4096
+        try:
+            from .llmcapa_util import clamp_max_tokens
+
+            max_tokens = clamp_max_tokens(max_tokens, cfg.depname, cfg.provider)
+        except Exception:
+            pass
+
         resp = client.chat.completions.create(
             model=cfg.depname,
             messages=[
@@ -185,6 +193,7 @@ def _translate_openai_compat(
                 {"role": "user", "content": user},
             ],
             temperature=0,
+            max_tokens=max_tokens,
         )
         out = (resp.choices[0].message.content or "").strip()
         if not out:
@@ -242,9 +251,24 @@ def _translate_gemini(
         gen_config: Any = None
         if gemini_types is not None:
             try:
-                gen_config = gemini_types.GenerateContentConfig(temperature=0)
+                max_out = 4096
+                try:
+                    from .llmcapa_util import clamp_max_tokens
+
+                    max_out = clamp_max_tokens(
+                        max_out, cfg.depname, cfg.provider or "gemini"
+                    )
+                except Exception:
+                    pass
+                gen_config = gemini_types.GenerateContentConfig(
+                    temperature=0,
+                    max_output_tokens=max_out,
+                )
             except Exception:
-                gen_config = None
+                try:
+                    gen_config = gemini_types.GenerateContentConfig(temperature=0)
+                except Exception:
+                    gen_config = None
 
         try:
             if gen_config is not None:
@@ -298,9 +322,17 @@ def _translate_claude(
         client = Anthropic(**kwargs)
 
         system, user = _translation_prompts(src_lang, dst_lang, text)
+        max_tokens = 4096
+        try:
+            from .llmcapa_util import clamp_max_tokens
+
+            max_tokens = clamp_max_tokens(max_tokens, cfg.depname, cfg.provider or "claude")
+        except Exception:
+            pass
+
         response = client.messages.create(
             model=cfg.depname,
-            max_tokens=4096,
+            max_tokens=max_tokens,
             temperature=0,
             system=system,
             messages=[{"role": "user", "content": user}],

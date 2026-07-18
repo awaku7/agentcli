@@ -529,11 +529,55 @@ class SubAgentRunner:
     def _accumulate_usage(self, usage: Dict[str, int]) -> None:
         with self._usage_lock:
             for k in ("prompt_tokens", "completion_tokens", "total_tokens"):
-                self._total_usage[k] += usage.get(k, 0)
+                self._total_usage[k] += int(usage.get(k, 0) or 0)
 
     def get_total_usage(self) -> Dict[str, int]:
         with self._usage_lock:
             return dict(self._total_usage)
+
+    def get_total_cost_estimate(
+        self,
+        *,
+        provider: str | None = None,
+        model_name: str | None = None,
+    ) -> Dict[str, Any] | None:
+        """Estimate cumulative cost from tracked usage via llmcapa pricing."""
+        usage = self.get_total_usage()
+        try:
+            from uagent.llmcapa_util import estimate_cost
+
+            return estimate_cost(
+                int(usage.get("prompt_tokens", 0) or 0),
+                int(usage.get("completion_tokens", 0) or 0),
+                model_name,
+                provider,
+            )
+        except Exception:
+            return None
+
+    @staticmethod
+    def _usage_with_cost(
+        usage: Dict[str, int],
+        *,
+        provider: str | None = None,
+        model_name: str | None = None,
+    ) -> Dict[str, Any]:
+        out: Dict[str, Any] = dict(usage or {})
+        try:
+            from uagent.llmcapa_util import estimate_cost
+
+            est = estimate_cost(
+                int(out.get("prompt_tokens", 0) or 0),
+                int(out.get("completion_tokens", 0) or 0),
+                model_name,
+                provider,
+            )
+            if est:
+                out["estimated_cost"] = est.get("cost")
+                out["currency"] = est.get("currency", "USD")
+        except Exception:
+            pass
+        return out
 
     def reset_usage(self) -> None:
         with self._usage_lock:
@@ -763,12 +807,21 @@ class SubAgentRunner:
         user_prompt: str,
         timeout: int = 120,
     ) -> tuple[str, Dict[str, int]]:
+        max_tokens = 4000
+        try:
+            from uagent.llmcapa_util import clamp_max_tokens
+
+            max_tokens = clamp_max_tokens(max_tokens, model_name, provider)
+        except Exception:
+            pass
+
         if provider in ("gemini", "vertexai"):
             from google.genai import types as gemini_types
 
             config_kw: Dict[str, Any] = dict(
                 system_instruction=system_prompt,
                 temperature=0.2,
+                max_output_tokens=max_tokens,
             )
             if timeout > 0:
                 config_kw["timeout"] = timeout
@@ -792,7 +845,7 @@ class SubAgentRunner:
         elif provider == "claude":
             kwargs: Dict[str, Any] = dict(
                 model=model_name,
-                max_tokens=4000,
+                max_tokens=max_tokens,
                 system=system_prompt,
                 messages=[{"role": "user", "content": user_prompt}],
                 temperature=0.2,
@@ -819,6 +872,7 @@ class SubAgentRunner:
                     {"role": "user", "content": user_prompt},
                 ],
                 temperature=0.2,
+                max_tokens=max_tokens,
             )
             if timeout > 0:
                 kwargs["timeout"] = timeout
@@ -1124,6 +1178,9 @@ class SubAgentRunner:
                 raw_output = self._parse_and_execute_tools(raw_output, permission_level)
 
         self._accumulate_usage(llm_usage)
+        llm_usage = self._usage_with_cost(
+            llm_usage, provider=provider, model_name=model_name
+        )
 
         if cb and getattr(cb, "log_message", None):
             try:
