@@ -25,6 +25,7 @@
 - llmcapa: `supports_audio_output` / `check_audio_output_support` for TTS gating (catalog miss allows; not completion max_tokens).
 - `audio_speech`: Grok/xAI TTS via POST `/v1/tts` (requests); provider aliases `grok`/`xai`; defaults model `grok-tts`, voice `eve`; language/speed/codec mapping.
 - Tools plugin load remains lazy, but is prewarmed in a background thread after startup.
+- Management tool loop detection: fingerprint by target (`tool_load:name`); `unload_tool(target)` and auto-unload via `disable_single_tool` clear that target's load streak so unload→reload is not blocked.
 
 ## [0.5.48] - 2026-07-13
 

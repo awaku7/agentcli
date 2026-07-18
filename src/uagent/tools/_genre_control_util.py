@@ -285,6 +285,8 @@ def disable_single_tool(tool_name: str, force: bool = False) -> bool:
     """Unload a single tool by name. Returns True if found and removed.
 
     Pinned tools are skipped unless *force* is True.
+    On success, also clears management-loop load streaks for this target so
+    auto-unload (which never emits unload_tool) does not leave a stale count.
     """
     if not force and is_tool_pinned(tool_name):
         return False
@@ -303,4 +305,11 @@ def disable_single_tool(tool_name: str, force: bool = False) -> bool:
     _RUNNERS.pop(tool_name, None)
     if found:
         _sort_registered_tools()
+        try:
+            from ..uagent_llm import clear_mgmt_load_streak
+
+            clear_mgmt_load_streak(tool_name)
+        except Exception:
+            # Avoid import/cycle failures blocking unload itself.
+            pass
     return found

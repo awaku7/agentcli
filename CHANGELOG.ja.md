@@ -25,6 +25,7 @@
 - llmcapa: TTS 向け `supports_audio_output` / `check_audio_output_support` を追加（カタログ欠落は許可、completion max_tokens とは別扱い）。
 - `audio_speech`: Grok/xAI TTS を POST `/v1/tts`（requests）で対応。プロバイダ別名 `grok`/`xai`、既定 model `grok-tts` / voice `eve`、language/speed/codec マッピング。
 - ツールプラグインは遅延ロードのまま、起動後バックグラウンドで予熱する方式に変更。
+- 管理ツールのループ検出: 対象名単位の fingerprint（`tool_load:name`）。`unload_tool(target)` および auto-unload（`disable_single_tool`）でその対象の load 連続回数をリセットし、unload→reload を誤検知しない。
 
 ## [0.5.48] - 2026-07-13
 

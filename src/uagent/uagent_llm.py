@@ -92,6 +92,8 @@ _TOTAL_ROUNDS: int = 0  # total rounds across all LLM calls, monotonically incre
 # Fingerprint is action + target (e.g. tool_load:file_grep), so loading
 # several *different* tools in parallel is allowed. Only the same target
 # repeated across rounds is treated as a loop (e.g. Grok reloading one tool).
+# unload_tool(target) clears that target's tool_load counter so a later
+# intentional reload is not counted as a continuation of the prior streak.
 _TOOL_CALL_FINGERPRINTS: dict[str, int] = {}
 _MGMT_TOOLS = frozenset({"tool_catalog", "tool_load", "unload_tool"})
 _MGMT_LOOP_THRESHOLD = 4
@@ -106,6 +108,13 @@ def _parse_mgmt_tool_args(args_raw: Any) -> Any:
         return {"_raw": args_raw}
 
 
+def _mgmt_tool_target(name: str, args: Any) -> str:
+    """Return the target tool name for load/unload, else empty."""
+    if name not in ("tool_load", "unload_tool") or not isinstance(args, dict):
+        return ""
+    return str(args.get("name") or args.get("tool") or "")
+
+
 def _mgmt_tool_fingerprint(name: str, args: Any) -> str:
     """Build a loop-detection key for a management tool call.
 
@@ -115,7 +124,7 @@ def _mgmt_tool_fingerprint(name: str, args: Any) -> str:
     if not isinstance(args, dict):
         return f"{name}:{args!r}"
     if name in ("tool_load", "unload_tool"):
-        target = args.get("name") or args.get("tool") or ""
+        target = _mgmt_tool_target(name, args)
         return f"{name}:{target}"
     if name == "tool_catalog":
         return (
@@ -126,10 +135,25 @@ def _mgmt_tool_fingerprint(name: str, args: Any) -> str:
 
 def _mgmt_tool_display(name: str, args: Any) -> str:
     if name in ("tool_load", "unload_tool") and isinstance(args, dict):
-        target = args.get("name") or args.get("tool") or ""
+        target = _mgmt_tool_target(name, args)
         if target:
             return f"{name}({target})"
     return name
+
+
+def clear_mgmt_load_streak(target: str) -> None:
+    """Clear tool_load loop counters for *target* (auto or explicit unload).
+
+    Auto-unload calls disable_single_tool directly and never emits unload_tool,
+    so both paths must clear via this helper or the prior load streak would
+    still count toward the loop threshold on the next tool_load.
+    """
+    name = str(target or "").strip()
+    if not name:
+        return
+    _TOOL_CALL_FINGERPRINTS.pop(f"tool_load:{name}", None)
+    # drop any stale unload fingerprint from older builds
+    _TOOL_CALL_FINGERPRINTS.pop(f"unload_tool:{name}", None)
 
 
 def check_mgmt_tool_loop(
@@ -142,6 +166,9 @@ def check_mgmt_tool_loop(
 
     Returns (blocked, display_name, count). When record=False, only peeks
     without mutating counters (unused currently; kept for tests/callers).
+
+    unload_tool(target) resets the tool_load counter for that target so a
+    deliberate unload→reload cycle does not trip the loop detector.
     """
     if not tool_calls_list:
         return False, "", 0
@@ -149,15 +176,26 @@ def check_mgmt_tool_loop(
 
     round_counts: dict[str, int] = {}
     display: dict[str, str] = {}
+    unload_targets: set[str] = set()
     for tc in tool_calls_list:
         fn = tc.get("function", {}) or {}
         name = fn.get("name", "") or ""
         if name not in _MGMT_TOOLS:
             continue
         args = _parse_mgmt_tool_args(fn.get("arguments", "{}"))
+        if name == "unload_tool":
+            target = _mgmt_tool_target(name, args)
+            if target:
+                unload_targets.add(target)
+            # unload itself is not loop-counted; it only resets load streaks
+            continue
         fp = _mgmt_tool_fingerprint(name, args)
         round_counts[fp] = round_counts.get(fp, 0) + 1
         display[fp] = _mgmt_tool_display(name, args)
+
+    if record and unload_targets:
+        for target in unload_targets:
+            clear_mgmt_load_streak(target)
 
     if not round_counts:
         return False, "", 0
@@ -1111,6 +1149,7 @@ def _run_one_round(
     # Detect repeated same-target management tool calls.
     # Parallel tool_load of different tools is allowed; only the same target
     # (e.g. tool_load(file_grep) x4) across rounds is treated as a loop.
+    # unload_tool(target) clears that target's load streak first.
     if tool_calls_list and not judgment_mode:
         blocked, blocked_name, blocked_count = check_mgmt_tool_loop(tool_calls_list)
         if blocked:
