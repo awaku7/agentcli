@@ -129,6 +129,22 @@ def analyze_image_zai(*, image_path: str, prompt: str | None) -> str:
     data_url = _image_file_to_data_url(image_path)
 
     try:
+        try:
+            from uagent.llmcapa_util import (
+                check_vision_support,
+                vision_completion_max_tokens,
+            )
+
+            vision_err = check_vision_support(model, "zai")
+            if vision_err:
+                return json.dumps(
+                    {"ok": False, "error": vision_err},
+                    ensure_ascii=False,
+                )
+            max_tokens = vision_completion_max_tokens(model, "zai", default=1024)
+        except Exception:
+            max_tokens = 1024
+
         resp = client.chat.completions.create(
             model=model,
             messages=[
@@ -140,6 +156,8 @@ def analyze_image_zai(*, image_path: str, prompt: str | None) -> str:
                     ],
                 }
             ],
+            max_tokens=max_tokens,
+            temperature=0.0,
         )
         content = resp.choices[0].message.content if resp.choices else ""
         return (content or "").strip() or _(

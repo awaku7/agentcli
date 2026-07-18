@@ -196,6 +196,19 @@ def analyze_image_openai(
         client = OpenAI(api_key=api_key, base_url=base_url)
 
     # Chat Completions multimodal
+    try:
+        from uagent.llmcapa_util import (
+            check_vision_support,
+            vision_completion_max_tokens,
+        )
+
+        vision_err = check_vision_support(model, provider)
+        if vision_err:
+            return f"[ERROR] {vision_err}"
+        max_tokens = vision_completion_max_tokens(model, provider, default=1024)
+    except Exception:
+        max_tokens = 1024
+
     resp = client.chat.completions.create(
         model=model,
         messages=[
@@ -207,6 +220,8 @@ def analyze_image_openai(
                 ],
             }
         ],
+        max_tokens=max_tokens,
+        temperature=0.0,
     )
 
     out: Any = None

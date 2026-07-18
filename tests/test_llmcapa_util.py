@@ -7,6 +7,8 @@ import pytest
 pytest.importorskip("llmcapa")
 
 from uagent.llmcapa_util import (
+    check_vision_support,
+    vision_completion_max_tokens,
     deprecated_model_warning,
     estimate_cost,
     count_messages_tokens,
@@ -160,3 +162,18 @@ class TestCostAndDeprecated:
         # gpt-4o is marked deprecated in current llmcapa; accept warn or None if data changes
         warn = deprecated_model_warning("gpt-4o", "openai")
         assert warn is None or "deprecated" in warn.lower()
+
+
+class TestVisionToolHelpers:
+    def test_check_vision_support_blocks_text_only(self) -> None:
+        err = check_vision_support("grok-3", "grok")
+        assert err is not None
+        assert "does not support vision" in err.lower() or "vision" in err.lower()
+
+    def test_check_vision_support_allows_gpt4o(self) -> None:
+        assert check_vision_support("gpt-4o", "openai") is None
+
+    def test_vision_completion_max_tokens_positive(self) -> None:
+        n = vision_completion_max_tokens("gpt-4o", "openai", default=1024)
+        assert isinstance(n, int) and n > 0
+        assert n <= 16384

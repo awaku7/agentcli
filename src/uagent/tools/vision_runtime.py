@@ -154,6 +154,19 @@ def analyze_image_runtime(*, image_path: str, prompt: str | None) -> str:
                 )
             client = OpenAI(api_key=api_key, base_url=base_url)
 
+    try:
+        from uagent.llmcapa_util import (
+            check_vision_support,
+            vision_completion_max_tokens,
+        )
+
+        vision_err = check_vision_support(model, provider)
+        if vision_err:
+            return f"[ERROR] {vision_err}"
+        max_out = vision_completion_max_tokens(model, provider, default=1024)
+    except Exception:
+        max_out = 1024
+
     resp = client.responses.create(
         model=model,
         input=cast(
@@ -168,6 +181,7 @@ def analyze_image_runtime(*, image_path: str, prompt: str | None) -> str:
                 }
             ],
         ),
+        max_output_tokens=max_out,
     )
 
     # Extract output_text

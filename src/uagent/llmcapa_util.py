@@ -413,6 +413,44 @@ def provider_allows_fim(
     return bool(flag)
 
 
+
+def check_vision_support(
+    model_id: str | None = None,
+    provider: str | None = None,
+) -> str | None:
+    """Return an error message if the model is known not to support vision.
+
+    Returns None when support is true or unknown (so callers can proceed).
+    """
+    mid = (model_id or "").strip()
+    if not mid:
+        return None
+    flag = supports_vision(mid, provider, default=None)
+    if flag is False:
+        prov = normalize_provider(provider) or "?"
+        return (
+            f"Model '{mid}' (provider={prov}) does not support vision/image input "
+            "according to llmcapa. Choose a vision-capable model."
+        )
+    return None
+
+
+def vision_completion_max_tokens(
+    model_id: str | None = None,
+    provider: str | None = None,
+    *,
+    default: int = 1024,
+) -> int:
+    """Default max tokens for one-shot vision describe calls, clamped when known."""
+    try:
+        base = int(default)
+    except Exception:
+        base = 1024
+    if base <= 0:
+        base = 1024
+    return clamp_max_tokens(base, model_id, provider)
+
+
 def deprecated_model_warning(
     model_id: str | None = None,
     provider: str | None = None,

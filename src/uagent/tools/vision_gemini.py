@@ -98,13 +98,44 @@ def analyze_image_gemini(
     final_prompt = prompt or "Please describe this image in detail."
 
     try:
-        response = client.models.generate_content(
-            model=model_name,
-            contents=[
-                types.Part.from_bytes(data=image_bytes, mime_type=mime_type),
-                final_prompt,
-            ],
-        )
+        gen_config = None
+        try:
+            from uagent.llmcapa_util import (
+                check_vision_support,
+                vision_completion_max_tokens,
+            )
+
+            vision_err = check_vision_support(model_name, provider)
+            if vision_err:
+                return f"[ERROR] {vision_err}"
+            max_out = vision_completion_max_tokens(model_name, provider, default=1024)
+            try:
+                gen_config = types.GenerateContentConfig(
+                    temperature=0.0,
+                    max_output_tokens=max_out,
+                )
+            except Exception:
+                gen_config = None
+        except Exception:
+            gen_config = None
+
+        if gen_config is not None:
+            response = client.models.generate_content(
+                model=model_name,
+                contents=[
+                    types.Part.from_bytes(data=image_bytes, mime_type=mime_type),
+                    final_prompt,
+                ],
+                config=gen_config,
+            )
+        else:
+            response = client.models.generate_content(
+                model=model_name,
+                contents=[
+                    types.Part.from_bytes(data=image_bytes, mime_type=mime_type),
+                    final_prompt,
+                ],
+            )
         return response.text or _(
             "result.no_description", default="[No description generated]"
         )

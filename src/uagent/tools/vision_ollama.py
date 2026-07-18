@@ -96,6 +96,17 @@ def analyze_image_ollama(*, image_path: str, prompt: str | None) -> str:
     except Exception:
         timeout_sec = 60.0
 
+    try:
+        from uagent.llmcapa_util import check_vision_support
+
+        vision_err = check_vision_support(model, "ollama")
+        if vision_err:
+            raise RuntimeError(vision_err)
+    except RuntimeError:
+        raise
+    except Exception:
+        pass
+
     payload: dict[str, Any] = {
         "model": model,
         "messages": [

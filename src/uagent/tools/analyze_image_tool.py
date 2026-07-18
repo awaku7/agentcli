@@ -66,12 +66,32 @@ TOOL_SPEC: dict[str, Any] = {
     },
 }
 
-# When Responses API is enabled for providers that can send images directly,
-# hide analyze_image to avoid redundant tool calls.
-if (env_get("UAGENT_RESPONSES", "") or "").strip().lower() in ("1", "true", "yes") and (
-    env_get("UAGENT_PROVIDER") or ""
-).strip().lower() in ("azure", "openai", "bedrock", "openrouter", "ollama"):
-    TOOL_SPEC = None  # type: ignore[assignment]
+# Hide analyze_image when the main chat path can already attach images
+# (Responses-enabled providers, or chat-vision providers with a vision model).
+try:
+    from uagent.util_tools import provider_allows_chat_vision
+
+    _prov = (env_get("UAGENT_PROVIDER") or "").strip().lower()
+    _use_resp = (env_get("UAGENT_RESPONSES", "") or "").strip().lower() in (
+        "1",
+        "true",
+        "yes",
+    )
+    if provider_allows_chat_vision(_prov, use_responses_api=_use_resp):
+        TOOL_SPEC = None  # type: ignore[assignment]
+except Exception:
+    if (env_get("UAGENT_RESPONSES", "") or "").strip().lower() in (
+        "1",
+        "true",
+        "yes",
+    ) and (env_get("UAGENT_PROVIDER") or "").strip().lower() in (
+        "azure",
+        "openai",
+        "bedrock",
+        "openrouter",
+        "ollama",
+    ):
+        TOOL_SPEC = None  # type: ignore[assignment]
 
 
 def _env_first(keys: list[str], *, required: bool, default: str = "") -> str:
