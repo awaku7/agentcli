@@ -18,7 +18,16 @@
   },
   "ja": {
     "x_search_terms": [
-      "メモリを追加する |長期記憶 |メモリを節約 |メモリを保存する |メモリの追加 |エージェントのメモリ |覚えておいてください |メモリを永続化する |情報を保存 |メモリ ストア"
+      "メモリの追加",
+      "長期メモリ",
+      "メモリの保存",
+      "メモリの保存",
+      "メモリの追加",
+      "エージェントメモリ",
+      "記憶",
+      "メモリの永続",
+      "情報の保存",
+      "メモリの保存"
     ],
     "err.note_empty": "[add_long_memory エラー] ノートが空です",
     "param.note.description": "今後の会話で再利用できる簡潔なメモを 1 つだけ書きます (日本語が望ましい)。",
@@ -60,63 +69,88 @@
   },
   "ko": {
     "x_search_terms": [
-      "카탈로그",
-      "도구 카탈로그",
-      "도구 검색",
-      "모든 도구 나열",
-      "자동 로드",
-      "자동 로드 도구"
+      "메모리 추가",
+      "장기 메모리",
+      "메모리 저장",
+      "메모리 저장",
+      "메모리 추가",
+      "에이전트 메모리",
+      "기억",
+      "지속 메모리",
+      "정보 저장",
+      "메모리 저장소"
     ],
     "err.note_empty": "[add_long_memory error] 메모가 비어 있습니다.",
-    "tool.description": "향후 대화에 유용할 수 있는 사용자/환경에 대한 단일 장기 메모리 메모를 저장하세요.",
-    "param.note.description": "향후 대화에서 재사용할 수 있도록 정확히 하나의 간결한 메모(일본어 선호)를 작성하세요."
+    "param.note.description": "향후 대화에서 재사용할 수 있도록 정확히 하나의 간결한 메모(일본어 선호)를 작성하세요.",
+    "tool.description": "향후 대화에 유용할 수 있는 사용자/환경에 대한 단일 장기 메모리 메모를 저장하세요."
   },
   "de": {
     "x_search_terms": [
-      "Katalog",
-      "Werkzeugkatalog",
-      "Werkzeuge entdecken",
-      "Werkzeugerkennung",
-      "alle Werkzeuge auflisten",
-      "automatisch laden",
-      "Werkzeug automatisch laden"
+      "Speicher hinzufügen",
+      "Langzeitspeicher",
+      "Speicher speichern",
+      "Speicher speichern",
+      "Speicher hinzufügen",
+      "Agentenspeicher",
+      "Speichern",
+      "Speicher speichern",
+      "Informationen speichern",
+      "Speicher speichern"
     ],
     "err.note_empty": "[add_long_memory error] Notiz ist leer",
-    "tool.description": "Speichern Sie eine einzelne Langzeitgedächtnisnotiz über den Benutzer/die Umgebung, die in zukünftigen Gesprächen nützlich sein kann.",
-    "param.note.description": "Schreiben Sie genau eine prägnante Notiz (bevorzugt Japanisch), die in zukünftigen Gesprächen wiederverwendet werden sollte."
+    "param.note.description": "Schreiben Sie genau eine prägnante Notiz (bevorzugt Japanisch), die in zukünftigen Gesprächen wiederverwendet werden sollte.",
+    "tool.description": "Speichern Sie eine einzelne Langzeitgedächtnisnotiz über den Benutzer/die Umgebung, die in zukünftigen Gesprächen nützlich sein kann."
   },
   "it": {
     "x_search_terms": [
-      "catalogo, catalogo strumenti, rilevamento strumenti, elenca tutti gli strumenti, caricamento automatico, caricamento automatico strumento"
+      "aggiungi memoria",
+      "memoria a lungo termine",
+      "salva memoria",
+      "memorizza memoria",
+      "memoria aggiungi",
+      "memoria agente",
+      "ricorda",
+      "mantieni memoria",
+      "salva informazioni",
+      "memoria memorizza"
     ],
     "err.note_empty": "La nota [add_long_memory error] è vuota",
-    "tool.description": "Salva una singola nota nella memoria a lungo termine sull'utente/ambiente che potrebbe essere utile in conversazioni future.",
-    "param.note.description": "Scrivi esattamente una nota concisa (preferibilmente in giapponese) che dovrebbe essere riutilizzabile nelle conversazioni future."
+    "param.note.description": "Scrivi esattamente una nota concisa (preferibilmente in giapponese) che dovrebbe essere riutilizzabile nelle conversazioni future.",
+    "tool.description": "Salva una singola nota nella memoria a lungo termine sull'utente/ambiente che potrebbe essere utile in conversazioni future."
   },
   "ru": {
     "x_search_terms": [
-      "каталог, каталог инструментов, обнаружение инструментов, список всех инструментов, автозагрузка, автозагрузка инструмента"
+      "добавить память",
+      "долговременная память",
+      "сохранить память",
+      "сохранить память",
+      "добавить память",
+      "память агента",
+      "запомнить",
+      "постоянная память",
+      "сохранить информацию",
+      "хранилище памяти"
     ],
     "err.note_empty": "[add_long_memory error] заметка пуста",
-    "tool.description": "Сохраните одну заметку в долговременной памяти о пользователе/среде, которая может пригодиться в будущих разговорах.",
-    "param.note.description": "Напишите ровно одну краткую заметку (предпочтительно на японском языке), которую можно будет использовать повторно в будущих разговорах."
+    "param.note.description": "Напишите ровно одну краткую заметку (предпочтительно на японском языке), которую можно будет использовать повторно в будущих разговорах.",
+    "tool.description": "Сохраните одну заметку в долговременной памяти о пользователе/среде, которая может пригодиться в будущих разговорах."
   },
   "pt_BR": {
     "x_search_terms": [
-      "add memory",
-      "long term memory",
-      "save memory",
-      "store memory",
-      "memory add",
-      "agent memory",
-      "remember",
-      "persist memory",
-      "save info",
-      "memory store"
+      "adicionar memória",
+      "memória de longo prazo",
+      "salvar memória",
+      "armazenar memória",
+      "adicionar memória",
+      "memória do agente",
+      "lembrar",
+      "persistir memória",
+      "salvar informações",
+      "armazenar memória"
     ],
     "err.note_empty": "[add_long_memory error] nota está vazia",
-    "tool.description": "Salve uma única nota de memória de longo prazo sobre o usuário/ambiente que pode ser útil em conversas futuras.",
-    "param.note.description": "Escreva exatamente uma nota concisa (de preferência em japonês) que possa ser reutilizada em conversas futuras."
+    "param.note.description": "Escreva exatamente uma nota concisa (de preferência em japonês) que possa ser reutilizada em conversas futuras.",
+    "tool.description": "Salve uma única nota de memória de longo prazo sobre o usuário/ambiente que pode ser útil em conversas futuras."
   },
   "pt": {
     "x_search_terms": [
@@ -171,376 +205,376 @@
   },
   "pl": {
     "x_search_terms": [
-      "add memory",
-      "long term memory",
-      "save memory",
-      "store memory",
-      "memory add",
-      "agent memory",
-      "remember",
-      "persist memory",
-      "save info",
-      "memory store"
+      "dodaj pamięć",
+      "pamięć długoterminową",
+      "zachowaj pamięć",
+      "przechowuj pamięć",
+      "pamięć dodaj",
+      "pamięć agenta",
+      "pamiętaj",
+      "utrzymuj pamięć",
+      "zapisz informacje",
+      "zapisz w pamięci"
     ],
     "err.note_empty": "[błąd add_long_memory] notatka jest pusta",
-    "tool.description": "Zapisz pojedynczą notatkę w pamięci długoterminowej na temat użytkownika/środowiska, która może być przydatna w przyszłych rozmowach.",
-    "param.note.description": "Napisz dokładnie jedną zwięzłą notatkę (najlepiej po japońsku), która powinna zostać ponownie wykorzystana w przyszłych rozmowach."
+    "param.note.description": "Napisz dokładnie jedną zwięzłą notatkę (najlepiej po japońsku), która powinna zostać ponownie wykorzystana w przyszłych rozmowach.",
+    "tool.description": "Zapisz pojedynczą notatkę w pamięci długoterminowej na temat użytkownika/środowiska, która może być przydatna w przyszłych rozmowach."
   },
   "hi": {
     "x_search_terms": [
-      "add memory",
-      "long term memory",
-      "save memory",
-      "store memory",
-      "memory add",
-      "agent memory",
-      "remember",
-      "persist memory",
-      "save info",
-      "memory store"
+      "मेमोरी जोड़ें",
+      "दीर्घकालिक मेमोरी",
+      "मेमोरी सहेजें",
+      "मेमोरी स्टोर करें",
+      "मेमोरी जोड़ें",
+      "एजेंट मेमोरी",
+      "याद रखें",
+      "मेमोरी कायम रखें",
+      "जानकारी सहेजें",
+      "मेमोरी स्टोर"
     ],
     "err.note_empty": "[add_long_memory त्रुटि] नोट खाली है",
-    "tool.description": "उपयोगकर्ता/पर्यावरण के बारे में एक दीर्घकालिक स्मृति नोट सहेजें जो भविष्य के सत्रों में उपयोगी हो सकता है। इसका उपयोग तब करें जब उपयोगकर्ता स्पष्ट रूप से कुछ याद रखने के लिए कहे।",
-    "param.note.description": "बिल्कुल एक संक्षिप्त नोट लिखें (जापानी पसंदीदा) जिसे भविष्य की बातचीत में पुन: उपयोग किया जाना चाहिए।"
+    "param.note.description": "बिल्कुल एक संक्षिप्त नोट लिखें (जापानी पसंदीदा) जिसे भविष्य की बातचीत में पुन: उपयोग किया जाना चाहिए।",
+    "tool.description": "उपयोगकर्ता/पर्यावरण के बारे में एक दीर्घकालिक स्मृति नोट सहेजें जो भविष्य के सत्रों में उपयोगी हो सकता है। इसका उपयोग तब करें जब उपयोगकर्ता स्पष्ट रूप से कुछ याद रखने के लिए कहे।"
   },
   "ar": {
     "x_search_terms": [
-      "add memory",
-      "long term memory",
-      "save memory",
-      "store memory",
-      "memory add",
-      "agent memory",
-      "remember",
-      "persist memory",
-      "save info",
-      "memory store"
+      "إضافة ذاكرة ",
+      " ذاكرة طويلة المدى ",
+      " حفظ الذاكرة ",
+      " تخزين الذاكرة ",
+      " إضافة ذاكرة ",
+      " ذاكرة الوكيل ",
+      " تذكر ",
+      " الذاكرة المستمرة ",
+      " حفظ المعلومات ",
+      " مخزن الذاكرة"
     ],
     "err.note_empty": "ملاحظة [add_long_memory error] فارغة",
-    "tool.description": "احفظ ملاحظة واحدة للذاكرة طويلة المدى حول المستخدم/البيئة والتي قد تكون مفيدة في المحادثات المستقبلية.",
-    "param.note.description": "اكتب ملاحظة واحدة مختصرة (يفضل اللغة اليابانية) والتي ينبغي إعادة استخدامها في المحادثات المستقبلية."
+    "param.note.description": "اكتب ملاحظة واحدة مختصرة (يفضل اللغة اليابانية) والتي ينبغي إعادة استخدامها في المحادثات المستقبلية.",
+    "tool.description": "احفظ ملاحظة واحدة للذاكرة طويلة المدى حول المستخدم/البيئة والتي قد تكون مفيدة في المحادثات المستقبلية."
   },
   "sv": {
     "x_search_terms": [
-      "add memory",
-      "long term memory",
-      "save memory",
-      "store memory",
-      "memory add",
-      "agent memory",
-      "remember",
-      "persist memory",
-      "save info",
-      "memory store"
+      "lägg till minne",
+      "långtidsminne",
+      "spara minne",
+      "lagra minne",
+      "minne lägg",
+      "agentminne",
+      "kom ihåg",
+      "bevara minne",
+      "spara info",
+      "minne"
     ],
     "err.note_empty": "[add_long_memory error]-anteckningen är tom",
-    "tool.description": "Spara en enda långtidsminnesanteckning om användaren/miljön som kan vara användbar i framtida konversationer.",
-    "param.note.description": "Skriv exakt en kortfattad anteckning (japanska föredras) som bör kunna återanvändas i framtida konversationer."
+    "param.note.description": "Skriv exakt en kortfattad anteckning (japanska föredras) som bör kunna återanvändas i framtida konversationer.",
+    "tool.description": "Spara en enda långtidsminnesanteckning om användaren/miljön som kan vara användbar i framtida konversationer."
   },
   "sw": {
     "x_search_terms": [
-      "add memory",
-      "long term memory",
-      "save memory",
-      "store memory",
-      "memory add",
-      "agent memory",
-      "remember",
-      "persist memory",
-      "save info",
-      "memory store"
+      "ongeza kumbukumbu",
+      "kumbukumbu ya muda mrefu",
+      "hifadhi kumbukumbu",
+      "hifadhi kumbukumbu",
+      "ongeza kumbukumbu",
+      "kumbukumbu ya wakala",
+      "kumbuka",
+      "hifadhi kumbukumbu",
+      "hifadhi maelezo",
+      "hifadhi ya kumbukumbu"
     ],
     "err.note_empty": "[add_long_memory error] dokezo ni tupu",
-    "tool.description": "Hifadhi kumbukumbu moja ya muda mrefu kuhusu mtumiaji/mazingira ambayo inaweza kuwa muhimu katika mazungumzo yajayo.",
-    "param.note.description": "Andika kidokezo kimoja kifupi (kinachopendekezwa na Kijapani) ambacho kinafaa kutumika tena katika mazungumzo yajayo."
+    "param.note.description": "Andika kidokezo kimoja kifupi (kinachopendekezwa na Kijapani) ambacho kinafaa kutumika tena katika mazungumzo yajayo.",
+    "tool.description": "Hifadhi kumbukumbu moja ya muda mrefu kuhusu mtumiaji/mazingira ambayo inaweza kuwa muhimu katika mazungumzo yajayo."
   },
   "nb": {
     "x_search_terms": [
-      "add memory",
-      "long term memory",
-      "save memory",
-      "store memory",
-      "memory add",
-      "agent memory",
-      "remember",
-      "persist memory",
-      "save info",
-      "memory store"
+      "legg til minne",
+      "langtidsminne",
+      "lagre minne",
+      "lagre minne",
+      "minne legg til",
+      "agentminne",
+      "husk",
+      "vedvarende minne",
+      "lagre informasjon",
+      "minnelager"
     ],
     "err.note_empty": "[add_long_memory error] notatet er tomt",
-    "tool.description": "Lagre et enkelt langtidsminnemerknad om brukeren/miljøet som kan være nyttig i fremtidige samtaler.",
-    "param.note.description": "Skriv nøyaktig ett kortfattet notat (japansk foretrukket) som bør kunne gjenbrukes i fremtidige samtaler."
+    "param.note.description": "Skriv nøyaktig ett kortfattet notat (japansk foretrukket) som bør kunne gjenbrukes i fremtidige samtaler.",
+    "tool.description": "Lagre et enkelt langtidsminnemerknad om brukeren/miljøet som kan være nyttig i fremtidige samtaler."
   },
   "nl": {
     "x_search_terms": [
-      "add memory",
-      "long term memory",
-      "save memory",
-      "store memory",
-      "memory add",
-      "agent memory",
-      "remember",
+      "geheugen toevoegen",
+      "langetermijngeheugen",
+      "geheugen opslaan",
+      "geheugen opslaan",
+      "geheugen toevoegen",
+      "agentgeheugen",
+      "herinneren",
       "persist memory",
-      "save info",
-      "memory store"
+      "informatie opslaan",
+      "geheugen opslaan"
     ],
     "err.note_empty": "[add_long_memory error] notitie is leeg",
-    "tool.description": "Bewaar een enkele langetermijngeheugennotitie over de gebruiker/omgeving die nuttig kan zijn in toekomstige gesprekken.",
-    "param.note.description": "Schrijf precies één beknopte notitie (bij voorkeur Japans) die herbruikbaar moet zijn in toekomstige gesprekken."
+    "param.note.description": "Schrijf precies één beknopte notitie (bij voorkeur Japans) die herbruikbaar moet zijn in toekomstige gesprekken.",
+    "tool.description": "Bewaar een enkele langetermijngeheugennotitie over de gebruiker/omgeving die nuttig kan zijn in toekomstige gesprekken."
   },
   "fi": {
     "x_search_terms": [
-      "add memory",
-      "long term memory",
-      "save memory",
-      "store memory",
-      "memory add",
-      "agent memory",
+      "lisää muistia",
+      "pitkäaikaista muistia",
+      "säästä muistia",
+      "tallennusmuistia",
+      "muistia lisää",
+      "agenttimuistia",
       "remember",
-      "persist memory",
-      "save info",
-      "memory store"
+      "pysyvä muisti",
+      "tallenna tietoja",
+      "muistisäilö"
     ],
     "err.note_empty": "[add_long_memory error] huomautus on tyhjä",
-    "tool.description": "Tallenna yksittäinen pitkäaikaiseen muistiin liittyvä muistiinpano käyttäjästä/ympäristöstä, josta voi olla hyötyä tulevissa keskusteluissa.",
-    "param.note.description": "Kirjoita täsmälleen yksi ytimekäs muistiinpano (mieluiten japanilainen), jota voidaan käyttää uudelleen tulevissa keskusteluissa."
+    "param.note.description": "Kirjoita täsmälleen yksi ytimekäs muistiinpano (mieluiten japanilainen), jota voidaan käyttää uudelleen tulevissa keskusteluissa.",
+    "tool.description": "Tallenna yksittäinen pitkäaikaiseen muistiin liittyvä muistiinpano käyttäjästä/ympäristöstä, josta voi olla hyötyä tulevissa keskusteluissa."
   },
   "cs": {
     "x_search_terms": [
-      "add memory",
-      "long term memory",
-      "save memory",
-      "store memory",
-      "memory add",
-      "agent memory",
-      "remember",
-      "persist memory",
-      "save info",
-      "memory store"
+      "přidat paměť",
+      "dlouhodobá paměť",
+      "uložit paměť",
+      "uložit paměť",
+      "paměť přidat",
+      "paměť agenta",
+      "zapamatovat",
+      "trvalá paměť",
+      "uložit informace",
+      "paměť"
     ],
     "err.note_empty": "[add_long_memory error] poznámka je prázdná",
-    "tool.description": "Uložte si jednu dlouhodobou paměťovou poznámku o uživateli/prostředí, která může být užitečná v budoucích konverzacích.",
-    "param.note.description": "Napište přesně jednu stručnou poznámku (nejlépe v japonštině), která by měla být znovu použitelná v budoucích konverzacích."
+    "param.note.description": "Napište přesně jednu stručnou poznámku (nejlépe v japonštině), která by měla být znovu použitelná v budoucích konverzacích.",
+    "tool.description": "Uložte si jednu dlouhodobou paměťovou poznámku o uživateli/prostředí, která může být užitečná v budoucích konverzacích."
   },
   "uk": {
     "x_search_terms": [
-      "add memory",
-      "long term memory",
-      "save memory",
-      "store memory",
-      "memory add",
-      "agent memory",
-      "remember",
-      "persist memory",
-      "save info",
-      "memory store"
+      "додати пам’ять",
+      "довгострокову пам’ять",
+      "зберегти пам’ять",
+      "зберігати пам’ять",
+      "пам’ять додати",
+      "пам’ять агента",
+      "запам’ятати",
+      "зберігати пам’ять",
+      "зберегти інформацію",
+      "зберігати пам’ять"
     ],
     "err.note_empty": "[помилка add_long_memory] примітка порожня",
-    "tool.description": "Збережіть одну довгострокову пам’ять про користувача/оточення, яка може бути корисною в майбутніх розмовах.",
-    "param.note.description": "Напишіть лише одну коротку замітку (бажано японською), яку можна буде повторно використовувати в майбутніх розмовах."
+    "param.note.description": "Напишіть лише одну коротку замітку (бажано японською), яку можна буде повторно використовувати в майбутніх розмовах.",
+    "tool.description": "Збережіть одну довгострокову пам’ять про користувача/оточення, яка може бути корисною в майбутніх розмовах."
   },
   "tr": {
     "x_search_terms": [
-      "add memory",
-      "long term memory",
-      "save memory",
-      "store memory",
-      "memory add",
-      "agent memory",
-      "remember",
-      "persist memory",
-      "save info",
-      "memory store"
+      "bellek ekle",
+      "uzun süreli bellek",
+      "belleği kaydet",
+      "belleği sakla",
+      "bellek ekleme",
+      "aracı belleği",
+      "hatırla",
+      "belleği kalıcı hale getir",
+      "bilgiyi kaydet",
+      "bellek deposu"
     ],
     "err.note_empty": "[add_long_memory hatası] notu boş",
-    "tool.description": "Gelecekteki konuşmalarda yararlı olabilecek, kullanıcı/ortam hakkında tek bir uzun vadeli bellek notu kaydedin.",
-    "param.note.description": "Gelecekteki konuşmalarda yeniden kullanılabilecek tam olarak kısa bir not yazın (Japonca tercih edilir)."
+    "param.note.description": "Gelecekteki konuşmalarda yeniden kullanılabilecek tam olarak kısa bir not yazın (Japonca tercih edilir).",
+    "tool.description": "Gelecekteki konuşmalarda yararlı olabilecek, kullanıcı/ortam hakkında tek bir uzun vadeli bellek notu kaydedin."
   },
   "th": {
     "x_search_terms": [
-      "add memory",
-      "long term memory",
-      "save memory",
-      "store memory",
-      "memory add",
-      "agent memory",
-      "remember",
-      "persist memory",
-      "save info",
-      "memory store"
+      "เพิ่มหน่วยความจำ",
+      "หน่วยความจำระยะยาว",
+      "บันทึกหน่วยความจำ",
+      "จัดเก็บหน่วยความจำ",
+      "หน่วยความจำเพิ่ม",
+      "หน่วยความจำตัวแทน",
+      "จำ",
+      "หน่วยความจำถาวร",
+      "บันทึกข้อมูล",
+      "จัดเก็บหน่วยความจำ"
     ],
     "err.note_empty": "โน้ต [add_long_memory error] ว่างเปล่า",
-    "tool.description": "บันทึกบันทึกความทรงจำระยะยาวเดียวเกี่ยวกับผู้ใช้/สภาพแวดล้อมที่อาจมีประโยชน์ในการสนทนาในอนาคต",
-    "param.note.description": "เขียนบันทึกย่อกระชับหนึ่งรายการ (ควรใช้ภาษาญี่ปุ่น) ซึ่งควรนำมาใช้ซ้ำในการสนทนาครั้งต่อๆ ไป"
+    "param.note.description": "เขียนบันทึกย่อกระชับหนึ่งรายการ (ควรใช้ภาษาญี่ปุ่น) ซึ่งควรนำมาใช้ซ้ำในการสนทนาครั้งต่อๆ ไป",
+    "tool.description": "บันทึกบันทึกความทรงจำระยะยาวเดียวเกี่ยวกับผู้ใช้/สภาพแวดล้อมที่อาจมีประโยชน์ในการสนทนาในอนาคต"
   },
   "zh_CN": {
     "x_search_terms": [
-      "add memory",
-      "long term memory",
-      "save memory",
-      "store memory",
-      "memory add",
-      "agent memory",
-      "remember",
-      "persist memory",
-      "save info",
-      "memory store"
+      "添加内存",
+      "长期内存",
+      "保存内存",
+      "存储内存",
+      "内存添加",
+      "代理内存",
+      "记住",
+      "持久内存",
+      "保存信息",
+      "内存存储"
     ],
     "err.note_empty": "[add_long_memory错误]注释为空",
-    "tool.description": "保存有关用户/环境的单个长期记忆注释，这可能在将来的对话中有用。",
-    "param.note.description": "准确地写下一张简明的笔记（最好是日语），以便在以后的对话中可以重复使用。"
+    "param.note.description": "准确地写下一张简明的笔记（最好是日语），以便在以后的对话中可以重复使用。",
+    "tool.description": "保存有关用户/环境的单个长期记忆注释，这可能在将来的对话中有用。"
   },
   "zh_TW": {
     "x_search_terms": [
-      "add memory",
-      "long term memory",
-      "save memory",
-      "store memory",
-      "memory add",
-      "agent memory",
-      "remember",
-      "persist memory",
-      "save info",
-      "memory store"
+      "增加記憶體",
+      "長期記憶體",
+      "保存記憶體",
+      "儲存記憶體",
+      "記憶體新增",
+      "代理記憶體",
+      "記住",
+      "持久記憶體",
+      "保存資訊",
+      "記憶體存儲"
     ],
     "err.note_empty": "[add_long_memory錯誤]註解為空",
-    "tool.description": "保存有關使用者/環境的單一長期記憶註釋，這可能在將來的對話中有用。 ",
-    "param.note.description": "準確地寫下一張簡明的筆記（最好是日文），以便在以後的對話中可以重複使用。"
+    "param.note.description": "準確地寫下一張簡明的筆記（最好是日文），以便在以後的對話中可以重複使用。",
+    "tool.description": "保存有關使用者/環境的單一長期記憶註釋，這可能在將來的對話中有用。 "
   },
   "bn": {
     "x_search_terms": [
-      "add memory",
-      "long term memory",
-      "save memory",
-      "store memory",
-      "memory add",
-      "agent memory",
-      "remember",
-      "persist memory",
-      "save info",
-      "memory store"
+      "মেমরি যোগ করুন ",
+      " দীর্ঘমেয়াদী মেমরি ",
+      " মেমরি সংরক্ষণ করুন ",
+      " স্টোর মেমরি ",
+      " মেমরি যোগ করুন ",
+      " এজেন্ট মেমরি ",
+      " মনে রাখুন ",
+      " স্থায়ী মেমরি ",
+      " তথ্য সংরক্ষণ করুন ",
+      " মেমরি স্টোর"
     ],
     "err.note_empty": "[add_long_memory error] নোট খালি",
-    "tool.description": "ব্যবহারকারী/পরিবেশ সম্পর্কে একটি দীর্ঘমেয়াদী মেমরি নোট সংরক্ষণ করুন যা ভবিষ্যতে কথোপকথনে উপযোগী হতে পারে।",
-    "param.note.description": "ঠিক একটি সংক্ষিপ্ত নোট লিখুন (জাপানি পছন্দের) যা ভবিষ্যতে কথোপকথনে পুনরায় ব্যবহারযোগ্য হওয়া উচিত।"
+    "param.note.description": "ঠিক একটি সংক্ষিপ্ত নোট লিখুন (জাপানি পছন্দের) যা ভবিষ্যতে কথোপকথনে পুনরায় ব্যবহারযোগ্য হওয়া উচিত।",
+    "tool.description": "ব্যবহারকারী/পরিবেশ সম্পর্কে একটি দীর্ঘমেয়াদী মেমরি নোট সংরক্ষণ করুন যা ভবিষ্যতে কথোপকথনে উপযোগী হতে পারে।"
   },
   "fa": {
     "x_search_terms": [
-      "add memory",
-      "long term memory",
-      "save memory",
-      "store memory",
-      "memory add",
-      "agent memory",
-      "remember",
-      "persist memory",
-      "save info",
-      "memory store"
+      "افزایش حافظه",
+      "",
+      "",
+      "",
+      "",
+      "",
+      "",
+      "",
+      "",
+      ""
     ],
     "err.note_empty": "یادداشت [add_long_memory error] خالی است",
-    "tool.description": "یک یادداشت حافظه بلندمدت در مورد کاربر/محیط را ذخیره کنید که ممکن است در مکالمات آینده مفید باشد.",
-    "param.note.description": "دقیقاً یک یادداشت مختصر (ترجیح ژاپنی) بنویسید که باید در مکالمات بعدی قابل استفاده مجدد باشد."
+    "param.note.description": "دقیقاً یک یادداشت مختصر (ترجیح ژاپنی) بنویسید که باید در مکالمات بعدی قابل استفاده مجدد باشد.",
+    "tool.description": "یک یادداشت حافظه بلندمدت در مورد کاربر/محیط را ذخیره کنید که ممکن است در مکالمات آینده مفید باشد."
   },
   "mn": {
     "x_search_terms": [
-      "add memory",
-      "long term memory",
-      "save memory",
-      "store memory",
-      "memory add",
-      "agent memory",
-      "remember",
-      "persist memory",
-      "save info",
-      "memory store"
+      "санах ой нэмэх",
+      "урт хугацааны санах ой",
+      "санах ой хадгалах",
+      "санах ой хадгалах",
+      "санах ой нэмэх",
+      "агент санах ой",
+      "санах",
+      "тогтвортой санах ой",
+      "мэдээлэл хадгалах",
+      "санах ойн сан"
     ],
     "err.note_empty": "[урт_санах ойн алдаа] тэмдэглэл хоосон байна",
-    "tool.description": "Ирээдүйн харилцан ярианд хэрэг болох хэрэглэгчийн/орчны тухай урт хугацааны санах ойн тэмдэглэлийг хадгална уу.",
-    "param.note.description": "Ирээдүйн харилцан ярианд дахин ашиглах боломжтой яг нэг товч тэмдэглэл (Япон хэлийг илүүд үздэг) бич."
+    "param.note.description": "Ирээдүйн харилцан ярианд дахин ашиглах боломжтой яг нэг товч тэмдэглэл (Япон хэлийг илүүд үздэг) бич.",
+    "tool.description": "Ирээдүйн харилцан ярианд хэрэг болох хэрэглэгчийн/орчны тухай урт хугацааны санах ойн тэмдэглэлийг хадгална уу."
   },
   "mr": {
     "x_search_terms": [
-      "add memory",
-      "long term memory",
-      "save memory",
-      "store memory",
-      "memory add",
-      "agent memory",
-      "remember",
-      "persist memory",
-      "save info",
-      "memory store"
+      "मेमरी जोडा",
+      "दीर्घकालीन मेमरी",
+      "मेमरी जतन करा",
+      "स्टोअर मेमरी",
+      "मेमरी ॲड",
+      "एजंट मेमरी",
+      "लक्षात ठेवा",
+      "परसिस्ट मेमरी",
+      "माहिती जतन करा",
+      "मेमरी स्टोअर"
     ],
     "err.note_empty": "[add_long_memory error] टीप रिकामी आहे",
-    "tool.description": "वापरकर्ता/वातावरणाबद्दल एक दीर्घकालीन मेमरी टीप जतन करा जी भविष्यातील संभाषणांमध्ये उपयुक्त असू शकते.",
-    "param.note.description": "भविष्यातील संभाषणांमध्ये पुन्हा वापरता येण्याजोग्या असलेली एक संक्षिप्त टीप (जपानी प्राधान्य) लिहा."
+    "param.note.description": "भविष्यातील संभाषणांमध्ये पुन्हा वापरता येण्याजोग्या असलेली एक संक्षिप्त टीप (जपानी प्राधान्य) लिहा.",
+    "tool.description": "वापरकर्ता/वातावरणाबद्दल एक दीर्घकालीन मेमरी टीप जतन करा जी भविष्यातील संभाषणांमध्ये उपयुक्त असू शकते."
   },
   "el": {
     "x_search_terms": [
-      "add memory",
-      "long term memory",
-      "save memory",
-      "store memory",
-      "memory add",
-      "agent memory",
-      "remember",
-      "persist memory",
-      "save info",
-      "memory store"
+      "προσθήκη μνήμης",
+      "μακροπρόθεσμη μνήμη",
+      "αποθήκευση μνήμης",
+      "αποθήκευση μνήμης",
+      "μνήμη προσθήκη",
+      "μνήμη πράκτορα",
+      "θυμήση",
+      "διατήρηση μνήμης",
+      "αποθήκευση πληροφοριών",
+      " αποθήκευση μνήμης"
     ],
     "err.note_empty": "Η σημείωση [add_long_memory error] είναι κενή",
-    "tool.description": "Αποθηκεύστε μια μεμονωμένη σημείωση μακροπρόθεσμης μνήμης σχετικά με το χρήστη/περιβάλλον που μπορεί να είναι χρήσιμη σε μελλοντικές συνομιλίες.",
-    "param.note.description": "Γράψτε ακριβώς μια συνοπτική σημείωση (προτιμάται η Ιαπωνική) που θα πρέπει να μπορεί να επαναχρησιμοποιηθεί σε μελλοντικές συνομιλίες."
+    "param.note.description": "Γράψτε ακριβώς μια συνοπτική σημείωση (προτιμάται η Ιαπωνική) που θα πρέπει να μπορεί να επαναχρησιμοποιηθεί σε μελλοντικές συνομιλίες.",
+    "tool.description": "Αποθηκεύστε μια μεμονωμένη σημείωση μακροπρόθεσμης μνήμης σχετικά με το χρήστη/περιβάλλον που μπορεί να είναι χρήσιμη σε μελλοντικές συνομιλίες."
   },
   "he": {
     "x_search_terms": [
-      "add memory",
-      "long term memory",
-      "save memory",
-      "store memory",
-      "memory add",
-      "agent memory",
-      "remember",
-      "persist memory",
-      "save info",
-      "memory store"
+      "הוסף זיכרון",
+      "זיכרון לטווח ארוך",
+      "שמור זיכרון",
+      "אחסן זיכרון",
+      "זיכרון הוסף",
+      "זיכרון סוכן",
+      "זכור",
+      "זיכרון מתמיד",
+      "שמור מידע",
+      "מאגר זיכרון"
     ],
     "err.note_empty": "הערה [add_long_memory error] ריקה",
-    "tool.description": "שמור הערת זיכרון לטווח ארוך על המשתמש/הסביבה שעשויה להיות שימושית בשיחות עתידיות.",
-    "param.note.description": "כתוב בדיוק הערה אחת תמציתית (עדיפות יפנית) שאמורה להיות ניתנת לשימוש חוזר בשיחות עתידיות."
+    "param.note.description": "כתוב בדיוק הערה אחת תמציתית (עדיפות יפנית) שאמורה להיות ניתנת לשימוש חוזר בשיחות עתידיות.",
+    "tool.description": "שמור הערת זיכרון לטווח ארוך על המשתמש/הסביבה שעשויה להיות שימושית בשיחות עתידיות."
   },
   "hu": {
     "x_search_terms": [
-      "add memory",
-      "long term memory",
-      "save memory",
-      "store memory",
-      "memory add",
-      "agent memory",
+      "memória hozzáadása",
+      "hosszú távú memória",
+      "memória mentése",
+      "memória tárolása",
+      "memória hozzáadása",
+      "ügynökmemória",
       "remember",
       "persist memory",
-      "save info",
-      "memory store"
+      "információ mentése",
+      "memória tárolása"
     ],
     "err.note_empty": "Az [add_long_memory error] megjegyzés üres",
-    "tool.description": "Mentsen el egyetlen hosszú távú memóriajegyzetet a felhasználóról/környezetről, amely hasznos lehet a jövőbeni beszélgetéseknél.",
-    "param.note.description": "Írjon pontosan egy tömör megjegyzést (előnyösen japánul), amelyet újra felhasználhat a jövőbeni beszélgetésekben."
+    "param.note.description": "Írjon pontosan egy tömör megjegyzést (előnyösen japánul), amelyet újra felhasználhat a jövőbeni beszélgetésekben.",
+    "tool.description": "Mentsen el egyetlen hosszú távú memóriajegyzetet a felhasználóról/környezetről, amely hasznos lehet a jövőbeni beszélgetéseknél."
   },
   "ro": {
     "x_search_terms": [
-      "add memory",
-      "long term memory",
-      "save memory",
-      "store memory",
-      "memory add",
-      "agent memory",
-      "remember",
-      "persist memory",
-      "save info",
-      "memory store"
+      "adăugați memorie",
+      "memorie pe termen lung",
+      "salvați memorie",
+      "stocare memorie",
+      "memorie adăugați",
+      "memorie agent",
+      "rețineți",
+      "persistați memorie",
+      "salvați informații",
+      "magazin de memorie"
     ],
     "err.note_empty": "[add_long_memory error] nota este goală",
-    "tool.description": "Salvați o singură notă de memorie pe termen lung despre utilizator/mediu care poate fi utilă în conversațiile viitoare.",
-    "param.note.description": "Scrieți exact o notă concisă (de preferință în japoneză) care ar trebui să fie reutilizată în conversațiile viitoare."
+    "param.note.description": "Scrieți exact o notă concisă (de preferință în japoneză) care ar trebui să fie reutilizată în conversațiile viitoare.",
+    "tool.description": "Salvați o singură notă de memorie pe termen lung despre utilizator/mediu care poate fi utilă în conversațiile viitoare."
   }
 }

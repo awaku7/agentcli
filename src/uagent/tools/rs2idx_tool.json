@@ -30,16 +30,16 @@
   },
   "ja": {
     "x_search_terms": [
-      "rust",
-      "rust code",
-      "rust analysis",
-      "code index",
-      "rust source",
-      "rust parser",
-      "rust function",
-      "rust struct",
-      "rust file",
-      "rust module"
+      "Rust",
+      "Rust コード",
+      "Rust 分析",
+      "コードインデックス",
+      "Rust ソース",
+      "Rust パーサー",
+      "Rust 関数",
+      "Rust 構造体",
+      "Rust ファイル",
+      "Rust モジュール"
     ],
     "param.path.description": "Rust (.rs) ファイルへのパス。",
     "err.path_required": "エラー: 'path' は必須です。",

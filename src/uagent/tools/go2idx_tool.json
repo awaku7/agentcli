@@ -30,15 +30,15 @@
   "ja": {
     "x_search_terms": [
       "golang",
-      "go code",
-      "go analysis",
-      "code index",
-      "go source",
-      "go parser",
-      "go function",
-      "go struct",
-      "go file",
-      "go module"
+      "コードに行く",
+      "分析に行く",
+      "コードインデックス",
+      "ソースに行く",
+      "パーサーに行く",
+      "関数に行く",
+      "構造体に行く",
+      "ファイルに行く",
+      "モジュールに行く"
     ],
     "param.path.description": "Go (.go) ファイルへのパス。",
     "param.section.description": "取得するセクション番号（mode='section' の場合のみ使用）。目次出力から番号を取得してください。",

@@ -29,10 +29,16 @@
   },
   "ja": {
     "x_search_terms": [
-      "カタログ",
       "ツールカタログ",
-      "ツールの検出",
-      "すべてのツールのリスト",
+      "利用可能なツール",
+      "ツールリスト",
+      "ツールのリスト",
+      "検索ツール",
+      "ツール検出",
+      "ツールの検索",
+      "ツール検索",
+      "カタログ検索",
+      "ツールルックアップ",
       "自動ロード",
       "自動ロードツール"
     ],
@@ -46,16 +52,21 @@
     "msg.unload.missing_name": "「name」パラメータが欠落しています。",
     "msg.unload.not_found": "ツール「{name}」が見つからないか、ロードされていません。",
     "msg.unload.ok": "ツール「{name}」はアンロードされました。",
-    "tool.description": "ok、query、count、tools フィールドを含む利用可能なツールの JSON カタログを返すため、モデルは完全なツール定義を要求する前に関連ツールを検出できます。結果には、ツールが現在有効かどうかを示す「ロード済み」フィールドが含まれます。 「クエリ」が指定されると、アンロードされた最上位のツールが自動的にロードされます (応答の「auto_loaded」で示されます)。",
-    "unload_tool.description": "ツールを名前でアンロードすると、使用できなくなります。これを使用して、以前にロードされたツールをセッションから削除します。"
+    "unload_tool.description": "ツールを名前でアンロードすると、使用できなくなります。これを使用して、以前にロードされたツールをセッションから削除します。",
+    "tool.description": "ok、query、count、tools フィールドを含む利用可能なツールの JSON カタログを返すため、モデルは完全なツール定義を要求する前に関連ツールを検出できます。結果には、ツールが現在有効かどうかを示す「ロード済み」フィールドが含まれます。 「クエリ」が指定されると、アンロードされた最上位のツールが自動的にロードされます (応答の「auto_loaded」で示されます)。"
   },
   "es": {
     "x_search_terms": [
-      "catálogo",
       "catálogo de herramientas",
-      "descubrir herramientas",
+      "herramientas disponibles",
+      "lista de herramientas",
+      "lista de herramientas",
+      "herramientas de búsqueda",
       "descubrimiento de herramientas",
-      "enumerar todas las herramientas",
+      "herramienta de búsqueda",
+      "búsqueda de herramientas",
+      "búsqueda de catálogo",
+      "búsqueda de herramientas",
       "carga automática",
       "herramienta de carga automática"
     ],
@@ -66,18 +77,24 @@
     "msg.load.ok": "La herramienta '{name}' se ha cargado y ahora está disponible",
     "msg.load.not_found": "Herramienta '{name}' no encontrada.",
     "param.all.description": "Si es verdadero, devuelve todas las herramientas disponibles (cargadas + descargadas) sin filtrado de consulta.",
-    "tool.description": "Devuelva un catálogo JSON de herramientas disponibles con los campos ok, query, count y tools para que el modelo pueda descubrir herramientas relevantes antes de solicitar definiciones completas de herramientas. Los resultados incluyen un campo \"cargado\" que indica si la herramienta está actualmente habilitada. Cuando se proporciona una 'consulta', la herramienta descargada mejor clasificada se carga automáticamente (indicada por 'auto_loaded' en la respuesta).",
     "msg.unload.missing_name": "Falta el parámetro 'nombre'.",
     "msg.unload.not_found": "Herramienta '{name}' no encontrada o no cargada.",
     "msg.unload.ok": "Se ha descargado la herramienta '{name}'.",
-    "unload_tool.description": "Descargue una herramienta por nombre para que ya no esté disponible para su uso. Utilícelo para eliminar una herramienta previamente cargada de la sesión."
+    "unload_tool.description": "Descargue una herramienta por nombre para que ya no esté disponible para su uso. Utilícelo para eliminar una herramienta previamente cargada de la sesión.",
+    "tool.description": "Devuelva un catálogo JSON de herramientas disponibles con los campos ok, query, count y tools para que el modelo pueda descubrir herramientas relevantes antes de solicitar definiciones completas de herramientas. Los resultados incluyen un campo \"cargado\" que indica si la herramienta está actualmente habilitada. Cuando se proporciona una 'consulta', la herramienta descargada mejor clasificada se carga automáticamente (indicada por 'auto_loaded' en la respuesta)."
   },
   "fr": {
     "x_search_terms": [
-      "catalogue",
       "catalogue d'outils",
+      "outils disponibles",
+      "liste d'outils",
+      "liste d'outils",
+      "outils de recherche",
       "découverte d'outils",
-      "liste de tous les outils",
+      "trouver un outil",
+      "recherche d'outils",
+      "recherche dans le catalogue",
+      "recherche d'outils",
       "chargement automatique",
       "outil de chargement automatique"
     ],
@@ -88,18 +105,24 @@
     "msg.load.ok": "L'outil '{name}' a été chargé et est maintenant disponible",
     "msg.load.not_found": "Outil '{name}' introuvable.",
     "param.all.description": "Si vrai, renvoie tous les outils disponibles (chargés + déchargés) sans filtrage de requête.",
-    "tool.description": "Renvoyez un catalogue JSON des outils disponibles avec les champs ok, query, count et tools afin que le modèle puisse découvrir les outils pertinents avant de demander des définitions complètes d'outils. Les résultats incluent un champ « chargé » indiquant si l'outil est actuellement activé. Lorsqu'une « requête » est fournie, l'outil déchargé le mieux classé est automatiquement chargé (indiqué par « auto_loaded » dans la réponse).",
     "msg.unload.missing_name": "Paramètre « nom » manquant.",
     "msg.unload.not_found": "L'outil '{name}' est introuvable ou n'est pas chargé.",
     "msg.unload.ok": "L'outil '{name}' a été déchargé.",
-    "unload_tool.description": "Déchargez un outil par son nom afin qu'il ne soit plus disponible. Utilisez-le pour supprimer un outil précédemment chargé de la session."
+    "unload_tool.description": "Déchargez un outil par son nom afin qu'il ne soit plus disponible. Utilisez-le pour supprimer un outil précédemment chargé de la session.",
+    "tool.description": "Renvoyez un catalogue JSON des outils disponibles avec les champs ok, query, count et tools afin que le modèle puisse découvrir les outils pertinents avant de demander des définitions complètes d'outils. Les résultats incluent un champ « chargé » indiquant si l'outil est actuellement activé. Lorsqu'une « requête » est fournie, l'outil déchargé le mieux classé est automatiquement chargé (indiqué par « auto_loaded » dans la réponse)."
   },
   "ko": {
     "x_search_terms": [
-      "카탈로그",
       "도구 카탈로그",
+      "사용 가능한 도구",
+      "도구 목록",
+      "목록 도구",
+      "검색 도구",
       "도구 검색",
-      "모든 도구 나열",
+      "도구 찾기",
+      "도구 검색",
+      "카탈로그 검색",
+      "도구 조회",
       "자동 로드",
       "자동 로드 도구"
     ],
@@ -110,20 +133,25 @@
     "msg.load.ok": "도구 '{name}'이(가) 로드되었습니다 이제 사용 가능합니다",
     "msg.load.not_found": "도구 '{name}'을(를) 찾을 수 없습니다.",
     "param.all.description": "참인 경우, 쿼리 필터링 없이 사용 가능한 모든 도구(로드됨 + 로드되지 않음)를 반환합니다.",
-    "tool.description": "모델이 전체 도구 정의를 요청하기 전에 관련 도구를 찾을 수 있도록 ok, query, count 및 tools 필드가 포함된 사용 가능한 도구의 JSON 카탈로그를 반환합니다. 결과에는 도구가 현재 활성화되어 있는지 여부를 나타내는 '로드된' 필드가 포함됩니다. '쿼리'가 제공되면 최상위 언로드 도구가 자동으로 로드됩니다(응답에 'auto_loaded'로 표시됨).",
     "msg.unload.missing_name": "'이름' 매개변수가 누락되었습니다.",
     "msg.unload.not_found": "도구 '{name}'을 찾을 수 없거나 로드되지 않았습니다.",
     "msg.unload.ok": "도구 '{name}'이(가) 언로드되었습니다.",
-    "unload_tool.description": "더 이상 사용할 수 없도록 도구를 이름별로 언로드합니다. 세션에서 이전에 로드한 도구를 제거하려면 이를 사용합니다."
+    "unload_tool.description": "더 이상 사용할 수 없도록 도구를 이름별로 언로드합니다. 세션에서 이전에 로드한 도구를 제거하려면 이를 사용합니다.",
+    "tool.description": "모델이 전체 도구 정의를 요청하기 전에 관련 도구를 찾을 수 있도록 ok, query, count 및 tools 필드가 포함된 사용 가능한 도구의 JSON 카탈로그를 반환합니다. 결과에는 도구가 현재 활성화되어 있는지 여부를 나타내는 '로드된' 필드가 포함됩니다. '쿼리'가 제공되면 최상위 언로드 도구가 자동으로 로드됩니다(응답에 'auto_loaded'로 표시됨)."
   },
   "de": {
     "x_search_terms": [
-      "Katalog",
       "Werkzeugkatalog",
-      "Werkzeuge entdecken",
+      "verfügbare Werkzeuge",
+      "Werkzeugliste",
+      "Listenwerkzeuge",
+      "Suchwerkzeuge",
       "Werkzeugerkennung",
-      "alle Werkzeuge auflisten",
-      "automatisch laden",
+      "Werkzeug finden",
+      "Werkzeugsuche",
+      "Katalogsuche",
+      "Werkzeugsuche",
+      "Automatisches Laden",
       "Werkzeug automatisch laden"
     ],
     "param.query.description": "Natürlichsprachliche Abfrage, die die benötigte Fähigkeit beschreibt. Tipp: Zerlegen Sie Ihr Ziel in Unterschritte (z.B. 'geoip Standort + Wettervorhersage') um die Treffer zu verbessern.",
@@ -133,20 +161,26 @@
     "msg.load.ok": "Werkzeug '{name}' wurde geladen und ist jetzt verfügbar",
     "msg.load.not_found": "Werkzeug '{name}' nicht gefunden.",
     "param.all.description": "Wenn wahr, geben Sie alle verfügbaren Werkzeuge (geladen + entladen) ohne Abfragefilterung zurück.",
-    "tool.description": "Geben Sie einen JSON-Katalog der verfügbaren Tools mit den Feldern „OK“, „Abfrage“, „Anzahl“ und „Tools“ zurück, damit das Modell relevante Tools erkennen kann, bevor vollständige Tooldefinitionen angefordert werden. Die Ergebnisse enthalten ein „geladenes“ Feld, das angibt, ob das Tool derzeit aktiviert ist. Wenn eine „Abfrage“ bereitgestellt wird, wird das entladene Tool mit dem höchsten Rang automatisch geladen (angezeigt durch „auto_loaded“ in der Antwort).",
     "msg.unload.missing_name": "Fehlender Parameter „name“.",
     "msg.unload.not_found": "Tool „{name}“ nicht gefunden oder nicht geladen.",
     "msg.unload.ok": "Tool „{name}“ wurde entladen.",
-    "unload_tool.description": "Entladen Sie ein Werkzeug namentlich, damit es nicht mehr verwendet werden kann. Verwenden Sie diese Option, um ein zuvor geladenes Tool aus der Sitzung zu entfernen."
+    "unload_tool.description": "Entladen Sie ein Werkzeug namentlich, damit es nicht mehr verwendet werden kann. Verwenden Sie diese Option, um ein zuvor geladenes Tool aus der Sitzung zu entfernen.",
+    "tool.description": "Geben Sie einen JSON-Katalog der verfügbaren Tools mit den Feldern „OK“, „Abfrage“, „Anzahl“ und „Tools“ zurück, damit das Modell relevante Tools erkennen kann, bevor vollständige Tooldefinitionen angefordert werden. Die Ergebnisse enthalten ein „geladenes“ Feld, das angibt, ob das Tool derzeit aktiviert ist. Wenn eine „Abfrage“ bereitgestellt wird, wird das entladene Tool mit dem höchsten Rang automatisch geladen (angezeigt durch „auto_loaded“ in der Antwort)."
   },
   "it": {
     "x_search_terms": [
-      "catalogo",
       "catalogo strumenti",
-      "rilevamento strumenti",
-      "elenca tutti gli strumenti",
+      "strumenti disponibili",
+      "elenco strumenti",
+      "elenco strumenti",
+      "strumenti di ricerca",
+      "scoperta strumento",
+      "trova strumento",
+      "ricerca strumento",
+      "ricerca catalogo",
+      "ricerca strumento",
       "caricamento automatico",
-      "caricamento automatico strumento"
+      "strumento di caricamento automatico"
     ],
     "param.query.description": "Query in linguaggio naturale che descrive la capacità necessaria. Suggerimento: scomponi il tuo obiettivo in sotto-passaggi (es. 'geoip posizione + previsioni meteo') per migliorare la corrispondenza.",
     "tool_load.description": "Carica uno strumento per nome in modo che diventi disponibile per l'uso. Usa questo dopo che tool_catalog restituisce uno strumento con loaded=false. Restituisce le informazioni dello strumento caricato o un errore se non trovato.",
@@ -155,18 +189,24 @@
     "msg.load.ok": "Strumento '{name}' è stato caricato ed è ora disponibile",
     "msg.load.not_found": "Strumento '{name}' non trovato.",
     "param.all.description": "Se vero, restituisce tutti gli strumenti disponibili (caricati + scaricati) senza filtraggio delle query.",
-    "tool.description": "Restituisce un catalogo JSON degli strumenti disponibili con i campi ok, query, count e tools in modo che il modello possa scoprire gli strumenti pertinenti prima di richiedere le definizioni complete degli strumenti. I risultati includono un campo \"caricato\" che indica se lo strumento è attualmente abilitato. Quando viene fornita una \"query\", lo strumento scaricato in cima alla classifica viene caricato automaticamente (indicato da \"auto_loaded\" nella risposta).",
     "msg.unload.missing_name": "Parametro \"nome\" mancante.",
     "msg.unload.not_found": "Strumento '{name}' non trovato o non caricato.",
     "msg.unload.ok": "Lo strumento \"{name}\" è stato scaricato.",
-    "unload_tool.description": "Scarica uno strumento per nome in modo che non sia più disponibile per l'uso. Utilizzarlo per rimuovere uno strumento caricato in precedenza dalla sessione."
+    "unload_tool.description": "Scarica uno strumento per nome in modo che non sia più disponibile per l'uso. Utilizzarlo per rimuovere uno strumento caricato in precedenza dalla sessione.",
+    "tool.description": "Restituisce un catalogo JSON degli strumenti disponibili con i campi ok, query, count e tools in modo che il modello possa scoprire gli strumenti pertinenti prima di richiedere le definizioni complete degli strumenti. I risultati includono un campo \"caricato\" che indica se lo strumento è attualmente abilitato. Quando viene fornita una \"query\", lo strumento scaricato in cima alla classifica viene caricato automaticamente (indicato da \"auto_loaded\" nella risposta)."
   },
   "ru": {
     "x_search_terms": [
-      "каталог",
       "каталог инструментов",
-      "обнаружение инструментов",
-      "список всех инструментов",
+      "доступные инструменты",
+      "список инструментов",
+      "список инструментов",
+      "инструменты поиска",
+      "обнаружение инструмента",
+      "найти инструмент",
+      "поиск инструмента",
+      "поиск по каталогу",
+      "поиск инструмента",
       "автозагрузка",
       "автозагрузка инструмента"
     ],
@@ -177,19 +217,24 @@
     "msg.load.ok": "Инструмент '{name}' загружен и теперь доступен",
     "msg.load.not_found": "Инструмент '{name}' не найден.",
     "param.all.description": "Если true, вернуть все доступные инструменты (загруженные + выгруженные) без фильтрации запроса.",
-    "tool.description": "Возвращает JSON-каталог доступных инструментов с полями ОК, Запрос, Количество и Инструменты, чтобы модель могла обнаружить соответствующие инструменты перед запросом полных определений инструментов. Результаты включают в себя «загруженное» поле, указывающее, включен ли инструмент в данный момент. При предоставлении «запроса» автоматически загружается выгруженный инструмент с самым высоким рейтингом (обозначается «auto_loaded» в ответе).",
     "msg.unload.missing_name": "Отсутствует параметр «имя».",
     "msg.unload.not_found": "Инструмент «{name}» не найден или не загружен.",
     "msg.unload.ok": "Инструмент «{name}» выгружен.",
-    "unload_tool.description": "Выгрузите инструмент по имени, чтобы он больше не был доступен для использования. Используйте это, чтобы удалить ранее загруженный инструмент из сеанса."
+    "unload_tool.description": "Выгрузите инструмент по имени, чтобы он больше не был доступен для использования. Используйте это, чтобы удалить ранее загруженный инструмент из сеанса.",
+    "tool.description": "Возвращает JSON-каталог доступных инструментов с полями ОК, Запрос, Количество и Инструменты, чтобы модель могла обнаружить соответствующие инструменты перед запросом полных определений инструментов. Результаты включают в себя «загруженное» поле, указывающее, включен ли инструмент в данный момент. При предоставлении «запроса» автоматически загружается выгруженный инструмент с самым высоким рейтингом (обозначается «auto_loaded» в ответе)."
   },
   "pt_BR": {
     "x_search_terms": [
-      "catálogo",
       "catálogo de ferramentas",
-      "descobrir ferramentas",
+      "ferramentas disponíveis",
+      "lista de ferramentas",
+      "lista de ferramentas",
+      "ferramentas de pesquisa",
       "descoberta de ferramentas",
-      "listar todas as ferramentas",
+      "ferramenta de localização",
+      "pesquisa de ferramentas",
+      "pesquisa de catálogo",
+      "pesquisa de ferramentas",
       "carregamento automático",
       "ferramenta de carregamento automático"
     ],
@@ -200,19 +245,24 @@
     "msg.load.ok": "Ferramenta '{name}' foi carregada e agora está disponível",
     "msg.load.not_found": "Ferramenta '{name}' não encontrada.",
     "param.all.description": "Se verdadeiro, retorna todas as ferramentas disponíveis (carregadas + descarregadas) sem filtragem de consulta.",
-    "tool.description": "Retorne um catálogo JSON de ferramentas disponíveis com campos ok, consulta, contagem e ferramentas para que o modelo possa descobrir ferramentas relevantes antes de solicitar definições completas de ferramentas. Os resultados incluem um campo 'carregado' indicando se a ferramenta está habilitada no momento. Quando uma 'consulta' é fornecida, a ferramenta descarregada com melhor classificação é automaticamente carregada (indicada por 'auto_loaded' na resposta).",
     "msg.unload.missing_name": "Parâmetro 'nome' ausente.",
     "msg.unload.not_found": "Ferramenta '{name}' não encontrada ou não carregada.",
     "msg.unload.ok": "A ferramenta '{name}' foi descarregada.",
-    "unload_tool.description": "Descarregue uma ferramenta pelo nome para que ela não fique mais disponível para uso. Use isto para remover uma ferramenta carregada anteriormente da sessão."
+    "unload_tool.description": "Descarregue uma ferramenta pelo nome para que ela não fique mais disponível para uso. Use isto para remover uma ferramenta carregada anteriormente da sessão.",
+    "tool.description": "Retorne um catálogo JSON de ferramentas disponíveis com campos ok, consulta, contagem e ferramentas para que o modelo possa descobrir ferramentas relevantes antes de solicitar definições completas de ferramentas. Os resultados incluem um campo 'carregado' indicando se a ferramenta está habilitada no momento. Quando uma 'consulta' é fornecida, a ferramenta descarregada com melhor classificação é automaticamente carregada (indicada por 'auto_loaded' na resposta)."
   },
   "pt": {
     "x_search_terms": [
-      "catálogo",
       "catálogo de ferramentas",
-      "descobrir ferramentas",
+      "ferramentas disponíveis",
+      "lista de ferramentas",
+      "lista de ferramentas",
+      "ferramentas de pesquisa",
       "descoberta de ferramentas",
-      "listar todas as ferramentas",
+      "ferramenta de localização",
+      "pesquisa de ferramentas",
+      "pesquisa de catálogo",
+      "pesquisa de ferramentas",
       "carregamento automático",
       "ferramenta de carregamento automático"
     ],
@@ -223,19 +273,24 @@
     "msg.load.ok": "Ferramenta '{name}' foi carregada e agora está disponível",
     "msg.load.not_found": "Ferramenta '{name}' não encontrada.",
     "param.all.description": "Se verdadeiro, retorna todas as ferramentas disponíveis (carregadas + descarregadas) sem filtragem de consulta.",
-    "tool.description": "Retorne um catálogo JSON de ferramentas disponíveis com campos ok, consulta, contagem e ferramentas para que o modelo possa descobrir ferramentas relevantes antes de solicitar definições completas de ferramentas. Os resultados incluem um campo 'carregado' indicando se a ferramenta está habilitada no momento. Quando uma 'consulta' é fornecida, a ferramenta descarregada com melhor classificação é automaticamente carregada (indicada por 'auto_loaded' na resposta).",
     "msg.unload.missing_name": "Parâmetro 'nome' ausente.",
     "msg.unload.not_found": "Ferramenta '{name}' não encontrada ou não carregada.",
     "msg.unload.ok": "A ferramenta '{name}' foi descarregada.",
-    "unload_tool.description": "Descarregue uma ferramenta pelo nome para que ela não fique mais disponível para uso. Use isto para remover uma ferramenta carregada anteriormente da sessão."
+    "unload_tool.description": "Descarregue uma ferramenta pelo nome para que ela não fique mais disponível para uso. Use isto para remover uma ferramenta carregada anteriormente da sessão.",
+    "tool.description": "Retorne um catálogo JSON de ferramentas disponíveis com campos ok, consulta, contagem e ferramentas para que o modelo possa descobrir ferramentas relevantes antes de solicitar definições completas de ferramentas. Os resultados incluem um campo 'carregado' indicando se a ferramenta está habilitada no momento. Quando uma 'consulta' é fornecida, a ferramenta descarregada com melhor classificação é automaticamente carregada (indicada por 'auto_loaded' na resposta)."
   },
   "id": {
     "x_search_terms": [
-      "katalog",
       "katalog alat",
-      "temukan alat",
+      "alat yang tersedia",
+      "daftar alat",
+      "daftar alat",
+      "alat pencarian",
       "penemuan alat",
-      "daftar semua alat",
+      "temukan alat",
+      "pencarian alat",
+      "pencarian katalog",
+      "pencarian alat",
       "muat otomatis",
       "alat muat otomatis"
     ],
@@ -246,20 +301,25 @@
     "msg.load.ok": "Alat '{name}' telah dimuat dan sekarang tersedia",
     "msg.load.not_found": "Alat '{name}' tidak ditemukan.",
     "param.all.description": "Jika benar, kembalikan semua alat yang tersedia (dimuat + tidak dimuat) tanpa pemfilteran kueri.",
-    "tool.description": "Kembalikan katalog JSON alat yang tersedia dengan bidang ok, kueri, hitungan, dan alat sehingga model dapat menemukan alat yang relevan sebelum meminta definisi alat lengkap. Hasil mencakup bidang 'dimuat' yang menunjukkan apakah alat tersebut saat ini diaktifkan. Ketika 'kueri' disediakan, alat yang dibongkar dengan peringkat teratas dimuat secara otomatis (ditunjukkan dengan 'auto_loaded' dalam respons).",
     "msg.unload.missing_name": "Parameter 'nama' tidak ada.",
     "msg.unload.not_found": "Alat '{name}' tidak ditemukan atau tidak dimuat.",
     "msg.unload.ok": "Alat '{name}' telah dibongkar.",
-    "unload_tool.description": "Bongkar alat berdasarkan namanya sehingga tidak lagi tersedia untuk digunakan. Gunakan ini untuk menghapus alat yang dimuat sebelumnya dari sesi."
+    "unload_tool.description": "Bongkar alat berdasarkan namanya sehingga tidak lagi tersedia untuk digunakan. Gunakan ini untuk menghapus alat yang dimuat sebelumnya dari sesi.",
+    "tool.description": "Kembalikan katalog JSON alat yang tersedia dengan bidang ok, kueri, hitungan, dan alat sehingga model dapat menemukan alat yang relevan sebelum meminta definisi alat lengkap. Hasil mencakup bidang 'dimuat' yang menunjukkan apakah alat tersebut saat ini diaktifkan. Ketika 'kueri' disediakan, alat yang dibongkar dengan peringkat teratas dimuat secara otomatis (ditunjukkan dengan 'auto_loaded' dalam respons)."
   },
   "vi": {
     "x_search_terms": [
-      "danh mục",
       "danh mục công cụ",
-      "công cụ khám phá",
+      "công cụ có sẵn",
+      "danh sách công cụ",
+      "danh sách công cụ",
+      "công cụ tìm kiếm",
       "khám phá công cụ",
-      "liệt kê tất cả công cụ",
-      "tự động tải",
+      "tìm công cụ",
+      "tìm kiếm công cụ",
+      "tìm kiếm danh mục",
+      "tra cứu công cụ",
+      "tải tự động",
       "công cụ tự động tải"
     ],
     "param.query.description": "Truy vấn ngôn ngữ tự nhiên mô tả khả năng cần thiết. Mẹo: phân chia mục tiêu thành các bước nhỏ (ví dụ: 'geoip vị trí + dự báo thời tiết') để cải thiện độ khớp.",
@@ -269,18 +329,24 @@
     "msg.load.ok": "Công cụ '{name}' đã được tải và hiện đã sẵn sàng",
     "msg.load.not_found": "Không tìm thấy công cụ '{name}'.",
     "param.all.description": "Nếu đúng, trả về tất cả các công cụ có sẵn (đã tải + chưa tải) mà không lọc truy vấn.",
-    "tool.description": "Trả về danh mục JSON gồm các công cụ có sẵn với các trường ok, truy vấn, đếm và công cụ để mô hình có thể khám phá các công cụ có liên quan trước khi yêu cầu định nghĩa công cụ đầy đủ. Kết quả bao gồm trường 'đã tải' cho biết công cụ này hiện có được bật hay không. Khi một 'truy vấn' được cung cấp, công cụ chưa tải được xếp hạng cao nhất sẽ tự động được tải (được biểu thị bằng 'auto_loaded' trong phản hồi).",
     "msg.unload.missing_name": "Thiếu tham số 'tên'.",
     "msg.unload.not_found": "Không tìm thấy hoặc không tải được công cụ '{name}'.",
     "msg.unload.ok": "Công cụ '{name}' đã được dỡ tải.",
-    "unload_tool.description": "Hủy bỏ một công cụ theo tên để nó không còn có thể sử dụng được nữa. Sử dụng công cụ này để xóa công cụ đã tải trước đó khỏi phiên."
+    "unload_tool.description": "Hủy bỏ một công cụ theo tên để nó không còn có thể sử dụng được nữa. Sử dụng công cụ này để xóa công cụ đã tải trước đó khỏi phiên.",
+    "tool.description": "Trả về danh mục JSON gồm các công cụ có sẵn với các trường ok, truy vấn, đếm và công cụ để mô hình có thể khám phá các công cụ có liên quan trước khi yêu cầu định nghĩa công cụ đầy đủ. Kết quả bao gồm trường 'đã tải' cho biết công cụ này hiện có được bật hay không. Khi một 'truy vấn' được cung cấp, công cụ chưa tải được xếp hạng cao nhất sẽ tự động được tải (được biểu thị bằng 'auto_loaded' trong phản hồi)."
   },
   "pl": {
     "x_search_terms": [
-      "katalog",
       "katalog narzędzi",
-      "odkrywanie narzędzi",
-      "lista wszystkich narzędzi",
+      "dostępne narzędzia",
+      "lista narzędzi",
+      "lista narzędzi",
+      "narzędzia wyszukiwania",
+      "wykrywanie narzędzi",
+      "narzędzie wyszukiwania",
+      "wyszukiwanie narzędzi",
+      "wyszukiwanie w katalogu",
+      "przeszukiwanie narzędzi",
       "automatyczne ładowanie",
       "automatyczne ładowanie narzędzia"
     ],
@@ -291,19 +357,24 @@
     "msg.load.ok": "Narzędzie '{name}' zostało załadowane i jest teraz dostępne",
     "msg.load.not_found": "Nie znaleziono narzędzia '{name}'.",
     "param.all.description": "Jeśli prawda, zwróć wszystkie dostępne narzędzia (załadowane + rozładowane) bez filtrowania zapytań.",
-    "tool.description": "Zwróć katalog JSON dostępnych narzędzi z polami ok, zapytanie, liczba i narzędzia, aby model mógł odkryć odpowiednie narzędzia przed zażądaniem pełnych definicji narzędzi. Wyniki obejmują „załadowane” pole wskazujące, czy narzędzie jest obecnie włączone. Po przesłaniu „zapytania” automatycznie ładowane jest najwyżej ocenione niezaładowane narzędzie (co jest wskazane w odpowiedzi jako „auto_loaded”).",
     "msg.unload.missing_name": "Brak parametru „nazwa”.",
     "msg.unload.not_found": "Nie znaleziono lub nie załadowano narzędzia „{name}”.",
     "msg.unload.ok": "Narzędzie „{name}” zostało rozładowane.",
-    "unload_tool.description": "Wyładuj narzędzie według nazwy, aby nie było już dostępne do użycia. Użyj tej opcji, aby usunąć wcześniej załadowane narzędzie z sesji."
+    "unload_tool.description": "Wyładuj narzędzie według nazwy, aby nie było już dostępne do użycia. Użyj tej opcji, aby usunąć wcześniej załadowane narzędzie z sesji.",
+    "tool.description": "Zwróć katalog JSON dostępnych narzędzi z polami ok, zapytanie, liczba i narzędzia, aby model mógł odkryć odpowiednie narzędzia przed zażądaniem pełnych definicji narzędzi. Wyniki obejmują „załadowane” pole wskazujące, czy narzędzie jest obecnie włączone. Po przesłaniu „zapytania” automatycznie ładowane jest najwyżej ocenione niezaładowane narzędzie (co jest wskazane w odpowiedzi jako „auto_loaded”)."
   },
   "hi": {
     "x_search_terms": [
-      "कैटलॉग",
       "टूल कैटलॉग",
-      "टूल खोजें",
-      "टूल डिस्कवरी",
-      "सभी टूल की सूची",
+      "उपलब्ध टूल",
+      "टूल सूची",
+      "सूची टूल",
+      "खोज टूल",
+      "टूल खोज",
+      "टूल ढूंढें",
+      "टूल खोज",
+      "कैटलॉग खोज",
+      "टूल लुकअप",
       "ऑटो लोड",
       "ऑटो-लोड टूल"
     ],
@@ -314,20 +385,26 @@
     "msg.load.ok": "उपकरण '{name}' लोड हो गया है और अब उपलब्ध है।",
     "msg.load.not_found": "उपकरण '{name}' नहीं मिला।",
     "param.all.description": "यदि सत्य है, तो क्वेरी फ़िल्टरिंग के बिना सभी उपलब्ध उपकरण (लोड + अनलोड) लौटाएँ।",
-    "tool.description": "ओके, क्वेरी, काउंट और टूल फ़ील्ड के साथ उपलब्ध टूल का JSON कैटलॉग लौटाएं ताकि मॉडल पूर्ण टूल परिभाषाओं का अनुरोध करने से पहले प्रासंगिक टूल खोज सके। परिणामों में एक 'लोडेड' फ़ील्ड शामिल है जो यह दर्शाता है कि उपकरण वर्तमान में सक्षम है या नहीं। जब एक 'क्वेरी' प्रदान की जाती है, तो शीर्ष-रैंक वाला अनलोडेड टूल स्वचालित रूप से लोड हो जाता है (प्रतिक्रिया में 'auto_loaded' द्वारा दर्शाया गया है)।",
     "msg.unload.missing_name": "'नाम' पैरामीटर गुम है.",
     "msg.unload.not_found": "टूल '{name}' नहीं मिला या लोड नहीं हुआ।",
     "msg.unload.ok": "टूल '{name}' अनलोड कर दिया गया है।",
-    "unload_tool.description": "किसी टूल को नाम से अनलोड करें ताकि वह अब उपयोग के लिए उपलब्ध न हो। सत्र से पहले से लोड किए गए टूल को हटाने के लिए इसका उपयोग करें।"
+    "unload_tool.description": "किसी टूल को नाम से अनलोड करें ताकि वह अब उपयोग के लिए उपलब्ध न हो। सत्र से पहले से लोड किए गए टूल को हटाने के लिए इसका उपयोग करें।",
+    "tool.description": "ओके, क्वेरी, काउंट और टूल फ़ील्ड के साथ उपलब्ध टूल का JSON कैटलॉग लौटाएं ताकि मॉडल पूर्ण टूल परिभाषाओं का अनुरोध करने से पहले प्रासंगिक टूल खोज सके। परिणामों में एक 'लोडेड' फ़ील्ड शामिल है जो यह दर्शाता है कि उपकरण वर्तमान में सक्षम है या नहीं। जब एक 'क्वेरी' प्रदान की जाती है, तो शीर्ष-रैंक वाला अनलोडेड टूल स्वचालित रूप से लोड हो जाता है (प्रतिक्रिया में 'auto_loaded' द्वारा दर्शाया गया है)।"
   },
   "ar": {
     "x_search_terms": [
-      "كتالوج",
-      "كتالوج الأدوات",
-      "اكتشاف الأدوات",
-      "قائمة جميع الأدوات",
-      "التحميل التلقائي",
-      "أداة التحميل التلقائي"
+      "كتالوج الأدوات ",
+      " الأدوات المتاحة ",
+      " قائمة الأدوات ",
+      " أدوات القائمة ",
+      " أدوات البحث ",
+      " اكتشاف الأدوات ",
+      " أداة البحث ",
+      " بحث الأدوات ",
+      " بحث الكتالوج ",
+      " البحث عن الأدوات ",
+      " التحميل التلقائي ",
+      " أداة التحميل التلقائي"
     ],
     "param.query.description": "استعلام بلغة طبيعية يصف القدرة المطلوبة. نصيحة: قم بتفكيك هدفك إلى خطوات فرعية (مثل 'geoip موقع + توقعات الطقس') لتحسين المطابقة.",
     "tool_load.description": "تحميل أداة بالاسم لتصبح متاحة للاستخدام. استخدم هذا بعد أن يعيد tool_catalog أداة مع loaded=false. يعيد معلومات الأداة المحملة أو خطأ إذا لم يتم العثور عليها.",
@@ -336,21 +413,26 @@
     "msg.load.ok": "تم تحميل الأداة '{name}' وهي الآن متاحة",
     "msg.load.not_found": "الأداة '{name}' غير موجودة.",
     "param.all.description": "إذا كان صحيحًا، فقم بإرجاع جميع الأدوات المتاحة (محملة + غير محملة) بدون تصفية الاستعلام.",
-    "tool.description": "قم بإرجاع كتالوج JSON للأدوات المتاحة مع حقول موافق والاستعلام والعدد والأدوات حتى يتمكن النموذج من اكتشاف الأدوات ذات الصلة قبل طلب تعريفات الأداة الكاملة. تتضمن النتائج حقلاً \"محملاً\" يشير إلى ما إذا كانت الأداة ممكّنة حاليًا. عند توفير \"استعلام\"، يتم تحميل الأداة غير المحملة ذات التصنيف الأعلى تلقائيًا (يشار إليها بـ \"auto_loaded\" في الاستجابة).",
     "msg.unload.missing_name": "معلمة \"الاسم\" مفقودة.",
     "msg.unload.not_found": "لم يتم العثور على الأداة '{name}' أو لم يتم تحميلها.",
     "msg.unload.ok": "تم إلغاء تحميل الأداة '{name}'.",
-    "unload_tool.description": "قم بإلغاء تحميل الأداة بالاسم حتى لا تكون متاحة للاستخدام. استخدم هذا لإزالة أداة تم تحميلها مسبقًا من الجلسة."
+    "unload_tool.description": "قم بإلغاء تحميل الأداة بالاسم حتى لا تكون متاحة للاستخدام. استخدم هذا لإزالة أداة تم تحميلها مسبقًا من الجلسة.",
+    "tool.description": "قم بإرجاع كتالوج JSON للأدوات المتاحة مع حقول موافق والاستعلام والعدد والأدوات حتى يتمكن النموذج من اكتشاف الأدوات ذات الصلة قبل طلب تعريفات الأداة الكاملة. تتضمن النتائج حقلاً \"محملاً\" يشير إلى ما إذا كانت الأداة ممكّنة حاليًا. عند توفير \"استعلام\"، يتم تحميل الأداة غير المحملة ذات التصنيف الأعلى تلقائيًا (يشار إليها بـ \"auto_loaded\" في الاستجابة)."
   },
   "sv": {
     "x_search_terms": [
-      "katalog",
-      "verktygskatalog",
-      "upptäck verktyg",
-      "verktygsupptäckt",
-      "lista alla verktyg",
-      "automatisk laddning",
-      "automatisk laddningsverktyg"
+      "verktyg katalog",
+      "",
+      "",
+      "",
+      "",
+      "",
+      "",
+      "",
+      "",
+      "",
+      "",
+      ""
     ],
     "param.query.description": "Naturlig-språk-fråga som beskriver den nödvändiga kapaciteten. Tips: dela upp ditt mål i delsteg (t.ex. 'geoip plats + väderprognos') för att förbättra matchningen.",
     "tool_load.description": "Ladda ett verktyg vid namn så att det blir tillgängligt för användning. Använd detta efter att tool_catalog returnerar ett verktyg med loaded=false. Returnerar den laddade verktygsinformationen eller ett fel om inte hittad.",
@@ -359,20 +441,25 @@
     "msg.load.ok": "Verktyg '{name}' har laddats och är nu tillgängligt",
     "msg.load.not_found": "Verktyg '{name}' hittades inte.",
     "param.all.description": "Om sant, returnera alla tillgängliga verktyg (laddade + oladdade) utan frågefiltrering.",
-    "tool.description": "Returnera en JSON-katalog med tillgängliga verktyg med ok, fråga, antal och verktygsfält så att modellen kan upptäcka relevanta verktyg innan den begär fullständiga verktygsdefinitioner. Resultaten inkluderar ett \"laddat\" fält som anger om verktyget för närvarande är aktiverat. När en \"fråga\" tillhandahålls, laddas det högst rankade avlastade verktyget automatiskt (indikeras av \"auto_loaded\" i svaret).",
     "msg.unload.missing_name": "Saknar \"namn\"-parameter.",
     "msg.unload.not_found": "Verktyget '{name}' hittades inte eller laddades inte.",
     "msg.unload.ok": "Verktyget '{name}' har laddats ur.",
-    "unload_tool.description": "Ladda ur ett verktyg efter namn så att det inte längre är tillgängligt för användning. Använd detta för att ta bort ett tidigare laddat verktyg från sessionen."
+    "unload_tool.description": "Ladda ur ett verktyg efter namn så att det inte längre är tillgängligt för användning. Använd detta för att ta bort ett tidigare laddat verktyg från sessionen.",
+    "tool.description": "Returnera en JSON-katalog med tillgängliga verktyg med ok, fråga, antal och verktygsfält så att modellen kan upptäcka relevanta verktyg innan den begär fullständiga verktygsdefinitioner. Resultaten inkluderar ett \"laddat\" fält som anger om verktyget för närvarande är aktiverat. När en \"fråga\" tillhandahålls, laddas det högst rankade avlastade verktyget automatiskt (indikeras av \"auto_loaded\" i svaret)."
   },
   "sw": {
     "x_search_terms": [
-      "katalogi",
       "katalogi ya zana",
-      "gundua zana",
+      "zana zinazopatikana",
+      "orodha ya zana",
+      "orodhesha zana",
+      "zana za utafutaji",
       "ugunduzi wa zana",
-      "orodhesha zana zote",
-      "upakiaji otomatiki",
+      "tafuta zana",
+      "utafutaji wa zana",
+      "utaftaji wa katalogi",
+      "utafutaji wa zana",
+      "kupakia otomatiki",
       "zana ya kupakia kiotomatiki"
     ],
     "param.query.description": "Hoja ya lugha asilia inayoelezea uwezo unaohitajika. Kidokezo: tenga lengo lako katika hatua ndogo (mfano 'geoip eneo + utabiri wa hali ya hewa') ili kuboresha ulinganifu.",
@@ -382,21 +469,26 @@
     "msg.load.ok": "Zana '{name}' imepakiwa na sasa inapatikana",
     "msg.load.not_found": "Zana '{name}' haijapatikana.",
     "param.all.description": "Ikiwa kweli, rudisha zana zote zinazopatikana (zilizopakiwa + ambazo hazijapakiwa) bila kuchuja hoja.",
-    "tool.description": "Rejesha katalogi ya JSON ya zana zinazopatikana zilizo na sehemu za ok, hoja, hesabu na zana ili muundo uweze kugundua zana muhimu kabla ya kuomba ufafanuzi kamili wa zana. Matokeo ni pamoja na sehemu 'iliyopakiwa' inayoonyesha kama zana imewashwa kwa sasa. 'Swali' linapotolewa, zana iliyo katika nafasi ya juu inayopakuliwa hupakiwa kiotomatiki (inaonyeshwa kwa 'kupakiwa_otomatiki' katika jibu).",
     "msg.unload.missing_name": "Kigezo cha 'jina' hakipo.",
     "msg.unload.not_found": "Zana '{name}' haijapatikana au haijapakiwa.",
     "msg.unload.ok": "Zana '{name}' imepakuliwa.",
-    "unload_tool.description": "Pakua zana kwa jina ili isipatikane tena kwa matumizi. Tumia hii ili kuondoa zana iliyopakiwa hapo awali kwenye kipindi."
+    "unload_tool.description": "Pakua zana kwa jina ili isipatikane tena kwa matumizi. Tumia hii ili kuondoa zana iliyopakiwa hapo awali kwenye kipindi.",
+    "tool.description": "Rejesha katalogi ya JSON ya zana zinazopatikana zilizo na sehemu za ok, hoja, hesabu na zana ili muundo uweze kugundua zana muhimu kabla ya kuomba ufafanuzi kamili wa zana. Matokeo ni pamoja na sehemu 'iliyopakiwa' inayoonyesha kama zana imewashwa kwa sasa. 'Swali' linapotolewa, zana iliyo katika nafasi ya juu inayopakuliwa hupakiwa kiotomatiki (inaonyeshwa kwa 'kupakiwa_otomatiki' katika jibu)."
   },
   "nb": {
     "x_search_terms": [
-      "katalog",
       "verktøykatalog",
-      "oppdage verktøy",
+      "tilgjengelige verktøy",
+      "verktøyliste",
+      "listeverktøy",
+      "søkeverktøy",
       "verktøyoppdagelse",
-      "liste alle verktøy",
-      "automatisk innlasting",
-      "automatisk lastverktøy"
+      "finneverktøy",
+      "verktøysøk",
+      "katalogsøk",
+      "verktøyoppslag",
+      "automatisk lasting",
+      "verktøy for automatisk lasting"
     ],
     "param.query.description": "Naturlig språk-spørring som beskriver den nødvendige kapasiteten. Tips: del opp målet ditt i delsteg (f.eks. 'geoip plassering + værmelding') for å forbedre treff.",
     "tool_load.description": "Laster et verktøy ved navn slik at det blir tilgjengelig for bruk. Bruk dette etter at tool_catalog returnerer et verktøy med loaded=false. Returnerer den lastede verktøyinformasjonen eller en feil hvis ikke funnet.",
@@ -405,21 +497,26 @@
     "msg.load.ok": "Verktøy '{name}' er lastet og er nå tilgjengelig",
     "msg.load.not_found": "Verktøy '{name}' ikke funnet.",
     "param.all.description": "Hvis sant, returner alle tilgjengelige verktøy (lastet + ulastet) uten spørringsfiltrering.",
-    "tool.description": "Returner en JSON-katalog med tilgjengelige verktøy med ok, spørring, antall og verktøy-felt slik at modellen kan oppdage relevante verktøy før du ber om fullstendige verktøydefinisjoner. Resultatene inkluderer et \"lastet\" felt som indikerer om verktøyet er aktivert. Når en \"spørring\" er oppgitt, lastes det topprangerte utlastede verktøyet automatisk (indikert med \"auto_loaded\" i svaret).",
     "msg.unload.missing_name": "Mangler 'navn'-parameter.",
     "msg.unload.not_found": "Verktøyet '{name}' ikke funnet eller ikke lastet.",
     "msg.unload.ok": "Verktøyet '{name}' har blitt lastet ut.",
-    "unload_tool.description": "Last ned et verktøy ved navn, slik at det ikke lenger er tilgjengelig for bruk. Bruk dette til å fjerne et tidligere lastet verktøy fra økten."
+    "unload_tool.description": "Last ned et verktøy ved navn, slik at det ikke lenger er tilgjengelig for bruk. Bruk dette til å fjerne et tidligere lastet verktøy fra økten.",
+    "tool.description": "Returner en JSON-katalog med tilgjengelige verktøy med ok, spørring, antall og verktøy-felt slik at modellen kan oppdage relevante verktøy før du ber om fullstendige verktøydefinisjoner. Resultatene inkluderer et \"lastet\" felt som indikerer om verktøyet er aktivert. Når en \"spørring\" er oppgitt, lastes det topprangerte utlastede verktøyet automatisk (indikert med \"auto_loaded\" i svaret)."
   },
   "nl": {
     "x_search_terms": [
-      "catalogus",
       "gereedschapscatalogus",
-      "gereedschappen ontdekken",
+      "beschikbare gereedschappen",
+      "gereedschapslijst",
+      "lijst gereedschappen",
+      "zoekgereedschappen",
       "gereedschap ontdekken",
-      "alle gereedschappen weergeven",
+      "gereedschap zoeken",
+      "gereedschap zoeken",
+      "catalogus zoeken",
+      "gereedschap opzoeken",
       "automatisch laden",
-      "gereedschap automatisch laden"
+      "hulpmiddel automatisch laden"
     ],
     "param.query.description": "Natuurlijke-taalquery die de benodigde mogelijkheid beschrijft. Tip: splits je doel op in substappen (bijv. 'geoip locatie + weersverwachting') om de matching te verbeteren.",
     "tool_load.description": "Laadt een tool op naam zodat deze beschikbaar wordt voor gebruik. Gebruik dit nadat tool_catalog een tool retourneert met loaded=false. Retourneert de geladen toolinfo of een foutmelding als niet gevonden.",
@@ -428,19 +525,24 @@
     "msg.load.ok": "Tool '{name}' is geladen en is nu beschikbaar",
     "msg.load.not_found": "Tool '{name}' niet gevonden.",
     "param.all.description": "Indien waar, retourneer alle beschikbare tools (geladen + ongeladen) zonder queryfiltering.",
-    "tool.description": "Retourneer een JSON-catalogus met beschikbare tools met de velden ok, query, count en tools, zodat het model relevante tools kan ontdekken voordat volledige tooldefinities worden aangevraagd. De resultaten omvatten een 'geladen' veld dat aangeeft of de tool momenteel is ingeschakeld. Wanneer een 'query' wordt opgegeven, wordt het hoogst gerangschikte, ongeladen hulpmiddel automatisch geladen (aangegeven door 'auto_loaded' in het antwoord).",
     "msg.unload.missing_name": "Ontbrekende parameter 'naam'.",
     "msg.unload.not_found": "Gereedschap '{name}' niet gevonden of niet geladen.",
     "msg.unload.ok": "Gereedschap '{name}' is verwijderd.",
-    "unload_tool.description": "Ontlaad een tool op naam, zodat deze niet langer beschikbaar is voor gebruik. Gebruik dit om een ​​eerder geladen tool uit de sessie te verwijderen."
+    "unload_tool.description": "Ontlaad een tool op naam, zodat deze niet langer beschikbaar is voor gebruik. Gebruik dit om een ​​eerder geladen tool uit de sessie te verwijderen.",
+    "tool.description": "Retourneer een JSON-catalogus met beschikbare tools met de velden ok, query, count en tools, zodat het model relevante tools kan ontdekken voordat volledige tooldefinities worden aangevraagd. De resultaten omvatten een 'geladen' veld dat aangeeft of de tool momenteel is ingeschakeld. Wanneer een 'query' wordt opgegeven, wordt het hoogst gerangschikte, ongeladen hulpmiddel automatisch geladen (aangegeven door 'auto_loaded' in het antwoord)."
   },
   "fi": {
     "x_search_terms": [
-      "luettelo",
       "työkaluluettelo",
-      "työkalujen etsiminen",
-      "työkalujen etsintä",
-      "luettelo kaikista työkaluista",
+      "saatavilla olevat työkalut",
+      "työkaluluettelo",
+      "työkaluluettelo",
+      "hakutyökalut",
+      "työkalun löytäminen",
+      "etsi työkalu",
+      "työkaluhaku",
+      "luettelohaku",
+      "työkaluhaku",
       "automaattinen lataus",
       "automaattinen lataustyökalu"
     ],
@@ -451,21 +553,26 @@
     "msg.load.ok": "Työkalu '{name}' on ladattu ja on nyt käytettävissä",
     "msg.load.not_found": "Työkalua '{name}' ei löytynyt.",
     "param.all.description": "Jos tosi, palauta kaikki käytettävissä olevat työkalut (ladatut + lataamattomat) ilman kyselyn suodatusta.",
-    "tool.description": "Palauta käytettävissä olevien työkalujen JSON-luettelo ok-, kysely-, laskenta- ja työkalukentillä, jotta malli voi löytää asiaankuuluvat työkalut ennen täydellisten työkalumääritelmien pyytämistä. Tuloksissa on ladattu kenttä, joka osoittaa, onko työkalu tällä hetkellä käytössä. Kun \"kysely\" annetaan, parhaimmillaan oleva lataamaton työkalu ladataan automaattisesti (vastauksessa ilmaistaan ​​\"auto_loaded\").",
     "msg.unload.missing_name": "\"name\"-parametri puuttuu.",
     "msg.unload.not_found": "Työkalua '{name}' ei löydy tai sitä ei ole ladattu.",
     "msg.unload.ok": "Työkalu '{name}' on poistettu.",
-    "unload_tool.description": "Pura työkalu nimellä, jotta se ei ole enää käytettävissä. Käytä tätä poistaaksesi aiemmin ladatun työkalun istunnosta."
+    "unload_tool.description": "Pura työkalu nimellä, jotta se ei ole enää käytettävissä. Käytä tätä poistaaksesi aiemmin ladatun työkalun istunnosta.",
+    "tool.description": "Palauta käytettävissä olevien työkalujen JSON-luettelo ok-, kysely-, laskenta- ja työkalukentillä, jotta malli voi löytää asiaankuuluvat työkalut ennen täydellisten työkalumääritelmien pyytämistä. Tuloksissa on ladattu kenttä, joka osoittaa, onko työkalu tällä hetkellä käytössä. Kun \"kysely\" annetaan, parhaimmillaan oleva lataamaton työkalu ladataan automaattisesti (vastauksessa ilmaistaan ​​\"auto_loaded\")."
   },
   "cs": {
     "x_search_terms": [
-      "katalog",
       "katalog nástrojů",
+      "dostupné nástroje",
+      "seznam nástrojů",
+      "seznam nástrojů",
+      "nástroje pro vyhledávání",
       "objevování nástrojů",
+      "najít nástroj",
       "vyhledávání nástrojů",
-      "seznam všech nástrojů",
+      "vyhledávání v katalogu",
+      "vyhledávání nástrojů",
       "automatické načítání",
-      "automatické načítání nástroje"
+      "nástroj pro automatické načítání"
     ],
     "param.query.description": "Dotaz v přirozeném jazyce popisující požadovanou schopnost. Tip: rozdělte svůj cíl na dílčí kroky (např. 'geoip poloha + předpověď počasí') pro lepší shodu.",
     "tool_load.description": "Načte nástroj podle názvu, aby byl k dispozici pro použití. Použijte to poté, co tool_catalog vrátí nástroj s loaded=false. Vrací informace o načteném nástroji nebo chybu, pokud není nalezen.",
@@ -474,20 +581,26 @@
     "msg.load.ok": "Nástroj '{name}' byl načten a je nyní k dispozici",
     "msg.load.not_found": "Nástroj '{name}' nenalezen.",
     "param.all.description": "Pokud true, vrátí všechny dostupné nástroje (načtené + nenačtené) bez filtrování dotazu.",
-    "tool.description": "Vraťte katalog JSON s dostupnými nástroji s poli ok, query, count a tools, aby model mohl objevit relevantní nástroje, než si vyžádá úplné definice nástrojů. Výsledky obsahují pole „načteno“ označující, zda je nástroj aktuálně povolen. Když je zadán 'dotaz', automaticky se načte nejvýše hodnocený unloaded nástroj (v odpovědi označen 'auto_loaded').",
     "msg.unload.missing_name": "Chybí parametr 'name'.",
     "msg.unload.not_found": "Nástroj {name} nebyl nalezen nebo nebyl načten.",
     "msg.unload.ok": "Nástroj {name} byl uvolněn.",
-    "unload_tool.description": "Uvolněte nástroj podle názvu, aby jej již nebylo možné používat. Použijte toto k odstranění dříve načteného nástroje z relace."
+    "unload_tool.description": "Uvolněte nástroj podle názvu, aby jej již nebylo možné používat. Použijte toto k odstranění dříve načteného nástroje z relace.",
+    "tool.description": "Vraťte katalog JSON s dostupnými nástroji s poli ok, query, count a tools, aby model mohl objevit relevantní nástroje, než si vyžádá úplné definice nástrojů. Výsledky obsahují pole „načteno“ označující, zda je nástroj aktuálně povolen. Když je zadán 'dotaz', automaticky se načte nejvýše hodnocený unloaded nástroj (v odpovědi označen 'auto_loaded')."
   },
   "uk": {
     "x_search_terms": [
-      "каталог",
       "каталог інструментів",
+      "доступні інструменти",
+      "список інструментів",
+      "список інструментів",
+      "інструменти пошуку",
+      "виявлення інструментів",
+      "знайти інструмент",
       "пошук інструментів",
-      "список усіх інструментів",
-      "автоматичне завантаження",
-      "інструмент автозавантаження"
+      "пошук у каталозі",
+      "пошук інструментів",
+      "автозавантаження",
+      "інструмент автоматичного завантаження"
     ],
     "param.query.description": "Запит природною мовою, що описує необхідну можливість. Порада: розбийте мету на підкроки (наприклад, 'geoip місцезнаходження + прогноз погоди') для покращення відповідності.",
     "tool_load.description": "Завантажує інструмент за назвою, щоб він став доступним для використання. Використовуйте це після того, як tool_catalog поверне інструмент із loaded=false. Повертає інформацію про завантажений інструмент або помилку, якщо не знайдено.",
@@ -496,21 +609,26 @@
     "msg.load.ok": "Інструмент '{name}' завантажено і тепер доступний",
     "msg.load.not_found": "Інструмент '{name}' не знайдено.",
     "param.all.description": "Якщо true, повернути всі доступні інструменти (завантажені + вивантажені) без фільтрації запиту.",
-    "tool.description": "Поверніть JSON-каталог доступних інструментів із полями ok, query, count та tools, щоб модель могла знайти відповідні інструменти, перш ніж запитувати повні визначення інструментів. Результати включають «завантажене» поле, яке вказує, чи наразі інструмент увімкнено. Коли надається «запит», автоматично завантажується незавантажений інструмент із найвищим рейтингом (позначається «auto_loaded» у відповіді).",
     "msg.unload.missing_name": "Відсутній параметр \"ім'я\".",
     "msg.unload.not_found": "Інструмент \"{name}\" не знайдено або не завантажено.",
     "msg.unload.ok": "Інструмент \"{name}\" вивантажено.",
-    "unload_tool.description": "Вивантажте інструмент за назвою, щоб він більше не був доступним для використання. Використовуйте це, щоб видалити попередньо завантажений інструмент із сеансу."
+    "unload_tool.description": "Вивантажте інструмент за назвою, щоб він більше не був доступним для використання. Використовуйте це, щоб видалити попередньо завантажений інструмент із сеансу.",
+    "tool.description": "Поверніть JSON-каталог доступних інструментів із полями ok, query, count та tools, щоб модель могла знайти відповідні інструменти, перш ніж запитувати повні визначення інструментів. Результати включають «завантажене» поле, яке вказує, чи наразі інструмент увімкнено. Коли надається «запит», автоматично завантажується незавантажений інструмент із найвищим рейтингом (позначається «auto_loaded» у відповіді)."
   },
   "tr": {
     "x_search_terms": [
-      "katalog",
-      "araç kataloğu",
-      "araçları keşfetme",
+      "takım kataloğu",
+      "mevcut araçlar",
+      "araç listesi",
+      "araçları listele",
+      "arama araçları",
       "araç keşfi",
-      "tüm araçları listeleme",
+      "aracı bul",
+      "araç arama",
+      "katalog arama",
+      "araç arama",
       "otomatik yükleme",
-      "aracı otomatik yükleme"
+      "otomatik yükleme aracı"
     ],
     "param.query.description": "Gerekli yeteneği tanımlayan doğal dil sorgusu. İpucu: hedefinizi alt adımlara ayırın (örn. 'geoip konum + hava durumu tahmini') eşleşmeyi iyileştirmek için.",
     "tool_load.description": "Bir aracı ada göre yükleyerek kullanıma hazır hale getirir. tool_catalog'un loaded=false ile bir araç döndürmesinden sonra bunu kullanın. Yüklenen araç bilgisini veya bulunamazsa bir hata döndürür.",
@@ -519,19 +637,24 @@
     "msg.load.ok": "Araç '{name}' yüklendi ve artık kullanılabilir",
     "msg.load.not_found": "Araç '{name}' bulunamadı.",
     "param.all.description": "Doğruysa, sorgu filtrelemesi olmadan mevcut tüm araçları (yüklü + yüksüz) döndürün.",
-    "tool.description": "Modelin tam araç tanımlarını istemeden önce ilgili araçları keşfedebilmesi için tamam, sorgu, sayım ve araçlar alanlarını içeren mevcut araçların bir JSON kataloğunu döndürün. Sonuçlar, aracın o anda etkin olup olmadığını belirten bir 'yüklü' alanı içerir. Bir 'sorgu' sağlandığında, en üst sıradaki yüklenmemiş araç otomatik olarak yüklenir (yanıtta 'auto_loaded' ile gösterilir).",
     "msg.unload.missing_name": "'Ad' parametresi eksik.",
     "msg.unload.not_found": "'{name}' aracı bulunamadı veya yüklenmedi.",
     "msg.unload.ok": "'{name}' aracı kaldırıldı.",
-    "unload_tool.description": "Bir aracı artık kullanılamayacak şekilde adıyla kaldırın. Daha önce yüklenmiş bir aracı oturumdan kaldırmak için bunu kullanın."
+    "unload_tool.description": "Bir aracı artık kullanılamayacak şekilde adıyla kaldırın. Daha önce yüklenmiş bir aracı oturumdan kaldırmak için bunu kullanın.",
+    "tool.description": "Modelin tam araç tanımlarını istemeden önce ilgili araçları keşfedebilmesi için tamam, sorgu, sayım ve araçlar alanlarını içeren mevcut araçların bir JSON kataloğunu döndürün. Sonuçlar, aracın o anda etkin olup olmadığını belirten bir 'yüklü' alanı içerir. Bir 'sorgu' sağlandığında, en üst sıradaki yüklenmemiş araç otomatik olarak yüklenir (yanıtta 'auto_loaded' ile gösterilir)."
   },
   "th": {
     "x_search_terms": [
-      "แค็ตตาล็อก",
       "แค็ตตาล็อกเครื่องมือ",
-      "ค้นหาเครื่องมือ",
+      "เครื่องมือที่มีอยู่",
+      "รายการเครื่องมือ",
+      "รายการเครื่องมือ",
+      "เครื่องมือค้นหา",
       "การค้นพบเครื่องมือ",
-      "แสดงรายการเครื่องมือทั้งหมด",
+      "ค้นหาเครื่องมือ",
+      "ค้นหาเครื่องมือ",
+      "ค้นหาแคตตาล็อก",
+      "การค้นหาเครื่องมือ",
       "โหลดอัตโนมัติ",
       "เครื่องมือโหลดอัตโนมัติ"
     ],
@@ -542,19 +665,24 @@
     "msg.load.ok": "โหลดเครื่องมือ '{name}' แล้ว และพร้อมใช้งานแล้ว",
     "msg.load.not_found": "ไม่พบเครื่องมือ '{name}'",
     "param.all.description": "หากเป็นจริง ให้ส่งคืนเครื่องมือที่มีอยู่ทั้งหมด (โหลดแล้ว + ไม่ได้โหลด) โดยไม่มีการกรองคิวรี",
-    "tool.description": "ส่งคืนแค็ตตาล็อก JSON ของเครื่องมือที่มีอยู่พร้อมช่อง ok, แบบสอบถาม, จำนวน และเครื่องมือ เพื่อให้โมเดลสามารถค้นพบเครื่องมือที่เกี่ยวข้องก่อนที่จะขอคำจำกัดความของเครื่องมือแบบเต็ม ผลลัพธ์จะมีฟิลด์ 'โหลดแล้ว' ที่ระบุว่าเครื่องมือเปิดใช้งานอยู่หรือไม่ เมื่อมีการระบุ 'คำค้นหา' เครื่องมือยกเลิกการโหลดอันดับสูงสุดจะถูกโหลดโดยอัตโนมัติ (ระบุโดย 'auto_loaded' ในการตอบกลับ)",
     "msg.unload.missing_name": "ไม่มีพารามิเตอร์ 'ชื่อ'",
     "msg.unload.not_found": "ไม่พบเครื่องมือ '{name}' หรือไม่ได้โหลด",
     "msg.unload.ok": "ยกเลิกการโหลดเครื่องมือ '{name}' แล้ว",
-    "unload_tool.description": "ยกเลิกการโหลดเครื่องมือตามชื่อเพื่อไม่ให้สามารถใช้งานได้อีกต่อไป ใช้สิ่งนี้เพื่อลบเครื่องมือที่โหลดไว้ก่อนหน้านี้ออกจากเซสชัน"
+    "unload_tool.description": "ยกเลิกการโหลดเครื่องมือตามชื่อเพื่อไม่ให้สามารถใช้งานได้อีกต่อไป ใช้สิ่งนี้เพื่อลบเครื่องมือที่โหลดไว้ก่อนหน้านี้ออกจากเซสชัน",
+    "tool.description": "ส่งคืนแค็ตตาล็อก JSON ของเครื่องมือที่มีอยู่พร้อมช่อง ok, แบบสอบถาม, จำนวน และเครื่องมือ เพื่อให้โมเดลสามารถค้นพบเครื่องมือที่เกี่ยวข้องก่อนที่จะขอคำจำกัดความของเครื่องมือแบบเต็ม ผลลัพธ์จะมีฟิลด์ 'โหลดแล้ว' ที่ระบุว่าเครื่องมือเปิดใช้งานอยู่หรือไม่ เมื่อมีการระบุ 'คำค้นหา' เครื่องมือยกเลิกการโหลดอันดับสูงสุดจะถูกโหลดโดยอัตโนมัติ (ระบุโดย 'auto_loaded' ในการตอบกลับ)"
   },
   "zh_CN": {
     "x_search_terms": [
-      "目录",
       "工具目录",
-      "发现工具",
+      "可用工具",
+      "工具列表",
+      "列出工具",
+      "搜索工具",
       "工具发现",
-      "列出所有工具",
+      "查找工具",
+      "工具搜索",
+      "目录搜索",
+      "工具查找",
       "自动加载",
       "自动加载工具"
     ],
@@ -565,19 +693,24 @@
     "msg.load.ok": "工具 '{name}' 已加载，现在可用",
     "msg.load.not_found": "未找到工具 '{name}'。",
     "param.all.description": "如果为真，则返回所有可用的工具（已加载 + 未加载），不进行查询过滤。",
-    "tool.description": "返回包含 ok、query、count 和 tools 字段的可用工具的 JSON 目录，以便模型可以在请求完整工具定义之前发现相关工具。结果包括一个“已加载”字段，指示该工具当前是否已启用。当提供“查询”时，排名最高的卸载工具将自动加载（由响应中的“auto_loaded”指示）。",
     "msg.unload.missing_name": "缺少“名称”参数。",
     "msg.unload.not_found": "未找到或未加载工具“{name}”。",
     "msg.unload.ok": "工具“{name}”已卸载。",
-    "unload_tool.description": "按名称卸载工具，使其不再可用。使用它可以从会话中删除以前加载的工具。"
+    "unload_tool.description": "按名称卸载工具，使其不再可用。使用它可以从会话中删除以前加载的工具。",
+    "tool.description": "返回包含 ok、query、count 和 tools 字段的可用工具的 JSON 目录，以便模型可以在请求完整工具定义之前发现相关工具。结果包括一个“已加载”字段，指示该工具当前是否已启用。当提供“查询”时，排名最高的卸载工具将自动加载（由响应中的“auto_loaded”指示）。"
   },
   "zh_TW": {
     "x_search_terms": [
-      "目錄",
       "工具目錄",
-      "發現工具",
+      "可用工具",
+      "工具清單",
+      "列出工具",
+      "搜尋工具",
       "工具發現",
-      "列出所有工具",
+      "尋找工具",
+      "工具搜尋",
+      "目錄搜尋",
+      "工具尋找",
       "自動載入",
       "自動載入工具"
     ],
@@ -588,18 +721,24 @@
     "msg.load.ok": "工具 '{name}' 已載入，現在可用",
     "msg.load.not_found": "未找到工具 '{name}'。",
     "param.all.description": "如果為真，則返回所有可用的工具（已載入 + 未載入），不進行查詢過濾。",
-    "tool.description": "傳回包含 ok、query、count 和 tools 欄位的可用工具的 JSON 目錄，以便模型可以在請求完整工具定義之前發現相關工具。結果包括一個「已載入」字段，指示該工具目前是否已啟用。當提供「查詢」時，排名最高的卸載工具將自動載入（由回應中的「auto_loaded」指示）。",
     "msg.unload.missing_name": "缺少“名稱”參數。",
     "msg.unload.not_found": "未找到或未載入工具“{name}”。",
     "msg.unload.ok": "工具“{name}”已卸載。",
-    "unload_tool.description": "按名稱卸載工具，使其不再可用。使用它可以從會話中刪除先前載入的工具。"
+    "unload_tool.description": "按名稱卸載工具，使其不再可用。使用它可以從會話中刪除先前載入的工具。",
+    "tool.description": "傳回包含 ok、query、count 和 tools 欄位的可用工具的 JSON 目錄，以便模型可以在請求完整工具定義之前發現相關工具。結果包括一個「已載入」字段，指示該工具目前是否已啟用。當提供「查詢」時，排名最高的卸載工具將自動載入（由回應中的「auto_loaded」指示）。"
   },
   "bn": {
     "x_search_terms": [
-      "ক্যাটালগ",
       "টুল ক্যাটালগ",
-      "টুল আবিষ্কার",
-      "সমস্ত টুল তালিকা",
+      "উপলব্ধ সরঞ্জাম",
+      "সরঞ্জাম তালিকা",
+      "তালিকা সরঞ্জাম",
+      "অনুসন্ধান সরঞ্জাম",
+      "সরঞ্জাম আবিষ্কার",
+      "অনুসন্ধান টুল",
+      "সরঞ্জাম অনুসন্ধান",
+      "ক্যাটালগ অনুসন্ধান",
+      "টুল সন্ধান",
       "অটো লোড",
       "অটো-লোড টুল"
     ],
@@ -610,20 +749,26 @@
     "msg.load.ok": "টুল '{name}' লোড হয়েছে এবং এখন উপলব্ধ।",
     "msg.load.not_found": "টুল '{name}' পাওয়া যায়নি।",
     "param.all.description": "যদি সত্য হয়, তাহলে ক্যোয়ারী ফিল্টারিং ছাড়াই সমস্ত উপলব্ধ টুল (লোড + আনলোড) ফেরত দিন।",
-    "tool.description": "ঠিক আছে, ক্যোয়ারী, গণনা এবং টুল ক্ষেত্র সহ উপলব্ধ সরঞ্জামগুলির একটি JSON ক্যাটালগ ফেরত দিন যাতে মডেলটি সম্পূর্ণ টুল সংজ্ঞার অনুরোধ করার আগে প্রাসঙ্গিক সরঞ্জামগুলি আবিষ্কার করতে পারে৷ ফলাফলের মধ্যে একটি 'লোড করা' ক্ষেত্র রয়েছে যা নির্দেশ করে যে টুলটি বর্তমানে সক্ষম আছে কিনা। যখন একটি 'কোয়েরি' প্রদান করা হয়, তখন শীর্ষস্থানীয় আনলোড করা টুলটি স্বয়ংক্রিয়ভাবে লোড হয় (প্রতিক্রিয়ায় 'অটো_লোডেড' দ্বারা নির্দেশিত)।",
     "msg.unload.missing_name": "অনুপস্থিত 'নাম' প্যারামিটার।",
     "msg.unload.not_found": "টুল '{name}' পাওয়া যায়নি বা লোড হয়নি।",
     "msg.unload.ok": "টুল '{name}' আনলোড করা হয়েছে৷",
-    "unload_tool.description": "নাম অনুসারে একটি টুল আনলোড করুন তাই এটি আর ব্যবহারের জন্য উপলব্ধ নয়। সেশন থেকে একটি পূর্বে লোড করা টুল সরাতে এটি ব্যবহার করুন।"
+    "unload_tool.description": "নাম অনুসারে একটি টুল আনলোড করুন তাই এটি আর ব্যবহারের জন্য উপলব্ধ নয়। সেশন থেকে একটি পূর্বে লোড করা টুল সরাতে এটি ব্যবহার করুন।",
+    "tool.description": "ঠিক আছে, ক্যোয়ারী, গণনা এবং টুল ক্ষেত্র সহ উপলব্ধ সরঞ্জামগুলির একটি JSON ক্যাটালগ ফেরত দিন যাতে মডেলটি সম্পূর্ণ টুল সংজ্ঞার অনুরোধ করার আগে প্রাসঙ্গিক সরঞ্জামগুলি আবিষ্কার করতে পারে৷ ফলাফলের মধ্যে একটি 'লোড করা' ক্ষেত্র রয়েছে যা নির্দেশ করে যে টুলটি বর্তমানে সক্ষম আছে কিনা। যখন একটি 'কোয়েরি' প্রদান করা হয়, তখন শীর্ষস্থানীয় আনলোড করা টুলটি স্বয়ংক্রিয়ভাবে লোড হয় (প্রতিক্রিয়ায় 'অটো_লোডেড' দ্বারা নির্দেশিত)।"
   },
   "fa": {
     "x_search_terms": [
-      "کاتالوگ",
       "کاتالوگ ابزار",
+      "ابزارهای موجود",
+      "فهرست ابزار",
+      "ابزارهای فهرست",
+      "ابزارهای جستجو",
       "کشف ابزار",
-      "فهرست همه ابزارها",
-      "بارگذاری خودکار",
-      "ابزار بارگذاری خودکار"
+      "پیدا کردن ابزار",
+      "جستجوی ابزار",
+      "جستجوی کاتالوگ",
+      "جستجوی ابزار",
+      "بارگیری خودکار",
+      "ابزار بارگیری خودکار"
     ],
     "param.query.description": "پرس و جوی زبان طبیعی که قابلیت مورد نیاز را توصیف می‌کند. نکته: هدف خود را به مراحل فرعی تقسیم کنید (مثلاً 'geoip موقعیت + پیش‌بینی آب و هوا') برای بهبود تطابق.",
     "tool_load.description": "یک ابزار را با نام بارگذاری کنید تا برای استفاده در دسترس باشد. پس از اینکه tool_catalog ابزاری با loaded=false برگرداند، از این استفاده کنید. اطلاعات ابزار بارگذاری شده یا در صورت یافتن نشدن خطا برمی‌گرداند.",
@@ -632,19 +777,24 @@
     "msg.load.ok": "ابزار '{name}' بارگذاری شده است و اکنون در دسترس است",
     "msg.load.not_found": "ابزار '{name}' یافت نشد.",
     "param.all.description": "اگر درست باشد، تمام ابزارهای موجود (بارگذاری شده + بارگذاری نشده) را بدون فیلتر کردن پرس و جو بازگردانید.",
-    "tool.description": "یک کاتالوگ JSON از ابزارهای موجود را با فیلدهای ok، query، count و tools برگردانید تا مدل بتواند قبل از درخواست تعاریف کامل ابزار، ابزارهای مرتبط را پیدا کند. نتایج شامل یک فیلد \"بارگذاری شده\" است که نشان می دهد آیا ابزار در حال حاضر فعال است یا خیر. هنگامی که یک \"پرس و جو\" ارائه می شود، ابزار بارگیری شده با رتبه برتر به طور خودکار بارگیری می شود (که با \"auto_loaded\" در پاسخ مشخص می شود).",
     "msg.unload.missing_name": "پارامتر \"name\" وجود ندارد.",
     "msg.unload.not_found": "ابزار \"{name}\" یافت نشد یا بارگیری نشد.",
     "msg.unload.ok": "ابزار \"{name}\" بارگیری شده است.",
-    "unload_tool.description": "ابزار را با نام بارگیری کنید تا دیگر برای استفاده در دسترس نباشد. از این برای حذف ابزاری که قبلاً بارگذاری شده است از جلسه استفاده کنید."
+    "unload_tool.description": "ابزار را با نام بارگیری کنید تا دیگر برای استفاده در دسترس نباشد. از این برای حذف ابزاری که قبلاً بارگذاری شده است از جلسه استفاده کنید.",
+    "tool.description": "یک کاتالوگ JSON از ابزارهای موجود را با فیلدهای ok، query، count و tools برگردانید تا مدل بتواند قبل از درخواست تعاریف کامل ابزار، ابزارهای مرتبط را پیدا کند. نتایج شامل یک فیلد \"بارگذاری شده\" است که نشان می دهد آیا ابزار در حال حاضر فعال است یا خیر. هنگامی که یک \"پرس و جو\" ارائه می شود، ابزار بارگیری شده با رتبه برتر به طور خودکار بارگیری می شود (که با \"auto_loaded\" در پاسخ مشخص می شود)."
   },
   "mn": {
     "x_search_terms": [
-      "каталог",
-      "багаж хэрэгслийн каталог",
-      "багаж нээх",
-      "багажийн нээлт",
-      "бүх хэрэгслийг жагсаах",
+      "хэрэгслийн каталог",
+      "боломжтой хэрэгслүүд",
+      "хэрэгслийн жагсаалт",
+      "хэрэгслийн жагсаалт",
+      "хайлтын хэрэгсэл",
+      "хэрэгслийн нээлт",
+      "олж хайх",
+      "хэрэгслийн хайлт",
+      "каталогийн хайлт",
+      "хэрэгслийн хайлт",
       "автоматаар ачаалах",
       "автоматаар ачаалах хэрэгсэл"
     ],
@@ -655,21 +805,26 @@
     "msg.load.ok": "Хэрэгсэл '{name}' ачаалагдсан бөгөөд одоо бэлэн байна",
     "msg.load.not_found": "Хэрэгсэл '{name}' олдсонгүй.",
     "param.all.description": "Хэрэв үнэн бол, асуултын шүүлтүүргүйгээр бүх боломжтой хэрэгслүүдийг (ачаалагдсан + ачаалагдаагүй) буцаана уу.",
-    "tool.description": "Загварт хэрэглүүрийн бүрэн тодорхойлолтыг хүсэхээс өмнө холбогдох хэрэгслүүдийг олох боломжтой болохын тулд ok, query, count, tool талбар бүхий JSON каталогийг буцаана уу. Үр дүн нь уг хэрэгсэл одоогоор идэвхжсэн эсэхийг харуулсан \"ачагдсан\" талбарыг агуулна. \"Асуулга\" өгөх үед дээд зэрэглэлийн буулгасан хэрэгсэл автоматаар ачаалагдана (хариултанд 'auto_loaded' гэж тэмдэглэгдсэн).",
     "msg.unload.missing_name": "\"Нэр\" параметр дутуу байна.",
     "msg.unload.not_found": "'{name}' хэрэгсэл олдсонгүй эсвэл ачаалагдаагүй байна.",
     "msg.unload.ok": "'{name}' хэрэгслийг буулгасан.",
-    "unload_tool.description": "Хэрэгслийг нэрээр нь буулгаж, ашиглах боломжгүй болно. Өмнө нь ачаалагдсан хэрэгслийг сешнээс хасахын тулд үүнийг ашиглана уу."
+    "unload_tool.description": "Хэрэгслийг нэрээр нь буулгаж, ашиглах боломжгүй болно. Өмнө нь ачаалагдсан хэрэгслийг сешнээс хасахын тулд үүнийг ашиглана уу.",
+    "tool.description": "Загварт хэрэглүүрийн бүрэн тодорхойлолтыг хүсэхээс өмнө холбогдох хэрэгслүүдийг олох боломжтой болохын тулд ok, query, count, tool талбар бүхий JSON каталогийг буцаана уу. Үр дүн нь уг хэрэгсэл одоогоор идэвхжсэн эсэхийг харуулсан \"ачагдсан\" талбарыг агуулна. \"Асуулга\" өгөх үед дээд зэрэглэлийн буулгасан хэрэгсэл автоматаар ачаалагдана (хариултанд 'auto_loaded' гэж тэмдэглэгдсэн)."
   },
   "mr": {
     "x_search_terms": [
-      "कॅटलॉग",
       "टूल कॅटलॉग",
-      "टूल्स शोधा",
-      "टूल डिस्कवरी",
-      "सर्व टूल्सची सूची",
+      "उपलब्ध साधने",
+      "साधनांची यादी",
+      "यादी साधने",
+      "शोध साधने",
+      "साधन शोध",
+      "शोधन साधन",
+      "साधन शोध",
+      "कॅटलॉग शोध",
+      "साधन शोध",
       "ऑटो लोड",
-      "ऑटो-लोड टूल"
+      "ऑटो-लोड साधन"
     ],
     "param.query.description": "आवश्यक क्षमतेचे वर्णन करणारी नैसर्गिक भाषा क्वेरी. टिप: तुमचे ध्येय उप-चरणांमध्ये विभाजित करा (उदा. 'geoip स्थान + हवामान अंदाज') जुळणी सुधारण्यासाठी.",
     "tool_load.description": "एखादे साधन नावाने लोड करा जेणेकरून ते वापरासाठी उपलब्ध होईल. tool_catalog ने loaded=false सह साधन परत केल्यानंतर हे वापरा. लोड केलेले साधन माहिती किंवा सापडले नाही तर त्रुटी परत करते.",
@@ -678,18 +833,24 @@
     "msg.load.ok": "साधन '{name}' लोड केले गेले आहे आणि आता उपलब्ध आहे",
     "msg.load.not_found": "साधन '{name}' सापडले नाही.",
     "param.all.description": "जर खरे असेल, तर क्वेरी फिल्टरिंगशिवाय सर्व उपलब्ध साधने (लोड केलेले + अनलोड केलेले) परत करा.",
-    "tool.description": "ओके, क्वेरी, काउंट आणि टूल्स फील्डसह उपलब्ध टूल्सचा JSON कॅटलॉग परत करा जेणेकरून संपूर्ण टूल व्याख्यांची विनंती करण्यापूर्वी मॉडेल संबंधित टूल्स शोधू शकेल. परिणामांमध्ये 'लोड केलेले' फील्ड समाविष्ट आहे जे साधन सध्या सक्षम आहे की नाही हे दर्शविते. जेव्हा 'क्वेरी' प्रदान केली जाते, तेव्हा टॉप-रँक केलेले अनलोड केलेले साधन स्वयंचलितपणे लोड होते (प्रतिसादामध्ये 'ऑटो_लोडेड' द्वारे सूचित केले जाते).",
     "msg.unload.missing_name": "गहाळ 'नाव' पॅरामीटर.",
     "msg.unload.not_found": "साधन '{name}' सापडले नाही किंवा लोड केलेले नाही.",
     "msg.unload.ok": "साधन '{name}' अनलोड केले गेले आहे.",
-    "unload_tool.description": "नावाने साधन अनलोड करा जेणेकरून ते यापुढे वापरासाठी उपलब्ध नसेल. सत्रातून पूर्वी लोड केलेले साधन काढण्यासाठी याचा वापर करा."
+    "unload_tool.description": "नावाने साधन अनलोड करा जेणेकरून ते यापुढे वापरासाठी उपलब्ध नसेल. सत्रातून पूर्वी लोड केलेले साधन काढण्यासाठी याचा वापर करा.",
+    "tool.description": "ओके, क्वेरी, काउंट आणि टूल्स फील्डसह उपलब्ध टूल्सचा JSON कॅटलॉग परत करा जेणेकरून संपूर्ण टूल व्याख्यांची विनंती करण्यापूर्वी मॉडेल संबंधित टूल्स शोधू शकेल. परिणामांमध्ये 'लोड केलेले' फील्ड समाविष्ट आहे जे साधन सध्या सक्षम आहे की नाही हे दर्शविते. जेव्हा 'क्वेरी' प्रदान केली जाते, तेव्हा टॉप-रँक केलेले अनलोड केलेले साधन स्वयंचलितपणे लोड होते (प्रतिसादामध्ये 'ऑटो_लोडेड' द्वारे सूचित केले जाते)."
   },
   "el": {
     "x_search_terms": [
-      "κατάλογος",
       "κατάλογος εργαλείων",
+      "διαθέσιμα εργαλεία",
+      "λίστα εργαλείων",
+      "εργαλεία λίστας",
+      "εργαλεία αναζήτησης",
       "ανακάλυψη εργαλείων",
-      "λίστα όλων των εργαλείων",
+      "εύρεση εργαλείου",
+      "αναζήτηση εργαλείων",
+      "αναζήτηση καταλόγου",
+      "αναζήτηση εργαλείων",
       "αυτόματη φόρτωση",
       "εργαλείο αυτόματης φόρτωσης"
     ],
@@ -700,18 +861,24 @@
     "msg.load.ok": "Το εργαλείο '{name}' έχει φορτωθεί και είναι πλέον διαθέσιμο",
     "msg.load.not_found": "Το εργαλείο \"{name}\" δεν βρέθηκε.",
     "param.all.description": "Εάν είναι αληθές, επιστρέψτε όλα τα διαθέσιμα εργαλεία (φορτωμένα + μη φορτωμένα) χωρίς φιλτράρισμα ερωτήματος.",
-    "tool.description": "Επιστρέψτε έναν κατάλογο JSON διαθέσιμων εργαλείων με πεδία ok, ερώτημα, μέτρηση και εργαλεία, ώστε το μοντέλο να μπορεί να ανακαλύψει σχετικά εργαλεία πριν ζητήσει πλήρεις ορισμούς εργαλείων. Τα αποτελέσματα περιλαμβάνουν ένα πεδίο \"φορτωμένο\" που υποδεικνύει εάν το εργαλείο είναι ενεργοποιημένο αυτήν τη στιγμή. Όταν παρέχεται ένα «ερώτημα», το εργαλείο που δεν έχει φορτωθεί στην κορυφή φορτώνεται αυτόματα (υποδεικνύεται με «auto_loaded» στην απάντηση).",
     "msg.unload.missing_name": "Λείπει η παράμετρος \"όνομα\".",
     "msg.unload.not_found": "Το εργαλείο '{name}' δεν βρέθηκε ή δεν φορτώθηκε.",
     "msg.unload.ok": "Το εργαλείο '{name}' έχει ξεφορτωθεί.",
-    "unload_tool.description": "Ξεφορτώστε ένα εργαλείο με το όνομα, ώστε να μην είναι πλέον διαθέσιμο για χρήση. Χρησιμοποιήστε το για να αφαιρέσετε ένα εργαλείο που είχε φορτωθεί προηγουμένως από την περίοδο λειτουργίας."
+    "unload_tool.description": "Ξεφορτώστε ένα εργαλείο με το όνομα, ώστε να μην είναι πλέον διαθέσιμο για χρήση. Χρησιμοποιήστε το για να αφαιρέσετε ένα εργαλείο που είχε φορτωθεί προηγουμένως από την περίοδο λειτουργίας.",
+    "tool.description": "Επιστρέψτε έναν κατάλογο JSON διαθέσιμων εργαλείων με πεδία ok, ερώτημα, μέτρηση και εργαλεία, ώστε το μοντέλο να μπορεί να ανακαλύψει σχετικά εργαλεία πριν ζητήσει πλήρεις ορισμούς εργαλείων. Τα αποτελέσματα περιλαμβάνουν ένα πεδίο \"φορτωμένο\" που υποδεικνύει εάν το εργαλείο είναι ενεργοποιημένο αυτήν τη στιγμή. Όταν παρέχεται ένα «ερώτημα», το εργαλείο που δεν έχει φορτωθεί στην κορυφή φορτώνεται αυτόματα (υποδεικνύεται με «auto_loaded» στην απάντηση)."
   },
   "he": {
     "x_search_terms": [
-      "קטלוג",
       "קטלוג כלים",
+      "כלים זמינים",
+      "רשימת כלים",
+      "רשימת כלים",
+      "כלי חיפוש",
       "גילוי כלים",
-      "רשימת כל הכלים",
+      "חיפוש כלי",
+      "חיפוש כלים",
+      "חיפוש קטלוג",
+      "חיפוש כלים",
       "טעינה אוטומטית",
       "כלי טעינה אוטומטית"
     ],
@@ -722,19 +889,24 @@
     "msg.load.ok": "הכלי '{name}' נטען וזמין כעת",
     "msg.load.not_found": "הכלי '{name}' לא נמצא.",
     "param.all.description": "אם נכון, החזר את כל הכלים הזמינים (טעון + לא טעון) ללא סינון שאילתות.",
-    "tool.description": "החזר קטלוג JSON של כלים זמינים עם שדות OK, שאילתה, ספירה וכלים כדי שהמודל יוכל לגלות כלים רלוונטיים לפני שיבקש הגדרות כלים מלאות. התוצאות כוללות שדה 'טעון' המציין אם הכלי מופעל כעת. כאשר מסופקת 'שאילתה', הכלי שנפרק בדירוג העליון נטען אוטומטית (מסומן ב-'auto_loaded' בתגובה).",
     "msg.unload.missing_name": "חסר פרמטר 'שם'.",
     "msg.unload.not_found": "הכלי '{name}' לא נמצא או לא נטען.",
     "msg.unload.ok": "הכלי '{name}' נפרק.",
-    "unload_tool.description": "פרק כלי לפי שם כך שהוא לא זמין יותר לשימוש. השתמש בזה כדי להסיר כלי שנטען בעבר מההפעלה."
+    "unload_tool.description": "פרק כלי לפי שם כך שהוא לא זמין יותר לשימוש. השתמש בזה כדי להסיר כלי שנטען בעבר מההפעלה.",
+    "tool.description": "החזר קטלוג JSON של כלים זמינים עם שדות OK, שאילתה, ספירה וכלים כדי שהמודל יוכל לגלות כלים רלוונטיים לפני שיבקש הגדרות כלים מלאות. התוצאות כוללות שדה 'טעון' המציין אם הכלי מופעל כעת. כאשר מסופקת 'שאילתה', הכלי שנפרק בדירוג העליון נטען אוטומטית (מסומן ב-'auto_loaded' בתגובה)."
   },
   "hu": {
     "x_search_terms": [
-      "katalógus",
-      "szerszámkatalógus",
-      "eszközök felfedezése",
-      "szerszámfelderítés",
-      "összes eszköz felsorolása",
+      "eszközkatalógus",
+      "rendelkezésre álló eszközök",
+      "eszközlista",
+      "eszközök listája",
+      "keresőeszközök",
+      "eszközfelderítés",
+      "eszköz keresése",
+      "eszközkeresés",
+      "katalóguskeresés",
+      "eszközkeresés",
       "automatikus betöltés",
       "automatikus betöltő eszköz"
     ],
@@ -745,19 +917,24 @@
     "msg.load.ok": "A(z) \"{name}\" eszköz betöltődött, és már elérhető",
     "msg.load.not_found": "A(z) „{name}” eszköz nem található.",
     "param.all.description": "Ha igaz, akkor az összes elérhető eszközt (be- és betöltött) adjon vissza lekérdezésszűrés nélkül.",
-    "tool.description": "Az elérhető eszközök JSON-katalógusának visszaküldése az OK, query, count és Tools mezőkkel, hogy a modell felfedezhesse a releváns eszközöket, mielőtt teljes eszközdefiníciót kérne. Az eredmények között szerepel egy „töltött” mező, amely jelzi, hogy az eszköz jelenleg engedélyezve van-e. Amikor egy „lekérdezés” van megadva, a legfelső rangú betöltetlen eszköz automatikusan betöltődik (ezt az „auto_loaded” jelzi a válaszban).",
     "msg.unload.missing_name": "Hiányzik a \"name\" paraméter.",
     "msg.unload.not_found": "A '{name}' eszköz nem található vagy nincs betöltve.",
     "msg.unload.ok": "A(z) '{name}' eszköz betöltve.",
-    "unload_tool.description": "Töltse ki az eszközt név szerint, hogy többé ne legyen használható. Ezzel eltávolíthat egy korábban betöltött eszközt a munkamenetből."
+    "unload_tool.description": "Töltse ki az eszközt név szerint, hogy többé ne legyen használható. Ezzel eltávolíthat egy korábban betöltött eszközt a munkamenetből.",
+    "tool.description": "Az elérhető eszközök JSON-katalógusának visszaküldése az OK, query, count és Tools mezőkkel, hogy a modell felfedezhesse a releváns eszközöket, mielőtt teljes eszközdefiníciót kérne. Az eredmények között szerepel egy „töltött” mező, amely jelzi, hogy az eszköz jelenleg engedélyezve van-e. Amikor egy „lekérdezés” van megadva, a legfelső rangú betöltetlen eszköz automatikusan betöltődik (ezt az „auto_loaded” jelzi a válaszban)."
   },
   "ro": {
     "x_search_terms": [
-      "catalog",
       "catalog de instrumente",
-      "instrumente de descoperire",
-      "descoperire de instrumente",
-      "lista tuturor instrumentelor",
+      "instrumente disponibile",
+      "listă de instrumente",
+      "listă instrumente",
+      "instrumente de căutare",
+      "descoperire instrumente",
+      "găsi instrument",
+      "căutare instrument",
+      "căutare catalog",
+      "căutare instrument",
       "încărcare automată",
       "instrument de încărcare automată"
     ],
@@ -768,10 +945,10 @@
     "msg.load.ok": "Instrumentul „{name}” a fost încărcat și este acum disponibil",
     "msg.load.not_found": "Instrumentul „{name}” nu a fost găsit.",
     "param.all.description": "Dacă este adevărat, returnați toate instrumentele disponibile (încărcate + descărcate) fără filtrarea interogărilor.",
-    "tool.description": "Returnați un catalog JSON de instrumente disponibile cu câmpuri ok, interogare, numărare și instrumente, astfel încât modelul să poată descoperi instrumente relevante înainte de a solicita definiții complete ale instrumentului. Rezultatele includ un câmp „încărcat” care indică dacă instrumentul este activat în prezent. Când este furnizată o „interogare”, instrumentul descărcat cel mai bine clasat este încărcat automat (indicat de „auto_loaded” în răspuns).",
     "msg.unload.missing_name": "Lipsește parametrul „nume”.",
     "msg.unload.not_found": "Instrumentul „{name}” nu a fost găsit sau nu a fost încărcat.",
     "msg.unload.ok": "Instrumentul „{name}” a fost descărcat.",
-    "unload_tool.description": "Descărcați un instrument după nume, astfel încât să nu mai fie disponibil pentru utilizare. Utilizați aceasta pentru a elimina din sesiune un instrument încărcat anterior."
+    "unload_tool.description": "Descărcați un instrument după nume, astfel încât să nu mai fie disponibil pentru utilizare. Utilizați aceasta pentru a elimina din sesiune un instrument încărcat anterior.",
+    "tool.description": "Returnați un catalog JSON de instrumente disponibile cu câmpuri ok, interogare, numărare și instrumente, astfel încât modelul să poată descoperi instrumente relevante înainte de a solicita definiții complete ale instrumentului. Rezultatele includ un câmp „încărcat” care indică dacă instrumentul este activat în prezent. Când este furnizată o „interogare”, instrumentul descărcat cel mai bine clasat este încărcat automat (indicat de „auto_loaded” în răspuns)."
   }
 }

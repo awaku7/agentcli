@@ -24,12 +24,15 @@
     "tool.description": "Agent Skills の SKILL.md を読み込み、YAML frontmatter と Markdown本文(body)を返します。",
     "x_search_terms": [
       "スキルのロード",
-      "ロードスキル",
-      "スキル負荷",
-      "スキル発動",
-      "スキルを有効にする",
-      "スキル有効",
-      "スキルの使用"
+      "スキルのロード",
+      "スキルのアクティブ化",
+      "スキルの有効化",
+      "スキルのアクティブ化",
+      "エージェントスキルのロード",
+      "スキル有効化",
+      "スキルの使用",
+      "スキルインポート",
+      "エージェントスキルのアクティブ化"
     ]
   },
   "es": {
@@ -38,13 +41,16 @@
     "param.skill_dir.description": "El directorio de habilidades (debe contener SKILL.md).",
     "tool.description": "Carga el SKILL.md de una habilidad de agente y devuelve su frontmatter YAML y su cuerpo Markdown.",
     "x_search_terms": [
-      "carga de habilidades",
-      "habilidad de carga",
-      "carga de habilidades",
+      "carga de habilidad",
+      "cargar habilidad",
       "activar habilidad",
       "habilitar habilidad",
-      "habilitación de habilidades",
-      "uso de habilidades"
+      "activación de habilidad",
+      "cargar habilidad de agente",
+      "habilitar habilidad",
+      "usar habilidad",
+      "importar habilidad",
+      "activar habilidad de agente"
     ]
   },
   "fr": {
@@ -53,13 +59,16 @@
     "param.skill_dir.description": "Répertoire de la compétence (SKILL.",
     "tool.description": "Charge le SKILL.",
     "x_search_terms": [
-      "chargement des compétences",
-      "compétence de charge",
-      "charge de compétences",
-      "compétence activer",
+      "charger la compétence",
+      "charger la compétence",
       "activer la compétence",
-      "compétence permettre",
-      "utilisation des compétences"
+      "activer la compétence",
+      "activation de la compétence",
+      "charger la compétence de l'agent",
+      "activer la compétence",
+      "utiliser la compétence",
+      "importer la compétence",
+      "activer la compétence de l'agent"
     ]
   },
   "ko": {
@@ -69,12 +78,15 @@
     "tool.description": "Agent Skill의 SKILL.md를 불러와 YAML frontmatter와 Markdown 본문을 반환합니다.",
     "x_search_terms": [
       "스킬 로드",
-      "로드 스킬",
-      "스킬로드",
+      "스킬 로드",
+      "활성화 스킬",
       "스킬 활성화",
       "스킬 활성화",
+      "에이전트 로드 스킬",
       "스킬 활성화",
-      "스킬 사용"
+      "사용 스킬",
+      "스킬 가져오기",
+      "에이전트 스킬 활성화"
     ]
   },
   "de": {
@@ -83,13 +95,16 @@
     "param.skill_dir.description": "Skill-Verzeichnis (SKILL.",
     "tool.description": "Lädt die SKILL.",
     "x_search_terms": [
-      "Skills laden",
-      "Fertigkeit laden",
-      "Fhigkeitsbelastung",
-      "Fertigkeit aktivieren",
-      "Fhigkeit aktivieren",
-      "Fhigkeit aktivieren",
-      "Einsatz von Fertigkeiten"
+      "Skill laden",
+      "Skill laden",
+      "Skill aktivieren",
+      "Skill aktivieren",
+      "Skill-Aktivierung",
+      "Agenten-Skill laden",
+      "Skill aktivieren",
+      "Skill verwenden",
+      "Skill-Import",
+      "Agenten-Skill aktivieren"
     ]
   },
   "it": {
@@ -98,13 +113,16 @@
     "param.skill_dir.description": "Directory dello skill (SKILL.",
     "tool.description": "Carica lo SKILL.",
     "x_search_terms": [
-      "carico competenze",
-      "caricare abilit",
-      "carico di competenze",
-      "attivazione abilit",
-      "abilita abilit",
-      "abilitazione abilit",
-      "utilizzo delle competenze"
+      "caricamento abilità",
+      "carica abilità",
+      "attiva abilità",
+      "abilita abilità",
+      "attivazione abilità",
+      "carica abilità agente",
+      "abilita abilità",
+      "usa abilità",
+      "importazione abilità",
+      "attiva abilità agente"
     ]
   },
   "ru": {
@@ -113,13 +131,16 @@
     "param.skill_dir.description": "Каталог навыка (SKILL.",
     "tool.description": "Загружает SKILL.md для Agent Skill и возвращает его YAML frontmatter и Markdown-тело.",
     "x_search_terms": [
-      "загрузка навыков",
+      "загрузка навыка",
       "загрузить навык",
-      "нагрузка навыков",
-      "активация навыка",
+      "активировать навык",
       "включить навык",
-      "умение включить",
-      "использование навыков"
+      "активация навыка",
+      "загрузить навык агента",
+      "включить навык",
+      "использовать навык",
+      "импорт навыка",
+      "активировать навык агента"
     ]
   },
   "pt_BR": {
@@ -128,13 +149,16 @@
     "param.skill_dir.description": "Diretório do skill (SKILL.",
     "tool.description": "Carrega o SKILL.md de uma Agent Skill e retorna o frontmatter YAML e o corpo Markdown.",
     "x_search_terms": [
-      "carga de habilidades",
-      "habilidade de carga",
-      "carga de habilidades",
-      "habilidade ativar",
+      "carregar habilidade",
+      "carregar habilidade",
+      "ativar habilidade",
       "habilitar habilidade",
-      "habilitação de habilidade",
-      "uso de habilidades"
+      "ativação de habilidade",
+      "carregar habilidade do agente",
+      "habilitar habilidade",
+      "usar habilidade",
+      "importação de habilidade",
+      "ativar habilidade do agente"
     ]
   },
   "pt": {
@@ -143,13 +167,16 @@
     "param.skill_dir.description": "Diretório de habilidades (SKILL.",
     "tool.description": "Carrega o SKILL.md de uma habilidade do agente e retorna o YAML frontmatter e o corpo Markdown.",
     "x_search_terms": [
-      "carga de habilidades",
-      "habilidade de carga",
-      "carga de habilidades",
-      "habilidade ativar",
+      "carregar habilidade",
+      "carregar habilidade",
+      "ativar habilidade",
       "habilitar habilidade",
-      "habilitao de habilidade",
-      "uso de habilidades"
+      "ativação de habilidade",
+      "carregar habilidade do agente",
+      "habilitar habilidade",
+      "usar habilidade",
+      "importação de habilidade",
+      "ativar habilidade do agente"
     ]
   },
   "id": {
@@ -159,12 +186,15 @@
     "tool.description": "Muat SKILL.md untuk Agent Skill dan kembalikan frontmatter YAML serta isi Markdown-nya.",
     "x_search_terms": [
       "pemuatan keterampilan",
-      "keterampilan memuat",
-      "beban keterampilan",
+      "memuat keterampilan",
+      "mengaktifkan keterampilan",
+      "mengaktifkan keterampilan",
       "aktivasi keterampilan",
-      "aktifkan keterampilan",
-      "keterampilan mengaktifkan",
-      "penggunaan keterampilan"
+      "memuat keterampilan agen",
+      "mengaktifkan keterampilan",
+      "menggunakan keterampilan",
+      "impor keterampilan",
+      "mengaktifkan keterampilan agen"
     ]
   },
   "vi": {
@@ -175,11 +205,14 @@
     "x_search_terms": [
       "tải kỹ năng",
       "tải kỹ năng",
-      "tải kỹ năng",
       "kích hoạt kỹ năng",
       "kích hoạt kỹ năng",
       "kích hoạt kỹ năng",
-      "sử dụng kỹ năng"
+      "tải kỹ năng tác nhân",
+      "kích hoạt kỹ năng",
+      "sử dụng kỹ năng",
+      "nhập kỹ năng",
+      "kích hoạt kỹ năng tác nhân"
     ]
   },
   "pl": {
@@ -189,12 +222,15 @@
     "tool.description": "Ładuje plik SKILL.md dla umiejętności agenta i zwraca jego YAML frontmatter oraz treść Markdown.",
     "x_search_terms": [
       "ładowanie umiejętności",
-      "umiejętność ładowania",
-      "ładunek umiejętności",
-      "umiejętność aktywowana",
-      "włączyć umiejętność",
-      "umiejętność umożliwienia",
-      "wykorzystanie umiejętności"
+      "ładuj umiejętność",
+      "aktywuj umiejętność",
+      "włącz umiejętność",
+      "aktywację umiejętności",
+      "ładuj umiejętność agenta",
+      "włącz umiejętność",
+      "użyj umiejętności",
+      "import umiejętności",
+      "aktywuj umiejętność agenta"
     ]
   },
   "hi": {
@@ -203,13 +239,16 @@
     "param.skill_dir.description": "कौशल निर्देशिका (SKILL.md सीधे नीचे आवश्यक है)",
     "tool.description": "एजेंट कौशल के लिए SKILL.md को लोड करता है और इसका YAML फ्रंटमैटर और मार्कडाउन बॉडी लौटाता है।",
     "x_search_terms": [
-      "कौशल भार",
+      "कौशल लोड",
       "लोड कौशल",
-      "कौशल भार",
       "कौशल सक्रिय करें",
       "कौशल सक्षम करें",
+      "कौशल सक्रियण",
+      "लोड एजेंट कौशल",
       "कौशल सक्षम करें",
-      "कौशल का उपयोग"
+      "कौशल का उपयोग करें",
+      "कौशल आयात",
+      "एजेंट कौशल सक्रिय करें"
     ]
   },
   "ar": {
@@ -218,13 +257,16 @@
     "param.skill_dir.description": "دليل المهارة (يجب أن يكون SKILL.",
     "tool.description": "يحمّل SKILL.md الخاص بمهارة وكيل ويعيد YAML frontmatter ونص Markdown.",
     "x_search_terms": [
-      "تحميل المهارات",
-      "مهارة التحميل",
       "تحميل المهارة",
-      "تفعيل المهارة",
+      "تحميل المهارة",
+      "تنشيط المهارة",
       "تمكين المهارة",
+      "تنشيط المهارة",
+      "تحميل مهارة الوكيل",
       "تمكين المهارة",
-      "استخدام المهارات"
+      "استخدام المهارة",
+      "استيراد المهارة",
+      "تنشيط مهارة الوكيل"
     ]
   },
   "sv": {
@@ -233,13 +275,16 @@
     "param.skill_dir.description": "Katalog för skill (SKILL.md krävs direkt under)",
     "tool.description": "Läser SKILL.md för en Agent Skill och returnerar dess YAML frontmatter och Markdown-body.",
     "x_search_terms": [
-      "färdigheter laddas",
+      "skicklighet ladda",
       "ladda skicklighet",
-      "färdighetsbelastning",
-      "skicklighet aktivera",
-      "aktivera skicklighet",
-      "skicklighet aktivera",
-      "skicklighetsanvändning"
+      "aktivera färdighet",
+      "aktivera färdighet",
+      "färdighetsaktivering",
+      "ladda agent skicklighet",
+      "skill aktivera",
+      "använda skicklighet",
+      "förmåga import",
+      "aktivera agentförmåga"
     ]
   },
   "sw": {
@@ -248,13 +293,16 @@
     "param.skill_dir.description": "Saraka ya skill (SKILL.",
     "tool.description": "Hupakia SKILL.md ya Agent Skill na kurudisha YAML frontmatter na kiini cha Markdown.",
     "x_search_terms": [
-      "mzigo wa ujuzi",
+      "kupakia ujuzi",
       "ustadi wa kupakia",
-      "mzigo wa ujuzi",
-      "ustadi kuwezesha",
+      "amsha ustadi",
       "wezesha ujuzi",
+      "uwezeshaji wa ujuzi",
+      "ustadi wa wakala wa kupakia",
       "ustadi kuwezesha",
-      "matumizi ya ujuzi"
+      "tumia ujuzi",
+      "ujuzi wa kuagiza",
+      "washa ujuzi wa wakala"
     ]
   },
   "nb": {
@@ -263,13 +311,16 @@
     "param.skill_dir.description": "Katalog for skill (SKILL.",
     "tool.description": "Laster SKILL.md for en Agent Skill og returnerer YAML-frontmatter og Markdown-innhold.",
     "x_search_terms": [
-      "ferdigheter laster",
-      "laste ferdighet",
-      "ferdighetsbelastning",
-      "ferdighet aktivere",
-      "aktivere ferdighet",
-      "ferdighet aktivere",
-      "bruk av ferdigheter"
+      "ferdighet load",
+      "last ferdighet",
+      "aktiver ferdighet",
+      "aktiver ferdighet",
+      "kompetanseaktivering",
+      "last agent ferdighet",
+      "ferdighet aktiver",
+      "bruk ferdighet",
+      "ferdighet import",
+      "aktiver agentferdighet"
     ]
   },
   "nl": {
@@ -278,13 +329,16 @@
     "param.skill_dir.description": "Skill-map (SKILL.md is direct eronder vereist)",
     "tool.description": "Laadt de SKILL.md voor een Agent Skill en retourneert de YAML-frontmatter en de Markdown-body.",
     "x_search_terms": [
-      "belasting van vaardigheden",
       "vaardigheid laden",
-      "vaardigheidsbelasting",
+      "vaardigheid laden",
       "vaardigheid activeren",
       "vaardigheid inschakelen",
+      "vaardigheid activeren",
+      "agentvaardigheid laden",
       "vaardigheid inschakelen",
-      "gebruik van vaardigheden"
+      "vaardigheid gebruiken",
+      "vaardigheid importeren",
+      "agentvaardigheid activeren"
     ]
   },
   "fi": {
@@ -293,13 +347,16 @@
     "param.skill_dir.description": "Skill-hakemisto (SKILL.",
     "tool.description": "Lataa Agent Skillin SKILL.md-tiedoston ja palauttaa sen YAML-frontmatterin sekä Markdown-rungon.",
     "x_search_terms": [
-      "taitojen kuormitus",
-      "kuormitustaito",
-      "taitojen kuormitus",
-      "taito aktivoida",
-      "ota osaaminen käyttöön",
-      "taito mahdollistaa",
-      "taidon käyttöä"
+      "taito kuorma",
+      "lataa taito",
+      "aktivoi taito",
+      "ota taito",
+      "taidon aktivointi",
+      "lataa agenttitaito",
+      "taidon käyttöönotto",
+      "käytä taitoa",
+      "taidon tuonti",
+      "aktivoi agenttitaito"
     ]
   },
   "cs": {
@@ -308,13 +365,16 @@
     "param.skill_dir.description": "Adresář skillu (SKILL.md musí být přímo pod ním)",
     "tool.description": "Načte SKILL.md pro Agent Skill a vrátí jeho YAML frontmatter a Markdownový obsah.",
     "x_search_terms": [
-      "načtení dovedností",
+      "dovednost zatížení",
       "načíst dovednost",
-      "dovednostní zatížení",
-      "dovednost aktivovat",
-      "umožnit dovednost",
-      "dovednost umožnit",
-      "využití dovedností"
+      "aktivovat dovednost",
+      "aktivovat dovednost",
+      "aktivaci dovednosti",
+      "načíst dovednost agenta",
+      "dovednost povolit",
+      "použít dovednost",
+      "import dovedností",
+      "aktivovat dovednost agenta"
     ]
   },
   "uk": {
@@ -323,13 +383,16 @@
     "param.skill_dir.description": "Каталог skill (SKILL.",
     "tool.description": "Завантажує SKILL.md для Agent Skill і повертає його YAML frontmatter та Markdown-вміст.",
     "x_search_terms": [
-      "завантаження навичок",
-      "навантаження вміння",
-      "уміння навантаження",
-      "вміння активувати",
-      "увімкнути навик",
-      "навички дозволяють",
-      "використання навичок"
+      "навичка завантажити",
+      "завантажити навичку",
+      "активувати навичку",
+      "увімкнути навичку",
+      "активацію навички",
+      "завантажити агента навичку",
+      "навички ввімкнути",
+      "використовувати навичку",
+      "імпорт навичок",
+      "активувати навичку агента"
     ]
   },
   "tr": {
@@ -338,13 +401,16 @@
     "param.skill_dir.description": "Beceri dizini (SKILL.",
     "tool.description": "Bir Agent Skill için SKILL.md'yi yükler ve YAML frontmatter ile Markdown gövdesini döndürür.",
     "x_search_terms": [
-      "beceri yükü",
-      "yükleme becerisi",
-      "beceri yükü",
+      "beceri yükleme",
+      "beceri yükleme",
       "beceri etkinleştirme",
-      "beceriyi etkinleştir",
       "beceri etkinleştirme",
-      "beceri kullanımı"
+      "beceri etkinleştirme",
+      "ajan becerisi yükleme",
+      "beceri etkinleştirme",
+      "beceri kullanma",
+      "beceri içe aktarma",
+      "ajan becerisini etkinleştirme"
     ]
   },
   "th": {
@@ -354,12 +420,15 @@
     "tool.description": "โหลด SKILL.md ของ Agent Skill และส่งคืน YAML frontmatter และเนื้อหา Markdown",
     "x_search_terms": [
       "โหลดทักษะ",
-      "ทักษะการโหลด",
       "โหลดทักษะ",
       "เปิดใช้งานทักษะ",
       "เปิดใช้งานทักษะ",
+      "การเปิดใช้งานทักษะ",
+      "โหลดทักษะตัวแทน",
       "เปิดใช้งานทักษะ",
-      "การใช้ทักษะ"
+      "ใช้ทักษะ",
+      "นำเข้าทักษะ",
+      "เปิดใช้งานทักษะตัวแทน"
     ]
   },
   "zh_CN": {
@@ -368,13 +437,16 @@
     "param.skill_dir.description": "技能目录（其下必须直接包含 SKILL.md）",
     "tool.description": "加载 Agent Skill 的 SKILL.md，并返回其 YAML frontmatter 和 Markdown 正文。",
     "x_search_terms": [
-      "技能负载",
-      "负载技能",
-      "技能负载",
-      "技能激活",
+      "技能加载",
+      "加载技能",
+      "激活技能",
       "启用技能",
+      "技能激活",
+      "加载代理技能",
       "技能启用",
-      "技能使用"
+      "使用技能",
+      "技能导入",
+      "激活代理技能"
     ]
   },
   "zh_TW": {
@@ -383,13 +455,16 @@
     "param.skill_dir.description": "技能目錄（其下必須直接包含 SKILL.md）",
     "tool.description": "載入 Agent Skill 的 SKILL.md，並傳回其 YAML frontmatter 與 Markdown 正文。",
     "x_search_terms": [
-      "技能負荷",
-      "負載技能",
-      "技能負荷",
-      "技能啟動",
+      "技能載入",
+      "載入技能",
+      "啟動技能",
       "啟用技能",
+      "技能啟動",
+      "載入代理技能",
       "技能啟用",
-      "技能運用"
+      "使用技能",
+      "技能導入",
+      "啟動代理技能"
     ]
   },
   "bn": {
@@ -400,11 +475,14 @@
     "x_search_terms": [
       "দক্ষতা লোড",
       "লোড দক্ষতা",
-      "দক্ষতা লোড",
-      "দক্ষতা সক্রিয়",
-      "দক্ষতা সক্ষম করুন",
-      "দক্ষতা সক্ষম",
-      "দক্ষতার ব্যবহার"
+      " দক্ষতা সক্রিয় করুন",
+      " দক্ষতা সক্ষম করুন",
+      " দক্ষতা সক্রিয়করণ",
+      " লোড এজেন্ট দক্ষতা",
+      " দক্ষতা সক্ষম করুন",
+      " দক্ষতা ব্যবহার করুন",
+      " দক্ষতা আমদানি করুন",
+      " এজেন্ট দক্ষতা সক্রিয় করুন"
     ]
   },
   "fa": {
@@ -413,13 +491,16 @@
     "param.skill_dir.description": "پوشهٔ مهارت (SKILL.md باید دقیقاً زیر آن باشد)",
     "tool.description": "SKILL.",
     "x_search_terms": [
-      "بار مهارت",
-      "مهارت بارگذاری",
-      "بار مهارت",
+      "بارگذاری مهارت",
+      "مهارت بار",
       "فعال کردن مهارت",
       "فعال کردن مهارت",
+      "فعالسازی مهارت",
+      "مهارت عامل بارگیری",
       "فعال کردن مهارت",
-      "استفاده از مهارت"
+      "استفاده از مهارت",
+      "وارد کردن مهارت",
+      "فعال کردن مهارت عامل"
     ]
   },
   "mn": {
@@ -429,12 +510,15 @@
     "tool.description": "Agent Skill-ийн SKILL.md-г ачаалж, YAML frontmatter болон Markdown body-г буцаана.",
     "x_search_terms": [
       "ур чадварын ачаалал",
-      "ачааллын ур чадвар",
-      "ур чадварын ачаалал",
-      "ур чадварыг идэвхжүүлэх",
-      "ур чадварыг идэвхжүүлэх",
-      "ур чадвар идэвхжүүлэх",
-      "ур чадварын ашиглалт"
+      "ачаалах чадвар",
+      "чадварыг идэвхжүүлэх",
+      "чадварыг идэвхжүүлэх",
+      "чадварыг идэвхжүүлэх",
+      "агентийн ур чадварыг ачаалах",
+      "чадварыг идэвхжүүлэх",
+      " ур чадвар ашиглах",
+      " ур чадвар импортлох",
+      "агентийн ур чадварыг идэвхжүүлэх"
     ]
   },
   "mr": {
@@ -444,12 +528,15 @@
     "tool.description": "एखाद्या Agent Skill साठी SKILL.md लोड करते आणि त्याचा YAML frontmatter व Markdown body परत करते.",
     "x_search_terms": [
       "कौशल्य लोड",
-      "भार कौशल्य",
-      "कौशल्य भार",
+      "लोड कौशल्य",
       "कौशल्य सक्रिय करा",
       "कौशल्य सक्षम करा",
-      "कौशल्य सक्षम",
-      "कौशल्य वापर"
+      "कौशल्य सक्रिय करा",
+      "लोड एजंट कौशल्य",
+      "कौशल्य सक्षम करा",
+      "कौशल्य वापरा",
+      "कौशल्य आयात",
+      "एजंट कौशल्य सक्रिय करा"
     ]
   },
   "el": {
@@ -459,12 +546,15 @@
     "tool.description": "Φορτώνει το SKILL.md για ένα Agent Skill και επιστρέφει το βασικό του υλικό YAML και το σώμα του Markdown.",
     "x_search_terms": [
       "φόρτωση δεξιοτήτων",
-      "ικανότητα φόρτωσης",
-      "φορτίο δεξιοτήτων",
+      " ικανότητα φόρτωσης",
       "ενεργοποίηση δεξιότητας",
-      "ενεργοποιώ την ικανότητα",
-      "skill enable",
-      "χρήση δεξιοτήτων"
+      "ενεργοποίηση ικανότητας",
+      "ενεργοποίηση δεξιοτήτων",
+      "ικανότητα φόρτωσης",
+      "ενεργοποίηση δεξιοτήτων",
+      "χρήση δεξιότητας",
+      "εισαγωγή δεξιοτήτων",
+      "ενεργοποίηση ικανότητας αντιπροσώπου"
     ]
   },
   "he": {
@@ -473,13 +563,16 @@
     "param.skill_dir.description": "חפש וגלוש בשוק SkillsMP (skillsmp.com) עבור Agent Skills מחזירה רשימה של מיומנויות עם שם, מחבר, תיאור, כוכבים וכתובת GitHub",
     "tool.description": "skillsmp [=#==] skillmp [=#==] חיפוש מיומנות [=#] חיפוש [=#].",
     "x_search_terms": [
-      "טעינת מיומנויות",
-      "מיומנות לטעון",
-      "עומס מיומנות",
-      "מיומנות להפעיל",
+      "טעינת מיומנות",
+      "טעינת מיומנות",
+      "הפעל מיומנות",
       "אפשר מיומנות",
+      "הפעלת מיומנות",
+      "טעינת סוכן מיומנות",
       "מיומנות אפשר",
-      "שימוש במיומנויות"
+      "השתמש במיומנות",
+      "ייבוא מיומנות",
+      "הפעל מיומנות של סוכן"
     ]
   },
   "hu": {
@@ -488,13 +581,16 @@
     "param.skill_dir.description": "készségek betöltése",
     "tool.description": "Keressen és böngésszen a SkillsMP Marketplace-en (skillsmp.com) a névvel, a szerzővel, a csillagokkal és a GitHub URL-lel.",
     "x_search_terms": [
-      "készségek betöltése",
-      "terhelés készség",
-      "készségterhelés",
+      "készség betöltése",
+      "képzettség betöltése",
       "készség aktiválása",
-      "képesség engedélyezése",
-      "készség lehetővé teszi",
-      "készséghasználat"
+      "készség engedélyezése",
+      "készség aktiválása",
+      "ügynök készség betöltése",
+      "készség engedélyezése",
+      "készség használata",
+      "készség importálás",
+      "ügynök készség aktiválása"
     ]
   },
   "ro": {
@@ -503,13 +599,16 @@
     "param.skill_dir.description": "Căutați și răsfoiți SkillsMP marketplace (skillsmp.com) pentru abilități de agent, cu numele, autorul, descrierea, stele și URL-ul GitHub",
     "tool.description": "Încarcă SKILL.md pentru o abilitate de agent și returnează materialul principal YAML și corpul Markdown.",
     "x_search_terms": [
-      "încărcare abilități",
-      "abilitate de încărcare",
-      "sarcina de calificare",
-      "abilitate activa",
-      "activa abilitate",
-      "abilitate activa",
-      "utilizarea competențelor"
+      "skill load",
+      "încărcare skill",
+      "activare skill",
+      "activare skill",
+      "skill activation",
+      "încărcare skill agent",
+      "skill activare",
+      "utilizare skill",
+      "skill import",
+      "activare skill agent"
     ]
   }
 }

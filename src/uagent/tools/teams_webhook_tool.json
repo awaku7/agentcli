@@ -27,13 +27,16 @@
   "ja": {
     "tool.description": "環境変数に保存された Microsoft Teams の Incoming Webhook URL へ、メッセージまたは webhook で利用できる JSON ペイロードを送信します。",
     "x_search_terms": [
-      "チーム Webhook",
-      "マイクロソフトチーム",
-      "チームメッセージ",
-      "Webhook 送信",
-      "チーム通知",
-      "チームアラート",
-      "チームの投稿"
+      "チーム",
+      "Microsoft Teams",
+      "webhook",
+      "teams webhook",
+      "teams メッセージ",
+      "チームを送信",
+      "teams 通知",
+      "webhook 送信",
+      "teams チャネル",
+      "teams アラート"
     ],
     "param.message.description": "Teams に投稿するメッセージ本文。カード項目が指定されていない場合はプレーンテキストとして使います。",
     "param.title.description": "webhook で利用できるペイロード向けのカードタイトル。",
@@ -49,13 +52,16 @@
   "es": {
     "tool.description": "Publicar un mensaje o una carga útil JSON compatible con webhook en una URL de webhook entrante de Microsoft Teams almacenada en una variable de entorno.",
     "x_search_terms": [
-      "webhook de equipos",
+      "equipos",
       "equipos de microsoft",
+      "webhook",
+      "webhook de equipos",
       "mensaje de equipos",
-      "envío de webhook",
+      "enviar equipos",
       "notificación de equipos",
-      "alerta de equipos",
-      "publicación de equipos"
+      "enviar webhook",
+      "canal de equipos",
+      "alerta de equipos"
     ],
     "param.message.description": "Texto del mensaje para publicar en Teams.",
     "param.title.description": "Título de la tarjeta para cargas útiles compatibles con webhook.",
@@ -71,13 +77,16 @@
   "fr": {
     "tool.description": "Publier un message ou une charge utile JSON prise en charge par un webhook sur une URL de webhook entrant Microsoft Teams stockée dans une variable d'environnement.",
     "x_search_terms": [
-      "webhook des équipes",
-      "équipes Microsoft",
-      "message des équipes",
+      "teams",
+      "microsoft teams",
+      "webhook",
+      "teams webhook",
+      "teams message",
+      "envoyer des équipes",
+      "teams notification",
       "webhook envoyer",
-      "notifications des équipes",
-      "alerte équipes",
-      "équipes post"
+      "teams channel",
+      "teams alert"
     ],
     "param.message.description": "Texte du message à publier dans Teams.",
     "param.title.description": "Titre de la carte pour les charges utiles prises en charge par les webhooks.",
@@ -93,13 +102,16 @@
   "ko": {
     "tool.description": "환경 변수에 저장된 Microsoft Teams Incoming Webhook URL로 메시지 또는 webhook에서 지원하는 JSON 페이로드를 전송합니다.",
     "x_search_terms": [
-      "팀 웹훅",
-      "마이크로소프트 팀",
+      "팀",
+      "microsoft 팀",
+      "웹후크",
+      "팀 웹후크",
       "팀 메시지",
-      "웹훅 보내기",
-      "팀 알림",
-      "팀 경고",
-      "팀 포스트"
+      "팀",
+      "팀 알림 보내기",
+      "웹후크 보내기",
+      "팀 채널",
+      "팀 알림"
     ],
     "param.message.description": "Teams에 게시할 메시지 본문입니다. 카드 필드가 제공되지 않으면 일반 텍스트로 사용됩니다.",
     "param.title.description": "webhook에서 지원하는 페이로드용 카드 제목입니다.",
@@ -115,13 +127,16 @@
   "de": {
     "tool.description": "Veröffentlichen Sie eine Nachricht oder eine Webhook-unterstützte JSON-Nutzlast an eine eingehende Webhook-URL von Microsoft Teams, die in einer Umgebungsvariablen gespeichert ist.",
     "x_search_terms": [
-      "Teams-Webhook",
-      "Microsoft-Teams",
-      "Mannschaftsnachricht",
-      "Webhook senden",
-      "Teambenachrichtigung",
-      "Teams-Alarm",
-      "Teams posten"
+      "Teams",
+      "Microsoft Teams",
+      "Webhook",
+      "Teams Webhook",
+      "Teams-Nachricht",
+      "Send Teams",
+      "Teams-Benachrichtigung",
+      "Webhook Send",
+      "Teams-Kanal",
+      "Teams-Benachrichtigung"
     ],
     "param.message.description": "Nachrichtentext für Teams.",
     "param.title.description": "Kartentitel für Webhook-unterstützte Nutzlasten.",
@@ -137,13 +152,16 @@
   "it": {
     "tool.description": "Pubblica un messaggio o un payload JSON supportato dal webhook su un URL del webhook in entrata di Microsoft Teams archiviato in una variabile di ambiente.",
     "x_search_terms": [
-      "webhook dei team",
-      "squadre Microsoft",
-      "messaggio delle squadre",
-      "webhook invia",
-      "notifica squadre",
-      "squadre allertate",
-      "post dei team"
+      "team",
+      "microsoft team",
+      "webhook",
+      "webhook di team",
+      "messaggio di team",
+      "invia team",
+      "notifica di team",
+      "invio di webhook",
+      "canale di team",
+      "avviso di team"
     ],
     "param.message.description": "Testo del messaggio da pubblicare su Teams.",
     "param.title.description": "Titolo della scheda per payload supportati da webhook.",
@@ -159,13 +177,16 @@
   "ru": {
     "tool.description": "Публикует сообщение или JSON-данные, поддерживаемые webhook, в URL Microsoft Teams Incoming Webhook, хранящийся в переменной окружения.",
     "x_search_terms": [
-      "вебхук команд",
-      "команды Microsoft",
-      "сообщение команды",
-      "вебхук отправить",
-      "уведомление команд",
-      "команды оповещения",
-      "сообщение команды"
+      "Teams",
+      "Microsoft Teams",
+      "webhook",
+      "teams webhook",
+      "сообщение Teams",
+      "отправить команды",
+      "уведомление Teams",
+      "webhook send",
+      "канал Teams",
+      "предупреждение Teams"
     ],
     "param.message.description": "Текст сообщения для публикации в Teams.",
     "param.title.description": "Название карты для полезных нагрузок, поддерживаемых веб-перехватчиком.",
@@ -181,13 +202,16 @@
   "pt_BR": {
     "tool.description": "Poste uma mensagem ou carga útil JSON compatível com webhook em uma URL de webhook de entrada do Microsoft Teams armazenada em uma variável de ambiente.",
     "x_search_terms": [
-      "webhook de equipes",
-      "equipes da Microsoft",
-      "mensagem das equipes",
-      "envio de webhook",
+      "equipes",
+      "microsoft equipes",
+      "webhook",
+      "teams webhook",
+      "teams mensagem",
+      "enviar equipes",
       "notificação de equipes",
-      "alerta de equipes",
-      "postagem das equipes"
+      "webhook enviar",
+      "canal de equipes",
+      "alerta de equipes"
     ],
     "param.message.description": "Texto da mensagem a ser publicado no Teams.",
     "param.title.description": "Título do cartão para cargas suportadas por webhook.",
@@ -203,13 +227,16 @@
   "pt": {
     "tool.description": "Poste uma mensagem ou carga útil JSON compatível com webhook em uma URL de webhook de entrada do Microsoft Teams armazenada em uma variável de ambiente.",
     "x_search_terms": [
-      "webhook de equipes",
-      "equipes da Microsoft",
-      "mensagem das equipes",
-      "envio de webhook",
-      "notificao de equipes",
-      "alerta de equipes",
-      "postagem das equipes"
+      "equipes",
+      "microsoft equipes",
+      "webhook",
+      "teams webhook",
+      "teams mensagem",
+      "enviar equipes",
+      "notificação de equipes",
+      "webhook enviar",
+      "canal de equipes",
+      "alerta de equipes"
     ],
     "param.message.description": "Texto da mensagem para postar no Teams.",
     "param.title.description": "Título do cartão para cargas suportadas por webhook.",
@@ -225,13 +252,16 @@
   "id": {
     "tool.description": "Kirim pesan atau payload JSON yang didukung webhook ke Microsoft Teams Incoming Webhook URL yang disimpan di variabel lingkungan.",
     "x_search_terms": [
-      "webhook tim",
-      "tim Microsoft",
+      "tim",
+      "tim microsoft",
+      "webhook",
+      "tim webhook",
       "pesan tim",
-      "kirim webhook",
+      "kirim tim",
       "pemberitahuan tim",
-      "peringatan tim",
-      "kiriman tim"
+      "kirim webhook",
+      "saluran tim",
+      "peringatan tim"
     ],
     "param.message.description": "Teks pesan yang dikirim ke Teams.",
     "param.title.description": "Judul kartu untuk payload yang didukung webhook.",
@@ -247,13 +277,16 @@
   "vi": {
     "tool.description": "Đăng thông báo hoặc tải trọng JSON được webhook hỗ trợ lên URL Webhook đến của Microsoft Teams được lưu trữ trong một biến môi trường.",
     "x_search_terms": [
-      "webhook nhóm",
-      "đội microsoft",
-      "tin nhắn của đội",
+      "đội",
+      "microsoft đội",
+      "webhook",
+      "webhook của nhóm",
+      "tin nhắn của nhóm",
+      "gửi nhóm",
+      "thông báo của nhóm",
       "gửi webhook",
-      "thông báo đội",
-      "đội cảnh báo",
-      "nhóm đăng"
+      "kênh nhóm",
+      "thông báo về nhóm"
     ],
     "param.message.description": "Nội dung tin nhắn để đăng lên Teams.",
     "param.title.description": "Tiêu đề thẻ cho tải trọng được webhook hỗ trợ.",
@@ -269,13 +302,16 @@
   "pl": {
     "tool.description": "Opublikuj wiadomość lub ładunek JSON obsługiwany przez webhook pod adresem URL przychodzącego webhooka Microsoft Teams przechowywanym w zmiennej środowiskowej.",
     "x_search_terms": [
-      "webhook zespołu",
-      "zespoły Microsoftu",
-      "wiadomość zespołu",
+      "zespoły",
+      "microsoft zespołów",
+      "webhook",
+      "teams webhook",
+      "wiadomość zespołowa",
+      "wyślij powiadomienie zespołowe",
+      "wyślij powiadomienie zespołowe",
       "webhook wyślij",
-      "powiadomienie drużyn",
-      "alarm zespołów",
-      "posty zespołów"
+      "kanał zespołowy",
+      "alarm zespołowy"
     ],
     "param.message.description": "Tekst wiadomości do opublikowania w aplikacji Teams.",
     "param.title.description": "Tytuł karty dla ładunków obsługiwanych przez webhook.",
@@ -291,13 +327,16 @@
   "hi": {
     "tool.description": "एक पर्यावरण चर में संग्रहीत Microsoft Teams इनकमिंग वेबहुक URL पर एक संदेश या वेबहुक-समर्थित JSON पेलोड पोस्ट करें।",
     "x_search_terms": [
-      "टीमें वेबहुक",
+      "टीमें",
       "माइक्रोसॉफ्ट टीमें",
-      "टीमों का संदेश",
+      "वेबहुक",
+      "टीमें वेबहुक",
+      "टीम संदेश",
+      "टीम भेजें",
+      "टीम अधिसूचना",
       "वेबहुक भेजें",
-      "टीमों की अधिसूचना",
-      "टीमें अलर्ट",
-      "टीमें पोस्ट करती हैं"
+      "टीम चैनल",
+      "टीम अलर्ट"
     ],
     "param.message.description": "टीमों को पोस्ट करने के लिए संदेश पाठ.",
     "param.title.description": "वेबहुक-समर्थित पेलोड के लिए कार्ड शीर्षक।",
@@ -313,13 +352,16 @@
   "ar": {
     "tool.description": "انشر رسالة أو حمولة JSON مدعومة بخطاف الويب إلى عنوان URL الوارد لـ Webhook الخاص بـ Microsoft Teams والمخزن في متغير بيئة.",
     "x_search_terms": [
-      "خطاف ويب للفرق",
+      "الفرق",
       "فرق مايكروسوفت",
+      "خطاف الويب",
+      "خطاف الويب للفرق",
       "رسالة الفرق",
+      "إرسال الفرق",
+      "إخطار الفرق",
       "إرسال خطاف الويب",
-      "إشعار الفرق",
-      "تنبيه الفرق",
-      "منشور الفرق"
+      "قناة الفرق",
+      "تنبيه الفرق"
     ],
     "param.message.description": "رسالة نصية للنشر إلى Teams. يُستخدم كنص عادي ما لم يتم توفير حقول البطاقة.",
     "param.title.description": "عنوان البطاقة للحمولات التي تدعم خطاف الويب.",
@@ -335,13 +377,16 @@
   "sv": {
     "tool.description": "Lägg upp ett meddelande eller en webhook-stödd JSON-nyttolast till en Microsoft Teams Incoming Webhook-URL lagrad i en miljövariabel.",
     "x_search_terms": [
-      "lags webhook",
-      "Microsofts team",
-      "teams meddelande",
+      "teams",
+      "microsoft teams",
+      "webhook",
+      "teams webhook",
+      "teammeddelande",
+      "skicka team",
+      "teammeddelande",
       "webhook skicka",
-      "lagmeddelande",
-      "lag varning",
-      "team post"
+      "teamkanal",
+      "teamvarning"
     ],
     "param.message.description": "Meddelandetext som ska publiceras i Teams. Används som vanlig text om inga kortfält anges.",
     "param.title.description": "Korttitel för payloads som stöds av webhook.",
@@ -357,13 +402,16 @@
   "sw": {
     "tool.description": "Chapisha ujumbe au upakiaji wa malipo wa JSON unaotumika kwenye mtandao kwa URL ya Timu za Microsoft zinazoingia kwenye mazingira ya Webhook.",
     "x_search_terms": [
-      "timu za wavuti",
-      "timu za Microsoft",
+      "timu",
+      "timu za microsoft",
+      "webhook",
+      "timu webhook",
       "ujumbe wa timu",
-      "tuma mtandaoni",
+      "tuma timu",
       "arifa za timu",
-      "timu tahadhari",
-      "chapisho la timu"
+      "webhook tuma",
+      "idhaa ya timu",
+      "tahadhari ya timu"
     ],
     "param.message.description": "Maandishi ya ujumbe wa kuchapisha kwenye Teams.",
     "param.title.description": "Jina la kadi ya upakiaji unaotumika kwenye mtandao.",
@@ -379,13 +427,16 @@
   "nb": {
     "tool.description": "Publiser en melding eller en JSON-payload som støttes av webhook, til en Microsoft Teams Incoming Webhook-URL lagret i en miljøvariabel.",
     "x_search_terms": [
-      "lags webhook",
-      "Microsoft-team",
-      "lags melding",
+      "teams",
+      "microsoft teams",
+      "webhook",
+      "teams webhook",
+      "teams melding",
+      "send teams",
+      "teams varsel",
       "webhook send",
-      "lagmelding",
-      "lag varsel",
-      "lags innlegg"
+      "teams kanal",
+      "teamvarsling"
     ],
     "param.message.description": "Meldingstekst som skal publiseres i Teams.",
     "param.title.description": "Korttittel for webhook-støttede nyttelaster.",
@@ -401,13 +452,16 @@
   "nl": {
     "tool.description": "Plaats een bericht of een door webhook ondersteunde JSON-payload naar een inkomende webhook-URL van Microsoft Teams die is opgeslagen in een omgevingsvariabele.",
     "x_search_terms": [
+      "teams",
+      "microsoft teams",
+      "webhook",
       "teams webhook",
-      "microsoftteams",
-      "teambericht",
+      "teams bericht",
+      "teams verzenden",
+      "teams melding",
       "webhook verzenden",
-      "teammelding",
-      "teams waarschuwen",
-      "teams plaatsen"
+      "teams kanaal",
+      "teams waarschuwing"
     ],
     "param.message.description": "Berichttekst om naar Teams te posten.",
     "param.title.description": "Kaarttitel voor door webhook ondersteunde payloads.",
@@ -423,13 +477,16 @@
   "fi": {
     "tool.description": "Lähetä viesti tai webhookia tukeva JSON-lataus Microsoft Teams Incoming Webhook -osoitteeseen, joka on tallennettu ympäristömuuttujaan.",
     "x_search_terms": [
-      "tiimien webhook",
-      "Microsoft Teams",
-      "joukkueiden viesti",
-      "webhook lähettää",
-      "joukkueiden ilmoitus",
-      "joukkueet hälytys",
-      "joukkueiden posti"
+      "teams",
+      "microsoft teams",
+      "webhook",
+      "tiimit webhook",
+      "tiimien viesti",
+      "lähetä tiimeille",
+      "tiimien ilmoitus",
+      "webhook lähetä",
+      "tiimien kanava",
+      "tiimien hälytys"
     ],
     "param.message.description": "Teamsiin julkaistava viestiteksti.",
     "param.title.description": "Kortin otsikko webhook-tuetuille hyötykuormille.",
@@ -445,13 +502,16 @@
   "cs": {
     "tool.description": "Odešle zprávu nebo JSON payload podporovaný webhookem na URL Microsoft Teams Incoming Webhook uloženou v proměnné prostředí.",
     "x_search_terms": [
-      "webhook týmů",
-      "týmy microsoft",
-      "týmová zpráva",
-      "webhook odeslat",
+      "týmy",
+      "microsoft týmy",
+      "webhook",
+      "týmy webhook",
+      "týmy zpráva",
+      "odeslat týmy",
       "oznámení týmů",
-      "týmy upozornění",
-      "příspěvek týmů"
+      "webhook odeslat",
+      "kanál týmů",
+      "výstraha týmů"
     ],
     "param.message.description": "Text zprávy, která se má odeslat do Teams.",
     "param.title.description": "Název karty pro užitečné zatížení podporované webhookem.",
@@ -467,13 +527,16 @@
   "uk": {
     "tool.description": "Опублікуйте повідомлення або корисне навантаження JSON, що підтримується веб-хук, до URL-адреси вхідного веб-хуку Microsoft Teams, що зберігається у змінній середовища.",
     "x_search_terms": [
-      "вебхук команд",
-      "команди Microsoft",
-      "повідомлення команд",
-      "вебхук відправити",
-      "сповіщення команд",
-      "команд оповіщення",
-      "допис команд"
+      "teams",
+      "microsoft teams",
+      "webhook",
+      "teams webhook",
+      "teams message",
+      "send teams",
+      "teams notification",
+      "webhook send",
+      "teams channel",
+      "teams alert"
     ],
     "param.message.description": "Текст повідомлення для публікації в Teams.",
     "param.title.description": "Назва картки для корисних навантажень, які підтримуються веб-хуком.",
@@ -489,13 +552,16 @@
   "tr": {
     "tool.description": "Bir mesajı veya webhook destekli JSON yükünü, bir ortam değişkeninde saklanan Microsoft Teams Incoming Webhook URL'sine gönderir.",
     "x_search_terms": [
-      "ekiplenin web kancası",
+      "ekipler",
       "microsoft ekipleri",
-      "ekiplerin mesajı",
-      "web kancası gönder",
-      "ekip bildirimi",
-      "takım uyarısı",
-      "ekipler gönderi"
+      "webhook",
+      "ekipler webhook",
+      "ekipler mesajı",
+      "ekipler gönder",
+      "ekipler bildirimi",
+      "webhook gönder",
+      "ekipler kanalı",
+      "ekipler uyarısı"
     ],
     "param.message.description": "Teams'e gönderilecek mesaj metni. Kart alanları verilmedikçe düz metin olarak kullanılır.",
     "param.title.description": "Webhook destekli yükler için kart başlığı.",
@@ -511,13 +577,16 @@
   "th": {
     "tool.description": "ส่งข้อความหรือ JSON payload ที่รองรับ webhook ไปยัง URL ของ Microsoft Teams Incoming Webhook ที่เก็บไว้ในตัวแปรสภาพแวดล้อม",
     "x_search_terms": [
+      "ทีม",
+      "ทีม Microsoft",
+      "webhook",
       "ทีม webhook",
-      "ทีมไมโครซอฟต์",
-      "ข้อความของทีม",
-      "เว็บฮุค ส่ง",
+      "ข้อความทีม",
+      "ส่งทีม",
       "การแจ้งเตือนทีม",
-      "ทีมงานแจ้งเตือน",
-      "ทีมงานโพสต์"
+      "ส่ง webhook",
+      "ช่องทีม",
+      "การแจ้งเตือนทีม"
     ],
     "param.message.description": "ข้อความที่จะโพสต์ไปยัง Teams ใช้เป็นข้อความธรรมดาเว้นแต่จะระบุฟิลด์ของการ์ด",
     "param.title.description": "ชื่อการ์ดสำหรับ payload ที่รองรับ webhook",
@@ -533,13 +602,16 @@
   "zh_CN": {
     "tool.description": "将消息或 webhook 支持的 JSON 负载发送到存储在环境变量中的 Microsoft Teams Incoming Webhook URL。",
     "x_search_terms": [
-      "团队 webhook",
-      "微软团队",
-      "团队留言",
-      "网络钩子发送",
+      "团队",
+      "Microsoft 团队",
+      "webhook",
+      "团队webhook",
+      "团队消息",
+      "发送团队",
       "团队通知",
-      "团队警报",
-      "团队发布"
+      "webhook 发送",
+      "团队频道",
+      "团队警报"
     ],
     "param.message.description": "要发布到 Teams 的消息文本。除非提供了卡片字段，否则将作为纯文本使用。",
     "param.title.description": "适用于 webhook 支持的负载的卡片标题。",
@@ -555,13 +627,16 @@
   "zh_TW": {
     "tool.description": "將訊息或 webhook 支援的 JSON 載荷傳送到儲存在環境變數中的 Microsoft Teams Incoming Webhook URL。",
     "x_search_terms": [
-      "團隊 webhook",
-      "微軟團隊",
-      "團隊留言",
-      "網路鉤子發送",
+      "團隊",
+      "Microsoft 團隊",
+      "webhook",
+      "團隊webhook",
+      "團隊訊息",
+      "發送團隊",
       "團隊通知",
-      "團隊警報",
-      "團隊發帖"
+      "webhook 發送",
+      "團隊頻道",
+      "團隊警報"
     ],
     "param.message.description": "要發布到 Teams 的訊息文字。除非提供卡片欄位，否則會以純文字使用。",
     "param.title.description": "適用於 webhook 支援載荷的卡片標題。",
@@ -577,13 +652,16 @@
   "bn": {
     "tool.description": "পরিবেশ চলকে সংরক্ষিত Microsoft Teams Incoming Webhook URL-এ একটি বার্তা বা webhook-সমর্থিত JSON payload পাঠায়.",
     "x_search_terms": [
+      "দল",
+      "মাইক্রোসফ্ট দল",
+      "ওয়েবহুক",
       "টিম ওয়েবহুক",
-      "মাইক্রোসফট টিম",
-      "দলের বার্তা",
+      "টিম বার্তা",
+      "টিম পাঠান",
+      "টিম বিজ্ঞপ্তি",
       "ওয়েবহুক পাঠান",
-      "দল বিজ্ঞপ্তি",
-      "দল সতর্ক",
-      "টিম পোস্ট"
+      "টিম চ্যানেল",
+      "টিম সতর্কতা"
     ],
     "param.message.description": "Teams-এ পাঠানোর বার্তার লেখা। card field দেওয়া না থাকলে plain text হিসেবে ব্যবহৃত হয়।",
     "param.title.description": "webhook-সমর্থিত payload-এর জন্য card শিরোনাম।",
@@ -599,13 +677,16 @@
   "fa": {
     "tool.description": "یک پیام یا payload JSON پشتیبانی‌شده توسط webhook را به URL وبهوک ورودی Microsoft Teams که در یک متغیر محیطی ذخیره شده است ارسال می‌کند.",
     "x_search_terms": [
-      "وب هوک تیم ها",
+      "تیم ها",
       "تیم های مایکروسافت",
-      "پیام تیم ها",
+      "وب هوک",
+      "تیم های وب هوک",
+      "پیام تیم",
+      "ارسال تیم",
+      "اعلان تیم",
       "وب هوک ارسال",
-      "اطلاع رسانی تیم ها",
-      "هشدار تیم ها",
-      "پست تیم ها"
+      "کانال تیم",
+      "هشدار تیم"
     ],
     "param.message.description": "متن پیام برای ارسال در Teams.",
     "param.title.description": "عنوان کارت برای بارهای پشتیبانی شده تحت وب هوک.",
@@ -621,13 +702,16 @@
   "mn": {
     "tool.description": "Орчны хувьсагчид хадгалсан Microsoft Teams Incoming Webhook URL руу мессеж эсвэл webhook дэмждэг JSON payload илгээнэ.",
     "x_search_terms": [
-      "багийн вэб дэгээ",
-      "microsoft багууд",
-      "багуудын мессеж",
+      "teams",
+      "microsoft teams",
+      "webhook",
+      "teams webhook",
+      "teams message",
+      "баг илгээх",
+      "багийн мэдэгдэл",
       "webhook илгээх",
-      "багуудын мэдэгдэл",
-      "багууд анхааруулга",
-      "багийн нийтлэл"
+      "багийн суваг",
+      "багийн сэрэмжлүүлэг"
     ],
     "param.message.description": "Teams рүү нийтлэх мессежийн текст. Картын талбарууд өгөөгүй бол энгийн текстээр ашиглана.",
     "param.title.description": "Вэб дэгээгээр дэмжигдсэн ачааллын картын гарчиг.",
@@ -643,13 +727,16 @@
   "mr": {
     "tool.description": "पर्यावरण चलामध्ये साठवलेल्या Microsoft Teams Incoming Webhook URL वर संदेश किंवा webhook-समर्थित JSON payload पोस्ट करते.",
     "x_search_terms": [
-      "संघ वेबहुक",
-      "microsoft संघ",
-      "संघ संदेश",
-      "webhook पाठवा",
-      "संघ सूचना",
-      "संघ सतर्क",
-      "टीम पोस्ट"
+      "teams",
+      "microsoft teams",
+      "webhook",
+      "teams webhook",
+      "teams message",
+      "Send teams",
+      "teams अधिसूचना",
+      "webhook send",
+      "teams channel",
+      " teams alert"
     ],
     "param.message.description": "Teams वर पोस्ट करायचा संदेश मजकूर.",
     "param.title.description": "webhook-समर्थित payload साठी कार्ड शीर्षक.",
@@ -665,13 +752,16 @@
   "el": {
     "tool.description": "Δημοσιεύστε ένα μήνυμα ή ένα ωφέλιμο φορτίο JSON που υποστηρίζεται από webhook σε μια διεύθυνση URL του Microsoft Teams Incoming Webhook που είναι αποθηκευμένη σε μια μεταβλητή περιβάλλοντος.",
     "x_search_terms": [
-      "ομάδα webhook",
+      "ομάδες",
       "ομάδες της microsoft",
-      "μήνυμα ομάδων",
-      "webhook αποστολή",
-      "κοινοποίηση ομάδων",
+      "webhook",
+      "teams webhook",
+      "ομάδες μήνυμα",
+      " αποστολή ομάδων",
       "ειδοποίηση ομάδων",
-      "αναρτούν ομάδες"
+      "webhook αποστολή",
+      "ομάδες κανάλι",
+      "ομαδική ειδοποίηση"
     ],
     "param.message.description": "Τίτλος κάρτας για ωφέλιμα φορτία που υποστηρίζονται από webhook.",
     "param.title.description": "Σύνοψη κάρτας για φορτία που υποστηρίζονται από webhook.",
@@ -687,13 +777,16 @@
   "he": {
     "tool.description": "פרסם הודעה או מטען JSON נתמך ב-webhook לכתובת URL של Microsoft Teams Incoming Webhook המאוחסנת במשתנה סביבה.",
     "x_search_terms": [
-      "Webhook של צוותים",
-      "צוותי מיקרוסופט",
-      "הודעת צוותים",
+      "teams",
+      "microsoft teams",
+      "webhook",
+      "teams webhook",
+      "הודעה לצוותים",
+      "שלח הודעות לצוותים",
+      "צוותים",
       "webhook שלח",
-      "הודעת צוותים",
-      "התראת צוותים",
-      "צוותים מפרסמים"
+      "ערוץ צוותים",
+      "התראת צוותים"
     ],
     "param.message.description": "כותרת הכרטיס עבור מטענים נתמכים ב-webhook.",
     "param.title.description": "סיכום כרטיס עבור מטענים הנתמכים ב-webhook.",
@@ -709,13 +802,16 @@
   "hu": {
     "tool.description": "Üzenet vagy webhook által támogatott JSON-tartalom közzététele egy környezeti változóban tárolt Microsoft Teams bejövő webhook URL-címére.",
     "x_search_terms": [
-      "csapatok webhook",
-      "Microsoft csapatok",
+      "csapatok",
+      "microsoft csapatok",
+      "webhook",
+      "teams webhook",
       "csapatok üzenete",
-      "webhook küldés",
-      "csapatok értesítése",
-      "csapatok riasztása",
-      "csapatok bejegyzése"
+      " csapatoknak",
+      "csapatok értesítésének küldése",
+      "webhook küldése",
+      "teams csatorna",
+      "csapatok figyelmeztetése"
     ],
     "param.message.description": "A kártya címe a webhook által támogatott rakományokhoz.",
     "param.title.description": "Kártya összefoglaló a webhook által támogatott rakományokhoz.",
@@ -731,13 +827,16 @@
   "ro": {
     "tool.description": "Postați un mesaj sau o încărcare utilă JSON acceptată de webhook la o adresă URL a Microsoft Teams Incoming Webhook stocată într-o variabilă de mediu.",
     "x_search_terms": [
-      "webhook echipe",
-      "echipe Microsoft",
-      "mesajul echipelor",
+      "teams",
+      "microsoft teams",
+      "webhook",
+      "echipe webhook",
+      "mesaj echipe",
+      "trimite echipe",
+      "notificare echipe",
       "webhook trimite",
-      "notificarea echipelor",
-      "alerta echipe",
-      "postarea echipelor"
+      "canal echipe",
+      "alerta echipelor"
     ],
     "param.message.description": "Text mesaj pentru a posta în Teams. Folosit ca text simplu, cu excepția cazului în care sunt furnizate câmpuri pentru carduri.",
     "param.title.description": "Titlul cardului pentru încărcături utile acceptate de webhook.",

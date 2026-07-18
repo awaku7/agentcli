@@ -660,9 +660,9 @@
     "warn.indexing_title": "[VAROITUS] Indeksointivaroitukset (poistettu kopiot, 50 suosituinta):"
   },
   "cs": {
-    "out.db": "DB: {db_path}",
     "err.dir_not_found": "Chyba: adresář nebyl nalezen: {root_path}",
     "err.query_required": "Chyba: dotaz je povinný.",
+    "out.db": "DB: {db_path}",
     "out.hits_summary": "vector_hits: {v} / graph_hits: {g} / sloučené: {m}",
     "out.no_docs": "Nebyly nalezeny žádné relevantní dokumenty.",
     "out.query": "Vyhledávací dotaz: {query}",

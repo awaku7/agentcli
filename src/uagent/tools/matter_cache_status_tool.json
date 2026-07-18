@@ -15,34 +15,40 @@
   "ar": {
     "tool.description": "عرض إحصائيات ذاكرة التخزين المؤقت للمادة: نسبة الدخول، عدد الإدخالات، TTL.",
     "x_search_terms": [
-      "حالة ذاكرة التخزين المؤقت للمادة",
+      "حالة ذاكرة التخزين المؤقتة",
       "matter_cache_status",
-      "مادة",
-      "مادة",
-      "إحصائيات",
-      "تخزين مؤقت"
+      "matter",
+      "MATTER",
+      "الإحصائيات",
+      "نسبة",
+      "إدخال",
+      "عدد"
     ]
   },
   "bn": {
     "tool.description": "ম্যাটার ক্যাশে পরিসংখ্যান দেখান: হিট রেশিও, এন্ট্রি কাউন্ট, TTL।",
     "x_search_terms": [
-      "বিষয় ক্যাশে স্থিতি",
+      "ম্যাটার ক্যাশে স্ট্যাটাস",
       "matter_cache_status",
-      "বিষয়",
-      "বিষয়",
-      "পরিসংখ্যান",
-      "ক্যাশিং"
+      "matter",
+      "MATTER",
+      "statistics",
+      "ratio",
+      "entry",
+      "count"
     ]
   },
   "cs": {
     "tool.description": "Zobrazit statistiky mezipaměti Matter: poměr zásahů, počet záznamů, TTL.",
     "x_search_terms": [
-      "stav mezipaměti hmoty",
+      "stav cache záležitostí",
       "matter_cache_status",
-      "hmota",
-      "HMOTA",
-      "statistiky",
-      "ukládání do mezipaměti"
+      "matter",
+      "MATTER",
+      "statistics",
+      "ratio",
+      "entry",
+      "počet"
     ]
   },
   "de": {
@@ -50,274 +56,324 @@
     "x_search_terms": [
       "Materie-Cache-Status",
       "matter_cache_status",
-      "Angelegenheit",
+      "matter",
       "MATTER",
-      "Statistiken",
-      "Caching"
+      "statistics",
+      "ratio",
+      "entry",
+      "count"
     ]
   },
   "el": {
     "tool.description": "Εμφάνιση στατιστικών για την κρυφή μνήμη Matter: αναλογία επισκέψεων, πλήθος καταχωρήσεων, TTL.",
     "x_search_terms": [
-      "κατάσταση προσωρινής μνήμης ύλης",
+      "θέμα κατάσταση προσωρινής μνήμης",
       "matter_cache_status",
-      "ύλη",
-      "ΥΛΗ",
-      "στατιστικά",
-      "προσωρινή αποθήκευση"
+      "matter",
+      "MATTER",
+      "statistics",
+      "ratio",
+      "entry",
+      "count"
     ]
   },
   "es": {
     "tool.description": "Mostrar estadísticas de caché de materia: índice de aciertos, recuento de entradas, TTL.",
     "x_search_terms": [
-      "estado de la caché de materia",
-      "materia_cache_status",
+      "estado de caché de materia",
+      "matter_cache_status",
       "materia",
-      "ASUNTO",
+      "MATERÍA",
       "estadísticas",
-      "almacenamiento en caché"
+      "relación",
+      "entrada",
+      "recuento"
     ]
   },
   "fa": {
     "tool.description": "نمایش آمار حافظه پنهان Matter: نسبت ضربه، تعداد ورودی، TTL.",
     "x_search_terms": [
-      "وضعیت کش ماده",
-      "matter_cache_status",
-      "ماده",
-      "ماده",
-      "آمار",
-      "ذخیره‌سازی کش"
+      "وضعیت حافظه نهان مهم",
+      "",
+      "",
+      "",
+      "",
+      "",
+      "",
+      ""
     ]
   },
   "fi": {
     "tool.description": "Näytä välimuistin tilastotiedot: osumasuhde, tulojen määrä, TTL.",
     "x_search_terms": [
-      "asian välimuistin tila",
+      "Asian välimuistin tila",
       "matter_cache_status",
-      "asia",
-      "ASIA",
+      "matter",
+      "MATTER",
       "tilastot",
-      "välimuistitus"
+      "ratio",
+      "entrycount",
+      ""
     ]
   },
   "fr": {
     "tool.description": "Afficher les statistiques du cache Matter : taux de réussite, nombre d'entrées, durée de vie.",
     "x_search_terms": [
-      "état du cache de questions",
-      "matière_cache_status",
-      "matière",
-      "MATIÈRE",
-      "statistiques",
-      "mise en cache"
+      "statut du cache d'importance",
+      "matter_cache_status",
+      "matter",
+      "MATTER",
+      "statistics",
+      "ratio",
+      "entry",
+      "count"
     ]
   },
   "he": {
     "tool.description": "הצג נתונים סטטיסטיים של מטמון Matter: יחס כניסות, ספירת כניסות, TTL.",
     "x_search_terms": [
-      "סטטוס מטמון חומר",
+      "matter_cache status",
       "matter_cache_status",
-      "חומר",
-      "חומר",
+      "matter",
+      "MATTER",
       "סטטיסטיקות",
-      "שמירה במטמון"
+      "יחס",
+      "ספירת כניסות",
+      ""
     ]
   },
   "hi": {
     "tool.description": "मैटर कैश आँकड़े दिखाएँ: हिट अनुपात, प्रविष्टि गणना, टीटीएल।",
     "x_search_terms": [
-      "विषय कैश स्थिति",
+      "मामला कैश स्थिति",
       "matter_cache_status",
-      "विषय",
-      "विषय",
-      "आंकड़े",
-      "कैशिंग"
+      "matter",
+      "MATTER",
+      "statistics",
+      "ratio",
+      "entry",
+      "count"
     ]
   },
   "hu": {
     "tool.description": "Az anyag gyorsítótár statisztikáinak megjelenítése: találati arány, bejegyzések száma, TTL.",
     "x_search_terms": [
-      "anyag gyorsítótár állapot",
-      "matter_cache_status",
+      "ügy gyorsítótár állapota",
+      "anyag_gyorsítótár állapota",
       "anyag",
-      "ANYAG",
+      "MATTER",
       "statisztika",
-      "gyorsítótárazás"
+      "arány",
+      "bejegyzés száma",
+      ""
     ]
   },
   "id": {
     "tool.description": "Tampilkan statistik cache Materi: rasio hit, jumlah entri, TTL.",
     "x_search_terms": [
-      "masalah status cache",
+      "status cache masalah",
       "masalah_cache_status",
-      "penting",
-      "MASALAH",
+      "masalah",
+      "MATTER",
       "statistik",
-      "cache"
+      "rasio",
+      "entri",
+      "jumlah"
     ]
   },
   "it": {
     "tool.description": "Mostra le statistiche della cache della pratica: percentuale di riscontri, conteggio voci, TTL.",
     "x_search_terms": [
       "stato della cache della materia",
-      "materia_cache_status",
+      "status_cache_materia",
       "materia",
       "MATERIA",
       "statistiche",
-      "memorizzazione nella cache"
+      "rapporto",
+      "voce",
+      "conteggio"
     ]
   },
   "ja": {
     "tool.description": "Matter キャッシュ統計の表示: ヒット率、エントリ数、TTL。",
     "x_search_terms": [
-      "マターキャッシュステータス",
-      "マターキャッシュステータス",
-      "問題",
-      "問題",
+      "案件キャッシュステータス",
+      "matter_cache_status",
+      "案件",
+      "MATTER",
       "統計",
-      "キャッシュ"
+      "比率",
+      "エントリ",
+      "カウント"
     ]
   },
   "ko": {
     "tool.description": "Matter 캐시 통계 표시: 적중률, 항목 수, TTL.",
     "x_search_terms": [
       "물질 캐시 상태",
-      "Matter_cache_status",
-      "문제",
-      "물질",
+      "matter_cache_status",
+      "matter",
+      "MATTER",
       "통계",
-      "캐싱"
+      "ratio",
+      "entry",
+      "count"
     ]
   },
   "mn": {
     "tool.description": "Matter кэш статистикийг харуулах: цохилтын харьцаа, оруулгын тоо, TTL.",
     "x_search_terms": [
-      "материйн кэш төлөв",
-      "matter_cache_status",
-      "асуудал",
-      "асуудал",
+      "асуудлын кэшийн төлөв",
+      "мастер_кэш_статус",
+      "матери",
+      "АСУУДАЛ",
       "статистик",
-      "кэш хийх"
+      "харьцаа",
+      "оруулга",
+      "тоолол"
     ]
   },
   "mr": {
     "tool.description": "मॅटर कॅशे आकडेवारी दर्शवा: हिट प्रमाण, प्रवेश संख्या, TTL.",
     "x_search_terms": [
-      "विषय कॅश स्थिती",
+      "मॅटर कॅशे स्टेटस",
       "matter_cache_status",
-      "विषय",
-      "विषय",
-      "आकडेवारी",
-      "कॅशिंग"
+      "matter",
+      "MATTER",
+      "statistics",
+      "ratio",
+      "entry",
+      "count"
     ]
   },
   "nb": {
     "tool.description": "Vis Matter cache-statistikk: treffforhold, antall oppføringer, TTL.",
     "x_search_terms": [
-      "status for hurtigbuffer for materie",
+      "matter cache status",
       "matter_cache_status",
-      "saken",
+      "matter",
       "MATTER",
       "statistikk",
-      "bufring"
+      "forhold",
+      "oppføringsantall",
+      ""
     ]
   },
   "nl": {
     "tool.description": "Show Matter-cachestatistieken: hitratio, aantal inzendingen, TTL.",
     "x_search_terms": [
-      "materie-cache-status",
+      "kwestie cache status",
       "matter_cache_status",
-      "materie",
+      "matter",
       "MATTER",
       "statistieken",
-      "caching"
+      "ratio",
+      "entry",
+      "count"
     ]
   },
   "pl": {
     "tool.description": "Pokaż statystyki pamięci podręcznej Matter: współczynnik trafień, liczba wpisów, TTL.",
     "x_search_terms": [
-      "stan pamięci podręcznej sprawy",
-      "status_cache_materiału",
-      "sprawa",
-      "MATERIA",
+      "status pamięci podręcznej materii",
+      "matter_cache_status",
+      "materia",
+      "MATTER",
       "statystyki",
-      "buforowanie"
+      "ratio",
+      "entry",
+      "count"
     ]
   },
   "pt": {
     "tool.description": "Mostrar estatísticas de cache do Matter: taxa de acertos, contagem de entradas, TTL.",
     "x_search_terms": [
-      "estado da cache de matéria",
-      "estado_cache_matéria",
-      "assunto",
-      "MATÉRIA",
-      "estatísticas",
-      "cache"
+      "status do cache de matéria",
+      "matter_cache_status",
+      "matter",
+      "MATTER",
+      "statistics",
+      "ratio",
+      "entry",
+      "count"
     ]
   },
   "pt_BR": {
     "tool.description": "Mostrar estatísticas de cache do Matter: taxa de acertos, contagem de entradas, TTL.",
     "x_search_terms": [
-      "importa o status do cache",
-      "matéria_cache_status",
-      "assunto",
-      "MATÉRIA",
-      "estatísticas",
-      "cache"
+      "status do cache de matéria",
+      "matter_cache_status",
+      "matter",
+      "MATTER",
+      "statistics",
+      "ratio",
+      "entry",
+      "count"
     ]
   },
   "ro": {
     "tool.description": "Afișați statisticile cache a materiei: raportul de accesări, numărul de intrări, TTL.",
     "x_search_terms": [
-      "stare cache materie",
+      "starea cache a materiei",
       "matter_cache_status",
-      "materie",
-      "MATERIE",
-      "statistici",
-      "cache"
+      "matter",
+      "MATTER",
+      "statistics",
+      "ratio",
+      "entry",
+      "count"
     ]
   },
   "ru": {
     "tool.description": "Статистика кэша Show Matter: коэффициент попаданий, количество записей, TTL.",
     "x_search_terms": [
-      "состояние кэша материи",
+      "статус кэша материи",
       "matter_cache_status",
       "материя",
-      "МАТЕРИЯ",
+      "MATTER",
       "статистика",
-      "кэширование"
+      "соотношение",
+      "запись",
+      "счет"
     ]
   },
   "sv": {
     "tool.description": "Visa Matter-cachestatistik: träffförhållande, antal ingångar, TTL.",
     "x_search_terms": [
-      "materia cache-status",
+      "matter cache status",
       "matter_cache_status",
-      "materia",
+      "matter",
       "MATTER",
-      "statistik",
-      "cachning"
+      "statistics",
+      "ratio",
+      "entry",
+      "count"
     ]
   },
   "sw": {
     "tool.description": "Onyesha takwimu za akiba ya Matter: uwiano wa hit, idadi ya walioingia, TTL.",
     "x_search_terms": [
-      "hali ya akiba ya maada",
+      "hali ya akiba ya jambo",
       "matter_cache_status",
-      "maada",
-      "MAADA",
+      "matter",
+      "MATTER",
       "takwimu",
-      "kuakibisha"
+      "ratio",
+      "ingizo",
+      "hesabu"
     ]
   },
   "th": {
     "tool.description": "แสดงสถิติแคชของ Matter: อัตราส่วน Hit, จำนวนรายการ, TTL",
     "x_search_terms": [
-      "สถานะแคชสสาร",
+      "สถานะแคชของเรื่อง",
       "matter_cache_status",
-      "สสาร",
-      "สสาร",
+      "เรื่อง",
+      "MATTER",
       "สถิติ",
-      "แคช"
+      "อัตราส่วน",
+      "รายการ",
+      "นับ"
     ]
   },
   "tr": {
@@ -325,32 +381,38 @@
     "x_search_terms": [
       "madde önbellek durumu",
       "matter_cache_status",
-      "madde",
-      "MADDE",
-      "istatistikler",
-      "önbelleğe alma"
+      "matter",
+      "MATTER",
+      "statistics",
+      "ratio",
+      "entry",
+      "count"
     ]
   },
   "uk": {
     "tool.description": "Показати статистику кешу Matter: коефіцієнт відвідувань, кількість записів, TTL.",
     "x_search_terms": [
-      "стан кешу матерії",
+      "важливий стан кешу",
       "matter_cache_status",
-      "матерія",
-      "МАТЕРІЯ",
-      "статистика",
-      "кешування"
+      "matter",
+      "МАТЕР",
+      "statistic",
+      "ratio",
+      "entry",
+      "count"
     ]
   },
   "vi": {
     "tool.description": "Hiển thị số liệu thống kê về bộ đệm của Matter: tỷ lệ trúng, số lượng mục nhập, TTL.",
     "x_search_terms": [
-      "vấn đề trạng thái bộ đệm",
-      "vấn đề_cache_status",
-      "vấn đề",
-      "VẤN ĐỀ",
-      "thống kê",
-      "bộ nhớ đệm"
+      "trạng thái bộ đệm quan trọng",
+      "matter_cache_status",
+      "matter",
+      "MATTER",
+      "statistics",
+      "ratio",
+      "entry",
+      "count"
     ]
   },
   "zh_CN": {
@@ -358,10 +420,12 @@
     "x_search_terms": [
       "物质缓存状态",
       "matter_cache_status",
-      "物质",
-      "物质",
-      "统计",
-      "缓存"
+      "matter",
+      "MATTER",
+      "统计数据",
+      "ratio",
+      "entry",
+      "count"
     ]
   },
   "zh_TW": {
@@ -369,10 +433,12 @@
     "x_search_terms": [
       "物質快取狀態",
       "matter_cache_status",
-      "物質",
-      "物質",
-      "統計",
-      "快取"
+      "matter",
+      "MATTER",
+      "統計資料",
+      "ratio",
+      "entry",
+      "count"
     ]
   }
 }

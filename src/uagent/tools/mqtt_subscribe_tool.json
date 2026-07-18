@@ -38,12 +38,13 @@
     "param.use_tls.description": "تمكين TLS/SSL (MQTTS). المنفذ الافتراضي يصبح 8883.",
     "param.insecure.description": "تخطي التحقق من شهادة TLS (غير آمن).",
     "x_search_terms": [
-      "اشتراك mqtt",
+      "mqtt الإشتراك",
       "mqtt_subscribe",
       "mqtt",
-      "إم كيو تي تي",
-      "موضوع",
-      "رسائل"
+      "MQTT",
+      "الموضوع",
+      "الرسائل",
+      "تلقائياً"
     ]
   },
   "bn": {
@@ -61,12 +62,13 @@
     "param.use_tls.description": "TLS/SSL (MQTTS) সক্ষম করুন৷ ডিফল্ট পোর্ট 8883 হয়ে যায়।",
     "param.insecure.description": "TLS শংসাপত্র যাচাইকরণ (অনিরাপদ) এড়িয়ে যান।",
     "x_search_terms": [
-      "mqtt সাবস্ক্রাইব",
+      "mqtt subscribe",
       "mqtt_subscribe",
-      "এমকিউটিটি",
-      "এমকিউটিটি",
-      "বিষয়",
-      "বার্তা"
+      "mqtt",
+      "MQTT",
+      "topic",
+      "messages",
+      "স্বয়ংক্রিয়ভাবে"
     ]
   },
   "cs": {
@@ -84,12 +86,13 @@
     "param.use_tls.description": "Povolit TLS/SSL (MQTTS). Výchozí port je 8883.",
     "param.insecure.description": "Přeskočit ověření certifikátu TLS (nezabezpečené).",
     "x_search_terms": [
-      "mqtt přihlásit se k odběru",
+      "mqtt přihlásit",
       "mqtt_subscribe",
       "mqtt",
       "MQTT",
-      "téma",
-      "zprávy"
+      "topic",
+      "zprávy",
+      "automaticky"
     ]
   },
   "de": {
@@ -107,12 +110,13 @@
     "param.use_tls.description": "Aktivieren Sie TLS/SSL (MQTTS). Der Standardport wird 8883.",
     "param.insecure.description": "Überprüfung des TLS-Zertifikats überspringen (unsicher).",
     "x_search_terms": [
-      "mqtt abonnieren",
+      "mqtt subscribe",
       "mqtt_subscribe",
       "mqtt",
       "MQTT",
-      "Thema",
-      "Nachrichten"
+      "topic",
+      "messages",
+      "automatisch"
     ]
   },
   "el": {
@@ -130,12 +134,13 @@
     "param.use_tls.description": "Ενεργοποίηση TLS/SSL (MQTTS). Η προεπιλεγμένη θύρα γίνεται 8883.",
     "param.insecure.description": "Παράβλεψη επαλήθευσης πιστοποιητικού TLS (μη ασφαλής).",
     "x_search_terms": [
-      "mqtt εγγραφή",
+      "mqtt subscribe",
       "mqtt_subscribe",
       "mqtt",
       "MQTT",
       "θέμα",
-      "μηνύματα"
+      "μηνύματα",
+      "αυτόματα"
     ]
   },
   "es": {
@@ -155,10 +160,11 @@
     "x_search_terms": [
       "mqtt suscribirse",
       "mqtt_subscribe",
-      "mqt",
+      "mqtt",
       "MQTT",
       "tema",
-      "mensajes"
+      "mensajes",
+      "automáticamente"
     ]
   },
   "fa": {
@@ -176,12 +182,13 @@
     "param.use_tls.description": "TLS/SSL (MQTTS) را فعال کنید. پورت پیش فرض 8883 می شود.",
     "param.insecure.description": "رد شدن از تأیید گواهی TLS (ناامن).",
     "x_search_terms": [
-      "اشتراک mqtt",
+      "mqtt subscribe",
       "mqtt_subscribe",
-      "ام‌کیوتی‌تی",
-      "ام‌کیوتی‌تی",
+      "mqtt",
+      "MQTT",
       "موضوع",
-      "پیام‌ها"
+      "پیام",
+      "به صورت خودکار"
     ]
   },
   "fi": {
@@ -204,7 +211,8 @@
       "mqtt",
       "MQTT",
       "aihe",
-      "viestit"
+      "viestit",
+      "automaattisesti"
     ]
   },
   "fr": {
@@ -222,12 +230,13 @@
     "param.use_tls.description": "Activez TLS/SSL (MQTTS). Le port par défaut devient 8883.",
     "param.insecure.description": "Ignorer la vérification du certificat TLS (non sécurisé).",
     "x_search_terms": [
-      "mqtt abonnez-vous",
+      "mqtt s'abonner",
       "mqtt_subscribe",
-      "mqt",
+      "mqtt",
       "MQTT",
-      "sujet",
-      "messages"
+      "topic",
+      "messages",
+      "automatiquement"
     ]
   },
   "he": {
@@ -245,12 +254,13 @@
     "param.use_tls.description": "אפשר TLS/SSL (MQTTS). יציאת ברירת המחדל הופכת ל-8883.",
     "param.insecure.description": "דלג על אימות אישור TLS (לא מאובטח).",
     "x_search_terms": [
-      "mqtt הירשם",
+      "mqtt subscribe",
       "mqtt_subscribe",
       "mqtt",
       "MQTT",
-      "נושא",
-      "הודעות"
+      "topic",
+      "הודעות",
+      "באופן אוטומטי"
     ]
   },
   "hi": {
@@ -268,12 +278,13 @@
     "param.use_tls.description": "टीएलएस/एसएसएल (एमक्यूटीटीएस) सक्षम करें। डिफ़ॉल्ट पोर्ट 8883 हो जाता है.",
     "param.insecure.description": "टीएलएस प्रमाणपत्र सत्यापन छोड़ें (असुरक्षित)।",
     "x_search_terms": [
-      "mqtt सब्सक्राइब करें",
+      "mqtt subscribe",
       "mqtt_subscribe",
-      "एमक्यूटीटी",
-      "एमक्यूटीटी",
-      "विषय",
-      "संदेश"
+      "mqtt",
+      "MQTT",
+      "topic",
+      "messages",
+      "automatically"
     ]
   },
   "hu": {
@@ -296,7 +307,8 @@
       "mqtt",
       "MQTT",
       "téma",
-      "üzenetek"
+      "üzenetek",
+      "automatikusan"
     ]
   },
   "id": {
@@ -315,11 +327,12 @@
     "param.insecure.description": "Lewati verifikasi sertifikat TLS (tidak aman).",
     "x_search_terms": [
       "mqtt berlangganan",
-      "mqtt_berlangganan",
+      "mqtt_subscribe",
       "mqtt",
       "MQTT",
       "topik",
-      "pesan"
+      "pesan",
+      "secara otomatis"
     ]
   },
   "it": {
@@ -337,12 +350,13 @@
     "param.use_tls.description": "Abilita TLS/SSL (MQTTS). La porta predefinita diventa 8883.",
     "param.insecure.description": "Salta la verifica del certificato TLS (non sicuro).",
     "x_search_terms": [
-      "mqtt iscriviti",
+      "mqtt Subscribe",
       "mqtt_subscribe",
       "mqtt",
       "MQTT",
-      "argomento",
-      "messaggi"
+      "topic",
+      "messages",
+      "automaticamente"
     ]
   },
   "ja": {
@@ -365,7 +379,8 @@
       "mqtt",
       "MQTT",
       "トピック",
-      "メッセージ"
+      "メッセージ",
+      "自動的に"
     ]
   },
   "ko": {
@@ -383,12 +398,13 @@
     "param.use_tls.description": "TLS/SSL(MQTTS)을 활성화합니다. 기본 포트는 8883이 됩니다.",
     "param.insecure.description": "TLS 인증서 확인을 건너뜁니다(안전하지 않음).",
     "x_search_terms": [
-      "mqtt 구독",
-      "mqtt_구독",
+      "mqtt subscribe",
+      "mqtt_subscribe",
       "mqtt",
       "MQTT",
-      "주제",
-      "메시지"
+      "topic",
+      "messages",
+      "자동으로"
     ]
   },
   "mn": {
@@ -406,12 +422,13 @@
     "param.use_tls.description": "TLS/SSL (MQTTS) идэвхжүүлнэ. Анхдагч порт нь 8883 болно.",
     "param.insecure.description": "TLS сертификатын баталгаажуулалтыг алгасах (найдваргүй).",
     "x_search_terms": [
-      "mqtt бүртгүүлэх",
+      "mqtt subscribe",
       "mqtt_subscribe",
-      "мктт",
-      "мктт",
-      "сэдэв",
-      "мессежүүд"
+      "mqtt",
+      "MQTT",
+      "сэдвийн",
+      "мессежүүд",
+      "автоматаар"
     ]
   },
   "mr": {
@@ -429,12 +446,13 @@
     "param.use_tls.description": "TLS/SSL (MQTTS) सक्षम करा. डीफॉल्ट पोर्ट 8883 होते.",
     "param.insecure.description": "TLS प्रमाणपत्र पडताळणी वगळा (असुरक्षित).",
     "x_search_terms": [
-      "mqtt सबस्क्राइब",
+      "mqtt subscribe",
       "mqtt_subscribe",
-      "एमक्यूटीटी",
-      "एमक्यूटीटी",
-      "विषय",
-      "संदेश"
+      "mqtt",
+      "MQTT",
+      "topic",
+      "messages",
+      "स्वयंचलितपणे"
     ]
   },
   "nb": {
@@ -452,12 +470,13 @@
     "param.use_tls.description": "Aktiver TLS/SSL (MQTTS). Standardporten blir 8883.",
     "param.insecure.description": "Hopp over TLS-sertifikatverifisering (usikker).",
     "x_search_terms": [
-      "mqtt abonner",
+      "mqtt subscribe",
       "mqtt_subscribe",
       "mqtt",
       "MQTT",
-      "emne",
-      "meldinger"
+      "topic",
+      "meldinger",
+      "automatisk"
     ]
   },
   "nl": {
@@ -475,12 +494,13 @@
     "param.use_tls.description": "Schakel TLS/SSL (MQTTS) in. Standaardpoort wordt 8883.",
     "param.insecure.description": "TLS-certificaatverificatie overslaan (onveilig).",
     "x_search_terms": [
-      "mqtt abonneren",
+      "mqtt abonneer",
       "mqtt_subscribe",
       "mqtt",
       "MQTT",
       "onderwerp",
-      "berichten"
+      "berichten",
+      "automatisch"
     ]
   },
   "pl": {
@@ -499,11 +519,12 @@
     "param.insecure.description": "Pomiń weryfikację certyfikatu TLS (niebezpieczna).",
     "x_search_terms": [
       "mqtt subskrybuj",
-      "mqtt_subskrybuj",
+      "mqtt_subscribe",
       "mqtt",
       "MQTT",
       "temat",
-      "wiadomości"
+      "wiadomości",
+      "automatycznie"
     ]
   },
   "pt": {
@@ -521,12 +542,13 @@
     "param.use_tls.description": "Habilite TLS/SSL (MQTTS). A porta padrão passa a ser 8883.",
     "param.insecure.description": "Ignore a verificação do certificado TLS (inseguro).",
     "x_search_terms": [
-      "mqtt subscrever",
+      "mqtt subscribe",
       "mqtt_subscribe",
       "mqtt",
       "MQTT",
-      "tópico",
-      "mensagens"
+      "topic",
+      "messages",
+      "automaticamente"
     ]
   },
   "pt_BR": {
@@ -544,12 +566,13 @@
     "param.use_tls.description": "Habilite TLS/SSL (MQTTS). A porta padrão passa a ser 8883.",
     "param.insecure.description": "Ignore a verificação do certificado TLS (inseguro).",
     "x_search_terms": [
-      "assinar mqtt",
+      "mqtt subscribe",
       "mqtt_subscribe",
       "mqtt",
       "MQTT",
-      "tópico",
-      "mensagens"
+      "topic",
+      "messages",
+      "automaticamente"
     ]
   },
   "ro": {
@@ -567,12 +590,13 @@
     "param.use_tls.description": "Activați TLS/SSL (MQTTS). Portul implicit devine 8883.",
     "param.insecure.description": "Omiteți verificarea certificatului TLS (nesigur).",
     "x_search_terms": [
-      "mqtt abonare",
+      "mqtt subscribe",
       "mqtt_subscribe",
       "mqtt",
       "MQTT",
-      "subiect",
-      "mesaje"
+      "topic",
+      "mesaje",
+      "automat"
     ]
   },
   "ru": {
@@ -595,7 +619,8 @@
       "mqtt",
       "MQTT",
       "тема",
-      "сообщения"
+      "сообщения",
+      "автоматически"
     ]
   },
   "sv": {
@@ -617,8 +642,9 @@
       "mqtt_subscribe",
       "mqtt",
       "MQTT",
-      "ämne",
-      "meddelanden"
+      "topic",
+      "meddelanden",
+      "automatiskt"
     ]
   },
   "sw": {
@@ -636,12 +662,13 @@
     "param.use_tls.description": "Washa TLS/SSL (MQTTS). Lango chaguomsingi inakuwa 8883.",
     "param.insecure.description": "Ruka uthibitishaji wa cheti cha TLS (si salama).",
     "x_search_terms": [
-      "jiandikisha mqtt",
+      "mqtt jiandikishe",
       "mqtt_subscribe",
       "mqtt",
       "MQTT",
       "mada",
-      "jumbe"
+      "ujumbe",
+      "otomatiki"
     ]
   },
   "th": {
@@ -661,10 +688,11 @@
     "x_search_terms": [
       "mqtt สมัครสมาชิก",
       "mqtt_subscribe",
-      "เอ็มคิวทีที",
-      "เอ็มคิวทีที",
+      "mqtt",
+      "MQTT",
       "หัวข้อ",
-      "ข้อความ"
+      "ข้อความ",
+      "โดยอัตโนมัติ"
     ]
   },
   "tr": {
@@ -682,12 +710,13 @@
     "param.use_tls.description": "TLS/SSL'yi (MQTTS) etkinleştirin. Varsayılan bağlantı noktası 8883 olur.",
     "param.insecure.description": "TLS sertifika doğrulamasını atlayın (güvenli değil).",
     "x_search_terms": [
-      "mqtt abone ol",
+      "mqtt abone olun",
       "mqtt_subscribe",
       "mqtt",
       "MQTT",
       "konu",
-      "mesajlar"
+      "mesajlar",
+      "otomatik olarak"
     ]
   },
   "uk": {
@@ -705,12 +734,13 @@
     "param.use_tls.description": "Увімкніть TLS/SSL (MQTTS). Стандартним портом стає 8883.",
     "param.insecure.description": "Пропустити перевірку сертифіката TLS (небезпечно).",
     "x_search_terms": [
-      "mqtt підписатися",
+      "mqtt підписка",
       "mqtt_subscribe",
       "mqtt",
       "MQTT",
       "тема",
-      "повідомлення"
+      "повідомлення",
+      "автоматично"
     ]
   },
   "vi": {
@@ -732,8 +762,9 @@
       "mqtt_subscribe",
       "mqtt",
       "MQTT",
-      "chủ đề",
-      "tin nhắn"
+      "topic",
+      "tin nhắn",
+      "tự động"
     ]
   },
   "zh_CN": {
@@ -751,12 +782,13 @@
     "param.use_tls.description": "启用 TLS/SSL (MQTTS)。默认端口变为 8883。",
     "param.insecure.description": "跳过 TLS 证书验证（不安全）。",
     "x_search_terms": [
-      "mqtt 订阅",
+      "mqtt订阅",
       "mqtt_subscribe",
       "mqtt",
       "MQTT",
       "主题",
-      "消息"
+      "消息",
+      "自动"
     ]
   },
   "zh_TW": {
@@ -774,12 +806,13 @@
     "param.use_tls.description": "啟用 TLS/SSL (MQTTS)。預設連接埠變為 8883。",
     "param.insecure.description": "跳過 TLS 憑證驗證（不安全）。",
     "x_search_terms": [
-      "mqtt 訂閱",
+      "mqtt訂閱",
       "mqtt_subscribe",
       "mqtt",
       "MQTT",
       "主題",
-      "訊息"
+      "訊息",
+      "自動"
     ]
   }
 }

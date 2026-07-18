@@ -28,11 +28,13 @@
     "msg.unsubscribed": "تم إلغاء اشتراك MQTT {id}.",
     "err.id_required": "معرف الاشتراك مطلوب.",
     "x_search_terms": [
-      "إلغاء اشتراك mqtt",
+      "mqtt إلغاء الاشتراك",
       "mqtt_unsubscribe",
       "mqtt",
-      "إم كيو تي تي",
-      "إلغاء"
+      "MQTT",
+      "cancel",
+      "subscription",
+      "subscription_id"
     ]
   },
   "bn": {
@@ -45,11 +47,13 @@
     "msg.unsubscribed": "MQTT সদস্যতা {id} বাতিল করা হয়েছে৷",
     "err.id_required": "subscription_id প্রয়োজন।",
     "x_search_terms": [
-      "mqtt আনসাবস্ক্রাইব",
+      "mqtt unsubscribe",
       "mqtt_unsubscribe",
-      "এমকিউটিটি",
-      "এমকিউটিটি",
-      "বাতিল"
+      "mqtt",
+      "MQTT",
+      "cancel",
+      "subscription",
+      "subscription_id"
     ]
   },
   "cs": {
@@ -62,11 +66,13 @@
     "msg.unsubscribed": "Předplatné MQTT {id} bylo zrušeno.",
     "err.id_required": "je vyžadováno id_předplatného.",
     "x_search_terms": [
-      "mqtt zrušit odběr",
+      "mqtt unsubscribe",
       "mqtt_unsubscribe",
       "mqtt",
       "MQTT",
-      "zrušit"
+      "zrušit",
+      "subscription_id",
+      ""
     ]
   },
   "de": {
@@ -79,11 +85,13 @@
     "msg.unsubscribed": "MQTT-Abonnement {id} gekündigt.",
     "err.id_required": "subscription_id ist erforderlich.",
     "x_search_terms": [
-      "mqtt abbestellen",
+      "mqtt unsubscribe",
       "mqtt_unsubscribe",
       "mqtt",
       "MQTT",
-      "abbrechen"
+      "cancel",
+      "subscription",
+      "subscription_id"
     ]
   },
   "el": {
@@ -96,11 +104,13 @@
     "msg.unsubscribed": "Η συνδρομή MQTT {id} ακυρώθηκε.",
     "err.id_required": "subscription_id απαιτείται.",
     "x_search_terms": [
-      "mqtt ακύρωση εγγραφής",
+      "mqtt unsubscribe",
       "mqtt_unsubscribe",
       "mqtt",
       "MQTT",
-      "ακύρωση"
+      "cancel",
+      "subscription",
+      "subscription_id"
     ]
   },
   "es": {
@@ -115,9 +125,11 @@
     "x_search_terms": [
       "mqtt darse de baja",
       "mqtt_unsubscribe",
-      "mqt",
+      "mqtt",
       "MQTT",
-      "cancelar"
+      "cancelar",
+      "suscripción",
+      "subscription_id"
     ]
   },
   "fa": {
@@ -130,11 +142,13 @@
     "msg.unsubscribed": "اشتراک MQTT {id} لغو شد.",
     "err.id_required": "subscription_id مورد نیاز است.",
     "x_search_terms": [
-      "لغو اشتراک mqtt",
+      "mqtt لغو اشتراک",
       "mqtt_unsubscribe",
-      "ام‌کیوتی‌تی",
-      "ام‌کیوتی‌تی",
-      "لغو"
+      "mqtt",
+      "MQTT",
+      "لغو",
+      " اشتراک",
+      "subscription_id"
     ]
   },
   "fi": {
@@ -147,11 +161,13 @@
     "msg.unsubscribed": "MQTT-tilaus {id} peruutettu.",
     "err.id_required": "tilaustunnus vaaditaan.",
     "x_search_terms": [
-      "mqtt peruuta tilaus",
+      "mqtt unsubscribe",
       "mqtt_unsubscribe",
       "mqtt",
       "MQTT",
-      "peruuta"
+      "peruuta",
+      "subscription",
+      "tilaustunnus"
     ]
   },
   "fr": {
@@ -164,11 +180,13 @@
     "msg.unsubscribed": "Abonnement MQTT {id} annulé.",
     "err.id_required": "abonnement_id est requis.",
     "x_search_terms": [
-      "mqtt se désabonner",
+      "mqtt désabonnement",
       "mqtt_unsubscribe",
-      "mqt",
+      "mqtt",
       "MQTT",
-      "annuler"
+      "cancel",
+      "subscription",
+      "subscription_id"
     ]
   },
   "he": {
@@ -181,11 +199,13 @@
     "msg.unsubscribed": "מנוי MQTT {id} בוטל.",
     "err.id_required": "נדרש subscription_id.",
     "x_search_terms": [
-      "mqtt בטל הרשמה",
+      "mqtt unsubscribe",
       "mqtt_unsubscribe",
       "mqtt",
       "MQTT",
-      "ביטול"
+      "cancel",
+      "subscription",
+      "subscription_id"
     ]
   },
   "hi": {
@@ -198,11 +218,13 @@
     "msg.unsubscribed": "MQTT सदस्यता {id} रद्द कर दी गई।",
     "err.id_required": "subscribe_id आवश्यक है.",
     "x_search_terms": [
-      "mqtt अनसब्सक्राइब करें",
+      "mqtt सदस्यता समाप्त करें",
       "mqtt_unsubscribe",
-      "एमक्यूटीटी",
-      "एमक्यूटीटी",
-      "रद्द करें"
+      "mqtt",
+      "MQTT",
+      "cancel",
+      "subscription",
+      "subscription_id"
     ]
   },
   "hu": {
@@ -219,7 +241,9 @@
       "mqtt_unsubscribe",
       "mqtt",
       "MQTT",
-      "visszavonás"
+      "cancel",
+      "subscription",
+      "előfizetési_azonosító"
     ]
   },
   "id": {
@@ -233,10 +257,12 @@
     "err.id_required": "langganan_id diperlukan.",
     "x_search_terms": [
       "mqtt berhenti berlangganan",
-      "mqtt_berhenti berlangganan",
+      "mqtt_unsubscribe",
       "mqtt",
       "MQTT",
-      "batalkan"
+      "batalkan",
+      "langganan",
+      "langganan_id"
     ]
   },
   "it": {
@@ -249,11 +275,13 @@
     "msg.unsubscribed": "Abbonamento MQTT {id} annullato.",
     "err.id_required": "l'id_abbonamento è obbligatorio.",
     "x_search_terms": [
-      "mqtt cancella l'iscrizione",
+      "mqtt unsubscribe",
       "mqtt_unsubscribe",
       "mqtt",
       "MQTT",
-      "annullare"
+      "cancel",
+      "subscription",
+      "subscription_id"
     ]
   },
   "ja": {
@@ -270,7 +298,9 @@
       "mqtt_unsubscribe",
       "mqtt",
       "MQTT",
-      "キャンセル"
+      "キャンセル",
+      "購読",
+      "subscription_id"
     ]
   },
   "ko": {
@@ -283,11 +313,13 @@
     "msg.unsubscribed": "MQTT 구독 {id}이 취소되었습니다.",
     "err.id_required": "구독_ID가 필요합니다.",
     "x_search_terms": [
-      "mqtt 구독 취소",
-      "mqtt_구독 취소",
+      "mqtt unsubscribe",
+      "mqtt_unsubscribe",
       "mqtt",
       "MQTT",
-      "취소하다"
+      "cancel",
+      "subscription",
+      "subscription_id"
     ]
   },
   "mn": {
@@ -302,9 +334,11 @@
     "x_search_terms": [
       "mqtt бүртгэлээ цуцлах",
       "mqtt_unsubscribe",
-      "мктт",
-      "мктт",
-      "цуцлах"
+      "mqtt",
+      "MQTT",
+      "цуцлах",
+      "захиалгыг",
+      "захиалгын_id"
     ]
   },
   "mr": {
@@ -317,11 +351,13 @@
     "msg.unsubscribed": "MQTT सदस्यता {id} रद्द केली.",
     "err.id_required": "subscription_id आवश्यक आहे.",
     "x_search_terms": [
-      "mqtt अनसबस्क्राइब",
+      "mqtt unsubscribe",
       "mqtt_unsubscribe",
-      "एमक्यूटीटी",
-      "एमक्यूटीटी",
-      "रद्द करा"
+      "mqtt",
+      "MQTT",
+      "cancel",
+      "subscription",
+      "subscription_id"
     ]
   },
   "nb": {
@@ -334,11 +370,13 @@
     "msg.unsubscribed": "MQTT-abonnement {id} kansellert.",
     "err.id_required": "subscription_id kreves.",
     "x_search_terms": [
-      "mqtt avslutt abonnement",
+      "mqtt unsubscribe",
       "mqtt_unsubscribe",
       "mqtt",
       "MQTT",
-      "avbryt"
+      "cancel",
+      "subscription",
+      "subscription_id"
     ]
   },
   "nl": {
@@ -351,11 +389,13 @@
     "msg.unsubscribed": "MQTT-abonnement {id} geannuleerd.",
     "err.id_required": "abonnement_id is vereist.",
     "x_search_terms": [
-      "mqtt opzeggen",
+      "mqtt afmelden",
       "mqtt_unsubscribe",
       "mqtt",
       "MQTT",
-      "annuleren"
+      "annuleren",
+      "abonnement",
+      "subscription_id"
     ]
   },
   "pl": {
@@ -368,11 +408,13 @@
     "msg.unsubscribed": "Subskrypcja MQTT {id} anulowana.",
     "err.id_required": "identyfikator_subskrypcji jest wymagany.",
     "x_search_terms": [
-      "mqtt wypisz się",
+      "mqtt anuluj subskrypcję",
       "mqtt_unsubscribe",
       "mqtt",
       "MQTT",
-      "anulować"
+      "anuluj",
+      "subskrypcję",
+      "id_subskrypcji"
     ]
   },
   "pt": {
@@ -385,11 +427,13 @@
     "msg.unsubscribed": "Assinatura MQTT {id} cancelada.",
     "err.id_required": "subscription_id é obrigatório.",
     "x_search_terms": [
-      "mqtt cancelar subscrição",
+      "mqtt cancelar",
       "mqtt_unsubscribe",
       "mqtt",
       "MQTT",
-      "cancelar"
+      "cancel",
+      "subscription",
+      "subscription_id"
     ]
   },
   "pt_BR": {
@@ -402,11 +446,13 @@
     "msg.unsubscribed": "Assinatura MQTT {id} cancelada.",
     "err.id_required": "subscription_id é obrigatório.",
     "x_search_terms": [
-      "mqtt cancelar inscrição",
+      "mqtt cancelar",
       "mqtt_unsubscribe",
       "mqtt",
       "MQTT",
-      "cancelar"
+      "cancel",
+      "subscription",
+      "subscription_id"
     ]
   },
   "ro": {
@@ -419,11 +465,13 @@
     "msg.unsubscribed": "Abonamentul MQTT {id} a fost anulat.",
     "err.id_required": "subscription_id este necesar.",
     "x_search_terms": [
-      "mqtt dezabonare",
+      "mqtt unsubscribe",
       "mqtt_unsubscribe",
       "mqtt",
       "MQTT",
-      "anulare"
+      "cancel",
+      "subscription",
+      "subscription_id"
     ]
   },
   "ru": {
@@ -440,7 +488,9 @@
       "mqtt_unsubscribe",
       "mqtt",
       "MQTT",
-      "отменить"
+      "отменить",
+      "подписку",
+      "subscription_id"
     ]
   },
   "sv": {
@@ -453,11 +503,13 @@
     "msg.unsubscribed": "MQTT-prenumeration {id} avbröts.",
     "err.id_required": "subscription_id krävs.",
     "x_search_terms": [
-      "mqtt avsluta prenumeration",
+      "mqtt unsubscribe",
       "mqtt_unsubscribe",
       "mqtt",
       "MQTT",
-      "avbryt"
+      "cancel",
+      "subscription",
+      "subscription_id"
     ]
   },
   "sw": {
@@ -474,7 +526,9 @@
       "mqtt_unsubscribe",
       "mqtt",
       "MQTT",
-      "ghairi"
+      "ghairi",
+      "subscription",
+      "subscription_id"
     ]
   },
   "th": {
@@ -489,9 +543,11 @@
     "x_search_terms": [
       "mqtt ยกเลิกการสมัคร",
       "mqtt_unsubscribe",
-      "เอ็มคิวทีที",
-      "เอ็มคิวทีที",
-      "ยกเลิก"
+      "mqtt",
+      "MQTT",
+      "ยกเลิก",
+      "สมัครสมาชิก",
+      "subscription_id"
     ]
   },
   "tr": {
@@ -504,11 +560,13 @@
     "msg.unsubscribed": "MQTT aboneliği {id} iptal edildi.",
     "err.id_required": "abonelik_kimliği gerekli.",
     "x_search_terms": [
-      "mqtt aboneliği iptal et",
+      "mqtt abonelikten çıkma",
       "mqtt_unsubscribe",
       "mqtt",
       "MQTT",
-      "iptal"
+      "iptal",
+      "abonelik",
+      "subscription_id"
     ]
   },
   "uk": {
@@ -521,11 +579,13 @@
     "msg.unsubscribed": "Підписку на MQTT {id} скасовано.",
     "err.id_required": "необхідний subscription_id.",
     "x_search_terms": [
-      "mqtt відписатися",
+      "mqtt unsubscribe",
       "mqtt_unsubscribe",
       "mqtt",
       "MQTT",
-      "скасувати"
+      "cancel",
+      "subscription",
+      "subscription_id"
     ]
   },
   "vi": {
@@ -542,7 +602,9 @@
       "mqtt_unsubscribe",
       "mqtt",
       "MQTT",
-      "hủy bỏ"
+      "hủy",
+      "subscription",
+      "subscription_id"
     ]
   },
   "zh_CN": {
@@ -555,11 +617,13 @@
     "msg.unsubscribed": "MQTT 订阅 {id} 已取消。",
     "err.id_required": "subscription_id 是必需的。",
     "x_search_terms": [
-      "取消 mqtt 订阅",
+      "mqtt取消订阅",
       "mqtt_unsubscribe",
       "mqtt",
       "MQTT",
-      "取消"
+      "取消",
+      "订阅",
+      "subscription_id"
     ]
   },
   "zh_TW": {
@@ -572,11 +636,13 @@
     "msg.unsubscribed": "MQTT 訂閱 {id} 已取消。",
     "err.id_required": "subscription_id 是必需的。",
     "x_search_terms": [
-      "取消 mqtt 訂閱",
+      "mqtt取消訂閱",
       "mqtt_unsubscribe",
       "mqtt",
       "MQTT",
-      "取消"
+      "取消",
+      "訂閱",
+      "subscription_id"
     ]
   }
 }

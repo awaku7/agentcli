@@ -30,16 +30,16 @@
   },
   "ja": {
     "x_search_terms": [
-      "dart",
-      "dart code",
-      "dart analysis",
-      "code index",
-      "dart index",
-      "dart source",
-      "dart parser",
-      "dart function",
-      "dart class",
-      "dart file"
+      "ダーツ",
+      "ダーツコード",
+      "ダーツ分析",
+      "コードインデックス",
+      "ダーツインデックス",
+      "ダーツソース",
+      "ダーツパーサー",
+      "ダーツ関数",
+      "ダーツクラス",
+      "ダーツファイル"
     ],
     "param.path.description": "Dart (.dart) ファイルへのパス。",
     "err.path_required": "エラー: 'path' は必須です。",

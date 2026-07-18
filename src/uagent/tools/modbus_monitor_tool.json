@@ -42,10 +42,13 @@
     "x_search_terms": [
       "مراقب modbus",
       "modbus_monitor",
-      "مودبوس",
-      "مودبوس",
-      "سجلات",
-      "بشكل متكرر"
+      "modbus",
+      "MODBUS",
+      "التسجيل",
+      "بشكل متكرر",
+      "كشف",
+      "التغييرات",
+      "المرتجعات"
     ]
   },
   "bn": {
@@ -65,10 +68,13 @@
     "x_search_terms": [
       "modbus মনিটর",
       "modbus_monitor",
-      "মডবাস",
-      "মডবাস",
+      "modbus",
+      "MODBUS",
       "রেজিস্টার",
-      "বারবার"
+      "বারবার",
+      "ডিটেক্ট",
+      "পরিবর্তন",
+      "ফেরত"
     ]
   },
   "cs": {
@@ -86,12 +92,15 @@
     "msg.no_changes": "Nebyly zjištěny žádné změny.",
     "err.ip_required": "IP je vyžadováno.",
     "x_search_terms": [
-      "monitor modbus",
+      "modbus monitor",
       "modbus_monitor",
       "modbus",
       "MODBUS",
-      "registry",
-      "opakovaně"
+      "registruje",
+      "opakovaně",
+      "detekuje",
+      "změny",
+      "návraty"
     ]
   },
   "de": {
@@ -109,12 +118,15 @@
     "msg.no_changes": "Keine Änderungen festgestellt.",
     "err.ip_required": "IP ist erforderlich.",
     "x_search_terms": [
-      "Modbus-Monitor",
-      "modbus_monitor",
+      "Modbus Monitor",
+      "Modbus_Monitor",
       "Modbus",
       "MODBUS",
-      "registriert",
-      "wiederholt"
+      "Register",
+      "wiederholt",
+      "Erkennen",
+      "Änderungen",
+      "Rückgaben"
     ]
   },
   "el": {
@@ -132,12 +144,15 @@
     "msg.no_changes": "Δεν εντοπίστηκαν αλλαγές.",
     "err.ip_required": "απαιτείται ip.",
     "x_search_terms": [
-      "οθόνη modbus",
+      "modbus monitor",
       "modbus_monitor",
       "modbus",
       "MODBUS",
-      "καταχωρητές",
-      "επανειλημμένα"
+      "καταχωρεί",
+      "επειλημμένα",
+      "detect",
+      "changes",
+      "επιστρέφει"
     ]
   },
   "es": {
@@ -155,12 +170,15 @@
     "msg.no_changes": "No se detectaron cambios.",
     "err.ip_required": "Se requiere IP.",
     "x_search_terms": [
-      "monitor modbus",
-      "monitor_modbus",
+      "modbus monitor",
+      "modbus_monitor",
       "modbus",
       "MODBUS",
       "registros",
-      "repetidamente"
+      "repetidamente",
+      "detectar",
+      "cambios",
+      "devoluciones"
     ]
   },
   "fa": {
@@ -178,12 +196,15 @@
     "msg.no_changes": "هیچ تغییری شناسایی نشد.",
     "err.ip_required": "ip مورد نیاز است.",
     "x_search_terms": [
-      "نمایشگر modbus",
+      "مانیتور modbus",
       "modbus_monitor",
-      "مادباس",
-      "مادباس",
-      "رجیسترها",
-      "مکرراً"
+      "modbus",
+      "MODBUS",
+      "ثبت‌کننده",
+      "به طور مکرر",
+      "تشخیص",
+      "تغییرات",
+      "بازگشت"
     ]
   },
   "fi": {
@@ -201,12 +222,15 @@
     "msg.no_changes": "Muutoksia ei havaittu.",
     "err.ip_required": "ip vaaditaan.",
     "x_search_terms": [
-      "modbus-näyttö",
+      "modbus-monitori",
       "modbus_monitor",
       "modbus",
       "MODBUS",
-      "rekisterit",
-      "toistuvasti"
+      "rekisteröi",
+      "toistuvasti",
+      "havaitsee",
+      "muutokset",
+      "palauttaa"
     ]
   },
   "fr": {
@@ -224,12 +248,15 @@
     "msg.no_changes": "Aucun changement détecté.",
     "err.ip_required": "l'adresse IP est requise.",
     "x_search_terms": [
-      "moniteur modbus",
+      "Modbus Monitor",
       "modbus_monitor",
       "modbus",
       "MODBUS",
-      "registres",
-      "à plusieurs reprises"
+      "s'enregistre",
+      "à plusieurs reprises",
+      "détecte",
+      "les changements",
+      "retourne"
     ]
   },
   "he": {
@@ -249,10 +276,13 @@
     "x_search_terms": [
       "צג modbus",
       "modbus_monitor",
-      "מודבוס",
-      "מודבוס",
-      "רגיסטרים",
-      "שוב ושוב"
+      "modbus",
+      "MODBUS",
+      "רשום",
+      "מגלה",
+      "שינויים",
+      "החזרות",
+      ""
     ]
   },
   "hi": {
@@ -270,12 +300,15 @@
     "msg.no_changes": "कोई परिवर्तन नहीं पाया गया.",
     "err.ip_required": "आईपी ​​आवश्यक है.",
     "x_search_terms": [
-      "modbus मॉनिटर",
+      "मॉडबस मॉनिटर",
       "modbus_monitor",
-      "मॉडबस",
-      "मॉडबस",
-      "रजिस्टर",
-      "बार-बार"
+      "modbus",
+      "MODBUS",
+      "बार-बार रजिस्टर करता है",
+      "परिवर्तनों",
+      "रिटर्न का पता लगाता है",
+      "",
+      ""
     ]
   },
   "hu": {
@@ -297,8 +330,11 @@
       "modbus_monitor",
       "modbus",
       "MODBUS",
-      "regiszterek",
-      "ismételten"
+      "registers",
+      "ismételten",
+      "detect",
+      "módosításokat",
+      "visszaküld"
     ]
   },
   "id": {
@@ -316,12 +352,15 @@
     "msg.no_changes": "Tidak ada perubahan yang terdeteksi.",
     "err.ip_required": "diperlukan.",
     "x_search_terms": [
-      "monitor modbus",
+      "modbus monitor",
       "modbus_monitor",
       "modbus",
       "MODBUS",
-      "register",
-      "berulang kali"
+      "mendaftarkan",
+      "berulang kali",
+      "mendeteksi",
+      "perubahan",
+      "pengembalian"
     ]
   },
   "it": {
@@ -339,12 +378,15 @@
     "msg.no_changes": "Nessuna modifica rilevata.",
     "err.ip_required": "l'IP è obbligatorio.",
     "x_search_terms": [
-      "monitor modbus",
+      "modbus monitor",
       "modbus_monitor",
       "modbus",
       "MODBUS",
-      "registri",
-      "ripetutamente"
+      "registra",
+      "ripetutamente",
+      "rileva",
+      "modifiche",
+      "resi"
     ]
   },
   "ja": {
@@ -362,12 +404,15 @@
     "msg.no_changes": "変化は検出されませんでした。",
     "err.ip_required": "IPは必須です。",
     "x_search_terms": [
-      "Modbusモニター",
+      "modbus モニタ",
       "modbus_monitor",
-      "モドバス",
-      "モドバス",
+      "modbus",
+      "MODBUS",
       "レジスタ",
-      "繰り返し"
+      "繰り返し",
+      "検出",
+      "変更",
+      "戻り"
     ]
   },
   "ko": {
@@ -385,12 +430,15 @@
     "msg.no_changes": "변경사항이 감지되지 않았습니다.",
     "err.ip_required": "ip가 필요합니다.",
     "x_search_terms": [
-      "모드버스 모니터",
-      "모드버스_모니터",
-      "모드버스",
-      "모드버스",
-      "레지스터",
-      "반복해서"
+      "modbus 모니터",
+      "modbus_monitor",
+      "modbus",
+      "MODBUS",
+      "등록",
+      "반복적으로",
+      "감지",
+      "변경",
+      "반환"
     ]
   },
   "mn": {
@@ -408,12 +456,15 @@
     "msg.no_changes": "Өөрчлөлт илрээгүй.",
     "err.ip_required": "ip шаардлагатай.",
     "x_search_terms": [
-      "modbus хяналтын самбар",
+      "modbus monitor",
       "modbus_monitor",
-      "модбус",
-      "модбус",
-      "регистрүүд",
-      "дахин дахин"
+      "modbus",
+      "MODBUS",
+      "бүртгүүлдэг",
+      "давтан",
+      "илрүүлдэг",
+      "өөрчлөлтүүдийг",
+      "буцдаг"
     ]
   },
   "mr": {
@@ -433,10 +484,13 @@
     "x_search_terms": [
       "modbus मॉनिटर",
       "modbus_monitor",
-      "मॉडबस",
-      "मॉडबस",
+      "modbus",
+      "MODBUS",
       "रजिस्टर",
-      "वारंवार"
+      "वारंवार",
+      "शोधा",
+      "बदल",
+      "परतावा"
     ]
   },
   "nb": {
@@ -454,12 +508,15 @@
     "msg.no_changes": "Ingen endringer oppdaget.",
     "err.ip_required": "ip kreves.",
     "x_search_terms": [
-      "modbus overvåking",
+      "modbus monitor",
       "modbus_monitor",
       "modbus",
       "MODBUS",
-      "registre",
-      "gjentatte ganger"
+      "registrerer",
+      "gjentatte ganger",
+      "oppdager",
+      "endringer",
+      "retur"
     ]
   },
   "nl": {
@@ -477,12 +534,15 @@
     "msg.no_changes": "Geen wijzigingen gedetecteerd.",
     "err.ip_required": "ip is vereist.",
     "x_search_terms": [
-      "modbus-monitor",
+      "modbus monitor",
       "modbus_monitor",
       "modbus",
       "MODBUS",
-      "registers",
-      "herhaaldelijk"
+      "registreert",
+      "herhaaldelijk",
+      "detect",
+      "wijzigingen",
+      "retourneert"
     ]
   },
   "pl": {
@@ -500,12 +560,15 @@
     "msg.no_changes": "Nie wykryto żadnych zmian.",
     "err.ip_required": "wymagane jest IP.",
     "x_search_terms": [
-      "monitor Modbus",
-      "monitor_modbus",
+      "monitor modbus",
+      "modbus_monitor",
       "modbus",
       "MODBUS",
       "rejestruje",
-      "wielokrotnie"
+      "wielokrotnie",
+      "wykrywa",
+      "zmian",
+      "powraca"
     ]
   },
   "pt": {
@@ -527,8 +590,11 @@
       "modbus_monitor",
       "modbus",
       "MODBUS",
-      "registos",
-      "repetidamente"
+      "regista-se",
+      "repetidamente",
+      "detecta",
+      "mudanças",
+      "retorna"
     ]
   },
   "pt_BR": {
@@ -548,10 +614,13 @@
     "x_search_terms": [
       "monitor modbus",
       "modbus_monitor",
-      "mod bus",
+      "modbus",
       "MODBUS",
-      "registos",
-      "repetidamente"
+      "regista-se",
+      "repetidamente",
+      "detecta",
+      "mudanças",
+      "retorna"
     ]
   },
   "ro": {
@@ -573,8 +642,11 @@
       "modbus_monitor",
       "modbus",
       "MODBUS",
-      "registre",
-      "repetat"
+      "înregistrează",
+      "detecta",
+      "modbus",
+      "întoarce",
+      "în mod repetat"
     ]
   },
   "ru": {
@@ -597,7 +669,10 @@
       "modbus",
       "MODBUS",
       "регистры",
-      "многократно"
+      "многократно",
+      "обнаружение",
+      "изменения",
+      "возвращает"
     ]
   },
   "sv": {
@@ -616,11 +691,14 @@
     "err.ip_required": "ip krävs.",
     "x_search_terms": [
       "modbus monitor",
-      "modbus_monitor",
-      "modbus",
-      "MODBUS",
-      "register",
-      "upprepade gånger"
+      "",
+      "",
+      "",
+      "",
+      "",
+      "",
+      "",
+      ""
     ]
   },
   "sw": {
@@ -638,12 +716,15 @@
     "msg.no_changes": "Hakuna mabadiliko yaliyogunduliwa.",
     "err.ip_required": "ip inahitajika.",
     "x_search_terms": [
-      "kifuatiliaji cha modbus",
+      "modbus monitor",
       "modbus_monitor",
       "modbus",
       "MODBUS",
-      "rejesta",
-      "mara kwa mara"
+      "register",
+      "mara kwa mara",
+      "gundua",
+      "mabadiliko",
+      "rejesha"
     ]
   },
   "th": {
@@ -661,12 +742,15 @@
     "msg.no_changes": "ไม่พบการเปลี่ยนแปลง",
     "err.ip_required": "จำเป็นต้องมีไอพี",
     "x_search_terms": [
-      "มอนิเตอร์ modbus",
+      "modbus monitor",
       "modbus_monitor",
-      "มอดบัส",
-      "มอดบัส",
-      "รีจิสเตอร์",
-      "ซ้ำๆ"
+      "modbus",
+      "MODBUS",
+      "registers",
+      "ซ้ำๆ",
+      "detect",
+      "changes",
+      "returns"
     ]
   },
   "tr": {
@@ -688,8 +772,11 @@
       "modbus_monitor",
       "modbus",
       "MODBUS",
-      "kayıtlar",
-      "tekrar tekrar"
+      "kaydeder",
+      "tekrar tekrar",
+      "değişiklikleri algılar",
+      "geri döner",
+      ""
     ]
   },
   "uk": {
@@ -711,8 +798,11 @@
       "modbus_monitor",
       "modbus",
       "MODBUS",
-      "регістри",
-      "багаторазово"
+      "реєструє",
+      "повторно",
+      "виявляє",
+      "зміни",
+      "повертає"
     ]
   },
   "vi": {
@@ -735,7 +825,10 @@
       "modbus",
       "MODBUS",
       "đăng ký",
-      "nhiều lần"
+      "lặp lại",
+      "phát hiện",
+      "thay đổi",
+      "trả về"
     ]
   },
   "zh_CN": {
@@ -753,12 +846,15 @@
     "msg.no_changes": "未检测到任何变化。",
     "err.ip_required": "ip 是必需的。",
     "x_search_terms": [
-      "modbus 监视器",
+      "modbus监视器",
       "modbus_monitor",
       "modbus",
       "MODBUS",
-      "寄存器",
-      "重复"
+      "注册",
+      "重复",
+      "检测",
+      "更改",
+      "返回"
     ]
   },
   "zh_TW": {
@@ -776,12 +872,15 @@
     "msg.no_changes": "未偵測到任何變化。",
     "err.ip_required": "ip 是必需的。",
     "x_search_terms": [
-      "modbus 監視器",
+      "modbus監視器",
       "modbus_monitor",
       "modbus",
       "MODBUS",
-      "暫存器",
-      "重複"
+      "註冊",
+      "重複",
+      "檢測",
+      "更改",
+      "返回"
     ]
   }
 }

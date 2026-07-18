@@ -22,8 +22,16 @@
     "param.server_name.description": "設定ファイル内のサーバー名。",
     "tool.description": "MCPサーバーに接続して利用可能なツール一覧を取得。HTTP/stdio両対応。",
     "x_search_terms": [
-      "mcp ツール |リストツール |ツールリスト |利用可能なツール |ツールリスト",
-      "mcp ツール リスト"
+      "mcp",
+      "mcp ツール",
+      "ツール リスト",
+      "mcp サーバー",
+      "利用可能なツール",
+      "mcp 機能",
+      "サーバー ツール",
+      "ツール カタログ",
+      "mcp 機能",
+      "mcp エンドポイント"
     ],
     "param.url.description": "MCP サーバーのエンドポイント URL。省略した場合、構成されたサーバーが使用される可能性があります。"
   },
@@ -32,12 +40,16 @@
     "param.server_name.description": "Nombre del servidor del archivo de configuración.",
     "tool.description": "Conéctese a un servidor MCP y enumere las herramientas disponibles. Admite transportes HTTP y stdio.",
     "x_search_terms": [
-      "mcp tools",
-      "herramientas de lista",
+      "mcp",
+      "herramientas mcp",
       "lista de herramientas",
+      "servidor mcp",
       "herramientas disponibles",
-      "listado de herramientas",
-      "lista de herramientas mcp"
+      "capacidades de mcp",
+      "herramientas de servidor",
+      "catálogo de herramientas",
+      "funciones de mcp",
+      "puntos finales de mcp"
     ],
     "param.url.description": "URL del punto final del servidor MCP. Si se omite, se puede utilizar un servidor configurado."
   },
@@ -46,12 +58,16 @@
     "param.server_name.description": "Nom du serveur figurant dans le fichier de configuration.",
     "tool.description": "Connectez-vous à un serveur MCP et répertoriez les outils disponibles. Prend en charge les transports HTTP et stdio.",
     "x_search_terms": [
+      "mcp",
       "outils mcp",
-      "outils de liste",
       "liste d'outils",
+      "serveur mcp",
       "outils disponibles",
-      "liste d'outils",
-      "liste des outils mcp"
+      "capacités mcp",
+      "outils de serveur",
+      "catalogue d'outils",
+      "fonctions mcp",
+      "points de terminaison mcp"
     ],
     "param.url.description": "URL du point de terminaison du serveur MCP. En cas d'omission, un serveur configuré peut être utilisé."
   },
@@ -60,12 +76,16 @@
     "param.server_name.description": "구성 파일의 서버 이름입니다.",
     "tool.description": "MCP 서버에 연결하여 사용 가능한 도구 목록 조회. HTTP/stdio 지원.",
     "x_search_terms": [
+      "mcp",
       "mcp 도구",
-      "목록 도구",
       "도구 목록",
+      "mcp 서버",
       "사용 가능한 도구",
-      "도구 목록",
-      "mcp 도구 목록"
+      "mcp 기능",
+      "서버 도구",
+      "도구 카탈로그",
+      "mcp 기능",
+      "mcp 끝점"
     ],
     "param.url.description": "MCP 서버 엔드포인트 URL. 생략할 경우 구성된 서버를 사용할 수 있습니다."
   },
@@ -74,12 +94,16 @@
     "param.server_name.description": "Servername aus der Konfigurationsdatei.",
     "tool.description": "Stellen Sie eine Verbindung zu einem MCP-Server her und listen Sie die verfügbaren Tools auf. Unterstützt HTTP- und Standardtransporte.",
     "x_search_terms": [
-      "mcp tools",
-      "Tools auflisten",
-      "Werkzeugliste",
-      "verfügbare Werkzeuge",
-      "Werkzeugliste",
-      "mcp tools list"
+      "mcp",
+      "mcp-tools",
+      "tool-liste",
+      "mcp-server",
+      "verfügbare tools",
+      "mcp-funktionen",
+      "server-tools",
+      "toolkatalog",
+      "mcp-funktionen",
+      "mcp-endpunkte"
     ],
     "param.url.description": "MCP-Server-Endpunkt-URL. Wenn es weggelassen wird, kann ein konfigurierter Server verwendet werden."
   },
@@ -88,12 +112,16 @@
     "param.server_name.description": "Nome del server nel file di configurazione.",
     "tool.description": "Connettersi a un server MCP ed elencare gli strumenti disponibili. Supporta i trasporti HTTP e stdio.",
     "x_search_terms": [
-      "mcp tools",
+      "mcp",
+      "strumenti mcp",
       "elenco strumenti",
-      "elenco strumenti",
+      "server mcp",
       "strumenti disponibili",
-      "elenco degli strumenti",
-      "Elenco strumenti mcp"
+      "capacità mcp",
+      "strumenti server",
+      "catalogo strumenti",
+      "funzioni mcp",
+      "endpoint mcp"
     ],
     "param.url.description": "URL dell'endpoint del server MCP. Se omesso, è possibile utilizzare un server configurato."
   },
@@ -102,7 +130,16 @@
     "param.server_name.description": "Имя сервера из файла конфигурации.",
     "tool.description": "Подключитесь к серверу MCP и перечислите доступные инструменты. Поддерживает транспорт HTTP и stdio.",
     "x_search_terms": [
-      "mcp инструменты, список инструментов, список инструментов, доступные инструменты, список инструментов, список инструментов mcp"
+      "mcp",
+      "инструменты mcp",
+      "список инструментов",
+      "сервер mcp",
+      "доступные инструменты",
+      "возможности mcp",
+      "инструменты сервера",
+      "каталог инструментов",
+      "функции mcp",
+      "конечные точки mcp"
     ],
     "param.url.description": "URL-адрес конечной точки сервера MCP. Если этот параметр опущен, можно использовать настроенный сервер."
   },
@@ -111,16 +148,16 @@
     "param.server_name.description": "Nome do servidor no arquivo de configuração.",
     "tool.description": "Conecte-se a um servidor MCP e liste as ferramentas disponíveis. Suporta transportes HTTP e stdio.",
     "x_search_terms": [
+      "ferramentas mcp",
       "mcp",
-      "mcp tools",
-      "tool list",
-      "mcp server",
-      "available tools",
-      "mcp capabilities",
-      "server tools",
-      "tool catalog",
-      "mcp functions",
-      "mcp endpoints"
+      "lista de ferramentas",
+      "servidor mcp",
+      "ferramentas disponíveis",
+      "capacidades mcp",
+      "ferramentas de servidor",
+      "catálogo de ferramentas",
+      "funções mcp",
+      "pontos finais mcp"
     ],
     "param.url.description": "URL do terminal do servidor MCP. Se omitido, um servidor configurado poderá ser usado."
   },
@@ -184,15 +221,15 @@
     "tool.description": "Połącz się z serwerem MCP i wyświetl listę dostępnych narzędzi. Obsługuje transporty HTTP i stdio.",
     "x_search_terms": [
       "mcp",
-      "mcp tools",
-      "tool list",
-      "mcp server",
-      "available tools",
-      "mcp capabilities",
-      "server tools",
-      "tool catalog",
-      "mcp functions",
-      "mcp endpoints"
+      "narzędzia mcp",
+      "lista narzędzi",
+      "serwer mcp",
+      "dostępne narzędzia",
+      "możliwości mcp",
+      "narzędzia serwerowe",
+      "katalog narzędzi",
+      "funkcje mcp",
+      "punkty końcowe mcp"
     ],
     "param.url.description": "Adres URL punktu końcowego serwera MCP. Jeśli zostanie pominięty, może zostać użyty skonfigurowany serwer."
   },
@@ -201,16 +238,16 @@
     "param.server_name.description": "कॉन्फ़िगरेशन फ़ाइल से सर्वर का नाम.",
     "tool.description": "MCP सर्वर से कनेक्ट करें। उपलब्ध टूल की सूची।",
     "x_search_terms": [
-      "mcp",
-      "mcp tools",
-      "tool list",
-      "mcp server",
-      "available tools",
-      "mcp capabilities",
-      "server tools",
-      "tool catalog",
-      "mcp functions",
-      "mcp endpoints"
+      "एमसीपी",
+      "एमसीपी टूल",
+      "टूल सूची",
+      "एमसीपी सर्वर",
+      "उपलब्ध टूल",
+      "एमसीपी क्षमताएं",
+      "सर्वर टूल",
+      "टूल कैटलॉग",
+      "एमसीपी फ़ंक्शन",
+      "एमसीपी एंडपॉइंट"
     ],
     "param.url.description": "एमसीपी सर्वर एंडपॉइंट यूआरएल। यदि छोड़ दिया जाए, तो एक कॉन्फ़िगर सर्वर का उपयोग किया जा सकता है।"
   },
@@ -220,15 +257,15 @@
     "tool.description": "اتصل بخادم MCP وأدرج الأدوات المتاحة. يدعم عمليات النقل HTTP وstdio.",
     "x_search_terms": [
       "mcp",
-      "mcp tools",
-      "tool list",
-      "mcp server",
-      "available tools",
-      "mcp capabilities",
-      "server tools",
-      "tool catalog",
-      "mcp functions",
-      "mcp endpoints"
+      "أدوات mcp",
+      "قائمة الأدوات",
+      "خادم mcp",
+      "الأدوات المتاحة",
+      "قدرات mcp",
+      "أدوات الخادم",
+      "كتالوج الأدوات",
+      "وظائف mcp",
+      "نقاط نهاية mcp"
     ],
     "param.url.description": "عنوان URL لنقطة نهاية خادم MCP. إذا تم حذفه، فيمكن استخدام خادم تم تكوينه."
   },
@@ -238,15 +275,15 @@
     "tool.description": "Anslut till en MCP-server och lista tillgängliga verktyg. Stöder HTTP och stdio-transporter.",
     "x_search_terms": [
       "mcp",
-      "mcp tools",
-      "tool list",
-      "mcp server",
-      "available tools",
-      "mcp capabilities",
-      "server tools",
-      "tool catalog",
-      "mcp functions",
-      "mcp endpoints"
+      "mcp-verktyg",
+      "verktygslista",
+      "mcp-server",
+      "tillgängliga verktyg",
+      "mcp-funktioner",
+      "serververktyg",
+      "verktygskatalog",
+      "mcp-funktioner",
+      "mcp-slutpunkter"
     ],
     "param.url.description": "MCP-serverns slutpunkts-URL. Om den utelämnas kan en konfigurerad server användas."
   },
@@ -255,16 +292,16 @@
     "param.server_name.description": "Jina la seva kutoka kwa faili ya usanidi.",
     "tool.description": "Unganisha kwa seva ya MCP na uorodheshe zana zinazopatikana. Inaauni usafirishaji wa HTTP na stdio.",
     "x_search_terms": [
+      "zana za mcp",
       "mcp",
-      "mcp tools",
-      "tool list",
-      "mcp server",
-      "available tools",
-      "mcp capabilities",
-      "server tools",
-      "tool catalog",
-      "mcp functions",
-      "mcp endpoints"
+      "orodha ya zana",
+      "seva ya mcp",
+      "zana zinazopatikana",
+      "uwezo wa mcp",
+      "zana za seva",
+      "orodha ya zana",
+      "utendaji wa mcp",
+      "mwisho wa mcp"
     ],
     "param.url.description": "URL ya mwisho ya seva ya MCP. Ikiwa imeachwa, seva iliyosanidiwa inaweza kutumika."
   },
@@ -274,15 +311,15 @@
     "tool.description": "Koble til en MCP-server og vis tilgjengelige verktøy. Støtter HTTP og stdio-transporter.",
     "x_search_terms": [
       "mcp",
-      "mcp tools",
-      "tool list",
-      "mcp server",
-      "available tools",
-      "mcp capabilities",
-      "server tools",
-      "tool catalog",
-      "mcp functions",
-      "mcp endpoints"
+      "mcp-verktøy",
+      "verktøyliste",
+      "mcp-server",
+      "tilgjengelige verktøy",
+      "mcp-funksjoner",
+      "serververktøy",
+      "verktøykatalog",
+      "mcp-funksjoner",
+      "mcp-endepunkter"
     ],
     "param.url.description": "MCP-serverendepunkt-URL. Hvis utelatt, kan en konfigurert server brukes."
   },
@@ -292,15 +329,15 @@
     "tool.description": "Maak verbinding met een MCP-server en vermeld de beschikbare tools. Ondersteunt HTTP- en stdio-transporten.",
     "x_search_terms": [
       "mcp",
-      "mcp tools",
-      "tool list",
-      "mcp server",
-      "available tools",
-      "mcp capabilities",
-      "server tools",
-      "tool catalog",
-      "mcp functions",
-      "mcp endpoints"
+      "mcp-tools",
+      "toollijst",
+      "mcp-server",
+      "beschikbare tools",
+      "mcp-mogelijkheden",
+      "servertools",
+      "toolcatalogus",
+      "mcp-functies",
+      "mcp-eindpunten"
     ],
     "param.url.description": "Eindpunt-URL van MCP-server. Indien dit wordt weggelaten, kan een geconfigureerde server worden gebruikt."
   },
@@ -310,15 +347,15 @@
     "tool.description": "Muodosta yhteys MCP-palvelimeen ja luettele käytettävissä olevat työkalut. Tukee HTTP- ja stdio-siirtoja.",
     "x_search_terms": [
       "mcp",
-      "mcp tools",
-      "tool list",
-      "mcp server",
-      "available tools",
-      "mcp capabilities",
-      "server tools",
-      "tool catalog",
-      "mcp functions",
-      "mcp endpoints"
+      "mcp-työkalut",
+      "työkaluluettelo",
+      "mcp-palvelin",
+      "käytettävissä olevat työkalut",
+      "mcp-ominaisuudet",
+      "palvelintyökalut",
+      "työkaluluettelo",
+      "mcp-toiminnot",
+      "mcp-päätepisteet"
     ],
     "param.url.description": "MCP-palvelimen päätepisteen URL-osoite. Jos se jätetään pois, voidaan käyttää määritettyä palvelinta."
   },
@@ -328,15 +365,15 @@
     "tool.description": "Připojte se k serveru MCP a vypište dostupné nástroje. Podporuje přenosy HTTP a stdio.",
     "x_search_terms": [
       "mcp",
-      "mcp tools",
-      "tool list",
-      "mcp server",
-      "available tools",
-      "mcp capabilities",
-      "server tools",
-      "tool catalog",
-      "mcp functions",
-      "mcp endpoints"
+      "nástroje mcp",
+      "seznam nástrojů",
+      "server mcp",
+      "dostupné nástroje",
+      "možnosti mcp",
+      "nástroje serveru",
+      "katalog nástrojů",
+      "funkce mcp",
+      "koncové body mcp"
     ],
     "param.url.description": "Adresa URL koncového bodu serveru MCP. Pokud je vynechán, lze použít nakonfigurovaný server."
   },
@@ -346,15 +383,15 @@
     "tool.description": "Підключіться до сервера MCP і перелічіть доступні інструменти. Підтримує HTTP і stdio транспорти.",
     "x_search_terms": [
       "mcp",
-      "mcp tools",
-      "tool list",
-      "mcp server",
-      "available tools",
-      "mcp capabilities",
-      "server tools",
-      "tool catalog",
-      "mcp functions",
-      "mcp endpoints"
+      "інструменти mcp",
+      "список інструментів",
+      "сервер mcp",
+      "доступні інструменти",
+      "можливості mcp",
+      "інструменти сервера",
+      "каталог інструментів",
+      "функції mcp",
+      "кінцеві точки mcp"
     ],
     "param.url.description": "URL-адреса кінцевої точки сервера MCP. Якщо опущено, можна використовувати налаштований сервер."
   },
@@ -364,15 +401,15 @@
     "tool.description": "Bir MCP sunucusuna bağlanın ve mevcut araçları listeleyin. HTTP ve stdio aktarımlarını destekler.",
     "x_search_terms": [
       "mcp",
-      "mcp tools",
-      "tool list",
-      "mcp server",
-      "available tools",
-      "mcp capabilities",
-      "server tools",
-      "tool catalog",
-      "mcp functions",
-      "mcp endpoints"
+      "mcp araçları",
+      "araç listesi",
+      "mcp sunucusu",
+      "kullanılabilir araçlar",
+      "mcp yetenekleri",
+      "sunucu araçları",
+      "araç kataloğu",
+      "mcp işlevleri",
+      "mcp uç noktaları"
     ],
     "param.url.description": "MCP sunucusu uç noktası URL'si. Atlanırsa yapılandırılmış bir sunucu kullanılabilir."
   },
@@ -382,15 +419,15 @@
     "tool.description": "เชื่อมต่อกับเซิร์ฟเวอร์ MCP และแสดงรายการเครื่องมือที่มีอยู่ รองรับการขนส่ง HTTP และ stdio",
     "x_search_terms": [
       "mcp",
-      "mcp tools",
-      "tool list",
-      "mcp server",
-      "available tools",
-      "mcp capabilities",
-      "server tools",
-      "tool catalog",
-      "mcp functions",
-      "mcp endpoints"
+      "เครื่องมือ mcp",
+      "รายการเครื่องมือ",
+      "เซิร์ฟเวอร์ mcp",
+      "เครื่องมือที่มีอยู่",
+      "ความสามารถของ mcp",
+      "เครื่องมือเซิร์ฟเวอร์",
+      "แคตตาล็อกเครื่องมือ",
+      "ฟังก์ชัน mcp",
+      "จุดสิ้นสุด mcp"
     ],
     "param.url.description": "URL ปลายทางของเซิร์ฟเวอร์ MCP หากละเว้น อาจใช้เซิร์ฟเวอร์ที่กำหนดค่าไว้ได้"
   },
@@ -400,15 +437,15 @@
     "tool.description": "连接MCP服务器并列出可用工具。支持HTTP和stdio传输。",
     "x_search_terms": [
       "mcp",
-      "mcp tools",
-      "tool list",
-      "mcp server",
-      "available tools",
-      "mcp capabilities",
-      "server tools",
-      "tool catalog",
-      "mcp functions",
-      "mcp endpoints"
+      "mcp 工具",
+      "工具列表",
+      "mcp 服务器",
+      "可用工具",
+      "mcp 功能",
+      "服务器工具",
+      "工具目录",
+      "mcp 功能",
+      "mcp 端点"
     ],
     "param.url.description": "MCP 服务器端点 URL。如果省略，则可以使用已配置的服务器。"
   },
@@ -418,15 +455,15 @@
     "tool.description": "连接MCP服务器并列出可用工具。支持HTTP和stdio传输。",
     "x_search_terms": [
       "mcp",
-      "mcp tools",
-      "tool list",
-      "mcp server",
-      "available tools",
-      "mcp capabilities",
-      "server tools",
-      "tool catalog",
-      "mcp functions",
-      "mcp endpoints"
+      "mcp 工具",
+      "工具清單",
+      "mcp 伺服器",
+      "可用工具",
+      "mcp 功能",
+      "伺服器工具",
+      "工具目錄",
+      "mcp 功能",
+      "mcp 端點"
     ],
     "param.url.description": "MCP 伺服器端點 URL。如果省略，則可以使用已設定的伺服器。"
   },
@@ -455,14 +492,14 @@
     "x_search_terms": [
       "mcp",
       "mcp tools",
-      "tool list",
+      " لیست ابزار",
       "mcp server",
-      "available tools",
-      "mcp capabilities",
-      "server tools",
-      "tool catalog",
-      "mcp functions",
-      "mcp endpoints"
+      "ابزارهای در دسترس",
+      "قابلیت‌های mcp",
+      "ابزارهای سرور",
+      "کاتالوگ ابزار",
+      "",
+      ""
     ],
     "param.url.description": "URL نقطه پایانی سرور MCP. اگر حذف شود، ممکن است از یک سرور پیکربندی شده استفاده شود."
   },
@@ -472,15 +509,15 @@
     "tool.description": "MCP серверт холбогдож, боломжтой хэрэгслүүдийг жагсаана уу. HTTP болон stdio дамжуулалтыг дэмждэг.",
     "x_search_terms": [
       "mcp",
-      "mcp tools",
-      "tool list",
-      "mcp server",
-      "available tools",
-      "mcp capabilities",
-      "server tools",
-      "tool catalog",
-      "mcp functions",
-      "mcp endpoints"
+      "mcp хэрэгслүүд",
+      "хэрэгслийн жагсаалт",
+      "mcp сервер",
+      "боломжтой хэрэгслүүд",
+      "mcp боломжууд",
+      "серверийн хэрэгслүүд",
+      "хэрэгслийн каталог",
+      "mcp функцууд",
+      "mcp төгсгөлийн цэгүүд"
     ],
     "param.url.description": "MCP серверийн төгсгөлийн URL. Хэрэв орхигдуулсан бол тохируулсан серверийг ашиглаж болно."
   },
@@ -490,15 +527,15 @@
     "tool.description": "MCP सर्व्हरशी कनेक्ट करा आणि उपलब्ध साधनांची यादी करा. HTTP आणि stdio ट्रान्सपोर्टला सपोर्ट करते.",
     "x_search_terms": [
       "mcp",
-      "mcp tools",
-      "tool list",
-      "mcp server",
-      "available tools",
-      "mcp capabilities",
-      "server tools",
-      "tool catalog",
-      "mcp functions",
-      "mcp endpoints"
+      "mcp टूल्स",
+      "टूल लिस्ट",
+      "mcp सर्व्हर",
+      "उपलब्ध साधने",
+      "mcp क्षमता",
+      "सर्व्हर टूल्स",
+      "टूल कॅटलॉग",
+      "mcp फंक्शन्स",
+      "mcp एंडपॉइंट"
     ],
     "param.url.description": "MCP सर्व्हर एंडपॉइंट URL. वगळल्यास, कॉन्फिगर केलेला सर्व्हर वापरला जाऊ शकतो."
   },
@@ -508,15 +545,15 @@
     "tool.description": "Συνδεθείτε σε διακομιστή MCP και παραθέστε τα διαθέσιμα εργαλεία. Υποστηρίζει μεταφορές HTTP και stdio.",
     "x_search_terms": [
       "mcp",
-      "mcp tools",
-      "tool list",
+      "mcp εργαλεία",
+      "λίστα εργαλείων",
       "mcp server",
-      "available tools",
-      "mcp capabilities",
-      "server tools",
-      "tool catalog",
-      "mcp functions",
-      "mcp endpoints"
+      "διαθέσιμα εργαλεία",
+      "mcp ικανότητες",
+      "εργαλεία διακομιστή",
+      "κατάλογος εργαλείων",
+      "συναρτήσεις mcp",
+      "τελικά σημεία mcp"
     ],
     "param.url.description": "URL τελικού σημείου διακομιστή MCP. Εάν παραλειφθεί, μπορεί να χρησιμοποιηθεί ένας διαμορφωμένος διακομιστής."
   },
@@ -527,14 +564,14 @@
     "x_search_terms": [
       "mcp",
       "mcp tools",
-      "tool list",
-      "mcp server",
-      "available tools",
-      "mcp capabilities",
-      "server tools",
-      "tool catalog",
+      "רשימת כלים",
+      "mcp שרת",
+      "כלים זמינים",
+      "יכולות mcp",
+      "כלי שרת",
+      "קטלוג כלים",
       "mcp functions",
-      "mcp endpoints"
+      "mcp נקודות קצה"
     ],
     "param.url.description": "כתובת URL של שרת MCP. אם מושמט, ניתן להשתמש בשרת מוגדר."
   },
@@ -544,15 +581,15 @@
     "tool.description": "Csatlakozzon egy MCP-kiszolgálóhoz, és sorolja fel az elérhető eszközöket. Támogatja a HTTP és az stdio átvitelt.",
     "x_search_terms": [
       "mcp",
-      "mcp tools",
-      "tool list",
-      "mcp server",
-      "available tools",
-      "mcp capabilities",
-      "server tools",
-      "tool catalog",
-      "mcp functions",
-      "mcp endpoints"
+      "mcpeszközök",
+      "eszközlista",
+      "mcp-szerver",
+      "rendelkezésre álló eszközök",
+      "mcp-képességek",
+      "szervereszközök",
+      "eszközkatalógus",
+      "mcp-funkciók",
+      "mcp-végpontok"
     ],
     "param.url.description": "MCP-kiszolgáló végpont URL-je. Ha kihagyja, egy konfigurált szerver használható."
   },
@@ -563,14 +600,14 @@
     "x_search_terms": [
       "mcp",
       "mcp tools",
-      "tool list",
+      "listă de instrumente",
       "mcp server",
-      "available tools",
-      "mcp capabilities",
-      "server tools",
-      "tool catalog",
-      "mcp functions",
-      "mcp endpoints"
+      "instrumente disponibile",
+      "capacități mcp",
+      "unelte server",
+      "catalog de instrumente",
+      "funcții mcp",
+      "puncte finale mcp"
     ],
     "param.url.description": "Adresa URL a punctului final al serverului MCP. Dacă este omis, poate fi utilizat un server configurat."
   }

@@ -1,63 +1,71 @@
 {
   "ar": {
     "param.fmt.description": "التنسيق: json أو نص.",
-    "x_search_terms": [
-      "قائمة وحدات التحكم بالمادة",
-      "matter_controller_list",
-      "مادة",
-      "مادة",
-      "وحدة تحكم"
-    ],
     "err.config_missing": "لم يتم العثور على ملف تكوين وحدة تحكم المسألة. اضبط {env_json} أو {env_file}.",
     "err.invalid_config": "تعذر تحليل تكوين وحدة التحكم في المادة: {err}",
     "err.not_found": "لم يتم العثور على وحدة تحكم المسألة: {controller_id}",
     "param.ctrl.description": "معرف وحدة التحكم (حذف للجميع).",
-    "tool.description": "قم بإدراج الأجهزة التي تديرها وحدة التحكم Matter وأرجع ملخص JSON أو النص."
+    "tool.description": "قم بإدراج الأجهزة التي تديرها وحدة التحكم Matter وأرجع ملخص JSON أو النص.",
+    "x_search_terms": [
+      "قائمة التحكم في المادة",
+      "matter_controller_list",
+      "matter",
+      "MATTER",
+      "إدارة التحكم",
+      "الأجهزة",
+      "return"
+    ]
   },
   "bn": {
     "param.fmt.description": "বিন্যাস: json বা পাঠ্য।",
-    "x_search_terms": [
-      "বিষয় নিয়ন্ত্রক তালিকা",
-      "matter_controller_list",
-      "বিষয়",
-      "বিষয়",
-      "নিয়ন্ত্রক"
-    ],
     "err.config_missing": "ম্যাটার কন্ট্রোলার কনফিগারেশন ফাইল পাওয়া যায়নি. {env_json} বা {env_file} সেট করুন।",
     "err.invalid_config": "ম্যাটার কন্ট্রোলার কনফিগারেশন পার্স করা যায়নি: {err}",
     "err.not_found": "ম্যাটার কন্ট্রোলার পাওয়া যায়নি: {controller_id}",
     "param.ctrl.description": "কন্ট্রোলার আইডি (সকলের জন্য বাদ দিন)।",
-    "tool.description": "ম্যাটার কন্ট্রোলার-পরিচালিত ডিভাইসগুলি তালিকাভুক্ত করুন এবং একটি JSON বা পাঠ্য সারাংশ প্রদান করুন।"
+    "tool.description": "ম্যাটার কন্ট্রোলার-পরিচালিত ডিভাইসগুলি তালিকাভুক্ত করুন এবং একটি JSON বা পাঠ্য সারাংশ প্রদান করুন।",
+    "x_search_terms": [
+      "ম্যাটার কন্ট্রোলার লিস্ট",
+      "matter_controller_list",
+      "matter",
+      "MATTER",
+      "controller-managed",
+      "devices",
+      "return"
+    ]
   },
   "cs": {
     "param.fmt.description": "Formát: json nebo text.",
-    "x_search_terms": [
-      "seznam řadičů hmoty",
-      "matter_controller_list",
-      "hmota",
-      "HMOTA",
-      "řadič"
-    ],
     "err.config_missing": "Konfigurační soubor regulátoru Matter nebyl nalezen. Nastavte {env_json} nebo {env_file}.",
     "err.invalid_config": "Konfiguraci řadiče hmoty nelze analyzovat: {err}",
     "err.not_found": "Kontrolér hmoty nebyl nalezen: {controller_id}",
     "param.ctrl.description": "ID ovladače (vynechat pro všechny).",
-    "tool.description": "Vypište seznam zařízení spravovaných ovladačem Matter a vraťte JSON nebo textové shrnutí."
+    "tool.description": "Vypište seznam zařízení spravovaných ovladačem Matter a vraťte JSON nebo textové shrnutí.",
+    "x_search_terms": [
+      "seznam kontrolérů",
+      "seznam_kontrolérů",
+      "záležitost",
+      "záležitost",
+      "zařízení",
+      "spravovaná/zařízení",
+      "záležitosti\nnávrat"
+    ]
   },
   "de": {
     "param.fmt.description": "Format: JSON oder Text.",
-    "x_search_terms": [
-      "Materie-Controller-Liste",
-      "matter_controller_list",
-      "Angelegenheit",
-      "MATTER",
-      "Controller"
-    ],
     "err.config_missing": "Die Konfigurationsdatei des Matter-Controllers wurde nicht gefunden. Stellen Sie {env_json} oder {env_file} ein.",
     "err.invalid_config": "Die Matter-Controller-Konfiguration konnte nicht geparst werden: {err}",
     "err.not_found": "Materie-Controller nicht gefunden: {controller_id}",
     "param.ctrl.description": "Controller-ID (für alle weglassen).",
-    "tool.description": "Listen Sie vom Matter-Controller verwaltete Geräte auf und geben Sie eine JSON- oder Textzusammenfassung zurück."
+    "tool.description": "Listen Sie vom Matter-Controller verwaltete Geräte auf und geben Sie eine JSON- oder Textzusammenfassung zurück.",
+    "x_search_terms": [
+      "Matter-Controller-Liste",
+      "Matter_Controller-Liste",
+      "Matter",
+      "MATTER",
+      "Controller-verwaltete Geräte",
+      "Rückgabe",
+      ""
+    ]
   },
   "en": {
     "param.fmt.description": "Format: json or text.",
@@ -78,108 +86,122 @@
   },
   "es": {
     "param.fmt.description": "Formato: json o texto.",
-    "x_search_terms": [
-      "lista de controladores de materia",
-      "lista_controlador_de_materia",
-      "materia",
-      "ASUNTO",
-      "controlador"
-    ],
     "err.config_missing": "No se encontró el archivo de configuración del controlador de materia. Establezca {env_json} o {env_file}.",
     "err.invalid_config": "No se pudo analizar la configuración del controlador de materia: {err}",
     "err.not_found": "Controlador de materia no encontrado: {controller_id}",
     "param.ctrl.description": "ID del controlador (omitir para todos).",
-    "tool.description": "Enumere los dispositivos administrados por el controlador Matter y devuelva un resumen de texto o JSON."
+    "tool.description": "Enumere los dispositivos administrados por el controlador Matter y devuelva un resumen de texto o JSON.",
+    "x_search_terms": [
+      "lista de controladores de materia",
+      "matter_controller_list",
+      "materia",
+      "MATTER",
+      "controlador-administrado",
+      "dispositivos",
+      "retorno"
+    ]
   },
   "fa": {
     "param.fmt.description": "فرمت: json یا متن.",
-    "x_search_terms": [
-      "لیست کنترل‌کننده‌های ماده",
-      "matter_controller_list",
-      "ماده",
-      "ماده",
-      "کنترل‌کننده"
-    ],
     "err.config_missing": "فایل پیکربندی کنترلر ماده یافت نشد. {env_json} یا {env_file} را تنظیم کنید.",
     "err.invalid_config": "پیکربندی کنترل‌کننده ماده قابل تجزیه نیست: {err}",
     "err.not_found": "کنترل کننده ماده یافت نشد: {controller_id}",
     "param.ctrl.description": "شناسه کنترلر (برای همه حذف شود).",
-    "tool.description": "دستگاه‌های مدیریت‌شده توسط Matter را فهرست کنید و یک JSON یا خلاصه متنی را برگردانید."
+    "tool.description": "دستگاه‌های مدیریت‌شده توسط Matter را فهرست کنید و یک JSON یا خلاصه متنی را برگردانید.",
+    "x_search_terms": [
+      "فهرست کنترل‌کننده ماده",
+      "",
+      "",
+      "",
+      "",
+      "",
+      ""
+    ]
   },
   "fi": {
     "param.fmt.description": "Muoto: json tai teksti.",
-    "x_search_terms": [
-      "asian ohjainluettelo",
-      "matter_controller_list",
-      "asia",
-      "ASIA",
-      "ohjain"
-    ],
     "err.config_missing": "Asiaohjaimen määritystiedostoa ei löytynyt. Aseta {env_json} tai {env_file}.",
     "err.invalid_config": "Asiaohjaimen määritystä ei voitu jäsentää: {err}",
     "err.not_found": "Asiaohjainta ei löydy: {controller_id}",
     "param.ctrl.description": "Ohjaimen tunnus (jätä pois kaikista).",
-    "tool.description": "Luettele Matter-ohjaimen hallinnoimat laitteet ja palauta JSON- tai tekstiyhteenveto."
+    "tool.description": "Luettele Matter-ohjaimen hallinnoimat laitteet ja palauta JSON- tai tekstiyhteenveto.",
+    "x_search_terms": [
+      "asiaohjainluettelo",
+      "matter_controller_list",
+      "matter",
+      "MATTER",
+      "controller-managed",
+      "laitteet",
+      "palautus"
+    ]
   },
   "fr": {
     "param.fmt.description": "Format : json ou texte.",
-    "x_search_terms": [
-      "liste des contrôleurs de matière",
-      "matière_controller_list",
-      "matière",
-      "MATIÈRE",
-      "contrôleur"
-    ],
     "err.config_missing": "Le fichier de configuration du contrôleur de matière est introuvable. Définissez {env_json} ou {env_file}.",
     "err.invalid_config": "La configuration du contrôleur de matière n'a pas pu être analysée : {err}",
     "err.not_found": "Contrôleur de sujet introuvable : {controller_id}",
     "param.ctrl.description": "ID du contrôleur (omettre pour tous).",
-    "tool.description": "Répertoriez les appareils gérés par le contrôleur Matter et renvoyez un résumé JSON ou texte."
+    "tool.description": "Répertoriez les appareils gérés par le contrôleur Matter et renvoyez un résumé JSON ou texte.",
+    "x_search_terms": [
+      "liste des contrôleurs de matière",
+      "matter_controller_list",
+      "matter",
+      "MATTER",
+      "controller-managed",
+      "devices",
+      "return"
+    ]
   },
   "hi": {
     "param.fmt.description": "प्रारूप: json या text.",
-    "x_search_terms": [
-      "विषय नियंत्रक सूची",
-      "matter_controller_list",
-      "विषय",
-      "विषय",
-      "नियंत्रक"
-    ],
     "err.config_missing": "मैटर नियंत्रक कॉन्फ़िगरेशन फ़ाइल नहीं मिली. {env_json} या {env_file} सेट करें।",
     "err.invalid_config": "मैटर नियंत्रक कॉन्फ़िगरेशन को पार्स नहीं किया जा सका: {err}",
     "err.not_found": "पदार्थ नियंत्रक नहीं मिला: {controller_id}",
     "param.ctrl.description": "नियंत्रक आईडी (सभी के लिए छोड़ें)।",
-    "tool.description": "मैटर नियंत्रक-प्रबंधित उपकरणों की सूची बनाएं और JSON या टेक्स्ट सारांश लौटाएं।"
+    "tool.description": "मैटर नियंत्रक-प्रबंधित उपकरणों की सूची बनाएं और JSON या टेक्स्ट सारांश लौटाएं।",
+    "x_search_terms": [
+      "मैटर कंट्रोलर लिस्ट",
+      "मैटर_कंट्रोलर_लिस्ट",
+      "मैटर",
+      "मैटर",
+      "कंट्रोलर-मैनेज्ड",
+      "डिवाइसेस",
+      "रिटर्न"
+    ]
   },
   "id": {
     "param.fmt.description": "Format: json atau teks.",
-    "x_search_terms": [
-      "daftar pengontrol materi",
-      "daftar_masalah_kontroler",
-      "penting",
-      "MASALAH",
-      "pengontrol"
-    ],
     "err.config_missing": "File konfigurasi pengontrol materi tidak ditemukan. Setel {env_json} atau {env_file}.",
     "err.invalid_config": "Konfigurasi pengontrol materi tidak dapat diuraikan: {err}",
     "err.not_found": "Pengontrol materi tidak ditemukan: {controller_id}",
     "param.ctrl.description": "ID Pengontrol (hilangkan untuk semua).",
-    "tool.description": "Cantumkan perangkat yang dikelola pengontrol Matter dan kembalikan JSON atau ringkasan teks."
+    "tool.description": "Cantumkan perangkat yang dikelola pengontrol Matter dan kembalikan JSON atau ringkasan teks.",
+    "x_search_terms": [
+      "daftar pengontrol materi",
+      "daftar_pengontrol_materi",
+      "masalah",
+      "MATTER",
+      "yang dikelola pengontrol",
+      "perangkat",
+      "pengembalian"
+    ]
   },
   "it": {
     "param.fmt.description": "Formato: json o testo.",
-    "x_search_terms": [
-      "elenco dei controller dell'argomento",
-      "materia_controller_list",
-      "materia",
-      "MATERIA",
-      "controllore"
-    ],
     "err.config_missing": "Il file di configurazione del controller dell'argomento non è stato trovato. Imposta {env_json} o {env_file}.",
     "err.invalid_config": "Impossibile analizzare la configurazione del controller dell'argomento: {err}",
     "err.not_found": "Controller dell'argomento non trovato: {controller_id}",
     "param.ctrl.description": "ID del controller (omettere per tutti).",
-    "tool.description": "Elenca i dispositivi gestiti dal controller della materia e restituisce un JSON o un riepilogo di testo."
+    "tool.description": "Elenca i dispositivi gestiti dal controller della materia e restituisce un JSON o un riepilogo di testo.",
+    "x_search_terms": [
+      "elenco dei controller dell'argomento",
+      "elenco_controller_dell'argomento",
+      "argomento",
+      "MATERIA",
+      "dispositivi",
+      "gestiti",
+      "dal controller\nreturn"
+    ]
   },
   "ja": {
     "param.fmt.description": "形式: json またはテキスト。",
@@ -190,325 +212,369 @@
     "tool.description": "Matter コントローラーで管理されているデバイスをリストし、JSON またはテキストの概要を返します。",
     "x_search_terms": [
       "マターコントローラーリスト",
-      "マター_コントローラー_リスト",
-      "問題",
-      "問題",
-      "コントローラー"
+      "matter_controller_list",
+      "マター",
+      "MATTER",
+      "コントローラー管理",
+      "デバイス",
+      "return"
     ]
   },
   "ko": {
     "param.fmt.description": "형식: json 또는 텍스트.",
-    "x_search_terms": [
-      "물질 컨트롤러 목록",
-      "문제_컨트롤러_목록",
-      "문제",
-      "물질",
-      "컨트롤러"
-    ],
     "err.config_missing": "Matter 컨트롤러 구성 파일을 찾을 수 없습니다. {env_json} 또는 {env_file}을 설정합니다.",
     "err.invalid_config": "Matter 컨트롤러 구성을 파싱할 수 없습니다: {err}",
     "err.not_found": "물질 컨트롤러를 찾을 수 없습니다: {controller_id}",
     "param.ctrl.description": "컨트롤러 ID(모두 생략).",
-    "tool.description": "Matter 컨트롤러 관리 장치를 나열하고 JSON 또는 텍스트 요약을 반환합니다."
+    "tool.description": "Matter 컨트롤러 관리 장치를 나열하고 JSON 또는 텍스트 요약을 반환합니다.",
+    "x_search_terms": [
+      "Matter 컨트롤러 목록",
+      "matter_controller_list",
+      "matter",
+      "MATTER",
+      "컨트롤러 관리",
+      "devices",
+      "return"
+    ]
   },
   "mn": {
     "param.fmt.description": "Формат: json эсвэл текст.",
-    "x_search_terms": [
-      "материйн хянагчийн жагсаалт",
-      "matter_controller_list",
-      "асуудал",
-      "асуудал",
-      "хянагч"
-    ],
     "err.config_missing": "Материйн хянагчийн тохиргооны файл олдсонгүй. {env_json} эсвэл {env_file} тохируулна уу.",
     "err.invalid_config": "Материйн хянагчийн тохиргоог задлан шинжилж чадсангүй: {err}",
     "err.not_found": "Бодисын хянагч олдсонгүй: {controller_id}",
     "param.ctrl.description": "Хянагчийн ID (бүгдийг орхих).",
-    "tool.description": "Асуудлыг хянагчийн удирддаг төхөөрөмжүүдийг жагсааж, JSON эсвэл текстийн хураангуйг буцаана уу."
+    "tool.description": "Асуудлыг хянагчийн удирддаг төхөөрөмжүүдийг жагсааж, JSON эсвэл текстийн хураангуйг буцаана уу.",
+    "x_search_terms": [
+      "асуудал хянагчийн жагсаалт",
+      "материал_хянагч_жагсаалт",
+      "матери",
+      "АСУУДАЛ",
+      "хянагчаар удирддаг",
+      "төхөөрөмжүүд",
+      "буцах"
+    ]
   },
   "mr": {
     "param.fmt.description": "स्वरूप: json किंवा मजकूर.",
-    "x_search_terms": [
-      "विषय नियंत्रक यादी",
-      "matter_controller_list",
-      "विषय",
-      "विषय",
-      "नियंत्रक"
-    ],
     "err.config_missing": "मॅटर कंट्रोलर कॉन्फिगरेशन फाइल आढळली नाही. {env_json} किंवा {env_file} सेट करा.",
     "err.invalid_config": "मॅटर कंट्रोलर कॉन्फिगरेशनचे विश्लेषण करणे शक्य नाही: {err}",
     "err.not_found": "मॅटर कंट्रोलर सापडला नाही: {controller_id}",
     "param.ctrl.description": "कंट्रोलर आयडी (सर्वांसाठी वगळा).",
-    "tool.description": "मॅटर कंट्रोलर-व्यवस्थापित उपकरणांची यादी करा आणि JSON किंवा मजकूर सारांश परत करा."
+    "tool.description": "मॅटर कंट्रोलर-व्यवस्थापित उपकरणांची यादी करा आणि JSON किंवा मजकूर सारांश परत करा.",
+    "x_search_terms": [
+      "पदार्थ नियंत्रक सूची",
+      "matter_controller_list",
+      "matter",
+      "MATTER",
+      "कंट्रोलर-व्यवस्थापित",
+      "डिव्हाइस",
+      "परत"
+    ]
   },
   "el": {
     "param.fmt.description": "Μορφή: json ή κείμενο.",
-    "x_search_terms": [
-      "λίστα ελεγκτών ύλης",
-      "matter_controller_list",
-      "ύλη",
-      "ΥΛΗ",
-      "ελεγκτής"
-    ],
     "err.config_missing": "Το αρχείο διαμόρφωσης του ελεγκτή θέματος δεν βρέθηκε. Ορίστε {env_json} ή {env_file}.",
     "err.invalid_config": "Δεν ήταν δυνατή η ανάλυση της διαμόρφωσης του ελεγκτή θέματος: {err}",
     "err.not_found": "Δεν βρέθηκε ο ελεγκτής θέματος: {controller_id}",
     "param.ctrl.description": "Αναγνωριστικό ελεγκτή (παράλειψη για όλους).",
-    "tool.description": "Καταχωρίστε τις συσκευές που διαχειρίζονται το Matter και επιστρέψτε μια σύνοψη JSON ή κειμένου."
+    "tool.description": "Καταχωρίστε τις συσκευές που διαχειρίζονται το Matter και επιστρέψτε μια σύνοψη JSON ή κειμένου.",
+    "x_search_terms": [
+      "λίστα ελεγκτών θέματος",
+      "matter_controller_list",
+      "matter",
+      "MATTER",
+      "διαχείριση από ελεγκτή",
+      "συσκευές",
+      "επιστροφή"
+    ]
   },
   "he": {
     "param.fmt.description": "אין ערכים במטמון.",
-    "x_search_terms": [
-      "רשימת בקרי חומר",
-      "matter_controller_list",
-      "חומר",
-      "חומר",
-      "בקר"
-    ],
     "err.config_missing": "לא נמצא קובץ התצורה של בקר החומר. הגדר {env_json} או {env_file}.",
     "err.invalid_config": "לא ניתן היה לנתח את תצורת בקר החומר: {err}",
     "err.not_found": "בקר החומר לא נמצא: {controller_id}",
     "param.ctrl.description": "מזהה בקר (השמט לכולם).",
-    "tool.description": "רשום מכשירים המנוהלים על ידי בקר Matter והחזר JSON או סיכום טקסט."
+    "tool.description": "רשום מכשירים המנוהלים על ידי בקר Matter והחזר JSON או סיכום טקסט.",
+    "x_search_terms": [
+      "רשימת בקרי עניינים",
+      "matter_controller_list",
+      "matter",
+      "MATTER",
+      "החזרת מכשירים מנוהלים בקרה",
+      "",
+      ""
+    ]
   },
   "hu": {
     "param.fmt.description": "Gyorsítótár művelet: pillanatfelvétel vagy törlés.",
-    "x_search_terms": [
-      "anyag vezérlő lista",
-      "matter_controller_list",
-      "anyag",
-      "ANYAG",
-      "vezérlő"
-    ],
     "err.config_missing": "Az anyagvezérlő konfigurációs fájlja nem található. Állítsa be: {env_json} vagy {env_file}.",
     "err.invalid_config": "Az anyagvezérlő konfigurációja nem értelmezhető: {err}",
     "err.not_found": "Az anyagvezérlő nem található: {controller_id}",
     "param.ctrl.description": "Vezérlőazonosító (mindennél kihagyja).",
-    "tool.description": "Sorolja fel a Matter-vezérlő által felügyelt eszközöket, és küldjön vissza egy JSON- vagy szöveges összefoglalót."
+    "tool.description": "Sorolja fel a Matter-vezérlő által felügyelt eszközöket, és küldjön vissza egy JSON- vagy szöveges összefoglalót.",
+    "x_search_terms": [
+      "anyagvezérlő lista",
+      "anyag_vezérlők listája",
+      "anyag",
+      "MATTER",
+      "vezérlő által kezelt",
+      "eszközök",
+      "visszaadás"
+    ]
   },
   "ro": {
     "param.fmt.description": "Inspectați sau ștergeți memoria cache ECHONET Lite partajată.",
-    "x_search_terms": [
-      "listă controlere materie",
-      "matter_controller_list",
-      "materie",
-      "MATERIE",
-      "controler"
-    ],
     "err.config_missing": "Fișierul de configurare a controlerului Matter nu a fost găsit. Setați {env_json} sau {env_file}.",
     "err.invalid_config": "Configurația controlerului nu a putut fi analizată: {err}",
     "err.not_found": "Controlerul nu a fost găsit: {controller_id}",
     "param.ctrl.description": "ID controler (omiteți pentru toți).",
-    "tool.description": "Listați dispozitivele gestionate de controler Matter și returnați un rezumat JSON sau text."
+    "tool.description": "Listați dispozitivele gestionate de controler Matter și returnați un rezumat JSON sau text.",
+    "x_search_terms": [
+      "listă de controler de materie",
+      "lista_controller_de_materie",
+      "matter",
+      "MATTER",
+      "dispozitive gestionate de controler",
+      "return",
+      ""
+    ]
   },
   "nb": {
     "param.fmt.description": "Format: json eller tekst.",
-    "x_search_terms": [
-      "liste over kontrollere for materie",
-      "matter_controller_list",
-      "saken",
-      "MATTER",
-      "kontroller"
-    ],
     "err.config_missing": "Konfigurasjonsfilen for sakskontrolleren ble ikke funnet. Sett {env_json} eller {env_file}.",
     "err.invalid_config": "Sakskontrollerkonfigurasjonen kunne ikke analyseres: {err}",
     "err.not_found": "Sakskontrolleren ble ikke funnet: {controller_id}",
     "param.ctrl.description": "Kontroller-ID (utelat for alle).",
-    "tool.description": "List opp Matter-kontrollerstyrte enheter og returner et JSON- eller tekstsammendrag."
+    "tool.description": "List opp Matter-kontrollerstyrte enheter og returner et JSON- eller tekstsammendrag.",
+    "x_search_terms": [
+      "matter controller list",
+      "matter_controller_list",
+      "matter",
+      "MATTER",
+      "kontrollørstyrte",
+      "enheter",
+      "retur"
+    ]
   },
   "nl": {
     "param.fmt.description": "Formaat: json of tekst.",
-    "x_search_terms": [
-      "materie-controllerlijst",
-      "matter_controller_list",
-      "materie",
-      "MATTER",
-      "controller"
-    ],
     "err.config_missing": "Configuratiebestand van de Matter-controller is niet gevonden. Stel {env_json} of {env_file} in.",
     "err.invalid_config": "De configuratie van de materiecontroller kan niet worden geparseerd: {err}",
     "err.not_found": "Materiecontroller niet gevonden: {controller_id}",
     "param.ctrl.description": "Controller-ID (weglaten voor alles).",
-    "tool.description": "Maak een lijst van door de Matter-controller beheerde apparaten en retourneer een JSON- of tekstsamenvatting."
+    "tool.description": "Maak een lijst van door de Matter-controller beheerde apparaten en retourneer een JSON- of tekstsamenvatting.",
+    "x_search_terms": [
+      "matter controller list",
+      "matter_controller_list",
+      "matter",
+      "MATTER",
+      "controller-managed",
+      "devices",
+      "return"
+    ]
   },
   "pl": {
     "param.fmt.description": "Format: json lub tekst.",
-    "x_search_terms": [
-      "lista kontrolerów spraw",
-      "lista_kontrolerów materii",
-      "sprawa",
-      "MATERIA",
-      "kontroler"
-    ],
     "err.config_missing": "Nie znaleziono pliku konfiguracyjnego kontrolera materii. Ustaw {env_json} lub {env_file}.",
     "err.invalid_config": "Nie można przeanalizować konfiguracji kontrolera materii: {err}",
     "err.not_found": "Nie znaleziono kontrolera sprawy: {controller_id}",
     "param.ctrl.description": "Identyfikator kontrolera (pomiń dla wszystkich).",
-    "tool.description": "Wyświetl listę urządzeń zarządzanych przez kontroler Matter i zwróć podsumowanie w formacie JSON lub tekstowym."
+    "tool.description": "Wyświetl listę urządzeń zarządzanych przez kontroler Matter i zwróć podsumowanie w formacie JSON lub tekstowym.",
+    "x_search_terms": [
+      "lista kontrolerów materii",
+      "lista_kontrolerów materii",
+      "materia",
+      "MATTER",
+      "urządzenia",
+      "zarządzane przez kontroler",
+      "powrót"
+    ]
   },
   "pt": {
     "param.fmt.description": "Formato: json ou texto.",
-    "x_search_terms": [
-      "lista de controladores de matéria",
-      "lista_controladores_matéria",
-      "assunto",
-      "MATÉRIA",
-      "controlador"
-    ],
     "err.config_missing": "O arquivo de configuração do controlador de matéria não foi encontrado. Defina {env_json} ou {env_file}.",
     "err.invalid_config": "A configuração do controlador de assunto não pôde ser analisada: {err}",
     "err.not_found": "Controlador de assunto não encontrado: {controller_id}",
     "param.ctrl.description": "ID do controlador (omitir para todos).",
-    "tool.description": "Liste os dispositivos gerenciados pelo controlador Matter e retorne um JSON ou um resumo de texto."
+    "tool.description": "Liste os dispositivos gerenciados pelo controlador Matter e retorne um JSON ou um resumo de texto.",
+    "x_search_terms": [
+      "lista de controladores de matéria",
+      "matter_controller_list",
+      "matter",
+      "MATTER",
+      "gerenciados por controladores",
+      "dispositivos",
+      "retorno"
+    ]
   },
   "pt_BR": {
     "param.fmt.description": "Formato: json ou texto.",
-    "x_search_terms": [
-      "lista de controladores de assuntos",
-      "lista_controlador_matéria",
-      "assunto",
-      "MATÉRIA",
-      "controlador"
-    ],
     "err.config_missing": "O arquivo de configuração do controlador de matéria não foi encontrado. Defina {env_json} ou {env_file}.",
     "err.invalid_config": "A configuração do controlador de assunto não pôde ser analisada: {err}",
     "err.not_found": "Controlador de assunto não encontrado: {controller_id}",
     "param.ctrl.description": "ID do controlador (omitir para todos).",
-    "tool.description": "Liste os dispositivos gerenciados pelo controlador Matter e retorne um JSON ou um resumo de texto."
+    "tool.description": "Liste os dispositivos gerenciados pelo controlador Matter e retorne um JSON ou um resumo de texto.",
+    "x_search_terms": [
+      "lista de controladores de matéria",
+      "matter_controller_list",
+      "matter",
+      "MATTER",
+      "gerenciados por controladores",
+      "dispositivos",
+      "retorno"
+    ]
   },
   "ru": {
     "param.fmt.description": "Формат: json или текст.",
-    "x_search_terms": [
-      "список контроллеров материи",
-      "matter_controller_list",
-      "материя",
-      "МАТЕРИЯ",
-      "контроллер"
-    ],
     "err.config_missing": "Файл конфигурации контроллера материи не найден. Установите {env_json} или {env_file}.",
     "err.invalid_config": "Конфигурацию контроллера материи не удалось проанализировать: {err}",
     "err.not_found": "Контроллер материи не найден: {controller_id}",
     "param.ctrl.description": "Идентификатор контроллера (пропустить для всех).",
-    "tool.description": "Перечислите устройства, управляемые контроллером Matter, и верните JSON или текстовую сводку."
+    "tool.description": "Перечислите устройства, управляемые контроллером Matter, и верните JSON или текстовую сводку.",
+    "x_search_terms": [
+      "список контроллеров материи",
+      "matter_controller_list",
+      "matter",
+      "MATTER",
+      "управляемые контроллером",
+      "устройства",
+      "return"
+    ]
   },
   "sv": {
     "param.fmt.description": "Format: json eller text.",
-    "x_search_terms": [
-      "materia styrenhetslista",
-      "matter_controller_list",
-      "materia",
-      "MATTER",
-      "styrenhet"
-    ],
     "err.config_missing": "Konfigurationsfilen för ärendekontroller hittades inte. Ställ in {env_json} eller {env_file}.",
     "err.invalid_config": "Det gick inte att tolka ärendekontrollerns konfiguration: {err}",
     "err.not_found": "Sakkontrollanten hittades inte: {controller_id}",
     "param.ctrl.description": "Controller-ID (utelämna för alla).",
-    "tool.description": "Lista Matter-kontrollerhanterade enheter och returnera en JSON- eller textsammanfattning."
+    "tool.description": "Lista Matter-kontrollerhanterade enheter och returnera en JSON- eller textsammanfattning.",
+    "x_search_terms": [
+      "ärendekontrollantlista",
+      "matter_controller_list",
+      "matter",
+      "MATTER",
+      "kontrollanthanterade",
+      "enheter",
+      "retur"
+    ]
   },
   "sw": {
     "param.fmt.description": "Umbizo: json au maandishi.",
-    "x_search_terms": [
-      "orodha ya vidhibiti vya maada",
-      "matter_controller_list",
-      "maada",
-      "MAADA",
-      "kidhibiti"
-    ],
     "err.config_missing": "Faili ya usanidi wa kidhibiti cha jambo haikupatikana. Weka {env_json} au {env_file}.",
     "err.invalid_config": "Usanidi wa kidhibiti cha jambo haukuweza kuchanganuliwa: {err}",
     "err.not_found": "Kidhibiti cha jambo hakijapatikana: {controller_id}",
     "param.ctrl.description": "Kitambulisho cha Mdhibiti (acha kwa wote).",
-    "tool.description": "Orodhesha vifaa vinavyodhibitiwa na kidhibiti na urudishe JSON au muhtasari wa maandishi."
+    "tool.description": "Orodhesha vifaa vinavyodhibitiwa na kidhibiti na urudishe JSON au muhtasari wa maandishi.",
+    "x_search_terms": [
+      "list controller list",
+      "matter_controller_list",
+      "matter",
+      "MATTER",
+      "controller-managed",
+      "devices",
+      "return"
+    ]
   },
   "th": {
     "param.fmt.description": "รูปแบบ: json หรือข้อความ",
-    "x_search_terms": [
-      "รายการตัวควบคุมสสาร",
-      "matter_controller_list",
-      "สสาร",
-      "สสาร",
-      "ตัวควบคุม"
-    ],
     "err.config_missing": "ไม่พบไฟล์การกำหนดค่าตัวควบคุม Matter ตั้งค่า {env_json} หรือ {env_file}",
     "err.invalid_config": "ไม่สามารถแยกวิเคราะห์การกำหนดค่าตัวควบคุมกรณีได้: {err}",
     "err.not_found": "ไม่พบตัวควบคุมกรณี: {controller_id}",
     "param.ctrl.description": "รหัสตัวควบคุม (ละเว้นสำหรับทุกคน)",
-    "tool.description": "แสดงรายการอุปกรณ์ที่จัดการโดยตัวควบคุมและส่งคืน JSON หรือสรุปข้อความ"
+    "tool.description": "แสดงรายการอุปกรณ์ที่จัดการโดยตัวควบคุมและส่งคืน JSON หรือสรุปข้อความ",
+    "x_search_terms": [
+      "รายการตัวควบคุมเรื่อง",
+      "matter_controller_list",
+      "เรื่อง",
+      "MATTER",
+      "ตัวควบคุมจัดการ",
+      "อุปกรณ์",
+      "ส่งคืน"
+    ]
   },
   "tr": {
     "param.fmt.description": "Biçim: json veya metin.",
-    "x_search_terms": [
-      "madde denetleyici listesi",
-      "matter_controller_list",
-      "madde",
-      "MADDE",
-      "denetleyici"
-    ],
     "err.config_missing": "Madde denetleyicisi yapılandırma dosyası bulunamadı. {env_json} veya {env_file}'i ayarlayın.",
     "err.invalid_config": "Madde denetleyicisi yapılandırması ayrıştırılamadı: {err}",
     "err.not_found": "Madde denetleyicisi bulunamadı: {controller_id}",
     "param.ctrl.description": "Denetleyici Kimliği (hepsi için atlayın).",
-    "tool.description": "Matter denetleyicisi tarafından yönetilen cihazları listeleyin ve bir JSON veya metin özeti döndürün."
+    "tool.description": "Matter denetleyicisi tarafından yönetilen cihazları listeleyin ve bir JSON veya metin özeti döndürün.",
+    "x_search_terms": [
+      "madde denetleyici listesi",
+      "matter_controller_list",
+      "matter",
+      "MATTER",
+      "kontrolör tarafından yönetilen",
+      "devices",
+      "return"
+    ]
   },
   "uk": {
     "param.fmt.description": "Формат: json або текстовий.",
-    "x_search_terms": [
-      "список контролерів матерії",
-      "matter_controller_list",
-      "матерія",
-      "МАТЕРІЯ",
-      "контролер"
-    ],
     "err.config_missing": "Файл конфігурації контролера матерії не знайдено. Установіть {env_json} або {env_file}.",
     "err.invalid_config": "Не вдалося проаналізувати конфігурацію контролера матерії: {err}",
     "err.not_found": "Контролер матерії не знайдено: {controller_id}",
     "param.ctrl.description": "ID контролера (пропустити для всіх).",
-    "tool.description": "Список пристроїв, керованих контролером Matter, і повернення JSON або текстового підсумку."
+    "tool.description": "Список пристроїв, керованих контролером Matter, і повернення JSON або текстового підсумку.",
+    "x_search_terms": [
+      "список контролерів матерії",
+      "matter_controller_list",
+      "matter",
+      "МАТЕР",
+      "пристрої, керовані контролером",
+      "повернути",
+      ""
+    ]
   },
   "vi": {
     "param.fmt.description": "Định dạng: json hoặc văn bản.",
-    "x_search_terms": [
-      "danh sách người kiểm soát vấn đề",
-      "vấn đề_controller_list",
-      "vấn đề",
-      "VẤN ĐỀ",
-      "bộ điều khiển"
-    ],
     "err.config_missing": "Không tìm thấy tệp cấu hình bộ điều khiển vấn đề. Đặt {env_json} hoặc {env_file}.",
     "err.invalid_config": "Không thể phân tích cú pháp cấu hình bộ điều khiển vấn đề: {err}",
     "err.not_found": "Không tìm thấy bộ điều khiển vấn đề: {controller_id}",
     "param.ctrl.description": "ID điều khiển (bỏ qua tất cả).",
-    "tool.description": "Liệt kê các thiết bị do bộ điều khiển quản lý Matter và trả về bản tóm tắt văn bản hoặc JSON."
+    "tool.description": "Liệt kê các thiết bị do bộ điều khiển quản lý Matter và trả về bản tóm tắt văn bản hoặc JSON.",
+    "x_search_terms": [
+      "danh sách bộ điều khiển vật chất",
+      "matter_controller_list",
+      "matter",
+      "MATTER",
+      "controller-managed",
+      "devices",
+      "return"
+    ]
   },
   "zh_CN": {
     "param.fmt.description": "格式：json 或文本。",
-    "x_search_terms": [
-      "物质控制器列表",
-      "matter_controller_list",
-      "物质",
-      "物质",
-      "控制器"
-    ],
     "err.config_missing": "未找到物质控制器配置文件。设置 {env_json} 或 {env_file}。",
     "err.invalid_config": "无法解析物质控制器配置：{err}",
     "err.not_found": "未找到物质控制器：{controller_id}",
     "param.ctrl.description": "控制器 ID（全部省略）。",
-    "tool.description": "列出 Matter 控制器管理的设备并返回 JSON 或文本摘要。"
+    "tool.description": "列出 Matter 控制器管理的设备并返回 JSON 或文本摘要。",
+    "x_search_terms": [
+      "事件控制器列表",
+      "matter_controller_list",
+      "matter",
+      "MATTER",
+      "控制器管理",
+      "设备",
+      "返回"
+    ]
   },
   "zh_TW": {
     "param.fmt.description": "格式：json 或文字。",
-    "x_search_terms": [
-      "物質控制器清單",
-      "matter_controller_list",
-      "物質",
-      "物質",
-      "控制器"
-    ],
     "err.config_missing": "未找到物質控制器設定檔。設定 {env_json} 或 {env_file}。",
     "err.invalid_config": "無法解析物質控制器配置：{err}",
     "err.not_found": "未找到物質控制器：{controller_id}",
     "param.ctrl.description": "控制器 ID（全部省略）。",
-    "tool.description": "列出 Matter 控制器管理的裝置並傳回 JSON 或文字摘要。"
+    "tool.description": "列出 Matter 控制器管理的裝置並傳回 JSON 或文字摘要。",
+    "x_search_terms": [
+      "事件控制器清單",
+      "matter_controller_list",
+      "matter",
+      "MATTER",
+      "控制器管理",
+      "設備",
+      "返回"
+    ]
   }
 }

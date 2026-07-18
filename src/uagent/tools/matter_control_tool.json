@@ -244,13 +244,6 @@
     "err.ambiguous_target": "La cible de l'appareil Matter est ambiguë : {device_id}",
     "msg.dry_run": "Essai à sec : commande validée mais non mise en file d’attente.",
     "err.queue_failed": "Échec de la commande de contrôle de file d’attente : {reason}",
-    "x_search_terms": [
-      "contrôle de la matière",
-      "matière_contrôle",
-      "matière",
-      "MATIÈRE",
-      "marche/arrêt/ouverture/fermeture/niveau"
-    ],
     "err.action_not_supported": "L'action « {action} » n'est pas prise en charge pour le type d'appareil « {device_type} ». Pris en charge : {supported}",
     "err.action_required": "Une action valide est requise : {allowed}",
     "err.config_missing": "Les données de l'appareil Matter sont manquantes. Définissez {env_json} ou {env_file} pour les appareils, les contrôleurs ou les ponts.",
@@ -258,7 +251,14 @@
     "err.value_required": "Une valeur numérique (0-100) est requise pour l'action « {action} ».",
     "param.bridge.description": "ID de pont (facultatif).",
     "param.ctrl.description": "ID du contrôleur (facultatif).",
-    "param.dry_run.description": "Si c'est vrai, validez la commande sans la mettre en file d'attente. Par défaut : faux."
+    "param.dry_run.description": "Si c'est vrai, validez la commande sans la mettre en file d'attente. Par défaut : faux.",
+    "x_search_terms": [
+      "contrôle de la matière",
+      "matière_contrôle",
+      "matière",
+      "MATIÈRE",
+      "marche/arrêt/ouverture/fermeture/niveau"
+    ]
   },
   "hi": {
     "tool.description": "मैटर डिवाइस को नियंत्रित करें (चालू/बंद/खुला/बंद/लॉक/अनलॉक/सेट_वैल्यू)।",

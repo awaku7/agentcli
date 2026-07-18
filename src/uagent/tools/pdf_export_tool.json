@@ -19,13 +19,14 @@
     "param.log_path.description": "المسار إلى ملف سجل JSONL للتحويل.",
     "param.output_path.description": "مسار الإخراج لملف PDF. الإعدادات الافتراضية هي log_path بامتداد .pdf.",
     "x_search_terms": [
-      "تصدير PDF",
+      "pdf تصدير",
       "pdf_export",
-      "بي دي إف",
-      "بي دي إف",
+      "pdf",
+      "PDF",
       "تصدير",
       "تحويل",
-      "محادثة"
+      "محادثة",
+      "jsonl"
     ]
   },
   "bn": {
@@ -33,13 +34,14 @@
     "param.log_path.description": "রূপান্তর করতে JSONL লগ ফাইলের পাথ।",
     "param.output_path.description": "পিডিএফ ফাইলের জন্য আউটপুট পাথ। .pdf এক্সটেনশন সহ log_path এ ডিফল্ট।",
     "x_search_terms": [
-      "pdf রপ্তানি",
+      "pdf export",
       "pdf_export",
-      "পিডিএফ",
-      "পিডিএফ",
-      "রপ্তানি",
-      "রূপান্তর",
-      "কথোপকথন"
+      "pdf",
+      "PDF",
+      "export",
+      "convert",
+      "কথোপকথন",
+      "jsonl"
     ]
   },
   "cs": {
@@ -47,13 +49,14 @@
     "param.log_path.description": "Cesta k souboru protokolu JSONL, který se má převést.",
     "param.output_path.description": "Výstupní cesta pro soubor PDF. Výchozí hodnota je log_path s příponou .pdf.",
     "x_search_terms": [
-      "export pdf",
+      "pdf export",
       "pdf_export",
       "pdf",
       "PDF",
       "export",
-      "převést",
-      "konverzace"
+      "konvertovat",
+      "konverzace",
+      "jsonl"
     ]
   },
   "de": {
@@ -61,13 +64,14 @@
     "param.log_path.description": "Pfad zur zu konvertierenden JSONL-Protokolldatei.",
     "param.output_path.description": "Ausgabepfad für die PDF-Datei. Standardmäßig ist log_path mit der Erweiterung .pdf.",
     "x_search_terms": [
-      "PDF-Export",
+      "pdf export",
       "pdf_export",
       "pdf",
       "PDF",
-      "exportieren",
-      "konvertieren",
-      "Gespräch"
+      "export",
+      "convert",
+      "conversation",
+      "jsonl"
     ]
   },
   "el": {
@@ -79,9 +83,10 @@
       "pdf_export",
       "pdf",
       "PDF",
-      "εξαγωγή",
-      "μετατροπή",
-      "συνομιλία"
+      "export",
+      "convert",
+      "conversation",
+      "jsonl"
     ]
   },
   "es": {
@@ -90,12 +95,13 @@
     "param.output_path.description": "Ruta de salida del archivo PDF. El valor predeterminado es log_path con extensión .pdf.",
     "x_search_terms": [
       "exportación de pdf",
-      "pdf_exportación",
+      "pdf_export",
       "pdf",
       "PDF",
       "exportar",
       "convertir",
-      "conversación"
+      "conversación",
+      "jsonl"
     ]
   },
   "fa": {
@@ -105,11 +111,12 @@
     "x_search_terms": [
       "صادرات pdf",
       "pdf_export",
-      "پی‌دی‌اف",
-      "پی‌دی‌اف",
+      "pdf",
+      "PDF",
       "صادرات",
       "تبدیل",
-      "مکالمه"
+      "مکالمه",
+      "jsonl"
     ]
   },
   "fi": {
@@ -117,13 +124,14 @@
     "param.log_path.description": "Polku muutettavaan JSONL-lokitiedostoon.",
     "param.output_path.description": "PDF-tiedoston tulostuspolku. Oletusarvo on log_path .pdf-tunnisteella.",
     "x_search_terms": [
-      "pdf-vienti",
+      "pdf vienti",
       "pdf_export",
       "pdf",
       "PDF",
-      "vie",
-      "muunna",
-      "keskustelu"
+      "export",
+      "convert",
+      "conversation",
+      "jsonl"
     ]
   },
   "fr": {
@@ -131,13 +139,14 @@
     "param.log_path.description": "Chemin d'accès au fichier journal JSONL à convertir.",
     "param.output_path.description": "Chemin de sortie du fichier PDF. La valeur par défaut est log_path avec l'extension .pdf.",
     "x_search_terms": [
-      "exportation pdf",
+      "pdf export",
       "pdf_export",
       "pdf",
       "PDF",
-      "exporter",
-      "convertir",
-      "conversation"
+      "export",
+      "convert",
+      "conversation",
+      "jsonl"
     ]
   },
   "he": {
@@ -145,13 +154,14 @@
     "param.log_path.description": "נתיב לקובץ היומן JSONL להמרה.",
     "param.output_path.description": "נתיב פלט עבור קובץ ה-PDF. ברירת המחדל היא log_path עם סיומת .pdf.",
     "x_search_terms": [
-      "ייצוא pdf",
+      "pdf export",
       "pdf_export",
+      "pdf",
       "PDF",
-      "PDF",
-      "ייצוא",
-      "המרה",
-      "שיחה"
+      "export",
+      "convert",
+      "שיחה",
+      "jsonl"
     ]
   },
   "hi": {
@@ -159,13 +169,14 @@
     "param.log_path.description": "कनवर्ट करने के लिए JSONL लॉग फ़ाइल का पथ।",
     "param.output_path.description": "पीडीएफ फ़ाइल के लिए आउटपुट पथ. .pdf एक्सटेंशन के साथ log_path डिफ़ॉल्ट है।",
     "x_search_terms": [
-      "pdf निर्यात",
-      "pdf_export",
+      "पीडीएफ निर्यात",
+      "पीडीएफ_एक्सपोर्ट",
       "पीडीएफ",
       "पीडीएफ",
-      "निर्यात करें",
-      "रूपांतरित करें",
-      "बातचीत"
+      "एक्सपोर्ट",
+      "कन्वर्ट",
+      "बातचीत",
+      "jsonl"
     ]
   },
   "hu": {
@@ -178,8 +189,9 @@
       "pdf",
       "PDF",
       "export",
-      "konvertál",
-      "beszélgetés"
+      "convert",
+      "conversation",
+      "jsonl"
     ]
   },
   "id": {
@@ -188,12 +200,13 @@
     "param.output_path.description": "Jalur keluaran untuk file PDF. Defaultnya adalah log_path dengan ekstensi .pdf.",
     "x_search_terms": [
       "ekspor pdf",
-      "pdf_ekspor",
+      "pdf_export",
       "pdf",
       "PDF",
       "ekspor",
-      "mengkonversi",
-      "percakapan"
+      "konversi",
+      "percakapan",
+      "jsonl"
     ]
   },
   "it": {
@@ -201,13 +214,14 @@
     "param.log_path.description": "Percorso del file di log JSONL da convertire.",
     "param.output_path.description": "Percorso di output per il file PDF. Il valore predefinito è log_path con estensione .pdf.",
     "x_search_terms": [
-      "esportazione in formato pdf",
-      "pdf_esporta",
+      "pdf esporta",
+      "pdf_export",
       "pdf",
       "PDF",
-      "esportazione",
-      "convertire",
-      "conversazione"
+      "esporta",
+      "converti",
+      "conversazione",
+      "jsonl"
     ]
   },
   "ja": {
@@ -215,13 +229,14 @@
     "param.log_path.description": "変換する JSONL ログ ファイルへのパス。",
     "param.output_path.description": "PDF ファイルの出力パス。デフォルトは、.pdf 拡張子が付いた log_path です。",
     "x_search_terms": [
-      "PDF エクスポート",
-      "pdf_エクスポート",
-      "PDF",
+      "pdf エクスポート",
+      "pdf_export",
+      "pdf",
       "PDF",
       "エクスポート",
       "変換",
-      "会話"
+      "会話",
+      "jsonl"
     ]
   },
   "ko": {
@@ -229,13 +244,14 @@
     "param.log_path.description": "변환할 JSONL 로그 파일의 경로입니다.",
     "param.output_path.description": "PDF 파일의 출력 경로입니다. 기본값은 .pdf 확장자를 가진 log_path입니다.",
     "x_search_terms": [
-      "PDF 내보내기",
-      "pdf_수출",
+      "pdf 내보내기",
+      "pdf_export",
+      "pdf",
       "PDF",
-      "PDF",
-      "수출",
-      "변환",
-      "대화"
+      "export",
+      "convert",
+      "conversation",
+      "jsonl"
     ]
   },
   "mn": {
@@ -245,11 +261,12 @@
     "x_search_terms": [
       "pdf экспорт",
       "pdf_export",
-      "пидиэф",
-      "пидиэф",
-      "экспорт",
-      "хөрвүүлэх",
-      "яриа"
+      "pdf",
+      "PDF",
+      "export",
+      "хувиргах",
+      "харилцан",
+      "jsonl"
     ]
   },
   "mr": {
@@ -257,13 +274,14 @@
     "param.log_path.description": "रूपांतरित करण्यासाठी JSONL लॉग फाइलचा मार्ग.",
     "param.output_path.description": "पीडीएफ फाइलसाठी आउटपुट पथ. .pdf विस्तारासह log_path वर डीफॉल्ट.",
     "x_search_terms": [
-      "pdf निर्यात",
+      "pdf export",
       "pdf_export",
-      "पीडीएफ",
-      "पीडीएफ",
-      "निर्यात",
-      "रूपांतरित",
-      "संभाषण"
+      "pdf",
+      "PDF",
+      "export",
+      "convert",
+      "conversation",
+      "jsonl"
     ]
   },
   "nb": {
@@ -271,13 +289,14 @@
     "param.log_path.description": "Banen til JSONL-loggfilen som skal konverteres.",
     "param.output_path.description": "Utdatabane for PDF-filen. Standard til log_path med .pdf-utvidelse.",
     "x_search_terms": [
-      "pdf-eksport",
-      "pdf_export",
+      "pdf eksport",
+      "pdf_eksport",
       "pdf",
       "PDF",
-      "eksporter",
-      "konvertere",
-      "samtale"
+      "eksport",
+      "konverter",
+      "samtale",
+      "jsonl"
     ]
   },
   "nl": {
@@ -285,13 +304,14 @@
     "param.log_path.description": "Pad naar het JSONL-logboekbestand dat moet worden geconverteerd.",
     "param.output_path.description": "Uitvoerpad voor het PDF-bestand. Standaard ingesteld op log_path met de extensie .pdf.",
     "x_search_terms": [
-      "pdf-export",
+      "pdf export",
       "pdf_export",
       "pdf",
       "PDF",
-      "exporteren",
-      "converteren",
-      "gesprek"
+      "export",
+      "convert",
+      "conversatie",
+      "jsonl"
     ]
   },
   "pl": {
@@ -300,12 +320,13 @@
     "param.output_path.description": "Ścieżka wyjściowa pliku PDF. Domyślnie jest to ścieżka_logowania z rozszerzeniem .pdf.",
     "x_search_terms": [
       "eksport pdf",
-      "pdf_eksport",
-      "PDF",
+      "pdf_export",
+      "pdf",
       "PDF",
       "eksport",
-      "konwertować",
-      "rozmowa"
+      "konwertuj",
+      "rozmowę",
+      "jsonl"
     ]
   },
   "pt": {
@@ -313,13 +334,14 @@
     "param.log_path.description": "Caminho para o arquivo de log JSONL a ser convertido.",
     "param.output_path.description": "Caminho de saída para o arquivo PDF. O padrão é log_path com extensão .pdf.",
     "x_search_terms": [
-      "exportação pdf",
+      "exportação de pdf",
       "pdf_export",
       "pdf",
       "PDF",
-      "exportar",
-      "converter",
-      "conversa"
+      "export",
+      "convert",
+      "conversation",
+      "jsonl"
     ]
   },
   "pt_BR": {
@@ -328,12 +350,13 @@
     "param.output_path.description": "Caminho de saída para o arquivo PDF. O padrão é log_path com extensão .pdf.",
     "x_search_terms": [
       "exportação de pdf",
-      "pdf_exportar",
+      "pdf_export",
       "pdf",
       "PDF",
-      "exportação",
-      "converter",
-      "conversa"
+      "export",
+      "convert",
+      "conversation",
+      "jsonl"
     ]
   },
   "ro": {
@@ -341,13 +364,14 @@
     "param.log_path.description": "Calea către fișierul jurnal JSONL de convertit.",
     "param.output_path.description": "Calea de ieșire pentru fișierul PDF. Setarea implicită este log_path cu extensia .pdf.",
     "x_search_terms": [
-      "export pdf",
+      "pdf export",
       "pdf_export",
       "pdf",
       "PDF",
       "export",
-      "conversie",
-      "conversație"
+      "convert",
+      "conversation",
+      "jsonl"
     ]
   },
   "ru": {
@@ -361,7 +385,8 @@
       "PDF",
       "экспорт",
       "конвертировать",
-      "разговор"
+      "диалог",
+      "jsonl"
     ]
   },
   "sv": {
@@ -369,13 +394,14 @@
     "param.log_path.description": "Sökväg till JSONL-loggfilen som ska konverteras.",
     "param.output_path.description": "Utdatasökväg för PDF-filen. Standardinställningen är log_path med filtillägget .pdf.",
     "x_search_terms": [
-      "pdf-export",
+      "pdf export",
       "pdf_export",
       "pdf",
       "PDF",
-      "exportera",
-      "konvertera",
-      "konversation"
+      "export",
+      "convert",
+      "conversation",
+      "jsonl"
     ]
   },
   "sw": {
@@ -383,13 +409,14 @@
     "param.log_path.description": "Njia ya faili ya kumbukumbu ya JSONL ya kubadilisha.",
     "param.output_path.description": "Njia ya pato kwa faili ya PDF. Chaguomsingi kwa log_path na kiendelezi cha .pdf.",
     "x_search_terms": [
-      "usafirishaji pdf",
+      "pdf export",
       "pdf_export",
       "pdf",
       "PDF",
-      "kuuza nje",
-      "kubadilisha",
-      "mazungumzo"
+      "hamisha",
+      "badilisha",
+      "mazungumzo",
+      "jsonl"
     ]
   },
   "th": {
@@ -397,13 +424,14 @@
     "param.log_path.description": "เส้นทางไปยังไฟล์บันทึก JSONL ที่จะแปลง",
     "param.output_path.description": "เส้นทางเอาต์พุตสำหรับไฟล์ PDF ค่าเริ่มต้นเป็น log_path พร้อมนามสกุล .pdf",
     "x_search_terms": [
-      "ส่งออก pdf",
+      "pdf ส่งออก",
       "pdf_export",
-      "พีดีเอฟ",
-      "พีดีเอฟ",
+      "pdf",
+      "PDF",
       "ส่งออก",
       "แปลง",
-      "การสนทนา"
+      "การสนทนา",
+      "jsonl"
     ]
   },
   "tr": {
@@ -415,9 +443,10 @@
       "pdf_export",
       "pdf",
       "PDF",
-      "dışa aktar",
-      "dönüştürmek",
-      "konuşma"
+      "export",
+      "convert",
+      "conversation",
+      "jsonl"
     ]
   },
   "uk": {
@@ -425,13 +454,14 @@
     "param.log_path.description": "Шлях до файлу журналу JSONL для конвертації.",
     "param.output_path.description": "Вихідний шлях для файлу PDF. За замовчуванням log_path із розширенням .pdf.",
     "x_search_terms": [
-      "експорт pdf",
+      "pdf export",
       "pdf_export",
       "pdf",
       "PDF",
-      "експорт",
-      "конвертувати",
-      "розмова"
+      "export",
+      "convert",
+      "conversation",
+      "jsonl"
     ]
   },
   "vi": {
@@ -443,9 +473,10 @@
       "pdf_export",
       "pdf",
       "PDF",
-      "xuất khẩu",
+      "xuất",
       "chuyển đổi",
-      "cuộc trò chuyện"
+      "đàm thoại",
+      "jsonl"
     ]
   },
   "zh_CN": {
@@ -459,7 +490,8 @@
       "PDF",
       "导出",
       "转换",
-      "对话"
+      "对话",
+      "jsonl"
     ]
   },
   "zh_TW": {
@@ -467,13 +499,14 @@
     "param.log_path.description": "要轉換的 JSONL 日誌檔案的路徑。",
     "param.output_path.description": "PDF 檔案的輸出路徑。預設為帶有 .pdf 副檔名的 log_path。",
     "x_search_terms": [
-      "pdf 匯出",
+      "pdf 導出",
       "pdf_export",
       "pdf",
       "PDF",
-      "匯出",
+      "導出",
       "轉換",
-      "對話"
+      "對話",
+      "jsonl"
     ]
   }
 }

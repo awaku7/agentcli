@@ -29,9 +29,10 @@
     "x_search_terms": [
       "تاريخ حالة المادة",
       "matter_state_history",
-      "مادة",
-      "مادة",
-      "استعلام"
+      "matter",
+      "MATTER",
+      "query",
+      "change"
     ]
   },
   "bn": {
@@ -44,11 +45,12 @@
     "param.clear.description": "সত্য হলে, সমস্ত ইতিহাস মুছে দিন।",
     "param.fmt.description": "বিন্যাস: json বা পাঠ্য।",
     "x_search_terms": [
-      "বিষয় স্থিতি ইতিহাস",
+      "বিষয় রাষ্ট্র ইতিহাস",
       "matter_state_history",
-      "বিষয়",
-      "বিষয়",
-      "ক্যোয়ারী"
+      "matter",
+      "MATTER",
+      "query",
+      "পরিবর্তন"
     ]
   },
   "cs": {
@@ -61,11 +63,12 @@
     "param.clear.description": "Pokud je to pravda, vymažte celou historii.",
     "param.fmt.description": "Formát: json nebo text.",
     "x_search_terms": [
-      "historie stavu hmoty",
-      "matter_state_history",
-      "hmota",
-      "HMOTA",
-      "dotaz"
+      "historie stavu záležitosti",
+      "historie_stavu_hmoty",
+      "změna dotazu",
+      "záležitosti",
+      "záležitosti",
+      ""
     ]
   },
   "de": {
@@ -78,11 +81,12 @@
     "param.clear.description": "Wenn dies zutrifft, löschen Sie den gesamten Verlauf.",
     "param.fmt.description": "Format: JSON oder Text.",
     "x_search_terms": [
-      "Materiezustandsgeschichte",
+      "Materiezustandsverlauf",
       "matter_state_history",
-      "Angelegenheit",
+      "matter",
       "MATTER",
-      "Abfrage"
+      "query",
+      "change"
     ]
   },
   "el": {
@@ -95,11 +99,12 @@
     "param.clear.description": "Εάν ισχύει, διαγράψτε όλο το ιστορικό.",
     "param.fmt.description": "Μορφή: json ή κείμενο.",
     "x_search_terms": [
-      "ιστορικό κατάστασης ύλης",
+      "ιστορία κατάστασης ύλης",
       "matter_state_history",
-      "ύλη",
-      "ΥΛΗ",
-      "ερώτημα"
+      "matter",
+      "MATTER",
+      "ερώτημα",
+      "αλλαγή"
     ]
   },
   "es": {
@@ -112,11 +117,12 @@
     "param.clear.description": "Si es cierto, borre todo el historial.",
     "param.fmt.description": "Formato: json o texto.",
     "x_search_terms": [
-      "materia historia del estado",
+      "materia estado historia",
       "materia_estado_historia",
       "materia",
-      "ASUNTO",
-      "consulta"
+      "MATERIA",
+      "consulta",
+      "cambio"
     ]
   },
   "fa": {
@@ -129,11 +135,12 @@
     "param.clear.description": "اگر درست است، تمام تاریخچه را پاک کنید.",
     "param.fmt.description": "فرمت: json یا متن.",
     "x_search_terms": [
-      "تاریخچه وضعیت ماده",
-      "matter_state_history",
+      "تاریخچه حالت ماده ",
+      "ماده_استات_تاریخ",
       "ماده",
-      "ماده",
-      "پرس‌وجو"
+      "موضوع",
+      "پرس و جو",
+      "تغییر"
     ]
   },
   "fi": {
@@ -146,11 +153,12 @@
     "param.clear.description": "Jos totta, tyhjennä koko historia.",
     "param.fmt.description": "Muoto: json tai teksti.",
     "x_search_terms": [
-      "asian tilahistoria",
-      "matter_state_history",
-      "asia",
-      "ASIA",
-      "kysely"
+      "Asian tilan historia",
+      " Matter_state_history",
+      " Matter",
+      "MATTER",
+      "kysely",
+      "muutos"
     ]
   },
   "fr": {
@@ -164,10 +172,11 @@
     "param.fmt.description": "Format : json ou texte.",
     "x_search_terms": [
       "histoire de l'état de la matière",
-      "matière_état_histoire",
-      "matière",
-      "MATIÈRE",
-      "requête"
+      "matter_state_history",
+      "matter",
+      "MATTER",
+      "query",
+      "change"
     ]
   },
   "he": {
@@ -180,11 +189,12 @@
     "param.clear.description": "אם זה נכון, נקה את כל ההיסטוריה.",
     "param.fmt.description": "פורמט: json או טקסט.",
     "x_search_terms": [
-      "היסטוריית מצב חומר",
-      "matter_state_history",
-      "חומר",
-      "חומר",
-      "שאילתה"
+      "היסטוריה של עניינים",
+      "",
+      "",
+      "",
+      "",
+      ""
     ]
   },
   "hi": {
@@ -197,11 +207,12 @@
     "param.clear.description": "यदि सत्य है, तो सारा इतिहास साफ़ करें।",
     "param.fmt.description": "प्रारूप: json या text.",
     "x_search_terms": [
-      "विषय स्थिति इतिहास",
-      "matter_state_history",
-      "विषय",
-      "विषय",
-      "क्वेरी"
+      "मामला राज्य इतिहास",
+      " मामला_राज्य_इतिहास",
+      " मामला",
+      " मामला",
+      " क्वेरी",
+      " परिवर्तन"
     ]
   },
   "hu": {
@@ -214,11 +225,12 @@
     "param.clear.description": "Ha igaz, törölje az összes előzményt.",
     "param.fmt.description": "Formátum: json vagy szöveg.",
     "x_search_terms": [
-      "anyag állapot előzmények",
-      "matter_state_history",
+      "ügy állapottörténet",
+      "anyag_állapot_történet",
       "anyag",
-      "ANYAG",
-      "lekérdezés"
+      "MATTER",
+      "lekérdezés",
+      "módosítás"
     ]
   },
   "id": {
@@ -231,11 +243,12 @@
     "param.clear.description": "Jika benar, hapus semua riwayat.",
     "param.fmt.description": "Format: json atau teks.",
     "x_search_terms": [
-      "masalah sejarah negara",
-      "masalah_status_sejarah",
-      "penting",
-      "MASALAH",
-      "permintaan"
+      "riwayat keadaan masalah",
+      "masalah_keadaan_sejarah",
+      "masalah",
+      "MATTER",
+      "kueri",
+      "perubahan"
     ]
   },
   "it": {
@@ -249,10 +262,11 @@
     "param.fmt.description": "Formato: json o testo.",
     "x_search_terms": [
       "storia dello stato della materia",
-      "materia_stato_storia",
+      "storia_dello_stato_della_materia",
       "materia",
       "MATERIA",
-      "domanda"
+      "query",
+      "cambiamento"
     ]
   },
   "ja": {
@@ -265,11 +279,12 @@
     "param.clear.description": "true の場合、すべての履歴をクリアします。",
     "param.fmt.description": "形式: json またはテキスト。",
     "x_search_terms": [
-      "物質の状態履歴",
-      "問題の状態履歴",
-      "問題",
-      "問題",
-      "クエリ"
+      "案件状態履歴",
+      "matter_state_history",
+      "案件",
+      "MATTER",
+      "クエリ",
+      "変更"
     ]
   },
   "ko": {
@@ -282,11 +297,12 @@
     "param.clear.description": "사실이라면 모든 기록을 지웁니다.",
     "param.fmt.description": "형식: json 또는 텍스트.",
     "x_search_terms": [
-      "물질 상태 이력",
-      "문제_상태_역사",
-      "문제",
-      "물질",
-      "쿼리"
+      "물질 상태 기록",
+      "matter_state_history",
+      "matter",
+      "MATTER",
+      "query",
+      "change"
     ]
   },
   "mn": {
@@ -299,11 +315,12 @@
     "param.clear.description": "Хэрэв үнэн бол бүх түүхийг арилга.",
     "param.fmt.description": "Формат: json эсвэл текст.",
     "x_search_terms": [
-      "материйн төлөвийн түүх",
-      "matter_state_history",
-      "асуудал",
-      "асуудал",
-      "асуулга"
+      "асуудлын төлөвийн түүх",
+      "материал_төлөвийн_түүх",
+      "матери",
+      "АСУУДАЛ",
+      "асуулга",
+      "өөрчлөх"
     ]
   },
   "mr": {
@@ -316,11 +333,12 @@
     "param.clear.description": "खरे असल्यास, सर्व इतिहास साफ करा.",
     "param.fmt.description": "स्वरूप: json किंवा मजकूर.",
     "x_search_terms": [
-      "विषय स्थिती इतिहास",
+      "बाबी राज्य इतिहास",
       "matter_state_history",
-      "विषय",
-      "विषय",
-      "क्वेरी"
+      "matter",
+      "MATTER",
+      "query",
+      "बदल"
     ]
   },
   "nb": {
@@ -333,11 +351,12 @@
     "param.clear.description": "Hvis det er sant, fjern all historikk.",
     "param.fmt.description": "Format: json eller tekst.",
     "x_search_terms": [
-      "materie tilstandshistorie",
+      "matter state history",
       "matter_state_history",
-      "saken",
+      "matter",
       "MATTER",
-      "spørring"
+      "query",
+      "endring"
     ]
   },
   "nl": {
@@ -350,11 +369,12 @@
     "param.clear.description": "Indien waar, wis dan de hele geschiedenis.",
     "param.fmt.description": "Formaat: json of tekst.",
     "x_search_terms": [
-      "materie-statusgeschiedenis",
+      "kwestie staat geschiedenis",
       "matter_state_history",
-      "materie",
+      "matter",
       "MATTER",
-      "query"
+      "query",
+      "change"
     ]
   },
   "pl": {
@@ -369,9 +389,10 @@
     "x_search_terms": [
       "historia stanu materii",
       "historia_stanu materii",
-      "sprawa",
-      "MATERIA",
-      "zapytanie"
+      "materia",
+      "MATTER",
+      "zapytanie",
+      "zmiana"
     ]
   },
   "pt": {
@@ -384,11 +405,12 @@
     "param.clear.description": "Se for verdade, limpe todo o histórico.",
     "param.fmt.description": "Formato: json ou texto.",
     "x_search_terms": [
-      "histórico de estado da matéria",
-      "histórico_estado_matéria",
-      "assunto",
-      "MATÉRIA",
-      "consulta"
+      "história do estado da matéria",
+      "matter_state_history",
+      "matter",
+      "MATTER",
+      "query",
+      "change"
     ]
   },
   "pt_BR": {
@@ -401,11 +423,12 @@
     "param.clear.description": "Se for verdade, limpe todo o histórico.",
     "param.fmt.description": "Formato: json ou texto.",
     "x_search_terms": [
-      "matéria história do estado",
-      "matéria_estado_história",
-      "assunto",
-      "MATÉRIA",
-      "consulta"
+      "história do estado da matéria",
+      "matter_state_history",
+      "matter",
+      "MATTER",
+      "query",
+      "change"
     ]
   },
   "ro": {
@@ -418,11 +441,12 @@
     "param.clear.description": "Dacă este adevărat, ștergeți toată istoria.",
     "param.fmt.description": "Format: json sau text.",
     "x_search_terms": [
-      "istoric stare materie",
+      "istoricul stării materiei",
       "matter_state_history",
-      "materie",
-      "MATERIE",
-      "interogare"
+      "matter",
+      "MATTER",
+      "query",
+      "change"
     ]
   },
   "ru": {
@@ -435,11 +459,12 @@
     "param.clear.description": "Если это правда, очистите всю историю.",
     "param.fmt.description": "Формат: json или текст.",
     "x_search_terms": [
-      "история состояний материи",
+      "история состояния материи",
       "matter_state_history",
-      "материя",
-      "МАТЕРИЯ",
-      "запрос"
+      "matter",
+      "MATTER",
+      "запрос",
+      "изменение"
     ]
   },
   "sv": {
@@ -452,11 +477,12 @@
     "param.clear.description": "Om det är sant, rensa all historik.",
     "param.fmt.description": "Format: json eller text.",
     "x_search_terms": [
-      "materia tillståndshistorik",
+      "matter state history",
       "matter_state_history",
-      "materia",
+      "matter",
       "MATTER",
-      "fråga"
+      "fråga",
+      "ändring"
     ]
   },
   "sw": {
@@ -469,11 +495,12 @@
     "param.clear.description": "Ikiwa ni kweli, futa historia yote.",
     "param.fmt.description": "Umbizo: json au maandishi.",
     "x_search_terms": [
-      "historia ya hali ya maada",
+      "historia ya hali ya jambo",
       "matter_state_history",
-      "maada",
-      "MAADA",
-      "swala"
+      "matter",
+      "MATTER",
+      "query",
+      "change"
     ]
   },
   "th": {
@@ -486,11 +513,12 @@
     "param.clear.description": "หากเป็นจริงให้ล้างประวัติทั้งหมด",
     "param.fmt.description": "รูปแบบ: json หรือข้อความ",
     "x_search_terms": [
-      "ประวัติสถานะสสาร",
+      "ประวัติสถานะของสสาร",
       "matter_state_history",
-      "สสาร",
-      "สสาร",
-      "คำสั่งสอบถาม"
+      "matter",
+      "MATTER",
+      "query",
+      "change"
     ]
   },
   "tr": {
@@ -503,11 +531,12 @@
     "param.clear.description": "Doğruysa tüm geçmişi temizleyin.",
     "param.fmt.description": "Biçim: json veya metin.",
     "x_search_terms": [
-      "madde durum geçmişi",
+      "madde durumu geçmişi",
       "matter_state_history",
-      "madde",
-      "MADDE",
-      "sorgu"
+      "matter",
+      "MATTER",
+      "sorgu",
+      "değişim"
     ]
   },
   "uk": {
@@ -522,9 +551,10 @@
     "x_search_terms": [
       "історія стану матерії",
       "matter_state_history",
-      "матерія",
-      "МАТЕРІЯ",
-      "запит"
+      "matter",
+      "МАТЕР",
+      "запит",
+      "зміна"
     ]
   },
   "vi": {
@@ -538,10 +568,11 @@
     "param.fmt.description": "Định dạng: json hoặc văn bản.",
     "x_search_terms": [
       "lịch sử trạng thái vật chất",
-      "vấn đề_state_history",
-      "vấn đề",
-      "VẤN ĐỀ",
-      "truy vấn"
+      "matter_state_history",
+      "matter",
+      "MATTER",
+      "truy vấn",
+      "change"
     ]
   },
   "zh_CN": {
@@ -556,9 +587,10 @@
     "x_search_terms": [
       "物质状态历史",
       "matter_state_history",
-      "物质",
-      "物质",
-      "查询"
+      "matter",
+      "MATTER",
+      "query",
+      "change"
     ]
   },
   "zh_TW": {
@@ -571,11 +603,12 @@
     "param.clear.description": "如果屬實，則清除所有歷史記錄。",
     "param.fmt.description": "格式：json 或文字。",
     "x_search_terms": [
-      "物質狀態歷史",
+      "物質狀態史",
       "matter_state_history",
-      "物質",
-      "物質",
-      "查詢"
+      "matter",
+      "MATTER",
+      "query",
+      "change"
     ]
   }
 }

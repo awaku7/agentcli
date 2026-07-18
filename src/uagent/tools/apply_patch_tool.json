@@ -45,6 +45,13 @@
   },
   "ar": {
     "tool.description": "قم بتطبيق فرق (تصحيح) موحد على الملفات باستخدام Python النقي. يدعم المعاينة الجافة، والتسامح مع المسافات البيضاء، والحفاظ على CRLF.",
+    "x_search_terms": [
+      "تطبيق التصحيح",
+      "ملف التصحيح",
+      "تطبيق الفرق",
+      "تطبيق الفرق الموحد",
+      "ux30d1ux30c3ux30c1ux9069ux7528"
+    ],
     "param.patch_text.description": "نص فرق موحد ليتم تطبيقه (متوافق مع تنسيق git، على سبيل المثال رؤوس ---/+++).",
     "param.dry_run.description": "إذا كان صحيحًا، قم فقط بمعاينة ما سيتم تغييره دون التطبيق.",
     "param.ignore_whitespace.description": "تجاهل اختلافات المسافات البيضاء عند مطابقة سطور السياق.",
@@ -56,16 +63,17 @@
     "err.no_hunks": "لم يتم العثور على كتل صالحة في نص التصحيح.",
     "err.hunk_not_found": "لم يتم العثور على السياق في الملف.",
     "err.file_too_large": "الملف كبير جدًا: %(size)s بايت (الحد الأقصى %(max_bytes)s)",
-    "summary.applied": "%(applied)s من %(total)s مجموعة (مجموعات) مطبقة على %(files)s ملف (ملفات). تمت إضافة %(added)s سطر (أسطر)، %(removed)s تمت إزالة سطر (أسطر).",
-    "x_search_terms": [
-      "apply patch",
-      "patch file",
-      "apply diff",
-      "unified diff apply"
-    ]
+    "summary.applied": "%(applied)s من %(total)s مجموعة (مجموعات) مطبقة على %(files)s ملف (ملفات). تمت إضافة %(added)s سطر (أسطر)، %(removed)s تمت إزالة سطر (أسطر)."
   },
   "bn": {
     "tool.description": "বিশুদ্ধ পাইথন ব্যবহার করে ফাইলগুলিতে একটি ইউনিফাইড ডিফ (প্যাচ) প্রয়োগ করুন। ড্রাই-রান প্রিভিউ, হোইটস্পেস সহিষ্ণুতা এবং CRLF সংরক্ষণ সমর্থন করে।",
+    "x_search_terms": [
+      "প্যাচ প্রয়োগ করুন",
+      "প্যাচ ফাইল প্রয়োগ করুন",
+      "ডিফ প্রয়োগ করুন",
+      "ইনিফাইড ডিফ প্রয়োগ করুন",
+      "ux30d1ux30c3ux30c1ux9069ux7528"
+    ],
     "param.patch_text.description": "প্রয়োগ করার জন্য ইউনিফাইড ডিফ টেক্সট (গিট-ফরম্যাট সামঞ্জস্যপূর্ণ, যেমন ---/+++ হেডার)।",
     "param.dry_run.description": "সত্য হলে, আবেদন না করে শুধু কি পরিবর্তন হবে তার প্রিভিউ দেখুন।",
     "param.ignore_whitespace.description": "প্রসঙ্গ লাইন মেলানোর সময় হোইটস্পেস পার্থক্য উপেক্ষা করুন।",
@@ -77,16 +85,17 @@
     "err.no_hunks": "প্যাচ টেক্সটে কোনো বৈধ হাংক পাওয়া যায়নি।",
     "err.hunk_not_found": "ফাইলে প্রসঙ্গ পাওয়া যায়নি।",
     "err.file_too_large": "ফাইলটি খুব বড়: %(size)s বাইট (সর্বোচ্চ %(max_bytes)s)",
-    "summary.applied": "%(total)sটি হাংকের মধ্যে %(applied)sটি %(files)s ফাইলে প্রয়োগ করা হয়েছে। %(added)s লাইন(গুলি) যোগ করা হয়েছে, %(removed)s লাইন(গুলি) সরানো হয়েছে।",
-    "x_search_terms": [
-      "apply patch",
-      "patch file",
-      "apply diff",
-      "unified diff apply"
-    ]
+    "summary.applied": "%(total)sটি হাংকের মধ্যে %(applied)sটি %(files)s ফাইলে প্রয়োগ করা হয়েছে। %(added)s লাইন(গুলি) যোগ করা হয়েছে, %(removed)s লাইন(গুলি) সরানো হয়েছে।"
   },
   "cs": {
     "tool.description": "Použijte jednotný rozdíl (patch) na soubory pomocí čistého Pythonu. Podporuje náhled suchého běhu, toleranci bílých znaků a zachování CRLF.",
+    "x_search_terms": [
+      "použít opravu",
+      "soubor opravy",
+      "použít rozdíl",
+      "jednotný rozdíl použít",
+      "ux30d1ux30c3ux30c1ux9069ux7528"
+    ],
     "param.patch_text.description": "Sjednocený text rozdílu, který se má použít (kompatibilní s formátem git, např. záhlaví ---/+++).",
     "param.dry_run.description": "Pokud je pravda, pouze náhled toho, co by se změnilo, aniž by bylo použito.",
     "param.ignore_whitespace.description": "Ignorujte rozdíly mezi mezerami při porovnávání kontextových čar.",
@@ -98,16 +107,17 @@
     "err.no_hunks": "V textu opravy nebyly nalezeny žádné platné kusy.",
     "err.hunk_not_found": "V souboru nebyl nalezen kontext.",
     "err.file_too_large": "Soubor je příliš velký: %(size)s bajtů (max. %(max_bytes)s)",
-    "summary.applied": "%(applied)s z %(total)s kusů použitých na %(files)s soubory. %(added)s řádků přidáno, %(removed)s řádků odstraněno.",
-    "x_search_terms": [
-      "apply patch",
-      "patch file",
-      "apply diff",
-      "unified diff apply"
-    ]
+    "summary.applied": "%(applied)s z %(total)s kusů použitých na %(files)s soubory. %(added)s řádků přidáno, %(removed)s řádků odstraněno."
   },
   "de": {
     "tool.description": "Wenden Sie mit reinem Python einen einheitlichen Diff (Patch) auf Dateien an. Unterstützt Probelaufvorschau, Leerraumtoleranz und CRLF-Erhaltung.",
+    "x_search_terms": [
+      "Patch anwenden",
+      "Patchdatei",
+      "Diff anwenden",
+      "Unified Diff anwenden",
+      "ux30d1ux30c3ux30c1ux9069ux7528"
+    ],
     "param.patch_text.description": "Anzuwendender einheitlicher Diff-Text (kompatibel mit dem Git-Format, z. B. ---/+++-Header).",
     "param.dry_run.description": "Wenn dies der Fall ist, wird nur eine Vorschau der Änderungen angezeigt, die ohne Anwendung geändert würden.",
     "param.ignore_whitespace.description": "Ignorieren Sie Leerzeichenunterschiede beim Abgleichen von Kontextzeilen.",
@@ -119,16 +129,17 @@
     "err.no_hunks": "Im Patchtext wurden keine gültigen Abschnitte gefunden.",
     "err.hunk_not_found": "Der Kontext wurde in der Datei nicht gefunden.",
     "err.file_too_large": "Datei zu groß: %(size)s Bytes (max. %(max_bytes)s)",
-    "summary.applied": "%(applied)s von %(total)s Stück(en) wurden auf %(files)s Datei(en) angewendet. %(added)s Zeile(n) hinzugefügt, %(removed)s Zeile(n) entfernt.",
-    "x_search_terms": [
-      "apply patch",
-      "patch file",
-      "apply diff",
-      "unified diff apply"
-    ]
+    "summary.applied": "%(applied)s von %(total)s Stück(en) wurden auf %(files)s Datei(en) angewendet. %(added)s Zeile(n) hinzugefügt, %(removed)s Zeile(n) entfernt."
   },
   "el": {
     "tool.description": "Εφαρμόστε μια ενοποιημένη διαφορά (patch) σε αρχεία χρησιμοποιώντας καθαρή Python. Υποστηρίζει προεπισκόπηση ξηρής λειτουργίας, ανοχή κενού χώρου και διατήρηση CRLF.",
+    "x_search_terms": [
+      "εφαρμογή ενημερωμένης έκδοσης κώδικα",
+      "αρχείο ενημέρωσης κώδικα",
+      "εφαρμογή διαφοράς",
+      "Εφαρμογή ενοποιημένης διαφοράς",
+      "ux30d1ux30c3ux30c1ux9069ux7528"
+    ],
     "param.patch_text.description": "Ενοποιημένο κείμενο διαφοράς προς εφαρμογή (συμβατό με μορφή git, π.χ. ---/+++ κεφαλίδες).",
     "param.dry_run.description": "Εάν ισχύει, κάντε προεπισκόπηση μόνο ό,τι θα άλλαζε χωρίς εφαρμογή.",
     "param.ignore_whitespace.description": "Αγνοήστε τις διαφορές κενών διαστημάτων κατά την αντιστοίχιση γραμμών περιβάλλοντος.",
@@ -140,16 +151,17 @@
     "err.no_hunks": "Δεν βρέθηκαν έγκυρα κομμάτια στο κείμενο ενημέρωσης κώδικα.",
     "err.hunk_not_found": "Το περιεχόμενο δεν βρέθηκε στο αρχείο.",
     "err.file_too_large": "Πολύ μεγάλο αρχείο: %(size)s byte (max %(max_bytes)s)",
-    "summary.applied": "%(applied)s από %(total)s κομμάτι(α) εφαρμόστηκαν σε %(files)s αρχεία. Προστέθηκαν %(added)s γραμμές, αφαιρέθηκαν %(removed)s γραμμές.",
-    "x_search_terms": [
-      "apply patch",
-      "patch file",
-      "apply diff",
-      "unified diff apply"
-    ]
+    "summary.applied": "%(applied)s από %(total)s κομμάτι(α) εφαρμόστηκαν σε %(files)s αρχεία. Προστέθηκαν %(added)s γραμμές, αφαιρέθηκαν %(removed)s γραμμές."
   },
   "es": {
     "tool.description": "Aplique una diferencia unificada (parche) a archivos usando Python puro. Admite vista previa de ensayo, tolerancia a espacios en blanco y conservación CRLF.",
+    "x_search_terms": [
+      "aplicar parche",
+      "archivo de parche",
+      "aplicar diferenciación",
+      "diferencia unificada aplicar",
+      "ux30d1ux30c3ux30c1ux9069ux7528"
+    ],
     "param.patch_text.description": "Texto de diferenciación unificado para aplicar (compatible con formato git, por ejemplo, encabezados ---/+++).",
     "param.dry_run.description": "Si es verdadero, solo obtenga una vista previa de lo que se cambiaría sin aplicarlo.",
     "param.ignore_whitespace.description": "Ignore las diferencias de espacios en blanco al hacer coincidir líneas de contexto.",
@@ -161,16 +173,17 @@
     "err.no_hunks": "No se encontraron fragmentos válidos en el texto del parche.",
     "err.hunk_not_found": "Contexto no encontrado en el archivo.",
     "err.file_too_large": "Archivo demasiado grande: %(size)s bytes (máx. %(max_bytes)s)",
-    "summary.applied": "%(applied)s de %(total)s fragmentos aplicados a %(files)s archivos. %(added)s líneas agregadas, %(removed)s líneas eliminadas.",
-    "x_search_terms": [
-      "apply patch",
-      "patch file",
-      "apply diff",
-      "unified diff apply"
-    ]
+    "summary.applied": "%(applied)s de %(total)s fragmentos aplicados a %(files)s archivos. %(added)s líneas agregadas, %(removed)s líneas eliminadas."
   },
   "fa": {
     "tool.description": "یک تفاوت (پچ) یکپارچه را با استفاده از پایتون خالص روی فایل‌ها اعمال کنید. از پیش‌نمایش در حالت خشک، تحمل فضای خالی و حفظ CRLF پشتیبانی می‌کند.",
+    "x_search_terms": [
+      "اعمال پچ",
+      "فایل وصله",
+      "اعمال تفاوت",
+      "تفاوت یکپارچه اعمال",
+      "ux30d1ux30c3ux30c1ux9069ux7528"
+    ],
     "param.patch_text.description": "متن متفاوت یکپارچه برای اعمال (سازگار با فرمت git، به عنوان مثال هدر ---/+++).",
     "param.dry_run.description": "اگر درست است، تنها مواردی را که بدون اعمال تغییر می‌کنند، پیش‌نمایش کنید.",
     "param.ignore_whitespace.description": "هنگام تطبیق خطوط زمینه، تفاوت‌های فضای خالی را نادیده بگیرید.",
@@ -182,16 +195,17 @@
     "err.no_hunks": "هیچ قطعه معتبری در متن پچ یافت نشد.",
     "err.hunk_not_found": "متن در فایل یافت نشد.",
     "err.file_too_large": "فایل خیلی بزرگ است: %(size)s بایت (حداکثر %(max_bytes)s)",
-    "summary.applied": "%(applied)s از %(total)s قطعه (ها) روی %(files)s فایل (ها) اعمال شد. %(added)s خط(هایی) اضافه شد، %(removed)s خط(ها) حذف شد.",
-    "x_search_terms": [
-      "apply patch",
-      "patch file",
-      "apply diff",
-      "unified diff apply"
-    ]
+    "summary.applied": "%(applied)s از %(total)s قطعه (ها) روی %(files)s فایل (ها) اعمال شد. %(added)s خط(هایی) اضافه شد، %(removed)s خط(ها) حذف شد."
   },
   "fi": {
     "tool.description": "Käytä yhtenäistä erotusta (patch) tiedostoihin puhtaalla Pythonilla. Tukee kuivaajon esikatselua, välilyöntitoleranssia ja CRLF-säilytystä.",
+    "x_search_terms": [
+      "käytä korjaustiedostoa",
+      " korjaustiedostoa",
+      " käytä erotusta",
+      "",
+      ""
+    ],
     "param.patch_text.description": "Yhtenäinen eroteksti käytettäväksi (git-muodon yhteensopiva, esim. ---/+++-otsikot).",
     "param.dry_run.description": "Jos totta, esikatsele vain sitä, mitä muutetaan ilman hakemista.",
     "param.ignore_whitespace.description": "Ohita välilyöntien erot, kun sovitat kontekstirivejä.",
@@ -203,16 +217,17 @@
     "err.no_hunks": "Paikkatekstistä ei löytynyt kelvollisia kappaleita.",
     "err.hunk_not_found": "Kontekstia ei löydy tiedostosta.",
     "err.file_too_large": "Tiedosto liian suuri: %(size)s tavua (enintään %(max_bytes)s)",
-    "summary.applied": "%(applied)s / %(total)s kappaletta sovellettu %(files)s tiedostoon. %(added)s rivi(ä) lisätty, %(removed)s rivi(ä) poistettu.",
-    "x_search_terms": [
-      "apply patch",
-      "patch file",
-      "apply diff",
-      "unified diff apply"
-    ]
+    "summary.applied": "%(applied)s / %(total)s kappaletta sovellettu %(files)s tiedostoon. %(added)s rivi(ä) lisätty, %(removed)s rivi(ä) poistettu."
   },
   "fr": {
     "tool.description": "Appliquez un diff (patch) unifié aux fichiers en utilisant du Python pur. Prend en charge l’aperçu à sec, la tolérance aux espaces et la préservation CRLF.",
+    "x_search_terms": [
+      "appliquer le patch",
+      "fichier de correctif",
+      "appliquer le diff",
+      "diff unifié appliquer",
+      "ux30d1ux30c3ux30c1ux9069ux7528"
+    ],
     "param.patch_text.description": "Texte de comparaison unifié à appliquer (compatible avec le format git, par exemple en-têtes ---/+++).",
     "param.dry_run.description": "Si c'est vrai, prévisualisez uniquement ce qui serait modifié sans appliquer.",
     "param.ignore_whitespace.description": "Ignorez les différences d'espaces lors de la correspondance des lignes de contexte.",
@@ -224,16 +239,17 @@
     "err.no_hunks": "Aucun morceau valide trouvé dans le texte du patch.",
     "err.hunk_not_found": "Contexte introuvable dans le fichier.",
     "err.file_too_large": "Fichier trop volumineux : %(size)s octets (max %(max_bytes)s)",
-    "summary.applied": "%(applied)s sur %(total)s morceau(x) appliqué(s) à %(files)s fichier(s). %(added)s ligne(s) ajoutée(s), %(removed)s ligne(s) supprimée(s).",
-    "x_search_terms": [
-      "apply patch",
-      "patch file",
-      "apply diff",
-      "unified diff apply"
-    ]
+    "summary.applied": "%(applied)s sur %(total)s morceau(x) appliqué(s) à %(files)s fichier(s). %(added)s ligne(s) ajoutée(s), %(removed)s ligne(s) supprimée(s)."
   },
   "he": {
     "tool.description": "החל הבדל מאוחד (תיקון) על קבצים באמצעות Python טהור. תומך בתצוגה מקדימה להרצה יבשה, סובלנות לרווחים לבנים ושימור CRLF.",
+    "x_search_terms": [
+      "החל תיקון",
+      "קובץ תיקון",
+      "החל תיקון",
+      "הבדל מאוחד החל",
+      "ux30d1ux30c3ux30c1ux9069ux7528"
+    ],
     "param.patch_text.description": "טקסט הבדל מאוחד להחלה (תואם לפורמט git, למשל כותרות ---/+++).",
     "param.dry_run.description": "אם זה נכון, צפה בתצוגה מקדימה רק למה שישתנה ללא החלה.",
     "param.ignore_whitespace.description": "התעלם מהבדלי רווחים לבנים בעת התאמת קווי הקשר.",
@@ -245,16 +261,17 @@
     "err.no_hunks": "לא נמצאו חתיכים חוקיים בטקסט התיקון.",
     "err.hunk_not_found": "ההקשר לא נמצא בקובץ.",
     "err.file_too_large": "קובץ גדול מדי: %(size)s בתים (מקסימום %(max_bytes)s)",
-    "summary.applied": "%(applied)s מתוך %(total)s חתיכות הוחלו על %(files)s קבצים. %(added)s שורות נוספו, %(removed)s שורות הוסרו.",
-    "x_search_terms": [
-      "apply patch",
-      "patch file",
-      "apply diff",
-      "unified diff apply"
-    ]
+    "summary.applied": "%(applied)s מתוך %(total)s חתיכות הוחלו על %(files)s קבצים. %(added)s שורות נוספו, %(removed)s שורות הוסרו."
   },
   "hi": {
     "tool.description": "शुद्ध पायथन का उपयोग करके फ़ाइलों में एकीकृत अंतर (पैच) लागू करें। ड्राई-रन पूर्वावलोकन, व्हाइटस्पेस सहिष्णुता और CRLF संरक्षण का समर्थन करता है।",
+    "x_search_terms": [
+      "पैच लागू करें",
+      "पैच फ़ाइल",
+      "अंतर लागू करें",
+      "एकीकृत अंतर लागू करें",
+      "ux30d1ux30c3ux30c1ux9069ux7528"
+    ],
     "param.patch_text.description": "लागू करने के लिए एकीकृत अंतर पाठ (गिट-प्रारूप संगत, उदा. ---/+++ हेडर)।",
     "param.dry_run.description": "यदि सत्य है, तो बिना आवेदन किए केवल उसी का पूर्वावलोकन करें जो बदला जाएगा।",
     "param.ignore_whitespace.description": "संदर्भ पंक्तियों का मिलान करते समय रिक्त स्थान के अंतरों को नजरअंदाज़ करें।",
@@ -266,16 +283,17 @@
     "err.no_hunks": "पैच टेक्स्ट में कोई वैध हंक नहीं मिला।",
     "err.hunk_not_found": "फ़ाइल में प्रसंग नहीं मिला।",
     "err.file_too_large": "फ़ाइल बहुत बड़ी है: %(size)s बाइट्स (अधिकतम %(max_bytes)s)",
-    "summary.applied": "%(total)s हंक में से %(applied)s को %(files)s फ़ाइल(फ़ाइलों) पर लागू किया गया। %(added)s पंक्तियाँ जोड़ी गईं, %(removed)s पंक्तियाँ हटाई गईं।",
-    "x_search_terms": [
-      "apply patch",
-      "patch file",
-      "apply diff",
-      "unified diff apply"
-    ]
+    "summary.applied": "%(total)s हंक में से %(applied)s को %(files)s फ़ाइल(फ़ाइलों) पर लागू किया गया। %(added)s पंक्तियाँ जोड़ी गईं, %(removed)s पंक्तियाँ हटाई गईं।"
   },
   "hu": {
     "tool.description": "Alkalmazzon egységes különbséget (javítást) a fájlokra a tiszta Python használatával. Támogatja a szárazon futatott előnézetet, a szóköztűrést és a CRLF megőrzést.",
+    "x_search_terms": [
+      "javítás alkalmazása",
+      "javítófájl",
+      "diff alkalmazása",
+      "egyesített különbség alkalmazása",
+      "ux30d1ux30c3ux30c1ux9069ux7528"
+    ],
     "param.patch_text.description": "Alkalmazandó egységes eltérő szöveg (git-formátum kompatibilis, például ---/+++ fejlécek).",
     "param.dry_run.description": "Ha igaz, csak előnézetben tekintse meg, hogy mi módosulna alkalmazás nélkül.",
     "param.ignore_whitespace.description": "A kontextussorok egyeztetésekor hagyja figyelmen kívül a szóközök különbségeit.",
@@ -287,16 +305,17 @@
     "err.no_hunks": "Nem található érvényes darab a javítás szövegében.",
     "err.hunk_not_found": "A kontextus nem található a fájlban.",
     "err.file_too_large": "A fájl túl nagy: %(size)s bájt (max. %(max_bytes)s)",
-    "summary.applied": "%(total)s/%(applied)s darab %(files)s fájlra alkalmazva. %(added)s sor hozzáadva, %(removed)s sor eltávolítva.",
-    "x_search_terms": [
-      "apply patch",
-      "patch file",
-      "apply diff",
-      "unified diff apply"
-    ]
+    "summary.applied": "%(total)s/%(applied)s darab %(files)s fájlra alkalmazva. %(added)s sor hozzáadva, %(removed)s sor eltávolítva."
   },
   "id": {
     "tool.description": "Terapkan diff terpadu (patch) ke file menggunakan Python murni. Mendukung pratinjau uji coba, toleransi spasi, dan pelestarian CRLF.",
+    "x_search_terms": [
+      "terapkan patch",
+      "file patch",
+      "terapkan diff",
+      "unified diff apply",
+      "ux30d1ux30c3ux30c1ux9069ux7528"
+    ],
     "param.patch_text.description": "Teks diff terpadu untuk diterapkan (kompatibel dengan format git, misalnya ---/+++ header).",
     "param.dry_run.description": "Jika benar, hanya pratinjau apa yang akan diubah tanpa menerapkan.",
     "param.ignore_whitespace.description": "Abaikan perbedaan spasi saat mencocokkan baris konteks.",
@@ -308,16 +327,17 @@
     "err.no_hunks": "Tidak ada bongkahan valid yang ditemukan dalam teks tambalan.",
     "err.hunk_not_found": "Konteks tidak ditemukan dalam file.",
     "err.file_too_large": "File terlalu besar: %(size)s byte (maks %(max_bytes)s)",
-    "summary.applied": "%(applied)s dari %(total)s bongkahan diterapkan ke %(files)s file. %(added)s baris ditambahkan, %(removed)s baris dihapus.",
-    "x_search_terms": [
-      "apply patch",
-      "patch file",
-      "apply diff",
-      "unified diff apply"
-    ]
+    "summary.applied": "%(applied)s dari %(total)s bongkahan diterapkan ke %(files)s file. %(added)s baris ditambahkan, %(removed)s baris dihapus."
   },
   "it": {
     "tool.description": "Applica un diff (patch) unificato ai file utilizzando Python puro. Supporta l'anteprima di prova, la tolleranza degli spazi bianchi e la conservazione CRLF.",
+    "x_search_terms": [
+      "applica patch",
+      "file patch",
+      "applica diff",
+      "diff unificato applica",
+      "ux30d1ux30c3ux30c1ux9069ux7528"
+    ],
     "param.patch_text.description": "Testo differenziale unificato da applicare (compatibile con il formato git, ad esempio intestazioni ---/+++).",
     "param.dry_run.description": "Se vero, visualizza solo l'anteprima di ciò che verrebbe modificato senza applicare.",
     "param.ignore_whitespace.description": "Ignora le differenze degli spazi bianchi durante la corrispondenza delle righe di contesto.",
@@ -329,16 +349,17 @@
     "err.no_hunks": "Nessun pezzo valido trovato nel testo della patch.",
     "err.hunk_not_found": "Contesto non trovato nel file.",
     "err.file_too_large": "File troppo grande: %(size)s byte (max %(max_bytes)s)",
-    "summary.applied": "%(applied)s di %(total)s pezzo/i applicato/i a %(files)s file. %(added)s righe aggiunte, %(removed)s righe rimosse.",
-    "x_search_terms": [
-      "apply patch",
-      "patch file",
-      "apply diff",
-      "unified diff apply"
-    ]
+    "summary.applied": "%(applied)s di %(total)s pezzo/i applicato/i a %(files)s file. %(added)s righe aggiunte, %(removed)s righe rimosse."
   },
   "ko": {
     "tool.description": "순수 Python을 사용하여 파일에 통합 diff(패치)를 적용합니다. 테스트 실행 미리보기, 공백 용녕치 및 CRLF 보존을 지원합니다.",
+    "x_search_terms": [
+      "패치 적용",
+      "패치 파일",
+      "차이 적용",
+      "통합 차등 적용",
+      "ux30d1ux30c3ux30c1ux9069ux7528"
+    ],
     "param.patch_text.description": "적용할 통합 diff 텍스트(git 형식 호환, 예: ---/+++ 헤더)",
     "param.dry_run.description": "true인 경우 적용하지 않고 변경될 내용만 미리 봅니다.",
     "param.ignore_whitespace.description": "컨텍스트 줄을 일치시킬 때 공백 차이를 무시합니다.",
@@ -350,16 +371,17 @@
     "err.no_hunks": "패치 텍스트에 유효한 덮어리가 없습니다.",
     "err.hunk_not_found": "파일에서 컨텍스트를 찾을 수 없습니다.",
     "err.file_too_large": "파일이 너무 크: %(size)s바이트(최대 %(max_bytes)s)",
-    "summary.applied": "%(total)s개 중 %(applied)s개가 %(files)s개 파일에 적용되었습니다. %(added)s줄이 추가되고 %(removed)s줄이 제거되었습니다.",
-    "x_search_terms": [
-      "apply patch",
-      "patch file",
-      "apply diff",
-      "unified diff apply"
-    ]
+    "summary.applied": "%(total)s개 중 %(applied)s개가 %(files)s개 파일에 적용되었습니다. %(added)s줄이 추가되고 %(removed)s줄이 제거되었습니다."
   },
   "mn": {
     "tool.description": "Цэвэр Python ашиглан файлуудад нэгдсэн ялгааг (патч) хэрэглээрэй. Хуурай хугацаанд урьдчилж харах, хоосон зайны хүлцэх ба CRLF хадгалах тунслагыг дэмждэг.",
+    "x_search_terms": [
+      "нөхөөсийг хэрэглэх",
+      "засвар файлыг хэрэглэх",
+      "diff хэрэглэх",
+      "нэгдсэн ялгаа хэрэглэх",
+      "ux30d1ux30c3ux30c1ux9069ux7528"
+    ],
     "param.patch_text.description": "Ашиглах нэгдсэн ялгаатай текст (git форматтай тохирцуутай, жишээбэл ---/+++ толгой).",
     "param.dry_run.description": "Хэрэглэхгүйгээр зөвхөн юү өөрчлөгдөхийг урьдчилж үзээрэй.",
     "param.ignore_whitespace.description": "Контекст мөрийг тааруулахдаа хоосон зайны зөрүүг үл тоомсорло.",
@@ -371,16 +393,17 @@
     "err.no_hunks": "Засварын текстээс хүчинтэй анкет олдсонгүй.",
     "err.hunk_not_found": "Контекст файлаас олдсонгүй.",
     "err.file_too_large": "Файл хэт том: %(size)s байт (хамгийн ихдээ %(max_bytes)s)",
-    "summary.applied": "%(total)s файлаас %(applied)s-г нь %(files)s файлд ашигласан. %(added)s мөрийг нэмсэн, %(removed)s мөрийг хассан.",
-    "x_search_terms": [
-      "apply patch",
-      "patch file",
-      "apply diff",
-      "unified diff apply"
-    ]
+    "summary.applied": "%(total)s файлаас %(applied)s-г нь %(files)s файлд ашигласан. %(added)s мөрийг нэмсэн, %(removed)s мөрийг хассан."
   },
   "mr": {
     "tool.description": "शुद्ध पायथन वापरून फाइल्सवर युनिफाइड डिफ (पैच) लागू करा. ड्राय-रन पूर्वावलोकन, व्हाइटस्पेस टॉलरन्स आणि सीआरएलएफ संरक्षणास समर्थन देते.",
+    "x_search_terms": [
+      "पॅच लागू करा",
+      "पॅच फाइल लागू करा",
+      "डिफ लागू करा",
+      "युनिफाइड डिफ लागू करा",
+      "ux30d1ux30c3ux30c1ux9069ux7528"
+    ],
     "param.patch_text.description": "लागू करण्यासाठी युनिफाइड डिफ मजकूर (गिट-फॉर्मेट सुसंगत, उदा. ---/+++ शीर्षलेख).",
     "param.dry_run.description": "सत्य असल्यास, अर्ज न करता केवळ काय बदलेल जाईल याचे पूर्वावलोकन करा.",
     "param.ignore_whitespace.description": "संदर्भ रेषा जुळवताना व्हाइटस्पेस फरक दुर्लक्षित करा.",
@@ -392,16 +415,17 @@
     "err.no_hunks": "पैच मजकूरात कोणतेही वैध हंक आढळले नाहीत.",
     "err.hunk_not_found": "फाइलमध्ये संदर्भ सापडला नाही.",
     "err.file_too_large": "फाइल खूप मोठी आहे: %(size)s बाइट्स (कमाल %(max_bytes)s)",
-    "summary.applied": "%(total)s हंक पैकी %(applied)s %(files)s फाइल(ं)वर लागू केले. %(added)s ओळ जोडली, %(removed)s ओळ काढली.",
-    "x_search_terms": [
-      "apply patch",
-      "patch file",
-      "apply diff",
-      "unified diff apply"
-    ]
+    "summary.applied": "%(total)s हंक पैकी %(applied)s %(files)s फाइल(ं)वर लागू केले. %(added)s ओळ जोडली, %(removed)s ओळ काढली."
   },
   "nb": {
     "tool.description": "Bruk en enhetlig diff (patch) på filer ved å bruke ren Python. Støtter forhåndsvisning av tørrkjøring, toleranse for mellomrom og CRLF-bevaring.",
+    "x_search_terms": [
+      "bruk patch",
+      "patch file",
+      "apply diff",
+      "unified diff apply",
+      "ux30d1ux30c3ux30c1ux9069ux7528"
+    ],
     "param.patch_text.description": "Samlet diff-tekst som skal brukes (git-format-kompatibel, f.eks. ---/+++ overskrifter).",
     "param.dry_run.description": "Hvis det er sant, kan du bare forhåndsvise det som vil bli endret uten å bruke.",
     "param.ignore_whitespace.description": "Ignorer mellomromsforskjeller når du matcher kontekstlinjer.",
@@ -413,16 +437,17 @@
     "err.no_hunks": "Ingen gyldige hunks funnet i oppdateringstekst.",
     "err.hunk_not_found": "Finner ikke kontekst i filen.",
     "err.file_too_large": "Filen er for stor: %(size)s byte (maks. %(max_bytes)s)",
-    "summary.applied": "%(applied)s av %(total)s hunk(er) brukt på %(files)s fil(er). %(added)s linje(r) lagt til, %(removed)s linje(r) fjernet.",
-    "x_search_terms": [
-      "apply patch",
-      "patch file",
-      "apply diff",
-      "unified diff apply"
-    ]
+    "summary.applied": "%(applied)s av %(total)s hunk(er) brukt på %(files)s fil(er). %(added)s linje(r) lagt til, %(removed)s linje(r) fjernet."
   },
   "nl": {
     "tool.description": "Pas een uniforme diff (patch) toe op bestanden met behulp van pure Python. Ondersteunt dry-run preview, witruimtetolerantie en CRLF-behoud.",
+    "x_search_terms": [
+      "patch toepassen",
+      "patchbestand",
+      "diff toepassen",
+      "unified diff toepassen",
+      "ux30d1ux30c3ux30c1ux9069ux7528"
+    ],
     "param.patch_text.description": "Uniforme diff-tekst die moet worden toegepast (compatibel met git-formaat, bijvoorbeeld ---/+++ headers).",
     "param.dry_run.description": "Als dit waar is, kunt u alleen een voorbeeld bekijken van wat er zou worden gewijzigd zonder dit toe te passen.",
     "param.ignore_whitespace.description": "Negeer witruimteverschillen bij het matchen van contextregels.",
@@ -434,16 +459,17 @@
     "err.no_hunks": "Geen geldige hunks gevonden in patchtekst.",
     "err.hunk_not_found": "Context niet gevonden in bestand.",
     "err.file_too_large": "Bestand te groot: %(size)s bytes (max. %(max_bytes)s)",
-    "summary.applied": "%(applied)s van %(total)s hunk(s) toegepast op %(files)s bestand(en). %(added)s regel(s) toegevoegd, %(removed)s regel(s) verwijderd.",
-    "x_search_terms": [
-      "apply patch",
-      "patch file",
-      "apply diff",
-      "unified diff apply"
-    ]
+    "summary.applied": "%(applied)s van %(total)s hunk(s) toegepast op %(files)s bestand(en). %(added)s regel(s) toegevoegd, %(removed)s regel(s) verwijderd."
   },
   "pl": {
     "tool.description": "Zastosuj ujednoliconą różnicę (łatkę) do plików przy użyciu czystego Pythona. Obsługuje podgląd próbny, tolerancję białych znaków i zachowanie CRLF.",
+    "x_search_terms": [
+      "zastosuj łatkę",
+      "plik łatki",
+      "zastosuj różnicę",
+      "ujednoliconą różnicę zastosuj",
+      "ux30d1ux30c3ux30c1ux9069ux7528"
+    ],
     "param.patch_text.description": "Ujednolicony tekst różnicowy do zastosowania (kompatybilny z formatem git, np. nagłówki ---/+++).",
     "param.dry_run.description": "Jeśli to prawda, wyświetl tylko podgląd tego, co zostałoby zmienione bez zastosowania.",
     "param.ignore_whitespace.description": "Ignoruj różnice w białych znakach podczas dopasowywania linii kontekstu.",
@@ -455,16 +481,17 @@
     "err.no_hunks": "W tekście łatki nie znaleziono prawidłowych porcji.",
     "err.hunk_not_found": "Nie znaleziono kontekstu w pliku.",
     "err.file_too_large": "Plik za duży: %(size)s bajtów (maks. %(max_bytes)s)",
-    "summary.applied": "%(applied)s z %(total)s porcji zastosowanych do %(files)s plików. Dodano %(added)s wiersze, usunięto %(removed)s wiersze.",
-    "x_search_terms": [
-      "apply patch",
-      "patch file",
-      "apply diff",
-      "unified diff apply"
-    ]
+    "summary.applied": "%(applied)s z %(total)s porcji zastosowanych do %(files)s plików. Dodano %(added)s wiersze, usunięto %(removed)s wiersze."
   },
   "pt": {
     "tool.description": "Aplique um diff (patch) unificado aos arquivos usando Python puro. Suporta visualização de simulação, tolerância a espaços em branco e preservação CRLF.",
+    "x_search_terms": [
+      "aplicar patch",
+      "arquivo de patch",
+      "apply diff",
+      "unified diff apply",
+      "ux30d1ux30c3ux30c1ux9069ux7528"
+    ],
     "param.patch_text.description": "Texto diff unificado a ser aplicado (compatível com o formato git, por exemplo, cabeçalhos ---/+++).",
     "param.dry_run.description": "Se for verdade, visualize apenas o que seria alterado sem aplicar.",
     "param.ignore_whitespace.description": "Ignore as diferenças de espaço em branco ao combinar linhas de contexto.",
@@ -476,16 +503,17 @@
     "err.no_hunks": "Nenhum trecho válido encontrado no texto do patch.",
     "err.hunk_not_found": "Contexto não encontrado no arquivo.",
     "err.file_too_large": "Arquivo muito grande: %(size)s bytes (máx. %(max_bytes)s)",
-    "summary.applied": "%(applied)s de %(total)s pedaços aplicados a %(files)s arquivo(s). %(added)s linha(s) adicionada(s), %(removed)s linha(s) removida(s).",
-    "x_search_terms": [
-      "apply patch",
-      "patch file",
-      "apply diff",
-      "unified diff apply"
-    ]
+    "summary.applied": "%(applied)s de %(total)s pedaços aplicados a %(files)s arquivo(s). %(added)s linha(s) adicionada(s), %(removed)s linha(s) removida(s)."
   },
   "pt_BR": {
     "tool.description": "Aplique um diff (patch) unificado aos arquivos usando Python puro. Suporta visualização de simulação, tolerância a espaços em branco e preservação CRLF.",
+    "x_search_terms": [
+      "aplicar patch",
+      "arquivo de patch",
+      "apply diff",
+      "unified diff apply",
+      "ux30d1ux30c3ux30c1ux9069ux7528"
+    ],
     "param.patch_text.description": "Texto diff unificado a ser aplicado (compatível com o formato git, por exemplo, cabeçalhos ---/+++).",
     "param.dry_run.description": "Se for verdade, visualize apenas o que seria alterado sem aplicar.",
     "param.ignore_whitespace.description": "Ignore as diferenças de espaço em branco ao combinar linhas de contexto.",
@@ -497,16 +525,17 @@
     "err.no_hunks": "Nenhum trecho válido encontrado no texto do patch.",
     "err.hunk_not_found": "Contexto não encontrado no arquivo.",
     "err.file_too_large": "Arquivo muito grande: %(size)s bytes (máx. %(max_bytes)s)",
-    "summary.applied": "%(applied)s de %(total)s pedaços aplicados a %(files)s arquivo(s). %(added)s linha(s) adicionada(s), %(removed)s linha(s) removida(s).",
-    "x_search_terms": [
-      "apply patch",
-      "patch file",
-      "apply diff",
-      "unified diff apply"
-    ]
+    "summary.applied": "%(applied)s de %(total)s pedaços aplicados a %(files)s arquivo(s). %(added)s linha(s) adicionada(s), %(removed)s linha(s) removida(s)."
   },
   "ro": {
     "tool.description": "Aplicați o diferență (patch) unificată fișierelor folosind Python pur. Acceptă previzualizarea la rulare uscată, toleranța la spații albe și conservarea CRLF.",
+    "x_search_terms": [
+      "aplicați patch",
+      "patch file",
+      "aply diff",
+      "unified diff apply",
+      "ux30d1ux30c3ux30c1ux9069ux7528"
+    ],
     "param.patch_text.description": "Text diferit unificat de aplicat (compatibil cu formatul git, de exemplu antete ---/+++).",
     "param.dry_run.description": "Dacă este adevărat, previzualizați doar ceea ce ar fi schimbat fără a aplica.",
     "param.ignore_whitespace.description": "Ignorați diferențele de spații albe atunci când potriviți liniile de context.",
@@ -518,16 +547,17 @@
     "err.no_hunks": "Nu s-au găsit fragmente valide în textul corecției.",
     "err.hunk_not_found": "Contextul nu a fost găsit în fișier.",
     "err.file_too_large": "Fișier prea mare: %(size)s octeți (max. %(max_bytes)s)",
-    "summary.applied": "%(applied)s din %(total)s bucăți aplicate pentru %(files)s fișiere. %(added)s rânduri adăugate, %(removed)s rânduri eliminate.",
-    "x_search_terms": [
-      "apply patch",
-      "patch file",
-      "apply diff",
-      "unified diff apply"
-    ]
+    "summary.applied": "%(applied)s din %(total)s bucăți aplicate pentru %(files)s fișiere. %(added)s rânduri adăugate, %(removed)s rânduri eliminate."
   },
   "ru": {
     "tool.description": "Примените унифицированный diff (патч) к файлам, используя чистый Python. Поддерживает предварительный просмотр, допуск на пробелы и сохранение CRLF.",
+    "x_search_terms": [
+      "применить патч",
+      "файл патча",
+      "применить diff",
+      "унифицированный diff применить",
+      "ux30d1ux30c3ux30c1ux9069ux7528"
+    ],
     "param.patch_text.description": "Применяемый унифицированный текст различий (совместимый с форматом git, например заголовки ---/+++).",
     "param.dry_run.description": "Если это правда, только предварительный просмотр того, что будет изменено, без применения.",
     "param.ignore_whitespace.description": "Игнорируйте различия в пробелах при сопоставлении строк контекста.",
@@ -539,16 +569,17 @@
     "err.no_hunks": "В тексте патча не обнаружено действительных фрагментов.",
     "err.hunk_not_found": "Контекст не найден в файле.",
     "err.file_too_large": "Файл слишком большой: %(size)s байт (максимум %(max_bytes)s).",
-    "summary.applied": "%(applied)s из %(total)s фрагментов применено к %(files)s файлам. Добавлено %(added)s строк, удалено %(removed)s строк.",
-    "x_search_terms": [
-      "apply patch",
-      "patch file",
-      "apply diff",
-      "unified diff apply"
-    ]
+    "summary.applied": "%(applied)s из %(total)s фрагментов применено к %(files)s файлам. Добавлено %(added)s строк, удалено %(removed)s строк."
   },
   "sv": {
     "tool.description": "Applicera en enhetlig diff (patch) på filer med ren Python. Stöder torrkörningsförhandsvisning, tolerans för blanksteg och CRLF-bevarande.",
+    "x_search_terms": [
+      "tillämpa patch",
+      "patchfil",
+      "apply diff",
+      "unified diff tillämpa",
+      "ux30d1ux30c3ux30c1ux9069ux7528"
+    ],
     "param.patch_text.description": "Unified diff-text att tillämpa (git-format kompatibel, t.ex. ---/+++ rubriker).",
     "param.dry_run.description": "Om sant, förhandsgranska bara vad som skulle ändras utan att tillämpa.",
     "param.ignore_whitespace.description": "Ignorera skillnader i blanksteg när du matchar kontextrader.",
@@ -560,16 +591,17 @@
     "err.no_hunks": "Inga giltiga hunks hittades i patchtexten.",
     "err.hunk_not_found": "Kontext hittades inte i filen.",
     "err.file_too_large": "Filen är för stor: %(size)s byte (max %(max_bytes)s)",
-    "summary.applied": "%(applied)s av %(total)s hunk(ar) tillämpas på %(files)s fil(er). %(added)s rad(er) har lagts till, %(removed)s rad(er) har tagits bort.",
-    "x_search_terms": [
-      "apply patch",
-      "patch file",
-      "apply diff",
-      "unified diff apply"
-    ]
+    "summary.applied": "%(applied)s av %(total)s hunk(ar) tillämpas på %(files)s fil(er). %(added)s rad(er) har lagts till, %(removed)s rad(er) har tagits bort."
   },
   "sw": {
     "tool.description": "Omba tofauti ya umoja (kiraka) kwa faili kwa kutumia Python safi. Inaauni onyesho la kukagua programu kavu, uvumilivu wa nafasi nyeupe na uhifadhi wa CRLF.",
+    "x_search_terms": [
+      "weka kiraka",
+      " faili ya kiraka",
+      "tumia diff",
+      "utofauti wa umoja utatumika",
+      "ux30d1ux30c3ux30c1ux9069ux7528"
+    ],
     "param.patch_text.description": "Maandishi yaliyounganishwa ya diff ya kutumika (umbizo la git linaoana, k.m. ---/+++ vichwa).",
     "param.dry_run.description": "Ikiwa ndivyo, hakiki tu kile ambacho kingebadilishwa bila kutuma ombi.",
     "param.ignore_whitespace.description": "Puuza tofauti za nafasi nyeupe wakati wa kulinganisha mistari ya muktadha.",
@@ -581,16 +613,17 @@
     "err.no_hunks": "Hakuna hunki halali zilizopatikana katika maandishi ya kiraka.",
     "err.hunk_not_found": "Muktadha haupatikani kwenye faili.",
     "err.file_too_large": "Faili ni kubwa mno: %(size)s baiti (kiwango cha juu %(max_bytes)s)",
-    "summary.applied": "%(applied)s kati ya %(total)s hunk inatumika kwa faili %(files)s. %(added)s mistari imeongezwa, %(removed)s mistari imeondolewa.",
-    "x_search_terms": [
-      "apply patch",
-      "patch file",
-      "apply diff",
-      "unified diff apply"
-    ]
+    "summary.applied": "%(applied)s kati ya %(total)s hunk inatumika kwa faili %(files)s. %(added)s mistari imeongezwa, %(removed)s mistari imeondolewa."
   },
   "th": {
     "tool.description": "ใช้ unified diff (แพทช์) กับไฟล์โดยใช้ Python ล้วนๆ รองรับการแสดงตัวอย่างการทดลองเรียกใช้ ความทนต่อช่องว่าง และการอนุรักษ์ CRLF",
+    "x_search_terms": [
+      "ใช้ patch",
+      "patch file",
+      "ใช้ diff",
+      "unified diff ใช้",
+      "ux30d1ux30c3ux30c1ux9069ux7528"
+    ],
     "param.patch_text.description": "ข้อความต่างแบบรวมที่จะนำไปใช้ (เข้ากันได้กับรูปแบบ git เช่น ส่วนหัว ---/+++)",
     "param.dry_run.description": "หากเป็นจริง ให้แสดงเฉพาะสิ่งที่จะมีการเปลี่ยนแปลงโดยไม่ต้องนำไปใช้",
     "param.ignore_whitespace.description": "ละเว้นความแตกต่างของช่องว่างเมื่อจับคู่บรรทัดบริบท",
@@ -602,16 +635,17 @@
     "err.no_hunks": "ไม่พบท่อนฮุคที่ถูกต้องในข้อความแพทช์",
     "err.hunk_not_found": "ไม่พบบริบทในไฟล์",
     "err.file_too_large": "ไฟล์ใหญ่เกินไป: %(size)s ไบต์ (สูงสุด %(max_bytes)s)",
-    "summary.applied": "%(applied)s จาก %(total)s ก้อนใหญ่นำไปใช้กับไฟล์ %(files)s เพิ่ม %(added)s บรรทัดแล้ว ลบ %(removed)s บรรทัดแล้ว",
-    "x_search_terms": [
-      "apply patch",
-      "patch file",
-      "apply diff",
-      "unified diff apply"
-    ]
+    "summary.applied": "%(applied)s จาก %(total)s ก้อนใหญ่นำไปใช้กับไฟล์ %(files)s เพิ่ม %(added)s บรรทัดแล้ว ลบ %(removed)s บรรทัดแล้ว"
   },
   "tr": {
     "tool.description": "Saf Python kullanarak dosyalara birleşik bir fark (yama) uygulayın. Deneme önizlemesini, boşluk toleransını ve CRLF korumasını destekler.",
+    "x_search_terms": [
+      "yama uygula",
+      "yama dosyası",
+      "diff uygula",
+      "birleştirilmiş fark uygula",
+      "ux30d1ux30c3ux30c1ux9069ux7528"
+    ],
     "param.patch_text.description": "Uygulanacak birleştirilmiş fark metni (git formatıyla uyumlu, örneğin ---/+++ başlıkları).",
     "param.dry_run.description": "Doğruysa, uygulamadan yalnızca nelerin değiştirileceğini önizleyin.",
     "param.ignore_whitespace.description": "Bağlam satırlarını eşleştirirken boşluk farklılıklarını göz ardı edin.",
@@ -623,16 +657,17 @@
     "err.no_hunks": "Yama metninde geçerli bir parça bulunamadı.",
     "err.hunk_not_found": "Dosyada içerik bulunamadı.",
     "err.file_too_large": "Dosya çok büyük: %(size)s bayt (maks. %(max_bytes)s)",
-    "summary.applied": "%(total)s parçadan %(applied)s tanesi %(files)s dosyaya uygulandı. %(added)s satır eklendi, %(removed)s satır kaldırıldı.",
-    "x_search_terms": [
-      "apply patch",
-      "patch file",
-      "apply diff",
-      "unified diff apply"
-    ]
+    "summary.applied": "%(total)s parçadan %(applied)s tanesi %(files)s dosyaya uygulandı. %(added)s satır eklendi, %(removed)s satır kaldırıldı."
   },
   "uk": {
     "tool.description": "Застосуйте уніфіковану різницю (патч) до файлів за допомогою чистого Python. Підтримує сухий попередній перегляд, допуск пробілів та збереження CRLF.",
+    "x_search_terms": [
+      "застосувати патч",
+      "файл виправлення",
+      "застосувати різницю",
+      "уніфіковану різницю застосувати",
+      "ux30d1ux30c3ux30c1ux9069ux7528"
+    ],
     "param.patch_text.description": "Уніфікований текст відмінностей для застосування (сумісність з форматом git, наприклад заголовки ---/+++).",
     "param.dry_run.description": "Якщо значення true, лише попередньо перегляньте те, що буде змінено без застосування.",
     "param.ignore_whitespace.description": "Ігноруйте відмінності пробілів під час зіставлення рядків контексту.",
@@ -644,16 +679,17 @@
     "err.no_hunks": "У тексті виправлення не знайдено дійсних фрагментів.",
     "err.hunk_not_found": "Контекст не знайдено у файлі.",
     "err.file_too_large": "Файл завеликий: %(size)s байт (макс. %(max_bytes)s)",
-    "summary.applied": "%(applied)s із %(total)s фрагментів застосовано до %(files)s файлів. Додано рядків: %(added)s, видалено рядків: %(removed)s.",
-    "x_search_terms": [
-      "apply patch",
-      "patch file",
-      "apply diff",
-      "unified diff apply"
-    ]
+    "summary.applied": "%(applied)s із %(total)s фрагментів застосовано до %(files)s файлів. Додано рядків: %(added)s, видалено рядків: %(removed)s."
   },
   "vi": {
     "tool.description": "Áp dụng một khác biệt (bản vá) thống nhất cho các tệp bằng Python thuần túy. Hỗ trợ xem trước chạy thử, dung sai khoảng trắng và bảo toàn CRLF.",
+    "x_search_terms": [
+      "áp dụng bản vá",
+      "tập tin bản vá",
+      "áp dụng khác biệt",
+      "áp dụng khác biệt thống nhất",
+      "ux30d1ux30c3ux30c1ux9069ux7528"
+    ],
     "param.patch_text.description": "Văn bản khác biệt thống nhất áp dụng (tương thích định dạng git, ví dụ: tiêu đề ---/+++).",
     "param.dry_run.description": "Nếu đúng, chỉ xem trước những gì sẽ thay đổi mà không áp dụng.",
     "param.ignore_whitespace.description": "Bỏ qua sự khác biệt về khoảng trắng khi khớp các dòng ngữ cảnh.",
@@ -665,16 +701,17 @@
     "err.no_hunks": "Không tìm thấy đoạn hợp lệ nào trong văn bản bản vá.",
     "err.hunk_not_found": "Không tìm thấy ngữ cảnh trong tập tin.",
     "err.file_too_large": "Tệp quá lớn: %(size)s byte (tối đa %(max_bytes)s)",
-    "summary.applied": "%(applied)s trong tổng số %(total)s phần được áp dụng cho %(files)s tệp. Đã thêm %(added)s dòng, %(removed)s dòng đã bị xóa.",
-    "x_search_terms": [
-      "apply patch",
-      "patch file",
-      "apply diff",
-      "unified diff apply"
-    ]
+    "summary.applied": "%(applied)s trong tổng số %(total)s phần được áp dụng cho %(files)s tệp. Đã thêm %(added)s dòng, %(removed)s dòng đã bị xóa."
   },
   "zh_CN": {
     "tool.description": "使用纯Python对文件应用统一的差异（补丁）。支持试运行预览、空白容忍和 CRLF 保留。",
+    "x_search_terms": [
+      "应用补丁",
+      "补丁文件",
+      "应用差异",
+      "应用统一差异",
+      "ux30d1ux30c3ux30c1ux9069ux7528"
+    ],
     "param.patch_text.description": "要应用的统一差异文本（兼容 git 格式，例如 ---/+++ 标头）。",
     "param.dry_run.description": "如果为 true，则仅预览将更改的内容而不应用。",
     "param.ignore_whitespace.description": "匹配上下文行时忽略空格差异。",
@@ -686,16 +723,17 @@
     "err.no_hunks": "补丁文本中未找到有效的块。",
     "err.hunk_not_found": "在文件中找不到上下文。",
     "err.file_too_large": "文件太大：%(size)s 字节（最大 %(max_bytes)s）",
-    "summary.applied": "%(applied)s 个块（共 %(total)s 个块）已应用于 %(files)s 个文件。添加了 %(added)s 行，删除了 %(removed)s 行。",
-    "x_search_terms": [
-      "apply patch",
-      "patch file",
-      "apply diff",
-      "unified diff apply"
-    ]
+    "summary.applied": "%(applied)s 个块（共 %(total)s 个块）已应用于 %(files)s 个文件。添加了 %(added)s 行，删除了 %(removed)s 行。"
   },
   "zh_TW": {
     "tool.description": "使用純Python對檔案應用統一的差異（補丁）。支援試運行預覽、空白容忍和 CRLF 保留。",
+    "x_search_terms": [
+      "應用補丁",
+      "補丁檔案",
+      "應用差異",
+      "應用統一差異",
+      "ux30d1ux30c3ux30c1ux9069ux7528"
+    ],
     "param.patch_text.description": "要套用的統一差異文字（兼容於 git 格式，例如 ---/+++ 標頭）。",
     "param.dry_run.description": "如果為 true，則僅預覽將變更的內容而不套用。",
     "param.ignore_whitespace.description": "匹配上下文行時忽略空格差異。",
@@ -707,12 +745,6 @@
     "err.no_hunks": "補丁文字中未找到有效的區塊。",
     "err.hunk_not_found": "在文件中找不到上下文。",
     "err.file_too_large": "檔案太大：%(size)s 位元組（最大 %(max_bytes)s）",
-    "summary.applied": "%(applied)s 個區塊（共 %(total)s 個區塊）已套用於 %(files)s 個檔案。新增了 %(added)s 行，刪除了 %(removed)s 行。",
-    "x_search_terms": [
-      "apply patch",
-      "patch file",
-      "apply diff",
-      "unified diff apply"
-    ]
+    "summary.applied": "%(applied)s 個區塊（共 %(total)s 個區塊）已套用於 %(files)s 個檔案。新增了 %(added)s 行，刪除了 %(removed)s 行。"
   }
 }

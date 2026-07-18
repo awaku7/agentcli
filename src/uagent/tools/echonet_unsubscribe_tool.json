@@ -28,11 +28,13 @@
     "msg.unsubscribed": "تم إلغاء اشتراك ECHONET Lite {id}.",
     "err.id_required": "معرف المستمع مطلوب للإجراء = إلغاء الاشتراك.",
     "x_search_terms": [
-      "إلغاء اشتراك echonet",
+      "إلغاء الاشتراك في echonet",
       "echonet_unsubscribe",
-      "إيكونت",
-      "إيكونت",
-      "إلغاء"
+      "echonet",
+      "ECHONET",
+      "cancel",
+      "subscription",
+      "listener_id"
     ]
   },
   "bn": {
@@ -45,11 +47,13 @@
     "msg.unsubscribed": "ECHONET Lite সদস্যতা {id} বাতিল করা হয়েছে৷",
     "err.id_required": "action=unsubscribe এর জন্য listener_id আবশ্যক।",
     "x_search_terms": [
-      "echonet আনসাবস্ক্রাইব",
+      "echonet unsubscribe",
       "echonet_unsubscribe",
-      "ইকোনেট",
-      "ইকোনেট",
-      "বাতিল"
+      "echonet",
+      "ECHONET",
+      "cancel",
+      "subscription",
+      "listener_id"
     ]
   },
   "cs": {
@@ -62,11 +66,13 @@
     "msg.unsubscribed": "Předplatné ECHONET Lite {id} bylo zrušeno.",
     "err.id_required": "Pro action=unsubscribe je vyžadováno listener_id.",
     "x_search_terms": [
-      "echonet zrušit odběr",
+      "echonet unsubscribe",
       "echonet_unsubscribe",
-      "echosíť",
+      "echonet",
       "ECHONET",
-      "zrušit"
+      "zrušit",
+      "subscription",
+      "listener_id"
     ]
   },
   "de": {
@@ -79,11 +85,13 @@
     "msg.unsubscribed": "ECHONET Lite-Abonnement {id} gekündigt.",
     "err.id_required": "listener_id ist für action=unsubscribe erforderlich.",
     "x_search_terms": [
-      "echonet abbestellen",
+      "echonet unsubscribe",
       "echonet_unsubscribe",
       "echonet",
       "ECHONET",
-      "abbrechen"
+      "cancel",
+      "subscription",
+      "listener_id"
     ]
   },
   "el": {
@@ -96,11 +104,13 @@
     "msg.unsubscribed": "Η συνδρομή ECHONET Lite {id} ακυρώθηκε.",
     "err.id_required": "Το listener_id απαιτείται για action=unsubscribe.",
     "x_search_terms": [
-      "ακύρωση εγγραφής echonet",
+      "echonet unsubscribe",
       "echonet_unsubscribe",
       "echonet",
       "ECHONET",
-      "ακύρωση"
+      "cancel",
+      "subscription",
+      "listener_id"
     ]
   },
   "es": {
@@ -113,11 +123,13 @@
     "msg.unsubscribed": "Suscripción a ECHONET Lite {id} cancelada.",
     "err.id_required": "listener_id es necesario para action=cancelar suscripción.",
     "x_search_terms": [
-      "darse de baja de echonet",
+      "echonet darse de baja",
       "echonet_unsubscribe",
-      "econet",
+      "echonet",
       "ECHONET",
-      "cancelar"
+      "cancelar",
+      "suscripción",
+      "listener_id"
     ]
   },
   "fa": {
@@ -131,10 +143,12 @@
     "err.id_required": "listener_id برای action=unsubscribe مورد نیاز است.",
     "x_search_terms": [
       "لغو اشتراک echonet",
-      "echonet_unsubscribe",
-      "اکونت",
-      "اکونت",
-      "لغو"
+      "",
+      "",
+      "",
+      "",
+      "",
+      ""
     ]
   },
   "fi": {
@@ -147,11 +161,13 @@
     "msg.unsubscribed": "ECHONET Lite -tilaus {id} peruutettu.",
     "err.id_required": "listener_id vaaditaan action=unsubscribe.",
     "x_search_terms": [
-      "echonet peruuta tilaus",
+      "echonet unsubscribe",
       "echonet_unsubscribe",
-      "ekoverkko",
+      "echonet",
       "ECHONET",
-      "peruuta"
+      "peruuta",
+      "subscription",
+      "kuuntelijan_tunnus"
     ]
   },
   "fr": {
@@ -166,9 +182,11 @@
     "x_search_terms": [
       "désabonnement echonet",
       "echonet_unsubscribe",
-      "échonet",
-      "ÉCHONET",
-      "annuler"
+      "echonet",
+      "ECHONET",
+      "cancel",
+      "subscription",
+      "listener_id"
     ]
   },
   "he": {
@@ -181,11 +199,13 @@
     "msg.unsubscribed": "מנוי ECHONET Lite {id} בוטל.",
     "err.id_required": "דרוש listener_id עבור action=unsubscribe.",
     "x_search_terms": [
-      "בטל הרשמה ל-echonet",
+      "echonet unsubscribe",
       "echonet_unsubscribe",
-      "אקו-נט",
-      "אקו-נט",
-      "ביטול"
+      "echonet",
+      "ECHONET",
+      "cancel",
+      "subscription",
+      "listener_id"
     ]
   },
   "hi": {
@@ -198,11 +218,13 @@
     "msg.unsubscribed": "ECHONET लाइट सदस्यता {id} रद्द कर दी गई।",
     "err.id_required": "कार्रवाई = सदस्यता समाप्त करने के लिए श्रोता_आईडी आवश्यक है।",
     "x_search_terms": [
-      "echonet अनसब्सक्राइब करें",
-      "echonet_unsubscribe",
+      "इकोनेट अनसब्सक्राइब",
+      "इकोनेट_अनसब्सक्राइब",
       "इकोनेट",
-      "इकोनेट",
-      "रद्द करें"
+      "ईसीएचओनेट",
+      "कैंसल",
+      "सब्सक्रिप्शन",
+      "लिसनर_आईडी"
     ]
   },
   "hu": {
@@ -219,7 +241,9 @@
       "echonet_unsubscribe",
       "echonet",
       "ECHONET",
-      "visszavonás"
+      "cancel",
+      "subscription",
+      "listener_id"
     ]
   },
   "id": {
@@ -233,10 +257,12 @@
     "err.id_required": "pendengar_id diperlukan untuk tindakan=berhenti berlangganan.",
     "x_search_terms": [
       "echonet berhenti berlangganan",
-      "echonet_berhenti berlangganan",
-      "gema",
+      "echonet_unsubscribe",
+      "echonet",
       "ECHONET",
-      "batalkan"
+      "batalkan",
+      "langganan",
+      "listener_id"
     ]
   },
   "it": {
@@ -249,11 +275,13 @@
     "msg.unsubscribed": "Abbonamento ECHONET Lite {id} annullato.",
     "err.id_required": "listener_id è richiesto per action=unsubscribe.",
     "x_search_terms": [
-      "echonet cancella l'iscrizione",
+      "echonet annulla iscrizione",
       "echonet_unsubscribe",
-      "econet",
+      "echonet",
       "ECHONET",
-      "annullare"
+      "cancel",
+      "subscription",
+      "listener_id"
     ]
   },
   "ja": {
@@ -266,11 +294,13 @@
     "msg.unsubscribed": "ECHONET Lite 契約 {id} がキャンセルされました。",
     "err.id_required": "listener_id は、action=unsubscribe に必要です。",
     "x_search_terms": [
-      "エコーネット購読解除",
-      "エコーネット_購読解除",
-      "エコーネット",
-      "エコーネット",
-      "キャンセル"
+      "echonet 購読解除",
+      "echonet_unsubscribe",
+      "echonet",
+      "ECHONET",
+      "キャンセル",
+      "購読",
+      "listener_id"
     ]
   },
   "ko": {
@@ -283,11 +313,13 @@
     "msg.unsubscribed": "ECHONET Lite 구독 {id}이 취소되었습니다.",
     "err.id_required": "action=unsubscribe에는 Listener_id가 필요합니다.",
     "x_search_terms": [
-      "에코넷 구독 취소",
-      "echonet_구독 취소",
-      "에코넷",
-      "에코넷",
-      "취소하다"
+      "echonet unsubscribe",
+      "echonet_unsubscribe",
+      "echonet",
+      "ECHONET",
+      "cancel",
+      "subscription",
+      "listener_id"
     ]
   },
   "mn": {
@@ -300,11 +332,13 @@
     "msg.unsubscribed": "ECHONET Lite {id} захиалга цуцлагдсан.",
     "err.id_required": "Үйлдэл=бүртгэлээ цуцлахад сонсогч_id шаардлагатай.",
     "x_search_terms": [
-      "echonet бүртгэлээ цуцлах",
+      "echonet захиалгаа цуцлах",
       "echonet_unsubscribe",
-      "эхонет",
-      "эхонет",
-      "цуцлах"
+      "echonet",
+      "ECHONET",
+      "цуцлах",
+      "захиалгыг",
+      "сонсогчийн_id"
     ]
   },
   "mr": {
@@ -317,11 +351,13 @@
     "msg.unsubscribed": "ECHONET Lite सदस्यता {id} रद्द केली.",
     "err.id_required": "action=unsubscribe साठी listener_id आवश्यक आहे.",
     "x_search_terms": [
-      "echonet अनसबस्क्राइब",
+      "echonet unsubscribe",
       "echonet_unsubscribe",
-      "इकोनेट",
-      "इकोनेट",
-      "रद्द करा"
+      "echonet",
+      "ECHONET",
+      "cancel",
+      "subscription",
+      "listener_id"
     ]
   },
   "nb": {
@@ -334,11 +370,13 @@
     "msg.unsubscribed": "ECHONET Lite-abonnement {id} kansellert.",
     "err.id_required": "listener_id kreves for action=unsubscribe.",
     "x_search_terms": [
-      "echonet avslutt abonnement",
+      "echonet unsubscribe",
       "echonet_unsubscribe",
-      "ekonett",
+      "echonet",
       "ECHONET",
-      "avbryt"
+      "cancel",
+      "subscription",
+      "listener_id"
     ]
   },
   "nl": {
@@ -351,11 +389,13 @@
     "msg.unsubscribed": "ECHONET Lite-abonnement {id} geannuleerd.",
     "err.id_required": "luisteraar_id is vereist voor actie=afmelden.",
     "x_search_terms": [
-      "echonet opzeggen",
+      "echonet afmelden",
       "echonet_unsubscribe",
       "echonet",
       "ECHONET",
-      "annuleren"
+      "cancel",
+      "abonnement",
+      "listener_id"
     ]
   },
   "pl": {
@@ -368,11 +408,13 @@
     "msg.unsubscribed": "Subskrypcja ECHONET Lite {id} została anulowana.",
     "err.id_required": "identyfikator_słuchacza jest wymagany dla akcji=unsubscribe.",
     "x_search_terms": [
-      "echonet wypisz się",
-      "echonet_unsubscription",
+      "echonet anuluj subskrypcję",
+      "echonet_unsubscribe",
       "echonet",
       "ECHONET",
-      "anulować"
+      "anuluj",
+      "subskrypcję",
+      "listener_id"
     ]
   },
   "pt": {
@@ -385,11 +427,13 @@
     "msg.unsubscribed": "Assinatura do ECHONET Lite {id} cancelada.",
     "err.id_required": "listener_id é necessário para action=unsubscribe.",
     "x_search_terms": [
-      "cancelar subscrição echonet",
+      "echonet cancelar inscrição",
       "echonet_unsubscribe",
-      "econet",
+      "echonet",
       "ECHONET",
-      "cancelar"
+      "cancel",
+      "subscription",
+      "listener_id"
     ]
   },
   "pt_BR": {
@@ -404,9 +448,11 @@
     "x_search_terms": [
       "echonet cancelar inscrição",
       "echonet_unsubscribe",
-      "econet",
-      "ECONET",
-      "cancelar"
+      "echonet",
+      "ECHONET",
+      "cancel",
+      "subscription",
+      "listener_id"
     ]
   },
   "ro": {
@@ -419,11 +465,13 @@
     "msg.unsubscribed": "Abonamentul ECHONET Lite {id} a fost anulat.",
     "err.id_required": "listener_id este necesar pentru action=unsubscribe.",
     "x_search_terms": [
-      "echonet dezabonare",
+      "echonet unsubscribe",
       "echonet_unsubscribe",
-      "econet",
+      "echonet",
       "ECHONET",
-      "anulare"
+      "cancel",
+      "subscription",
+      "listener_id"
     ]
   },
   "ru": {
@@ -436,11 +484,13 @@
     "msg.unsubscribed": "Подписка ECHONET Lite {id} отменена.",
     "err.id_required": "Listener_id необходим для действия = отписаться.",
     "x_search_terms": [
-      "отписаться от echonet",
+      "echonet отписаться",
       "echonet_unsubscribe",
-      "эхосеть",
+      "echonet",
       "ECHONET",
-      "отменить"
+      "отменить",
+      "подписку",
+      "listener_id"
     ]
   },
   "sv": {
@@ -453,11 +503,13 @@
     "msg.unsubscribed": "ECHONET Lite-prenumeration {id} avbröts.",
     "err.id_required": "listener_id krävs för action=unsubscribe.",
     "x_search_terms": [
-      "echonet avsluta prenumeration",
+      "echonet unsubscribe",
       "echonet_unsubscribe",
-      "ekonät",
+      "echonet",
       "ECHONET",
-      "avbryt"
+      "cancel",
+      "subscription",
+      "listener_id"
     ]
   },
   "sw": {
@@ -474,7 +526,9 @@
       "echonet_unsubscribe",
       "echonet",
       "ECHONET",
-      "ghairi"
+      "ghairi",
+      "subscription",
+      "kitambulisho_cha_msikilizaji"
     ]
   },
   "th": {
@@ -487,11 +541,13 @@
     "msg.unsubscribed": "การสมัคร ECHONET Lite {id} ถูกยกเลิก",
     "err.id_required": "Listener_id จำเป็นสำหรับ action=unsubscribe",
     "x_search_terms": [
-      "ยกเลิกการสมัคร echonet",
+      "echonet ยกเลิกการสมัคร",
       "echonet_unsubscribe",
-      "อีโค่เน็ต",
-      "อีโค่เน็ต",
-      "ยกเลิก"
+      "echonet",
+      "ECHONET",
+      "ยกเลิก",
+      "สมัครสมาชิก",
+      "listener_id"
     ]
   },
   "tr": {
@@ -506,9 +562,11 @@
     "x_search_terms": [
       "echonet aboneliği iptal et",
       "echonet_unsubscribe",
-      "eko ağ",
-      "ECONET",
-      "iptal"
+      "echonet",
+      "ECHONET",
+      "cancel",
+      "abonelik",
+      "listener_id"
     ]
   },
   "uk": {
@@ -521,11 +579,13 @@
     "msg.unsubscribed": "Підписку на ECHONET Lite {id} скасовано.",
     "err.id_required": "listener_id необхідний для action=unsubscribe.",
     "x_search_terms": [
-      "відписатися від echonet",
+      "echonet unsubscribe",
       "echonet_unsubscribe",
-      "ехомережа",
+      "echonet",
       "ECHONET",
-      "скасувати"
+      "cancel",
+      "subscription",
+      "listener_id"
     ]
   },
   "vi": {
@@ -540,9 +600,11 @@
     "x_search_terms": [
       "echonet hủy đăng ký",
       "echonet_unsubscribe",
-      "tiếng vang",
+      "echonet",
       "ECHONET",
-      "hủy bỏ"
+      "hủy",
+      "đăng ký",
+      "listener_id"
     ]
   },
   "zh_CN": {
@@ -555,11 +617,13 @@
     "msg.unsubscribed": "ECHONET Lite 订阅 {id} 已取消。",
     "err.id_required": "action=unsubscribe 需要listener_id。",
     "x_search_terms": [
-      "取消 echonet 订阅",
+      "echonet 取消订阅",
       "echonet_unsubscribe",
       "echonet",
       "ECHONET",
-      "取消"
+      "取消",
+      "订阅",
+      "listener_id"
     ]
   },
   "zh_TW": {
@@ -572,11 +636,13 @@
     "msg.unsubscribed": "ECHONET Lite 訂閱 {id} 已取消。",
     "err.id_required": "action=unsubscribe 需要listener_id。",
     "x_search_terms": [
-      "取消 echonet 訂閱",
+      "echonet 取消訂閱",
       "echonet_unsubscribe",
       "echonet",
       "ECHONET",
-      "取消"
+      "取消",
+      "訂閱",
+      "listener_id"
     ]
   }
 }

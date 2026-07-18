@@ -41,16 +41,16 @@
     "param.lon.description": "经度（例如: 139.6917）。",
     "param.language.description": "结果语言（ISO 639-1语言代码，例如: ja, en, zh, ko）。未指定时自动检测。",
     "x_search_terms": [
-      "reverse geocode",
-      "reverse geocoding",
-      "address from coordinates",
-      "lat lon to address",
-      "gps to address",
-      "geocode reverse",
-      "location lookup",
-      "address lookup",
-      "coordinates to address",
-      "geo address"
+      "反向地理编码",
+      "反向地理编码",
+      "坐标地址",
+      "经纬度到地址",
+      "gps到地址",
+      "反向地理编码",
+      "位置查找",
+      "地址查找",
+      "坐标到地址",
+      "地理地址"
     ]
   },
   "zh_TW": {
@@ -59,16 +59,16 @@
     "param.lon.description": "經度（例如: 139.6917）。",
     "param.language.description": "結果語言（ISO 639-1語言代碼，例如: ja, en, zh, ko）。未指定時自動檢測。",
     "x_search_terms": [
-      "reverse geocode",
-      "reverse geocoding",
-      "address from coordinates",
-      "lat lon to address",
-      "gps to address",
-      "geocode reverse",
-      "location lookup",
-      "address lookup",
-      "coordinates to address",
-      "geo address"
+      "反向地理編碼",
+      "反向地理編碼",
+      "座標地址",
+      "經緯度到地址",
+      "gps到地址",
+      "反向地理編碼",
+      "位置查找",
+      "地址查找",
+      "坐標到地址",
+      "地理地址"
     ]
   },
   "ko": {
@@ -77,16 +77,16 @@
     "param.lon.description": "경도（예: 139.6917）。",
     "param.language.description": "결과 언어（ISO 639-1 언어 코드, 예: ja, en, zh, ko）。지정하지 않으면 자동 감지.",
     "x_search_terms": [
-      "reverse geocode",
-      "reverse geocoding",
-      "address from coordinates",
-      "lat lon to address",
-      "gps to address",
-      "geocode reverse",
-      "location lookup",
-      "address lookup",
-      "coordinates to address",
-      "geo address"
+      "역 지오코드",
+      "역 지오코딩",
+      "좌표에서 주소",
+      "위도에서 주소로",
+      "Gps에서 주소로",
+      "지오코드 역",
+      "위치 조회",
+      "주소 조회",
+      "좌표에서 주소",
+      "지리적 주소로"
     ]
   },
   "fr": {
@@ -95,16 +95,16 @@
     "param.lon.description": "Longitude (ex: 139.6917).",
     "param.language.description": "Langue du résultat (code ISO 639-1, ex: ja, en, zh, ko). Détection automatique si omis.",
     "x_search_terms": [
-      "reverse geocode",
-      "reverse geocoding",
-      "address from coordinates",
-      "lat lon to address",
-      "gps to address",
-      "geocode reverse",
-      "location lookup",
-      "address lookup",
-      "coordinates to address",
-      "geo address"
+      "géocodage inversé",
+      "géocodage inversé",
+      "adresse à partir des coordonnées",
+      "lat lon à l'adresse",
+      "gps à l'adresse",
+      "géocodage inversé",
+      "recherche d'emplacement",
+      "recherche d'adresse",
+      "coordonnées à l'adresse",
+      "adresse géographique"
     ]
   },
   "de": {
@@ -113,16 +113,16 @@
     "param.lon.description": "Längengrad (z.B. 139.6917).",
     "param.language.description": "Sprache des Ergebnisses (ISO 639-1 Code, z.B. ja, en, zh, ko). Automatische Erkennung wenn nicht angegeben.",
     "x_search_terms": [
-      "reverse geocode",
-      "reverse geocoding",
-      "address from coordinates",
-      "lat lon to address",
-      "gps to address",
-      "geocode reverse",
-      "location lookup",
-      "address lookup",
-      "coordinates to address",
-      "geo address"
+      "Geokodierung umkehren",
+      "Geokodierung umkehren",
+      "Adresse von Koordinaten",
+      "Lat Lon zu Adresse",
+      "GPS zu Adresse",
+      "Geokodierung umgekehrt",
+      "Standortsuche",
+      "Adresssuche",
+      "Koordinaten zu Adresse",
+      "Geo-Adresse"
     ]
   },
   "es": {
@@ -131,16 +131,16 @@
     "param.lon.description": "Longitud (ej: 139.6917).",
     "param.language.description": "Idioma del resultado (código ISO 639-1, ej: ja, en, zh, ko). Detección automática si se omite.",
     "x_search_terms": [
-      "reverse geocode",
-      "reverse geocoding",
-      "address from coordinates",
-      "lat lon to address",
-      "gps to address",
-      "geocode reverse",
-      "location lookup",
-      "address lookup",
-      "coordinates to address",
-      "geo address"
+      "geocódigo inverso",
+      "geocodificación inversa",
+      "dirección desde coordenadas",
+      "latitud hasta dirección",
+      "gps a dirección",
+      "geocódigo inverso",
+      "búsqueda de ubicación",
+      "búsqueda de dirección",
+      "coordenadas a dirección",
+      "dirección geográfica"
     ]
   },
   "pt_BR": {
@@ -149,16 +149,16 @@
     "param.lon.description": "Longitude (ex: 139.6917).",
     "param.language.description": "Idioma do resultado (código ISO 639-1, ex: ja, en, zh, ko). Detecção automática se omitido.",
     "x_search_terms": [
-      "reverse geocode",
-      "reverse geocoding",
-      "address from coordinates",
-      "lat lon to address",
-      "gps to address",
-      "geocode reverse",
-      "location lookup",
-      "address lookup",
-      "coordinates to address",
-      "geo address"
+      "geocódigo reverso",
+      "geocodificação reversa",
+      "endereço de coordenadas",
+      "lat lon para endereço",
+      "gps para endereço",
+      "geocódigo reverso",
+      "pesquisa de localização",
+      "pesquisa de endereço",
+      "coordenadas para endereço",
+      "endereço geográfico"
     ]
   },
   "ru": {
@@ -167,16 +167,16 @@
     "param.lon.description": "Долгота (например: 139.6917).",
     "param.language.description": "Язык результата (код ISO 639-1, например: ja, en, zh, ko). Автоопределение если не указан.",
     "x_search_terms": [
-      "reverse geocode",
-      "reverse geocoding",
-      "address from coordinates",
-      "lat lon to address",
-      "gps to address",
-      "geocode reverse",
-      "location lookup",
-      "address lookup",
-      "coordinates to address",
-      "geo address"
+      "обратный геокод",
+      "обратное геокодирование",
+      "адрес из координат",
+      "широта до адреса",
+      "от GPS до адреса",
+      "обратный геокод",
+      "поиск местоположения",
+      "поиск адреса",
+      "координаты до адреса",
+      "географический адрес"
     ]
   },
   "ar": {
@@ -185,16 +185,16 @@
     "param.lon.description": "خط الطول (مثال: 139.6917).",
     "param.language.description": "لغة النتيجة (رمز ISO 639-1، مثال: ja, en, zh, ko). اكتشاف تلقائي إذا تم حذفه.",
     "x_search_terms": [
-      "reverse geocode",
-      "reverse geocoding",
-      "address from coordinates",
-      "lat lon to address",
-      "gps to address",
-      "geocode reverse",
-      "location lookup",
-      "address lookup",
-      "coordinates to address",
-      "geo address"
+      "الرمز الجغرافي العكسي",
+      "الترميز الجغرافي العكسي",
+      "العنوان من الإحداثيات",
+      "خط الطول إلى العنوان",
+      "GPS إلى العنوان",
+      "الرمز الجغرافي العكسي",
+      "البحث عن الموقع",
+      "البحث عن العنوان",
+      "الإحداثيات إلى العنوان",
+      "العنوان الجغرافي"
     ]
   },
   "hi": {
@@ -203,16 +203,16 @@
     "param.lon.description": "देशांतर (उदा: 139.6917)।",
     "param.language.description": "परिणाम की भाषा (ISO 639-1 कोड, उदा: ja, en, zh, ko)। छोड़े जाने पर स्वतः पता लगाया जाता है।",
     "x_search_terms": [
-      "reverse geocode",
-      "reverse geocoding",
-      "address from coordinates",
-      "lat lon to address",
-      "gps to address",
-      "geocode reverse",
-      "location lookup",
-      "address lookup",
-      "coordinates to address",
-      "geo address"
+      "रिवर्स जियोकोड",
+      "रिवर्स जियोकोडिंग",
+      "निर्देशांक से पता",
+      "अक्षांश से पता",
+      "जीपीएस से पता",
+      "जियोकोड रिवर्स",
+      "स्थान लुकअप",
+      "पता लुकअप",
+      "निर्देशांक से पता",
+      "जियो पता"
     ]
   },
   "it": {
@@ -221,16 +221,16 @@
     "param.lon.description": "Longitudine (es. 139.6917).",
     "param.language.description": "Lingua per il risultato (codice ISO 639-1, ad esempio ja, en, zh, ko). Rilevato automaticamente se omesso.",
     "x_search_terms": [
-      "reverse geocode",
-      "reverse geocoding",
-      "address from coordinates",
-      "lat lon to address",
-      "gps to address",
-      "geocode reverse",
-      "location lookup",
-      "address lookup",
-      "coordinates to address",
-      "geo address"
+      "geocodifica inversa",
+      "geocodifica inversa",
+      "indirizzo dalle coordinate",
+      "lat lon all'indirizzo",
+      "gps all'indirizzo",
+      "geocodifica inversa",
+      "ricerca posizione",
+      "ricerca indirizzo",
+      "coordinate per indirizzo",
+      "indirizzo geografico"
     ]
   },
   "nl": {
@@ -239,16 +239,16 @@
     "param.lon.description": "Lengtegraad (bijvoorbeeld 139,6917).",
     "param.language.description": "Taal voor het resultaat (ISO 639-1-code, bijvoorbeeld ja, en, zh, ko). Wordt automatisch gedetecteerd indien weggelaten.",
     "x_search_terms": [
-      "reverse geocode",
-      "reverse geocoding",
-      "address from coordinates",
-      "lat lon to address",
-      "gps to address",
-      "geocode reverse",
-      "location lookup",
-      "address lookup",
-      "coordinates to address",
-      "geo address"
+      "omgekeerde geocode",
+      "omgekeerde geocodering",
+      "adres van coördinaten",
+      "lat lon naar adres",
+      "gps naar adres",
+      "geocode omgekeerd",
+      "locatie opzoeken",
+      "adres opzoeken",
+      "coördinaten naar adres",
+      "geo-adres"
     ]
   },
   "sv": {
@@ -257,16 +257,16 @@
     "param.lon.description": "Longitud (t.ex. 139,6917).",
     "param.language.description": "Språk för resultatet (ISO 639-1-kod, t.ex. ja, en, zh, ko). Upptäcks automatiskt om den utelämnas.",
     "x_search_terms": [
-      "reverse geocode",
-      "reverse geocoding",
-      "address from coordinates",
-      "lat lon to address",
-      "gps to address",
-      "geocode reverse",
-      "location lookup",
-      "address lookup",
-      "coordinates to address",
-      "geo address"
+      "omvänd geokod",
+      "omvänd geokodning",
+      "adress från koordinater",
+      "lat lon till adress",
+      "gps till adress",
+      "geokod omvänd",
+      "platssökning",
+      "adresssökning",
+      "koordinater till adress",
+      "geoadress"
     ]
   },
   "fi": {
@@ -275,16 +275,16 @@
     "param.lon.description": "Pituusaste (esim. 139,6917).",
     "param.language.description": "Tuloksen kieli (ISO 639-1 koodi, esim. ja, en, zh, ko). Havaitsee automaattisesti, jos se jätetään pois.",
     "x_search_terms": [
-      "reverse geocode",
-      "reverse geocoding",
-      "address from coordinates",
-      "lat lon to address",
-      "gps to address",
-      "geocode reverse",
-      "location lookup",
-      "address lookup",
-      "coordinates to address",
-      "geo address"
+      "käänteinen geokoodi",
+      "käänteinen geokoodaus",
+      "osoite koordinaateista",
+      "lat lon osoitteeseen",
+      "gps osoitteeseen",
+      "geokoodin käänteinen",
+      "sijainnin haku",
+      "osoitteenhaku",
+      "koordinaatit osoitteeseen",
+      "geoosoite"
     ]
   },
   "pl": {
@@ -293,16 +293,16 @@
     "param.lon.description": "Długość geograficzna (np. 139,6917).",
     "param.language.description": "Język wyniku (kod ISO 639-1, np. ja, en, zh, ko). Wykrywane automatycznie w przypadku pominięcia.",
     "x_search_terms": [
-      "reverse geocode",
-      "reverse geocoding",
-      "address from coordinates",
-      "lat lon to address",
-      "gps to address",
-      "geocode reverse",
-      "location lookup",
-      "address lookup",
-      "coordinates to address",
-      "geo address"
+      "odwrócony geokod",
+      "odwrotne geokodowanie",
+      "adres ze współrzędnych",
+      "długość geograficzna do adresu",
+      "gps do adresu",
+      "odwrotny kod geograficzny",
+      "wyszukiwanie lokalizacji",
+      "wyszukiwanie adresu",
+      "współrzędne do adresu",
+      "adres geograficzny"
     ]
   },
   "cs": {
@@ -311,16 +311,16 @@
     "param.lon.description": "Zeměpisná délka (např. 139,6917).",
     "param.language.description": "Jazyk pro výsledek (kód ISO 639-1, např. ja, en, zh, ko). Automaticky zjištěno, pokud je vynecháno.",
     "x_search_terms": [
-      "reverse geocode",
-      "reverse geocoding",
-      "address from coordinates",
-      "lat lon to address",
-      "gps to address",
-      "geocode reverse",
-      "location lookup",
-      "address lookup",
-      "coordinates to address",
-      "geo address"
+      "obrácený geokód",
+      "obrácené geokódování",
+      "adresa ze souřadnic",
+      "šířky na adresu",
+      "gps na adresu",
+      "obrácené",
+      "geokódu",
+      "vyhledání polohy",
+      "vyhledání adresy",
+      "souřadnic k adrese\ngeoadresa"
     ]
   },
   "hu": {
@@ -329,16 +329,16 @@
     "param.lon.description": "Hosszúság (pl. 139,6917).",
     "param.language.description": "Az eredmény nyelve (ISO 639-1 kód, pl. ja, en, zh, ko). Kihagyás esetén automatikusan észleli.",
     "x_search_terms": [
-      "reverse geocode",
-      "reverse geocoding",
-      "address from coordinates",
-      "lat lon to address",
-      "gps to address",
-      "geocode reverse",
-      "location lookup",
-      "address lookup",
-      "coordinates to address",
-      "geo address"
+      "fordított geokód",
+      "fordított geokódolás",
+      "cím a koordinátáktól",
+      "hosszúságtól a címig",
+      "gps a címig",
+      "geokód fordított",
+      "helymeghatározás",
+      "címkeresés",
+      "koordináták a címhez",
+      "földrajzi cím"
     ]
   },
   "ro": {
@@ -347,16 +347,16 @@
     "param.lon.description": "Longitudine (de ex. 139,6917).",
     "param.language.description": "Limbă pentru rezultat (cod ISO 639-1, de exemplu, ja, en, zh, ko). Detectat automat dacă este omis.",
     "x_search_terms": [
-      "reverse geocode",
-      "reverse geocoding",
-      "address from coordinates",
-      "lat lon to address",
-      "gps to address",
-      "geocode reverse",
-      "location lookup",
-      "address lookup",
-      "coordinates to address",
-      "geo address"
+      "geocod invers",
+      "geocodificare inversă",
+      "adresă de la coordonate",
+      "lat la adresa",
+      "gps la adresă",
+      "geocod căutare inversă",
+      "locație",
+      "căutare adresă",
+      "coordonate la adresa",
+      "adresă geografică"
     ]
   },
   "el": {
@@ -365,16 +365,16 @@
     "param.lon.description": "Γεωγραφικό μήκος (π.χ. 139,6917).",
     "param.language.description": "Γλώσσα για το αποτέλεσμα (κωδικός ISO 639-1, π.χ. ja, en, zh, ko). Ανιχνεύεται αυτόματα εάν παραλειφθεί.",
     "x_search_terms": [
-      "reverse geocode",
-      "reverse geocoding",
-      "address from coordinates",
-      "lat lon to address",
-      "gps to address",
-      "geocode reverse",
-      "location lookup",
-      "address lookup",
-      "coordinates to address",
-      "geo address"
+      "αντίστροφη γεωκώδικα",
+      "αντίστροφη γεωκωδικοποίηση",
+      "διεύθυνση από συντεταγμένες",
+      "lat lon στη διεύθυνση",
+      "gps στη διεύθυνση",
+      "γεωκώδικα αντίστροφη",
+      "αναζήτηση τοποθεσίας",
+      "αναζήτηση διεύθυνσης",
+      "συντεταγμένες στη διεύθυνση",
+      "γεωγραφική διεύθυνση"
     ]
   },
   "tr": {
@@ -383,16 +383,16 @@
     "param.lon.description": "Boylam (ör. 139.6917).",
     "param.language.description": "Sonucun dili (ISO 639-1 kodu, örn. ja, en, zh, ko). Atlanırsa otomatik olarak algılanır.",
     "x_search_terms": [
-      "reverse geocode",
-      "reverse geocoding",
-      "address from coordinates",
-      "lat lon to address",
-      "gps to address",
-      "geocode reverse",
-      "location lookup",
-      "address lookup",
-      "coordinates to address",
-      "geo address"
+      "ters coğrafi kod",
+      "ters coğrafi kodlama",
+      "koordinatlardan adres",
+      "enlemden adrese",
+      "gps'den adrese",
+      "coğrafi kod ters",
+      "konum arama",
+      "adres arama",
+      "adrese koordinatlar",
+      "coğrafi adres"
     ]
   },
   "uk": {
@@ -401,16 +401,16 @@
     "param.lon.description": "Довгота (наприклад, 139,6917).",
     "param.language.description": "Мова для результату (код ISO 639-1, наприклад ja, en, zh, ko). Визначається автоматично, якщо опущено.",
     "x_search_terms": [
-      "reverse geocode",
-      "reverse geocoding",
-      "address from coordinates",
-      "lat lon to address",
-      "gps to address",
-      "geocode reverse",
-      "location lookup",
-      "address lookup",
-      "coordinates to address",
-      "geo address"
+      "зворотне геокодування",
+      "зворотне геокодування",
+      "адреса з координат",
+      "широта до адреси",
+      "gps до адреси",
+      "геокодування зворотне",
+      "пошук розташування",
+      "пошук адреси",
+      "координати до адреси",
+      "геоадреса"
     ]
   },
   "th": {
@@ -419,16 +419,16 @@
     "param.lon.description": "ลองจิจูด (เช่น 139.6917)",
     "param.language.description": "ภาษาสำหรับผลลัพธ์ (รหัส ISO 639-1 เช่น ja, en, zh, ko) ตรวจพบอัตโนมัติหากละเว้น",
     "x_search_terms": [
-      "reverse geocode",
-      "reverse geocoding",
-      "address from coordinates",
-      "lat lon to address",
-      "gps to address",
-      "geocode reverse",
-      "location lookup",
-      "address lookup",
-      "coordinates to address",
-      "geo address"
+      "geocode ย้อนกลับ",
+      "geocoding ย้อนกลับ",
+      "ที่อยู่จากพิกัด",
+      "lat lon ไปยังที่อยู่",
+      "gps ไปยังที่อยู่",
+      "geocode ย้อนกลับ",
+      "การค้นหาตำแหน่ง",
+      "การค้นหาที่อยู่",
+      "พิกัดไปยังที่อยู่",
+      "ที่อยู่ทางภูมิศาสตร์"
     ]
   },
   "vi": {
@@ -437,16 +437,16 @@
     "param.lon.description": "Kinh độ (ví dụ: 139,6917).",
     "param.language.description": "Ngôn ngữ cho kết quả (mã ISO 639-1, ví dụ: ja, en, zh, ko). Tự động phát hiện nếu bỏ qua.",
     "x_search_terms": [
-      "reverse geocode",
-      "reverse geocoding",
-      "address from coordinates",
-      "lat lon to address",
-      "gps to address",
-      "geocode reverse",
-      "location lookup",
-      "address lookup",
-      "coordinates to address",
-      "geo address"
+      "đảo ngược mã địa lý",
+      "mã hóa địa lý đảo ngược",
+      "địa chỉ từ tọa độ",
+      "lat lon đến địa chỉ",
+      "gps thành địa chỉ",
+      "đảo ngược mã địa lý",
+      "tra cứu vị trí",
+      "tra cứu địa chỉ",
+      "tọa độ đến địa chỉ",
+      "địa chỉ địa lý"
     ]
   },
   "id": {
@@ -455,16 +455,16 @@
     "param.lon.description": "Bujur (misalnya 139.6917).",
     "param.language.description": "Bahasa untuk hasil (kode ISO 639-1, misal ja, en, zh, ko). Terdeteksi otomatis jika dihilangkan.",
     "x_search_terms": [
-      "reverse geocode",
-      "reverse geocoding",
-      "address from coordinates",
-      "lat lon to address",
-      "gps to address",
-      "geocode reverse",
-      "location lookup",
-      "address lookup",
-      "coordinates to address",
-      "geo address"
+      "membalikkan geocode",
+      "membalikkan geocoding",
+      "alamat dari koordinat",
+      "lat lon ke alamat",
+      "gps ke alamat",
+      "geocode membalikkan",
+      "pencarian lokasi",
+      "pencarian alamat",
+      "koordinat ke alamat",
+      "alamat geografis"
     ]
   },
   "bn": {
@@ -473,16 +473,16 @@
     "param.lon.description": "দ্রাঘিমাংশ (যেমন 139.6917)।",
     "param.language.description": "ফলাফলের জন্য ভাষা (ISO 639-1 কোড, যেমন ja, en, zh, ko)। বাদ দিলে স্বয়ংক্রিয়ভাবে সনাক্ত করা যায়।",
     "x_search_terms": [
-      "reverse geocode",
-      "reverse geocoding",
-      "address from coordinates",
-      "lat lon to address",
-      "gps to address",
-      "geocode reverse",
-      "location lookup",
-      "address lookup",
-      "coordinates to address",
-      "geo address"
+      "রিভার্স জিওকোড",
+      "রিভার্স জিওকোডিং",
+      "অ্যাড্রেস থেকে কোঅর্ডিনেট",
+      "লট লন অ্যাড্রেস",
+      "জিপিএস থেকে অ্যাড্রেস",
+      "জিওকোড রিভার্স",
+      "লোকেশন লুকআপ",
+      "অ্যাড্রেস লুকআপ",
+      "ঠিকানায় স্থানাঙ্ক",
+      "জিও অ্যাড্রেস"
     ]
   },
   "sw": {
@@ -493,14 +493,14 @@
     "x_search_terms": [
       "reverse geocode",
       "reverse geocoding",
-      "address from coordinates",
+      "anwani kutoka kwa viwianishi",
       "lat lon to address",
       "gps to address",
       "geocode reverse",
-      "location lookup",
-      "address lookup",
-      "coordinates to address",
-      "geo address"
+      "location look",
+      "utafutaji wa anwani",
+      "kuratibu kwa anwani",
+      "jiografia"
     ]
   },
   "fa": {
@@ -509,16 +509,16 @@
     "param.lon.description": "طول جغرافیایی (به عنوان مثال 139.6917).",
     "param.language.description": "زبان نتیجه (کد ISO 639-1، به عنوان مثال ja، en، zh، ko). در صورت حذف به طور خودکار شناسایی می شود.",
     "x_search_terms": [
-      "reverse geocode",
-      "reverse geocoding",
-      "address from coordinates",
-      "lat lon to address",
-      "gps to address",
-      "geocode reverse",
-      "location lookup",
-      "address lookup",
-      "coordinates to address",
-      "geo address"
+      "معکوس geocode",
+      "معکوس جغرافیایی",
+      "آدرس از مختصات",
+      "lat lon به آدرس",
+      "gps به آدرس",
+      "ژئوکد معکوس",
+      "جستجوی مکان",
+      "جستجوی آدرس",
+      " مختصات به آدرس",
+      "آدرس جغرافیایی"
     ]
   },
   "he": {
@@ -527,16 +527,16 @@
     "param.lon.description": "קו אורך (למשל 139.6917).",
     "param.language.description": "שפה לתוצאה (קוד ISO 639-1, למשל ja, en, zh, ko). זוהה אוטומטית אם הושמטה.",
     "x_search_terms": [
-      "reverse geocode",
-      "reverse geocoding",
-      "address from coordinates",
-      "lat lon to address",
-      "gps to address",
-      "geocode reverse",
-      "location lookup",
-      "address lookup",
-      "coordinates to address",
-      "geo address"
+      "הפוך קוד גיאוגרפי",
+      "היפוך גיאוגרפיה",
+      "כתובת מקואורדינטות",
+      "lat lon לכתובת",
+      "gps לכתובת",
+      "קוד גיאוגרפי הפוך",
+      "חיפוש מיקום",
+      "חיפוש כתובת",
+      "קואורדינטות לכתובת",
+      "כתובת גיאוגרפית"
     ]
   },
   "pt": {
@@ -545,16 +545,16 @@
     "param.lon.description": "Longitude (por exemplo, 139,6917).",
     "param.language.description": "Idioma do resultado (código ISO 639-1, por exemplo, ja, en, zh, ko). Detectado automaticamente se omitido.",
     "x_search_terms": [
-      "reverse geocode",
-      "reverse geocoding",
-      "address from coordinates",
-      "lat lon to address",
-      "gps to address",
-      "geocode reverse",
-      "location lookup",
-      "address lookup",
-      "coordinates to address",
-      "geo address"
+      "geocódigo reverso",
+      "geocodificação reversa",
+      "endereço de coordenadas",
+      "lat lon para endereço",
+      "gps para endereço",
+      "geocódigo reverso",
+      "pesquisa de localização",
+      "pesquisa de endereço",
+      "coordenadas para endereço",
+      "endereço geográfico"
     ]
   },
   "nb": {
@@ -563,16 +563,16 @@
     "param.lon.description": "Lengdegrad (f.eks. 139.6917).",
     "param.language.description": "Språk for resultatet (ISO 639-1-kode, f.eks. ja, en, zh, ko). Automatisk oppdaget hvis utelatt.",
     "x_search_terms": [
-      "reverse geocode",
-      "reverse geocoding",
-      "address from coordinates",
-      "lat lon to address",
-      "gps to address",
-      "geocode reverse",
-      "location lookup",
-      "address lookup",
-      "coordinates to address",
-      "geo address"
+      "omvendt geokode",
+      "omvendt geokoding",
+      "adresse fra koordinater",
+      "lat lon til adresse",
+      "gps til adresse",
+      "geokode omvendt",
+      "plasseringsoppslag",
+      "adresseoppslag",
+      "koordinater til adresse",
+      "geoadresse"
     ]
   },
   "da": {
@@ -581,16 +581,16 @@
     "param.lon.description": "Længdegrad (f.eks. 139.6917).",
     "param.language.description": "Sprog for resultatet (ISO 639-1-kode, f.eks. ja, en, zh, ko). Auto-detekteret hvis udeladt.",
     "x_search_terms": [
-      "reverse geocode",
-      "reverse geocoding",
-      "address from coordinates",
-      "lat lon to address",
-      "gps to address",
-      "geocode reverse",
-      "location lookup",
-      "address lookup",
-      "coordinates to address",
-      "geo address"
+      "omvendt geokode",
+      "omvendt geokodning",
+      "adresse fra koordinater",
+      "lat lon til adresse",
+      "gps til adresse",
+      "geokode omvendt",
+      "placeringsopslag",
+      "adresseopslag",
+      "koordinater til adresse",
+      "geoadresse"
     ]
   },
   "bg": {
@@ -599,16 +599,16 @@
     "param.lon.description": "Географска дължина (напр. 139.6917).",
     "param.language.description": "Език за резултата (код по ISO 639-1, напр. ja, en, zh, ko). Открива се автоматично, ако е пропуснато.",
     "x_search_terms": [
-      "reverse geocode",
-      "reverse geocoding",
-      "address from coordinates",
-      "lat lon to address",
-      "gps to address",
-      "geocode reverse",
-      "location lookup",
-      "address lookup",
-      "coordinates to address",
-      "geo address"
+      "обратно геокодиране",
+      "обратно геокодиране",
+      "адрес от координати",
+      "ширина до адрес",
+      "gps до адрес",
+      "геокод обратно",
+      "търсене на местоположение",
+      "търсене на адрес",
+      "координати до адрес",
+      "гео адрес"
     ]
   },
   "sr": {
@@ -617,16 +617,16 @@
     "param.lon.description": "Географска дужина (нпр. 139,6917).",
     "param.language.description": "Језик за резултат (ИСО 639-1 код, нпр. ја, ен, зх, ко). Аутоматски се открива ако се изостави.",
     "x_search_terms": [
-      "reverse geocode",
-      "reverse geocoding",
-      "address from coordinates",
-      "lat lon to address",
-      "gps to address",
-      "geocode reverse",
-      "location lookup",
-      "address lookup",
-      "coordinates to address",
-      "geo address"
+      "обрнути геокод",
+      "обрнуто геокодирање",
+      "адреса од координата",
+      "лат лон до адресе",
+      "гпс до адресе",
+      "геоцоде обрнуто",
+      "тражење локације",
+      "тражење адресе",
+      "координате до адресе",
+      "гео адресе"
     ]
   },
   "hr": {
@@ -635,16 +635,16 @@
     "param.lon.description": "Zemljopisna dužina (npr. 139,6917).",
     "param.language.description": "Jezik za rezultat (kod ISO 639-1, npr. ja, en, zh, ko). Automatski otkriveno ako je izostavljeno.",
     "x_search_terms": [
-      "reverse geocode",
-      "reverse geocoding",
-      "address from coordinates",
-      "lat lon to address",
-      "gps to address",
-      "geocode reverse",
-      "location lookup",
-      "address lookup",
-      "coordinates to address",
-      "geo address"
+      "obrnuto geokodiranje",
+      "obrnuto geokodiranje",
+      "adresa od koordinata",
+      "geografska širina do adrese",
+      "gps do adrese",
+      "obrnuto geokodiranje",
+      "pretraživanje lokacije",
+      "pretraživanje adrese",
+      "koordinate do adrese",
+      "geografska adresa"
     ]
   },
   "ms": {
@@ -653,16 +653,16 @@
     "param.lon.description": "Longitud (cth. 139.6917).",
     "param.language.description": "Bahasa untuk keputusan (kod ISO 639-1, cth. ja, en, zh, ko). Auto dikesan jika ditinggalkan.",
     "x_search_terms": [
-      "reverse geocode",
-      "reverse geocoding",
-      "address from coordinates",
-      "lat lon to address",
-      "gps to address",
-      "geocode reverse",
-      "location lookup",
-      "address lookup",
-      "coordinates to address",
-      "geo address"
+      "geokod terbalik",
+      "geokod terbalik",
+      "alamat dari koordinat",
+      "lat lon ke alamat",
+      "gps ke alamat",
+      "geokod terbalik",
+      "pencarian lokasi",
+      "pencarian alamat",
+      "koordinat ke alamat",
+      "alamat geo"
     ]
   },
   "ta": {
@@ -671,16 +671,16 @@
     "param.lon.description": "தீர்க்கரேகை (எ.கா. 139.6917).",
     "param.language.description": "முடிவுக்கான மொழி (ISO 639-1 குறியீடு, எ.கா. ja, en, zh, ko). தவிர்க்கப்பட்டால் தானாகவே கண்டறியப்படும்.",
     "x_search_terms": [
-      "reverse geocode",
-      "reverse geocoding",
-      "address from coordinates",
-      "lat lon to address",
-      "gps to address",
-      "geocode reverse",
-      "location lookup",
-      "address lookup",
-      "coordinates to address",
-      "geo address"
+      "தலைகீழ் புவிசார் குறியீடு",
+      "தலைகீழ் ஜியோகோடிங்",
+      "விலாசம்",
+      "லட் லோன் முகவரி",
+      "ஜிபிஎஸ் இருந்து முகவரிக்கு",
+      "",
+      "",
+      "",
+      "",
+      ""
     ]
   },
   "ur": {
@@ -689,16 +689,16 @@
     "param.lon.description": "طول البلد (مثالاً 139.6917)۔",
     "param.language.description": "نتیجہ کے لیے زبان (ISO 639-1 کوڈ، جیسے ja, en, zh, ko)۔ اگر چھوڑ دیا جائے تو خود بھی پتہ چلا۔",
     "x_search_terms": [
-      "reverse geocode",
-      "reverse geocoding",
-      "address from coordinates",
-      "lat lon to address",
-      "gps to address",
-      "geocode reverse",
-      "location lookup",
-      "address lookup",
-      "coordinates to address",
-      "geo address"
+      "ریورس جیو کوڈ",
+      " ریورس جیو کوڈنگ",
+      " ایڈریس کوآرڈینیٹس سے لے کر ایڈریس تک",
+      " جی پی ایس سے ایڈریس",
+      " جیو کوڈ ریورس",
+      " لوکیشن کی تلاش",
+      " ایڈریس کی تلاش",
+      " ایڈریس کے لیے کوآرڈینیٹس",
+      " جیو ایڈریس",
+      ""
     ]
   },
   "ne": {
@@ -707,16 +707,16 @@
     "param.lon.description": "देशान्तर (जस्तै १३८८८८८८८)।",
     "param.language.description": "नतिजाको लागि भाषा (ISO 639-1 कोड, जس्तै ja, en, zh, ko)। हटाइयो भये स्वत: पत्ता लगाइन्छ।",
     "x_search_terms": [
-      "reverse geocode",
-      "reverse geocoding",
-      "address from coordinates",
-      "lat lon to address",
-      "gps to address",
-      "geocode reverse",
-      "location lookup",
-      "address lookup",
-      "coordinates to address",
-      "geo address"
+      "रिवर्स जियोकोड",
+      " रिवर्स जियोकोडिङ",
+      " ठेगाना बाट निर्देशांक",
+      " lat lon ठेगाना",
+      "gps देखि ठेगाना",
+      " जियोकोड रिभर्स",
+      " स्थान लुकअप",
+      " ठेगाना लुकअप",
+      " ठेगानामा निर्देशांक",
+      " भू ठेगाना"
     ]
   }
 }

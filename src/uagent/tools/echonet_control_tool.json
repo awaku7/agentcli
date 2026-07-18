@@ -13,19 +13,18 @@
     "err.unknown_action": "خطأ: إجراء غير معروف '{action}'.",
     "msg.summary": "اكتمل التحكم في ECHONET Lite: {action} على {ip_address} في {elapsed_ms} مللي ثانية.",
     "err.invalid_ip_address": "خطأ: يجب أن يكون ip_address عنوان IPv4 صالحًا.",
-    "x_search_terms": [
-      "تحكم echonet",
-      "echonet_control",
-      "إيكونت",
-      "إيكونت",
-      "تنفيذ",
-      "أساسي",
-      "أوامر"
-    ],
     "param.eoj.description": "الهدف الاختياري EOJ (على سبيل المثال، \"013001\"). إذا تم حذفه، فسيتم استخدام كائن ملف تعريف العقدة.",
     "param.obj.description": "رمز كائن اختياري لتضييق نطاق الكائن الذي تم الاستعلام عنه (على سبيل المثال، \"0130\").",
     "param.value.description": "قيمة رقمية اختيارية لإجراءات set_value/فتح/إغلاق. النطاق: 0-100.",
-    "tool.description": "قم بتنفيذ التحكم الأساسي في ECHONET Lite على العقدة وإرجاع نتيجة JSON أو نصية."
+    "tool.description": "قم بتنفيذ التحكم الأساسي في ECHONET Lite على العقدة وإرجاع نتيجة JSON أو نصية.",
+    "x_search_terms": [
+      "التحكم في الصدى",
+      "echonet_control",
+      "echonet",
+      "ECHONET",
+      "تنفيذ",
+      "أساسي"
+    ]
   },
   "bn": {
     "param.ip.description": "লক্ষ্য নোড IPv4 ঠিকানা।",
@@ -41,19 +40,18 @@
     "err.unknown_action": "ত্রুটি: অজানা ক্রিয়া '{action}'৷",
     "msg.summary": "ECHONET লাইট নিয়ন্ত্রণ সম্পন্ন হয়েছে: {action} {ip_address} এ {elapsed_ms} মিসে।",
     "err.invalid_ip_address": "ত্রুটি: ip_address অবশ্যই একটি বৈধ IPv4 ঠিকানা হতে হবে।",
-    "x_search_terms": [
-      "echonet নিয়ন্ত্রণ",
-      "echonet_control",
-      "ইকোনেট",
-      "ইকোনেট",
-      "সম্পাদন",
-      "মৌলিক",
-      "কমান্ড"
-    ],
     "param.eoj.description": "ঐচ্ছিক লক্ষ্য EOJ (যেমন '013001')। যদি বাদ দেওয়া হয়, নোড প্রোফাইল অবজেক্ট ব্যবহার করা হয়।",
     "param.obj.description": "প্রশ্ন করা বস্তুকে সংকীর্ণ করার জন্য ঐচ্ছিক অবজেক্ট কোড (যেমন '0130')।",
     "param.value.description": "set_value/খোলা/বন্ধ ক্রিয়াগুলির জন্য ঐচ্ছিক সাংখ্যিক মান। পরিসীমা: 0-100।",
-    "tool.description": "একটি নোডে মৌলিক ECHONET লাইট নিয়ন্ত্রণ চালান এবং একটি JSON বা পাঠ্য ফলাফল প্রদান করুন।"
+    "tool.description": "একটি নোডে মৌলিক ECHONET লাইট নিয়ন্ত্রণ চালান এবং একটি JSON বা পাঠ্য ফলাফল প্রদান করুন।",
+    "x_search_terms": [
+      "echonet control",
+      "echonet_control",
+      "echonet",
+      "ECHONET",
+      " execute",
+      " মৌলিক"
+    ]
   },
   "cs": {
     "param.ip.description": "Adresa IPv4 cílového uzlu.",
@@ -69,19 +67,18 @@
     "err.unknown_action": "Chyba: Neznámá akce {action}.",
     "msg.summary": "Ovládání ECHONET Lite dokončeno: {action} dne {ip_address} za {elapsed_ms} ms.",
     "err.invalid_ip_address": "Chyba: ip_address musí být platná adresa IPv4.",
-    "x_search_terms": [
-      "ovládání echonet",
-      "echonet_control",
-      "echosíť",
-      "ECHONET",
-      "provést",
-      "základní",
-      "příkazy"
-    ],
     "param.eoj.description": "Volitelný cíl EOJ (např. '013001'). Pokud je vynechán, použije se objekt profilu uzlu.",
     "param.obj.description": "Volitelný objektový kód pro zúžení dotazovaného objektu (např. '0130').",
     "param.value.description": "Volitelná číselná hodnota pro akce set_value/open/close. Rozsah: 0-100.",
-    "tool.description": "Proveďte základní ovládací prvek ECHONET Lite na uzlu a vraťte výsledek JSON nebo text."
+    "tool.description": "Proveďte základní ovládací prvek ECHONET Lite na uzlu a vraťte výsledek JSON nebo text.",
+    "x_search_terms": [
+      "echonet control",
+      "echonet_control",
+      "echonet",
+      "ECHONET",
+      "provést",
+      "základní"
+    ]
   },
   "de": {
     "param.ip.description": "IPv4-Adresse des Zielknotens.",
@@ -97,19 +94,18 @@
     "err.unknown_action": "Fehler: Unbekannte Aktion „{action}“.",
     "msg.summary": "ECHONET Lite-Steuerung abgeschlossen: {action} auf {ip_address} in {elapsed_ms} ms.",
     "err.invalid_ip_address": "Fehler: ip_address muss eine gültige IPv4-Adresse sein.",
-    "x_search_terms": [
-      "Echonet-Steuerung",
-      "echonet_control",
-      "echonet",
-      "ECHONET",
-      "ausführen",
-      "einfach",
-      "Befehle"
-    ],
     "param.eoj.description": "Optionaler Ziel-EOJ (z. B. „013001“). Wenn es weggelassen wird, wird das Knotenprofilobjekt verwendet.",
     "param.obj.description": "Optionaler Objektcode zur Eingrenzung des abgefragten Objekts (z. B. „0130“).",
     "param.value.description": "Optionaler numerischer Wert für set_value/open/close-Aktionen. Bereich: 0-100.",
-    "tool.description": "Führen Sie die grundlegende ECHONET Lite-Steuerung auf einem Knoten aus und geben Sie ein JSON- oder Textergebnis zurück."
+    "tool.description": "Führen Sie die grundlegende ECHONET Lite-Steuerung auf einem Knoten aus und geben Sie ein JSON- oder Textergebnis zurück.",
+    "x_search_terms": [
+      "echonet control",
+      "echonet_control",
+      "echonet",
+      "ECHONET",
+      "execute",
+      "basic"
+    ]
   },
   "en": {
     "param.ip.description": "Target node IPv4 address.",
@@ -152,19 +148,18 @@
     "err.unknown_action": "Error: Acción desconocida '{action}'.",
     "msg.summary": "Control de ECHONET Lite completado: {action} en {ip_address} en {elapsed_ms} ms.",
     "err.invalid_ip_address": "Error: dirección_ip debe ser una dirección IPv4 válida.",
-    "x_search_terms": [
-      "control de econet",
-      "control_echonet",
-      "econet",
-      "ECHONET",
-      "ejecutar",
-      "básico",
-      "comandos"
-    ],
     "param.eoj.description": "Objetivo opcional EOJ (por ejemplo, '013001'). Si se omite, se utiliza el objeto de perfil de nodo.",
     "param.obj.description": "Código de objeto opcional para limitar el objeto consultado (por ejemplo, '0130').",
     "param.value.description": "Valor numérico opcional para acciones set_value/open/close. Rango: 0-100.",
-    "tool.description": "Ejecute el control básico de ECHONET Lite en un nodo y devuelva un resultado JSON o de texto."
+    "tool.description": "Ejecute el control básico de ECHONET Lite en un nodo y devuelva un resultado JSON o de texto.",
+    "x_search_terms": [
+      "control de echonet",
+      "echonet_control",
+      "echonet",
+      "ECHONET",
+      "ejecutar",
+      "básico"
+    ]
   },
   "fa": {
     "param.ip.description": "آدرس IPv4 گره هدف.",
@@ -180,19 +175,18 @@
     "err.unknown_action": "خطا: عملکرد ناشناخته \"{action}\".",
     "msg.summary": "کنترل ECHONET Lite تکمیل شد: {action} در {ip_address} در {elapsed_ms} ms.",
     "err.invalid_ip_address": "خطا: ip_address باید یک آدرس IPv4 معتبر باشد.",
-    "x_search_terms": [
-      "کنترل echonet",
-      "echonet_control",
-      "اکونت",
-      "اکونت",
-      "اجرا",
-      "پایه",
-      "دستورات"
-    ],
     "param.eoj.description": "EOJ هدف اختیاری (به عنوان مثال '013001'). اگر حذف شود، از شی پروفایل گره استفاده می شود.",
     "param.obj.description": "کد شی اختیاری برای محدود کردن شی مورد نظر (به عنوان مثال '0130').",
     "param.value.description": "مقدار عددی اختیاری برای اقدامات set_value/open/close. محدوده: 0-100.",
-    "tool.description": "کنترل اولیه ECHONET Lite را روی یک گره اجرا کنید و یک JSON یا نتیجه متنی را برگردانید."
+    "tool.description": "کنترل اولیه ECHONET Lite را روی یک گره اجرا کنید و یک JSON یا نتیجه متنی را برگردانید.",
+    "x_search_terms": [
+      "کنترل echonet",
+      "echonet_control",
+      "echonet",
+      "ECHONET",
+      "اجرا",
+      "پایه"
+    ]
   },
   "fi": {
     "param.ip.description": "Kohdesolmun IPv4-osoite.",
@@ -208,19 +202,18 @@
     "err.unknown_action": "Virhe: Tuntematon toiminto '{action}'.",
     "msg.summary": "ECHONET Lite -ohjaus valmis: {action} {ip_address} {elapsed_ms} ms:ssa.",
     "err.invalid_ip_address": "Virhe: ip_addressin on oltava kelvollinen IPv4-osoite.",
-    "x_search_terms": [
-      "echonet-ohjaus",
-      "echonet_control",
-      "ekoverkko",
-      "ECHONET",
-      "suorita",
-      "perus",
-      "komennot"
-    ],
     "param.eoj.description": "Valinnainen kohde EOJ (esim. '013001'). Jos se jätetään pois, käytetään solmuprofiiliobjektia.",
     "param.obj.description": "Valinnainen objektikoodi kyselyn kohteen rajaamiseksi (esim. '0130').",
     "param.value.description": "Valinnainen numeerinen arvo set_value/open/close-toimintoille. Alue: 0-100.",
-    "tool.description": "Suorita ECHONET Lite -perusohjaus solmussa ja palauta JSON- tai tekstitulos."
+    "tool.description": "Suorita ECHONET Lite -perusohjaus solmussa ja palauta JSON- tai tekstitulos.",
+    "x_search_terms": [
+      "echonet control",
+      "echonet_control",
+      "echonet",
+      "ECHONET",
+      "suorita",
+      "basic"
+    ]
   },
   "fr": {
     "param.ip.description": "Adresse IPv4 du nœud cible.",
@@ -236,19 +229,18 @@
     "err.unknown_action": "Erreur : action inconnue '{action}'.",
     "msg.summary": "Contrôle ECHONET Lite terminé : {action} sur {ip_address} en {elapsed_ms} ms.",
     "err.invalid_ip_address": "Erreur : ip_address doit être une adresse IPv4 valide.",
-    "x_search_terms": [
-      "contrôle échonet",
-      "echonet_control",
-      "échonet",
-      "ÉCHONET",
-      "exécuter",
-      "de base",
-      "commandes"
-    ],
     "param.eoj.description": "EOJ cible facultatif (par exemple « 013001 »). En cas d'omission, l'objet de profil de nœud est utilisé.",
     "param.obj.description": "Code objet facultatif pour affiner l’objet interrogé (par exemple « 0130 »).",
     "param.value.description": "Valeur numérique facultative pour les actions set_value/open/close. Plage : 0-100.",
-    "tool.description": "Exécutez le contrôle ECHONET Lite de base sur un nœud et renvoyez un résultat JSON ou texte."
+    "tool.description": "Exécutez le contrôle ECHONET Lite de base sur un nœud et renvoyez un résultat JSON ou texte.",
+    "x_search_terms": [
+      "echonet control",
+      "echonet_control",
+      "echonet",
+      "ECHONET",
+      "execute",
+      "basic"
+    ]
   },
   "hi": {
     "param.ip.description": "लक्ष्य नोड IPv4 पता.",
@@ -264,19 +256,18 @@
     "err.unknown_action": "त्रुटि: अज्ञात क्रिया '{action}'।",
     "msg.summary": "ECHONET लाइट नियंत्रण पूरा हुआ: {action} {ip_address} पर {elapsed_ms} एमएस में।",
     "err.invalid_ip_address": "त्रुटि: ip_address एक वैध IPv4 पता होना चाहिए।",
-    "x_search_terms": [
-      "echonet नियंत्रण",
-      "echonet_control",
-      "इकोनेट",
-      "इकोनेट",
-      "निष्पादित करें",
-      "बुनियादी",
-      "आदेश"
-    ],
     "param.eoj.description": "वैकल्पिक लक्ष्य EOJ (उदा. '013001'). यदि छोड़ा गया है, तो नोड प्रोफ़ाइल ऑब्जेक्ट का उपयोग किया जाता है।",
     "param.obj.description": "पूछे गए ऑब्जेक्ट को सीमित करने के लिए वैकल्पिक ऑब्जेक्ट कोड (जैसे '0130')।",
     "param.value.description": "set_value/open/close क्रियाओं के लिए वैकल्पिक संख्यात्मक मान। रेंज: 0-100.",
-    "tool.description": "एक नोड पर बुनियादी ECHONET लाइट नियंत्रण निष्पादित करें और एक JSON या टेक्स्ट परिणाम लौटाएं।"
+    "tool.description": "एक नोड पर बुनियादी ECHONET लाइट नियंत्रण निष्पादित करें और एक JSON या टेक्स्ट परिणाम लौटाएं।",
+    "x_search_terms": [
+      "इकोनेट नियंत्रण",
+      "इकोनेट_कंट्रोल",
+      "इकोनेट",
+      "इकोनेट",
+      "निष्पादित",
+      "बेसिक"
+    ]
   },
   "id": {
     "param.ip.description": "Alamat IPv4 simpul target.",
@@ -292,19 +283,18 @@
     "err.unknown_action": "Kesalahan: Tindakan tidak diketahui '{action}'.",
     "msg.summary": "Kontrol ECHONET Lite selesai: {action} pada {ip_address} dalam {elapsed_ms} ms.",
     "err.invalid_ip_address": "Kesalahan: ip_address harus berupa alamat IPv4 yang valid.",
-    "x_search_terms": [
-      "kontrol gema",
-      "echonet_kontrol",
-      "gema",
-      "ECHONET",
-      "mengeksekusi",
-      "dasar",
-      "perintah"
-    ],
     "param.eoj.description": "EOJ target opsional (misalnya '013001'). Jika dihilangkan, objek profil simpul akan digunakan.",
     "param.obj.description": "Kode objek opsional untuk mempersempit objek yang ditanyakan (misalnya '0130').",
     "param.value.description": "Nilai numerik opsional untuk tindakan set_value/buka/tutup. Kisaran: 0-100.",
-    "tool.description": "Jalankan kontrol dasar ECHONET Lite pada sebuah node dan kembalikan hasil JSON atau teks."
+    "tool.description": "Jalankan kontrol dasar ECHONET Lite pada sebuah node dan kembalikan hasil JSON atau teks.",
+    "x_search_terms": [
+      "kontrol echonet",
+      "echonet_control",
+      "echonet",
+      "ECHONET",
+      "execute",
+      "basic"
+    ]
   },
   "it": {
     "param.ip.description": "Indirizzo IPv4 del nodo di destinazione.",
@@ -320,19 +310,18 @@
     "err.unknown_action": "Errore: azione sconosciuta '{action}'.",
     "msg.summary": "Controllo ECHONET Lite completato: {action} su {ip_address} in {elapsed_ms} ms.",
     "err.invalid_ip_address": "Errore: indirizzo_ip deve essere un indirizzo IPv4 valido.",
-    "x_search_terms": [
-      "controllo econet",
-      "echonet_controllo",
-      "econet",
-      "ECHONET",
-      "eseguire",
-      "fondamentale",
-      "comandi"
-    ],
     "param.eoj.description": "Obiettivo EOJ opzionale (ad esempio \"013001\"). Se omesso, viene utilizzato l'oggetto profilo del nodo.",
     "param.obj.description": "Codice oggetto opzionale per restringere l'oggetto richiesto (ad esempio \"0130\").",
     "param.value.description": "Valore numerico facoltativo per le azioni set_value/apertura/chiusura. Intervallo: 0-100.",
-    "tool.description": "Esegue il controllo ECHONET Lite di base su un nodo e restituisce un risultato JSON o di testo."
+    "tool.description": "Esegue il controllo ECHONET Lite di base su un nodo e restituisce un risultato JSON o di testo.",
+    "x_search_terms": [
+      "controllo echonet",
+      "echonet_control",
+      "echonet",
+      "ECHONET",
+      "execute",
+      "basic"
+    ]
   },
   "ja": {
     "param.ip.description": "ターゲットノードのIPv4アドレス。",
@@ -353,13 +342,12 @@
     "param.value.description": "set_value/open/close アクションのオプションの数値。範囲: 0 ～ 100。",
     "tool.description": "ノード上で基本的な ECHONET Lite コントロールを実行し、JSON またはテキストの結果を返します。",
     "x_search_terms": [
-      "エコーネット制御",
-      "エコーネットコントロール",
-      "エコーネット",
-      "エコーネット",
+      "echonet 制御",
+      "echonet_control",
+      "echonet",
+      "ECHONET",
       "実行",
-      "基本",
-      "コマンド"
+      "基本"
     ]
   },
   "ko": {
@@ -376,19 +364,18 @@
     "err.unknown_action": "오류: 알 수 없는 작업 '{action}'.",
     "msg.summary": "ECHONET Lite 제어 완료: {elapsed_ms}ms 안에 {ip_address}의 {action}.",
     "err.invalid_ip_address": "오류: ip_address는 유효한 IPv4 주소여야 합니다.",
-    "x_search_terms": [
-      "에코넷 제어",
-      "에코넷_제어",
-      "에코넷",
-      "에코넷",
-      "실행",
-      "기본",
-      "명령"
-    ],
     "param.eoj.description": "선택적 타겟 EOJ(예: '013001'). 생략하면 노드 프로필 개체가 사용됩니다.",
     "param.obj.description": "쿼리된 개체의 범위를 좁히기 위한 선택적 개체 코드(예: '0130')입니다.",
     "param.value.description": "set_value/open/close 작업에 대한 선택적 숫자 값입니다. 범위: 0-100.",
-    "tool.description": "노드에서 기본 ECHONET Lite 제어를 실행하고 JSON 또는 텍스트 결과를 반환합니다."
+    "tool.description": "노드에서 기본 ECHONET Lite 제어를 실행하고 JSON 또는 텍스트 결과를 반환합니다.",
+    "x_search_terms": [
+      "에코넷 제어",
+      "echonet_control",
+      "echonet",
+      "ECHONET",
+      "execute",
+      "basic"
+    ]
   },
   "mn": {
     "param.ip.description": "Зорилтот зангилааны IPv4 хаяг.",
@@ -404,19 +391,18 @@
     "err.unknown_action": "Алдаа: Үл мэдэгдэх үйлдэл '{action}'.",
     "msg.summary": "ECHONET Lite хяналт дууссан: {action} {ip_address} дээр {elapsed_ms} мс дараа.",
     "err.invalid_ip_address": "Алдаа: ip_address нь хүчинтэй IPv4 хаяг байх ёстой.",
-    "x_search_terms": [
-      "echonet хяналт",
-      "echonet_control",
-      "эхонет",
-      "эхонет",
-      "гүйцэтгэх",
-      "үндсэн",
-      "командууд"
-    ],
     "param.eoj.description": "Нэмэлт зорилтот EOJ (жишээ нь '013001'). Хэрэв орхигдуулсан бол зангилааны профайл объектыг ашиглана.",
     "param.obj.description": "Асуулгаж буй объектыг нарийсгах нэмэлт объектын код (жишээ нь '0130').",
     "param.value.description": "Тодорхой_утга/нээлт/хаах үйлдлүүдийн нэмэлт тоон утга. Хүрээ: 0-100.",
-    "tool.description": "Зангилаа дээр үндсэн ECHONET Lite хяналтыг ажиллуулж, JSON эсвэл текстийн үр дүнг буцаана уу."
+    "tool.description": "Зангилаа дээр үндсэн ECHONET Lite хяналтыг ажиллуулж, JSON эсвэл текстийн үр дүнг буцаана уу.",
+    "x_search_terms": [
+      "echonet control",
+      "echonet_control",
+      "echonet",
+      "ECHONET",
+      "execute",
+      "basic"
+    ]
   },
   "mr": {
     "param.ip.description": "लक्ष्य नोड IPv4 पत्ता.",
@@ -432,19 +418,18 @@
     "err.unknown_action": "त्रुटी: अज्ञात क्रिया '{action}'.",
     "msg.summary": "ECHONET लाइट नियंत्रण पूर्ण झाले: {action} {ip_address} रोजी {elapsed_ms} ms मध्ये.",
     "err.invalid_ip_address": "त्रुटी: ip_address हा वैध IPv4 पत्ता असणे आवश्यक आहे.",
-    "x_search_terms": [
-      "echonet नियंत्रण",
-      "echonet_control",
-      "इकोनेट",
-      "इकोनेट",
-      "कार्यान्वित करा",
-      "मूलभूत",
-      "आदेश"
-    ],
     "param.eoj.description": "पर्यायी लक्ष्य EOJ (उदा. '013001'). वगळल्यास, नोड प्रोफाइल ऑब्जेक्ट वापरला जातो.",
     "param.obj.description": "क्वेरी केलेल्या ऑब्जेक्टला अरुंद करण्यासाठी पर्यायी ऑब्जेक्ट कोड (उदा. '0130').",
     "param.value.description": "set_value/open/close क्रियांसाठी पर्यायी अंकीय मूल्य. श्रेणी: 0-100.",
-    "tool.description": "नोडवर मूलभूत ECHONET लाइट नियंत्रण कार्यान्वित करा आणि JSON किंवा मजकूर परिणाम परत करा."
+    "tool.description": "नोडवर मूलभूत ECHONET लाइट नियंत्रण कार्यान्वित करा आणि JSON किंवा मजकूर परिणाम परत करा.",
+    "x_search_terms": [
+      "echonet control",
+      "echonet_control",
+      "echonet",
+      "ECHONET",
+      "execute",
+      "basic"
+    ]
   },
   "el": {
     "param.ip.description": "Διεύθυνση IPv4 κόμβου στόχου.",
@@ -460,19 +445,18 @@
     "err.unknown_action": "Σφάλμα: Άγνωστη ενέργεια \"{action}\".",
     "msg.summary": "Ο έλεγχος ECHONET Lite ολοκληρώθηκε: {action} στο {ip_address} σε {elapsed_ms} ms.",
     "err.invalid_ip_address": "Σφάλμα: Η διεύθυνση ip_address πρέπει να είναι έγκυρη διεύθυνση IPv4.",
-    "x_search_terms": [
-      "έλεγχος echonet",
-      "echonet_control",
-      "echonet",
-      "ECHONET",
-      "εκτέλεση",
-      "βασικές",
-      "εντολές"
-    ],
     "param.eoj.description": "Προαιρετικός στόχος EOJ (π.χ. '013001'). Εάν παραλειφθεί, χρησιμοποιείται το αντικείμενο προφίλ κόμβου.",
     "param.obj.description": "Προαιρετικός κωδικός αντικειμένου για τον περιορισμό του ερωτούμενου αντικειμένου (π.χ. '0130').",
     "param.value.description": "Προαιρετική αριθμητική τιμή για ενέργειες set_value/open/close. Εύρος: 0-100.",
-    "tool.description": "Εκτελέστε το βασικό στοιχείο ελέγχου ECHONET Lite σε έναν κόμβο και επιστρέψτε ένα αποτέλεσμα JSON ή κειμένου."
+    "tool.description": "Εκτελέστε το βασικό στοιχείο ελέγχου ECHONET Lite σε έναν κόμβο και επιστρέψτε ένα αποτέλεσμα JSON ή κειμένου.",
+    "x_search_terms": [
+      "echonet control",
+      "echonet_control",
+      "echonet",
+      "ECHONET",
+      "execute",
+      "basic"
+    ]
   },
   "he": {
     "param.ip.description": "כתובת IPv4 של צומת יעד.",
@@ -488,19 +472,18 @@
     "err.unknown_action": "שגיאה: פעולה לא ידועה '{action}'.",
     "msg.summary": "בקרת ECHONET Lite הושלמה: {action} ב-{ip_address} בעוד {elapsed_ms} אלפיות השנייה.",
     "err.invalid_ip_address": "שגיאה: כתובת ה-ip_address חייבת להיות כתובת IPv4 חוקית.",
-    "x_search_terms": [
-      "שליטת echonet",
-      "echonet_control",
-      "אקו-נט",
-      "אקו-נט",
-      "בצע",
-      "בסיסי",
-      "פקודות"
-    ],
     "param.eoj.description": "יעד EOJ אופציונלי (למשל '013001'). אם מושמט, נעשה שימוש באובייקט פרופיל הצומת.",
     "param.obj.description": "קוד אובייקט אופציונלי כדי לצמצם את האובייקט הנשאל (לדוגמה, '0130').",
     "param.value.description": "ערך מספרי אופציונלי עבור פעולות set_value/open/close. טווח: 0-100.",
-    "tool.description": "בצע פקד ECHONET Lite בסיסי על צומת והחזר תוצאת JSON או טקסט."
+    "tool.description": "בצע פקד ECHONET Lite בסיסי על צומת והחזר תוצאת JSON או טקסט.",
+    "x_search_terms": [
+      "echonet control",
+      "echonet_control",
+      "echonet",
+      "ECHONET",
+      "execute",
+      "basic"
+    ]
   },
   "hu": {
     "param.ip.description": "Célcsomópont IPv4-címe.",
@@ -516,19 +499,18 @@
     "err.unknown_action": "Hiba: Ismeretlen művelet „{action}”.",
     "msg.summary": "Az ECHONET Lite vezérlése befejeződött: {action} itt: {ip_address} {elapsed_ms} ms alatt.",
     "err.invalid_ip_address": "Hiba: az ip_address érvényes IPv4-címnek kell lennie.",
-    "x_search_terms": [
-      "echonet vezérlés",
-      "echonet_control",
-      "echonet",
-      "ECHONET",
-      "végrehajt",
-      "alap",
-      "parancsok"
-    ],
     "param.eoj.description": "Opcionális cél EOJ (pl. „013001”). Ha kihagyja, akkor a csomópontprofil objektum kerül felhasználásra.",
     "param.obj.description": "Opcionális objektumkód a lekérdezett objektum szűkítéséhez (pl. „0130”).",
     "param.value.description": "Opcionális numerikus érték a set_value/open/close műveletekhez. Tartomány: 0-100.",
-    "tool.description": "Végezze el az alapvető ECHONET Lite vezérlést egy csomóponton, és adja vissza a JSON vagy szöveges eredményt."
+    "tool.description": "Végezze el az alapvető ECHONET Lite vezérlést egy csomóponton, és adja vissza a JSON vagy szöveges eredményt.",
+    "x_search_terms": [
+      "echonet control",
+      "echonet_control",
+      "echonet",
+      "ECHONET",
+      "execute",
+      "basic"
+    ]
   },
   "ro": {
     "param.ip.description": "Adresa IPv4 a nodului țintă.",
@@ -544,19 +526,18 @@
     "err.unknown_action": "Eroare: acțiune necunoscută „{action}”.",
     "msg.summary": "Controlul ECHONET Lite finalizat: {action} pe {ip_address} în {elapsed_ms} ms.",
     "err.invalid_ip_address": "Eroare: ip_address trebuie să fie o adresă IPv4 validă.",
-    "x_search_terms": [
-      "control echonet",
-      "echonet_control",
-      "econet",
-      "ECHONET",
-      "execută",
-      "de bază",
-      "comenzi"
-    ],
     "param.eoj.description": "EOJ țintă opțional (de exemplu, „013001”). Dacă este omis, este utilizat obiectul profil nod.",
     "param.obj.description": "Cod obiect opțional pentru a restrânge obiectul interogat (de exemplu, „0130”).",
     "param.value.description": "Valoare numerică opțională pentru acțiunile set_value/open/close. Interval: 0-100.",
-    "tool.description": "Executați controlul de bază ECHONET Lite pe un nod și returnați un rezultat JSON sau text."
+    "tool.description": "Executați controlul de bază ECHONET Lite pe un nod și returnați un rezultat JSON sau text.",
+    "x_search_terms": [
+      "control echonet",
+      "echonet_control",
+      "echonet",
+      "ECHONET",
+      "execute",
+      "de bază"
+    ]
   },
   "nb": {
     "param.ip.description": "Målnodens IPv4-adresse.",
@@ -572,19 +553,18 @@
     "err.unknown_action": "Feil: Ukjent handling '{action}'.",
     "msg.summary": "ECHONET Lite-kontroll fullført: {action} på {ip_address} om {elapsed_ms} ms.",
     "err.invalid_ip_address": "Feil: ip_adresse må være en gyldig IPv4-adresse.",
-    "x_search_terms": [
-      "echonet-kontroll",
-      "echonet_control",
-      "ekonett",
-      "ECHONET",
-      "utføre",
-      "grunnleggende",
-      "kommandoer"
-    ],
     "param.eoj.description": "Valgfritt mål EOJ (f.eks. '013001'). Hvis det utelates, brukes nodeprofilobjektet.",
     "param.obj.description": "Valgfri objektkode for å begrense det forespurte objektet (f.eks. '0130').",
     "param.value.description": "Valgfri numerisk verdi for set_value/open/close-handlinger. Rekkevidde: 0-100.",
-    "tool.description": "Utfør grunnleggende ECHONET Lite-kontroll på en node og returner et JSON- eller tekstresultat."
+    "tool.description": "Utfør grunnleggende ECHONET Lite-kontroll på en node og returner et JSON- eller tekstresultat.",
+    "x_search_terms": [
+      "echonet control",
+      "echonet_control",
+      "echonet",
+      "ECHONET",
+      "execute",
+      "grunnleggende"
+    ]
   },
   "nl": {
     "param.ip.description": "IPv4-adres van doelknooppunt.",
@@ -600,19 +580,18 @@
     "err.unknown_action": "Fout: onbekende actie '{action}'.",
     "msg.summary": "ECHONET Lite-controle voltooid: {action} op {ip_address} in {elapsed_ms} ms.",
     "err.invalid_ip_address": "Fout: ip_address moet een geldig IPv4-adres zijn.",
-    "x_search_terms": [
-      "echonet-controle",
-      "echonet_control",
-      "echonet",
-      "ECHONET",
-      "uitvoeren",
-      "basis",
-      "opdrachten"
-    ],
     "param.eoj.description": "Optioneel doel-EOJ (bijv. '013001'). Indien dit wordt weggelaten, wordt het knooppuntprofielobject gebruikt.",
     "param.obj.description": "Optionele objectcode om het opgevraagde object te verfijnen (bijvoorbeeld '0130').",
     "param.value.description": "Optionele numerieke waarde voor set_value/open/close-acties. Bereik: 0-100.",
-    "tool.description": "Voer de basis ECHONET Lite-besturing uit op een knooppunt en retourneer een JSON- of tekstresultaat."
+    "tool.description": "Voer de basis ECHONET Lite-besturing uit op een knooppunt en retourneer een JSON- of tekstresultaat.",
+    "x_search_terms": [
+      "echonet controle",
+      "echonet_control",
+      "echonet",
+      "ECHONET",
+      "execute",
+      "basic"
+    ]
   },
   "pl": {
     "param.ip.description": "Adres IPv4 węzła docelowego.",
@@ -628,19 +607,18 @@
     "err.unknown_action": "Błąd: nieznane działanie „{action}”.",
     "msg.summary": "Kontrola ECHONET Lite zakończona: {action} w {ip_address} w {elapsed_ms} ms.",
     "err.invalid_ip_address": "Błąd: adres_ip musi być prawidłowym adresem IPv4.",
-    "x_search_terms": [
-      "kontrola echonetu",
-      "kontrola_echa",
-      "echonet",
-      "ECHONET",
-      "wykonać",
-      "podstawowe",
-      "polecenia"
-    ],
     "param.eoj.description": "Opcjonalny docelowy EOJ (np. „013001”). W przypadku pominięcia używany jest obiekt profilu węzła.",
     "param.obj.description": "Opcjonalny kod obiektowy w celu zawężenia zapytania (np. „0130”).",
     "param.value.description": "Opcjonalna wartość liczbowa dla akcji set_value/open/close. Zakres: 0-100.",
-    "tool.description": "Wykonaj podstawową kontrolę ECHONET Lite na węźle i zwróć wynik w formacie JSON lub tekstowym."
+    "tool.description": "Wykonaj podstawową kontrolę ECHONET Lite na węźle i zwróć wynik w formacie JSON lub tekstowym.",
+    "x_search_terms": [
+      "sterowanie echonetem",
+      "echonet_control",
+      "echonet",
+      "ECHONET",
+      "execute",
+      "basic"
+    ]
   },
   "pt": {
     "param.ip.description": "Endereço IPv4 do nó de destino.",
@@ -656,19 +634,18 @@
     "err.unknown_action": "Erro: Ação desconhecida '{action}'.",
     "msg.summary": "Controle ECHONET Lite concluído: {action} em {ip_address} em {elapsed_ms} ms.",
     "err.invalid_ip_address": "Erro: ip_address deve ser um endereço IPv4 válido.",
-    "x_search_terms": [
-      "controlo econet",
-      "echonet_control",
-      "econet",
-      "ECHONET",
-      "executar",
-      "básico",
-      "comandos"
-    ],
     "param.eoj.description": "EOJ alvo opcional (por exemplo, '013001'). Se omitido, o objeto de perfil do nó será usado.",
     "param.obj.description": "Código de objeto opcional para restringir o objeto consultado (por exemplo, '0130').",
     "param.value.description": "Valor numérico opcional para ações set_value/open/close. Faixa: 0-100.",
-    "tool.description": "Execute o controle básico do ECHONET Lite em um nó e retorne um resultado JSON ou de texto."
+    "tool.description": "Execute o controle básico do ECHONET Lite em um nó e retorne um resultado JSON ou de texto.",
+    "x_search_terms": [
+      "controle echonet",
+      "echonet_control",
+      "echonet",
+      "ECHONET",
+      "execute",
+      "básico"
+    ]
   },
   "pt_BR": {
     "param.ip.description": "Endereço IPv4 do nó de destino.",
@@ -684,19 +661,18 @@
     "err.unknown_action": "Erro: Ação desconhecida '{action}'.",
     "msg.summary": "Controle ECHONET Lite concluído: {action} em {ip_address} em {elapsed_ms} ms.",
     "err.invalid_ip_address": "Erro: ip_address deve ser um endereço IPv4 válido.",
-    "x_search_terms": [
-      "controle de econet",
-      "echonet_control",
-      "econet",
-      "ECONET",
-      "executar",
-      "básico",
-      "comandos"
-    ],
     "param.eoj.description": "EOJ alvo opcional (por exemplo, '013001'). Se omitido, o objeto de perfil do nó será usado.",
     "param.obj.description": "Código de objeto opcional para restringir o objeto consultado (por exemplo, '0130').",
     "param.value.description": "Valor numérico opcional para ações set_value/open/close. Faixa: 0-100.",
-    "tool.description": "Execute o controle básico do ECHONET Lite em um nó e retorne um resultado JSON ou de texto."
+    "tool.description": "Execute o controle básico do ECHONET Lite em um nó e retorne um resultado JSON ou de texto.",
+    "x_search_terms": [
+      "controle echonet",
+      "echonet_control",
+      "echonet",
+      "ECHONET",
+      "execute",
+      "básico"
+    ]
   },
   "ru": {
     "param.ip.description": "IPv4-адрес целевого узла.",
@@ -712,19 +688,18 @@
     "err.unknown_action": "Ошибка: неизвестное действие «{action}».",
     "msg.summary": "Управление ECHONET Lite завершено: {action} на {ip_address} через {elapsed_ms} мс.",
     "err.invalid_ip_address": "Ошибка: ip_address должен быть действительным адресом IPv4.",
-    "x_search_terms": [
-      "управление эхосетью",
-      "echonet_control",
-      "эхосеть",
-      "ECHONET",
-      "выполнять",
-      "базовый",
-      "команды"
-    ],
     "param.eoj.description": "Необязательный целевой EOJ (например, «013001»). Если этот параметр опущен, используется объект профиля узла.",
     "param.obj.description": "Необязательный объектный код для сужения запрашиваемого объекта (например, «0130»).",
     "param.value.description": "Необязательное числовое значение для действий set_value/open/close. Диапазон: 0–100.",
-    "tool.description": "Выполните базовый элемент управления ECHONET Lite на узле и верните результат в формате JSON или текстовый результат."
+    "tool.description": "Выполните базовый элемент управления ECHONET Lite на узле и верните результат в формате JSON или текстовый результат.",
+    "x_search_terms": [
+      "echonet control",
+      "echonet_control",
+      "echonet",
+      "ECHONET",
+      "execute",
+      "basic"
+    ]
   },
   "sv": {
     "param.ip.description": "IPv4-adress för målnoden.",
@@ -740,19 +715,18 @@
     "err.unknown_action": "Fel: Okänd åtgärd '{action}'.",
     "msg.summary": "ECHONET Lite-kontroll slutförd: {action} på {ip_address} om {elapsed_ms} ms.",
     "err.invalid_ip_address": "Fel: ip_address måste vara en giltig IPv4-adress.",
-    "x_search_terms": [
-      "echonet kontroll",
-      "echonet_control",
-      "ekonät",
-      "ECHONET",
-      "utföra",
-      "grundläggande",
-      "kommandon"
-    ],
     "param.eoj.description": "Valfritt mål EOJ (t.ex. \"013001\"). Om det utelämnas används nodprofilobjektet.",
     "param.obj.description": "Valfri objektkod för att begränsa det efterfrågade objektet (t.ex. '0130').",
     "param.value.description": "Valfritt numeriskt värde för set_value/öppna/stäng-åtgärder. Räckvidd: 0-100.",
-    "tool.description": "Kör grundläggande ECHONET Lite-kontroll på en nod och returnera ett JSON- eller textresultat."
+    "tool.description": "Kör grundläggande ECHONET Lite-kontroll på en nod och returnera ett JSON- eller textresultat.",
+    "x_search_terms": [
+      "echonet control",
+      "echonet_control",
+      "echonet",
+      "ECHONET",
+      "exekvera",
+      "grundläggande"
+    ]
   },
   "sw": {
     "param.ip.description": "Anwani ya IPv4 ya nodi lengwa.",
@@ -768,19 +742,18 @@
     "err.unknown_action": "Hitilafu: Kitendo '{action}' kisichojulikana.",
     "msg.summary": "Udhibiti wa ECHONET Lite umekamilika: {action} mnamo {ip_address} baada ya ms {elapsed_ms}.",
     "err.invalid_ip_address": "Hitilafu: ip_address lazima iwe anwani halali ya IPv4.",
+    "param.eoj.description": "EOJ inayolengwa kwa hiari (k.m. '013001'). Ikiwa imeachwa, kitu cha wasifu wa nodi hutumiwa.",
+    "param.obj.description": "Msimbo wa kitu cha hiari ili kupunguza kitu kilichoulizwa (k.m. '0130').",
+    "param.value.description": "Nambari ya hiari ya thamani kwa set_value/open/close vitendo. Mgawanyiko: 0-100.",
+    "tool.description": "Tekeleza udhibiti msingi wa ECHONET Lite kwenye nodi na urudishe matokeo ya maandishi ya JSON au maandishi.",
     "x_search_terms": [
       "udhibiti wa echonet",
       "echonet_control",
       "echonet",
       "ECHONET",
-      "kutekeleza",
-      "msingi",
-      "amri"
-    ],
-    "param.eoj.description": "EOJ inayolengwa kwa hiari (k.m. '013001'). Ikiwa imeachwa, kitu cha wasifu wa nodi hutumiwa.",
-    "param.obj.description": "Msimbo wa kitu cha hiari ili kupunguza kitu kilichoulizwa (k.m. '0130').",
-    "param.value.description": "Nambari ya hiari ya thamani kwa set_value/open/close vitendo. Mgawanyiko: 0-100.",
-    "tool.description": "Tekeleza udhibiti msingi wa ECHONET Lite kwenye nodi na urudishe matokeo ya maandishi ya JSON au maandishi."
+      "tekeleza",
+      "msingi"
+    ]
   },
   "th": {
     "param.ip.description": "ที่อยู่ IPv4 ของโหนดเป้าหมาย",
@@ -796,19 +769,18 @@
     "err.unknown_action": "ข้อผิดพลาด: การกระทำที่ไม่รู้จัก '{action}'",
     "msg.summary": "การควบคุม ECHONET Lite เสร็จสมบูรณ์: {action} บน {ip_address} ใน {elapsed_ms} ms",
     "err.invalid_ip_address": "ข้อผิดพลาด: ip_address ต้องเป็นที่อยู่ IPv4 ที่ถูกต้อง",
-    "x_search_terms": [
-      "ควบคุม echonet",
-      "echonet_control",
-      "อีโค่เน็ต",
-      "อีโค่เน็ต",
-      "ดำเนินการ",
-      "พื้นฐาน",
-      "คำสั่ง"
-    ],
     "param.eoj.description": "เป้าหมายทางเลือก EOJ (เช่น '013001') หากละเว้น ระบบจะใช้ออบเจ็กต์โปรไฟล์โหนด",
     "param.obj.description": "รหัสออบเจ็กต์ทางเลือกเพื่อจำกัดออบเจ็กต์ที่สืบค้นให้แคบลง (เช่น '0130')",
     "param.value.description": "ค่าตัวเลขเพิ่มเติมสำหรับการดำเนินการ set_value/open/close ช่วง: 0-100",
-    "tool.description": "ดำเนินการควบคุม ECHONET Lite พื้นฐานบนโหนดและส่งคืน JSON หรือผลลัพธ์ข้อความ"
+    "tool.description": "ดำเนินการควบคุม ECHONET Lite พื้นฐานบนโหนดและส่งคืน JSON หรือผลลัพธ์ข้อความ",
+    "x_search_terms": [
+      "การควบคุม echonet",
+      "echonet_control",
+      "echonet",
+      "ECHONET",
+      "ดำเนินการ",
+      "พื้นฐาน"
+    ]
   },
   "tr": {
     "param.ip.description": "Hedef düğüm IPv4 adresi.",
@@ -824,19 +796,18 @@
     "err.unknown_action": "Hata: Bilinmeyen eylem '{action}'.",
     "msg.summary": "ECHONET Lite kontrolü tamamlandı: {action}, {ip_address}, {elapsed_ms} ms.",
     "err.invalid_ip_address": "Hata: ip_address geçerli bir IPv4 adresi olmalıdır.",
-    "x_search_terms": [
-      "echonet kontrolü",
-      "echonet_control",
-      "eko ağ",
-      "ECONET",
-      "yürütmek",
-      "temel",
-      "komutlar"
-    ],
     "param.eoj.description": "İsteğe bağlı hedef EOJ (ör. '013001'). Atlanırsa düğüm profili nesnesi kullanılır.",
     "param.obj.description": "Sorgulanan nesneyi daraltmak için isteğe bağlı nesne kodu (ör. '0130').",
     "param.value.description": "set_value/open/close eylemleri için isteğe bağlı sayısal değer. Aralık: 0-100.",
-    "tool.description": "Bir düğümde temel ECHONET Lite kontrolünü yürütün ve bir JSON veya metin sonucu döndürün."
+    "tool.description": "Bir düğümde temel ECHONET Lite kontrolünü yürütün ve bir JSON veya metin sonucu döndürün.",
+    "x_search_terms": [
+      "echonet kontrolü",
+      "echonet_control",
+      "echonet",
+      "ECHONET",
+      "execute",
+      "basic"
+    ]
   },
   "uk": {
     "param.ip.description": "IPv4-адреса цільового вузла.",
@@ -852,19 +823,18 @@
     "err.unknown_action": "Помилка: невідома дія \"{action}\".",
     "msg.summary": "Контроль ECHONET Lite завершено: {action} {ip_address} за {elapsed_ms} мс.",
     "err.invalid_ip_address": "Помилка: ip_address має бути дійсною адресою IPv4.",
-    "x_search_terms": [
-      "керування ехомережею",
-      "echonet_control",
-      "ехомережа",
-      "ECHONET",
-      "виконати",
-      "базовий",
-      "команди"
-    ],
     "param.eoj.description": "Необов’язковий цільовий EOJ (наприклад, «013001»). Якщо опущено, використовується об’єкт профілю вузла.",
     "param.obj.description": "Необов’язковий код об’єкта для звуження об’єкта, який запитується (наприклад, «0130»).",
     "param.value.description": "Додаткове числове значення для дій set_value/open/close. Діапазон: 0-100.",
-    "tool.description": "Виконайте базовий елемент керування ECHONET Lite на вузлі та поверніть JSON або текстовий результат."
+    "tool.description": "Виконайте базовий елемент керування ECHONET Lite на вузлі та поверніть JSON або текстовий результат.",
+    "x_search_terms": [
+      "echonet control",
+      "echonet_control",
+      "echonet",
+      "ECHONET",
+      "execute",
+      "basic"
+    ]
   },
   "vi": {
     "param.ip.description": "Địa chỉ IPv4 của nút đích.",
@@ -880,19 +850,18 @@
     "err.unknown_action": "Lỗi: Hành động không xác định '{action}'.",
     "msg.summary": "Điều khiển ECHONET Lite đã hoàn tất: {action} trên {ip_address} sau {elapsed_ms} mili giây.",
     "err.invalid_ip_address": "Lỗi: ip_address phải là địa chỉ IPv4 hợp lệ.",
-    "x_search_terms": [
-      "kiểm soát tiếng vang",
-      "echonet_control",
-      "tiếng vang",
-      "ECHONET",
-      "thực thi",
-      "cơ bản",
-      "lệnh"
-    ],
     "param.eoj.description": "EOJ mục tiêu tùy chọn (ví dụ: '013001'). Nếu bị bỏ qua, đối tượng hồ sơ nút sẽ được sử dụng.",
     "param.obj.description": "Mã đối tượng tùy chọn để thu hẹp đối tượng được truy vấn (ví dụ: '0130').",
     "param.value.description": "Giá trị số tùy chọn cho các hành động set_value/mở/đóng. Phạm vi: 0-100.",
-    "tool.description": "Thực thi điều khiển ECHONET Lite cơ bản trên một nút và trả về kết quả JSON hoặc văn bản."
+    "tool.description": "Thực thi điều khiển ECHONET Lite cơ bản trên một nút và trả về kết quả JSON hoặc văn bản.",
+    "x_search_terms": [
+      "điều khiển tiếng vang",
+      "echonet_control",
+      "echonet",
+      "ECHONET",
+      "thực thi",
+      "cơ bản"
+    ]
   },
   "zh_CN": {
     "param.ip.description": "目标节点 IPv4 地址。",
@@ -908,19 +877,18 @@
     "err.unknown_action": "错误：未知操作“{action}”。",
     "msg.summary": "ECHONET Lite 控制已完成：{action} 在 {ip_address} 上，耗时 {elapsed_ms} 毫秒。",
     "err.invalid_ip_address": "错误：ip_address 必须是有效的 IPv4 地址。",
+    "param.eoj.description": "可选的目标 EOJ（例如“013001”）。如果省略，则使用节点配置文件对象。",
+    "param.obj.description": "用于缩小查询对象范围的可选对象代码（例如“0130”）。",
+    "param.value.description": "set_value/打开/关闭操作的可选数值。范围：0-100。",
+    "tool.description": "在节点上执行基本的 ECHONET Lite 控制并返回 JSON 或文本结果。",
     "x_search_terms": [
       "echonet 控制",
       "echonet_control",
       "echonet",
       "ECHONET",
       "执行",
-      "基本",
-      "命令"
-    ],
-    "param.eoj.description": "可选的目标 EOJ（例如“013001”）。如果省略，则使用节点配置文件对象。",
-    "param.obj.description": "用于缩小查询对象范围的可选对象代码（例如“0130”）。",
-    "param.value.description": "set_value/打开/关闭操作的可选数值。范围：0-100。",
-    "tool.description": "在节点上执行基本的 ECHONET Lite 控制并返回 JSON 或文本结果。"
+      "基本"
+    ]
   },
   "zh_TW": {
     "param.ip.description": "目標節點 IPv4 位址。",
@@ -936,18 +904,17 @@
     "err.unknown_action": "錯誤：未知操作“{action}”。",
     "msg.summary": "ECHONET Lite 控制已完成：{action} 在 {ip_address} 上，耗時 {elapsed_ms} 毫秒。",
     "err.invalid_ip_address": "錯誤：ip_address 必須是有效的 IPv4 位址。",
+    "param.eoj.description": "可選的目標 EOJ（例如“013001”）。如果省略，則使用節點設定檔物件。",
+    "param.obj.description": "用於縮小查詢物件範圍的可選物件程式碼（例如“0130”）。",
+    "param.value.description": "set_value/開啟/關閉操作的可選數值。範圍：0-100。",
+    "tool.description": "在節點上執行基本的 ECHONET Lite 控制並傳回 JSON 或文字結果。",
     "x_search_terms": [
       "echonet 控制",
       "echonet_control",
       "echonet",
       "ECHONET",
       "執行",
-      "基本",
-      "指令"
-    ],
-    "param.eoj.description": "可選的目標 EOJ（例如“013001”）。如果省略，則使用節點設定檔物件。",
-    "param.obj.description": "用於縮小查詢物件範圍的可選物件程式碼（例如“0130”）。",
-    "param.value.description": "set_value/開啟/關閉操作的可選數值。範圍：0-100。",
-    "tool.description": "在節點上執行基本的 ECHONET Lite 控制並傳回 JSON 或文字結果。"
+      "基本"
+    ]
   }
 }

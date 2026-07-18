@@ -1,16 +1,7 @@
 {
   "ar": {
     "tool.description": "أرسل بريدًا إلكترونيًا عبر Gmail SMTP باستخدام كلمة مرور التطبيق. ",
-    "x_search_terms": [
-      "إرسال gmail",
-      "إرسال البريد الإلكتروني",
-      "إرسال البريد الإلكتروني",
-      "إنشاء بريد إلكتروني",
-      "إنشاء Gmail",
-      "إرسال البريد",
-      "ارسال جوجل",
-      "إنشاء البريد الإلكتروني"
-    ],
+    "x_search_terms": "[\"gmail\"، \"إرسال بريد إلكتروني\"، \"mail\"، \"メール送信\"، \"enviar correo\"، \"envoyer email\"، \"이메일 보내기\"]",
     "param.to.description": "عنوان (عناوين) البريد الإلكتروني للمستلم. ",
     "param.subject.description": "موضوع البريد الإلكتروني.",
     "param.body.description": "إرسال نص أساسي بالبريد الإلكتروني (نص عادي).",
@@ -29,16 +20,7 @@
   },
   "bn": {
     "tool.description": "অ্যাপ পাসওয়ার্ড ব্যবহার করে Gmail SMTP এর মাধ্যমে একটি ইমেল পাঠান। ",
-    "x_search_terms": [
-      "gmail পাঠান",
-      "ইমেইল পাঠান",
-      "ইমেইল পাঠান",
-      "ইমেল রচনা করুন",
-      "জিমেইল রচনা",
-      "মেইল পাঠান",
-      "জিমেইল পাঠান",
-      "ইমেল রচনা"
-    ],
+    "x_search_terms": "[\"gmail\", \"ইমেল পাঠান\", \"মেইল\", \"メール送信\", \"enviar correo\", \"দূত ইমেল\", \"이메일 보내기\"]",
     "param.to.description": "প্রাপকের ইমেল ঠিকানা(গুলি)। ",
     "param.subject.description": "ইমেইল বিষয়.",
     "param.body.description": "ইমেল বডি টেক্সট (সাধারণ টেক্সট)।",
@@ -57,16 +39,7 @@
   },
   "cs": {
     "tool.description": "Odešlete e-mail přes Gmail SMTP pomocí hesla aplikace. ",
-    "x_search_terms": [
-      "odeslat gmail",
-      "poslat email",
-      "odeslat email",
-      "napsat email",
-      "gmail napsat",
-      "mail poslat",
-      "poslat gmail",
-      "napsat e-mail"
-    ],
+    "x_search_terms": "[\"gmail\", \"odeslat e-mail\", \"mail\", \"メール送信\", \"enviar correo\", \"e-mail zmocněnce\", \"이메일 보내기\"]",
     "param.to.description": "E-mailová adresa(y) příjemce. ",
     "param.subject.description": "Předmět emailu.",
     "param.body.description": "Hlavní text e-mailu (prostý text).",
@@ -85,16 +58,7 @@
   },
   "de": {
     "tool.description": "Senden Sie eine E-Mail über Gmail SMTP mit dem App-Passwort. ",
-    "x_search_terms": [
-      "gmail senden",
-      "E-Mail senden",
-      "E-Mail senden",
-      "E-Mail verfassen",
-      "Gmail verfassen",
-      "E-Mail senden",
-      "Gmail senden",
-      "E-Mail verfassen"
-    ],
+    "x_search_terms": "[„gmail“, „send email“, „mail“, „メール送信“, „enviar correo“, „envoyer email“, „이메일 보내기“]",
     "param.to.description": "E-Mail-Adresse(n) des Empfängers. ",
     "param.subject.description": "E-Mail-Betreff.",
     "param.body.description": "E-Mail-Text (einfacher Text).",
@@ -113,16 +77,7 @@
   },
   "el": {
     "tool.description": "Στείλτε ένα email μέσω Gmail SMTP χρησιμοποιώντας τον κωδικό εφαρμογής. ",
-    "x_search_terms": [
-      "gmail αποστολή",
-      "αποστολή email",
-      "email αποστολή",
-      "σύνταξη email",
-      "gmail σύνθεση",
-      "αποστολή αλληλογραφίας",
-      "αποστολή gmail",
-      "σύνταξη email"
-    ],
+    "x_search_terms": "[\"gmail\", \"send email\", \"mail\", \"メール送信\", \"enviar correo\", \"envoyer email\", \"이메일 보내기\"]",
     "param.to.description": "Διεύθυνση(ες) email παραλήπτη. ",
     "param.subject.description": "Θέμα email.",
     "param.body.description": "Κείμενο σώματος ηλεκτρονικού ταχυδρομείου (απλό κείμενο).",
@@ -160,16 +115,7 @@
   },
   "es": {
     "tool.description": "Envíe un correo electrónico a través de Gmail SMTP utilizando la contraseña de la aplicación. ",
-    "x_search_terms": [
-      "gmail enviar",
-      "enviar correo electrónico",
-      "enviar correo electrónico",
-      "redactar correo electrónico",
-      "gmail redactar",
-      "enviar correo",
-      "enviar gmail",
-      "redacción de correo electrónico"
-    ],
+    "x_search_terms": "[\"gmail\", \"enviar correo electrónico\", \"mail\", \"メール送信\", \"enviar correo\", \"envoyer email\", \"이메일 보내기\"]",
     "param.to.description": "Dirección(es) de correo electrónico del destinatario. ",
     "param.subject.description": "Asunto del correo electrónico.",
     "param.body.description": "Texto del cuerpo del correo electrónico (texto sin formato).",
@@ -188,16 +134,7 @@
   },
   "fa": {
     "tool.description": "با استفاده از رمز عبور برنامه از طریق Gmail SMTP ایمیل ارسال کنید. ",
-    "x_search_terms": [
-      "gmail send",
-      "ارسال ایمیل",
-      "ارسال ایمیل",
-      "نوشتن ایمیل",
-      "جیمیل نوشتن",
-      "ارسال نامه",
-      "ارسال جیمیل",
-      "نوشتن ایمیل"
-    ],
+    "x_search_terms": "[\"gmail\"، \"ارسال ایمیل\"، \"ایمیل\"، \"メール送信\"، \"enviar correo\"، \"email envoyer\"، \"이메일 보내기\"]",
     "param.to.description": "آدرس(های) ایمیل گیرنده ",
     "param.subject.description": "موضوع ایمیل",
     "param.body.description": "متن متن ایمیل (متن ساده).",
@@ -216,16 +153,7 @@
   },
   "fi": {
     "tool.description": "Lähetä sähköposti Gmail SMTP:n kautta sovelluksen salasanalla. ",
-    "x_search_terms": [
-      "gmail lähetä",
-      "lähetä sähköpostia",
-      "sähköposti lähetä",
-      "kirjoita sähköposti",
-      "gmail kirjoittaa",
-      "postin lähetys",
-      "lähetä gmail",
-      "sähköpostin kirjoittaminen"
-    ],
+    "x_search_terms": "[\"gmail\", \"send email\", \"mail\", \"メール送信\", \"enviar correo\", \"envoyer email\", \"이메일 보내기\"]",
     "param.to.description": "Vastaanottajan sähköpostiosoite(t). ",
     "param.subject.description": "Sähköpostin aihe.",
     "param.body.description": "Sähköpostin leipäteksti (pelkkä teksti).",
@@ -244,16 +172,7 @@
   },
   "fr": {
     "tool.description": "Envoyez un e-mail via Gmail SMTP en utilisant le mot de passe de l'application. ",
-    "x_search_terms": [
-      "gmail envoyer",
-      "envoyer un e-mail",
-      "e-mail envoyer",
-      "rédiger un e-mail",
-      "Gmail composer",
-      "mail envoyer",
-      "envoyer gmail",
-      "email composer"
-    ],
+    "x_search_terms": "[\"gmail\", \"send email\", \"mail\", \"メール送信\", \"enviar correo\", \"envoyer email\", \"이메일 보내기\"]",
     "param.to.description": "Adresse(s) e-mail du destinataire. ",
     "param.subject.description": "Objet de l'e-mail.",
     "param.body.description": "Corps du texte de l'e-mail (texte brut).",
@@ -272,16 +191,7 @@
   },
   "he": {
     "tool.description": "שלח אימייל דרך Gmail SMTP באמצעות סיסמת אפליקציה. ",
-    "x_search_terms": [
-      "gmail שלח",
-      "שלח אימייל",
-      "אימייל שלח",
-      "כתוב אימייל",
-      "חיבור gmail",
-      "דואר שלח",
-      "שלח gmail",
-      "כתב אימייל"
-    ],
+    "x_search_terms": "[\"gmail\", \"שלח אימייל\", \"דואר\", \"メール送信\", \"enviar correo\", \"דוא\"ל שליח\", \"이메일 보내기\"]",
     "param.to.description": "כתובות דוא\"ל של נמען. ",
     "param.subject.description": "נושא המייל.",
     "param.body.description": "טקסט גוף האימייל (טקסט רגיל).",
@@ -300,16 +210,7 @@
   },
   "hi": {
     "tool.description": "ऐप पासवर्ड का उपयोग करके जीमेल एसएमटीपी के माध्यम से एक ईमेल भेजें। ",
-    "x_search_terms": [
-      "जीमेल भेजें",
-      "ईमेल भेजें",
-      "ईमेल भेजें",
-      "ईमेल लिखें",
-      "जीमेल लिखें",
-      "मेल भेजें",
-      "जीमेल भेजें",
-      "ईमेल लिखें"
-    ],
+    "x_search_terms": "[\"जीमेल\", \"ईमेल भेजें\", \"मेल\", \"メール送信\", \"एनवीयर कोरेओ\", \"एनवॉयर ईमेल\", \"이메일 보내기\"]",
     "param.to.description": "प्राप्तकर्ता का ईमेल पता(पते)। ",
     "param.subject.description": "ईमेल विषय.",
     "param.body.description": "ईमेल का मुख्य भाग (सादा पाठ)।",
@@ -328,16 +229,7 @@
   },
   "hu": {
     "tool.description": "E-mail küldése a Gmail SMTP-n keresztül az alkalmazásjelszó használatával. ",
-    "x_search_terms": [
-      "gmail küldés",
-      "email küldése",
-      "email küldés",
-      "e-mail írása",
-      "gmail írás",
-      "mail küldés",
-      "gmail küldése",
-      "e-mail írás"
-    ],
+    "x_search_terms": "[\"gmail\", \"send email\", \"mail\", \"メール送信\", \"enviar correo\", \"envoyer email\", \"이메일 보내기\"]",
     "param.to.description": "A címzett e-mail címe(i). ",
     "param.subject.description": "E-mail tárgya.",
     "param.body.description": "E-mail törzsszövege (sima szöveg).",
@@ -356,16 +248,7 @@
   },
   "id": {
     "tool.description": "Kirim email melalui SMTP Gmail menggunakan Kata Sandi Aplikasi. ",
-    "x_search_terms": [
-      "kirim gmail",
-      "kirim email",
-      "kirim email",
-      "tulis email",
-      "menulis gmail",
-      "kirim surat",
-      "kirim gmail",
-      "penulisan email"
-    ],
+    "x_search_terms": "[\"gmail\", \"kirim email\", \"mail\", \"メール送信\", \"enviar correo\", \"email utusan\", \"이메일 보내기\"]",
     "param.to.description": "Alamat email penerima. ",
     "param.subject.description": "Subjek email.",
     "param.body.description": "Teks isi email (teks biasa).",
@@ -384,16 +267,7 @@
   },
   "it": {
     "tool.description": "Invia un'e-mail tramite Gmail SMTP utilizzando la password dell'app. ",
-    "x_search_terms": [
-      "gmail invia",
-      "invia email",
-      "e-mail invia",
-      "comporre e-mail",
-      "Gmail componi",
-      "posta invia",
-      "invia gmail",
-      "composizione email"
-    ],
+    "x_search_terms": "[\"gmail\", \"invia email\", \"mail\", \"メール送信\", \"enviar correo\", \"invia email\", \"이메일 보내기\"]",
     "param.to.description": "Indirizzo/i email del destinatario. ",
     "param.subject.description": "Oggetto dell'e-mail.",
     "param.body.description": "Testo del corpo dell'e-mail (testo normale).",
@@ -412,16 +286,7 @@
   },
   "ja": {
     "tool.description": "アプリパスワードを使用して、Gmail SMTP 経由でメールを送信します。UAGENT_GMAIL_ADDRESS および UAGENT_GMAIL_APP_PASSWORD 環境変数が必要です。",
-    "x_search_terms": [
-      "gmail 送信",
-      "電子メールを送信する",
-      "メール送信",
-      "メールを作成する",
-      "Gmail作成",
-      "メール送信",
-      "Gmailを送信する",
-      "メール作成"
-    ],
+    "x_search_terms": "[\"gmail\", \"メール送信\", \"メール\", \"メール送信\", \"enviar correo\", \"envoyer email\", \"이메일 보내기\"]",
     "param.to.description": "受信者の電子メール アドレス。",
     "param.subject.description": "メールの件名。",
     "param.body.description": "メール本文（プレーンテキスト）。",
@@ -440,16 +305,7 @@
   },
   "ko": {
     "tool.description": "앱 비밀번호를 사용하여 Gmail SMTP를 통해 이메일을 보냅니다. ",
-    "x_search_terms": [
-      "gmail 보내기",
-      "이메일을 보내",
-      "이메일 보내기",
-      "이메일 작성",
-      "Gmail 작성",
-      "메일 보내기",
-      "Gmail 보내기",
-      "이메일 작성"
-    ],
+    "x_search_terms": "[\"gmail\", \"이메일 보내기\", \"mail\", \"메일送信\", \"enviar correo\", \"사절 이메일\", \"이메일 예전\"]",
     "param.to.description": "수신자 이메일 주소. ",
     "param.subject.description": "이메일 제목.",
     "param.body.description": "이메일 본문 텍스트(일반 텍스트).",
@@ -468,16 +324,7 @@
   },
   "mn": {
     "tool.description": "App Password ашиглан Gmail SMTP-ээр имэйл илгээнэ үү. ",
-    "x_search_terms": [
-      "gmail илгээх",
-      "имэйл илгээх",
-      "имэйл илгээх",
-      "имэйл бичих",
-      "gmail бичих",
-      "шуудан илгээх",
-      "gmail илгээх",
-      "имэйл бичих"
-    ],
+    "x_search_terms": "[\"gmail\", \"мэйл илгээх\", \"мэйл\", \"メール送信\", \"enviar correo\", \"элчлэгчийн имэйл\", \"이메일 보내기\"]",
     "param.to.description": "Хүлээн авагчийн имэйл хаяг(ууд). ",
     "param.subject.description": "Имэйлийн сэдэв.",
     "param.body.description": "Имэйлийн үндсэн текст (энгийн текст).",
@@ -496,16 +343,7 @@
   },
   "mr": {
     "tool.description": "ॲप पासवर्ड वापरून Gmail SMTP द्वारे ईमेल पाठवा. ",
-    "x_search_terms": [
-      "gmail पाठवा",
-      "ईमेल पाठवा",
-      "ईमेल पाठवा",
-      "ईमेल तयार करा",
-      "gmail रचना",
-      "मेल पाठवा",
-      "gmail पाठवा",
-      "ईमेल तयार करा"
-    ],
+    "x_search_terms": "[\"gmail\", \"ईमेल पाठवा\", \"मेल\", \"メール送信\", \"enviar correo\", \"envoyer email\", \"이메일 보내기\"]",
     "param.to.description": "प्राप्तकर्त्याचा ईमेल पत्ता(ते). ",
     "param.subject.description": "ईमेल विषय.",
     "param.body.description": "ईमेल मुख्य मजकूर (साधा मजकूर).",
@@ -524,16 +362,7 @@
   },
   "nb": {
     "tool.description": "Send en e-post via Gmail SMTP med app-passord. ",
-    "x_search_terms": [
-      "gmail send",
-      "send e-post",
-      "epost send",
-      "skrive e-post",
-      "gmail skriv",
-      "post send",
-      "send gmail",
-      "e-postskriv"
-    ],
+    "x_search_terms": "[\"gmail\", \"send e-post\", \"mail\", \"メール送信\", \"enviar correo\", \"e-postutsending\", \"이메일 보내기\"]",
     "param.to.description": "Mottakers e-postadresse(r). ",
     "param.subject.description": "E-postemne.",
     "param.body.description": "E-postbrødtekst (ren tekst).",
@@ -552,16 +381,7 @@
   },
   "nl": {
     "tool.description": "Stuur een e-mail via Gmail SMTP met app-wachtwoord. ",
-    "x_search_terms": [
-      "gmail verzenden",
-      "e-mail verzenden",
-      "e-mail verzenden",
-      "e-mail opstellen",
-      "gmail componeren",
-      "mail verzenden",
-      "stuur gmail",
-      "e-mail opstellen"
-    ],
+    "x_search_terms": "[\"gmail\", \"e-mail verzenden\", \"mail\", \"メール送信\", \"enviar correo\", \"e-mail van de gezant\", \"이메일 보내기\"]",
     "param.to.description": "E-mailadres(sen) van de ontvanger. ",
     "param.subject.description": "E-mailonderwerp.",
     "param.body.description": "Hoofdtekst van e-mail (platte tekst).",
@@ -580,16 +400,7 @@
   },
   "pl": {
     "tool.description": "Wyślij e-mail przez Gmail SMTP, używając hasła do aplikacji. ",
-    "x_search_terms": [
-      "wyślij do Gmaila",
-      "wyślij e-mail",
-      "wyślij e-mail",
-      "utwórz e-mail",
-      "tworzenie wiadomości w Gmailu",
-      "wyślij pocztę",
-      "wyślij Gmaila",
-      "tworzenie wiadomości e-mail"
-    ],
+    "x_search_terms": "[\"gmail\", \"wyślij e-mail\", \"poczta\", \"メール送信\", \"enviar correo\", \"e-mail wysłannika\", \"이메일 보내기\"]",
     "param.to.description": "Adres(y) e-mail odbiorcy. ",
     "param.subject.description": "Temat wiadomości e-mail.",
     "param.body.description": "Treść wiadomości e-mail (zwykły tekst).",
@@ -608,16 +419,7 @@
   },
   "pt": {
     "tool.description": "Envie um e-mail via SMTP do Gmail usando a senha do aplicativo. ",
-    "x_search_terms": [
-      "gmail enviar",
-      "enviar e-mail",
-      "enviar e-mail",
-      "escrever e-mail",
-      "composio do Gmail",
-      "enviar correio",
-      "enviar gmail",
-      "escrever email"
-    ],
+    "x_search_terms": "[\"gmail\", \"enviar email\", \"mail\", \"メール送信\", \"enviar correo\", \"envoyer email\", \"이메일 보내기\"]",
     "param.to.description": "Endereço(s) de e-mail do destinatário. ",
     "param.subject.description": "Assunto do e-mail.",
     "param.body.description": "Texto do corpo do email (texto simples).",
@@ -636,16 +438,7 @@
   },
   "pt_BR": {
     "tool.description": "Envie um e-mail via SMTP do Gmail usando a senha do aplicativo. ",
-    "x_search_terms": [
-      "gmail enviar",
-      "enviar e-mail",
-      "enviar e-mail",
-      "escrever e-mail",
-      "composição do Gmail",
-      "enviar correio",
-      "enviar gmail",
-      "escrever email"
-    ],
+    "x_search_terms": "[\"gmail\", \"enviar email\", \"mail\", \"メール送信\", \"enviar correo\", \"envoyer email\", \"이메일 보내기\"]",
     "param.to.description": "Endereço(s) de e-mail do destinatário. ",
     "param.subject.description": "Assunto do e-mail.",
     "param.body.description": "Texto do corpo do email (texto simples).",
@@ -664,16 +457,7 @@
   },
   "ro": {
     "tool.description": "Trimiteți un e-mail prin Gmail SMTP folosind Parola aplicației. ",
-    "x_search_terms": [
-      "gmail trimite",
-      "trimite email",
-      "email trimite",
-      "compune e-mail",
-      "gmail compune",
-      "trimite mail",
-      "trimite gmail",
-      "e-mail compune"
-    ],
+    "x_search_terms": "[\"gmail\", \"send email\", \"mail\", \"メール送信\", \"enviar correo\", \"send email\", \"이메일 보내기\"]",
     "param.to.description": "Adresele de e-mail ale destinatarului. ",
     "param.subject.description": "Subiectul e-mailului.",
     "param.body.description": "Textul corpului e-mailului (text simplu).",
@@ -692,16 +476,7 @@
   },
   "ru": {
     "tool.description": "Отправьте электронное письмо через Gmail SMTP, используя пароль приложения. ",
-    "x_search_terms": [
-      "отправка Gmail",
-      "отправить электронное письмо",
-      "отправить электронное письмо",
-      "написать электронное письмо",
-      "Gmail написать",
-      "почта отправить",
-      "отправить Gmail",
-      "составить электронное письмо"
-    ],
+    "x_search_terms": "[\"gmail\", \"отправить электронное письмо\", \"mail\", \"メール送信\", \"enviar correo\", \"электронная почта отправителя\", \"이메일 보내기\"]",
     "param.to.description": "Адрес(а) электронной почты получателя. ",
     "param.subject.description": "Тема письма.",
     "param.body.description": "Текст письма (обычный текст).",
@@ -720,16 +495,7 @@
   },
   "sv": {
     "tool.description": "Skicka ett e-postmeddelande via Gmail SMTP med applösenord. ",
-    "x_search_terms": [
-      "gmail skicka",
-      "skicka e-post",
-      "e-post skicka",
-      "skriv e-post",
-      "gmail skriv",
-      "mail skicka",
-      "skicka gmail",
-      "e-post skriv"
-    ],
+    "x_search_terms": "[\"gmail\", \"skicka e-post\", \"mail\", \"メール送信\", \"enviar correo\", \"envoyer email\", \"이메일 보내기\"]",
     "param.to.description": "Mottagarens e-postadress(er). ",
     "param.subject.description": "E-postämne.",
     "param.body.description": "E-postbrödtext (oformaterad text).",
@@ -748,16 +514,7 @@
   },
   "sw": {
     "tool.description": "Tuma barua pepe kupitia SMTP ya Gmail ukitumia Nenosiri la Programu. ",
-    "x_search_terms": [
-      "tuma gmail",
-      "tuma barua pepe",
-      "tuma barua pepe",
-      "tunga barua pepe",
-      "gmail tunga",
-      "kutuma barua",
-      "tuma gmail",
-      "tunga barua pepe"
-    ],
+    "x_search_terms": "[\"gmail\", \"tuma barua pepe\", \"barua\", \"メール送信\", \"enviar correo\", \"barua pepe\", \"이메일 보내기\"]",
     "param.to.description": "Anwani ya barua pepe ya mpokeaji. ",
     "param.subject.description": "Mada ya barua pepe.",
     "param.body.description": "Maandishi ya mwili wa barua pepe (maandishi wazi).",
@@ -776,16 +533,7 @@
   },
   "th": {
     "tool.description": "ส่งอีเมลผ่าน Gmail SMTP โดยใช้รหัสผ่านสำหรับแอป ",
-    "x_search_terms": [
-      "gmail ส่ง",
-      "ส่งอีเมล์",
-      "ส่งอีเมล",
-      "เขียนอีเมล",
-      "Gmail เขียน",
-      "ส่งจดหมาย",
-      "ส่ง gmail",
-      "เขียนอีเมล"
-    ],
+    "x_search_terms": "[\"gmail\", \"ส่งอีเมล\", \"อีเมล\", \"メール送信\", \"enviar correo\", \"อีเมลทูต\", \"이메일 보내기\"]",
     "param.to.description": "ที่อยู่อีเมลของผู้รับ ",
     "param.subject.description": "หัวเรื่องอีเมล.",
     "param.body.description": "ข้อความเนื้อหาอีเมล (ข้อความธรรมดา)",
@@ -804,16 +552,7 @@
   },
   "tr": {
     "tool.description": "Uygulama Şifresini kullanarak Gmail SMTP aracılığıyla bir e-posta gönderin. ",
-    "x_search_terms": [
-      "gmail gönder",
-      "e-posta gönder",
-      "e-posta gönder",
-      "e-posta oluştur",
-      "gmail oluştur",
-      "posta gönder",
-      "gmail gönder",
-      "e-posta oluştur"
-    ],
+    "x_search_terms": "[\"gmail\", \"e-posta gönder\", \"mail\", \"メール送信\", \"enviar correo\", \"elçi e-postası\", \"이메일 보내기\"]",
     "param.to.description": "Alıcı e-posta adres(ler)i. ",
     "param.subject.description": "E-posta konusu.",
     "param.body.description": "E-posta gövde metni (düz metin).",
@@ -832,16 +571,7 @@
   },
   "uk": {
     "tool.description": "Надішліть електронний лист через Gmail SMTP за допомогою пароля програми. ",
-    "x_search_terms": [
-      "gmail надіслати",
-      "відправити електронний лист",
-      "відправити електронною поштою",
-      "створити електронний лист",
-      "gmail створити",
-      "відправити поштою",
-      "надіслати gmail",
-      "написати електронний лист"
-    ],
+    "x_search_terms": "[\"gmail\", \"надіслати електронну пошту\", \"пошта\", \"メール送信\", \"надіслати коррео\", \"електронна пошта надіслати\", \"이메일 보내기\"]",
     "param.to.description": "Електронна адреса(и) одержувача. ",
     "param.subject.description": "Тема електронного листа.",
     "param.body.description": "Основний текст електронного листа (звичайний текст).",
@@ -860,16 +590,7 @@
   },
   "vi": {
     "tool.description": "Gửi email qua Gmail SMTP bằng Mật khẩu ứng dụng. ",
-    "x_search_terms": [
-      "gmail gửi",
-      "gửi email",
-      "gửi email",
-      "soạn email",
-      "soạn gmail",
-      "gửi thư",
-      "gửi gmail",
-      "soạn email"
-    ],
+    "x_search_terms": "[\"gmail\", \"gửi email\", \"mail\", \"メール送信\", \"enviar correo\", \"email của phái viên\", \"이메일 보내기\"]",
     "param.to.description": "(Các) địa chỉ email của người nhận. ",
     "param.subject.description": "Chủ đề email.",
     "param.body.description": "Nội dung email (văn bản thuần túy).",
@@ -888,16 +609,7 @@
   },
   "zh_CN": {
     "tool.description": "使用应用程序密码通过 Gmail SMTP 发送电子邮件。",
-    "x_search_terms": [
-      "gmail 发送",
-      "发送电子邮件",
-      "电子邮件发送",
-      "撰写电子邮件",
-      "Gmail 撰写",
-      "邮件发送",
-      "发送 Gmail",
-      "撰写电子邮件"
-    ],
+    "x_search_terms": "[\"gmail\", \"发送电子邮件\", \"邮件\", \"メール送信\", \"enviar correo\", \"特使电子邮件\", \" Beeno 보내기\"]",
     "param.to.description": "收件人电子邮件地址。",
     "param.subject.description": "电子邮件主题。",
     "param.body.description": "电子邮件正文（纯文本）。",
@@ -916,16 +628,7 @@
   },
   "zh_TW": {
     "tool.description": "使用應用程式密碼透過 Gmail SMTP 發送電子郵件。需要 UAGENT_GMAIL_ADDRESS 和 UAGENT_GMAIL_APP_PASSWORD 環境變數。",
-    "x_search_terms": [
-      "Gmail 傳送",
-      "傳送電子郵件",
-      "電子郵件傳送",
-      "撰寫電子郵件",
-      "Gmail 撰寫",
-      "郵件傳送",
-      "傳送 Gmail",
-      "撰寫電子郵件"
-    ],
+    "x_search_terms": "[\"gmail\", \"發送電子郵件\", \"郵件\", \"メール送信\", \"enviar correo\", \"特使電子郵件\", \" Beeno 보내기\"]",
     "param.to.description": "收件者電子郵件地址。多個以逗號分隔。",
     "param.subject.description": "電子郵件主題。",
     "param.body.description": "電子郵件正文（純文字）。",

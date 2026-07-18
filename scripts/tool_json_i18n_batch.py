@@ -354,70 +354,108 @@ def translate_lang(
     batches = _chunk_indices(texts, max_chars=max_chars, max_items=max_items)
     print(f"[translate] {lang}: {len(texts)} texts in {len(batches)} batch(es)")
 
-    for bi, idxs in enumerate(batches, 1):
-        batch_texts = [texts[i] for i in idxs]
+    extra_terms = [
+        # param / tool identifiers
+        "protect_terms",
+        "protect_placeholders",
+        "extra_protect_terms",
+        "target_lang",
+        "source_lang",
+        "output_path",
+        "response_format",
+        "x_search_terms",
+        "translate_text",
+        "audio_speech",
+        "audio_transcribe",
+        # common voice / model ids seen in tool JSON
+        "alloy",
+        "echo",
+        "fable",
+        "onyx",
+        "nova",
+        "shimmer",
+        "ash",
+        "ballad",
+        "coral",
+        "sage",
+        "verse",
+        "eve",
+        "ara",
+        "rex",
+        "sal",
+        "mao",
+    ]
+
+    def _call_translate(batch_texts: list[str]) -> dict:
         payload = {
             "texts": batch_texts,
             "target_lang": lang,
             "source_lang": source_lang,
             "protect_placeholders": True,
             "protect_terms": True,
-            "extra_protect_terms": [
-                # param / tool identifiers
-                "protect_terms",
-                "protect_placeholders",
-                "extra_protect_terms",
-                "target_lang",
-                "source_lang",
-                "output_path",
-                "response_format",
-                "x_search_terms",
-                "translate_text",
-                "audio_speech",
-                "audio_transcribe",
-                # common voice / model ids seen in tool JSON
-                "alloy",
-                "echo",
-                "fable",
-                "onyx",
-                "nova",
-                "shimmer",
-                "ash",
-                "ballad",
-                "coral",
-                "sage",
-                "verse",
-                "eve",
-                "ara",
-                "rex",
-                "sal",
-                "mao",
-            ],
+            "extra_protect_terms": extra_terms,
         }
         raw = run_tool(payload)
         try:
             res = json.loads(raw)
         except Exception as e:
-            raise RuntimeError(f"batch {bi}: invalid JSON from translate_text: {e}: {raw[:300]}")
-
+            raise RuntimeError(f"invalid JSON from translate_text: {e}: {raw[:300]}")
         if not res.get("ok", True) and res.get("error"):
-            # older/newer error shapes
-            raise RuntimeError(f"batch {bi}: translate error: {res.get('error')}")
+            raise RuntimeError(f"translate error: {res.get('error')}")
         if res.get("error") and not res.get("translated"):
-            raise RuntimeError(f"batch {bi}: translate error: {res.get('error')}")
+            raise RuntimeError(f"translate error: {res.get('error')}")
+        return res
 
-        translated = res.get("translated")
-        if not isinstance(translated, list) or len(translated) != len(batch_texts):
+    def _translate_with_fallback(batch_texts: list[str], *, depth: int = 0) -> list[str]:
+        """Translate a batch; on line-count mismatch, split or fall back to singles."""
+        if not batch_texts:
+            return []
+        try:
+            res = _call_translate(batch_texts)
+            translated = res.get("translated")
+            if isinstance(translated, list) and len(translated) == len(batch_texts):
+                return [str(x) for x in translated]
             raise RuntimeError(
-                f"batch {bi}: bad translated length "
-                f"(got {0 if not isinstance(translated, list) else len(translated)}, "
+                f"bad translated length (got {0 if not isinstance(translated, list) else len(translated)}, "
                 f"expected {len(batch_texts)})"
+            )
+        except Exception as e:
+            msg = str(e)
+            # Single item: last resort, return original to avoid aborting whole lang.
+            if len(batch_texts) == 1:
+                print(f"    [warn] single-item failed, keeping EN: {msg[:160]}")
+                return [batch_texts[0]]
+            # Split batch in half and retry.
+            mid = max(1, len(batch_texts) // 2)
+            if depth >= 8:
+                # too deep: per-item
+                out_parts: list[str] = []
+                for one in batch_texts:
+                    out_parts.extend(_translate_with_fallback([one], depth=depth + 1))
+                    if sleep_s > 0:
+                        time.sleep(min(sleep_s, 0.05))
+                return out_parts
+            print(
+                f"    [fallback depth={depth}] {msg[:120]} -> split {len(batch_texts)} into "
+                f"{mid}+{len(batch_texts)-mid}"
+            )
+            left = _translate_with_fallback(batch_texts[:mid], depth=depth + 1)
+            if sleep_s > 0:
+                time.sleep(sleep_s)
+            right = _translate_with_fallback(batch_texts[mid:], depth=depth + 1)
+            return left + right
+
+    for bi, idxs in enumerate(batches, 1):
+        batch_texts = [texts[i] for i in idxs]
+        translated = _translate_with_fallback(batch_texts)
+        if len(translated) != len(batch_texts):
+            raise RuntimeError(
+                f"batch {bi}: fallback produced {len(translated)} != {len(batch_texts)}"
             )
         for i, tr in zip(idxs, translated):
             out[i] = str(tr)
         print(
-            f"  batch {bi}/{len(batches)}: {len(idxs)} items, "
-            f"ph={res.get('placeholders_protected', '?')} terms={res.get('terms_protected', '?')}"
+            f"  batch {bi}/{len(batches)}: {len(idxs)} items"
         )
         if sleep_s > 0 and bi < len(batches):
             time.sleep(sleep_s)

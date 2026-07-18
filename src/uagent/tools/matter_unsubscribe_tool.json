@@ -21,11 +21,12 @@
     "param.fmt.description": "التنسيق: json أو نص.",
     "err.subscription_not_found": "لم يتم العثور على الاشتراك: {id}",
     "x_search_terms": [
-      "إلغاء اشتراك المادة",
-      "matter_unsubscribe",
-      "مادة",
-      "مادة",
-      "إزالة"
+      "يهم إلغاء الاشتراك",
+      "مسألة_إلغاء الاشتراك",
+      "مسألة",
+      "مسألة",
+      "إزالة",
+      "الاشتراك"
     ]
   },
   "bn": {
@@ -35,11 +36,12 @@
     "param.fmt.description": "বিন্যাস: json বা পাঠ্য।",
     "err.subscription_not_found": "সদস্যতা পাওয়া যায়নি: {id}",
     "x_search_terms": [
-      "বিষয় আনসাবস্ক্রাইব",
+      "ব্যাপার unsubscribe",
       "matter_unsubscribe",
-      "বিষয়",
-      "বিষয়",
-      "সরান"
+      "matter",
+      "MATTER",
+      "remove",
+      "subscription"
     ]
   },
   "cs": {
@@ -49,11 +51,12 @@
     "param.fmt.description": "Formát: json nebo text.",
     "err.subscription_not_found": "Předplatné nenalezeno: {id}",
     "x_search_terms": [
-      "hmota zrušit odběr",
+      "záležitost unsubscribe",
       "matter_unsubscribe",
-      "hmota",
-      "HMOTA",
-      "odstranit"
+      "matter",
+      "MATTER",
+      "odebrat",
+      "subscription"
     ]
   },
   "de": {
@@ -65,9 +68,10 @@
     "x_search_terms": [
       "Angelegenheit abbestellen",
       "matter_unsubscribe",
-      "Angelegenheit",
+      "matter",
       "MATTER",
-      "entfernen"
+      "Abonnement entfernen",
+      ""
     ]
   },
   "el": {
@@ -77,11 +81,12 @@
     "param.fmt.description": "Μορφή: json ή κείμενο.",
     "err.subscription_not_found": "Η συνδρομή δεν βρέθηκε: {id}",
     "x_search_terms": [
-      "ύλη ακύρωση εγγραφής",
+      "θέμα απεγγραφή",
       "matter_unsubscribe",
-      "ύλη",
-      "ΥΛΗ",
-      "αφαίρεση"
+      "matter",
+      "MATTER",
+      "αφαίρεση",
+      "συνδρομή"
     ]
   },
   "es": {
@@ -91,11 +96,12 @@
     "param.fmt.description": "Formato: json o texto.",
     "err.subscription_not_found": "Suscripción no encontrada: {id}",
     "x_search_terms": [
-      "asunto darse de baja",
-      "materia_cancelar suscripción",
-      "materia",
-      "ASUNTO",
-      "eliminar"
+      "asunto cancelar suscripción",
+      "matter_unsubscribe",
+      "matter",
+      "MATTER",
+      "eliminar",
+      "suscripción"
     ]
   },
   "fa": {
@@ -105,11 +111,12 @@
     "param.fmt.description": "فرمت: json یا متن.",
     "err.subscription_not_found": "اشتراک پیدا نشد: {id}",
     "x_search_terms": [
-      "لغو اشتراک ماده",
-      "matter_unsubscribe",
-      "ماده",
-      "ماده",
-      "حذف"
+      "موضوع لغو اشتراک",
+      "",
+      "",
+      "",
+      "",
+      ""
     ]
   },
   "fi": {
@@ -119,11 +126,12 @@
     "param.fmt.description": "Muoto: json tai teksti.",
     "err.subscription_not_found": "Tilausta ei löydy: {id}",
     "x_search_terms": [
-      "asia peruuta tilaus",
+      "asia unsubscribe",
       "matter_unsubscribe",
-      "asia",
-      "ASIA",
-      "poista"
+      "matter",
+      "MATTER",
+      "remove",
+      "subscription"
     ]
   },
   "fr": {
@@ -134,10 +142,11 @@
     "err.subscription_not_found": "Abonnement introuvable : {id}",
     "x_search_terms": [
       "question désabonnement",
-      "Matter_unsubscribe",
-      "matière",
-      "MATIÈRE",
-      "supprimer"
+      "matter_unsubscribe",
+      "matter",
+      "MATTER",
+      "remove",
+      "abonnement"
     ]
   },
   "he": {
@@ -147,11 +156,12 @@
     "param.fmt.description": "פורמט: json או טקסט.",
     "err.subscription_not_found": "מנוי לא נמצא: {id}",
     "x_search_terms": [
-      "חומר בטל הרשמה",
+      "matter unsubscribe",
       "matter_unsubscribe",
-      "חומר",
-      "חומר",
-      "הסר"
+      "matter",
+      "MATTER",
+      "הסר",
+      "הרשמה"
     ]
   },
   "hi": {
@@ -161,11 +171,12 @@
     "param.fmt.description": "प्रारूप: json या text.",
     "err.subscription_not_found": "सदस्यता नहीं मिली: {id}",
     "x_search_terms": [
-      "विषय अनसब्सक्राइब करें",
-      "matter_unsubscribe",
-      "विषय",
-      "विषय",
-      "हटाएं"
+      "मामला सदस्यता रद्द करना",
+      " मामला_सदस्यता रद्द करना",
+      " मामला",
+      " मामला",
+      " सदस्यता हटाना",
+      ""
     ]
   },
   "hu": {
@@ -175,11 +186,12 @@
     "param.fmt.description": "Formátum: json vagy szöveg.",
     "err.subscription_not_found": "Nem található előfizetés: {id}",
     "x_search_terms": [
-      "anyag leiratkozás",
-      "matter_unsubscribe",
-      "anyag",
-      "ANYAG",
-      "eltávolítás"
+      "ügy leiratkozás",
+      "ügy_leiratkozás",
+      "ügy",
+      "MATTER",
+      "remove",
+      "előfizetés"
     ]
   },
   "id": {
@@ -191,9 +203,10 @@
     "x_search_terms": [
       "masalah berhenti berlangganan",
       "masalah_berhenti berlangganan",
-      "penting",
-      "MASALAH",
-      "menghapus"
+      "masalah",
+      "MATTER",
+      "hapus",
+      "langganan"
     ]
   },
   "it": {
@@ -203,11 +216,12 @@
     "param.fmt.description": "Formato: json o testo.",
     "err.subscription_not_found": "Iscrizione non trovata: {id}",
     "x_search_terms": [
-      "questione annullare l'iscrizione",
-      "materia_cancella l'iscrizione",
-      "materia",
-      "MATERIA",
-      "rimuovere"
+      "questione cancella iscrizione",
+      " questione_cancella",
+      " questione",
+      " MATERIA",
+      "rimuovi",
+      "iscrizione"
     ]
   },
   "ja": {
@@ -217,11 +231,12 @@
     "param.fmt.description": "形式: json またはテキスト。",
     "err.subscription_not_found": "サブスクリプションが見つかりません: {id}",
     "x_search_terms": [
-      "購読を解除する問題",
-      "問題_購読解除",
-      "問題",
-      "問題",
-      "削除する"
+      "件の購読解除",
+      "matter_unsubscribe",
+      "件",
+      "MATTER",
+      "削除",
+      "購読"
     ]
   },
   "ko": {
@@ -231,11 +246,12 @@
     "param.fmt.description": "형식: json 또는 텍스트.",
     "err.subscription_not_found": "구독을 찾을 수 없음: {id}",
     "x_search_terms": [
-      "구독 취소",
-      "문제_구독 취소",
-      "문제",
-      "물질",
-      "제거하다"
+      "Matter unsubscribe",
+      "matter_unsubscribe",
+      "matter",
+      "MATTER",
+      "remove",
+      "subscription"
     ]
   },
   "mn": {
@@ -245,11 +261,12 @@
     "param.fmt.description": "Формат: json эсвэл текст.",
     "err.subscription_not_found": "Захиалга олдсонгүй: {id}",
     "x_search_terms": [
-      "асуудал бүртгэлээ цуцлах",
-      "matter_unsubscribe",
-      "асуудал",
-      "асуудал",
-      "устгах"
+      "асуудал бүртгэлээс хасах",
+      "материал_цуцлах",
+      "матери",
+      "АСУУДАЛ",
+      "хасах",
+      "бүртгэл"
     ]
   },
   "mr": {
@@ -259,11 +276,12 @@
     "param.fmt.description": "स्वरूप: json किंवा मजकूर.",
     "err.subscription_not_found": "सदस्यता आढळली नाही: {id}",
     "x_search_terms": [
-      "विषय अनसबस्क्राइब",
+      "बाब unsubscribe",
       "matter_unsubscribe",
-      "विषय",
-      "विषय",
-      "काढा"
+      "matter",
+      "MATTER",
+      "remove",
+      "subscription"
     ]
   },
   "nb": {
@@ -273,11 +291,12 @@
     "param.fmt.description": "Format: json eller tekst.",
     "err.subscription_not_found": "Finner ikke abonnement: {id}",
     "x_search_terms": [
-      "materie avslutt abonnement",
+      "matter unsubscribe",
       "matter_unsubscribe",
-      "saken",
+      "matter",
       "MATTER",
-      "fjern"
+      "remove",
+      "abonnement"
     ]
   },
   "nl": {
@@ -287,11 +306,12 @@
     "param.fmt.description": "Formaat: json of tekst.",
     "err.subscription_not_found": "Abonnement niet gevonden: {id}",
     "x_search_terms": [
-      "materie opzeggen",
+      "kwestie afmelden",
       "matter_unsubscribe",
-      "materie",
+      "matter",
       "MATTER",
-      "verwijderen"
+      "remove",
+      "abonnement"
     ]
   },
   "pl": {
@@ -301,11 +321,12 @@
     "param.fmt.description": "Format: json lub tekst.",
     "err.subscription_not_found": "Nie znaleziono subskrypcji: {id}",
     "x_search_terms": [
-      "sprawa wypisz się",
-      "sprawa_anuluj subskrypcję",
-      "sprawa",
-      "MATERIA",
-      "usuń"
+      "sprawa wypisz",
+      "materia_unsubskrybuj",
+      "materia",
+      "MATTER",
+      "usuń",
+      "subskrypcję"
     ]
   },
   "pt": {
@@ -315,11 +336,12 @@
     "param.fmt.description": "Formato: json ou texto.",
     "err.subscription_not_found": "Assinatura não encontrada: {id}",
     "x_search_terms": [
-      "assunto cancelar subscrição",
-      "assunto_unsubscribe",
-      "assunto",
-      "MATÉRIA",
-      "remover"
+      "assunto cancelar",
+      "matter_unsubscribe",
+      "matter",
+      "MATTER",
+      "remove",
+      "subscription"
     ]
   },
   "pt_BR": {
@@ -329,11 +351,12 @@
     "param.fmt.description": "Formato: json ou texto.",
     "err.subscription_not_found": "Assinatura não encontrada: {id}",
     "x_search_terms": [
-      "assunto cancelar inscrição",
-      "assunto_unsubscribe",
-      "assunto",
-      "MATÉRIA",
-      "remover"
+      "assunto cancelar",
+      "matter_unsubscribe",
+      "matter",
+      "MATTER",
+      "remove",
+      "subscription"
     ]
   },
   "ro": {
@@ -343,11 +366,12 @@
     "param.fmt.description": "Format: json sau text.",
     "err.subscription_not_found": "Abonamentul nu a fost găsit: {id}",
     "x_search_terms": [
-      "materie dezabonare",
+      "matter unsubscribe",
       "matter_unsubscribe",
-      "materie",
-      "MATERIE",
-      "eliminare"
+      "matter",
+      "MATTER",
+      "elimină",
+      "subscription"
     ]
   },
   "ru": {
@@ -357,11 +381,12 @@
     "param.fmt.description": "Формат: json или текст.",
     "err.subscription_not_found": "Подписка не найдена: {id}",
     "x_search_terms": [
-      "материя отписаться",
+      "важно отписаться",
       "matter_unsubscribe",
-      "материя",
-      "МАТЕРИЯ",
-      "удалить"
+      "matter",
+      "MATTER",
+      "удалить",
+      "подписку"
     ]
   },
   "sv": {
@@ -371,11 +396,12 @@
     "param.fmt.description": "Format: json eller text.",
     "err.subscription_not_found": "Abonnemanget hittades inte: {id}",
     "x_search_terms": [
-      "materia avsluta prenumeration",
+      "matter unsubscribe",
       "matter_unsubscribe",
-      "materia",
+      "matter",
       "MATTER",
-      "ta bort"
+      "ta bort",
+      "prenumeration"
     ]
   },
   "sw": {
@@ -385,11 +411,12 @@
     "param.fmt.description": "Umbizo: json au maandishi.",
     "err.subscription_not_found": "Usajili haujapatikana: {id}",
     "x_search_terms": [
-      "maada jiondoe",
+      "jambo la kujiondoa",
       "matter_unsubscribe",
-      "maada",
-      "MAADA",
-      "ondoa"
+      "matter",
+      "MATTER",
+      "ondoa",
+      "subscription"
     ]
   },
   "th": {
@@ -399,11 +426,12 @@
     "param.fmt.description": "รูปแบบ: json หรือข้อความ",
     "err.subscription_not_found": "ไม่พบการสมัครสมาชิก: {id}",
     "x_search_terms": [
-      "สสารยกเลิกการสมัคร",
-      "matter_unsubscribe",
-      "สสาร",
-      "สสาร",
-      "ลบ"
+      "เรื่องยกเลิกการสมัคร",
+      "เรื่อง_unsubscribe",
+      "เรื่อง",
+      "เรื่อง",
+      "ลบ",
+      "การสมัครสมาชิก"
     ]
   },
   "tr": {
@@ -413,11 +441,12 @@
     "param.fmt.description": "Biçim: json veya metin.",
     "err.subscription_not_found": "Abonelik bulunamadı: {id}",
     "x_search_terms": [
-      "madde abonelikten çık",
+      "madde aboneliğinden çık",
       "matter_unsubscribe",
-      "madde",
-      "MADDE",
-      "kaldırmak"
+      "matter",
+      "MATTER",
+      "kaldır",
+      "abonelik"
     ]
   },
   "uk": {
@@ -427,11 +456,12 @@
     "param.fmt.description": "Формат: json або текстовий.",
     "err.subscription_not_found": "Підписку не знайдено: {id}",
     "x_search_terms": [
-      "матерія відписатися",
-      "matter_unsubscribe",
-      "матерія",
-      "МАТЕРІЯ",
-      "видалити"
+      "справа відписатися",
+      "матерія_відписатися",
+      "важливо",
+      "МАТЕР",
+      "видалити",
+      "підписку"
     ]
   },
   "vi": {
@@ -442,10 +472,11 @@
     "err.subscription_not_found": "Không tìm thấy đăng ký: {id}",
     "x_search_terms": [
       "vấn đề hủy đăng ký",
-      "vấn đề_hủy đăng ký",
-      "vấn đề",
-      "VẤN ĐỀ",
-      "loại bỏ"
+      "matter_unsubscribe",
+      "matter",
+      "MATTER",
+      "xóa",
+      "đăng ký"
     ]
   },
   "zh_CN": {
@@ -455,11 +486,12 @@
     "param.fmt.description": "格式：json 或文本。",
     "err.subscription_not_found": "未找到订阅：{id}",
     "x_search_terms": [
-      "取消物质订阅",
-      "matter_unsubscribe",
-      "物质",
-      "物质",
-      "移除"
+      "取消订阅",
+      "取消订阅",
+      "取消订阅",
+      "取消订阅",
+      "订阅",
+      ""
     ]
   },
   "zh_TW": {
@@ -469,11 +501,12 @@
     "param.fmt.description": "格式：json 或文字。",
     "err.subscription_not_found": "未找到訂閱：{id}",
     "x_search_terms": [
-      "取消物質訂閱",
-      "matter_unsubscribe",
-      "物質",
-      "物質",
-      "移除"
+      "取消訂閱",
+      "取消訂閱",
+      "取消訂閱",
+      "取消訂閱",
+      "訂閱",
+      ""
     ]
   }
 }

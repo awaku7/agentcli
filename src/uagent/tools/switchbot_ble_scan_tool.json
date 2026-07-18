@@ -8,14 +8,6 @@
     "msg.error_fmt": "خطأ: {msg}",
     "msg.interface_used": "الواجهة المستخدمة: {iface}",
     "msg.unknown_error": "خطأ غير معروف",
-    "x_search_terms": [
-      "فحص switchbot ble",
-      "switchbot_ble_scan",
-      "سويتش بوت",
-      "اكتشاف",
-      "قريب",
-      "أجهزة"
-    ],
     "err.bleak_missing": "خطأ: لم يتم تثبيت المكتبة \"القاتمة\". الرجاء تثبيته باستخدام: \npip install قاتمة",
     "err.invalid_numeric": "يجب أن تكون المهلة وإعادة المحاولة والحد أعدادًا صحيحة.",
     "err.invalid_range": "يجب أن تكون المهلة وإعادة المحاولة أكبر من 0؛ يجب أن يكون الحد 0 أو أكبر.",
@@ -27,7 +19,16 @@
     "param.retry.description": "كم عدد جولات فحص BLE التي سيتم تشغيلها قبل العودة.",
     "param.service_uuid.description": "مرشح UUID لخدمة GATT اختياري.",
     "param.timeout.description": "مهلة المسح الضوئي في ثوان.",
-    "tool.description": "اكتشف أجهزة SwitchBot BLE القريبة وقم بإرجاع قائمة JSON أو قائمة نصية."
+    "tool.description": "اكتشف أجهزة SwitchBot BLE القريبة وقم بإرجاع قائمة JSON أو قائمة نصية.",
+    "x_search_terms": [
+      "مسح Switchbot ",
+      "switchbot_ble_scan",
+      "switchbot",
+      "اكتشاف",
+      "الأجهزة القريبة",
+      "العودة",
+      ""
+    ]
   },
   "bn": {
     "param.mac.description": "MAC ঠিকানা ফিল্টার।",
@@ -38,14 +39,6 @@
     "msg.error_fmt": "ত্রুটি: {msg}",
     "msg.interface_used": "ব্যবহৃত ইন্টারফেস: {iface}",
     "msg.unknown_error": "অজানা ত্রুটি",
-    "x_search_terms": [
-      "switchbot ble স্ক্যান",
-      "switchbot_ble_scan",
-      "সুইচবট",
-      "আবিষ্কার",
-      "কাছাকাছি",
-      "ডিভাইস"
-    ],
     "err.bleak_missing": "ত্রুটি: 'ব্লাক' লাইব্রেরি ইনস্টল করা নেই। অনুগ্রহ করে এটি ব্যবহার করে ইনস্টল করুন:\nপিপ ইনস্টল ব্ল্যাক",
     "err.invalid_numeric": "টাইমআউট, পুনরায় চেষ্টা, এবং সীমা পূর্ণসংখ্যা হতে হবে।",
     "err.invalid_range": "টাইমআউট এবং পুনরায় চেষ্টা 0 এর বেশি হতে হবে; সীমা 0 বা তার বেশি হতে হবে।",
@@ -57,7 +50,16 @@
     "param.retry.description": "ফিরে আসার আগে কতগুলি BLE স্ক্যান রাউন্ড চালাতে হবে।",
     "param.service_uuid.description": "ঐচ্ছিক GATT পরিষেবা UUID ফিল্টার।",
     "param.timeout.description": "সেকেন্ডের মধ্যে সময়সীমা স্ক্যান করুন।",
-    "tool.description": "কাছাকাছি SwitchBot BLE ডিভাইসগুলি আবিষ্কার করুন এবং একটি JSON বা পাঠ্য তালিকা ফেরত দিন৷"
+    "tool.description": "কাছাকাছি SwitchBot BLE ডিভাইসগুলি আবিষ্কার করুন এবং একটি JSON বা পাঠ্য তালিকা ফেরত দিন৷",
+    "x_search_terms": [
+      "switchbot ble scan",
+      "switchbot_ble_scan",
+      "switchbot",
+      "discover",
+      "nearby",
+      "devices",
+      "return"
+    ]
   },
   "cs": {
     "param.mac.description": "Filtr MAC adresy.",
@@ -68,14 +70,6 @@
     "msg.error_fmt": "Chyba: {msg}",
     "msg.interface_used": "Použité rozhraní: {iface}",
     "msg.unknown_error": "neznámá chyba",
-    "x_search_terms": [
-      "skenování switchbot ble",
-      "switchbot_ble_scan",
-      "přepínač",
-      "objevit",
-      "poblíž",
-      "zařízení"
-    ],
     "err.bleak_missing": "Chyba: Knihovna není nainstalována. Nainstalujte jej prosím pomocí:\npip install bleak",
     "err.invalid_numeric": "Časový limit, opakování a limit musí být celá čísla.",
     "err.invalid_range": "Časový limit a opakování musí být větší než 0; limit musí být 0 nebo větší.",
@@ -87,7 +81,16 @@
     "param.retry.description": "Kolik kol skenování BLE spustit před návratem.",
     "param.service_uuid.description": "Volitelný filtr UUID služby GATT.",
     "param.timeout.description": "Časový limit skenování v sekundách.",
-    "tool.description": "Objevte blízká zařízení SwitchBot BLE a vraťte seznam JSON nebo text."
+    "tool.description": "Objevte blízká zařízení SwitchBot BLE a vraťte seznam JSON nebo text.",
+    "x_search_terms": [
+      "switchbot ble scan",
+      "switchbot_ble_scan",
+      "switchbot",
+      "objevit",
+      "blízká",
+      "zařízení",
+      "návrat"
+    ]
   },
   "de": {
     "param.mac.description": "MAC-Adressfilter.",
@@ -98,14 +101,6 @@
     "msg.error_fmt": "Fehler: {msg}",
     "msg.interface_used": "Verwendete Schnittstelle: {iface}",
     "msg.unknown_error": "unbekannter Fehler",
-    "x_search_terms": [
-      "Switchbot-fähiger Scan",
-      "switchbot_ble_scan",
-      "Switchbot",
-      "entdecken",
-      "in der Nähe",
-      "Geräte"
-    ],
     "err.bleak_missing": "Fehler: Die Bibliothek „bleak“ ist nicht installiert. Bitte installieren Sie es mit: \npip install bleak",
     "err.invalid_numeric": "Timeout, Retry und Limit müssen ganze Zahlen sein.",
     "err.invalid_range": "Timeout und Wiederholungsversuch müssen größer als 0 sein; Der Grenzwert muss 0 oder größer sein.",
@@ -117,7 +112,16 @@
     "param.retry.description": "Wie viele BLE-Scan-Runden vor der Rückkehr ausgeführt werden müssen.",
     "param.service_uuid.description": "Optionaler GATT-Dienst-UUID-Filter.",
     "param.timeout.description": "Scan-Timeout in Sekunden.",
-    "tool.description": "Entdecken Sie SwitchBot BLE-Geräte in der Nähe und geben Sie eine JSON- oder Textliste zurück."
+    "tool.description": "Entdecken Sie SwitchBot BLE-Geräte in der Nähe und geben Sie eine JSON- oder Textliste zurück.",
+    "x_search_terms": [
+      "switchbot ble scan",
+      "switchbot_ble_scan",
+      "switchbot",
+      "entdecken",
+      "in der Nähe befindliche",
+      "Geräte",
+      "zurück"
+    ]
   },
   "en": {
     "param.mac.description": "MAC address filter.",
@@ -159,14 +163,6 @@
     "msg.error_fmt": "エラー: {msg}",
     "msg.interface_used": "Interfaz utilizada: {iface}",
     "msg.unknown_error": "error desconocido",
-    "x_search_terms": [
-      "escaneo ble switchbot",
-      "switchbot_ble_scan",
-      "robot conmutador",
-      "descubrir",
-      "cerca",
-      "dispositivos"
-    ],
     "err.bleak_missing": "Error: la biblioteca 'sombría' no está instalada. Instálelo usando: \npip install sombrío",
     "err.invalid_numeric": "El tiempo de espera, el reintento y el límite deben ser números enteros.",
     "err.invalid_range": "El tiempo de espera y el reintento deben ser mayores que 0; El límite debe ser 0 o mayor.",
@@ -178,7 +174,16 @@
     "param.retry.description": "Cuántas rondas de escaneo BLE ejecutar antes de regresar.",
     "param.service_uuid.description": "Filtro UUID de servicio GATT opcional.",
     "param.timeout.description": "Tiempo de espera de escaneo en segundos.",
-    "tool.description": "Descubra dispositivos SwitchBot BLE cercanos y devuelva una lista JSON o de texto."
+    "tool.description": "Descubra dispositivos SwitchBot BLE cercanos y devuelva una lista JSON o de texto.",
+    "x_search_terms": [
+      "switchbot ble scan",
+      "switchbot_ble_scan",
+      "switchbot",
+      "descubrir",
+      "dispositivos",
+      "cercanos",
+      "regresar"
+    ]
   },
   "fa": {
     "param.mac.description": "فیلتر آدرس مک",
@@ -189,14 +194,6 @@
     "msg.error_fmt": "خطا: {msg}",
     "msg.interface_used": "رابط کاربری: {iface}",
     "msg.unknown_error": "خطای ناشناخته",
-    "x_search_terms": [
-      "اسکن switchbot ble",
-      "switchbot_ble_scan",
-      "سوییچ‌بات",
-      "کشف",
-      "نزدیک",
-      "دستگاه‌ها"
-    ],
     "err.bleak_missing": "خطا: کتابخانه \"مشت\" نصب نشده است. لطفا با استفاده از:\nنصب پیپ تاریک است",
     "err.invalid_numeric": "مهلت زمانی، تلاش مجدد و محدودیت باید اعداد صحیح باشند.",
     "err.invalid_range": "مهلت زمانی و تلاش مجدد باید بیشتر از 0 باشد. حد باید 0 یا بیشتر باشد.",
@@ -208,7 +205,16 @@
     "param.retry.description": "چند دور اسکن BLE باید قبل از بازگشت اجرا شود.",
     "param.service_uuid.description": "فیلتر UUID سرویس گات اختیاری.",
     "param.timeout.description": "اسکن در عرض چند ثانیه",
-    "tool.description": "دستگاه های SwitchBot BLE نزدیک را کشف کنید و یک JSON یا لیست متنی را برگردانید."
+    "tool.description": "دستگاه های SwitchBot BLE نزدیک را کشف کنید و یک JSON یا لیست متنی را برگردانید.",
+    "x_search_terms": [
+      "switchbot ble scan",
+      "switchbot_ble_scan",
+      "switchbot",
+      "کشف",
+      "دستگاههای نزدیک",
+      "بازگشت",
+      ""
+    ]
   },
   "fi": {
     "param.mac.description": "MAC-osoitesuodatin.",
@@ -219,14 +225,6 @@
     "msg.error_fmt": "Virhe: {msg}",
     "msg.interface_used": "Käytetty liitäntä: {iface}",
     "msg.unknown_error": "tuntematon virhe",
-    "x_search_terms": [
-      "switchbot ble -skannaus",
-      "switchbot_ble_scan",
-      "kytkinrobotti",
-      "löydä",
-      "lähellä",
-      "laitteet"
-    ],
     "err.bleak_missing": "Virhe: synkkää kirjastoa ei ole asennettu. Asenna se käyttämällä:\npip install bleak",
     "err.invalid_numeric": "Aikakatkaisun, uudelleenyrityksen ja rajan on oltava kokonaislukuja.",
     "err.invalid_range": "Aikakatkaisun ja uudelleenyrityksen on oltava suurempia kuin 0; rajan on oltava 0 tai suurempi.",
@@ -238,7 +236,16 @@
     "param.retry.description": "Kuinka monta BLE-skannauskierrosta on suoritettava ennen paluuta.",
     "param.service_uuid.description": "Valinnainen GATT-palvelun UUID-suodatin.",
     "param.timeout.description": "Skannauksen aikakatkaisu sekunneissa.",
-    "tool.description": "Löydä lähellä olevat SwitchBot BLE -laitteet ja palauta JSON- tai tekstiluettelo."
+    "tool.description": "Löydä lähellä olevat SwitchBot BLE -laitteet ja palauta JSON- tai tekstiluettelo.",
+    "x_search_terms": [
+      "switchbot ble scan",
+      "switchbot_ble_scan",
+      "switchbot",
+      "discover",
+      "lähellä olevat",
+      "laitteet",
+      "return"
+    ]
   },
   "fr": {
     "param.mac.description": "Filtre d'adresse MAC.",
@@ -249,14 +256,6 @@
     "msg.error_fmt": "Erreur : {msg}",
     "msg.interface_used": "Interface utilisée : {iface}",
     "msg.unknown_error": "erreur inconnue",
-    "x_search_terms": [
-      "analyse du switchbot",
-      "switchbot_ble_scan",
-      "robot de commutation",
-      "découvrir",
-      "à proximité",
-      "appareils"
-    ],
     "err.bleak_missing": "Erreur : la bibliothèque 'bleak' n'est pas installée. Veuillez l'installer en utilisant :\npip installbleak",
     "err.invalid_numeric": "Le délai d'attente, la nouvelle tentative et la limite doivent être des nombres entiers.",
     "err.invalid_range": "Le délai d'attente et la nouvelle tentative doivent être supérieurs à 0 ; la limite doit être égale ou supérieure à 0.",
@@ -268,7 +267,16 @@
     "param.retry.description": "Combien de cycles d'analyse BLE exécuter avant de revenir.",
     "param.service_uuid.description": "Filtre UUID du service GATT en option.",
     "param.timeout.description": "Délai d'expiration de l'analyse en secondes.",
-    "tool.description": "Découvrez les appareils SwitchBot BLE à proximité et renvoyez une liste JSON ou de texte."
+    "tool.description": "Découvrez les appareils SwitchBot BLE à proximité et renvoyez une liste JSON ou de texte.",
+    "x_search_terms": [
+      "switchbot ble scan",
+      "switchbot_ble_scan",
+      "switchbot",
+      "découvrir",
+      "à proximité",
+      "appareils",
+      "retour"
+    ]
   },
   "hi": {
     "param.mac.description": "MAC पता फ़िल्टर।",
@@ -279,14 +287,6 @@
     "msg.error_fmt": "त्रुटि: {msg}",
     "msg.interface_used": "उपयोग किया गया इंटरफ़ेस: {iface}",
     "msg.unknown_error": "अज्ञात त्रुटि",
-    "x_search_terms": [
-      "switchbot ble स्कैन",
-      "switchbot_ble_scan",
-      "स्विचबॉट",
-      "खोजें",
-      "निकट",
-      "डिवाइस"
-    ],
     "err.bleak_missing": "त्रुटि: 'ब्लीक' लाइब्रेरी स्थापित नहीं है। कृपया इसका उपयोग करके इसे स्थापित करें:\nपिप इंस्टाल धूमिल",
     "err.invalid_numeric": "टाइमआउट, पुनः प्रयास और सीमा पूर्णांक होनी चाहिए।",
     "err.invalid_range": "टाइमआउट और पुनः प्रयास 0 से अधिक होना चाहिए; सीमा 0 या इससे अधिक होनी चाहिए.",
@@ -298,7 +298,16 @@
     "param.retry.description": "लौटने से पहले कितने BLE स्कैन राउंड चलाने होंगे।",
     "param.service_uuid.description": "वैकल्पिक GATT सेवा UUID फ़िल्टर।",
     "param.timeout.description": "सेकंड में स्कैन टाइमआउट।",
-    "tool.description": "आस-पास के स्विचबॉट BLE डिवाइस खोजें और JSON या टेक्स्ट सूची लौटाएँ।"
+    "tool.description": "आस-पास के स्विचबॉट BLE डिवाइस खोजें और JSON या टेक्स्ट सूची लौटाएँ।",
+    "x_search_terms": [
+      "स्विचबॉट ब्ली स्कैन",
+      "स्विचबॉट_ब्ले_स्कैन",
+      "स्विचबॉट",
+      "डिस्कवर",
+      "आस-पास",
+      "डिवाइसेज",
+      "रिटर्न"
+    ]
   },
   "id": {
     "param.mac.description": "Filter alamat MAC.",
@@ -309,14 +318,6 @@
     "msg.error_fmt": "Kesalahan: {msg}",
     "msg.interface_used": "Antarmuka yang digunakan: {iface}",
     "msg.unknown_error": "kesalahan tidak dikenal",
-    "x_search_terms": [
-      "pemindaian switchbot ble",
-      "switchbot_ble_scan",
-      "saklarbot",
-      "temukan",
-      "terdekat",
-      "perangkat"
-    ],
     "err.bleak_missing": "Kesalahan: perpustakaan 'suram' tidak diinstal. Silakan instal menggunakan: \npip install suram",
     "err.invalid_numeric": "Batas waktu, coba lagi, dan batas harus berupa bilangan bulat.",
     "err.invalid_range": "Batas waktu dan coba lagi harus lebih besar dari 0; batasnya harus 0 atau lebih besar.",
@@ -328,7 +329,16 @@
     "param.retry.description": "Berapa banyak putaran pemindaian BLE yang harus dijalankan sebelum kembali.",
     "param.service_uuid.description": "Filter UUID layanan GATT opsional.",
     "param.timeout.description": "Batas waktu pemindaian dalam hitungan detik.",
-    "tool.description": "Temukan perangkat SwitchBot BLE terdekat dan kembalikan JSON atau daftar teks."
+    "tool.description": "Temukan perangkat SwitchBot BLE terdekat dan kembalikan JSON atau daftar teks.",
+    "x_search_terms": [
+      "switchbot ble scan",
+      "switchbot_ble_scan",
+      "switchbot",
+      "discover",
+      "dekat",
+      "perangkat",
+      "kembali"
+    ]
   },
   "it": {
     "param.mac.description": "Filtro indirizzo MAC.",
@@ -339,14 +349,6 @@
     "msg.error_fmt": "Errore: {msg}",
     "msg.interface_used": "Interfaccia utilizzata: {iface}",
     "msg.unknown_error": "errore sconosciuto",
-    "x_search_terms": [
-      "scansione switchbot",
-      "switchbot_ble_scan",
-      "commutatore",
-      "scopri",
-      "nelle vicinanze",
-      "dispositivi"
-    ],
     "err.bleak_missing": "Errore: la libreria 'bleak' non è installata. Installalo utilizzando: \npip install bleak",
     "err.invalid_numeric": "Timeout, nuovo tentativo e limite devono essere numeri interi.",
     "err.invalid_range": "Timeout e nuovo tentativo devono essere maggiori di 0; il limite deve essere 0 o superiore.",
@@ -358,7 +360,16 @@
     "param.retry.description": "Quanti cicli di scansione BLE eseguire prima del ritorno.",
     "param.service_uuid.description": "Filtro UUID del servizio GATT opzionale.",
     "param.timeout.description": "Timeout scansione in secondi.",
-    "tool.description": "Scopri i dispositivi BLE SwitchBot nelle vicinanze e restituisci un JSON o un elenco di testo."
+    "tool.description": "Scopri i dispositivi BLE SwitchBot nelle vicinanze e restituisci un JSON o un elenco di testo.",
+    "x_search_terms": [
+      "switchbot ble scan",
+      "switchbot_ble_scan",
+      "switchbot",
+      "scopri",
+      "dispositivi",
+      "vicini",
+      "torna"
+    ]
   },
   "ja": {
     "param.mac.description": "MACアドレスフィルター。",
@@ -382,12 +393,13 @@
     "param.timeout.description": "スキャンのタイムアウト (秒単位)。",
     "tool.description": "近くの SwitchBot BLE デバイスを検出し、JSON またはテキスト リストを返します。",
     "x_search_terms": [
-      "スイッチボット ble スキャン",
-      "スイッチボット_ble_scan",
-      "スイッチボット",
-      "発見",
+      "switchbot ble スキャン",
+      "switchbot_ble_scan",
+      "switchbot",
+      "検出",
       "近くの",
-      "デバイス"
+      "デバイス",
+      "戻る"
     ]
   },
   "ko": {
@@ -399,14 +411,6 @@
     "msg.error_fmt": "오류: {msg}",
     "msg.interface_used": "사용된 인터페이스: {iface}",
     "msg.unknown_error": "알 수 없는 오류",
-    "x_search_terms": [
-      "스위치봇 블 스캔",
-      "스위치봇_ble_scan",
-      "스위치봇",
-      "발견",
-      "인근",
-      "장치"
-    ],
     "err.bleak_missing": "오류: 'bleak' 라이브러리가 설치되지 않았습니다. 다음을 사용하여 설치하세요:\npip install bleak",
     "err.invalid_numeric": "시간 초과, 재시도 및 제한은 정수여야 합니다.",
     "err.invalid_range": "시간 초과 및 재시도는 0보다 커야 합니다. 한도는 0 이상이어야 합니다.",
@@ -418,7 +422,16 @@
     "param.retry.description": "반환하기 전에 실행할 BLE 스캔 라운드 수입니다.",
     "param.service_uuid.description": "선택적 GATT 서비스 UUID 필터.",
     "param.timeout.description": "스캔 시간 초과(초)입니다.",
-    "tool.description": "근처의 SwitchBot BLE 장치를 검색하고 JSON 또는 텍스트 목록을 반환합니다."
+    "tool.description": "근처의 SwitchBot BLE 장치를 검색하고 JSON 또는 텍스트 목록을 반환합니다.",
+    "x_search_terms": [
+      "switchbot ble scan",
+      "switchbot_ble_scan",
+      "switchbot",
+      "discover",
+      "nearby",
+      "devices",
+      "return"
+    ]
   },
   "mn": {
     "param.mac.description": "MAC хаягийн шүүлтүүр.",
@@ -429,14 +442,6 @@
     "msg.error_fmt": "Алдаа: {msg}",
     "msg.interface_used": "Ашигласан интерфейс: {iface}",
     "msg.unknown_error": "үл мэдэгдэх алдаа",
-    "x_search_terms": [
-      "switchbot ble скан",
-      "switchbot_ble_scan",
-      "свичбот",
-      "нээх",
-      "ойролцоо",
-      "төхөөрөмж"
-    ],
     "err.bleak_missing": "Алдаа: 'харин' номын сан суулгаагүй байна. Үүнийг ашиглан суулгана уу: \npip install bleak",
     "err.invalid_numeric": "Хугацаа дуусах, дахин оролдох, хязгаарлах нь бүхэл тоо байх ёстой.",
     "err.invalid_range": "Хугацаа болон дахин оролдлого 0-ээс их байх ёстой; хязгаар 0 ба түүнээс дээш байх ёстой.",
@@ -448,7 +453,16 @@
     "param.retry.description": "Буцахаас өмнө хэдэн BLE скан хийх шаардлагатай.",
     "param.service_uuid.description": "Нэмэлт GATT үйлчилгээний UUID шүүлтүүр.",
     "param.timeout.description": "Скан хийх хугацаа секундээр.",
-    "tool.description": "Ойролцоох SwitchBot BLE төхөөрөмжүүдийг олж, JSON эсвэл текстийн жагсаалтыг буцаана уу."
+    "tool.description": "Ойролцоох SwitchBot BLE төхөөрөмжүүдийг олж, JSON эсвэл текстийн жагсаалтыг буцаана уу.",
+    "x_search_terms": [
+      "switchbot ble scan",
+      "switchbot_ble_scan",
+      "switchbot",
+      "discover",
+      "ойролцоох",
+      "төхөөрөмжүүдийг",
+      "буцах"
+    ]
   },
   "mr": {
     "param.mac.description": "MAC पत्ता फिल्टर.",
@@ -459,14 +473,6 @@
     "msg.error_fmt": "त्रुटी: {msg}",
     "msg.interface_used": "वापरलेला इंटरफेस: {iface}",
     "msg.unknown_error": "अज्ञात त्रुटी",
-    "x_search_terms": [
-      "switchbot ble स्कॅन",
-      "switchbot_ble_scan",
-      "स्विचबॉट",
-      "शोधा",
-      "जवळ",
-      "उपकरणे"
-    ],
     "err.bleak_missing": "त्रुटी: 'ब्लॅक' लायब्ररी स्थापित केलेली नाही. कृपया ते वापरून स्थापित करा:\npip install bleak",
     "err.invalid_numeric": "कालबाह्य, पुन्हा प्रयत्न आणि मर्यादा पूर्णांक असणे आवश्यक आहे.",
     "err.invalid_range": "कालबाह्य आणि पुन्हा प्रयत्न 0 पेक्षा जास्त असणे आवश्यक आहे; मर्यादा 0 किंवा जास्त असणे आवश्यक आहे.",
@@ -478,7 +484,16 @@
     "param.retry.description": "परत येण्यापूर्वी किती BLE स्कॅन राउंड चालवायचे आहेत.",
     "param.service_uuid.description": "पर्यायी GATT सेवा UUID फिल्टर.",
     "param.timeout.description": "सेकंदात कालबाह्य स्कॅन करा.",
-    "tool.description": "जवळपासचे SwitchBot BLE डिव्हाइस शोधा आणि JSON किंवा मजकूर सूची परत करा."
+    "tool.description": "जवळपासचे SwitchBot BLE डिव्हाइस शोधा आणि JSON किंवा मजकूर सूची परत करा.",
+    "x_search_terms": [
+      "switchbot ble scan",
+      "switchbot_ble_scan",
+      "switchbot",
+      "discover",
+      "nearby",
+      "devices",
+      "return"
+    ]
   },
   "el": {
     "param.mac.description": "Φίλτρο διεύθυνσης MAC.",
@@ -489,14 +504,6 @@
     "msg.error_fmt": "Σφάλμα: {msg}",
     "msg.interface_used": "Διεπαφή που χρησιμοποιήθηκε: {iface}",
     "msg.unknown_error": "άγνωστο σφάλμα",
-    "x_search_terms": [
-      "σάρωση switchbot ble",
-      "switchbot_ble_scan",
-      "διακόπτης",
-      "ανακάλυψη",
-      "κοντά",
-      "συσκευές"
-    ],
     "err.bleak_missing": "Σφάλμα: Δεν έχει εγκατασταθεί η «μαυρή» βιβλιοθήκη. Εγκαταστήστε το χρησιμοποιώντας:\npip install bleak",
     "err.invalid_numeric": "Το χρονικό όριο, η επανάληψη και το όριο πρέπει να είναι ακέραιοι.",
     "err.invalid_range": "Το χρονικό όριο και η επανάληψη πρέπει να είναι μεγαλύτερα από 0. το όριο πρέπει να είναι 0 ή μεγαλύτερο.",
@@ -508,7 +515,16 @@
     "param.retry.description": "Πόσοι γύροι σάρωσης BLE πρέπει να εκτελέσετε πριν επιστρέψετε.",
     "param.service_uuid.description": "Προαιρετικό φίλτρο UUID υπηρεσίας GATT.",
     "param.timeout.description": "Λήξη χρονικού ορίου σάρωσης σε δευτερόλεπτα.",
-    "tool.description": "Ανακαλύψτε κοντινές συσκευές SwitchBot BLE και επιστρέψτε μια λίστα JSON ή κειμένου."
+    "tool.description": "Ανακαλύψτε κοντινές συσκευές SwitchBot BLE και επιστρέψτε μια λίστα JSON ή κειμένου.",
+    "x_search_terms": [
+      "switchbot ble scan",
+      "switchbot_ble_scan",
+      "switchbot",
+      "discover",
+      "nearby",
+      "devices",
+      "return"
+    ]
   },
   "he": {
     "param.mac.description": "מסנן כתובת MAC.",
@@ -519,14 +535,6 @@
     "msg.error_fmt": "שגיאה: {msg}",
     "msg.interface_used": "ממשק בשימוש: {iface}",
     "msg.unknown_error": "שגיאה לא ידועה",
-    "x_search_terms": [
-      "סריקת switchbot ble",
-      "switchbot_ble_scan",
-      "מתג-בוט",
-      "גלה",
-      "בקרבת מקום",
-      "מכשירים"
-    ],
     "err.bleak_missing": "שגיאה: ספריית 'עגומה' אינה מותקנת. אנא התקן אותו באמצעות:\npip install beak",
     "err.invalid_numeric": "זמן קצוב, ניסיון חוזר והגבלה חייבים להיות מספרים שלמים.",
     "err.invalid_range": "הזמן הקצוב והניסיון החוזר חייבים להיות גדולים מ-0; הגבול חייב להיות 0 או יותר.",
@@ -538,7 +546,16 @@
     "param.retry.description": "כמה סבבי סריקת BLE לרוץ לפני החזרה.",
     "param.service_uuid.description": "מסנן UUID של שירות GATT אופציונלי.",
     "param.timeout.description": "פסק זמן סריקה בשניות.",
-    "tool.description": "גלה מכשירי SwitchBot BLE בקרבת מקום והחזר רשימת JSON או טקסט."
+    "tool.description": "גלה מכשירי SwitchBot BLE בקרבת מקום והחזר רשימת JSON או טקסט.",
+    "x_search_terms": [
+      "switchbot ble scan",
+      "switchbot_ble_scan",
+      "switchbot",
+      "discover",
+      "סמוך",
+      "מכשירים",
+      "החזרה"
+    ]
   },
   "hu": {
     "param.mac.description": "MAC-cím szűrő.",
@@ -549,14 +566,6 @@
     "msg.error_fmt": "Hiba: {msg}",
     "msg.interface_used": "Használt interfész: {iface}",
     "msg.unknown_error": "ismeretlen hiba",
-    "x_search_terms": [
-      "switchbot ble szkennelés",
-      "switchbot_ble_scan",
-      "kapcsolóbot",
-      "felfedez",
-      "közel",
-      "eszközök"
-    ],
     "err.bleak_missing": "Hiba: a „sivár” könyvtár nincs telepítve. Telepítse a következővel:\npip install bleak",
     "err.invalid_numeric": "Az időtúllépés, az újrapróbálkozás és a korlát egész számoknak kell lennie.",
     "err.invalid_range": "Az időtúllépés és az újrapróbálkozás 0-nál nagyobbnak kell lennie; korlátnak 0-nak vagy nagyobbnak kell lennie.",
@@ -568,7 +577,16 @@
     "param.retry.description": "Hány BLE vizsgálati kört kell lefutnia a visszatérés előtt.",
     "param.service_uuid.description": "Opcionális GATT szolgáltatás UUID szűrő.",
     "param.timeout.description": "Keresési időtúllépés másodpercben.",
-    "tool.description": "Fedezze fel a közeli SwitchBot BLE-eszközöket, és küldjön vissza egy JSON- vagy szöveges listát."
+    "tool.description": "Fedezze fel a közeli SwitchBot BLE-eszközöket, és küldjön vissza egy JSON- vagy szöveges listát.",
+    "x_search_terms": [
+      "switchbot ble scan",
+      "switchbot_ble_scan",
+      "switchbot",
+      "discover",
+      "közeli",
+      "eszközök",
+      "return"
+    ]
   },
   "ro": {
     "param.mac.description": "Filtru adresă MAC.",
@@ -579,14 +597,6 @@
     "msg.error_fmt": "Eroare: {msg}",
     "msg.interface_used": "Interfață utilizată: {iface}",
     "msg.unknown_error": "eroare necunoscută",
-    "x_search_terms": [
-      "scanare switchbot ble",
-      "switchbot_ble_scan",
-      "comutator robot",
-      "descoperă",
-      "aproape",
-      "dispozitive"
-    ],
     "err.bleak_missing": "Eroare: biblioteca „sumbră” nu este instalată. Instalați-l folosind:\npip install bleak",
     "err.invalid_numeric": "Timeout, reîncercare și limita trebuie să fie numere întregi.",
     "err.invalid_range": "Timeout și reîncercarea trebuie să fie mai mare decât 0; limita trebuie să fie 0 sau mai mare.",
@@ -598,7 +608,16 @@
     "param.retry.description": "Câte runde de scanare BLE trebuie să rulați înainte de a vă întoarce.",
     "param.service_uuid.description": "Filtru UUID pentru serviciul GATT opțional.",
     "param.timeout.description": "Timeout scanare în secunde.",
-    "tool.description": "Descoperiți dispozitivele SwitchBot BLE din apropiere și returnați o listă JSON sau text."
+    "tool.description": "Descoperiți dispozitivele SwitchBot BLE din apropiere și returnați o listă JSON sau text.",
+    "x_search_terms": [
+      "switchbot ble scan",
+      "switchbot_ble_scan",
+      "switchbot",
+      "descoperiți",
+      "dispozitivele",
+      "din apropiere",
+      "întoarceți"
+    ]
   },
   "nb": {
     "param.mac.description": "MAC-adressefilter.",
@@ -609,14 +628,6 @@
     "msg.error_fmt": "Feil: {msg}",
     "msg.interface_used": "Grensesnitt brukt: {iface}",
     "msg.unknown_error": "ukjent feil",
-    "x_search_terms": [
-      "switchbot ble-skanning",
-      "switchbot_ble_scan",
-      "switchbot",
-      "oppdage",
-      "i nærheten",
-      "enheter"
-    ],
     "err.bleak_missing": "Feil: 'bleak'-biblioteket er ikke installert. Installer den ved å bruke:\npip install bleak",
     "err.invalid_numeric": "Tidsavbrudd, forsøk på nytt og grense må være heltall.",
     "err.invalid_range": "Tidsavbrudd og nytt forsøk må være større enn 0; grensen må være 0 eller høyere.",
@@ -628,7 +639,16 @@
     "param.retry.description": "Hvor mange BLE skannerrunder som skal kjøres før retur.",
     "param.service_uuid.description": "Valgfritt GATT-tjeneste UUID-filter.",
     "param.timeout.description": "Tidsavbrudd for skanning på sekunder.",
-    "tool.description": "Oppdag SwitchBot BLE-enheter i nærheten og returner en JSON- eller tekstliste."
+    "tool.description": "Oppdag SwitchBot BLE-enheter i nærheten og returner en JSON- eller tekstliste.",
+    "x_search_terms": [
+      "switchbot ble scan",
+      "switchbot_ble_scan",
+      "switchbot",
+      "oppdag",
+      "i nærheten",
+      "enheter",
+      "retur"
+    ]
   },
   "nl": {
     "param.mac.description": "MAC-adresfilter.",
@@ -639,14 +659,6 @@
     "msg.error_fmt": "Fout: {msg}",
     "msg.interface_used": "Gebruikte interface: {iface}",
     "msg.unknown_error": "onbekende fout",
-    "x_search_terms": [
-      "switchbot ble-scan",
-      "switchbot_ble_scan",
-      "schakelbot",
-      "ontdekken",
-      "nabij",
-      "apparaten"
-    ],
     "err.bleak_missing": "Fout: 'bleak'-bibliotheek is niet geïnstalleerd. Installeer het met behulp van: \npip install somber",
     "err.invalid_numeric": "Time-out, nieuwe poging en limiet moeten gehele getallen zijn.",
     "err.invalid_range": "Time-out en nieuwe poging moeten groter zijn dan 0; limiet moet 0 of groter zijn.",
@@ -658,7 +670,16 @@
     "param.retry.description": "Hoeveel BLE-scanrondes moeten worden uitgevoerd voordat u terugkeert.",
     "param.service_uuid.description": "Optioneel GATT-service UUID-filter.",
     "param.timeout.description": "Scantime-out in seconden.",
-    "tool.description": "Ontdek nabijgelegen SwitchBot BLE-apparaten en stuur een JSON- of tekstlijst terug."
+    "tool.description": "Ontdek nabijgelegen SwitchBot BLE-apparaten en stuur een JSON- of tekstlijst terug.",
+    "x_search_terms": [
+      "switchbot ble scan",
+      "switchbot_ble_scan",
+      "switchbot",
+      "discover",
+      "nearby",
+      "devices",
+      "return"
+    ]
   },
   "pl": {
     "param.mac.description": "Filtr adresu MAC.",
@@ -669,14 +690,6 @@
     "msg.error_fmt": "Błąd: {msg}",
     "msg.interface_used": "Użyty interfejs: {iface}",
     "msg.unknown_error": "nieznany błąd",
-    "x_search_terms": [
-      "skanowanie bota przełączającego",
-      "switchbot_ble_scan",
-      "przełącznik",
-      "odkryj",
-      "w pobliżu",
-      "urządzenia"
-    ],
     "err.bleak_missing": "Błąd: biblioteka „bleak” nie jest zainstalowana. Zainstaluj go za pomocą: \npip install bleak",
     "err.invalid_numeric": "Limit czasu, ponowna próba i limit muszą być liczbami całkowitymi.",
     "err.invalid_range": "Limit czasu i ponowna próba muszą być większe niż 0; limit musi wynosić 0 lub więcej.",
@@ -688,7 +701,16 @@
     "param.retry.description": "Ile rund skanowania BLE należy wykonać przed powrotem.",
     "param.service_uuid.description": "Opcjonalny filtr UUID usługi GATT.",
     "param.timeout.description": "Limit czasu skanowania w sekundach.",
-    "tool.description": "Odkryj pobliskie urządzenia SwitchBot BLE i zwróć listę JSON lub tekstową."
+    "tool.description": "Odkryj pobliskie urządzenia SwitchBot BLE i zwróć listę JSON lub tekstową.",
+    "x_search_terms": [
+      "switchbot ble scan",
+      "switchbot_ble_scan",
+      "switchbot",
+      "discover",
+      "bliskie",
+      "urządzenia",
+      "powrót"
+    ]
   },
   "pt": {
     "param.mac.description": "Filtro de endereço MAC.",
@@ -699,14 +721,6 @@
     "msg.error_fmt": "Erro: {msg}",
     "msg.interface_used": "Interface usada: {iface}",
     "msg.unknown_error": "erro desconhecido",
-    "x_search_terms": [
-      "digitalização switchbot ble",
-      "switchbot_ble_scan",
-      "robô de comutação",
-      "descobrir",
-      "próximo",
-      "dispositivos"
-    ],
     "err.bleak_missing": "Erro: a biblioteca 'bleak' não está instalada. Instale-o usando:\npip install bleak",
     "err.invalid_numeric": "O tempo limite, a nova tentativa e o limite devem ser números inteiros.",
     "err.invalid_range": "O tempo limite e a nova tentativa devem ser maiores que 0; limite deve ser 0 ou maior.",
@@ -718,7 +732,16 @@
     "param.retry.description": "Quantas rodadas de varredura BLE serão executadas antes de retornar.",
     "param.service_uuid.description": "Filtro UUID de serviço GATT opcional.",
     "param.timeout.description": "Tempo limite de verificação em segundos.",
-    "tool.description": "Descubra dispositivos SwitchBot BLE próximos e retorne um JSON ou uma lista de texto."
+    "tool.description": "Descubra dispositivos SwitchBot BLE próximos e retorne um JSON ou uma lista de texto.",
+    "x_search_terms": [
+      "switchbot ble scan",
+      "switchbot_ble_scan",
+      "switchbot",
+      "discover",
+      "nearby",
+      "devices",
+      "return"
+    ]
   },
   "pt_BR": {
     "param.mac.description": "Filtro de endereço MAC.",
@@ -729,14 +752,6 @@
     "msg.error_fmt": "Erro: {msg}",
     "msg.interface_used": "Interface usada: {iface}",
     "msg.unknown_error": "erro desconhecido",
-    "x_search_terms": [
-      "varredura de switchbot",
-      "switchbot_ble_scan",
-      "robô de comutação",
-      "descobrir",
-      "nas proximidades",
-      "dispositivos"
-    ],
     "err.bleak_missing": "Erro: a biblioteca 'bleak' não está instalada. Instale-o usando:\npip install bleak",
     "err.invalid_numeric": "O tempo limite, a nova tentativa e o limite devem ser números inteiros.",
     "err.invalid_range": "O tempo limite e a nova tentativa devem ser maiores que 0; limite deve ser 0 ou maior.",
@@ -748,7 +763,16 @@
     "param.retry.description": "Quantas rodadas de varredura BLE serão executadas antes de retornar.",
     "param.service_uuid.description": "Filtro UUID de serviço GATT opcional.",
     "param.timeout.description": "Tempo limite de verificação em segundos.",
-    "tool.description": "Descubra dispositivos SwitchBot BLE próximos e retorne um JSON ou uma lista de texto."
+    "tool.description": "Descubra dispositivos SwitchBot BLE próximos e retorne um JSON ou uma lista de texto.",
+    "x_search_terms": [
+      "switchbot ble scan",
+      "switchbot_ble_scan",
+      "switchbot",
+      "discover",
+      "nearby",
+      "devices",
+      "return"
+    ]
   },
   "ru": {
     "param.mac.description": "Фильтр по MAC-адресу.",
@@ -759,14 +783,6 @@
     "msg.error_fmt": "Ошибка: {msg}",
     "msg.interface_used": "Используемый интерфейс: {iface}",
     "msg.unknown_error": "неизвестная ошибка",
-    "x_search_terms": [
-      "сканирование switchbot ble",
-      "switchbot_ble_scan",
-      "switchbot",
-      "обнаружить",
-      "рядом",
-      "устройства"
-    ],
     "err.bleak_missing": "Ошибка: «мрачная» библиотека не установлена. Пожалуйста, установите его, используя: \npip install bleak",
     "err.invalid_numeric": "Таймаут, повтор и лимит должны быть целыми числами.",
     "err.invalid_range": "Тайм-аут и повторная попытка должны быть больше 0; предел должен быть 0 или больше.",
@@ -778,7 +794,16 @@
     "param.retry.description": "Сколько раундов сканирования BLE необходимо выполнить перед возвратом.",
     "param.service_uuid.description": "Дополнительный фильтр UUID службы GATT.",
     "param.timeout.description": "Тайм-аут сканирования в секундах.",
-    "tool.description": "Обнаружьте ближайшие устройства SwitchBot BLE и верните JSON или текстовый список."
+    "tool.description": "Обнаружьте ближайшие устройства SwitchBot BLE и верните JSON или текстовый список.",
+    "x_search_terms": [
+      "switchbot ble scan",
+      "switchbot_ble_scan",
+      "switchbot",
+      "открыть",
+      "ближайшие",
+      "устройства",
+      "вернуться"
+    ]
   },
   "sv": {
     "param.mac.description": "MAC-adressfilter.",
@@ -789,14 +814,6 @@
     "msg.error_fmt": "Fel: {msg}",
     "msg.interface_used": "Gränssnitt som används: {iface}",
     "msg.unknown_error": "okänt fel",
-    "x_search_terms": [
-      "switchbot ble-skanning",
-      "switchbot_ble_scan",
-      "switchbot",
-      "upptäcka",
-      "nära",
-      "enheter"
-    ],
     "err.bleak_missing": "Fel: 'bleak'-biblioteket är inte installerat. Installera den med:\npip install bleak",
     "err.invalid_numeric": "Timeout, försök igen och limit måste vara heltal.",
     "err.invalid_range": "Timeout och försök igen måste vara större än 0; gränsen måste vara 0 eller högre.",
@@ -808,7 +825,16 @@
     "param.retry.description": "Hur många BLE skanningsronder som ska köras innan du återvänder.",
     "param.service_uuid.description": "Valfritt UUID-filter för GATT-tjänst.",
     "param.timeout.description": "Skanningstimeout på sekunder.",
-    "tool.description": "Upptäck närliggande SwitchBot BLE-enheter och returnera en JSON- eller textlista."
+    "tool.description": "Upptäck närliggande SwitchBot BLE-enheter och returnera en JSON- eller textlista.",
+    "x_search_terms": [
+      "switchbot ble scan",
+      "switchbot_ble_scan",
+      "switchbot",
+      "upptäck",
+      "nära",
+      "enheter",
+      "retur"
+    ]
   },
   "sw": {
     "param.mac.description": "Kichujio cha anwani ya MAC.",
@@ -819,14 +845,6 @@
     "msg.error_fmt": "Hitilafu: {msg}",
     "msg.interface_used": "Kiolesura kilichotumiwa: {iface}",
     "msg.unknown_error": "hitilafu isiyojulikana",
-    "x_search_terms": [
-      "skana ya switchbot ble",
-      "switchbot_ble_scan",
-      "kubadili bot",
-      "gundua",
-      "karibu",
-      "vifaa"
-    ],
     "err.bleak_missing": "Hitilafu: maktaba ya 'mbaya' haijasakinishwa. Tafadhali isakinishe kwa kutumia:\npip install bleak",
     "err.invalid_numeric": "Muda umekwisha, jaribu tena na kikomo lazima kiwe nambari kamili.",
     "err.invalid_range": "Muda umeisha na ujaribu tena lazima uwe mkubwa kuliko 0; kikomo lazima kiwe 0 au zaidi.",
@@ -838,7 +856,16 @@
     "param.retry.description": "Ni duru ngapi za kuchanganua za BLE za kutekeleza kabla ya kurudi.",
     "param.service_uuid.description": "Kichujio cha UUID cha huduma ya GATT cha hiari.",
     "param.timeout.description": "Muda wa kuchanganua umekwisha kwa sekunde.",
-    "tool.description": "Gundua vifaa vya SwitchBot BLE vilivyo karibu na urudishe JSON au orodha ya maandishi."
+    "tool.description": "Gundua vifaa vya SwitchBot BLE vilivyo karibu na urudishe JSON au orodha ya maandishi.",
+    "x_search_terms": [
+      "switchbot ble scan",
+      "switchbot_ble_scan",
+      "switchbot",
+      "gundua",
+      "vifaa vya karibu",
+      "vifaa",
+      "rejesha"
+    ]
   },
   "th": {
     "param.mac.description": "MACアドレスフィルター。",
@@ -849,14 +876,6 @@
     "msg.error_fmt": "エラー: {msg}",
     "msg.interface_used": "使用インターフェース: {iface}",
     "msg.unknown_error": "不明なエラー",
-    "x_search_terms": [
-      "สแกน switchbot ble",
-      "switchbot_ble_scan",
-      "สวิตช์บอท",
-      "ค้นพบ",
-      "ใกล้เคียง",
-      "อุปกรณ์"
-    ],
     "err.bleak_missing": "ข้อผิดพลาด: ไม่ได้ติดตั้งไลบรารี 'bleak' กรุณาติดตั้งโดยใช้:\npip install bleak",
     "err.invalid_numeric": "หมดเวลา ลองใหม่ และขีดจำกัดต้องเป็นจำนวนเต็ม",
     "err.invalid_range": "การหมดเวลาและลองใหม่ต้องมากกว่า 0; ขีดจำกัดต้องเป็น 0 หรือมากกว่า",
@@ -868,7 +887,16 @@
     "param.retry.description": "ต้องสแกน BLE กี่ครั้งก่อนจะกลับมา",
     "param.service_uuid.description": "ตัวกรอง UUID ของบริการ GATT เสริม",
     "param.timeout.description": "หมดเวลาสแกนในไม่กี่วินาที",
-    "tool.description": "ค้นหาอุปกรณ์ SwitchBot BLE ที่อยู่ใกล้เคียงและส่งคืน JSON หรือรายการข้อความ"
+    "tool.description": "ค้นหาอุปกรณ์ SwitchBot BLE ที่อยู่ใกล้เคียงและส่งคืน JSON หรือรายการข้อความ",
+    "x_search_terms": [
+      "switchbot ble scan",
+      "switchbot_ble_scan",
+      "switchbot",
+      "ค้นพบ",
+      "ใกล้เคียง",
+      "อุปกรณ์",
+      "กลับ"
+    ]
   },
   "tr": {
     "param.mac.description": "MAC adresi filtresi.",
@@ -879,14 +907,6 @@
     "msg.error_fmt": "Hata: {msg}",
     "msg.interface_used": "Kullanılan arayüz: {iface}",
     "msg.unknown_error": "bilinmeyen hata",
-    "x_search_terms": [
-      "switchbot ble taraması",
-      "switchbot_ble_scan",
-      "anahtar bot",
-      "keşfetmek",
-      "yakın",
-      "cihazlar"
-    ],
     "err.bleak_missing": "Hata: 'kasvetli' kitaplık yüklü değil. Lütfen şunu kullanarak yükleyin: \npip install kasvetli",
     "err.invalid_numeric": "Zaman aşımı, yeniden deneme ve sınır değerleri tamsayı olmalıdır.",
     "err.invalid_range": "Zaman aşımı ve yeniden deneme 0'dan büyük olmalıdır; limit 0 veya daha büyük olmalıdır.",
@@ -898,7 +918,16 @@
     "param.retry.description": "Geri dönmeden önce kaç BLE tarama turunun gerçekleştirilmesi gerektiği.",
     "param.service_uuid.description": "İsteğe bağlı GATT hizmeti UUID filtresi.",
     "param.timeout.description": "Saniye cinsinden tarama zaman aşımı.",
-    "tool.description": "Yakındaki SwitchBot BLE cihazlarını keşfedin ve bir JSON veya metin listesi döndürün."
+    "tool.description": "Yakındaki SwitchBot BLE cihazlarını keşfedin ve bir JSON veya metin listesi döndürün.",
+    "x_search_terms": [
+      "switchbot ble scan",
+      "switchbot_ble_scan",
+      "switchbot",
+      "discover",
+      "yakındaki",
+      "cihazlar",
+      "return"
+    ]
   },
   "uk": {
     "param.mac.description": "Фільтр MAC-адреси.",
@@ -909,14 +938,6 @@
     "msg.error_fmt": "Помилка: {msg}",
     "msg.interface_used": "Використано інтерфейс: {iface}",
     "msg.unknown_error": "невідома помилка",
-    "x_search_terms": [
-      "сканування switchbot ble",
-      "switchbot_ble_scan",
-      "перемикач",
-      "виявити",
-      "поруч",
-      "пристрої"
-    ],
     "err.bleak_missing": "Помилка: бібліотеку «bleak» не встановлено. Установіть його за допомогою:\npip install bleak",
     "err.invalid_numeric": "Час очікування, повторна спроба та обмеження мають бути цілими числами.",
     "err.invalid_range": "Тайм-аут і повторна спроба мають бути більше 0; обмеження має бути 0 або більше.",
@@ -928,7 +949,16 @@
     "param.retry.description": "Скільки раундів сканування BLE виконати перед поверненням.",
     "param.service_uuid.description": "Додатковий фільтр UUID служби GATT.",
     "param.timeout.description": "Час очікування сканування в секундах.",
-    "tool.description": "Виявляйте пристрої SwitchBot BLE поблизу та повертайте JSON або текстовий список."
+    "tool.description": "Виявляйте пристрої SwitchBot BLE поблизу та повертайте JSON або текстовий список.",
+    "x_search_terms": [
+      "switchbot ble scan",
+      "switchbot_ble_scan",
+      "switchbot",
+      "знайти",
+      "пристрої",
+      "поруч",
+      "повернути"
+    ]
   },
   "vi": {
     "param.mac.description": "Bộ lọc địa chỉ MAC.",
@@ -939,14 +969,6 @@
     "msg.error_fmt": "Lỗi: {msg}",
     "msg.interface_used": "Giao diện đã sử dụng: {iface}",
     "msg.unknown_error": "lỗi không xác định",
-    "x_search_terms": [
-      "switchbot ble scan",
-      "switchbot_ble_scan",
-      "switchbot",
-      "khám phá",
-      "lân cận",
-      "thiết bị"
-    ],
     "err.bleak_missing": "Lỗi: thư viện 'ảm đạm' chưa được cài đặt. Vui lòng cài đặt nó bằng cách sử dụng:\npip install ảm đạm",
     "err.invalid_numeric": "Thời gian chờ, thử lại và giới hạn phải là số nguyên.",
     "err.invalid_range": "Thời gian chờ và thử lại phải lớn hơn 0; giới hạn phải bằng 0 hoặc lớn hơn.",
@@ -958,7 +980,16 @@
     "param.retry.description": "Cần chạy bao nhiêu vòng quét BLE trước khi quay lại.",
     "param.service_uuid.description": "Bộ lọc UUID dịch vụ GATT tùy chọn.",
     "param.timeout.description": "Thời gian chờ quét tính bằng giây.",
-    "tool.description": "Khám phá các thiết bị SwitchBot BLE gần đó và trả về danh sách văn bản hoặc JSON."
+    "tool.description": "Khám phá các thiết bị SwitchBot BLE gần đó và trả về danh sách văn bản hoặc JSON.",
+    "x_search_terms": [
+      "switchbot ble scan",
+      "switchbot_ble_scan",
+      "switchbot",
+      "discover",
+      "gần đó",
+      "thiết bị",
+      "trở lại"
+    ]
   },
   "zh_CN": {
     "param.mac.description": "MAC地址过滤器。",
@@ -969,14 +1000,6 @@
     "msg.error_fmt": "错误：{msg}",
     "msg.interface_used": "使用的接口：{iface}",
     "msg.unknown_error": "未知错误",
-    "x_search_terms": [
-      "switchbot ble 扫描",
-      "switchbot_ble_scan",
-      "开关机器人",
-      "发现",
-      "附近",
-      "设备"
-    ],
     "err.bleak_missing": "错误：未安装“bleak”库。请使用以下命令安装：\npip install bleak",
     "err.invalid_numeric": "超时、重试和限制必须为整数。",
     "err.invalid_range": "超时和重试必须大于0；限制必须为 0 或更大。",
@@ -988,7 +1011,16 @@
     "param.retry.description": "返回之前要运行多少轮 BLE 扫描。",
     "param.service_uuid.description": "可选的 GATT 服务 UUID 过滤器。",
     "param.timeout.description": "扫描超时（以秒为单位）。",
-    "tool.description": "发现附近的 SwitchBot BLE 设备并返回 JSON 或文本列表。"
+    "tool.description": "发现附近的 SwitchBot BLE 设备并返回 JSON 或文本列表。",
+    "x_search_terms": [
+      "switchbot ble 扫描",
+      "switchbot_ble_scan",
+      "switchbot",
+      "发现",
+      "附近",
+      "设备",
+      "返回"
+    ]
   },
   "zh_TW": {
     "param.mac.description": "MAC 位址篩選。",
@@ -999,14 +1031,6 @@
     "msg.error_fmt": "錯誤：{msg}",
     "msg.interface_used": "使用的介面：{iface}",
     "msg.unknown_error": "未知錯誤",
-    "x_search_terms": [
-      "switchbot ble 掃描",
-      "switchbot_ble_scan",
-      "開關機器人",
-      "發現",
-      "附近",
-      "裝置"
-    ],
     "err.bleak_missing": "錯誤：未安裝“bleak”庫。請使用以下指令安裝：\npip install bleak",
     "err.invalid_numeric": "超時、重試和限制必須為整數。",
     "err.invalid_range": "超時和重試必須大於0；限制必須為 0 或更大。",
@@ -1018,6 +1042,15 @@
     "param.retry.description": "返回之前要運行多少輪 BLE 掃描。",
     "param.service_uuid.description": "可選的 GATT 服務 UUID 過濾器。",
     "param.timeout.description": "掃描超時（以秒為單位）。",
-    "tool.description": "發現附近的 SwitchBot BLE 設備並傳回 JSON 或文字清單。"
+    "tool.description": "發現附近的 SwitchBot BLE 設備並傳回 JSON 或文字清單。",
+    "x_search_terms": [
+      "switchbot ble 掃描",
+      "switchbot_ble_scan",
+      "switchbot",
+      "發現",
+      "附近",
+      "裝置",
+      "返回"
+    ]
   }
 }

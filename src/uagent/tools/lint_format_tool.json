@@ -27,9 +27,16 @@
     "param.tools.description": "実行するツール名の配列。空なら自動選択（ruff/black/mypyの順で存在確認）。",
     "tool.description": "静的解析・フォーマッタ（ruff/black/mypy など）を実行します。mode=fix はファイルを変更するため、確認が必要です。",
     "x_search_terms": [
-      "lint |フォーマット",
-      "lint フォーマット |フォーマットをチェックする",
-      "lint コード |フォーマットコード |自動修正 |自動修正"
+      "lint",
+      "フォーマット",
+      "コード lint",
+      "コードフォーマット",
+      "リンター",
+      "フォーマッタ",
+      "コードスタイル",
+      "静的解析",
+      "lint",
+      "フォーマット"
     ],
     "param.xargs.description": "追加引数（配列）。危険なメタ文字は拒否します。",
     "confirm.msg": "lint_format(mode=fix) はファイルを上書きする可能性があります。\nツール: {tools}\nターゲット: {targets}\ncwd: {cwd}\n\n続行するには y を入力し、キャンセルするには c を入力します。"
@@ -41,14 +48,16 @@
     "param.tools.description": "Una serie de nombres de herramientas para ejecutar. Si está vacío, se seleccionará automáticamente.",
     "tool.description": "Ejecute análisis/formateadores estáticos (por ejemplo, ruff/black/mypy).",
     "x_search_terms": [
-      "lint",
+      "pelusa",
       "formato",
-      "formato de pelusa",
-      "formato de verificación",
-      "código de pelusa",
-      "código de formato",
-      "reparación automática",
-      "reparación automática"
+      "código pelusa",
+      "formato de código",
+      "linter",
+      "formateador",
+      "estilo de código",
+      "análisis estático",
+      "linting",
+      "formato"
     ],
     "param.xargs.description": "Argumentos adicionales (matriz). Rechaza metacaracteres peligrosos.",
     "confirm.msg": "lint_format(mode=fix) podría sobrescribir archivos.\ntools: {tools}\ntargets: {targets}\ncwd: {cwd}\n\nResponda con y para continuar o c para cancelar."
@@ -61,13 +70,15 @@
     "tool.description": "Exécutez des analyses/formateurs statiques (par exemple, ruff/black/mypy).",
     "x_search_terms": [
       "lint",
-      "formats",
-      "format peluche",
-      "format de chèque",
-      "code de charpie",
-      "formater le code",
-      "correction automatique",
-      "correction automatique"
+      "format",
+      "code lint",
+      "format de code",
+      "linter",
+      "formatter",
+      "style de code",
+      "analyse statique",
+      "linting",
+      "formattage"
     ],
     "param.xargs.description": "Arguments supplémentaires (tableau). Rejetez les métacaractères dangereux.",
     "confirm.msg": "lint_format(mode=fix) peut écraser les fichiers.\ntools : {tools}\ntargets : {targets}\ncwd : {cwd}\n\nRépondez par y pour continuer, ou c pour annuler."
@@ -80,13 +91,15 @@
     "tool.description": "정적 분석/포매터(예: ruff/black/mypy)를 실행합니다. mode=fix는 파일을 수정하며 확인이 필요합니다.",
     "x_search_terms": [
       "lint",
-      "형식",
-      "lint 형식",
-      "형식 확인",
-      "lint 코드",
-      "형식 코드",
-      "자동 수정",
-      "자동 수정"
+      "format",
+      "code lint",
+      "code format",
+      "linter",
+      "formatter",
+      "code style",
+      "정적 분석",
+      "linting",
+      "formatting"
     ],
     "param.xargs.description": "추가 인수(배열). 위험한 메타문자를 거부하세요.",
     "confirm.msg": "lint_format(mode=fix)는 파일을 덮어쓸 수 있습니다.\ntools: {tools}\ntargets: {targets}\ncwd: {cwd}\n\n계속하려면 y를, 취소하려면 c를 입력하세요."
@@ -98,14 +111,16 @@
     "param.tools.description": "Ein Array der auszuführenden Werkzeuge. Wenn leer, wird automatisch ausgewählt.",
     "tool.description": "Statische Analyse-/Formatierungswerkzeuge ausführen (z.B.ruff/black/mypy).",
     "x_search_terms": [
-      "lint",
+      "Lint",
       "Format",
-      "Flusenformat",
-      "Format prüfen",
-      "Flusencode",
-      "Formatcode",
-      "Autofix",
-      "Autofix"
+      "Code Lint",
+      "Code-Format",
+      "Linter",
+      "Formatter",
+      "Code-Stil",
+      "Statische Analyse",
+      "Linting",
+      "Formatierung"
     ],
     "param.xargs.description": "Zusätzliche Argumente (Array). Gefährliche Metazeichen ablehnen.",
     "confirm.msg": "lint_format(mode=fix) überschreibt möglicherweise Dateien.\ntools: {tools}\ntargets: {targets}\ncwd: {cwd}\n\nAntworten Sie mit y, um fortzufahren, oder c, um abzubrechen."
@@ -118,13 +133,15 @@
     "tool.description": "Esegui analisi/formattatori statici (ad esempio, ruff/black/mypy).",
     "x_search_terms": [
       "lint",
-      "formato",
-      "formato lanugine",
-      "controlla il formato",
-      "codice lanugine",
-      "codice formato",
-      "correzione automatica",
-      "correzione automatica"
+      "format",
+      "code lint",
+      "code format",
+      "linter",
+      "formatter",
+      "stile codice",
+      "analisi statica",
+      "linting",
+      "formattazione"
     ],
     "param.xargs.description": "Argomenti aggiuntivi (array). Rifiuta i metacaratteri pericolosi.",
     "confirm.msg": "lint_format(mode=fix) potrebbe sovrascrivere i file.\ntools: {tools}\ntargets: {targets}\ncwd: {cwd}\n\nRispondi con y per procedere o c per annullare."
@@ -136,7 +153,16 @@
     "param.tools.description": "Массив имен инструментов для запуска. Если он пуст, он будет выбран автоматически.",
     "tool.description": "Запустите статический анализ/форматирование (например, ruff/black/mypy).",
     "x_search_terms": [
-      "lint, формат, формат ворса, формат проверки, код ворса, код формата, автоисправление, автоисправление"
+      "lint",
+      "формат",
+      "код lint",
+      "формат кода",
+      "linter",
+      "formatter",
+      "стиль кода",
+      "статический анализ",
+      "линтинг",
+      "форматирование"
     ],
     "param.xargs.description": "Дополнительные аргументы (массив). Отклоняйте опасные метасимволы.",
     "confirm.msg": "lint_format(mode=fix) может перезаписать файлы.\ntools: {tools}\ntargets: {targets}\ncwd: {cwd}\n\nОтветьте, нажав y, чтобы продолжить, или c, чтобы отменить."
@@ -234,14 +260,14 @@
     "x_search_terms": [
       "lint",
       "format",
-      "code lint",
-      "code format",
+      "kod lint",
+      "format kodu",
       "linter",
       "formatter",
-      "code style",
-      "static analysis",
+      "styl kodu",
+      "analiza statyczna",
       "linting",
-      "formatting"
+      "formatowanie"
     ],
     "param.xargs.description": "Dodatkowe argumenty (tablica). Odrzuć niebezpieczne metaznaki.",
     "confirm.msg": "lint_format(mode=fix) może zastąpić pliki.\ntools: {tools}\ntargets: {targets}\ncwd: {cwd}\n\nOdpowiedz, wpisując y, aby kontynuować, lub c, aby anulować."
@@ -253,16 +279,16 @@
     "param.tools.description": "चलाने के लिए टूल नामों की एक सरणी। यदि यह खाली है, तो स्वचालित रूप से चुना जाएगा।",
     "tool.description": "स्थैतिक विश्लेषण/फ़ॉर्मेटर (रफ़/ब्लैक/माइपी) चलाएँ। मोड=फ़िक्स फ़ाइलों को संशोधित करता है, पुष्टि की आवश्यकता है।",
     "x_search_terms": [
-      "lint",
-      "format",
-      "code lint",
-      "code format",
-      "linter",
-      "formatter",
-      "code style",
-      "static analysis",
-      "linting",
-      "formatting"
+      "लिंट",
+      "फॉर्मेट",
+      "कोड लिंट",
+      "कोड फॉर्मेट",
+      "लिन्टर",
+      "फॉर्मेटर",
+      "कोड स्टाइल",
+      "स्टैटिक विश्लेषण",
+      "लिन्टिंग",
+      "फॉर्मेटिंग"
     ],
     "param.xargs.description": "अतिरिक्त तर्क (सरणी)। खतरनाक मेटाकैरेक्टर अस्वीकार करें।",
     "confirm.msg": "lint_format(mode=fix) फ़ाइलों को अधिलेखित कर सकता है।\nउपकरण: {tools}\nलक्ष्य: {targets}\nसीडब्ल्यूडी: {cwd}\n\nआगे बढ़ने के लिए y, या रद्द करने के लिए c लिखकर उत्तर दें।"
@@ -274,16 +300,16 @@
     "param.tools.description": "مصفوفة بأسماء الأدوات المراد تشغيلها. إذا كانت فارغة فسيتم الاختيار تلقائياً.",
     "tool.description": "شغّل أدوات التحليل الثابت/التنسيق (مثل ruff/black/mypy). mode=fix يغيّر الملفات ويتطلب تأكيداً.",
     "x_search_terms": [
-      "lint",
-      "format",
-      "code lint",
-      "code format",
-      "linter",
-      "formatter",
-      "code style",
-      "static analysis",
-      "linting",
-      "formatting"
+      "لينت",
+      "تنسيق",
+      "الكود لينت",
+      "تنسيق الكود",
+      "لينتر",
+      "المنسق",
+      "نمط الكود",
+      "تحليل ثابت",
+      "فحص",
+      "تنسيق"
     ],
     "param.xargs.description": "وسائط إضافية (مصفوفة). ارفض المحارف الخاصة الخطرة.",
     "confirm.msg": "قد يقوم lint_format(mode=fix) بالكتابة فوق الملفات. \nالأدوات: {tools}\nالأهداف: {targets}\ncwd: {cwd}\n\n قم بالرد بـ y للمتابعة، أو c للإلغاء."
@@ -297,14 +323,14 @@
     "x_search_terms": [
       "lint",
       "format",
-      "code lint",
-      "code format",
+      "kod lint",
+      "kodformat",
       "linter",
       "formatter",
-      "code style",
-      "static analysis",
+      "kodstil",
+      "statisk analys",
       "linting",
-      "formatting"
+      "formatering"
     ],
     "param.xargs.description": "Ytterligare argument (array). Avvisa farliga metatecken.",
     "confirm.msg": "lint_format(mode=fix) kan skriva över filer.\nverktyg: {tools}\nmål: {targets}\ncwd: {cwd}\n\nSvara med y för att fortsätta, eller c för att avbryta."
@@ -322,10 +348,10 @@
       "code format",
       "linter",
       "formatter",
-      "code style",
-      "static analysis",
+      "mtindo wa msimbo",
+      "uchambuzi tuli",
       "linting",
-      "formatting"
+      "umbizo"
     ],
     "param.xargs.description": "Hoja za ziada (safu). Kataa vielelezo hatari.",
     "confirm.msg": "lint_format(mode=fix) inaweza kubatilisha faili.\nzana: {tools}\nlengo: {targets}\ncwd: {cwd}\n\nJibu na y ili kuendelea, au c kughairi."
@@ -337,16 +363,16 @@
     "param.tools.description": "En liste over verktøynavn som skal kjøres. Hvis den er tom, velges den automatisk.",
     "tool.description": "Kjør statisk analyse/formateringsverktøy (for eksempel ruff/black/mypy).",
     "x_search_terms": [
-      "lint",
+      "lo",
       "format",
-      "code lint",
-      "code format",
+      "kode lo",
+      "kodeformat",
       "linter",
       "formatter",
-      "code style",
-      "static analysis",
+      "kodestil",
+      "statisk analyse",
       "linting",
-      "formatting"
+      "formatering"
     ],
     "param.xargs.description": "Tilleggsargumenter (liste). Avvis farlige metategn.",
     "confirm.msg": "lint_format(mode=fix) kan overskrive filer.\nverktøy: {tools}\nmål: {targets}\ncwd: {cwd}\n\nSvar med y for å fortsette, eller c for å avbryte."
@@ -364,10 +390,10 @@
       "code format",
       "linter",
       "formatter",
-      "code style",
-      "static analysis",
+      "codestijl",
+      "statische analyse",
       "linting",
-      "formatting"
+      "formattering"
     ],
     "param.xargs.description": "Aanvullende argumenten (array). Weiger gevaarlijke metatekens.",
     "confirm.msg": "lint_format(mode=fix) kan bestanden overschrijven.\ntools: {tools}\ntargets: {targets}\ncwd: {cwd}\n\nReageer met y om door te gaan, of c om te annuleren."
@@ -380,15 +406,15 @@
     "tool.description": "Suorita staattinen analyysi/muotoilutyökalut (esim.ruff/black/mypy).",
     "x_search_terms": [
       "lint",
-      "format",
-      "code lint",
-      "code format",
+      "muoto",
+      "koodi lint",
+      "koodimuoto",
       "linter",
-      "formatter",
-      "code style",
-      "static analysis",
+      "formatteri",
+      "koodityyli",
+      "staattinen analyysi",
       "linting",
-      "formatting"
+      "formatointi"
     ],
     "param.xargs.description": "Lisäargumentit (taulukko). Hylkää vaaralliset metamerkit.",
     "confirm.msg": "lint_format(mode=fix) saattaa korvata tiedostoja.\ntyökalut: {tools}\nkohteet: {targets}\ncwd: {cwd}\n\nJatka vastaamalla y:llä tai peruuta painamalla c."
@@ -401,15 +427,15 @@
     "tool.description": "Spouští statickou analýzu/formátovače (např.ruff/black/mypy).",
     "x_search_terms": [
       "lint",
-      "format",
-      "code lint",
-      "code format",
+      "formát",
+      "kód lint",
+      "formát kódu",
       "linter",
-      "formatter",
-      "code style",
-      "static analysis",
+      "formátovač",
+      "styl kódu",
+      "statická analýza",
       "linting",
-      "formatting"
+      "formátování"
     ],
     "param.xargs.description": "Další argumenty (pole). Odmítněte nebezpečné metaznaky.",
     "confirm.msg": "lint_format(mode=fix) může přepsat soubory.\nnástroje: {tools}\ncíle: {targets}\ncwd: {cwd}\n\nOdpovězte pomocí y pro pokračování nebo c pro zrušení."
@@ -427,10 +453,10 @@
       "code format",
       "linter",
       "formatter",
-      "code style",
-      "static analysis",
+      "стиль коду",
+      "статичний аналіз",
       "linting",
-      "formatting"
+      "форматування"
     ],
     "param.xargs.description": "Додаткові аргументи (масив). Відхиляйте небезпечні метасимволи.",
     "confirm.msg": "lint_format(mode=fix) може перезаписувати файли.\ntools: {tools}\ntargets: {targets}\ncwd: {cwd}\n\nУ відповідь натисніть y, щоб продовжити, або c, щоб скасувати."
@@ -444,14 +470,14 @@
     "x_search_terms": [
       "lint",
       "format",
-      "code lint",
-      "code format",
+      "kod lint",
+      "kod formatı",
       "linter",
       "formatter",
-      "code style",
-      "static analysis",
+      "kod stili",
+      "statik analiz",
       "linting",
-      "formatting"
+      "biçimlendirme"
     ],
     "param.xargs.description": "Ek bağımsız değişkenler (dizi). Tehlikeli meta karakterleri reddedin.",
     "confirm.msg": "lint_format(mode=fix) dosyaların üzerine yazabilir.\ntools: {tools}\ntargets: {targets}\ncwd: {cwd}\n\nDevam etmek için y veya iptal etmek için c ile yanıtlayın."
@@ -464,15 +490,15 @@
     "tool.description": "รันการวิเคราะห์สถิติ/ตัวจัดรูปแบบ (เช่น ruff/black/mypy) mode=fix จะแก้ไขไฟล์และต้องมีการยืนยัน",
     "x_search_terms": [
       "lint",
-      "format",
-      "code lint",
-      "code format",
+      "รูปแบบ",
+      "รหัส lint",
+      "รูปแบบรหัส",
       "linter",
       "formatter",
-      "code style",
-      "static analysis",
+      "สไตล์รหัส",
+      "การวิเคราะห์แบบคงที่",
       "linting",
-      "formatting"
+      "การจัดรูปแบบ"
     ],
     "param.xargs.description": "อาร์กิวเมนต์เพิ่มเติม (อาร์เรย์) ปฏิเสธเมตาอักขระที่เป็นอันตราย",
     "confirm.msg": "lint_format(mode=fix) อาจเขียนทับไฟล์\ntools: {tools}\ntargets: {targets}\ncwd: {cwd}\n\nตอบกลับด้วย y เพื่อดำเนินการต่อ หรือ c เพื่อยกเลิก"
@@ -487,13 +513,13 @@
       "lint",
       "format",
       "code lint",
-      "code format",
+      "代码格式",
       "linter",
       "formatter",
-      "code style",
-      "static analysis",
+      "代码风格",
+      "静态分析",
       "linting",
-      "formatting"
+      "格式化"
     ],
     "param.xargs.description": "附加参数（数组）。拒绝危险的元字符。",
     "confirm.msg": "lint_format(mode=fix) 可能会覆盖文件。\n工具：{tools}\n目标：{targets}\ncwd：{cwd}\n\n回复 y 继续，或回复 c 取消。"
@@ -508,13 +534,13 @@
       "lint",
       "format",
       "code lint",
-      "code format",
+      "程式碼格式",
       "linter",
       "formatter",
-      "code style",
-      "static analysis",
+      "程式碼風格",
+      "靜態分析",
       "linting",
-      "formatting"
+      "格式化"
     ],
     "param.xargs.description": "附加參數（陣列）。拒絕危險的元字元。",
     "confirm.msg": "lint_format(mode=fix) 可能會覆寫檔案。 \n工具：{tools}\n目標：{targets}\ncwd：{cwd}\n\n回覆 y 繼續，或回覆 c 取消。"
@@ -547,16 +573,16 @@
     "param.tools.description": "آرایه‌ای از نام ابزارهایی که باید اجرا شوند. اگر خالی باشد، به‌طور خودکار انتخاب می‌شوند.",
     "tool.description": "تحلیل ایستا/قالب‌بندها را اجرا کنید (مثلاً ruff/black/mypy).",
     "x_search_terms": [
-      "lint",
-      "format",
-      "code lint",
-      "code format",
-      "linter",
-      "formatter",
-      "code style",
-      "static analysis",
-      "linting",
-      "formatting"
+      "قالب",
+      "",
+      "",
+      "",
+      "",
+      "",
+      "",
+      "",
+      "",
+      ""
     ],
     "param.xargs.description": "آرگومان‌های اضافی (آرایه). metacharacterهای خطرناک را رد کنید.",
     "confirm.msg": "lint_format (mode=fix) ممکن است فایل‌ها را بازنویسی کند.\nابزار: {tools}\nاهداف: {targets}\ncwd: {cwd}\n\nبرای ادامه با y یا برای لغو با c پاسخ دهید."
@@ -568,16 +594,16 @@
     "param.tools.description": "Ажиллуулах хэрэгслүүдийн нэрсийн array. Хоосон бол автоматаар сонгоно.",
     "tool.description": "Статик шинжилгээ/форматлагчдыг ажиллуулна (жишээ нь ruff/black/mypy).",
     "x_search_terms": [
-      "lint",
-      "format",
-      "code lint",
-      "code format",
-      "linter",
-      "formatter",
-      "code style",
-      "static analysis",
-      "linting",
-      "formatting"
+      "хулд",
+      "формат",
+      "код хулд",
+      "кодын формат",
+      "линтер",
+      "хэлбэрлэгч",
+      "кодын загвар",
+      "статик шинжилгээ",
+      "линт",
+      "формат"
     ],
     "param.xargs.description": "Нэмэлт аргументууд (array). Аюултай metacharacter-уудыг татгалзана.",
     "confirm.msg": "lint_format(mode=fix) нь файлуудыг дарж бичиж болзошгүй.\ntools: {tools}\ntargets: {targets}\ncwd: {cwd}\n\nҮргэлжлүүлэхийн тулд y, цуцлахын тулд c товчийг дарна уу."
@@ -613,13 +639,13 @@
       "lint",
       "format",
       "code lint",
-      "code format",
+      "forma code",
       "linter",
       "formatter",
-      "code style",
-      "static analysis",
+      " style code",
+      "στατική ανάλυση",
       "linting",
-      "formatting"
+      "μορφοποίηση"
     ],
     "param.xargs.description": "Πρόσθετα ορίσματα (πίνακας). Απορρίψτε επικίνδυνους μεταχαρακτήρες.",
     "confirm.msg": "Το lint_format(mode=fix) ενδέχεται να αντικαταστήσει τα αρχεία.\nεργαλεία: {tools}\nστόχοι: {targets}\ncwd: {cwd}\n\nΑπαντήστε με y για να συνεχίσετε ή c για ακύρωση."
@@ -631,16 +657,16 @@
     "param.tools.description": "מערך נתיב יעד (מותר רק תחת workdir).",
     "tool.description": "מערך של שמות כלים להפעלה. אם ריקים, הכלים נבחרים באופן אוטומטי.",
     "x_search_terms": [
-      "lint",
-      "format",
-      "code lint",
-      "code format",
+      "מוך",
+      "פורמט",
+      "קוד מוך",
+      "פורמט קוד",
       "linter",
-      "formatter",
-      "code style",
-      "static analysis",
-      "linting",
-      "formatting"
+      "פורמט",
+      "סגנון קוד",
+      "ניתוח סטטי",
+      "מוך",
+      "פורמט"
     ],
     "param.xargs.description": "ארגומנטים נוספים (מערך). דחה דמויות מטא מסוכנות.",
     "confirm.msg": "lint_format(mode=fix) עלול לדרוס קבצים.\nכלים: {tools}\nיעדים: {targets}\ncwd: {cwd}\n\nהשב עם y כדי להמשיך, או c כדי לבטל."
@@ -653,15 +679,15 @@
     "tool.description": "Statikus elemzés/formázók futtatása (ruff/black/mypy). A mode=fix fájlokat módosít, megerősítést igényel.",
     "x_search_terms": [
       "lint",
-      "format",
+      "formátum",
       "code lint",
-      "code format",
+      "kódformátum",
       "linter",
-      "formatter",
-      "code style",
-      "static analysis",
+      "formázó",
+      "kódstílus",
+      "statikus elemzés",
       "linting",
-      "formatting"
+      "formázás"
     ],
     "param.xargs.description": "További argumentumok (tömb). Veszélyes metakarakterek elutasítása.",
     "confirm.msg": "A lint_format(mode=fix) felülírhatja a fájlokat.\nEszközök: {tools}\ncélok: {targets}\ncwd: {cwd}\n\nA folytatáshoz válaszoljon y-val, vagy a megszakításhoz c."

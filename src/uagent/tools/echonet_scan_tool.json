@@ -1982,6 +1982,9 @@
     "param.fmt.description": "Format: json eller text.",
     "msg.summary": "ECHONET Lite-upptäckt slutförd: {count} nod(er) hittades på {elapsed_ms} ms.",
     "msg.no_devices": "Inga ECHONET Lite-noder hittades.",
+    "err.invalid_interface": "Fel: Kunde inte lösa gränssnittet '{interface}' till en lokal IPv4-adress.",
+    "param.interface.description": "Lokalt gränssnitt IPv4/namn (valfritt).",
+    "tool.description": "Upptäck ECHONET Lite-noder på det lokala nätverket och returnera en JSON- eller textlista.",
     "Crime prevention sensor": "Brottsförebyggande sensor",
     "Emergency button": "Nödknapp",
     "Human detection sensor": "Människodetektionssensor",
@@ -2046,10 +2049,7 @@
       "noder",
       "lokal",
       "nätverk"
-    ],
-    "err.invalid_interface": "Fel: Kunde inte lösa gränssnittet '{interface}' till en lokal IPv4-adress.",
-    "param.interface.description": "Lokalt gränssnitt IPv4/namn (valfritt).",
-    "tool.description": "Upptäck ECHONET Lite-noder på det lokala nätverket och returnera en JSON- eller textlista."
+    ]
   },
   "sw": {
     "param.timeout.description": "Pokea muda wa kusubiri kwa sekunde chache kwa ugunduzi wa ECHONET Lite.",

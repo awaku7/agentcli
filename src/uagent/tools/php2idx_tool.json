@@ -31,15 +31,15 @@
   "ja": {
     "x_search_terms": [
       "php",
-      "php code",
-      "php analysis",
-      "code index",
-      "php source",
-      "php parser",
-      "php function",
-      "php class",
-      "php method",
-      "php file"
+      "phpコード",
+      "php分析",
+      "コードインデックス",
+      "phpソース",
+      "phpパーサー",
+      "php関数",
+      "phpクラス",
+      "phpメソッド",
+      "phpファイル"
     ],
     "param.path.description": "PHP (.php) ファイルへのパス。",
     "err.path_required": "エラー: 'path' は必須です。",

@@ -27,10 +27,12 @@
     "msg.unsubscribed": "تم إلغاء اشتراك SwitchBot {id}.",
     "err.id_required": "معرف الاشتراك مطلوب للإجراء = إلغاء الاشتراك.",
     "x_search_terms": [
-      "إلغاء اشتراك switchbot",
+      "إلغاء الاشتراك في Switchbot",
       "switchbot_unsubscribe",
-      "سويتش بوت",
-      "إلغاء"
+      "switchbot",
+      "إلغاء",
+      "الاشتراك",
+      "subscription_id"
     ]
   },
   "bn": {
@@ -43,10 +45,12 @@
     "msg.unsubscribed": "SwitchBot সদস্যতা {id} বাতিল করা হয়েছে৷",
     "err.id_required": "অ্যাকশনের জন্য সাবস্ক্রিপশন_আইডি প্রয়োজন= আনসাবস্ক্রাইব।",
     "x_search_terms": [
-      "switchbot আনসাবস্ক্রাইব",
+      "switchbot unsubscribe",
       "switchbot_unsubscribe",
-      "সুইচবট",
-      "বাতিল"
+      "switchbot",
+      "cancel",
+      "subscription",
+      "subscription_id"
     ]
   },
   "cs": {
@@ -59,10 +63,12 @@
     "msg.unsubscribed": "Předplatné SwitchBot {id} bylo zrušeno.",
     "err.id_required": "Subscription_id je vyžadováno pro action=unsubscribe.",
     "x_search_terms": [
-      "switchbot zrušit odběr",
+      "switchbot unsubscribe",
       "switchbot_unsubscribe",
-      "přepínač",
-      "zrušit"
+      "switchbot",
+      "cancel",
+      "subscription_id",
+      ""
     ]
   },
   "de": {
@@ -75,10 +81,12 @@
     "msg.unsubscribed": "SwitchBot-Abonnement {id} gekündigt.",
     "err.id_required": "subscription_id ist für action=unsubscribe erforderlich.",
     "x_search_terms": [
-      "Switchbot abbestellen",
+      "switchbot unsubscribe",
       "switchbot_unsubscribe",
-      "Switchbot",
-      "abbrechen"
+      "switchbot",
+      "cancel",
+      "subscription",
+      "subscription_id"
     ]
   },
   "el": {
@@ -91,10 +99,12 @@
     "msg.unsubscribed": "Η συνδρομή SwitchBot {id} ακυρώθηκε.",
     "err.id_required": "Το subscription_id απαιτείται για action=unsubscribe.",
     "x_search_terms": [
-      "ακύρωση εγγραφής switchbot",
+      "switchbot unsubscribe",
       "switchbot_unsubscribe",
-      "διακόπτης",
-      "ακύρωση"
+      "switchbot",
+      "cancel",
+      "subscription",
+      "subscription_id"
     ]
   },
   "es": {
@@ -107,10 +117,12 @@
     "msg.unsubscribed": "Suscripción a SwitchBot {id} cancelada.",
     "err.id_required": "Se requiere id_suscripción para acción=cancelar suscripción.",
     "x_search_terms": [
-      "darse de baja de switchbot",
+      "switchbot darse de baja",
       "switchbot_unsubscribe",
-      "robot conmutador",
-      "cancelar"
+      "switchbot",
+      "cancelar",
+      "suscripción",
+      "subscription_id"
     ]
   },
   "fa": {
@@ -123,10 +135,12 @@
     "msg.unsubscribed": "اشتراک SwitchBot {id} لغو شد.",
     "err.id_required": "subscription_id برای action=unsubscribe مورد نیاز است.",
     "x_search_terms": [
-      "لغو اشتراک switchbot",
+      "switchbot لغو اشتراک",
       "switchbot_unsubscribe",
-      "سوییچ‌بات",
-      "لغو"
+      "switchbot",
+      "cancel",
+      "subscription",
+      "subscription_id"
     ]
   },
   "fi": {
@@ -139,10 +153,12 @@
     "msg.unsubscribed": "SwitchBot-tilaus {id} peruutettu.",
     "err.id_required": "tilaustunnus vaaditaan parametrille action=unsubscribe.",
     "x_search_terms": [
-      "switchbot peruuta tilaus",
+      "switchbot unsubscribe",
       "switchbot_unsubscribe",
-      "kytkinrobotti",
-      "peruuta"
+      "switchbot",
+      "cancel",
+      "subscription",
+      "subscription_id"
     ]
   },
   "fr": {
@@ -157,8 +173,10 @@
     "x_search_terms": [
       "désabonnement switchbot",
       "switchbot_unsubscribe",
-      "robot de commutation",
-      "annuler"
+      "switchbot",
+      "annuler",
+      "abonnement",
+      "subscription_id"
     ]
   },
   "he": {
@@ -171,10 +189,12 @@
     "msg.unsubscribed": "מנוי SwitchBot {id} בוטל.",
     "err.id_required": "subscription_id נדרש עבור action=unsubscribe.",
     "x_search_terms": [
-      "switchbot בטל הרשמה",
+      "switchbot unsubscribe",
       "switchbot_unsubscribe",
-      "מתג-בוט",
-      "ביטול"
+      "switchbot",
+      "cancel",
+      "subscription",
+      "subscription_id"
     ]
   },
   "hi": {
@@ -187,10 +207,12 @@
     "msg.unsubscribed": "स्विचबॉट सदस्यता {id} रद्द कर दी गई।",
     "err.id_required": "कार्रवाई=सदस्यता समाप्त करने के लिए subscribe_id आवश्यक है।",
     "x_search_terms": [
-      "switchbot अनसब्सक्राइब करें",
-      "switchbot_unsubscribe",
+      "स्विचबॉट सदस्यता समाप्त",
+      "स्विचबॉट_अनसब्सक्राइब",
       "स्विचबॉट",
-      "रद्द करें"
+      "रद्द",
+      "सदस्यता",
+      "सदस्यता_आईडी"
     ]
   },
   "hu": {
@@ -203,10 +225,12 @@
     "msg.unsubscribed": "A SwitchBot {id} előfizetése törölve.",
     "err.id_required": "Az action=unsubscribe paraméterhez az előfizetés_azonosítója szükséges.",
     "x_search_terms": [
-      "switchbot leiratkozás",
+      "switchbot unsubscribe",
       "switchbot_unsubscribe",
-      "kapcsolóbot",
-      "visszavonás"
+      "switchbot",
+      "cancel",
+      "subscription",
+      "subscription_id"
     ]
   },
   "id": {
@@ -220,9 +244,11 @@
     "err.id_required": "ID_langganan diperlukan untuk tindakan=berhenti berlangganan.",
     "x_search_terms": [
       "switchbot berhenti berlangganan",
-      "switchbot_berhenti berlangganan",
-      "saklarbot",
-      "batalkan"
+      "switchbot_unsubscribe",
+      "switchbot",
+      "batalkan",
+      "langganan",
+      "subscription_id"
     ]
   },
   "it": {
@@ -237,8 +263,10 @@
     "x_search_terms": [
       "switchbot annulla l'iscrizione",
       "switchbot_unsubscribe",
-      "commutatore",
-      "annullare"
+      "switchbot",
+      "annulla",
+      "abbonamento",
+      "subscription_id"
     ]
   },
   "ja": {
@@ -251,10 +279,12 @@
     "msg.unsubscribed": "SwitchBot サブスクリプション {id} がキャンセルされました。",
     "err.id_required": "action=unsubscribe には subscription_id が必要です。",
     "x_search_terms": [
-      "スイッチボットの購読を解除",
-      "スイッチボット_購読解除",
-      "スイッチボット",
-      "キャンセル"
+      "switchbot 購読解除",
+      "switchbot_unsubscribe",
+      "switchbot",
+      "キャンセル",
+      "購読",
+      "subscription_id"
     ]
   },
   "ko": {
@@ -267,10 +297,12 @@
     "msg.unsubscribed": "SwitchBot 구독 {id}이 취소되었습니다.",
     "err.id_required": "action=unsubscribe에는 subscribe_id가 필요합니다.",
     "x_search_terms": [
-      "스위치봇 구독 취소",
-      "스위치봇_구독 취소",
-      "스위치봇",
-      "취소하다"
+      "switchbot unsubscribe",
+      "switchbot_unsubscribe",
+      "switchbot",
+      "cancel",
+      "subscription",
+      "subscription_id"
     ]
   },
   "mn": {
@@ -283,10 +315,12 @@
     "msg.unsubscribed": "SwitchBot-н захиалга {id} цуцлагдлаа.",
     "err.id_required": "Үйлдэл=бүртгэлээ цуцлахад subscription_id шаардлагатай.",
     "x_search_terms": [
-      "switchbot бүртгэлээ цуцлах",
+      "switchbot unsubscribe",
       "switchbot_unsubscribe",
-      "свичбот",
-      "цуцлах"
+      "switchbot",
+      "cancel",
+      "захиалгыг",
+      "subscription_id"
     ]
   },
   "mr": {
@@ -299,10 +333,12 @@
     "msg.unsubscribed": "SwitchBot सदस्यता {id} रद्द केली.",
     "err.id_required": "कृती = सदस्यत्व रद्द करण्यासाठी subscription_id आवश्यक आहे.",
     "x_search_terms": [
-      "switchbot अनसबस्क्राइब",
+      "switchbot unsubscribe",
       "switchbot_unsubscribe",
-      "स्विचबॉट",
-      "रद्द करा"
+      "switchbot",
+      "cancel",
+      "subscription",
+      "subscription_id"
     ]
   },
   "nb": {
@@ -315,10 +351,12 @@
     "msg.unsubscribed": "SwitchBot-abonnement {id} kansellert.",
     "err.id_required": "subscription_id kreves for action=unsubscribe.",
     "x_search_terms": [
-      "switchbot avslutt abonnement",
+      "switchbot unsubscribe",
       "switchbot_unsubscribe",
       "switchbot",
-      "avbryt"
+      "cancel",
+      "subscription",
+      "subscription_id"
     ]
   },
   "nl": {
@@ -331,10 +369,12 @@
     "msg.unsubscribed": "SwitchBot-abonnement {id} geannuleerd.",
     "err.id_required": "abonnement_id is vereist voor actie=afmelden.",
     "x_search_terms": [
-      "switchbot opzeggen",
+      "switchbot afmelden",
       "switchbot_unsubscribe",
-      "schakelbot",
-      "annuleren"
+      "switchbot",
+      "cancel",
+      "subscription",
+      "subscription_id"
     ]
   },
   "pl": {
@@ -347,10 +387,12 @@
     "msg.unsubscribed": "Subskrypcja SwitchBota {id} została anulowana.",
     "err.id_required": "identyfikator_subskrypcji jest wymagany dla akcji=unsubscribe.",
     "x_search_terms": [
-      "switchbot wypisz się",
+      "switchbot anuluj subskrypcję",
       "switchbot_unsubscribe",
-      "przełącznik",
-      "anulować"
+      "switchbot",
+      "anuluj",
+      "subskrypcję",
+      "id_subskrypcji"
     ]
   },
   "pt": {
@@ -363,10 +405,12 @@
     "msg.unsubscribed": "Assinatura do SwitchBot {id} cancelada.",
     "err.id_required": "subscription_id é necessário para action=unsubscribe.",
     "x_search_terms": [
-      "switchbot cancelar subscrição",
+      "switchbot cancelar",
       "switchbot_unsubscribe",
-      "robô de comutação",
-      "cancelar"
+      "switchbot",
+      "cancel",
+      "subscription",
+      "subscription_id"
     ]
   },
   "pt_BR": {
@@ -379,10 +423,12 @@
     "msg.unsubscribed": "Assinatura do SwitchBot {id} cancelada.",
     "err.id_required": "subscription_id é necessário para action=unsubscribe.",
     "x_search_terms": [
-      "switchbot cancelar inscrição",
+      "switchbot cancelar",
       "switchbot_unsubscribe",
-      "robô de comutação",
-      "cancelar"
+      "switchbot",
+      "cancel",
+      "subscription",
+      "subscription_id"
     ]
   },
   "ro": {
@@ -395,10 +441,12 @@
     "msg.unsubscribed": "Abonamentul SwitchBot {id} a fost anulat.",
     "err.id_required": "subscription_id este necesar pentru action=unsubscribe.",
     "x_search_terms": [
-      "switchbot dezabonare",
+      "switchbot unsubscribe",
       "switchbot_unsubscribe",
-      "comutator robot",
-      "anulare"
+      "switchbot",
+      "cancel",
+      "subscription",
+      "subscription_id"
     ]
   },
   "ru": {
@@ -411,10 +459,12 @@
     "msg.unsubscribed": "Подписка на SwitchBot {id} отменена.",
     "err.id_required": "subscribe_id необходим для действия = отписаться.",
     "x_search_terms": [
-      "отписаться от switchbot",
+      "switchbot отписаться",
       "switchbot_unsubscribe",
       "switchbot",
-      "отменить"
+      "отменить",
+      "подписку",
+      "subscription_id"
     ]
   },
   "sv": {
@@ -427,10 +477,12 @@
     "msg.unsubscribed": "SwitchBot-prenumeration {id} avbröts.",
     "err.id_required": "subscription_id krävs för action=unsubscribe.",
     "x_search_terms": [
-      "switchbot avsluta prenumeration",
+      "switchbot unsubscribe",
       "switchbot_unsubscribe",
       "switchbot",
-      "avbryt"
+      "cancel",
+      "subscription",
+      "subscription_id"
     ]
   },
   "sw": {
@@ -445,8 +497,10 @@
     "x_search_terms": [
       "switchbot jiondoe",
       "switchbot_unsubscribe",
-      "kubadili bot",
-      "ghairi"
+      "switchbot",
+      "ghairi",
+      "subscription",
+      "subscription_id"
     ]
   },
   "th": {
@@ -459,10 +513,12 @@
     "msg.unsubscribed": "การสมัคร SwitchBot {id} ถูกยกเลิก",
     "err.id_required": "Subscribe_id จำเป็นสำหรับ action=unsubscribe",
     "x_search_terms": [
-      "switchbot ยกเลิกการสมัคร",
+      "switchbot ยกเลิกการสมัครสมาชิก",
       "switchbot_unsubscribe",
-      "สวิตช์บอท",
-      "ยกเลิก"
+      "switchbot",
+      "cancel",
+      "subscription",
+      "subscription_id"
     ]
   },
   "tr": {
@@ -477,8 +533,10 @@
     "x_search_terms": [
       "switchbot aboneliği iptal et",
       "switchbot_unsubscribe",
-      "anahtar bot",
-      "iptal"
+      "switchbot",
+      "cancel",
+      "subscription",
+      "subscription_id"
     ]
   },
   "uk": {
@@ -491,10 +549,12 @@
     "msg.unsubscribed": "Підписку на SwitchBot {id} скасовано.",
     "err.id_required": "subscription_id необхідний для action=unsubscribe.",
     "x_search_terms": [
-      "відписатися від switchbot",
+      "switchbot unsubscribe",
       "switchbot_unsubscribe",
-      "перемикач",
-      "скасувати"
+      "switchbot",
+      "cancel",
+      "subscription",
+      "subscription_id"
     ]
   },
   "vi": {
@@ -510,7 +570,9 @@
       "switchbot hủy đăng ký",
       "switchbot_unsubscribe",
       "switchbot",
-      "hủy bỏ"
+      "hủy",
+      "subscription",
+      "subscription_id"
     ]
   },
   "zh_CN": {
@@ -523,10 +585,12 @@
     "msg.unsubscribed": "SwitchBot 订阅 {id} 已取消。",
     "err.id_required": "action=unsubscribe 需要 subscription_id。",
     "x_search_terms": [
-      "取消 switchbot 订阅",
+      "switchbot 取消订阅",
       "switchbot_unsubscribe",
-      "开关机器人",
-      "取消"
+      "switchbot",
+      "取消",
+      "订阅",
+      "subscription_id"
     ]
   },
   "zh_TW": {
@@ -539,10 +603,12 @@
     "msg.unsubscribed": "SwitchBot 訂閱 {id} 已取消。",
     "err.id_required": "action=unsubscribe 需要 subscription_id。",
     "x_search_terms": [
-      "取消 switchbot 訂閱",
+      "switchbot 取消訂閱",
       "switchbot_unsubscribe",
-      "開關機器人",
-      "取消"
+      "switchbot",
+      "取消",
+      "訂閱",
+      "subscription_id"
     ]
   }
 }

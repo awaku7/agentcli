@@ -28,7 +28,16 @@
     "param.path.description": "入力ファイルのパス（workdir 配下である必要があります）。",
     "tool.description": "ファイルからPythonテンプレートでプロンプト文字列を生成。",
     "x_search_terms": [
-      "プロンプトを生成 |プロンプト生成 |プロンプトを作成する |プロンプトビルダー |プロンプトテンプレート |プロンプトを作成"
+      "プロンプトの生成",
+      "プロンプト生成",
+      "プロンプト作成",
+      "aiプロンプト",
+      "プロンプトエンジニアリング",
+      "プロンプトメーカー",
+      "プロンプトビルダー",
+      "プロンプト作成",
+      "プロンプトジェネレーター",
+      "テキストプロンプト"
     ],
     "param.template.description": "Python 形式のテンプレート。例: '{lines} 行\n\n{content}」。"
   },
@@ -40,12 +49,16 @@
     "param.path.description": "Ruta del archivo de entrada (debe estar en workdir",
     "tool.description": "Genere una cadena de solicitud a partir de un archivo usando una plantilla de formato Python.",
     "x_search_terms": [
-      "generar mensaje",
-      "generación rápida",
-      "crear mensaje",
-      "constructor de avisos",
-      "plantilla de aviso",
-      "generar mensaje"
+      "generar aviso",
+      "generación de avisos",
+      "creación de avisos",
+      "indicador de ai",
+      "ingeniería de avisos",
+      "creador de avisos",
+      "generador de avisos",
+      "crear aviso",
+      "generador de avisos",
+      "indicador de texto"
     ],
     "param.template.description": "Plantilla de formato Python. Ejemplo: '{lines} líneas\n\n{content}'."
   },
@@ -58,11 +71,15 @@
     "tool.description": "Générez une chaîne d'invite à partir d'un fichier à l'aide d'un modèle au format Python. Le nom de fichier",
     "x_search_terms": [
       "générer une invite",
-      "génération rapide",
+      "génération d'invite",
       "créer une invite",
-      "constructeur d'invites",
-      "modèle d'invite",
-      "make prompt"
+      "invite ai",
+      "ingénierie d'invite",
+      "créateur d'invite",
+      "générateur d'invite",
+      "créer une invite",
+      "générateur d'invite",
+      "invite de texte"
     ],
     "param.template.description": "Modèle au format Python. Exemple : '{lines} lignes\n\n{content}'."
   },
@@ -77,9 +94,13 @@
       "프롬프트 생성",
       "프롬프트 생성",
       "프롬프트 생성",
+      "ai 프롬프트",
+      "프롬프트 엔지니어링",
+      "프롬프트 메이커",
       "프롬프트 빌더",
-      "프롬프트 템플릿",
-      "프롬프트 만들기"
+      "프롬프트 생성",
+      "프롬프트 생성기",
+      "텍스트 프롬프트"
     ],
     "param.template.description": "Python 형식 템플릿입니다. 예: '{lines}줄\n\n{content}'."
   },
@@ -92,11 +113,15 @@
     "tool.description": "Erzeugt eine Eingabeaufforderungszeichenfolge aus einer Datei mit einer Python-Formatvorlage.",
     "x_search_terms": [
       "Eingabeaufforderung generieren",
-      "prompt gen",
+      "Eingabeaufforderungsgenerierung",
       "Eingabeaufforderung erstellen",
-      "prompter Builder",
-      "Eingabeaufforderungsvorlage",
-      "make prompt"
+      "AI-Eingabeaufforderung",
+      "Eingabeaufforderungstechnik",
+      "Eingabeaufforderungshersteller",
+      "Eingabeaufforderungsersteller",
+      "Eingabeaufforderung erstellen",
+      "Eingabeaufforderungsgenerator",
+      "Textaufforderung"
     ],
     "param.template.description": "Python-Formatvorlage. Beispiel: „{lines} Zeilen\n\n{content}“."
   },
@@ -109,11 +134,15 @@
     "tool.description": "Genera una stringa di prompt da un file utilizzando un modello di formato Python",
     "x_search_terms": [
       "genera prompt",
-      "generazione rapida",
-      "crea richiesta",
-      "costruttore rapido",
-      "modello di richiesta",
-      "make prompt"
+      "generazione di prompt",
+      "prompt crea",
+      "ai prompt",
+      "ingegneria di prompt",
+      "creatore di prompt",
+      "costruttore di prompt",
+      "crea prompt",
+      "generatore di prompt",
+      "prompt di testo"
     ],
     "param.template.description": "Modello di formato Python. Esempio: '{lines} righe\n\n{content}'."
   },
@@ -125,7 +154,16 @@
     "param.path.description": "Путь к входному файлу (должен находиться в рабочем каталоге).",
     "tool.description": "Создайте строку подсказки из файла с помощью шаблона формата Python.",
     "x_search_terms": [
-      "создать подсказку, подсказка, создать подсказку, быстрый строитель, шаблон подсказки, сделать подсказку"
+      "генерировать подсказку",
+      "генерировать подсказку",
+      "создать подсказку",
+      "ai подсказку",
+      "подсказку инжиниринга",
+      "создатель подсказок",
+      "конструктор подсказок",
+      "создать подсказку",
+      "генератор подсказок",
+      "текстовая подсказка"
     ],
     "param.template.description": "Шаблон формата Python. Пример: «{lines} строк\n\n{content}»."
   },
@@ -137,16 +175,16 @@
     "param.path.description": "Caminho do arquivo de entrada (deve estar em workdir).",
     "tool.description": "Caminho do arquivo de entrada (deve estar em workdir). modelo.",
     "x_search_terms": [
-      "generate prompt",
-      "prompt generation",
-      "prompt create",
+      "gerar prompt",
+      "geração de prompt",
+      "prompt criar",
       "ai prompt",
-      "prompt engineering",
-      "prompt maker",
-      "prompt builder",
-      "create prompt",
-      "prompt generator",
-      "text prompt"
+      "engenharia de prompt",
+      "criador de prompt",
+      "construtor de prompt",
+      "criar prompt",
+      "gerador de prompt",
+      "prompt de texto"
     ],
     "param.template.description": "Modelo de formato Python. Exemplo: '{lines} linhas\n\n{content}'."
   },
@@ -221,16 +259,16 @@
     "param.path.description": "Ścieżka pliku wejściowego (musi znajdować się w katalogu roboczym).",
     "tool.description": "Generuje ciąg promptu z pliku przy użyciu szablonu formatu Python.",
     "x_search_terms": [
-      "generate prompt",
-      "prompt generation",
-      "prompt create",
-      "ai prompt",
-      "prompt engineering",
-      "prompt maker",
-      "prompt builder",
-      "create prompt",
-      "prompt generator",
-      "text prompt"
+      "generuj podpowiedzi",
+      "generowanie podpowiedzi",
+      "utwórz podpowiedzi",
+      "podpowiedź AI",
+      "inżynieria podpowiedzi",
+      "kreator podpowiedzi",
+      "kreator podpowiedzi",
+      "utwórz podpowiedź",
+      "generator podpowiedzi",
+      "podpowiedź tekstowa"
     ],
     "param.template.description": "Szablon w formacie Pythona. Przykład: „{lines} linii\n\n{content}”."
   },
@@ -242,16 +280,16 @@
     "param.path.description": "इनपुट फ़ाइल का पथ (वर्कडिर के अंतर्गत होना चाहिए)।",
     "tool.description": "पायथन प्रारूप टेम्पलेट का उपयोग करके फ़ाइल से एक त्वरित स्ट्रिंग बनाएं।",
     "x_search_terms": [
-      "generate prompt",
-      "prompt generation",
-      "prompt create",
-      "ai prompt",
-      "prompt engineering",
-      "prompt maker",
-      "prompt builder",
-      "create prompt",
-      "prompt generator",
-      "text prompt"
+      "प्रॉम्प्ट",
+      "प्रॉम्प्ट जनरेशन",
+      "प्रॉम्प्ट क्रिएट",
+      "एआई प्रॉम्प्ट",
+      "प्रॉम्प्ट इंजीनियरिंग",
+      "प्रॉम्प्ट मेकर",
+      "प्रॉम्प्ट बिल्डर",
+      "क्रिएट प्रॉम्प्ट",
+      "प्रॉम्प्ट जेनरेटर",
+      "टेक्स्ट प्रॉम्प्ट जेनरेट करें"
     ],
     "param.template.description": "पायथन प्रारूप टेम्पलेट. उदाहरण: '{lines} लाइनें\n\n{content}'."
   },
@@ -263,16 +301,16 @@
     "param.path.description": "مسار ملف الإدخال (يجب أن يكون ضمن workdir).",
     "tool.description": "أنشئ سلسلة مطالبة من ملف باستخدام قالب تنسيق Python.",
     "x_search_terms": [
-      "generate prompt",
-      "prompt generation",
-      "prompt create",
-      "ai prompt",
-      "prompt engineering",
-      "prompt maker",
-      "prompt builder",
-      "create prompt",
-      "prompt generator",
-      "text prompt"
+      "إنشاء موجه ",
+      " إنشاء سريع ",
+      " إنشاء سريع ",
+      " موجه AI ",
+      " هندسة سريعة ",
+      " صانع سريع ",
+      " منشئ سريع ",
+      " إنشاء موجه ",
+      " مولد سريع ",
+      " نص موجه"
     ],
     "param.template.description": "قالب تنسيق بايثون. مثال: '{lines} خطوط\n\n{content}'."
   },
@@ -284,16 +322,16 @@
     "param.path.description": "Sökvägen till indatafilen (måste finnas under workdir).",
     "tool.description": "Genererar en promptsträng från en fil med en Python-formatmall.",
     "x_search_terms": [
-      "generate prompt",
-      "prompt generation",
-      "prompt create",
-      "ai prompt",
-      "prompt engineering",
-      "prompt maker",
-      "prompt builder",
-      "create prompt",
-      "prompt generator",
-      "text prompt"
+      "generera prompt",
+      "promptgenerering",
+      "prompt skapa",
+      "ai-prompt",
+      "promptteknik",
+      "prompttillverkare",
+      "promptbyggare",
+      "skapa prompt",
+      "promptgenerator",
+      "textprompt"
     ],
     "param.template.description": "Python-formatmall. Exempel: '{lines} rader\n\n{content}'."
   },
@@ -305,16 +343,16 @@
     "param.path.description": "[toa_promp_8_kosa]). faili (lazima iwe chini ya workdir).",
     "tool.description": "Tengeneza mfuatano wa kidokezo kutoka kwa faili kwa kutumia kiolezo cha umbizo la Python",
     "x_search_terms": [
-      "generate prompt",
-      "prompt generation",
-      "prompt create",
-      "ai prompt",
-      "prompt engineering",
-      "prompt maker",
-      "prompt builder",
-      "create prompt",
-      "prompt generator",
-      "text prompt"
+      "toa haraka",
+      "uundaji wa haraka",
+      "unda haraka",
+      "i uharaka",
+      "uhandisi wa haraka",
+      "uundaji haraka",
+      "mjenzi wa haraka",
+      "unda haraka",
+      "jenereta ya haraka",
+      "ujumbe wa maandishi"
     ],
     "param.template.description": "Kiolezo cha umbizo la Python. Mfano: '{lines} mistari\n\n{content}'."
   },
@@ -326,16 +364,16 @@
     "param.path.description": "Sti til inputfilen (må ligge under workdir).",
     "tool.description": "Generer en promptstreng fra en fil ved hjelp av en Python-formatmal",
     "x_search_terms": [
-      "generate prompt",
-      "prompt generation",
-      "prompt create",
-      "ai prompt",
-      "prompt engineering",
-      "prompt maker",
-      "prompt builder",
-      "create prompt",
-      "prompt generator",
-      "text prompt"
+      "generer spørsmål",
+      "",
+      "",
+      "",
+      "",
+      "",
+      "",
+      "",
+      "",
+      ""
     ],
     "param.template.description": "Python-formatmal. Eksempel: '{lines} linjer\n\n{content}'."
   },
@@ -347,16 +385,16 @@
     "param.path.description": "Pad van het invoerbestand (moet onder workdir staan).",
     "tool.description": "Genereer een promptstring uit een bestand met behulp van een Python-formaatsjabloon.",
     "x_search_terms": [
-      "generate prompt",
-      "prompt generation",
-      "prompt create",
+      "prompt genereren",
+      "prompt genereren",
+      "prompt creëren",
       "ai prompt",
       "prompt engineering",
       "prompt maker",
       "prompt builder",
       "create prompt",
       "prompt generator",
-      "text prompt"
+      "tekst prompt"
     ],
     "param.template.description": "Sjabloon voor Python-indeling. Voorbeeld: '{lines} regels\n\n{content}'."
   },
@@ -368,16 +406,16 @@
     "param.path.description": "Syötetiedoston polku (on oltava workdirin alla).",
     "tool.description": "Luo prompt-merkkijonon tiedostosta Pythonin muotoilupohjaa käyttäen.",
     "x_search_terms": [
-      "generate prompt",
-      "prompt generation",
-      "prompt create",
-      "ai prompt",
-      "prompt engineering",
-      "prompt maker",
-      "prompt builder",
-      "create prompt",
-      "prompt generator",
-      "text prompt"
+      "generoi kehote",
+      "kehotteen luominen",
+      "kehote luo",
+      "",
+      "",
+      "",
+      "",
+      "",
+      "",
+      ""
     ],
     "param.template.description": "Python-muotoinen malli. Esimerkki: '{lines} riviä\n\n{content}'."
   },
@@ -389,16 +427,16 @@
     "param.path.description": "Cesta ke vstupnímu souboru (musí být v workdir).",
     "tool.description": "Vygeneruje řetězec promptu ze souboru pomocí šablony formátu Python.",
     "x_search_terms": [
-      "generate prompt",
-      "prompt generation",
-      "prompt create",
+      "vygenerovat výzvu",
+      "generování výzvy",
+      "výzva vytvořit",
       "ai prompt",
       "prompt engineering",
       "prompt maker",
       "prompt builder",
       "create prompt",
-      "prompt generator",
-      "text prompt"
+      "prompt generation",
+      "textová výzva"
     ],
     "param.template.description": "Šablona formátu Python. Příklad: '{lines} řádků\n\n{content}'."
   },
@@ -410,16 +448,16 @@
     "param.path.description": "Шлях до вхідного файла (має бути в межах workdir).",
     "tool.description": "Створює рядок запиту з файла за допомогою шаблону формату Python.",
     "x_search_terms": [
-      "generate prompt",
-      "prompt generation",
-      "prompt create",
-      "ai prompt",
-      "prompt engineering",
-      "prompt maker",
-      "prompt builder",
-      "create prompt",
-      "prompt generator",
-      "text prompt"
+      "генерувати підказку",
+      "підказку генерувати",
+      "підказку створити",
+      "ai підказку",
+      "підказувати розробку",
+      "виробник підказок",
+      "розробник підказок",
+      "створити підказку",
+      "генератор підказок",
+      "текстовий запит"
     ],
     "param.template.description": "Шаблон формату Python. Приклад: \"{lines} рядків\n\n{content}\"."
   },
@@ -431,16 +469,16 @@
     "param.path.description": "Giriş dosyasının yolu (workdir altında olmalıdır).",
     "tool.description": "Python format şablonunu kullanarak bir dosyadan bilgi istemi dizesi oluşturun.",
     "x_search_terms": [
-      "generate prompt",
-      "prompt generation",
-      "prompt create",
-      "ai prompt",
-      "prompt engineering",
-      "prompt maker",
-      "prompt builder",
-      "create prompt",
-      "prompt generator",
-      "text prompt"
+      "istem oluştur",
+      "istem oluşturma",
+      "istem oluştur",
+      "ai istemi",
+      "istem mühendisliği",
+      "istem oluşturucu",
+      "istem oluşturucu",
+      "istem oluştur",
+      "istem oluşturucu",
+      "metin istemi"
     ],
     "param.template.description": "Python biçimi şablonu. Örnek: '{lines} satır\n\n{content}'."
   },
@@ -452,16 +490,16 @@
     "param.path.description": "เส้นทางของไฟล์อินพุต (ต้องอยู่ภายใต้ workdir)",
     "tool.description": "สร้างสตริงพรอมต์จากไฟล์โดยใช้เทมเพลตรูปแบบ Python",
     "x_search_terms": [
-      "generate prompt",
-      "prompt generation",
-      "prompt create",
-      "ai prompt",
-      "prompt engineering",
-      "prompt maker",
-      "prompt builder",
-      "create prompt",
-      "prompt generator",
-      "text prompt"
+      "สร้างพรอมต์",
+      "การสร้างพรอมต์",
+      "สร้างพรอมต์",
+      "พรอมต์ ai",
+      "วิศวกรรมพรอมต์",
+      "ผู้สร้างพรอมต์",
+      "ตัวสร้างพรอมต์",
+      "สร้างพรอมต์",
+      "ตัวสร้างพรอมต์",
+      "พรอมต์ข้อความ"
     ],
     "param.template.description": "เทมเพลตรูปแบบ Python ตัวอย่าง: '{lines} บรรทัด\n\n{content}'"
   },
@@ -473,16 +511,16 @@
     "param.path.description": "输入文件的路径（必须在工作目录下）。",
     "tool.description": "使用Python格式模板从文件生成提示字符串。",
     "x_search_terms": [
-      "generate prompt",
-      "prompt generation",
-      "prompt create",
-      "ai prompt",
-      "prompt engineering",
-      "prompt maker",
-      "prompt builder",
-      "create prompt",
-      "prompt generator",
-      "text prompt"
+      "生成提示",
+      "提示生成",
+      "提示创建",
+      "ai提示",
+      "提示工程",
+      "提示制作者",
+      "提示生成器",
+      "创建提示",
+      "提示生成器",
+      "文本提示"
     ],
     "param.template.description": "Python 格式模板。示例：“{lines} 行\n\n{content}”。"
   },
@@ -494,16 +532,16 @@
     "param.path.description": "輸入檔案的路徑（必須在工作目錄下）。",
     "tool.description": "使用Python格式模板从文件生成提示字符串。",
     "x_search_terms": [
-      "generate prompt",
-      "prompt generation",
-      "prompt create",
-      "ai prompt",
-      "prompt engineering",
-      "prompt maker",
-      "prompt builder",
-      "create prompt",
-      "prompt generator",
-      "text prompt"
+      "產生提示",
+      "提示產生",
+      "提示建立",
+      "ai提示",
+      "提示工程",
+      "提示製作者",
+      "提示產生器",
+      "建立提示",
+      "提示產生器",
+      "文字提示"
     ],
     "param.template.description": "Python 格式範本。範例：「{lines} 行\n\n{content}」。"
   },
@@ -515,16 +553,16 @@
     "param.path.description": "ইনপুট ফাইলের path (workdir-এর মধ্যে হতে হবে)।",
     "tool.description": "একটি পাইথন বিন্যাস টেমপ্লেট ব্যবহার করে একটি ফাইল থেকে একটি প্রম্পট স্ট্রিং তৈরি করুন৷",
     "x_search_terms": [
-      "generate prompt",
-      "prompt generation",
-      "prompt create",
-      "ai prompt",
-      "prompt engineering",
-      "prompt maker",
-      "prompt builder",
-      "create prompt",
-      "prompt generator",
-      "text prompt"
+      "প্রম্পট তৈরি করুন",
+      "প্রম্পট জেনারেশন",
+      "প্রম্পট তৈরি করুন",
+      "ai প্রম্পট",
+      "প্রম্পট ইঞ্জিনিয়ারিং",
+      "প্রম্পট মেকার",
+      "প্রম্পট নির্মাতা",
+      "প্রম্পট তৈরি করুন",
+      "প্রম্পট জেনারেটর",
+      "টেক্সট প্রম্পট"
     ],
     "param.template.description": "পাইথন বিন্যাস টেমপ্লেট। উদাহরণ: '{lines} লাইন\n\n{content}'।"
   },
@@ -536,16 +574,16 @@
     "param.path.description": "مسیر فایل ورودی (باید زیر workdir باشد).",
     "tool.description": "یک رشته اعلان از یک فایل با استفاده از قالب قالب پایتون ایجاد کنید.",
     "x_search_terms": [
-      "generate prompt",
-      "prompt generation",
-      "prompt create",
-      "ai prompt",
-      "prompt engineering",
-      "prompt maker",
-      "prompt builder",
-      "create prompt",
-      "prompt generator",
-      "text prompt"
+      "ایجاد اعلان",
+      "",
+      "",
+      "",
+      "",
+      "",
+      "",
+      "",
+      "",
+      ""
     ],
     "param.template.description": "قالب با فرمت پایتون مثال: خطوط {lines}\n\n{content}'."
   },
@@ -557,14 +595,14 @@
     "param.path.description": "Оролтын файлын path (workdir-ийн дор байх ёстой).",
     "tool.description": "Python format template ашиглан файлаас prompt string үүсгэнэ.",
     "x_search_terms": [
-      "generate prompt",
-      "prompt generation",
+      "prompt үүсгэх",
+      "prompt үүсгэх",
       "prompt create",
       "ai prompt",
       "prompt engineering",
       "prompt maker",
       "prompt builder",
-      "create prompt",
+      "prompt үүсгэх",
       "prompt generator",
       "text prompt"
     ],
@@ -578,16 +616,16 @@
     "param.path.description": "इनपुट file चा path (workdir अंतर्गत असणे आवश्यक).",
     "tool.description": "Python format template वापरून file मधून prompt string तयार करते.",
     "x_search_terms": [
-      "generate prompt",
-      "prompt generation",
-      "prompt create",
-      "ai prompt",
-      "prompt engineering",
-      "prompt maker",
-      "prompt builder",
-      "create prompt",
-      "prompt generator",
-      "text prompt"
+      "जनरेट प्रॉम्प्ट",
+      "प्रॉम्प्ट जनरेशन",
+      "प्रॉम्प्ट तयार करा",
+      "ai प्रॉम्प्ट",
+      "प्रॉम्प्ट अभियांत्रिकी",
+      "प्रॉम्प्ट निर्माता",
+      "प्रॉम्प्ट बिल्डर",
+      "प्रॉम्प्ट तयार करा",
+      "प्रॉम्प्ट जनरेटर",
+      "मजकूर प्रॉम्प्ट"
     ],
     "param.template.description": "पायथन स्वरूप टेम्पलेट. उदाहरण: '{lines} ओळी\n\n{content}'."
   },
@@ -599,16 +637,16 @@
     "param.path.description": "Δημιουργήστε μια συμβολοσειρά προτροπής από ένα αρχείο χρησιμοποιώντας ένα πρότυπο μορφής Python.",
     "tool.description": "Δημιουργήστε μια συμβολοσειρά προτροπής από ένα αρχείο χρησιμοποιώντας ένα πρότυπο μορφής Python.",
     "x_search_terms": [
-      "generate prompt",
-      "prompt generation",
-      "prompt create",
+      "δημιουργία προτροπής",
+      "δημιουργία προτροπής",
+      "προτροπή δημιουργία",
       "ai prompt",
       "prompt engineering",
       "prompt maker",
       "prompt builder",
       "create prompt",
       "prompt generator",
-      "text prompt"
+      "prompt text"
     ],
     "param.template.description": "Πρότυπο μορφής Python. Παράδειγμα: '{lines} γραμμές\n\n{content}'."
   },
@@ -620,16 +658,16 @@
     "param.path.description": "הנתיב של קובץ העבודה (חייב להיות בקובץ הקלט).",
     "tool.description": "צור מחרוזת הנחיה מקובץ באמצעות תבנית פורמט Python.",
     "x_search_terms": [
-      "generate prompt",
-      "prompt generation",
-      "prompt create",
-      "ai prompt",
-      "prompt engineering",
-      "prompt maker",
-      "prompt builder",
-      "create prompt",
-      "prompt generator",
-      "text prompt"
+      "צור פקודה",
+      "יצירת הנחיות",
+      "פקודה צור",
+      "הנחיה AI",
+      "הנדסת הנחיות",
+      "יוצר הנחיות",
+      "בונה הנחיות",
+      "יצירת הנחיות",
+      "מחולל הנחיות",
+      "הנחיית טקסט"
     ],
     "param.template.description": "תבנית פורמט Python. דוגמה: '{lines} שורות\n\n{content}'."
   },
@@ -641,14 +679,14 @@
     "param.path.description": "A bevitt fájl elérési útját kell megadni.",
     "tool.description": "Prompt karakterlánc létrehozása fájlból Python formátumú sablon használatával.",
     "x_search_terms": [
-      "generate prompt",
-      "prompt generation",
-      "prompt create",
+      "prompt generálása",
+      "promptgenerator",
+      "prompt Create",
       "ai prompt",
       "prompt engineering",
       "prompt maker",
       "prompt builder",
-      "create prompt",
+      "prompt létrehozása",
       "prompt generator",
       "text prompt"
     ],
@@ -662,16 +700,16 @@
     "param.path.description": "Calea fișierului de lucru de intrare (trebuie să fie sub director).",
     "tool.description": "Generați un șir de prompt dintr-un fișier folosind un șablon în format Python.",
     "x_search_terms": [
-      "generate prompt",
-      "prompt generation",
+      "generare prompt",
+      "generare prompt",
       "prompt create",
       "ai prompt",
       "prompt engineering",
       "prompt maker",
       "prompt builder",
-      "create prompt",
+      "creare prompt",
       "prompt generator",
-      "text prompt"
+      "prompt text"
     ],
     "param.template.description": "Șablon format Python. Exemplu: „{lines} linii\n\n{content}”."
   }

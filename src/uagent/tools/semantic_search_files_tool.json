@@ -42,20 +42,20 @@
     "param.query.description": "検索キーワード。",
     "param.root_path.description": "検索対象ディレクトリ。",
     "param.top_k.description": "件数。",
+    "tool.description": "ローカルファイルに対してセマンティック検索（ベクター検索）を実行します。Embedding APIを使用してファイル内容をベクトル化し、関連する文書の一節を抽出します。",
     "x_search_terms": [
       "semantic_search_files",
-      "semantic search files",
-      "semantic search",
-      "vector search",
-      "embedding search",
-      "local file search",
-      "search files",
-      "document search",
-      "file retrieval",
-      "semantic retrieval"
+      "セマンティック検索ファイル",
+      "セマンティック検索",
+      "ベクトル検索",
+      "埋め込み検索",
+      "ローカルファイル検索",
+      "ファイル検索",
+      "ドキュメント検索",
+      "ファイル検索",
+      "セマンティック検索"
     ],
-    "err.no_index": "エラー: インデックス付きベクトルが見つかりません。最初にindex_filesを実行します。",
-    "tool.description": "ローカルファイルに対してセマンティック検索（ベクター検索）を実行します。Embedding APIを使用してファイル内容をベクトル化し、関連する文書の一節を抽出します。"
+    "err.no_index": "エラー: インデックス付きベクトルが見つかりません。最初にindex_filesを実行します。"
   },
   "es": {
     "err.dir_not_found": "Error: Directorio no encontrado: {root_path}",
@@ -71,20 +71,20 @@
     "param.query.description": "Buscar palabra clave.",
     "param.root_path.description": "Directorio para buscar.",
     "param.top_k.description": "número.",
+    "tool.description": "Realiza una búsqueda semántica (búsqueda vectorial) contra archivos locales. Utiliza la API de Embedding para vectorizar el contenido de los archivos y extraer pasajes de documentos relevantes.",
     "x_search_terms": [
       "semantic_search_files",
-      "semantic search files",
-      "semantic search",
-      "vector search",
-      "embedding search",
-      "local file search",
-      "search files",
-      "document search",
-      "file retrieval",
-      "semantic retrieval"
+      "archivos de búsqueda semántica",
+      "búsqueda semántica",
+      "búsqueda vectorial",
+      "búsqueda de incrustación",
+      "búsqueda de archivos locales",
+      "búsqueda de archivos",
+      "búsqueda de documentos",
+      "recuperación de archivos",
+      "recuperación semántica"
     ],
-    "err.no_index": "Error: no se encontraron vectores indexados. Ejecute index_files primero.",
-    "tool.description": "Realiza una búsqueda semántica (búsqueda vectorial) contra archivos locales. Utiliza la API de Embedding para vectorizar el contenido de los archivos y extraer pasajes de documentos relevantes."
+    "err.no_index": "Error: no se encontraron vectores indexados. Ejecute index_files primero."
   },
   "fr": {
     "err.dir_not_found": "Erreur : Répertoire introuvable : {root_path}",
@@ -100,20 +100,20 @@
     "param.query.description": "Rechercher un mot-clé.",
     "param.root_path.description": "Annuaire à rechercher.",
     "param.top_k.description": "nombre.",
+    "tool.description": "Effectue une recherche sémantique (recherche vectorielle) dans les fichiers locaux. Utilise l'API d'Embedding pour vectoriser le contenu des fichiers et extrait les passages de documents pertinents.",
     "x_search_terms": [
       "semantic_search_files",
-      "semantic search files",
-      "semantic search",
-      "vector search",
-      "embedding search",
-      "local file search",
-      "search files",
-      "document search",
-      "file retrieval",
-      "semantic retrieval"
+      "fichiers de recherche sémantique",
+      "recherche sémantique",
+      "recherche de vecteur",
+      "recherche d'intégration",
+      "recherche de fichiers locaux",
+      "recherche de fichiers",
+      "recherche de documents",
+      "récupération de fichiers",
+      "récupération sémantique"
     ],
-    "err.no_index": "Erreur : aucun vecteur indexé trouvé. Exécutez d'abord index_files.",
-    "tool.description": "Effectue une recherche sémantique (recherche vectorielle) dans les fichiers locaux. Utilise l'API d'Embedding pour vectoriser le contenu des fichiers et extrait les passages de documents pertinents."
+    "err.no_index": "Erreur : aucun vecteur indexé trouvé. Exécutez d'abord index_files."
   },
   "ko": {
     "err.dir_not_found": "오류: 디렉터리를 찾을 수 없습니다: {root_path}",
@@ -129,20 +129,20 @@
     "param.query.description": "검색 키워드.",
     "param.root_path.description": "검색할 디렉터리입니다.",
     "param.top_k.description": "숫자.",
+    "tool.description": "로컬 파일에 대해 의미 검색(벡터 검색)을 수행합니다. Embedding API를 사용하여 파일 내용을 벡터화하고 관련 문서 구절을 추출합니다.",
     "x_search_terms": [
       "semantic_search_files",
-      "semantic search files",
-      "semantic search",
-      "vector search",
-      "embedding search",
-      "local file search",
-      "search files",
-      "document search",
-      "file retrieval",
-      "semantic retrieval"
+      "의미 검색 파일",
+      "의미 검색",
+      "벡터 검색",
+      "임베딩 검색",
+      "로컬 파일 검색",
+      "검색 파일",
+      "문서 검색",
+      "파일 검색",
+      "의미 검색"
     ],
-    "err.no_index": "오류: 색인화된 벡터를 찾을 수 없습니다. index_files를 먼저 실행하세요.",
-    "tool.description": "로컬 파일에 대해 의미 검색(벡터 검색)을 수행합니다. Embedding API를 사용하여 파일 내용을 벡터화하고 관련 문서 구절을 추출합니다."
+    "err.no_index": "오류: 색인화된 벡터를 찾을 수 없습니다. index_files를 먼저 실행하세요."
   },
   "de": {
     "err.dir_not_found": "Fehler: Verzeichnis nicht gefunden: {root_path}",
@@ -158,20 +158,20 @@
     "param.query.description": "Suchbegriff.",
     "param.root_path.description": "Zu durchsuchendes Verzeichnis.",
     "param.top_k.description": "Anzahl.",
+    "tool.description": "Führt eine semantische Suche (Vektorsuche) gegen lokale Dateien durch. Verwendet die Embedding-API, um Dateiinhalte zu vektorisieren und relevante Dokumentpassagen zu extrahieren.",
     "x_search_terms": [
       "semantic_search_files",
-      "semantic search files",
-      "semantic search",
-      "vector search",
-      "embedding search",
-      "local file search",
-      "search files",
-      "document search",
-      "file retrieval",
-      "semantic retrieval"
+      "semantische Suchdateien",
+      "semantische Suche",
+      "Vektorsuche",
+      "Einbettungssuche",
+      "lokale Dateisuche",
+      "Suchdateien",
+      "Dokumentensuche",
+      "Dateiabruf",
+      "semantischer Abruf"
     ],
-    "err.no_index": "Fehler: Keine indizierten Vektoren gefunden. Führen Sie zuerst index_files aus.",
-    "tool.description": "Führt eine semantische Suche (Vektorsuche) gegen lokale Dateien durch. Verwendet die Embedding-API, um Dateiinhalte zu vektorisieren und relevante Dokumentpassagen zu extrahieren."
+    "err.no_index": "Fehler: Keine indizierten Vektoren gefunden. Führen Sie zuerst index_files aus."
   },
   "it": {
     "err.dir_not_found": "Errore: directory non trovata: {root_path}",
@@ -187,20 +187,20 @@
     "param.query.description": "Parola chiave di ricerca.",
     "param.root_path.description": "Directory da cercare.",
     "param.top_k.description": "numero.",
+    "tool.description": "Esegue una ricerca semantica (ricerca vettoriale) sui file locali. Usa l'API di Embedding per vettorizzare i contenuti dei file ed estrarre passaggi di documento rilevanti.",
     "x_search_terms": [
-      "semantic_search_files",
-      "semantic search files",
-      "semantic search",
-      "vector search",
-      "embedding search",
-      "local file search",
-      "search files",
-      "document search",
-      "file retrieval",
-      "semantic retrieval"
+      "file_di_ricerca_semantica",
+      "file di ricerca semantica",
+      "ricerca semantica",
+      "ricerca vettoriale",
+      "ricerca per incorporamento",
+      "ricerca file locale",
+      "cerca file",
+      "ricerca documenti",
+      "recupero file",
+      "recupero semantico"
     ],
-    "err.no_index": "Errore: nessun vettore indicizzato trovato. Esegui prima index_files.",
-    "tool.description": "Esegue una ricerca semantica (ricerca vettoriale) sui file locali. Usa l'API di Embedding per vettorizzare i contenuti dei file ed estrarre passaggi di documento rilevanti."
+    "err.no_index": "Errore: nessun vettore indicizzato trovato. Esegui prima index_files."
   },
   "ru": {
     "err.dir_not_found": "Ошибка: каталог не найден: {root_path}",
@@ -216,20 +216,20 @@
     "param.query.description": "Ключевое слово поиска.",
     "param.root_path.description": "Каталог для поиска.",
     "param.top_k.description": "число.",
+    "tool.description": "Выполняет семантический поиск (векторный поиск) по локальным файлам. Использует Embedding API для векторизации содержимого файлов и извлекает релевантные фрагменты документов.",
     "x_search_terms": [
       "semantic_search_files",
-      "semantic search files",
-      "semantic search",
-      "vector search",
-      "embedding search",
-      "local file search",
-      "search files",
-      "document search",
-      "file retrieval",
-      "semantic retrieval"
+      "файлы семантического поиска",
+      "семантический поиск",
+      "векторный поиск",
+      "поиск по встраиванию",
+      "локальный поиск файлов",
+      "поиск файлов",
+      "поиск документов",
+      "поиск файлов",
+      "семантический поиск"
     ],
-    "err.no_index": "Ошибка: индексированные векторы не найдены. Сначала запустите index_files.",
-    "tool.description": "Выполняет семантический поиск (векторный поиск) по локальным файлам. Использует Embedding API для векторизации содержимого файлов и извлекает релевантные фрагменты документов."
+    "err.no_index": "Ошибка: индексированные векторы не найдены. Сначала запустите index_files."
   },
   "pt_BR": {
     "err.dir_not_found": "Erro: Diretório não encontrado: {root_path}",
@@ -245,20 +245,20 @@
     "param.query.description": "Palavra-chave de pesquisa.",
     "param.root_path.description": "Diretório para pesquisa.",
     "param.top_k.description": "número.",
+    "tool.description": "Realiza uma pesquisa semântica (busca vetorial) em arquivos locais. Usa a API de Embedding para vetorizar o conteúdo dos arquivos e extrair passagens relevantes dos documentos.",
     "x_search_terms": [
-      "semantic_search_files",
-      "semantic search files",
-      "semantic search",
-      "vector search",
-      "embedding search",
-      "local file search",
-      "search files",
-      "document search",
-      "file retrieval",
-      "semantic retrieval"
+      "semântica_search_files",
+      "arquivos de pesquisa semântica",
+      "pesquisa semântica",
+      "pesquisa vetorial",
+      "pesquisa de incorporação",
+      "pesquisa de arquivos locais",
+      "pesquisa de arquivos",
+      "pesquisa de documentos",
+      "recuperação de arquivos",
+      "recuperação semântica"
     ],
-    "err.no_index": "Erro: Nenhum vetor indexado encontrado. Execute index_files primeiro.",
-    "tool.description": "Realiza uma pesquisa semântica (busca vetorial) em arquivos locais. Usa a API de Embedding para vetorizar o conteúdo dos arquivos e extrair passagens relevantes dos documentos."
+    "err.no_index": "Erro: Nenhum vetor indexado encontrado. Execute index_files primeiro."
   },
   "pt": {
     "err.dir_not_found": "Erro: Diretório não encontrado: {root_path}",
@@ -274,20 +274,20 @@
     "param.query.description": "Palavra-chave de pesquisa.",
     "param.root_path.description": "Diretório para pesquisar.",
     "param.top_k.description": "número.",
+    "tool.description": "Realiza uma pesquisa semântica (pesquisa vetorial) contra ficheiros locais. Usa a API de Embedding para vetorizar o conteúdo dos ficheiros e extrai passagens de documentos relevantes.",
     "x_search_terms": [
-      "semantic_search_files",
-      "semantic search files",
-      "semantic search",
-      "vector search",
-      "embedding search",
-      "local file search",
-      "search files",
-      "document search",
-      "file retrieval",
-      "semantic retrieval"
+      "semântica_search_files",
+      "arquivos de pesquisa semântica",
+      "pesquisa semântica",
+      "pesquisa vetorial",
+      "pesquisa de incorporação",
+      "pesquisa de arquivos locais",
+      "pesquisa de arquivos",
+      "pesquisa de documentos",
+      "recuperação de arquivos",
+      "recuperação semântica"
     ],
-    "err.no_index": "Erro: Nenhum vetor indexado encontrado. Execute index_files primeiro.",
-    "tool.description": "Realiza uma pesquisa semântica (pesquisa vetorial) contra ficheiros locais. Usa a API de Embedding para vetorizar o conteúdo dos ficheiros e extrai passagens de documentos relevantes."
+    "err.no_index": "Erro: Nenhum vetor indexado encontrado. Execute index_files primeiro."
   },
   "id": {
     "err.dir_not_found": "Kesalahan: Direktori tidak ditemukan: {root_path}",
@@ -303,20 +303,20 @@
     "param.query.description": "Kata kunci pencarian.",
     "param.root_path.description": "Direktori untuk dicari.",
     "param.top_k.description": "angka.",
+    "tool.description": "Melakukan pencarian semantik (pencarian vektor) terhadap file lokal. Menggunakan API Embedding untuk memvektorkan konten file dan mengekstrak bagian dokumen yang relevan.",
     "x_search_terms": [
-      "semantic_search_files",
-      "semantic search files",
-      "semantic search",
-      "vector search",
-      "embedding search",
-      "local file search",
-      "search files",
-      "document search",
-      "file retrieval",
-      "semantic retrieval"
+      "file_pencarian semantik",
+      "file pencarian semantik",
+      "pencarian semantik",
+      "pencarian vektor",
+      "pencarian penyematan",
+      "pencarian file lokal",
+      "pencarian file",
+      "pencarian dokumen",
+      "pengambilan file",
+      "pengambilan semantik"
     ],
-    "err.no_index": "Kesalahan: Tidak ditemukan vektor yang diindeks. Jalankan index_files terlebih dahulu.",
-    "tool.description": "Melakukan pencarian semantik (pencarian vektor) terhadap file lokal. Menggunakan API Embedding untuk memvektorkan konten file dan mengekstrak bagian dokumen yang relevan."
+    "err.no_index": "Kesalahan: Tidak ditemukan vektor yang diindeks. Jalankan index_files terlebih dahulu."
   },
   "vi": {
     "err.dir_not_found": "Lỗi: Không tìm thấy thư mục: {root_path}",
@@ -332,20 +332,20 @@
     "param.query.description": "Từ khóa tìm kiếm.",
     "param.root_path.description": "Thư mục để tìm kiếm.",
     "param.top_k.description": "Số lượng.",
+    "tool.description": "Thực hiện tìm kiếm ngữ nghĩa (tìm kiếm vector) trên các tệp cục bộ. Sử dụng API Nhúng để vector hóa nội dung tệp và trích xuất các đoạn tài liệu liên quan.",
     "x_search_terms": [
-      "semantic_search_files",
-      "semantic search files",
-      "semantic search",
-      "vector search",
-      "embedding search",
-      "local file search",
-      "search files",
-      "document search",
-      "file retrieval",
-      "semantic retrieval"
+      "ngữ nghĩa_search_files",
+      "tệp tìm kiếm ngữ nghĩa",
+      "tìm kiếm ngữ nghĩa",
+      "tìm kiếm vectơ",
+      "tìm kiếm nhúng",
+      "tìm kiếm tệp cục bộ",
+      "tìm kiếm tệp",
+      "tìm kiếm tài liệu",
+      "truy xuất tệp",
+      "truy xuất ngữ nghĩa"
     ],
-    "err.no_index": "Lỗi: Không tìm thấy vectơ được lập chỉ mục. Trước tiên hãy chạy index_files.",
-    "tool.description": "Thực hiện tìm kiếm ngữ nghĩa (tìm kiếm vector) trên các tệp cục bộ. Sử dụng API Nhúng để vector hóa nội dung tệp và trích xuất các đoạn tài liệu liên quan."
+    "err.no_index": "Lỗi: Không tìm thấy vectơ được lập chỉ mục. Trước tiên hãy chạy index_files."
   },
   "pl": {
     "err.dir_not_found": "Błąd: Nie znaleziono katalogu: {root_path}",
@@ -361,20 +361,20 @@
     "param.query.description": "Wyszukaj słowo kluczowe.",
     "param.root_path.description": "Katalog do przeszukania.",
     "param.top_k.description": "Liczba.",
+    "tool.description": "Wykonuje wyszukiwanie semantyczne (wyszukiwanie wektorowe) w plikach lokalnych. Używa API osadzania do wektoryzacji zawartości plików i wyodrębnia odpowiednie fragmenty dokumentów.",
     "x_search_terms": [
-      "semantic_search_files",
-      "semantic search files",
-      "semantic search",
-      "vector search",
-      "embedding search",
-      "local file search",
-      "search files",
-      "document search",
-      "file retrieval",
-      "semantic retrieval"
+      "pliki_wyszukiwania_semantycznego",
+      "pliki wyszukiwania semantycznego",
+      "wyszukiwanie semantyczne",
+      "wyszukiwanie wektorowe",
+      "wyszukiwanie osadzane",
+      "wyszukiwanie plików lokalnych",
+      "pliki wyszukiwania",
+      "wyszukiwanie dokumentów",
+      "wyszukiwanie plików",
+      "wyszukiwanie semantyczne"
     ],
-    "err.no_index": "Błąd: nie znaleziono indeksowanych wektorów. Najpierw uruchom plik indeksowy.",
-    "tool.description": "Wykonuje wyszukiwanie semantyczne (wyszukiwanie wektorowe) w plikach lokalnych. Używa API osadzania do wektoryzacji zawartości plików i wyodrębnia odpowiednie fragmenty dokumentów."
+    "err.no_index": "Błąd: nie znaleziono indeksowanych wektorów. Najpierw uruchom plik indeksowy."
   },
   "hi": {
     "err.dir_not_found": "त्रुटि: निर्देशिका नहीं मिली: {root_path}",
@@ -390,20 +390,20 @@
     "param.query.description": "मुख्य शब्द ढूंडो।",
     "param.root_path.description": "खोजने के लिए निर्देशिका.",
     "param.top_k.description": "संख्या।",
+    "tool.description": "स्थानीय फ़ाइलों के विरुद्ध एक सिमैंटिक खोज (वेक्टर खोज) करता है। फ़ाइल सामग्री को वेक्टराइज़ करने और प्रासंगिक दस्तावेज़ अंश निकालने के लिए Embedding API का उपयोग करता है।",
     "x_search_terms": [
-      "semantic_search_files",
-      "semantic search files",
-      "semantic search",
-      "vector search",
-      "embedding search",
-      "local file search",
-      "search files",
-      "document search",
-      "file retrieval",
-      "semantic retrieval"
+      "सिमेंटिक_सर्च_फ़ाइलें",
+      "सिमेंटिक खोज फ़ाइलें",
+      "सिमेंटिक खोज",
+      "वेक्टर खोज",
+      "एम्बेडिंग खोज",
+      "स्थानीय फ़ाइल खोज",
+      "फ़ाइलें खोजें",
+      "दस्तावेज़ खोज",
+      "फ़ाइल पुनर्प्राप्ति",
+      "सिमेंटिक पुनर्प्राप्ति"
     ],
-    "err.no_index": "त्रुटि: कोई अनुक्रमित वेक्टर नहीं मिला। पहले Index_files चलाएँ।",
-    "tool.description": "स्थानीय फ़ाइलों के विरुद्ध एक सिमैंटिक खोज (वेक्टर खोज) करता है। फ़ाइल सामग्री को वेक्टराइज़ करने और प्रासंगिक दस्तावेज़ अंश निकालने के लिए Embedding API का उपयोग करता है।"
+    "err.no_index": "त्रुटि: कोई अनुक्रमित वेक्टर नहीं मिला। पहले Index_files चलाएँ।"
   },
   "ar": {
     "err.dir_not_found": "خطأ: لم يتم العثور على الدليل: {root_path}",
@@ -419,20 +419,20 @@
     "param.query.description": "كلمة البحث.",
     "param.root_path.description": "الدليل المراد البحث فيه.",
     "param.top_k.description": "العدد.",
+    "tool.description": "إجراء بحث دلالي (بحث متجه) ضد الملفات المحلية. يستخدم واجهة برمجة التطبيقات للتضمين لتحويل محتويات الملفات إلى متجهات واستخراج مقاطع المستندات ذات الصلة.",
     "x_search_terms": [
       "semantic_search_files",
-      "semantic search files",
-      "semantic search",
-      "vector search",
-      "embedding search",
-      "local file search",
-      "search files",
-      "document search",
-      "file retrieval",
-      "semantic retrieval"
+      "ملفات البحث الدلالي",
+      "البحث الدلالي",
+      "بحث المتجهات",
+      "بحث التضمين",
+      "البحث عن الملفات المحلية",
+      "ملفات البحث",
+      "البحث عن المستندات",
+      "استرجاع الملفات",
+      "استرجاع الدلالات"
     ],
-    "err.no_index": "خطأ: لم يتم العثور على متجهات مفهرسة. قم بتشغيل ملفات Index_files أولاً.",
-    "tool.description": "إجراء بحث دلالي (بحث متجه) ضد الملفات المحلية. يستخدم واجهة برمجة التطبيقات للتضمين لتحويل محتويات الملفات إلى متجهات واستخراج مقاطع المستندات ذات الصلة."
+    "err.no_index": "خطأ: لم يتم العثور على متجهات مفهرسة. قم بتشغيل ملفات Index_files أولاً."
   },
   "sv": {
     "err.dir_not_found": "Fel: Katalogen hittades inte: {root_path}",
@@ -448,20 +448,20 @@
     "param.query.description": "Sökord.",
     "param.root_path.description": "Katalog att söka i.",
     "param.top_k.description": "antal.",
+    "tool.description": "Utför en semantisk sökning (vektorsökning) mot lokala filer. Använder inbäddnings-API:et för att vektorisera filinnehåll och extraherar relevanta dokumentavsnitt.",
     "x_search_terms": [
       "semantic_search_files",
-      "semantic search files",
-      "semantic search",
-      "vector search",
-      "embedding search",
-      "local file search",
-      "search files",
-      "document search",
-      "file retrieval",
-      "semantic retrieval"
+      "semantiska sökfiler",
+      "semantisk sökning",
+      "vektorsökning",
+      "inbäddningssökning",
+      "lokal filsökning",
+      "sökfiler",
+      "dokumentsökning",
+      "filhämtning",
+      "semantisk hämtning"
     ],
-    "err.no_index": "Fel: Inga indexerade vektorer hittades. Kör index_files först.",
-    "tool.description": "Utför en semantisk sökning (vektorsökning) mot lokala filer. Använder inbäddnings-API:et för att vektorisera filinnehåll och extraherar relevanta dokumentavsnitt."
+    "err.no_index": "Fel: Inga indexerade vektorer hittades. Kör index_files först."
   },
   "sw": {
     "err.dir_not_found": "Hitilafu: Saraka haikupatikana: {root_path}",
@@ -477,20 +477,20 @@
     "param.query.description": "Neno kuu la utafutaji.",
     "param.root_path.description": "Saraka ya kutafuta.",
     "param.top_k.description": "idadi.",
+    "tool.description": "Fanya utafutaji wa kisemantiki (utafutaji wa vekta) dhidi ya faili za ndani. Tumia API ya Upachikaji kuweka maudhui ya faili katika vekta na kutoa vifungu muhimu vya nyaraka.",
     "x_search_terms": [
       "semantic_search_files",
-      "semantic search files",
-      "semantic search",
-      "vector search",
-      "embedding search",
-      "local file search",
-      "search files",
-      "document search",
-      "file retrieval",
-      "semantic retrieval"
+      "faili za utafutaji za kimantiki",
+      "utaftaji wa kimantiki",
+      "utafutaji wa vekta",
+      "kupachika utafutaji",
+      "utafutaji wa faili wa ndani",
+      "tafuta faili",
+      "utafutaji wa hati",
+      "urejeshaji wa faili",
+      "urejeshaji wa kisemantiki"
     ],
-    "err.no_index": "Hitilafu: Hakuna vekta zilizo kwenye faharasa zilizopatikana. Endesha index_files kwanza.",
-    "tool.description": "Fanya utafutaji wa kisemantiki (utafutaji wa vekta) dhidi ya faili za ndani. Tumia API ya Upachikaji kuweka maudhui ya faili katika vekta na kutoa vifungu muhimu vya nyaraka."
+    "err.no_index": "Hitilafu: Hakuna vekta zilizo kwenye faharasa zilizopatikana. Endesha index_files kwanza."
   },
   "nb": {
     "err.dir_not_found": "Feil: Katalog ikke funnet: {root_path}",
@@ -506,26 +506,26 @@
     "param.query.description": "Søkeord.",
     "param.root_path.description": "Katalog for å søke.",
     "param.top_k.description": "antall.",
+    "tool.description": "Utfører et semantisk søk (vektorsøk) mot lokale filer. Bruker Embedding API til å vektorisere filinnhold og trekker ut relevante dokumentpassasjer.",
     "x_search_terms": [
       "semantic_search_files",
-      "semantic search files",
-      "semantic search",
-      "vector search",
-      "embedding search",
-      "local file search",
-      "search files",
-      "document search",
-      "file retrieval",
-      "semantic retrieval"
+      "semantiske søkefiler",
+      "semantisk søk",
+      "vektorsøk",
+      "innebyggingssøk",
+      "lokalt filsøk",
+      "søk i filer",
+      "dokumentsøk",
+      "filhenting",
+      "semantisk henting"
     ],
-    "err.no_index": "Feil: Ingen indekserte vektorer funnet. Kjør index_files først.",
-    "tool.description": "Utfører et semantisk søk (vektorsøk) mot lokale filer. Bruker Embedding API til å vektorisere filinnhold og trekker ut relevante dokumentpassasjer."
+    "err.no_index": "Feil: Ingen indekserte vektorer funnet. Kjør index_files først."
   },
   "nl": {
     "err.dir_not_found": "Fout: map niet gevonden: {root_path}",
     "err.query_required": "Fout: query is vereist.",
     "err.vec_fail": "Fout: query vectoriseren mislukt.",
-    "out.hits": "Hits: {count}",
+    "out.hits": "Hits: {count}\n",
     "out.not_found": "Er zijn geen gerelateerde documenten gevonden.",
     "out.query": "Zoekquery: {query}",
     "out.result_content": "Inhoud: {snippet}",
@@ -535,20 +535,20 @@
     "param.query.description": "Zoekterm.",
     "param.root_path.description": "Map om in te zoeken.",
     "param.top_k.description": "aantal.",
+    "tool.description": "Voert een semantische zoekopdracht (vectorzoekopdracht) uit op lokale bestanden. Gebruikt de Embedding-API om bestandsinhoud te vectoriseren en relevante documentpassages te extraheren.",
     "x_search_terms": [
-      "semantic_search_files",
-      "semantic search files",
-      "semantic search",
-      "vector search",
-      "embedding search",
-      "local file search",
-      "search files",
-      "document search",
-      "file retrieval",
-      "semantic retrieval"
+      "semantische_zoekbestanden",
+      "semantische zoekbestanden",
+      "semantisch zoeken",
+      "vector zoeken",
+      "inbedding zoeken",
+      "lokaal bestand zoeken",
+      "zoekbestanden",
+      "document zoeken",
+      "bestand ophalen",
+      "semantisch ophalen"
     ],
-    "err.no_index": "Fout: geen geïndexeerde vectoren gevonden. Voer eerst index_files uit.",
-    "tool.description": "Voert een semantische zoekopdracht (vectorzoekopdracht) uit op lokale bestanden. Gebruikt de Embedding-API om bestandsinhoud te vectoriseren en relevante documentpassages te extraheren."
+    "err.no_index": "Fout: geen geïndexeerde vectoren gevonden. Voer eerst index_files uit."
   },
   "fi": {
     "err.dir_not_found": "Virhe: hakemistoa ei löytynyt: {root_path}",
@@ -564,20 +564,20 @@
     "param.query.description": "Hakusana.",
     "param.root_path.description": "Hakemisto, jota etsitään.",
     "param.top_k.description": "määrä.",
+    "tool.description": "Suorittaa semanttisen haun (vektorihaku) paikallisia tiedostoja vastaan. Käyttää upotus-API:a tiedostojen sisällön vektoroimiseen ja poimii asiaankuuluvia dokumenttikatkelmia.",
     "x_search_terms": [
-      "semantic_search_files",
-      "semantic search files",
-      "semantic search",
-      "vector search",
-      "embedding search",
-      "local file search",
-      "search files",
-      "document search",
-      "file retrieval",
-      "semantic retrieval"
+      "semanttinen_hakutiedostot",
+      "semanttinen hakutiedostot",
+      "semanttinen haku",
+      "vektorihaku",
+      " upotushaku ",
+      "paikallinen tiedostohaku",
+      "hakutiedostot",
+      "asiakirjahaku",
+      "tiedostojen haku",
+      "semanttinen haku"
     ],
-    "err.no_index": "Virhe: Indeksoituja vektoreita ei löytynyt. Suorita ensin index_files.",
-    "tool.description": "Suorittaa semanttisen haun (vektorihaku) paikallisia tiedostoja vastaan. Käyttää upotus-API:a tiedostojen sisällön vektoroimiseen ja poimii asiaankuuluvia dokumenttikatkelmia."
+    "err.no_index": "Virhe: Indeksoituja vektoreita ei löytynyt. Suorita ensin index_files."
   },
   "cs": {
     "err.dir_not_found": "Chyba: adresář nebyl nalezen: {root_path}",
@@ -593,20 +593,20 @@
     "param.query.description": "Vyhledat klíčové slovo.",
     "param.root_path.description": "Adresář k prohledání.",
     "param.top_k.description": "počet.",
+    "tool.description": "Provádí sémantické vyhledávání (vektorové vyhledávání) proti místním souborům. Používá Embedding API k vektorizaci obsahu souborů a extrahuje relevantní pasáže dokumentů.",
     "x_search_terms": [
-      "semantic_search_files",
-      "semantic search files",
-      "semantic search",
-      "vector search",
-      "embedding search",
-      "local file search",
-      "search files",
-      "document search",
-      "file retrieval",
-      "semantic retrieval"
+      "sémantické_hledání_souborů",
+      "sémantické vyhledávání souborů",
+      "sémantické vyhledávání",
+      "vektorové vyhledávání",
+      "hledání vkládání",
+      "místní vyhledávání souborů",
+      "hledání souborů",
+      "hledání dokumentů",
+      "načítání souborů",
+      "sémantické vyhledávání"
     ],
-    "err.no_index": "Chyba: Nebyly nalezeny žádné indexované vektory. Nejprve spusťte index_files.",
-    "tool.description": "Provádí sémantické vyhledávání (vektorové vyhledávání) proti místním souborům. Používá Embedding API k vektorizaci obsahu souborů a extrahuje relevantní pasáže dokumentů."
+    "err.no_index": "Chyba: Nebyly nalezeny žádné indexované vektory. Nejprve spusťte index_files."
   },
   "uk": {
     "err.dir_not_found": "Помилка: каталог не знайдено: {root_path}",
@@ -622,20 +622,20 @@
     "param.query.description": "Ключове слово для пошуку.",
     "param.root_path.description": "Каталог для пошуку.",
     "param.top_k.description": "число.",
+    "tool.description": "Виконує семантичний пошук (векторний пошук) по локальних файлах. Використовує Embedding API для векторизації вмісту файлів та вилучення відповідних фрагментів документів.",
     "x_search_terms": [
       "semantic_search_files",
-      "semantic search files",
-      "semantic search",
-      "vector search",
-      "embedding search",
-      "local file search",
-      "search files",
-      "document search",
-      "file retrieval",
-      "semantic retrieval"
+      "семантичний пошук у файлах",
+      "семантичний пошук",
+      "векторний пошук",
+      "вбудовування пошуку",
+      "локальний пошук файлів",
+      "пошук файлів",
+      "пошук документів",
+      "витяг файлів",
+      "семантичний пошук"
     ],
-    "err.no_index": "Помилка: не знайдено індексованих векторів. Спочатку запустіть index_files.",
-    "tool.description": "Виконує семантичний пошук (векторний пошук) по локальних файлах. Використовує Embedding API для векторизації вмісту файлів та вилучення відповідних фрагментів документів."
+    "err.no_index": "Помилка: не знайдено індексованих векторів. Спочатку запустіть index_files."
   },
   "tr": {
     "err.dir_not_found": "Hata: Dizin bulunamadı: {root_path}",
@@ -651,20 +651,20 @@
     "param.query.description": "Arama anahtar kelimesi.",
     "param.root_path.description": "Aranacak dizin.",
     "param.top_k.description": "sayı.",
+    "tool.description": "Yerel dosyalara karşı anlamsal arama (vektör araması) gerçekleştirir. Dosya içeriklerini vektörleştirmek için Embedding API'sini kullanır ve ilgili belge pasajlarını çıkarır.",
     "x_search_terms": [
-      "semantic_search_files",
-      "semantic search files",
-      "semantic search",
-      "vector search",
-      "embedding search",
-      "local file search",
-      "search files",
-      "document search",
-      "file retrieval",
-      "semantic retrieval"
+      "anlamsal_arama_dosyaları",
+      "anlamsal arama dosyaları",
+      "anlamsal arama",
+      "vektör arama",
+      "yerleştirme arama",
+      "yerel dosya arama",
+      "dosyaları arama",
+      "belge arama",
+      "dosya alma",
+      "anlamsal alma"
     ],
-    "err.no_index": "Hata: Dizine alınmış vektör bulunamadı. Önce index_files'ı çalıştırın.",
-    "tool.description": "Yerel dosyalara karşı anlamsal arama (vektör araması) gerçekleştirir. Dosya içeriklerini vektörleştirmek için Embedding API'sini kullanır ve ilgili belge pasajlarını çıkarır."
+    "err.no_index": "Hata: Dizine alınmış vektör bulunamadı. Önce index_files'ı çalıştırın."
   },
   "th": {
     "err.dir_not_found": "ข้อผิดพลาด: ไม่พบไดเรกทอรี: {root_path}",
@@ -680,20 +680,20 @@
     "param.query.description": "ค้นหาคำสำคัญ",
     "param.root_path.description": "ไดเรกทอรีเพื่อค้นหา",
     "param.top_k.description": "ตัวเลข.",
+    "tool.description": "ดำเนินการค้นหาเชิงความหมาย (การค้นหาเวกเตอร์) กับไฟล์ในเครื่อง ใช้ Embedding API เพื่อแปลงเนื้อหาไฟล์เป็นเวกเตอร์และแยกข้อความที่เกี่ยวข้องจากเอกสาร",
     "x_search_terms": [
       "semantic_search_files",
-      "semantic search files",
-      "semantic search",
-      "vector search",
-      "embedding search",
-      "local file search",
-      "search files",
-      "document search",
-      "file retrieval",
-      "semantic retrieval"
+      "ไฟล์ค้นหาความหมาย",
+      "ค้นหาความหมาย",
+      "ค้นหาเวกเตอร์",
+      "การค้นหาแบบฝัง",
+      "ค้นหาไฟล์ในเครื่อง",
+      "ค้นหาไฟล์",
+      "ค้นหาเอกสาร",
+      "การดึงไฟล์",
+      "การดึงความหมาย"
     ],
-    "err.no_index": "ข้อผิดพลาด: ไม่พบเวกเตอร์ที่จัดทำดัชนีไว้ รัน index_files ก่อน",
-    "tool.description": "ดำเนินการค้นหาเชิงความหมาย (การค้นหาเวกเตอร์) กับไฟล์ในเครื่อง ใช้ Embedding API เพื่อแปลงเนื้อหาไฟล์เป็นเวกเตอร์และแยกข้อความที่เกี่ยวข้องจากเอกสาร"
+    "err.no_index": "ข้อผิดพลาด: ไม่พบเวกเตอร์ที่จัดทำดัชนีไว้ รัน index_files ก่อน"
   },
   "zh_CN": {
     "err.dir_not_found": "错误：找不到目录：{root_path}",
@@ -709,20 +709,20 @@
     "param.query.description": "搜索关键字。",
     "param.root_path.description": "要搜索的目录。",
     "param.top_k.description": "数字。",
+    "tool.description": "对本地文件执行语义搜索（向量搜索）。使用嵌入API对文件内容进行向量化，并提取相关文档段落。",
     "x_search_terms": [
       "semantic_search_files",
-      "semantic search files",
-      "semantic search",
-      "vector search",
-      "embedding search",
-      "local file search",
-      "search files",
-      "document search",
-      "file retrieval",
-      "semantic retrieval"
+      "语义搜索文件",
+      "语义搜索",
+      "矢量搜索",
+      "嵌入搜索",
+      "本地文件搜索",
+      "搜索文件",
+      "文档搜索",
+      "文件检索",
+      "语义检索"
     ],
-    "err.no_index": "错误：未找到索引向量。首先运行index_files。",
-    "tool.description": "对本地文件执行语义搜索（向量搜索）。使用嵌入API对文件内容进行向量化，并提取相关文档段落。"
+    "err.no_index": "错误：未找到索引向量。首先运行index_files。"
   },
   "zh_TW": {
     "err.dir_not_found": "錯誤：找不到目錄：{root_path}",
@@ -738,20 +738,20 @@
     "param.query.description": "搜尋關鍵字。",
     "param.root_path.description": "要搜尋的目錄。",
     "param.top_k.description": "數字。",
+    "tool.description": "對本地檔案執行語意搜尋（向量搜尋）。使用 Embedding API 將檔案內容向量化，並提取相關的文件段落。",
     "x_search_terms": [
       "semantic_search_files",
-      "semantic search files",
-      "semantic search",
-      "vector search",
-      "embedding search",
-      "local file search",
-      "search files",
-      "document search",
-      "file retrieval",
-      "semantic retrieval"
+      "語意搜尋檔案",
+      "語意搜尋",
+      "向量搜尋",
+      "嵌入搜尋",
+      "本機檔案搜尋",
+      "搜尋檔案",
+      "文件搜尋",
+      "檔案擷取",
+      "語意檢索"
     ],
-    "err.no_index": "錯誤：未找到索引向量。首先運行index_files。",
-    "tool.description": "對本地檔案執行語意搜尋（向量搜尋）。使用 Embedding API 將檔案內容向量化，並提取相關的文件段落。"
+    "err.no_index": "錯誤：未找到索引向量。首先運行index_files。"
   },
   "bn": {
     "err.dir_not_found": "ত্রুটি: ডিরেক্টরি পাওয়া যায়নি: {root_path}",
@@ -767,20 +767,20 @@
     "param.query.description": "অনুসন্ধানের কীওয়ার্ড।",
     "param.root_path.description": "যে ডিরেক্টরি খুঁজতে হবে।",
     "param.top_k.description": "সংখ্যা।",
+    "tool.description": "স্থানীয় ফাইলগুলির বিরুদ্ধে একটি সিম্যান্টিক সার্চ (ভেক্টর সার্চ) সম্পাদন করে। ফাইলের বিষয়বস্তু ভেক্টরাইজ করতে এম্বেডিং API ব্যবহার করে এবং প্রাসঙ্গিক ডকুমেন্ট প্যাসেজ বের করে।",
     "x_search_terms": [
-      "semantic_search_files",
-      "semantic search files",
-      "semantic search",
-      "vector search",
-      "embedding search",
-      "local file search",
-      "search files",
-      "document search",
-      "file retrieval",
-      "semantic retrieval"
+      "শব্দার্থক_অনুসন্ধান_ফাইলস",
+      "অর্থবোধক অনুসন্ধান ফাইল",
+      "অর্থবোধক অনুসন্ধান",
+      "ভেক্টর অনুসন্ধান",
+      "এম্বেডিং অনুসন্ধান",
+      "স্থানীয় ফাইল অনুসন্ধান",
+      "অনুসন্ধান ফাইল",
+      "নথি অনুসন্ধান",
+      "ফাইল পুনরুদ্ধার",
+      "অর্থবোধক পুনরুদ্ধার"
     ],
-    "err.no_index": "ত্রুটি: কোনো সূচীকৃত ভেক্টর পাওয়া যায়নি। প্রথমে index_files চালান।",
-    "tool.description": "স্থানীয় ফাইলগুলির বিরুদ্ধে একটি সিম্যান্টিক সার্চ (ভেক্টর সার্চ) সম্পাদন করে। ফাইলের বিষয়বস্তু ভেক্টরাইজ করতে এম্বেডিং API ব্যবহার করে এবং প্রাসঙ্গিক ডকুমেন্ট প্যাসেজ বের করে।"
+    "err.no_index": "ত্রুটি: কোনো সূচীকৃত ভেক্টর পাওয়া যায়নি। প্রথমে index_files চালান।"
   },
   "fa": {
     "err.dir_not_found": "خطا: پوشه پیدا نشد: {root_path}",
@@ -796,20 +796,20 @@
     "param.query.description": "کلیدواژهٔ جستجو.",
     "param.root_path.description": "پوشه‌ای برای جستجو.",
     "param.top_k.description": "عدد.",
+    "tool.description": "یک جستجوی معنایی (جستجوی برداری) را در برابر فایل‌های محلی انجام می‌دهد. از API جاسازی برای برداری کردن محتوای فایل‌ها و استخراج بخش‌های مرتبط سند استفاده می‌کند.",
     "x_search_terms": [
       "semantic_search_files",
-      "semantic search files",
-      "semantic search",
-      "vector search",
-      "embedding search",
-      "local file search",
-      "search files",
-      "document search",
-      "file retrieval",
-      "semantic retrieval"
+      "فایل های جستجوی معنایی",
+      "جستجوی معنایی",
+      "جستجوی برداری",
+      "جستجوی تعبیه شده",
+      "جستجوی فایل محلی",
+      "جستجوی فایل",
+      "جستجوی سند",
+      "بازیابی فایل",
+      "بازیابی معنایی"
     ],
-    "err.no_index": "خطا: هیچ بردار نمایه شده ای یافت نشد. ابتدا index_files را اجرا کنید.",
-    "tool.description": "یک جستجوی معنایی (جستجوی برداری) را در برابر فایل‌های محلی انجام می‌دهد. از API جاسازی برای برداری کردن محتوای فایل‌ها و استخراج بخش‌های مرتبط سند استفاده می‌کند."
+    "err.no_index": "خطا: هیچ بردار نمایه شده ای یافت نشد. ابتدا index_files را اجرا کنید."
   },
   "mn": {
     "err.dir_not_found": "Алдаа: директор олдсонгүй: {root_path}",
@@ -825,20 +825,20 @@
     "param.query.description": "Хайлтын түлхүүр үг.",
     "param.root_path.description": "Хайх директор.",
     "param.top_k.description": "тоо.",
+    "tool.description": "Орон нутгийн файлуудын эсрэг семантик хайлт (вектор хайлт) гүйцэтгэх. Файлын агуулгыг векторжуулахын тулд Embedding API ашиглаж, холбогдох баримтын хэсгүүдийг гаргаж авна.",
     "x_search_terms": [
-      "semantic_search_files",
-      "semantic search files",
-      "semantic search",
-      "vector search",
-      "embedding search",
-      "local file search",
-      "search files",
-      "document search",
-      "file retrieval",
-      "semantic retrieval"
+      "семантик_хайлтын_файлууд",
+      "семантик хайлтын файлууд",
+      "семантик хайлт",
+      "векторын хайлт",
+      "суулгах хайлт",
+      "орон нутгийн файлын хайлт",
+      "файл хайлт",
+      "баримт бичгийн хайлт",
+      "файл хайлт",
+      "семантик хайлт"
     ],
-    "err.no_index": "Алдаа: Индексжүүлсэн вектор олдсонгүй. Run index_files first.",
-    "tool.description": "Орон нутгийн файлуудын эсрэг семантик хайлт (вектор хайлт) гүйцэтгэх. Файлын агуулгыг векторжуулахын тулд Embedding API ашиглаж, холбогдох баримтын хэсгүүдийг гаргаж авна."
+    "err.no_index": "Алдаа: Индексжүүлсэн вектор олдсонгүй. Run index_files first."
   },
   "mr": {
     "err.dir_not_found": "त्रुटी: directory सापडली नाही: {root_path}",
@@ -854,20 +854,20 @@
     "param.query.description": "शोध कीवर्ड.",
     "param.root_path.description": "शोधायची directory.",
     "param.top_k.description": "संख्या.",
+    "tool.description": "स्थानिक फाइल्स विरुद्ध सिमेंटिक शोध (वेक्टर शोध) करते. फाइल सामग्री वेक्टराइज करण्यासाठी Embedding API वापरते आणि संबंधित दस्तऐवज परिच्छेद काढते.",
     "x_search_terms": [
       "semantic_search_files",
       "semantic search files",
       "semantic search",
       "vector search",
-      "embedding search",
-      "local file search",
-      "search files",
-      "document search",
-      "file retrieval",
-      "semantic retrieval"
+      "एम्बेडिंग शोध",
+      "स्थानिक फाइल शोध",
+      "शोध फाइल्स",
+      "दस्तऐवज शोध",
+      "फाइल पुनर्प्राप्ती",
+      "अर्थविषयक पुनर्प्राप्ती"
     ],
-    "err.no_index": "त्रुटी: अनुक्रमित वेक्टर आढळले नाहीत. प्रथम index_files चालवा.",
-    "tool.description": "स्थानिक फाइल्स विरुद्ध सिमेंटिक शोध (वेक्टर शोध) करते. फाइल सामग्री वेक्टराइज करण्यासाठी Embedding API वापरते आणि संबंधित दस्तऐवज परिच्छेद काढते."
+    "err.no_index": "त्रुटी: अनुक्रमित वेक्टर आढळले नाहीत. प्रथम index_files चालवा."
   },
   "el": {
     "err.dir_not_found": "Σφάλμα: Ο κατάλογος δεν βρέθηκε: {root_path}",

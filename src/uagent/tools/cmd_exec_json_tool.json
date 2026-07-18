@@ -23,10 +23,16 @@
     "param.command.description": "OS シェルに渡すコマンド文字列。Windows では cmd.exe /c を使います。",
     "tool.description": "最終手段としてシェルコマンドを実行し、JSON 結果を返します。より安全または適切なツールがない場合にのみ使用してください。",
     "x_search_terms": [
-      "cmd exec json |コマンド json を実行",
-      "jsonを実行する",
-      "cmdjson |コマンド json |シェルjson",
-      "json 出力"
+      "cmd json",
+      "コマンド json",
+      "構造化出力",
+      "json 結果",
+      "cmd 構造化",
+      "コマンド出力",
+      "コマンド結果",
+      "json 実行",
+      "json コマンド",
+      "cmd 結果"
     ],
     "param.cwd.description": "作業ディレクトリ。workdir の下の相対パスのみが許可されます。null の場合、現在のディレクトリが使用されます。",
     "error.exit_code": "コマンドはコード %(returncode)s で終了しました",
@@ -37,117 +43,141 @@
     "param.command.description": "Cadena de comando que se pasa al shell del sistema.",
     "tool.description": "Como último recurso, ejecuta un comando de shell y devuelve un resultado JSON.",
     "x_search_terms": [
-      "cmd exec json",
-      "ejecutar comando json",
-      "ejecutar json",
       "cmd json",
       "comando json",
-      "json de shell",
-      "salida json"
+      "salida estructurada",
+      "resultado json",
+      "cmd estructurado",
+      "salida del comando",
+      "resultado del comando",
+      "ejecutar json",
+      "comando json",
+      "resultado cmd"
     ],
+    "param.cwd.description": "Directorio de trabajo. Sólo se permiten rutas relativas en workdir. Si es nulo, utiliza el directorio actual.",
     "error.exit_code": "comando salió con el código %(returncode)s",
     "error.os_error": "Error en la ejecución del comando (error del sistema operativo): %(error)s",
-    "error.exec_failed": "Error en la ejecución del comando: %(error)s",
-    "param.cwd.description": "Directorio de trabajo. Sólo se permiten rutas relativas en workdir. Si es nulo, utiliza el directorio actual."
+    "error.exec_failed": "Error en la ejecución del comando: %(error)s"
   },
   "fr": {
     "param.command.description": "Chaîne de commande transmise au shell du système.Sous Windows, cmd.",
     "tool.description": "En dernier recours, exécute une commande shell et renvoie un résultat JSON.",
     "x_search_terms": [
-      "cmd exec json",
-      "exécuter la commande json",
-      "exécuter json",
-      "cmdjson",
+      "cmd json",
       "commande json",
-      "coquille json",
-      "sortie json"
+      "sortie structurée",
+      "résultat json",
+      "cmd structuré",
+      "sortie de commande",
+      "résultat de commande",
+      "exécuter json",
+      "commande json",
+      "résultat cmd"
     ],
+    "param.cwd.description": "Répertoire de travail. Seuls les chemins relatifs sous workdir sont autorisés. Si nul, utilise le répertoire courant.",
     "error.exit_code": "commande terminée avec le code %(returncode)s",
     "error.os_error": "échec de l'exécution de la commande (erreur du système d'exploitation) : %(error)s",
-    "error.exec_failed": "échec de l'exécution de la commande : %(error)s",
-    "param.cwd.description": "Répertoire de travail. Seuls les chemins relatifs sous workdir sont autorisés. Si nul, utilise le répertoire courant."
+    "error.exec_failed": "échec de l'exécution de la commande : %(error)s"
   },
   "ko": {
     "param.command.description": "시스템 셸에 전달되는 명령 문자열입니다. Windows에서는 cmd.exe /c를 사용합니다.",
     "tool.description": "최후의 수단으로 쉘 명령을 실행하고 JSON 결과를 반환합니다. 더 안전하거나 더 구체적인 도구를 사용할 수 없는 경우에만 사용하세요(예: MCP 통합).",
     "x_search_terms": [
-      "cmd exec json",
-      "json 명령 실행",
-      "json 실행",
       "cmd json",
       "명령 json",
-      "셸 json",
-      "json 출력"
+      "구조화된 출력",
+      "json 결과",
+      "cmd 구조화된",
+      "명령 출력",
+      "명령 결과",
+      "execute json",
+      "json 명령",
+      "cmd 결과"
     ],
+    "param.cwd.description": "작업 디렉토리. workdir 아래의 상대 경로만 허용됩니다. null인 경우 현재 디렉터리를 사용합니다.",
     "error.exit_code": "명령이 코드 %(returncode)s으로 종료되었습니다.",
     "error.os_error": "명령 실행 실패(OS 오류): %(error)s",
-    "error.exec_failed": "명령 실행 실패: %(error)s",
-    "param.cwd.description": "작업 디렉토리. workdir 아래의 상대 경로만 허용됩니다. null인 경우 현재 디렉터리를 사용합니다."
+    "error.exec_failed": "명령 실행 실패: %(error)s"
   },
   "de": {
     "param.command.description": "Befehlszeichenfolge, die an die System-Shell übergeben wird.",
     "tool.description": "Führt als letzter Ausweg einen Shell-Befehl aus und gibt ein JSON-Ergebnis zurück.",
     "x_search_terms": [
-      "cmd exec json",
-      "Führen Sie den Befehl json",
-      "aus json ausführen",
       "cmd json",
       "Befehl json",
-      "Shell-JSON",
-      "json-Ausgabe"
+      "strukturierte Ausgabe",
+      "json-Ergebnis",
+      "cmd strukturierte",
+      "Befehlsausgabe",
+      "Befehlsergebnis",
+      "JSON ausführen",
+      "JSON-Befehl",
+      "cmd-Ergebnis"
     ],
+    "param.cwd.description": "Arbeitsverzeichnis. Unter workdir sind nur relative Pfade zulässig. Wenn null, wird das aktuelle Verzeichnis verwendet.",
     "error.exit_code": "Befehl wurde mit Code %(returncode)s beendet",
     "error.os_error": "Befehlsausführung fehlgeschlagen (Betriebssystemfehler): %(error)s",
-    "error.exec_failed": "Befehlsausführung fehlgeschlagen: %(error)s",
-    "param.cwd.description": "Arbeitsverzeichnis. Unter workdir sind nur relative Pfade zulässig. Wenn null, wird das aktuelle Verzeichnis verwendet."
+    "error.exec_failed": "Befehlsausführung fehlgeschlagen: %(error)s"
   },
   "it": {
     "param.command.description": "Stringa di comando passata alla shell di sistema.",
     "tool.description": "Come ultima risorsa, esegue un comando di shell e restituisce un risultato JSON.",
     "x_search_terms": [
-      "cmd exec json",
-      "esegui il comando json",
-      "esegui json",
       "cmd json",
       "comando json",
-      "shell json",
-      "json output"
+      "output strutturato",
+      "risultato json",
+      "cmd strutturato",
+      "output del comando",
+      "risultato del comando",
+      "esegui json",
+      "comando json",
+      "risultato cmd"
     ],
+    "param.cwd.description": "Directory di lavoro. Sono consentiti solo percorsi relativi nella directory di lavoro. Se null, utilizza la directory corrente.",
     "error.exit_code": "comando terminato con il codice %(returncode)s",
     "error.os_error": "esecuzione del comando non riuscita (errore del sistema operativo): %(error)s",
-    "error.exec_failed": "esecuzione del comando non riuscita: %(error)s",
-    "param.cwd.description": "Directory di lavoro. Sono consentiti solo percorsi relativi nella directory di lavoro. Se null, utilizza la directory corrente."
+    "error.exec_failed": "esecuzione del comando non riuscita: %(error)s"
   },
   "ru": {
     "param.command.description": "Строка команды, передаваемая системной оболочке.",
     "tool.description": "В крайнем случае выполняет команду оболочки и возвращает результат в формате JSON.",
     "x_search_terms": [
-      "cmd exec json, запустить команду json, выполнить json, cmd json, команда json, оболочка JSON, вывод json"
+      "cmd json",
+      "команда json",
+      "структурированный вывод",
+      "json результат",
+      "cmd структурированный",
+      "вывод команды",
+      "результат команды",
+      "выполнить json",
+      "команда json",
+      "результат cmd"
     ],
+    "param.cwd.description": "Рабочий каталог. Разрешены только относительные пути в рабочем каталоге. Если значение равно нулю, используется текущий каталог.",
     "error.exit_code": "команда завершилась с кодом %(returncode)s",
     "error.os_error": "не удалось выполнить команду (ошибка ОС): %(error)s",
-    "error.exec_failed": "не удалось выполнить команду: %(error)s",
-    "param.cwd.description": "Рабочий каталог. Разрешены только относительные пути в рабочем каталоге. Если значение равно нулю, используется текущий каталог."
+    "error.exec_failed": "не удалось выполнить команду: %(error)s"
   },
   "pt_BR": {
     "param.command.description": "Cadeia de comandos passada para o shell do sistema.",
     "tool.description": "Como último recurso, executa um comando de shell e retorna um resultado em JSON.",
     "x_search_terms": [
       "cmd json",
-      "command json",
-      "structured output",
-      "json result",
-      "cmd structured",
-      "command output",
-      "command result",
-      "execute json",
-      "json command",
-      "cmd result"
+      "comando json",
+      "saída estruturada",
+      "json resultado",
+      "cmd estruturado",
+      "saída de comando",
+      "resultado do comando",
+      "executar json",
+      "comando json",
+      "resultado cmd"
     ],
+    "param.cwd.description": "Diretório de trabalho. Somente caminhos relativos em workdir são permitidos. Se for nulo, usa o diretório atual.",
     "error.exit_code": "comando encerrado com código %(returncode)s",
     "error.os_error": "falha na execução do comando (erro do sistema operacional): %(error)s",
-    "error.exec_failed": "falha na execução do comando: %(error)s",
-    "param.cwd.description": "Diretório de trabalho. Somente caminhos relativos em workdir são permitidos. Se for nulo, usa o diretório atual."
+    "error.exec_failed": "falha na execução do comando: %(error)s"
   },
   "pt": {
     "param.command.description": "Cadeia de comandos passada para o shell do sistema.",
@@ -214,40 +244,40 @@
     "tool.description": "W ostateczności wykonaj polecenie powłoki i zwróć wynik JSON.",
     "x_search_terms": [
       "cmd json",
-      "command json",
-      "structured output",
-      "json result",
-      "cmd structured",
-      "command output",
-      "command result",
-      "execute json",
-      "json command",
-      "cmd result"
+      "polecenie json",
+      "wyjście strukturalne",
+      "wynik json",
+      "ustrukturyzowane wyjście cmd",
+      "wyjście polecenia",
+      "wynik polecenia",
+      "wykonaj json",
+      "polecenie json",
+      "wynik cmd"
     ],
+    "param.cwd.description": "Katalog roboczy. Dozwolone są tylko ścieżki względne w katalogu roboczym. Jeśli ma wartość null, używa bieżącego katalogu.",
     "error.exit_code": "polecenie zostało zakończone z kodem %(returncode)s",
     "error.os_error": "wykonanie polecenia nie powiodło się (błąd systemu operacyjnego): %(error)s",
-    "error.exec_failed": "Wykonanie polecenia nie powiodło się: %(error)s",
-    "param.cwd.description": "Katalog roboczy. Dozwolone są tylko ścieżki względne w katalogu roboczym. Jeśli ma wartość null, używa bieżącego katalogu."
+    "error.exec_failed": "Wykonanie polecenia nie powiodło się: %(error)s"
   },
   "hi": {
     "param.command.description": "सिस्टम शेल को दी जाने वाली कमांड स्ट्रिंग। Windows पर cmd.",
     "tool.description": "अंतिम उपाय के रूप में, एक शेल कमांड निष्पादित करें और JSON परिणाम लौटाएं। केवल तभी उपयोग करें जब कोई सुरक्षित या अधिक विशिष्ट उपकरण उपलब्ध न हो (जैसे।",
     "x_search_terms": [
-      "cmd json",
-      "command json",
-      "structured output",
-      "json result",
-      "cmd structured",
-      "command output",
-      "command result",
-      "execute json",
-      "json command",
-      "cmd result"
+      "सीएमडी json",
+      "कमांड json",
+      "संरचित आउटपुट",
+      "json परिणाम",
+      "cmd संरचित",
+      "कमांड आउटपुट",
+      "कमांड परिणाम",
+      "json निष्पादित करें",
+      "json कमांड",
+      "cmd परिणाम"
     ],
+    "param.cwd.description": "कार्यकारी डाइरेक्टरी। वर्कडिर के अंतर्गत केवल सापेक्ष पथों की अनुमति है। यदि शून्य है, तो वर्तमान निर्देशिका का उपयोग करता है।",
     "error.exit_code": "कमांड कोड %(returncode)s के साथ बाहर निकला",
     "error.os_error": "आदेश निष्पादन विफल (OS त्रुटि): %(error)s",
-    "error.exec_failed": "आदेश निष्पादन विफल: %(error)s",
-    "param.cwd.description": "कार्यकारी डाइरेक्टरी। वर्कडिर के अंतर्गत केवल सापेक्ष पथों की अनुमति है। यदि शून्य है, तो वर्तमान निर्देशिका का उपयोग करता है।"
+    "error.exec_failed": "आदेश निष्पादन विफल: %(error)s"
   },
   "ar": {
     "param.command.description": "سلسلة الأوامر التي تُمرَّر إلى غلاف النظام. في Windows يُستخدم cmd.exe /c.",
@@ -255,139 +285,139 @@
     "x_search_terms": [
       "cmd json",
       "command json",
-      "structured output",
-      "json result",
-      "cmd structured",
-      "command output",
-      "command result",
-      "execute json",
-      "json command",
-      "cmd result"
+      "إخراج منظم",
+      "نتيجة json",
+      "cmd منظم",
+      "إخراج الأمر",
+      "نتيجة الأمر",
+      "تنفيذ json",
+      "أمر json",
+      "نتيجة cmd"
     ],
+    "param.cwd.description": "دليل العمل. يُسمح فقط بالمسارات النسبية ضمن Workdir. إذا كانت فارغة، يستخدم الدليل الحالي.",
     "error.exit_code": "تم الخروج من الأمر بالرمز %(returncode)s",
     "error.os_error": "فشل تنفيذ الأمر (خطأ في نظام التشغيل): %(error)s",
-    "error.exec_failed": "فشل تنفيذ الأمر: %(error)s",
-    "param.cwd.description": "دليل العمل. يُسمح فقط بالمسارات النسبية ضمن Workdir. إذا كانت فارغة، يستخدم الدليل الحالي."
+    "error.exec_failed": "فشل تنفيذ الأمر: %(error)s"
   },
   "sv": {
     "param.command.description": "Kommandosträng som skickas till systemets skal. I Windows används cmd.exe /c.",
     "tool.description": "Kör ett shell-kommando som sista utväg och returnera ett JSON-resultat.",
     "x_search_terms": [
       "cmd json",
-      "command json",
-      "structured output",
-      "json result",
-      "cmd structured",
-      "command output",
-      "command result",
-      "execute json",
-      "json command",
-      "cmd result"
+      "kommando json",
+      "strukturerad utgång",
+      "json-resultat",
+      "cmd",
+      "kommandoutgång",
+      "kommandoresultat",
+      "kör json",
+      "json-kommandot",
+      "cmd-resultat"
     ],
+    "param.cwd.description": "Arbetskatalog. Endast relativa sökvägar under workdir är tillåtna. Om null, använder den aktuella katalogen.",
     "error.exit_code": "kommandot avslutades med koden %(returncode)s",
     "error.os_error": "kommandokörning misslyckades (OS-fel): %(error)s",
-    "error.exec_failed": "kommandokörning misslyckades: %(error)s",
-    "param.cwd.description": "Arbetskatalog. Endast relativa sökvägar under workdir är tillåtna. Om null, använder den aktuella katalogen."
+    "error.exec_failed": "kommandokörning misslyckades: %(error)s"
   },
   "sw": {
     "param.command.description": "Mfuatano wa amri unaopitishwa kwa ganda la mfumo.",
     "tool.description": "Kama suluhisho la mwisho, tekeleza amri ya shell na urudishe matokeo ya JSON.",
     "x_search_terms": [
       "cmd json",
-      "command json",
-      "structured output",
-      "json result",
-      "cmd structured",
-      "command output",
-      "command result",
-      "execute json",
-      "json command",
-      "cmd result"
+      "amrisha json",
+      "tokeo la muundo",
+      "json tokeo",
+      "cmd muundo",
+      "toto la amri",
+      "matokeo ya amri",
+      "tekeleza amri ya json",
+      "json",
+      "cmd matokeo"
     ],
+    "param.cwd.description": "Saraka ya kufanya kazi. Njia za jamaa tu chini ya workdir zinaruhusiwa. Ikiwa null, hutumia saraka ya sasa.",
     "error.exit_code": "amri imetoka kwa msimbo %(returncode)s",
     "error.os_error": "utekelezaji wa amri haukufaulu (hitilafu ya Mfumo wa Uendeshaji): %(error)s",
-    "error.exec_failed": "utekelezaji wa amri haukufaulu: %(error)s",
-    "param.cwd.description": "Saraka ya kufanya kazi. Njia za jamaa tu chini ya workdir zinaruhusiwa. Ikiwa null, hutumia saraka ya sasa."
+    "error.exec_failed": "utekelezaji wa amri haukufaulu: %(error)s"
   },
   "nb": {
     "param.command.description": "Kommandostreng som sendes til systemskallet. På Windows brukes cmd.exe /c.",
     "tool.description": "Kjør en shell-kommando som siste utvei og returner et JSON-resultat.",
     "x_search_terms": [
       "cmd json",
-      "command json",
-      "structured output",
-      "json result",
-      "cmd structured",
-      "command output",
-      "command result",
-      "execute json",
-      "json command",
-      "cmd result"
+      "kommando json",
+      "strukturert utgang",
+      "json resultat",
+      "cmd strukturert",
+      "kommandoutgang",
+      "kommandoresultat",
+      "utfør json",
+      "json kommando",
+      "cmd resultat"
     ],
+    "param.cwd.description": "Arbeidskatalog. Bare relative baner under workdir er tillatt. Hvis null, bruker den gjeldende katalogen.",
     "error.exit_code": "kommandoen ble avsluttet med koden %(returncode)s",
     "error.os_error": "kommandoutførelse mislyktes (OS-feil): %(error)s",
-    "error.exec_failed": "kommandoutførelse mislyktes: %(error)s",
-    "param.cwd.description": "Arbeidskatalog. Bare relative baner under workdir er tillatt. Hvis null, bruker den gjeldende katalogen."
+    "error.exec_failed": "kommandoutførelse mislyktes: %(error)s"
   },
   "nl": {
     "param.command.description": "Opdrachtregel die naar de systeem-shell wordt doorgegeven.",
     "tool.description": "Voer als laatste redmiddel een shell-opdracht uit en geef een JSON-resultaat terug.",
     "x_search_terms": [
       "cmd json",
-      "command json",
-      "structured output",
-      "json result",
-      "cmd structured",
-      "command output",
-      "command result",
-      "execute json",
-      "json command",
-      "cmd result"
+      "opdracht json",
+      "gestructureerde uitvoer",
+      "json resultaat",
+      "cmd gestructureerde",
+      "opdrachtuitvoer",
+      "opdrachtresultaat",
+      "json uitvoeren",
+      "json opdracht",
+      "cmd resultaat"
     ],
+    "param.cwd.description": "Werkmap. Alleen relatieve paden onder workdir zijn toegestaan. Indien nul, wordt de huidige map gebruikt.",
     "error.exit_code": "opdracht afgesloten met code %(returncode)s",
     "error.os_error": "uitvoering van opdracht mislukt (OS-fout): %(error)s",
-    "error.exec_failed": "uitvoering van opdracht mislukt: %(error)s",
-    "param.cwd.description": "Werkmap. Alleen relatieve paden onder workdir zijn toegestaan. Indien nul, wordt de huidige map gebruikt."
+    "error.exec_failed": "uitvoering van opdracht mislukt: %(error)s"
   },
   "fi": {
     "param.command.description": "Komentorivi, joka välitetään järjestelmän komentotulkille.",
     "tool.description": "Suorita viimeisenä keinona shell-komento ja palauta JSON-tulos.",
     "x_search_terms": [
       "cmd json",
-      "command json",
-      "structured output",
-      "json result",
-      "cmd structured",
-      "command output",
-      "command result",
-      "execute json",
-      "json command",
-      "cmd result"
+      "komento json",
+      "strukturoitu tulos",
+      "json tulos",
+      "cmd strukturoitu",
+      "komennon tulos",
+      "komennon tulos",
+      "suorita json",
+      "json komento",
+      "cmd tulos"
     ],
+    "param.cwd.description": "Työhakemisto. Vain työhakemiston alla olevat suhteelliset polut ovat sallittuja. Jos null, käyttää nykyistä hakemistoa.",
     "error.exit_code": "komento lopetettiin koodilla %(returncode)s",
     "error.os_error": "komennon suoritus epäonnistui (käyttöjärjestelmävirhe): %(error)s",
-    "error.exec_failed": "komennon suoritus epäonnistui: %(error)s",
-    "param.cwd.description": "Työhakemisto. Vain työhakemiston alla olevat suhteelliset polut ovat sallittuja. Jos null, käyttää nykyistä hakemistoa."
+    "error.exec_failed": "komennon suoritus epäonnistui: %(error)s"
   },
   "cs": {
     "param.command.description": "Řetězec příkazu předávaný systémovému shellu.",
     "tool.description": "Jako poslední možnost spustí shellový příkaz a vrátí JSON výsledek.",
     "x_search_terms": [
       "cmd json",
-      "command json",
-      "structured output",
-      "json result",
-      "cmd structured",
-      "command output",
-      "command result",
-      "execute json",
-      "json command",
-      "cmd result"
+      "příkaz json",
+      "strukturovaný výstup",
+      "json výsledek",
+      "cmd strukturovaný",
+      "výstup příkazu",
+      "příkaz výsledek",
+      "spustit příkaz json",
+      "json",
+      "cmd výsledek"
     ],
+    "param.cwd.description": "Pracovní adresář. Jsou povoleny pouze relativní cesty pod workdir. Pokud je null, použije aktuální adresář.",
     "error.exit_code": "příkaz byl ukončen s kódem %(returncode)s",
     "error.os_error": "spuštění příkazu se nezdařilo (chyba OS): %(error)s",
-    "error.exec_failed": "spuštění příkazu se nezdařilo: %(error)s",
-    "param.cwd.description": "Pracovní adresář. Jsou povoleny pouze relativní cesty pod workdir. Pokud je null, použije aktuální adresář."
+    "error.exec_failed": "spuštění příkazu se nezdařilo: %(error)s"
   },
   "uk": {
     "param.command.description": "Рядок команди, що передається системній оболонці.",
@@ -404,90 +434,90 @@
       "json command",
       "cmd result"
     ],
+    "param.cwd.description": "Робочий каталог. Дозволені лише відносні шляхи в робочому каталозі. Якщо значення null, використовується поточний каталог.",
     "error.exit_code": "команда завершилася з кодом %(returncode)s",
     "error.os_error": "не вдалося виконати команду (помилка ОС): %(error)s",
-    "error.exec_failed": "не вдалося виконати команду: %(error)s",
-    "param.cwd.description": "Робочий каталог. Дозволені лише відносні шляхи в робочому каталозі. Якщо значення null, використовується поточний каталог."
+    "error.exec_failed": "не вдалося виконати команду: %(error)s"
   },
   "tr": {
     "param.command.description": "Sistem kabuğuna iletilen komut dizisi. Windows’ta cmd.exe /c kullanılır.",
     "tool.description": "Son çare olarak, bir kabuk komutu yürütün ve JSON sonucunu döndürün.",
     "x_search_terms": [
       "cmd json",
-      "command json",
-      "structured output",
-      "json result",
-      "cmd structured",
-      "command output",
-      "command result",
-      "execute json",
-      "json command",
-      "cmd result"
+      "komut json",
+      "yapılandırılmış çıktı",
+      "json sonucu",
+      "cmd yapılandırılmış",
+      "komut çıktısı",
+      "komut sonucu",
+      "json'u çalıştırma",
+      "json komutunu çalıştır",
+      "cmd sonucu"
     ],
+    "param.cwd.description": "Çalışma dizini. Yalnızca çalışma dizini altındaki göreli yollara izin verilir. Eğer null ise geçerli dizini kullanır.",
     "error.exit_code": "komuttan %(returncode)s koduyla çıkıldı",
     "error.os_error": "komut yürütme başarısız oldu (İşletim Sistemi hatası): %(error)s",
-    "error.exec_failed": "komut yürütme başarısız oldu: %(error)s",
-    "param.cwd.description": "Çalışma dizini. Yalnızca çalışma dizini altındaki göreli yollara izin verilir. Eğer null ise geçerli dizini kullanır."
+    "error.exec_failed": "komut yürütme başarısız oldu: %(error)s"
   },
   "th": {
     "param.command.description": "สตริงคำสั่งที่ส่งไปยังเชลล์ของระบบ บน Windows ใช้ cmd.exe /c",
     "tool.description": "เป็นทางเลือกสุดท้าย ให้ดำเนินการคำสั่งเชลล์และส่งกลับผลลัพธ์ JSON ใช้เฉพาะเมื่อไม่มีเครื่องมือที่ปลอดภัยกว่าหรือเฉพาะเจาะจงกว่านี้เท่านั้น (เช่น",
     "x_search_terms": [
       "cmd json",
-      "command json",
-      "structured output",
-      "json result",
-      "cmd structured",
-      "command output",
-      "command result",
-      "execute json",
-      "json command",
-      "cmd result"
+      "คำสั่ง json",
+      "เอาต์พุตที่มีโครงสร้าง",
+      "ผลลัพธ์ json",
+      "cmd โครงสร้าง",
+      "เอาต์พุตคำสั่ง",
+      "ผลลัพธ์คำสั่ง",
+      "ดำเนินการ json",
+      "คำสั่ง json",
+      "ผลลัพธ์ cmd"
     ],
+    "param.cwd.description": "ไดเร็กทอรีการทำงาน อนุญาตเฉพาะเส้นทางสัมพัทธ์ภายใต้ workdir เท่านั้น หากเป็นโมฆะ ให้ใช้ไดเร็กทอรีปัจจุบัน",
     "error.exit_code": "ออกจากคำสั่งด้วยรหัส %(returncode)s",
     "error.os_error": "การดำเนินการคำสั่งล้มเหลว (ข้อผิดพลาดระบบปฏิบัติการ): %(error)s",
-    "error.exec_failed": "การดำเนินการคำสั่งล้มเหลว: %(error)s",
-    "param.cwd.description": "ไดเร็กทอรีการทำงาน อนุญาตเฉพาะเส้นทางสัมพัทธ์ภายใต้ workdir เท่านั้น หากเป็นโมฆะ ให้ใช้ไดเร็กทอรีปัจจุบัน"
+    "error.exec_failed": "การดำเนินการคำสั่งล้มเหลว: %(error)s"
   },
   "zh_CN": {
     "param.command.description": "传递给系统 shell 的命令字符串。Windows 上使用 cmd.exe /c。",
     "tool.description": "作为最后手段，执行 shell 命令并返回 JSON 结果。仅当没有更安全或更具体的工具可用时使用（例如 MCP 集成）。",
     "x_search_terms": [
       "cmd json",
-      "command json",
-      "structured output",
-      "json result",
-      "cmd structured",
-      "command output",
-      "command result",
-      "execute json",
-      "json command",
-      "cmd result"
+      "命令json",
+      "结构化输出",
+      "json结果",
+      "cmd结构化",
+      "命令输出",
+      "命令结果",
+      "执行json",
+      "json命令",
+      "cmd结果"
     ],
+    "param.cwd.description": "工作目录。仅允许 workdir 下的相对路径。如果为空，则使用当前目录。",
     "error.exit_code": "命令退出，代码为 %(returncode)s",
     "error.os_error": "命令执行失败（操作系统错误）：%(error)s",
-    "error.exec_failed": "命令执行失败：%(error)s",
-    "param.cwd.description": "工作目录。仅允许 workdir 下的相对路径。如果为空，则使用当前目录。"
+    "error.exec_failed": "命令执行失败：%(error)s"
   },
   "zh_TW": {
     "param.command.description": "傳遞給系統 shell 的命令字串。Windows 會使用 cmd.exe /c。",
     "tool.description": "作為最後手段，執行 shell 指令並傳回 JSON 結果。僅在沒有更安全或更具體的工具可用時使用（例如 MCP 整合）。",
     "x_search_terms": [
       "cmd json",
-      "command json",
-      "structured output",
-      "json result",
-      "cmd structured",
-      "command output",
-      "command result",
-      "execute json",
-      "json command",
-      "cmd result"
+      "指令json",
+      "結構化輸出",
+      "json結果",
+      "cmd結構化",
+      "指令輸出",
+      "指令結果",
+      "執行json",
+      "json指令",
+      "cmd結果"
     ],
+    "param.cwd.description": "工作目錄。僅允許 workdir 下的相對路徑。如果為空，則使用目前目錄。",
     "error.exit_code": "指令退出，代碼為 %(returncode)s",
     "error.os_error": "指令執行失敗（作業系統錯誤）：%(error)s",
-    "error.exec_failed": "指令執行失敗：%(error)s",
-    "param.cwd.description": "工作目錄。僅允許 workdir 下的相對路徑。如果為空，則使用目前目錄。"
+    "error.exec_failed": "指令執行失敗：%(error)s"
   },
   "bn": {
     "param.command.description": "OS shell-এ পাঠানোর কমান্ড স্ট্রিং। Windows-এ cmd.exe /c ব্যবহার করা হয়।",
@@ -502,12 +532,12 @@
       "command result",
       "execute json",
       "json command",
-      "cmd result"
+      "cmd ফলাফল"
     ],
+    "param.cwd.description": "ওয়ার্কিং ডিরেক্টরি। শুধুমাত্র workdir অধীনে আপেক্ষিক পাথ অনুমোদিত. শূন্য হলে, বর্তমান ডিরেক্টরি ব্যবহার করে।",
     "error.exit_code": "কমান্ড %(returncode)s কোড সহ প্রস্থান হয়েছে",
     "error.os_error": "কমান্ড কার্যকর করা ব্যর্থ হয়েছে (OS ত্রুটি): %(error)s",
-    "error.exec_failed": "কমান্ড কার্যকর করা ব্যর্থ হয়েছে: %(error)s",
-    "param.cwd.description": "ওয়ার্কিং ডিরেক্টরি। শুধুমাত্র workdir অধীনে আপেক্ষিক পাথ অনুমোদিত. শূন্য হলে, বর্তমান ডিরেক্টরি ব্যবহার করে।"
+    "error.exec_failed": "কমান্ড কার্যকর করা ব্যর্থ হয়েছে: %(error)s"
   },
   "fa": {
     "param.command.description": "رشتهٔ فرمانی که به پوستهٔ سیستم داده می‌شود.در ویندوز از cmd.",
@@ -516,18 +546,18 @@
       "cmd json",
       "command json",
       "structured output",
-      "json result",
-      "cmd structured",
-      "command output",
-      "command result",
-      "execute json",
-      "json command",
-      "cmd result"
+      " result",
+      "",
+      "",
+      "",
+      "",
+      "",
+      ""
     ],
+    "param.cwd.description": "دایرکتوری کار فقط مسیرهای نسبی تحت workdir مجاز هستند. اگر null باشد، از دایرکتوری فعلی استفاده می کند.",
     "error.exit_code": "فرمان با کد %(returncode)s خارج شد",
     "error.os_error": "اجرای دستور انجام نشد (خطای سیستم عامل): %(error)s",
-    "error.exec_failed": "اجرای دستور انجام نشد: %(error)s",
-    "param.cwd.description": "دایرکتوری کار فقط مسیرهای نسبی تحت workdir مجاز هستند. اگر null باشد، از دایرکتوری فعلی استفاده می کند."
+    "error.exec_failed": "اجرای دستور انجام نشد: %(error)s"
   },
   "mn": {
     "param.command.description": "Системийн shell-д дамжуулах командын мөр. Windows дээр cmd.exe /c ашиглана.",
@@ -535,19 +565,19 @@
     "x_search_terms": [
       "cmd json",
       "command json",
-      "structured output",
-      "json result",
-      "cmd structured",
-      "command output",
-      "command result",
-      "execute json",
-      "json command",
-      "cmd result"
+      "бүтэцлэгдсэн гаралт",
+      "json үр дүн",
+      "cmd бүтэцтэй",
+      "командын гаралт",
+      "командын үр дүн",
+      "json",
+      "json тушаалыг гүйцэтгэх",
+      "cmd үр дүн"
     ],
+    "param.cwd.description": "Ажлын лавлах. Зөвхөн ажлын чиглэлийн доорх харьцангуй замыг зөвшөөрдөг. Хэрэв null бол одоогийн лавлахыг ашиглана.",
     "error.exit_code": "тушаал %(returncode)s кодоор гарсан",
     "error.os_error": "тушаалын гүйцэтгэл амжилтгүй болсон (OS-ийн алдаа): %(error)s",
-    "error.exec_failed": "тушаалын гүйцэтгэл амжилтгүй болсон: %(error)s",
-    "param.cwd.description": "Ажлын лавлах. Зөвхөн ажлын чиглэлийн доорх харьцангуй замыг зөвшөөрдөг. Хэрэв null бол одоогийн лавлахыг ашиглана."
+    "error.exec_failed": "тушаалын гүйцэтгэл амжилтгүй болсон: %(error)s"
   },
   "mr": {
     "param.command.description": "OS shell ला दिलेली कमांड स्ट्रिंग. Windows वर cmd.exe /c वापरले जाते.",
@@ -555,19 +585,19 @@
     "x_search_terms": [
       "cmd json",
       "command json",
-      "structured output",
-      "json result",
-      "cmd structured",
+      "संरचित आउटपुट",
+      "json परिणाम",
+      "cmd संरचित",
       "command output",
       "command result",
-      "execute json",
+      " execute json",
       "json command",
-      "cmd result"
+      "cmd परिणाम"
     ],
+    "param.cwd.description": "कार्यरत निर्देशिका. workdir अंतर्गत फक्त संबंधित मार्गांना परवानगी आहे. शून्य असल्यास, वर्तमान निर्देशिका वापरा.",
     "error.exit_code": "आदेश %(returncode)s कोडसह बाहेर पडला",
     "error.os_error": "आदेशाची अंमलबजावणी अयशस्वी झाली (OS त्रुटी): %(error)s",
-    "error.exec_failed": "आदेशाची अंमलबजावणी अयशस्वी झाली: %(error)s",
-    "param.cwd.description": "कार्यरत निर्देशिका. workdir अंतर्गत फक्त संबंधित मार्गांना परवानगी आहे. शून्य असल्यास, वर्तमान निर्देशिका वापरा."
+    "error.exec_failed": "आदेशाची अंमलबजावणी अयशस्वी झाली: %(error)s"
   },
   "el": {
     "param.command.description": "Η συμβολοσειρά εντολών πέρασε στο κέλυφος του λειτουργικού συστήματος. Στα Windows χρησιμοποιείται το cmd.exe /c.",
@@ -576,58 +606,58 @@
       "cmd json",
       "command json",
       "structured output",
-      "json result",
+      "json αποτέλεσμα",
       "cmd structured",
       "command output",
       "command result",
-      "execute json",
-      "json command",
-      "cmd result"
+      "εκτέλεση εντολή json",
+      "json",
+      "cmd αποτέλεσμα"
     ],
+    "param.cwd.description": "Κατάλογος εργασίας. Επιτρέπονται μόνο σχετικές διαδρομές κάτω από το workdir. Εάν είναι null, χρησιμοποιεί τον τρέχοντα κατάλογο.",
     "error.exit_code": "Έγινε έξοδος της εντολής με κωδικό %(returncode)s",
     "error.os_error": "η εκτέλεση εντολής απέτυχε (σφάλμα λειτουργικού συστήματος): %(error)s",
-    "error.exec_failed": "η εκτέλεση της εντολής απέτυχε: %(error)s",
-    "param.cwd.description": "Κατάλογος εργασίας. Επιτρέπονται μόνο σχετικές διαδρομές κάτω από το workdir. Εάν είναι null, χρησιμοποιεί τον τρέχοντα κατάλογο."
+    "error.exec_failed": "η εκτέλεση της εντολής απέτυχε: %(error)s"
   },
   "he": {
     "param.command.description": "מחרוזת הפקודה הועברה למעטפת מערכת ההפעלה. ב-Windows, נעשה שימוש ב-cmd.exe /c.",
     "tool.description": "כמוצא אחרון, בצע פקודת מעטפת והחזר תוצאת JSON. השתמש רק כאשר אין כלי בטוח או ספציפי יותר זמין (למשל.",
     "x_search_terms": [
       "cmd json",
-      "command json",
-      "structured output",
-      "json result",
-      "cmd structured",
-      "command output",
-      "command result",
-      "execute json",
-      "json command",
-      "cmd result"
+      "פקודה json",
+      "פלט מובנה",
+      "json תוצאה",
+      "cmd מובנה",
+      "פקודה פלט",
+      "תוצאת פקודה",
+      "ביצוע פקודה json",
+      "json",
+      "תוצאה cmd"
     ],
+    "param.cwd.description": "ספריית עבודה. רק נתיבים יחסיים תחת workdir מותרים. אם null, משתמש בספרייה הנוכחית.",
     "error.exit_code": "הפקודה יצאה עם הקוד %(returncode)s",
     "error.os_error": "ביצוע הפקודה נכשל (שגיאת מערכת ההפעלה): %(error)s",
-    "error.exec_failed": "ביצוע הפקודה נכשל: %(error)s",
-    "param.cwd.description": "ספריית עבודה. רק נתיבים יחסיים תחת workdir מותרים. אם null, משתמש בספרייה הנוכחית."
+    "error.exec_failed": "ביצוע הפקודה נכשל: %(error)s"
   },
   "hu": {
     "param.command.description": "A parancssor átkerült az operációs rendszer parancsértelmezőjébe. Windows rendszeren a cmd.exe /c fájl használatos.",
     "tool.description": "Végső megoldásként hajtson végre egy shell parancsot, és adjon vissza egy JSON eredményt. Csak akkor használja, ha nem áll rendelkezésre biztonságosabb vagy specifikusabb eszköz (pl.",
     "x_search_terms": [
       "cmd json",
-      "command json",
-      "structured output",
-      "json result",
-      "cmd structured",
-      "command output",
-      "command result",
-      "execute json",
-      "json command",
-      "cmd result"
+      "parancs json",
+      "strukturált kimenet",
+      "json eredmény",
+      "cmd strukturált",
+      "parancs kimenet",
+      "parancs eredménye",
+      "",
+      "",
+      ""
     ],
+    "param.cwd.description": "Munkakönyvtár. Csak a workdir alatti relatív elérési utak engedélyezettek. Ha null, akkor az aktuális könyvtárat használja.",
     "error.exit_code": "parancs a %(returncode)s kóddal fejeződött be",
     "error.os_error": "a parancs végrehajtása sikertelen (OS hiba): %(error)s",
-    "error.exec_failed": "a parancs végrehajtása sikertelen: %(error)s",
-    "param.cwd.description": "Munkakönyvtár. Csak a workdir alatti relatív elérési utak engedélyezettek. Ha null, akkor az aktuális könyvtárat használja."
+    "error.exec_failed": "a parancs végrehajtása sikertelen: %(error)s"
   },
   "ro": {
     "param.command.description": "Șirul de comandă a fost transmis shell-ului sistemului de operare. Pe Windows, se folosește cmd.exe /c.",
@@ -637,16 +667,16 @@
       "command json",
       "structured output",
       "json result",
-      "cmd structured",
+      "cmd structurad",
       "command output",
       "command result",
       "execute json",
       "json command",
       "cmd result"
     ],
+    "param.cwd.description": "Director de lucru. Sunt permise doar căile relative sub workdir. Dacă null, folosește directorul curent.",
     "error.exit_code": "comanda ieșită cu codul %(returncode)s",
     "error.os_error": "Execuția comenzii a eșuat (eroare OS): %(error)s",
-    "error.exec_failed": "executarea comenzii a eșuat: %(error)s",
-    "param.cwd.description": "Director de lucru. Sunt permise doar căile relative sub workdir. Dacă null, folosește directorul curent."
+    "error.exec_failed": "executarea comenzii a eșuat: %(error)s"
   }
 }

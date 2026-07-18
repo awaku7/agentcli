@@ -381,12 +381,14 @@
   },
   "cs": {
     "cmd.help.tools_list": "  :tools list [query]               Seznam načtených nástrojů, volitelně filtrovaných podle názvu/popisu",
-    "cmd.help.tools_load": ":tools load <name>",
+    "cmd.help.tools_load": "  :tools load <name>",
     "msg.tools.usage_load": "Použití: :tools load <tool_name>",
     "msg.tools.loaded_single": "[tools] Načten nástroj: {name}",
     "msg.tools.not_found": "[tools] Nástroj nenalezen: {name}",
     "cmd.help.tools_output": "  :tools output                     Přepnout zobrazení výsledků nástrojů",
     "msg.tools.output_state": "[tools] Zobrazení výstupu nástrojů: {state}",
+    "msg.tools.list_header": "[tools] Načtené nástroje ({count}):",
+    "msg.tools.no_match": "[nástroje] Žádné odpovídající nástroje: {q}",
     "cmd.help.tools_reload": "  :tools reload                    Znovu nacist veskery kod nastroje z disku.",
     "msg.tools.reloaded": "[tools] Systém byl úspěšně znovu načten. Všechny nástroje aktualizovány nejnovějším kódem.",
     "x_search_terms": [
@@ -394,18 +396,18 @@
       "tools_control",
       "nástroje",
       "NÁSTROJE"
-    ],
-    "msg.tools.list_header": "[tools] Načtené nástroje ({count}):",
-    "msg.tools.no_match": "[nástroje] Žádné odpovídající nástroje: {q}"
+    ]
   },
   "uk": {
     "cmd.help.tools_list": "  :tools list [query]               Список завантажених інструментів, опціонально відфільтрованих за назвою/описом",
-    "cmd.help.tools_load": ":tools load <name>",
+    "cmd.help.tools_load": "  :tools load <name>",
     "msg.tools.usage_load": "Використання: :tools load <tool_name>",
     "msg.tools.loaded_single": "[tools] Інструмент завантажено: {name}",
     "msg.tools.not_found": "[tools] Інструмент не знайдено: {name}",
     "cmd.help.tools_output": "  :tools output                     Перемкнути відображення результатів інструментів",
     "msg.tools.output_state": "[tools] Відображення виводу інструментів: {state}",
+    "msg.tools.list_header": "[інструменти] Завантажені інструменти ({count}):",
+    "msg.tools.no_match": "[інструменти] Немає відповідних інструментів: {q}",
     "cmd.help.tools_reload": "  :tools reload                    Pereavantazhyty ves kod instrumentu z dyska.",
     "msg.tools.reloaded": "[tools] Систему успішно перезавантажено. Усі інструменти оновлено останнім кодом.",
     "x_search_terms": [
@@ -413,9 +415,7 @@
       "tools_control",
       "інструменти",
       "ІНСТРУМЕНТИ"
-    ],
-    "msg.tools.list_header": "[інструменти] Завантажені інструменти ({count}):",
-    "msg.tools.no_match": "[інструменти] Немає відповідних інструментів: {q}"
+    ]
   },
   "tr": {
     "cmd.help.tools_list": "  :tools list [query]               Yüklenmiş araçları listele, isteğe bağlı olarak ad/açıklamaya göre filtrele",
@@ -514,12 +514,14 @@
   },
   "fa": {
     "cmd.help.tools_list": "  :tools list [query]               فهرست ابزارهای بارگذاری شده، به صورت اختیاری بر اساس نام/توضیح فیلتر شده",
-    "cmd.help.tools_load": ":tools load <name>",
+    "cmd.help.tools_load": "  :tools load <name>",
     "msg.tools.usage_load": "کاربرد: :tools load <tool_name>",
     "msg.tools.loaded_single": "[tools] ابزار بارگذاری شد: {name}",
     "msg.tools.not_found": "[tools] ابزار یافت نشد: {name}",
     "cmd.help.tools_output": "  :tools output                     تغییر نمایش نتایج اجرای ابزارها",
     "msg.tools.output_state": "[tools] نمایش خروجی ابزار: {state}",
+    "msg.tools.list_header": "[ابزار] ابزارهای بارگذاری شده ({count}):",
+    "msg.tools.no_match": "[ابزار] هیچ ابزار منطبقی وجود ندارد: {q}",
     "cmd.help.tools_reload": "  :tools reload                    بارگذاري مجدد تمام کد ابزار از ديسک.",
     "msg.tools.reloaded": "[tools] سیستم با موفقیت بارگیری مجدد شد. همه ابزارها با آخرین کد به روز شده اند.",
     "x_search_terms": [
@@ -527,9 +529,7 @@
       "tools_control",
       "ابزارها",
       "ابزارها"
-    ],
-    "msg.tools.list_header": "[ابزار] ابزارهای بارگذاری شده ({count}):",
-    "msg.tools.no_match": "[ابزار] هیچ ابزار منطبقی وجود ندارد: {q}"
+    ]
   },
   "mn": {
     "cmd.help.tools_list": "  :tools list [query]               Ачаалагдсан хэрэгслүүдийг жагсаах, нэр/тодорхойлолтоор шүүх боломжтой",
@@ -609,12 +609,14 @@
   },
   "hu": {
     "cmd.help.tools_list": ":tools on comm Kommunikációs eszközök engedélyezése (Teams, Discord)\n  :tools on office Engedélyezze az Office-eszközöket (Excel, Word stb.)\n  :tools on devel Fejlesztői eszközök engedélyezése (lint, py_compile, tesztek)\n  :tools on iot IoT-eszközök engedélyezése (Bluetooth stb.)",
-    "cmd.help.tools_load": ":tools load <name>",
+    "cmd.help.tools_load": "  :tools load <name>",
     "msg.tools.usage_load": "Használat: :tools load <eszköz_neve>",
     "msg.tools.loaded_single": "[eszközök] Az eszköz nem található: {name}",
     "msg.tools.not_found": "[eszközök] Az eszköz nem található: {name}",
     "cmd.help.tools_output": "  :tools output                     Eszközök végrehajtási eredményeinek megjelenítésének váltása",
     "msg.tools.output_state": "[tools] Eszköz kimenet megjelenítése: {state}",
+    "msg.tools.list_header": "[eszközök] Betöltött eszközök ({count}):",
+    "msg.tools.no_match": "[eszközök] Nincsenek megfelelő eszközök: {q}",
     "cmd.help.tools_reload": "  :tools reload                    Az osszes eszkozkod ujratoltese a lemezrol.",
     "msg.tools.reloaded": "[tools] A rendszer újratöltése sikeresen megtörtént. Minden eszköz frissítve a legújabb kóddal.",
     "x_search_terms": [
@@ -622,9 +624,7 @@
       "tools_control",
       "eszközök",
       "ESZKÖZÖK"
-    ],
-    "msg.tools.list_header": "[eszközök] Betöltött eszközök ({count}):",
-    "msg.tools.no_match": "[eszközök] Nincsenek megfelelő eszközök: {q}"
+    ]
   },
   "ro": {
     "cmd.help.tools_list": ":listă instrumente [interogare] Listează instrumentele încărcate, opțional filtrate după nume/descriere",

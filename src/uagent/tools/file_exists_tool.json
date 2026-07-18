@@ -21,7 +21,16 @@
     "param.path.description": "存在確認したいファイルまたはディレクトリのパス（~ も使用可）。",
     "tool.description": "指定したパスにファイルまたはディレクトリが存在するかどうかを確認し、あれば種別・サイズ・更新日時を返します。",
     "x_search_terms": [
-      "ファイルが存在します |ファイルチェック |ファイルをチェック |存在します |ファイルが存在します |パスを確認する |パスチェック"
+      "ファイルが存在します",
+      "ファイルを確認します",
+      "ファイルを確認します",
+      "ファイルが存在します",
+      "ファイルが存在します",
+      "存在しますチェック",
+      "ファイルが利用可能です",
+      "ファイルが見つかりました",
+      "パスを確認します",
+      "パスが存在します"
     ]
   },
   "es": {
@@ -30,12 +39,15 @@
     "tool.description": "Comprueba si existe un archivo o directorio en la ruta especificada y, si existe, devuelve su tipo, tamaño y hora de modificación.",
     "x_search_terms": [
       "el archivo existe",
-      "verificación de archivos",
       "comprobar archivo",
-      "existe",
-      "el archivo existe",
+      "verificar archivo",
+      "existir archivo",
+      "archivo presente",
+      "existe verificar",
+      "archivo disponible",
+      "archivo encontrado",
       "comprobar ruta",
-      "comprobación de ruta"
+      "existe ruta"
     ]
   },
   "fr": {
@@ -44,12 +56,15 @@
     "tool.description": "Vérifie si un fichier ou un répertoire existe au chemin spécifié et, le cas échéant, renvoie son type, sa taille et son heure de modification.",
     "x_search_terms": [
       "le fichier existe",
-      "vérification du fichier",
       "vérifier le fichier",
-      "existe",
+      "vérifier le fichier",
       "le fichier existe",
+      "le fichier présent",
+      "existe vérifier",
+      "le fichier disponible",
+      "le fichier trouvé",
       "vérifier le chemin",
-      "vérification du chemin"
+      "le chemin existe"
     ]
   },
   "ko": {
@@ -60,10 +75,13 @@
       "파일 존재",
       "파일 확인",
       "파일 확인",
-      "존재합니다",
-      "파일이 존재합니다",
+      "파일 존재",
+      "파일 존재",
+      "존재 확인",
+      "사용 가능한 파일",
+      "파일 발견",
       "경로 확인",
-      "경로 확인"
+      "경로 존재"
     ]
   },
   "de": {
@@ -71,13 +89,16 @@
     "param.path.description": "[file_exists] Pfad ist leer.",
     "tool.description": "Prüft, ob eine Datei oder ein Verzeichnis am angegebenen Pfad vorhanden ist, und gibt, falls ja, Typ, Größe und Änderungszeit zurück.",
     "x_search_terms": [
-      "Datei existiert",
-      "Dateiprüfung",
+      "Datei vorhanden",
       "Datei prüfen",
-      "existiert",
-      "Datei existiert",
+      "Datei prüfen",
+      "Datei vorhanden",
+      "Datei vorhanden",
+      "existiert prüfen",
+      "Datei verfügbar",
+      "Datei gefunden",
       "Pfad prüfen",
-      "Pfadprüfung"
+      "Pfad existiert"
     ]
   },
   "it": {
@@ -86,12 +107,15 @@
     "tool.description": "Controlla se esiste un file o una directory nel percorso specificato e, in caso affermativo, restituisce tipo, dimensione e ora di modifica.",
     "x_search_terms": [
       "il file esiste",
-      "controllo file",
-      "controlla il file",
-      "esiste",
-      "il file esiste",
-      "controlla il percorso",
-      "controllo del percorso"
+      "controlla file",
+      "file controlla",
+      "file esiste",
+      "file presente",
+      "esiste controlla",
+      "file disponibile",
+      "file trovato",
+      "controlla percorso",
+      "il percorso esiste"
     ]
   },
   "ru": {
@@ -99,7 +123,16 @@
     "param.path.description": "Путь к файлу или каталогу, существование которого необходимо проверить (поддерживает ~).",
     "tool.description": "Проверяет, существует ли файл или каталог по указанному пути, и, если да, возвращает его тип, размер и время изменения.",
     "x_search_terms": [
-      "файл существует, проверка файла, проверить файл, существует, файл существует, проверить путь, проверка пути"
+      "файл существует",
+      "проверить файл",
+      "проверить файл",
+      "файл существует",
+      "файл присутствует",
+      "существует проверить",
+      "файл доступен",
+      "файл найден",
+      "проверить путь",
+      "путь существует"
     ]
   },
   "pt_BR": {
@@ -107,16 +140,16 @@
     "param.path.description": "Caminho do arquivo ou diretório a ser verificado (suporta ~).",
     "tool.description": "Verifica se um arquivo ou diretório existe no caminho especificado e, se existir, retorna seu tipo, tamanho e hora de modificação.",
     "x_search_terms": [
-      "file exists",
-      "check file",
-      "file check",
-      "file exist",
-      "file present",
-      "exists check",
-      "file available",
-      "file found",
-      "check path",
-      "path exists"
+      "arquivo existe",
+      "verificar arquivo",
+      "verificar arquivo",
+      "arquivo existir",
+      "arquivo presente",
+      "existe verificar",
+      "arquivo disponível",
+      "arquivo encontrado",
+      "verificar caminho",
+      "caminho existe"
     ]
   },
   "pt": {
@@ -175,16 +208,16 @@
     "param.path.description": "Ścieżka pliku lub katalogu do sprawdzenia pod kątem istnienia (obsługuje",
     "tool.description": "Sprawdza, czy plik lub katalog istnieje pod podaną ścieżką i, jeśli tak, zwraca jego typ, rozmiar oraz czas modyfikacji.",
     "x_search_terms": [
-      "file exists",
-      "check file",
-      "file check",
-      "file exist",
-      "file present",
-      "exists check",
-      "file available",
-      "file found",
-      "check path",
-      "path exists"
+      "plik istnieje",
+      "sprawdź plik",
+      "sprawdź plik",
+      "plik istnieje",
+      "plik obecny",
+      "istnieje sprawdź",
+      "plik dostępny",
+      "plik znaleziony",
+      "sprawdź ścieżkę",
+      "ścieżka istnieje"
     ]
   },
   "hi": {
@@ -192,16 +225,16 @@
     "param.path.description": "जांचने के लिए फ़ाइल या निर्देशिका का पथ अस्तित्व के लिए (~)",
     "tool.description": "जाँचता है कि कोई फ़ाइल या निर्देशिका निर्दिष्ट पथ पर मौजूद है या नहीं, और यदि मौजूद है, तो उसका प्रकार, आकार और संशोधन समय लौटाता है।",
     "x_search_terms": [
-      "file exists",
-      "check file",
-      "file check",
-      "file exist",
-      "file present",
-      "exists check",
-      "file available",
-      "file found",
-      "check path",
-      "path exists"
+      "फ़ाइल मौजूद है",
+      "फ़ाइल जाँचें",
+      "फ़ाइल जाँचें",
+      "फ़ाइल मौजूद है",
+      "फ़ाइल मौजूद है",
+      "मौजूद है जाँचें",
+      "फ़ाइल उपलब्ध है",
+      "फ़ाइल मिली है",
+      "पथ जाँचें",
+      "पथ मौजूद है"
     ]
   },
   "ar": {
@@ -209,16 +242,16 @@
     "param.path.description": "مسار الملف أو الدليل الذي تريد التحقق من وجوده (يمكن أيضًا استخدام ~).",
     "tool.description": "يتحقق مما إذا كان ملف أو دليل موجودًا في المسار المحدد، وإذا كان موجودًا فَيُرجِع نوعه وحجمه ووقت التعديل.",
     "x_search_terms": [
-      "file exists",
-      "check file",
-      "file check",
-      "file exist",
-      "file present",
-      "exists check",
-      "file available",
-      "file found",
-      "check path",
-      "path exists"
+      "الملف موجود",
+      "التحقق من الملف",
+      "التحقق من الملف",
+      "الملف موجود",
+      "الملف موجود",
+      "التحقق من وجود الملف",
+      "الملف متاح",
+      "تم العثور على الملف",
+      "التحقق من المسار",
+      "المسار موجود"
     ]
   },
   "sv": {
@@ -226,16 +259,16 @@
     "param.path.description": "Sökväg till filen eller katalogen för att kontrollera existens (stöder ~).",
     "tool.description": "Kontrollerar om en fil eller katalog finns på den angivna sökvägen och returnerar, om så är fallet, typ, storlek och ändringstid.",
     "x_search_terms": [
-      "file exists",
-      "check file",
-      "file check",
-      "file exist",
-      "file present",
-      "exists check",
-      "file available",
-      "file found",
-      "check path",
-      "path exists"
+      "fil finns",
+      "kontrollera fil",
+      "filkontroll",
+      "fil finns",
+      "fil finns",
+      "finns kontrollera",
+      "fil tillgänglig",
+      "fil hittades",
+      "kontrollera sökväg",
+      "sökväg finns"
     ]
   },
   "sw": {
@@ -243,16 +276,16 @@
     "param.path.description": "Njia ya faili au saraka ya kuangalia kuwepo (inaauni ~).",
     "tool.description": "Hukagua kama faili au saraka ipo katika njia iliyobainishwa na, ikiwa ipo, hurudisha aina yake, ukubwa na muda wa mwisho kubadilishwa.",
     "x_search_terms": [
-      "file exists",
-      "check file",
-      "file check",
-      "file exist",
-      "file present",
-      "exists check",
-      "file available",
-      "file found",
-      "check path",
-      "path exists"
+      "faili lipo",
+      "angalia faili",
+      "angalia faili",
+      "faili lipo",
+      "faili lipo",
+      "lipo angalia",
+      "faili linapatikana",
+      "faili limepatikana",
+      "angalia njia",
+      "njia ipo"
     ]
   },
   "nb": {
@@ -260,16 +293,16 @@
     "param.path.description": "Banen til filen eller katalogen for å se etter eksistens (støtter ~).",
     "tool.description": "Sjekker om en fil eller katalog finnes på den angitte stien og returnerer, hvis den gjør det, type, størrelse og endringstid.",
     "x_search_terms": [
-      "file exists",
-      "check file",
-      "file check",
-      "file exist",
-      "file present",
-      "exists check",
-      "file available",
-      "file found",
-      "check path",
-      "path exists"
+      "fil finnes",
+      "sjekk fil",
+      "filsjekk",
+      "fil finnes",
+      "fil til stede",
+      "eksisterer sjekk",
+      "fil tilgjengelig",
+      "fil funnet",
+      "sjekk bane",
+      "sti finnes"
     ]
   },
   "nl": {
@@ -277,16 +310,16 @@
     "param.path.description": "Pad van het bestand of de map die moet worden gecontroleerd op bestaan ​​(ondersteunt ~).",
     "tool.description": "Controleert of een bestand of map bestaat op het opgegeven pad en geeft, als dat zo is, het type, de grootte en de wijzigingstijd terug.",
     "x_search_terms": [
-      "file exists",
-      "check file",
-      "file check",
-      "file exist",
-      "file present",
-      "exists check",
-      "file available",
-      "file found",
-      "check path",
-      "path exists"
+      "bestand bestaat",
+      "controleer bestand",
+      "bestand controleer",
+      "bestand bestaat",
+      "bestand aanwezig",
+      "bestaat controleer",
+      "bestand beschikbaar",
+      "bestand gevonden",
+      "controleer pad",
+      "pad bestaat"
     ]
   },
   "fi": {
@@ -294,16 +327,16 @@
     "param.path.description": "Tarkistettavan tiedoston tai hakemiston polku (~ voidaan myös käyttää).",
     "tool.description": "Tarkistaa, onko tiedosto tai hakemisto olemassa annetussa polussa, ja palauttaa tarvittaessa sen tyypin, koon ja muokkausajan.",
     "x_search_terms": [
-      "file exists",
-      "check file",
-      "file check",
-      "file exist",
-      "file present",
-      "exists check",
-      "file available",
-      "file found",
-      "check path",
-      "path exists"
+      "tiedosto on olemassa",
+      "tarkista tiedosto",
+      "tiedostotarkistus",
+      "tiedosto olemassa",
+      "tiedosto on olemassa",
+      "olemassa tarkista",
+      "tiedosto saatavilla",
+      "tiedosto löytynyt",
+      "tarkista polku",
+      "polku olemassa"
     ]
   },
   "cs": {
@@ -311,16 +344,16 @@
     "param.path.description": "Cesta k souboru nebo adresáři pro kontrolu existence (podporuje ~).",
     "tool.description": "Zkontroluje, zda soubor nebo adresář na zadané cestě existuje, a pokud ano, vrátí jeho typ, velikost a čas změny.",
     "x_search_terms": [
-      "file exists",
-      "check file",
-      "file check",
-      "file exist",
-      "file present",
-      "exists check",
-      "file available",
-      "file found",
-      "check path",
-      "path exists"
+      "soubor existuje",
+      "zkontrolovat soubor",
+      "kontrola souboru",
+      "soubor existuje",
+      "soubor existuje",
+      "existuje zkontrolovat",
+      "soubor je dostupný",
+      "soubor nalezen",
+      "zkontrolovat cestu",
+      "cesta existuje"
     ]
   },
   "uk": {
@@ -328,16 +361,16 @@
     "param.path.description": "Шлях до файлу або каталогу для перевірки існування (підтримує ~).",
     "tool.description": "Перевіряє, чи існує файл або каталог за вказаним шляхом, і, якщо так, повертає його тип, розмір і час зміни.",
     "x_search_terms": [
-      "file exists",
-      "check file",
-      "file check",
-      "file exist",
-      "file present",
-      "exists check",
-      "file available",
-      "file found",
-      "check path",
-      "path exists"
+      "файл існує",
+      "перевірити файл",
+      "перевірити файл",
+      "файл існує",
+      "файл присутній",
+      "існує перевірити",
+      "файл доступний",
+      "файл знайдено",
+      "перевірити шлях",
+      "шлях існує"
     ]
   },
   "tr": {
@@ -345,16 +378,16 @@
     "param.path.description": "Varlığı kontrol edilecek dosya veya dizinin yolu (~ destekler).",
     "tool.description": "Belirtilen yolda bir dosya veya dizinin bulunup bulunmadığını kontrol eder ve varsa türünü, boyutunu ve değiştirilme zamanını döndürür.",
     "x_search_terms": [
-      "file exists",
-      "check file",
-      "file check",
-      "file exist",
-      "file present",
-      "exists check",
-      "file available",
-      "file found",
-      "check path",
-      "path exists"
+      "dosya mevcut",
+      "dosyayı kontrol edin",
+      "dosya kontrolü",
+      "dosya mevcut",
+      "dosya mevcut",
+      "var kontrol edin",
+      "dosya mevcut",
+      "dosya bulundu",
+      "yolu kontrol edin",
+      "yol var"
     ]
   },
   "th": {
@@ -362,16 +395,16 @@
     "param.path.description": "เส้นทางของไฟล์หรือไดเร็กทอรีเพื่อตรวจสอบการมีอยู่ (รองรับ ~)",
     "tool.description": "ตรวจสอบว่าไฟล์หรือไดเรกทอรีมีอยู่ในพาธที่ระบุหรือไม่ และหากมี จะส่งคืนชนิด ขนาด และเวลาแก้ไข",
     "x_search_terms": [
-      "file exists",
-      "check file",
-      "file check",
-      "file exist",
-      "file present",
-      "exists check",
-      "file available",
-      "file found",
-      "check path",
-      "path exists"
+      "มีไฟล์อยู่",
+      "ตรวจสอบไฟล์",
+      "ตรวจสอบไฟล์",
+      "มีไฟล์อยู่",
+      "มีไฟล์อยู่",
+      "มีไฟล์อยู่",
+      "มีไฟล์",
+      "พบไฟล์",
+      "เส้นทางตรวจสอบ",
+      "มีเส้นทางอยู่"
     ]
   },
   "zh_CN": {
@@ -379,16 +412,16 @@
     "param.path.description": "要检查是否存在的文件或目录的路径（也可以使用 ~）。",
     "tool.description": "检查指定路径下是否存在文件或目录，如果存在，则返回其类型、大小和修改时间。",
     "x_search_terms": [
-      "file exists",
-      "check file",
-      "file check",
-      "file exist",
-      "file present",
-      "exists check",
-      "file available",
-      "file found",
-      "check path",
-      "path exists"
+      "文件存在",
+      "检查文件",
+      "文件检查",
+      "文件存在",
+      "文件存在",
+      "存在检查",
+      "文件可用",
+      "文件找到",
+      "检查路径",
+      "路径存在"
     ]
   },
   "zh_TW": {
@@ -396,16 +429,16 @@
     "param.path.description": "要檢查是否存在的檔案或目錄的路徑（也可以使用 ~）。",
     "tool.description": "檢查指定路徑下是否存在檔案或目錄，若存在則傳回其類型、大小和修改時間。",
     "x_search_terms": [
-      "file exists",
-      "check file",
-      "file check",
-      "file exist",
-      "file present",
-      "exists check",
-      "file available",
-      "file found",
-      "check path",
-      "path exists"
+      "文件存在",
+      "檢查文件",
+      "文件檢查",
+      "文件存在",
+      "文件存在",
+      "存在檢查",
+      "文件可用",
+      "文件找到",
+      "檢查路徑",
+      "路徑存在"
     ]
   },
   "bn": {
@@ -413,16 +446,16 @@
     "param.path.description": "অস্তিত্ব পরীক্ষা করার জন্য ফাইল বা ডিরেক্টরির পাথ (~ সমর্থন করে)।",
     "tool.description": "নির্দিষ্ট পথে কোনো ফাইল বা ডিরেক্টরি আছে কি না পরীক্ষা করে, থাকলে তার ধরন, আকার এবং পরিবর্তনের সময় ফেরত দেয়।",
     "x_search_terms": [
-      "file exists",
-      "check file",
-      "file check",
-      "file exist",
-      "file present",
-      "exists check",
-      "file available",
-      "file found",
-      "check path",
-      "path exists"
+      "ফাইল বিদ্যমান",
+      "ফাইল চেক করুন",
+      "ফাইল চেক",
+      "ফাইল বিদ্যমান",
+      "ফাইল বর্তমান",
+      "অস্তিত্ব আছে চেক",
+      "ফাইল উপলব্ধ",
+      "ফাইল পাওয়া গেছে",
+      "চেক পাথ",
+      "পথ বিদ্যমান"
     ]
   },
   "fa": {
@@ -430,16 +463,16 @@
     "param.path.description": "مسیر فایل یا دایرکتوری برای بررسی وجود (~ پشتیبانی می کند).",
     "tool.description": "بررسی می‌کند که آیا یک فایل یا پوشه در مسیر مشخص‌شده وجود دارد یا نه و اگر وجود داشته باشد، نوع، اندازه و زمان تغییر آن را برمی‌گرداند.",
     "x_search_terms": [
-      "file exists",
-      "check file",
-      "file check",
-      "file exist",
-      "file present",
-      "exists check",
-      "file available",
-      "file found",
-      "check path",
-      "path exists"
+      "فایل موجود است. بررسی فایل",
+      "",
+      "",
+      "",
+      "",
+      "",
+      "",
+      "",
+      "",
+      ""
     ]
   },
   "mn": {
@@ -447,16 +480,16 @@
     "param.path.description": "Байгаа эсэхийг шалгах файл эсвэл лавлах зам (~ дэмждэг).",
     "tool.description": "Заасан зам дээр файл эсвэл директор байгаа эсэхийг шалгаж, байвал төрлийг, хэмжээг нь, өөрчлөгдсөн цагийг нь буцаана.",
     "x_search_terms": [
-      "file exists",
-      "check file",
-      "file check",
-      "file exist",
-      "file present",
-      "exists check",
-      "file available",
-      "file found",
-      "check path",
-      "path exists"
+      "файл байгаа",
+      "файлыг шалгах",
+      "файлыг шалгах",
+      "файл байгаа",
+      "одоо байгаа файл",
+      "байгаа шалгах",
+      "файл байгаа",
+      "файл олдсон",
+      "замыг шалгах",
+      "зам байгаа"
     ]
   },
   "mr": {
@@ -464,16 +497,16 @@
     "param.path.description": "अस्तित्व तपासायचा फाइल किंवा निर्देशिकेचा मार्ग (~ देखील वापरता येतो).",
     "tool.description": "निर्दिष्ट मार्गावर फाइल किंवा निर्देशिका अस्तित्वात आहे का ते तपासते आणि असल्यास तिचा प्रकार, आकार आणि बदलाची वेळ परत करते.",
     "x_search_terms": [
-      "file exists",
-      "check file",
-      "file check",
-      "file exist",
-      "file present",
-      "exists check",
-      "file available",
-      "file found",
-      "check path",
-      "path exists"
+      "फाइल अस्तित्वात आहे",
+      "फाइल तपासा",
+      "फाइल तपासा",
+      "फाइल अस्तित्वात आहे",
+      "फाइल उपस्थित आहे",
+      "अस्तित्वात आहे तपासा",
+      "फाइल उपलब्ध आहे",
+      "फाइल सापडली आहे",
+      "पथ तपासा",
+      "पथ अस्तित्वात आहे"
     ]
   },
   "el": {
@@ -481,16 +514,16 @@
     "param.path.description": "Η διαδρομή του αρχείου ή του καταλόγου για έλεγχο ύπαρξης (υποστηρίζει ~).",
     "tool.description": "Ελέγχει εάν ένα αρχείο ή κατάλογος υπάρχει στην καθορισμένη διαδρομή και, εάν υπάρχει, επιστρέφει τον τύπο, το μέγεθος και τον χρόνο τροποποίησης.",
     "x_search_terms": [
-      "file exists",
-      "check file",
-      "file check",
-      "file exist",
-      "file present",
-      "exists check",
-      "file available",
-      "file found",
-      "check path",
-      "path exists"
+      "υπάρχει αρχείο",
+      "",
+      "",
+      "",
+      "",
+      "",
+      "",
+      "",
+      "",
+      ""
     ]
   },
   "he": {
@@ -498,16 +531,16 @@
     "param.path.description": "הנתיב של הקובץ או הספרייה לבדיקת קיומם (תומך ב-~).",
     "tool.description": "בודק אם קובץ או ספרייה קיימים בנתיב שצוין, ואם כן, מחזיר את הסוג, הגודל וזמן השינוי שלו.",
     "x_search_terms": [
-      "file exists",
-      "check file",
-      "file check",
-      "file exist",
-      "file present",
-      "exists check",
-      "file available",
-      "file found",
-      "check path",
-      "path exists"
+      "הקובץ קיים",
+      "בדוק קובץ",
+      "בדיקת קובץ",
+      "קובץ קיים",
+      "קובץ קיים",
+      "קיים בדיקה",
+      "קובץ זמין",
+      "נמצא קובץ",
+      "בדוק נתיב",
+      ""
     ]
   },
   "hu": {
@@ -515,16 +548,16 @@
     "param.path.description": "Ellenőrzi, hogy létezik-e fájl vagy könyvtár a megadott elérési úton, és ha igen, visszaadja annak típusát, méretét és módosítási idejét.",
     "tool.description": "Ellenőrzi, hogy létezik-e fájl vagy könyvtár a megadott elérési úton, és ha igen, visszaadja annak típusát, méretét és módosítási idejét.",
     "x_search_terms": [
-      "file exists",
-      "check file",
-      "file check",
-      "file exist",
-      "file present",
-      "exists check",
-      "file available",
-      "file found",
-      "check path",
-      "path exists"
+      "fájl létezik",
+      "ellenőrizze a fájlt",
+      "fájl ellenőrzése",
+      "fájl létezik",
+      "",
+      "",
+      "",
+      "",
+      "",
+      ""
     ]
   },
   "ro": {
@@ -532,16 +565,16 @@
     "param.path.description": "Calea fișierului sau a directorului pentru a verifica existența (suportă ~).",
     "tool.description": "Verifică dacă un fișier sau un director există la calea specificată și, dacă există, returnează tipul, dimensiunea și timpul de modificare.",
     "x_search_terms": [
-      "file exists",
-      "check file",
-      "file check",
-      "file exist",
-      "file present",
-      "exists check",
-      "file available",
-      "file found",
-      "check path",
-      "path exists"
+      "fișierul există",
+      "verifică fișierul",
+      "fișierul verifica",
+      "fișierul există",
+      "",
+      "",
+      "",
+      "",
+      "",
+      ""
     ]
   }
 }

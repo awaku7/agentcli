@@ -9,18 +9,17 @@
     "msg.no_changes": "لم يتم الكشف عن أي تغييرات في الممتلكات.",
     "err.invalid_argument": "خطأ: عنوان IP_address مطلوب.",
     "msg.no_response": "لم يتم تلقي أي استجابة لـ ECHONET Lite أثناء المراقبة.",
-    "x_search_terms": [
-      "مراقب echonet",
-      "echonet_monitor",
-      "إيكونت",
-      "إيكونت",
-      "بشكل متكرر",
-      "بيانات",
-      "إشعارات"
-    ],
     "param.eoj.description": "الهدف EOJ (الافتراضي: ملف تعريف العقدة).",
     "param.obj.description": "عامل تصفية رمز الكائن (على سبيل المثال \"0130\").",
-    "tool.description": "قم باستقصاء عقدة ECHONET Lite بشكل متكرر، واكتشف تغييرات الخصائص، وقم بإرجاع ملخص JSON أو نص."
+    "tool.description": "قم باستقصاء عقدة ECHONET Lite بشكل متكرر، واكتشف تغييرات الخصائص، وقم بإرجاع ملخص JSON أو نص.",
+    "x_search_terms": [
+      "جهاز مراقبة الصدى",
+      "echonet_monitor",
+      "echonet",
+      "ECHONET",
+      "بشكل متكرر",
+      "كشف"
+    ]
   },
   "bn": {
     "param.ip.description": "লক্ষ্য নোড IPv4 ঠিকানা।",
@@ -32,18 +31,17 @@
     "msg.no_changes": "কোন সম্পত্তি পরিবর্তন সনাক্ত করা হয়নি.",
     "err.invalid_argument": "ত্রুটি: ip_address প্রয়োজন।",
     "msg.no_response": "পর্যবেক্ষণের সময় কোন ECHONET Lite প্রতিক্রিয়া পাওয়া যায়নি।",
+    "param.eoj.description": "লক্ষ্য EOJ (ডিফল্ট: নোড প্রোফাইল)।",
+    "param.obj.description": "অবজেক্ট কোড ফিল্টার (যেমন '0130')।",
+    "tool.description": "বারবার একটি ECHONET Lite নোড পোল করুন, সম্পত্তির পরিবর্তনগুলি সনাক্ত করুন এবং একটি JSON বা পাঠ্য সারাংশ ফেরত দিন।",
     "x_search_terms": [
       "echonet মনিটর",
       "echonet_monitor",
-      "ইকোনেট",
-      "ইকোনেট",
-      "বারবার",
-      "তথ্য",
-      "বিজ্ঞপ্তি"
-    ],
-    "param.eoj.description": "লক্ষ্য EOJ (ডিফল্ট: নোড প্রোফাইল)।",
-    "param.obj.description": "অবজেক্ট কোড ফিল্টার (যেমন '0130')।",
-    "tool.description": "বারবার একটি ECHONET Lite নোড পোল করুন, সম্পত্তির পরিবর্তনগুলি সনাক্ত করুন এবং একটি JSON বা পাঠ্য সারাংশ ফেরত দিন।"
+      "echonet",
+      "ECHONET",
+      " বারবার",
+      " সনাক্ত করুন"
+    ]
   },
   "cs": {
     "param.ip.description": "Adresa IPv4 cílového uzlu.",
@@ -55,18 +53,17 @@
     "msg.no_changes": "Nebyly zjištěny žádné majetkové změny.",
     "err.invalid_argument": "Chyba: ip_address je vyžadováno.",
     "msg.no_response": "Během monitorování nebyla přijata žádná odpověď ECHONET Lite.",
-    "x_search_terms": [
-      "monitor echonet",
-      "echonet_monitor",
-      "echosíť",
-      "ECHONET",
-      "opakovaně",
-      "data",
-      "oznámení"
-    ],
     "param.eoj.description": "Cílový EOJ (výchozí: profil uzlu).",
     "param.obj.description": "Filtr kódu objektu (např. „0130“).",
-    "tool.description": "Opakovaně dotazujte uzel ECHONET Lite, zjistěte změny vlastností a vraťte JSON nebo textové shrnutí."
+    "tool.description": "Opakovaně dotazujte uzel ECHONET Lite, zjistěte změny vlastností a vraťte JSON nebo textové shrnutí.",
+    "x_search_terms": [
+      "echonet monitor",
+      "echonet_monitor",
+      "echonet",
+      "ECHONET",
+      "opakovaně",
+      "detekovat"
+    ]
   },
   "de": {
     "param.ip.description": "IPv4-Adresse des Zielknotens.",
@@ -78,18 +75,17 @@
     "msg.no_changes": "Es wurden keine Eigentumsänderungen festgestellt.",
     "err.invalid_argument": "Fehler: ip_address ist erforderlich.",
     "msg.no_response": "Während der Überwachung wurde keine ECHONET Lite-Antwort empfangen.",
+    "param.eoj.description": "Ziel-EOJ (Standard: Knotenprofil).",
+    "param.obj.description": "Objektcodefilter (z. B. „0130“).",
+    "tool.description": "Fragen Sie wiederholt einen ECHONET Lite-Knoten ab, erkennen Sie Eigenschaftsänderungen und geben Sie eine JSON- oder Textzusammenfassung zurück.",
     "x_search_terms": [
-      "Echonet-Monitor",
+      "echonet monitor",
       "echonet_monitor",
       "echonet",
       "ECHONET",
-      "wiederholt",
-      "Daten",
-      "Benachrichtigungen"
-    ],
-    "param.eoj.description": "Ziel-EOJ (Standard: Knotenprofil).",
-    "param.obj.description": "Objektcodefilter (z. B. „0130“).",
-    "tool.description": "Fragen Sie wiederholt einen ECHONET Lite-Knoten ab, erkennen Sie Eigenschaftsänderungen und geben Sie eine JSON- oder Textzusammenfassung zurück."
+      "repeatedly",
+      "detect"
+    ]
   },
   "en": {
     "param.ip.description": "Target node IPv4 address.",
@@ -123,18 +119,17 @@
     "msg.no_changes": "No se detectaron cambios de propiedad.",
     "err.invalid_argument": "Error: se requiere dirección_ip.",
     "msg.no_response": "No se recibió ninguna respuesta de ECHONET Lite durante el monitoreo.",
-    "x_search_terms": [
-      "monitor de econet",
-      "monitor_echonet",
-      "econet",
-      "ECHONET",
-      "repetidamente",
-      "datos",
-      "notificaciones"
-    ],
     "param.eoj.description": "Objetivo EOJ (predeterminado: perfil de nodo).",
     "param.obj.description": "Filtro de código objeto (por ejemplo, '0130').",
-    "tool.description": "Sondee un nodo ECHONET Lite repetidamente, detecte cambios de propiedad y devuelva un resumen de texto o JSON."
+    "tool.description": "Sondee un nodo ECHONET Lite repetidamente, detecte cambios de propiedad y devuelva un resumen de texto o JSON.",
+    "x_search_terms": [
+      "echonet monitor",
+      "echonet_monitor",
+      "echonet",
+      "ECHONET",
+      "repetidamente",
+      "detectar"
+    ]
   },
   "fa": {
     "param.ip.description": "آدرس IPv4 گره هدف.",
@@ -146,18 +141,17 @@
     "msg.no_changes": "هیچ تغییری در ملک شناسایی نشد.",
     "err.invalid_argument": "خطا: ip_address مورد نیاز است.",
     "msg.no_response": "هیچ پاسخ ECHONET Lite در طول نظارت دریافت نشد.",
-    "x_search_terms": [
-      "نمایشگر echonet",
-      "echonet_monitor",
-      "اکونت",
-      "اکونت",
-      "مکرراً",
-      "داده‌ها",
-      "اعلان‌ها"
-    ],
     "param.eoj.description": "EOJ هدف (پیش‌فرض: نمایه گره).",
     "param.obj.description": "فیلتر کد شی (به عنوان مثال '0130').",
-    "tool.description": "یک گره ECHONET Lite را مکرراً نظرسنجی کنید، تغییرات ویژگی را شناسایی کنید و یک JSON یا خلاصه متن را برگردانید."
+    "tool.description": "یک گره ECHONET Lite را مکرراً نظرسنجی کنید، تغییرات ویژگی را شناسایی کنید و یک JSON یا خلاصه متن را برگردانید.",
+    "x_search_terms": [
+      "مانیتور echonet",
+      "echonet_monitor",
+      "echonet",
+      "ECHONET",
+      "تشخیص مکرر",
+      ""
+    ]
   },
   "fi": {
     "param.ip.description": "Kohdesolmun IPv4-osoite.",
@@ -169,18 +163,17 @@
     "msg.no_changes": "Omaisuusmuutoksia ei havaittu.",
     "err.invalid_argument": "Virhe: ip_address vaaditaan.",
     "msg.no_response": "ECHONET Lite -vastausta ei saatu valvonnan aikana.",
-    "x_search_terms": [
-      "echonet-näyttö",
-      "echonet_monitor",
-      "ekoverkko",
-      "ECHONET",
-      "toistuvasti",
-      "tiedot",
-      "ilmoitukset"
-    ],
     "param.eoj.description": "Kohde EOJ (oletus: solmuprofiili).",
     "param.obj.description": "Objektikoodisuodatin (esim. '0130').",
-    "tool.description": "Pyydä ECHONET Lite -solmu toistuvasti, havaitse ominaisuuksien muutokset ja palauta JSON- tai tekstiyhteenveto."
+    "tool.description": "Pyydä ECHONET Lite -solmu toistuvasti, havaitse ominaisuuksien muutokset ja palauta JSON- tai tekstiyhteenveto.",
+    "x_search_terms": [
+      "echonet monitor",
+      "echonet_monitor",
+      "echonet",
+      "ECHONET",
+      "toistuvasti",
+      "detect"
+    ]
   },
   "fr": {
     "param.ip.description": "Adresse IPv4 du nœud cible.",
@@ -192,18 +185,17 @@
     "msg.no_changes": "Aucun changement de propriété n'a été détecté.",
     "err.invalid_argument": "Erreur : l'adresse_ip est requise.",
     "msg.no_response": "Aucune réponse ECHONET Lite n'a été reçue pendant la surveillance.",
-    "x_search_terms": [
-      "moniteur échonet",
-      "echonet_monitor",
-      "échonet",
-      "ÉCHONET",
-      "à plusieurs reprises",
-      "données",
-      "avis"
-    ],
     "param.eoj.description": "Cible EOJ (par défaut : profil de nœud).",
     "param.obj.description": "Filtre de code objet (par exemple « 0130 »).",
-    "tool.description": "Interrogez un nœud ECHONET Lite à plusieurs reprises, détectez les modifications de propriété et renvoyez un résumé JSON ou texte."
+    "tool.description": "Interrogez un nœud ECHONET Lite à plusieurs reprises, détectez les modifications de propriété et renvoyez un résumé JSON ou texte.",
+    "x_search_terms": [
+      "moniteur echonet",
+      "echonet_monitor",
+      "echonet",
+      "ECHONET",
+      "à plusieurs reprises",
+      "détecter"
+    ]
   },
   "hi": {
     "param.ip.description": "लक्ष्य नोड IPv4 पता.",
@@ -215,18 +207,17 @@
     "msg.no_changes": "कोई संपत्ति परिवर्तन नहीं पाया गया.",
     "err.invalid_argument": "त्रुटि: ip_address आवश्यक है.",
     "msg.no_response": "निगरानी के दौरान कोई ECHONET लाइट प्रतिक्रिया प्राप्त नहीं हुई।",
-    "x_search_terms": [
-      "echonet मॉनिटर",
-      "echonet_monitor",
-      "इकोनेट",
-      "इकोनेट",
-      "बार-बार",
-      "डेटा",
-      "सूचनाएं"
-    ],
     "param.eoj.description": "लक्ष्य EOJ (डिफ़ॉल्ट: नोड प्रोफ़ाइल).",
     "param.obj.description": "ऑब्जेक्ट कोड फ़िल्टर (उदा. '0130').",
-    "tool.description": "ECHONET लाइट नोड को बार-बार पोल करें, गुण परिवर्तन का पता लगाएं, और JSON या टेक्स्ट सारांश लौटाएं।"
+    "tool.description": "ECHONET लाइट नोड को बार-बार पोल करें, गुण परिवर्तन का पता लगाएं, और JSON या टेक्स्ट सारांश लौटाएं।",
+    "x_search_terms": [
+      "इकोनेट मॉनिटर",
+      "इकोनेट_मॉनिटर",
+      "इकोनेट",
+      "ECHONET",
+      "बार-बार पता लगाएं",
+      ""
+    ]
   },
   "id": {
     "param.ip.description": "Alamat IPv4 simpul target.",
@@ -238,18 +229,17 @@
     "msg.no_changes": "Tidak ada perubahan properti yang terdeteksi.",
     "err.invalid_argument": "Kesalahan: ip_address diperlukan.",
     "msg.no_response": "Tidak ada respons ECHONET Lite yang diterima selama pemantauan.",
-    "x_search_terms": [
-      "monitor gema",
-      "echonet_monitor",
-      "gema",
-      "ECHONET",
-      "berulang kali",
-      "data",
-      "pemberitahuan"
-    ],
     "param.eoj.description": "Target EOJ (default: profil simpul).",
     "param.obj.description": "Filter kode objek (misalnya '0130').",
-    "tool.description": "Lakukan polling pada node ECHONET Lite berulang kali, deteksi perubahan properti, dan kembalikan JSON atau ringkasan teks."
+    "tool.description": "Lakukan polling pada node ECHONET Lite berulang kali, deteksi perubahan properti, dan kembalikan JSON atau ringkasan teks.",
+    "x_search_terms": [
+      "echonet monitor",
+      "echonet_monitor",
+      "echonet",
+      "ECHONET",
+      "berulang kali",
+      "mendeteksi"
+    ]
   },
   "it": {
     "param.ip.description": "Indirizzo IPv4 del nodo di destinazione.",
@@ -261,18 +251,17 @@
     "msg.no_changes": "Non sono state rilevate modifiche alla proprietà.",
     "err.invalid_argument": "Errore: indirizzo_ip è obbligatorio.",
     "msg.no_response": "Durante il monitoraggio non è stata ricevuta alcuna risposta da ECHONET Lite.",
-    "x_search_terms": [
-      "monitor econet",
-      "echonet_monitor",
-      "econet",
-      "ECHONET",
-      "ripetutamente",
-      "dati",
-      "notifiche"
-    ],
     "param.eoj.description": "EOJ di destinazione (impostazione predefinita: profilo del nodo).",
     "param.obj.description": "Filtro codice oggetto (es. '0130').",
-    "tool.description": "Interroga ripetutamente un nodo ECHONET Lite, rileva le modifiche alle proprietà e restituisce un JSON o un riepilogo testuale."
+    "tool.description": "Interroga ripetutamente un nodo ECHONET Lite, rileva le modifiche alle proprietà e restituisce un JSON o un riepilogo testuale.",
+    "x_search_terms": [
+      "echonet monitor",
+      "echonet_monitor",
+      "echonet",
+      "ECHONET",
+      "ripetutamente",
+      "rileva"
+    ]
   },
   "ja": {
     "param.ip.description": "ターゲットノードのIPv4アドレス。",
@@ -288,13 +277,12 @@
     "param.obj.description": "オブジェクト コード フィルター (例: '0130')。",
     "tool.description": "ECHONET Lite ノードを繰り返しポーリングし、プロパティの変更を検出し、JSON またはテキストの概要を返します。",
     "x_search_terms": [
-      "エコーネットモニター",
-      "エコーネットモニター",
-      "エコーネット",
-      "エコーネット",
+      "echonet監視",
+      "echonet_monitor",
+      "echonet",
+      "ECHONET",
       "繰り返し",
-      "データ",
-      "通知"
+      "検出"
     ]
   },
   "ko": {
@@ -307,18 +295,17 @@
     "msg.no_changes": "속성 변경 사항이 감지되지 않았습니다.",
     "err.invalid_argument": "오류: ip_address가 필요합니다.",
     "msg.no_response": "모니터링 중에 ECHONET Lite 응답이 수신되지 않았습니다.",
-    "x_search_terms": [
-      "에코넷 모니터",
-      "에코넷_모니터",
-      "에코넷",
-      "에코넷",
-      "반복적으로",
-      "데이터",
-      "알림"
-    ],
     "param.eoj.description": "타겟 EOJ(기본값: 노드 프로필)",
     "param.obj.description": "개체 코드 필터(예: '0130').",
-    "tool.description": "ECHONET Lite 노드를 반복적으로 폴링하고, 속성 변경을 감지하고, JSON 또는 텍스트 요약을 반환합니다."
+    "tool.description": "ECHONET Lite 노드를 반복적으로 폴링하고, 속성 변경을 감지하고, JSON 또는 텍스트 요약을 반환합니다.",
+    "x_search_terms": [
+      "echonet monitor",
+      "echonet_monitor",
+      "echonet",
+      "ECHONET",
+      "반복적으로",
+      "감지"
+    ]
   },
   "mn": {
     "param.ip.description": "Зорилтот зангилааны IPv4 хаяг.",
@@ -330,18 +317,17 @@
     "msg.no_changes": "Үл хөдлөх хөрөнгийн өөрчлөлт илрээгүй.",
     "err.invalid_argument": "Алдаа: ip_хаяг шаардлагатай.",
     "msg.no_response": "Хяналтын явцад ECHONET Lite-ийн хариу ирээгүй.",
-    "x_search_terms": [
-      "echonet хяналтын самбар",
-      "echonet_monitor",
-      "эхонет",
-      "эхонет",
-      "дахин дахин",
-      "өгөгдөл",
-      "мэдэгдэл"
-    ],
     "param.eoj.description": "Зорилтот EOJ (өгөгдмөл: зангилааны профайл).",
     "param.obj.description": "Объект кодын шүүлтүүр (жишээ нь '0130').",
-    "tool.description": "ECHONET Lite зангилаанаас дахин дахин санал асуулга явуулж, өмчийн өөрчлөлтийг илрүүлж, JSON эсвэл текстийн хураангуйг буцаана уу."
+    "tool.description": "ECHONET Lite зангилаанаас дахин дахин санал асуулга явуулж, өмчийн өөрчлөлтийг илрүүлж, JSON эсвэл текстийн хураангуйг буцаана уу.",
+    "x_search_terms": [
+      "echonet монитор",
+      "echonet_monitor",
+      "echonet",
+      "ECHONET",
+      "давтан",
+      "илрүүлэх"
+    ]
   },
   "mr": {
     "param.ip.description": "लक्ष्य नोड IPv4 पत्ता.",
@@ -353,18 +339,17 @@
     "msg.no_changes": "कोणतेही गुणधर्म बदल आढळले नाहीत.",
     "err.invalid_argument": "त्रुटी: ip_address आवश्यक आहे.",
     "msg.no_response": "निरीक्षणादरम्यान कोणताही ECHONET Lite प्रतिसाद प्राप्त झाला नाही.",
+    "param.eoj.description": "लक्ष्य EOJ (डीफॉल्ट: नोड प्रोफाइल).",
+    "param.obj.description": "ऑब्जेक्ट कोड फिल्टर (उदा. '0130').",
+    "tool.description": "ECHONET Lite नोडला वारंवार मतदान करा, गुणधर्म बदल शोधा आणि JSON किंवा मजकूर सारांश परत करा.",
     "x_search_terms": [
       "echonet मॉनिटर",
       "echonet_monitor",
-      "इकोनेट",
-      "इकोनेट",
+      "echonet",
+      "ECHONET",
       "वारंवार",
-      "डेटा",
-      "सूचना"
-    ],
-    "param.eoj.description": "लक्ष्य EOJ (डीफॉल्ट: नोड प्रोफाइल).",
-    "param.obj.description": "ऑब्जेक्ट कोड फिल्टर (उदा. '0130').",
-    "tool.description": "ECHONET Lite नोडला वारंवार मतदान करा, गुणधर्म बदल शोधा आणि JSON किंवा मजकूर सारांश परत करा."
+      "शोधा"
+    ]
   },
   "el": {
     "param.ip.description": "Διεύθυνση IPv4 κόμβου στόχου.",
@@ -376,18 +361,17 @@
     "msg.no_changes": "Δεν εντοπίστηκαν αλλαγές ιδιοκτησίας.",
     "err.invalid_argument": "Σφάλμα: απαιτείται διεύθυνση ip_address.",
     "msg.no_response": "Δεν ελήφθη απόκριση ECHONET Lite κατά την παρακολούθηση.",
+    "param.eoj.description": "Στόχος EOJ (προεπιλογή: προφίλ κόμβου).",
+    "param.obj.description": "Φίλτρο κωδικού αντικειμένου (π.χ. '0130').",
+    "tool.description": "Δημοσιεύστε επανειλημμένα έναν κόμβο ECHONET Lite, εντοπίστε αλλαγές ιδιοτήτων και επιστρέψτε μια σύνοψη JSON ή κειμένου.",
     "x_search_terms": [
       "οθόνη echonet",
       "echonet_monitor",
       "echonet",
       "ECHONET",
-      "επανειλημμένα",
-      "δεδομένα",
-      "ειδοποιήσεις"
-    ],
-    "param.eoj.description": "Στόχος EOJ (προεπιλογή: προφίλ κόμβου).",
-    "param.obj.description": "Φίλτρο κωδικού αντικειμένου (π.χ. '0130').",
-    "tool.description": "Δημοσιεύστε επανειλημμένα έναν κόμβο ECHONET Lite, εντοπίστε αλλαγές ιδιοτήτων και επιστρέψτε μια σύνοψη JSON ή κειμένου."
+      "επαναλαμβανόμενα",
+      "ανίχνευση"
+    ]
   },
   "he": {
     "param.ip.description": "כתובת IPv4 של צומת יעד.",
@@ -399,18 +383,17 @@
     "msg.no_changes": "לא זוהו שינויים בנכסים.",
     "err.invalid_argument": "שגיאה: נדרשת כתובת ip_address.",
     "msg.no_response": "לא התקבלה תגובה של ECHONET Lite במהלך הניטור.",
-    "x_search_terms": [
-      "צג echonet",
-      "echonet_monitor",
-      "אקו-נט",
-      "אקו-נט",
-      "שוב ושוב",
-      "נתונים",
-      "הודעות"
-    ],
     "param.eoj.description": "יעד EOJ (ברירת מחדל: פרופיל צומת).",
     "param.obj.description": "מסנן קוד אובייקט (למשל '0130').",
-    "tool.description": "סקר צומת ECHONET Lite שוב ושוב, זיהוי שינויים במאפיינים והחזר JSON או סיכום טקסט."
+    "tool.description": "סקר צומת ECHONET Lite שוב ושוב, זיהוי שינויים במאפיינים והחזר JSON או סיכום טקסט.",
+    "x_search_terms": [
+      "echonet monitor",
+      "echonet_monitor",
+      "echonet",
+      "ECHONET",
+      "זיהוי שוב ושוב",
+      ""
+    ]
   },
   "hu": {
     "param.ip.description": "Célcsomópont IPv4-címe.",
@@ -422,18 +405,17 @@
     "msg.no_changes": "A rendszer nem észlelt tulajdonságváltozást.",
     "err.invalid_argument": "Hiba: az ip_address megadása kötelező.",
     "msg.no_response": "A megfigyelés során nem érkezett ECHONET Lite válasz.",
+    "param.eoj.description": "Cél EOJ (alapértelmezett: csomópont profil).",
+    "param.obj.description": "Objektumkód szűrő (pl. „0130”).",
+    "tool.description": "Egy ECHONET Lite csomópont ismételt lekérdezése, tulajdonságváltozások észlelése, valamint JSON vagy szöveges összefoglaló visszaadása.",
     "x_search_terms": [
       "echonet monitor",
       "echonet_monitor",
       "echonet",
       "ECHONET",
-      "ismételten",
-      "adatok",
-      "értesítések"
-    ],
-    "param.eoj.description": "Cél EOJ (alapértelmezett: csomópont profil).",
-    "param.obj.description": "Objektumkód szűrő (pl. „0130”).",
-    "tool.description": "Egy ECHONET Lite csomópont ismételt lekérdezése, tulajdonságváltozások észlelése, valamint JSON vagy szöveges összefoglaló visszaadása."
+      "ismétlődően észlel",
+      ""
+    ]
   },
   "ro": {
     "param.ip.description": "Adresa IPv4 a nodului țintă.",
@@ -445,18 +427,17 @@
     "msg.no_changes": "Nu au fost detectate modificări de proprietate.",
     "err.invalid_argument": "Eroare: adresa_ip este necesară.",
     "msg.no_response": "Nu a fost primit niciun răspuns ECHONET Lite în timpul monitorizării.",
-    "x_search_terms": [
-      "monitor echonet",
-      "echonet_monitor",
-      "econet",
-      "ECHONET",
-      "repetat",
-      "date",
-      "notificări"
-    ],
     "param.eoj.description": "EOJ țintă (implicit: profil de nod).",
     "param.obj.description": "Filtru de cod obiect (de exemplu, „0130”).",
-    "tool.description": "Interogați în mod repetat un nod ECHONET Lite, detectați modificările de proprietate și returnați un rezumat JSON sau text."
+    "tool.description": "Interogați în mod repetat un nod ECHONET Lite, detectați modificările de proprietate și returnați un rezumat JSON sau text.",
+    "x_search_terms": [
+      "echonet monitor",
+      "echonet_monitor",
+      "echonet",
+      "ECHONET",
+      "detecta în mod repetat",
+      ""
+    ]
   },
   "nb": {
     "param.ip.description": "Målnodens IPv4-adresse.",
@@ -468,18 +449,17 @@
     "msg.no_changes": "Ingen egenskapsendringer ble oppdaget.",
     "err.invalid_argument": "Feil: ip_adresse er påkrevd.",
     "msg.no_response": "Ingen ECHONET Lite-svar ble mottatt under overvåking.",
-    "x_search_terms": [
-      "echonet-overvåking",
-      "echonet_monitor",
-      "ekonett",
-      "ECHONET",
-      "gjentatte ganger",
-      "data",
-      "varsler"
-    ],
     "param.eoj.description": "Mål EOJ (standard: nodeprofil).",
     "param.obj.description": "Objektkodefilter (f.eks. '0130').",
-    "tool.description": "Poll en ECHONET Lite-node gjentatte ganger, oppdage egenskapsendringer og returner et JSON- eller tekstsammendrag."
+    "tool.description": "Poll en ECHONET Lite-node gjentatte ganger, oppdage egenskapsendringer og returner et JSON- eller tekstsammendrag.",
+    "x_search_terms": [
+      "echonet monitor",
+      "echonet_monitor",
+      "echonet",
+      "ECHONET",
+      "gjentatte ganger",
+      "oppdag"
+    ]
   },
   "nl": {
     "param.ip.description": "IPv4-adres van doelknooppunt.",
@@ -491,18 +471,17 @@
     "msg.no_changes": "Er zijn geen eigendomswijzigingen gedetecteerd.",
     "err.invalid_argument": "Fout: ip_address is vereist.",
     "msg.no_response": "Tijdens de monitoring werd geen ECHONET Lite-antwoord ontvangen.",
+    "param.eoj.description": "Doel-EOJ (standaard: knooppuntprofiel).",
+    "param.obj.description": "Objectcodefilter (bijvoorbeeld '0130').",
+    "tool.description": "Poll herhaaldelijk een ECHONET Lite-knooppunt, detecteer wijzigingen in eigenschappen en retourneer een JSON- of tekstsamenvatting.",
     "x_search_terms": [
-      "echonet-monitor",
+      "echonet monitor",
       "echonet_monitor",
       "echonet",
       "ECHONET",
       "herhaaldelijk",
-      "gegevens",
-      "meldingen"
-    ],
-    "param.eoj.description": "Doel-EOJ (standaard: knooppuntprofiel).",
-    "param.obj.description": "Objectcodefilter (bijvoorbeeld '0130').",
-    "tool.description": "Poll herhaaldelijk een ECHONET Lite-knooppunt, detecteer wijzigingen in eigenschappen en retourneer een JSON- of tekstsamenvatting."
+      "detecteren"
+    ]
   },
   "pl": {
     "param.ip.description": "Adres IPv4 węzła docelowego.",
@@ -514,18 +493,17 @@
     "msg.no_changes": "Nie wykryto żadnych zmian właściwości.",
     "err.invalid_argument": "Błąd: wymagany jest adres_ip.",
     "msg.no_response": "Podczas monitorowania nie otrzymano żadnej odpowiedzi od ECHONET Lite.",
+    "param.eoj.description": "Docelowy EOJ (domyślnie: profil węzła).",
+    "param.obj.description": "Filtr kodu obiektowego (np. „0130”).",
+    "tool.description": "Wielokrotnie odpytuj węzeł ECHONET Lite, wykryj zmiany właściwości i zwróć podsumowanie w formacie JSON lub tekstowym.",
     "x_search_terms": [
-      "monitor echonetu",
+      "echonet monitor",
       "echonet_monitor",
       "echonet",
       "ECHONET",
       "wielokrotnie",
-      "dane",
-      "powiadomienia"
-    ],
-    "param.eoj.description": "Docelowy EOJ (domyślnie: profil węzła).",
-    "param.obj.description": "Filtr kodu obiektowego (np. „0130”).",
-    "tool.description": "Wielokrotnie odpytuj węzeł ECHONET Lite, wykryj zmiany właściwości i zwróć podsumowanie w formacie JSON lub tekstowym."
+      "wykryj"
+    ]
   },
   "pt": {
     "param.ip.description": "Endereço IPv4 do nó de destino.",
@@ -537,18 +515,17 @@
     "msg.no_changes": "Nenhuma alteração de propriedade foi detectada.",
     "err.invalid_argument": "Erro: endereço_ip é obrigatório.",
     "msg.no_response": "Nenhuma resposta do ECHONET Lite foi recebida durante o monitoramento.",
-    "x_search_terms": [
-      "monitor econet",
-      "echonet_monitor",
-      "econet",
-      "ECHONET",
-      "repetidamente",
-      "dados",
-      "notificações"
-    ],
     "param.eoj.description": "EOJ de destino (padrão: perfil do nó).",
     "param.obj.description": "Filtro de código de objeto (por exemplo, '0130').",
-    "tool.description": "Pesquise repetidamente um nó ECHONET Lite, detecte alterações de propriedade e retorne um JSON ou um resumo de texto."
+    "tool.description": "Pesquise repetidamente um nó ECHONET Lite, detecte alterações de propriedade e retorne um JSON ou um resumo de texto.",
+    "x_search_terms": [
+      "monitor echonet",
+      "echonet_monitor",
+      "echonet",
+      "ECHONET",
+      "repetidamente",
+      "detectar"
+    ]
   },
   "pt_BR": {
     "param.ip.description": "Endereço IPv4 do nó de destino.",
@@ -560,18 +537,17 @@
     "msg.no_changes": "Nenhuma alteração de propriedade foi detectada.",
     "err.invalid_argument": "Erro: endereço_ip é obrigatório.",
     "msg.no_response": "Nenhuma resposta do ECHONET Lite foi recebida durante o monitoramento.",
+    "param.eoj.description": "EOJ de destino (padrão: perfil do nó).",
+    "param.obj.description": "Filtro de código de objeto (por exemplo, '0130').",
+    "tool.description": "Pesquise repetidamente um nó ECHONET Lite, detecte alterações de propriedade e retorne um JSON ou um resumo de texto.",
     "x_search_terms": [
       "monitor echonet",
       "echonet_monitor",
-      "econet",
-      "ECONET",
+      "echonet",
+      "ECHONET",
       "repetidamente",
-      "dados",
-      "notificações"
-    ],
-    "param.eoj.description": "EOJ de destino (padrão: perfil do nó).",
-    "param.obj.description": "Filtro de código de objeto (por exemplo, '0130').",
-    "tool.description": "Pesquise repetidamente um nó ECHONET Lite, detecte alterações de propriedade e retorne um JSON ou um resumo de texto."
+      "detectar"
+    ]
   },
   "ru": {
     "param.ip.description": "IPv4-адрес целевого узла.",
@@ -583,18 +559,17 @@
     "msg.no_changes": "Никаких изменений свойств не обнаружено.",
     "err.invalid_argument": "Ошибка: требуется ip_address.",
     "msg.no_response": "Во время мониторинга ответа ECHONET Lite получено не было.",
-    "x_search_terms": [
-      "монитор echonet",
-      "echonet_monitor",
-      "эхосеть",
-      "ECHONET",
-      "многократно",
-      "данные",
-      "уведомления"
-    ],
     "param.eoj.description": "Целевой EOJ (по умолчанию: профиль узла).",
     "param.obj.description": "Фильтр объектного кода (например, «0130»).",
-    "tool.description": "Повторно опрашивайте узел ECHONET Lite, обнаруживайте изменения свойств и возвращайте JSON или текстовую сводку."
+    "tool.description": "Повторно опрашивайте узел ECHONET Lite, обнаруживайте изменения свойств и возвращайте JSON или текстовую сводку.",
+    "x_search_terms": [
+      "echonet Monitor",
+      "echonet_monitor",
+      "echonet",
+      "ECHONET",
+      "неоднократно",
+      "обнаружить"
+    ]
   },
   "sv": {
     "param.ip.description": "IPv4-adress för målnoden.",
@@ -606,18 +581,17 @@
     "msg.no_changes": "Inga egenskapsändringar upptäcktes.",
     "err.invalid_argument": "Fel: ip_adress krävs.",
     "msg.no_response": "Inget ECHONET Lite-svar mottogs under övervakning.",
-    "x_search_terms": [
-      "echonet övervakning",
-      "echonet_monitor",
-      "ekonät",
-      "ECHONET",
-      "upprepade gånger",
-      "data",
-      "meddelanden"
-    ],
     "param.eoj.description": "Mål EOJ (standard: nodprofil).",
     "param.obj.description": "Objektkodfilter (t.ex. '0130').",
-    "tool.description": "Poll en ECHONET Lite-nod upprepade gånger, upptäck egenskapsändringar och returnera en JSON- eller textsammanfattning."
+    "tool.description": "Poll en ECHONET Lite-nod upprepade gånger, upptäck egenskapsändringar och returnera en JSON- eller textsammanfattning.",
+    "x_search_terms": [
+      "echonet monitor",
+      "echonet_monitor",
+      "echonet",
+      "ECHONET",
+      "upptäcka upprepade gånger",
+      ""
+    ]
   },
   "sw": {
     "param.ip.description": "Anwani ya IPv4 ya nodi lengwa.",
@@ -629,18 +603,17 @@
     "msg.no_changes": "Hakuna mabadiliko ya mali yaligunduliwa.",
     "err.invalid_argument": "Hitilafu: ip_anwani inahitajika.",
     "msg.no_response": "Hakuna jibu la ECHONET Lite lililopokelewa wakati wa ufuatiliaji.",
+    "param.eoj.description": "EOJ inayolengwa (chaguo-msingi: wasifu wa nodi).",
+    "param.obj.description": "Kichujio cha msimbo wa kitu (k.m. '0130').",
+    "tool.description": "Piga kura kwa nodi ya ECHONET Lite mara kwa mara, tambua mabadiliko ya sifa, na urudishe muhtasari wa maandishi ya JSON au maandishi.",
     "x_search_terms": [
-      "kifuatiliaji cha echonet",
+      "echonet monitor",
       "echonet_monitor",
       "echonet",
       "ECHONET",
       "mara kwa mara",
-      "data",
-      "arifa"
-    ],
-    "param.eoj.description": "EOJ inayolengwa (chaguo-msingi: wasifu wa nodi).",
-    "param.obj.description": "Kichujio cha msimbo wa kitu (k.m. '0130').",
-    "tool.description": "Piga kura kwa nodi ya ECHONET Lite mara kwa mara, tambua mabadiliko ya sifa, na urudishe muhtasari wa maandishi ya JSON au maandishi."
+      "gundua"
+    ]
   },
   "th": {
     "param.ip.description": "ที่อยู่ IPv4 ของโหนดเป้าหมาย",
@@ -652,18 +625,17 @@
     "msg.no_changes": "ไม่พบการเปลี่ยนแปลงคุณสมบัติ",
     "err.invalid_argument": "ข้อผิดพลาด: จำเป็นต้องระบุ ip_address",
     "msg.no_response": "ไม่ได้รับการตอบสนองของ ECHONET Lite ระหว่างการตรวจสอบ",
-    "x_search_terms": [
-      "มอนิเตอร์ echonet",
-      "echonet_monitor",
-      "อีโค่เน็ต",
-      "อีโค่เน็ต",
-      "ซ้ำๆ",
-      "ข้อมูล",
-      "การแจ้งเตือน"
-    ],
     "param.eoj.description": "เป้าหมาย EOJ (ค่าเริ่มต้น: โปรไฟล์โหนด)",
     "param.obj.description": "ตัวกรองรหัสออบเจ็กต์ (เช่น '0130')",
-    "tool.description": "สำรวจโหนด ECHONET Lite ซ้ำๆ ตรวจหาการเปลี่ยนแปลงคุณสมบัติ และส่งคืน JSON หรือสรุปข้อความ"
+    "tool.description": "สำรวจโหนด ECHONET Lite ซ้ำๆ ตรวจหาการเปลี่ยนแปลงคุณสมบัติ และส่งคืน JSON หรือสรุปข้อความ",
+    "x_search_terms": [
+      "echonet monitor",
+      "echonet_monitor",
+      "echonet",
+      "ECHONET",
+      "ซ้ำๆ",
+      "ตรวจจับ"
+    ]
   },
   "tr": {
     "param.ip.description": "Hedef düğüm IPv4 adresi.",
@@ -675,18 +647,17 @@
     "msg.no_changes": "Herhangi bir özellik değişikliği tespit edilmedi.",
     "err.invalid_argument": "Hata: ip_adresi gerekli.",
     "msg.no_response": "İzleme sırasında ECHONET Lite yanıtı alınmadı.",
+    "param.eoj.description": "Hedef EOJ (varsayılan: düğüm profili).",
+    "param.obj.description": "Nesne kodu filtresi (ör. '0130').",
+    "tool.description": "Bir ECHONET Lite düğümünü tekrar tekrar yoklayın, özellik değişikliklerini tespit edin ve bir JSON veya metin özeti döndürün.",
     "x_search_terms": [
       "echonet monitörü",
       "echonet_monitor",
-      "eko ağ",
-      "ECONET",
+      "echonet",
+      "ECHONET",
       "tekrar tekrar",
-      "veri",
-      "bildirimler"
-    ],
-    "param.eoj.description": "Hedef EOJ (varsayılan: düğüm profili).",
-    "param.obj.description": "Nesne kodu filtresi (ör. '0130').",
-    "tool.description": "Bir ECHONET Lite düğümünü tekrar tekrar yoklayın, özellik değişikliklerini tespit edin ve bir JSON veya metin özeti döndürün."
+      "algılama"
+    ]
   },
   "uk": {
     "param.ip.description": "IPv4-адреса цільового вузла.",
@@ -698,18 +669,17 @@
     "msg.no_changes": "Змін властивостей не виявлено.",
     "err.invalid_argument": "Помилка: потрібен ip_address.",
     "msg.no_response": "Під час моніторингу не було отримано відповіді ECHONET Lite.",
-    "x_search_terms": [
-      "монітор echonet",
-      "echonet_monitor",
-      "ехомережа",
-      "ECHONET",
-      "багаторазово",
-      "дані",
-      "сповіщення"
-    ],
     "param.eoj.description": "Цільовий EOJ (за замовчуванням: профіль вузла).",
     "param.obj.description": "Фільтр коду об’єкта (наприклад, «0130»).",
-    "tool.description": "Повторно опитуйте вузол ECHONET Lite, виявляйте зміни властивостей і повертайте JSON або текстовий підсумок."
+    "tool.description": "Повторно опитуйте вузол ECHONET Lite, виявляйте зміни властивостей і повертайте JSON або текстовий підсумок.",
+    "x_search_terms": [
+      "echonet монітор",
+      "echonet_monitor",
+      "echonet",
+      "ECHONET",
+      "повторно",
+      "виявляти"
+    ]
   },
   "vi": {
     "param.ip.description": "Địa chỉ IPv4 của nút đích.",
@@ -721,18 +691,17 @@
     "msg.no_changes": "Không có thay đổi thuộc tính nào được phát hiện.",
     "err.invalid_argument": "Lỗi: địa chỉ ip là bắt buộc.",
     "msg.no_response": "Không nhận được phản hồi ECHONET Lite trong quá trình theo dõi.",
+    "param.eoj.description": "Mục tiêu EOJ (mặc định: hồ sơ nút).",
+    "param.obj.description": "Bộ lọc mã đối tượng (ví dụ: '0130').",
+    "tool.description": "Thăm dò nút ECHONET Lite nhiều lần, phát hiện các thay đổi về thuộc tính và trả về một bản tóm tắt văn bản hoặc JSON.",
     "x_search_terms": [
       "màn hình tiếng vang",
       "echonet_monitor",
-      "tiếng vang",
+      "echonet",
       "ECHONET",
-      "nhiều lần",
-      "dữ liệu",
-      "thông báo"
-    ],
-    "param.eoj.description": "Mục tiêu EOJ (mặc định: hồ sơ nút).",
-    "param.obj.description": "Bộ lọc mã đối tượng (ví dụ: '0130').",
-    "tool.description": "Thăm dò nút ECHONET Lite nhiều lần, phát hiện các thay đổi về thuộc tính và trả về một bản tóm tắt văn bản hoặc JSON."
+      "lặp đi lặp lại",
+      "phát hiện"
+    ]
   },
   "zh_CN": {
     "param.ip.description": "目标节点 IPv4 地址。",
@@ -744,18 +713,17 @@
     "msg.no_changes": "未检测到属性变化。",
     "err.invalid_argument": "错误：需要 ip_address。",
     "msg.no_response": "监控期间未收到 ECHONET Lite 响应。",
+    "param.eoj.description": "目标 EOJ（默认：节点配置文件）。",
+    "param.obj.description": "目标代码过滤器（例如“0130”）。",
+    "tool.description": "重复轮询 ECHONET Lite 节点，检测属性更改，并返回 JSON 或文本摘要。",
     "x_search_terms": [
       "echonet 监视器",
       "echonet_monitor",
       "echonet",
       "ECHONET",
       "重复",
-      "数据",
-      "通知"
-    ],
-    "param.eoj.description": "目标 EOJ（默认：节点配置文件）。",
-    "param.obj.description": "目标代码过滤器（例如“0130”）。",
-    "tool.description": "重复轮询 ECHONET Lite 节点，检测属性更改，并返回 JSON 或文本摘要。"
+      "检测"
+    ]
   },
   "zh_TW": {
     "param.ip.description": "目標節點 IPv4 位址。",
@@ -767,17 +735,16 @@
     "msg.no_changes": "未檢測到屬性變化。",
     "err.invalid_argument": "錯誤：需要 ip_address。",
     "msg.no_response": "監控期間未收到 ECHONET Lite 回應。",
+    "param.eoj.description": "目標 EOJ（預設：節點設定檔）。",
+    "param.obj.description": "目標代碼過濾器（例如“0130”）。",
+    "tool.description": "重複輪詢 ECHONET Lite 節點，偵測屬性更改，並傳回 JSON 或文字摘要。",
     "x_search_terms": [
       "echonet 監視器",
       "echonet_monitor",
       "echonet",
       "ECHONET",
       "重複",
-      "資料",
-      "通知"
-    ],
-    "param.eoj.description": "目標 EOJ（預設：節點設定檔）。",
-    "param.obj.description": "目標代碼過濾器（例如“0130”）。",
-    "tool.description": "重複輪詢 ECHONET Lite 節點，偵測屬性更改，並傳回 JSON 或文字摘要。"
+      "偵測"
+    ]
   }
 }

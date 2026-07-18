@@ -30,16 +30,16 @@
   },
   "ja": {
     "x_search_terms": [
-      "c sharp",
+      "c Sharp",
       "c#",
-      "csharp code",
-      "code index",
-      "csharp analysis",
-      "csharp source",
-      "csharp parser",
-      "csharp class",
-      "dotnet",
-      "csharp file"
+      "csharp コード",
+      "コード インデックス",
+      "csharp 分析",
+      "csharp ソース",
+      "csharp パーサー",
+      "csharp クラス",
+      "ドットネット",
+      "csharp ファイル"
     ],
     "param.path.description": "C# (.cs) ファイルへのパス。",
     "err.path_required": "エラー: 'path' は必須です。",

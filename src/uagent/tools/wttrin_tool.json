@@ -72,16 +72,15 @@
     "err.fetch": "天気データの取得エラー：{err}",
     "err.processing": "データ処理エラー：{err}",
     "x_search_terms": [
-      "weather",
-      "wttr",
-      "weather forecast",
-      "temperature",
-      "weather info",
-      "current weather",
-      "weather report",
       "天気",
-      "climate",
-      "weather condition"
+      "wttr",
+      "天気予報",
+      "気温",
+      "気象情報",
+      "現在の天気",
+      "天気予報",
+      "気候",
+      "気象条件"
     ],
     "err.geocoding_failed": "エラー：'{city}' の位置を特定できませんでした。",
     "err.fallback_source": "[Open-Meteo フォールバック]",
@@ -130,17 +129,18 @@
     "err.fetch": "Error al obtener datos meteorológicos: {err}",
     "err.processing": "Error al procesar datos: {err}",
     "x_search_terms": [
-      "weather",
+      "tiempo",
       "wttr",
-      "weather forecast",
-      "temperature",
-      "weather info",
-      "current weather",
-      "weather report",
-      "天気",
-      "climate",
-      "weather condition"
+      "previsión del tiempo",
+      "temperatura",
+      "información del tiempo",
+      "tiempo actual",
+      "informe del tiempo",
+      "clima",
+      "condición del tiempo"
     ],
+    "err.geocoding_failed": "Error: No se pudo localizar la ciudad '{city}'.",
+    "err.fallback_source": "[a través del respaldo de Open-Meteo]",
     "wmo.0": "cielo despejado",
     "wmo.1": "Principalmente claro",
     "wmo.2": "Parcialmente nublado",
@@ -168,9 +168,7 @@
     "wmo.86": "Fuertes nevadas",
     "wmo.95": "Tormenta",
     "wmo.96": "Tormenta con leve granizo",
-    "wmo.99": "Tormenta con fuerte granizo",
-    "err.geocoding_failed": "Error: No se pudo localizar la ciudad '{city}'.",
-    "err.fallback_source": "[a través del respaldo de Open-Meteo]"
+    "wmo.99": "Tormenta con fuerte granizo"
   },
   "fr": {
     "tool.description": "Obtenez des informations météorologiques sur wttr.in. Prend en charge le nom de la ville ou les coordonnées GPS. Revient à l'API Open-Meteo lorsque wttr.in n'est pas disponible.",
@@ -188,17 +186,18 @@
     "err.fetch": "Erreur lors de la récupération des données météorologiques : {err}",
     "err.processing": "Erreur de traitement des données : {err}",
     "x_search_terms": [
-      "weather",
+      "météo",
       "wttr",
-      "weather forecast",
-      "temperature",
-      "weather info",
-      "current weather",
-      "weather report",
-      "天気",
-      "climate",
-      "weather condition"
+      "prévisions météorologiques",
+      "température",
+      "informations météorologiques",
+      "météo actuelle",
+      "bulletin météo",
+      "climat",
+      "conditions météorologiques"
     ],
+    "err.geocoding_failed": "Erreur: Impossible de localiser la ville «{city}».",
+    "err.fallback_source": "[via la solution de secours Open-Meteo]",
     "wmo.0": "Ciel clair",
     "wmo.1": "Principalement clair",
     "wmo.2": "Partiellement nuageux",
@@ -226,9 +225,7 @@
     "wmo.86": "Fortes averses de neige",
     "wmo.95": "Orage",
     "wmo.96": "Orage avec légère grêle",
-    "wmo.99": "Orage avec forte grêle",
-    "err.geocoding_failed": "Erreur: Impossible de localiser la ville «{city}».",
-    "err.fallback_source": "[via la solution de secours Open-Meteo]"
+    "wmo.99": "Orage avec forte grêle"
   },
   "ko": {
     "tool.description": "wttr.in에서 날씨 정보를 받으세요. 도시 이름이나 GPS 좌표를 지원합니다. wttr.in을 사용할 수 없으면 Open-Meteo API로 대체됩니다.",
@@ -246,17 +243,18 @@
     "err.fetch": "날씨 데이터를 가져오는 중 오류 발생: {err}",
     "err.processing": "데이터 처리 오류: {err}",
     "x_search_terms": [
-      "weather",
+      "날씨",
       "wttr",
-      "weather forecast",
-      "temperature",
-      "weather info",
-      "current weather",
-      "weather report",
-      "天気",
-      "climate",
-      "weather condition"
+      "일기 예보",
+      "기온",
+      "날씨 정보",
+      "현재 날씨",
+      "날씨 보고",
+      "기후",
+      "날씨 상태"
     ],
+    "err.geocoding_failed": "오류: '{city}' 도시를 찾을 수 없습니다.",
+    "err.fallback_source": "[Open-Meteo 폴백을 통해]",
     "wmo.0": "맑은 하늘",
     "wmo.1": "대체로 맑음",
     "wmo.2": "약간 흐림",
@@ -284,9 +282,7 @@
     "wmo.86": "폭설",
     "wmo.95": "뇌우",
     "wmo.96": "약간의 우박을 동반한 천둥번개",
-    "wmo.99": "심한 우박을 동반한 뇌우",
-    "err.geocoding_failed": "오류: '{city}' 도시를 찾을 수 없습니다.",
-    "err.fallback_source": "[Open-Meteo 폴백을 통해]"
+    "wmo.99": "심한 우박을 동반한 뇌우"
   },
   "de": {
     "tool.description": "Erhalten Sie Wetterinformationen von wttr.in. Unterstützt Städtenamen oder GPS-Koordinaten. Greift auf die Open-Meteo-API zurück, wenn wttr.in nicht verfügbar ist.",
@@ -304,17 +300,18 @@
     "err.fetch": "Fehler beim Abrufen der Wetterdaten: {err}",
     "err.processing": "Fehler bei der Datenverarbeitung: {err}",
     "x_search_terms": [
-      "weather",
+      "Wetter",
       "wttr",
-      "weather forecast",
-      "temperature",
-      "weather info",
-      "current weather",
-      "weather report",
-      "天気",
-      "climate",
-      "weather condition"
+      "Wettervorhersage",
+      "Temperatur",
+      "Wetterinfo",
+      "aktuelles Wetter",
+      "Wetterbericht",
+      "Klima",
+      "Wetterzustand"
     ],
+    "err.geocoding_failed": "Fehler: Die Stadt \"{city}\" konnte nicht gefunden werden.",
+    "err.fallback_source": "[über Open-Meteo-Fallback]",
     "wmo.0": "Klarer Himmel",
     "wmo.1": "Hauptsächlich klar",
     "wmo.2": "Teilweise bewölkt",
@@ -342,9 +339,7 @@
     "wmo.86": "Heftige Schneeschauer",
     "wmo.95": "Gewitter",
     "wmo.96": "Gewitter mit leichtem Hagel",
-    "wmo.99": "Gewitter mit starkem Hagel",
-    "err.geocoding_failed": "Fehler: Die Stadt \"{city}\" konnte nicht gefunden werden.",
-    "err.fallback_source": "[über Open-Meteo-Fallback]"
+    "wmo.99": "Gewitter mit starkem Hagel"
   },
   "it": {
     "tool.description": "Ottieni informazioni meteo da wttr.in. Supporta il nome della città o le coordinate GPS. Torna all'API Open-Meteo quando wttr.in non è disponibile.",
@@ -362,17 +357,18 @@
     "err.fetch": "Errore durante il recupero dei dati meteo: {err}",
     "err.processing": "Errore durante l'elaborazione dei dati: {err}",
     "x_search_terms": [
-      "weather",
+      "meteo",
       "wttr",
-      "weather forecast",
-      "temperature",
-      "weather info",
-      "current weather",
-      "weather report",
-      "天気",
-      "climate",
-      "weather condition"
+      "previsioni meteo",
+      "temperatura",
+      "informazioni meteo",
+      "tempo attuale",
+      "bollettino meteo",
+      "clima",
+      "condizioni meteorologiche"
     ],
+    "err.geocoding_failed": "Errore: impossibile individuare la città \"{city}\".",
+    "err.fallback_source": "[tramite fallback Open-Meteo]",
     "wmo.0": "Cielo limpido",
     "wmo.1": "Principalmente chiaro",
     "wmo.2": "Parzialmente nuvoloso",
@@ -400,9 +396,7 @@
     "wmo.86": "Forti nevicate",
     "wmo.95": "Temporale",
     "wmo.96": "Temporale con leggera grandinata",
-    "wmo.99": "Temporale con forte grandinata",
-    "err.geocoding_failed": "Errore: impossibile individuare la città \"{city}\".",
-    "err.fallback_source": "[tramite fallback Open-Meteo]"
+    "wmo.99": "Temporale con forte grandinata"
   },
   "ru": {
     "tool.description": "Получите информацию о погоде на сайте wttr.in. Поддерживает название города или координаты GPS. Возвращается к API Open-Meteo, когда wttr.in недоступен.",
@@ -420,17 +414,18 @@
     "err.fetch": "Ошибка получения данных о погоде: {err}",
     "err.processing": "Ошибка обработки данных: {err}",
     "x_search_terms": [
-      "weather",
+      "погода",
       "wttr",
-      "weather forecast",
-      "temperature",
-      "weather info",
-      "current weather",
-      "weather report",
-      "天気",
-      "climate",
-      "weather condition"
+      "прогноз погоды",
+      "температура",
+      "информация о погоде",
+      "текущая погода",
+      "сводка погоды",
+      "климат",
+      "погодные условия"
     ],
+    "err.geocoding_failed": "Ошибка: не удалось найти город «{city}».",
+    "err.fallback_source": "[через резервную версию Open-Meteo]",
     "wmo.0": "Ясное небо",
     "wmo.1": "В основном ясно",
     "wmo.2": "Небольшая облачность",
@@ -458,9 +453,7 @@
     "wmo.86": "Сильный снегопад",
     "wmo.95": "Гроза",
     "wmo.96": "Гроза с небольшим градом",
-    "wmo.99": "Гроза с сильным градом",
-    "err.geocoding_failed": "Ошибка: не удалось найти город «{city}».",
-    "err.fallback_source": "[через резервную версию Open-Meteo]"
+    "wmo.99": "Гроза с сильным градом"
   },
   "pt": {
     "tool.description": "Obtenha informações meteorológicas em wttr.in. Suporta nome da cidade ou coordenadas GPS. Volta para a API Open-Meteo quando wttr.in não está disponível.",
@@ -478,17 +471,18 @@
     "err.fetch": "Erro ao buscar dados meteorológicos: {err}",
     "err.processing": "Erro ao processar dados: {err}",
     "x_search_terms": [
-      "weather",
+      "clima",
       "wttr",
-      "weather forecast",
-      "temperature",
-      "weather info",
-      "current weather",
-      "weather report",
-      "天気",
-      "climate",
-      "weather condition"
+      "previsão do tempo",
+      "temperatura",
+      "informações meteorológicas",
+      "clima atual",
+      "relatório meteorológico",
+      "clima",
+      "condição climática"
     ],
+    "err.geocoding_failed": "Erro: não foi possível localizar a cidade '{city}'.",
+    "err.fallback_source": "[via substituto do Open-Meteo]",
     "wmo.0": "Céu limpo",
     "wmo.1": "Principalmente claro",
     "wmo.2": "Parcialmente nublado",
@@ -516,9 +510,7 @@
     "wmo.86": "Fortes pancadas de neve",
     "wmo.95": "Tempestade",
     "wmo.96": "Trovoada com leve granizo",
-    "wmo.99": "Tempestade com granizo forte",
-    "err.geocoding_failed": "Erro: não foi possível localizar a cidade '{city}'.",
-    "err.fallback_source": "[via substituto do Open-Meteo]"
+    "wmo.99": "Tempestade com granizo forte"
   },
   "pt_BR": {
     "tool.description": "Obtenha informações meteorológicas em wttr.in. Suporta nome da cidade ou coordenadas GPS. Volta para a API Open-Meteo quando wttr.in não está disponível.",
@@ -536,17 +528,18 @@
     "err.fetch": "Erro ao buscar dados meteorológicos: {err}",
     "err.processing": "Erro ao processar dados: {err}",
     "x_search_terms": [
-      "weather",
+      "clima",
       "wttr",
-      "weather forecast",
-      "temperature",
-      "weather info",
-      "current weather",
-      "weather report",
-      "天気",
-      "climate",
-      "weather condition"
+      "previsão do tempo",
+      "temperatura",
+      "informações meteorológicas",
+      "clima atual",
+      "relatório meteorológico",
+      "clima",
+      "condição climática"
     ],
+    "err.geocoding_failed": "Erro: não foi possível localizar a cidade '{city}'.",
+    "err.fallback_source": "[via substituto do Open-Meteo]",
     "wmo.0": "Céu claro",
     "wmo.1": "Principalmente claro",
     "wmo.2": "Parcialmente nublado",
@@ -574,9 +567,7 @@
     "wmo.86": "Fortes pancadas de neve",
     "wmo.95": "Tempestade",
     "wmo.96": "Trovoada com leve granizo",
-    "wmo.99": "Tempestade com granizo forte",
-    "err.geocoding_failed": "Erro: não foi possível localizar a cidade '{city}'.",
-    "err.fallback_source": "[via substituto do Open-Meteo]"
+    "wmo.99": "Tempestade com granizo forte"
   },
   "id": {
     "tool.description": "Dapatkan informasi cuaca dari wttr.in. Mendukung nama kota atau koordinat GPS. Kembali ke Open-Meteo API ketika wttr.in tidak tersedia.",
@@ -594,17 +585,18 @@
     "err.fetch": "Terjadi kesalahan saat mengambil data cuaca: {err}",
     "err.processing": "Kesalahan saat memproses data: {err}",
     "x_search_terms": [
-      "weather",
+      "cuaca",
       "wttr",
-      "weather forecast",
-      "temperature",
-      "weather info",
-      "current weather",
-      "weather report",
-      "天気",
-      "climate",
-      "weather condition"
+      "prakiraan cuaca",
+      "suhu",
+      "info cuaca",
+      "cuaca terkini",
+      "laporan cuaca",
+      "iklim",
+      "kondisi cuaca"
     ],
+    "err.geocoding_failed": "Kesalahan: Tidak dapat menemukan kota '{city}'.",
+    "err.fallback_source": "[melalui cadangan Open-Meteo]",
     "wmo.0": "Langit cerah",
     "wmo.1": "Sangat jelas",
     "wmo.2": "Sebagian berawan",
@@ -632,9 +624,7 @@
     "wmo.86": "Hujan salju lebat",
     "wmo.95": "Badai petir",
     "wmo.96": "Badai petir disertai sedikit hujan es",
-    "wmo.99": "Badai petir disertai hujan es lebat",
-    "err.geocoding_failed": "Kesalahan: Tidak dapat menemukan kota '{city}'.",
-    "err.fallback_source": "[melalui cadangan Open-Meteo]"
+    "wmo.99": "Badai petir disertai hujan es lebat"
   },
   "vi": {
     "tool.description": "Nhận thông tin thời tiết từ wttr.in. Hỗ trợ tên thành phố hoặc tọa độ GPS. Quay trở lại API Open-Meteo khi wttr.in không khả dụng.",
@@ -652,17 +642,18 @@
     "err.fetch": "Lỗi tìm nạp dữ liệu thời tiết: {err}",
     "err.processing": "Lỗi xử lý dữ liệu: {err}",
     "x_search_terms": [
-      "weather",
+      "thời tiết",
       "wttr",
-      "weather forecast",
-      "temperature",
-      "weather info",
-      "current weather",
-      "weather report",
-      "天気",
-      "climate",
-      "weather condition"
+      "dự báo thời tiết",
+      "nhiệt độ",
+      "thông tin thời tiết",
+      "thời tiết hiện tại",
+      "dự báo thời tiết",
+      "khí hậu",
+      "điều kiện thời tiết"
     ],
+    "err.geocoding_failed": "Lỗi: Không thể định vị thành phố '{city}'.",
+    "err.fallback_source": "[thông qua dự phòng Open-Meteo]",
     "wmo.0": "Bầu trời quang đãng",
     "wmo.1": "Chủ yếu là rõ ràng",
     "wmo.2": "Có mây rải rác",
@@ -690,9 +681,7 @@
     "wmo.86": "Mưa tuyết dày đặc",
     "wmo.95": "Sấm sét",
     "wmo.96": "Dông có mưa đá nhẹ",
-    "wmo.99": "Sấm sét kèm theo mưa đá lớn",
-    "err.geocoding_failed": "Lỗi: Không thể định vị thành phố '{city}'.",
-    "err.fallback_source": "[thông qua dự phòng Open-Meteo]"
+    "wmo.99": "Sấm sét kèm theo mưa đá lớn"
   },
   "pl": {
     "tool.description": "Uzyskaj informacje o pogodzie z wttr.in. Obsługuje nazwę miasta lub współrzędne GPS. Wraca do Open-Meteo API, gdy wttr.in jest niedostępny.",
@@ -710,17 +699,18 @@
     "err.fetch": "Błąd podczas pobierania danych o pogodzie: {err}",
     "err.processing": "Błąd przetwarzania danych: {err}",
     "x_search_terms": [
-      "weather",
+      "pogoda",
       "wttr",
-      "weather forecast",
-      "temperature",
-      "weather info",
-      "current weather",
-      "weather report",
-      "天気",
-      "climate",
-      "weather condition"
+      "prognoza pogody",
+      "temperatura",
+      "informacje o pogodzie",
+      "aktualna pogoda",
+      "raport pogody",
+      "klimat",
+      "stan pogody"
     ],
+    "err.geocoding_failed": "Błąd: nie można zlokalizować miasta „{city}”.",
+    "err.fallback_source": "[poprzez rezerwę Open-Meteo]",
     "wmo.0": "Czyste niebo",
     "wmo.1": "Głównie jasne",
     "wmo.2": "Częściowe zachmurzenie",
@@ -748,9 +738,7 @@
     "wmo.86": "Silne opady śniegu",
     "wmo.95": "Burza",
     "wmo.96": "Burza z lekkim gradem",
-    "wmo.99": "Burza z silnym gradem",
-    "err.geocoding_failed": "Błąd: nie można zlokalizować miasta „{city}”.",
-    "err.fallback_source": "[poprzez rezerwę Open-Meteo]"
+    "wmo.99": "Burza z silnym gradem"
   },
   "hi": {
     "tool.description": "मौसम की जानकारी wttr.in से प्राप्त करें। शहर के नाम या जीपीएस निर्देशांक का समर्थन करता है। wttr.in अनुपलब्ध होने पर ओपन-मेटियो एपीआई पर वापस आ जाता है।",
@@ -768,17 +756,18 @@
     "err.fetch": "मौसम डेटा लाने में त्रुटि: {err}",
     "err.processing": "डेटा संसाधित करने में त्रुटि: {err}",
     "x_search_terms": [
-      "weather",
+      "मौसम",
       "wttr",
-      "weather forecast",
-      "temperature",
-      "weather info",
-      "current weather",
-      "weather report",
-      "天気",
-      "climate",
-      "weather condition"
+      "मौसम पूर्वानुमान",
+      "तापमान",
+      "मौसम की जानकारी",
+      "वर्तमान मौसम",
+      "मौसम रिपोर्ट",
+      "जलवायु",
+      "मौसम की स्थिति"
     ],
+    "err.geocoding_failed": "त्रुटि: शहर '{city}' का पता नहीं लगाया जा सका।",
+    "err.fallback_source": "[ओपन-मेटियो फ़ॉलबैक के माध्यम से]",
     "wmo.0": "साफ़ आसमान",
     "wmo.1": "मुख्यतः स्पष्ट",
     "wmo.2": "आंशिक रूप से बादल छाए रहेंगे",
@@ -806,9 +795,7 @@
     "wmo.86": "भारी बर्फबारी",
     "wmo.95": "आंधी",
     "wmo.96": "हल्की ओलावृष्टि के साथ आंधी",
-    "wmo.99": "भारी ओलावृष्टि के साथ आंधी",
-    "err.geocoding_failed": "त्रुटि: शहर '{city}' का पता नहीं लगाया जा सका।",
-    "err.fallback_source": "[ओपन-मेटियो फ़ॉलबैक के माध्यम से]"
+    "wmo.99": "भारी ओलावृष्टि के साथ आंधी"
   },
   "ar": {
     "tool.description": "احصل على معلومات الطقس من wttr.in. يدعم اسم المدينة أو إحداثيات GPS. يعود إلى Open-Meteo API عندما لا يكون wttr.in متاحًا.",
@@ -826,17 +813,18 @@
     "err.fetch": "حدث خطأ أثناء جلب بيانات الطقس: {err}",
     "err.processing": "خطأ في معالجة البيانات: {err}",
     "x_search_terms": [
-      "weather",
+      "الطقس",
       "wttr",
-      "weather forecast",
-      "temperature",
-      "weather info",
-      "current weather",
-      "weather report",
-      "天気",
-      "climate",
-      "weather condition"
+      "توقعات الطقس",
+      "درجة الحرارة",
+      "معلومات الطقس",
+      "الطقس الحالي",
+      "تقرير الطقس",
+      "المناخ",
+      "حالة الطقس"
     ],
+    "err.geocoding_failed": "خطأ: تعذر تحديد موقع المدينة '{city}'.",
+    "err.fallback_source": "[عبر خيار Open-Meteo الاحتياطي]",
     "wmo.0": "سماء صافية",
     "wmo.1": "واضحة بشكل رئيسي",
     "wmo.2": "غائم جزئيا",
@@ -864,9 +852,7 @@
     "wmo.86": "زخات ثلجية كثيفة",
     "wmo.95": "عاصفة رعدية",
     "wmo.96": "عاصفة رعدية مع تساقط البرد الخفيف",
-    "wmo.99": "عاصفة رعدية مصحوبة ببرد كثيف",
-    "err.geocoding_failed": "خطأ: تعذر تحديد موقع المدينة '{city}'.",
-    "err.fallback_source": "[عبر خيار Open-Meteo الاحتياطي]"
+    "wmo.99": "عاصفة رعدية مصحوبة ببرد كثيف"
   },
   "sv": {
     "tool.description": "Få väderinformation från wttr.in. Stöder stadsnamn eller GPS-koordinater. Faller tillbaka till Open-Meteo API när wttr.in inte är tillgänglig.",
@@ -884,17 +870,18 @@
     "err.fetch": "Fel vid hämtning av väderdata: {err}",
     "err.processing": "Fel vid behandling av data: {err}",
     "x_search_terms": [
-      "weather",
+      "väder",
       "wttr",
-      "weather forecast",
-      "temperature",
-      "weather info",
-      "current weather",
-      "weather report",
-      "天気",
-      "climate",
-      "weather condition"
+      "väderprognos",
+      "temperatur",
+      "väderinformation",
+      "aktuellt väder",
+      "väderrapport",
+      "klimat",
+      "väderförhållanden"
     ],
+    "err.geocoding_failed": "Fel: Kunde inte hitta stad '{city}'.",
+    "err.fallback_source": "[via Open-Meteo-reserv]",
     "wmo.0": "Klar himmel",
     "wmo.1": "Främst tydligt",
     "wmo.2": "Delvis molnigt",
@@ -922,9 +909,7 @@
     "wmo.86": "Kraftiga snöskurar",
     "wmo.95": "Åskväder",
     "wmo.96": "Åskväder med lätt hagel",
-    "wmo.99": "Åskväder med kraftigt hagel",
-    "err.geocoding_failed": "Fel: Kunde inte hitta stad '{city}'.",
-    "err.fallback_source": "[via Open-Meteo-reserv]"
+    "wmo.99": "Åskväder med kraftigt hagel"
   },
   "sw": {
     "tool.description": "Pata maelezo ya hali ya hewa kutoka kwa wttr.in. Inaauni jina la jiji au viwianishi vya GPS. Hurejea kwa Open-Meteo API wakati wttr.in haipatikani.",
@@ -942,17 +927,18 @@
     "err.fetch": "Hitilafu katika kuleta data ya hali ya hewa: {err}",
     "err.processing": "Hitilafu katika kuchakata data: {err}",
     "x_search_terms": [
-      "weather",
+      "hali ya hewa",
       "wttr",
-      "weather forecast",
-      "temperature",
-      "weather info",
-      "current weather",
-      "weather report",
-      "天気",
-      "climate",
-      "weather condition"
+      "utabiri wa hali ya hewa",
+      "halijoto",
+      "maelezo ya hali ya hewa",
+      "hali ya hewa ya sasa",
+      "ripoti ya hali ya hewa",
+      "hali ya hewa",
+      "hali ya hewa"
     ],
+    "err.geocoding_failed": "Hitilafu: Haikuweza kupata jiji '{city}'.",
+    "err.fallback_source": "[kupitia njia mbadala ya Open-Meteo]",
     "wmo.0": "Anga wazi",
     "wmo.1": "Hasa wazi",
     "wmo.2": "Mawingu kiasi",
@@ -980,9 +966,7 @@
     "wmo.86": "Manyunyu ya theluji nzito",
     "wmo.95": "Mvua ya radi",
     "wmo.96": "Mvua ya radi yenye mvua ya mawe kidogo",
-    "wmo.99": "Mvua ya radi yenye mvua kubwa ya mawe",
-    "err.geocoding_failed": "Hitilafu: Haikuweza kupata jiji '{city}'.",
-    "err.fallback_source": "[kupitia njia mbadala ya Open-Meteo]"
+    "wmo.99": "Mvua ya radi yenye mvua kubwa ya mawe"
   },
   "nb": {
     "tool.description": "Få værinformasjon fra wttr.in. Støtter bynavn eller GPS-koordinater. Faller tilbake til Open-Meteo API når wttr.in er utilgjengelig.",
@@ -1000,17 +984,18 @@
     "err.fetch": "Feil under henting av værdata: {err}",
     "err.processing": "Feil ved behandling av data: {err}",
     "x_search_terms": [
-      "weather",
+      "vær",
       "wttr",
-      "weather forecast",
-      "temperature",
-      "weather info",
-      "current weather",
-      "weather report",
-      "天気",
-      "climate",
-      "weather condition"
+      "værmelding",
+      "temperatur",
+      "værinformasjon",
+      "gjeldende vær",
+      "værmelding",
+      "klima",
+      "værforhold"
     ],
+    "err.geocoding_failed": "Feil: Kunne ikke finne byen '{city}'.",
+    "err.fallback_source": "[via Open-Meteo-reserve]",
     "wmo.0": "Klar himmel",
     "wmo.1": "Hovedsakelig tydelig",
     "wmo.2": "Delvis skyet",
@@ -1038,9 +1023,7 @@
     "wmo.86": "Kraftige snøbyger",
     "wmo.95": "Tordenvær",
     "wmo.96": "Tordenvær med lett hagl",
-    "wmo.99": "Tordenvær med kraftig hagl",
-    "err.geocoding_failed": "Feil: Kunne ikke finne byen '{city}'.",
-    "err.fallback_source": "[via Open-Meteo-reserve]"
+    "wmo.99": "Tordenvær med kraftig hagl"
   },
   "nl": {
     "tool.description": "Ontvang weersinformatie van wttr.in. Ondersteunt stadsnaam of GPS-coördinaten. Valt terug naar Open-Meteo API wanneer wttr.in niet beschikbaar is.",
@@ -1058,17 +1041,18 @@
     "err.fetch": "Fout bij ophalen van weergegevens: {err}",
     "err.processing": "Fout bij het verwerken van gegevens: {err}",
     "x_search_terms": [
-      "weather",
+      "weer",
       "wttr",
-      "weather forecast",
-      "temperature",
-      "weather info",
-      "current weather",
-      "weather report",
-      "天気",
-      "climate",
-      "weather condition"
+      "weersvoorspelling",
+      "temperatuur",
+      "weerinformatie",
+      "actueel weer",
+      "weerbericht",
+      "klimaat",
+      "weersomstandigheden"
     ],
+    "err.geocoding_failed": "Fout: Kan stad '{city}' niet vinden.",
+    "err.fallback_source": "[via Open-Meteo terugval]",
     "wmo.0": "Heldere hemel",
     "wmo.1": "Voornamelijk helder",
     "wmo.2": "Gedeeltelijk bewolkt",
@@ -1096,9 +1080,7 @@
     "wmo.86": "Hevige sneeuwbuien",
     "wmo.95": "Onweer",
     "wmo.96": "Onweer met lichte hagel",
-    "wmo.99": "Onweer met zware hagel",
-    "err.geocoding_failed": "Fout: Kan stad '{city}' niet vinden.",
-    "err.fallback_source": "[via Open-Meteo terugval]"
+    "wmo.99": "Onweer met zware hagel"
   },
   "fi": {
     "tool.description": "Hanki säätiedot osoitteesta wttr.in. Tukee kaupungin nimeä tai GPS-koordinaatteja. Palautuu Open-Meteo API:hen, kun wttr.in ei ole käytettävissä.",
@@ -1116,17 +1098,18 @@
     "err.fetch": "Virhe säätietojen noutamisessa: {err}",
     "err.processing": "Virhe tietojen käsittelyssä: {err}",
     "x_search_terms": [
-      "weather",
+      "sää",
       "wttr",
-      "weather forecast",
-      "temperature",
-      "weather info",
-      "current weather",
-      "weather report",
-      "天気",
-      "climate",
-      "weather condition"
+      "sääennuste",
+      "lämpötila",
+      "säätiedot",
+      "nykyinen sää",
+      "sääraportti",
+      "ilmasto",
+      "sääolosuhteet"
     ],
+    "err.geocoding_failed": "Virhe: kaupunkia '{city}' ei voitu paikantaa.",
+    "err.fallback_source": "[Open-Meteon varaosan kautta]",
     "wmo.0": "Kirkas taivas",
     "wmo.1": "Pääasiassa selkeä",
     "wmo.2": "Puolipilvistä",
@@ -1154,9 +1137,7 @@
     "wmo.86": "Kovia lumisateita",
     "wmo.95": "Ukkosmyrsky",
     "wmo.96": "Ukkosmyrskyä ja vähäistä rakeita",
-    "wmo.99": "Ukkosmyrskyä ja rankkoja rakeita",
-    "err.geocoding_failed": "Virhe: kaupunkia '{city}' ei voitu paikantaa.",
-    "err.fallback_source": "[Open-Meteon varaosan kautta]"
+    "wmo.99": "Ukkosmyrskyä ja rankkoja rakeita"
   },
   "cs": {
     "tool.description": "Získejte informace o počasí z wttr.in. Podporuje název města nebo GPS souřadnice. Vrátí se zpět na Open-Meteo API, když wttr.in není k dispozici.",
@@ -1174,17 +1155,18 @@
     "err.fetch": "Chyba při načítání dat o počasí: {err}",
     "err.processing": "Chyba při zpracování dat: {err}",
     "x_search_terms": [
-      "weather",
+      "počasí",
       "wttr",
-      "weather forecast",
-      "temperature",
-      "weather info",
-      "current weather",
-      "weather report",
-      "天気",
-      "climate",
-      "weather condition"
+      "předpověď počasí",
+      "teplota",
+      "informace o počasí",
+      "aktuální počasí",
+      "zpráva o počasí",
+      "klima",
+      "povětrnostní podmínky"
     ],
+    "err.geocoding_failed": "Chyba: Nelze najít město '{city}'.",
+    "err.fallback_source": "[přes Open-Meteo záložní]",
     "wmo.0": "Jasná obloha",
     "wmo.1": "Hlavně jasné",
     "wmo.2": "Částečně oblačno",
@@ -1212,9 +1194,7 @@
     "wmo.86": "Silné sněhové přeháňky",
     "wmo.95": "Bouřka",
     "wmo.96": "Bouřka se slabými kroupami",
-    "wmo.99": "Bouřka se silným krupobitím",
-    "err.geocoding_failed": "Chyba: Nelze najít město '{city}'.",
-    "err.fallback_source": "[přes Open-Meteo záložní]"
+    "wmo.99": "Bouřka se silným krupobitím"
   },
   "uk": {
     "tool.description": "Отримуйте інформацію про погоду з wttr.in. Підтримує назву міста або GPS-координати. Повертається до Open-Meteo API, коли wttr.in недоступний.",
@@ -1232,17 +1212,18 @@
     "err.fetch": "Помилка отримання даних про погоду: {err}",
     "err.processing": "Помилка обробки даних: {err}",
     "x_search_terms": [
-      "weather",
+      "погода",
       "wttr",
-      "weather forecast",
-      "temperature",
-      "weather info",
-      "current weather",
-      "weather report",
-      "天気",
-      "climate",
-      "weather condition"
+      "прогноз погоди",
+      "температура",
+      "інформація про погоду",
+      "поточна погода",
+      "звіт про погоду",
+      "клімат",
+      "погодні умови"
     ],
+    "err.geocoding_failed": "Помилка: не вдалося знайти місто \"{city}\".",
+    "err.fallback_source": "[через запасну версію Open-Meteo]",
     "wmo.0": "Чисте небо",
     "wmo.1": "В основному ясно",
     "wmo.2": "Мінлива хмарність",
@@ -1270,9 +1251,7 @@
     "wmo.86": "Сильні снігопади",
     "wmo.95": "гроза",
     "wmo.96": "Гроза з невеликим градом",
-    "wmo.99": "Гроза з сильним градом",
-    "err.geocoding_failed": "Помилка: не вдалося знайти місто \"{city}\".",
-    "err.fallback_source": "[через запасну версію Open-Meteo]"
+    "wmo.99": "Гроза з сильним градом"
   },
   "tr": {
     "tool.description": "Wttr.in adresinden hava durumu bilgilerini alın. Şehir adını veya GPS koordinatlarını destekler. wttr.in kullanılamadığında Open-Meteo API'sine geri döner.",
@@ -1290,17 +1269,18 @@
     "err.fetch": "Hava durumu verileri alınırken hata oluştu: {err}",
     "err.processing": "Veriler işlenirken hata oluştu: {err}",
     "x_search_terms": [
-      "weather",
+      "hava durumu",
       "wttr",
-      "weather forecast",
-      "temperature",
-      "weather info",
-      "current weather",
-      "weather report",
-      "天気",
-      "climate",
-      "weather condition"
+      "hava tahmini",
+      "sıcaklık",
+      "hava durumu bilgisi",
+      "mevcut hava durumu",
+      "hava durumu raporu",
+      "iklim",
+      "hava durumu"
     ],
+    "err.geocoding_failed": "Hata: '{city}' şehri bulunamadı.",
+    "err.fallback_source": "[Open-Meteo geri dönüşü aracılığıyla]",
     "wmo.0": "Açık gökyüzü",
     "wmo.1": "Esas olarak açık",
     "wmo.2": "Parçalı bulutlu",
@@ -1328,9 +1308,7 @@
     "wmo.86": "Şiddetli kar yağışı",
     "wmo.95": "Fırtına",
     "wmo.96": "Hafif dolu ve gök gürültülü sağanak yağış",
-    "wmo.99": "Şiddetli dolu ve fırtına",
-    "err.geocoding_failed": "Hata: '{city}' şehri bulunamadı.",
-    "err.fallback_source": "[Open-Meteo geri dönüşü aracılığıyla]"
+    "wmo.99": "Şiddetli dolu ve fırtına"
   },
   "th": {
     "tool.description": "รับข้อมูลสภาพอากาศจาก wttr.in รองรับชื่อเมืองหรือพิกัด GPS กลับไปใช้ Open-Meteo API เมื่อ wttr.in ไม่พร้อมใช้งาน",
@@ -1348,17 +1326,18 @@
     "err.fetch": "เกิดข้อผิดพลาดในการดึงข้อมูลสภาพอากาศ: {err}",
     "err.processing": "เกิดข้อผิดพลาดในการประมวลผลข้อมูล: {err}",
     "x_search_terms": [
-      "weather",
+      "สภาพอากาศ",
       "wttr",
-      "weather forecast",
-      "temperature",
-      "weather info",
-      "current weather",
-      "weather report",
-      "天気",
-      "climate",
-      "weather condition"
+      "พยากรณ์อากาศ",
+      "อุณหภูมิ",
+      "ข้อมูลสภาพอากาศ",
+      "สภาพอากาศปัจจุบัน",
+      "รายงานสภาพอากาศ",
+      "สภาพภูมิอากาศ",
+      "สภาพอากาศ"
     ],
+    "err.geocoding_failed": "ข้อผิดพลาด: ไม่พบเมือง '{city}'",
+    "err.fallback_source": "[ผ่านทางเลือก Open-Meteo]",
     "wmo.0": "ท้องฟ้าแจ่มใส",
     "wmo.1": "ชัดเจนเป็นหลัก",
     "wmo.2": "มีเมฆเป็นบางส่วน",
@@ -1386,9 +1365,7 @@
     "wmo.86": "หิมะตกหนัก",
     "wmo.95": "พายุฝนฟ้าคะนอง",
     "wmo.96": "พายุฟ้าคะนองและลูกเห็บเล็กน้อย",
-    "wmo.99": "พายุฝนฟ้าคะนองและลูกเห็บตกหนัก",
-    "err.geocoding_failed": "ข้อผิดพลาด: ไม่พบเมือง '{city}'",
-    "err.fallback_source": "[ผ่านทางเลือก Open-Meteo]"
+    "wmo.99": "พายุฝนฟ้าคะนองและลูกเห็บตกหนัก"
   },
   "zh_CN": {
     "tool.description": "从 wttr.in 获取天气信息。支持城市名称或GPS坐标。当 wttr.in 不可用时，回退到 Open-Meteo API。",
@@ -1406,17 +1383,18 @@
     "err.fetch": "获取天气数据时出错：{err}",
     "err.processing": "处理数据时出错：{err}",
     "x_search_terms": [
-      "weather",
+      "天气",
       "wttr",
-      "weather forecast",
-      "temperature",
-      "weather info",
-      "current weather",
-      "weather report",
-      "天気",
-      "climate",
-      "weather condition"
+      "天气预报",
+      "温度",
+      "天气信息",
+      "当前天气",
+      "天气预报",
+      "气候",
+      "天气情况"
     ],
+    "err.geocoding_failed": "错误：无法找到城市“{city}”。",
+    "err.fallback_source": "[通过 Open-Meteo 后备]",
     "wmo.0": "晴朗的天空",
     "wmo.1": "主要是明确",
     "wmo.2": "晴间多云",
@@ -1444,9 +1422,7 @@
     "wmo.86": "大阵雪",
     "wmo.95": "雷暴",
     "wmo.96": "雷阵雨伴有小冰雹",
-    "wmo.99": "雷暴伴有大冰雹",
-    "err.geocoding_failed": "错误：无法找到城市“{city}”。",
-    "err.fallback_source": "[通过 Open-Meteo 后备]"
+    "wmo.99": "雷暴伴有大冰雹"
   },
   "zh_TW": {
     "tool.description": "從 wttr.in 取得天氣資訊。支援城市名稱或GPS座標。當 wttr.in 不可用時，回退到 Open-Meteo API。",
@@ -1464,17 +1440,18 @@
     "err.fetch": "取得天氣資料時發生錯誤：{err}",
     "err.processing": "處理資料時發生錯誤：{err}",
     "x_search_terms": [
-      "weather",
+      "天氣",
       "wttr",
-      "weather forecast",
-      "temperature",
-      "weather info",
-      "current weather",
-      "weather report",
-      "天気",
-      "climate",
-      "weather condition"
+      "天氣預報",
+      "溫度",
+      "天氣資訊",
+      "當前天氣",
+      "天氣預報",
+      "氣候",
+      "天氣狀況"
     ],
+    "err.geocoding_failed": "錯誤：無法找到城市「{city}」。",
+    "err.fallback_source": "[透過 Open-Meteo 後備]",
     "wmo.0": "晴朗的天空",
     "wmo.1": "主要是明確",
     "wmo.2": "晴間多雲",
@@ -1502,9 +1479,7 @@
     "wmo.86": "大陣雪",
     "wmo.95": "雷暴",
     "wmo.96": "雷陣雨伴隨小冰雹",
-    "wmo.99": "雷暴伴有大冰雹",
-    "err.geocoding_failed": "錯誤：無法找到城市「{city}」。",
-    "err.fallback_source": "[透過 Open-Meteo 後備]"
+    "wmo.99": "雷暴伴有大冰雹"
   },
   "bn": {
     "tool.description": "wttr.in থেকে আবহাওয়ার তথ্য পান। শহরের নাম বা জিপিএস স্থানাঙ্ক সমর্থন করে। wttr.in অনুপলব্ধ হলে Open-Meteo API-তে ফিরে আসে।",
@@ -1522,17 +1497,18 @@
     "err.fetch": "আবহাওয়ার ডেটা আনার সময় ত্রুটি: {err}",
     "err.processing": "ডেটা প্রক্রিয়াকরণে ত্রুটি: {err}",
     "x_search_terms": [
-      "weather",
+      "আবহাওয়া",
       "wttr",
-      "weather forecast",
-      "temperature",
-      "weather info",
-      "current weather",
-      "weather report",
-      "天気",
-      "climate",
-      "weather condition"
+      "আবহাওয়ার পূর্বাভাস",
+      "তাপমাত্রা",
+      "আবহাওয়ার তথ্য",
+      "বর্তমান আবহাওয়া",
+      "আবহাওয়া প্রতিবেদন",
+      "জলবায়ু",
+      "আবহাওয়ার অবস্থা"
     ],
+    "err.geocoding_failed": "ত্রুটি: শহর '{city}' সনাক্ত করা যায়নি।",
+    "err.fallback_source": "[ওপেন-মিটিও ফলব্যাকের মাধ্যমে]",
     "wmo.0": "পরিষ্কার আকাশ",
     "wmo.1": "প্রধানত পরিষ্কার",
     "wmo.2": "আংশিক মেঘলা",
@@ -1560,9 +1536,7 @@
     "wmo.86": "প্রবল তুষার ঝরনা",
     "wmo.95": "বজ্রপাত",
     "wmo.96": "হালকা শিলাবৃষ্টি সহ বজ্রপাত",
-    "wmo.99": "প্রবল শিলাবৃষ্টি সহ বজ্রপাত",
-    "err.geocoding_failed": "ত্রুটি: শহর '{city}' সনাক্ত করা যায়নি।",
-    "err.fallback_source": "[ওপেন-মিটিও ফলব্যাকের মাধ্যমে]"
+    "wmo.99": "প্রবল শিলাবৃষ্টি সহ বজ্রপাত"
   },
   "fa": {
     "tool.description": "اطلاعات آب و هوا را از wttr.in دریافت کنید. پشتیبانی از نام شهر یا مختصات GPS. زمانی که wttr.in در دسترس نباشد به Open-Meteo API بازمی گردد.",
@@ -1580,17 +1554,18 @@
     "err.fetch": "خطا در واکشی اطلاعات آب و هوا: {err}",
     "err.processing": "خطا در پردازش داده ها: {err}",
     "x_search_terms": [
-      "weather",
+      "آب و هوا",
       "wttr",
-      "weather forecast",
-      "temperature",
-      "weather info",
-      "current weather",
-      "weather report",
-      "天気",
-      "climate",
-      "weather condition"
+      "پیش بینی آب و هوا",
+      "دما",
+      "اطلاعات آب و هوا",
+      "آب و هوای فعلی",
+      "گزارش آب و هوا",
+      "اقلیم",
+      "وضعیت آب و هوا"
     ],
+    "err.geocoding_failed": "خطا: شهر \"{city}\" یافت نشد.",
+    "err.fallback_source": "[از طریق بازگرداندن Open-Meteo]",
     "wmo.0": "آسمان صاف",
     "wmo.1": "عمدتاً روشن است",
     "wmo.2": "نیمه ابری",
@@ -1618,9 +1593,7 @@
     "wmo.86": "بارش برف سنگین",
     "wmo.95": "رعد و برق",
     "wmo.96": "رعد و برق همراه با تگرگ خفیف",
-    "wmo.99": "رعد و برق همراه با تگرگ شدید",
-    "err.geocoding_failed": "خطا: شهر \"{city}\" یافت نشد.",
-    "err.fallback_source": "[از طریق بازگرداندن Open-Meteo]"
+    "wmo.99": "رعد و برق همراه با تگرگ شدید"
   },
   "mn": {
     "tool.description": "Цаг агаарын мэдээллийг wttr.in сайтаас аваарай. Хотын нэр эсвэл GPS координатыг дэмждэг. wttr.in ашиглах боломжгүй үед Open-Meteo API руу буцдаг.",
@@ -1638,17 +1611,18 @@
     "err.fetch": "Цаг агаарын мэдээллийг татахад алдаа гарлаа: {err}",
     "err.processing": "Өгөгдлийг боловсруулахад алдаа гарлаа: {err}",
     "x_search_terms": [
-      "weather",
+      "цаг агаар",
       "wttr",
-      "weather forecast",
-      "temperature",
-      "weather info",
-      "current weather",
-      "weather report",
-      "天気",
-      "climate",
-      "weather condition"
+      "цаг агаарын мэдээ",
+      "температур",
+      "цаг агаарын мэдээлэл",
+      "одоогийн цаг агаар",
+      "цаг агаарын мэдээ",
+      "цаг агаар",
+      "цаг агаарын нөхцөл"
     ],
+    "err.geocoding_failed": "Алдаа: '{city}' хотыг олж чадсангүй.",
+    "err.fallback_source": "[Open-Meteo нөөцөөр]",
     "wmo.0": "Цэлмэг тэнгэр",
     "wmo.1": "Гол нь тодорхой",
     "wmo.2": "Багавтар үүлтэй",
@@ -1676,9 +1650,7 @@
     "wmo.86": "Хүчтэй цасан шуурга шуурна",
     "wmo.95": "Аадар бороо",
     "wmo.96": "Бага зэргийн мөндөртэй аадар бороо орно",
-    "wmo.99": "Хүчтэй мөндөртэй аадар бороо орно",
-    "err.geocoding_failed": "Алдаа: '{city}' хотыг олж чадсангүй.",
-    "err.fallback_source": "[Open-Meteo нөөцөөр]"
+    "wmo.99": "Хүчтэй мөндөртэй аадар бороо орно"
   },
   "mr": {
     "tool.description": "wttr.in वरून हवामानाची माहिती मिळवा. शहराचे नाव किंवा GPS समन्वयांना समर्थन देते. wttr.in अनुपलब्ध असताना Open-Meteo API वर परत येते.",
@@ -1696,17 +1668,18 @@
     "err.fetch": "हवामान डेटा आणण्यात त्रुटी: {err}",
     "err.processing": "डेटावर प्रक्रिया करताना त्रुटी: {err}",
     "x_search_terms": [
-      "weather",
+      "हवामान",
       "wttr",
-      "weather forecast",
-      "temperature",
-      "weather info",
-      "current weather",
-      "weather report",
-      "天気",
-      "climate",
-      "weather condition"
+      "हवामानाचा अंदाज",
+      "तापमान",
+      "हवामानाची माहिती",
+      "वर्तमान हवामान",
+      "हवामान अहवाल",
+      "हवामान",
+      "हवामानाची स्थिती"
     ],
+    "err.geocoding_failed": "त्रुटी: '{city}' शहर शोधू शकलो नाही.",
+    "err.fallback_source": "[ओपन-मेटीओ फॉलबॅक मार्गे]",
     "wmo.0": "निरभ्र आकाश",
     "wmo.1": "मुख्यतः स्पष्ट",
     "wmo.2": "अंशतः ढगाळ",
@@ -1734,9 +1707,7 @@
     "wmo.86": "मुसळधार हिमवर्षाव",
     "wmo.95": "गडगडाट",
     "wmo.96": "तुरळक गारांसह वादळ",
-    "wmo.99": "जोरदार गारांसह वादळ",
-    "err.geocoding_failed": "त्रुटी: '{city}' शहर शोधू शकलो नाही.",
-    "err.fallback_source": "[ओपन-मेटीओ फॉलबॅक मार्गे]"
+    "wmo.99": "जोरदार गारांसह वादळ"
   },
   "el": {
     "tool.description": "Λάβετε πληροφορίες για τον καιρό από το wttr.in. Υποστηρίζει όνομα πόλης ή συντεταγμένες GPS. Επιστρέφει στο Open-Meteo API όταν το wttr.in δεν είναι διαθέσιμο.",
@@ -1754,17 +1725,18 @@
     "err.fetch": "Σφάλμα κατά την ανάκτηση δεδομένων καιρού: {err}",
     "err.processing": "Σφάλμα επεξεργασίας δεδομένων: {err}",
     "x_search_terms": [
-      "weather",
+      "καιρός",
       "wttr",
-      "weather forecast",
-      "temperature",
-      "weather info",
-      "current weather",
-      "weather report",
-      "天気",
-      "climate",
-      "weather condition"
+      "πρόγνωση καιρού",
+      "θερμοκρασία",
+      "πληροφορίες καιρού",
+      "τρέχον καιρό",
+      "δελτίο καιρού",
+      "κλίμα",
+      "κατάσταση καιρού"
     ],
+    "err.geocoding_failed": "Σφάλμα: Δεν ήταν δυνατός ο εντοπισμός της πόλης '{city}'.",
+    "err.fallback_source": "[μέσω εναλλακτικού Open-Meteo]",
     "wmo.0": "Καθαρός ουρανός",
     "wmo.1": "Κυρίως ξεκάθαρο",
     "wmo.2": "Μερική συννεφιά",
@@ -1792,9 +1764,7 @@
     "wmo.86": "Έντονες βροχές χιονιού",
     "wmo.95": "καταιγίδα",
     "wmo.96": "Καταιγίδα με ελαφρά χαλαζόπτωση",
-    "wmo.99": "Καταιγίδα με ισχυρό χαλάζι",
-    "err.geocoding_failed": "Σφάλμα: Δεν ήταν δυνατός ο εντοπισμός της πόλης '{city}'.",
-    "err.fallback_source": "[μέσω εναλλακτικού Open-Meteo]"
+    "wmo.99": "Καταιγίδα με ισχυρό χαλάζι"
   },
   "he": {
     "tool.description": "קבל מידע על מזג האוויר מ-wttr.in. תומך בשם עיר או קואורדינטות GPS. חוזר ל- Open-Meteo API כאשר wttr.in אינו זמין.",
@@ -1812,17 +1782,18 @@
     "err.fetch": "שגיאה באחזור נתוני מזג האוויר: {err}",
     "err.processing": "שגיאה בעיבוד נתונים: {err}",
     "x_search_terms": [
-      "weather",
+      "מזג האוויר",
       "wttr",
-      "weather forecast",
-      "temperature",
-      "weather info",
-      "current weather",
-      "weather report",
-      "天気",
-      "climate",
-      "weather condition"
+      "תחזית מזג האוויר",
+      "טמפרטורה",
+      "מידע מזג האוויר",
+      "מזג האוויר נוכחי",
+      "דוח מזג האוויר",
+      "אקלים",
+      "תנאי מזג האוויר"
     ],
+    "err.geocoding_failed": "שגיאה: לא ניתן לאתר את העיר '{city}'.",
+    "err.fallback_source": "[דרך Open-Meteo fallback]",
     "wmo.0": "שמיים בהירים",
     "wmo.1": "ברור בעיקר",
     "wmo.2": "מעונן חלקית",
@@ -1850,9 +1821,7 @@
     "wmo.86": "ממטרי שלג כבדים",
     "wmo.95": "סופת רעמים",
     "wmo.96": "סופת רעמים עם ברד קל",
-    "wmo.99": "סופת רעמים עם ברד כבד",
-    "err.geocoding_failed": "שגיאה: לא ניתן לאתר את העיר '{city}'.",
-    "err.fallback_source": "[דרך Open-Meteo fallback]"
+    "wmo.99": "סופת רעמים עם ברד כבד"
   },
   "hu": {
     "tool.description": "Szerezzen időjárási információkat a wttr.in webhelyről. Támogatja a város nevét vagy a GPS koordinátákat. Visszatér az Open-Meteo API-ra, ha a wttr.in nem érhető el.",
@@ -1870,17 +1839,18 @@
     "err.fetch": "Hiba az időjárási adatok lekérésekor: {err}",
     "err.processing": "Hiba az adatok feldolgozásakor: {err}",
     "x_search_terms": [
-      "weather",
+      "Időjárás",
       "wttr",
-      "weather forecast",
-      "temperature",
-      "weather info",
-      "current weather",
-      "weather report",
-      "天気",
-      "climate",
-      "weather condition"
+      "időjárás előrejelzés",
+      "hőmérséklet",
+      "időjárási információ",
+      "aktuális időjárás",
+      "időjárásjelentés",
+      "klíma",
+      "időjárási állapot"
     ],
+    "err.geocoding_failed": "Hiba: Nem található '{city}' város.",
+    "err.fallback_source": "[az Open-Meteo tartalékon keresztül]",
     "wmo.0": "tiszta égbolt",
     "wmo.1": "Főleg tiszta",
     "wmo.2": "Helyenként felhős",
@@ -1908,9 +1878,7 @@
     "wmo.86": "Erős hózáporok",
     "wmo.95": "Zivatar",
     "wmo.96": "Zivatar enyhe jégesővel",
-    "wmo.99": "Zivatar heves jégesővel",
-    "err.geocoding_failed": "Hiba: Nem található '{city}' város.",
-    "err.fallback_source": "[az Open-Meteo tartalékon keresztül]"
+    "wmo.99": "Zivatar heves jégesővel"
   },
   "ro": {
     "tool.description": "Obțineți informații despre vreme de pe wttr.in. Acceptă numele orașului sau coordonatele GPS. Revine la API-ul Open-Meteo când wttr.in nu este disponibil.",
@@ -1928,17 +1896,18 @@
     "err.fetch": "Eroare la preluarea datelor meteo: {err}",
     "err.processing": "Eroare la procesarea datelor: {err}",
     "x_search_terms": [
-      "weather",
+      "vreme",
       "wttr",
-      "weather forecast",
-      "temperature",
-      "weather info",
-      "current weather",
-      "weather report",
-      "天気",
-      "climate",
-      "weather condition"
+      "prognoză meteo",
+      "temperatură",
+      "informații meteo",
+      " vremea curentă",
+      "prognoză meteo",
+      "clima",
+      "starea vremii"
     ],
+    "err.geocoding_failed": "Eroare: Nu s-a putut localiza orașul „{city}”.",
+    "err.fallback_source": "[prin alternativă Open-Meteo]",
     "wmo.0": "Cer senin",
     "wmo.1": "În principal clar",
     "wmo.2": "Parţial noros",
@@ -1966,8 +1935,6 @@
     "wmo.86": "Averse abundente de zăpadă",
     "wmo.95": "Furtună",
     "wmo.96": "Furtună cu grindină uşoară",
-    "wmo.99": "Furtună cu grindină puternică",
-    "err.geocoding_failed": "Eroare: Nu s-a putut localiza orașul „{city}”.",
-    "err.fallback_source": "[prin alternativă Open-Meteo]"
+    "wmo.99": "Furtună cu grindină puternică"
   }
 }

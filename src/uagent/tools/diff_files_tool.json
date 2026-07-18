@@ -35,11 +35,11 @@
   "ja": {
     "tool.description": "ファイルまたはテキスト コンテンツを比較し、構造化された diff 出力を返します。統合モード、要約モード、および json_diff モードをサポートします。",
     "x_search_terms": [
-      "diff files",
-      "file diff",
-      "compare files",
-      "difference",
-      "unified diff",
+      "差分ファイル",
+      "ファイル差分",
+      "ファイル比較",
+      "差分",
+      "統合差分",
       "diff",
       "ファイル比較",
       "差分"
@@ -66,15 +66,17 @@
     "param.preserve_line_endings.description": "diff 出力で元の改行コード（CRLF/CR）を保持し、LF に正規化しません。CRLF ファイルとの patch 互換性に必要です。"
   },
   "de": {
+    "tool.description": "Vergleichen Sie Dateien oder Textinhalte und geben Sie eine strukturierte Diff-Ausgabe zurück. Unterstützt die Modi „Unified“, „Summary“ und „json_diff“.",
     "x_search_terms": [
       "diff files",
       "file diff",
       "compare files",
       "difference",
       "unified diff",
-      "diff"
+      "diff",
+      "ファイル比較",
+      "差分"
     ],
-    "tool.description": "Vergleichen Sie Dateien oder Textinhalte und geben Sie eine strukturierte Diff-Ausgabe zurück. Unterstützt die Modi „Unified“, „Summary“ und „json_diff“.",
     "param.path1.description": "Erster Dateipfad (erforderlich, sofern nicht Pfad2 angegeben ist).",
     "param.path2.description": "Zweiter Dateipfad. Weglassen, Pfad1 mit „Text“ zu vergleichen.",
     "param.text.description": "Textinhalt zum Vergleich mit Pfad1 (wird verwendet, wenn Pfad2 weggelassen wird).",
@@ -97,15 +99,17 @@
     "param.preserve_line_endings.description": "Behalten Sie die ursprünglichen Zeilenenden (CRLF/CR) in der Diff-Ausgabe bei, anstatt auf LF zu normalisieren. Erforderlich für die Patch-Kompatibilität mit CRLF-Dateien."
   },
   "fr": {
-    "x_search_terms": [
-      "diff files",
-      "file diff",
-      "compare files",
-      "difference",
-      "unified diff",
-      "diff"
-    ],
     "tool.description": "Comparez les fichiers ou le contenu du texte et renvoyez une sortie de comparaison structurée. Prend en charge les modes unifié, résumé et json_diff.",
+    "x_search_terms": [
+      "fichiers diff",
+      "fichier diff",
+      "comparer les fichiers",
+      "différence",
+      "diff unifié",
+      "diff",
+      "ファイル比較",
+      "差分"
+    ],
     "param.path1.description": "Chemin du premier fichier (obligatoire sauf si path2 est spécifié).",
     "param.path2.description": "Deuxième chemin de fichier. Omettez de comparer path1 avec « texte ».",
     "param.text.description": "Contenu textuel à comparer avec path1 (utilisé lorsque path2 est omis).",
@@ -128,15 +132,17 @@
     "param.preserve_line_endings.description": "Conservez les fins de ligne d'origine (CRLF/CR) dans la sortie diff au lieu de normaliser en LF. Requis pour la compatibilité des correctifs avec les fichiers CRLF."
   },
   "es": {
-    "x_search_terms": [
-      "diff files",
-      "file diff",
-      "compare files",
-      "difference",
-      "unified diff",
-      "diff"
-    ],
     "tool.description": "Compare archivos o contenido de texto y devuelva resultados de diferencias estructurados. Admite los modos unificado, resumido y json_diff.",
+    "x_search_terms": [
+      "archivos diff",
+      "diff de archivo",
+      "comparar archivos",
+      "diferencia",
+      "diff unificado",
+      "diff",
+      "ファイル比較",
+      "差分"
+    ],
     "param.path1.description": "Primera ruta del archivo (obligatoria a menos que se especifique la ruta2).",
     "param.path2.description": "Ruta del segundo archivo. Omita comparar la ruta1 con el 'texto'.",
     "param.text.description": "Contenido de texto para comparar con la ruta1 (se usa cuando se omite la ruta2).",
@@ -159,15 +165,17 @@
     "param.preserve_line_endings.description": "Conserve los finales de línea originales (CRLF/CR) en la salida de diferencias en lugar de normalizar a LF. Requerido para la compatibilidad del parche con archivos CRLF."
   },
   "zh_CN": {
-    "x_search_terms": [
-      "diff files",
-      "file diff",
-      "compare files",
-      "difference",
-      "unified diff",
-      "diff"
-    ],
     "tool.description": "比较文件或文本内容并返回结构化差异输出。支持统一、摘要和 json_diff 模式。",
+    "x_search_terms": [
+      "diff 文件",
+      "文件 diff",
+      "比较文件",
+      "差异",
+      "统一差异",
+      "diff",
+      "fuァイル比较",
+      "分数"
+    ],
     "param.path1.description": "第一个文件路径（除非指定了 path2，否则是必需的）。",
     "param.path2.description": "第二个文件路径。省略将 path1 与“text”进行比较。",
     "param.text.description": "要与路径 1 进行比较的文本内容（当省略路径 2 时使用）。",
@@ -190,15 +198,17 @@
     "param.preserve_line_endings.description": "在 diff 输出中保留原始行结尾 (CRLF/CR)，而不是标准化为 LF。补丁与 CRLF 文件兼容所需。"
   },
   "zh_TW": {
-    "x_search_terms": [
-      "diff files",
-      "file diff",
-      "compare files",
-      "difference",
-      "unified diff",
-      "diff"
-    ],
     "tool.description": "比較文件或文字內容並返回結構化差異輸出。支援統一、摘要和 json_diff 模式。",
+    "x_search_terms": [
+      "diff 文件",
+      "文件 diff",
+      "比較文件",
+      "差異",
+      "統一差異",
+      "diff",
+      "fuァイル比較",
+      "分數"
+    ],
     "param.path1.description": "第一個檔案路徑（除非指定了 path2，否則是必要的）。",
     "param.path2.description": "第二個檔案路徑。省略將 path1 與“text”進行比較。",
     "param.text.description": "若要與路徑 1 進行比較的文字內容（省略路徑 2 時使用）。",
@@ -221,15 +231,17 @@
     "param.preserve_line_endings.description": "在 diff 輸出中保留原始行結尾 (CRLF/CR)，而不是標準化為 LF。補丁與 CRLF 檔案相容所需。"
   },
   "ko": {
-    "x_search_terms": [
-      "diff files",
-      "file diff",
-      "compare files",
-      "difference",
-      "unified diff",
-      "diff"
-    ],
     "tool.description": "파일이나 텍스트 콘텐츠를 비교하고 구조화된 diff 출력을 반환합니다. 통합, 요약 및 json_diff 모드를 지원합니다.",
+    "x_search_terms": [
+      "diff 파일",
+      "파일 diff",
+      "비교 파일",
+      "difference",
+      "통합 diff",
+      "diff",
+      "FァIR比較",
+      "差分"
+    ],
     "param.path1.description": "첫 번째 파일 경로(path2가 지정되지 않은 경우 필수).",
     "param.path2.description": "두 번째 파일 경로입니다. path1을 'text'와 비교하는 것을 생략합니다.",
     "param.text.description": "path1과 비교할 텍스트 콘텐츠입니다(path2가 생략된 경우 사용됨).",
@@ -252,15 +264,17 @@
     "param.preserve_line_endings.description": "LF로 정규화하는 대신 diff 출력에서 ​​원래 줄 끝(CRLF/CR)을 유지합니다. CRLF 파일과의 패치 호환성을 위해 필요합니다."
   },
   "ru": {
-    "x_search_terms": [
-      "diff files",
-      "file diff",
-      "compare files",
-      "difference",
-      "unified diff",
-      "diff"
-    ],
     "tool.description": "Сравнивайте файлы или текстовое содержимое и возвращайте структурированные выходные данные различий. Поддерживает унифицированный, сводный режимы и режимы json_diff.",
+    "x_search_terms": [
+      "файлы различий",
+      "разности файлов",
+      "сравнить файлы",
+      "разница",
+      "унифицированные различия",
+      "diff",
+      "ファイル比較",
+      "差分"
+    ],
     "param.path1.description": "Путь к первому файлу (обязательно, если не указан путь2).",
     "param.path2.description": "Второй путь к файлу. Опустите сравнение пути1 с «текстом».",
     "param.text.description": "Текстовое содержимое для сравнения с пути1 (используется, когда путь2 опущен).",
@@ -283,15 +297,17 @@
     "param.preserve_line_endings.description": "Сохраняйте исходные окончания строк (CRLF/CR) в выводе diff вместо нормализации к LF. Требуется для совместимости исправлений с файлами CRLF."
   },
   "it": {
-    "x_search_terms": [
-      "diff files",
-      "file diff",
-      "compare files",
-      "difference",
-      "unified diff",
-      "diff"
-    ],
     "tool.description": "Confronta file o contenuto di testo e restituisce un output di confronto strutturato. Supporta le modalità unificata, riepilogo e json_diff.",
+    "x_search_terms": [
+      "file diff",
+      "file diff",
+      "confronta file",
+      "differenza",
+      "diff unificato",
+      "diff",
+      "ファイル比較",
+      "差分"
+    ],
     "param.path1.description": "Percorso del primo file (obbligatorio a meno che non venga specificato il percorso2).",
     "param.path2.description": "Secondo percorso del file. Ometti di confrontare il percorso1 con il \"testo\".",
     "param.text.description": "Contenuto di testo da confrontare con il percorso1 (utilizzato quando il percorso2 viene omesso).",
@@ -314,15 +330,17 @@
     "param.preserve_line_endings.description": "Conserva le terminazioni di riga originali (CRLF/CR) nell'output diff invece di normalizzarle in LF. Necessario per la compatibilità delle patch con i file CRLF."
   },
   "pt_BR": {
-    "x_search_terms": [
-      "diff files",
-      "file diff",
-      "compare files",
-      "difference",
-      "unified diff",
-      "diff"
-    ],
     "tool.description": "Compare arquivos ou conteúdo de texto e retorne uma saída de comparação estruturada. Suporta modos unificado, resumo e json_diff.",
+    "x_search_terms": [
+      "arquivos diff",
+      "arquivo diff",
+      "comparar arquivos",
+      "diferença",
+      "diff unificado",
+      "diff",
+      "ファイル比較",
+      "差分"
+    ],
     "param.path1.description": "Primeiro caminho do arquivo (obrigatório, a menos que path2 seja especificado).",
     "param.path2.description": "Segundo caminho do arquivo. Omita a comparação do caminho1 com o 'texto'.",
     "param.text.description": "Conteúdo de texto a ser comparado com path1 (usado quando path2 é omitido).",
@@ -345,15 +363,17 @@
     "param.preserve_line_endings.description": "Preservar os finais de linha originais (CRLF/CR) na saída diff em vez de normalizar para LF. Necessário para compatibilidade de patch com arquivos CRLF."
   },
   "pt": {
-    "x_search_terms": [
-      "diff files",
-      "file diff",
-      "compare files",
-      "difference",
-      "unified diff",
-      "diff"
-    ],
     "tool.description": "Compare arquivos ou conteúdo de texto e retorne uma saída de comparação estruturada. Suporta modos unificado, resumo e json_diff.",
+    "x_search_terms": [
+      "arquivos diff",
+      "arquivo diff",
+      "comparar arquivos",
+      "diferença",
+      "diff unificado",
+      "diff",
+      "ファイル比較",
+      "差分"
+    ],
     "param.path1.description": "Primeiro caminho do arquivo (obrigatório, a menos que path2 seja especificado).",
     "param.path2.description": "Segundo caminho do arquivo. Omita a comparação do caminho1 com o 'texto'.",
     "param.text.description": "Conteúdo de texto a ser comparado com path1 (usado quando path2 é omitido).",
@@ -376,15 +396,17 @@
     "param.preserve_line_endings.description": "Preservar os finais de linha originais (CRLF/CR) na saída diff em vez de normalizar para LF. Necessário para compatibilidade de patch com arquivos CRLF."
   },
   "nl": {
-    "x_search_terms": [
-      "diff files",
-      "file diff",
-      "compare files",
-      "difference",
-      "unified diff",
-      "diff"
-    ],
     "tool.description": "Vergelijk bestanden of tekstinhoud en retourneer gestructureerde diff-uitvoer. Ondersteunt de uniforme, samenvattings- en json_diff-modi.",
+    "x_search_terms": [
+      "diff-bestanden",
+      "bestand diff",
+      "bestanden vergelijken",
+      "verschil",
+      "unified diff",
+      "diff",
+      "ファイル比較",
+      "差分"
+    ],
     "param.path1.description": "Eerste bestandspad (vereist tenzij pad2 is opgegeven).",
     "param.path2.description": "Tweede bestandspad. Laat het vergelijken van pad1 met 'tekst' achterwege.",
     "param.text.description": "Tekstinhoud die moet worden vergeleken met pad1 (gebruikt wanneer pad2 wordt weggelaten).",
@@ -407,15 +429,17 @@
     "param.preserve_line_endings.description": "Behoud de originele regeleinden (CRLF/CR) in diff-uitvoer in plaats van te normaliseren naar LF. Vereist voor patchcompatibiliteit met CRLF-bestanden."
   },
   "pl": {
-    "x_search_terms": [
-      "diff files",
-      "file diff",
-      "compare files",
-      "difference",
-      "unified diff",
-      "diff"
-    ],
     "tool.description": "Porównaj pliki lub treść tekstową i zwróć dane wyjściowe o strukturze różnicowej. Obsługuje tryby ujednolicony, podsumowujący i json_diff.",
+    "x_search_terms": [
+      "pliki diff",
+      "plik różnica",
+      "porównaj pliki",
+      "różnica",
+      "ujednolicony różnic",
+      "diff",
+      "ファイル比較",
+      "差分"
+    ],
     "param.path1.description": "Ścieżka pierwszego pliku (wymagana, chyba że określono ścieżkę 2).",
     "param.path2.description": "Druga ścieżka pliku. Pomiń porównanie ścieżki 1 z „tekstem”.",
     "param.text.description": "Treść tekstowa do porównania ze ścieżką 1 (używana, gdy pominięto ścieżkę 2).",
@@ -438,15 +462,17 @@
     "param.preserve_line_endings.description": "Zachowaj oryginalne zakończenia linii (CRLF/CR) na wyjściu różnicowym zamiast normalizować do LF. Wymagane dla zgodności poprawek z plikami CRLF."
   },
   "sv": {
+    "tool.description": "Jämför filer eller textinnehåll och returnera strukturerad diff-utdata. Stöder enhetliga, sammanfattnings- och json_diff-lägen.",
     "x_search_terms": [
-      "diff files",
-      "file diff",
-      "compare files",
+      "diff filer",
+      "fil diff",
+      "jämför filer",
       "difference",
       "unified diff",
-      "diff"
+      "diff",
+      "ファイル比較",
+      "差分"
     ],
-    "tool.description": "Jämför filer eller textinnehåll och returnera strukturerad diff-utdata. Stöder enhetliga, sammanfattnings- och json_diff-lägen.",
     "param.path1.description": "Första filsökvägen (krävs om inte sökväg2 anges).",
     "param.path2.description": "Andra filsökvägen. Uteslut för att jämföra sökväg1 med \"text\".",
     "param.text.description": "Textinnehåll att jämföra mot sökväg1 (används när sökväg2 utelämnas).",
@@ -469,15 +495,17 @@
     "param.preserve_line_endings.description": "Bevara ursprungliga radändelser (CRLF/CR) i diff-utgång istället för att normalisera till LF. Krävs för patchkompatibilitet med CRLF-filer."
   },
   "id": {
+    "tool.description": "Bandingkan file atau konten teks dan kembalikan keluaran diff terstruktur. Mendukung mode terpadu, ringkasan, dan json_diff.",
     "x_search_terms": [
-      "diff files",
       "file diff",
-      "compare files",
+      "file diff",
+      "bandingkan file",
       "difference",
       "unified diff",
-      "diff"
+      "diff",
+      "ファイル比較",
+      "差分"
     ],
-    "tool.description": "Bandingkan file atau konten teks dan kembalikan keluaran diff terstruktur. Mendukung mode terpadu, ringkasan, dan json_diff.",
     "param.path1.description": "Jalur file pertama (diperlukan kecuali jalur2 ditentukan).",
     "param.path2.description": "Jalur file kedua. Abaikan untuk membandingkan jalur1 dengan 'teks'.",
     "param.text.description": "Konten teks untuk dibandingkan dengan jalur1 (digunakan ketika jalur2 dihilangkan).",
@@ -500,15 +528,17 @@
     "param.preserve_line_endings.description": "Pertahankan akhiran baris asli (CRLF/CR) dalam keluaran diff alih-alih melakukan normalisasi ke LF. Diperlukan untuk kompatibilitas patch dengan file CRLF."
   },
   "tr": {
-    "x_search_terms": [
-      "diff files",
-      "file diff",
-      "compare files",
-      "difference",
-      "unified diff",
-      "diff"
-    ],
     "tool.description": "Dosyaları veya metin içeriğini karşılaştırın ve yapılandırılmış fark çıktısını döndürün. Birleşik, özet ve json_diff modlarını destekler.",
+    "x_search_terms": [
+      "diff dosyaları",
+      "dosya diff",
+      "dosyaları karşılaştır",
+      "difference",
+      "birleştirilmiş fark",
+      "diff",
+      "ファイル比較",
+      "差分"
+    ],
     "param.path1.description": "İlk dosya yolu (yol2 belirtilmediği sürece gereklidir).",
     "param.path2.description": "İkinci dosya yolu. Yol1'i 'metin' ile karşılaştırmayı atlayın.",
     "param.text.description": "Yol1 ile karşılaştırılacak metin içeriği (yol2 atlandığında kullanılır).",
@@ -531,15 +561,17 @@
     "param.preserve_line_endings.description": "LF'ye normalleştirmek yerine fark çıktısındaki orijinal satır sonlarını (CRLF/CR) koruyun. CRLF dosyalarıyla yama uyumluluğu için gereklidir."
   },
   "th": {
-    "x_search_terms": [
-      "diff files",
-      "file diff",
-      "compare files",
-      "difference",
-      "unified diff",
-      "diff"
-    ],
     "tool.description": "เปรียบเทียบไฟล์หรือเนื้อหาข้อความและส่งคืนเอาต์พุตส่วนต่างที่มีโครงสร้าง รองรับโหมดรวม สรุป และ json_diff",
+    "x_search_terms": [
+      "ไฟล์ diff",
+      "ไฟล์ diff",
+      "เปรียบเทียบไฟล์",
+      "ความแตกต่าง",
+      "unified diff",
+      "diff",
+      "ファイル比較",
+      "差分"
+    ],
     "param.path1.description": "เส้นทางไฟล์แรก (จำเป็น เว้นแต่ระบุ path2)",
     "param.path2.description": "เส้นทางไฟล์ที่สอง ละเว้นเพื่อเปรียบเทียบ path1 กับ 'ข้อความ'",
     "param.text.description": "เนื้อหาข้อความเพื่อเปรียบเทียบกับ path1 (ใช้เมื่อละเว้น path2)",
@@ -562,15 +594,17 @@
     "param.preserve_line_endings.description": "รักษาการสิ้นสุดบรรทัดเดิม (CRLF/CR) ในเอาต์พุต diff แทนการทำให้เป็นมาตรฐานเป็น LF จำเป็นสำหรับความเข้ากันได้ของแพตช์กับไฟล์ CRLF"
   },
   "vi": {
-    "x_search_terms": [
-      "diff files",
-      "file diff",
-      "compare files",
-      "difference",
-      "unified diff",
-      "diff"
-    ],
     "tool.description": "So sánh các tệp hoặc nội dung văn bản và trả về đầu ra khác biệt có cấu trúc. Hỗ trợ các chế độ thống nhất, tóm tắt và json_diff.",
+    "x_search_terms": [
+      "các tập tin khác biệt",
+      "tập tin khác biệt",
+      "so sánh các tập tin",
+      "sự khác biệt",
+      "khác biệt thống nhất",
+      "diff",
+      "ファイル比較",
+      "差分"
+    ],
     "param.path1.description": "Đường dẫn tệp đầu tiên (bắt buộc trừ khi path2 được chỉ định).",
     "param.path2.description": "Đường dẫn tập tin thứ hai. Bỏ qua để so sánh path1 với 'văn bản'.",
     "param.text.description": "Nội dung văn bản để so sánh với path1 (được sử dụng khi bỏ qua path2).",
@@ -593,15 +627,17 @@
     "param.preserve_line_endings.description": "Giữ nguyên các kết thúc dòng gốc (CRLF/CR) ở đầu ra khác thay vì chuẩn hóa thành LF. Cần thiết để tương thích bản vá với các tệp CRLF."
   },
   "uk": {
+    "tool.description": "Порівняйте файли або текстовий вміст і поверніть структурований вихід різниць. Підтримує режими unified, summary і json_diff.",
     "x_search_terms": [
       "diff files",
       "file diff",
-      "compare files",
+      "порівняти файли",
       "difference",
       "unified diff",
-      "diff"
+      "diff",
+      "ファイル比較",
+      "差分"
     ],
-    "tool.description": "Порівняйте файли або текстовий вміст і поверніть структурований вихід різниць. Підтримує режими unified, summary і json_diff.",
     "param.path1.description": "Перший шлях до файлу (обов’язковий, якщо не вказано path2).",
     "param.path2.description": "Другий шлях до файлу. Пропустіть порівняння пати1 із 'text'.",
     "param.text.description": "Текстовий вміст для порівняння зі шляхом 1 (використовується, коли шлях 2 опущено).",
@@ -624,15 +660,17 @@
     "param.preserve_line_endings.description": "Зберігайте оригінальні закінчення рядків (CRLF/CR) у виведенні відмінностей замість нормалізації до LF. Необхідний для сумісності патча з файлами CRLF."
   },
   "ro": {
-    "x_search_terms": [
-      "diff files",
-      "file diff",
-      "compare files",
-      "difference",
-      "unified diff",
-      "diff"
-    ],
     "tool.description": "Comparați fișierele sau conținutul text și returnați rezultatul diferit structurat. Acceptă modurile unificate, rezumat și json_diff.",
+    "x_search_terms": [
+      "fișiere diff",
+      "fișier diff",
+      "compara fișiere",
+      "diferență",
+      "unified diff",
+      "diff",
+      "ファイル比較",
+      "差分"
+    ],
     "param.path1.description": "Prima cale de fișier (obligatorie, dacă nu este specificată calea2).",
     "param.path2.description": "A doua cale de fișier. Omiteți să comparați calea 1 cu „text”.",
     "param.text.description": "Conținut text de comparat cu calea1 (utilizat când calea2 este omisă).",
@@ -655,15 +693,17 @@
     "param.preserve_line_endings.description": "Păstrați terminațiile de linie originale (CRLF/CR) în ieșirea diferită în loc să se normalizeze la LF. Necesar pentru compatibilitatea corecțiilor cu fișierele CRLF."
   },
   "cs": {
-    "x_search_terms": [
-      "diff files",
-      "file diff",
-      "compare files",
-      "difference",
-      "unified diff",
-      "diff"
-    ],
     "tool.description": "Porovnejte soubory nebo textový obsah a vraťte výstup strukturovaného rozdílu. Podporuje režimy Unified, Summary a json_diff.",
+    "x_search_terms": [
+      "rozdíl souborů",
+      "soubor rozdíl",
+      "porovnat soubory",
+      "rozdíl",
+      "sjednocený rozdíl",
+      "rozdíl",
+      "ファイル比較",
+      "差分"
+    ],
     "param.path1.description": "První cesta k souboru (povinná, pokud není zadaná cesta 2).",
     "param.path2.description": "Druhá cesta k souboru. Vynechat porovnat cestu1 s 'textem'.",
     "param.text.description": "Textový obsah k porovnání s cestou1 (používá se, když je vynechána cesta2).",
@@ -686,15 +726,17 @@
     "param.preserve_line_endings.description": "Zachovat původní konce řádků (CRLF/CR) ve výstupu rozdílu namísto normalizace na LF. Vyžadováno pro kompatibilitu oprav se soubory CRLF."
   },
   "ar": {
-    "x_search_terms": [
-      "diff files",
-      "file diff",
-      "compare files",
-      "difference",
-      "unified diff",
-      "diff"
-    ],
     "tool.description": "قارن الملفات أو محتوى النص وأرجع مخرجات الفرق المنظمة. يدعم الأوضاع الموحدة والملخصة و json_diff.",
+    "x_search_terms": [
+      "ملفات الفرق",
+      "ملف الفرق",
+      "مقارنة الملفات",
+      "الفرق",
+      "الفرق الموحد",
+      "الفرق",
+      "ファイル比較",
+      "差分"
+    ],
     "param.path1.description": "مسار الملف الأول (مطلوب ما لم يتم تحديد المسار 2).",
     "param.path2.description": "مسار الملف الثاني احذف مقارنة المسار 1 بـ \"النص\".",
     "param.text.description": "محتوى نصي للمقارنة مع المسار 1 (يستخدم عندما يتم حذف المسار 2).",
@@ -717,15 +759,17 @@
     "param.preserve_line_endings.description": "الحفاظ على نهايات الأسطر الأصلية (CRLF/CR) في مخرجات مختلفة بدلاً من تطبيعها إلى LF. مطلوب لتوافق التصحيح مع ملفات CRLF."
   },
   "bn": {
+    "tool.description": "ফাইল বা টেক্সট বিষয়বস্তুর তুলনা করুন এবং স্ট্রাক্চারড ডিফ আউটপুট ফেরত দিন। ইউনিফাইড, সারাংশ এবং json_diff মোড সমর্থন করে।",
     "x_search_terms": [
       "diff files",
       "file diff",
-      "compare files",
+      "ফাইলের তুলনা",
       "difference",
-      "unified diff",
-      "diff"
+      "uniified diff",
+      "diff",
+      "ファイル比較",
+      "差分"
     ],
-    "tool.description": "ফাইল বা টেক্সট বিষয়বস্তুর তুলনা করুন এবং স্ট্রাক্চারড ডিফ আউটপুট ফেরত দিন। ইউনিফাইড, সারাংশ এবং json_diff মোড সমর্থন করে।",
     "param.path1.description": "প্রথম ফাইল পাথ (পাথ2 নির্দিষ্ট না থাকলে প্রয়োজনীয়।",
     "param.path2.description": "দ্বিতীয় ফাইল পাথ। 'টেক্সট' এর সাথে path1 তুলনা করা বাদ দিন।",
     "param.text.description": "path1 এর সাথে তুলনা করার জন্য পাঠ্য বিষয়বস্তু (প্যাথ2 বাদ দেওয়া হলে ব্যবহৃত হয়।",
@@ -748,15 +792,17 @@
     "param.preserve_line_endings.description": "LF-এ স্বাভাবিক করার পরিবর্তে ভিন্ন আউটপুটে মূল লাইন শেষ (CRLF/CR) সংরক্ষণ করুন। CRLF ফাইলগুলির সাথে প্যাচ সামঞ্জস্যের জন্য প্রয়োজনীয়৷"
   },
   "el": {
-    "x_search_terms": [
-      "diff files",
-      "file diff",
-      "compare files",
-      "difference",
-      "unified diff",
-      "diff"
-    ],
     "tool.description": "Συγκρίνετε αρχεία ή περιεχόμενο κειμένου και επιστρέφετε έξοδο δομημένης διαφοράς. Υποστηρίζει λειτουργίες ενοποιημένες, σύνοψης και json_diff.",
+    "x_search_terms": [
+      "διαφορετικά αρχεία",
+      "αρχείο διαφορά",
+      "σύγκριση αρχείων",
+      "διαφορά",
+      "ενοποιημένη διαφορά",
+      "diff",
+      "ファイル比較",
+      "差分"
+    ],
     "param.path1.description": "Πρώτη διαδρομή αρχείου (απαιτείται εκτός εάν έχει καθοριστεί η διαδρομή 2).",
     "param.path2.description": "Δεύτερη διαδρομή αρχείου. Παράλειψη σύγκρισης διαδρομής 1 με «κείμενο».",
     "param.text.description": "Περιεχόμενο κειμένου προς σύγκριση με τη διαδρομή 1 (χρησιμοποιείται όταν η διαδρομή 2 παραλείπεται).",
@@ -779,15 +825,17 @@
     "param.preserve_line_endings.description": "Διατηρήστε τις αρχικές καταλήξεις γραμμών (CRLF/CR) στην έξοδο διαφοράς αντί να κανονικοποιήσετε σε LF. Απαιτείται για συμβατότητα ενημέρωσης κώδικα με αρχεία CRLF."
   },
   "fa": {
-    "x_search_terms": [
-      "diff files",
-      "file diff",
-      "compare files",
-      "difference",
-      "unified diff",
-      "diff"
-    ],
     "tool.description": "فایل ها یا محتوای متنی را با هم مقایسه کنید و خروجی تفاوت ساختار یافته را برگردانید. از حالت های یکپارچه، خلاصه و json_diff پشتیبانی می کند.",
+    "x_search_terms": [
+      "فایل‌های متفاوت",
+      "",
+      "",
+      "",
+      "",
+      "",
+      "",
+      ""
+    ],
     "param.path1.description": "مسیر فایل اول (الزامی است مگر اینکه path2 مشخص شده باشد).",
     "param.path2.description": "مسیر فایل دوم. از مقایسه مسیر 1 با «متن» صرف نظر کنید.",
     "param.text.description": "محتوای متنی برای مقایسه با مسیر 1 (در صورت حذف مسیر 2 استفاده می شود).",
@@ -810,15 +858,17 @@
     "param.preserve_line_endings.description": "به جای عادی سازی به LF، انتهای خط اصلی (CRLF/CR) را در خروجی diff حفظ کنید. برای سازگاری پچ با فایل های CRLF مورد نیاز است."
   },
   "fi": {
-    "x_search_terms": [
-      "diff files",
-      "file diff",
-      "compare files",
-      "difference",
-      "unified diff",
-      "diff"
-    ],
     "tool.description": "Vertaa tiedostoja tai tekstisisältöä ja palauta strukturoitu erotustulos. Tukee yhdistettyjä, yhteenveto- ja json_diff-tiloja.",
+    "x_search_terms": [
+      "diff-tiedostot",
+      "tiedosto ero",
+      "vertaa tiedostoja",
+      "ero",
+      "yhdistetty ero",
+      "diff",
+      "ファイル比較",
+      "差分"
+    ],
     "param.path1.description": "Ensimmäinen tiedostopolku (pakollinen, ellei polkua ole määritetty).",
     "param.path2.description": "Toinen tiedostopolku. Jätä polun 1 vertaaminen tekstiin.",
     "param.text.description": "Tekstisisältö, jota verrataan polku1:een (käytetään, kun polku2 jätetään pois).",
@@ -841,15 +891,17 @@
     "param.preserve_line_endings.description": "Säilytä alkuperäiset rivinpäätteet (CRLF/CR) erotuslähdössä sen sijaan, että normalisoitisit LF:ksi. Vaaditaan korjaustiedoston yhteensopivuuden vuoksi CRLF-tiedostojen kanssa."
   },
   "he": {
+    "tool.description": "השווה קבצים או תוכן טקסט והחזר פלט הבדל מובנה. תומך במצבים מאוחדים, סיכום ו-json_diff.",
     "x_search_terms": [
       "diff files",
       "file diff",
-      "compare files",
+      "השוואת קבצים",
       "difference",
       "unified diff",
-      "diff"
+      "diff",
+      "ファイル比較",
+      "差分"
     ],
-    "tool.description": "השווה קבצים או תוכן טקסט והחזר פלט הבדל מובנה. תומך במצבים מאוחדים, סיכום ו-json_diff.",
     "param.path1.description": "נתיב קובץ ראשון (נדרש אלא אם צוין נתיב2).",
     "param.path2.description": "נתיב קובץ שני. הסר כדי להשוות את path1 מול 'טקסט'.",
     "param.text.description": "תוכן טקסט להשוואה מול נתיב1 (משמש כאשר נתיב2 מושמט).",
@@ -872,15 +924,17 @@
     "param.preserve_line_endings.description": "שמור את סיומות השורות המקוריות (CRLF/CR) בפלט הבדל במקום לנרמל ל-LF. נדרש עבור תאימות תיקון לקבצי CRLF."
   },
   "hi": {
-    "x_search_terms": [
-      "diff files",
-      "file diff",
-      "compare files",
-      "difference",
-      "unified diff",
-      "diff"
-    ],
     "tool.description": "फ़ाइलों या पाठ सामग्री की तुलना करें और संरचित भिन्न आउटपुट लौटाएँ। एकीकृत, सारांश और json_diff मोड का समर्थन करता है।",
+    "x_search_terms": [
+      "अंतर फ़ाइलें",
+      "फ़ाइल अंतर",
+      "फ़ाइलों की तुलना",
+      "अंतर",
+      "एकीकृत अंतर",
+      "ファイル比較",
+      "差分",
+      ""
+    ],
     "param.path1.description": "प्रथम फ़ाइल पथ (जब तक पथ2 निर्दिष्ट न हो तब तक आवश्यक है)।",
     "param.path2.description": "दूसरा फ़ाइल पथ. 'पाठ' के विरुद्ध पथ1 की तुलना करना छोड़ें।",
     "param.text.description": "पथ 1 के विरुद्ध तुलना करने के लिए पाठ सामग्री (पथ 2 को छोड़े जाने पर उपयोग किया जाता है)।",
@@ -903,15 +957,17 @@
     "param.preserve_line_endings.description": "एलएफ को सामान्य करने के बजाय भिन्न आउटपुट में मूल पंक्ति अंत (सीआरएलएफ/सीआर) को संरक्षित करें। सीआरएलएफ फाइलों के साथ पैच संगतता के लिए आवश्यक।"
   },
   "hu": {
+    "tool.description": "Hasonlítsa össze a fájlokat vagy szöveges tartalmat, és adja vissza a strukturált diff kimenetet. Támogatja az egyesített, összefoglaló és json_diff módokat.",
     "x_search_terms": [
       "diff files",
       "file diff",
       "compare files",
       "difference",
       "unified diff",
-      "diff"
+      "diff",
+      "ファイル比較",
+      "差分"
     ],
-    "tool.description": "Hasonlítsa össze a fájlokat vagy szöveges tartalmat, és adja vissza a strukturált diff kimenetet. Támogatja az egyesített, összefoglaló és json_diff módokat.",
     "param.path1.description": "Első fájl elérési útja (szükséges, ha nincs megadva az elérési út 2).",
     "param.path2.description": "Második fájl elérési útja. Hagyja el az path1 és a \"text\" összehasonlítását.",
     "param.text.description": "Szöveges tartalom az elérési út 1-el való összehasonlításához (az elérési út 2 kihagyásakor használatos).",
@@ -934,15 +990,17 @@
     "param.preserve_line_endings.description": "Őrizze meg az eredeti sorvégződéseket (CRLF/CR) a diff kimenetben az LF-re történő normalizálás helyett. Szükséges a javítások CRLF fájlokkal való kompatibilitásához."
   },
   "mn": {
-    "x_search_terms": [
-      "diff files",
-      "file diff",
-      "compare files",
-      "difference",
-      "unified diff",
-      "diff"
-    ],
     "tool.description": "Файл эсвэл текстийн агуулгыг харьцуулж, бүтэцлэгдсөн дифференцийн гаралтыг буцаана уу. Нэгдсэн, хураангуй, json_diff горимуудыг дэмждэг.",
+    "x_search_terms": [
+      "diff файлууд",
+      "file diff",
+      "харьцуулах файлууд",
+      "ялгаанууд",
+      "нэгдсэн ялгаа",
+      "diff",
+      "ファイル比較",
+      "差分"
+    ],
     "param.path1.description": "Эхний файлын зам (зам2-ыг заагаагүй бол шаардлагатай).",
     "param.path2.description": "Хоёр дахь файлын зам. Зам1-ыг \"текст\"-тэй харьцуулахыг орхи.",
     "param.text.description": "Зам1-тэй харьцуулах текстийн контент (зам2-г орхигдуулсан үед хэрэглэнэ).",
@@ -965,15 +1023,17 @@
     "param.preserve_line_endings.description": "LF болгон хэвийн болгохын оронд ялгах гаралт дахь анхны мөрийн төгсгөлүүдийг (CRLF/CR) хадгал. CRLF файлуудтай нөхөөстэй нийцтэй байх шаардлагатай."
   },
   "mr": {
+    "tool.description": "फाइल्स किंवा मजकूर सामग्रीची तुलना करा आणि संरचित भिन्न आउटपुट परत करा. युनिफाइड, सारांश आणि json_diff मोडला सपोर्ट करते.",
     "x_search_terms": [
       "diff files",
       "file diff",
-      "compare files",
-      "difference",
+      "फाईल्सची तुलना करा",
+      " difference",
       "unified diff",
-      "diff"
+      "diff",
+      "ファイル比較",
+      "差分"
     ],
-    "tool.description": "फाइल्स किंवा मजकूर सामग्रीची तुलना करा आणि संरचित भिन्न आउटपुट परत करा. युनिफाइड, सारांश आणि json_diff मोडला सपोर्ट करते.",
     "param.path1.description": "प्रथम फाइल पथ (पथ2 निर्दिष्ट केल्याशिवाय आवश्यक).",
     "param.path2.description": "दुसरा फाइल मार्ग. 'मजकूर' विरुद्ध path1 ची तुलना करणे वगळा.",
     "param.text.description": "पाथ1 शी तुलना करण्यासाठी मजकूर सामग्री (पथ2 वगळल्यावर वापरला जातो).",
@@ -996,15 +1056,17 @@
     "param.preserve_line_endings.description": "ओरिजिनल लाइन एंडिंग (CRLF/CR) LF ला नॉर्मल करण्याऐवजी डिफ आउटपुटमध्ये जतन करा. CRLF फाइल्ससह पॅच सुसंगततेसाठी आवश्यक."
   },
   "nb": {
+    "tool.description": "Sammenlign filer eller tekstinnhold og returner strukturert diff-utgang. Støtter enhetlige, sammendrags- og json_diff-moduser.",
     "x_search_terms": [
-      "diff files",
-      "file diff",
-      "compare files",
+      "diff filer",
+      "fil diff",
+      "sammenlign filer",
       "difference",
       "unified diff",
-      "diff"
+      "diff",
+      "ファイル比較",
+      "差分"
     ],
-    "tool.description": "Sammenlign filer eller tekstinnhold og returner strukturert diff-utgang. Støtter enhetlige, sammendrags- og json_diff-moduser.",
     "param.path1.description": "Første filbane (påkrevd med mindre bane2 er spesifisert).",
     "param.path2.description": "Andre filbane. Utelat for å sammenligne sti1 med 'tekst'.",
     "param.text.description": "Tekstinnhold som skal sammenlignes med bane1 (brukes når sti2 er utelatt).",
@@ -1027,15 +1089,17 @@
     "param.preserve_line_endings.description": "Behold originale linjeavslutninger (CRLF/CR) i diff-utgang i stedet for å normalisere til LF. Nødvendig for patch-kompatibilitet med CRLF-filer."
   },
   "sw": {
+    "tool.description": "Linganisha faili au maudhui ya maandishi na urudishe towe la muundo tofauti. Inaauni hali zilizounganishwa, muhtasari na json_diff.",
     "x_search_terms": [
       "diff files",
       "file diff",
       "compare files",
       "difference",
       "unified diff",
-      "diff"
+      "diff",
+      "ファイル比較",
+      "差分"
     ],
-    "tool.description": "Linganisha faili au maudhui ya maandishi na urudishe towe la muundo tofauti. Inaauni hali zilizounganishwa, muhtasari na json_diff.",
     "param.path1.description": "Njia ya faili ya kwanza (inahitajika isipokuwa njia2 imeainishwa).",
     "param.path2.description": "Njia ya pili ya faili. Acha kulinganisha path1 dhidi ya 'maandishi'.",
     "param.text.description": "Maudhui ya maandishi ya kulinganisha dhidi ya path1 (hutumika wakati path2 imeachwa).",

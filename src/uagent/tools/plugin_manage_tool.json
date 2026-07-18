@@ -327,12 +327,12 @@
     "tool.description": "Správa zásuvných modulů uagent: seznam, instalace, odstranění, povolení, zakázání, ověření nebo získání informací o zásuvném modulu.",
     "x_search_terms": [
       "plugin_manage",
-      "manage plugin",
-      "install plugin",
-      "remove plugin",
-      "enable plugin",
-      "disable plugin",
-      "list plugins"
+      "spravovat plugin",
+      "instalovat plugin",
+      "odebrat plugin",
+      "povolit plugin",
+      "zakázat plugin",
+      "seznam pluginů"
     ],
     "param.action.description": "Operace k provedení. Jeden z: list/install/remove/enable/disable/validate/info.",
     "param.source.description": "Zdrojová adresa URL nebo cesta pro akci instalace (Git URL, HTTP ZIP, místní adresář).",
@@ -407,13 +407,13 @@
   "fi": {
     "tool.description": "Hallinnoi uagent-laajennuksia: lue, asenna, poista, ota käyttöön, poista käytöstä, vahvista tai hanki tietoja laajennuksesta.",
     "x_search_terms": [
-      "plugin_manage",
-      "manage plugin",
-      "install plugin",
-      "remove plugin",
-      "enable plugin",
-      "disable plugin",
-      "list plugins"
+      "laajennus",
+      "",
+      "",
+      "",
+      "",
+      "",
+      ""
     ],
     "param.action.description": "Suoritettava toimenpide. Yksi seuraavista: lista/asenna/poista/ota käyttöön/poista käytöstä/validate/info.",
     "param.source.description": "Lähteen URL-osoite tai asennustoiminnon polku (Git URL, HTTP ZIP, paikallinen hakemisto).",
@@ -516,12 +516,12 @@
     "tool.description": "Kelola plugin uagent: daftar, instal, hapus, aktifkan, nonaktifkan, validasi, atau dapatkan info tentang plugin.",
     "x_search_terms": [
       "plugin_manage",
-      "manage plugin",
-      "install plugin",
-      "remove plugin",
-      "enable plugin",
-      "disable plugin",
-      "list plugins"
+      "kelola plugin",
+      "instal plugin",
+      "hapus plugin",
+      "aktifkan plugin",
+      "nonaktifkan plugin",
+      "daftar plugin"
     ],
     "param.action.description": "Operasi untuk dilakukan. Salah satu dari: list/install/remove/enable/disable/validate/info.",
     "param.source.description": "URL sumber atau jalur untuk tindakan pemasangan (URL Git, HTTP ZIP, direktori lokal).",
@@ -543,12 +543,12 @@
     "tool.description": "Gestisci i plugin uagent: elenca, installa, rimuovi, abilita, disabilita, convalida o ottieni informazioni su un plugin.",
     "x_search_terms": [
       "plugin_manage",
-      "manage plugin",
-      "install plugin",
-      "remove plugin",
-      "enable plugin",
-      "disable plugin",
-      "list plugins"
+      "gestisci plugin",
+      "installa plugin",
+      "rimuovi plugin",
+      "abilita plugin",
+      "disabilita plugin",
+      "elenca plugin"
     ],
     "param.action.description": "Operazione da eseguire. Uno tra: elenca/installa/rimuovi/abilita/disabilita/convalida/info.",
     "param.source.description": "URL di origine o percorso per l'azione di installazione (URL Git, ZIP HTTP, directory locale).",
@@ -651,12 +651,12 @@
     "tool.description": "Beheer uagent-plug-ins: lijst, installeer, verwijder, schakel in, schakel uit, valideer of krijg informatie over een plug-in.",
     "x_search_terms": [
       "plugin_manage",
-      "manage plugin",
-      "install plugin",
-      "remove plugin",
-      "enable plugin",
-      "disable plugin",
-      "list plugins"
+      "plug-in beheren",
+      "plug-in installeren",
+      "plug-in verwijderen",
+      "plug-in inschakelen",
+      "plug-in uitschakelen",
+      "plug-ins weergeven"
     ],
     "param.action.description": "Operatie uit te voeren. Eén van: list/install/remove/enable/disable/validate/info.",
     "param.source.description": "Bron-URL of pad voor installatieactie (Git-URL, HTTP ZIP, lokale map).",
@@ -678,12 +678,12 @@
     "tool.description": "Zarządzaj wtyczkami uagent: wyświetlaj, instaluj, usuwaj, włączaj, wyłączaj, sprawdzaj poprawność lub uzyskaj informacje o wtyczce.",
     "x_search_terms": [
       "plugin_manage",
-      "manage plugin",
-      "install plugin",
-      "remove plugin",
-      "enable plugin",
-      "disable plugin",
-      "list plugins"
+      "zarządzaj wtyczkami",
+      "zainstaluj wtyczkę",
+      "usuń wtyczkę",
+      "włącz wtyczkę",
+      "wyłącz wtyczkę",
+      "listę wtyczek"
     ],
     "param.action.description": "Operacja do wykonania. Jedno z: lista/zainstaluj/usuń/włącz/wyłącz/sprawdzj/informacje.",
     "param.source.description": "Źródłowy adres URL lub ścieżka do akcji instalacyjnej (URL Git, HTTP ZIP, katalog lokalny).",
@@ -705,12 +705,12 @@
     "tool.description": "Gerencie plug-ins do uagent: liste, instale, remova, habilite, desabilite, valide ou obtenha informações sobre um plug-in.",
     "x_search_terms": [
       "plugin_manage",
-      "manage plugin",
-      "install plugin",
-      "remove plugin",
-      "enable plugin",
-      "disable plugin",
-      "list plugins"
+      "gerenciar plugin",
+      "instalar plugin",
+      "remover plugin",
+      "habilitar plugin",
+      "desabilitar plugin",
+      "listar plugins"
     ],
     "param.action.description": "Operação a ser executada. Um de: listar/instalar/remover/habilitar/desabilitar/validar/info.",
     "param.source.description": "URL de origem ou caminho para ação de instalação (URL do Git, ZIP HTTP, diretório local).",
@@ -759,11 +759,11 @@
     "tool.description": "Hantera uagent-plugins: lista, installera, ta bort, aktivera, inaktivera, validera eller få information om ett plugin.",
     "x_search_terms": [
       "plugin_manage",
-      "manage plugin",
-      "install plugin",
-      "remove plugin",
-      "enable plugin",
-      "disable plugin",
+      "hantera plugin",
+      "installera plugin",
+      "ta bort plugin",
+      "aktivera plugin",
+      "inaktivera plugin",
       "list plugins"
     ],
     "param.action.description": "Operation att utföra. En av: list/install/remove/enable/disable/validate/info.",
@@ -839,13 +839,13 @@
   "tr": {
     "tool.description": "Ajan eklentilerini yönetin: bir eklentiyi listeleyin, yükleyin, kaldırın, etkinleştirin, devre dışı bırakın, doğrulayın veya eklenti hakkında bilgi alın.",
     "x_search_terms": [
-      "plugin_manage",
-      "manage plugin",
-      "install plugin",
-      "remove plugin",
-      "enable plugin",
-      "disable plugin",
-      "list plugins"
+      "eklenti_yönet",
+      "eklentiyi yönet",
+      "eklentiyi yükle",
+      "eklentiyi kaldır",
+      "eklentiyi etkinleştir",
+      "eklentiyi devre dışı bırak",
+      "eklentileri listele"
     ],
     "param.action.description": "Gerçekleştirilecek işlem. Şunlardan biri: listele/yükle/kaldır/etkinleştir/devre dışı bırak/doğrula/bilgi.",
     "param.source.description": "Yükleme eyleminin kaynak URL'si veya yolu (Git URL'si, HTTP ZIP, yerel dizin).",
@@ -867,12 +867,12 @@
     "tool.description": "Керуйте плагінами uagent: перераховуйте, встановлюйте, видаляйте, увімкніть, вимикайте, перевіряйте або отримуйте інформацію про плагін.",
     "x_search_terms": [
       "plugin_manage",
-      "manage plugin",
-      "install plugin",
-      "remove plugin",
-      "enable plugin",
-      "disable plugin",
-      "list plugins"
+      "керувати плагіном",
+      "встановити плагін",
+      "видалити плагін",
+      "увімкнути плагін",
+      "вимкнути плагін",
+      "список плагінів"
     ],
     "param.action.description": "Операція для виконання. Один із: list/install/remove/enable/disable/validate/info.",
     "param.source.description": "Вихідна URL-адреса або шлях для встановлення (URL-адреса Git, HTTP ZIP, локальний каталог).",
@@ -894,12 +894,12 @@
     "tool.description": "Quản lý plugin uagent: liệt kê, cài đặt, xóa, bật, tắt, xác thực hoặc nhận thông tin về plugin.",
     "x_search_terms": [
       "plugin_manage",
-      "manage plugin",
-      "install plugin",
-      "remove plugin",
-      "enable plugin",
-      "disable plugin",
-      "list plugins"
+      "quản lý plugin",
+      "cài đặt plugin",
+      "xóa plugin",
+      "bật plugin",
+      "tắt plugin",
+      "liệt kê plugin"
     ],
     "param.action.description": "Thao tác để thực hiện. Một trong: liệt kê/cài đặt/xóa/bật/tắt/xác thực/info.",
     "param.source.description": "URL nguồn hoặc đường dẫn cho hành động cài đặt (URL Git, HTTP ZIP, thư mục cục bộ).",

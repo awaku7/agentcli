@@ -70,8 +70,16 @@
     "param.zip_path.description": "zip ファイルのパス。",
     "tool.description": "ZIP ファイルの作成・展開・一覧取得を行います（Zip Slip / Zip Bomb 対策あり）。",
     "x_search_terms": [
-      "zip |解凍する |圧縮 |抜粋 |アーカイブ",
-      "zipファイル |ファイルを解凍する |圧縮 |解凍"
+      "zip",
+      "圧縮",
+      "アーカイブ",
+      "zipファイル",
+      "解凍",
+      "zip解凍",
+      "zip圧縮",
+      "zipアーカイブ",
+      "ファイル圧縮",
+      "解凍"
     ],
     "confirm.extract_overwrite": "zip_ops(extract) は既存のファイルを上書きする可能性があります。\nzip: {zip_path}\n宛先: {dest_dir}\nエントリ: {entries}\n\n続行するには y を入力し、キャンセルするには c を入力します。"
   },
@@ -105,13 +113,14 @@
     "tool.description": "Crea, extrae y enumera archivos ZIP (con protecciones Zip Slip/Zip Bomb).",
     "x_search_terms": [
       "zip",
-      "descomprimir",
       "comprimir",
-      "extraer",
-      "archivo",
+      "archivar",
       "archivo zip",
-      "descomprimir archivo",
-      "compresión",
+      "descomprimir",
+      "extraer zip",
+      "comprimir zip",
+      "archivo zip",
+      "comprimir archivos",
       "descomprimir"
     ],
     "confirm.extract_overwrite": "zip_ops(extract) puede sobrescribir archivos existentes.\nzip: {zip_path}\ndest: {dest_dir}\nentries: {entries}\n\nIngrese y para continuar o c para cancelar."
@@ -146,13 +155,14 @@
     "tool.description": "Créer/extraire/lister les fichiers ZIP (avec protections Zip Slip/Zip Bomb).",
     "x_search_terms": [
       "zip",
-      "décompresser",
       "compresser",
-      "extrait",
-      "archives",
+      "archiver",
       "fichier zip",
-      "décompresser le fichier",
-      "compression",
+      "décompresser",
+      "extraire zip",
+      "compresser zip",
+      "archive zip",
+      "compression de fichier",
       "décompresser"
     ],
     "confirm.extract_overwrite": "zip_ops(extract) peut écraser les fichiers existants.\nzip : {zip_path}\ndest : {dest_dir}\nentries : {entries}\n\nEntrez y pour continuer ou c pour annuler."
@@ -187,14 +197,15 @@
     "tool.description": "ZIP 파일을 만들고, 추출하고, 목록을 표시합니다(Zip Slip/Zip Bomb 보호 포함).",
     "x_search_terms": [
       "zip",
-      "압축 해제",
       "압축",
-      "추출",
       "아카이브",
       "zip 파일",
-      "압축 해제",
-      "압축",
-      "압축 해제"
+      "unzip",
+      "추출 zip",
+      "zip 압축",
+      "zip 아카이브",
+      "파일 압축",
+      "압축해제"
     ],
     "confirm.extract_overwrite": "zip_ops(추출)는 기존 파일을 덮어쓸 수 있습니다.\nzip: {zip_path}\ndest: {dest_dir}\n항목: {entries}\n\n계속하려면 y를 입력하고 취소하려면 c를 입력합니다."
   },
@@ -228,13 +239,14 @@
     "tool.description": "ZIP-Dateien erstellen/extrahieren/auflisten (mit Zip Slip/Zip Bomb-Schutz).",
     "x_search_terms": [
       "zip",
-      "entpacken",
       "komprimieren",
-      "extrahieren",
       "Archiv",
-      "zip-Datei",
-      "Datei entpacken",
-      "Komprimierung",
+      "Zip-Datei",
+      "unzip",
+      "extrahieren zip",
+      "zip komprimieren",
+      "zip-Archiv",
+      "Dateikomprimierung",
       "dekomprimieren"
     ],
     "confirm.extract_overwrite": "zip_ops(extract) überschreibt möglicherweise vorhandene Dateien.\nzip: {zip_path}\ndest: {dest_dir}\nentries: {entries}\n\nGeben Sie y ein, um fortzufahren, oder c, um abzubrechen."
@@ -269,14 +281,15 @@
     "tool.description": "Crea/estrae/elenca file ZIP (con protezioni Zip Slip / Zip Bomb).",
     "x_search_terms": [
       "zip",
-      "decomprimere",
-      "comprimere",
-      "estratto",
+      "comprime",
       "archivio",
-      "zip",
-      "decomprimere il file",
-      "compressione",
-      "decomprimi"
+      "file zip",
+      "unzip",
+      "estrai zip",
+      "comprime zip",
+      "archivio zip",
+      "compressione file",
+      "decomprime"
     ],
     "confirm.extract_overwrite": "zip_ops(extract) potrebbe sovrascrivere i file esistenti.\nzip: {zip_path}\ndest: {dest_dir}\nentries: {entries}\n\nInserisci y per procedere o c per annullare."
   },
@@ -309,7 +322,16 @@
     "param.zip_path.description": "Путь к zip-файлу.",
     "tool.description": "Создаёт/распаковывает/перечисляет ZIP-файлы (с защитой Zip Slip / Zip Bomb).",
     "x_search_terms": [
-      "zip, разархивировать, сжимать, экстракт, архив, zip-файл, разархивировать файл, сжатие, распаковать"
+      "zip",
+      "сжать",
+      "архивировать",
+      "zip файл",
+      "разархивировать",
+      "извлечь zip",
+      "zip сжать",
+      "zip архив",
+      "сжать файл",
+      "распаковать"
     ],
     "confirm.extract_overwrite": "zip_ops(extract) может перезаписать существующие файлы.\nzip: {zip_path}\ndest: {dest_dir}\nentries: {entries}\n\nВведите y, чтобы продолжить, или c, чтобы отменить."
   },
@@ -511,15 +533,15 @@
     "tool.description": "Twórz/wyodrębniaj/listuj pliki ZIP (z zabezpieczeniami Zip Slip/Zip Bomb).",
     "x_search_terms": [
       "zip",
-      "compress",
-      "archive",
-      "zip file",
+      "kompresuj",
+      "archiwum",
+      "plik zip",
       "unzip",
-      "extract zip",
-      "zip compress",
-      "zip archive",
-      "file compression",
-      "decompress"
+      "wyodrębnij zip",
+      "zip kompresuj",
+      "zip archiwum",
+      "kompresja plików",
+      "dekompresuj"
     ],
     "confirm.extract_overwrite": "zip_ops(extract) może zastąpić istniejące pliki.\nzip: {zip_path}\ndest: {dest_dir}\nentries: {entries}\n\nWprowadź y, aby kontynuować, lub c, aby anulować."
   },
@@ -552,16 +574,16 @@
     "param.zip_path.description": "ज़िप फ़ाइल का पथ.",
     "tool.description": "ज़िप फ़ाइलें बनाएं/निकालें/सूचीबद्ध करें (ज़िप स्लिप/ज़िप बम सुरक्षा के साथ)।",
     "x_search_terms": [
-      "zip",
-      "compress",
-      "archive",
-      "zip file",
-      "unzip",
-      "extract zip",
-      "zip compress",
-      "zip archive",
-      "file compression",
-      "decompress"
+      "ज़िप",
+      "कंप्रेस",
+      "संग्रह",
+      "ज़िप फ़ाइल",
+      "अनज़िप",
+      "निकालें ज़िप",
+      "ज़िप संपीड़ित",
+      "ज़िप संग्रह",
+      "फ़ाइल संपीड़न",
+      "डीकंप्रेस"
     ],
     "confirm.extract_overwrite": "zip_ops(extract) मौजूदा फ़ाइलों को अधिलेखित कर सकता है।\nज़िप: {zip_path}\nगंतव्य: {dest_dir}\nप्रविष्टियाँ: {entries}\n\nआगे बढ़ने के लिए y दर्ज करें, या रद्द करने के लिए c दर्ज करें।"
   },
@@ -594,16 +616,16 @@
     "param.zip_path.description": "المسار إلى الملف المضغوط.",
     "tool.description": "إنشاء/استخراج/قائمة ملفات ZIP (مع حماية Zip Slip/Zip Bomb).",
     "x_search_terms": [
-      "zip",
-      "compress",
-      "archive",
-      "zip file",
-      "unzip",
-      "extract zip",
-      "zip compress",
-      "zip archive",
-      "file compression",
-      "decompress"
+      "ضغط ",
+      " أرشيف ",
+      " ملف مضغوط ",
+      " فك الضغط ",
+      " استخراج الرمز البريدي ",
+      " ضغط مضغوط ",
+      " أرشيف مضغوط ",
+      " ضغط الملفات ",
+      " فك الضغط",
+      ""
     ],
     "confirm.extract_overwrite": "قد يقوم zip_ops(extract) بالكتابة فوق الملفات الموجودة. \nzip: {zip_path}\ndest: {dest_dir}\nentries: {entries}\n\n أدخل y للمتابعة، أو c للإلغاء."
   },
@@ -637,15 +659,15 @@
     "tool.description": "Skapa/extrahera/lista ZIP-filer (med skydd mot Zip Slip/Zip Bomb).",
     "x_search_terms": [
       "zip",
-      "compress",
-      "archive",
-      "zip file",
+      "komprimera",
+      "arkiv",
+      "zip-fil",
       "unzip",
-      "extract zip",
-      "zip compress",
-      "zip archive",
-      "file compression",
-      "decompress"
+      "extrahera zip",
+      "zip komprimera",
+      "zip-arkiv",
+      "filkomprimering",
+      "dekomprimera"
     ],
     "confirm.extract_overwrite": "zip_ops(extract) kan skriva över befintliga filer.\nzip: {zip_path}\ndest: {dest_dir}\nposter: {entries}\n\nAnge y för att fortsätta, eller c för att avbryta."
   },
@@ -680,13 +702,13 @@
     "x_search_terms": [
       "zip",
       "compress",
-      "archive",
+      "weka kwenye kumbukumbu",
       "zip file",
       "unzip",
       "extract zip",
       "zip compress",
       "zip archive",
-      "file compression",
+      "finyaji ya faili",
       "decompress"
     ],
     "confirm.extract_overwrite": "zip_ops(dondoo) zinaweza kubatilisha faili zilizopo.\nzip: {zip_path}\ndest: {dest_dir}\nmaingizo: {entries}\n\nIngiza y ili kuendelea, au c ili kughairi."
@@ -721,15 +743,15 @@
     "tool.description": "Opprett/pakk ut/list ZIP-filer (med beskyttelse mot Zip Slip/Zip Bomb).",
     "x_search_terms": [
       "zip",
-      "compress",
-      "archive",
-      "zip file",
+      "komprimere",
+      "arkiv",
+      "zip-fil",
       "unzip",
-      "extract zip",
-      "zip compress",
-      "zip archive",
-      "file compression",
-      "decompress"
+      "pakke ut zip",
+      "zip-komprimere",
+      "zip-arkiv",
+      "filkomprimering",
+      "dekomprimere"
     ],
     "confirm.extract_overwrite": "zip_ops(extract) kan overskrive eksisterende filer.\nzip: {zip_path}\ndest: {dest_dir}\noppføringer: {entries}\n\nSkriv inn y for å fortsette, eller c for å avbryte."
   },
@@ -763,15 +785,15 @@
     "tool.description": "ZIP-bestanden maken/uitpakken/lijsten (met Zip Slip/Zip Bomb-beveiliging).",
     "x_search_terms": [
       "zip",
-      "compress",
-      "archive",
-      "zip file",
+      "comprimeren",
+      "archief",
+      "zip-bestand",
       "unzip",
       "extract zip",
-      "zip compress",
-      "zip archive",
-      "file compression",
-      "decompress"
+      "zip comprimeren",
+      "zip-archief",
+      "bestandscompressie",
+      "decomprimeren"
     ],
     "confirm.extract_overwrite": "zip_ops(extract) kan bestaande bestanden overschrijven.\nzip: {zip_path}\ndest: {dest_dir}\nentries: {entries}\n\nVoer y in om door te gaan, of c om te annuleren."
   },
@@ -804,16 +826,16 @@
     "param.zip_path.description": "Polku zip-tiedostoon.",
     "tool.description": "Luo/purkaa/listaa ZIP-tiedostoja (Zip Slip / Zip Bomb -suojauksilla).",
     "x_search_terms": [
-      "zip",
-      "compress",
-      "archive",
-      "zip file",
-      "unzip",
-      "extract zip",
-      "zip compress",
-      "zip archive",
-      "file compression",
-      "decompress"
+      "pakkaa",
+      "",
+      "",
+      "",
+      "",
+      "",
+      "",
+      "",
+      "",
+      ""
     ],
     "confirm.extract_overwrite": "zip_ops(extract) voi korvata olemassa olevat tiedostot.\nzip: {zip_path}\ndest: {dest_dir}\nmerkinnät: {entries}\n\nSyötä y jatkaaksesi tai c peruuttaaksesi."
   },
@@ -847,15 +869,15 @@
     "tool.description": "Vytváří/rozbaluje/vypisuje ZIP soubory (s ochranou proti Zip Slip/Zip Bomb).",
     "x_search_terms": [
       "zip",
-      "compress",
-      "archive",
-      "zip file",
-      "unzip",
-      "extract zip",
-      "zip compress",
-      "zip archive",
-      "file compression",
-      "decompress"
+      "komprimovat",
+      "archiv",
+      "zip soubor",
+      "rozbalit",
+      "extrahovat zip",
+      "komprimovat zip",
+      "archiv zip",
+      "komprese souboru",
+      "dekomprimovat"
     ],
     "confirm.extract_overwrite": "zip_ops (extract) může přepsat existující soubory.\nzip: {zip_path}\ncíl: {dest_dir}\npoložky: {entries}\n\nPro pokračování zadejte y, pro zrušení zadejte c."
   },
@@ -889,15 +911,15 @@
     "tool.description": "Створює/розпаковує/перелічує ZIP-файли (із захистом від Zip Slip/Zip Bomb).",
     "x_search_terms": [
       "zip",
-      "compress",
-      "archive",
-      "zip file",
-      "unzip",
-      "extract zip",
-      "zip compress",
-      "zip archive",
-      "file compression",
-      "decompress"
+      "стиснути",
+      "архів",
+      "zip файл",
+      "розпакувати",
+      "витягти zip",
+      "zip стиснути",
+      "zip архів",
+      "стиснути файл",
+      "розпакувати"
     ],
     "confirm.extract_overwrite": "zip_ops(extract) може перезаписати існуючі файли.\nzip: {zip_path}\ndest: {dest_dir}\nentries: {entries}\n\nВведіть y, щоб продовжити, або c, щоб скасувати."
   },
@@ -931,15 +953,15 @@
     "tool.description": "ZIP dosyaları oluşturun/çıkarın/listeleyin (Zip Slip/Zip Bomb korumalarıyla).",
     "x_search_terms": [
       "zip",
-      "compress",
-      "archive",
-      "zip file",
+      "sıkıştır",
+      "arşivle",
+      "zip dosyası",
       "unzip",
-      "extract zip",
-      "zip compress",
-      "zip archive",
-      "file compression",
-      "decompress"
+      "zip'i çıkart",
+      "zip sıkıştır",
+      "zip arşivi",
+      "dosya sıkıştırma",
+      "sıkıştırmayı aç"
     ],
     "confirm.extract_overwrite": "zip_ops(extract) mevcut dosyaların üzerine yazabilir.\nzip: {zip_path}\ndest: {dest_dir}\nentries: {entries}\n\nDevam etmek için y veya iptal etmek için c girin."
   },
@@ -975,12 +997,12 @@
       "zip",
       "compress",
       "archive",
-      "zip file",
+      "ไฟล์ zip",
       "unzip",
       "extract zip",
       "zip compress",
       "zip archive",
-      "file compression",
+      "การบีบอัดไฟล์",
       "decompress"
     ],
     "confirm.extract_overwrite": "zip_ops(extract) อาจเขียนทับไฟล์ที่มีอยู่\nzip: {zip_path}\ndest: {dest_dir}\nentries: {entries}\n\nป้อน y เพื่อดำเนินการต่อ หรือ c เพื่อยกเลิก"
@@ -1015,15 +1037,15 @@
     "tool.description": "创建、提取和列出 ZIP 文件（带有 Zip Slip / Zip Bomb 保护）。",
     "x_search_terms": [
       "zip",
-      "compress",
-      "archive",
-      "zip file",
-      "unzip",
-      "extract zip",
-      "zip compress",
-      "zip archive",
-      "file compression",
-      "decompress"
+      "压缩",
+      "存档",
+      "zip文件",
+      "解压",
+      "提取zip",
+      "zip压缩",
+      "zip存档",
+      "文件压缩",
+      "解压缩"
     ],
     "confirm.extract_overwrite": "zip_ops(extract) 可能会覆盖现有文件。\nzip: {zip_path}\ndest: {dest_dir}\n条目: {entries}\n输入 y 继续，或 c 取消。"
   },
@@ -1057,15 +1079,15 @@
     "tool.description": "建立、提取與列出 ZIP 檔案（具備 Zip Slip / Zip Bomb 防護）。",
     "x_search_terms": [
       "zip",
-      "compress",
-      "archive",
-      "zip file",
-      "unzip",
-      "extract zip",
-      "zip compress",
-      "zip archive",
-      "file compression",
-      "decompress"
+      "壓縮",
+      "存檔",
+      "zip檔",
+      "解壓",
+      "提取zip",
+      "zip壓縮",
+      "zip存檔",
+      "檔案壓縮",
+      "解壓縮"
     ],
     "confirm.extract_overwrite": "zip_ops(extract) 可能會覆寫現有檔案。 \nzip: {zip_path}\ndest: {dest_dir}\n條目: {entries}\n輸入 y 繼續，或 c 取消。"
   },
@@ -1104,10 +1126,10 @@
       "zip file",
       "unzip",
       "extract zip",
-      "zip compress",
-      "zip archive",
-      "file compression",
-      "decompress"
+      "zip কম্প্রেস",
+      "zip আর্কাইভ",
+      "ফাইল কম্প্রেশন",
+      "ডিকম্প্রেস"
     ],
     "confirm.extract_overwrite": "zip_ops(extract) বিদ্যমান ফাইল ওভাররাইট করতে পারে।\nজিপ: {zip_path}\nগন্তব্য: {dest_dir}\nএন্ট্রি: {entries}\n\nএগিয়ে যেতে y লিখুন, বা বাতিল করতে c লিখুন।"
   },
@@ -1141,15 +1163,15 @@
     "tool.description": "ایجاد/استخراج/فهرست فایل های ZIP (با حفاظت های Zip Slip/Zip Bomb) مورد نیاز است.",
     "x_search_terms": [
       "zip",
-      "compress",
-      "archive",
-      "zip file",
+      " فشرده",
+      "بایگانی",
+      "فایل zip",
       "unzip",
       "extract zip",
-      "zip compress",
-      "zip archive",
-      "file compression",
-      "decompress"
+      " فشرده سازی zip",
+      "بایگانی فشرده",
+      "فشرده سازی فایل",
+      "از حالت فشرده خارج کردن"
     ],
     "confirm.extract_overwrite": "zip_ops(extract) ممکن است فایل های موجود را بازنویسی کند.\nزیپ: {zip_path}\nمقصد: {dest_dir}\nورودی ها: {entries}\n\nبرای ادامه y یا برای لغو c را وارد کنید."
   },
@@ -1183,15 +1205,15 @@
     "tool.description": "ZIP файлуудыг үүсгэх/задлах/жагсаах (Zip Slip/Zip Bomb хамгаалалттай).",
     "x_search_terms": [
       "zip",
-      "compress",
-      "archive",
-      "zip file",
-      "unzip",
-      "extract zip",
-      "zip compress",
-      "zip archive",
-      "file compression",
-      "decompress"
+      "компресс",
+      "архив",
+      "zip файл",
+      "zip файлыг задлах",
+      "zip задлах",
+      "zip шахах",
+      "zip архив",
+      "файлыг шахах",
+      " задлах"
     ],
     "confirm.extract_overwrite": "zip_ops(extract) нь одоо байгаа файлуудыг дарж бичиж болно.\nzip: {zip_path}\ndest: {dest_dir}\nnot: {entries}\n\nҮргэлжлүүлэхийн тулд y, цуцлахын тулд c-г оруулна уу."
   },
@@ -1267,15 +1289,15 @@
     "tool.description": "Δημιουργία/εξαγωγή/λίστα αρχείων ZIP (με προστασίες Zip Slip/Zip Bomb).",
     "x_search_terms": [
       "zip",
-      "compress",
-      "archive",
-      "zip file",
+      "συμπίεση",
+      "αρχείο",
+      "αρχείο zip",
       "unzip",
-      "extract zip",
-      "zip compress",
-      "zip archive",
-      "file compression",
-      "decompress"
+      "εξαγωγή zip",
+      "συμπίεση zip",
+      "αρχείο zip",
+      "συμπίεση αρχείου",
+      "αποσυμπίεση"
     ],
     "confirm.extract_overwrite": "Το zip_ops(extract) μπορεί να αντικαταστήσει υπάρχοντα αρχεία.\nzip: {zip_path}\ndest: {dest_dir}\nεγγραφές: {entries}\n\nΕισαγάγετε y για να συνεχίσετε ή c για ακύρωση."
   },
@@ -1313,10 +1335,10 @@
       "archive",
       "zip file",
       "unzip",
-      "extract zip",
+      "חלץ zip",
       "zip compress",
       "zip archive",
-      "file compression",
+      "דחיסת קובץ",
       "decompress"
     ],
     "confirm.extract_overwrite": "zip_ops(extract) עשוי להחליף קבצים קיימים.\nzip: {zip_path}\ndest: {dest_dir}\nערכים: {entries}\n\nהזן y כדי להמשיך, או c כדי לבטל."
@@ -1351,15 +1373,15 @@
     "tool.description": "ZIP-fájlok létrehozása/kibontása/listázása (zip-/cipzárbomba-védelemmel).",
     "x_search_terms": [
       "zip",
-      "compress",
-      "archive",
-      "zip file",
-      "unzip",
-      "extract zip",
-      "zip compress",
-      "zip archive",
-      "file compression",
-      "decompress"
+      "tömörítés",
+      "archívum",
+      "zip fájl",
+      "kicsomagolás",
+      "kibontás zip",
+      "zip tömörítés",
+      "zip archívum",
+      "fájltömörítés",
+      "kicsomagolás"
     ],
     "confirm.extract_overwrite": "A zip_ops(extract) felülírhatja a meglévő fájlokat.\nzip: {zip_path}\ndest: {dest_dir}\nbejegyzések: {entries}\n\nA folytatáshoz írja be az y-t, a megszakításhoz pedig c."
   },
@@ -1393,15 +1415,15 @@
     "tool.description": "Creați/extrageți/listați fișiere ZIP (cu protecție Zip Slip/Zip Bomb).",
     "x_search_terms": [
       "zip",
-      "compress",
-      "archive",
-      "zip file",
+      "comprimare",
+      "arhivă",
+      "fișier zip",
       "unzip",
       "extract zip",
-      "zip compress",
-      "zip archive",
-      "file compression",
-      "decompress"
+      "comprimare zip",
+      "arhivă zip",
+      "comprimare fișiere",
+      "decomprimare"
     ],
     "confirm.extract_overwrite": "zip_ops(extract) poate suprascrie fișierele existente.\nzip: {zip_path}\ndest: {dest_dir}\nentry: {entries}\n\nIntroduceți y pentru a continua sau c pentru a anula."
   }

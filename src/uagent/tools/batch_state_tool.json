@@ -57,11 +57,11 @@
     "param.reason.description": "skip_file/error_file の理由、または完了時の短いメモ。",
     "param.status.description": "バッチ状態。",
     "param.remaining_files.description": "現在のターゲットグループのファイル一覧。targets を優先してください。",
-    "param.patch.description": "バッチ状態にマージするための部分的な更新。patch.targets と patch.current_target を優先します。",
-    "param.targets.description": "対象グループ。各エントリには、ディレクトリ、ファイル (ディレクトリ相対)、およびインデックスが含まれます。",
     "err.batch_exists": "",
     "err.exception": "",
-    "err.unknown_action": ""
+    "err.unknown_action": "",
+    "param.patch.description": "バッチ状態にマージするための部分的な更新。patch.targets と patch.current_target を優先します。",
+    "param.targets.description": "対象グループ。各エントリには、ディレクトリ、ファイル (ディレクトリ相対)、およびインデックスが含まれます。"
   },
   "es": {
     "tool.description": "Administre el estado del lote para tareas de varios archivos en ~/.uag/batches/.",
@@ -786,9 +786,9 @@
     "param.task_description.description": "Maelezo mafupi ya kazi ya batch.",
     "param.instructions.description": "Maelekezo ya kina kwa kazi ya batch.",
     "param.message.description": "Ujumbe wa kumbukumbu wa kuongeza.",
-    "param.current_target.description": "Kielezo cha kikundi cha sasa kinacholengwa.",
     "param.overwrite.description": "Ikiwa ni kweli, init itafuta faili ya batch iliyopo.",
     "err.invalid_patch": "[batch_state error] kiraka lazima kiwe kitu",
+    "param.current_target.description": "Kielezo cha kikundi cha sasa kinacholengwa.",
     "param.file.description": "Faili lengwa kwa complete_file/skip_file/error_file. Likiwa halikutajwa, faili la sasa hutumiwa.",
     "param.reason.description": "Sababu ya skip_file/error_file, au dokezo fupi la kukamilisha.",
     "param.status.description": "Hali ya kundi.",

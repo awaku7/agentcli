@@ -26,15 +26,16 @@
     "param.fmt.description": "التنسيق: json أو نص.",
     "err.no_target": "يجب توفير إما \"الموقع\" أو \"ip\".",
     "msg.device_info": "معلومات الجهاز لـ {location}",
+    "tool.description": "احصل على معلومات تفصيلية حول جهاز UPnP محدد من خلال عنوان URL الوصفي (الموقع) أو عنوان IP الخاص به. إرجاع البيانات التعريفية للجهاز وقائمة الخدمات وشجرة الأجهزة (الأجهزة الفرعية).",
     "x_search_terms": [
       "معلومات جهاز upnp",
       "upnp_device_info",
-      "أب إن بي",
-      "أب إن بي",
-      "مفصل",
-      "حول"
-    ],
-    "tool.description": "احصل على معلومات تفصيلية حول جهاز UPnP محدد من خلال عنوان URL الوصفي (الموقع) أو عنوان IP الخاص به. إرجاع البيانات التعريفية للجهاز وقائمة الخدمات وشجرة الأجهزة (الأجهزة الفرعية)."
+      "upnp",
+      "UPNP",
+      "مفصلة",
+      "حول",
+      "محددة"
+    ]
   },
   "bn": {
     "param.location.description": "UPnP ডিভাইসের বিবরণ URL (যেমন http://192.168.1.100:5000/description.xml)।",
@@ -44,15 +45,16 @@
     "param.fmt.description": "বিন্যাস: json বা পাঠ্য।",
     "err.no_target": "হয় 'অবস্থান' বা 'ip' প্রদান করতে হবে।",
     "msg.device_info": "{location} এর জন্য ডিভাইসের তথ্য",
+    "tool.description": "একটি নির্দিষ্ট UPnP ডিভাইসের বর্ণনা URL (অবস্থান) বা IP ঠিকানা দ্বারা তার সম্পর্কে বিস্তারিত তথ্য পান। ডিভাইস মেটাডেটা, পরিষেবা তালিকা এবং ডিভাইস ট্রি (সাব-ডিভাইস) প্রদান করে।",
     "x_search_terms": [
-      "upnp ডিভাইস তথ্য",
+      "upnp ডিভাইসের তথ্য",
       "upnp_device_info",
-      "ইউপিএনপি",
-      "ইউপিএনপি",
-      "বিস্তারিত",
-      "সম্পর্কে"
-    ],
-    "tool.description": "একটি নির্দিষ্ট UPnP ডিভাইসের বর্ণনা URL (অবস্থান) বা IP ঠিকানা দ্বারা তার সম্পর্কে বিস্তারিত তথ্য পান। ডিভাইস মেটাডেটা, পরিষেবা তালিকা এবং ডিভাইস ট্রি (সাব-ডিভাইস) প্রদান করে।"
+      "upnp",
+      "UPNP",
+      " বিস্তারিত",
+      " সম্পর্কে",
+      " নির্দিষ্ট"
+    ]
   },
   "cs": {
     "param.location.description": "Adresa URL popisu zařízení UPnP (např. http://192.168.1.100:5000/description.xml).",
@@ -62,15 +64,16 @@
     "param.fmt.description": "Formát: json nebo text.",
     "err.no_target": "Musí být poskytnuto buď 'location' nebo 'ip'.",
     "msg.device_info": "Informace o zařízení pro {location}",
+    "tool.description": "Získejte podrobné informace o konkrétním zařízení UPnP podle jeho popisné URL (umístění) nebo IP adresy. Vrátí metadata zařízení, seznam služeb a strom zařízení (podzařízení).",
     "x_search_terms": [
-      "informace o zařízení upnp",
+      "upnp zařízení info",
       "upnp_device_info",
       "upnp",
       "UPNP",
-      "podrobný",
-      "o"
-    ],
-    "tool.description": "Získejte podrobné informace o konkrétním zařízení UPnP podle jeho popisné URL (umístění) nebo IP adresy. Vrátí metadata zařízení, seznam služeb a strom zařízení (podzařízení)."
+      "podrobné",
+      "o",
+      "konkrétní"
+    ]
   },
   "de": {
     "param.location.description": "UPnP-Gerätebeschreibungs-URL (z. B. http://192.168.1.100:5000/description.xml).",
@@ -80,15 +83,16 @@
     "param.fmt.description": "Format: JSON oder Text.",
     "err.no_target": "Es muss entweder „Standort“ oder „IP“ angegeben werden.",
     "msg.device_info": "Geräteinformationen für {location}",
+    "tool.description": "Erhalten Sie detaillierte Informationen zu einem bestimmten UPnP-Gerät anhand seiner Beschreibungs-URL (Standort) oder IP-Adresse. Gibt Gerätemetadaten, Dienstliste und Gerätebaum (Untergeräte) zurück.",
     "x_search_terms": [
-      "Upnp-Geräteinformationen",
+      "upnp-Geräteinfo",
       "upnp_device_info",
       "upnp",
       "UPNP",
-      "detailliert",
-      "ungefähr"
-    ],
-    "tool.description": "Erhalten Sie detaillierte Informationen zu einem bestimmten UPnP-Gerät anhand seiner Beschreibungs-URL (Standort) oder IP-Adresse. Gibt Gerätemetadaten, Dienstliste und Gerätebaum (Untergeräte) zurück."
+      "detaillierte",
+      "über",
+      "spezifische Informationen"
+    ]
   },
   "es": {
     "param.location.description": "URL de descripción del dispositivo UPnP (por ejemplo, http://192.168.1.100:5000/description.xml).",
@@ -98,15 +102,16 @@
     "param.fmt.description": "Formato: json o texto.",
     "err.no_target": "Se debe proporcionar 'ubicación' o 'ip'.",
     "msg.device_info": "Información del dispositivo para {location}",
+    "tool.description": "Obtenga información detallada sobre un dispositivo UPnP específico mediante su descripción URL (ubicación) o dirección IP. Devuelve metadatos del dispositivo, lista de servicios y árbol de dispositivos (subdispositivos).",
     "x_search_terms": [
       "información del dispositivo upnp",
       "upnp_device_info",
       "upnp",
       "UPNP",
-      "detallado",
-      "acerca de"
-    ],
-    "tool.description": "Obtenga información detallada sobre un dispositivo UPnP específico mediante su descripción URL (ubicación) o dirección IP. Devuelve metadatos del dispositivo, lista de servicios y árbol de dispositivos (subdispositivos)."
+      "detallada",
+      "acerca de",
+      "específica"
+    ]
   },
   "fa": {
     "param.location.description": "URL توضیحات دستگاه UPnP (به عنوان مثال http://192.168.1.100:5000/description.xml).",
@@ -116,15 +121,16 @@
     "param.fmt.description": "فرمت: json یا متن.",
     "err.no_target": "\"موقعیت\" یا \"IP\" باید ارائه شود.",
     "msg.device_info": "اطلاعات دستگاه برای {location}",
+    "tool.description": "اطلاعات دقیقی در مورد یک دستگاه UPnP خاص از طریق آدرس URL (موقعیت) یا آدرس IP شرح آن دریافت کنید. فراداده دستگاه، فهرست خدمات و درخت دستگاه (دستگاه‌های فرعی) را برمی‌گرداند.",
     "x_search_terms": [
       "اطلاعات دستگاه upnp",
       "upnp_device_info",
-      "آپ‌ان‌پی",
-      "آپ‌ان‌پی",
-      "جزئی",
-      "درباره"
-    ],
-    "tool.description": "اطلاعات دقیقی در مورد یک دستگاه UPnP خاص از طریق آدرس URL (موقعیت) یا آدرس IP شرح آن دریافت کنید. فراداده دستگاه، فهرست خدمات و درخت دستگاه (دستگاه‌های فرعی) را برمی‌گرداند."
+      "upnp",
+      "UPNP",
+      "جزئیات",
+      "درباره",
+      "خاص"
+    ]
   },
   "fi": {
     "param.location.description": "UPnP-laitteen kuvauksen URL-osoite (esim. http://192.168.1.100:5000/description.xml).",
@@ -134,15 +140,16 @@
     "param.fmt.description": "Muoto: json tai teksti.",
     "err.no_target": "Joko \"sijainti\" tai \"ip\" on annettava.",
     "msg.device_info": "Laitetiedot kohteelle {location}",
+    "tool.description": "Saat yksityiskohtaisia ​​tietoja tietystä UPnP-laitteesta sen kuvaus-URL-osoitteen (sijainnin) tai IP-osoitteen avulla. Palauttaa laitteen metatiedot, palveluluettelon ja laitepuun (alilaitteet).",
     "x_search_terms": [
-      "upnp-laitetiedot",
+      "upnp-laitteen tiedot",
       "upnp_device_info",
       "upnp",
       "UPNP",
-      "yksityiskohtainen",
-      "noin"
-    ],
-    "tool.description": "Saat yksityiskohtaisia ​​tietoja tietystä UPnP-laitteesta sen kuvaus-URL-osoitteen (sijainnin) tai IP-osoitteen avulla. Palauttaa laitteen metatiedot, palveluluettelon ja laitepuun (alilaitteet)."
+      "yksityiskohtaiset",
+      "tiedot",
+      ""
+    ]
   },
   "fr": {
     "param.location.description": "URL de description de l'appareil UPnP (par exemple http://192.168.1.100:5000/description.xml).",
@@ -152,15 +159,16 @@
     "param.fmt.description": "Format : json ou texte.",
     "err.no_target": "Soit « emplacement » soit « IP » doivent être fournis.",
     "msg.device_info": "Informations sur l'appareil pour {location}",
+    "tool.description": "Obtenez des informations détaillées sur un périphérique UPnP spécifique par son URL de description (emplacement) ou son adresse IP. Renvoie les métadonnées de l'appareil, la liste des services et l'arborescence des appareils (sous-appareils).",
     "x_search_terms": [
       "informations sur le périphérique upnp",
       "upnp_device_info",
       "upnp",
       "UPNP",
-      "détaillé",
-      "à propos"
-    ],
-    "tool.description": "Obtenez des informations détaillées sur un périphérique UPnP spécifique par son URL de description (emplacement) ou son adresse IP. Renvoie les métadonnées de l'appareil, la liste des services et l'arborescence des appareils (sous-appareils)."
+      "détaillée",
+      "à propos",
+      "spécifique"
+    ]
   },
   "hi": {
     "param.location.description": "UPnP डिवाइस विवरण URL (जैसे http://192.168.1.100:5000/description.xml)।",
@@ -170,15 +178,16 @@
     "param.fmt.description": "प्रारूप: json या text.",
     "err.no_target": "या तो 'स्थान' या 'आईपी' प्रदान किया जाना चाहिए।",
     "msg.device_info": "{location} के लिए डिवाइस जानकारी",
+    "tool.description": "किसी विशिष्ट UPnP डिवाइस के बारे में उसके विवरण URL (स्थान) या IP पते से विस्तृत जानकारी प्राप्त करें। डिवाइस मेटाडेटा, सेवा सूची और डिवाइस ट्री (उप-डिवाइस) लौटाता है।",
     "x_search_terms": [
-      "upnp डिवाइस जानकारी",
+      "upnp डिवाइस की जानकारी",
       "upnp_device_info",
-      "यूपीएनपी",
-      "यूपीएनपी",
+      "upnp",
+      "UPNP",
       "विस्तृत",
-      "के बारे में"
-    ],
-    "tool.description": "किसी विशिष्ट UPnP डिवाइस के बारे में उसके विवरण URL (स्थान) या IP पते से विस्तृत जानकारी प्राप्त करें। डिवाइस मेटाडेटा, सेवा सूची और डिवाइस ट्री (उप-डिवाइस) लौटाता है।"
+      "के बारे में",
+      "विशिष्ट"
+    ]
   },
   "id": {
     "param.location.description": "URL deskripsi perangkat UPnP (mis. http://192.168.1.100:5000/description.xml).",
@@ -188,15 +197,16 @@
     "param.fmt.description": "Format: json atau teks.",
     "err.no_target": "Baik 'lokasi' atau 'ip' harus disediakan.",
     "msg.device_info": "Info perangkat untuk {location}",
+    "tool.description": "Dapatkan info detail tentang perangkat UPnP tertentu berdasarkan URL deskripsi (lokasi) atau alamat IP. Mengembalikan metadata perangkat, daftar layanan, dan pohon perangkat (sub-perangkat).",
     "x_search_terms": [
       "info perangkat upnp",
       "upnp_device_info",
       "upnp",
       "UPNP",
-      "rinci",
-      "tentang"
-    ],
-    "tool.description": "Dapatkan info detail tentang perangkat UPnP tertentu berdasarkan URL deskripsi (lokasi) atau alamat IP. Mengembalikan metadata perangkat, daftar layanan, dan pohon perangkat (sub-perangkat)."
+      "detail",
+      "tentang",
+      "spesifik"
+    ]
   },
   "it": {
     "param.location.description": "URL di descrizione del dispositivo UPnP (ad esempio http://192.168.1.100:5000/description.xml).",
@@ -206,15 +216,16 @@
     "param.fmt.description": "Formato: json o testo.",
     "err.no_target": "È necessario fornire \"località\" o \"ip\".",
     "msg.device_info": "Informazioni sul dispositivo per {location}",
+    "tool.description": "Ottieni informazioni dettagliate su un dispositivo UPnP specifico tramite l'URL di descrizione (posizione) o l'indirizzo IP. Restituisce i metadati del dispositivo, l'elenco dei servizi e la struttura dei dispositivi (sottodispositivi).",
     "x_search_terms": [
       "informazioni sul dispositivo upnp",
       "upnp_device_info",
       "upnp",
       "UPNP",
       "dettagliato",
-      "circa"
-    ],
-    "tool.description": "Ottieni informazioni dettagliate su un dispositivo UPnP specifico tramite l'URL di descrizione (posizione) o l'indirizzo IP. Restituisce i metadati del dispositivo, l'elenco dei servizi e la struttura dei dispositivi (sottodispositivi)."
+      "su",
+      "specifico"
+    ]
   },
   "ko": {
     "param.location.description": "UPnP 장치 설명 URL(예: http://192.168.1.100:5000/description.xml)",
@@ -224,15 +235,16 @@
     "param.fmt.description": "형식: json 또는 텍스트.",
     "err.no_target": "'위치' 또는 'ip'를 제공해야 합니다.",
     "msg.device_info": "{location}의 기기 정보",
+    "tool.description": "설명 URL(위치) 또는 IP 주소를 통해 특정 UPnP 장치에 대한 자세한 정보를 얻으세요. 장치 메타데이터, 서비스 목록 및 장치 트리(하위 장치)를 반환합니다.",
     "x_search_terms": [
       "upnp 장치 정보",
       "upnp_device_info",
-      "업앤피",
+      "upnp",
       "UPNP",
-      "상세한",
-      "약"
-    ],
-    "tool.description": "설명 URL(위치) 또는 IP 주소를 통해 특정 UPnP 장치에 대한 자세한 정보를 얻으세요. 장치 메타데이터, 서비스 목록 및 장치 트리(하위 장치)를 반환합니다."
+      "상세",
+      "정보",
+      "특정"
+    ]
   },
   "mn": {
     "param.location.description": "UPnP төхөөрөмжийн тодорхойлолтын URL (жишээ нь: http://192.168.1.100:5000/description.xml).",
@@ -242,15 +254,16 @@
     "param.fmt.description": "Формат: json эсвэл текст.",
     "err.no_target": "\"Байршил\" эсвэл \"ip\"-ийн аль нэгийг өгөх ёстой.",
     "msg.device_info": "{location}-д зориулсан төхөөрөмжийн мэдээлэл",
+    "tool.description": "Тодорхой UPnP төхөөрөмжийн талаарх дэлгэрэнгүй мэдээллийг түүний тайлбарын URL (байршил) эсвэл IP хаягаар аваарай. Төхөөрөмжийн мета өгөгдөл, үйлчилгээний жагсаалт болон төхөөрөмжийн модыг (дэд төхөөрөмж) буцаана.",
     "x_search_terms": [
       "upnp төхөөрөмжийн мэдээлэл",
       "upnp_device_info",
-      "упнп",
-      "упнп",
+      "upnp",
+      "UPNP",
       "дэлгэрэнгүй",
-      "тухай"
-    ],
-    "tool.description": "Тодорхой UPnP төхөөрөмжийн талаарх дэлгэрэнгүй мэдээллийг түүний тайлбарын URL (байршил) эсвэл IP хаягаар аваарай. Төхөөрөмжийн мета өгөгдөл, үйлчилгээний жагсаалт болон төхөөрөмжийн модыг (дэд төхөөрөмж) буцаана."
+      "тухай",
+      "тусгай"
+    ]
   },
   "mr": {
     "param.location.description": "UPnP डिव्हाइस वर्णन URL (उदा. http://192.168.1.100:5000/description.xml).",
@@ -260,15 +273,16 @@
     "param.fmt.description": "स्वरूप: json किंवा मजकूर.",
     "err.no_target": "एकतर 'स्थान' किंवा 'ip' प्रदान करणे आवश्यक आहे.",
     "msg.device_info": "{location} साठी डिव्हाइस माहिती",
+    "tool.description": "विशिष्ट UPnP डिव्हाइसबद्दल तपशीलवार माहिती त्याच्या वर्णन URL (स्थान) किंवा IP पत्त्याद्वारे मिळवा. डिव्हाइस मेटाडेटा, सेवा सूची आणि डिव्हाइस ट्री (उप-डिव्हाइस) मिळवते.",
     "x_search_terms": [
-      "upnp उपकरण माहिती",
+      "upnp डिव्हाइस माहिती",
       "upnp_device_info",
-      "यूपीएनपी",
-      "यूपीएनपी",
+      "upnp",
+      "UPNP",
       "तपशीलवार",
-      "बद्दल"
-    ],
-    "tool.description": "विशिष्ट UPnP डिव्हाइसबद्दल तपशीलवार माहिती त्याच्या वर्णन URL (स्थान) किंवा IP पत्त्याद्वारे मिळवा. डिव्हाइस मेटाडेटा, सेवा सूची आणि डिव्हाइस ट्री (उप-डिव्हाइस) मिळवते."
+      "बद्दल",
+      "विशिष्ट"
+    ]
   },
   "el": {
     "param.location.description": "Διεύθυνση IP συσκευής (χρησιμοποιείται με προαιρετική θύρα για τη δημιουργία διεύθυνσης URL περιγραφής).",
@@ -278,15 +292,16 @@
     "param.fmt.description": "Μορφή: json ή κείμενο.",
     "err.no_target": "Πρέπει να παρέχεται είτε «τοποθεσία» ή «IP».",
     "msg.device_info": "Πληροφορίες συσκευής για {location}",
+    "tool.description": "Λάβετε λεπτομερείς πληροφορίες σχετικά με μια συγκεκριμένη συσκευή UPnP από τη διεύθυνση URL περιγραφής (τοποθεσία) ή τη διεύθυνση IP της. Επιστρέφει μεταδεδομένα συσκευής, λίστα υπηρεσιών και δέντρο συσκευών (υπο-συσκευές).",
     "x_search_terms": [
-      "πληροφορίες συσκευής upnp",
+      "upnp πληροφορίες συσκευής",
       "upnp_device_info",
       "upnp",
       "UPNP",
-      "λεπτομερής",
-      "σχετικά"
-    ],
-    "tool.description": "Λάβετε λεπτομερείς πληροφορίες σχετικά με μια συγκεκριμένη συσκευή UPnP από τη διεύθυνση URL περιγραφής (τοποθεσία) ή τη διεύθυνση IP της. Επιστρέφει μεταδεδομένα συσκευής, λίστα υπηρεσιών και δέντρο συσκευών (υπο-συσκευές)."
+      "λεπτομέρειες",
+      "σχετικά",
+      "συγκεκριμένα"
+    ]
   },
   "he": {
     "param.location.description": "כתובת IP של מכשיר (משמשת עם יציאה אופציונלית לבניית כתובת URL לתיאור).",
@@ -296,15 +311,16 @@
     "param.fmt.description": "אין ערכים במטמון.",
     "err.no_target": "יש לספק 'מיקום' או 'ip'.",
     "msg.device_info": "מידע מכשיר עבור {location}",
+    "tool.description": "קבל מידע מפורט על מכשיר UPnP ספציפי לפי כתובת ה-URL התיאורית שלו (מיקום) או כתובת ה-IP. מחזירה מטא נתונים של המכשיר, רשימת שירותים ועץ התקנים (תת-התקנים).",
     "x_search_terms": [
-      "מידע על מכשיר upnp",
+      "upnp מכשיר מידע",
       "upnp_device_info",
       "upnp",
       "UPNP",
       "מפורט",
-      "אודות"
-    ],
-    "tool.description": "קבל מידע מפורט על מכשיר UPnP ספציפי לפי כתובת ה-URL התיאורית שלו (מיקום) או כתובת ה-IP. מחזירה מטא נתונים של המכשיר, רשימת שירותים ועץ התקנים (תת-התקנים)."
+      "על",
+      "פרט"
+    ]
   },
   "hu": {
     "param.location.description": "Az eszköz IP-címe (opcionális porttal használva a leíró URL létrehozásához).",
@@ -314,15 +330,16 @@
     "param.fmt.description": "Gyorsítótár művelet: pillanatfelvétel vagy törlés.",
     "err.no_target": "Meg kell adni a „location” vagy az „ip” értéket.",
     "msg.device_info": "A {location} eszközinformációi",
+    "tool.description": "Részletes információkat kaphat egy adott UPnP-eszközről a leírás URL-je (helye) vagy IP-címe alapján. Visszaadja az eszköz metaadatait, a szolgáltatáslistát és az eszközfát (aleszközöket).",
     "x_search_terms": [
-      "upnp eszköz információ",
+      "upnp eszközinformáció",
       "upnp_device_info",
       "upnp",
       "UPNP",
-      "részletes",
-      "körülbelül"
-    ],
-    "tool.description": "Részletes információkat kaphat egy adott UPnP-eszközről a leírás URL-je (helye) vagy IP-címe alapján. Visszaadja az eszköz metaadatait, a szolgáltatáslistát és az eszközfát (aleszközöket)."
+      "részletek",
+      "about",
+      "specifikus"
+    ]
   },
   "ro": {
     "param.location.description": "Adresă IP a dispozitivului (utilizată cu portul opțional pentru a crea o adresă URL de descriere).",
@@ -332,15 +349,16 @@
     "param.fmt.description": "Inspectați sau ștergeți memoria cache ECHONET Lite partajată.",
     "err.no_target": "Trebuie furnizate fie „locație”, fie „ip”.",
     "msg.device_info": "Informații despre dispozitiv pentru {location}",
+    "tool.description": "Obțineți informații detaliate despre un anumit dispozitiv UPnP prin adresa URL de descriere (locație) sau adresa IP. Returnează metadatele dispozitivului, lista de servicii și arborele dispozitivelor (sub-dispozitive).",
     "x_search_terms": [
-      "informații dispozitiv upnp",
+      "informații despre dispozitiv upnp",
       "upnp_device_info",
       "upnp",
       "UPNP",
       "detaliat",
-      "despre"
-    ],
-    "tool.description": "Obțineți informații detaliate despre un anumit dispozitiv UPnP prin adresa URL de descriere (locație) sau adresa IP. Returnează metadatele dispozitivului, lista de servicii și arborele dispozitivelor (sub-dispozitive)."
+      "despre",
+      "specific"
+    ]
   },
   "nb": {
     "param.location.description": "URL for UPnP-enhetsbeskrivelse (f.eks. http://192.168.1.100:5000/description.xml).",
@@ -350,15 +368,16 @@
     "param.fmt.description": "Format: json eller tekst.",
     "err.no_target": "Enten 'location' eller 'ip' må oppgis.",
     "msg.device_info": "Enhetsinformasjon for {location}",
+    "tool.description": "Få detaljert informasjon om en spesifikk UPnP-enhet ved dens beskrivelses-URL (plassering) eller IP-adresse. Returnerer enhetsmetadata, tjenesteliste og enhetstre (underenheter).",
     "x_search_terms": [
       "upnp-enhetsinformasjon",
       "upnp_device_info",
       "upnp",
       "UPNP",
       "detaljert",
-      "om"
-    ],
-    "tool.description": "Få detaljert informasjon om en spesifikk UPnP-enhet ved dens beskrivelses-URL (plassering) eller IP-adresse. Returnerer enhetsmetadata, tjenesteliste og enhetstre (underenheter)."
+      "om",
+      "spesifikk"
+    ]
   },
   "nl": {
     "param.location.description": "UPnP-apparaatbeschrijvings-URL (bijvoorbeeld http://192.168.1.100:5000/description.xml).",
@@ -368,15 +387,16 @@
     "param.fmt.description": "Formaat: json of tekst.",
     "err.no_target": "Er moet 'locatie' of 'ip' worden opgegeven.",
     "msg.device_info": "Apparaatgegevens voor {location}",
+    "tool.description": "Ontvang gedetailleerde informatie over een specifiek UPnP-apparaat via de beschrijvings-URL (locatie) of IP-adres. Retourneert metagegevens van het apparaat, de servicelijst en de apparaatstructuur (subapparaten).",
     "x_search_terms": [
-      "upnp-apparaatinformatie",
+      "upnp-apparaatinfo",
       "upnp_device_info",
       "upnp",
       "UPNP",
       "gedetailleerd",
-      "over"
-    ],
-    "tool.description": "Ontvang gedetailleerde informatie over een specifiek UPnP-apparaat via de beschrijvings-URL (locatie) of IP-adres. Retourneert metagegevens van het apparaat, de servicelijst en de apparaatstructuur (subapparaten)."
+      "over",
+      "specifiek"
+    ]
   },
   "pl": {
     "param.location.description": "Adres URL opisu urządzenia UPnP (np. http://192.168.1.100:5000/description.xml).",
@@ -386,15 +406,16 @@
     "param.fmt.description": "Format: json lub tekst.",
     "err.no_target": "Należy podać „lokalizację” lub „ip”.",
     "msg.device_info": "Informacje o urządzeniu dla {location}",
+    "tool.description": "Uzyskaj szczegółowe informacje o konkretnym urządzeniu UPnP według jego adresu URL (lokalizacji) lub adresu IP. Zwraca metadane urządzenia, listę usług i drzewo urządzeń (urządzenia podrzędne).",
     "x_search_terms": [
       "informacje o urządzeniu upnp",
       "upnp_device_info",
       "upnp",
       "UPNP",
       "szczegółowe",
-      "o"
-    ],
-    "tool.description": "Uzyskaj szczegółowe informacje o konkretnym urządzeniu UPnP według jego adresu URL (lokalizacji) lub adresu IP. Zwraca metadane urządzenia, listę usług i drzewo urządzeń (urządzenia podrzędne)."
+      "o",
+      "specyficzne"
+    ]
   },
   "pt": {
     "param.location.description": "URL de descrição do dispositivo UPnP (por exemplo, http://192.168.1.100:5000/description.xml).",
@@ -404,15 +425,16 @@
     "param.fmt.description": "Formato: json ou texto.",
     "err.no_target": "Deve ser fornecido 'local' ou 'ip'.",
     "msg.device_info": "Informações do dispositivo para {location}",
+    "tool.description": "Obtenha informações detalhadas sobre um dispositivo UPnP específico por meio de seu URL de descrição (localização) ou endereço IP. Retorna metadados de dispositivos, lista de serviços e árvore de dispositivos (subdispositivos).",
     "x_search_terms": [
       "informações do dispositivo upnp",
       "upnp_device_info",
       "upnp",
       "UPNP",
-      "detalhado",
-      "sobre"
-    ],
-    "tool.description": "Obtenha informações detalhadas sobre um dispositivo UPnP específico por meio de seu URL de descrição (localização) ou endereço IP. Retorna metadados de dispositivos, lista de serviços e árvore de dispositivos (subdispositivos)."
+      "detailed",
+      "about",
+      "específico"
+    ]
   },
   "pt_BR": {
     "param.location.description": "URL de descrição do dispositivo UPnP (por exemplo, http://192.168.1.100:5000/description.xml).",
@@ -422,15 +444,16 @@
     "param.fmt.description": "Formato: json ou texto.",
     "err.no_target": "Deve ser fornecido 'local' ou 'ip'.",
     "msg.device_info": "Informações do dispositivo para {location}",
+    "tool.description": "Obtenha informações detalhadas sobre um dispositivo UPnP específico por meio de seu URL de descrição (localização) ou endereço IP. Retorna metadados de dispositivos, lista de serviços e árvore de dispositivos (subdispositivos).",
     "x_search_terms": [
       "informações do dispositivo upnp",
       "upnp_device_info",
       "upnp",
       "UPNP",
-      "detalhado",
-      "sobre"
-    ],
-    "tool.description": "Obtenha informações detalhadas sobre um dispositivo UPnP específico por meio de seu URL de descrição (localização) ou endereço IP. Retorna metadados de dispositivos, lista de serviços e árvore de dispositivos (subdispositivos)."
+      "detailed",
+      "about",
+      "específico"
+    ]
   },
   "ru": {
     "param.location.description": "URL-адрес описания устройства UPnP (например, http://192.168.1.100:5000/description.xml).",
@@ -440,15 +463,16 @@
     "param.fmt.description": "Формат: json или текст.",
     "err.no_target": "Необходимо указать либо «местоположение», либо «ip».",
     "msg.device_info": "Информация об устройстве для {location}",
+    "tool.description": "Получите подробную информацию о конкретном устройстве UPnP по URL-адресу его описания (местоположению) или IP-адресу. Возвращает метаданные устройства, список сервисов и дерево устройств (подустройства).",
     "x_search_terms": [
       "информация об устройстве upnp",
       "upnp_device_info",
       "upnp",
       "UPNP",
       "подробно",
-      "о"
-    ],
-    "tool.description": "Получите подробную информацию о конкретном устройстве UPnP по URL-адресу его описания (местоположению) или IP-адресу. Возвращает метаданные устройства, список сервисов и дерево устройств (подустройства)."
+      "о",
+      "конкретном"
+    ]
   },
   "sv": {
     "param.location.description": "URL för UPnP-enhetsbeskrivning (t.ex. http://192.168.1.100:5000/description.xml).",
@@ -458,15 +482,16 @@
     "param.fmt.description": "Format: json eller text.",
     "err.no_target": "Antingen \"plats\" eller \"ip\" måste anges.",
     "msg.device_info": "Enhetsinformation för {location}",
+    "tool.description": "Få detaljerad information om en specifik UPnP-enhet genom dess beskrivnings-URL (plats) eller IP-adress. Returnerar enhetens metadata, tjänstelista och enhetsträd (underenheter).",
     "x_search_terms": [
       "upnp-enhetsinformation",
       "upnp_device_info",
       "upnp",
       "UPNP",
       "detaljerad",
-      "om"
-    ],
-    "tool.description": "Få detaljerad information om en specifik UPnP-enhet genom dess beskrivnings-URL (plats) eller IP-adress. Returnerar enhetens metadata, tjänstelista och enhetsträd (underenheter)."
+      "om",
+      "specifikt"
+    ]
   },
   "sw": {
     "param.location.description": "URL ya maelezo ya kifaa cha UPnP (k.m. http://192.168.1.100:5000/description.xml).",
@@ -476,15 +501,16 @@
     "param.fmt.description": "Umbizo: json au maandishi.",
     "err.no_target": "Ni lazima 'mahali' au 'ip' itolewe.",
     "msg.device_info": "Maelezo ya kifaa ya {location}",
+    "tool.description": "Pata maelezo ya kina kuhusu kifaa mahususi cha UPnP kwa maelezo yake ya URL (mahali) au anwani ya IP. Hurejesha metadata ya kifaa, orodha ya huduma na mti wa kifaa (vifaa vidogo).",
     "x_search_terms": [
       "maelezo ya kifaa cha upnp",
       "upnp_device_info",
       "upnp",
       "UPNP",
-      "kina",
-      "kuhusu"
-    ],
-    "tool.description": "Pata maelezo ya kina kuhusu kifaa mahususi cha UPnP kwa maelezo yake ya URL (mahali) au anwani ya IP. Hurejesha metadata ya kifaa, orodha ya huduma na mti wa kifaa (vifaa vidogo)."
+      "maelezo",
+      "kuhusu",
+      "maalum"
+    ]
   },
   "th": {
     "param.location.description": "URL คำอธิบายอุปกรณ์ UPnP (เช่น http://192.168.1.100:5000/description.xml)",
@@ -494,15 +520,16 @@
     "param.fmt.description": "รูปแบบ: json หรือข้อความ",
     "err.no_target": "ต้องระบุ 'ตำแหน่ง' หรือ 'ip'",
     "msg.device_info": "ข้อมูลอุปกรณ์สำหรับ {location}",
+    "tool.description": "รับข้อมูลโดยละเอียดเกี่ยวกับอุปกรณ์ UPnP เฉพาะตาม URL คำอธิบาย (ตำแหน่ง) หรือที่อยู่ IP ส่งคืนข้อมูลเมตาของอุปกรณ์ รายการบริการ และแผนผังอุปกรณ์ (อุปกรณ์ย่อย)",
     "x_search_terms": [
       "ข้อมูลอุปกรณ์ upnp",
       "upnp_device_info",
-      "อัปเอ็นพี",
-      "อัปเอ็นพี",
+      "upnp",
+      "UPNP",
       "รายละเอียด",
-      "เกี่ยวกับ"
-    ],
-    "tool.description": "รับข้อมูลโดยละเอียดเกี่ยวกับอุปกรณ์ UPnP เฉพาะตาม URL คำอธิบาย (ตำแหน่ง) หรือที่อยู่ IP ส่งคืนข้อมูลเมตาของอุปกรณ์ รายการบริการ และแผนผังอุปกรณ์ (อุปกรณ์ย่อย)"
+      "เกี่ยวกับ",
+      "เฉพาะ"
+    ]
   },
   "tr": {
     "param.location.description": "UPnP cihaz açıklama URL'si (ör. http://192.168.1.100:5000/description.xml).",
@@ -512,15 +539,16 @@
     "param.fmt.description": "Biçim: json veya metin.",
     "err.no_target": "Ya 'konum' ya da 'ip' sağlanmalıdır.",
     "msg.device_info": "{location} için cihaz bilgisi",
+    "tool.description": "Açıklama URL'sine (konumuna) veya IP adresine göre belirli bir UPnP cihazı hakkında ayrıntılı bilgi edinin. Cihaz meta verilerini, hizmet listesini ve cihaz ağacını (alt cihazlar) döndürür.",
     "x_search_terms": [
       "upnp cihaz bilgisi",
       "upnp_device_info",
       "upnp",
       "UPNP",
       "ayrıntılı",
-      "hakkında"
-    ],
-    "tool.description": "Açıklama URL'sine (konumuna) veya IP adresine göre belirli bir UPnP cihazı hakkında ayrıntılı bilgi edinin. Cihaz meta verilerini, hizmet listesini ve cihaz ağacını (alt cihazlar) döndürür."
+      "hakkında",
+      "belirli"
+    ]
   },
   "uk": {
     "param.location.description": "URL-адреса опису пристрою UPnP (наприклад, http://192.168.1.100:5000/description.xml).",
@@ -530,15 +558,16 @@
     "param.fmt.description": "Формат: json або текстовий.",
     "err.no_target": "Потрібно вказати або «location», або «ip».",
     "msg.device_info": "Інформація про пристрій для {location}",
+    "tool.description": "Отримайте детальну інформацію про конкретний пристрій UPnP за URL-адресою опису (розташування) або IP-адресою. Повертає метадані пристрою, список послуг і дерево пристроїв (підпристрої).",
     "x_search_terms": [
       "інформація про пристрій upnp",
       "upnp_device_info",
       "upnp",
       "UPNP",
       "детально",
-      "про"
-    ],
-    "tool.description": "Отримайте детальну інформацію про конкретний пристрій UPnP за URL-адресою опису (розташування) або IP-адресою. Повертає метадані пристрою, список послуг і дерево пристроїв (підпристрої)."
+      "про",
+      "конкретне"
+    ]
   },
   "vi": {
     "param.location.description": "URL mô tả thiết bị UPnP (ví dụ: http://192.168.1.100:5000/description.xml).",
@@ -548,15 +577,16 @@
     "param.fmt.description": "Định dạng: json hoặc văn bản.",
     "err.no_target": "Phải cung cấp 'vị trí' hoặc 'ip'.",
     "msg.device_info": "Thông tin thiết bị cho {location}",
+    "tool.description": "Nhận thông tin chi tiết về một thiết bị UPnP cụ thể theo URL mô tả (vị trí) hoặc địa chỉ IP của thiết bị đó. Trả về siêu dữ liệu thiết bị, danh sách dịch vụ và cây thiết bị (thiết bị phụ).",
     "x_search_terms": [
-      "upnp thông tin thiết bị",
+      "thông tin thiết bị upnp",
       "upnp_device_info",
       "upnp",
       "UPNP",
       "chi tiết",
-      "về"
-    ],
-    "tool.description": "Nhận thông tin chi tiết về một thiết bị UPnP cụ thể theo URL mô tả (vị trí) hoặc địa chỉ IP của thiết bị đó. Trả về siêu dữ liệu thiết bị, danh sách dịch vụ và cây thiết bị (thiết bị phụ)."
+      "about",
+      "cụ thể"
+    ]
   },
   "zh_CN": {
     "param.location.description": "UPnP 设备描述 URL（例如 http://192.168.1.100:5000/description.xml）。",
@@ -566,15 +596,16 @@
     "param.fmt.description": "格式：json 或文本。",
     "err.no_target": "必须提供“位置”或“IP”。",
     "msg.device_info": "{location} 的设备信息",
+    "tool.description": "通过其描述 URL（位置）或 IP 地址获取有关特定 UPnP 设备的详细信息。返回设备元数据、服务列表和设备树（子设备）。",
     "x_search_terms": [
       "upnp 设备信息",
       "upnp_device_info",
       "upnp",
       "UPNP",
       "详细",
-      "关于"
-    ],
-    "tool.description": "通过其描述 URL（位置）或 IP 地址获取有关特定 UPnP 设备的详细信息。返回设备元数据、服务列表和设备树（子设备）。"
+      "关于",
+      "特定"
+    ]
   },
   "zh_TW": {
     "param.location.description": "UPnP 裝置描述 URL（例如 http://192.168.1.100:5000/description.xml）。",
@@ -584,15 +615,16 @@
     "param.fmt.description": "格式：json 或文字。",
     "err.no_target": "必須提供“位置”或“IP”。",
     "msg.device_info": "{location} 的裝置資訊",
+    "tool.description": "透過其描述 URL（位置）或 IP 位址獲取有關特定 UPnP 設備的詳細資訊。傳回設備元資料、服務清單和設備樹（子設備）。",
     "x_search_terms": [
       "upnp 裝置資訊",
       "upnp_device_info",
       "upnp",
       "UPNP",
       "詳細",
-      "關於"
-    ],
-    "tool.description": "透過其描述 URL（位置）或 IP 位址獲取有關特定 UPnP 設備的詳細資訊。傳回設備元資料、服務清單和設備樹（子設備）。"
+      "關於",
+      "特定"
+    ]
   },
   "ja": {
     "param.location.description": "UPnP デバイスの説明 URL (例: http://192.168.1.100:5000/description.xml)。",
@@ -605,11 +637,12 @@
     "tool.description": "特定の UPnP デバイスに関する詳細情報を、その説明 URL (場所) または IP アドレスによって取得します。デバイスのメタデータ、サービス リスト、およびデバイス ツリー (サブデバイス) を返します。",
     "x_search_terms": [
       "upnp デバイス情報",
-      "upnp_デバイス情報",
-      "アップナップ",
-      "アップNP",
+      "upnp_device_info",
+      "upnp",
+      "UPNP",
       "詳細",
-      "について"
+      "概要",
+      "固有"
     ]
   }
 }

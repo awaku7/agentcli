@@ -30,15 +30,11 @@
   "ja": {
     "tool.description": "mdformat を使用して Markdown ファイルの形式を確認します。フォーマットの修正が必要なファイルを報告します。オプションで自動修正。",
     "x_search_terms": [
-      "markdown",
-      "format",
+      "マークダウン",
+      "フォーマット",
       "lint",
       "mdformat",
       "md",
-      "style",
-      "マークダウン",
-      "フォーマット",
-      "チェック",
       "スタイル"
     ],
     "param.path.description": "チェックするグロブ パターンまたはファイル パス (例: 「docs/**/*.md」または「README.md」)。",
@@ -62,17 +58,12 @@
   "ar": {
     "tool.description": "تحقق من تنسيق ملف Markdown باستخدام mdformat. تقارير الملفات التي تحتاج إلى إصلاحات التنسيق. اختياريا الإصلاح التلقائي.",
     "x_search_terms": [
-      "markdown",
-      "format",
-      "lint",
+      "تخفيض السعر",
+      "تنسيق",
+      "لينت",
       "mdformat",
       "md",
-      "style",
-      "تخفيض السعر",
-      "شكل",
-      "الوبر",
-      "دكتور في الطب",
-      "أسلوب"
+      "نمط"
     ],
     "param.path.description": "نمط الكرة الأرضية أو مسار الملف المطلوب التحقق منه (على سبيل المثال \"docs/**/*.md\" أو \"README.md\").",
     "param.fix.description": "إذا كان هذا صحيحًا، فقم بإصلاح مشكلات التنسيق تلقائيًا بدلاً من مجرد التحقق.",
@@ -100,12 +91,7 @@
       "lint",
       "mdformat",
       "md",
-      "style",
-      "মার্কডাউন",
-      "বিন্যাস",
-      "লিন্ট",
-      "মো",
-      "শৈলী"
+      "style"
     ],
     "param.path.description": "চেক করার জন্য গ্লোব প্যাটার্ন বা ফাইল পাথ (যেমন 'docs/**/*.md' বা 'README.md')।",
     "param.fix.description": "যদি সত্য হয়, শুধুমাত্র চেক করার পরিবর্তে ফর্ম্যাটিং সমস্যাগুলি স্বয়ংক্রিয়ভাবে ঠিক করুন।",
@@ -129,14 +115,10 @@
     "tool.description": "Zkontrolujte formátování souboru Markdown pomocí mdformat. Hlásí soubory, které vyžadují opravy formátování. Volitelně automatická oprava.",
     "x_search_terms": [
       "markdown",
-      "format",
+      "formát",
       "lint",
       "mdformat",
       "md",
-      "style",
-      "snížení",
-      "formát",
-      "vlákna",
       "styl"
     ],
     "param.path.description": "Vzor glóbu nebo cestu k souboru ke kontrole (např. „docs/**/*.md“ nebo „README.md“).",
@@ -165,10 +147,7 @@
       "lint",
       "mdformat",
       "md",
-      "style",
-      "abschlag",
-      "fussel",
-      "stil"
+      "style"
     ],
     "param.path.description": "Zu überprüfendes Glob-Muster oder Dateipfad (z. B. „docs/**/*.md“ oder „README.md“).",
     "param.fix.description": "Wenn dies der Fall ist, werden Formatierungsprobleme automatisch behoben, anstatt sie nur zu überprüfen.",
@@ -196,11 +175,7 @@
       "lint",
       "mdformat",
       "md",
-      "style",
-      "χαμήλωση τιμής",
-      "σχήμα και διάταξις βιβλίου",
-      "στουπί",
-      "στυλ"
+      "style"
     ],
     "param.path.description": "Glob μοτίβο ή διαδρομή αρχείου προς έλεγχο (π.χ. 'docs/**/*.md' ή 'README.md').",
     "param.fix.description": "Εάν ισχύει, διορθώστε αυτόματα τα προβλήματα μορφοποίησης αντί να τα ελέγξετε.",
@@ -224,16 +199,10 @@
     "tool.description": "Verifique el formato del archivo Markdown con mdformat. Informa archivos que necesitan correcciones de formato. Opcionalmente reparación automática.",
     "x_search_terms": [
       "markdown",
-      "format",
-      "lint",
-      "mdformat",
-      "md",
-      "style",
-      "reducción",
       "formato",
-      "hilas",
-      "formato md",
-      "maryland",
+      "lint",
+      "mdformato",
+      "md",
       "estilo"
     ],
     "param.path.description": "Patrón global o ruta de archivo para verificar (por ejemplo, 'docs/**/*.md' o 'README.md').",
@@ -249,7 +218,7 @@
     "result.error": "[{label}] {path}: {e}",
     "result.fallback_detail": "problema de formato",
     "result.more": "... y {count} más",
-    "label.ok": "OK",
+    "label.ok": "bien",
     "label.fail": "FALLO",
     "label.timeout": "TIEMPO DE ESPERA",
     "label.error": "ERROR"
@@ -257,15 +226,11 @@
   "fa": {
     "tool.description": "قالب بندی فایل Markdown را با mdformat بررسی کنید. فایل هایی را گزارش می کند که نیاز به اصلاح فرمت دارند. به صورت اختیاری رفع خودکار.",
     "x_search_terms": [
-      "markdown",
-      "format",
+      "نشانه گذاری",
+      "قالب",
       "lint",
       "mdformat",
       "md",
-      "style",
-      "نشانه گذاری",
-      "قالب",
-      "پرز",
       "سبک"
     ],
     "param.path.description": "الگوی گلوب یا مسیر فایل برای بررسی (مثلاً 'docs/**/*.md' یا 'README.md').",
@@ -294,11 +259,7 @@
       "lint",
       "mdformat",
       "md",
-      "style",
-      "alennus",
-      "muoto",
-      "nukka",
-      "tyyli"
+      "style"
     ],
     "param.path.description": "Globaali kuvio tai tarkistettava tiedostopolku (esim. \"docs/**/*.md\" tai \"README.md\").",
     "param.fix.description": "Jos totta, korjaa muotoiluongelmat automaattisesti pelkän tarkistamisen sijaan.",
@@ -326,11 +287,7 @@
       "lint",
       "mdformat",
       "md",
-      "style",
-      "réduction",
-      "peluche",
-      "formatmd",
-      "maryland"
+      "style"
     ],
     "param.path.description": "Modèle Glob ou chemin de fichier à vérifier (par exemple 'docs/**/*.md' ou 'README.md').",
     "param.fix.description": "Si c'est vrai, corrigez automatiquement les problèmes de formatage au lieu de simplement vérifier.",
@@ -358,11 +315,7 @@
       "lint",
       "mdformat",
       "md",
-      "style",
-      "סימון",
-      "פוּרמָט",
-      "מוֹך",
-      "סִגְנוֹן"
+      "style"
     ],
     "param.path.description": "דפוס גלוב או נתיב קובץ לבדיקה (למשל 'docs/**/*.md' או 'README.md').",
     "param.fix.description": "אם זה נכון, תקן אוטומטית בעיות עיצוב במקום רק לבדוק.",
@@ -385,16 +338,12 @@
   "hi": {
     "tool.description": "एमडीफॉर्मेट के साथ मार्कडाउन फ़ाइल फ़ॉर्मेटिंग की जाँच करें। उन फ़ाइलों की रिपोर्ट करता है जिन्हें फ़ॉर्मेटिंग सुधार की आवश्यकता होती है। वैकल्पिक रूप से स्वतः ठीक करें.",
     "x_search_terms": [
-      "markdown",
-      "format",
-      "lint",
-      "mdformat",
-      "md",
-      "style",
-      "प्रारूप",
-      "एक प्रकार का वृक्ष",
+      "मार्कडाउन",
+      "फॉर्मेट",
+      "लिंट",
+      "एमडीफॉर्मेट",
       "एमडी",
-      "शैली"
+      "स्टाइल"
     ],
     "param.path.description": "जांचने के लिए ग्लोब पैटर्न या फ़ाइल पथ (जैसे 'docs/**/*.md' या 'README.md')।",
     "param.fix.description": "यदि सत्य है, तो केवल जाँच करने के बजाय फ़ॉर्मेटिंग समस्याओं को स्वतः ठीक करें।",
@@ -422,12 +371,7 @@
       "lint",
       "mdformat",
       "md",
-      "style",
-      "árleszállítás",
-      "formátum",
-      "szösz",
-      "mdformátum",
-      "stílus"
+      "style"
     ],
     "param.path.description": "Globális minta vagy ellenőrizendő fájl elérési útja (pl. „docs/**/*.md” vagy „README.md”).",
     "param.fix.description": "Ha igaz, a formázási problémák automatikus javítása az ellenőrzés helyett.",
@@ -450,16 +394,12 @@
   "id": {
     "tool.description": "Periksa pemformatan file Markdown dengan mdformat. Melaporkan file yang memerlukan perbaikan format. Opsional, perbaiki otomatis.",
     "x_search_terms": [
-      "markdown",
+      "penurunan harga",
       "format",
       "lint",
       "mdformat",
       "md",
-      "style",
-      "penurunan harga",
-      "serat",
-      "format md",
-      "gaya"
+      "style"
     ],
     "param.path.description": "Pola gumpalan atau jalur file yang akan diperiksa (misalnya 'docs/**/*.md' atau 'README.md').",
     "param.fix.description": "Jika benar, perbaiki masalah pemformatan secara otomatis, bukan hanya memeriksa.",
@@ -487,11 +427,7 @@
       "lint",
       "mdformat",
       "md",
-      "style",
-      "ribasso",
-      "formato",
-      "lanugine",
-      "stile"
+      "style"
     ],
     "param.path.description": "Modello globale o percorso del file da verificare (ad esempio \"docs/**/*.md\" o \"README.md\").",
     "param.fix.description": "Se è vero, risolvi automaticamente i problemi di formattazione invece di limitarti a controllare.",
@@ -519,11 +455,7 @@
       "lint",
       "mdformat",
       "md",
-      "style",
-      "가격 인하",
-      "체재",
-      "보풀",
-      "스타일"
+      "style"
     ],
     "param.path.description": "확인할 Glob 패턴 또는 파일 경로(예: 'docs/**/*.md' 또는 'README.md')",
     "param.fix.description": "true인 경우 단순히 확인하는 대신 형식 문제를 자동 수정합니다.",
@@ -551,11 +483,7 @@
       "lint",
       "mdformat",
       "md",
-      "style",
-      "тэмдэглэгээ",
-      "формат",
-      "хөвөн",
-      "хэв маяг"
+      "style"
     ],
     "param.path.description": "Глоб хээ эсвэл шалгах файлын зам (жишээ нь 'docs/**/*.md' эсвэл 'README.md').",
     "param.fix.description": "Хэрэв үнэн бол зүгээр л шалгахын оронд форматын асуудлыг автоматаар засаарай.",
@@ -583,11 +511,7 @@
       "lint",
       "mdformat",
       "md",
-      "style",
-      "मार्कडाउन",
-      "स्वरूप",
-      "लिंट",
-      "शैली"
+      "style"
     ],
     "param.path.description": "तपासण्यासाठी ग्लोब पॅटर्न किंवा फाइल पथ (उदा. 'docs/**/*.md' किंवा 'README.md').",
     "param.fix.description": "खरे असल्यास, केवळ तपासण्याऐवजी स्वरूपन समस्या स्वयं-निराकरण करा.",
@@ -615,9 +539,6 @@
       "lint",
       "mdformat",
       "md",
-      "style",
-      "nedskrivning",
-      "lo",
       "stil"
     ],
     "param.path.description": "Globmønster eller filbane å sjekke (f.eks. 'docs/**/*.md' eller 'README.md').",
@@ -646,11 +567,7 @@
       "lint",
       "mdformat",
       "md",
-      "style",
-      "afwaardering",
-      "formaat",
-      "mdformaat",
-      "stijl"
+      "style"
     ],
     "param.path.description": "Globpatroon of bestandspad dat moet worden gecontroleerd (bijvoorbeeld 'docs/**/*.md' of 'README.md').",
     "param.fix.description": "Indien waar, corrigeer dan automatisch de opmaakproblemen in plaats van alleen maar te controleren.",
@@ -673,15 +590,12 @@
   "pl": {
     "tool.description": "Sprawdź formatowanie pliku Markdown za pomocą mdformat. Raportuje pliki wymagające poprawek formatowania. Opcjonalnie automatyczna naprawa.",
     "x_search_terms": [
-      "markdown",
+      "przecena",
       "format",
       "lint",
       "mdformat",
       "md",
-      "style",
-      "obniżka cen",
-      "szarpie",
-      "styl"
+      "style"
     ],
     "param.path.description": "Wzór globu lub ścieżka pliku do sprawdzenia (np. „docs/**/*.md” lub „README.md”).",
     "param.fix.description": "Jeśli to prawda, rozwiąż problemy z formatowaniem automatycznie, zamiast tylko je sprawdzać.",
@@ -709,13 +623,7 @@
       "lint",
       "mdformat",
       "md",
-      "style",
-      "redução",
-      "formatar",
-      "fiapos",
-      "formato md",
-      "médico",
-      "estilo"
+      "style"
     ],
     "param.path.description": "Padrão glob ou caminho de arquivo a ser verificado (por exemplo, 'docs/**/*.md' ou 'README.md').",
     "param.fix.description": "Se for verdade, corrija automaticamente os problemas de formatação em vez de apenas verificar.",
@@ -743,13 +651,7 @@
       "lint",
       "mdformat",
       "md",
-      "style",
-      "redução",
-      "formatar",
-      "fiapos",
-      "formato md",
-      "médico",
-      "estilo"
+      "style"
     ],
     "param.path.description": "Padrão glob ou caminho de arquivo a ser verificado (por exemplo, 'docs/**/*.md' ou 'README.md').",
     "param.fix.description": "Se for verdade, corrija automaticamente os problemas de formatação em vez de apenas verificar.",
@@ -777,10 +679,7 @@
       "lint",
       "mdformat",
       "md",
-      "style",
-      "reducere",
-      "puf",
-      "stil"
+      "style"
     ],
     "param.path.description": "Model Glob sau calea fișierului de verificat (de exemplu, „docs/**/*.md” sau „README.md”).",
     "param.fix.description": "Dacă este adevărat, remediați automat problemele de formatare în loc să verificați.",
@@ -803,18 +702,12 @@
   "ru": {
     "tool.description": "Проверьте форматирование файла Markdown с помощью mdformat. Сообщает о файлах, требующих исправления форматирования. Опционально автоисправление.",
     "x_search_terms": [
-      "markdown",
-      "format",
+      "уценка",
+      "формат",
       "lint",
       "mdformat",
       "md",
-      "style",
-      "уценка",
-      "формат",
-      "ворс",
-      "мдформат",
-      "мэриленд",
-      "стиль"
+      "style"
     ],
     "param.path.description": "Шаблон шаблона или путь к файлу для проверки (например, «docs/**/*.md» или «README.md»).",
     "param.fix.description": "Если это правда, проблемы с форматированием автоматически исправляются, а не просто проверяются.",
@@ -842,10 +735,6 @@
       "lint",
       "mdformat",
       "md",
-      "style",
-      "prissänkning",
-      "formatera",
-      "ludd",
       "stil"
     ],
     "param.path.description": "Globmönster eller filsökväg att kontrollera (t.ex. 'docs/**/*.md' eller 'README.md').",
@@ -869,15 +758,11 @@
   "sw": {
     "tool.description": "Angalia umbizo la faili la Markdown na mdformat. Huripoti faili zinazohitaji marekebisho ya umbizo. Hiari kurekebisha kiotomatiki.",
     "x_search_terms": [
-      "markdown",
-      "format",
+      "alama chini",
+      "umbizo",
       "lint",
       "mdformat",
       "md",
-      "style",
-      "alama ya chini",
-      "umbizo",
-      "pamba",
       "mtindo"
     ],
     "param.path.description": "Mchoro wa globu au njia ya faili ya kukagua (k.m. 'docs/**/*.md' au 'README.md').",
@@ -901,16 +786,11 @@
   "th": {
     "tool.description": "ตรวจสอบการจัดรูปแบบไฟล์ Markdown ด้วย mdformat รายงานไฟล์ที่ต้องการแก้ไขการจัดรูปแบบ เลือกแก้ไขอัตโนมัติได้",
     "x_search_terms": [
-      "markdown",
-      "format",
+      "มาร์กดาวน์",
+      "รูปแบบ",
       "lint",
       "mdformat",
       "md",
-      "style",
-      "มาร์กดาวน์",
-      "รูปแบบ",
-      "ผ้าสำลี",
-      "แพทยศาสตร์",
       "สไตล์"
     ],
     "param.path.description": "รูปแบบ Glob หรือเส้นทางไฟล์ที่จะตรวจสอบ (เช่น 'docs/**/*.md' หรือ 'README.md')",
@@ -939,12 +819,7 @@
       "lint",
       "mdformat",
       "md",
-      "style",
-      "indirim",
-      "biçim",
-      "tüysüz",
-      "mdformatı",
-      "stil"
+      "style"
     ],
     "param.path.description": "Kontrol edilecek glob deseni veya dosya yolu (örn. 'docs/**/*.md' veya 'README.md').",
     "param.fix.description": "Doğruysa, yalnızca kontrol etmek yerine biçimlendirme sorunlarını otomatik olarak düzeltin.",
@@ -972,11 +847,7 @@
       "lint",
       "mdformat",
       "md",
-      "style",
-      "уцінка",
-      "формат",
-      "ворсинки",
-      "стиль"
+      "style"
     ],
     "param.path.description": "Глобальний шаблон або шлях до файлу для перевірки (наприклад, «docs/**/*.md» або «README.md»).",
     "param.fix.description": "Якщо true, автоматично виправляти проблеми форматування замість простої перевірки.",
@@ -999,16 +870,12 @@
   "vi": {
     "tool.description": "Kiểm tra định dạng tệp Markdown bằng mdformat. Báo cáo các tập tin cần sửa định dạng. Tùy chọn tự động sửa lỗi.",
     "x_search_terms": [
-      "markdown",
+      "kiểu markdown",
       "format",
       "lint",
       "mdformat",
       "md",
-      "style",
-      "giảm giá",
-      "định dạng",
-      "xơ vải",
-      "phong cách"
+      ""
     ],
     "param.path.description": "Mẫu toàn cầu hoặc đường dẫn tệp cần kiểm tra (ví dụ: 'docs/**/*.md' hoặc 'README.md').",
     "param.fix.description": "Nếu đúng, hãy tự động sửa các vấn đề về định dạng thay vì chỉ kiểm tra.",
@@ -1036,12 +903,7 @@
       "lint",
       "mdformat",
       "md",
-      "style",
-      "降价",
-      "格式",
-      "皮棉",
-      "md格式",
-      "风格"
+      "style"
     ],
     "param.path.description": "要检查的全局模式或文件路径（例如“docs/**/*.md”或“README.md”）。",
     "param.fix.description": "如果为 true，则会自动修复格式问题，而不仅仅是检查。",
@@ -1069,12 +931,7 @@
       "lint",
       "mdformat",
       "md",
-      "style",
-      "降價",
-      "格式",
-      "皮棉",
-      "md格式",
-      "風格"
+      "style"
     ],
     "param.path.description": "要檢查的全域模式或檔案路徑（例如“docs/**/*.md”或“README.md”）。",
     "param.fix.description": "如果為 true，則會自動修復格式問題，而不僅僅是檢查。",

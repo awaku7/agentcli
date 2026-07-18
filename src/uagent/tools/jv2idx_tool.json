@@ -30,16 +30,16 @@
   },
   "ja": {
     "x_search_terms": [
-      "java",
-      "java code",
-      "java analysis",
-      "code index",
-      "java source",
-      "java parser",
-      "java function",
-      "java class",
-      "java method",
-      "java file"
+      "Java",
+      "Javaコード",
+      "Java分析",
+      "コードインデックス",
+      "Javaソース",
+      "Javaパーサー",
+      "Java関数",
+      "Javaクラス",
+      "Javaメソッド",
+      "Javaファイル"
     ],
     "param.path.description": "Java (.java) ファイルへのパス。",
     "err.path_required": "エラー: 'path' は必須です。",

@@ -27,13 +27,14 @@
     "msg.summary": "تصفح OPC UA: {count} عقدة (عقدة) من {node} في {ms} مللي ثانية.",
     "err.url_required": "مطلوب عنوان URL.",
     "x_search_terms": [
-      "تصفح opcua",
+      "opcua Browse",
       "opcua_browse",
-      "أوبكوا",
-      "أوبكوا",
-      "خادم",
-      "عنوان",
-      "مساحة"
+      "opcua",
+      "OPCUA",
+      "الخادم",
+      "العنوان",
+      "مساحة",
+      "إرجاع"
     ]
   },
   "bn": {
@@ -45,13 +46,14 @@
     "msg.summary": "OPC UA ব্রাউজ করুন: {ms} ms এ {node} থেকে {count} নোড(গুলি)।",
     "err.url_required": "url আবশ্যক।",
     "x_search_terms": [
-      "opcua ব্রাউজ",
+      "opcua browse",
       "opcua_browse",
-      "ওপিসিউএ",
-      "ওপিসিউএ",
-      "সার্ভার",
-      "ঠিকানা",
-      "স্থান"
+      "opcua",
+      "OPCUA",
+      "server",
+      "address",
+      "space",
+      "returns"
     ]
   },
   "cs": {
@@ -63,13 +65,14 @@
     "msg.summary": "Procházení OPC UA: {count} uzlů z {node} za {ms} ms.",
     "err.url_required": "adresa URL je povinná.",
     "x_search_terms": [
-      "opcua procházet",
+      "opcua browse",
       "opcua_browse",
       "opcua",
       "OPCUA",
       "server",
       "adresa",
-      "prostor"
+      "mezera",
+      "vrací se"
     ]
   },
   "de": {
@@ -81,13 +84,14 @@
     "msg.summary": "OPC UA-Durchsuchen: {count} Knoten von {node} in {ms} ms.",
     "err.url_required": "URL ist erforderlich.",
     "x_search_terms": [
-      "opcua durchsuchen",
+      "opcua browse",
       "opcua_browse",
       "opcua",
       "OPCUA",
-      "Server",
-      "Adresse",
-      "Raum"
+      "server",
+      "address",
+      "space",
+      "gibt zurück"
     ]
   },
   "el": {
@@ -99,13 +103,14 @@
     "msg.summary": "Περιήγηση OPC UA: {count} κόμβοι από {node} σε {ms} ms.",
     "err.url_required": "url απαιτείται.",
     "x_search_terms": [
-      "opcua περιήγηση",
+      "opcua browse",
       "opcua_browse",
       "opcua",
       "OPCUA",
       "διακομιστής",
       "διεύθυνση",
-      "χώρος"
+      "space",
+      "επιστρέφει"
     ]
   },
   "es": {
@@ -117,13 +122,14 @@
     "msg.summary": "Navegación OPC UA: {count} nodos desde {node} en {ms} ms.",
     "err.url_required": "Se requiere URL.",
     "x_search_terms": [
-      "navegar por opcua",
+      "opcua explorar",
       "opcua_browse",
       "opcua",
       "OPCUA",
       "servidor",
       "dirección",
-      "espacio"
+      "espacio",
+      "retornos"
     ]
   },
   "fa": {
@@ -135,13 +141,14 @@
     "msg.summary": "مرور OPC UA: {count} گره از {node} در {ms} میلی‌ثانیه.",
     "err.url_required": "آدرس اینترنتی مورد نیاز است.",
     "x_search_terms": [
-      "مرور opcua",
+      "opcua browse",
       "opcua_browse",
-      "اوپسیوآ",
-      "اوپسیوآ",
+      "opcua",
+      "OPCUA",
       "سرور",
       "آدرس",
-      "فضا"
+      "space",
+      "بازگشت"
     ]
   },
   "fi": {
@@ -153,13 +160,14 @@
     "msg.summary": "OPC UA:n selaus: {count} solmua kohteesta {node} {ms} ms:ssa.",
     "err.url_required": "url vaaditaan.",
     "x_search_terms": [
-      "opcua selaa",
+      "opcua browse",
       "opcua_browse",
       "opcua",
       "OPCUA",
       "palvelin",
       "osoite",
-      "tila"
+      "space",
+      "palauttaa"
     ]
   },
   "fr": {
@@ -177,7 +185,8 @@
       "OPCUA",
       "serveur",
       "adresse",
-      "espace"
+      "espace",
+      "retours"
     ]
   },
   "he": {
@@ -189,13 +198,14 @@
     "msg.summary": "דפדוף ב-OPC UA: {count} צמתים מ-{node} ב-{ms} אלפיות השנייה.",
     "err.url_required": "נדרשת כתובת URL.",
     "x_search_terms": [
-      "opcua עיין",
+      "opcua browse",
       "opcua_browse",
       "opcua",
       "OPCUA",
       "שרת",
       "כתובת",
-      "מרחב"
+      "מרחב",
+      "החזרות"
     ]
   },
   "hi": {
@@ -207,13 +217,14 @@
     "msg.summary": "ओपीसी यूए ब्राउज़ करें: {count} नोड(ओं) को {node} से {ms} एमएस में।",
     "err.url_required": "यूआरएल आवश्यक है.",
     "x_search_terms": [
-      "opcua ब्राउज़ करें",
+      "opcua ब्राउज़",
       "opcua_browse",
-      "ओपीसीयूए",
-      "ओपीसीयूए",
-      "सर्वर",
+      "opcua",
+      "OPCUA",
+      "server",
       "पता",
-      "स्थान"
+      "space",
+      "रिटर्न"
     ]
   },
   "hu": {
@@ -225,13 +236,14 @@
     "msg.summary": "OPC UA tallózás: {count} csomópont {node}-től {ms} ms alatt.",
     "err.url_required": "url megadása kötelező.",
     "x_search_terms": [
-      "opcua böngészés",
+      "opcua browse",
       "opcua_browse",
       "opcua",
       "OPCUA",
       "szerver",
       "cím",
-      "tér"
+      "space",
+      "returns"
     ]
   },
   "id": {
@@ -243,13 +255,14 @@
     "msg.summary": "Penjelajahan OPC UA: {count} node dari {node} dalam {ms} ms.",
     "err.url_required": "url diperlukan.",
     "x_search_terms": [
-      "jelajahi opcua",
+      "opcua jelajah",
       "opcua_browse",
       "opcua",
       "OPCUA",
-      "pelayan",
+      "server",
       "alamat",
-      "ruang"
+      "spasi",
+      "pengembalian"
     ]
   },
   "it": {
@@ -265,9 +278,10 @@
       "opcua_browse",
       "opcua",
       "OPCUA",
-      "servitore",
+      "server",
       "indirizzo",
-      "spazio"
+      "spazio",
+      "restituisce"
     ]
   },
   "ja": {
@@ -279,13 +293,14 @@
     "msg.summary": "OPC UA の参照: {ms} ミリ秒で {node} から {count} ノード。",
     "err.url_required": "URLは必須です。",
     "x_search_terms": [
-      "オプクア ブラウズ",
+      "opcua 参照",
       "opcua_browse",
-      "オプクア",
-      "オプクア",
+      "opcua",
+      "OPCUA",
       "サーバー",
-      "住所",
-      "スペース"
+      "アドレス",
+      "スペース",
+      "戻り値"
     ]
   },
   "ko": {
@@ -299,11 +314,12 @@
     "x_search_terms": [
       "opcua 찾아보기",
       "opcua_browse",
-      "오쿠아",
+      "opcua",
       "OPCUA",
       "서버",
       "주소",
-      "공간"
+      "공간",
+      "반환"
     ]
   },
   "mn": {
@@ -315,13 +331,14 @@
     "msg.summary": "OPC UA үзэх: {count} зангилаа(ууд) {node}-ээс {ms} мс-д.",
     "err.url_required": "url шаардлагатай.",
     "x_search_terms": [
-      "opcua үзэх",
+      "opcua browse",
       "opcua_browse",
-      "опкюа",
-      "опкюа",
+      "opcua",
+      "OPCUA",
       "сервер",
       "хаяг",
-      "орон зай"
+      "зай",
+      "буцах"
     ]
   },
   "mr": {
@@ -333,13 +350,14 @@
     "msg.summary": "OPC UA ब्राउझ करा: {ms} ms मध्ये {node} वरून {count} नोड.",
     "err.url_required": "url आवश्यक आहे.",
     "x_search_terms": [
-      "opcua ब्राउझ",
+      "opcua browse",
       "opcua_browse",
-      "ओपीसीयूए",
-      "ओपीसीयूए",
-      "सर्व्हर",
-      "पत्ता",
-      "जागा"
+      "opcua",
+      "OPCUA",
+      "server",
+      "address",
+      "space",
+      "returns"
     ]
   },
   "nb": {
@@ -351,13 +369,14 @@
     "msg.summary": "OPC UA-søk: {count} node(r) fra {node} om {ms} ms.",
     "err.url_required": "url er påkrevd.",
     "x_search_terms": [
-      "opcua bla gjennom",
+      "opcua browse",
       "opcua_browse",
       "opcua",
       "OPCUA",
       "server",
       "adresse",
-      "plass"
+      "plass",
+      "retur"
     ]
   },
   "nl": {
@@ -369,13 +388,14 @@
     "msg.summary": "OPC UA-bladeren: {count} knooppunt(en) van {node} in {ms} ms.",
     "err.url_required": "URL is vereist.",
     "x_search_terms": [
-      "opcua bladeren",
+      "opcua browse",
       "opcua_browse",
       "opcua",
       "OPCUA",
       "server",
       "adres",
-      "ruimte"
+      "spatie",
+      "retourneert"
     ]
   },
   "pl": {
@@ -387,13 +407,14 @@
     "msg.summary": "Przeglądanie OPC UA: {count} węzłów z {node} w {ms} ms.",
     "err.url_required": "adres URL jest wymagany.",
     "x_search_terms": [
-      "przeglądaj",
+      "opcua przeglądaj",
       "opcua_browse",
-      "wzrok",
+      "opcua",
       "OPCUA",
       "serwer",
       "adres",
-      "przestrzeń"
+      "spacja",
+      "powraca"
     ]
   },
   "pt": {
@@ -409,9 +430,10 @@
       "opcua_browse",
       "opcua",
       "OPCUA",
-      "servidor",
-      "endereço",
-      "espaço"
+      "server",
+      "address",
+      "space",
+      "returns"
     ]
   },
   "pt_BR": {
@@ -427,9 +449,10 @@
       "opcua_browse",
       "opcua",
       "OPCUA",
-      "servidor",
-      "endereço",
-      "espaço"
+      "server",
+      "address",
+      "space",
+      "returns"
     ]
   },
   "ro": {
@@ -441,13 +464,14 @@
     "msg.summary": "Răsfoiți OPC UA: {count} nod(e) de la {node} în {ms} ms.",
     "err.url_required": "URL-ul este necesar.",
     "x_search_terms": [
-      "opcua navigare",
+      "opcua browse",
       "opcua_browse",
       "opcua",
       "OPCUA",
       "server",
-      "adresă",
-      "spațiu"
+      "address",
+      "space",
+      "returns"
     ]
   },
   "ru": {
@@ -459,13 +483,14 @@
     "msg.summary": "Обзор OPC UA: {count} узлов из {node} за {ms} мс.",
     "err.url_required": "URL-адрес обязателен.",
     "x_search_terms": [
-      "opcua просмотр",
+      "opcua обзор",
       "opcua_browse",
       "opcua",
       "OPCUA",
       "сервер",
       "адрес",
-      "пространство"
+      "пространство",
+      "возврат"
     ]
   },
   "sv": {
@@ -477,13 +502,14 @@
     "msg.summary": "OPC UA-bläddring: {count} nod(er) från {node} om {ms} ms.",
     "err.url_required": "URL krävs.",
     "x_search_terms": [
-      "opcua bläddra",
+      "opcua browse",
       "opcua_browse",
       "opcua",
       "OPCUA",
       "server",
       "adress",
-      "utrymme"
+      "utrymme",
+      "retur"
     ]
   },
   "sw": {
@@ -495,13 +521,14 @@
     "msg.summary": "Vinjari vya OPC UA: {count} nodi kutoka {node} katika ms {ms}.",
     "err.url_required": "url inahitajika.",
     "x_search_terms": [
-      "vinjari opcua",
-      "opcua_browse",
+      "opcua vinjari",
+      "opcua_vinjari",
       "opcua",
       "OPCUA",
-      "seva",
+      "server",
       "anwani",
-      "nafasi"
+      "nafasi",
+      " inarejesha"
     ]
   },
   "th": {
@@ -515,11 +542,12 @@
     "x_search_terms": [
       "opcua เรียกดู",
       "opcua_browse",
-      "โอพีซียูเอ",
-      "โอพีซียูเอ",
+      "opcua",
+      "OPCUA",
       "เซิร์ฟเวอร์",
       "ที่อยู่",
-      "พื้นที่"
+      "space",
+      "ส่งคืน"
     ]
   },
   "tr": {
@@ -531,13 +559,14 @@
     "msg.summary": "OPC UA göz atma: {ms} ms içinde {node}'den {count} düğüm.",
     "err.url_required": "URL'si gerekli.",
     "x_search_terms": [
-      "opcua göz at",
+      "opcua göz atma",
       "opcua_browse",
       "opcua",
       "OPCUA",
       "sunucu",
       "adres",
-      "uzay"
+      "boşluk",
+      "dönüşler"
     ]
   },
   "uk": {
@@ -549,13 +578,14 @@
     "msg.summary": "Перегляд OPC UA: {count} вузлів із {node} за {ms} мс.",
     "err.url_required": "необхідна URL-адреса.",
     "x_search_terms": [
-      "opcua перегляд",
+      "opcua browse",
       "opcua_browse",
       "opcua",
       "OPCUA",
       "сервер",
       "адреса",
-      "простір"
+      "пробіл",
+      "повертає"
     ]
   },
   "vi": {
@@ -573,7 +603,8 @@
       "OPCUA",
       "máy chủ",
       "địa chỉ",
-      "không gian"
+      "space",
+      "trả về"
     ]
   },
   "zh_CN": {
@@ -585,13 +616,14 @@
     "msg.summary": "OPC UA 浏览：在 {ms} 毫秒内从 {node} 浏览 {count} 个节点。",
     "err.url_required": "网址为必填项。",
     "x_search_terms": [
-      "opcua 浏览",
+      "opcua browser",
       "opcua_browse",
       "opcua",
       "OPCUA",
-      "服务器",
-      "地址",
-      "空间"
+      "server",
+      "address",
+      "space",
+      "returns"
     ]
   },
   "zh_TW": {
@@ -603,13 +635,14 @@
     "msg.summary": "OPC UA 瀏覽：在 {ms} 毫秒內從 {node} 瀏覽 {count} 個節點。",
     "err.url_required": "網址為必填項。",
     "x_search_terms": [
-      "opcua 瀏覽",
+      "opcua browser",
       "opcua_browse",
       "opcua",
       "OPCUA",
-      "伺服器",
-      "位址",
-      "空間"
+      "server",
+      "address",
+      "space",
+      "returns"
     ]
   }
 }

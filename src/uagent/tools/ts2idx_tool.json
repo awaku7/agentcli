@@ -32,14 +32,14 @@
     "x_search_terms": [
       "typescript",
       "ts",
-      "typescript code",
-      "ts code",
-      "code index",
-      "typescript analysis",
-      "ts parser",
-      "ts function",
-      "ts class",
-      "ts file"
+      "typescript コード",
+      "ts コード",
+      "コードインデックス",
+      "typescript 分析",
+      "ts パーサー",
+      "ts 関数",
+      "ts クラス",
+      "ts ファイル"
     ],
     "param.path.description": "TypeScript/JavaScript (.ts/.js) ファイルへのパス。",
     "err.path_required": "エラー: 'path' は必須です。",

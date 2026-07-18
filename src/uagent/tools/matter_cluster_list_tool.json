@@ -6,17 +6,18 @@
     "err.device_id_required": "مطلوب معرف الجهاز المسألة.",
     "err.not_found": "لم يتم العثور على جهاز المادة: {device_id}",
     "err.ambiguous_target": "هدف الجهاز المهم غامض: {device_id}",
-    "x_search_terms": [
-      "قائمة مجموعات المادة",
-      "matter_cluster_list",
-      "مادة",
-      "مادة",
-      "مجموعة"
-    ],
     "err.config_missing": "بيانات الجهاز المسألة مفقودة. قم بتعيين {env_json} أو {env_file} للأجهزة أو وحدات التحكم أو الجسور.",
     "param.bridge.description": "معرف الجسر (اختياري).",
     "param.ctrl.description": "معرف وحدة التحكم (اختياري).",
-    "param.endpoint.description": "مرشح نقطة النهاية (اختياري)."
+    "param.endpoint.description": "مرشح نقطة النهاية (اختياري).",
+    "x_search_terms": [
+      "قائمة مجموعة المسألة",
+      "matter_cluster_list",
+      "المادة",
+      "MATTER",
+      "cluster",
+      "clusters"
+    ]
   },
   "bn": {
     "tool.description": "একটি ডিভাইসের জন্য ম্যাটার ক্লাস্টার তালিকাভুক্ত করুন।",
@@ -25,17 +26,18 @@
     "err.device_id_required": "ম্যাটার ডিভাইস আইডি প্রয়োজন।",
     "err.not_found": "ম্যাটার ডিভাইস পাওয়া যায়নি: {device_id}",
     "err.ambiguous_target": "বস্তুর ডিভাইস লক্ষ্য অস্পষ্ট: {device_id}",
-    "x_search_terms": [
-      "বিষয় ক্লাস্টার তালিকা",
-      "matter_cluster_list",
-      "বিষয়",
-      "বিষয়",
-      "ক্লাস্টার"
-    ],
     "err.config_missing": "ম্যাটার ডিভাইস ডেটা অনুপস্থিত. ডিভাইস, কন্ট্রোলার বা সেতুর জন্য {env_json} বা {env_file} সেট করুন।",
     "param.bridge.description": "সেতু আইডি (ঐচ্ছিক)।",
     "param.ctrl.description": "কন্ট্রোলার আইডি (ঐচ্ছিক)।",
-    "param.endpoint.description": "এন্ডপয়েন্ট ফিল্টার (ঐচ্ছিক)।"
+    "param.endpoint.description": "এন্ডপয়েন্ট ফিল্টার (ঐচ্ছিক)।",
+    "x_search_terms": [
+      "পদার্থের ক্লাস্টার তালিকা",
+      "বস্তু_গুচ্ছ_তালিকা",
+      "ব্যাপার",
+      "",
+      "",
+      ""
+    ]
   },
   "cs": {
     "tool.description": "Vypsat clustery Matter pro zařízení.",
@@ -44,17 +46,18 @@
     "err.device_id_required": "Je vyžadováno ID zařízení.",
     "err.not_found": "Hmotné zařízení nenalezeno: {device_id}",
     "err.ambiguous_target": "Cíl zařízení je nejednoznačný: {device_id}",
-    "x_search_terms": [
-      "seznam shluků hmoty",
-      "matter_cluster_list",
-      "hmota",
-      "HMOTA",
-      "shluk"
-    ],
     "err.config_missing": "Chybí data zařízení Matter. Nastavte {env_json} nebo {env_file} pro zařízení, řadiče nebo mosty.",
     "param.bridge.description": "ID mostu (volitelné).",
     "param.ctrl.description": "ID ovladače (volitelné).",
-    "param.endpoint.description": "Filtr koncových bodů (volitelné)."
+    "param.endpoint.description": "Filtr koncových bodů (volitelné).",
+    "x_search_terms": [
+      "seznam klastrů hmoty",
+      "seznam_shluků_záležitostí",
+      " seskupení",
+      " klastrů",
+      "záležitostí",
+      ""
+    ]
   },
   "de": {
     "tool.description": "Materie-Cluster für ein Gerät auflisten.",
@@ -63,17 +66,18 @@
     "err.device_id_required": "Die Geräte-ID ist erforderlich.",
     "err.not_found": "Matter-Gerät nicht gefunden: {device_id}",
     "err.ambiguous_target": "Das Matter-Geräteziel ist nicht eindeutig: {device_id}",
-    "x_search_terms": [
-      "Liste der Materiecluster",
-      "matter_cluster_list",
-      "Angelegenheit",
-      "MATTER",
-      "Cluster"
-    ],
     "err.config_missing": "Matter-Gerätedaten fehlen. Legen Sie {env_json} oder {env_file} für Geräte, Controller oder Bridges fest.",
     "param.bridge.description": "Bridge-ID (optional).",
     "param.ctrl.description": "Controller-ID (optional).",
-    "param.endpoint.description": "Endpunktfilter (optional)."
+    "param.endpoint.description": "Endpunktfilter (optional).",
+    "x_search_terms": [
+      "Materieclusterliste",
+      "matter_cluster_list",
+      "matter",
+      "MATTER",
+      "cluster",
+      "cluster"
+    ]
   },
   "en": {
     "tool.description": "List Matter clusters for a device.",
@@ -102,17 +106,18 @@
     "err.device_id_required": "Se requiere la identificación del dispositivo.",
     "err.not_found": "Dispositivo de asunto no encontrado: {device_id}",
     "err.ambiguous_target": "El destino del dispositivo de materia es ambiguo: {device_id}",
-    "x_search_terms": [
-      "lista de grupos de materia",
-      "lista_cluster_materia",
-      "materia",
-      "ASUNTO",
-      "grupo"
-    ],
     "err.config_missing": "Faltan datos del dispositivo Matter. Establezca {env_json} o {env_file} para dispositivos, controladores o puentes.",
     "param.bridge.description": "ID de puente (opcional).",
     "param.ctrl.description": "ID del controlador (opcional).",
-    "param.endpoint.description": "Filtro de punto final (opcional)."
+    "param.endpoint.description": "Filtro de punto final (opcional).",
+    "x_search_terms": [
+      "lista de grupos de materia",
+      "matter_cluster_list",
+      "matter",
+      "MATTER",
+      "cluster",
+      "clusters"
+    ]
   },
   "fa": {
     "tool.description": "فهرست خوشه های ماده برای یک دستگاه.",
@@ -121,17 +126,18 @@
     "err.device_id_required": "شناسه دستگاه مورد نیاز است.",
     "err.not_found": "دستگاه ماده پیدا نشد: {device_id}",
     "err.ambiguous_target": "هدف دستگاه موضوع مبهم است: {device_id}",
-    "x_search_terms": [
-      "لیست خوشه‌های ماده",
-      "matter_cluster_list",
-      "ماده",
-      "ماده",
-      "خوشه"
-    ],
     "err.config_missing": "داده‌های دستگاه موضوعی وجود ندارد. {env_json} یا {env_file} را برای دستگاه ها، کنترلرها یا پل ها تنظیم کنید.",
     "param.bridge.description": "شناسه پل (اختیاری).",
     "param.ctrl.description": "شناسه کنترلر (اختیاری).",
-    "param.endpoint.description": "فیلتر نقطه پایانی (اختیاری)."
+    "param.endpoint.description": "فیلتر نقطه پایانی (اختیاری).",
+    "x_search_terms": [
+      "فهرست خوشه‌ای ماده",
+      "",
+      "",
+      "",
+      "",
+      ""
+    ]
   },
   "fi": {
     "tool.description": "Listaa laitteen materiaaliklusterit.",
@@ -140,17 +146,18 @@
     "err.device_id_required": "Asian laitetunnus vaaditaan.",
     "err.not_found": "Asialaitetta ei löydy: {device_id}",
     "err.ambiguous_target": "Laitteen kohde on epäselvä: {device_id}",
-    "x_search_terms": [
-      "asian klusteriluettelo",
-      "matter_cluster_list",
-      "asia",
-      "ASIA",
-      "klusteri"
-    ],
     "err.config_missing": "Laitteen tiedot puuttuvat. Aseta {env_json} tai {env_file} laitteille, ohjaimille tai silloille.",
     "param.bridge.description": "Bridge ID (valinnainen).",
     "param.ctrl.description": "Ohjaimen tunnus (valinnainen).",
-    "param.endpoint.description": "Päätepistesuodatin (valinnainen)."
+    "param.endpoint.description": "Päätepistesuodatin (valinnainen).",
+    "x_search_terms": [
+      "asiaklusteriluettelo",
+      "matter_cluster_list",
+      "matter",
+      "MATTER",
+      "cluster",
+      "klusterit"
+    ]
   },
   "fr": {
     "tool.description": "Répertoriez les clusters Matter pour un appareil.",
@@ -159,17 +166,18 @@
     "err.device_id_required": "L'ID de l'appareil concerné est requis.",
     "err.not_found": "Appareil concerné introuvable : {device_id}",
     "err.ambiguous_target": "La cible de l'appareil Matter est ambiguë : {device_id}",
-    "x_search_terms": [
-      "liste des clusters de matières",
-      "liste_cluster_matière",
-      "matière",
-      "MATIÈRE",
-      "grappe"
-    ],
     "err.config_missing": "Les données de l'appareil Matter sont manquantes. Définissez {env_json} ou {env_file} pour les appareils, les contrôleurs ou les ponts.",
     "param.bridge.description": "ID de pont (facultatif).",
     "param.ctrl.description": "ID du contrôleur (facultatif).",
-    "param.endpoint.description": "Filtre de point de terminaison (facultatif)."
+    "param.endpoint.description": "Filtre de point de terminaison (facultatif).",
+    "x_search_terms": [
+      "liste de clusters de matières",
+      "matter_cluster_list",
+      "matter",
+      "MATTER",
+      "cluster",
+      "clusters"
+    ]
   },
   "hi": {
     "tool.description": "किसी डिवाइस के लिए मैटर क्लस्टर की सूची बनाएं।",
@@ -178,17 +186,18 @@
     "err.device_id_required": "मैटर डिवाइस आईडी आवश्यक है.",
     "err.not_found": "मैटर डिवाइस नहीं मिला: {device_id}",
     "err.ambiguous_target": "मैटर डिवाइस लक्ष्य अस्पष्ट है: {device_id}",
-    "x_search_terms": [
-      "विषय क्लस्टर सूची",
-      "matter_cluster_list",
-      "विषय",
-      "विषय",
-      "क्लस्टर"
-    ],
     "err.config_missing": "मैटर डिवाइस डेटा गायब है. उपकरणों, नियंत्रकों या पुलों के लिए {env_json} या {env_file} सेट करें।",
     "param.bridge.description": "ब्रिज आईडी (वैकल्पिक)।",
     "param.ctrl.description": "नियंत्रक आईडी (वैकल्पिक).",
-    "param.endpoint.description": "समापन बिंदु फ़िल्टर (वैकल्पिक)।"
+    "param.endpoint.description": "समापन बिंदु फ़िल्टर (वैकल्पिक)।",
+    "x_search_terms": [
+      "मैटर क्लस्टर सूची",
+      "मैटर_क्लस्टर_लिस्ट",
+      "मैटर",
+      "मैटर",
+      "क्लस्टर",
+      "क्लस्टर"
+    ]
   },
   "id": {
     "tool.description": "Mencantumkan kluster Materi untuk suatu perangkat.",
@@ -197,17 +206,18 @@
     "err.device_id_required": "ID perangkat penting diperlukan.",
     "err.not_found": "Perangkat materi tidak ditemukan: {device_id}",
     "err.ambiguous_target": "Target perangkat materi tidak jelas: {device_id}",
-    "x_search_terms": [
-      "daftar klaster materi",
-      "daftar_materi_daftar",
-      "penting",
-      "MASALAH",
-      "gugus"
-    ],
     "err.config_missing": "Data perangkat penting tidak ada. Setel {env_json} atau {env_file} untuk perangkat, pengontrol, atau jembatan.",
     "param.bridge.description": "ID Jembatan (opsional).",
     "param.ctrl.description": "ID Pengontrol (opsional).",
-    "param.endpoint.description": "Filter titik akhir (opsional)."
+    "param.endpoint.description": "Filter titik akhir (opsional).",
+    "x_search_terms": [
+      "daftar cluster materi",
+      "matter_cluster_list",
+      "matter",
+      "MATTER",
+      "cluster",
+      "cluster"
+    ]
   },
   "it": {
     "tool.description": "Elenca i cluster di argomenti per un dispositivo.",
@@ -216,17 +226,18 @@
     "err.device_id_required": "L'ID dispositivo dell'argomento è obbligatorio.",
     "err.not_found": "Dispositivo dell’argomento non trovato: {device_id}",
     "err.ambiguous_target": "La destinazione del dispositivo dell’argomento è ambigua: {device_id}",
-    "x_search_terms": [
-      "elenco dei cluster di argomenti",
-      "materia_cluster_list",
-      "materia",
-      "MATERIA",
-      "grappolo"
-    ],
     "err.config_missing": "Mancano i dati del dispositivo dell'argomento. Imposta {env_json} o {env_file} per dispositivi, controller o bridge.",
     "param.bridge.description": "ID ponte (facoltativo).",
     "param.ctrl.description": "ID del controller (facoltativo).",
-    "param.endpoint.description": "Filtro endpoint (facoltativo)."
+    "param.endpoint.description": "Filtro endpoint (facoltativo).",
+    "x_search_terms": [
+      "elenco dei cluster di argomenti",
+      "elenco_cluster_materia",
+      "materia",
+      "MATERIA",
+      "cluster",
+      "cluster"
+    ]
   },
   "ja": {
     "tool.description": "デバイスの Matter クラスターをリストします。",
@@ -240,10 +251,11 @@
     "param.ctrl.description": "コントローラ ID (オプション)。",
     "param.endpoint.description": "エンドポイントフィルター (オプション)。",
     "x_search_terms": [
-      "物質クラスターリスト",
-      "問題クラスタリスト",
-      "問題",
-      "問題",
+      "マタークラスターリスト",
+      "matter_cluster_list",
+      "マター",
+      "MATTER",
+      "クラスター",
       "クラスター"
     ]
   },
@@ -254,17 +266,18 @@
     "err.device_id_required": "Matter 장치 ID가 필요합니다.",
     "err.not_found": "물질적 장치를 찾을 수 없습니다: {device_id}",
     "err.ambiguous_target": "Matter 장치 대상이 모호합니다: {device_id}",
-    "x_search_terms": [
-      "물질 클러스터 목록",
-      "물질_클러스터_목록",
-      "문제",
-      "물질",
-      "클러스터"
-    ],
     "err.config_missing": "Matter 장치 데이터가 누락되었습니다. 장치, 컨트롤러 또는 브리지에 대해 {env_json} 또는 {env_file}을 설정합니다.",
     "param.bridge.description": "브리지 ID(선택 사항).",
     "param.ctrl.description": "컨트롤러 ID(선택 사항).",
-    "param.endpoint.description": "엔드포인트 필터(선택 사항)."
+    "param.endpoint.description": "엔드포인트 필터(선택 사항).",
+    "x_search_terms": [
+      "물질 클러스터 목록",
+      "matter_cluster_list",
+      "물질",
+      "MATTER",
+      "cluster",
+      "clusters"
+    ]
   },
   "mn": {
     "tool.description": "Төхөөрөмжийн асуудлын кластеруудыг жагсаах.",
@@ -273,17 +286,18 @@
     "err.device_id_required": "Төхөөрөмжийн ID шаардлагатай.",
     "err.not_found": "Төхөөрөмж олдсонгүй: {device_id}",
     "err.ambiguous_target": "Төхөөрөмжийн зорилт тодорхойгүй байна: {device_id}",
-    "x_search_terms": [
-      "материйн кластерын жагсаалт",
-      "matter_cluster_list",
-      "асуудал",
-      "асуудал",
-      "кластер"
-    ],
     "err.config_missing": "Төхөөрөмжийн өгөгдөл дутуу байна. Төхөөрөмж, хянагч эсвэл гүүрэнд {env_json} эсвэл {env_file} тохируулна уу.",
     "param.bridge.description": "Bridge ID (заавал биш).",
     "param.ctrl.description": "Хянагчийн ID (заавал биш).",
-    "param.endpoint.description": "Төгсгөлийн шүүлтүүр (заавал биш)."
+    "param.endpoint.description": "Төгсгөлийн шүүлтүүр (заавал биш).",
+    "x_search_terms": [
+      "бодисын кластерын жагсаалт",
+      "материал_күлгийн_жагсаалт",
+      "материал",
+      "АСУУДАЛ",
+      " бөөгнөрөл",
+      "кластер"
+    ]
   },
   "mr": {
     "tool.description": "डिव्हाइससाठी मॅटर क्लस्टर्सची यादी करा.",
@@ -292,17 +306,18 @@
     "err.device_id_required": "मॅटर डिव्हाइस आयडी आवश्यक आहे.",
     "err.not_found": "मॅटर डिव्हाइस आढळले नाही: {device_id}",
     "err.ambiguous_target": "मॅटर डिव्हाइस लक्ष्य अस्पष्ट आहे: {device_id}",
-    "x_search_terms": [
-      "विषय क्लस्टर यादी",
-      "matter_cluster_list",
-      "विषय",
-      "विषय",
-      "क्लस्टर"
-    ],
     "err.config_missing": "मॅटर डिव्हाइस डेटा गहाळ आहे. डिव्हाइसेस, कंट्रोलर किंवा ब्रिजसाठी {env_json} किंवा {env_file} सेट करा.",
     "param.bridge.description": "ब्रिज आयडी (पर्यायी).",
     "param.ctrl.description": "कंट्रोलर आयडी (पर्यायी).",
-    "param.endpoint.description": "एंडपॉइंट फिल्टर (पर्यायी)."
+    "param.endpoint.description": "एंडपॉइंट फिल्टर (पर्यायी).",
+    "x_search_terms": [
+      "पदार्थ क्लस्टर सूची",
+      "matter_cluster_list",
+      "matter",
+      "MATTER",
+      "क्लस्टर",
+      "cluster"
+    ]
   },
   "el": {
     "tool.description": "Απαιτείται σημαντικό αναγνωριστικό συσκευής.",
@@ -311,17 +326,18 @@
     "err.device_id_required": "Απαιτείται το αναγνωριστικό συσκευής θέματος.",
     "err.not_found": "Η συσκευή ουσίας δεν βρέθηκε: {device_id}",
     "err.ambiguous_target": "Ο στόχος της συσκευής είναι διφορούμενος: {device_id}",
-    "x_search_terms": [
-      "λίστα συστάδων ύλης",
-      "matter_cluster_list",
-      "ύλη",
-      "ΥΛΗ",
-      "σύμπλεγμα"
-    ],
     "err.config_missing": "Λείπουν τα δεδομένα της συσκευής. Ορίστε {env_json} ή {env_file} για συσκευές, ελεγκτές ή γέφυρες.",
     "param.bridge.description": "Bridge ID (προαιρετικό).",
     "param.ctrl.description": "Αναγνωριστικό ελεγκτή (προαιρετικό).",
-    "param.endpoint.description": "Φίλτρο τελικού σημείου (προαιρετικό)."
+    "param.endpoint.description": "Φίλτρο τελικού σημείου (προαιρετικό).",
+    "x_search_terms": [
+      "λίστα συστάδων ύλης",
+      "matter_cluster_list",
+      "matter",
+      "MATTER",
+      "cluster",
+      "cluster"
+    ]
   },
   "he": {
     "tool.description": "נדרש מזהה מכשיר של עניין.",
@@ -330,17 +346,18 @@
     "err.device_id_required": "נדרש מזהה מכשיר של עניין.",
     "err.not_found": "התקן עניין לא נמצא: {device_id}",
     "err.ambiguous_target": "יעד מכשיר החומר אינו חד משמעי: {device_id}",
-    "x_search_terms": [
-      "רשימת אשכולות חומר",
-      "matter_cluster_list",
-      "חומר",
-      "חומר",
-      "אשכול"
-    ],
     "err.config_missing": "נתוני המכשיר חסרים. הגדר {env_json} או {env_file} עבור מכשירים, בקרים או גשרים.",
     "param.bridge.description": "מזהה גשר (אופציונלי).",
     "param.ctrl.description": "מזהה בקר (אופציונלי).",
-    "param.endpoint.description": "מסנן נקודת קצה (אופציונלי)."
+    "param.endpoint.description": "מסנן נקודת קצה (אופציונלי).",
+    "x_search_terms": [
+      "רשימת אשכולות עניינים",
+      "matter_cluster_list",
+      "חומרי אשכולות",
+      "",
+      "",
+      ""
+    ]
   },
   "hu": {
     "tool.description": "Fontos eszközazonosító szükséges.",
@@ -349,17 +366,18 @@
     "err.device_id_required": "Az eszköz azonosítója kötelező.",
     "err.not_found": "Az eszköz nem található: {device_id}",
     "err.ambiguous_target": "Az anyag eszköz célpontja nem egyértelmű: {device_id}",
-    "x_search_terms": [
-      "anyag klaszter lista",
-      "matter_cluster_list",
-      "anyag",
-      "ANYAG",
-      "klaszter"
-    ],
     "err.config_missing": "Az eszköz adatai hiányoznak. Állítsa be a {env_json} vagy {env_file} értéket az eszközökhöz, vezérlőkhöz vagy hidakhoz.",
     "param.bridge.description": "Hídazonosító (opcionális).",
     "param.ctrl.description": "Vezérlőazonosító (opcionális).",
-    "param.endpoint.description": "Végpontszűrő (opcionális)."
+    "param.endpoint.description": "Végpontszűrő (opcionális).",
+    "x_search_terms": [
+      "anyag klaszter lista",
+      "anyag_cluster_lista",
+      "anyag",
+      "MATTER",
+      "cluster",
+      "cluster"
+    ]
   },
   "ro": {
     "tool.description": "Listează clustere de materie pentru un dispozitiv.",
@@ -368,17 +386,18 @@
     "err.device_id_required": "ID dispozitiv (obligatoriu).",
     "err.not_found": "Dispozitivul nu a fost găsit: {device_id}",
     "err.ambiguous_target": "Dispozitivul nu a fost găsit: {device_id}",
-    "x_search_terms": [
-      "listă clustere materie",
-      "matter_cluster_list",
-      "materie",
-      "MATERIE",
-      "cluster"
-    ],
     "err.config_missing": "Lipsesc datele de pe dispozitiv Matter. Setați {env_json} sau {env_file} pentru dispozitive, controlere sau punți.",
     "param.bridge.description": "ID pod (opțional).",
     "param.ctrl.description": "ID controler (opțional).",
-    "param.endpoint.description": "Filtru de punct final (opțional)."
+    "param.endpoint.description": "Filtru de punct final (opțional).",
+    "x_search_terms": [
+      "listă de clustere de materie",
+      "lista_clustere_de_materie",
+      "matter",
+      "MATTER",
+      "cluster",
+      "clustere"
+    ]
   },
   "nb": {
     "tool.description": "Vis materieklynger for en enhet.",
@@ -387,17 +406,18 @@
     "err.device_id_required": "Enhets-ID for saken kreves.",
     "err.not_found": "Saksenhet ikke funnet: {device_id}",
     "err.ambiguous_target": "Materiell enhetsmål er tvetydig: {device_id}",
-    "x_search_terms": [
-      "liste over klynger for materie",
-      "matter_cluster_list",
-      "saken",
-      "MATTER",
-      "klynge"
-    ],
     "err.config_missing": "Saksenhetsdata mangler. Angi {env_json} eller {env_file} for enheter, kontrollere eller broer.",
     "param.bridge.description": "Bro-ID (valgfritt).",
     "param.ctrl.description": "Kontroller-ID (valgfritt).",
-    "param.endpoint.description": "Endepunktfilter (valgfritt)."
+    "param.endpoint.description": "Endepunktfilter (valgfritt).",
+    "x_search_terms": [
+      "matter cluster list",
+      "matter_cluster_list",
+      "matter",
+      "MATTER",
+      "cluster",
+      "klynger"
+    ]
   },
   "nl": {
     "tool.description": "Geef Matter-clusters voor een apparaat weer.",
@@ -406,17 +426,18 @@
     "err.device_id_required": "Kwestie-apparaat-ID is vereist.",
     "err.not_found": "Kwestie-apparaat niet gevonden: {device_id}",
     "err.ambiguous_target": "Het doel van het Matter-apparaat is dubbelzinnig: {device_id}",
-    "x_search_terms": [
-      "materie-clusterlijst",
-      "matter_cluster_list",
-      "materie",
-      "MATTER",
-      "cluster"
-    ],
     "err.config_missing": "Er ontbreken gegevens over het Matter-apparaat. Stel {env_json} of {env_file} in voor apparaten, controllers of bridges.",
     "param.bridge.description": "Bridge-ID (optioneel).",
     "param.ctrl.description": "Controller-ID (optioneel).",
-    "param.endpoint.description": "Eindpuntfilter (optioneel)."
+    "param.endpoint.description": "Eindpuntfilter (optioneel).",
+    "x_search_terms": [
+      "kwestieclusterlijst",
+      "matter_cluster_list",
+      "matter",
+      "MATTER",
+      "cluster",
+      "clusters"
+    ]
   },
   "pl": {
     "tool.description": "Wyświetl klastry materii dla urządzenia.",
@@ -425,17 +446,18 @@
     "err.device_id_required": "Wymagany jest identyfikator urządzenia Matter.",
     "err.not_found": "Nie znaleziono urządzenia materii: {device_id}",
     "err.ambiguous_target": "Cel urządzenia materii jest niejednoznaczny: {device_id}",
-    "x_search_terms": [
-      "lista skupień materii",
-      "lista_klastrów materii",
-      "sprawa",
-      "MATERIA",
-      "klaster"
-    ],
     "err.config_missing": "Brak danych urządzenia Matter. Ustaw {env_json} lub {env_file} dla urządzeń, kontrolerów lub mostów.",
     "param.bridge.description": "Identyfikator mostu (opcjonalnie).",
     "param.ctrl.description": "Identyfikator kontrolera (opcjonalnie).",
-    "param.endpoint.description": "Filtr punktu końcowego (opcjonalnie)."
+    "param.endpoint.description": "Filtr punktu końcowego (opcjonalnie).",
+    "x_search_terms": [
+      "lista skupień materii",
+      "matter_cluster_list",
+      "materia",
+      "MATTER",
+      "klaster",
+      "klastry"
+    ]
   },
   "pt": {
     "tool.description": "Listar clusters de matéria para um dispositivo.",
@@ -444,17 +466,18 @@
     "err.device_id_required": "O ID do dispositivo é obrigatório.",
     "err.not_found": "Dispositivo do caso não encontrado: {device_id}",
     "err.ambiguous_target": "O destino do dispositivo é ambíguo: {device_id}",
-    "x_search_terms": [
-      "lista de clusters de matéria",
-      "lista_clusters_matéria",
-      "assunto",
-      "MATÉRIA",
-      "aglomerado"
-    ],
     "err.config_missing": "Faltam dados do dispositivo importante. Defina {env_json} ou {env_file} para dispositivos, controladores ou pontes.",
     "param.bridge.description": "ID da ponte (opcional).",
     "param.ctrl.description": "ID do controlador (opcional).",
-    "param.endpoint.description": "Filtro de endpoint (opcional)."
+    "param.endpoint.description": "Filtro de endpoint (opcional).",
+    "x_search_terms": [
+      "lista de clusters de matéria",
+      "matter_cluster_list",
+      "matter",
+      "MATTER",
+      "cluster",
+      "clusters"
+    ]
   },
   "pt_BR": {
     "tool.description": "Listar clusters de matéria para um dispositivo.",
@@ -463,17 +486,18 @@
     "err.device_id_required": "O ID do dispositivo é obrigatório.",
     "err.not_found": "Dispositivo do caso não encontrado: {device_id}",
     "err.ambiguous_target": "O destino do dispositivo é ambíguo: {device_id}",
-    "x_search_terms": [
-      "lista de clusters de matéria",
-      "lista_cluster_matéria",
-      "assunto",
-      "MATÉRIA",
-      "aglomerado"
-    ],
     "err.config_missing": "Faltam dados do dispositivo importante. Defina {env_json} ou {env_file} para dispositivos, controladores ou pontes.",
     "param.bridge.description": "ID da ponte (opcional).",
     "param.ctrl.description": "ID do controlador (opcional).",
-    "param.endpoint.description": "Filtro de endpoint (opcional)."
+    "param.endpoint.description": "Filtro de endpoint (opcional).",
+    "x_search_terms": [
+      "lista de clusters de matéria",
+      "matter_cluster_list",
+      "matter",
+      "MATTER",
+      "cluster",
+      "clusters"
+    ]
   },
   "ru": {
     "tool.description": "Список кластеров материи для устройства.",
@@ -482,17 +506,18 @@
     "err.device_id_required": "Требуется идентификатор устройства Matter.",
     "err.not_found": "Материнское устройство не найдено: {device_id}",
     "err.ambiguous_target": "Цель устройства Matter неоднозначна: {device_id}",
+    "err.config_missing": "Данные устройства Matter отсутствуют. Установите {env_json} или {env_file} для устройств, контроллеров или мостов.",
+    "param.bridge.description": "Идентификатор моста (необязательно).",
+    "param.ctrl.description": "Идентификатор контроллера (необязательно).",
+    "param.endpoint.description": "Фильтр конечных точек (необязательно).",
     "x_search_terms": [
       "список кластеров материи",
       "matter_cluster_list",
       "материя",
       "МАТЕРИЯ",
-      "кластер"
-    ],
-    "err.config_missing": "Данные устройства Matter отсутствуют. Установите {env_json} или {env_file} для устройств, контроллеров или мостов.",
-    "param.bridge.description": "Идентификатор моста (необязательно).",
-    "param.ctrl.description": "Идентификатор контроллера (необязательно).",
-    "param.endpoint.description": "Фильтр конечных точек (необязательно)."
+      "кластер",
+      "кластеры"
+    ]
   },
   "sv": {
     "tool.description": "Lista materiekluster för en enhet.",
@@ -501,17 +526,18 @@
     "err.device_id_required": "Enhets-ID krävs.",
     "err.not_found": "Problemenhet hittades inte: {device_id}",
     "err.ambiguous_target": "Materiens enhetsmål är tvetydigt: {device_id}",
-    "x_search_terms": [
-      "materia klusterlista",
-      "matter_cluster_list",
-      "materia",
-      "MATTER",
-      "kluster"
-    ],
     "err.config_missing": "Enhetsdata saknas. Ställ in {env_json} eller {env_file} för enheter, kontroller eller bryggor.",
     "param.bridge.description": "Bridge ID (valfritt).",
     "param.ctrl.description": "Controller-ID (valfritt).",
-    "param.endpoint.description": "Slutpunktsfilter (tillval)."
+    "param.endpoint.description": "Slutpunktsfilter (tillval).",
+    "x_search_terms": [
+      "matter cluster list",
+      "matter_cluster_list",
+      "matter",
+      "MATTER",
+      "kluster",
+      "kluster"
+    ]
   },
   "sw": {
     "tool.description": "Orodhesha vikundi vya Matter kwa kifaa.",
@@ -520,17 +546,18 @@
     "err.device_id_required": "Kitambulisho cha kifaa cha Matter kinahitajika.",
     "err.not_found": "Kifaa muhimu hakijapatikana: {device_id}",
     "err.ambiguous_target": "Lengo la kifaa ni utata: {device_id}",
-    "x_search_terms": [
-      "orodha ya nguzo za maada",
-      "matter_cluster_list",
-      "maada",
-      "MAADA",
-      "nguzo"
-    ],
     "err.config_missing": "Data ya kifaa cha jambo haipo. Weka {env_json} au {env_file} kwa vifaa, vidhibiti au madaraja.",
     "param.bridge.description": "Kitambulisho cha daraja (si lazima).",
     "param.ctrl.description": "Kitambulisho cha Kidhibiti (si lazima).",
-    "param.endpoint.description": "Kichujio cha mwisho (si lazima)."
+    "param.endpoint.description": "Kichujio cha mwisho (si lazima).",
+    "x_search_terms": [
+      "list cluster list",
+      "matter_cluster_list",
+      "matter",
+      "MATTER",
+      "cluster",
+      "cluster"
+    ]
   },
   "th": {
     "tool.description": "แสดงรายการคลัสเตอร์ Matter สำหรับอุปกรณ์",
@@ -539,17 +566,18 @@
     "err.device_id_required": "ต้องระบุรหัสอุปกรณ์กรณี",
     "err.not_found": "ไม่พบอุปกรณ์สำคัญ: {device_id}",
     "err.ambiguous_target": "เป้าหมายอุปกรณ์ที่สำคัญไม่ชัดเจน: {device_id}",
-    "x_search_terms": [
-      "รายการคลัสเตอร์สสาร",
-      "matter_cluster_list",
-      "สสาร",
-      "สสาร",
-      "คลัสเตอร์"
-    ],
     "err.config_missing": "ข้อมูลอุปกรณ์ Matter หายไป ตั้งค่า {env_json} หรือ {env_file} สำหรับอุปกรณ์ ตัวควบคุม หรือบริดจ์",
     "param.bridge.description": "รหัสบริดจ์ (ไม่บังคับ)",
     "param.ctrl.description": "รหัสตัวควบคุม (ไม่บังคับ)",
-    "param.endpoint.description": "ตัวกรองปลายทาง (ไม่จำเป็น)"
+    "param.endpoint.description": "ตัวกรองปลายทาง (ไม่จำเป็น)",
+    "x_search_terms": [
+      "รายการคลัสเตอร์เรื่อง",
+      "matter_cluster_list",
+      "เรื่อง",
+      "MATTER",
+      "คลัสเตอร์",
+      "คลัสเตอร์"
+    ]
   },
   "tr": {
     "tool.description": "Bir cihaz için Önemli kümeleri listeleyin.",
@@ -558,17 +586,18 @@
     "err.device_id_required": "Önemli cihaz kimliği gerekli.",
     "err.not_found": "Madde cihazı bulunamadı: {device_id}",
     "err.ambiguous_target": "Madde cihazı hedefi belirsiz: {device_id}",
-    "x_search_terms": [
-      "madde kümesi listesi",
-      "matter_cluster_list",
-      "madde",
-      "MADDE",
-      "küme"
-    ],
     "err.config_missing": "Madde cihazı verileri eksik. Cihazlar, denetleyiciler veya köprüler için {env_json} veya {env_file}'i ayarlayın.",
     "param.bridge.description": "Köprü Kimliği (isteğe bağlı).",
     "param.ctrl.description": "Denetleyici Kimliği (isteğe bağlı).",
-    "param.endpoint.description": "Uç nokta filtresi (isteğe bağlı)."
+    "param.endpoint.description": "Uç nokta filtresi (isteğe bağlı).",
+    "x_search_terms": [
+      "madde kümesi listesi",
+      "matter_cluster_list",
+      "matter",
+      "MATTER",
+      "cluster",
+      "clusters"
+    ]
   },
   "uk": {
     "tool.description": "Список кластерів Matter для пристрою.",
@@ -577,17 +606,18 @@
     "err.device_id_required": "Необхідний ідентифікатор пристрою Matter.",
     "err.not_found": "Пристрій справи не знайдено: {device_id}",
     "err.ambiguous_target": "Цільовий пристрій має значення неоднозначне: {device_id}",
-    "x_search_terms": [
-      "список кластерів матерії",
-      "matter_cluster_list",
-      "матерія",
-      "МАТЕРІЯ",
-      "кластер"
-    ],
     "err.config_missing": "Відсутні дані пристрою Matter. Установіть {env_json} або {env_file} для пристроїв, контролерів або мостів.",
     "param.bridge.description": "Bridge ID (опціонально).",
     "param.ctrl.description": "ID контролера (необов'язково).",
-    "param.endpoint.description": "Фільтр кінцевої точки (необов’язково)."
+    "param.endpoint.description": "Фільтр кінцевої точки (необов’язково).",
+    "x_search_terms": [
+      "список кластерів матерії",
+      "matter_cluster_list",
+      "matter",
+      "МАТЕР",
+      "кластер",
+      "кластери"
+    ]
   },
   "vi": {
     "tool.description": "Liệt kê các cụm Matter cho một thiết bị.",
@@ -596,17 +626,18 @@
     "err.device_id_required": "ID thiết bị có vấn đề là bắt buộc.",
     "err.not_found": "Không tìm thấy thiết bị có vấn đề: {device_id}",
     "err.ambiguous_target": "Mục tiêu thiết bị có vấn đề không rõ ràng: {device_id}",
-    "x_search_terms": [
-      "danh sách cụm vật chất",
-      "vấn đề_cluster_list",
-      "vấn đề",
-      "VẤN ĐỀ",
-      "cụm"
-    ],
     "err.config_missing": "Dữ liệu thiết bị có vấn đề bị thiếu. Đặt {env_json} hoặc {env_file} cho thiết bị, bộ điều khiển hoặc cầu nối.",
     "param.bridge.description": "ID cầu (tùy chọn).",
     "param.ctrl.description": "ID bộ điều khiển (tùy chọn).",
-    "param.endpoint.description": "Bộ lọc điểm cuối (tùy chọn)."
+    "param.endpoint.description": "Bộ lọc điểm cuối (tùy chọn).",
+    "x_search_terms": [
+      "danh sách cụm vật chất",
+      "matter_cluster_list",
+      "matter",
+      "MATTER",
+      "cluster",
+      "cụm"
+    ]
   },
   "zh_CN": {
     "tool.description": "列出设备的 Matter 集群。",
@@ -615,17 +646,18 @@
     "err.device_id_required": "需要物质设备 ID。",
     "err.not_found": "未找到问题设备：{device_id}",
     "err.ambiguous_target": "物质设备目标不明确：{device_id}",
-    "x_search_terms": [
-      "物质集群列表",
-      "matter_cluster_list",
-      "物质",
-      "物质",
-      "集群"
-    ],
     "err.config_missing": "物质设备数据丢失。为设备、控制器或网桥设置 {env_json} 或 {env_file}。",
     "param.bridge.description": "网桥 ID（可选）。",
     "param.ctrl.description": "控制器 ID（可选）。",
-    "param.endpoint.description": "端点过滤器（可选）。"
+    "param.endpoint.description": "端点过滤器（可选）。",
+    "x_search_terms": [
+      "物质簇列表",
+      "matter_cluster_list",
+      "matter",
+      "MATTER",
+      "cluster",
+      "clusters"
+    ]
   },
   "zh_TW": {
     "tool.description": "列出設備的 Matter 叢集。",
@@ -634,16 +666,17 @@
     "err.device_id_required": "需要物質設備 ID。",
     "err.not_found": "未找到問題設備：{device_id}",
     "err.ambiguous_target": "物質設備目標不明確：{device_id}",
-    "x_search_terms": [
-      "物質叢集清單",
-      "matter_cluster_list",
-      "物質",
-      "物質",
-      "叢集"
-    ],
     "err.config_missing": "物質設備資料遺失。為裝置、控制器或橋接器設定 {env_json} 或 {env_file}。",
     "param.bridge.description": "網橋 ID（可選）。",
     "param.ctrl.description": "控制器 ID（可選）。",
-    "param.endpoint.description": "端點過濾器（可選）。"
+    "param.endpoint.description": "端點過濾器（可選）。",
+    "x_search_terms": [
+      "物質簇列表",
+      "matter_cluster_list",
+      "matter",
+      "MATTER",
+      "cluster",
+      "clusters"
+    ]
   }
 }

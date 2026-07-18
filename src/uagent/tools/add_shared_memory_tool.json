@@ -16,10 +16,19 @@
     "param.note.description": "The note text to share. Use this for project-wide assumptions/policies that should be reused across sessions."
   },
   "ja": {
-    "x_search_terms": [
-      "共有メモリ |共有を追加 |メモリを共有する |メモリシェア |共同記憶 |チームの思い出 |共有ストレージ |メモリの追加 |グループメモリ |共有"
-    ],
     "tool.description": "共有の長期記憶ストア（ユーザー/セッション間で共有）に1件のメモを追加します。共有メモリが設定されていない場合、ツールは利用不可と報告します。",
+    "x_search_terms": [
+      "共有メモリ",
+      "共有の追加",
+      "共有メモリ",
+      "メモリ共有",
+      "共同メモリ",
+      "チームメモリ",
+      "共有ストレージ",
+      "メモリ追加",
+      "グループメモリ",
+      "共有情報"
+    ],
     "param.note.description": "共有するメモのテキスト。これは、セッション間で再利用する必要があるプロジェクト全体の前提/ポリシーに使用します。"
   },
   "es": {
@@ -103,26 +112,35 @@
     "param.note.description": "Il testo della nota da condividere. Utilizzalo per ipotesi/politiche a livello di progetto che dovrebbero essere riutilizzate tra le sessioni."
   },
   "ru": {
-    "x_search_terms": [
-      "добавить память, долговременная память, сохранить память, хранить память, добавить память, память агента, помнить, сохранить память, сохранить информацию, хранилище памяти"
-    ],
     "tool.description": "Добавить одну заметку в общее долговременное хранилище (доступное для всех пользователей/сессий). Если общая память не настроена, инструмент сообщает о её недоступности.",
+    "x_search_terms": [
+      "общая память",
+      "добавить общую",
+      "общая память",
+      "совместное использование памяти",
+      "совместная память",
+      "групповая память",
+      "общее хранилище",
+      "добавление памяти",
+      "групповая память",
+      "общая информация"
+    ],
     "param.note.description": "Текст заметки, которой нужно поделиться. Используйте это для предположений/политик всего проекта, которые следует повторно использовать в разных сеансах."
   },
   "pt_BR": {
-    "x_search_terms": [
-      "shared memory",
-      "add shared",
-      "share memory",
-      "memory share",
-      "collaborative memory",
-      "team memory",
-      "shared storage",
-      "memory add",
-      "group memory",
-      "shared info"
-    ],
     "tool.description": "Anexe uma única nota ao armazenamento de memória de longo prazo compartilhado (compartilhado entre usuários/sessões). Se a memória compartilhada não estiver configurada, a ferramenta informa que está indisponível.",
+    "x_search_terms": [
+      "memória compartilhada",
+      "adicionar compartilhada",
+      "compartilhar memória",
+      "compartilhar memória",
+      "memória colaborativa",
+      "memória de equipe",
+      "armazenamento compartilhado",
+      "adicionar memória",
+      "memória de grupo",
+      "informações compartilhadas"
+    ],
     "param.note.description": "O texto da nota a ser compartilhada. Use isto para suposições/políticas de todo o projeto que devem ser reutilizadas entre sessões."
   },
   "pt": {
@@ -174,355 +192,355 @@
     "param.note.description": "Các văn bản ghi chú để chia sẻ. Sử dụng điều này cho các giả định/chính sách trên toàn dự án cần được sử dụng lại trong các phiên."
   },
   "pl": {
-    "x_search_terms": [
-      "shared memory",
-      "add shared",
-      "share memory",
-      "memory share",
-      "collaborative memory",
-      "team memory",
-      "shared storage",
-      "memory add",
-      "group memory",
-      "shared info"
-    ],
     "tool.description": "Dodaj pojedynczą notatkę do współdzielonego magazynu pamięci długoterminowej (współdzielonego między użytkownikami/sesjami). Jeśli pamięć współdzielona nie jest skonfigurowana, narzędzie zgłasza, że jest niedostępna.",
+    "x_search_terms": [
+      "pamięć współdzielona",
+      "dodaj współdzieloną",
+      "pamięć współdzielona",
+      "udostępnij pamięć",
+      "pamięć współdzielona",
+      "pamięć zespołowa",
+      "współdzielona pamięć",
+      "dodaj pamięć",
+      "pamięć grupowa",
+      "współdzielone informacje"
+    ],
     "param.note.description": "Tekst notatki do udostępnienia. Użyj tego do założeń/zasad dotyczących całego projektu, które powinny być ponownie wykorzystywane w sesjach."
   },
   "hi": {
-    "x_search_terms": [
-      "shared memory",
-      "add shared",
-      "share memory",
-      "memory share",
-      "collaborative memory",
-      "team memory",
-      "shared storage",
-      "memory add",
-      "group memory",
-      "shared info"
-    ],
     "tool.description": "साझा दीर्घकालिक मेमोरी स्टोर में एक एकल नोट जोड़ें (उपयोगकर्ताओं/सत्रों में साझा)। यदि साझा मेमोरी कॉन्फ़िगर नहीं है, तो उपकरण रिपोर्ट करता है कि यह अनुपलब्ध है।",
+    "x_search_terms": [
+      "साझा मेमोरी",
+      "साझा जोड़ें",
+      "मेमोरी साझा करें",
+      "मेमोरी शेयर",
+      "सहयोगात्मक मेमोरी",
+      "टीम मेमोरी",
+      "साझा भंडारण",
+      "मेमोरी जोड़ें",
+      "समूह मेमोरी",
+      "साझा जानकारी"
+    ],
     "param.note.description": "साझा करने के लिए नोट पाठ. इसका उपयोग प्रोजेक्ट-व्यापी मान्यताओं/नीतियों के लिए करें जिनका सभी सत्रों में पुन: उपयोग किया जाना चाहिए।"
   },
   "ar": {
-    "x_search_terms": [
-      "shared memory",
-      "add shared",
-      "share memory",
-      "memory share",
-      "collaborative memory",
-      "team memory",
-      "shared storage",
-      "memory add",
-      "group memory",
-      "shared info"
-    ],
     "tool.description": "إضافة ملاحظة واحدة إلى مخزن الذاكرة طويلة المدى المشتركة (مشتركة عبر المستخدمين/الجلسات). إذا لم يتم تكوين الذاكرة المشتركة، تبلغ الأداة بأنها غير متاحة.",
+    "x_search_terms": [
+      "الذاكرة المشتركة ",
+      " إضافة ذاكرة مشتركة ",
+      " مشاركة الذاكرة ",
+      " مشاركة الذاكرة ",
+      " الذاكرة التعاونية ",
+      " ذاكرة الفريق ",
+      " التخزين المشترك ",
+      " إضافة الذاكرة ",
+      " ذاكرة المجموعة ",
+      " المعلومات المشتركة"
+    ],
     "param.note.description": "نص المذكرة للمشاركة. استخدم هذا للافتراضات/السياسات على مستوى المشروع والتي يجب إعادة استخدامها عبر الجلسات."
   },
   "sv": {
-    "x_search_terms": [
-      "shared memory",
-      "add shared",
-      "share memory",
-      "memory share",
-      "collaborative memory",
-      "team memory",
-      "shared storage",
-      "memory add",
-      "group memory",
-      "shared info"
-    ],
     "tool.description": "Lägg till en enskild anteckning i det delade långtidsminnet (delat mellan användare/sessioner). Om delat minne inte är konfigurerat rapporterar verktyget att det inte är tillgängligt.",
+    "x_search_terms": [
+      "delat minne",
+      "lägg till delat",
+      "dela minne",
+      "minnesdelning",
+      "samarbetsminne",
+      "teamminne",
+      "delad lagring",
+      "minne lägg till",
+      "gruppminne",
+      "delad information"
+    ],
     "param.note.description": "Anteckningstexten att dela. Använd detta för projektomfattande antaganden/policyer som bör återanvändas över sessioner."
   },
   "sw": {
-    "x_search_terms": [
-      "shared memory",
-      "add shared",
-      "share memory",
-      "memory share",
-      "collaborative memory",
-      "team memory",
-      "shared storage",
-      "memory add",
-      "group memory",
-      "shared info"
-    ],
     "tool.description": "Ongeza noti moja kwenye hifadhi ya kumbukumbu ya muda mrefu iliyoshirikiwa (inayoshirikiwa kwa watumiaji/vikao vyote). Ikiwa kumbukumbu iliyoshirikiwa haijasanidiwa, chombo kinaripoti kuwa haipatikani.",
+    "x_search_terms": [
+      "kumbukumbu iliyoshirikiwa",
+      "ongeza kumbukumbu iliyoshirikiwa",
+      "kushiriki kumbukumbu",
+      "kushiriki kumbukumbu",
+      "kumbukumbu shirikishi",
+      "kumbukumbu ya timu",
+      "uhifadhi wa pamoja",
+      "ongeza kumbukumbu",
+      "kumbukumbu ya kikundi",
+      "maelezo yaliyoshirikiwa"
+    ],
     "param.note.description": "Ujumbe wa kushiriki. Tumia hii kwa dhana/sera za mradi mzima ambazo zinafaa kutumika tena katika vipindi vyote."
   },
   "nb": {
-    "x_search_terms": [
-      "shared memory",
-      "add shared",
-      "share memory",
-      "memory share",
-      "collaborative memory",
-      "team memory",
-      "shared storage",
-      "memory add",
-      "group memory",
-      "shared info"
-    ],
     "tool.description": "Legg til en enkelt notat i det delte langtidsminnelageret (delt på tvers av brukere/økter). Hvis delt minne ikke er konfigurert, rapporterer verktøyet at det ikke er tilgjengelig.",
+    "x_search_terms": [
+      "delt minne",
+      "legg til delt",
+      "dele minne",
+      "minnedeling",
+      "samarbeidsminne",
+      "teamminne",
+      "delt lagring",
+      "minne legg til",
+      "gruppeminne",
+      "delt informasjon"
+    ],
     "param.note.description": "Notatteksten som skal deles. Bruk dette for prosjektomfattende forutsetninger/policyer som bør gjenbrukes på tvers av økter."
   },
   "nl": {
-    "x_search_terms": [
-      "shared memory",
-      "add shared",
-      "share memory",
-      "memory share",
-      "collaborative memory",
-      "team memory",
-      "shared storage",
-      "memory add",
-      "group memory",
-      "shared info"
-    ],
     "tool.description": "Voeg een enkele notitie toe aan de gedeelde langetermijngeheugenopslag (gedeeld over gebruikers/sessies). Als gedeeld geheugen niet is geconfigureerd, meldt het hulpmiddel dat het niet beschikbaar is.",
+    "x_search_terms": [
+      "gedeeld geheugen",
+      "voeg gedeeld toe",
+      "deel geheugen",
+      "geheugen deel",
+      "samenwerkingsgeheugen",
+      "teamgeheugen",
+      "gedeelde opslag",
+      "geheugen toevoegen",
+      "groepsgeheugen",
+      "gedeelde info"
+    ],
     "param.note.description": "De notitietekst die u wilt delen. Gebruik dit voor projectbrede aannames/beleid dat in alle sessies moet worden hergebruikt."
   },
   "fi": {
-    "x_search_terms": [
-      "shared memory",
-      "add shared",
-      "share memory",
-      "memory share",
-      "collaborative memory",
-      "team memory",
-      "shared storage",
-      "memory add",
-      "group memory",
-      "shared info"
-    ],
     "tool.description": "Lisää yksittäinen muistiinpano jaettuun pitkäaikaismuistivarastoon (jaettu käyttäjien/istuntojen kesken). Jos jaettua muistia ei ole määritetty, työkalu ilmoittaa, ettei se ole käytettävissä.",
+    "x_search_terms": [
+      "jaettu muisti",
+      "lisää jaettu",
+      "jaettu muisti",
+      "muistin jako",
+      "yhteistyömuisti",
+      "tiimimuisti",
+      "jaettu tallennustila",
+      "muisti lisää",
+      "ryhmän muisti",
+      "jaetut tiedot"
+    ],
     "param.note.description": "Muistiinpanokeksti jaettavaksi. Käytä tätä projektin laajuisiin oletuksiin/käytäntöihin, joita tulisi käyttää uudelleen istuntojen aikana."
   },
   "cs": {
-    "x_search_terms": [
-      "shared memory",
-      "add shared",
-      "share memory",
-      "memory share",
-      "collaborative memory",
-      "team memory",
-      "shared storage",
-      "memory add",
-      "group memory",
-      "shared info"
-    ],
     "tool.description": "Připojte jednu poznámku do sdíleného úložiště dlouhodobé paměti (sdílené napříč uživateli/relacemi). Pokud sdílená paměť není nakonfigurována, nástroj hlásí, že není k dispozici.",
+    "x_search_terms": [
+      "sdílená paměť",
+      "přidat sdílenou",
+      "sdílenou paměť",
+      "sdílet paměť",
+      "paměť pro spolupráci",
+      "týmová paměť",
+      "sdílené úložiště",
+      "paměť přidat",
+      "skupinovou paměť",
+      "sdílené informace"
+    ],
     "param.note.description": "Text poznámky ke sdílení. Použijte to pro předpoklady/zásady celého projektu, které by měly být znovu použity během relací."
   },
   "uk": {
-    "x_search_terms": [
-      "shared memory",
-      "add shared",
-      "share memory",
-      "memory share",
-      "collaborative memory",
-      "team memory",
-      "shared storage",
-      "memory add",
-      "group memory",
-      "shared info"
-    ],
     "tool.description": "Додати одну нотатку до спільного довгострокового сховища пам'яті (спільного для користувачів/сеансів). Якщо спільна пам'ять не налаштована, інструмент повідомляє, що вона недоступна.",
+    "x_search_terms": [
+      "спільна пам’ять",
+      "додати спільну",
+      "загальну пам’ять",
+      "обмін пам’яттю",
+      "спільну пам’ять",
+      "командну пам’ять",
+      "спільне сховище",
+      "пам’ять додати",
+      "групову пам’ять",
+      "загальну інформацію"
+    ],
     "param.note.description": "Текст нотатки для спільного використання. Використовуйте це для загальнопроектних припущень/політик, які слід повторно використовувати в сеансах."
   },
   "tr": {
-    "x_search_terms": [
-      "shared memory",
-      "add shared",
-      "share memory",
-      "memory share",
-      "collaborative memory",
-      "team memory",
-      "shared storage",
-      "memory add",
-      "group memory",
-      "shared info"
-    ],
     "tool.description": "Paylaşılan uzun süreli bellek deposuna (kullanıcılar/oturumlar arasında paylaşılan) tek bir not ekle. Paylaşılan bellek yapılandırılmamışsa, araç kullanılamadığını bildirir.",
+    "x_search_terms": [
+      "paylaşılan hafıza",
+      "paylaşılan ekle",
+      "belleği paylaş",
+      "bellek paylaşımı",
+      "ortak hafıza",
+      "ekip hafızası",
+      "paylaşılan depolama",
+      "bellek ekleme",
+      "grup hafızası",
+      "paylaşılan bilgi"
+    ],
     "param.note.description": "Paylaşılacak not metni. Oturumlar arasında yeniden kullanılması gereken proje çapındaki varsayımlar/politikalar için bunu kullanın."
   },
   "th": {
-    "x_search_terms": [
-      "shared memory",
-      "add shared",
-      "share memory",
-      "memory share",
-      "collaborative memory",
-      "team memory",
-      "shared storage",
-      "memory add",
-      "group memory",
-      "shared info"
-    ],
     "tool.description": "เพิ่มบันทึกเดี่ยวลงในพื้นที่จัดเก็บความจำระยะยาวที่ใช้ร่วมกัน (แชร์ระหว่างผู้ใช้/เซสชัน) หากไม่ได้กำหนดค่าหน่วยความจำที่ใช้ร่วมกัน เครื่องมือจะรายงานว่าไม่พร้อมใช้งาน",
+    "x_search_terms": [
+      "หน่วยความจำที่แชร์",
+      "เพิ่มที่แชร์",
+      "แชร์หน่วยความจำ",
+      "หน่วยความจำที่แชร์",
+      "หน่วยความจำที่ทำงานร่วมกัน",
+      "หน่วยความจำทีม",
+      "ที่เก็บข้อมูลที่แชร์",
+      "เพิ่มหน่วยความจำ",
+      "หน่วยความจำกลุ่ม",
+      "ข้อมูลที่แชร์"
+    ],
     "param.note.description": "ข้อความบันทึกย่อที่จะแบ่งปัน ใช้สิ่งนี้สำหรับสมมติฐาน/นโยบายทั่วทั้งโปรเจ็กต์ที่ควรใช้ซ้ำในเซสชันต่างๆ"
   },
   "zh_CN": {
-    "x_search_terms": [
-      "shared memory",
-      "add shared",
-      "share memory",
-      "memory share",
-      "collaborative memory",
-      "team memory",
-      "shared storage",
-      "memory add",
-      "group memory",
-      "shared info"
-    ],
     "tool.description": "将单条笔记追加到共享长期记忆存储中（跨用户/会话共享）。若共享记忆未配置，工具将报告其不可用。",
+    "x_search_terms": [
+      "共享内存",
+      "添加共享",
+      "共享内存",
+      "内存共享",
+      "协作内存",
+      "团队内存",
+      "共享存储",
+      "内存添加",
+      "群组内存",
+      "共享信息"
+    ],
     "param.note.description": "要共享的注释文本。将此用于应在会话之间重复使用的项目范围的假设/策略。"
   },
   "zh_TW": {
-    "x_search_terms": [
-      "shared memory",
-      "add shared",
-      "share memory",
-      "memory share",
-      "collaborative memory",
-      "team memory",
-      "shared storage",
-      "memory add",
-      "group memory",
-      "shared info"
-    ],
     "tool.description": "將單一筆記附加到共享的長期記憶儲存中（跨使用者/工作階段共享）。若共享記憶體未配置，工具會回報其不可用。",
+    "x_search_terms": [
+      "共享記憶體",
+      "新增共享",
+      "共享記憶體",
+      "記憶體共享",
+      "協作記憶體",
+      "團隊記憶體",
+      "共享儲存",
+      "記憶體新增",
+      "群組記憶體",
+      "共享信息"
+    ],
     "param.note.description": "要分享的註釋文字。將此用於應在會話之間重複使用的項目範圍的假設/策略。"
   },
   "bn": {
-    "x_search_terms": [
-      "shared memory",
-      "add shared",
-      "share memory",
-      "memory share",
-      "collaborative memory",
-      "team memory",
-      "shared storage",
-      "memory add",
-      "group memory",
-      "shared info"
-    ],
     "tool.description": "শেয়ার্ড দীর্ঘমেয়াদী মেমরি স্টোরে একটি একক নোট যুক্ত করুন (ব্যবহারকারী/সেশন জুড়ে শেয়ার্ড)। যদি শেয়ার্ড মেমরি কনফিগার না করা থাকে, টুলটি রিপোর্ট করে যে এটি অনুপলব্ধ।",
+    "x_search_terms": [
+      "শেয়ার করা মেমরি ",
+      " শেয়ার করা ",
+      " শেয়ার করা মেমরি ",
+      " মেমরি শেয়ার করুন ",
+      " সহযোগী মেমরি ",
+      " টিম মেমরি ",
+      " শেয়ার করা স্টোরেজ ",
+      " মেমরি অ্যাড ",
+      " গ্রুপ মেমরি ",
+      " শেয়ার করা তথ্য"
+    ],
     "param.note.description": "শেয়ার করার জন্য নোট টেক্সট. প্রকল্প-ব্যাপী অনুমান/নীতির জন্য এটি ব্যবহার করুন যা সেশন জুড়ে পুনরায় ব্যবহার করা উচিত।"
   },
   "fa": {
-    "x_search_terms": [
-      "shared memory",
-      "add shared",
-      "share memory",
-      "memory share",
-      "collaborative memory",
-      "team memory",
-      "shared storage",
-      "memory add",
-      "group memory",
-      "shared info"
-    ],
     "tool.description": "یک یادداشت واحد به حافظه بلندمدت مشترک (مشترک بین کاربران/نشست‌ها) اضافه کنید. اگر حافظه مشترک پیکربندی نشده باشد، ابزار گزارش می‌دهد که در دسترس نیست.",
+    "x_search_terms": [
+      "حافظه مشترک",
+      "افزودن حافظه مشترک",
+      "حافظه اشتراکی",
+      "اشتراک گذاری حافظه",
+      "",
+      "",
+      "",
+      "",
+      "",
+      ""
+    ],
     "param.note.description": "متن یادداشت برای اشتراک گذاری از این برای مفروضات/خط مشی‌های کل پروژه که باید در جلسات مجدداً استفاده شوند، استفاده کنید."
   },
   "mn": {
-    "x_search_terms": [
-      "shared memory",
-      "add shared",
-      "share memory",
-      "memory share",
-      "collaborative memory",
-      "team memory",
-      "shared storage",
-      "memory add",
-      "group memory",
-      "shared info"
-    ],
     "tool.description": "Хуваалцсан урт хугацааны санах ойн санд (хэрэглэгч/сессийн хооронд хуваалцсан) нэг тэмдэглэл нэмэх. Хуваалцсан санах ой тохируулаагүй бол хэрэгсэл боломжгүй гэж мэдээлнэ.",
+    "x_search_terms": [
+      "хуваалцсан санах ойн нэмэх хуваалцсан санах ойг хуваалцах санах ойг хуваалцах",
+      "",
+      "",
+      "",
+      "",
+      "",
+      "",
+      "",
+      "",
+      ""
+    ],
     "param.note.description": "Хуваалцах тэмдэглэлийн текст. Үүнийг сесс даяар дахин ашиглах ёстой төслийн өргөн хүрээний таамаглал/бодлогод ашиглаарай."
   },
   "mr": {
-    "x_search_terms": [
-      "shared memory",
-      "add shared",
-      "share memory",
-      "memory share",
-      "collaborative memory",
-      "team memory",
-      "shared storage",
-      "memory add",
-      "group memory",
-      "shared info"
-    ],
     "tool.description": "सामायिक दीर्घकालीन मेमरी स्टोअरमध्ये (वापरकर्ते/सत्रांमध्ये सामायिक) एकच टीप जोडा. सामायिक मेमरी कॉन्फिगर केली नसल्यास, साधन ते अनुपलब्ध असल्याचे नोंदवते.",
+    "x_search_terms": [
+      "सामायिक मेमरी",
+      "सामायिक जोडा",
+      "मेमरी शेअर करा",
+      "मेमरी शेअर करा",
+      "सहकारी मेमरी",
+      "टीम मेमरी",
+      "सामायिक स्टोरेज",
+      "मेमरी ॲड",
+      "ग्रुप मेमरी",
+      "सामायिक माहिती"
+    ],
     "param.note.description": "सामायिक करण्यासाठी टीप मजकूर. हे प्रकल्प-व्यापी गृहीतकांसाठी/धोरणांसाठी वापरा जे सत्रांमध्ये पुन्हा वापरले जावे."
   },
   "el": {
-    "x_search_terms": [
-      "shared memory",
-      "add shared",
-      "share memory",
-      "memory share",
-      "collaborative memory",
-      "team memory",
-      "shared storage",
-      "memory add",
-      "group memory",
-      "shared info"
-    ],
     "tool.description": "Προσθήκη μιας μεμονωμένης σημείωσης στην κοινόχρηστη μνήμη μακροπρόθεσμης αποθήκευσης (κοινή σε χρήστες/συνεδρίες). Εάν η κοινόχρηστη μνήμη δεν έχει ρυθμιστεί, το εργαλείο αναφέρει ότι δεν είναι διαθέσιμη.",
+    "x_search_terms": [
+      "κοινόχρηστη μνήμη",
+      "προσθήκη κοινόχρηστη",
+      "κοινή χρήση μνήμης",
+      "κοινή χρήση μνήμης",
+      "συνεργατική μνήμη",
+      "μνήμη ομάδας",
+      "κοινόχρηστος χώρος αποθήκευσης",
+      "προσθήκη μνήμης",
+      "μνήμη ομάδας",
+      "κοινόχρηστες πληροφορίες"
+    ],
     "param.note.description": "Το κείμενο της σημείωσης για κοινή χρήση. Χρησιμοποιήστε το για υποθέσεις/πολιτικές σε όλο το έργο που θα πρέπει να επαναχρησιμοποιούνται σε περιόδους σύνδεσης."
   },
   "he": {
-    "x_search_terms": [
-      "shared memory",
-      "add shared",
-      "share memory",
-      "memory share",
-      "collaborative memory",
-      "team memory",
-      "shared storage",
-      "memory add",
-      "group memory",
-      "shared info"
-    ],
     "tool.description": "הוסף הערה בודדת למאגר הזיכרון ארוך הטווח המשותף (משותף בין משתמשים/הפעלות). אם הזיכרון המשותף אינו מוגדר, הכלי מדווח שהוא אינו זמין.",
+    "x_search_terms": [
+      "זיכרון משותף",
+      "הוסף זיכרון משותף",
+      "שיתוף זיכרון",
+      "שיתוף זיכרון",
+      "זיכרון שיתופי",
+      "זיכרון צוות",
+      "אחסון משותף",
+      "זיכרון הוסף",
+      "זיכרון קבוצתי",
+      "מידע משותף"
+    ],
     "param.note.description": "טקסט ההערה לשיתוף. השתמש בזה עבור הנחות/מדיניות כלל-פרויקטים שיש לעשות בהם שימוש חוזר בפעילויות באתר."
   },
   "hu": {
-    "x_search_terms": [
-      "shared memory",
-      "add shared",
-      "share memory",
-      "memory share",
-      "collaborative memory",
-      "team memory",
-      "shared storage",
-      "memory add",
-      "group memory",
-      "shared info"
-    ],
     "tool.description": "Fűzz hozzá egyetlen jegyzetet a megosztott hosszú távú memóriatárolóhoz (felhasználók/munkamenetek között megosztva). Ha a megosztott memória nincs konfigurálva, az eszköz jelzi, hogy nem elérhető.",
+    "x_search_terms": [
+      "megosztott memória",
+      "hozzáadás",
+      "megosztási memória",
+      "memóriamegosztás",
+      "együttműködési memória",
+      "csapatmemória",
+      "megosztott tárhely",
+      "memória hozzáadása",
+      "csoport memória",
+      "megosztott információ"
+    ],
     "param.note.description": "A megosztandó jegyzet szövege. Használja ezt a projektszintű feltételezésekhez/irányelvekhez, amelyeket a munkamenetek során újra fel kell használni."
   },
   "ro": {
-    "x_search_terms": [
-      "shared memory",
-      "add shared",
-      "share memory",
-      "memory share",
-      "collaborative memory",
-      "team memory",
-      "shared storage",
-      "memory add",
-      "group memory",
-      "shared info"
-    ],
     "tool.description": "Adaugă o singură notă în memoria partajată pe termen lung (partajată între utilizatori/sesiuni). Dacă memoria partajată nu este configurată, instrumentul raportează că nu este disponibilă.",
+    "x_search_terms": [
+      "memorie partajată",
+      "adaugă",
+      "partajare memorie",
+      "partajare memorie",
+      "memorie de colaborare",
+      "memorie de echipă",
+      "stocare partajată",
+      "memorie adăugare",
+      "memorie de grup",
+      "informații partajate"
+    ],
     "param.note.description": "Textul notei de partajat. Utilizați aceasta pentru ipoteze/politici la nivelul întregului proiect care ar trebui reutilizate în sesiuni."
   }
 }

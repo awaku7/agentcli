@@ -32,13 +32,16 @@
   "ja": {
     "tool.description": "テキストやURLからQRコード画像（PNG）を生成します。誤り訂正レベル、ボックスサイズ、ボーダー、色のカスタマイズに対応しています。",
     "x_search_terms": [
-      "qr コード",
-      "QRジェネレーター",
-      "QRを生成",
-      "QRを作成",
-      "QRコードジェネレーター",
+      "qrコード",
+      "qr",
+      "qrコード",
+      "qr生成",
+      "qrジェネレーター",
+      "バーコード",
       "qr画像",
-      "qr 作成"
+      "qr作成",
+      "qr生成",
+      "qrを作成"
     ],
     "param.text.description": "QRコードにエンコードするテキストまたはURL。",
     "param.filename.description": "出力ファイル名（例: 'qrcode.png'）。.pngで終わる必要があります。",
@@ -60,12 +63,15 @@
     "tool.description": "Genera una imagen de código QR (PNG) a partir de texto o URL.",
     "x_search_terms": [
       "código qr",
-      "generador de qr",
+      "qr",
+      "códigoqr",
       "generar qr",
-      "crear qr",
-      "generador de códigos qr",
+      "generador qr",
+      "código de barras",
       "imagen qr",
-      "qr crear"
+      "crear qr",
+      "generación qr",
+      "hacer qr"
     ],
     "param.text.description": "El texto o URL para codificar en el código QR.",
     "param.filename.description": "El nombre del archivo de salida (por ejemplo, 'qrcode.png').",
@@ -87,12 +93,15 @@
     "tool.description": "Générez une image de code QR (PNG) à partir d’un texte ou d’une URL.",
     "x_search_terms": [
       "qr code",
-      "générateur de qr",
+      "qr",
+      "qrcode",
       "générer qr",
-      "créer qr",
-      "générateur de code QR",
-      "image qr",
-      "qr créer"
+      "qr générateur",
+      "barcode",
+      "qr image",
+      "qr créer",
+      "qr génération",
+      "faire qr"
     ],
     "param.text.description": "Le texte ou l’URL à encoder dans le code QR.",
     "param.filename.description": "Le nom du fichier de sortie (par ex.'qrcode.png').",
@@ -114,11 +123,14 @@
     "tool.description": "텍스트나 URL로부터 QR 코드 이미지(PNG)를 생성합니다. 오류 정정 수준, 박스 크기, 테두리, 색상을 조정할 수 있습니다.",
     "x_search_terms": [
       "qr 코드",
-      "QR 생성기",
+      "qr",
+      "qrcode",
       "qr 생성",
-      "QR 생성",
-      "QR 코드 생성기",
+      "qr 생성기",
+      "바코드",
       "qr 이미지",
+      "qr 생성",
+      "qr 생성",
       "qr 생성"
     ],
     "param.text.description": "QR 코드에 인코딩할 텍스트 또는 URL입니다.",
@@ -140,13 +152,16 @@
   "de": {
     "tool.description": "Erzeugt ein QR-Code-Bild (PNG) aus Text oder URL.",
     "x_search_terms": [
-      "qr code",
-      "QR-Generator",
+      "qr-code",
+      "qr",
+      "qrcode",
       "qr generieren",
+      "qr-generator",
+      "barcode",
+      "qr-bild",
       "qr erstellen",
-      "QR-Code-Generator",
-      "QR-Bild",
-      "qr create"
+      "qr-generierung",
+      "qr erstellen"
     ],
     "param.text.description": "Der Text oder die URL, die in den QR-Code kodiert werden soll.",
     "param.filename.description": "Der Ausgabedateiname (z. B. 'qrcode.png'). Muss auf .png enden.",
@@ -168,12 +183,15 @@
     "tool.description": "Genera un’immagine del codice QR (PNG) da testo o URL.",
     "x_search_terms": [
       "qr code",
-      "generatore qr",
-      "generare qr",
-      "crea qr",
-      "generatore di codici qr",
-      "immagine qr",
-      "qr create"
+      "qr",
+      "qrcode",
+      "genera qr",
+      "qr generator",
+      "barcode",
+      "qr image",
+      "qr create",
+      "qr generation",
+      "make qr"
     ],
     "param.text.description": "Il testo o l’URL da codificare nel codice QR.",
     "param.filename.description": "Il nome del file di output (ad es.'qrcode.png').",
@@ -195,12 +213,15 @@
     "tool.description": "Создаёт изображение QR-кода (PNG) из текста или URL.",
     "x_search_terms": [
       "qr-код",
-      "qr-генератор",
+      "qr",
+      "qrcode",
       "генерировать qr",
-      "создать qr",
-      "генератор qr-кода",
+      "qr-генератор",
+      "штрих-код",
       "qr-изображение",
-      "qr create"
+      "qr создать",
+      "генерация qr",
+      "сделать qr"
     ],
     "param.text.description": "Путь к входному файлу (должен находиться в рабочем каталоге). Текст или URL-адрес для кодирования в QR-код.",
     "param.filename.description": "Имя выходного файла (например, 'qrcode.png').",
@@ -222,12 +243,15 @@
     "tool.description": "Gera uma imagem de código QR (PNG) a partir de texto ou URL.",
     "x_search_terms": [
       "código qr",
-      "gerador de qr",
+      "qr",
+      "qrcode",
       "gerar qr",
-      "criar qr",
-      "gerador de código QR",
+      "gerador qr",
+      "código de barras",
       "imagem qr",
-      "qr create"
+      "qr criar",
+      "geração qr",
+      "fazer qr"
     ],
     "param.text.description": "O texto ou a URL a ser codificada no código QR.",
     "param.filename.description": "O nome do arquivo de saída (por exemplo, 'qrcode.png').",
@@ -248,13 +272,16 @@
   "pt": {
     "tool.description": "Gera uma imagem de código QR (PNG) a partir de texto ou URL.",
     "x_search_terms": [
-      "cdigo qr",
-      "gerador de qr",
+      "código qr",
+      "qr",
+      "qrcode",
       "gerar qr",
-      "criar qr",
-      "gerador de cdigo QR",
+      "gerador qr",
+      "código de barras",
       "imagem qr",
-      "qr create"
+      "qr criar",
+      "geração qr",
+      "fazer qr"
     ],
     "param.text.description": "O texto ou a URL a codificar no código QR.",
     "param.filename.description": "O nome do ficheiro de saída (por exemplo, 'qrcode.png').",
@@ -276,12 +303,15 @@
     "tool.description": "Menghasilkan gambar kode QR (PNG) dari teks atau URL.",
     "x_search_terms": [
       "kode qr",
-      "pembuat qr",
+      "qr",
+      "qrcode",
       "menghasilkan qr",
-      "buat qr",
-      "pembuat kode qr",
-      "gambar qr",
-      "qr buat"
+      "qr generator",
+      "barcode",
+      "qr gambar",
+      "qr membuat",
+      "qr generasi",
+      "membuat qr"
     ],
     "param.text.description": "Teks atau URL yang akan dikodekan ke dalam kode QR.",
     "param.filename.description": "Nama file keluaran (misalnya, 'qrcode.png').",
@@ -303,12 +333,15 @@
     "tool.description": "Tạo ảnh mã QR (PNG) từ văn bản hoặc URL.",
     "x_search_terms": [
       "mã qr",
-      "máy phát điện qr",
+      "qr",
+      "qrcode",
       "tạo qr",
-      "tạo qr",
-      "trình tạo mã qr",
+      "qr máy phát điện",
+      "mã vạch",
       "hình ảnh qr",
-      "qr tạo"
+      "qr tạo",
+      "tạo qr",
+      "tạo qr"
     ],
     "param.text.description": "Văn bản hoặc URL sẽ được mã hóa vào mã QR.",
     "param.filename.description": "Tên tệp đầu ra (ví dụ: 'qrcode.png'). Phải kết thúc bằng .png.",
@@ -330,12 +363,15 @@
     "tool.description": "Generuje obraz kodu QR (PNG) z tekstu lub adresu URL.",
     "x_search_terms": [
       "kod qr",
-      "generator qr",
-      "wygeneruj qr",
-      "utwórz qr",
-      "generator kodu qr",
+      "qr",
+      "kod qr",
+      "generuj generator qr",
+      "qr",
+      "kod kreskowy",
       "obraz qr",
-      "qr utwórz"
+      "qr utwórz",
+      "generowanieqr",
+      "make qr"
     ],
     "param.text.description": "Prefiks zapisanej nazwy pliku (opcjonalnie).",
     "param.filename.description": "Nazwa pliku wyjściowego (np.'qrcode.png').",
@@ -356,13 +392,16 @@
   "hi": {
     "tool.description": "अनुकूलन योग्य रंगों और आकार से एक QR कोड छवि (PNG) बनाएं।",
     "x_search_terms": [
-      "क्यूआर कोड",
-      "क्यूआर जनरेटर",
-      "क्यूआर उत्पन्न करें",
-      "क्यूआर बनाएं",
-      "क्यूआर कोड जनरेटर",
-      "क्यूआर छवि",
-      "क्यूआर बनाएं"
+      "qr कोड",
+      "qr",
+      "qrcode",
+      "qr जेनरेट करें",
+      "qr जेनरेटर",
+      "बारकोड",
+      "qr इमेज",
+      "qr क्रिएट",
+      "qr जेनरेशन",
+      "qr बनाएं"
     ],
     "param.text.description": "QR कोड में एन्कोड करने के लिए टेक्स्ट या URL।",
     "param.filename.description": "आउटपुट फ़ाइल नाम (उदाहरण: 'qrcode.png'). .png पर समाप्त होना चाहिए।",
@@ -383,13 +422,16 @@
   "ar": {
     "tool.description": "ينشئ صورة رمز QR (PNG) من نص أو رابط.",
     "x_search_terms": [
-      "رمز الاستجابة السريعة",
-      "مولد ريال قطري",
-      "توليد ريال قطري",
-      "إنشاء ريال قطري",
-      "مولد رمز الاستجابة السريعة",
-      "صورة ريال قطري",
-      "qr create"
+      "كود qr",
+      "qr",
+      "qrcode",
+      "إنشاء qr",
+      "مولد qr",
+      "الباركود",
+      "صورة qr",
+      "إنشاء qr",
+      "إنشاء qr",
+      "إنشاء qr"
     ],
     "param.text.description": "النص أو الرابط المراد ترميزه داخل رمز QR.",
     "param.filename.description": "اسم ملف الإخراج (مثل 'qrcode.png'). يجب أن ينتهي بـ .png.",
@@ -411,12 +453,15 @@
     "tool.description": "สร้างรูปภาพโค้ด QR (PNG)",
     "x_search_terms": [
       "รหัส qr",
-      "เครื่องกำเนิด QR",
+      "qr",
+      "qrcode",
       "สร้าง qr",
-      "สร้าง qr",
-      "เครื่องสร้างรหัส QR",
-      "รูปภาพ qr",
-      "qr สร้าง"
+      "เครื่องกำเนิด qr",
+      "บาร์โค้ด",
+      "ภาพ qr",
+      "qr สร้าง",
+      "การสร้าง qr",
+      "สร้าง qr"
     ],
     "param.text.description": "ข้อความหรือ URL ที่จะเข้ารหัสในคิวอาร์โค้ด",
     "param.filename.description": "ชื่อไฟล์ผลลัพธ์ (เช่น 'qrcode.png') ต้องลงท้ายด้วย .png",
@@ -437,13 +482,16 @@
   "zh_CN": {
     "tool.description": "根据文本或 URL 生成 QR 码图片（PNG）。支持调整纠错级别、方块大小、边框和颜色。",
     "x_search_terms": [
-      "qr 代码",
-      "qr 生成器",
-      "生成二维码",
-      "创建二维码",
-      "二维码生成器",
-      "二维码图片",
-      "qr 创建"
+      "qr代码",
+      "qr",
+      "qrcode",
+      "生成qr",
+      "qr生成器",
+      "条形码",
+      "qr图像",
+      "qr创建",
+      "qr生成",
+      "制作qr"
     ],
     "param.text.description": "要编码到二维码中的文本或 URL。",
     "param.filename.description": "输出文件名（例如 'qrcode.png'）。必须以 .png 结尾。",
@@ -464,13 +512,16 @@
   "zh_TW": {
     "tool.description": "根據文字或 URL 產生 QR 碼圖片（PNG）。支援調整錯誤修正等級、方塊大小、邊框與色彩。",
     "x_search_terms": [
-      "二維碼",
-      "qr 產生器",
-      "產生二維碼",
-      "建立二維碼",
-      "二維碼產生器",
-      "二維碼圖片",
-      "二維碼創建"
+      "qr代碼",
+      "qr",
+      "qrcode",
+      "產生qr",
+      "qr產生器",
+      "條碼",
+      "qr影像",
+      "qr創建",
+      "qr產生",
+      "製作qr"
     ],
     "param.text.description": "要編碼進 QR 碼的文字或 URL。",
     "param.filename.description": "輸出檔名（例如 'qrcode.png'）。必須以 .png 結尾。",
@@ -492,12 +543,15 @@
     "tool.description": "পাঠ্য বা URL থেকে একটি QR কোড চিত্র (PNG) তৈরি করুন৷ কাস্টমাইজযোগ্য রং এবং আকার.",
     "x_search_terms": [
       "qr কোড",
+      "qr",
+      "qrcode",
+      "জেনারেট করুন qr",
       "qr জেনারেটর",
-      "qr তৈরি করুন",
-      "qr তৈরি করুন",
-      "qr কোড জেনারেটর",
+      "বারকোড",
       "qr ইমেজ",
-      "qr তৈরি করুন"
+      "qr create",
+      "qr প্রজন্ম",
+      " qr তৈরি করুন"
     ],
     "param.text.description": "QR কোডে এনকোড করার জন্য টেক্সট বা URL।",
     "param.filename.description": "আউটপুট ফাইলের নাম (যেমন 'qrcode.png')। অবশ্যই .",
@@ -519,12 +573,15 @@
     "tool.description": "از متن یا URL یک تصویر کد QR (PNG) می‌سازد.",
     "x_search_terms": [
       "کد qr",
-      "ژنراتور qr",
+      "qr",
+      "qrcode",
       "تولید qr",
-      "ایجاد qr",
-      "تولید کننده کد qr",
-      "تصویر qr",
-      "qr ایجاد"
+      "qr ژنراتور",
+      "بارکد",
+      "qr تصویر",
+      "qr ایجاد",
+      "qr نسل",
+      "ساخت qr"
     ],
     "param.text.description": "متن یا URL برای کدگذاری در QR.",
     "param.filename.description": "نام فایل خروجی (مثلاً 'qrcode.png'). باید با .png تمام شود.",
@@ -546,11 +603,14 @@
     "tool.description": "Текст эсвэл URL-ээс QR кодын зураг (PNG) үүсгэнэ.",
     "x_search_terms": [
       "qr код",
-      "qr генератор",
       "qr",
-      "үүсгэх qr",
-      "үүсгэх qr код үүсгэгч",
+      "qrcode",
+      "qr үүсгэх",
+      "qr генератор",
+      "баркод",
       "qr зураг",
+      "qr үүсгэх",
+      "qr үүсгэх",
       "qr үүсгэх"
     ],
     "param.text.description": "QR кодод кодлох текст эсвэл URL.",
@@ -572,13 +632,16 @@
   "mr": {
     "tool.description": "मजकूर किंवा URL मधून QR कोड प्रतिमा (PNG) तयार करते.",
     "x_search_terms": [
-      "qr कोड",
+      "qr code",
+      "qr",
+      "qrcode",
+      "व्युत्पन्न करा qr",
       "qr जनरेटर",
-      "qr निर्माण करा",
-      "qr तयार करा",
-      "क्यूआर कोड जनरेटर",
+      "barcode",
       "qr प्रतिमा",
-      "qr तयार करा"
+      "qr create",
+      "qr जनरेशन",
+      " Qr बनवा"
     ],
     "param.text.description": "QR कोडमध्ये एन्कोड करायचा मजकूर किंवा URL.",
     "param.filename.description": "आउटपुट फाइलचे नाव (उदा. 'qrcode.png'). ते .png नेच संपले पाहिजे.",
@@ -599,13 +662,16 @@
   "el": {
     "tool.description": "Δημιουργήστε μια εικόνα κώδικα QR (PNG) από κείμενο ή URL. Προσαρμόσιμα χρώματα και μέγεθος.",
     "x_search_terms": [
-      "κωδικός qr",
-      "γεννήτρια qr",
-      "δημιουργία qr",
-      "δημιουργία qr",
-      "γεννήτρια κώδικα qr",
-      "qr εικόνα",
-      "qr δημιουργία"
+      "qr code",
+      "qr",
+      "qrcode",
+      "generate qr",
+      "qr generator",
+      "barcode",
+      "qr image",
+      "qr create",
+      "qr generation",
+      "make qr"
     ],
     "param.text.description": "Μέγεθος κάθε πλαισίου (πλάτος/ύψος εικονοστοιχείων). Προεπιλογή: 10.",
     "param.filename.description": "Πλάτος περιγράμματος (αριθμός πλαισίων). Προεπιλογή: 4.",
@@ -626,13 +692,16 @@
   "he": {
     "tool.description": "צור תמונת קוד QR (PNG) מטקסט או כתובת אתר. צבעים וגודל הניתנים להתאמה אישית.",
     "x_search_terms": [
-      "קוד qr",
-      "מחולל qr",
-      "ליצור qr",
-      "ליצור qr",
-      "מחולל קוד qr",
-      "תמונת qr",
-      "qr create"
+      "קוד QR",
+      "",
+      "",
+      "",
+      "",
+      "",
+      "",
+      "",
+      "",
+      ""
     ],
     "param.text.description": "הטקסט או כתובת האתר שיש לקודד בקוד ה-QR.",
     "param.filename.description": "שם קובץ הפלט (לדוגמה, 'qrcode.png'). חייב להסתיים ב-.png.",
@@ -654,12 +723,15 @@
     "tool.description": "QR-kód kép (PNG) létrehozása szövegből vagy URL-ből. Testreszabható színek és méretek.",
     "x_search_terms": [
       "qr kód",
-      "qr generátor",
-      "generál qr",
-      "qr létrehozása",
-      "qr kód generátor",
+      "qr",
+      "qrcode",
+      "generate qr",
+      "qr generator",
+      "vonalkód",
       "qr kép",
-      "qr létrehozás"
+      "qr Create",
+      "qr generálás",
+      "make qr"
     ],
     "param.text.description": "A QR-kódba kódolandó szöveg vagy URL.",
     "param.filename.description": "A kimeneti fájl neve (pl. „qrcode.png”). .png-vel kell végződnie.",
@@ -680,13 +752,16 @@
   "ro": {
     "tool.description": "Generați o imagine de cod QR (PNG) din text sau URL. Culori și dimensiuni personalizabile.",
     "x_search_terms": [
-      "cod qr",
-      "generator qr",
-      "genera qr",
-      "crea qr",
-      "generator de coduri qr",
-      "imagine qr",
-      "qr create"
+      "qr code",
+      "qr",
+      "qrcode",
+      "generare qr",
+      "qr generator",
+      "barcode",
+      "qr image",
+      "qr create",
+      "qr generation",
+      "make qr"
     ],
     "param.text.description": "Textul sau adresa URL de codat în codul QR.",
     "param.filename.description": "Numele fișierului de ieșire (de exemplu, „qrcode.png”). Trebuie să se încheie cu .png.",
@@ -707,13 +782,16 @@
   "sw": {
     "tool.description": "Hutengeneza picha ya msimbo wa QR (PNG) kutoka kwa maandishi au URL.",
     "x_search_terms": [
-      "msimbo wa qr",
-      "jenereta ya qr",
-      "kuzalisha qr",
-      "tengeneza qr",
-      "jenereta ya msimbo wa qr",
-      "picha ya qr",
-      "qr unda"
+      "qr code",
+      "qr",
+      "qrcode",
+      "toa jenereta ya qr",
+      "qr",
+      "barcode",
+      "qr picha",
+      "qr unda",
+      "qr generation",
+      "tengeneza qr"
     ],
     "param.text.description": "Maandishi au URL ya kusimba kwenye msimbo wa QR",
     "param.filename.description": "Jina la faili la matokeo (kwa mfano, 'qrcode.png').",
@@ -734,13 +812,16 @@
   "tr": {
     "tool.description": "Metin veya URL’den bir QR kodu görüntüsü (PNG) oluşturur.",
     "x_search_terms": [
-      "qr kodu",
-      "qr jeneratör",
+      "qr code",
+      "qr",
+      "qrcode",
       "qr oluştur",
-      "qr'yi oluştur",
-      "qr kod üreteci",
-      "qr resmi",
-      "qr create"
+      "qr oluşturucu",
+      "barkod",
+      "qr görüntüsü",
+      "qr oluştur",
+      "qr üretimi",
+      "qr yap"
     ],
     "param.text.description": "QR koduna kodlanacak metin veya URL.",
     "param.filename.description": "Çıktı dosya adı (örneğin 'qrcode.png'). .png ile bitmelidir.",
@@ -761,13 +842,16 @@
   "cs": {
     "tool.description": "Vytvoří obrázek QR kódu (PNG) z textu nebo URL.",
     "x_search_terms": [
-      "qr kód",
-      "generátor qr",
-      "vygenerovat qr",
-      "vytvořit qr",
-      "Generátor qr kódu",
-      "qr obrázek",
-      "qr vytvořit"
+      "qr code",
+      "qr",
+      "qrcode",
+      "generovat qr",
+      "qr generátor",
+      "čárový kód",
+      "qr image",
+      "qr create",
+      "qr generation",
+      "make qr"
     ],
     "param.text.description": "Text nebo adresa URL, která se má zakódovat do QR kódu.",
     "param.filename.description": "Název výstupního souboru (např. 'qrcode.png'). Musí končit na .png.",
@@ -789,12 +873,15 @@
     "tool.description": "Luo QR-koodikuva (PNG) tekstistä tai URL-osoitteesta.",
     "x_search_terms": [
       "qr-koodi",
-      "qr generaattori",
+      "qr",
+      "qrcode",
       "luo qr",
-      "luo qr",
-      "qr-koodigeneraattori",
-      "qr kuva",
-      "qr luoda"
+      "qr-generaattori",
+      "viivakoodi",
+      "qr-kuva",
+      "qr luo",
+      "qr-sukupolvi",
+      "make qr"
     ],
     "param.text.description": "Teksti tai URL, joka koodataan QR-koodiin.",
     "param.filename.description": "Tulostiedoston nimi (esim. 'qrcode.png'). Sen on päätyttävä .png.",
@@ -816,12 +903,15 @@
     "tool.description": "Genererer et QR-kodebilde (PNG) fra tekst eller URL.",
     "x_search_terms": [
       "qr-kode",
-      "qr generator",
-      "generere qr",
-      "opprette qr",
-      "qr-kodegenerator",
-      "qr bilde",
-      "qr create"
+      "qr",
+      "qrcode",
+      "generer qr",
+      "qr-generator",
+      "strekkode",
+      "qr-bilde",
+      "qr opprette",
+      "qr-generering",
+      "lag qr"
     ],
     "param.text.description": "Teksten eller URLen som skal kodes inn i QR-koden",
     "param.filename.description": "Navnet på utdatafilen (for eksempel 'qrcode.png'). Må ende på .png.",
@@ -842,13 +932,16 @@
   "nl": {
     "tool.description": "Genereer een QR-codeafbeelding (PNG) uit tekst of URL.",
     "x_search_terms": [
-      "qr-code",
-      "qr-generator",
-      "qr genereren",
-      "maak qr",
-      "qr-codegenerator",
-      "qr-afbeelding",
-      "qr creëren"
+      "qr code",
+      "qr",
+      "qrcode",
+      "generate qr",
+      "qr generator",
+      "barcode",
+      "qr image",
+      "qr create",
+      "qr generatie",
+      "make qr"
     ],
     "param.text.description": "De tekst of URL die in de QR-code moet worden gecodeerd.",
     "param.filename.description": "De uitvoernaam (bijv. 'qrcode.png'). Moet eindigen op .png.",
@@ -870,12 +963,15 @@
     "tool.description": "Skapar en QR-kodbild (PNG) från text eller URL.",
     "x_search_terms": [
       "qr-kod",
-      "qr generator",
+      "qr",
+      "qrcode",
       "generera qr",
-      "skapa qr",
-      "qr-kodgenerator",
+      "qr-generator",
+      "streckkod",
       "qr-bild",
-      "qr skapa"
+      "qr skapa",
+      "qr-generering",
+      "gör qr"
     ],
     "param.text.description": "Den text eller URL som ska kodas in i QR-koden.",
     "param.filename.description": "Namnet på utdatafilen (t.ex. 'qrcode.png'). Måste sluta med .png.",
@@ -896,13 +992,16 @@
   "uk": {
     "tool.description": "Створює зображення QR-коду (PNG) з тексту або URL.",
     "x_search_terms": [
-      "qr-код",
-      "генератор qr",
-      "генерувати qr",
-      "створити qr",
-      "генератор qr коду",
-      "qr зображення",
-      "qr create"
+      "qr code",
+      "qr",
+      "qrcode",
+      "generate qr",
+      "qr generator",
+      "barcode",
+      "qr image",
+      "qr create",
+      "qr generation",
+      "make qr"
     ],
     "param.text.description": "Префікс для збереженого імені файлу (необов'язково).",
     "param.filename.description": "Ім'я вихідного файлу (наприклад, 'qrcode.png').",

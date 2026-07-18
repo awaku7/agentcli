@@ -21,12 +21,12 @@
     "param.step.max_retries.description": "يقوم ماكس بإعادة المحاولة لهذه الخطوة. الافتراضي 2.",
     "param.step.max_turns.description": "الحد الأقصى للتفاعلات متعددة المنعطفات لهذه الخطوة. 3 = موصى به. الافتراضي 3.",
     "x_search_terms": [
-      "chain",
-      "sequence",
-      "pipeline",
-      "orchestrate",
-      "multi-step",
-      "workflow"
+      "سلسلة",
+      "تسلسل",
+      "خط أنابيب",
+      "تنسيق",
+      "متعدد الخطوات",
+      "سير العمل"
     ]
   },
   "bn": {
@@ -51,12 +51,12 @@
     "param.step.max_retries.description": "এই ধাপের জন্য সর্বোচ্চ চেষ্টা করুন। ডিফল্ট 2.",
     "param.step.max_turns.description": "এই ধাপের জন্য সর্বাধিক মাল্টি-টার্ন ইন্টারঅ্যাকশন। 3 = প্রস্তাবিত। ডিফল্ট 3.",
     "x_search_terms": [
-      "chain",
-      "sequence",
-      "pipeline",
-      "orchestrate",
-      "multi-step",
-      "workflow"
+      "চেইন",
+      "ক্রম",
+      "পাইপলাইন",
+      "অর্কেস্ট্রেট",
+      "মাল্টি-স্টেপ",
+      "ওয়ার্কফ্লো"
     ]
   },
   "cs": {
@@ -81,12 +81,12 @@
     "param.step.max_retries.description": "Maximální počet opakování pro tento krok. Výchozí 2.",
     "param.step.max_turns.description": "Maximální počet víceotáčkových interakcí pro tento krok. 3 = doporučeno. Výchozí 3.",
     "x_search_terms": [
-      "chain",
-      "sequence",
+      "řetězová",
+      "sekvence",
       "pipeline",
       "orchestrate",
-      "multi-step",
-      "workflow"
+      "vícekrokový",
+      "pracovní postup"
     ]
   },
   "de": {
@@ -111,12 +111,12 @@
     "param.step.max_retries.description": "Max versucht diesen Schritt noch einmal. Standard 2.",
     "param.step.max_turns.description": "Maximale Multiturn-Interaktionen für diesen Schritt. 3 = empfohlen. Standard 3.",
     "x_search_terms": [
-      "chain",
-      "sequence",
-      "pipeline",
-      "orchestrate",
-      "multi-step",
-      "workflow"
+      "Kette",
+      "Sequenz",
+      "Pipeline",
+      "Orchestrierung",
+      "mehrstufiger",
+      "Workflow"
     ]
   },
   "el": {
@@ -146,7 +146,7 @@
       "pipeline",
       "orchestrate",
       "multi-step",
-      "workflow"
+      "flow work"
     ]
   },
   "en": {
@@ -201,12 +201,12 @@
     "param.step.max_retries.description": "Max vuelve a intentar este paso. Predeterminado 2.",
     "param.step.max_turns.description": "Máximo de interacciones de varios turnos para este paso. 3 = recomendado. Predeterminado 3.",
     "x_search_terms": [
-      "chain",
-      "sequence",
-      "pipeline",
-      "orchestrate",
-      "multi-step",
-      "workflow"
+      "cadena",
+      "secuencia",
+      "canalización",
+      "orquestación",
+      "varios pasos",
+      "flujo de trabajo"
     ]
   },
   "fa": {
@@ -231,12 +231,12 @@
     "param.step.max_retries.description": "Max برای این مرحله دوباره تلاش می کند. پیش فرض 2.",
     "param.step.max_turns.description": "حداکثر تعامل چند دور برای این مرحله. 3 = توصیه می شود. پیش فرض 3.",
     "x_search_terms": [
-      "chain",
-      "sequence",
-      "pipeline",
-      "orchestrate",
-      "multi-step",
-      "workflow"
+      "زنجیره",
+      "سکانس",
+      "خط لوله",
+      "سازماندهی",
+      "گردش کاری چند مرحله ای",
+      ""
     ]
   },
   "fi": {
@@ -261,12 +261,12 @@
     "param.step.max_retries.description": "Max yrittää uudelleen tässä vaiheessa. Oletus 2.",
     "param.step.max_turns.description": "Enimmäisvuorovaikutus tässä vaiheessa. 3 = suositeltava. Oletus 3.",
     "x_search_terms": [
-      "chain",
-      "sequence",
+      "ketju",
+      "sekvenssi",
       "pipeline",
-      "orchestrate",
-      "multi-step",
-      "workflow"
+      "orkestroi",
+      "monivaiheinen",
+      "työnkulku"
     ]
   },
   "fr": {
@@ -291,12 +291,12 @@
     "param.step.max_retries.description": "Nombre maximal de tentatives pour cette étape. Par défaut 2.",
     "param.step.max_turns.description": "Interactions multi-tours maximales pour cette étape. 3 = recommandé. Par défaut 3.",
     "x_search_terms": [
-      "chain",
-      "sequence",
+      "chaîne",
+      "séquence",
       "pipeline",
-      "orchestrate",
-      "multi-step",
-      "workflow"
+      "orchestrer",
+      "flux de travail",
+      "en plusieurs étapes"
     ]
   },
   "he": {
@@ -321,12 +321,12 @@
     "param.step.max_retries.description": "מקסימום מנסה שוב עבור שלב זה. ברירת מחדל 2.",
     "param.step.max_turns.description": "מקסימום אינטראקציות מרובה פניות עבור שלב זה. 3 = מומלץ. ברירת מחדל 3.",
     "x_search_terms": [
-      "chain",
-      "sequence",
-      "pipeline",
-      "orchestrate",
-      "multi-step",
-      "workflow"
+      "שרשרת",
+      "רצף",
+      "צינור",
+      "תזמורת",
+      "זרימת עבודה",
+      ""
     ]
   },
   "hi": {
@@ -351,12 +351,12 @@
     "param.step.max_retries.description": "मैक्स इस चरण के लिए पुनः प्रयास करता है। डिफ़ॉल्ट 2.",
     "param.step.max_turns.description": "इस चरण के लिए अधिकतम मल्टी-टर्न इंटरैक्शन। 3 = अनुशंसित. डिफ़ॉल्ट 3.",
     "x_search_terms": [
-      "chain",
-      "sequence",
-      "pipeline",
-      "orchestrate",
-      "multi-step",
-      "workflow"
+      "चेन",
+      "अनुक्रम",
+      "पाइपलाइन",
+      "ऑर्केस्ट्रेट",
+      "मल्टी-स्टेप",
+      "वर्कफ़्लो"
     ]
   },
   "hu": {
@@ -381,12 +381,12 @@
     "param.step.max_retries.description": "Maximum újra próbálkozik ennél a lépésnél. Alapértelmezett 2.",
     "param.step.max_turns.description": "Maximális többfordulós interakció ehhez a lépéshez. 3 = ajánlott. Alapértelmezett 3.",
     "x_search_terms": [
-      "chain",
-      "sequence",
+      "lánc",
+      "szekvencia",
       "pipeline",
-      "orchestrate",
-      "multi-step",
-      "workflow"
+      "hangszerelés",
+      "többlépéses",
+      "munkafolyamat"
     ]
   },
   "id": {
@@ -411,12 +411,12 @@
     "param.step.max_retries.description": "Max mencoba lagi untuk langkah ini. Bawaan 2.",
     "param.step.max_turns.description": "Interaksi multi-putaran maksimal untuk langkah ini. 3 = direkomendasikan. Bawaan 3.",
     "x_search_terms": [
-      "chain",
-      "sequence",
-      "pipeline",
-      "orchestrate",
-      "multi-step",
-      "workflow"
+      "rantai",
+      "urutan",
+      "pipa",
+      "orkestrasi",
+      "multi-langkah",
+      "alur kerja"
     ]
   },
   "it": {
@@ -441,12 +441,12 @@
     "param.step.max_retries.description": "Max riprova a eseguire questo passaggio. Predefinito 2.",
     "param.step.max_turns.description": "Numero massimo di interazioni a più turni per questo passaggio. 3 = consigliato. Predefinito 3.",
     "x_search_terms": [
-      "chain",
-      "sequence",
+      "catena",
+      "sequenza",
       "pipeline",
-      "orchestrate",
-      "multi-step",
-      "workflow"
+      "orchestra",
+      "multifase",
+      "flusso di lavoro"
     ]
   },
   "ja": {
@@ -471,12 +471,12 @@
     "param.step.max_retries.description": "このステップの最大再試行回数。デフォルト 2。",
     "param.step.max_turns.description": "このステップの最大マルチターン インタラクション。 3 = 推奨。デフォルトは 3。",
     "x_search_terms": [
-      "chain",
-      "sequence",
-      "pipeline",
-      "orchestrate",
-      "multi-step",
-      "workflow"
+      "チェーン",
+      "シーケンス",
+      "パイプライン",
+      "オーケストレーション",
+      "マルチステップ",
+      "ワークフロー"
     ]
   },
   "ko": {
@@ -501,12 +501,12 @@
     "param.step.max_retries.description": "이 단계의 최대 재시도 횟수입니다. 기본값 2.",
     "param.step.max_turns.description": "이 단계의 최대 다중 회전 상호 작용. 3 = 권장됩니다. 기본값 3.",
     "x_search_terms": [
-      "chain",
-      "sequence",
-      "pipeline",
-      "orchestrate",
-      "multi-step",
-      "workflow"
+      "체인",
+      "시퀀스",
+      "파이프라인",
+      "조정",
+      "다단계",
+      "워크플로우"
     ]
   },
   "mn": {
@@ -531,12 +531,12 @@
     "param.step.max_retries.description": "Макс энэ алхамыг дахин оролдоно. Өгөгдмөл 2.",
     "param.step.max_turns.description": "Энэ алхамын хамгийн их олон эргэлтийн харилцан үйлчлэл. 3 = санал болгож байна. Өгөгдмөл 3.",
     "x_search_terms": [
-      "chain",
-      "sequence",
-      "pipeline",
-      "orchestrate",
-      "multi-step",
-      "workflow"
+      "хэлхээ",
+      "дараалал",
+      "шугам хоолой",
+      "оркестрат",
+      "олон алхамт",
+      "ажлын урсгал"
     ]
   },
   "mr": {
@@ -561,12 +561,12 @@
     "param.step.max_retries.description": "या पायरीसाठी कमाल प्रयत्न करतो. डीफॉल्ट 2.",
     "param.step.max_turns.description": "या चरणासाठी कमाल बहु-वळण संवाद. 3 = शिफारस केलेले. डीफॉल्ट 3.",
     "x_search_terms": [
-      "chain",
-      "sequence",
-      "pipeline",
-      "orchestrate",
-      "multi-step",
-      "workflow"
+      "साखळी",
+      "क्रम",
+      "पाइपलाइन",
+      "ऑर्केस्टरेट",
+      "मल्टी-स्टेप",
+      "वर्कफ्लो"
     ]
   },
   "nb": {
@@ -591,12 +591,12 @@
     "param.step.max_retries.description": "Max prøver på nytt for dette trinnet. Standard 2.",
     "param.step.max_turns.description": "Maks interaksjoner med flere svinger for dette trinnet. 3 = anbefalt. Standard 3.",
     "x_search_terms": [
-      "chain",
-      "sequence",
+      "kjede",
+      "sekvens",
       "pipeline",
-      "orchestrate",
-      "multi-step",
-      "workflow"
+      "orkestrere",
+      "flertrinns",
+      "arbeidsflyt"
     ]
   },
   "nl": {
@@ -621,11 +621,11 @@
     "param.step.max_retries.description": "Max. aantal nieuwe pogingen voor deze stap. Standaard 2.",
     "param.step.max_turns.description": "Max. multi-turn-interacties voor deze stap. 3 = aanbevolen. Standaard 3.",
     "x_search_terms": [
-      "chain",
-      "sequence",
-      "pipeline",
-      "orchestrate",
-      "multi-step",
+      "keten",
+      "sequentie",
+      "pijplijn",
+      "orkest",
+      "meerstaps",
       "workflow"
     ]
   },
@@ -651,12 +651,12 @@
     "param.step.max_retries.description": "Maks. ponawia próby wykonania tego kroku. Domyślny 2.",
     "param.step.max_turns.description": "Maksymalna liczba interakcji wieloobrotowych w tym kroku. 3 = zalecane. Domyślny 3.",
     "x_search_terms": [
-      "chain",
-      "sequence",
-      "pipeline",
-      "orchestrate",
-      "multi-step",
-      "workflow"
+      "łańcuch",
+      "sekwencja",
+      "potok",
+      "orkiestra",
+      "wieloetapowy",
+      "przepływ pracy"
     ]
   },
   "pt": {
@@ -681,12 +681,12 @@
     "param.step.max_retries.description": "Max tenta novamente esta etapa. Padrão 2.",
     "param.step.max_turns.description": "Máximo de interações multivoltas para esta etapa. 3 = recomendado. Padrão 3.",
     "x_search_terms": [
-      "chain",
-      "sequence",
+      "cadeia",
+      "sequência",
       "pipeline",
-      "orchestrate",
-      "multi-step",
-      "workflow"
+      "orquestrar",
+      "fluxo de trabalho de múltiplas etapas",
+      ""
     ]
   },
   "pt_BR": {
@@ -711,12 +711,12 @@
     "param.step.max_retries.description": "Max tenta novamente esta etapa. Padrão 2.",
     "param.step.max_turns.description": "Máximo de interações multivoltas para esta etapa. 3 = recomendado. Padrão 3.",
     "x_search_terms": [
-      "chain",
-      "sequence",
+      "cadeia",
+      "sequência",
       "pipeline",
-      "orchestrate",
-      "multi-step",
-      "workflow"
+      "orquestrar",
+      "fluxo de trabalho de múltiplas etapas",
+      ""
     ]
   },
   "ro": {
@@ -741,12 +741,12 @@
     "param.step.max_retries.description": "Max reîncercări pentru acest pas. Implicit 2.",
     "param.step.max_turns.description": "Max interacțiuni cu mai multe ture pentru acest pas. 3 = recomandat. Implicit 3.",
     "x_search_terms": [
-      "chain",
-      "sequence",
-      "pipeline",
-      "orchestrate",
-      "multi-step",
-      "workflow"
+      "lanț",
+      "secvență",
+      "conductă",
+      "orchestrați",
+      "fluxul de lucru în mai mulți pași",
+      ""
     ]
   },
   "ru": {
@@ -771,12 +771,12 @@
     "param.step.max_retries.description": "Макс повторяет попытку этого шага. По умолчанию 2.",
     "param.step.max_turns.description": "Максимальное количество многоходовых взаимодействий для этого шага. 3 = рекомендуется. По умолчанию 3.",
     "x_search_terms": [
-      "chain",
-      "sequence",
-      "pipeline",
-      "orchestrate",
-      "multi-step",
-      "workflow"
+      "цепочка",
+      "последовательность",
+      "конвейер",
+      "оркестрация",
+      "многошаговый",
+      "рабочий процесс"
     ]
   },
   "sv": {
@@ -801,12 +801,12 @@
     "param.step.max_retries.description": "Max försöker igen för detta steg. Standard 2.",
     "param.step.max_turns.description": "Max interaktioner med flera svängar för detta steg. 3 = rekommenderas. Standard 3.",
     "x_search_terms": [
-      "chain",
-      "sequence",
+      "kedja",
+      "sekvens",
       "pipeline",
-      "orchestrate",
-      "multi-step",
-      "workflow"
+      "orkestrera",
+      "flerstegs",
+      "arbetsflöde"
     ]
   },
   "sw": {
@@ -831,12 +831,12 @@
     "param.step.max_retries.description": "Max anajaribu tena kwa hatua hii. Chaguomsingi 2.",
     "param.step.max_turns.description": "Uingiliano wa juu wa zamu nyingi kwa hatua hii. 3 = inapendekezwa. Chaguomsingi 3.",
     "x_search_terms": [
-      "chain",
-      "sequence",
+      "mlolongo",
+      "mfuatano",
       "pipeline",
       "orchestrate",
-      "multi-step",
-      "workflow"
+      "hatua nyingi",
+      "mtiririko wa kazi"
     ]
   },
   "th": {
@@ -861,12 +861,12 @@
     "param.step.max_retries.description": "Max ลองขั้นตอนนี้อีกครั้ง ค่าเริ่มต้น 2",
     "param.step.max_turns.description": "การโต้ตอบหลายเทิร์นสูงสุดสำหรับขั้นตอนนี้ 3 = แนะนำ ค่าเริ่มต้น 3",
     "x_search_terms": [
-      "chain",
-      "sequence",
-      "pipeline",
-      "orchestrate",
-      "multi-step",
-      "workflow"
+      "ห่วงโซ่",
+      "ลำดับ",
+      "ไปป์ไลน์",
+      "เรียบเรียง",
+      "หลายขั้นตอน",
+      "เวิร์กโฟลว์"
     ]
   },
   "tr": {
@@ -891,12 +891,12 @@
     "param.step.max_retries.description": "Max bu adımı yeniden dener. Varsayılan 2.",
     "param.step.max_turns.description": "Bu adım için maksimum çok dönüşlü etkileşimler. 3 = önerilir. Varsayılan 3.",
     "x_search_terms": [
-      "chain",
-      "sequence",
-      "pipeline",
-      "orchestrate",
-      "multi-step",
-      "workflow"
+      "zincir",
+      "dizi",
+      "boru hattı",
+      "düzenleme",
+      "çok adımlı",
+      "iş akışı"
     ]
   },
   "uk": {
@@ -921,12 +921,12 @@
     "param.step.max_retries.description": "Максимальна кількість повторів для цього кроку. За замовчуванням 2.",
     "param.step.max_turns.description": "Максимальна багатоповоротна взаємодія для цього кроку. 3 = рекомендовано. За замовчуванням 3.",
     "x_search_terms": [
-      "chain",
-      "sequence",
-      "pipeline",
-      "orchestrate",
-      "multi-step",
-      "workflow"
+      "ланцюг",
+      "послідовність",
+      "конвеєр",
+      "оркеструвати",
+      "багатокроковий",
+      "робочий процес"
     ]
   },
   "vi": {
@@ -951,12 +951,12 @@
     "param.step.max_retries.description": "Số lần thử lại tối đa cho bước này. Mặc định 2.",
     "param.step.max_turns.description": "Tương tác nhiều lượt tối đa cho bước này. 3 = được khuyến nghị. Mặc định 3.",
     "x_search_terms": [
-      "chain",
-      "sequence",
-      "pipeline",
-      "orchestrate",
-      "multi-step",
-      "workflow"
+      "chuỗi",
+      "trình tự",
+      "đường ống",
+      "dàn xếp",
+      "nhiều bước",
+      "quy trình làm việc"
     ]
   },
   "zh_CN": {
@@ -981,12 +981,12 @@
     "param.step.max_retries.description": "此步骤的最大重试次数。默认 2。",
     "param.step.max_turns.description": "此步骤的最大多轮交互。 3 = 推荐。默认 3。",
     "x_search_terms": [
-      "chain",
-      "sequence",
-      "pipeline",
-      "orchestrate",
-      "multi-step",
-      "workflow"
+      "链",
+      "顺序",
+      "管道",
+      "编排",
+      "多步骤",
+      "工作流"
     ]
   },
   "zh_TW": {
@@ -1011,12 +1011,12 @@
     "param.step.max_retries.description": "此步驟的最大重試次數。預設 2。",
     "param.step.max_turns.description": "此步驟的最大多輪互動。 3 = 推薦。預設 3。",
     "x_search_terms": [
-      "chain",
-      "sequence",
-      "pipeline",
-      "orchestrate",
-      "multi-step",
-      "workflow"
+      "鏈",
+      "順序",
+      "管道",
+      "編排",
+      "多步驟",
+      "工作流程"
     ]
   }
 }

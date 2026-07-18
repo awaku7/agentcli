@@ -5,14 +5,16 @@
     "msg.error_fmt": "خطأ: {msg}",
     "msg.fetched_at": "تم الجلب في: {ts}",
     "msg.unknown_error": "خطأ غير معروف",
+    "tool.description": "قم بإدراج أجهزة SwitchBot Cloud للحساب الذي تم تكوينه.",
     "x_search_terms": [
-      "قائمة سحابة switchbot",
+      "قائمة السحابة الخاصة بـ Switchbot",
       "switchbot_cloud_list",
-      "سويتش بوت",
-      "سحابة",
-      "أجهزة"
-    ],
-    "tool.description": "قم بإدراج أجهزة SwitchBot Cloud للحساب الذي تم تكوينه."
+      "switchbot",
+      "cloud",
+      "الأجهزة",
+      "المكونة",
+      "الحساب"
+    ]
   },
   "bn": {
     "param.fmt.description": "ফরম্যাট: json বা text।",
@@ -20,14 +22,16 @@
     "msg.error_fmt": "ত্রুটি: {msg}",
     "msg.fetched_at": "আনা হয়েছে: {ts}",
     "msg.unknown_error": "অজানা ত্রুটি",
+    "tool.description": "কনফিগার করা অ্যাকাউন্টের জন্য SwitchBot ক্লাউড ডিভাইসের তালিকা করুন।",
     "x_search_terms": [
       "switchbot ক্লাউড তালিকা",
       "switchbot_cloud_list",
-      "সুইচবট",
-      "মেঘ",
-      "ডিভাইস"
-    ],
-    "tool.description": "কনফিগার করা অ্যাকাউন্টের জন্য SwitchBot ক্লাউড ডিভাইসের তালিকা করুন।"
+      "switchbot",
+      "cloud",
+      "devices",
+      "configured",
+      "account"
+    ]
   },
   "cs": {
     "param.fmt.description": "Formát: json nebo text.",
@@ -35,14 +39,16 @@
     "msg.error_fmt": "Chyba: {msg}",
     "msg.fetched_at": "Načteno v: {ts}",
     "msg.unknown_error": "neznámá chyba",
+    "tool.description": "Seznam zařízení SwitchBot Cloud pro nakonfigurovaný účet.",
     "x_search_terms": [
-      "seznam cloudů switchbot",
+      "switchbot cloud list",
       "switchbot_cloud_list",
-      "přepínač",
-      "mrak",
-      "zařízení"
-    ],
-    "tool.description": "Seznam zařízení SwitchBot Cloud pro nakonfigurovaný účet."
+      "switchbot",
+      "cloud",
+      "zařízení",
+      "nakonfigurován",
+      "účet"
+    ]
   },
   "de": {
     "param.fmt.description": "Format: json oder text.",
@@ -50,14 +56,16 @@
     "msg.error_fmt": "Fehler: {msg}",
     "msg.fetched_at": "Abgerufen am: {ts}",
     "msg.unknown_error": "unbekannter Fehler",
+    "tool.description": "Listen Sie SwitchBot Cloud-Geräte für das konfigurierte Konto auf.",
     "x_search_terms": [
-      "Switchbot-Cloud-Liste",
+      "switchbot cloud list",
       "switchbot_cloud_list",
-      "Switchbot",
-      "Wolke",
-      "Geräte"
-    ],
-    "tool.description": "Listen Sie SwitchBot Cloud-Geräte für das konfigurierte Konto auf."
+      "switchbot",
+      "cloud",
+      "devices",
+      "configured",
+      "account"
+    ]
   },
   "en": {
     "param.fmt.description": "Format: json or text.",
@@ -82,14 +90,16 @@
     "msg.error_fmt": "エラー: {msg}",
     "msg.fetched_at": "Obtenido en: {ts}",
     "msg.unknown_error": "error desconocido",
+    "tool.description": "Enumere los dispositivos SwitchBot Cloud para la cuenta configurada.",
     "x_search_terms": [
       "lista de nubes de switchbot",
       "switchbot_cloud_list",
-      "robot conmutador",
+      "switchbot",
       "nube",
-      "dispositivos"
-    ],
-    "tool.description": "Enumere los dispositivos SwitchBot Cloud para la cuenta configurada."
+      "dispositivos",
+      "cuenta",
+      "configurada"
+    ]
   },
   "fa": {
     "param.fmt.description": "دستورات برای اجرا.",
@@ -97,14 +107,16 @@
     "msg.error_fmt": "خطا: {msg}",
     "msg.fetched_at": "واکشی شده در: {ts}",
     "msg.unknown_error": "خطای ناشناخته",
+    "tool.description": "دستگاه های SwitchBot Cloud را برای حساب پیکربندی شده فهرست کنید.",
     "x_search_terms": [
-      "لیست ابری switchbot",
+      "فهرست ابر switchbot",
       "switchbot_cloud_list",
-      "سوییچ‌بات",
-      "ابر",
-      "دستگاه‌ها"
-    ],
-    "tool.description": "دستگاه های SwitchBot Cloud را برای حساب پیکربندی شده فهرست کنید."
+      "switchbot",
+      "cloud",
+      "دستگاه‌ها",
+      "پیکربندی شده",
+      "حساب"
+    ]
   },
   "fi": {
     "param.fmt.description": "Muoto: json tai text.",
@@ -112,14 +124,16 @@
     "msg.error_fmt": "Virhe: {msg}",
     "msg.fetched_at": "Haettu: {ts}",
     "msg.unknown_error": "tuntematon virhe",
+    "tool.description": "Luettele määritetyn tilin SwitchBot Cloud -laitteet.",
     "x_search_terms": [
       "switchbot-pilviluettelo",
       "switchbot_cloud_list",
-      "kytkinrobotti",
+      "switchbot",
       "pilvi",
-      "laitteet"
-    ],
-    "tool.description": "Luettele määritetyn tilin SwitchBot Cloud -laitteet."
+      "laitteet",
+      "configured",
+      "tili"
+    ]
   },
   "fr": {
     "param.fmt.description": "Format : json ou text.",
@@ -127,14 +141,16 @@
     "msg.error_fmt": "Erreur : {msg}",
     "msg.fetched_at": "Récupéré à : {ts}",
     "msg.unknown_error": "erreur inconnue",
+    "tool.description": "Répertoriez les appareils SwitchBot Cloud pour le compte configuré.",
     "x_search_terms": [
-      "liste des nuages de switchbots",
+      "liste des nuages switchbot",
       "switchbot_cloud_list",
-      "robot de commutation",
-      "nuage",
-      "appareils"
-    ],
-    "tool.description": "Répertoriez les appareils SwitchBot Cloud pour le compte configuré."
+      "switchbot",
+      "cloud",
+      "appareils",
+      "configuré",
+      "compte"
+    ]
   },
   "hi": {
     "param.fmt.description": "प्रारूप: json या text।",
@@ -142,14 +158,16 @@
     "msg.error_fmt": "त्रुटि: {msg}",
     "msg.fetched_at": "प्राप्त किया गया: {ts}",
     "msg.unknown_error": "अज्ञात त्रुटि",
+    "tool.description": "कॉन्फ़िगर किए गए खाते के लिए स्विचबॉट क्लाउड डिवाइस की सूची बनाएं।",
     "x_search_terms": [
-      "switchbot क्लाउड सूची",
-      "switchbot_cloud_list",
+      "स्विचबॉट क्लाउड सूची",
+      "स्विचबॉट_क्लाउड_लिस्ट",
       "स्विचबॉट",
-      "बादल",
-      "डिवाइस"
-    ],
-    "tool.description": "कॉन्फ़िगर किए गए खाते के लिए स्विचबॉट क्लाउड डिवाइस की सूची बनाएं।"
+      "क्लाउड",
+      "डिवाइस",
+      "कॉन्फ़िगर",
+      "खाता"
+    ]
   },
   "id": {
     "param.fmt.description": "Format: json atau teks.",
@@ -157,14 +175,16 @@
     "msg.error_fmt": "Kesalahan: {msg}",
     "msg.fetched_at": "Diambil pada: {ts}",
     "msg.unknown_error": "kesalahan tidak dikenal",
+    "tool.description": "Cantumkan perangkat SwitchBot Cloud untuk akun yang dikonfigurasi.",
     "x_search_terms": [
       "daftar cloud switchbot",
       "switchbot_cloud_list",
-      "saklarbot",
-      "awan",
-      "perangkat"
-    ],
-    "tool.description": "Cantumkan perangkat SwitchBot Cloud untuk akun yang dikonfigurasi."
+      "switchbot",
+      "cloud",
+      "perangkat",
+      "dikonfigurasi",
+      "akun"
+    ]
   },
   "it": {
     "param.fmt.description": "Formato: json o text.",
@@ -172,14 +192,16 @@
     "msg.error_fmt": "Errore: {msg}",
     "msg.fetched_at": "Recuperato il: {ts}",
     "msg.unknown_error": "errore sconosciuto",
+    "tool.description": "Elenca i dispositivi SwitchBot Cloud per l'account configurato.",
     "x_search_terms": [
-      "Elenco cloud switchbot",
+      "elenco cloud switchbot",
       "switchbot_cloud_list",
-      "commutatore",
-      "nuvola",
-      "dispositivi"
-    ],
-    "tool.description": "Elenca i dispositivi SwitchBot Cloud per l'account configurato."
+      "switchbot",
+      "cloud",
+      "dispositivi",
+      "configurato",
+      "account"
+    ]
   },
   "ja": {
     "param.fmt.description": "形式: json または text。",
@@ -189,11 +211,13 @@
     "msg.unknown_error": "不明なエラー",
     "tool.description": "構成されたアカウントの SwitchBot Cloud デバイスを一覧表示します。",
     "x_search_terms": [
-      "スイッチボットクラウドリスト",
-      "スイッチボットクラウドリスト",
-      "スイッチボット",
-      "雲",
-      "デバイス"
+      "switchbot クラウド リスト",
+      "switchbot_cloud_list",
+      "switchbot",
+      "クラウド",
+      "デバイス",
+      "設定済み",
+      "アカウント"
     ]
   },
   "ko": {
@@ -202,14 +226,16 @@
     "msg.error_fmt": "오류: {msg}",
     "msg.fetched_at": "가져온 시간: {ts}",
     "msg.unknown_error": "알 수 없는 오류",
+    "tool.description": "구성된 계정에 대한 SwitchBot Cloud 장치를 나열합니다.",
     "x_search_terms": [
-      "스위치봇 클라우드 목록",
-      "스위치봇_클라우드_목록",
-      "스위치봇",
-      "구름",
-      "장치"
-    ],
-    "tool.description": "구성된 계정에 대한 SwitchBot Cloud 장치를 나열합니다."
+      "switchbot cloud list",
+      "switchbot_cloud_list",
+      "switchbot",
+      "cloud",
+      "devices",
+      "configured",
+      "account"
+    ]
   },
   "mn": {
     "param.fmt.description": "Гүйцэтгэх командууд.",
@@ -217,14 +243,16 @@
     "msg.error_fmt": "Алдаа: {msg}",
     "msg.fetched_at": "Татаж авсан: {ts}",
     "msg.unknown_error": "үл мэдэгдэх алдаа",
+    "tool.description": "Тохируулсан бүртгэлд зориулсан SwitchBot Cloud төхөөрөмжүүдийг жагсаана уу.",
     "x_search_terms": [
-      "switchbot үүлэн жагсаалт",
+      "switchbot cloud list",
       "switchbot_cloud_list",
-      "свичбот",
-      "үүл",
-      "төхөөрөмж"
-    ],
-    "tool.description": "Тохируулсан бүртгэлд зориулсан SwitchBot Cloud төхөөрөмжүүдийг жагсаана уу."
+      "switchbot",
+      "cloud",
+      "төхөөрөмжүүд",
+      "тохируулсан",
+      "акаунт"
+    ]
   },
   "mr": {
     "param.fmt.description": "कार्यान्वित करण्यासाठी कमांड्स.",
@@ -232,14 +260,16 @@
     "msg.error_fmt": "त्रुटी: {msg}",
     "msg.fetched_at": "येथे आणले: {ts}",
     "msg.unknown_error": "अज्ञात त्रुटी",
+    "tool.description": "कॉन्फिगर केलेल्या खात्यासाठी SwitchBot क्लाउड डिव्हाइसेसची यादी करा.",
     "x_search_terms": [
-      "switchbot क्लाउड यादी",
+      "switchbot क्लाउड सूची",
       "switchbot_cloud_list",
-      "स्विचबॉट",
-      "ढग",
-      "उपकरणे"
-    ],
-    "tool.description": "कॉन्फिगर केलेल्या खात्यासाठी SwitchBot क्लाउड डिव्हाइसेसची यादी करा."
+      "switchbot",
+      "cloud",
+      "devices",
+      "configured",
+      "खाते"
+    ]
   },
   "el": {
     "param.fmt.description": "Μορφή: json ή text.",
@@ -247,14 +277,16 @@
     "msg.error_fmt": "Σφάλμα: {msg}",
     "msg.fetched_at": "Λήφθηκε στις: {ts}",
     "msg.unknown_error": "άγνωστο σφάλμα",
+    "tool.description": "Καταχωρίστε τις συσκευές SwitchBot Cloud για τον διαμορφωμένο λογαριασμό.",
     "x_search_terms": [
-      "λίστα cloud switchbot",
+      "switchbot cloud list",
       "switchbot_cloud_list",
-      "διακόπτης",
-      "σύννεφο",
-      "συσκευές"
-    ],
-    "tool.description": "Καταχωρίστε τις συσκευές SwitchBot Cloud για τον διαμορφωμένο λογαριασμό."
+      "switchbot",
+      "cloud",
+      "devices",
+      "διαμορφωμένο",
+      "λογαριασμός"
+    ]
   },
   "he": {
     "param.fmt.description": "פורמט: json או text.",
@@ -262,14 +294,16 @@
     "msg.error_fmt": "שגיאה: {msg}",
     "msg.fetched_at": "נשלף ב: {ts}",
     "msg.unknown_error": "שגיאה לא ידועה",
+    "tool.description": "רשום מכשירי SwitchBot Cloud עבור החשבון המוגדר.",
     "x_search_terms": [
-      "רשימת ענן switchbot",
+      "switchbot ענן רשימת",
       "switchbot_cloud_list",
-      "מתג-בוט",
-      "ענן",
-      "מכשירים"
-    ],
-    "tool.description": "רשום מכשירי SwitchBot Cloud עבור החשבון המוגדר."
+      "switchbot",
+      "cloud",
+      "מכשירים",
+      "תצורה",
+      "חשבון"
+    ]
   },
   "hu": {
     "param.fmt.description": "Formátum: json vagy text.",
@@ -277,14 +311,16 @@
     "msg.error_fmt": "Hiba: {msg}",
     "msg.fetched_at": "Lekérve: {ts}",
     "msg.unknown_error": "ismeretlen hiba",
+    "tool.description": "Sorolja fel a SwitchBot Cloud eszközöket a konfigurált fiókhoz.",
     "x_search_terms": [
-      "switchbot felhő lista",
+      "switchbot cloud list",
       "switchbot_cloud_list",
-      "kapcsolóbot",
-      "felhő",
-      "eszközök"
-    ],
-    "tool.description": "Sorolja fel a SwitchBot Cloud eszközöket a konfigurált fiókhoz."
+      "switchbot",
+      "cloud",
+      "devices",
+      "configured",
+      "account"
+    ]
   },
   "ro": {
     "param.fmt.description": "Format: json sau text.",
@@ -292,14 +328,16 @@
     "msg.error_fmt": "Eroare: {msg}",
     "msg.fetched_at": "Preluat la: {ts}",
     "msg.unknown_error": "eroare necunoscută",
+    "tool.description": "Listați dispozitivele SwitchBot Cloud pentru contul configurat.",
     "x_search_terms": [
       "listă cloud switchbot",
       "switchbot_cloud_list",
-      "comutator robot",
-      "nor",
-      "dispozitive"
-    ],
-    "tool.description": "Listați dispozitivele SwitchBot Cloud pentru contul configurat."
+      "switchbot",
+      "cloud",
+      "dispozitive",
+      "cont",
+      "configurat"
+    ]
   },
   "nb": {
     "param.fmt.description": "Format: json eller tekst.",
@@ -307,14 +345,16 @@
     "msg.error_fmt": "Feil: {msg}",
     "msg.fetched_at": "Hentet kl: {ts}",
     "msg.unknown_error": "ukjent feil",
+    "tool.description": "List SwitchBot Cloud-enheter for den konfigurerte kontoen.",
     "x_search_terms": [
-      "switchbot skyliste",
+      "switchbot cloud list",
       "switchbot_cloud_list",
       "switchbot",
-      "sky",
-      "enheter"
-    ],
-    "tool.description": "List SwitchBot Cloud-enheter for den konfigurerte kontoen."
+      "cloud",
+      "enheter",
+      "konfigurert",
+      "konto"
+    ]
   },
   "nl": {
     "param.fmt.description": "Formaat: json of text.",
@@ -322,14 +362,16 @@
     "msg.error_fmt": "Fout: {msg}",
     "msg.fetched_at": "Opgehaald op: {ts}",
     "msg.unknown_error": "onbekende fout",
+    "tool.description": "Maak een lijst van SwitchBot Cloud-apparaten voor het geconfigureerde account.",
     "x_search_terms": [
-      "switchbot cloud-lijst",
+      "switchbot cloudlijst",
       "switchbot_cloud_list",
-      "schakelbot",
-      "wolk",
-      "apparaten"
-    ],
-    "tool.description": "Maak een lijst van SwitchBot Cloud-apparaten voor het geconfigureerde account."
+      "switchbot",
+      "cloud",
+      "devices",
+      "configured",
+      "account"
+    ]
   },
   "pl": {
     "param.fmt.description": "Format: json lub text.",
@@ -337,14 +379,16 @@
     "msg.error_fmt": "Błąd: {msg}",
     "msg.fetched_at": "Pobrano o: {ts}",
     "msg.unknown_error": "nieznany błąd",
+    "tool.description": "Wyświetl listę urządzeń SwitchBot Cloud dla skonfigurowanego konta.",
     "x_search_terms": [
       "lista chmur switchbota",
       "switchbot_cloud_list",
-      "przełącznik",
-      "chmura",
-      "urządzenia"
-    ],
-    "tool.description": "Wyświetl listę urządzeń SwitchBot Cloud dla skonfigurowanego konta."
+      "switchbot",
+      "cloud",
+      "devices",
+      "skonfigurowane",
+      "konto"
+    ]
   },
   "pt": {
     "param.fmt.description": "Formato: json ou texto.",
@@ -352,14 +396,16 @@
     "msg.error_fmt": "Erro: {msg}",
     "msg.fetched_at": "Obtido em: {ts}",
     "msg.unknown_error": "erro desconhecido",
+    "tool.description": "Listar dispositivos SwitchBot Cloud para a conta configurada.",
     "x_search_terms": [
-      "lista cloud switchbot",
+      "lista de nuvem switchbot",
       "switchbot_cloud_list",
-      "robô de comutação",
-      "nuvem",
-      "dispositivos"
-    ],
-    "tool.description": "Listar dispositivos SwitchBot Cloud para a conta configurada."
+      "switchbot",
+      "cloud",
+      "devices",
+      "configured",
+      "account"
+    ]
   },
   "pt_BR": {
     "param.fmt.description": "Formato: json ou texto.",
@@ -367,14 +413,16 @@
     "msg.error_fmt": "Erro: {msg}",
     "msg.fetched_at": "Obtido em: {ts}",
     "msg.unknown_error": "erro desconhecido",
+    "tool.description": "Listar dispositivos SwitchBot Cloud para a conta configurada.",
     "x_search_terms": [
-      "lista de nuvens switchbot",
+      "lista de nuvem switchbot",
       "switchbot_cloud_list",
-      "robô de comutação",
-      "nuvem",
-      "dispositivos"
-    ],
-    "tool.description": "Listar dispositivos SwitchBot Cloud para a conta configurada."
+      "switchbot",
+      "cloud",
+      "devices",
+      "configured",
+      "account"
+    ]
   },
   "ru": {
     "param.fmt.description": "Формат: json или text.",
@@ -382,14 +430,16 @@
     "msg.error_fmt": "Ошибка: {msg}",
     "msg.fetched_at": "Получено: {ts}",
     "msg.unknown_error": "неизвестная ошибка",
+    "tool.description": "Список устройств SwitchBot Cloud для настроенной учетной записи.",
     "x_search_terms": [
-      "список облаков switchbot",
+      "список облаков Switchbot",
       "switchbot_cloud_list",
       "switchbot",
-      "облако",
-      "устройства"
-    ],
-    "tool.description": "Список устройств SwitchBot Cloud для настроенной учетной записи."
+      "cloud",
+      "устройства",
+      "настроенные",
+      "аккаунты"
+    ]
   },
   "sv": {
     "param.fmt.description": "Format: json eller text.",
@@ -397,14 +447,16 @@
     "msg.error_fmt": "Fel: {msg}",
     "msg.fetched_at": "Hämtad vid: {ts}",
     "msg.unknown_error": "okänt fel",
+    "tool.description": "Lista SwitchBot Cloud-enheter för det konfigurerade kontot.",
     "x_search_terms": [
       "switchbot molnlista",
       "switchbot_cloud_list",
       "switchbot",
       "moln",
-      "enheter"
-    ],
-    "tool.description": "Lista SwitchBot Cloud-enheter för det konfigurerade kontot."
+      "enheter",
+      "konfigurerat",
+      "konto"
+    ]
   },
   "sw": {
     "param.fmt.description": "Muundo: json au text.",
@@ -412,14 +464,16 @@
     "msg.error_fmt": "Hitilafu: {msg}",
     "msg.fetched_at": "Imepatikana saa: {ts}",
     "msg.unknown_error": "hitilafu isiyojulikana",
+    "tool.description": "Orodhesha vifaa vya Wingu vya SwitchBot kwa akaunti iliyosanidiwa.",
     "x_search_terms": [
-      "orodha ya wingu la switchbot",
+      "orodha ya wingu ya switchbot",
       "switchbot_cloud_list",
-      "kubadili bot",
-      "wingu",
-      "vifaa"
-    ],
-    "tool.description": "Orodhesha vifaa vya Wingu vya SwitchBot kwa akaunti iliyosanidiwa."
+      "switchbot",
+      "cloud",
+      "devices",
+      "imesanidiwa",
+      "akaunti"
+    ]
   },
   "th": {
     "param.fmt.description": "形式: json または text。",
@@ -427,14 +481,16 @@
     "msg.error_fmt": "エラー: {msg}",
     "msg.fetched_at": "取得日時: {ts}",
     "msg.unknown_error": "不明なエラー",
+    "tool.description": "แสดงรายการอุปกรณ์ SwitchBot Cloud สำหรับบัญชีที่กำหนดค่า",
     "x_search_terms": [
       "รายการคลาวด์ switchbot",
       "switchbot_cloud_list",
-      "สวิตช์บอท",
-      "คลาวด์",
-      "อุปกรณ์"
-    ],
-    "tool.description": "แสดงรายการอุปกรณ์ SwitchBot Cloud สำหรับบัญชีที่กำหนดค่า"
+      "switchbot",
+      "cloud",
+      "อุปกรณ์",
+      "กำหนดค่า",
+      "บัญชี"
+    ]
   },
   "tr": {
     "param.fmt.description": "Biçim: json veya text.",
@@ -442,14 +498,16 @@
     "msg.error_fmt": "Hata: {msg}",
     "msg.fetched_at": "Getirilme zamanı: {ts}",
     "msg.unknown_error": "bilinmeyen hata",
+    "tool.description": "Yapılandırılmış hesap için SwitchBot Cloud cihazlarını listeleyin.",
     "x_search_terms": [
       "switchbot bulut listesi",
       "switchbot_cloud_list",
-      "anahtar bot",
-      "bulut",
-      "cihazlar"
-    ],
-    "tool.description": "Yapılandırılmış hesap için SwitchBot Cloud cihazlarını listeleyin."
+      "switchbot",
+      "cloud",
+      "devices",
+      "yapılandırılan",
+      "hesap"
+    ]
   },
   "uk": {
     "param.fmt.description": "Формат: json або text.",
@@ -457,14 +515,16 @@
     "msg.error_fmt": "Помилка: {msg}",
     "msg.fetched_at": "Отримано о: {ts}",
     "msg.unknown_error": "невідома помилка",
+    "tool.description": "Список пристроїв SwitchBot Cloud для налаштованого облікового запису.",
     "x_search_terms": [
-      "список хмар switchbot",
+      "switchbot cloud list",
       "switchbot_cloud_list",
-      "перемикач",
-      "хмара",
-      "пристрої"
-    ],
-    "tool.description": "Список пристроїв SwitchBot Cloud для налаштованого облікового запису."
+      "switchbot",
+      "cloud",
+      "devices",
+      "configured",
+      "account"
+    ]
   },
   "vi": {
     "param.fmt.description": "Định dạng: json hoặc text.",
@@ -472,14 +532,16 @@
     "msg.error_fmt": "Lỗi: {msg}",
     "msg.fetched_at": "Đã lấy lúc: {ts}",
     "msg.unknown_error": "lỗi không xác định",
+    "tool.description": "Liệt kê các thiết bị SwitchBot Cloud cho tài khoản được định cấu hình.",
     "x_search_terms": [
       "danh sách đám mây switchbot",
       "switchbot_cloud_list",
       "switchbot",
-      "đám mây",
-      "thiết bị"
-    ],
-    "tool.description": "Liệt kê các thiết bị SwitchBot Cloud cho tài khoản được định cấu hình."
+      "cloud",
+      "devices",
+      "configured",
+      "account"
+    ]
   },
   "zh_CN": {
     "param.fmt.description": "格式：json或text。",
@@ -487,14 +549,16 @@
     "msg.error_fmt": "错误：{msg}",
     "msg.fetched_at": "获取时间：{ts}",
     "msg.unknown_error": "未知错误",
+    "tool.description": "列出已配置帐户的 SwitchBot Cloud 设备。",
     "x_search_terms": [
       "switchbot 云列表",
       "switchbot_cloud_list",
-      "开关机器人",
+      "switchbot",
       "云",
-      "设备"
-    ],
-    "tool.description": "列出已配置帐户的 SwitchBot Cloud 设备。"
+      "设备",
+      "配置",
+      "帐户"
+    ]
   },
   "zh_TW": {
     "param.fmt.description": "格式：json 或 text。",
@@ -502,13 +566,15 @@
     "msg.error_fmt": "錯誤：{msg}",
     "msg.fetched_at": "取得時間：{ts}",
     "msg.unknown_error": "未知錯誤",
+    "tool.description": "列出已設定帳戶的 SwitchBot Cloud 設備。",
     "x_search_terms": [
       "switchbot 雲端清單",
       "switchbot_cloud_list",
-      "開關機器人",
-      "雲端",
-      "裝置"
-    ],
-    "tool.description": "列出已設定帳戶的 SwitchBot Cloud 設備。"
+      "switchbot",
+      "雲",
+      "設備",
+      "設定",
+      "帳戶"
+    ]
   }
 }

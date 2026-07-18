@@ -24,12 +24,15 @@
     "param.strict.description": "仕様検証で warnings を失敗扱いにするか（既定:false）",
     "tool.description": "エージェント スキル仕様 (SKILL.md) に基づいて、指定されたルート (frontmatter のみを読み取る) の下にあるスキルのリストを返します。",
     "x_search_terms": [
+      "スキルリスト",
       "スキルのリスト",
-      "スキルリスト",
-      "スキルリスト",
-      "スキルカタログ",
+      "スキル",
       "利用可能なスキル",
-      "スキルインベントリ",
+      "スキルカタログ",
+      "スキルの表示",
+      "スキルディレクトリ",
+      "インストールされているスキル",
+      "エージェントスキル",
       "スキルの概要"
     ],
     "param.recur.description": "再帰的に探索するか（既定:true）"
@@ -41,11 +44,14 @@
     "tool.description": "Devuelve una lista de habilidades bajo la raíz especificada (solo lee el tema inicial) según la especificación de habilidades del agente (SKILL. md).",
     "x_search_terms": [
       "lista de habilidades",
-      "enumerar habilidades",
-      "listado de habilidades",
-      "catálogo de habilidades",
+      "listar habilidades",
+      "habilidades",
       "habilidades disponibles",
-      "inventario de habilidades",
+      "catálogo de habilidades",
+      "mostrar habilidades",
+      "directorio de habilidades",
+      "habilidades instaladas",
+      "habilidades de agente",
       "descripción general de habilidades"
     ],
     "param.recur.description": "Buscar recursivamente (predeterminado: verdadero)"
@@ -58,10 +64,13 @@
     "x_search_terms": [
       "liste des compétences",
       "lister les compétences",
-      "liste de compétences",
-      "catalogue de compétences",
+      "compétences",
       "compétences disponibles",
-      "inventaire des compétences",
+      "catalogue de compétences",
+      "afficher les compétences",
+      "répertoire des compétences",
+      "compétences installées",
+      "compétences d'agent",
       "aperçu des compétences"
     ],
     "param.recur.description": "Recherche récursive (par défaut : vrai)"
@@ -73,11 +82,14 @@
     "tool.description": "지정된 루트 아래의 스킬 목록 반환(frontmatter만 읽음).",
     "x_search_terms": [
       "스킬 목록",
-      "목록 기술",
-      "스킬 목록",
+      "목록 스킬",
+      "스킬",
+      "사용 가능한 스킬",
       "스킬 카탈로그",
-      "사용 가능한 기술",
-      "스킬 인벤토리",
+      "쇼 스킬",
+      "스킬 디렉터리",
+      "설치된 스킬",
+      "에이전트 스킬",
       "스킬 개요"
     ],
     "param.recur.description": "재귀적으로 검색(기본값: true)"
@@ -88,13 +100,16 @@
     "param.strict.description": "Ob Validierungswarnungen als Fehler behandelt werden sollen (Standard: false).",
     "tool.description": "Gibt anhand der Agent-Skills-Spezifikation (SKILL.",
     "x_search_terms": [
-      "Skillsliste",
-      "Fertigkeiten auflisten",
-      "Fhigkeitsliste",
-      "Kompetenzkatalog",
-      "verfgbare Fhigkeiten",
-      "Fhigkeitsinventar",
-      "Skill-bersicht"
+      "Fertigkeitsliste",
+      "Liste der Fertigkeiten",
+      "Fähigkeiten",
+      "verfügbare Fertigkeiten",
+      "Fertigkeitskatalog",
+      "Fähigkeiten anzeigen",
+      "Fertigkeitsverzeichnis",
+      "Installierte Fertigkeiten",
+      "Agentenfertigkeiten",
+      "Fertigkeitsübersicht"
     ],
     "param.recur.description": "Rekursiv suchen (Standard: true)"
   },
@@ -104,13 +119,16 @@
     "param.strict.description": "Indica se trattare gli avvisi di convalida come errori (impostazione predefinita: false).",
     "tool.description": "Restituisce un elenco di skill sotto la radice specificata in base alla specifica Agent Skills (SKILL.",
     "x_search_terms": [
-      "elenco delle competenze",
       "elenco competenze",
-      "elenco delle abilit",
-      "catalogo delle competenze",
+      "elenco competenze",
+      "competenze",
       "competenze disponibili",
-      "inventario delle competenze",
-      "panoramica delle competenze"
+      "catalogo competenze",
+      "mostra competenze",
+      "directory competenze",
+      "competenze installate",
+      "competenze agente",
+      "panoramica competenze"
     ],
     "param.recur.description": "Cerca in modo ricorsivo (predefinito: true)"
   },
@@ -122,10 +140,13 @@
     "x_search_terms": [
       "список навыков",
       "список навыков",
-      "список навыков",
-      "каталог навыков",
+      "навыки",
       "доступные навыки",
-      "инвентарь навыков",
+      "каталог навыков",
+      "показать навыки",
+      "каталог навыков",
+      "установленные навыки",
+      "навыки агента",
       "обзор навыков"
     ],
     "param.recur.description": "Искать рекурсивно (по умолчанию: true)"
@@ -138,11 +159,14 @@
     "x_search_terms": [
       "lista de habilidades",
       "listar habilidades",
-      "listagem de habilidades",
+      "habilidades",
+      "habilidades disponíveis",
       "catálogo de habilidades",
-      "competências disponíveis",
-      "inventário de habilidades",
-      "visão geral de habilidades"
+      "mostrar habilidades",
+      "diretório de habilidades",
+      "habilidades instaladas",
+      "habilidades do agente",
+      "visão geral das habilidades"
     ],
     "param.recur.description": "Pesquisar recursivamente (padrão: true)"
   },
@@ -154,11 +178,14 @@
     "x_search_terms": [
       "lista de habilidades",
       "listar habilidades",
-      "listagem de habilidades",
-      "catlogo de habilidades",
-      "competncias disponveis",
-      "inventrio de habilidades",
-      "viso geral de habilidades"
+      "habilidades",
+      "habilidades disponíveis",
+      "catálogo de habilidades",
+      "mostrar habilidades",
+      "diretório de habilidades",
+      "habilidades instaladas",
+      "habilidades do agente",
+      "visão geral das habilidades"
     ],
     "param.recur.description": "Pesquisa recursivamente (padrão: verdadeiro)"
   },
@@ -170,10 +197,13 @@
     "x_search_terms": [
       "daftar keterampilan",
       "daftar keterampilan",
-      "daftar keterampilan",
-      "katalog keterampilan",
+      "keterampilan",
       "keterampilan yang tersedia",
-      "inventaris keterampilan",
+      "katalog keterampilan",
+      "tunjukkan keterampilan",
+      "direktori keterampilan",
+      "keterampilan terpasang",
+      "keterampilan agen",
       "ikhtisar keterampilan"
     ],
     "param.recur.description": "Cari secara rekursif (default: true)"
@@ -185,11 +215,14 @@
     "tool.description": "Trả về danh sách các kỹ năng theo gốc được chỉ định (chỉ đọc phần đầu) dựa trên thông số kỹ năng của đặc vụ (SKILL. md).",
     "x_search_terms": [
       "danh sách kỹ năng",
-      "liệt kê kỹ năng",
       "danh sách kỹ năng",
+      "kỹ năng",
+      "kỹ năng có sẵn",
       "danh mục kỹ năng",
-      "kỹ năng sẵn có",
-      "kiểm kê kỹ năng",
+      "hiển thị kỹ năng",
+      "thư mục kỹ năng",
+      "kỹ năng đã cài đặt",
+      "kỹ năng đại lý",
       "tổng quan về kỹ năng"
     ],
     "param.recur.description": "Tìm kiếm đệ quy (mặc định: true)"
@@ -202,10 +235,13 @@
     "x_search_terms": [
       "lista umiejętności",
       "lista umiejętności",
-      "lista umiejętności",
-      "katalog umiejętności",
+      "umiejętności",
       "dostępne umiejętności",
-      "inwentarz umiejętności",
+      "katalog umiejętności",
+      "pokaż umiejętności",
+      "katalog umiejętności",
+      "zainstalowane umiejętności",
+      "umiejętności agenta",
       "przegląd umiejętności"
     ],
     "param.recur.description": "Szukaj rekurencyjnie (domyślnie: prawda)"
@@ -218,11 +254,14 @@
     "x_search_terms": [
       "कौशल सूची",
       "सूची कौशल",
-      "कौशल सूची",
-      "कौशल सूची",
+      "कौशल",
       "उपलब्ध कौशल",
       "कौशल सूची",
-      "कौशल सिंहावलोकन"
+      "कौशल दिखाएं",
+      "कौशल निर्देशिका",
+      "स्थापित कौशल",
+      "एजेंट कौशल",
+      "कौशल अवलोकन"
     ],
     "param.recur.description": "पुनरावर्ती रूप से खोजें (डिफ़ॉल्ट: सत्य)"
   },
@@ -233,11 +272,14 @@
     "tool.description": "إرجاع قائمة المهارات تحت الجذر المحدد (يقرأ المادة الأمامية فقط) بناءً على مواصفات مهارات الوكيل (SKILL.md).",
     "x_search_terms": [
       "قائمة المهارات",
-      "مهارات القائمة",
       "قائمة المهارات",
+      "المهارات",
+      "المهارات المتاحة",
       "كتالوج المهارات",
-      "المهارات المتوفرة",
-      "جرد المهارات",
+      "إظهار المهارات",
+      "دليل المهارات",
+      "المهارات المثبتة",
+      "مهارات الوكيل",
       "نظرة عامة على المهارات"
     ],
     "param.recur.description": "البحث بشكل متكرر (الافتراضي: صحيح)"
@@ -250,11 +292,14 @@
     "x_search_terms": [
       "färdighetslista",
       "lista färdigheter",
-      "skicklighetslista",
-      "färdighetskatalog",
+      "färdigheter",
       "tillgängliga färdigheter",
-      "skicklighetsinventering",
-      "färdighetsöversikt"
+      "kompetenskatalog",
+      "visa färdigheter",
+      "kompetenskatalog",
+      "installerade färdigheter",
+      "agentfärdigheter",
+      "kompetensöversikt"
     ],
     "param.recur.description": "Sök rekursivt (standard: true)"
   },
@@ -265,12 +310,15 @@
     "tool.description": "Hurejesha orodha ya ujuzi chini ya mzizi uliobainishwa (husoma mada ya mbele pekee) kulingana na sifa za Ujuzi wa Wakala (SKILL. md).",
     "x_search_terms": [
       "orodha ya ujuzi",
-      "orodha ujuzi",
-      "orodha ya ujuzi",
-      "katalogi ya ujuzi",
+      "orodhesha ujuzi",
+      "ujuzi",
       "ujuzi unaopatikana",
-      "hesabu ya ujuzi",
-      "muhtasari wa ujuzi"
+      "orodha ya ujuzi",
+      "onyesha ujuzi",
+      "saraka ya ustadi",
+      "ujuzi uliosakinishwa",
+      "ujuzi wa wakala",
+      " muhtasari wa ujuzi"
     ],
     "param.recur.description": "Tafuta kwa kujirudia (chaguomsingi: true)"
   },
@@ -282,10 +330,13 @@
     "x_search_terms": [
       "ferdighetsliste",
       "liste ferdigheter",
-      "ferdighetsliste",
-      "ferdighetskatalog",
+      "ferdigheter",
       "tilgjengelige ferdigheter",
-      "ferdighetsbeholdning",
+      "ferdighetskatalog",
+      "vis ferdigheter",
+      "ferdighetskatalog",
+      "installerte ferdigheter",
+      "agentferdigheter",
       "ferdighetsoversikt"
     ],
     "param.recur.description": "Søk rekursivt (standard: true)"
@@ -296,13 +347,16 @@
     "param.strict.description": "Of validatiewaarschuwingen als fouten moeten worden behandeld (standaard: false).",
     "tool.description": "Retourneert een lijst met vaardigheden onder de opgegeven hoofdmap (leest alleen frontmatter) op basis van de specificatie van Agentvaardigheden (SKILL. md).",
     "x_search_terms": [
-      "lijst met vaardigheden",
+      "vaardighedenlijst",
       "lijst vaardigheden",
-      "Vaardigheidslijst",
-      "vaardighedencatalogus",
+      "vaardigheden",
       "beschikbare vaardigheden",
-      "Vaardigheidsinventaris",
-      "overzicht van vaardigheden"
+      "vaardighedencatalogus",
+      "toon vaardigheden",
+      "vaardighedenlijst",
+      "geïnstalleerde vaardigheden",
+      "agentvaardigheden",
+      "vaardigheidsoverzicht"
     ],
     "param.recur.description": "Recursief zoeken (standaard: true)"
   },
@@ -313,11 +367,14 @@
     "tool.description": "Palauttaa luettelon määritetyn juuren taidoista (lukee vain frontmatterin) agenttitaitojen spesifikaatioiden (SKILL. md) perusteella.",
     "x_search_terms": [
       "taitoluettelo",
-      "listata taidot",
-      "taitoluettelo",
-      "taitoluettelo",
+      "listataidot",
+      "taidot",
       "käytettävissä olevat taidot",
-      "taitokartoitus",
+      "taitoluettelo",
+      "näytä taidot",
+      "taitohakemisto",
+      "asennetut taidot",
+      "agenttitaidot",
       "taitojen yleiskatsaus"
     ],
     "param.recur.description": "Hae rekursiivisesti (oletus: true)"
@@ -330,10 +387,13 @@
     "x_search_terms": [
       "seznam dovedností",
       "seznam dovedností",
-      "seznam dovedností",
-      "katalog dovedností",
+      "dovedností",
       "dostupné dovednosti",
-      "inventář dovedností",
+      "katalog dovedností",
+      "zobrazit dovednosti",
+      "adresář dovedností",
+      "instalované dovednosti",
+      "schopnosti agenta",
       "přehled dovedností"
     ],
     "param.recur.description": "Prohledávat rekurzivně (výchozí: true)"
@@ -345,11 +405,14 @@
     "tool.description": "Повертає список skills у вказаному корені (читає лише frontmatter) згідно зі специфікацією Agent Skills (SKILL.",
     "x_search_terms": [
       "список навичок",
-      "навички списку",
       "список навичок",
+      "навички",
+      "доступні навички",
       "каталог навичок",
-      "наявні навички",
-      "навичок інвентаризації",
+      "показати навички",
+      "каталог навичок",
+      "встановлені навички",
+      "навички агента",
       "огляд навичок"
     ],
     "param.recur.description": "Шукати рекурсивно (типово: true)"
@@ -362,11 +425,14 @@
     "x_search_terms": [
       "beceri listesi",
       "becerileri listele",
-      "beceri listesi",
-      "beceri kataloğu",
+      "beceriler",
       "mevcut beceriler",
-      "beceri envanteri",
-      "beceriye genel bakış"
+      "beceri kataloğu",
+      "becerileri göster",
+      "beceri dizini",
+      "kurulu beceriler",
+      "ajan becerileri",
+      "becerilere genel bakış"
     ],
     "param.recur.description": "Yinelemeli ara (varsayılan: true)"
   },
@@ -378,10 +444,13 @@
     "x_search_terms": [
       "รายการทักษะ",
       "รายการทักษะ",
-      "รายการทักษะ",
-      "แคตตาล็อกทักษะ",
+      "ทักษะ",
       "ทักษะที่มีอยู่",
-      "คลังทักษะ",
+      "แคตตาล็อกทักษะ",
+      "แสดงทักษะ",
+      "ไดเรกทอรีทักษะ",
+      "ทักษะที่ติดตั้ง",
+      "ทักษะตัวแทน",
       "ภาพรวมทักษะ"
     ],
     "param.recur.description": "ค้นหาซ้ำ (ค่าเริ่มต้น: จริง)"
@@ -394,10 +463,13 @@
     "x_search_terms": [
       "技能列表",
       "列出技能",
-      "技能列表",
-      "技能目录",
+      "技能",
       "可用技能",
-      "技能盘点",
+      "技能目录",
+      "显示技能",
+      "技能目录",
+      "已安装技能",
+      "代理技能",
       "技能概述"
     ],
     "param.recur.description": "递归搜索（默认值：true）"
@@ -410,10 +482,13 @@
     "x_search_terms": [
       "技能清單",
       "列出技能",
-      "技能清單",
-      "技能目錄",
+      "技能",
       "可用技能",
-      "技能盤點",
+      "技能目錄",
+      "顯示技能",
+      "技能目錄",
+      "已安裝技能",
+      "代理技能",
       "技能概述"
     ],
     "param.recur.description": "遞歸搜尋（預設值：true）"
@@ -424,12 +499,15 @@
     "param.strict.description": "বৈধতা সতর্কতাগুলিকে ত্রুটি হিসাবে বিবেচনা করবেন কিনা (ডিফল্ট: মিথ্যা)।",
     "tool.description": "Agent Skills স্পেসিফিকেশন (SKILL.",
     "x_search_terms": [
-      "দক্ষতা তালিকা",
+      "দক্ষতার তালিকা",
       "তালিকা দক্ষতা",
-      "দক্ষতা তালিকা",
-      "দক্ষতা ক্যাটালগ",
+      "দক্ষতা",
       "উপলব্ধ দক্ষতা",
-      "দক্ষতা জায়",
+      "স্কিল ক্যাটালগ",
+      "দক্ষতা প্রদর্শন",
+      "দক্ষতা ডিরেক্টরি",
+      "ইনস্টল করা দক্ষতা",
+      "এজেন্ট দক্ষতা",
       "দক্ষতা ওভারভিউ"
     ],
     "param.recur.description": "recursive ভাবে খুঁজুন (default: true)"
@@ -441,12 +519,15 @@
     "tool.description": "فهرستی از مهارت‌ها را تحت ریشه مشخص شده (فقط برای خواندن مطالب اولیه) بر اساس مشخصات Agent Skills (SKILL. md) برمی‌گرداند.",
     "x_search_terms": [
       "فهرست مهارت",
-      "مهارت های فهرست کردن",
       "فهرست مهارت",
+      "مهارت",
+      "مهارتهای موجود",
       "کاتالوگ مهارت",
-      "مهارت های موجود",
-      "موجودی مهارت",
-      "مروری بر مهارت"
+      "نمایش مهارت",
+      "دایرکتوری مهارت",
+      "مهارتهای نصب شده",
+      "مهارتهای عامل",
+      "مروری اجمالی مهارت"
     ],
     "param.recur.description": "جست‌وجوی بازگشتی (پیش‌فرض: true)"
   },
@@ -457,12 +538,15 @@
     "tool.description": "Agent Skills-ийн specification (SKILL.",
     "x_search_terms": [
       "ур чадварын жагсаалт",
-      "ур чадварын жагсаалт",
-      "ур чадварын жагсаалт",
-      "ур чадварын каталог",
+      "жагсаалтын ур чадвар",
+      "ур чадвар",
       "боломжтой ур чадвар",
-      "ур чадварын тооллого",
-      "ур чадварын тойм"
+      "ур чадварын каталог",
+      "ур чадвар харуулах",
+      "ур чадварын лавлах",
+      "суулгасан ур чадвар",
+      "агент ур чадвар",
+      " ур чадварын тойм"
     ],
     "param.recur.description": "давтагдан хайх (анхдагч: true)"
   },
@@ -473,11 +557,14 @@
     "tool.description": "Agent Skills specification (SKILL.",
     "x_search_terms": [
       "कौशल्य सूची",
-      "यादी कौशल्ये",
-      "कौशल्य सूची",
+      "सूची कौशल्य",
+      "कौशल्य",
+      "उपलब्ध कौशल्य",
       "कौशल्य कॅटलॉग",
-      "उपलब्ध कौशल्ये",
-      "कौशल्य यादी",
+      "कौशल्य दाखवा",
+      "कौशल्य निर्देशिका",
+      "स्थापित कौशल्य",
+      "एजंट कौशल्य",
       "कौशल्य विहंगावलोकन"
     ],
     "param.recur.description": "recursive शोध (default: true)"
@@ -490,10 +577,13 @@
     "x_search_terms": [
       "λίστα δεξιοτήτων",
       "λίστα δεξιοτήτων",
-      "καταχώριση δεξιοτήτων",
-      "κατάλογος δεξιοτήτων",
+      "ικανότητες",
       "διαθέσιμες δεξιότητες",
-      "απογραφή δεξιοτήτων",
+      "κατάλογος δεξιοτήτων",
+      "δείκτης δεξιοτήτων",
+      "κατάλογος δεξιοτήτων",
+      "εγκατεστημένες δεξιότητες",
+      "ικανότητες πρακτόρων",
       "επισκόπηση δεξιοτήτων"
     ],
     "param.recur.description": "[σφάλμα εργαλείου] skill_dir πρέπει να είναι μια μη κενή συμβολοσειρά [=#=m]. Φορτώνει το SKILL.md για ένα Agent Skill και επιστρέφει το βασικό του υλικό YAML και το σώμα του Markdown"
@@ -505,11 +595,14 @@
     "tool.description": "מחזירה רשימה של מיומנויות תחת השורש שצוין (קורא רק Frontmatter) בהתבסס על מפרט מיומנויות הסוכן (SKILL. md).",
     "x_search_terms": [
       "רשימת מיומנויות",
-      "מיומנויות רשימה",
       "רשימת מיומנויות",
-      "קטלוג מיומנויות",
+      "מיומנויות",
       "מיומנויות זמינות",
-      "מלאי מיומנויות",
+      "קטלוג מיומנויות",
+      "הצג מיומנויות",
+      "ספריית מיומנויות",
+      "מיומנויות מותקנות",
+      "מיומנויות סוכן",
       "סקירת מיומנויות"
     ],
     "param.recur.description": "טוען את ה-Skill של ה-Skill ו-Down)."
@@ -521,12 +614,15 @@
     "tool.description": "A megadott gyökér alatti készségek listáját adja vissza (csak a frontmattert olvassa el) az Agent Skills specifikációja alapján (SKILL. md).",
     "x_search_terms": [
       "készséglista",
-      "list készségek",
-      "készséglista",
-      "készségkatalógus",
+      "készségek listája",
+      "készségek",
       "rendelkezésre álló készségek",
-      "készségleltár",
-      "készségek áttekintése"
+      "készségkatalógus",
+      "készségek megjelenítése",
+      "készségjegyzék",
+      "telepített készségek",
+      "ügynöki készségek",
+      "készség áttekintése"
     ],
     "param.recur.description": "A készségkönyvtárnak (tartalmaznia kell a SKILL.md értéket a SKILLL és az A/Skilldown)"
   },
@@ -536,12 +632,15 @@
     "param.strict.description": "Dacă se tratează avertismentele de validare ca erori (implicit: fals).",
     "tool.description": "Returnează o listă de abilități sub rădăcina specificată (citește doar prima pagină) pe baza specificațiilor Agent Skills (SKILL. md).",
     "x_search_terms": [
-      "lista de competențe",
+      "listă de abilități",
       "lista abilități",
-      "lista de aptitudini",
-      "catalogul de aptitudini",
+      "competențe",
       "competențe disponibile",
-      "inventarul de aptitudini",
+      "catalog de abilități",
+      "afișați abilități",
+      "director de abilități",
+      "competențe instalate",
+      "competențe agent",
       "prezentare generală a abilităților"
     ],
     "param.recur.description": "Directorul de abilități (trebuie să conțină SKILL= the.m = SKILL.m). Skill și returnează conținutul YAML și corpul Markdown"
