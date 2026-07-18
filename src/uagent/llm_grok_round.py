@@ -26,6 +26,65 @@ def _debug_log(prefix: str, **kwargs: Any) -> None:
     print("\n".join(parts), file=sys.__stderr__, flush=True)
 
 
+
+
+def _resolve_grok_reasoning_effort() -> str | None:
+    """Resolve Grok reasoning_effort from env.
+
+    Preference:
+      1) UAGENT_REASONING (shared UI/CLI: off/auto/minimal/low/medium/high/xhigh/max)
+      2) UAGENT_REASONING_EFFORT (legacy Grok-only: none/low/medium/high)
+
+    Returns one of: none, low, medium, high — or None to omit the parameter.
+    Unsupported values are rounded to the nearest supported level.
+    """
+    raw = (env_get("UAGENT_REASONING") or "").strip().lower()
+    source = "UAGENT_REASONING"
+    if not raw:
+        raw = (env_get("UAGENT_REASONING_EFFORT") or "").strip().lower()
+        source = "UAGENT_REASONING_EFFORT"
+    if not raw:
+        return None
+
+    # off / disabled => omit (model default), not forced none
+    if raw in ("off", "0", "false", "no", "disable", "disabled"):
+        return None
+
+    # Direct / legacy aliases
+    if raw in ("none",):
+        return "none"
+    if raw in ("low", "1", "min", "minimal"):
+        return "low"
+    if raw in ("medium", "2", "mid", "middle", "auto", "a"):
+        # auto: no task-aware heuristic for Grok; use medium
+        return "medium"
+    if raw in ("high", "3"):
+        return "high"
+    if raw in ("xhigh", "xh", "x-high", "4", "max", "m", "5"):
+        # xhigh/max are above Grok's high; clamp to high
+        return "high"
+
+    # Unknown value: try coarse rounding by keyword, else medium
+    if any(k in raw for k in ("max", "xhigh", "ultra", "highest")):
+        return "high"
+    if "high" in raw:
+        return "high"
+    if any(k in raw for k in ("med", "mid", "normal", "default", "auto")):
+        return "medium"
+    if any(k in raw for k in ("low", "min", "light", "small")):
+        return "low"
+    if any(k in raw for k in ("none", "off", "disable", "no")):
+        return None
+
+    _debug_log(
+        "unknown_reasoning_rounded",
+        source=source,
+        raw=raw,
+        rounded="medium",
+    )
+    return "medium"
+
+
 def _call_grok_round(
     *,
     provider: str,
@@ -113,26 +172,12 @@ def _call_grok_round(
                 except ValueError:
                     pass
 
-            reasoning_effort_env = (
-                (env_get("UAGENT_REASONING_EFFORT") or "").strip().lower()
-            )
-            if reasoning_effort_env:
-                effort_map = {
-                    "none": 4,
-                    "low": 1,
-                    "medium": 2,
-                    "high": 3,
-                }
-                effort_val = effort_map.get(reasoning_effort_env)
-                if effort_val is not None:
-                    try:
-                        from xai_sdk.proto import chat_pb2
-
-                        create_kwargs["reasoning_effort"] = (
-                            chat_pb2.ReasoningEffort.Name(effort_val)
-                        )
-                    except Exception:
-                        create_kwargs["reasoning_effort"] = reasoning_effort_env
+            # Map UAGENT_REASONING (preferred) / UAGENT_REASONING_EFFORT (legacy)
+            # onto xAI reasoning_effort: none|low|medium|high.
+            # Unsupported levels are rounded to the nearest supported value.
+            reasoning_effort = _resolve_grok_reasoning_effort()
+            if reasoning_effort is not None:
+                create_kwargs["reasoning_effort"] = reasoning_effort
 
             stop_env = (env_get("UAGENT_STOP") or "").strip()
             if stop_env:
