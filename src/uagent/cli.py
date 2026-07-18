@@ -44,7 +44,8 @@ from uagent.utils.paths import get_history_file_path
 
 from .util_tools import (
     extract_image_paths,
-    image_file_to_data_url,
+    provider_allows_chat_vision,
+    build_multimodal_user_message,
     parse_startup_args as _parse_startup_args,
     handle_command,
 )
@@ -1153,17 +1154,16 @@ def main() -> None:
                 except Exception:
                     pass
 
-                # If Responses API is enabled (Azure/OpenAI) and the user message contains local image paths,
-                # ask for explicit permission before embedding images as data URLs.
+                # If the active provider can accept images on the main chat path and the
+                # user message contains local image paths, ask for permission before
+                # embedding images as data URLs / attachments.
                 use_responses_api = env_get("UAGENT_RESPONSES", "").lower() in (
                     "1",
                     "true",
                 )
                 prov = (env_get("UAGENT_PROVIDER") or "").lower()
-                allow_multimodal = use_responses_api and prov in (
-                    "azure",
-                    "openai",
-                    "bedrock",
+                allow_multimodal = provider_allows_chat_vision(
+                    prov, use_responses_api=use_responses_api
                 )
 
                 user_msg: dict[str, Any]
@@ -1220,39 +1220,12 @@ def main() -> None:
                                 )
 
                             if ans in ("y", "yes"):
-                                parts: list[dict[str, Any]] = [
-                                    {"type": "text", "text": text}
-                                ]
-                                for abspath in ok_paths:
-                                    try:
-                                        data_url = image_file_to_data_url(
-                                            abspath, max_bytes=10_000_000
-                                        )
-                                        parts.append(
-                                            {
-                                                # Responses API expects input_image with image_url as a string.
-                                                "type": "input_image",
-                                                "image_url": data_url,
-                                            }
-                                        )
-                                    except Exception as e:
-                                        parts.append(
-                                            {
-                                                "type": "text",
-                                                "text": "[WARN] "
-                                                + (
-                                                    _(
-                                                        "Failed to attach image: %(path)s (%(etype)s: %(err)s)"
-                                                    )
-                                                    % {
-                                                        "path": abspath,
-                                                        "etype": type(e).__name__,
-                                                        "err": e,
-                                                    }
-                                                ),
-                                            }
-                                        )
-                                user_msg = {"role": "user", "content": parts}
+                                user_msg = build_multimodal_user_message(
+                                    text,
+                                    ok_paths,
+                                    provider=prov,
+                                    use_responses_api=use_responses_api,
+                                )
                             else:
                                 user_msg = {"role": "user", "content": text}
                         else:

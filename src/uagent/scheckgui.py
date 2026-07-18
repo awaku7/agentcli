@@ -47,6 +47,8 @@ from .utils.paths import get_history_file_path, get_state_dir
 
 from .util_tools import (
     image_file_to_data_url,
+    provider_allows_chat_vision,
+    build_multimodal_user_message,
     build_long_memory_system_message,
     append_result_to_outfile,
     handle_command,
@@ -700,49 +702,22 @@ class ScheckWorker(QtCore.QObject):
                             "true",
                         )
                         prov = (os.environ.get("UAGENT_PROVIDER") or "").lower()
-                        allow_multimodal = use_responses_api and prov in (
-                            "azure",
-                            "openai",
-                            "bedrock",
+                        allow_multimodal = provider_allows_chat_vision(
+                            prov, use_responses_api=use_responses_api
                         )
 
                         if allow_multimodal:
-                            parts: list[dict[str, Any]] = [
-                                {"type": "text", "text": text.strip()}
+                            img_paths = [
+                                p
+                                for p in (ev.get("images") or [])
+                                if isinstance(p, str) and os.path.isfile(p)
                             ]
-
-                            for p in ev.get("images", []):
-                                if not os.path.isfile(p):
-                                    continue
-                                try:
-                                    data_url = image_file_to_data_url(
-                                        p, max_bytes=10_000_000
-                                    )
-                                    parts.append(
-                                        {
-                                            "type": "image_url",
-                                            "image_url": {"url": data_url},
-                                        }
-                                    )
-                                except Exception as e:
-                                    parts.append(
-                                        {
-                                            "type": "text",
-                                            "text": "[WARN] "
-                                            + (
-                                                _(
-                                                    "Failed to attach image: %(path)s (%(etype)s: %(err)s)"
-                                                )
-                                                % {
-                                                    "path": p,
-                                                    "etype": type(e).__name__,
-                                                    "err": e,
-                                                }
-                                            ),
-                                        }
-                                    )
-
-                            m = {"role": "user", "content": parts}
+                            m = build_multimodal_user_message(
+                                text.strip(),
+                                img_paths,
+                                provider=prov,
+                                use_responses_api=use_responses_api,
+                            )
                             self.messages.append(m)
                             core.log_message(m)
 
@@ -756,7 +731,7 @@ class ScheckWorker(QtCore.QObject):
                                 append_result_to_outfile_fn=append_result_to_outfile,
                                 try_open_images_from_text_fn=lambda _: None,
                             )
-                            # Auto-pilot loop (Responses API path)
+                            # Auto-pilot loop (native multimodal path)
                             if core.auto_pilot_active:
                                 _run_auto_pilot_loop(
                                     self._provider,

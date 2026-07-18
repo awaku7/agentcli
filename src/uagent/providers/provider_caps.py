@@ -48,6 +48,28 @@ RESPONSES_PROVIDERS: frozenset[str] = frozenset(
 )
 
 
+# Providers that can accept image inputs on the main chat path without
+# requiring the OpenAI Responses API.  Each has provider-layer conversion:
+# - openai/azure/openrouter: Chat Completions `image_url` parts
+# - grok: `build_xai_messages` (`input_image` / `image_url`)
+# - claude: Anthropic `image` base64 blocks from `image_url` data URLs
+# - gemini/vertexai: `attachments` → Gemini image Parts
+#
+# Responses-only providers (bedrock, alibaba, ollama, lmstudio, sakana, …)
+# remain gated by UAGENT_RESPONSES + RESPONSES_PROVIDERS at the call site.
+CHAT_VISION_PROVIDERS: frozenset[str] = frozenset(
+    {
+        "openai",
+        "azure",
+        "openrouter",
+        "grok",
+        "claude",
+        "gemini",
+        "vertexai",
+    }
+)
+
+
 # Providers that support Fill-in-the-Middle (FIM) code completion.
 FIM_SUPPORTED_PROVIDERS: frozenset[str] = frozenset(
     {
