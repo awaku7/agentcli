@@ -1,5 +1,25 @@
 # 変更履歴
 
+## [0.5.52] - 2026-07-19
+
+### 追加
+- プラグイン `commands/*` を名前空間付き `:` コマンドとして登録（`:plugin` / `:plugin sub` / `:plugin:sub`）。コア予約名は拒否。activate/deactivate ライフサイクル対応。
+- プラグイン enable/起動時に MCP・agents・hooks を有効化。bare の `:plugin install <name>` は登録 marketplace から解決（Claude Code 相当）。
+- hooks: SessionStart/Setup/UserPromptSubmit の stdout を `[HOOK]` system コンテキストへ注入。UserPromptSubmit の block を CLI/GUI/Web で処理。`${CLAUDE_PLUGIN_ROOT}` / `${UAGENT_PLUGIN_ROOT}` 展開。
+- i18n: `:model` / capa UI の gettext、残存 UI 文字列、`po_i18n_batch`、`:model` の Grok 音声モデル表示、pot/po/mo 更新。
+- ランタイム終了方針: ヘルパーは裸の `sys.exit` ではなく例外。ツールホストはツールの `SystemExit`/`Exception` を封じ込め（DEVELOP.md §6.1）。
+- mypy: `typings/numpy` スタブ影 + numpy `follow_imports = skip`（3.11 基準）。
+
+### 変更
+- プラグイン `remove`: コンポーネント deactivate → `enabledPlugins` キーと `pluginConfigs` 削除 → rmtree（enabled=true の残留なし）。
+- auto-unload 表示: 「生産ラウンド」→「LLMラウンド」（全ロケール）。
+
+### 修正
+- 空 assistant / no-tool の Grok 向け recovery 強化（履歴/UI-only WARN、次ターン recovery）。
+- exec: 子プロセス stdin を隔離し、EOF で CLI が終了しないように。
+- エージェントのツールループ、Responses previous_response_id、catalog steering、短いセッションログ。
+- OpenRouter SDK import がテスト注入を上書きしないよう修正。provider/client 初期化エラーを安全に。
+
 ## [0.5.51] - 2026-07-19
 
 ### 追加

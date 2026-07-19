@@ -1,5 +1,25 @@
 # Changelog
 
+## [0.5.52] - 2026-07-19
+
+### Added
+- Plugin `commands/*` registered as namespaced `:` commands (`:plugin`, `:plugin sub`, `:plugin:sub`); core-reserved top-level names refused; activate/deactivate lifecycle.
+- Plugin enable/startup activates MCP, agents, and hooks; bare `:plugin install <name>` resolves from registered marketplaces (Claude Code style).
+- hooks: SessionStart/Setup/UserPromptSubmit stdout as `[HOOK]` system context; UserPromptSubmit block decisions on CLI/GUI/Web; `${CLAUDE_PLUGIN_ROOT}` / `${UAGENT_PLUGIN_ROOT}` expansion.
+- i18n: gettext for `:model` / capa UI; residual UI strings; `po_i18n_batch`; Grok audio models in `:model`; pot/po/mo refresh.
+- Runtime process-exit policy: helpers raise instead of bare `sys.exit`; tool host contains tool `SystemExit`/`Exception` (docs in DEVELOP.md §6.1).
+- mypy: `typings/numpy` stub shadow + numpy `follow_imports = skip` for 3.11 baseline.
+
+### Changed
+- Plugin `remove`: deactivate components, clear `enabledPlugins` key and `pluginConfigs`, then rmtree (not leave enabled=true residue).
+- auto-unload user copy: "productive rounds" → "LLM rounds" (all locales).
+
+### Fixed
+- Empty assistant / no-tool recovery hardened for Grok (history/UI-only WARN, next-turn recovery).
+- exec: isolate child stdin so CLI does not exit on EOF.
+- Agent tool loops, Responses previous_response_id, catalog steering, short session logs.
+- OpenRouter SDK import no longer shadows test injection; safer provider/client init errors.
+
 ## [0.5.51] - 2026-07-19
 
 ### Added
