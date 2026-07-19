@@ -688,6 +688,7 @@ class TestRuntimePlugins:
         result = load_plugins_at_startup(
             cwd=str(repo_tmp_path),
             plugin_dirs=[],
+            activate=False
         )
         assert isinstance(result, list)
         assert result == []
@@ -701,6 +702,7 @@ class TestRuntimePlugins:
             cwd=str(repo_tmp_path),
             plugin_dirs=[str(plugin_dir.parent)],
             state_dir=str(repo_tmp_path / ".uag"),
+            activate=False
         )
         assert len(result) >= 1
         loaded = [p for p in result if p["name"] == "test-plugin"]
@@ -723,6 +725,7 @@ class TestRuntimePlugins:
             cwd=str(repo_tmp_path),
             plugin_dirs=[str(plugin_dir.parent)],
             state_dir=str(state_dir),
+            activate=False
         )
         loaded = [p for p in result if p["name"] == "test-plugin"]
         assert len(loaded) == 1
@@ -740,6 +743,7 @@ class TestRuntimePlugins:
         result = load_plugins_at_startup(
             cwd=str(repo_tmp_path),
             plugin_dirs=[str(claude_plugins)],
+            activate=False
         )
         loaded = [p for p in result if p["name"] == "test-plugin"]
         assert len(loaded) == 1
@@ -754,6 +758,7 @@ class TestRuntimePlugins:
             cwd=str(repo_tmp_path),
             plugin_dirs=[],
             extra_plugin_dirs=[str(plugin_dir.parent)],
+            activate=False
         )
         loaded = [p for p in result if p["name"] == "test-plugin"]
         assert len(loaded) == 1
@@ -1038,6 +1043,7 @@ class TestPluginSkillsIntegration:
         result = load_plugins_at_startup(
             cwd=str(repo_tmp_path),
             plugin_dirs=[str(plugin_dir.parent)],
+            activate=False
         )
         plugin = next((p for p in result if p["name"] == "test-plugin"), None)
         assert plugin is not None
@@ -1230,6 +1236,7 @@ class TestPluginMCPIntegration:
         result = load_plugins_at_startup(
             cwd=str(repo_tmp_path),
             plugin_dirs=[str(plugin_with_mcp.parent)],
+            activate=False
         )
         plugin = next((p for p in result if p["name"] == "mcp-plugin"), None)
         assert plugin is not None
@@ -1663,6 +1670,7 @@ class TestPluginAgentsBundling:
         result = load_plugins_at_startup(
             cwd=str(repo_tmp_path),
             plugin_dirs=[str(plugin_with_agents.parent)],
+            activate=False
         )
         plugin = next((p for p in result if p["name"] == "agent-plugin"), None)
         assert plugin is not None
@@ -2046,3 +2054,200 @@ class TestSkillsDirPluginDetection:
         comps = discover_plugin_components(results[0]["_path"], results[0])
         assert "skills" in comps
         assert "inner-skill" in comps["skills"]
+
+
+# =========================================================================
+# Phase 2g: Activate / deactivate wiring
+# =========================================================================
+
+
+@pytest.fixture()
+def full_plugin(repo_tmp_path: Path) -> Path:
+    """Plugin with MCP + agents + hooks for activation tests."""
+    p = repo_tmp_path / "plugins" / "full-plugin"
+    manifest_dir = p / ".claude-plugin"
+    manifest_dir.mkdir(parents=True)
+    (manifest_dir / "plugin.json").write_text(
+        json.dumps({"name": "full-plugin", "version": "1.0.0"}),
+        encoding="utf-8",
+    )
+    (p / ".mcp.json").write_text(
+        json.dumps(
+            {
+                "mcpServers": {
+                    "demo": {
+                        "command": "npx",
+                        "args": ["-y", "demo-mcp"],
+                    }
+                }
+            }
+        ),
+        encoding="utf-8",
+    )
+    agents = p / "agents"
+    agents.mkdir(parents=True)
+    (agents / "helper.md").write_text(
+        "---\nname: helper\ndescription: Helpful agent\n---\n\nBe helpful.",
+        encoding="utf-8",
+    )
+    hooks = p / "hooks"
+    hooks.mkdir(parents=True)
+    (hooks / "hooks.json").write_text(
+        json.dumps(
+            {
+                "hooks": {
+                    "SessionStart": [
+                        {
+                            "hooks": [
+                                {"type": "prompt", "prompt": "Plugin active."}
+                            ]
+                        }
+                    ]
+                }
+            }
+        ),
+        encoding="utf-8",
+    )
+    return p
+
+
+class TestActivateDeactivatePlugin:
+    """activate_plugin / deactivate_plugin should wire components."""
+
+    def test_activate_and_deactivate(
+        self, full_plugin: Path, repo_tmp_path: Path
+    ) -> None:
+        from uagent.plugin_shared import activate_plugin, deactivate_plugin
+
+        mcp_path = repo_tmp_path / "mcp_servers.json"
+        roles_dir = repo_tmp_path / "roles"
+        hooks_path = repo_tmp_path / "hooks_registry.json"
+        roles_dir.mkdir(parents=True)
+        hooks_path.write_text(json.dumps({"plugins": {}}), encoding="utf-8")
+        mcp_path.write_text(json.dumps({"mcp_servers": []}), encoding="utf-8")
+
+        act = activate_plugin(
+            str(full_plugin),
+            "full-plugin",
+            mcp_config_path=str(mcp_path),
+            roles_dir=str(roles_dir),
+            hooks_registry_path=str(hooks_path),
+        )
+        assert act["ok"] is True
+        assert act["mcp"]["merged_count"] == 1
+        assert act["agents"]["installed_count"] == 1
+        assert act["hooks"]["event_count"] == 1
+
+        mcp = json.loads(mcp_path.read_text(encoding="utf-8"))
+        assert any(s.get("name") == "full-plugin:demo" for s in mcp["mcp_servers"])
+        assert list(roles_dir.glob("*.json"))
+        hooks = json.loads(hooks_path.read_text(encoding="utf-8"))
+        assert "full-plugin" in hooks["plugins"]
+
+        deact = deactivate_plugin(
+            "full-plugin",
+            mcp_config_path=str(mcp_path),
+            roles_dir=str(roles_dir),
+            hooks_registry_path=str(hooks_path),
+        )
+        assert deact["ok"] is True
+        assert deact["mcp"]["removed_count"] == 1
+        assert deact["agents"]["removed_count"] == 1
+        assert deact["hooks"]["removed"] is True
+
+        mcp2 = json.loads(mcp_path.read_text(encoding="utf-8"))
+        assert mcp2["mcp_servers"] == []
+        assert list(roles_dir.glob("*.json")) == []
+        hooks2 = json.loads(hooks_path.read_text(encoding="utf-8"))
+        assert "full-plugin" not in hooks2.get("plugins", {})
+
+    def test_startup_activates_enabled_plugin(
+        self, full_plugin: Path, repo_tmp_path: Path
+    ) -> None:
+        from uagent.runtime.runtime_plugins import load_plugins_at_startup
+
+        state = repo_tmp_path / ".uag"
+        state.mkdir(parents=True, exist_ok=True)
+        mcp_path = repo_tmp_path / "startup_mcp.json"
+        roles_dir = repo_tmp_path / "startup_roles"
+        hooks_path = repo_tmp_path / "startup_hooks.json"
+        roles_dir.mkdir(parents=True)
+        mcp_path.write_text(json.dumps({"mcp_servers": []}), encoding="utf-8")
+        hooks_path.write_text(json.dumps({"plugins": {}}), encoding="utf-8")
+
+        result = load_plugins_at_startup(
+            plugin_dirs=[str(full_plugin.parent)],
+            state_dir=str(state),
+            activate=True,
+            mcp_config_path=str(mcp_path),
+            roles_dir=str(roles_dir),
+            hooks_registry_path=str(hooks_path),
+        )
+        assert len(result) == 1
+        assert result[0]["enabled"] is True
+        assert result[0]["activation"]["ok"] is True
+
+        mcp = json.loads(mcp_path.read_text(encoding="utf-8"))
+        assert any(
+            s.get("_plugin_source") == "full-plugin" for s in mcp["mcp_servers"]
+        )
+
+    def test_enable_disable_tool_activates(
+        self, full_plugin: Path, repo_tmp_path: Path
+    ) -> None:
+        from uagent.tools.plugin_manage_tool import run_tool
+
+        state = repo_tmp_path / ".uag"
+        state.mkdir(parents=True, exist_ok=True)
+        mcp_path = repo_tmp_path / "tool_mcp.json"
+        roles_dir = repo_tmp_path / "tool_roles"
+        hooks_path = repo_tmp_path / "tool_hooks.json"
+        roles_dir.mkdir(parents=True)
+        mcp_path.write_text(json.dumps({"mcp_servers": []}), encoding="utf-8")
+        hooks_path.write_text(json.dumps({"plugins": {}}), encoding="utf-8")
+
+        # Start disabled
+        dis = json.loads(
+            run_tool(
+                {
+                    "action": "disable",
+                    "name": "full-plugin",
+                    "_test_state_dir": str(state),
+                    "_test_mcp_config_path": str(mcp_path),
+                    "_test_roles_dir": str(roles_dir),
+                    "_test_hooks_registry_path": str(hooks_path),
+                }
+            )
+        )
+        assert dis["ok"] is True
+
+        en = json.loads(
+            run_tool(
+                {
+                    "action": "enable",
+                    "name": "full-plugin",
+                    "_test_state_dir": str(state),
+                    "_test_roots": [str(full_plugin.parent)],
+                    "_test_mcp_config_path": str(mcp_path),
+                    "_test_roles_dir": str(roles_dir),
+                    "_test_hooks_registry_path": str(hooks_path),
+                }
+            )
+        )
+        assert en["ok"] is True
+        assert en["activation"]["mcp"]["merged_count"] == 1
+
+        dis2 = json.loads(
+            run_tool(
+                {
+                    "action": "disable",
+                    "name": "full-plugin",
+                    "_test_state_dir": str(state),
+                    "_test_mcp_config_path": str(mcp_path),
+                    "_test_roles_dir": str(roles_dir),
+                    "_test_hooks_registry_path": str(hooks_path),
+                }
+            )
+        )
+        assert dis2["ok"] is True
+        assert dis2["deactivation"]["mcp"]["removed_count"] == 1

@@ -195,6 +195,28 @@ def run_cli_startup(
             print_welcome()
             ensure_mcp_config_template()
 
+            # Load and activate enabled plugins (MCP / agents / hooks)
+            try:
+                from .runtime.runtime_plugins import load_plugins_at_startup
+
+                _enabled_plugins = [
+                    p
+                    for p in load_plugins_at_startup(activate=True)
+                    if p.get("enabled")
+                ]
+                if _enabled_plugins:
+                    _names = ", ".join(
+                        str(p.get("name") or "?") for p in _enabled_plugins[:8]
+                    )
+                    if len(_enabled_plugins) > 8:
+                        _names += f", +{len(_enabled_plugins) - 8} more"
+                    print(
+                        f"[plugins] {len(_enabled_plugins)} enabled: {_names}",
+                        file=sys.stderr,
+                    )
+            except Exception:
+                pass
+
             provider, client, depname = providers.make_client(core)
 
             if banner:

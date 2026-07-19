@@ -753,7 +753,9 @@ def install_plugin_agents(
     Returns dict with ok, installed_count.
     """
     if roles_dir is None:
-        roles_dir = str(Path.home() / ".uag" / "subagent_roles")
+        from uagent.utils.paths import get_state_dir
+
+        roles_dir = str(get_state_dir() / "subagent_roles")
 
     rd = Path(roles_dir)
     rd.mkdir(parents=True, exist_ok=True)
@@ -808,7 +810,9 @@ def remove_plugin_agents(
     Returns dict with ok, removed_count.
     """
     if roles_dir is None:
-        roles_dir = str(Path.home() / ".uag" / "subagent_roles")
+        from uagent.utils.paths import get_state_dir
+
+        roles_dir = str(get_state_dir() / "subagent_roles")
 
     rd = Path(roles_dir)
     if not rd.is_dir():
@@ -882,7 +886,9 @@ def install_plugin_hooks(
     Returns dict with ok, event_count.
     """
     if registry_path is None:
-        registry_path = str(Path.home() / ".uag" / "hooks" / "plugin_hooks.json")
+        from uagent.hooks_engine import get_default_registry_path
+
+        registry_path = get_default_registry_path()
 
     pd = Path(plugin_dir)
 
@@ -927,7 +933,9 @@ def remove_plugin_hooks(
     Returns dict with ok, removed (bool).
     """
     if registry_path is None:
-        registry_path = str(Path.home() / ".uag" / "hooks" / "plugin_hooks.json")
+        from uagent.hooks_engine import get_default_registry_path
+
+        registry_path = get_default_registry_path()
 
     rp = Path(registry_path)
     if not rp.is_file():
@@ -943,6 +951,88 @@ def remove_plugin_hooks(
 
     rp.write_text(json.dumps(registry, indent=2, ensure_ascii=False), encoding="utf-8")
     return {"ok": True, "removed": True}
+
+
+# ---------------------------------------------------------------------------
+# Activate / deactivate (wire components into runtime stores)
+# ---------------------------------------------------------------------------
+
+
+def activate_plugin(
+    plugin_dir: str,
+    plugin_name: str | None = None,
+    *,
+    mcp_config_path: str | None = None,
+    roles_dir: str | None = None,
+    hooks_registry_path: str | None = None,
+) -> dict[str, Any]:
+    """Activate a plugin: merge MCP, install agents, register hooks.
+
+    Skills are discovered in-place via skill roots (no copy step).
+    Returns a summary dict with per-component results.
+    """
+    manifest = parse_plugin_manifest(plugin_dir) or {}
+    name = plugin_name or str(manifest.get("name") or Path(plugin_dir).name)
+    components = discover_plugin_components(plugin_dir, manifest)
+
+    summary: dict[str, Any] = {
+        "ok": True,
+        "name": name,
+        "path": plugin_dir,
+        "mcp": None,
+        "agents": None,
+        "hooks": None,
+    }
+
+    if components.get("mcpServers"):
+        summary["mcp"] = merge_plugin_mcp_servers(
+            plugin_dir,
+            name,
+            mcp_config_path=mcp_config_path,
+        )
+
+    if components.get("agents"):
+        summary["agents"] = install_plugin_agents(
+            plugin_dir,
+            name,
+            roles_dir=roles_dir,
+        )
+
+    if components.get("hooks"):
+        summary["hooks"] = install_plugin_hooks(
+            plugin_dir,
+            name,
+            registry_path=hooks_registry_path,
+        )
+
+    return summary
+
+
+def deactivate_plugin(
+    plugin_name: str,
+    *,
+    mcp_config_path: str | None = None,
+    roles_dir: str | None = None,
+    hooks_registry_path: str | None = None,
+) -> dict[str, Any]:
+    """Deactivate a plugin: remove MCP servers, agents, and hooks.
+
+    Returns a summary dict with per-component cleanup results.
+    """
+    if not plugin_name:
+        return {"ok": False, "error": "Plugin name is required."}
+
+    return {
+        "ok": True,
+        "name": plugin_name,
+        "mcp": remove_plugin_mcp_servers(
+            plugin_name, mcp_config_path=mcp_config_path
+        ),
+        "agents": remove_plugin_agents(plugin_name, roles_dir=roles_dir),
+        "hooks": remove_plugin_hooks(
+            plugin_name, registry_path=hooks_registry_path
+        ),
+    }
 
 
 # ---------------------------------------------------------------------------

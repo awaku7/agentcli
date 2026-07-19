@@ -12,8 +12,11 @@ from pathlib import Path
 from typing import Any
 
 from ..plugin_shared import (
+    activate_plugin,
+    deactivate_plugin,
     discover_plugin_components,
     get_plugin_roots,
+    is_plugin_enabled,
     parse_plugin_manifest,
     scan_plugins,
     set_plugin_enabled,
@@ -130,6 +133,17 @@ def _get_install_root(scope: str, *, cwd: str | None = None) -> str:
         return str(Path.home() / ".uag" / "plugins")
 
 
+
+def _find_scanned_plugin(name: str, scan_dirs: list[str]) -> dict[str, Any] | None:
+    """Return scanned plugin manifest for name, or None."""
+    if not name:
+        return None
+    for plugin in scan_plugins(scan_dirs):
+        if plugin.get("name") == name:
+            return plugin
+    return None
+
+
 def run_tool(args: dict[str, Any]) -> str:
     """Run the plugin_manage tool with the given arguments."""
     action = args.get("action", "list")
@@ -157,6 +171,12 @@ def run_tool(args: dict[str, Any]) -> str:
     else:
         install_root = _get_install_root(scope)
 
+    act_kwargs = {
+        "mcp_config_path": args.get("_test_mcp_config_path"),
+        "roles_dir": args.get("_test_roles_dir"),
+        "hooks_registry_path": args.get("_test_hooks_registry_path"),
+    }
+
     # Actions
     if action == "list":
         return _action_list(scan_dirs, state_dir)
@@ -167,14 +187,17 @@ def run_tool(args: dict[str, Any]) -> str:
             source,
             name,
             install_root,
+            state_dir=state_dir,
+            scan_dirs=scan_dirs,
             _test_marketplace_dir=args.get("_test_marketplace_dir"),
+            **act_kwargs,
         )
     elif action == "remove":
-        return _action_remove(name, install_root)
+        return _action_remove(name, install_root, **act_kwargs)
     elif action == "enable":
-        return _action_enable(name, state_dir)
+        return _action_enable(name, state_dir, scan_dirs=scan_dirs, **act_kwargs)
     elif action == "disable":
-        return _action_disable(name, state_dir)
+        return _action_disable(name, state_dir, **act_kwargs)
     elif action == "validate":
         return _action_validate(name, scan_dirs)
     else:
@@ -253,6 +276,12 @@ def _action_install(
     source: str,
     name: str,
     install_root: str,
+    *,
+    state_dir: str | None = None,
+    scan_dirs: list[str] | None = None,
+    mcp_config_path: str | None = None,
+    roles_dir: str | None = None,
+    hooks_registry_path: str | None = None,
     _test_marketplace_dir: str | None = None,
 ) -> str:
     """Install a plugin from various source types."""
@@ -394,14 +423,28 @@ def _action_install(
             except (json.JSONDecodeError, OSError):
                 pass
 
-    return json.dumps(
-        {
-            "ok": True,
-            "name": dest_name,
-            "path": str(dest),
-            "message": f"Plugin '{dest_name}' installed to {dest}.",
-        }
-    )
+    result: dict[str, Any] = {
+        "ok": True,
+        "name": dest_name,
+        "path": str(dest),
+        "message": f"Plugin '{dest_name}' installed to {dest}.",
+    }
+
+    # Activate immediately when the plugin is enabled (default True).
+    _state = state_dir or str(get_state_dir())
+    if is_plugin_enabled(dest_name, state_dir=_state, default_enabled=True):
+        try:
+            result["activation"] = activate_plugin(
+                str(dest),
+                dest_name,
+                mcp_config_path=mcp_config_path,
+                roles_dir=roles_dir,
+                hooks_registry_path=hooks_registry_path,
+            )
+        except Exception as exc:  # noqa: BLE001 - install itself succeeded
+            result["activation"] = {"ok": False, "error": str(exc)}
+
+    return json.dumps(result)
 
 
 def _extract_plugin_zip(zip_path: str, dest_dir: str) -> None:
@@ -422,7 +465,14 @@ def _extract_plugin_zip(zip_path: str, dest_dir: str) -> None:
         shutil.copytree(src, dest_dir)
 
 
-def _action_remove(name: str, install_root: str) -> str:
+def _action_remove(
+    name: str,
+    install_root: str,
+    *,
+    mcp_config_path: str | None = None,
+    roles_dir: str | None = None,
+    hooks_registry_path: str | None = None,
+) -> str:
     """Remove (uninstall) a plugin."""
     if not name:
         return json.dumps({"ok": False, "error": "Plugin name is required."})
@@ -433,40 +483,83 @@ def _action_remove(name: str, install_root: str) -> str:
             {"ok": False, "error": f"Plugin '{name}' not found at {install_root}."}
         )
 
+    deactivation = deactivate_plugin(
+        name,
+        mcp_config_path=mcp_config_path,
+        roles_dir=roles_dir,
+        hooks_registry_path=hooks_registry_path,
+    )
     shutil.rmtree(str(target))
 
     return json.dumps(
         {
             "ok": True,
             "message": f"Plugin '{name}' removed.",
+            "deactivation": deactivation,
         }
     )
 
 
-def _action_enable(name: str, state_dir: str) -> str:
-    """Enable a plugin."""
+def _action_enable(
+    name: str,
+    state_dir: str,
+    *,
+    scan_dirs: list[str] | None = None,
+    mcp_config_path: str | None = None,
+    roles_dir: str | None = None,
+    hooks_registry_path: str | None = None,
+) -> str:
+    """Enable a plugin and activate its components."""
     if not name:
         return json.dumps({"ok": False, "error": "Plugin name is required."})
 
     set_plugin_enabled(name, True, state_dir=state_dir)
-    return json.dumps(
-        {
-            "ok": True,
-            "message": f"Plugin '{name}' enabled.",
-        }
-    )
+    result: dict[str, Any] = {
+        "ok": True,
+        "message": f"Plugin '{name}' enabled.",
+    }
+
+    roots = scan_dirs if scan_dirs is not None else get_plugin_roots()
+    plugin = _find_scanned_plugin(name, roots)
+    if plugin and plugin.get("_path"):
+        try:
+            result["activation"] = activate_plugin(
+                str(plugin["_path"]),
+                name,
+                mcp_config_path=mcp_config_path,
+                roles_dir=roles_dir,
+                hooks_registry_path=hooks_registry_path,
+            )
+        except Exception as exc:  # noqa: BLE001 - enable flag already saved
+            result["activation"] = {"ok": False, "error": str(exc)}
+
+    return json.dumps(result)
 
 
-def _action_disable(name: str, state_dir: str) -> str:
-    """Disable a plugin."""
+def _action_disable(
+    name: str,
+    state_dir: str,
+    *,
+    mcp_config_path: str | None = None,
+    roles_dir: str | None = None,
+    hooks_registry_path: str | None = None,
+) -> str:
+    """Disable a plugin and deactivate its components."""
     if not name:
         return json.dumps({"ok": False, "error": "Plugin name is required."})
 
     set_plugin_enabled(name, False, state_dir=state_dir)
+    deactivation = deactivate_plugin(
+        name,
+        mcp_config_path=mcp_config_path,
+        roles_dir=roles_dir,
+        hooks_registry_path=hooks_registry_path,
+    )
     return json.dumps(
         {
             "ok": True,
             "message": f"Plugin '{name}' disabled.",
+            "deactivation": deactivation,
         }
     )
 
@@ -760,14 +853,18 @@ def _handle_cmd_plugin_disable(arg: str, **kwargs: Any) -> Any:
 
 def _handle_cmd_plugin_reload(arg: str, **kwargs: Any) -> Any:
     """CLI handler for :plugin reload."""
+    from ..runtime.runtime_plugins import load_plugins_at_startup
     from ..util_tools import CommandResult
 
-    # Re-scan and report
-    scan_dirs = get_plugin_roots()
-    plugins = scan_plugins(scan_dirs)
-    print(f"Plugin reload: {len(plugins)} plugin(s) found.")
+    plugins = load_plugins_at_startup(activate=True)
+    enabled = [p for p in plugins if p.get("enabled")]
+    print(
+        f"Plugin reload: {len(plugins)} plugin(s) found, "
+        f"{len(enabled)} enabled/activated."
+    )
     for p in plugins:
-        print(f"  - {p.get('name', '?')} ({p.get('version', '0.0.0')})")
+        flag = "on" if p.get("enabled") else "off"
+        print(f"  - {p.get('name', '?')} ({p.get('version', '0.0.0')}) [{flag}]")
 
     return CommandResult()
 
