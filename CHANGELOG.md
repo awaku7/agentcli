@@ -1,5 +1,19 @@
 # Changelog
 
+## [0.5.51] - 2026-07-19
+
+### Added
+- `:help`: overview and per-command detail including CMD_SPEC.
+- MCP: HTTP headers support; n8n adaptation plan notes.
+- `translate_text`: brand/product term protection during translation.
+- tmp-based batch translator for tool JSON i18n.
+
+### Fixed
+- Grok: show reasoning effort in CLI status (`LLM:` / `LLM:auto->...`).
+- Grok/Responses: stream reasoning continuously without breaking lines on `.` / `!` / `?`.
+- i18n: repair empty and remaining same-as-en tool JSON values; protect param names; apply translate_text/audio_speech locales.
+- lint: remove unused variable; apply ruff/black cleanup across touched modules.
+
 ## [0.5.50] - 2026-07-18
 
 ### Added

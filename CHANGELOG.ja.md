@@ -1,5 +1,19 @@
 # 変更履歴
 
+## [0.5.51] - 2026-07-19
+
+### 追加
+- `:help`: 概要表示と CMD_SPEC を含むコマンド別詳細。
+- MCP: HTTP ヘッダ対応、n8n 適応プランのメモ。
+- `translate_text`: 翻訳時のブランド/製品名保護。
+- ツール JSON i18n 向け tmp ベース一括翻訳。
+
+### 修正
+- Grok: CLI ステータスに reasoning effort（`LLM:` / `LLM:auto->...`）を表示。
+- Grok/Responses: reasoning を `.` / `!` / `?` で改行せず連続ストリーム表示。
+- i18n: 空値・英語のまま残っていた tool JSON を修正、パラメータ名保護、translate_text/audio_speech ロケール適用。
+- lint: 未使用変数削除、関連モジュールの ruff/black 整理。
+
 ## [0.5.50] - 2026-07-18
 
 ### 追加
