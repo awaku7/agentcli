@@ -378,12 +378,14 @@ msgid ""
 "- Always use the provided tools and verify the latest information.\n"
 "- Be creative, but do not output uncertain information.\n"
 "- Consult available tools and choose the most appropriate one.\n"
+"- If the capability you need is not among the currently loaded tools, or you are unsure which tool fits, call tool_catalog before answering or guessing. Use its query to describe the needed capability; then tool_load any unloaded tool you need.\n"
 "- When executing tools, delegate as little decision-making as possible to the user.\n"
 msgstr ""
 "## Rules\n"
 "- 提供されているツールを常に使用し、最新の情報をツールで検証すること。\n"
 "- 創造的であること。ただし不確かな情報は出力しないこと。\n"
 "- 利用可能なツールを確認し、最も適切なものを選ぶこと。\n"
+"- 必要な能力が現在ロード済みのツールに無い、またはどれが合うか確信が無い場合は、回答や推測の前に tool_catalog を呼ぶこと。query で必要な能力を説明し、未ロードのツールは tool_load すること。\n"
 "- ツール実行時は、ユーザーに委ねる意思決定をできるだけ少なくすること。\n"
 
 #: src/uagent/core.py:1837
@@ -410,7 +412,7 @@ msgstr ""
 "- .org / .org1 / .org2 などの接尾辞が付いたファイルはバックアップ コピーであり、主要な編集可能なファイルとして扱ってはなりません。\n"
 "- Python ファイルを作成する場合は、`python -m py_compile` を実行して構文を検証します。\n"
 "- 専門家レベルの知識が必要な場合は、プロンプト テンプレート (エージェント スキル) を使用し、それに従うようにしてください。\n"
-"- ユーザーの入力が短い肯定のみで新しい情報が追加されていない場合は、直前の明確な質問に対する直接の回答でない限り、同じ説明を繰り返さないでください。必要に応じて、「どの点を続けるべきですか?」と簡単に質問します。"
+"- ユーザーの入力が短い肯定のみで新しい情報が追加されていない場合は、直前の明確な質問に対する直接の回答でない限り、同じ説明を繰り返さないでください。必要に応じて、「どの点を続けるべきですか?」と簡単に質問します。\n"
 
 #: src/uagent/core.py:1850
 msgid ""
@@ -448,12 +450,14 @@ msgid ""
 "## Rules\n"
 "- Use the provided tools first and verify results with tools.\n"
 "- Consult tool descriptions for purpose/arguments/constraints; choose the most appropriate and safest tool.\n"
+"- If the capability you need is not among the currently loaded tools, or you are unsure which tool fits, call tool_catalog before answering or guessing. Use its query to describe the needed capability; then tool_load any unloaded tool you need.\n"
 "- Be creative, but do not output uncertain information.\n"
 "- Delegate as little decision-making as possible to the user.\n"
 msgstr ""
 "## Rules\n"
 "- 提供されているツールを優先して使用し、結果はツールで検証してください。\n"
 "- ツール説明の目的/引数/制約を確認し、最も適切かつ安全なツールを選んでください。\n"
+"- 必要な能力が現在ロード済みのツールに無い、またはどれが合うか確信が無い場合は、回答や推測の前に tool_catalog を呼んでください。query で必要な能力を説明し、未ロードのツールは tool_load してください。\n"
 "- 創造的であること。ただし不確かな情報は出力しないこと。\n"
 "- ユーザーに委ねる意思決定をできるだけ少なくしてください。\n"
 
@@ -479,7 +483,7 @@ msgstr ""
 "- .org / .org1 / .org2 などの接尾辞が付いたファイルはバックアップ コピーであり、主要な編集可能なファイルとして扱ってはなりません。\n"
 "- Python ファイルを作成する場合は、`python -m py_compile` を実行します。\n"
 "- 専門家レベルの知識が必要な場合は、エージェント スキル プロンプト テンプレートを使用します。\n"
-"- ユーザーの入力が短い肯定のみで新しい情報が追加されていない場合は、直前の明確な質問に対する直接の回答でない限り、同じ説明を繰り返さないでください。必要に応じて、「どの点を続けるべきですか?」と簡単に質問します。"
+"- ユーザーの入力が短い肯定のみで新しい情報が追加されていない場合は、直前の明確な質問に対する直接の回答でない限り、同じ説明を繰り返さないでください。必要に応じて、「どの点を続けるべきですか?」と簡単に質問します。\n"
 
 #: src/uagent/core.py:1887
 msgid ""
@@ -507,8 +511,22 @@ msgstr ""
 #: src/uagent/core.py:1968
 msgid ""
 "The following tools are currently loaded in this session. Choose the most "
-"appropriate tool for the task."
-msgstr "このセッションで次のツールが読み込まれています。作業に最も適したツールを選んでください。"
+"appropriate tool for the task. If none of these tools can do the job, or you "
+"are unsure which capability exists, call tool_catalog before answering or "
+"guessing; describe what you need in query, then tool_load any unloaded tool "
+"you need."
+msgstr ""
+"このセッションで次のツールが読み込まれています。作業に最も適したツールを選んでください。"
+"どれも使えない、またはどの能力があるか確信が無い場合は、回答や推測の前に tool_catalog を呼んでください。"
+"query で必要なことを説明し、未ロードのツールは tool_load してください。"
+
+#: src/uagent/core.py
+msgid ""
+"The following tools are currently loaded in this session. "
+"Choose the most appropriate tool for the task."
+msgstr ""
+"このセッションで次のツールが読み込まれています。"
+"作業に最も適したツールを選んでください。"
 
 #: src/uagent/docs_util.py:27
 msgid "Web Inspector (playwright_inspector) guide"
@@ -2192,29 +2210,29 @@ msgstr ""
 msgid ""
 "[clean] Invalid argument: %(arg)r (specify number=threshold; default is "
 "%(default)d)"
-msgstr "無効な引数です: %(arg)r (specify number=threshold; default is %(default)d)"
+msgstr "無効な引数です: %(arg)r（数値=しきい値を指定。省略時は %(default)d）"
 
 #: src/uagent/util_tools.py:1411
 #, python-format
 msgid ""
 "will delete conversation log files (scheck_log_*.jsonl) from disk.\n"
 "Log dir: %(dir)s\n"
-"Rule: total user/assistant/tool messages excluding system <= %(threshold)d\n"
+"Rule: user turns (role=user) <= %(threshold)d\n"
 "Targets: %(n)d\n"
 "\n"
 "Proceed? Enter y to run, or c to cancel."
 msgstr ""
 "会話ログファイル（scheck_log_*.jsonl）をディスクから削除します。\n"
 "ログディレクトリ: %(dir)s\n"
-"条件: system を除く user/assistant/tool メッセージ数が %(threshold)d 件以下\n"
+"条件: ユーザー発話（role=user）が %(threshold)d 回以下\n"
 "対象件数: %(n)d\n"
 "\n"
 "続行しますか？ 実行するには y、キャンセルするには c。"
 
 #: src/uagent/util_tools.py:1479
 #, python-format
-msgid " - (%(count)d msgs) %(path)s"
-msgstr " - (%(count)d 件のメッセージ) %(path)s"
+msgid " - (%(count)d user turns) %(path)s"
+msgstr " - (ユーザー発話 %(count)d 回) %(path)s"
 
 #: src/uagent/util_tools.py:1509
 #, python-format
@@ -2665,13 +2683,17 @@ msgstr "外部URL:"
 msgid ""
 "[MCP Servers]\n"
 "- Config file not found.\n"
-msgstr "[MCP Servers]\\n- 構成ファイルが見つかりません。\\n"
+msgstr ""
+"[MCP Servers]\n"
+"- 構成ファイルが見つかりません。\n"
 
 #: src/uagent/welcome.py:36
 msgid ""
 "[MCP Servers]\n"
 "- No servers registered.\n"
-msgstr "[MCP Servers]\\n- サーバーが登録されていません。\\n"
+msgstr ""
+"[MCP Servers]\n"
+"- サーバーが登録されていません。\n"
 
 #: src/uagent/welcome.py:38
 msgid "[MCP Servers]"
@@ -3090,3 +3112,19 @@ msgstr "[プロジェクト指示ファイル: %(file)s]"
 #, python-format
 msgid "Specified workdir path is a file: %(path)s"
 msgstr "指定された workdir がファイルです: %(path)s"
+
+msgid "Delete short logs (default N=5 user turns)"
+msgstr "短いログを削除（既定 N=5 ユーザー発話）"
+
+msgid ""
+"Deletes scheck_log_*.jsonl where user-turn count (role=user) <= N "
+"(default 5, or UAGENT_CLEAN_THRESHOLD). "
+"On :exit/:quit, the current session log is discarded under the same rule."
+msgstr ""
+"ユーザー発話数（role=user）が N 以下の scheck_log_*.jsonl を削除します"
+"（既定 5、または UAGENT_CLEAN_THRESHOLD）。"
+":exit/:quit 時も同じ条件で現在セッションのログを破棄します。"
+
+msgid ""
+"[clean] Discarded short session log (user turns=%(n)d <= %(threshold)d): %(path)s"
+msgstr "[clean] 短いセッションログを破棄しました（ユーザー発話=%(n)d <= %(threshold)d）: %(path)s"

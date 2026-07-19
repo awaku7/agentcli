@@ -179,10 +179,37 @@ def build_responses_request(
 
         _responses_items = m_clean.pop("_responses_output_items", None)
         if isinstance(_responses_items, list) and _responses_items:
+            # Full-history fallback must not replay bare function_call items:
+            # without matching function_call_output the Responses API rejects
+            # the request ("no tool output found"). Keep only non-tool items
+            # (message/reasoning/etc.) and fall through to the text summary
+            # path for tool calls.
+            _safe_items: list[dict[str, Any]] = []
+            _has_function_call = False
             for _item in _responses_items:
-                if isinstance(_item, dict) and _item.get("type"):
-                    input_msgs.append(dict(_item))
-            continue
+                if not isinstance(_item, dict) or not _item.get("type"):
+                    continue
+                _itype = str(_item.get("type") or "")
+                if _itype in (
+                    "function_call",
+                    "function_call_output",
+                    "custom_tool_call",
+                    "custom_tool_call_output",
+                ):
+                    _has_function_call = True
+                    continue
+                _safe_items.append(dict(_item))
+            if _safe_items and not _has_function_call:
+                input_msgs.extend(_safe_items)
+                continue
+            if _safe_items:
+                input_msgs.extend(_safe_items)
+            # If there were function_call items, continue into tool_calls /
+            # content conversion below instead of replaying them raw.
+            if _has_function_call:
+                pass
+            else:
+                continue
 
         if "tool_calls" in m_clean:
             tc_info: list[str] = []

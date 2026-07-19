@@ -303,8 +303,11 @@ def _run_tool_load(args: dict[str, Any]) -> str:
                     "name": name,
                     "loaded": False,
                     "error": _(
-                        "msg.load.not_found",
-                        default="Tool '{name}' not found.",
+                        "msg.load.not_found_or_not_visible",
+                        default=(
+                            "Tool '{name}' was not found, or it failed to become "
+                            "visible to the LLM after load."
+                        ),
                         name=name,
                     ),
                 }

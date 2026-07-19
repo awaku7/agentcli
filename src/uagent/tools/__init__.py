@@ -175,28 +175,47 @@ def _safe_set_status(busy: bool, label: str = "") -> None:
 def _tool_load_order_key(spec: dict[str, Any]) -> tuple[int, int, str]:
     """Return a stable sort key for registered tools.
 
-    load_order == -1 is treated as the highest priority.
-    Missing load_order is next priority.
-    Tools with any other explicit load_order are ordered by its integer value.
-    Ties are resolved by tool name for deterministic output.
+    Priority groups:
+      0) runtime single-loaded tools (newest first). Marked via
+         x_single_load_seq / _single_load_seq, not static load_order=-1.
+      1) static load_order == -1 (core tools such as read_file)
+      2) missing load_order
+      3) non-negative explicit load_order
+
+    Ties within a group are resolved by tool name.
     """
     func_info = spec.get("function", {}) if isinstance(spec, dict) else {}
     tool_name = ""
     if isinstance(func_info, dict):
         tool_name = str(func_info.get("name") or "")
 
-    if not isinstance(spec, dict) or "load_order" not in spec:
-        return (0, 0, tool_name)
+    if not isinstance(spec, dict):
+        return (2, 0, tool_name)
+
+    # Runtime single-load marker (set by enable_single_tool). Newest has the
+    # smallest (most negative) sequence and must sort before static -1 tools.
+    seq = spec.get("x_single_load_seq", spec.get("_single_load_seq"))
+    if isinstance(seq, int):
+        return (0, seq, tool_name)
+    try:
+        if seq is not None:
+            return (0, int(seq), tool_name)
+    except Exception:
+        pass
+
+    if "load_order" not in spec:
+        return (2, 0, tool_name)
 
     try:
         order = int(spec.get("load_order", 0))
     except Exception:
         order = 0
 
+    # Historical meaning: load_order == -1 is the high-priority static group.
     if order == -1:
-        return (-1, 0, tool_name)
+        return (1, 0, tool_name)
 
-    return (1, order, tool_name)
+    return (3, order, tool_name)
 
 
 # Cache for get_external_data_tools()
@@ -293,17 +312,25 @@ def _register_tool_module(mod: Any, mod_name: str) -> bool:
     if tool_level == 1 and _should_preload_lazy_specs():
         tool_level = 0
 
-    # If the tool was individually loaded via :tools load, preserve it across reloads
-    if tool_level == 1:
-        _fi = spec.get("function", {})
-        if isinstance(_fi, dict) and _fi.get("name"):
-            try:
-                from ._genre_control_util import _LOADED_SINGLE_TOOLS
+    # If the tool was individually loaded via :tools load, preserve it across reloads.
+    # Also honor an explicit single-load marker on the spec.
+    _fi = spec.get("function", {}) if isinstance(spec, dict) else {}
+    _fi_name = ""
+    if isinstance(_fi, dict):
+        _fi_name = str(_fi.get("name") or "").strip()
+    if tool_level == 1 and _fi_name:
+        try:
+            from ._genre_control_util import _LOADED_SINGLE_TOOLS
 
-                if _fi["name"] in _LOADED_SINGLE_TOOLS:
-                    tool_level = 0
-            except Exception:
-                pass
+            if _fi_name in _LOADED_SINGLE_TOOLS:
+                tool_level = 0
+        except Exception:
+            pass
+    if tool_level != 0 and (
+        isinstance(spec.get("x_single_load_seq"), int)
+        or isinstance(spec.get("_single_load_seq"), int)
+    ):
+        tool_level = 0
 
     is_llm_tool = True
     if tool_level == -1:
@@ -316,6 +343,7 @@ def _register_tool_module(mod: Any, mod_name: str) -> bool:
 
     func_info = spec.get("function", {})
     tool_name = func_info.get("name")
+    registered_llm_tool = False
 
     if is_llm_tool and tool_name:
         with _TOOLS_LOCK:
@@ -330,12 +358,19 @@ def _register_tool_module(mod: Any, mod_name: str) -> bool:
             _TOOL_TRACE_FLAGS[tool_name] = _get_tool_emit_trace(spec)
             _RUNNERS[tool_name] = runner
             _sort_registered_tools()
+            registered_llm_tool = True
 
             # Busy label setting
             busy_flag = getattr(mod, "BUSY_LABEL", False)
             if busy_flag:
                 status_label = getattr(mod, "STATUS_LABEL", f"tool:{tool_name}")
                 _BUSY_LABEL_TOOLS[tool_name] = status_label
+    elif tool_name and not is_llm_tool:
+        # Still register the runner so tool_load/run_tool can execute it, but it
+        # is not visible to the LLM until re-registered as an LLM tool.
+        with _TOOLS_LOCK:
+            _RUNNERS[tool_name] = runner
+            _TOOL_TRACE_FLAGS[tool_name] = _get_tool_emit_trace(spec)
 
     # Optional second tool spec (TOOL_SPEC_2) - same runner, different spec
     spec2 = getattr(mod, "TOOL_SPEC_2", None)
@@ -755,6 +790,57 @@ def get_dynamic_command_detail(cmd: str, subcmd: str | None = None) -> str | Non
     return "\n".join(lines)
 
 
+
+def format_tool_names_for_log(tool_specs: list[dict[str, Any]] | None) -> list[str]:
+    """Extract tool names in send order for user-visible logging."""
+    names: list[str] = []
+    for spec in tool_specs or []:
+        if not isinstance(spec, dict):
+            continue
+        # Responses flat form: {"type":"function","name":...}
+        n = spec.get("name")
+        if isinstance(n, str) and n.strip():
+            names.append(n.strip())
+            continue
+        # Chat/completions form: {"type":"function","function":{"name":...}}
+        fn = spec.get("function")
+        if isinstance(fn, dict):
+            n2 = fn.get("name")
+            if isinstance(n2, str) and n2.strip():
+                names.append(n2.strip())
+                continue
+        # Built-in tools: {"type":"web_search"}
+        ty = spec.get("type")
+        if isinstance(ty, str) and ty.strip() and ty.strip() != "function":
+            names.append(ty.strip())
+    return names
+
+
+def log_tools_being_sent(tool_specs: list[dict[str, Any]] | None, *, where: str = "") -> None:
+    """Print the tool list that will be sent to the model (in order).
+
+    Opt-in only: set UAGENT_DEBUG_TOOLS=1.
+    """
+    if str(env_get("UAGENT_DEBUG_TOOLS", "")).strip().lower() not in {
+        "1",
+        "true",
+        "yes",
+        "on",
+    }:
+        return
+    names = format_tool_names_for_log(tool_specs)
+    prefix = f"[TOOLS sent{(':' + where) if where else ''}]"
+    if not names:
+        print(f"{prefix} (none)", flush=True)
+        return
+    joined = ", ".join(names)
+    if len(joined) <= 200:
+        print(f"{prefix} ({len(names)}): {joined}", flush=True)
+    else:
+        print(f"{prefix} ({len(names)}):", flush=True)
+        for i, name in enumerate(names, 1):
+            print(f"  {i:02d}. {name}", flush=True)
+
 def get_tool_specs() -> list[dict[str, Any]]:
     """Return tool specs for the LLM."""
     _ensure_loaded()
@@ -792,6 +878,7 @@ def get_tool_specs() -> list[dict[str, Any]]:
         spec_copy.pop("tool_level", None)
         spec_copy.pop("load_order", None)
         spec_copy.pop("tool_genre", None)
+        spec_copy.pop("_single_load_seq", None)
         # Remove top-level extended fields (x_* prefixed) that strict OpenAI-compatible
         # APIs (e.g. HuggingFace router) reject.
         for key in list(spec_copy.keys()):

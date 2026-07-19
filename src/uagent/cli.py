@@ -48,6 +48,8 @@ from .util_tools import (
     build_multimodal_user_message,
     parse_startup_args as _parse_startup_args,
     handle_command,
+    _maybe_discard_short_session_log,
+    _sweep_short_session_logs,
 )
 
 # Import scheck_core
@@ -896,6 +898,11 @@ def stdin_loop() -> None:
                 if line is None:
                     _skip = True
         except EOFError:
+            # EOF (e.g. piped stdin end): request clean exit so short logs are discarded
+            try:
+                core.event_queue.put({"kind": "command", "text": ":exit"})
+            except Exception:
+                pass
             break
         except KeyboardInterrupt:
             # Reset Ctrl+C during input wait, taking into account the currently active state (such as human_ask)
@@ -1053,7 +1060,19 @@ def main() -> None:
     messages = startup.messages
     _bootstrap_prompt_history(messages)
 
+    # Remove leftover short session logs from prior (crashed/killed) runs.
+    try:
+        _sweep_short_session_logs(core=core, tr=_, exclude_current=True, quiet=False)
+    except Exception:
+        pass
+
     if startup.should_exit:
+        try:
+            _maybe_discard_short_session_log(
+                core=core, messages_ref=messages, tr=_
+            )
+        except Exception:
+            pass
         return
 
     # Ask about session resume at startup (not at first message)
@@ -1300,6 +1319,14 @@ def main() -> None:
                 pass
 
         core.set_status(False, "")
+        # Safety net: discard short current session if exit skipped :exit handler
+        # (e.g. KeyboardInterrupt on main thread, or unexpected loop break).
+        try:
+            _maybe_discard_short_session_log(
+                core=core, messages_ref=messages, tr=_
+            )
+        except Exception:
+            pass
         print(_("Exited uag."))
 
 

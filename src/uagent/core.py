@@ -475,6 +475,24 @@ def _save_responses_state() -> None:
         pass
 
 
+def clear_responses_continuation() -> None:
+    """Drop Responses API continuation after interrupt or broken tool chains.
+
+    previous_response_id is only valid when the prior response chain can be
+    continued (including any required function_call_output items). A user
+    interrupt typically leaves that chain incomplete, so the next turn must
+    start without reusing the stale response id.
+    """
+    if not isinstance(responses_state, dict):
+        return
+    responses_state.pop("previous_response_id", None)
+    responses_state.pop("_stale_rid_occurred", None)
+    try:
+        _save_responses_state()
+    except Exception:
+        pass
+
+
 def set_status(busy: bool, label: str = "") -> None:
     """
     Update the Busy/Idle state and draw the status line if there are changes.
@@ -1442,11 +1460,11 @@ def compress_history_with_llm(
 
     chunk_size_raw = (env_get("UAGENT_SHRINK_CHUNK_SIZE", "") or "").strip()
     try:
-        initial_chunk_size = int(chunk_size_raw) if chunk_size_raw else 50
+        initial_chunk_size = int(chunk_size_raw) if chunk_size_raw else 100
     except Exception:
-        initial_chunk_size = 50
+        initial_chunk_size = 100
     if initial_chunk_size <= 0:
-        initial_chunk_size = 50
+        initial_chunk_size = 100
 
     # Single-shot mode: send all old messages in one LLM call (UAGENT_SHRINK_SINGLE_SHOT=1)
     single_shot_raw = (env_get("UAGENT_SHRINK_SINGLE_SHOT", "") or "").strip().lower()
@@ -1842,6 +1860,7 @@ SYSTEM_PROMPT_FULL_RULES = _("""## Rules
 - Always use the provided tools and verify the latest information.
 - Be creative, but do not output uncertain information.
 - Consult available tools and choose the most appropriate one.
+- If the capability you need is not among the currently loaded tools, or you are unsure which tool fits, call tool_catalog before answering or guessing. Use its query to describe the needed capability; then tool_load any unloaded tool you need.
 - When executing tools, delegate as little decision-making as possible to the user.
 """)
 
@@ -1877,6 +1896,7 @@ SYSTEM_PROMPT_COMPACT_MISSION = _("""## Mission
 SYSTEM_PROMPT_COMPACT_RULES = _("""## Rules
 - Use the provided tools first and verify results with tools.
 - Consult tool descriptions for purpose/arguments/constraints; choose the most appropriate and safest tool.
+- If the capability you need is not among the currently loaded tools, or you are unsure which tool fits, call tool_catalog before answering or guessing. Use its query to describe the needed capability; then tool_load any unloaded tool you need.
 - Be creative, but do not output uncertain information.
 - Delegate as little decision-making as possible to the user.
 """)
@@ -1910,6 +1930,50 @@ SYSTEM_PROMPT_WINDOWS_CMD_PASTE_TIP = _(
 )
 
 
+def _strip_catalog_steering_text(text: str) -> str:
+    """Remove catalog-before-answer steering bullets from prompt text.
+
+    Catalog steering lines always mention tool_catalog (EN/JA and other
+    locales keep the tool name). Safe for Rules blocks that only use that
+    name on the catalog bullet.
+    """
+    if not text:
+        return text
+    out_lines: list[str] = []
+    for line in text.splitlines():
+        stripped = line.strip()
+        if stripped.startswith("-") and "tool_catalog" in stripped:
+            continue
+        out_lines.append(line)
+    result = "\n".join(out_lines)
+    while "\n\n\n" in result:
+        result = result.replace("\n\n\n", "\n\n")
+    if text.endswith("\n") and not result.endswith("\n"):
+        result += "\n"
+    return result
+
+
+def _should_emit_catalog_steering(
+    *,
+    provider: str | None = None,
+    depname: str | None = None,
+    use_responses_api: bool | None = None,
+) -> bool:
+    """False when native GPT-5.4 tool_search is active (no catalog message)."""
+    try:
+        from .tools.llm_tool_narrowing import should_emit_catalog_steering
+
+        return bool(
+            should_emit_catalog_steering(
+                provider=provider,
+                depname=depname,
+                use_responses_api=use_responses_api,
+            )
+        )
+    except Exception:
+        return True
+
+
 def _build_system_prompt_full() -> str:
     parts = [
         SYSTEM_PROMPT_FULL_MISSION,
@@ -1924,9 +1988,7 @@ def _build_system_prompt_full() -> str:
         "",
         SYSTEM_PROMPT_DANGEROUS_DELETE_FILE,
     ]
-    return "\
-".join(parts).strip() + "\
-"
+    return "\n".join(parts).strip() + "\n"
 
 
 def _build_system_prompt_compact() -> str:
@@ -1943,9 +2005,7 @@ def _build_system_prompt_compact() -> str:
         "",
         SYSTEM_PROMPT_DANGEROUS_DELETE_FILE,
     ]
-    return "\
-".join(parts).strip() + "\
-"
+    return "\n".join(parts).strip() + "\n"
 
 
 SYSTEM_PROMPT_MSGID = _build_system_prompt_full()
@@ -1955,7 +2015,7 @@ SYSTEM_PROMPT_COMPACT_MSGID = _build_system_prompt_compact()
 # the msgid (English) is used as-is.
 
 
-def _select_system_prompt() -> str:
+def _base_system_prompt_for_mode() -> str:
     mode = (env_get("UAGENT_SYSTEM_PROMPT") or "").strip().lower()
 
     # Default (env unset): compact.
@@ -1968,17 +2028,74 @@ def _select_system_prompt() -> str:
     return SYSTEM_PROMPT_MSGID
 
 
+def get_system_prompt(
+    *,
+    provider: str | None = None,
+    depname: str | None = None,
+    use_responses_api: bool | None = None,
+) -> str:
+    """Return system prompt, omitting catalog steering under native tool_search."""
+    text = _base_system_prompt_for_mode()
+    if not _should_emit_catalog_steering(
+        provider=provider,
+        depname=depname,
+        use_responses_api=use_responses_api,
+    ):
+        text = _strip_catalog_steering_text(text)
+    return text
+
+
+def _select_system_prompt() -> str:
+    return get_system_prompt()
+
+
+def refresh_system_prompt(
+    *,
+    provider: str | None = None,
+    depname: str | None = None,
+    use_responses_api: bool | None = None,
+) -> str:
+    """Rebuild module-level SYSTEM_PROMPT for the current provider/mode."""
+    global SYSTEM_PROMPT
+    SYSTEM_PROMPT = get_system_prompt(
+        provider=provider,
+        depname=depname,
+        use_responses_api=use_responses_api,
+    )
+    return SYSTEM_PROMPT
+
+
 SYSTEM_PROMPT = _select_system_prompt()
 
 
-def build_tools_system_prompt(tool_specs: list[dict[str, Any]]) -> str:
+def build_tools_system_prompt(
+    tool_specs: list[dict[str, Any]],
+    *,
+    provider: str | None = None,
+    depname: str | None = None,
+    use_responses_api: bool | None = None,
+) -> str:
     lines: list[str] = []
     lines.append("[Available Tools]")
-    lines.append(
-        _(
-            "The following tools are currently loaded in this session. Choose the most appropriate tool for the task."
+    if _should_emit_catalog_steering(
+        provider=provider,
+        depname=depname,
+        use_responses_api=use_responses_api,
+    ):
+        lines.append(
+            _(
+                "The following tools are currently loaded in this session. Choose the most appropriate tool for the task. "
+                "If none of these tools can do the job, or you are unsure which capability exists, call tool_catalog "
+                "before answering or guessing; describe what you need in query, then tool_load any unloaded tool you need."
+            )
         )
-    )
+    else:
+        lines.append(
+            _(
+                "The following tools are currently loaded in this session. "
+                "Choose the most appropriate tool for the task."
+            )
+        )
     for spec in tool_specs:
         func = spec.get("function", {})
         name = func.get("name", "(unknown)")

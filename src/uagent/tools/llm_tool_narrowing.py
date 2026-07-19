@@ -86,6 +86,97 @@ def _is_legacy_mode() -> bool:
     return _get_gpt54_tool_search_mode() == "legacy"
 
 
+_PROVIDER_DEPNAME_ENV: dict[str, tuple[str, str]] = {
+    "openai": ("UAGENT_OPENAI_DEPNAME", "gpt-5.4-nano"),
+    "azure": ("UAGENT_AZURE_DEPNAME", "gpt-5.4-nano"),
+    "bedrock": ("UAGENT_BEDROCK_DEPNAME", "gpt-5.4-nano"),
+    "openrouter": ("UAGENT_OPENROUTER_DEPNAME", "gpt-5.4-nano"),
+    "grok": ("UAGENT_GROK_DEPNAME", "grok-4-1-fast-reasoning"),
+    "gemini": ("UAGENT_GEMINI_DEPNAME", "gemini-1.5-flash"),
+    "vertexai": ("UAGENT_VERTEXAI_DEPNAME", "gemini-2.5-flash"),
+    "claude": ("UAGENT_CLAUDE_DEPNAME", "claude-sonnet-4.5"),
+    "ollama": ("UAGENT_OLLAMA_DEPNAME", "llama3.1"),
+    "nvidia": ("UAGENT_NVIDIA_DEPNAME", "nvidia/nemotron-3-nano-30b-a3b"),
+    "deepseek": ("UAGENT_DEEPSEEK_DEPNAME", "deepseek-v4-flash"),
+    "zai": ("UAGENT_ZAI_DEPNAME", "glm-5.2"),
+    "alibaba": ("UAGENT_ALIBABA_DEPNAME", "qwen3.5-plus"),
+    "moonshot": ("UAGENT_MOONSHOT_DEPNAME", "kimi-k2"),
+    "mimo": ("UAGENT_MIMO_DEPNAME", "mimo-v2.5-pro"),
+    "lmstudio": ("UAGENT_LMSTUDIO_DEPNAME", "local-model"),
+    "minimax": ("UAGENT_MINIMAX_DEPNAME", "MiniMax-M3"),
+    "hf": ("UAGENT_HF_DEPNAME", "openai/gpt-oss-120b"),
+    "sakana": ("UAGENT_SAKANA_DEPNAME", "fugu"),
+    "novita": ("UAGENT_NOVITA_DEPNAME", "tensent/hy3"),
+    "sakura": ("UAGENT_SAKURA_DEPNAME", "llm"),
+}
+
+
+def _soft_provider_depname_from_env() -> tuple[str, str]:
+    """Resolve provider/depname from env without exiting when unset."""
+    provider = (env_get("UAGENT_PROVIDER") or "").strip().lower()
+    if not provider:
+        return "", ""
+    key, default = _PROVIDER_DEPNAME_ENV.get(
+        provider, ("UAGENT_OPENAI_DEPNAME", "gpt-5.4-nano")
+    )
+    depname = (env_get(key, default) or default or "").strip()
+    return provider, depname
+
+
+def _soft_use_responses_api(*, provider: str, depname: str) -> bool:
+    """Mirror round-flag Responses resolution without requiring a live client."""
+    raw = (env_get("UAGENT_RESPONSES") or "").strip().lower()
+    if raw in ("1", "true", "yes", "on"):
+        return True
+    if raw in ("0", "false", "no", "off"):
+        return False
+    try:
+        from ..llmcapa_util import provider_allows_responses_api
+
+        return bool(provider_allows_responses_api(provider, depname or None))
+    except Exception:
+        return (provider or "").strip().lower() in ("openai", "azure")
+
+
+def should_emit_catalog_steering(
+    *,
+    provider: str | None = None,
+    depname: str | None = None,
+    use_responses_api: bool | None = None,
+) -> bool:
+    """Return False when native GPT-5.4 tool_search is active.
+
+    Under native tool_search the server narrows tools; catalog-before-answer
+    steering in system / tools-system prompts must not be emitted.
+    Keep steering for nano / legacy / off / non-target providers.
+    """
+    if _get_gpt54_tool_search_mode() != "native":
+        return True
+
+    if provider is None or depname is None:
+        env_provider, env_depname = _soft_provider_depname_from_env()
+        if provider is None:
+            provider = env_provider
+        if depname is None:
+            depname = env_depname
+
+    provider_s = (provider or "").strip().lower()
+    depname_s = (depname or "").strip()
+
+    if use_responses_api is None:
+        use_responses_api = _soft_use_responses_api(
+            provider=provider_s, depname=depname_s
+        )
+
+    if _is_gpt54_tool_search_target(
+        provider=provider_s,
+        depname=depname_s,
+        use_responses_api=bool(use_responses_api),
+    ):
+        return False
+    return True
+
+
 def _select_tool_specs_legacy(
     call_messages: list[dict[str, Any]],
 ) -> Optional[list[dict[str, Any]]]:

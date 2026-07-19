@@ -257,7 +257,7 @@ def _get_image_depname(cb_get_env, provider: str) -> str:
     if provider == "openai":
         return "gpt-image-1"
     if provider in ("gemini", "vertexai"):
-        return "imagen-3.0-generate-002"
+        return "imagen-4.0-generate-001"
     if provider == "zai":
         return "glm-image"
     if provider == "grok":
@@ -530,7 +530,7 @@ def _run_gemini_images(
             file=sys.stderr,
         )
         if "imagen" in image_model.lower():
-            # Imagen 3 specific config (google-genai SDK 1.x uses generate_images/GenerateImagesConfig)
+            # Imagen 4 specific config (google-genai SDK 1.x uses generate_images/GenerateImagesConfig)
             image_config_kwargs = {"number_of_images": n}
             if size == "1024x1024":
                 image_config_kwargs["aspect_ratio"] = "1:1"
@@ -636,9 +636,9 @@ def run_tool(args: dict[str, Any]) -> str:
     try:
         image_model = _get_image_depname(cb.get_env, provider)
         if provider == "gemini" and "imagen" not in image_model.lower():
-            image_model = "imagen-3.0-generate-002"
+            image_model = "imagen-4.0-generate-001"
         if provider == "vertexai" and "imagen" not in image_model.lower():
-            image_model = "imagen-3.0-generate-002"
+            image_model = "imagen-4.0-generate-001"
         try:
             from uagent.llmcapa_util import check_image_output_support
 
@@ -649,7 +649,7 @@ def run_tool(args: dict[str, Any]) -> str:
             pass
     except RuntimeError:
         if provider == "vertexai":
-            image_model = "imagen-3.0-generate-002"
+            image_model = "imagen-4.0-generate-001"
         else:
             return _(
                 "err.depname_missing",

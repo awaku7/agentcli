@@ -885,18 +885,41 @@ def _call_openai_azure_round(
                                 "retry; starting a new session is required."
                             )
                         )
+                        # Ensure later turns do not keep a broken continuation.
+                        try:
+                            from .core import clear_responses_continuation
+
+                            clear_responses_continuation()
+                        except Exception:
+                            if isinstance(responses_state, dict):
+                                responses_state.pop("previous_response_id", None)
+                                responses_state["_stale_rid_occurred"] = True
                         return False, client, "", "", []
                     _stale_rid_retried = True
-                    # Set persistent flag so subsequent calls also skip previous_response_id.
+                    # Drop rid immediately and force full-history rebuild.
                     if isinstance(responses_state, dict):
+                        responses_state.pop("previous_response_id", None)
                         responses_state["_stale_rid_occurred"] = True
                         from .core import _save_responses_state
 
                         _save_responses_state()
-                    print(
-                        "[Azure/OpenAI Error] "
-                        + _("Stale previous_response_id. Retrying with full history...")
-                    )
+                    _used_rid = bool(_prev_rid) if "_prev_rid" in locals() else True
+                    if _used_rid:
+                        print(
+                            "[Azure/OpenAI Error] "
+                            + _(
+                                "Stale previous_response_id. "
+                                "Retrying with full history..."
+                            )
+                        )
+                    else:
+                        print(
+                            "[Azure/OpenAI Error] "
+                            + _(
+                                "Responses tool chain rejected. "
+                                "Retrying with sanitized full history..."
+                            )
+                        )
                     continue
                 print("[Azure/OpenAI Error] " + _("400 BadRequest"))
                 print(

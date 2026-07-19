@@ -100,11 +100,52 @@ def handle_cmd_tools_load(arg: str, **kwargs: Any) -> Any:
     return CommandResult()
 
 
+def _tool_expire_display(
+    name: str,
+    *,
+    thr: int,
+    last: object | None,
+    loaded_at: object | None,
+    productive_rounds: int,
+) -> str:
+    """Return expiry display for :tools list (productive-round timeline)."""
+    def _ago(stamp: object) -> int:
+        try:
+            s = int(stamp)  # type: ignore[arg-type]
+        except Exception:
+            return thr
+        if s > productive_rounds:
+            return thr
+        a = productive_rounds - s
+        return a if a >= 0 else 0
+
+    if last is not None:
+        ago = _ago(last)
+    elif loaded_at is not None:
+        ago = _ago(loaded_at)
+    else:
+        return "-"
+    expire = thr - ago
+    if expire < 0:
+        expire = 0
+    return str(expire)
+
+
 def handle_cmd_tools_list(arg: str, **kwargs: Any) -> Any:
     q = (arg or "").strip().lower()
 
     from . import get_tool_specs
-    from ..uagent_llm import _TOOL_LAST_ROUND, _TOOL_AUTO_UNLOAD_ROUNDS, _TOTAL_ROUNDS
+    from ..uagent_llm import (
+        _TOOL_LAST_ROUND,
+        _TOOL_AUTO_UNLOAD_ROUNDS,
+        _TOTAL_ROUNDS,
+        _PRODUCTIVE_ROUNDS,
+    )
+    from ._genre_control_util import (
+        _LOADED_SINGLE_TOOLS,
+        is_tool_pinned,
+        get_threshold,
+    )
 
     specs = get_tool_specs()
     if not specs:
@@ -138,31 +179,38 @@ def handle_cmd_tools_list(arg: str, **kwargs: Any) -> Any:
         print(
             _(
                 "msg.tools.list_header",
-                default="[tools] Loaded tools ({count}), round={r}:",
-            ).format(count=len(names), r=_TOTAL_ROUNDS)
+                default=(
+                    "[tools] Loaded tools ({count}), "
+                    "total_round={r}, productive_round={p}:"
+                ),
+            ).format(count=len(names), r=_TOTAL_ROUNDS, p=_PRODUCTIVE_ROUNDS)
         )
         for n in sorted(names):
             if n in ("tool_catalog", "tool_load", "unload_tool"):
                 print(f"  {n}  -")
                 continue
             try:
-                from ._genre_control_util import is_tool_pinned, get_threshold
-
                 if is_tool_pinned(n):
                     print(f"  {n}  pinned")
                     continue
                 thr = get_threshold(n)
             except Exception:
                 thr = _TOOL_AUTO_UNLOAD_ROUNDS
+            thr = thr or _TOOL_AUTO_UNLOAD_ROUNDS
+
+            # Keep display math identical to auto-unload:
+            # only productive rounds age the counter.
+            if n not in _LOADED_SINGLE_TOOLS and n not in _TOOL_LAST_ROUND:
+                print(f"  {n}  -")
+                continue
             last = _TOOL_LAST_ROUND.get(n)
-            if last is not None:
-                ago = _TOTAL_ROUNDS - last
-                expire = (thr or _TOOL_AUTO_UNLOAD_ROUNDS) - ago
-                if expire < 0:
-                    expire = 0
-            else:
-                expire = thr or _TOOL_AUTO_UNLOAD_ROUNDS
-            print(f"  {n}  {expire}")
+            loaded_at = _LOADED_SINGLE_TOOLS.get(n) if n in _LOADED_SINGLE_TOOLS else None
+            if last is None and loaded_at is None:
+                print(f"  {n}  -")
+                continue
+            print(
+                f"  {n}  {_tool_expire_display(n, thr=thr, last=last, loaded_at=loaded_at, productive_rounds=_PRODUCTIVE_ROUNDS)}"
+            )
 
     from ..util_tools import CommandResult
 

@@ -45,6 +45,8 @@ def get_enabled_genre_mask() -> int:
 # Track individually loaded tools and remaining uses (persists across plugin reloads)
 # value: remaining uses (-1 = unlimited, 0 = expired, >0 = countdown)
 _LOADED_SINGLE_TOOLS: dict[str, int] = {}
+# Decreasing negative sequence so newly loaded tools sort first.
+_SINGLE_LOAD_SEQ: int = 0
 
 # Per-tool dynamic auto-unload thresholds and Fibonacci state.
 # value: (current_threshold, fib_prev, fib_current)
@@ -209,12 +211,52 @@ def enable_single_tool(tool_name: str, initial_threshold: int = 5) -> bool:
         if func_info.get("name") != tool_name:
             continue
 
-        # Force tool_level to 0 and register
+        # Force tool_level to 0 and register near the front of the tool list.
+        # Use x_single_load_seq (not load_order=-1) so we do not collide with
+        # static core tools that already declare load_order: -1.
+        global _SINGLE_LOAD_SEQ
+        _SINGLE_LOAD_SEQ -= 1
         spec["tool_level"] = 0
-        _LOADED_SINGLE_TOOLS[tool_name] = -1
+        spec["disabled"] = False
+        spec["x_single_load_seq"] = _SINGLE_LOAD_SEQ
+        # Value = productive-round index when loaded (for auto-unload grace).
+        # Empty LLM rounds must not age this counter.
+        _loaded_round = 0
+        try:
+            from uagent.uagent_llm import _PRODUCTIVE_ROUNDS as _pr
+
+            _loaded_round = int(_pr)
+        except Exception:
+            try:
+                from uagent.uagent_llm import _TOTAL_ROUNDS as _tr
+
+                _loaded_round = int(_tr)
+            except Exception:
+                _loaded_round = 0
+        _LOADED_SINGLE_TOOLS[tool_name] = _loaded_round
         _TOOL_DYNAMIC_THRESHOLDS[tool_name] = (initial_threshold, 0, 1)
         mod_name = f"uagent.tools.{mname}"
-        return _register_tool_module(mod, mod_name)
+        _register_tool_module(mod, mod_name)
+
+        # tool_load must only report success when the tool is actually visible
+        # to the LLM on the next request.
+        try:
+            from . import get_tool_specs
+
+            visible = False
+            for _spec in get_tool_specs() or []:
+                if not isinstance(_spec, dict):
+                    continue
+                _fn = _spec.get("function") or {}
+                if isinstance(_fn, dict) and _fn.get("name") == tool_name:
+                    visible = True
+                    break
+                if _spec.get("name") == tool_name:
+                    visible = True
+                    break
+            return visible
+        except Exception:
+            return False
 
     return False
 

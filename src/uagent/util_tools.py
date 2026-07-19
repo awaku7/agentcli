@@ -1527,8 +1527,33 @@ def _handle_cmd_skills(
     return CommandResult()
 
 
+def _default_clean_threshold() -> int:
+    """Default max user-turn count for short-log cleanup.
+
+    Override with UAGENT_CLEAN_THRESHOLD (positive int). Falls back to 5.
+    """
+    raw = (env_get("UAGENT_CLEAN_THRESHOLD", "") or "").strip()
+    if raw:
+        try:
+            n = int(raw)
+            if n >= 0:
+                return n
+        except Exception:
+            pass
+    return 5
+
+
+def _count_user_turns(messages: list[Any] | None) -> int:
+    """Count user turns (role == user). Commands/system/tool rows are ignored."""
+    n = 0
+    for m in messages or []:
+        if isinstance(m, dict) and m.get("role") == "user":
+            n += 1
+    return n
+
+
 def _parse_clean_threshold(arg: str, *, tr: Any) -> int | None:
-    threshold = 10
+    threshold = _default_clean_threshold()
     a = (arg or "").strip()
     if not a:
         return threshold
@@ -1566,9 +1591,9 @@ def _collect_clean_targets(
     for p in log_files:
         try:
             msgs = core.load_conversation_from_log(p)
-            non_system_count = max(0, len(msgs) - 1)
-            counts[p] = non_system_count
-            if non_system_count <= threshold:
+            user_turns = _count_user_turns(msgs)
+            counts[p] = user_turns
+            if user_turns <= threshold:
                 targets.append(p)
         except Exception as e:
             print(
@@ -1589,7 +1614,7 @@ def _confirm_clean_delete(
         body_tpl = _(
             "will delete conversation log files (scheck_log_*.jsonl) from disk.\n"
             "Log dir: %(dir)s\n"
-            "Rule: total user/assistant/tool messages excluding system <= %(threshold)d\n"
+            "Rule: user turns (role=user) <= %(threshold)d\n"
             "Targets: %(n)d\n\n"
             "Proceed? Enter y to run, or c to cancel."
         )
@@ -1630,6 +1655,98 @@ def _delete_clean_targets(targets: list[str], *, tr: Any) -> tuple[int, int]:
     return deleted, failed
 
 
+def _maybe_discard_short_session_log(
+    *,
+    core: Any,
+    messages_ref: list[dict[str, Any]],
+    tr: Any,
+) -> None:
+    """On exit, drop the current session log if it has few user turns.
+
+    Silent no-op when the log is missing or above threshold. No confirmation
+    (exit path); threshold matches :clean default / UAGENT_CLEAN_THRESHOLD.
+    """
+    threshold = _default_clean_threshold()
+    user_turns = _count_user_turns(messages_ref)
+    if user_turns > threshold:
+        return
+
+    log_path = getattr(core, "LOG_FILE", None)
+    if not isinstance(log_path, str) or not log_path:
+        return
+    if not os.path.exists(log_path):
+        return
+
+    try:
+        os.remove(log_path)
+        print(
+            tr(
+                "[clean] Discarded short session log (user turns=%(n)d <= %(threshold)d): %(path)s"
+            )
+            % {"n": user_turns, "threshold": threshold, "path": log_path}
+        )
+    except Exception as e:
+        print(
+            "[clean warn] Failed to discard session log: %(path)s (%(etype)s: %(err)s)"
+            % {"path": log_path, "etype": type(e).__name__, "err": e},
+            file=sys.stderr,
+        )
+
+
+
+def _sweep_short_session_logs(
+    *,
+    core: Any,
+    tr: Any,
+    exclude_current: bool = True,
+    quiet: bool = False,
+) -> tuple[int, int]:
+    """Delete leftover short session logs without confirmation.
+
+    Intended for startup (crashed/killed sessions) and other maintenance paths.
+    Current session is excluded by default so a fresh log is never removed.
+    Returns (deleted, failed).
+    """
+    threshold = _default_clean_threshold()
+    try:
+        log_files = core.find_log_files(exclude_current=exclude_current)
+    except Exception as e:
+        if not quiet:
+            print(
+                "[clean warn] Startup sweep skipped (list failed): %(etype)s: %(err)s"
+                % {"etype": type(e).__name__, "err": e},
+                file=sys.stderr,
+            )
+        return 0, 0
+
+    targets: list[str] = []
+    for path in log_files:
+        try:
+            msgs = core.load_conversation_from_log(path)
+            if _count_user_turns(msgs) <= threshold:
+                targets.append(path)
+        except Exception as e:
+            if not quiet:
+                print(
+                    "[clean warn] Startup sweep skipped (parse failed): %(path)s (%(etype)s: %(err)s)"
+                    % {"path": path, "etype": type(e).__name__, "err": e}
+                )
+
+    if not targets:
+        return 0, 0
+
+    deleted, failed = _delete_clean_targets(targets, tr=tr)
+    if not quiet and (deleted or failed):
+        print(
+            tr(
+                "[clean] Startup sweep: deleted=%(deleted)d, failed=%(failed)d "
+                "(threshold=%(threshold)d user turns)."
+            )
+            % {"deleted": deleted, "failed": failed, "threshold": threshold}
+        )
+    return deleted, failed
+
+
 def _handle_cmd_clean(arg: str, *, core: Any, tr: Any) -> bool:
     threshold = _parse_clean_threshold(arg, tr=tr)
     if threshold is None:
@@ -1641,7 +1758,7 @@ def _handle_cmd_clean(arg: str, *, core: Any, tr: Any) -> bool:
 
     if not targets:
         print(
-            "[clean] No logs to delete (threshold=%(threshold)d).\nLog dir: %(dir)s"
+            "[clean] No logs to delete (threshold=%(threshold)d user turns).\nLog dir: %(dir)s"
             % {
                 "threshold": threshold,
                 "dir": getattr(core, "BASE_LOG_DIR", "(unknown)"),
@@ -1650,12 +1767,12 @@ def _handle_cmd_clean(arg: str, *, core: Any, tr: Any) -> bool:
         return True
 
     print(
-        "[clean] Logs to delete (<= %(threshold)d msgs): %(n)d"
+        "[clean] Logs to delete (<= %(threshold)d user turns): %(n)d"
         % {"threshold": threshold, "n": len(targets)}
     )
     for p in targets:
         c = counts.get(p, -1)
-        print(tr(" - (%(count)d msgs) %(path)s") % {"count": c, "path": p})
+        print(tr(" - (%(count)d user turns) %(path)s") % {"count": c, "path": p})
 
     if not _confirm_clean_delete(
         core=core, threshold=threshold, targets=targets, tr=tr
@@ -2261,7 +2378,7 @@ def format_help(*, core: Any, topic: str | None = None) -> str:
         "  :logs                 " + tr("List conversation logs"),
         "  :load <idx|path>      " + tr("Load a past log into this session"),
         "  :cont                 " + tr("Continue from latest log (:load 0)"),
-        "  :clean [N]            " + tr("Delete short logs (default N=10)"),
+        "  :clean [N]            " + tr("Delete short logs (default N=5 user turns)"),
         "  :shrink [N]           " + tr("Shrink history (keep last N)"),
         "  :shrink_llm [N]       " + tr("LLM-summarize older history"),
         "  :tokens               " + tr("Show approx. conversation tokens"),
@@ -2373,7 +2490,10 @@ def _static_help_catalog(*, tr: Any) -> dict[str, dict[str, Any]]:
             tr("Delete short conversation logs"),
             usage=":clean [N]",
             detail=tr(
-                "Deletes scheck_log_*.jsonl where non-system message count <= N (default 10)."
+                "Deletes scheck_log_*.jsonl where user-turn count (role=user) <= N "
+                "(default 5, or UAGENT_CLEAN_THRESHOLD). "
+                "On :exit/:quit/Ctrl-C, the current session log is discarded under the same rule. "
+                "A silent startup sweep also removes leftover short logs from prior sessions."
             ),
         ),
         "shrink": e(
@@ -3069,6 +3189,114 @@ def _fetch_model_capa(provider: str, model: str) -> list[str]:
     return []
 
 
+def _model_provider_note(explicit_key: str, *, fallback_key: str = "UAGENT_PROVIDER") -> str:
+    """Annotate provider line when value comes from a fallback env key."""
+    if _get_env(explicit_key):
+        return ""
+    if fallback_key and _get_env(fallback_key):
+        return f"  (fallback: {fallback_key})"
+    return "  (fallback)"
+
+
+def _model_value_note(
+    *,
+    explicit_keys: list[str],
+    used_fallback: bool,
+    fallback_label: str,
+) -> str:
+    """Annotate model line when a default/fallback value is used."""
+    if any(_get_env(k) for k in explicit_keys):
+        return ""
+    if used_fallback and fallback_label:
+        return f"  (fallback: {fallback_label})"
+    return ""
+
+
+def _append_resolved_model_section(
+    lines: list[str],
+    *,
+    label: str,
+    explicit_provider_key: str,
+    resolved: tuple[str, str] | None,
+    model_explicit_keys: list[str] | None = None,
+    model_fallback_label: str = "",
+    extra_lines: list[str] | None = None,
+    verbose: bool = False,
+) -> None:
+    """Append one capability section, including fallback-resolved results."""
+    if not resolved:
+        lines.append(f"  {label}: (not configured)")
+        return
+
+    provider, model = resolved
+    prov_note = _model_provider_note(explicit_provider_key)
+    model_note = _model_value_note(
+        explicit_keys=model_explicit_keys or [],
+        used_fallback=bool(model_fallback_label),
+        fallback_label=model_fallback_label,
+    )
+    lines.append(f"  {label}:")
+    lines.append(f"    Provider: {provider}{prov_note}")
+    lines.append(f"    Model:    {model}{model_note}")
+    if extra_lines:
+        lines.extend(extra_lines)
+    if verbose:
+        capa_lines = _fetch_model_capa(provider, model)
+        if capa_lines:
+            lines.extend(capa_lines)
+
+
+def _image_analysis_model_keys(provider: str) -> tuple[list[str], str]:
+    p = provider.upper()
+    keys = [
+        f"UAGENT_{p}_IMG_ANALYSIS_DEPNAME",
+        "UAGENT_IMG_ANALYSIS_DEPNAME",
+    ]
+    if provider in ("openai", "azure", "ollama"):
+        keys.append(f"UAGENT_{p}_DEPNAME")
+        return keys, f"UAGENT_{p}_DEPNAME/default"
+    if provider in ("gemini", "vertexai"):
+        return keys, "default gemini-1.5-flash"
+    return keys, "default"
+
+
+def _image_generation_model_keys(provider: str) -> tuple[list[str], str]:
+    p = provider.upper()
+    keys = [f"UAGENT_{p}_IMG_GENERATE_DEPNAME", "UAGENT_IMG_GENERATE_DEPNAME"]
+    defaults = {
+        "openai": "default gpt-image-1",
+        "gemini": "default imagen-4.0-generate-001",
+        "vertexai": "default imagen-4.0-generate-001",
+        "zai": "default glm-image",
+        "grok": "default grok-imagine-image",
+    }
+    return keys, defaults.get(provider, "default")
+
+
+def _audio_model_keys(provider: str, mode: str) -> tuple[list[str], str]:
+    p = provider.upper()
+    m = mode.upper()
+    if provider == "azure":
+        return [f"UAGENT_AZURE_{m}_DEPNAME"], f"UAGENT_AZURE_{m}_DEPNAME"
+    if provider in ("gemini", "vertexai"):
+        return (
+            [f"UAGENT_GEMINI_{m}_DEPNAME", "UAGENT_GEMINI_MODEL"],
+            "UAGENT_GEMINI_MODEL/default",
+        )
+    if provider == "grok":
+        if mode == "speech":
+            return (
+                ["UAGENT_GROK_SPEECH_DEPNAME", "UAGENT_GROK_TTS_MODEL"],
+                "default grok-tts",
+            )
+        return (
+            ["UAGENT_GROK_TRANSCRIBE_DEPNAME", "UAGENT_GROK_STT_MODEL"],
+            "default grok-stt-batch",
+        )
+    default = "gpt-4o-mini-tts" if mode == "speech" else "gpt-4o-mini-transcribe"
+    return [f"UAGENT_OPENAI_{m}_DEPNAME"], f"default {default}"
+
+
 def _handle_cmd_model(
     arg: str,
     *,
@@ -3079,6 +3307,9 @@ def _handle_cmd_model(
 
     :model         - show basic configuration
     :model v       - verbose: also show llmcapa details for all configured models
+
+    Optional modalities (image/audio/embedding) use the same effective resolution
+    as the startup banner, including UAGENT_PROVIDER / built-in model fallbacks.
     """
     verbose = arg.strip().lower() in ("v", "ver", "verbose")
     provider = _get_env("UAGENT_PROVIDER", "(none)")
@@ -3105,120 +3336,133 @@ def _handle_cmd_model(
         if capa_lines:
             lines.extend(capa_lines)
 
-    # Image analysis
-    ia_provider = _get_env("UAGENT_IMG_ANALYSIS_PROVIDER")
-    if ia_provider:
-        ia_model = _get_env(f"UAGENT_{ia_provider.upper()}_IMG_ANALYSIS_DEPNAME")
-        if not ia_model and ia_provider in ("openai", "azure"):
-            ia_model = _get_env(f"UAGENT_{ia_provider.upper()}_DEPNAME")
-        if not ia_model and ia_provider == "ollama":
-            ia_model = _get_env("UAGENT_OLLAMA_DEPNAME", "llama3.1")
-        if not ia_model and ia_provider in ("gemini", "vertexai"):
-            ia_model = "gemini-1.5-flash"
-        if ia_model:
-            lines.append("  Image Analysis:")
-            lines.append(f"    Provider: {ia_provider}")
-            lines.append(f"    Model:    {ia_model}")
-            if verbose:
-                capa_lines = _fetch_model_capa(ia_provider, ia_model)
-                if capa_lines:
-                    lines.extend(capa_lines)
-    else:
-        lines.append("  Image Analysis: (not configured)")
-
-    # Image generation
-    ig_provider = _get_env("UAGENT_IMG_GENERATE_PROVIDER")
-    if ig_provider:
-        ig_model = _get_env(f"UAGENT_{ig_provider.upper()}_IMG_GENERATE_DEPNAME")
-        if not ig_model and ig_provider == "openai":
-            ig_model = "gpt-image-1"
-        if not ig_model and ig_provider in ("gemini", "vertexai"):
-            ig_model = "imagen-3.0-generate-002"
-        if not ig_model and ig_provider == "zai":
-            ig_model = "glm-image"
-        if not ig_model and ig_provider == "grok":
-            ig_model = "grok-imagine-image"
-        if ig_model:
-            lines.append("  Image Generation:")
-            lines.append(f"    Provider: {ig_provider}")
-            lines.append(f"    Model:    {ig_model}")
-            if verbose:
-                capa_lines = _fetch_model_capa(ig_provider, ig_model)
-                if capa_lines:
-                    lines.extend(capa_lines)
-    else:
-        lines.append("  Image Generation: (not configured)")
-
-    # Audio speech
-    speech_provider = _get_env("UAGENT_AUDIO_SPEECH_PROVIDER")
-    if speech_provider:
-        speech_model = _get_env(f"UAGENT_{speech_provider.upper()}_SPEECH_DEPNAME")
-        if not speech_model:
-            speech_model = "gpt-4o-mini-tts"
-        if speech_model:
-            lines.append("  Audio Speech:")
-            lines.append(f"    Provider: {speech_provider}")
-            lines.append(f"    Model:    {speech_model}")
-            if verbose:
-                capa_lines = _fetch_model_capa(speech_provider, speech_model)
-                if capa_lines:
-                    lines.extend(capa_lines)
-    else:
-        lines.append("  Audio Speech: (not configured)")
-
-    # Audio transcribe
-    transcribe_provider = _get_env("UAGENT_AUDIO_TRANSCRIBE_PROVIDER")
-    if transcribe_provider:
-        transcribe_model = _get_env(
-            f"UAGENT_{transcribe_provider.upper()}_TRANSCRIBE_DEPNAME"
+    # Resolve optional modalities with the same logic as startup banner.
+    try:
+        from .runtime.runtime_banner import (
+            _audio_model_info,
+            _embedding_model_info,
+            _image_analysis_model_info,
+            _image_generation_model_info,
         )
-        if not transcribe_model:
-            transcribe_model = "gpt-4o-mini-transcribe"
-        if transcribe_model:
-            lines.append("  Audio Transcribe:")
-            lines.append(f"    Provider: {transcribe_provider}")
-            lines.append(f"    Model:    {transcribe_model}")
-            if verbose:
-                capa_lines = _fetch_model_capa(transcribe_provider, transcribe_model)
-                if capa_lines:
-                    lines.extend(capa_lines)
-    else:
-        lines.append("  Audio Transcribe: (not configured)")
+    except Exception:
+        _audio_model_info = None  # type: ignore[assignment]
+        _embedding_model_info = None  # type: ignore[assignment]
+        _image_analysis_model_info = None  # type: ignore[assignment]
+        _image_generation_model_info = None  # type: ignore[assignment]
 
-    # Translation
+    def _safe_resolve(fn: Any) -> tuple[str, str] | None:
+        if fn is None:
+            return None
+        try:
+            return fn()
+        except Exception:
+            return None
+
+    ia_resolved = _safe_resolve(_image_analysis_model_info)
+    ia_keys: list[str] = []
+    ia_fb = ""
+    if ia_resolved:
+        ia_keys, ia_fb = _image_analysis_model_keys(ia_resolved[0])
+    _append_resolved_model_section(
+        lines,
+        label="Image Analysis",
+        explicit_provider_key="UAGENT_IMG_ANALYSIS_PROVIDER",
+        resolved=ia_resolved,
+        model_explicit_keys=ia_keys,
+        model_fallback_label=ia_fb,
+        verbose=verbose,
+    )
+
+    ig_resolved = _safe_resolve(_image_generation_model_info)
+    ig_keys: list[str] = []
+    ig_fb = ""
+    if ig_resolved:
+        ig_keys, ig_fb = _image_generation_model_keys(ig_resolved[0])
+    _append_resolved_model_section(
+        lines,
+        label="Image Generation",
+        explicit_provider_key="UAGENT_IMG_GENERATE_PROVIDER",
+        resolved=ig_resolved,
+        model_explicit_keys=ig_keys,
+        model_fallback_label=ig_fb,
+        verbose=verbose,
+    )
+
+    speech_resolved = _safe_resolve(
+        (lambda: _audio_model_info("speech")) if _audio_model_info else None
+    )
+    speech_keys: list[str] = []
+    speech_fb = ""
+    if speech_resolved:
+        speech_keys, speech_fb = _audio_model_keys(speech_resolved[0], "speech")
+    _append_resolved_model_section(
+        lines,
+        label="Audio Speech",
+        explicit_provider_key="UAGENT_AUDIO_SPEECH_PROVIDER",
+        resolved=speech_resolved,
+        model_explicit_keys=speech_keys,
+        model_fallback_label=speech_fb,
+        verbose=verbose,
+    )
+
+    tr_resolved = _safe_resolve(
+        (lambda: _audio_model_info("transcribe")) if _audio_model_info else None
+    )
+    tr_keys: list[str] = []
+    tr_fb = ""
+    if tr_resolved:
+        tr_keys, tr_fb = _audio_model_keys(tr_resolved[0], "transcribe")
+    _append_resolved_model_section(
+        lines,
+        label="Audio Transcribe",
+        explicit_provider_key="UAGENT_AUDIO_TRANSCRIBE_PROVIDER",
+        resolved=tr_resolved,
+        model_explicit_keys=tr_keys,
+        model_fallback_label=tr_fb,
+        verbose=verbose,
+    )
+
+    # Translation (requires explicit UAGENT_TRANSLATE_PROVIDER)
     translate_provider = _get_env("UAGENT_TRANSLATE_PROVIDER")
     if translate_provider:
         translate_model = _get_env("UAGENT_TRANSLATE_DEPNAME")
+        model_fb = ""
         if not translate_model:
             translate_model = _get_env(f"UAGENT_{translate_provider.upper()}_DEPNAME")
+            if translate_model:
+                model_fb = f"UAGENT_{translate_provider.upper()}_DEPNAME"
         if translate_model:
             translate_to = _get_env("UAGENT_TRANSLATE_TO_LLM", "?")
             translate_from = _get_env("UAGENT_TRANSLATE_FROM_LLM", "?")
+            model_note = f"  (fallback: {model_fb})" if model_fb else ""
             lines.append("  Translation:")
             lines.append(f"    Provider: {translate_provider}")
-            lines.append(f"    Model:    {translate_model}")
-            lines.append(f"    From\u2192To:  {translate_from} \u2192 {translate_to}")
+            lines.append(f"    Model:    {translate_model}{model_note}")
+            lines.append(f"    From→To:  {translate_from} → {translate_to}")
             if verbose:
                 capa_lines = _fetch_model_capa(translate_provider, translate_model)
                 if capa_lines:
                     lines.extend(capa_lines)
+        else:
+            lines.append("  Translation: (not configured)")
     else:
         lines.append("  Translation: (not configured)")
 
-    # Embedding
-    emb_provider = _get_env("UAGENT_EMBEDDING_PROVIDER")
-    if emb_provider:
-        emb_model = _get_env(f"UAGENT_{emb_provider.upper()}_EMBEDDING_DEPNAME")
-        if emb_model:
-            lines.append("  Embedding:")
-            lines.append(f"    Provider: {emb_provider}")
-            lines.append(f"    Model:    {emb_model}")
-            if verbose:
-                capa_lines = _fetch_model_capa(emb_provider, emb_model)
-                if capa_lines:
-                    lines.extend(capa_lines)
-    else:
-        lines.append("  Embedding: (not configured)")
+    emb_resolved = _safe_resolve(_embedding_model_info)
+    emb_keys: list[str] = []
+    emb_fb = ""
+    if emb_resolved:
+        emb_keys = [f"UAGENT_{emb_resolved[0].upper()}_EMBEDDING_DEPNAME"]
+        emb_fb = emb_keys[0]
+    _append_resolved_model_section(
+        lines,
+        label="Embedding",
+        explicit_provider_key="UAGENT_EMBEDDING_PROVIDER",
+        resolved=emb_resolved,
+        model_explicit_keys=emb_keys,
+        model_fallback_label=emb_fb,
+        verbose=verbose,
+    )
 
     print("\n".join(lines))
     return CommandResult()
@@ -3392,6 +3636,9 @@ def handle_command(
         return res
 
     if cmd in ("exit", "quit"):
+        _maybe_discard_short_session_log(
+            core=core, messages_ref=messages_ref, tr=tr
+        )
         print(tr("Exiting."))
         return False
 
@@ -3421,8 +3668,27 @@ def load_agents_md() -> str:
         return ""
 
 
-def build_initial_messages(*, core: Any) -> list[dict[str, Any]]:
+def build_initial_messages(
+    *,
+    core: Any,
+    provider: str | None = None,
+    depname: str | None = None,
+    use_responses_api: bool | None = None,
+) -> list[dict[str, Any]]:
     messages: list[dict[str, Any]] = []
+
+    # Rebuild system prompt so native tool_search can drop catalog steering
+    # using the current provider/model (import-time default may differ).
+    try:
+        refresh = getattr(core, "refresh_system_prompt", None)
+        if callable(refresh):
+            refresh(
+                provider=provider,
+                depname=depname,
+                use_responses_api=use_responses_api,
+            )
+    except Exception:
+        pass
 
     system_msg = {"role": "system", "content": core.SYSTEM_PROMPT}
     messages.append(system_msg)

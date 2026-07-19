@@ -75,6 +75,19 @@ def _inject_stop_prompt(
     core: Any,
 ) -> None:
     """Inject a stop command as a user message and log it."""
+    # Interrupt leaves Responses API chains incomplete (especially mid-tool).
+    # Drop previous_response_id so the next turn does not reuse a stale rid.
+    try:
+        clear_fn = getattr(_core_module, "clear_responses_continuation", None)
+        if callable(clear_fn):
+            clear_fn()
+        else:
+            state = getattr(core, "responses_state", None)
+            if isinstance(state, dict):
+                state.pop("previous_response_id", None)
+                state.pop("_stale_rid_occurred", None)
+    except Exception:
+        pass
     print("\n[INTERRUPT] " + _("Stopped by user. Sending stop command to LLM..."))
     user_msg = {"role": "user", "content": _("Stop")}
     messages.append(user_msg)
@@ -87,6 +100,25 @@ _TOOL_AUTO_UNLOAD_ROUNDS = int(
     env_get("UAGENT_AUTO_UNLOAD_ROUNDS", "10")
 )  # unload after this many rounds without use
 _TOTAL_ROUNDS: int = 0  # total rounds across all LLM calls, monotonically increasing
+# Rounds that actually executed the tool postamble (RS_OK). Empty/no-tool
+# continue rounds must not age auto-unload counters.
+_PRODUCTIVE_ROUNDS: int = 0
+
+
+def _productive_age(stamp: object, *, now: int | None = None) -> int | None:
+    """Return age on the productive-round timeline.
+
+    Stamps from the old TOTAL_ROUNDS timeline can be larger than the current
+    productive clock; treat those as already expired by returning a huge age.
+    """
+    try:
+        s = int(stamp)  # type: ignore[arg-type]
+    except Exception:
+        return None
+    cur = _PRODUCTIVE_ROUNDS if now is None else int(now)
+    if s > cur:
+        return 10**9
+    return cur - s
 
 # Track repeated management-tool fingerprints to detect loops.
 # Fingerprint is action + target (e.g. tool_load:file_grep), so loading
@@ -97,6 +129,20 @@ _TOTAL_ROUNDS: int = 0  # total rounds across all LLM calls, monotonically incre
 _TOOL_CALL_FINGERPRINTS: dict[str, int] = {}
 _MGMT_TOOLS = frozenset({"tool_catalog", "tool_load", "unload_tool"})
 _MGMT_LOOP_THRESHOLD = 4
+# Same-args general tool loops (e.g. get_windows_gps xN) are also blocked.
+# Keep this close to the management threshold so runaway tool spam stops early.
+_GENERAL_TOOL_LOOP_THRESHOLD = 4
+# Tools that may legitimately be called repeatedly with identical args in one
+# session (polling/monitors). These stay on the management-only detector.
+_GENERAL_LOOP_EXEMPT_TOOLS = frozenset(
+    {
+        "human_ask",
+        "finish_skill",
+        "tool_catalog",
+        "tool_load",
+        "unload_tool",
+    }
+)
 
 
 def _parse_mgmt_tool_args(args_raw: Any) -> Any:
@@ -133,6 +179,17 @@ def _mgmt_tool_fingerprint(name: str, args: Any) -> str:
     return f"{name}:{json.dumps(args, sort_keys=True, ensure_ascii=False)}"
 
 
+def _general_tool_fingerprint(name: str, args: Any) -> str:
+    """Build a loop-detection key for a general (non-management) tool call."""
+    if not isinstance(args, dict):
+        return f"tool:{name}:{args!r}"
+    try:
+        payload = json.dumps(args, sort_keys=True, ensure_ascii=False)
+    except Exception:
+        payload = repr(args)
+    return f"tool:{name}:{payload}"
+
+
 def _mgmt_tool_display(name: str, args: Any) -> str:
     if name in ("tool_load", "unload_tool") and isinstance(args, dict):
         target = _mgmt_tool_target(name, args)
@@ -154,6 +211,33 @@ def clear_mgmt_load_streak(target: str) -> None:
     _TOOL_CALL_FINGERPRINTS.pop(f"tool_load:{name}", None)
     # drop any stale unload fingerprint from older builds
     _TOOL_CALL_FINGERPRINTS.pop(f"unload_tool:{name}", None)
+
+
+def clear_general_tool_loop_streaks() -> None:
+    """Clear general-tool loop counters.
+
+    tool_catalog is a re-planning boundary: once the model re-searches tools,
+    previous same-args streaks (e.g. get_windows_gps x3) should not carry over.
+    Management fingerprints (tool_load:/tool_catalog:...) are kept.
+    """
+    for key in list(_TOOL_CALL_FINGERPRINTS.keys()):
+        if str(key).startswith("tool:"):
+            _TOOL_CALL_FINGERPRINTS.pop(key, None)
+
+
+def _tool_calls_include_name(tool_calls_list: list[dict[str, Any]], name: str) -> bool:
+    target = str(name or "").strip()
+    if not target:
+        return False
+    for tc in tool_calls_list or []:
+        if not isinstance(tc, dict):
+            continue
+        fn = tc.get("function") or {}
+        if not isinstance(fn, dict):
+            continue
+        if str(fn.get("name") or "").strip() == target:
+            return True
+    return False
 
 
 def check_mgmt_tool_loop(
@@ -217,6 +301,65 @@ def check_mgmt_tool_loop(
     return False, "", 0
 
 
+def check_general_tool_loop(
+    tool_calls_list: list[dict[str, Any]],
+    *,
+    record: bool = True,
+    threshold: int | None = None,
+) -> tuple[bool, str, int]:
+    """Detect repeated same-args general tool calls across rounds.
+
+    Returns (blocked, display_name, count). Management tools are handled by
+    check_mgmt_tool_loop and are ignored here.
+
+    Counters are per fingerprint (tool + args). When a different fingerprint
+    appears, other general-tool counters are reset so only the active streak
+    is tracked.
+    """
+    if not tool_calls_list:
+        return False, "", 0
+    limit = (
+        _GENERAL_TOOL_LOOP_THRESHOLD if threshold is None else threshold
+    )
+
+    round_counts: dict[str, int] = {}
+    display: dict[str, str] = {}
+    for tc in tool_calls_list:
+        fn = tc.get("function", {}) or {}
+        name = str(fn.get("name", "") or "")
+        if not name or name in _GENERAL_LOOP_EXEMPT_TOOLS:
+            continue
+        args = _parse_mgmt_tool_args(fn.get("arguments", "{}"))
+        fp = _general_tool_fingerprint(name, args)
+        round_counts[fp] = round_counts.get(fp, 0) + 1
+        display[fp] = name
+
+    if not round_counts:
+        return False, "", 0
+
+    if record:
+        # Different fingerprint => previous general-tool streaks are stale.
+        for key in list(_TOOL_CALL_FINGERPRINTS.keys()):
+            if str(key).startswith("tool:") and key not in round_counts:
+                _TOOL_CALL_FINGERPRINTS.pop(key, None)
+
+    blocked_name = ""
+    blocked_count = 0
+    for fp, n in round_counts.items():
+        if record:
+            total = _TOOL_CALL_FINGERPRINTS.get(fp, 0) + n
+            _TOOL_CALL_FINGERPRINTS[fp] = total
+        else:
+            total = _TOOL_CALL_FINGERPRINTS.get(fp, 0) + n
+        if total >= limit and total > blocked_count:
+            blocked_name = display.get(fp, fp)
+            blocked_count = total
+
+    if blocked_count >= limit:
+        return True, blocked_name, blocked_count
+    return False, "", 0
+
+
 # --- Round status constants (internal) ---
 _RS_RETURN = "return"  # fatal error, caller must return
 _RS_BREAK = "break"  # stop loop, exit normally
@@ -242,13 +385,12 @@ def _run_one_round(
     gemini_cache_name: str | None,
     tool_result_cache: dict[str, str],
     use_tool_result_cache: bool,
-    reuse_only_rounds: int,
     use_llm_thread: bool,
     judgment_mode: bool = False,
 ) -> tuple[str, Any, str | None, int, int, str]:
     """Run a single LLM round.
 
-    Returns (status, client, gemini_cache_name, empty_no_tool_rounds, reuse_only_rounds, assistant_text).
+    Returns (status, client, gemini_cache_name, empty_no_tool_rounds, assistant_text).
     Caller dispatches on status:
       RS_RETURN   → return from run_llm_rounds
       RS_BREAK    → break while loop
@@ -269,7 +411,6 @@ def _run_one_round(
                 client,
                 gemini_cache_name,
                 empty_no_tool_rounds,
-                reuse_only_rounds,
                 "",
             )
 
@@ -325,7 +466,6 @@ def _run_one_round(
             client,
             gemini_cache_name,
             empty_no_tool_rounds,
-            reuse_only_rounds,
             "",
         )
 
@@ -369,7 +509,6 @@ def _run_one_round(
                 client,
                 gemini_cache_name,
                 empty_no_tool_rounds,
-                reuse_only_rounds,
                 assistant_text,
             )
 
@@ -383,7 +522,6 @@ def _run_one_round(
                     client,
                     gemini_cache_name,
                     empty_no_tool_rounds,
-                    reuse_only_rounds,
                     assistant_text,
                 )
 
@@ -419,7 +557,6 @@ def _run_one_round(
                 client,
                 gemini_cache_name,
                 empty_no_tool_rounds,
-                reuse_only_rounds,
                 assistant_text,
             )
         if action == "break":
@@ -428,7 +565,6 @@ def _run_one_round(
                 client,
                 gemini_cache_name,
                 empty_no_tool_rounds,
-                reuse_only_rounds,
                 assistant_text,
             )
 
@@ -449,7 +585,6 @@ def _run_one_round(
                 client,
                 gemini_cache_name,
                 empty_no_tool_rounds,
-                reuse_only_rounds,
                 assistant_text,
             )
 
@@ -475,7 +610,6 @@ def _run_one_round(
                 client,
                 gemini_cache_name,
                 empty_no_tool_rounds,
-                reuse_only_rounds,
                 assistant_text,
             )
 
@@ -489,7 +623,6 @@ def _run_one_round(
                     client,
                     gemini_cache_name,
                     empty_no_tool_rounds,
-                    reuse_only_rounds,
                     assistant_text,
                 )
 
@@ -523,7 +656,6 @@ def _run_one_round(
                 client,
                 gemini_cache_name,
                 empty_no_tool_rounds,
-                reuse_only_rounds,
                 assistant_text,
             )
         if action == "break":
@@ -532,7 +664,6 @@ def _run_one_round(
                 client,
                 gemini_cache_name,
                 empty_no_tool_rounds,
-                reuse_only_rounds,
                 assistant_text,
             )
 
@@ -553,7 +684,6 @@ def _run_one_round(
                 client,
                 gemini_cache_name,
                 empty_no_tool_rounds,
-                reuse_only_rounds,
                 assistant_text,
             )
 
@@ -581,7 +711,6 @@ def _run_one_round(
                 client,
                 gemini_cache_name,
                 empty_no_tool_rounds,
-                reuse_only_rounds,
                 assistant_text,
             )
 
@@ -595,7 +724,6 @@ def _run_one_round(
                     client,
                     gemini_cache_name,
                     empty_no_tool_rounds,
-                    reuse_only_rounds,
                     assistant_text,
                 )
 
@@ -636,7 +764,6 @@ def _run_one_round(
                 client,
                 gemini_cache_name,
                 empty_no_tool_rounds,
-                reuse_only_rounds,
                 assistant_text,
             )
         if action == "break":
@@ -645,7 +772,6 @@ def _run_one_round(
                 client,
                 gemini_cache_name,
                 empty_no_tool_rounds,
-                reuse_only_rounds,
                 assistant_text,
             )
 
@@ -667,7 +793,6 @@ def _run_one_round(
                 client,
                 gemini_cache_name,
                 empty_no_tool_rounds,
-                reuse_only_rounds,
                 assistant_text,
             )
 
@@ -694,7 +819,6 @@ def _run_one_round(
                 client,
                 gemini_cache_name,
                 empty_no_tool_rounds,
-                reuse_only_rounds,
                 assistant_text,
             )
 
@@ -708,7 +832,6 @@ def _run_one_round(
                     client,
                     gemini_cache_name,
                     empty_no_tool_rounds,
-                    reuse_only_rounds,
                     assistant_text,
                 )
 
@@ -749,7 +872,6 @@ def _run_one_round(
                 client,
                 gemini_cache_name,
                 empty_no_tool_rounds,
-                reuse_only_rounds,
                 assistant_text,
             )
         if action == "break":
@@ -758,7 +880,6 @@ def _run_one_round(
                 client,
                 gemini_cache_name,
                 empty_no_tool_rounds,
-                reuse_only_rounds,
                 assistant_text,
             )
 
@@ -780,7 +901,6 @@ def _run_one_round(
                 client,
                 gemini_cache_name,
                 empty_no_tool_rounds,
-                reuse_only_rounds,
                 assistant_text,
             )
 
@@ -807,7 +927,6 @@ def _run_one_round(
                 client,
                 gemini_cache_name,
                 empty_no_tool_rounds,
-                reuse_only_rounds,
                 assistant_text,
             )
 
@@ -821,7 +940,6 @@ def _run_one_round(
                     client,
                     gemini_cache_name,
                     empty_no_tool_rounds,
-                    reuse_only_rounds,
                     assistant_text,
                 )
 
@@ -862,7 +980,6 @@ def _run_one_round(
                 client,
                 gemini_cache_name,
                 empty_no_tool_rounds,
-                reuse_only_rounds,
                 assistant_text,
             )
         if action == "break":
@@ -871,7 +988,6 @@ def _run_one_round(
                 client,
                 gemini_cache_name,
                 empty_no_tool_rounds,
-                reuse_only_rounds,
                 assistant_text,
             )
 
@@ -893,7 +1009,6 @@ def _run_one_round(
                 client,
                 gemini_cache_name,
                 empty_no_tool_rounds,
-                reuse_only_rounds,
                 assistant_text,
             )
 
@@ -977,7 +1092,6 @@ def _run_one_round(
                 client,
                 gemini_cache_name,
                 empty_no_tool_rounds,
-                reuse_only_rounds,
                 assistant_text,
             )
 
@@ -995,7 +1109,6 @@ def _run_one_round(
                     client,
                     gemini_cache_name,
                     empty_no_tool_rounds,
-                    reuse_only_rounds,
                     assistant_text,
                 )
 
@@ -1035,7 +1148,6 @@ def _run_one_round(
                 client,
                 gemini_cache_name,
                 empty_no_tool_rounds,
-                reuse_only_rounds,
                 assistant_text,
             )
         if action == "break":
@@ -1044,7 +1156,6 @@ def _run_one_round(
                 client,
                 gemini_cache_name,
                 empty_no_tool_rounds,
-                reuse_only_rounds,
                 assistant_text,
             )
 
@@ -1069,7 +1180,6 @@ def _run_one_round(
                 client,
                 gemini_cache_name,
                 empty_no_tool_rounds,
-                reuse_only_rounds,
                 assistant_text,
             )
 
@@ -1083,11 +1193,10 @@ def _run_one_round(
             client,
             gemini_cache_name,
             empty_no_tool_rounds,
-            reuse_only_rounds,
             assistant_text,
         )
 
-    executed_new_tool = _execute_tool_calls(
+    executed_new_tool, fresh_tool_calls = _execute_tool_calls(
         tool_calls_list=tool_calls_list,
         messages=messages,
         core=core,
@@ -1106,7 +1215,6 @@ def _run_one_round(
             client,
             gemini_cache_name,
             empty_no_tool_rounds,
-            reuse_only_rounds,
             assistant_text,
         )
 
@@ -1128,29 +1236,15 @@ def _run_one_round(
 
     core.set_status(True, "LLM")
 
-    if executed_new_tool:
-        reuse_only_rounds = 0
-    else:
-        reuse_only_rounds += 1
-        if reuse_only_rounds >= 3:
-            print(
-                "[WARN] The same tool result was reused for 3 consecutive rounds, so "
-                "processing was stopped to prevent a loop."
-            )
-            return (
-                _RS_BREAK,
-                client,
-                gemini_cache_name,
-                empty_no_tool_rounds,
-                reuse_only_rounds,
-                assistant_text,
-            )
-
     # Detect repeated same-target management tool calls.
     # Parallel tool_load of different tools is allowed; only the same target
     # (e.g. tool_load(file_grep) x4) across rounds is treated as a loop.
     # unload_tool(target) clears that target's load streak first.
     if tool_calls_list and not judgment_mode:
+        # Re-planning via tool_catalog starts a fresh general-tool streak.
+        if _tool_calls_include_name(tool_calls_list, "tool_catalog"):
+            clear_general_tool_loop_streaks()
+
         blocked, blocked_name, blocked_count = check_mgmt_tool_loop(tool_calls_list)
         if blocked:
             print(
@@ -1162,7 +1256,24 @@ def _run_one_round(
                 client,
                 gemini_cache_name,
                 empty_no_tool_rounds,
-                reuse_only_rounds,
+                assistant_text,
+            )
+        # Count only freshly executed general tools. Cache-reuse replies
+        # ("Already called...") must not inflate the loop counter.
+        blocked, blocked_name, blocked_count = check_general_tool_loop(
+            fresh_tool_calls
+        )
+        if blocked:
+            print(
+                "[WARN] Tool call '%(name)s' repeated %(n)d times with the same "
+                "arguments; aborting to prevent loop."
+                % {"name": blocked_name, "n": blocked_count}
+            )
+            return (
+                _RS_BREAK,
+                client,
+                gemini_cache_name,
+                empty_no_tool_rounds,
                 assistant_text,
             )
 
@@ -1171,7 +1282,6 @@ def _run_one_round(
         client,
         gemini_cache_name,
         empty_no_tool_rounds,
-        reuse_only_rounds,
         assistant_text,
     )
 
@@ -1189,7 +1299,7 @@ def run_llm_rounds(
     judgment_mode: bool = False,
     judgment_messages: list[dict[str, Any]] | None = None,
 ) -> str | None:
-    global _TOTAL_ROUNDS, _TOOL_LAST_ROUND, _TOOL_AUTO_UNLOAD_ROUNDS, _TOOL_SPECS
+    global _TOTAL_ROUNDS, _PRODUCTIVE_ROUNDS, _TOOL_LAST_ROUND, _TOOL_AUTO_UNLOAD_ROUNDS, _TOOL_SPECS
     # Judgment mode: swap messages so all side effects go to judgment_messages
     if judgment_mode:
         if not judgment_messages:
@@ -1233,8 +1343,6 @@ def run_llm_rounds(
         "no",
         "off",
     )
-    reuse_only_rounds = 0
-
     # Reset management tool call loop detection for this session
     _TOOL_CALL_FINGERPRINTS.clear()
 
@@ -1264,7 +1372,6 @@ def run_llm_rounds(
                 client,
                 gemini_cache_name,
                 empty_no_tool_rounds,
-                reuse_only_rounds,
                 _round_text,
             ) = _run_one_round(
                 provider=provider,
@@ -1283,7 +1390,6 @@ def run_llm_rounds(
                 gemini_cache_name=gemini_cache_name,
                 tool_result_cache=tool_result_cache,
                 use_tool_result_cache=use_tool_result_cache,
-                reuse_only_rounds=reuse_only_rounds,
                 use_llm_thread=use_llm_thread,
                 judgment_mode=judgment_mode,
             )
@@ -1299,61 +1405,120 @@ def run_llm_rounds(
             # _RS_CONTINUE and _RS_OK: continue loop naturally
 
             # --- Auto-unload stale tools ---
-            # Search backwards through messages to find the LAST assistant message with tool_calls
-            # (messages[-1] may be a tool result after _execute_tool_calls, so we can't rely on it alone)
-            _found_tool_names: set[str] = set()
-            for _m in reversed(messages):
-                if not isinstance(_m, dict):
-                    continue
-                if _m.get("role") != "assistant":
-                    continue
-                _tcs = _m.get("tool_calls")
-                if not isinstance(_tcs, list) or not _tcs:
-                    continue
-                for _tc in _tcs:
-                    _tname = _tc.get("function", {}).get("name", "")
-                    if _tname:
-                        _found_tool_names.add(_tname)
-                break  # only the last assistant message matters
-            for _tname in _found_tool_names:
-                _TOOL_LAST_ROUND[_tname] = _TOTAL_ROUNDS
-                _bump_threshold(_tname)
+            # Age tools only on productive rounds (tool postamble / RS_OK).
+            # Empty LLM continue rounds must not decrement/advance per-tool
+            # disappearance counters.
+            if round_status == _RS_OK:
+                _PRODUCTIVE_ROUNDS += 1
+                # Search backwards for the LAST assistant message with tool_calls.
+                _found_tool_names: set[str] = set()
+                for _m in reversed(messages):
+                    if not isinstance(_m, dict):
+                        continue
+                    if _m.get("role") != "assistant":
+                        continue
+                    _tcs = _m.get("tool_calls")
+                    if not isinstance(_tcs, list) or not _tcs:
+                        continue
+                    for _tc in _tcs:
+                        _tname = (_tc.get("function") or {}).get("name", "")
+                        if _tname:
+                            _found_tool_names.add(str(_tname))
+                    break
 
-            # Skip auto-unload when server manages tool selection
-            # (native GPT-5.4 tool_search mode only)
-            if not (
-                _should_preload_lazy_specs()
-                or _is_gpt54_tool_search_target(
-                    provider=provider,
-                    depname=depname,
-                    use_responses_api=True,
-                )
-            ):
-                for spec in list(_TOOL_SPECS):
-                    func_info = spec.get("function", {})
-                    tname = func_info.get("name", "")
-                    if not tname:
-                        continue
-                    # Skip core/management tools
-                    if tname in ("tool_catalog", "tool_load", "unload_tool"):
-                        continue
-                    # Only auto-unload tools explicitly loaded by user (:tools load or tool_load)
-                    if tname not in _LOADED_SINGLE_TOOLS:
-                        continue
-                    # Skip tools pinned against auto-unload (e.g. active browser sessions)
-                    if _is_tool_pinned(tname):
-                        continue
-                    threshold = _get_threshold(tname)
-                    if threshold <= 0:
-                        continue
-                    last = _TOOL_LAST_ROUND.get(tname)
-                    if last is None:
-                        # Never used: unload after threshold rounds
-                        if _TOTAL_ROUNDS >= threshold:
-                            _disable_single_tool(tname)
-                    elif (_TOTAL_ROUNDS - last) >= threshold:
-                        _TOOL_LAST_ROUND.pop(tname, None)
-                        _disable_single_tool(tname)
+                for _tname in _found_tool_names:
+                    _TOOL_LAST_ROUND[_tname] = _PRODUCTIVE_ROUNDS
+                    _bump_threshold(_tname)
+                    # tool_load(target) intentionally requested a target.
+                    if _tname == "tool_load":
+                        try:
+                            for _m in reversed(messages):
+                                if (
+                                    not isinstance(_m, dict)
+                                    or _m.get("role") != "assistant"
+                                ):
+                                    continue
+                                _tcs = _m.get("tool_calls")
+                                if not isinstance(_tcs, list) or not _tcs:
+                                    continue
+                                for _tc in _tcs:
+                                    _fn = (
+                                        (_tc.get("function") or {})
+                                        if isinstance(_tc, dict)
+                                        else {}
+                                    )
+                                    if str(_fn.get("name") or "") != "tool_load":
+                                        continue
+                                    _args = _parse_mgmt_tool_args(
+                                        _fn.get("arguments") or "{}"
+                                    )
+                                    _target = ""
+                                    if isinstance(_args, dict):
+                                        _target = str(
+                                            _args.get("name")
+                                            or _args.get("tool")
+                                            or ""
+                                        ).strip()
+                                    if _target:
+                                        _TOOL_LAST_ROUND[_target] = _PRODUCTIVE_ROUNDS
+                                break
+                        except Exception:
+                            pass
+                    # tool_catalog may auto-load a tool; stamp single-loaded
+                    # tools that still have no last-used marker.
+                    if _tname == "tool_catalog":
+                        try:
+                            for _loaded_name in list(_LOADED_SINGLE_TOOLS):
+                                if _loaded_name not in _TOOL_LAST_ROUND:
+                                    _TOOL_LAST_ROUND[_loaded_name] = _PRODUCTIVE_ROUNDS
+                        except Exception:
+                            pass
+
+                # Skip auto-unload when server manages tool selection
+                # (native GPT-5.4 tool_search mode only)
+                if not (
+                    _should_preload_lazy_specs()
+                    or _is_gpt54_tool_search_target(
+                        provider=provider,
+                        depname=depname,
+                        use_responses_api=True,
+                    )
+                ):
+                    for spec in list(_TOOL_SPECS):
+                        func_info = spec.get("function", {})
+                        tname = func_info.get("name", "")
+                        if not tname:
+                            continue
+                        if tname in ("tool_catalog", "tool_load", "unload_tool"):
+                            continue
+                        if tname not in _LOADED_SINGLE_TOOLS:
+                            continue
+                        if _is_tool_pinned(tname):
+                            continue
+                        threshold = _get_threshold(tname)
+                        if threshold <= 0:
+                            continue
+                        last = _TOOL_LAST_ROUND.get(tname)
+                        if last is None:
+                            # Never used since load: grace starts at load round.
+                            age = _productive_age(_LOADED_SINGLE_TOOLS.get(tname))
+                            if age is not None and age >= threshold:
+                                print(
+                                    f"[TOOLS auto-unload] {tname} "
+                                    f"(never used for {threshold} productive rounds since load)",
+                                    flush=True,
+                                )
+                                _disable_single_tool(tname)
+                        else:
+                            age = _productive_age(last)
+                            if age is not None and age >= threshold:
+                                print(
+                                    f"[TOOLS auto-unload] {tname} "
+                                    f"(idle for {threshold} productive rounds)",
+                                    flush=True,
+                                )
+                                _TOOL_LAST_ROUND.pop(tname, None)
+                                _disable_single_tool(tname)
             # --- end auto-unload ---
 
             # Judgment mode: one round only

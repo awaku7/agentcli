@@ -303,9 +303,14 @@ def _maybe_auto_shrink_messages(
     shrink_max_tokens = _get_shrink_max_tokens(depname)
 
     # Count non-system messages (same rule as core.shrink_messages)
+    # History-summary system messages are excluded: they are rolling context,
+    # not permanent instructions, and must not inflate others_count / hysteresis.
     others_count = 0
     hit_non_system = False
     for m in messages:
+        if _is_history_summary_message(m):
+            hit_non_system = True
+            continue
         if m.get("role") == "system" and not hit_non_system:
             continue
         hit_non_system = True

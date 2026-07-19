@@ -720,6 +720,7 @@ def parse_responses_stream(
     tool_calls_buf: dict[str, dict[str, Any]] = {}
     item_id_map: dict[str, str] = {}
     _stream_response_id: Optional[str] = None
+    _stream_interrupted = False
 
     def _print_delta(s: str) -> None:
         if not s:
@@ -751,7 +752,18 @@ def parse_responses_stream(
 
                 with _core_module.interrupt_lock:
                     if _core_module.interrupt_requested:
-                        _core_module.interrupt_requested = False
+                        # Keep interrupt_requested=True so the outer round can
+                        # inject the Stop prompt. Clear Responses continuation
+                        # here because this stream response is incomplete.
+                        _stream_interrupted = True
+                        try:
+                            clear_fn = getattr(
+                                _core_module, "clear_responses_continuation", None
+                            )
+                            if callable(clear_fn):
+                                clear_fn()
+                        except Exception:
+                            pass
                         try:
                             if bool(getattr(core, "_is_web", False)):
                                 lm = getattr(core, "log_message", None)
@@ -997,32 +1009,39 @@ def parse_responses_stream(
     assistant_text = "".join(assistant_text_parts) or fallback_full_text
 
     tool_calls_list: list[dict[str, Any]] = []
-    for key, buf in tool_calls_buf.items():
-        args_str = "".join(buf.get("arguments_parts") or [])
-        if not args_str:
-            args_str = "{}"
-        call_id_out = as_str(buf.get("call_id") or key)
-        tool_calls_list.append(
-            {
-                "id": call_id_out,
-                "type": "function",
-                "function": {
-                    "name": as_str(buf.get("name") or "unknown"),
-                    "arguments": args_str,
-                },
-            }
-        )
+    # An interrupted stream must not continue the Responses chain or execute
+    # partially accumulated tool calls from the aborted response.
+    if not _stream_interrupted:
+        for key, buf in tool_calls_buf.items():
+            args_str = "".join(buf.get("arguments_parts") or [])
+            if not args_str:
+                args_str = "{}"
+            call_id_out = as_str(buf.get("call_id") or key)
+            tool_calls_list.append(
+                {
+                    "id": call_id_out,
+                    "type": "function",
+                    "function": {
+                        "name": as_str(buf.get("name") or "unknown"),
+                        "arguments": args_str,
+                    },
+                }
+            )
 
     reasoning_content = "".join(reasoning_parts)
     if core is not None:
         try:
-            setattr(core, "_last_responses_output_items", output_items)
+            setattr(
+                core,
+                "_last_responses_output_items",
+                [] if _stream_interrupted else output_items,
+            )
         except Exception:
             pass
     return (
         assistant_text,
         reasoning_content,
         tool_calls_list,
-        _stream_response_id,
-        output_items,
+        None if _stream_interrupted else _stream_response_id,
+        [] if _stream_interrupted else output_items,
     )
