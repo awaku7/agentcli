@@ -3,7 +3,7 @@
     "err.timeout": "[pwsh_exec timeout] did not finish within %(seconds)s seconds",
     "param.command.description": "PowerShell command string passed to -Command.",
     "param.shell.description": "PowerShell executable to use: 'pwsh' (PowerShell 7+) or 'powershell' (Windows PowerShell). If omitted, auto-select.",
-    "tool.description": "Connect to an MCP server and list available tools. Supports HTTP and stdio transports.",
+    "tool.description": "Last resort: run a PowerShell command. Use only when no more appropriate tool (MCP, etc.) is available.",
     "x_search_terms": [
       "powershell",
       "pwsh",

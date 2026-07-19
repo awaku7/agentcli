@@ -34,6 +34,7 @@ def _probe_powershell_versions() -> dict[str, str]:
             ]
             r = subprocess.run(
                 cmd,
+                stdin=subprocess.DEVNULL,
                 stdout=subprocess.PIPE,
                 stderr=subprocess.PIPE,
                 text=True,
@@ -84,7 +85,10 @@ TOOL_SPEC: dict[str, Any] = {
         "name": "pwsh_exec",
         "description": _(
             "tool.description",
-            default="Connect to an MCP server and list available tools. Supports HTTP and stdio transports.",
+            default=(
+                "Last resort: run a PowerShell command. Use only when no more "
+                "appropriate tool (MCP, etc.) is available."
+            ),
         )
         + _DESC_SUFFIX,
         "x_search_terms": _(
@@ -177,16 +181,26 @@ def run_tool(args: dict[str, Any]) -> str:
             if err is not None:
                 return err
 
+    # Do not inherit the host stdin. Interactive CLI treats empty readline as EOF
+    # and exits; a child PowerShell that shares stdin can trigger that path.
+    run_kwargs: dict[str, Any] = {
+        "args": [shell, "-NoLogo", "-NoProfile", "-NonInteractive", "-Command", command],
+        "stdin": subprocess.DEVNULL,
+        "stdout": subprocess.PIPE,
+        "stderr": subprocess.PIPE,
+        "text": True,
+        "encoding": cb.cmd_encoding,
+        "errors": "replace",
+        "timeout": cb.cmd_exec_timeout_ms / 1000.0,
+    }
+    if os.name == "nt":
+        # Keep Ctrl+C / console signals from tearing down the host via the child.
+        create_new_process_group = getattr(subprocess, "CREATE_NEW_PROCESS_GROUP", 0)
+        if create_new_process_group:
+            run_kwargs["creationflags"] = create_new_process_group
+
     try:
-        proc = subprocess.run(
-            [shell, "-NoLogo", "-NoProfile", "-NonInteractive", "-Command", command],
-            stdout=subprocess.PIPE,
-            stderr=subprocess.PIPE,
-            text=True,
-            encoding=cb.cmd_encoding,
-            errors="replace",
-            timeout=cb.cmd_exec_timeout_ms / 1000.0,
-        )
+        proc = subprocess.run(**run_kwargs)
     except subprocess.TimeoutExpired:
         return _(
             "err.timeout",

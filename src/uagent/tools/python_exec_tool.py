@@ -83,6 +83,7 @@ def _run_python_code(args: dict[str, Any], cb: Any) -> str:
         child_env["PYTHONIOENCODING"] = "utf-8"
         proc = subprocess.run(
             [sys.executable, tmp_path],
+            stdin=subprocess.DEVNULL,
             stdout=subprocess.PIPE,
             stderr=subprocess.PIPE,
             text=True,

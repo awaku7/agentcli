@@ -90,6 +90,7 @@ def run_tool(args: dict[str, Any]) -> str:
     try:
         p = subprocess.run(
             ["bash", "-lc", command],
+            stdin=subprocess.DEVNULL,
             capture_output=True,
             text=True,
         )

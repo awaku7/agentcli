@@ -88,6 +88,7 @@ def _run(command: str, cwd: Optional[str]) -> dict[str, Any]:
                 p = subprocess.run(
                     parts,
                     shell=False,
+                    stdin=subprocess.DEVNULL,
                     capture_output=True,
                     text=True,
                     encoding="utf-8",
@@ -98,6 +99,7 @@ def _run(command: str, cwd: Optional[str]) -> dict[str, Any]:
                 p = subprocess.run(
                     f"chcp 65001 >nul & {command}",
                     shell=True,
+                    stdin=subprocess.DEVNULL,
                     capture_output=True,
                     text=True,
                     encoding="utf-8",
@@ -106,7 +108,13 @@ def _run(command: str, cwd: Optional[str]) -> dict[str, Any]:
                 )
         else:
             cmd = ["sh", "-lc", command]
-            p = subprocess.run(cmd, capture_output=True, text=True, cwd=cwd)
+            p = subprocess.run(
+                cmd,
+                stdin=subprocess.DEVNULL,
+                capture_output=True,
+                text=True,
+                cwd=cwd,
+            )
 
         result: dict[str, Any] = {
             "ok": p.returncode == 0,

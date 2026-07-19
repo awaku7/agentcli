@@ -216,3 +216,32 @@ def test_write_progress_noise() -> None:
         }
     )
     assert "done" in out
+
+
+def test_subprocess_uses_devnull_stdin(monkeypatch) -> None:
+    """Child must not inherit host stdin (CLI exits on EOF from shared stdin)."""
+    import subprocess
+    from uagent.tools import pwsh_exec_tool as mod
+
+    captured: dict = {}
+
+    class _FakeProc:
+        returncode = 0
+        stdout = "ok\n"
+        stderr = ""
+
+    def fake_run(*args, **kwargs):
+        captured["args"] = args
+        captured["kwargs"] = kwargs
+        return _FakeProc()
+
+    monkeypatch.setattr(mod.subprocess, "run", fake_run)
+    monkeypatch.setattr(mod.shutil, "which", lambda _name: "C:\\fake\\pwsh.exe")
+    monkeypatch.setattr(mod, "decide_cmd_exec", None)
+    monkeypatch.setattr(mod, "confirm_if_needed", None)
+
+    out = mod.run_tool({"command": "Write-Output ok", "shell": "pwsh"})
+    assert "ok" in out
+    assert captured["kwargs"].get("stdin") is subprocess.DEVNULL
+
+
