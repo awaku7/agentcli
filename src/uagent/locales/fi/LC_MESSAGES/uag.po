@@ -2455,14 +2455,14 @@ msgid "[WARN] Tool rounds exceeded %(max)d; aborting."
 msgstr "[VAROITUS] Työkalukierrosten enimmäismäärä %(max)d ylitetty; keskeytetään."
 
 #, python-format
-msgid "%(name)s (never used for %(n)d productive rounds since load)"
+msgid "%(name)s (never used for %(n)d LLM rounds since load)"
 msgstr ""
-"%(name)s (ei koskaan käytetty %(n)d tuloksellisella kierroksella "
+"%(name)s (ei koskaan käytetty %(n)d LLM-kierroksella "
 "latauksen jälkeen)"
 
 #, python-format
-msgid "%(name)s (idle for %(n)d productive rounds)"
-msgstr "%(name)s (tyhjänä %(n)d tuloksellista kierrosta)"
+msgid "%(name)s (idle for %(n)d LLM rounds)"
+msgstr "%(name)s (tyhjänä %(n)d LLM-kierrosta)"
 
 #: src/uagent/util_tools.py:186
 #, python-format

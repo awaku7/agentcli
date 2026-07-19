@@ -2377,12 +2377,12 @@ msgid "[WARN] Tool rounds exceeded %(max)d; aborting."
 msgstr "[אזהרה] סיבובי הכלים חרגו מ-%(max)d; הפלה."
 
 #, python-format
-msgid "%(name)s (never used for %(n)d productive rounds since load)"
-msgstr "%(name)s (מעולם לא היה בשימוש עבור %(n)d סיבובים פרודוקטיביים מאז הטעינה)"
+msgid "%(name)s (never used for %(n)d LLM rounds since load)"
+msgstr "%(name)s (מעולם לא היה בשימוש עבור %(n)d סיבובי LLM מאז הטעינה)"
 
 #, python-format
-msgid "%(name)s (idle for %(n)d productive rounds)"
-msgstr "%(name)s (לא פעיל עבור %(n)d סיבובים פרודוקטיביים)"
+msgid "%(name)s (idle for %(n)d LLM rounds)"
+msgstr "%(name)s (לא פעיל עבור %(n)d סיבובי LLM)"
 
 #: src/uagent/util_tools.py:186
 #, python-format

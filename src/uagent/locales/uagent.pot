@@ -2188,12 +2188,12 @@ msgstr ""
 
 #: src/uagent/uagent_llm.py:1509
 #, python-format
-msgid "%(name)s (never used for %(n)d productive rounds since load)"
+msgid "%(name)s (never used for %(n)d LLM rounds since load)"
 msgstr ""
 
 #: src/uagent/uagent_llm.py:1521
 #, python-format
-msgid "%(name)s (idle for %(n)d productive rounds)"
+msgid "%(name)s (idle for %(n)d LLM rounds)"
 msgstr ""
 
 #: src/uagent/util_tools.py:186

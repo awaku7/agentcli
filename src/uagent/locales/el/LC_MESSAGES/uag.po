@@ -2502,14 +2502,14 @@ msgid "[WARN] Tool rounds exceeded %(max)d; aborting."
 msgstr "[ΠΡΟΕΙΔΟΠΟΙΗΣΗ] Οι γύροι εργαλείων υπερέβησαν το %(max)d. αποβολή."
 
 #, python-format
-msgid "%(name)s (never used for %(n)d productive rounds since load)"
+msgid "%(name)s (never used for %(n)d LLM rounds since load)"
 msgstr ""
-"%(name)s (δεν χρησιμοποιήθηκε ποτέ για %(n)d παραγωγικούς γύρους από τη "
+"%(name)s (δεν χρησιμοποιήθηκε ποτέ για %(n)d γύρους LLM από τη "
 "φόρτωση)"
 
 #, python-format
-msgid "%(name)s (idle for %(n)d productive rounds)"
-msgstr "%(name)s (αδρανές για %(n)d παραγωγικούς γύρους)"
+msgid "%(name)s (idle for %(n)d LLM rounds)"
+msgstr "%(name)s (αδρανές για %(n)d γύρους LLM)"
 
 #: src/uagent/util_tools.py:186
 #, python-format

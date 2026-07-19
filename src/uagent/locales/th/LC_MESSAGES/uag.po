@@ -2422,12 +2422,12 @@ msgid "[WARN] Tool rounds exceeded %(max)d; aborting."
 msgstr "[WARN] รอบการเรียกใช้เครื่องมือเกิน %(max)d; กำลังยกเลิก\n"
 
 #, python-format
-msgid "%(name)s (never used for %(n)d productive rounds since load)"
-msgstr "%(name)s (ไม่เคยใช้สำหรับ %(n)d รอบการผลิตตั้งแต่โหลด)"
+msgid "%(name)s (never used for %(n)d LLM rounds since load)"
+msgstr "%(name)s (ไม่เคยใช้สำหรับ %(n)d รอบ LLMตั้งแต่โหลด)"
 
 #, python-format
-msgid "%(name)s (idle for %(n)d productive rounds)"
-msgstr "%(name)s (ไม่ได้ใช้งานสำหรับ %(n)d รอบการผลิต)"
+msgid "%(name)s (idle for %(n)d LLM rounds)"
+msgstr "%(name)s (ไม่ได้ใช้งานสำหรับ %(n)d รอบ LLM)"
 
 #: src/uagent/util_tools.py:186
 #, python-format

@@ -390,7 +390,7 @@ def _run_one_round(
     use_tool_result_cache: bool,
     use_llm_thread: bool,
     judgment_mode: bool = False,
-) -> tuple[str, Any, str | None, int, int, str]:
+) -> tuple[str, Any, str | None, int, str]:
     """Run a single LLM round.
 
     Returns (status, client, gemini_cache_name, empty_no_tool_rounds, assistant_text).
@@ -1520,7 +1520,7 @@ def run_llm_rounds(
                                 print(
                                     "[TOOLS auto-unload] "
                                     + _(
-                                        "%(name)s (never used for %(n)d productive rounds since load)"
+                                        "%(name)s (never used for %(n)d LLM rounds since load)"
                                     )
                                     % {"name": tname, "n": threshold},
                                     flush=True,
@@ -1532,7 +1532,7 @@ def run_llm_rounds(
                                 print(
                                     "[TOOLS auto-unload] "
                                     + _(
-                                        "%(name)s (idle for %(n)d productive rounds)"
+                                        "%(name)s (idle for %(n)d LLM rounds)"
                                     )
                                     % {"name": tname, "n": threshold},
                                     flush=True,

@@ -1712,11 +1712,11 @@ msgstr "Stop"
 msgid "[WARN] Tool rounds exceeded %(max)d; aborting."
 msgstr "[WARN] Tool rounds exceeded %(max)d; aborting."
 
-msgid "%(name)s (never used for %(n)d productive rounds since load)"
-msgstr "%(name)s (never used for %(n)d productive rounds since load)"
+msgid "%(name)s (never used for %(n)d LLM rounds since load)"
+msgstr "%(name)s (never used for %(n)d LLM rounds since load)"
 
-msgid "%(name)s (idle for %(n)d productive rounds)"
-msgstr "%(name)s (idle for %(n)d productive rounds)"
+msgid "%(name)s (idle for %(n)d LLM rounds)"
+msgstr "%(name)s (idle for %(n)d LLM rounds)"
 
 msgid "image file not found: %(path)s"
 msgstr "image file not found: %(path)s"

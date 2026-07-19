@@ -2483,14 +2483,14 @@ msgid "[WARN] Tool rounds exceeded %(max)d; aborting."
 msgstr "[AVERTISMENT] Rundele sculei au depășit %(max)d; avortând."
 
 #, python-format
-msgid "%(name)s (never used for %(n)d productive rounds since load)"
+msgid "%(name)s (never used for %(n)d LLM rounds since load)"
 msgstr ""
-"%(name)s (nu a fost folosit niciodată pentru %(n)d runde productive de la"
+"%(name)s (nu a fost folosit niciodată pentru %(n)d runde LLM de la"
 " încărcare)"
 
 #, python-format
-msgid "%(name)s (idle for %(n)d productive rounds)"
-msgstr "%(name)s (inactiv pentru %(n)d runde productive)"
+msgid "%(name)s (idle for %(n)d LLM rounds)"
+msgstr "%(name)s (inactiv pentru %(n)d runde LLM)"
 
 #: src/uagent/util_tools.py:186
 #, python-format

@@ -2480,14 +2480,14 @@ msgid "[WARN] Tool rounds exceeded %(max)d; aborting."
 msgstr "[WARN] Раунди інструменту перевищили %(max)d; переривання."
 
 #, python-format
-msgid "%(name)s (never used for %(n)d productive rounds since load)"
+msgid "%(name)s (never used for %(n)d LLM rounds since load)"
 msgstr ""
-"%(name)s (ніколи не використовувався протягом %(n)d продуктивних раундів "
+"%(name)s (ніколи не використовувався протягом %(n)d раундів LLM "
 "з моменту завантаження)"
 
 #, python-format
-msgid "%(name)s (idle for %(n)d productive rounds)"
-msgstr "%(name)s (неактивний протягом %(n)d продуктивних раундів)"
+msgid "%(name)s (idle for %(n)d LLM rounds)"
+msgstr "%(name)s (неактивний протягом %(n)d раундів LLM)"
 
 #: src/uagent/util_tools.py:186
 #, python-format

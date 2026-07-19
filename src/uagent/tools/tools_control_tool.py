@@ -181,7 +181,7 @@ def handle_cmd_tools_list(arg: str, **kwargs: Any) -> Any:
                 "msg.tools.list_header",
                 default=(
                     "[tools] Loaded tools ({count}), "
-                    "total_round={r}, productive_round={p}:"
+                    "total_round={r}, llm_round={p}:"
                 ),
             ).format(count=len(names), r=_TOTAL_ROUNDS, p=_PRODUCTIVE_ROUNDS)
         )

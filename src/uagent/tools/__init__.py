@@ -343,7 +343,6 @@ def _register_tool_module(mod: Any, mod_name: str) -> bool:
 
     func_info = spec.get("function", {})
     tool_name = func_info.get("name")
-    registered_llm_tool = False
 
     if is_llm_tool and tool_name:
         with _TOOLS_LOCK:
@@ -358,7 +357,6 @@ def _register_tool_module(mod: Any, mod_name: str) -> bool:
             _TOOL_TRACE_FLAGS[tool_name] = _get_tool_emit_trace(spec)
             _RUNNERS[tool_name] = runner
             _sort_registered_tools()
-            registered_llm_tool = True
 
             # Busy label setting
             busy_flag = getattr(mod, "BUSY_LABEL", False)
@@ -726,6 +724,82 @@ def list_dynamic_command_names() -> list[str]:
     """Return sorted top-level dynamic command names."""
     _ensure_loaded()
     return sorted(_DYNAMIC_COMMANDS.keys())
+
+
+
+def register_dynamic_command(
+    command: str,
+    handler: Any,
+    *,
+    subcommand: str = "",
+    help_text: str = "",
+    help_detail: str = "",
+    usage: str = "",
+    overwrite: bool = False,
+    source: str = "",
+) -> dict[str, Any]:
+    """Register a dynamic ":" command/subcommand at runtime (plugins).
+
+    Returns ok/error dict. Refuses overwrite unless overwrite=True.
+    """
+    cmd = (command or "").strip()
+    sub = (subcommand or "").strip()
+    if not cmd or not callable(handler):
+        return {"ok": False, "error": "command and callable handler required"}
+
+    with _TOOLS_LOCK:
+        bucket = _DYNAMIC_COMMANDS.setdefault(cmd, {})
+        if sub in bucket and not overwrite:
+            prev_src = (bucket[sub] or {}).get("source") or ""
+            return {
+                "ok": False,
+                "error": f"command already registered: :{cmd}"
+                + (f" {sub}" if sub else ""),
+                "existing_source": prev_src,
+            }
+        bucket[sub] = {
+            "handler": handler,
+            "help_text": help_text or "",
+            "help_detail": help_detail or "",
+            "usage": usage or "",
+            "source": source or "",
+        }
+    return {"ok": True, "command": cmd, "subcommand": sub}
+
+
+def unregister_dynamic_commands_by_source(source: str) -> dict[str, Any]:
+    """Remove all dynamic commands registered with the given source tag."""
+    src = (source or "").strip()
+    if not src:
+        return {"ok": False, "error": "source required", "removed": 0}
+
+    removed = 0
+    with _TOOLS_LOCK:
+        empty_cmds: list[str] = []
+        for cmd, subs in list(_DYNAMIC_COMMANDS.items()):
+            for sub in list(subs.keys()):
+                info = subs.get(sub) or {}
+                if info.get("source") == src:
+                    del subs[sub]
+                    removed += 1
+            if not subs:
+                empty_cmds.append(cmd)
+        for cmd in empty_cmds:
+            _DYNAMIC_COMMANDS.pop(cmd, None)
+    return {"ok": True, "removed": removed, "source": src}
+
+
+def get_dynamic_command_sources() -> dict[str, str]:
+    """Map \"cmd\" or \"cmd sub\" -> source tag."""
+    out: dict[str, str] = {}
+    with _TOOLS_LOCK:
+        for cmd, subs in _DYNAMIC_COMMANDS.items():
+            for sub, info in subs.items():
+                key = f"{cmd} {sub}".strip()
+                src = (info or {}).get("source") or ""
+                if src:
+                    out[key] = src
+    return out
 
 
 def get_dynamic_command_detail(cmd: str, subcmd: str | None = None) -> str | None:
@@ -1442,10 +1516,31 @@ def run_tools_parallel(
             result = future.result()
         except Exception as e:
             result = f"[tool runtime error] name={name!r} err={type(e).__name__}: {e}"
+        except SystemExit as e:
+            # Thread-pool re-raises SystemExit from workers; never kill the host.
+            result = f"[tool runtime error] name={name!r} err=SystemExit: {e}"
         results[idx] = (name, args, result)
 
     # All slots must be filled by now; cast for type checker.
     return [(n, a, r) for n, a, r in results]  # type: ignore[misc]
+
+
+def _call_tool_runner(name: str, runner: Any, args: dict[str, Any]) -> str:
+    """Invoke a tool runner without letting it terminate the host process."""
+    try:
+        result = runner(args)
+    except Exception as e:
+        return f"[tool runtime error] name={name!r} err={type(e).__name__}: {e}"
+    except SystemExit as e:
+        # Tools must return errors, not exit the agent process.
+        return f"[tool runtime error] name={name!r} err=SystemExit: {e}"
+
+    if isinstance(result, str):
+        return result
+    try:
+        return json.dumps(result, ensure_ascii=False)
+    except Exception:
+        return str(result)
 
 
 def run_tool(name: str, args: dict[str, Any]) -> str:
@@ -1484,7 +1579,7 @@ def run_tool(name: str, args: dict[str, Any]) -> str:
         # human_ask needs to set active state before clearing Busy,
         # so we delegate status handling to the runner implementation.
         try:
-            return runner(args)
+            return _call_tool_runner(name, runner, args)
         finally:
             _safe_set_status(True, "LLM")
 
@@ -1493,14 +1588,12 @@ def run_tool(name: str, args: dict[str, Any]) -> str:
     if status_label is not None:
         _safe_set_status(True, status_label)
         try:
-            result = runner(args)
+            return _call_tool_runner(name, runner, args)
         finally:
             _safe_set_status(True, "LLM")
-        return result
 
     # Otherwise do not touch status
-    result = runner(args)
-    return result
+    return _call_tool_runner(name, runner, args)
 
 
 # Lazy initialization: tools are loaded on first use

@@ -2501,12 +2501,12 @@ msgid "[WARN] Tool rounds exceeded %(max)d; aborting."
 msgstr "[AVERTISSEMENT] Nombre de tours d'outil dépassé : %(max)d ; abandon."
 
 #, python-format
-msgid "%(name)s (never used for %(n)d productive rounds since load)"
-msgstr "%(name)s (jamais utilisé pour %(n)d tours productifs depuis le chargement)"
+msgid "%(name)s (never used for %(n)d LLM rounds since load)"
+msgstr "%(name)s (jamais utilisé pour %(n)d tours LLM depuis le chargement)"
 
 #, python-format
-msgid "%(name)s (idle for %(n)d productive rounds)"
-msgstr "%(name)s (inactif pendant %(n)d tours productifs)"
+msgid "%(name)s (idle for %(n)d LLM rounds)"
+msgstr "%(name)s (inactif pendant %(n)d tours LLM)"
 
 #: src/uagent/util_tools.py:186
 #, python-format

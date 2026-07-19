@@ -2432,14 +2432,14 @@ msgid "[WARN] Tool rounds exceeded %(max)d; aborting."
 msgstr "[चेतावनी] टूल राउंड %(max)d से अधिक हो गए; गर्भपात"
 
 #, python-format
-msgid "%(name)s (never used for %(n)d productive rounds since load)"
+msgid "%(name)s (never used for %(n)d LLM rounds since load)"
 msgstr ""
-"%(name)s (लोड के बाद से %(n)d उत्पादक राउंड के लिए कभी भी उपयोग नहीं किया"
+"%(name)s (लोड के बाद से %(n)d LLM राउंड के लिए कभी भी उपयोग नहीं किया"
 " गया)"
 
 #, python-format
-msgid "%(name)s (idle for %(n)d productive rounds)"
-msgstr "%(name)s (%(n)d उत्पादक दौरों के लिए निष्क्रिय)"
+msgid "%(name)s (idle for %(n)d LLM rounds)"
+msgstr "%(name)s (%(n)d LLM राउंड के लिए निष्क्रिय)"
 
 #: src/uagent/util_tools.py:186
 #, python-format

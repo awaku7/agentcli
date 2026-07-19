@@ -2294,11 +2294,11 @@ msgstr "Simama"
 msgid "[WARN] Tool rounds exceeded %(max)d; aborting."
 msgstr "[ONYO] Mizunguko ya zana imezidi %(max)d; inasitisha."
 
-msgid "%(name)s (never used for %(n)d productive rounds since load)"
-msgstr "%(name)s (haijatumika kwa raundi %(n)d za uzalishaji tangu kupakiwa)"
+msgid "%(name)s (never used for %(n)d LLM rounds since load)"
+msgstr "%(name)s (haijatumika kwa raundi %(n)d za LLM tangu kupakiwa)"
 
-msgid "%(name)s (idle for %(n)d productive rounds)"
-msgstr "%(name)s (haitumii kwa raundi %(n)d za uzalishaji)"
+msgid "%(name)s (idle for %(n)d LLM rounds)"
+msgstr "%(name)s (haitumii kwa raundi %(n)d za LLM)"
 
 #: src/uagent/util_tools.py:186
 #, python-format

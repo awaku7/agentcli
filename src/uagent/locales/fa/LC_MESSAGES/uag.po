@@ -2405,12 +2405,12 @@ msgid "[WARN] Tool rounds exceeded %(max)d; aborting."
 msgstr "[هشدار] دور ابزار بیش از %(max)d است. سقط"
 
 #, python-format
-msgid "%(name)s (never used for %(n)d productive rounds since load)"
-msgstr "%(name)s (از زمان بارگیری هرگز برای %(n)d دور پربار استفاده نشده است)"
+msgid "%(name)s (never used for %(n)d LLM rounds since load)"
+msgstr "%(name)s (از زمان بارگیری هرگز برای %(n)d دور LLM استفاده نشده است)"
 
 #, python-format
-msgid "%(name)s (idle for %(n)d productive rounds)"
-msgstr "%(name)s (بیکار برای %(n)d دور مولد)"
+msgid "%(name)s (idle for %(n)d LLM rounds)"
+msgstr "%(name)s (بیکار برای %(n)d دور LLM)"
 
 #: src/uagent/util_tools.py:186
 #, python-format

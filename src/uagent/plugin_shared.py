@@ -406,6 +406,86 @@ def set_plugin_enabled(
     )
 
 
+def clear_plugin_settings(
+    name: str,
+    *,
+    state_dir: str | None = None,
+    settings_path: str | None = None,
+) -> dict[str, Any]:
+    """Remove a plugin's settings entries (enabledPlugins + pluginConfigs).
+
+    Unlike set_plugin_enabled(False), this deletes the keys so a removed
+    plugin leaves no residue in settings.json.
+    """
+    from uagent.utils.paths import get_state_dir
+
+    if settings_path:
+        sf = Path(settings_path)
+        sd = sf.parent
+    else:
+        sd = Path(state_dir) if state_dir else get_state_dir()
+        sf = sd / "settings.json"
+
+    if not sf.is_file():
+        return {
+            "ok": True,
+            "name": name,
+            "enabled_removed": False,
+            "config_removed": False,
+        }
+
+    try:
+        settings = json.loads(sf.read_text(encoding="utf-8"))
+    except (json.JSONDecodeError, OSError):
+        return {
+            "ok": True,
+            "name": name,
+            "enabled_removed": False,
+            "config_removed": False,
+        }
+    if not isinstance(settings, dict):
+        return {
+            "ok": True,
+            "name": name,
+            "enabled_removed": False,
+            "config_removed": False,
+        }
+
+    enabled_removed = False
+    ep = settings.get("enabledPlugins", {})
+    if isinstance(ep, dict) and name in ep:
+        del ep[name]
+        settings["enabledPlugins"] = ep
+        enabled_removed = True
+        if not ep:
+            # keep empty dict for stable shape; harmless
+            pass
+
+    config_removed = False
+    configs = settings.get("pluginConfigs", [])
+    if isinstance(configs, list):
+        new_configs = [
+            c
+            for c in configs
+            if not (isinstance(c, dict) and c.get("name") == name)
+        ]
+        if len(new_configs) != len(configs):
+            settings["pluginConfigs"] = new_configs
+            config_removed = True
+
+    sd.mkdir(parents=True, exist_ok=True)
+    sf.write_text(
+        json.dumps(settings, indent=2, ensure_ascii=False),
+        encoding="utf-8",
+    )
+    return {
+        "ok": True,
+        "name": name,
+        "enabled_removed": enabled_removed,
+        "config_removed": config_removed,
+    }
+
+
 def _read_settings(*, state_dir: str | None = None) -> dict[str, Any]:
     """Read settings.json from the state directory."""
     from uagent.utils.paths import get_state_dir
@@ -430,14 +510,30 @@ def _read_settings(*, state_dir: str | None = None) -> dict[str, Any]:
 
 def discover_plugin_components(
     plugin_dir: str,
-    manifest: dict[str, Any],
+    manifest: dict[str, Any] | str | None,
 ) -> dict[str, Any]:
     """Discover components (skills, commands, agents, etc.) in a plugin.
 
     Returns a dict with component types as keys.
+    ``manifest`` may be a dict, a JSON object string, or None (treated as {}).
+    Non-object values are ignored so callers never crash on bad manifests.
     """
     components: dict[str, Any] = {}
     pd = Path(plugin_dir)
+
+    if isinstance(manifest, str):
+        raw = manifest.strip()
+        if raw.startswith("{"):
+            try:
+                parsed = json.loads(raw)
+            except (json.JSONDecodeError, TypeError, ValueError):
+                parsed = None
+            manifest = parsed if isinstance(parsed, dict) else {}
+        else:
+            # Path-like or plain name — not a manifest object.
+            manifest = {}
+    elif not isinstance(manifest, dict):
+        manifest = {}
 
     # Skills (default: skills/ dir + any manifest 'skills' paths)
     skills: list[str] = []
@@ -517,10 +613,226 @@ def _collect_dir_entries(base: Path, subpath: str, out: list[str]) -> None:
     if not target.is_dir():
         return
     for child in sorted(target.iterdir()):
-        if child.is_file() and child.suffix.lower() in (".md",):
+        if child.is_file() and child.suffix.lower() in (".md", ".toml"):
             out.append(child.stem)
         elif child.is_dir():
             out.append(child.name)
+
+
+# ---------------------------------------------------------------------------
+# Plugin slash-style commands -> uag ":" commands
+# ---------------------------------------------------------------------------
+
+# Core/built-in ":" command names that plugins must not take.
+RESERVED_COLON_COMMANDS: frozenset[str] = frozenset(
+    {
+        "help",
+        "h",
+        "?",
+        "r",
+        "reasoning",
+        "v",
+        "verbosity",
+        "cd",
+        "reload",
+        "ls",
+        "logs",
+        "tools",
+        "env",
+        "skills",
+        "clean",
+        "cont",
+        "load",
+        "shrink",
+        "shrink_llm",
+        "tokens",
+        "mem-list",
+        "mem-del",
+        "profile",
+        "profile-show",
+        "profile-fromlog",
+        "profile-clear",
+        "cp",
+        "mv",
+        "rm",
+        "head",
+        "tail",
+        "auto",
+        "model",
+        "exit",
+        "quit",
+        "plugin",
+        "tool",
+    }
+)
+
+
+def _parse_command_toml(path: Path) -> dict[str, Any]:
+    """Parse a Claude-style commands/*.toml into a plain dict."""
+    try:
+        import tomllib
+    except ModuleNotFoundError:  # pragma: no cover - py<3.11 not supported
+        return {"name": path.stem, "path": str(path)}
+
+    try:
+        data = tomllib.loads(path.read_text(encoding="utf-8"))
+    except Exception:
+        data = {}
+    if not isinstance(data, dict):
+        data = {}
+    out: dict[str, Any] = {
+        "name": path.stem,
+        "path": str(path),
+        "description": str(data.get("description") or ""),
+        "prompt": str(data.get("prompt") or ""),
+    }
+    # Optional explicit flags (non-standard, uag extension)
+    if "run_llm" in data:
+        out["run_llm"] = bool(data.get("run_llm"))
+    if "argument_hint" in data:
+        out["argument_hint"] = str(data.get("argument_hint") or "")
+    return out
+
+
+def _parse_command_md(path: Path) -> dict[str, Any]:
+    """Parse commands/*.md (optional YAML front matter)."""
+    raw = path.read_text(encoding="utf-8")
+    description = ""
+    body = raw
+    if raw.startswith("---"):
+        parts = raw.split("---", 2)
+        if len(parts) >= 3:
+            fm = parts[1]
+            body = parts[2].lstrip(chr(10))
+            for line in fm.splitlines():
+                if ":" not in line:
+                    continue
+                k, v = line.split(":", 1)
+                if k.strip().lower() not in {"description", "desc"}:
+                    continue
+                description = v.strip()
+                if (
+                    len(description) >= 2
+                    and description[0] == description[-1]
+                    and description[0] in ("'", '"')
+                ):
+                    description = description[1:-1]
+    return {
+        "name": path.stem,
+        "path": str(path),
+        "description": description,
+        "prompt": body.strip(),
+    }
+
+
+def list_plugin_command_defs(
+    plugin_dir: str,
+    *,
+    manifest: dict[str, Any] | None = None,
+) -> list[dict[str, Any]]:
+    """Load command definitions from a plugin's commands/ (toml/md)."""
+    pd = Path(plugin_dir)
+    mf = manifest if isinstance(manifest, dict) else {}
+    rels: list[str] = []
+    field = mf.get("commands")
+    if isinstance(field, str) and field.strip():
+        rels = [field.strip()]
+    elif isinstance(field, list):
+        rels = [str(x).strip() for x in field if str(x).strip()]
+    else:
+        rels = ["commands"]
+
+    defs: list[dict[str, Any]] = []
+    seen: set[str] = set()
+    for rel in rels:
+        target = pd / rel
+        # Allow direct file path in manifest
+        if target.is_file() and target.suffix.lower() in {".toml", ".md"}:
+            candidates = [target]
+        elif target.is_dir():
+            candidates = sorted(
+                [
+                    p
+                    for p in target.iterdir()
+                    if p.is_file() and p.suffix.lower() in {".toml", ".md"}
+                ]
+            )
+        else:
+            continue
+        for p in candidates:
+            if p.suffix.lower() == ".toml":
+                d = _parse_command_toml(p)
+            else:
+                d = _parse_command_md(p)
+            name = str(d.get("name") or p.stem)
+            if name in seen:
+                continue
+            seen.add(name)
+            defs.append(d)
+    return defs
+
+
+def plugin_command_registration_plan(
+    plugin_name: str,
+    command_defs: list[dict[str, Any]],
+) -> list[dict[str, Any]]:
+    """Map command files to ":" registration records with namespacing.
+
+    Registration shapes (Claude-inspired, on uag ':'):
+      - :<plugin> [args]                 default command (stem == plugin)
+      - :<plugin> <sub> [args]           subcommand (stem plugin-sub or other)
+      - :<plugin>:<sub>                  accepted via handle_command split
+      - :<plugin>-<sub>                  alias top-level when not reserved
+
+    Core reserved names are never taken by plugins.
+    """
+    pname = (plugin_name or "").strip()
+    if not pname:
+        return []
+
+    plan: list[dict[str, Any]] = []
+    for d in command_defs:
+        stem = str(d.get("name") or "").strip()
+        if not stem:
+            continue
+
+        if stem == pname:
+            sub = ""
+            alias = None
+        elif stem.startswith(pname + "-"):
+            sub = stem[len(pname) + 1 :]
+            alias = stem  # e.g. genshijin-commit
+        elif stem.startswith(pname + ":"):
+            sub = stem[len(pname) + 1 :]
+            alias = None
+        else:
+            # Foreign stem inside plugin: still under plugin namespace only
+            sub = stem
+            alias = None
+
+        # Skip illegal empty after strip dashes
+        if sub is None:
+            continue
+
+        rec = {
+            "plugin": pname,
+            "command": pname,  # top-level ":" name
+            "subcommand": sub,
+            "stem": stem,
+            "description": d.get("description") or "",
+            "prompt": d.get("prompt") or "",
+            "path": d.get("path") or "",
+            "run_llm": d.get("run_llm"),
+            "alias": alias,
+        }
+        plan.append(rec)
+    return plan
+
+
+def is_reserved_colon_command(name: str) -> bool:
+    """Return True if name collides with a built-in ':' command."""
+    n = (name or "").strip().lower()
+    return n in RESERVED_COLON_COMMANDS
 
 
 # ---------------------------------------------------------------------------
@@ -911,9 +1223,30 @@ def install_plugin_hooks(
 
     # Idempotent: skip if already registered
     if plugin_name in registry.get("plugins", {}):
+        # Refresh stored root path for Claude-compatible ${CLAUDE_PLUGIN_ROOT}.
+        try:
+            roots = registry.setdefault("plugin_roots", {})
+            if isinstance(roots, dict):
+                roots[plugin_name] = str(Path(plugin_dir).resolve())
+                rp = Path(registry_path)
+                rp.parent.mkdir(parents=True, exist_ok=True)
+                rp.write_text(
+                    json.dumps(registry, indent=2, ensure_ascii=False),
+                    encoding="utf-8",
+                )
+        except Exception:
+            pass
         return {"ok": True, "event_count": 0}
 
     registry.setdefault("plugins", {})[plugin_name] = hooks_data
+    # Persist absolute plugin dir so hook runtime can expand
+    # ${CLAUDE_PLUGIN_ROOT} / ${UAGENT_PLUGIN_ROOT} per plugin.
+    try:
+        roots = registry.setdefault("plugin_roots", {})
+        if isinstance(roots, dict):
+            roots[plugin_name] = str(Path(plugin_dir).resolve())
+    except Exception:
+        pass
 
     rp = Path(registry_path)
     rp.parent.mkdir(parents=True, exist_ok=True)
@@ -958,6 +1291,225 @@ def remove_plugin_hooks(
 # ---------------------------------------------------------------------------
 
 
+
+def _plugin_command_source_tag(plugin_name: str) -> str:
+    return f"plugin:{plugin_name}"
+
+
+def _render_command_prompt(template: str, args: str) -> str:
+    """Render Claude-style {{args}} (and simple $ARGUMENTS) in command prompts."""
+    a = args if isinstance(args, str) else str(args or "")
+    text = template if isinstance(template, str) else str(template or "")
+    if not text:
+        return a
+    if "{{args}}" in text:
+        text = text.replace("{{args}}", a)
+    if "$ARGUMENTS" in text:
+        text = text.replace("$ARGUMENTS", a)
+    # If template has no placeholder and user passed args, append.
+    if a and "{{args}}" not in (template or "") and "$ARGUMENTS" not in (template or ""):
+        if text and not text.endswith(("\n", " ")):
+            text = text + "\n"
+        text = text + a
+    return text
+
+
+def _make_plugin_command_handler(
+    *,
+    plugin_name: str,
+    stem: str,
+    prompt_template: str,
+    run_llm: bool | None,
+) -> Any:
+    """Build a ":" command handler for one plugin command definition."""
+
+    def _handler(arg: str, **kwargs: Any) -> Any:
+        from uagent.util_tools import CommandResult
+
+        args = (arg or "").strip()
+        # Mode-switch style commands (genshijin etc.): prefer UserPromptSubmit
+        # so existing hooks keep working. Fall back to prompt -> LLM.
+        slash = f"/{stem}"
+        if args:
+            slash = f"{slash} {args}"
+
+        injected = 0
+        blocked = None
+        try:
+            from uagent.hooks_engine import (
+                collect_hook_block_decision,
+                fire_user_prompt_submit,
+                inject_hook_context,
+            )
+
+            results = fire_user_prompt_submit(slash)
+            blocked = collect_hook_block_decision(results)
+            messages_ref = kwargs.get("messages_ref")
+            if isinstance(messages_ref, list):
+                injected = inject_hook_context(
+                    messages_ref,
+                    results,
+                    event_name="UserPromptSubmit",
+                    replace_event=True,
+                )
+        except Exception as exc:  # noqa: BLE001 - command should still respond
+            print(f"[plugin-cmd] hook fire failed: {exc}")
+
+        if blocked:
+            reason = ""
+            if isinstance(blocked, dict):
+                reason = str(blocked.get("reason") or "")
+            if reason:
+                print(reason)
+            return CommandResult(run_llm=False)
+
+        # Default: if prompt template exists, optionally run LLM with it.
+        # For pure mode switches (empty/minimal template + hooks handled), skip LLM.
+        prompt = _render_command_prompt(prompt_template, args)
+        want_llm = run_llm
+        if want_llm is None:
+            # Heuristic: mode-only stems with short switch prompts -> no LLM
+            # unless template clearly asks for generation.
+            mode_like = stem == plugin_name or stem.startswith(plugin_name + "-")
+            if mode_like and injected and len(prompt) < 400 and "生成" not in prompt:
+                # Still run LLM when template is a real task (commit/review).
+                tasky = any(
+                    k in stem
+                    for k in ("commit", "review", "compress", "stats", "help")
+                )
+                want_llm = tasky
+            else:
+                want_llm = bool(prompt.strip())
+
+        if want_llm and prompt.strip():
+            return CommandResult(run_llm=True, prompt=prompt)
+
+        print(f"[plugin-cmd] :{plugin_name}" + (f" ({stem})" if stem != plugin_name else "") + " ok")
+        return CommandResult(run_llm=False)
+
+    return _handler
+
+
+def install_plugin_commands(
+    plugin_dir: str,
+    plugin_name: str | None = None,
+    *,
+    manifest: dict[str, Any] | None = None,
+) -> dict[str, Any]:
+    """Register plugin commands/ as namespaced ":" commands.
+
+    - Top-level name is always the plugin name (if not reserved).
+    - Subcommands: file stem ``plugin-foo`` -> ``:plugin foo`` and alias ``:plugin-foo``
+    - Also accepts ``:plugin:foo`` via handle_command split.
+    """
+    from uagent.tools import (
+        register_dynamic_command,
+        unregister_dynamic_commands_by_source,
+    )
+
+    mf = manifest if isinstance(manifest, dict) else (parse_plugin_manifest(plugin_dir) or {})
+    name = (plugin_name or str(mf.get("name") or Path(plugin_dir).name)).strip()
+    if not name:
+        return {"ok": False, "error": "plugin name required", "registered": []}
+
+    if is_reserved_colon_command(name):
+        return {
+            "ok": False,
+            "error": f"plugin name conflicts with reserved command :{name}",
+            "registered": [],
+        }
+
+    source = _plugin_command_source_tag(name)
+    # Idempotent refresh
+    unregister_dynamic_commands_by_source(source)
+
+    defs = list_plugin_command_defs(plugin_dir, manifest=mf)
+    plan = plugin_command_registration_plan(name, defs)
+    registered: list[str] = []
+    skipped: list[dict[str, str]] = []
+
+    for rec in plan:
+        cmd = str(rec["command"])
+        sub = str(rec.get("subcommand") or "")
+        stem = str(rec.get("stem") or "")
+        desc = str(rec.get("description") or "")
+        prompt = str(rec.get("prompt") or "")
+        run_llm = rec.get("run_llm")
+        if run_llm is not None:
+            run_llm_b: bool | None = bool(run_llm)
+        else:
+            run_llm_b = None
+
+        handler = _make_plugin_command_handler(
+            plugin_name=name,
+            stem=stem,
+            prompt_template=prompt,
+            run_llm=run_llm_b,
+        )
+        help_text = f"  :{cmd}" + (f" {sub}" if sub else "") + (f"  {desc}" if desc else "")
+        usage = f":{cmd}" + (f" {sub}" if sub else "") + " [args]"
+        res = register_dynamic_command(
+            cmd,
+            handler,
+            subcommand=sub,
+            help_text=help_text,
+            help_detail=desc or prompt[:200],
+            usage=usage,
+            overwrite=True,
+            source=source,
+        )
+        if res.get("ok"):
+            registered.append(f":{cmd}" + (f" {sub}" if sub else ""))
+        else:
+            skipped.append({"name": f":{cmd} {sub}".strip(), "error": str(res.get("error"))})
+
+        alias = rec.get("alias")
+        if alias and isinstance(alias, str) and alias.strip():
+            an = alias.strip()
+            if is_reserved_colon_command(an):
+                skipped.append({"name": f":{an}", "error": "reserved"})
+            else:
+                ares = register_dynamic_command(
+                    an,
+                    handler,
+                    subcommand="",
+                    help_text=f"  :{an}  alias for :{cmd} {sub}".rstrip(),
+                    help_detail=desc or "",
+                    usage=f":{an} [args]",
+                    overwrite=True,
+                    source=source,
+                )
+                if ares.get("ok"):
+                    registered.append(f":{an}")
+                else:
+                    skipped.append(
+                        {"name": f":{an}", "error": str(ares.get("error"))}
+                    )
+
+    return {
+        "ok": True,
+        "name": name,
+        "registered": registered,
+        "skipped": skipped,
+        "count": len(registered),
+    }
+
+
+def remove_plugin_commands(plugin_name: str) -> dict[str, Any]:
+    """Unregister all ":" commands previously installed for a plugin."""
+    from uagent.tools import unregister_dynamic_commands_by_source
+
+    name = (plugin_name or "").strip()
+    if not name:
+        return {"ok": False, "error": "plugin name required", "removed": 0}
+    res = unregister_dynamic_commands_by_source(_plugin_command_source_tag(name))
+    return {
+        "ok": bool(res.get("ok")),
+        "name": name,
+        "removed": int(res.get("removed") or 0),
+    }
+
+
 def activate_plugin(
     plugin_dir: str,
     plugin_name: str | None = None,
@@ -966,7 +1518,7 @@ def activate_plugin(
     roles_dir: str | None = None,
     hooks_registry_path: str | None = None,
 ) -> dict[str, Any]:
-    """Activate a plugin: merge MCP, install agents, register hooks.
+    """Activate a plugin: merge MCP, install agents, register hooks/commands.
 
     Skills are discovered in-place via skill roots (no copy step).
     Returns a summary dict with per-component results.
@@ -982,6 +1534,7 @@ def activate_plugin(
         "mcp": None,
         "agents": None,
         "hooks": None,
+        "commands": None,
     }
 
     if components.get("mcpServers"):
@@ -1005,6 +1558,9 @@ def activate_plugin(
             registry_path=hooks_registry_path,
         )
 
+    # Always try commands/ (discover may omit empty; list_* handles missing)
+    summary["commands"] = install_plugin_commands(plugin_dir, name, manifest=manifest)
+
     return summary
 
 
@@ -1015,7 +1571,7 @@ def deactivate_plugin(
     roles_dir: str | None = None,
     hooks_registry_path: str | None = None,
 ) -> dict[str, Any]:
-    """Deactivate a plugin: remove MCP servers, agents, and hooks.
+    """Deactivate a plugin: remove MCP servers, agents, hooks, and commands.
 
     Returns a summary dict with per-component cleanup results.
     """
@@ -1032,6 +1588,7 @@ def deactivate_plugin(
         "hooks": remove_plugin_hooks(
             plugin_name, registry_path=hooks_registry_path
         ),
+        "commands": remove_plugin_commands(plugin_name),
     }
 
 
@@ -1557,6 +2114,79 @@ def resolve_marketplace_plugin(
                     return str(resolved)
 
     return None
+
+
+def resolve_plugin_name_from_marketplaces(
+    plugin_name: str,
+    *,
+    marketplace_dir: str | None = None,
+    registry_path: str | None = None,
+) -> tuple[str | None, str | None]:
+    """Resolve a bare plugin name by searching registered marketplaces.
+
+    Search order follows ``list_marketplaces()`` (user registry first, then
+    built-ins such as ``claude-plugins-official``).
+
+    Returns ``(source_path, marketplace_name)`` or ``(None, None)``.
+    When *marketplace_dir* is set (tests), only that marketplace is searched
+    and its name is reported as ``"local"`` if unknown.
+    """
+    name = str(plugin_name or "").strip()
+    if not name:
+        return None, None
+
+    # Test hook: single local marketplace directory
+    if marketplace_dir:
+        resolved = resolve_marketplace_plugin(
+            name,
+            "local",
+            marketplace_dir=marketplace_dir,
+            registry_path=registry_path,
+        )
+        if resolved:
+            return resolved, "local"
+        return None, None
+
+    mps = list_marketplaces(registry_path=registry_path)
+    for mp in mps:
+        if not isinstance(mp, dict):
+            continue
+        mp_name = str(mp.get("name") or "").strip()
+        if not mp_name:
+            continue
+        resolved = resolve_marketplace_plugin(
+            name,
+            mp_name,
+            registry_path=registry_path,
+        )
+        if resolved:
+            return resolved, mp_name
+    return None, None
+
+
+def looks_like_bare_plugin_name(source: str) -> bool:
+    """True when *source* is a simple plugin id (not path/URL/zip/@ syntax)."""
+    s = str(source or "").strip()
+    if not s:
+        return False
+    if s.startswith(("http://", "https://", "git@", "ssh://", "file:")):
+        return False
+    if is_git_url(s) or is_remote_zip(s):
+        return False
+    # name@marketplace is handled separately
+    if "@" in s:
+        return False
+    # Windows drive / UNC / absolute / relative path
+    if ":" in s and len(s) > 1 and s[1] == ":":
+        return False
+    if s.startswith(("/", "\\", "./", ".\\", "../", "..\\", "~")):
+        return False
+    if "\\" in s or "/" in s:
+        return False
+    # simple identifier: letters, digits, _ - .
+    import re
+
+    return bool(re.fullmatch(r"[A-Za-z0-9][A-Za-z0-9._-]*", s))
 
 
 # ---------------------------------------------------------------------------

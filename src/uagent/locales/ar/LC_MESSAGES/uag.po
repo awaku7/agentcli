@@ -2401,12 +2401,12 @@ msgid "[WARN] Tool rounds exceeded %(max)d; aborting."
 msgstr "[تحذير] تجاوزت جولات الأداة %(max)d؛ سيتم الإيقاف."
 
 #, python-format
-msgid "%(name)s (never used for %(n)d productive rounds since load)"
-msgstr "%(name)s (لم يتم استخدامه أبدًا لـ %(n)d جولات إنتاجية منذ التحميل)"
+msgid "%(name)s (never used for %(n)d LLM rounds since load)"
+msgstr "%(name)s (لم يتم استخدامه أبدًا لـ %(n)d جولات LLM منذ التحميل)"
 
 #, python-format
-msgid "%(name)s (idle for %(n)d productive rounds)"
-msgstr "%(name)s (خاملًا لمدة %(n)d جولات إنتاجية)"
+msgid "%(name)s (idle for %(n)d LLM rounds)"
+msgstr "%(name)s (خاملًا لمدة %(n)d جولات LLM)"
 
 #: src/uagent/util_tools.py:186
 #, python-format

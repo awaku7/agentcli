@@ -13,6 +13,7 @@ from typing import Any
 
 from ..plugin_shared import (
     activate_plugin,
+    clear_plugin_settings,
     deactivate_plugin,
     discover_plugin_components,
     get_plugin_roots,
@@ -193,7 +194,7 @@ def run_tool(args: dict[str, Any]) -> str:
             **act_kwargs,
         )
     elif action == "remove":
-        return _action_remove(name, install_root, **act_kwargs)
+        return _action_remove(name, install_root, state_dir=state_dir, **act_kwargs)
     elif action == "enable":
         return _action_enable(name, state_dir, scan_dirs=scan_dirs, **act_kwargs)
     elif action == "disable":
@@ -321,6 +322,35 @@ def _action_install(
                     "error": f"Plugin '{mp_plugin_name}' not found in marketplace '{mp_name}'.",
                 }
             )
+    else:
+        # Bare plugin name (Claude Code style: /plugin install genshijin)
+        # Auto-resolve from registered marketplaces when not a path/URL.
+        from ..plugin_shared import (
+            looks_like_bare_plugin_name,
+            resolve_plugin_name_from_marketplaces,
+        )
+        from pathlib import Path as _Path
+
+        if looks_like_bare_plugin_name(normalized) and not _Path(normalized).exists():
+            resolved, mp_found = resolve_plugin_name_from_marketplaces(
+                normalized,
+                marketplace_dir=_test_marketplace_dir,
+            )
+            if resolved:
+                if not name:
+                    name = normalized
+                normalized = resolved
+            else:
+                return json.dumps(
+                    {
+                        "ok": False,
+                        "error": (
+                            f"Plugin '{normalized}' not found as a local path/URL "
+                            "and not found in any registered marketplace. "
+                            "Try ':plugin install name@marketplace' or a git/zip URL."
+                        ),
+                    }
+                )
 
     # Determine destination name
     dest_name = name or _infer_name_from_source(normalized)
@@ -469,11 +499,16 @@ def _action_remove(
     name: str,
     install_root: str,
     *,
+    state_dir: str | None = None,
     mcp_config_path: str | None = None,
     roles_dir: str | None = None,
     hooks_registry_path: str | None = None,
 ) -> str:
-    """Remove (uninstall) a plugin."""
+    """Remove (uninstall) a plugin.
+
+    Order: disable-equivalent cleanup (deactivate + settings wipe) then rmtree.
+    Unlike disable, enabledPlugins/pluginConfigs keys are deleted, not set false.
+    """
     if not name:
         return json.dumps({"ok": False, "error": "Plugin name is required."})
 
@@ -483,12 +518,19 @@ def _action_remove(
             {"ok": False, "error": f"Plugin '{name}' not found at {install_root}."}
         )
 
+    # 1) disable-equivalent component teardown (MCP / agents / hooks)
     deactivation = deactivate_plugin(
         name,
         mcp_config_path=mcp_config_path,
         roles_dir=roles_dir,
         hooks_registry_path=hooks_registry_path,
     )
+
+    # 2) wipe settings residue (stronger than disable's false flag)
+    sd = state_dir if state_dir is not None else str(get_state_dir())
+    settings_cleanup = clear_plugin_settings(name, state_dir=sd)
+
+    # 3) delete install directory (skills live in-place under the plugin)
     shutil.rmtree(str(target))
 
     return json.dumps(
@@ -496,6 +538,7 @@ def _action_remove(
             "ok": True,
             "message": f"Plugin '{name}' removed.",
             "deactivation": deactivation,
+            "settings_cleanup": settings_cleanup,
         }
     )
 
@@ -620,8 +663,9 @@ def _register_cmd_specs() -> None:
             "help_text": _(
                 "cmd.help.plugin_install",
                 default=(
-                    "  :plugin install <source> [name] [--scope user|project|local]  "
-                    "Install a plugin."
+                    "  :plugin install <source|name|name@marketplace> [name] "
+                    "[--scope user|project|local]  Install a plugin. "
+                    "Bare names resolve via registered marketplaces."
                 ),
             ),
         },
@@ -799,8 +843,13 @@ def _handle_cmd_plugin_remove(arg: str, **kwargs: Any) -> Any:
         return CommandResult()
 
     test_install_root = kwargs.get("_test_install_root")
+    test_state_dir = kwargs.get("_test_state_dir")
     result = json.loads(
-        _action_remove(name, test_install_root or _get_install_root("user"))
+        _action_remove(
+            name,
+            test_install_root or _get_install_root("user"),
+            state_dir=test_state_dir or str(get_state_dir()),
+        )
     )
 
     if result.get("ok"):

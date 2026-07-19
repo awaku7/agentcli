@@ -702,7 +702,7 @@ def _handle_cmd_ls(arg: str, *, tr: Any) -> bool:
             matches = glob.glob(expanded, recursive=True)
             if not matches:
                 print(
-                    _("[ls] No matching paths: %(src)s -> %(expanded)s")
+                    tr("[ls] No matching paths: %(src)s -> %(expanded)s")
                     % {"src": target, "expanded": expanded}
                 )
                 return True
@@ -726,13 +726,13 @@ def _handle_cmd_ls(arg: str, *, tr: Any) -> bool:
 
             items.sort(key=lambda x: (x[0], x[1]))
 
-            print(_("[ls] %(path)s") % {"path": expanded})
-            for _, _, name, p_abs, is_dir, size in items:
+            print(tr("[ls] %(path)s") % {"path": expanded})
+            for _ord, _key, name, p_abs, is_dir, size in items:
                 if is_dir:
-                    print(_("  [D] %(name)s -> %(path)s") % {"name": name, "path": p_abs})
+                    print(tr("  [D] %(name)s -> %(path)s") % {"name": name, "path": p_abs})
                 else:
                     print(
-                        _("  [F] %(name)s (%(size)d bytes) -> %(path)s")
+                        tr("  [F] %(name)s (%(size)d bytes) -> %(path)s")
                         % {"name": name, "size": size, "path": p_abs}
                     )
             return True
@@ -740,7 +740,7 @@ def _handle_cmd_ls(arg: str, *, tr: Any) -> bool:
         target_abs = os.path.abspath(expanded)
         if not os.path.isdir(target_abs):
             print(
-                _("[ls] Directory does not exist: %(src)s -> %(dst)s")
+                tr("[ls] Directory does not exist: %(src)s -> %(dst)s")
                 % {"src": target, "dst": target_abs}
             )
             return True
@@ -760,14 +760,14 @@ def _handle_cmd_ls(arg: str, *, tr: Any) -> bool:
 
         entries.sort(key=lambda x: (x[0], x[1]))
 
-        print(_("[ls] %(path)s") % {"path": target_abs})
-        for _, _, name, is_dir, size in entries:
+        print(tr("[ls] %(path)s") % {"path": target_abs})
+        for _ord, _key, name, is_dir, size in entries:
             if is_dir:
-                print(_("  [D] %(name)s") % {"name": name})
+                print(tr("  [D] %(name)s") % {"name": name})
             else:
-                print(_("  [F] %(name)s (%(size)d bytes)") % {"name": name, "size": size})
+                print(tr("  [F] %(name)s (%(size)d bytes)") % {"name": name, "size": size})
     except Exception as e:
-        print(_("[ls error] %(etype)s: %(err)s") % {"etype": type(e).__name__, "err": e})
+        print(tr("[ls error] %(etype)s: %(err)s") % {"etype": type(e).__name__, "err": e})
 
     return True
 
@@ -2148,13 +2148,20 @@ def _handle_cmd_shrink_llm(
         if _provider not in RESPONSES_PROVIDERS:
             _use_responses = False
 
-    new_messages = core.compress_history_with_llm(
-        client=client,
-        depname=depname,
-        messages=messages_ref,
-        keep_last=keep_last,
-        use_responses_api=_use_responses,
-    )
+    try:
+        new_messages = core.compress_history_with_llm(
+            client=client,
+            depname=depname,
+            messages=messages_ref,
+            keep_last=keep_last,
+            use_responses_api=_use_responses,
+        )
+    except Exception as e:
+        print(
+            _("[shrink_llm error] %(etype)s: %(err)s")
+            % {"etype": type(e).__name__, "err": e}
+        )
+        return True
     messages_ref.clear()
     messages_ref.extend(new_messages)
     _persist_messages_with_warn(messages_ref, core=core, label="shrink_llm")
@@ -3319,7 +3326,6 @@ def _image_generation_model_keys(provider: str) -> tuple[list[str], str]:
 
 
 def _audio_model_keys(provider: str, mode: str) -> tuple[list[str], str]:
-    p = provider.upper()
     m = mode.upper()
     if provider == "azure":
         return [f"UAGENT_AZURE_{m}_DEPNAME"], f"UAGENT_AZURE_{m}_DEPNAME"
@@ -3441,7 +3447,7 @@ def _handle_cmd_model(
     )
 
     speech_resolved = _safe_resolve(
-        (lambda: _audio_model_info("speech")) if _audio_model_info else None
+        (lambda: _audio_model_info("speech")) if _audio_model_info is not None else None
     )
     speech_keys: list[str] = []
     speech_fb = ""
@@ -3458,7 +3464,7 @@ def _handle_cmd_model(
     )
 
     tr_resolved = _safe_resolve(
-        (lambda: _audio_model_info("transcribe")) if _audio_model_info else None
+        (lambda: _audio_model_info("transcribe")) if _audio_model_info is not None else None
     )
     tr_keys: list[str] = []
     tr_fb = ""
@@ -3553,6 +3559,15 @@ def handle_command(
     parts = line.split(maxsplit=1)
     cmd = parts[0]
     arg = parts[1] if len(parts) > 1 else ""
+
+    # Plugin namespaced form: :plugin:subcommand [args]
+    # (Claude-style /plugin:cmd mapped onto uag ":")
+    if ":" in cmd:
+        head, tail = cmd.split(":", 1)
+        if head and tail:
+            # ":genshijin:commit" -> cmd=genshijin, arg="commit ..."
+            cmd = head
+            arg = f"{tail} {arg}".strip() if arg else tail
 
     if cmd in ("help", "h", "?"):
         topic = (arg or "").strip() or None

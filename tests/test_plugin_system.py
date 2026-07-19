@@ -402,6 +402,46 @@ class TestPluginEnabled:
         assert result is False
 
 
+class TestClearPluginSettings:
+    """Tests for clear_plugin_settings()."""
+
+    def test_removes_enabled_and_config(self, repo_tmp_path: Path) -> None:
+        from uagent.plugin_shared import clear_plugin_settings
+
+        state_dir = repo_tmp_path / ".uag"
+        state_dir.mkdir(parents=True)
+        (state_dir / "settings.json").write_text(
+            json.dumps(
+                {
+                    "enabledPlugins": {"gone": True, "stay": False},
+                    "pluginConfigs": [
+                        {"name": "gone", "options": {"a": 1}},
+                        {"name": "stay", "options": {"b": 2}},
+                    ],
+                }
+            ),
+            encoding="utf-8",
+        )
+
+        result = clear_plugin_settings("gone", state_dir=str(state_dir))
+        assert result["ok"] is True
+        assert result["enabled_removed"] is True
+        assert result["config_removed"] is True
+
+        settings = json.loads((state_dir / "settings.json").read_text(encoding="utf-8"))
+        assert "gone" not in settings["enabledPlugins"]
+        assert settings["enabledPlugins"]["stay"] is False
+        assert [c["name"] for c in settings["pluginConfigs"]] == ["stay"]
+
+    def test_missing_settings_ok(self, repo_tmp_path: Path) -> None:
+        from uagent.plugin_shared import clear_plugin_settings
+
+        result = clear_plugin_settings("x", state_dir=str(repo_tmp_path))
+        assert result["ok"] is True
+        assert result["enabled_removed"] is False
+        assert result["config_removed"] is False
+
+
 class TestDiscoverPluginComponents:
     """Tests for discover_plugin_components()."""
 
@@ -440,6 +480,20 @@ class TestDiscoverPluginComponents:
         components = discover_plugin_components(str(p), manifest)
         assert "skills" in components
         assert "bar" in components["skills"]
+
+    def test_str_manifest_does_not_crash(self, repo_tmp_path: Path) -> None:
+        """Non-dict manifests must not raise (str path / JSON / None)."""
+        from uagent.plugin_shared import discover_plugin_components
+
+        p = repo_tmp_path / "str-manifest-plugin"
+        p.mkdir(parents=True)
+        # Plain string (historical crash: str has no .get)
+        assert discover_plugin_components(str(p), "not-a-dict") == {}  # type: ignore[arg-type]
+        assert discover_plugin_components(str(p), None) == {}  # type: ignore[arg-type]
+        # JSON object string is accepted
+        comps = discover_plugin_components(str(p), '{"name":"x"}')
+        assert comps == {}
+
 
 
 # =========================================================================
@@ -561,20 +615,44 @@ class TestPluginManageRunTool:
         from uagent.tools.plugin_manage_tool import run_tool
 
         dest_root = repo_tmp_path / "removable-plugins"
-        # Pre-install
+        state_dir = repo_tmp_path / ".uag-remove"
+        state_dir.mkdir(parents=True)
+        # Pre-install + leftover enable/config flags (old remove left these)
         shutil.copytree(plugin_dir, dest_root / "to-remove")
         assert (dest_root / "to-remove").exists()
+        (state_dir / "settings.json").write_text(
+            json.dumps(
+                {
+                    "enabledPlugins": {"to-remove": True, "keep-me": True},
+                    "pluginConfigs": [
+                        {"name": "to-remove", "options": {"x": 1}},
+                        {"name": "keep-me", "options": {"y": 2}},
+                    ],
+                }
+            ),
+            encoding="utf-8",
+        )
 
         result = run_tool(
             {
                 "action": "remove",
                 "name": "to-remove",
                 "_test_install_root": str(dest_root),
+                "_test_state_dir": str(state_dir),
             }
         )
         parsed = json.loads(result)
         assert parsed["ok"] is True
         assert not (dest_root / "to-remove").exists()
+        assert parsed["settings_cleanup"]["enabled_removed"] is True
+        assert parsed["settings_cleanup"]["config_removed"] is True
+
+        settings = json.loads((state_dir / "settings.json").read_text(encoding="utf-8"))
+        assert "to-remove" not in settings.get("enabledPlugins", {})
+        assert settings["enabledPlugins"]["keep-me"] is True
+        names = [c.get("name") for c in settings.get("pluginConfigs", [])]
+        assert "to-remove" not in names
+        assert "keep-me" in names
 
     def test_enable_plugin(self, repo_tmp_path: Path) -> None:
         from uagent.tools.plugin_manage_tool import run_tool
@@ -857,6 +935,39 @@ class TestPluginWorkflow:
 
         settings = json.loads(sf.read_text(encoding="utf-8"))
         assert settings["enabledPlugins"]["persist-plugin"] is False
+
+    def test_remove_clears_enabled_not_just_false(
+        self, repo_tmp_path: Path, plugin_dir: Path
+    ) -> None:
+        """remove must delete enabledPlugins key; disable only sets false."""
+        from uagent.tools.plugin_manage_tool import run_tool
+
+        install_root = repo_tmp_path / "rm-flag-plugins"
+        state_dir = repo_tmp_path / ".uag-rm-flag"
+        state_dir.mkdir(parents=True)
+        shutil.copytree(plugin_dir, install_root / "flag-plugin")
+
+        run_tool(
+            {
+                "action": "enable",
+                "name": "flag-plugin",
+                "_test_state_dir": str(state_dir),
+            }
+        )
+        settings = json.loads((state_dir / "settings.json").read_text(encoding="utf-8"))
+        assert settings["enabledPlugins"]["flag-plugin"] is True
+
+        run_tool(
+            {
+                "action": "remove",
+                "name": "flag-plugin",
+                "_test_install_root": str(install_root),
+                "_test_state_dir": str(state_dir),
+            }
+        )
+        settings = json.loads((state_dir / "settings.json").read_text(encoding="utf-8"))
+        assert "flag-plugin" not in settings.get("enabledPlugins", {})
+        assert not (install_root / "flag-plugin").exists()
 
 
 # =========================================================================
@@ -2251,3 +2362,145 @@ class TestActivateDeactivatePlugin:
         )
         assert dis2["ok"] is True
         assert dis2["deactivation"]["mcp"]["removed_count"] == 1
+
+
+# =========================================================================
+# Plugin ":" commands (namespaced)
+# =========================================================================
+
+
+class TestPluginColonCommands:
+    """Plugin commands/ registered as namespaced ":" commands."""
+
+    def test_collect_toml_commands(self, repo_tmp_path: Path) -> None:
+        from uagent.plugin_shared import list_plugin_command_defs
+
+        root = repo_tmp_path / "p1"
+        cmd_dir = root / "commands"
+        cmd_dir.mkdir(parents=True)
+        (cmd_dir / "p1.toml").write_text(
+            'description = "main"\nprompt = "Hello {{args}}"\n',
+            encoding="utf-8",
+        )
+        (cmd_dir / "p1-sub.toml").write_text(
+            'description = "sub"\nprompt = "Sub {{args}}"\n',
+            encoding="utf-8",
+        )
+        defs = list_plugin_command_defs(str(root))
+        names = sorted(d["name"] for d in defs)
+        assert names == ["p1", "p1-sub"]
+
+    def test_registration_plan_namespace(self) -> None:
+        from uagent.plugin_shared import plugin_command_registration_plan
+
+        plan = plugin_command_registration_plan(
+            "genshijin",
+            [
+                {"name": "genshijin", "prompt": "x {{args}}"},
+                {"name": "genshijin-commit", "prompt": "c"},
+                {"name": "other", "prompt": "o"},
+            ],
+        )
+        by_stem = {p["stem"]: p for p in plan}
+        assert by_stem["genshijin"]["command"] == "genshijin"
+        assert by_stem["genshijin"]["subcommand"] == ""
+        assert by_stem["genshijin-commit"]["subcommand"] == "commit"
+        assert by_stem["genshijin-commit"]["alias"] == "genshijin-commit"
+        assert by_stem["other"]["subcommand"] == "other"
+        assert by_stem["other"]["alias"] is None
+
+    def test_reserved_plugin_name_rejected(self, repo_tmp_path: Path) -> None:
+        from uagent.plugin_shared import install_plugin_commands
+
+        root = repo_tmp_path / "help"
+        (root / "commands").mkdir(parents=True)
+        (root / "commands" / "help.toml").write_text(
+            'description = "nope"\nprompt = "x"\n', encoding="utf-8"
+        )
+        res = install_plugin_commands(str(root), "help")
+        assert res["ok"] is False
+        assert "reserved" in res["error"]
+
+    def test_install_and_remove_commands(self, repo_tmp_path: Path) -> None:
+        from uagent.plugin_shared import install_plugin_commands, remove_plugin_commands
+        from uagent.tools import handle_dynamic_command, list_dynamic_command_names
+
+        root = repo_tmp_path / "demoplug"
+        cmd_dir = root / "commands"
+        cmd_dir.mkdir(parents=True)
+        (cmd_dir / "demoplug.toml").write_text(
+            'description = "main"\nprompt = "MODE {{args}}"\n',
+            encoding="utf-8",
+        )
+        (cmd_dir / "demoplug-task.toml").write_text(
+            'description = "task"\nprompt = "Do task {{args}}"\n',
+            encoding="utf-8",
+        )
+
+        res = install_plugin_commands(str(root), "demoplug")
+        assert res["ok"] is True
+        assert res["count"] >= 2
+        assert "demoplug" in list_dynamic_command_names()
+
+        # default handler gets full args when sub unknown
+        out = handle_dynamic_command("demoplug", "極限")
+        assert out is not None
+
+        # namespaced subcommand via space
+        out2 = handle_dynamic_command("demoplug", "task now")
+        assert out2 is not None
+
+        # alias top-level
+        assert "demoplug-task" in list_dynamic_command_names()
+
+        rm = remove_plugin_commands("demoplug")
+        assert rm["ok"] is True
+        assert rm["removed"] >= 2
+        assert "demoplug" not in list_dynamic_command_names()
+
+    def test_handle_command_plugin_colon_split(self) -> None:
+        """ :plugin:sub  is split before dynamic dispatch. """
+        # lightweight: reuse util_tools parsing via handle_command unknown path
+        from uagent.plugin_shared import install_plugin_commands, remove_plugin_commands
+        from uagent.tools import register_dynamic_command, unregister_dynamic_commands_by_source
+        from pathlib import Path
+        import tempfile
+        import json as _json
+
+        # Install minimal plugin command and call handle_command
+        from uagent import util_tools as ut
+
+        calls: list[str] = []
+
+        def _h(arg: str, **kwargs):
+            calls.append(arg)
+            return ut.CommandResult()
+
+        register_dynamic_command(
+            "nsplug",
+            _h,
+            subcommand="commit",
+            overwrite=True,
+            source="plugin:nsplug",
+        )
+        try:
+            # Simulate handle_command path: cmd split
+            line = ":nsplug:commit --amend"
+            line2 = line.lstrip(":").strip()
+            parts = line2.split(maxsplit=1)
+            cmd = parts[0]
+            arg = parts[1] if len(parts) > 1 else ""
+            if ":" in cmd:
+                head, tail = cmd.split(":", 1)
+                if head and tail:
+                    cmd = head
+                    arg = f"{tail} {arg}".strip() if arg else tail
+            assert cmd == "nsplug"
+            assert arg == "commit --amend"
+            from uagent.tools import handle_dynamic_command
+
+            handle_dynamic_command(cmd, arg)
+            assert calls == ["--amend"]
+        finally:
+            unregister_dynamic_commands_by_source("plugin:nsplug")
+

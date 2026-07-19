@@ -2465,12 +2465,12 @@ msgid "[WARN] Tool rounds exceeded %(max)d; aborting."
 msgstr "[AVISO] O número de rodadas de ferramentas excedeu %(max)d; abortando."
 
 #, python-format
-msgid "%(name)s (never used for %(n)d productive rounds since load)"
-msgstr "%(name)s (nunca usado para %(n)d rodadas produtivas desde o carregamento)"
+msgid "%(name)s (never used for %(n)d LLM rounds since load)"
+msgstr "%(name)s (nunca usado para %(n)d rodadas LLM desde o carregamento)"
 
 #, python-format
-msgid "%(name)s (idle for %(n)d productive rounds)"
-msgstr "%(name)s (ocioso por %(n)d rodadas produtivas)"
+msgid "%(name)s (idle for %(n)d LLM rounds)"
+msgstr "%(name)s (ocioso por %(n)d rodadas LLM)"
 
 #: src/uagent/util_tools.py:186
 #, python-format

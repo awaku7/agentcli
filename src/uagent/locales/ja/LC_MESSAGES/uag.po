@@ -2301,12 +2301,12 @@ msgid "[WARN] Tool rounds exceeded %(max)d; aborting."
 msgstr "[WARN] ツール使用ラウンドが %(max)d 回を超えたため打ち切ります。"
 
 #, python-format
-msgid "%(name)s (never used for %(n)d productive rounds since load)"
-msgstr "%(name)s (ロード以来、%(n)d の生産ラウンドでは一度も使用されていません)"
+msgid "%(name)s (never used for %(n)d LLM rounds since load)"
+msgstr "%(name)s (ロード以来、%(n)d のLLMラウンドでは一度も使用されていません)"
 
 #, python-format
-msgid "%(name)s (idle for %(n)d productive rounds)"
-msgstr "%(name)s (%(n)d 回の生産ラウンドの間アイドル状態)"
+msgid "%(name)s (idle for %(n)d LLM rounds)"
+msgstr "%(name)s (%(n)d 回のLLMラウンドの間アイドル状態)"
 
 #: src/uagent/util_tools.py:186
 #, python-format

@@ -2316,12 +2316,12 @@ msgid "[WARN] Tool rounds exceeded %(max)d; aborting."
 msgstr "[WARN] 도구 라운드가 %(max)d회를 초과했습니다. 중단합니다."
 
 #, python-format
-msgid "%(name)s (never used for %(n)d productive rounds since load)"
-msgstr "%(name)s(로드 이후 %(n)d 생산 라운드에는 사용되지 않음)"
+msgid "%(name)s (never used for %(n)d LLM rounds since load)"
+msgstr "%(name)s(로드 이후 %(n)d LLM 라운드에는 사용되지 않음)"
 
 #, python-format
-msgid "%(name)s (idle for %(n)d productive rounds)"
-msgstr "%(name)s(%(n)d 생산 라운드 동안 유휴 상태)"
+msgid "%(name)s (idle for %(n)d LLM rounds)"
+msgstr "%(name)s(%(n)d LLM 라운드 동안 유휴 상태)"
 
 #: src/uagent/util_tools.py:186
 #, python-format

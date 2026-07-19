@@ -2435,12 +2435,12 @@ msgid "[WARN] Tool rounds exceeded %(max)d; aborting."
 msgstr "[ADVARSEL] Verktøy-runder oversteg %(max)d; avbryter."
 
 #, python-format
-msgid "%(name)s (never used for %(n)d productive rounds since load)"
-msgstr "%(name)s (aldri brukt i %(n)d produktive runder siden lasting)"
+msgid "%(name)s (never used for %(n)d LLM rounds since load)"
+msgstr "%(name)s (aldri brukt i %(n)d LLM-runder siden lasting)"
 
 #, python-format
-msgid "%(name)s (idle for %(n)d productive rounds)"
-msgstr "%(name)s (uvirksom i %(n)d produktive runder)"
+msgid "%(name)s (idle for %(n)d LLM rounds)"
+msgstr "%(name)s (uvirksom i %(n)d LLM-runder)"
 
 #: src/uagent/util_tools.py:186
 #, python-format
