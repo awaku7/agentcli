@@ -78,14 +78,20 @@ def _audio_model_info(mode: str) -> tuple[str, str] | None:
         ).lower()
         default_model = "gpt-4o-mini-tts"
         default_google_model = "ja-JP-Neural2-B"
+        default_grok_model = "grok-tts"
     else:
         provider = _env_first(
             ["UAGENT_AUDIO_TRANSCRIBE_PROVIDER", "UAGENT_PROVIDER"], default="openai"
         ).lower()
         default_model = "gpt-4o-mini-transcribe"
         default_google_model = "gemini-1.5-flash"
+        default_grok_model = "grok-stt-batch"
 
-    if provider not in {"openai", "azure", "gemini", "vertexai"}:
+    # Align with audio_speech / audio_transcribe tools (xai is an alias of grok).
+    if provider == "xai":
+        provider = "grok"
+
+    if provider not in {"openai", "azure", "gemini", "vertexai", "grok"}:
         return None
 
     if provider == "azure":
@@ -104,6 +110,21 @@ def _audio_model_info(mode: str) -> tuple[str, str] | None:
         if not _env("UAGENT_OPENAI_API_KEY"):
             return None
         depname = _env(f"UAGENT_OPENAI_{mode.upper()}_DEPNAME", default_model)
+        return provider, depname
+
+    if provider == "grok":
+        if not (_env("UAGENT_GROK_API_KEY") or _env("XAI_API_KEY")):
+            return None
+        if mode == "speech":
+            depname = _env_first(
+                ["UAGENT_GROK_SPEECH_DEPNAME", "UAGENT_GROK_TTS_MODEL"],
+                default=default_grok_model,
+            )
+        else:
+            depname = _env_first(
+                ["UAGENT_GROK_TRANSCRIBE_DEPNAME", "UAGENT_GROK_STT_MODEL"],
+                default=default_grok_model,
+            )
         return provider, depname
 
     if not _google_audio_credentials_present(provider, mode):
