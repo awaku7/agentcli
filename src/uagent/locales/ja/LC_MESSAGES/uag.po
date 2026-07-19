@@ -1,9 +1,9 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: PROJECT VERSION\n"
+"Project-Id-Version: uagent VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2026-07-19 17:42+0900\n"
+"POT-Creation-Date: 2026-07-19 17:51+0900\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -804,6 +804,7 @@ msgstr ""
 "試行=%(attempt)s/%(max_retries)s 待機=%(wait_seconds).1fs "
 "retry_after=%(retry_after)s"
 
+#: src/uagent/llm_flow_helpers.py:40
 msgid ""
 "[INFO] Already called this tool with the same arguments earlier. Reusing the"
 " previous result. Do NOT call this tool again with the same arguments. If "
@@ -908,6 +909,7 @@ msgstr "入力がコンテキストウィンドウを超えています。"
 msgid "Model does not support thinking. Disabling thinking and retrying..."
 msgstr "モデルは思考をサポートしていません。思考を無効にして再試行します..."
 
+#: src/uagent/llm_round_helpers.py:884
 msgid ""
 "The Responses API rejected the full-history retry; starting a new session is"
 " required."
@@ -917,6 +919,7 @@ msgstr "Responses API は全履歴の再試行を拒否しました。新しい�
 msgid "Stale previous_response_id. Retrying with full history..."
 msgstr "古いprevious_response_id。完全な履歴を使用して再試行しています..."
 
+#: src/uagent/llm_round_helpers.py:919
 msgid "Responses tool chain rejected. Retrying with sanitized full history..."
 msgstr "応答ツールチェーンが拒否されました。サニタイズされた完全な履歴を使用して再試行しています..."
 
@@ -967,6 +970,63 @@ msgstr "応答エラー: resp.choices が None または空です。"
 #, python-format
 msgid "Error while parsing response: %(err)s"
 msgstr "レスポンス解析中にエラー: %(err)s"
+
+msgid "Model '%(model_id)s' is deprecated; consider '%(replacement)s'."
+msgstr "モデル '%(model_id)s' は非推奨です。'%(replacement)s' の利用を検討してください。"
+
+msgid "Model '%(model_id)s' is deprecated."
+msgstr "モデル '%(model_id)s' は非推奨です。"
+
+msgid "    model_id: %(value)s"
+msgstr "    model_id: %(value)s"
+
+msgid "    provider: %(value)s"
+msgstr "    provider: %(value)s"
+
+msgid "    Display Name:  %(value)s"
+msgstr "    表示名:        %(value)s"
+
+msgid "    Context Window: %(value)s tokens"
+msgstr "    コンテキスト窓: %(value)s トークン"
+
+msgid "    Max Output:    %(value)s tokens"
+msgstr "    最大出力:      %(value)s トークン"
+
+msgid "    Tokenizer:     %(value)s"
+msgstr "    トークナイザ:  %(value)s"
+
+msgid "    License:       %(value)s"
+msgstr "    ライセンス:    %(value)s"
+
+msgid "    Knowledge Cutoff: %(value)s"
+msgstr "    知識カットオフ: %(value)s"
+
+msgid "    Deprecated:    %(value)s"
+msgstr "    非推奨:        %(value)s"
+
+msgid "    Replaced By:   %(value)s"
+msgstr "    代替:          %(value)s"
+
+msgid "    Input:         %(value)s"
+msgstr "    入力:          %(value)s"
+
+msgid "    Output:        %(value)s"
+msgstr "    出力:          %(value)s"
+
+msgid "    Features:      %(value)s"
+msgstr "    機能:          %(value)s"
+
+msgid "    Pricing:       $%(inp).2f/%(cur)sM in, $%(outp).2f/%(cur)sM out"
+msgstr "    価格:          $%(inp).2f/%(cur)sM in, $%(outp).2f/%(cur)sM out"
+
+msgid "    Est. 1M in+out: $%(cost).2f %(currency)s"
+msgstr "    推定 1M in+out: $%(cost).2f %(currency)s"
+
+msgid "    Reasoning Efforts: %(value)s"
+msgstr "    推論エフォート: %(value)s"
+
+msgid "    Thinking Budgets: %(value)s"
+msgstr "    思考バジェット: %(value)s"
 
 #: src/uagent/profile_manager.py:661
 #, python-brace-format
@@ -1722,18 +1782,23 @@ msgstr "Gemini モデル名（任意）"
 msgid "NVIDIA model/deployment name"
 msgstr "NVIDIA モデル/デプロイ名（任意）"
 
+#: src/uagent/setup_cli.py:715
 msgid "Z.AI API key"
 msgstr "Z.AI API キー"
 
+#: src/uagent/setup_cli.py:716
 msgid "Z.AI base URL (optional)"
 msgstr "Z.AI ベース URL (オプション)"
 
+#: src/uagent/setup_cli.py:717
 msgid "Z.AI image model (e.g. glm-image)"
 msgstr "Z.AI 画像モデル (例: glm-image)"
 
+#: src/uagent/setup_cli.py:721
 msgid "xAI Grok API key"
 msgstr "xAI Grok API キー"
 
+#: src/uagent/setup_cli.py:722
 msgid "Grok image model (e.g. grok-imagine-image)"
 msgstr "Grok 画像モデル (例: grok-imagine-image)"
 
@@ -2093,6 +2158,7 @@ msgid ""
 "Enable a specific tool by name at startup. Can be specified multiple times."
 msgstr "起動時に名前で特定のツールを有効にします。複数指定可能です。"
 
+#: src/uagent/util_tools.py:405
 msgid "Load a plugin from a directory (can be specified multiple times)."
 msgstr "ディレクトリからプラグインをロードします (複数回指定可能)。"
 
@@ -2108,12 +2174,15 @@ msgstr "[表示] 推論表示=%(mode)s"
 msgid "invalid verbosity"
 msgstr "詳細度が不正です"
 
+#: src/uagent/util_tools.py:673
 msgid "[reload] No new instruction files found."
 msgstr "[reload] No new instruction files found."
 
+#: src/uagent/util_tools.py:682
 msgid "[reload] Loaded %(count)d new instruction file(s)."
 msgstr "[reload] Loaded %(count)d new instruction file(s)."
 
+#: src/uagent/util_tools.py:687
 msgid "[reload error] %(etype)s: %(err)s"
 msgstr "[リロード エラー] %(etype)s: %(err)s"
 
@@ -2278,6 +2347,7 @@ msgid ""
 "%(path)s"
 msgstr "[clean] 短いセッションログを破棄しました（ユーザー発話=%(n)d <= %(threshold)d）: %(path)s"
 
+#: src/uagent/util_tools.py:1742
 msgid ""
 "[clean] Startup sweep: deleted=%(deleted)d, failed=%(failed)d "
 "(threshold=%(threshold)d user turns)."
@@ -2383,27 +2453,35 @@ msgstr "ユーザープロファイルが正常に消去されました。"
 msgid "No user profile file found to clear."
 msgstr "消去するユーザープロファイルファイルが見つかりません。"
 
+#: src/uagent/util_tools.py:2373
 msgid "Available commands:"
 msgstr "利用可能なコマンド:"
 
+#: src/uagent/util_tools.py:2374
 msgid "Show this help, or details for a command"
 msgstr "このヘルプまたはコマンドの詳細を表示する"
 
+#: src/uagent/util_tools.py:2375
 msgid "Alias for :help"
 msgstr ":help のエイリアス"
 
+#: src/uagent/util_tools.py:2376
 msgid "Change workdir"
 msgstr "作業ディレクトリを変更する"
 
+#: src/uagent/util_tools.py:2377
 msgid "List directory"
 msgstr "ディレクトリの一覧表示"
 
+#: src/uagent/util_tools.py:2378
 msgid "List conversation logs"
 msgstr "会話ログの一覧表示"
 
+#: src/uagent/util_tools.py:2379
 msgid "Load a past log into this session"
 msgstr "過去のログをこのセッションにロードします"
 
+#: src/uagent/util_tools.py:2380
 msgid "Continue from latest log (:load 0)"
 msgstr "最新ログから継続(:load 0)"
 
@@ -2411,51 +2489,67 @@ msgstr "最新ログから継続(:load 0)"
 msgid "Delete short logs (default N=5 user turns)"
 msgstr "短いログを削除（既定 N=5 ユーザー発話）"
 
+#: src/uagent/util_tools.py:2382
 msgid "Shrink history (keep last N)"
 msgstr "履歴を縮小 (最後の N を保持)"
 
+#: src/uagent/util_tools.py:2383
 msgid "LLM-summarize older history"
 msgstr "LLM - 古い履歴の要約"
 
+#: src/uagent/util_tools.py:2384
 msgid "Show approx. conversation tokens"
 msgstr "おおよその値を表示します。会話トークン"
 
+#: src/uagent/util_tools.py:2385
 msgid "Show/set/unset/save UAGENT_* env"
 msgstr "UAGENT_* 環境の表示/設定/設定解除/保存"
 
+#: src/uagent/util_tools.py:2386
 msgid "List/apply/install skills"
 msgstr "スキルのリスト/適用/インストール"
 
+#: src/uagent/util_tools.py:2387
 msgid "List/load/on/off tools and genres"
 msgstr "ツールとジャンルのリスト/ロード/オン/オフ"
 
+#: src/uagent/util_tools.py:2388
 msgid "Manage plugins"
 msgstr "プラグインの管理"
 
+#: src/uagent/util_tools.py:2389
 msgid "Scaffold a new tool module"
 msgstr "新しいツールモジュールを足場にする"
 
+#: src/uagent/util_tools.py:2390
 msgid "Auto-pilot loop / stop"
 msgstr "オートパイロットループ/ストップ"
 
+#: src/uagent/util_tools.py:2391
 msgid "Show model configuration"
 msgstr "モデル構成を表示"
 
+#: src/uagent/util_tools.py:2392
 msgid "Reasoning / verbosity"
 msgstr "推論/冗長性"
 
+#: src/uagent/util_tools.py:2393
 msgid "Long-term memory"
 msgstr "長期記憶"
 
+#: src/uagent/util_tools.py:2394
 msgid "User profile show/generate/clear"
 msgstr "ユーザープロファイルの表示/生成/クリア"
 
+#: src/uagent/util_tools.py:2395
 msgid "Copy, move, delete paths"
 msgstr "パスのコピー、移動、削除"
 
+#: src/uagent/util_tools.py:2396
 msgid "Show file head/tail"
 msgstr "ファイルの先頭/末尾を表示"
 
+#: src/uagent/util_tools.py:2397
 msgid "Reload runtime pieces"
 msgstr "ランタイム部分をリロードする"
 
@@ -2463,24 +2557,31 @@ msgstr "ランタイム部分をリロードする"
 msgid "Exit"
 msgstr "終了"
 
+#: src/uagent/util_tools.py:2408
 msgid "Dynamic commands (from tools CMD_SPEC):"
 msgstr "動的コマンド (CMD_SPEC ツールから):"
 
+#: src/uagent/util_tools.py:2421
 msgid "Hints:"
 msgstr "ヒント:"
 
+#: src/uagent/util_tools.py:2423
 msgid "Type :help <command> for details (e.g. :help tools, :help skills)."
 msgstr "詳細については、「:help <コマンド>」と入力します (例: :help ツール、:help スキル)。"
 
+#: src/uagent/util_tools.py:2424
 msgid "Enter a line that is just 'f' to enter multiline input mode."
 msgstr "複数行入力モードに入るには、「f」だけの行を入力します。"
 
+#: src/uagent/util_tools.py:2425
 msgid "(in multiline) restart input from the beginning"
 msgstr "(複数行) 入力を最初からやり直す"
 
+#: src/uagent/util_tools.py:2458
 msgid "Show command help"
 msgstr "コマンドのヘルプを表示する"
 
+#: src/uagent/util_tools.py:2461
 msgid ""
 "Without args: short list of all commands.\n"
 "With a command: detailed usage (static + dynamic CMD_SPEC).\n"
@@ -2490,18 +2591,23 @@ msgstr ""
 "コマンドあり: 詳細な使用法 (静的 + 動的 CMD_SPEC)。\n"
 "例: :help ツール | :help スキルをインストール | :help プラグイン"
 
+#: src/uagent/util_tools.py:2468
 msgid "Change workdir without confirmation"
 msgstr "確認せずに作業ディレクトリを変更する"
 
+#: src/uagent/util_tools.py:2470
 msgid "Examples: :cd .. | :cd ~ | :cd C:\\path | :cd /"
 msgstr "例: :cd .. | :cd ~ | :cd C:\\パス | :cd /"
 
+#: src/uagent/util_tools.py:2473
 msgid "List directory entries"
 msgstr "ディレクトリエントリをリストする"
 
+#: src/uagent/util_tools.py:2475
 msgid "Examples: :ls | :ls .. | :ls ~ | :ls C:\\path"
 msgstr "例: :ls | :ls .. | :ls ~ | :ls C:\\パス"
 
+#: src/uagent/util_tools.py:2477
 msgid "Show conversation log file list"
 msgstr "会話ログファイルリストを表示"
 
@@ -2509,17 +2615,21 @@ msgstr "会話ログファイルリストを表示"
 msgid "Load a past log (overwrites current conversation history)"
 msgstr "過去のログを読み込む（現在の会話履歴を上書きします）"
 
+#: src/uagent/util_tools.py:2482
 msgid ""
 "idx is from :logs. After load you may be asked to prepend into the current "
 "session log."
 msgstr "idx は :logs からのものです。ロード後、現在のセッション ログの先頭に追加するように求められる場合があります。"
 
+#: src/uagent/util_tools.py:2486
 msgid "Load the newest log (:load 0)"
 msgstr "最新のログをロード (:load 0)"
 
+#: src/uagent/util_tools.py:2490
 msgid "Delete short conversation logs"
 msgstr "短い会話ログを削除する"
 
+#: src/uagent/util_tools.py:2493
 msgid ""
 "Deletes scheck_log_*.jsonl where user-turn count (role=user) <= N (default "
 "5, or UAGENT_CLEAN_THRESHOLD). On :exit/:quit/Ctrl-C, the current session "
@@ -2530,34 +2640,43 @@ msgstr ""
 "scheck_log_*.jsonl を削除します。 :exit/:quit/Ctrl-C では、現在のセッション "
 "ログが同じルールに基づいて破棄されます。サイレント スタートアップ スイープでは、以前のセッションから残った短いログも削除されます。"
 
+#: src/uagent/util_tools.py:2500
 msgid "Shrink conversation history"
 msgstr "会話履歴を縮小する"
 
+#: src/uagent/util_tools.py:2502
 msgid "Keep last N non-system messages (default 40)."
 msgstr "最新の N 個の非システム メッセージを保持します (デフォルトは 40)。"
 
+#: src/uagent/util_tools.py:2505
 msgid "Shrink history via LLM summarization"
 msgstr "LLM 要約による履歴の縮小"
 
+#: src/uagent/util_tools.py:2508
 msgid ""
 "Summarize older history into one system message; keep last N raw (default "
 "20)."
 msgstr "古い履歴を 1 つのシステム メッセージに要約します。最後の N 個を生のまま保持します (デフォルトは 20)。"
 
+#: src/uagent/util_tools.py:2512
 msgid "Show approximate token count of the conversation"
 msgstr "会話のおおよそのトークン数を表示します"
 
+#: src/uagent/util_tools.py:2516
 msgid "Manage UAGENT_* environment variables"
 msgstr "UAGENT_* 環境変数を管理する"
 
+#: src/uagent/util_tools.py:2519
 msgid ""
 "Sensitive KEY names are masked on show. save writes encrypted .env.sec when "
 "configured."
 msgstr "機密性の高い KEY 名は表示時にマスクされます。 save は、設定時に暗号化された .env.sec を書き込みます。"
 
+#: src/uagent/util_tools.py:2523
 msgid "Manage and apply Agent Skills"
 msgstr "エージェントスキルの管理と適用"
 
+#: src/uagent/util_tools.py:2526
 msgid ""
 "Built-in: list/active/clear (see runtime skills handlers).\n"
 "Dynamic subcommands come from tool CMD_SPEC (install, uninstall, apm, mp_search).\n"
@@ -2567,9 +2686,11 @@ msgstr ""
 "動的サブコマンドはツール CMD_SPEC から取得されます (インストール、アンインストール、apm、mp_search)。\n"
 "サブコマンドには :help スキル インストールを使用します。"
 
+#: src/uagent/util_tools.py:2532
 msgid "Control tool sending, genres, and loaded tools"
 msgstr "コントロールツールの送信、ジャンル、搭載ツール"
 
+#: src/uagent/util_tools.py:2535
 msgid ""
 ":tools on|off           Enable/disable sending tools to the LLM\n"
 ":tools on|off <genre>   Enable/disable a tool genre (and sync global on)\n"
@@ -2587,39 +2708,51 @@ msgstr ""
 ":tools 出力 ツール結果の表示を切り替えますUI\n"
 ":tools create ... 新しいツールをスキャフォールディングします (:tool create のエイリアス)"
 
+#: src/uagent/util_tools.py:2545
 msgid "Tool authoring helpers"
 msgstr "ツールオーサリングヘルパー"
 
+#: src/uagent/util_tools.py:2547
 msgid "Scaffolds src/uagent/tools/<name>_tool.py (+ json)."
 msgstr "スキャフォールド src/uagent/tools/<name>_tool.py (+ json)。"
 
+#: src/uagent/util_tools.py:2550
 msgid "Install and manage plugins"
 msgstr "プラグインのインストールと管理"
 
+#: src/uagent/util_tools.py:2552
 msgid "See :help plugin <subcommand> for each action."
 msgstr "各アクションについては、:help プラグイン <サブコマンド> を参照してください。"
 
+#: src/uagent/util_tools.py:2555
 msgid "Auto-pilot: repeatedly pursue a goal until done or stopped"
 msgstr "自動操縦: 完了するか停止するまで繰り返し目標を追求します"
 
+#: src/uagent/util_tools.py:2557
 msgid "Press x in CLI to request immediate exit from auto-pilot."
 msgstr "CLI で x を押して、自動操縦の即時終了を要求します。"
 
+#: src/uagent/util_tools.py:2560
 msgid "Show detailed model configuration"
 msgstr "詳細なモデル構成を表示"
 
+#: src/uagent/util_tools.py:2562
 msgid "Chat, image, audio, translation, embedding as configured."
 msgstr "設定どおりのチャット、画像、音声、翻訳、埋め込み。"
 
+#: src/uagent/util_tools.py:2565
 msgid "Set reasoning effort"
 msgstr "推論の労力を設定する"
 
+#: src/uagent/util_tools.py:2567
 msgid "0=off, 1=low, 2=medium, 3=high. Provider support varies."
 msgstr "0=オフ、1=低、2=中、3=高。プロバイダーのサポートは異なります。"
 
+#: src/uagent/util_tools.py:2571
 msgid "Set verbosity"
 msgstr "詳細度を設定する"
 
+#: src/uagent/util_tools.py:2573
 msgid "0=off .. 3=high. No arg keeps current."
 msgstr "0=オフ .. 3=高。最新の状態を保つ引数はありません。"
 
@@ -2627,30 +2760,39 @@ msgstr "0=オフ .. 3=高。最新の状態を保つ引数はありません。"
 msgid "List long-term memory notes"
 msgstr "長期記憶メモを一覧表示"
 
+#: src/uagent/util_tools.py:2578
 msgid "Delete a long-term memory note by index"
 msgstr "長期記憶メモをインデックスで削除する"
 
+#: src/uagent/util_tools.py:2580
 msgid "Index from :mem-list."
 msgstr ":mem-list からのインデックス。"
 
+#: src/uagent/util_tools.py:2583
 msgid "Show or generate the learned user profile"
 msgstr "学習したユーザー プロファイルを表示または生成する"
 
+#: src/uagent/util_tools.py:2585
 msgid "fromlog N uses the most recent N log files."
 msgstr "fromlog N は、最新の N 個のログ ファイルを使用します。"
 
+#: src/uagent/util_tools.py:2589
 msgid "Generate user profile from past logs"
 msgstr "過去ログからユーザープロフィールを生成"
 
+#: src/uagent/util_tools.py:2591
 msgid "Default N=100; 0=all."
 msgstr "デフォルトの N=100。 0=すべて。"
 
+#: src/uagent/util_tools.py:2594
 msgid "Clear learned user profile data"
 msgstr "学習したユーザープロファイルデータをクリアする"
 
+#: src/uagent/util_tools.py:2597
 msgid "Copy file or directory"
 msgstr "ファイルまたはディレクトリをコピーする"
 
+#: src/uagent/util_tools.py:2601
 msgid "Move file or directory"
 msgstr "ファイルまたはディレクトリを移動する"
 
@@ -2658,38 +2800,48 @@ msgstr "ファイルまたはディレクトリを移動する"
 msgid "Delete file(s)/directory(ies) with preview + confirm"
 msgstr "プレビューと確認付きでファイル/ディレクトリを削除します"
 
+#: src/uagent/util_tools.py:2609
 msgid "Show the first n lines of a file"
 msgstr "ファイルの最初の n 行を表示する"
 
+#: src/uagent/util_tools.py:2611 src/uagent/util_tools.py:2616
 msgid "Default n=20."
 msgstr "デフォルトは n=20 です。"
 
+#: src/uagent/util_tools.py:2614
 msgid "Show the last n lines of a file"
 msgstr "ファイルの最後の n 行を表示します"
 
+#: src/uagent/util_tools.py:2619
 msgid "Reload runtime configuration / modules"
 msgstr "ランタイム構成/モジュールをリロードする"
 
+#: src/uagent/util_tools.py:2622 src/uagent/util_tools.py:2623
 msgid "Exit the interactive session"
 msgstr "インタラクティブセッションを終了します"
 
+#: src/uagent/util_tools.py:2677
 msgid "Dynamic / plugin subcommands:"
 msgstr "動的/プラグインのサブコマンド:"
 
-#: src/uagent/util_tools.py:2691 src/uagent/util_tools.py:3668
+#: src/uagent/util_tools.py:2691 src/uagent/util_tools.py:3705
 #, python-format
 msgid "Unknown command: :%(cmd)s"
 msgstr "不明なコマンド: :%(cmd)s"
 
+#: src/uagent/util_tools.py:2695
 msgid "Did you mean: "
 msgstr "どういう意味ですか: "
 
+#: src/uagent/util_tools.py:2698
 msgid "Try :help for the full list."
 msgstr "完全なリストについては、:help を試してください。"
 
+#: src/uagent/util_tools.py:2704
 msgid "No dynamic subcommand help for '%(sub)s'."
 msgstr "'%(sub)s' に対する動的サブコマンド ヘルプはありません。"
 
+#: src/uagent/util_tools.py:2707
 msgid "Tip: :help for overview, :help <cmd> <sub> for one subcommand."
 msgstr "ヒント: :help は概要、:help <cmd> <sub> は 1 つのサブコマンドです。"
 
@@ -2766,68 +2918,90 @@ msgstr "[AUTO] 開始しました。目的: %(goal)s"
 msgid "[AUTO] Max rounds: %(max)d"
 msgstr "[AUTO] 最大ラウンド数: %(max)d"
 
+#: src/uagent/util_tools.py:3234 src/uagent/util_tools.py:3248
+#: src/uagent/util_tools.py:3487
 msgid "  (fallback: %(key)s)"
 msgstr "  (フォールバック: %(key)s)"
 
+#: src/uagent/util_tools.py:3235
 msgid "  (fallback)"
 msgstr "  (フォールバック)"
 
+#: src/uagent/util_tools.py:3265
 msgid "  %(label)s: (not configured)"
 msgstr "  %(label)s: (未構成)"
 
+#: src/uagent/util_tools.py:3275
 msgid "  %(label)s:"
 msgstr "  %(label)s:"
 
+#: src/uagent/util_tools.py:3277 src/uagent/util_tools.py:3368
+#: src/uagent/util_tools.py:3491
 msgid "    Provider: %(provider)s%(note)s"
 msgstr "    プロバイダー: %(provider)s%(note)s"
 
+#: src/uagent/util_tools.py:3281 src/uagent/util_tools.py:3372
+#: src/uagent/util_tools.py:3495
 msgid "    Model:    %(model)s%(note)s"
 msgstr "    モデル:    %(model)s%(note)s"
 
+#: src/uagent/util_tools.py:3363
 msgid "=== Model Configuration ==="
 msgstr "=== モデル構成 ==="
 
+#: src/uagent/util_tools.py:3364
 msgid "  Chat (main):"
 msgstr "  チャット (メイン):"
 
+#: src/uagent/util_tools.py:3365
 msgid "(none)"
 msgstr "(なし)"
 
+#: src/uagent/util_tools.py:3366
 msgid "(not set)"
 msgstr "(未設定)"
 
+#: src/uagent/util_tools.py:3380
 msgid "    WARN: %(warn)s"
-msgstr "    WARN: %(warn)s"
+msgstr "    警告: %(warn)s"
 
+#: src/uagent/util_tools.py:3417
 msgid "Image Analysis"
 msgstr "画像解析"
 
+#: src/uagent/util_tools.py:3432
 msgid "Image Generation"
 msgstr "画像生成"
 
+#: src/uagent/util_tools.py:3449
 msgid "Audio Speech"
 msgstr "音声合成"
 
+#: src/uagent/util_tools.py:3466
 msgid "Audio Transcribe"
 msgstr "音声文字起こし"
 
+#: src/uagent/util_tools.py:3489
 msgid "  Translation:"
 msgstr "  翻訳:"
 
+#: src/uagent/util_tools.py:3499
 msgid "    From→To:  %(src)s → %(dst)s"
 msgstr "    元→先:  %(src)s → %(dst)s"
 
+#: src/uagent/util_tools.py:3507 src/uagent/util_tools.py:3509
 msgid "  Translation: (not configured)"
 msgstr "  翻訳: (未構成)"
 
+#: src/uagent/util_tools.py:3519
 msgid "Embedding"
 msgstr "埋め込み"
 
-#: src/uagent/util_tools.py:3665
+#: src/uagent/util_tools.py:3702
 msgid "Exiting."
 msgstr "終了します。"
 
-#: src/uagent/util_tools.py:3762
+#: src/uagent/util_tools.py:3799
 msgid ""
 "The bullet points listed below are excerpts from this user's long-term memory (persistent memos). Use them as background information about the user. However, always prioritize newly provided information in the conversation, and if it contradicts older information, adopt the latest information.\n"
 "\n"

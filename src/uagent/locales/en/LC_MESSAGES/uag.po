@@ -1,9 +1,9 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: PROJECT VERSION\n"
+"Project-Id-Version: uagent VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2026-07-19 17:42+0900\n"
+"POT-Creation-Date: 2026-07-19 17:51+0900\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -786,6 +786,63 @@ msgstr "Response error: resp.choices is None or empty."
 
 msgid "Error while parsing response: %(err)s"
 msgstr "Error while parsing response: %(err)s"
+
+msgid "Model '%(model_id)s' is deprecated; consider '%(replacement)s'."
+msgstr "Model '%(model_id)s' is deprecated; consider '%(replacement)s'."
+
+msgid "Model '%(model_id)s' is deprecated."
+msgstr "Model '%(model_id)s' is deprecated."
+
+msgid "    model_id: %(value)s"
+msgstr "    model_id: %(value)s"
+
+msgid "    provider: %(value)s"
+msgstr "    provider: %(value)s"
+
+msgid "    Display Name:  %(value)s"
+msgstr "    Display Name:  %(value)s"
+
+msgid "    Context Window: %(value)s tokens"
+msgstr "    Context Window: %(value)s tokens"
+
+msgid "    Max Output:    %(value)s tokens"
+msgstr "    Max Output:    %(value)s tokens"
+
+msgid "    Tokenizer:     %(value)s"
+msgstr "    Tokenizer:     %(value)s"
+
+msgid "    License:       %(value)s"
+msgstr "    License:       %(value)s"
+
+msgid "    Knowledge Cutoff: %(value)s"
+msgstr "    Knowledge Cutoff: %(value)s"
+
+msgid "    Deprecated:    %(value)s"
+msgstr "    Deprecated:    %(value)s"
+
+msgid "    Replaced By:   %(value)s"
+msgstr "    Replaced By:   %(value)s"
+
+msgid "    Input:         %(value)s"
+msgstr "    Input:         %(value)s"
+
+msgid "    Output:        %(value)s"
+msgstr "    Output:        %(value)s"
+
+msgid "    Features:      %(value)s"
+msgstr "    Features:      %(value)s"
+
+msgid "    Pricing:       $%(inp).2f/%(cur)sM in, $%(outp).2f/%(cur)sM out"
+msgstr "    Pricing:       $%(inp).2f/%(cur)sM in, $%(outp).2f/%(cur)sM out"
+
+msgid "    Est. 1M in+out: $%(cost).2f %(currency)s"
+msgstr "    Est. 1M in+out: $%(cost).2f %(currency)s"
+
+msgid "    Reasoning Efforts: %(value)s"
+msgstr "    Reasoning Efforts: %(value)s"
+
+msgid "    Thinking Budgets: %(value)s"
+msgstr "    Thinking Budgets: %(value)s"
 
 msgid ""
 "You are a user profiling agent. Analyze the conversation log and extract the user's:\n"

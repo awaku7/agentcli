@@ -94,6 +94,9 @@ class TestClampMaxTokens:
 
 class TestFormatLines:
     def test_format_nonempty(self) -> None:
+        from uagent.i18n import set_thread_lang
+
+        set_thread_lang("en")
         cap = get_capability("gpt-4o", "openai")
         lines = format_capability_lines(cap)
         assert any("Context Window" in ln for ln in lines)
@@ -166,6 +169,9 @@ class TestCostAndDeprecated:
         assert float(est.get("cost", 0)) > 0
 
     def test_deprecated_warning_optional(self) -> None:
+        from uagent.i18n import set_thread_lang
+
+        set_thread_lang("en")
         # gpt-4o is marked deprecated in current llmcapa; accept warn or None if data changes
         warn = deprecated_model_warning("gpt-4o", "openai")
         assert warn is None or "deprecated" in warn.lower()

@@ -3113,17 +3113,40 @@ def _get_env(key: str, default: str = "") -> str:
 def _format_capa(cap) -> list[str]:
     """Format a llmcapa Capability object into detail lines."""
     lines: list[str] = []
-    lines.append(f"    Display Name:  {cap.display_name}")
-    lines.append(f"    Context Window: {cap.context_window:,} tokens")
-    lines.append(f"    Max Output:    {cap.max_output_tokens:,} tokens")
-    lines.append(f"    Tokenizer:     {cap.tokenizer_name or '?'}")
-    lines.append(f"    License:       {cap.license_type or '?'}")
-    lines.append(f"    Knowledge Cutoff: {cap.knowledge_cutoff or '?'}")
-    lines.append(f"    Deprecated:    {cap.deprecated}")
+    lines.append(
+        _("    Display Name:  %(value)s") % {"value": cap.display_name}
+    )
+    lines.append(
+        _("    Context Window: %(value)s tokens")
+        % {"value": f"{cap.context_window:,}"}
+    )
+    lines.append(
+        _("    Max Output:    %(value)s tokens")
+        % {"value": f"{cap.max_output_tokens:,}"}
+    )
+    lines.append(
+        _("    Tokenizer:     %(value)s") % {"value": cap.tokenizer_name or "?"}
+    )
+    lines.append(
+        _("    License:       %(value)s") % {"value": cap.license_type or "?"}
+    )
+    lines.append(
+        _("    Knowledge Cutoff: %(value)s")
+        % {"value": cap.knowledge_cutoff or "?"}
+    )
+    lines.append(
+        _("    Deprecated:    %(value)s") % {"value": cap.deprecated}
+    )
     if cap.input_modalities:
-        lines.append(f"    Input:         {', '.join(cap.input_modalities)}")
+        lines.append(
+            _("    Input:         %(value)s")
+            % {"value": ", ".join(cap.input_modalities)}
+        )
     if cap.output_modalities:
-        lines.append(f"    Output:        {', '.join(cap.output_modalities)}")
+        lines.append(
+            _("    Output:        %(value)s")
+            % {"value": ", ".join(cap.output_modalities)}
+        )
     feats = []
     if cap.supports_function_calling:
         feats.append("function_calling")
@@ -3150,7 +3173,9 @@ def _format_capa(cap) -> list[str]:
     if cap.supports_fim:
         feats.append("fim")
     if feats:
-        lines.append(f"    Features:      {', '.join(feats)}")
+        lines.append(
+            _("    Features:      %(value)s") % {"value": ", ".join(feats)}
+        )
     if cap.pricing:
         price = cap.pricing
         inp = price.get("input_per_1m")
@@ -3158,13 +3183,25 @@ def _format_capa(cap) -> list[str]:
         cur = price.get("currency", "USD")
         if inp is not None and out is not None:
             lines.append(
-                f"    Pricing:       ${inp:.2f}/{cur}M in, ${out:.2f}/{cur}M out"
+                _(
+                    "    Pricing:       $%(inp).2f/%(cur)sM in, "
+                    "$%(outp).2f/%(cur)sM out"
+                )
+                % {"inp": float(inp), "outp": float(out), "cur": cur}
             )
     if cap.reasoning_effort_values:
-        lines.append(f"    Reasoning Efforts: {', '.join(cap.reasoning_effort_values)}")
+        lines.append(
+            _("    Reasoning Efforts: %(value)s")
+            % {"value": ", ".join(cap.reasoning_effort_values)}
+        )
     if cap.thinking_budget_values:
         lines.append(
-            f"    Thinking Budgets: {', '.join(str(v) for v in cap.thinking_budget_values)}"
+            _("    Thinking Budgets: %(value)s")
+            % {
+                "value": ", ".join(
+                    str(v) for v in cap.thinking_budget_values
+                )
+            }
         )
     return lines
 

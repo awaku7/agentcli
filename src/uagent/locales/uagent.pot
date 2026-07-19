@@ -1,14 +1,14 @@
-# Translations template for PROJECT.
+# Translations template for uagent.
 # Copyright (C) 2026 ORGANIZATION
-# This file is distributed under the same license as the PROJECT project.
+# This file is distributed under the same license as the uagent project.
 # FIRST AUTHOR <EMAIL@ADDRESS>, 2026.
 #
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: PROJECT VERSION\n"
+"Project-Id-Version: uagent VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2026-07-19 17:42+0900\n"
+"POT-Creation-Date: 2026-07-19 17:51+0900\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -931,6 +931,101 @@ msgstr ""
 #: src/uagent/llm_round_helpers.py:1081
 #, python-format
 msgid "Error while parsing response: %(err)s"
+msgstr ""
+
+#: src/uagent/llmcapa_util.py:665
+#, python-format
+msgid "Model '%(model_id)s' is deprecated; consider '%(replacement)s'."
+msgstr ""
+
+#: src/uagent/llmcapa_util.py:667
+#, python-format
+msgid "Model '%(model_id)s' is deprecated."
+msgstr ""
+
+#: src/uagent/llmcapa_util.py:677
+#, python-format
+msgid "    model_id: %(value)s"
+msgstr ""
+
+#: src/uagent/llmcapa_util.py:681
+#, python-format
+msgid "    provider: %(value)s"
+msgstr ""
+
+#: src/uagent/llmcapa_util.py:685 src/uagent/util_tools.py:3117
+#, python-format
+msgid "    Display Name:  %(value)s"
+msgstr ""
+
+#: src/uagent/llmcapa_util.py:691 src/uagent/util_tools.py:3120
+#, python-format
+msgid "    Context Window: %(value)s tokens"
+msgstr ""
+
+#: src/uagent/llmcapa_util.py:694 src/uagent/util_tools.py:3124
+#, python-format
+msgid "    Max Output:    %(value)s tokens"
+msgstr ""
+
+#: src/uagent/llmcapa_util.py:697 src/uagent/util_tools.py:3128
+#, python-format
+msgid "    Tokenizer:     %(value)s"
+msgstr ""
+
+#: src/uagent/llmcapa_util.py:701 src/uagent/util_tools.py:3131
+#, python-format
+msgid "    License:       %(value)s"
+msgstr ""
+
+#: src/uagent/llmcapa_util.py:705 src/uagent/util_tools.py:3134
+#, python-format
+msgid "    Knowledge Cutoff: %(value)s"
+msgstr ""
+
+#: src/uagent/llmcapa_util.py:709 src/uagent/util_tools.py:3138
+#, python-format
+msgid "    Deprecated:    %(value)s"
+msgstr ""
+
+#: src/uagent/llmcapa_util.py:723
+#, python-format
+msgid "    Replaced By:   %(value)s"
+msgstr ""
+
+#: src/uagent/llmcapa_util.py:728 src/uagent/util_tools.py:3142
+#, python-format
+msgid "    Input:         %(value)s"
+msgstr ""
+
+#: src/uagent/llmcapa_util.py:732 src/uagent/util_tools.py:3147
+#, python-format
+msgid "    Output:        %(value)s"
+msgstr ""
+
+#: src/uagent/llmcapa_util.py:757 src/uagent/util_tools.py:3177
+#, python-format
+msgid "    Features:      %(value)s"
+msgstr ""
+
+#: src/uagent/llmcapa_util.py:767 src/uagent/util_tools.py:3187
+#, python-format
+msgid "    Pricing:       $%(inp).2f/%(cur)sM in, $%(outp).2f/%(cur)sM out"
+msgstr ""
+
+#: src/uagent/llmcapa_util.py:777
+#, python-format
+msgid "    Est. 1M in+out: $%(cost).2f %(currency)s"
+msgstr ""
+
+#: src/uagent/llmcapa_util.py:792 src/uagent/util_tools.py:3194
+#, python-format
+msgid "    Reasoning Efforts: %(value)s"
+msgstr ""
+
+#: src/uagent/llmcapa_util.py:802 src/uagent/util_tools.py:3199
+#, python-format
+msgid "    Thinking Budgets: %(value)s"
 msgstr ""
 
 #: src/uagent/profile_manager.py:661
@@ -2674,7 +2769,7 @@ msgstr ""
 msgid "Dynamic / plugin subcommands:"
 msgstr ""
 
-#: src/uagent/util_tools.py:2691 src/uagent/util_tools.py:3668
+#: src/uagent/util_tools.py:2691 src/uagent/util_tools.py:3705
 #, python-format
 msgid "Unknown command: :%(cmd)s"
 msgstr ""
@@ -2767,97 +2862,97 @@ msgstr ""
 msgid "[AUTO] Max rounds: %(max)d"
 msgstr ""
 
-#: src/uagent/util_tools.py:3197 src/uagent/util_tools.py:3211
-#: src/uagent/util_tools.py:3450
+#: src/uagent/util_tools.py:3234 src/uagent/util_tools.py:3248
+#: src/uagent/util_tools.py:3487
 #, python-format
 msgid "  (fallback: %(key)s)"
 msgstr ""
 
-#: src/uagent/util_tools.py:3198
+#: src/uagent/util_tools.py:3235
 msgid "  (fallback)"
 msgstr ""
 
-#: src/uagent/util_tools.py:3228
+#: src/uagent/util_tools.py:3265
 #, python-format
 msgid "  %(label)s: (not configured)"
 msgstr ""
 
-#: src/uagent/util_tools.py:3238
+#: src/uagent/util_tools.py:3275
 #, python-format
 msgid "  %(label)s:"
 msgstr ""
 
-#: src/uagent/util_tools.py:3240 src/uagent/util_tools.py:3331
-#: src/uagent/util_tools.py:3454
+#: src/uagent/util_tools.py:3277 src/uagent/util_tools.py:3368
+#: src/uagent/util_tools.py:3491
 #, python-format
 msgid "    Provider: %(provider)s%(note)s"
 msgstr ""
 
-#: src/uagent/util_tools.py:3244 src/uagent/util_tools.py:3335
-#: src/uagent/util_tools.py:3458
+#: src/uagent/util_tools.py:3281 src/uagent/util_tools.py:3372
+#: src/uagent/util_tools.py:3495
 #, python-format
 msgid "    Model:    %(model)s%(note)s"
 msgstr ""
 
-#: src/uagent/util_tools.py:3326
+#: src/uagent/util_tools.py:3363
 msgid "=== Model Configuration ==="
 msgstr ""
 
-#: src/uagent/util_tools.py:3327
+#: src/uagent/util_tools.py:3364
 msgid "  Chat (main):"
 msgstr ""
 
-#: src/uagent/util_tools.py:3328
+#: src/uagent/util_tools.py:3365
 msgid "(none)"
 msgstr ""
 
-#: src/uagent/util_tools.py:3329
+#: src/uagent/util_tools.py:3366
 msgid "(not set)"
 msgstr ""
 
-#: src/uagent/util_tools.py:3343
+#: src/uagent/util_tools.py:3380
 #, python-format
 msgid "    WARN: %(warn)s"
 msgstr ""
 
-#: src/uagent/util_tools.py:3380
+#: src/uagent/util_tools.py:3417
 msgid "Image Analysis"
 msgstr ""
 
-#: src/uagent/util_tools.py:3395
+#: src/uagent/util_tools.py:3432
 msgid "Image Generation"
 msgstr ""
 
-#: src/uagent/util_tools.py:3412
+#: src/uagent/util_tools.py:3449
 msgid "Audio Speech"
 msgstr ""
 
-#: src/uagent/util_tools.py:3429
+#: src/uagent/util_tools.py:3466
 msgid "Audio Transcribe"
 msgstr ""
 
-#: src/uagent/util_tools.py:3452
+#: src/uagent/util_tools.py:3489
 msgid "  Translation:"
 msgstr ""
 
-#: src/uagent/util_tools.py:3462
+#: src/uagent/util_tools.py:3499
 #, python-format
 msgid "    From→To:  %(src)s → %(dst)s"
 msgstr ""
 
-#: src/uagent/util_tools.py:3470 src/uagent/util_tools.py:3472
+#: src/uagent/util_tools.py:3507 src/uagent/util_tools.py:3509
 msgid "  Translation: (not configured)"
 msgstr ""
 
-#: src/uagent/util_tools.py:3482
+#: src/uagent/util_tools.py:3519
 msgid "Embedding"
 msgstr ""
 
-#: src/uagent/util_tools.py:3665
+#: src/uagent/util_tools.py:3702
 msgid "Exiting."
 msgstr ""
 
-#: src/uagent/util_tools.py:3762
+#: src/uagent/util_tools.py:3799
 msgid ""
 "The bullet points listed below are excerpts from this user's long-term "
 "memory (persistent memos). Use them as background information about the "

@@ -11,6 +11,7 @@ from functools import lru_cache
 from typing import Any
 
 from .env_utils import env_get
+from .i18n import _
 
 # uag provider key -> ordered llmcapa provider candidates.
 # llmcapa already accepts some aliases (gemini/grok/bedrock/...), but we keep
@@ -660,8 +661,10 @@ def deprecated_model_warning(
     except Exception:
         repl = None
     if repl:
-        return f"Model '{mid}' is deprecated; consider '{repl}'."
-    return f"Model '{mid}' is deprecated."
+        return _(
+            "Model '%(model_id)s' is deprecated; consider '%(replacement)s'."
+        ) % {"model_id": mid, "replacement": repl}
+    return _("Model '%(model_id)s' is deprecated.") % {"model_id": mid}
 
 
 def format_capability_lines(cap: Any) -> list[str]:
@@ -670,21 +673,42 @@ def format_capability_lines(cap: Any) -> list[str]:
         return []
     lines: list[str] = []
     try:
-        lines.append(f"    model_id: {getattr(cap, 'model_id', '?')}")
-        lines.append(f"    provider: {getattr(cap, 'provider', '?')}")
-        lines.append(f"    Display Name:  {getattr(cap, 'display_name', '')}")
+        lines.append(
+            _("    model_id: %(value)s")
+            % {"value": getattr(cap, "model_id", "?")}
+        )
+        lines.append(
+            _("    provider: %(value)s")
+            % {"value": getattr(cap, "provider", "?")}
+        )
+        lines.append(
+            _("    Display Name:  %(value)s")
+            % {"value": getattr(cap, "display_name", "")}
+        )
         ctx = int(getattr(cap, "context_window", 0) or 0)
         out = int(getattr(cap, "max_output_tokens", 0) or 0)
-        lines.append(f"    Context Window: {ctx:,} tokens")
-        lines.append(f"    Max Output:    {out:,} tokens")
         lines.append(
-            f"    Tokenizer:     {getattr(cap, 'tokenizer_name', None) or '?'}"
+            _("    Context Window: %(value)s tokens") % {"value": f"{ctx:,}"}
         )
-        lines.append(f"    License:       {getattr(cap, 'license_type', None) or '?'}")
         lines.append(
-            f"    Knowledge Cutoff: {getattr(cap, 'knowledge_cutoff', None) or '?'}"
+            _("    Max Output:    %(value)s tokens") % {"value": f"{out:,}"}
         )
-        lines.append(f"    Deprecated:    {getattr(cap, 'deprecated', False)}")
+        lines.append(
+            _("    Tokenizer:     %(value)s")
+            % {"value": getattr(cap, "tokenizer_name", None) or "?"}
+        )
+        lines.append(
+            _("    License:       %(value)s")
+            % {"value": getattr(cap, "license_type", None) or "?"}
+        )
+        lines.append(
+            _("    Knowledge Cutoff: %(value)s")
+            % {"value": getattr(cap, "knowledge_cutoff", None) or "?"}
+        )
+        lines.append(
+            _("    Deprecated:    %(value)s")
+            % {"value": getattr(cap, "deprecated", False)}
+        )
         repl = None
         try:
             repl = cap.can_be_replaced_by()
@@ -696,13 +720,17 @@ def format_capability_lines(cap: Any) -> list[str]:
                 except Exception:
                     repl = None
         if repl:
-            lines.append(f"    Replaced By:   {repl}")
+            lines.append(_("    Replaced By:   %(value)s") % {"value": repl})
         in_mods = getattr(cap, "input_modalities", None) or []
         out_mods = getattr(cap, "output_modalities", None) or []
         if in_mods:
-            lines.append(f"    Input:         {', '.join(in_mods)}")
+            lines.append(
+                _("    Input:         %(value)s") % {"value": ", ".join(in_mods)}
+            )
         if out_mods:
-            lines.append(f"    Output:        {', '.join(out_mods)}")
+            lines.append(
+                _("    Output:        %(value)s") % {"value": ", ".join(out_mods)}
+            )
         feats: list[str] = []
         for name in (
             "function_calling",
@@ -725,7 +753,9 @@ def format_capability_lines(cap: Any) -> list[str]:
                 if getattr(cap, f"supports_{name}", False):
                     feats.append(name)
         if feats:
-            lines.append(f"    Features:      {', '.join(feats)}")
+            lines.append(
+                _("    Features:      %(value)s") % {"value": ", ".join(feats)}
+            )
         pricing = getattr(cap, "pricing", None) or {}
         if pricing:
             inp = pricing.get("input_per_1m")
@@ -733,15 +763,22 @@ def format_capability_lines(cap: Any) -> list[str]:
             cur = pricing.get("currency", "USD")
             if inp is not None and outp is not None:
                 lines.append(
-                    f"    Pricing:       ${float(inp):.2f}/{cur}M in, "
-                    f"${float(outp):.2f}/{cur}M out"
+                    _(
+                        "    Pricing:       $%(inp).2f/%(cur)sM in, "
+                        "$%(outp).2f/%(cur)sM out"
+                    )
+                    % {"inp": float(inp), "outp": float(outp), "cur": cur}
                 )
                 try:
                     sample = cap.estimate_cost(1_000_000, 1_000_000)
                     cost = sample.get("cost")
                     if cost is not None:
                         lines.append(
-                            f"    Est. 1M in+out: ${float(cost):.2f} {sample.get('currency', cur)}"
+                            _("    Est. 1M in+out: $%(cost).2f %(currency)s")
+                            % {
+                                "cost": float(cost),
+                                "currency": sample.get("currency", cur),
+                            }
                         )
                 except Exception:
                     pass
@@ -751,14 +788,20 @@ def format_capability_lines(cap: Any) -> list[str]:
         except Exception:
             efforts = getattr(cap, "reasoning_effort_values", None)
         if efforts:
-            lines.append(f"    Reasoning Efforts: {', '.join(str(v) for v in efforts)}")
+            lines.append(
+                _("    Reasoning Efforts: %(value)s")
+                % {"value": ", ".join(str(v) for v in efforts)}
+            )
         budgets = None
         try:
             budgets = cap.get_thinking_budget_values()
         except Exception:
             budgets = getattr(cap, "thinking_budget_values", None)
         if budgets:
-            lines.append(f"    Thinking Budgets: {', '.join(str(v) for v in budgets)}")
+            lines.append(
+                _("    Thinking Budgets: %(value)s")
+                % {"value": ", ".join(str(v) for v in budgets)}
+            )
     except Exception:
         return lines
     return lines
