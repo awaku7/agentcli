@@ -777,8 +777,14 @@ def run_agent_worker(
             except Exception:
                 pass
         try:
-            if isinstance(msg, dict) and msg.get("role") in ("user", "tool"):
-                room.add_message(dict(msg))
+            if isinstance(msg, dict):
+                role = msg.get("role")
+                # UI-only assistant (e.g. empty-no-tool WARN) must be visible in Web,
+                # but must not enter room.history (model prompt).
+                if role == "assistant" and msg.get("_uagent_ui_only"):
+                    room.add_message(dict(msg))
+                elif role in ("user", "tool") and not msg.get("_uagent_internal"):
+                    room.add_message(dict(msg))
         except Exception:
             pass
 

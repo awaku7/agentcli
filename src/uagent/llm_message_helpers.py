@@ -425,6 +425,8 @@ def _build_call_messages(
         for m in src_messages:
             if not isinstance(m, dict):
                 continue
+            if m.get("_uagent_ui_only") or m.get("_uagent_internal"):
+                continue
 
             while True:
                 role = m.get("role")

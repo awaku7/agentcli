@@ -206,6 +206,126 @@ def _build_auto_user_message_from_next_action(
     return auto_user_msg
 
 
+def _default_empty_no_tool_max(provider: str) -> int:
+    """Default consecutive empty/no-tool tolerance.
+
+    Grok/xAI sometimes returns empty assistant messages after tool calls more
+    often than other providers, so give it a higher default before aborting.
+    """
+    p = (provider or "").strip().lower()
+    if p in ("grok", "xai"):
+        return 5
+    return 2
+
+
+def _resolve_empty_no_tool_max(provider: str) -> int:
+    """Read UAGENT_EMPTY_NO_TOOL_MAX, falling back to provider-aware default."""
+    default = _default_empty_no_tool_max(provider)
+    raw = env_get("UAGENT_EMPTY_NO_TOOL_MAX", "")
+    if raw is None or str(raw).strip() == "":
+        return default
+    try:
+        value = int(str(raw).strip())
+    except Exception:
+        return default
+    if value < 0:
+        return default
+    return value
+
+
+def _drop_trailing_empty_assistant(messages: list[dict[str, Any]]) -> bool:
+    """Remove a just-appended empty assistant message (no tool_calls).
+
+    Empty assistant turns pollute the next-turn prompt and make providers more
+    likely to emit another empty reply (especially after a short 'continue').
+    """
+    if not messages:
+        return False
+    last = messages[-1]
+    if not isinstance(last, dict):
+        return False
+    if last.get("role") != "assistant":
+        return False
+    if last.get("_uagent_ui_only"):
+        messages.pop()
+        return True
+    tcs = last.get("tool_calls")
+    if isinstance(tcs, list) and tcs:
+        return False
+    if not _effectively_empty_text(last.get("content")):
+        return False
+    messages.pop()
+    return True
+
+
+def _should_keep_assistant_message(
+    assistant_text: str,
+    tool_calls_list: list[dict[str, Any]] | None,
+) -> bool:
+    """Whether an assistant turn should enter model-visible history."""
+    if isinstance(tool_calls_list, list) and tool_calls_list:
+        return True
+    return not _effectively_empty_text(assistant_text)
+
+
+def _empty_no_tool_recovery_text() -> str:
+    return _(
+        "The previous model turn ended with an empty reply after tool use. Continue the unfinished task using the most recent tool results. Prefer a concrete next step or final answer over an empty response.",
+        default="The previous model turn ended with an empty reply after tool use. Continue the unfinished task using the most recent tool results. Prefer a concrete next step or final answer over an empty response.",
+    )
+
+
+def _consume_empty_no_tool_recovery(
+    *,
+    messages: list[dict[str, Any]],
+    core: Any,
+) -> bool:
+    """Merge one pending recovery hint into the latest real user message.
+
+    Recovery is intentionally NOT left as a standalone user turn: that caused
+    stacked synthetic user messages after repeated empty WARN + 'continue'.
+    """
+    pending = bool(getattr(core, "_empty_no_tool_recovery_pending", False))
+    if not pending:
+        return False
+    try:
+        setattr(core, "_empty_no_tool_recovery_pending", False)
+    except Exception:
+        pass
+
+    recovery = _empty_no_tool_recovery_text()
+    for m in reversed(messages):
+        if not isinstance(m, dict):
+            continue
+        if m.get("role") != "user":
+            continue
+        if m.get("_uagent_internal") or m.get("_uagent_ui_only"):
+            continue
+        content = m.get("content")
+        if isinstance(content, str):
+            body = content.strip()
+            if not body:
+                m["content"] = recovery
+            elif recovery not in body:
+                m["content"] = recovery + "\n\n" + content
+            return True
+        if isinstance(content, list):
+            # Prepend a text part for multimodal user turns.
+            m["content"] = [{"type": "text", "text": recovery}, *content]
+            return True
+        m["content"] = recovery
+        return True
+
+    messages.append(
+        {
+            "role": "user",
+            "content": recovery,
+            "_uagent_internal": "empty_no_tool_recovery",
+        }
+    )
+    return True
+
+
 def _handle_openai_empty_no_tool(
     *,
     assistant_text: str,
@@ -251,6 +371,13 @@ def _handle_openai_empty_no_tool(
     if not tool_calls_list and eff_empty:
         empty_no_tool_rounds += 1
 
+        # Safety net: if a provider branch already appended an empty assistant
+        # turn, drop it so retries / next user turns do not see blanks.
+        try:
+            _drop_trailing_empty_assistant(messages)
+        except Exception:
+            pass
+
         # Optional debug for empty assistant responses (no tool calls).
         if env_get("UAGENT_DEBUG_EMPTY") == "1":
             try:
@@ -294,24 +421,39 @@ def _handle_openai_empty_no_tool(
             return "continue", empty_no_tool_rounds
 
         warn_text = _(
-            "[WARN] LLM returned an empty assistant message without tool calls.\nprovider=%(provider)s depname=%(depname)s empty_no_tool_rounds=%(empty_no_tool_rounds)s (max=%(empty_no_tool_max)s)\nThis may happen with OpenAI-compatible local providers after tool calls. You can try setting UAGENT_EMPTY_NO_TOOL_MAX to a higher value, or switching provider.",
-            default="[WARN] LLM returned an empty assistant message without tool calls.\nprovider=%(provider)s depname=%(depname)s empty_no_tool_rounds=%(empty_no_tool_rounds)s (max=%(empty_no_tool_max)s)\nThis may happen with OpenAI-compatible local providers after tool calls. You can try setting UAGENT_EMPTY_NO_TOOL_MAX to a higher value, or switching provider.",
+            "[WARN] LLM returned an empty assistant message without tool calls.\nprovider=%(provider)s depname=%(depname)s empty_no_tool_rounds=%(empty_no_tool_rounds)s (max=%(empty_no_tool_max)s)\nThis may happen with some providers (including Grok/xAI and OpenAI-compatible endpoints) after tool calls. You can try setting UAGENT_EMPTY_NO_TOOL_MAX to a higher value, or switching provider.",
+            default="[WARN] LLM returned an empty assistant message without tool calls.\nprovider=%(provider)s depname=%(depname)s empty_no_tool_rounds=%(empty_no_tool_rounds)s (max=%(empty_no_tool_max)s)\nThis may happen with some providers (including Grok/xAI and OpenAI-compatible endpoints) after tool calls. You can try setting UAGENT_EMPTY_NO_TOOL_MAX to a higher value, or switching provider.",
         ) % {
             "provider": provider,
             "depname": depname,
             "empty_no_tool_rounds": empty_no_tool_rounds,
             "empty_no_tool_max": empty_no_tool_max,
         }
-        try:
-            warn_msg = {"role": "assistant", "content": warn_text}
-            messages.append(warn_msg)
-            core.log_message(warn_msg)
-        except Exception:
-            pass
+        # Keep WARN out of model-visible history. Print for CLI; log a UI-only
+        # assistant message so Web/GUI can show it without poisoning the prompt.
         try:
             print(warn_text, file=sys.stderr)
         except Exception:
             pass
+        try:
+            core.log_message(
+                {
+                    "role": "assistant",
+                    "content": warn_text,
+                    "_uagent_ui_only": True,
+                }
+            )
+        except Exception:
+            pass
+
+        # Defer recovery to the next user turn (merged there once). Appending a
+        # synthetic user message here stacked with the real follow-up ("続けて")
+        # and repeated WARNs accumulated multiple recovery prompts.
+        if env_get("UAGENT_EMPTY_NO_TOOL_RECOVERY", "1") != "0":
+            try:
+                setattr(core, "_empty_no_tool_recovery_pending", True)
+            except Exception:
+                pass
         return "break", empty_no_tool_rounds
 
     return "pass", 0

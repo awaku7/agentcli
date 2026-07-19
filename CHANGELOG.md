@@ -9,6 +9,8 @@
 - tmp-based batch translator for tool JSON i18n.
 
 ### Fixed
+- Empty assistant / no-tool loop: drop blank assistant turns from history, keep WARN out of model messages, add next-turn recovery prompt; raise default `UAGENT_EMPTY_NO_TOOL_MAX` for grok/xai to 5.
+- Empty-no-tool follow-up: defer recovery into the next real user turn (no stacked synthetic users), log WARN as UI-only assistant for Web, skip empty assistant append before history, strip `_uagent_ui_only`/`_uagent_internal` in sanitize.
 - Grok: show reasoning effort in CLI status (`LLM:` / `LLM:auto->...`).
 - Grok/Responses: stream reasoning continuously without breaking lines on `.` / `!` / `?`.
 - i18n: repair empty and remaining same-as-en tool JSON values; protect param names; apply translate_text/audio_speech locales.

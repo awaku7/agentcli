@@ -9,6 +9,8 @@
 - ツール JSON i18n 向け tmp ベース一括翻訳。
 
 ### 修正
+- 空 assistant / no-tool ループ: 空の assistant を履歴から除去、WARN をモデル履歴に入れない、次ターン用 recovery prompt を追加。grok/xai の `UAGENT_EMPTY_NO_TOOL_MAX` 既定を 5 に引き上げ。
+- 空 no-tool の続き: recovery を次の実 user にマージ（合成 user の積み上がり防止）、WARN を Web 向け UI-only assistant として記録、空 assistant の事前 append を抑止、sanitize で `_uagent_ui_only`/`_uagent_internal` を除外。
 - Grok: CLI ステータスに reasoning effort（`LLM:` / `LLM:auto->...`）を表示。
 - Grok/Responses: reasoning を `.` / `!` / `?` で改行せず連続ストリーム表示。
 - i18n: 空値・英語のまま残っていた tool JSON を修正、パラメータ名保護、translate_text/audio_speech ロケール適用。

@@ -1143,6 +1143,9 @@ def sanitize_messages_for_tools(messages: list[dict[str, Any]]) -> list[dict[str
     for m in messages:
         if not isinstance(m, dict):
             continue
+        # Never send UI-only / internal control messages to the model.
+        if m.get("_uagent_ui_only") or m.get("_uagent_internal"):
+            continue
 
         while True:
             role = m.get("role")

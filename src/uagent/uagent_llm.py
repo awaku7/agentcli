@@ -54,6 +54,9 @@ from .llm_flow_helpers import (
     _emit_final_answer_if_any,
     _handle_openai_empty_no_tool,
     _execute_tool_calls,
+    _resolve_empty_no_tool_max,
+    _should_keep_assistant_message,
+    _consume_empty_no_tool_recovery,
 )
 from . import core as _core_module
 from .tools._genre_control_util import (
@@ -532,14 +535,15 @@ def _run_one_round(
             stream_responses=stream_responses,
         )
 
-        _append_assistant_message(
-            messages=messages,
-            core=core,
-            assistant_text=assistant_text,
-            tool_calls_list=tool_calls_list,
-            gemini_content_dump=gemini_content_dump,
-            skip_log_when_web=True,
-        )
+        if _should_keep_assistant_message(assistant_text, tool_calls_list):
+            _append_assistant_message(
+                messages=messages,
+                core=core,
+                assistant_text=assistant_text,
+                tool_calls_list=tool_calls_list,
+                gemini_content_dump=gemini_content_dump,
+                skip_log_when_web=True,
+            )
 
         action, empty_no_tool_rounds = _handle_openai_empty_no_tool(
             assistant_text=assistant_text,
@@ -633,12 +637,13 @@ def _run_one_round(
             stream_responses=stream_responses,
         )
 
-        _append_assistant_message(
-            messages=messages,
-            core=core,
-            assistant_text=assistant_text,
-            tool_calls_list=tool_calls_list,
-        )
+        if _should_keep_assistant_message(assistant_text, tool_calls_list):
+            _append_assistant_message(
+                messages=messages,
+                core=core,
+                assistant_text=assistant_text,
+                tool_calls_list=tool_calls_list,
+            )
 
         action, empty_no_tool_rounds = _handle_openai_empty_no_tool(
             assistant_text=assistant_text,
@@ -738,15 +743,16 @@ def _run_one_round(
             env_get("UAGENT_STREAMING", "1") or ""
         ).strip().lower() not in ("0", "false", "no", "off")
 
-        deepseek_msg = build_assistant_message_with_reasoning(
-            assistant_text=assistant_text,
-            tool_calls_list=tool_calls_list,
-            reasoning_content=reasoning_content,
-        )
-        messages.append(deepseek_msg)
-        if not (bool(getattr(core, "_is_web", False)) and _ds_streaming):
-            if not judgment_mode:
-                core.log_message(deepseek_msg)
+        if _should_keep_assistant_message(assistant_text, tool_calls_list):
+            deepseek_msg = build_assistant_message_with_reasoning(
+                assistant_text=assistant_text,
+                tool_calls_list=tool_calls_list,
+                reasoning_content=reasoning_content,
+            )
+            messages.append(deepseek_msg)
+            if not (bool(getattr(core, "_is_web", False)) and _ds_streaming):
+                if not judgment_mode:
+                    core.log_message(deepseek_msg)
 
         action, empty_no_tool_rounds = _handle_openai_empty_no_tool(
             assistant_text=assistant_text,
@@ -846,15 +852,16 @@ def _run_one_round(
             env_get("UAGENT_STREAMING", "1") or ""
         ).strip().lower() not in ("0", "false", "no", "off")
 
-        deepseek_msg = build_assistant_message_with_reasoning(
-            assistant_text=assistant_text,
-            tool_calls_list=tool_calls_list,
-            reasoning_content=reasoning_content,
-        )
-        messages.append(deepseek_msg)
-        if not (bool(getattr(core, "_is_web", False)) and _ds_streaming):
-            if not judgment_mode:
-                core.log_message(deepseek_msg)
+        if _should_keep_assistant_message(assistant_text, tool_calls_list):
+            deepseek_msg = build_assistant_message_with_reasoning(
+                assistant_text=assistant_text,
+                tool_calls_list=tool_calls_list,
+                reasoning_content=reasoning_content,
+            )
+            messages.append(deepseek_msg)
+            if not (bool(getattr(core, "_is_web", False)) and _ds_streaming):
+                if not judgment_mode:
+                    core.log_message(deepseek_msg)
 
         action, empty_no_tool_rounds = _handle_openai_empty_no_tool(
             assistant_text=assistant_text,
@@ -954,15 +961,16 @@ def _run_one_round(
             env_get("UAGENT_STREAMING", "1") or ""
         ).strip().lower() not in ("0", "false", "no", "off")
 
-        deepseek_msg = build_assistant_message_with_reasoning(
-            assistant_text=assistant_text,
-            tool_calls_list=tool_calls_list,
-            reasoning_content=reasoning_content,
-        )
-        messages.append(deepseek_msg)
-        if not (bool(getattr(core, "_is_web", False)) and _ds_streaming):
-            if not judgment_mode:
-                core.log_message(deepseek_msg)
+        if _should_keep_assistant_message(assistant_text, tool_calls_list):
+            deepseek_msg = build_assistant_message_with_reasoning(
+                assistant_text=assistant_text,
+                tool_calls_list=tool_calls_list,
+                reasoning_content=reasoning_content,
+            )
+            messages.append(deepseek_msg)
+            if not (bool(getattr(core, "_is_web", False)) and _ds_streaming):
+                if not judgment_mode:
+                    core.log_message(deepseek_msg)
 
         action, empty_no_tool_rounds = _handle_openai_empty_no_tool(
             assistant_text=assistant_text,
@@ -1112,25 +1120,26 @@ def _run_one_round(
                     assistant_text,
                 )
 
-        if reasoning_content:
-            deepseek_msg = build_assistant_message_with_reasoning(
-                assistant_text=assistant_text,
-                tool_calls_list=tool_calls_list,
-                reasoning_content=reasoning_content,
-            )
-            if isinstance(responses_output_items, list) and responses_output_items:
-                deepseek_msg["_responses_output_items"] = responses_output_items
-            messages.append(deepseek_msg)
-            if not judgment_mode:
-                core.log_message(deepseek_msg)
-        else:
-            _append_assistant_message(
-                messages=messages,
-                core=core,
-                assistant_text=assistant_text,
-                tool_calls_list=tool_calls_list,
-                responses_output_items=responses_output_items,
-            )
+        if _should_keep_assistant_message(assistant_text, tool_calls_list):
+            if reasoning_content:
+                deepseek_msg = build_assistant_message_with_reasoning(
+                    assistant_text=assistant_text,
+                    tool_calls_list=tool_calls_list,
+                    reasoning_content=reasoning_content,
+                )
+                if isinstance(responses_output_items, list) and responses_output_items:
+                    deepseek_msg["_responses_output_items"] = responses_output_items
+                messages.append(deepseek_msg)
+                if not judgment_mode:
+                    core.log_message(deepseek_msg)
+            else:
+                _append_assistant_message(
+                    messages=messages,
+                    core=core,
+                    assistant_text=assistant_text,
+                    tool_calls_list=tool_calls_list,
+                    responses_output_items=responses_output_items,
+                )
 
         action, empty_no_tool_rounds = _handle_openai_empty_no_tool(
             assistant_text=assistant_text,
@@ -1316,14 +1325,19 @@ def run_llm_rounds(
 
     empty_no_tool_rounds = 0
 
-    # Some OpenAI-compatible local providers may return empty assistant messages after tool calls.
-    # Tolerate a few consecutive empty/no-tool rounds, then abort with an explicit warning.
-    try:
-        empty_no_tool_max = int(env_get("UAGENT_EMPTY_NO_TOOL_MAX", "2"))
-    except Exception:
-        empty_no_tool_max = 2
-    if empty_no_tool_max < 0:
-        empty_no_tool_max = 2
+    # Some providers (Grok/xAI, OpenAI-compatible endpoints) may return empty
+    # assistant messages after tool calls. Tolerate a few consecutive
+    # empty/no-tool rounds, then abort with an explicit warning.
+    # Default is provider-aware (grok/xai=5, others=2); override with
+    # UAGENT_EMPTY_NO_TOOL_MAX.
+    empty_no_tool_max = _resolve_empty_no_tool_max(provider)
+
+    # Merge any deferred empty-no-tool recovery into the latest real user turn.
+    if not judgment_mode:
+        try:
+            _consume_empty_no_tool_recovery(messages=messages, core=core)
+        except Exception:
+            pass
 
     cb = get_callbacks()
     prev_finish_skill = cb.finish_skill
