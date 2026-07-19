@@ -25,6 +25,7 @@ except ImportError:
     from fastapi.responses import JSONResponse, StreamingResponse
 
 from ..env_utils import env_get
+from ..i18n import _
 from ..runtime.runtime_init import reload_dotenv_custom
 from ..runtime.runtime_env import validate_or_exit_startup_env
 from .auth import require_bearer_auth
@@ -47,7 +48,7 @@ def _bool_env(name: str, default: bool = False) -> bool:
 
 
 def build_app() -> FastAPI:
-    app = FastAPI(title="uagent A2A")
+    app = FastAPI(title=_("uagent A2A"))
 
     store = InMemoryTaskStore()
     sem = asyncio.Semaphore(int(env_get("UAGENT_A2A_CONCURRENCY", "1") or "1"))
@@ -265,21 +266,21 @@ def main(argv: Optional[list[str]] = None) -> None:
         "--tool-genre-mask",
         type=int,
         default=None,
-        help="Tool genre bitmask (1=comm,2=office,4=devel,8=iot,16=exec,32=external,64=media,127=all). Skips the interactive genre prompt when specified.",
+        help=_("Tool genre bitmask (1=comm,2=office,4=devel,8=iot,16=exec,32=external,64=media,127=all). Skips the interactive genre prompt when specified."),
     )
     parser.add_argument(
         "--use-tool",
         dest="use_tool",
         action="store_true",
         default=None,
-        help="Enable tool sending to LLM (overrides UAGENT_USE_TOOL env var).",
+        help=_("Enable tool sending to LLM (overrides UAGENT_USE_TOOL env var)."),
     )
     parser.add_argument(
         "--no-use-tool",
         dest="use_tool",
         action="store_false",
         default=None,
-        help="Disable tool sending to LLM (overrides UAGENT_USE_TOOL env var).",
+        help=_("Disable tool sending to LLM (overrides UAGENT_USE_TOOL env var)."),
     )
 
     args = parser.parse_args(argv)

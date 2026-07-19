@@ -11,6 +11,7 @@ import sys
 from typing import Any, Optional
 
 from .env_utils import env_get
+from .i18n import _
 
 
 def _debug_log(prefix: str, **kwargs: Any) -> None:
@@ -288,8 +289,8 @@ def _call_grok_round(
             if isinstance(e, grpc.RpcError):
                 status_code = e.code() if hasattr(e, "code") else None
                 if status_code == grpc.StatusCode.INVALID_ARGUMENT:
-                    print("[GROK Error] 400 InvalidArgument")
-                    print(f"[GROK Error] {e}")
+                    print("[GROK Error] " + _("400 InvalidArgument"))
+                    print("[GROK Error] " + str(e))
                     return False, client, "", []
                 elif status_code == grpc.StatusCode.RESOURCE_EXHAUSTED:
                     attempt_429, new_client, action = _rate_limit_retry_step(
@@ -308,12 +309,14 @@ def _call_grok_round(
                         continue
                     if action == "give_up":
                         print(
-                            f"[GROK Error] 429 retry limit ({max_retries_429}) reached."
+                            "[GROK Error] "
+                            + _("429 retry limit (%(n)s) reached.")
+                            % {"n": max_retries_429}
                         )
                         _maybe_print_certifi_where(e)
                         print(repr(e))
                         return False, client, "", []
-                    print("[GROK Error] Rate limit error.")
+                    print("[GROK Error] " + _("Rate limit error."))
                     _maybe_print_certifi_where(e)
                     print(repr(e))
                     return False, client, "", []
@@ -326,7 +329,10 @@ def _call_grok_round(
                     if is_ssl_cert_error(e):
                         print(
                             "[GROK Error] "
-                            + "SSL certificate verification failed. Auto-disabling SSL verify and retrying..."
+                            + _(
+                                "SSL certificate verification failed. "
+                                "Auto-disabling SSL verify and retrying..."
+                            )
                         )
                         _maybe_print_certifi_where(e)
                         set_ssl_verify_disabled(True)
@@ -334,23 +340,23 @@ def _call_grok_round(
                         if new_client is not None:
                             client = new_client
                         continue
-                    print("[GROK Error] Unavailable")
+                    print("[GROK Error] " + _("Unavailable"))
                     _maybe_print_certifi_where(e)
                     print(repr(e))
                     return False, client, "", []
                 elif status_code == grpc.StatusCode.DEADLINE_EXCEEDED:
-                    print("[GROK Error] Deadline exceeded")
+                    print("[GROK Error] " + _("Deadline exceeded"))
                     _maybe_print_certifi_where(e)
                     print(repr(e))
                     return False, client, "", []
                 else:
-                    print(f"[GROK Error] gRPC error ({status_code})")
+                    print("[GROK Error] " + _("gRPC error (%(code)s)") % {"code": status_code})
                     _maybe_print_certifi_where(e)
                     print(repr(e))
                     return False, client, "", []
 
             if isinstance(e, URLError):
-                print("[GROK Error] Network error")
+                print("[GROK Error] " + _("Network error"))
                 _maybe_print_certifi_where(e)
                 print(repr(e))
                 return False, client, "", []
@@ -370,13 +376,13 @@ def _call_grok_round(
                     client = new_client
                 continue
             if action == "give_up":
-                print(f"[GROK Error] 429 retry limit ({max_retries_429}) reached.")
+                print("[GROK Error] " + _("429 retry limit (%(n)s) reached.") % {"n": max_retries_429})
                 _maybe_print_certifi_where(e)
                 print(repr(e))
                 return False, client, "", []
             import traceback
 
-            print("[GROK Error] Unexpected exception.")
+            print("[GROK Error] " + _("Unexpected exception."))
             traceback.print_exc()
             _maybe_print_certifi_where(e)
             print(repr(e))

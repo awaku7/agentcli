@@ -585,11 +585,11 @@ def _handle_cmd_reasoning(arg: str, *, tr: Any) -> bool:
         new_mode = apply_reasoning_arg(arg)
     except Exception:
         print(
-            ":r [0|1|2|3|auto|minimal|xhigh]  (0=off, 1=low, 2=medium, 3=high; auto/minimal/xhigh)"
+            _(":r [0|1|2|3|auto|minimal|xhigh]  (0=off, 1=low, 2=medium, 3=high; auto/minimal/xhigh)")
         )
         return True
 
-    print("[mode] reasoning=%(mode)s" % {"mode": new_mode})
+    print(_("[mode] reasoning=%(mode)s") % {"mode": new_mode})
     return True
 
 
@@ -597,10 +597,10 @@ def _handle_cmd_verbosity(arg: str, *, tr: Any) -> bool:
     try:
         new_mode = apply_verbosity_arg(arg)
     except Exception:
-        print(":v [0|1|2|3]  (0=off, 1=low, 2=medium, 3=high; no arg=keep)")
+        print(_(":v [0|1|2|3]  (0=off, 1=low, 2=medium, 3=high; no arg=keep)"))
         return True
 
-    print("[mode] verbosity=%(mode)s" % {"mode": new_mode})
+    print(_("[mode] verbosity=%(mode)s") % {"mode": new_mode})
     return True
 
 
@@ -613,7 +613,7 @@ def _handle_cmd_cd(
 ) -> bool:
     a = (arg or "").strip()
     if not a:
-        print(":cd <path>")
+        print(_(":cd <path>"))
         return True
 
     try:
@@ -623,7 +623,7 @@ def _handle_cmd_cd(
 
         if not os.path.isdir(target):
             print(
-                "[cd] Directory does not exist: %(src)s -> %(dst)s"
+                _("[cd] Directory does not exist: %(src)s -> %(dst)s")
                 % {"src": a, "dst": target}
             )
             return True
@@ -646,9 +646,9 @@ def _handle_cmd_cd(
         except Exception:
             pass
 
-        print("[cd] workdir = %(path)s" % {"path": now})
+        print(_("[cd] workdir = %(path)s") % {"path": now})
     except Exception as e:
-        print("[cd error] %(etype)s: %(err)s" % {"etype": type(e).__name__, "err": e})
+        print(_("[cd error] %(etype)s: %(err)s") % {"etype": type(e).__name__, "err": e})
 
     return True
 
@@ -702,7 +702,7 @@ def _handle_cmd_ls(arg: str, *, tr: Any) -> bool:
             matches = glob.glob(expanded, recursive=True)
             if not matches:
                 print(
-                    "[ls] No matching paths: %(src)s -> %(expanded)s"
+                    _("[ls] No matching paths: %(src)s -> %(expanded)s")
                     % {"src": target, "expanded": expanded}
                 )
                 return True
@@ -726,13 +726,13 @@ def _handle_cmd_ls(arg: str, *, tr: Any) -> bool:
 
             items.sort(key=lambda x: (x[0], x[1]))
 
-            print("[ls] %(path)s" % {"path": expanded})
+            print(_("[ls] %(path)s") % {"path": expanded})
             for _, _, name, p_abs, is_dir, size in items:
                 if is_dir:
-                    print("  [D] %(name)s -> %(path)s" % {"name": name, "path": p_abs})
+                    print(_("  [D] %(name)s -> %(path)s") % {"name": name, "path": p_abs})
                 else:
                     print(
-                        "  [F] %(name)s (%(size)d bytes) -> %(path)s"
+                        _("  [F] %(name)s (%(size)d bytes) -> %(path)s")
                         % {"name": name, "size": size, "path": p_abs}
                     )
             return True
@@ -740,7 +740,7 @@ def _handle_cmd_ls(arg: str, *, tr: Any) -> bool:
         target_abs = os.path.abspath(expanded)
         if not os.path.isdir(target_abs):
             print(
-                "[ls] Directory does not exist: %(src)s -> %(dst)s"
+                _("[ls] Directory does not exist: %(src)s -> %(dst)s")
                 % {"src": target, "dst": target_abs}
             )
             return True
@@ -760,14 +760,14 @@ def _handle_cmd_ls(arg: str, *, tr: Any) -> bool:
 
         entries.sort(key=lambda x: (x[0], x[1]))
 
-        print("[ls] %(path)s" % {"path": target_abs})
+        print(_("[ls] %(path)s") % {"path": target_abs})
         for _, _, name, is_dir, size in entries:
             if is_dir:
-                print("  [D] %(name)s" % {"name": name})
+                print(_("  [D] %(name)s") % {"name": name})
             else:
-                print("  [F] %(name)s (%(size)d bytes)" % {"name": name, "size": size})
+                print(_("  [F] %(name)s (%(size)d bytes)") % {"name": name, "size": size})
     except Exception as e:
-        print("[ls error] %(etype)s: %(err)s" % {"etype": type(e).__name__, "err": e})
+        print(_("[ls error] %(etype)s: %(err)s") % {"etype": type(e).__name__, "err": e})
 
     return True
 
@@ -787,10 +787,10 @@ def _handle_cmd_logs(arg: str, *, core: Any, tr: Any) -> bool:
                 try:
                     export_pdf_index = int(parts[1])
                 except ValueError:
-                    print(f"[logs] Invalid PDF index: '{parts[1]}'")
+                    print(_("[logs] Invalid PDF index: '%(idx)s'") % {"idx": parts[1]})
                     return True
             else:
-                print("[logs] Usage: :logs pdf <index> [output_path]")
+                print(_("[logs] Usage: :logs pdf <index> [output_path]"))
                 return True
         elif cmd in ("--all", "-a", "all"):
             show_all = True
@@ -809,11 +809,11 @@ def _handle_cmd_logs(arg: str, *, core: Any, tr: Any) -> bool:
     if export_pdf_index is not None:
         files = core.find_log_files(exclude_current=True)
         if not files:
-            print("[logs] No log files found.")
+            print(_("[logs] No log files found."))
             return True
         if export_pdf_index < 0 or export_pdf_index >= len(files):
             print(
-                f"[logs] Index {export_pdf_index} is out of range (0-{len(files) - 1})."
+                _("[logs] Index %(idx)s is out of range (0-%(max)s).") % {"idx": export_pdf_index, "max": len(files) - 1}
             )
             return True
 
@@ -843,21 +843,21 @@ def _handle_cmd_tools(*, tr: Any) -> bool:
     try:
         tool_specs = tools.get_tool_specs() or []
         if not tool_specs:
-            print("[tools] No tools loaded.")
+            print(_("[tools] No tools loaded."))
             return True
 
-        print("[tools] Loaded %(n)d tools" % {"n": len(tool_specs)})
+        print(_("[tools] Loaded %(n)d tools") % {"n": len(tool_specs)})
         for spec in tool_specs:
             fn = (spec or {}).get("function") or {}
             name = fn.get("name") or "(unknown)"
             desc = (fn.get("description") or "").strip()
             if desc:
-                print("- %(name)s: %(desc)s" % {"name": name, "desc": desc})
+                print(_("- %(name)s: %(desc)s") % {"name": name, "desc": desc})
             else:
-                print("- %(name)s" % {"name": name})
+                print(_("- %(name)s") % {"name": name})
     except Exception as e:
         print(
-            "[tools error] %(etype)s: %(err)s" % {"etype": type(e).__name__, "err": e}
+            _("[tools error] %(etype)s: %(err)s") % {"etype": type(e).__name__, "err": e}
         )
 
     return True
@@ -1051,17 +1051,17 @@ def _handle_cmd_mv(arg: str, *, tr: Any) -> bool:
 def _handle_cmd_head(arg: str, *, tr: Any) -> bool:
     raw = (arg or "").strip()
     if not raw:
-        print(":head <path> [n]")
+        print(_(":head <path> [n]"))
         return True
 
     try:
         items = shlex.split(raw, posix=False)
     except Exception as e:
-        print("[head error] %(etype)s: %(err)s" % {"etype": type(e).__name__, "err": e})
+        print(_("[head error] %(etype)s: %(err)s") % {"etype": type(e).__name__, "err": e})
         return True
 
     if not items:
-        print(":head <path> [n]")
+        print(_(":head <path> [n]"))
         return True
 
     lines = 20
@@ -1073,12 +1073,12 @@ def _handle_cmd_head(arg: str, *, tr: Any) -> bool:
         if low in ("-n", "--lines"):
             i += 1
             if i >= len(items):
-                print(":head <path> [n]")
+                print(_(":head <path> [n]"))
                 return True
             try:
                 lines = int(items[i])
             except Exception:
-                print("[head] Invalid line count: %(n)r" % {"n": items[i]})
+                print(_("[head] Invalid line count: %(n)r") % {"n": items[i]})
                 return True
         elif not tok.startswith("-") and not path_tokens:
             path_tokens.append(tok)
@@ -1092,7 +1092,7 @@ def _handle_cmd_head(arg: str, *, tr: Any) -> bool:
         i += 1
 
     if not path_tokens:
-        print(":head <path> [n]")
+        print(_(":head <path> [n]"))
         return True
 
     path = " ".join(path_tokens)
@@ -1113,27 +1113,27 @@ def _handle_cmd_head(arg: str, *, tr: Any) -> bool:
         if content:
             print(content, end="" if content.endswith("\n") else "\n")
         else:
-            print("[head] Empty.")
+            print(_("[head] Empty."))
         return True
     except Exception as e:
-        print("[head error] %(etype)s: %(err)s" % {"etype": type(e).__name__, "err": e})
+        print(_("[head error] %(etype)s: %(err)s") % {"etype": type(e).__name__, "err": e})
         return True
 
 
 def _handle_cmd_tail(arg: str, *, tr: Any) -> bool:
     raw = (arg or "").strip()
     if not raw:
-        print(":tail <path> [n]")
+        print(_(":tail <path> [n]"))
         return True
 
     try:
         items = shlex.split(raw, posix=False)
     except Exception as e:
-        print("[tail error] %(etype)s: %(err)s" % {"etype": type(e).__name__, "err": e})
+        print(_("[tail error] %(etype)s: %(err)s") % {"etype": type(e).__name__, "err": e})
         return True
 
     if not items:
-        print(":tail <path> [n]")
+        print(_(":tail <path> [n]"))
         return True
 
     lines = 20
@@ -1145,12 +1145,12 @@ def _handle_cmd_tail(arg: str, *, tr: Any) -> bool:
         if low in ("-n", "--lines"):
             i += 1
             if i >= len(items):
-                print(":tail <path> [n]")
+                print(_(":tail <path> [n]"))
                 return True
             try:
                 lines = int(items[i])
             except Exception:
-                print("[tail] Invalid line count: %(n)r" % {"n": items[i]})
+                print(_("[tail] Invalid line count: %(n)r") % {"n": items[i]})
                 return True
         elif not tok.startswith("-") and not path_tokens:
             path_tokens.append(tok)
@@ -1164,7 +1164,7 @@ def _handle_cmd_tail(arg: str, *, tr: Any) -> bool:
         i += 1
 
     if not path_tokens:
-        print(":tail <path> [n]")
+        print(_(":tail <path> [n]"))
         return True
 
     path = " ".join(path_tokens)
@@ -1185,10 +1185,10 @@ def _handle_cmd_tail(arg: str, *, tr: Any) -> bool:
         if content:
             print(content, end="" if content.endswith("\n") else "\n")
         else:
-            print("[tail] Empty.")
+            print(_("[tail] Empty."))
         return True
     except Exception as e:
-        print("[tail error] %(etype)s: %(err)s" % {"etype": type(e).__name__, "err": e})
+        print(_("[tail error] %(etype)s: %(err)s") % {"etype": type(e).__name__, "err": e})
         return True
 
 
@@ -1353,10 +1353,10 @@ def _handle_cmd_skills(
     if a.lower() in ("clear", "off", "unset", "reset"):
         removed = _clear_skill_messages(messages_ref)
         if removed <= 0:
-            print("[skills] No active skill messages to clear.")
+            print(_("[skills] No active skill messages to clear."))
             return CommandResult()
         _persist_messages_with_warn(messages_ref, core=core, label="skills")
-        print("[skills] Cleared %(n)d skill message(s)." % {"n": removed})
+        print(_("[skills] Cleared %(n)d skill message(s).") % {"n": removed})
         return CommandResult()
 
     if a.lower() in ("active", "status", "show", "list"):
@@ -1379,12 +1379,12 @@ def _handle_cmd_skills(
             active.append(line)
 
         if not active:
-            print("[skills] No active skills.")
+            print(_("[skills] No active skills."))
             return CommandResult()
 
-        print("[skills] Active skills: %(n)d" % {"n": len(active)})
+        print(_("[skills] Active skills: %(n)d") % {"n": len(active)})
         for i, line in enumerate(active, start=1):
-            print("[%(i)d] %(line)s" % {"i": i, "line": line})
+            print(_("[%(i)d] %(line)s") % {"i": i, "line": line})
         return CommandResult()
 
     try:
@@ -1410,7 +1410,7 @@ def _handle_cmd_skills(
             items = []
 
         if not items:
-            print("[skills] No skills found.")
+            print(_("[skills] No skills found."))
             return CommandResult()
 
         selected_idx: int | None = None
@@ -1421,12 +1421,12 @@ def _handle_cmd_skills(
             if 1 <= n <= len(items):
                 selected_idx = n - 1
             else:
-                print("[skills] Out of range: %(n)d" % {"n": n})
+                print(_("[skills] Out of range: %(n)d") % {"n": n})
                 return CommandResult()
 
         # If not direct selection, show list and ask
         if selected_idx is None:
-            print("[skills] Found %(n)d skills" % {"n": len(items)})
+            print(_("[skills] Found %(n)d skills") % {"n": len(items)})
             for i, it in enumerate(items, start=1):
                 if not isinstance(it, dict):
                     continue
@@ -1435,7 +1435,7 @@ def _handle_cmd_skills(
                 ok = bool(it.get("ok"))
                 ok_mark = "OK" if ok else "WARN"
                 print(
-                    "[%(i)d] (%(ok)s) %(name)s: %(desc)s"
+                    _("[%(i)d] (%(ok)s) %(name)s: %(desc)s")
                     % {"i": i, "ok": ok_mark, "name": name, "desc": desc}
                 )
 
@@ -1453,26 +1453,26 @@ def _handle_cmd_skills(
                 ).strip()
                 low = user_reply.lower()
                 if low in ("c", "cancel"):
-                    print("[skills] Cancelled.")
+                    print(_("[skills] Cancelled."))
                     return CommandResult()
                 if not user_reply.isdigit():
-                    print("[skills] Please enter a number or c.")
+                    print(_("[skills] Please enter a number or c."))
                     continue
                 n = int(user_reply)
                 if n < 1 or n > len(items):
-                    print("[skills] Out of range: %(n)d" % {"n": n})
+                    print(_("[skills] Out of range: %(n)d") % {"n": n})
                     continue
                 selected_idx = n - 1
 
         skill = items[selected_idx]
         if not isinstance(skill, dict):
-            print("[skills] Invalid selection.")
+            print(_("[skills] Invalid selection."))
             return CommandResult()
 
         name = skill.get("name") or "(unknown)"
         skill_dir = skill.get("path")
         if not isinstance(skill_dir, str) or not skill_dir.strip():
-            print("[skills] Selected skill has no path.")
+            print(_("[skills] Selected skill has no path."))
             return CommandResult()
 
         confirm_msg = _(
@@ -1486,7 +1486,7 @@ def _handle_cmd_skills(
         conf = json.loads(conf_json)
         conf_reply = (conf.get("user_reply") or "").strip().lower()
         if conf_reply not in ("y", "yes"):
-            print("[skills] Cancelled.")
+            print(_("[skills] Cancelled."))
             return CommandResult()
 
         doc_json = skills_load_tool({"skill_dir": skill_dir})
@@ -1516,12 +1516,12 @@ def _handle_cmd_skills(
         _insert_cwd_system_message(messages_ref, skill_system_msg)
 
         _persist_messages_with_warn(messages_ref, core=core, label="skills")
-        print("[skills] Applied: %(name)s" % {"name": name})
+        print(_("[skills] Applied: %(name)s") % {"name": name})
         return CommandResult(run_llm=True)
 
     except Exception as e:
         print(
-            "[skills error] %(etype)s: %(err)s" % {"etype": type(e).__name__, "err": e}
+            _("[skills error] %(etype)s: %(err)s") % {"etype": type(e).__name__, "err": e}
         )
 
     return CommandResult()
@@ -1580,7 +1580,7 @@ def _collect_clean_targets(
         log_files = core.find_log_files(exclude_current=False)
     except Exception as e:
         print(
-            "[clean error] Failed to get log list: %(etype)s: %(err)s"
+            _("[clean error] Failed to get log list: %(etype)s: %(err)s")
             % {"etype": type(e).__name__, "err": e}
         )
         return False, [], {}
@@ -1597,7 +1597,7 @@ def _collect_clean_targets(
                 targets.append(p)
         except Exception as e:
             print(
-                "[clean warn] Skipped (parse failed): %(path)s (%(etype)s: %(err)s)"
+                _("[clean warn] Skipped (parse failed): %(path)s (%(etype)s: %(err)s)")
                 % {"path": p, "etype": type(e).__name__, "err": e}
             )
 
@@ -1627,12 +1627,12 @@ def _confirm_clean_delete(
         res = json.loads(res_json)
         user_reply = (res.get("user_reply") or "").strip().lower()
         if user_reply not in ("y", "yes"):
-            print("[clean] Cancelled.")
+            print(_("[clean] Cancelled."))
             return False
         return True
     except Exception as e:
         print(
-            "[clean error] Confirmation failed: %(etype)s: %(err)s"
+            _("[clean error] Confirmation failed: %(etype)s: %(err)s")
             % {"etype": type(e).__name__, "err": e}
         )
         return False
@@ -1648,7 +1648,7 @@ def _delete_clean_targets(targets: list[str], *, tr: Any) -> tuple[int, int]:
         except Exception as e:
             failed += 1
             print(
-                "[clean warn] Delete failed: %(path)s (%(etype)s: %(err)s)"
+                _("[clean warn] Delete failed: %(path)s (%(etype)s: %(err)s)")
                 % {"path": p, "etype": type(e).__name__, "err": e}
             )
 
@@ -1687,7 +1687,7 @@ def _maybe_discard_short_session_log(
         )
     except Exception as e:
         print(
-            "[clean warn] Failed to discard session log: %(path)s (%(etype)s: %(err)s)"
+            _("[clean warn] Failed to discard session log: %(path)s (%(etype)s: %(err)s)")
             % {"path": log_path, "etype": type(e).__name__, "err": e},
             file=sys.stderr,
         )
@@ -1713,7 +1713,7 @@ def _sweep_short_session_logs(
     except Exception as e:
         if not quiet:
             print(
-                "[clean warn] Startup sweep skipped (list failed): %(etype)s: %(err)s"
+                _("[clean warn] Startup sweep skipped (list failed): %(etype)s: %(err)s")
                 % {"etype": type(e).__name__, "err": e},
                 file=sys.stderr,
             )
@@ -1728,7 +1728,7 @@ def _sweep_short_session_logs(
         except Exception as e:
             if not quiet:
                 print(
-                    "[clean warn] Startup sweep skipped (parse failed): %(path)s (%(etype)s: %(err)s)"
+                    _("[clean warn] Startup sweep skipped (parse failed): %(path)s (%(etype)s: %(err)s)")
                     % {"path": path, "etype": type(e).__name__, "err": e}
                 )
 
@@ -1758,7 +1758,7 @@ def _handle_cmd_clean(arg: str, *, core: Any, tr: Any) -> bool:
 
     if not targets:
         print(
-            "[clean] No logs to delete (threshold=%(threshold)d user turns).\nLog dir: %(dir)s"
+            _("[clean] No logs to delete (threshold=%(threshold)d user turns).\nLog dir: %(dir)s")
             % {
                 "threshold": threshold,
                 "dir": getattr(core, "BASE_LOG_DIR", "(unknown)"),
@@ -1767,7 +1767,7 @@ def _handle_cmd_clean(arg: str, *, core: Any, tr: Any) -> bool:
         return True
 
     print(
-        "[clean] Logs to delete (<= %(threshold)d user turns): %(n)d"
+        _("[clean] Logs to delete (<= %(threshold)d user turns): %(n)d")
         % {"threshold": threshold, "n": len(targets)}
     )
     for p in targets:
@@ -1781,7 +1781,7 @@ def _handle_cmd_clean(arg: str, *, core: Any, tr: Any) -> bool:
 
     deleted, failed = _delete_clean_targets(targets, tr=tr)
     print(
-        "[clean] Done: deleted=%(deleted)d, failed=%(failed)d"
+        _("[clean] Done: deleted=%(deleted)d, failed=%(failed)d")
         % {"deleted": deleted, "failed": failed}
     )
     return True
@@ -1815,7 +1815,7 @@ def _prepend_loaded_log_to_current(
         res2 = json.loads(res_json2)
         user_reply2 = (res2.get("user_reply") or "").strip().lower()
         if user_reply2 not in ("y", "yes"):
-            print("[load] Prepend to current log was cancelled.")
+            print(_("[load] Prepend to current log was cancelled."))
             return
 
         loaded_lines: list[str] = []
@@ -1824,7 +1824,7 @@ def _prepend_loaded_log_to_current(
                 loaded_lines = f.read().splitlines(True)
         except Exception as e:
             print(
-                "[load warn] Failed to read source log: %(etype)s: %(err)s"
+                _("[load warn] Failed to read source log: %(etype)s: %(err)s")
                 % {"etype": type(e).__name__, "err": e},
                 file=sys.stderr,
             )
@@ -1837,7 +1837,7 @@ def _prepend_loaded_log_to_current(
                     cur_lines = f.read().splitlines(True)
         except Exception as e:
             print(
-                "[load warn] Failed to read current log: %(etype)s: %(err)s"
+                _("[load warn] Failed to read current log: %(etype)s: %(err)s")
                 % {"etype": type(e).__name__, "err": e},
                 file=sys.stderr,
             )
@@ -1857,17 +1857,17 @@ def _prepend_loaded_log_to_current(
                     f.write(ln)
                 for ln in cur_lines:
                     f.write(ln)
-            print("[load] Prepended to current log: %(path)s" % {"path": cur_log})
+            print(_("[load] Prepended to current log: %(path)s") % {"path": cur_log})
         except Exception as e:
             print(
-                "[load warn] Failed to rewrite current log: %(etype)s: %(err)s"
+                _("[load warn] Failed to rewrite current log: %(etype)s: %(err)s")
                 % {"etype": type(e).__name__, "err": e},
                 file=sys.stderr,
             )
             return
     except Exception as e:
         print(
-            "[load error] Failed: %(etype)s: %(err)s"
+            _("[load error] Failed: %(etype)s: %(err)s")
             % {"etype": type(e).__name__, "err": e}
         )
         return
@@ -1876,17 +1876,17 @@ def _prepend_loaded_log_to_current(
 def _handle_cmd_rm(arg: str, *, tr: Any) -> bool:
     raw = (arg or "").strip()
     if not raw:
-        print(":rm <path|glob> [path|glob]")
+        print(_(":rm <path|glob> [path|glob]"))
         return True
 
     try:
         items = shlex.split(raw, posix=False)
     except Exception as e:
-        print("[rm error] Failed to parse arguments: %(err)s" % {"err": e})
+        print(_("[rm error] Failed to parse arguments: %(err)s") % {"err": e})
         return True
 
     if not items:
-        print(":rm <path|glob> [path|glob]")
+        print(_(":rm <path|glob> [path|glob]"))
         return True
 
     try:
@@ -1903,11 +1903,11 @@ def _handle_cmd_rm(arg: str, *, tr: Any) -> bool:
         )
         preview = json.loads(preview_json)
         if not isinstance(preview, dict):
-            print("[rm] Unexpected delete_file preview response.")
+            print(_("[rm] Unexpected delete_file preview response."))
             return True
 
         if not preview.get("ok", False):
-            print("[rm] Preview failed.")
+            print(_("[rm] Preview failed."))
             stderr = preview.get("stderr")
             if stderr:
                 print(str(stderr))
@@ -1917,18 +1917,18 @@ def _handle_cmd_rm(arg: str, *, tr: Any) -> bool:
         matches = [str(p) for p in (preview.get("matches") or []) if str(p).strip()]
 
         if not matches:
-            print("[rm] No matching paths.")
+            print(_("[rm] No matching paths."))
             if missing:
-                print("[rm] Missing:")
+                print(_("[rm] Missing:"))
                 for p in missing:
                     print(p)
             return True
 
-        print("[rm] Candidates:")
+        print(_("[rm] Candidates:"))
         for p in matches:
             print(p)
         if missing:
-            print("[rm] Missing:")
+            print(_("[rm] Missing:"))
             for p in missing:
                 print(p)
 
@@ -1940,7 +1940,7 @@ def _handle_cmd_rm(arg: str, *, tr: Any) -> bool:
         user_reply = (res.get("user_reply") or "").strip().lower()
         cancelled = bool(res.get("cancelled", False))
         if cancelled or user_reply not in ("y", "yes"):
-            print("[rm] Cancelled.")
+            print(_("[rm] Cancelled."))
             return True
 
         delete_json = delete_file_tool(
@@ -1954,22 +1954,22 @@ def _handle_cmd_rm(arg: str, *, tr: Any) -> bool:
         )
         delete = json.loads(delete_json)
         if not isinstance(delete, dict):
-            print("[rm] Unexpected delete_file response.")
+            print(_("[rm] Unexpected delete_file response."))
             return True
 
         if delete.get("ok", False) and delete.get("deleted"):
             print(
-                "[rm] Deleted %(count)d path(s)."
+                _("[rm] Deleted %(count)d path(s).")
                 % {"count": int(delete.get("count") or 0)}
             )
         else:
-            print("[rm] Failed.")
+            print(_("[rm] Failed."))
             stderr = delete.get("stderr")
             if stderr:
                 print(str(stderr))
         return True
     except Exception as e:
-        print("[rm error] %(etype)s: %(err)s" % {"etype": type(e).__name__, "err": e})
+        print(_("[rm error] %(etype)s: %(err)s") % {"etype": type(e).__name__, "err": e})
         return True
 
 
@@ -1981,7 +1981,7 @@ def _handle_cmd_load(
     tr: Any,
 ) -> bool:
     if not arg:
-        print(":load <index|path>")
+        print(_(":load <index|path>"))
         return True
 
     files = core.find_log_files(exclude_current=True)
@@ -2000,7 +2000,7 @@ def _handle_cmd_load(
         print(tr("Log file not found: %(path)s") % {"path": target_path})
         return True
     except Exception as e:
-        print("[load error] %(etype)s: %(err)s" % {"etype": type(e).__name__, "err": e})
+        print(_("[load error] %(etype)s: %(err)s") % {"etype": type(e).__name__, "err": e})
         return True
 
     new_messages = insert_tools_system_message(new_messages, core=core)
@@ -2047,16 +2047,16 @@ def _handle_cmd_load(
             except Exception:
                 pass
 
-            print("[load] workdir = %(path)s" % {"path": now})
+            print(_("[load] workdir = %(path)s") % {"path": now})
     except Exception as e:
         print(
-            "[load warn] Failed to chdir from loaded log: %(etype)s: %(err)s"
+            _("[load warn] Failed to chdir from loaded log: %(etype)s: %(err)s")
             % {"etype": type(e).__name__, "err": e},
             file=sys.stderr,
         )
 
-    print("Loaded log: %(path)s" % {"path": target_path})
-    print("Conversation message count: %(n)d" % {"n": len(messages_ref)})
+    print(_("Loaded log: %(path)s") % {"path": target_path})
+    print(_("Conversation message count: %(n)d") % {"n": len(messages_ref)})
 
     # Clear responses_state to avoid stale previous_response_id after :load.
     try:
@@ -2083,7 +2083,7 @@ def _persist_messages_with_warn(
             core.rewrite_current_log_from_messages(messages)
     except Exception as e:
         print(
-            "[%(label)s warn] Failed to rewrite current log: %(etype)s: %(err)s"
+            _("[%(label)s warn] Failed to rewrite current log: %(etype)s: %(err)s")
             % {"label": label, "etype": type(e).__name__, "err": e},
             file=sys.stderr,
         )
@@ -2172,20 +2172,20 @@ def _handle_cmd_tokens(
 
         total_tokens = _count_messages_tokens(messages_ref, depname or None)
     except Exception as e:
-        print(f"[tokens error] {type(e).__name__}: {e}")
+        print(_("[tokens error] %(etype)s: %(err)s") % {"etype": type(e).__name__, "err": e})
         return True
 
-    print(f"Current token count (approx): {total_tokens}")
+    print(_("Current token count (approx): %(n)s") % {"n": total_tokens})
     return True
 
 
 def _handle_cmd_mem_list(*, tr: Any) -> bool:
     records = personal_long_memory.load_long_memory_records()
     if not records:
-        print("No long-term memory entries.")
+        print(_("No long-term memory entries."))
         return True
 
-    print("Long-term memory entries:")
+    print(_("Long-term memory entries:"))
     for idx, rec in enumerate(records):
         ts = rec.get("ts")
         if isinstance(ts, (int, float)):
@@ -2195,25 +2195,25 @@ def _handle_cmd_mem_list(*, tr: Any) -> bool:
         else:
             dt = "(no-ts)"
         note = str(rec.get("note", ""))
-        print("[%(idx)s] %(dt)s  %(note)s" % {"idx": idx, "dt": dt, "note": note})
+        print(_("[%(idx)s] %(dt)s  %(note)s") % {"idx": idx, "dt": dt, "note": note})
     return True
 
 
 def _handle_cmd_mem_del(arg: str, *, tr: Any) -> bool:
     if not arg:
-        print(":mem-del <index>")
+        print(_(":mem-del <index>"))
         return True
 
     try:
         idx = int(arg)
     except Exception:
-        print("[mem-del error] Failed to parse index as int: %(arg)r" % {"arg": arg})
+        print(_("[mem-del error] Failed to parse index as int: %(arg)r") % {"arg": arg})
         return True
 
     if personal_long_memory.delete_long_memory_entry(idx):
-        print("Deleted long-term memory entry [%(idx)d]." % {"idx": idx})
+        print(_("Deleted long-term memory entry [%(idx)d].") % {"idx": idx})
     else:
-        print("[mem-del] Failed to delete index=%(idx)d." % {"idx": idx})
+        print(_("[mem-del] Failed to delete index=%(idx)d.") % {"idx": idx})
     return True
 
 
@@ -2228,12 +2228,12 @@ def _handle_cmd_shared_mem_list(*, tr: Any) -> bool:
 
     records = shared_memory.load_shared_memory_records()
     if not records:
-        print("No shared long-term memory entries.")
+        print(_("No shared long-term memory entries."))
         return True
 
     import time as _time
 
-    print("Shared long-term memory entries:")
+    print(_("Shared long-term memory entries:"))
     for idx, rec in enumerate(records):
         ts = rec.get("ts")
         if isinstance(ts, (int, float)):
@@ -2241,7 +2241,7 @@ def _handle_cmd_shared_mem_list(*, tr: Any) -> bool:
         else:
             dt = "(no-ts)"
         note = str(rec.get("note", ""))
-        print("[%(idx)s] %(dt)s  %(note)s" % {"idx": idx, "dt": dt, "note": note})
+        print(_("[%(idx)s] %(dt)s  %(note)s") % {"idx": idx, "dt": dt, "note": note})
 
     return True
 
@@ -2274,7 +2274,7 @@ def _handle_cmd_profile_show(arg: str = "", *, core: Any, tr: Any) -> bool:
                 return True
             print(tr("User profile generated successfully from past logs!"))
         except Exception as e:
-            print(f"[profile fromlog error] {type(e).__name__}: {e}")
+            print(_("[profile fromlog error] %(etype)s: %(err)s") % {"etype": type(e).__name__, "err": e})
             return True
     else:
         profile = load_profile()
@@ -2301,7 +2301,7 @@ def _handle_cmd_profile_clear(*, tr: Any) -> bool:
             os.remove(path)
             print(tr("User profile cleared successfully."))
         except Exception as e:
-            print(f"[profile-clear error] {type(e).__name__}: {e}")
+            print(_("[profile-clear error] %(etype)s: %(err)s") % {"etype": type(e).__name__, "err": e})
     else:
         print(tr("No user profile file found to clear."))
     return True
@@ -2309,7 +2309,7 @@ def _handle_cmd_profile_clear(*, tr: Any) -> bool:
 
 def _handle_cmd_shared_mem_del(arg: str, *, tr: Any) -> bool:
     if not arg:
-        print(":shared-mem-del <index>")
+        print(_(":shared-mem-del <index>"))
         return True
 
     if not shared_memory.is_enabled():
@@ -2324,21 +2324,21 @@ def _handle_cmd_shared_mem_del(arg: str, *, tr: Any) -> bool:
         idx = int(arg)
     except Exception:
         print(
-            "[shared-mem-del error] Failed to parse index as int: %(arg)r"
+            _("[shared-mem-del error] Failed to parse index as int: %(arg)r")
             % {"arg": arg}
         )
         return True
 
     records = shared_memory.load_shared_memory_records()
     if idx < 0 or idx >= len(records):
-        print("[shared-mem-del] Failed to delete index=%(idx)d." % {"idx": idx})
+        print(_("[shared-mem-del] Failed to delete index=%(idx)d.") % {"idx": idx})
         return True
 
     try:
         records.pop(idx)
         path = shared_memory.get_shared_memory_file()
         if not path:
-            print("[shared-mem-del] Failed to delete index=%(idx)d." % {"idx": idx})
+            print(_("[shared-mem-del] Failed to delete index=%(idx)d.") % {"idx": idx})
             return True
 
         os.makedirs(os.path.dirname(path), exist_ok=True)
@@ -2347,12 +2347,12 @@ def _handle_cmd_shared_mem_del(arg: str, *, tr: Any) -> bool:
                 f.write(json.dumps(rec, ensure_ascii=False) + "\n")
     except Exception as e:
         print(
-            "[shared-mem-del error] %(etype)s: %(err)s"
+            _("[shared-mem-del error] %(etype)s: %(err)s")
             % {"etype": type(e).__name__, "err": e}
         )
         return True
 
-    print("Deleted shared long-term memory entry [%(idx)d]." % {"idx": idx})
+    print(_("Deleted shared long-term memory entry [%(idx)d].") % {"idx": idx})
     return True
 
 
@@ -2456,7 +2456,7 @@ def _static_help_catalog(*, tr: Any) -> dict[str, dict[str, Any]]:
     cat: dict[str, dict[str, Any]] = {
         "help": e(
             tr("Show command help"),
-            usage=":help [command [subcommand]]",
+            usage=tr(":help [command [subcommand]]"),
             detail=tr(
                 "Without args: short list of all commands.\n"
                 "With a command: detailed usage (static + dynamic CMD_SPEC).\n"
@@ -2466,29 +2466,29 @@ def _static_help_catalog(*, tr: Any) -> dict[str, dict[str, Any]]:
         ),
         "cd": e(
             tr("Change workdir without confirmation"),
-            usage=":cd <path>",
+            usage=tr(":cd <path>"),
             detail=tr("Examples: :cd .. | :cd ~ | :cd C:\\path | :cd /"),
         ),
         "ls": e(
             tr("List directory entries"),
-            usage=":ls [path]",
+            usage=tr(":ls [path]"),
             detail=tr("Examples: :ls | :ls .. | :ls ~ | :ls C:\\path"),
         ),
-        "logs": e(tr("Show conversation log file list"), usage=":logs"),
+        "logs": e(tr("Show conversation log file list"), usage=tr(":logs")),
         "load": e(
             tr("Load a past log (overwrites current conversation history)"),
-            usage=":load <idx|path>",
+            usage=tr(":load <idx|path>"),
             detail=tr(
                 "idx is from :logs. After load you may be asked to prepend into the current session log."
             ),
         ),
         "cont": e(
             tr("Load the newest log (:load 0)"),
-            usage=":cont",
+            usage=tr(":cont"),
         ),
         "clean": e(
             tr("Delete short conversation logs"),
-            usage=":clean [N]",
+            usage=tr(":clean [N]"),
             detail=tr(
                 "Deletes scheck_log_*.jsonl where user-turn count (role=user) <= N "
                 "(default 5, or UAGENT_CLEAN_THRESHOLD). "
@@ -2498,30 +2498,30 @@ def _static_help_catalog(*, tr: Any) -> dict[str, dict[str, Any]]:
         ),
         "shrink": e(
             tr("Shrink conversation history"),
-            usage=":shrink [N]",
+            usage=tr(":shrink [N]"),
             detail=tr("Keep last N non-system messages (default 40)."),
         ),
         "shrink_llm": e(
             tr("Shrink history via LLM summarization"),
-            usage=":shrink_llm [N]",
+            usage=tr(":shrink_llm [N]"),
             detail=tr(
                 "Summarize older history into one system message; keep last N raw (default 20)."
             ),
         ),
         "tokens": e(
             tr("Show approximate token count of the conversation"),
-            usage=":tokens",
+            usage=tr(":tokens"),
         ),
         "env": e(
             tr("Manage UAGENT_* environment variables"),
-            usage=":env show [KEY] | :env set KEY=VAL | :env unset KEY | :env save",
+            usage=tr(":env show [KEY] | :env set KEY=VAL | :env unset KEY | :env save"),
             detail=tr(
                 "Sensitive KEY names are masked on show. save writes encrypted .env.sec when configured."
             ),
         ),
         "skills": e(
             tr("Manage and apply Agent Skills"),
-            usage=":skills [list|active|clear|install|uninstall|apm|mp_search] ...",
+            usage=tr(":skills [list|active|clear|install|uninstall|apm|mp_search] ..."),
             detail=tr(
                 "Built-in: list/active/clear (see runtime skills handlers).\n"
                 "Dynamic subcommands come from tool CMD_SPEC (install, uninstall, apm, mp_search).\n"
@@ -2530,7 +2530,7 @@ def _static_help_catalog(*, tr: Any) -> dict[str, dict[str, Any]]:
         ),
         "tools": e(
             tr("Control tool sending, genres, and loaded tools"),
-            usage=":tools [list|load|on|off|reload|output|create] ...",
+            usage=tr(":tools [list|load|on|off|reload|output|create] ..."),
             detail=tr(
                 ":tools on|off           Enable/disable sending tools to the LLM\n"
                 ":tools on|off <genre>   Enable/disable a tool genre (and sync global on)\n"
@@ -2543,84 +2543,84 @@ def _static_help_catalog(*, tr: Any) -> dict[str, dict[str, Any]]:
         ),
         "tool": e(
             tr("Tool authoring helpers"),
-            usage=":tool create <name> [--lang python|rust] [--description '...']",
+            usage=tr(":tool create <name> [--lang python|rust] [--description '...']"),
             detail=tr("Scaffolds src/uagent/tools/<name>_tool.py (+ json)."),
         ),
         "plugin": e(
             tr("Install and manage plugins"),
-            usage=":plugin <list|install|remove|enable|disable|reload|info|init|validate|marketplace> ...",
+            usage=tr(":plugin <list|install|remove|enable|disable|reload|info|init|validate|marketplace> ..."),
             detail=tr("See :help plugin <subcommand> for each action."),
         ),
         "auto": e(
             tr("Auto-pilot: repeatedly pursue a goal until done or stopped"),
-            usage=":auto <goal> [--max-rounds N] | :auto off",
+            usage=tr(":auto <goal> [--max-rounds N] | :auto off"),
             detail=tr("Press x in CLI to request immediate exit from auto-pilot."),
         ),
         "model": e(
             tr("Show detailed model configuration"),
-            usage=":model",
+            usage=tr(":model"),
             detail=tr("Chat, image, audio, translation, embedding as configured."),
         ),
         "r": e(
             tr("Set reasoning effort"),
-            usage=":r [0|1|2|3|auto|minimal|low|medium|high|xhigh]",
+            usage=tr(":r [0|1|2|3|auto|minimal|low|medium|high|xhigh]"),
             detail=tr("0=off, 1=low, 2=medium, 3=high. Provider support varies."),
             aliases=["reasoning"],
         ),
         "v": e(
             tr("Set verbosity"),
-            usage=":v [0|1|2|3]",
+            usage=tr(":v [0|1|2|3]"),
             detail=tr("0=off .. 3=high. No arg keeps current."),
             aliases=["verbosity"],
         ),
-        "mem-list": e(tr("List long-term memory notes"), usage=":mem-list"),
+        "mem-list": e(tr("List long-term memory notes"), usage=tr(":mem-list")),
         "mem-del": e(
             tr("Delete a long-term memory note by index"),
-            usage=":mem-del <index>",
+            usage=tr(":mem-del <index>"),
             detail=tr("Index from :mem-list."),
         ),
         "profile": e(
             tr("Show or generate the learned user profile"),
-            usage=":profile | :profile fromlog [N]",
+            usage=tr(":profile | :profile fromlog [N]"),
             detail=tr("fromlog N uses the most recent N log files."),
             aliases=["profile-show"],
         ),
         "profile-fromlog": e(
             tr("Generate user profile from past logs"),
-            usage=":profile-fromlog [N]",
+            usage=tr(":profile-fromlog [N]"),
             detail=tr("Default N=100; 0=all."),
         ),
         "profile-clear": e(
-            tr("Clear learned user profile data"), usage=":profile-clear"
+            tr("Clear learned user profile data"), usage=tr(":profile-clear")
         ),
         "cp": e(
             tr("Copy file or directory"),
-            usage=":cp <src> <dst> [-f|--overwrite] [-p|--mkdirs]",
+            usage=tr(":cp <src> <dst> [-f|--overwrite] [-p|--mkdirs]"),
         ),
         "mv": e(
             tr("Move file or directory"),
-            usage=":mv <src> <dst> [-f|--overwrite] [-p|--mkdirs]",
+            usage=tr(":mv <src> <dst> [-f|--overwrite] [-p|--mkdirs]"),
         ),
         "rm": e(
             tr("Delete file(s)/directory(ies) with preview + confirm"),
-            usage=":rm <path|glob>",
+            usage=tr(":rm <path|glob>"),
         ),
         "head": e(
             tr("Show the first n lines of a file"),
-            usage=":head <path> [n]",
+            usage=tr(":head <path> [n]"),
             detail=tr("Default n=20."),
         ),
         "tail": e(
             tr("Show the last n lines of a file"),
-            usage=":tail <path> [n]",
+            usage=tr(":tail <path> [n]"),
             detail=tr("Default n=20."),
         ),
         "reload": e(
             tr("Reload runtime configuration / modules"),
-            usage=":reload [target]",
+            usage=tr(":reload [target]"),
         ),
-        "exit": e(tr("Exit the interactive session"), usage=":exit", aliases=["quit"]),
-        "quit": e(tr("Exit the interactive session"), usage=":quit", aliases=["exit"]),
+        "exit": e(tr("Exit the interactive session"), usage=tr(":exit"), aliases=["quit"]),
+        "quit": e(tr("Exit the interactive session"), usage=tr(":quit"), aliases=["exit"]),
     }
     # alias index
     out = dict(cat)
@@ -2735,7 +2735,7 @@ def _handle_cmd_env(arg: str, *, tr: Any) -> bool:
     try:
         items = shlex.split(raw, posix=False)
     except Exception as e:
-        print("[env error] %(etype)s: %(err)s" % {"etype": type(e).__name__, "err": e})
+        print(_("[env error] %(etype)s: %(err)s") % {"etype": type(e).__name__, "err": e})
         return True
 
     if not items:
@@ -2757,10 +2757,10 @@ def _handle_cmd_env(arg: str, *, tr: Any) -> bool:
                 k for k in _uagent_env_names() if k.lower().startswith(query.lower())
             ]
         if not keys:
-            print("[env] Not found: %(key)s" % {"key": query})
+            print(_("[env] Not found: %(key)s") % {"key": query})
             return True
         if len(keys) > 1:
-            print("[env] Ambiguous: %(key)s" % {"key": query})
+            print(_("[env] Ambiguous: %(key)s") % {"key": query})
             for key in keys:
                 print(f"{key}={_uagent_format_env_value(key, os.environ.get(key, ''))}")
             return True
@@ -2770,21 +2770,21 @@ def _handle_cmd_env(arg: str, *, tr: Any) -> bool:
 
     if sub == "set":
         if len(items) < 3:
-            print(":env set KEY VALUE")
+            print(_(":env set KEY VALUE"))
             return True
         key = items[1]
         value = " ".join(items[2:])
         os.environ[key] = value
-        print("[env] Set %(key)s" % {"key": key})
+        print(_("[env] Set %(key)s") % {"key": key})
         return True
 
     if sub == "unset":
         if len(items) < 2:
-            print(":env unset KEY")
+            print(_(":env unset KEY"))
             return True
         key = items[1]
         os.environ.pop(key, None)
-        print("[env] Unset %(key)s" % {"key": key})
+        print(_("[env] Unset %(key)s") % {"key": key})
         return True
 
     if sub == "save":
@@ -2792,14 +2792,14 @@ def _handle_cmd_env(arg: str, *, tr: Any) -> bool:
             from .runtime.runtime_env import save_uagent_envsec
 
             sec_path = save_uagent_envsec()
-            print("[env] Saved .env.sec: %(path)s" % {"path": str(sec_path)})
+            print(_("[env] Saved .env.sec: %(path)s") % {"path": str(sec_path)})
         except Exception as e:
             print(
-                "[env error] %(etype)s: %(err)s" % {"etype": type(e).__name__, "err": e}
+                _("[env error] %(etype)s: %(err)s") % {"etype": type(e).__name__, "err": e}
             )
         return True
 
-    print(":env show [KEY] / :env set KEY VALUE / :env unset KEY / :env save")
+    print(_(":env show [KEY] / :env set KEY VALUE / :env unset KEY / :env save"))
     return True
 
 
@@ -2892,7 +2892,10 @@ def _ask_reviewer_judgment(
             judgment_messages=judgment_msgs,
         )
     except Exception as e:
-        warnings.warn(f"[AUTO] Judgment call failed: {type(e).__name__}: {e}")
+        warnings.warn(
+            _("[AUTO] Judgment call failed: %(etype)s: %(error)s")
+            % {"etype": type(e).__name__, "error": e}
+        )
         raw = "CONTINUE"
     else:
         raw = (result_text or "").strip()
@@ -3583,7 +3586,7 @@ def handle_command(
             if sub in ("on", "off") and len(parts) == 1:
                 core.tools_enabled = sub == "on"
                 state = "ON" if core.tools_enabled else "OFF"
-                print(f"[tools] Tool sending to LLM is now {state}")
+                print(_("[tools] Tool sending to LLM is now %(state)s") % {"state": state})
                 return CommandResult()
             # ":tools on <genre>" => enable genre, also re-enable global tool sending.
             if sub == "on" and len(parts) >= 2:
@@ -3604,7 +3607,7 @@ def handle_command(
                 if type(res).__name__ == "CommandResult":
                     return res
                 return CommandResult()
-        print("Usage: :tools [list|on|off|output] [args...]")
+        print(_("Usage: :tools [list|on|off|output] [args...]"))
         return CommandResult()
 
     if cmd == "env":

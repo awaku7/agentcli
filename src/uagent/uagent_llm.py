@@ -1504,8 +1504,11 @@ def run_llm_rounds(
                             age = _productive_age(_LOADED_SINGLE_TOOLS.get(tname))
                             if age is not None and age >= threshold:
                                 print(
-                                    f"[TOOLS auto-unload] {tname} "
-                                    f"(never used for {threshold} productive rounds since load)",
+                                    "[TOOLS auto-unload] "
+                                    + _(
+                                        "%(name)s (never used for %(n)d productive rounds since load)"
+                                    )
+                                    % {"name": tname, "n": threshold},
                                     flush=True,
                                 )
                                 _disable_single_tool(tname)
@@ -1513,8 +1516,11 @@ def run_llm_rounds(
                             age = _productive_age(last)
                             if age is not None and age >= threshold:
                                 print(
-                                    f"[TOOLS auto-unload] {tname} "
-                                    f"(idle for {threshold} productive rounds)",
+                                    "[TOOLS auto-unload] "
+                                    + _(
+                                        "%(name)s (idle for %(n)d productive rounds)"
+                                    )
+                                    % {"name": tname, "n": threshold},
                                     flush=True,
                                 )
                                 _TOOL_LAST_ROUND.pop(tname, None)

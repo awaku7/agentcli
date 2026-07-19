@@ -211,7 +211,9 @@ def run_cli_startup(
                     if len(_enabled_plugins) > 8:
                         _names += f", +{len(_enabled_plugins) - 8} more"
                     print(
-                        f"[plugins] {len(_enabled_plugins)} enabled: {_names}",
+                        "[plugins] "
+                        + _("%(n)d enabled: %(names)s")
+                        % {"n": len(_enabled_plugins), "names": _names},
                         file=sys.stderr,
                     )
             except Exception:
@@ -253,7 +255,9 @@ def run_cli_startup(
                         enable_single_tool(tname)
                     except Exception as e:
                         print(
-                            f"[WARN] Failed to enable tool '{tname}': {e}",
+                            "[WARN] "
+                            + _("Failed to enable tool '%(name)s': %(err)s")
+                            % {"name": tname, "err": e},
                             file=sys.stderr,
                         )
             core.set_status(False, "")

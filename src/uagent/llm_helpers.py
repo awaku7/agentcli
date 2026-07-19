@@ -30,7 +30,7 @@ def _maybe_print_certifi_where(exc: Exception) -> None:
         return
 
     try:
-        print(f"[SSL Info] certifi.where() = {certifi.where()}")
+        print("[SSL Info] " + _("certifi.where() = %(path)s") % {"path": certifi.where()})
     except Exception:
         pass
 

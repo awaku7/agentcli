@@ -525,11 +525,17 @@ def claude_chat_with_tools(
                 try:
                     if callable(on_output_config_fallback):
                         on_output_config_fallback(
-                            "[Claude] temperature rejected; retrying without temperature"
+                            "[Claude] "
+                            + _(
+                                "temperature rejected; retrying without temperature"
+                            )
                         )
                     else:
                         print(
-                            "[Claude] temperature rejected; retrying without temperature"
+                            "[Claude] "
+                            + _(
+                                "temperature rejected; retrying without temperature"
+                            )
                         )
                 except Exception:
                     pass
@@ -559,8 +565,11 @@ def claude_chat_with_tools(
                 # Memoize: this model needs adaptive from the first request next time.
                 _ADAPTIVE_THINKING_MODELS.add(model_name)
                 fb_msg = (
-                    "[Claude] thinking.type=enabled rejected; "
-                    "retrying with thinking.type=adaptive + output_config.effort"
+                    "[Claude] "
+                    + _(
+                        "thinking.type=enabled rejected; "
+                        "retrying with thinking.type=adaptive + output_config.effort"
+                    )
                 )
                 try:
                     if callable(on_output_config_fallback):
@@ -591,11 +600,17 @@ def claude_chat_with_tools(
                 try:
                     if callable(on_output_config_fallback):
                         on_output_config_fallback(
-                            "[Claude] output_config rejected; retrying without output_config"
+                            "[Claude] "
+                            + _(
+                                "output_config rejected; retrying without output_config"
+                            )
                         )
                     else:
                         print(
-                            "[Claude] output_config rejected; retrying without output_config"
+                            "[Claude] "
+                            + _(
+                                "output_config rejected; retrying without output_config"
+                            )
                         )
                 except Exception:
                     pass

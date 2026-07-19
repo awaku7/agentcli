@@ -853,7 +853,10 @@ def profile_from_logs(
             progress = int((idx + 1) / total_files * 100)
             step_info = f"File {idx + 1}/{total_files} ({progress}%)"
             print(
-                f"Processing chunk up to {step_info} (messages: {len(message_buffer)})..."
+                _(
+                    "Processing chunk up to %(step)s (messages: %(n)d)..."
+                )
+                % {"step": step_info, "n": len(message_buffer)}
             )
 
             extracted_prof = process_chunk(message_buffer, step_info)

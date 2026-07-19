@@ -355,8 +355,11 @@ def zai_chat_with_tools(
                 err_text_lower = err.lower()
                 if "does not support tools" in err_text_lower:
                     print(
-                        f"[{_LABEL} Error] Model does not support tools. "
-                        "Auto-disabling tools and retrying..."
+                        f"[{_LABEL} Error] "
+                        + _(
+                            "Model does not support tools. "
+                            "Auto-disabling tools and retrying..."
+                        )
                     )
                     from .. import core as _core_module
 
@@ -366,8 +369,11 @@ def zai_chat_with_tools(
                     continue
                 if "does not support thinking" in err_text_lower:
                     print(
-                        f"[{_LABEL} Error] Model does not support thinking. "
-                        "Disabling thinking via UAGENT_REASONING=off and retrying..."
+                        f"[{_LABEL} Error] "
+                        + _(
+                            "Model does not support thinking. "
+                            "Disabling thinking via UAGENT_REASONING=off and retrying..."
+                        )
                     )
                     import os
 
@@ -378,13 +384,15 @@ def zai_chat_with_tools(
                     and not tool_repair_attempted
                 ):
                     print(
-                        f"[{_LABEL} Error] 400 BadRequest - 'insufficient tool messages'"
+                        f"[{_LABEL} Error] "
+                        + _("400 BadRequest - 'insufficient tool messages'")
                     )
                     _diagnose_message_structure(call_messages)
                     if _repair_incomplete_tool_sequences(call_messages):
                         tool_repair_attempted = True
                         print(
-                            f"[{_LABEL}] Repaired incomplete tool sequences, retrying...",
+                            f"[{_LABEL}] "
+                            + _("Repaired incomplete tool sequences, retrying..."),
                             file=sys.stderr,
                         )
                         continue

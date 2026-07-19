@@ -417,8 +417,11 @@ def novita_chat_with_tools(
                 err_text_lower = err.lower()
                 if "does not support tools" in err_text_lower:
                     print(
-                        f"[{_LABEL} Error] Model does not support tools. "
-                        "Auto-disabling tools and retrying..."
+                        f"[{_LABEL} Error] "
+                        + _(
+                            "Model does not support tools. "
+                            "Auto-disabling tools and retrying..."
+                        )
                     )
                     from .. import core as _core_module
 

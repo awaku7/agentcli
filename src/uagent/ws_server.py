@@ -20,6 +20,7 @@ import sys
 from typing import Any
 
 from uagent.ws_handler import WsHandler
+from uagent.i18n import _
 
 # Imported lazily in _load_env_at_startup to avoid circular imports at module level.
 # _load_env_at_startup is called from main() before any request is handled.
@@ -127,19 +128,19 @@ def setup_logging(level: str = "INFO") -> None:
 def parse_args(argv: list[str] | None = None) -> argparse.Namespace:
     """Parse command-line arguments."""
     parser = argparse.ArgumentParser(
-        description="uag WebSocket Server for VSCode extension"
+        description=_("uag WebSocket Server for VSCode extension")
     )
     parser.add_argument(
         "--port",
         type=int,
         default=DEFAULT_PORT,
-        help=f"WebSocket port (default: {DEFAULT_PORT})",
+        help=_("WebSocket port (default: %(port)s)") % {"port": DEFAULT_PORT},
     )
     parser.add_argument(
         "--log-level",
         default="INFO",
         choices=["DEBUG", "INFO", "WARNING", "ERROR"],
-        help="Logging level (default: INFO)",
+        help=_("Logging level (default: INFO)"),
     )
     return parser.parse_args(argv)
 

@@ -726,8 +726,11 @@ def deepseek_chat_with_tools(
                 err_text_lower = err.lower()
                 if "does not support tools" in err_text_lower:
                     print(
-                        f"[{_label} Error] Model does not support tools. "
-                        "Auto-disabling tools and retrying..."
+                        f"[{_label} Error] "
+                        + _(
+                            "Model does not support tools. "
+                            "Auto-disabling tools and retrying..."
+                        )
                     )
                     from .. import core as _core_module
 
@@ -737,8 +740,11 @@ def deepseek_chat_with_tools(
                     continue
                 if "does not support thinking" in err_text_lower:
                     print(
-                        f"[{_label} Error] Model does not support thinking. "
-                        "Disabling thinking via UAGENT_REASONING=off and retrying..."
+                        f"[{_label} Error] "
+                        + _(
+                            "Model does not support thinking. "
+                            "Disabling thinking via UAGENT_REASONING=off and retrying..."
+                        )
                     )
                     import os
 
@@ -750,14 +756,16 @@ def deepseek_chat_with_tools(
                 ):
                     # Diagnose the problem
                     print(
-                        f"[{_label} Error] 400 BadRequest - 'insufficient tool messages'"
+                        f"[{_label} Error] "
+                        + _("400 BadRequest - 'insufficient tool messages'")
                     )
                     _diagnose_message_structure(call_messages)
                     # Attempt repair: strip incomplete tool-call sequences
                     if _repair_incomplete_tool_sequences(call_messages):
                         tool_repair_attempted = True
                         print(
-                            f"[{_label}] Repaired incomplete tool sequences, retrying...",
+                            f"[{_label}] "
+                            + _("Repaired incomplete tool sequences, retrying..."),
                             file=sys.stderr,
                         )
                         continue  # Retry with repaired messages

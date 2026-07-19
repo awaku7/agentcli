@@ -844,8 +844,11 @@ def _call_openai_azure_round(
                 err_text = str(e).lower()
                 if "does not support tools" in err_text:
                     print(
-                        "[Azure/OpenAI Error] Model does not support tools. "
-                        "Auto-disabling tools and retrying..."
+                        "[Azure/OpenAI Error] "
+                        + _(
+                            "Model does not support tools. "
+                            "Auto-disabling tools and retrying..."
+                        )
                     )
                     from . import core as _core_module
 

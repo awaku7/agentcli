@@ -1772,9 +1772,9 @@ def main() -> int:
             print(_("generated: %(path)s") % {"path": paths[k]})
 
     if "ps1" in outputs:
-        print("- env.ps1 : utf-8-sig, CRLF")
+        print(_("- env.ps1 : utf-8-sig, CRLF"))
     if "bat" in outputs:
-        print("- env.bat : cp932, CRLF")
+        print(_("- env.bat : cp932, CRLF"))
 
     return 0
 

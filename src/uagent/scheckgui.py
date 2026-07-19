@@ -30,7 +30,9 @@ os.environ["QT_AUTO_SCREEN_SCALE_FACTOR"] = "1"
 from ._pip_auto import install_with_status as _install_pyside
 
 if not _install_pyside("PySide6", "PySide6", verify_submodule="PySide6.QtCore"):
-    print("PySide6 is required for GUI mode.", file=sys.stderr)
+    from .i18n import _ as _i18n_early
+
+    print(_i18n_early("PySide6 is required for GUI mode."), file=sys.stderr)
     sys.exit(1)
 
 from PySide6 import QtCore, QtGui, QtWidgets, QtMultimedia
@@ -795,7 +797,7 @@ class ScheckWorker(QtCore.QObject):
                 except Exception:
                     try:
                         with _log_lock:
-                            _log_buffer.write("[ERROR] Worker exception:\n")
+                            _log_buffer.write(_("[ERROR] Worker exception:\n"))
                             import traceback
 
                             traceback.print_exc(file=_log_buffer)
@@ -2657,27 +2659,27 @@ def main():
         "--workdir",
         "-C",
         dest="workdir",
-        help="Specify the working directory. If omitted, use the UAGENT_WORKDIR environment variable or the current directory.",
+        help=_("Specify the working directory. If omitted, use the UAGENT_WORKDIR environment variable or the current directory."),
     )
     parser.add_argument(
         "--tool-genre-mask",
         type=int,
         default=None,
-        help="Tool genre bitmask (1=basic,2=comm,4=office,8=devel,16=iot,32=exec,64=external,128=media,256=file,512=index,1023=all). Skips the interactive genre prompt when specified.",
+        help=_("Tool genre bitmask (1=basic,2=comm,4=office,8=devel,16=iot,32=exec,64=external,128=media,256=file,512=index,1023=all). Skips the interactive genre prompt when specified."),
     )
     parser.add_argument(
         "--use-tool",
         dest="use_tool",
         action="store_true",
         default=None,
-        help="Enable tool sending to LLM (overrides UAGENT_USE_TOOL env var).",
+        help=_("Enable tool sending to LLM (overrides UAGENT_USE_TOOL env var)."),
     )
     parser.add_argument(
         "--no-use-tool",
         dest="use_tool",
         action="store_false",
         default=None,
-        help="Disable tool sending to LLM (overrides UAGENT_USE_TOOL env var).",
+        help=_("Disable tool sending to LLM (overrides UAGENT_USE_TOOL env var)."),
     )
     args, unknown = parser.parse_known_args()
 

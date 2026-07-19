@@ -401,7 +401,7 @@ def _execute_tool_calls(
                 _prefetched[tc_id] = result
                 _fresh_prefetch_ids.add(tc_id)
                 if getattr(core, "show_tool_output", False):
-                    print(f"[tool output] name={name}")
+                    print("[tool output] " + _("name=%(name)s") % {"name": name})
                     print(
                         result
                         if isinstance(result, str)
@@ -513,7 +513,7 @@ def _execute_tool_calls(
                         if isinstance(tool_result, str)
                         else json.dumps(tool_result, ensure_ascii=False)
                     )
-                    print(f"[tool output] name={name}")
+                    print("[tool output] " + _("name=%(name)s") % {"name": name})
                     print(_display)
                 executed_new_tool = True
 
