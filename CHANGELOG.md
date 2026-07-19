@@ -3,6 +3,7 @@
 ## [0.5.51] - 2026-07-19
 
 ### Added
+- hooks: SessionStart/Setup/UserPromptSubmit stdout → `[HOOK]` system context injection (plain text + `additionalContext` JSON); Web/GUI deferred apply; log reload keeps `[HOOK]` like `[SKILL]`.
 - `:help`: overview and per-command detail including CMD_SPEC.
 - MCP: HTTP headers support; n8n adaptation plan notes.
 - `translate_text`: brand/product term protection during translation.

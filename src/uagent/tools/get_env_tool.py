@@ -101,7 +101,8 @@ def run_tool(args: dict[str, Any]) -> str:
     cb = get_callbacks()
 
     name = str(args.get("name", "") or "").strip()
-    missing_ok = bool(args.get("skip", False))
+    # Accept both schema name "skip" and legacy/test alias "missing_ok".
+    missing_ok = bool(args.get("skip", args.get("missing_ok", False)))
 
     # Security default: mask unless explicitly disabled.
     mask = True if args.get("mask") is None else bool(args.get("mask"))
@@ -118,8 +119,8 @@ def run_tool(args: dict[str, Any]) -> str:
         if cb.get_env is not None:
             try:
                 val = cb.get_env(name)
-            except SystemExit:
-                # Host get_env may sys.exit(1) when missing
+            except (SystemExit, ValueError):
+                # Host get_env may raise ValueError (or legacy SystemExit) when missing
                 if missing_ok:
                     return f"{name}=(not set)"
                 return f"[get_env error] {name} is not set"

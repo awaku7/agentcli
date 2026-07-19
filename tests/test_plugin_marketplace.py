@@ -244,6 +244,38 @@ class TestMarketplaceInstallFrom:
         assert (dest / "test-plugin").exists()
         assert (dest / "test-plugin" / ".claude-plugin" / "plugin.json").exists()
 
+    def test_install_bare_name_resolves_marketplace(
+        self, marketplace_dir: Path, repo_tmp_path: Path
+    ) -> None:
+        """Bare plugin name should auto-resolve via marketplaces (Claude Code style)."""
+        from uagent.tools.plugin_manage_tool import run_tool
+        import json
+
+        dest = repo_tmp_path / "bare-name-installed"
+        dest.mkdir(parents=True)
+
+        result = run_tool(
+            {
+                "action": "install",
+                "source": "test-plugin",
+                "_test_install_root": str(dest),
+                "_test_marketplace_dir": str(marketplace_dir),
+            }
+        )
+        parsed = json.loads(result)
+        assert parsed["ok"] is True, parsed
+        assert (dest / "test-plugin").exists()
+        assert (dest / "test-plugin" / ".claude-plugin" / "plugin.json").exists()
+
+    def test_looks_like_bare_plugin_name(self) -> None:
+        from uagent.plugin_shared import looks_like_bare_plugin_name
+
+        assert looks_like_bare_plugin_name("genshijin") is True
+        assert looks_like_bare_plugin_name("my-plugin") is True
+        assert looks_like_bare_plugin_name("genshijin@claude-plugins-official") is False
+        assert looks_like_bare_plugin_name("./local") is False
+        assert looks_like_bare_plugin_name("https://example.com/x") is False
+
 
 class TestPluginDependencies:
     """Tests for plugin dependency resolution."""

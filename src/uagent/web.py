@@ -891,6 +891,14 @@ def run_agent_worker(
             room.history = tools_util.build_initial_messages(core=core)
             room.history_initialized = True
 
+            # Apply SessionStart hook stdout stashed at server boot (if any)
+            try:
+                from .hooks_engine import inject_pending_session_hook_context
+
+                inject_pending_session_hook_context(room.history)
+            except Exception:
+                pass
+
             # Long-term memory insertion (align with CLI/GUI)
             from .tools import long_memory as personal_long_memory
             from .tools import shared_memory
@@ -919,6 +927,31 @@ def run_agent_worker(
                     )
                     % {"err": e}
                 )
+
+        # UserPromptSubmit: stdin JSON + optional block (skip LLM turn)
+        try:
+            from .hooks_engine import (
+                fire_user_prompt_submit,
+                inject_hook_context,
+                collect_hook_block_decision,
+            )
+
+            _ups_results = fire_user_prompt_submit(user_input)
+            _ups_block = collect_hook_block_decision(_ups_results)
+            if _ups_block is not None:
+                _reason = (_ups_block.get("reason") or "").strip()
+                if not _reason:
+                    _reason = "Blocked by UserPromptSubmit hook."
+                room.add_message({"role": "assistant", "content": _reason})
+                return
+            inject_hook_context(
+                room.history,
+                _ups_results,
+                event_name="UserPromptSubmit",
+                replace_event=True,
+            )
+        except Exception:
+            pass
 
         # Strip attachments from user_msg before saving to history to avoid
         # accumulating large data_urls that cause API context overflow on subsequent turns.
@@ -985,7 +1018,10 @@ When the user asks for a UI, dashboard, interactive tool, or visualization:
             tb = ""
 
         msg = _("[FATAL] Web worker error.\n%(err)s") % {"err": err}
-        if isinstance(e, SystemExit) and not (env_get("UAGENT_PROVIDER") or "").strip():
+        if (
+            isinstance(e, (SystemExit, ValueError))
+            and not (env_get("UAGENT_PROVIDER") or "").strip()
+        ):
             msg = _(
                 "[FATAL] Environment variable UAGENT_PROVIDER is not set.\nPlease check environment variables when starting the web server."
             )

@@ -461,7 +461,7 @@ def _resolve_interface(interface: str | None) -> tuple[str | None, str | None]:
 
         if candidates:
             candidates.sort(key=lambda item: (item[0], item[1].lower()), reverse=True)
-            _, best_name, best_ip = candidates[0]
+            _score, best_name, best_ip = candidates[0]
             return best_ip, best_name
     except Exception:
         pass

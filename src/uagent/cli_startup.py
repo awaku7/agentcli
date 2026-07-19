@@ -219,7 +219,11 @@ def run_cli_startup(
             except Exception:
                 pass
 
-            provider, client, depname = providers.make_client(core)
+            try:
+                provider, client, depname = providers.make_client(core)
+            except (ValueError, RuntimeError) as e:
+                print(f"error: {e}", file=sys.stderr)
+                sys.exit(2)
 
             if banner:
                 print(banner, end="")

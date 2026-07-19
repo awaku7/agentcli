@@ -576,11 +576,9 @@ def get_prompt() -> str:
 def get_env(name: str) -> str:
     value = env_get(name)
     if not value:
-        print(
-            _("Environment variable %(name)s is not set.") % {"name": name},
-            file=sys.stderr,
+        raise ValueError(
+            _("Environment variable %(name)s is not set.") % {"name": name}
         )
-        sys.exit(1)
     return value
 
 
@@ -597,11 +595,9 @@ def get_env_url(name: str, default: Optional[str] = None) -> str:
     if not val:
         if default is not None:
             return normalize_url(default)
-        print(
-            _("Environment variable %(name)s is not set.") % {"name": name},
-            file=sys.stderr,
+        raise ValueError(
+            _("Environment variable %(name)s is not set.") % {"name": name}
         )
-        sys.exit(1)
     return normalize_url(val)
 
 
@@ -1208,7 +1204,7 @@ def load_conversation_from_log(
     """
     Read conversation history from log file (JSONL) and reconstruct messages:
     - Normalize messages.
-    - Discard normal system messages but maintain skill-injected system messages.
+    - Discard normal system messages but maintain skill/hook-injected system messages.
     - Re-insert the specified system_prompt at the beginning
       (use the current SYSTEM_PROMPT if not specified).
     """
@@ -1235,14 +1231,18 @@ def load_conversation_from_log(
         if (nm := normalize_message_from_log(obj)) is not None
     ]
 
-    # Keep skill-injected system messages and discard other system messages
+    # Keep skill/hook-injected system messages; discard other system messages
     skill_prefix = "[SKILL] "
-    skill_messages = [
+    hook_prefix = "[HOOK] "
+    preserved_system_messages = [
         m
         for m in messages
         if m.get("role") == "system"
         and isinstance(m.get("content"), str)
-        and m.get("content").startswith(skill_prefix)
+        and (
+            m.get("content").startswith(skill_prefix)
+            or m.get("content").startswith(hook_prefix)
+        )
     ]
     messages = [m for m in messages if m.get("role") != "system"]
 
@@ -1254,9 +1254,9 @@ def load_conversation_from_log(
     system_msg = {"role": "system", "content": system_prompt}
     messages.insert(0, system_msg)
 
-    # Put the skill system messages back immediately after system_prompt
-    if skill_messages:
-        messages[1:1] = skill_messages
+    # Put skill/hook system messages back immediately after system_prompt
+    if preserved_system_messages:
+        messages[1:1] = preserved_system_messages
 
     return list(messages)
 
@@ -1494,7 +1494,10 @@ def compress_history_with_llm(
 
     from .providers import util_providers
 
-    provider = util_providers.detect_provider()
+    try:
+        provider = util_providers.detect_provider()
+    except Exception:
+        provider = (env_get("UAGENT_PROVIDER") or "").strip().lower() or "openai"
     translator = globals().get("_")
 
     def _t(s: str) -> str:

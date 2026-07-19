@@ -1,14 +1,13 @@
 from __future__ import annotations
 
 import subprocess
-import sys
 import platform
 
 from .i18n import _
 
 
-def check_git_installation():
-    """Check if git is installed, and exit with installation instructions if not."""
+def check_git_installation() -> None:
+    """Check if git is installed; raise RuntimeError with install hints if not."""
     try:
         subprocess.run(["git", "--version"], check=True, capture_output=True)
     except (subprocess.CalledProcessError, FileNotFoundError):
@@ -27,6 +26,6 @@ def check_git_installation():
             _("Please install Git. See: %(url)s")
             % {"url": "https://git-scm.com/download/"},
         )
-        print(_("[ERROR] Git is not installed."), file=sys.stderr)
-        print(install_msg, file=sys.stderr)
-        sys.exit(1)
+        raise RuntimeError(
+            f"{_('[ERROR] Git is not installed.')} {install_msg}"
+        ) from None

@@ -338,8 +338,14 @@ class WsHandler:
                 _lg.getLogger("uag.ws_handler").error(
                     "_RUN_LLM_ERROR: %s\n%s", _exc, _tb.format_exc()[:500]
                 )
-            except SystemExit as _se:
-                _lg.getLogger("uag.ws_handler").error("_RUN_LLM_SYSEXIT: %s", _se)
+            except BaseException as _be:
+                # Defensive: legacy SystemExit must not kill the WS server.
+                if isinstance(_be, (SystemExit, KeyboardInterrupt)):
+                    _lg.getLogger("uag.ws_handler").error(
+                        "_RUN_LLM_BASEEXC: %s: %s", type(_be).__name__, _be
+                    )
+                else:
+                    raise
 
             # Restore original log_message
             if _log_message_patched:

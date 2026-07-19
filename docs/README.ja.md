@@ -248,3 +248,16 @@ Contributions are welcome! Bug reports, feature suggestions, documentation impro
 - **Pull requests**: Fork the repo, make your changes, and submit a PR. See [DEVELOP.md](https://github.com/awaku7/agentcli/blob/main/src/uagent/docs/DEVELOP.md) for development setup and guidelines.
 - **Translations**: README translations and locale additions are welcome. See [ADD_LOCALE.md](https://github.com/awaku7/agentcli/blob/main/src/uagent/docs/ADD_LOCALE.md).
 - **Tools & Skills**: New tool plugins and Agent Skills can be contributed via the marketplace.
+
+### 開発時チェック（PR 前）
+
+```bash
+python -m py_compile src/uagent/
+ruff format src/ && ruff check src/
+mypy src/uagent
+pytest -q tests/<affected_area>
+```
+
+ロケール（`.po`）編集後: `python scripts/compile_locales.py` と `python scripts/po_qc_summary.py`。
+
+ランタイム方針（詳細は [DEVELOP.md](https://github.com/awaku7/agentcli/blob/main/src/uagent/docs/DEVELOP.md) §6.1）: ヘルパーは `sys.exit` ではなく例外を送出。ツールホストはツール側の `SystemExit`/`Exception` をエラー文字列に変換し、単一ツールがプロセスを落とさない。起動時 fail-fast の exit は意図的に残す。

@@ -557,6 +557,7 @@ class ScheckWorker(QtCore.QObject):
 
     @QtCore.Slot()
     def run(self):
+        prev_finish_skill = None
         try:
             self._init_callbacks()
             start_background_scheduler(core.event_queue)
@@ -566,7 +567,15 @@ class ScheckWorker(QtCore.QObject):
                 pass
 
             # Provider/client/model are decided by util_make_client.
-            self._provider, self._client, self._depname = util_make_client(core)
+            try:
+                self._provider, self._client, self._depname = util_make_client(core)
+            except Exception as e:
+                print(
+                    "[FATAL] "
+                    + _("Failed to initialize LLM client: %(err)s") % {"err": e},
+                    file=sys.stderr,
+                )
+                return
             if (
                 self._provider == "openrouter"
                 and (self._depname or "").strip() == "openrouter/auto"
@@ -697,6 +706,32 @@ class ScheckWorker(QtCore.QObject):
                                 else:
                                     text = "\n".join(file_lines)
 
+                        # UserPromptSubmit: stdin JSON + optional block
+                        try:
+                            from .hooks_engine import (
+                                fire_user_prompt_submit,
+                                inject_hook_context,
+                                collect_hook_block_decision,
+                            )
+
+                            _ups_results = fire_user_prompt_submit(text)
+                            _ups_block = collect_hook_block_decision(_ups_results)
+                            if _ups_block is not None:
+                                _reason = (_ups_block.get("reason") or "").strip()
+                                if not _reason:
+                                    _reason = "Blocked by UserPromptSubmit hook."
+                                print(_reason)
+                                core.set_status(False, "")
+                                continue
+                            inject_hook_context(
+                                self.messages,
+                                _ups_results,
+                                event_name="UserPromptSubmit",
+                                replace_event=True,
+                            )
+                        except Exception:
+                            pass
+
                         use_responses_api = (
                             os.environ.get("UAGENT_RESPONSES", "") or ""
                         ).lower() in (
@@ -753,9 +788,14 @@ class ScheckWorker(QtCore.QObject):
                         for p in ev.get("images", []):
                             if os.path.isfile(p):
                                 core.set_status(True, "analyze_image")
-                                res = self.tools.run_tool(
-                                    "analyze_image", {"image_path": p}
-                                )
+                                try:
+                                    res = self.tools.run_tool(
+                                        "analyze_image", {"image_path": p}
+                                    )
+                                except Exception as e:
+                                    res = (
+                                        f"[analyze_image error] {type(e).__name__}: {e}"
+                                    )
                                 text += (
                                     _("[Attached Image] %(path)s") % {"path": p}
                                     + "\n"
@@ -805,7 +845,8 @@ class ScheckWorker(QtCore.QObject):
                         pass
                     continue
         finally:
-            get_callbacks().finish_skill = prev_finish_skill
+            if prev_finish_skill is not None:
+                get_callbacks().finish_skill = prev_finish_skill
             self.sig_finished.emit()
 
     def stop(self):
@@ -2761,11 +2802,21 @@ def main():
     win = MainWindow(GuiConfig(prov, model, unknown[0] if unknown else None))
     win.show()
 
-    # Fire SessionStart hook
+    # Fire SessionStart hook and inject stdout into the open conversation
     try:
-        from .hooks_engine import fire_session_start
+        from .hooks_engine import (
+            fire_session_start,
+            inject_hook_context,
+            take_pending_session_hook_texts,
+        )
 
-        fire_session_start()
+        _ss_results = fire_session_start()
+        msgs = getattr(win, "messages", None)
+        if isinstance(msgs, list):
+            inject_hook_context(
+                msgs, _ss_results, event_name="SessionStart", replace_event=False
+            )
+            take_pending_session_hook_texts()
     except Exception:
         pass
 

@@ -30,14 +30,23 @@ def test_db_query_select_and_pragma(repo_tmp_path: Path) -> None:
         conn.close()
 
     out_select = run_tool({"db_path": str(db), "sql": "SELECT id, name FROM t"})
-    rows = json.loads(out_select)
-    assert isinstance(rows, list)
-    assert rows[0]["name"] == "alice"
+    assert isinstance(out_select, str)
+    assert "alice" in out_select
+    # Tool returns a human-readable header plus JSONL rows.
+    row_lines = [
+        line for line in out_select.splitlines() if line.startswith("{") and "alice" in line
+    ]
+    assert row_lines
+    row = json.loads(row_lines[0])
+    assert row["name"] == "alice"
 
     out_pragma = run_tool({"db_path": str(db), "sql": "PRAGMA table_info(t)"})
-    cols = json.loads(out_pragma)
-    assert isinstance(cols, list)
-    assert any(c.get("name") == "name" for c in cols)
+    assert isinstance(out_pragma, str)
+    assert "name" in out_pragma
+    pragma_rows = [
+        json.loads(line) for line in out_pragma.splitlines() if line.startswith("{")
+    ]
+    assert any(c.get("name") == "name" for c in pragma_rows)
 
 
 def test_file_exists_metadata_smoke(repo_tmp_path: Path) -> None:
@@ -86,7 +95,7 @@ def test_get_env_mask_and_unmask(monkeypatch) -> None:
 
 
 def test_get_system_specs_smoke() -> None:
-    from uagent.tools.system_specs_tools import run_tool
+    from uagent.tools.system_specs_tool import run_tool
 
     out = run_tool({})
     obj = json.loads(out)
@@ -113,10 +122,11 @@ def test_python_compile_py_compile_single_file(repo_tmp_path: Path) -> None:
     out = run_tool({"path": str(p)})
     assert isinstance(out, str)
     obj = json.loads(out)
-    assert obj["mode"] == "py_compile"
     assert obj["ok"] is True
-    assert obj["count"] == 1
-    assert obj["compiled"] == [str(p)]
+    assert obj["total"] == 1
+    assert obj["passed"] == 1
+    assert obj["failed"] == 0
+    assert any(r.get("path") == str(p) and r.get("ok") is True for r in obj["results"])
 
 
 def test_python_compile_py_compile_directory_and_glob(repo_tmp_path: Path) -> None:
@@ -137,12 +147,14 @@ def test_python_compile_py_compile_directory_and_glob(repo_tmp_path: Path) -> No
     out = run_tool({"paths": [str(pkg), str(pkg / "*.py")]})
     assert isinstance(out, str)
     obj = json.loads(out)
-    assert obj["mode"] == "py_compile"
     assert obj["ok"] is False
-    assert str(good) in obj["compiled"]
-    assert str(nested_good) in obj["compiled"]
-    assert any(item["path"] == str(bad) for item in obj["failed"])
-    assert any(str(p).endswith("good.py") for p in obj["resolved"])
+    assert obj["failed"] >= 1
+    paths_ok = {r["path"] for r in obj["results"] if r.get("ok")}
+    paths_fail = {r["path"] for r in obj["results"] if not r.get("ok")}
+    assert str(good) in paths_ok
+    assert str(nested_good) in paths_ok
+    assert str(bad) in paths_fail
+    assert any(str(p).endswith("good.py") for p in paths_ok)
 
 
 def test_recalc_excel_dry_run_defaults(repo_tmp_path: Path) -> None:

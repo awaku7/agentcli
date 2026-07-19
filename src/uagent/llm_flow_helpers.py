@@ -642,6 +642,12 @@ def _execute_tool_calls(
                             "err": e,
                             "tb": tb,
                         }
+                    except SystemExit as e:
+                        # Defense in depth: tools.run_tool should already convert this.
+                        _fire_tool_hooks("PostToolUseFailure", name)
+                        tool_result = (
+                            f"[tool runtime error] name={name!r} err=SystemExit: {e}"
+                        )
                     # Cache raw first/latest executed result only.
                     tool_result_cache[tool_cache_key] = (
                         tool_result

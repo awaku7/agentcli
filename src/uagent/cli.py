@@ -1093,19 +1093,29 @@ def main() -> None:
         except Exception:
             pass
 
-    # Fire SessionStart and Setup hooks
+    # Fire SessionStart and Setup hooks (inject stdout context into messages)
     try:
         from .hooks_engine import (
             fire_session_start,
             fire_event,
             load_hooks_registry,
             get_default_registry_path,
+            inject_hook_context,
+            take_pending_session_hook_texts,
         )
 
-        fire_session_start()
+        _ss_results = fire_session_start()
+        inject_hook_context(
+            messages, _ss_results, event_name="SessionStart", replace_event=False
+        )
+        # Avoid double-inject if a later path pulls the SessionStart stash.
+        take_pending_session_hook_texts()
         _hooks = load_hooks_registry(get_default_registry_path())
         if _hooks:
-            fire_event("Setup", _hooks)
+            _setup_results = fire_event("Setup", _hooks)
+            inject_hook_context(
+                messages, _setup_results, event_name="Setup", replace_event=False
+            )
     except Exception:
         pass
 
@@ -1168,17 +1178,29 @@ def main() -> None:
                 if not text:
                     continue
 
-                # Fire UserPromptSubmit hook
+                # Fire UserPromptSubmit hook (stdin JSON + context / block)
                 try:
                     from .hooks_engine import (
-                        fire_event,
-                        load_hooks_registry,
-                        get_default_registry_path,
+                        fire_user_prompt_submit,
+                        inject_hook_context,
+                        collect_hook_block_decision,
                     )
 
-                    _hooks = load_hooks_registry(get_default_registry_path())
-                    if _hooks:
-                        fire_event("UserPromptSubmit", _hooks)
+                    _ups_results = fire_user_prompt_submit(text)
+                    _ups_block = collect_hook_block_decision(_ups_results)
+                    if _ups_block is not None:
+                        _reason = (_ups_block.get("reason") or "").strip()
+                        if not _reason:
+                            _reason = "Blocked by UserPromptSubmit hook."
+                        print(_reason)
+                        core.set_status(False, "")
+                        continue
+                    inject_hook_context(
+                        messages,
+                        _ups_results,
+                        event_name="UserPromptSubmit",
+                        replace_event=True,
+                    )
                 except Exception:
                     pass
 
@@ -1239,7 +1261,7 @@ def main() -> None:
                                     ans = (res.get("user_reply") or "").strip().lower()
                                 except Exception:
                                     ans = (res_json or "").strip().lower()
-                            except Exception as e:
+                            except (Exception, SystemExit) as e:
                                 ans = "n"
                                 print(
                                     "[WARN] "

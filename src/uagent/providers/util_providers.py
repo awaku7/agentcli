@@ -1,6 +1,5 @@
 from __future__ import annotations
 
-import sys
 import time
 import atexit
 from typing import Any
@@ -14,6 +13,10 @@ from threading import Lock
 _HTTPX_CLIENTS: list[Any] = []
 _HTTPX_CLIENTS_LOCK = Lock()
 _HTTPX_CLIENTS_REGISTERED = False
+
+# Optional OpenRouter SDK class. Tests may inject a stub via this name.
+# Runtime import is attempted lazily inside make_client when still None.
+_OpenRouterSDK: Any = None
 
 # ---------------------------------------------------------------------------
 # SSL certificate verification auto-fallback
@@ -286,16 +289,14 @@ def _normalize_openrouter_send_kwargs(kwargs: dict[str, Any]) -> dict[str, Any]:
 
 
 def detect_provider() -> str:
-    """UAGENT_PROVIDER から利用プロバイダを判定する。設定されていない場合は終了する。"""
+    """UAGENT_PROVIDER から利用プロバイダを判定する。未設定/未知は ValueError。"""
     p = env_get("UAGENT_PROVIDER")
     if not p:
-        print(_("Environment variable UAGENT_PROVIDER is not set."), file=sys.stderr)
-        sys.exit(1)
+        raise ValueError(_("Environment variable UAGENT_PROVIDER is not set."))
 
     p = p.lower()
     if p not in ALL_PROVIDERS:
-        print(_("Unknown provider: %(provider)s") % {"provider": p}, file=sys.stderr)
-        sys.exit(1)
+        raise ValueError(_("Unknown provider: %(provider)s") % {"provider": p})
     return p
 
 
@@ -544,7 +545,15 @@ def make_client(core: Any) -> tuple[str, Any, str]:
 
     if provider == "openrouter":
         from openai import OpenAI  # lazy (fallback)
-        from openrouter import OpenRouter as _OpenRouterSDK  # lazy
+
+        # Prefer test/module injection, then optional official SDK.
+        # Local import must not shadow the module attribute used by tests.
+        sdk_cls = _OpenRouterSDK
+        if sdk_cls is None:
+            try:
+                from openrouter import OpenRouter as sdk_cls  # type: ignore
+            except Exception:
+                sdk_cls = None
 
         api_key = env_get("UAGENT_OPENROUTER_API_KEY") or "dummy"
         base_url = core.get_env_url(
@@ -553,9 +562,9 @@ def make_client(core: Any) -> tuple[str, Any, str]:
 
         http_client = make_httpx_client()
 
-        if _OpenRouterSDK is not None:
+        if sdk_cls is not None:
             try:
-                raw_client = _OpenRouterSDK(
+                raw_client = sdk_cls(
                     api_key=api_key,
                     http_referer="https://localhost/agent",
                     x_open_router_title="scheck-openrouter",
@@ -564,14 +573,14 @@ def make_client(core: Any) -> tuple[str, Any, str]:
                 )
             except TypeError:
                 try:
-                    raw_client = _OpenRouterSDK(
+                    raw_client = sdk_cls(
                         api_key=api_key,
                         http_referer="https://localhost/agent",
                         x_open_router_title="scheck-openrouter",
                         server_url=base_url,
                     )
                 except TypeError:
-                    raw_client = _OpenRouterSDK(api_key=api_key)
+                    raw_client = sdk_cls(api_key=api_key)
 
             client = _OpenRouterCompatClient(raw_client)
             return provider, client, model_name
@@ -840,11 +849,9 @@ def make_client(core: Any) -> tuple[str, Any, str]:
 
         api_key = core.get_env("UAGENT_GEMINI_API_KEY")
         if genai is None:
-            print(
-                "[FATAL] " + _("google-genai package is not installed."),
-                file=sys.__stderr__,
+            raise RuntimeError(
+                "[FATAL] " + _("google-genai package is not installed.")
             )
-            sys.exit(1)
 
         # google-genai supports per-client HTTP options (custom httpx client, etc.).
         # Keep timeout handling on the shared httpx client to avoid SDK-side timeout quirks.
@@ -868,11 +875,9 @@ def make_client(core: Any) -> tuple[str, Any, str]:
         from google import genai  # lazy
 
         if genai is None:
-            print(
-                "[FATAL] " + _("google-genai package is not installed."),
-                file=sys.stderr,
+            raise RuntimeError(
+                "[FATAL] " + _("google-genai package is not installed.")
             )
-            sys.exit(1)
 
         api_key = core.get_env("UAGENT_VERTEXAI_API_KEY")
         project = env_get("UAGENT_VERTEXAI_PROJECT")
@@ -910,11 +915,9 @@ def make_client(core: Any) -> tuple[str, Any, str]:
 
         api_key = core.get_env("UAGENT_CLAUDE_API_KEY")
         if Anthropic is None:
-            print(
-                "[FATAL] " + _("anthropic package is not installed."),
-                file=sys.stderr,
+            raise RuntimeError(
+                "[FATAL] " + _("anthropic package is not installed.")
             )
-            sys.exit(1)
 
         timeout = make_httpx_timeout()
         http_client = make_httpx_client(timeout=timeout)

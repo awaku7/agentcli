@@ -240,3 +240,16 @@ Contributions are welcome! Bug reports, feature suggestions, documentation impro
 - **Pull requests**: Fork the repo, make your changes, and submit a PR. See [DEVELOP.md](https://github.com/awaku7/agentcli/blob/main/src/uagent/docs/DEVELOP.md) for development setup and guidelines.
 - **Translations**: README translations and locale additions are welcome. See [ADD_LOCALE.md](https://github.com/awaku7/agentcli/blob/main/src/uagent/docs/ADD_LOCALE.md).
 - **Tools & Skills**: New tool plugins and Agent Skills can be contributed via the marketplace.
+
+### Development checks (before PR)
+
+```bash
+python -m py_compile src/uagent/
+ruff format src/ && ruff check src/
+mypy src/uagent
+pytest -q tests/<affected_area>
+```
+
+After locale (`.po`) edits: `python scripts/compile_locales.py` and `python scripts/po_qc_summary.py`.
+
+Runtime policy (details in [DEVELOP.md](https://github.com/awaku7/agentcli/blob/main/src/uagent/docs/DEVELOP.md) §6.1): helpers raise instead of `sys.exit`; the tool host turns tool `SystemExit`/`Exception` into error strings so a single tool cannot kill the process. Startup fail-fast exits remain intentional.

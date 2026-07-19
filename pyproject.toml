@@ -136,7 +136,16 @@ disable_error_code = [
 ]
 
 # Ensure mypy resolves packages under src/ as the package base.
-mypy_path = ["src"]
+mypy_path = ["typings", "src"]
 explicit_package_bases = true
 # Limit to library package only.
 packages = ["uagent"]
+
+# numpy>=2.5 stubs use PEP 695 `type` statements (Python 3.12+). Keep
+# mypy python_version at 3.11 (project minimum) and do not parse those stubs.
+[[tool.mypy.overrides]]
+module = [
+    "numpy",
+    "numpy.*",
+]
+follow_imports = "skip"

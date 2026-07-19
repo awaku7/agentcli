@@ -338,7 +338,9 @@ ______________________________________________________________________
 
 Common checks during development:
 
-- Python syntax: `python -m py_compile src/uagent/**/*.py` (or use the repository's validation tools)
+- Python syntax: `python -m py_compile src/uagent/` (or use the repository's validation tools)
+- Format/lint: `ruff format src/` and `ruff check src/` (`black src/` as fallback)
+- Type check: `mypy src/uagent` (config in `pyproject.toml` `[tool.mypy]`; `python_version` = project minimum `3.11`. Recent numpy ships `.pyi` with 3.12-only `type` statements, so `typings/numpy` + `mypy_path` shadow them and `follow_imports = skip` is set for `numpy*`.)
 - Locale compile: `python scripts/compile_locales.py`
 - Locale QC: `python scripts/po_qc_summary.py`
 - Targeted tests: `pytest -q <path>` or the relevant `run_tests` flow
@@ -346,6 +348,16 @@ Common checks during development:
 - Run the relevant test suite for the touched area
 
 If a change affects startup, tools, or MCP behavior, verify the corresponding flow end-to-end.
+
+### 6.1 Runtime process-exit policy
+
+Interactive/runtime paths must not kill the whole process for recoverable failures.
+
+- Runtime helpers **raise** (`ValueError` / `RuntimeError`) instead of calling bare `sys.exit`.
+- Callers **return or report** errors (CLI/GUI/Web/A2A print or map to protocol errors).
+- Intentional **startup fail-fast** may still exit (codes `1` / `2`) from entry/startup modules only.
+- Tool host (`tools/__init__.py` `run_tool` / `run_tools_parallel`) converts `Exception` and `SystemExit` from tool runners into error strings so a tool cannot terminate the agent. `KeyboardInterrupt` is not swallowed at that boundary.
+- Do not reintroduce bare `sys.exit` on post-startup runtime helper paths.
 
 ______________________________________________________________________
 

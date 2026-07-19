@@ -156,7 +156,7 @@ def run_once(*, user_text: str) -> tuple[dict[str, Any], dict[str, Any] | None]:
     if mode in ("uag", "uagent"):
         try:
             return run_once_uag(user_text=user_text)
-        except SystemExit as e:
+        except (SystemExit, ValueError, RuntimeError) as e:
             return (
                 {"role": "assistant", "content": ""},
                 {

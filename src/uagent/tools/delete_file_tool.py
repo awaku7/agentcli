@@ -152,14 +152,20 @@ def run_tool(args: dict[str, Any]) -> str:
     if raw_input is None:
         raw_input = args.get("path")
 
-    missing_ok_raw = args.get("skip", False)
+    # Accept schema name "skip" and legacy/test alias "missing_ok".
+    if "skip" in args:
+        missing_ok_raw = args.get("skip")
+    elif "missing_ok" in args:
+        missing_ok_raw = args.get("missing_ok")
+    else:
+        missing_ok_raw = False
     dry_run_is_set = "dry_run" in args
     dry_run_raw = args.get("dry_run", None)
     allow_dir_raw = args.get("allow_dir", True)
     confirmed_raw = args.get("confirmed", False)
 
     if not isinstance(missing_ok_raw, bool):
-        raise ValueError("missing_ok must be a boolean")
+        raise ValueError("skip/missing_ok must be a boolean")
     if dry_run_is_set and not isinstance(dry_run_raw, bool):
         raise ValueError("dry_run must be a boolean")
     if not isinstance(allow_dir_raw, bool):

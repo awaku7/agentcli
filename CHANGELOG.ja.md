@@ -3,12 +3,15 @@
 ## [0.5.51] - 2026-07-19
 
 ### 追加
+- hooks: SessionStart/Setup/UserPromptSubmit の stdout を `[HOOK]` system コンテキストへ注入（プレーンテキストおよび `additionalContext` JSON）。Web/GUI は遅延適用。ログ再読込時は `[SKILL]` と同様に `[HOOK]` を保持。
+- `:plugin install <name>`: bare 名を登録 marketplace から自動解決（Claude Code の `/plugin install genshijin` 相当）。
 - `:help`: 概要表示と CMD_SPEC を含むコマンド別詳細。
 - MCP: HTTP ヘッダ対応、n8n 適応プランのメモ。
 - `translate_text`: 翻訳時のブランド/製品名保護。
 - ツール JSON i18n 向け tmp ベース一括翻訳。
 
 ### 修正
+- hooks: Claude Code 互換で `${CLAUDE_PLUGIN_ROOT}` をプラグインディレクトリに解決（環境変数も設定）。
 - 空 assistant / no-tool ループ: 空の assistant を履歴から除去、WARN をモデル履歴に入れない、次ターン用 recovery prompt を追加。grok/xai の `UAGENT_EMPTY_NO_TOOL_MAX` 既定を 5 に引き上げ。
 - 空 no-tool の続き: recovery を次の実 user にマージ（合成 user の積み上がり防止）、WARN を Web 向け UI-only assistant として記録、空 assistant の事前 append を抑止、sanitize で `_uagent_ui_only`/`_uagent_internal` を除外。
 - Grok: CLI ステータスに reasoning effort（`LLM:` / `LLM:auto->...`）を表示。

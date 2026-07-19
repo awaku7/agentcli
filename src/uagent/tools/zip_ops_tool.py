@@ -331,7 +331,7 @@ def run_tool(args: dict[str, Any]) -> str:
                 added: list[str] = []
                 for src in safe_sources:
                     if os.path.isdir(src):
-                        for dirpath, _, filenames in os.walk(src):
+                        for dirpath, _dirnames, filenames in os.walk(src):
                             for fn in filenames:
                                 if fn in exclude_set:
                                     continue
