@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2026-07-15 14:52+0900\n"
+"POT-Creation-Date: 2026-07-19 17:42+0900\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -72,9 +72,6 @@ msgid ""
 "Image send confirmation failed; will not send images: %(etype)s: %(err)s"
 msgstr ""
 "Image send confirmation failed; will not send images: %(etype)s: %(err)s"
-
-msgid "Failed to attach image: %(path)s (%(etype)s: %(err)s)"
-msgstr "Failed to attach image: %(path)s (%(etype)s: %(err)s)"
 
 msgid "Unknown event kind=%(kind)r: %(ev)r"
 msgstr "Unknown event kind=%(kind)r: %(ev)r"
@@ -294,12 +291,14 @@ msgid ""
 "- Always use the provided tools and verify the latest information.\n"
 "- Be creative, but do not output uncertain information.\n"
 "- Consult available tools and choose the most appropriate one.\n"
+"- If the capability you need is not among the currently loaded tools, or you are unsure which tool fits, call tool_catalog before answering or guessing. Use its query to describe the needed capability; then tool_load any unloaded tool you need.\n"
 "- When executing tools, delegate as little decision-making as possible to the user.\n"
 msgstr ""
 "## Rules\n"
 "- Always use the provided tools and verify the latest information.\n"
 "- Be creative, but do not output uncertain information.\n"
 "- Consult available tools and choose the most appropriate one.\n"
+"- If the capability you need is not among the currently loaded tools, or you are unsure which tool fits, call tool_catalog before answering or guessing. Use its query to describe the needed capability; then tool_load any unloaded tool you need.\n"
 "- When executing tools, delegate as little decision-making as possible to the user.\n"
 
 msgid ""
@@ -361,12 +360,14 @@ msgid ""
 "## Rules\n"
 "- Use the provided tools first and verify results with tools.\n"
 "- Consult tool descriptions for purpose/arguments/constraints; choose the most appropriate and safest tool.\n"
+"- If the capability you need is not among the currently loaded tools, or you are unsure which tool fits, call tool_catalog before answering or guessing. Use its query to describe the needed capability; then tool_load any unloaded tool you need.\n"
 "- Be creative, but do not output uncertain information.\n"
 "- Delegate as little decision-making as possible to the user.\n"
 msgstr ""
 "## Rules\n"
 "- Use the provided tools first and verify results with tools.\n"
 "- Consult tool descriptions for purpose/arguments/constraints; choose the most appropriate and safest tool.\n"
+"- If the capability you need is not among the currently loaded tools, or you are unsure which tool fits, call tool_catalog before answering or guessing. Use its query to describe the needed capability; then tool_load any unloaded tool you need.\n"
 "- Be creative, but do not output uncertain information.\n"
 "- Delegate as little decision-making as possible to the user.\n"
 
@@ -414,6 +415,19 @@ msgstr ""
 "- If the user is using Windows cmd.exe, prefer multi-line commands using "
 "caret (^) line continuation, and keep each line short to avoid copy/paste "
 "line breaks.\n"
+
+msgid ""
+"The following tools are currently loaded in this session. Choose the most "
+"appropriate tool for the task. If none of these tools can do the job, or you"
+" are unsure which capability exists, call tool_catalog before answering or "
+"guessing; describe what you need in query, then tool_load any unloaded tool "
+"you need."
+msgstr ""
+"The following tools are currently loaded in this session. Choose the most "
+"appropriate tool for the task. If none of these tools can do the job, or you"
+" are unsure which capability exists, call tool_catalog before answering or "
+"guessing; describe what you need in query, then tool_load any unloaded tool "
+"you need."
 
 msgid ""
 "The following tools are currently loaded in this session. Choose the most "
@@ -648,6 +662,17 @@ msgstr ""
 "retry_after=%(retry_after)s"
 
 msgid ""
+"[INFO] Already called this tool with the same arguments earlier. Reusing the"
+" previous result. Do NOT call this tool again with the same arguments. If "
+"more work is needed, call a different tool or answer with what you already "
+"have.\n"
+msgstr ""
+"[INFO] Already called this tool with the same arguments earlier. Reusing the"
+" previous result. Do NOT call this tool again with the same arguments. If "
+"more work is needed, call a different tool or answer with what you already "
+"have.\n"
+
+msgid ""
 "The previous assistant reply was empty. Please answer based on the most "
 "recent tool result."
 msgstr ""
@@ -662,13 +687,6 @@ msgstr ""
 "[WARN] LLM returned an empty assistant message without tool calls.\n"
 "provider=%(provider)s depname=%(depname)s empty_no_tool_rounds=%(empty_no_tool_rounds)s (max=%(empty_no_tool_max)s)\n"
 "This may happen with OpenAI-compatible local providers after tool calls. You can try setting UAGENT_EMPTY_NO_TOOL_MAX to a higher value, or switching provider."
-
-msgid ""
-"[INFO] Reusing the previous result because this tool call matches an earlier"
-" one.\n"
-msgstr ""
-"[INFO] Reusing the previous result because this tool call matches an earlier"
-" one.\n"
 
 msgid "arguments must be a JSON object."
 msgstr "arguments must be a JSON object."
@@ -724,8 +742,19 @@ msgstr "Input exceeds the context window."
 msgid "Model does not support thinking. Disabling thinking and retrying..."
 msgstr "Model does not support thinking. Disabling thinking and retrying..."
 
+msgid ""
+"The Responses API rejected the full-history retry; starting a new session is"
+" required."
+msgstr ""
+"The Responses API rejected the full-history retry; starting a new session is"
+" required."
+
 msgid "Stale previous_response_id. Retrying with full history..."
 msgstr "Stale previous_response_id. Retrying with full history..."
+
+msgid "Responses tool chain rejected. Retrying with sanitized full history..."
+msgstr ""
+"Responses tool chain rejected. Retrying with sanitized full history..."
 
 msgid "400 BadRequest"
 msgstr "400 BadRequest"
@@ -1337,6 +1366,21 @@ msgstr "Gemini model name"
 msgid "NVIDIA model/deployment name"
 msgstr "NVIDIA model/deployment name"
 
+msgid "Z.AI API key"
+msgstr "Z.AI API key"
+
+msgid "Z.AI base URL (optional)"
+msgstr "Z.AI base URL (optional)"
+
+msgid "Z.AI image model (e.g. glm-image)"
+msgstr "Z.AI image model (e.g. glm-image)"
+
+msgid "xAI Grok API key"
+msgstr "xAI Grok API key"
+
+msgid "Grok image model (e.g. grok-imagine-image)"
+msgstr "Grok image model (e.g. grok-imagine-image)"
+
 msgid "Enable image generation debug output? (0/1)"
 msgstr "Enable image generation debug output? (0/1)"
 
@@ -1547,6 +1591,9 @@ msgstr "image file not found: %(path)s"
 msgid "image file too large: %(size)d bytes (limit=%(max)d)"
 msgstr "image file too large: %(size)d bytes (limit=%(max)d)"
 
+msgid "Failed to attach image: %(path)s (%(etype)s: %(err)s)"
+msgstr "Failed to attach image: %(path)s (%(etype)s: %(err)s)"
+
 msgid ""
 "Specify working directory. If not set, uses UAGENT_WORKDIR env var or the "
 "current directory."
@@ -1588,6 +1635,9 @@ msgid ""
 msgstr ""
 "Enable a specific tool by name at startup. Can be specified multiple times."
 
+msgid "Load a plugin from a directory (can be specified multiple times)."
+msgstr "Load a plugin from a directory (can be specified multiple times)."
+
 msgid "invalid reasoning"
 msgstr "invalid reasoning"
 
@@ -1596,6 +1646,15 @@ msgstr "[display] reasoning display=%(mode)s"
 
 msgid "invalid verbosity"
 msgstr "invalid verbosity"
+
+msgid "[reload] No new instruction files found."
+msgstr "[reload] No new instruction files found."
+
+msgid "[reload] Loaded %(count)d new instruction file(s)."
+msgstr "[reload] Loaded %(count)d new instruction file(s)."
+
+msgid "[reload error] %(etype)s: %(err)s"
+msgstr "[reload error] %(etype)s: %(err)s"
 
 msgid ""
 "[logs] Invalid argument: %(arg)r (specify all / --all / -a / number / pdf "
@@ -1703,20 +1762,34 @@ msgstr ""
 msgid ""
 "will delete conversation log files (scheck_log_*.jsonl) from disk.\n"
 "Log dir: %(dir)s\n"
-"Rule: total user/assistant/tool messages excluding system <= %(threshold)d\n"
+"Rule: user turns (role=user) <= %(threshold)d\n"
 "Targets: %(n)d\n"
 "\n"
 "Proceed? Enter y to run, or c to cancel."
 msgstr ""
 "will delete conversation log files (scheck_log_*.jsonl) from disk.\n"
 "Log dir: %(dir)s\n"
-"Rule: total user/assistant/tool messages excluding system <= %(threshold)d\n"
+"Rule: user turns (role=user) <= %(threshold)d\n"
 "Targets: %(n)d\n"
 "\n"
 "Proceed? Enter y to run, or c to cancel."
 
-msgid " - (%(count)d msgs) %(path)s"
-msgstr " - (%(count)d msgs) %(path)s"
+msgid ""
+"[clean] Discarded short session log (user turns=%(n)d <= %(threshold)d): "
+"%(path)s"
+msgstr ""
+"[clean] Discarded short session log (user turns=%(n)d <= %(threshold)d): "
+"%(path)s"
+
+msgid ""
+"[clean] Startup sweep: deleted=%(deleted)d, failed=%(failed)d "
+"(threshold=%(threshold)d user turns)."
+msgstr ""
+"[clean] Startup sweep: deleted=%(deleted)d, failed=%(failed)d "
+"(threshold=%(threshold)d user turns)."
+
+msgid " - (%(count)d user turns) %(path)s"
+msgstr " - (%(count)d user turns) %(path)s"
 
 msgid ""
 "will overwrite the current session log file and prepend the loaded log (no backup).\n"
@@ -1791,118 +1864,315 @@ msgstr "User profile cleared successfully."
 msgid "No user profile file found to clear."
 msgstr "No user profile file found to clear."
 
-msgid "Show this help"
-msgstr "Show this help"
+msgid "Available commands:"
+msgstr "Available commands:"
 
-msgid "Restart input from the beginning"
-msgstr "Restart input from the beginning"
+msgid "Show this help, or details for a command"
+msgstr "Show this help, or details for a command"
 
-msgid "Show log file list"
-msgstr "Show log file list"
+msgid "Alias for :help"
+msgstr "Alias for :help"
+
+msgid "Change workdir"
+msgstr "Change workdir"
+
+msgid "List directory"
+msgstr "List directory"
+
+msgid "List conversation logs"
+msgstr "List conversation logs"
+
+msgid "Load a past log into this session"
+msgstr "Load a past log into this session"
+
+msgid "Continue from latest log (:load 0)"
+msgstr "Continue from latest log (:load 0)"
+
+msgid "Delete short logs (default N=5 user turns)"
+msgstr "Delete short logs (default N=5 user turns)"
+
+msgid "Shrink history (keep last N)"
+msgstr "Shrink history (keep last N)"
+
+msgid "LLM-summarize older history"
+msgstr "LLM-summarize older history"
+
+msgid "Show approx. conversation tokens"
+msgstr "Show approx. conversation tokens"
+
+msgid "Show/set/unset/save UAGENT_* env"
+msgstr "Show/set/unset/save UAGENT_* env"
+
+msgid "List/apply/install skills"
+msgstr "List/apply/install skills"
+
+msgid "List/load/on/off tools and genres"
+msgstr "List/load/on/off tools and genres"
+
+msgid "Manage plugins"
+msgstr "Manage plugins"
+
+msgid "Scaffold a new tool module"
+msgstr "Scaffold a new tool module"
+
+msgid "Auto-pilot loop / stop"
+msgstr "Auto-pilot loop / stop"
+
+msgid "Show model configuration"
+msgstr "Show model configuration"
+
+msgid "Reasoning / verbosity"
+msgstr "Reasoning / verbosity"
+
+msgid "Long-term memory"
+msgstr "Long-term memory"
+
+msgid "User profile show/generate/clear"
+msgstr "User profile show/generate/clear"
+
+msgid "Copy, move, delete paths"
+msgstr "Copy, move, delete paths"
+
+msgid "Show file head/tail"
+msgstr "Show file head/tail"
+
+msgid "Reload runtime pieces"
+msgstr "Reload runtime pieces"
+
+msgid "Exit"
+msgstr "Exit"
+
+msgid "Dynamic commands (from tools CMD_SPEC):"
+msgstr "Dynamic commands (from tools CMD_SPEC):"
+
+msgid "Hints:"
+msgstr "Hints:"
+
+msgid "Type :help <command> for details (e.g. :help tools, :help skills)."
+msgstr "Type :help <command> for details (e.g. :help tools, :help skills)."
+
+msgid "Enter a line that is just 'f' to enter multiline input mode."
+msgstr "Enter a line that is just 'f' to enter multiline input mode."
+
+msgid "(in multiline) restart input from the beginning"
+msgstr "(in multiline) restart input from the beginning"
+
+msgid "Show command help"
+msgstr "Show command help"
 
 msgid ""
-"Change workdir without confirmation (e.g. :cd .. / :cd ~ / :cd C:\\path / "
-":cd /)"
+"Without args: short list of all commands.\n"
+"With a command: detailed usage (static + dynamic CMD_SPEC).\n"
+"Examples: :help tools | :help skills install | :help plugin"
 msgstr ""
-"Change workdir without confirmation (e.g. :cd .. / :cd ~ / :cd C:\\path / "
-":cd /)"
+"Without args: short list of all commands.\n"
+"With a command: detailed usage (static + dynamic CMD_SPEC).\n"
+"Examples: :help tools | :help skills install | :help plugin"
 
-msgid "List directory entries (e.g. :ls / :ls .. / :ls ~ / :ls C:\\path)"
-msgstr "List directory entries (e.g. :ls / :ls .. / :ls ~ / :ls C:\\path)"
+msgid "Change workdir without confirmation"
+msgstr "Change workdir without confirmation"
 
-msgid "Manage UAGENT_* env vars and save .env.sec"
-msgstr "Manage UAGENT_* env vars and save .env.sec"
+msgid "Examples: :cd .. | :cd ~ | :cd C:\\path | :cd /"
+msgstr "Examples: :cd .. | :cd ~ | :cd C:\\path | :cd /"
 
-msgid "Manage/apply skills (e.g. :skills / :skills active / :skills clear)"
-msgstr "Manage/apply skills (e.g. :skills / :skills active / :skills clear)"
+msgid "List directory entries"
+msgstr "List directory entries"
+
+msgid "Examples: :ls | :ls .. | :ls ~ | :ls C:\\path"
+msgstr "Examples: :ls | :ls .. | :ls ~ | :ls C:\\path"
+
+msgid "Show conversation log file list"
+msgstr "Show conversation log file list"
 
 msgid "Load a past log (overwrites current conversation history)"
 msgstr "Load a past log (overwrites current conversation history)"
 
 msgid ""
-"                       Note: after running, you will be asked for "
-"confirmation; choosing 'y' prepends the loaded log into the current session "
-"log file (overwrite, no backup)."
+"idx is from :logs. After load you may be asked to prepend into the current "
+"session log."
 msgstr ""
-"                       Note: after running, you will be asked for "
-"confirmation; choosing 'y' prepends the loaded log into the current session "
-"log file (overwrite, no backup)."
+"idx is from :logs. After load you may be asked to prepend into the current "
+"session log."
+
+msgid "Load the newest log (:load 0)"
+msgstr "Load the newest log (:load 0)"
+
+msgid "Delete short conversation logs"
+msgstr "Delete short conversation logs"
 
 msgid ""
-"Delete conversation logs (scheck_log_*.jsonl) where the count of "
-"user/assistant/tool messages (excluding system) is <= N (default=10)"
+"Deletes scheck_log_*.jsonl where user-turn count (role=user) <= N (default "
+"5, or UAGENT_CLEAN_THRESHOLD). On :exit/:quit/Ctrl-C, the current session "
+"log is discarded under the same rule. A silent startup sweep also removes "
+"leftover short logs from prior sessions."
 msgstr ""
-"Delete conversation logs (scheck_log_*.jsonl) where the count of "
-"user/assistant/tool messages (excluding system) is <= N (default=10)"
+"Deletes scheck_log_*.jsonl where user-turn count (role=user) <= N (default "
+"5, or UAGENT_CLEAN_THRESHOLD). On :exit/:quit/Ctrl-C, the current session "
+"log is discarded under the same rule. A silent startup sweep also removes "
+"leftover short logs from prior sessions."
+
+msgid "Shrink conversation history"
+msgstr "Shrink conversation history"
+
+msgid "Keep last N non-system messages (default 40)."
+msgstr "Keep last N non-system messages (default 40)."
+
+msgid "Shrink history via LLM summarization"
+msgstr "Shrink history via LLM summarization"
 
 msgid ""
-"Shrink conversation history (keep last N non-system messages; default=40)"
+"Summarize older history into one system message; keep last N raw (default "
+"20)."
 msgstr ""
-"Shrink conversation history (keep last N non-system messages; default=40)"
+"Summarize older history into one system message; keep last N raw (default "
+"20)."
+
+msgid "Show approximate token count of the conversation"
+msgstr "Show approximate token count of the conversation"
+
+msgid "Manage UAGENT_* environment variables"
+msgstr "Manage UAGENT_* environment variables"
 
 msgid ""
-"Shrink history via LLM summarization (summarize older history into 1 system "
-"message; keep last N raw; default=20)"
+"Sensitive KEY names are masked on show. save writes encrypted .env.sec when "
+"configured."
 msgstr ""
-"Shrink history via LLM summarization (summarize older history into 1 system "
-"message; keep last N raw; default=20)"
+"Sensitive KEY names are masked on show. save writes encrypted .env.sec when "
+"configured."
 
-msgid "Show the current approximate token count of the conversation"
-msgstr "Show the current approximate token count of the conversation"
+msgid "Manage and apply Agent Skills"
+msgstr "Manage and apply Agent Skills"
+
+msgid ""
+"Built-in: list/active/clear (see runtime skills handlers).\n"
+"Dynamic subcommands come from tool CMD_SPEC (install, uninstall, apm, mp_search).\n"
+"Use :help skills install for a subcommand."
+msgstr ""
+"Built-in: list/active/clear (see runtime skills handlers).\n"
+"Dynamic subcommands come from tool CMD_SPEC (install, uninstall, apm, mp_search).\n"
+"Use :help skills install for a subcommand."
+
+msgid "Control tool sending, genres, and loaded tools"
+msgstr "Control tool sending, genres, and loaded tools"
+
+msgid ""
+":tools on|off           Enable/disable sending tools to the LLM\n"
+":tools on|off <genre>   Enable/disable a tool genre (and sync global on)\n"
+":tools list [query]     List loaded tools\n"
+":tools load <name>      Load one tool by name\n"
+":tools reload           Reload tool modules from disk\n"
+":tools output           Toggle showing tool results in UI\n"
+":tools create ...       Scaffold a new tool (alias of :tool create)"
+msgstr ""
+":tools on|off           Enable/disable sending tools to the LLM\n"
+":tools on|off <genre>   Enable/disable a tool genre (and sync global on)\n"
+":tools list [query]     List loaded tools\n"
+":tools load <name>      Load one tool by name\n"
+":tools reload           Reload tool modules from disk\n"
+":tools output           Toggle showing tool results in UI\n"
+":tools create ...       Scaffold a new tool (alias of :tool create)"
+
+msgid "Tool authoring helpers"
+msgstr "Tool authoring helpers"
+
+msgid "Scaffolds src/uagent/tools/<name>_tool.py (+ json)."
+msgstr "Scaffolds src/uagent/tools/<name>_tool.py (+ json)."
+
+msgid "Install and manage plugins"
+msgstr "Install and manage plugins"
+
+msgid "See :help plugin <subcommand> for each action."
+msgstr "See :help plugin <subcommand> for each action."
+
+msgid "Auto-pilot: repeatedly pursue a goal until done or stopped"
+msgstr "Auto-pilot: repeatedly pursue a goal until done or stopped"
+
+msgid "Press x in CLI to request immediate exit from auto-pilot."
+msgstr "Press x in CLI to request immediate exit from auto-pilot."
+
+msgid "Show detailed model configuration"
+msgstr "Show detailed model configuration"
+
+msgid "Chat, image, audio, translation, embedding as configured."
+msgstr "Chat, image, audio, translation, embedding as configured."
+
+msgid "Set reasoning effort"
+msgstr "Set reasoning effort"
+
+msgid "0=off, 1=low, 2=medium, 3=high. Provider support varies."
+msgstr "0=off, 1=low, 2=medium, 3=high. Provider support varies."
+
+msgid "Set verbosity"
+msgstr "Set verbosity"
+
+msgid "0=off .. 3=high. No arg keeps current."
+msgstr "0=off .. 3=high. No arg keeps current."
 
 msgid "List long-term memory notes"
 msgstr "List long-term memory notes"
 
-msgid "Delete a long-term memory note by index (see :mem-list)"
-msgstr "Delete a long-term memory note by index (see :mem-list)"
+msgid "Delete a long-term memory note by index"
+msgstr "Delete a long-term memory note by index"
 
-msgid "Show the learned user profile, or generate it from past logs"
-msgstr "Show the learned user profile, or generate it from past logs"
+msgid "Index from :mem-list."
+msgstr "Index from :mem-list."
 
-msgid "Generate profile from the most recent N log files"
-msgstr "Generate profile from the most recent N log files"
+msgid "Show or generate the learned user profile"
+msgstr "Show or generate the learned user profile"
 
-msgid "Generate user profile from past logs (default: 100; 0=all)"
-msgstr "Generate user profile from past logs (default: 100; 0=all)"
+msgid "fromlog N uses the most recent N log files."
+msgstr "fromlog N uses the most recent N log files."
 
-msgid "Clear the learned user profile data"
-msgstr "Clear the learned user profile data"
+msgid "Generate user profile from past logs"
+msgstr "Generate user profile from past logs"
 
-msgid "Copy file or directory (supports -f/--overwrite and -p/--mkdirs)"
-msgstr "Copy file or directory (supports -f/--overwrite and -p/--mkdirs)"
+msgid "Default N=100; 0=all."
+msgstr "Default N=100; 0=all."
 
-msgid "Move file or directory (supports -f/--overwrite and -p/--mkdirs)"
-msgstr "Move file or directory (supports -f/--overwrite and -p/--mkdirs)"
+msgid "Clear learned user profile data"
+msgstr "Clear learned user profile data"
 
-msgid "Show the first n lines of a file (default=20)"
-msgstr "Show the first n lines of a file (default=20)"
+msgid "Copy file or directory"
+msgstr "Copy file or directory"
 
-msgid "Show the last n lines of a file (default=20)"
-msgstr "Show the last n lines of a file (default=20)"
+msgid "Move file or directory"
+msgstr "Move file or directory"
 
 msgid "Delete file(s)/directory(ies) with preview + confirm"
 msgstr "Delete file(s)/directory(ies) with preview + confirm"
 
-msgid ""
-"Set reasoning mode (0=off, 1=low, 2=medium, 3=high; auto/minimal/xhigh)"
-msgstr ""
-"Set reasoning mode (0=off, 1=low, 2=medium, 3=high; auto/minimal/xhigh)"
+msgid "Show the first n lines of a file"
+msgstr "Show the first n lines of a file"
 
-msgid "Set verbosity mode (0=off, 1=low, 2=medium, 3=high; no arg=keep)"
-msgstr "Set verbosity mode (0=off, 1=low, 2=medium, 3=high; no arg=keep)"
+msgid "Default n=20."
+msgstr "Default n=20."
 
-msgid ""
-"Show detailed model configuration (chat, image, audio, translation, "
-"embedding)"
-msgstr ""
-"Show detailed model configuration (chat, image, audio, translation, "
-"embedding)"
+msgid "Show the last n lines of a file"
+msgstr "Show the last n lines of a file"
 
-msgid "Exit"
-msgstr "Exit"
+msgid "Reload runtime configuration / modules"
+msgstr "Reload runtime configuration / modules"
 
-msgid "  - Enter a line that is just 'f' to enter multiline input mode."
-msgstr "  - Enter a line that is just 'f' to enter multiline input mode."
+msgid "Exit the interactive session"
+msgstr "Exit the interactive session"
+
+msgid "Dynamic / plugin subcommands:"
+msgstr "Dynamic / plugin subcommands:"
+
+msgid "Unknown command: :%(cmd)s"
+msgstr "Unknown command: :%(cmd)s"
+
+msgid "Did you mean: "
+msgstr "Did you mean: "
+
+msgid "Try :help for the full list."
+msgstr "Try :help for the full list."
+
+msgid "No dynamic subcommand help for '%(sub)s'."
+msgstr "No dynamic subcommand help for '%(sub)s'."
+
+msgid "Tip: :help for overview, :help <cmd> <sub> for one subcommand."
+msgstr "Tip: :help for overview, :help <cmd> <sub> for one subcommand."
 
 msgid "Continue. Goal: %(goal)s"
 msgstr "Continue. Goal: %(goal)s"
@@ -1953,11 +2223,65 @@ msgstr "[AUTO] Started. Goal: %(goal)s"
 msgid "[AUTO] Max rounds: %(max)d"
 msgstr "[AUTO] Max rounds: %(max)d"
 
+msgid "  (fallback: %(key)s)"
+msgstr "  (fallback: %(key)s)"
+
+msgid "  (fallback)"
+msgstr "  (fallback)"
+
+msgid "  %(label)s: (not configured)"
+msgstr "  %(label)s: (not configured)"
+
+msgid "  %(label)s:"
+msgstr "  %(label)s:"
+
+msgid "    Provider: %(provider)s%(note)s"
+msgstr "    Provider: %(provider)s%(note)s"
+
+msgid "    Model:    %(model)s%(note)s"
+msgstr "    Model:    %(model)s%(note)s"
+
+msgid "=== Model Configuration ==="
+msgstr "=== Model Configuration ==="
+
+msgid "  Chat (main):"
+msgstr "  Chat (main):"
+
+msgid "(none)"
+msgstr "(none)"
+
+msgid "(not set)"
+msgstr "(not set)"
+
+msgid "    WARN: %(warn)s"
+msgstr "    WARN: %(warn)s"
+
+msgid "Image Analysis"
+msgstr "Image Analysis"
+
+msgid "Image Generation"
+msgstr "Image Generation"
+
+msgid "Audio Speech"
+msgstr "Audio Speech"
+
+msgid "Audio Transcribe"
+msgstr "Audio Transcribe"
+
+msgid "  Translation:"
+msgstr "  Translation:"
+
+msgid "    From→To:  %(src)s → %(dst)s"
+msgstr "    From→To:  %(src)s → %(dst)s"
+
+msgid "  Translation: (not configured)"
+msgstr "  Translation: (not configured)"
+
+msgid "Embedding"
+msgstr "Embedding"
+
 msgid "Exiting."
 msgstr "Exiting."
-
-msgid "Unknown command: :%(cmd)s"
-msgstr "Unknown command: :%(cmd)s"
 
 msgid ""
 "The bullet points listed below are excerpts from this user's long-term memory (persistent memos). Use them as background information about the user. However, always prioritize newly provided information in the conversation, and if it contradicts older information, adopt the latest information.\n"

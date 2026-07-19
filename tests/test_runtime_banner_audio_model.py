@@ -89,8 +89,12 @@ def test_audio_speech_grok_missing_key(clean_audio_env, monkeypatch):
 
 def test_cmd_model_shows_audio_fallback(clean_audio_env, monkeypatch, capsys):
     from types import SimpleNamespace
+    from uagent.i18n import set_thread_lang
     from uagent.util_tools import _handle_cmd_model
 
+    # :model UI uses gettext; pin English so assertions stay stable.
+    set_thread_lang("en")
+    monkeypatch.setenv("UAGENT_LANG", "en")
     monkeypatch.setenv("UAGENT_PROVIDER", "grok")
     monkeypatch.setenv("UAGENT_GROK_API_KEY", "xai-test")
     monkeypatch.setenv("UAGENT_GROK_DEPNAME", "grok-3")

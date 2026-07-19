@@ -3194,8 +3194,8 @@ def _model_provider_note(explicit_key: str, *, fallback_key: str = "UAGENT_PROVI
     if _get_env(explicit_key):
         return ""
     if fallback_key and _get_env(fallback_key):
-        return f"  (fallback: {fallback_key})"
-    return "  (fallback)"
+        return _("  (fallback: %(key)s)") % {"key": fallback_key}
+    return _("  (fallback)")
 
 
 def _model_value_note(
@@ -3208,7 +3208,7 @@ def _model_value_note(
     if any(_get_env(k) for k in explicit_keys):
         return ""
     if used_fallback and fallback_label:
-        return f"  (fallback: {fallback_label})"
+        return _("  (fallback: %(key)s)") % {"key": fallback_label}
     return ""
 
 
@@ -3225,7 +3225,7 @@ def _append_resolved_model_section(
 ) -> None:
     """Append one capability section, including fallback-resolved results."""
     if not resolved:
-        lines.append(f"  {label}: (not configured)")
+        lines.append(_("  %(label)s: (not configured)") % {"label": label})
         return
 
     provider, model = resolved
@@ -3235,9 +3235,14 @@ def _append_resolved_model_section(
         used_fallback=bool(model_fallback_label),
         fallback_label=model_fallback_label,
     )
-    lines.append(f"  {label}:")
-    lines.append(f"    Provider: {provider}{prov_note}")
-    lines.append(f"    Model:    {model}{model_note}")
+    lines.append(_("  %(label)s:") % {"label": label})
+    lines.append(
+        _("    Provider: %(provider)s%(note)s")
+        % {"provider": provider, "note": prov_note}
+    )
+    lines.append(
+        _("    Model:    %(model)s%(note)s") % {"model": model, "note": model_note}
+    )
     if extra_lines:
         lines.extend(extra_lines)
     if verbose:
@@ -3318,17 +3323,24 @@ def _handle_cmd_model(
         model = _get_env("UAGENT_DEPNAME", "(not set)")
 
     lines: list[str] = []
-    lines.append("=== Model Configuration ===")
-    lines.append("  Chat (main):")
-    lines.append(f"    Provider: {provider}")
-    lines.append(f"    Model:    {model}")
+    lines.append(_("=== Model Configuration ==="))
+    lines.append(_("  Chat (main):"))
+    display_provider = _("(none)") if provider == "(none)" else provider
+    display_model = _("(not set)") if model == "(not set)" else model
+    lines.append(
+        _("    Provider: %(provider)s%(note)s")
+        % {"provider": display_provider, "note": ""}
+    )
+    lines.append(
+        _("    Model:    %(model)s%(note)s") % {"model": display_model, "note": ""}
+    )
     if provider not in ("(none)", ""):
         try:
             from .llmcapa_util import deprecated_model_warning
 
             warn = deprecated_model_warning(model, provider)
             if warn:
-                lines.append(f"    WARN: {warn}")
+                lines.append(_("    WARN: %(warn)s") % {"warn": warn})
         except Exception:
             pass
     if verbose and provider not in ("(none)", ""):
@@ -3365,7 +3377,7 @@ def _handle_cmd_model(
         ia_keys, ia_fb = _image_analysis_model_keys(ia_resolved[0])
     _append_resolved_model_section(
         lines,
-        label="Image Analysis",
+        label=_("Image Analysis"),
         explicit_provider_key="UAGENT_IMG_ANALYSIS_PROVIDER",
         resolved=ia_resolved,
         model_explicit_keys=ia_keys,
@@ -3380,7 +3392,7 @@ def _handle_cmd_model(
         ig_keys, ig_fb = _image_generation_model_keys(ig_resolved[0])
     _append_resolved_model_section(
         lines,
-        label="Image Generation",
+        label=_("Image Generation"),
         explicit_provider_key="UAGENT_IMG_GENERATE_PROVIDER",
         resolved=ig_resolved,
         model_explicit_keys=ig_keys,
@@ -3397,7 +3409,7 @@ def _handle_cmd_model(
         speech_keys, speech_fb = _audio_model_keys(speech_resolved[0], "speech")
     _append_resolved_model_section(
         lines,
-        label="Audio Speech",
+        label=_("Audio Speech"),
         explicit_provider_key="UAGENT_AUDIO_SPEECH_PROVIDER",
         resolved=speech_resolved,
         model_explicit_keys=speech_keys,
@@ -3414,7 +3426,7 @@ def _handle_cmd_model(
         tr_keys, tr_fb = _audio_model_keys(tr_resolved[0], "transcribe")
     _append_resolved_model_section(
         lines,
-        label="Audio Transcribe",
+        label=_("Audio Transcribe"),
         explicit_provider_key="UAGENT_AUDIO_TRANSCRIBE_PROVIDER",
         resolved=tr_resolved,
         model_explicit_keys=tr_keys,
@@ -3434,19 +3446,30 @@ def _handle_cmd_model(
         if translate_model:
             translate_to = _get_env("UAGENT_TRANSLATE_TO_LLM", "?")
             translate_from = _get_env("UAGENT_TRANSLATE_FROM_LLM", "?")
-            model_note = f"  (fallback: {model_fb})" if model_fb else ""
-            lines.append("  Translation:")
-            lines.append(f"    Provider: {translate_provider}")
-            lines.append(f"    Model:    {translate_model}{model_note}")
-            lines.append(f"    From→To:  {translate_from} → {translate_to}")
+            model_note = (
+                _("  (fallback: %(key)s)") % {"key": model_fb} if model_fb else ""
+            )
+            lines.append(_("  Translation:"))
+            lines.append(
+                _("    Provider: %(provider)s%(note)s")
+                % {"provider": translate_provider, "note": ""}
+            )
+            lines.append(
+                _("    Model:    %(model)s%(note)s")
+                % {"model": translate_model, "note": model_note}
+            )
+            lines.append(
+                _("    From→To:  %(src)s → %(dst)s")
+                % {"src": translate_from, "dst": translate_to}
+            )
             if verbose:
                 capa_lines = _fetch_model_capa(translate_provider, translate_model)
                 if capa_lines:
                     lines.extend(capa_lines)
         else:
-            lines.append("  Translation: (not configured)")
+            lines.append(_("  Translation: (not configured)"))
     else:
-        lines.append("  Translation: (not configured)")
+        lines.append(_("  Translation: (not configured)"))
 
     emb_resolved = _safe_resolve(_embedding_model_info)
     emb_keys: list[str] = []
@@ -3456,7 +3479,7 @@ def _handle_cmd_model(
         emb_fb = emb_keys[0]
     _append_resolved_model_section(
         lines,
-        label="Embedding",
+        label=_("Embedding"),
         explicit_provider_key="UAGENT_EMBEDDING_PROVIDER",
         resolved=emb_resolved,
         model_explicit_keys=emb_keys,
