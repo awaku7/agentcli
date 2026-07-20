@@ -6,6 +6,7 @@ from datetime import datetime, timezone
 from typing import Any
 
 from .i18n_helper import make_tool_translator
+from . import bacnet_shared
 
 _ = make_tool_translator(__file__)
 
@@ -14,24 +15,6 @@ STATUS_LABEL = "tool:bacnet_scan"
 
 _DEFAULT_TIMEOUT = 5
 _DEFAULT_LIMIT = 50
-
-
-def _bac0_import():
-    """Dynamically import BAC0 with auto-install."""
-    try:
-        import BAC0  # type: ignore[import-untyped]
-    except ImportError:
-        from .._pip_auto import install_with_status as _install_bac0
-
-        if not _install_bac0("BAC0"):
-            raise ImportError(
-                _(
-                    "err.bac0_install",
-                    default="BAC0 library could not be installed. BACnet tools require BAC0.",
-                )
-            )
-        import BAC0  # type: ignore[import-untyped]
-    return BAC0
 
 
 def _bac0_vendor_name(vendor_id: int | None) -> str | None:
@@ -278,99 +261,111 @@ def _format_text(payload: dict[str, Any]) -> str:
     return "\n".join(lines).strip()
 
 
+async def _enrich_device(lite: Any, device_info: dict[str, Any]) -> dict[str, Any]:
+    """Best-effort property enrichment for a discovered device."""
+    ip_address = device_info.get("ip")
+    instance = device_info.get("instance")
+    if not ip_address or instance is None:
+        return device_info
+
+    # Prefer reading from the device object itself
+    props = {
+        "objectName": "object_name",
+        "vendorName": "vendor_name",
+        "vendorIdentifier": "vendor_id",
+        "modelName": "model_name",
+        "description": "description",
+        "location": "location",
+        "firmwareRevision": "firmware",
+        "protocolVersion": "protocol_version",
+        "protocolRevision": "protocol_revision",
+    }
+    for prop, key in props.items():
+        if device_info.get(key) not in (None, ""):
+            continue
+        try:
+            args = f"{ip_address} device {int(instance)} {prop}"
+            value = await bacnet_shared.read_property(lite, args, timeout=3)
+            if value is None:
+                continue
+            if key == "vendor_id":
+                try:
+                    device_info[key] = int(value)
+                except Exception:
+                    continue
+            else:
+                device_info[key] = str(value)
+        except Exception:
+            continue
+
+    if device_info.get("vendor_id") is not None and not device_info.get("vendor_name"):
+        device_info["vendor_name"] = _bac0_vendor_name(device_info.get("vendor_id"))
+    return device_info
+
+
 def run_tool(args: dict[str, Any]) -> str:
+    timeout = _normalize_int(args.get("timeout", _DEFAULT_TIMEOUT), _DEFAULT_TIMEOUT, 1)
     limit = _normalize_int(args.get("limit", _DEFAULT_LIMIT), _DEFAULT_LIMIT, 0)
     output_format = str(args.get("fmt") or "json").strip().lower()
-    interface = args.get("interface")
+    interface_raw = args.get("interface")
+    interface = str(interface_raw).strip() if interface_raw else None
 
     start_time = time.monotonic()
-    BAC0 = _bac0_import()
 
-    bacnet_instance = None
     try:
-        connect_kwargs: dict[str, Any] = {}
-        if interface:
-            connect_kwargs["ip"] = str(interface).strip()
-        # BAC0.connect does not directly support a timeout param;
-        # the timeout value is used for the overall operation timeout via the finally block.
+        # Ensure BAC0 is importable early for clearer errors
+        bacnet_shared._bac0_import()
 
-        bacnet_instance = BAC0.connect(**connect_kwargs)
-        if bacnet_instance is None:
-            raise RuntimeError("BAC0.connect() returned None")
+        async def _scan(lite: Any) -> list[dict[str, Any]]:
+            iams = await bacnet_shared.who_is(lite, timeout=float(timeout))
+            devices: list[dict[str, Any]] = []
+            seen_instances: set[int] = set()
 
-        devices_raw = bacnet_instance.whois()
-        if devices_raw is None:
-            devices_raw = []
-
-        devices: list[dict[str, Any]] = []
-        seen_instances: set[int] = set()
-
-        for dev in devices_raw:
-            if isinstance(dev, (list, tuple)):
-                if len(dev) >= 2:
-                    ip_address = str(dev[0])
-                    instance = int(dev[1])
-                else:
+            for iam in iams:
+                parsed = bacnet_shared.parse_iam(iam)
+                instance = parsed.get("instance")
+                if not instance or int(instance) in seen_instances:
                     continue
-            elif isinstance(dev, dict):
-                ip_address = str(dev.get("ip", dev.get("address", "")))
-                instance = int(dev.get("instance", dev.get("device_id", 0)))
-            else:
-                continue
+                instance_i = int(instance)
+                seen_instances.add(instance_i)
 
-            if not instance or instance in seen_instances:
-                continue
-            seen_instances.add(instance)
+                vendor_id = parsed.get("vendor_id")
+                device_info: dict[str, Any] = {
+                    "instance": instance_i,
+                    "ip": parsed.get("ip"),
+                    "vendor_name": _bac0_vendor_name(
+                        int(vendor_id) if vendor_id is not None else None
+                    ),
+                    "vendor_id": int(vendor_id) if vendor_id is not None else None,
+                    "model_name": None,
+                    "description": None,
+                    "location": None,
+                    "firmware": None,
+                    "protocol_version": None,
+                    "protocol_revision": None,
+                    "max_apdu": parsed.get("max_apdu"),
+                    "segmentation": parsed.get("segmentation"),
+                    "last_seen": _now_iso(),
+                }
 
-            device_info: dict[str, Any] = {
-                "instance": instance,
-                "ip": ip_address,
-                "vendor_name": None,
-                "vendor_id": None,
-                "model_name": None,
-                "description": None,
-                "location": None,
-                "firmware": None,
-                "protocol_version": None,
-                "protocol_revision": None,
-                "last_seen": _now_iso(),
-            }
+                try:
+                    device_info = await _enrich_device(lite, device_info)
+                except Exception:
+                    pass
 
-            try:
-                dev_obj = BAC0.device.Device(
-                    instance, bacnet_instance, ip=ip_address, poll=0
-                )
-                if hasattr(dev_obj, "vendor_name") and dev_obj.vendor_name:
-                    device_info["vendor_name"] = str(dev_obj.vendor_name)
-                if (
-                    hasattr(dev_obj, "vendor_identifier")
-                    and dev_obj.vendor_identifier is not None
-                ):
-                    vid = int(dev_obj.vendor_identifier)
-                    device_info["vendor_id"] = vid
-                    if not device_info.get("vendor_name"):
-                        device_info["vendor_name"] = _bac0_vendor_name(vid)
-                if hasattr(dev_obj, "model_name") and dev_obj.model_name:
-                    device_info["model_name"] = str(dev_obj.model_name)
-                if hasattr(dev_obj, "description") and dev_obj.description:
-                    device_info["description"] = str(dev_obj.description)
-                if hasattr(dev_obj, "location") and dev_obj.location:
-                    device_info["location"] = str(dev_obj.location)
-                if hasattr(dev_obj, "firmware") and dev_obj.firmware:
-                    device_info["firmware"] = str(dev_obj.firmware)
-                if hasattr(dev_obj, "protocol_version") and dev_obj.protocol_version:
-                    device_info["protocol_version"] = str(dev_obj.protocol_version)
-                if (
-                    hasattr(dev_obj, "protocol_revision")
-                    and dev_obj.protocol_revision is not None
-                ):
-                    device_info["protocol_revision"] = int(dev_obj.protocol_revision)
-            except Exception:
-                pass
+                devices.append(device_info)
+                if limit > 0 and len(devices) >= limit:
+                    break
+            return devices
 
-            devices.append(device_info)
-            if limit > 0 and len(devices) >= limit:
-                break
+        # who_is timeout + enrichment headroom
+        op_timeout = float(timeout) + 20.0
+        devices = bacnet_shared.run_on_bac0_loop(
+            _scan,
+            ip=interface,
+            timeout=op_timeout,
+            keep_alive=False,
+        )
 
         payload = {
             "ok": True,
@@ -396,9 +391,3 @@ def run_tool(args: dict[str, Any]) -> str:
         if output_format == "text":
             return f"Error: {exc}"
         return json.dumps(err_payload, ensure_ascii=False)
-    finally:
-        if bacnet_instance is not None:
-            try:
-                bacnet_instance.disconnect()
-            except Exception:
-                pass

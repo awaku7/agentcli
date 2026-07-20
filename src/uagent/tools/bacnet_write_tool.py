@@ -2,10 +2,10 @@ from __future__ import annotations
 
 import json
 import time
-from datetime import datetime, timezone
 from typing import Any
 
 from .i18n_helper import make_tool_translator
+from . import bacnet_shared
 
 _ = make_tool_translator(__file__)
 
@@ -28,24 +28,6 @@ _VALID_OBJECT_TYPES = [
     "accumulator",
     "loop",
 ]
-
-
-def _bac0_import():
-    """Dynamically import BAC0 with auto-install."""
-    try:
-        import BAC0  # type: ignore[import-untyped]
-    except ImportError:
-        from .._pip_auto import install_with_status as _install_bac0
-
-        if not _install_bac0("BAC0"):
-            raise ImportError(
-                _(
-                    "err.bac0_install",
-                    default="BAC0 library could not be installed.",
-                )
-            )
-        import BAC0  # type: ignore[import-untyped]
-    return BAC0
 
 
 TOOL_SPEC: dict[str, Any] = {
@@ -170,10 +152,6 @@ TOOL_SPEC: dict[str, Any] = {
 }
 
 
-def _now_iso() -> str:
-    return datetime.now(timezone.utc).astimezone().isoformat(timespec="seconds")
-
-
 def _normalize_int(value: Any, default: int, minimum: int = 1) -> int:
     try:
         result = int(value)
@@ -222,6 +200,7 @@ def run_tool(args: dict[str, Any]) -> str:
     property_name = str(args.get("property_name") or "presentValue").strip()
     value_raw = args.get("value")
     priority = args.get("priority")
+    timeout = _normalize_int(args.get("timeout", _DEFAULT_TIMEOUT), _DEFAULT_TIMEOUT, 1)
     output_format = str(args.get("fmt") or "json").strip().lower()
 
     object_type = _normalize_object_type(object_type_raw)
@@ -278,13 +257,9 @@ def run_tool(args: dict[str, Any]) -> str:
         )
 
     start_time = time.monotonic()
-    BAC0 = _bac0_import()
 
-    bacnet_instance = None
     try:
-        bacnet_instance = BAC0.connect()
-        if bacnet_instance is None:
-            raise RuntimeError("BAC0.connect() returned None")
+        bacnet_shared._bac0_import()
 
         if ip_address:
             address = ip_address
@@ -297,21 +272,31 @@ def run_tool(args: dict[str, Any]) -> str:
 
         value_str = str(value_raw).strip()
         bacnet_full = f"{bacnet_address} {value_str}"
-        bacnet_instance.write(bacnet_full)
 
-        # Read-back verification (best-effort)
-        verify_value = None
-        try:
-            verify_value = str(bacnet_instance.read(bacnet_address))
-        except Exception:
-            pass
+        async def _do_write(lite: Any) -> Any:
+            await bacnet_shared.write_property(lite, bacnet_full)
+            # Read-back verification (best-effort)
+            try:
+                return await bacnet_shared.read_property(
+                    lite, bacnet_address, timeout=timeout
+                )
+            except Exception:
+                return None
+
+        verify_value = bacnet_shared.run_on_bac0_loop(
+            _do_write,
+            ip=None,
+            timeout=float(timeout) + 15.0,
+            keep_alive=False,
+        )
+        verify_str = str(verify_value) if verify_value is not None else None
 
         result: dict[str, Any] = {
             "ok": True,
             "value_written": value_str,
-            "value_verified": verify_value,
+            "value_verified": verify_str,
             "priority": int(priority) if priority is not None else None,
-            "confirmation": "write_sent" if verify_value is None else "verified",
+            "confirmation": "write_sent" if verify_str is None else "verified",
             "target": {
                 "ip": ip_address or None,
                 "device_instance": device_instance,
@@ -345,9 +330,3 @@ def run_tool(args: dict[str, Any]) -> str:
         if output_format == "text":
             return f"Error: {exc}"
         return json.dumps(err_payload, ensure_ascii=False)
-    finally:
-        if bacnet_instance is not None:
-            try:
-                bacnet_instance.disconnect()
-            except Exception:
-                pass

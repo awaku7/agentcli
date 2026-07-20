@@ -211,6 +211,34 @@ def enable_single_tool(tool_name: str, initial_threshold: int = 5) -> bool:
         if func_info.get("name") != tool_name:
             continue
 
+        # Reload only the matched tool module so source edits apply without
+        # restarting the process, while avoiding wipe of unrelated module state.
+        mod_name = f"uagent.tools.{mname}"
+        try:
+            # Reload shared helpers first when present (e.g. bacnet_shared).
+            base = mname[: -len("_tool")] if mname.endswith("_tool") else mname
+            shared_mod_name = f"uagent.tools.{base}_shared" if base else ""
+            if shared_mod_name:
+                try:
+                    if shared_mod_name in sys.modules:
+                        importlib.reload(sys.modules[shared_mod_name])
+                    else:
+                        importlib.import_module(shared_mod_name)
+                except Exception:
+                    pass
+            if mod_name in sys.modules:
+                mod = importlib.reload(sys.modules[mod_name])
+            else:
+                mod = importlib.import_module(mod_name)
+            spec = getattr(mod, "TOOL_SPEC", None)
+            if not isinstance(spec, dict):
+                return False
+            func_info = spec.get("function", {})
+            if not isinstance(func_info, dict) or func_info.get("name") != tool_name:
+                return False
+        except Exception:
+            return False
+
         # Force tool_level to 0 and register near the front of the tool list.
         # Use x_single_load_seq (not load_order=-1) so we do not collide with
         # static core tools that already declare load_order: -1.

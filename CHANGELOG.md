@@ -1,5 +1,17 @@
 # Changelog
 
+## [0.5.53] - 2026-07-20
+
+### Added
+- `echonet_scan` network `scope` filter (`all`/`local`/`external`/`self`/`local_other`) with per-node scope fields and summary counts; cache key includes scope.
+- Dependency: `xai-sdk>=1.17.0` for Grok/xAI gRPC path.
+
+### Changed
+- BACnet tools (`bacnet_scan`/`read`/`write`) share `bacnet_shared` background event-loop lifecycle for BAC0 2025+ async who_is/read/write/disconnect; refcount + optional keep-alive for COV.
+
+### Fixed
+- Single-tool enable reloads the matched tool module (and `*_shared` helper when present) so source edits apply without process restart.
+
 ## [0.5.52] - 2026-07-19
 
 ### Added

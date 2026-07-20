@@ -1,5 +1,17 @@
 # 変更履歴
 
+## [0.5.53] - 2026-07-20
+
+### 追加
+- `echonet_scan` のネットワーク `scope` フィルタ（`all`/`local`/`external`/`self`/`local_other`）。ノードごとの scope 情報と summary 件数。キャッシュキーに scope を含む。
+- 依存: Grok/xAI gRPC 用に `xai-sdk>=1.17.0`。
+
+### 変更
+- BACnet ツール（`bacnet_scan`/`read`/`write`）が `bacnet_shared` の共有イベントループ経由で BAC0 2025+ の async who_is/read/write/disconnect に対応。refcount と COV 用 keep-alive。
+
+### 修正
+- 単体ツール有効化時に対象ツールモジュール（および存在する `*_shared`）を reload し、プロセス再起動なしでソース変更を反映。
+
 ## [0.5.52] - 2026-07-19
 
 ### 追加

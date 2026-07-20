@@ -285,6 +285,20 @@ TOOL_SPEC: dict[str, Any] = {
                         default="If true, bypass cache and force a fresh scan.",
                     ),
                 },
+                "scope": {
+                    "type": "string",
+                    "enum": ["all", "local", "external", "self", "local_other"],
+                    "default": "all",
+                    "description": _(
+                        "param.scope.description",
+                        default=(
+                            "Filter discovered nodes by network scope. "
+                            "all=no filter; local=same LAN subnet (+ self); "
+                            "external=public/WAN addresses; self=bind host only; "
+                            "local_other=private but different subnet."
+                        ),
+                    ),
+                },
                 "fmt": {
                     "type": "string",
                     "enum": ["json", "text"],
@@ -338,6 +352,180 @@ def _is_ipv4_address(value: str) -> bool:
         return value.count(".") == 3
     except Exception:
         return False
+
+
+def _ip_to_int(ip: str) -> int | None:
+    try:
+        parts = [int(p) for p in ip.split(".")]
+        if len(parts) != 4 or any(p < 0 or p > 255 for p in parts):
+            return None
+        return (parts[0] << 24) | (parts[1] << 16) | (parts[2] << 8) | parts[3]
+    except Exception:
+        return None
+
+
+def _is_loopback_ipv4(ip: str) -> bool:
+    return ip.startswith("127.")
+
+
+def _is_link_local_ipv4(ip: str) -> bool:
+    return ip.startswith("169.254.")
+
+
+def _is_multicast_ipv4(ip: str) -> bool:
+    n = _ip_to_int(ip)
+    if n is None:
+        return False
+    return (n & 0xF0000000) == 0xE0000000
+
+
+def _is_private_ipv4(ip: str) -> bool:
+    n = _ip_to_int(ip)
+    if n is None:
+        return False
+    if (n & 0xFF000000) == 0x0A000000:
+        return True
+    if (n & 0xFFF00000) == 0xAC100000:
+        return True
+    if (n & 0xFFFF0000) == 0xC0A80000:
+        return True
+    if (n & 0xFFC00000) == 0x64400000:
+        return True
+    return False
+
+
+def _netmask_prefix_for_ip(ip: str) -> int | None:
+    if not ip or not _is_ipv4_address(ip):
+        return None
+    try:
+        import psutil  # type: ignore
+    except ImportError:
+        try:
+            from .._pip_auto import install_with_status as _install_ps
+
+            if not _install_ps("psutil"):
+                return None
+            import psutil  # type: ignore
+        except Exception:
+            return None
+    try:
+        for _name, addrs in psutil.net_if_addrs().items():
+            for addr in addrs:
+                if getattr(addr, "family", None) != socket.AF_INET:
+                    continue
+                if (addr.address or "").strip() != ip:
+                    continue
+                mask = (getattr(addr, "netmask", None) or "").strip()
+                mn = _ip_to_int(mask) if mask else None
+                if mn is None:
+                    return None
+                return bin(mn).count("1")
+    except Exception:
+        return None
+    return None
+
+
+def _default_prefix_for_ip(ip: str) -> int:
+    if ip.startswith("10."):
+        return 8
+    if ip.startswith("192.168."):
+        return 24
+    n = _ip_to_int(ip)
+    if n is not None and (n & 0xFFF00000) == 0xAC100000:
+        return 12
+    if n is not None and (n & 0xFFC00000) == 0x64400000:
+        return 10
+    return 24
+
+
+def _same_subnet(ip: str, bind_ip: str | None, prefix: int | None = None) -> bool:
+    if not bind_ip or not _is_ipv4_address(ip) or not _is_ipv4_address(bind_ip):
+        return False
+    a = _ip_to_int(ip)
+    b = _ip_to_int(bind_ip)
+    if a is None or b is None:
+        return False
+    if prefix is None:
+        prefix = _netmask_prefix_for_ip(bind_ip)
+    if prefix is None:
+        prefix = _default_prefix_for_ip(bind_ip)
+    prefix = max(0, min(32, int(prefix)))
+    if prefix == 0:
+        return True
+    mask = (0xFFFFFFFF << (32 - prefix)) & 0xFFFFFFFF
+    return (a & mask) == (b & mask)
+
+
+def _classify_node_scope(ip: str | None, bind_ip: str | None) -> dict[str, Any]:
+    raw = (ip or "").strip()
+    if not raw or not _is_ipv4_address(raw):
+        return {
+            "scope": "unknown",
+            "on_lan": False,
+            "is_self": False,
+            "is_private": False,
+            "same_subnet": False,
+        }
+
+    is_self = bool(bind_ip and raw == bind_ip)
+    is_private = (
+        _is_private_ipv4(raw)
+        or _is_link_local_ipv4(raw)
+        or _is_loopback_ipv4(raw)
+    )
+    same = _same_subnet(raw, bind_ip) if bind_ip else is_private
+    if is_self:
+        scope = "self"
+        on_lan = True
+    elif _is_multicast_ipv4(raw):
+        scope = "unknown"
+        on_lan = False
+    elif is_private and (same or not bind_ip):
+        scope = "local"
+        on_lan = True
+    elif is_private and not same:
+        scope = "local_other"
+        on_lan = False
+    else:
+        scope = "external"
+        on_lan = False
+
+    return {
+        "scope": scope,
+        "on_lan": on_lan,
+        "is_self": is_self,
+        "is_private": is_private,
+        "same_subnet": same,
+    }
+
+
+def _normalize_scope_filter(value: Any) -> str:
+    raw = str(value or "all").strip().lower()
+    aliases = {
+        "": "all",
+        "all": "all",
+        "*": "all",
+        "any": "all",
+        "local": "local",
+        "lan": "local",
+        "private": "local",
+        "external": "external",
+        "wan": "external",
+        "public": "external",
+        "remote": "external",
+        "self": "self",
+        "local_other": "local_other",
+        "other": "local_other",
+    }
+    return aliases.get(raw, "all")
+
+
+def _scope_matches(scope: str, wanted: str) -> bool:
+    if wanted == "all":
+        return True
+    if wanted == "local":
+        return scope in ("local", "self")
+    return scope == wanted
 
 
 def _resolve_interface(interface: str | None) -> tuple[str | None, str | None]:
@@ -715,7 +903,10 @@ def _merge_properties(*groups: list[dict[str, Any]]) -> list[dict[str, Any]]:
 
 
 def _summarize_node_item(
-    source_ip: str | None, frames: list[dict[str, Any]]
+    source_ip: str | None,
+    frames: list[dict[str, Any]],
+    *,
+    bind_ip: str | None = None,
 ) -> dict[str, Any]:
     properties = _merge_properties(*(frame.get("properties") or [] for frame in frames))
     node_profile_props = _property_map(properties)
@@ -748,6 +939,7 @@ def _summarize_node_item(
         "properties": properties,
     }
 
+    scope_info = _classify_node_scope(source_ip, bind_ip)
     return {
         "ip": source_ip,
         "node_id": source_ip,
@@ -757,6 +949,11 @@ def _summarize_node_item(
         "model": model,
         "eoj_list": eoj_list,
         "reachable": bool(frames),
+        "scope": scope_info.get("scope"),
+        "on_lan": scope_info.get("on_lan"),
+        "is_self": scope_info.get("is_self"),
+        "is_private": scope_info.get("is_private"),
+        "same_subnet": scope_info.get("same_subnet"),
         "last_seen": _now_iso(),
     }
 
@@ -776,6 +973,22 @@ def _format_text(payload: dict[str, Any]) -> str:
         lines.append(f"Bind IP: {payload.get('bind_ip')}")
     lines.append(f"Retry: {payload.get('retry')}")
     lines.append(f"Timeout: {payload.get('timeout')} s")
+    if payload.get("scope_filter"):
+        lines.append(f"Scope filter: {payload.get('scope_filter')}")
+    summary = payload.get("summary") or {}
+    if summary:
+        lines.append(
+            "Counts: local="
+            + str(summary.get("local", 0))
+            + " external="
+            + str(summary.get("external", 0))
+            + " self="
+            + str(summary.get("self", 0))
+            + " local_other="
+            + str(summary.get("local_other", 0))
+            + " unknown="
+            + str(summary.get("unknown", 0))
+        )
     lines.append("")
 
     items = payload.get("items") or []
@@ -795,6 +1008,13 @@ def _format_text(payload: dict[str, Any]) -> str:
             lines.append(f"[{idx}] {dev_name} ({ip_label})")
         else:
             lines.append(f"[{idx}] {ip_label}")
+        if item.get("scope"):
+            scope_label = str(item.get("scope"))
+            if item.get("on_lan") is True:
+                scope_label += " (LAN)"
+            elif item.get("scope") == "external":
+                scope_label += " (WAN/public)"
+            lines.append(f"  scope: {scope_label}")
         if item.get("node_id"):
             lines.append(f"  node_id: {item.get('node_id')}")
         if item.get("manufacturer"):
@@ -903,6 +1123,7 @@ def run_tool(args: dict[str, Any]) -> str:
     refresh = bool(args.get("refresh", False))
     interface_arg = args.get("interface")
     interface = str(interface_arg).strip() if interface_arg is not None else ""
+    scope_filter = _normalize_scope_filter(args.get("scope", "all"))
 
     if timeout < 1:
         timeout = _DEFAULT_TIMEOUT
@@ -917,6 +1138,7 @@ def run_tool(args: dict[str, Any]) -> str:
         "interface": interface,
         "retry": retry,
         "limit": limit,
+        "scope": scope_filter,
     }
     cached = (
         None
@@ -954,11 +1176,9 @@ def run_tool(args: dict[str, Any]) -> str:
             grouped.setdefault(source_ip, []).append(frame)
 
         items = [
-            _summarize_node_item(source_ip, grouped[source_ip])
+            _summarize_node_item(source_ip, grouped[source_ip], bind_ip=bind_ip)
             for source_ip in sorted(grouped.keys())
         ]
-        if limit > 0:
-            items = items[:limit]
 
         # Unicast fallback: if multicast found nothing, probe each IP directly
         if not items and bind_ip:
@@ -1001,16 +1221,40 @@ def run_tool(args: dict[str, Any]) -> str:
                         pass
 
             items = [
-                _summarize_node_item(source_ip, grouped[source_ip])
+                _summarize_node_item(source_ip, grouped[source_ip], bind_ip=bind_ip)
                 for source_ip in sorted(grouped.keys())
             ]
-            if limit > 0:
-                items = items[:limit]
+
+        # Scope classification summary (before filter)
+        summary = {
+            "local": 0,
+            "external": 0,
+            "self": 0,
+            "local_other": 0,
+            "unknown": 0,
+            "total": len(items),
+        }
+        for it in items:
+            key = str(it.get("scope") or "unknown")
+            if key not in summary:
+                key = "unknown"
+            summary[key] = int(summary.get(key, 0)) + 1
+
+        if scope_filter != "all":
+            items = [
+                it
+                for it in items
+                if _scope_matches(str(it.get("scope") or "unknown"), scope_filter)
+            ]
+        if limit > 0:
+            items = items[:limit]
 
         payload = {
             "ok": True,
             "count": len(items),
             "items": items,
+            "summary": summary,
+            "scope_filter": scope_filter,
             "interface_used": interface_used,
             "bind_ip": bind_ip,
             "timeout": timeout,

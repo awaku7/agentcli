@@ -73,7 +73,8 @@
     ],
     "err.invalid_interface": "خطأ: تعذر حل الواجهة '{interface}' إلى عنوان IPv4 محلي.",
     "param.interface.description": "الواجهة المحلية IPv4/الاسم (اختياري).",
-    "tool.description": "اكتشف عقد ECHONET Lite على الشبكة المحلية وقم بإرجاع قائمة JSON أو قائمة نصية."
+    "tool.description": "اكتشف عقد ECHONET Lite على الشبكة المحلية وقم بإرجاع قائمة JSON أو قائمة نصية.",
+    "param.scope.description": "Filter discovered nodes by network scope. all=no filter; local=same LAN subnet (+ self); external=public/WAN addresses; self=bind host only; local_other=private but different subnet."
   },
   "bn": {
     "param.timeout.description": "ECHONET Lite আবিষ্কারের জন্য সেকেন্ডের মধ্যে অপেক্ষার সময় পান৷",
@@ -149,7 +150,8 @@
     ],
     "err.invalid_interface": "ত্রুটি: একটি স্থানীয় IPv4 ঠিকানায় ইন্টারফেস '{interface}' সমাধান করা যায়নি৷",
     "param.interface.description": "স্থানীয় ইন্টারফেস IPv4/নাম (ঐচ্ছিক)।",
-    "tool.description": "স্থানীয় নেটওয়ার্কে ECHONET Lite নোডগুলি আবিষ্কার করুন এবং একটি JSON বা পাঠ্য তালিকা ফেরত দিন৷"
+    "tool.description": "স্থানীয় নেটওয়ার্কে ECHONET Lite নোডগুলি আবিষ্কার করুন এবং একটি JSON বা পাঠ্য তালিকা ফেরত দিন৷",
+    "param.scope.description": "Filter discovered nodes by network scope. all=no filter; local=same LAN subnet (+ self); external=public/WAN addresses; self=bind host only; local_other=private but different subnet."
   },
   "cs": {
     "param.timeout.description": "Získejte čekací dobu v sekundách na zjištění ECHONET Lite.",
@@ -225,7 +227,8 @@
     ],
     "err.invalid_interface": "Chyba: Nelze přeložit rozhraní '{interface}' na místní adresu IPv4.",
     "param.interface.description": "Lokální rozhraní IPv4/název (volitelné).",
-    "tool.description": "Objevte uzly ECHONET Lite v místní síti a vraťte seznam JSON nebo text."
+    "tool.description": "Objevte uzly ECHONET Lite v místní síti a vraťte seznam JSON nebo text.",
+    "param.scope.description": "Filter discovered nodes by network scope. all=no filter; local=same LAN subnet (+ self); external=public/WAN addresses; self=bind host only; local_other=private but different subnet."
   },
   "de": {
     "param.timeout.description": "Erhalten Sie die Wartezeit in Sekunden für die ECHONET Lite-Erkennung.",
@@ -301,7 +304,8 @@
     ],
     "err.invalid_interface": "Fehler: Die Schnittstelle „{interface}“ konnte nicht in eine lokale IPv4-Adresse aufgelöst werden.",
     "param.interface.description": "Lokale Schnittstelle IPv4/Name (optional).",
-    "tool.description": "Entdecken Sie ECHONET Lite-Knoten im lokalen Netzwerk und geben Sie eine JSON- oder Textliste zurück."
+    "tool.description": "Entdecken Sie ECHONET Lite-Knoten im lokalen Netzwerk und geben Sie eine JSON- oder Textliste zurück.",
+    "param.scope.description": "Filter discovered nodes by network scope. all=no filter; local=same LAN subnet (+ self); external=public/WAN addresses; self=bind host only; local_other=private but different subnet."
   },
   "en": {
     "param.timeout.description": "Receive wait time in seconds for ECHONET Lite discovery.",
@@ -377,7 +381,8 @@
       "nodes",
       "local",
       "network"
-    ]
+    ],
+    "param.scope.description": "Filter discovered nodes by network scope. all=no filter; local=same LAN subnet (+ self); external=public/WAN addresses; self=bind host only; local_other=private but different subnet."
   },
   "es": {
     "param.timeout.description": "Reciba el tiempo de espera en segundos para el descubrimiento de ECHONET Lite.",
@@ -453,7 +458,8 @@
     ],
     "err.invalid_interface": "Error: no se pudo resolver la interfaz '{interface}' a una dirección IPv4 local.",
     "param.interface.description": "Interfaz local IPv4/nombre (opcional).",
-    "tool.description": "Descubra los nodos ECHONET Lite en la red local y devuelva una lista JSON o de texto."
+    "tool.description": "Descubra los nodos ECHONET Lite en la red local y devuelva una lista JSON o de texto.",
+    "param.scope.description": "Filter discovered nodes by network scope. all=no filter; local=same LAN subnet (+ self); external=public/WAN addresses; self=bind host only; local_other=private but different subnet."
   },
   "fa": {
     "param.timeout.description": "زمان انتظار را در ثانیه برای کشف ECHONET Lite دریافت کنید.",
@@ -529,7 +535,8 @@
     ],
     "err.invalid_interface": "خطا: رابط \"{interface}\" به آدرس IPv4 محلی حل نشد.",
     "param.interface.description": "رابط محلی IPv4/name (اختیاری).",
-    "tool.description": "گره های ECHONET Lite را در شبکه محلی کشف کنید و یک JSON یا لیست متنی را برگردانید."
+    "tool.description": "گره های ECHONET Lite را در شبکه محلی کشف کنید و یک JSON یا لیست متنی را برگردانید.",
+    "param.scope.description": "Filter discovered nodes by network scope. all=no filter; local=same LAN subnet (+ self); external=public/WAN addresses; self=bind host only; local_other=private but different subnet."
   },
   "fi": {
     "param.timeout.description": "Vastaanota odotusaika sekunneissa ECHONET Lite -löydön yhteydessä.",
@@ -605,7 +612,8 @@
     ],
     "err.invalid_interface": "Virhe: Liittymää '{interface}' ei voitu ratkaista paikalliseen IPv4-osoitteeseen.",
     "param.interface.description": "Paikallinen liitäntä IPv4/nimi (valinnainen).",
-    "tool.description": "Löydä paikallisverkon ECHONET Lite -solmut ja palauta JSON- tai tekstiluettelo."
+    "tool.description": "Löydä paikallisverkon ECHONET Lite -solmut ja palauta JSON- tai tekstiluettelo.",
+    "param.scope.description": "Filter discovered nodes by network scope. all=no filter; local=same LAN subnet (+ self); external=public/WAN addresses; self=bind host only; local_other=private but different subnet."
   },
   "fr": {
     "param.timeout.description": "Recevez le temps d'attente en secondes pour la découverte ECHONET Lite.",
@@ -681,7 +689,8 @@
     ],
     "err.invalid_interface": "Erreur : Impossible de résoudre l'interface « {interface} » en une adresse IPv4 locale.",
     "param.interface.description": "Interface locale IPv4/nom (facultatif).",
-    "tool.description": "Découvrez les nœuds ECHONET Lite sur le réseau local et renvoyez une liste JSON ou texte."
+    "tool.description": "Découvrez les nœuds ECHONET Lite sur le réseau local et renvoyez une liste JSON ou texte.",
+    "param.scope.description": "Filter discovered nodes by network scope. all=no filter; local=same LAN subnet (+ self); external=public/WAN addresses; self=bind host only; local_other=private but different subnet."
   },
   "hi": {
     "param.timeout.description": "ECHONET लाइट खोज के लिए सेकंडों में प्रतीक्षा समय प्राप्त करें।",
@@ -757,7 +766,8 @@
     ],
     "err.invalid_interface": "त्रुटि: इंटरफ़ेस '{interface}' को स्थानीय IPv4 पते पर हल नहीं किया जा सका।",
     "param.interface.description": "स्थानीय इंटरफ़ेस IPv4/नाम (वैकल्पिक).",
-    "tool.description": "स्थानीय नेटवर्क पर ECHONET लाइट नोड्स खोजें और JSON या टेक्स्ट सूची लौटाएँ।"
+    "tool.description": "स्थानीय नेटवर्क पर ECHONET लाइट नोड्स खोजें और JSON या टेक्स्ट सूची लौटाएँ।",
+    "param.scope.description": "Filter discovered nodes by network scope. all=no filter; local=same LAN subnet (+ self); external=public/WAN addresses; self=bind host only; local_other=private but different subnet."
   },
   "id": {
     "param.timeout.description": "Dapatkan waktu tunggu dalam hitungan detik untuk penemuan ECHONET Lite.",
@@ -833,7 +843,8 @@
     ],
     "err.invalid_interface": "Kesalahan: Tidak dapat menyelesaikan antarmuka '{interface}' ke alamat IPv4 lokal.",
     "param.interface.description": "Antarmuka lokal IPv4/nama (opsional).",
-    "tool.description": "Temukan node ECHONET Lite di jaringan lokal dan kembalikan JSON atau daftar teks."
+    "tool.description": "Temukan node ECHONET Lite di jaringan lokal dan kembalikan JSON atau daftar teks.",
+    "param.scope.description": "Filter discovered nodes by network scope. all=no filter; local=same LAN subnet (+ self); external=public/WAN addresses; self=bind host only; local_other=private but different subnet."
   },
   "it": {
     "param.timeout.description": "Ricevi il tempo di attesa in secondi per la scoperta di ECHONET Lite.",
@@ -909,7 +920,8 @@
     ],
     "err.invalid_interface": "Errore: impossibile risolvere l'interfaccia '{interface}' in un indirizzo IPv4 locale.",
     "param.interface.description": "Interfaccia locale IPv4/nome (opzionale).",
-    "tool.description": "Scopri i nodi ECHONET Lite sulla rete locale e restituisce un JSON o un elenco di testo."
+    "tool.description": "Scopri i nodi ECHONET Lite sulla rete locale e restituisce un JSON o un elenco di testo.",
+    "param.scope.description": "Filter discovered nodes by network scope. all=no filter; local=same LAN subnet (+ self); external=public/WAN addresses; self=bind host only; local_other=private but different subnet."
   },
   "ja": {
     "param.timeout.description": "ECHONET Lite 検出時の受信待ち時間 (秒)。",
@@ -985,7 +997,8 @@
       "ノード",
       "ローカル",
       "ネットワーク"
-    ]
+    ],
+    "param.scope.description": "Filter discovered nodes by network scope. all=no filter; local=same LAN subnet (+ self); external=public/WAN addresses; self=bind host only; local_other=private but different subnet."
   },
   "ko": {
     "param.timeout.description": "ECHONET Lite 검색을 위한 대기 시간(초)을 수신합니다.",
@@ -1061,7 +1074,8 @@
     ],
     "err.invalid_interface": "오류: '{interface}' 인터페이스를 로컬 IPv4 주소로 확인할 수 없습니다.",
     "param.interface.description": "로컬 인터페이스 IPv4/이름(선택 사항).",
-    "tool.description": "로컬 네트워크에서 ECHONET Lite 노드를 검색하고 JSON 또는 텍스트 목록을 반환합니다."
+    "tool.description": "로컬 네트워크에서 ECHONET Lite 노드를 검색하고 JSON 또는 텍스트 목록을 반환합니다.",
+    "param.scope.description": "Filter discovered nodes by network scope. all=no filter; local=same LAN subnet (+ self); external=public/WAN addresses; self=bind host only; local_other=private but different subnet."
   },
   "mn": {
     "param.timeout.description": "ECHONET Lite-ийн нээлтийг хүлээх хугацааг секундээр хүлээн авна уу.",
@@ -1137,7 +1151,8 @@
     ],
     "err.invalid_interface": "Алдаа: '{interface}' интерфэйсийг локал IPv4 хаяг руу шийдэж чадсангүй.",
     "param.interface.description": "Орон нутгийн интерфэйс IPv4/нэр (заавал биш).",
-    "tool.description": "Дотоод сүлжээн дэх ECHONET Lite зангилаануудыг олж, JSON эсвэл текстийн жагсаалтыг буцаана уу."
+    "tool.description": "Дотоод сүлжээн дэх ECHONET Lite зангилаануудыг олж, JSON эсвэл текстийн жагсаалтыг буцаана уу.",
+    "param.scope.description": "Filter discovered nodes by network scope. all=no filter; local=same LAN subnet (+ self); external=public/WAN addresses; self=bind host only; local_other=private but different subnet."
   },
   "mr": {
     "param.timeout.description": "ECHONET Lite शोधासाठी काही सेकंदात प्रतीक्षा वेळ प्राप्त करा.",
@@ -1213,7 +1228,8 @@
     ],
     "err.invalid_interface": "त्रुटी: स्थानिक IPv4 पत्त्यावर इंटरफेस '{interface}' निराकरण करू शकलो नाही.",
     "param.interface.description": "स्थानिक इंटरफेस IPv4/नाव (पर्यायी).",
-    "tool.description": "स्थानिक नेटवर्कवर ECHONET Lite नोड शोधा आणि JSON किंवा मजकूर सूची परत करा."
+    "tool.description": "स्थानिक नेटवर्कवर ECHONET Lite नोड शोधा आणि JSON किंवा मजकूर सूची परत करा.",
+    "param.scope.description": "Filter discovered nodes by network scope. all=no filter; local=same LAN subnet (+ self); external=public/WAN addresses; self=bind host only; local_other=private but different subnet."
   },
   "el": {
     "param.timeout.description": "Λάβετε χρόνο αναμονής σε δευτερόλεπτα για την ανακάλυψη ECHONET Lite.",
@@ -1289,7 +1305,8 @@
     ],
     "err.invalid_interface": "Σφάλμα: Δεν ήταν δυνατή η επίλυση της διεπαφής '{interface}' σε μια τοπική διεύθυνση IPv4.",
     "param.interface.description": "Τοπική διεπαφή IPv4/όνομα (προαιρετικό).",
-    "tool.description": "Ανακαλύψτε τους κόμβους ECHONET Lite στο τοπικό δίκτυο και επιστρέψτε μια λίστα JSON ή κειμένου."
+    "tool.description": "Ανακαλύψτε τους κόμβους ECHONET Lite στο τοπικό δίκτυο και επιστρέψτε μια λίστα JSON ή κειμένου.",
+    "param.scope.description": "Filter discovered nodes by network scope. all=no filter; local=same LAN subnet (+ self); external=public/WAN addresses; self=bind host only; local_other=private but different subnet."
   },
   "he": {
     "param.timeout.description": "קבל זמן המתנה בשניות לגילוי ECHONET Lite.",
@@ -1365,7 +1382,8 @@
     ],
     "err.invalid_interface": "שגיאה: לא ניתן היה לפתור את הממשק '{interface}' לכתובת IPv4 מקומית.",
     "param.interface.description": "ממשק מקומי IPv4/שם (אופציונלי).",
-    "tool.description": "גלה צמתי ECHONET Lite ברשת המקומית והחזר JSON או רשימת טקסט."
+    "tool.description": "גלה צמתי ECHONET Lite ברשת המקומית והחזר JSON או רשימת טקסט.",
+    "param.scope.description": "Filter discovered nodes by network scope. all=no filter; local=same LAN subnet (+ self); external=public/WAN addresses; self=bind host only; local_other=private but different subnet."
   },
   "hu": {
     "param.timeout.description": "Várakozási idő másodpercekben az ECHONET Lite felfedezéséhez.",
@@ -1441,7 +1459,8 @@
     ],
     "err.invalid_interface": "Hiba: A '{interface}' interfész nem oldható fel helyi IPv4-címre.",
     "param.interface.description": "Helyi interfész IPv4/név (opcionális).",
-    "tool.description": "Fedezze fel az ECHONET Lite csomópontokat a helyi hálózaton, és küldjön vissza egy JSON- vagy szöveglistát."
+    "tool.description": "Fedezze fel az ECHONET Lite csomópontokat a helyi hálózaton, és küldjön vissza egy JSON- vagy szöveglistát.",
+    "param.scope.description": "Filter discovered nodes by network scope. all=no filter; local=same LAN subnet (+ self); external=public/WAN addresses; self=bind host only; local_other=private but different subnet."
   },
   "ro": {
     "param.timeout.description": "Primiți timpul de așteptare în secunde pentru descoperirea ECHONET Lite.",
@@ -1517,7 +1536,8 @@
     ],
     "err.invalid_interface": "Eroare: nu s-a putut rezolva interfața „{interface}” la o adresă IPv4 locală.",
     "param.interface.description": "Interfață locală IPv4/nume (opțional).",
-    "tool.description": "Descoperiți nodurile ECHONET Lite din rețeaua locală și returnați o listă JSON sau text."
+    "tool.description": "Descoperiți nodurile ECHONET Lite din rețeaua locală și returnați o listă JSON sau text.",
+    "param.scope.description": "Filter discovered nodes by network scope. all=no filter; local=same LAN subnet (+ self); external=public/WAN addresses; self=bind host only; local_other=private but different subnet."
   },
   "nb": {
     "param.timeout.description": "Motta ventetid i sekunder for ECHONET Lite-oppdagelse.",
@@ -1593,7 +1613,8 @@
     ],
     "err.invalid_interface": "Feil: Kunne ikke løse grensesnitt '{interface}' til en lokal IPv4-adresse.",
     "param.interface.description": "Lokalt grensesnitt IPv4/navn (valgfritt).",
-    "tool.description": "Oppdag ECHONET Lite-noder på det lokale nettverket og returner en JSON- eller tekstliste."
+    "tool.description": "Oppdag ECHONET Lite-noder på det lokale nettverket og returner en JSON- eller tekstliste.",
+    "param.scope.description": "Filter discovered nodes by network scope. all=no filter; local=same LAN subnet (+ self); external=public/WAN addresses; self=bind host only; local_other=private but different subnet."
   },
   "nl": {
     "param.timeout.description": "Ontvang wachttijd in seconden voor ECHONET Lite-detectie.",
@@ -1669,7 +1690,8 @@
     ],
     "err.invalid_interface": "Fout: Kan interface '{interface}' niet omzetten naar een lokaal IPv4-adres.",
     "param.interface.description": "Lokale interface IPv4/naam (optioneel).",
-    "tool.description": "Ontdek ECHONET Lite-knooppunten op het lokale netwerk en retourneer een JSON- of tekstlijst."
+    "tool.description": "Ontdek ECHONET Lite-knooppunten op het lokale netwerk en retourneer een JSON- of tekstlijst.",
+    "param.scope.description": "Filter discovered nodes by network scope. all=no filter; local=same LAN subnet (+ self); external=public/WAN addresses; self=bind host only; local_other=private but different subnet."
   },
   "pl": {
     "param.timeout.description": "Otrzymuj czas oczekiwania w sekundach na odkrycie ECHONET Lite.",
@@ -1745,7 +1767,8 @@
     ],
     "err.invalid_interface": "Błąd: nie można przypisać interfejsu „{interface}” do lokalnego adresu IPv4.",
     "param.interface.description": "Interfejs lokalny IPv4/nazwa (opcjonalnie).",
-    "tool.description": "Odkryj węzły ECHONET Lite w sieci lokalnej i zwróć listę JSON lub tekstową."
+    "tool.description": "Odkryj węzły ECHONET Lite w sieci lokalnej i zwróć listę JSON lub tekstową.",
+    "param.scope.description": "Filter discovered nodes by network scope. all=no filter; local=same LAN subnet (+ self); external=public/WAN addresses; self=bind host only; local_other=private but different subnet."
   },
   "pt": {
     "param.timeout.description": "Receba o tempo de espera em segundos para a descoberta do ECHONET Lite.",
@@ -1821,7 +1844,8 @@
     ],
     "err.invalid_interface": "Erro: não foi possível resolver a interface '{interface}' para um endereço IPv4 local.",
     "param.interface.description": "Interface local IPv4/nome (opcional).",
-    "tool.description": "Descubra nós ECHONET Lite na rede local e retorne um JSON ou uma lista de texto."
+    "tool.description": "Descubra nós ECHONET Lite na rede local e retorne um JSON ou uma lista de texto.",
+    "param.scope.description": "Filter discovered nodes by network scope. all=no filter; local=same LAN subnet (+ self); external=public/WAN addresses; self=bind host only; local_other=private but different subnet."
   },
   "pt_BR": {
     "param.timeout.description": "Receba o tempo de espera em segundos para a descoberta do ECHONET Lite.",
@@ -1897,7 +1921,8 @@
     ],
     "err.invalid_interface": "Erro: não foi possível resolver a interface '{interface}' para um endereço IPv4 local.",
     "param.interface.description": "Interface local IPv4/nome (opcional).",
-    "tool.description": "Descubra nós ECHONET Lite na rede local e retorne um JSON ou uma lista de texto."
+    "tool.description": "Descubra nós ECHONET Lite na rede local e retorne um JSON ou uma lista de texto.",
+    "param.scope.description": "Filter discovered nodes by network scope. all=no filter; local=same LAN subnet (+ self); external=public/WAN addresses; self=bind host only; local_other=private but different subnet."
   },
   "ru": {
     "param.timeout.description": "Получите время ожидания в секундах для обнаружения ECHONET Lite.",
@@ -1973,7 +1998,8 @@
     ],
     "err.invalid_interface": "Ошибка: не удалось преобразовать интерфейс «{interface}» в локальный адрес IPv4.",
     "param.interface.description": "IPv4/имя локального интерфейса (необязательно).",
-    "tool.description": "Обнаруживайте узлы ECHONET Lite в локальной сети и возвращайте JSON или текстовый список."
+    "tool.description": "Обнаруживайте узлы ECHONET Lite в локальной сети и возвращайте JSON или текстовый список.",
+    "param.scope.description": "Filter discovered nodes by network scope. all=no filter; local=same LAN subnet (+ self); external=public/WAN addresses; self=bind host only; local_other=private but different subnet."
   },
   "sv": {
     "param.timeout.description": "Ta emot väntetid i sekunder för upptäckt av ECHONET Lite.",
@@ -2049,7 +2075,8 @@
       "noder",
       "lokal",
       "nätverk"
-    ]
+    ],
+    "param.scope.description": "Filter discovered nodes by network scope. all=no filter; local=same LAN subnet (+ self); external=public/WAN addresses; self=bind host only; local_other=private but different subnet."
   },
   "sw": {
     "param.timeout.description": "Pokea muda wa kusubiri kwa sekunde chache kwa ugunduzi wa ECHONET Lite.",
@@ -2125,7 +2152,8 @@
     ],
     "err.invalid_interface": "Hitilafu: Haikuweza kutatua kiolesura cha '{interface}' kwa anwani ya ndani ya IPv4.",
     "param.interface.description": "Kiolesura cha ndani IPv4/jina (si lazima).",
-    "tool.description": "Gundua nodi za ECHONET Lite kwenye mtandao wa karibu na urudishe JSON au orodha ya maandishi."
+    "tool.description": "Gundua nodi za ECHONET Lite kwenye mtandao wa karibu na urudishe JSON au orodha ya maandishi.",
+    "param.scope.description": "Filter discovered nodes by network scope. all=no filter; local=same LAN subnet (+ self); external=public/WAN addresses; self=bind host only; local_other=private but different subnet."
   },
   "th": {
     "param.timeout.description": "รับเวลารอเป็นวินาทีสำหรับการค้นพบ ECHONET Lite",
@@ -2201,7 +2229,8 @@
     ],
     "err.invalid_interface": "ข้อผิดพลาด: ไม่สามารถแก้ไขอินเทอร์เฟซ '{interface}' เป็นที่อยู่ IPv4 ในเครื่องได้",
     "param.interface.description": "อินเทอร์เฟซท้องถิ่น IPv4/ชื่อ (ทางเลือก)",
-    "tool.description": "ค้นหาโหนด ECHONET Lite บนเครือข่ายท้องถิ่นและส่งคืน JSON หรือรายการข้อความ"
+    "tool.description": "ค้นหาโหนด ECHONET Lite บนเครือข่ายท้องถิ่นและส่งคืน JSON หรือรายการข้อความ",
+    "param.scope.description": "Filter discovered nodes by network scope. all=no filter; local=same LAN subnet (+ self); external=public/WAN addresses; self=bind host only; local_other=private but different subnet."
   },
   "tr": {
     "param.timeout.description": "ECHONET Lite keşfi için bekleme süresini saniyeler içinde alın.",
@@ -2277,7 +2306,8 @@
     ],
     "err.invalid_interface": "Hata: '{interface}' arayüzü yerel bir IPv4 adresine çözümlenemedi.",
     "param.interface.description": "Yerel arayüz IPv4/ad (isteğe bağlı).",
-    "tool.description": "Yerel ağdaki ECHONET Lite düğümlerini keşfedin ve bir JSON veya metin listesi döndürün."
+    "tool.description": "Yerel ağdaki ECHONET Lite düğümlerini keşfedin ve bir JSON veya metin listesi döndürün.",
+    "param.scope.description": "Filter discovered nodes by network scope. all=no filter; local=same LAN subnet (+ self); external=public/WAN addresses; self=bind host only; local_other=private but different subnet."
   },
   "uk": {
     "param.timeout.description": "Отримайте час очікування в секундах для виявлення ECHONET Lite.",
@@ -2353,7 +2383,8 @@
     ],
     "err.invalid_interface": "Помилка: не вдалося перевести інтерфейс \"{interface}\" на локальну адресу IPv4.",
     "param.interface.description": "Локальний інтерфейс IPv4/ім’я (необов’язково).",
-    "tool.description": "Знаходьте вузли ECHONET Lite у локальній мережі та повертайте JSON або текстовий список."
+    "tool.description": "Знаходьте вузли ECHONET Lite у локальній мережі та повертайте JSON або текстовий список.",
+    "param.scope.description": "Filter discovered nodes by network scope. all=no filter; local=same LAN subnet (+ self); external=public/WAN addresses; self=bind host only; local_other=private but different subnet."
   },
   "vi": {
     "param.timeout.description": "Nhận thời gian chờ tính bằng giây để khám phá ECHONET Lite.",
@@ -2429,7 +2460,8 @@
     ],
     "err.invalid_interface": "Lỗi: Không thể phân giải giao diện '{interface}' thành địa chỉ IPv4 cục bộ.",
     "param.interface.description": "Giao diện cục bộ IPv4/tên (tùy chọn).",
-    "tool.description": "Khám phá các nút ECHONET Lite trên mạng cục bộ và trả về danh sách văn bản hoặc JSON."
+    "tool.description": "Khám phá các nút ECHONET Lite trên mạng cục bộ và trả về danh sách văn bản hoặc JSON.",
+    "param.scope.description": "Filter discovered nodes by network scope. all=no filter; local=same LAN subnet (+ self); external=public/WAN addresses; self=bind host only; local_other=private but different subnet."
   },
   "zh_CN": {
     "param.timeout.description": "接收 ECHONET Lite 发现的等待时间（以秒为单位）。",
@@ -2505,7 +2537,8 @@
     ],
     "err.invalid_interface": "错误：无法将接口“{interface}”解析为本地 IPv4 地址。",
     "param.interface.description": "本地接口 IPv4/名称（可选）。",
-    "tool.description": "发现本地网络上的 ECHONET Lite 节点并返回 JSON 或文本列表。"
+    "tool.description": "发现本地网络上的 ECHONET Lite 节点并返回 JSON 或文本列表。",
+    "param.scope.description": "Filter discovered nodes by network scope. all=no filter; local=same LAN subnet (+ self); external=public/WAN addresses; self=bind host only; local_other=private but different subnet."
   },
   "zh_TW": {
     "param.timeout.description": "接收 ECHONET Lite 發現的等待時間（以秒為單位）。",
@@ -2581,6 +2614,7 @@
     ],
     "err.invalid_interface": "錯誤：無法將介面“{interface}”解析為本機 IPv4 位址。",
     "param.interface.description": "本機介面 IPv4/名稱（可選）。",
-    "tool.description": "發現本地網路上的 ECHONET Lite 節點並傳回 JSON 或文字清單。"
+    "tool.description": "發現本地網路上的 ECHONET Lite 節點並傳回 JSON 或文字清單。",
+    "param.scope.description": "Filter discovered nodes by network scope. all=no filter; local=same LAN subnet (+ self); external=public/WAN addresses; self=bind host only; local_other=private but different subnet."
   }
 }
