@@ -1,5 +1,12 @@
 # Changelog
 
+
+## [0.5.55] - 2026-07-24
+
+### Fixed
+- WEB startup link i18n: correct msgstr for msgid "Starting server on" in he/hu/el/ro/bn/ko so localhost URLs read naturally; regenerate matching .mo (CRLF-safe).
+- welcome: non-English GitHub README URL now points to `docs/README.{lang}.md` (en stays root `README.md`).
+
 ## [0.5.54] - 2026-07-24
 
 ### Added

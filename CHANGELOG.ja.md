@@ -1,5 +1,12 @@
 # 変更履歴
 
+
+## [0.5.55] - 2026-07-24
+
+### 修正
+- WEB 起動リンク i18n: msgid "Starting server on" の he/hu/el/ro/bn/ko msgstr を修正し、localhost URL が自然に読めるようにした。対応 .mo を再生成（CRLF 維持）。
+- welcome: 非英語の GitHub README URL を `docs/README.{lang}.md` に修正（英語はルート `README.md` のまま）。
+
 ## [0.5.54] - 2026-07-24
 
 ### 追加
