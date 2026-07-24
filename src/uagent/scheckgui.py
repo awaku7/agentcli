@@ -566,6 +566,31 @@ class ScheckWorker(QtCore.QObject):
             except Exception:
                 pass
 
+            # Load and activate enabled plugins (MCP / agents / hooks)
+            # Same surface as CLI/Web: one-line "[plugins] N enabled: ..."
+            try:
+                set_thread_lang(detect_lang())
+            except Exception:
+                pass
+            try:
+                from .runtime.runtime_plugins import load_plugins_status_at_startup
+
+                _plugins, _plugins_status = load_plugins_status_at_startup(
+                    activate=True
+                )
+                if _plugins_status:
+                    # stdout redirected to GUI log (same path as memory [INFO])
+                    print(_plugins_status, flush=True)
+            except Exception as e:
+                try:
+                    print(
+                        "[WARN] "
+                        + _("Plugin load failed: %(err)s") % {"err": e},
+                        flush=True,
+                    )
+                except Exception:
+                    pass
+
             # Provider/client/model are decided by util_make_client.
             try:
                 self._provider, self._client, self._depname = util_make_client(core)
@@ -1007,7 +1032,7 @@ class MainWindow(QtWidgets.QMainWindow):
                 fmt.setFontWeight(QtGui.QFont.Bold)
             elif s.startswith("[url]"):
                 fmt.setForeground(QtGui.QBrush(QtGui.QColor("#0891b2")))
-            elif s.startswith("[INFO]"):
+            elif s.startswith(("[INFO]", "[plugins]")):
                 fmt.setForeground(QtGui.QBrush(QtGui.QColor("#2563eb")))
             elif s.startswith(("[OK]", "[SUCCESS]")):
                 fmt.setForeground(QtGui.QBrush(QtGui.QColor("#16a34a")))

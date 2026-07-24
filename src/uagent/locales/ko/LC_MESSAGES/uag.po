@@ -130,6 +130,11 @@ msgstr "[FATAL] uag_setup를 시작하지 못했습니다: %(err)s"
 msgid "%(n)d enabled: %(names)s"
 msgstr "%(n)d 활성화됨: %(names)s"
 
+#: src/uagent/runtime/runtime_plugins.py
+#, python-format
+msgid "+%(n)d more"
+msgstr "+%(n)d개 더"
+
 #: src/uagent/cli_startup.py:229
 #, python-format
 msgid "provider = %(provider)s; model = %(model)s"
@@ -4508,6 +4513,26 @@ msgstr "어떤 파일을 로드하시겠습니까? 숫자(예: '1 2')를 입력�
 #, python-format
 msgid "[Project instructions from %(file)s]"
 msgstr "[%(file)s의 프로젝트 지침]"
+
+#: src/uagent/runtime/runtime_instructions.py
+#: src/uagent/web.py
+#, python-format
+msgid "[INFO] Loading %(n)d project instruction file(s)."
+msgstr "[INFO] 프로젝트 지시 파일 %(n)d개를 로드합니다."
+
+#: src/uagent/runtime/runtime_instructions.py
+#: src/uagent/web.py
+msgid "[INFO] No project instruction files selected."
+msgstr "[INFO] 선택된 프로젝트 지시 파일이 없습니다."
+
+#: src/uagent/runtime/runtime_instructions.py
+msgid "[INFO] Instruction load cancelled; loading none."
+msgstr "[INFO] 지시 파일 로드가 취소되었습니다. 로드하지 않습니다."
+
+#: src/uagent/runtime/runtime_instructions.py
+#, python-format
+msgid "[WARN] Web instruction prompt failed (%(err)s); auto-loading all."
+msgstr "[WARN] 웹 지시 프롬프트 실패 (%(err)s); 모두 자동 로드합니다."
 
 #: src/uagent/runtime/runtime_workdir.py:49
 #, python-format

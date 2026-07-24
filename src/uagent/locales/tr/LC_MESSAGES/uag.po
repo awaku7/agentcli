@@ -135,6 +135,11 @@ msgstr "[FATAL] uag_setup başlatılamadı: %(err)s"
 msgid "%(n)d enabled: %(names)s"
 msgstr "%(n)d etkin: %(names)s"
 
+#: src/uagent/runtime/runtime_plugins.py
+#, python-format
+msgid "+%(n)d more"
+msgstr "+%(n)d tane daha"
+
 #: src/uagent/cli_startup.py:229
 #, python-format
 msgid "provider = %(provider)s; model = %(model)s"
@@ -4748,6 +4753,26 @@ msgstr ""
 #, python-format
 msgid "[Project instructions from %(file)s]"
 msgstr "[%(file)s adresinden proje talimatları]"
+
+#: src/uagent/runtime/runtime_instructions.py
+#: src/uagent/web.py
+#, python-format
+msgid "[INFO] Loading %(n)d project instruction file(s)."
+msgstr "[INFO] %(n)d proje talimat dosyası yükleniyor."
+
+#: src/uagent/runtime/runtime_instructions.py
+#: src/uagent/web.py
+msgid "[INFO] No project instruction files selected."
+msgstr "[INFO] Hiçbir proje talimat dosyası seçilmedi."
+
+#: src/uagent/runtime/runtime_instructions.py
+msgid "[INFO] Instruction load cancelled; loading none."
+msgstr "[INFO] Talimat yüklemesi iptal edildi; hiçbiri yüklenmiyor."
+
+#: src/uagent/runtime/runtime_instructions.py
+#, python-format
+msgid "[WARN] Web instruction prompt failed (%(err)s); auto-loading all."
+msgstr "[WARN] Web talimat istemi başarısız oldu (%(err)s); tümü otomatik yükleniyor."
 
 #: src/uagent/runtime/runtime_workdir.py:49
 #, python-format

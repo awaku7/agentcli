@@ -135,6 +135,11 @@ msgstr "[FATAL] Lansarea uag_setup a eșuat: %(err)s"
 msgid "%(n)d enabled: %(names)s"
 msgstr "%(n)d activat: %(names)s"
 
+#: src/uagent/runtime/runtime_plugins.py
+#, python-format
+msgid "+%(n)d more"
+msgstr "+ încă %(n)d"
+
 #: src/uagent/cli_startup.py:229
 #, python-format
 msgid "provider = %(provider)s; model = %(model)s"
@@ -4802,6 +4807,26 @@ msgstr ""
 #, python-format
 msgid "[Project instructions from %(file)s]"
 msgstr "[Instrucțiuni de proiect de la %(file)s]"
+
+#: src/uagent/runtime/runtime_instructions.py
+#: src/uagent/web.py
+#, python-format
+msgid "[INFO] Loading %(n)d project instruction file(s)."
+msgstr "[INFO] Se încarcă %(n)d fișier(e) cu instrucțiuni de proiect."
+
+#: src/uagent/runtime/runtime_instructions.py
+#: src/uagent/web.py
+msgid "[INFO] No project instruction files selected."
+msgstr "[INFO] Nu au fost selectate fișiere de instrucțiuni ale proiectului."
+
+#: src/uagent/runtime/runtime_instructions.py
+msgid "[INFO] Instruction load cancelled; loading none."
+msgstr "[INFO] Încărcarea instrucțiunilor a fost anulată; nu se încarcă niciunul."
+
+#: src/uagent/runtime/runtime_instructions.py
+#, python-format
+msgid "[WARN] Web instruction prompt failed (%(err)s); auto-loading all."
+msgstr "[WARN] Solicitarea instrucțiunilor web a eșuat (%(err)s); se încarcă automat toate."
 
 #: src/uagent/runtime/runtime_workdir.py:49
 #, python-format

@@ -4,15 +4,29 @@
   let { message = '', isPassword = false, onSubmit } = $props();
   let reply = $state('');
 
-  function submit() { if (onSubmit) onSubmit(reply); reply = ''; }
-  function handleKeydown(e) { if (e.key === 'Enter') submit(); }
+  function submit() {
+    const v = (reply || '').trim();
+    // Empty submit is ignored (server also ignores). Use explicit skip via "n".
+    if (!v) return;
+    if (onSubmit) onSubmit(v);
+    reply = '';
+  }
+  function skip() {
+    if (onSubmit) onSubmit('n');
+    reply = '';
+  }
+  function handleKeydown(e) {
+    if (e.key === 'Enter') {
+      e.preventDefault();
+      submit();
+    }
+  }
 </script>
 
 <!-- svelte-ignore a11y_click_events_have_key_events a11y_no_static_element_interactions -->
 <div
   class="fixed inset-0 flex items-center justify-center z-50"
   style="background:rgba(0,0,0,0.6);backdrop-filter:blur(8px);"
-  onclick={(e) => { if (e.target === e.currentTarget) submit(); }}
   role="dialog"
   tabindex="-1"
 >
@@ -37,6 +51,11 @@
       autofocus
     />
     <div class="flex justify-end gap-2">
+      <button
+        onclick={skip}
+        class="px-4 py-2.5 rounded-xl text-sm font-bold shadow-sm transition hover:brightness-110 active:scale-[0.97]"
+        style="background:var(--bg-surface-alt);color:var(--text-secondary);border:1px solid var(--border-color);"
+      >Skip</button>
       <button
         onclick={submit}
         class="px-6 py-2.5 rounded-xl text-sm font-bold text-white shadow-sm transition hover:brightness-110 active:scale-[0.97]"

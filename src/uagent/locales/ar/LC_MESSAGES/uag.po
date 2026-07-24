@@ -129,6 +129,11 @@ msgstr "[فادح] فشل تشغيل uag_setup: %(err)s"
 msgid "%(n)d enabled: %(names)s"
 msgstr "%(n)d ممكّن: %(names)s"
 
+#: src/uagent/runtime/runtime_plugins.py
+#, python-format
+msgid "+%(n)d more"
+msgstr "+%(n)d أخرى"
+
 #: src/uagent/cli_startup.py:229
 #, python-format
 msgid "provider = %(provider)s; model = %(model)s"
@@ -4657,6 +4662,26 @@ msgstr ""
 #, python-format
 msgid "[Project instructions from %(file)s]"
 msgstr "[تعليمات المشروع من %(file)s]"
+
+#: src/uagent/runtime/runtime_instructions.py
+#: src/uagent/web.py
+#, python-format
+msgid "[INFO] Loading %(n)d project instruction file(s)."
+msgstr "[INFO] جارٍ تحميل %(n)d من ملفات تعليمات المشروع."
+
+#: src/uagent/runtime/runtime_instructions.py
+#: src/uagent/web.py
+msgid "[INFO] No project instruction files selected."
+msgstr "[INFO] لم يتم تحديد ملفات تعليمات المشروع."
+
+#: src/uagent/runtime/runtime_instructions.py
+msgid "[INFO] Instruction load cancelled; loading none."
+msgstr "[INFO] تم إلغاء تحميل التعليمات؛ لن يتم تحميل أي ملف."
+
+#: src/uagent/runtime/runtime_instructions.py
+#, python-format
+msgid "[WARN] Web instruction prompt failed (%(err)s); auto-loading all."
+msgstr "[WARN] فشل موجه تعليمات الويب (%(err)s)؛ سيتم تحميل الكل تلقائيًا."
 
 #: src/uagent/runtime/runtime_workdir.py:49
 #, python-format

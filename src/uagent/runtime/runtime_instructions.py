@@ -6,16 +6,33 @@ and optionally prompts the user before loading them into the system prompt.
 
 from __future__ import annotations
 
+import json
 import os
 import sys
 from dataclasses import dataclass, field
 from pathlib import Path
+from typing import Any
 
 from ..i18n import _
 
 # Tracks absolute paths of instruction files already loaded in this session.
 # Used by reload_instruction_files() to skip duplicates after workdir changes.
 _loaded_paths: set[str] = set()
+
+# Host-provided ask hook: Web/GUI registers a callable(message: str) -> str JSON.
+# Avoid importing uagent.web from here (circular import during bootstrap).
+_ask_user_hook: Any | None = None
+
+
+def set_ask_user_hook(fn: Any | None) -> None:
+    """Register host ask-user implementation (Web modal / GUI prompt)."""
+    global _ask_user_hook
+    _ask_user_hook = fn
+
+
+def get_loaded_instruction_paths() -> list[str]:
+    """Absolute paths of instruction files loaded in this process/session."""
+    return sorted(_loaded_paths)
 
 
 @dataclass
@@ -164,8 +181,51 @@ def _resolve_includes(content: str, base_dir: str) -> tuple[str, list[str]]:
     return "".join(result), included
 
 
+def _format_candidate_lines(
+    candidates: list[InstructionCandidate], *, workdir: str | None = None
+) -> list[str]:
+    lines: list[str] = []
+    base = workdir or os.getcwd()
+    for idx, c in enumerate(candidates, start=1):
+        include_info = ""
+        if c.resolved_includes:
+            include_info = _(" (includes: %(files)s)") % {
+                "files": ", ".join(os.path.basename(p) for p in c.resolved_includes)
+            }
+        try:
+            rel = os.path.relpath(c.path, base)
+        except Exception:
+            rel = c.path
+        lines.append(
+            _("  [%(idx)d] %(rel)s%(inc)s")
+            % {"idx": idx, "rel": rel, "inc": include_info}
+        )
+    return lines
+
+
+def _parse_selection_answer(
+    answer: str, candidates: list[InstructionCandidate]
+) -> list[InstructionCandidate]:
+    """Parse user reply into selected candidates."""
+    text = (answer or "").strip().lower()
+    if text in ("n", "no", "skip", "none", ""):
+        return []
+    if text in ("all", "a", "y", "yes"):
+        return list(candidates)
+
+    selected: list[InstructionCandidate] = []
+    for token in text.replace(",", " ").split():
+        try:
+            idx = int(token) - 1
+            if 0 <= idx < len(candidates):
+                selected.append(candidates[idx])
+        except ValueError:
+            pass
+    return selected
+
+
 def _prompt_user(candidates: list[InstructionCandidate]) -> list[InstructionCandidate]:
-    """Ask the user which instruction files to load.
+    """Ask the user which instruction files to load (CLI stdin).
 
     Returns the selected subset of candidates.
     Empty list means "load none".
@@ -175,17 +235,8 @@ def _prompt_user(candidates: list[InstructionCandidate]) -> list[InstructionCand
 
     print()
     print(_("[INFO] Project instruction files found:"))
-    for idx, c in enumerate(candidates, start=1):
-        include_info = ""
-        if c.resolved_includes:
-            include_info = _(" (includes: %(files)s)") % {
-                "files": ", ".join(os.path.basename(p) for p in c.resolved_includes)
-            }
-        rel = os.path.relpath(c.path, os.getcwd())
-        print(
-            _("  [%(idx)d] %(rel)s%(inc)s")
-            % {"idx": idx, "rel": rel, "inc": include_info}
-        )
+    for line in _format_candidate_lines(candidates):
+        print(line)
 
     print()
     print(
@@ -199,22 +250,79 @@ def _prompt_user(candidates: list[InstructionCandidate]) -> list[InstructionCand
     except (EOFError, KeyboardInterrupt):
         return []
 
-    if answer in ("n", "no", "skip", "none", ""):
+    return _parse_selection_answer(answer, candidates)
+
+
+def _prompt_user_web(
+    candidates: list[InstructionCandidate], *, workdir: str
+) -> list[InstructionCandidate]:
+    """Ask via Web/GUI human_ask modal (never block on server stdin)."""
+    if not candidates:
         return []
 
-    if answer in ("all", "a", "y", "yes"):
+    lines = _format_candidate_lines(candidates, workdir=workdir)
+    message = "\n".join(
+        [
+            _("[INFO] Project instruction files found:"),
+            *lines,
+            "",
+            _(
+                "Load which files? Enter numbers (e.g. '1 2'), 'all' to load all, or 'n' to skip:"
+            ),
+        ]
+    )
+
+    # Prefer host-registered ask hook (Web modal). Avoid importing uagent.web
+    # here — that circular import silently falls back and returns empty.
+    raw = ""
+    try:
+        hook = _ask_user_hook
+        if callable(hook):
+            raw = str(hook(message) or "")
+        else:
+            from uagent import tools as _tools
+
+            raw = str(_tools.run_tool("human_ask", {"message": message}) or "")
+    except Exception as e:
+        try:
+            print(
+                _("[WARN] Web instruction prompt failed (%(err)s); auto-loading all.")
+                % {"err": e}
+            )
+        except Exception:
+            pass
         return list(candidates)
 
-    # Parse space-separated numbers
-    selected: list[InstructionCandidate] = []
-    for token in answer.split():
-        try:
-            idx = int(token) - 1
-            if 0 <= idx < len(candidates):
-                selected.append(candidates[idx])
-        except ValueError:
-            pass
+    answer = ""
+    cancelled = False
+    try:
+        data = json.loads(raw) if str(raw).strip().startswith("{") else {}
+        if isinstance(data, dict):
+            answer = str(data.get("user_reply") or data.get("display_reply") or "")
+            cancelled = bool(data.get("cancelled"))
+        else:
+            answer = str(raw or "")
+    except Exception:
+        answer = str(raw or "")
 
+    if cancelled:
+        try:
+            print(_("[INFO] Instruction load cancelled; loading none."))
+        except Exception:
+            pass
+        return []
+
+    selected = _parse_selection_answer(answer, candidates)
+    try:
+        if not selected:
+            print(_("[INFO] No project instruction files selected."))
+        else:
+            print(
+                _("[INFO] Loading %(n)d project instruction file(s).")
+                % {"n": len(selected)}
+            )
+    except Exception:
+        pass
     return selected
 
 
@@ -242,13 +350,32 @@ def load_project_instruction_files(
     if not candidates:
         return []
 
-    # Determine if we're in interactive (TTY) mode
-    is_interactive = bool(getattr(sys.stdin, "isatty", lambda: False)())
+    # Web must never use server-console input(); ask in the browser instead.
+    is_web = False
+    try:
+        from uagent import core as _core
 
-    if is_interactive and not os.environ.get("UAGENT_INSTRUCTIONS_SKIP_PROMPT", ""):
+        is_web = bool(getattr(_core, "_is_web", False))
+    except Exception:
+        is_web = False
+    is_gui = False
+    try:
+        is_gui = bool(
+            os.environ.get("UAGENT_GUI_MODE", "").strip() in ("1", "true", "yes", "on")
+        )
+    except Exception:
+        is_gui = False
+    is_interactive = bool(getattr(sys.stdin, "isatty", lambda: False)())
+    skip_prompt = bool(os.environ.get("UAGENT_INSTRUCTIONS_SKIP_PROMPT", "").strip())
+
+    if skip_prompt:
+        selected = candidates
+    elif is_web or is_gui:
+        selected = _prompt_user_web(candidates, workdir=workdir)
+    elif is_interactive:
         selected = _prompt_user(candidates)
     else:
-        # Non-interactive or skip-prompt: auto-load all
+        # Non-interactive batch: auto-load all
         selected = candidates
 
     if not selected:
@@ -267,7 +394,6 @@ def load_project_instruction_files(
         _loaded_paths.add(c.path)
 
     return contents
-
 
 def reload_instruction_files(
     *,

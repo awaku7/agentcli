@@ -129,6 +129,11 @@ msgstr "[FATAL] uag_setup सुरू करण्यात अयशस्व�
 msgid "%(n)d enabled: %(names)s"
 msgstr "%(n)d सक्षम: %(names)s"
 
+#: src/uagent/runtime/runtime_plugins.py
+#, python-format
+msgid "+%(n)d more"
+msgstr "+ आणखी %(n)d"
+
 #: src/uagent/cli_startup.py:229
 #, python-format
 msgid "provider = %(provider)s; model = %(model)s"
@@ -4696,6 +4701,26 @@ msgstr ""
 #, python-format
 msgid "[Project instructions from %(file)s]"
 msgstr "[%(file)s] कडील प्रकल्प सूचना"
+
+#: src/uagent/runtime/runtime_instructions.py
+#: src/uagent/web.py
+#, python-format
+msgid "[INFO] Loading %(n)d project instruction file(s)."
+msgstr "[INFO] %(n)d प्रकल्प सूचना फाइल(ला) लोड करत आहे."
+
+#: src/uagent/runtime/runtime_instructions.py
+#: src/uagent/web.py
+msgid "[INFO] No project instruction files selected."
+msgstr "[INFO] कोणतीही प्रकल्प सूचना फाइल निवडलेली नाही."
+
+#: src/uagent/runtime/runtime_instructions.py
+msgid "[INFO] Instruction load cancelled; loading none."
+msgstr "[INFO] सूचना लोड रद्द; काहीही लोड होत नाही."
+
+#: src/uagent/runtime/runtime_instructions.py
+#, python-format
+msgid "[WARN] Web instruction prompt failed (%(err)s); auto-loading all."
+msgstr "[WARN] वेब सूचना प्रॉम्प्ट अयशस्वी (%(err)s); सर्व स्वयं लोड होत आहेत."
 
 #: src/uagent/runtime/runtime_workdir.py:49
 #, python-format

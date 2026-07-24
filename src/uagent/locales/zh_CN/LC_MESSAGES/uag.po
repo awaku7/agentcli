@@ -130,6 +130,11 @@ msgstr "[FATAL] 无法启动 uag_setup：%(err)s"
 msgid "%(n)d enabled: %(names)s"
 msgstr "%(n)d 已启用：%(names)s"
 
+#: src/uagent/runtime/runtime_plugins.py
+#, python-format
+msgid "+%(n)d more"
+msgstr "+ 另有%(n)d个"
+
 #: src/uagent/cli_startup.py:229
 #, python-format
 msgid "provider = %(provider)s; model = %(model)s"
@@ -4480,6 +4485,26 @@ msgstr "加载哪些文件？输入数字（例如\"1 2\"），\"all\"加载全�
 #, python-format
 msgid "[Project instructions from %(file)s]"
 msgstr "[来自 %(file)s 的项目说明]"
+
+#: src/uagent/runtime/runtime_instructions.py
+#: src/uagent/web.py
+#, python-format
+msgid "[INFO] Loading %(n)d project instruction file(s)."
+msgstr "[INFO] 正在加载 %(n)d 个项目指示文件。"
+
+#: src/uagent/runtime/runtime_instructions.py
+#: src/uagent/web.py
+msgid "[INFO] No project instruction files selected."
+msgstr "[INFO] 未选择项目指示文件。"
+
+#: src/uagent/runtime/runtime_instructions.py
+msgid "[INFO] Instruction load cancelled; loading none."
+msgstr "[INFO] 已取消加载指示文件；不加载任何文件。"
+
+#: src/uagent/runtime/runtime_instructions.py
+#, python-format
+msgid "[WARN] Web instruction prompt failed (%(err)s); auto-loading all."
+msgstr "[WARN] Web 指示提示失败（%(err)s）；自动加载全部。"
 
 #: src/uagent/runtime/runtime_workdir.py:49
 #, python-format

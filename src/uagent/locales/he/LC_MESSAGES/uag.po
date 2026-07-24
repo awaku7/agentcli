@@ -129,6 +129,11 @@ msgstr "[FATAL] הפעלת uag_setup: %(err)s נכשלה"
 msgid "%(n)d enabled: %(names)s"
 msgstr "%(n)d מופעל: %(names)s"
 
+#: src/uagent/runtime/runtime_plugins.py
+#, python-format
+msgid "+%(n)d more"
+msgstr "+ עוד %(n)d"
+
 #: src/uagent/cli_startup.py:229
 #, python-format
 msgid "provider = %(provider)s; model = %(model)s"
@@ -4601,6 +4606,26 @@ msgstr ""
 #, python-format
 msgid "[Project instructions from %(file)s]"
 msgstr "[הוראות פרויקט מ-%(file)s]"
+
+#: src/uagent/runtime/runtime_instructions.py
+#: src/uagent/web.py
+#, python-format
+msgid "[INFO] Loading %(n)d project instruction file(s)."
+msgstr "[INFO] טוען %(n)d קובץ/י הוראות פרויקט."
+
+#: src/uagent/runtime/runtime_instructions.py
+#: src/uagent/web.py
+msgid "[INFO] No project instruction files selected."
+msgstr "[INFO] לא נבחרו קובצי הוראות פרויקט."
+
+#: src/uagent/runtime/runtime_instructions.py
+msgid "[INFO] Instruction load cancelled; loading none."
+msgstr "[INFO] טעינת ההוראות בוטלה; לא נטען דבר."
+
+#: src/uagent/runtime/runtime_instructions.py
+#, python-format
+msgid "[WARN] Web instruction prompt failed (%(err)s); auto-loading all."
+msgstr "[WARN] בקשת הוראות האינטרנט נכשלה (%(err)s); טוען את הכול אוטומטית."
 
 #: src/uagent/runtime/runtime_workdir.py:49
 #, python-format

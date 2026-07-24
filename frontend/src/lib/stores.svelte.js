@@ -129,9 +129,13 @@ function handleWsMessage(data) {
       };
       break;
     case 'human_ask':
-      if (data.message) {
-        _state.humanAskState = { visible: true, message: data.message, isPassword: !!data.isPassword, resolve: null };
-      }
+      // Always open modal on human_ask (message may be empty in edge cases).
+      _state.humanAskState = {
+        visible: true,
+        message: data.message || data.text || '',
+        isPassword: !!(data.isPassword ?? data.is_password),
+        resolve: null,
+      };
       break;
     case 'log':
       if (_state.webVerbose) {

@@ -197,25 +197,13 @@ def run_cli_startup(
 
             # Load and activate enabled plugins (MCP / agents / hooks)
             try:
-                from .runtime.runtime_plugins import load_plugins_at_startup
+                from .runtime.runtime_plugins import load_plugins_status_at_startup
 
-                _enabled_plugins = [
-                    p
-                    for p in load_plugins_at_startup(activate=True)
-                    if p.get("enabled")
-                ]
-                if _enabled_plugins:
-                    _names = ", ".join(
-                        str(p.get("name") or "?") for p in _enabled_plugins[:8]
-                    )
-                    if len(_enabled_plugins) > 8:
-                        _names += f", +{len(_enabled_plugins) - 8} more"
-                    print(
-                        "[plugins] "
-                        + _("%(n)d enabled: %(names)s")
-                        % {"n": len(_enabled_plugins), "names": _names},
-                        file=sys.stderr,
-                    )
+                _plugins, _plugins_status = load_plugins_status_at_startup(
+                    activate=True
+                )
+                if _plugins_status:
+                    print(_plugins_status, file=sys.stderr)
             except Exception:
                 pass
 

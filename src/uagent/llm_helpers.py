@@ -16,6 +16,14 @@ except Exception:
 _AUTO_EFFORT_LADDER = ("minimal", "low", "medium", "high", "xhigh")
 
 
+class LLMWaitInterrupted(BaseException):
+    """User interrupt while waiting on a blocking LLM network call.
+
+    Subclasses BaseException so provider ``except Exception`` retry loops do not
+    swallow Stop. Worker/UI layers should treat this as a clean cancel.
+    """
+
+
 def _maybe_print_certifi_where(exc: Exception) -> None:
     if certifi is None:
         print("[SSL Info] " + _("certifi is not available"))
@@ -216,10 +224,11 @@ def _call_maybe_thread(fn: Any, *, use_llm_thread: bool) -> Any:
     """Run a potentially-blocking LLM call.
 
     When UAGENT_LLM_IN_THREAD is enabled (default), run the call in a daemon
-    thread so the main thread can respond to Ctrl-C more promptly.
+    thread so the main thread can respond to Ctrl-C / Web Stop more promptly.
 
     Note: This does not guarantee immediate network cancel; timeouts are the
-    primary safety net.
+    primary safety net. On interrupt, the waiter returns early and leaves the
+    daemon call thread to finish in the background.
     """
 
     if not use_llm_thread:
@@ -237,6 +246,17 @@ def _call_maybe_thread(fn: Any, *, use_llm_thread: bool) -> Any:
     th.start()
 
     while th.is_alive():
+        # Honor Stop / interrupt without waiting for the full network call.
+        try:
+            from uagent import core as _core_module
+
+            with _core_module.interrupt_lock:
+                interrupted = bool(_core_module.interrupt_requested)
+        except Exception:
+            interrupted = False
+        if interrupted:
+            # Leave daemon thread running; outer round/worker handles stop.
+            raise LLMWaitInterrupted("uagent interrupt requested during LLM call")
         th.join(0.05)
 
     if box.get("exc") is not None:

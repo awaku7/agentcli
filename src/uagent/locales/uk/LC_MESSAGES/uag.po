@@ -133,6 +133,11 @@ msgstr "[FATAL] Не вдалося запустити uag_setup: %(err)s"
 msgid "%(n)d enabled: %(names)s"
 msgstr "%(n)d увімкнено: %(names)s"
 
+#: src/uagent/runtime/runtime_plugins.py
+#, python-format
+msgid "+%(n)d more"
+msgstr "+ ще %(n)d"
+
 #: src/uagent/cli_startup.py:229
 #, python-format
 msgid "provider = %(provider)s; model = %(model)s"
@@ -4786,6 +4791,26 @@ msgstr ""
 #, python-format
 msgid "[Project instructions from %(file)s]"
 msgstr "[Інструкції щодо проекту від %(file)s]"
+
+#: src/uagent/runtime/runtime_instructions.py
+#: src/uagent/web.py
+#, python-format
+msgid "[INFO] Loading %(n)d project instruction file(s)."
+msgstr "[INFO] Завантаження %(n)d файлу(ів) інструкцій проєкту."
+
+#: src/uagent/runtime/runtime_instructions.py
+#: src/uagent/web.py
+msgid "[INFO] No project instruction files selected."
+msgstr "[INFO] Не вибрано файлів інструкцій проєкту."
+
+#: src/uagent/runtime/runtime_instructions.py
+msgid "[INFO] Instruction load cancelled; loading none."
+msgstr "[INFO] Завантаження інструкцій скасовано; нічого не завантажується."
+
+#: src/uagent/runtime/runtime_instructions.py
+#, python-format
+msgid "[WARN] Web instruction prompt failed (%(err)s); auto-loading all."
+msgstr "[WARN] Збій веб-запиту інструкцій (%(err)s); автозавантаження всіх."
 
 #: src/uagent/runtime/runtime_workdir.py:49
 #, python-format

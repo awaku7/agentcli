@@ -109,3 +109,33 @@ def load_plugins_at_startup(
         loaded.append(plugin_info)
 
     return loaded
+
+
+def format_enabled_plugins_status(plugins: list[dict[str, Any]]) -> str | None:
+    """Build a one-line startup status for enabled plugins.
+
+    Returns None when no enabled plugins (callers should stay silent).
+    Uses gettext; keep placeholders %(n)d / %(names)s intact for i18n.
+    """
+    from ..i18n import _
+
+    enabled = [p for p in plugins if p.get("enabled")]
+    if not enabled:
+        return None
+    names = ", ".join(str(p.get("name") or "?") for p in enabled[:8])
+    if len(enabled) > 8:
+        names += ", " + _("+%(n)d more") % {"n": len(enabled) - 8}
+    return (
+        "[plugins] "
+        + _("%(n)d enabled: %(names)s")
+        % {"n": len(enabled), "names": names}
+    )
+
+
+def load_plugins_status_at_startup(
+    **kwargs: Any,
+) -> tuple[list[dict[str, Any]], str | None]:
+    """load_plugins_at_startup + format_enabled_plugins_status."""
+    plugins = load_plugins_at_startup(**kwargs)
+    return plugins, format_enabled_plugins_status(plugins)
+

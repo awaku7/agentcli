@@ -132,6 +132,11 @@ msgstr "[FATAL] uag_setup:n käynnistäminen epäonnistui: %(err)s"
 msgid "%(n)d enabled: %(names)s"
 msgstr "%(n)d käytössä: %(names)s"
 
+#: src/uagent/runtime/runtime_plugins.py
+#, python-format
+msgid "+%(n)d more"
+msgstr "+%(n)d lisää"
+
 #: src/uagent/cli_startup.py:229
 #, python-format
 msgid "provider = %(provider)s; model = %(model)s"
@@ -4747,6 +4752,26 @@ msgstr ""
 #, python-format
 msgid "[Project instructions from %(file)s]"
 msgstr "[Projektiohjeet lähteestä %(file)s]"
+
+#: src/uagent/runtime/runtime_instructions.py
+#: src/uagent/web.py
+#, python-format
+msgid "[INFO] Loading %(n)d project instruction file(s)."
+msgstr "[INFO] Ladataan %(n)d projektin ohjetiedostoa."
+
+#: src/uagent/runtime/runtime_instructions.py
+#: src/uagent/web.py
+msgid "[INFO] No project instruction files selected."
+msgstr "[INFO] Projektin ohjetiedostoja ei ole valittu."
+
+#: src/uagent/runtime/runtime_instructions.py
+msgid "[INFO] Instruction load cancelled; loading none."
+msgstr "[INFO] Ohjeiden lataus peruutettu; ei ladata yhtään."
+
+#: src/uagent/runtime/runtime_instructions.py
+#, python-format
+msgid "[WARN] Web instruction prompt failed (%(err)s); auto-loading all."
+msgstr "[WARN] Web-ohjekehote epäonnistui (%(err)s); ladataan kaikki automaattisesti."
 
 #: src/uagent/runtime/runtime_workdir.py:49
 #, python-format

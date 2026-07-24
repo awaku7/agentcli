@@ -129,6 +129,11 @@ msgstr "[FATAL] Imeshindwa kuzindua uag_setup: %(err)s"
 msgid "%(n)d enabled: %(names)s"
 msgstr "%(n)d imewashwa: %(names)s"
 
+#: src/uagent/runtime/runtime_plugins.py
+#, python-format
+msgid "+%(n)d more"
+msgstr "+%(n)d zaidi"
+
 #: src/uagent/cli_startup.py:229
 #, python-format
 msgid "provider = %(provider)s; model = %(model)s"
@@ -4461,6 +4466,26 @@ msgstr ""
 #: src/uagent/runtime/runtime_instructions.py:297
 msgid "[Project instructions from %(file)s]"
 msgstr "[Maagizo ya mradi kutoka %(file)s]"
+
+#: src/uagent/runtime/runtime_instructions.py
+#: src/uagent/web.py
+#, python-format
+msgid "[INFO] Loading %(n)d project instruction file(s)."
+msgstr "[INFO] Inapakia faili %(n)d za maagizo ya mradi."
+
+#: src/uagent/runtime/runtime_instructions.py
+#: src/uagent/web.py
+msgid "[INFO] No project instruction files selected."
+msgstr "[INFO] Hakuna faili za maagizo ya mradi zilizochaguliwa."
+
+#: src/uagent/runtime/runtime_instructions.py
+msgid "[INFO] Instruction load cancelled; loading none."
+msgstr "[INFO] Upakiaji wa maagizo umeghairiwa; hakuna kinachopakia."
+
+#: src/uagent/runtime/runtime_instructions.py
+#, python-format
+msgid "[WARN] Web instruction prompt failed (%(err)s); auto-loading all."
+msgstr "[WARN] Kidokezo cha maagizo ya wavuti kimeshindwa (%(err)s); inapakia zote kiotomatiki."
 
 #: src/uagent/runtime/runtime_workdir.py:49
 #, python-format

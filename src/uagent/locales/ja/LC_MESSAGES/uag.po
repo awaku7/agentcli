@@ -130,6 +130,11 @@ msgstr "[FATAL] uag_setup の起動に失敗しました: %(err)s"
 msgid "%(n)d enabled: %(names)s"
 msgstr "%(n)d 有効: %(names)s"
 
+#: src/uagent/runtime/runtime_plugins.py
+#, python-format
+msgid "+%(n)d more"
+msgstr "+ 他%(n)d件"
+
 #: src/uagent/cli_startup.py:229
 #, python-format
 msgid "provider = %(provider)s; model = %(model)s"
@@ -4496,6 +4501,26 @@ msgstr "どのファイルを読み込みますか？番号を入力（例: '1 2
 #, python-format
 msgid "[Project instructions from %(file)s]"
 msgstr "[プロジェクト指示ファイル: %(file)s]"
+
+#: src/uagent/runtime/runtime_instructions.py
+#: src/uagent/web.py
+#, python-format
+msgid "[INFO] Loading %(n)d project instruction file(s)."
+msgstr "[INFO] プロジェクト指示ファイルを %(n)d 件読み込みます。"
+
+#: src/uagent/runtime/runtime_instructions.py
+#: src/uagent/web.py
+msgid "[INFO] No project instruction files selected."
+msgstr "[INFO] プロジェクト指示ファイルは選択されませんでした。"
+
+#: src/uagent/runtime/runtime_instructions.py
+msgid "[INFO] Instruction load cancelled; loading none."
+msgstr "[INFO] 指示ファイルの読み込みをキャンセルしました。読み込みません。"
+
+#: src/uagent/runtime/runtime_instructions.py
+#, python-format
+msgid "[WARN] Web instruction prompt failed (%(err)s); auto-loading all."
+msgstr "[WARN] Web の指示プロンプトに失敗しました (%(err)s)。すべて自動読み込みします。"
 
 #: src/uagent/runtime/runtime_workdir.py:49
 #, python-format

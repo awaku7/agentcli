@@ -124,9 +124,14 @@ msgstr ""
 msgid "[FATAL] Failed to launch uag_setup: %(err)s"
 msgstr ""
 
-#: src/uagent/cli_startup.py:215
+#: src/uagent/runtime/runtime_plugins.py
 #, python-format
 msgid "%(n)d enabled: %(names)s"
+msgstr ""
+
+#: src/uagent/runtime/runtime_plugins.py
+#, python-format
+msgid "+%(n)d more"
 msgstr ""
 
 #: src/uagent/cli_startup.py:229
@@ -4305,6 +4310,26 @@ msgstr ""
 #: src/uagent/runtime/runtime_instructions.py:297
 #, python-format
 msgid "[Project instructions from %(file)s]"
+msgstr ""
+
+#: src/uagent/runtime/runtime_instructions.py
+#: src/uagent/web.py
+#, python-format
+msgid "[INFO] Loading %(n)d project instruction file(s)."
+msgstr ""
+
+#: src/uagent/runtime/runtime_instructions.py
+#: src/uagent/web.py
+msgid "[INFO] No project instruction files selected."
+msgstr ""
+
+#: src/uagent/runtime/runtime_instructions.py
+msgid "[INFO] Instruction load cancelled; loading none."
+msgstr ""
+
+#: src/uagent/runtime/runtime_instructions.py
+#, python-format
+msgid "[WARN] Web instruction prompt failed (%(err)s); auto-loading all."
 msgstr ""
 
 #: src/uagent/runtime/runtime_workdir.py:49
