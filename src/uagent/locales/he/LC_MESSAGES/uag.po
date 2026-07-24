@@ -4090,7 +4090,7 @@ msgstr "מתחיל במצב API בלבד (ללא ממשק קצה)."
 
 #: src/uagent/web.py:1859
 msgid "Starting server on"
-msgstr "מפעיל את השרת פועל"
+msgstr "מפעיל שרת בכתובת"
 
 #: src/uagent/web.py:1861
 msgid "External URL:"

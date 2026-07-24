@@ -4274,7 +4274,7 @@ msgstr "Începe în modul numai API (fără frontend)."
 
 #: src/uagent/web.py:1859
 msgid "Starting server on"
-msgstr "Pornirea serverului"
+msgstr "Pornire server pe"
 
 #: src/uagent/web.py:1861
 msgid "External URL:"

@@ -4208,7 +4208,7 @@ msgstr "শুধুমাত্র API মোডে শুরু হচ্ছ�
 
 #: src/uagent/web.py:1859
 msgid "Starting server on"
-msgstr "সার্ভার শুরু হচ্ছে"
+msgstr "সার্ভার চালু হচ্ছে:"
 
 #: src/uagent/web.py:1861
 msgid "External URL:"

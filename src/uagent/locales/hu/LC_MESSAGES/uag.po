@@ -4263,7 +4263,7 @@ msgstr "Csak API módban indul (nincs frontend)."
 
 #: src/uagent/web.py:1859
 msgid "Starting server on"
-msgstr "Szerver indítása bekapcsolva"
+msgstr "Szerver indítása itt:"
 
 #: src/uagent/web.py:1861
 msgid "External URL:"

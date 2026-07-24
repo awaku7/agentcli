@@ -4304,7 +4304,7 @@ msgstr "Έναρξη σε λειτουργία μόνο API (χωρίς διεπ
 
 #: src/uagent/web.py:1859
 msgid "Starting server on"
-msgstr "Εκκίνηση διακομιστή"
+msgstr "Εκκίνηση διακομιστή στη διεύθυνση"
 
 #: src/uagent/web.py:1861
 msgid "External URL:"
