@@ -7,9 +7,10 @@ from urllib.error import URLError
 from typing import Any, Optional
 
 try:
-    from openai import APIConnectionError, BadRequestError
+    from openai import APIConnectionError, APIResponseValidationError, BadRequestError
 except Exception:
     APIConnectionError = None
+    APIResponseValidationError = None
     BadRequestError = None
 
 from . import tools
@@ -394,9 +395,16 @@ def _call_openai_azure_round(
                 if isinstance(responses_state, dict):
                     # xAI (Grok) Responses API does not reliably support
                     # previous_response_id with tools; disable it.
-                    if provider == "grok":
+                    # OpenRouter Responses schema expects previous_response_id=null.
+                    if provider in ("grok", "openrouter"):
                         responses_state.pop("previous_response_id", None)
                     _prev_rid = responses_state.get("previous_response_id")
+                    # Empty / non-resp ids are invalid for continuation.
+                    if not (
+                        isinstance(_prev_rid, str)
+                        and _prev_rid.startswith("resp_")
+                    ):
+                        _prev_rid = None
                     # Once a stale error occurred, stop using previous_response_id.
                     if responses_state.get("_stale_rid_occurred"):
                         _prev_rid = None
@@ -567,9 +575,8 @@ def _call_openai_azure_round(
                                 None
                                 if bool(getattr(core, "_is_web", False))
                                 else (
-                                    lambda s: (
-                                        print(s, end="", flush=True) if s else None
-                                    )
+                                    getattr(core, "print_stream_delta", None)
+                                    or (lambda s: print(s, end="", flush=True) if s else None)
                                 )
                             ),
                             core=core,
@@ -840,9 +847,86 @@ def _call_openai_azure_round(
                 print(repr(e))
                 return False, client, "", "", []
 
-            if BadRequestError is not None and isinstance(e, BadRequestError):
-                err_text = str(e).lower()
-                if "does not support tools" in err_text:
+            def _err_text_of(exc: BaseException) -> str:
+                parts = [str(exc)]
+                body = getattr(exc, "body", None)
+                if body is not None:
+                    parts.append(str(body))
+                raw = getattr(exc, "response", None)
+                if raw is not None:
+                    try:
+                        parts.append(str(getattr(raw, "text", "") or ""))
+                    except Exception:
+                        pass
+                return "\n".join(parts).lower()
+
+            def _is_stale_previous_response_error(exc: BaseException) -> bool:
+                err_text = _err_text_of(exc)
+                markers = (
+                    "no tool call found",
+                    "no tool output found",
+                    "previous_response_id",
+                    "invalid_prompt",
+                    "expected null, received string",
+                )
+                return any(m in err_text for m in markers)
+
+            def _retry_without_previous_response_id(exc: BaseException) -> bool:
+                """One-shot full-history retry after a bad previous_response_id."""
+                nonlocal _stale_rid_retried
+                if _stale_rid_retried:
+                    print(
+                        "[Azure/OpenAI Error] "
+                        + _(
+                            "The Responses API rejected the full-history "
+                            "retry; starting a new session is required."
+                        )
+                    )
+                    try:
+                        from .core import clear_responses_continuation
+
+                        clear_responses_continuation()
+                    except Exception:
+                        if isinstance(responses_state, dict):
+                            responses_state.pop("previous_response_id", None)
+                            responses_state["_stale_rid_occurred"] = True
+                    return False
+                _stale_rid_retried = True
+                if isinstance(responses_state, dict):
+                    responses_state.pop("previous_response_id", None)
+                    responses_state["_stale_rid_occurred"] = True
+                    from .core import _save_responses_state
+
+                    _save_responses_state()
+                _used_rid = bool(_prev_rid) if "_prev_rid" in locals() else True
+                if _used_rid:
+                    print(
+                        "[Azure/OpenAI Error] "
+                        + _(
+                            "Stale previous_response_id. "
+                            "Retrying with full history..."
+                        )
+                    )
+                else:
+                    print(
+                        "[Azure/OpenAI Error] "
+                        + _(
+                            "Responses tool chain rejected. "
+                            "Retrying with sanitized full history..."
+                        )
+                    )
+                return True
+
+            _is_bad_request = BadRequestError is not None and isinstance(
+                e, BadRequestError
+            )
+            _is_resp_validation = (
+                APIResponseValidationError is not None
+                and isinstance(e, APIResponseValidationError)
+            )
+            if _is_bad_request or _is_resp_validation:
+                err_text = _err_text_of(e)
+                if _is_bad_request and "does not support tools" in err_text:
                     print(
                         "[Azure/OpenAI Error] "
                         + _(
@@ -855,7 +939,7 @@ def _call_openai_azure_round(
                     _core_module.tools_enabled = False
                     send_tools_this_round = False
                     continue
-                if "does not support thinking" in err_text:
+                if _is_bad_request and "does not support thinking" in err_text:
                     print(
                         "[Azure/OpenAI Error] "
                         + _(
@@ -867,67 +951,19 @@ def _call_openai_azure_round(
                     resp_kwargs.pop("reasoning", None)
                     continue
                 # A Responses continuation can fail when the stored
-                # previous_response_id refers to a tool call whose output was
-                # not accepted/stored by the service. Azure/OpenAI uses both
-                # "no tool call found" and "no tool output found" for this
-                # stale/incomplete continuation state. Treat both as stale
-                # and retry with the locally retained full history.
-                if (
-                    "no tool call found" in err_text
-                    or "no tool output found" in err_text
-                ):
-                    # The retry below must be a one-shot fallback. If the
-                    # provider rejects the reconstructed history too,
-                    # continuing here creates a tight loop that repeats the
-                    # same stale previous_response_id message forever.
-                    if _stale_rid_retried:
-                        print(
-                            "[Azure/OpenAI Error] "
-                            + _(
-                                "The Responses API rejected the full-history "
-                                "retry; starting a new session is required."
-                            )
-                        )
-                        # Ensure later turns do not keep a broken continuation.
-                        try:
-                            from .core import clear_responses_continuation
-
-                            clear_responses_continuation()
-                        except Exception:
-                            if isinstance(responses_state, dict):
-                                responses_state.pop("previous_response_id", None)
-                                responses_state["_stale_rid_occurred"] = True
-                        return False, client, "", "", []
-                    _stale_rid_retried = True
-                    # Drop rid immediately and force full-history rebuild.
-                    if isinstance(responses_state, dict):
-                        responses_state.pop("previous_response_id", None)
-                        responses_state["_stale_rid_occurred"] = True
-                        from .core import _save_responses_state
-
-                        _save_responses_state()
-                    _used_rid = bool(_prev_rid) if "_prev_rid" in locals() else True
-                    if _used_rid:
-                        print(
-                            "[Azure/OpenAI Error] "
-                            + _(
-                                "Stale previous_response_id. "
-                                "Retrying with full history..."
-                            )
-                        )
-                    else:
-                        print(
-                            "[Azure/OpenAI Error] "
-                            + _(
-                                "Responses tool chain rejected. "
-                                "Retrying with sanitized full history..."
-                            )
-                        )
-                    continue
+                # previous_response_id is stale, incomplete, or unsupported
+                # (e.g. OpenRouter expects null and may return invalid_prompt
+                # with a non-integer error.code that surfaces as
+                # APIResponseValidationError).
+                if _is_stale_previous_response_error(e):
+                    if _retry_without_previous_response_id(e):
+                        continue
+                    return False, client, "", "", []
                 print("[Azure/OpenAI Error] " + _("400 BadRequest"))
                 print(
                     "[Azure/OpenAI Error] "
-                    + _("Error code: %(code)d - %(err)s") % {"code": 400, "err": e}
+                    + _("Error code: %(code)s - %(err)s")
+                    % {"code": getattr(e, "status_code", 400) or 400, "err": e}
                 )
                 return False, client, "", "", []
             if APIConnectionError is not None and isinstance(e, APIConnectionError):
@@ -1076,7 +1112,7 @@ def _call_openai_azure_round(
                     _rc,
                     provider=provider.capitalize(),
                     is_first=True,
-                    print_fn=lambda s: print(s, end="", flush=True),
+                    print_fn=getattr(core, "print_stream_delta", None) or (lambda s: print(s, end="", flush=True)),
                     core=core,
                 )
 

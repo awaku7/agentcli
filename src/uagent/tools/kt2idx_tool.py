@@ -52,19 +52,30 @@ TOOL_SPEC = {
 
 _MOD = r"(?:(?:public|private|protected|internal|open|final|abstract|sealed|data|inner|inline|suspend|operator|infix|tailrec|external|override|lateinit|noinline|crossinline|const|actual|expect)\s+)*"
 
+
+def _kt_fun_extract(m: re.Match) -> tuple:
+    """Return (kind, name[, receiver]) for Kotlin fun declarations."""
+    receiver = (m.group(1) or "").strip()
+    name = m.group(2)
+    if receiver:
+        receiver = re.sub(r"\s+", "", receiver)
+        return ("extension", name, receiver)
+    return ("func", name)
+
+
 _PATTERNS = [
     (r"^\s*(?:import|package)\s+", lambda m: None),
     (
         r"^\s*"
         + _MOD
-        + r"(?:class|interface|object|enum class|annotation class|data class|sealed class|sealed interface)\s+(\w+(?:<[^>]*>)?)",
-        lambda m: ("type", m.group(1)),
+        + r"(class|interface|object|enum\s+class|annotation\s+class|data\s+class|sealed\s+class|sealed\s+interface)\s+(\w+(?:<[^>]*>)?)",
+        lambda m: ("type", m.group(2), re.sub(r"\s+", " ", m.group(1).strip())),
     ),
     (
         r"^\s*"
         + _MOD
-        + r"fun\s*(?:<[^>\n]*>\s*)?(?:(\w+(?:\s*<[^>\n]*>)?(?:\?)?(?:\s*\.\s*\w+(?:\s*<[^>\n]*>)?)*)\s*\.\s*)?(\w+)\s*\([^)]*\)\s*(?::\s*(?:\w+(?:<[^>]*>)?(?:\?)?(?:\s*\.\s*\w+(?:<[^>]*>)?)*)\s*)?(?:\{|$|=)",
-        lambda m: ("func", m.group(2)),
+        + r"fun\s*(?:<[^>\n]*>\s*)?(?:((?:[\w.]+)(?:\s*<[^>\n]*>)?(?:\?)?(?:\s*\.\s*(?:[\w.]+)(?:\s*<[^>\n]*>)?(?:\?)?)*)\s*\.\s*)?(\w+)\s*\(",
+        _kt_fun_extract,
     ),
     (
         r"^\s*" + _MOD + r"(?:val|var)\s+(\w+)\s*(?::|=)",
@@ -72,8 +83,8 @@ _PATTERNS = [
     ),
     (r"^\s*" + _MOD + r"init\s*(?:\{|$)", lambda m: ("init", "init")),
     (
-        r"^\s*" + _MOD + r"companion\s+object\s*(?:\{|\w)",
-        lambda m: ("companion", "companion"),
+        r"^\s*" + _MOD + r"companion\s+object(?:\s+(\w+))?\s*(?:\{|$|:)",
+        lambda m: ("companion", m.group(1) or "companion"),
     ),
     (r"^\s*(?:enum\s+)?(\w+)\s*(?:\(|,)", lambda m: ("enum_entry", m.group(1))),
 ]
@@ -87,6 +98,41 @@ class _KtIndexBuilder:
         self.entries = []
         self.diag: list[str] = []
         self._parse()
+
+
+    def _preprocess(self):
+        """Join multi-line signatures ending with ',' or '('."""
+        result = []
+        i = 0
+        while i < len(self.lines):
+            raw = self.lines[i]
+            stripped = raw.strip()
+            if stripped.startswith("@"):
+                i += 1
+                continue
+            ends = stripped.rstrip()
+            if (ends.endswith(",") or ends.endswith("(")) and i + 1 < len(self.lines):
+                joined = raw.rstrip(chr(10)).rstrip()
+                orig = i
+                i += 1
+                while i < len(self.lines):
+                    ns = self.lines[i].strip()
+                    if not ns or self.lines[i].startswith((" ", chr(9))):
+                        if ns.startswith("@"):
+                            i += 1
+                            continue
+                        joined += " " + ns
+                        if not ns.endswith(","):
+                            i += 1
+                            break
+                    else:
+                        break
+                    i += 1
+                result.append((orig, joined))
+            else:
+                result.append((i, raw))
+                i += 1
+        return result
 
     def _clean_line(self, line):
         in_str = False
@@ -162,19 +208,24 @@ class _KtIndexBuilder:
         stack = []
         stack_d = []
         depth = 0
-        for i, raw in enumerate(self.lines):
+        preprocessed = self._preprocess()
+        for orig_idx, raw in preprocessed:
+            i = orig_idx
             bd = self._brace_depth(raw)
             od = depth
             depth += bd
             defs = self._detect(raw)
-            for k, n in defs:
+            for d in defs:
+                k, n = d[0], d[1]
+                extra = d[2] if len(d) > 2 else ""
                 if k == "type":
+                    tkind = extra or "class"
                     e = {
                         "kind": "type",
                         "name": n,
                         "line": i + 1,
                         "end_line": i + 1,
-                        "label": n,
+                        "label": f"{tkind} {n}",
                         "members": [],
                     }
                     entries.append(e)
@@ -185,34 +236,35 @@ class _KtIndexBuilder:
                         stack[-1].setdefault("members", []).append(
                             {
                                 "kind": "companion",
-                                "name": "companion",
-                                "line": i + 1,
-                                "end_line": i + 1,
-                                "label": "companion",
-                            }
-                        )
-                elif k in ("func", "init"):
-                    if stack:
-                        lbl = f"{n}()" if k == "func" else n
-                        stack[-1].setdefault("members", []).append(
-                            {
-                                "kind": k,
                                 "name": n,
                                 "line": i + 1,
                                 "end_line": i + 1,
-                                "label": lbl,
+                                "label": f"companion object {n}" if n != "companion" else "companion object",
                             }
                         )
+                elif k in ("func", "init", "extension"):
+                    if k == "extension":
+                        lbl = f"fun {extra}.{n}()"
+                        kind = "extension"
+                    elif k == "func":
+                        lbl = f"fun {n}()"
+                        kind = "func"
                     else:
-                        entries.append(
-                            {
-                                "kind": "func",
-                                "name": n,
-                                "line": i + 1,
-                                "end_line": i + 1,
-                                "label": f"{n}()",
-                            }
-                        )
+                        lbl = n
+                        kind = k
+                    item = {
+                        "kind": kind,
+                        "name": n,
+                        "line": i + 1,
+                        "end_line": i + 1,
+                        "label": lbl,
+                    }
+                    if k == "extension":
+                        item["receiver"] = extra
+                    if stack:
+                        stack[-1].setdefault("members", []).append(item)
+                    else:
+                        entries.append(item)
                 elif k in ("property",):
                     if stack:
                         stack[-1].setdefault("members", []).append(
@@ -310,9 +362,12 @@ class _KtIndexBuilder:
         if n < 1 or n > len(flat):
             return None
         e = flat[n - 1]
-        return "\n".join(
-            self.lines[e["line"] : e.get("end_line", e["line"]) + 1]
-        ).rstrip("\n")
+        # entry line/end_line are 1-based inclusive; self.lines is 0-based.
+        start = max(0, e["line"] - 1)
+        end = e.get("end_line", e["line"])
+        if end > len(self.lines):
+            end = len(self.lines)
+        return "\n".join(self.lines[start:end]).rstrip("\n")
 
     def section_count(self):
         return sum(1 + len(e.get("members", [])) for e in self.entries)

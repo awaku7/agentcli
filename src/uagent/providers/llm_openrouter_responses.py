@@ -101,6 +101,13 @@ def apply_openrouter_responses_compat(
     except Exception:
         pass
 
+    # OpenRouter Responses rejects previous_response_id (expects null).
+    # Continuity is handled via full local history + stringified input.
+    try:
+        resp_kwargs.pop("previous_response_id", None)
+    except Exception:
+        pass
+
     # OpenRouter rejects OpenAI-style Responses input (array-of-messages/content-items).
     # Convert to a plain string prompt.
     try:

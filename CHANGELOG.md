@@ -1,5 +1,41 @@
 # Changelog
 
+## [0.5.54] - 2026-07-24
+
+### Added
+- IBM i source index tools (genre=`index`, mode=`index`|`section`):
+  - `cl2idx` — CL/CLP/CLLE (`.cl`/`.clp`/`.clle`): continuation join, multi-line comments, SEU sequence strip, IF/DO/SELECT↔END stack `end_line`, DCL labels, common commands (RTVJOBA/CHKOBJ/SNDRCVF, etc.).
+  - `dds2idx` — DDS PF/LF/DSPF/PRTF (`.pf`/`.lf`/`.dspf`/`.prtf`/`.dds`): fixed-column SEU multi-layout scoring, DSPF const/SFLCTL/INDARA, TEXT/COLHDG field labels, file-type score, **REF/REFFLD workdir-local follow** (type annotation on `R` fields), **DSPF indicator/attr decode** (conditioning indicators, DSPATR/COLOR/CF args, packed constants).
+  - `rpg2idx` — RPG/RPGLE/SQLRPGLE (`.rpg`/`.rpgle`/`.sqlrpgle`): free-form (`**free`/`**end-free`, ctl-opt, dcl-*, begsr/endsr, /copy|/include, `...` continuation) and fixed-form F/D/P/C/H/I/O-spec (BEGSR case preserved, SEU strip).
+- Regression tests: `tests/test_cl2idx_tool.py`, `tests/test_dds2idx_tool.py`, `tests/test_rpg2idx_tool.py`.
+- Review-plan gap regression tests for `go2idx`, `kt2idx`, `cs2idx`, `swift2idx`, `jv2idx`.
+- Review-plan regression tests for `md2idx`, `dart2idx`, `php2idx`, `rs2idx`, `ts2idx`.
+- Regression tests: `tests/test_py2idx_tool.py`, `tests/test_cpp2idx_tool.py` (full *2idx suite now 16 tools).
+
+### Changed
+- `dds2idx`: REF/REFFLD simple follow within workdir — resolve `REF(file)`/`REF(lib/file)`, annotate `R`/`REFFLD` fields with source types (`CUSTID R 10A <= CUSTPF.CUSTID`), mark unresolved targets.
+- `go2idx`: method receiver labels, generic func/type, struct|interface labels, type aliases.
+- `kt2idx`: extension fun, data/sealed labels, companion name, multi-line preprocess.
+- `cs2idx`: file-scoped namespace; brace-stack member attach / pop order fix.
+- `swift2idx`: actor/protocol/extension labels; async/throws in modifiers.
+- `jv2idx`: annotation/record labels; multi-line text-block state across lines.
+- `ts2idx`: class_stack/brace pop order (cs pattern); remove unused `matched` (F841).
+- `dart2idx`: `extension Name on Type` pattern order.
+- `php2idx`: `_parse` uses `_preprocess()` (attributes + multi-line join).
+- `cpp2idx`: brace-stack aligned with `cs2idx` (pop finished same-level scopes before push; `inside_function` suppresses nested heuristics) so same-line `struct`/`class` no longer swallows following free functions as members.
+- Tool JSON i18n: full non-en locales for `cl2idx`/`dds2idx`/`rpg2idx` (33 langs; `x_search_terms_en` kept English).
+
+### Fixed
+- `dds2idx`: DSPF indicator/attribute decode — conditioning indicators, `DSPATR`/`COLOR`/`CFnn` args on fields, packed constant lines (`5  2'Name'` → layout; no longer misread form-type `A` as field name).
+- `*2idx` `mode=section` off-by-one: 1-based `entry["line"]` was used as 0-based slice start, so single-line defs returned empty string. Corrected `_source_lines` / `get_section` in dart/rs/ts/cpp/cs/jv/go/kt/swift (others already converted or correct).
+- Responses API `previous_response_id` / OpenRouter: do not send `previous_response_id` on OpenRouter (compat strip + provider gate, same as Grok). On stale/invalid rid or `invalid_prompt` / `APIResponseValidationError` (string `error.code`), clear rid, set `_stale_rid_occurred`, and retry once with full local history. Tests: `test_previous_response_id_compat.py`, `test_openrouter_round_helpers.py`.
+
+### Notes
+- IBM i *2idx (`cl2idx` / `dds2idx` / `rpg2idx`) implementation track complete; no open implementation work.
+- Residual **out of scope** (documented in `SPEC_CL2IDX_DDS2IDX.md` §5.9/§10 and DEVELOP): EBCDIC; `ibmi2idx` dispatcher (do not add); `dds2idx` multi-lib/full object resolve, full DSPATR bit-combo semantics, PRTF rendering, ICF/binary; `rpg2idx` full fixed-column dialect variants, deep embedded-SQL semantics, `/IF` expression evaluation.
+- `rpg2idx`: embedded SQL, `/IF` conditional compile, and common fixed-column paths are implemented (index-level only for SQL//IF).
+- `dds2idx`: REF/REFFLD follow (same workdir, depth 1) and DSPF indicator/attr/const decode are implemented.
+
 ## [0.5.53] - 2026-07-20
 
 ### Added

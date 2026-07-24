@@ -15,3 +15,8 @@
 
 ## 回帰テスト
 extension function、generic receiver、data/sealed class、companion、property、suspend/operator、複数行宣言、BOM/CRLFを検証する。
+
+## 実装ステータス
+
+- 第1版ギャップ対応済み（kt2idx）
+- 回帰テスト: `tests/test_kt2idx_tool.py`

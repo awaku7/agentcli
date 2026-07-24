@@ -15,3 +15,8 @@
 
 ## 回帰テスト
 actor、protocol extension、generic type、async method、subscript、property、enum case、複数行宣言、BOM/CRLFを検証する。
+
+## 実装ステータス
+
+- 第1版ギャップ対応済み（swift2idx）
+- 回帰テスト: `tests/test_swift2idx_tool.py`

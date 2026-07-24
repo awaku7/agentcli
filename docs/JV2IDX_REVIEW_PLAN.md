@@ -15,3 +15,8 @@
 
 ## 回帰テスト
 record、annotation、generic method、constructor、enum constant、nested class、複数行宣言、BOM/CRLF、section取得を検証する。
+
+## 実装ステータス
+
+- 第1版ギャップ対応済み（jv2idx）
+- 回帰テスト: `tests/test_jv2idx_tool.py`

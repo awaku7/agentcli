@@ -84,6 +84,20 @@ except ImportError:
 
 ANSI_ESCAPE = re.compile(r"\x1B(?:[@-Z\\-_]|\[[0-?]*[ -/]*[@-~])")
 
+# Drop whole-line and mid-line [STATE] markers (status is sent via type=status).
+_STATE_TOKEN_RE = re.compile(r"\[STATE\]\s+\w+(?:\s+\[[^\]]*\])?")
+
+
+def _strip_state_markers(text: str) -> str:
+    """Remove [STATE] ... tokens from log text; return empty if only status noise."""
+    if not text or "[STATE]" not in text:
+        return text
+    cleaned = _STATE_TOKEN_RE.sub("", text)
+    # If the line was only status (plus whitespace), drop it entirely.
+    if not cleaned.strip():
+        return ""
+    return cleaned
+
 
 def _load_input_history() -> list[str]:
     """Load input history from shared CLI history file."""
@@ -575,6 +589,11 @@ class WebStdout:
                 # Suppress CLI-only multiline input mode guidance in Web UI
                 if "multiline" in (clean_line or "").lower():
                     continue
+                # Status is delivered via type=status; drop [STATE] log noise
+                # (including mid-line injections mixed into assistant/tool text).
+                clean_line = _strip_state_markers(clean_line or "")
+                if not clean_line.strip():
+                    continue
 
                 room = getattr(_thread_ctx, "room", None)
                 if clean_line.strip() and room and room.loop:
@@ -599,7 +618,10 @@ class WebStdout:
                     for ln in clean_line.splitlines():
                         if "multiline" in (ln or "").lower():
                             continue
-                        filtered_lines.append(ln)
+                        ln2 = _strip_state_markers(ln or "")
+                        if not ln2.strip():
+                            continue
+                        filtered_lines.append(ln2)
                     clean_line = "\n".join(filtered_lines)
                 except Exception:
                     pass
@@ -637,6 +659,9 @@ class WebStderr(WebStdout):
                 clean_line = ANSI_ESCAPE.sub("", line)
                 content_html = wrap_pre(ansi_to_html(line))
                 if "multiline" in (clean_line or "").lower():
+                    continue
+                clean_line = _strip_state_markers(clean_line or "")
+                if not clean_line.strip():
                     continue
 
                 room = getattr(_thread_ctx, "room", None)

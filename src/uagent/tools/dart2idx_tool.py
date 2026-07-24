@@ -92,17 +92,36 @@ _MEMBER_MOD = r"(?:(?:abstract|base|sealed|final|interface|covariant|const|exter
 _PATTERNS = [
     # library / part
     (r"^\s*(?:library|part\s+of)\s+(\w+(?:\.\w+)*)", lambda m: ("lib", m.group(1))),
-    # class / mixin / enum / extension (not on Type) / typedef
+    # extension on Type MUST come before generic type pattern
+    # (named extension X on T, or anonymous extension on T)
+    (
+        r"^\s*extension\s+(?:(\w+)\s+)?on\s+([\w.<>,\s]+?)\s*[{;]",
+        lambda m: (
+            "extension",
+            (
+                f"{m.group(1)} on {m.group(2).strip()}"
+                if m.group(1)
+                else f"on {m.group(2).strip()}"
+            ),
+        ),
+    ),
+    (
+        r"^\s*extension\s+(?:(\w+)\s+)?on\s+([\w.<>,\s]+)$",
+        lambda m: (
+            "extension",
+            (
+                f"{m.group(1)} on {m.group(2).strip()}"
+                if m.group(1)
+                else f"on {m.group(2).strip()}"
+            ),
+        ),
+    ),
+    # class / mixin / enum / typedef (extension handled above)
     (
         r"^\s*"
         + _TYPE_MOD
-        + r"(?:class|mixin|enum|extension(?!\s+on\b)|typedef)\s+(\w+)",
+        + r"(?:class|mixin|enum|typedef)\s+(\w+)",
         lambda m: ("type", m.group(1)),
-    ),
-    # extension on Type
-    (
-        r"^\s*extension\s+(?:(\w+)\s+)?on\s+(\w+)",
-        lambda m: ("extension", m.group(1) or f"on_{m.group(2)}"),
     ),
     # top-level function: ReturnType name(...) { or =>
     (
@@ -297,13 +316,19 @@ class _DartIndexBuilder:
             defs = self._detect_definitions(joined_line)
             for kind, name in defs:
                 if kind in ("type", "extension", "lib"):
+                    if kind == "extension":
+                        label = f"extension {name}"
+                    elif kind == "lib":
+                        label = f"lib {name}"
+                    else:
+                        label = f"type {name}"
                     entry = {
                         "kind": kind,
                         "name": name,
                         "line": orig_idx + 1,
                         "end_line": orig_idx + 1,
                         "level": len(stack),
-                        "label": f"{kind} {name}",
+                        "label": label,
                         "members": [],
                     }
                     entries.append(entry)
@@ -405,8 +430,9 @@ class _DartIndexBuilder:
         return "\n".join(lines_out)
 
     def _source_lines(self, entry: dict) -> str:
-        start = entry["line"]
-        end = entry.get("end_line", entry["line"]) + 1
+        # entry line/end_line are 1-based inclusive; self.lines is 0-based.
+        start = max(0, entry["line"] - 1)
+        end = entry.get("end_line", entry["line"])
         if end > len(self.lines):
             end = len(self.lines)
         code_lines = self.lines[start:end]

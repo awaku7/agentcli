@@ -21,3 +21,8 @@
 
 ## 回帰テスト
 UTF-8 BOM、CP932、CRLF、属性付きrecord、generic class、async/operator、コメント・文字列内の偽定義、section取得、範囲外sectionを検証する。
+
+## 実装ステータス
+
+- 第1版ギャップ対応済み（cs2idx）
+- 回帰テスト: `tests/test_cs2idx_tool.py`

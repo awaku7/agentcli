@@ -56,22 +56,44 @@ TOOL_SPEC = {
     },
 }
 
+def _go_func_extract(m: re.Match) -> tuple:
+    """Extract func/method with optional receiver and generic type params."""
+    recv = (m.group(1) or "").strip()
+    name = m.group(2)
+    if recv:
+        # receiver: "r *Type" / "t Type[T]" / "*Type"
+        parts = recv.split()
+        rtype = parts[-1].lstrip("*").strip() if parts else ""
+        # drop package qualifier noise
+        rtype = rtype.split(".")[-1]
+        # strip type params from receiver type for matching
+        rtype_base = re.sub(r"\[.*", "", rtype)
+        return ("method", name, rtype_base, recv)
+    return ("func", name, "", "")
+
+
 _PATTERNS = [
     (r"^\s*package\s+(\w+)", lambda m: ("package", m.group(1))),
     (
-        r"^\s*type\s+(\w+)(?:\[[^]]*\])?\s+(?:struct|interface)\b",
-        lambda m: ("type", m.group(1)),
+        r"^\s*type\s+(\w+)(?:\[[^\]]*\])?\s+(struct|interface)\b",
+        lambda m: ("type", m.group(1), m.group(2)),
     ),
-    (r"^\s*type\s+(\w+)(?:\[[^]]*\])?\s*=", lambda m: ("type_alias", m.group(1))),
+    # type alias: type Name = Other  /  type Name[T any] = Other
+    (
+        r"^\s*type\s+(\w+)(?:\[[^\]]*\])?\s*=",
+        lambda m: ("type_alias", m.group(1)),
+    ),
+    # defined type (not struct/interface): type MyInt int
+    (
+        r"^\s*type\s+(\w+)(?:\[[^\]]*\])?\s+[A-Za-z_\*\[\(]",
+        lambda m: ("type_alias", m.group(1)),
+    ),
     (r"^\s*const\s+(\w+)", lambda m: ("const", m.group(1))),
     (r"^\s*var\s+(\w+)", lambda m: ("var", m.group(1))),
+    # func with optional receiver and optional generic type params on func name
     (
-        r"^\s*func\s+(?:\(([^)]*)\)\s+)?(\w+)\s*\([^)]*\)\s*(?:\(?[^)]*\)?\s*\{)?",
-        lambda m: (
-            "method" if m.group(1) else "func",
-            m.group(2),
-            m.group(1).strip().split()[-1].lstrip("*").strip() if m.group(1) else "",
-        ),
+        r"^\s*func\s+(?:\(([^)]*)\)\s+)?(\w+)(?:\[[^\]]*\])?\s*\(",
+        _go_func_extract,
     ),
     (
         r"^\s+(\w+)\s+(?:int|string|float|bool|byte|rune|\w+(?:\.\w+)*|\[\]|map|chan|func|interface|struct)\b",
@@ -201,25 +223,27 @@ class _GoIndexBuilder:
             for d in defs:
                 k, n = d[0], d[1]
                 rtype = d[2] if len(d) > 2 else ""
+                recv_raw = d[3] if len(d) > 3 else ""
                 if k in ("package",):
                     e = {
                         "kind": k,
                         "name": n,
                         "line": orig_idx + 1,
                         "end_line": orig_idx + 1,
-                        "label": n,
+                        "label": f"package {n}",
                         "members": [],
                     }
                     entries.append(e)
                     stack.append(e)
                     stack_dep.append(od)
                 elif k in ("type",):
+                    tkind = d[2] if len(d) > 2 else "struct"
                     e = {
                         "kind": "type",
                         "name": n,
                         "line": orig_idx + 1,
                         "end_line": orig_idx + 1,
-                        "label": f"type {n}",
+                        "label": f"type {n} {tkind}",
                         "members": [],
                     }
                     entries.append(e)
@@ -233,11 +257,15 @@ class _GoIndexBuilder:
                             "name": n,
                             "line": orig_idx + 1,
                             "end_line": orig_idx + 1,
-                            "label": f"{n}()",
+                            "label": f"func {n}()",
                         }
                     )
                 elif k in ("method",):
                     func_depths.append(od)
+                    # rtype is receiver base type; recv_raw is full receiver text
+                    method_label = (
+                        f"func ({recv_raw}) {n}()" if recv_raw else f"func {n}()"
+                    )
                     if rtype:
                         target = None
                         for s in reversed(stack):
@@ -256,7 +284,8 @@ class _GoIndexBuilder:
                                     "name": n,
                                     "line": orig_idx + 1,
                                     "end_line": orig_idx + 1,
-                                    "label": f"{n}()",
+                                    "label": method_label,
+                                    "receiver": rtype,
                                 }
                             )
                             continue
@@ -267,7 +296,8 @@ class _GoIndexBuilder:
                                 "name": n,
                                 "line": orig_idx + 1,
                                 "end_line": orig_idx + 1,
-                                "label": f"{n}()",
+                                "label": method_label,
+                                "receiver": rtype,
                             }
                         )
                     else:
@@ -277,17 +307,23 @@ class _GoIndexBuilder:
                                 "name": n,
                                 "line": orig_idx + 1,
                                 "end_line": orig_idx + 1,
-                                "label": f"{n}()",
+                                "label": method_label,
+                                "receiver": rtype,
                             }
                         )
                 elif k in ("const", "var", "type_alias"):
+                    prefix = {
+                        "const": "const ",
+                        "var": "var ",
+                        "type_alias": "type ",
+                    }.get(k, "")
                     entries.append(
                         {
                             "kind": k,
                             "name": n,
                             "line": orig_idx + 1,
                             "end_line": orig_idx + 1,
-                            "label": n,
+                            "label": f"{prefix}{n}",
                         }
                     )
                 elif k == "field" and stack and not func_depths:
@@ -374,9 +410,12 @@ class _GoIndexBuilder:
         if n < 1 or n > len(flat):
             return None
         e = flat[n - 1]
-        return "\n".join(
-            self.lines[e["line"] : e.get("end_line", e["line"]) + 1]
-        ).rstrip("\n")
+        # entry line/end_line are 1-based inclusive; self.lines is 0-based.
+        start = max(0, e["line"] - 1)
+        end = e.get("end_line", e["line"])
+        if end > len(self.lines):
+            end = len(self.lines)
+        return "\n".join(self.lines[start:end]).rstrip("\n")
 
     def section_count(self):
         return sum(1 + len(e.get("members", [])) for e in self.entries)

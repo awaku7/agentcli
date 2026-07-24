@@ -31,12 +31,85 @@ URL_FETCH_MAX_BYTES = 50_000_000
 # On Windows default is often cp932; otherwise use UTF-8.
 CMD_ENCODING = env_get("UAGENT_CMD_ENCODING") or "utf-8"
 
-# Enable escape sequences on Windows console if possible.
-if os.name == "nt":
+# Enable ANSI/VT escape sequences on Windows console if possible.
+# os.system("") alone is unreliable (especially after long sessions or when
+# stdout/stderr handles are redirected/reopened). Prefer SetConsoleMode.
+def _enable_windows_vt_mode() -> bool:
+    """Enable VT processing on stdout/stderr. Return True if stderr supports it."""
+    if os.name != "nt":
+        return True
+    stderr_ok = False
+    try:
+        import ctypes
+        from ctypes import wintypes
+
+        kernel32 = ctypes.windll.kernel32
+        kernel32.GetStdHandle.argtypes = [wintypes.DWORD]
+        kernel32.GetStdHandle.restype = wintypes.HANDLE
+        kernel32.GetConsoleMode.argtypes = [wintypes.HANDLE, ctypes.POINTER(wintypes.DWORD)]
+        kernel32.GetConsoleMode.restype = wintypes.BOOL
+        kernel32.SetConsoleMode.argtypes = [wintypes.HANDLE, wintypes.DWORD]
+        kernel32.SetConsoleMode.restype = wintypes.BOOL
+
+        ENABLE_VIRTUAL_TERMINAL_PROCESSING = 0x0004
+        DISABLE_NEWLINE_AUTO_RETURN = 0x0008
+        INVALID_HANDLE_VALUE = wintypes.HANDLE(-1).value
+        # STD_OUTPUT_HANDLE = -11, STD_ERROR_HANDLE = -12
+        for std_id in (wintypes.DWORD(-11).value, wintypes.DWORD(-12).value):
+            handle = kernel32.GetStdHandle(std_id)
+            if not handle or handle == INVALID_HANDLE_VALUE:
+                continue
+            mode = wintypes.DWORD()
+            if not kernel32.GetConsoleMode(handle, ctypes.byref(mode)):
+                continue
+            new_mode = (
+                int(mode.value)
+                | ENABLE_VIRTUAL_TERMINAL_PROCESSING
+                | DISABLE_NEWLINE_AUTO_RETURN
+            )
+            if new_mode != int(mode.value):
+                if not kernel32.SetConsoleMode(handle, new_mode):
+                    continue
+            # Confirm VT bit is actually set.
+            mode2 = wintypes.DWORD()
+            if not kernel32.GetConsoleMode(handle, ctypes.byref(mode2)):
+                continue
+            if int(mode2.value) & ENABLE_VIRTUAL_TERMINAL_PROCESSING:
+                if std_id == wintypes.DWORD(-12).value:
+                    stderr_ok = True
+                # stdout success is nice-to-have; status uses stderr.
+        if stderr_ok:
+            return True
+    except Exception:
+        pass
+
+    # Fallback: legacy trick that sometimes enables VT on older hosts.
+    # Only treat as success when stderr VT bit is actually set afterwards.
+    # Returning True without verification leaks raw ESC as "?[32m...?[0m".
     try:
         os.system("")
     except Exception:
-        pass
+        return False
+
+    try:
+        import ctypes
+        from ctypes import wintypes
+
+        kernel32 = ctypes.windll.kernel32
+        ENABLE_VIRTUAL_TERMINAL_PROCESSING = 0x0004
+        INVALID_HANDLE_VALUE = wintypes.HANDLE(-1).value
+        handle = kernel32.GetStdHandle(wintypes.DWORD(-12).value)  # STD_ERROR_HANDLE
+        if not handle or handle == INVALID_HANDLE_VALUE:
+            return False
+        mode = wintypes.DWORD()
+        if not kernel32.GetConsoleMode(handle, ctypes.byref(mode)):
+            return False
+        return bool(int(mode.value) & ENABLE_VIRTUAL_TERMINAL_PROCESSING)
+    except Exception:
+        return False
+
+
+_enable_windows_vt_mode()
 
 # --- Encoding workaround ---
 #
@@ -157,6 +230,9 @@ human_ask_multiline_active = False
 status_lock = threading.RLock()
 # Shared lock to reduce output races (stdin prompt vs status/log output).
 print_lock = threading.RLock()
+# True while a streaming delta is being written without a trailing newline.
+# Status lines wait for the next newline boundary to avoid mid-line injection.
+_stream_line_open = False
 status_busy = False  # True while LLM/tools are processing
 status_label = ""  # e.g. "LLM" or "tool:cmd_exec"
 
@@ -291,23 +367,141 @@ def stop_interrupt_monitor() -> None:
     _interrupt_monitor_thread = None
 
 
+def print_stream_delta(s: str) -> None:
+    """Print a streaming text delta without letting status lines split mid-line.
+
+    Uses print_lock and tracks whether the current stdout line is still open
+    (no trailing newline yet). print_status_line() closes an open line before
+    emitting [STATE], so status never appears mid-text.
+    """
+    global _stream_line_open
+    if not s:
+        return
+    with print_lock:
+        print(s, end="", flush=True)
+        # Open iff the final character is not a newline (handles embedded \n).
+        _stream_line_open = not s.endswith(chr(10))
+
+
+
+def _write_status_line(text: str, *, busy: bool, use_color: bool) -> None:
+    """Write one [STATE] line to stderr.
+
+    On Windows consoles, prefer Win32 text attributes instead of ANSI ESC.
+    Some hosts report VT enabled but still render ESC as "?" (especially on
+    the post-turn IDLE line), which produces "?[32m[STATE] IDLE?[0m".
+    Attribute-based coloring never emits ESC, so it cannot leak.
+
+    Windows console newlines must be CRLF. WriteConsoleW does not translate
+    bare LF into CR+LF, so LF-only leaves the cursor at the previous column
+    and subsequent [STATE] lines appear indented/stair-stepped.
+    """
+    # WriteConsoleW does not apply OPOST-style NL->CRLF translation.
+    nl = (chr(13) + chr(10)) if os.name == "nt" else chr(10)
+    if not use_color:
+        sys.stderr.write(text + nl)
+        sys.stderr.flush()
+        return
+
+    # Windows console: color via SetConsoleTextAttribute (no ANSI bytes).
+    if os.name == "nt":
+        try:
+            import ctypes
+            from ctypes import wintypes
+
+            kernel32 = ctypes.windll.kernel32
+            STD_ERROR_HANDLE = wintypes.DWORD(-12).value
+            handle = kernel32.GetStdHandle(STD_ERROR_HANDLE)
+            INVALID_HANDLE_VALUE = wintypes.HANDLE(-1).value
+            if handle and handle != INVALID_HANDLE_VALUE:
+                class COORD(ctypes.Structure):
+                    _fields_ = [("X", wintypes.SHORT), ("Y", wintypes.SHORT)]
+
+                class SMALL_RECT(ctypes.Structure):
+                    _fields_ = [
+                        ("Left", wintypes.SHORT),
+                        ("Top", wintypes.SHORT),
+                        ("Right", wintypes.SHORT),
+                        ("Bottom", wintypes.SHORT),
+                    ]
+
+                class CONSOLE_SCREEN_BUFFER_INFO(ctypes.Structure):
+                    _fields_ = [
+                        ("dwSize", COORD),
+                        ("dwCursorPosition", COORD),
+                        ("wAttributes", wintypes.WORD),
+                        ("srWindow", SMALL_RECT),
+                        ("dwMaximumWindowSize", COORD),
+                    ]
+
+                csbi = CONSOLE_SCREEN_BUFFER_INFO()
+                if kernel32.GetConsoleScreenBufferInfo(handle, ctypes.byref(csbi)):
+                    old_attr = int(csbi.wAttributes)
+                    # Keep background nibble; set bright FG yellow/green.
+                    bg = old_attr & 0xF0
+                    fg = 0x0E if busy else 0x0A  # yellow / green
+                    kernel32.SetConsoleTextAttribute(handle, bg | fg)
+                    try:
+                        # WriteConsoleW avoids Python stdio encoding turning ESC-like
+                        # control into "?" on some hosts; plain text is fine here.
+                        # Use CRLF so the cursor returns to column 0 on the next line.
+                        data = text + nl
+                        written = wintypes.DWORD(0)
+                        if not kernel32.WriteConsoleW(
+                            handle,
+                            data,
+                            len(data),
+                            ctypes.byref(written),
+                            None,
+                        ):
+                            # Fallback to stdio if WriteConsoleW fails.
+                            sys.stderr.write(text + nl)
+                            sys.stderr.flush()
+                    finally:
+                        kernel32.SetConsoleTextAttribute(handle, old_attr)
+                    return
+        except Exception:
+            pass
+        # Not a real console or API failed: plain text (never ANSI on nt fallback).
+        sys.stderr.write(text + nl)
+        sys.stderr.flush()
+        return
+
+    # Non-Windows: ANSI is reliable on TTYs.
+    esc = chr(27)
+    color = (esc + "[33m") if busy else (esc + "[32m")
+    sys.stderr.write(f"{color}{text}{esc}[0m" + nl)
+    sys.stderr.flush()
+
+
 def print_status_line() -> None:
     """
     Draw the current busy / label status in a single line.
 
     Policy:
-    - Enable ANSI colors by default (colored display in supported environments).
-    - Set NO_COLOR or UAGENT_NO_COLOR to disable colors.
-    - No color in GUI mode or when stderr is not a TTY.
-    - Output colors on Windows even if TERM is not set (independent of TERM).
-    - Do not use \r\x1b[2K as it may break the prompt on some Windows consoles.
+    - Default: colored [STATE] on TTY (yellow BUSY / green IDLE).
+    - Windows: color via SetConsoleTextAttribute + WriteConsoleW (no ANSI ESC),
+      so hosts that drop VT mid-session cannot leak "?[32m[STATE] IDLE?[0m".
+    - Non-Windows: ANSI SGR colors.
+    - Disable colors with NO_COLOR, UAGENT_NO_COLOR, UAGENT_STATUS_COLOR=0,
+      GUI mode, or non-TTY stderr.
+    - Do not use carriage-return + ANSI erase as it may break the prompt on some Windows consoles.
+    - Never inject [STATE] mid-text: if a streaming line is still open, first
+      finish it with a newline (prefer waiting briefly for a natural newline).
+    - In Web mode, status is delivered via WebSocket type=status; skip stderr.
     """
-    global status_busy, status_label
+    global status_busy, status_label, _stream_line_open
 
     # Suppress status display while human_ask is active to avoid disrupting the prompt display
     with human_ask_lock:
         if human_ask_active:
             return
+
+    # Web UI already receives status via web_set_status -> room.set_status.
+    # Avoid also writing [STATE] to stderr (which becomes type=log and can
+    # interleave with assistant stream text).
+    if bool(getattr(sys.modules[__name__], "_is_web", False)):
+        return
 
     with status_lock:
         busy = status_busy
@@ -321,20 +515,53 @@ def print_status_line() -> None:
     no_color = bool(env_get("NO_COLOR") or env_get("UAGENT_NO_COLOR"))
     stderr_is_tty = bool(getattr(sys.stderr, "isatty", lambda: False)())
 
-    if IS_GUI or no_color or (not stderr_is_tty):
-        # Fallback: no ANSI
+    # Prefer a natural newline boundary so status does not split a sentence.
+    # If the stream stays open past the deadline, force-close the line with a
+    # newline first — never write [STATE] into the middle of assistant text.
+    deadline = time.time() + 0.25
+    nl = chr(10)
+    while True:
         with print_lock:
-            sys.stderr.write(f"[STATE] {state}{label_part}\n")
-            sys.stderr.flush()
-        return
-
-    # Color coding (BUSY=yellow, IDLE=green)
-    color = "\x1b[33m" if busy else "\x1b[32m"
-
-    # NOTE: Keep output simple: one colored line.
-    with print_lock:
-        sys.stderr.write(f"{color}[STATE] {state}{label_part}\x1b[0m\n")
-        sys.stderr.flush()
+            line_open = _stream_line_open
+            timed_out = time.time() >= deadline
+            if line_open and not timed_out:
+                pass
+            else:
+                if line_open:
+                    # Close the open streaming line before emitting status.
+                    try:
+                        sys.stdout.write(nl)
+                        sys.stdout.flush()
+                    except Exception:
+                        try:
+                            print("", flush=True)
+                        except Exception:
+                            pass
+                    _stream_line_open = False
+                # Color policy for [STATE] lines:
+                # - Default ON when TTY + (Windows: VT actually enabled).
+                # - Color-capable terminals get green IDLE / yellow BUSY.
+                # - Opt-out: NO_COLOR, UAGENT_NO_COLOR, UAGENT_STATUS_COLOR=0.
+                # - If VT enable fails on Windows, stay plain to avoid
+                #   "?[32m[STATE] IDLE?[0m" leaks on broken consoles.
+                status_color_env = (env_get("UAGENT_STATUS_COLOR") or "").strip().lower()
+                color_disabled = status_color_env in ("0", "false", "no", "off")
+                want_color = (
+                    (not IS_GUI)
+                    and (not no_color)
+                    and (not color_disabled)
+                    and stderr_is_tty
+                )
+                # On Windows, do not gate on VT: we color via console attributes.
+                # On other OS, ANSI needs a TTY (already required above).
+                use_color = want_color
+                _write_status_line(
+                    f"[STATE] {state}{label_part}",
+                    busy=busy,
+                    use_color=use_color,
+                )
+                return
+        time.sleep(0.005)
 
 
 # Responses API previous_response_id, persists across turns in the same process

@@ -131,6 +131,12 @@ ______________________________________________________________________
 
 **その他のプロバイダ (DeepSeek, Bedrock, OpenRouter 等)**: 通常の Chat Completions / Responses API パスを使用します。ツールは起動時の genre mask でフィルタされ、`tool_catalog` → `tool_load` で動的ロードできます。`UAGENT_GPT54_TOOL_SEARCH` の影響は受けません。
 
+**`previous_response_id` 継続**:
+- OpenAI/Azure Responses: 有効な `resp_*` のときツールループ間で `previous_response_id` を保持。
+- **Grok / OpenRouter**: `previous_response_id` は送らない（OpenRouter は schema 上 null 必須、Grok は tools 併用が不安定）。継続はローカル全履歴 + OpenRouter の文字列化 `input`。
+- stale rid / `invalid_prompt` / `APIResponseValidationError`（文字列 `error.code` 等）時: rid クリア、`responses_state["_stale_rid_occurred"]` 設定、全履歴で 1 回リトライ。2 回目失敗で continuation クリア。
+- Compat 除去: `apply_openrouter_responses_compat` と `_normalize_openrouter_send_kwargs` は常に `previous_response_id` を pop。
+
 **auto-unload**: `previous_response_id` が設定されている場合（全プロバイダ）、または native GPT-5.4 tool_search が有効な場合はスキップされます。
 
 詳細は `TOOL_FLOW.md` を参照してください。
@@ -200,6 +206,9 @@ ______________________________________________________________________
 | `dart2idx` | .dart | 正規表現 | library, mixin, extension on, typedef, class, factory, getter/setter, トップレベル関数 |
 | `cpp2idx` | .c/.cpp/.h/.hpp | 正規表現 | namespace, class, struct, union, enum, template, function, constructor, destructor, method, field, typedef, using |
 | `cobol2idx` | .cbl/.cob/.cpy | 正規表現 | division, section, paragraph, data（01-66, 77, 78）, program-id, fd, select, copy, declaratives |
+| `cl2idx` | .cl/.clp/.clle | 正規表現 | pgm, endpgm, dcl, dclf, label, call, callprc, 制御コマンド, monmsg, include |
+| `dds2idx` | .pf/.lf/.dspf/.prtf/.dds | 正規表現（固定列意識） | record, field, key, select/omit, join, file keywords, REF/REFFLD 追従, DSPF indicator/attr/const |
+| `rpg2idx` | .rpg/.rpgle/.sqlrpgle | 正規表現（固定/free） | ctl-opt, dcl-f/s/c/ds/pi/pr/proc, begsr, /copy, F/D/P/C-spec, EXEC SQL, /IF |
 | `rs2idx` | .rs | 正規表現 | mod, struct, enum, trait, impl, fn, const, type alias, macro_rules! |
 | `go2idx` | .go | 正規表現 | package, type struct/interface, func（レシーバ付き含む）, const, var |
 | `php2idx` | .php | 正規表現 | namespace, class, interface, trait, enum, function, method, const, property, define |
@@ -207,3 +216,21 @@ ______________________________________________________________________
 | `kt2idx` | .kt | 正規表現 | class, interface, object, enum class, data class, fun, val/var, init, companion, extension function |
 
 全 idx ツールは外部依存ゼロ（Python 標準ライブラリのみ）。
+
+#### IBM i *2idx 残件（スコープ外 — 実装オープン作業なし）
+
+`cl2idx` / `dds2idx` / `rpg2idx` の実装トラックは **完了**。以下は意図的な非目標（詳細は `SPEC_CL2IDX_DDS2IDX.md` §5.9 / §10）:
+
+| 領域 | 残件 | 備考 |
+|------|------|------|
+| 共通 | EBCDIC ソース | `read_index_source` 対応: utf-8-sig / utf-8 / cp932 / shift_jis / euc_jp のみ |
+| 共通 | `ibmi2idx` 自動ディスパッチャ | **作らない**（拡張子→ツールは LLM + description） |
+| `dds2idx` | マルチライブラリ / 完全オブジェクト解決 | 同一 workdir の REF 追従・深さ 1 のみ |
+| `dds2idx` | DSPATR 全ビット組合せの意味論 | 索引ラベルは引数文字列を保持 |
+| `dds2idx` | PRTF 座標レンダリング | 索引のみ（印刷レイアウトエンジンは持たない） |
+| `dds2idx` | ICF / 特殊デバイス / バイナリソース | 対象外 |
+| `rpg2idx` | 固定桁の全方言バリアント | 主要 F/D/P/C/H/I/O パスのみ |
+| `rpg2idx` | 埋め込み SQL の詳細意味解析 | `EXEC SQL` の索引化まで |
+| `rpg2idx` | `/IF` 式の評価実行 | 条件コンパイル行の検出・索引まで |
+
+回帰: `tests/test_cl2idx_tool.py`, `tests/test_dds2idx_tool.py`, `tests/test_rpg2idx_tool.py`。

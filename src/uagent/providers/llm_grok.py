@@ -396,7 +396,11 @@ def parse_xai_stream(
     _saw_reasoning = False
 
     def _print_delta(s: str) -> None:
-        print(s, end="", flush=True)
+        _psd = getattr(core, "print_stream_delta", None) if core is not None else None
+        if callable(_psd):
+            _psd(s)
+        else:
+            print(s, end="", flush=True)
 
     try:
         for response, chunk in stream_iter:
@@ -408,7 +412,7 @@ def parse_xai_stream(
                     if _saw_reasoning:
                         _print_delta("\n")
                         _saw_reasoning = False
-                    print(text_delta, end="", flush=True)
+                    _print_delta(text_delta)
                     assistant_text += text_delta
             # Stream reasoning deltas immediately (do not break on '.').
             # show_reasoning defaults to print() which adds a newline per call;

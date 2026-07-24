@@ -1,5 +1,41 @@
 # 変更履歴
 
+## [0.5.54] - 2026-07-24
+
+### 追加
+- IBM i ソース索引ツール（genre=`index`、mode=`index`|`section`）:
+  - `cl2idx` — CL/CLP/CLLE（`.cl`/`.clp`/`.clle`）: 継続行結合、複数行コメント、SEU 連番除去、IF/DO/SELECT↔END スタックの `end_line`、DCL ラベル、主要コマンド（RTVJOBA/CHKOBJ/SNDRCVF 等）。
+  - `dds2idx` — DDS PF/LF/DSPF/PRTF（`.pf`/`.lf`/`.dspf`/`.prtf`/`.dds`）: 固定桁 SEU 複数レイアウト採点、DSPF const/SFLCTL/INDARA、TEXT/COLHDG フィールドラベル、ファイル種別スコア、**REF/REFFLD の workdir 内簡易追従**（`R` フィールドへ型注釈）、**DSPF インジケータ/表示属性デコード**（条件インジケータ、DSPATR/COLOR/CF 引数、packed 定数行）。
+  - `rpg2idx` — RPG/RPGLE/SQLRPGLE（`.rpg`/`.rpgle`/`.sqlrpgle`）: フリーフォーム（`**free`/`**end-free`、ctl-opt、dcl-*、begsr/endsr、/copy|/include、`...` 継続）と固定フォーム F/D/P/C/H/I/O 仕様（BEGSR 大文字小文字保持、SEU 除去）。
+- 回帰テスト: `tests/test_cl2idx_tool.py`、`tests/test_dds2idx_tool.py`、`tests/test_rpg2idx_tool.py`。
+- レビュー計画ギャップ向け回帰テスト: `go2idx`、`kt2idx`、`cs2idx`、`swift2idx`、`jv2idx`。
+- レビュー計画向け回帰テスト: `md2idx`、`dart2idx`、`php2idx`、`rs2idx`、`ts2idx`。
+- 回帰テスト: `tests/test_py2idx_tool.py`、`tests/test_cpp2idx_tool.py`（*2idx 全 16 ツール揃い）。
+
+### 変更
+- `dds2idx`: workdir 内の REF/REFFLD 簡易追従 — `REF(file)`/`REF(lib/file)` を解決し、`R`/`REFFLD` フィールドに参照元の型を注釈（例: `CUSTID R 10A <= CUSTPF.CUSTID`）。未解決は明示。
+- `go2idx`: メソッド receiver ラベル、generic func/type、struct|interface ラベル、型エイリアス。
+- `kt2idx`: extension fun、data/sealed ラベル、companion 名、複数行 preprocess。
+- `cs2idx`: file-scoped namespace、brace スタックの member 付与 / pop 順修正。
+- `swift2idx`: actor/protocol/extension ラベル、async/throws 修飾子。
+- `jv2idx`: annotation/record ラベル、複数行 text block 状態。
+- `ts2idx`: class_stack/brace pop 順（cs パターン）、未使用 `matched` 削除（F841）。
+- `dart2idx`: `extension Name on Type` のパターン順。
+- `php2idx`: `_parse` が `_preprocess()` を使用（属性 + 複数行結合）。
+- `cpp2idx`: brace スタックを `cs2idx` に合わせて修正（同レベル完了スコープを push 前に pop、`inside_function` でネスト誤検出を抑制）。同一行の `struct`/`class` が後続の自由関数をメンバーとして飲み込まないようにした。
+- ツール JSON i18n: `cl2idx`/`dds2idx`/`rpg2idx` の非 en 全ロケール（33 言語。`x_search_terms_en` は英語のまま）。
+
+### 修正
+- `dds2idx`: DSPF インジケータ/表示属性デコード — 条件インジケータ、フィールド付帯の `DSPATR`/`COLOR`/`CFnn` 引数、packed 定数行（`5  2'Name'` → layout。form-type `A` の誤 field 化を修正）。
+- `*2idx` の `mode=section` オフバイワン: 1-based の `entry["line"]` を 0-based スライス開始に使っていたため、単一行定義が空文字になっていた。dart/rs/ts/cpp/cs/jv/go/kt/swift の `_source_lines` / `get_section` を修正（他は既に変換済みまたは正しい）。
+- Responses API の `previous_response_id` / OpenRouter: OpenRouter では `previous_response_id` を送らない（compat 除去 + プロバイダゲート、Grok と同様）。stale/invalid rid や `invalid_prompt` / `APIResponseValidationError`（文字列 `error.code`）時は rid をクリアし `_stale_rid_occurred` を立て、ローカル全履歴で 1 回リトライ。テスト: `test_previous_response_id_compat.py`、`test_openrouter_round_helpers.py`。
+
+### メモ
+- IBM i *2idx（`cl2idx` / `dds2idx` / `rpg2idx`）の実装トラックは完了。実装オープン作業なし。
+- 残件は **スコープ外** として `SPEC_CL2IDX_DDS2IDX.md` §5.9/§10 および DEVELOP に固定: EBCDIC; `ibmi2idx` ディスパッチャ（作らない）; `dds2idx` のマルチ lib/完全オブジェクト解決・DSPATR 全ビット意味論・PRTF 描画・ICF/binary; `rpg2idx` の全固定桁方言・埋め込み SQL 詳細意味・`/IF` 式評価。
+- `rpg2idx`: 埋め込み SQL、`/IF` 条件コンパイル、主要固定桁パスは実装済み（SQL//IF は索引レベル）。
+- `dds2idx`: REF/REFFLD 追従（同一 workdir・深さ 1）および DSPF インジケータ/表示属性/const デコードは実装済み。
+
 ## [0.5.53] - 2026-07-20
 
 ### 追加

@@ -52,12 +52,19 @@ Web UI では CLI向けの操作案内（例: 「複数行」）がログやク�
 
 ### 3.1 log 経路での抑制
 
-`WebStdout` / `WebStderr` の write/flush で、`"複数行"` を含む行は UI に送らないようにしています。
+`WebStdout` / `WebStderr` の write/flush で、以下を UI に送らないようにしています。
+
+- `"複数行"` / `multiline` を含む CLI 専用案内行
+- `[STATE] ...` 行（Busy/Idle 表示。Web では `type="status"` で別送するため log に出さない）
 
 対象:
 
 - stdout: `WebStdout.write()` / `WebStdout.flush()`
 - stderr: `WebStderr.write()` / `WebStderr.flush()`
+
+補足:
+
+- CLI 本体でも `core.print_stream_delta()` がストリーム出力と `print_status_line()` を直列化し、本文途中への `[STATE]` 混入を防ぐ。
 
 ### 3.2 message 経路（welcome message）での抑制
 

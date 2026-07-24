@@ -1786,6 +1786,17 @@ class MainWindow(QtWidgets.QMainWindow):
                         continue
                     if "multiline" in (s or "").lower():
                         continue
+                    # Strip mid-line [STATE] injections that can appear when
+                    # status updates race with streaming assistant text.
+                    plain = self._ansi_re.sub("", line)
+                    if "[STATE]" in plain:
+                        line = re.sub(
+                            r"\[STATE\]\s+\w+(?:\s+\[[^\]]*\])?",
+                            "",
+                            plain,
+                        )
+                        if not line.strip():
+                            continue
                     display_lines.append(line)
                 display_text = "".join(display_lines)
 

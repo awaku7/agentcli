@@ -402,8 +402,9 @@ class _RsIndexBuilder:
         return "\n".join(lines_out)
 
     def _source_lines(self, entry: dict) -> str:
-        start = entry["line"]
-        end = entry.get("end_line", entry["line"]) + 1
+        # entry line/end_line are 1-based inclusive; self.lines is 0-based.
+        start = max(0, entry["line"] - 1)
+        end = entry.get("end_line", entry["line"])
         if end > len(self.lines):
             end = len(self.lines)
         code_lines = self.lines[start:end]

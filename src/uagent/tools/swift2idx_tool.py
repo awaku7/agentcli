@@ -50,18 +50,18 @@ TOOL_SPEC = {
     },
 }
 
-_MOD = r"(?:(?:public|private|fileprivate|internal|open|static|class|override|mutating|nonmutating|convenience|required|optional|dynamic|final|lazy|weak|unowned)\s+)*"
+_MOD = r"(?:(?:public|private|fileprivate|internal|open|static|class|override|mutating|nonmutating|convenience|required|optional|dynamic|final|lazy|weak|unowned|async|throws|rethrows|nonisolated|consuming|borrowing)\s+)*"
 
 _PATTERNS = [
     (r"^\s*(?:import|@)\S+", lambda m: None),
     (
-        r"^\s*(?:public|open|internal|private|fileprivate)?\s*(?:class|struct|enum|protocol|extension|actor)\s+(\w+)",
-        lambda m: ("type", m.group(1)),
+        r"^\s*(?:public|open|internal|private|fileprivate)?\s*(class|struct|enum|protocol|extension|actor)\s+(\w+)",
+        lambda m: ("type", m.group(2), m.group(1)),
     ),
     (
         r"^\s*"
         + _MOD
-        + r"func\s+(\w+)\s*\([^)]*\)\s*(?:->\s*(?:\w+(?:<[^>]*>)?(?:\s*\|\s*\w+(?:<[^>]*>)?)*\s*)?)?(?:\{|$)",
+        + r"func\s+(\w+)\s*\([^)]*\)\s*(?:(?:async|throws|rethrows)\s+)*(?:->\s*(?:\w+(?:<[^>]*>)?(?:\s*\|\s*\w+(?:<[^>]*>)?)*\s*)?)?(?:\{|$)",
         lambda m: ("func", m.group(1)),
     ),
     (
@@ -201,14 +201,17 @@ class _SwiftIndexBuilder:
             od = depth
             depth += bd
             defs = self._detect(joined_line)
-            for k, n in defs:
+            for d in defs:
+                k, n = d[0], d[1]
+                extra = d[2] if len(d) > 2 else ""
                 if k == "type":
+                    tkind = extra or "type"
                     e = {
                         "kind": k,
                         "name": n,
                         "line": orig_idx + 1,
                         "end_line": orig_idx + 1,
-                        "label": n,
+                        "label": f"{tkind} {n}",
                         "members": [],
                     }
                     entries.append(e)
@@ -340,9 +343,12 @@ class _SwiftIndexBuilder:
         if n < 1 or n > len(flat):
             return None
         e = flat[n - 1]
-        return "\n".join(
-            self.lines[e["line"] : e.get("end_line", e["line"]) + 1]
-        ).rstrip("\n")
+        # entry line/end_line are 1-based inclusive; self.lines is 0-based.
+        start = max(0, e["line"] - 1)
+        end = e.get("end_line", e["line"])
+        if end > len(self.lines):
+            end = len(self.lines)
+        return "\n".join(self.lines[start:end]).rstrip("\n")
 
     def section_count(self):
         return sum(1 + len(e.get("members", [])) for e in self.entries)

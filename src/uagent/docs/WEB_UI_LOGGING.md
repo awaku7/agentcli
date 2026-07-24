@@ -10,5 +10,7 @@ Two channels:
 Note:
 
 - The Web UI may suppress some CLI-specific guide lines to reduce noise.
+- `[STATE] ...` lines from stderr are filtered on the log path; status is delivered via `type="status"`.
+- CLI streaming uses `core.print_stream_delta()` so status lines do not split assistant text mid-line.
 
 ______________________________________________________________________

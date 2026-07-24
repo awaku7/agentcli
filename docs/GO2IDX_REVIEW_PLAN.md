@@ -15,3 +15,8 @@
 
 ## 回帰テスト
 struct/interface、alias、generic、value/pointer receiver、複数行関数、コメント・文字列、BOM/CP932、section範囲を検証する。
+
+## 実装ステータス
+
+- 第1版ギャップ対応済み（go2idx）
+- 回帰テスト: `tests/test_go2idx_tool.py`

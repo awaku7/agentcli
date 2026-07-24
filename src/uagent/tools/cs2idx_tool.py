@@ -90,6 +90,7 @@ _MOD = r"(?:(?:public|private|protected|internal|static|virtual|override|abstrac
 # C# definition patterns
 _PATTERNS = [
     # namespace
+    (r"^\s*namespace\s+(\w+(?:\.\w+)*)\s*;", lambda m: ("namespace", m.group(1) + " (file-scoped)")),
     (r"^\s*namespace\s+(\w+(?:\.\w+)*)", lambda m: ("namespace", m.group(1))),
     # enum (separate kind for enum_member detection)
     (
@@ -282,7 +283,7 @@ class _CsIndexBuilder:
         entries: list[dict] = []
         stack: list[dict] = []  # type/namespace stack
         brace_depth = 0
-        # Track brace depth per stack entry
+        # Track brace depth of the *enclosing* scope for each stack entry
         stack_start_depth: list[int] = []
 
         preprocessed = self._preprocess()
@@ -293,10 +294,16 @@ class _CsIndexBuilder:
             if stripped.startswith(("///", "//", "/*", "*")):
                 continue
 
+            old_depth = brace_depth
+            bd = self._guess_brace_depth(joined_line)
+
             # Detect definitions on the joined line
             defs = self._detect_definitions(joined_line)
             for kind, name in defs:
                 if kind in ("namespace", "type", "enum_type"):
+                    file_scoped = kind == "namespace" and name.endswith(
+                        " (file-scoped)"
+                    )
                     parent = stack[-1] if stack else None
                     entry = {
                         "kind": kind,
@@ -311,8 +318,15 @@ class _CsIndexBuilder:
                         "parent": parent,
                     }
                     entries.append(entry)
-                    stack.append(entry)
-                    stack_start_depth.append(brace_depth)
+                    # File-scoped namespace has no brace body; do not track on stack.
+                    if not file_scoped:
+                        # Pop finished same-level scopes before pushing a sibling type
+                        while stack_start_depth and old_depth <= stack_start_depth[-1]:
+                            if stack:
+                                stack.pop()["end_line"] = orig_idx
+                            stack_start_depth.pop()
+                        stack.append(entry)
+                        stack_start_depth.append(old_depth)
                 elif kind in (
                     "method",
                     "property",
@@ -361,12 +375,15 @@ class _CsIndexBuilder:
                         }
                         container.setdefault("members", []).append(member)
 
-            # Track brace depth
-            bd = self._guess_brace_depth(joined_line)
+            # Track brace depth after handling declarations on this line
             brace_depth += bd
 
-            # Pop stack when scope ends (strict tracking: no bd < 0 guard)
-            while stack_start_depth and brace_depth <= stack_start_depth[-1]:
+            # Pop only when a close actually reduces depth to/below the entry scope
+            while (
+                stack_start_depth
+                and brace_depth <= stack_start_depth[-1]
+                and brace_depth < old_depth
+            ):
                 if stack:
                     popped = stack.pop()
                     popped["end_line"] = orig_idx
@@ -435,8 +452,9 @@ class _CsIndexBuilder:
         return "\n".join(lines_out)
 
     def _source_lines(self, entry: dict) -> str:
-        start = entry["line"]
-        end = entry.get("end_line", entry["line"]) + 1
+        # entry line/end_line are 1-based inclusive; self.lines is 0-based.
+        start = max(0, entry["line"] - 1)
+        end = entry.get("end_line", entry["line"])
         if end > len(self.lines):
             end = len(self.lines)
         code_lines = self.lines[start:end]

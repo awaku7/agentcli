@@ -308,6 +308,11 @@ class _CppIndexBuilder:
                         "members": [],
                     }
                     entries.append(entry)
+                    # Pop finished same-level scopes before pushing a sibling.
+                    while stack_start_depth and old_depth <= stack_start_depth[-1]:
+                        if stack:
+                            stack.pop()["end_line"] = i
+                        stack_start_depth.pop()
                     stack.append(entry)
                     stack_start_depth.append(old_depth)
                     pending_template = False
@@ -382,7 +387,22 @@ class _CppIndexBuilder:
                         }
                     )
 
-            while stack_start_depth and brace_depth <= stack_start_depth[-1] and bd < 0:
+            # Pop when depth returns to/below the entry's enclosing scope.
+            # bd < 0: normal close. bd == 0 with both braces: same-line body
+            # (e.g. struct Point { int x; };). Do not pop on brace-less header
+            # lines such as `class Foo` continued on the next line.
+            while (
+                stack_start_depth
+                and brace_depth <= stack_start_depth[-1]
+                and (
+                    bd < 0
+                    or (
+                        bd == 0
+                        and "{" in cleaned
+                        and "}" in cleaned
+                    )
+                )
+            ):
                 popped = stack.pop()
                 popped["end_line"] = i
                 stack_start_depth.pop()
@@ -424,8 +444,9 @@ class _CppIndexBuilder:
         return "\n".join(lines_out)
 
     def _source_lines(self, entry: dict) -> str:
-        start = entry["line"]
-        end = entry.get("end_line", entry["line"]) + 1
+        # entry line/end_line are 1-based inclusive; self.lines is 0-based.
+        start = max(0, entry["line"] - 1)
+        end = entry.get("end_line", entry["line"])
         if end > len(self.lines):
             end = len(self.lines)
         code_lines = self.lines[start:end]

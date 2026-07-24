@@ -186,6 +186,12 @@ When `UAGENT_RESPONSES=1` and using OpenAI/Azure + GPT-5.4+, the tool sending lo
 
 **Other providers (DeepSeek, Bedrock, OpenRouter, etc.)**: Use the standard Chat Completions or Responses API path. Tools are filtered by genre mask at startup and can be dynamically loaded via `tool_catalog` → `tool_load`. The `UAGENT_GPT54_TOOL_SEARCH` setting has no effect.
 
+**`previous_response_id` continuity**:
+- OpenAI/Azure Responses: keep `previous_response_id` across tool loops when valid (`resp_*`).
+- **Grok / OpenRouter**: never send `previous_response_id` (OpenRouter schema expects null; Grok is unreliable with tools). Continuity uses full local history + OpenRouter stringified `input`.
+- On stale rid / `invalid_prompt` / `APIResponseValidationError` (e.g. string `error.code`): clear rid, set `responses_state["_stale_rid_occurred"]`, retry once with full history; second failure clears continuation.
+- Compat strip: `apply_openrouter_responses_compat` and `_normalize_openrouter_send_kwargs` always pop `previous_response_id`.
+
 **Auto-unload**: Skipped when `previous_response_id` is set (any provider), or when native GPT-5.4 tool_search is active.
 
 See `TOOL_FLOW.md` for full details.
@@ -380,6 +386,9 @@ The `*2idx` tools let you fetch a numbered index or a specific definition sectio
 | `dart2idx` | .dart          | regex          | library, mixin, extension on, typedef, class, factory, getter/setter, top-level function |
 | `cpp2idx` | .c/.cpp/.h/.hpp | regex         | namespace, class, struct, union, enum, template, function, constructor, destructor, method, field, typedef, using |
 | `cobol2idx` | .cbl/.cob/.cpy | regex          | division, section, paragraph, data (01-66, 77, 78), program-id, fd, select, copy, declaratives |
+| `cl2idx` | .cl/.clp/.clle | regex          | pgm, endpgm, dcl, dclf, label, call, callprc, control commands, monmsg, include |
+| `dds2idx` | .pf/.lf/.dspf/.prtf/.dds | regex (fixed-column aware) | record, field, key, select/omit, join, file keywords, REF/REFFLD follow, DSPF indicator/attr/const |
+| `rpg2idx` | .rpg/.rpgle/.sqlrpgle | regex (fixed/free) | ctl-opt, dcl-f/s/c/ds/pi/pr/proc, begsr, /copy, F/D/P/C-spec, EXEC SQL, /IF |
 | `rs2idx`  | .rs             | regex          | mod, struct, enum, trait, impl, fn, const, type alias, macro_rules! |
 | `go2idx`  | .go             | regex          | package, type struct/interface, func (including receiver), const, var |
 | `php2idx` | .php            | regex          | namespace, class, interface, trait, enum, function, method, const, property, define |
@@ -387,6 +396,24 @@ The `*2idx` tools let you fetch a numbered index or a specific definition sectio
 | `kt2idx`  | .kt             | regex          | class, interface, object, enum class, data class, fun, val/var, init, companion, extension function |
 
 All idx tools have zero external dependencies (stdlib only).
+
+#### IBM i *2idx residual (out of scope — no open implementation work)
+
+`cl2idx` / `dds2idx` / `rpg2idx` implementation track is **complete**. Remaining items are intentional non-goals (see also `SPEC_CL2IDX_DDS2IDX.md` §5.9 / §10):
+
+| Area | Residual | Notes |
+|------|----------|-------|
+| Shared | EBCDIC source | `read_index_source` encodings: utf-8-sig, utf-8, cp932, shift_jis, euc_jp only |
+| Shared | `ibmi2idx` auto-dispatcher | **Do not add**; extension → tool via LLM + description |
+| `dds2idx` | Multi-library / full object resolve | Same-workdir REF follow, depth 1 only |
+| `dds2idx` | Full DSPATR bit-combo semantics | Keep arg strings on index labels |
+| `dds2idx` | PRTF coordinate rendering | Index only, no print layout engine |
+| `dds2idx` | ICF / special device / binary source | Out of scope |
+| `rpg2idx` | Full fixed-column dialect variants | Common F/D/P/C/H/I/O paths only |
+| `rpg2idx` | Embedded SQL deep semantics | Index `EXEC SQL`; no full SQL meaning expansion |
+| `rpg2idx` | `/IF` expression evaluation | Detect/index conditional-compile lines only |
+
+Regression: `tests/test_cl2idx_tool.py`, `tests/test_dds2idx_tool.py`, `tests/test_rpg2idx_tool.py`.
 
 
 ______________________________________________________________________
@@ -433,12 +460,12 @@ flowchart TD
         GENRE_BASIC["basic<br/>browser, fetch_url, search_web<br/>human_ask, calculator, db_query"]
         GENRE_FILE["file<br/>create/read/delete/replace_in_file<br/>search_files, file_grep, zip_ops"]
         GENRE_EXEC["exec<br/>cmd_exec, python_exec<br/>bash_exec, pwsh_exec"]
-        GENRE_DEVEL["devel<br/>code_map, lint_format, python_compile<br/>git_ops, run_tests, index系 (10言語)"]
+        GENRE_DEVEL["devel<br/>code_map, lint_format, python_compile<br/>git_ops, run_tests, index系 (16言語)"]
         GENRE_EXTERNAL["external<br/>bluesky, discord, gmail<br/>teams_webhook, mcp_servers"]
         GENRE_IOT["iot<br/>BACnet, DALI, ECHONET Lite<br/>Modbus, OPC UA, Matter<br/>MQTT, SwitchBot, UPnP"]
         GENRE_MEDIA["media<br/>generate_image, img2img<br/>analyze_image, audio_speech"]
         GENRE_OFFICE["office<br/>excel_ops, read_pptx_pdf<br/>document_extract, pdf_export"]
-        GENRE_INDEX["index<br/>py2idx, ts2idx, go2idx<br/>rs2idx, md2idx 等 (10言語)"]
+        GENRE_INDEX["index<br/>py2idx, ts2idx, go2idx<br/>rs2idx, md2idx 等 (16言語)"]
     end
 
     subgraph Subsystems["サブシステム"]
@@ -524,7 +551,7 @@ spawn_process
 **devel**
 code_map, lint_format, run_tests, git_ops, system_reload
 - 言語別索引: py2idx, ts2idx, go2idx, rs2idx, cs2idx, cpp2idx, jv2idx, kt2idx,
-  php2idx, dart2idx, swift2idx, cobol2idx, md2idx
+  php2idx, dart2idx, swift2idx, cobol2idx, cl2idx, dds2idx, rpg2idx, md2idx
 
 **external (外部サービス連携)**
 bluesky, discord_channel, gmail_read/send, teams_webhook, mcp_servers,
@@ -553,7 +580,7 @@ parse_eml, pdf_export, translate_text
 
 **index (ファイル索引)**
 py2idx, ts2idx, go2idx, rs2idx, cs2idx, cpp2idx, jv2idx, kt2idx,
-php2idx, dart2idx, swift2idx, cobol2idx, md2idx
+php2idx, dart2idx, swift2idx, cobol2idx, cl2idx, dds2idx, rpg2idx, md2idx
 
 **その他**
 batch_state, image_session, index_files, semantic_search_files

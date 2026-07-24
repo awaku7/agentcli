@@ -250,6 +250,8 @@ def _normalize_openrouter_send_kwargs(kwargs: dict[str, Any]) -> dict[str, Any]:
     out = dict(kwargs)
     # OpenRouter Responses API does not support context_management.
     out.pop("context_management", None)
+    # OpenRouter Responses rejects previous_response_id (schema expects null).
+    out.pop("previous_response_id", None)
     extra_body = out.pop("extra_body", None)
     if not isinstance(extra_body, dict):
         return out
@@ -613,6 +615,18 @@ def make_client(core: Any) -> tuple[str, Any, str]:
 
     if provider == "grok":
         api_key = (core.get_env("UAGENT_GROK_API_KEY") or "").strip()
+
+        # UAGENT_GROK_USE_XAI_SDK: "1" (default) uses xai_sdk (gRPC), "0" uses OpenAI SDK (REST).
+        # Zscaler/proxy environments may need "0" because gRPC/HTTP2 is blocked.
+        _use_xai_sdk = env_get("UAGENT_GROK_USE_XAI_SDK", "1") or "1"
+        _use_xai_sdk = str(_use_xai_sdk).strip().lower() not in ("0", "false", "no", "off")
+
+        if not _use_xai_sdk:
+            from openai import OpenAI
+
+            base_url = core.get_env_url("UAGENT_GROK_BASE_URL", "https://api.x.ai/v1")
+            client = OpenAI(api_key=api_key, base_url=base_url)
+            return provider, client, model_name
 
         # Auto-install xai-sdk if missing; fallback to OpenAI SDK
         XAIClient = None

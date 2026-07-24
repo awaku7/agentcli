@@ -245,9 +245,9 @@ class _TsIndexBuilder:
 
     def _parse(self):
         class_stack: list[dict] = []
+        stack_start_depth: list[int] = []
         brace_depth = 0
         entries: list[dict] = []
-        # (end line tracking removed - unused)
 
         pi = 0
         preprocessed = self._preprocess()
@@ -256,11 +256,19 @@ class _TsIndexBuilder:
             cleaned = self._clean_comment(raw)
             if not cleaned.strip():
                 brace_depth += self._estimate_brace_change(raw)
+                while stack_start_depth and brace_depth <= stack_start_depth[-1]:
+                    if class_stack:
+                        popped = class_stack.pop()
+                        popped["end_line"] = orig_idx + 1
+                    stack_start_depth.pop()
                 pi += 1
                 continue
 
-            # Try matching patterns
-            matched = False
+            old_depth = brace_depth
+            brace_change = self._estimate_brace_change(raw)
+
+            # Try matching patterns before applying brace change so members
+            # attach to the still-open container.
             for pattern, extractor in _PATTERNS:
                 m = re.match(pattern, cleaned)
                 if not m:
@@ -268,18 +276,23 @@ class _TsIndexBuilder:
                 kind, name = extractor(m, cleaned)
 
                 if kind in ("class", "interface", "enum", "namespace"):
+                    # Pop finished same-level scopes before pushing a sibling.
+                    while stack_start_depth and old_depth <= stack_start_depth[-1]:
+                        if class_stack:
+                            class_stack.pop()["end_line"] = orig_idx
+                        stack_start_depth.pop()
                     entry: dict = {
                         "kind": kind,
                         "name": name,
                         "line": orig_idx + 1,
                         "end_line": orig_idx + 1,
-                        "level": 0,
+                        "level": len(class_stack),
                         "label": f"{kind} {name}",
                         "methods": [],
                     }
                     entries.append(entry)
                     class_stack.append(entry)
-                    matched = True
+                    stack_start_depth.append(old_depth)
                     break
 
                 elif kind == "type":
@@ -292,7 +305,6 @@ class _TsIndexBuilder:
                         "label": f"type {name}",
                     }
                     entries.append(entry)
-                    matched = True
                     break
 
                 elif kind == "function":
@@ -304,7 +316,6 @@ class _TsIndexBuilder:
                             "end_line": orig_idx + 1,
                             "level": 1,
                             "label": f"{name}()",
-                            "is_arrow": "=>" not in raw and True,
                         }
                         class_stack[-1].setdefault("methods", []).append(method)
                     else:
@@ -317,12 +328,10 @@ class _TsIndexBuilder:
                             "label": f"function {name}",
                         }
                         entries.append(entry)
-                    matched = True
                     break
 
                 elif kind == "method":
-                    if class_stack or name == "constructor":
-                        container = class_stack[-1] if class_stack else {"methods": []}
+                    if class_stack:
                         method = {
                             "kind": "method",
                             "name": name,
@@ -331,17 +340,15 @@ class _TsIndexBuilder:
                             "level": 1,
                             "label": f"{name}()",
                         }
-                        container.setdefault("methods", []).append(method)
-                        matched = True
+                        class_stack[-1].setdefault("methods", []).append(method)
                         break
 
-            if not matched:
-                pass
-
-            brace_change = self._estimate_brace_change(raw)
-            if brace_change < 0 and class_stack:
-                pass
             brace_depth += brace_change
+            while stack_start_depth and brace_depth <= stack_start_depth[-1]:
+                if class_stack:
+                    popped = class_stack.pop()
+                    popped["end_line"] = orig_idx + 1
+                stack_start_depth.pop()
             pi += 1
 
         # Estimate end lines using brace depth tracking
@@ -409,10 +416,10 @@ class _TsIndexBuilder:
         return "\n".join(lines_out)
 
     def _source_lines(self, entry: dict) -> str:
-        start = entry["line"]
-        end = entry.get("end_line", entry["line"]) + 1
-        # Extend end to next empty line or significant indent drop
-        if end >= len(self.lines):
+        # entry line/end_line are 1-based inclusive; self.lines is 0-based.
+        start = max(0, entry["line"] - 1)
+        end = entry.get("end_line", entry["line"])
+        if end > len(self.lines):
             end = len(self.lines)
         code_lines = self.lines[start:end]
         while code_lines and not code_lines[-1].strip():

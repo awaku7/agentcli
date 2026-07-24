@@ -696,7 +696,11 @@ def gemini_chat_with_tools(
                     return
         except Exception:
             pass
-        print(delta_text, end="", flush=True)
+        _psd = getattr(core, "print_stream_delta", None) if core is not None else None
+        if callable(_psd):
+            _psd(delta_text)
+        else:
+            print(delta_text, end="", flush=True)
 
     for m in messages:
         if not isinstance(m, dict):
@@ -1100,7 +1104,7 @@ def gemini_chat_with_tools(
                                 t,
                                 provider="Gemini",
                                 is_first=(not _thought_printed),
-                                print_fn=lambda s: print(s, end="", flush=True),
+                                print_fn=getattr(core, "print_stream_delta", None) or (lambda s: print(s, end="", flush=True)),
                                 core=core,
                             )
                             _thought_printed = True

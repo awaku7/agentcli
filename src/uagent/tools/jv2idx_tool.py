@@ -94,8 +94,8 @@ _PATTERNS = [
     (r"^\s*package\s+(\w+(?:\.\w+)*)", lambda m: ("package", m.group(1))),
     # class / interface / enum / @interface / record
     (
-        r"^\s*" + _MOD + r"(?:class|interface|enum|@interface|record)\s+(\w+)",
-        lambda m: ("type", m.group(1)),
+        r"^\s*" + _MOD + r"(class|interface|enum|@interface|record)\s+(\w+)",
+        lambda m: ("type", m.group(2), m.group(1)),
     ),
     # constructor: ClassName(...) [throws ...] {  (must NOT be a keyword like for/if/while)
     (
@@ -131,6 +131,7 @@ class _JvIndexBuilder:
         self.lines = source.split("\n")
         self.entries: list[dict[str, Any]] = []
         self.diag: list[str] = []
+        self._in_text_block = False
         self._parse()
 
     def _preprocess(self):
@@ -184,6 +185,16 @@ class _JvIndexBuilder:
                     in_str = False
                 i += 1
                 continue
+            if ch == '"' and i + 2 < len(line) and line[i : i + 3] == '"""':
+                # Java text block — drop contents for structural matching
+                result.append('""')
+                i += 3
+                j = line.find('"""', i)
+                if j >= 0:
+                    i = j + 3
+                else:
+                    break
+                continue
             if ch in ('"', "'"):
                 in_str = True
                 sc = ch
@@ -229,8 +240,10 @@ class _JvIndexBuilder:
         for pattern, extractor in _PATTERNS:
             m = re.match(pattern, cleaned)
             if m:
-                kind, name = extractor(m)
-                results.append((kind, name))
+                r = extractor(m)
+                if r is None:
+                    break
+                results.append(r)
                 break
         return results
 
@@ -243,6 +256,24 @@ class _JvIndexBuilder:
         preprocessed = self._preprocess()
         for orig_idx, joined_line in preprocessed:
             stripped = joined_line.strip()
+
+            # Multi-line Java text blocks (""" ... """)
+            if '"""' in joined_line:
+                count = joined_line.count('"""')
+                if self._in_text_block:
+                    self._in_text_block = count % 2 == 0
+                    continue
+                # opening on this line
+                if count % 2 == 1:
+                    # strip from first """ for matching, then enter block
+                    pre = joined_line[: joined_line.find('"""')]
+                    joined_line = pre
+                    stripped = joined_line.strip()
+                    self._in_text_block = True
+                # even count: open+close on same line — cleaned by _clean_line
+            elif self._in_text_block:
+                continue
+
             if not stripped:
                 bd = self._guess_brace_depth(joined_line)
                 brace_depth += bd
@@ -255,15 +286,24 @@ class _JvIndexBuilder:
 
             # Detect definitions
             defs = self._detect_definitions(joined_line)
-            for kind, name in defs:
+            for d in defs:
+                kind, name = d[0], d[1]
+                extra = d[2] if len(d) > 2 else ""
                 if kind in ("package", "type"):
+                    if kind == "type":
+                        tkind = extra or "class"
+                        if tkind == "@interface":
+                            tkind = "annotation"
+                        label = f"{tkind} {name}"
+                    else:
+                        label = f"{kind} {name}"
                     entry = {
                         "kind": kind,
                         "name": name,
                         "line": orig_idx + 1,
                         "end_line": orig_idx + 1,
                         "level": len(stack),
-                        "label": f"{kind} {name}",
+                        "label": label,
                         "members": [],
                     }
                     entries.append(entry)
@@ -349,8 +389,9 @@ class _JvIndexBuilder:
         return "\n".join(lines_out)
 
     def _source_lines(self, entry: dict) -> str:
-        start = entry["line"]
-        end = entry.get("end_line", entry["line"]) + 1
+        # entry line/end_line are 1-based inclusive; self.lines is 0-based.
+        start = max(0, entry["line"] - 1)
+        end = entry.get("end_line", entry["line"])
         if end > len(self.lines):
             end = len(self.lines)
         code_lines = self.lines[start:end]

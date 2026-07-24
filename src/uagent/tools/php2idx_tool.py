@@ -249,36 +249,47 @@ class _PhpIndexBuilder:
         stack_dep: list[int] = []
         depth = 0
 
-        for i, raw in enumerate(self.lines):
+        preprocessed = self._preprocess()
+        for orig_idx, raw in preprocessed:
             stripped = raw.strip()
             if not stripped:
                 depth += self._guess_brace_depth(raw)
+                while stack_dep and depth <= stack_dep[-1]:
+                    if stack:
+                        stack.pop()["end_line"] = orig_idx
+                    stack_dep.pop()
                 continue
 
             bd = self._guess_brace_depth(raw)
             od = depth
-            depth += bd
-
+            # Detect before applying brace change so members attach correctly.
             defs = self._detect(raw)
             for kind, name in defs:
                 if kind in ("namespace",):
                     e: dict = {
                         "kind": kind,
                         "name": name,
-                        "line": i + 1,
-                        "end_line": i + 1,
-                        "label": name,
+                        "line": orig_idx + 1,
+                        "end_line": orig_idx + 1,
+                        "label": f"namespace {name}",
                         "members": [],
                     }
                     entries.append(e)
-                    stack.append(e)
-                    stack_dep.append(od)
+                    # PHP namespace may be brace-less (file-scoped style with ;)
+                    if "{" in raw:
+                        stack.append(e)
+                        stack_dep.append(od)
                 elif kind in ("class", "interface", "trait", "enum"):
+                    # Pop finished same-level scopes before pushing sibling.
+                    while stack_dep and od <= stack_dep[-1]:
+                        if stack:
+                            stack.pop()["end_line"] = orig_idx
+                        stack_dep.pop()
                     e = {
                         "kind": kind,
                         "name": name,
-                        "line": i + 1,
-                        "end_line": i + 1,
+                        "line": orig_idx + 1,
+                        "end_line": orig_idx + 1,
                         "label": f"{kind} {name}",
                         "members": [],
                     }
@@ -290,8 +301,8 @@ class _PhpIndexBuilder:
                         {
                             "kind": "function",
                             "name": name,
-                            "line": i + 1,
-                            "end_line": i + 1,
+                            "line": orig_idx + 1,
+                            "end_line": orig_idx + 1,
                             "label": f"{name}()",
                         }
                     )
@@ -306,8 +317,8 @@ class _PhpIndexBuilder:
                         {
                             "kind": kind,
                             "name": name,
-                            "line": i + 1,
-                            "end_line": i + 1,
+                            "line": orig_idx + 1,
+                            "end_line": orig_idx + 1,
                             "label": label,
                         }
                     )
@@ -316,16 +327,17 @@ class _PhpIndexBuilder:
                         {
                             "kind": "define",
                             "name": name,
-                            "line": i + 1,
-                            "end_line": i + 1,
+                            "line": orig_idx + 1,
+                            "end_line": orig_idx + 1,
                             "label": name,
                         }
                     )
 
+            depth += bd
             # Pop stack when brace depth returns to enclosing level
             while stack_dep and depth <= stack_dep[-1]:
                 if stack:
-                    stack.pop()["end_line"] = i
+                    stack.pop()["end_line"] = orig_idx + 1
                 stack_dep.pop()
 
         self._assign_end_lines(entries)

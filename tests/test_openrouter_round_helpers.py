@@ -49,6 +49,9 @@ class _DummyCore:
     SYSTEM_PROMPT = "sys"
     _is_web = False
 
+    def __init__(self) -> None:
+        self.responses_state: dict = {}
+
     def set_status(self, busy, label):
         return None
 
@@ -72,19 +75,16 @@ class _DummyCore:
     "responses_env, expected_path",
     [
         ("1", "responses"),
-        (None, "chat"),
+        ("0", "chat"),
     ],
 )
 def test_run_llm_rounds_openrouter_routes_to_expected_api(
     monkeypatch: pytest.MonkeyPatch,
-    responses_env: str | None,
+    responses_env: str,
     expected_path: str,
 ) -> None:
     monkeypatch.setenv("UAGENT_STREAMING", "0")
-    if responses_env is None:
-        monkeypatch.delenv("UAGENT_RESPONSES", raising=False)
-    else:
-        monkeypatch.setenv("UAGENT_RESPONSES", responses_env)
+    monkeypatch.setenv("UAGENT_RESPONSES", responses_env)
 
     client = _DummyFullClient()
     core = _DummyCore()
