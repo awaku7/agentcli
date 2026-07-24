@@ -24,11 +24,17 @@
 - `php2idx`: `_parse` uses `_preprocess()` (attributes + multi-line join).
 - `cpp2idx`: brace-stack aligned with `cs2idx` (pop finished same-level scopes before push; `inside_function` suppresses nested heuristics) so same-line `struct`/`class` no longer swallows following free functions as members.
 - Tool JSON i18n: full non-en locales for `cl2idx`/`dds2idx`/`rpg2idx` (33 langs; `x_search_terms_en` kept English).
+- Plugin enabled status one-liner shared across CLI/Web/GUI (`format_enabled_plugins_status` / `load_plugins_status_at_startup`); i18n msgids for instruction-load INFO lines.
 
 ### Fixed
 - `dds2idx`: DSPF indicator/attribute decode — conditioning indicators, `DSPATR`/`COLOR`/`CFnn` args on fields, packed constant lines (`5  2'Name'` → layout; no longer misread form-type `A` as field name).
 - `*2idx` `mode=section` off-by-one: 1-based `entry["line"]` was used as 0-based slice start, so single-line defs returned empty string. Corrected `_source_lines` / `get_section` in dart/rs/ts/cpp/cs/jv/go/kt/swift (others already converted or correct).
 - Responses API `previous_response_id` / OpenRouter: do not send `previous_response_id` on OpenRouter (compat strip + provider gate, same as Grok). On stale/invalid rid or `invalid_prompt` / `APIResponseValidationError` (string `error.code`), clear rid, set `_stale_rid_occurred`, and retry once with full local history. Tests: `test_previous_response_id_compat.py`, `test_openrouter_round_helpers.py`.
+- Web/GUI: project instruction selection (AGENTS.md etc.) via human_ask modal — no server-stdin block on TTY; connect-time room bootstrap.
+- human_ask: pending/reconnect re-send, ignore empty replies, Skip, interrupt unblocks waiter, WAIT status while asking.
+- LLM Stop: `LLMWaitInterrupted` during threaded LLM wait; web worker reaches IDLE in `finally`.
+- Web chat surfaces startup INFO for loaded instructions / skip / plugin status / long-term memory (i18n; `get_loaded_instruction_paths()` instead of English marker parse).
+- WEB STATUS console leak on Windows: set `core._is_web=True` in `init_web()` before any `set_status`.
 
 ### Notes
 - IBM i *2idx (`cl2idx` / `dds2idx` / `rpg2idx`) implementation track complete; no open implementation work.
