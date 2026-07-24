@@ -91,7 +91,7 @@ def get_welcome_message():
         ),
         "",
         (
-            f"https://github.com/awaku7/agentcli/blob/main/README.{detect_lang()}.md"
+            f"https://github.com/awaku7/agentcli/blob/main/docs/README.{detect_lang()}.md"
             if detect_lang() != "en"
             else "https://github.com/awaku7/agentcli/blob/main/README.md"
         ),
