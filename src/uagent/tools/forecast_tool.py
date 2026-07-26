@@ -483,6 +483,7 @@ def _get_available_models() -> list[tuple[str, Callable]]:
                     n_jobs=1,
                 )
                 self.sf.fit(df=pdf)
+                self._fitted_df = pdf
                 return self
 
             def predict(self, horizon_or_valid):
@@ -490,7 +491,7 @@ def _get_available_models() -> list[tuple[str, Callable]]:
                     h = horizon_or_valid
                 else:
                     h = len(horizon_or_valid)
-                preds = self.sf.forecast(h=h)
+                preds = self.sf.forecast(h=h, df=self._fitted_df)
                 # Get first model's prediction column
                 model_cols = [c for c in preds.columns if c != "ds" and c != "unique_id"]
                 if model_cols:
@@ -537,13 +538,14 @@ def _get_available_models() -> list[tuple[str, Callable]]:
                             n_jobs=1,
                         )
                         self.sf.fit(df=pdf)
+                        self._fitted_df = pdf
                         return self
                     def predict(self, horizon_or_valid):
                         if isinstance(horizon_or_valid, int):
                             h = horizon_or_valid
                         else:
                             h = len(horizon_or_valid)
-                        preds = self.sf.forecast(h=h)
+                        preds = self.sf.forecast(h=h, df=self._fitted_df)
                         model_cols = [c for c in preds.columns if c != "ds" and c != "unique_id"]
                         if model_cols:
                             return preds[model_cols[0]].values
@@ -905,17 +907,22 @@ def _get_available_models() -> list[tuple[str, Callable]]:
             except ImportError:
                 pass
 
-    # TimesFM
+
+    # TimesFM (foundation model, priority 4)
     try:
         import timesfm
+        from timesfm import TimesFM_2p5_200M_torch as _TFMCls
+
         class _TimesFMWrapper:
             def fit(self, df, date_col, value_col, freq):
                 self.value_col = value_col
-                vals = df[value_col].values
-                self.model = timesfm.TimesFm(
-                    backend="auto",
-                )
+                self.freq = freq
+                vals = df[value_col].values.astype(np.float64)
                 self.vals = vals
+                try:
+                    self.model = _TFMCls.from_pretrained()
+                except Exception:
+                    self.model = None
                 return self
 
             def predict(self, horizon_or_valid):
@@ -923,38 +930,21 @@ def _get_available_models() -> list[tuple[str, Callable]]:
                     h = horizon_or_valid
                 else:
                     h = len(horizon_or_valid)
+                if self.model is None:
+                    return np.full(h, float(self.vals[-1]))
                 try:
-                    forecast = self.model.forecast(self.vals, h)
-                    return forecast
+                    fcst = self.model.forecast(
+                        input_context=self.vals,
+                        freq=self.freq,
+                        horizon=h,
+                    )
+                    return fcst["mean"].values[:h]
                 except Exception:
-                    return np.full(h, self.vals[-1])
+                    return np.full(h, float(self.vals[-1]))
 
         models.append(("TimesFM", lambda: _TimesFMWrapper()))
-    except ImportError:
-        # Auto-install timesfm
-        if _auto_install_pkg("timesfm"):
-            try:
-                import timesfm
-                class _TimesFMWrapper:
-                    def fit(self, df, date_col, value_col, freq):
-                        self.value_col = value_col
-                        vals = df[value_col].values
-                        self.model = timesfm.TimesFm(backend="auto")
-                        self.vals = vals
-                        return self
-                    def predict(self, horizon_or_valid):
-                        if isinstance(horizon_or_valid, int):
-                            h = horizon_or_valid
-                        else:
-                            h = len(horizon_or_valid)
-                        try:
-                            forecast = self.model.forecast(self.vals, h)
-                            return forecast
-                        except Exception:
-                            return np.full(h, self.vals[-1])
-                models.append(("TimesFM", lambda: _TimesFMWrapper()))
-            except ImportError:
-                pass
+    except Exception:
+        pass
 
     # Chronos
     try:
