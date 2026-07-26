@@ -327,7 +327,7 @@ def test_i18n_ja(monkeypatch):
         data = json.load(f)
     assert "ja" in data
     assert "error.data_too_small" in data["ja"]
-    assert data["ja"]["error.data_too_small"] == "データ不足: 最低%(min_rows)d行必要、%(actual)d行"
+    assert data["ja"]["error.data_too_small"] == "データが不十分です: 少なくとも %(min_rows)d 行が必要ですが、%(actual)d 行を取得しました"
 
 
 # ── Cycle 19: Frequency QS/YS ──────────────────────────────────────────

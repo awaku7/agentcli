@@ -1409,6 +1409,28 @@ def _handle_cmd_skills(
         if not isinstance(items, list):
             items = []
 
+        # Filter by keyword if provided (e.g. :skills list forecast, :skills find forecast)
+        search_keyword = ""
+        a_lower = a.strip().lower()
+        for prefix in ("list ", "find ", "search ", "grep "):
+            if a_lower.startswith(prefix):
+                search_keyword = a_lower[len(prefix):].strip()
+                break
+        if search_keyword:
+            filtered = []
+            for it in items:
+                if not isinstance(it, dict):
+                    continue
+                name = (it.get("name") or "").lower()
+                desc = (it.get("description") or "").lower()
+                if search_keyword in name or search_keyword in desc:
+                    filtered.append(it)
+            if filtered:
+                items = filtered
+            else:
+                print(_("[skills] No skills matching '%(kw)s'.") % {"kw": search_keyword})
+                return CommandResult()
+
         if not items:
             print(_("[skills] No skills found."))
             return CommandResult()
@@ -2531,6 +2553,8 @@ def _static_help_catalog(*, tr: Any) -> dict[str, dict[str, Any]]:
             usage=tr(":skills [list|active|clear|install|uninstall|apm|mp_search] ..."),
             detail=tr(
                 "Built-in: list/active/clear (see runtime skills handlers).\n"
+                ":skills list <keyword>  Filter skills by keyword (name/description).\n"
+                ":skills find <keyword>  Same as list with filter.\n"
                 "Dynamic subcommands come from tool CMD_SPEC (install, uninstall, apm, mp_search).\n"
                 "Use :help skills install for a subcommand."
             ),
