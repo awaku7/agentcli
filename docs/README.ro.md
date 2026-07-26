@@ -29,7 +29,7 @@
 
 - **Rulează local** pe computer. Datele tale rămân cu tine (cu excepția apelurilor API pe care le faci).
 - **Libertatea furnizorului**: OpenAI, Claude, Gemini, DeepSeek, Ollama, Azure, Bedrock, HuggingFace... 21 furnizori, toți accesibili dintr-o singură interfață. Schimbați între ele prin reconfigurarea variabilelor de mediu - fără reinstalare, fără migrare.
-- **170 instrumente**: I/O fișiere, căutare web, generare de imagini, Gmail, scanare dispozitiv BLE, integrare server MCP — **111 sunt sigure pentru paralel** (până la 8 se execută simultan prin pool-ul de fire, configurabile prin `UAGENT_PARALLEL_WORKERS`). Când LLM declanșează mai multe apeluri de instrumente simultan, uag le paralelizează automat.
+- **183 instrumente**: I/O fișiere, căutare web, generare de imagini, Gmail, scanare dispozitiv BLE, integrare server MCP — **111 sunt sigure pentru paralel** (până la 8 se execută simultan prin pool-ul de fire, configurabile prin `UAGENT_PARALLEL_WORKERS`). Când LLM declanșează mai multe apeluri de instrumente simultan, uag le paralelizează automat.
 - **3 interfețe de utilizare + A2A**: CLI, GUI, Web și protocol Agent-to-Agent. Același motor, orice interfață.
 - **Abilități de agent**: Instalați abilități create de comunitate de pe piață. Extinde uag la nesfârșit.
 
@@ -89,7 +89,7 @@ See [DEVELOP_PLUGIN.md](src/uagent/docs/DEVELOP_PLUGIN.md) for full documentatio
 - **Reload past sessions** with `:load <index>` — pick up where you left off.
 - **Tool result caching** avoids redundant re-execution when the same tool call repeats.
 
-### 🛠 170 de instrumente
+### 🛠 183 de instrumente
 
 | Categoria | Instrumente |
 |---|---|
@@ -97,6 +97,8 @@ See [DEVELOP_PLUGIN.md](src/uagent/docs/DEVELOP_PLUGIN.md) for full documentatio
 | **Web** | fetch_url, search_web, screenshot, browser_playwright |
 | **Media** | genera_imagine, analizează_imagine, img2img, vorbire_audio, transcriere_audio |
 | **Documente** | Extracție PDF/PPTX/DOCX/RTF/ODT, extracție structurată Excel |
+| **Prognoză** | Prognoză serii de timp cu 9 modele (AutoARIMA, Prophet, LightGBM, CatBoost, TimesFM etc.), selecție automată a modelului, generare de grafice, i18n |
+| **Prognoza** | Prognoza serii cronologice cu 9 modele (AutoARIMA, Prophet, LightGBM, CatBoost, TimesFM etc.), selectare automată a modelelor, generare plot, i18n |
 | **Comunicare** | gmail_send, gmail_read, bluesky, discord_channel, teams_webhook — vezi [COMMUNICATION.md](https://github.com/awaku7/agentcli/blob/main/docs/COMMUNICATION.md) |
 | **IoT** | BACnet、Modbus TCP、OPC UA、SwitchBot（Cloud + BLE）、ECHONET Lite、Matter、UPnP、reverse_geocode |
 | **Instrumente de dezvoltare** | git_ops, python_compile, lint_format, run_tests, db_query, **13 navigatoare de cod sursă (familia idx)** |

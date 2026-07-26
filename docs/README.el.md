@@ -29,7 +29,7 @@
 
 - **Εκτελείται τοπικά** στο μηχάνημά σας. Τα δεδομένα σας παραμένουν μαζί σας (εκτός από τις κλήσεις API που πραγματοποιείτε).
 - **Ελευθερία παρόχου**: OpenAI, Claude, Gemini, DeepSeek, Ollama, Azure, Bedrock, HuggingFace... 21+ πάροχοι, όλοι προσβάσιμοι από μια ενιαία διεπαφή. Εναλλάξτε μεταξύ τους ρυθμίζοντας εκ νέου τις μεταβλητές περιβάλλοντος — χωρίς επανεγκατάσταση, χωρίς μετεγκατάσταση.
-- **170 εργαλεία**: I/O αρχείων, αναζήτηση ιστού, δημιουργία εικόνων, Gmail, σάρωση συσκευής BLE, ενσωμάτωση διακομιστή MCP — **111 είναι παράλληλα ασφαλή** (έως 8 εκτελούνται ταυτόχρονα μέσω νήμα, με δυνατότητα διαμόρφωσης μέσω "UAGENT_PARALLEL_WORKERS"). Όταν το LLM ενεργοποιεί πολλές κλήσεις εργαλείων ταυτόχρονα, το uag τις παραλληλίζει αυτόματα.
+- **183 εργαλεία**: I/O αρχείων, αναζήτηση ιστού, δημιουργία εικόνων, Gmail, σάρωση συσκευής BLE, ενσωμάτωση διακομιστή MCP — **111 είναι παράλληλα ασφαλή** (έως 8 εκτελούνται ταυτόχρονα μέσω νήμα, με δυνατότητα διαμόρφωσης μέσω "UAGENT_PARALLEL_WORKERS"). Όταν το LLM ενεργοποιεί πολλές κλήσεις εργαλείων ταυτόχρονα, το uag τις παραλληλίζει αυτόματα.
 - **3 διεπαφές χρήστη + A2A**: Πρωτόκολλο CLI, GUI, Web και Agent-to-Agent. Ίδιος κινητήρας, οποιαδήποτε διεπαφή.
 - **Δεξιότητες πράκτορα**: Εγκαταστήστε δεξιότητες που δημιουργούνται από την κοινότητα από την αγορά. Επεκτείνετε το uag ατελείωτα.
 
@@ -89,7 +89,7 @@ See [DEVELOP_PLUGIN.md](src/uagent/docs/DEVELOP_PLUGIN.md) for full documentatio
 - **Reload past sessions** with `:load <index>` — pick up where you left off.
 - **Tool result caching** avoids redundant re-execution when the same tool call repeats.
 
-### 🛠 170 Εργαλεία
+### 🛠 183 Εργαλεία
 
 | Κατηγορία | Εργαλεία |
 |---|---|
@@ -97,6 +97,8 @@ See [DEVELOP_PLUGIN.md](src/uagent/docs/DEVELOP_PLUGIN.md) for full documentatio
 | **Ιστός** | fetch_url, search_web, screenshot, browser_playwright |
 | **ΜΜΕ** | δημιουργία_εικόνας, ανάλυση_εικόνας, img2img, audio_speech, audio_transscribe |
 | **Έγγραφα** | Εξαγωγή PDF/PPTX/DOCX/RTF/ODT, δομημένη εξαγωγή Excel |
+| **Πρόβλεψη** | Πρόβλεψη χρονοσειρών με 9 μοντέλα (AutoARIMA, Prophet, LightGBM, CatBoost, TimesFM, κ.λπ.), αυτόματη επιλογή μοντέλου, δημιουργία γραφημάτων, i18n |
+| **Πρόβλεψη** | Πρόβλεψη χρονοσειρών με 9 μοντέλα (AutoARIMA, Prophet, LightGBM, CatBoost, TimesFM κ.λπ.), αυτόματη επιλογή μοντέλου, δημιουργία πλοκής, i18n |
 | **Επικοινωνία** | gmail_send, gmail_read, bluesky, discord_channel, teams_webhook — δείτε [COMMUNICATION.md](https://github.com/awaku7/agentcli/blob/main/docs/COMMUNICATION.md) |
 | **IoT** | BACnet、Modbus TCP、OPC UA、SwitchBot（Cloud + BLE）、ECHONET Lite、Matter、UPnP、reverse_geocode |
 | **Εργαλεία προγραμματιστών** | git_ops, python_compile, lint_format, run_tests, db_query, **13 προγράμματα πλοήγησης πηγαίου κώδικα (οικογένεια idx)** |

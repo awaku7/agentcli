@@ -89,7 +89,7 @@ See [DEVELOP_PLUGIN.md](src/uagent/docs/DEVELOP_PLUGIN.md) for full documentatio
 - **Reload past sessions** with `:load <index>` — pick up where you left off.
 - **Tool result caching** avoids redundant re-execution when the same tool call repeats.
 
-### 🛠 170 도구
+### 🛠 183 도구
 
 | 카테고리 | 도구 |
 |---|---|
@@ -97,6 +97,8 @@ See [DEVELOP_PLUGIN.md](src/uagent/docs/DEVELOP_PLUGIN.md) for full documentatio
 | **웹** | fetch_url, search_web, 스크린샷, browser_playwright |
 | **미디어** | generate_image, analyze_image, img2img, audio_speech, audio_transcribe |
 | **문서** | PDF/PPTX/DOCX/RTF/ODT 추출, Excel 구조 추출 |
+| **예측** | 9개 모델(AutoARIMA, Prophet, LightGBM, CatBoost, TimesFM 등)을 사용한 시계열 예측, 자동 모델 선택, 플롯 생성, i18n |
+| **예측** | 9개 모델(AutoARIMA, Prophet, LightGBM, CatBoost, TimesFM 등)을 이용한 시계열 예측, 자동 모델 선택, 플롯 생성, i18n |
 | **커뮤니케이션** | gmail_send, gmail_read, bluesky, discord_channel, team_webhook — [COMMUNICATION.md](https://github.com/awaku7/agentcli/blob/main/docs/COMMUNICATION.md) 참조 |
 | **IoT** | BACnet、Modbus TCP、OPC UA、SwitchBot（Cloud + BLE）、ECHONET Lite、Matter、UPnP、reverse_geocode |
 | **개발 도구** | git_ops, python_compile, lint_format, run_tests, db_query, **13개의 소스 코드 탐색기(idx 제품군)** |

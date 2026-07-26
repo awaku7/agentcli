@@ -29,7 +29,7 @@
 
 - **Запускається локально** на вашій машині. Ваші дані залишаються з вами (крім викликів API, які ви робите).
 - **Свобода постачальників**: OpenAI, Claude, Gemini, DeepSeek, Ollama, Azure, Bedrock, HuggingFace... 21 постачальників, усі доступні з єдиного інтерфейсу. Перемикайтеся між ними шляхом переналаштування змінних середовища — без перевстановлення, без міграції.
-- **170 інструмент**: введення/виведення файлів, веб-пошук, створення зображень, Gmail, сканування пристроїв BLE, інтеграція сервера MCP — **111 є паралельно безпечними** (до 8 виконуються одночасно через пул потоків, налаштовується за допомогою `UAGENT_PARALLEL_WORKERS`). Коли LLM запускає кілька викликів інструментів одночасно, uag автоматично розпаралелює їх.
+- **183 інструмент**: введення/виведення файлів, веб-пошук, створення зображень, Gmail, сканування пристроїв BLE, інтеграція сервера MCP — **111 є паралельно безпечними** (до 8 виконуються одночасно через пул потоків, налаштовується за допомогою `UAGENT_PARALLEL_WORKERS`). Коли LLM запускає кілька викликів інструментів одночасно, uag автоматично розпаралелює їх.
 - **3 інтерфейси користувача + A2A**: CLI, графічний інтерфейс користувача, веб і протокол «Агент-агент». Той самий двигун, будь-який інтерфейс.
 - **Агентські навички**: встановлюйте навички, створені спільнотою, з ринку. Подовжувати uag нескінченно.
 
@@ -89,7 +89,7 @@ See [DEVELOP_PLUGIN.md](src/uagent/docs/DEVELOP_PLUGIN.md) for full documentatio
 - **Reload past sessions** with `:load <index>` — pick up where you left off.
 - **Tool result caching** avoids redundant re-execution when the same tool call repeats.
 
-### 🛠 170 інструмент
+### 🛠 183 інструмент
 
 | Категорія | Інструменти |
 |---|---|
@@ -97,6 +97,8 @@ See [DEVELOP_PLUGIN.md](src/uagent/docs/DEVELOP_PLUGIN.md) for full documentatio
 | **Веб** | fetch_url, search_web, знімок екрана, browser_playwright |
 | **Медіа** | генерувати_зображення, аналізувати_зображення, img2img, аудіо_мовлення, аудіо_транскрибувати |
 | **Документи** | Вилучення PDF/PPTX/DOCX/RTF/ODT, структуроване вилучення Excel |
+| **Прогноз** | Прогнозування часових рядів з 9 моделями (AutoARIMA, Prophet, LightGBM, CatBoost, TimesFM тощо), автоматичний вибір моделі, створення графіків, i18n |
+| **Прогноз** | Прогнозування часових рядів за допомогою 9 моделей (AutoARIMA, Prophet, LightGBM, CatBoost, TimesFM тощо), автоматичний вибір моделі, генерація графіків, i18n |
 | **Спілкування** | gmail_send, gmail_read, bluesky, discord_channel, teams_webhook — див. [COMMUNICATION.md](https://github.com/awaku7/agentcli/blob/main/docs/COMMUNICATION.md) |
 | **Інтернет речей** | SwitchBot (Cloud + BLE), ECHONET Lite, Matter, UPnP, reverse_geocode |
 | **Інструменти розробника** | git_ops, python_compile, lint_format, run_tests, db_query, **13 навігаторів вихідного коду (сімейство idx)** |
