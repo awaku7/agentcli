@@ -1,6 +1,24 @@
 # 変更履歴
 
 
+## [0.5.57] - 2026-07-26
+
+### 追加
+
+- feat: :skills list KEYWORD / :skills find KEYWORD — スキルを名前/説明でフィルタリング
+- feat: Together AI / Vercel AI Gateway プロバイダ追加、llm_novita reasoning_effort 対応
+
+### 修正
+
+- fix: 29言語 README 内 Forecast カテゴリ重複行を削除
+
+### 変更
+
+- docs: 全34言語 README 更新 — ツール数 170→183、Forecast カテゴリ追加
+- docs: docs/README.ja.md と DEVELOP.md のプロバイダ一覧更新、ファイル数更新
+- i18n: Together AI / Vercel AI Gateway を 32 翻訳ファイルのプロバイダ一覧に追加
+- chore: test/ ディレクトリ（test_apply_patch.py）削除
+
 ## [0.5.56] - 2026-07-26
 
 ### 追加

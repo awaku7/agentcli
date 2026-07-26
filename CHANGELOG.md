@@ -1,6 +1,24 @@
 # Changelog
 
 
+## [0.5.57] - 2026-07-26
+
+### Added
+
+- feat: :skills list KEYWORD / :skills find KEYWORD for filtering skills by name or description
+- feat: add Together AI and Vercel AI Gateway providers, llm_novita reasoning_effort
+
+### Fixed
+
+- fix: remove duplicate Forecast rows in 29 language READMEs
+
+### Changed
+
+- docs: update all 34 language READMEs - 170→183 tools, add Forecast category in each language
+- docs: update provider lists in docs/README.ja.md and DEVELOP.md file count
+- i18n: add Together AI / Vercel AI Gateway to 32 translation provider lists
+- chore: remove test/ directory (test_apply_patch.py)
+
 ## [0.5.56] - 2026-07-26
 
 ### Added
