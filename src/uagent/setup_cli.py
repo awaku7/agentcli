@@ -87,6 +87,8 @@ PROVIDERS: list[tuple[str, str]] = [
     ("sakana", "Sakana AI (Fugu)"),
     ("sakura", "SAKURA AI Engine"),
     ("novita", "Novita AI"),
+    ("together", "Together AI"),
+    ("vercel", "Vercel AI Gateway"),
 ]
 
 # NOTE: When adding/removing a provider here, also update
@@ -356,6 +358,42 @@ PROVIDER_FIELDS: dict[str, list[tuple[str, bool, str]]] = {
             "UAGENT_SAKURA_TEMPERATURE",
             False,
             _("SAKURA AI Engine temperature (optional)"),
+        ),
+    ],
+    "vercel": [
+        ("UAGENT_VERCEL_API_KEY", True, _("Vercel AI Gateway API key")),
+        (
+            "UAGENT_VERCEL_BASE_URL",
+            False,
+            _("Vercel AI Gateway base URL (optional, default: https://gateway.vercel.ai/v1)"),
+        ),
+        (
+            "UAGENT_VERCEL_DEPNAME",
+            False,
+            _("Vercel model name (optional, default: openai/gpt-5.4-nano)"),
+        ),
+        (
+            "UAGENT_VERCEL_TEMPERATURE",
+            False,
+            _("Vercel AI Gateway temperature (optional)"),
+        ),
+    ],
+    "together": [
+        ("UAGENT_TOGETHER_API_KEY", True, _("Together AI API key")),
+        (
+            "UAGENT_TOGETHER_BASE_URL",
+            False,
+            _("Together AI base URL (optional, default: https://api.together.ai/v1)"),
+        ),
+        (
+            "UAGENT_TOGETHER_DEPNAME",
+            False,
+            _("Together AI model name (optional, default: MiniMaxAI/MiniMax-M3)"),
+        ),
+        (
+            "UAGENT_TOGETHER_TEMPERATURE",
+            False,
+            _("Together AI temperature (optional)"),
         ),
     ],
     "novita": [
@@ -1163,7 +1201,7 @@ def _env_lines_from_state(st: _WizardState) -> list[str]:
     out.append("# Provider selection")
     out.append("# ==============================")
     out.append(
-        "# azure / openai / bedrock / openrouter / gemini / vertexai / grok / claude / ollama / nvidia / deepseek / zai / alibaba / moonshot / mimo / lmstudio / minimax / hf"
+        "# azure / openai / bedrock / openrouter / gemini / vertexai / grok / claude / ollama / nvidia / deepseek / zai / alibaba / moonshot / mimo / lmstudio / minimax / hf / sakana / sakura / novita / together / vercel"
     )
     out.append(f"UAGENT_PROVIDER={st.provider}")
     out.append("")

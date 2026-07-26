@@ -28,7 +28,7 @@ ______________________________________________________________________
 **Break free from vendor lock-in.** Most AI assistants tie you to a specific provider or cloud service. uag is different.
 
 - **Runs locally** on your machine. Your data stays with you (except API calls you make).
-- **Provider freedom**: OpenAI, Claude, Gemini, DeepSeek, Ollama, Azure, Bedrock, Novita, HuggingFace... 21 providers, all accessible from a single interface. Swap between them by reconfiguring environment variables — no reinstall, no migration.
+- **Provider freedom**: OpenAI, Claude, Gemini, DeepSeek, Ollama, Azure, Bedrock, Novita, HuggingFace... 23 providers, all accessible from a single interface. Swap between them by reconfiguring environment variables — no reinstall, no migration.
 - **170 tools**: File I/O, web search, image generation, Gmail, BLE device scanning, MCP server integration — **111 are parallel-safe** (up to 8 execute concurrently via thread pool, configurable via `UAGENT_PARALLEL_WORKERS`). When the LLM fires multiple tool calls at once, uag automatically parallelizes them.
 - **3 UIs + A2A**: CLI, GUI, Web, and Agent-to-Agent protocol. Same engine, any interface.
 - **IoT ready**: SwitchBot, ECHONET Lite, Matter, UPnP — control your home devices through AI.
@@ -50,7 +50,7 @@ See [docs/ENVIRONMENT.md](https://github.com/awaku7/agentcli/blob/main/docs/ENVI
 
 ### 🧠 Multi-Provider Architecture
 
-OpenAI / Azure / Bedrock / OpenRouter / Ollama / Gemini / Vertex AI / Claude / Grok / NVIDIA / Novita / DeepSeek / Z.AI (Zhipu AI) / HuggingFace / Alibaba Cloud (Qwen) / KIMI (Moonshot AI) / Xiaomi MiMo / LM Studio / MiniMax / **Sakana AI (Fugu)** / **SAKURA AI Engine**
+OpenAI / Azure / Bedrock / OpenRouter / Ollama / Gemini / Vertex AI / Claude / Grok / NVIDIA / Novita / DeepSeek / Z.AI (Zhipu AI) / HuggingFace / Alibaba Cloud (Qwen) / KIMI (Moonshot AI) / Xiaomi MiMo / LM Studio / MiniMax / **Sakana AI (Fugu)** / **SAKURA AI Engine** / **Together AI** / **Vercel AI Gateway**
 
 All providers share the same toolset and interface. Switch by setting `UAGENT_PROVIDER` — no code changes, no separate installations.
 

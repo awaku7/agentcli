@@ -455,6 +455,32 @@ def build_startup_banner(*, core: Any, workdir: str, workdir_source: str) -> str
                 )
             }
         )
+    elif provider == "together":
+        lines.append(
+            _("[INFO] base_url = %(base_url)s")
+            % {
+                "base_url": _normalize_url(
+                    core,
+                    env_get(
+                        "UAGENT_TOGETHER_BASE_URL",
+                        "https://api.together.ai/v1",
+                    ),
+                )
+            }
+        )
+    elif provider == "vercel":
+        lines.append(
+            _("[INFO] base_url = %(base_url)s")
+            % {
+                "base_url": _normalize_url(
+                    core,
+                    env_get(
+                        "UAGENT_VERCEL_BASE_URL",
+                        "https://gateway.vercel.ai/v1",
+                    ),
+                )
+            }
+        )
     elif provider == "novita":
         lines.append(
             _("[INFO] base_url = %(base_url)s")

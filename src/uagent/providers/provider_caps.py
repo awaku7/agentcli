@@ -30,6 +30,8 @@ ALL_PROVIDERS: frozenset[str] = frozenset(
         "sakana",
         "sakura",
         "novita",
+        "together",
+        "vercel",
     }
 )
 

@@ -1,14 +1,17 @@
-"""Novita AI chat completion helper.
+"""Together AI chat completion helper.
+
+Uses the official ``together`` Python SDK (``pip install together``).
+
+- The SDK reads ``TOGETHER_API_KEY`` from the environment automatically
+  when ``Together()`` is called without arguments.
+- Streaming, tool calls, and reasoning (via ``reasoning_content``) are
+  supported through the standard OpenAI-compatible interface.
+- ``reasoning_effort`` is passed as a top-level kwarg when configured.
 
 OpenAI-compatible Chat Completions API. Reasoning models return
 ``reasoning_content`` alongside ``content`` in the same format as DeepSeek's
 API, so the parsing logic mirrors that of ``llm_deepseek`` but is fully
 independent (no imports from DeepSeek modules).
-
-- ``reasoning_effort`` is passed as a top-level kwarg when configured.
-- No extra_body / thinking.type parameters needed (Novita handles it).
-- No temperature suppression in thinking mode (Novita handles it server-side).
-- No tool repair complexity (Novita uses standard OpenAI tool format).
 """
 
 from __future__ import annotations
@@ -36,16 +39,13 @@ from ..llm_helpers import (
 )
 from ..reasoning_display import show_reasoning
 
-_LABEL = "Novita"
-_ENV_PREFIX = "UAGENT_NOVITA"
+_LABEL = "Together"
+_ENV_PREFIX = "UAGENT_TOGETHER"
 
 
 # ---------------------------------------------------------------------------
 # Thinking-mode effort mapping
 # ---------------------------------------------------------------------------
-# Maps UAGENT_REASONING normalized values to API reasoning_effort values.
-# Novita serves multiple model families with different valid ranges, but the
-# parameter name is always ``reasoning_effort`` (OpenAI-compatible).
 _EFFORT_MAP: dict[str, str] = {
     "minimal": "low",
     "low": "low",
@@ -56,13 +56,13 @@ _EFFORT_MAP: dict[str, str] = {
 }
 
 
-def _get_valid_novita_efforts(model_name: str = "") -> frozenset:
-    """Return valid reasoning_effort values for a Novita model via llmcapa."""
+def _get_valid_together_efforts(model_name: str = "") -> frozenset:
+    """Return valid reasoning_effort values for a Together model via llmcapa."""
     if model_name:
         try:
             from uagent.llmcapa_util import get_capability, current_provider
 
-            cap = get_capability(model_name, current_provider() or "novita")
+            cap = get_capability(model_name, current_provider() or "together")
             if cap is not None and getattr(cap, "supports_reasoning_effort", False):
                 vals = cap.get_reasoning_effort_values() or []
                 return frozenset(vals)
@@ -71,13 +71,10 @@ def _get_valid_novita_efforts(model_name: str = "") -> frozenset:
     return frozenset({"none", "low", "medium", "high"})
 
 
-def _resolve_novita_effort(
+def _resolve_together_effort(
     raw: str, model_name: str, auto_user_text: str = ""
 ) -> str | None:
-    """Map a UAGENT_REASONING value to a Novita-valid reasoning_effort string.
-
-    Returns None when thinking should be disabled or is not configured.
-    """
+    """Map a UAGENT_REASONING value to a Together-valid reasoning_effort string."""
     r = raw.strip().lower()
     if r in ("off", ""):
         return None
@@ -108,12 +105,6 @@ def _extract_reasoning_content(msg: Any) -> str:
 def _strip_reasoning_content(
     messages: list[dict[str, Any]],
 ) -> list[dict[str, Any]]:
-    """Return a copy of messages with reasoning_content removed from assistant
-    messages that have NO tool_calls.
-
-    Assistant messages WITH tool_calls must retain reasoning_content.
-    Assistant messages WITHOUT tool_calls must NOT include reasoning_content.
-    """
     out: list[dict[str, Any]] = []
     for m in messages:
         if m.get("role") == "assistant" and "reasoning_content" in m:
@@ -129,8 +120,8 @@ def _strip_reasoning_content(
 # ---------------------------------------------------------------------------
 
 
-def _parse_novita_response(resp: Any) -> tuple[str, str, list[dict[str, Any]]]:
-    """Parse a non-streaming chat completion response from Novita.
+def _parse_together_response(resp: Any) -> tuple[str, str, list[dict[str, Any]]]:
+    """Parse a non-streaming chat completion response from Together.
 
     Returns ``(assistant_text, reasoning_content, tool_calls_list)``.
     """
@@ -160,9 +151,6 @@ def _parse_novita_response(resp: Any) -> tuple[str, str, list[dict[str, Any]]]:
             fn_args = "{}"
         elif not isinstance(fn_args, str):
             fn_args = str(fn_args)
-        # Generate synthetic ID when the API returns empty/missing tool_call_id.
-        # This prevents sanitize_messages_for_tools from dropping tool results
-        # as orphans, which would cause the model to repeat the same tool call.
         _tid = tc_id if tc_id else uuid.uuid4().hex[:12]
         tool_calls_list.append(
             {
@@ -203,16 +191,15 @@ def _parse_novita_response(resp: Any) -> tuple[str, str, list[dict[str, Any]]]:
 # ---------------------------------------------------------------------------
 
 
-def _parse_novita_stream(
+def _parse_together_stream(
     stream: Any,
     *,
     print_delta_fn: Any = None,
     core: Any = None,
 ) -> tuple[str, str, list[dict[str, Any]]]:
-    """Consume a streaming response from Novita.
+    """Consume a streaming response from Together.
 
     Returns ``(assistant_text, reasoning_content, tool_calls_list)``.
-    ``reasoning_content`` deltas are accumulated but NOT printed to stdout.
     """
     text_parts: list[str] = []
     reasoning_parts: list[str] = []
@@ -229,10 +216,9 @@ def _parse_novita_stream(
             rc_delta = getattr(delta, "reasoning_content", None)
             if isinstance(rc_delta, str) and rc_delta:
                 reasoning_parts.append(rc_delta)
-                # Print reasoning as gray text in CLI streaming
                 show_reasoning(
                     rc_delta,
-                    provider="Novita",
+                    provider="Together",
                     is_first=(not _reasoning_printed),
                     print_fn=print_delta_fn,
                     core=core,
@@ -285,7 +271,6 @@ def _parse_novita_stream(
     except Exception:
         pass
 
-    # Web UI: signal stream end
     if is_web and core is not None:
         try:
             lm = getattr(core, "log_message", None)
@@ -318,7 +303,7 @@ def _parse_novita_stream(
 # ---------------------------------------------------------------------------
 
 
-def build_novita_chat_kwargs(
+def build_together_chat_kwargs(
     *,
     depname: str,
     call_messages: list[dict[str, Any]],
@@ -329,9 +314,7 @@ def build_novita_chat_kwargs(
 ) -> tuple[dict[str, Any], str | None]:
     """Build the kwargs dict for ``client.chat.completions.create``.
 
-    Novita uses a standard OpenAI-compatible API.  When ``reasoning`` is set
-    (from ``UAGENT_REASONING``) and the model supports ``reasoning_effort``,
-    the parameter is added to the kwargs.
+    Together uses a standard OpenAI-compatible API.
     """
     clean_messages = _strip_reasoning_content(call_messages)
 
@@ -356,11 +339,10 @@ def build_novita_chat_kwargs(
     try:
         from uagent.llmcapa_util import apply_shared_max_tokens
 
-        apply_shared_max_tokens(chat_kwargs, model_id=depname, provider="novita")
+        apply_shared_max_tokens(chat_kwargs, model_id=depname, provider="together")
     except Exception:
         pass
 
-    # top_p shared fallback
     top_p_env = (
         env_get(f"{_ENV_PREFIX}_TOP_P") or env_get("UAGENT_TOP_P") or ""
     ).strip()
@@ -371,13 +353,12 @@ def build_novita_chat_kwargs(
             pass
 
     effort_used: str | None = None
-    # reasoning_effort
     if reasoning:
-        effort_used = _resolve_novita_effort(
+        effort_used = _resolve_together_effort(
             reasoning, depname, auto_user_text=auto_user_text
         )
         if effort_used:
-            valid_efforts = _get_valid_novita_efforts(depname)
+            valid_efforts = _get_valid_together_efforts(depname)
             if effort_used in valid_efforts:
                 chat_kwargs["reasoning_effort"] = effort_used
 
@@ -389,7 +370,7 @@ def build_novita_chat_kwargs(
 # ---------------------------------------------------------------------------
 
 
-def novita_chat_with_tools(
+def together_chat_with_tools(
     client: Any,
     depname: str,
     call_messages: list[dict[str, Any]],
@@ -403,7 +384,7 @@ def novita_chat_with_tools(
     retry_cap: float,
     stream: bool = True,
 ) -> tuple[bool, Any, str, str, list[dict[str, Any]]]:
-    """Run one Novita AI chat completion round.
+    """Run one Together AI chat completion round.
 
     Returns ``(ok, client, assistant_text, reasoning_content, tool_calls_list)``.
     """
@@ -411,7 +392,6 @@ def novita_chat_with_tools(
 
     req_tools = _tools.get_tool_specs() if send_tools_this_round else None
 
-    # Resolve reasoning mode from env
     _reasoning_raw = (env_get("UAGENT_REASONING") or "").strip().lower()
     _auto_user_text = (
         _extract_latest_user_text(call_messages) if _reasoning_raw == "auto" else ""
@@ -419,7 +399,7 @@ def novita_chat_with_tools(
 
     while True:
         try:
-            chat_kwargs, _effort_used = build_novita_chat_kwargs(
+            chat_kwargs, _effort_used = build_together_chat_kwargs(
                 depname=depname,
                 call_messages=call_messages,
                 send_tools=send_tools_this_round,
@@ -442,14 +422,18 @@ def novita_chat_with_tools(
             if stream:
                 assistant_text, reasoning_content, tool_calls_list = (
                     call_maybe_thread_fn(
-                        lambda: _parse_novita_stream(
+                        lambda: _parse_together_stream(
                             client.chat.completions.create(**chat_kwargs, stream=True),
                             print_delta_fn=(
                                 None
                                 if bool(getattr(core, "_is_web", False))
                                 else (
                                     getattr(core, "print_stream_delta", None)
-                                    or (lambda s: print(s, end="", flush=True) if s else None)
+                                    or (
+                                        lambda s: print(s, end="", flush=True)
+                                        if s
+                                        else None
+                                    )
                                 )
                             ),
                             core=core,
@@ -461,7 +445,7 @@ def novita_chat_with_tools(
                     lambda: client.chat.completions.create(**chat_kwargs)
                 )
                 assistant_text, reasoning_content, tool_calls_list = (
-                    _parse_novita_response(resp)
+                    _parse_together_response(resp)
                 )
 
             return True, client, assistant_text, reasoning_content, tool_calls_list
@@ -469,7 +453,7 @@ def novita_chat_with_tools(
         except Exception as e:
             attempt_429, new_client, action = _rate_limit_retry_step(
                 exception=e,
-                provider="novita",
+                provider="together",
                 model=depname,
                 attempt=attempt_429,
                 max_retries=max_retries_429,
@@ -517,7 +501,8 @@ def novita_chat_with_tools(
                 print(f"[{_LABEL} Error] " + _("400 BadRequest"))
                 print(
                     f"[{_LABEL} Error] "
-                    + _("Error code: %(code)d - %(err)s") % {"code": 400, "err": e}
+                    + _("Error code: %(code)d - %(err)s")
+                    % {"code": 400, "err": e}
                 )
                 return False, client, "", "", []
 

@@ -80,6 +80,8 @@ Gemini, DeepSeek, Ollama, OpenRouter, etc.).
 | `sakana` | Sakana AI (Fugu) |
 | `sakura` | SAKURA AI Engine |
 | `novita` | Novita AI |
+| `together` | Together AI |
+| `vercel` | Vercel AI Gateway |
 
 ## Commands to run before committing
 

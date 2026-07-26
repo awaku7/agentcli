@@ -46,6 +46,8 @@ from .llm_round_helpers import (
     _call_deepseek_round,
     _call_zai_round,
     _call_novita_round,
+    _call_together_round,
+    _call_vercel_round,
 )
 from .llm_grok_round import _call_grok_round
 from .providers.llm_deepseek import build_assistant_message_with_reasoning
@@ -910,6 +912,158 @@ def _run_one_round(
                 empty_no_tool_rounds,
                 assistant_text,
             )
+
+        empty_no_tool_rounds = 0
+
+    elif provider == "vercel":
+        ok, client, assistant_text, reasoning_content, tool_calls_list = (
+            _call_vercel_round(
+                client=client,
+                depname=depname,
+                call_messages=call_messages,
+                core=core,
+                make_client_fn=make_client_fn,
+                call_maybe_thread_fn=_call_maybe_thread_fn,
+                send_tools_this_round=send_tools_this_round,
+                max_retries_429=max_retries_429,
+                retry_base=retry_base,
+                retry_cap=retry_cap,
+            )
+        )
+        if not ok:
+            return (
+                _RS_RETURN,
+                client,
+                gemini_cache_name,
+                empty_no_tool_rounds,
+                assistant_text,
+            )
+
+        # --- Interrupt check ---
+        with _core_module.interrupt_lock:
+            if _core_module.interrupt_requested:
+                _core_module.interrupt_requested = False
+                _inject_stop_prompt(messages, core)
+                return (
+                    _RS_BREAK,
+                    client,
+                    gemini_cache_name,
+                    empty_no_tool_rounds,
+                    assistant_text,
+                )
+
+        assistant_text = _translate_assistant_if_needed(
+            assistant_text=assistant_text,
+            tr_cfg=tr_cfg,
+            use_responses_api=False,
+            stream_responses=False,
+        )
+
+        _ds_streaming = (
+            env_get("UAGENT_STREAMING", "1") or ""
+        ).strip().lower() not in ("0", "false", "no", "off")
+
+        if _should_keep_assistant_message(assistant_text, tool_calls_list):
+            deepseek_msg = build_assistant_message_with_reasoning(
+                assistant_text=assistant_text,
+                reasoning_content=reasoning_content,
+                tool_calls_list=tool_calls_list,
+            )
+            messages.append(deepseek_msg)
+        _emit_final_answer_if_any(
+            assistant_text=assistant_text,
+            use_responses_api=False,
+            stream_responses=False,
+            append_result_to_outfile_fn=append_result_to_outfile_fn,
+            try_open_images_from_text_fn=try_open_images_from_text_fn,
+            reasoning_content=reasoning_content,
+            skip_print=_ds_streaming,
+            core=core,
+            provider=provider,
+        )
+        return (
+            _RS_BREAK,
+            client,
+            gemini_cache_name,
+            empty_no_tool_rounds,
+            assistant_text,
+        )
+
+        empty_no_tool_rounds = 0
+
+    elif provider == "together":
+        ok, client, assistant_text, reasoning_content, tool_calls_list = (
+            _call_together_round(
+                client=client,
+                depname=depname,
+                call_messages=call_messages,
+                core=core,
+                make_client_fn=make_client_fn,
+                call_maybe_thread_fn=_call_maybe_thread_fn,
+                send_tools_this_round=send_tools_this_round,
+                max_retries_429=max_retries_429,
+                retry_base=retry_base,
+                retry_cap=retry_cap,
+            )
+        )
+        if not ok:
+            return (
+                _RS_RETURN,
+                client,
+                gemini_cache_name,
+                empty_no_tool_rounds,
+                assistant_text,
+            )
+
+        # --- Interrupt check ---
+        with _core_module.interrupt_lock:
+            if _core_module.interrupt_requested:
+                _core_module.interrupt_requested = False
+                _inject_stop_prompt(messages, core)
+                return (
+                    _RS_BREAK,
+                    client,
+                    gemini_cache_name,
+                    empty_no_tool_rounds,
+                    assistant_text,
+                )
+
+        assistant_text = _translate_assistant_if_needed(
+            assistant_text=assistant_text,
+            tr_cfg=tr_cfg,
+            use_responses_api=False,
+            stream_responses=False,
+        )
+
+        _ds_streaming = (
+            env_get("UAGENT_STREAMING", "1") or ""
+        ).strip().lower() not in ("0", "false", "no", "off")
+
+        if _should_keep_assistant_message(assistant_text, tool_calls_list):
+            deepseek_msg = build_assistant_message_with_reasoning(
+                assistant_text=assistant_text,
+                reasoning_content=reasoning_content,
+                tool_calls_list=tool_calls_list,
+            )
+            messages.append(deepseek_msg)
+        _emit_final_answer_if_any(
+            assistant_text=assistant_text,
+            use_responses_api=False,
+            stream_responses=False,
+            append_result_to_outfile_fn=append_result_to_outfile_fn,
+            try_open_images_from_text_fn=try_open_images_from_text_fn,
+            reasoning_content=reasoning_content,
+            skip_print=_ds_streaming,
+            core=core,
+            provider=provider,
+        )
+        return (
+            _RS_BREAK,
+            client,
+            gemini_cache_name,
+            empty_no_tool_rounds,
+            assistant_text,
+        )
 
         empty_no_tool_rounds = 0
 

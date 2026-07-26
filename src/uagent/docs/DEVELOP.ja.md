@@ -34,7 +34,7 @@ ______________________________________________________________________
     - `src/uagent/llm_flow_helpers.py`
   - リトライ / backoff ヘルパは `src/uagent/llm_errors.py`
 - **Providers**: `src/uagent/providers/util_providers.py`
-  - 環境変数に基づきクライアント生成（Azure/OpenAI/Bedrock/OpenRouter/Ollama/Gemini/Vertex AI/Grok/Claude/NVIDIA/DeepSeek/Z.AI/Alibaba/Moonshot/MiMo/LM Studio/MiniMax/Sakana/Sakura/Novita 等）
+  - 環境変数に基づきクライアント生成（Azure/OpenAI/Bedrock/OpenRouter/Ollama/Gemini/Vertex AI/Grok/Claude/NVIDIA/DeepSeek/Z.AI/Alibaba/Moonshot/MiMo/LM Studio/MiniMax/Sakana/Sakura/Novita/Together/Vercel 等）
   - プロバイダキーの一覧は `src/uagent/providers/provider_caps.py` の `ALL_PROVIDERS` で一元管理。
     `detect_provider()` と `env_validate.py` はそこから参照する。追加時は `ALL_PROVIDERS` に追記すること。
 - **Utilities**: `src/uagent/util_tools.py`

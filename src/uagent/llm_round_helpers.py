@@ -42,6 +42,8 @@ from .providers.llm_ollama_responses import apply_ollama_responses_compat
 from .providers.llm_deepseek import deepseek_chat_with_tools
 from .providers.llm_zai import zai_chat_with_tools
 from .providers.llm_novita import novita_chat_with_tools
+from .providers.llm_together import together_chat_with_tools
+from .providers.llm_vercel import vercel_chat_with_tools
 from .llm_helpers import (
     _auto_low_quality,
     _bump_effort,
@@ -758,6 +760,10 @@ def _call_openai_azure_round(
                     temp_env = env_get("UAGENT_SAKURA_TEMPERATURE") or ""
                 elif provider == "novita":
                     temp_env = env_get("UAGENT_NOVITA_TEMPERATURE") or ""
+                elif provider == "together":
+                    temp_env = env_get("UAGENT_TOGETHER_TEMPERATURE") or ""
+                elif provider == "vercel":
+                    temp_env = env_get("UAGENT_VERCEL_TEMPERATURE") or ""
 
                 if not temp_env:
                     temp_env = env_get("UAGENT_TEMPERATURE") or ""
@@ -1178,6 +1184,67 @@ def _call_zai_round(
     """
     stream = _env_default_true("UAGENT_STREAMING", default=True)
     return zai_chat_with_tools(
+        client,
+        depname,
+        call_messages,
+        core=core,
+        make_client_fn=make_client_fn,
+        call_maybe_thread_fn=call_maybe_thread_fn,
+        send_tools_this_round=send_tools_this_round,
+        max_retries_429=max_retries_429,
+        retry_base=retry_base,
+        retry_cap=retry_cap,
+        stream=stream,
+    )
+
+
+def _call_vercel_round(
+    *,
+    client: Any,
+    depname: str,
+    call_messages: list[dict[str, Any]],
+    core: Any,
+    make_client_fn: Any,
+    call_maybe_thread_fn: Any,
+    send_tools_this_round: bool,
+    max_retries_429: int,
+    retry_base: float,
+    retry_cap: float,
+) -> tuple[bool, Any, str, str, list[dict[str, Any]]]:
+    """Thin wrapper: delegates to providers/llm_vercel.py (Vercel AI Gateway).
+
+    Returns ``(ok, client, assistant_text, reasoning_content, tool_calls_list)``.
+    """
+    stream = _env_default_true("UAGENT_STREAMING", default=True)
+    return vercel_chat_with_tools(
+        client, depname, call_messages,
+        core=core, make_client_fn=make_client_fn,
+        call_maybe_thread_fn=call_maybe_thread_fn,
+        send_tools_this_round=send_tools_this_round,
+        max_retries_429=max_retries_429, retry_base=retry_base, retry_cap=retry_cap,
+        stream=stream,
+    )
+
+
+def _call_together_round(
+    *,
+    client: Any,
+    depname: str,
+    call_messages: list[dict[str, Any]],
+    core: Any,
+    make_client_fn: Any,
+    call_maybe_thread_fn: Any,
+    send_tools_this_round: bool,
+    max_retries_429: int,
+    retry_base: float,
+    retry_cap: float,
+) -> tuple[bool, Any, str, str, list[dict[str, Any]]]:
+    """Thin wrapper: delegates to providers/llm_together.py (Together AI).
+
+    Returns ``(ok, client, assistant_text, reasoning_content, tool_calls_list)``.
+    """
+    stream = _env_default_true("UAGENT_STREAMING", default=True)
+    return together_chat_with_tools(
         client,
         depname,
         call_messages,

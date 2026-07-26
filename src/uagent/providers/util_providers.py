@@ -364,6 +364,16 @@ def get_model_name() -> str:
         return env_get("UAGENT_NOVITA_DEPNAME", "tensent/hy3") or "tensent/hy3"
     if provider == "sakura":
         return env_get("UAGENT_SAKURA_DEPNAME", "llm") or "llm"
+    if provider == "together":
+        return (
+            env_get("UAGENT_TOGETHER_DEPNAME", "MiniMaxAI/MiniMax-M3")
+            or "MiniMaxAI/MiniMax-M3"
+        )
+    if provider == "vercel":
+        return (
+            env_get("UAGENT_VERCEL_DEPNAME", "openai/gpt-5.4-nano")
+            or "openai/gpt-5.4-nano"
+        )
     return env_get("UAGENT_OPENAI_DEPNAME", "gpt-5.4-nano") or "gpt-5.4-nano"
 
 
@@ -847,6 +857,55 @@ def make_client(core: Any) -> tuple[str, Any, str]:
         base_url = core.get_env_url(
             "UAGENT_SAKANA_BASE_URL",
             "https://api.sakana.ai/v1",
+        )
+
+        http_client = make_httpx_client()
+
+        try:
+            client = OpenAI(api_key=api_key, base_url=base_url, http_client=http_client)
+        except TypeError:
+            client = OpenAI(api_key=api_key, base_url=base_url)
+
+        return provider, client, model_name
+
+    if provider == "together":
+        # Auto-install together SDK if missing; fallback to OpenAI-compatible
+        try:
+            from together import Together as TogetherClient
+        except Exception:
+            from .._pip_auto import install_with_status as _install_together
+
+            if _install_together(
+                "together", "together", display_name="Together AI SDK"
+            ):
+                from together import Together as TogetherClient
+            else:
+                from openai import OpenAI as TogetherClient
+
+        api_key = core.get_env("UAGENT_TOGETHER_API_KEY")
+        base_url = core.get_env_url(
+            "UAGENT_TOGETHER_BASE_URL",
+            "https://api.together.ai/v1",
+        )
+
+        http_client = make_httpx_client()
+
+        try:
+            client = TogetherClient(
+                api_key=api_key, base_url=base_url, http_client=http_client
+            )
+        except TypeError:
+            client = TogetherClient(api_key=api_key, base_url=base_url)
+
+        return provider, client, model_name
+
+    if provider == "vercel":
+        from openai import OpenAI  # lazy
+
+        api_key = core.get_env("UAGENT_VERCEL_API_KEY")
+        base_url = core.get_env_url(
+            "UAGENT_VERCEL_BASE_URL",
+            "https://gateway.vercel.ai/v1",
         )
 
         http_client = make_httpx_client()
