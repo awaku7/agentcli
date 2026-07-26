@@ -98,7 +98,6 @@ See [DEVELOP_PLUGIN.md](src/uagent/docs/DEVELOP_PLUGIN.md) for full documentatio
 | **Media** | genera_imagine, analizează_imagine, img2img, vorbire_audio, transcriere_audio |
 | **Documente** | Extracție PDF/PPTX/DOCX/RTF/ODT, extracție structurată Excel |
 | **Prognoză** | Prognoză serii de timp cu 9 modele (AutoARIMA, Prophet, LightGBM, CatBoost, TimesFM etc.), selecție automată a modelului, generare de grafice, i18n |
-| **Prognoza** | Prognoza serii cronologice cu 9 modele (AutoARIMA, Prophet, LightGBM, CatBoost, TimesFM etc.), selectare automată a modelelor, generare plot, i18n |
 | **Comunicare** | gmail_send, gmail_read, bluesky, discord_channel, teams_webhook — vezi [COMMUNICATION.md](https://github.com/awaku7/agentcli/blob/main/docs/COMMUNICATION.md) |
 | **IoT** | BACnet、Modbus TCP、OPC UA、SwitchBot（Cloud + BLE）、ECHONET Lite、Matter、UPnP、reverse_geocode |
 | **Instrumente de dezvoltare** | git_ops, python_compile, lint_format, run_tests, db_query, **13 navigatoare de cod sursă (familia idx)** |

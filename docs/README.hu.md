@@ -98,7 +98,6 @@ See [DEVELOP_PLUGIN.md](src/uagent/docs/DEVELOP_PLUGIN.md) for full documentatio
 | **Média** | gener_image, analysis_image, img2img, audio_speech, audio_transcribe |
 | **Dokumentumok** | PDF/PPTX/DOCX/RTF/ODT kinyerés, Excel strukturált kivonat |
 | **Előrejelzés** | Idősor-előrejelzés 9 modellel (AutoARIMA, Prophet, LightGBM, CatBoost, TimesFM stb.), automatikus modellválasztás, diagramgenerálás, i18n |
-| **Előrejelzés** | Idősoros előrejelzés 9 modellel (AutoARIMA, Prophet, LightGBM, CatBoost, TimesFM stb.), automatikus modellválasztás, plot generálás, i18n |
 | **Kommunikáció** | gmail_send, gmail_read, bluesky, discord_channel, teams_webhook – lásd: [COMMUNICATION.md](https://github.com/awaku7/agentcli/blob/main/docs/COMMUNICATION.md) |
 | **IoT** | BACnet、Modbus TCP、OPC UA、SwitchBot（Cloud + BLE）、ECHONET Lite、Matter、UPnP、reverse_geocode |
 | **Fejlesztői eszközök** | git_ops, python_compile, lint_format, run_tests, db_query, **13 forráskód-navigátor (idx család)** |

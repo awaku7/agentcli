@@ -98,7 +98,6 @@ See [DEVELOP_PLUGIN.md](src/uagent/docs/DEVELOP_PLUGIN.md) for full documentatio
 | **Хэвлэл мэдээлэл** | зураг үүсгэх, дүн шинжилгээ хийх, img2img, аудио_яриа, аудио_сийрүүлэх |
 | **Баримт бичиг** | PDF/PPTX/DOCX/RTF/ODT олборлолт, Excel-ийн бүтэцтэй олборлолт |
 | **Урьдчилан таамаглах** | 9 загвартай цаг хугацааны цувааны урьдчилсан таамаглал (AutoARIMA, Prophet, LightGBM, CatBoost, TimesFM гэх мэт), автомат загвар сонголт, график үүсгэх, i18n |
-| **Урьдчилан таамаглах** | 9 загвар (AutoARIMA, Prospect, LightGBM, CatBoost, TimesFM гэх мэт) бүхий цагийн цувралын таамаглал, автомат загвар сонгох, график үүсгэх, i18n |
 | **Харилцаа** | gmail_send, gmail_read, bluesky, discord_channel, teams_webhook — [COMMUNICATION.md](https://github.com/awaku7/agentcli/blob/main/docs/COMMUNICATION.md) -г үзнэ үү |
 | **IoT** | BACnet、Modbus TCP、OPC UA、SwitchBot（Cloud + BLE）、ECHONET Lite、Matter、UPnP、reverse_geocode |
 | **Dev Tools** | git_ops, python_compile, lint_format, run_tests, db_query, **13 эх кодын хөтөч (idx гэр бүл)** |

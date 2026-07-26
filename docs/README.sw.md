@@ -98,7 +98,6 @@ See [DEVELOP_PLUGIN.md](src/uagent/docs/DEVELOP_PLUGIN.md) for full documentatio
 | **Vyombo vya habari** | zalisha_picha, changanua_picha, img2img, hotuba_ya_sauti,nukuu_sauti |
 | **Nyaraka** | Uchimbaji wa PDF/PPTX/DOCX/RTF/ODT, uchimbaji muundo wa Excel |
 | **Utabiri** | Utabiri wa mfululizo wa muda na modeli 9 (AutoARIMA, Prophet, LightGBM, CatBoost, TimesFM, nk.), uteuzi wa modeli kiotomatiki, kizazi cha mpango, i18n |
-| **Utabiri** | Utabiri wa mfululizo wa saa na miundo 9 (AutoARIMA, Prophet, LightGBM, CatBoost, TimesFM, n.k.), uteuzi wa kielelezo otomatiki, utengenezaji wa njama, i18n |
 | **Mawasiliano** | gmail_send, gmail_read, bluesky, discord_channel, team_webhook — tazama [COMMUNICATION.md](https://github.com/awaku7/agentcli/blob/main/docs/COMMUNICATION.md) |
 | **IoT** | BACnet、Modbus TCP、OPC UA、SwitchBot（Cloud + BLE）、ECHONET Lite、Matter、UPnP、reverse_geocode |
 | **Zana za Usanidi** | git_ops, python_compile, lint_format, run_tets, db_query, **vielekezi 13 vya msimbo wa chanzo (idx family)** |

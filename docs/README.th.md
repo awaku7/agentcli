@@ -98,7 +98,6 @@ See [DEVELOP_PLUGIN.md](src/uagent/docs/DEVELOP_PLUGIN.md) for full documentatio
 | **สื่อ** | Generate_image, analy_image, img2img, audio_speech, audio_transcribe |
 | **เอกสาร** | การแยก PDF/PPTX/DOCX/RTF/ODT, การแยกโครงสร้าง Excel |
 | **พยากรณ์** | การพยากรณ์อนุกรมเวลาด้วย 9 โมเดล (AutoARIMA, Prophet, LightGBM, CatBoost, TimesFM ฯลฯ), การเลือกโมเดลอัตโนมัติ, การสร้างพล็อต, i18n |
-| **พยากรณ์** | การคาดการณ์อนุกรมเวลาด้วย 9 โมเดล (AutoARIMA, Prophet, LightGBM, CatBoost, TimesFM ฯลฯ) การเลือกโมเดลอัตโนมัติ การสร้างพล็อต i18n |
 | **การสื่อสาร** | gmail_send, gmail_read, bluesky, discord_channel, team_webhook — ดู [COMMUNICATION.md](https://github.com/awaku7/agentcli/blob/main/docs/COMMUNICATION.md) |
 | **ไอโอที** | SwitchBot (คลาวด์ + BLE), ECHONET Lite, สำคัญ, UPnP, reverse_geocode |
 | **เครื่องมือสำหรับการพัฒนา** | git_ops, python_compile, lint_format, run_tests, db_query, **ตัวนำทางซอร์สโค้ด 13 ตัว (ตระกูล idx)** |

@@ -98,7 +98,6 @@ See [DEVELOP_PLUGIN.md](src/uagent/docs/DEVELOP_PLUGIN.md) for full documentatio
 | **Medya** | created_image, analyze_image, img2img, audio_speech, audio_transcribe |
 | **Belgeler** | PDF/PPTX/DOCX/RTF/ODT çıkarma, Excel yapılandırılmış çıkarma |
 | **Tahmin** | 9 model ile zaman serisi tahmini (AutoARIMA, Prophet, LightGBM, CatBoost, TimesFM vb.), otomatik model seçimi, grafik oluşturma, i18n |
-| **Tahmin etmek** | 9 modelle (AutoARIMA, Prophet, LightGBM, CatBoost, TimesFM, vb.), otomatik model seçimi, çizim oluşturma, i18n ile zaman serisi tahmini |
 | **İletişim** | gmail_send, gmail_read, bluesky, discord_channel, takımlar_webhook — bkz. [COMMUNICATION.md](https://github.com/awaku7/agentcli/blob/main/docs/COMMUNICATION.md) |
 | **IoT** | BACnet、Modbus TCP、OPC UA、SwitchBot（Cloud + BLE）、ECHONET Lite、Matter、UPnP、reverse_geocode |
 | **Geliştirme Araçları** | git_ops, python_compile, lint_format, run_tests, db_query, **13 kaynak kodu gezgini (idx ailesi)** |

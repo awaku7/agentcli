@@ -98,7 +98,6 @@ See [DEVELOP_PLUGIN.md](src/uagent/docs/DEVELOP_PLUGIN.md) for full documentatio
 | **Media** | genereer_afbeelding, analyseer_afbeelding, img2img, audio_speech, audio_transcribe |
 | **Documenten** | PDF/PPTX/DOCX/RTF/ODT-extractie, gestructureerde extractie in Excel |
 | **Voorspelling** | Tijdreeksvoorspelling met 9 modellen (AutoARIMA, Prophet, LightGBM, CatBoost, TimesFM, etc.), automatische modelselectie, plotgeneratie, i18n |
-| **Voorspelling** | Tijdreeksvoorspelling met 9 modellen (AutoARIMA, Prophet, LightGBM, CatBoost, TimesFM, etc.), automatische modelselectie, plotgeneratie, i18n |
 | **Communicatie** | gmail_send, gmail_read, bluesky, discord_channel, teams_webhook — zie [COMMUNICATION.md](https://github.com/awaku7/agentcli/blob/main/docs/COMMUNICATION.md) |
 | **IoT** | BACnet、Modbus TCP、OPC UA、SwitchBot（Cloud + BLE）、ECHONET Lite、Matter、UPnP、reverse_geocode |
 | **Ontwikkeltools** | git_ops, python_compile, lint_format, run_tests, db_query, **13 broncode-navigators (idx-familie)** |

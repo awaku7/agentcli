@@ -98,7 +98,6 @@ See [DEVELOP_PLUGIN.md](src/uagent/docs/DEVELOP_PLUGIN.md) for full documentatio
 | **Média** | generovat_image, analyzovat_obraz, img2img, audio_speech, audio_transscribe |
 | **Dokumenty** | Extrakce PDF/PPTX/DOCX/RTF/ODT, strukturovaná extrakce Excel |
 | **Předpověď** | Predikce časových řad s 9 modely (AutoARIMA, Prophet, LightGBM, CatBoost, TimesFM atd.), automatický výběr modelu, generování grafů, i18n |
-| **Předpověď** | Prognóza časových řad s 9 modely (AutoARIMA, Prophet, LightGBM, CatBoost, TimesFM atd.), automatický výběr modelu, generování grafu, i18n |
 | **Komunikace** | gmail_send, gmail_read, bluesky, discord_channel, teamy_webhook — viz [COMMUNICATION.md](https://github.com/awaku7/agentcli/blob/main/docs/COMMUNICATION.md) |
 | **IoT** | BACnet、Modbus TCP、OPC UA、SwitchBot（Cloud + BLE）、ECHONET Lite、Matter、UPnP、reverse_geocode |
 | **Nástroje pro vývojáře** | git_ops, python_compile, lint_format, run_tests, db_query, **13 navigátorů zdrojového kódu (rodina idx)** |

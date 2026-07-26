@@ -98,7 +98,6 @@ See [DEVELOP_PLUGIN.md](src/uagent/docs/DEVELOP_PLUGIN.md) for full documentatio
 | **מדיה** | gener_image, analys_image, img2img, audio_speech, audio_transscribe |
 | **מסמכים** | חילוץ PDF/PPTX/DOCX/RTF/ODT, חילוץ מובנה של Excel |
 | **תחזית** | חיזוי סדרות זמן עם 9 מודלים (AutoARIMA, Prophet, LightGBM, CatBoost, TimesFM וכו'), בחירת מודל אוטומטית, יצירת גרפים, i18n |
-| **תַחֲזִית** | חיזוי סדרות זמן עם 9 דגמים (AutoARIMA, Prophet, LightGBM, CatBoost, TimesFM וכו'), בחירת דגם אוטומטי, יצירת עלילה, i18n |
 | **תקשורת** | gmail_send, gmail_read, bluesky, discord_channel, teams_webhook — ראה [COMMUNICATION.md](https://github.com/awaku7/agentcli/blob/main/docs/COMMUNICATION.md) |
 | **IoT** | BACnet、Modbus TCP、OPC UA、SwitchBot（Cloud + BLE）、ECHONET Lite、Matter、UPnP、reverse_geocode |
 | **כלי פיתוח** | git_ops, python_compile, lint_format, run_tests, db_query, **13 נווטי קוד מקור (משפחת idx)** |

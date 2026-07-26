@@ -98,7 +98,6 @@ See [DEVELOP_PLUGIN.md](src/uagent/docs/DEVELOP_PLUGIN.md) for full documentatio
 | **Media** | generere_bilde, analyse_bilde, img2img, audio_tale, audio_transkribering |
 | **Dokumenter** | PDF/PPTX/DOCX/RTF/ODT-utvinning, Excel-strukturert utvinning |
 | **Prognose** | Tidsserieprognose med 9 modeller (AutoARIMA, Prophet, LightGBM, CatBoost, TimesFM, etc.), automatisk modellvalg, plotgenerering, i18n |
-| **Prognose** | Tidsserieprognoser med 9 modeller (AutoARIMA, Prophet, LightGBM, CatBoost, TimesFM, etc.), automodellvalg, plotgenerering, i18n |
 | **Kommunikasjon** | gmail_send, gmail_read, bluesky, discord_channel, teams_webhook — se [COMMUNICATION.md](https://github.com/awaku7/agentcli/blob/main/docs/COMMUNICATION.md) |
 | **IoT** | BACnet、Modbus TCP、OPC UA、SwitchBot（Cloud + BLE）、ECHONET Lite、Matter、UPnP、reverse_geocode |
 | **Utviklerverktøy** | git_ops, python_compile, lint_format, run_tests, db_query, **13 kildekodenavigatorer (idx-familie)** |

@@ -98,7 +98,6 @@ See [DEVELOP_PLUGIN.md](src/uagent/docs/DEVELOP_PLUGIN.md) for full documentatio
 | **Media** | menghasilkan_gambar, menganalisis_gambar, img2img, audio_speech, audio_transkripsikan |
 | **Dokumen** | Ekstraksi PDF/PPTX/DOCX/RTF/ODT, ekstraksi terstruktur Excel |
 | **Peramalan** | Peramalan deret waktu dengan 9 model (AutoARIMA, Prophet, LightGBM, CatBoost, TimesFM, dll.), pemilihan model otomatis, pembuatan plot, i18n |
-| **Ramalan** | Perkiraan deret waktu dengan 9 model (AutoARIMA, Prophet, LightGBM, CatBoost, TimesFM, dll.), pemilihan model otomatis, pembuatan plot, i18n |
 | **Komunikasi** | gmail_send, gmail_read, bluesky, discord_channel, team_webhook — lihat [COMMUNICATION.md](https://github.com/awaku7/agentcli/blob/main/docs/COMMUNICATION.md) |
 | **IoT** | BACnet、Modbus TCP、OPC UA、SwitchBot（Cloud + BLE）、ECHONET Lite、Matter、UPnP、reverse_geocode |
 | **Alat Pengembang** | git_ops, python_compile, lint_format, run_tests, db_query, **13 navigator kode sumber (keluarga idx)** |

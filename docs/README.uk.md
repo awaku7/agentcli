@@ -98,7 +98,6 @@ See [DEVELOP_PLUGIN.md](src/uagent/docs/DEVELOP_PLUGIN.md) for full documentatio
 | **Медіа** | генерувати_зображення, аналізувати_зображення, img2img, аудіо_мовлення, аудіо_транскрибувати |
 | **Документи** | Вилучення PDF/PPTX/DOCX/RTF/ODT, структуроване вилучення Excel |
 | **Прогноз** | Прогнозування часових рядів з 9 моделями (AutoARIMA, Prophet, LightGBM, CatBoost, TimesFM тощо), автоматичний вибір моделі, створення графіків, i18n |
-| **Прогноз** | Прогнозування часових рядів за допомогою 9 моделей (AutoARIMA, Prophet, LightGBM, CatBoost, TimesFM тощо), автоматичний вибір моделі, генерація графіків, i18n |
 | **Спілкування** | gmail_send, gmail_read, bluesky, discord_channel, teams_webhook — див. [COMMUNICATION.md](https://github.com/awaku7/agentcli/blob/main/docs/COMMUNICATION.md) |
 | **Інтернет речей** | SwitchBot (Cloud + BLE), ECHONET Lite, Matter, UPnP, reverse_geocode |
 | **Інструменти розробника** | git_ops, python_compile, lint_format, run_tests, db_query, **13 навігаторів вихідного коду (сімейство idx)** |

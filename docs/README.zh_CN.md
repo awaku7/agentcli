@@ -98,7 +98,6 @@ See [DEVELOP_PLUGIN.md](src/uagent/docs/DEVELOP_PLUGIN.md) for full documentatio
 | **媒体** |生成图像、分析图像、img2img、音频语音、音频转录 |
 | **文件** | PDF/PPTX/DOCX/RTF/ODT提取、Excel结构化提取|
 | **预测** | 使用9种模型（AutoARIMA、Prophet、LightGBM、CatBoost、TimesFM等）进行时间序列预测，自动模型选择，生成图表，i18n |
-| **预报** | 使用 9 种模型进行时间序列预测（AutoARIMA、Prophet、LightGBM、CatBoost、TimesFM 等）、自动模型选择、绘图生成、i18n |
 | **通讯** | gmail_send、gmail_read、bluesky、discord_channel、teams_webhook — 请参阅 [COMMUNICATION.md](https://github.com/awaku7/agentcli/blob/main/docs/COMMUNICATION.md) |
 | **物联网** | SwitchBot（云 + BLE）、ECHONET Lite、Matter、UPnP、reverse_geocode |
 | **开发工具** | git_ops、python_compile、lint_format、run_tests、db_query、**13 个源代码导航器（idx 系列）** |

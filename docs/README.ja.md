@@ -97,8 +97,6 @@ uagentは **Claude Code 互換のプラグインシステム** を実装して�
 | **メディア** | generate_image、analyze_image、img2img、audio_speech、audio_transcribe |
 | **ドキュメント** | PDF/PPTX/DOCX/RTF/ODT抽出、Excel構造化抽出 |
 | **予測** | 時系列予測（9モデル: AutoARIMA, Prophet, LightGBM, CatBoost, TimesFM等）、自動モデル選択、プロット生成、i18n対応 |
-| **予報** | 9 つのモデル (AutoARIMA、Prophet、LightGBM、CatBoost、TimesFM など) による時系列予測、自動モデル選択、プロット生成、i18n |
-| **予測** | 時系列予測（9モデル: AutoARIMA, Prophet, LightGBM, CatBoost, TimesFM等）、自動モデル選択、プロット生成、i18n対応 |
 | **コミュニケーション** | gmail_send、gmail_read、bluesky、discord_channel、teams_webhook — [COMMUNICATION.md](https://github.com/awaku7/agentcli/blob/main/docs/COMMUNICATION.md) 参照 |
 | **IoT** | SwitchBot（Cloud + BLE）、ECHONET Lite、Matter、UPnP、reverse_geocode |
 | **開発ツール** | git_ops、python_compile、lint_format、run_tests、db_query、**13のソースコードナビゲーター（idxファミリ）** |

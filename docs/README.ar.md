@@ -98,7 +98,6 @@ See [DEVELOP_PLUGIN.md](src/uagent/docs/DEVELOP_PLUGIN.md) for full documentatio
 | **الإعلام** | إنشاء صورة، تحليل الصورة، img2img، audio_speech، audio_transcribe |
 | **الوثائق** | استخراج PDF/PPTX/DOCX/RTF/ODT، استخراج منظم لـ Excel |
 | **تنبؤ** | التنبؤ بالسلاسل الزمنية باستخدام 9 نماذج (AutoARIMA وProphet وLightGBM وCatBoost وTimesFM وغيرها)، اختيار النموذج تلقائيًا، إنشاء الرسوم البيانية، تدويل i18n |
-| **تنبؤ بالمناخ** | التنبؤ بالسلاسل الزمنية مع 9 نماذج (AutoARIMA، Prophet، LightGBM، CatBoost، TimesFM، إلخ)، اختيار النموذج التلقائي، إنشاء قطعة الأرض، i18n |
 | **الاتصالات** | gmail_send، gmail_read، bluesky، discord_channel، Teams_webhook — راجع [COMMUNICATION.md](https://github.com/awaku7/agentcli/blob/main/docs/COMMUNICATION.md) |
 | **إنترنت الأشياء** | SwitchBot (Cloud + BLE)، ECHONET Lite، Matter، UPnP، reverse_geocode |
 | ** أدوات التطوير ** | git_ops، python_compile، lint_format، run_tests، db_query، ** 13 متصفحًا لكود المصدر (عائلة idx) ** |

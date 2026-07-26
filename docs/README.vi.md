@@ -98,7 +98,6 @@ See [DEVELOP_PLUGIN.md](src/uagent/docs/DEVELOP_PLUGIN.md) for full documentatio
 | **Truyền thông** | tạo_hình ảnh, phân tích_hình ảnh, img2img, audio_speech, audio_transcribe |
 | **Tài liệu** | Trích xuất PDF/PPTX/DOCX/RTF/ODT, trích xuất có cấu trúc Excel |
 | **Dự báo** | Dự báo chuỗi thời gian với 9 mô hình (AutoARIMA, Prophet, LightGBM, CatBoost, TimesFM, v.v.), tự động chọn mô hình, tạo biểu đồ, i18n |
-| **Dự báo** | Dự báo chuỗi thời gian với 9 mô hình (AutoARIMA, Prophet, LightGBM, CatBoost, TimesFM, v.v.), lựa chọn mô hình tự động, tạo cốt truyện, i18n |
 | **Giao tiếp** | gmail_send, gmail_read, bluesky, discord_channel, Team_webhook — xem [COMMUNICATION.md](https://github.com/awaku7/agentcli/blob/main/docs/COMMUNICATION.md) |
 | **IoT** | BACnet、Modbus TCP、OPC UA、SwitchBot（Cloud + BLE）、ECHONET Lite、Matter、UPnP、reverse_geocode |
 | **Công cụ dành cho nhà phát triển** | git_ops, python_compile, lint_format, run_tests, db_query, **13 trình điều hướng mã nguồn (dòng idx)** |

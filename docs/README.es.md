@@ -98,7 +98,6 @@ See [DEVELOP_PLUGIN.md](src/uagent/docs/DEVELOP_PLUGIN.md) for full documentatio
 | **Medios** | generar_imagen, analizar_imagen, img2img, audio_speech, audio_transcribe |
 | **Documentos** | Extracción de PDF/PPTX/DOCX/RTF/ODT, extracción estructurada de Excel |
 | **Pronóstico** | Pronóstico de series temporales con 9 modelos (AutoARIMA, Prophet, LightGBM, CatBoost, TimesFM, etc.), selección automática de modelo, generación de gráficos, i18n |
-| **Pronóstico** | Previsión de series temporales con 9 modelos (AutoARIMA, Prophet, LightGBM, CatBoost, TimesFM, etc.), selección automática de modelos, generación de gráficos, i18n |
 | **Comunicación** | gmail_send, gmail_read, bluesky, discord_channel, equipos_webhook: consulte [COMMUNICATION.md](https://github.com/awak7/agentcli/blob/main/docs/COMMUNICATION.md) |
 | **IoT** | BACnet、Modbus TCP、OPC UA、SwitchBot（Cloud + BLE）、ECHONET Lite、Matter、UPnP、reverse_geocode |
 | **Herramientas de desarrollo** | git_ops, python_compile, lint_format, run_tests, db_query, **13 navegadores de código fuente (familia idx)** |

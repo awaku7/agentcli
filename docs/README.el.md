@@ -98,7 +98,6 @@ See [DEVELOP_PLUGIN.md](src/uagent/docs/DEVELOP_PLUGIN.md) for full documentatio
 | **ΜΜΕ** | δημιουργία_εικόνας, ανάλυση_εικόνας, img2img, audio_speech, audio_transscribe |
 | **Έγγραφα** | Εξαγωγή PDF/PPTX/DOCX/RTF/ODT, δομημένη εξαγωγή Excel |
 | **Πρόβλεψη** | Πρόβλεψη χρονοσειρών με 9 μοντέλα (AutoARIMA, Prophet, LightGBM, CatBoost, TimesFM, κ.λπ.), αυτόματη επιλογή μοντέλου, δημιουργία γραφημάτων, i18n |
-| **Πρόβλεψη** | Πρόβλεψη χρονοσειρών με 9 μοντέλα (AutoARIMA, Prophet, LightGBM, CatBoost, TimesFM κ.λπ.), αυτόματη επιλογή μοντέλου, δημιουργία πλοκής, i18n |
 | **Επικοινωνία** | gmail_send, gmail_read, bluesky, discord_channel, teams_webhook — δείτε [COMMUNICATION.md](https://github.com/awaku7/agentcli/blob/main/docs/COMMUNICATION.md) |
 | **IoT** | BACnet、Modbus TCP、OPC UA、SwitchBot（Cloud + BLE）、ECHONET Lite、Matter、UPnP、reverse_geocode |
 | **Εργαλεία προγραμματιστών** | git_ops, python_compile, lint_format, run_tests, db_query, **13 προγράμματα πλοήγησης πηγαίου κώδικα (οικογένεια idx)** |
