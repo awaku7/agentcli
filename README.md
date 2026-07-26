@@ -88,7 +88,7 @@ See [DEVELOP_PLUGIN.md](src/uagent/docs/DEVELOP_PLUGIN.md) for full documentatio
 - **Reload past sessions** with `:load <index>` — pick up where you left off.
 - **Tool result caching** avoids redundant re-execution when the same tool call repeats.
 
-### 🛠 170 Tools
+### 🛠 183 Tools
 
 | Category | Tools |
 |---|---|
@@ -96,6 +96,7 @@ See [DEVELOP_PLUGIN.md](src/uagent/docs/DEVELOP_PLUGIN.md) for full documentatio
 | **Web** | fetch_url, search_web, screenshot, browser_playwright |
 | **Media** | generate_image, analyze_image, img2img, audio_speech, audio_transcribe |
 | **Documents** | PDF/PPTX/DOCX/RTF/ODT extraction, Excel structured extraction |
+| **Forecast** | Time series forecasting with 9 models (AutoARIMA, Prophet, LightGBM, CatBoost, TimesFM, etc.), auto model selection, plot generation, i18n |
 | **Communication** | gmail_send, gmail_read, bluesky, discord_channel, teams_webhook — see [COMMUNICATION.md](https://github.com/awaku7/agentcli/blob/main/docs/COMMUNICATION.md) |
 | **IoT** | SwitchBot (Cloud + BLE), ECHONET Lite, Matter, UPnP, reverse_geocode |
 | **Dev Tools** | git_ops, python_compile, lint_format, run_tests, db_query, **13 source code navigators (idx family)** |
