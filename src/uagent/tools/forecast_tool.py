@@ -572,7 +572,7 @@ def _get_available_models() -> list[tuple[str, Callable]]:
                     columns={date_col: "ds", value_col: "y"}
                 )
                 self.model = _Prophet(
-                    yearly_seasonality=True,
+                    yearly_seasonality=False,
                     weekly_seasonality=True,
                     daily_seasonality=False,
                 )
@@ -581,16 +581,17 @@ def _get_available_models() -> list[tuple[str, Callable]]:
 
             def predict(self, horizon_or_valid):
                 if isinstance(horizon_or_valid, int):
-                    future = self.model.make_future_dataframe(
-                        periods=horizon_or_valid
-                    )
+                    h = horizon_or_valid
+                    future = self.model.make_future_dataframe(periods=h)
+                    fcst = self.model.predict(future)
+                    return fcst["yhat"].values[-h:]
                 else:
-                    future = horizon_or_valid.rename(
+                    # valid DataFrame has columns [date_col, value_col]
+                    future = horizon_or_valid[[self.date_col]].rename(
                         columns={self.date_col: "ds"}
-                    )[[self.date_col]].rename(columns={self.date_col: "ds"})
-                    future = future.reset_index(drop=True)
-                fcst = self.model.predict(future)
-                return fcst["yhat"].values[-len(future):]
+                    ).reset_index(drop=True)
+                    fcst = self.model.predict(future)
+                    return fcst["yhat"].values
 
         models.append(("Prophet", lambda: _ProphetWrapper()))
     except ImportError:
@@ -606,7 +607,7 @@ def _get_available_models() -> list[tuple[str, Callable]]:
                             columns={date_col: "ds", value_col: "y"}
                         )
                         self.model = _Prophet(
-                            yearly_seasonality=True,
+                            yearly_seasonality=False,
                             weekly_seasonality=True,
                             daily_seasonality=False,
                         )
@@ -614,14 +615,16 @@ def _get_available_models() -> list[tuple[str, Callable]]:
                         return self
                     def predict(self, horizon_or_valid):
                         if isinstance(horizon_or_valid, int):
-                            future = self.model.make_future_dataframe(periods=horizon_or_valid)
+                            h = horizon_or_valid
+                            future = self.model.make_future_dataframe(periods=h)
+                            fcst = self.model.predict(future)
+                            return fcst["yhat"].values[-h:]
                         else:
-                            future = horizon_or_valid.rename(
+                            future = horizon_or_valid[[self.date_col]].rename(
                                 columns={self.date_col: "ds"}
-                            )[[self.date_col]].rename(columns={self.date_col: "ds"})
-                            future = future.reset_index(drop=True)
-                        fcst = self.model.predict(future)
-                        return fcst["yhat"].values[-len(future):]
+                            ).reset_index(drop=True)
+                            fcst = self.model.predict(future)
+                            return fcst["yhat"].values
                 models.append(("Prophet", lambda: _ProphetWrapper()))
             except ImportError:
                 pass
