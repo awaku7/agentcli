@@ -29,7 +29,9 @@ _ = make_tool_translator(__file__)
 # Optional external libraries
 from .._pip_auto import install_with_status
 
-if not install_with_status("pdfplumber", version_spec=">=0.11.9"):
+if install_with_status("pdfplumber", version_spec=">=0.11.9"):
+    import pdfplumber
+else:
     pdfplumber = None  # type: ignore[assignment]
 
 if not install_with_status("python-pptx", "pptx", version_spec=">=1.0.2"):
