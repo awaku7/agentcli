@@ -49,7 +49,7 @@ uag
 
 ### 🧠 Αρχιτεκτονική πολλών παρόχων
 
-OpenAI / Azure / Bedrock / OpenRouter / Ollama / Gemini / Vertex AI / Claude / Grok / NVIDIA / DeepSeek / Z.AI (Zhipu AI) / HuggingFace / Alibaba Cloud (Qwen) / KIMI (Moonshot AI) / Xiaomi MiMo/MaguStudio /*L*
+OpenAI / Azure / Bedrock / OpenRouter / Ollama / Gemini / Vertex AI / Claude / Grok / NVIDIA / DeepSeek / Z.AI (Zhipu AI) / HuggingFace / Alibaba Cloud (Qwen) / KIMI (Moonshot AI) / Xiaomi MiMo/MaguStudio /*L* / **Together AI** / **Vercel AI Gateway**
 
 Όλοι οι πάροχοι μοιράζονται το ίδιο σύνολο εργαλείων και διεπαφή. Εναλλαγή ορίζοντας "UAGENT_PROVIDER" — χωρίς αλλαγές κώδικα, χωρίς ξεχωριστές εγκαταστάσεις.
 

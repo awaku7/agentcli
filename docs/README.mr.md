@@ -28,7 +28,7 @@
 **विक्रेता लॉक-इनपासून मुक्त व्हा.** बहुतेक AI सहाय्यक तुम्हाला विशिष्ट प्रदाता किंवा क्लाउड सेवेशी जोडतात. uag वेगळे आहे.
 
 - **Runs locally** on your machine. Your data stays with you (except API calls you make).
-- **Provider freedom**: OpenAI, Claude, Gemini, DeepSeek, Ollama, Azure, Bedrock, HuggingFace... 21 providers, all accessible from a single interface. Swap between them by reconfiguring environment variables — no reinstall, no migration.
+- **Provider freedom**: OpenAI, Claude, Gemini, DeepSeek, Ollama, Azure, Bedrock, HuggingFace... 23 providers, all accessible from a single interface. Swap between them by reconfiguring environment variables — no reinstall, no migration.
 - **183 tools**: File I/O, web search, image generation, Gmail, BLE device scanning, MCP server integration — **111 are parallel-safe** (up to 8 execute concurrently via thread pool, configurable via `UAGENT_PARALLEL_WORKERS`). When the LLM fires multiple tool calls at once, uag automatically parallelizes them.
 - **3 UIs + A2A**: CLI, GUI, Web, and Agent-to-Agent protocol. Same engine, any interface.
 - **Agent Skills**: Install community-built skills from the marketplace. Extend uag endlessly.
@@ -49,7 +49,7 @@ uag
 
 ### 🧠 मल्टी-प्रोव्हायडर आर्किटेक्चर
 
-OpenAI / Azure / Bedrock / OpenRouter / Ollama / Gemini / Vertex AI / Claude / Grok / NVIDIA / DeepSeek / Z.AI (Zhipu AI) / HuggingFace / Alibaba Cloud (Qwen) / KIMI (Moonshot AI) / Xiaomi MiMo / LMAkguana / MinFa_Studio**
+OpenAI / Azure / Bedrock / OpenRouter / Ollama / Gemini / Vertex AI / Claude / Grok / NVIDIA / DeepSeek / Z.AI (Zhipu AI) / HuggingFace / Alibaba Cloud (Qwen) / KIMI (Moonshot AI) / Xiaomi MiMo / LMAkguana / MinFa_Studio** / **Together AI** / **Vercel AI Gateway**
 
 सर्व प्रदाते समान टूलसेट आणि इंटरफेस सामायिक करतात. `UAGENT_PROVIDER` सेट करून स्विच करा — कोणतेही कोड बदल नाहीत, वेगळे इंस्टॉलेशन नाहीत.
 
