@@ -99,10 +99,21 @@ def _engineer_features(df: pd.DataFrame, date_col: str, lags: list[int] = [1, 2,
 
 ### モデル選択 (auto) の評価方法
 
-1. データを時系列順に分割: 訓練 80% / 検証 20%（時系列CVは行わず単一ホールドアウト）
-2. 全利用可能モデルを訓練セットで学習、検証セットで **RMSE** を計算
-3. RMSE最小モデルを選択し、全データで再学習 → horizon先まで予測
-4. 検証RMSEが同値ならFitting time 短い方を優先
+**階層的優先順位**（`forecast_modules` の priority に準拠）:
+
+| 優先度 | カテゴリ | パッケージ | モデル |
+|--------|---------|-----------|--------|
+| 1 | statistical | statsforecast | AutoARIMA, AutoETS, Theta, MSTL |
+| 2 | machine_learning | mlforecast | LightGBM, CatBoost |
+| 3 | foundation_model | timesfm | TimesFM |
+| 4 | foundation_model | chronos | Chronos, Chronos-Bolt |
+| 5 | statistical | prophet | Prophet |
+
+選択ロジック:
+1. 上位階層から順に試行、最初に成功した階層内でRMSE最小のモデルを選択
+2. 各モデル評価は多段階予測（horizon期先）のRMSEで比較
+3. 全モデル失敗時は Dummy（最終値フォールバック）
+4. 未インストールのパッケージは自動 `pip install` を試行
 
 ```python
 def _select_best_model(train, valid, date_col, value_col, freq):

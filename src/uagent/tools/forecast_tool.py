@@ -646,7 +646,7 @@ def _get_available_models() -> list[tuple[str, Callable]]:
                     verbose=-1,
                 )
                 self.model.fit(X, y)
-                self.last_feats = feats
+                self.last_feats = X
                 return self
 
             def predict(self, horizon_or_valid):
@@ -718,7 +718,7 @@ def _get_available_models() -> list[tuple[str, Callable]]:
                             verbose=-1,
                         )
                         self.model.fit(X, y)
-                        self.last_feats = feats
+                        self.last_feats = X
                         return self
                     def predict(self, horizon_or_valid):
                         if isinstance(horizon_or_valid, int):
@@ -785,7 +785,7 @@ def _get_available_models() -> list[tuple[str, Callable]]:
                     random_seed=42, verbose=0,
                 )
                 self.model.fit(X, y)
-                self.last_feats = feats
+                self.last_feats = X
                 return self
 
             def predict(self, horizon_or_valid):
@@ -854,7 +854,7 @@ def _get_available_models() -> list[tuple[str, Callable]]:
                             random_seed=42, verbose=0,
                         )
                         self.model.fit(X, y)
-                        self.last_feats = feats
+                        self.last_feats = X
                         return self
                     def predict(self, horizon_or_valid):
                         if isinstance(horizon_or_valid, int):
@@ -1045,10 +1045,17 @@ def _select_best_model(
     candidates = _get_available_models()
     # Group models by priority tier
     tiers = [
+        # Priority 1: statsforecast (statistical, recommended)
         {"AutoARIMA", "AutoETS", "Theta", "MSTL", "StatsForecast"},
-        {"Prophet"},
-        {"TimesFM", "Chronos"},
+        # Priority 2: mlforecast (machine learning, recommended)
         {"LightGBM", "CatBoost"},
+        # Priority 3: neuralforecast — TODO
+        # Priority 4: timesfm (foundation model, recommended)
+        {"TimesFM"},
+        # Priority 5: chronos (foundation model, recommended)
+        {"Chronos"},
+        # Priority 6-10: prophet, statsmodels, pmdarima, darts, sktime — some implemented
+        {"Prophet"},
     ]
     
     for tier in tiers:
