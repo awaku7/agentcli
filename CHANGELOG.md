@@ -1,6 +1,23 @@
 # Changelog
 
 
+## [0.5.56] - 2026-07-26
+
+### Added
+- Forecast tool: LLM-based time series forecasting with auto-install of dependencies, i18n, CI integration, plot support, and TDD tests. Models: StatsForecast, AutoARIMA, AutoETS, Theta, MSTL, Prophet, LightGBM, CatBoost, TimesFM, Chronos.
+- `:skills list KEYWORD` / `:skills find KEYWORD` for filtering installed skills by name or description.
+
+### Fixed
+- Prophet wrapper: `predict(int)` returns only forecast horizon, `predict(DataFrame)` column rename fix, disable yearly_seasonality for better quarterly fit.
+- LightGBM/CatBoost: feature count mismatch between train and predict; Prophet predict bugs; reorder auto-select tiers per forecast_modules priority list.
+- StatsForecast v2.x API compatibility (forecast needs df argument); update TimesFM to TimesFM_2p5_200M_torch; LightGBM/CatBoost last_feats bug. All 9 models verified end-to-end.
+- Remove duplicate Forecast category rows in 29 language READMEs.
+
+### Changed
+- README and 33 language translations: tool count updated from 170 to 183, add Forecast category.
+- i18n: forecast_tool.json translated to all 34 languages (via tool_json_i18n_batch).
+- Remove test/ directory (test_apply_patch.py) - unused test file cleanup.
+
 ## [0.5.55] - 2026-07-24
 
 ### Fixed

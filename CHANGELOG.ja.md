@@ -1,6 +1,23 @@
 # 変更履歴
 
 
+## [0.5.56] - 2026-07-26
+
+### 追加
+- Forecast ツール: LLM ベース時系列予測。依存関係自動インストール、i18n、CI 統合、プロット表示、TDD テスト完備。モデル: StatsForecast, AutoARIMA, AutoETS, Theta, MSTL, Prophet, LightGBM, CatBoost, TimesFM, Chronos。
+- `:skills list KEYWORD` / `:skills find KEYWORD`: インストール済みスキルを名前または説明でフィルタリング。
+
+### 修正
+- Prophet ラッパー: `predict(int)` が forecast horizon のみ返すよう修正、`predict(DataFrame)` のカラム名リネーム修正、yearly_seasonality を無効化（四半期データへの適合改善）。
+- LightGBM/CatBoost: 訓練時と予測時の特徴数不一致を修正、Prophet predict バグ修正、forecast_modules 優先順位リストに基づく auto-select 階層を再構成。
+- StatsForecast v2.x API 互換性（forecast に df 引数必須）対応、TimesFM を TimesFM_2p5_200M_torch に更新、LightGBM/CatBoost last_feats バグ修正。全9モデルの End-to-End 検証済み。
+- 29言語 README 内の Forecast カテゴリ重複行を削除。
+
+### 変更
+- README および33言語翻訳: ツール数を 170→183 に更新、Forecast カテゴリを追加。
+- i18n: forecast_tool.json を全34言語に翻訳（tool_json_i18n_batch 使用）。
+- test/ ディレクトリ（test_apply_patch.py）を削除 — 未使用テストファイルの整理。
+
 ## [0.5.55] - 2026-07-24
 
 ### 修正
