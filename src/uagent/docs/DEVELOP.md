@@ -500,7 +500,7 @@ flowchart TD
 | パス | 説明 | 概算ファイル数 |
 |---|---|---|
 | `src/uagent/` | メインパッケージ | 25 |
-| `src/uagent/providers/` | LLMプロバイダ実装 | 14 |
+| `src/uagent/providers/` | LLMプロバイダ実装 | 16 |
 | `src/uagent/tools/` | ツール実装 | 147 |
 | `src/uagent/a2a/` | A2Aプロトコル | 7 |
 | `src/uagent/runtime/` | ランタイム (env/workdir/memory/banner) | 6 |
