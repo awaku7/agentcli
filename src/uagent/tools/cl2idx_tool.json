@@ -81,9 +81,9 @@
       "lenguaje de control"
     ],
     "x_search_terms_en": [
-      "read cl file",
-      "clle index",
-      "clp program structure",
+      "leer archivo cl",
+      "índice clle",
+      "estructura del programa clp",
       "IBM i CL"
     ],
     "param.path.description": "Ruta al archivo fuente CL/CLP/CLLE.",
@@ -115,9 +115,9 @@
       "langage de contrôle"
     ],
     "x_search_terms_en": [
-      "read cl file",
-      "clle index",
-      "clp program structure",
+      "lire le fichier cl",
+      "index clle",
+      "structure du programme clp",
       "IBM i CL"
     ],
     "param.path.description": "Chemin d'accès au fichier source CL/CLP/CLLE.",
@@ -149,10 +149,10 @@
       "제어 언어 읽기"
     ],
     "x_search_terms_en": [
-      "read cl file",
-      "clle index",
-      "clp program structure",
-      "IBM i CL"
+      "cl 파일",
+      "clle 인덱스",
+      "clp 프로그램 구조",
+      "IBM i CL 읽기"
     ],
     "param.path.description": "CL/CLP/CLLE 소스 파일의 경로입니다.",
     "err.path_required": "오류: '경로'가 필요합니다.",
@@ -164,7 +164,7 @@
     "err.section_not_found": "오류: {section_num} 섹션을 찾을 수 없습니다. 유효한 범위: 1..{last}.",
     "err.invalid_mode": "오류: 잘못된 모드 '{mode}'. '인덱스'나 '섹션'을 사용하세요.",
     "msg.no_entries": "(정의를 찾을 수 없음)",
-    "msg.index_output": "색인: {path}\n---\n{toc}\n---\n총 정의: {total}\n정의를 검색하려면 mode='section' 및 섹션 번호를 사용하여 cl2idx를 호출하세요.",
+    "msg.index_output": "색인: {path}\n---\n{toc}\n---\n전체 정의: {total}\n정의를 검색하려면 mode='section' 및 섹션 번호를 사용하여 cl2idx를 호출하세요.",
     "param.mode.description": "\"index\"는 줄 번호와 함께 번호가 매겨진 목차를 반환합니다. \"section\"은 숫자로 특정 정의를 반환합니다.",
     "param.section.description": "검색할 섹션 번호(mode='section'인 경우에만 사용됨). 인덱스 출력에서 ​​숫자를 가져옵니다.",
     "tool.description": "IBM i CL/CLP/CLLE(.cl/.clp/.clle) 파일을 프로그램 항목, 선언, 레이블, 제어 명령 및 호출로 구문 분석하고 번호가 매겨진 인덱스 또는 특정 정의 섹션을 반환합니다. 대규모 CL 소스를 읽어야 할 때 이를 사용하십시오. 먼저 mode='index'로 호출한 다음 mode='section'으로 호출하십시오."
@@ -183,9 +183,9 @@
       "Steuersprache"
     ],
     "x_search_terms_en": [
-      "read cl file",
-      "clle index",
-      "clp program structure",
+      "CL-Datei lesen",
+      "Clle-Index",
+      "CLP-Programmstruktur",
       "IBM i CL"
     ],
     "param.path.description": "Pfad zur CL/CLP/CLLE-Quelldatei.",
@@ -193,7 +193,7 @@
     "err.file_not_found": "Fehler: Datei nicht gefunden: {path}",
     "err.read_error": "Fehler beim Lesen der Datei: {e}",
     "err.parse_error": "Fehler beim Parsen der Datei: {e}",
-    "err.section_required": "Fehler: „Abschnitt“ (Ganzzahl) ist erforderlich, wenn mode=‘Abschnitt‘.",
+    "err.section_required": "Fehler: 'Abschnitt' (Ganzzahl) ist erforderlich, wenn mode='Abschnitt'.",
     "err.section_invalid": "Fehler: „Abschnitt“ muss eine Ganzzahl sein.",
     "err.section_not_found": "Fehler: Abschnitt {section_num} nicht gefunden. Gültiger Bereich: 1..{last}.",
     "err.invalid_mode": "Fehler: Ungültiger Modus „{mode}“. Verwenden Sie „Index“ oder „Abschnitt“.",
@@ -217,9 +217,9 @@
       "linguaggio di controllo"
     ],
     "x_search_terms_en": [
-      "read cl file",
-      "clle index",
-      "clp program structure",
+      "leggi file cl",
+      "indice clle",
+      "struttura del programmaclp",
       "IBM i CL"
     ],
     "param.path.description": "Percorso del file di origine CL/CLP/CLLE.",
@@ -239,21 +239,21 @@
   },
   "ru": {
     "x_search_terms": [
-      "чтение файла cl",
+      "прочитать файл cl",
       "индекс clle",
-      "структура программы clp",
+      "структуру программы clp",
       "IBM i CL",
-      "Исходный код CL",
-      "Программа CL",
+      "исходный код CL",
+      "программа CL",
       "ENDPGM",
       "DCLF",
       "CLLE",
       "язык управления"
     ],
     "x_search_terms_en": [
-      "read cl file",
-      "clle index",
-      "clp program structure",
+      "прочитать файл cl",
+      "индекс clle",
+      "структуру программы clp",
       "IBM i CL"
     ],
     "param.path.description": "Путь к исходному файлу CL/CLP/CLLE.",
@@ -285,14 +285,14 @@
       "linguagem de controle"
     ],
     "x_search_terms_en": [
-      "read cl file",
+      "leia o arquivo cl",
       "clle index",
-      "clp program structure",
+      "clp estrutura do programa",
       "IBM i CL"
     ],
     "param.path.description": "Caminho para o arquivo de origem CL/CLP/CLLE.",
     "err.path_required": "Erro: 'caminho' é obrigatório.",
-    "err.file_not_found": "Erro: Arquivo não encontrado: {path}",
+    "err.file_not_found": "Erro: arquivo não encontrado: {path}",
     "err.read_error": "Erro ao ler o arquivo: {e}",
     "err.parse_error": "Erro ao analisar arquivo: {e}",
     "err.section_required": "Erro: 'seção' (inteiro) é necessária quando mode='seção'.",
@@ -319,14 +319,14 @@
       "linguagem de controle"
     ],
     "x_search_terms_en": [
-      "read cl file",
+      "leia o arquivo cl",
       "clle index",
-      "clp program structure",
+      "clp estrutura do programa",
       "IBM i CL"
     ],
     "param.path.description": "Caminho para o arquivo de origem CL/CLP/CLLE.",
     "err.path_required": "Erro: 'caminho' é obrigatório.",
-    "err.file_not_found": "Erro: arquivo não encontrado: {path}",
+    "err.file_not_found": "Erro: Arquivo não encontrado: {path}",
     "err.read_error": "Erro ao ler o arquivo: {e}",
     "err.parse_error": "Erro ao analisar arquivo: {e}",
     "err.section_required": "Erro: 'seção' (inteiro) é necessária quando mode='seção'.",
@@ -353,9 +353,9 @@
       "bahasa kontrol"
     ],
     "x_search_terms_en": [
-      "read cl file",
-      "clle index",
-      "clp program structure",
+      "baca file cl",
+      "clle indeks",
+      "clp struktur program",
       "IBM i CL"
     ],
     "param.path.description": "Jalur ke file sumber CL/CLP/CLLE.",
@@ -387,9 +387,9 @@
       "ngôn ngữ điều khiển"
     ],
     "x_search_terms_en": [
-      "read cl file",
-      "clle index",
-      "clp program structure",
+      "đọc tập tin cl",
+      "chỉ mục clle",
+      "cấu trúc chương trình clp",
       "IBM i CL"
     ],
     "param.path.description": "Đường dẫn đến tệp nguồn CL/CLP/CLLE.",
@@ -405,11 +405,11 @@
     "msg.index_output": "Chỉ mục cho: {path}\n---\n{toc}\n---\nTổng định nghĩa: {total}\nĐể truy xuất định nghĩa, hãy gọi cl2idx với mode='section' và số phần.",
     "param.mode.description": "\"index\" trả về một mục lục được đánh số cùng với số dòng. \"phần\" trả về một định nghĩa cụ thể theo số.",
     "param.section.description": "Số phần cần truy xuất (chỉ được sử dụng khi mode='section'). Lấy số từ đầu ra chỉ mục.",
-    "tool.description": "Phân tích tệp IBM i CL/CLP/CLLE (.cl/.clp/.clle) thành mục nhập chương trình, khai báo, nhãn, lệnh điều khiển và lệnh gọi, đồng thời trả về một chỉ mục được đánh số hoặc một phần định nghĩa cụ thể. Sử dụng điều này khi bạn cần đọc nguồn CL lớn: đầu tiên hãy gọi với mode='index', sau đó gọi mode='section'."
+    "tool.description": "Phân tích tệp IBM i CL/CLP/CLLE (.cl/.clp/.clle) thành mục nhập chương trình, khai báo, nhãn, lệnh điều khiển và lệnh gọi, đồng thời trả về một chỉ mục được đánh số hoặc một phần định nghĩa cụ thể. Sử dụng điều này khi bạn cần đọc một nguồn CL lớn: đầu tiên hãy gọi với mode='index', sau đó gọi mode='section'."
   },
   "pl": {
     "x_search_terms": [
-      "czytaj plik cl ",
+      "czytaj plik cl",
       "indeks clle",
       "struktura programu clp",
       "IBM i CL",
@@ -421,9 +421,9 @@
       "język sterowania"
     ],
     "x_search_terms_en": [
-      "read cl file",
-      "clle index",
-      "clp program structure",
+      "przeczytaj plik cl",
+      "clle indeks",
+      "clp struktura programu",
       "IBM i CL"
     ],
     "param.path.description": "Ścieżka do pliku źródłowego CL/CLP/CLLE.",
@@ -455,10 +455,10 @@
       "नियंत्रण भाषा"
     ],
     "x_search_terms_en": [
-      "read cl file",
-      "clle index",
-      "clp program structure",
-      "IBM i CL"
+      "सीएल फ़ाइल पढ़ें",
+      "सीएलई इंडेक्स",
+      "सीएलपी प्रोग्राम संरचना",
+      "आईबीएम आई सीएल"
     ],
     "param.path.description": "सीएल/सीएलपी/सीएलएलई स्रोत फ़ाइल का पथ।",
     "err.path_required": "त्रुटि: 'पथ' आवश्यक है.",
@@ -466,14 +466,14 @@
     "err.read_error": "फ़ाइल पढ़ने में त्रुटि: {e}",
     "err.parse_error": "फ़ाइल पार्स करने में त्रुटि: {e}",
     "err.section_required": "त्रुटि: 'सेक्शन' (पूर्णांक) आवश्यक है जब मोड='सेक्शन'।",
-    "err.section_invalid": "त्रुटि: 'अनुभाग' एक पूर्णांक होना चाहिए.",
+    "err.section_invalid": "त्रुटि: 'अनुभाग' एक पूर्णांक होना चाहिए।",
     "err.section_not_found": "त्रुटि: अनुभाग {section_num} नहीं मिला. वैध सीमा: 1...{last}.",
     "err.invalid_mode": "त्रुटि: अमान्य मोड '{mode}'। 'सूचकांक' या 'अनुभाग' का प्रयोग करें.",
     "msg.no_entries": "(कोई परिभाषा नहीं मिली)",
     "msg.index_output": "इसके लिए सूचकांक: {path}\n---\n{toc}\n---\nकुल परिभाषाएँ: {total}\nकिसी परिभाषा को पुनः प्राप्त करने के लिए, mode='section' और अनुभाग संख्या के साथ cl2idx पर कॉल करें।",
     "param.mode.description": "\"सूचकांक\" पंक्ति संख्याओं के साथ सामग्री की एक क्रमांकित तालिका लौटाता है। \"अनुभाग\" संख्या के आधार पर एक विशिष्ट परिभाषा लौटाता है।",
     "param.section.description": "पुनः प्राप्त करने के लिए अनुभाग संख्या (केवल तभी उपयोग की जाती है जब mode='section')। इंडेक्स आउटपुट से नंबर प्राप्त करें।",
-    "tool.description": "IBM i CL/CLP/CLLE (.cl/.clp/.clle) फ़ाइल को प्रोग्राम प्रविष्टि, घोषणाओं, लेबलों, नियंत्रण आदेशों और कॉलों में पार्स करें, और एक क्रमांकित सूचकांक या एक विशिष्ट परिभाषा अनुभाग लौटाएँ। जब आपको बड़े सीएल स्रोत को पढ़ने की आवश्यकता हो तो इसका उपयोग करें: पहले मोड = 'इंडेक्स' के साथ कॉल करें, फिर मोड = 'सेक्शन' के साथ कॉल करें।"
+    "tool.description": "IBM i CL/CLP/CLLE (.cl/.clp/.clle) फ़ाइल को प्रोग्राम प्रविष्टि, घोषणाओं, लेबलों, नियंत्रण आदेशों और कॉलों में पार्स करें, और एक क्रमांकित सूचकांक या एक विशिष्ट परिभाषा अनुभाग लौटाएँ। जब आपको किसी बड़े सीएल स्रोत को पढ़ने की आवश्यकता हो तो इसका उपयोग करें: पहले mode='index' से कॉल करें, फिर mode='section' से कॉल करें।"
   },
   "ar": {
     "x_search_terms": [
@@ -489,9 +489,9 @@
       "لغة التحكم"
     ],
     "x_search_terms_en": [
-      "read cl file",
-      "clle index",
-      "clp program structure",
+      "قراءة ملف cl",
+      "clle فهرس",
+      "clp هيكل البرنامج",
       "IBM i CL"
     ],
     "param.path.description": "المسار إلى الملف المصدر CL/CLP/CLLE.",
@@ -506,7 +506,7 @@
     "msg.no_entries": "(لم يتم العثور على تعريفات)",
     "msg.index_output": "فهرس لـ: {path}\n---\n{toc}\n---\nإجمالي التعريفات: {total}\nلاسترداد تعريف، اتصل بـ cl2idx مع mode='section' ورقم القسم.",
     "param.mode.description": "يقوم \"الفهرس\" بإرجاع جدول محتويات مرقّم بأرقام الأسطر. يقوم \"القسم\" بإرجاع تعريف محدد حسب الرقم.",
-    "param.section.description": "رقم القسم المطلوب استرداده (يُستخدم فقط عندما يكون الوضع='القسم'). الحصول على الرقم من إخراج الفهرس.",
+    "param.section.description": "رقم القسم المطلوب استرداده (يستخدم فقط عندما يكون الوضع='القسم'). الحصول على الرقم من إخراج الفهرس.",
     "tool.description": "قم بتحليل ملف IBM i CL/CLP/CLLE (.cl/.clp/.clle) إلى إدخال البرنامج، والإعلانات، والتسميات، وأوامر التحكم، والاستدعاءات، واعادة فهرس مرقم أو قسم تعريف محدد. استخدم هذا عندما تحتاج إلى قراءة مصدر CL كبير: اتصل أولاً بـ mode='index'، ثم mode='section'."
   },
   "sv": {
@@ -523,9 +523,9 @@
       "kontrollspråk"
     ],
     "x_search_terms_en": [
-      "read cl file",
+      "läs cl file",
       "clle index",
-      "clp program structure",
+      "clp programstruktur",
       "IBM i CL"
     ],
     "param.path.description": "Sökväg till CL/CLP/CLLE-källfilen.",
@@ -557,10 +557,10 @@
       "kudhibiti lugha"
     ],
     "x_search_terms_en": [
-      "read cl file",
+      "soma faili ya cl",
       "clle index",
-      "clp program structure",
-      "IBM i CL"
+      "clp muundo wa programu",
+      "IBM na CL"
     ],
     "param.path.description": "Njia ya faili ya chanzo CL/CLP/CLLE.",
     "err.path_required": "Hitilafu: 'njia' inahitajika.",
@@ -591,9 +591,9 @@
       "kontrollspråk"
     ],
     "x_search_terms_en": [
-      "read cl file",
+      "les cl file",
       "clle index",
-      "clp program structure",
+      "clp programstruktur",
       "IBM i CL"
     ],
     "param.path.description": "Banen til CL/CLP/CLLE-kildefilen.",
@@ -608,7 +608,7 @@
     "msg.no_entries": "(ingen definisjoner funnet)",
     "msg.index_output": "Indeks for: {path}\n---\n{toc}\n---\nTotale definisjoner: {total}\nFor å hente en definisjon, ring cl2idx med mode='section' og seksjonsnummeret.",
     "param.mode.description": "\"indeks\" returnerer en nummerert innholdsfortegnelse med linjenummer. \"seksjon\" returnerer en spesifikk definisjon etter tall.",
-    "param.section.description": "Seksjonsnummer å hente (brukes bare når mode='seksjon'). Få tallet fra indeksutgangen.",
+    "param.section.description": "Seksjonsnummer å hente (brukes bare når modus='seksjon'). Få tallet fra indeksutgangen.",
     "tool.description": "Parse en IBM i CL/CLP/CLLE (.cl/.clp/.clle)-fil til programoppføring, erklæringer, etiketter, kontrollkommandoer og kall, og returner en nummerert indeks eller en spesifikk definisjonsdel. Bruk denne når du trenger å lese en stor CL-kilde: ring først med mode='index', deretter mode='section'."
   },
   "nl": {
@@ -625,9 +625,9 @@
       "controletaal"
     ],
     "x_search_terms_en": [
-      "read cl file",
+      "lees cl file",
       "clle index",
-      "clp program structure",
+      "clp programmastructuur",
       "IBM i CL"
     ],
     "param.path.description": "Pad naar het CL/CLP/CLLE-bronbestand.",
@@ -659,13 +659,13 @@
       "ohjauskieli"
     ],
     "x_search_terms_en": [
-      "read cl file",
-      "clle index",
-      "clp program structure",
+      "lue cl-tiedosto",
+      "clle-hakemisto",
+      "clp-ohjelman rakenne",
       "IBM i CL"
     ],
     "param.path.description": "Polku CL/CLP/CLLE-lähdetiedostoon.",
-    "err.path_required": "Virhe: polku vaaditaan.",
+    "err.path_required": "Virhe: 'polku' vaaditaan.",
     "err.file_not_found": "Virhe: Tiedostoa ei löydy: {path}",
     "err.read_error": "Virhe luettaessa tiedostoa: {e}",
     "err.parse_error": "Virhe jäsennettäessä tiedostoa: {e}",
@@ -693,9 +693,9 @@
       "ovládací jazyk"
     ],
     "x_search_terms_en": [
-      "read cl file",
-      "clle index",
-      "clp program structure",
+      "čtení souboru cl",
+      "index clle",
+      "struktura programu clp",
       "IBM i CL"
     ],
     "param.path.description": "Cesta ke zdrojovému souboru CL/CLP/CLLE.",
@@ -727,9 +727,9 @@
       "мова керування"
     ],
     "x_search_terms_en": [
-      "read cl file",
-      "clle index",
-      "clp program structure",
+      "читати файл cl",
+      "індекс clle",
+      "структура програми clp",
       "IBM i CL"
     ],
     "param.path.description": "Шлях до вихідного файлу CL/CLP/CLLE.",
@@ -745,7 +745,7 @@
     "msg.index_output": "Індекс для: {path}\n---\n{toc}\n---\nЗагальна кількість визначень: {total}\nЩоб отримати визначення, викличте cl2idx з mode='section' і номером розділу.",
     "param.mode.description": "\"index\" повертає пронумерований зміст із номерами рядків. \"section\" повертає конкретне визначення за номером.",
     "param.section.description": "Номер розділу для отримання (використовується лише тоді, коли mode='section'). Отримайте число з виведення індексу.",
-    "tool.description": "Проаналізуйте файл IBM i CL/CLP/CLLE (.cl/.clp/.clle) на запис програми, оголошення, мітки, команди керування та виклики та поверніть нумерований індекс або певний розділ визначення. Використовуйте це, коли вам потрібно прочитати велике джерело CL: спочатку виклик з mode='index', потім mode='section'."
+    "tool.description": "Проаналізуйте файл IBM i CL/CLP/CLLE (.cl/.clp/.clle) на запис програми, оголошення, мітки, команди керування та виклики та поверніть нумерований індекс або певний розділ визначення. Використовуйте це, коли вам потрібно прочитати велике джерело CL: спочатку викликайте mode='index', потім mode='section'."
   },
   "tr": {
     "x_search_terms": [
@@ -761,9 +761,9 @@
       "kontrol dili"
     ],
     "x_search_terms_en": [
-      "read cl file",
-      "clle index",
-      "clp program structure",
+      "cl dosyasını oku",
+      "clle dizini",
+      "clp program yapısı",
       "IBM i CL"
     ],
     "param.path.description": "CL/CLP/CLLE kaynak dosyasının yolu.",
@@ -795,9 +795,9 @@
       "ภาษาควบคุม"
     ],
     "x_search_terms_en": [
-      "read cl file",
-      "clle index",
-      "clp program structure",
+      "อ่านไฟล์ cl",
+      "ดัชนี clle",
+      "โครงสร้างโปรแกรม clp",
       "IBM i CL"
     ],
     "param.path.description": "พาธไปยังไฟล์ต้นฉบับ CL/CLP/CLLE",
@@ -813,7 +813,7 @@
     "msg.index_output": "ดัชนีสำหรับ: {path}\n---\n{toc}\n---\n คำจำกัดความทั้งหมด: {total}\n หากต้องการดึงคำจำกัดความ ให้เรียก cl2idx ด้วย mode='section' และหมายเลขส่วน",
     "param.mode.description": "\"index\" ส่งคืนสารบัญที่มีตัวเลขพร้อมหมายเลขบรรทัด \"section\" ส่งคืนคำจำกัดความเฉพาะตามตัวเลข",
     "param.section.description": "หมายเลขส่วนที่จะดึงข้อมูล (ใช้เฉพาะเมื่อ mode='section') รับตัวเลขจากเอาต์พุตดัชนี",
-    "tool.description": "แยกวิเคราะห์ไฟล์ IBM i CL/CLP/CLLE (.cl/.clp/.clle) ลงในรายการโปรแกรม การประกาศ เลเบล คำสั่งควบคุม และการเรียก และส่งคืนดัชนีตัวเลขหรือส่วนคำจำกัดความเฉพาะ ใช้สิ่งนี้เมื่อคุณต้องการอ่านแหล่ง CL ขนาดใหญ่: เรียกครั้งแรกด้วย mode='index' จากนั้นจึงเรียก mode='section'"
+    "tool.description": "แยกวิเคราะห์ไฟล์ IBM i CL/CLP/CLLE (.cl/.clp/.clle) ลงในรายการโปรแกรม การประกาศ เลเบล คำสั่งควบคุม และการเรียก และส่งคืนดัชนีตัวเลขหรือส่วนคำจำกัดความเฉพาะ ใช้สิ่งนี้เมื่อคุณต้องการอ่านแหล่งที่มาของ CL ขนาดใหญ่: เรียกครั้งแรกด้วย mode='index' จากนั้นจึงเรียก mode='section'"
   },
   "zh_CN": {
     "x_search_terms": [
@@ -829,9 +829,9 @@
       "控制语言"
     ],
     "x_search_terms_en": [
-      "read cl file",
-      "clle index",
-      "clp program structure",
+      "读取cl文件",
+      "clle索引",
+      "clp程序结构",
       "IBM i CL"
     ],
     "param.path.description": "CL/CLP/CLLE 源文件的路径。",
@@ -845,7 +845,7 @@
     "err.invalid_mode": "错误：模式“{mode}”无效。使用“索引”或“部分”。",
     "msg.no_entries": "（未找到定义）",
     "msg.index_output": "索引：{path}\n---\n{toc}\n---\n总定义：{total}\n要检索定义，请使用 mode='section' 和节号调用 cl2idx。",
-    "param.mode.description": "“index”返回带有行号的编号目录。 “section”按数字返回特定定义。",
+    "param.mode.description": "“index”返回带有行号的编号目录。 “section”按编号返回特定定义。",
     "param.section.description": "要检索的节号（仅当 mode='section' 时使用）。从索引输出中获取数字。",
     "tool.description": "将 IBM i CL/CLP/CLLE (.cl/.clp/.clle) 文件解析为程序条目、声明、标签、控制命令和调用，并返回编号索引或特定定义部分。当您需要读取大型 CL 源代码时使用此选项：首先使用 mode='index' 进行调用，然后使用 mode='section' 进行调用。"
   },
@@ -863,9 +863,9 @@
       "控制語言"
     ],
     "x_search_terms_en": [
-      "read cl file",
-      "clle index",
-      "clp program structure",
+      "讀取cl檔",
+      "clle索引",
+      "clp程式結構",
       "IBM i CL"
     ],
     "param.path.description": "CL/CLP/CLLE 原始檔的路徑。",
@@ -879,27 +879,27 @@
     "err.invalid_mode": "錯誤：模式“{mode}”無效。使用“索引”或“部分”。",
     "msg.no_entries": "（未找到定義）",
     "msg.index_output": "索引：{path}\n---\n{toc}\n---\n總定義：{total}\n要檢索定義，請使用 mode='section' 和節號呼叫 cl2idx。",
-    "param.mode.description": "“index”傳回帶有行號的編號目錄。 “section”按數字返回特定定義。",
+    "param.mode.description": "“index”傳回帶有行號的編號目錄。 “section”按編號返回特定定義。",
     "param.section.description": "要檢索的節號（僅當 mode='section' 時使用）。從索引輸出中取得數字。",
     "tool.description": "將 IBM i CL/CLP/CLLE (.cl/.clp/.clle) 檔案解析為程式條目、宣告、標籤、控制指令和調用，並傳回編號索引或特定定義部分。當您需要讀取大型 CL 原始程式碼時使用此選項：首先使用 mode='index' 進行調用，然後使用 mode='section' 進行調用。"
   },
   "bn": {
     "x_search_terms": [
       "cl ফাইল পড়ুন",
-      "clle index",
-      "clp program structure",
-      "IBM i CL",
-      "CL source",
-      "CL program",
-      "ENDPGM",
-      "DCLF",
-      "CLLE",
-      "control language"
+      "",
+      "",
+      "",
+      "",
+      "",
+      "",
+      "",
+      "",
+      ""
     ],
     "x_search_terms_en": [
-      "read cl file",
+      "cl ফাইল পড়ুন",
       "clle index",
-      "clp program structure",
+      "clp প্রোগ্রাম কাঠামো",
       "IBM i CL"
     ],
     "param.path.description": "CL/CLP/CLLE সোর্স ফাইলের পাথ।",
@@ -931,9 +931,9 @@
       "زبان کنترل"
     ],
     "x_search_terms_en": [
-      "read cl file",
-      "clle index",
-      "clp program structure",
+      "خواندن فایل cl",
+      " clle index",
+      "clp ساختار برنامه",
       "IBM i CL"
     ],
     "param.path.description": "مسیر فایل منبع CL/CLP/CLLE.",
@@ -946,7 +946,7 @@
     "err.section_not_found": "خطا: بخش {section_num} یافت نشد. محدوده معتبر: 1..{last}.",
     "err.invalid_mode": "خطا: حالت نامعتبر '{mode}'. از 'index' یا 'section' استفاده کنید.",
     "msg.no_entries": "(هیچ تعریفی یافت نشد)",
-    "msg.index_output": "فهرست برای: {path}\n---\n{toc}\n---\nتعداد کل تعاریف: {total}\nبرای بازیابی یک تعریف، cl2idx را با mode='section' و شماره بخش فراخوانی کنید.",
+    "msg.index_output": "فهرست برای: {path}\n---\n{toc}\n---",
     "param.mode.description": "\"index\" فهرست مطالب شماره گذاری شده با شماره خطوط را برمی گرداند. \"بخش\" یک تعریف خاص را بر اساس شماره برمی گرداند.",
     "param.section.description": "شماره بخش برای بازیابی (فقط زمانی که mode='section' استفاده می شود). عدد را از خروجی شاخص دریافت کنید.",
     "tool.description": "یک فایل IBM i CL/CLP/CLLE (.cl/.clp/.clle) را در ورودی برنامه، اعلان‌ها، برچسب‌ها، فرمان‌های کنترلی و تماس‌ها تجزیه کنید و یک فهرست شماره‌دار یا یک بخش تعریف خاص را برگردانید. هنگامی که نیاز به خواندن یک منبع CL بزرگ دارید از این استفاده کنید: ابتدا با mode='index' و سپس mode='section' تماس بگیرید."
@@ -965,9 +965,9 @@
       "хяналтын хэл"
     ],
     "x_search_terms_en": [
-      "read cl file",
-      "clle index",
-      "clp program structure",
+      "cl файлыг унших",
+      "clle индекс",
+      "clp програмын бүтэц",
       "IBM i CL"
     ],
     "param.path.description": "CL/CLP/CLLE эх файлын зам.",
@@ -999,10 +999,10 @@
       " नियंत्रण भाषा"
     ],
     "x_search_terms_en": [
-      "read cl file",
+      "cl file",
       "clle index",
-      "clp program structure",
-      "IBM i CL"
+      "clp प्रोग्राम रचना",
+      "IBM i CL वाचा"
     ],
     "param.path.description": "CL/CLP/CLLE स्रोत फाइलचा मार्ग.",
     "err.path_required": "त्रुटी: 'पथ' आवश्यक आहे.",
@@ -1033,9 +1033,9 @@
       "γλώσσα ελέγχου"
     ],
     "x_search_terms_en": [
-      "read cl file",
+      "ανάγνωση αρχείου cl",
       "clle index",
-      "clp program structure",
+      "clp δομή προγράμματος",
       "IBM i CL"
     ],
     "param.path.description": "Διαδρομή προς το αρχείο προέλευσης CL/CLP/CLLE.",
@@ -1067,9 +1067,9 @@
       "שפת הבקרה"
     ],
     "x_search_terms_en": [
-      "read cl file",
+      "קרא קובץ cl",
       "clle index",
-      "clp program structure",
+      "מבנה תוכנית clp",
       "IBM i CL"
     ],
     "param.path.description": "נתיב לקובץ המקור CL/CLP/CLLE.",
@@ -1101,9 +1101,9 @@
       "vezérlő nyelv"
     ],
     "x_search_terms_en": [
-      "read cl file",
+      "cl fájl olvasása",
       "clle index",
-      "clp program structure",
+      "clp programstruktúra",
       "IBM i CL"
     ],
     "param.path.description": "A CL/CLP/CLLE forrásfájl elérési útja.",
@@ -1135,9 +1135,9 @@
       "limbaj de control"
     ],
     "x_search_terms_en": [
-      "read cl file",
+      "citiți fișierul cl",
       "clle index",
-      "clp program structure",
+      "clp structura programului",
       "IBM i CL"
     ],
     "param.path.description": "Calea către fișierul sursă CL/CLP/CLLE.",

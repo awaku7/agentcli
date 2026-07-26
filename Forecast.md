@@ -101,13 +101,13 @@ def _engineer_features(df: pd.DataFrame, date_col: str, lags: list[int] = [1, 2,
 
 **階層的優先順位**（`forecast_modules` の priority に準拠）:
 
-| 優先度 | カテゴリ | パッケージ | モデル |
-|--------|---------|-----------|--------|
-| 1 | statistical | statsforecast | AutoARIMA, AutoETS, Theta, MSTL |
-| 2 | machine_learning | mlforecast | LightGBM, CatBoost |
-| 3 | foundation_model | timesfm | TimesFM |
-| 4 | foundation_model | chronos | Chronos, Chronos-Bolt |
-| 5 | statistical | prophet | Prophet |
+| 優先度 | カテゴリ | パッケージ | モデル | 状態 |
+|--------|---------|-----------|--------|------|
+| 1 | statistical | statsforecast | AutoARIMA, AutoETS, Theta, MSTL, StatsForecast | ✅ auto-install |
+| 2 | machine_learning | mlforecast | LightGBM, CatBoost | ✅ auto-install |
+| 3 | foundation_model | timesfm | TimesFM (TimesFM_2p5_200M_torch) | ✅ auto-install |
+| 4 | foundation_model | chronos | Chronos, Chronos-Bolt | ⚠️ torch依存 |
+| 5 | statistical | prophet | Prophet | ✅ auto-install |
 
 選択ロジック:
 1. 上位階層から順に試行、最初に成功した階層内でRMSE最小のモデルを選択
