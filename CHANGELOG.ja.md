@@ -1,6 +1,26 @@
 # 変更履歴
 
 
+## [0.5.58] - 2026-07-27
+
+### 追加
+
+- feat: pybitchat BLE Mesh ツールと chat mode 自動転送
+- feat: Nostr トランスポート、Noise XX ハンドシェイク、geo チャネル、bitchat 用 secp256k1 ヘルパー
+- feat: get_current_time 出力に OS レベル NTP 同期情報を追加
+- docs: docs/BITCHAT.md 追加、COMMUNICATION ドキュメント拡充
+
+### 修正
+
+- fix: human_ask 応答後の古い [REPLY] プロンプト競合を回避
+- fix: instruction files プロンプト前の余分な空行を削除
+- fix(pybitchat): geo join の TypeError — is_running はメソッドではなく property
+- fix: PacketFlag.HAS_RECIPIENT 未定義、CommandResult の TYPE_CHECKING import
+
+### 変更
+
+- chore: src 全体の ruff/black クリーンアップ（未使用 import、E731 lambda→def、フォーマット）
+
 ## [0.5.57] - 2026-07-26
 
 ### 追加

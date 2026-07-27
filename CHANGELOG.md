@@ -1,6 +1,26 @@
 # Changelog
 
 
+## [0.5.58] - 2026-07-27
+
+### Added
+
+- feat: add pybitchat BLE Mesh tools with chat mode auto-forward
+- feat: Nostr transport, Noise XX handshake, geo channels, secp256k1 helpers for bitchat
+- feat: add OS-level NTP sync info to get_current_time output
+- docs: add docs/BITCHAT.md and expand COMMUNICATION docs
+
+### Fixed
+
+- fix: avoid stale [REPLY] prompt after human_ask reply due to race condition
+- fix: remove spurious blank line before instruction files prompt
+- fix(pybitchat): TypeError in geo join - is_running is property not method
+- fix: PacketFlag.HAS_RECIPIENT undefined name; CommandResult TYPE_CHECKING import
+
+### Changed
+
+- chore: ruff/black cleanup across src (unused imports, E731 lambda→def, formatting)
+
 ## [0.5.57] - 2026-07-26
 
 ### Added
