@@ -233,7 +233,6 @@ def _prompt_user(candidates: list[InstructionCandidate]) -> list[InstructionCand
     if not candidates:
         return []
 
-    print()
     print(_("[INFO] Project instruction files found:"))
     for line in _format_candidate_lines(candidates):
         print(line)
