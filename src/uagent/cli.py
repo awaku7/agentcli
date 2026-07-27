@@ -42,6 +42,8 @@ from .scheduler import start_background_scheduler, stop_background_scheduler
 
 from uagent.utils.paths import get_history_file_path
 
+from .tools.pybitchat_shared import forward_to_mesh
+
 from .util_tools import (
     extract_image_paths,
     provider_allows_chat_vision,
@@ -1023,6 +1025,7 @@ def stdin_loop() -> None:
                 if not text.strip():
                     continue
                 _append_prompt_history_entry(text)
+                forward_to_mesh(text)
                 core.set_status(True, "user_pending_multi")
                 core.event_queue.put({"kind": "user", "text": text})
                 continue
@@ -1033,6 +1036,7 @@ def stdin_loop() -> None:
                 continue
 
             _append_prompt_history_entry(line)
+            forward_to_mesh(line)
             core.set_status(True, "user_pending")
             core.event_queue.put({"kind": "user", "text": line})
         else:
@@ -1141,20 +1145,8 @@ def main() -> None:
                     messages.append(user_msg)
                     _append_prompt_history_entry(prompt)
                     core.log_message(user_msg)
-                    llm_util.run_llm_rounds(
-                        provider,
-                        client,
-                        depname,
-                        messages,
-                        core=core,
-                        make_client_fn=providers.make_client,
-                        append_result_to_outfile_fn=tools_util.append_result_to_outfile,
-                        try_open_images_from_text_fn=tools_util.try_open_images_from_text,
-                    )
-
-                    # Auto-pilot loop: if auto mode is active, continue rounds
-                    if core.auto_pilot_active:
-                        tools_util._run_auto_pilot_loop(
+                    try:
+                        llm_util.run_llm_rounds(
                             provider,
                             client,
                             depname,
@@ -1164,6 +1156,24 @@ def main() -> None:
                             append_result_to_outfile_fn=tools_util.append_result_to_outfile,
                             try_open_images_from_text_fn=tools_util.try_open_images_from_text,
                         )
+                    except Exception as exc:
+                        print(f"LLM round interrupted: {exc}")
+
+                    # Auto-pilot loop: if auto mode is active, continue rounds
+                    if core.auto_pilot_active:
+                        try:
+                            tools_util._run_auto_pilot_loop(
+                                provider,
+                                client,
+                                depname,
+                                messages,
+                                core=core,
+                                make_client_fn=providers.make_client,
+                                append_result_to_outfile_fn=tools_util.append_result_to_outfile,
+                                try_open_images_from_text_fn=tools_util.try_open_images_from_text,
+                            )
+                        except Exception as exc:
+                            print(f"[AUTO] Auto-pilot interrupted: {exc}")
                         core.set_status(False, "")
                 continue
 
@@ -1290,16 +1300,19 @@ def main() -> None:
                 messages.append(user_msg)
                 core.log_message(user_msg)
 
-                llm_util.run_llm_rounds(
-                    provider,
-                    client,
-                    depname,
-                    messages,
-                    core=core,
-                    make_client_fn=providers.make_client,
-                    append_result_to_outfile_fn=tools_util.append_result_to_outfile,
-                    try_open_images_from_text_fn=tools_util.try_open_images_from_text,
-                )
+                try:
+                    llm_util.run_llm_rounds(
+                        provider,
+                        client,
+                        depname,
+                        messages,
+                        core=core,
+                        make_client_fn=providers.make_client,
+                        append_result_to_outfile_fn=tools_util.append_result_to_outfile,
+                        try_open_images_from_text_fn=tools_util.try_open_images_from_text,
+                    )
+                except Exception as exc:
+                    print(f"[bitchat] LLM round interrupted: {exc}")
                 continue
 
             print(

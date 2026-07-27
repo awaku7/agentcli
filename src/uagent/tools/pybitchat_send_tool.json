@@ -1,0 +1,16 @@
+{
+  "en": {
+    "tool.description": "Send a text message or announce over the pybitchat BLE Mesh. The node must be running (pybitchat_subscribe action=start).",
+    "param.type.description": "Message type: text (chat message) or announce (node announcement).",
+    "param.payload.description": "Message content (text) or nickname (announce).",
+    "param.recipient.description": "Optional recipient peer ID. None = broadcast.",
+    "err.payload_required": "payload is required"
+  },
+  "ja": {
+    "tool.description": "pybitchat BLE Mesh 経由でテキストメッセージまたはアナウンスを送信します。ノードが起動している必要があります。",
+    "param.type.description": "送信タイプ: text (テキストメッセージ) または announce (ノードアナウンス)。",
+    "param.payload.description": "送信するペイロード。text の場合はメッセージ本文、announce の場合はニックネーム。",
+    "param.recipient.description": "オプションの受信者ピアID。指定しない場合はブロードキャスト。",
+    "err.payload_required": "payload is required (日本語)"
+  }
+}

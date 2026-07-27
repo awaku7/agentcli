@@ -1,0 +1,26 @@
+{
+  "en": {
+    "tool.description": "Start/stop/monitor the pybitchat BLE Mesh node. Peer discovery events are shown as [INFO] notifications in the terminal.",
+    "param.action.description": "Action: start (begin BLE scan/advertise), stop (shutdown), status (current state).",
+    "param.nickname.description": "Node nickname shown to peers.",
+    "param.network.description": "Network: mainnet or testnet.",
+    "param.on_message_prompt.description": "Optional prompt injected into the LLM when a message arrives.",
+    "err.unknown_action": "Unknown action: %(action)s",
+    "msg.started": "pybitchat BLE Mesh node started on %(network)s as %(nickname)s.",
+    "msg.stopped": "pybitchat BLE Mesh node stopped.",
+    "msg.started_with_error": "pybitchat BLE Mesh node started but scanner failed: %(error)s. Check Bluetooth adapter or run pybitchat_subscribe action=status for details.",
+    "msg.status": "pybitchat node state: %(state)s"
+  },
+  "ja": {
+    "tool.description": "pybitchat BLE Mesh ノードの起動・停止・状態監視を行います。ピア発見イベントはターミナルに [INFO] 通知として表示されます。",
+    "param.action.description": "操作: start (BLEスキャン/アドバタイズ開始), stop (停止), status (状態確認)。",
+    "param.nickname.description": "ノードのニックネーム。ピアに表示されます。",
+    "param.network.description": "ネットワーク: mainnet または testnet。",
+    "param.on_message_prompt.description": "メッセージ受信時にLLMに注入するオプションのプロンプト。",
+    "err.unknown_action": "Unknown action: %(action)s",
+    "msg.started": "pybitchat BLE Mesh node started on %(network)s as %(nickname)s.",
+    "msg.stopped": "pybitchat BLE Mesh node stopped.",
+    "msg.started_with_error": "pybitchat BLE Mesh node started but scanner failed: %(error)s. Check Bluetooth adapter or run pybitchat_subscribe action=status for details.",
+    "msg.status": "pybitchat node state: %(state)s"
+  }
+}
