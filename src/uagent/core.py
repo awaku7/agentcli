@@ -775,7 +775,13 @@ def get_prompt() -> str:
         ask_active = human_ask_active
 
     if ask_active:
-        return "[REPLY] > "
+        # Re-check under lock to avoid race with human_ask_tool.run_tool() finally block
+        # that sets human_ask_active = False. Without this re-check, a stale [REPLY] prompt
+        # may be displayed after the user has already replied.
+        with human_ask_lock:
+            if human_ask_active:
+                return "[REPLY] > "
+        ask_active = False
 
     if auto_pilot_active:
         return "[AUTO] > "
