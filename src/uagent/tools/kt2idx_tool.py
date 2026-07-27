@@ -99,7 +99,6 @@ class _KtIndexBuilder:
         self.diag: list[str] = []
         self._parse()
 
-
     def _preprocess(self):
         """Join multi-line signatures ending with ',' or '('."""
         result = []
@@ -239,7 +238,11 @@ class _KtIndexBuilder:
                                 "name": n,
                                 "line": i + 1,
                                 "end_line": i + 1,
-                                "label": f"companion object {n}" if n != "companion" else "companion object",
+                                "label": (
+                                    f"companion object {n}"
+                                    if n != "companion"
+                                    else "companion object"
+                                ),
                             }
                         )
                 elif k in ("func", "init", "extension"):

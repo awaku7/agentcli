@@ -307,14 +307,14 @@ class _RpgIndexBuilder:
         # Embedded SQL (joined logical line may span multiple source lines)
         m = re.match(r"^/exec\s+sql\b(.*)$", s, re.I | re.S)
         if m:
-            body = (m.group(1) or "")
+            body = m.group(1) or ""
             body = re.sub(r"/end-exec\b", "", body, flags=re.I)
             body = re.sub(r"\s+", " ", body).strip(" ;")
             summary = self._sql_summary(body)
             return [("sql", f"EXEC SQL {summary}".strip())]
         m = re.match(r"^exec\s+sql\b(.*)$", s, re.I | re.S)
         if m:
-            body = (m.group(1) or "")
+            body = m.group(1) or ""
             body = re.sub(r";\s*$", "", body.strip())
             body = re.sub(r"\s+", " ", body).strip()
             summary = self._sql_summary(body)
@@ -336,7 +336,9 @@ class _RpgIndexBuilder:
         )
         if m:
             name = m.group(1)
-            export = " export" if re.search(r"\bexport\b", m.group(2) or "", re.I) else ""
+            export = (
+                " export" if re.search(r"\bexport\b", m.group(2) or "", re.I) else ""
+            )
             return [("proc", f"dcl-proc {name}{export}")]
 
         if re.match(r"^end-proc\b", low):
@@ -558,9 +560,9 @@ class _RpgIndexBuilder:
                 kind_hint = ""
                 for tok in ("PI", "PR", "DS", "S", "C"):
                     # word-boundary-ish match in decl area
-                    if re.search(rf"(?:^|\s){tok}(?:\s|$)", decl_area) or decl_area.strip().startswith(
-                        tok
-                    ):
+                    if re.search(
+                        rf"(?:^|\s){tok}(?:\s|$)", decl_area
+                    ) or decl_area.strip().startswith(tok):
                         kind_hint = tok
                         break
                 if not kind_hint:
@@ -573,7 +575,11 @@ class _RpgIndexBuilder:
                 # Length cols 33-39 rough
                 length = p[spec_i + 27 : spec_i + 34].strip()
                 length = re.sub(r"[^\d.]", "", length)
-                if name.startswith("*") and name.upper() not in ("*N", "*AUTO", "*DTAARA"):
+                if name.startswith("*") and name.upper() not in (
+                    "*N",
+                    "*AUTO",
+                    "*DTAARA",
+                ):
                     # *LIKE DEFINE etc. still useful sometimes
                     if not kind_hint:
                         return None
@@ -595,7 +601,10 @@ class _RpgIndexBuilder:
                 if kind_hint == "PR":
                     return ("pr", f"D {name} PR")
                 if kind_hint == "S":
-                    return ("field", f"D {name} S{(' ' + length + dtype) if length or dtype else ''}".rstrip())
+                    return (
+                        "field",
+                        f"D {name} S{(' ' + length + dtype) if length or dtype else ''}".rstrip(),
+                    )
                 if kind_hint == "C":
                     return ("const", f"D {name} C")
                 return ("def", f"D {name}{suffix}")
@@ -761,7 +770,10 @@ class _RpgIndexBuilder:
                         current_sr = None
                     else:
                         self._add(entries, current_proc, item)
-                elif kind in ("subf", "parm", "field", "const") and current_ds is not None:
+                elif (
+                    kind in ("subf", "parm", "field", "const")
+                    and current_ds is not None
+                ):
                     current_ds.setdefault("members", []).append(item)
                 elif kind in (
                     "file",

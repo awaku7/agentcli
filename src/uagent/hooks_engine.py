@@ -98,7 +98,9 @@ def _annotate_hook_group(
         nested = out.get("hooks")
         if isinstance(nested, list):
             out["hooks"] = [
-                _annotate_hook_group(h, plugin_name=plugin_name, plugin_root=plugin_root)
+                _annotate_hook_group(
+                    h, plugin_name=plugin_name, plugin_root=plugin_root
+                )
                 for h in nested
             ]
         return out
@@ -210,9 +212,7 @@ def execute_hook(
             hook, timeout_ms=timeout_ms, stdin_data=stdin_data
         )
     elif hook_type == HTTP_TYPE:
-        result = _execute_http_hook(
-            hook, timeout_ms=timeout_ms, stdin_data=stdin_data
-        )
+        result = _execute_http_hook(hook, timeout_ms=timeout_ms, stdin_data=stdin_data)
     elif hook_type == PROMPT_TYPE:
         result = _execute_prompt_hook(hook, timeout_ms=timeout_ms)
     elif hook_type == MCP_TOOL_TYPE:
@@ -898,9 +898,7 @@ def collect_hook_context_texts(
             raw_dec = r.get("stdout")
             if not (isinstance(raw_dec, str) and raw_dec.strip()):
                 raw_dec = r.get("body")
-            parsed = parse_hook_decision(
-                raw_dec if isinstance(raw_dec, str) else None
-            )
+            parsed = parse_hook_decision(raw_dec if isinstance(raw_dec, str) else None)
             if parsed:
                 dec = parsed.get("decision")
         if str(dec or "").strip().lower() == "block":

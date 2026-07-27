@@ -19,6 +19,7 @@ _ = make_tool_translator(__file__)
 
 # ── Custom exceptions ──────────────────────────────────────────────────
 
+
 class DataTooSmallError(ValueError):
     def __init__(self, min_rows: int, actual: int):
         self.min_rows = min_rows
@@ -81,9 +82,17 @@ TOOL_SPEC: dict[str, Any] = {
                 "model": {
                     "type": "string",
                     "enum": [
-                        "auto", "StatsForecast", "AutoARIMA", "AutoETS",
-                        "Theta", "MSTL", "Prophet", "LightGBM", "CatBoost",
-                        "TimesFM", "Chronos",
+                        "auto",
+                        "StatsForecast",
+                        "AutoARIMA",
+                        "AutoETS",
+                        "Theta",
+                        "MSTL",
+                        "Prophet",
+                        "LightGBM",
+                        "CatBoost",
+                        "TimesFM",
+                        "Chronos",
                     ],
                     "description": _(
                         "param.model.description",
@@ -160,9 +169,7 @@ def load_data(data: str) -> pd.DataFrame:
     try:
         parsed = json.loads(data)
         if isinstance(parsed, dict) and "columns" in parsed and "data" in parsed:
-            return pd.DataFrame(
-                parsed["data"], columns=parsed["columns"]
-            )
+            return pd.DataFrame(parsed["data"], columns=parsed["columns"])
         # orient="split" format
         if "index" in parsed and "columns" in parsed and "data" in parsed:
             return pd.DataFrame(
@@ -283,11 +290,12 @@ def _calc_metrics(y_true: np.ndarray, y_pred: np.ndarray) -> dict[str, float]:
     # MAPE: avoid division by zero
     nonzero = y_true != 0
     if nonzero.any():
-        mape = float(np.mean(np.abs((y_true[nonzero] - y_pred[nonzero]) / y_true[nonzero])) * 100)
+        mape = float(
+            np.mean(np.abs((y_true[nonzero] - y_pred[nonzero]) / y_true[nonzero])) * 100
+        )
     else:
         mape = 0.0
     return {"mae": round(mae, 4), "rmse": round(rmse, 4), "mape": round(mape, 4)}
-
 
 
 # ── Confidence Intervals (model-specific) ─────────────────────────────
@@ -305,7 +313,9 @@ def _get_ci_prophet(model, forecast_horizon: int) -> tuple[list[float], list[flo
         return [], []
 
 
-def _get_ci_statsforecast(model, forecast_horizon: int) -> tuple[list[float], list[float]]:
+def _get_ci_statsforecast(
+    model, forecast_horizon: int
+) -> tuple[list[float], list[float]]:
     """Extract CI from StatsForecast standard output."""
     try:
         sf = model.sf
@@ -315,16 +325,21 @@ def _get_ci_statsforecast(model, forecast_horizon: int) -> tuple[list[float], li
         if col_lo and col_hi:
             lower = fcst[col_lo[0]].values.tolist()
             upper = fcst[col_hi[0]].values.tolist()
-            return [round(float(v), 4) for v in lower], [round(float(v), 4) for v in upper]
+            return [round(float(v), 4) for v in lower], [
+                round(float(v), 4) for v in upper
+            ]
     except Exception:
         pass
     return [], []
 
 
-def _get_ci_quantile(features_df, value_col, forecast_horizon: int) -> tuple[list[float], list[float]]:
+def _get_ci_quantile(
+    features_df, value_col, forecast_horizon: int
+) -> tuple[list[float], list[float]]:
     """Train two LightGBM quantile models and return CI."""
     try:
         import lightgbm as lgb
+
         df = features_df.copy()
         y = df[value_col].values
         X = df.drop(columns=[value_col])
@@ -332,12 +347,18 @@ def _get_ci_quantile(features_df, value_col, forecast_horizon: int) -> tuple[lis
         if n < 5:
             return [], []
         low_model = lgb.LGBMRegressor(
-            objective="quantile", alpha=0.025,
-            n_estimators=100, random_state=42, verbose=-1,
+            objective="quantile",
+            alpha=0.025,
+            n_estimators=100,
+            random_state=42,
+            verbose=-1,
         )
         high_model = lgb.LGBMRegressor(
-            objective="quantile", alpha=0.975,
-            n_estimators=100, random_state=42, verbose=-1,
+            objective="quantile",
+            alpha=0.975,
+            n_estimators=100,
+            random_state=42,
+            verbose=-1,
         )
         low_model.fit(X, y)
         high_model.fit(X, y)
@@ -355,7 +376,9 @@ def _get_ci_quantile(features_df, value_col, forecast_horizon: int) -> tuple[lis
         return [], []
 
 
-def _get_ci_sampling(model, forecast_horizon: int, num_samples: int = 20) -> tuple[list[float], list[float]]:
+def _get_ci_sampling(
+    model, forecast_horizon: int, num_samples: int = 20
+) -> tuple[list[float], list[float]]:
     """Compute CI from num_samples forecast runs (stochastic models)."""
     samples = []
     for _ in range(num_samples):
@@ -373,8 +396,15 @@ def _get_ci_sampling(model, forecast_horizon: int, num_samples: int = 20) -> tup
     return [round(float(v), 4) for v in lower], [round(float(v), 4) for v in upper]
 
 
-def _compute_ci(model, model_name: str, df, value_col, forecast_horizon: int,
-                base_forecast: np.ndarray, confidence: float = 0.95) -> tuple[list[float], list[float]]:
+def _compute_ci(
+    model,
+    model_name: str,
+    df,
+    value_col,
+    forecast_horizon: int,
+    base_forecast: np.ndarray,
+    confidence: float = 0.95,
+) -> tuple[list[float], list[float]]:
     """Dispatch CI computation based on model type."""
     z = {0.90: 1.645, 0.95: 1.96, 0.99: 2.576}.get(confidence, 1.96)
     # Try model-specific CI first
@@ -402,6 +432,7 @@ def _compute_ci(model, model_name: str, df, value_col, forecast_horizon: int,
     hi = [round(float(v + z * residual_std), 4) for v in base_forecast]
     return lo, hi
 
+
 # ── Preprocessing ─────────────────────────────────────────────────────
 
 
@@ -419,6 +450,7 @@ def preprocess(df: pd.DataFrame, date_col: str, value_col: str) -> pd.DataFrame:
 
 import concurrent.futures as _cf
 
+
 def _run_with_timeout(func, timeout_sec: int, *args, **kwargs):
     """Run func in a thread with timeout."""
     with _cf.ThreadPoolExecutor(max_workers=1) as pool:
@@ -434,7 +466,7 @@ def _run_with_timeout(func, timeout_sec: int, *args, **kwargs):
 
 def _get_available_models() -> list[tuple[str, Callable]]:
     """Return list of (model_name, builder_function) tuples.
-    
+
     Models that cannot be imported are silently skipped.
     """
     models: list[tuple[str, Callable]] = []
@@ -493,36 +525,54 @@ def _get_available_models() -> list[tuple[str, Callable]]:
                     h = len(horizon_or_valid)
                 preds = self.sf.forecast(h=h, df=self._fitted_df)
                 # Get first model's prediction column
-                model_cols = [c for c in preds.columns if c != "ds" and c != "unique_id"]
+                model_cols = [
+                    c for c in preds.columns if c != "ds" and c != "unique_id"
+                ]
                 if model_cols:
                     return preds[model_cols[0]].values
                 return np.full(h, 0.0)
 
-        arima = lambda: _StatsForecastWrapper(AutoARIMA, seasonal=True, stepwise=True, approximation=False)
-        models.append(("AutoARIMA", arima))
+        def _make_arima():
+            return _StatsForecastWrapper(
+                AutoARIMA, seasonal=True, stepwise=True, approximation=False
+            )
 
-        ets = lambda: _StatsForecastWrapper(AutoETS)
-        models.append(("AutoETS", ets))
+        def _make_ets():
+            return _StatsForecastWrapper(AutoETS)
 
-        theta = lambda: _StatsForecastWrapper(Theta)
-        models.append(("Theta", theta))
+        def _make_theta():
+            return _StatsForecastWrapper(Theta)
 
-        mstl = lambda: _StatsForecastWrapper(_MSTL, season_length=7)
-        models.append(("MSTL", mstl))
+        def _make_mstl():
+            return _StatsForecastWrapper(_MSTL, season_length=7)
 
-        sf = lambda: _StatsForecastWrapper(AutoARIMA, seasonal=True, stepwise=True, approximation=False)
-        models.append(("StatsForecast", sf))
+        def _make_sf():
+            return _StatsForecastWrapper(
+                AutoARIMA, seasonal=True, stepwise=True, approximation=False
+            )
+
+        models.append(("AutoARIMA", _make_arima))
+        models.append(("AutoETS", _make_ets))
+        models.append(("Theta", _make_theta))
+        models.append(("MSTL", _make_mstl))
+        models.append(("StatsForecast", _make_sf))
     except ImportError:
         # Auto-install statsforecast
         if _auto_install_pkg("statsforecast"):
             try:
                 from statsforecast import StatsForecast
-                from statsforecast.models import AutoARIMA, AutoETS, Theta, MSTL as _MSTL
-                
+                from statsforecast.models import (
+                    AutoARIMA,
+                    AutoETS,
+                    Theta,
+                    MSTL as _MSTL,
+                )
+
                 class _StatsForecastWrapper:
                     def __init__(self, model_class, **kwargs):
                         self.model_class = model_class
                         self.kwargs = kwargs
+
                     def fit(self, df, date_col, value_col, freq):
                         self.value_col = value_col
                         self.date_col = date_col
@@ -540,26 +590,44 @@ def _get_available_models() -> list[tuple[str, Callable]]:
                         self.sf.fit(df=pdf)
                         self._fitted_df = pdf
                         return self
+
                     def predict(self, horizon_or_valid):
                         if isinstance(horizon_or_valid, int):
                             h = horizon_or_valid
                         else:
                             h = len(horizon_or_valid)
                         preds = self.sf.forecast(h=h, df=self._fitted_df)
-                        model_cols = [c for c in preds.columns if c != "ds" and c != "unique_id"]
+                        model_cols = [
+                            c for c in preds.columns if c != "ds" and c != "unique_id"
+                        ]
                         if model_cols:
                             return preds[model_cols[0]].values
                         return np.full(h, 0.0)
-                arima = lambda: _StatsForecastWrapper(AutoARIMA, seasonal=True, stepwise=True, approximation=False)
-                models.append(("AutoARIMA", arima))
-                ets = lambda: _StatsForecastWrapper(AutoETS)
-                models.append(("AutoETS", ets))
-                theta = lambda: _StatsForecastWrapper(Theta)
-                models.append(("Theta", theta))
-                mstl = lambda: _StatsForecastWrapper(_MSTL, season_length=7)
-                models.append(("MSTL", mstl))
-                sf = lambda: _StatsForecastWrapper(AutoARIMA, seasonal=True, stepwise=True, approximation=False)
-                models.append(("StatsForecast", sf))
+
+                def _make_arima2():
+                    return _StatsForecastWrapper(
+                        AutoARIMA, seasonal=True, stepwise=True, approximation=False
+                    )
+
+                def _make_ets2():
+                    return _StatsForecastWrapper(AutoETS)
+
+                def _make_theta2():
+                    return _StatsForecastWrapper(Theta)
+
+                def _make_mstl2():
+                    return _StatsForecastWrapper(_MSTL, season_length=7)
+
+                def _make_sf2():
+                    return _StatsForecastWrapper(
+                        AutoARIMA, seasonal=True, stepwise=True, approximation=False
+                    )
+
+                models.append(("AutoARIMA", _make_arima2))
+                models.append(("AutoETS", _make_ets2))
+                models.append(("Theta", _make_theta2))
+                models.append(("MSTL", _make_mstl2))
+                models.append(("StatsForecast", _make_sf2))
             except ImportError:
                 pass
 
@@ -589,9 +657,11 @@ def _get_available_models() -> list[tuple[str, Callable]]:
                     return fcst["yhat"].values[-h:]
                 else:
                     # valid DataFrame has columns [date_col, value_col]
-                    future = horizon_or_valid[[self.date_col]].rename(
-                        columns={self.date_col: "ds"}
-                    ).reset_index(drop=True)
+                    future = (
+                        horizon_or_valid[[self.date_col]]
+                        .rename(columns={self.date_col: "ds"})
+                        .reset_index(drop=True)
+                    )
                     fcst = self.model.predict(future)
                     return fcst["yhat"].values
 
@@ -601,7 +671,7 @@ def _get_available_models() -> list[tuple[str, Callable]]:
         if _auto_install_pkg("prophet"):
             try:
                 from prophet import Prophet as _Prophet
-                
+
                 class _ProphetWrapper:
                     def fit(self, df, date_col, value_col, freq):
                         self.date_col = date_col
@@ -615,6 +685,7 @@ def _get_available_models() -> list[tuple[str, Callable]]:
                         )
                         self.model.fit(pdf)
                         return self
+
                     def predict(self, horizon_or_valid):
                         if isinstance(horizon_or_valid, int):
                             h = horizon_or_valid
@@ -622,11 +693,14 @@ def _get_available_models() -> list[tuple[str, Callable]]:
                             fcst = self.model.predict(future)
                             return fcst["yhat"].values[-h:]
                         else:
-                            future = horizon_or_valid[[self.date_col]].rename(
-                                columns={self.date_col: "ds"}
-                            ).reset_index(drop=True)
+                            future = (
+                                horizon_or_valid[[self.date_col]]
+                                .rename(columns={self.date_col: "ds"})
+                                .reset_index(drop=True)
+                            )
                             fcst = self.model.predict(future)
                             return fcst["yhat"].values
+
                 models.append(("Prophet", lambda: _ProphetWrapper()))
             except ImportError:
                 pass
@@ -643,8 +717,12 @@ def _get_available_models() -> list[tuple[str, Callable]]:
                 y = feats[self.value_col]
                 X = feats.drop(columns=[self.value_col])
                 self.model = lgb.LGBMRegressor(
-                    n_estimators=500, learning_rate=0.05, max_depth=6,
-                    subsample=0.8, colsample_bytree=0.8, random_state=42,
+                    n_estimators=500,
+                    learning_rate=0.05,
+                    max_depth=6,
+                    subsample=0.8,
+                    colsample_bytree=0.8,
+                    random_state=42,
                     verbose=-1,
                 )
                 self.model.fit(X, y)
@@ -661,10 +739,16 @@ def _get_available_models() -> list[tuple[str, Callable]]:
                         preds.append(p)
                         # Update lag features: shift existing lags forward
                         existing_lags = sorted(
-                            [int(c.replace("lag_","")) for c in row.columns if c.startswith("lag_")],
+                            [
+                                int(c.replace("lag_", ""))
+                                for c in row.columns
+                                if c.startswith("lag_")
+                            ],
                             reverse=True,
                         )
-                        old_vals = {lag: row[f"lag_{lag}"].iloc[0] for lag in existing_lags}
+                        old_vals = {
+                            lag: row[f"lag_{lag}"].iloc[0] for lag in existing_lags
+                        }
                         for lag in existing_lags:
                             if lag == 1:
                                 row[f"lag_{lag}"] = p
@@ -706,7 +790,7 @@ def _get_available_models() -> list[tuple[str, Callable]]:
         if _auto_install_pkg("lightgbm"):
             try:
                 import lightgbm as lgb
-                
+
                 class _LightGBMWrapper:
                     def fit(self, df, date_col, value_col, freq):
                         self.date_col = date_col
@@ -715,13 +799,18 @@ def _get_available_models() -> list[tuple[str, Callable]]:
                         y = feats[self.value_col]
                         X = feats.drop(columns=[self.value_col])
                         self.model = lgb.LGBMRegressor(
-                            n_estimators=500, learning_rate=0.05, max_depth=6,
-                            subsample=0.8, colsample_bytree=0.8, random_state=42,
+                            n_estimators=500,
+                            learning_rate=0.05,
+                            max_depth=6,
+                            subsample=0.8,
+                            colsample_bytree=0.8,
+                            random_state=42,
                             verbose=-1,
                         )
                         self.model.fit(X, y)
                         self.last_feats = X
                         return self
+
                     def predict(self, horizon_or_valid):
                         if isinstance(horizon_or_valid, int):
                             h = horizon_or_valid
@@ -731,17 +820,26 @@ def _get_available_models() -> list[tuple[str, Callable]]:
                                 p = float(self.model.predict(row)[0])
                                 preds.append(p)
                                 existing_lags = sorted(
-                                    [int(c.replace("lag_","")) for c in row.columns if c.startswith("lag_")],
+                                    [
+                                        int(c.replace("lag_", ""))
+                                        for c in row.columns
+                                        if c.startswith("lag_")
+                                    ],
                                     reverse=True,
                                 )
-                                old_vals = {lag: row[f"lag_{lag}"].iloc[0] for lag in existing_lags}
+                                old_vals = {
+                                    lag: row[f"lag_{lag}"].iloc[0]
+                                    for lag in existing_lags
+                                }
                                 for lag in existing_lags:
                                     if lag == 1:
                                         row[f"lag_{lag}"] = p
                                     else:
                                         prev = [x for x in existing_lags if x < lag]
                                         if prev:
-                                            row[f"lag_{lag}"] = old_vals.get(max(prev), p)
+                                            row[f"lag_{lag}"] = old_vals.get(
+                                                max(prev), p
+                                            )
                                 for w in [14, 7, 3]:
                                     col = f"ma_{w}"
                                     if col in row.columns:
@@ -751,6 +849,7 @@ def _get_available_models() -> list[tuple[str, Callable]]:
                             feats = self._engineer(horizon_or_valid)
                             X = feats.drop(columns=[self.value_col], errors="ignore")
                             return self.model.predict(X)
+
                     def _engineer(self, df):
                         df = df.copy()
                         dates = pd.to_datetime(df[self.date_col])
@@ -767,6 +866,7 @@ def _get_available_models() -> list[tuple[str, Callable]]:
                         df = df.dropna()
                         df = df.drop(columns=[self.date_col], errors="ignore")
                         return df
+
                 models.append(("LightGBM", lambda: _LightGBMWrapper()))
             except ImportError:
                 pass
@@ -783,8 +883,11 @@ def _get_available_models() -> list[tuple[str, Callable]]:
                 y = feats[self.value_col]
                 X = feats.drop(columns=[self.value_col])
                 self.model = CatBoostRegressor(
-                    iterations=500, learning_rate=0.05, depth=6,
-                    random_seed=42, verbose=0,
+                    iterations=500,
+                    learning_rate=0.05,
+                    depth=6,
+                    random_seed=42,
+                    verbose=0,
                 )
                 self.model.fit(X, y)
                 self.last_feats = X
@@ -799,10 +902,16 @@ def _get_available_models() -> list[tuple[str, Callable]]:
                         p = float(self.model.predict(row)[0])
                         preds.append(p)
                         existing_lags = sorted(
-                            [int(c.replace("lag_","")) for c in row.columns if c.startswith("lag_")],
+                            [
+                                int(c.replace("lag_", ""))
+                                for c in row.columns
+                                if c.startswith("lag_")
+                            ],
                             reverse=True,
                         )
-                        old_vals = {lag: row[f"lag_{lag}"].iloc[0] for lag in existing_lags}
+                        old_vals = {
+                            lag: row[f"lag_{lag}"].iloc[0] for lag in existing_lags
+                        }
                         for lag in existing_lags:
                             if lag == 1:
                                 row[f"lag_{lag}"] = p
@@ -843,7 +952,7 @@ def _get_available_models() -> list[tuple[str, Callable]]:
         if _auto_install_pkg("catboost"):
             try:
                 from catboost import CatBoostRegressor
-                
+
                 class _CatBoostWrapper:
                     def fit(self, df, date_col, value_col, freq):
                         self.date_col = date_col
@@ -852,12 +961,16 @@ def _get_available_models() -> list[tuple[str, Callable]]:
                         y = feats[self.value_col]
                         X = feats.drop(columns=[self.value_col])
                         self.model = CatBoostRegressor(
-                            iterations=500, learning_rate=0.05, depth=6,
-                            random_seed=42, verbose=0,
+                            iterations=500,
+                            learning_rate=0.05,
+                            depth=6,
+                            random_seed=42,
+                            verbose=0,
                         )
                         self.model.fit(X, y)
                         self.last_feats = X
                         return self
+
                     def predict(self, horizon_or_valid):
                         if isinstance(horizon_or_valid, int):
                             h = horizon_or_valid
@@ -867,17 +980,26 @@ def _get_available_models() -> list[tuple[str, Callable]]:
                                 p = float(self.model.predict(row)[0])
                                 preds.append(p)
                                 existing_lags = sorted(
-                                    [int(c.replace("lag_","")) for c in row.columns if c.startswith("lag_")],
+                                    [
+                                        int(c.replace("lag_", ""))
+                                        for c in row.columns
+                                        if c.startswith("lag_")
+                                    ],
                                     reverse=True,
                                 )
-                                old_vals = {lag: row[f"lag_{lag}"].iloc[0] for lag in existing_lags}
+                                old_vals = {
+                                    lag: row[f"lag_{lag}"].iloc[0]
+                                    for lag in existing_lags
+                                }
                                 for lag in existing_lags:
                                     if lag == 1:
                                         row[f"lag_{lag}"] = p
                                     else:
                                         prev = [x for x in existing_lags if x < lag]
                                         if prev:
-                                            row[f"lag_{lag}"] = old_vals.get(max(prev), p)
+                                            row[f"lag_{lag}"] = old_vals.get(
+                                                max(prev), p
+                                            )
                                 for w in [14, 7, 3]:
                                     col = f"ma_{w}"
                                     if col in row.columns:
@@ -887,6 +1009,7 @@ def _get_available_models() -> list[tuple[str, Callable]]:
                             feats = self._engineer(horizon_or_valid)
                             X = feats.drop(columns=[self.value_col], errors="ignore")
                             return self.model.predict(X)
+
                     def _engineer(self, df):
                         df = df.copy()
                         dates = pd.to_datetime(df[self.date_col])
@@ -903,14 +1026,13 @@ def _get_available_models() -> list[tuple[str, Callable]]:
                         df = df.dropna()
                         df = df.drop(columns=[self.date_col], errors="ignore")
                         return df
+
                 models.append(("CatBoost", lambda: _CatBoostWrapper()))
             except ImportError:
                 pass
 
-
     # TimesFM (foundation model, priority 4)
     try:
-        import timesfm
         from timesfm import TimesFM_2p5_200M_torch as _TFMCls
 
         class _TimesFMWrapper:
@@ -969,9 +1091,7 @@ def _get_available_models() -> list[tuple[str, Callable]]:
                 else:
                     h = len(horizon_or_valid)
                 try:
-                    forecast = self.pipeline.predict(
-                        torch.tensor(self.vals), h
-                    )
+                    forecast = self.pipeline.predict(torch.tensor(self.vals), h)
                     return forecast.numpy().flatten()[:h]
                 except Exception:
                     return np.full(h, self.vals[-1])
@@ -983,7 +1103,7 @@ def _get_available_models() -> list[tuple[str, Callable]]:
             try:
                 import torch
                 from chronos import ChronosPipeline
-                
+
                 class _ChronosWrapper:
                     def fit(self, df, date_col, value_col, freq):
                         self.value_col = value_col
@@ -995,6 +1115,7 @@ def _get_available_models() -> list[tuple[str, Callable]]:
                         self.pipeline = pipeline
                         self.vals = vals
                         return self
+
                     def predict(self, horizon_or_valid):
                         if isinstance(horizon_or_valid, int):
                             h = horizon_or_valid
@@ -1005,6 +1126,7 @@ def _get_available_models() -> list[tuple[str, Callable]]:
                             return forecast.numpy().flatten()[:h]
                         except Exception:
                             return np.full(h, self.vals[-1])
+
                 models.append(("Chronos", lambda: _ChronosWrapper()))
             except ImportError:
                 pass
@@ -1021,14 +1143,14 @@ def _select_best_model(
     horizon: int = 1,
 ) -> tuple[str, Any]:
     """Try all available models and return (best_name, best_model).
-    
+
     Priority order for auto-selection:
       1. StatsForecast family (AutoARIMA, AutoETS, Theta, MSTL, StatsForecast)
       2. Prophet
       3. TimesFM / Chronos (foundation models)
       4. LightGBM / CatBoost (tree-based, recursive)
       5. Dummy (last-value fallback)
-    
+
     Within each priority tier, the model with lowest RMSE is selected.
     Higher-priority tiers are tried first; falls to next tier only if all fail.
     Each model evaluation is guarded by _TIMEOUT_SEC."""
@@ -1047,7 +1169,7 @@ def _select_best_model(
         # Priority 6-10: prophet, statsmodels, pmdarima, darts, sktime — some implemented
         {"Prophet"},
     ]
-    
+
     for tier in tiers:
         tier_results = []
         tier_names = [n for n, b in candidates if n in tier]
@@ -1058,6 +1180,7 @@ def _select_best_model(
                 continue
             t0 = time.time()
             try:
+
                 def _eval():
                     model = builder().fit(train, date_col, value_col, freq)
                     h = min(len(valid), max(horizon, 1))
@@ -1078,12 +1201,12 @@ def _select_best_model(
             tier_results.sort(key=lambda x: (x[0], x[1]))
             best = tier_results[0]
             return best[2], best[3]  # (best_name, best_model)
-    
+
     # All tiers failed → Dummy fallback
     for name, builder in candidates:
         if name == "Dummy":
             return name, builder().fit(train, date_col, value_col, freq)
-    
+
     raise RuntimeError(
         _("error.all_models_failed", default="All models failed or unavailable")
     )
@@ -1122,11 +1245,11 @@ def run_tool(args: dict[str, Any]) -> str:
 
         # 4. Model selection / training
         if model_name == "auto":
-            train = df.iloc[:-max(horizon, 1)]
-            valid = df.iloc[-max(horizon, 1):]
+            train = df.iloc[: -max(horizon, 1)]
+            valid = df.iloc[-max(horizon, 1) :]
             if len(train) < _MIN_ROWS:
                 train = df
-                valid = df.iloc[-min(horizon, len(df) // 2):]
+                valid = df.iloc[-min(horizon, len(df) // 2) :]
             best_name, best_model = _select_best_model(
                 train, valid, date_col, value_col, freq, horizon
             )
@@ -1153,14 +1276,20 @@ def run_tool(args: dict[str, Any]) -> str:
         # 5. Forecast
         forecast_vals = best_model.predict(horizon)
         if len(forecast_vals) < horizon:
-            forecast_vals = np.pad(forecast_vals, (0, horizon - len(forecast_vals)),
-                                   mode="edge")
+            forecast_vals = np.pad(
+                forecast_vals, (0, horizon - len(forecast_vals)), mode="edge"
+            )
         forecast_vals = forecast_vals[:horizon]
 
         # 6. Confidence intervals (model-specific dispatch)
         ci_lower, ci_upper = _compute_ci(
-            best_model, model_used, df, value_col, horizon,
-            forecast_vals, confidence,
+            best_model,
+            model_used,
+            df,
+            value_col,
+            horizon,
+            forecast_vals,
+            confidence,
         )
 
         # 7. Metrics (on training fit)
@@ -1170,7 +1299,9 @@ def run_tool(args: dict[str, Any]) -> str:
             try:
                 in_pred = best_model.predict(last_n)
                 if len(in_pred) != last_n:
-                    in_pred = np.full(last_n, in_pred[0] if len(in_pred) > 0 else in_sample[0])
+                    in_pred = np.full(
+                        last_n, in_pred[0] if len(in_pred) > 0 else in_sample[0]
+                    )
             except Exception:
                 in_pred = np.full(last_n, in_sample[-1])
             metrics = _calc_metrics(in_sample, in_pred)
@@ -1182,10 +1313,12 @@ def run_tool(args: dict[str, Any]) -> str:
         if plot_flag:
             try:
                 import matplotlib
+
                 matplotlib.use("Agg")
                 import matplotlib.pyplot as plt
 
                 from ..utils.paths import get_outputs_dir
+
                 if plot_output_dir:
                     plot_dir = plot_output_dir
                 else:
@@ -1204,8 +1337,12 @@ def run_tool(args: dict[str, Any]) -> str:
                 )
                 ax.plot(future_dates, forecast_vals, label="Forecast", color="red")
                 ax.fill_between(
-                    future_dates, ci_lower, ci_upper,
-                    alpha=0.2, color="red", label=f"{confidence*100:.0f}% CI"
+                    future_dates,
+                    ci_lower,
+                    ci_upper,
+                    alpha=0.2,
+                    color="red",
+                    label=f"{confidence*100:.0f}% CI",
                 )
                 ax.set_title(f"Forecast ({model_used})")
                 ax.legend()
@@ -1214,6 +1351,7 @@ def run_tool(args: dict[str, Any]) -> str:
                 plt.close(fig)
                 try:
                     from .openers import open_image_with_default_app
+
                     open_image_with_default_app(os.path.abspath(plot_path))
                 except Exception:
                     pass
@@ -1241,25 +1379,42 @@ def run_tool(args: dict[str, Any]) -> str:
     try:
         return _run_with_timeout(_execute, _TIMEOUT_SEC)
     except DataTooSmallError as e:
-        return json.dumps({
-            "error": _("error.data_too_small",
-                       default="Insufficient data: need at least %(min_rows)d rows, got %(actual)d",
-                       min_rows=e.min_rows, actual=e.actual)
-        })
+        return json.dumps(
+            {
+                "error": _(
+                    "error.data_too_small",
+                    default="Insufficient data: need at least %(min_rows)d rows, got %(actual)d",
+                    min_rows=e.min_rows,
+                    actual=e.actual,
+                )
+            }
+        )
     except MissingRateHighError as e:
-        return json.dumps({
-            "error": _("error.missing_rate_high",
-                       default="Missing rate %.1f%%: cannot forecast",
-                       rate=e.rate * 100)
-        })
+        return json.dumps(
+            {
+                "error": _(
+                    "error.missing_rate_high",
+                    default="Missing rate %.1f%%: cannot forecast",
+                    rate=e.rate * 100,
+                )
+            }
+        )
     except TimeoutError:
-        return json.dumps({
-            "error": _("error.timeout",
-                       default="Forecast timed out (%(seconds)d seconds)",
-                       seconds=_TIMEOUT_SEC)
-        })
-    except Exception as e:
-        return json.dumps({
-            "error": _("error.all_models_failed",
-                       default="All models failed or unavailable")
-        })
+        return json.dumps(
+            {
+                "error": _(
+                    "error.timeout",
+                    default="Forecast timed out (%(seconds)d seconds)",
+                    seconds=_TIMEOUT_SEC,
+                )
+            }
+        )
+    except Exception:
+        return json.dumps(
+            {
+                "error": _(
+                    "error.all_models_failed",
+                    default="All models failed or unavailable",
+                )
+            }
+        )

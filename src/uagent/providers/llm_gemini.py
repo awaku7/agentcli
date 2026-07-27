@@ -1104,7 +1104,8 @@ def gemini_chat_with_tools(
                                 t,
                                 provider="Gemini",
                                 is_first=(not _thought_printed),
-                                print_fn=getattr(core, "print_stream_delta", None) or (lambda s: print(s, end="", flush=True)),
+                                print_fn=getattr(core, "print_stream_delta", None)
+                                or (lambda s: print(s, end="", flush=True)),
                                 core=core,
                             )
                             _thought_printed = True

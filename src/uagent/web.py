@@ -72,6 +72,7 @@ from .providers import util_providers as providers
 from . import util_tools as tools_util
 from .utils.paths import get_history_file_path
 from . import tools
+from .tools.pybitchat_shared import forward_to_mesh, is_chat_mode
 from .welcome import get_welcome_message
 from .gui_ansi import ansi_to_html, wrap_pre
 
@@ -898,7 +899,6 @@ sys.stdout = WebStdout()
 sys.stderr = WebStderr()
 
 
-
 def _ensure_room_history_initialized(room: WebRoom) -> None:
     """Initialize room.history once (system prompt, AGENTS.md prompt, memory).
 
@@ -936,9 +936,7 @@ def _ensure_room_history_initialized(room: WebRoom) -> None:
             pass
 
         try:
-            _web_server_log(
-                f"[web-init] history start room={str(room.room_id)[:8]}"
-            )
+            _web_server_log(f"[web-init] history start room={str(room.room_id)[:8]}")
         except Exception:
             pass
 
@@ -1006,9 +1004,7 @@ def _ensure_room_history_initialized(room: WebRoom) -> None:
                     getattr(web_manager, "plugins_startup_list", None) or []
                 )
                 if _plugins_line:
-                    room.add_message(
-                        {"role": "assistant", "content": _plugins_line}
-                    )
+                    room.add_message({"role": "assistant", "content": _plugins_line})
                 try:
                     setattr(room, "_plugins_status_shown", True)
                 except Exception:
@@ -1281,10 +1277,16 @@ def run_agent_worker(
 
         def _patched_log_message(msg: dict[str, Any]) -> None:
             try:
-                if isinstance(msg, dict) and msg.get("type") == "assistant_reasoning_delta":
+                if (
+                    isinstance(msg, dict)
+                    and msg.get("type") == "assistant_reasoning_delta"
+                ):
                     _stream_delta(str(msg.get("delta") or ""), reasoning=True)
                     return
-                if isinstance(msg, dict) and msg.get("type") == "assistant_stream_delta":
+                if (
+                    isinstance(msg, dict)
+                    and msg.get("type") == "assistant_stream_delta"
+                ):
                     _stream_delta(str(msg.get("delta") or ""))
                     return
                 if isinstance(msg, dict) and msg.get("type") == "assistant_stream_end":
@@ -1370,7 +1372,9 @@ def run_agent_worker(
                     attachment_lines.append(_("[Image Path] %(path)s") % {"path": path})
                     item["type"] = "image"
                 else:
-                    attachment_lines.append(_("[Attached File] %(name)s") % {"name": label})
+                    attachment_lines.append(
+                        _("[Attached File] %(name)s") % {"name": label}
+                    )
                     attachment_lines.append(_("[File Path] %(path)s") % {"path": path})
                     item["type"] = "file"
                 item["saved_path"] = path
@@ -1385,7 +1389,9 @@ def run_agent_worker(
                 clean_attachments.append(item)
 
             # Build multimodal content if there are image attachments
-            has_image = any(att.get("type") == "image" for att in (clean_attachments or []))
+            has_image = any(
+                att.get("type") == "image" for att in (clean_attachments or [])
+            )
             if has_image:
                 # Use multimodal format (Chat Completions standard image_url)
                 parts: list[dict[str, Any]] = (
@@ -1613,7 +1619,6 @@ def run_agent_worker(
             pass
 
         _thread_ctx.room = None
-
 
 
 @app.get("/")
@@ -2176,6 +2181,9 @@ async def websocket_endpoint(websocket: WebSocket):
             if payload.get("type") == "user_input":
                 user_text = payload.get("text")
                 if _handle_mode_command(str(user_text or "")):
+                    continue
+                forward_to_mesh(str(user_text or ""))
+                if is_chat_mode() == "on":
                     continue
                 threading.Thread(
                     target=run_agent_worker,

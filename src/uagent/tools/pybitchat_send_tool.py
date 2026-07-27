@@ -7,7 +7,7 @@ from typing import Any
 from uuid import uuid4
 
 from .i18n_helper import make_tool_translator
-from .pybitchat_shared import ensure_dependencies, enqueue_send, encode_file_payload
+from .pybitchat_shared import ensure_dependencies, enqueue_send
 
 _ = make_tool_translator(__file__)
 
@@ -69,6 +69,15 @@ TOOL_SPEC: dict[str, Any] = {
                         default="Optional recipient peer ID. None = broadcast.",
                     ),
                 },
+                "via": {
+                    "type": "string",
+                    "enum": ["ble", "nostr", "both"],
+                    "default": "ble",
+                    "description": _(
+                        "param.via.description",
+                        default="Transport: 'ble' (BLE Mesh), 'nostr' (Nostr relays), 'both'.",
+                    ),
+                },
             },
             "required": ["type", "payload"],
             "additionalProperties": False,
@@ -81,6 +90,7 @@ def run_tool(args: dict[str, Any]) -> str:
     msg_type = str(args.get("type") or "").strip()
     payload = str(args.get("payload") or "").strip()
     recipient = args.get("recipient") or None
+    via = str(args.get("via") or "ble").strip()
 
     if not payload:
         return json.dumps(
@@ -96,13 +106,14 @@ def run_tool(args: dict[str, Any]) -> str:
                 {"ok": False, "error": f"File not found: {payload}"},
                 ensure_ascii=False,
             )
-    enqueue_send(msg_type, payload, recipient=recipient)
+    enqueue_send(msg_type, payload, recipient=recipient, via=via)
 
     result = {
         "ok": True,
         "message_id": str(uuid4()),
         "type": msg_type,
         "payload_size": len(payload),
+        "via": via,
     }
     if recipient:
         result["recipient"] = recipient

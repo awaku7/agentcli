@@ -54,7 +54,9 @@ def _run_loop(loop: asyncio.AbstractEventLoop) -> None:
             for task in pending:
                 task.cancel()
             if pending:
-                loop.run_until_complete(asyncio.gather(*pending, return_exceptions=True))
+                loop.run_until_complete(
+                    asyncio.gather(*pending, return_exceptions=True)
+                )
         except Exception:
             pass
         try:
@@ -140,9 +142,7 @@ def ensure_bac0(ip: str | None = None) -> tuple[Any, asyncio.AbstractEventLoop]:
             _BAC0_IP = None
 
         BAC0 = _bac0_import()
-        future = asyncio.run_coroutine_threadsafe(
-            _async_create_bac0(BAC0, ip), loop
-        )
+        future = asyncio.run_coroutine_threadsafe(_async_create_bac0(BAC0, ip), loop)
         try:
             _BAC0_INSTANCE = future.result(timeout=20)
             _BAC0_IP = ip
@@ -368,7 +368,9 @@ def parse_iam(iam: Any) -> dict[str, Any]:
     if info["instance"] is None and isinstance(iam, dict):
         info["ip"] = str(iam.get("ip") or iam.get("address") or "") or None
         try:
-            info["instance"] = int(iam.get("instance") or iam.get("device_id") or 0) or None
+            info["instance"] = (
+                int(iam.get("instance") or iam.get("device_id") or 0) or None
+            )
         except Exception:
             pass
         if iam.get("vendor_id") is not None:
@@ -486,7 +488,11 @@ async def _async_cov_subscribe(
     )
     if asyncio.iscoroutine(result) or asyncio.isfuture(result):
         await result
-    after = set(lite._running_cov_tasks.keys()) if hasattr(lite, "_running_cov_tasks") else set()
+    after = (
+        set(lite._running_cov_tasks.keys())
+        if hasattr(lite, "_running_cov_tasks")
+        else set()
+    )
     new_tasks = after - before
     if new_tasks:
         return list(new_tasks)[0]

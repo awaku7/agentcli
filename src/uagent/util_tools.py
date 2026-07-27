@@ -585,7 +585,9 @@ def _handle_cmd_reasoning(arg: str, *, tr: Any) -> bool:
         new_mode = apply_reasoning_arg(arg)
     except Exception:
         print(
-            _(":r [0|1|2|3|auto|minimal|xhigh]  (0=off, 1=low, 2=medium, 3=high; auto/minimal/xhigh)")
+            _(
+                ":r [0|1|2|3|auto|minimal|xhigh]  (0=off, 1=low, 2=medium, 3=high; auto/minimal/xhigh)"
+            )
         )
         return True
 
@@ -648,7 +650,9 @@ def _handle_cmd_cd(
 
         print(_("[cd] workdir = %(path)s") % {"path": now})
     except Exception as e:
-        print(_("[cd error] %(etype)s: %(err)s") % {"etype": type(e).__name__, "err": e})
+        print(
+            _("[cd error] %(etype)s: %(err)s") % {"etype": type(e).__name__, "err": e}
+        )
 
     return True
 
@@ -729,7 +733,9 @@ def _handle_cmd_ls(arg: str, *, tr: Any) -> bool:
             print(tr("[ls] %(path)s") % {"path": expanded})
             for _ord, _key, name, p_abs, is_dir, size in items:
                 if is_dir:
-                    print(tr("  [D] %(name)s -> %(path)s") % {"name": name, "path": p_abs})
+                    print(
+                        tr("  [D] %(name)s -> %(path)s") % {"name": name, "path": p_abs}
+                    )
                 else:
                     print(
                         tr("  [F] %(name)s (%(size)d bytes) -> %(path)s")
@@ -765,9 +771,13 @@ def _handle_cmd_ls(arg: str, *, tr: Any) -> bool:
             if is_dir:
                 print(tr("  [D] %(name)s") % {"name": name})
             else:
-                print(tr("  [F] %(name)s (%(size)d bytes)") % {"name": name, "size": size})
+                print(
+                    tr("  [F] %(name)s (%(size)d bytes)") % {"name": name, "size": size}
+                )
     except Exception as e:
-        print(tr("[ls error] %(etype)s: %(err)s") % {"etype": type(e).__name__, "err": e})
+        print(
+            tr("[ls error] %(etype)s: %(err)s") % {"etype": type(e).__name__, "err": e}
+        )
 
     return True
 
@@ -813,7 +823,8 @@ def _handle_cmd_logs(arg: str, *, core: Any, tr: Any) -> bool:
             return True
         if export_pdf_index < 0 or export_pdf_index >= len(files):
             print(
-                _("[logs] Index %(idx)s is out of range (0-%(max)s).") % {"idx": export_pdf_index, "max": len(files) - 1}
+                _("[logs] Index %(idx)s is out of range (0-%(max)s).")
+                % {"idx": export_pdf_index, "max": len(files) - 1}
             )
             return True
 
@@ -857,7 +868,8 @@ def _handle_cmd_tools(*, tr: Any) -> bool:
                 print(_("- %(name)s") % {"name": name})
     except Exception as e:
         print(
-            _("[tools error] %(etype)s: %(err)s") % {"etype": type(e).__name__, "err": e}
+            _("[tools error] %(etype)s: %(err)s")
+            % {"etype": type(e).__name__, "err": e}
         )
 
     return True
@@ -1057,7 +1069,9 @@ def _handle_cmd_head(arg: str, *, tr: Any) -> bool:
     try:
         items = shlex.split(raw, posix=False)
     except Exception as e:
-        print(_("[head error] %(etype)s: %(err)s") % {"etype": type(e).__name__, "err": e})
+        print(
+            _("[head error] %(etype)s: %(err)s") % {"etype": type(e).__name__, "err": e}
+        )
         return True
 
     if not items:
@@ -1116,7 +1130,9 @@ def _handle_cmd_head(arg: str, *, tr: Any) -> bool:
             print(_("[head] Empty."))
         return True
     except Exception as e:
-        print(_("[head error] %(etype)s: %(err)s") % {"etype": type(e).__name__, "err": e})
+        print(
+            _("[head error] %(etype)s: %(err)s") % {"etype": type(e).__name__, "err": e}
+        )
         return True
 
 
@@ -1129,7 +1145,9 @@ def _handle_cmd_tail(arg: str, *, tr: Any) -> bool:
     try:
         items = shlex.split(raw, posix=False)
     except Exception as e:
-        print(_("[tail error] %(etype)s: %(err)s") % {"etype": type(e).__name__, "err": e})
+        print(
+            _("[tail error] %(etype)s: %(err)s") % {"etype": type(e).__name__, "err": e}
+        )
         return True
 
     if not items:
@@ -1188,7 +1206,9 @@ def _handle_cmd_tail(arg: str, *, tr: Any) -> bool:
             print(_("[tail] Empty."))
         return True
     except Exception as e:
-        print(_("[tail error] %(etype)s: %(err)s") % {"etype": type(e).__name__, "err": e})
+        print(
+            _("[tail error] %(etype)s: %(err)s") % {"etype": type(e).__name__, "err": e}
+        )
         return True
 
 
@@ -1414,7 +1434,7 @@ def _handle_cmd_skills(
         a_lower = a.strip().lower()
         for prefix in ("list ", "find ", "search ", "grep "):
             if a_lower.startswith(prefix):
-                search_keyword = a_lower[len(prefix):].strip()
+                search_keyword = a_lower[len(prefix) :].strip()
                 break
         if search_keyword:
             filtered = []
@@ -1428,7 +1448,9 @@ def _handle_cmd_skills(
             if filtered:
                 items = filtered
             else:
-                print(_("[skills] No skills matching '%(kw)s'.") % {"kw": search_keyword})
+                print(
+                    _("[skills] No skills matching '%(kw)s'.") % {"kw": search_keyword}
+                )
                 return CommandResult()
 
         if not items:
@@ -1543,7 +1565,8 @@ def _handle_cmd_skills(
 
     except Exception as e:
         print(
-            _("[skills error] %(etype)s: %(err)s") % {"etype": type(e).__name__, "err": e}
+            _("[skills error] %(etype)s: %(err)s")
+            % {"etype": type(e).__name__, "err": e}
         )
 
     return CommandResult()
@@ -1709,11 +1732,12 @@ def _maybe_discard_short_session_log(
         )
     except Exception as e:
         print(
-            _("[clean warn] Failed to discard session log: %(path)s (%(etype)s: %(err)s)")
+            _(
+                "[clean warn] Failed to discard session log: %(path)s (%(etype)s: %(err)s)"
+            )
             % {"path": log_path, "etype": type(e).__name__, "err": e},
             file=sys.stderr,
         )
-
 
 
 def _sweep_short_session_logs(
@@ -1735,7 +1759,9 @@ def _sweep_short_session_logs(
     except Exception as e:
         if not quiet:
             print(
-                _("[clean warn] Startup sweep skipped (list failed): %(etype)s: %(err)s")
+                _(
+                    "[clean warn] Startup sweep skipped (list failed): %(etype)s: %(err)s"
+                )
                 % {"etype": type(e).__name__, "err": e},
                 file=sys.stderr,
             )
@@ -1750,7 +1776,9 @@ def _sweep_short_session_logs(
         except Exception as e:
             if not quiet:
                 print(
-                    _("[clean warn] Startup sweep skipped (parse failed): %(path)s (%(etype)s: %(err)s)")
+                    _(
+                        "[clean warn] Startup sweep skipped (parse failed): %(path)s (%(etype)s: %(err)s)"
+                    )
                     % {"path": path, "etype": type(e).__name__, "err": e}
                 )
 
@@ -1780,7 +1808,9 @@ def _handle_cmd_clean(arg: str, *, core: Any, tr: Any) -> bool:
 
     if not targets:
         print(
-            _("[clean] No logs to delete (threshold=%(threshold)d user turns).\nLog dir: %(dir)s")
+            _(
+                "[clean] No logs to delete (threshold=%(threshold)d user turns).\nLog dir: %(dir)s"
+            )
             % {
                 "threshold": threshold,
                 "dir": getattr(core, "BASE_LOG_DIR", "(unknown)"),
@@ -1991,7 +2021,9 @@ def _handle_cmd_rm(arg: str, *, tr: Any) -> bool:
                 print(str(stderr))
         return True
     except Exception as e:
-        print(_("[rm error] %(etype)s: %(err)s") % {"etype": type(e).__name__, "err": e})
+        print(
+            _("[rm error] %(etype)s: %(err)s") % {"etype": type(e).__name__, "err": e}
+        )
         return True
 
 
@@ -2022,7 +2054,9 @@ def _handle_cmd_load(
         print(tr("Log file not found: %(path)s") % {"path": target_path})
         return True
     except Exception as e:
-        print(_("[load error] %(etype)s: %(err)s") % {"etype": type(e).__name__, "err": e})
+        print(
+            _("[load error] %(etype)s: %(err)s") % {"etype": type(e).__name__, "err": e}
+        )
         return True
 
     new_messages = insert_tools_system_message(new_messages, core=core)
@@ -2201,7 +2235,10 @@ def _handle_cmd_tokens(
 
         total_tokens = _count_messages_tokens(messages_ref, depname or None)
     except Exception as e:
-        print(_("[tokens error] %(etype)s: %(err)s") % {"etype": type(e).__name__, "err": e})
+        print(
+            _("[tokens error] %(etype)s: %(err)s")
+            % {"etype": type(e).__name__, "err": e}
+        )
         return True
 
     print(_("Current token count (approx): %(n)s") % {"n": total_tokens})
@@ -2303,7 +2340,10 @@ def _handle_cmd_profile_show(arg: str = "", *, core: Any, tr: Any) -> bool:
                 return True
             print(tr("User profile generated successfully from past logs!"))
         except Exception as e:
-            print(_("[profile fromlog error] %(etype)s: %(err)s") % {"etype": type(e).__name__, "err": e})
+            print(
+                _("[profile fromlog error] %(etype)s: %(err)s")
+                % {"etype": type(e).__name__, "err": e}
+            )
             return True
     else:
         profile = load_profile()
@@ -2330,7 +2370,10 @@ def _handle_cmd_profile_clear(*, tr: Any) -> bool:
             os.remove(path)
             print(tr("User profile cleared successfully."))
         except Exception as e:
-            print(_("[profile-clear error] %(etype)s: %(err)s") % {"etype": type(e).__name__, "err": e})
+            print(
+                _("[profile-clear error] %(etype)s: %(err)s")
+                % {"etype": type(e).__name__, "err": e}
+            )
     else:
         print(tr("No user profile file found to clear."))
     return True
@@ -2579,7 +2622,9 @@ def _static_help_catalog(*, tr: Any) -> dict[str, dict[str, Any]]:
         ),
         "plugin": e(
             tr("Install and manage plugins"),
-            usage=tr(":plugin <list|install|remove|enable|disable|reload|info|init|validate|marketplace> ..."),
+            usage=tr(
+                ":plugin <list|install|remove|enable|disable|reload|info|init|validate|marketplace> ..."
+            ),
             detail=tr("See :help plugin <subcommand> for each action."),
         ),
         "auto": e(
@@ -2650,8 +2695,12 @@ def _static_help_catalog(*, tr: Any) -> dict[str, dict[str, Any]]:
             tr("Reload runtime configuration / modules"),
             usage=tr(":reload [target]"),
         ),
-        "exit": e(tr("Exit the interactive session"), usage=tr(":exit"), aliases=["quit"]),
-        "quit": e(tr("Exit the interactive session"), usage=tr(":quit"), aliases=["exit"]),
+        "exit": e(
+            tr("Exit the interactive session"), usage=tr(":exit"), aliases=["quit"]
+        ),
+        "quit": e(
+            tr("Exit the interactive session"), usage=tr(":quit"), aliases=["exit"]
+        ),
     }
     # alias index
     out = dict(cat)
@@ -2766,7 +2815,9 @@ def _handle_cmd_env(arg: str, *, tr: Any) -> bool:
     try:
         items = shlex.split(raw, posix=False)
     except Exception as e:
-        print(_("[env error] %(etype)s: %(err)s") % {"etype": type(e).__name__, "err": e})
+        print(
+            _("[env error] %(etype)s: %(err)s") % {"etype": type(e).__name__, "err": e}
+        )
         return True
 
     if not items:
@@ -2826,7 +2877,8 @@ def _handle_cmd_env(arg: str, *, tr: Any) -> bool:
             print(_("[env] Saved .env.sec: %(path)s") % {"path": str(sec_path)})
         except Exception as e:
             print(
-                _("[env error] %(etype)s: %(err)s") % {"etype": type(e).__name__, "err": e}
+                _("[env error] %(etype)s: %(err)s")
+                % {"etype": type(e).__name__, "err": e}
             )
         return True
 
@@ -3147,12 +3199,9 @@ def _get_env(key: str, default: str = "") -> str:
 def _format_capa(cap) -> list[str]:
     """Format a llmcapa Capability object into detail lines."""
     lines: list[str] = []
+    lines.append(_("    Display Name:  %(value)s") % {"value": cap.display_name})
     lines.append(
-        _("    Display Name:  %(value)s") % {"value": cap.display_name}
-    )
-    lines.append(
-        _("    Context Window: %(value)s tokens")
-        % {"value": f"{cap.context_window:,}"}
+        _("    Context Window: %(value)s tokens") % {"value": f"{cap.context_window:,}"}
     )
     lines.append(
         _("    Max Output:    %(value)s tokens")
@@ -3161,16 +3210,11 @@ def _format_capa(cap) -> list[str]:
     lines.append(
         _("    Tokenizer:     %(value)s") % {"value": cap.tokenizer_name or "?"}
     )
+    lines.append(_("    License:       %(value)s") % {"value": cap.license_type or "?"})
     lines.append(
-        _("    License:       %(value)s") % {"value": cap.license_type or "?"}
+        _("    Knowledge Cutoff: %(value)s") % {"value": cap.knowledge_cutoff or "?"}
     )
-    lines.append(
-        _("    Knowledge Cutoff: %(value)s")
-        % {"value": cap.knowledge_cutoff or "?"}
-    )
-    lines.append(
-        _("    Deprecated:    %(value)s") % {"value": cap.deprecated}
-    )
+    lines.append(_("    Deprecated:    %(value)s") % {"value": cap.deprecated})
     if cap.input_modalities:
         lines.append(
             _("    Input:         %(value)s")
@@ -3207,9 +3251,7 @@ def _format_capa(cap) -> list[str]:
     if cap.supports_fim:
         feats.append("fim")
     if feats:
-        lines.append(
-            _("    Features:      %(value)s") % {"value": ", ".join(feats)}
-        )
+        lines.append(_("    Features:      %(value)s") % {"value": ", ".join(feats)})
     if cap.pricing:
         price = cap.pricing
         inp = price.get("input_per_1m")
@@ -3231,11 +3273,7 @@ def _format_capa(cap) -> list[str]:
     if cap.thinking_budget_values:
         lines.append(
             _("    Thinking Budgets: %(value)s")
-            % {
-                "value": ", ".join(
-                    str(v) for v in cap.thinking_budget_values
-                )
-            }
+            % {"value": ", ".join(str(v) for v in cap.thinking_budget_values)}
         )
     return lines
 
@@ -3260,7 +3298,9 @@ def _fetch_model_capa(provider: str, model: str) -> list[str]:
     return []
 
 
-def _model_provider_note(explicit_key: str, *, fallback_key: str = "UAGENT_PROVIDER") -> str:
+def _model_provider_note(
+    explicit_key: str, *, fallback_key: str = "UAGENT_PROVIDER"
+) -> str:
     """Annotate provider line when value comes from a fallback env key."""
     if _get_env(explicit_key):
         return ""
@@ -3488,7 +3528,9 @@ def _handle_cmd_model(
     )
 
     tr_resolved = _safe_resolve(
-        (lambda: _audio_model_info("transcribe")) if _audio_model_info is not None else None
+        (lambda: _audio_model_info("transcribe"))
+        if _audio_model_info is not None
+        else None
     )
     tr_keys: list[str] = []
     tr_fb = ""
@@ -3625,7 +3667,9 @@ def handle_command(
             if sub in ("on", "off") and len(parts) == 1:
                 core.tools_enabled = sub == "on"
                 state = "ON" if core.tools_enabled else "OFF"
-                print(_("[tools] Tool sending to LLM is now %(state)s") % {"state": state})
+                print(
+                    _("[tools] Tool sending to LLM is now %(state)s") % {"state": state}
+                )
                 return CommandResult()
             # ":tools on <genre>" => enable genre, also re-enable global tool sending.
             if sub == "on" and len(parts) >= 2:
@@ -3738,9 +3782,7 @@ def handle_command(
         return res
 
     if cmd in ("exit", "quit"):
-        _maybe_discard_short_session_log(
-            core=core, messages_ref=messages_ref, tr=tr
-        )
+        _maybe_discard_short_session_log(core=core, messages_ref=messages_ref, tr=tr)
         print(tr("Exiting."))
         return False
 

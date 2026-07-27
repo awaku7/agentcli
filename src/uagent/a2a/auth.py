@@ -33,7 +33,9 @@ def require_bearer_auth(authorization: Optional[str] = Header(default=None)) -> 
         raise A2AHttpError(
             status_code=503,
             code="UNAVAILABLE",
-            message=_("A2A authentication is not configured (UAGENT_A2A_TOKEN is empty)."),
+            message=_(
+                "A2A authentication is not configured (UAGENT_A2A_TOKEN is empty)."
+            ),
         )
 
     auth = _norm(authorization or "")
@@ -42,7 +44,9 @@ def require_bearer_auth(authorization: Optional[str] = Header(default=None)) -> 
         raise A2AHttpError(
             status_code=401,
             code="UNAUTHENTICATED",
-            message=_("Missing or invalid Authorization header (expected: Bearer <token>)."),
+            message=_(
+                "Missing or invalid Authorization header (expected: Bearer <token>)."
+            ),
         )
 
     got = auth[len(prefix) :].strip()

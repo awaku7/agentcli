@@ -118,9 +118,7 @@ _PATTERNS = [
     ),
     # class / mixin / enum / typedef (extension handled above)
     (
-        r"^\s*"
-        + _TYPE_MOD
-        + r"(?:class|mixin|enum|typedef)\s+(\w+)",
+        r"^\s*" + _TYPE_MOD + r"(?:class|mixin|enum|typedef)\s+(\w+)",
         lambda m: ("type", m.group(1)),
     ),
     # top-level function: ReturnType name(...) { or =>

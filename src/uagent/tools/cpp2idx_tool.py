@@ -394,14 +394,7 @@ class _CppIndexBuilder:
             while (
                 stack_start_depth
                 and brace_depth <= stack_start_depth[-1]
-                and (
-                    bd < 0
-                    or (
-                        bd == 0
-                        and "{" in cleaned
-                        and "}" in cleaned
-                    )
-                )
+                and (bd < 0 or (bd == 0 and "{" in cleaned and "}" in cleaned))
             ):
                 popped = stack.pop()
                 popped["end_line"] = i

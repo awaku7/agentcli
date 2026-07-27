@@ -32,7 +32,6 @@ from ..env_utils import env_get
 from ..i18n import _
 from ..llm_errors import _rate_limit_retry_step
 from ..llm_helpers import (
-    _choose_auto_effort,
     _extract_latest_user_text,
     _is_thinking_task,
     _maybe_print_certifi_where,
@@ -430,9 +429,9 @@ def together_chat_with_tools(
                                 else (
                                     getattr(core, "print_stream_delta", None)
                                     or (
-                                        lambda s: print(s, end="", flush=True)
-                                        if s
-                                        else None
+                                        lambda s: (
+                                            print(s, end="", flush=True) if s else None
+                                        )
                                     )
                                 )
                             ),
@@ -501,8 +500,7 @@ def together_chat_with_tools(
                 print(f"[{_LABEL} Error] " + _("400 BadRequest"))
                 print(
                     f"[{_LABEL} Error] "
-                    + _("Error code: %(code)d - %(err)s")
-                    % {"code": 400, "err": e}
+                    + _("Error code: %(code)d - %(err)s") % {"code": 400, "err": e}
                 )
                 return False, client, "", "", []
 

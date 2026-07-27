@@ -403,8 +403,7 @@ def _call_openai_azure_round(
                     _prev_rid = responses_state.get("previous_response_id")
                     # Empty / non-resp ids are invalid for continuation.
                     if not (
-                        isinstance(_prev_rid, str)
-                        and _prev_rid.startswith("resp_")
+                        isinstance(_prev_rid, str) and _prev_rid.startswith("resp_")
                     ):
                         _prev_rid = None
                     # Once a stale error occurred, stop using previous_response_id.
@@ -578,7 +577,11 @@ def _call_openai_azure_round(
                                 if bool(getattr(core, "_is_web", False))
                                 else (
                                     getattr(core, "print_stream_delta", None)
-                                    or (lambda s: print(s, end="", flush=True) if s else None)
+                                    or (
+                                        lambda s: (
+                                            print(s, end="", flush=True) if s else None
+                                        )
+                                    )
                                 )
                             ),
                             core=core,
@@ -926,9 +929,8 @@ def _call_openai_azure_round(
             _is_bad_request = BadRequestError is not None and isinstance(
                 e, BadRequestError
             )
-            _is_resp_validation = (
-                APIResponseValidationError is not None
-                and isinstance(e, APIResponseValidationError)
+            _is_resp_validation = APIResponseValidationError is not None and isinstance(
+                e, APIResponseValidationError
             )
             if _is_bad_request or _is_resp_validation:
                 err_text = _err_text_of(e)
@@ -1118,7 +1120,8 @@ def _call_openai_azure_round(
                     _rc,
                     provider=provider.capitalize(),
                     is_first=True,
-                    print_fn=getattr(core, "print_stream_delta", None) or (lambda s: print(s, end="", flush=True)),
+                    print_fn=getattr(core, "print_stream_delta", None)
+                    or (lambda s: print(s, end="", flush=True)),
                     core=core,
                 )
 
@@ -1217,11 +1220,16 @@ def _call_vercel_round(
     """
     stream = _env_default_true("UAGENT_STREAMING", default=True)
     return vercel_chat_with_tools(
-        client, depname, call_messages,
-        core=core, make_client_fn=make_client_fn,
+        client,
+        depname,
+        call_messages,
+        core=core,
+        make_client_fn=make_client_fn,
         call_maybe_thread_fn=call_maybe_thread_fn,
         send_tools_this_round=send_tools_this_round,
-        max_retries_429=max_retries_429, retry_base=retry_base, retry_cap=retry_cap,
+        max_retries_429=max_retries_429,
+        retry_base=retry_base,
+        retry_cap=retry_cap,
         stream=stream,
     )
 

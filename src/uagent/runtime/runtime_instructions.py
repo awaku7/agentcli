@@ -394,6 +394,7 @@ def load_project_instruction_files(
 
     return contents
 
+
 def reload_instruction_files(
     *,
     workdir: str | None = None,

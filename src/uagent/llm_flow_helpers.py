@@ -23,7 +23,6 @@ def _is_external_data_tool(name: str) -> bool:
     return name in tools.get_external_data_tools()
 
 
-
 def _tool_cache_key(name: str, args: dict[str, Any]) -> str:
     canonical_args = json.dumps(args, ensure_ascii=False, sort_keys=True)
     return json.dumps(
@@ -76,7 +75,6 @@ def _should_reuse_identical_tool_call(name: str) -> bool:
 
 
 def _append_assistant_message(
-
     *,
     messages: list[dict[str, Any]],
     core: Any,
@@ -528,9 +526,7 @@ def _execute_tool_calls(
             ck = _tool_cache_key(name, pargs)
             cached = tool_result_cache.get(ck)
             if cached is not None and _should_reuse_identical_tool_call(name):
-                _prefetched[_parallel_tc_ids[idx]] = _already_called_tool_result(
-                    cached
-                )
+                _prefetched[_parallel_tc_ids[idx]] = _already_called_tool_result(cached)
             else:
                 to_run.append((name, pargs))
                 run_indices.append(idx)

@@ -629,7 +629,12 @@ def make_client(core: Any) -> tuple[str, Any, str]:
         # UAGENT_GROK_USE_XAI_SDK: "1" (default) uses xai_sdk (gRPC), "0" uses OpenAI SDK (REST).
         # Zscaler/proxy environments may need "0" because gRPC/HTTP2 is blocked.
         _use_xai_sdk = env_get("UAGENT_GROK_USE_XAI_SDK", "1") or "1"
-        _use_xai_sdk = str(_use_xai_sdk).strip().lower() not in ("0", "false", "no", "off")
+        _use_xai_sdk = str(_use_xai_sdk).strip().lower() not in (
+            "0",
+            "false",
+            "no",
+            "off",
+        )
 
         if not _use_xai_sdk:
             from openai import OpenAI
@@ -922,9 +927,7 @@ def make_client(core: Any) -> tuple[str, Any, str]:
 
         api_key = core.get_env("UAGENT_GEMINI_API_KEY")
         if genai is None:
-            raise RuntimeError(
-                "[FATAL] " + _("google-genai package is not installed.")
-            )
+            raise RuntimeError("[FATAL] " + _("google-genai package is not installed."))
 
         # google-genai supports per-client HTTP options (custom httpx client, etc.).
         # Keep timeout handling on the shared httpx client to avoid SDK-side timeout quirks.
@@ -948,9 +951,7 @@ def make_client(core: Any) -> tuple[str, Any, str]:
         from google import genai  # lazy
 
         if genai is None:
-            raise RuntimeError(
-                "[FATAL] " + _("google-genai package is not installed.")
-            )
+            raise RuntimeError("[FATAL] " + _("google-genai package is not installed."))
 
         api_key = core.get_env("UAGENT_VERTEXAI_API_KEY")
         project = env_get("UAGENT_VERTEXAI_PROJECT")
@@ -988,9 +989,7 @@ def make_client(core: Any) -> tuple[str, Any, str]:
 
         api_key = core.get_env("UAGENT_CLAUDE_API_KEY")
         if Anthropic is None:
-            raise RuntimeError(
-                "[FATAL] " + _("anthropic package is not installed.")
-            )
+            raise RuntimeError("[FATAL] " + _("anthropic package is not installed."))
 
         timeout = make_httpx_timeout()
         http_client = make_httpx_client(timeout=timeout)

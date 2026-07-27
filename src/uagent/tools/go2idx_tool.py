@@ -56,6 +56,7 @@ TOOL_SPEC = {
     },
 }
 
+
 def _go_func_extract(m: re.Match) -> tuple:
     """Extract func/method with optional receiver and generic type params."""
     recv = (m.group(1) or "").strip()

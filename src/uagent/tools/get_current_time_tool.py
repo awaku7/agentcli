@@ -9,7 +9,6 @@ from typing import Any
 import datetime
 import subprocess
 import sys
-import os
 import locale
 import ctypes
 
@@ -70,28 +69,25 @@ def _get_os_ntp_info() -> str | None:
             except Exception:
                 enc = locale.getpreferredencoding()
             r = subprocess.run(
-                ["w32tm", "/query", "/status"],
-                capture_output=True, timeout=5
+                ["w32tm", "/query", "/status"], capture_output=True, timeout=5
             )
             if r.returncode == 0:
                 out = r.stdout.decode(enc, errors="replace").strip()
-                lines = [l for l in out.splitlines() if l.strip()]
+                lines = [ln for ln in out.splitlines() if ln.strip()]
                 return " | ".join(lines)
             return None
         elif platform == "linux":
             r = subprocess.run(
                 ["timedatectl", "show", "--property=NTPSynchronized,Server,Timezone"],
-                capture_output=True, timeout=5
+                capture_output=True,
+                timeout=5,
             )
             if r.returncode == 0:
                 out = r.stdout.decode("utf-8", errors="replace").strip()
-                lines = [l for l in out.splitlines() if l.strip()]
+                lines = [ln for ln in out.splitlines() if ln.strip()]
                 return " | ".join(lines)
             # fallback: ntpq
-            r2 = subprocess.run(
-                ["ntpq", "-p"],
-                capture_output=True, timeout=5
-            )
+            r2 = subprocess.run(["ntpq", "-p"], capture_output=True, timeout=5)
             if r2.returncode == 0 and r2.stdout.strip():
                 text = r2.stdout.decode("utf-8", errors="replace").strip()
                 if text:
@@ -99,8 +95,7 @@ def _get_os_ntp_info() -> str | None:
             return None
         elif platform == "darwin":
             r = subprocess.run(
-                ["systemsetup", "-getnetworktimeserver"],
-                capture_output=True, timeout=5
+                ["systemsetup", "-getnetworktimeserver"], capture_output=True, timeout=5
             )
             if r.returncode == 0:
                 out = r.stdout.decode("utf-8", errors="replace").strip()

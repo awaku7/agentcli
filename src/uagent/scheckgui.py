@@ -63,6 +63,7 @@ from .util_tools import (
     _run_auto_pilot_loop,
 )
 
+from .tools.pybitchat_shared import forward_to_mesh, is_chat_mode
 from .uagent_llm import run_llm_rounds as util_run_llm_rounds
 from .image_session import build_image_session_message
 from .providers.util_providers import make_client as util_make_client
@@ -584,8 +585,7 @@ class ScheckWorker(QtCore.QObject):
             except Exception as e:
                 try:
                     print(
-                        "[WARN] "
-                        + _("Plugin load failed: %(err)s") % {"err": e},
+                        "[WARN] " + _("Plugin load failed: %(err)s") % {"err": e},
                         flush=True,
                     )
                 except Exception:
@@ -715,6 +715,8 @@ class ScheckWorker(QtCore.QObject):
                         continue
                     elif kind in ("user", "timer", "gui_user"):
                         text = ev.get("text", "")
+                        if kind != "timer" and is_chat_mode() == "on":
+                            continue
                         files = list(ev.get("files", []) or [])
 
                         if files:
@@ -2476,6 +2478,7 @@ class MainWindow(QtWidgets.QMainWindow):
             ):
                 core.event_queue.put({"kind": "command", "text": text.strip()})
             else:
+                forward_to_mesh(text)
                 core.event_queue.put(
                     {
                         "kind": "gui_user",
@@ -2736,13 +2739,17 @@ def main():
         "--workdir",
         "-C",
         dest="workdir",
-        help=_("Specify the working directory. If omitted, use the UAGENT_WORKDIR environment variable or the current directory."),
+        help=_(
+            "Specify the working directory. If omitted, use the UAGENT_WORKDIR environment variable or the current directory."
+        ),
     )
     parser.add_argument(
         "--tool-genre-mask",
         type=int,
         default=None,
-        help=_("Tool genre bitmask (1=basic,2=comm,4=office,8=devel,16=iot,32=exec,64=external,128=media,256=file,512=index,1023=all). Skips the interactive genre prompt when specified."),
+        help=_(
+            "Tool genre bitmask (1=basic,2=comm,4=office,8=devel,16=iot,32=exec,64=external,128=media,256=file,512=index,1023=all). Skips the interactive genre prompt when specified."
+        ),
     )
     parser.add_argument(
         "--use-tool",

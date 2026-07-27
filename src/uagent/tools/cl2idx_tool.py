@@ -269,8 +269,12 @@ class _ClIndexBuilder:
         # PGM [PARM(...)]
         if re.match(r"^PGM\b", upper):
             parm = self._paren_arg(upper, "PARM")
-            label = f"PGM PARM({parm})" if parm else (
-                f"PGM {normalized[3:].strip()}" if normalized[3:].strip() else "PGM"
+            label = (
+                f"PGM PARM({parm})"
+                if parm
+                else (
+                    f"PGM {normalized[3:].strip()}" if normalized[3:].strip() else "PGM"
+                )
             )
             if parm:
                 label = f"PGM PARM({self._summarize(parm, 50)})"
@@ -371,9 +375,7 @@ class _ClIndexBuilder:
                 return [("subcommand", f"GOTO CMDLBL({cm})", block_tag)]
             rest = normalized[4:].strip()
             if rest:
-                return [
-                    ("subcommand", f"GOTO {self._summarize(rest, 30)}", block_tag)
-                ]
+                return [("subcommand", f"GOTO {self._summarize(rest, 30)}", block_tag)]
             return [("subcommand", "GOTO", block_tag)]
 
         if cmd in ("IF", "WHEN", "DOWHILE", "DOUNTIL", "DOFOR"):
@@ -397,9 +399,7 @@ class _ClIndexBuilder:
         if cmd in ("INCLUDE", "COPY"):
             rest = normalized[len(cmd) :].strip()
             if rest:
-                return [
-                    ("include", f"{cmd} {self._summarize(rest, 40)}", block_tag)
-                ]
+                return [("include", f"{cmd} {self._summarize(rest, 40)}", block_tag)]
             return [("include", cmd, block_tag)]
 
         if cmd in ("TFRCTL", "SBMJOB"):
@@ -467,7 +467,9 @@ class _ClIndexBuilder:
                     while block_stack:
                         _, ref = block_stack.pop()
                         if ref["end_line"] < start_idx:
-                            ref["end_line"] = start_idx  # line before ENDPGM (1-based: start_idx)
+                            ref["end_line"] = (
+                                start_idx  # line before ENDPGM (1-based: start_idx)
+                            )
                     entries.append(item)
                     if current_pgm is not None:
                         # PGM body ends at ENDPGM line

@@ -29,7 +29,6 @@ from ..env_utils import env_get
 from ..i18n import _
 from ..llm_errors import _rate_limit_retry_step
 from ..llm_helpers import (
-    _choose_auto_effort,
     _extract_latest_user_text,
     _is_thinking_task,
     _maybe_print_certifi_where,
@@ -449,7 +448,11 @@ def novita_chat_with_tools(
                                 if bool(getattr(core, "_is_web", False))
                                 else (
                                     getattr(core, "print_stream_delta", None)
-                                    or (lambda s: print(s, end="", flush=True) if s else None)
+                                    or (
+                                        lambda s: (
+                                            print(s, end="", flush=True) if s else None
+                                        )
+                                    )
                                 )
                             ),
                             core=core,

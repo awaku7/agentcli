@@ -90,7 +90,10 @@ _MOD = r"(?:(?:public|private|protected|internal|static|virtual|override|abstrac
 # C# definition patterns
 _PATTERNS = [
     # namespace
-    (r"^\s*namespace\s+(\w+(?:\.\w+)*)\s*;", lambda m: ("namespace", m.group(1) + " (file-scoped)")),
+    (
+        r"^\s*namespace\s+(\w+(?:\.\w+)*)\s*;",
+        lambda m: ("namespace", m.group(1) + " (file-scoped)"),
+    ),
     (r"^\s*namespace\s+(\w+(?:\.\w+)*)", lambda m: ("namespace", m.group(1))),
     # enum (separate kind for enum_member detection)
     (

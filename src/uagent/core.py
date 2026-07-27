@@ -31,6 +31,7 @@ URL_FETCH_MAX_BYTES = 50_000_000
 # On Windows default is often cp932; otherwise use UTF-8.
 CMD_ENCODING = env_get("UAGENT_CMD_ENCODING") or "utf-8"
 
+
 # Enable ANSI/VT escape sequences on Windows console if possible.
 # os.system("") alone is unreliable (especially after long sessions or when
 # stdout/stderr handles are redirected/reopened). Prefer SetConsoleMode.
@@ -46,7 +47,10 @@ def _enable_windows_vt_mode() -> bool:
         kernel32 = ctypes.windll.kernel32
         kernel32.GetStdHandle.argtypes = [wintypes.DWORD]
         kernel32.GetStdHandle.restype = wintypes.HANDLE
-        kernel32.GetConsoleMode.argtypes = [wintypes.HANDLE, ctypes.POINTER(wintypes.DWORD)]
+        kernel32.GetConsoleMode.argtypes = [
+            wintypes.HANDLE,
+            ctypes.POINTER(wintypes.DWORD),
+        ]
         kernel32.GetConsoleMode.restype = wintypes.BOOL
         kernel32.SetConsoleMode.argtypes = [wintypes.HANDLE, wintypes.DWORD]
         kernel32.SetConsoleMode.restype = wintypes.BOOL
@@ -383,7 +387,6 @@ def print_stream_delta(s: str) -> None:
         _stream_line_open = not s.endswith(chr(10))
 
 
-
 def _write_status_line(text: str, *, busy: bool, use_color: bool) -> None:
     """Write one [STATE] line to stderr.
 
@@ -414,6 +417,7 @@ def _write_status_line(text: str, *, busy: bool, use_color: bool) -> None:
             handle = kernel32.GetStdHandle(STD_ERROR_HANDLE)
             INVALID_HANDLE_VALUE = wintypes.HANDLE(-1).value
             if handle and handle != INVALID_HANDLE_VALUE:
+
                 class COORD(ctypes.Structure):
                     _fields_ = [("X", wintypes.SHORT), ("Y", wintypes.SHORT)]
 
@@ -544,7 +548,9 @@ def print_status_line() -> None:
                 # - Opt-out: NO_COLOR, UAGENT_NO_COLOR, UAGENT_STATUS_COLOR=0.
                 # - If VT enable fails on Windows, stay plain to avoid
                 #   "?[32m[STATE] IDLE?[0m" leaks on broken consoles.
-                status_color_env = (env_get("UAGENT_STATUS_COLOR") or "").strip().lower()
+                status_color_env = (
+                    (env_get("UAGENT_STATUS_COLOR") or "").strip().lower()
+                )
                 color_disabled = status_color_env in ("0", "false", "no", "off")
                 want_color = (
                     (not IS_GUI)

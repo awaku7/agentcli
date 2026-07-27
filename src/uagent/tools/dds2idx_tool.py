@@ -211,7 +211,15 @@ _DSPF_HINTS = (
     "ASSUME",
     "INDARA",
 )
-_PRTF_HINTS = ("SPACEB", "SPACEA", "SKIPB", "SKIPA", "HIGHLIGHT", "UNDERLINE", "PAGEREC")
+_PRTF_HINTS = (
+    "SPACEB",
+    "SPACEA",
+    "SKIPB",
+    "SKIPA",
+    "HIGHLIGHT",
+    "UNDERLINE",
+    "PAGEREC",
+)
 
 # DSPATR attribute codes (IBM i DDS)
 _DSPATR_CODES = {
@@ -587,7 +595,11 @@ class _DdsIndexBuilder:
 
             # Record: name starts with R as type indicator in name area sometimes "R CUST"
             # Or ref/name area holds R
-            if name == "R" or ref == "R" or re.match(r"^R\s+\w", body.upper() if body else ""):
+            if (
+                name == "R"
+                or ref == "R"
+                or re.match(r"^R\s+\w", body.upper() if body else "")
+            ):
                 # handled by body usually
                 pass
 
@@ -599,13 +611,22 @@ class _DdsIndexBuilder:
                 label_r = f"{name} R" if name else "R"
                 return [("field", label_r, meta_r)]
 
-            if name.startswith("R") and length == "" and typ == "" and " " not in name and len(name) > 1 and name[0] == "R":
+            if (
+                name.startswith("R")
+                and length == ""
+                and typ == ""
+                and " " not in name
+                and len(name) > 1
+                and name[0] == "R"
+            ):
                 # ambiguous record-like name; body path usually handles real records
                 pass
 
             if ref == "K" or name.startswith("K") and len(name) > 1 and not length:
                 # key field name might be in keyword or name
-                key_name = name if ref != "K" else (name or kw.split()[0] if kw else name)
+                key_name = (
+                    name if ref != "K" else (name or kw.split()[0] if kw else name)
+                )
                 if ref == "K":
                     key_name = name or (kw.split()[0] if kw else "")
                     if key_name:
@@ -645,7 +666,11 @@ class _DdsIndexBuilder:
                 return [("keyword", detail, meta_k)]
 
             # Field with length/type
-            if name and re.match(r"^[A-Z@#$][\w@#$]*$", name) and name not in _FILE_KEYWORDS:
+            if (
+                name
+                and re.match(r"^[A-Z@#$][\w@#$]*$", name)
+                and name not in _FILE_KEYWORDS
+            ):
                 parts = [name]
                 type_part = f"{length}{typ}" if (length or typ) else ""
                 if dec and typ:
@@ -983,23 +1008,23 @@ class _DdsIndexBuilder:
                         if kw == "REFFLD" and not meta.get("reffld"):
                             rm2 = re.search(r"REFFLD\(([^)]*)\)", attach_text.upper())
                             if rm2:
-                                last_field.setdefault("meta", {})["reffld"] = (
-                                    rm2.group(1).strip()
-                                )
+                                last_field.setdefault("meta", {})["reffld"] = rm2.group(
+                                    1
+                                ).strip()
                                 last_field["meta"]["ref_field"] = "1"
                         # stash dspatr detail on meta for consumers
                         if kw == "DSPATR":
                             dm = re.search(r"DSPATR\(([^)]*)\)", attach_text.upper())
                             if dm:
-                                last_field.setdefault("meta", {})["dspatr"] = (
-                                    dm.group(1).strip()
-                                )
+                                last_field.setdefault("meta", {})["dspatr"] = dm.group(
+                                    1
+                                ).strip()
                         if kw == "COLOR":
                             cm = re.search(r"COLOR\(([^)]*)\)", attach_text.upper())
                             if cm:
-                                last_field.setdefault("meta", {})["color"] = (
-                                    cm.group(1).strip()
-                                )
+                                last_field.setdefault("meta", {})["color"] = cm.group(
+                                    1
+                                ).strip()
                     elif current_record is not None:
                         # record-level keyword (CF keys, SFLDSP, conditioned DSPATR, ...)
                         if attach_text and attach_text not in current_record["label"]:
@@ -1052,9 +1077,7 @@ class _DdsIndexBuilder:
             members = e.get("members", [])
             for midx, m in enumerate(members):
                 if midx + 1 < len(members):
-                    m["end_line"] = max(
-                        m["end_line"], members[midx + 1]["line"] - 1
-                    )
+                    m["end_line"] = max(m["end_line"], members[midx + 1]["line"] - 1)
                 else:
                     m["end_line"] = max(m["end_line"], e["end_line"])
 
@@ -1134,7 +1157,8 @@ class _DdsIndexBuilder:
                 dirnames[:] = [
                     d
                     for d in dirnames
-                    if d not in {
+                    if d
+                    not in {
                         ".git",
                         ".venv",
                         "venv",
@@ -1240,9 +1264,11 @@ class _DdsIndexBuilder:
             pu = p.upper()
             if pu in skip or pu.startswith("REFFLD(") or pu.startswith("TEXT("):
                 break
-            if re.match(r"^\d+[ASPBFLOZTHGE]\d*$", pu) or re.match(
-                r"^\d+$", pu
-            ) or re.match(r"^[ASPBFLOZTHGE]\d*$", pu):
+            if (
+                re.match(r"^\d+[ASPBFLOZTHGE]\d*$", pu)
+                or re.match(r"^\d+$", pu)
+                or re.match(r"^[ASPBFLOZTHGE]\d*$", pu)
+            ):
                 kept.append(p)
             elif kept:
                 break
@@ -1312,7 +1338,11 @@ class _DdsIndexBuilder:
                 if path and bld is not None:
                     rel = path
                     try:
-                        rel = str(Path(path).resolve().relative_to(Path(os.getcwd()).resolve()))
+                        rel = str(
+                            Path(path)
+                            .resolve()
+                            .relative_to(Path(os.getcwd()).resolve())
+                        )
                     except Exception:
                         rel = os.path.basename(path)
                     e["label"] = f"{lab} -> {rel}"
@@ -1369,7 +1399,9 @@ class _DdsIndexBuilder:
                 path, bld = get_builder(ref_file)
                 if not path or bld is None:
                     if "[ref?" not in m["label"]:
-                        m["label"] = f"{m['label']} [ref? {self._normalize_ref_name(ref_file)}]"
+                        m["label"] = (
+                            f"{m['label']} [ref? {self._normalize_ref_name(ref_file)}]"
+                        )
                     continue
                 fmap = self._field_map(bld)
                 src = fmap.get(src_field.upper())

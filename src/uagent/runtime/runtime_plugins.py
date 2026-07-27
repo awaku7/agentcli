@@ -125,11 +125,10 @@ def format_enabled_plugins_status(plugins: list[dict[str, Any]]) -> str | None:
     names = ", ".join(str(p.get("name") or "?") for p in enabled[:8])
     if len(enabled) > 8:
         names += ", " + _("+%(n)d more") % {"n": len(enabled) - 8}
-    return (
-        "[plugins] "
-        + _("%(n)d enabled: %(names)s")
-        % {"n": len(enabled), "names": names}
-    )
+    return "[plugins] " + _("%(n)d enabled: %(names)s") % {
+        "n": len(enabled),
+        "names": names,
+    }
 
 
 def load_plugins_status_at_startup(
@@ -138,4 +137,3 @@ def load_plugins_status_at_startup(
     """load_plugins_at_startup + format_enabled_plugins_status."""
     plugins = load_plugins_at_startup(**kwargs)
     return plugins, format_enabled_plugins_status(plugins)
-

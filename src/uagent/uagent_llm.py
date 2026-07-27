@@ -125,6 +125,7 @@ def _productive_age(stamp: object, *, now: int | None = None) -> int | None:
         return 10**9
     return cur - s
 
+
 # Track repeated management-tool fingerprints to detect loops.
 # Fingerprint is action + target (e.g. tool_load:file_grep), so loading
 # several *different* tools in parallel is allowed. Only the same target
@@ -323,9 +324,7 @@ def check_general_tool_loop(
     """
     if not tool_calls_list:
         return False, "", 0
-    limit = (
-        _GENERAL_TOOL_LOOP_THRESHOLD if threshold is None else threshold
-    )
+    limit = _GENERAL_TOOL_LOOP_THRESHOLD if threshold is None else threshold
 
     round_counts: dict[str, int] = {}
     display: dict[str, str] = {}
@@ -1423,9 +1422,7 @@ def _run_one_round(
             )
         # Count only freshly executed general tools. Cache-reuse replies
         # ("Already called...") must not inflate the loop counter.
-        blocked, blocked_name, blocked_count = check_general_tool_loop(
-            fresh_tool_calls
-        )
+        blocked, blocked_name, blocked_count = check_general_tool_loop(fresh_tool_calls)
         if blocked:
             print(
                 "[WARN] Tool call '%(name)s' repeated %(n)d times with the same "
@@ -1623,9 +1620,7 @@ def run_llm_rounds(
                                     _target = ""
                                     if isinstance(_args, dict):
                                         _target = str(
-                                            _args.get("name")
-                                            or _args.get("tool")
-                                            or ""
+                                            _args.get("name") or _args.get("tool") or ""
                                         ).strip()
                                     if _target:
                                         _TOOL_LAST_ROUND[_target] = _PRODUCTIVE_ROUNDS
@@ -1685,9 +1680,7 @@ def run_llm_rounds(
                             if age is not None and age >= threshold:
                                 print(
                                     "[TOOLS auto-unload] "
-                                    + _(
-                                        "%(name)s (idle for %(n)d LLM rounds)"
-                                    )
+                                    + _("%(name)s (idle for %(n)d LLM rounds)")
                                     % {"name": tname, "n": threshold},
                                     flush=True,
                                 )

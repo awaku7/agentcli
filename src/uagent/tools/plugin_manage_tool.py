@@ -134,7 +134,6 @@ def _get_install_root(scope: str, *, cwd: str | None = None) -> str:
         return str(Path.home() / ".uag" / "plugins")
 
 
-
 def _find_scanned_plugin(name: str, scan_dirs: list[str]) -> dict[str, Any] | None:
     """Return scanned plugin manifest for name, or None."""
     if not name:

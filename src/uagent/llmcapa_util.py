@@ -661,9 +661,10 @@ def deprecated_model_warning(
     except Exception:
         repl = None
     if repl:
-        return _(
-            "Model '%(model_id)s' is deprecated; consider '%(replacement)s'."
-        ) % {"model_id": mid, "replacement": repl}
+        return _("Model '%(model_id)s' is deprecated; consider '%(replacement)s'.") % {
+            "model_id": mid,
+            "replacement": repl,
+        }
     return _("Model '%(model_id)s' is deprecated.") % {"model_id": mid}
 
 
@@ -674,12 +675,10 @@ def format_capability_lines(cap: Any) -> list[str]:
     lines: list[str] = []
     try:
         lines.append(
-            _("    model_id: %(value)s")
-            % {"value": getattr(cap, "model_id", "?")}
+            _("    model_id: %(value)s") % {"value": getattr(cap, "model_id", "?")}
         )
         lines.append(
-            _("    provider: %(value)s")
-            % {"value": getattr(cap, "provider", "?")}
+            _("    provider: %(value)s") % {"value": getattr(cap, "provider", "?")}
         )
         lines.append(
             _("    Display Name:  %(value)s")
@@ -687,12 +686,8 @@ def format_capability_lines(cap: Any) -> list[str]:
         )
         ctx = int(getattr(cap, "context_window", 0) or 0)
         out = int(getattr(cap, "max_output_tokens", 0) or 0)
-        lines.append(
-            _("    Context Window: %(value)s tokens") % {"value": f"{ctx:,}"}
-        )
-        lines.append(
-            _("    Max Output:    %(value)s tokens") % {"value": f"{out:,}"}
-        )
+        lines.append(_("    Context Window: %(value)s tokens") % {"value": f"{ctx:,}"})
+        lines.append(_("    Max Output:    %(value)s tokens") % {"value": f"{out:,}"})
         lines.append(
             _("    Tokenizer:     %(value)s")
             % {"value": getattr(cap, "tokenizer_name", None) or "?"}

@@ -109,6 +109,7 @@ def _tool_expire_display(
     productive_rounds: int,
 ) -> str:
     """Return expiry display for :tools list (productive-round timeline)."""
+
     def _ago(stamp: object) -> int:
         try:
             s = int(stamp)  # type: ignore[arg-type]
@@ -180,8 +181,7 @@ def handle_cmd_tools_list(arg: str, **kwargs: Any) -> Any:
             _(
                 "msg.tools.list_header",
                 default=(
-                    "[tools] Loaded tools ({count}), "
-                    "total_round={r}, llm_round={p}:"
+                    "[tools] Loaded tools ({count}), " "total_round={r}, llm_round={p}:"
                 ),
             ).format(count=len(names), r=_TOTAL_ROUNDS, p=_PRODUCTIVE_ROUNDS)
         )
@@ -204,7 +204,9 @@ def handle_cmd_tools_list(arg: str, **kwargs: Any) -> Any:
                 print(f"  {n}  -")
                 continue
             last = _TOOL_LAST_ROUND.get(n)
-            loaded_at = _LOADED_SINGLE_TOOLS.get(n) if n in _LOADED_SINGLE_TOOLS else None
+            loaded_at = (
+                _LOADED_SINGLE_TOOLS.get(n) if n in _LOADED_SINGLE_TOOLS else None
+            )
             if last is None and loaded_at is None:
                 print(f"  {n}  -")
                 continue

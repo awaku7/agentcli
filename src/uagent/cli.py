@@ -42,7 +42,7 @@ from .scheduler import start_background_scheduler, stop_background_scheduler
 
 from uagent.utils.paths import get_history_file_path
 
-from .tools.pybitchat_shared import forward_to_mesh
+from .tools.pybitchat_shared import forward_to_mesh, is_chat_mode
 
 from .util_tools import (
     extract_image_paths,
@@ -1026,6 +1026,10 @@ def stdin_loop() -> None:
                     continue
                 _append_prompt_history_entry(text)
                 forward_to_mesh(text)
+                if is_chat_mode() == "on":
+                    # "on" mode: forward to mesh only, not to LLM
+                    core.set_status(False, "")
+                    continue
                 core.set_status(True, "user_pending_multi")
                 core.event_queue.put({"kind": "user", "text": text})
                 continue
@@ -1037,6 +1041,10 @@ def stdin_loop() -> None:
 
             _append_prompt_history_entry(line)
             forward_to_mesh(line)
+            if is_chat_mode() == "on":
+                # "on" mode: forward to mesh only, not to LLM
+                core.set_status(False, "")
+                continue
             core.set_status(True, "user_pending")
             core.event_queue.put({"kind": "user", "text": line})
         else:
@@ -1072,9 +1080,7 @@ def main() -> None:
 
     if startup.should_exit:
         try:
-            _maybe_discard_short_session_log(
-                core=core, messages_ref=messages, tr=_
-            )
+            _maybe_discard_short_session_log(core=core, messages_ref=messages, tr=_)
         except Exception:
             pass
         return
@@ -1357,9 +1363,7 @@ def main() -> None:
         # Safety net: discard short current session if exit skipped :exit handler
         # (e.g. KeyboardInterrupt on main thread, or unexpected loop break).
         try:
-            _maybe_discard_short_session_log(
-                core=core, messages_ref=messages, tr=_
-            )
+            _maybe_discard_short_session_log(core=core, messages_ref=messages, tr=_)
         except Exception:
             pass
         print(_("Exited uag."))

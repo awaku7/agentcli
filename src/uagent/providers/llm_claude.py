@@ -526,16 +526,12 @@ def claude_chat_with_tools(
                     if callable(on_output_config_fallback):
                         on_output_config_fallback(
                             "[Claude] "
-                            + _(
-                                "temperature rejected; retrying without temperature"
-                            )
+                            + _("temperature rejected; retrying without temperature")
                         )
                     else:
                         print(
                             "[Claude] "
-                            + _(
-                                "temperature rejected; retrying without temperature"
-                            )
+                            + _("temperature rejected; retrying without temperature")
                         )
                 except Exception:
                     pass
@@ -564,12 +560,9 @@ def claude_chat_with_tools(
             try:
                 # Memoize: this model needs adaptive from the first request next time.
                 _ADAPTIVE_THINKING_MODELS.add(model_name)
-                fb_msg = (
-                    "[Claude] "
-                    + _(
-                        "thinking.type=enabled rejected; "
-                        "retrying with thinking.type=adaptive + output_config.effort"
-                    )
+                fb_msg = "[Claude] " + _(
+                    "thinking.type=enabled rejected; "
+                    "retrying with thinking.type=adaptive + output_config.effort"
                 )
                 try:
                     if callable(on_output_config_fallback):

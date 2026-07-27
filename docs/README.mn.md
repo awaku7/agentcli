@@ -29,7 +29,7 @@
 
 - **Таны машин дээр орон нутагт ажилладаг**. Таны өгөгдөл тантай хамт үлдэнэ (таны API дуудлагаас бусад).
 - **Үйлчилгээ үзүүлэгчийн эрх чөлөө**: OpenAI, Claude, Gemini, DeepSeek, Ollama, Azure, Bedrock, HuggingFace... 21+ үйлчилгээ үзүүлэгч, бүгд нэг интерфейсээс хандах боломжтой. Орчны хувьсагчдыг дахин тохируулах замаар тэдгээрийн хооронд солигдох - дахин суулгахгүй, шилжихгүй.
-- **183 хэрэгсэл**: Файл оруулах/гаралт, вэб хайлт, зураг үүсгэх, Gmail, BLE төхөөрөмж скан хийх, MCP серверийг нэгтгэх — **111 нь зэрэгцээ аюулгүй** (8 хүртэлх нь урсгалын сангаар нэгэн зэрэг ажиллах, `UAGENT_PARALLEL_WORKERS`-ээр тохируулах боломжтой). LLM нь хэд хэдэн хэрэгслийн дуудлагыг нэгэн зэрэг хийх үед uag автоматаар тэдгээрийг параллель болгодог.
+- **185 хэрэгсэл**: Файл оруулах/гаралт, вэб хайлт, зураг үүсгэх, Gmail, BLE төхөөрөмж скан хийх, MCP серверийг нэгтгэх — **111 нь зэрэгцээ аюулгүй** (8 хүртэлх нь урсгалын сангаар нэгэн зэрэг ажиллах, `UAGENT_PARALLEL_WORKERS`-ээр тохируулах боломжтой). LLM нь хэд хэдэн хэрэгслийн дуудлагыг нэгэн зэрэг хийх үед uag автоматаар тэдгээрийг параллель болгодог.
 - **3 UI + A2A**: CLI, GUI, Вэб, Агентаас Агент руу протокол. Ижил хөдөлгүүр, ямар ч интерфейс.
 - **Агентны ур чадвар**: Олон нийтэд бий болгосон ур чадварыг зах зээлээс суулгаарай. Uag-г эцэс төгсгөлгүй сунга.
 
@@ -89,7 +89,7 @@ See [DEVELOP_PLUGIN.md](src/uagent/docs/DEVELOP_PLUGIN.md) for full documentatio
 - **Reload past sessions** with `:load <index>` — pick up where you left off.
 - **Tool result caching** avoids redundant re-execution when the same tool call repeats.
 
-### 🛠 183 Хэрэгсэл
+### 🛠 185 Хэрэгсэл
 
 | Ангилал | Хэрэгсэл |
 |---|---|
@@ -98,7 +98,7 @@ See [DEVELOP_PLUGIN.md](src/uagent/docs/DEVELOP_PLUGIN.md) for full documentatio
 | **Хэвлэл мэдээлэл** | зураг үүсгэх, дүн шинжилгээ хийх, img2img, аудио_яриа, аудио_сийрүүлэх |
 | **Баримт бичиг** | PDF/PPTX/DOCX/RTF/ODT олборлолт, Excel-ийн бүтэцтэй олборлолт |
 | **Урьдчилан таамаглах** | 9 загвартай цаг хугацааны цувааны урьдчилсан таамаглал (AutoARIMA, Prophet, LightGBM, CatBoost, TimesFM гэх мэт), автомат загвар сонголт, график үүсгэх, i18n |
-| **Харилцаа** | gmail_send, gmail_read, bluesky, discord_channel, teams_webhook — [COMMUNICATION.md](https://github.com/awaku7/agentcli/blob/main/docs/COMMUNICATION.md) -г үзнэ үү |
+| **Харилцаа** | gmail_send, gmail_read, bluesky, discord_channel, teams_webhook, **pybitchat** (BLE Mesh) — [COMMUNICATION.md](https://github.com/awaku7/agentcli/blob/main/docs/COMMUNICATION.md) -г үзнэ үү and [BITCHAT.md](https://github.com/awaku7/agentcli/blob/main/docs/BITCHAT.md)|
 | **IoT** | BACnet、Modbus TCP、OPC UA、SwitchBot（Cloud + BLE）、ECHONET Lite、Matter、UPnP、reverse_geocode |
 | **Dev Tools** | git_ops, python_compile, lint_format, run_tests, db_query, **13 эх кодын хөтөч (idx гэр бүл)** |
 | **MCP** | Гадаад MCP серверүүдтэй холбогдож, хэрэгслүүдийг жагсааж, |

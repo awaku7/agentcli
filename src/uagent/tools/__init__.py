@@ -667,7 +667,17 @@ def handle_dynamic_command(cmd: str, arg: str, **kwargs: Any) -> Any:
     subcmd = parts[0].lower() if parts else ""
     subarg = parts[1].strip() if len(parts) > 1 else ""
 
-    # 1. Try to match subcommand
+    # 0. Try two-level subcommand: "geo list" -> full key "geo list"
+    if subarg:
+        subarg_parts = subarg.split(maxsplit=1)
+        subarg_first = subarg_parts[0]
+        subarg_rest = subarg_parts[1].strip() if len(subarg_parts) > 1 else ""
+        two_level_key = f"{subcmd} {subarg_first}"
+        if two_level_key in _DYNAMIC_COMMANDS[cmd]:
+            handler_info = _DYNAMIC_COMMANDS[cmd][two_level_key]
+            return handler_info["handler"](subarg_rest, **kwargs)
+
+    # 1. Try to match single-level subcommand
     if subcmd in _DYNAMIC_COMMANDS[cmd]:
         handler_info = _DYNAMIC_COMMANDS[cmd][subcmd]
         return handler_info["handler"](subarg, **kwargs)
@@ -724,7 +734,6 @@ def list_dynamic_command_names() -> list[str]:
     """Return sorted top-level dynamic command names."""
     _ensure_loaded()
     return sorted(_DYNAMIC_COMMANDS.keys())
-
 
 
 def register_dynamic_command(
@@ -864,7 +873,6 @@ def get_dynamic_command_detail(cmd: str, subcmd: str | None = None) -> str | Non
     return "\n".join(lines)
 
 
-
 def format_tool_names_for_log(tool_specs: list[dict[str, Any]] | None) -> list[str]:
     """Extract tool names in send order for user-visible logging."""
     names: list[str] = []
@@ -890,7 +898,9 @@ def format_tool_names_for_log(tool_specs: list[dict[str, Any]] | None) -> list[s
     return names
 
 
-def log_tools_being_sent(tool_specs: list[dict[str, Any]] | None, *, where: str = "") -> None:
+def log_tools_being_sent(
+    tool_specs: list[dict[str, Any]] | None, *, where: str = ""
+) -> None:
     """Print the tool list that will be sent to the model (in order).
 
     Opt-in only: set UAGENT_DEBUG_TOOLS=1.
@@ -914,6 +924,7 @@ def log_tools_being_sent(tool_specs: list[dict[str, Any]] | None, *, where: str 
         print(f"{prefix} ({len(names)}):", flush=True)
         for i, name in enumerate(names, 1):
             print(f"  {i:02d}. {name}", flush=True)
+
 
 def get_tool_specs() -> list[dict[str, Any]]:
     """Return tool specs for the LLM."""

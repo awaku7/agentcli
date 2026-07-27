@@ -350,7 +350,10 @@ def _call_grok_round(
                     print(repr(e))
                     return False, client, "", []
                 else:
-                    print("[GROK Error] " + _("gRPC error (%(code)s)") % {"code": status_code})
+                    print(
+                        "[GROK Error] "
+                        + _("gRPC error (%(code)s)") % {"code": status_code}
+                    )
                     _maybe_print_certifi_where(e)
                     print(repr(e))
                     return False, client, "", []
@@ -376,7 +379,10 @@ def _call_grok_round(
                     client = new_client
                 continue
             if action == "give_up":
-                print("[GROK Error] " + _("429 retry limit (%(n)s) reached.") % {"n": max_retries_429})
+                print(
+                    "[GROK Error] "
+                    + _("429 retry limit (%(n)s) reached.") % {"n": max_retries_429}
+                )
                 _maybe_print_certifi_where(e)
                 print(repr(e))
                 return False, client, "", []

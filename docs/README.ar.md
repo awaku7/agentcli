@@ -29,7 +29,7 @@
 
 - **يعمل محليًا** على جهازك. تظل بياناتك معك (باستثناء استدعاءات واجهة برمجة التطبيقات التي تجريها).
 - **حرية المزود**: OpenAI، وClaude، وGemini، وDeepSeek، وOllama، وAzure، وBedrock، وHuggingFace... 21 مقدمًا، يمكن الوصول إليهم جميعًا من واجهة واحدة. قم بالتبديل بينهما عن طريق إعادة تكوين متغيرات البيئة - دون الحاجة إلى إعادة التثبيت أو الترحيل.
-- **183 أداة**: إدخال/إخراج الملفات، وبحث الويب، وإنشاء الصور، وGmail، ومسح جهاز BLE، وتكامل خادم MCP - **111 أداة آمنة بالتوازي** (يتم تنفيذ ما يصل إلى 8 أدوات بشكل متزامن عبر مجموعة مؤشرات الترابط، ويمكن تكوينها عبر `UAGENT_PARALLEL_WORKERS`). عندما يطلق LLM استدعاءات متعددة للأدوات مرة واحدة، يقوم uag بموازاة هذه الاستدعاءات تلقائيًا.
+- **185 أداة**: إدخال/إخراج الملفات، وبحث الويب، وإنشاء الصور، وGmail، ومسح جهاز BLE، وتكامل خادم MCP - **111 أداة آمنة بالتوازي** (يتم تنفيذ ما يصل إلى 8 أدوات بشكل متزامن عبر مجموعة مؤشرات الترابط، ويمكن تكوينها عبر `UAGENT_PARALLEL_WORKERS`). عندما يطلق LLM استدعاءات متعددة للأدوات مرة واحدة، يقوم uag بموازاة هذه الاستدعاءات تلقائيًا.
 - **3 واجهات مستخدم + A2A**: واجهة سطر الأوامر (CLI) وواجهة المستخدم الرسومية (GUI) والويب وبروتوكول وكيل إلى وكيل. نفس المحرك، أي واجهة.
 - **مهارات الوكيل**: قم بتثبيت المهارات المجتمعية من السوق. تمديد UAG إلى ما لا نهاية.
 
@@ -89,7 +89,7 @@ See [DEVELOP_PLUGIN.md](src/uagent/docs/DEVELOP_PLUGIN.md) for full documentatio
 - **Reload past sessions** with `:load <index>` — pick up where you left off.
 - **Tool result caching** avoids redundant re-execution when the same tool call repeats.
 
-### 🛠 183 أداة
+### 🛠 185 أداة
 
 | الفئة | أدوات |
 |---|---|
@@ -98,7 +98,7 @@ See [DEVELOP_PLUGIN.md](src/uagent/docs/DEVELOP_PLUGIN.md) for full documentatio
 | **الإعلام** | إنشاء صورة، تحليل الصورة، img2img، audio_speech، audio_transcribe |
 | **الوثائق** | استخراج PDF/PPTX/DOCX/RTF/ODT، استخراج منظم لـ Excel |
 | **تنبؤ** | التنبؤ بالسلاسل الزمنية باستخدام 9 نماذج (AutoARIMA وProphet وLightGBM وCatBoost وTimesFM وغيرها)، اختيار النموذج تلقائيًا، إنشاء الرسوم البيانية، تدويل i18n |
-| **الاتصالات** | gmail_send، gmail_read، bluesky، discord_channel، Teams_webhook — راجع [COMMUNICATION.md](https://github.com/awaku7/agentcli/blob/main/docs/COMMUNICATION.md) |
+| **الاتصالات** | gmail_send، gmail_read، bluesky، discord_channel، Teams_webhook، **pybitchat** (BLE Mesh) — راجع [COMMUNICATION.md](https://github.com/awaku7/agentcli/blob/main/docs/COMMUNICATION.md) و [BITCHAT.md](https://github.com/awaku7/agentcli/blob/main/docs/BITCHAT.md) |
 | **إنترنت الأشياء** | SwitchBot (Cloud + BLE)، ECHONET Lite، Matter، UPnP، reverse_geocode |
 | ** أدوات التطوير ** | git_ops، python_compile، lint_format، run_tests، db_query، ** 13 متصفحًا لكود المصدر (عائلة idx) ** |
 | **الخطة التشاورية المتعددة الأطراف** | الاتصال بخوادم MCP الخارجية، وقائمة الأدوات، وتنفيذ |

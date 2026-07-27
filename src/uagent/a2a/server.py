@@ -266,7 +266,9 @@ def main(argv: Optional[list[str]] = None) -> None:
         "--tool-genre-mask",
         type=int,
         default=None,
-        help=_("Tool genre bitmask (1=comm,2=office,4=devel,8=iot,16=exec,32=external,64=media,127=all). Skips the interactive genre prompt when specified."),
+        help=_(
+            "Tool genre bitmask (1=comm,2=office,4=devel,8=iot,16=exec,32=external,64=media,127=all). Skips the interactive genre prompt when specified."
+        ),
     )
     parser.add_argument(
         "--use-tool",

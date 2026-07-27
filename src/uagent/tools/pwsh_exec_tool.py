@@ -184,7 +184,14 @@ def run_tool(args: dict[str, Any]) -> str:
     # Do not inherit the host stdin. Interactive CLI treats empty readline as EOF
     # and exits; a child PowerShell that shares stdin can trigger that path.
     run_kwargs: dict[str, Any] = {
-        "args": [shell, "-NoLogo", "-NoProfile", "-NonInteractive", "-Command", command],
+        "args": [
+            shell,
+            "-NoLogo",
+            "-NoProfile",
+            "-NonInteractive",
+            "-Command",
+            command,
+        ],
         "stdin": subprocess.DEVNULL,
         "stdout": subprocess.PIPE,
         "stderr": subprocess.PIPE,

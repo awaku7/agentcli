@@ -365,7 +365,9 @@ PROVIDER_FIELDS: dict[str, list[tuple[str, bool, str]]] = {
         (
             "UAGENT_VERCEL_BASE_URL",
             False,
-            _("Vercel AI Gateway base URL (optional, default: https://gateway.vercel.ai/v1)"),
+            _(
+                "Vercel AI Gateway base URL (optional, default: https://gateway.vercel.ai/v1)"
+            ),
         ),
         (
             "UAGENT_VERCEL_DEPNAME",

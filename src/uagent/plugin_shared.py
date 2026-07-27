@@ -465,9 +465,7 @@ def clear_plugin_settings(
     configs = settings.get("pluginConfigs", [])
     if isinstance(configs, list):
         new_configs = [
-            c
-            for c in configs
-            if not (isinstance(c, dict) and c.get("name") == name)
+            c for c in configs if not (isinstance(c, dict) and c.get("name") == name)
         ]
         if len(new_configs) != len(configs):
             settings["pluginConfigs"] = new_configs
@@ -1291,7 +1289,6 @@ def remove_plugin_hooks(
 # ---------------------------------------------------------------------------
 
 
-
 def _plugin_command_source_tag(plugin_name: str) -> str:
     return f"plugin:{plugin_name}"
 
@@ -1307,7 +1304,11 @@ def _render_command_prompt(template: str, args: str) -> str:
     if "$ARGUMENTS" in text:
         text = text.replace("$ARGUMENTS", a)
     # If template has no placeholder and user passed args, append.
-    if a and "{{args}}" not in (template or "") and "$ARGUMENTS" not in (template or ""):
+    if (
+        a
+        and "{{args}}" not in (template or "")
+        and "$ARGUMENTS" not in (template or "")
+    ):
         if text and not text.endswith(("\n", " ")):
             text = text + "\n"
         text = text + a
@@ -1374,8 +1375,7 @@ def _make_plugin_command_handler(
             if mode_like and injected and len(prompt) < 400 and "生成" not in prompt:
                 # Still run LLM when template is a real task (commit/review).
                 tasky = any(
-                    k in stem
-                    for k in ("commit", "review", "compress", "stats", "help")
+                    k in stem for k in ("commit", "review", "compress", "stats", "help")
                 )
                 want_llm = tasky
             else:
@@ -1384,7 +1384,11 @@ def _make_plugin_command_handler(
         if want_llm and prompt.strip():
             return CommandResult(run_llm=True, prompt=prompt)
 
-        print(f"[plugin-cmd] :{plugin_name}" + (f" ({stem})" if stem != plugin_name else "") + " ok")
+        print(
+            f"[plugin-cmd] :{plugin_name}"
+            + (f" ({stem})" if stem != plugin_name else "")
+            + " ok"
+        )
         return CommandResult(run_llm=False)
 
     return _handler
@@ -1407,7 +1411,11 @@ def install_plugin_commands(
         unregister_dynamic_commands_by_source,
     )
 
-    mf = manifest if isinstance(manifest, dict) else (parse_plugin_manifest(plugin_dir) or {})
+    mf = (
+        manifest
+        if isinstance(manifest, dict)
+        else (parse_plugin_manifest(plugin_dir) or {})
+    )
     name = (plugin_name or str(mf.get("name") or Path(plugin_dir).name)).strip()
     if not name:
         return {"ok": False, "error": "plugin name required", "registered": []}
@@ -1446,7 +1454,9 @@ def install_plugin_commands(
             prompt_template=prompt,
             run_llm=run_llm_b,
         )
-        help_text = f"  :{cmd}" + (f" {sub}" if sub else "") + (f"  {desc}" if desc else "")
+        help_text = (
+            f"  :{cmd}" + (f" {sub}" if sub else "") + (f"  {desc}" if desc else "")
+        )
         usage = f":{cmd}" + (f" {sub}" if sub else "") + " [args]"
         res = register_dynamic_command(
             cmd,
@@ -1461,7 +1471,9 @@ def install_plugin_commands(
         if res.get("ok"):
             registered.append(f":{cmd}" + (f" {sub}" if sub else ""))
         else:
-            skipped.append({"name": f":{cmd} {sub}".strip(), "error": str(res.get("error"))})
+            skipped.append(
+                {"name": f":{cmd} {sub}".strip(), "error": str(res.get("error"))}
+            )
 
         alias = rec.get("alias")
         if alias and isinstance(alias, str) and alias.strip():
@@ -1482,9 +1494,7 @@ def install_plugin_commands(
                 if ares.get("ok"):
                     registered.append(f":{an}")
                 else:
-                    skipped.append(
-                        {"name": f":{an}", "error": str(ares.get("error"))}
-                    )
+                    skipped.append({"name": f":{an}", "error": str(ares.get("error"))})
 
     return {
         "ok": True,
@@ -1581,13 +1591,9 @@ def deactivate_plugin(
     return {
         "ok": True,
         "name": plugin_name,
-        "mcp": remove_plugin_mcp_servers(
-            plugin_name, mcp_config_path=mcp_config_path
-        ),
+        "mcp": remove_plugin_mcp_servers(plugin_name, mcp_config_path=mcp_config_path),
         "agents": remove_plugin_agents(plugin_name, roles_dir=roles_dir),
-        "hooks": remove_plugin_hooks(
-            plugin_name, registry_path=hooks_registry_path
-        ),
+        "hooks": remove_plugin_hooks(plugin_name, registry_path=hooks_registry_path),
         "commands": remove_plugin_commands(plugin_name),
     }
 

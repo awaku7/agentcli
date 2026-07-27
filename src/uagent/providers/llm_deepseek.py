@@ -671,7 +671,11 @@ def deepseek_chat_with_tools(
                                 if bool(getattr(core, "_is_web", False))
                                 else (
                                     getattr(core, "print_stream_delta", None)
-                                    or (lambda s: print(s, end="", flush=True) if s else None)
+                                    or (
+                                        lambda s: (
+                                            print(s, end="", flush=True) if s else None
+                                        )
+                                    )
                                 )
                             ),
                             core=core,

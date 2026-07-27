@@ -254,7 +254,9 @@ def run_cli_startup(
                         )
             core.set_status(False, "")
 
-            messages = build_initial_messages(core=core, provider=provider, depname=depname)
+            messages = build_initial_messages(
+                core=core, provider=provider, depname=depname
+            )
             print("[INFO] " + _("Loaded long-term memory."))
 
             try:

@@ -469,9 +469,7 @@ def _classify_node_scope(ip: str | None, bind_ip: str | None) -> dict[str, Any]:
 
     is_self = bool(bind_ip and raw == bind_ip)
     is_private = (
-        _is_private_ipv4(raw)
-        or _is_link_local_ipv4(raw)
-        or _is_loopback_ipv4(raw)
+        _is_private_ipv4(raw) or _is_link_local_ipv4(raw) or _is_loopback_ipv4(raw)
     )
     same = _same_subnet(raw, bind_ip) if bind_ip else is_private
     if is_self:

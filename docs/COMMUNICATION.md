@@ -158,6 +158,42 @@ gmail_read action="read" message_id="123456"
 gmail_read action="unread"
 ```
 
+### pybitchat
+
+Send and receive messages over BLE Mesh using the bitchat protocol.
+Wire-compatible with the official bitchat app. Supports Nostr relay transport for long-distance messaging.
+
+**No environment variables required.** Dependencies are auto-installed on first use.
+
+**Actions (pybitchat_subscribe):**
+
+| action | description | key parameters |
+|---|---|---|
+| `start` | Start BLE Mesh node (advertise + scan) | `nickname` (required), `network` (mainnet/testnet), `nostr` (enable Nostr transport) |
+| `stop` | Stop the node | --- |
+| `status` | Show node state, peers, Nostr status | --- |
+| `chat_mode` | Enable/disable forwarding user input to mesh | `on` (true/false, required) |
+
+**Actions (pybitchat_send):**
+
+| parameter | required | description |
+|---|---|---|
+| `type` | yes | `text`, `announce`, `leave`, or `file` |
+| `payload` | yes | Message text, nickname, or file path |
+| `recipient` | no | Peer ID for direct message (broadcast if omitted) |
+| `via` | no | Transport: `ble` (default), `nostr`, or `both` |
+
+**Examples:**
+
+```python
+pybitchat_subscribe action="start" nickname="my-node"
+pybitchat_send type="text" payload="Hello mesh!"
+pybitchat_send type="text" payload="Hi!" recipient="<peer-id>"
+pybitchat_subscribe action="chat_mode" on=true
+```
+
+See [BITCHAT.md](BITCHAT.md) for full documentation --- geo channels, file transfer, Nostr DMs, CLI commands.
+
 ## See also
 
 - [IOT_USECASE.md](IOT_USECASE.md) — for IoT-related tools (SwitchBot, ECHONET Lite, Matter, UPnP)

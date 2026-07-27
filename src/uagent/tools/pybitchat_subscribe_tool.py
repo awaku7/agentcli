@@ -3,7 +3,10 @@
 from __future__ import annotations
 
 import json
-from typing import Any
+from typing import TYPE_CHECKING, Any
+
+if TYPE_CHECKING:
+    from ..util_tools import CommandResult
 
 from .i18n_helper import make_tool_translator
 from .pybitchat_shared import (
@@ -114,6 +117,18 @@ TOOL_SPEC: dict[str, Any] = {
                         default="Enable/disable bitchat chat mode (action=chat_mode).",
                     ),
                 },
+                "mode": {
+                    "type": "string",
+                    "enum": ["on", "llm", "off"],
+                    "description": _(
+                        "param.mode.description",
+                        default=(
+                            "Chat mode (action=chat_mode): 'on' = forward to mesh only, "
+                            "'llm' = forward to mesh + inject peer msgs to LLM, "
+                            "'off' = disabled. Overrides 'on' if both specified."
+                        ),
+                    ),
+                },
                 "on_message_prompt": {
                     "type": "string",
                     "description": _(
@@ -143,13 +158,17 @@ def _format_text(result: dict[str, Any]) -> str:
                 extra = f" [Nostr: running pubkey={pubkey[:16]}...]"
             elif nostr_state:
                 extra = f" [Nostr: {nostr_state}]"
-            return _(
-                "msg.started",
-                default="pybitchat BLE Mesh node started on %(network)s as %(nickname)s.",
-            ) % {
-                "network": result.get("network", "?"),
-                "nickname": result.get("nickname", "?"),
-            } + extra
+            return (
+                _(
+                    "msg.started",
+                    default="pybitchat BLE Mesh node started on %(network)s as %(nickname)s.",
+                )
+                % {
+                    "network": result.get("network", "?"),
+                    "nickname": result.get("nickname", "?"),
+                }
+                + extra
+            )
         elif state == "stopped":
             return _("msg.stopped", default="pybitchat BLE Mesh node stopped.")
         else:
@@ -157,9 +176,11 @@ def _format_text(result: dict[str, Any]) -> str:
             nostr_state = result.get("nostr", "")
             if nostr_state:
                 extra = f" | Nostr: {nostr_state}"
-            return _("msg.status", default="pybitchat node state: %(state)s") % {
-                "state": state
-            } + extra
+            return (
+                _("msg.status", default="pybitchat node state: %(state)s")
+                % {"state": state}
+                + extra
+            )
     return f"Error: {result.get('error', 'unknown')}"
 
 
@@ -186,8 +207,10 @@ def run_tool(args: dict[str, Any]) -> str:
                 ensure_ascii=False,
             )
         result = _start(
-            nickname=nickname, network=network,
-            nostr=nostr, nostr_relays=nostr_relays,
+            nickname=nickname,
+            network=network,
+            nostr=nostr,
+            nostr_relays=nostr_relays,
         )
     elif action == "stop":
         result = _stop()
@@ -195,11 +218,18 @@ def run_tool(args: dict[str, Any]) -> str:
         result = _status()
         result["chat_mode"] = is_chat_mode()
     elif action == "chat_mode":
-        on = args.get("on")
-        if on is None:
-            result = {"ok": False, "error": "Parameter 'on' (true/false) is required for chat_mode action"}
+        mode = args.get("mode")
+        if mode is not None:
+            result = set_chat_mode(mode)
         else:
-            result = set_chat_mode(on)
+            on = args.get("on")
+            if on is None:
+                result = {
+                    "ok": False,
+                    "error": "Parameter 'mode' or 'on' is required for chat_mode action",
+                }
+            else:
+                result = set_chat_mode(on)
     else:
         err = _("err.unknown_action", default="Unknown action: %(action)s") % {
             "action": action
@@ -213,41 +243,84 @@ def run_tool(args: dict[str, Any]) -> str:
 
 # ---- :bitchat dynamic command -----------------------------------------------
 
+
 def _cmd_bitchat_on(arg: str, **kwargs) -> "CommandResult":
     """Handle :bitchat on"""
     from .pybitchat_shared import set_chat_mode as _set_chat_mode
-    result = _set_chat_mode(True)
+
+    result = _set_chat_mode("on")
     if result.get("ok"):
-        print(_("cmd.chat_on", default="bitchat chat mode: ON (mesh forwarding active)"))
+        print(
+            _("cmd.chat_on", default="bitchat chat mode: ON (mesh forwarding active)")
+        )
     else:
-        print(_("cmd.error", default="Error: %(error)s") % {"error": result.get("error", "unknown")})
+        print(
+            _("cmd.error", default="Error: %(error)s")
+            % {"error": result.get("error", "unknown")}
+        )
     from ..util_tools import CommandResult
+
     return CommandResult()
 
 
 def _cmd_bitchat_off(arg: str, **kwargs) -> "CommandResult":
     """Handle :bitchat off"""
     from .pybitchat_shared import set_chat_mode as _set_chat_mode
+
     result = _set_chat_mode(False)
     if result.get("ok"):
         print(_("cmd.chat_off", default="bitchat chat mode: OFF"))
     else:
-        print(_("cmd.error", default="Error: %(error)s") % {"error": result.get("error", "unknown")})
+        print(
+            _("cmd.error", default="Error: %(error)s")
+            % {"error": result.get("error", "unknown")}
+        )
     from ..util_tools import CommandResult
+
+    return CommandResult()
+
+
+def _cmd_bitchat_llm(arg: str, **kwargs) -> "CommandResult":
+    """Handle :bitchat llm"""
+    from .pybitchat_shared import set_chat_mode as _set_chat_mode
+
+    result = _set_chat_mode("llm")
+    if result.get("ok"):
+        print(
+            _(
+                "cmd.chat_llm",
+                default="bitchat chat mode: LLM (mesh forwarding + LLM injection active)",
+            )
+        )
+    else:
+        print(
+            _("cmd.error", default="Error: %(error)s")
+            % {"error": result.get("error", "unknown")}
+        )
+    from ..util_tools import CommandResult
+
     return CommandResult()
 
 
 def _cmd_bitchat_status(arg: str, **kwargs) -> "CommandResult":
     """Handle :bitchat status"""
     from .pybitchat_shared import is_chat_mode as _is_chat_mode, status as _status
+
     s = _status()
     chat = _is_chat_mode()
-    print(_("cmd.status_node", default="bitchat node: %(state)s") % {"state": s.get("state", "?")})
-    print(_("cmd.status_chat", default="  chat mode: %(mode)s") % {"mode": "ON" if chat else "OFF"})
+    label = {"off": "OFF", "on": "ON", "llm": "LLM"}.get(chat, chat.upper())
+    print(
+        _("cmd.status_node", default="bitchat node: %(state)s")
+        % {"state": s.get("state", "?")}
+    )
+    print(_("cmd.status_chat", default="  chat mode: %(mode)s") % {"mode": label})
     peers = s.get("peers", [])
     if peers:
         for p in peers:
-            print(_("cmd.status_peer", default="  peer: %(name)s") % {"name": p.get("nickname", p.get("id", "?"))})
+            print(
+                _("cmd.status_peer", default="  peer: %(name)s")
+                % {"name": p.get("nickname", p.get("id", "?"))}
+            )
     else:
         print(_("cmd.status_peers_none", default="  peers: none"))
     nostr_state = s.get("nostr", "stopped")
@@ -255,18 +328,35 @@ def _cmd_bitchat_status(arg: str, **kwargs) -> "CommandResult":
         pubkey = s.get("nostr_pubkey", "")
         relays = s.get("nostr_relays", [])
         conns = s.get("nostr_connections", 0)
-        print(_("cmd.status_nostr_running", default="  nostr: running (%(conns)d relay(s) connected)") % {"conns": conns})
-        print(_("cmd.status_nostr_pubkey", default="  nostr pubkey: %(pubkey)s") % {"pubkey": pubkey})
+        print(
+            _(
+                "cmd.status_nostr_running",
+                default="  nostr: running (%(conns)d relay(s) connected)",
+            )
+            % {"conns": conns}
+        )
+        print(
+            _("cmd.status_nostr_pubkey", default="  nostr pubkey: %(pubkey)s")
+            % {"pubkey": pubkey}
+        )
         if relays:
             for r in relays:
-                print(_("cmd.status_nostr_relay", default="  nostr relay: %(relay)s") % {"relay": r})
+                print(
+                    _("cmd.status_nostr_relay", default="  nostr relay: %(relay)s")
+                    % {"relay": r}
+                )
     else:
-        print(_("cmd.status_nostr_stopped", default="  nostr: %(state)s") % {"state": nostr_state})
+        print(
+            _("cmd.status_nostr_stopped", default="  nostr: %(state)s")
+            % {"state": nostr_state}
+        )
     from ..util_tools import CommandResult
+
     return CommandResult()
 
 
 # ---- :bitchat geo commands -------------------------------------------------
+
 
 def _cmd_bitchat_geo_join(arg: str, **kwargs) -> "CommandResult":
     """Handle :bitchat geo join [lat] [lng] [precision] — auto GPS if no args"""
@@ -277,48 +367,100 @@ def _cmd_bitchat_geo_join(arg: str, **kwargs) -> "CommandResult":
             lng = float(parts[1])
             precision = int(parts[2]) if len(parts) > 2 else 6
         except ValueError:
-            print(_("geo.error_invalid_coords", default="Error: lat/lng must be numbers"))
+            print(
+                _("geo.error_invalid_coords", default="Error: lat/lng must be numbers")
+            )
             from ..util_tools import CommandResult
+
             return CommandResult()
     else:
         # Auto-detect GPS position
         precision = int(parts[0]) if parts and parts[0].isdigit() else 6
         lat, lng = _auto_detect_position()
         if lat is None:
-            print(_("geo.usage_join_auto", default="No GPS position available. Usage: :bitchat geo join <lat> <lng> [precision=6]"))
+            print(
+                _(
+                    "geo.usage_join_auto",
+                    default="No GPS position available. Usage: :bitchat geo join <lat> <lng> [precision=6]",
+                )
+            )
             from ..util_tools import CommandResult
+
             return CommandResult()
-        print(_("geo.auto_detected", default="Auto-detected position: lat=%(lat)s, lng=%(lng)s (precision=%(precision)d)") % {"lat": lat, "lng": lng, "precision": precision})
+        print(
+            _(
+                "geo.auto_detected",
+                default="Auto-detected position: lat=%(lat)s, lng=%(lng)s (precision=%(precision)d)",
+            )
+            % {"lat": lat, "lng": lng, "precision": precision}
+        )
 
     from . import bitchat_geo as _geo
-    from .pybitchat_shared import _NOSTR as _nt_mod, get_identity
+    from .pybitchat_shared import _NOSTR as _nt_mod
+
     # Auto-start Nostr transport if not running
     if _nt_mod is None or not getattr(
         getattr(_nt_mod, "_NOSTR_INSTANCE", None), "is_running", False
     ):
         import socket as _socket
+
         default_nick = _socket.gethostname()
         from .pybitchat_shared import start as _pybitchat_start
+
         result = _pybitchat_start(nickname=default_nick, nostr=True)
         if not result.get("nostr") == "running":
-            print(_("geo.error_nostr_not_running", default="Error: Could not start Nostr transport: %(error)s") % {"error": result.get("nostr", "unknown")})
+            print(
+                _(
+                    "geo.error_nostr_not_running",
+                    default="Error: Could not start Nostr transport: %(error)s",
+                )
+                % {"error": result.get("nostr", "unknown")}
+            )
             from ..util_tools import CommandResult
+
             return CommandResult()
         from .pybitchat_shared import _NOSTR as _nt_mod
-        print(_("geo.auto_start_nostr", default="Auto-started Nostr transport as %(nickname)s") % {"nickname": default_nick})
+
+        print(
+            _(
+                "geo.auto_start_nostr",
+                default="Auto-started Nostr transport as %(nickname)s",
+            )
+            % {"nickname": default_nick}
+        )
     inst = getattr(_nt_mod, "_NOSTR_INSTANCE", None)
     result = _geo.join_geo_channel(inst, lat, lng, precision)
     if result.get("ok"):
         gh = result["geohash"]
         acc = result["accuracy"]
         pid = result["peer_id"]
-        print(_("geo.joined", default="Joined geo channel: %(geohash)s (%(accuracy)s)") % {"geohash": gh, "accuracy": acc})
-        print(_("geo.joined_peer_id", default="  peer_id=%(peer_id)s") % {"peer_id": pid})
-        print(_("geo.joined_coords", default="  lat=%(lat)s, lng=%(lng)s, precision=%(precision)d") % {"lat": lat, "lng": lng, "precision": precision})
-        print(_("geo.joined_desc", default="  Receiving messages from users in this area via Nostr."))
+        print(
+            _("geo.joined", default="Joined geo channel: %(geohash)s (%(accuracy)s)")
+            % {"geohash": gh, "accuracy": acc}
+        )
+        print(
+            _("geo.joined_peer_id", default="  peer_id=%(peer_id)s") % {"peer_id": pid}
+        )
+        print(
+            _(
+                "geo.joined_coords",
+                default="  lat=%(lat)s, lng=%(lng)s, precision=%(precision)d",
+            )
+            % {"lat": lat, "lng": lng, "precision": precision}
+        )
+        print(
+            _(
+                "geo.joined_desc",
+                default="  Receiving messages from users in this area via Nostr.",
+            )
+        )
     else:
-        print(_("cmd.error", default="Error: %(error)s") % {"error": result.get("error", "unknown")})
+        print(
+            _("cmd.error", default="Error: %(error)s")
+            % {"error": result.get("error", "unknown")}
+        )
     from ..util_tools import CommandResult
+
     return CommandResult()
 
 
@@ -329,10 +471,11 @@ def _auto_detect_position() -> tuple[float | None, float | None]:
     # Try Windows GPS sensor first
     try:
         from .windows_gps_tool import run_tool as _gps
+
         raw = _gps({})
         # Parse markdown table: "**緯度**: 34.654" or "**Latitude**: 34.654"
-        lat_m = _re.search(r'\*\*(?:緯度|Latitude)\*\*:?\s*([\d.-]+)', raw)
-        lng_m = _re.search(r'\*\*(?:経度|Longitude)\*\*:?\s*([\d.-]+)', raw)
+        lat_m = _re.search(r"\*\*(?:緯度|Latitude)\*\*:?\s*([\d.-]+)", raw)
+        lng_m = _re.search(r"\*\*(?:経度|Longitude)\*\*:?\s*([\d.-]+)", raw)
         if lat_m and lng_m:
             return float(lat_m.group(1)), float(lng_m.group(1))
     except Exception:
@@ -341,6 +484,7 @@ def _auto_detect_position() -> tuple[float | None, float | None]:
     # Fallback: IP geolocation
     try:
         from .get_geoip_tool import run_tool as _geoip
+
         raw = _geoip({"format": "json"})
         result = json.loads(raw)
         # ipinfo.io format: {"loc": "34.6850,135.8048"}
@@ -365,41 +509,70 @@ def _cmd_bitchat_geo_leave(arg: str, **kwargs) -> "CommandResult":
     if not geohash:
         print(_("geo.usage_leave", default="Usage: :bitchat geo leave <geohash>"))
         from ..util_tools import CommandResult
+
         return CommandResult()
     from . import bitchat_geo as _geo
     from .pybitchat_shared import _NOSTR as _nt_mod
+
     if _nt_mod is None:
-        print(_("geo.error_nostr_not_running", default="Error: Nostr transport not running."))
+        print(
+            _(
+                "geo.error_nostr_not_running",
+                default="Error: Nostr transport not running.",
+            )
+        )
         from ..util_tools import CommandResult
+
         return CommandResult()
     inst = getattr(_nt_mod, "_NOSTR_INSTANCE", None)
     if inst is None:
-        print(_("geo.error_nostr_not_running", default="Error: Nostr transport not running."))
+        print(
+            _(
+                "geo.error_nostr_not_running",
+                default="Error: Nostr transport not running.",
+            )
+        )
         from ..util_tools import CommandResult
+
         return CommandResult()
     result = _geo.leave_geo_channel(inst, geohash)
     if result.get("ok"):
-        print(_("geo.left", default="Left geo channel: %(geohash)s") % {"geohash": geohash})
+        print(
+            _("geo.left", default="Left geo channel: %(geohash)s")
+            % {"geohash": geohash}
+        )
     else:
-        print(_("cmd.error", default="Error: %(error)s") % {"error": result.get("error", "unknown")})
+        print(
+            _("cmd.error", default="Error: %(error)s")
+            % {"error": result.get("error", "unknown")}
+        )
     from ..util_tools import CommandResult
+
     return CommandResult()
 
 
 def _cmd_bitchat_geo_list(arg: str, **kwargs) -> "CommandResult":
     """Handle :bitchat geo list"""
     from . import bitchat_geo as _geo
+
     result = _geo.list_geo_channels()
     channels = result.get("channels", {})
     if not channels:
         print(_("geo.list_none", default="No active geo channels."))
     else:
-        print(_("geo.list_header", default="Active geo channels (%(count)d):") % {"count": len(channels)})
+        print(
+            _("geo.list_header", default="Active geo channels (%(count)d):")
+            % {"count": len(channels)}
+        )
         for geohash, info in channels.items():
             pid = info.get("peer_id", "?")
             print(_("geo.list_geohash", default="  %(geohash)s") % {"geohash": geohash})
-            print(_("geo.list_peer_id", default="    peer_id: %(peer_id)s") % {"peer_id": pid})
+            print(
+                _("geo.list_peer_id", default="    peer_id: %(peer_id)s")
+                % {"peer_id": pid}
+            )
     from ..util_tools import CommandResult
+
     return CommandResult()
 
 
@@ -408,27 +581,39 @@ def _cmd_bitchat_geo_list(arg: str, **kwargs) -> "CommandResult":
 
 # ---- :bitchat peers command ------------------------------------------------
 
+
 def _cmd_bitchat_peers(arg: str, **kwargs) -> "CommandResult":
     """Handle :bitchat peers - list discovered Nostr bitchat peers"""
     from .pybitchat_shared import _NOSTR as _nt_mod
+
     if _nt_mod is None:
         print("Error: Nostr transport not running.")
         from ..util_tools import CommandResult
+
         return CommandResult()
     inst = getattr(_nt_mod, "_NOSTR_INSTANCE", None)
     if inst is None or not inst.is_running:
         print("Error: Nostr transport not running.")
         from ..util_tools import CommandResult
+
         return CommandResult()
     peers = inst.discovered_peers
     if not peers:
         print(_("peers.list_none", default="No bitchat peers discovered yet."))
     else:
-        print(_("peers.list_header", default="Discovered bitchat peers (%(count)d):") % {"count": len(peers)})
+        print(
+            _("peers.list_header", default="Discovered bitchat peers (%(count)d):")
+            % {"count": len(peers)}
+        )
         for pubkey, nick in sorted(peers.items()):
-            print(_("peers.list_entry", default="  %(nick)s (%(pubkey)s)") % {"nick": nick, "pubkey": pubkey[:16] + "..."})
+            print(
+                _("peers.list_entry", default="  %(nick)s (%(pubkey)s)")
+                % {"nick": nick, "pubkey": pubkey[:16] + "..."}
+            )
     from ..util_tools import CommandResult
+
     return CommandResult()
+
 
 # ---- End peers command ----------------------------------------------------
 
@@ -451,6 +636,12 @@ CMD_SPECS = [
         "subcommand": "status",
         "handler": _cmd_bitchat_status,
         "help_text": "  :bitchat status   Show node and chat mode status",
+    },
+    {
+        "command": "bitchat",
+        "subcommand": "llm",
+        "handler": _cmd_bitchat_llm,
+        "help_text": "  :bitchat llm      Enable chat mode with LLM injection (peer msgs sent to LLM)",
     },
     # Geo channel commands
     {
