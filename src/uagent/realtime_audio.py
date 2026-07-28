@@ -7,6 +7,7 @@ full-duplex: microphone capture is never muted while the assistant is speaking.
 from __future__ import annotations
 
 import importlib
+import threading
 
 import numpy as np
 
@@ -18,6 +19,7 @@ class EchoProcessor:
     def __init__(self, sample_rate: int = 24_000) -> None:
         del sample_rate  # 24 kHz is converted to the AEC3-supported 48 kHz.
         self._far_reference = bytearray()
+        self._reference_lock = threading.Lock()
         self._module = None
         try:
             mod = importlib.import_module("pywebrtc_audio")
@@ -41,15 +43,17 @@ class EchoProcessor:
 
     def reference(self, data: bytes) -> None:
         """Feed the PCM frame that was actually handed to the speaker."""
-        self._far_reference.extend(data)
-        # Do not let a delayed callback build an unbounded stale reference.
-        max_reference = FRAME_BYTES * 50  # 500 ms
-        if len(self._far_reference) > max_reference:
-            del self._far_reference[:-max_reference]
+        with self._reference_lock:
+            self._far_reference.extend(data)
+            # Do not let a delayed callback build an unbounded stale reference.
+            max_reference = FRAME_BYTES * 50  # 500 ms
+            if len(self._far_reference) > max_reference:
+                del self._far_reference[:-max_reference]
 
     def clear_reference(self) -> None:
         """Drop stale reference when no speaker audio is being played."""
-        self._far_reference.clear()
+        with self._reference_lock:
+            self._far_reference.clear()
 
     def capture(self, data: bytes) -> bytes:
         """Process one 10 ms near-end frame against its far-end reference."""
@@ -63,12 +67,12 @@ class EchoProcessor:
         # Match the speaker reference to this capture frame. If playback has
         # not reached this point yet, do not invent a reference; passing the
         # near signal through is safer than cancelling the user's voice.
-        if len(self._far_reference) >= len(data):
+        with self._reference_lock:
+            if len(self._far_reference) < len(data):
+                return data
             far_bytes = bytes(self._far_reference[: len(data)])
             del self._far_reference[: len(data)]
-            far = np.frombuffer(far_bytes, dtype=np.int16)
-        else:
-            return data
+        far = np.frombuffer(far_bytes, dtype=np.int16)
 
         near_48k = np.repeat(near, 2).astype(np.int16, copy=False)
         far_48k = np.repeat(far, 2).astype(np.int16, copy=False)
