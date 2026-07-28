@@ -4527,3 +4527,20 @@ msgstr "[WARN] Web の指示プロンプトに失敗しました (%(err)s)。す
 msgid "Specified workdir path is a file: %(path)s"
 msgstr "指定された workdir がファイルです: %(path)s"
 
+
+#: src/uagent/realtime.py:97
+msgid ""
+"Always respond in Japanese. Use Japanese for both speech and "
+"transcription unless the user explicitly requests another language."
+msgstr ""
+"必ず日本語で応答してください。音声と文字起こしの両方に日本語を使用し、"
+"ユーザーが明示的に別の言語を求めた場合のみ変更してください。"
+
+#, python-format
+#: src/uagent/realtime.py:101
+msgid ""
+"Respond in the display language (%(lang)s) unless the user asks "
+"otherwise. Use the same language for spoken audio and the transcript."
+msgstr ""
+"表示言語（%(lang)s）で応答してください。ユーザーが別の言語を求めない限り、"
+"音声と文字起こしに同じ言語を使用してください。"

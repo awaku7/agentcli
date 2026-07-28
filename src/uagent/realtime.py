@@ -18,7 +18,7 @@ import threading
 import time
 from typing import Any
 
-from .i18n import detect_lang
+from .i18n import _, detect_lang
 from .realtime_audio import EchoProcessor
 
 
@@ -93,14 +93,14 @@ def _language_instructions() -> str:
     """Keep Realtime voice replies aligned with the CLI display language."""
     lang = _openai_language_code()
     if lang == "ja":
-        return (
-            "必ず日本語で応答してください。音声も文字起こしも日本語を使用し、"
-            "ユーザーが明示的に別の言語を求めた場合のみ変更してください。"
+        return _(
+            "Always respond in Japanese. Use Japanese for both speech and "
+            "transcription unless the user explicitly requests another language."
         )
-    return (
-        f"Respond in the display language ({lang}) unless the user asks otherwise. "
+    return _(
+        "Respond in the display language (%(lang)s) unless the user asks otherwise. "
         "Use the same language for spoken audio and the transcript."
-    )
+    ) % {"lang": lang}
 
 
 def _depname(provider: str) -> str:

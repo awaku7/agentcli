@@ -4779,3 +4779,16 @@ msgstr "[WARN] Web talimat istemi başarısız oldu (%(err)s); tümü otomatik y
 msgid "Specified workdir path is a file: %(path)s"
 msgstr "Belirtilen çalışma dizini yolu bir dosyadır: %(path)s"
 
+
+#: src/uagent/realtime.py:97
+msgid ""
+"Always respond in Japanese. Use Japanese for both speech and "
+"transcription unless the user explicitly requests another language."
+msgstr ""
+
+#, python-format
+#: src/uagent/realtime.py:101
+msgid ""
+"Respond in the display language (%(lang)s) unless the user asks "
+"otherwise. Use the same language for spoken audio and the transcript."
+msgstr ""

@@ -4837,3 +4837,16 @@ msgstr "[WARN] Сбой запроса инструкций Web (%(err)s); ав�
 msgid "Specified workdir path is a file: %(path)s"
 msgstr "Указанный путь рабочей папки — это файл: %(path)s"
 
+
+#: src/uagent/realtime.py:97
+msgid ""
+"Always respond in Japanese. Use Japanese for both speech and "
+"transcription unless the user explicitly requests another language."
+msgstr ""
+
+#, python-format
+#: src/uagent/realtime.py:101
+msgid ""
+"Respond in the display language (%(lang)s) unless the user asks "
+"otherwise. Use the same language for spoken audio and the transcript."
+msgstr ""

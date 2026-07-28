@@ -4854,3 +4854,16 @@ msgstr "[WARN] Échec de l'invite d'instructions Web (%(err)s) ; chargement auto
 msgid "Specified workdir path is a file: %(path)s"
 msgstr "Le chemin du répertoire de travail spécifié est un fichier : %(path)s"
 
+
+#: src/uagent/realtime.py:97
+msgid ""
+"Always respond in Japanese. Use Japanese for both speech and "
+"transcription unless the user explicitly requests another language."
+msgstr ""
+
+#, python-format
+#: src/uagent/realtime.py:101
+msgid ""
+"Respond in the display language (%(lang)s) unless the user asks "
+"otherwise. Use the same language for spoken audio and the transcript."
+msgstr ""
