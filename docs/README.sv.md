@@ -124,16 +124,6 @@ Se [VSCODE.md](https://github.com/awaku7/agentcli/blob/main/docs/VSCODE.md) för
 Se [IOT_USECASE.md](https://github.com/awaku7/agentcli/blob/main/docs/IOT_USECASE.md)
 
 
-### 🏠 IoT-enhetskontroll
-
-- **BACnet**: Läs/skriv BACnet/IP-enheter (HVAC, belysning, effektmätare). COV-abonnemang för push-meddelanden
-- **Modbus TCP**: Läs/skriv håll-/inmatningsregister och spolar. Pollingbaserad ändringsövervakning
-- **OPC UA**: Bläddra i adressutrymmet, läs/skriv variabler, prenumerera på dataändringar
-- **SwitchBot**: Molnbatchkontroll och BLE-skanning/kontroll. Polling-baserad prenumeration
-- **ECHONET Lite**: Upptäck, kontrollera och prenumerera på INF-aviseringar från hushållsapparater (AC, lampor, varmvattenberedare, etc.)
-- **Ärende**: Läs-/skrivkontroll + attributprenumeration för övervakning av tillståndsändringar
-- **UPnP]- **UPnP]=Device forwarding**: [IOT_USECASE.md](IOT_USECASE.md)
-
 ### 🎯 Agent Skills Marketplace
 
 `:skills mp_search` för att bläddra i [SkillsMP](https://skillsmp.com) och [ClawHub](https://clawhub.ai) för gemenskapskunskaper.

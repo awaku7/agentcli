@@ -124,18 +124,6 @@ See [DEVELOP_PLUGIN.md](src/uagent/docs/DEVELOP_PLUGIN.md) for full documentatio
 [IOT_USECASE.md](https://github.com/awaku7/agentcli/blob/main/docs/IOT_USECASE.md) را ببینید
 
 
-### 🏠 کنترل دستگاه اینترنت اشیا
-
-- **BACnet**: خواندن/نوشتن دستگاه های BACnet/IP (تهویه مطبوع، روشنایی، کنتورهای برق). اشتراک COV برای اعلان‌های فشار
-- **Modbus TCP**: رجیسترها و سیم پیچ‌های نگهداری/ورودی خواندن/نوشتن. نظارت بر تغییرات مبتنی بر نظرسنجی
-- **OPC UA**: فضای آدرس را مرور کنید، متغیرهای خواندن/نوشتن، اشتراک در تغییرات داده
-- **SwitchBot**: کنترل دسته ای Cloud و اسکن/کنترل BLE. اشتراک مبتنی بر نظرسنجی
-- **ECHONET Lite**: اعلان‌های INF را از لوازم خانگی (AC، چراغ‌ها، آبگرمکن‌ها و غیره) کشف، کنترل و مشترک شوید
-- **موضوع**: کنترل خواندن/نوشتن + اشتراک ویژگی برای نظارت بر تغییر وضعیت
-- ** درگاه UPnP** ارسال
-
-به [IOT_USECASE.md](IOT_USECASE.md) مراجعه کنید
-
 ### 🎯 بازار مهارت های نماینده
 
 «:skills mp_search» برای مرور [SkillsMP](https://skillsmp.com) و [ClawHub](https://clawhub.ai) برای مهارت‌های اجتماعی.

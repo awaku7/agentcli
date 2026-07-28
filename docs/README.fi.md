@@ -122,16 +122,6 @@ Katso [VSCODE.md](https://github.com/awaku7/agentcli/blob/main/docs/VSCODE.md) s
 Katso [IOT_USECASE.md](https://github.com/awaku7/agentcli/blob/main/docs/IOT_USECASE.md)
 
 
-### 🏠 IoT-laitteiden ohjaus
-
-- **BACnet**: Lue/kirjoita BACnet/IP-laitteita (LVI, valaistus, tehomittarit). COV-tilaus push-ilmoituksia varten
-- **Modbus TCP**: Lukea/kirjoita pito-/syöttörekisterit ja kelat. Kyselyyn perustuva muutosten seuranta
-- **OPC UA**: Selaa osoiteavaruutta, lue/kirjoita muuttujia, tilaa datamuutoksia
-- **SwitchBot**: Cloud eräohjaus ja BLE-skannaus/hallinta. Kyselyyn perustuva tilaus
-- **ECHONET Lite**: Löydä, hallitse ja tilaa INF-ilmoitukset kodinkoneista (AC, valot, vedenlämmittimet jne.)
-- **Tärkeää**: Luku-/kirjoitusohjaus + attribuuttien tilaus tilanmuutosten seurantaa varten
-[=]- **UPnP**: Laitteen etsintä ja IGD-portti BR=]Katso [IOT_USECASE.md](IOT_USECASE.md)
-
 ### 🎯 Agent Skills Marketplace
 
 `:skills mp_search` selataksesi [SkillsMP](https://skillsmp.com) ja [ClawHub](https://clawhub.ai) yhteisötaitoja.

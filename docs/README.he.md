@@ -124,16 +124,6 @@ See [DEVELOP_PLUGIN.md](src/uagent/docs/DEVELOP_PLUGIN.md) for full documentatio
 ראה [IOT_USECASE.md](https://github.com/awaku7/agentcli/blob/main/docs/IOT_USECASE.md)
 
 
-### 🏠 בקרת מכשירי IoT
-
-- **BACnet**: קריאה/כתיבה של התקני BACnet/IP (HVAC, תאורה, מדי כוח). מנוי COV להודעות דחיפה
-- **Modbus TCP**: קריאה/כתיבה של אוגרי החזקה/קלט וסלילים. ניטור שינויים מבוסס סקרים
-- **OPC UA**: דפדוף במרחב כתובות, קריאה/כתיבה משתנים, הירשם לשינויי נתונים
-- **SwitchBot**: בקרת אצווה בענן וסריקה/בקרה BLE. מנוי מבוסס סקרים
-- **ECHONET Lite**: גלה, שלט והירשם להודעות INF ממכשירי חשמל ביתיים (AC, תאורה, מחממי מים וכו')
-- **עניין**: בקרת קריאה/כתיבה + מנוי לניטור שינוי מצב
-- **UPnP]- **UPnP**: [IOT_USECASE.md](IOT_USECASE.md)
-
 ### 🎯 Agent Skills Marketplace
 
 `:skills mp_search` כדי לדפדף ב-[SkillsMP](https://skillsmp.com) ו-[ClawHub](https://clawhub.ai) לקבלת כישורי קהילה.

@@ -124,18 +124,6 @@ Lihat [VSCODE.md](https://github.com/awaku7/agentcli/blob/main/docs/VSCODE.md) u
 Lihat [IOT_USECASE.md](https://github.com/awaku7/agentcli/blob/main/docs/IOT_USECASE.md)
 
 
-### 🏠 Kontrol Perangkat IoT
-
-- **BACnet**: Membaca/menulis perangkat BACnet/IP (HVAC, penerangan, pengukur daya). Langganan COV untuk pemberitahuan push
-- **Modbus TCP**: Baca/tulis holding/input register dan koil. Pemantauan perubahan berbasis polling
-- **OPC UA**: Telusuri ruang alamat, baca/tulis variabel, berlangganan perubahan data
-- **SwitchBot**: Kontrol batch cloud & pemindaian/kontrol BLE. Langganan berbasis polling
-- **ECHONET Lite**: Temukan, kontrol, dan berlangganan notifikasi INF dari peralatan rumah tangga (AC, lampu, pemanas air, dll.)
-- **Materi**: Kontrol baca/tulis + langganan atribut untuk pemantauan perubahan status
-- **UPnP**: Penemuan perangkat & penerusan port IGD
-
-Lihat [IOT_USECASE.md](IOT_USECASE.md)
-
 ### 🎯 Pasar Keterampilan Agen
 
 `:skills mp_search` untuk menelusuri [SkillsMP](https://skillsmp.com) dan [ClawHub](https://clawhub.ai) untuk keterampilan komunitas.

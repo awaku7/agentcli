@@ -122,16 +122,6 @@ Tekintse meg a [VSCODE.md](https://github.com/awaku7/agentcli/blob/main/docs/VSC
 Lásd: [IOT_USECASE.md](https://github.com/awaku7/agentcli/blob/main/docs/IOT_USECASE.md)
 
 
-### 🏠 IoT-eszközvezérlés
-
-- **BACnet**: BACnet/IP-eszközök olvasása/írása (HVAC, világítás, teljesítménymérők). COV-előfizetés a push értesítésekhez
-- **Modbus TCP**: tartási/bemeneti regiszterek és tekercsek olvasása/írása. Lekérdezésalapú változásfigyelés
-- **OPC UA**: Böngésszen a címtérben, olvasson/írjon változókat, iratkozzon fel az adatok változásaira
-- **SwitchBot**: Kötegelt felhővezérlés és BLE-vizsgálat/vezérlés. Lekérdezésalapú előfizetés
-- **ECHONET Lite**: Fedezze fel, vezérelje és iratkozzon fel a háztartási készülékek INF-értesítéseire (AC, lámpák, vízmelegítők stb.)
-- **Lényeg**: olvasási/írási vezérlés + attribútum-előfizetés az állapotváltozás figyeléséhez
-- **UPnP**: Eszközfelderítés és IGD-port továbbítása[=] [IOT_USECASE.md](IOT_USECASE.md)
-
 ### 🎯 Agent Skills Marketplace
 
 A `:skills mp_search' segítségével böngészhet a [SkillsMP](https://skillsmp.com) és a [ClawHub](https://clawhub.ai) webhelyen közösségi készségekért.

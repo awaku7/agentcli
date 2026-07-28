@@ -124,18 +124,6 @@ VS Code 확장(설치, 명령, 키 바인딩 및 구성)에 대한 자세한 내
 [IOT_USECASE.md](https://github.com/awaku7/agentcli/blob/main/docs/IOT_USECASE.md)를 참조하세요.
 
 
-### 🏠 IoT 장치 제어
-
-- **BACnet**: BACnet/IP 장치(HVAC, 조명, 전력계) 읽기/쓰기. 푸시 알림을 위한 COV 구독
-- **Modbus TCP**: 보유/입력 레지스터 및 코일 읽기/쓰기. 폴링 기반 변경 모니터링
-- **OPC UA**: 주소 공간 탐색, 변수 읽기/쓰기, 데이터 변경 구독
-- **SwitchBot**: 클라우드 일괄 제어 및 BLE 스캔/제어. 폴링 기반 구독
-- **ECHONET Lite**: 가전제품(AC, 조명, 온수기 등)의 INF 알림을 검색, 제어 및 구독합니다.
-- **문제**: 읽기/쓰기 제어 + 상태 변경 모니터링을 위한 속성 구독
-- **UPnP**: 장치 검색 및 IGD 포트 전달
-
-참조 [IOT_USECASE.md](IOT_USECASE.md)
-
 ### 🎯 상담원 기술 마켓플레이스
 
 `:skills mp_search`를 사용하여 [SkillsMP](https://skillsmp.com) 및 [ClawHub](https://clawhub.ai)에서 커뮤니티 기술을 찾아보세요.

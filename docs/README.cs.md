@@ -124,17 +124,6 @@ Podrobnosti o rozšíření VS Code – instalace, příkazy, klávesové zkratk
 Viz [IOT_USECASE.md](https://github.com/awaku7/agentcli/blob/main/docs/IOT_USECASE.md)
 
 
-### 🏠 Ovládání zařízení IoT
-
-- **BACnet**: Čtení/zápis zařízení BACnet/IP (HVAC, osvětlení, měřiče výkonu). Předplatné COV pro oznámení push
-- **Modbus TCP**: Čtení/zápis přidržovacích/vstupních registrů a cívek. Monitorování změn založené na dotazování
-- **OPC UA**: Procházení adresního prostoru, čtení/zápis proměnných, přihlášení k odběru změn dat
-- **SwitchBot**: Cloudové dávkové řízení a BLE skenování/ovládání. Předplatné založené na hlasování
-– **ECHONET Lite**: Objevte, ovládejte a přihlaste se k odběru oznámení INF z domácích spotřebičů (klimatizace, světla, ohřívače vody atd.)
-– **Záležitost**: Řízení čtení/zápisu + předplatné atributů pro sledování změny stavu
-– **UPnP**: Zjišťování zařízení a přesměrování portů IGD[=EBR=]
- [IOT_USECASE.md](IOT_USECASE.md)
-
 ### 🎯 Trh dovedností agentů
 
 `:skills mp_search` pro procházení [SkillsMP](https://skillsmp.com) a [ClawHub](https://clawhub.ai) pro komunitní dovednosti.

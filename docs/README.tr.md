@@ -124,18 +124,6 @@ Kurulum, komutlar, tuş atamaları ve yapılandırma gibi VS Code uzantısıyla 
 Bkz. [IOT_USECASE.md](https://github.com/awaku7/agentcli/blob/main/docs/IOT_USECASE.md)
 
 
-### 🏠 IoT Cihaz Kontrolü
-
-- **BACnet**: BACnet/IP cihazlarını (HVAC, aydınlatma, güç sayaçları) okuma/yazma. Anında bildirimler için COV aboneliği
-- **Modbus TCP**: Tutma/giriş kayıtlarını ve bobinlerini okuma/yazma. Yoklama tabanlı değişiklik izleme
-- **OPC UA**: Adres alanına göz atın, değişkenleri okuyun/yazın, veri değişikliklerine abone olun
-- **SwitchBot**: Bulut toplu kontrolü ve BLE tarama/kontrol. Anket tabanlı abonelik
-- **ECHONET Lite**: Ev aletlerinden (AC, ışıklar, su ısıtıcıları vb.) gelen INF bildirimlerini keşfedin, kontrol edin ve abone olun
-- **Madde**: Durum değişikliği izleme için okuma/yazma kontrolü + özellik aboneliği
-- **UPnP**: Cihaz keşfi ve IGD bağlantı noktası yönlendirme
-
-Bkz. [IOT_USECASE.md](IOT_USECASE.md)
-
 ### 🎯 Temsilci Becerileri Pazarı
 
 Topluluk becerileri için [SkillsMP](https://skillsmp.com) ve [ClawHub](https://clawhub.ai)'a göz atmak için `:skills mp_search`.

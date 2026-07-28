@@ -124,18 +124,6 @@ Consulte [VSCODE.md](https://github.com/awaku7/agentcli/blob/main/docs/VSCODE.md
 Consulte [IOT_USECASE.md](https://github.com/awaku7/agentcli/blob/main/docs/IOT_USECASE.md)
 
 
-### 🏠 Control de dispositivos IoT
-
-- **BACnet**: lectura/escritura de dispositivos BACnet/IP (HVAC, iluminación, medidores de energía). Suscripción COV para notificaciones push
-- **Modbus TCP**: lectura/escritura de registros de retención/entrada y bobinas. Monitoreo de cambios basado en sondeo
-- **OPC UA**: explorar el espacio de direcciones, leer/escribir variables, suscribirse a cambios de datos
-- **SwitchBot**: control de lotes en la nube y escaneo/control BLE. Suscripción basada en encuestas
-- **ECHONET Lite**: descubra, controle y suscríbase a notificaciones INF de electrodomésticos (aire acondicionado, luces, calentadores de agua, etc.)
-- **Materia**: control de lectura/escritura + suscripción de atributos para monitoreo de cambios de estado
-- **UPnP**: descubrimiento de dispositivos y reenvío de puertos IGD
-
-Ver [IOT_USECASE.md](IOT_USECASE.md)
-
 ### 🎯 Mercado de habilidades para agentes
 
 `:skills mp_search` para explorar [SkillsMP](https://skillsmp.com) y [ClawHub](https://clawhub.ai) en busca de habilidades comunitarias.

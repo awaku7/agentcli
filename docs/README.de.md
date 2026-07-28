@@ -122,18 +122,6 @@ Weitere Informationen zur VS Code-Erweiterung – Installation, Befehle, Tastenk
 Siehe [IOT_USECASE.md](https://github.com/awaku7/agentcli/blob/main/docs/IOT_USECASE.md)
 
 
-### 🏠 IoT-Gerätesteuerung
-
-- **BACnet**: Lesen/Schreiben von BACnet/IP-Geräten (HLK, Beleuchtung, Stromzähler). COV-Abonnement für Push-Benachrichtigungen
-- **Modbus TCP**: Halte-/Eingaberegister und Spulen lesen/schreiben. Abfragebasierte Änderungsüberwachung
-- **OPC UA**: Adressraum durchsuchen, Variablen lesen/schreiben, Datenänderungen abonnieren
-- **SwitchBot**: Cloud-Batch-Steuerung und BLE-Scan/Steuerung. Abfragebasiertes Abonnement
-- **ECHONET Lite**: Entdecken, steuern und abonnieren Sie INF-Benachrichtigungen von Haushaltsgeräten (Klimaanlage, Lichter, Warmwasserbereiter usw.)
-- **Matter**: Lese-/Schreibsteuerung + Attributabonnement für die Überwachung von Zustandsänderungen
-- **UPnP**: Geräteerkennung und IGD-Portweiterleitung
-
-Siehe [IOT_USECASE.md](IOT_USECASE.md)
-
 ### 🎯 Marktplatz für Agentenkompetenzen
 
 `:skills mp_search`, um [SkillsMP](https://skillsmp.com) und [ClawHub](https://clawhub.ai) nach Community-Fähigkeiten zu durchsuchen.

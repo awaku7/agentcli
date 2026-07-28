@@ -124,18 +124,6 @@ See [DEVELOP_PLUGIN.md](src/uagent/docs/DEVELOP_PLUGIN.md) for full documentatio
 Δείτε το [IOT_USECASE.md](https://github.com/awaku7/agentcli/blob/main/docs/IOT_USECASE.md)
 
 
-### 🏠 Έλεγχος συσκευής IoT
-
-- **BACnet**: Ανάγνωση/εγγραφή συσκευών BACnet/IP (HVAC, φωτισμός, μετρητές ισχύος). Συνδρομή COV για ειδοποιήσεις push
-- **Modbus TCP**: Ανάγνωση/εγγραφή αναμονής/εισαγωγή καταχωρητών και πηνίων. Παρακολούθηση αλλαγών βάσει δημοσκοπήσεων
-- **OPC UA**: Περιήγηση στο χώρο διευθύνσεων, ανάγνωση/εγγραφή μεταβλητών, εγγραφή σε αλλαγές δεδομένων
-- **SwitchBot**: Έλεγχος παρτίδας στο Cloud & σάρωση/έλεγχος BLE. Συνδρομή βάσει ψηφοφορίας
-- **ECHONET Lite**: Ανακαλύψτε, ελέγξτε και εγγραφείτε σε ειδοποιήσεις INF από οικιακές συσκευές (AC, φώτα, θερμοσίφωνες, κ.λπ.)
-- **Θέμα**: Έλεγχος ανάγνωσης/εγγραφής + συνδρομή χαρακτηριστικών για παρακολούθηση αλλαγών κατάστασης
-- **Πόρτα συσκευής UPnP** προώθηση
-
-Δείτε [IOT_USECASE.md](IOT_USECASE.md)
-
 ### 🎯 Agent Skills Marketplace
 
 `:skills mp_search` για να περιηγηθείτε στο [SkillsMP](https://skillsmp.com) και στο [ClawHub](https://clawhub.ai) για δεξιότητες κοινότητας.

@@ -124,16 +124,6 @@ Tazama [VSCODE.md](https://github.com/awaku7/agentcli/blob/main/docs/VSCODE.md) 
 Tazama [IOT_USECASE.md](https://github.com/awaku7/agentcli/blob/main/docs/IOT_USECASE.md)
 
 
-### 🏠 Kidhibiti cha Kifaa cha IoT
-
-- **BACnet**: Soma/andika vifaa vya BACnet/IP (HVAC, taa, mita za umeme). Usajili wa COV kwa arifa zinazotumwa na programu huitumii
-- **Modbus TCP**: Soma/andika rejista za kushikilia/kuingiza na koili. Ufuatiliaji wa mabadiliko kulingana na upigaji kura
-- **OPC UA**: Vinjari nafasi ya anwani, vibadilishi vya kusoma/kuandika, jisajili ili upate mabadiliko ya data
-- **SwitchBot**: Udhibiti wa bechi ya Wingu & uchanganuzi/udhibiti wa BLE. Usajili unaotegemea upigaji kura
-- **ECHONET Lite**: Gundua, dhibiti na ujiandikishe kupokea arifa za INF kutoka kwa vifaa vya nyumbani (AC, taa, hita za maji, n.k.)
-- **Jambo**: Udhibiti wa Kusoma/kuandika + sifa kwa ufuatiliaji wa mabadiliko ya hali
-- **UPnP**: Ugunduzi wa DUPnP**: Ugunduzi wa kifaa na[=[=] [IOT_USECASE.md](IOT_USECASE.md)
-
 ### 🎯 Soko la Ujuzi wa Wakala
 
 `:ujuzi mp_search` ili kuvinjari [SkillsMP](https://skillsmp.com) na [ClawHub](https://clawhub.ai) kwa ujuzi wa jumuiya.

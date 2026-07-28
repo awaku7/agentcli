@@ -124,18 +124,6 @@ Zie [VSCODE.md](https://github.com/awaku7/agentcli/blob/main/docs/VSCODE.md) voo
 Zie [IOT_USECASE.md](https://github.com/awaku7/agentcli/blob/main/docs/IOT_USECASE.md)
 
 
-### 🏠 IoT-apparaatbeheer
-
-- **BACnet**: Lezen/schrijven van BACnet/IP-apparaten (HVAC, verlichting, energiemeters). COV-abonnement voor pushmeldingen
-- **Modbus TCP**: registers en spoelen lezen/schrijven/invoeren. Op peilingen gebaseerde wijzigingsmonitoring
-- **OPC UA**: Blader door adresruimte, lees/schrijf variabelen, abonneer u op gegevenswijzigingen
-- **SwitchBot**: Cloud batchcontrole en BLE-scan/controle. Op peilingen gebaseerd abonnement
-- **ECHONET Lite**: ontdek, beheer en abonneer u op INF-meldingen van huishoudelijke apparaten (airconditioning, verlichting, boilers, enz.)
-- **Kwestie**: lees-/schrijfcontrole + attribuutabonnement voor monitoring van statuswijzigingen
-- **UPnP**: apparaatdetectie en IGD-poort doorsturen
-
-Zie [IOT_USECASE.md](IOT_USECASE.md)
-
 ### 🎯 Marktplaats voor agentenvaardigheden
 
 `:skills mp_search` om door [SkillsMP](https://skillsmp.com) en [ClawHub](https://clawhub.ai) te bladeren voor communityvaardigheden.

@@ -125,18 +125,6 @@ See [DEVELOP_PLUGIN.md](src/uagent/docs/DEVELOP_PLUGIN.md) for full documentatio
 पहा [IOT_USECASE.md](https://github.com/awaku7/agentcli/blob/main/docs/IOT_USECASE.md)
 
 
-### 🏠 IoT डिव्हाइस नियंत्रण
-
-- **BACnet**: BACnet/IP डिव्हाइस वाचा/लिहा (HVAC, प्रकाश, वीज मीटर). पुश नोटिफिकेशन्ससाठी COV सबस्क्रिप्शन
-- **Modbus TCP**: होल्डिंग/इनपुट रजिस्टर आणि कॉइल वाचा/लिहा. मतदान-आधारित बदल निरीक्षण
-- **OPC UA**: ॲड्रेस स्पेस ब्राउझ करा, व्हेरिएबल्स वाचा/लिहा, डेटा बदलांची सदस्यता घ्या
-- **स्विचबॉट**: क्लाउड बॅच कंट्रोल आणि BLE स्कॅन/नियंत्रण. मतदान-आधारित सदस्यत्व
-- **ECHONET Lite**: घरगुती उपकरणे (AC, लाइट, वॉटर हीटर्स इ.) वरून INF सूचना शोधा, नियंत्रित करा आणि सदस्यत्व घ्या
-- **मॅटर**: वाचा/लिहा नियंत्रण + राज्य बदल निरीक्षणासाठी विशेषता सदस्यता
-- **UPnP** 
-- **UPnP**= फॉरवर्ड करणे 
-- **UPnP**: डीव्हाइस शोधणे [IOT_USECASE.md](IOT_USECASE.md)
-
 ### 🎯 एजंट स्किल्स मार्केटप्लेस
 
 समुदाय कौशल्यांसाठी [SkillsMP](https://skillsmp.com) आणि [ClawHub](https://clawhub.ai) ब्राउझ करण्यासाठी `:skills mp_search`.
