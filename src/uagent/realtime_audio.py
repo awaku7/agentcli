@@ -5,6 +5,7 @@ The dependency is optional so normal CLI, TTS, and STT behavior is unchanged.
 from __future__ import annotations
 
 import importlib
+import time
 
 import numpy as np
 
@@ -16,6 +17,7 @@ class EchoProcessor:
     def __init__(self, sample_rate: int = 24_000) -> None:
         self._reverse = bytearray()
         self._reverse_seen = False
+        self._last_reverse_at = 0.0
         self._module = None
         try:
             mod = importlib.import_module("webrtc_audio_processing")
@@ -48,6 +50,7 @@ class EchoProcessor:
     def reverse(self, data: bytes) -> list[bytes]:
         """Feed far-end speaker reference and return processed output frames."""
         self._reverse_seen = True
+        self._last_reverse_at = time.monotonic()
         self._reverse.extend(data)
         result: list[bytes] = []
         while len(self._reverse) >= FRAME_BYTES:
@@ -65,7 +68,14 @@ class EchoProcessor:
         # audio until it has received a far-end reference. Preserve the first
         # user turn (before the assistant has spoken) instead of turning it
         # into silence.
-        if self._module is None or not self._reverse_seen:
+        # AEC2 is only used while a recent far-end reference exists. Once
+        # playback has finished, stale reference frames can cancel the next
+        # user turn, especially with headphones.
+        if (
+            self._module is None
+            or not self._reverse_seen
+            or time.monotonic() - self._last_reverse_at > 0.75
+        ):
             return data
         samples = np.frombuffer(data, dtype=np.int16)
         internal = np.repeat(samples, 2).astype(np.int16, copy=False).tobytes()
