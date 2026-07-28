@@ -4496,11 +4496,11 @@ msgstr "Njia ya workdir iliyobainishwa ni faili: %(path)s"
 msgid ""
 "Always respond in Japanese. Use Japanese for both speech and "
 "transcription unless the user explicitly requests another language."
-msgstr ""
+msgstr "Jibu kwa Kijapani kila wakati. Tumia Kijapani kwa matamshi na unukuzi isipokuwa mtumiaji aombe lugha nyingine waziwazi."
 
 #, python-format
 #: src/uagent/realtime.py:101
 msgid ""
 "Respond in the display language (%(lang)s) unless the user asks "
 "otherwise. Use the same language for spoken audio and the transcript."
-msgstr ""
+msgstr "Jibu katika lugha ya kuonyesha (%(lang)s) isipokuwa mtumiaji atauliza vinginevyo. Tumia lugha sawa kwa sauti inayozungumzwa na manukuu."

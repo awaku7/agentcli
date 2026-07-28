@@ -4785,11 +4785,11 @@ msgstr "Zadaná cesta k pracovnímu adresáři je soubor: %(path)s"
 msgid ""
 "Always respond in Japanese. Use Japanese for both speech and "
 "transcription unless the user explicitly requests another language."
-msgstr ""
+msgstr "Vždy odpovídejte v japonštině. Používejte japonštinu pro řeč i přepis, pokud uživatel výslovně nepožaduje jiný jazyk."
 
 #, python-format
 #: src/uagent/realtime.py:101
 msgid ""
 "Respond in the display language (%(lang)s) unless the user asks "
 "otherwise. Use the same language for spoken audio and the transcript."
-msgstr ""
+msgstr "Odpovězte v jazyce zobrazení (%(lang)s), pokud uživatel nepožádá jinak. Pro mluvený zvuk a přepis použijte stejný jazyk."

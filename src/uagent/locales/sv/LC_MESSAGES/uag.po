@@ -4759,11 +4759,11 @@ msgstr "Angiven workdir-sökväg är en fil: %(path)s"
 msgid ""
 "Always respond in Japanese. Use Japanese for both speech and "
 "transcription unless the user explicitly requests another language."
-msgstr ""
+msgstr "Svara alltid på japanska. Använd japanska för både tal och transkription om inte användaren uttryckligen begär ett annat språk."
 
 #, python-format
 #: src/uagent/realtime.py:101
 msgid ""
 "Respond in the display language (%(lang)s) unless the user asks "
 "otherwise. Use the same language for spoken audio and the transcript."
-msgstr ""
+msgstr "Svara på visningsspråket (%(lang)s) om inte användaren frågar något annat. Använd samma språk för talat ljud och utskriften."

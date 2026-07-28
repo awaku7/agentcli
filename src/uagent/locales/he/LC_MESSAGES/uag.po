@@ -4637,11 +4637,11 @@ msgstr "נתיב workdir שצוין הוא קובץ: %(path)s"
 msgid ""
 "Always respond in Japanese. Use Japanese for both speech and "
 "transcription unless the user explicitly requests another language."
-msgstr ""
+msgstr "תמיד תגיב ביפנית. השתמש ביפנית גם לדיבור וגם לתמלול, אלא אם המשתמש מבקש במפורש שפה אחרת."
 
 #, python-format
 #: src/uagent/realtime.py:101
 msgid ""
 "Respond in the display language (%(lang)s) unless the user asks "
 "otherwise. Use the same language for spoken audio and the transcript."
-msgstr ""
+msgstr "השב בשפת התצוגה (%(lang)s) אלא אם המשתמש מבקש אחרת. השתמש באותה שפה עבור אודיו מדובר ולתמליל."

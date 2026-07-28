@@ -4802,11 +4802,11 @@ msgstr "Het opgegeven workdir-pad is een bestand: %(path)s"
 msgid ""
 "Always respond in Japanese. Use Japanese for both speech and "
 "transcription unless the user explicitly requests another language."
-msgstr ""
+msgstr "Reageer altijd in het Japans. Gebruik Japans voor zowel spraak als transcriptie, tenzij de gebruiker expliciet om een andere taal vraagt."
 
 #, python-format
 #: src/uagent/realtime.py:101
 msgid ""
 "Respond in the display language (%(lang)s) unless the user asks "
 "otherwise. Use the same language for spoken audio and the transcript."
-msgstr ""
+msgstr "Reageer in de weergavetaal (%(lang)s), tenzij de gebruiker anders vraagt. Gebruik dezelfde taal voor gesproken audio en het transcript."

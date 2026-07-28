@@ -4804,11 +4804,11 @@ msgstr "Заасан ажлын чиглэлийн зам нь файл юм: %(
 msgid ""
 "Always respond in Japanese. Use Japanese for both speech and "
 "transcription unless the user explicitly requests another language."
-msgstr ""
+msgstr "Үргэлж Япон хэлээр хариул. Хэрэглэгч өөр хэлээр тодорхой хүсэлт гаргаагүй бол яриа болон транскрипцийн аль алинд нь япон хэлийг ашиглана уу."
 
 #, python-format
 #: src/uagent/realtime.py:101
 msgid ""
 "Respond in the display language (%(lang)s) unless the user asks "
 "otherwise. Use the same language for spoken audio and the transcript."
-msgstr ""
+msgstr "Хэрэглэгч өөрөөр асуугаагүй бол дэлгэцийн хэлээр (%(lang)s) хариулна уу. Ярианы аудио болон хуулбарын хувьд ижил хэлийг ашиглана уу."

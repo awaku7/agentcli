@@ -4880,11 +4880,11 @@ msgstr "Η καθορισμένη διαδρομή workdir είναι ένα α�
 msgid ""
 "Always respond in Japanese. Use Japanese for both speech and "
 "transcription unless the user explicitly requests another language."
-msgstr ""
+msgstr "Να απαντάτε πάντα στα Ιαπωνικά. Χρησιμοποιήστε τα Ιαπωνικά τόσο για ομιλία όσο και για μεταγραφή εκτός εάν ο χρήστης ζητήσει ρητά άλλη γλώσσα."
 
 #, python-format
 #: src/uagent/realtime.py:101
 msgid ""
 "Respond in the display language (%(lang)s) unless the user asks "
 "otherwise. Use the same language for spoken audio and the transcript."
-msgstr ""
+msgstr "Απαντήστε στη γλώσσα εμφάνισης (%(lang)s), εκτός εάν ο χρήστης ζητήσει διαφορετικά. Χρησιμοποιήστε την ίδια γλώσσα για προφορικό ήχο και μεταγραφή."

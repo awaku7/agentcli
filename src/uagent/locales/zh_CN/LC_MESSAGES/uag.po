@@ -4516,11 +4516,11 @@ msgstr "指定的工作目录路径是文件：%(path)s"
 msgid ""
 "Always respond in Japanese. Use Japanese for both speech and "
 "transcription unless the user explicitly requests another language."
-msgstr ""
+msgstr "始终用日语回复。除非用户明确请求使用其他语言，否则请使用日语进行语音和转录。"
 
 #, python-format
 #: src/uagent/realtime.py:101
 msgid ""
 "Respond in the display language (%(lang)s) unless the user asks "
 "otherwise. Use the same language for spoken audio and the transcript."
-msgstr ""
+msgstr "除非用户另有要求，否则以显示语言 (%(lang)s) 进行响应。口语音频和文字记录使用相同的语言。"

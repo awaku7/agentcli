@@ -4822,11 +4822,11 @@ msgstr "Вказаний шлях до робочого каталогу є фа
 msgid ""
 "Always respond in Japanese. Use Japanese for both speech and "
 "transcription unless the user explicitly requests another language."
-msgstr ""
+msgstr "Завжди відповідай японською. Використовуйте японську як для мовлення, так і для транскрипції, якщо користувач явно не попросить іншу мову."
 
 #, python-format
 #: src/uagent/realtime.py:101
 msgid ""
 "Respond in the display language (%(lang)s) unless the user asks "
 "otherwise. Use the same language for spoken audio and the transcript."
-msgstr ""
+msgstr "Відповідайте мовою відображення (%(lang)s), якщо користувач не просить інше. Використовуйте ту саму мову для розмовного аудіо та стенограми."

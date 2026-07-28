@@ -4732,11 +4732,11 @@ msgstr "निर्दिष्ट workdir मार्ग फाइल आह�
 msgid ""
 "Always respond in Japanese. Use Japanese for both speech and "
 "transcription unless the user explicitly requests another language."
-msgstr ""
+msgstr "नेहमी जपानी भाषेत प्रतिसाद द्या. वापरकर्ता स्पष्टपणे दुसऱ्या भाषेची विनंती करत नाही तोपर्यंत भाषण आणि प्रतिलेखन दोन्हीसाठी जपानी वापरा."
 
 #, python-format
 #: src/uagent/realtime.py:101
 msgid ""
 "Respond in the display language (%(lang)s) unless the user asks "
 "otherwise. Use the same language for spoken audio and the transcript."
-msgstr ""
+msgstr "जोपर्यंत वापरकर्त्याने अन्यथा विचारले नाही तोपर्यंत प्रदर्शन भाषेत (%(lang)s) प्रतिसाद द्या. स्पोकन ऑडिओ आणि ट्रान्सक्रिप्टसाठी समान भाषा वापरा."

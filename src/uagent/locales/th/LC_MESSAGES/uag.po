@@ -4720,11 +4720,11 @@ msgstr "พาธ workdir ที่ระบุเป็นไฟล์: %(path)
 msgid ""
 "Always respond in Japanese. Use Japanese for both speech and "
 "transcription unless the user explicitly requests another language."
-msgstr ""
+msgstr "ตอบเป็นภาษาญี่ปุ่นเสมอ ใช้ภาษาญี่ปุ่นทั้งคำพูดและการถอดเสียง เว้นแต่ผู้ใช้จะร้องขอภาษาอื่นอย่างชัดเจน"
 
 #, python-format
 #: src/uagent/realtime.py:101
 msgid ""
 "Respond in the display language (%(lang)s) unless the user asks "
 "otherwise. Use the same language for spoken audio and the transcript."
-msgstr ""
+msgstr "ตอบกลับในภาษาที่แสดง (%(lang)s) เว้นแต่ผู้ใช้จะขอเป็นอย่างอื่น ใช้ภาษาเดียวกันสำหรับเสียงพูดและการถอดเสียง"

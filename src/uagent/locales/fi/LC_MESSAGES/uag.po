@@ -4783,11 +4783,11 @@ msgstr "Määritetty työhakemiston polku on tiedosto: %(path)s"
 msgid ""
 "Always respond in Japanese. Use Japanese for both speech and "
 "transcription unless the user explicitly requests another language."
-msgstr ""
+msgstr "Vastaa aina japaniksi. Käytä japania sekä puheessa että transkriptiossa, ellei käyttäjä nimenomaisesti pyydä toista kieltä."
 
 #, python-format
 #: src/uagent/realtime.py:101
 msgid ""
 "Respond in the display language (%(lang)s) unless the user asks "
 "otherwise. Use the same language for spoken audio and the transcript."
-msgstr ""
+msgstr "Vastaa näyttökielellä (%(lang)s), ellei käyttäjä toisin kysy. Käytä samaa kieltä puhutussa äänessä ja transkriptiossa."

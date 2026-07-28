@@ -4693,11 +4693,11 @@ msgstr "مسار دليل العمل المحدد هو ملف: %(path)s"
 msgid ""
 "Always respond in Japanese. Use Japanese for both speech and "
 "transcription unless the user explicitly requests another language."
-msgstr ""
+msgstr "الرد دائما باللغة اليابانية. استخدم اللغة اليابانية لكل من الكلام والنسخ ما لم يطلب المستخدم صراحةً لغة أخرى."
 
 #, python-format
 #: src/uagent/realtime.py:101
 msgid ""
 "Respond in the display language (%(lang)s) unless the user asks "
 "otherwise. Use the same language for spoken audio and the transcript."
-msgstr ""
+msgstr "قم بالرد بلغة العرض (%(lang)s) ما لم يطلب المستخدم خلاف ذلك. استخدم نفس اللغة للصوت المنطوق والنص."

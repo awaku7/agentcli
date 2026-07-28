@@ -4438,11 +4438,11 @@ msgstr "Đường dẫn workdir được chỉ định là một tệp: %(path)s
 msgid ""
 "Always respond in Japanese. Use Japanese for both speech and "
 "transcription unless the user explicitly requests another language."
-msgstr ""
+msgstr "Luôn trả lời bằng tiếng Nhật. Sử dụng tiếng Nhật cho cả lời nói và phiên âm trừ khi người dùng yêu cầu ngôn ngữ khác một cách rõ ràng."
 
 #, python-format
 #: src/uagent/realtime.py:101
 msgid ""
 "Respond in the display language (%(lang)s) unless the user asks "
 "otherwise. Use the same language for spoken audio and the transcript."
-msgstr ""
+msgstr "Trả lời bằng ngôn ngữ hiển thị (%(lang)s) trừ khi người dùng yêu cầu khác. Sử dụng cùng một ngôn ngữ cho âm thanh nói và bản ghi."

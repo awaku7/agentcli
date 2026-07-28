@@ -4828,11 +4828,11 @@ msgstr "A megadott munkakönyvtár elérési útja egy fájl: %(path)s"
 msgid ""
 "Always respond in Japanese. Use Japanese for both speech and "
 "transcription unless the user explicitly requests another language."
-msgstr ""
+msgstr "Mindig japánul válaszoljon. Használja a japán nyelvet a beszédhez és az átíráshoz is, kivéve, ha a felhasználó kifejezetten kér egy másik nyelvet."
 
 #, python-format
 #: src/uagent/realtime.py:101
 msgid ""
 "Respond in the display language (%(lang)s) unless the user asks "
 "otherwise. Use the same language for spoken audio and the transcript."
-msgstr ""
+msgstr "Válaszoljon a megjelenítési nyelven (%(lang)s), hacsak a felhasználó másként nem kéri. Használja ugyanazt a nyelvet a beszédhanghoz és az átirathoz."

@@ -4544,11 +4544,11 @@ msgstr "지정한 작업 디렉터리 경로가 파일입니다: %(path)s"
 msgid ""
 "Always respond in Japanese. Use Japanese for both speech and "
 "transcription unless the user explicitly requests another language."
-msgstr ""
+msgstr "항상 일본어로 응답해주세요. 사용자가 명시적으로 다른 언어를 요청하지 않는 한 음성 및 전사에 일본어를 사용합니다."
 
 #, python-format
 #: src/uagent/realtime.py:101
 msgid ""
 "Respond in the display language (%(lang)s) unless the user asks "
 "otherwise. Use the same language for spoken audio and the transcript."
-msgstr ""
+msgstr "사용자가 달리 요청하지 않는 한 표시 언어(%(lang)s)로 응답합니다. 음성 오디오와 스크립트에 동일한 언어를 사용하세요."

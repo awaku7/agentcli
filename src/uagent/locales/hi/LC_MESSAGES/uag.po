@@ -4757,11 +4757,11 @@ msgstr "निर्दिष्ट वर्कडीआईआर पथ एक
 msgid ""
 "Always respond in Japanese. Use Japanese for both speech and "
 "transcription unless the user explicitly requests another language."
-msgstr ""
+msgstr "हमेशा जापानी में जवाब दें. भाषण और प्रतिलेखन दोनों के लिए जापानी का उपयोग करें जब तक कि उपयोगकर्ता स्पष्ट रूप से किसी अन्य भाषा का अनुरोध न करे।"
 
 #, python-format
 #: src/uagent/realtime.py:101
 msgid ""
 "Respond in the display language (%(lang)s) unless the user asks "
 "otherwise. Use the same language for spoken audio and the transcript."
-msgstr ""
+msgstr "जब तक उपयोगकर्ता अन्यथा न पूछे, प्रदर्शन भाषा (%(lang)s) में उत्तर दें। बोले गए ऑडियो और ट्रांसक्रिप्ट के लिए एक ही भाषा का उपयोग करें।"

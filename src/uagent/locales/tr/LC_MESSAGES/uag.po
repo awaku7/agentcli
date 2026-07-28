@@ -4784,11 +4784,11 @@ msgstr "Belirtilen çalışma dizini yolu bir dosyadır: %(path)s"
 msgid ""
 "Always respond in Japanese. Use Japanese for both speech and "
 "transcription unless the user explicitly requests another language."
-msgstr ""
+msgstr "Her zaman Japonca yanıt verin. Kullanıcı açıkça başka bir dil talep etmedikçe, hem konuşma hem de çeviri için Japonca kullanın."
 
 #, python-format
 #: src/uagent/realtime.py:101
 msgid ""
 "Respond in the display language (%(lang)s) unless the user asks "
 "otherwise. Use the same language for spoken audio and the transcript."
-msgstr ""
+msgstr "Kullanıcı aksini sormadığı sürece görüntüleme dilinde (%(lang)s) yanıt verin. Konuşma sesi ve transkript için aynı dili kullanın."

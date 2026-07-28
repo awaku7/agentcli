@@ -4806,11 +4806,11 @@ msgstr "O caminho do diretório de trabalho especificado é um arquivo: %(path)s
 msgid ""
 "Always respond in Japanese. Use Japanese for both speech and "
 "transcription unless the user explicitly requests another language."
-msgstr ""
+msgstr "Sempre responda em japonês. Use japonês para fala e transcrição, a menos que o usuário solicite explicitamente outro idioma."
 
 #, python-format
 #: src/uagent/realtime.py:101
 msgid ""
 "Respond in the display language (%(lang)s) unless the user asks "
 "otherwise. Use the same language for spoken audio and the transcript."
-msgstr ""
+msgstr "Responda no idioma de exibição (%(lang)s), a menos que o usuário solicite o contrário. Use o mesmo idioma para o áudio falado e a transcrição."
