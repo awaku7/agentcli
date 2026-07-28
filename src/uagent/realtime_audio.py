@@ -18,7 +18,6 @@ class EchoProcessor:
     def __init__(self, sample_rate: int = 24_000) -> None:
         del sample_rate  # 24 kHz is converted to the AEC3-supported 48 kHz.
         self._far_reference = bytearray()
-        self._playback_buffer = bytearray()
         self._module = None
         try:
             mod = importlib.import_module("pywebrtc_audio")
@@ -40,16 +39,13 @@ class EchoProcessor:
     def enabled(self) -> bool:
         return self._module is not None
 
-    def reverse(self, data: bytes) -> list[bytes]:
-        """Queue the exact far-end PCM that is sent to the speaker."""
+    def reference(self, data: bytes) -> None:
+        """Feed the PCM frame that was actually handed to the speaker."""
         self._far_reference.extend(data)
-        self._playback_buffer.extend(data)
-        result: list[bytes] = []
-        while len(self._playback_buffer) >= FRAME_BYTES:
-            frame = bytes(self._playback_buffer[:FRAME_BYTES])
-            del self._playback_buffer[:FRAME_BYTES]
-            result.append(frame)
-        return result
+        # Do not let a delayed callback build an unbounded stale reference.
+        max_reference = FRAME_BYTES * 50  # 500 ms
+        if len(self._far_reference) > max_reference:
+            del self._far_reference[:-max_reference]
 
     def capture(self, data: bytes) -> bytes:
         """Process one 10 ms near-end frame against its far-end reference."""

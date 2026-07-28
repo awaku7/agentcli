@@ -234,9 +234,12 @@ def run() -> int:
                 output_size = len(outdata)
                 data = output_buffer[:output_size]
                 del output_buffer[:output_size]
-            outdata[:] = b"\x00" * len(outdata)
-            if data:
-                outdata[: len(data)] = data
+            # The AEC far-end reference must be the samples actually handed
+            # to the output device, not the samples merely received over the
+            # network. Keep the zero padding so near/far clocks stay aligned.
+            played = data + b"\x00" * (len(outdata) - len(data))
+            echo.reference(played)
+            outdata[:] = played
 
         connect_kwargs: dict[str, Any] = {"additional_headers": headers}
         # websockets rejects an explicit ssl=None for wss:// URLs; omit it
@@ -310,11 +313,12 @@ def run() -> int:
                         event = json.loads(raw)
                         kind = event.get("type", "")
                         if kind == "response.output_audio.delta":
-                            for frame in echo.reverse(base64.b64decode(event["delta"])):
-                                try:
-                                    audio_out.put_nowait(frame)
-                                except queue.Full:
-                                    pass
+                            # Playback callback records the far-end reference
+                            # when these bytes are actually played.
+                            try:
+                                audio_out.put_nowait(base64.b64decode(event["delta"]))
+                            except queue.Full:
+                                pass
                         elif kind == "response.output_audio_transcript.done":
                             text = (event.get("transcript") or "").strip()
                             now = time.monotonic()
