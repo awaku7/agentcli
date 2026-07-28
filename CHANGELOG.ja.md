@@ -1,5 +1,22 @@
 # 変更履歴
 
+## [0.5.59] - 2026-07-28
+
+### 追加
+
+- feat: pywebrtc-audio WebRTC AEC3による全二重Realtime音声
+- feat: 読み取り専用のget_current_timeに対応したOpenAI Realtime Function Calling
+- docs: 全言語版READMEにRealtime/AEC3とFunction Callingの説明を追加
+
+### 修正
+
+- fix: AEC3のfar参照を実際のスピーカー再生と同期
+- fix: Realtime音声診断ログを追加、READMEの重複セクションを削除
+
+### 変更
+
+- chore: 全コードをBlackで整形し、Ruffの指摘を解消
+
 
 ## [0.5.58] - 2026-07-27
 

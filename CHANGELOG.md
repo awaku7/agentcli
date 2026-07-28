@@ -1,5 +1,22 @@
 # Changelog
 
+## [0.5.59] - 2026-07-28
+
+### Added
+
+- feat: full-duplex Realtime voice with pywebrtc-audio WebRTC AEC3
+- feat: OpenAI Realtime Function Calling for the read-only get_current_time tool
+- docs: update all localized README files with Realtime/AEC3 and Function Calling guidance
+
+### Fixed
+
+- fix: synchronize AEC3 far-end reference with actual speaker playback
+- fix: add optional Realtime audio diagnostics and remove duplicate README sections
+
+### Changed
+
+- chore: apply Black formatting and resolve all Ruff findings
+
 
 ## [0.5.58] - 2026-07-27
 
