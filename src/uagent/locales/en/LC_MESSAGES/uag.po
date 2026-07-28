@@ -3360,6 +3360,8 @@ msgid ""
 "Always respond in Japanese. Use Japanese for both speech and "
 "transcription unless the user explicitly requests another language."
 msgstr ""
+"Always respond in Japanese. Use Japanese for both speech and "
+"transcription unless the user explicitly requests another language."
 
 #, python-format
 #: src/uagent/realtime.py:101
@@ -3367,3 +3369,5 @@ msgid ""
 "Respond in the display language (%(lang)s) unless the user asks "
 "otherwise. Use the same language for spoken audio and the transcript."
 msgstr ""
+"Respond in the display language (%(lang)s) unless the user asks "
+"otherwise. Use the same language for spoken audio and the transcript."
