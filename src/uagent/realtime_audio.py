@@ -21,12 +21,19 @@ class EchoProcessor:
             ap_cls = getattr(mod, "AudioProcessingModule")
             # Use the processing features provided by WebRTC: AEC, noise
             # suppression, and the digital AGC path. VAD is not needed here.
-            self._module = ap_cls(aec_type=3, enable_ns=True, agc_type=1, enable_vad=False)
+            # The bundled binding's aec_type=3 branch is a no-op (the legacy
+            # EchoCanceller3 setup is commented out). Use the implemented
+            # WebRTC AEC path instead of reporting a false-positive AEC state.
+            self._module = ap_cls(aec_type=2, enable_ns=True, agc_type=1, enable_vad=False)
+            self._module.set_aec_level(1)
             self._module.set_ns_level(1)
             self._module.set_agc_level(1)
             # WebRTC APM commonly supports 8/16/32/48 kHz, not 24 kHz.
             # Realtime remains at 24 kHz externally; convert frames at the edge.
-            self._module.set_stream_format(_INTERNAL_RATE, 1)
+            # Specify output format explicitly: the binding defaults output to
+            # 16 kHz, which would make process_stream read/write the wrong
+            # number of samples and can generate spurious audio.
+            self._module.set_stream_format(_INTERNAL_RATE, 1, _INTERNAL_RATE, 1)
             self._module.set_reverse_stream_format(_INTERNAL_RATE, 1)
         except Exception:
             # Optional backend: passthrough remains safe when the native binding
