@@ -15,6 +15,7 @@ _INTERNAL_RATE = 48_000
 class EchoProcessor:
     def __init__(self, sample_rate: int = 24_000) -> None:
         self._reverse = bytearray()
+        self._reverse_seen = False
         self._module = None
         try:
             mod = importlib.import_module("webrtc_audio_processing")
@@ -46,6 +47,7 @@ class EchoProcessor:
 
     def reverse(self, data: bytes) -> list[bytes]:
         """Feed far-end speaker reference and return processed output frames."""
+        self._reverse_seen = True
         self._reverse.extend(data)
         result: list[bytes] = []
         while len(self._reverse) >= FRAME_BYTES:
@@ -59,7 +61,11 @@ class EchoProcessor:
         return result
 
     def capture(self, data: bytes) -> bytes:
-        if self._module is None:
+        # The legacy AEC2 implementation aggressively suppresses near-end
+        # audio until it has received a far-end reference. Preserve the first
+        # user turn (before the assistant has spoken) instead of turning it
+        # into silence.
+        if self._module is None or not self._reverse_seen:
             return data
         samples = np.frombuffer(data, dtype=np.int16)
         internal = np.repeat(samples, 2).astype(np.int16, copy=False).tobytes()
