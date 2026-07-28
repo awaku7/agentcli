@@ -15,6 +15,7 @@ import ssl
 import subprocess
 import sys
 import threading
+import time
 from typing import Any
 
 from .i18n import detect_lang
