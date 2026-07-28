@@ -231,7 +231,7 @@ def run() -> int:
         suppress_input_until = 0.0
         input_rms_threshold = max(
             0.0,
-            float(os.getenv("UAGENT_REALTIME_INPUT_RMS_THRESHOLD") or "300"),
+            float(os.getenv("UAGENT_REALTIME_INPUT_RMS_THRESHOLD") or "80"),
         )
         speech_active = False
         quiet_input_frames = 0
