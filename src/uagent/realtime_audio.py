@@ -47,6 +47,10 @@ class EchoProcessor:
         if len(self._far_reference) > max_reference:
             del self._far_reference[:-max_reference]
 
+    def clear_reference(self) -> None:
+        """Drop stale reference when no speaker audio is being played."""
+        self._far_reference.clear()
+
     def capture(self, data: bytes) -> bytes:
         """Process one 10 ms near-end frame against its far-end reference."""
         if self._module is None:

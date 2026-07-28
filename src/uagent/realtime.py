@@ -238,7 +238,10 @@ def run() -> int:
             # to the output device, not the samples merely received over the
             # network. Keep the zero padding so near/far clocks stay aligned.
             played = data + b"\x00" * (len(outdata) - len(data))
-            echo.reference(played)
+            if data:
+                echo.reference(played)
+            else:
+                echo.clear_reference()
             outdata[:] = played
 
         connect_kwargs: dict[str, Any] = {"additional_headers": headers}
