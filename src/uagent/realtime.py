@@ -231,7 +231,7 @@ def run() -> int:
         suppress_input_until = 0.0
         input_rms_threshold = max(
             0.0,
-            float(os.getenv("UAGENT_REALTIME_INPUT_RMS_THRESHOLD") or "80"),
+            float(os.getenv("UAGENT_REALTIME_INPUT_RMS_THRESHOLD") or "180"),
         )
         speech_active = False
         quiet_input_frames = 0
@@ -261,10 +261,16 @@ def run() -> int:
                 if quiet_input_frames >= 80:  # 800 ms hangover
                     speech_active = False
                     quiet_input_frames = 0
+                    try:
+                        audio_in.put_nowait(b"")  # end turn sentinel
+                    except queue.Full:
+                        pass
                     return
             else:
                 quiet_input_frames = 0
             try:
+                # While a turn is active, keep quiet frames too so the server
+                # receives a natural tail before the explicit commit.
                 audio_in.put_nowait(echo.capture(raw))
             except queue.Full:
                 pass
@@ -313,12 +319,10 @@ def run() -> int:
                                 "model": "gpt-4o-mini-transcribe",
                                 "language": _openai_language_code(),
                             },
-                            "turn_detection": {
-                                "type": "server_vad",
-                                "threshold": 0.5,
-                                "prefix_padding_ms": 300,
-                                "silence_duration_ms": 700,
-                            },
+                            # Local RMS gating and explicit commits below
+                            # provide turn boundaries. Server VAD could react
+                            # repeatedly to headphone leakage.
+                            "turn_detection": None,
                         },
                         "output": {
                             # The Realtime API requires the PCM sample rate for
@@ -350,6 +354,15 @@ def run() -> int:
                         try:
                             chunk = await asyncio.to_thread(audio_in.get, True, 0.1)
                         except queue.Empty:
+                            continue
+                        if not chunk:
+                            await ws.send(json.dumps({
+                                "type": "input_audio_buffer.commit",
+                            }))
+                            await ws.send(json.dumps({
+                                "type": "response.create",
+                                "response": {"output_modalities": ["audio"]},
+                            }))
                             continue
                         await ws.send(json.dumps({
                             "type": "input_audio_buffer.append",
