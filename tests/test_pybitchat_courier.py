@@ -96,7 +96,6 @@ class TestCourierStore:
         assert len(results) == 0
 
         # Valid envelope
-        import time
         env2 = CourierEnvelope(
             recipient_id="peer1",
             sender_id="peer3",

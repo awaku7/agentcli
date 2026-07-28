@@ -2,7 +2,6 @@ from __future__ import annotations
 
 from types import SimpleNamespace
 
-import pytest
 
 from uagent.providers.llm_openrouter_responses import apply_openrouter_responses_compat
 from uagent.providers.util_providers import _normalize_openrouter_send_kwargs

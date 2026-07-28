@@ -386,8 +386,8 @@ def test_ci_fallback_produces_bounds():
     lo, hi = _compute_ci(None, "Dummy", df, "v", 2, forecast, 0.95)
     assert len(lo) == 2
     assert len(hi) == 2
-    for l, h in zip(lo, hi):
-        assert l <= h
+    for low, high in zip(lo, hi):
+        assert low <= high
 
 
 # ── Cycle 22: _compute_ci dispatches correctly for Prophet ────────────
@@ -418,8 +418,8 @@ def test_ci_quantile_dispatch():
     lo, hi = _compute_ci(None, "LightGBM", df, "v", 2, forecast, 0.95)
     assert len(lo) == 2
     assert len(hi) == 2
-    for l, h in zip(lo, hi):
-        assert l <= h
+    for low, high in zip(lo, hi):
+        assert low <= high
 
 
 # ── Cycle 24: Timeout error ───────────────────────────────────────────

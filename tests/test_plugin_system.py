@@ -2461,11 +2461,7 @@ class TestPluginColonCommands:
     def test_handle_command_plugin_colon_split(self) -> None:
         """ :plugin:sub  is split before dynamic dispatch. """
         # lightweight: reuse util_tools parsing via handle_command unknown path
-        from uagent.plugin_shared import install_plugin_commands, remove_plugin_commands
         from uagent.tools import register_dynamic_command, unregister_dynamic_commands_by_source
-        from pathlib import Path
-        import tempfile
-        import json as _json
 
         # Install minimal plugin command and call handle_command
         from uagent import util_tools as ut
