@@ -10,11 +10,13 @@ import asyncio
 import base64
 import json
 import os
+from pathlib import Path
 import queue
 import ssl
 import subprocess
 import sys
 import threading
+import time
 from typing import Any
 
 from .i18n import detect_lang
@@ -61,6 +63,11 @@ def _openai_language_code(lang: str | None = None) -> str:
 def _language_instructions() -> str:
     """Keep Realtime voice replies aligned with the CLI display language."""
     lang = _openai_language_code()
+    if lang == "ja":
+        return (
+            "必ず日本語で応答してください。音声も文字起こしも日本語を使用し、"
+            "ユーザーが明示的に別の言語を求めた場合のみ変更してください。"
+        )
     return (
         f"Respond in the display language ({lang}) unless the user asks otherwise. "
         "Use the same language for spoken audio and the transcript."
@@ -144,17 +151,31 @@ def _ensure_realtime_dependencies() -> tuple[Any, Any] | None:
         __import__("webrtc_audio_processing")
     except ImportError:
         print("[INFO] AECバックエンドを自動インストールしています...", file=sys.stderr)
+        project_root = Path(__file__).resolve().parents[2]
+        local_source = project_root / "third_party" / "python-webrtc-audio-processing"
+        if (local_source / "setup.py").is_file() and (
+            local_source / "webrtc-audio-processing"
+        ).is_dir():
+            command = [sys.executable, "-m", "pip", "install", "."]
+            cwd = str(local_source)
+        else:
+            command = [sys.executable, "-m", "pip", "install", "webrtc-audio-processing"]
+            cwd = None
         result = subprocess.run(
-            [sys.executable, "-m", "pip", "install", "webrtc-audio-processing"],
+            command,
             check=False,
             capture_output=True,
             text=True,
+            cwd=cwd,
         )
         if result.returncode != 0:
             print(
                 "[WARN] AECバックエンドをインストールできないため、passthroughで続行します。",
                 file=sys.stderr,
             )
+            details = (result.stderr or result.stdout or "").strip().splitlines()
+            if details:
+                print(f"[WARN] AEC install detail: {details[-1]}", file=sys.stderr)
     return sd, websockets
 
 
@@ -189,6 +210,17 @@ def run() -> int:
         audio_out: queue.Queue[bytes] = queue.Queue(maxsize=100)
         stopping = threading.Event()
         echo = EchoProcessor(SAMPLE_RATE)
+        output_buffer = bytearray()
+        output_buffer_lock = threading.Lock()
+        # Guard against speaker audio leaking back into the microphone and
+        # triggering server VAD, which can make the assistant answer itself.
+        echo_guard_ms = max(
+            0,
+            int(os.getenv("UAGENT_REALTIME_ECHO_GUARD_MS") or "900"),
+        )
+        suppress_input_until = 0.0
+        last_assistant_text = ""
+        last_assistant_print_at = 0.0
         print(
             "[INFO] AEC: " + ("有効" if echo.enabled else "無効（passthrough）"),
             file=sys.stderr,
@@ -198,6 +230,8 @@ def run() -> int:
             del frames, time_info
             if status:
                 print(f"[AUDIO] {status}", file=sys.stderr)
+            if time.monotonic() < suppress_input_until:
+                return
             try:
                 audio_in.put_nowait(echo.capture(bytes(indata)))
             except queue.Full:
@@ -207,13 +241,22 @@ def run() -> int:
             del frames, time_info
             if status:
                 print(f"[AUDIO] {status}", file=sys.stderr)
-            try:
-                data = audio_out.get_nowait()
-            except queue.Empty:
-                data = b""
+            # Realtime audio deltas are not guaranteed to match the audio
+            # device callback size.  Keep a byte buffer so a short delta does
+            # not create a gap and a long delta is not truncated (truncation
+            # can make the playback sound distorted or like voices overlap).
+            with output_buffer_lock:
+                try:
+                    while True:
+                        output_buffer.extend(audio_out.get_nowait())
+                except queue.Empty:
+                    pass
+                output_size = len(outdata)
+                data = output_buffer[:output_size]
+                del output_buffer[:output_size]
             outdata[:] = b"\x00" * len(outdata)
             if data:
-                outdata[: min(len(outdata), len(data))] = data[: len(outdata)]
+                outdata[: len(data)] = data
 
         connect_kwargs: dict[str, Any] = {"additional_headers": headers}
         # websockets rejects an explicit ssl=None for wss:// URLs; omit it
@@ -234,10 +277,22 @@ def run() -> int:
                     "audio": {
                         "input": {
                             "format": {"type": "audio/pcm", "rate": SAMPLE_RATE},
-                            "turn_detection": {"type": "server_vad"},
+                            "transcription": {
+                                "model": "gpt-4o-mini-transcribe",
+                                "language": _openai_language_code(),
+                            },
+                            "turn_detection": {
+                                "type": "server_vad",
+                                "threshold": 0.5,
+                                "prefix_padding_ms": 300,
+                                "silence_duration_ms": 700,
+                            },
                         },
                         "output": {
-                            "format": {"type": "audio/pcm"},
+                            # The Realtime API requires the PCM sample rate for
+                            # both directions. Omitting it from output causes
+                            # ``missing_required_parameter`` on session.update.
+                            "format": {"type": "audio/pcm", "rate": SAMPLE_RATE},
                             "voice": _voice(provider),
                         },
                     },
@@ -275,6 +330,9 @@ def run() -> int:
                         event = json.loads(raw)
                         kind = event.get("type", "")
                         if kind == "response.output_audio.delta":
+                            suppress_input_until = (
+                                time.monotonic() + echo_guard_ms / 1000.0
+                            )
                             for frame in echo.reverse(base64.b64decode(event["delta"])):
                                 try:
                                     audio_out.put_nowait(frame)
@@ -282,8 +340,16 @@ def run() -> int:
                                     pass
                         elif kind == "response.output_audio_transcript.done":
                             text = (event.get("transcript") or "").strip()
-                            if text:
+                            now = time.monotonic()
+                            # Ignore duplicate completed-transcript events from
+                            # gateways while allowing the same phrase later.
+                            if text and not (
+                                text == last_assistant_text
+                                and now - last_assistant_print_at < 2.0
+                            ):
                                 print(f"\n[assistant] {text}")
+                                last_assistant_text = text
+                                last_assistant_print_at = now
                         elif kind == "conversation.item.input_audio_transcription.completed":
                             text = (event.get("transcript") or "").strip()
                             if text:
