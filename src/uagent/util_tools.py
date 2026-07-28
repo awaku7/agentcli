@@ -341,6 +341,13 @@ def try_open_images_from_text(text: str) -> None:
 
 
 def parse_startup_args() -> tuple[dict[str, Any], list[str]]:
+    # ``uag realtime`` is a startup mode, rather than a normal initial file.
+    # Remove it before argparse so existing positional-file behavior is unchanged.
+    realtime = False
+    argv = list(sys.argv[1:])
+    if argv and argv[0].lower() == "realtime":
+        realtime = True
+        argv.pop(0)
     parser = argparse.ArgumentParser(add_help=False)
     parser.add_argument(
         "--workdir",
@@ -404,8 +411,10 @@ def parse_startup_args() -> tuple[dict[str, Any], list[str]]:
         default=None,
         help=_("Load a plugin from a directory (can be specified multiple times)."),
     )
-    args, unknown = parser.parse_known_args()
-    return vars(args), unknown
+    args, unknown = parser.parse_known_args(argv)
+    parsed = vars(args)
+    parsed["realtime"] = realtime
+    return parsed, unknown
 
 
 def iter_backup_files(root_dir: str) -> list[str]:

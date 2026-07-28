@@ -68,6 +68,7 @@ if UAGENT_INJECT_MESSAGE is not None:
     UAGENT_NON_INTERACTIVE = True
 UAGENT_TOOL_GENRE_MASK = _startup_args.get("tool_genre_mask")
 UAGENT_ENABLE_TOOLS = _startup_args.get("enable_tools")
+UAGENT_REALTIME = bool(_startup_args.get("realtime"))
 
 # Initialize runtime tools_enabled flag.
 # Priority: --use-tool / --no-use-tool CLI arg > UAGENT_USE_TOOL env var > default ON.
@@ -1053,6 +1054,11 @@ def stdin_loop() -> None:
 
 def main() -> None:
     sys.stdout.reconfigure(encoding="utf-8")
+    if UAGENT_REALTIME:
+        from .realtime import run as run_realtime
+
+        raise SystemExit(run_realtime())
+
     from . import uagent_llm as llm_util  # lazy
 
     startup = _run_cli_startup(

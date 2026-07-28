@@ -1,0 +1,61 @@
+"""Optional WebRTC audio processing for realtime mode.
+
+The dependency is optional so normal CLI, TTS, and STT behavior is unchanged.
+"""
+from __future__ import annotations
+
+import importlib
+
+import numpy as np
+
+FRAME_BYTES = 480  # 10 ms of mono PCM16 at 24 kHz
+_INTERNAL_RATE = 48_000
+
+
+class EchoProcessor:
+    def __init__(self, sample_rate: int = 24_000) -> None:
+        self._reverse = bytearray()
+        self._module = None
+        try:
+            mod = importlib.import_module("webrtc_audio_processing")
+            ap_cls = getattr(mod, "AudioProcessingModule")
+            # Use the processing features provided by WebRTC: AEC, noise
+            # suppression, and the digital AGC path. VAD is not needed here.
+            self._module = ap_cls(aec_type=3, enable_ns=True, agc_type=1, enable_vad=False)
+            self._module.set_ns_level(1)
+            self._module.set_agc_level(1)
+            # WebRTC APM commonly supports 8/16/32/48 kHz, not 24 kHz.
+            # Realtime remains at 24 kHz externally; convert frames at the edge.
+            self._module.set_stream_format(_INTERNAL_RATE, 1)
+            self._module.set_reverse_stream_format(_INTERNAL_RATE, 1)
+        except Exception:
+            # Optional backend: passthrough remains safe when the native binding
+            # is unavailable. The caller can report that AEC is not active.
+            self._module = None
+
+    @property
+    def enabled(self) -> bool:
+        return self._module is not None
+
+    def reverse(self, data: bytes) -> list[bytes]:
+        """Feed far-end speaker reference and return processed output frames."""
+        self._reverse.extend(data)
+        result: list[bytes] = []
+        while len(self._reverse) >= FRAME_BYTES:
+            frame = bytes(self._reverse[:FRAME_BYTES])
+            del self._reverse[:FRAME_BYTES]
+            if self._module is not None:
+                samples = np.frombuffer(frame, dtype=np.int16)
+                internal = np.repeat(samples, 2).astype(np.int16, copy=False).tobytes()
+                self._module.process_reverse_stream(internal)
+            result.append(frame)
+        return result
+
+    def capture(self, data: bytes) -> bytes:
+        if self._module is None:
+            return data
+        samples = np.frombuffer(data, dtype=np.int16)
+        internal = np.repeat(samples, 2).astype(np.int16, copy=False).tobytes()
+        processed = self._module.process_stream(internal)
+        output = np.frombuffer(processed, dtype=np.int16)[::2]
+        return output.astype(np.int16, copy=False).tobytes()
