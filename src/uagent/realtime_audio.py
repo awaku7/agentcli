@@ -7,7 +7,6 @@ full-duplex: microphone capture is never muted while the assistant is speaking.
 from __future__ import annotations
 
 import importlib
-import os
 import threading
 
 import numpy as np
