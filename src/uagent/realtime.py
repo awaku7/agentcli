@@ -1,8 +1,8 @@
 """Realtime voice I/O mode for the ``uag realtime`` command.
 
 This module intentionally keeps the realtime transport separate from the normal
-text CLI.  It streams 24 kHz PCM16 microphone audio to OpenAI Realtime and
-plays returned PCM16 audio through the default speaker.
+text CLI.  It streams microphone audio to OpenAI Realtime or xAI's Grok Voice
+Agent API and plays returned PCM audio through the default speaker.
 """
 from __future__ import annotations
 
@@ -27,6 +27,14 @@ BLOCKSIZE = 240  # 10 ms; required by the WebRTC audio processor
 
 
 def _api_key() -> str:
+    provider = _provider()
+    if provider in {"grok", "xai"}:
+        return (
+            os.getenv("UAGENT_XAI_API_KEY")
+            or os.getenv("UAGENT_GROK_API_KEY")
+            or os.getenv("XAI_API_KEY")
+            or ""
+        ).strip()
     return (
         os.getenv("UAGENT_OPENAI_API_KEY")
         or os.getenv("OPENAI_API_KEY")
@@ -73,9 +81,25 @@ def _depname(provider: str) -> str:
         "azure": "gpt-realtime-2",
         "gemini": "gemini-2.0-flash-live-001",
         "vertexai": "gemini-2.0-flash-live-001",
-        "grok": "grok-realtime",
+        "grok": "grok-voice-latest",
     }
     return defaults.get(normalized, "")
+
+
+def _realtime_config(provider: str, key: str) -> tuple[str, dict[str, str]]:
+    """Return the provider WebSocket URL and authentication headers."""
+    normalized = {"xai": "grok"}.get(provider, provider)
+    host = "api.x.ai" if normalized == "grok" else "api.openai.com"
+    return (
+        f"wss://{host}/v1/realtime?model={_depname(normalized)}",
+        {"Authorization": f"Bearer {key}"},
+    )
+
+
+def _voice(provider: str) -> str:
+    if provider in {"grok", "xai"}:
+        return (os.getenv("UAGENT_GROK_REALTIME_VOICE") or "Ara").strip()
+    return (os.getenv("UAGENT_OPENAI_REALTIME_VOICE") or "alloy").strip()
 
 
 def _ssl_context() -> ssl.SSLContext | None:
@@ -136,9 +160,15 @@ def _ensure_realtime_dependencies() -> tuple[Any, Any] | None:
 
 def run() -> int:
     """Run the realtime microphone/speaker loop."""
+    provider = _provider()
     key = _api_key()
     if not key:
-        print("[ERROR] UAGENT_OPENAI_API_KEY または OPENAI_API_KEY が必要です。", file=sys.stderr)
+        env_names = (
+            "UAGENT_XAI_API_KEY または XAI_API_KEY"
+            if provider in {"grok", "xai"}
+            else "UAGENT_OPENAI_API_KEY または OPENAI_API_KEY"
+        )
+        print(f"[ERROR] {env_names} が必要です。", file=sys.stderr)
         return 2
 
     dependencies = _ensure_realtime_dependencies()
@@ -147,15 +177,13 @@ def run() -> int:
     sd, websockets = dependencies
 
     async def session() -> None:
-        provider = _provider()
-        if provider != "openai":
+        if provider not in {"openai", "grok", "xai"}:
             print(
                 f"[ERROR] realtime の {provider} アダプターは未実装です。",
                 file=sys.stderr,
             )
             return
-        url = f"wss://api.openai.com/v1/realtime?model={_depname(provider)}"
-        headers = {"Authorization": f"Bearer {key}"}
+        url, headers = _realtime_config(provider, key)
         tls_context = _ssl_context()
         audio_in: queue.Queue[bytes] = queue.Queue(maxsize=50)
         audio_out: queue.Queue[bytes] = queue.Queue(maxsize=100)
@@ -210,7 +238,7 @@ def run() -> int:
                         },
                         "output": {
                             "format": {"type": "audio/pcm"},
-                            "voice": "alloy",
+                            "voice": _voice(provider),
                         },
                     },
                 },
