@@ -10,7 +10,7 @@ def _write(path: Path, text: str) -> None:
 
 
 def test_go2idx_struct_interface_receiver_generic(repo_tmp_path: Path) -> None:
-    src = '''package demo
+    src = """package demo
 
 type ID = string
 
@@ -31,7 +31,7 @@ func (b *Box[T]) Get() T {
 }
 
 func (r Reader) unused() {}
-'''
+"""
     path = repo_tmp_path / "demo.go"
     _write(path, src)
     out = run_tool({"path": str(path), "mode": "index"})
@@ -45,14 +45,14 @@ func (r Reader) unused() {}
 
 
 def test_go2idx_ignores_comment_and_string_false_positives(repo_tmp_path: Path) -> None:
-    src = '''package p
+    src = """package p
 
 // func Fake() {}
 func Real() {
         s := "func NotReal()"
         _ = s
 }
-'''
+"""
     path = repo_tmp_path / "c.go"
     _write(path, src)
     out = run_tool({"path": str(path), "mode": "index"})

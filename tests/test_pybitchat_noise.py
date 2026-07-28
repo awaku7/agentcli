@@ -100,6 +100,7 @@ class TestNoiseXXHandshake:
         """既知の鍵ペアでハンドシェイクが再現可能."""
         # Fixed keys for reproducibility
         from uagent.tools.pybitchat_shared import NoiseXXStateMachine, _generate_keypair
+
         init_s, init_s_pub = _generate_keypair()
         resp_s, resp_s_pub = _generate_keypair()
 
@@ -129,7 +130,10 @@ class TestTransportCipher:
 
     def _make_ciphers(self):
         """Create a pair of transport ciphers (tx/rx)."""
-        from uagent.tools.pybitchat_shared import NoiseXXStateMachine, _generate_keypair as gk
+        from uagent.tools.pybitchat_shared import (
+            NoiseXXStateMachine,
+            _generate_keypair as gk,
+        )
 
         init_s, init_s_pub = gk()
         resp_s, resp_s_pub = gk()

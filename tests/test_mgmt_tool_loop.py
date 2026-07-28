@@ -70,9 +70,7 @@ def test_tool_catalog_different_queries_not_shared() -> None:
     assert blocked is True
 
     # different query starts fresh
-    blocked2, _, count2 = check_mgmt_tool_loop(
-        [_tc("tool_catalog", query="run tests")]
-    )
+    blocked2, _, count2 = check_mgmt_tool_loop([_tc("tool_catalog", query="run tests")])
     assert blocked2 is False
     assert count2 == 0
 
@@ -133,6 +131,7 @@ def test_same_round_unload_then_load_starts_fresh() -> None:
     assert count == 0
     assert _TOOL_CALL_FINGERPRINTS["tool_load:read_file"] == 1
 
+
 def test_clear_mgmt_load_streak_helper() -> None:
     check_mgmt_tool_loop([_tc("tool_load", name="read_file")])
     check_mgmt_tool_loop([_tc("tool_load", name="file_grep")])
@@ -186,4 +185,3 @@ def test_disable_single_tool_clears_load_streak(monkeypatch) -> None:
     assert blocked is False
     assert count == 0
     assert _TOOL_CALL_FINGERPRINTS["tool_load:read_file"] == 1
-

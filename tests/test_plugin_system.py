@@ -495,7 +495,6 @@ class TestDiscoverPluginComponents:
         assert comps == {}
 
 
-
 # =========================================================================
 # plugin_manage_tool tests
 # =========================================================================
@@ -764,9 +763,7 @@ class TestRuntimePlugins:
         from uagent.runtime.runtime_plugins import load_plugins_at_startup
 
         result = load_plugins_at_startup(
-            cwd=str(repo_tmp_path),
-            plugin_dirs=[],
-            activate=False
+            cwd=str(repo_tmp_path), plugin_dirs=[], activate=False
         )
         assert isinstance(result, list)
         assert result == []
@@ -780,7 +777,7 @@ class TestRuntimePlugins:
             cwd=str(repo_tmp_path),
             plugin_dirs=[str(plugin_dir.parent)],
             state_dir=str(repo_tmp_path / ".uag"),
-            activate=False
+            activate=False,
         )
         assert len(result) >= 1
         loaded = [p for p in result if p["name"] == "test-plugin"]
@@ -803,7 +800,7 @@ class TestRuntimePlugins:
             cwd=str(repo_tmp_path),
             plugin_dirs=[str(plugin_dir.parent)],
             state_dir=str(state_dir),
-            activate=False
+            activate=False,
         )
         loaded = [p for p in result if p["name"] == "test-plugin"]
         assert len(loaded) == 1
@@ -819,9 +816,7 @@ class TestRuntimePlugins:
         shutil.copytree(plugin_dir, claude_plugins / "test-plugin")
 
         result = load_plugins_at_startup(
-            cwd=str(repo_tmp_path),
-            plugin_dirs=[str(claude_plugins)],
-            activate=False
+            cwd=str(repo_tmp_path), plugin_dirs=[str(claude_plugins)], activate=False
         )
         loaded = [p for p in result if p["name"] == "test-plugin"]
         assert len(loaded) == 1
@@ -836,7 +831,7 @@ class TestRuntimePlugins:
             cwd=str(repo_tmp_path),
             plugin_dirs=[],
             extra_plugin_dirs=[str(plugin_dir.parent)],
-            activate=False
+            activate=False,
         )
         loaded = [p for p in result if p["name"] == "test-plugin"]
         assert len(loaded) == 1
@@ -1152,9 +1147,7 @@ class TestPluginSkillsIntegration:
         from uagent.runtime.runtime_plugins import load_plugins_at_startup
 
         result = load_plugins_at_startup(
-            cwd=str(repo_tmp_path),
-            plugin_dirs=[str(plugin_dir.parent)],
-            activate=False
+            cwd=str(repo_tmp_path), plugin_dirs=[str(plugin_dir.parent)], activate=False
         )
         plugin = next((p for p in result if p["name"] == "test-plugin"), None)
         assert plugin is not None
@@ -1347,7 +1340,7 @@ class TestPluginMCPIntegration:
         result = load_plugins_at_startup(
             cwd=str(repo_tmp_path),
             plugin_dirs=[str(plugin_with_mcp.parent)],
-            activate=False
+            activate=False,
         )
         plugin = next((p for p in result if p["name"] == "mcp-plugin"), None)
         assert plugin is not None
@@ -1781,7 +1774,7 @@ class TestPluginAgentsBundling:
         result = load_plugins_at_startup(
             cwd=str(repo_tmp_path),
             plugin_dirs=[str(plugin_with_agents.parent)],
-            activate=False
+            activate=False,
         )
         plugin = next((p for p in result if p["name"] == "agent-plugin"), None)
         assert plugin is not None
@@ -2208,11 +2201,7 @@ def full_plugin(repo_tmp_path: Path) -> Path:
             {
                 "hooks": {
                     "SessionStart": [
-                        {
-                            "hooks": [
-                                {"type": "prompt", "prompt": "Plugin active."}
-                            ]
-                        }
+                        {"hooks": [{"type": "prompt", "prompt": "Plugin active."}]}
                     ]
                 }
             }
@@ -2299,9 +2288,7 @@ class TestActivateDeactivatePlugin:
         assert result[0]["activation"]["ok"] is True
 
         mcp = json.loads(mcp_path.read_text(encoding="utf-8"))
-        assert any(
-            s.get("_plugin_source") == "full-plugin" for s in mcp["mcp_servers"]
-        )
+        assert any(s.get("_plugin_source") == "full-plugin" for s in mcp["mcp_servers"])
 
     def test_enable_disable_tool_activates(
         self, full_plugin: Path, repo_tmp_path: Path
@@ -2459,9 +2446,12 @@ class TestPluginColonCommands:
         assert "demoplug" not in list_dynamic_command_names()
 
     def test_handle_command_plugin_colon_split(self) -> None:
-        """ :plugin:sub  is split before dynamic dispatch. """
+        """:plugin:sub  is split before dynamic dispatch."""
         # lightweight: reuse util_tools parsing via handle_command unknown path
-        from uagent.tools import register_dynamic_command, unregister_dynamic_commands_by_source
+        from uagent.tools import (
+            register_dynamic_command,
+            unregister_dynamic_commands_by_source,
+        )
 
         # Install minimal plugin command and call handle_command
         from uagent import util_tools as ut
@@ -2499,4 +2489,3 @@ class TestPluginColonCommands:
             assert calls == ["--amend"]
         finally:
             unregister_dynamic_commands_by_source("plugin:nsplug")
-

@@ -36,24 +36,18 @@ def test_general_tool_same_args_blocked_at_threshold() -> None:
 
 def test_general_tool_different_args_not_shared() -> None:
     for _ in range(_GENERAL_TOOL_LOOP_THRESHOLD - 1):
-        blocked, _, _ = check_general_tool_loop(
-            [_tc("get_weather_wttr", city="Tokyo")]
-        )
+        blocked, _, _ = check_general_tool_loop([_tc("get_weather_wttr", city="Tokyo")])
         assert blocked is False
 
     # Different args are a different fingerprint and reset the previous streak.
-    blocked, _, _ = check_general_tool_loop(
-        [_tc("get_weather_wttr", city="Osaka")]
-    )
+    blocked, _, _ = check_general_tool_loop([_tc("get_weather_wttr", city="Osaka")])
     assert blocked is False
     assert not any("Tokyo" in k for k in _TOOL_CALL_FINGERPRINTS)
     assert any("Osaka" in k for k in _TOOL_CALL_FINGERPRINTS)
 
     # Tokyo starts over from zero after the fingerprint change.
     for _ in range(_GENERAL_TOOL_LOOP_THRESHOLD - 1):
-        blocked, _, _ = check_general_tool_loop(
-            [_tc("get_weather_wttr", city="Tokyo")]
-        )
+        blocked, _, _ = check_general_tool_loop([_tc("get_weather_wttr", city="Tokyo")])
         assert blocked is False
     blocked, name, count = check_general_tool_loop(
         [_tc("get_weather_wttr", city="Tokyo")]
@@ -65,9 +59,7 @@ def test_general_tool_different_args_not_shared() -> None:
 
 def test_mgmt_tools_ignored_by_general_detector() -> None:
     for _ in range(_GENERAL_TOOL_LOOP_THRESHOLD + 2):
-        blocked, _, _ = check_general_tool_loop(
-            [_tc("tool_load", name="search_web")]
-        )
+        blocked, _, _ = check_general_tool_loop([_tc("tool_load", name="search_web")])
         assert blocked is False
     assert _TOOL_CALL_FINGERPRINTS == {}
 
@@ -95,7 +87,9 @@ def test_different_fingerprint_resets_other_counters() -> None:
         [_tc("get_weather_wttr", city="", lat=1.0, lon=2.0)]
     )
     assert blocked is False
-    assert not any(k.startswith("tool:get_windows_gps:") for k in _TOOL_CALL_FINGERPRINTS)
+    assert not any(
+        k.startswith("tool:get_windows_gps:") for k in _TOOL_CALL_FINGERPRINTS
+    )
     assert any(k.startswith("tool:get_weather_wttr:") for k in _TOOL_CALL_FINGERPRINTS)
 
     # Previous GPS streak must not carry over.

@@ -22,7 +22,9 @@ def test_count_user_turns_ignores_non_user():
 
 def test_default_clean_threshold_env(monkeypatch):
     monkeypatch.delenv("UAGENT_CLEAN_THRESHOLD", raising=False)
-    with mock.patch.object(ut, "env_get", side_effect=lambda k, d="": os.environ.get(k, d)):
+    with mock.patch.object(
+        ut, "env_get", side_effect=lambda k, d="": os.environ.get(k, d)
+    ):
         assert ut._default_clean_threshold() == 5
         monkeypatch.setenv("UAGENT_CLEAN_THRESHOLD", "3")
         assert ut._default_clean_threshold() == 3
@@ -82,7 +84,9 @@ def test_collect_clean_targets_by_user_turns(tmp_path):
         def load_conversation_from_log(p):
             return load(p)
 
-    ok, targets, counts = ut._collect_clean_targets(core=Core(), threshold=5, tr=lambda s: s)
+    ok, targets, counts = ut._collect_clean_targets(
+        core=Core(), threshold=5, tr=lambda s: s
+    )
     assert ok is True
     assert targets == [short]
     assert counts[short] == 1

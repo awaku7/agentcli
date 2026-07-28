@@ -27,10 +27,12 @@ def sample_df() -> pd.DataFrame:
 @pytest.fixture
 def tiny_df() -> pd.DataFrame:
     """3-row DataFrame (too small for forecasting)."""
-    return pd.DataFrame({
-        "date": pd.date_range("2024-01-01", periods=3, freq="D"),
-        "value": [100.0, 102.0, 101.0],
-    })
+    return pd.DataFrame(
+        {
+            "date": pd.date_range("2024-01-01", periods=3, freq="D"),
+            "value": [100.0, 102.0, 101.0],
+        }
+    )
 
 
 @pytest.fixture
@@ -71,6 +73,6 @@ def high_missing_df() -> pd.DataFrame:
 def outlier_df() -> pd.DataFrame:
     """Series with obvious outliers."""
     df = make_dummy_ts(50)
-    df.loc[10, "value"] = 200.0   # outlier high
-    df.loc[25, "value"] = 10.0    # outlier low
+    df.loc[10, "value"] = 200.0  # outlier high
+    df.loc[25, "value"] = 10.0  # outlier low
     return df

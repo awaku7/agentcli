@@ -1,4 +1,4 @@
-"""Phase 4 TDD: メッセージルーティング（フラッディングリレー + 重複排除）. """
+"""Phase 4 TDD: メッセージルーティング（フラッディングリレー + 重複排除）."""
 
 from __future__ import annotations
 
@@ -6,7 +6,7 @@ import time
 
 
 class TestMessageDeduplicator:
-    """メッセージ重複排除（タイムウィンドウ付き）. """
+    """メッセージ重複排除（タイムウィンドウ付き）."""
 
     def test_first_seen_is_not_duplicate(self) -> None:
         """初見のメッセージは重複と判定されない."""
@@ -60,7 +60,7 @@ class TestMessageDeduplicator:
 
 
 class TestRelayController:
-    """リレー制御（遅延 + 確率的抑制）. """
+    """リレー制御（遅延 + 確率的抑制）."""
 
     def test_relay_enabled_by_default(self) -> None:
         """デフォルトではリレーが有効."""

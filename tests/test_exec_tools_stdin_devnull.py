@@ -1,4 +1,5 @@
 """Ensure exec tools do not inherit host stdin."""
+
 from __future__ import annotations
 
 import subprocess

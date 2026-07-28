@@ -92,9 +92,7 @@ def _import_polib():
     try:
         import polib  # type: ignore
     except ImportError as e:
-        raise SystemExit(
-            "polib is required. Install with: pip install polib"
-        ) from e
+        raise SystemExit("polib is required. Install with: pip install polib") from e
     return polib
 
 
@@ -296,9 +294,7 @@ def cmd_status(
             ):
                 cand += 1
         total_cand += cand
-        print(
-            f"{lang}\t{entries}\t{empty}\t{same}\t{fuzzy}\t{cand}\t{path.as_posix()}"
-        )
+        print(f"{lang}\t{entries}\t{empty}\t{same}\t{fuzzy}\t{cand}\t{path.as_posix()}")
     print(f"TOTAL_CANDIDATES\t{total_cand}")
     return 0
 
@@ -360,9 +356,7 @@ def write_extract(units: list[Unit], tmp_dir: Path) -> dict[str, Path]:
                 occ0 = ""
                 if item.get("occurrences"):
                     occ0 = str(item["occurrences"][0])
-                f.write(
-                    f"{i}\t{item.get('reason')}\t{len(text)}\t{occ0}\t{one}\n"
-                )
+                f.write(f"{i}\t{item.get('reason')}\t{len(text)}\t{occ0}\t{one}\n")
         manifests[lang] = man_path
         print(
             f"[extract] {lang}: {len(manifest_items)} entries / "
@@ -411,9 +405,7 @@ def translate_lang(
     man_path = d / "manifest.json"
     values_path = d / "values_en.json"
     if not man_path.is_file() or not values_path.is_file():
-        raise FileNotFoundError(
-            f"missing extract for {lang}: run extract first ({d})"
-        )
+        raise FileNotFoundError(f"missing extract for {lang}: run extract first ({d})")
 
     texts_raw = _load_json(values_path)
     if not isinstance(texts_raw, list):
@@ -473,9 +465,7 @@ def translate_lang(
         try:
             res = json.loads(raw)
         except Exception as e:
-            raise RuntimeError(
-                f"invalid JSON from translate_text: {e}: {raw[:300]}"
-            )
+            raise RuntimeError(f"invalid JSON from translate_text: {e}: {raw[:300]}")
         if not res.get("ok", True) and res.get("error"):
             raise RuntimeError(f"translate error: {res.get('error')}")
         if res.get("error") and not res.get("translated"):
@@ -506,9 +496,7 @@ def translate_lang(
             if depth >= 8:
                 out_parts: list[str] = []
                 for one in batch_texts:
-                    out_parts.extend(
-                        _translate_with_fallback([one], depth=depth + 1)
-                    )
+                    out_parts.extend(_translate_with_fallback([one], depth=depth + 1))
                     if sleep_s > 0:
                         time.sleep(min(sleep_s, 0.05))
                 return out_parts
@@ -578,9 +566,7 @@ def translate_lang(
         {
             "lang": lang,
             "count": len(out_list),
-            "placeholder_mismatches": sum(
-                1 for x in qc if not x["placeholder_ok"]
-            ),
+            "placeholder_mismatches": sum(1 for x in qc if not x["placeholder_ok"]),
             "same_as_en": sum(1 for x in qc if x["same_as_en"]),
             "items": qc,
         },

@@ -303,7 +303,9 @@ def write_extract(units: list[Unit], tmp_dir: Path) -> dict[str, Path]:
     return manifests
 
 
-def _chunk_indices(texts: list[str], *, max_chars: int, max_items: int) -> list[list[int]]:
+def _chunk_indices(
+    texts: list[str], *, max_chars: int, max_items: int
+) -> list[list[int]]:
     batches: list[list[int]] = []
     cur: list[int] = []
     cur_chars = 0
@@ -406,7 +408,9 @@ def translate_lang(
             raise RuntimeError(f"translate error: {res.get('error')}")
         return res
 
-    def _translate_with_fallback(batch_texts: list[str], *, depth: int = 0) -> list[str]:
+    def _translate_with_fallback(
+        batch_texts: list[str], *, depth: int = 0
+    ) -> list[str]:
         """Translate a batch; on line-count mismatch, split or fall back to singles."""
         if not batch_texts:
             return []
@@ -454,9 +458,7 @@ def translate_lang(
             )
         for i, tr in zip(idxs, translated):
             out[i] = str(tr)
-        print(
-            f"  batch {bi}/{len(batches)}: {len(idxs)} items"
-        )
+        print(f"  batch {bi}/{len(batches)}: {len(idxs)} items")
         if sleep_s > 0 and bi < len(batches):
             time.sleep(sleep_s)
 
@@ -658,7 +660,9 @@ def cmd_merge(args: argparse.Namespace) -> int:
             keep_existing=args.keep_existing,
         )
     if not args.apply:
-        print("[merge] dry-run only (previews under tmp). Re-run with --apply to write.")
+        print(
+            "[merge] dry-run only (previews under tmp). Re-run with --apply to write."
+        )
     return 0
 
 
@@ -673,7 +677,7 @@ def cmd_run(args: argparse.Namespace) -> int:
 
 
 def _parse_langs(s: str) -> list[str]:
-    parts = [ _norm_lang(x) for x in (s or "").split(",") if x.strip() ]
+    parts = [_norm_lang(x) for x in (s or "").split(",") if x.strip()]
     # unique preserve order
     out: list[str] = []
     for p in parts:
@@ -769,7 +773,7 @@ def main(argv: list[str] | None = None) -> int:
     args.langs_list = _parse_langs(args.langs)
 
     if args.command != "status" and not args.langs_list:
-        # For status without langs: scan common gaps against all non-en blocks present? 
+        # For status without langs: scan common gaps against all non-en blocks present?
         # Require explicit langs for mutating commands.
         if args.command == "status":
             # default: report ja only as a quick pulse, else user should pass --langs

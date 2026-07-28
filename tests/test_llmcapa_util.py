@@ -228,12 +228,7 @@ class TestAudioOutputHelpers:
 
     def test_catalog_miss_allows(self) -> None:
         # gpt-4o-mini-tts may be absent from llmcapa; miss => allow
-        assert (
-            supports_audio_output(
-                "gpt-4o-mini-tts", "openai", default=None
-            )
-            is None
-        )
+        assert supports_audio_output("gpt-4o-mini-tts", "openai", default=None) is None
         assert check_audio_output_support("gpt-4o-mini-tts", "openai") is None
 
     def test_empty_model_allows(self) -> None:
@@ -264,13 +259,9 @@ class TestAudioInputHelpers:
             is None
         )
         assert (
-            check_audio_input_support(
-                "definitely-not-a-real-stt-model-xyz", "openai"
-            )
+            check_audio_input_support("definitely-not-a-real-stt-model-xyz", "openai")
             is None
         )
 
-
     def test_empty_model_allows(self) -> None:
         assert check_audio_input_support("", "openai") is None
-

@@ -6,11 +6,11 @@ import sys
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), "src"))
 
 MODES = {
-    "cli":   "uagent.cli",
-    "a2a":   "uagent.a2a.server",
-    "gui":   "uagent.gui",
-    "web":   "uagent.web",
-    "ws":    "uagent.ws_server",
+    "cli": "uagent.cli",
+    "a2a": "uagent.a2a.server",
+    "gui": "uagent.gui",
+    "web": "uagent.web",
+    "ws": "uagent.ws_server",
     "setup": "uagent.setup_cli",
 }
 

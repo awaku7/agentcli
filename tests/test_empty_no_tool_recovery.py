@@ -71,7 +71,9 @@ class TestDropTrailingEmptyAssistant:
             {
                 "role": "assistant",
                 "content": "",
-                "tool_calls": [{"id": "1", "function": {"name": "x", "arguments": "{}"}}],
+                "tool_calls": [
+                    {"id": "1", "function": {"name": "x", "arguments": "{}"}}
+                ],
             }
         ]
         assert _drop_trailing_empty_assistant(messages) is False
@@ -168,7 +170,9 @@ class TestHandleOpenAIEmptyNoTool:
             {
                 "role": "assistant",
                 "content": "",
-                "tool_calls": [{"id": "1", "function": {"name": "x", "arguments": "{}"}}],
+                "tool_calls": [
+                    {"id": "1", "function": {"name": "x", "arguments": "{}"}}
+                ],
             }
         ]
         action, rounds = _handle_openai_empty_no_tool(
@@ -221,7 +225,9 @@ class TestConsumeEmptyNoToolRecovery:
             {
                 "role": "assistant",
                 "content": "",
-                "tool_calls": [{"id": "1", "function": {"name": "x", "arguments": "{}"}}],
+                "tool_calls": [
+                    {"id": "1", "function": {"name": "x", "arguments": "{}"}}
+                ],
             },
             {"role": "tool", "tool_call_id": "1", "content": "result"},
             {"role": "assistant", "content": ""},

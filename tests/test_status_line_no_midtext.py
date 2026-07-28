@@ -88,7 +88,9 @@ def test_print_stream_delta_tracks_open_line(monkeypatch):
 
 def test_strip_state_markers_web():
     assert webmod._strip_state_markers("[STATE] BUSY [tool:parallel]") == ""
-    assert webmod._strip_state_markers("hello [STATE] BUSY [LLM] world") == "hello  world"
+    assert (
+        webmod._strip_state_markers("hello [STATE] BUSY [LLM] world") == "hello  world"
+    )
     assert webmod._strip_state_markers("plain text") == "plain text"
 
 

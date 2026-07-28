@@ -131,8 +131,8 @@ class TestRunToolGrok:
                 }
             )
         data = json.loads(result)
-        assert data.get("ok") is True or data.get("success") is True or "path" in str(
-            data
+        assert (
+            data.get("ok") is True or data.get("success") is True or "path" in str(data)
         )
         assert out.read_bytes() == b"AUDIO"
         tts.assert_called_once()
@@ -155,7 +155,11 @@ class TestRunToolGrok:
                     "output_path": str(out),
                 }
             )
-        assert "15000" in result or "too long" in result.lower() or "limit" in result.lower()
+        assert (
+            "15000" in result
+            or "too long" in result.lower()
+            or "limit" in result.lower()
+        )
         assert not out.exists()
 
     def test_unsupported_format(self, monkeypatch, tmp_path: Path) -> None:

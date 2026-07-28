@@ -4,6 +4,7 @@ The processor keeps the microphone (near-end) and speaker (far-end) streams
 separate and feeds matching frames to ``pywebrtc-audio``.  This is deliberately
 full-duplex: microphone capture is never muted while the assistant is speaking.
 """
+
 from __future__ import annotations
 
 import importlib

@@ -243,5 +243,3 @@ def test_subprocess_uses_devnull_stdin(monkeypatch) -> None:
     out = mod.run_tool({"command": "Write-Output ok", "shell": "pwsh"})
     assert "ok" in out
     assert captured["kwargs"].get("stdin") is subprocess.DEVNULL
-
-

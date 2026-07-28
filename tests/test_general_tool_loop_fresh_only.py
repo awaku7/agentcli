@@ -73,7 +73,10 @@ def test_cache_reuse_does_not_count_toward_general_loop(monkeypatch) -> None:
             assert fresh == []
 
     # Only the first real execution was counted.
-    assert _TOOL_CALL_FINGERPRINTS.get(
-        'tool:get_weather_wttr:{"city": "", "lat": 34.654, "lon": 135.7845}'
-    ) == 1
+    assert (
+        _TOOL_CALL_FINGERPRINTS.get(
+            'tool:get_weather_wttr:{"city": "", "lat": 34.654, "lon": 135.7845}'
+        )
+        == 1
+    )
     assert n["c"] == 1

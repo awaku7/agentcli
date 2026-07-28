@@ -74,12 +74,7 @@ def test_rpg2idx_fixed_format_f_and_begsr(repo_tmp_path: Path) -> None:
 
 
 def test_rpg2idx_comments_ignored(repo_tmp_path: Path) -> None:
-    src = (
-        "**free\n"
-        "// dcl-proc hidden\n"
-        "dcl-proc visible;\n"
-        "end-proc;\n"
-    )
+    src = "**free\n" "// dcl-proc hidden\n" "dcl-proc visible;\n" "end-proc;\n"
     path = repo_tmp_path / "c.rpgle"
     _write(path, src)
     out = run_tool({"path": str(path), "mode": "index"})
@@ -98,7 +93,12 @@ def test_rpg2idx_rejects_path_outside_workdir(tmp_path: Path) -> None:
     path = tmp_path / "outside.rpgle"
     _write(path, "**free\n")
     out = run_tool({"path": str(path), "mode": "index"})
-    assert ("not found" in out.lower() or "見つかりません" in out or "Error" in out or "エラー" in out)
+    assert (
+        "not found" in out.lower()
+        or "見つかりません" in out
+        or "Error" in out
+        or "エラー" in out
+    )
 
 
 def test_rpg2idx_embedded_sql_free_and_directive(repo_tmp_path: Path) -> None:

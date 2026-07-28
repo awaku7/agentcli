@@ -15,9 +15,7 @@ def test_openrouter_responses_compat_strips_previous_response_id() -> None:
         "previous_response_id": "resp_abc",
         "context_management": [{"type": "compaction", "compact_threshold": 1000}],
     }
-    apply_openrouter_responses_compat(
-        kwargs, provider="openrouter", depname="gpt-5.3"
-    )
+    apply_openrouter_responses_compat(kwargs, provider="openrouter", depname="gpt-5.3")
     assert "previous_response_id" not in kwargs
     assert "context_management" not in kwargs
 
@@ -77,7 +75,9 @@ class _FailThenOkResponses:
 
 class _DummyChat:
     def __init__(self) -> None:
-        self.completions = SimpleNamespace(create=lambda **_k: (_ for _ in ()).throw(AssertionError("chat path")))
+        self.completions = SimpleNamespace(
+            create=lambda **_k: (_ for _ in ()).throw(AssertionError("chat path"))
+        )
 
 
 class _DummyClient:

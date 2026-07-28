@@ -112,6 +112,7 @@ def test_dds2idx_invalid_section(repo_tmp_path: Path) -> None:
     assert "50" in out
     assert "not found" in out.lower() or "有効範囲" in out
 
+
 def test_dds2idx_ref_follow_same_dir(repo_tmp_path: Path) -> None:
     """REF(file) resolves in same workdir and annotates R / REFFLD fields."""
     _write(

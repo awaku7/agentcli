@@ -250,6 +250,7 @@ class TestHooksEngineIntegration:
         result = execute_hook(hook, timeout_ms=500)
         assert result["ok"] is False  # timeout or error
 
+
 class TestClaudePluginRootCompat:
     """Claude Code ${CLAUDE_PLUGIN_ROOT} compatibility."""
 
@@ -478,6 +479,7 @@ class TestHookStdoutContextInjection:
             == 0
         )
 
+
 # =========================================================================
 # UserPromptSubmit stdin + decision/block
 # =========================================================================
@@ -617,7 +619,4 @@ class TestUserPromptSubmitStdinAndBlock:
         assert block is not None
         assert block["decision"] == "block"
         assert "blocked:/block-me now" in block.get("reason", "")
-        assert parse_hook_stdout_context(
-            '{"decision":"block","reason":"x"}'
-        ) is None
-
+        assert parse_hook_stdout_context('{"decision":"block","reason":"x"}') is None

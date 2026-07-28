@@ -34,7 +34,9 @@ def test_db_query_select_and_pragma(repo_tmp_path: Path) -> None:
     assert "alice" in out_select
     # Tool returns a human-readable header plus JSONL rows.
     row_lines = [
-        line for line in out_select.splitlines() if line.startswith("{") and "alice" in line
+        line
+        for line in out_select.splitlines()
+        if line.startswith("{") and "alice" in line
     ]
     assert row_lines
     row = json.loads(row_lines[0])

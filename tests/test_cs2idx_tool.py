@@ -10,7 +10,7 @@ def _write(path: Path, text: str) -> None:
 
 
 def test_cs2idx_file_scoped_namespace_record_operator(repo_tmp_path: Path) -> None:
-    src = '''namespace Demo.App;
+    src = """namespace Demo.App;
 
 [AttributeUsage(AttributeTargets.Class)]
 public partial record Person(string Name)
@@ -23,7 +23,7 @@ public class Calc
 {
     public int this[int i] => i;
 }
-'''
+"""
     path = repo_tmp_path / "Demo.cs"
     _write(path, src)
     out = run_tool({"path": str(path), "mode": "index"})
@@ -36,7 +36,7 @@ public class Calc
 
 
 def test_cs2idx_comment_string_false_positive(repo_tmp_path: Path) -> None:
-    src = '''namespace N {
+    src = """namespace N {
 // class Fake {}
 class Real {
     void M() {
@@ -44,7 +44,7 @@ class Real {
     }
 }
 }
-'''
+"""
     path = repo_tmp_path / "c.cs"
     _write(path, src)
     out = run_tool({"path": str(path), "mode": "index"})

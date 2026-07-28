@@ -1,4 +1,5 @@
 """runtime_banner audio model resolution for :model / startup banner."""
+
 from __future__ import annotations
 
 from typing import Iterator

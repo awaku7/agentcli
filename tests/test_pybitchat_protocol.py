@@ -29,7 +29,7 @@ class TestBitchatPacketEncodeDecode:
     """BitchatPacket のエンコード→デコードのラウンドトリップ."""
 
     def test_minimal_packet(self) -> None:
-        """最小構成のパケット（ペイロードのみ）. """
+        """最小構成のパケット（ペイロードのみ）."""
         packet = BitchatPacket(
             version=1,
             type=MessageType.MESSAGE.value,
@@ -99,7 +99,7 @@ class TestBitchatPacketEncodeDecode:
         assert decoded.payload == b""
 
     def test_large_payload(self) -> None:
-        """大きめのペイロード（4000 bytes）. """
+        """大きめのペイロード（4000 bytes）."""
         payload = b"X" * 4000
         packet = BitchatPacket(
             version=1,
@@ -134,7 +134,7 @@ class TestAnnouncementPacket:
         assert decoded.signing_public_key == b"\x22" * 32
 
     def test_announce_with_neighbors(self) -> None:
-        """直接接続ピア情報付き Announce（peer_id は 8 bytes）. """
+        """直接接続ピア情報付き Announce（peer_id は 8 bytes）."""
         ann = AnnouncementPacket(
             nickname="hubnode",
             noise_public_key=b"\x33" * 32,

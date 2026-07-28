@@ -63,7 +63,10 @@ def test_identical_tool_call_returns_already_called(monkeypatch) -> None:
     assert executed2 is False and fresh2 == []
     assert messages[0]["role"] == "tool"
     assert messages[1]["role"] == "tool"
-    assert "Already called this tool with the same arguments earlier" in messages[1]["content"]
+    assert (
+        "Already called this tool with the same arguments earlier"
+        in messages[1]["content"]
+    )
     assert "Do NOT call this tool again" in messages[1]["content"]
     assert '"n": 1' in messages[1]["content"]
     # Must NOT inject a synthetic user note (breaks Responses tool continuation).

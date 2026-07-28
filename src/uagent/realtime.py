@@ -4,6 +4,7 @@ This module intentionally keeps the realtime transport separate from the normal
 text CLI.  It streams microphone audio to OpenAI Realtime or xAI's Grok Voice
 Agent API and plays returned PCM audio through the default speaker.
 """
+
 from __future__ import annotations
 
 import asyncio
@@ -20,7 +21,6 @@ from typing import Any
 
 from .i18n import _, detect_lang
 from .realtime_audio import EchoProcessor
-
 
 SAMPLE_RATE = 24_000
 CHANNELS = 1
@@ -67,18 +67,20 @@ def _api_key() -> str:
             or ""
         ).strip()
     return (
-        os.getenv("UAGENT_OPENAI_API_KEY")
-        or os.getenv("OPENAI_API_KEY")
-        or ""
+        os.getenv("UAGENT_OPENAI_API_KEY") or os.getenv("OPENAI_API_KEY") or ""
     ).strip()
 
 
 def _provider() -> str:
     return (
-        os.getenv("UAGENT_AUDIO_REALTIME_PROVIDER")
-        or os.getenv("UAGENT_PROVIDER")
-        or "openai"
-    ).strip().lower()
+        (
+            os.getenv("UAGENT_AUDIO_REALTIME_PROVIDER")
+            or os.getenv("UAGENT_PROVIDER")
+            or "openai"
+        )
+        .strip()
+        .lower()
+    )
 
 
 def _openai_language_code(lang: str | None = None) -> str:
@@ -166,7 +168,10 @@ def _ensure_realtime_dependencies() -> tuple[Any, Any] | None:
                 check=False,
             )
             if result.returncode != 0:
-                print(f"[ERROR] {package} の自動インストールに失敗しました。", file=sys.stderr)
+                print(
+                    f"[ERROR] {package} の自動インストールに失敗しました。",
+                    file=sys.stderr,
+                )
                 return None
     try:
         import sounddevice as sd  # type: ignore
@@ -281,65 +286,85 @@ def run() -> int:
         if tls_context is not None:
             connect_kwargs["ssl"] = tls_context
         async with websockets.connect(url, **connect_kwargs) as ws:
-            await ws.send(json.dumps({
-                "type": "session.update",
-                "session": {
-                    "type": "realtime",
-                    "output_modalities": ["audio"],
-                    "tools": _openai_realtime_tools() if provider == "openai" else [],
-                    "instructions": (
-                        "You are a helpful voice assistant. "
-                        + _language_instructions()
-                    ),
-                    "audio": {
-                        "input": {
-                            "format": {"type": "audio/pcm", "rate": SAMPLE_RATE},
-                            "transcription": {
-                                "model": "gpt-4o-mini-transcribe",
-                                "language": _openai_language_code(),
-                            },
-                            "turn_detection": {
-                                "type": "server_vad",
-                                "threshold": 0.5,
-                                "prefix_padding_ms": 300,
-                                "silence_duration_ms": 700,
+            await ws.send(
+                json.dumps(
+                    {
+                        "type": "session.update",
+                        "session": {
+                            "type": "realtime",
+                            "output_modalities": ["audio"],
+                            "tools": (
+                                _openai_realtime_tools() if provider == "openai" else []
+                            ),
+                            "instructions": (
+                                "You are a helpful voice assistant. "
+                                + _language_instructions()
+                            ),
+                            "audio": {
+                                "input": {
+                                    "format": {
+                                        "type": "audio/pcm",
+                                        "rate": SAMPLE_RATE,
+                                    },
+                                    "transcription": {
+                                        "model": "gpt-4o-mini-transcribe",
+                                        "language": _openai_language_code(),
+                                    },
+                                    "turn_detection": {
+                                        "type": "server_vad",
+                                        "threshold": 0.5,
+                                        "prefix_padding_ms": 300,
+                                        "silence_duration_ms": 700,
+                                    },
+                                },
+                                "output": {
+                                    # The Realtime API requires the PCM sample rate for
+                                    # both directions. Omitting it from output causes
+                                    # ``missing_required_parameter`` on session.update.
+                                    "format": {
+                                        "type": "audio/pcm",
+                                        "rate": SAMPLE_RATE,
+                                    },
+                                    "voice": _voice(provider),
+                                },
                             },
                         },
-                        "output": {
-                            # The Realtime API requires the PCM sample rate for
-                            # both directions. Omitting it from output causes
-                            # ``missing_required_parameter`` on session.update.
-                            "format": {"type": "audio/pcm", "rate": SAMPLE_RATE},
-                            "voice": _voice(provider),
-                        },
-                    },
-                },
-            }))
+                    }
+                )
+            )
             print("[INFO] Realtime 音声入出力モードを開始しました。終了: Ctrl+C")
 
-            with sd.InputStream(
-                samplerate=SAMPLE_RATE,
-                channels=CHANNELS,
-                dtype="int16",
-                blocksize=BLOCKSIZE,
-                callback=on_input,
-            ), sd.RawOutputStream(
-                samplerate=SAMPLE_RATE,
-                channels=CHANNELS,
-                dtype="int16",
-                blocksize=BLOCKSIZE,
-                callback=on_output,
+            with (
+                sd.InputStream(
+                    samplerate=SAMPLE_RATE,
+                    channels=CHANNELS,
+                    dtype="int16",
+                    blocksize=BLOCKSIZE,
+                    callback=on_input,
+                ),
+                sd.RawOutputStream(
+                    samplerate=SAMPLE_RATE,
+                    channels=CHANNELS,
+                    dtype="int16",
+                    blocksize=BLOCKSIZE,
+                    callback=on_output,
+                ),
             ):
+
                 async def send_audio() -> None:
                     while not stopping.is_set():
                         try:
                             chunk = await asyncio.to_thread(audio_in.get, True, 0.1)
                         except queue.Empty:
                             continue
-                        await ws.send(json.dumps({
-                            "type": "input_audio_buffer.append",
-                            "audio": base64.b64encode(chunk).decode("ascii"),
-                        }))
+                        await ws.send(
+                            json.dumps(
+                                {
+                                    "type": "input_audio_buffer.append",
+                                    "audio": base64.b64encode(chunk).decode("ascii"),
+                                }
+                            )
+                        )
 
                 sender = asyncio.create_task(send_audio())
                 audio_debug = (
@@ -366,7 +391,10 @@ def run() -> int:
                                 audio_out.put_nowait(base64.b64decode(event["delta"]))
                             except queue.Full:
                                 pass
-                        elif kind == "response.function_call_arguments.done" and provider == "openai":
+                        elif (
+                            kind == "response.function_call_arguments.done"
+                            and provider == "openai"
+                        ):
                             name = str(event.get("name") or "")
                             call_id = str(event.get("call_id") or "")
                             try:
@@ -375,15 +403,21 @@ def run() -> int:
                                     arguments = {}
                                 result = _execute_openai_tool(name, arguments)
                             except Exception as exc:
-                                result = json.dumps({"error": str(exc)}, ensure_ascii=False)
-                            await ws.send(json.dumps({
-                                "type": "conversation.item.create",
-                                "item": {
-                                    "type": "function_call_output",
-                                    "call_id": call_id,
-                                    "output": result,
-                                },
-                            }))
+                                result = json.dumps(
+                                    {"error": str(exc)}, ensure_ascii=False
+                                )
+                            await ws.send(
+                                json.dumps(
+                                    {
+                                        "type": "conversation.item.create",
+                                        "item": {
+                                            "type": "function_call_output",
+                                            "call_id": call_id,
+                                            "output": result,
+                                        },
+                                    }
+                                )
+                            )
                             await ws.send(json.dumps({"type": "response.create"}))
                         elif kind == "response.output_audio_transcript.done":
                             text = (event.get("transcript") or "").strip()
@@ -397,12 +431,18 @@ def run() -> int:
                                 print(f"\n[assistant] {text}")
                                 last_assistant_text = text
                                 last_assistant_print_at = now
-                        elif kind == "conversation.item.input_audio_transcription.completed":
+                        elif (
+                            kind
+                            == "conversation.item.input_audio_transcription.completed"
+                        ):
                             text = (event.get("transcript") or "").strip()
                             if text:
                                 print(f"\n[user] {text}")
                         elif kind == "error":
-                            print(f"[ERROR] Realtime API: {event.get('error')}", file=sys.stderr)
+                            print(
+                                f"[ERROR] Realtime API: {event.get('error')}",
+                                file=sys.stderr,
+                            )
                 finally:
                     stopping.set()
                     sender.cancel()

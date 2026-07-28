@@ -49,16 +49,21 @@ class TestRunToolStartStop:
         """start アクションが正常に応答する."""
         from uagent.tools import pybitchat_subscribe_tool as mod
 
-        with patch("uagent.tools.pybitchat_subscribe_tool._ensure_dependencies") as mock_deps:
+        with patch(
+            "uagent.tools.pybitchat_subscribe_tool._ensure_dependencies"
+        ) as mock_deps:
             mock_deps.return_value = True
             with patch("uagent.tools.pybitchat_shared._listener_loop"):
-                result = mod.run_tool({
-                    "action": "start",
-                    "nickname": "testnode",
-                    "network": "testnet",
-                })
+                result = mod.run_tool(
+                    {
+                        "action": "start",
+                        "nickname": "testnode",
+                        "network": "testnet",
+                    }
+                )
 
                 import json
+
                 data = json.loads(result) if isinstance(result, str) else result
                 assert data.get("ok") is True
 

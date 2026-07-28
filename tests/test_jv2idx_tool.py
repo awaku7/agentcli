@@ -10,7 +10,7 @@ def _write(path: Path, text: str) -> None:
 
 
 def test_jv2idx_record_annotation_generic(repo_tmp_path: Path) -> None:
-    src = '''package demo;
+    src = """package demo;
 
 public @interface Marker {
 }
@@ -24,7 +24,7 @@ public class Box<T> {
     public Box(T value) { this.value = value; }
     public T get() { return value; }
 }
-'''
+"""
     path = repo_tmp_path / "Demo.java"
     _write(path, src)
     out = run_tool({"path": str(path), "mode": "index"})

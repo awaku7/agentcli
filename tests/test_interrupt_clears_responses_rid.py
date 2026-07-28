@@ -7,13 +7,19 @@ from uagent.providers.responses_common import parse_responses_stream
 from uagent.uagent_llm import _inject_stop_prompt
 
 
-def test_clear_responses_continuation_drops_rid_and_stale_flag(tmp_path, monkeypatch) -> None:
-    monkeypatch.setattr(core_mod, "responses_state", {
-        "previous_response_id": "resp_test_123",
-        "provider": "openai",
-        "model": "gpt-5.4-nano",
-        "_stale_rid_occurred": True,
-    })
+def test_clear_responses_continuation_drops_rid_and_stale_flag(
+    tmp_path, monkeypatch
+) -> None:
+    monkeypatch.setattr(
+        core_mod,
+        "responses_state",
+        {
+            "previous_response_id": "resp_test_123",
+            "provider": "openai",
+            "model": "gpt-5.4-nano",
+            "_stale_rid_occurred": True,
+        },
+    )
     monkeypatch.setenv("UAGENT_RESPONSES_STATE_DIR", str(tmp_path))
 
     core_mod.clear_responses_continuation()
@@ -71,11 +77,15 @@ class _InterruptStream:
 
 def test_parse_responses_stream_interrupt_drops_rid_and_tools(monkeypatch) -> None:
     monkeypatch.setattr(core_mod, "interrupt_requested", True)
-    monkeypatch.setattr(core_mod, "responses_state", {
-        "previous_response_id": "resp_old",
-        "provider": "openai",
-        "model": "gpt-5.4-nano",
-    })
+    monkeypatch.setattr(
+        core_mod,
+        "responses_state",
+        {
+            "previous_response_id": "resp_old",
+            "provider": "openai",
+            "model": "gpt-5.4-nano",
+        },
+    )
     monkeypatch.setattr(core_mod, "_save_responses_state", lambda: None)
 
     text, reasoning, tools, rid, items = parse_responses_stream(

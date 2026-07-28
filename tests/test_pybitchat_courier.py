@@ -64,7 +64,11 @@ class TestCourierStore:
         """同一受信者に複数エンベロープ."""
         store = CourierStore()
         for i in range(3):
-            env = CourierEnvelope(recipient_id="peer1", sender_id="sender{}".format(i), payload=f"msg{i}".encode())
+            env = CourierEnvelope(
+                recipient_id="peer1",
+                sender_id="sender{}".format(i),
+                payload=f"msg{i}".encode(),
+            )
             store.store(env)
         results = store.retrieve("peer1")
         assert len(results) == 3
@@ -72,7 +76,9 @@ class TestCourierStore:
     def test_retrieve_removes_envelopes(self) -> None:
         """retrieve 後もエンベロープは削除されない（配送確認後 remove する）."""
         store = CourierStore()
-        env = CourierEnvelope(recipient_id="peer1", sender_id="peer2", payload=b"persist")
+        env = CourierEnvelope(
+            recipient_id="peer1", sender_id="peer2", payload=b"persist"
+        )
         store.store(env)
         results1 = store.retrieve("peer1")
         assert len(results1) == 1
@@ -111,11 +117,19 @@ class TestCourierStore:
         """pending_count() が正しい数を返す."""
         store = CourierStore()
         assert store.count() == 0
-        env = CourierEnvelope(recipient_id="peer1", sender_id="peer2", payload=b"count_test")
+        env = CourierEnvelope(
+            recipient_id="peer1", sender_id="peer2", payload=b"count_test"
+        )
         store.store(env)
         assert store.count() == 1
 
         # Expired should not count
-        env2 = CourierEnvelope(recipient_id="peer2", sender_id="peer1", payload=b"old", created_at=0.0, ttl_seconds=1.0)
+        env2 = CourierEnvelope(
+            recipient_id="peer2",
+            sender_id="peer1",
+            payload=b"old",
+            created_at=0.0,
+            ttl_seconds=1.0,
+        )
         store.store(env2)
         assert store.count() == 1

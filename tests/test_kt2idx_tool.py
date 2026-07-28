@@ -10,7 +10,7 @@ def _write(path: Path, text: str) -> None:
 
 
 def test_kt2idx_extension_data_class_companion(repo_tmp_path: Path) -> None:
-    src = '''package demo
+    src = """package demo
 
 data class User(val id: Int, val name: String) {
     companion object Factory {
@@ -25,26 +25,28 @@ suspend fun load(): String = "ok"
 class Repo {
     fun fetch() {}
 }
-'''
+"""
     path = repo_tmp_path / "Demo.kt"
     _write(path, src)
     out = run_tool({"path": str(path), "mode": "index"})
     assert "data class User" in out or "User" in out
     assert "companion" in out
     assert "words" in out
-    assert "String.words" in out or "extension" in out.lower() or "fun String.words" in out
+    assert (
+        "String.words" in out or "extension" in out.lower() or "fun String.words" in out
+    )
     assert "load" in out
     assert "Repo" in out
     assert "fetch" in out
 
 
 def test_kt2idx_comment_false_positive(repo_tmp_path: Path) -> None:
-    src = '''// class Fake
+    src = """// class Fake
 class Real {
     // fun nope()
     fun yes() {}
 }
-'''
+"""
     path = repo_tmp_path / "c.kt"
     _write(path, src)
     out = run_tool({"path": str(path), "mode": "index"})

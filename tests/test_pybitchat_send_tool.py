@@ -36,11 +36,13 @@ class TestRunToolSend:
         """テキストメッセージ送信が JSON 結果を返す."""
         from uagent.tools import pybitchat_send_tool as mod
 
-        result = mod.run_tool({
-            "type": "text",
-            "payload": "Hello from pybitchat",
-            "recipient": None,
-        })
+        result = mod.run_tool(
+            {
+                "type": "text",
+                "payload": "Hello from pybitchat",
+                "recipient": None,
+            }
+        )
         import json
 
         data = json.loads(result) if isinstance(result, str) else result
@@ -51,11 +53,13 @@ class TestRunToolSend:
         """受信者指定メッセージ."""
         from uagent.tools import pybitchat_send_tool as mod
 
-        result = mod.run_tool({
-            "type": "text",
-            "payload": "Direct message",
-            "recipient": "0123456789abcdef",
-        })
+        result = mod.run_tool(
+            {
+                "type": "text",
+                "payload": "Direct message",
+                "recipient": "0123456789abcdef",
+            }
+        )
         import json
 
         data = json.loads(result) if isinstance(result, str) else result
@@ -66,11 +70,13 @@ class TestRunToolSend:
         """Announce 送信."""
         from uagent.tools import pybitchat_send_tool as mod
 
-        result = mod.run_tool({
-            "type": "announce",
-            "payload": "testnode",
-            "recipient": None,
-        })
+        result = mod.run_tool(
+            {
+                "type": "announce",
+                "payload": "testnode",
+                "recipient": None,
+            }
+        )
         import json
 
         data = json.loads(result) if isinstance(result, str) else result
@@ -80,11 +86,13 @@ class TestRunToolSend:
         """ペイロードなしはエラー."""
         from uagent.tools import pybitchat_send_tool as mod
 
-        result = mod.run_tool({
-            "type": "text",
-            "payload": "",
-            "recipient": None,
-        })
+        result = mod.run_tool(
+            {
+                "type": "text",
+                "payload": "",
+                "recipient": None,
+            }
+        )
         import json
 
         data = json.loads(result) if isinstance(result, str) else result

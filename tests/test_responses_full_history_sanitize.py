@@ -52,8 +52,7 @@ def test_full_history_skips_bare_function_call_items() -> None:
     assert "function_call_output" not in types
     # tool result is converted to a user-role summary message
     assert any(
-        m.get("role") == "user"
-        and "get_current_time" in str(m.get("content"))
+        m.get("role") == "user" and "get_current_time" in str(m.get("content"))
         for m in input_msgs
         if isinstance(m, dict)
     )

@@ -10,7 +10,7 @@ def _write(path: Path, text: str) -> None:
 
 
 def test_swift2idx_actor_async_protocol_extension(repo_tmp_path: Path) -> None:
-    src = '''import Foundation
+    src = """import Foundation
 
 actor Counter {
     var value = 0
@@ -29,7 +29,7 @@ struct S {
     subscript(i: Int) -> Int { i }
     deinit {}
 }
-'''
+"""
     # note: deinit on struct is invalid swift but indexer should still see patterns on class-like
     path = repo_tmp_path / "Demo.swift"
     _write(path, src)
@@ -43,10 +43,10 @@ struct S {
 
 
 def test_swift2idx_async_throws_func(repo_tmp_path: Path) -> None:
-    src = '''class C {
+    src = """class C {
     func load() async throws -> String { "x" }
 }
-'''
+"""
     path = repo_tmp_path / "a.swift"
     _write(path, src)
     out = run_tool({"path": str(path), "mode": "index"})
