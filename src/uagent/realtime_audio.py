@@ -1,12 +1,12 @@
-"""Optional WebRTC audio processing for realtime mode.
+"""WebRTC AEC3 processing for realtime voice I/O.
 
-The dependency is optional so normal CLI, TTS, and STT behavior is unchanged.
+The processor keeps the microphone (near-end) and speaker (far-end) streams
+separate and feeds matching frames to ``pywebrtc-audio``.  This is deliberately
+full-duplex: microphone capture is never muted while the assistant is speaking.
 """
 from __future__ import annotations
 
 import importlib
-import os
-import time
 
 import numpy as np
 
@@ -16,36 +16,24 @@ _INTERNAL_RATE = 48_000
 
 class EchoProcessor:
     def __init__(self, sample_rate: int = 24_000) -> None:
-        self._reverse = bytearray()
-        self._reverse_seen = False
-        self._last_reverse_at = 0.0
+        del sample_rate  # 24 kHz is converted to the AEC3-supported 48 kHz.
+        self._far_reference = bytearray()
+        self._playback_buffer = bytearray()
         self._module = None
         try:
-            if (os.getenv("UAGENT_REALTIME_ENABLE_AEC") or "0").strip().lower() not in {
-                "1", "true", "yes", "on",
-            }:
-                return
-            mod = importlib.import_module("webrtc_audio_processing")
-            ap_cls = getattr(mod, "AudioProcessingModule")
-            # Use the processing features provided by WebRTC: AEC, noise
-            # suppression, and the digital AGC path. VAD is not needed here.
-            # The bundled binding's aec_type=3 branch is a no-op (the legacy
-            # EchoCanceller3 setup is commented out). Use the implemented
-            # WebRTC AEC path instead of reporting a false-positive AEC state.
-            self._module = ap_cls(aec_type=2, enable_ns=True, agc_type=1, enable_vad=False)
-            self._module.set_aec_level(1)
-            self._module.set_ns_level(1)
-            self._module.set_agc_level(1)
-            # WebRTC APM commonly supports 8/16/32/48 kHz, not 24 kHz.
-            # Realtime remains at 24 kHz externally; convert frames at the edge.
-            # Specify output format explicitly: the binding defaults output to
-            # 16 kHz, which would make process_stream read/write the wrong
-            # number of samples and can generate spurious audio.
-            self._module.set_stream_format(_INTERNAL_RATE, 1, _INTERNAL_RATE, 1)
-            self._module.set_reverse_stream_format(_INTERNAL_RATE, 1)
+            mod = importlib.import_module("pywebrtc_audio")
+            processor = getattr(mod, "AudioProcessor")
+            self._module = processor(
+                sample_rate=_INTERNAL_RATE,
+                num_channels=1,
+                echo_cancellation=True,
+                noise_suppression=True,
+                auto_gain_control=False,
+                stream_delay_ms=40,
+            )
         except Exception:
             # Optional backend: passthrough remains safe when the native binding
-            # is unavailable. The caller can report that AEC is not active.
+            # is unavailable. The caller reports that AEC is inactive.
             self._module = None
 
     @property
@@ -53,37 +41,37 @@ class EchoProcessor:
         return self._module is not None
 
     def reverse(self, data: bytes) -> list[bytes]:
-        """Feed far-end speaker reference and return processed output frames."""
-        self._reverse_seen = True
-        self._last_reverse_at = time.monotonic()
-        self._reverse.extend(data)
+        """Queue the exact far-end PCM that is sent to the speaker."""
+        self._far_reference.extend(data)
+        self._playback_buffer.extend(data)
         result: list[bytes] = []
-        while len(self._reverse) >= FRAME_BYTES:
-            frame = bytes(self._reverse[:FRAME_BYTES])
-            del self._reverse[:FRAME_BYTES]
-            if self._module is not None:
-                samples = np.frombuffer(frame, dtype=np.int16)
-                internal = np.repeat(samples, 2).astype(np.int16, copy=False).tobytes()
-                self._module.process_reverse_stream(internal)
+        while len(self._playback_buffer) >= FRAME_BYTES:
+            frame = bytes(self._playback_buffer[:FRAME_BYTES])
+            del self._playback_buffer[:FRAME_BYTES]
             result.append(frame)
         return result
 
     def capture(self, data: bytes) -> bytes:
-        # The legacy AEC2 implementation aggressively suppresses near-end
-        # audio until it has received a far-end reference. Preserve the first
-        # user turn (before the assistant has spoken) instead of turning it
-        # into silence.
-        # AEC2 is only used while a recent far-end reference exists. Once
-        # playback has finished, stale reference frames can cancel the next
-        # user turn, especially with headphones.
-        if (
-            self._module is None
-            or not self._reverse_seen
-            or time.monotonic() - self._last_reverse_at > 0.75
-        ):
+        """Process one 10 ms near-end frame against its far-end reference."""
+        if self._module is None:
             return data
-        samples = np.frombuffer(data, dtype=np.int16)
-        internal = np.repeat(samples, 2).astype(np.int16, copy=False).tobytes()
-        processed = self._module.process_stream(internal)
-        output = np.frombuffer(processed, dtype=np.int16)[::2]
-        return output.astype(np.int16, copy=False).tobytes()
+
+        near = np.frombuffer(data, dtype=np.int16)
+        if near.size == 0:
+            return data
+
+        # Match the speaker reference to this capture frame. If playback has
+        # not reached this point yet, do not invent a reference; passing the
+        # near signal through is safer than cancelling the user's voice.
+        if len(self._far_reference) >= len(data):
+            far_bytes = bytes(self._far_reference[: len(data)])
+            del self._far_reference[: len(data)]
+            far = np.frombuffer(far_bytes, dtype=np.int16)
+        else:
+            return data
+
+        near_48k = np.repeat(near, 2).astype(np.int16, copy=False)
+        far_48k = np.repeat(far, 2).astype(np.int16, copy=False)
+        processed = self._module.process(near_48k, far_48k)
+        # Return to the realtime transport's 24 kHz mono PCM format.
+        return np.asarray(processed, dtype=np.int16)[::2].tobytes()

@@ -10,13 +10,11 @@ import asyncio
 import base64
 import json
 import os
-from pathlib import Path
 import queue
 import ssl
 import subprocess
 import sys
 import threading
-import time
 from typing import Any
 
 from .i18n import detect_lang
@@ -146,36 +144,26 @@ def _ensure_realtime_dependencies() -> tuple[Any, Any] | None:
         print(f"[ERROR] realtime依存関係を読み込めません: {exc}", file=sys.stderr)
         return None
 
-    # AEC is optional at runtime, but try to install its backend automatically.
+    # AEC3 is provided by pywebrtc-audio, which has Windows/Python 3.14
+    # wheels and accepts near/far frames for full-duplex processing.
     try:
-        __import__("webrtc_audio_processing")
+        __import__("pywebrtc_audio")
     except ImportError:
-        print("[INFO] AECバックエンドを自動インストールしています...", file=sys.stderr)
-        project_root = Path(__file__).resolve().parents[2]
-        local_source = project_root / "third_party" / "python-webrtc-audio-processing"
-        if (local_source / "setup.py").is_file() and (
-            local_source / "webrtc-audio-processing"
-        ).is_dir():
-            command = [sys.executable, "-m", "pip", "install", "."]
-            cwd = str(local_source)
-        else:
-            command = [sys.executable, "-m", "pip", "install", "webrtc-audio-processing"]
-            cwd = None
+        print("[INFO] AEC3バックエンドを自動インストールしています...", file=sys.stderr)
         result = subprocess.run(
-            command,
+            [sys.executable, "-m", "pip", "install", "pywebrtc-audio"],
             check=False,
             capture_output=True,
             text=True,
-            cwd=cwd,
         )
         if result.returncode != 0:
             print(
-                "[WARN] AECバックエンドをインストールできないため、passthroughで続行します。",
+                "[WARN] AEC3バックエンドをインストールできないため、passthroughで続行します。",
                 file=sys.stderr,
             )
             details = (result.stderr or result.stdout or "").strip().splitlines()
             if details:
-                print(f"[WARN] AEC install detail: {details[-1]}", file=sys.stderr)
+                print(f"[WARN] AEC3 install detail: {details[-1]}", file=sys.stderr)
     return sd, websockets
 
 
@@ -212,13 +200,6 @@ def run() -> int:
         echo = EchoProcessor(SAMPLE_RATE)
         output_buffer = bytearray()
         output_buffer_lock = threading.Lock()
-        # Guard against speaker audio leaking back into the microphone and
-        # triggering server VAD, which can make the assistant answer itself.
-        echo_guard_ms = max(
-            0,
-            int(os.getenv("UAGENT_REALTIME_ECHO_GUARD_MS") or "900"),
-        )
-        suppress_input_until = 0.0
         last_assistant_text = ""
         last_assistant_print_at = 0.0
         print(
@@ -230,8 +211,6 @@ def run() -> int:
             del frames, time_info
             if status:
                 print(f"[AUDIO] {status}", file=sys.stderr)
-            if time.monotonic() < suppress_input_until:
-                return
             try:
                 audio_in.put_nowait(echo.capture(bytes(indata)))
             except queue.Full:
@@ -330,9 +309,6 @@ def run() -> int:
                         event = json.loads(raw)
                         kind = event.get("type", "")
                         if kind == "response.output_audio.delta":
-                            suppress_input_until = (
-                                time.monotonic() + echo_guard_ms / 1000.0
-                            )
                             for frame in echo.reverse(base64.b64decode(event["delta"])):
                                 try:
                                     audio_out.put_nowait(frame)
