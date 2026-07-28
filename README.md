@@ -46,6 +46,25 @@ uag
 On first launch, the setup wizard walks you through provider configuration.
 See [docs/ENVIRONMENT.md](https://github.com/awaku7/agentcli/blob/main/docs/ENVIRONMENT.md) for all environment variables.
 
+## Realtime Voice and AEC3
+
+The realtime voice mode supports full-duplex microphone and speaker I/O with automatic installation of the `pywebrtc-audio` WebRTC AEC3 backend:
+
+```bash
+python scheck.py realtime
+```
+
+The AEC3 pipeline receives the actual microphone signal (`near`) and the audio actually handed to the speaker (`far`) so the assistant can listen while speaking. Enable diagnostics only when investigating audio issues:
+
+```bat
+set UAGENT_REALTIME_AUDIO_DEBUG=1
+python scheck.py realtime
+```
+
+### OpenAI Realtime Function Calling
+
+OpenAI Realtime supports a safety-limited Function Calling integration. The current realtime adapter exposes read-only `get_current_time` automatically. Destructive tools and device controls are not exposed without an explicit allowlist and confirmation flow. Grok realtime uses a separate adapter and does not use this OpenAI-specific function-call path.
+
 ## Features
 
 ### 🧠 Multi-Provider Architecture

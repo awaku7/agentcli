@@ -46,6 +46,25 @@ uag
 初回起動時にセットアップウィザードがプロバイダ設定を案内します。
 環境変数の一覧は [docs/ENVIRONMENT.md](https://github.com/awaku7/agentcli/blob/main/docs/ENVIRONMENT.md) を参照してください。
 
+## リアルタイム音声とAEC3
+
+Realtime音声モードは、`pywebrtc-audio`のWebRTC AEC3バックエンドを自動インストールし、マイクとスピーカーを同時に扱う全二重音声入出力に対応しています。
+
+```bat
+python scheck.py realtime
+```
+
+AEC3には実際のマイク入力（`near`）と、実際にスピーカーへ渡した音声（`far`）を対応付けて入力します。音声処理を調査するときだけ、診断ログを有効にしてください。
+
+```bat
+set UAGENT_REALTIME_AUDIO_DEBUG=1
+python scheck.py realtime
+```
+
+### OpenAI Realtime Function Calling
+
+OpenAI Realtimeでは安全制限付きのFunction Callingに対応しています。現在は読み取り専用の`get_current_time`だけを自動実行できます。削除・送信・機器操作などの危険な処理は、明示的な許可リストと確認フローなしでは公開しません。Grok realtimeは別アダプターであり、このOpenAI専用Function Call経路は使用しません。
+
 ## 特徴
 
 ### 🧠 マルチプロバイダ構成
