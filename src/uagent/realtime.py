@@ -27,6 +27,36 @@ CHANNELS = 1
 BLOCKSIZE = 240  # 10 ms; required by the WebRTC audio processor
 
 
+def _openai_realtime_tools() -> list[dict[str, Any]]:
+    return [
+        {
+            "type": "function",
+            "name": "get_current_time",
+            "description": "Get the current local date and time.",
+            "parameters": {
+                "type": "object",
+                "properties": {},
+                "additionalProperties": False,
+            },
+        },
+    ]
+
+
+def _execute_openai_tool(name: str, arguments: dict[str, Any]) -> str:
+    del arguments
+    if name == "get_current_time":
+        from datetime import datetime
+
+        return json.dumps(
+            {
+                "name": name,
+                "datetime": datetime.now().astimezone().isoformat(),
+            },
+            ensure_ascii=False,
+        )
+    return json.dumps({"error": f"Tool is not allowed: {name}"}, ensure_ascii=False)
+
+
 def _api_key() -> str:
     provider = _provider()
     if provider in {"grok", "xai"}:
@@ -256,6 +286,7 @@ def run() -> int:
                 "session": {
                     "type": "realtime",
                     "output_modalities": ["audio"],
+                    "tools": _openai_realtime_tools() if provider == "openai" else [],
                     "instructions": (
                         "You are a helpful voice assistant. "
                         + _language_instructions()
@@ -335,6 +366,25 @@ def run() -> int:
                                 audio_out.put_nowait(base64.b64decode(event["delta"]))
                             except queue.Full:
                                 pass
+                        elif kind == "response.function_call_arguments.done" and provider == "openai":
+                            name = str(event.get("name") or "")
+                            call_id = str(event.get("call_id") or "")
+                            try:
+                                arguments = json.loads(event.get("arguments") or "{}")
+                                if not isinstance(arguments, dict):
+                                    arguments = {}
+                                result = _execute_openai_tool(name, arguments)
+                            except Exception as exc:
+                                result = json.dumps({"error": str(exc)}, ensure_ascii=False)
+                            await ws.send(json.dumps({
+                                "type": "conversation.item.create",
+                                "item": {
+                                    "type": "function_call_output",
+                                    "call_id": call_id,
+                                    "output": result,
+                                },
+                            }))
+                            await ws.send(json.dumps({"type": "response.create"}))
                         elif kind == "response.output_audio_transcript.done":
                             text = (event.get("transcript") or "").strip()
                             now = time.monotonic()
