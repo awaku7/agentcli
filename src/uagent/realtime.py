@@ -311,6 +311,19 @@ def run() -> int:
                         }))
 
                 sender = asyncio.create_task(send_audio())
+                audio_debug = (
+                    os.getenv("UAGENT_REALTIME_AUDIO_DEBUG") or ""
+                ).strip().lower() in {"1", "true", "yes", "on"}
+
+                async def debug_audio() -> None:
+                    while not stopping.is_set():
+                        await asyncio.sleep(1.0)
+                        print(
+                            f"[AUDIO DEBUG] {echo.debug_snapshot()}",
+                            file=sys.stderr,
+                        )
+
+                debugger = asyncio.create_task(debug_audio()) if audio_debug else None
                 try:
                     async for raw in ws:
                         event = json.loads(raw)
@@ -343,7 +356,11 @@ def run() -> int:
                 finally:
                     stopping.set()
                     sender.cancel()
-                    await asyncio.gather(sender, return_exceptions=True)
+                    tasks = [sender]
+                    if debugger is not None:
+                        debugger.cancel()
+                        tasks.append(debugger)
+                    await asyncio.gather(*tasks, return_exceptions=True)
 
     try:
         asyncio.run(session())
