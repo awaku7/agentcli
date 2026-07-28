@@ -5,6 +5,7 @@ The dependency is optional so normal CLI, TTS, and STT behavior is unchanged.
 from __future__ import annotations
 
 import importlib
+import os
 import time
 
 import numpy as np
@@ -20,6 +21,10 @@ class EchoProcessor:
         self._last_reverse_at = 0.0
         self._module = None
         try:
+            if (os.getenv("UAGENT_REALTIME_ENABLE_AEC") or "0").strip().lower() not in {
+                "1", "true", "yes", "on",
+            }:
+                return
             mod = importlib.import_module("webrtc_audio_processing")
             ap_cls = getattr(mod, "AudioProcessingModule")
             # Use the processing features provided by WebRTC: AEC, noise
