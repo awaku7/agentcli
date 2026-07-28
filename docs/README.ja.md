@@ -63,7 +63,7 @@ python scheck.py realtime
 
 ### OpenAI Realtime Function Calling
 
-OpenAI Realtimeでは安全制限付きのFunction Callingに対応しています。現在は読み取り専用の`get_current_time`だけを自動実行できます。削除・送信・機器操作などの危険な処理は、明示的な許可リストと確認フローなしでは公開しません。Grok realtimeは別アダプターであり、このOpenAI専用Function Call経路は使用しません。
+OpenAI Realtimeでは安全制限付きのFunction Callingに対応しています。現在は読み取り専用の`get_current_time`だけを自動実行できます。削除・送信・機器操作などの危険な処理は、明示的な許可リストと確認フローなしでは公開しません。Grok realtimeは別アダプターであり、このOpenAI専用Function Calling経路は使用しません。
 
 ## 特徴
 
@@ -208,16 +208,6 @@ LLMの応答生成中にいつでも停止し、LLMに停止コマンドを送�
 [TOOL_CREATOR_GUIDE.ja.md](TOOL_CREATOR_GUIDE.ja.md) を参照してください。
 
 
-### 🦀 Rust Native Tools
-
-`uuid_gen` and `slugify` are implemented in Rust (via PyO3) for performance.
-They load directly from a pre-built `.pyd` — **no `pip install` required**.
-
-External developers can also ship Rust-based tools: place a `.pyd` next to the
-wrapper `.py`, use ``load_rust_pyd()`` from ``uagent.tools.rust_helper``, and
-users get the tool without any extra dependencies. See
-[TOOL_CREATOR_GUIDE.ja.md](TOOL_CREATOR_GUIDE.ja.md).
-
 ### 🌐 i18n / L10n
 
 日本語 / English / 简体中文 / 繁體中文 / 한국어 / Español / Français / Русский / など。
@@ -250,7 +240,7 @@ uagは **あなたのマシンで、あなたの思い通りに動く、あな�
 
 ベンダーロックインのない、自由なAIエージェント体験。
 
-### ✨ Create Your Own Tools
+### ✨ 独自ツールの作成
 
 Writing a new tool for uag is straightforward — create a single `.py` file with
 `TOOL_SPEC` and `run_tool()`, place it in ``UAGENT_EXTERNAL_TOOLS_DIR``, and
@@ -260,7 +250,7 @@ zero extra dependencies for users.
 See [TOOL_CREATOR_GUIDE.ja.md](TOOL_CREATOR_GUIDE.ja.md)
 for the step-by-step guide.
 
-## Contributing
+## 貢献する
 
 Contributions are welcome! Bug reports, feature suggestions, documentation improvements, translations, and pull requests — all appreciated.
 
