@@ -249,3 +249,21 @@ Contributions are welcome! Bug reports, feature suggestions, documentation impro
 - **Translations**: README translations and locale additions are welcome. See [ADD_LOCALE.md](../src/uagent/docs/ADD_LOCALE.md).
 - **Tools & Skills**: New tool plugins and Agent Skills can be contributed via the marketplace.
 
+Realtime 語音和 AEC3
+
+## Realtime語音模式支援全雙工麥克風和揚聲器輸入/輸出。如果缺少 AEC3 後端，uag 會自動安裝 pywebrtc-audio。
+
+```bat
+python scheck.py realtime
+```
+
+AEC3 使用實際的麥克風訊號（近）和實際發送到揚聲器的音訊（遠）。僅在調查音訊問題時啟用診斷。
+
+```bat
+set UAGENT_REALTIME_AUDIO_DEBUG=1
+python scheck.py realtime
+```
+
+### OpenAI Realtime Function Calling
+
+OpenAI Realtime 支援安全限制的 Function Calling 整合。目前適配器會自動公開只讀 get_current_time 函數。破壞性工具和設備控制需要明確的許可名單和確認流程。 Grok 即時使用單獨的轉接器，且不使用此 OpenAI 特定的 Function Calling 路徑。

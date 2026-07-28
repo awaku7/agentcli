@@ -248,3 +248,21 @@ Contributions are welcome! Bug reports, feature suggestions, documentation impro
 - **Translations**: README translations and locale additions are welcome. See [ADD_LOCALE.md](../src/uagent/docs/ADD_LOCALE.md).
 - **Tools & Skills**: New tool plugins and Agent Skills can be contributed via the marketplace.
 
+Realtime Sauti na AEC3
+
+## Realtime hali ya sauti inaweza kutumia maikrofoni ya duplex kamili na ingizo/pato la spika. Ikiwa mandhari ya nyuma ya AEC3 haipo, uag husakinisha pywebrtc-audio kiotomatiki.
+
+```bat
+python scheck.py realtime
+```
+
+AEC3 hutumia mawimbi halisi ya maikrofoni (karibu) na sauti inayotumwa kwa spika (mbali). Washa uchunguzi unapochunguza matatizo ya sauti pekee.
+
+```bat
+set UAGENT_REALTIME_AUDIO_DEBUG=1
+python scheck.py realtime
+```
+
+### OpenAI Realtime Function Calling
+
+OpenAI Realtime inaweza kutumia muunganisho usio na kikomo wa Function Calling. Adapta ya sasa hufichua kitendakazi cha kusoma tu get_current_time kiotomatiki. Zana haribifu na vidhibiti vya kifaa vinahitaji orodha ya wazi ya ruhusa na mtiririko wa uthibitishaji. Grok katika muda halisi hutumia adapta tofauti na haitumii njia hii OpenAI mahususi Function Calling.

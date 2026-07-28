@@ -249,3 +249,21 @@ Contributions are welcome! Bug reports, feature suggestions, documentation impro
 - **Translations**: README translations and locale additions are welcome. See [ADD_LOCALE.md](../src/uagent/docs/ADD_LOCALE.md).
 - **Tools & Skills**: New tool plugins and Agent Skills can be contributed via the marketplace.
 
+Realtime Voz e AEC3
+
+## Realtime O modo de voz suporta microfone full-duplex e entrada/saída de alto-falante. Se o backend AEC3 estiver faltando, uag instalará automaticamente pywebrtc-audio.
+
+```bat
+python scheck.py realtime
+```
+
+AEC3 usa o sinal real do microfone (próximo) e o áudio realmente enviado ao alto-falante (distante). Ative o diagnóstico somente ao investigar problemas de áudio.
+
+```bat
+set UAGENT_REALTIME_AUDIO_DEBUG=1
+python scheck.py realtime
+```
+
+### OpenAI Realtime Function Calling
+
+OpenAI Realtime oferece suporte a uma integração Function Calling com segurança limitada. O adaptador atual expõe a função get_current_time somente leitura automaticamente. Ferramentas destrutivas e controles de dispositivos exigem uma lista de permissões explícita e um fluxo de confirmação. Grok em tempo real usa um adaptador separado e não usa esse caminho Function Calling específico de OpenAI.

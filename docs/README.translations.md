@@ -8,8 +8,8 @@
 |----------|------|
 | [日本語](README.ja.md) | `README.ja.md` |
 | [한국어](README.ko.md) | `README.ko.md` |
-| [简体中文](README.zh_CN.md)) | `README.zh_CN.md` |
-| [繁體中文](README.zh_TW.md)) | `README.zh_TW.md` |
+| [简体中文](README.zh_CN.md) | `README.zh_CN.md` |
+| [繁體中文](README.zh_TW.md) | `README.zh_TW.md` |
 | [Tiếng Việt](README.vi.md) | `README.vi.md` |
 | [ไทย](README.th.md) | `README.th.md` |
 
@@ -17,13 +17,13 @@
 
 | Language | File |
 |----------|------|
-| [English](../README.md)) | `README.md` |
+| [English](../README.md) | `README.md` |
 | [Deutsch](README.de.md) | `README.de.md` |
 | [Español](README.es.md) | `README.es.md` |
 | [Français](README.fr.md) | `README.fr.md` |
 | [Italiano](README.it.md) | `README.it.md` |
 | [Português](README.pt.md) | `README.pt.md` |
-| [Português (BR)](README.pt_BR.md)) | `README.pt_BR.md` |
+| [Português (BR)](README.pt_BR.md) | `README.pt_BR.md` |
 | [Nederlands](README.nl.md) | `README.nl.md` |
 | [Polski](README.pl.md) | `README.pl.md` |
 | [Svenska](README.sv.md) | `README.sv.md` |

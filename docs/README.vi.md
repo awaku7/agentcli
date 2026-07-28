@@ -249,3 +249,21 @@ Contributions are welcome! Bug reports, feature suggestions, documentation impro
 - **Translations**: README translations and locale additions are welcome. See [ADD_LOCALE.md](../src/uagent/docs/ADD_LOCALE.md).
 - **Tools & Skills**: New tool plugins and Agent Skills can be contributed via the marketplace.
 
+Realtime Giọng nói và AEC3
+
+## Realtime chế độ giọng nói hỗ trợ đầu vào/đầu ra loa và micrô song công hoàn toàn. Nếu thiếu phần phụ trợ AEC3, uag sẽ tự động cài đặt pywebrtc-audio.
+
+```bat
+python scheck.py realtime
+```
+
+AEC3 sử dụng tín hiệu micrô thực tế (gần) và âm thanh thực tế được gửi đến loa (xa). Chỉ bật chẩn đoán khi điều tra sự cố âm thanh.
+
+```bat
+set UAGENT_REALTIME_AUDIO_DEBUG=1
+python scheck.py realtime
+```
+
+### OpenAI Realtime Function Calling
+
+OpenAI Realtime hỗ trợ tích hợp Function Calling ở mức giới hạn an toàn. Bộ điều hợp hiện tại tự động hiển thị chức năng get_current_time chỉ đọc. Các công cụ phá hủy và điều khiển thiết bị yêu cầu phải có danh sách cho phép và quy trình xác nhận rõ ràng. Grok thời gian thực sử dụng bộ chuyển đổi riêng và không sử dụng đường dẫn Function Calling dành riêng cho OpenAI này.

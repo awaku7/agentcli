@@ -246,3 +246,21 @@ Contributions are welcome! Bug reports, feature suggestions, documentation impro
 - **Translations**: README translations and locale additions are welcome. See [ADD_LOCALE.md](../src/uagent/docs/ADD_LOCALE.md).
 - **Tools & Skills**: New tool plugins and Agent Skills can be contributed via the marketplace.
 
+Realtime Hang és AEC3
+
+## A Realtime hangmód támogatja a full-duplex mikrofont és a hangszóró be-/kimenetet. Ha a AEC3 háttérprogram hiányzik, a uag automatikusan telepíti a pywebrtc-audio-at.
+
+```bat
+python scheck.py realtime
+```
+
+A AEC3 a tényleges mikrofonjelet (közel) és a hangszórónak ténylegesen küldött hangot (távoli) használja. Csak a hangproblémák kivizsgálásakor engedélyezze a diagnosztikát.
+
+```bat
+set UAGENT_REALTIME_AUDIO_DEBUG=1
+python scheck.py realtime
+```
+
+### OpenAI Realtime Function Calling
+
+OpenAI A Realtime támogatja a biztonságilag korlátozott Function Calling integrációt. Az aktuális adapter automatikusan megjeleníti a csak olvasható get_current_time funkciót. A roncsoló eszközök és eszközvezérlők kifejezett engedélyezési listát és megerősítési folyamatot igényelnek. A Grok realtime külön adaptert használ, és nem ezt a OpenAI-specifikus Function Calling elérési utat.

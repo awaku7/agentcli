@@ -250,3 +250,21 @@ Contributions are welcome! Bug reports, feature suggestions, documentation impro
 - **Translations**: README translations and locale additions are welcome. See [ADD_LOCALE.md](../src/uagent/docs/ADD_LOCALE.md).
 - **Tools & Skills**: New tool plugins and Agent Skills can be contributed via the marketplace.
 
+Realtime Stem en AEC3
+
+## Realtime stemmodus ondersteunt full-duplex microfoon- en luidsprekerinvoer/uitvoer. Als de backend AEC3 ontbreekt, installeert uag automatisch pywebrtc-audio.
+
+```bat
+python scheck.py realtime
+```
+
+AEC3 gebruikt het daadwerkelijke microfoonsignaal (dichtbij) en de audio die daadwerkelijk naar de luidspreker wordt gestuurd (ver). Schakel diagnostiek alleen in bij het onderzoeken van audioproblemen.
+
+```bat
+set UAGENT_REALTIME_AUDIO_DEBUG=1
+python scheck.py realtime
+```
+
+### OpenAI Realtime Function Calling
+
+OpenAI Realtime ondersteunt een Function Calling-integratie met beperkte veiligheid. De huidige adapter stelt de alleen-lezen get_current_time-functie automatisch beschikbaar. Destructieve tools en apparaatcontroles vereisen een expliciete toelatingslijst en bevestigingsstroom. Grok realtime gebruikt een aparte adapter en gebruikt niet dit OpenAI-specifieke Function Calling pad.

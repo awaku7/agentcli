@@ -246,3 +246,21 @@ Contributions are welcome! Bug reports, feature suggestions, documentation impro
 - **Translations**: README translations and locale additions are welcome. See [ADD_LOCALE.md](../src/uagent/docs/ADD_LOCALE.md).
 - **Tools & Skills**: New tool plugins and Agent Skills can be contributed via the marketplace.
 
+Realtime Ääni ja AEC3
+
+## Realtime-äänitila tukee kaksisuuntaista mikrofonia ja kaiuttimen tuloa/lähtöä. Jos AEC3-taustaosa puuttuu, uag asentaa pywebrtc-audio:n automaattisesti.
+
+```bat
+python scheck.py realtime
+```
+
+AEC3 käyttää todellista mikrofonisignaalia (lähellä) ja kaiuttimeen lähetettyä ääntä (kaukana). Ota diagnostiikka käyttöön vain, kun tutkit ääniongelmia.
+
+```bat
+set UAGENT_REALTIME_AUDIO_DEBUG=1
+python scheck.py realtime
+```
+
+### OpenAI Realtime Function Calling
+
+OpenAI Realtime tukee turvarajoitettua Function Calling-integraatiota. Nykyinen sovitin paljastaa vain luku -toiminnon get_current_time automaattisesti. Tuhoavat työkalut ja laiteohjaimet vaativat nimenomaisen sallittujen luettelon ja vahvistuksen. Grok reaaliaikainen käyttää erillistä sovitinta, eikä käytä tätä OpenAI-kohtaista Function Calling-polkua.
