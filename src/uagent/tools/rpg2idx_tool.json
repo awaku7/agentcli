@@ -49,9 +49,9 @@
       "RPGLE"
     ],
     "x_search_terms_en": [
-      "read rpg file",
-      "rpgle index",
-      "rpg procedure",
+      "rpgファイルを読み込む",
+      "rpgleインデックス",
+      "RPGの手順",
       "IBM i RPG",
       "dcl-proc",
       "begsr"
@@ -112,10 +112,10 @@
       "lire le fichier RPG",
       "index rpgle",
       "procédure rpg",
-      "IBM i RPG",
+      "IBM iRPG",
       "dcl-proc",
       "begsr",
-      "rpg source",
+      "source de RPG",
       "sqlrpgle",
       "RPGプログラム",
       "RPGLE"
@@ -124,7 +124,7 @@
       "lire le fichier RPG",
       "index rpgle",
       "procédure rpg",
-      "IBM i RPG",
+      "IBM iRPG",
       "dcl-proc",
       "begsr"
     ],
@@ -146,19 +146,19 @@
   "ko": {
     "x_search_terms": [
       "rpg 파일 읽기",
-      "rpgle index",
+      "RPG 인덱스",
       "rpg 절차",
       "IBM i RPG",
       "dcl-proc",
       "begsr",
-      "rpg source",
+      "RPG 소스",
       "sqlrpgle",
       "RPGprogram",
       "RPGLE"
     ],
     "x_search_terms_en": [
       "rpg 파일 읽기",
-      "rpgle index",
+      "RPG 인덱스",
       "rpg 절차",
       "IBM i RPG",
       "dcl-proc",
@@ -184,19 +184,19 @@
       "RPG-Datei lesen",
       "rpgle-Index",
       "rpg-Prozedur",
-      "IBM i RPG",
+      "IBM i-Rollenspiel",
       "dcl-proc",
       "begsr",
       "rpg-Quelle",
       "sqlrpgle",
-      "RPGプログラム",
+      "Rollenspiel",
       "RPGLE"
     ],
     "x_search_terms_en": [
       "RPG-Datei lesen",
       "rpgle-Index",
       "rpg-Prozedur",
-      "IBM i RPG",
+      "IBM i-Rollenspiel",
       "dcl-proc",
       "begsr"
     ],
@@ -220,19 +220,19 @@
       "leggi file rpg",
       "indice rpgle",
       "procedura rpg",
-      "IBM i RPG",
+      "Gioco di ruolo IBM i",
       "dcl-proc",
       "begsr",
-      "rpg source",
+      "fonte di gioco di ruolo",
       "sqlrpgle",
-      "RPGプログラム",
+      "Gioco di ruolo プ ロ グ ラ ム",
       "RPGLE"
     ],
     "x_search_terms_en": [
       "leggi file rpg",
       "indice rpgle",
       "procedura rpg",
-      "IBM i RPG",
+      "Gioco di ruolo IBM i",
       "dcl-proc",
       "begsr"
     ],
@@ -256,19 +256,19 @@
       "прочитать файл rpg",
       "индекс rpgle",
       "процедура rpg",
-      "IBM i RPG",
+      "IBM и РПГ",
       "dcl-proc",
       "begsr",
       "источник rpg",
       "sqlrpgle",
-      "RPGプログラム",
+      "РПГプログラム",
       "RPGLE"
     ],
     "x_search_terms_en": [
       "прочитать файл rpg",
       "индекс rpgle",
       "процедура rpg",
-      "IBM i RPG",
+      "IBM и РПГ",
       "dcl-proc",
       "begsr"
     ],
@@ -290,12 +290,12 @@
   "pt_BR": {
     "x_search_terms": [
       "ler arquivo rpg",
-      "rpgle index",
-      "rpg procedure",
-      "IBM i RPG",
+      "índice rpgle",
+      "procedimento de RPG",
+      "IBM e RPG",
       "dcl-proc",
       "begsr",
-      "rpg source",
+      "fonte de RPG",
       "sqlrpgle",
       "RPGプログラム",
       "RPGLE"
@@ -304,7 +304,7 @@
       "ler arquivo rpg",
       "índice rpgle",
       "procedimento rpg",
-      "IBM i RPG",
+      "IBM e RPG",
       "dcl-proc",
       "begsr"
     ],
@@ -326,12 +326,12 @@
   "pt": {
     "x_search_terms": [
       "ler arquivo rpg",
-      "rpgle index",
-      "rpg procedure",
-      "IBM i RPG",
+      "índice rpgle",
+      "procedimento de RPG",
+      "IBM e RPG",
       "dcl-proc",
       "begsr",
-      "rpg source",
+      "fonte de RPG",
       "sqlrpgle",
       "RPGプログラム",
       "RPGLE"
@@ -340,7 +340,7 @@
       "ler arquivo rpg",
       "índice rpgle",
       "procedimento rpg",
-      "IBM i RPG",
+      "IBM e RPG",
       "dcl-proc",
       "begsr"
     ],
@@ -400,7 +400,7 @@
       "đọc tập tin rpg",
       "chỉ mục rpgle",
       "thủ tục rpg",
-      "IBM i RPG",
+      "IBM và RPG",
       "dcl-proc",
       "begsr",
       "nguồn rpg",
@@ -412,7 +412,7 @@
       "đọc tập tin rpg",
       "chỉ mục rpgle",
       "thủ tục rpg",
-      "IBM i RPG",
+      "IBM và RPG",
       "dcl-proc",
       "begsr"
     ],
@@ -436,19 +436,19 @@
       "przeczytaj plik rpg",
       "indeks rpgle",
       "procedura rpg",
-      "IBM i RPG",
+      "RPG IBM i",
       "dcl-proc",
       "begsr",
       "źródło rpg",
       "sqlrpgle",
-      "RPGプログラム",
+      "RPG",
       "RPGLE"
     ],
     "x_search_terms_en": [
       "przeczytaj plik rpg",
       "indeks rpgle",
       "procedura rpg",
-      "IBM i RPG",
+      "RPG IBM i",
       "dcl-proc",
       "begsr"
     ],
@@ -508,19 +508,19 @@
       "قراءة ملف rpg",
       "فهرس rpgle",
       "إجراء rpg",
-      "IBM i RPG",
+      "آي بي إم و آر بي جي",
       "dcl-proc",
       "begsr",
-      "rpg source",
+      "مصدر آر بي جي",
       "sqlrpgle",
-      "RPGプログラム",
+      "آر بي جي (プ ロ グ ラ ム).",
       "RPGLE"
     ],
     "x_search_terms_en": [
       "قراءة ملف rpg",
       "فهرس rpgle",
       "إجراء rpg",
-      "IBM i RPG",
+      "آي بي إم و آر بي جي",
       "dcl-proc",
       "begsr"
     ],
@@ -543,11 +543,11 @@
     "x_search_terms": [
       "läs rpg file",
       "rpgle index",
-      "rpg procedure",
+      "rpg-förfarande",
       "IBM i RPG",
       "dcl-proc",
       "begsr",
-      "rpg source",
+      "rpg-källa",
       "sqlrpgle",
       "RPGプログラム",
       "RPGLE"
@@ -555,7 +555,7 @@
     "x_search_terms_en": [
       "läs rpg file",
       "rpgle index",
-      "rpg procedure",
+      "rpg-förfarande",
       "IBM i RPG",
       "dcl-proc",
       "begsr"
@@ -580,10 +580,10 @@
       "soma faili ya rpg",
       "rpgle index",
       "rpg utaratibu",
-      "IBM i RPG",
+      "IBM na RPG",
       "dcl-proc",
       "begsr",
-      "rpg source",
+      "chanzo cha rpg",
       "sqlrpgle",
       "RPGプログラム",
       "RPGLE"
@@ -592,7 +592,7 @@
       "soma faili ya rpg",
       "rpgle index",
       "rpg utaratibu",
-      "IBM i RPG",
+      "IBM na RPG",
       "dcl-proc",
       "begsr"
     ],
@@ -619,7 +619,7 @@
       "IBM i RPG",
       "dcl-proc",
       "begsr",
-      "rpg source",
+      "rpg-kilde",
       "sqlrpgle",
       "RPGプログラム",
       "RPGLE"
@@ -650,21 +650,21 @@
   "nl": {
     "x_search_terms": [
       "lees rpg-bestand",
-      "rpgle index",
-      "rpg procedure",
-      "IBM i RPG",
+      "rpgle-index",
+      "rpg-procedure",
+      "IBM i-RPG",
       "dcl-proc",
       "begsr",
-      "rpg source",
+      "rpg-bron",
       "sqlrpgle",
-      "RPGプログラム",
+      "RPG-versie",
       "RPGLE"
     ],
     "x_search_terms_en": [
       "lees rpg-bestand",
-      "rpgle index",
+      "rpgle-index",
       "rpg-procedure",
-      "IBM i RPG",
+      "IBM i-RPG",
       "dcl-proc",
       "begsr"
     ],
@@ -729,7 +729,7 @@
       "begsr",
       "zdroj rpg",
       "sqlrpgle",
-      "RPGプログラム",
+      "RPG hra",
       "RPGLE"
     ],
     "x_search_terms_en": [
@@ -801,7 +801,7 @@
       "begsr",
       "rpg kaynağı",
       "sqlrpgle",
-      "RPGプログラム",
+      "RPG oyunu",
       "RPGLE"
     ],
     "x_search_terms_en": [
@@ -835,14 +835,14 @@
       "IBM i RPG",
       "dcl-proc",
       "begsr",
-      "rpg source",
+      "แหล่งที่มา RPG",
       "sqlrpgle",
       "RPGプログラム",
       "RPGLE"
     ],
     "x_search_terms_en": [
       "อ่านไฟล์ rpg",
-      "rpgle index",
+      "ดัชนี RPG",
       "โพรซีเดอร์ rpg",
       "IBM i RPG",
       "dcl-proc",
@@ -868,19 +868,19 @@
       "读取rpg文件",
       "rpgle索引",
       "rpg程序",
-      "IBM i RPG",
+      "IBM i 角色扮演游戏",
       "dcl-proc",
       "begsr",
       "rpg源",
       "sqlrpgle",
-      "RPGプログラム",
+      "角色扮演游戏",
       "RPGLE"
     ],
     "x_search_terms_en": [
       "读取rpg文件",
       "rpgle索引",
       "rpg程序",
-      "IBM i RPG",
+      "IBM i 角色扮演游戏",
       "dcl-proc",
       "begsr"
     ],
@@ -904,19 +904,19 @@
       "讀取rpg檔",
       "rpgle索引",
       "rpg程式",
-      "IBM i RPG",
+      "IBM i 角色扮演遊戲",
       "dcl-proc",
       "begsr",
       "rpg來源",
       "sqlrpgle",
-      "RPGプログラム",
+      "角色扮演遊戲",
       "RPGLE"
     ],
     "x_search_terms_en": [
       "讀取rpg檔",
       "rpgle索引",
       "rpg程式",
-      "IBM i RPG",
+      "IBM i 角色扮演遊戲",
       "dcl-proc",
       "begsr"
     ],
@@ -938,21 +938,21 @@
   "bn": {
     "x_search_terms": [
       "rpg ফাইল পড়ুন",
-      "rpgle index",
+      "rpgle সূচক",
       "rpg পদ্ধতি",
-      "IBM i RPG",
+      "আইবিএম এবং আরপিজি",
       "dcl-proc",
       "begsr",
-      "rpg source",
+      "আরপিজি উৎস",
       "sqlrpgle",
-      "RPGプログラム",
+      "RPG プログラム",
       "RPGLE"
     ],
     "x_search_terms_en": [
       "rpg ফাইল পড়ুন",
-      "rpgle index",
+      "rpgle সূচক",
       "rpg পদ্ধতি",
-      "IBM i RPG",
+      "আইবিএম এবং আরপিজি",
       "dcl-proc",
       "begsr"
     ],
@@ -974,21 +974,21 @@
   "fa": {
     "x_search_terms": [
       "خواندن فایل rpg",
-      "rpgle index",
+      "شاخص rpgle",
       "rpg رویه",
-      "IBM i RPG",
+      "IBM و RPG",
       "dcl-proc",
       "begsr",
       " منبع rpg",
       "sqlrpgle",
-      "RPGプログラム",
+      "RPG",
       "RPGLE"
     ],
     "x_search_terms_en": [
       "خواندن فایل rpg",
-      "rpgle index",
+      "شاخص rpgle",
       "rpg رویه",
-      "IBM i RPG",
+      "IBM و RPG",
       "dcl-proc",
       "begsr"
     ],
@@ -1012,10 +1012,10 @@
       "rpg файлыг унших",
       "rpgle индекс",
       "rpg процедур",
-      "IBM i RPG",
+      "IBM болон RPG",
       "dcl-proc",
       "begsr",
-      "rpg source",
+      "rpg эх сурвалж",
       "sqlrpgle",
       "RPGプログラム",
       "RPGLE"
@@ -1024,7 +1024,7 @@
       "rpg файлыг унших",
       "rpgle индекс",
       "rpg процедур",
-      "IBM i RPG",
+      "IBM болон RPG",
       "dcl-proc",
       "begsr"
     ],
@@ -1046,21 +1046,21 @@
   "mr": {
     "x_search_terms": [
       "rpg फाइल वाचा",
-      "rpgle index",
+      "आरपीजीएल निर्देशांक",
       "rpg process",
-      "IBM i RPG",
+      "IBM आणि RPG",
       "dcl-proc",
       "begsr",
-      "rpg source",
+      "आरपीजी स्रोत",
       "sqlrpgle",
       "RPGプログラム",
       "RPGLE"
     ],
     "x_search_terms_en": [
       "rpg फाइल वाचा",
-      "rpgle index",
+      "आरपीजीएल निर्देशांक",
       "rpg process",
-      "IBM i RPG",
+      "IBM आणि RPG",
       "dcl-proc",
       "begsr"
     ],
@@ -1082,21 +1082,21 @@
   "el": {
     "x_search_terms": [
       "ανάγνωση αρχείου rpg",
-      "rpgle index",
+      "ευρετήριο rpgle",
       "rpg διαδικασία",
-      "IBM i RPG",
+      "IBM και RPG",
       "dcl-proc",
       "begsr",
-      "rpg source",
+      "πηγή rpg",
       "sqlrpgle",
       "RPGプログラム",
       "RPGLE"
     ],
     "x_search_terms_en": [
       "ανάγνωση αρχείου rpg",
-      "rpgle index",
+      "ευρετήριο rpgle",
       "rpg διαδικασία",
-      "IBM i RPG",
+      "IBM και RPG",
       "dcl-proc",
       "begsr"
     ],
@@ -1118,20 +1118,20 @@
   "he": {
     "x_search_terms": [
       "קרא קובץ rpg",
-      "rpgle index",
-      "rpg procedure",
+      "אינדקס rpgle",
+      "הליך rpg",
       "IBM i RPG",
       "dcl-proc",
       "begsr",
-      "rpg source",
+      "מקור rpg",
       "sqlrpgle",
       "RPGプログラム",
       "RPGLE"
     ],
     "x_search_terms_en": [
       "קרא קובץ rpg",
-      "rpgle index",
-      "rpg procedure",
+      "אינדקס rpgle",
+      "הליך rpg",
       "IBM i RPG",
       "dcl-proc",
       "begsr"
@@ -1190,12 +1190,12 @@
   "ro": {
     "x_search_terms": [
       "citiți fișierul rpg",
-      "rpgle index",
+      "indexul rpgle",
       "rpg procedura",
       "IBM i RPG",
       "dcl-proc",
       "begsr",
-      "rpg source",
+      "sursa rpg",
       "sqlrpgle",
       "RPGプログラム",
       "RPGLE"

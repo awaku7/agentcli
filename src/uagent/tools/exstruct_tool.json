@@ -1047,7 +1047,7 @@
       "adat kinyerés",
       "bináris kivonat",
       "struktúraelemző",
-      "struct parser"
+      "struct elemző"
     ],
     "param.password.description": "Jelszó (szükség esetén kéri).",
     "error.missing_exstruct": "Az \"exstruct\" csomag nincs telepítve. Kérjük, telepítse a következővel: pip install exstruct",

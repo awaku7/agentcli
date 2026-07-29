@@ -47,10 +47,10 @@
       "PF LF DSPF"
     ],
     "x_search_terms_en": [
-      "read dds file",
-      "physical file dds",
-      "display file dspf",
-      "logical file lf"
+      "ddsファイルを読む",
+      "物理ファイル DD",
+      "表示ファイル dspf",
+      "論理ファイル lf"
     ],
     "param.path.description": "DDS (PF/LF/DSPF/PRTF) ソースファイルへのパス。",
     "err.path_required": "エラー: 'path' は必須です。",
@@ -213,7 +213,7 @@
       "sorgente DDS",
       "formato record",
       "campo DDS",
-      "IBM i DDS",
+      "IBM iDDS",
       "PF LF DSPF"
     ],
     "x_search_terms_en": [
@@ -247,8 +247,8 @@
       "Источник DDS",
       "формат записи",
       "поле DDS",
-      "IBM i DDS",
-      "PF LF DSPF"
+      "IBM и DDS",
+      "ПФ НЧ ДСПФ"
     ],
     "x_search_terms_en": [
       "прочитать файл dds",
@@ -349,7 +349,7 @@
       "DDS sumber",
       "format rekaman",
       "bidang DDS",
-      "IBM i DDS",
+      "IBM dan DDS",
       "PF LF DSPF"
     ],
     "x_search_terms_en": [
@@ -417,7 +417,7 @@
       "źródło DDS",
       "format rekordu",
       "pole DDS",
-      "IBM i DDS",
+      "DDS dla IBM i",
       "PF LF DSPF"
     ],
     "x_search_terms_en": [
@@ -485,14 +485,14 @@
       "مصدر DDS",
       "تنسيق سجل",
       "حقل DDS",
-      "IBM i DDS",
-      "PF LF DSPF"
+      "آي بي إم وDDS",
+      "الجبهة الوطنية LF دسف"
     ],
     "x_search_terms_en": [
       "قراءة ملف dds - ملف فعلي dds - عرض ملف dspf - ملف منطقي lf",
-      "",
-      "",
-      ""
+      "dds الملف الفعلي",
+      "عرض ملف dspf",
+      "الملف المنطقي lf"
     ],
     "param.path.description": "المسار إلى الملف المصدر DDS (PF/LF/DSPF/PRTF).",
     "err.path_required": "خطأ: \"المسار\" مطلوب.",
@@ -512,15 +512,15 @@
   "sv": {
     "x_search_terms": [
       "läs dds file",
-      "",
-      "",
-      "",
-      "",
-      "",
-      "",
-      "",
-      "",
-      ""
+      "fysisk fil dds",
+      "visa filen dspf",
+      "logisk fil lf",
+      "skrivarfil prtf",
+      "DDS-källa",
+      "rekordformat",
+      "DDS-fält",
+      "IBM och DDS",
+      "PF LF DSPF"
     ],
     "x_search_terms_en": [
       "läs dds-fil",
@@ -553,7 +553,7 @@
       "chanzo cha DDS",
       "umbizo la rekodi",
       "uga wa DDS",
-      "IBM i DDS",
+      "IBM na DDS",
       "PF LF DSPF"
     ],
     "x_search_terms_en": [
@@ -580,15 +580,15 @@
   "nb": {
     "x_search_terms": [
       "les dds file",
-      "",
-      "",
-      "",
-      "",
-      "",
-      "",
-      "",
-      "",
-      ""
+      "fysisk fil dds",
+      "vise fil dspf",
+      "logisk fil lf",
+      "skriverfil prtf",
+      "DDS-kilde",
+      "rekordformat",
+      "DDS-feltet",
+      "IBM og DDS",
+      "PF LF DSPF"
     ],
     "x_search_terms_en": [
       "les dds-fil",
@@ -757,7 +757,7 @@
       "DDS kaynağı",
       "kayıt formatı",
       "DDS alanı",
-      "IBM i DDS",
+      "IBM ve DDS",
       "PF LF DSPF"
     ],
     "x_search_terms_en": [
@@ -791,7 +791,7 @@
       "แหล่ง DDS",
       "รูปแบบบันทึก",
       "ฟิลด์ DDS",
-      "IBM i DDS",
+      "ไอบีเอ็ม i DDS",
       "PF LF DSPF"
     ],
     "x_search_terms_en": [
@@ -893,14 +893,14 @@
       "DDS সোর্স",
       "রেকর্ড ফরম্যাট",
       "DDS ক্ষেত্র",
-      "IBM i DDS",
+      "আইবিএম এবং ডিডিএস",
       "PF LF DSPF"
     ],
     "x_search_terms_en": [
       "dds ফাইল পড়ুন",
-      "",
-      "",
-      ""
+      "শারীরিক ফাইল dds",
+      "ডিএসপিএফ ফাইল প্রদর্শন করুন",
+      "লজিক্যাল ফাইল lf"
     ],
     "param.path.description": "DDS (PF/LF/DSPF/PRTF) সোর্স ফাইলের পথ।",
     "err.path_required": "ত্রুটি: 'পথ' প্রয়োজন।",
@@ -927,7 +927,7 @@
       "منبع DDS",
       "قالب ضبط",
       "فیلد DDS",
-      "IBM i DDS",
+      "IBM و DDS",
       "PF LF DSPF"
     ],
     "x_search_terms_en": [
@@ -961,7 +961,7 @@
       "DDS эх сурвалж",
       "Бичлэгийн формат",
       "DDS талбар",
-      "IBM i DDS",
+      "IBM болон DDS",
       "PF LF DSPF"
     ],
     "x_search_terms_en": [
@@ -995,7 +995,7 @@
       "DDS स्रोत",
       "रेकॉर्ड फॉरमॅट",
       "DDS फील्ड",
-      "IBM i DDS",
+      "IBM आणि DDS",
       "PF LF DSPF"
     ],
     "x_search_terms_en": [
@@ -1029,7 +1029,7 @@
       "πηγή DDS",
       "μορφή εγγραφής",
       "πεδίο DDS",
-      "IBM i DDS",
+      "IBM και DDS",
       "PF LF DSPF"
     ],
     "x_search_terms_en": [

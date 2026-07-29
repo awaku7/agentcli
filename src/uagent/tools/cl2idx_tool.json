@@ -47,9 +47,9 @@
       "制御言語"
     ],
     "x_search_terms_en": [
-      "read cl file",
-      "clle index",
-      "clp program structure",
+      "clファイルを読む",
+      "クレインデックス",
+      "clp プログラムの構造",
       "IBM i CL"
     ],
     "param.path.description": "CL/CLP/CLLE ソースファイルへのパス。",
@@ -72,7 +72,7 @@
       "leer archivo cl",
       "índice clle",
       "estructura del programa clp",
-      "IBM i CL",
+      "IBM iCL",
       "fuente CL",
       "programa CL",
       "ENDPGM",
@@ -84,7 +84,7 @@
       "leer archivo cl",
       "índice clle",
       "estructura del programa clp",
-      "IBM i CL"
+      "IBM iCL"
     ],
     "param.path.description": "Ruta al archivo fuente CL/CLP/CLLE.",
     "err.path_required": "Error: se requiere 'ruta'.",
@@ -106,7 +106,7 @@
       "lire le fichier cl",
       "index clle",
       "structure du programme clp",
-      "IBM i CL",
+      "IBM iCL",
       "source CL",
       "programme CL",
       "ENDPGM",
@@ -118,7 +118,7 @@
       "lire le fichier cl",
       "index clle",
       "structure du programme clp",
-      "IBM i CL"
+      "IBM iCL"
     ],
     "param.path.description": "Chemin d'accès au fichier source CL/CLP/CLLE.",
     "err.path_required": "Erreur : « chemin » est requis.",
@@ -208,7 +208,7 @@
       "leggi file cl",
       "indice clle",
       "struttura programma clp",
-      "IBM i CL",
+      "IBM iCL",
       "sorgente CL",
       "programmaCL",
       "ENDPGM",
@@ -220,7 +220,7 @@
       "leggi file cl",
       "indice clle",
       "struttura del programmaclp",
-      "IBM i CL"
+      "IBM iCL"
     ],
     "param.path.description": "Percorso del file di origine CL/CLP/CLLE.",
     "err.path_required": "Errore: il \"percorso\" è obbligatorio.",
@@ -242,7 +242,7 @@
       "прочитать файл cl",
       "индекс clle",
       "структуру программы clp",
-      "IBM i CL",
+      "IBM и CL",
       "исходный код CL",
       "программа CL",
       "ENDPGM",
@@ -254,7 +254,7 @@
       "прочитать файл cl",
       "индекс clle",
       "структуру программы clp",
-      "IBM i CL"
+      "IBM и CL"
     ],
     "param.path.description": "Путь к исходному файлу CL/CLP/CLLE.",
     "err.path_required": "Ошибка: требуется «путь».",
@@ -276,7 +276,7 @@
       "ler arquivo cl",
       "índice clle",
       "estrutura do programa clp",
-      "IBM i CL",
+      "IBM iCL",
       "fonte CL",
       "programa CL",
       "ENDPGM",
@@ -286,9 +286,9 @@
     ],
     "x_search_terms_en": [
       "leia o arquivo cl",
-      "clle index",
+      "índice clle",
       "clp estrutura do programa",
-      "IBM i CL"
+      "IBM iCL"
     ],
     "param.path.description": "Caminho para o arquivo de origem CL/CLP/CLLE.",
     "err.path_required": "Erro: 'caminho' é obrigatório.",
@@ -310,7 +310,7 @@
       "ler arquivo cl",
       "índice clle",
       "estrutura do programa clp",
-      "IBM i CL",
+      "IBM iCL",
       "fonte CL",
       "programa CL",
       "ENDPGM",
@@ -320,9 +320,9 @@
     ],
     "x_search_terms_en": [
       "leia o arquivo cl",
-      "clle index",
+      "índice clle",
       "clp estrutura do programa",
-      "IBM i CL"
+      "IBM iCL"
     ],
     "param.path.description": "Caminho para o arquivo de origem CL/CLP/CLLE.",
     "err.path_required": "Erro: 'caminho' é obrigatório.",
@@ -344,7 +344,7 @@
       "membaca file cl",
       "indeks clle",
       "struktur program clp",
-      "IBM i CL",
+      "IBM dan CL",
       "sumber CL",
       "program CL",
       "ENDPGM",
@@ -356,7 +356,7 @@
       "baca file cl",
       "clle indeks",
       "clp struktur program",
-      "IBM i CL"
+      "IBM dan CL"
     ],
     "param.path.description": "Jalur ke file sumber CL/CLP/CLLE.",
     "err.path_required": "Kesalahan: 'jalur' diperlukan.",
@@ -378,7 +378,7 @@
       "đọc tệp cl",
       "chỉ mục clle",
       "cấu trúc chương trình clp",
-      "IBM i CL",
+      "IBM và CL",
       "Nguồn CL",
       "Chương trình CL",
       "ENDPGM",
@@ -390,7 +390,7 @@
       "đọc tập tin cl",
       "chỉ mục clle",
       "cấu trúc chương trình clp",
-      "IBM i CL"
+      "IBM và CL"
     ],
     "param.path.description": "Đường dẫn đến tệp nguồn CL/CLP/CLLE.",
     "err.path_required": "Lỗi: 'đường dẫn' là bắt buộc.",
@@ -480,7 +480,7 @@
       "قراءة ملف cl",
       "فهرس clle",
       "بنية البرنامج clp",
-      "IBM i CL",
+      "آي بي إم وCL",
       "مصدر CL",
       "برنامج CL",
       "ENDPGM",
@@ -492,7 +492,7 @@
       "قراءة ملف cl",
       "clle فهرس",
       "clp هيكل البرنامج",
-      "IBM i CL"
+      "آي بي إم وCL"
     ],
     "param.path.description": "المسار إلى الملف المصدر CL/CLP/CLLE.",
     "err.path_required": "خطأ: \"المسار\" مطلوب.",
@@ -548,7 +548,7 @@
       "soma faili ya cl",
       " index ya clle",
       "muundo wa programu ya clp",
-      "IBM i CL",
+      "IBM na CL",
       "CL chanzo",
       "programu ya CL",
       "ENDPGM",
@@ -580,11 +580,11 @@
   "nb": {
     "x_search_terms": [
       "les cl file",
-      "clle index",
+      "clle indeks",
       "clp programstruktur",
-      "IBM i CL",
-      "CL source",
-      "CL program",
+      "IBM og CL",
+      "CL-kilde",
+      "CL-program",
       "ENDPGM",
       "DCLF",
       "CLLE",
@@ -592,9 +592,9 @@
     ],
     "x_search_terms_en": [
       "les cl file",
-      "clle index",
+      "clle indeks",
       "clp programstruktur",
-      "IBM i CL"
+      "IBM og CL"
     ],
     "param.path.description": "Banen til CL/CLP/CLLE-kildefilen.",
     "err.path_required": "Feil: 'bane' er påkrevd.",
@@ -614,9 +614,9 @@
   "nl": {
     "x_search_terms": [
       "lees cl bestand",
-      "clle index",
+      "clle-index",
       "clp programmastructuur",
-      "IBM i CL",
+      "IBM iCL",
       "CL bron",
       "CL programma",
       "ENDPGM",
@@ -626,9 +626,9 @@
     ],
     "x_search_terms_en": [
       "lees cl file",
-      "clle index",
+      "clle-index",
       "clp programmastructuur",
-      "IBM i CL"
+      "IBM iCL"
     ],
     "param.path.description": "Pad naar het CL/CLP/CLLE-bronbestand.",
     "err.path_required": "Fout: 'pad' is vereist.",
@@ -786,8 +786,8 @@
       "อ่านไฟล์ cl",
       "ดัชนี clle",
       "โครงสร้างโปรแกรม clp",
-      "IBM i CL",
-      "CL source",
+      "ไอบีเอ็ม ไอ ซีแอล",
+      "ที่มาของซีแอล",
       "โปรแกรม CL",
       "ENDPGM",
       "DCLF",
@@ -798,7 +798,7 @@
       "อ่านไฟล์ cl",
       "ดัชนี clle",
       "โครงสร้างโปรแกรม clp",
-      "IBM i CL"
+      "ไอบีเอ็ม ไอ ซีแอล"
     ],
     "param.path.description": "พาธไปยังไฟล์ต้นฉบับ CL/CLP/CLLE",
     "err.path_required": "ข้อผิดพลาด: จำเป็นต้องมี 'เส้นทาง'",
@@ -886,21 +886,21 @@
   "bn": {
     "x_search_terms": [
       "cl ফাইল পড়ুন",
-      "",
-      "",
-      "",
-      "",
-      "",
-      "",
-      "",
-      "",
-      ""
+      "clle সূচক",
+      "clp প্রোগ্রাম গঠন",
+      "আইবিএম এবং সিএল",
+      "সিএল উৎস",
+      "সিএল প্রোগ্রাম",
+      "ENDPGM",
+      "ডিসিএলএফ",
+      "CLLE",
+      "নিয়ন্ত্রণ ভাষা"
     ],
     "x_search_terms_en": [
       "cl ফাইল পড়ুন",
-      "clle index",
+      "clle সূচক",
       "clp প্রোগ্রাম কাঠামো",
-      "IBM i CL"
+      "আইবিএম এবং সিএল"
     ],
     "param.path.description": "CL/CLP/CLLE সোর্স ফাইলের পাথ।",
     "err.path_required": "ত্রুটি: 'পথ' প্রয়োজন।",
@@ -923,8 +923,8 @@
       " clle index",
       "clp ساختار برنامه",
       "IBM i CL",
-      "CL source",
-      "CL program",
+      "منبع CL",
+      "برنامه CL",
       "ENDPGM",
       "DCLF",
       "CLLE",
@@ -956,7 +956,7 @@
       "cl файлыг унших",
       "clle индекс",
       "clp програмын бүтэц",
-      "IBM i CL",
+      "IBM болон CL",
       "CL эх сурвалж",
       "CL програм",
       "ENDPGM",
@@ -968,7 +968,7 @@
       "cl файлыг унших",
       "clle индекс",
       "clp програмын бүтэц",
-      "IBM i CL"
+      "IBM болон CL"
     ],
     "param.path.description": "CL/CLP/CLLE эх файлын зам.",
     "err.path_required": "Алдаа: \"зам\" шаардлагатай.",
@@ -988,11 +988,11 @@
   "mr": {
     "x_search_terms": [
       "वाचा cl file",
-      "clle index",
+      "clle निर्देशांक",
       "clp प्रोग्राम रचना",
-      "IBM i CL",
-      "CL source",
-      "CL program",
+      "आयबीएम आणि सीएल",
+      "सीएल स्रोत",
+      "सीएल कार्यक्रम",
       "ENDPGM",
       "DCLF",
       "CLLE",
@@ -1000,7 +1000,7 @@
     ],
     "x_search_terms_en": [
       "cl file",
-      "clle index",
+      "clle निर्देशांक",
       "clp प्रोग्राम रचना",
       "IBM i CL वाचा"
     ],
@@ -1056,11 +1056,11 @@
   "he": {
     "x_search_terms": [
       "קרא cl file",
-      "clle index",
+      "אינדקס clle",
       "clp מבנה תוכנית",
       "IBM i CL",
-      "CL source",
-      "CL program",
+      "מקור CL",
+      "תוכנית CL",
       "ENDPGM",
       "DCLF",
       "CLLE",
@@ -1068,7 +1068,7 @@
     ],
     "x_search_terms_en": [
       "קרא קובץ cl",
-      "clle index",
+      "אינדקס clle",
       "מבנה תוכנית clp",
       "IBM i CL"
     ],
@@ -1124,11 +1124,11 @@
   "ro": {
     "x_search_terms": [
       "citiți fișierul cl",
-      "clle index",
+      "index cllle",
       "clp structura programului",
       "IBM i CL",
-      "CL source",
-      "CL program",
+      "sursa CL",
+      "Programul CL",
       "ENDPGM",
       "DCLF",
       "CLLE",
@@ -1136,7 +1136,7 @@
     ],
     "x_search_terms_en": [
       "citiți fișierul cl",
-      "clle index",
+      "index cllle",
       "clp structura programului",
       "IBM i CL"
     ],

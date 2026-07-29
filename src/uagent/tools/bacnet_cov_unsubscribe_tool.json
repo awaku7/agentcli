@@ -430,7 +430,7 @@
     "err.task_id_required": "id_zadania jest wymagany dla akcji=unsubscribe.",
     "x_search_terms": [
       "bacnet cov wypisz się",
-      "bacnet_cov_unsubscribe",
+      "bacnet_cov_unsubscription",
       "bacnet",
       "BACNET",
       "cov",
