@@ -631,3 +631,7 @@ graph TD
 ```
 
 - MMD ファイル: [code_map_20260707_dep.mmd](code_map_20260707_dep.mmd)
+
+## Realtime Voice Architecture
+- Supports OpenAI Realtime, xAI Grok Voice API, and Google Gemini Multimodal Live API (`gemini-2.0-flash-exp`).
+- Kept strictly isolated in `src/uagent/realtime.py` to prevent side effects on standard text execution flows.

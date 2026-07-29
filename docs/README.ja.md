@@ -48,7 +48,7 @@ uag
 
 ## リアルタイム音声とAEC3
 
-Realtime音声モードは、`pywebrtc-audio`のWebRTC AEC3バックエンドを自動インストールし、マイクとスピーカーを同時に扱う全二重音声入出力に対応しています。
+Realtime音声モードは、OpenAI Realtime、xAI Grok Voice API、およびGoogle Gemini Multimodal Live APIに対応しており、`pywebrtc-audio`のWebRTC AEC3バックエンドを自動インストールしてマイクとスピーカーを同時に扱う全二重音声入出力に対応しています。
 
 ```bat
 python scheck.py realtime

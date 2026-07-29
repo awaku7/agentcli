@@ -234,3 +234,7 @@ ______________________________________________________________________
 | `rpg2idx` | `/IF` 式の評価実行 | 条件コンパイル行の検出・索引まで |
 
 回帰: `tests/test_cl2idx_tool.py`, `tests/test_dds2idx_tool.py`, `tests/test_rpg2idx_tool.py`。
+
+## リアルタイム音声アーキテクチャ
+- OpenAI Realtime、xAI Grok Voice API、および Google Gemini Multimodal Live API (`gemini-2.0-flash-exp`) をサポート。
+- テキストCLI側の実行フローに影響を与えないよう、`src/uagent/realtime.py` 内に完全に分離して実装。

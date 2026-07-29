@@ -48,7 +48,7 @@ See [docs/ENVIRONMENT.md](https://github.com/awaku7/agentcli/blob/main/docs/ENVI
 
 ## Realtime Voice and AEC3
 
-The realtime voice mode supports full-duplex microphone and speaker I/O with automatic installation of the `pywebrtc-audio` WebRTC AEC3 backend:
+The realtime voice mode supports OpenAI Realtime, xAI Grok Voice API, and Google Gemini Multimodal Live API with full-duplex microphone and speaker I/O (and automatic installation of the `pywebrtc-audio` WebRTC AEC3 backend):
 
 ```bash
 python scheck.py realtime

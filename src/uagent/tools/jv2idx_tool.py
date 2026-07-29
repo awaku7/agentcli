@@ -231,7 +231,7 @@ class _JvIndexBuilder:
                 depth -= 1
         return depth
 
-    def _detect_definitions(self, line: str) -> list[tuple[str, str]]:
+    def _detect_definitions(self, line: str) -> list[tuple[str, ...]]:
         cleaned = self._clean_line(line)
         if not cleaned.strip():
             return []

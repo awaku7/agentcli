@@ -238,3 +238,9 @@ LLM バックエンドが直接提供する組み込み Web 検索（グラウ�
 - **`UAGENT_GEMINI_WEB_SEARCH`**: Gemini / Vertex AI の組み込み Google 検索（Google Search Grounding）を制御します。
   - `1`, `true`, `yes`, `on` または **未設定（デフォルト）** の場合に有効。有効時はローカルの Web 検索ツールが自動的に無効化されます。
   - `0`, `false`, `no`, `off` に設定すると無効化され、ローカルの Web 検索ツールが使用されます。
+
+## リアルタイム音声環境変数
+- `UAGENT_AUDIO_REALTIME_PROVIDER`: プロバイダーの上書き（`openai` / `grok` / `xai` / `google` / `gemini` / `vertexai`）。
+- `UAGENT_GEMINI_API_KEY` / `UAGENT_GOOGLE_API_KEY` / `GEMINI_API_KEY` / `GOOGLE_API_KEY`: Gemini Realtime用APIキー。
+- `UAGENT_GEMINI_REALTIME_DEPNAME` / `UAGENT_GOOGLE_REALTIME_DEPNAME`: Realtimeモデル名（既定: `gemini-2.0-flash-exp`）。
+- `UAGENT_GEMINI_REALTIME_VOICE` / `UAGENT_GOOGLE_REALTIME_VOICE`: プリセットボイス名（既定: `Puck`）。

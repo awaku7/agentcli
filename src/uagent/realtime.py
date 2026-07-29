@@ -1,8 +1,8 @@
 """Realtime voice I/O mode for the ``uag realtime`` command.
 
-This module intentionally keeps the realtime transport separate from the normal
-text CLI.  It streams microphone audio to OpenAI Realtime or xAI's Grok Voice
-Agent API and plays returned PCM audio through the default speaker.
+This module keeps the realtime transport separate from the normal text CLI.
+It streams microphone audio to OpenAI Realtime, xAI Grok Voice API, or Google
+Gemini Multimodal Live API and plays returned PCM audio through the default speaker.
 """
 
 from __future__ import annotations
@@ -57,20 +57,6 @@ def _execute_openai_tool(name: str, arguments: dict[str, Any]) -> str:
     return json.dumps({"error": f"Tool is not allowed: {name}"}, ensure_ascii=False)
 
 
-def _api_key() -> str:
-    provider = _provider()
-    if provider in {"grok", "xai"}:
-        return (
-            os.getenv("UAGENT_XAI_API_KEY")
-            or os.getenv("UAGENT_GROK_API_KEY")
-            or os.getenv("XAI_API_KEY")
-            or ""
-        ).strip()
-    return (
-        os.getenv("UAGENT_OPENAI_API_KEY") or os.getenv("OPENAI_API_KEY") or ""
-    ).strip()
-
-
 def _provider() -> str:
     return (
         (
@@ -83,11 +69,33 @@ def _provider() -> str:
     )
 
 
+def _api_key() -> str:
+    provider = _provider()
+    if provider in {"grok", "xai"}:
+        return (
+            os.getenv("UAGENT_XAI_API_KEY")
+            or os.getenv("UAGENT_GROK_API_KEY")
+            or os.getenv("XAI_API_KEY")
+            or ""
+        ).strip()
+    if provider in {"google", "gemini", "vertexai", "vertex"}:
+        return (
+            os.getenv("UAGENT_GEMINI_API_KEY")
+            or os.getenv("UAGENT_GOOGLE_API_KEY")
+            or os.getenv("UAGENT_VERTEXAI_API_KEY")
+            or os.getenv("GEMINI_API_KEY")
+            or os.getenv("GOOGLE_API_KEY")
+            or os.getenv("VERTEXAI_API_KEY")
+            or ""
+        ).strip()
+    return (
+        os.getenv("UAGENT_OPENAI_API_KEY") or os.getenv("OPENAI_API_KEY") or ""
+    ).strip()
+
+
 def _openai_language_code(lang: str | None = None) -> str:
     """Normalize the display locale to OpenAI's ISO-639-1 language code."""
     value = (lang or detect_lang()).strip().lower().replace("-", "_")
-    # Display locales may include a region (for example zh_CN or pt_BR),
-    # while OpenAI's language fields expect the two-letter base code.
     return value.split("_", 1)[0] or "en"
 
 
@@ -106,10 +114,12 @@ def _language_instructions() -> str:
 
 
 def _depname(provider: str) -> str:
-    # Realtime has its own deployment setting, with provider-specific fallbacks.
-    aliases = {"xai": "grok", "vertex": "vertexai"}
+    aliases = {"xai": "grok", "vertex": "vertexai", "gemini": "google"}
     normalized = aliases.get(provider, provider)
-    keys = [f"UAGENT_{normalized.upper()}_REALTIME_DEPNAME"]
+    keys = [
+        f"UAGENT_{normalized.upper()}_REALTIME_DEPNAME",
+        f"UAGENT_{provider.upper()}_REALTIME_DEPNAME",
+    ]
     for key in keys:
         value = (os.getenv(key) or "").strip()
         if value:
@@ -117,16 +127,50 @@ def _depname(provider: str) -> str:
     defaults = {
         "openai": "gpt-realtime-2",
         "azure": "gpt-realtime-2",
-        "gemini": "gemini-2.0-flash-live-001",
-        "vertexai": "gemini-2.0-flash-live-001",
+        "google": "gemini-2.0-flash-exp",
+        "vertexai": "gemini-2.0-flash-exp",
         "grok": "grok-voice-latest",
     }
     return defaults.get(normalized, "")
 
 
+def _gemini_setup_message(model: str, voice: str = "Puck") -> dict[str, Any]:
+    base_prompt = _("You are a helpful voice assistant.")
+    return {
+        "setup": {
+            "model": f"models/{model}",
+            "generationConfig": {
+                "responseModalities": ["AUDIO"],
+                "speechConfig": {
+                    "voiceConfig": {
+                        "prebuiltVoiceConfig": {
+                            "voiceName": voice,
+                        },
+                    },
+                },
+            },
+            "systemInstruction": {
+                "parts": [
+                    {
+                        "text": f"{base_prompt} " + _language_instructions(),
+                    }
+                ]
+            },
+        }
+    }
+
+
 def _realtime_config(provider: str, key: str) -> tuple[str, dict[str, str]]:
     """Return the provider WebSocket URL and authentication headers."""
-    normalized = {"xai": "grok"}.get(provider, provider)
+    normalized = {"xai": "grok", "vertex": "vertexai", "gemini": "google"}.get(
+        provider, provider
+    )
+    if normalized in {"google", "vertexai"}:
+        host = "generativelanguage.googleapis.com"
+        return (
+            f"wss://{host}/ws/google.ai.generativelanguage.v1alpha.GenerativeService.BidiGenerateContent?key={key}",
+            {},
+        )
     host = "api.x.ai" if normalized == "grok" else "api.openai.com"
     return (
         f"wss://{host}/v1/realtime?model={_depname(normalized)}",
@@ -137,6 +181,12 @@ def _realtime_config(provider: str, key: str) -> tuple[str, dict[str, str]]:
 def _voice(provider: str) -> str:
     if provider in {"grok", "xai"}:
         return (os.getenv("UAGENT_GROK_REALTIME_VOICE") or "Ara").strip()
+    if provider in {"google", "gemini", "vertexai", "vertex"}:
+        return (
+            os.getenv("UAGENT_GEMINI_REALTIME_VOICE")
+            or os.getenv("UAGENT_GOOGLE_REALTIME_VOICE")
+            or "Puck"
+        ).strip()
     return (os.getenv("UAGENT_OPENAI_REALTIME_VOICE") or "alloy").strip()
 
 
@@ -150,7 +200,8 @@ def _ssl_context() -> ssl.SSLContext | None:
     except Exception:
         pass
     if verify in {"0", "false", "no", "off", "disable", "disabled"}:
-        print("[WARN] Realtime TLS証明書検証を無効化しています。", file=sys.stderr)
+        msg = _("Disabling Realtime TLS certificate verification.")
+        print(f"[WARN] {msg}", file=sys.stderr)
         return ssl._create_unverified_context()
     return None
 
@@ -162,30 +213,29 @@ def _ensure_realtime_dependencies() -> tuple[Any, Any] | None:
         try:
             __import__(package)
         except ImportError:
-            print(f"[INFO] {package} を自動インストールしています...", file=sys.stderr)
+            msg = _("Auto-installing %(package)s...") % {"package": package}
+            print(f"[INFO] {msg}", file=sys.stderr)
             result = subprocess.run(
                 [sys.executable, "-m", "pip", "install", package],
                 check=False,
             )
             if result.returncode != 0:
-                print(
-                    f"[ERROR] {package} の自動インストールに失敗しました。",
-                    file=sys.stderr,
-                )
+                msg = _("Failed to auto-install %(package)s.") % {"package": package}
+                print(f"[ERROR] {msg}", file=sys.stderr)
                 return None
     try:
         import sounddevice as sd  # type: ignore
         import websockets  # type: ignore
     except ImportError as exc:
-        print(f"[ERROR] realtime依存関係を読み込めません: {exc}", file=sys.stderr)
+        msg = _("Cannot load realtime dependencies: %(exc)s") % {"exc": exc}
+        print(f"[ERROR] {msg}", file=sys.stderr)
         return None
 
-    # AEC3 is provided by pywebrtc-audio, which has Windows/Python 3.14
-    # wheels and accepts near/far frames for full-duplex processing.
     try:
         __import__("pywebrtc_audio")
     except ImportError:
-        print("[INFO] AEC3バックエンドを自動インストールしています...", file=sys.stderr)
+        msg = _("Auto-installing AEC3 backend...")
+        print(f"[INFO] {msg}", file=sys.stderr)
         result = subprocess.run(
             [sys.executable, "-m", "pip", "install", "pywebrtc-audio"],
             check=False,
@@ -193,14 +243,144 @@ def _ensure_realtime_dependencies() -> tuple[Any, Any] | None:
             text=True,
         )
         if result.returncode != 0:
-            print(
-                "[WARN] AEC3バックエンドをインストールできないため、passthroughで続行します。",
-                file=sys.stderr,
-            )
+            msg = _("Cannot install AEC3 backend, continuing with passthrough.")
+            print(f"[WARN] {msg}", file=sys.stderr)
             details = (result.stderr or result.stdout or "").strip().splitlines()
             if details:
-                print(f"[WARN] AEC3 install detail: {details[-1]}", file=sys.stderr)
+                detail_msg = (
+                    details[-1].decode()
+                    if isinstance(details[-1], bytes)
+                    else str(details[-1])
+                )
+                print(f"[WARN] AEC3 install detail: {detail_msg}", file=sys.stderr)
     return sd, websockets
+
+
+async def _run_gemini_session(websockets: Any, sd: Any, key: str) -> None:
+    provider = _provider()
+    depname = _depname(provider)
+    url, headers = _realtime_config(provider, key)
+    tls_context = _ssl_context()
+
+    gemini_rate = 16_000
+    gemini_blocksize = 160  # 10ms at 16kHz
+    audio_in: queue.Queue[bytes] = queue.Queue(maxsize=50)
+    audio_out: queue.Queue[bytes] = queue.Queue(maxsize=100)
+    stopping = threading.Event()
+    echo = EchoProcessor(gemini_rate)
+    output_buffer = bytearray()
+    output_buffer_lock = threading.Lock()
+    last_assistant_text = ""
+    last_assistant_print_at = 0.0
+
+    aec_status = _("Enabled") if echo.enabled else _("Disabled (passthrough)")
+    print(f"[INFO] AEC: {aec_status}", file=sys.stderr)
+
+    def on_input(indata: Any, frames: int, time_info: Any, status: Any) -> None:
+        del frames, time_info
+        if status:
+            print(f"[AUDIO] {status}", file=sys.stderr)
+        try:
+            audio_in.put_nowait(echo.capture(bytes(indata)))
+        except queue.Full:
+            pass
+
+    def on_output(outdata: Any, frames: int, time_info: Any, status: Any) -> None:
+        del frames, time_info
+        if status:
+            print(f"[AUDIO] {status}", file=sys.stderr)
+        with output_buffer_lock:
+            try:
+                while True:
+                    output_buffer.extend(audio_out.get_nowait())
+            except queue.Empty:
+                pass
+            output_size = len(outdata)
+            data = output_buffer[:output_size]
+            del output_buffer[:output_size]
+        played = data + b"\x00" * (len(outdata) - len(data))
+        if data:
+            echo.reference(played)
+        else:
+            echo.clear_reference()
+        outdata[:] = played
+
+    connect_kwargs: dict[str, Any] = {"additional_headers": headers}
+    if tls_context is not None:
+        connect_kwargs["ssl"] = tls_context
+
+    async with websockets.connect(url, **connect_kwargs) as ws:
+        voice_name = _voice(provider)
+        setup_msg = _gemini_setup_message(depname, voice=voice_name)
+        await ws.send(json.dumps(setup_msg))
+        msg = _(
+            "Started Realtime (Gemini/Google) voice I/O mode. Press Ctrl+C to exit."
+        )
+        print(f"[INFO] {msg}")
+
+        with (
+            sd.InputStream(
+                samplerate=gemini_rate,
+                channels=CHANNELS,
+                dtype="int16",
+                blocksize=gemini_blocksize,
+                callback=on_input,
+            ),
+            sd.RawOutputStream(
+                samplerate=gemini_rate,
+                channels=CHANNELS,
+                dtype="int16",
+                blocksize=gemini_blocksize,
+                callback=on_output,
+            ),
+        ):
+
+            async def send_audio() -> None:
+                while not stopping.is_set():
+                    try:
+                        chunk = await asyncio.to_thread(audio_in.get, True, 0.1)
+                    except queue.Empty:
+                        continue
+                    payload = {
+                        "realtimeInput": {
+                            "mediaChunks": [
+                                {
+                                    "mimeType": f"audio/pcm;rate={gemini_rate}",
+                                    "data": base64.b64encode(chunk).decode("ascii"),
+                                }
+                            ]
+                        }
+                    }
+                    await ws.send(json.dumps(payload))
+
+            sender = asyncio.create_task(send_audio())
+            try:
+                async for raw in ws:
+                    event = json.loads(raw)
+                    server_content = event.get("serverContent", {})
+                    model_turn = server_content.get("modelTurn", {})
+                    parts = model_turn.get("parts", [])
+                    for part in parts:
+                        inline_data = part.get("inlineData", {})
+                        if inline_data.get("mimeType", "").startswith("audio/pcm"):
+                            pcm_data = base64.b64decode(inline_data.get("data", ""))
+                            try:
+                                audio_out.put_nowait(pcm_data)
+                            except queue.Full:
+                                pass
+                        text = (part.get("text") or "").strip()
+                        now = time.monotonic()
+                        if text and not (
+                            text == last_assistant_text
+                            and now - last_assistant_print_at < 2.0
+                        ):
+                            print(f"\n[assistant] {text}")
+                            last_assistant_text = text
+                            last_assistant_print_at = now
+            finally:
+                stopping.set()
+                sender.cancel()
+                await asyncio.gather(sender, return_exceptions=True)
 
 
 def run() -> int:
@@ -208,12 +388,14 @@ def run() -> int:
     provider = _provider()
     key = _api_key()
     if not key:
-        env_names = (
-            "UAGENT_XAI_API_KEY または XAI_API_KEY"
-            if provider in {"grok", "xai"}
-            else "UAGENT_OPENAI_API_KEY または OPENAI_API_KEY"
-        )
-        print(f"[ERROR] {env_names} が必要です。", file=sys.stderr)
+        if provider in {"grok", "xai"}:
+            env_names = "UAGENT_XAI_API_KEY or XAI_API_KEY"
+        elif provider in {"google", "gemini", "vertexai", "vertex"}:
+            env_names = "UAGENT_GEMINI_API_KEY or GEMINI_API_KEY"
+        else:
+            env_names = "UAGENT_OPENAI_API_KEY or OPENAI_API_KEY"
+        msg = _("%(env_names)s is required.") % {"env_names": env_names}
+        print(f"[ERROR] {msg}", file=sys.stderr)
         return 2
 
     dependencies = _ensure_realtime_dependencies()
@@ -222,11 +404,14 @@ def run() -> int:
     sd, websockets = dependencies
 
     async def session() -> None:
+        if provider in {"google", "gemini", "vertexai", "vertex"}:
+            await _run_gemini_session(websockets, sd, key)
+            return
         if provider not in {"openai", "grok", "xai"}:
-            print(
-                f"[ERROR] realtime の {provider} アダプターは未実装です。",
-                file=sys.stderr,
-            )
+            msg = _("Realtime adapter for %(provider)s is not implemented.") % {
+                "provider": provider
+            }
+            print(f"[ERROR] {msg}", file=sys.stderr)
             return
         url, headers = _realtime_config(provider, key)
         tls_context = _ssl_context()
@@ -238,10 +423,8 @@ def run() -> int:
         output_buffer_lock = threading.Lock()
         last_assistant_text = ""
         last_assistant_print_at = 0.0
-        print(
-            "[INFO] AEC: " + ("有効" if echo.enabled else "無効（passthrough）"),
-            file=sys.stderr,
-        )
+        aec_status = _("Enabled") if echo.enabled else _("Disabled (passthrough)")
+        print(f"[INFO] AEC: {aec_status}", file=sys.stderr)
 
         def on_input(indata: Any, frames: int, time_info: Any, status: Any) -> None:
             del frames, time_info
@@ -256,10 +439,6 @@ def run() -> int:
             del frames, time_info
             if status:
                 print(f"[AUDIO] {status}", file=sys.stderr)
-            # Realtime audio deltas are not guaranteed to match the audio
-            # device callback size.  Keep a byte buffer so a short delta does
-            # not create a gap and a long delta is not truncated (truncation
-            # can make the playback sound distorted or like voices overlap).
             with output_buffer_lock:
                 try:
                     while True:
@@ -269,9 +448,6 @@ def run() -> int:
                 output_size = len(outdata)
                 data = output_buffer[:output_size]
                 del output_buffer[:output_size]
-            # The AEC far-end reference must be the samples actually handed
-            # to the output device, not the samples merely received over the
-            # network. Keep the zero padding so near/far clocks stay aligned.
             played = data + b"\x00" * (len(outdata) - len(data))
             if data:
                 echo.reference(played)
@@ -280,12 +456,10 @@ def run() -> int:
             outdata[:] = played
 
         connect_kwargs: dict[str, Any] = {"additional_headers": headers}
-        # websockets rejects an explicit ssl=None for wss:// URLs; omit it
-        # when certificate verification is enabled so the library uses its
-        # default verified TLS context.
         if tls_context is not None:
             connect_kwargs["ssl"] = tls_context
         async with websockets.connect(url, **connect_kwargs) as ws:
+            base_prompt = _("You are a helpful voice assistant.")
             await ws.send(
                 json.dumps(
                     {
@@ -297,8 +471,7 @@ def run() -> int:
                                 _openai_realtime_tools() if provider == "openai" else []
                             ),
                             "instructions": (
-                                "You are a helpful voice assistant. "
-                                + _language_instructions()
+                                f"{base_prompt} " + _language_instructions()
                             ),
                             "audio": {
                                 "input": {
@@ -318,9 +491,6 @@ def run() -> int:
                                     },
                                 },
                                 "output": {
-                                    # The Realtime API requires the PCM sample rate for
-                                    # both directions. Omitting it from output causes
-                                    # ``missing_required_parameter`` on session.update.
                                     "format": {
                                         "type": "audio/pcm",
                                         "rate": SAMPLE_RATE,
@@ -332,7 +502,8 @@ def run() -> int:
                     }
                 )
             )
-            print("[INFO] Realtime 音声入出力モードを開始しました。終了: Ctrl+C")
+            msg = _("Started Realtime voice I/O mode. Press Ctrl+C to exit.")
+            print(f"[INFO] {msg}")
 
             with (
                 sd.InputStream(
@@ -385,8 +556,6 @@ def run() -> int:
                         event = json.loads(raw)
                         kind = event.get("type", "")
                         if kind == "response.output_audio.delta":
-                            # Playback callback records the far-end reference
-                            # when these bytes are actually played.
                             try:
                                 audio_out.put_nowait(base64.b64decode(event["delta"]))
                             except queue.Full:
@@ -422,8 +591,6 @@ def run() -> int:
                         elif kind == "response.output_audio_transcript.done":
                             text = (event.get("transcript") or "").strip()
                             now = time.monotonic()
-                            # Ignore duplicate completed-transcript events from
-                            # gateways while allowing the same phrase later.
                             if text and not (
                                 text == last_assistant_text
                                 and now - last_assistant_print_at < 2.0
@@ -455,8 +622,10 @@ def run() -> int:
     try:
         asyncio.run(session())
     except KeyboardInterrupt:
-        print("\n[INFO] Realtime モードを終了しました。")
+        msg = _("Realtime mode exited.")
+        print(f"\n[INFO] {msg}")
     except Exception as exc:
-        print(f"[ERROR] Realtime モードを開始できませんでした: {exc}", file=sys.stderr)
+        msg = _("Could not start Realtime mode: %(exc)s") % {"exc": exc}
+        print(f"[ERROR] {msg}", file=sys.stderr)
         return 1
     return 0

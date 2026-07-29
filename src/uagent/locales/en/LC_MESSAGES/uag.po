@@ -1,9 +1,9 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: uagent VERSION\n"
+"Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2026-07-19 18:15+0900\n"
+"POT-Creation-Date: 2026-07-29 10:52+0900\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -90,14 +90,6 @@ msgstr "[FATAL] Failed to set workdir: %(err)s"
 
 msgid "[FATAL] Failed to launch uag_setup: %(err)s"
 msgstr "[FATAL] Failed to launch uag_setup: %(err)s"
-
-msgid "%(n)d enabled: %(names)s"
-msgstr "%(n)d enabled: %(names)s"
-
-#: src/uagent/runtime/runtime_plugins.py
-#, python-format
-msgid "+%(n)d more"
-msgstr "+%(n)d more"
 
 msgid "provider = %(provider)s; model = %(model)s"
 msgstr "provider = %(provider)s; model = %(model)s"
@@ -684,6 +676,15 @@ msgstr ""
 "have.\n"
 
 msgid ""
+"The previous model turn ended with an empty reply after tool use. Continue "
+"the unfinished task using the most recent tool results. Prefer a concrete "
+"next step or final answer over an empty response."
+msgstr ""
+"The previous model turn ended with an empty reply after tool use. Continue "
+"the unfinished task using the most recent tool results. Prefer a concrete "
+"next step or final answer over an empty response."
+
+msgid ""
 "The previous assistant reply was empty. Please answer based on the most "
 "recent tool result."
 msgstr ""
@@ -693,11 +694,11 @@ msgstr ""
 msgid ""
 "[WARN] LLM returned an empty assistant message without tool calls.\n"
 "provider=%(provider)s depname=%(depname)s empty_no_tool_rounds=%(empty_no_tool_rounds)s (max=%(empty_no_tool_max)s)\n"
-"This may happen with OpenAI-compatible local providers after tool calls. You can try setting UAGENT_EMPTY_NO_TOOL_MAX to a higher value, or switching provider."
+"This may happen with some providers (including Grok/xAI and OpenAI-compatible endpoints) after tool calls. You can try setting UAGENT_EMPTY_NO_TOOL_MAX to a higher value, or switching provider."
 msgstr ""
 "[WARN] LLM returned an empty assistant message without tool calls.\n"
 "provider=%(provider)s depname=%(depname)s empty_no_tool_rounds=%(empty_no_tool_rounds)s (max=%(empty_no_tool_max)s)\n"
-"This may happen with OpenAI-compatible local providers after tool calls. You can try setting UAGENT_EMPTY_NO_TOOL_MAX to a higher value, or switching provider."
+"This may happen with some providers (including Grok/xAI and OpenAI-compatible endpoints) after tool calls. You can try setting UAGENT_EMPTY_NO_TOOL_MAX to a higher value, or switching provider."
 
 msgid "name=%(name)s"
 msgstr "name=%(name)s"
@@ -787,12 +788,6 @@ msgstr "[Claude Error] An error occurred while generating a response."
 msgid "Input exceeds the context window."
 msgstr "Input exceeds the context window."
 
-msgid "Model does not support tools. Auto-disabling tools and retrying..."
-msgstr "Model does not support tools. Auto-disabling tools and retrying..."
-
-msgid "Model does not support thinking. Disabling thinking and retrying..."
-msgstr "Model does not support thinking. Disabling thinking and retrying..."
-
 msgid ""
 "The Responses API rejected the full-history retry; starting a new session is"
 " required."
@@ -807,11 +802,17 @@ msgid "Responses tool chain rejected. Retrying with sanitized full history..."
 msgstr ""
 "Responses tool chain rejected. Retrying with sanitized full history..."
 
+msgid "Model does not support tools. Auto-disabling tools and retrying..."
+msgstr "Model does not support tools. Auto-disabling tools and retrying..."
+
+msgid "Model does not support thinking. Disabling thinking and retrying..."
+msgstr "Model does not support thinking. Disabling thinking and retrying..."
+
 msgid "400 BadRequest"
 msgstr "400 BadRequest"
 
-msgid "Error code: %(code)d - %(err)s"
-msgstr "Error code: %(code)d - %(err)s"
+msgid "Error code: %(code)s - %(err)s"
+msgstr "Error code: %(code)s - %(err)s"
 
 msgid "Connection error"
 msgstr "Connection error"
@@ -977,11 +978,77 @@ msgstr "[Warning] Failed to process chunk (%(step)s): %(err)s"
 msgid "Processing chunk up to %(step)s (messages: %(n)d)..."
 msgstr "Processing chunk up to %(step)s (messages: %(n)d)..."
 
+msgid ""
+"Always respond in Japanese. Use Japanese for both speech and transcription "
+"unless the user explicitly requests another language."
+msgstr ""
+"Always respond in Japanese. Use Japanese for both speech and transcription "
+"unless the user explicitly requests another language."
+
+msgid ""
+"Respond in the display language (%(lang)s) unless the user asks otherwise. "
+"Use the same language for spoken audio and the transcript."
+msgstr ""
+"Respond in the display language (%(lang)s) unless the user asks otherwise. "
+"Use the same language for spoken audio and the transcript."
+
+msgid "You are a helpful voice assistant."
+msgstr "You are a helpful voice assistant."
+
+msgid "Disabling Realtime TLS certificate verification."
+msgstr "Disabling Realtime TLS certificate verification."
+
+msgid "Auto-installing %(package)s..."
+msgstr "Auto-installing %(package)s..."
+
+msgid "Failed to auto-install %(package)s."
+msgstr "Failed to auto-install %(package)s."
+
+msgid "Cannot load realtime dependencies: %(exc)s"
+msgstr "Cannot load realtime dependencies: %(exc)s"
+
+msgid "Auto-installing AEC3 backend..."
+msgstr "Auto-installing AEC3 backend..."
+
+msgid "Cannot install AEC3 backend, continuing with passthrough."
+msgstr "Cannot install AEC3 backend, continuing with passthrough."
+
+msgid "Enabled"
+msgstr "Enabled"
+
+msgid "Disabled (passthrough)"
+msgstr "Disabled (passthrough)"
+
+msgid "Started Realtime (Gemini/Google) voice I/O mode. Press Ctrl+C to exit."
+msgstr ""
+"Started Realtime (Gemini/Google) voice I/O mode. Press Ctrl+C to exit."
+
+msgid "%(env_names)s is required."
+msgstr "%(env_names)s is required."
+
+msgid "Realtime adapter for %(provider)s is not implemented."
+msgstr "Realtime adapter for %(provider)s is not implemented."
+
+msgid "Started Realtime voice I/O mode. Press Ctrl+C to exit."
+msgstr "Started Realtime voice I/O mode. Press Ctrl+C to exit."
+
+msgid "Realtime mode exited."
+msgstr "Realtime mode exited."
+
+msgid "Could not start Realtime mode: %(exc)s"
+msgstr "Could not start Realtime mode: %(exc)s"
+
 msgid "Drop files/images here"
 msgstr "Drop files/images here"
 
 msgid "Download"
 msgstr "Download"
+
+msgid "Plugin load failed: %(err)s"
+msgstr "Plugin load failed: %(err)s"
+
+msgid "Failed to initialize LLM client: %(err)s"
+msgstr "Failed to initialize LLM client: %(err)s"
 
 msgid "Exception occurred while loading shared long-term memory: %(err)s"
 msgstr "Exception occurred while loading shared long-term memory: %(err)s"
@@ -1419,6 +1486,32 @@ msgstr "SAKURA AI Engine model name (optional, default: llm)"
 
 msgid "SAKURA AI Engine temperature (optional)"
 msgstr "SAKURA AI Engine temperature (optional)"
+
+msgid "Vercel AI Gateway API key"
+msgstr "Vercel AI Gateway API key"
+
+msgid ""
+"Vercel AI Gateway base URL (optional, default: https://gateway.vercel.ai/v1)"
+msgstr ""
+"Vercel AI Gateway base URL (optional, default: https://gateway.vercel.ai/v1)"
+
+msgid "Vercel model name (optional, default: openai/gpt-5.4-nano)"
+msgstr "Vercel model name (optional, default: openai/gpt-5.4-nano)"
+
+msgid "Vercel AI Gateway temperature (optional)"
+msgstr "Vercel AI Gateway temperature (optional)"
+
+msgid "Together AI API key"
+msgstr "Together AI API key"
+
+msgid "Together AI base URL (optional, default: https://api.together.ai/v1)"
+msgstr "Together AI base URL (optional, default: https://api.together.ai/v1)"
+
+msgid "Together AI model name (optional, default: MiniMaxAI/MiniMax-M3)"
+msgstr "Together AI model name (optional, default: MiniMaxAI/MiniMax-M3)"
+
+msgid "Together AI temperature (optional)"
+msgstr "Together AI temperature (optional)"
 
 msgid "Novita AI API key"
 msgstr "Novita AI API key"
@@ -1953,6 +2046,9 @@ msgstr "[skills] Active skills: %(n)d"
 msgid "[%(i)d] %(line)s"
 msgstr "[%(i)d] %(line)s"
 
+msgid "[skills] No skills matching '%(kw)s'."
+msgstr "[skills] No skills matching '%(kw)s'."
+
 msgid "[skills] No skills found."
 msgstr "[skills] No skills found."
 
@@ -2205,6 +2301,9 @@ msgid ""
 "[shrink_llm error] Failed to parse as int: %(arg)r -> keep last %(keep)d"
 msgstr ""
 "[shrink_llm error] Failed to parse as int: %(arg)r -> keep last %(keep)d"
+
+msgid "[shrink_llm error] %(etype)s: %(err)s"
+msgstr "[shrink_llm error] %(etype)s: %(err)s"
 
 msgid "[tokens error] %(etype)s: %(err)s"
 msgstr "[tokens error] %(etype)s: %(err)s"
@@ -2505,10 +2604,14 @@ msgstr ":skills [list|active|clear|install|uninstall|apm|mp_search] ..."
 
 msgid ""
 "Built-in: list/active/clear (see runtime skills handlers).\n"
+":skills list <keyword>  Filter skills by keyword (name/description).\n"
+":skills find <keyword>  Same as list with filter.\n"
 "Dynamic subcommands come from tool CMD_SPEC (install, uninstall, apm, mp_search).\n"
 "Use :help skills install for a subcommand."
 msgstr ""
 "Built-in: list/active/clear (see runtime skills handlers).\n"
+":skills list <keyword>  Filter skills by keyword (name/description).\n"
+":skills find <keyword>  Same as list with filter.\n"
 "Dynamic subcommands come from tool CMD_SPEC (install, uninstall, apm, mp_search).\n"
 "Use :help skills install for a subcommand."
 
@@ -2843,6 +2946,18 @@ msgstr "[cd] workdir changed: %(old)s -> %(new)s"
 msgid "(room: %(id)s)"
 msgstr "(room: %(id)s)"
 
+msgid "[INFO] Loading %(n)d project instruction file(s)."
+msgstr "[INFO] Loading %(n)d project instruction file(s)."
+
+msgid "[INFO] No project instruction files selected."
+msgstr "[INFO] No project instruction files selected."
+
+msgid "[INFO] Loaded long-term memory."
+msgstr "[INFO] Loaded long-term memory."
+
+msgid "[INFO] Loaded shared long-term memory."
+msgstr "[INFO] Loaded shared long-term memory."
+
 msgid ""
 "[WARN] Another task is already running in this room. Please retry after it "
 "completes."
@@ -2866,30 +2981,26 @@ msgstr "[Attached File] %(name)s"
 msgid "[File Path] %(path)s"
 msgstr "[File Path] %(path)s"
 
-msgid "[INFO] Loaded long-term memory."
-msgstr "[INFO] Loaded long-term memory."
-
-msgid "[INFO] Loaded shared long-term memory."
-msgstr "[INFO] Loaded shared long-term memory."
-
 msgid ""
 "\n"
 "\n"
-"## Generative UI (Artifacts) Instructions\n"
-"When the user asks for a UI, dashboard, interactive tool, or visualization:\n"
-"1. Write a complete, self-contained HTML page inside a single ```html code block.\n"
-"2. Use Tailwind CSS (via CDN: <script src=\"https://cdn.tailwindcss.com\"></script>) for styling and Lucide Icons or FontAwesome for icons.\n"
-"3. Include interactive JavaScript (e.g., Chart.js for charts, or simple state management).\n"
-"4. Do not split the code into multiple blocks; keep it in one unified ```html block.\n"
+"    ## Generative UI (Artifacts) Instructions\n"
+"    When the user asks for a UI, dashboard, interactive tool, or visualization:\n"
+"    1. Write a complete, self-contained HTML page inside a single ```html code block.\n"
+"    2. Use Tailwind CSS (via CDN: <script src=\"https://cdn.tailwindcss.com\"></script>) for styling and Lucide Icons or FontAwesome for icons.\n"
+"    3. Include interactive JavaScript (e.g., Chart.js for charts, or simple state management).\n"
+"    4. Do not split the code into multiple blocks; keep it in one unified ```html block.\n"
+"    "
 msgstr ""
 "\n"
 "\n"
-"## Generative UI (Artifacts) Instructions\n"
-"When the user asks for a UI, dashboard, interactive tool, or visualization:\n"
-"1. Write a complete, self-contained HTML page inside a single ```html code block.\n"
-"2. Use Tailwind CSS (via CDN: <script src=\"https://cdn.tailwindcss.com\"></script>) for styling and Lucide Icons or FontAwesome for icons.\n"
-"3. Include interactive JavaScript (e.g., Chart.js for charts, or simple state management).\n"
-"4. Do not split the code into multiple blocks; keep it in one unified ```html block.\n"
+"    ## Generative UI (Artifacts) Instructions\n"
+"    When the user asks for a UI, dashboard, interactive tool, or visualization:\n"
+"    1. Write a complete, self-contained HTML page inside a single ```html code block.\n"
+"    2. Use Tailwind CSS (via CDN: <script src=\"https://cdn.tailwindcss.com\"></script>) for styling and Lucide Icons or FontAwesome for icons.\n"
+"    3. Include interactive JavaScript (e.g., Chart.js for charts, or simple state management).\n"
+"    4. Do not split the code into multiple blocks; keep it in one unified ```html block.\n"
+"    "
 
 msgid ""
 "[FATAL] Web worker error.\n"
@@ -3133,6 +3244,9 @@ msgstr "Repaired incomplete tool sequences, retrying..."
 msgid "Repair did not change messages, giving up."
 msgstr "Repair did not change messages, giving up."
 
+msgid "Error code: %(code)d - %(err)s"
+msgstr "Error code: %(code)d - %(err)s"
+
 msgid "An error occurred while generating a response."
 msgstr "An error occurred while generating a response."
 
@@ -3313,61 +3427,36 @@ msgstr "[WARN] Failed to check .env.sec synchronization: %(err)s"
 msgid "[WARN] Failed to decrypt .env.sec: %(err)s"
 msgstr "[WARN] Failed to decrypt .env.sec: %(err)s"
 
-msgid "[INFO] Project instruction files found:"
-msgstr "[INFO] Project instruction files found:"
-
 msgid " (includes: %(files)s)"
 msgstr " (includes: %(files)s)"
 
 msgid "  [%(idx)d] %(rel)s%(inc)s"
 msgstr "  [%(idx)d] %(rel)s%(inc)s"
 
+msgid "[INFO] Project instruction files found:"
+msgstr "[INFO] Project instruction files found:"
+
 msgid ""
 "Load which files? Enter numbers (e.g. '1 2'), 'all' to load all, or 'n' to "
 "skip:"
 msgstr ""
 "Load which files? Enter numbers (e.g. '1 2'), 'all' to load all, or 'n' to "
 "skip:"
+
+msgid "[WARN] Web instruction prompt failed (%(err)s); auto-loading all."
+msgstr "[WARN] Web instruction prompt failed (%(err)s); auto-loading all."
+
+msgid "[INFO] Instruction load cancelled; loading none."
+msgstr "[INFO] Instruction load cancelled; loading none."
 
 msgid "[Project instructions from %(file)s]"
 msgstr "[Project instructions from %(file)s]"
 
-#: src/uagent/runtime/runtime_instructions.py
-#: src/uagent/web.py
-#, python-format
-msgid "[INFO] Loading %(n)d project instruction file(s)."
-msgstr "[INFO] Loading %(n)d project instruction file(s)."
+msgid "+%(n)d more"
+msgstr "+%(n)d more"
 
-#: src/uagent/runtime/runtime_instructions.py
-#: src/uagent/web.py
-msgid "[INFO] No project instruction files selected."
-msgstr "[INFO] No project instruction files selected."
-
-#: src/uagent/runtime/runtime_instructions.py
-msgid "[INFO] Instruction load cancelled; loading none."
-msgstr "[INFO] Instruction load cancelled; loading none."
-
-#: src/uagent/runtime/runtime_instructions.py
-#, python-format
-msgid "[WARN] Web instruction prompt failed (%(err)s); auto-loading all."
-msgstr "[WARN] Web instruction prompt failed (%(err)s); auto-loading all."
+msgid "%(n)d enabled: %(names)s"
+msgstr "%(n)d enabled: %(names)s"
 
 msgid "Specified workdir path is a file: %(path)s"
 msgstr "Specified workdir path is a file: %(path)s"
-
-#: src/uagent/realtime.py:97
-msgid ""
-"Always respond in Japanese. Use Japanese for both speech and "
-"transcription unless the user explicitly requests another language."
-msgstr ""
-"Always respond in Japanese. Use Japanese for both speech and "
-"transcription unless the user explicitly requests another language."
-
-#, python-format
-#: src/uagent/realtime.py:101
-msgid ""
-"Respond in the display language (%(lang)s) unless the user asks "
-"otherwise. Use the same language for spoken audio and the transcript."
-msgstr ""
-"Respond in the display language (%(lang)s) unless the user asks "
-"otherwise. Use the same language for spoken audio and the transcript."
