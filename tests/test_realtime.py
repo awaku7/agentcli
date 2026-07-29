@@ -38,9 +38,9 @@ class TestRealtimeConfig:
         monkeypatch.delenv("UAGENT_GEMINI_REALTIME_DEPNAME", raising=False)
         monkeypatch.delenv("UAGENT_VERTEXAI_REALTIME_DEPNAME", raising=False)
 
-        assert realtime._depname("google") == "gemini-2.0-flash-exp"
-        assert realtime._depname("gemini") == "gemini-2.0-flash-exp"
-        assert realtime._depname("vertexai") == "gemini-2.0-flash-exp"
+        assert realtime._depname("google") == "gemini-3.1-flash-live-preview"
+        assert realtime._depname("gemini") == "gemini-3.1-flash-live-preview"
+        assert realtime._depname("vertexai") == "gemini-3.1-flash-live-preview"
 
         monkeypatch.setenv("UAGENT_GEMINI_REALTIME_DEPNAME", "custom-gemini-model")
         assert realtime._depname("gemini") == "custom-gemini-model"
@@ -61,9 +61,9 @@ class TestRealtimeConfig:
         assert headers == {}
 
     def test_gemini_setup_message(self) -> None:
-        msg = realtime._gemini_setup_message("gemini-2.0-flash-exp", voice="Puck")
+        msg = realtime._gemini_setup_message("gemini-3.1-flash-live-preview", voice="Puck")
         assert "setup" in msg
-        assert msg["setup"]["model"] == "models/gemini-2.0-flash-exp"
+        assert msg["setup"]["model"] == "models/gemini-3.1-flash-live-preview"
         gen_config = msg["setup"]["generationConfig"]
         assert "AUDIO" in gen_config["responseModalities"]
         assert (

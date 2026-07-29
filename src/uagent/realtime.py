@@ -127,8 +127,8 @@ def _depname(provider: str) -> str:
     defaults = {
         "openai": "gpt-realtime-2",
         "azure": "gpt-realtime-2",
-        "google": "gemini-2.0-flash-exp",
-        "vertexai": "gemini-2.0-flash-exp",
+        "google": "gemini-3.1-flash-live-preview",
+        "vertexai": "gemini-3.1-flash-live-preview",
         "grok": "grok-voice-latest",
     }
     return defaults.get(normalized, "")
@@ -168,7 +168,7 @@ def _realtime_config(provider: str, key: str) -> tuple[str, dict[str, str]]:
     if normalized in {"google", "vertexai"}:
         host = "generativelanguage.googleapis.com"
         return (
-            f"wss://{host}/ws/google.ai.generativelanguage.v1alpha.GenerativeService.BidiGenerateContent?key={key}",
+            f"wss://{host}/ws/google.ai.generativelanguage.v1beta.GenerativeService.BidiGenerateContent?key={key}",
             {},
         )
     host = "api.x.ai" if normalized == "grok" else "api.openai.com"
@@ -262,8 +262,8 @@ async def _run_gemini_session(websockets: Any, sd: Any, key: str) -> None:
     url, headers = _realtime_config(provider, key)
     tls_context = _ssl_context()
 
-    gemini_rate = 16_000
-    gemini_blocksize = 160  # 10ms at 16kHz
+    gemini_rate = SAMPLE_RATE  # 24,000 Hz for 24kHz mono PCM16
+    gemini_blocksize = BLOCKSIZE  # 10ms at 24kHz (240 samples)
     audio_in: queue.Queue[bytes] = queue.Queue(maxsize=50)
     audio_out: queue.Queue[bytes] = queue.Queue(maxsize=100)
     stopping = threading.Event()
@@ -278,8 +278,6 @@ async def _run_gemini_session(websockets: Any, sd: Any, key: str) -> None:
 
     def on_input(indata: Any, frames: int, time_info: Any, status: Any) -> None:
         del frames, time_info
-        if status:
-            print(f"[AUDIO] {status}", file=sys.stderr)
         try:
             audio_in.put_nowait(echo.capture(bytes(indata)))
         except queue.Full:
@@ -287,8 +285,6 @@ async def _run_gemini_session(websockets: Any, sd: Any, key: str) -> None:
 
     def on_output(outdata: Any, frames: int, time_info: Any, status: Any) -> None:
         del frames, time_info
-        if status:
-            print(f"[AUDIO] {status}", file=sys.stderr)
         with output_buffer_lock:
             try:
                 while True:
@@ -343,12 +339,10 @@ async def _run_gemini_session(websockets: Any, sd: Any, key: str) -> None:
                         continue
                     payload = {
                         "realtimeInput": {
-                            "mediaChunks": [
-                                {
-                                    "mimeType": f"audio/pcm;rate={gemini_rate}",
-                                    "data": base64.b64encode(chunk).decode("ascii"),
-                                }
-                            ]
+                            "audio": {
+                                "mimeType": f"audio/pcm;rate={gemini_rate}",
+                                "data": base64.b64encode(chunk).decode("ascii"),
+                            }
                         }
                     }
                     await ws.send(json.dumps(payload))
