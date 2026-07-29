@@ -9,6 +9,7 @@ import hashlib
 import os
 
 from .._pip_auto import install_with_status
+
 if install_with_status("ecdsa"):
     from ecdsa import SECP256k1, SigningKey
 else:

@@ -821,9 +821,14 @@ def parse_responses_stream(
                 reasoning_delta = getattr(ev, "delta", None)
                 if isinstance(reasoning_delta, str) and reasoning_delta:
                     reasoning_parts.append(reasoning_delta)
+                    disp_provider = (
+                        provider.capitalize()
+                        if provider and provider.islower()
+                        else provider
+                    )
                     show_reasoning(
                         reasoning_delta,
-                        provider=provider,
+                        provider=disp_provider,
                         is_first=(not _reasoning_printed),
                         print_fn=_print_delta,
                         core=core,

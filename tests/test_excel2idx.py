@@ -1,4 +1,3 @@
-import os
 import sys
 from pathlib import Path
 import pytest
@@ -7,6 +6,7 @@ sys.path.insert(0, str(Path(__file__).resolve().parent.parent / "src"))
 
 import openpyxl
 from uagent.tools.excel2idx_tool import run_tool
+
 
 @pytest.fixture
 def sample_excel():
@@ -38,11 +38,13 @@ def sample_excel():
         except Exception:
             pass
 
+
 def test_excel2idx_index(sample_excel):
     res = run_tool({"path": sample_excel, "mode": "index"})
     assert ("Index for:" in res) or ("インデックス:" in res)
     assert "Sheet  1: 'Summary'" in res
     assert "Sheet  2: 'Details'" in res
+
 
 def test_excel2idx_section(sample_excel):
     res1 = run_tool({"path": sample_excel, "mode": "section", "section": 1})
@@ -53,9 +55,14 @@ def test_excel2idx_section(sample_excel):
     assert "=== Sheet 2: 'Details'" in res2
     assert "Launch" in res2
 
+
 def test_excel2idx_errors():
     res_err_path = run_tool({"mode": "index"})
-    assert ("Error: 'path' is required" in res_err_path) or ("エラー: 'path' は必須です。" in res_err_path)
+    assert ("Error: 'path' is required" in res_err_path) or (
+        "エラー: 'path' は必須です。" in res_err_path
+    )
 
     res_err_file = run_tool({"path": "non_existent.xlsx", "mode": "index"})
-    assert ("Error: File not found" in res_err_file) or ("エラー: ファイルが見つかりません" in res_err_file)
+    assert ("Error: File not found" in res_err_file) or (
+        "エラー: ファイルが見つかりません" in res_err_file
+    )

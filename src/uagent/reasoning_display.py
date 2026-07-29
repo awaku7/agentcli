@@ -27,5 +27,10 @@ def show_reasoning(
             pass
         return
     out_fn = print_fn if print_fn is not None else print
-    label = ("[" + provider + " Reasoning]" + "\n") if is_first else ""
+    display_provider = (
+        provider.capitalize()
+        if provider and provider.islower()
+        else (provider or "LLM")
+    )
+    label = ("[" + display_provider + " Reasoning]" + "\n") if is_first else ""
     out_fn(label + "\x1b[90m" + text + "\x1b[0m")
