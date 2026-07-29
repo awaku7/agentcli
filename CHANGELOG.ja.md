@@ -1,5 +1,16 @@
 # 変更履歴
 
+## [0.5.60] - 2026-07-29
+
+### 追加
+
+- feat(realtime): Gemini realtime APIプロトコルおよびデフォルトモデル(gemini-3.1-flash-live-preview)の更新
+- docs: DEVELOP.mdおよび多言語READMEの*2idxツール数の最新化 (26)
+
+### 削除
+
+- chore: benchmarkディレクトリおよび不要な開発レビュー用ドキュメントの削除
+
 ## [0.5.59] - 2026-07-28
 
 ### 追加

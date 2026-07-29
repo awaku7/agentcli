@@ -1,5 +1,16 @@
 # Changelog
 
+## [0.5.60] - 2026-07-29
+
+### Added
+
+- feat(realtime): update Gemini realtime API protocol and default model (gemini-3.1-flash-live-preview)
+- docs: update DEVELOP.md and multi-language READMEs with latest *2idx tool count (26)
+
+### Removed
+
+- chore: remove benchmark directory and obsolete development review notes
+
 ## [0.5.59] - 2026-07-28
 
 ### Added
