@@ -214,6 +214,15 @@ ______________________________________________________________________
 | `php2idx` | .php | 正規表現 | namespace, class, interface, trait, enum, function, method, const, property, define |
 | `swift2idx` | .swift | 正規表現 | class, struct, enum, protocol, extension, func, init/deinit/subscript, var/let, case |
 | `kt2idx` | .kt | 正規表現 | class, interface, object, enum class, data class, fun, val/var, init, companion, extension function |
+| `ppt2idx` | .pptx | `python-pptx` | スライドタイトル、テキスト本文、スピーカーノート |
+| `excel2idx` | .xlsx/.xlsm | `openpyxl` | シート名、行列数、ヘッダー、シート別セルデータ |
+| `pdf2idx` | .pdf | `pdfplumber` | ページ一覧、先頭行・プレビュー、ページ別本文 |
+| `json2idx` | .json | `json` | キーパス（JSONPath相当）、要素数、構造概要 |
+| `csv2idx` | .csv/.tsv | `csv` | ヘッダープレビュー、行ブロック範囲 |
+| `docx2idx` | .docx | `python-docx` | 見出し階層（目次）、段落セクション |
+| `html2idx` | .html/.xml | `beautifulsoup4` | 見出し（h1-h6）、セクション構造、本文 |
+| `sql2idx` | .sql | 正規表現 | CREATE TABLE/VIEW/PROCEDURE, DDL/DMLブロック |
+| `log2idx` | .log/.txt | 正規表現 | タイムスタンプブロック、エラー・警告イベント |
 
 全 idx ツールは外部依存ゼロ（Python 標準ライブラリのみ）。
 

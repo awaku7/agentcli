@@ -396,6 +396,15 @@ The `*2idx` tools let you fetch a numbered index or a specific definition sectio
 | `kt2idx`  | .kt             | regex          | class, interface, object, enum class, data class, fun, val/var, init, companion, extension function |
 
 All idx tools have zero external dependencies (stdlib only).
+| `ppt2idx`  | .pptx            | `python-pptx`  | slide title, body text, speaker notes |
+| `excel2idx` | .xlsx/.xlsm     | `openpyxl`     | sheet names, dimensions, headers, cell data |
+| `pdf2idx`   | .pdf             | `pdfplumber`   | page list, text previews, page text content |
+| `json2idx`  | .json            | `json`           | key paths, array counts, structural summaries |
+| `csv2idx`   | .csv / .tsv      | `csv`            | header previews, row block ranges |
+| `docx2idx`  | .docx            | `python-docx`    | heading table of contents, paragraph sections |
+| `html2idx`  | .html / .xml     | `beautifulsoup4` | headings (h1-h6), section structures, body text |
+| `sql2idx`   | .sql             | regex            | CREATE TABLE/VIEW/PROCEDURE, DDL/DML blocks |
+| `log2idx`   | .log / .txt      | regex            | timestamp blocks, error/warning events |
 
 #### IBM i *2idx residual (out of scope — no open implementation work)
 
