@@ -29,7 +29,7 @@
 
 - **Läuft lokal** auf Ihrem Computer. Ihre Daten bleiben bei Ihnen (mit Ausnahme von API-Aufrufen, die Sie tätigen).
 - **Anbieterfreiheit**: OpenAI, Claude, Gemini, DeepSeek, Ollama, Azure, Bedrock, HuggingFace... 21+ Anbieter, alle über eine einzige Schnittstelle zugänglich. Wechseln Sie zwischen ihnen, indem Sie Umgebungsvariablen neu konfigurieren – keine Neuinstallation, keine Migration.
-- **185 Tools**: Datei-E/A, Websuche, Bildgenerierung, Gmail, BLE-Gerätescan, MCP-Serverintegration – **111 sind parallelsicher** (bis zu 8 werden gleichzeitig über Thread-Pool ausgeführt, konfigurierbar über „UAGENT_PARALLEL_WORKERS“). Wenn das LLM mehrere Tool-Aufrufe gleichzeitig auslöst, parallelisiert uag diese automatisch.
+- **195 Tools**: Datei-E/A, Websuche, Bildgenerierung, Gmail, BLE-Gerätescan, MCP-Serverintegration – **111 sind parallelsicher** (bis zu 8 werden gleichzeitig über Thread-Pool ausgeführt, konfigurierbar über „UAGENT_PARALLEL_WORKERS“). Wenn das LLM mehrere Tool-Aufrufe gleichzeitig auslöst, parallelisiert uag diese automatisch.
 - **3 UIs + A2A**: CLI, GUI, Web und Agent-to-Agent-Protokoll. Gleiche Engine, beliebige Schnittstelle.
 - **Agentenfähigkeiten**: Installieren Sie von der Community entwickelte Fähigkeiten vom Marktplatz. Verlängern Sie uag endlos.
 
@@ -89,7 +89,7 @@ See [DEVELOP_PLUGIN.md](src/uagent/docs/DEVELOP_PLUGIN.md) for full documentatio
 - **Reload past sessions** with `:load <index>` — pick up where you left off.
 - **Tool result caching** avoids redundant re-execution when the same tool call repeats.
 
-### 🛠 185 Werkzeuge
+### 🛠 195 Werkzeuge
 
 | Kategorie | Werkzeuge |
 |---|---|
@@ -100,11 +100,11 @@ See [DEVELOP_PLUGIN.md](src/uagent/docs/DEVELOP_PLUGIN.md) for full documentatio
 | **Prognose** | Zeitreihenprognose mit 9 Modellen (AutoARIMA, Prophet, LightGBM, CatBoost, TimesFM usw.), automatische Modellauswahl, Diagrammerstellung, i18n |
 | **Kommunikation** | gmail_send, gmail_read, bluesky, discord_channel, teams_webhook, **pybitchat** (BLE Mesh) – siehe [COMMUNICATION.md](https://github.com/awaku7/agentcli/blob/main/docs/COMMUNICATION.md) und [BITCHAT.md](https://github.com/awaku7/agentcli/blob/main/docs/BITCHAT.md)|
 | **IoT** | BACnet、Modbus TCP、OPC UA、SwitchBot（Cloud + BLE）、ECHONET Lite、Matter、UPnP、reverse_geocode |
-| **Entwicklungstools** | git_ops, python_compile, lint_format, run_tests, db_query, **13 Quellcode-Navigatoren (IDX-Familie)** |
+| **Entwicklungstools** | git_ops, python_compile, lint_format, run_tests, db_query, **26 Quellcode-Navigatoren (IDX-Familie)** |
 | **MCP** | Mit externen MCP-Servern verbinden, Tools auflisten, ausführen |
 | **A2A** | Agent-zu-Agent-Kommunikation (mit anderen UAG-Instanzen oder A2A-kompatiblen Servern) |
 | **System** | Umgebungsvariablen, Systemspezifikationen, Uhrzeit, Datumsberechnung, uuid_gen, slugify ||
-| **Quellennavigation** | **13 idx-Tools** für Python, PHP, TypeScript, Java, C#, Dart, C/C++, Rust, Go, Swift, Kotlin, COBOL – erhalten Sie einen Funktions-/Klassenindex oder eine spezifische Definition, ohne die gesamte Datei zu lesen |
+| **Quellennavigation** | **26 idx-Tools** für Python, PHP, TypeScript, Java, C#, Dart, C/C++, Rust, Go, Swift, Kotlin, COBOL – erhalten Sie einen Funktions-/Klassenindex oder eine spezifische Definition, ohne die gesamte Datei zu lesen |
 
 ### 🖥 4 Schnittstellen + VS-Code-Erweiterung
 

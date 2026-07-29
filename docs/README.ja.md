@@ -29,7 +29,7 @@
 
 - **あなたのマシンでローカルに動作**。データはあなたの手元に残ります（API呼び出しは除く）。
 - **プロバイダの自由**: OpenAI、Claude、Gemini、DeepSeek、Ollama、Azure、Bedrock、Novita、HuggingFace…23のプロバイダを1つのインターフェースから利用可能。環境変数を変えるだけで切り替えられます。再インストールや移行は不要です。
-- **185ツール**: ファイルI/O、Web検索、画像生成、Gmail、BLEデバイススキャン、MCPサーバ統合 — **111のツールは並行実行に対応**（スレッドプールで最大8つ同時実行、`UAGENT_PARALLEL_WORKERS`で変更可能）。LLMが複数のツール呼び出しを同時に要求すると、uagは自動的に並列化します。
+- **195ツール**: ファイルI/O、Web検索、画像生成、Gmail、BLEデバイススキャン、MCPサーバ統合 — **111のツールは並行実行に対応**（スレッドプールで最大8つ同時実行、`UAGENT_PARALLEL_WORKERS`で変更可能）。LLMが複数のツール呼び出しを同時に要求すると、uagは自動的に並列化します。
 - **3つのUI + A2A**: CLI、GUI、Web、そしてエージェント間プロトコル。同じエンジンをどのインターフェースでも使えます。
 - **IoT対応**: SwitchBot、ECHONET Lite、Matter、UPnP — AIを通じて家電を制御。
 - **エージェントスキル**: マーケットプレイスからコミュニティ製スキルをインストール。uagを無限に拡張できます。
@@ -107,7 +107,7 @@ uagentは **Claude Code 互換のプラグインシステム** を実装して�
 - **過去セッションの再読み込み**: `:load <番号>` で中断したところから再開。
 - **ツール結果のキャッシュ**: 同じツール呼び出しが繰り返された場合、再実行を防ぎます。
 
-### 🛠 185ツール
+### 🛠 195ツール
 
 | カテゴリ | ツール |
 |---|---|
@@ -118,11 +118,11 @@ uagentは **Claude Code 互換のプラグインシステム** を実装して�
 | **予測** | 時系列予測（9モデル: AutoARIMA, Prophet, LightGBM, CatBoost, TimesFM等）、自動モデル選択、プロット生成、i18n対応 |
 | **コミュニケーション** | gmail_send、gmail_read、bluesky、discord_channel、teams_webhook、**pybitchat**（BLE Mesh メッセージング） — [COMMUNICATION.md](https://github.com/awaku7/agentcli/blob/main/docs/COMMUNICATION.md) と [BITCHAT.md](https://github.com/awaku7/agentcli/blob/main/docs/BITCHAT.md) 参照 |
 | **IoT** | SwitchBot（Cloud + BLE）、ECHONET Lite、Matter、UPnP、reverse_geocode |
-| **開発ツール** | git_ops、python_compile、lint_format、run_tests、db_query、**13のソースコードナビゲーター（idxファミリ）** |
+| **開発ツール** | git_ops、python_compile、lint_format、run_tests、db_query、**26のソースコードナビゲーター（idxファミリ）** |
 | **MCP** | 外部MCPサーバへの接続、ツール一覧、実行 |
 | **A2A** | エージェント間通信（他のuagインスタンスやA2A対応サーバと） |
 | **システム** | 環境変数、システム情報、時刻、日付計算、uuid_gen、slugify |
-| **ソースナビ** | **13のidxツール**（Python、PHP、TypeScript、Java、C#、Dart、C/C++、Rust、Go、Swift、Kotlin、COBOL）— ファイル全体を読まずに関数やクラスのインデックスを取得 |
+| **ソースナビ** | **26のidxツール**（Python、PHP、TypeScript、Java、C#、Dart、C/C++、Rust、Go、Swift、Kotlin、COBOL）— ファイル全体を読まずに関数やクラスのインデックスを取得 |
 
 ### 🖥 4つのインターフェース + VS Code拡張
 

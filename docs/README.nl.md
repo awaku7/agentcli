@@ -29,7 +29,7 @@
 
 - **Wordt lokaal uitgevoerd** op uw computer. Uw gegevens blijven bij u (behalve API-aanroepen die u doet).
 - **Providervrijheid**: OpenAI, Claude, Gemini, DeepSeek, Ollama, Azure, Bedrock, HuggingFace... 23 providers, allemaal toegankelijk via één enkele interface. Wissel ertussen door de omgevingsvariabelen opnieuw te configureren: geen herinstallatie, geen migratie.
-- **185 tools**: bestands-I/O, zoeken op internet, genereren van afbeeldingen, Gmail, scannen van BLE-apparaten, MCP-serverintegratie — **111 zijn parallel veilig** (maximaal 8 worden gelijktijdig uitgevoerd via threadpool, configureerbaar via `UAGENT_PARALLEL_WORKERS`). Wanneer de LLM meerdere tooloproepen tegelijk afvuurt, parallelliseert uag deze automatisch.
+- **195  tools**: bestands-I/O, zoeken op internet, genereren van afbeeldingen, Gmail, scannen van BLE-apparaten, MCP-serverintegratie — **111 zijn parallel veilig** (maximaal 8 worden gelijktijdig uitgevoerd via threadpool, configureerbaar via `UAGENT_PARALLEL_WORKERS`). Wanneer de LLM meerdere tooloproepen tegelijk afvuurt, parallelliseert uag deze automatisch.
 - **3 UI's + A2A**: CLI-, GUI-, web- en agent-naar-agent-protocol. Dezelfde engine, elke interface.
 - **Agentvaardigheden**: installeer door de community ontwikkelde vaardigheden van de marktplaats. Breid uag eindeloos uit.
 
@@ -89,7 +89,7 @@ See [DEVELOP_PLUGIN.md](src/uagent/docs/DEVELOP_PLUGIN.md) for full documentatio
 - **Reload past sessions** with `:load <index>` — pick up where you left off.
 - **Tool result caching** avoids redundant re-execution when the same tool call repeats.
 
-### 🛠 185 Gereedschap
+### 🛠 195 Gereedschap
 
 | Categorie | Gereedschap |
 |---|---|
@@ -100,11 +100,11 @@ See [DEVELOP_PLUGIN.md](src/uagent/docs/DEVELOP_PLUGIN.md) for full documentatio
 | **Voorspelling** | Tijdreeksvoorspelling met 9 modellen (AutoARIMA, Prophet, LightGBM, CatBoost, TimesFM, etc.), automatische modelselectie, plotgeneratie, i18n |
 | **Communicatie** | gmail_send, gmail_read, bluesky, discord_channel, teams_webhook , **pybitchat** (BLE Mesh) — zie [COMMUNICATION.md](https://github.com/awaku7/agentcli/blob/main/docs/COMMUNICATION.md) and [BITCHAT.md](https://github.com/awaku7/agentcli/blob/main/docs/BITCHAT.md)|
 | **IoT** | BACnet、Modbus TCP、OPC UA、SwitchBot（Cloud + BLE）、ECHONET Lite、Matter、UPnP、reverse_geocode |
-| **Ontwikkeltools** | git_ops, python_compile, lint_format, run_tests, db_query, **13 broncode-navigators (idx-familie)** |
+| **Ontwikkeltools** | git_ops, python_compile, lint_format, run_tests, db_query, **26 broncode-navigators (idx-familie)** |
 | **MCP** | Verbinding maken met externe MCP-servers, tools weergeven, uitvoeren |
 | **A2A** | Agent-tot-agent-communicatie (met andere uag-instanties of A2A-compatibele servers) |
 | **Systeem** | env vars, systeemspecificaties, tijd, datumberekening, uuid_gen, slugify ||
-| **Bronnavigatie** | **13 idx-tools** voor Python, PHP, TypeScript, Java, C#, Dart, C/C++, Rust, Go, Swift, Kotlin, COBOL — verkrijg een functie/klasse-index of specifieke definitie zonder het hele bestand te lezen |
+| **Bronnavigatie** | **26 idx-tools** voor Python, PHP, TypeScript, Java, C#, Dart, C/C++, Rust, Go, Swift, Kotlin, COBOL — verkrijg een functie/klasse-index of specifieke definitie zonder het hele bestand te lezen |
 
 ### 🖥 4 interfaces + VS-code-extensie
 

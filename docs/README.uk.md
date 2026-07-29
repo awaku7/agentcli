@@ -29,7 +29,7 @@
 
 - **Запускається локально** на вашій машині. Ваші дані залишаються з вами (крім викликів API, які ви робите).
 - **Свобода постачальників**: OpenAI, Claude, Gemini, DeepSeek, Ollama, Azure, Bedrock, HuggingFace... 21 постачальників, усі доступні з єдиного інтерфейсу. Перемикайтеся між ними шляхом переналаштування змінних середовища — без перевстановлення, без міграції.
-- **185 інструмент**: введення/виведення файлів, веб-пошук, створення зображень, Gmail, сканування пристроїв BLE, інтеграція сервера MCP — **111 є паралельно безпечними** (до 8 виконуються одночасно через пул потоків, налаштовується за допомогою `UAGENT_PARALLEL_WORKERS`). Коли LLM запускає кілька викликів інструментів одночасно, uag автоматично розпаралелює їх.
+- **195 інструмент**: введення/виведення файлів, веб-пошук, створення зображень, Gmail, сканування пристроїв BLE, інтеграція сервера MCP — **111 є паралельно безпечними** (до 8 виконуються одночасно через пул потоків, налаштовується за допомогою `UAGENT_PARALLEL_WORKERS`). Коли LLM запускає кілька викликів інструментів одночасно, uag автоматично розпаралелює їх.
 - **3 інтерфейси користувача + A2A**: CLI, графічний інтерфейс користувача, веб і протокол «Агент-агент». Той самий двигун, будь-який інтерфейс.
 - **Агентські навички**: встановлюйте навички, створені спільнотою, з ринку. Подовжувати uag нескінченно.
 
@@ -89,7 +89,7 @@ See [DEVELOP_PLUGIN.md](src/uagent/docs/DEVELOP_PLUGIN.md) for full documentatio
 - **Reload past sessions** with `:load <index>` — pick up where you left off.
 - **Tool result caching** avoids redundant re-execution when the same tool call repeats.
 
-### 🛠 185 інструмент
+### 🛠 195 інструмент
 
 | Категорія | Інструменти |
 |---|---|
@@ -100,11 +100,11 @@ See [DEVELOP_PLUGIN.md](src/uagent/docs/DEVELOP_PLUGIN.md) for full documentatio
 | **Прогноз** | Прогнозування часових рядів з 9 моделями (AutoARIMA, Prophet, LightGBM, CatBoost, TimesFM тощо), автоматичний вибір моделі, створення графіків, i18n |
 | **Спілкування** | gmail_send, gmail_read, bluesky, discord_channel, teams_webhook , **pybitchat** (BLE Mesh) — див. [COMMUNICATION.md](https://github.com/awaku7/agentcli/blob/main/docs/COMMUNICATION.md) and [BITCHAT.md](https://github.com/awaku7/agentcli/blob/main/docs/BITCHAT.md)|
 | **Інтернет речей** | SwitchBot (Cloud + BLE), ECHONET Lite, Matter, UPnP, reverse_geocode |
-| **Інструменти розробника** | git_ops, python_compile, lint_format, run_tests, db_query, **13 навігаторів вихідного коду (сімейство idx)** |
+| **Інструменти розробника** | git_ops, python_compile, lint_format, run_tests, db_query, **26 навігаторів вихідного коду (сімейство idx)** |
 | **MCP** | Підключення до зовнішніх серверів MCP, список інструментів, виконання |
 | **A2A** | Зв'язок між агентами (з іншими примірниками uag або A2A-сумісними серверами) |
 | **Система** | env vars, характеристики системи, час, обчислення дати, uuid_gen, slugify ||
-| **Source Nav** | **13 інструментів idx** для Python, PHP, TypeScript, Java, C#, Dart, C/C++, Rust, Go, Swift, Kotlin, COBOL — отримуйте індекс функції/класу або конкретне визначення, не читаючи весь файл |
+| **Source Nav** | **26 інструментів idx** для Python, PHP, TypeScript, Java, C#, Dart, C/C++, Rust, Go, Swift, Kotlin, COBOL — отримуйте індекс функції/класу або конкретне визначення, не читаючи весь файл |
 
 ### 🖥 4 інтерфейси + розширення коду VS
 

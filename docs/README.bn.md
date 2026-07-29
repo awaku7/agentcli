@@ -29,7 +29,7 @@
 
 - **স্থানীয়ভাবে চলে** আপনার মেশিনে। আপনার ডেটা আপনার সাথে থাকে (আপনি যে API কলগুলি করেন তা ছাড়া)।
 - **প্রোভাইডার স্বাধীনতা**: OpenAI, Claude, Gemini, DeepSeek, Ollama, Azure, Bedrock, HuggingFace... 21+ প্রদানকারী, সমস্ত একটি একক ইন্টারফেস থেকে অ্যাক্সেসযোগ্য। এনভায়রনমেন্ট ভেরিয়েবল পুনরায় কনফিগার করে তাদের মধ্যে অদলবদল করুন — কোন রিইন্সটল নেই, মাইগ্রেশন নেই।
-- **185 টুল**: ফাইল I/O, ওয়েব সার্চ, ইমেজ জেনারেশন, Gmail, BLE ডিভাইস স্ক্যানিং, MCP সার্ভার ইন্টিগ্রেশন — **111 সমান্তরাল-নিরাপদ** (8 পর্যন্ত থ্রেড পুলের মাধ্যমে একযোগে কার্যকর করা যায়, `UAGENT_PARALLEL_WORKERS` এর মাধ্যমে কনফিগার করা যায়)। যখন LLM একাধিক টুল কল একবারে ফায়ার করে, uag স্বয়ংক্রিয়ভাবে তাদের সমান্তরাল করে।
+- **195  টুল**: ফাইল I/O, ওয়েব সার্চ, ইমেজ জেনারেশন, Gmail, BLE ডিভাইস স্ক্যানিং, MCP সার্ভার ইন্টিগ্রেশন — **111 সমান্তরাল-নিরাপদ** (8 পর্যন্ত থ্রেড পুলের মাধ্যমে একযোগে কার্যকর করা যায়, `UAGENT_PARALLEL_WORKERS` এর মাধ্যমে কনফিগার করা যায়)। যখন LLM একাধিক টুল কল একবারে ফায়ার করে, uag স্বয়ংক্রিয়ভাবে তাদের সমান্তরাল করে।
 - **3 UI + A2A**: CLI, GUI, ওয়েব এবং এজেন্ট-টু-এজেন্ট প্রোটোকল। একই ইঞ্জিন, যেকোনো ইন্টারফেস।
 - **এজেন্ট দক্ষতা**: মার্কেটপ্লেস থেকে কমিউনিটি-নির্মিত দক্ষতা ইনস্টল করুন। অবিরামভাবে uag প্রসারিত করুন.
 
@@ -89,7 +89,7 @@ See [DEVELOP_PLUGIN.md](src/uagent/docs/DEVELOP_PLUGIN.md) for full documentatio
 - **Reload past sessions** with `:load <index>` — pick up where you left off.
 - **Tool result caching** avoids redundant re-execution when the same tool call repeats.
 
-### 🛠 185 টুল
+### 🛠 195  টুল
 
 | বিভাগ | টুলস |
 |---|---|
@@ -100,11 +100,11 @@ See [DEVELOP_PLUGIN.md](src/uagent/docs/DEVELOP_PLUGIN.md) for full documentatio
 | **পূর্বাভাস** | 9টি মডেল সহ সময় সিরিজ পূর্বাভাস (AutoARIMA, Prophet, LightGBM, CatBoost, TimesFM, ইত্যাদি), স্বয়ংক্রিয় মডেল নির্বাচন, প্লট জেনারেশন, i18n |
 | **যোগাযোগ** | gmail_send, gmail_read, bluesky, discord_channel, teams_webhook, **pybitchat** (BLE Mesh) — [COMMUNICATION.md](https://github.com/awaku7/agentcli/blob/main/docs/COMMUNICATION.md) এবং [BITCHAT.md](https://github.com/awaku7/agentcli/blob/main/docs/BITCHAT.md) দেখুন|
 | **IoT** | BACnet、Modbus TCP、OPC UA、SwitchBot（Cloud + BLE）、ECHONET Lite、Matter、UPnP、reverse_geocode |
-| **দেব টুলস** | git_ops, python_compile, lint_format, run_tests, db_query, **13 সোর্স কোড নেভিগেটর (আইডিএক্স ফ্যামিলি)** |
+| **দেব টুলস** | git_ops, python_compile, lint_format, run_tests, db_query, **26 সোর্স কোড নেভিগেটর (আইডিএক্স ফ্যামিলি)** |
 | **MCP** | বাহ্যিক MCP সার্ভারের সাথে সংযোগ করুন, টুল তালিকা করুন, কার্যকর করুন |
 | **A2A** | এজেন্ট থেকে এজেন্ট যোগাযোগ (অন্যান্য uag উদাহরণ বা A2A-সামঞ্জস্যপূর্ণ সার্ভারের সাথে) |
 | **সিস্টেম** | env vars, সিস্টেম স্পেস, সময়, তারিখ গণনা, uuid_gen, slugify ||
-| **সূত্র Nav** | Python, PHP, TypeScript, Java, C#, Dart, C/C++, Rust, Go, Swift, Kotlin, COBOL-এর জন্য **13 idx টুলস — পুরো ফাইলটি না পড়েই একটি ফাংশন/ক্লাস ইনডেক্স বা নির্দিষ্ট সংজ্ঞা পান।
+| **সূত্র Nav** | Python, PHP, TypeScript, Java, C#, Dart, C/C++, Rust, Go, Swift, Kotlin, COBOL-এর জন্য **26 idx টুলস — পুরো ফাইলটি না পড়েই একটি ফাংশন/ক্লাস ইনডেক্স বা নির্দিষ্ট সংজ্ঞা পান।
 
 ### 🖥 4 ইন্টারফেস + VS কোড এক্সটেনশন
 

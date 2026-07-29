@@ -29,7 +29,7 @@
 
 - **在您的電腦上本機運作**。您的資料保留在您身邊（您進行的 API 呼叫除外）。
 - **提供者自由**：OpenAI、Claude、Gemini、DeepSeek、Ollama、Azure、Bedrock、HuggingFace...超過 21 個提供者，均可透過單一介面存取。透過重新配置環境變數在它們之間進行交換—無需重新安裝，無需遷移。
-- **185 個工具**：檔案 I/O、網路搜尋、影像產生、Gmail、BLE 裝置掃描、MCP 伺服器整合 — **111 個工具是並行安全的**（最多 8 個透過執行緒池並發執行，可透過「UAGENT_PARALLEL_WORKERS」進行設定）。當 LLM 一次觸發多個工具呼叫時，uag 會自動並行化它們。
+- **195 個工具**：檔案 I/O、網路搜尋、影像產生、Gmail、BLE 裝置掃描、MCP 伺服器整合 — **111 個工具是並行安全的**（最多 8 個透過執行緒池並發執行，可透過「UAGENT_PARALLEL_WORKERS」進行設定）。當 LLM 一次觸發多個工具呼叫時，uag 會自動並行化它們。
 - **3 UI + A2A**：CLI、GUI、Web 和代理到代理協定。相同的引擎，任何接口。
 - **代理技能**：從市場安裝社群建立的技能。無限延伸uag。
 
@@ -89,7 +89,7 @@ See [DEVELOP_PLUGIN.md](src/uagent/docs/DEVELOP_PLUGIN.md) for full documentatio
 - **Reload past sessions** with `:load <index>` — pick up where you left off.
 - **Tool result caching** avoids redundant re-execution when the same tool call repeats.
 
-### 🛠 185 工具
+### 🛠 195  工具
 
 |類別 |工具|
 |---|---|
@@ -100,11 +100,11 @@ See [DEVELOP_PLUGIN.md](src/uagent/docs/DEVELOP_PLUGIN.md) for full documentatio
 | **預測** | 使用9種模型（AutoARIMA、Prophet、LightGBM、CatBoost、TimesFM等）進行時間序列預測，自動模型選擇，產生圖表，i18n |
 | **通訊** | gmail_send、gmail_read、bluesky、discord_channel、teams_webhook , **pybitchat** (BLE Mesh) — 請參閱 [COMMUNICATION.md](https://github.com/awaku7/agentcli/blob/main/docs/COMMUNICATION.md) and [BITCHAT.md](https://github.com/awaku7/agentcli/blob/main/docs/BITCHAT.md)|
 | **物聯網** | SwitchBot（雲端 + BLE）、ECHONET Lite、Matter、UPnP、reverse_geocode |
-| **開發工具** | git_ops、python_compile、lint_format、run_tests、db_query、**13 個原始碼導航器（idx 系列）** |
+| **開發工具** | git_ops、python_compile、lint_format、run_tests、db_query、**26 個原始碼導航器（idx 系列）** |
 | **MCP** |連接到外部 MCP 伺服器、列出工具、執行 |
 | **A2A** |代理間通訊（與其他 uag 實例或 A2A 相容伺服器）|
 | **系統** | 環境變數、系統規格、時間、日期計算, uuid_gen, slugify ||
-| **來源導航** | **13 個 idx 工具**，適用於 Python、PHP、TypeScript、Java、C#、Dart、C/C++、Rust、Go、Swift、Kotlin、COBOL — 無需讀取整個檔案即可取得函數/類別索引或特定定義 |
+| **來源導航** | **26 個 idx 工具**，適用於 Python、PHP、TypeScript、Java、C#、Dart、C/C++、Rust、Go、Swift、Kotlin、COBOL — 無需讀取整個檔案即可取得函數/類別索引或特定定義 |
 
 ### 🖥 4 個介面 + VS 代碼擴展
 

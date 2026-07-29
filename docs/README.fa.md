@@ -29,7 +29,7 @@
 
 - **به صورت محلی** روی دستگاه شما اجرا می شود. داده های شما با شما باقی می ماند (به جز تماس های API که انجام می دهید).
 - **آزادی ارائه دهنده**: OpenAI، Claude، Gemini، DeepSeek، Ollama، Azure، Bedrock، HuggingFace... 21 ارائه دهنده، همه از یک رابط در دسترس هستند. با پیکربندی مجدد متغیرهای محیط - بدون نصب مجدد، بدون مهاجرت، بین آنها تعویض کنید.
-- **185 ابزار**: فایل ورودی/خروجی، جستجوی وب، تولید تصویر، Gmail، اسکن دستگاه BLE، ادغام سرور MCP — **111 ابزار به صورت موازی امن هستند** (حداکثر 8 مورد به صورت همزمان از طریق Thread Pool اجرا می شوند، قابل تنظیم از طریق `UAGENT_PARALLEL_WORKERS`). هنگامی که LLM چندین تماس ابزار را همزمان انجام می دهد، uag به طور خودکار آنها را موازی می کند.
+- **195 ابزار**: فایل ورودی/خروجی، جستجوی وب، تولید تصویر، Gmail، اسکن دستگاه BLE، ادغام سرور MCP — **111 ابزار به صورت موازی امن هستند** (حداکثر 8 مورد به صورت همزمان از طریق Thread Pool اجرا می شوند، قابل تنظیم از طریق `UAGENT_PARALLEL_WORKERS`). هنگامی که LLM چندین تماس ابزار را همزمان انجام می دهد، uag به طور خودکار آنها را موازی می کند.
 - **3 UI + A2A**: CLI، GUI، وب و پروتکل Agent-to-Agent. همان موتور، هر رابط.
 - **مهارت های عامل**: مهارت های ایجاد شده در جامعه را از بازار نصب کنید. uag را بی پایان گسترش دهید.
 
@@ -89,7 +89,7 @@ See [DEVELOP_PLUGIN.md](src/uagent/docs/DEVELOP_PLUGIN.md) for full documentatio
 - **Reload past sessions** with `:load <index>` — pick up where you left off.
 - **Tool result caching** avoids redundant re-execution when the same tool call repeats.
 
-### 🛠 185 ابزار
+### 🛠 195 ابزار
 
 | دسته بندی | ابزار |
 |---|---|
@@ -100,11 +100,11 @@ See [DEVELOP_PLUGIN.md](src/uagent/docs/DEVELOP_PLUGIN.md) for full documentatio
 | **پیش‌بینی** | پیش‌بینی سری زمانی با 9 مدل (AutoARIMA، Prophet، LightGBM، CatBoost، TimesFM و غیره)، انتخاب خودکار مدل، تولید نمودار، i18n |
 | **ارتباطات** | gmail_send، gmail_read، bluesky، discord_channel، teams_webhook , **pybitchat** (BLE Mesh) — به [COMMUNICATION.md](https://github.com/awaku7/agentcli/blob/main/docs/COMMUNICATION.md) مراجعه کنید and [BITCHAT.md](https://github.com/awaku7/agentcli/blob/main/docs/BITCHAT.md)|
 | **اینترنت اشیا** | SwitchBot (Cloud + BLE)، ECHONET Lite، Matter، UPnP، reverse_geocode |
-| **ابزارهای توسعه** | git_ops، python_compile، lint_format، run_tests، db_query، **13 پیمایش کد منبع (خانواده idx)** |
+| **ابزارهای توسعه** | git_ops، python_compile، lint_format، run_tests، db_query، **26 پیمایش کد منبع (خانواده idx)** |
 | **MCP** | اتصال به سرورهای MCP خارجی، فهرست ابزارها، اجرا |
 | **A2A** | ارتباط عامل به عامل (با سایر نمونه های uag یا سرورهای سازگار با A2A) |
 | **سیستم** | env vars، مشخصات سیستم، زمان، محاسبه تاریخ, uuid_gen, slugify ||
-| **منبع Nav** | **13 ابزار idx** برای Python، PHP، TypeScript، Java، C#، Dart، C/C++، Rust، Go، Swift، Kotlin، COBOL — دریافت یک شاخص تابع/کلاس یا تعریف خاص بدون خواندن کل فایل |
+| **منبع Nav** | **26 ابزار idx** برای Python، PHP، TypeScript، Java، C#، Dart، C/C++، Rust، Go، Swift، Kotlin، COBOL — دریافت یک شاخص تابع/کلاس یا تعریف خاص بدون خواندن کل فایل |
 
 ### 🖥 4 رابط + پسوند کد VS
 

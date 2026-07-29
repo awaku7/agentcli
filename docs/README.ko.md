@@ -89,7 +89,7 @@ See [DEVELOP_PLUGIN.md](src/uagent/docs/DEVELOP_PLUGIN.md) for full documentatio
 - **Reload past sessions** with `:load <index>` — pick up where you left off.
 - **Tool result caching** avoids redundant re-execution when the same tool call repeats.
 
-### 🛠 185 도구
+### 🛠 195  도구
 
 | 카테고리 | 도구 |
 |---|---|
@@ -100,11 +100,11 @@ See [DEVELOP_PLUGIN.md](src/uagent/docs/DEVELOP_PLUGIN.md) for full documentatio
 | **예측** | 9개 모델(AutoARIMA, Prophet, LightGBM, CatBoost, TimesFM 등)을 사용한 시계열 예측, 자동 모델 선택, 플롯 생성, i18n |
 | **커뮤니케이션** | gmail_send, gmail_read, bluesky, discord_channel, team_webhook, **pybitchat** (BLE Mesh) — [COMMUNICATION.md](https://github.com/awaku7/agentcli/blob/main/docs/COMMUNICATION.md) 및 [BITCHAT.md](https://github.com/awaku7/agentcli/blob/main/docs/BITCHAT.md) 참조|
 | **IoT** | BACnet、Modbus TCP、OPC UA、SwitchBot（Cloud + BLE）、ECHONET Lite、Matter、UPnP、reverse_geocode |
-| **개발 도구** | git_ops, python_compile, lint_format, run_tests, db_query, **13개의 소스 코드 탐색기(idx 제품군)** |
+| **개발 도구** | git_ops, python_compile, lint_format, run_tests, db_query, **26개의 소스 코드 탐색기(idx 제품군)** |
 | **MCP** | 외부 MCP 서버에 연결하고, 도구를 나열하고, 실행 |
 | **A2A** | 에이전트 간 통신(다른 uag 인스턴스 또는 A2A 호환 서버 사용) |
 | **시스템** | 환경 변수, 시스템 사양, 시간, 날짜 계산, uuid_gen, slugify ||
-| **소스 탐색** | Python, PHP, TypeScript, Java, C#, Dart, C/C++, Rust, Go, Swift, Kotlin, COBOL용 **13가지 idx 도구** — 전체 파일을 읽지 않고도 함수/클래스 색인 또는 특정 정의 가져오기 |
+| **소스 탐색** | Python, PHP, TypeScript, Java, C#, Dart, C/C++, Rust, Go, Swift, Kotlin, COBOL용 **26가지 idx 도구** — 전체 파일을 읽지 않고도 함수/클래스 색인 또는 특정 정의 가져오기 |
 
 ### 🖥 4가지 인터페이스 + VS 코드 확장
 

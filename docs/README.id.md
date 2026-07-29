@@ -29,7 +29,7 @@
 
 - **Berjalan secara lokal** di mesin Anda. Data Anda tetap bersama Anda (kecuali panggilan API yang Anda lakukan).
 - **Kebebasan penyedia**: OpenAI, Claude, Gemini, DeepSeek, Ollama, Azure, Bedrock, HuggingFace... 21+ penyedia, semuanya dapat diakses dari satu antarmuka. Bertukar di antara keduanya dengan mengonfigurasi ulang variabel lingkungan — tanpa instalasi ulang, tanpa migrasi.
-- **185 alat**: I/O file, penelusuran web, pembuatan gambar, Gmail, pemindaian perangkat BLE, integrasi server MCP — **111 aman secara paralel** (hingga 8 dijalankan secara bersamaan melalui kumpulan thread, dapat dikonfigurasi melalui `UAGENT_PARALLEL_WORKERS`). Saat LLM mengaktifkan beberapa panggilan alat sekaligus, uag secara otomatis memparalelkannya.
+- **195 alat**: I/O file, penelusuran web, pembuatan gambar, Gmail, pemindaian perangkat BLE, integrasi server MCP — **111 aman secara paralel** (hingga 8 dijalankan secara bersamaan melalui kumpulan thread, dapat dikonfigurasi melalui `UAGENT_PARALLEL_WORKERS`). Saat LLM mengaktifkan beberapa panggilan alat sekaligus, uag secara otomatis memparalelkannya.
 - **3 UI + A2A**: CLI, GUI, Web, dan protokol Agen-ke-Agen. Mesin yang sama, antarmuka apa pun.
 - **Keterampilan Agen**: Instal keterampilan yang dibangun komunitas dari pasar. Perpanjang uag tanpa henti.
 
@@ -89,7 +89,7 @@ See [DEVELOP_PLUGIN.md](src/uagent/docs/DEVELOP_PLUGIN.md) for full documentatio
 - **Reload past sessions** with `:load <index>` — pick up where you left off.
 - **Tool result caching** avoids redundant re-execution when the same tool call repeats.
 
-### 🛠 185 Alat
+### 🛠 195 Alat
 
 | Kategori | Alat |
 |---|---|
@@ -100,11 +100,11 @@ See [DEVELOP_PLUGIN.md](src/uagent/docs/DEVELOP_PLUGIN.md) for full documentatio
 | **Peramalan** | Peramalan deret waktu dengan 9 model (AutoARIMA, Prophet, LightGBM, CatBoost, TimesFM, dll.), pemilihan model otomatis, pembuatan plot, i18n |
 | **Komunikasi** | gmail_send, gmail_read, bluesky, discord_channel, team_webhook , **pybitchat** (BLE Mesh) — lihat [COMMUNICATION.md](https://github.com/awaku7/agentcli/blob/main/docs/COMMUNICATION.md) and [BITCHAT.md](https://github.com/awaku7/agentcli/blob/main/docs/BITCHAT.md)|
 | **IoT** | BACnet、Modbus TCP、OPC UA、SwitchBot（Cloud + BLE）、ECHONET Lite、Matter、UPnP、reverse_geocode |
-| **Alat Pengembang** | git_ops, python_compile, lint_format, run_tests, db_query, **13 navigator kode sumber (keluarga idx)** |
+| **Alat Pengembang** | git_ops, python_compile, lint_format, run_tests, db_query, **26 navigator kode sumber (keluarga idx)** |
 | **MCP** | Hubungkan ke server MCP eksternal, daftar alat, jalankan |
 | **A2A** | Komunikasi agen-ke-agen (dengan instans uag lain atau server yang kompatibel dengan A2A) |
 | **Sistem** | env vars, spesifikasi sistem, waktu, perhitungan tanggal, uuid_gen, slugify ||
-| **Nav Sumber** | **13 alat idx** untuk Python, PHP, TypeScript, Java, C#, Dart, C/C++, Rust, Go, Swift, Kotlin, COBOL — dapatkan indeks fungsi/kelas atau definisi spesifik tanpa membaca keseluruhan file |
+| **Nav Sumber** | **26 alat idx** untuk Python, PHP, TypeScript, Java, C#, Dart, C/C++, Rust, Go, Swift, Kotlin, COBOL — dapatkan indeks fungsi/kelas atau definisi spesifik tanpa membaca keseluruhan file |
 
 ### 🖥 4 Antarmuka + Ekstensi Kode VS
 

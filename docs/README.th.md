@@ -29,7 +29,7 @@
 
 - **ทำงานภายในเครื่อง** บนเครื่องของคุณ ข้อมูลของคุณจะอยู่กับคุณ (ยกเว้นการเรียก API ที่คุณทำ)
 - **เสรีภาพของผู้ให้บริการ**: OpenAI, Claude, Gemini, DeepSeek, Ollama, Azure, Bedrock, HuggingFace... ผู้ให้บริการ21 ราย ทั้งหมดนี้สามารถเข้าถึงได้จากอินเทอร์เฟซเดียว สลับระหว่างตัวแปรเหล่านี้โดยกำหนดค่าตัวแปรสภาพแวดล้อมใหม่ ไม่ต้องติดตั้งใหม่ ไม่ต้องย้ายข้อมูล
-- **เครื่องมือ 185 รายการ**: ไฟล์ I/O, การค้นหาเว็บ, การสร้างภาพ, Gmail, การสแกนอุปกรณ์ BLE, การบูรณาการเซิร์ฟเวอร์ MCP — **111 รายการเป็นแบบปลอดภัยแบบขนาน** (สูงสุด 8 รายการดำเนินการพร้อมกันผ่านกลุ่มเธรด กำหนดค่าได้ผ่าน `UAGENT_PARALLEL_WORKERS`) เมื่อ LLM เรียกใช้เครื่องมือหลายรายการพร้อมกัน uag จะขนานการเรียกเครื่องมือเหล่านั้นโดยอัตโนมัติ
+- **เครื่องมือ 195 รายการ**: ไฟล์ I/O, การค้นหาเว็บ, การสร้างภาพ, Gmail, การสแกนอุปกรณ์ BLE, การบูรณาการเซิร์ฟเวอร์ MCP — **111 รายการเป็นแบบปลอดภัยแบบขนาน** (สูงสุด 8 รายการดำเนินการพร้อมกันผ่านกลุ่มเธรด กำหนดค่าได้ผ่าน `UAGENT_PARALLEL_WORKERS`) เมื่อ LLM เรียกใช้เครื่องมือหลายรายการพร้อมกัน uag จะขนานการเรียกเครื่องมือเหล่านั้นโดยอัตโนมัติ
 - **3 UI + A2A**: CLI, GUI, เว็บ และโปรโตคอล Agent-to-Agent เครื่องยนต์เดียวกัน อินเทอร์เฟซใดก็ได้
 - **ทักษะตัวแทน**: ติดตั้งทักษะที่สร้างโดยชุมชนจากตลาดกลาง ขยาย uag อย่างไม่มีที่สิ้นสุด
 
@@ -89,7 +89,7 @@ See [DEVELOP_PLUGIN.md](src/uagent/docs/DEVELOP_PLUGIN.md) for full documentatio
 - **Reload past sessions** with `:load <index>` — pick up where you left off.
 - **Tool result caching** avoids redundant re-execution when the same tool call repeats.
 
-### 🛠 185 เครื่องมือ
+### 🛠 195 เครื่องมือ
 
 | หมวดหมู่ | เครื่องมือ |
 |---|---|
@@ -100,11 +100,11 @@ See [DEVELOP_PLUGIN.md](src/uagent/docs/DEVELOP_PLUGIN.md) for full documentatio
 | **พยากรณ์** | การพยากรณ์อนุกรมเวลาด้วย 9 โมเดล (AutoARIMA, Prophet, LightGBM, CatBoost, TimesFM ฯลฯ), การเลือกโมเดลอัตโนมัติ, การสร้างพล็อต, i18n |
 | **การสื่อสาร** | gmail_send, gmail_read, bluesky, discord_channel, team_webhook , **pybitchat** (BLE Mesh) — ดู [COMMUNICATION.md](https://github.com/awaku7/agentcli/blob/main/docs/COMMUNICATION.md) and [BITCHAT.md](https://github.com/awaku7/agentcli/blob/main/docs/BITCHAT.md)|
 | **ไอโอที** | SwitchBot (คลาวด์ + BLE), ECHONET Lite, สำคัญ, UPnP, reverse_geocode |
-| **เครื่องมือสำหรับการพัฒนา** | git_ops, python_compile, lint_format, run_tests, db_query, **ตัวนำทางซอร์สโค้ด 13 ตัว (ตระกูล idx)** |
+| **เครื่องมือสำหรับการพัฒนา** | git_ops, python_compile, lint_format, run_tests, db_query, **ตัวนำทางซอร์สโค้ด 26 ตัว (ตระกูล idx)** |
 | **เอ็มซีพี** | เชื่อมต่อกับเซิร์ฟเวอร์ MCP ภายนอก แสดงรายการเครื่องมือ ดำเนินการ |
 | **A2A** | การสื่อสารระหว่างเอเจนต์กับเอเจนต์ (กับอินสแตนซ์ uag อื่นๆ หรือเซิร์ฟเวอร์ที่เข้ากันได้กับ A2A)
 | **ระบบ** | env vars, ข้อมูลจำเพาะของระบบ, เวลา, การคำนวณวันที่, uuid_gen, slugify ||
-| **การนำทางที่มา** | **เครื่องมือ idx 13 รายการ** สำหรับ Python, PHP, TypeScript, Java, C#, Dart, C/C++, Rust, Go, Swift, Kotlin, COBOL — รับฟังก์ชัน/ดัชนีคลาสหรือคำจำกัดความเฉพาะโดยไม่ต้องอ่านไฟล์ทั้งหมด |
+| **การนำทางที่มา** | **เครื่องมือ idx 26 รายการ** สำหรับ Python, PHP, TypeScript, Java, C#, Dart, C/C++, Rust, Go, Swift, Kotlin, COBOL — รับฟังก์ชัน/ดัชนีคลาสหรือคำจำกัดความเฉพาะโดยไม่ต้องอ่านไฟล์ทั้งหมด |
 
 ### 🖥 4 อินเทอร์เฟซ + ส่วนขยายรหัส VS
 

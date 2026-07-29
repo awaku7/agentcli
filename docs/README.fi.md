@@ -29,7 +29,7 @@
 
 - **Runs locally** on your machine. Tietosi pysyvät mukanasi (paitsi tekemäsi API-kutsut).
 - **Tarjoajan vapaus**: OpenAI, Claude, Gemini, DeepSeek, Ollama, Azure, Bedrock, HuggingFace... 21 palveluntarjoajaa, kaikki käytettävissä yhdestä käyttöliittymästä. Vaihda niiden välillä määrittämällä ympäristömuuttujat uudelleen – ei uudelleenasennusta, ei siirtoa.
-- **185 työkalua**: tiedostojen I/O, verkkohaku, kuvien luominen, Gmail, BLE-laitteiden skannaus, MCP-palvelinintegrointi — **111 ovat rinnakkain turvallisia** (jopa 8 suoritetaan samanaikaisesti säikeen varaan kautta, konfiguroitavissa `UAGENT_PARALLEL_WORKERS'-toiminnolla). Kun LLM käynnistää useita työkalukutsuja kerralla, uag rinnastaa ne automaattisesti.
+- **195 työkalua**: tiedostojen I/O, verkkohaku, kuvien luominen, Gmail, BLE-laitteiden skannaus, MCP-palvelinintegrointi — **111 ovat rinnakkain turvallisia** (jopa 8 suoritetaan samanaikaisesti säikeen varaan kautta, konfiguroitavissa `UAGENT_PARALLEL_WORKERS'-toiminnolla). Kun LLM käynnistää useita työkalukutsuja kerralla, uag rinnastaa ne automaattisesti.
 - **3 käyttöliittymää + A2A**: CLI, GUI, Web ja Agent-to-Agent-protokolla. Same engine, any interface.
 - **Agenttitaidot**: Asenna yhteisön rakentamia taitoja markkinoilta. Laajenna uag loputtomasti.
 
@@ -89,7 +89,7 @@ See [DEVELOP_PLUGIN.md](src/uagent/docs/DEVELOP_PLUGIN.md) for full documentatio
 - **Reload past sessions** with `:load <index>` — pick up where you left off.
 - **Tool result caching** avoids redundant re-execution when the same tool call repeats.
 
-### 🛠 185 Työkalut
+### 🛠 195 Työkalut
 
 | Luokka | Työkalut |
 |---|---|
@@ -100,11 +100,11 @@ See [DEVELOP_PLUGIN.md](src/uagent/docs/DEVELOP_PLUGIN.md) for full documentatio
 | **Ennuste** | Aikasarjaennuste 9 mallilla (AutoARIMA, Prophet, LightGBM, CatBoost, TimesFM jne.), automaattinen mallin valinta, kuvaajan luonti, i18n |
 | **Viestintä** | gmail_send, gmail_read, bluesky, discord_channel, teams_webhook, **pybitchat** (BLE Mesh) – katso [COMMUNICATION.md](https://github.com/awaku7/agentcli/blob/main/docs/COMMUNICATION.md) ja [BITCHAT.md](https://github.com/awaku7/agentcli/blob/main/docs/BITCHAT.md)|
 | **IoT** | BACnet、Modbus TCP、OPC UA、SwitchBot（Cloud + BLE）、ECHONET Lite、Matter、UPnP、reverse_geocode |
-| **Kehittäjätyökalut** | git_ops, python_compile, lint_format, run_tests, db_query, **13 lähdekoodinavigaattoria (idx-perhe)** |
+| **Kehittäjätyökalut** | git_ops, python_compile, lint_format, run_tests, db_query, **26 lähdekoodinavigaattoria (idx-perhe)** |
 | **MCP** | Yhdistä ulkoisiin MCP-palvelimiin, luetteloi työkalut, suorita |
 | **A2A** | Agenttien välinen viestintä (muiden uag-esiintymien tai A2A-yhteensopivien palvelimien kanssa) |
 | **Järjestelmä** | env vars, järjestelmän tiedot, aika, päivämäärälaskenta, uuid_gen, slugify ||
-| **Lähde Nav** | **13 idx-työkalua** Pythonille, PHP:lle, TypeScriptille, Javalle, C#:lle, Dartille, C/C++:lle, Rustille, Golle, Swiftille, Kotlinille, COBOLille – hanki funktio/luokkaindeksi tai tietty määritelmä lukematta koko tiedostoa |
+| **Lähde Nav** | **26 idx-työkalua** Pythonille, PHP:lle, TypeScriptille, Javalle, C#:lle, Dartille, C/C++:lle, Rustille, Golle, Swiftille, Kotlinille, COBOLille – hanki funktio/luokkaindeksi tai tietty määritelmä lukematta koko tiedostoa |
 
 ### 🖥 4 käyttöliittymää + VS-koodilaajennus
 

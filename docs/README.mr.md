@@ -29,7 +29,7 @@
 
 - **Runs locally** on your machine. Your data stays with you (except API calls you make).
 - **Provider freedom**: OpenAI, Claude, Gemini, DeepSeek, Ollama, Azure, Bedrock, HuggingFace... 23 providers, all accessible from a single interface. Swap between them by reconfiguring environment variables — no reinstall, no migration.
-- **185 tools**: File I/O, web search, image generation, Gmail, BLE device scanning, MCP server integration — **111 are parallel-safe** (up to 8 execute concurrently via thread pool, configurable via `UAGENT_PARALLEL_WORKERS`). When the LLM fires multiple tool calls at once, uag automatically parallelizes them.
+- **195  tools**: File I/O, web search, image generation, Gmail, BLE device scanning, MCP server integration — **111 are parallel-safe** (up to 8 execute concurrently via thread pool, configurable via `UAGENT_PARALLEL_WORKERS`). When the LLM fires multiple tool calls at once, uag automatically parallelizes them.
 - **3 UIs + A2A**: CLI, GUI, Web, and Agent-to-Agent protocol. Same engine, any interface.
 - **Agent Skills**: Install community-built skills from the marketplace. Extend uag endlessly.
 
@@ -104,7 +104,7 @@ See [DEVELOP_PLUGIN.md](src/uagent/docs/DEVELOP_PLUGIN.md) for full documentatio
 | **MCP** | बाह्य MCP सर्व्हरशी कनेक्ट करा, साधने सूची करा, कार्यान्वित करा |
 | **A2A** | एजंट-टू-एजंट संप्रेषण (इतर uag उदाहरणे किंवा A2A-सुसंगत सर्व्हरसह) |
 | **सिस्टम** | env vars, सिस्टम स्पेक्स, वेळ, तारीख गणना, uuid_gen, slugify ||
-| **स्रोत Nav** | Python, PHP, TypeScript, Java, C#, Dart, C/C++, Rust, Go, Swift, Kotlin, COBOL साठी **13 idx टूल्स** — संपूर्ण फाइल न वाचता फंक्शन/क्लास इंडेक्स किंवा विशिष्ट व्याख्या मिळवा |
+| **स्रोत Nav** | Python, PHP, TypeScript, Java, C#, Dart, C/C++, Rust, Go, Swift, Kotlin, COBOL साठी **26 idx टूल्स** — संपूर्ण फाइल न वाचता फंक्शन/क्लास इंडेक्स किंवा विशिष्ट व्याख्या मिळवा |
 
 ### 🖥 4 इंटरफेस + VS कोड विस्तार
 
