@@ -135,7 +135,7 @@ TOOL_SPEC: dict[str, Any] = {
                     ),
                 },
             },
-            "required": ["ip_address", "action"],
+            "required": ["ip", "action"],
             "additionalProperties": False,
         },
     },

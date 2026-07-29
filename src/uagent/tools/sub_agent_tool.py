@@ -628,9 +628,9 @@ class SubAgentRunner:
 
     def _infer_status(self, result: str) -> str:
         if result.startswith('{"status":"error"'):
-            return "error"
+            return "error"  # noqa: i18n
         if result.startswith('{"status":"blocked"'):
-            return "blocked"
+            return "blocked"  # noqa: i18n
         if result.startswith('{"status":"completed"'):
             return "completed"
         try:

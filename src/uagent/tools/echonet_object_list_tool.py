@@ -111,7 +111,7 @@ TOOL_SPEC: dict[str, Any] = {
                     ),
                 },
             },
-            "required": ["ip_address"],
+            "required": ["ip"],
             "additionalProperties": False,
         },
     },

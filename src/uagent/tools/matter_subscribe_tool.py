@@ -89,7 +89,7 @@ TOOL_SPEC: dict[str, Any] = {
                     ),
                 },
             },
-            "required": ["device_id"],
+            "required": ["dev"],
             "additionalProperties": False,
         },
     },

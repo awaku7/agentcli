@@ -139,7 +139,7 @@ TOOL_SPEC: dict[str, Any] = {
                     ),
                 },
             },
-            "required": ["image_path", "prompt"],
+            "required": ["img", "prompt"],
         },
     },
 }

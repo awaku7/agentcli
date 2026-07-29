@@ -143,7 +143,7 @@ TOOL_SPEC: dict[str, Any] = {
                     ),
                 },
             },
-            "required": ["device_id", "action"],
+            "required": ["dev", "action"],
             "additionalProperties": False,
         },
     },
@@ -199,7 +199,7 @@ def _extract_items(data: Any) -> list[dict[str, Any]]:
                 items.extend(item for item in value if isinstance(item, dict))
         if items:
             return items
-    if any(k in data for k in ("deviceId", "device_id", "deviceName", "device_name")):
+    if any(k in data for k in ("deviceId", "dev", "deviceName", "device_name")):
         return [data]
     return []
 

@@ -163,7 +163,7 @@ TOOL_SPEC: dict[str, Any] = {
                     "default": "preprocess_image",
                 },
             },
-            "required": ["image_path"],
+            "required": ["img"],
         },
     },
 }

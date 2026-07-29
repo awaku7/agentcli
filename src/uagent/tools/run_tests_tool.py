@@ -75,7 +75,7 @@ TOOL_SPEC: dict[str, Any] = {
                 },
                 "target": {
                     "type": "string",
-                    "default": None,
+                    "default": "",
                     "description": _(
                         "param.target.description",
                         default="Target (pytest path, unittest start directory, npm script, etc.). If null, defaults are used.",
@@ -92,7 +92,7 @@ TOOL_SPEC: dict[str, Any] = {
                 },
                 "cwd": {
                     "type": "string",
-                    "default": None,
+                    "default": "",
                     "description": _(
                         "param.cwd.description",
                         default="Working directory to run in (must be within workdir). If null, current directory.",
@@ -100,7 +100,7 @@ TOOL_SPEC: dict[str, Any] = {
                 },
                 "pythonpath": {
                     "type": "string",
-                    "default": None,
+                    "default": "",
                     "description": _(
                         "param.pythonpath.description",
                         default="Additional PYTHONPATH (e.g. 'src'). If provided, it is prefixed for the test command.",

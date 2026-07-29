@@ -8,7 +8,11 @@ from __future__ import annotations
 import hashlib
 import os
 
-from ecdsa import SECP256k1, SigningKey
+from .._pip_auto import install_with_status
+if install_with_status("ecdsa"):
+    from ecdsa import SECP256k1, SigningKey
+else:
+    SECP256k1 = SigningKey = None
 from ecdsa.ellipticcurve import Point
 
 curve = SECP256k1.curve

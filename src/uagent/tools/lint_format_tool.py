@@ -103,7 +103,7 @@ TOOL_SPEC: dict[str, Any] = {
                 },
                 "cwd": {
                     "type": "string",
-                    "default": None,
+                    "default": "",
                     "description": _(
                         "param.cwd.description",
                         default="Working dir (under workdir).",

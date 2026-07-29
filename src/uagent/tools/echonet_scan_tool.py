@@ -995,7 +995,7 @@ def _format_text(payload: dict[str, Any]) -> str:
         return "\n".join(lines).strip()
 
     for idx, item in enumerate(items, 1):
-        ip_label = item.get("ip") or item.get("ip_address") or "(unknown)"
+        ip_label = item.get("ip") or item.get("ip") or "(unknown)"
         eoj_items = item.get("eoj_list") or []
         dev_name = ""
         for eoj_code in eoj_items:
