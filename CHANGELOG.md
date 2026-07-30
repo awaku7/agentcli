@@ -1,5 +1,19 @@
 # Changelog
 
+## [0.5.61] - 2026-07-30
+
+### Added
+
+- feat: Azure OpenAI GPT Realtime support with GA and preview endpoint formats
+- feat: Amazon Bedrock Nova Sonic bidirectional realtime voice adapter
+- feat: automatic installation of optional Bedrock realtime SDK when selected
+- feat: setup wizard configuration for Azure, Bedrock, and other realtime providers
+- docs: update README and localized README files with realtime provider support
+
+### Fixed
+
+- fix: handle c-key interrupts consistently across Gemini and other providers
+
 ## [0.5.60] - 2026-07-29
 
 ### Added

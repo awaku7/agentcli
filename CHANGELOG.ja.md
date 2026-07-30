@@ -1,5 +1,19 @@
 # 変更履歴
 
+## [0.5.61] - 2026-07-30
+
+### 追加
+
+- feat: Azure OpenAI GPT Realtime対応（GAおよびプレビューのエンドポイント形式）
+- feat: Amazon Bedrock Nova Sonic双方向Realtime音声アダプター
+- feat: Bedrock選択時のRealtime SDK自動インストール
+- feat: Azure、Bedrock、その他Realtimeプロバイダーのsetup wizard設定
+- docs: Realtimeプロバイダー対応をREADMEおよび各国語READMEへ反映
+
+### 修正
+
+- fix: Geminiおよびその他プロバイダーでcキー中断処理を統一
+
 ## [0.5.60] - 2026-07-29
 
 ### 追加
