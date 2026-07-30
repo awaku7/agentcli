@@ -45,6 +45,7 @@ from .providers.llm_novita import novita_chat_with_tools
 from .providers.llm_together import together_chat_with_tools
 from .providers.llm_vercel import vercel_chat_with_tools
 from .llm_helpers import (
+    LLMWaitInterrupted,
     _auto_low_quality,
     _bump_effort,
     _choose_auto_effort,
@@ -193,6 +194,10 @@ def _call_gemini_round(
                 )
             )
             break
+        except LLMWaitInterrupted:
+            # Keep the interrupt flag set so _run_one_round() performs the
+            # common stop-prompt/RS_BREAK handling.
+            return True, client, "", [], {}
         except Exception as e:
             attempt_429, new_client, action = _rate_limit_retry_step(
                 exception=e,

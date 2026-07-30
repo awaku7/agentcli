@@ -1147,6 +1147,16 @@ def gemini_chat_with_tools(
         try:
             stream_iter = client.models.generate_content_stream(**gen_kwargs)
             for response in stream_iter:
+                # Stop consuming Gemini chunks once the c-key interrupt is set.
+                # The outer round handles the common stop-prompt path.
+                try:
+                    from uagent import core as _core_module
+
+                    with _core_module.interrupt_lock:
+                        if _core_module.interrupt_requested:
+                            break
+                except Exception:
+                    pass
                 (
                     chunk_text,
                     chunk_tool_calls,

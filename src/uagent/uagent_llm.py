@@ -35,6 +35,7 @@ from .llm_message_helpers import (
 from .llm_helpers import (
     _call_maybe_thread,
     _env_default_on,
+    LLMWaitInterrupted,
 )
 from .llm_round_helpers import (
     _translate_call_messages,
@@ -1691,6 +1692,13 @@ def run_llm_rounds(
             # Judgment mode: one round only
             if judgment_mode:
                 break
+
+    except LLMWaitInterrupted:
+        # Normalize SDK wait interruptions for every provider at the common
+        # round-loop boundary, then follow the normal stop-prompt path.
+        with _core_module.interrupt_lock:
+            _core_module.interrupt_requested = False
+        _inject_stop_prompt(messages, core)
 
     finally:
         cb.finish_skill = prev_finish_skill
