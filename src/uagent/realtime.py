@@ -18,6 +18,7 @@ import sys
 import threading
 import time
 from typing import Any
+from urllib.parse import quote, urlparse, urlunparse
 
 from .i18n import _, detect_lang
 from .realtime_audio import EchoProcessor
@@ -71,6 +72,12 @@ def _provider() -> str:
 
 def _api_key() -> str:
     provider = _provider()
+    if provider == "azure":
+        return (
+            os.getenv("UAGENT_AZURE_API_KEY")
+            or os.getenv("AZURE_OPENAI_API_KEY")
+            or ""
+        ).strip()
     if provider in {"grok", "xai"}:
         return (
             os.getenv("UAGENT_XAI_API_KEY")
@@ -124,6 +131,10 @@ def _depname(provider: str) -> str:
         value = (os.getenv(key) or "").strip()
         if value:
             return value
+    if normalized == "azure":
+        value = (os.getenv("UAGENT_AZURE_DEPNAME") or "").strip()
+        if value:
+            return value
     defaults = {
         "openai": "gpt-realtime-2",
         "azure": "gpt-realtime-2",
@@ -171,6 +182,31 @@ def _realtime_config(provider: str, key: str) -> tuple[str, dict[str, str]]:
             f"wss://{host}/ws/google.ai.generativelanguage.v1beta.GenerativeService.BidiGenerateContent?key={key}",
             {},
         )
+    if normalized == "azure":
+        base_url = (
+            os.getenv("UAGENT_AZURE_BASE_URL")
+            or os.getenv("AZURE_OPENAI_ENDPOINT")
+            or ""
+        ).strip().rstrip("/")
+        if not base_url:
+            return "", {"api-key": key}
+        parsed = urlparse(base_url)
+        scheme = "wss" if parsed.scheme in {"https", "wss"} else "ws"
+        host = urlunparse((scheme, parsed.netloc, "", "", "", "")).rstrip("/")
+        deployment = quote(_depname("azure"), safe="")
+        api_version = (
+            os.getenv("UAGENT_AZURE_API_VERSION")
+            or os.getenv("AZURE_OPENAI_API_VERSION")
+            or ""
+        ).strip()
+        if api_version:
+            url = (
+                f"{host}/openai/realtime?api-version={quote(api_version, safe='')}"
+                f"&deployment={deployment}"
+            )
+        else:
+            url = f"{host}/openai/v1/realtime?model={deployment}"
+        return url, {"api-key": key}
     host = "api.x.ai" if normalized == "grok" else "api.openai.com"
     return (
         f"wss://{host}/v1/realtime?model={_depname(normalized)}",
@@ -382,7 +418,9 @@ def run() -> int:
     provider = _provider()
     key = _api_key()
     if not key:
-        if provider in {"grok", "xai"}:
+        if provider == "azure":
+            env_names = "UAGENT_AZURE_API_KEY or AZURE_OPENAI_API_KEY"
+        elif provider in {"grok", "xai"}:
             env_names = "UAGENT_XAI_API_KEY or XAI_API_KEY"
         elif provider in {"google", "gemini", "vertexai", "vertex"}:
             env_names = "UAGENT_GEMINI_API_KEY or GEMINI_API_KEY"
@@ -401,7 +439,7 @@ def run() -> int:
         if provider in {"google", "gemini", "vertexai", "vertex"}:
             await _run_gemini_session(websockets, sd, key)
             return
-        if provider not in {"openai", "grok", "xai"}:
+        if provider not in {"openai", "azure", "grok", "xai"}:
             msg = _("Realtime adapter for %(provider)s is not implemented.") % {
                 "provider": provider
             }
