@@ -295,6 +295,38 @@ def _get_prompt_session(*, reply: bool = False) -> Any:
                                     yield Completion(
                                         sc, start_position=-len(after_tools)
                                     )
+                        elif after_tools.startswith("create "):
+                            # :tool create <name> [--lang python|rust] [--description ...] [--output-dir ...]
+                            create_arg = after_tools[len("create ") :]
+                            create_parts = create_arg.split()
+                            if create_arg.endswith(" "):
+                                if "--lang" not in create_parts:
+                                    yield Completion("--lang", start_position=0)
+                                if "--description" not in create_parts:
+                                    yield Completion("--description", start_position=0)
+                                if "--output-dir" not in create_parts:
+                                    yield Completion("--output-dir", start_position=0)
+                            else:
+                                last_token = create_parts[-1] if create_parts else ""
+                                if (
+                                    len(create_parts) >= 2
+                                    and create_parts[-2] == "--lang"
+                                ):
+                                    lang_opts = ["python", "rust"]
+                                    for lo in lang_opts:
+                                        if lo.startswith(last_token):
+                                            yield Completion(
+                                                lo, start_position=-len(last_token)
+                                            )
+                                else:
+                                    flags = ["--lang", "--description", "--output-dir"]
+                                    for fl in flags:
+                                        if fl not in create_parts and fl.startswith(
+                                            last_token
+                                        ):
+                                            yield Completion(
+                                                fl, start_position=-len(last_token)
+                                            )
                         elif after_tools.startswith(("on ", "off ")):
                             genre_prefix = (
                                 after_tools.split(" ", 1)[1]

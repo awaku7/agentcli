@@ -3787,6 +3787,9 @@ def handle_command(
         tr=tr,
     )
     if res is not None:
+        if isinstance(res, str):
+            print(res)
+            return CommandResult()
         return res
 
     if cmd in ("exit", "quit"):

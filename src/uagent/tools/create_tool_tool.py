@@ -354,11 +354,17 @@ def run_tool(args: dict[str, Any]) -> str:
     return "\n".join(lines)
 
 
-def _cmd_handler(arg: str, **kwargs: Any) -> str:
+def _cmd_handler(arg: str, **kwargs: Any) -> Any:
     """Handle :tool create <args>"""
     import shlex
+    from ..util_tools import CommandResult
 
-    parts = shlex.split(arg)
+    try:
+        parts = shlex.split(arg)
+    except Exception as e:
+        print(f"Error parsing arguments: {e}")
+        return CommandResult()
+
     name = None
     lang = "python"
     description = ""
@@ -383,7 +389,8 @@ def _cmd_handler(arg: str, **kwargs: Any) -> str:
             i += 1
 
     if not name:
-        return "Usage: :tool create <name> --lang python|rust [--description '...'] [--output-dir <dir>]"
+        print("Usage: :tool create <name> --lang python|rust [--description '...'] [--output-dir <dir>]")
+        return CommandResult()
 
     args = {
         "name": name,
@@ -393,7 +400,9 @@ def _cmd_handler(arg: str, **kwargs: Any) -> str:
     if output_dir:
         args["output_dir"] = output_dir
 
-    return run_tool(args)
+    res = run_tool(args)
+    print(res)
+    return CommandResult()
 
 
 CMD_SPECS: list[dict[str, Any]] = [

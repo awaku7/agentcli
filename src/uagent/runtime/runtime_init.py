@@ -12,6 +12,21 @@ from .runtime_env import validate_or_exit_startup_env
 from .runtime_memory import append_long_memory_system_messages
 from .runtime_workdir import WorkdirDecision, apply_workdir, decide_workdir
 
+import secrets
+
+def ensure_session_secret() -> str:
+    """Ensure UAGENT_SESSION_SECRET is initialized for DRM / VFS handshake across CLI/GUI/WEB/A2A."""
+    secret = os.environ.get("UAGENT_SESSION_SECRET")
+    if not secret:
+        secret = secrets.token_hex(32)
+        os.environ["UAGENT_SESSION_SECRET"] = secret
+    return secret
+
+
+# Initialize session secret on runtime import
+ensure_session_secret()
+
+
 _STARTUP_UAGENT_ENV_SNAPSHOT: dict[str, str] | None = None
 
 
