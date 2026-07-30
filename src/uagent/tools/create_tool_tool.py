@@ -406,13 +406,4 @@ CMD_SPECS: list[dict[str, Any]] = [
         ),
         "handler": _cmd_handler,
     },
-    {
-        "command": "tools",
-        "subcommand": "create",
-        "help_text": _(
-            "cmd.help_tools",
-            default="  :tools create <name> --lang python|rust --description '...'",
-        ),
-        "handler": _cmd_handler,
-    },
 ]

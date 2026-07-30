@@ -2613,15 +2613,14 @@ def _static_help_catalog(*, tr: Any) -> dict[str, dict[str, Any]]:
         ),
         "tools": e(
             tr("Control tool sending, genres, and loaded tools"),
-            usage=tr(":tools [list|load|on|off|reload|output|create] ..."),
+            usage=tr(":tools [list|load|on|off|reload|output] ..."),
             detail=tr(
                 ":tools on|off           Enable/disable sending tools to the LLM\n"
                 ":tools on|off <genre>   Enable/disable a tool genre (and sync global on)\n"
                 ":tools list [query]     List loaded tools\n"
                 ":tools load <name>      Load one tool by name\n"
                 ":tools reload           Reload tool modules from disk\n"
-                ":tools output           Toggle showing tool results in UI\n"
-                ":tools create ...       Scaffold a new tool (alias of :tool create)"
+                ":tools output           Toggle showing tool results in UI"
             ),
         ),
         "tool": e(

@@ -316,43 +316,6 @@ def _get_prompt_session(*, reply: bool = False) -> Any:
                                     yield Completion(
                                         g, start_position=-len(genre_prefix)
                                     )
-                        elif after_tools.startswith("create "):
-                            # :tools create <name> [--lang python|rust] [--description ...]
-                            create_arg = after_tools[len("create ") :]
-                            create_parts = create_arg.split()
-                            # Check what's being typed
-                            if create_arg.endswith(" "):
-                                # After a complete token, suggest flags
-                                if "--lang" not in create_parts:
-                                    yield Completion("--lang", start_position=0)
-                                if "--description" not in create_parts:
-                                    yield Completion("--description", start_position=0)
-                                if "--output-dir" not in create_parts:
-                                    yield Completion("--output-dir", start_position=0)
-                            else:
-                                # Currently typing a token
-                                last_token = create_parts[-1] if create_parts else ""
-                                # Check for --lang value completion
-                                if (
-                                    len(create_parts) >= 2
-                                    and create_parts[-2] == "--lang"
-                                ):
-                                    lang_opts = ["python", "rust"]
-                                    for lo in lang_opts:
-                                        if lo.startswith(last_token):
-                                            yield Completion(
-                                                lo, start_position=-len(last_token)
-                                            )
-                                else:
-                                    # Suggest flags
-                                    flags = ["--lang", "--description", "--output-dir"]
-                                    for fl in flags:
-                                        if fl not in create_parts and fl.startswith(
-                                            last_token
-                                        ):
-                                            yield Completion(
-                                                fl, start_position=-len(last_token)
-                                            )
                     elif stripped.startswith(":skills "):
                         # :skills subcommand completion
                         after_skills = stripped[len(":skills ") :]

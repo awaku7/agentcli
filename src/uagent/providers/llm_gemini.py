@@ -1164,6 +1164,11 @@ def gemini_chat_with_tools(
                 if chunk_dump:
                     gemini_content_dump = chunk_dump
         except Exception as e:
+            from uagent.llm_errors import _is_rate_limit_error
+
+            if _is_rate_limit_error(e):
+                raise e
+
             err_str = str(e).lower()
             if (
                 "finish_reason" in err_str
