@@ -1,0 +1,580 @@
+{
+  "en": {
+    "tool.description": "Securely mount and read encrypted SKILL package (.skp) as in-memory Read-Only VFS",
+    "x_search_terms": [
+      "drm_tool",
+      "skp",
+      "vfs",
+      "skill_drm",
+      "decrypt"
+    ],
+    "param.action": "Operation type (pack: create encrypted package, mount: mount VFS, read: safely read file in VFS, list: list files, exists: check file existence)",
+    "param.in_dir": "Local skill directory path to pack",
+    "param.out_file": "Output .skp file path for packing",
+    "param.file": "Path to .skp package file",
+    "param.email": "Issuer email address",
+    "param.password": "Decryption password",
+    "param.path": "Virtual file/directory path in VFS"
+  },
+  "ja": {
+    "tool.description": "暗号化されたSKILLパッケージ（.skp）をメモリ内の読み取り専用VFSとして安全にマウントして読み取ります",
+    "x_search_terms": [
+      "drm_tool",
+      "skp",
+      "vfs",
+      "skill_drm",
+      "復号化"
+    ],
+    "param.action": "操作タイプ (pack: 暗号化されたパッケージを作成、mount: VFS をマウント、read: VFS 内のファイルを安全に読み取る、list: ファイルのリスト、existes: ファイルの存在を確認)",
+    "param.in_dir": "パックするローカル スキル ディレクトリ パス",
+    "param.out_file": "パッキング用の出力 .skp ファイル パス",
+    "param.file": ".skp パッケージ ファイルへのパス",
+    "param.email": "発行者のメールアドレス",
+    "param.password": "復号化パスワード",
+    "param.path": "VFS の仮想ファイル/ディレクトリ パス"
+  },
+  "ar": {
+    "tool.description": "قم بتثبيت وقراءة حزمة SKILL المشفرة بشكل آمن (.skp) باعتبارها VFS للقراءة فقط في الذاكرة",
+    "x_search_terms": [
+      "drm_tool",
+      "skp",
+      "vfs",
+      "skill_drm",
+      "فك التشفير"
+    ],
+    "param.action": "نوع العملية (الحزمة: إنشاء حزمة مشفرة، التحميل: تحميل VFS، القراءة: قراءة الملف بأمان في VFS، القائمة: قائمة الملفات، موجودة: التحقق من وجود الملف)",
+    "param.in_dir": "مسار دليل المهارات المحلية للحزم",
+    "param.out_file": "مسار ملف الإخراج .skp للتعبئة",
+    "param.file": "المسار إلى ملف الحزمة .skp",
+    "param.email": "عنوان البريد الإلكتروني للمصدر",
+    "param.password": "كلمة مرور فك التشفير",
+    "param.path": "مسار الملف/الدليل الظاهري في VFS"
+  },
+  "bn": {
+    "tool.description": "ইন-মেমরি রিড-অনলি VFS হিসাবে এনক্রিপ্ট করা স্কিল প্যাকেজ (.skp) নিরাপদে মাউন্ট করুন এবং পড়ুন",
+    "x_search_terms": [
+      "drm_tool",
+      "skp",
+      "vfs",
+      "skill_drm",
+      "ডিক্রিপ্ট"
+    ],
+    "param.action": "অপারেশন টাইপ (প্যাক: এনক্রিপ্টেড প্যাকেজ তৈরি করুন, মাউন্ট: মাউন্ট ভিএফএস, পড়ুন: ভিএফএস-এ নিরাপদে ফাইল পড়ুন, তালিকা: তালিকা ফাইল, বিদ্যমান: ফাইলের অস্তিত্ব পরীক্ষা করুন)",
+    "param.in_dir": "প্যাক করার জন্য স্থানীয় দক্ষতা ডিরেক্টরির পথ",
+    "param.out_file": "প্যাকিংয়ের জন্য আউটপুট .skp ফাইল পাথ",
+    "param.file": ".skp প্যাকেজ ফাইলের পথ",
+    "param.email": "ইস্যুকারী ইমেল ঠিকানা",
+    "param.password": "ডিক্রিপশন পাসওয়ার্ড",
+    "param.path": "VFS-এ ভার্চুয়াল ফাইল/ডিরেক্টরি পাথ"
+  },
+  "cs": {
+    "tool.description": "Bezpečně připojte a čtěte zašifrovaný balíček SKILL (.skp) jako in-memory Read-Only VFS",
+    "x_search_terms": [
+      "drm_tool",
+      "skp",
+      "vfs",
+      "skill_drm",
+      "dešifrování"
+    ],
+    "param.action": "Typ operace (balení: vytvoření zašifrovaného balíčku, připojení: připojení VFS, čtení: bezpečné čtení souboru ve VFS, seznam: seznam souborů, existuje: kontrola existence souboru)",
+    "param.in_dir": "Cesta k místnímu adresáři dovedností",
+    "param.out_file": "Výstupní cesta k souboru .skp pro zabalení",
+    "param.file": "Cesta k souboru balíčku .skp",
+    "param.email": "E-mailová adresa vydavatele",
+    "param.password": "Dešifrovací heslo",
+    "param.path": "Cesta k virtuálnímu souboru/adresáři ve VFS"
+  },
+  "de": {
+    "tool.description": "Hängen Sie verschlüsselte SKILL-Pakete (.skp) sicher als schreibgeschütztes In-Memory-VFS ein und lesen Sie es",
+    "x_search_terms": [
+      "drm_tool",
+      "skp",
+      "vfs",
+      "skill_drm",
+      "decrypt"
+    ],
+    "param.action": "Operationstyp (Packen: Verschlüsseltes Paket erstellen, Mounten: VFS mounten, Lesen: Datei sicher in VFS lesen, Liste: Dateien auflisten, Vorhanden: Dateiexistenz prüfen)",
+    "param.in_dir": "Pfad zum lokalen Skill-Verzeichnis zum Packen",
+    "param.out_file": "Ausgabepfad der .skp-Datei zum Packen",
+    "param.file": "Pfad zur .skp-Paketdatei",
+    "param.email": "E-Mail-Adresse des Ausstellers",
+    "param.password": "Entschlüsselungspasswort",
+    "param.path": "Virtueller Datei-/Verzeichnispfad in VFS"
+  },
+  "el": {
+    "tool.description": "Τοποθετήστε και διαβάστε με ασφάλεια το κρυπτογραφημένο πακέτο SKILL (.skp) ως VFS μόνο για ανάγνωση στη μνήμη",
+    "x_search_terms": [
+      "drm_tool",
+      "skp",
+      "vfs",
+      "skill_drm",
+      "αποκρυπτογράφηση"
+    ],
+    "param.action": "Τύπος λειτουργίας (πακέτο: δημιουργία κρυπτογραφημένου πακέτου, προσάρτηση: προσάρτηση VFS, ανάγνωση: ασφαλής ανάγνωση αρχείου σε VFS, λίστα: αρχεία λίστας, υπάρχει: έλεγχος ύπαρξης αρχείου)",
+    "param.in_dir": "Τοπική διαδρομή καταλόγου δεξιοτήτων προς συσκευασία",
+    "param.out_file": "Έξοδος διαδρομής αρχείου .skp για συσκευασία",
+    "param.file": "Διαδρομή προς το αρχείο πακέτου .skp",
+    "param.email": "Διεύθυνση ηλεκτρονικού ταχυδρομείου εκδότη",
+    "param.password": "Κωδικός αποκρυπτογράφησης",
+    "param.path": "Εικονική διαδρομή αρχείου/καταλόγου στο VFS"
+  },
+  "es": {
+    "tool.description": "Monte y lea de forma segura el paquete SKILL cifrado (.skp) como VFS de solo lectura en memoria",
+    "x_search_terms": [
+      "drm_tool",
+      "skp",
+      "vfs",
+      "skill_drm",
+      "decrypt"
+    ],
+    "param.action": "Tipo de operación (empaquetar: crear paquete cifrado, montar: montar VFS, leer: leer archivos de forma segura en VFS, listar: enumerar archivos, existe: verificar la existencia del archivo)",
+    "param.in_dir": "Ruta del directorio de habilidades local para empacar",
+    "param.out_file": "Ruta del archivo .skp de salida para empaquetar",
+    "param.file": "Ruta al archivo del paquete .skp",
+    "param.email": "Dirección de correo electrónico del emisor",
+    "param.password": "Contraseña de descifrado",
+    "param.path": "Ruta de archivo/directorio virtual en VFS"
+  },
+  "fa": {
+    "tool.description": "بسته SKILL رمزگذاری شده (skp.) را به صورت ایمن به عنوان VFS فقط خواندنی در حافظه نصب کنید و بخوانید",
+    "x_search_terms": [
+      "drm_tool",
+      "skp",
+      "vfs",
+      "skill_drm",
+      "رمزگشایی"
+    ],
+    "param.action": "نوع عملیات (بسته: ایجاد بسته رمزگذاری شده، نصب: سوار کردن VFS، خواندن: خواندن ایمن فایل در VFS، لیست: فایل‌های فهرست، وجود: بررسی وجود فایل)",
+    "param.in_dir": "مسیر دایرکتوری مهارت محلی برای بسته بندی",
+    "param.out_file": "خروجی مسیر فایل .skp برای بسته بندی",
+    "param.file": "مسیر فایل بسته .skp",
+    "param.email": "آدرس ایمیل صادرکننده",
+    "param.password": "رمزگشایی رمزگشایی",
+    "param.path": "مسیر فایل/دایرکتوری مجازی در VFS"
+  },
+  "fi": {
+    "tool.description": "Asenna ja lue salattu SKILL-paketti (.skp) turvallisesti muistissa vain luku -VFS:nä",
+    "x_search_terms": [
+      "drm_tool",
+      "skp",
+      "vfs",
+      "skill_drm",
+      "decrypt"
+    ],
+    "param.action": "Toiminnon tyyppi (paketti: luo salattu paketti, liitä: liitä VFS, lue: lue tiedosto turvallisesti VFS:ssä, luettelo: luettelotiedostot, olemassa: tarkista tiedoston olemassaolo)",
+    "param.in_dir": "Paikallinen taitohakemisto polku pakattavaksi",
+    "param.out_file": "Tulostaa .skp-tiedoston polku pakkaamista varten",
+    "param.file": "Polku .skp-pakettitiedostoon",
+    "param.email": "Myöntäjän sähköpostiosoite",
+    "param.password": "Salauksen purku salasana",
+    "param.path": "Virtuaalinen tiedosto/hakemistopolku VFS:ssä"
+  },
+  "fr": {
+    "tool.description": "Montez et lisez en toute sécurité le package SKILL chiffré (.skp) en tant que VFS en lecture seule en mémoire",
+    "x_search_terms": [
+      "drm_tool",
+      "skp",
+      "vfs",
+      "skill_drm",
+      "decrypt"
+    ],
+    "param.action": "Type d'opération (pack : créer un package chiffré, monter : monter VFS, lire : lire le fichier en toute sécurité dans VFS, liste : lister les fichiers, existe : vérifier l'existence du fichier)",
+    "param.in_dir": "Chemin du répertoire de compétences local à emballer",
+    "param.out_file": "Chemin du fichier de sortie .skp pour l'emballage",
+    "param.file": "Chemin d'accès au fichier de package .skp",
+    "param.email": "Adresse e-mail de l'émetteur",
+    "param.password": "Mot de passe de décryptage",
+    "param.path": "Chemin de fichier/répertoire virtuel dans VFS"
+  },
+  "he": {
+    "tool.description": "הרכב וקרא בצורה מאובטחת חבילת SKILL מוצפנת (.skp) כ-VFS לקריאה בלבד בזיכרון",
+    "x_search_terms": [
+      "drm_tool",
+      "skp",
+      "vfs",
+      "skill_drm",
+      "decrypt"
+    ],
+    "param.action": "סוג הפעולה (חבילה: יצירת חבילה מוצפנת, mount: mount VFS, קריאה: קריאה בטוחה של קובץ ב-VFS, רשימה: רשימת קבצים, קיימת: בדוק את קיום הקובץ)",
+    "param.in_dir": "נתיב ספריית מיומנות מקומית לאריזה",
+    "param.out_file": "נתיב קובץ פלט .skp לאריזה",
+    "param.file": "נתיב לקובץ חבילת ‎.skp",
+    "param.email": "כתובת אימייל של מנפיק",
+    "param.password": "סיסמת פענוח",
+    "param.path": "נתיב קובץ/ספרייה וירטואלי ב-VFS"
+  },
+  "hi": {
+    "tool.description": "एन्क्रिप्टेड SKILL पैकेज (.skp) को इन-मेमोरी रीड-ओनली VFS के रूप में सुरक्षित रूप से माउंट करें और पढ़ें",
+    "x_search_terms": [
+      "drm_tool",
+      "skp",
+      "vfs",
+      "skill_drm",
+      "decrypt"
+    ],
+    "param.action": "ऑपरेशन प्रकार (पैक: एन्क्रिप्टेड पैकेज बनाएं, माउंट: वीएफएस माउंट करें, पढ़ें: वीएफएस में फ़ाइल को सुरक्षित रूप से पढ़ें, सूची: सूची फ़ाइलें, मौजूद है: फ़ाइल अस्तित्व की जांच करें)",
+    "param.in_dir": "पैक करने के लिए स्थानीय कौशल निर्देशिका पथ",
+    "param.out_file": "पैकिंग के लिए आउटपुट .skp फ़ाइल पथ",
+    "param.file": ".skp पैकेज फ़ाइल का पथ",
+    "param.email": "जारीकर्ता का ईमेल पता",
+    "param.password": "डिक्रिप्शन पासवर्ड",
+    "param.path": "VFS में वर्चुअल फ़ाइल/निर्देशिका पथ"
+  },
+  "hu": {
+    "tool.description": "A titkosított SKILL csomag (.skp) biztonságos csatlakoztatása és olvasása csak olvasható VFS-ként a memóriában",
+    "x_search_terms": [
+      "drm_tool",
+      "skp",
+      "vfs",
+      "skill_drm",
+      "decrypt"
+    ],
+    "param.action": "Művelet típusa (csomag: titkosított csomag létrehozása, csatolás: VFS csatolása, olvasás: fájl biztonságos olvasása VFS-ben, lista: fájlok listája, létezik: fájl létezésének ellenőrzése)",
+    "param.in_dir": "Helyi készségkatalógus elérési útja a csomaghoz",
+    "param.out_file": "Kimeneti .skp fájl elérési útja a csomagoláshoz",
+    "param.file": ".skp csomagfájl elérési útja",
+    "param.email": "A kibocsátó e-mail címe",
+    "param.password": "Dekódolási jelszó",
+    "param.path": "Virtuális fájl/könyvtár elérési útja VFS-ben"
+  },
+  "id": {
+    "tool.description": "Pasang dan baca paket SKILL terenkripsi (.skp) dengan aman sebagai VFS Hanya-Baca dalam memori",
+    "x_search_terms": [
+      "drm_tool",
+      "skp",
+      "vfs",
+      "skill_drm",
+      "dekripsi"
+    ],
+    "param.action": "Jenis operasi (paket: buat paket terenkripsi, mount: mount VFS, baca: baca file dengan aman di VFS, daftar: daftar file, ada: periksa keberadaan file)",
+    "param.in_dir": "Jalur direktori keterampilan lokal untuk dikemas",
+    "param.out_file": "Keluaran jalur file .skp untuk pengepakan",
+    "param.file": "Jalur ke file paket .skp",
+    "param.email": "Alamat email penerbit",
+    "param.password": "Kata sandi dekripsi",
+    "param.path": "Jalur file/direktori virtual di VFS"
+  },
+  "it": {
+    "tool.description": "Monta e leggi in modo sicuro il pacchetto SKILL crittografato (.skp) come VFS di sola lettura in memoria",
+    "x_search_terms": [
+      "drm_tool",
+      "skp",
+      "vfs",
+      "skill_drm",
+      "decrypt"
+    ],
+    "param.action": "Tipo di operazione (pack: crea pacchetto crittografato, monta: monta VFS, leggi: leggi in sicurezza il file in VFS, elenca: elenca i file, esiste: controlla l'esistenza del file)",
+    "param.in_dir": "Percorso della directory delle competenze locali da imballare",
+    "param.out_file": "Percorso del file .skp di output per l'imballaggio",
+    "param.file": "Percorso del file del pacchetto .skp",
+    "param.email": "Indirizzo e-mail dell'emittente",
+    "param.password": "Password di decodifica",
+    "param.path": "Percorso file/directory virtuale in VFS"
+  },
+  "ko": {
+    "tool.description": "암호화된 SKILL 패키지(.skp)를 메모리 내 읽기 전용 VFS로 안전하게 마운트하고 읽습니다.",
+    "x_search_terms": [
+      "drm_tool",
+      "skp",
+      "vfs",
+      "skill_drm",
+      "decrypt"
+    ],
+    "param.action": "작업 유형(pack: 암호화된 패키지 생성, mount: VFS 마운트, 읽기: VFS에서 안전하게 파일 읽기, list: 파일 목록, 존재: 파일 존재 확인)",
+    "param.in_dir": "팩할 로컬 스킬 디렉터리 경로",
+    "param.out_file": "압축을 위한 출력 .skp 파일 경로",
+    "param.file": ".skp 패키지 파일 경로",
+    "param.email": "발급자 이메일 주소",
+    "param.password": "암호 해독 비밀번호",
+    "param.path": "VFS의 가상 파일/디렉터리 경로"
+  },
+  "mn": {
+    "tool.description": "Шифрлэгдсэн SKILL багцыг (.skp) санах ойн Зөвхөн унших VFS болгон найдвартай холбож уншина уу.",
+    "x_search_terms": [
+      "drm_tool",
+      "skp",
+      "vfs",
+      "skill_drm",
+      "шифрийг тайлах"
+    ],
+    "param.action": "Үйлдлийн төрөл (багц: шифрлэгдсэн багц үүсгэх, холбох: VFS холбох, унших: VFS доторх файлыг аюулгүй унших, жагсаалт: файлуудыг жагсаах, байгаа: файл байгаа эсэхийг шалгах)",
+    "param.in_dir": "Савлах орон нутгийн ур чадварын лавлах зам",
+    "param.out_file": "Савлах .skp файлын замыг гарга",
+    "param.file": ".skp багц файлын зам",
+    "param.email": "Гаргагчийн имэйл хаяг",
+    "param.password": "Нууц үгийг тайлах",
+    "param.path": "VFS дахь виртуал файл/сангийн зам"
+  },
+  "mr": {
+    "tool.description": "इन-मेमरी रीड-ओन्ली VFS म्हणून एन्क्रिप्टेड स्किल पॅकेज (.skp) सुरक्षितपणे माउंट करा आणि वाचा",
+    "x_search_terms": [
+      "drm_tool",
+      "skp",
+      "vfs",
+      "skill_drm",
+      "डिक्रिप्ट"
+    ],
+    "param.action": "ऑपरेशन प्रकार (पॅक: एनक्रिप्टेड पॅकेज तयार करा, माउंट: माउंट व्हीएफएस, वाचा: व्हीएफएसमध्ये फाइल सुरक्षितपणे वाचा, सूची: फाइल्सची सूची, अस्तित्वात आहे: फाइल अस्तित्व तपासा)",
+    "param.in_dir": "पॅक करण्यासाठी स्थानिक कौशल्य निर्देशिका पथ",
+    "param.out_file": "पॅकिंगसाठी आउटपुट .skp फाइल पथ",
+    "param.file": ".skp पॅकेज फाइलचा मार्ग",
+    "param.email": "जारीकर्ता ईमेल पत्ता",
+    "param.password": "डिक्रिप्शन पासवर्ड",
+    "param.path": "VFS मध्ये व्हर्च्युअल फाइल/डिरेक्टरी पथ"
+  },
+  "nb": {
+    "tool.description": "Monter og les den krypterte SKILL-pakken (.skp) sikkert som skrivebeskyttet VFS i minnet",
+    "x_search_terms": [
+      "drm_tool",
+      "skp",
+      "vfs",
+      "skill_drm",
+      "dekryptere"
+    ],
+    "param.action": "Operasjonstype (pakke: opprette kryptert pakke, montere: montere VFS, les: trygt lese fil i VFS, liste: liste filer, eksisterer: sjekk filens eksistens)",
+    "param.in_dir": "Lokal ferdighetskatalogbane å pakke",
+    "param.out_file": "Utdata .skp-filbane for pakking",
+    "param.file": "Bane til .skp-pakkefil",
+    "param.email": "Utstederens e-postadresse",
+    "param.password": "Dekrypteringspassord",
+    "param.path": "Virtuell fil/katalogbane i VFS"
+  },
+  "nl": {
+    "tool.description": "Mount en lees het gecodeerde SKILL-pakket (.skp) veilig als in-memory Read-Only VFS",
+    "x_search_terms": [
+      "drm_tool",
+      "skp",
+      "vfs",
+      "skill_drm",
+      "decrypt"
+    ],
+    "param.action": "Bewerkingstype (pack: gecodeerd pakket maken, mount: VFS mounten, lezen: bestand veilig lezen in VFS, lijst: bestanden weergeven, bestaat: bestaan van bestand controleren)",
+    "param.in_dir": "Pad naar lokale vaardigheidsmap om in te pakken",
+    "param.out_file": "Uitvoerbestandspad .skp voor inpakken",
+    "param.file": "Pad naar .skp-pakketbestand",
+    "param.email": "E-mailadres van de uitgever",
+    "param.password": "Decoderingswachtwoord",
+    "param.path": "Virtueel bestands-/mappad in VFS"
+  },
+  "pl": {
+    "tool.description": "Bezpiecznie zamontuj i odczytaj zaszyfrowany pakiet SKILL (.skp) jako VFS tylko do odczytu w pamięci",
+    "x_search_terms": [
+      "drm_tool",
+      "skp",
+      "vfs",
+      "skill_drm",
+      "odszyfruj"
+    ],
+    "param.action": "Typ operacji (pack: utwórz zaszyfrowany pakiet, mount: zamontuj VFS, odczyt: bezpiecznie odczytaj plik w VFS, lista: lista plików, istnieje: sprawdź istnienie pliku)",
+    "param.in_dir": "Ścieżka lokalnego katalogu umiejętności do spakowania",
+    "param.out_file": "Ścieżka pliku wyjściowego .skp do pakowania",
+    "param.file": "Ścieżka do pliku pakietu .skp",
+    "param.email": "Adres e-mail wydawcy",
+    "param.password": "Hasło do odszyfrowania",
+    "param.path": "Ścieżka wirtualnego pliku/katalogu w VFS"
+  },
+  "pt": {
+    "tool.description": "Monte e leia com segurança o pacote SKILL criptografado (.skp) como VFS somente leitura na memória",
+    "x_search_terms": [
+      "drm_tool",
+      "skp",
+      "vfs",
+      "skill_drm",
+      "decrypt"
+    ],
+    "param.action": "Tipo de operação (pacote: criar pacote criptografado, montar: montar VFS, ler: ler arquivo com segurança em VFS, listar: listar arquivos, existir: verificar a existência do arquivo)",
+    "param.in_dir": "Caminho do diretório de habilidades locais para empacotar",
+    "param.out_file": "Caminho do arquivo .skp de saída para embalagem",
+    "param.file": "Caminho para o arquivo do pacote .skp",
+    "param.email": "Endereço de e-mail do emissor",
+    "param.password": "Senha de descriptografia",
+    "param.path": "Caminho de arquivo/diretório virtual em VFS"
+  },
+  "pt_BR": {
+    "tool.description": "Monte e leia com segurança o pacote SKILL criptografado (.skp) como VFS somente leitura na memória",
+    "x_search_terms": [
+      "drm_tool",
+      "skp",
+      "vfs",
+      "skill_drm",
+      "decrypt"
+    ],
+    "param.action": "Tipo de operação (pacote: criar pacote criptografado, montar: montar VFS, ler: ler arquivo com segurança em VFS, listar: listar arquivos, existir: verificar a existência do arquivo)",
+    "param.in_dir": "Caminho do diretório de habilidades locais para empacotar",
+    "param.out_file": "Caminho do arquivo .skp de saída para embalagem",
+    "param.file": "Caminho para o arquivo do pacote .skp",
+    "param.email": "Endereço de e-mail do emissor",
+    "param.password": "Senha de descriptografia",
+    "param.path": "Caminho de arquivo/diretório virtual em VFS"
+  },
+  "ro": {
+    "tool.description": "Montați și citiți în siguranță pachetul SKILL criptat (.skp) ca VFS de numai citire în memorie",
+    "x_search_terms": [
+      "drm_tool",
+      "skp",
+      "vfs",
+      "skill_drm",
+      "decrypt"
+    ],
+    "param.action": "Tip operațiune (pachet: creați pachet criptat, montare: montați VFS, citiți: citiți fișierul în siguranță în VFS, listă: listați fișierele, există: verificați existența fișierului)",
+    "param.in_dir": "Calea directorului local de abilități pentru a împacheta",
+    "param.out_file": "Ieșiți calea fișierului .skp pentru împachetare",
+    "param.file": "Calea către fișierul pachet .skp",
+    "param.email": "Adresa de e-mail a emitentului",
+    "param.password": "Parola de decriptare",
+    "param.path": "Calea fișierului/directorului virtual în VFS"
+  },
+  "ru": {
+    "tool.description": "Безопасное монтирование и чтение зашифрованного пакета SKILL (.skp) как VFS, доступного только для чтения, в памяти.",
+    "x_search_terms": [
+      "drm_tool",
+      "skp",
+      "vfs",
+      "skill_drm",
+      "decrypt"
+    ],
+    "param.action": "Тип операции (упаковка: создание зашифрованного пакета, монтирование: монтирование VFS, чтение: безопасное чтение файла в VFS, список: список файлов, существование: проверка существования файла)",
+    "param.in_dir": "Путь к локальному каталогу навыков для упаковки",
+    "param.out_file": "Выходной путь к файлу .skp для упаковки",
+    "param.file": "Путь к файлу пакета .skp",
+    "param.email": "Адрес электронной почты эмитента",
+    "param.password": "Пароль для расшифровки",
+    "param.path": "Путь к виртуальному файлу/каталогу в VFS"
+  },
+  "sv": {
+    "tool.description": "Montera och läs det krypterade SKILL-paketet (.skp) säkert som skrivskyddad VFS i minnet",
+    "x_search_terms": [
+      "drm_tool",
+      "skp",
+      "vfs",
+      "skill_drm",
+      "dekryptera"
+    ],
+    "param.action": "Operationstyp (pack: skapa krypterat paket, montera: montera VFS, läs: läs säkert fil i VFS, lista: listfiler, finns: kontrollera filens existens)",
+    "param.in_dir": "Sökväg för lokal kompetenskatalog att packa",
+    "param.out_file": "Utdata .skp-filsökväg för packning",
+    "param.file": "Sökväg till .skp-paketfil",
+    "param.email": "Utfärdarens e-postadress",
+    "param.password": "Dekrypteringslösenord",
+    "param.path": "Virtuell fil/katalogsökväg i VFS"
+  },
+  "sw": {
+    "tool.description": "Panda na usome kifurushi cha SKILL kilichosimbwa kwa njia fiche (.skp) kama VFS ya kumbukumbu ya Kusoma Pekee",
+    "x_search_terms": [
+      "drm_tool",
+      "skp",
+      "vfs",
+      "skill_drm",
+      "decrypt"
+    ],
+    "param.action": "Aina ya operesheni (pakiti: tengeneza kifurushi kilichosimbwa, weka: weka VFS, soma: faili iliyosomwa kwa usalama katika VFS, orodha: faili za orodha, ipo: angalia uwepo wa faili)",
+    "param.in_dir": "Njia ya saraka ya ujuzi wa ndani ya kufunga",
+    "param.out_file": "Pato .skp njia ya faili kwa ajili ya kufunga",
+    "param.file": "Njia ya .skp faili ya kifurushi",
+    "param.email": "Anwani ya barua pepe ya mtoaji",
+    "param.password": "Nenosiri la kusimbua",
+    "param.path": "Njia halisi ya faili/saraka katika VFS"
+  },
+  "th": {
+    "tool.description": "ติดตั้งและอ่านแพ็คเกจ SKILL (.skp) ที่เข้ารหัสอย่างปลอดภัยเป็น VFS แบบอ่านอย่างเดียวในหน่วยความจำ",
+    "x_search_terms": [
+      "drm_tool",
+      "skp",
+      "vfs",
+      "skill_drm",
+      "ถอดรหัส"
+    ],
+    "param.action": "ประเภทการดำเนินการ (แพ็ค: สร้างแพ็คเกจที่เข้ารหัส, เมานต์: เมานต์ VFS, อ่าน: อ่านไฟล์อย่างปลอดภัยใน VFS, รายการ: รายการไฟล์, มีอยู่: ตรวจสอบการมีอยู่ของไฟล์)",
+    "param.in_dir": "เส้นทางไดเรกทอรีทักษะท้องถิ่นที่จะแพ็ค",
+    "param.out_file": "เส้นทางไฟล์เอาต์พุต .skp สำหรับการบรรจุ",
+    "param.file": "พาธไปยังไฟล์แพ็กเกจ .skp",
+    "param.email": "ที่อยู่อีเมลของผู้ออก",
+    "param.password": "รหัสผ่านถอดรหัส",
+    "param.path": "เส้นทางไฟล์/ไดเร็กทอรีเสมือนใน VFS"
+  },
+  "tr": {
+    "tool.description": "Şifrelenmiş SKILL paketini (.skp) bellek içi Salt Okunur VFS olarak güvenli bir şekilde bağlayın ve okuyun",
+    "x_search_terms": [
+      "drm_tool",
+      "skp",
+      "vfs",
+      "skill_drm",
+      "decrypt"
+    ],
+    "param.action": "İşlem türü (paket: şifrelenmiş paket oluştur, bağla: VFS'yi bağla, oku: VFS'deki dosyayı güvenli bir şekilde oku, listele: dosyaları listele, mevcut: dosya varlığını kontrol et)",
+    "param.in_dir": "Paketlenecek yerel beceri dizini yolu",
+    "param.out_file": "Paketleme için çıktı .skp dosya yolu",
+    "param.file": ".skp paket dosyasının yolu",
+    "param.email": "Vericinin e-posta adresi",
+    "param.password": "Şifre çözme şifresi",
+    "param.path": "VFS'de sanal dosya/dizin yolu"
+  },
+  "uk": {
+    "tool.description": "Безпечно монтуйте та читайте зашифрований пакет SKILL (.skp) як VFS у пам’яті лише для читання",
+    "x_search_terms": [
+      "drm_tool",
+      "skp",
+      "vfs",
+      "skill_drm",
+      "decrypt"
+    ],
+    "param.action": "Тип операції (pack: створити зашифрований пакет, mount: підключити VFS, read: безпечно прочитати файл у VFS, list: перерахувати файли, exists: перевірити існування файлу)",
+    "param.in_dir": "Шлях до локального каталогу навичок для упаковки",
+    "param.out_file": "Вихідний шлях файлу .skp для пакування",
+    "param.file": "Шлях до файлу пакета .skp",
+    "param.email": "Електронна адреса емітента",
+    "param.password": "Розшифровка пароля",
+    "param.path": "Віртуальний шлях до файлу/каталогу у VFS"
+  },
+  "vi": {
+    "tool.description": "Gắn và đọc gói SKILL được mã hóa (.skp) một cách an toàn dưới dạng VFS chỉ đọc trong bộ nhớ",
+    "x_search_terms": [
+      "drm_tool",
+      "skp",
+      "vfs",
+      "skill_drm",
+      "giải mã"
+    ],
+    "param.action": "Loại hoạt động (gói: tạo gói mã hóa, gắn kết: gắn VFS, đọc: đọc tệp an toàn trong VFS, liệt kê: liệt kê tệp, tồn tại: kiểm tra sự tồn tại của tệp)",
+    "param.in_dir": "Đường dẫn thư mục kỹ năng cục bộ để đóng gói",
+    "param.out_file": "Đường dẫn tệp .skp đầu ra để đóng gói",
+    "param.file": "Đường dẫn đến tệp gói .skp",
+    "param.email": "Địa chỉ email của nhà phát hành",
+    "param.password": "Mật khẩu giải mã",
+    "param.path": "Đường dẫn tệp/thư mục ảo trong VFS"
+  },
+  "zh_CN": {
+    "tool.description": "将加密的 SKILL 包 (.skp) 安全安装并读取为内存中只读 VFS",
+    "x_search_terms": [
+      "drm_tool",
+      "skp",
+      "vfs",
+      "skill_drm",
+      "解密"
+    ],
+    "param.action": "操作类型（pack：创建加密包、mount：挂载VFS、read：安全读取VFS中的文件、list：列出文件、exists：检查文件存在）",
+    "param.in_dir": "打包的本地技能目录路径",
+    "param.out_file": "打包输出.skp文件路径",
+    "param.file": ".skp 包文件的路径",
+    "param.email": "发行人电子邮件地址",
+    "param.password": "解密密码",
+    "param.path": "VFS中的虚拟文件/目录路径"
+  },
+  "zh_TW": {
+    "tool.description": "將加密的 SKILL 套件 (.skp) 安全安裝並讀取為記憶體中唯讀 VFS",
+    "x_search_terms": [
+      "drm_tool",
+      "skp",
+      "vfs",
+      "skill_drm",
+      "解密"
+    ],
+    "param.action": "操作類型（pack：建立加密套件、mount：掛載VFS、read：安全讀取VFS中的檔案、list：列出檔案、exists：檢查檔案存在）",
+    "param.in_dir": "打包的本地技能目錄路徑",
+    "param.out_file": "打包輸出.skp檔路徑",
+    "param.file": ".skp 套件檔案的路徑",
+    "param.email": "發行人電子郵件地址",
+    "param.password": "解密密碼",
+    "param.path": "VFS中的虛擬檔案/目錄路徑"
+  }
+}
